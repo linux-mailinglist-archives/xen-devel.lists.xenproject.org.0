@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iFOsJ0HMpmnIVgAAu9opvQ
+	id +JecHvLSpmk3XQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 12:55:45 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 13:24:18 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 010141EEB8D
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 12:55:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244670.1544064 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E63391EF567
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 13:24:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244686.1544074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxOKs-0002ss-IH; Tue, 03 Mar 2026 11:54:46 +0000
+	id 1vxOn1-0006tC-U3; Tue, 03 Mar 2026 12:23:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244670.1544064; Tue, 03 Mar 2026 11:54:46 +0000
+Received: by outflank-mailman (output) from mailman id 1244686.1544074; Tue, 03 Mar 2026 12:23:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxOKs-0002rR-FO; Tue, 03 Mar 2026 11:54:46 +0000
-Received: by outflank-mailman (input) for mailman id 1244670;
- Tue, 03 Mar 2026 11:54:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vxOn1-0006rK-QQ; Tue, 03 Mar 2026 12:23:51 +0000
+Received: by outflank-mailman (input) for mailman id 1244686;
+ Tue, 03 Mar 2026 12:23:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yKVY=BD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vxOKq-0002rG-SC
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 11:54:44 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bcb1983b-16f7-11f1-9ccf-f158ae23cfc8;
- Tue, 03 Mar 2026 12:54:30 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-4837907f535so48750925e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 03:54:30 -0800 (PST)
+ id 1vxOn0-0006rE-FV
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 12:23:50 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d0b6dbf6-16fb-11f1-b164-2bf370ae4941;
+ Tue, 03 Mar 2026 13:23:42 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4833115090dso57890925e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 04:23:42 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483bd750607sm471415035e9.10.2026.03.03.03.54.29
+ 5b1f17b1804b1-485135d4228sm18463455e9.30.2026.03.03.04.23.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Mar 2026 03:54:29 -0800 (PST)
+ Tue, 03 Mar 2026 04:23:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,59 +50,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bcb1983b-16f7-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: d0b6dbf6-16fb-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772538870; x=1773143670; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772540621; x=1773145421; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AVFhxFutpF3studja/ZLtYGSJGAcd6yQ/oiyg+/5vvY=;
-        b=Y8AYmANMcKsf3BCJSnpMhehi+UvSU9lfS0smZHkQRXteO5bzmft0OXMOvwdVLsCnmh
-         sUJkTY5QKzqbRsDkkcvkp+bEywwHx+64jg0tWMbO8Pw5Mkxo1QSgknryCPPIyPbT4cOT
-         vRd/a1D6Lvs26FxqCqjaId+knPnzseFPwgiLcCVfug1J3PUgM67b3n3JnYSdeEWGJWET
-         4D0DTT3QLwQOtrc23jtRcfKNdclkx8UpI3IdZsHTQ+V1nDOxmog5adOhxY6/dszWrzt/
-         ijEdtA9jDTn7acHsIrZ4QR3Sd3bsyp4ZBV6Sg2tuenqsF8rBOlr4XkmdI0mPG/puJQGf
-         5zyA==
+        bh=wrtzYQRA1AG3GXiJ2C5lpnR+bDdEvX3UQGRRP/xfbFE=;
+        b=cve/GfX2nKmwCQmwjPD0xT6E4rzR2kK48Cd1uOAMwPcDhkNa7rueZ7Sj6nqVTJ0Vkd
+         wgw/aCSCz3au9CXasx2D630mWxzV7NTHNv+APgIM/dNTthkMC/CbOqpHww744y9FUMFL
+         qyR3R5BrcznIQ5YqUKXPCkRw9iDvMPBMbplh9N+vfxw0H+LqWBYhIcf5pa15u+WdeSWh
+         lp5K6yZ2ymAuHQmVazEHKXR8Ep1mi0dHMJSFJeaRfgufJL/sJoJ850ZM7W8QvVc4aMFP
+         he2Tcy++H8Y4bexWRleWIJ0fYyCUAw9dN23FXMF8vl8f910GmXMuKdbzObCat67+AJBt
+         7s9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772538870; x=1773143670;
+        d=1e100.net; s=20230601; t=1772540621; x=1773145421;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AVFhxFutpF3studja/ZLtYGSJGAcd6yQ/oiyg+/5vvY=;
-        b=H8zkMKdXqsGs8T4kfMKevdFojHKW9EUBi2lgD0Jf5lYUl1asmLnr1TTcVwq/K5FMUK
-         Qlbtjp6Pjvron7ScmC/JRl9fIH0W1EZImD+L4l9vH7J92cVkHH8NBRMO6WHIfm7bVmZK
-         4IbenqXJlDZVBszwN6UnXCAVfmCJsrpErJWN8cC9NETfi2VocBulpa3bgp/or6VOd9sT
-         1ynXoKvaC23sWkN+y6nzZVxzvltgKIyJWHlrWEelMcTVEDiDDXDoNivkdz7xUDaav1fz
-         Ha92v1K2ORj3ICpa2p8F3B/4mR16QEihxa5g06Sugrn181Mhxynu+cTkNjmPdC7xurK2
-         b9DQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXdI6SKpNxMaUYPTT/BA1r9K6t1V+L5Daz8lhxAMj2MhjEjEzdqXhiN7+re1At4uqFNOVd4NrVxdOg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzZDWTiL1XvDFV++WN9G5JysEyuRvnrYL/mLYVG1MUSsPIsPl8T
-	nxafZtXcjsPxwKf1uMBUg50t9rWHRuocam0Y84ImAlADr3HWC+bHJ9fHPB//v7AvlQ==
-X-Gm-Gg: ATEYQzyyvetK1Y7ixcIptNjKiEgQrA4KMSnTR40Daq2aqZsluI9UK6UgD/ueBFrmjbz
-	mZAKvHqDb3/ri8P9gzPTh4Md55Q7aqzo0NbHGsXkStRZnSobMv7Us69f4IiNhJhSeWp39ma6dVy
-	Izjh04pDQiLzltAs+a4kGnvEoHBmMm0a4mFfWTzDG4OYKViPerIoLjzt6Qtpig+5rxq56UQf7U3
-	bzOtOvrmjtwMdZTvf03ZxlCDpYY9m9PiRuuRBDTAgppPzdpkoDxCXzYuyk+78aYmBGZ4ueVQflE
-	f0W9S+EL3XlwsXpHvmczteSeGEzQ2/JvI4muoqibk9k41tRP0nTmboPVWznG3jHskfacQ3oR7vf
-	6GLxu3lXnvQnmw5rr4BHmmBNOTMbxpw0kDmlBkYc4DPKf+kGl5JR0BBgc/WZxenSNIfiHUQ2PTh
-	uj9XdPxCV66pNE0oD1x6nHJKK25X5wb7Xcyr3YEvYcAIFeiIDq2gZIMbDJJR8PsStLjAWrR47VB
-	QYxZk+x48B3FV8=
-X-Received: by 2002:a05:600c:818e:b0:480:1b65:b741 with SMTP id 5b1f17b1804b1-483c9ba3aadmr290397015e9.15.1772538869902;
-        Tue, 03 Mar 2026 03:54:29 -0800 (PST)
-Message-ID: <d7419a76-4c9a-4741-b738-9a4bdbfb0dd0@suse.com>
-Date: Tue, 3 Mar 2026 12:54:28 +0100
+        bh=wrtzYQRA1AG3GXiJ2C5lpnR+bDdEvX3UQGRRP/xfbFE=;
+        b=OAl9Xc0NRo/ZT7XFEibMIlYZslepKFwUXl2/Mu8NERIJKyHcGJA8tl3+AKrUQmXlXi
+         Lr672TPmgvIREdqinIkkVJz11U+ksnNIvWyu8M/KXF6bcu3M//lM06ZBK8imoOfDxl2M
+         dfQ5S30PeYZzvGKuXonGTbTj81NTOMl2ublEfV29q3qUFCRvT75uvcBRb+hrZPfpB+Zp
+         tapcuZ2V5vQvvTzosg4EIktPJjTSRGeOSB6ltSNTfEdTTpYEX/6dFzRhDGrMjVXM8YzD
+         11h8q3WL8SRRKCK23cqaOwtefGW/mr+IpreA0RsR2ATi1x7k0t4mo2VESv65J4ga5tla
+         NXWw==
+X-Forwarded-Encrypted: i=1; AJvYcCWxxl0z6+F1OU0KMEPWJUZekLK1g7ZE0hcgVZ4KBr9zNHxqdymAcvt9Yq6vtc+Nco9Ck2nl5my/qjU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxasKUhldeKE5TPw+PcfRH77Muct1tYVaeuhLz4mhO84yDlKJo1
+	trTls6w0PujCpT+fuVX75tXaq8F/rf5bVbPPFloaC1JvIdyIESVmUZY0OH0oTDH4fg==
+X-Gm-Gg: ATEYQzxSKP1Vs6yHx5ZZ40L2Fq6NZhNCN0JSkQYCn7liYPrEz2Ud7/wmUwX+BW0Bpwg
+	iO7PU7LCdcok8qmgu9j1eha3U/rpDBOcGzZsToZE4p1YFQG+y2b/g71Ssh9dblGXk5iHWW7OieK
+	OEyS0nQA+N2rQLu8zmUi7Fg5VqFM67vxmwazv0MD/TOM2QD3SOYUDr8h4gW7We5Xh3NQ0cb/A+X
+	I3kktbW4Ct2gGlK8Ex99HLmo43LansirgOMAr0OuqRJgCyK5xTOMMURekulGxeXhKv7kCho/h3a
+	MjfnoRDju8/qCB9+MKASOLn7Fd3kqb+23IHEiycxCm2kBNYSmTjikBVZutub17E3v1h2qIDfj9v
+	ZyM39pcjUbdzJEN5mX+VTlHSEOUpYs6X84EFHlH5EeSfj88qjNHTUk4VRNmw3sGAslfx750rn9S
+	50eNc/HP/Tb0f0fkunat1l29q9i3s/3H8VE+ATnXvI42+jki0Wr0ukFTTMCT6rPBUmp48F18DIV
+	rysJi1vmJNJsUE=
+X-Received: by 2002:a05:600c:3486:b0:480:3a72:524a with SMTP id 5b1f17b1804b1-483c9bed89emr316225055e9.19.1772540621422;
+        Tue, 03 Mar 2026 04:23:41 -0800 (PST)
+Message-ID: <4b67f8cb-43d4-4f18-b2b6-156e21330887@suse.com>
+Date: Tue, 3 Mar 2026 13:23:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/2] xenpm: Add get-core-temp subcommand
-To: Teddy Astie <teddy.astie@vates.tech>,
- Anthony PERARD <anthony.perard@vates.tech>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- xen-devel@lists.xenproject.org
-References: <ec92e54a493a16f5bc085738e943b3778c3a0231.1772211384.git.teddy.astie@vates.tech>
- <aadf2e78f91f442964cc4e93c028b6b31fceb9eb.1772211384.git.teddy.astie@vates.tech>
- <7380cf63-e9ac-4df9-9633-c26f9de0027a@suse.com>
- <4c18413b-6296-4a30-bbec-561f7b802cbc@vates.tech>
+Subject: Re: [PATCH v6 01/14] xen/riscv: detect and store supported hypervisor
+ CSR bits at boot
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1772016457.git.oleksii.kurochko@gmail.com>
+ <a17b6a117726904a9384dc7d9cc140672d3b0453.1772016457.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,113 +131,122 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4c18413b-6296-4a30-bbec-561f7b802cbc@vates.tech>
+In-Reply-To: <a17b6a117726904a9384dc7d9cc140672d3b0453.1772016457.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 010141EEB8D
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: E63391EF567
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:oleksii.kurochko@gmail.com,m:community.manager@xenproject.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,xenproject.org,lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.999];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[suse.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On 03.03.2026 11:50, Teddy Astie wrote:
-> Le 02/03/2026 à 17:52, Jan Beulich a écrit :
->> On 27.02.2026 18:00, Teddy Astie wrote:
->>> @@ -1354,6 +1358,127 @@ void enable_turbo_mode(int argc, char *argv[])
->>>                   errno, strerror(errno));
->>>   }
->>>   
->>> +static int fetch_dts_temp(xc_interface *xch, uint32_t cpu, bool package, int *temp)
->>> +{
->>> +    xc_resource_entry_t entries[] = {
->>> +        { .idx = package ? MSR_PACKAGE_THERM_STATUS : MSR_IA32_THERM_STATUS },
->>> +        { .idx = MSR_TEMPERATURE_TARGET },
->>> +    };
->>> +    struct xc_resource_op ops = {
->>> +        .cpu = cpu,
->>> +        .entries = entries,
->>> +        .nr_entries = ARRAY_SIZE(entries),
->>> +    };
->>> +    int tjmax;
->>> +
->>> +    int ret = xc_resource_op(xch, 1, &ops);
->>> +
->>> +    switch ( ret )
->>> +    {
->>> +    case 0:
->>> +        /* This CPU isn't online or can't query this MSR */
->>> +        return -1;
->>
->> Further down at the callers of this function you assume errno is set whenever
->> an error indication is returned. As xc_resource_op() didn't fail, you will
->> need to synthesize an errno value here.
->>
-> 
-> ah yes indeed
-> 
->>> +static void get_core_temp(int argc, char *argv[])
->>> +{
->>> +    int temp = -1, cpu = -1;
->>> +    unsigned int socket;
->>> +    bool has_data = false;
->>> +
->>> +    if ( argc > 0 )
->>> +        parse_cpuid(argv[0], &cpu);
->>> +
->>> +    if ( cpu != -1 )
->>> +    {
->>> +        if ( !fetch_dts_temp(xc_handle, cpu, false, &temp) )
->>> +            printf("CPU%d: %d°C\n", cpu, temp);
->>> +        else
->>> +        {
->>> +            fprintf(stderr, "Unable to fetch temperature (%d - %s)\n",
->>> +                    errno, strerror(errno));
->>> +            printf("No data\n");
->>> +            exit(ENODATA);
->>
->> In how far is using errno values as arguments to exit() a useful thing? (I
->> think you had it like this before, and I merely forgot to ask.) Yes, I can
->> see the tool using a number of exit(EINVAL), but I don't understand those
->> either. This way you can't even document easily what particular exit codes
->> mean, as the errno values may vary across OSes.
->>
-> 
-> I reused the exit(...) pattern used in xenpm, but I'm also fine by 
-> returning simpler errors (like exit(1) or exit(EXIT_FAILURE)).
+On 26.02.2026 12:51, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/domain.c
+> +++ b/xen/arch/riscv/domain.c
+> @@ -2,9 +2,56 @@
+>  
+>  #include <xen/init.h>
+>  #include <xen/mm.h>
+> +#include <xen/sections.h>
+>  #include <xen/sched.h>
+>  #include <xen/vmap.h>
+>  
+> +#include <asm/cpufeature.h>
+> +#include <asm/csr.h>
+> +
+> +struct csr_masks {
+> +    register_t hedeleg;
+> +    register_t henvcfg;
+> +    register_t hideleg;
+> +    register_t hstateen0;
+> +
+> +    struct {
+> +        register_t hstateen0;
+> +    } ro_one;
+> +};
+> +
+> +static struct csr_masks __ro_after_init csr_masks;
+> +
+> +void __init init_csr_masks(void)
+> +{
+> +    /*
+> +     * The mask specifies the bits that may be safely modified without
+> +     * causing side effects.
+> +     *
+> +     * For example, registers such as henvcfg or hstateen0 contain WPRI
+> +     * fields that must be preserved. Any write to the full register must
+> +     * therefore retain the original values of those fields.
+> +     */
+> +#define INIT_CSR_MASK(csr, field, mask) do { \
+> +        old = csr_read(CSR_##csr); \
+> +        csr_write(CSR_##csr, (old & ~(mask)) | (mask)); \
 
-Anthony, can you please suggest which one better fits the toolstack as a
-whole?
+I (now) agree csr_swap() can't be used here, but isn't the above
+
+    old = csr_read_set(CSR_##csr, mask);
+
+?
+
+> +        csr_masks.field = csr_swap(CSR_##csr, old); \
+> +    } while (0)
+> +
+> +    register_t old;
+
+Since the macro uses the variable, this decl may better move up.
+
+> +    INIT_CSR_MASK(HEDELEG, hedeleg, ULONG_MAX);
+> +    INIT_CSR_MASK(HIDELEG, hideleg, ULONG_MAX);
+> +
+> +    INIT_CSR_MASK(HENVCFG, henvcfg, _UL(0xE0000003000000FF));
+
+This raw hex number (also the other one below) isn't quite nice. Can we have
+a #define for this, please? It doesn't need to live in a header file if it's
+not going to be used anywhere else.
+
+> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_smstateen) )
+> +    {
+> +        INIT_CSR_MASK(HSTATEEN0, hstateen0, _UL(0xDE00000000000007));
+> +        csr_masks.ro_one.hstateen0 = old;
+
+What guarantees that only r/o-one bits are set in the incoming hstateen0? I
+can't help thinking that to determine those bits you want to use
+csr_read_clear() (or csr_clear()).
+
+> +    }
+
+#undef INIT_CSR_MASK
 
 Jan
 
