@@ -2,45 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aEXoN9bipWkvHgAAu9opvQ
+	id UGqyC7h+pmnhQQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 20:19:50 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 07:24:56 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EF3D1DEC8E
-	for <lists+xen-devel@lfdr.de>; Mon, 02 Mar 2026 20:19:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244524.1543973 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 627B31E9970
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 07:24:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244558.1544008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx8mr-0005Jt-E8; Mon, 02 Mar 2026 19:18:37 +0000
+	id 1vxJAS-0005NG-Ey; Tue, 03 Mar 2026 06:23:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244524.1543973; Mon, 02 Mar 2026 19:18:37 +0000
+Received: by outflank-mailman (output) from mailman id 1244558.1544008; Tue, 03 Mar 2026 06:23:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vx8mr-0005Gs-8L; Mon, 02 Mar 2026 19:18:37 +0000
-Received: by outflank-mailman (input) for mailman id 1244524;
- Mon, 02 Mar 2026 19:18:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vHUS=BC=citrix.com=kevin.lampis@srs-se1.protection.inumbo.net>)
- id 1vx8mp-0005Gm-U5
- for xen-devel@lists.xenproject.org; Mon, 02 Mar 2026 19:18:36 +0000
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazlp170120001.outbound.protection.outlook.com
- [2a01:111:f403:c10d::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b128558-166c-11f1-b164-2bf370ae4941;
- Mon, 02 Mar 2026 20:18:34 +0100 (CET)
-Received: from BY1PR03MB7996.namprd03.prod.outlook.com (2603:10b6:a03:5b2::8)
- by SA1PR03MB7032.namprd03.prod.outlook.com (2603:10b6:806:331::7)
+	id 1vxJAS-0005Kk-7z; Tue, 03 Mar 2026 06:23:40 +0000
+Received: by outflank-mailman (input) for mailman id 1244558;
+ Tue, 03 Mar 2026 06:23:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=uw6b=BD=ford.com=dmukhin@srs-se1.protection.inumbo.net>)
+ id 1vxJAQ-0005Ke-DN
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 06:23:39 +0000
+Received: from mx0b-00498f03.pphosted.com (mx0b-00498f03.pphosted.com
+ [148.163.143.241]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 804bfee5-16c9-11f1-9ccf-f158ae23cfc8;
+ Tue, 03 Mar 2026 07:23:33 +0100 (CET)
+Received: from pps.filterd (m0384717.ppops.net [127.0.0.1])
+ by mx0b-00498f03.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6234U97U3271727
+ for <xen-devel@lists.xenproject.org>; Tue, 3 Mar 2026 06:23:31 GMT
+Received: from ph7pr06cu001.outbound.protection.outlook.com
+ (mail-westus3azon11010029.outbound.protection.outlook.com [52.101.201.29])
+ by mx0b-00498f03.pphosted.com (PPS) with ESMTPS id 4cnrp1gjg9-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 06:23:31 +0000 (GMT)
+Received: from BN0PR04CA0129.namprd04.prod.outlook.com (2603:10b6:408:ed::14)
+ by SJ2PR16MB6249.namprd16.prod.outlook.com (2603:10b6:a03:584::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.16; Mon, 2 Mar
- 2026 19:18:29 +0000
-Received: from BY1PR03MB7996.namprd03.prod.outlook.com
- ([fe80::5068:e1b5:b478:8d07]) by BY1PR03MB7996.namprd03.prod.outlook.com
- ([fe80::5068:e1b5:b478:8d07%5]) with mapi id 15.20.9654.015; Mon, 2 Mar 2026
- 19:18:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.15; Tue, 3 Mar
+ 2026 06:23:27 +0000
+Received: from BN1PEPF00004685.namprd03.prod.outlook.com
+ (2603:10b6:408:ed:cafe::9) by BN0PR04CA0129.outlook.office365.com
+ (2603:10b6:408:ed::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.22 via Frontend Transport; Tue,
+ 3 Mar 2026 06:23:11 +0000
+Received: from mx0b-00498f04.pphosted.com (148.163.138.245) by
+ BN1PEPF00004685.mail.protection.outlook.com (10.167.243.86) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.16
+ via Frontend Transport; Tue, 3 Mar 2026 06:23:26 +0000
+Received: from pps.filterd (m0426315.ppops.net [127.0.0.1])
+ by mx0b-00498f04.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6234Rh771461801
+ for <xen-devel@lists.xenproject.org>; Tue, 3 Mar 2026 01:23:24 -0500
+Received: from smtp-us.ser.proofpoint.com (pmta-usw.ser.proofpoint.com
+ [50.112.124.217])
+ by mx0b-00498f04.pphosted.com (PPS) with ESMTPS id 4cmk4uakj9-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 01:23:24 -0500 (EST)
+Received: from localhost ([19.12.76.221]) by cmsmtp with ESMTPSA
+ id xJA9vVhMbkQ6qxJAAvRcZW; Tue, 03 Mar 2026 06:23:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,440 +75,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b128558-166c-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 804bfee5-16c9-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ford.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=ppford; bh=1LRWpccveiPINMTJncKdme8CBh1
+	yL3XssSG6j2s783Q=; b=SEdZQOQsyKUVNdcPJiOONvdqqUSlSrnclbM0oJoX2VA
+	6524D7+/Z0KrVLSki9XMas0TNigFwPlNygO5cHgkwa5hwGY3PFGs6Ce1EjbxNJ44
+	kWmT+SZMoVzO2X3BC6DoPBqqoVPrUGw0t0zQdszozt7/UKkhyUcF9IODRvnNhQoH
+	A4/dkI0NEzsS2AtfFkTEMfLnG/AAKqSTIu0/bXwBGWPfuvsZC6H85rJlhXlJPw9S
+	3poE1BtCf2o1d6d/g2W48NYHsvp5xJ27c3W0sviorxrotT86T02afK35LT7/h21m
+	S3/gfJ5PXTs367DLOBrg7b4FO073msfX4I4bHN2uABA==
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eRxj3OWcVp167CrvWLrOkbh1urCYOkHtCGMT7NL6SmsYPvGeKsbHe6skXXdFYgtvZBO50/lgjN03hbbjy0WpQ2Y7enitoctnxu7veTvXoK8DRfuERuSNMpWvx7uKwjuiTsQCTK9F+/QRxzlBsod5cXrULv8YlTygsMkDOW3p6uSM0Ila9pO7fog7cZuDjD6WOZK4FDQWIxpYBiwc9YKyUmCUelfjOi5GELjLqO3FW3w3fshYSAh7yuSNfxgB2X3+d98ZvgqcnbuF2RdrlxPPCjYexfxkbxMzCuXLRUy5vTohs/8rdROZxR/yqaHUibD4B3BSyLg99gRCaypHSzW9Zw==
+ b=Q9r/3UZNnrjNbK1vbIhL2jOKK8ObjdWn0Y4IXI9ZbxPZygCEmo+6A4wt99JNUmf+JYTSwmBUuokSjhgz0mhWprV+i8uHbmPhQTHXF3wX0tbQ/8vsrZEyIxbrO0sMpESdZBWU8I+Z+QyJhNZoU8yRd3U0V4EjjchNvIHhRJxCw+hzApJxr3IFDMf4R5RkWtCqUyFWsOq5jT2gjWvAN+AX1e+Dv3ocgPYF0pGX/s/JlWmIwh8YnGqz4iGQyvlz3yHlN0lc4CojyLokMO9YlSD/yd8YRyDvs51jSJWNIG9TP4XsXDN+vXbWj+e0Ph8NKmwdMh67aXm26mPt+erZTPYzig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LCPhyc8uZGTS+6RkMDRkq18hqcIIjgjPFEAxZTbMplM=;
- b=StCtAzpLnMibWQmsrnr6WCAQDpzGcE95jJH4gc3Ti+7AEBZlgLBDy87mEfqJuUPs1fn38L15z7ERp1QDBObLue4kqjLWCZFO7yKms2eX3KYp35I6Yp6zpmGWRYwAe1Bki4EzLqta2cG/swPCUyIc+QdNOk22yAgF4Zq7tZ1pcP6Hw1dOnr2Z+EY9N3pD7efFgNWJe6/kRJosxOXWQrBFRXgz/a1x0fTd3zHcWlNSY3VYRT5q7kMvVh/unCIHLyHiuBcAxb1m4Wrd1sxL8wrmVGoloUR8RTJyATW/NyjdFKJve3CJuWXVL+FJ2BVVqrgj6Lrko7IUcDV5r2df69Bzgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ bh=1LRWpccveiPINMTJncKdme8CBh1yL3XssSG6j2s783Q=;
+ b=MHZ2rHg1I4GxHocSGd/Fa7sGxGM/u6WUicJ3D+L3g03PgJXAwtS+/OA/kREQNLv577bW/NjmrDAuv7B93MgjXdDyZAo8n8YXLdtOPybFyKMkie7BVJVwFMna6xebsyUnL2T2Hpa9wPPORAWj1PwLKKJXT3ktP0u69InZ9QTxCuQfjJX/fplXkjgqNoBeo5CG0iaFbvUWEBeQd9Cf10RkP/buTDadpyi2Ypa73nB9XMwjs/Q8aRSEa0dc8PRoq0DR7ee914dK9uVZYgwXBvyUn7EvHP+JOPg6reHIjVpeSP14Q6xuk6eCd4/8Zvc9tplHgEiym/hLw28fYOy0mtDrDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 148.163.138.245) smtp.rcpttodomain=lists.xenproject.org
+ smtp.mailfrom=ford.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=ford.com; dkim=pass (signature was verified)
+ header.d=saarlouis.ford.com; dkim=pass (signature was verified)
+ header.d=ford.com; arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=azureford.onmicrosoft.com; s=selector2-azureford-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LCPhyc8uZGTS+6RkMDRkq18hqcIIjgjPFEAxZTbMplM=;
- b=OFb6wRkLyEgJX0VM+WAwqv3FU610h6z8T1QONpBZiDZPFNPLvxRQUp9w1aMM4RQj9LUYBAnWTu+IAHJdVR5ol77MukD4ijr8RrpnZJjpL/dCXisj4M+Kj9zFMhthOVLRmGMF7yfcf5zyj2xYRbmi14u4jRd81tk7J4X/rC4FHrE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Kevin Lampis <kevin.lampis@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	Kevin Lampis <kevin.lampis@citrix.com>
-Subject: [PATCH] x86: Remove x86 prefixed names from mcheck code
-Date: Mon,  2 Mar 2026 19:19:00 +0000
-Message-ID: <20260302191900.672460-1-kevin.lampis@citrix.com>
-X-Mailer: git-send-email 2.51.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0134.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:193::13) To BY1PR03MB7996.namprd03.prod.outlook.com
- (2603:10b6:a03:5b2::8)
+ bh=1LRWpccveiPINMTJncKdme8CBh1yL3XssSG6j2s783Q=;
+ b=A1jAwvscdRgWqQRM7ycE4/sxAo9iDOTD0Z450YaVvi30hM4XRNUbePHS+r1O36ggAXbRwlDvrhIMeIbC7k0T6/BnUPBYBs6ujtjaFoe/vY7QivbJ82UUumRFu3v++udPKiDT94hMciiydvJl445JG2WL5o9KAfY/FfdJLDsyC/o=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 148.163.138.245)
+ smtp.mailfrom=ford.com; dkim=pass (signature was verified)
+ header.d=saarlouis.ford.com;dkim=pass (signature was verified)
+ header.d=ford.com;dmarc=pass action=none header.from=ford.com;
+Received-SPF: Pass (protection.outlook.com: domain of ford.com designates
+ 148.163.138.245 as permitted sender) receiver=protection.outlook.com;
+ client-ip=148.163.138.245; helo=mx0b-00498f04.pphosted.com; pr=C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	saarlouis.ford.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=ppserprodsaar;
+	 bh=1LRWpccveiPINMTJncKdme8CBh1yL3XssSG6j2s783Q=; b=ozIEP8gCBNRS
+	vSKtE878JtQM7SmOSoNzECeCSeAFlgC+Gb0BBTVBeuCjYgC23T4FxGqipzg2ail5
+	v3ykUKZEfl5xxSudf4252d+RkPFRnsDSsPmbt2AQZjO//irb7VX1G2fJO7qYXxsy
+	afk6jfe89TUeI5S9xPFKz3Fed1vuVv+Y/p59zW3VKc33FxIg2dJFyzn0zeZKbizD
+	zY2h0IVWqZ8m9I4LK4QAikFL+vaAzJRtXfhoPU2B1J6y3t2wapkeECPrTuJl8Bu9
+	JJkHwhXVgMGQJ+NYFrn6Inj8M9A1Aa2BmMoqYrhE07UOWLcrG9txVw8/IiYa1Swm
+	LWn4Xw5PGQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ford.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=ppfserpocford; bh=1LRWpccveiPINMTJncKd
+	me8CBh1yL3XssSG6j2s783Q=; b=Ifq0aaI0q3R4qrB9y5l32amdMI7GeftkzkBg
+	In92+tXXd0okEc4RyTa6tMePQxAOvOY7oLAje8utCiO4EfBXRVpQyKbCU0bsD234
+	UPbWY1dpASS3y3KTfs8IaDoLPnRXZ6n8oudGJaFtS37VxoQsWsUA7XrWWNNn2R8e
+	+F1DWkZX4tLtTa9VbEcE34IE6UaYKySV2hFEnJ8WqitspeBITCP1bxzetuHYNO0k
+	k8uSssMSseDWuwOrAv8DwgfJxIB+69LYiOYD8WMgFuj35Zv5T0RhfjFZ2J0dReSo
+	tzg3IdcYFg4B7ezVJQhg7ibBFhtSR2sTrSc8NZw8W+uoooHeJw==
+X-Mailer: SER-76bead168636dc6ed1c9e51ce4dea80dbdd4163750742b614a4d871e565792b7
+X-Cloudmark-MID: xJA9vVhMbkQ6qxJAAvRcZW
+X-Proofpoint-CID: eb09f7eb-2dc2-34ab-a188-7b293c1db1fe
+From: dmukhin@ford.com
+Date: Mon, 2 Mar 2026 22:23:21 -0800
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: dmukhin@ford.com, xen-devel@lists.xenproject.org,
+        andrew.cooper3@citrix.com, jbeulich@suse.com, julien@xen.org,
+        michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org
+Subject: Re: [PATCH v5] xen/domain: introduce DOMID_ANY
+Message-ID: <aaZ+WZq+qTYaW+Sh@kraken>
+References: <20260205235126.3764953-1-dmukhin@ford.com>
+ <aaWd2d8yzU-mQ6Ub@l14>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aaWd2d8yzU-mQ6Ub@l14>
+PSER-M365-App: SER-APP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-02_05,2026-03-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 spamscore=0 phishscore=0
+ malwarescore=0 adultscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2602130000 definitions=main-2603030041
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PR03MB7996:EE_|SA1PR03MB7032:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2115c1ea-82ac-49f9-7993-08de78907c2c
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004685:EE_|SJ2PR16MB6249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9447569c-685f-40b8-57af-08de78ed60fb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|36860700013|82310400026;
 X-Microsoft-Antispam-Message-Info:
-	Ys7qrlY8M5N4bR9ZlicQWui/CePe3dyMM1BquGicMBT4Ixws7mGIH+jJQBOCcP82u94GGpCwf+ETNysZNmSbkH27VmM77ybnXoMSgpqs6qc219/ZcLeW0V7PMlH+nfGtDkrAN5e/ysfDg2SjOgRoI3uu6mykFKgBz14g8otOqpCMlGDVHaVdhJJqcsbuMisGkSMdsOH/S9bxbsLYtj7WAbjflhHB0O0dCP01bdHw3v69/aQrF9OoL8kPB/HevGbRX7PZGJeG/+LrVuC7vkbgBqqMjOnxqfzuyAIA+Vp+5YpmWDuXaswLFboIotiSt7eXKwEbUtM6PRfDZLgnXXSZ6qbTd1PreoiZTqXp9OGyIZ20Y86YX8bFFRVqE8BJrs7fHV5d7ipbZG7gvCZG4Buh5NCeyYxr89Z5XlcPM0nyffMtBwXY8FCBPL4Ol2d6t1mIpeHTCh6QBjFzCldWGVRlNmemfn7zcWHNT2CuBgbv+fQdNjYFjzb9XSgjtnLO23pajpDTK0MjRQGfuNiWjqFO8oMrJQpB9t9Wnjdavc/b4Xn1BtexazLJ0yDhudP8s9kjUIPadvXFijGTdUbXpaxptQYHzDrQZfiSrK3cUDMU3PWyJG+BgVKh7KYxa/ABPEv1FHM1fc4PlRSL5tOpul6eb8CEtNeyMOEeVRnhOKC71CglqjxKJ6QPxxDavLtKnZPNAEO4pvJD0LcZT5q1jVOWKuMCt3zM4ad7687Q+j3M+DY=
+	X4l1qC6068PLzAYQIZCFaJqZrHrNE3pj/ACiUyJmHFqFWxCIBW/4l+H75TeStepUTOhe5vZBgtfXw77lyePEqLlr8t/li5N13T0YiflE28ZKuxSX35dvTxt8dL6Umy7GOaFZPi8bWwlgxPKpDVn3CvkRpGOpJKEbOU1vMjaZ+8HOrCV1MbWtS2kvYr1goM4/Oj+qWlOXnm68UemFGa45ZooUc0oc69ceFitc0rM51LtC+uzBSrrcoPR1lvhi0+LEAkWvkyh7nZzx0u9N6QBBPm843dEvQLdd5mcIo0tneDRmCOUssiW2alejcgY6CpQ3pM8A0ISxWJEusQtDtkl2LZ8Q5Pm1VUfAjCxa+H7C1rKlqUzA+2sZv08PZiR5hG6G3A/8YXHUrxxMqG1oS+5meEOcp9OzOgYytZ31iiXxyM2Ijoa8YEEsb26G2z8BPwC6EeimViOsKzfm26MBXUCH37LQK/6G5cvx1DBQC98m2r8BtjfCQ5MImmnoUBlxAzFaZZT12dqx4k7VgRiyAahIeiDt9qhEUOBpNF+Pdclqt5KN8VU3rkxW7w0WycgwffzQh6VSk6StLZGlhbYoY0HGTJiCoCusTrqZ4X18HlCi3Y44Uoue/dzn/j3KSeY8xhb8lroZD7POuown/5UausC/RevS+d5zbtMsspFKMQ8gettbfKtoNPJHK5nWvjbQn2JsiznKCkJZ/zlmSibQ18yuL4v8GSn0jrx56rl/ELtHAxsIcoWQlHBa44aGoVfcot9Dt+1mZsYfv4T9syLwWz7D6AeG4J/ntXEaNf5h/H5jNC+oD1WVWyL6Rk49vNin0VmKCfPq+wnjyxkbYUKASL/VWQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7996.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+	CIP:148.163.138.245;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mx0b-00498f04.pphosted.com;PTR:mx0b-00498f04.pphosted.com;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rtBIzNxURKjXDzw3zt0fKebM+RSVmVUYQuH/pYaro5Ka5XRKAdFwVEvp0RHS?=
- =?us-ascii?Q?ebQc4U/cVDAOGMvZSDcc4zJD6n9x2ZrRC0+h1PZVn1MQxG2f7IejjqX+iTMf?=
- =?us-ascii?Q?lEwzaDXUan5cmXsPjB8Hzy9dTiyVRM6kaCeknqEF0ezMbWMfO17PyXG87qS5?=
- =?us-ascii?Q?ARweUkzRgG9liHHqwUvlOSd4LqRdOqJlfQZ5QvOeSmROCHLeX/tUTzuVBt5u?=
- =?us-ascii?Q?AwvUO9RqGI4NUWaZXt6GeCEr/a4B9Dm5sAcHKshM9d0SD79Ab18tzy9h9ATI?=
- =?us-ascii?Q?jAtAtutS7DLcctGaO1NtAbRPCWIqxKuOLgW5PqB3KFMSPFDxRcRB9cMSKyfv?=
- =?us-ascii?Q?mOWfdN2UKfyBWJ3zkA4i5PRu5cBwgJILl8zxwOeCT+G82ChYywDkidf/5elC?=
- =?us-ascii?Q?AGk5jrlbA8ykfYjJEWPB2cOmmY3eQU+KB1TvxwuwNpf4ubfARyjazNlp9Hs7?=
- =?us-ascii?Q?2w8I5HuBcf33jTc8GjMiB0lobJzWDXD6jsTnVHnauwXyE2edLm4exZrANXsK?=
- =?us-ascii?Q?LJ/XBhbLwjm7DZojWDQ4Xn7pa3hMcuVTA4TxWoW5DkdeC5kiKKzVktDGu108?=
- =?us-ascii?Q?2loxVsbzdTAHaW0jBmvKp4SYQcRVCUtQt6RXzCLKU82b/7JA/kNzeQKkma/N?=
- =?us-ascii?Q?q99WczZcHFWjUUUuDt5xGU14DEGauyphzDfVCRnboU0iyH50GOqR1LZnc2hi?=
- =?us-ascii?Q?YwkGGjw4/fHVKPDivvf8x5qg05o6atf7LKILvNGuvB+UJ2U2y9noTy07fuoz?=
- =?us-ascii?Q?fmL7BH+myLdxofTz2fXUr0S+2lAPPWMe/8t7w9R8TIa0AzqjqK3I+VKxdLfN?=
- =?us-ascii?Q?8l1jfDhmbzaNwk4FJNdrLa1H4CX7CUN2WJX8q4AhB8xrQeqh/aGqO13gpIIw?=
- =?us-ascii?Q?No6CTJweivyNF9L+8oTCWkJDLhERsZcvY3pksXIwtTrrbmGBxCuYeJuA0Qyl?=
- =?us-ascii?Q?9Csnb21DzreqUJuBv7VENKCAaB0HUyalGxhbC23KfCLx0lh74q7M7Uv+DvYs?=
- =?us-ascii?Q?qJKTsQ9MARsWFhn8wc7ukcOV5MjFeinA2NdUm+lf8UZe1hj+iK0JAbClM+Eb?=
- =?us-ascii?Q?O2EyEgjiJd9pIgucl1a2LOCYDFpjDJWYVGXMWpK4ZH9Aj/N+WB+H7EHAZ2fp?=
- =?us-ascii?Q?1zBbsdoqYr4hBmXAedc6NWWRVVhPtrcImdFylaB+lBHfUDTmxyNeIH+bjqGW?=
- =?us-ascii?Q?Ga7PuQ5OJXdS7JVTbhYwfWCU5bdn5rm5S8dD0S2B5zgWdm6aAjjyPoN+bd5q?=
- =?us-ascii?Q?M0mNnWVdr8FbMF8uuruAHBP1j9BN5+s9/xPdZPO5M3vmGEWHz/wv4+GQHK1g?=
- =?us-ascii?Q?+Xa4+4zR1fU6tCCPlnBKt8xcr5SjQFnbeSpm+g+1sbLfMWPoZBt3SU8OYzp6?=
- =?us-ascii?Q?Lzy0fw/E1+pBy21jb27LvSeQOucriCkW2b5bHiycrLryb5FlhfP9RCbkU7eA?=
- =?us-ascii?Q?hMYghYyNNuYVKjNMOgGdWh/djH1wt8pAuqTSisYcOaPd40YZE4HgYyE2Iw+U?=
- =?us-ascii?Q?/fBaPwOkBfBRlfT7vsbRtCJrblcZlGUiE/ViTRalLjgSLr+b9GbXhlfj72XQ?=
- =?us-ascii?Q?RKFecXkKL6mDo9r3yAunZpp4A5xkLRSJ+90urs2x2XQfrkFC0Q99l13BTnyJ?=
- =?us-ascii?Q?GWhD9Bkg5EG8wKBK1B/4UqToIY6khLfrhejaBVEESObfiNiS8P22CxnLal9c?=
- =?us-ascii?Q?/HcjMTnC2VdZp16f3H9ylHgTC3gozfVFDEwB9iiuWGFKXmtXJ6JdvMPwQnGa?=
- =?us-ascii?Q?z6jQ+tkywQ=3D=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2115c1ea-82ac-49f9-7993-08de78907c2c
-X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7996.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2026 19:18:28.8354
+	ZVQNJxwZXIuu84crdOq/KWVJns9hJtH63bi42/87rysQCF9HKg985Bv7E2+3n8ap8/lvC15dEtJjPhuHxH9munT8Tl7GNh0rpHGSqavnLJFJ047PoAK8a7j86HIMniOHi6dsuUlBOV1yi6IkX4F7x7z7xYruWPekOMdXYV7T8AJk0mfRRUXt58UeEbxDFfj/J1trg/JWRVOD+8ejMmJ8jF62BrW39yst6fIzcgsHyGCCQQ2ukjB1PVrCaiF5VurOcdgfAoT9tD5TQty+ycrerzr6a6kudMbcSrmcW7RB9/52+APEegDRa+/nY6FHZqkl9E7HBOfIBE94BwyPWB+e99SJ6Q6xbsHWoY23hDY7caesN7CmyYyzLiEQnqQsZ4zAtlol8vGZl/vrIYTZfZRYs6x24G8l6w26eW/0eYPjv5Jog0FuHlOBRcWLp72p3JQW
+X-Exchange-RoutingPolicyChecked:
+	sZnk/ysg/8r1+1QgTSr9nZSYPLgFJLhKAWiBFHtNTeMWnWhXvxuurWFUVC4JcynwpjFlRh86pWFGFF7vZ3+A5sFgR3RwxD74NjYONhcA2fGspGHqBXg6/RSqUKWRoTRHrkFDMcahOSmlZOEC7KovcHsIOXnRu0HP+KBnQwB9LMF5nUTQIh2UTc7vX8BD0/vcAdyAciJlT72SAzCN9F+R290xiOvxQ1M1eU7jtUNazsXixAgcAB82NOCeFtDsPLqlgfowwHkeIvcWi9/8GQTJE2bg0Z91SbmFMhdf2USmJkpckQs/RsbgF0yxVKyoJz5+RI1qwqjRlV/IvwpMOFUVpg==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	Jvajp++cMlKGw2ATDwk35zlrXl3ZKePFXiukraSevjhej6uHfvOsMq4RJ6+IZvjUpip/H2tK/yzsCvbWSyLvVvGRqJt5Yd/4YF1sBFGeGcRSyORaoEnN8vs/6EwiRLTxFuMPCTQGYJX6k+nMcy4epLny/R+QjbTvRlEqJFt5I1LTZIHSbLNjo+n2KtiWHf3KkI1qO0q4p5DxVfuLbknb9hdHfP1DO+wi2jsn7mXnJJEIknBCSPGHvBWdb6emBCxSIuEvnMKLOAalZ7WVKPXif/Aq18SxtvVnWzqJ+tLE83rWHUellDsv42TUYo8eJreSufbX69K40zu4RBQ5sklDBGattD1iF+1CheX76m5dGcbjEWJnAv5obSyp3/o6Icx9+RK3JOzTpeAz8zYeTl9AC3hnBXVJez38R02lhbSd5of04vP1s7tn1ZCiMq4TOxWPP8LV9ECOYsSRvKwVuRoPaJtKBEEnAsejfiL63in+GVibDqJ39YgLkoEhGKE8UMBVHFNxQBkzmTEAZSnEJwXNMKhd14WnEUnzto2RO6VtHIIiu0yT/iAZ9UclHxbebIxhRgzz3FlVUbZg0IqC9nvvzRK5WPRhIKuvm104PCLHy8JcossCtDCyyEWBOR/OeOxL
+X-OriginatorOrg: ford.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2026 06:23:26.1824
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FlE2/SiN/RbdBKTniI7igoQVQ2ofys0i56xNKchH2BhCL9odwNZt4AdWhMoaaMdjt08Yofx3b+0F/4lAgUspXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB7032
-X-Rspamd-Queue-Id: 9EF3D1DEC8E
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9447569c-685f-40b8-57af-08de78ed60fb
+X-MS-Exchange-CrossTenant-Id: c990bb7a-51f4-439b-bd36-9c07fb1041c0
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=c990bb7a-51f4-439b-bd36-9c07fb1041c0;Ip=[148.163.138.245];Helo=[mx0b-00498f04.pphosted.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00004685.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR16MB6249
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAzMDA0MiBTYWx0ZWRfX76OeBdO3cmm6
+ NjsZAAkryQm9VdaA4KF3ALVd1wERrxGd241i76cmuwIZNjknlMxu//ihShWqrRirhPRR4837sQs
+ RqVe9XoNopU+GmsOwGtF7q3/w8NQRB6g/ZVMnKeZQRJLPfKZVWwp8IAiGrkJorZ2mxftE/OkC/J
+ 6G7jiudAhaN8O0xk5bVDjfWa/GjzWzHwX1q3u6xCblm1XaVCapCOA0aEi/thY1wBQT67dsvcYPK
+ vNRkrLgZNMrRtCT+NUrNOnPhhuGcbAEjm0XpdjTe7JTwwkcEqmCY5g4Qr8ALFbxI3cA+BwFn1A9
+ 6vKpBLD2hJoX0u2Y+3gBBkZFYi6Ob00Njdnivgt3GO8sy8yDGye6ikBWinskcgDlfemntd5spf9
+ od4YbKgaHt+ZZdzWKAQHsyjtS84qA68WwuWOKlmYTsuN/cpmOHPEv4u85ZhsS46Nu2gGHhjalA0
+ tlr0DX5VH9FfvnOhGWg==
+X-Authority-Analysis: v=2.4 cv=abdsXBot c=1 sm=1 tr=0 ts=69a67e63 cx=c_pps
+ a=FnNH6Hr+id3EzXqhVuY+iw==:117 a=b7IhknPlfT0FN1EembXvig==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10
+ a=3PXLN80vpJUA:10 a=6NUGLSImWEsA:10 a=w9pew1qAHqMA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=P_n1zlmtWsCQbjROFjcg:22 a=AHe91QgOk3R4nFVtG5At:22
+ a=cbNQJ9GKAAAA:8 a=CEWtYdiJhwX6ivxE-jwA:9 a=CjuIK1q_8ugA:10
+ a=DqJYxgmhk6moR-_7_KoZ:22
+X-Proofpoint-GUID: BRqJ5tKpvk3Aeva-YQOv7dGD4uoi9XEu
+X-Proofpoint-ORIG-GUID: BRqJ5tKpvk3Aeva-YQOv7dGD4uoi9XEu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-02_05,2026-03-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1015
+ lowpriorityscore=0 spamscore=0 bulkscore=0 suspectscore=0 impostorscore=0
+ malwarescore=0 adultscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603030042
+X-Rspamd-Queue-Id: 627B31E9970
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [-1.69 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[ford.com,reject];
+	R_DKIM_ALLOW(-0.20)[ford.com:s=ppford,azureford.onmicrosoft.com:s=selector2-azureford-onmicrosoft-com,saarlouis.ford.com:s=ppserprodsaar,ford.com:s=ppfserpocford];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dmukhin@ford.com,xen-devel-bounces@lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:anthony.perard@vates.tech,m:dmukhin@ford.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:kevin.lampis@citrix.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[dmukhin@ford.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:email,citrix.com:mid];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[ford.com:+,azureford.onmicrosoft.com:+,saarlouis.ford.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FROM_NO_DN(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
+	RCPT_COUNT_SEVEN(0.00)[9];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[azureford.onmicrosoft.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo]
 X-Rspamd-Action: no action
 
-struct cpuinfo_x86
-  .x86        => .family
-  .x86_vendor => .vendor
-  .x86_model  => .model
-  .x86_mask   => .stepping
+On Mon, Mar 02, 2026 at 02:25:33PM +0000, Anthony PERARD wrote:
+> On Thu, Feb 05, 2026 at 03:51:26PM -0800, dmukhin@ford.com wrote:
+> > diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+> > index bfc9149096a3..714e71441498 100644
+> > --- a/tools/libs/light/libxl_create.c
+> > +++ b/tools/libs/light/libxl_create.c
+> > @@ -676,15 +676,14 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+> >                  if (ret < 0)
+> >                      break;
+> >  
+> > -                v &= DOMID_MASK;
+> > -                if (!libxl_domid_valid_guest(v))
+> > -                    continue;
+> > -
+> > -                local_domid = v;
+> > +                local_domid = v & DOMID_MASK;
+> >              } else {
+> >                  local_domid = info->domid; /* May not be valid */
+> >              }
+> >  
+> > +            if (!libxl_domid_valid_guest(local_domid))
+> > +                local_domid = DOMID_ANY;
+> 
+> Well, that make it possible to have DOMID_ANY selected when a "random"
+> domid was asked for, and this value is more likely than any other domid.
+> I don't think it's wise to change that. The domid generated in the
+> random case was already valid, no need to check again.
+> 
+> Coud you move the new validity check into the case where domid isn't
+> "random" or introduce a new case in the if/else chain ?
+> (something like that for the second option: if (domid==random) elif
+> (domid.is_valid) else (use domid))
 
-No functional change.
 
-This work is part of making Xen safe for Intel family 18/19.
+Will do, thanks.
 
-Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
----
-
-In xen/arch/x86/cpu/mcheck/mce.c: mcheck_init(...)
-Xen only calls `intel_mcheck_init(...)` if family is 6 or 15.
-
-Linux only calls `mce_intel_feature_init(...)` if family != 5.
-
-Do we need to do something like extend this switch statement in
-`mcheck_init(...)` to include family 18 and 19?
-
-
-In xen/arch/x86/cpu/mcheck/mce.c: mce_firstbank(...)
-The check
-  c->family == 6 && c->vendor == X86_VENDOR_INTEL && c->model < 0x1a
-
-could be re-written as
-  c->vfm >= INTEL_PENTIUM_PRO && c->vfm < INTEL_NEHALEM_EP
-
-I don't know if that would be better.
-
----
- xen/arch/x86/cpu/mcheck/amd_nonfatal.c |  2 +-
- xen/arch/x86/cpu/mcheck/mcaction.c     |  2 +-
- xen/arch/x86/cpu/mcheck/mce.c          | 30 +++++++++++++-------------
- xen/arch/x86/cpu/mcheck/mce.h          |  2 +-
- xen/arch/x86/cpu/mcheck/mce_amd.c      | 16 +++++++-------
- xen/arch/x86/cpu/mcheck/mce_intel.c    |  5 +----
- xen/arch/x86/cpu/mcheck/non-fatal.c    |  2 +-
- xen/arch/x86/cpu/mcheck/vmce.c         |  8 +++----
- 8 files changed, 32 insertions(+), 35 deletions(-)
-
-diff --git a/xen/arch/x86/cpu/mcheck/amd_nonfatal.c b/xen/arch/x86/cpu/mcheck/amd_nonfatal.c
-index 7d48c9ab5f..fb52639e13 100644
---- a/xen/arch/x86/cpu/mcheck/amd_nonfatal.c
-+++ b/xen/arch/x86/cpu/mcheck/amd_nonfatal.c
-@@ -191,7 +191,7 @@ static void cf_check mce_amd_work_fn(void *data)
- 
- void __init amd_nonfatal_mcheck_init(struct cpuinfo_x86 *c)
- {
--	if (!(c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)))
-+	if (!(c->vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)))
- 		return;
- 
- 	/* Assume we are on K8 or newer AMD or Hygon CPU here */
-diff --git a/xen/arch/x86/cpu/mcheck/mcaction.c b/xen/arch/x86/cpu/mcheck/mcaction.c
-index bf7a0de965..236424569a 100644
---- a/xen/arch/x86/cpu/mcheck/mcaction.c
-+++ b/xen/arch/x86/cpu/mcheck/mcaction.c
-@@ -101,7 +101,7 @@ mc_memerr_dhandler(struct mca_binfo *binfo,
-                       * not always precise. In that case, fallback to broadcast.
-                       */
-                      global->mc_domid != bank->mc_domid ||
--                     (boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
-+                     (boot_cpu_data.vendor == X86_VENDOR_INTEL &&
-                       (!(global->mc_gstatus & MCG_STATUS_LMCE) ||
-                        !(d->vcpu[mc_vcpuid]->arch.vmce.mcg_ext_ctl &
-                          MCG_EXT_CTL_LMCE_EN))) )
-diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
-index 9a91807cfb..10e826e3a6 100644
---- a/xen/arch/x86/cpu/mcheck/mce.c
-+++ b/xen/arch/x86/cpu/mcheck/mce.c
-@@ -334,7 +334,7 @@ mcheck_mca_logout(enum mca_source who, struct mca_banks *bankmask,
-                 mca_init_global(mc_flags, mig);
-                 /* A hook here to get global extended msrs */
-                 if ( IS_ENABLED(CONFIG_INTEL) &&
--                     boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-+                     boot_cpu_data.vendor == X86_VENDOR_INTEL )
-                     intel_get_extended_msrs(mig, mci);
-             }
-         }
-@@ -564,8 +564,8 @@ bool mce_available(const struct cpuinfo_x86 *c)
-  */
- unsigned int mce_firstbank(struct cpuinfo_x86 *c)
- {
--    return c->x86 == 6 &&
--           c->x86_vendor == X86_VENDOR_INTEL && c->x86_model < 0x1a;
-+    return c->family == 6 &&
-+           c->vendor == X86_VENDOR_INTEL && c->model < 0x1a;
- }
- 
- static int show_mca_info(int inited, struct cpuinfo_x86 *c)
-@@ -596,7 +596,7 @@ static int show_mca_info(int inited, struct cpuinfo_x86 *c)
-         case mcheck_amd_famXX:
-         case mcheck_hygon:
-             printk("%s%s Fam%xh machine check reporting enabled\n",
--                   prefix, type_str[inited], c->x86);
-+                   prefix, type_str[inited], c->family);
-             break;
- 
-         case mcheck_none:
-@@ -766,7 +766,7 @@ void mcheck_init(struct cpuinfo_x86 *c, bool bsp)
-     else if ( cpu_bank_alloc(cpu) )
-         panic("Insufficient memory for MCE bank allocations\n");
- 
--    switch ( c->x86_vendor )
-+    switch ( c->vendor )
-     {
- #ifdef CONFIG_AMD
-     case X86_VENDOR_AMD:
-@@ -777,7 +777,7 @@ void mcheck_init(struct cpuinfo_x86 *c, bool bsp)
- 
- #ifdef CONFIG_INTEL
-     case X86_VENDOR_INTEL:
--        switch ( c->x86 )
-+        switch ( c->family )
-         {
-         case 6:
-         case 15:
-@@ -882,7 +882,7 @@ static void x86_mcinfo_apei_save(
-     memset(&m, 0, sizeof(struct mce));
- 
-     m.cpu = mc_global->mc_coreid;
--    m.cpuvendor = xen2linux_vendor(boot_cpu_data.x86_vendor);
-+    m.cpuvendor = xen2linux_vendor(boot_cpu_data.vendor);
-     m.cpuid = cpuid_eax(1);
-     m.socketid = mc_global->mc_socketid;
-     m.apicid = mc_global->mc_apicid;
-@@ -983,10 +983,10 @@ static void cf_check __maybe_unused do_mc_get_cpu_info(void *v)
-                         &xcp->mc_apicid, &xcp->mc_ncores,
-                         &xcp->mc_ncores_active, &xcp->mc_nthreads);
-     xcp->mc_cpuid_level = c->cpuid_level;
--    xcp->mc_family = c->x86;
--    xcp->mc_vendor = xen2linux_vendor(c->x86_vendor);
--    xcp->mc_model = c->x86_model;
--    xcp->mc_step = c->x86_mask;
-+    xcp->mc_family = c->family;
-+    xcp->mc_vendor = xen2linux_vendor(c->vendor);
-+    xcp->mc_model = c->model;
-+    xcp->mc_step = c->stepping;
-     xcp->mc_cache_size = c->x86_cache_size;
-     xcp->mc_cache_alignment = c->x86_cache_alignment;
-     memcpy(xcp->mc_vendorid, c->x86_vendor_id, sizeof xcp->mc_vendorid);
-@@ -1142,7 +1142,7 @@ static bool __maybe_unused x86_mc_msrinject_verify(struct xen_mc_msrinject *mci)
- 
-         if ( IS_MCA_BANKREG(reg, mci->mcinj_cpunr) )
-         {
--            if ( c->x86_vendor == X86_VENDOR_AMD )
-+            if ( c->vendor == X86_VENDOR_AMD )
-             {
-                 /*
-                  * On AMD we can set MCi_STATUS_WREN in the
-@@ -1177,15 +1177,15 @@ static bool __maybe_unused x86_mc_msrinject_verify(struct xen_mc_msrinject *mci)
-             case MSR_F10_MC4_MISC1:
-             case MSR_F10_MC4_MISC2:
-             case MSR_F10_MC4_MISC3:
--                if ( c->x86_vendor != X86_VENDOR_AMD )
-+                if ( c->vendor != X86_VENDOR_AMD )
-                     reason = "only supported on AMD";
--                else if ( c->x86 < 0x10 )
-+                else if ( c->family < 0x10 )
-                     reason = "only supported on AMD Fam10h+";
-                 break;
- 
-             /* MSRs that the HV will take care of */
-             case MSR_K8_HWCR:
--                if ( c->x86_vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
-+                if ( c->vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
-                     reason = "HV will operate HWCR";
-                 else
-                     reason = "only supported on AMD or Hygon";
-diff --git a/xen/arch/x86/cpu/mcheck/mce.h b/xen/arch/x86/cpu/mcheck/mce.h
-index 920b075355..3b61b12487 100644
---- a/xen/arch/x86/cpu/mcheck/mce.h
-+++ b/xen/arch/x86/cpu/mcheck/mce.h
-@@ -137,7 +137,7 @@ void x86_mcinfo_dump(struct mc_info *mi);
- 
- static inline int mce_vendor_bank_msr(const struct vcpu *v, uint32_t msr)
- {
--    switch (boot_cpu_data.x86_vendor) {
-+    switch (boot_cpu_data.vendor) {
-     case X86_VENDOR_INTEL:
-         if (msr >= MSR_IA32_MC0_CTL2 &&
-             msr < MSR_IA32_MCx_CTL2(v->arch.vmce.mcg_cap & MCG_CAP_COUNT) )
-diff --git a/xen/arch/x86/cpu/mcheck/mce_amd.c b/xen/arch/x86/cpu/mcheck/mce_amd.c
-index 25c29eb3d2..2d17832d9c 100644
---- a/xen/arch/x86/cpu/mcheck/mce_amd.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_amd.c
-@@ -160,17 +160,17 @@ mcequirk_lookup_amd_quirkdata(const struct cpuinfo_x86 *c)
- {
-     unsigned int i;
- 
--    BUG_ON(c->x86_vendor != X86_VENDOR_AMD);
-+    BUG_ON(c->vendor != X86_VENDOR_AMD);
- 
-     for ( i = 0; i < ARRAY_SIZE(mce_amd_quirks); i++ )
-     {
--        if ( c->x86 != mce_amd_quirks[i].cpu_family )
-+        if ( c->family != mce_amd_quirks[i].cpu_family )
-             continue;
-         if ( (mce_amd_quirks[i].cpu_model != ANY) &&
--             (mce_amd_quirks[i].cpu_model != c->x86_model) )
-+             (mce_amd_quirks[i].cpu_model != c->model) )
-             continue;
-         if ( (mce_amd_quirks[i].cpu_stepping != ANY) &&
--             (mce_amd_quirks[i].cpu_stepping != c->x86_mask) )
-+             (mce_amd_quirks[i].cpu_stepping != c->stepping) )
-                 continue;
-         return mce_amd_quirks[i].quirk;
-     }
-@@ -291,13 +291,13 @@ amd_mcheck_init(const struct cpuinfo_x86 *c, bool bsp)
-     uint32_t i;
-     enum mcequirk_amd_flags quirkflag = 0;
- 
--    if ( c->x86_vendor != X86_VENDOR_HYGON )
-+    if ( c->vendor != X86_VENDOR_HYGON )
-         quirkflag = mcequirk_lookup_amd_quirkdata(c);
- 
-     /* Assume that machine check support is available.
-      * The minimum provided support is at least the K8. */
-     if ( bsp )
--        mce_handler_init(c->x86 == 0xf ? &k8_callbacks : &k10_callbacks);
-+        mce_handler_init(c->family == 0xf ? &k8_callbacks : &k10_callbacks);
- 
-     for ( i = 0; i < this_cpu(nr_mce_banks); i++ )
-     {
-@@ -311,7 +311,7 @@ amd_mcheck_init(const struct cpuinfo_x86 *c, bool bsp)
-         }
-     }
- 
--    if ( c->x86 == 0xf )
-+    if ( c->family == 0xf )
-         return mcheck_amd_k8;
- 
-     if ( quirkflag == MCEQUIRK_F10_GART )
-@@ -337,6 +337,6 @@ amd_mcheck_init(const struct cpuinfo_x86 *c, bool bsp)
-             ppin_msr = MSR_AMD_PPIN;
-     }
- 
--    return c->x86_vendor == X86_VENDOR_HYGON ?
-+    return c->vendor == X86_VENDOR_HYGON ?
-             mcheck_hygon : mcheck_amd_famXX;
- }
-diff --git a/xen/arch/x86/cpu/mcheck/mce_intel.c b/xen/arch/x86/cpu/mcheck/mce_intel.c
-index 839a0e5ba9..9100ce0f6c 100644
---- a/xen/arch/x86/cpu/mcheck/mce_intel.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
-@@ -711,10 +711,7 @@ static bool mce_is_broadcast(struct cpuinfo_x86 *c)
-      * DisplayFamily_DisplayModel encoding of 06H_EH and above,
-      * a MCA signal is broadcast to all logical processors in the system
-      */
--    if ( c->x86_vendor == X86_VENDOR_INTEL && c->x86 == 6 &&
--         c->x86_model >= 0xe )
--        return true;
--    return false;
-+    return c->vfm >= INTEL_CORE_YONAH;
- }
- 
- static bool intel_enable_lmce(void)
-diff --git a/xen/arch/x86/cpu/mcheck/non-fatal.c b/xen/arch/x86/cpu/mcheck/non-fatal.c
-index a9ee9bb94f..4e7c64abef 100644
---- a/xen/arch/x86/cpu/mcheck/non-fatal.c
-+++ b/xen/arch/x86/cpu/mcheck/non-fatal.c
-@@ -23,7 +23,7 @@ static int __init cf_check init_nonfatal_mce_checker(void)
- 	/*
- 	 * Check for non-fatal errors every MCE_RATE s
- 	 */
--	switch (c->x86_vendor) {
-+	switch (c->vendor) {
- #ifdef CONFIG_AMD
- 	case X86_VENDOR_AMD:
- 	case X86_VENDOR_HYGON:
-diff --git a/xen/arch/x86/cpu/mcheck/vmce.c b/xen/arch/x86/cpu/mcheck/vmce.c
-index 1a7e92506a..84776aeec8 100644
---- a/xen/arch/x86/cpu/mcheck/vmce.c
-+++ b/xen/arch/x86/cpu/mcheck/vmce.c
-@@ -45,7 +45,7 @@ void vmce_init_vcpu(struct vcpu *v)
-     int i;
- 
-     /* global MCA MSRs init */
--    if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-+    if ( boot_cpu_data.vendor == X86_VENDOR_INTEL )
-         v->arch.vmce.mcg_cap = INTEL_GUEST_MCG_CAP;
-     else
-         v->arch.vmce.mcg_cap = AMD_GUEST_MCG_CAP;
-@@ -63,7 +63,7 @@ int vmce_restore_vcpu(struct vcpu *v, const struct hvm_vmce_vcpu *ctxt)
- {
-     unsigned long guest_mcg_cap;
- 
--    if ( boot_cpu_data.x86_vendor == X86_VENDOR_INTEL )
-+    if ( boot_cpu_data.vendor == X86_VENDOR_INTEL )
-         guest_mcg_cap = INTEL_GUEST_MCG_CAP | MCG_LMCE_P;
-     else
-         guest_mcg_cap = AMD_GUEST_MCG_CAP;
-@@ -136,7 +136,7 @@ static int bank_mce_rdmsr(const struct vcpu *v, uint32_t msr, uint64_t *val)
-         break;
- 
-     default:
--        switch ( boot_cpu_data.x86_vendor )
-+        switch ( boot_cpu_data.vendor )
-         {
- #ifdef CONFIG_INTEL
-         case X86_VENDOR_CENTAUR:
-@@ -273,7 +273,7 @@ static int bank_mce_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-         break;
- 
-     default:
--        switch ( boot_cpu_data.x86_vendor )
-+        switch ( boot_cpu_data.vendor )
-         {
- #ifdef CONFIG_INTEL
-         case X86_VENDOR_INTEL:
--- 
-2.51.1
-
+--
+Denis
 
