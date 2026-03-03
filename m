@@ -2,45 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2ADOMBAQp2k0cwAAu9opvQ
+	id CE6gHfYQp2k0cwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 17:45:04 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 17:48:54 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 251E71F4091
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 17:45:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244949.1544294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D16211F41A2
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 17:48:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244959.1544304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxSrg-00081u-G7; Tue, 03 Mar 2026 16:44:56 +0000
+	id 1vxSvH-0000CS-V2; Tue, 03 Mar 2026 16:48:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244949.1544294; Tue, 03 Mar 2026 16:44:56 +0000
+Received: by outflank-mailman (output) from mailman id 1244959.1544304; Tue, 03 Mar 2026 16:48:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxSrg-00080P-DJ; Tue, 03 Mar 2026 16:44:56 +0000
-Received: by outflank-mailman (input) for mailman id 1244949;
- Tue, 03 Mar 2026 16:44:55 +0000
+	id 1vxSvH-0000AS-SN; Tue, 03 Mar 2026 16:48:39 +0000
+Received: by outflank-mailman (input) for mailman id 1244959;
+ Tue, 03 Mar 2026 16:48:39 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hWcK=BD=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vxSre-00080F-V8
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 16:44:54 +0000
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170120001.outbound.protection.outlook.com
- [2a01:111:f403:c107::1])
+ <SRS0=JEzs=BD=bounce.vates.tech=bounce-md_30504962.69a710df.v1-3bceb4a3bd1844479c02f3bb66892b6a@srs-se1.protection.inumbo.net>)
+ id 1vxSvG-0000AK-Q6
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 16:48:38 +0000
+Received: from mail177-30.suw61.mandrillapp.com
+ (mail177-30.suw61.mandrillapp.com [198.2.177.30])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4c9d9331-1720-11f1-9ccf-f158ae23cfc8;
- Tue, 03 Mar 2026 17:44:52 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by PH0PR03MB6623.namprd03.prod.outlook.com (2603:10b6:510:b3::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Tue, 3 Mar
- 2026 16:44:48 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9654.022; Tue, 3 Mar 2026
- 16:44:47 +0000
+ id cfea8744-1720-11f1-9ccf-f158ae23cfc8;
+ Tue, 03 Mar 2026 17:48:32 +0100 (CET)
+Received: from pmta14.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail177-30.suw61.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fQMFC1GGQzP0K0dQ
+ for <xen-devel@lists.xenproject.org>; Tue,  3 Mar 2026 16:48:31 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 3bceb4a3bd1844479c02f3bb66892b6a; Tue, 03 Mar 2026 16:48:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,211 +48,467 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4c9d9331-1720-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v7UfKB3gSPFHs70Y5Jz8t6biZNAj/AEnT/F/r3yWUR9PGNbj0ESNxg4u7Q9JLoPX0DQQcwxC1VyrIJ4m7kWTNoSImLzCSCCf43eGpyds66lr3yP93hvnUhgbpLlt570tAbnI9ySPr3Fo2nCoLdLbY4WWLZ6fLiziJ0ACgJv0Il2InhQyE8PUivH8nux5uPPfvXOKjD0NzqhrSyEAT1X2ScW8dvkhqMZDA4U2qsJe7d6+5oabqDMj+vVGGmUzcdsIsUF4E3HGk8lPteEfrRv807pLZL5MCV6vYhBi9P5e1+i92TxktGDRrjPYBEWziD4EVS9tXRuTV05G4m+Yh6ijZg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0APOjVFT3cdvjaAW4vRXuCpNVGbuxVVn2TFVw9aURp8=;
- b=F9EbZVI7eTUvE8ckCClnjc3CEnCIe0hvLB5qy018iJcX30ft3ZFLpcUvrWl3hdLsjmuhDCmiNUicQq10E/KlhNvwFIHvOdWxImD39MwqC1vaKKPbpLzLDQQjhL7XUHPnMCo5uNAPlHtjz9VSjmHoNm40pHe+P45JVsu5EdP/B6DRz0Z8mcjZVKx8Z+Zs/2UOx0tJ6Ql1MC0WzEoDOoWlbSN4eoOFqci+p6LvexllCwzrO+Ler7U/GUZTr03d2X43Us3qawgezTcwUgBHFOqOsi35EzWVYgdvuHJjyRqhDiLtgK3XKaxDWtJKerYLapbOYCyVAdWa3hNyE5kAvNgh0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0APOjVFT3cdvjaAW4vRXuCpNVGbuxVVn2TFVw9aURp8=;
- b=d8bP0TLfAiBdi1I2JNRXFsgSefk+ke1hGXi+XwHcsJOzqnSBWagVELfHEUd/wVneeyemA44XSeJaoaMhQt10qHNlHA/8KRKsZJaXZoJQWeb630hfkGjif5IQfDn0klYXEH7cgxy2mdwFBhSz5tcHl0X99/CnvY9h+JQZua/dgXc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 3 Mar 2026 17:44:44 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: Re: [PATCH v5 1/5] vPCI: introduce private header
-Message-ID: <aacP_Dk6lTALXvhJ@macbook.local>
-References: <6202d2d4-ad80-4e37-b1f6-cd9d19add72f@suse.com>
- <f3673515-5922-4748-a964-d4c391e937f5@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f3673515-5922-4748-a964-d4c391e937f5@suse.com>
-X-ClientProxiedBy: MA3P292CA0031.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:46::18) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: cfea8744-1720-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1772556511; x=1772826511;
+	bh=eUNoRhcDYCL60wG3kvxrWXAIPmTJ6jPDfNoSt1z/f7I=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=1S7GZ6RgiqZbcYlkph67vL4+CyQo/kNVNwLFzKuXg+lM0weV9P1h6MK0ijeLaNBd7
+	 p1vAVfWQA7A/9lreNfoy/WafDEZfWsPQeyS/hKQS0ANfQqrmlVW8Ie7Cc6FpzD8jl8
+	 oPuQ+oTLgo9fRpLg91FSHkZdZYOuJXx19GKmHxAePKKEtO94Lse4JSZXIroHMSQCXA
+	 b5MoUyFMmzr9ip5gVjY9II10G+3CNYvM7ATrDOv7dcZ/ekyuIZh+ikthYazuR3Zp59
+	 HV6HCL55qOUvRXdavoj3+J67/KoF79niXVHPKD+KgAEXO4qunEMpY0kSxZ/4WZT9v0
+	 K2iEmgky2HFSA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1772556511; x=1772817011; i=julian.vetter@vates.tech;
+	bh=eUNoRhcDYCL60wG3kvxrWXAIPmTJ6jPDfNoSt1z/f7I=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=tI8lpF4roZ57dmZia2VEbDCLBkOrjzqw3uyE33hPglJRzOr1ZB2RFMMaIsgXVYKs4
+	 SXttZhBw4lW9G1rIJ0xhRrUntSEE/wwplMkmcC6o/89Ie/5FJFjqfvtcVlDB0nYob0
+	 nuFp67ufMnZsfFpSfUfSxAUQy6CzJ7fzIfHcC9M2tZ+3l81RlbjfFnT+UIoScvaVBz
+	 frOKkSIYXHyofsMa5kVnNmeOISnHWjSBXLv3pSglZUIDaWFdnv+gtjDKOeaA0dy0HM
+	 wkiS9BiyYDwdIBt3uNYPhoGSjOgeHmRJyQEBDxd3RyIbqPEU4tL/1KhUg5oyw/ztK1
+	 gCmDZwtUNrM7w==
+From: "Julian Vetter" <julian.vetter@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v3=202/2]=20x86/ioreq:=20Extend=20ioreq=20server=20to=20support=20multiple=20ioreq=20pages?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1772556509850
+Message-Id: <151c64e9-a605-410a-b3b0-2c86cdf6fd2c@vates.tech>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260223093831.475769-1-julian.vetter@vates.tech> <20260223093831.475769-2-julian.vetter@vates.tech> <c9126823-7c90-40bb-9fd1-c5649ffdb5cd@suse.com>
+In-Reply-To: <c9126823-7c90-40bb-9fd1-c5649ffdb5cd@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.3bceb4a3bd1844479c02f3bb66892b6a?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260303:md
+Date: Tue, 03 Mar 2026 16:48:31 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|PH0PR03MB6623:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a31d27f-5219-4bc0-25d9-08de79442e6a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	7qHEhBRT3eeOb7lhr5eW7+ufG02dV6GMPWJP/Ggr7ZJ3+jZ4U8NtnPiyY5jyPWRx0yB8N6Z+bnAEIMad/DlqZZNINcbhmjhahpG0f67LKZnXFdEVeDzV46OS4N2HohIGsN6mZlt8+PtWDafG3Ovex4YY6aw2ZMItHiVm+qJI+kUNfvy8kWSMNhs4Jj97qvj+iMZMoV/jS4Fw1EFivBGALDrYTUs1YdD8w908PR88HzYA0wNVE6ht9n2RM7lsz5oSTgkMVRXVDMXMmRpsbjzfzNRn+qz1ZqpHBjahSdh/e8wRtywm9ifxiB0aLshrmMUqnWWm+jnpTX7j19lsCNVZn/8mW/xll1+9dr5CyxrzMFObtp9yZoHV5YZTAy0dAEoJGDjEinDdCtlw5Kdam6OQBlLR9VHvB3yR4N8GCPeVpU+VUCrJdS5vfqyXv1sBiRaw+FNAT4NdsScWrcOFW+2xD8X2eHF57PwZvb/Aa/0aft47/4oGQmohI1qgk55XrriGvVFjrj1uOIxXDuL9H6EmuksnftcloQ+KvKejok5IwttihZVusoMLIhrUjMfdON/Q+OrTBsMeXEQLgL+1AMed/ytPpx6zngqKubqXy93g13ewCBVmvJO9cJEjPLLiU2PcsIdzBZwj56TfD7VgeSRWOZ7hcI4k1mu4EZrVG/Fx/SgJ0ZzU3JdgxqCDAvgbEm4+VdpkkFlQgLs8AAEtanQrM8/CPVP/PF4jtBCWyyd6fzU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RnFJQ2F0YTNZOVYxekRKMnZ2WDN4QjFKdy9wUjlvazFOQ0lzMUdGamRCSmJ0?=
- =?utf-8?B?eTVidmRBand3WDNqdUFsT2dXeDhJRkJnN0Jnc3B6bkhoZjF3QnVGWnJ4V0Zx?=
- =?utf-8?B?NWN2ZmVQbzUrMXd5RlF2UUVSY3liak1YU3ZhVnpoRzhnZ2FidXVCQU04Q2Jn?=
- =?utf-8?B?b3h2a1JZV3RUcFVxVlUycXh3ajJDQ3pKYVpaZ3EwYzdWbk16bGROaFJjVENu?=
- =?utf-8?B?WWxzazNTVFdzTnVRL1J1U3loZHlQZTZSVE9JSm94ZXJmMU5HLzVCMERlbVJm?=
- =?utf-8?B?QUxhZmUyODJZR0xTNzg3a1NxcWlHSitlem9KcEs2UXlCeXlsWk5KUy9EdWxx?=
- =?utf-8?B?RlR5TmVvRndIOFZyN3VpQ0plZ2R3b0pLTFZiQzVpNC82NWF5RHRRMm1rWnF6?=
- =?utf-8?B?Q2FLZlBEcCthdkE1bTk4Z3MzMDJwK0Roc0NoNzVmc0FWVFB2VngwSVdrVXZ1?=
- =?utf-8?B?Slh4aVliMCsxK3lIQ1BoSytGbGE2MnQ2WmpEbndnRkhTaHJ1OVVVNmhIQVAx?=
- =?utf-8?B?V2l1cFNlN21LbHk3QmJuc3JRRWZhMjA2SEI3YXp5aTVCMm5uOHp3ZWZBSVRs?=
- =?utf-8?B?MkpGdGZkVHlmU1UvTWNOS2w3YXY1SjIyMnhHMjRmQ01FYlY4QnEyR0wra2E5?=
- =?utf-8?B?MW9HOFI5eVI5dnNLN1dlK2dsVXVkVzdWMlVjZkFoUSttSFZ5R3JDSEZLNE9w?=
- =?utf-8?B?Qzd0ZW81Rk9YdXJ2RURLQlhZeGhMQ28yNmVObmsvaHgraUxqUTZKdzFNVkh2?=
- =?utf-8?B?c2RaVlRaTTEySnkxbXBxd3F2QkJseHJhczVFajBFQkF2OFR3QWpwZjhsU3Nq?=
- =?utf-8?B?VEFzMkJaUlBmTW55ZXc3ZFh5TUI2VGlwU3Q0QnhtOWRlcU40RE9xSktnQTdw?=
- =?utf-8?B?TExYcy9xTU42VWlqaXFoTk0vaDJ0NnhXdmJBRW40UkxhV2lReTA1R3NXcU16?=
- =?utf-8?B?T2lDeE5QZUtZRjZUNEc4YVpJNHgzc1ZOS2ZWb3BqbzRicmRzVDkvZUV3cUtV?=
- =?utf-8?B?WE1aOVA5VEUraFZBOXVuRkpnWDFhSEJhc092djIxKzgyNmxha0V5Mzd0Z04w?=
- =?utf-8?B?ZlY4QldkQ0dCdWl1L0ZLTkl0RXFnQTVrVi80UUhjdlN5Q2NobHlXbGgxVmFs?=
- =?utf-8?B?R0tqb005UEZZVWxXTGJzQzdCMnVKWUE0aEp5RzVkRU0vWEVNN0Z4T01YS01Q?=
- =?utf-8?B?Q0RuL1BwL2QvbVAzd2hNNUVmRjMzUjdvdzl2RFBnaXplcWdqZEc5VFhERUsw?=
- =?utf-8?B?WTF2S3hkYURXOVFIZlhiaGxHUjZ1aGFVVElNR1JJREUzcXNjSWJKOVVzV0FY?=
- =?utf-8?B?SThLR1lpUlJ3ViszWmROZzJ4SXkxVTN3ODhUdHdGc1NoakpkRHBIZ2FBRHhD?=
- =?utf-8?B?Ry9rOUtQcjVEZFZGeVFOTzBwNGczZzJvQnhTWitDTURxS0lVTVhiTkJ3Lzl1?=
- =?utf-8?B?THZkb0dxT2orUE9yc0wxKzM4M1dDc21GeW93eEhmQmd5T0ZsZ29ZdHZaaUZC?=
- =?utf-8?B?UjFYZEg1WkFwMHhmS28yZGNJa0ZjNnZIN1NDdTNEaThMc04wS1B6aXFLdU4w?=
- =?utf-8?B?MWEzc1RieEthUExyemlGTEdXQXpUKzUwUTNxc0NDb0NpTTFTeHk3S0hxbXVC?=
- =?utf-8?B?QWE5ZUQ3cnNJMCtxWVVrM0ZheGsxbk5VblNUeWYrZmVmL3ZYTmkwMFFWZG9B?=
- =?utf-8?B?alJzbzI2VGJIQkhWWlBZTmIrR0dZYlZYQVFCVkh1YkZEZFMzYXV0alRlS0tu?=
- =?utf-8?B?RTVEL1pqaWpNU0M2Lzc4SmR4Q0c4Um1UZ2d5TEVud3hIVFJkbGQxTCs5dlhp?=
- =?utf-8?B?L3Bab3V5ZUJMMlpsYkV2SDhncE9ZR0E1QTVFeHdDRVRKN0pQRDhNcDF5aFN1?=
- =?utf-8?B?WUxPWTFhbnYwaGttSlExNGhoWmpSR2p6aFEydkh3RSt5UTVxSyt0dnc0ek1Y?=
- =?utf-8?B?Zm4zRUZJYVN4cmVJNHJGTGE0NTZOS2M4WS9PMjRxSXNFMzQzSGJBZG1VMDBv?=
- =?utf-8?B?WURQSjd3Qm9mV1AzbUpTRDdTb3hQckhMQUJtbm1HMXMxYU9SUEdEYW8yYzZ1?=
- =?utf-8?B?OVZLemZ4SUpIYnNpVFB0OGNMb2lGVmFLbkQzbE1zS2tGRkIvQU90anRxL0tr?=
- =?utf-8?B?K2ppdjNFbG5OUW82UEJFRjVBSGJwUWZQaHJtb2JXa2doSi9ubDQyb014cjJT?=
- =?utf-8?B?RG5qUVVmOFdWQ2plZWx5YkszbUk0aXExNXRDNVFwK0dTamxzVFRTRHA5dSsz?=
- =?utf-8?B?WU0xMXVIRW50S1VOVTk3M09jSmdyWlFZLzhjNHB5Z2tCOXRuUkZocnk5aUhS?=
- =?utf-8?B?R2Z0U05uZWNnZGtrMTJYemRDZy9DejR4dFZFenJMSnU3ZkxPbnp4dz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a31d27f-5219-4bc0-25d9-08de79442e6a
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2026 16:44:47.8926
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bn+Co/SeESsL0ajZW9IA5CmYVtHJYpHc4QVCqQ6VkOn7vZZbQxGR+fBU1S0QjIhYiJPr8yj0M0tY70DPZNIHMw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6623
-X-Rspamd-Queue-Id: 251E71F4091
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: D16211F41A2
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:stewart.hildebrand@amd.com,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:volodymyr_babchuk@epam.com,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:anthony.perard@vates.tech,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	FORGED_SENDER(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,mandrillapp.com:dkim,vates.tech:dkim,vates.tech:url,vates.tech:mid];
+	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.307];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On Wed, Feb 25, 2026 at 12:43:01PM +0100, Jan Beulich wrote:
-> Before adding more private stuff to xen/vpci.h, split it up. In order to
-> be able to include the private header first in a CU, the per-arch struct
-> decls also need to move (to new asm/vpci.h files).
+On 2/26/26 16:54, Jan Beulich wrote:
+> On 23.02.2026 10:38, Julian Vetter wrote:
+>> A single shared ioreq page provides PAGE_SIZE/sizeof(ioreq_t) = 128
+>> slots, limiting HVM guests to 128 vCPUs. To support more vCPUs, extend
+>> the ioreq server to use xvzalloc_array() for allocating a contiguous
+>> virtual array of ioreq_t slots sized to d->max_vcpus, backed by
+>> potentially non-contiguous physical pages.
+>>
+>> For the GFN-mapped path (x86), page and writable type references are
+>> obtained directly via check_get_page_from_gfn() and get_page_type() for
+>> each GFN. The pages are then combined into a single contiguous VA using
+>> vmap(). The number of ioreq pages is computed at runtime via
+>> nr_ioreq_pages(d) = DIV_ROUND_UP(d->max_vcpus, IOREQS_PER_PAGE), so
+>> small VMs only allocate one page. All existing single-page paths
+>> (bufioreq, legacy clients) remain unchanged.
+>>
+>> Mark the now-unused shared_iopage_t in the public header as deprecated.
 > 
-> While adjusting the test harness'es Makefile, also switch the pre-existing
-> header symlink-ing rule to a pattern one.
+> For this I think we need to settle on one of two options: Either it was a
+> mistake that this was used in the hypervisor (and added to the public
+> interface), in which case the removal of the use may want to be separate
+> (without, imo, any need to mark the item deprecated in the public header,
+> as the property remains). Or we deem it legitimate / useful, in which case
+> you would want to continue using it (in struct ioreq_server).
 > 
-> Apart from in the test harness code, things only move; no functional
-> change intended.
+
+Thank you Jan for you feedback! It's very appreciated! You're right. But 
+I'm wondering how would dropping the struct work? I looked into QEMU and 
+varstored, and they both use this struct at the moment. But 
+modifications to both of them would be minimal if we decide to drop the 
+struct. And if they want to support multiple ioreq pages we would need 
+to modify this struct anyway to not contain a single struct ioreq, but a 
+pointer or [].
+
+>> @@ -89,6 +91,39 @@ static gfn_t hvm_alloc_ioreq_gfn(struct ioreq_server *s)
+>>       return hvm_alloc_legacy_ioreq_gfn(s);
+>>   }
+>>   
+>> +static gfn_t hvm_alloc_ioreq_gfns(struct ioreq_server *s,
+>> +                                  unsigned int nr_pages)
+>> +{
+>> +    struct domain *d = s->target;
+>> +    unsigned long mask;
+>> +    unsigned int i, run;
+>> +
+>> +    if ( nr_pages == 1 )
+>> +        return hvm_alloc_ioreq_gfn(s);
+>> +
+>> +    /* Find nr_pages consecutive set bits */
+>> +    mask = d->arch.hvm.ioreq_gfn.mask;
+>> +
+>> +    for ( i = 0, run = 0; i < BITS_PER_LONG; i++ )
+>> +    {
+>> +        if ( !test_bit(i, &mask) )
+>> +            run = 0;
+>> +        else if ( ++run == nr_pages )
+>> +        {
+>> +            /* Found a run - clear all bits and return base GFN */
+>> +            unsigned int start = i - nr_pages + 1;
+>> +            unsigned int j;
+>> +
+>> +            for ( j = start; j <= i; j++ )
+>> +                clear_bit(j, &d->arch.hvm.ioreq_gfn.mask);
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> You using clear_bit() here doesn't make the while operation atomic. There will
+> need to be synchronization (also with hvm_alloc_ioreq_gfn()), and once that's
+> there (or if things are suitably synchronized already) __clear_bit() ought to
+> suffice here.
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+Yes, sorry. I will drop the "legacy gfn multi page" part entirely. In 
+your other reply you wrote: "Thinking about it - isn't this GFN based 
+approach the legacy one? Can't we demand use of the resource mapping 
+approach to support bigger guests?"
+I didn't fully understand this path is the legacy path. So, I adapted it 
+as well. Now, it's clear to me and I agree with your assement. I will 
+remove the part for the legacy path, and will just check that if we take 
+it, in 'hvm_map_ioreq_gfn' I will do:
 
-One comment below.  The Ack stands regardless of whether you want to
-change it or not.
+if ( nr_ioreq_pages(d) > 1 )
+     return -EOPNOTSUPP;
 
-> ---
-> Subsequently, at least on x86 more stuff may want moving into asm/vpci.h.
-> ---
-> v5: Add new generated header to test harness clean rule and to .gitignore.
->     Also move vpci_init_header().
-> v4: New.
 > 
-> --- a/.gitignore
-> +++ b/.gitignore
-> @@ -154,6 +154,7 @@ tools/tests/x86_emulator/test_x86_emulat
->  tools/tests/x86_emulator/x86_emulate
->  tools/tests/x86_emulator/xop*.[ch]
->  tools/tests/vpci/list.h
-> +tools/tests/vpci/private.h
->  tools/tests/vpci/vpci.[hc]
->  tools/tests/vpci/test_vpci
->  tools/xcutils/lsevtchn
-> --- a/tools/tests/vpci/Makefile
-> +++ b/tools/tests/vpci/Makefile
-> @@ -14,12 +14,12 @@ else
->  	$(warning HOSTCC != CC, will not run test)
->  endif
->  
-> -$(TARGET): vpci.c vpci.h list.h main.c emul.h
-> -	$(CC) $(CFLAGS_xeninclude) -g -o $@ vpci.c main.c
-> +$(TARGET): vpci.c vpci.h list.h private.h main.c emul.h
-> +	$(CC) $(CFLAGS_xeninclude) -include emul.h -g -o $@ vpci.c main.c
->  
->  .PHONY: clean
->  clean:
-> -	rm -rf $(TARGET) *.o *~ vpci.h vpci.c list.h
-> +	rm -rf $(TARGET) *.o *~ vpci.h vpci.c list.h private.h
->  
->  .PHONY: distclean
->  distclean: clean
-> @@ -34,10 +34,10 @@ uninstall:
->  	$(RM) -- $(DESTDIR)$(LIBEXEC)/tests/$(TARGET)
->  
->  vpci.c: $(XEN_ROOT)/xen/drivers/vpci/vpci.c
-> -	# Remove includes and add the test harness header
-> -	sed -e '/#include/d' -e '1s/^/#include "emul.h"/' <$< >$@
-> +	sed -e '/#include/d' <$< >$@
-> +
-> +private.h: %.h: $(XEN_ROOT)/xen/drivers/vpci/%.h
-> +	sed -e '/#include/d' <$< >$@
+>> +            return _gfn(d->arch.hvm.ioreq_gfn.base + start);
+>> +        }
+>> +    }
+>> +
+>> +    return INVALID_GFN;
+>> +}
+> 
+> Did you consider whether fragmentation could get in the way here, as is usually
+> the case when doing mixed-size allocations from a single pool? In how far is it
+> necessary for the GFNs used to be consecutive?
 
-Nit: if you are changing/adding those we might as well do
-/^#[[:space:]]*include/d, as sometimes we add spaces if the header
-inclusion is conditional.
+Same as above. I will remove this part.
 
-Thanks, Roger.
+> 
+>> @@ -134,16 +181,41 @@ static void hvm_unmap_ioreq_gfn(struct ioreq_server *s, bool buf)
+>>   
+>>           hvm_free_ioreq_gfn(s, iorp->gfn);
+>>           iorp->gfn = INVALID_GFN;
+>> +        return;
+>>       }
+>> +
+>> +    if ( gfn_eq(s->ioreq_gfn, INVALID_GFN) )
+>> +        return;
+>> +
+>> +    nr_pages = nr_ioreq_pages(s->target);
+>> +
+>> +    for ( i = 0; i < nr_pages; i++ )
+>> +    {
+>> +        struct page_info *pg = vmap_to_page((char *)s->ioreq +
+> 
+> Please can you preferably cast to const void * (or void *)? But perhaps you
+> would better latch the pointer into a local variable anyway, for ...
+> 
+>> +                                            i * PAGE_SIZE);
+>> +
+>> +        put_page_and_type(pg);
+>> +        put_page(pg);
+> 
+>> +    }
+>> +    vunmap(s->ioreq);
+>> +    s->ioreq = NULL;
+> 
+> ... this clearing to move up ahead of any teardown done.
+> 
+>> +    hvm_free_ioreq_gfns(s, s->ioreq_gfn, nr_pages);
+>> +    s->ioreq_gfn = INVALID_GFN;
+> 
+> This similarly may want moving up.
+> 
+> As to the loop body, destroy_ring_for_helper() has put_page_and_type(), but
+> no put_page(). Why is this different here?
+
+Yes, sorry. We don't need it here. I dropped it. I now do the same as 
+'destroy_ring_for_helper'.
+
+> 
+>> @@ -173,30 +245,132 @@ static int hvm_map_ioreq_gfn(struct ioreq_server *s, bool buf)
+>>   
+>>           return rc;
+>>       }
+>> +
+>> +    /* ioreq: multi-page with contiguous VA */
+>> +    if ( s->ioreq )
+>> +    {
+>> +        if ( gfn_eq(s->ioreq_gfn, INVALID_GFN) )
+>> +            return -EPERM;
+> 
+> The comment on the other path at least wants referencing here.
+> 
+>> +        return 0;
+>> +    }
+>> +
+>> +    if ( d->is_dying )
+>> +        return -EINVAL;
+>> +
+>> +    nr_pages = nr_ioreq_pages(d);
+>> +    base_gfn = hvm_alloc_ioreq_gfns(s, nr_pages);
+>> +
+>> +    if ( gfn_eq(base_gfn, INVALID_GFN) )
+>> +        return -ENOMEM;
+>> +
+>> +    mfns = xmalloc_array(mfn_t, nr_pages);
+> 
+> Especially when there are only a few MFNs, this dynamic allocation would be
+> nice to avoid. If there was a not overly larger upper bound, using a per-CPU
+> array might also be an option.
+> 
+> If the dynamic allocation stays, new code wants to use xvmalloc() and
+> friends.
+
+This all goes away for the legacy path we only have a single page so no 
+xmalloc_array anymore.
+
+> 
+>> +    if ( !mfns )
+>> +    {
+>> +        hvm_free_ioreq_gfns(s, base_gfn, nr_pages);
+>> +        return -ENOMEM;
+>> +    }
+>> +
+>> +    /*
+>> +     * Obtain a page reference and writable type reference for each GFN.
+>> +     * No per-page VA is needed; all pages are mapped as a single contiguous
+>> +     * VA via vmap() below.
+>> +     */
+> 
+> I think this comment wants to mention prepare_ring_for_helper(), so that if
+> updates are done there, there's at least a fair chance that people might spot
+> that changes need doing here as well.
+> 
+>> +    for ( i = 0; i < nr_pages; i++ )
+>> +    {
+>> +        struct page_info *pg;
+>> +        p2m_type_t p2mt;
+>> +
+>> +        rc = check_get_page_from_gfn(d, _gfn(gfn_x(base_gfn) + i),
+> 
+> gfn_add() please
+> 
+>> +                                     false, &p2mt, &pg);
+>> +        if ( rc )
+>> +        {
+>> +            if ( rc == -EAGAIN )
+>> +                rc = -ENOENT;
+>> +            goto fail;
+>> +        }
+>> +
+>> +        if ( !get_page_type(pg, PGT_writable_page) )
+>> +        {
+>> +            put_page(pg);
+>> +            rc = -EINVAL;
+>> +            goto fail;
+>> +        }
+>> +
+>> +        mfns[i] = page_to_mfn(pg);
+>> +    }
+>> +
+>> +    /* Map all mfns as single contiguous VA */
+>> +    s->ioreq = vmap(mfns, nr_pages);
+>> +    if ( !s->ioreq )
+>> +    {
+>> +        rc = -ENOMEM;
+>> +        goto fail;
+>> +    }
+>> +
+>> +    s->ioreq_gfn = base_gfn;
+>> +    xfree(mfns);
+>> +
+>> +    return 0;
+>> +
+>> + fail:
+>> +    while ( i-- > 0 )
+>> +    {
+>> +        struct page_info *pg = mfn_to_page(mfns[i]);
+>> +
+>> +        put_page_and_type(pg);
+>> +        put_page(pg);
+> 
+> Same issue here - I can't spot which page reference you're dropping. You
+> obtained only one above.
+
+yes, I forgot to call the alloc_domheap_page.
+> 
+>> @@ -208,6 +382,32 @@ static int hvm_add_ioreq_gfn(struct ioreq_server *s, bool buf)
+>>   
+>>           return rc;
+>>       }
+>> +
+>> +    if ( gfn_eq(s->ioreq_gfn, INVALID_GFN) )
+>> +        return 0;
+>> +
+>> +    nr_pages = nr_ioreq_pages(d);
+>> +    memset(s->ioreq, 0, nr_pages * PAGE_SIZE);
+>> +
+>> +    for ( i = 0; i < nr_pages; i++ )
+>> +    {
+>> +        gfn_t gfn = gfn_add(s->ioreq_gfn, i);
+>> +        struct page_info *pg = vmap_to_page((char *)s->ioreq +
+>> +                                            i * PAGE_SIZE);
+>> +
+>> +        rc = p2m_add_page(d, gfn, page_to_mfn(pg), 0, p2m_ram_rw);
+>> +        if ( rc )
+>> +            /*
+>> +             * No rollback of previously added pages: The caller
+>> +             * (arch_ioreq_server_disable) has no error handling path,
+>> +             * and partial failure here will be cleaned up when the
+>> +             * ioreq server is eventually destroyed.
+>> +             */
+>> +            return rc;
+> 
+> Shouldn't you continue the loop, to try to add back as many pages as
+> you can, so the domain encountering problems later is as unlikely as
+> possible (albeit a single missing page is already bad enough)?
+> 
+>> @@ -260,9 +259,32 @@ bool vcpu_ioreq_handle_completion(struct vcpu *v)
+>>   
+>>   static int ioreq_server_alloc_mfn(struct ioreq_server *s, bool buf)
+>>   {
+>> -    struct ioreq_page *iorp = buf ? &s->bufioreq : &s->ioreq;
+>> +    struct ioreq_page *iorp;
+>>       struct page_info *page;
+>>   
+>> +    if ( !buf )
+>> +    {
+>> +        if ( s->ioreq )
+>> +        {
+>> +            /*
+>> +             * If a guest frame has already been mapped (which may happen
+>> +             * on demand if ioreq_server_get_info() is called), then
+>> +             * allocating a page is not permitted.
+>> +             */
+>> +            if ( !gfn_eq(s->ioreq_gfn, INVALID_GFN) )
+>> +                return -EPERM;
+>> +
+>> +            return 0;
+>> +        }
+>> +
+>> +        s->ioreq = xvzalloc_array(ioreq_t, s->target->max_vcpus);
+>> +
+>> +        return s->ioreq ? 0 : -ENOMEM;
+> 
+> At this point you haven't fulfilled what the function is supposed to be
+> doing. The pages you allocate also aren't associated with the domain,
+> and you haven't obtained writable references.
+
+yes, sorry, same as above I forgot the call to alloc_domheap_page.
+> 
+>> @@ -812,26 +861,30 @@ int ioreq_server_get_frame(struct domain *d, ioservid_t id,
+>>       if ( rc )
+>>           goto out;
+>>   
+>> -    switch ( idx )
+>> +    if ( idx == XENMEM_resource_ioreq_server_frame_bufioreq)
+>>       {
+>> -    case XENMEM_resource_ioreq_server_frame_bufioreq:
+>>           rc = -ENOENT;
+>>           if ( !HANDLE_BUFIOREQ(s) )
+>>               goto out;
+>>   
+>>           *mfn = page_to_mfn(s->bufioreq.page);
+>>           rc = 0;
+>> -        break;
+>> -
+>> -    case XENMEM_resource_ioreq_server_frame_ioreq(0):
+>> -        *mfn = page_to_mfn(s->ioreq.page);
+>> -        rc = 0;
+>> -        break;
+>> +    }
+>> +    else if (( idx >= XENMEM_resource_ioreq_server_frame_ioreq(0) ) &&
+>> +             ( idx < XENMEM_resource_ioreq_server_frame_ioreq(nr_ioreq_pages(d)) ))
+>> +    {
+>> +        unsigned int page_idx = idx - XENMEM_resource_ioreq_server_frame_ioreq(0);
+>>   
+>> -    default:
+>>           rc = -EINVAL;
+>> -        break;
+>> +        if ( idx >= XENMEM_resource_ioreq_server_frame_ioreq(0) &&
+> 
+> You checked this above already, didn't you?
+> 
+>> +             page_idx < nr_ioreq_pages(d) && s->ioreq )
+> 
+> The former part of this check also looks redundant with the earlier one.
+> 
+>> --- a/xen/include/xen/ioreq.h
+>> +++ b/xen/include/xen/ioreq.h
+>> @@ -19,9 +19,19 @@
+>>   #ifndef __XEN_IOREQ_H__
+>>   #define __XEN_IOREQ_H__
+>>   
+>> +#include <xen/macros.h>
+>>   #include <xen/sched.h>
+>>   
+>>   #include <public/hvm/dm_op.h>
+>> +#include <public/hvm/ioreq.h>
+>> +
+>> +/* 4096 / 32 = 128 ioreq slots per page */
+>> +#define IOREQS_PER_PAGE  (PAGE_SIZE / sizeof(ioreq_t))
+> 
+> I think the comment wants dropping, as it would end up wrong / useless for
+> page size different from 4k. I'm also not quite sure the #define is overly
+> useful, as ...
+> 
+>> +static inline unsigned int nr_ioreq_pages(const struct domain *d)
+>> +{
+>> +    return DIV_ROUND_UP(d->max_vcpus, IOREQS_PER_PAGE);
+> 
+> ... this is its only use.
+> 
+> Jan
+
+
+
+--
+Julian Vetter | Vates Hypervisor & Kernel Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
