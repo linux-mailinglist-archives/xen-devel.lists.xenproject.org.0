@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4OAFFj3rpmnjZgAAu9opvQ
+	id gF90C7HrpmnjZgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 15:07:57 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 15:09:53 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB3C11F1105
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 15:07:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244805.1544174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9496E1F118F
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 15:09:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244815.1544184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxQPb-0007hg-8S; Tue, 03 Mar 2026 14:07:47 +0000
+	id 1vxQRO-0008J1-LX; Tue, 03 Mar 2026 14:09:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244805.1544174; Tue, 03 Mar 2026 14:07:47 +0000
+Received: by outflank-mailman (output) from mailman id 1244815.1544184; Tue, 03 Mar 2026 14:09:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxQPb-0007fh-5a; Tue, 03 Mar 2026 14:07:47 +0000
-Received: by outflank-mailman (input) for mailman id 1244805;
- Tue, 03 Mar 2026 14:07:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vxQRO-0008H8-Ir; Tue, 03 Mar 2026 14:09:38 +0000
+Received: by outflank-mailman (input) for mailman id 1244815;
+ Tue, 03 Mar 2026 14:09:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yKVY=BD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vxQPZ-0007fX-MG
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 14:07:45 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 592ae95d-170a-11f1-b164-2bf370ae4941;
- Tue, 03 Mar 2026 15:07:44 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-48334ee0aeaso48303835e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 06:07:44 -0800 (PST)
+ id 1vxQRM-0008H0-Ni
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 14:09:36 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9b13f9eb-170a-11f1-9ccf-f158ae23cfc8;
+ Tue, 03 Mar 2026 15:09:34 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-480706554beso63433095e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 06:09:34 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483c3b4410bsm366195305e9.6.2026.03.03.06.07.41
+ ffacd0b85a97d-439abdf5430sm24477539f8f.5.2026.03.03.06.09.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Mar 2026 06:07:41 -0800 (PST)
+ Tue, 03 Mar 2026 06:09:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,59 +50,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 592ae95d-170a-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 9b13f9eb-170a-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772546863; x=1773151663; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qTpRZslKdHNhiq4x9+zdcy+FrkRxCVCvl4abBnfa+dg=;
-        b=dBMcjxhNVAW6Y0UT3L22XhdOLt2dxV+ue+6X/le4pGyWpGLt+61bi19YHLTRAnxvMQ
-         gE3usq/gUJgc+xQdwitQ506xBqnYcOrGkQ2X89t/Kxedg9YDL3k5CaC7WB8SWWBzByxV
-         10O5IK+nRCjGxLh88gh9VF3N9a5sFEgDRqzs6fygc2hSTTini/TLDdSctle4sIBeyCQ1
-         oj5Sl9QEfHdDs0RjeuGYZMY6y1KN4B8Yl+Mzn1vBr9ixZAcRZ7SEH9aMZta4UAXv0OTe
-         lGdxIL8RnNnNdrGNm7oXi/tGXrJxb4tl4KpJ5oy1CpifqcZCm2agv79kdTjqMlftlmzz
-         xPwQ==
+        d=suse.com; s=google; t=1772546974; x=1773151774; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=PcPUAgrZWGvWRnkTHeShUzedQXW2PkdQLjlKa7JzF0s=;
+        b=MrZto8OGBEkYEKQuulYj7i0e/kWv8bi7rVG/ipxF2+ujoXpBe5IS6/xlsq8jMetuFl
+         L3i3keEFJIQ28/hG3GA5PPyGqoVs88eU6FxKcEkKVQxt0SgJyogLoayKTlqcC/yAyLYV
+         brx4lJU039w1ta6BDn9N8CB0tXMmkjxo8r0RmDc7UI0wVwo2su8ZeD+V6o3kzlEfJ+lD
+         DL+H2+Bn4HtOpRZQ4Af6M++GULOZtfuUZ2hAraW20q3xpQGgm43oW4fPeOCUd6gpB2HB
+         QhPjSuYNlC9kjsPJATStOjW6FtOa5VCJB9tufNf1zICwVicGyrVLMWEyvw8mng1m26S7
+         VPvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772546863; x=1773151663;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20230601; t=1772546974; x=1773151774;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qTpRZslKdHNhiq4x9+zdcy+FrkRxCVCvl4abBnfa+dg=;
-        b=q157k6/sFkSow5HFv4VvPsIBKKx8XHLrF60Ewc6m7cDi2s6sCjB7WC+SiJYB+aqgWQ
-         UR9bCfStLDMl582vOGBswMkGIH2i5klD9FYw/6KwAKRhw3QiEksXxTeQT1HP9L2o+Db5
-         eN0Ahfjrx1yiBmiX4Xe+D3xGq1l11y4u49HdFhBAgQdrl7Lqfh8AfShktiShAO1KZgo5
-         qdM5quPG9NGfqL5p6e/kw3PdJeG4U8X1ffbPN4pMfVdpUd+BmlBLSyqPGpv7W/xQr+y1
-         7MWt9qCwGA0BU0CDkyzP6+JbMSwqNreVLAGGBS18yJqzT0AFEQePbmBbKjwTp/O8WkSU
-         Vf3Q==
-X-Forwarded-Encrypted: i=1; AJvYcCUrhLwWw5u4cddqVt/K4zDqV7+8pTRaKtibmXq5HohqfYEu7DBsT8Eq9fMi4Wge1EEnOflfrs1NzMc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy3mLgIdlbqayoMybFPlCgCaf0PbZ4hhu6hxbYVd4hP7CEf9u4v
-	LG951jj7YnXX0GzZHfiBN7ysb7T1puHDdzbLV9yaVoz5yZOu4BRRlxaSJgPDd5ziaw==
-X-Gm-Gg: ATEYQzzfpFDQ7eWL/vtdk/RE/OnxNp8rKaSU3G8k6t3QCIMdnp65SQhYPOq1zXZvbJx
-	IcJQV2BZtatvut6s2qx9X5iZTJJb9esFOvSBrKUjFhVN3AUCcd68zLVDu8xgHn6sQP6bKHZyP26
-	WYC25WddNNdGr8j1K2peZB8MLoU5mv7ZHMPIsp7mkxN0ugi6tckqunjymBnMDWY3dSpgoNev9UY
-	y0GjeacOUQ1KqJaQ26JOpuPe+MGH96bQTtU0q2qhbBKsIKxQfOwkwMZHxo2QlhcVt/Wmdic5G/m
-	nrd5P3vfTZildpOgUpc7PyXymuNxIN0s8dvm6nZitFuVqtvj1mmWKVxVLDVaoi2NEgiPkThS0f/
-	m3ad+mzaMoeVAyUSNwypSj9YrSqCgKV987+OsEB3TKs10iNEVsgb2LKwfe+wNSNwTnczdoEHyFK
-	kZUfNaUtylM3h18sujbdaSwgBd7+9EOfc5jE/4yHlBDyG5A0HIQM2w4TegU3Cm4LV9lXJ2u/K9p
-	cEYQdp0p2x3tgk=
-X-Received: by 2002:a05:600c:1c15:b0:483:6d4e:9811 with SMTP id 5b1f17b1804b1-483c9c0b6ddmr315268175e9.31.1772546862560;
-        Tue, 03 Mar 2026 06:07:42 -0800 (PST)
-Message-ID: <02d59353-8d59-4151-8428-dd6458f9165b@suse.com>
-Date: Tue, 3 Mar 2026 15:07:40 +0100
+        bh=PcPUAgrZWGvWRnkTHeShUzedQXW2PkdQLjlKa7JzF0s=;
+        b=LX+w9Us5eJfd/iN8U14sVoD1PzboDnRyu+dcpAwPSmW7HUd2DXJuOGhRnRxqZyyLP8
+         tUurJeri5D1bsPWYLfrhe6YkYCYntltaY1TvFwq0haj+ZzZjTDmh/EedJdHPe4J2tzl0
+         A5NHkpsznKkkxZQHf/9SkBUSi9mSzBxPUFWuXaicXvvvs5yeOpWf4oLxkUksGfr4a+tV
+         DwpJxupbk5+2fRJ2dncWNSa2U6PYlnrvmsFCSUzixbqzEl88p60Fn6Vff3BtNTwLEVKS
+         t4E9H8IJenaI2iopdV9m2N0a+qd4LIV3Mwd8QJexqchFURXzpmVZgysIRQWF+Q2/kQVX
+         0MIg==
+X-Forwarded-Encrypted: i=1; AJvYcCXKZqLH7RLo1dqcgJ1oVl3yU0414VEyf/enulEG1A0FVo3uaty+BEY3dk8a7r4jwD5RKEIUk1A2ah8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxjXGRfV9+zOCgzMdtX8/CWUINKThYQYnJ98cXDsC0DKe08Y7tw
+	f1Xam1teIMnZFltJogiT8ajx1hN9RxLTac3MpCuH5oy+cBmY2e2R0Pb9SktArbYsZnUwIslt451
+	5Y/w=
+X-Gm-Gg: ATEYQzxRe4gvk5efVP2bEU+vn4jVDR4aaWJ8sTQaAvOy0OQ9hyZnLoAdmy8Lh3CjwGV
+	EZaZJpb/g/1ChL6BfjBX/X+zHaXNfDIoGKg/uy15tKDVhJIv7EHMO7lVMVBp3NUDiHpcTIf/aow
+	5sjAtGHvvd3ER3bGV7jiCR/8xiZGNH9zcYmx2BBzonRZa570TCFCF6IrRB0gue/vrvqMuUhLmjg
+	YgkO5zb0DUbw/Reh4Q45g8BFedD+fQQhWZmxCJCFDu4t8ZzhPdsJTaZLlrTUXzfzoCcM305KAVS
+	2NVk9GCBubxs8YR4CRkFFmqPHsruSs2nepGUzGITATuRrnKNqFUNQC/VVlwwzqBJFgbCtLGskY3
+	NkFK32CNAmx5VPvEJh6DTuJcow1vAuRL/OSFTKd71Ic2ibtpKXB5qcDiFWmDhB4W97HKiKVECcY
+	JPBVfgAh0EfKKafISuF2GEyAunJXpx0AmHXGH7AIGDraWfsHYOdGyrCCSJyhquEZL5/QmDxGH3V
+	V1BrxRTvRpaBGs=
+X-Received: by 2002:a05:600c:548a:b0:483:aa2:6bce with SMTP id 5b1f17b1804b1-483c9bdb0c2mr262897845e9.30.1772546973894;
+        Tue, 03 Mar 2026 06:09:33 -0800 (PST)
+Message-ID: <803004bf-ab0b-412e-9892-e22db70e918d@suse.com>
+Date: Tue, 3 Mar 2026 15:09:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 3/4] tools/tests/x86_emulator: fix undefined behaviour
  in shift
+From: Jan Beulich <jbeulich@suse.com>
 To: =?UTF-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
 References: <cover.1772189234.git.edwin.torok@citrix.com>
  <cdd62288eed6b147e6c3e6d2c402de36cf3ce42a.1772189234.git.edwin.torok@citrix.com>
+ <02d59353-8d59-4151-8428-dd6458f9165b@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -126,10 +128,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cdd62288eed6b147e6c3e6d2c402de36cf3ce42a.1772189234.git.edwin.torok@citrix.com>
+In-Reply-To: <02d59353-8d59-4151-8428-dd6458f9165b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: AB3C11F1105
+X-Rspamd-Queue-Id: 9496E1F118F
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -138,7 +140,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:dkim,suse.com:email,suse.com:mid];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:edwin.torok@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
@@ -164,19 +166,24 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On 27.02.2026 11:58, Edwin Török wrote:
-> --- a/tools/tests/x86_emulator/test_x86_emulator.c
-> +++ b/tools/tests/x86_emulator/test_x86_emulator.c
-> @@ -1100,7 +1100,7 @@ int main(int argc, char **argv)
->      regs.edi    = (unsigned long)res;
->      rc = x86_emulate(&ctxt, &emulops);
->      if ( (rc != X86EMUL_OKAY) ||
-> -         (*res != ((0x2233445F << 2) | 2)) ||
-> +         (*res != ((0x2233445FUL << 2) | 2)) ||
+On 03.03.2026 15:07, Jan Beulich wrote:
+> On 27.02.2026 11:58, Edwin Török wrote:
+>> --- a/tools/tests/x86_emulator/test_x86_emulator.c
+>> +++ b/tools/tests/x86_emulator/test_x86_emulator.c
+>> @@ -1100,7 +1100,7 @@ int main(int argc, char **argv)
+>>      regs.edi    = (unsigned long)res;
+>>      rc = x86_emulate(&ctxt, &emulops);
+>>      if ( (rc != X86EMUL_OKAY) ||
+>> -         (*res != ((0x2233445F << 2) | 2)) ||
+>> +         (*res != ((0x2233445FUL << 2) | 2)) ||
+> 
+> Why the L when res is an array of unsigned int? With it dropped (happy
+> to do so while committing):
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Why the L when res is an array of unsigned int? With it dropped (happy
-to do so while committing):
-Acked-by: Jan Beulich <jbeulich@suse.com>
+I should probably add that nevertheless it's not quite clear to me what use it
+is to compile the harness source itself with sanitizer options. I can see that
+to be useful for the core emulator files compiled into the harness binary.
 
 Jan
 
