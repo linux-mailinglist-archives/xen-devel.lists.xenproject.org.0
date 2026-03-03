@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +JecHvLSpmk3XQAAu9opvQ
+	id +IL9BEzTpmk3XQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 13:24:18 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 13:25:48 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E63391EF567
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 13:24:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244686.1544074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 418DA1EF5DF
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 13:25:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244694.1544085 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxOn1-0006tC-U3; Tue, 03 Mar 2026 12:23:51 +0000
+	id 1vxOob-0007PK-6y; Tue, 03 Mar 2026 12:25:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244686.1544074; Tue, 03 Mar 2026 12:23:51 +0000
+Received: by outflank-mailman (output) from mailman id 1244694.1544085; Tue, 03 Mar 2026 12:25:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxOn1-0006rK-QQ; Tue, 03 Mar 2026 12:23:51 +0000
-Received: by outflank-mailman (input) for mailman id 1244686;
- Tue, 03 Mar 2026 12:23:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vxOob-0007NP-3p; Tue, 03 Mar 2026 12:25:29 +0000
+Received: by outflank-mailman (input) for mailman id 1244694;
+ Tue, 03 Mar 2026 12:25:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=yKVY=BD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vxOn0-0006rE-FV
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 12:23:50 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d0b6dbf6-16fb-11f1-b164-2bf370ae4941;
- Tue, 03 Mar 2026 13:23:42 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4833115090dso57890925e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 04:23:42 -0800 (PST)
+ id 1vxOoZ-0007N0-SX
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 12:25:27 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0e521b5b-16fc-11f1-9ccf-f158ae23cfc8;
+ Tue, 03 Mar 2026 13:25:25 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-439b611274bso1447805f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 04:25:25 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-485135d4228sm18463455e9.30.2026.03.03.04.23.40
+ ffacd0b85a97d-439b59723fesm15659360f8f.38.2026.03.03.04.25.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Mar 2026 04:23:41 -0800 (PST)
+ Tue, 03 Mar 2026 04:25:24 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,51 +50,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0b6dbf6-16fb-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 0e521b5b-16fc-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772540621; x=1773145421; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772540725; x=1773145525; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wrtzYQRA1AG3GXiJ2C5lpnR+bDdEvX3UQGRRP/xfbFE=;
-        b=cve/GfX2nKmwCQmwjPD0xT6E4rzR2kK48Cd1uOAMwPcDhkNa7rueZ7Sj6nqVTJ0Vkd
-         wgw/aCSCz3au9CXasx2D630mWxzV7NTHNv+APgIM/dNTthkMC/CbOqpHww744y9FUMFL
-         qyR3R5BrcznIQ5YqUKXPCkRw9iDvMPBMbplh9N+vfxw0H+LqWBYhIcf5pa15u+WdeSWh
-         lp5K6yZ2ymAuHQmVazEHKXR8Ep1mi0dHMJSFJeaRfgufJL/sJoJ850ZM7W8QvVc4aMFP
-         he2Tcy++H8Y4bexWRleWIJ0fYyCUAw9dN23FXMF8vl8f910GmXMuKdbzObCat67+AJBt
-         7s9g==
+        bh=glQI9NyYmvZoatxQQXBPml8NKmzywG1lmIdrGzxSNlo=;
+        b=AXF1LHHHyKrQQ93+vKbG5+9WJNVaHl8IyGXKPKCapPpalU5mF6v09wtShr3YIMQwIA
+         Kyu8r9EUhQVDKDTZ3X4Vg97QFvwa2e2hvA/whFog9mXfebg5MNt7scQvaeS+xJMhB4uN
+         8F3DV8iqPLwJwldrNHzOCUyKnmc7tj5EU3aTiJSKtvBoYDwFjzFprNb5auDGmqIGyd+Z
+         DnqyoQZ0fBGsCHM55g2SXNkPczabfCLiAF5WQ6IZBr0DbRRDRDk3IuUMSMFdPsWdZrt+
+         0wJgnJQDA58A+X1Je07C+XsBrvrwS9rJ6i9S/hN8N3ZQaubk53Y70kwYP/nNFsOUw5qi
+         UptQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772540621; x=1773145421;
+        d=1e100.net; s=20230601; t=1772540725; x=1773145525;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wrtzYQRA1AG3GXiJ2C5lpnR+bDdEvX3UQGRRP/xfbFE=;
-        b=OAl9Xc0NRo/ZT7XFEibMIlYZslepKFwUXl2/Mu8NERIJKyHcGJA8tl3+AKrUQmXlXi
-         Lr672TPmgvIREdqinIkkVJz11U+ksnNIvWyu8M/KXF6bcu3M//lM06ZBK8imoOfDxl2M
-         dfQ5S30PeYZzvGKuXonGTbTj81NTOMl2ublEfV29q3qUFCRvT75uvcBRb+hrZPfpB+Zp
-         tapcuZ2V5vQvvTzosg4EIktPJjTSRGeOSB6ltSNTfEdTTpYEX/6dFzRhDGrMjVXM8YzD
-         11h8q3WL8SRRKCK23cqaOwtefGW/mr+IpreA0RsR2ATi1x7k0t4mo2VESv65J4ga5tla
-         NXWw==
-X-Forwarded-Encrypted: i=1; AJvYcCWxxl0z6+F1OU0KMEPWJUZekLK1g7ZE0hcgVZ4KBr9zNHxqdymAcvt9Yq6vtc+Nco9Ck2nl5my/qjU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxasKUhldeKE5TPw+PcfRH77Muct1tYVaeuhLz4mhO84yDlKJo1
-	trTls6w0PujCpT+fuVX75tXaq8F/rf5bVbPPFloaC1JvIdyIESVmUZY0OH0oTDH4fg==
-X-Gm-Gg: ATEYQzxSKP1Vs6yHx5ZZ40L2Fq6NZhNCN0JSkQYCn7liYPrEz2Ud7/wmUwX+BW0Bpwg
-	iO7PU7LCdcok8qmgu9j1eha3U/rpDBOcGzZsToZE4p1YFQG+y2b/g71Ssh9dblGXk5iHWW7OieK
-	OEyS0nQA+N2rQLu8zmUi7Fg5VqFM67vxmwazv0MD/TOM2QD3SOYUDr8h4gW7We5Xh3NQ0cb/A+X
-	I3kktbW4Ct2gGlK8Ex99HLmo43LansirgOMAr0OuqRJgCyK5xTOMMURekulGxeXhKv7kCho/h3a
-	MjfnoRDju8/qCB9+MKASOLn7Fd3kqb+23IHEiycxCm2kBNYSmTjikBVZutub17E3v1h2qIDfj9v
-	ZyM39pcjUbdzJEN5mX+VTlHSEOUpYs6X84EFHlH5EeSfj88qjNHTUk4VRNmw3sGAslfx750rn9S
-	50eNc/HP/Tb0f0fkunat1l29q9i3s/3H8VE+ATnXvI42+jki0Wr0ukFTTMCT6rPBUmp48F18DIV
-	rysJi1vmJNJsUE=
-X-Received: by 2002:a05:600c:3486:b0:480:3a72:524a with SMTP id 5b1f17b1804b1-483c9bed89emr316225055e9.19.1772540621422;
-        Tue, 03 Mar 2026 04:23:41 -0800 (PST)
-Message-ID: <4b67f8cb-43d4-4f18-b2b6-156e21330887@suse.com>
-Date: Tue, 3 Mar 2026 13:23:40 +0100
+        bh=glQI9NyYmvZoatxQQXBPml8NKmzywG1lmIdrGzxSNlo=;
+        b=LfCbCVamSfxc6YRXvBwpDKfxjXKtDGuii6024srlPLMuaatp1cdZ4dyzwKo0L0Seny
+         YTMwmU77UYV+TIVJCOuSHwDrZdmOL1RX8kFtUIV37co7izeyzy7FOdM1pmDjbCfmCadu
+         dRVkEWhAAUjy19iBF0KB97Shjj7LKSmaRYAAmkOepgd+XT9RqtahAhCXLhM3sltL6s6v
+         STsah4p4bFtrQBhpqhFbLN1pD3LnNOeIZtqVx6ehf/EjqHpOtG/fjzsE2w5z72vJkJIM
+         8P0RqPn6mvqk0d7C39UEocn9HIghUUKnQH+/WX9ZWYzgKkMroGBh7Po7PtEd4OlIYDFi
+         WYAg==
+X-Forwarded-Encrypted: i=1; AJvYcCUTaxPwKPiythX5wB9XViJxWRmVkPU/ONBIMyrhkcsfSFWFJHQrYdxyKJGNAiGuiiW0kQk1q9BdXzk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwcgB9APoC9hYYbKfQVHSWUiMGMD05iPhym/ynvZRnQkSFNx0NV
+	BJGQllOVYvALfc9w2zyDljV6RI0M1ba8Cfavc7ty0GPB111UqCYio/wk+knrKAZDLw==
+X-Gm-Gg: ATEYQzxGS1Novu3vD0kxa1Up/qGqqXUPDjqu8r5ZsJKS1kmEO5Y8hsZEkDsIco6QiBT
+	zSKv4vzKOJq4n0px49Dktw5Zd2ZI2Au/CFxGkxqnRb0qpK0Lho+rMbT2EOuLmPdWkAzWKEpR/gZ
+	xaMb4K46Ke1ubMjSVvzKJC5/kBtxnOsiNNm+b1eNwsxQLqrbVp6ZpqF6wIGlkl7kWhN3JTfs0nV
+	5GOxbiHCYovaZR4zWVmDejB4FCXR5NayeK0vP7Kbaf7x47/r3duVpWaQxxR6r1lWQT5Z3tyzROs
+	e6ABiJbEp/w1FrgYefFcJa95SwA0EhqkuSHyLUDICdkS/1y/pl/VIiP6GzUU6kJHhE7XUUhmczK
+	OIwzrL9SPVeH49Z/62urp/AZATQbUOcr0VMjidwYHPgmDpZqIFINaAMd3KC16i6ZVlobadVZjbA
+	pg4KTELal18i8OnnPBRm5kzgw2X9RF4LNkxYL0T0S99QhMvutQfW5GG05cQ7fetQ4R+8uFI1v38
+	bVQN8z2yZev+8Q=
+X-Received: by 2002:a05:600c:8106:b0:47e:e8de:7420 with SMTP id 5b1f17b1804b1-483c9c1d4bamr255211005e9.22.1772540724801;
+        Tue, 03 Mar 2026 04:25:24 -0800 (PST)
+Message-ID: <1607bd00-99a3-4601-a995-e038b4e02d4a@suse.com>
+Date: Tue, 3 Mar 2026 13:25:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/14] xen/riscv: detect and store supported hypervisor
- CSR bits at boot
+Subject: Re: [PATCH v6 02/14] xen/riscv: implement vcpu_csr_init()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -105,7 +104,7 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1772016457.git.oleksii.kurochko@gmail.com>
- <a17b6a117726904a9384dc7d9cc140672d3b0453.1772016457.git.oleksii.kurochko@gmail.com>
+ <9694ff5787d5f162581a16f0974ac9a55c538019.1772016457.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,15 +130,15 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a17b6a117726904a9384dc7d9cc140672d3b0453.1772016457.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <9694ff5787d5f162581a16f0974ac9a55c538019.1772016457.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: E63391EF567
+X-Rspamd-Queue-Id: 418DA1EF5DF
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -147,14 +146,14 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
@@ -173,80 +172,41 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 X-Rspamd-Action: no action
 
 On 26.02.2026 12:51, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/domain.c
-> +++ b/xen/arch/riscv/domain.c
-> @@ -2,9 +2,56 @@
->  
->  #include <xen/init.h>
->  #include <xen/mm.h>
-> +#include <xen/sections.h>
->  #include <xen/sched.h>
->  #include <xen/vmap.h>
->  
-> +#include <asm/cpufeature.h>
-> +#include <asm/csr.h>
-> +
-> +struct csr_masks {
-> +    register_t hedeleg;
-> +    register_t henvcfg;
-> +    register_t hideleg;
-> +    register_t hstateen0;
-> +
-> +    struct {
-> +        register_t hstateen0;
-> +    } ro_one;
-> +};
-> +
-> +static struct csr_masks __ro_after_init csr_masks;
-> +
-> +void __init init_csr_masks(void)
-> +{
-> +    /*
-> +     * The mask specifies the bits that may be safely modified without
-> +     * causing side effects.
-> +     *
-> +     * For example, registers such as henvcfg or hstateen0 contain WPRI
-> +     * fields that must be preserved. Any write to the full register must
-> +     * therefore retain the original values of those fields.
-> +     */
-> +#define INIT_CSR_MASK(csr, field, mask) do { \
-> +        old = csr_read(CSR_##csr); \
-> +        csr_write(CSR_##csr, (old & ~(mask)) | (mask)); \
+> Introduce vcpu_csr_init() to initialise hypervisor CSRs that control
+> vCPU execution and virtualization behaviour before the vCPU is first
+> scheduled.
+> The function configures trap and interrupt delegation to VS-mode by
+> setting the appropriate bits in the hedeleg and hideleg registers,
+> initializes hstatus so that execution enters VS-mode when control is
+> passed to the guest, and restricts guest access to hardware performance
+> counters by initializing hcounteren, as unrestricted access would
+> require additional handling in Xen.
+> When the Smstateen and SSAIA extensions are available, access to AIA
+> CSRs and IMSIC guest interrupt files is enabled by setting the
+> corresponding bits in hstateen0, avoiding unnecessary traps into Xen
+> (note that SVSLCT(Supervisor Virtual Select) name is used intead of
+> CSRIND as OpenSBI uses such name and riscv_encoding.h is mostly based
+> on it).
+> If the Svpbmt extension is supported, the PBMTE bit is set in
+> henvcfg to allow its use for VS-stage address translation. Guest
+> access to the ENVCFG CSR is also enabled by setting ENVCFG bit in
+> hstateen0, as a guest may need to control certain characteristics of
+> the U-mode (VU-mode when V=1) execution environment.
+> 
+> For CSRs that may contain read-only bits (e.g. hedeleg, hideleg,
+> hstateen0), to the written value a correspondent mask is applied to
+> avoid divergence between the software state and the actual CSR
+> contents.
+> 
+> As hstatus is not part of struct arch_vcpu (it already resides in
+> struct cpu_user_regs), introduce vcpu_guest_cpu_user_regs() to provide
+> a uniform way to access hstatus and other guest CPU user registers.
+> 
+> This establishes a consistent and well-defined initial CSR state for
+> vCPUs prior to their first context switch.
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-I (now) agree csr_swap() can't be used here, but isn't the above
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-    old = csr_read_set(CSR_##csr, mask);
-
-?
-
-> +        csr_masks.field = csr_swap(CSR_##csr, old); \
-> +    } while (0)
-> +
-> +    register_t old;
-
-Since the macro uses the variable, this decl may better move up.
-
-> +    INIT_CSR_MASK(HEDELEG, hedeleg, ULONG_MAX);
-> +    INIT_CSR_MASK(HIDELEG, hideleg, ULONG_MAX);
-> +
-> +    INIT_CSR_MASK(HENVCFG, henvcfg, _UL(0xE0000003000000FF));
-
-This raw hex number (also the other one below) isn't quite nice. Can we have
-a #define for this, please? It doesn't need to live in a header file if it's
-not going to be used anywhere else.
-
-> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_smstateen) )
-> +    {
-> +        INIT_CSR_MASK(HSTATEEN0, hstateen0, _UL(0xDE00000000000007));
-> +        csr_masks.ro_one.hstateen0 = old;
-
-What guarantees that only r/o-one bits are set in the incoming hstateen0? I
-can't help thinking that to determine those bits you want to use
-csr_read_clear() (or csr_clear()).
-
-> +    }
-
-#undef INIT_CSR_MASK
-
-Jan
 
