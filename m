@@ -2,45 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UBqVGajipmnpYgAAu9opvQ
+	id +CDjEpfjpmnpYgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 14:31:20 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 14:35:19 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93CF01F0475
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 14:31:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244752.1544125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B182A1F05D6
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 14:35:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244765.1544135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxPq5-00019g-J2; Tue, 03 Mar 2026 13:31:05 +0000
+	id 1vxPtz-0001k9-3B; Tue, 03 Mar 2026 13:35:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244752.1544125; Tue, 03 Mar 2026 13:31:05 +0000
+Received: by outflank-mailman (output) from mailman id 1244765.1544135; Tue, 03 Mar 2026 13:35:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxPq5-00017i-G1; Tue, 03 Mar 2026 13:31:05 +0000
-Received: by outflank-mailman (input) for mailman id 1244752;
- Tue, 03 Mar 2026 13:31:04 +0000
+	id 1vxPtz-0001h1-04; Tue, 03 Mar 2026 13:35:07 +0000
+Received: by outflank-mailman (input) for mailman id 1244765;
+ Tue, 03 Mar 2026 13:35:05 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SHXM=BD=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1vxPq4-00017a-1k
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 13:31:04 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
+ (envelope-from <SRS0=yKVY=BD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vxPtx-0001gi-HZ
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 13:35:05 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3886b18c-1705-11f1-9ccf-f158ae23cfc8;
- Tue, 03 Mar 2026 14:31:01 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id
- a640c23a62f3a-b9358dd7f79so864041366b.1
- for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 05:31:01 -0800 (PST)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
- (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
- [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b935ab146bdsm591186066b.6.2026.03.03.05.31.00
+ id c8ad0013-1705-11f1-9ccf-f158ae23cfc8;
+ Tue, 03 Mar 2026 14:35:03 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4837634de51so23779425e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 05:35:03 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-483c3b3ce8fsm352299085e9.4.2026.03.03.05.35.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Mar 2026 05:31:00 -0800 (PST)
+ Tue, 03 Mar 2026 05:35:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,247 +50,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3886b18c-1705-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: c8ad0013-1705-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772544661; x=1773149461; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=YDqxSfaFOqi6+CSHyuKH19eODmP7e7ddf6Er21nJG6M=;
-        b=B2KlLuxvwCiox0zi8uSEL7IHE8X4lKAw1dvxcET6ogp0bvdwYN3Q9jDz/DMKYuiL8u
-         3ajeCR53z1VSsY8lRr8eHmXt+KlA5LFs9fKfenfQawKfhjyEfv4qMTN1+JG5YvvL81nq
-         ON630Bq4X4Yu+kC7RbrNfJ9JUas+UNQjx8eSZV9XV/qZWMnCOFdWHlud4sO29r1q0lRU
-         EQpXrRz5+aoXtLRbEgMDXYVGzsfWBtr0K55LYir/3JffwBqXyL0i9L14mdH4vLYeP+nq
-         xXK9HVc/OFFR0O4U2fdf9Uyffnh1y6lgcYKMiMQes/JrpPEApBpgXX9fX7JmmcTXiaqJ
-         X3qA==
+        d=suse.com; s=google; t=1772544903; x=1773149703; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=BOScuocRZ/Rl9yggjOBZAfpMkRprvyewmshNYbrzw8A=;
+        b=Htvyj5/QpHx2UxtK1YGz918JFsdkdO06nQBCGiMwZnpml8jdUBSq1o+qeQsUFr88DJ
+         b+GAJD78GKMJKH3PYFHvUmvuMYq45LlyNcEfhYfKO+C/g+fock9qeWnD5oytxOZKQrL5
+         0u95AoOHB8o/1PHqyMJINNQBGTABR48fIPUHdHZihrK6Pf73LD3rga7Mg8WTLA/XZGqV
+         2fzt6cnLNtH9v7xM651Df2yQWMLFabQNKUxCIVUxBO/GvVRq/4/5wvLn6kauJVXfl+Ix
+         g9uOcMdr0T2Ho7zcQn9hFzfra8khmi+wOzbsB+7Iw4+MMXfo6+/ITupaelMVS+CFW97K
+         bWRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772544661; x=1773149461;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=YDqxSfaFOqi6+CSHyuKH19eODmP7e7ddf6Er21nJG6M=;
-        b=hKcLKyapaFukvpGOo1FpA/q0uq32cegnASA9y4zIDQFf0YFeso6qAzW3vFZ4lVAhgc
-         9i/LoaYb/doYvROoV+6We4L6SZcZMiDgeqkqop67QA+msgipdsSHey/dPcwcdL2Fr0Rj
-         P/h6VLLe+sc6GRjNuaM8MRELZMjvumkhFg079BYCFtyvUes4lJXEODzgmB/pmgh93iLW
-         RZTdPKbJlZTOxcDg9FudV4LIhS/Q3UuwHP1MEdtMh/8vGYidKnGXc3bKvchcDwpGG8sJ
-         WpmO8u8nF5Hjn/PdFE5BQQOTUmq9xQRfXvYFIavMXq7RdeMbMQjLcOLdFnqZ8H9d6/mj
-         tGYw==
-X-Forwarded-Encrypted: i=1; AJvYcCWxkS1PVEIoH0PwI+NjH18n/PQepp4xC030nVqto6HAbhTKgS0nkfYyZeZvAKpZfN4LGOtHBDaJn4U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyZ9Xmx/uACCKjyAxWffLM34ztfdJYKszPvpypY3weL1k2YE8wg
-	8EaBtcAxo+VTWc3Ciih1/RJyqjeN8eKo45cNjMrZlzgLRITI/cfGY4CnA3FR1hdcqT0=
-X-Gm-Gg: ATEYQzzSXXbzqNJ8EFh9RkbU65xIiI5xFALXhRTIgs6L22Ewz8xN8MsMhe642vJEVPp
-	oZ5u/shwgEdVaGAyiY5/T3jb+QOTOD3youg6Yp28jZlMKiFwAC18ADK0xTfabQgJ3hVOSorKUDR
-	/ow9PLKTmEq32lXUW1k0n5qIX8JWMp6lXspey8AVs9MwAXOoFyYnWzK2+avZslrjJQB3ycKalzq
-	vOLgyr0NXRIaVnmzjqPbZXiHpKK1DkB8l7uDD+EM4n0zcpZHws3MqnTskNbvwzk27p4r5QaWVnp
-	Gk90j3StSi6aVF9OFf1qfVNO50FeErHubkJm7gNOijyDDo2EMl3lI7q/lpEelJcS+rkB1Va8sxo
-	nQlLHvwZWZdIUbKkQB20M2tug1tyHFokCXfniVvP+5RKMMOSAu1TaeJCweWk5La/bFl+Ltuhg2c
-	5QaBVfYvY6G3Y84qersr43hskGer69faiQ8piK7zJxl3y/sGaLFFINrsXiw+xlOIWGztfuy3UVJ
-	yPK5FcF+p91iW4L/nuCkzW/P0oGWMnSW1kojOmNjN7upFBAkeUmgQ==
-X-Received: by 2002:a17:907:d1d:b0:b93:5297:b3a2 with SMTP id a640c23a62f3a-b93765c5b04mr1083941466b.59.1772544660983;
-        Tue, 03 Mar 2026 05:31:00 -0800 (PST)
-Message-ID: <b213d7b9-0d94-4c9c-a1a0-dd78abcb6426@suse.com>
-Date: Tue, 3 Mar 2026 14:31:00 +0100
+        d=1e100.net; s=20230601; t=1772544903; x=1773149703;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BOScuocRZ/Rl9yggjOBZAfpMkRprvyewmshNYbrzw8A=;
+        b=s89rxUEOf1VGWnlDfkl8cb/4bWgabx+esxUvLfQvy6ZgmzUggwyhpXNoZ4CekWC3tW
+         Ukd4KW3FLFRWp6/PI59ddf5tafuhU3S8h+cFO2n2aT30vN5yY81BdCALbRY0Popn8SVw
+         fT4zgxh+oJrpnVdEfeoZF+s8dzq1inTSnvI2Yh5jqahqX4sp5938109CmFh5hum1lTVL
+         Aapqt5IanzmB0c7n/CQHCIyLWsqkt1oaFxnXkRP7E6nnGKioNjh8O9fXNBefDJGbkNDz
+         f4aVBS9/r7v/7j+IOGaPf6LpG6l1WgJmuI4HVGSQb7vaWe6DZlYqtbtgjfoIUArzWEqR
+         ysuw==
+X-Forwarded-Encrypted: i=1; AJvYcCVCfIVd6q6IBgjOpMwRUEXFWIQzsttyLCdDrwGs4XknVtC5G6amNHTn36/tQ4SxBxv429O22Xa9aIg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx4su3Aww/SugBh7qu3k/0ED5Gk4LBecuU1Jor6Qc9so7CxxXNd
+	G11VvpjVWC1DZDHdQAEI7EwO01bxp72Q+oYXcoUhY1k2K+Tq2LvB/LmqkdOgxTtybA==
+X-Gm-Gg: ATEYQzw2617Ab3st4wH8NUOqXYEAuYgFH6g0FKTawmqlAo/LkApSdtxRELzt43Nbr4V
+	5aZsSvUoRNyB2qXJkVfw2T+2Q96XGLYhs7U7sngqNYOScC+UH6TWVcmIaCtSdg4ZHrho3DjFILB
+	GXsRIaTczS8VS6jGwSFoFjGBxpulnPVbTuXpPGF8gQOE0nGIxNa7As/7kdcP1VKYMTZux2p3UMq
+	M1dQgUJDnXRqIY4EbseAfVd6hHUhlrTvK/mFHkMlFSE1nZrd3+gPSlADmASCkd+vna1hGI9W+LT
+	4fGdXf7bhEhDxvHoaQu62lxrRDRw1wE+coWe8NOCK+MU9fjMG57/aF+25h/Y2u8LR96b4q/spjT
+	FnoXdbOp7mMc2MlOoXlFPINKUmCWcL62lsFzQTdFiurz0gAWYwFNXbemqR3iYcvd14x47vrfVA6
+	04FjPFRwIoaV3CQBB1If3S1oqfdhmaJ+oqAbmkQAYVY8oULYPwhd4yOlF5wR6ilCJrCuMchfigu
+	qlUSr1FmimOcnKGsP/LJ/kfjA==
+X-Received: by 2002:a05:600c:4444:b0:475:de12:d3b5 with SMTP id 5b1f17b1804b1-483c9c323d8mr250859045e9.34.1772544902787;
+        Tue, 03 Mar 2026 05:35:02 -0800 (PST)
+Message-ID: <6357ad3f-85c8-4fe4-a2c8-8b0a0a97f1b3@suse.com>
+Date: Tue, 3 Mar 2026 14:35:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/PVH: Use boot params to pass RSDP address in
- start_info page
-To: Hou Wenlong <houwenlong.hwl@antgroup.com>, linux-kernel@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- xen-devel@lists.xenproject.org
-References: <76675c4d49d3a8f72252076812ef8f22276230c2.1772282441.git.houwenlong.hwl@antgroup.com>
+Subject: Re: [PATCH v6 03/14] xen/riscv: introduce tracking of pending vCPU
+ interrupts, part 1
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1772016457.git.oleksii.kurochko@gmail.com>
+ <a1954e9a30abace453f4604a47b43ecbcebe350a.1772016457.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <76675c4d49d3a8f72252076812ef8f22276230c2.1772282441.git.houwenlong.hwl@antgroup.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------i2y75WnCP7J0ez480mRl2LPE"
-X-Rspamd-Queue-Id: 93CF01F0475
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <a1954e9a30abace453f4604a47b43ecbcebe350a.1772016457.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: B182A1F05D6
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.08 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid];
-	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:houwenlong.hwl@antgroup.com,m:linux-kernel@vger.kernel.org,m:boris.ostrovsky@oracle.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
+	NEURAL_HAM(-0.00)[-0.999];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	HAS_ATTACHMENT(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------i2y75WnCP7J0ez480mRl2LPE
-Content-Type: multipart/mixed; boundary="------------nT0luGH0skdzcdB98AO3VOAz";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Hou Wenlong <houwenlong.hwl@antgroup.com>, linux-kernel@vger.kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- xen-devel@lists.xenproject.org
-Message-ID: <b213d7b9-0d94-4c9c-a1a0-dd78abcb6426@suse.com>
-Subject: Re: [PATCH 1/2] x86/PVH: Use boot params to pass RSDP address in
- start_info page
-References: <76675c4d49d3a8f72252076812ef8f22276230c2.1772282441.git.houwenlong.hwl@antgroup.com>
-In-Reply-To: <76675c4d49d3a8f72252076812ef8f22276230c2.1772282441.git.houwenlong.hwl@antgroup.com>
+On 26.02.2026 12:51, Oleksii Kurochko wrote:
+> Based on Linux kernel v6.16.0.
+> Note that smp_wmb() is used instead of smp_mb__before_atomic() as what
+> we want to guarantee that if a bit in irqs_pending_mask is obversable
+> that the correspondent bit in irqs_pending is observable too.
+> 
+> Add lockless tracking of pending vCPU interrupts using atomic bitops.
+> Two bitmaps are introduced:
+>  - irqs_pending — interrupts currently pending for the vCPU
+>  - irqs_pending_mask — bits that have changed in irqs_pending
+> 
+> The design follows a multi-producer, single-consumer model, where the
+> consumer is the vCPU itself. Producers may set bits in
+> irqs_pending_mask without a lock. Clearing bits in irqs_pending_mask is
+> performed only by the consumer via xchg(). The consumer must not write
+> to irqs_pending and must not act on bits that are not set in the mask.
+> Otherwise, extra synchronization should be provided.
+> 
+> On RISC-V interrupts are not injected via guest registers, so pending
+> interrupts must be recorded in irqs_pending (using the new
+> vcpu_{un}set_interrupt() helpers) and flushed to the guest by updating
+> HVIP before returning control to the guest. The consumer side is
+> implemented in a follow-up patch.
+> 
+> A barrier between updating irqs_pending and setting the corresponding
+> mask bit in vcpu_set_interrupt()/vcpu_unset_interrupt() guarantees
+> that if the consumer observes a mask bit set, the corresponding pending
+> bit is also visible. This prevents missed interrupts during the flush.
+> 
+> It is possible that a guest could have pending bit in the hardware
+> register without being marked pending in irq_pending bitmap as:
+>   According to the RISC-V ISA specification:
+>     Bits hip.VSSIP and hie.VSSIE are the interrupt-pending and
+>     interrupt-enable  bits for VS-level software interrupts. VSSIP in hip
+>     is an alias (writable) of the same bit in hvip.
+>   Additionally:
+>     When bit 2 of hideleg is zero, vsip.SSIP and vsie.SSIE are read-only
+>     zeros. Else, vsip.SSIP and vsie.SSIE are aliases of hip.VSSIP and
+>     hie.VSSIE.
+> This means the guest may modify vsip.SSIP, which implicitly updates
+> hip.VSSIP and the bit being written with 1 would also trigger an interrupt
+> as according to the RISC-V spec:
+>   These conditions for an interrupt trap to occur must be evaluated in a
+>   bounded   amount of time from when an interrupt becomes, or ceases to be,
+>   pending in sip,  and must also be evaluated immediately following the
+>   execution of an SRET  instruction or an explicit write to a CSR on which
+>   these interrupt trap conditions expressly depend (including sip, sie and
+>   sstatus).
+> What means that IRQ_VS_SOFT must be synchronized separately, what is done
+> in vcpu_sync_interrupts(). Note, also, that IRQ_PMU_OVF would want to be
+> synced for the similar reason as IRQ_VS_SOFT, but isn't sync-ed now as
+> PMU isn't supported now.
+> 
+> For the remaining VS-level interrupt types (IRQ_VS_TIMER and
+> IRQ_VS_EXT), the specification states they cannot be modified by the guest
+> and are read-only because of:
+>   Bits hip.VSEIP and hie.VSEIE are the interrupt-pending and interrupt-enable
+>   bits for VS-level external interrupts. VSEIP is read-only in hip, and is
+>   the logical-OR of these interrupt sources:
+>     • bit VSEIP of hvip;
+>     • the bit of hgeip selected by hstatus.VGEIN; and
+>     • any other platform-specific external interrupt signal directed to
+>       VS-level.
+>   Bits hip.VSTIP and hie.VSTIE are the interrupt-pending and interrupt-enable
+>   bits for VS-level timer interrupts. VSTIP is read-only in hip, and is the
+>   logical-OR of hvip.VSTIP and any other platform-specific timer interrupt
+>   signal directed to VS-level.
+> and
+>   When bit 10 of hideleg is zero, vsip.SEIP and vsie.SEIE are read-only zeros.
+>   Else, vsip.SEIP and vsie.SEIE are aliases of hip.VSEIP and hie.VSEIE.
+> 
+>   When bit 6 of hideleg is zero, vsip.STIP and vsie.STIE are read-only zeros.
+>   Else, vsip.STIP and vsie.STIE are aliases of hip.VSTIP and hie.VSTIE.
+> and also,
+>   Bits sip.SEIP and sie.SEIE are the interrupt-pending and interrupt-enable
+>   bits for supervisor-level external interrupts. If implemented, SEIP is
+>   read-only in sip, and is set and cleared by the execution environment,
+>   typically through a platform-specific interrupt controller.
+> 
+>   Bits sip.STIP and sie.STIE are the interrupt-pending and interrupt-enable
+>   bits for supervisor-level timer interrupts. If implemented, STIP is
+>   read-only in sip, and is set and cleared by the execution environment
+> Thus, for these interrupt types, it is sufficient to use vcpu_set_interrupt()
+> and vcpu_unset_interrupt(), and flush them during the call of
+> vcpu_flush_interrupts() (which is introduced in follow up patch).
+> 
+> vcpu_sync_interrupts(), which is called just before entering the VM,
+> slightly bends the rule that the irqs_pending bit must be written
+> first, followed by updating the corresponding bit in irqs_pending_mask.
+> However, it still respects the core guarantee that the producer never
+> clears the mask and only writes to irqs_pending if it is the one that
+> flipped the corresponding mask bit from 0 to 1.
+> Moreover, since the consumer won't run concurrently because
+> vcpu_sync_interrupts() and the consumer path are going to be invoked
+> sequentially immediately before VM entry, it is safe to slightly relax
+> this ordering rule in vcpu_sync_interrupts().
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in v6:
+>  - Drop for the moment:
+>        /* Read current HVIP and VSIE CSRs */
+>        v->arch.vsie = csr_read(CSR_VSIE);
+>    from vcpu_sync_interrupts() as it isn't used at the moment and will
+>    be introduced when a usage will be more clear.
 
---------------nT0luGH0skdzcdB98AO3VOAz
-Content-Type: multipart/mixed; boundary="------------orrsVUFl5m1rKOY4H1tIeSMX"
+With this, shouldn't the RV32 related #ifdef in vcpu_sync_interrupts() also
+go away?
 
---------------orrsVUFl5m1rKOY4H1tIeSMX
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> +void vcpu_sync_interrupts(struct vcpu *v)
 
-T24gMDEuMDMuMjYgMDY6MDQsIEhvdSBXZW5sb25nIHdyb3RlOg0KPiBBZnRlciBjb21taXQg
-ZTZlMDk0ZTA1M2FmNzUgKCJ4ODYvYWNwaSwgeDg2L2Jvb3Q6IFRha2UgUlNEUCBhZGRyZXNz
-IGZyb20NCj4gYm9vdCBwYXJhbXMgaWYgYXZhaWxhYmxlIiksIHRoZSBSU0RQIGFkZHJlc3Mg
-Y2FuIGJlIHBhc3NlZCBpbiBib290DQo+IHBhcmFtcy4gVGhlcmVmb3JlLCBzdG9yZSB0aGUg
-UlNEUCBhZGRyZXNzIGluIHN0YXJ0X2luZm8gcGFnZSBpbnRvIGJvb3QNCj4gcGFyYW1zIGlu
-IHRoZSBQVkggZW50cnkgaW5zdGVhZCBvZiByZWdpc3RlcmluZyBhIGRpZmZlcmVudCBjYWxs
-YmFjay4NCj4gVGhpcyByZW1vdmVzIGFuIGFic29sdXRlIHJlZmVyZW5jZSBkdXJpbmcgdGhl
-IFBWSCBlbnRyeSBhbmQgaXMgbW9yZQ0KPiBzdGFuZGFyZGl6ZWQuDQo+IA0KPiBTaWduZWQt
-b2ZmLWJ5OiBIb3UgV2VubG9uZyA8aG91d2VubG9uZy5od2xAYW50Z3JvdXAuY29tPg0KDQpS
-ZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJn
-ZW4NCg==
---------------orrsVUFl5m1rKOY4H1tIeSMX
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+The sole caller passes "current". Are other uses of this function planned?
+If not either "current" wants directly using here, or minimally the parameter
+wants renaming to "curr". In fact ...
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> +{
+> +    unsigned long hvip = csr_read(CSR_HVIP);
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+... this suggests it's unlikely for the function to be valid to call with
+other than "current".
 
---------------orrsVUFl5m1rKOY4H1tIeSMX--
-
---------------nT0luGH0skdzcdB98AO3VOAz--
-
---------------i2y75WnCP7J0ez480mRl2LPE
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmmm4pQFAwAAAAAACgkQsN6d1ii/Ey8k
-awf/SmZxH+cZSgJr0qTp+hQqI6YFOWEweAJeNxCVDVY0ZINrR6J2UUqQKmJ8OKbmP61QyOqtXjfY
-8+tQBCklIYQSwn1iLJz+PmYj9XRVPeI8FL40h10IHS7ZlFWRZC1MwRJGTA7ZhITBWurklcs0YX3V
-TIGH2RKQAeG2yd0hQ62e+SigCTLwcMFsRsbltzU63b8KbmUe/vHQG8ME2Ab210gKXch/UOfjWChM
-+P2eiIMh89iT+93rrm4b2FrQaeh1UNBFfDhSZxAVwIYo5zv65pfggho16AJOPQJh6ra3XKx14LxE
-XWHNsQTfpSkqlb1EbwAUpKQGU6UiyFuR85dhagfZKw==
-=7hZ6
------END PGP SIGNATURE-----
-
---------------i2y75WnCP7J0ez480mRl2LPE--
+Jan
 
