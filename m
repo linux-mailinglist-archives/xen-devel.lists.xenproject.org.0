@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ULjUGMe5pmk7TAAAu9opvQ
+	id iJMNHTW9pmlDTQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 11:36:55 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 11:51:33 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6E9D1ECBAE
-	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 11:36:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1244636.1544046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C841C1ECF92
+	for <lists+xen-devel@lfdr.de>; Tue, 03 Mar 2026 11:51:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1244645.1544055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxN75-0001D5-Vi; Tue, 03 Mar 2026 10:36:27 +0000
+	id 1vxNLE-0003tl-5K; Tue, 03 Mar 2026 10:51:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1244636.1544046; Tue, 03 Mar 2026 10:36:27 +0000
+Received: by outflank-mailman (output) from mailman id 1244645.1544055; Tue, 03 Mar 2026 10:51:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxN75-00019y-SC; Tue, 03 Mar 2026 10:36:27 +0000
-Received: by outflank-mailman (input) for mailman id 1244636;
- Tue, 03 Mar 2026 10:36:26 +0000
+	id 1vxNLE-0003rp-2I; Tue, 03 Mar 2026 10:51:04 +0000
+Received: by outflank-mailman (input) for mailman id 1244645;
+ Tue, 03 Mar 2026 10:51:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JRO9=BD=bounce.vates.tech=bounce-md_30504962.69a6b9a7.v1-8d3d45f8eee04d98930e521723555683@srs-se1.protection.inumbo.net>)
- id 1vxN74-00019c-PO
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 10:36:26 +0000
+ <SRS0=8rqN=BD=bounce.vates.tech=bounce-md_30504962.69a6bd13.v1-ea06e0878b7b46b086ed0fd05c3267ec@srs-se1.protection.inumbo.net>)
+ id 1vxNLC-0003rj-Mg
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 10:51:02 +0000
 Received: from mail178-23.suw51.mandrillapp.com
  (mail178-23.suw51.mandrillapp.com [198.2.178.23])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d3a96872-16ec-11f1-b164-2bf370ae4941;
- Tue, 03 Mar 2026 11:36:25 +0100 (CET)
+ id dd9c5c03-16ee-11f1-b164-2bf370ae4941;
+ Tue, 03 Mar 2026 11:51:01 +0100 (CET)
 Received: from pmta13.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
  by mail178-23.suw51.mandrillapp.com (Mailchimp) with ESMTP id
- 4fQBzq5d3Vz35hTbg
- for <xen-devel@lists.xenproject.org>; Tue,  3 Mar 2026 10:36:23 +0000 (GMT)
+ 4fQCJg2r81z35hTPt
+ for <xen-devel@lists.xenproject.org>; Tue,  3 Mar 2026 10:50:59 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 8d3d45f8eee04d98930e521723555683; Tue, 03 Mar 2026 10:36:23 +0000
+ ea06e0878b7b46b086ed0fd05c3267ec; Tue, 03 Mar 2026 10:50:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,224 +48,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3a96872-16ec-11f1-b164-2bf370ae4941
+X-Inumbo-ID: dd9c5c03-16ee-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1772534183; x=1772804183;
-	bh=d+Gf5ULgHW5IJhmRmxNvkZtOOex1lueb4vEqeJbOAEo=;
+	s=mte1; t=1772535059; x=1772805059;
+	bh=do0k8s2/i826y+Ow/hLp7T1yQxJuUBshAis7wonRKd4=;
 	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=0LnmLmxtqNLtQU25CztmGHzOy1A6Yvbs7ImxTsfJ3C360s/mp5hb3EpC4QHjlwwnO
-	 lE0vVXOj+olkoAoM2oGjMe1qjxk793Uu1JHKvjj4UIkAEd6ZD5gc8oM9VcSDS5BWlk
-	 ctTMFney1cXd5rcFr25GXHXL2y9kZN9VEeh0SFbo0dNePFRw4eKmzkNvrl9xBeThs/
-	 36N4kVCIGZNeA3Am57hAUd5JcIHM7BXJ1Yg2A8E609hpctjzs7rxIwYnDHEmmyEs47
-	 j+Avq3b8k+morkbr4oYoCp3IJSqrg3V9wn53kYQUY+IRPjZknitrcF8t7A3RAh8Vvk
-	 EURZcwfKEB8fA==
+	b=cTVP2bAnarTtOKyVMrsywXgynHkNhqbofs3Xa1jDXr4pefIs0y1T2yYT6N0wl0MxZ
+	 6AjEfweHLtXDPlKK/drjBc7JpYltpctWvM6Mc5AtpGoS0LM69D/xnc/HWOSBrLdaaj
+	 I5ioaEEYzcSu1h3KpH2zW66nJBTJ9W7QMgQ5soougpWz6A9ygsKLtqzg/q3vq/3Obo
+	 yyROVdLbSO6P0kI1Z8B6ni761uCvj8FCsUwPMtF2bKJwcJgn4OfjJBj9UZGcIDA3Kq
+	 UM/nU5dV3x8J6HAHoF6NLSR7Ul85xFeePWnDH9KUyvkfXyVbQTM1auvA2M3VHlLedk
+	 Sg7M+SFxyzhMQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1772534183; x=1772794683; i=teddy.astie@vates.tech;
-	bh=d+Gf5ULgHW5IJhmRmxNvkZtOOex1lueb4vEqeJbOAEo=;
+	t=1772535059; x=1772795559; i=teddy.astie@vates.tech;
+	bh=do0k8s2/i826y+Ow/hLp7T1yQxJuUBshAis7wonRKd4=;
 	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=w8FX3NsIaVATAV2a/zLFRwUN5ztoAG/aLW6RxscDgWf+SFl/oBu4J/C7kfFIUD3mJ
-	 UCtRKybt08TojYaEFUwb0+hFofMjB/Q98zJMlIettxtnschstLZXyAbKvv+G2UPf/n
-	 NY8h+iKKMmEd6eomkxaYlceUynLYmwyxmlnplevoHEWMMBlvDbSvn06bB85l4VjXuW
-	 tP5OWOjyZNmBs2/YjnpeS3ybwX0bRWpez+CBqM9+/SHQuGEHdXgx5A7py80HswL1aR
-	 0cPdlSUJYx2lNA0TrXgcQ4StDKgRl2hbhmCwEDGzs2WP5F+YXnaESHlefr/2lpVp+U
-	 p0FNd5jngJahw==
+	b=f9HmVMI56qfEH8anX9Gs8JrLjAkmkrabnl1tC01djOJrTZhbReeruAuo40AFe0wqf
+	 Ja4gIIPrbzuPq4YAFOPT9bsoWr4hPDhFuennQQfoMl4wPdI4k7CVj1XC8RmiO5ESH1
+	 2UjLfeo9s7k2wtPhq4UYS4sPmJA+48rgXKDMAGdPiUNAX0C0dej3s4WFRFH3ovogjE
+	 5kn2OOIVSfHd9UZoNpoZHKqrXYQApi2GHgiqmMJxcuOIFC1AEQVyjLQYETex+gHNXt
+	 VVsALa9mMhkp4YDbG4pdV39d+D/nNFjkaYb4ZgdybL/rpg0ug7tu17fwGRqoout0c8
+	 TKtgntzKffBXQ==
 From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v8=201/2]=20libxc:=20Report=20consistent=20errors=20in=20xc=5Fresource=5Fop?=
+Subject: =?utf-8?Q?Re:=20[PATCH=20v8=202/2]=20xenpm:=20Add=20get-core-temp=20subcommand?=
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1772534183074
-Message-Id: <effebb3c-fc3c-4f6f-a3a5-f59e7d982ab5@vates.tech>
-To: "Anthony PERARD" <anthony.perard@vates.tech>
-Cc: xen-devel@lists.xenproject.org, "Juergen Gross" <jgross@suse.com>
-References: <ec92e54a493a16f5bc085738e943b3778c3a0231.1772211384.git.teddy.astie@vates.tech> <aaWo9FfgQMYvy_2I@l14>
-In-Reply-To: <aaWo9FfgQMYvy_2I@l14>
+X-Bm-Transport-Timestamp: 1772535058591
+Message-Id: <4c18413b-6296-4a30-bbec-561f7b802cbc@vates.tech>
+To: "Jan Beulich" <jbeulich@suse.com>
+Cc: "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Community Manager" <community.manager@xenproject.org>, "Anthony PERARD" <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <ec92e54a493a16f5bc085738e943b3778c3a0231.1772211384.git.teddy.astie@vates.tech> <aadf2e78f91f442964cc4e93c028b6b31fceb9eb.1772211384.git.teddy.astie@vates.tech> <7380cf63-e9ac-4df9-9633-c26f9de0027a@suse.com>
+In-Reply-To: <7380cf63-e9ac-4df9-9633-c26f9de0027a@suse.com>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.8d3d45f8eee04d98930e521723555683?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.ea06e0878b7b46b086ed0fd05c3267ec?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20260303:md
-Date: Tue, 03 Mar 2026 10:36:23 +0000
+Date: Tue, 03 Mar 2026 10:50:59 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Queue-Id: C6E9D1ECBAE
+X-Rspamd-Queue-Id: C841C1ECF92
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.51 / 15.00];
+X-Spamd-Result: default: False [5.01 / 15.00];
 	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUSPICIOUS_RECIPS(1.50)[];
 	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
 	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo,vates.tech:dkim,vates.tech:email,vates.tech:url,vates.tech:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim];
+	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:jgross@suse.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:oleksii.kurochko@gmail.com,m:community.manager@xenproject.org,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	NEURAL_SPAM(0.00)[0.994];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[gmail.com,xenproject.org,vates.tech,lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
+	RCPT_COUNT_FIVE(0.00)[5];
+	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_SPAM(0.00)[0.996];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MISSING_XM_UA(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-Le 02/03/2026 =C3=A0 16:14, Anthony PERARD a =C3=A9crit=C2=A0:
-> On Fri, Feb 27, 2026 at 05:00:05PM +0000, Teddy Astie wrote:
->> xc_report_op doesn't update errno in some error conditions.
->> Make sure it reports -ENOMEM in out of memory errors and -EINVAL
->> in invalid usages errors.
->>
->> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->> ---
->> v7: Introduced
->> v8: Use errno to report errors
->>
->>   tools/libs/ctrl/xc_resource.c | 11 +++++++++++
->>   1 file changed, 11 insertions(+)
->>
->> diff --git a/tools/libs/ctrl/xc_resource.c b/tools/libs/ctrl/xc_resource=
-.c
->> index cb6a97202b..ac1524d1bd 100644
->> --- a/tools/libs/ctrl/xc_resource.c
->> +++ b/tools/libs/ctrl/xc_resource.c
->> @@ -28,7 +28,10 @@ static int xc_resource_op_one(xc_interface *xch, xc_r=
-esource_op_t *op)
->>                                   XC_HYPERCALL_BUFFER_BOUNCE_BOTH);
+Le 02/03/2026 =C3=A0 17:52, Jan Beulich a =C3=A9crit=C2=A0:
+> On 27.02.2026 18:00, Teddy Astie wrote:
+>> @@ -1354,6 +1358,127 @@ void enable_turbo_mode(int argc, char *argv[])
+>>                   errno, strerror(errno));
+>>   }
 >>   
->>       if ( xc_hypercall_bounce_pre(xch, entries) )
+>> +static int fetch_dts_temp(xc_interface *xch, uint32_t cpu, bool package=
+, int *temp)
+>> +{
+>> +    xc_resource_entry_t entries[] =3D {
+>> +        { .idx =3D package ? MSR_PACKAGE_THERM_STATUS : MSR_IA32_THERM_=
+STATUS },
+>> +        { .idx =3D MSR_TEMPERATURE_TARGET },
+>> +    };
+>> +    struct xc_resource_op ops =3D {
+>> +        .cpu =3D cpu,
+>> +        .entries =3D entries,
+>> +        .nr_entries =3D ARRAY_SIZE(entries),
+>> +    };
+>> +    int tjmax;
+>> +
+>> +    int ret =3D xc_resource_op(xch, 1, &ops);
+>> +
+>> +    switch ( ret )
 >> +    {
->> +        errno =3D ENOMEM;
+>> +    case 0:
+>> +        /* This CPU isn't online or can't query this MSR */
+>> +        return -1;
 > 
-> Looking at xc_hypercall_bounce_pre(), it's looks like `errno` should
-> already be set. On Linux, that would be `mmap()` or `madvise()` updating
-> it.
+> Further down at the callers of this function you assume errno is set when=
+ever
+> an error indication is returned. As xc_resource_op() didn't fail, you wil=
+l
+> need to synthesize an errno value here.
 > 
->>           return -1;
->> +    }
->>   
->>       platform_op.cmd =3D XENPF_resource_op;
->>       platform_op.u.resource_op.nr_entries =3D op->nr_entries;
->> @@ -54,11 +57,15 @@ static int xc_resource_op_multi(xc_interface *xch, u=
-int32_t nr_ops, xc_resource_
->>       call_list =3D xc_hypercall_buffer_alloc(xch, call_list,
->>                                             sizeof(*call_list) * nr_ops)=
-;
->>       if ( !call_list )
+
+ah yes indeed
+
+>> +static void get_core_temp(int argc, char *argv[])
+>> +{
+>> +    int temp =3D -1, cpu =3D -1;
+>> +    unsigned int socket;
+>> +    bool has_data =3D false;
+>> +
+>> +    if ( argc > 0 )
+>> +        parse_cpuid(argv[0], &cpu);
+>> +
+>> +    if ( cpu !=3D -1 )
 >> +    {
->> +        errno =3D ENOMEM;
+>> +        if ( !fetch_dts_temp(xc_handle, cpu, false, &temp) )
+>> +            printf("CPU%d: %d=C2=B0C\n", cpu, temp);
+>> +        else
+>> +        {
+>> +            fprintf(stderr, "Unable to fetch temperature (%d - %s)\n",
+>> +                    errno, strerror(errno));
+>> +            printf("No data\n");
+>> +            exit(ENODATA);
 > 
-> Here, xc_hypercall_buffer_alloc() should already have updated `errno`.
-> (It's a function called by xc_hypercall_bounce_pre(), so we've got the
-> same culprit updating `errno`.)
-> 
->>           return -1;
->> +    }
->>   
->>       platform_ops =3D xc_hypercall_buffer_array_create(xch, nr_ops);
->>       if ( !platform_ops )
->>       {
->> +        errno =3D ENOMEM;
-> 
-> Here, xc_hypercall_buffer_array_create() calls `calloc()` and `malloc()`
-> which will update `errno`.
-> 
->>           rc =3D -1;
->>           goto out;
->>       }
->> @@ -66,6 +73,7 @@ static int xc_resource_op_multi(xc_interface *xch, uin=
-t32_t nr_ops, xc_resource_
->>       entries_list =3D xc_hypercall_buffer_array_create(xch, nr_ops);
->>       if ( !entries_list )
->>       {
->> +        errno =3D ENOMEM;
-> 
-> Same as above.
-> 
->>           rc =3D -1;
->>           goto out;
->>       }
->> @@ -81,6 +89,7 @@ static int xc_resource_op_multi(xc_interface *xch, uin=
-t32_t nr_ops, xc_resource_
->>                           platform_op, sizeof(xen_platform_op_t));
->>           if ( !platform_op )
->>           {
->> +            errno =3D ENOMEM;
-> 
-> With xc_hypercall_buffer_array_alloc(), `errno` is updated by `mmap` or
-> `madvise`, like the first case.
-> 
->>               rc =3D -1;
->>               goto out;
->>           }
->> @@ -90,6 +99,7 @@ static int xc_resource_op_multi(xc_interface *xch, uin=
-t32_t nr_ops, xc_resource_
->>                      entries, entries_size);
->>           if ( !entries)
->>           {
->> +            errno =3D ENOMEM;
-> 
-> Same as above.
+> In how far is using errno values as arguments to exit() a useful thing? (=
+I
+> think you had it like this before, and I merely forgot to ask.) Yes, I ca=
+n
+> see the tool using a number of exit(EINVAL), but I don't understand those
+> either. This way you can't even document easily what particular exit code=
+s
+> mean, as the errno values may vary across OSes.
 > 
 
-Ok for all, though good to note that malloc ones are documented as 
-platform specific behaviors (at least in malloc(3)).
-But in our case (POSIX platforms), it's supposed to be the case.
+I reused the exit(...) pattern used in xenpm, but I'm also fine by 
+returning simpler errors (like exit(1) or exit(EXIT_FAILURE)).
 
->>               rc =3D -1;
->>               goto out;
->>           }
->> @@ -137,6 +147,7 @@ int xc_resource_op(xc_interface *xch, uint32_t nr_op=
-s, xc_resource_op_t *ops)
->>       if ( nr_ops > 1 )
->>           return xc_resource_op_multi(xch, nr_ops, ops);
->>   
->> +    errno =3D EINVAL;
-> 
-> Ha! This one was missing indeed.
-> 
-> The patch description will need to be updated with all the chunk be one
-> been dropped.
-> 
+diff --git a/tools/misc/xenpm.c b/tools/misc/xenpm.c
+index 981d3ec519..7d186c4837 100644
+--- a/tools/misc/xenpm.c
++++ b/tools/misc/xenpm.c
+@@ -1377,6 +1377,7 @@ static int fetch_dts_temp(xc_interface *xch, 
+uint32_t cpu, bool package, int *te
+      {
+      case 0:
+          /* This CPU isn't online or can't query this MSR */
++        errno =3D ENODATA;
+          return -1;
 
-Overall, it's
+      case 1:
+@@ -1434,7 +1435,7 @@ static void get_core_temp(int argc, char *argv[])
+              fprintf(stderr, "Unable to fetch temperature (%d - %s)\n",
+                      errno, strerror(errno));
+              printf("No data\n");
+-            exit(ENODATA);
++            exit(EXIT_FAILURE);
+          }
+          return;
+      }
+@@ -1475,7 +1476,7 @@ static void get_core_temp(int argc, char *argv[])
+      if ( !has_data )
+      {
+          printf("No data\n");
+-        exit(ENODATA);
++        exit(EXIT_FAILURE);
+      }
+  }
 
-libxc: Report EINVAL on incorrect xc_resource_op usage
-
-When passing 0 operations to xc_resource_op, a error is reported without 
-setting errno appropriately.
-
-> Thanks,
-> 
-> 
-> --
-> Anthony Perard | Vates XCP-ng Developer
-> 
-> XCP-ng & Xen Orchestra - Vates solutions
-> 
-> web: https://vates.tech
-> 
+> Jan
 > 
 
+Teddy
 
 
 --
