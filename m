@@ -2,45 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OCz3K/Twp2mGmgAAu9opvQ
+	id WDxtIaL8p2mlnAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 09:44:36 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 10:34:26 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB1B11FCCC6
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 09:44:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1245159.1544516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C32BE1FDAB3
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 10:34:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1245180.1544556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxhpF-0001NV-9m; Wed, 04 Mar 2026 08:43:25 +0000
+	id 1vxic5-00014S-8A; Wed, 04 Mar 2026 09:33:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1245159.1544516; Wed, 04 Mar 2026 08:43:25 +0000
+Received: by outflank-mailman (output) from mailman id 1245180.1544556; Wed, 04 Mar 2026 09:33:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxhpF-0001Kn-79; Wed, 04 Mar 2026 08:43:25 +0000
-Received: by outflank-mailman (input) for mailman id 1245159;
- Wed, 04 Mar 2026 08:43:24 +0000
+	id 1vxic5-00011k-3a; Wed, 04 Mar 2026 09:33:53 +0000
+Received: by outflank-mailman (input) for mailman id 1245180;
+ Wed, 04 Mar 2026 09:33:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3DbP=BE=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1vxhpD-0001Kd-J9
- for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 08:43:23 +0000
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c200::3])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 332792e7-17a6-11f1-b164-2bf370ae4941;
- Wed, 04 Mar 2026 09:43:21 +0100 (CET)
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- (2603:10a6:102:30d::12) by VI1PR03MB9967.eurprd03.prod.outlook.com
- (2603:10a6:800:1cf::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.17; Wed, 4 Mar
- 2026 08:43:18 +0000
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::b8c6:f37a:987a:beb]) by PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::b8c6:f37a:987a:beb%5]) with mapi id 15.20.9654.022; Wed, 4 Mar 2026
- 08:43:17 +0000
+ <SRS0=3gGj=BE=oss.qualcomm.com=vijayanand.jitta@srs-se1.protection.inumbo.net>)
+ id 1vxic2-00011U-Mc
+ for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 09:33:50 +0000
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3e475509-17ad-11f1-b164-2bf370ae4941;
+ Wed, 04 Mar 2026 10:33:48 +0100 (CET)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6249KdIv1455844
+ for <xen-devel@lists.xenproject.org>; Wed, 4 Mar 2026 09:33:45 GMT
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
+ [209.85.214.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cpj1801me-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 09:33:45 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id
+ d9443c01a7336-2ae65d5cc57so62979005ad.2
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 01:33:44 -0800 (PST)
+Received: from [10.219.57.109] ([202.46.23.19])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ae541358d4sm76250575ad.75.2026.03.04.01.33.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Mar 2026 01:33:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,231 +58,351 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 332792e7-17a6-11f1-b164-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C/sBq7GzQNju3brhaa+lc9en+jSOLkC3ROVAOVBBbBDBweNRTrkcs9qshkNgtrlig1+blA/KnB8sHwtH3cGXnqMQkGazdCG9pvIiquDhgYJ4ApzDuH4ZOBqOjvdoeQ5M/ZMh++4ofJ3Rlx77rb1l262pdpbksKMXefpWvNq1lXeU6xLl014iAPhU8cV6ZBFb+YN5+Iq+x/jU07VS12tmYy/vdIozvRmD1o7Uai/RKXSLSg2FqNMCTd73pnJpodTghqXauWEPQHirosJDCtIwUuBaqys35iruZZFW19cYpr9iFYY86oocQNesgIfGoE19fb356OFY01zc88BivVwXnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yPPd+9bG9DMhsZYzJXoIamo/bE/AclPIQLCu1r+C2PY=;
- b=P0znn4PWnOvSbvqt3me/5QKQzbWVdtny9Ig/8Kacbcz7RpCnGcC/DwEAPG6k+e1uVSL+go//8jou6Mzy1pT6R2udAJC8jzFlSM6ObqFc/MR7tfPAJSVZDtbVB14DgLWgFudlqcLETqr+9YWA/uxvu5RCd6OFqXoWLYJoddlCAp42jXz65MmMBZjZpYoWv2l3XdBg1srg8fmewYIefA0Oa8r7m9h9O1RRBAmyjxzWZnJES1bnZOye/0BUF4aqIHFUBRR59FXf/59+0hS+kyTFTy6urco3bkrGXHPabxwrnas+Pi5L/90dL3X49G/drU3XUWcSHUbSmMHsfIBINRiwEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yPPd+9bG9DMhsZYzJXoIamo/bE/AclPIQLCu1r+C2PY=;
- b=neDmCZb45Exb3XAnED4O/FfWP4lAtANNz7ANctyUqsFyOdo2zt0xtlq/FUhTC4SrwPd5Vzu5GwNlOUWRhA2YXtxNzggHEn1coYSyWOEh8YREM0gNWS+4XiVaYMxQ+kjhOw00isfwB72Ex+zs2lgnapucSKJVyGi0U+jhJmadRFmflYPyqaZLoGx86Z82ihkuxQhhgrazSTslx4OL5AqTt1/9YcoqbAPNHOYq3svSqSKNlFDG2o7qmw10lG4iH4TWxkSw5f/q9RxRoEsEyW5sum5451dMh+1FQdhdwj0NmS8dfJ0ReJMuimQE+LaL8NrMILTMoBFgklsbttOPk852mA==
-From: Mykyta Poturai <Mykyta_Poturai@epam.com>
-To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stewart
- Hildebrand <stewart.hildebrand@amd.com>, Oleksii Kurochko
-	<oleksii.kurochko@gmail.com>, Community Manager
-	<community.manager@xenproject.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v1 4/6] vpci: add SR-IOV support for PVH Dom0
-Thread-Topic: [PATCH v1 4/6] vpci: add SR-IOV support for PVH Dom0
-Thread-Index: AQHb/W/XkRTIlDBdSUyf2rny+l8q37RHbCEAgVf+4gA=
-Date: Wed, 4 Mar 2026 08:43:17 +0000
-Message-ID: <8da9f137-a897-4438-9524-85836e0170a1@epam.com>
-References: <cover.1753450965.git.mykyta_poturai@epam.com>
- <c5cd0e9cd75cacee2127c45635c999bd296853a7.1753450965.git.mykyta_poturai@epam.com>
- <aIdgJPTf17M0g-8m@macbook.local>
-In-Reply-To: <aIdgJPTf17M0g-8m@macbook.local>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|VI1PR03MB9967:EE_
-x-ms-office365-filtering-correlation-id: 2d6907d5-8bf4-405d-e2f2-08de79ca14ed
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|7416014|1800799024|7053199007|38070700021;
-x-microsoft-antispam-message-info:
- mwaq49TErWt5FJbiPJMezo3kmOtOMI+A5U7vXfOVVtVRWEfspu+n1+nUiLJmlqYybjlCpmouPFZkUiKFeIyJSdQ7qAuzGoBaNmDoSui7AQfMxkmFIDBhK/SZXAfnYpaIf4/s76/37kA97TXNTvsoFzZ7z4X+QuLZ202HkKB7mxZIQF7yAKIRYsb6+az2ZW7mqOGCqvFB9Vu4nEKxhcQMc6HZNKrNnaG5z43ClHFHgU4pY+/UdSwXqiH7MCDVewCuq8Cls5YfoIMEAxR9IVkU7DsX4kfATSMn8OKvDd+4pigwktkr76eFI2dNYGOlkyjHLAlrwoV0g0XkkJ044owzZ4Evo20S2jrgVTKAQhWMCC2OPiBLWIv+oLsL2gTpgu1bv513blXIk0YLDhAhg0GXnOSme7fyms4BAs3oVn8qi1hZ1vbaFaNqAEsm0zQ1HKmUfc6BFuse38XQKTDj8Hkr2eAXqas9TOQsW5NCOaA8tqbvltymt9PaMtuS+Z9PKLEBhCEDGDaejbxxY4+XdejRJ1n+ERzMo9o1qGGWE1GPGBuYUF2BbkrS1qU6nCeDNw1OxhcEXRmPiF8X3d0nMDdMx1E7mReGi+SxHjGSmNBSeu7Hmg1v84SpsiE0B+O0J8GniL9VaLlGz8gJflJuoDSplpJjfSJn6FcYQtUVtJNzqdL96dsLRMRR7/asatVnWFwIvThhZFMitN34nLMbbD+cih5R67MgJL60gK0kMII1VT0=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(7053199007)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?cXVZYUp5R29id2U5QVhaakhZdDRCQXdtQWhzbGJ5N0R3NnRzQ1cweTN0ZjJr?=
- =?utf-8?B?TERTQjVrZXhOQU5JNXl1SUE4MlBDbTlOUkp4eDdlKys4ak9IYzNPOVI0MHAr?=
- =?utf-8?B?QzJnWng3M3BoRzRqWHVQWnJZOG5oWTQwMmpSaVJROENrT0RFc3RBSlZLY0NG?=
- =?utf-8?B?cnY2cnk2aXZXTnRtZjVROTJOYjIwdlcwSDVEVzFCMDRFaC9RcXMwTThiVU9U?=
- =?utf-8?B?ZHhoQ3B3OHJZT3psUHZKdWdKdDJhU2dTWFdLQmxyVlpscUpPa0o4ay9PNDkw?=
- =?utf-8?B?MXdsNG1taFowelhuYkFwSFkyczJQek11SldJQTJQRElVbExSdnNsY3Vma01u?=
- =?utf-8?B?MldCNUVvVmR2VXpZYWs0bTBQL3h4czg1QVgwcG5ldlV2NWFkSTF0cEtRaUQ4?=
- =?utf-8?B?bktMZUVGcXZYNytxY2hacDJ3YkVOZ1hpc0dBWG10a2VLaEk1NXhBYnVWWFlH?=
- =?utf-8?B?WjMrYTJGc2NYY0xYc2dEK2RJbktxUXVMSFJqZkxidzhHMVF6aTJGanpaMnBi?=
- =?utf-8?B?OG4ycW9RTkpraVVCOEIrTGNVN2R0cFlUdWx1L1hVQ1czZmdmN3B1RzZybWFG?=
- =?utf-8?B?dGpPajdOTGR2Tk9zdUVsSnlKY296akY1eTliVVVKK25zSUk3c3FxZk9tOUg5?=
- =?utf-8?B?SjR6V0dQVExZZ1h0amR6ZUFxRGNXREVJMDNMZm5pTnVMWEdFNHUvMlBCL0Rx?=
- =?utf-8?B?a1U1dXpZT3h4ZStzdGFKQm54NmcrSjhUZWE3R2FMb1AxWDJYVFZvOUI4anVG?=
- =?utf-8?B?ZjJCTXZ2amUrZFpaWnhuYnB5cWNyRlo3aTZBTlYyU1FuMjFTdXhZcjF3NjBm?=
- =?utf-8?B?NVpqVlhEUlFIR1I5RDBsSVFHVEwzSzhSYitmZDQ1LzQrdHdRRGY0U1B5SldT?=
- =?utf-8?B?T0tzOHFhZTk0SzdNa1gwbnpnNUdEMG04eVlsTGRBeDVqT01aSUdIbXJNVUV2?=
- =?utf-8?B?UllMN3hFcXdJRnBINFlzTlR3SkFCMXBXL0Y1bHRhZjY5SkhHWXZJc2FJRXlY?=
- =?utf-8?B?SDY3NXFoUzVUQUpyVnR6UTNhTmFSZVZxVVhQNXh2eDBrMmlMRnZVclVGbXYw?=
- =?utf-8?B?SmliMVhrMFE0eCtlMzd0cHlIY3hyK1YvZ0czOFpXaEtVckppOXRDSk5ybTh1?=
- =?utf-8?B?eENLeWx6MUdoMy9VNXRVVVhKMXcrMXU2cWo3RHIzY2xnMnNLeWNQVi83d0Fy?=
- =?utf-8?B?S21LMFhoVEN3L0ZmQ1ZPWWp3bVYrZ3Jxak8ydGJ0N1k3amRsY1hGQUorV1oy?=
- =?utf-8?B?SG5ZcW5tdExocnkzMG1mMTFNQ2Q5WlRkOXB0MjVEKzJiUnMyRzlwVm1ZRlBs?=
- =?utf-8?B?SE5ySll5SUZjRnpqdnYzYndHQ1Zici9oMFRWQzFNUTYrdDNKYVRQZzhUYnBV?=
- =?utf-8?B?aWp0WGp5YXI5VFVzWGlERkJ0NXFXUkMrRXNYTzRYcWY2UlNxc1gvdXBtUm9i?=
- =?utf-8?B?K25BcWhieEszZ1VYbE5XR3E5TU52S0dhUnJPMDNnT0p6Q3NpWEphSVVBYXBz?=
- =?utf-8?B?NzdZTTBHMEc0eUE0Nk9PeHlDY1hVR3BWVlNjb1g4MnFSdi9CSkFjRC9Zencw?=
- =?utf-8?B?Q1lpMFB3Nmc5d0I3VTYzRWJycUsvK3pyY1hTSTkxZmp6ZjZMSlpIUnNUN2to?=
- =?utf-8?B?b1hXS3I0RFhvV3RFc2JxZUc1SmYzWFZOM0JFMGNnRHNnbUl1dmNENDNXSDJJ?=
- =?utf-8?B?T2k1Vk12YzcyZXpta01DU0hvKzFGeEFiTm5Wc3pmN2d2dThMWXluWWlWMXZm?=
- =?utf-8?B?ck1tT2psSzhOUXVjOUJiWWJrVEVHVmlDZFZUOXVjWHVBN25nc2RNT05GT0Nk?=
- =?utf-8?B?U25GUk44VUtaVGNHcWdKQVUxNVlEODVUNFFibmh6S3VJallNL2dOR1ZrTTdk?=
- =?utf-8?B?SGg4djhyc1l5cWw5bGhVWGZVcm9xUWloS2FiR0MzTFo0WmFvYXFhQVdzYml1?=
- =?utf-8?B?VDYrTnJvYmFkR3BITXBVR25DTGYrUEorb0FpNlVxa2Fqcmdoa3NpN0lzSTA5?=
- =?utf-8?B?SzZ5eVZScmRqTDN6WC9NMGxvZS9hcFdROU16b0h6MmUyZm0zMEIvRU9JMS9Z?=
- =?utf-8?B?THgyV0FYRVg4cmV3QkhqSkVVVldXbFFINFl5dVc3Vzl3a1FXZFBTZzltMW9m?=
- =?utf-8?B?VCtsK1BXaUFsN1Fnc2pUWnZxRXJPWWJQazQzaGM4bExGeE92YWN3QUNZd1Nu?=
- =?utf-8?B?UG9CWnZoeHEybS91c2R2dHo2NDQ2VUx1ODJaczRnbUQwTTl2ZG1pNC95TS9i?=
- =?utf-8?B?MFM1WkVzTGZVRCtUMWlPb2VuMWZnT0VTeUJ3TzRrWXFRNm0xSGZNYU1SQ20w?=
- =?utf-8?B?SjRUM0NMdHpHc1p6eXhzditMV2o5NnRnUERzSXkxUXNKeVRBV2VGWGZ2WURO?=
- =?utf-8?Q?lvxHlnigs4osGxrU=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <77FC0C094C3BFA40853C69866B7A0A38@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 3e475509-17ad-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	olej/QuVyiT3XCCYbNDROqVlMJ/ZiroIS/6G24fqqXw=; b=jG7fGQ4v5uKwi+m6
+	jYRS3LTZutxZaRvtn8jkQxwWB2a0rTwd5e4FuO+g0wWd5G6gGJcJF4AE1G5i+wFk
+	OVKDaM+De548acZWpPzF3QrgKX7M0ybyyo9T9nH5iq1FCKDwI9itphQ7adIazLDh
+	RCVUSxnyEZWmuQHAooPZDGtWaMjcWZ8Cwxhrap9wNj/tneGiKaSjMDD1SK277er9
+	zx1qlz8KOShYrjRR+IbVJPOroaviNiAlxyRY0ZMUgNqTvVo0VGxfRXNQzqpcimU5
+	5LEprhOHTQYA/7ocebT16KTOpnKkzt3JtoAKgir2XJgo30Zc72Ql1lf/KJbK5HwK
+	TOtKHw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1772616824; x=1773221624; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=olej/QuVyiT3XCCYbNDROqVlMJ/ZiroIS/6G24fqqXw=;
+        b=PGuhz+lm2m3hsnHBlQw9ib9vrdWL7CD5Rv6Q/rlGSVnpzXQZLlXVtME4VDaiKobjHv
+         VtElYb6VUdOiwGqeLHdlJynZIwDsURbo+8WN5qvVTyTAjUbcDArllaE+2a3Io45jHirb
+         jRyE4dLv9LjY2U+kqj8P+cqQqZ44FFj/MGd69Wi1sL4MvXFdoJduHPGvLD5F36gKJrMz
+         /lJP/yZQFFtI073Ee2H3WNB1PoAyS9sTC7ruk/aqJhUa7V7SeqGRfTzVPGiQ9Nqgr2NH
+         oZRpfE/qvwT8sKt/BrJ8gviUHWeMkJkV0VwJyC3bAEx9GjDcNXBURxs4PnAJSg1q5z9R
+         tUYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772616824; x=1773221624;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=olej/QuVyiT3XCCYbNDROqVlMJ/ZiroIS/6G24fqqXw=;
+        b=Jaxt53OhTfZXBu749Fa1hR8sjCG9S1HsaKCUVz7sRxrzs+yxButdtnAIPT275k/eSe
+         f1ee6KZws0pkaEvG1YGnJ79RL3Z3JUT9/5odZDZ7qAJRp/W6S2uWSIec3FC46cfxWNJ5
+         xWJvg/0d3hB3CHiwBS6znaToCh+2rfdjjqHYrZOElJ+k07fxAre5Tfo7Pq1UXbavNg5P
+         pEVlAtczOwV5EBWg9j55fyQWmzfO/1KWgFDb8td1SnczCQcnLAR82iFUO0mzGwQYDAAG
+         a9BdZsxNZWHbgzI1U6MZS93O/RFqikOiFlKfxXaMSZ/jgQ/hPqOawNZPMK6aLGH2W/tc
+         gspw==
+X-Forwarded-Encrypted: i=1; AJvYcCWsTIJdfWlkQzZuNnZi/SACM1zuCJobPa3ap5pL2iY1HJ2ct9PR6QyDlCj9NbwvU6dURjXUnNQ+EjU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwCHkBQIo83NZob4ivxUtk7yEZ7srQw1nCr3tTridg14jOqdp95
+	MCLW1H/yhMuyiTShjbsk7asPLvwO9tBcOuhN1d3HcCiW32ZlffH0hLVLWLJvGR2LzJPEZlBz8mZ
+	v8H2H0kmqEFJDgGQEMJFTrbokN7wG554mJwCJMxBKlRkEqxGshYrZYemPTfrDqJK4CMBMqw==
+X-Gm-Gg: ATEYQzwNnOkY2vJEWWGxuni3ow4OFgo/Li1tmFlfPrBc8V+wu0CZC4lHWSOavpKgAVF
+	dCtfS8ovF91UW/YYkMbPQQ4cGUNEZJiD6NWo49Jk+nCZIFlaZUm6XKemNZHsfBKObmzQdM3Fbau
+	ECMTISAob9LeY+K8SyWYGPzEs2JEvulgCqrJhUI2KlDd7BXZ0YrW2QlQFDNm7hakmriu3FvbplQ
+	dtnfkmAtZKC74MA96/KPY5u2IAH9M3FVd6Y9mQsXQrobUve+3wFtMvwrOXGBcutFVxYAs4dgbij
+	BAfqZkuCyx3ggIwDS4xn9n1VNAgxhUGZM0ts2ubBiHuafZ/UpOSrTMEZxR5heGYB3Yk+WGPWv22
+	xI4pYUW2O+sYoEIMLwPnAc+7vmRkuMoDS8Cop4XY/72DjX85JIen2MGbW
+X-Received: by 2002:a17:903:3586:b0:2ae:483f:b23b with SMTP id d9443c01a7336-2ae6aaae620mr19109905ad.32.1772616824005;
+        Wed, 04 Mar 2026 01:33:44 -0800 (PST)
+X-Received: by 2002:a17:903:3586:b0:2ae:483f:b23b with SMTP id d9443c01a7336-2ae6aaae620mr19109655ad.32.1772616823507;
+        Wed, 04 Mar 2026 01:33:43 -0800 (PST)
+Message-ID: <d3687764-024d-4dbc-9342-8edc9b4f1fdd@oss.qualcomm.com>
+Date: Wed, 4 Mar 2026 15:02:14 +0530
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d6907d5-8bf4-405d-e2f2-08de79ca14ed
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2026 08:43:17.4438
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Kakk8C64pydenQ3Ofn9HJNjo6FXg9WKWMSxZZc/LTcVQuJHk8g7/xco8FIFQAJ2VZMW4F87SRgw6PQatg5axzA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB9967
-X-Rspamd-Queue-Id: EB1B11FCCC6
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 1/3] of: Add convenience wrappers for of_map_id()
+To: Marc Zyngier <maz@kernel.org>
+Cc: Nipun Gupta <nipun.gupta@amd.com>,
+        Nikhil Agarwal
+ <nikhil.agarwal@amd.com>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Thomas Gleixner
+ <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Richard Zhu <hongxing.zhu@nxp.com>,
+        Lucas Stach <l.stach@pengutronix.de>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Helgaas
+ <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,
+        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-pci@vger.kernel.org, imx@lists.linux.dev,
+        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org
+References: <20260301-parse_iommu_cells-v9-0-4d1bceecc5e1@oss.qualcomm.com>
+ <20260301-parse_iommu_cells-v9-1-4d1bceecc5e1@oss.qualcomm.com>
+ <86342janlx.wl-maz@kernel.org>
+Content-Language: en-US
+From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+In-Reply-To: <86342janlx.wl-maz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: gPrIPuWDPDWSv3sVI6dBGPwhrJQWIOml
+X-Proofpoint-ORIG-GUID: gPrIPuWDPDWSv3sVI6dBGPwhrJQWIOml
+X-Authority-Analysis: v=2.4 cv=Ed7FgfmC c=1 sm=1 tr=0 ts=69a7fc79 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=7CQSdrXTAAAA:8 a=VwQbUJbxAAAA:8 a=8AirrxEcAAAA:8
+ a=xEgsDuFUHT4EKXnybycA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=a-qgeE7W1pNrGK8U0ZQC:22 a=ST-jHhOKWsTCqRlWije3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA0MDA3MiBTYWx0ZWRfXww1T3Whyklwa
+ ls5pvfv5Ox03jQhQiuelVVgiI9b1bg86e9xxsPgFbH9kSX6b3Sj993+bAHRVaIoqjBnVn34ZpNk
+ A60OwvZYXzgj9idW1admPHNmeC3WRjL1d40jROM6yMTIEs9EHs6gpYv60KHeLbTOhYzdvIwGh2t
+ RjlXD666y4q8CvElXYI2UGnwmQwbDJOuME+qP52ar2D+xXbc8FK/1vUwoZcHy/50hugIhihq7+V
+ 4rkS3xhdu5A3ehSR3WQMPRHnWJJ05ySf6F5V+qK7uFoQXP7VDNQHaQi1uZHc0oxk5dLOmHfemP0
+ jHRv5K3HJHb72FPSgI0F7pCCBXhfkKpYlxlxsedgtV3wfas03oRw73m90n1cxfyuGd+60Y9EoMr
+ SiyZ7YmEYCEFjhSz6cWLm3Kb8cdQbAeDXTLSKnmuOreNXgSmggj6EAwYXPoX46Z/eyI++h1DtNH
+ tg0aHV9VgbrQxyl7uFg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-04_05,2026-03-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0
+ clxscore=1015 malwarescore=0 impostorscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603040072
+X-Rspamd-Queue-Id: C32BE1FDAB3
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.59 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[amd.com,8bytes.org,kernel.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com,oss.qualcomm.com,vger.kernel.org,lists.linux.dev,lists.infradead.org,lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:stewart.hildebrand@amd.com,m:oleksii.kurochko@gmail.com,m:community.manager@xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[lists.xenproject.org,amd.com,gmail.com,xenproject.org,citrix.com,vates.tech,suse.com,xen.org,kernel.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:dkim,oss.qualcomm.com:mid,nxp.com:email,arm.com:email,qualcomm.com:dkim,qualcomm.com:email];
+	FORGED_SENDER(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[37];
+	FORGED_RECIPIENTS(0.00)[m:maz@kernel.org,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:lpieralisi@kernel.org,m:tglx@kernel.org,m:robh@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:linux-arm-msm@vger.kernel.org,m:conor@kernel.org,m:krzk@kernel.org,s
+ :lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,support.md:url,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FROM_NEQ_ENVFROM(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[epam.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel,dt];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-T24gNy8yOC8yNSAxNDozMywgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToNCj4gT24gRnJpLCBKdWwg
-MjUsIDIwMjUgYXQgMDI6MjQ6MzNQTSArMDAwMCwgTXlreXRhIFBvdHVyYWkgd3JvdGU6DQo+PiBG
-cm9tOiBTdGV3YXJ0IEhpbGRlYnJhbmQgPHN0ZXdhcnQuaGlsZGVicmFuZEBhbWQuY29tPg0KPj4N
-Cj4+IFRoaXMgY29kZSBpcyBleHBlY3RlZCB0byBvbmx5IGJlIHVzZWQgYnkgcHJpdmlsZWdlZCBk
-b21haW5zLA0KPj4gdW5wcml2aWxlZ2VkIGRvbWFpbnMgc2hvdWxkIG5vdCBnZXQgYWNjZXNzIHRv
-IHRoZSBTUi1JT1YgY2FwYWJpbGl0eS4NCj4+DQo+PiBJbXBsZW1lbnQgUlcgaGFuZGxlcnMgZm9y
-IFBDSV9TUklPVl9DVFJMIHJlZ2lzdGVyIHRvIGR5bmFtaWNhbGx5DQo+PiBtYXAvdW5tYXAgVkYg
-QkFSUy4gUmVjYWxjdWxhdGUgQkFSIHNpemVzIGJlZm9yZSBtYXBwaW5nIFZGcyB0byBhY2NvdW50
-DQo+PiBmb3IgcG9zc2libGUgY2hhbmdlcyBpbiB0aGUgc3lzdGVtIHBhZ2Ugc2l6ZSByZWdpc3Rl
-ci4NCj4+DQo+PiBSZWxpZXMgb24gZG9tMCB0byBlbmFibGUgU1ItSU9WIGFuZCBQSFlTREVWT1Ag
-dG8gaW5mb3JtIFhlbiBhYm91dA0KPj4gYWRkaXRpb24vcmVtb3ZhbCBvZiBWRnMuDQo+IA0KPiBX
-aHkgSSdtIG5vdCBvcHBvc2VkIHRvIGFsbG93aW5nIHJlZ2lzdHJhdGlvbiBvZiBkZXZpY2VzIHVz
-aW5nDQo+IFBIWVNERVZPUCwgY2FuJ3QgWGVuIGRldGVjdCB0aGUgYWRkaXRpb24gb2YgdGhlIFZG
-cyBhbmQgYWRkIHRoZW0NCj4gaXRzZWxmPw0KPiANCj4gV2hlbiBJIHdvcmtlZCBvbiB0aGlzIGxv
-bmcgdGltZSBhZ28sIHRoZSB2ZXJzaW9uIG9mIHRoZSBzZXJpZXMgdGhhdCBJDQo+IHBvc3RlZCBo
-YWQgcmVnaXN0cmF0aW9uIG9mIHRoZSBWRnMgZG9uZSBieSBYZW4gYWxzbzoNCj4gDQo+IGh0dHBz
-Oi8vbG9yZS5rZXJuZWwub3JnL3hlbi1kZXZlbC8yMDE4MDcxNzA5NDgzMC41NDgwNi0xMi1yb2dl
-ci5wYXVAY2l0cml4LmNvbS8NCj4gDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogU3Rld2FydCBIaWxk
-ZWJyYW5kIDxzdGV3YXJ0LmhpbGRlYnJhbmRAYW1kLmNvbT4NCj4+IFNpZ25lZC1vZmYtYnk6IE15
-a3l0YSBQb3R1cmFpIDxteWt5dGFfcG90dXJhaUBlcGFtLmNvbT4NCj4+IC0tLQ0KPj4gICBDSEFO
-R0VMT0cubWQgICAgICAgICAgICAgIHwgICAzICstDQo+PiAgIFNVUFBPUlQubWQgICAgICAgICAg
-ICAgICAgfCAgIDIgLQ0KPj4gICB4ZW4vZHJpdmVycy92cGNpL01ha2VmaWxlIHwgICAyICstDQo+
-PiAgIHhlbi9kcml2ZXJzL3ZwY2kvaGVhZGVyLmMgfCAgIDMgKw0KPj4gICB4ZW4vZHJpdmVycy92
-cGNpL3NyaW92LmMgIHwgMjM1ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-DQo+PiAgIHhlbi9kcml2ZXJzL3ZwY2kvdnBjaS5jICAgfCAgIDEgKw0KPj4gICB4ZW4vaW5jbHVk
-ZS94ZW4vdnBjaS5oICAgIHwgICA3ICstDQo+PiAgIDcgZmlsZXMgY2hhbmdlZCwgMjQ3IGluc2Vy
-dGlvbnMoKyksIDYgZGVsZXRpb25zKC0pDQo+PiAgIGNyZWF0ZSBtb2RlIDEwMDY0NCB4ZW4vZHJp
-dmVycy92cGNpL3NyaW92LmMNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvQ0hBTkdFTE9HLm1kIGIvQ0hB
-TkdFTE9HLm1kDQo+PiBpbmRleCA1ZjMxY2EwOGZlLi43YjBlOGJlYjc2IDEwMDY0NA0KPj4gLS0t
-IGEvQ0hBTkdFTE9HLm1kDQo+PiArKysgYi9DSEFOR0VMT0cubWQNCj4+IEBAIC0yMyw4ICsyMyw3
-IEBAIFRoZSBmb3JtYXQgaXMgYmFzZWQgb24gW0tlZXAgYSBDaGFuZ2Vsb2ddKGh0dHBzOi8va2Vl
-cGFjaGFuZ2Vsb2cuY29tL2VuLzEuMC4wLw0KPj4gICAgLSBPbiB4ODY6DQo+PiAgICAgIC0gT3B0
-aW9uIHRvIGF0dGVtcHQgdG8gZml4dXAgcDJtIHBhZ2UtZmF1bHRzIG9uIFBWSCBkb20wLg0KPj4g
-ICAgICAtIFJlc2l6YWJsZSBCQVJzIGlzIHN1cHBvcnRlZCBmb3IgUFZIIGRvbTAuDQo+PiAtICAg
-LSBTdXBwb3J0IFBDSSBwYXNzdGhyb3VnaCBmb3IgSFZNIGRvbVVzIHdoZW4gZG9tMCBpcyBQVkgg
-KG5vdGUgU1ItSU9WDQo+PiAtICAgICBjYXBhYmlsaXR5IHVzYWdlIGlzIG5vdCB5ZXQgc3VwcG9y
-dGVkIG9uIFBWSCBkb20wKS4NCj4+ICsgICAtIFN1cHBvcnQgUENJIHBhc3N0aHJvdWdoIGZvciBI
-Vk0gZG9tVXMgd2hlbiBkb20wIGlzIFBWSC4NCj4gDQo+IERvbid0IHlvdSBuZWVkIHRvIG1vdmUg
-dGhpcyBvdXQgb2YgdGhlIHg4NiBzcGVjaWZpYyBzZWN0aW9uPw0KPiANCj4gQWNjb3JkaW5nIHRv
-IHRoZSBjb3ZlciBsZXR0ZXIgeW91IGFyZSB0ZXN0aW5nIG9uIGFuIEFSTSBib2FyZCwgc28gdGhp
-cw0KPiBwcm9iYWJseSBuZWVkcyB0byBiZSBwdXQgaW4gYSBub24tYXJjaCBwYXJ0IG9mIENIQU5H
-RUxPRz8NCj4gDQo+PiAgICAgIC0gU21va2UgdGVzdHMgZm9yIHRoZSBGcmVlQlNEIFhlbiBidWls
-ZHMgaW4gQ2lycnVzIENJLg0KPj4gICANCj4+ICAgIC0gT24gQXJtOg0KPj4gZGlmZiAtLWdpdCBh
-L1NVUFBPUlQubWQgYi9TVVBQT1JULm1kDQo+PiBpbmRleCA2YTgyYTkyMTg5Li44MzBiNTk4NzE0
-IDEwMDY0NA0KPj4gLS0tIGEvU1VQUE9SVC5tZA0KPj4gKysrIGIvU1VQUE9SVC5tZA0KPj4gQEAg
-LTE3MCw4ICsxNzAsNiBAQCB1bmV4cGVjdGVkIGJlaGF2aW9yIG9yIGlzc3VlcyBvbiBzb21lIGhh
-cmR3YXJlLg0KPj4gICANCj4+ICAgQXQgbGVhc3QgdGhlIGZvbGxvd2luZyBmZWF0dXJlcyBhcmUg
-bWlzc2luZyBvbiBhIFBWSCBkb20wOg0KPj4gICANCj4+IC0gICogUENJIFNSLUlPVi4NCj4+IC0N
-Cj4+ICAgICAqIE5hdGl2ZSBOTUkgZm9yd2FyZGluZyAobm1pPWRvbTAgY29tbWFuZCBsaW5lIG9w
-dGlvbikuDQo+PiAgIA0KPj4gICAgICogTUNFIGhhbmRsaW5nLg0KPj4gZGlmZiAtLWdpdCBhL3hl
-bi9kcml2ZXJzL3ZwY2kvTWFrZWZpbGUgYi94ZW4vZHJpdmVycy92cGNpL01ha2VmaWxlDQo+PiBp
-bmRleCBhN2M4YTMwYTg5Li5mZTFlNTdiNjRkIDEwMDY0NA0KPj4gLS0tIGEveGVuL2RyaXZlcnMv
-dnBjaS9NYWtlZmlsZQ0KPj4gKysrIGIveGVuL2RyaXZlcnMvdnBjaS9NYWtlZmlsZQ0KPj4gQEAg
-LTEsMiArMSwyIEBADQo+PiAtb2JqLXkgKz0gdnBjaS5vIGhlYWRlci5vIHJlYmFyLm8NCj4+ICtv
-YmoteSArPSB2cGNpLm8gaGVhZGVyLm8gcmViYXIubyBzcmlvdi5vDQo+PiAgIG9iai0kKENPTkZJ
-R19IQVNfUENJX01TSSkgKz0gbXNpLm8gbXNpeC5vDQo+PiBkaWZmIC0tZ2l0IGEveGVuL2RyaXZl
-cnMvdnBjaS9oZWFkZXIuYyBiL3hlbi9kcml2ZXJzL3ZwY2kvaGVhZGVyLmMNCj4+IGluZGV4IGY5
-NDdmNjUyY2QuLjBhODQwYzZkY2MgMTAwNjQ0DQo+PiAtLS0gYS94ZW4vZHJpdmVycy92cGNpL2hl
-YWRlci5jDQo+PiArKysgYi94ZW4vZHJpdmVycy92cGNpL2hlYWRlci5jDQo+PiBAQCAtODM5LDYg
-KzgzOSw5IEBAIHN0YXRpYyBpbnQgY2ZfY2hlY2sgaW5pdF9oZWFkZXIoc3RydWN0IHBjaV9kZXYg
-KnBkZXYpDQo+PiAgIA0KPj4gICAgICAgQVNTRVJUKHJ3X2lzX3dyaXRlX2xvY2tlZCgmcGRldi0+
-ZG9tYWluLT5wY2lfbG9jaykpOw0KPj4gICANCj4+ICsgICAgaWYgKCBwZGV2LT5pbmZvLmlzX3Zp
-cnRmbiApDQo+PiArICAgICAgICByZXR1cm4gMDsNCj4+ICsNCj4+ICAgICAgIHN3aXRjaCAoIHBj
-aV9jb25mX3JlYWQ4KHBkZXYtPnNiZGYsIFBDSV9IRUFERVJfVFlQRSkgJiAweDdmICkNCj4+ICAg
-ICAgIHsNCj4+ICAgICAgIGNhc2UgUENJX0hFQURFUl9UWVBFX05PUk1BTDoNCj4+IGRpZmYgLS1n
-aXQgYS94ZW4vZHJpdmVycy92cGNpL3NyaW92LmMgYi94ZW4vZHJpdmVycy92cGNpL3NyaW92LmMN
-Cj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0DQo+PiBpbmRleCAwMDAwMDAwMDAwLi42NDA0MzBlM2U5
-DQo+PiAtLS0gL2Rldi9udWxsDQo+PiArKysgYi94ZW4vZHJpdmVycy92cGNpL3NyaW92LmMNCj4+
-IEBAIC0wLDAgKzEsMjM1IEBADQo+PiArLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0y
-LjAtb25seSAqLw0KPj4gKy8qDQo+PiArICogSGFuZGxlcnMgZm9yIGFjY2Vzc2VzIHRvIHRoZSBT
-Ui1JT1YgY2FwYWJpbGl0eSBzdHJ1Y3R1cmUuDQo+PiArICoNCj4+ICsgKiBDb3B5cmlnaHQgKEMp
-IDIwMTggQ2l0cml4IFN5c3RlbXMgUiZEDQo+IA0KPiBJZiB0aGVyZSdzIGEgQ2l0cml4IGNvcHly
-aWdodCBoZWFkZXIgaGVyZSwgc2hvdWxkbid0IHRoZXJlIGJlIGENCj4gbWF0Y2hpbmcgU2lnbmVk
-LW9mZi1ieSBmcm9tIHNvbWVvbmUgYXQgQ2l0cml4IChJIHRoaW5rIHRoYXQncyBsaWtlbHkNCj4g
-bWUpPw0KPiANCj4gT3RoZXJ3aXNlIGlmIHRoZXJlJ3Mgbm8gY29udGVudCBhdXRob3JlZCBieSBh
-IENpdHJpeCBlbXBsb3llZSB0aGUNCj4gY29weXJpZ2h0IG5vdGljZSBtdXN0IGJlIHJlbW92ZWQu
-ICBXZSBuZWVkIHRvIGJlIGNhcmVmdWwgd2l0aA0KPiBjb3B5cmlnaHQgYW5kIGF0dHJpYnV0aW9u
-Lg0KPiANCj4gQW5kIGluIGFueSBjYXNlIHRoZSBkYXRlIHNob3VsZCBiZSB1cGRhdGVkLg0KPiAN
-Cg0KQ2FuIEkgYWRkIHlvdXIgU09CIG9yIGlzIGl0IGJldHRlciB0byByZW1vdmUgdGhlIGNvcHly
-aWdodD8gTG9va2luZyBhdCANCnRoZSBwYXRjaGVzIHlvdSBwcm92aWRlZCwgSSB0aGluayB0aGlz
-IG9uZXMgd2VyZSBkZWZpbml0ZWx5IGJhc2VkIG9uIA0KdGhlbSwgYnV0IHRoZXJlIGFyZSBhbHNv
-IGEgbG90IG9mIGNoYW5nZXMgc2luY2UgdGhlbi4NCg0KLS0gDQpNeWt5dGE=
+
+
+On 3/1/2026 3:16 PM, Marc Zyngier wrote:
+> On Sun, 01 Mar 2026 08:34:19 +0000,
+> Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com> wrote:
+>>
+>> From: Robin Murphy <robin.murphy@arm.com>
+>>
+>> Since we now have quite a few users parsing "iommu-map" and "msi-map"
+>> properties, give them some wrappers to conveniently encapsulate the
+>> appropriate sets of property names. This will also make it easier to
+>> then change of_map_id() to correctly account for specifier cells.
+>>
+>> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+>> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+>> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+>> Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+>> ---
+>>  drivers/cdx/cdx_msi.c                    |  3 +--
+>>  drivers/iommu/of_iommu.c                 |  4 +---
+>>  drivers/irqchip/irq-gic-its-msi-parent.c |  2 +-
+>>  drivers/of/irq.c                         |  3 +--
+>>  drivers/pci/controller/dwc/pci-imx6.c    |  6 ++----
+>>  drivers/pci/controller/pcie-apple.c      |  3 +--
+>>  drivers/xen/grant-dma-ops.c              |  3 +--
+>>  include/linux/of.h                       | 14 ++++++++++++++
+>>  8 files changed, 22 insertions(+), 16 deletions(-)
+>>
+>> diff --git a/drivers/cdx/cdx_msi.c b/drivers/cdx/cdx_msi.c
+>> index 91b95422b263..63b3544ec997 100644
+>> --- a/drivers/cdx/cdx_msi.c
+>> +++ b/drivers/cdx/cdx_msi.c
+>> @@ -128,8 +128,7 @@ static int cdx_msi_prepare(struct irq_domain *msi_domain,
+>>  	int ret;
+>>  
+>>  	/* Retrieve device ID from requestor ID using parent device */
+>> -	ret = of_map_id(parent->of_node, cdx_dev->msi_dev_id, "msi-map", "msi-map-mask",
+>> -			NULL, &dev_id);
+>> +	ret = of_map_msi_id(parent->of_node, cdx_dev->msi_dev_id, NULL, &dev_id);
+>>  	if (ret) {
+>>  		dev_err(dev, "of_map_id failed for MSI: %d\n", ret);
+>>  		return ret;
+>> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
+>> index 6b989a62def2..a511ecf21fcd 100644
+>> --- a/drivers/iommu/of_iommu.c
+>> +++ b/drivers/iommu/of_iommu.c
+>> @@ -48,9 +48,7 @@ static int of_iommu_configure_dev_id(struct device_node *master_np,
+>>  	struct of_phandle_args iommu_spec = { .args_count = 1 };
+>>  	int err;
+>>  
+>> -	err = of_map_id(master_np, *id, "iommu-map",
+>> -			 "iommu-map-mask", &iommu_spec.np,
+>> -			 iommu_spec.args);
+>> +	err = of_map_iommu_id(master_np, *id, &iommu_spec.np, iommu_spec.args);
+>>  	if (err)
+>>  		return err;
+>>  
+>> diff --git a/drivers/irqchip/irq-gic-its-msi-parent.c b/drivers/irqchip/irq-gic-its-msi-parent.c
+>> index d36b278ae66c..b63343a227a9 100644
+>> --- a/drivers/irqchip/irq-gic-its-msi-parent.c
+>> +++ b/drivers/irqchip/irq-gic-its-msi-parent.c
+>> @@ -180,7 +180,7 @@ static int of_pmsi_get_msi_info(struct irq_domain *domain, struct device *dev, u
+>>  
+>>  	struct device_node *msi_ctrl __free(device_node) = NULL;
+>>  
+>> -	return of_map_id(dev->of_node, dev->id, "msi-map", "msi-map-mask", &msi_ctrl, dev_id);
+>> +	return of_map_msi_id(dev->of_node, dev->id, &msi_ctrl, dev_id);
+>>  }
+>>  
+>>  static int its_pmsi_prepare(struct irq_domain *domain, struct device *dev,
+>> diff --git a/drivers/of/irq.c b/drivers/of/irq.c
+>> index 6367c67732d2..e37c1b3f8736 100644
+>> --- a/drivers/of/irq.c
+>> +++ b/drivers/of/irq.c
+>> @@ -817,8 +817,7 @@ u32 of_msi_xlate(struct device *dev, struct device_node **msi_np, u32 id_in)
+>>  	 * "msi-map" or an "msi-parent" property.
+>>  	 */
+>>  	for (parent_dev = dev; parent_dev; parent_dev = parent_dev->parent) {
+>> -		if (!of_map_id(parent_dev->of_node, id_in, "msi-map",
+>> -				"msi-map-mask", msi_np, &id_out))
+>> +		if (!of_map_msi_id(parent_dev->of_node, id_in, msi_np, &id_out))
+>>  			break;
+>>  		if (!of_check_msi_parent(parent_dev->of_node, msi_np))
+>>  			break;
+>> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+>> index a5b8d0b71677..bff8289f804a 100644
+>> --- a/drivers/pci/controller/dwc/pci-imx6.c
+>> +++ b/drivers/pci/controller/dwc/pci-imx6.c
+>> @@ -1144,8 +1144,7 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+>>  	u32 sid = 0;
+>>  
+>>  	target = NULL;
+>> -	err_i = of_map_id(dev->of_node, rid, "iommu-map", "iommu-map-mask",
+>> -			  &target, &sid_i);
+>> +	err_i = of_map_iommu_id(dev->of_node, rid, &target, &sid_i);
+>>  	if (target) {
+>>  		of_node_put(target);
+>>  	} else {
+>> @@ -1158,8 +1157,7 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+>>  	}
+>>  
+>>  	target = NULL;
+>> -	err_m = of_map_id(dev->of_node, rid, "msi-map", "msi-map-mask",
+>> -			  &target, &sid_m);
+>> +	err_m = of_map_msi_id(dev->of_node, rid, &target, &sid_m);
+>>  
+>>  	/*
+>>  	 *   err_m      target
+>> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
+>> index 2d92fc79f6dd..a0937b7b3c4d 100644
+>> --- a/drivers/pci/controller/pcie-apple.c
+>> +++ b/drivers/pci/controller/pcie-apple.c
+>> @@ -764,8 +764,7 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
+>>  	dev_dbg(&pdev->dev, "added to bus %s, index %d\n",
+>>  		pci_name(pdev->bus->self), port->idx);
+>>  
+>> -	err = of_map_id(port->pcie->dev->of_node, rid, "iommu-map",
+>> -			"iommu-map-mask", NULL, &sid);
+>> +	err = of_map_iommu_id(port->pcie->dev->of_node, rid, NULL, &sid);
+>>  	if (err)
+>>  		return err;
+>>  
+>> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+>> index c2603e700178..1b7696b2d762 100644
+>> --- a/drivers/xen/grant-dma-ops.c
+>> +++ b/drivers/xen/grant-dma-ops.c
+>> @@ -325,8 +325,7 @@ static int xen_dt_grant_init_backend_domid(struct device *dev,
+>>  		struct pci_dev *pdev = to_pci_dev(dev);
+>>  		u32 rid = PCI_DEVID(pdev->bus->number, pdev->devfn);
+>>  
+>> -		if (of_map_id(np, rid, "iommu-map", "iommu-map-mask", &iommu_spec.np,
+>> -				iommu_spec.args)) {
+>> +		if (of_map_iommu_id(np, rid, &iommu_spec.np, iommu_spec.args)) {
+>>  			dev_dbg(dev, "Cannot translate ID\n");
+>>  			return -ESRCH;
+>>  		}
+>> diff --git a/include/linux/of.h b/include/linux/of.h
+>> index be6ec4916adf..824649867810 100644
+>> --- a/include/linux/of.h
+>> +++ b/include/linux/of.h
+>> @@ -1457,6 +1457,20 @@ static inline int of_property_read_s32(const struct device_node *np,
+>>  	return of_property_read_u32(np, propname, (u32*) out_value);
+>>  }
+>>  
+>> +static inline int of_map_iommu_id(const struct device_node *np, u32 id,
+>> +				  struct device_node **target, u32 *id_out)
+>> +{
+>> +	return of_map_id(np, id, "iommu-map", "iommu-map-mask",
+>> +			 target, id_out);
+>> +}
+>> +
+>> +static inline int of_map_msi_id(const struct device_node *np, u32 id,
+>> +				struct device_node **target, u32 *id_out)
+>> +{
+>> +	return of_map_id(np, id, "msi-map", "msi-map-mask",
+>> +			 target, id_out);
+>> +}
+>> +
+> 
+> Any particular reason why this is made inline instead of out of line
+> in of/base.c? Also, some documentation would be helpful for the
+> aspiring hackers dipping into this.
+> 
+> Other than that,
+> 
+> Acked-by: Marc Zyngier <maz@kernel.org>
+> 
+> 	M.
+> 
+
+Thanks Marc.
+
+I made them static inline mainly because they’re just trivial wrappers
+around of_map_id(), so keeping them in include/linux/of.h avoids adding
+new global symbols/exports and keeps the callsites simple (similar to
+the existing of_property_read_*() inline wrappers).
+
+That said, I don’t have a strong preference—if you’d rather have
+out-of-line helpers in drivers/of/base.c, I’m happy to respin accordingly.
+
+Re Documentation, Sure I'll add comments for of_map_iommu_id() and
+of_map_msi_id() in follow up patch.
+
+Thanks,
+Vijay
+
+
+
 
