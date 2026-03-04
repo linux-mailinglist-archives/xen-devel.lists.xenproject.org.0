@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EHAAOfVYqGlQtgAAu9opvQ
+	id GBpwK+JbqGmZtgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 17:08:21 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 17:20:50 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88707203C2F
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 17:08:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1245724.1545090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 264E62041A2
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 17:20:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1245757.1545148 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxold-0006jB-1M; Wed, 04 Mar 2026 16:08:09 +0000
+	id 1vxoxc-0001rX-Kx; Wed, 04 Mar 2026 16:20:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1245724.1545090; Wed, 04 Mar 2026 16:08:08 +0000
+Received: by outflank-mailman (output) from mailman id 1245757.1545148; Wed, 04 Mar 2026 16:20:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxolc-0006gG-TV; Wed, 04 Mar 2026 16:08:08 +0000
-Received: by outflank-mailman (input) for mailman id 1245724;
- Wed, 04 Mar 2026 16:08:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YDHP=BE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1vxola-0006LR-Rl
- for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 16:08:06 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 544d2007-17e4-11f1-b164-2bf370ae4941;
- Wed, 04 Mar 2026 17:08:06 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id
- ffacd0b85a97d-439ac15f35fso3992643f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 08:08:06 -0800 (PST)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48518839ae7sm52908465e9.1.2026.03.04.08.08.04
+	id 1vxoxc-0001pz-IB; Wed, 04 Mar 2026 16:20:32 +0000
+Received: by outflank-mailman (input) for mailman id 1245757;
+ Wed, 04 Mar 2026 16:20:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Xh4z=BE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vxoxb-0001pt-Oq
+ for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 16:20:31 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0ef72ed2-17e6-11f1-9ccf-f158ae23cfc8;
+ Wed, 04 Mar 2026 17:20:29 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4806ce0f97bso60915465e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 08:20:29 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4851a8ae17csm13993845e9.6.2026.03.04.08.20.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Mar 2026 08:08:04 -0800 (PST)
+ Wed, 04 Mar 2026 08:20:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,134 +50,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 544d2007-17e4-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 0ef72ed2-17e6-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1772640485; x=1773245285; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=vqxBnM8tsYWxs4qD5MGZGFVyVPe8myeroZllsVPZb60=;
-        b=cDu45fXFLSj4kw1Yk1WwEvpRpstRVcY+L5VJGyWS59R1mxgRvDZ38IzyVAxiiNHlzg
-         KLHlXIjieplQUQmgGtRr/ePxNa/v8HU9yAOdW/XmrLqzp+NpgQO5iQ4feC3S/KrGFLj5
-         ofbh6K4W5eAbjhURlYIxz76Edo4xSu+armymDs5qRQj2y/tg3KQY731bv2QV4tFQSp7O
-         LPf3Tsx3d8LTtbQGilbypCRe+inef8pH1OT/VimmycQhpdoHh1YQCKnSS2R91xrl2IPA
-         +UJ8pjFm2ceGR+VOgcOa07bFRNeZUXcasXO8kbzR86sa5XHsyDw9w6Q8E96zmdgb3Jux
-         DrWw==
+        d=suse.com; s=google; t=1772641228; x=1773246028; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=bFqecisVfpqlBVF4/cTVsR7G7jAGrW7vwDhM9nM84Ig=;
+        b=ehX+R7OSO7gNeQpDiU/Alk8U/NuwtEArdyZ4QvJCdocr69fBrxJhmaZ9ZuX0F10ewb
+         p3hFKUEryB6OR9OZxTgLPsq3DHA0MTXWGsS+YRWLiWWPbBfa2/mmFxbPFzsxcLU+RRck
+         1zjJOUzXbPMBdENt+VBC8Mf5KYVaBu1fpdlP2gGD5u8zBINaZCWc1m7xQ2NpSTkbuup5
+         oi/lhU3JQf+as8Jspr7IYL/KbrHqD0axxeb8mdHlxCAbunbOCJ6pku/RPRFYTJsSSG/M
+         hQ0lQGYyGLDTPUpY/nuPM16jgSyLpsXwuD0o/Fra6jWdpH9XxnALSUNfnMPbhuvL9Exz
+         pI8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772640485; x=1773245285;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=vqxBnM8tsYWxs4qD5MGZGFVyVPe8myeroZllsVPZb60=;
-        b=Aq6zvoA1Bg3Zc4GPgkcKFTHYfIeabU6goQzGfIFzRw/gfvNVJ21wM0oavOdLTlB63y
-         WkWPtqmPnPwSukD7Cu/5wcyf+CMfEf/qA4ciDGhNvVe33LXc34hjPzdKLlle81ycHHWJ
-         lrSDDIAhAwyKuyntrcMi/hNvZxAsuBKmSRWGkvl1+AnpCXx4qfZqE6NLgZfcUmqKnygh
-         S/dF7SIaeCCRltsXM7WxWal0FTLPn76UL58TmgOX3R8dKBpGJzSVVFLIfGGE3TTTyS1r
-         gBjv/H1FjGdpvlhga/x9paU204So37B30dNIGrOk0bxsZ+ee5q6AIWknH1Vqjh3/heFs
-         cfOg==
-X-Forwarded-Encrypted: i=1; AJvYcCWPuAeZkCTTARU78peTxh86A+a495RB1lHemGTPdLbrY83wE8mUbznY8rn5YrM+Uk8Wge3hYU+hJVo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxozTb7SiwRyr2zcimKfaXE4K3PqrdJnYfaNM2130HwSQ4kcrqo
-	3p4k+L0ZqzYSgFCnCjkUAf/VWaQ5j6cd3fxqM/AY8Sh2mciLvxgxGKnq
-X-Gm-Gg: ATEYQzw64VOzZ5nT2jLRWjfM1EmBkFUyznrpU3a94kQf2Y5JIMwIghZ2sreGHPWdbL8
-	A7GU9hSM8h+bRM0oroMF60znIYrLMZI0jNHvYCKB0BL1LV6Cma1vLskbRgf4q/00EIwJLOVYg6Z
-	2pEYehv3qyqFIYJHhFyTP/B0LA9oodYcGM6YFyzmNysUI4nzZYscALe/VQKg6aVTLbsh5gugG+R
-	+aH9lxboQjRKgySn5ulGhQePv+jAkrTfGtdpTCJcZYNjPp04Z2elYQp7Bi3D4ZGAKA4sFkjPAL/
-	RyScjrMQiVKoARg+IqRVGEHs77ufueo85UyPu8680XqyIJ/hgpOHhH4BRhY8aEDMRTdulK5aeSH
-	MfCRinAnRA93emBSt1NaactWINpuzTtoKUXaguHwet3CqvK1CKBnjpuqF4qsie1hobxC2r5KOqc
-	Ylm2iabGzPAnkPqxjtiR7YdRg4uPjE8oJ7BDY7lq1+KqLO6Bbru+urITiv8SilpMIlrDZnxCR77
-	go=
-X-Received: by 2002:a05:600c:4e8a:b0:47e:e9c9:23bc with SMTP id 5b1f17b1804b1-4851989fb4cmr37601565e9.30.1772640485310;
-        Wed, 04 Mar 2026 08:08:05 -0800 (PST)
-Message-ID: <b022ab3f-4496-41c2-b24d-2718eae27448@gmail.com>
-Date: Wed, 4 Mar 2026 17:08:03 +0100
+        d=1e100.net; s=20230601; t=1772641228; x=1773246028;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bFqecisVfpqlBVF4/cTVsR7G7jAGrW7vwDhM9nM84Ig=;
+        b=GSxQyy9A7dx20UQkeVciTkUOp2AxOQ8Pb60/9zhke1X3J/lxFnp4SNFD56ukTCfEqo
+         hp1ObdGcL5nLInNAOOi7gf9YhEM9m0i/EiVX/acirPmNAvsxDUBYRNZUy3HXHKSWUdzt
+         TeyC6JgZ5SXxW9kIeKBqoiugrdjk8YRl7CFXx7M5dMrDlmxrEryF5F49lQfBC6S3HbgQ
+         vQ9HDt90514c8zxozhoBnnnC6AZIgNz8n/rVrQNCzE8g6TLU9bXBm0HvbSKmcl3l8b1H
+         To68uFieJJm1pM7HxSI4RhxGeHVUOA552SKia52WS+5NYl4gFfI7zmPpCU9158KCd/nY
+         79vQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVHcBazYyM75AjUBRSLcAgYG4BbWvp3DEBgF0ezt4QR4azx9snm2ahDUiRp4FPvWZpXaaQe7rrdEE0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwGc/vaLysWyexSHjjQRi9mxPnOjOS3dSBxYRJCbNeSwcObtbDn
+	x1tnNz/fAilDn+jJAFvyGuFHIG3MI47AggLvibxyRJiojtsHeuSXBXyq4385yo9Jzw==
+X-Gm-Gg: ATEYQzyXkFeQYGrrVFk8ZLwIsj/an1C2hRKW8q+G8PoYtClVgrMxKfMvlnxErZdXNph
+	5JgqfPZzLRmNllDpQiMTbXDz3vcXqGJpFlIjC3eB3/U2zUpEYG17wyoM830WkD0YhbS37XmU7Nj
+	eyNTZbME5Oktdl3fG89gf5x2u4d0hXW7ThnSmPML25Wq8wSCAMINTZHSWpMsLYXcGkXV2UlncM6
+	R7xgERPTHKcV/1I2onXFglAXY/wbgSF8StxM0vm8FedOVB4zbkCb00Qej3QsA2+LQpE9wk+n7Hy
+	hytaUpOQuQhHUsialMlcLcKZhVduyHUZyqrSsTbDASqGdQN7Myn6d9dYWVZdUQ2JNSl8+ha1Sw/
+	YC0Z6fTf0dy5gWLC7kCCqZv2XpxsZAq2WlpH/a6L3UDgO91HKOziFCx4M/jgBtbeCHTIUUdxoHo
+	mRnpkRS6rDL+gs7dZAdGZriGX2Qe7bEZC9lVPVmgHuTasKgkHV/7Khl4oUIHAzRoYFWinhrzbsX
+	myhcMjHsX45pFQ=
+X-Received: by 2002:a05:600c:1d0c:b0:483:78e1:784 with SMTP id 5b1f17b1804b1-4851984a312mr40672175e9.4.1772641228106;
+        Wed, 04 Mar 2026 08:20:28 -0800 (PST)
+Message-ID: <91d2bd4b-7ca8-45fe-9e60-071d2cf2d327@suse.com>
+Date: Wed, 4 Mar 2026 17:20:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 01/14] xen/riscv: detect and store supported hypervisor
- CSR bits at boot
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v4 01/10] xen/page_alloc: Extract code for consuming
+ claims into inline function
+To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1772016457.git.oleksii.kurochko@gmail.com>
- <a17b6a117726904a9384dc7d9cc140672d3b0453.1772016457.git.oleksii.kurochko@gmail.com>
- <4b67f8cb-43d4-4f18-b2b6-156e21330887@suse.com>
- <7e1f3962-2dd0-4843-8976-40452437a52a@gmail.com>
+References: <cover.1772098423.git.bernhard.kaindl@citrix.com>
+ <7dd887bc26830d6c50e5bc2606391963e65285a1.1772098423.git.bernhard.kaindl@citrix.com>
 Content-Language: en-US
-In-Reply-To: <7e1f3962-2dd0-4843-8976-40452437a52a@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 88707203C2F
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <7dd887bc26830d6c50e5bc2606391963e65285a1.1772098423.git.bernhard.kaindl@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 264E62041A2
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
+On 26.02.2026 15:29, Bernhard Kaindl wrote:
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -518,6 +518,34 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>      return d->tot_pages;
+>  }
+>  
+> +/* Release outstanding claims on the domain, host and later also node */
+> +static inline
 
-On 3/4/26 3:54 PM, Oleksii Kurochko wrote:
->>
->>> +    if ( riscv_isa_extension_available(NULL, 
->>> RISCV_ISA_EXT_smstateen) )
->>> +    {
->>> +        INIT_CSR_MASK(HSTATEEN0, hstateen0, _UL(0xDE00000000000007));
->>> +        csr_masks.ro_one.hstateen0 = old;
->> What guarantees that only r/o-one bits are set in the incoming 
->> hstateen0? I
->> can't help thinking that to determine those bits you want to use
->> csr_read_clear() (or csr_clear()).
->
-> Good point, then after INIT_CSR_MASK() it will be needed to do:
->   csr_masks.ro_one.hstateen0 = csr_read_clear(CSR_HSTATEEN0, 
-> _UL(0xDE00000000000007));
->   csr_swap(CSR_HSTATEEN0, old);
->
-> Probably, csr_swap() isn't needed as it would be good to have all 
-> writable bits by
-> default 0. Of course, except r/o-one bits.
+Generally we prefer to avoid "inline" in .c files. This is better left to the
+compiler. Furthermore while we have a few examples of this kind of line split,
+it's clearly not the preferred form. You'll find ample well-formed static
+functions in this one source file alone.
 
-I came up with the macros declared inside init_csr_masks():
+> +void release_outstanding_claims(struct domain *d, unsigned long release)
+> +{
+> +    ASSERT(spin_is_locked(&heap_lock));
+> +    BUG_ON(outstanding_claims < release);
+> +    outstanding_claims -= release;
+> +    d->outstanding_pages -= release;
+> +}
+> +
+> +/*
+> + * Consume outstanding claimed pages when allocating pages for a domain.
+> + * NB. The alloc could (in principle) fail in assign_pages() afterwards. In that
+> + * case, the consumption is not reversed, but as claims are used only during
+> + * domain build and d is destroyed if the build fails, this has no significance.
+> + */
+> +static inline
+> +void consume_outstanding_claims(struct domain *d, unsigned long allocation)
+> +{
+> +    if ( !d || !d->outstanding_pages )
+> +        return;
+> +    ASSERT(spin_is_locked(&heap_lock));
 
-#define INIT_RO_ONE_MASK(csr, field, mask) do { \
-         old = csr_read_clear(CSR_HSTATEEN0, mask); \
-         csr_masks.ro_one.field = csr_swap(CSR_##csr, old) & mask; \
-     } while (0)
+Why is this not the first thing in the function?
 
-~ Oleksii
+> @@ -1048,29 +1075,8 @@ static struct page_info *alloc_heap_pages(
+>      total_avail_pages -= request;
+>      ASSERT(total_avail_pages >= 0);
+>  
+> -    if ( d && d->outstanding_pages && !(memflags & MEMF_no_refcount) )
+> -    {
+> -        /*
+> -         * Adjust claims in the same locked region where total_avail_pages is
+> -         * adjusted, not doing so would lead to a window where the amount of
+> -         * free memory (avail - claimed) would be incorrect.
+> -         *
+> -         * Note that by adjusting the claimed amount here it's possible for
+> -         * pages to fail to be assigned to the claiming domain while already
+> -         * having been subtracted from d->outstanding_pages.  Such claimed
+> -         * amount is then lost, as the pages that fail to be assigned to the
+> -         * domain are freed without replenishing the claim.  This is fine given
+> -         * claims are only to be used during physmap population as part of
+> -         * domain build, and any failure in assign_pages() there will result in
+> -         * the domain being destroyed before creation is finished.  Losing part
+> -         * of the claim makes no difference.
+> -         */
 
+Much of this comment is lost. Parts have been moved, but I think another part
+(in particular the first paragraph) wants to be retained here. Plus in general
+when rearranging code it is best to take the original commentary as is (typo
+or factual corrections of course included as necessary).
+
+Jan
 
