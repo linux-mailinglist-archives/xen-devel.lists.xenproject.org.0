@@ -2,45 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SMPZH7FKqGmvsgAAu9opvQ
+	id oGX1Nt5KqGmvsgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 16:07:29 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 16:08:14 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8A3C2023D7
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 16:07:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1245568.1544928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CCC920240C
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 16:08:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1245577.1544938 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxnog-0007qh-5x; Wed, 04 Mar 2026 15:07:14 +0000
+	id 1vxnpW-00007e-HH; Wed, 04 Mar 2026 15:08:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1245568.1544928; Wed, 04 Mar 2026 15:07:14 +0000
+Received: by outflank-mailman (output) from mailman id 1245577.1544938; Wed, 04 Mar 2026 15:08:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxnog-0007oH-2J; Wed, 04 Mar 2026 15:07:14 +0000
-Received: by outflank-mailman (input) for mailman id 1245568;
- Wed, 04 Mar 2026 15:07:13 +0000
+	id 1vxnpW-00005P-Dp; Wed, 04 Mar 2026 15:08:06 +0000
+Received: by outflank-mailman (input) for mailman id 1245577;
+ Wed, 04 Mar 2026 15:08:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bY7Q=BE=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vxnof-0007oB-2g
- for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 15:07:13 +0000
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c112::7])
+ <SRS0=YDHP=BE=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vxnpU-0007oB-N2
+ for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 15:08:04 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ceefa75a-17db-11f1-9ccf-f158ae23cfc8;
- Wed, 04 Mar 2026 16:07:07 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by CO1PR03MB5907.namprd03.prod.outlook.com (2603:10b6:303:6e::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Wed, 4 Mar
- 2026 15:07:01 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9678.016; Wed, 4 Mar 2026
- 15:07:01 +0000
+ id f0975a6e-17db-11f1-9ccf-f158ae23cfc8;
+ Wed, 04 Mar 2026 16:08:02 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-48336a6e932so43019485e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 07:08:02 -0800 (PST)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-439b0549600sm29368404f8f.35.2026.03.04.07.08.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Mar 2026 07:08:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,326 +50,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ceefa75a-17db-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cTSsdKySWC6+lF+heAi56WpZltXcvfwjYCwZEWdxiUfgpbiSRlJjhh+eZzYt0USZ7h1P9CIlMxBWKmWgvzLY/IJdQULJcNPDfTn2hjlvN0r9pcevBJKrXKAsxhOW73iK0P4NVdyNMd6ugaCRbWvGaTTKTLUEJWy/MkJZz30JMqlB2iUGchkty41Hcg/M+t/BEple0DGb0cPROqrGuJHS0a8JWULmB5JG8RhB4TKGb7P35DeCYihAR/Dun/vkeM9xGab+3Fldiz0SpwceeXVvrqYFfF7RulgyI49NdsdrzYOH/gp8K9Mj9kETjK2giI/03n1i+orItgyHtsUWQ7dK6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=maYv6YMM0hf8D0RaHXdIXUzwWjEs/blJ6dpfrYIT3xM=;
- b=hNpHLNTcr60W0kiPOhziPX0C8lQK5VVEBctY/twYHCDL3+UB5wfS+qlnmTrs4lHthJ5jRH3AH0IeH0tNTnu4FhG3oBS9LpLWCaRTOVhFDLuzS5CMd2cv7EFdMPYkHZBGJV8Kh+8U3Hh/5pV/r/JZDEBrySJ65XxJKkezmBgwZWBARsUMrEQrg9pDN8sFxM8lvvkDTT1ALLkjYZ0MdAQBWn6P3S5zPDf0E5uVL9FLIAG4f4Ac8K/y3afrzTF9xBN4gX3kmO2XySQzx6tyNERgfmq8wLodUMbiEsN3E2vVNdnqgBnv7gp8PpreVjPYZ7Th792AaVzPTdlhkKLuBtX/5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=maYv6YMM0hf8D0RaHXdIXUzwWjEs/blJ6dpfrYIT3xM=;
- b=XWBn2QcQIxOKxDT9VD2tT2YYvordUZCBkqbt8LU2MkXtcaHg7UBHVb9ZM2pGkQ3oqEvkSAt179Ws8zK3e8QRHBD++vWdifFsPboZ+i4NPvSA/rUfKjJbJyOXcktf6bHqBcIPLTn7hGlZh2itHULVXT3rl73JxqooyWJt6XK8/TU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 4 Mar 2026 16:06:57 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>
-Subject: Re: [PATCH v5 5/5] vPCI: re-init extended-capabilities when MMCFG
- availability changed
-Message-ID: <aahKkV2csf28Y0YC@macbook.local>
-References: <6202d2d4-ad80-4e37-b1f6-cd9d19add72f@suse.com>
- <9f1fcbfc-e7b6-4ef3-8f58-c88f9667d606@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <9f1fcbfc-e7b6-4ef3-8f58-c88f9667d606@suse.com>
-X-ClientProxiedBy: MR1P264CA0192.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:57::8) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: f0975a6e-17db-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1772636882; x=1773241682; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=n72m+QEc/gPGrAZ2170RYO1NvK3dfHMFAijzDzbtdbY=;
+        b=iFXu8W6vTKrE4/Kv5A02HcHRfNzr5UafP6i/zP16o+m7Uy5DxUkQ8UXEfPnz3rkyFt
+         9QHxrEokUzcHHfSBO/r0kyCHQIN1z/PCLLI+MwYtx0tbyTYhUjdknIxxFgkNeJKZM/8O
+         UaoZOQOSVcqYtREZiFFWJb1xNMuuyXnoniUHGsTr0BvWgGSTAyjMDpudpw/ygvjs0tOm
+         4W6IWK74S5vg8Aa027j4W3CX8kYEdK6zqgO0Z9KyDjEbxBMr8ZlNzBiDGzk/P8oGormd
+         9glSoz30qNg6IOF8YFgcJHplQQgV6NmrX8rvhVeTDxMQKAdmJa0UdrD5SfRmcm9duaC9
+         F0/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772636882; x=1773241682;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=n72m+QEc/gPGrAZ2170RYO1NvK3dfHMFAijzDzbtdbY=;
+        b=bWxHaas0bjsX60TyQpeFVfc0WsXcfD2QLriHcJlHEhQxb2eTm54T/fkyYYZyXZkxMk
+         1bqJCswfUnu9ZR/E+TubteQMSZx96hWxDwsOXc+d2/AddAGWfUEFAWGHt4G76yohhvCS
+         XHtVZueevHkNRDdGxeg6pGW7+q63tGkWNAsKMKt7JJKwQ9fm5dTSnv+0DYEeA/IysNi7
+         XoqxoJvNpd4FW+cxCQP9GWBto6p69hN514RSLoyRWv0WSW03WHqDco+YmntkbQI92c6a
+         zP5IiXuf6+NdGVQIzvC3H4fYhQBKId8pzeS3UsaFugB5jhv62OSFioaEy82PXMWEoipl
+         tKDw==
+X-Forwarded-Encrypted: i=1; AJvYcCXe4yOnbwQfEjyjtQCkt4vB1hmfDJ9PB8hknUMv8THtpxW+rx53jE7pFDsdFI1jDNwfgujWnrBZkhw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyh8Wi1jp+PBltbgZSTaBOs59lXb4aladp2oBujuRWNvBvBwLGg
+	bhv/9M83AyhW2+tAwXIv1MsfMDFqZ9cpoBVGVxNXtVUlFSFZvAacLdrY
+X-Gm-Gg: ATEYQzyZC2ICB035B3ljaK2X2XaWDu6QfL2UwCjYAHGx1TPb7DRI9e/DWZ9dAkyqbye
+	gJRWJXol99hH5xKJf+LqpIPJPb67huictciJrSmSFD7D9N/zS74NR+J7sSCvDiAcF5jNOdtxiIf
+	vMM9MLtbnyqpXEQyk2i/vLXmVI318v2CZ30JScQq7YaGymD4hWyZdPCx7o9lHMed8Li5jwv4CK0
+	+7+z2rSHnEcmr2t4K/7jOngMIFMJL+3cdN6mjdjsGZeG84r/IVB2K9RkJDqborIAdCkk259CUbp
+	eUpnCGQPRQTF6VE+Wh9G15hsaDCGApU6MJkFIZud3qjiZDObZlOx0+EbrSTaAz0S2fQE20EYmBI
+	/VsY/0gJHNng/4eUWPAdCjMdEhQjj6PUOkD4xuyxFU3IIraG6BqlHYozUc475Uot0qEWN+al/iL
+	gYrEKCnBwn3kbElON+EObikFu82hnnlRQ74rzP9DtuGYOSC/GdyKM/Pl98wgD4SJHh1wEbeCPyh
+	NM=
+X-Received: by 2002:a05:600c:4e8b:b0:480:4a4f:c363 with SMTP id 5b1f17b1804b1-485198480d8mr41405255e9.9.1772636881929;
+        Wed, 04 Mar 2026 07:08:01 -0800 (PST)
+Message-ID: <32bd2cc9-86ee-4470-af7c-f52838e0c4e1@gmail.com>
+Date: Wed, 4 Mar 2026 16:07:59 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CO1PR03MB5907:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6a9bcdc-ea74-4573-41d1-08de79ffb003
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	lzXGMbW3nyY85Gg2XW9D6Xq5FVh8OYdd8YPR4vtfidRBWNsiTc4/eAJtqBNk7PeLX7zcJPuJ5wLLH23AeQ8SQBQGh6WgEVQXu5PcVkeVxnv9R12TNMhmEk+Urwj5w+ytJM7nRGh1LHfMhRjUoVFdEO9dIALatn9z9Zij4CIODyYNyOB8xlRYHsRSUlkERd7ydcKwJLNzQjwR+SuT8tRwW6C0BWMxg4wFMpefRIpJboYkA5TDYAPM0bFC8W/AYmlr/bJdEzu2MicW4ePlCHS9jfKoGFm3sCZNtsXrTzN96xLahLL6QRxgMoKl/qHGyhdtYFMLV5obUt2uox3GciEMg75efeKHNQlovORxuGpwZnVcP59D1sK7eB4CU46PYM9+ff1JpVp6XoKFrKJpS3EDyY5uTCeLCj+iBrnUQ0yfbbtaJER7oFsaA9Ws9kuzI3HaFN6bNDfUw4dAzPScVnolp0UZhPqNAkdvX7Uh0UFzmLW5HWO8kiJI3+L04y3807apKizb1vIIKMRUpKGeIbv5UigwPsArZSQRwYTA4QXRwTNAtUleYfPrTmfDSI8VW0LhO0wlIMDZWNThJbEaSybKzUMXPUucPZc7aJrNKEmnVKHuk8Yshay2cSdxvVVs/Vcy5SkKW+IXD72/xQLLmOMF1g+JcvBhbTw3WuSh33wDJNvUaNa7/cGKKh/BWWS8nMpdxlweDs+glGbJOkSTrlXwOPJ0ktCMYmr9uIken+i6PTI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z2FHWGloTjZUQ0FGMUpMT3p6Z21kV3RqQkRrWmVibHd4Q3RpNVM1TGhqRkUy?=
- =?utf-8?B?a0ZaNVg2NlprZUN1TjVMNmF3c2g2UC9KeXRvaXhJOCs2cGpDTGMwbXNpck9m?=
- =?utf-8?B?bld4Z1JTZUpoay9ZYzZ5WEoyajl3Q011SWp6cHlrVEViYWl3UnVTcDJ0MXQv?=
- =?utf-8?B?ZGVtY3Q3eHQzNkxqVVBJS0d2czJTQ3pDTGJjYmJqdy9xQXNnMDI3Z0NtQndi?=
- =?utf-8?B?Y0d4NXBtWkdkVjJxcnJXek1VRUNwMU1pSzA4Z0NsdUFWcEh3YjN5Z0FLUHQ2?=
- =?utf-8?B?T29DSmtrTW5YRndyeDR5clhmZ000ajVCUEoyOHR6Qy9MTXFOSG5GWkxHWmdF?=
- =?utf-8?B?S2hFc0lHS0ZOdjBKa0J3Z243bVZucW9ucFZ5TDF4aTNyNWtqYkVWWjZFRjEx?=
- =?utf-8?B?aGp0Q2t4YnVKZGcrMnRHT3h4amg5eXlGZnQ4RmszejZuL3F5eVBvMVE1ZmJt?=
- =?utf-8?B?bnorUWlia2N3aGh0V010RVJrNXR3U2w2K2V2b1ZWMUJiNkZxQXRKY3ZhaVA4?=
- =?utf-8?B?a3cvbDAyMlBmS0lJQUJQQzlvd2hpM3FiYU5YUGhtcEhxY2EwRFNncG9WbVNr?=
- =?utf-8?B?WmNTb0pBbFpCU0ZFcU9Ha056cjlnU0tmRWNubWJXTzRvWkdrTjVqaExEZ0U4?=
- =?utf-8?B?OHJnS1dYSE16dEVkNUJGeVNrU0x0VDZnNDlGNXNFUHRjYThtUXlqK3pSNldv?=
- =?utf-8?B?KzdxNXNlcEVUNWRuTVZQMHBmUWVzSUh0cENyd3gwSU0yMllFS0hhSmJobnl2?=
- =?utf-8?B?QTJQTXNXMFRBYWZyNDkxRDdvQ09lZmdFMnR1ZzNLWGg1TFZna085OWdlcU5o?=
- =?utf-8?B?N0FVc1ZDeGR6NUlqS1JTU2x2VEJ5TjR0Rytxdm85MGh4bDRCMFNoUXE1dVZp?=
- =?utf-8?B?UUh4V1krSGtNd21xTVA2ZGVYVE5Yd3FkL3NiWEkxMWpMeUVOdGsvV1JEdkVZ?=
- =?utf-8?B?T3BhQWhLSGNRQ2E0TnFWZkpqN1FERHVuSUsrUDVLTXpIcmxaV21pcXR3SHJy?=
- =?utf-8?B?cTZPaWtKSUNXQWJSdUhrR2V5RVVqNzc2WkJiVmljclliZnVBZFNoZStQMHJX?=
- =?utf-8?B?RWtxNEtXcm5FbGpYaTE1am1wRFV0a0VGbXJ5QUs3aCtiRkphL0xOdnJJM3Nz?=
- =?utf-8?B?aFFNaVNwVlVIcjNERnYvTytjemlwQU9LeVR4VEtEMFE1UDQwdkQyTmpZMDdz?=
- =?utf-8?B?Q2FQSlowcUFLVnViWFFLODRPR1ZaV1grcnNqSFQva2c0Q2g4YmkrUDNyNVl2?=
- =?utf-8?B?YWhWNWxFdEZaSk1BWS9lU0xYQVF0d0J3ZTlMS2tMR1dOYnVBcytrMFViMHpw?=
- =?utf-8?B?NmNkUE8zeTdSSy8ySnlLZkNPbVQ5bExReUxXd3ZJVlQwd25mWlhUSGxDQlk4?=
- =?utf-8?B?ZFV2NEl4RmdxNDUwZ0plZjJYTkc2WGlEd3crcGpvdmdyTFo4Y1M3am5hWS9R?=
- =?utf-8?B?d3kxSGRuWGlRYXJtZnEvdGpXWHpRTzQyYTdjVUFrZkx6WGdKVFBLN1UwVW54?=
- =?utf-8?B?cXlHWDN5TkdqOGs3YWxFdXBqOFFUV1BIRitHRmlNL2tHYkFodmtHQTkrNGhq?=
- =?utf-8?B?U2FkTEpleitHZGt0bjZzaTdGaDFIMFlTUngvQzExNEx3NXNsRktvdG9lKzBu?=
- =?utf-8?B?Z1pHaHpjWiswTmxNU3lYTmpnSmpURG13Vi9jZ21VdER0eG9SQ1ZhSWthVFI2?=
- =?utf-8?B?SHBHLzRpRGJhT2dOOHdlbkRwZjNrYXhkS0tlU1Z2cG12MXUxUHVQZkxpZVV5?=
- =?utf-8?B?eFdEYldRa1k4S2YvcW42MmIzZ2p1cFY4bDNpUEs5Zi9RdDMrWk1QOTRORzhP?=
- =?utf-8?B?VHhlQTVYbEQxa3NqdFFtcHVITTVLclhsbE5aT2dtT2IwK29lNnBrZDNXd1RK?=
- =?utf-8?B?c0tYUUFzREFGcy9PSUFBNVRGbFhDQU9na2VZU3A4YmRkTjM2UHBWc1FYUUl2?=
- =?utf-8?B?M0hpZXFHTWU1a3VXVGV6Q1VHTlREYmxacjc1bUw5QnA5ZGN5ZkI4U01PL1ZZ?=
- =?utf-8?B?cnpyTmVmOEtpeEdrTldjN1VOQW1haFR5TXdQLzFITXZLNTNHUFVuZzdZUm5p?=
- =?utf-8?B?bCtpVEE4S20rQTdRQ3hxZTlVNU8zMVU1QTIrNFcrdlJONTFSUDE5TXlCeVFX?=
- =?utf-8?B?ZmhjdUplSmxvN09zNnltZXp6bTMzeUlWTkUxK0FnOEpWNFZJejRlRlZIc1dr?=
- =?utf-8?B?SGJOak5TdDlObHRseDA1QlFLZFBVOXlFcmtSSkdZMDlxMFg0ZGgrTTA1T0c1?=
- =?utf-8?B?NThiSnNxRFJLeDMrSDRHRW5FWUh1OUdCUFdFa3JyQTRHMnl4enlUTGdmaDkz?=
- =?utf-8?B?WEFaQWhwVXQyY0tGa1JLTmJScEh5QXVmWGM2WERWZ1h3dHU1ZWJBdz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6a9bcdc-ea74-4573-41d1-08de79ffb003
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 15:07:01.2455
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RnCOOEyqtK3nwJjLN0/C0TeVODocJmMeOZe1373ye39oNVUm0KP7lh+ETkI+zaWzrI+cXAMdGMlZrTMjWdSflw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR03MB5907
-X-Rspamd-Queue-Id: C8A3C2023D7
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 03/14] xen/riscv: introduce tracking of pending vCPU
+ interrupts, part 1
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1772016457.git.oleksii.kurochko@gmail.com>
+ <a1954e9a30abace453f4604a47b43ecbcebe350a.1772016457.git.oleksii.kurochko@gmail.com>
+ <6357ad3f-85c8-4fe4-a2c8-8b0a0a97f1b3@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <6357ad3f-85c8-4fe4-a2c8-8b0a0a97f1b3@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4CCC920240C
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On Wed, Feb 25, 2026 at 12:44:44PM +0100, Jan Beulich wrote:
-> When Dom0 informs us about MMCFG usability, this may change whether
-> extended capabilities are available (accessible) for devices. Zap what
-> might be on record, and re-initialize things.
-> 
-> No synchronization is added for the case where devices may already be in
-> use. That'll need sorting when (a) DomU support was added and (b) DomU-s
-> may run already while Dom0 / hwdom still boots (dom0less, Hyperlaunch).
-> 
-> vpci_cleanup_capabilities() also shouldn't have used
-> pci_find_ext_capability(), as already when the function was introduced
-> extended config space may not have been (properly) accessible anymore,
-> no matter whether it was during init. Extended capability cleanup hooks
-> need to cope with being called when the respective capability doesn't
-> exist (and hence the corresponding ->init() hook was never called).
-> 
-> Fixes: 70e6dace747e ("vpci: Use cleanup to free capability resource during deassign")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> vpci_reinit_ext_capabilities()'es return value is checked only to log an
-> error; it doesn't feel quite right to fail the hypercall because of this.
-> Roger brought up the idea of de-assigning the device in such a case, but
-> if a driver doesn't use extended capabilities the device would likely
-> continue to work fine, for Dom0 this probably wouldn't be quite right
-> anyway, and it's also unclear whether calling deassign_device() could be
-> done from this context. Something like what pci_check_disable_device()
-> does may be an option, if we really think we need to "break" the device.
 
-We may want to add a note there, stating that we have considered all
-possible options, and hiding the capability and hoping the owner
-domain would continue to work as expected seems the less bad of all of
-them?
+On 3/3/26 2:35 PM, Jan Beulich wrote:
+> On 26.02.2026 12:51, Oleksii Kurochko wrote:
+>> Based on Linux kernel v6.16.0.
+>> Note that smp_wmb() is used instead of smp_mb__before_atomic() as what
+>> we want to guarantee that if a bit in irqs_pending_mask is obversable
+>> that the correspondent bit in irqs_pending is observable too.
+>>
+>> Add lockless tracking of pending vCPU interrupts using atomic bitops.
+>> Two bitmaps are introduced:
+>>   - irqs_pending — interrupts currently pending for the vCPU
+>>   - irqs_pending_mask — bits that have changed in irqs_pending
+>>
+>> The design follows a multi-producer, single-consumer model, where the
+>> consumer is the vCPU itself. Producers may set bits in
+>> irqs_pending_mask without a lock. Clearing bits in irqs_pending_mask is
+>> performed only by the consumer via xchg(). The consumer must not write
+>> to irqs_pending and must not act on bits that are not set in the mask.
+>> Otherwise, extra synchronization should be provided.
+>>
+>> On RISC-V interrupts are not injected via guest registers, so pending
+>> interrupts must be recorded in irqs_pending (using the new
+>> vcpu_{un}set_interrupt() helpers) and flushed to the guest by updating
+>> HVIP before returning control to the guest. The consumer side is
+>> implemented in a follow-up patch.
+>>
+>> A barrier between updating irqs_pending and setting the corresponding
+>> mask bit in vcpu_set_interrupt()/vcpu_unset_interrupt() guarantees
+>> that if the consumer observes a mask bit set, the corresponding pending
+>> bit is also visible. This prevents missed interrupts during the flush.
+>>
+>> It is possible that a guest could have pending bit in the hardware
+>> register without being marked pending in irq_pending bitmap as:
+>>    According to the RISC-V ISA specification:
+>>      Bits hip.VSSIP and hie.VSSIE are the interrupt-pending and
+>>      interrupt-enable  bits for VS-level software interrupts. VSSIP in hip
+>>      is an alias (writable) of the same bit in hvip.
+>>    Additionally:
+>>      When bit 2 of hideleg is zero, vsip.SSIP and vsie.SSIE are read-only
+>>      zeros. Else, vsip.SSIP and vsie.SSIE are aliases of hip.VSSIP and
+>>      hie.VSSIE.
+>> This means the guest may modify vsip.SSIP, which implicitly updates
+>> hip.VSSIP and the bit being written with 1 would also trigger an interrupt
+>> as according to the RISC-V spec:
+>>    These conditions for an interrupt trap to occur must be evaluated in a
+>>    bounded   amount of time from when an interrupt becomes, or ceases to be,
+>>    pending in sip,  and must also be evaluated immediately following the
+>>    execution of an SRET  instruction or an explicit write to a CSR on which
+>>    these interrupt trap conditions expressly depend (including sip, sie and
+>>    sstatus).
+>> What means that IRQ_VS_SOFT must be synchronized separately, what is done
+>> in vcpu_sync_interrupts(). Note, also, that IRQ_PMU_OVF would want to be
+>> synced for the similar reason as IRQ_VS_SOFT, but isn't sync-ed now as
+>> PMU isn't supported now.
+>>
+>> For the remaining VS-level interrupt types (IRQ_VS_TIMER and
+>> IRQ_VS_EXT), the specification states they cannot be modified by the guest
+>> and are read-only because of:
+>>    Bits hip.VSEIP and hie.VSEIE are the interrupt-pending and interrupt-enable
+>>    bits for VS-level external interrupts. VSEIP is read-only in hip, and is
+>>    the logical-OR of these interrupt sources:
+>>      • bit VSEIP of hvip;
+>>      • the bit of hgeip selected by hstatus.VGEIN; and
+>>      • any other platform-specific external interrupt signal directed to
+>>        VS-level.
+>>    Bits hip.VSTIP and hie.VSTIE are the interrupt-pending and interrupt-enable
+>>    bits for VS-level timer interrupts. VSTIP is read-only in hip, and is the
+>>    logical-OR of hvip.VSTIP and any other platform-specific timer interrupt
+>>    signal directed to VS-level.
+>> and
+>>    When bit 10 of hideleg is zero, vsip.SEIP and vsie.SEIE are read-only zeros.
+>>    Else, vsip.SEIP and vsie.SEIE are aliases of hip.VSEIP and hie.VSEIE.
+>>
+>>    When bit 6 of hideleg is zero, vsip.STIP and vsie.STIE are read-only zeros.
+>>    Else, vsip.STIP and vsie.STIE are aliases of hip.VSTIP and hie.VSTIE.
+>> and also,
+>>    Bits sip.SEIP and sie.SEIE are the interrupt-pending and interrupt-enable
+>>    bits for supervisor-level external interrupts. If implemented, SEIP is
+>>    read-only in sip, and is set and cleared by the execution environment,
+>>    typically through a platform-specific interrupt controller.
+>>
+>>    Bits sip.STIP and sie.STIE are the interrupt-pending and interrupt-enable
+>>    bits for supervisor-level timer interrupts. If implemented, STIP is
+>>    read-only in sip, and is set and cleared by the execution environment
+>> Thus, for these interrupt types, it is sufficient to use vcpu_set_interrupt()
+>> and vcpu_unset_interrupt(), and flush them during the call of
+>> vcpu_flush_interrupts() (which is introduced in follow up patch).
+>>
+>> vcpu_sync_interrupts(), which is called just before entering the VM,
+>> slightly bends the rule that the irqs_pending bit must be written
+>> first, followed by updating the corresponding bit in irqs_pending_mask.
+>> However, it still respects the core guarantee that the producer never
+>> clears the mask and only writes to irqs_pending if it is the one that
+>> flipped the corresponding mask bit from 0 to 1.
+>> Moreover, since the consumer won't run concurrently because
+>> vcpu_sync_interrupts() and the consumer path are going to be invoked
+>> sequentially immediately before VM entry, it is safe to slightly relax
+>> this ordering rule in vcpu_sync_interrupts().
+>>
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> ---
+>> Changes in v6:
+>>   - Drop for the moment:
+>>         /* Read current HVIP and VSIE CSRs */
+>>         v->arch.vsie = csr_read(CSR_VSIE);
+>>     from vcpu_sync_interrupts() as it isn't used at the moment and will
+>>     be introduced when a usage will be more clear.
+> With this, shouldn't the RV32 related #ifdef in vcpu_sync_interrupts() also
+> go away?
 
-> The use of is_hardware_domain() in vpci_cleanup_capabilities() was
-> uncommented and hence is left so. Shouldn't there be a DomU-related TODO
-> or FIXME?
+It could be done in this way. It's just a hint for a person who will add RV32
+not to miss to update vcpu_sync_interrupts() properly. Lets drop that for now
+too and deal with that during review if a person will miss to make correspondent
+update of vcpu_sync_interrupts() for RV32.
 
-Hm, yes, possibly.  I think limiting extended space availability to
-the hardware domain only has been done "just" because we have no
-extended capabilities to expose to domUs so far, and I don't think we
-even setup the extended capability list in the domU case.
+>
+>> +void vcpu_sync_interrupts(struct vcpu *v)
+> The sole caller passes "current". Are other uses of this function planned?
+> If not either "current" wants directly using here, or minimally the parameter
+> wants renaming to "curr". In fact ...
+>
+>> +{
+>> +    unsigned long hvip = csr_read(CSR_HVIP);
+> ... this suggests it's unlikely for the function to be valid to call with
+> other than "current".
 
-> ---
-> v5: Don't use pci_find_ext_capability() in vpci_cleanup_capabilities().
->     Add assertion in vpci_reinit_ext_capabilities().
-> v4: Make sure ->cleanup() and ->init() are invoked.
-> v3: New.
-> 
-> --- a/xen/arch/x86/physdev.c
-> +++ b/xen/arch/x86/physdev.c
-> @@ -8,6 +8,8 @@
->  #include <xen/guest_access.h>
->  #include <xen/iocap.h>
->  #include <xen/serial.h>
-> +#include <xen/vpci.h>
-> +
->  #include <asm/current.h>
->  #include <asm/io_apic.h>
->  #include <asm/msi.h>
-> @@ -169,8 +171,17 @@ int cf_check physdev_check_pci_extcfg(st
->  
->      ASSERT(pdev->seg == info->segment);
->      if ( pdev->bus >= info->start_bus && pdev->bus <= info->end_bus )
-> +    {
-> +        int rc;
-> +
->          pci_check_extcfg(pdev);
->  
-> +        rc = vpci_reinit_ext_capabilities(pdev);
-> +        if ( rc )
-> +            gprintk(XENLOG_ERR, "%pp(%pd): vPCI extcap reinit failed: %d\n",
-> +                    &pdev->sbdf, pdev->domain, rc);
-> +    }
-> +
->      return 0;
->  }
->  #endif /* COMPAT */
-> --- a/xen/drivers/vpci/cap.c
-> +++ b/xen/drivers/vpci/cap.c
-> @@ -285,13 +285,16 @@ static int vpci_init_ext_capability_list
->      return 0;
->  }
->  
-> -int vpci_init_capabilities(struct pci_dev *pdev)
-> +int vpci_init_capabilities(struct pci_dev *pdev, bool ext_only)
->  {
->      int rc;
->  
-> -    rc = vpci_init_capability_list(pdev);
-> -    if ( rc )
-> -        return rc;
-> +    if ( !ext_only )
-> +    {
-> +        rc = vpci_init_capability_list(pdev);
-> +        if ( rc )
-> +            return rc;
-> +    }
->  
->      rc = vpci_init_ext_capability_list(pdev);
->      if ( rc )
-> @@ -305,7 +308,7 @@ int vpci_init_capabilities(struct pci_de
->          unsigned int pos = 0;
->  
->          if ( !is_ext )
-> -            pos = pci_find_cap_offset(pdev->sbdf, cap);
-> +            pos = !ext_only ? pci_find_cap_offset(pdev->sbdf, cap) : 0;
->          else if ( is_hardware_domain(pdev->domain) )
->              pos = pci_find_ext_capability(pdev, cap);
->  
-> @@ -349,22 +352,23 @@ int vpci_init_capabilities(struct pci_de
->      return 0;
->  }
->  
-> -void vpci_cleanup_capabilities(struct pci_dev *pdev)
-> +void vpci_cleanup_capabilities(struct pci_dev *pdev, bool ext_only)
->  {
+Agree, I will drop v argument and use current inside vcpu_sync_interrupts().
 
-You could short-circuit the function here, ie:
+Thanks.
 
-if ( ext_only && !is_hardware_domain(pdev->domain) )
-    return;
+~ Oleksii
 
-But I'm not sure that would simplify the code of the function much?
-Likewise for vpci_init_capabilities().
-
->      for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
->      {
->          const vpci_capability_t *capability = &__start_vpci_array[i];
->          const unsigned int cap = capability->id;
-> -        unsigned int pos = 0;
->  
->          if ( !capability->cleanup )
->              continue;
->  
-> -        if ( !capability->is_ext )
-> -            pos = pci_find_cap_offset(pdev->sbdf, cap);
-> -        else if ( is_hardware_domain(pdev->domain) )
-> -            pos = pci_find_ext_capability(pdev, cap);
-> -        if ( pos )
-> +        /*
-> +         * Cannot call pci_find_ext_capability() here, as extended config
-> +         * space may (no longer) be accessible.
-> +         */
-> +        if ( capability->is_ext
-> +             ? is_hardware_domain(pdev->domain)
-> +             : !ext_only && pci_find_cap_offset(pdev->sbdf, cap) )
-
-Given the changes you have done to the reBAR cleanup function, we
-could even call capability->cleanup() on domUs, as the handler has to
-deal with uninitialized capabilities either way?
-
->          {
->              int rc = capability->cleanup(pdev, false);
->  
-> @@ -376,6 +380,28 @@ void vpci_cleanup_capabilities(struct pc
->      }
->  }
->  
-> +int vpci_reinit_ext_capabilities(struct pci_dev *pdev)
-> +{
-> +    if ( !pdev->vpci )
-> +        return 0;
-> +
-> +    /*
-> +     * FIXME: DomU support is missing.  For already running domains we may
-> +     * need to pause them around the entire re-evaluation of extended config
-> +     * space accessibility.
-> +     */
-> +    if ( pdev->domain )
-> +        ASSERT(pdev->domain == hardware_domain || pdev->domain == dom_io);
-
-Is this to cope around races?  I don't think it's a valid state to
-have pdev->vpci != NULL and pdev->domain == NULL?
-
-Neither you can have pdev->domain == dom_io and pdev->vpci != NULL?
-
-> +
-> +    vpci_cleanup_capabilities(pdev, true);
-> +
-> +    if ( vpci_remove_registers(pdev->vpci, PCI_CFG_SPACE_SIZE,
-> +                               PCI_CFG_SPACE_EXP_SIZE - PCI_CFG_SPACE_SIZE) )
-> +        ASSERT_UNREACHABLE();
-
-Ideally this would better be done the other way around.  We first
-remove the handlers, and the cleanup the capabilities.  Just to ensure
-no stray handler could end up having cached references to data that's
-been freed by vpci_cleanup_capabilities().
-
-And we should take the write_lock(&pdev->domain->pci_lock).
-
-Thanks, Roger.
 
