@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GBpwK+JbqGmZtgAAu9opvQ
+	id GLo3N3xeqGmZtgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 17:20:50 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 17:31:56 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 264E62041A2
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 17:20:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1245757.1545148 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F8242044D5
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 17:31:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1245771.1545158 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxoxc-0001rX-Kx; Wed, 04 Mar 2026 16:20:32 +0000
+	id 1vxp8I-0003fB-K9; Wed, 04 Mar 2026 16:31:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1245757.1545148; Wed, 04 Mar 2026 16:20:32 +0000
+Received: by outflank-mailman (output) from mailman id 1245771.1545158; Wed, 04 Mar 2026 16:31:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxoxc-0001pz-IB; Wed, 04 Mar 2026 16:20:32 +0000
-Received: by outflank-mailman (input) for mailman id 1245757;
- Wed, 04 Mar 2026 16:20:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vxp8I-0003d5-Gm; Wed, 04 Mar 2026 16:31:34 +0000
+Received: by outflank-mailman (input) for mailman id 1245771;
+ Wed, 04 Mar 2026 16:31:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Xh4z=BE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vxoxb-0001pt-Oq
- for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 16:20:31 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0ef72ed2-17e6-11f1-9ccf-f158ae23cfc8;
- Wed, 04 Mar 2026 17:20:29 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4806ce0f97bso60915465e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 08:20:29 -0800 (PST)
+ id 1vxp8H-0003cx-JE
+ for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 16:31:33 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9773717d-17e7-11f1-b164-2bf370ae4941;
+ Wed, 04 Mar 2026 17:31:27 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id
+ ffacd0b85a97d-439b2965d4bso3461439f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 08:31:27 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4851a8ae17csm13993845e9.6.2026.03.04.08.20.25
+ ffacd0b85a97d-439b4e771basm30370129f8f.0.2026.03.04.08.31.25
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Mar 2026 08:20:26 -0800 (PST)
+ Wed, 04 Mar 2026 08:31:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,51 +50,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0ef72ed2-17e6-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 9773717d-17e7-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772641228; x=1773246028; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772641886; x=1773246686; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bFqecisVfpqlBVF4/cTVsR7G7jAGrW7vwDhM9nM84Ig=;
-        b=ehX+R7OSO7gNeQpDiU/Alk8U/NuwtEArdyZ4QvJCdocr69fBrxJhmaZ9ZuX0F10ewb
-         p3hFKUEryB6OR9OZxTgLPsq3DHA0MTXWGsS+YRWLiWWPbBfa2/mmFxbPFzsxcLU+RRck
-         1zjJOUzXbPMBdENt+VBC8Mf5KYVaBu1fpdlP2gGD5u8zBINaZCWc1m7xQ2NpSTkbuup5
-         oi/lhU3JQf+as8Jspr7IYL/KbrHqD0axxeb8mdHlxCAbunbOCJ6pku/RPRFYTJsSSG/M
-         hQ0lQGYyGLDTPUpY/nuPM16jgSyLpsXwuD0o/Fra6jWdpH9XxnALSUNfnMPbhuvL9Exz
-         pI8g==
+        bh=cho1gBbzdAzbi5aNRaJ7Aduz2iliIVIo2vn0mUgOkJo=;
+        b=KW6nYc4xe+PeGitlnpLpnSAdwSg2ZuxwXKvBDCBZ4sAMjId5L52CaaXNRKiXwokwTc
+         lvNR3+rXZ48Z2w3jBDCoknAFpp3APhF28PNuQQF3OBaLAoQGabWDaauqIkxkJqWOmAtL
+         xJwBKz2/ZIHyseesKBimVZ3h9loz1fOU46ZOEt+B2uswn5dkkmbt/JplJximnoIEUJ10
+         U3oPMYPKd0NN1Q1adFE+2XAurXH711VdI0iaZQEWo5eL51dTp9YpZoXVBrXZaRT4LCFE
+         ApPPn/8dNsjlYr3jwV3b1URVYGHp7Y9ry7UvH0hVE//d96LpaYqv3pMd30UE4T2rQC5Z
+         J5pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772641228; x=1773246028;
+        d=1e100.net; s=20230601; t=1772641886; x=1773246686;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bFqecisVfpqlBVF4/cTVsR7G7jAGrW7vwDhM9nM84Ig=;
-        b=GSxQyy9A7dx20UQkeVciTkUOp2AxOQ8Pb60/9zhke1X3J/lxFnp4SNFD56ukTCfEqo
-         hp1ObdGcL5nLInNAOOi7gf9YhEM9m0i/EiVX/acirPmNAvsxDUBYRNZUy3HXHKSWUdzt
-         TeyC6JgZ5SXxW9kIeKBqoiugrdjk8YRl7CFXx7M5dMrDlmxrEryF5F49lQfBC6S3HbgQ
-         vQ9HDt90514c8zxozhoBnnnC6AZIgNz8n/rVrQNCzE8g6TLU9bXBm0HvbSKmcl3l8b1H
-         To68uFieJJm1pM7HxSI4RhxGeHVUOA552SKia52WS+5NYl4gFfI7zmPpCU9158KCd/nY
-         79vQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVHcBazYyM75AjUBRSLcAgYG4BbWvp3DEBgF0ezt4QR4azx9snm2ahDUiRp4FPvWZpXaaQe7rrdEE0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwGc/vaLysWyexSHjjQRi9mxPnOjOS3dSBxYRJCbNeSwcObtbDn
-	x1tnNz/fAilDn+jJAFvyGuFHIG3MI47AggLvibxyRJiojtsHeuSXBXyq4385yo9Jzw==
-X-Gm-Gg: ATEYQzyXkFeQYGrrVFk8ZLwIsj/an1C2hRKW8q+G8PoYtClVgrMxKfMvlnxErZdXNph
-	5JgqfPZzLRmNllDpQiMTbXDz3vcXqGJpFlIjC3eB3/U2zUpEYG17wyoM830WkD0YhbS37XmU7Nj
-	eyNTZbME5Oktdl3fG89gf5x2u4d0hXW7ThnSmPML25Wq8wSCAMINTZHSWpMsLYXcGkXV2UlncM6
-	R7xgERPTHKcV/1I2onXFglAXY/wbgSF8StxM0vm8FedOVB4zbkCb00Qej3QsA2+LQpE9wk+n7Hy
-	hytaUpOQuQhHUsialMlcLcKZhVduyHUZyqrSsTbDASqGdQN7Myn6d9dYWVZdUQ2JNSl8+ha1Sw/
-	YC0Z6fTf0dy5gWLC7kCCqZv2XpxsZAq2WlpH/a6L3UDgO91HKOziFCx4M/jgBtbeCHTIUUdxoHo
-	mRnpkRS6rDL+gs7dZAdGZriGX2Qe7bEZC9lVPVmgHuTasKgkHV/7Khl4oUIHAzRoYFWinhrzbsX
-	myhcMjHsX45pFQ=
-X-Received: by 2002:a05:600c:1d0c:b0:483:78e1:784 with SMTP id 5b1f17b1804b1-4851984a312mr40672175e9.4.1772641228106;
-        Wed, 04 Mar 2026 08:20:28 -0800 (PST)
-Message-ID: <91d2bd4b-7ca8-45fe-9e60-071d2cf2d327@suse.com>
-Date: Wed, 4 Mar 2026 17:20:24 +0100
+        bh=cho1gBbzdAzbi5aNRaJ7Aduz2iliIVIo2vn0mUgOkJo=;
+        b=vCv/L4dkih5zUrUSk2za+/1N+QqGwBXWN+Ll94GNxAiOng0voxLYAkDaJubL4YQif7
+         e7du5KXq2S31rOGsFRBoRb912SP6BH3UsWVy/n6zwtS5+XO1mzY7kA5W3M3HNnjc43hS
+         4uQ84NPDt3chrlN2nNhnOJXFrnAlxgGZdnUS2qzz1U9vUg3AjrfUP9RH7WZBTsyz8IKk
+         q9s4eZh7Rv1CrJFhYiqUGw6UNvfeBoNJYXdOhwYmp9c9qUfZckZfMrA/7/29AYdhDI1I
+         0Q/bCyWx/1FHiys9GPCfIygz7RkchD0WJAezlAlRYr2mI5cvPXqlvqrf4DwYD2M81i7R
+         xJMw==
+X-Forwarded-Encrypted: i=1; AJvYcCXBqsBwvoZOa/ezaA9PyGyzoWec+0K53lmwPZAiZ3kX3yqXtI2ltxsHhVXQc1YNWB8VsBCnug/SFO4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxPQ02Lz0DJIsO1T+/3b0Tuh44taK1nCzi1hprfz6iCuzFc5cvp
+	bKYdzVxoQkMcO3vGpdOSah6g9WaNt/dOATwumsBtydGZB3VTJ79tf2Zpwd0xcKBCeg==
+X-Gm-Gg: ATEYQzyqgejZUAvaC/9kZVb+HUo17XMwnyRJfwlfLBAGzG2ADZTfv7aEelFojjGpg39
+	OmyT0+WZpab1U5KgbuLi1vwYAkEHXAjcy8Fej3VclNl1764hjWcpDwlSeI94gIkHzGA+PUE75US
+	mGYne+WOgnbAuKBdW5kIRN5qusdEojUcYiEAKhqNSZttYzbgciGuUixVKqRkl2pU+uKdP5P9yDL
+	04uB/wIKnn5REy6LqeJoueqb0ad4ONF3eagOTEi+rGzPKtXn+diLAPVTTr7ysWLY9hQ/eGf4I3D
+	cuu7QDl8h2D/BFgnR/4KS95NF5qHD6KJLk+cpYK/QY7Hd8Lulioxk4Zyqm3ozX7AcCa/v16aoC1
+	+8zBB3lw6cgwc96DXbGnqSt9lvO7z/UIwp/jZmA5TayYHXsC+dPRT+han2xztiAol0DPOZr0O/I
+	nC89o/R/CSo07NpCc3mAQdzIj4+Gxytk0CVGekHSkXEhz8H1dr3AGHR6v41Zp0Fe3EYq3T09Djl
+	FuRxHbA52UtB9g=
+X-Received: by 2002:a05:6000:1373:b0:439:ca9b:1f61 with SMTP id ffacd0b85a97d-439ca9b1fe5mr2735480f8f.17.1772641886481;
+        Wed, 04 Mar 2026 08:31:26 -0800 (PST)
+Message-ID: <5e4d4674-1e1a-4902-bcd0-a24fbd13dc8e@suse.com>
+Date: Wed, 4 Mar 2026 17:31:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/10] xen/page_alloc: Extract code for consuming
- claims into inline function
+Subject: Re: [PATCH v4 02/10] xen/page_alloc: Optimize getting per-NUMA-node
+ free page counts
 To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
@@ -102,7 +102,7 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1772098423.git.bernhard.kaindl@citrix.com>
- <7dd887bc26830d6c50e5bc2606391963e65285a1.1772098423.git.bernhard.kaindl@citrix.com>
+ <c56658d1248660543fdba162810b0629c081bd94.1772098423.git.bernhard.kaindl@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -128,10 +128,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <7dd887bc26830d6c50e5bc2606391963e65285a1.1772098423.git.bernhard.kaindl@citrix.com>
+In-Reply-To: <c56658d1248660543fdba162810b0629c081bd94.1772098423.git.bernhard.kaindl@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 264E62041A2
+X-Rspamd-Queue-Id: 4F8242044D5
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -140,7 +140,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,cloud.com:email];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
@@ -167,69 +167,82 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 X-Rspamd-Action: no action
 
 On 26.02.2026 15:29, Bernhard Kaindl wrote:
+> From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
+> 
+> Add per-node free page counters (node_avail_pages[]), protected by
+> heap_lock, updated in real-time in lockstep with total_avail_pages
+> as pages are allocated and freed.
+> 
+> This replaces the avail_heap_pages() loop over all online nodes and
+> zones in avail_node_heap_pages() with a direct O(1) array lookup,
+> making it efficient to get the total free pages for a given NUMA node.
+> 
+> The per-node counts are currently provided using sysctl for NUMA
+> placement decisions of domain builders and monitoring, and for
+> debugging with the debug-key 'u' to print NUMA info to the printk buffer.
+> 
+> They will also be used for checking if a NUMA node may be able to
+> satisfy a NUMA-node-specific allocation by comparing node availability
+> against node-specific claims before looking for pages in the zones
+> of the node.
+> 
+> Also change total_avail_pages and outstanding_claims to unsigned long:
+> 
+> Those never become negative (we protect that with ASSERT/BUG_ON already),
+> and converting them to unsigned long makes that explicit, and also
+> fixes signed/unsigned comparison warnings.
+
+This wants to be a separate commit. It hasn't got anything to do in here.
+
+> This only needs moving the ASSERT to before the subtraction.
+> See the previous commit moving the BUG_ON for outstanding_claims.
+
+Please can you avoid such statements? You won't know in which order the
+patches are committed: Patch 01 may go in weeks or months before patch
+02.
+
 > --- a/xen/common/page_alloc.c
 > +++ b/xen/common/page_alloc.c
-> @@ -518,6 +518,34 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
->      return d->tot_pages;
->  }
+> @@ -483,11 +483,32 @@ static heap_by_zone_and_order_t *_heap[MAX_NUMNODES];
 >  
-> +/* Release outstanding claims on the domain, host and later also node */
-> +static inline
-
-Generally we prefer to avoid "inline" in .c files. This is better left to the
-compiler. Furthermore while we have a few examples of this kind of line split,
-it's clearly not the preferred form. You'll find ample well-formed static
-functions in this one source file alone.
-
-> +void release_outstanding_claims(struct domain *d, unsigned long release)
-> +{
-> +    ASSERT(spin_is_locked(&heap_lock));
-> +    BUG_ON(outstanding_claims < release);
-> +    outstanding_claims -= release;
-> +    d->outstanding_pages -= release;
-> +}
+>  static unsigned long node_need_scrub[MAX_NUMNODES];
+>  
+> +/* avail[node][zone] is the number of free pages on that node and zone. */
+>  static unsigned long *avail[MAX_NUMNODES];
+> -static long total_avail_pages;
+> +/* Global available pages, updated in real-time, protected by heap_lock */
+> +static unsigned long total_avail_pages;
+>  
+> +/* The global heap lock, protecting access to the heap and related structures */
+>  static DEFINE_SPINLOCK(heap_lock);
+> -static long outstanding_claims; /* total outstanding claims by all domains */
 > +
 > +/*
-> + * Consume outstanding claimed pages when allocating pages for a domain.
-> + * NB. The alloc could (in principle) fail in assign_pages() afterwards. In that
-> + * case, the consumption is not reversed, but as claims are used only during
-> + * domain build and d is destroyed if the build fails, this has no significance.
+> + * Per-node count of available pages, protected by heap_lock, updated in
+> + * lockstep with total_avail_pages as pages are allocated and freed.
+> + *
+> + * Each entry holds the sum of avail[node][zone] across all zones, used for
+> + * efficiently checking node-local availability for allocation requests.
+> + * Also provided via sysctl for NUMA placement decisions of domain builders
+> + * and monitoring, and logged with debug-key 'u' for NUMA debugging.
+> + *
+> + * Maintaining this under heap_lock does not reduce scalability, as the
+> + * allocator is already serialized on it. The accessor macro abstracts the
+> + * storage to ease future changes (e.g. moving to per-node lock granularity).
 > + */
-> +static inline
-> +void consume_outstanding_claims(struct domain *d, unsigned long allocation)
-> +{
-> +    if ( !d || !d->outstanding_pages )
-> +        return;
-> +    ASSERT(spin_is_locked(&heap_lock));
+> +#define node_avail_pages(node) (node_avail_pages[node])
 
-Why is this not the first thing in the function?
+This isn't really needed when ...
 
-> @@ -1048,29 +1075,8 @@ static struct page_info *alloc_heap_pages(
->      total_avail_pages -= request;
->      ASSERT(total_avail_pages >= 0);
->  
-> -    if ( d && d->outstanding_pages && !(memflags & MEMF_no_refcount) )
-> -    {
-> -        /*
-> -         * Adjust claims in the same locked region where total_avail_pages is
-> -         * adjusted, not doing so would lead to a window where the amount of
-> -         * free memory (avail - claimed) would be incorrect.
-> -         *
-> -         * Note that by adjusting the claimed amount here it's possible for
-> -         * pages to fail to be assigned to the claiming domain while already
-> -         * having been subtracted from d->outstanding_pages.  Such claimed
-> -         * amount is then lost, as the pages that fail to be assigned to the
-> -         * domain are freed without replenishing the claim.  This is fine given
-> -         * claims are only to be used during physmap population as part of
-> -         * domain build, and any failure in assign_pages() there will result in
-> -         * the domain being destroyed before creation is finished.  Losing part
-> -         * of the claim makes no difference.
-> -         */
+> +static unsigned long node_avail_pages[MAX_NUMNODES];
 
-Much of this comment is lost. Parts have been moved, but I think another part
-(in particular the first paragraph) wants to be retained here. Plus in general
-when rearranging code it is best to take the original commentary as is (typo
-or factual corrections of course included as necessary).
+... it's a static array anyway. Plus you may want to talk to Andrew regarding
+the use of such a macro as an lvalue.
+
+> +/* total outstanding claims by all domains */
+> +static unsigned long outstanding_claims;
+
+As you touch it, comment style wants correcting.
 
 Jan
 
