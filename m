@@ -2,39 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4NgjLS11p2mehgAAu9opvQ
+	id UNfGFoOQp2lKiQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 00:56:29 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 02:53:07 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D9E01F88CC
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 00:56:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1245059.1544423 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00FAA1F9B4A
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 02:53:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1245072.1544432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxZa9-0000rE-NI; Tue, 03 Mar 2026 23:55:17 +0000
+	id 1vxbPb-0006B2-Lj; Wed, 04 Mar 2026 01:52:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1245059.1544423; Tue, 03 Mar 2026 23:55:17 +0000
+Received: by outflank-mailman (output) from mailman id 1245072.1544432; Wed, 04 Mar 2026 01:52:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxZa9-0000op-Ho; Tue, 03 Mar 2026 23:55:17 +0000
-Received: by outflank-mailman (input) for mailman id 1245059;
- Tue, 03 Mar 2026 23:55:16 +0000
+	id 1vxbPb-00069e-HW; Wed, 04 Mar 2026 01:52:31 +0000
+Received: by outflank-mailman (input) for mailman id 1245072;
+ Wed, 04 Mar 2026 01:52:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fOER=BD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1vxZa7-0000oj-QX
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2026 23:55:16 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ <SRS0=0T8J=BE=gmail.com=edgar.iglesias@srs-se1.protection.inumbo.net>)
+ id 1vxbPa-00069T-2D
+ for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 01:52:30 +0000
+Received: from mail-vk1-xa2e.google.com (mail-vk1-xa2e.google.com
+ [2607:f8b0:4864:20::a2e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6a5d1fe7-175c-11f1-b164-2bf370ae4941;
- Wed, 04 Mar 2026 00:55:12 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2E0756057A;
- Tue,  3 Mar 2026 23:55:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07FA5C116C6;
- Tue,  3 Mar 2026 23:55:09 +0000 (UTC)
+ id cc37d289-176c-11f1-b164-2bf370ae4941;
+ Wed, 04 Mar 2026 02:52:28 +0100 (CET)
+Received: by mail-vk1-xa2e.google.com with SMTP id
+ 71dfb90a1353d-56a9402b52fso5382138e0c.0
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Mar 2026 17:52:27 -0800 (PST)
+Received: from gmail.com (ip190-5-140-138.intercom.com.sv. [190.5.140.138])
+ by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-5ffaca9c848sm303553137.10.2026.03.03.17.52.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Mar 2026 17:52:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,195 +50,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a5d1fe7-175c-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1772582110;
-	bh=xouWky2sw6d1G/taXa1LN4i8BoL1w/j4IygNALCKloo=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Ybah0X9N1tWItjtGs5gchsKsOnAy4S5/e8M1jCvlKc789VoHQzKTmuXGUtu5LFj0W
-	 4Pu2/n2+bbE303jCAdgUhjDYAPX/6NJzzZtNWBiOAFmGueXeILsVtg+VSnwLIBHmPu
-	 tOlC+YKeRblxUpL/H9qRRcLU5niEgXiRt3MNMOMv51akeDAY4xUOtuiZdhaIIUjTcH
-	 1L1uoh0viYpAooewYBZdVM4CFneXgzS5Ge+Jmf7tnbgIwDpfIB44r7TaFmldh1ETiu
-	 nEZA0Oxn3eASC0Bh/x+CrUDsCapyEUBVunBJEI8Jjl9fwwjejlq8rCVsgknOdc5mgm
-	 gAd9WCIr8rr6Q==
-Date: Tue, 3 Mar 2026 15:55:09 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Mykyta Poturai <Mykyta_Poturai@epam.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v5 2/5] arm/irq: Migrate IRQs during CPU up/down
- operations
-In-Reply-To: <CE531E44-2AD4-4164-8A86-1D6084A6EAE1@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2603031550270.3148344@ubuntu-linux-20-04-desktop>
-References: <cover.1768293759.git.mykyta_poturai@epam.com> <63892f56f227fae75d78e2ef2ee63887e74c523a.1768293759.git.mykyta_poturai@epam.com> <6080438F-DB60-4A50-8264-1CD04761B196@arm.com> <48a84d44-def9-4181-ac67-5aeb31ffb529@epam.com>
- <CE531E44-2AD4-4164-8A86-1D6084A6EAE1@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: cc37d289-176c-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1772589147; x=1773193947; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=AZ079vS7A/A4BZyc3h4DSpRr2ArVx5hvIslaT33EcVI=;
+        b=BtFTWad5DkwJTTsn9YQ1I0lkM+rXW2InQx2Wa7mEo0F2eSkCeHecbgeGJ6TO57cIMq
+         IFp+G48Egg51qGHS7eeXSdPoZ6dXfkN/gdYPCW5oixtMU54VsUcSA0bXOb+3wUCnD8pQ
+         /It3WuzQURDfpOn9EmbkcBoz0M22P7GeH99BtR0jleSJTM6h0K+wKzOgtPzWIfpYt04K
+         cRCv3dzStAePmciuDEnIyBwtNmVpl2PIts68CjNbXFGKelLph1riTFYh4cITdpoUyyxu
+         0YFjZ8bQ1bYfCiWNF35LaPKy9nj7UwQdKsCceywV8KRjNMOqa6Rccw6ExjjEFkQH9LJA
+         fpSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772589147; x=1773193947;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AZ079vS7A/A4BZyc3h4DSpRr2ArVx5hvIslaT33EcVI=;
+        b=U/hKgEZYSdJV+tj2faztW9/UFaVKgVNA7xFCp+YSHpo2pBkBhSZV+gCziIxE12xgY4
+         98fMA9dxtW77OBMXE/eM5vGKexBNFCxKZUXbh69YReH8BAEs6M0dub8rCtWbSbHp2Sjz
+         dDhbf0ceTV3Uz6GIPw7rv9XzBS9P9kmeL67XSx4W1tk8ZvAHP5E/a6smvGt0IMT7TdAj
+         1jqKQEJL2lxjRkC0q48qLDbWVGdKHGUTUXvsltQsZ52++at8DZDNWGFCU6DmlN3HjY3M
+         vlp2KpehFPKmU9k4G6sg0o08iSi1u8FYbyv3UmHyOwpNgPz7LaGCHkHvHiVy4fLL4m48
+         HHcA==
+X-Forwarded-Encrypted: i=1; AJvYcCWp8Ku7VL0khdf8aJ6dJxBWwLHVO+ufnxMeyXvvn6FOisqNKWfZgSxoXryN5u6VItGBuJu+mcikJq4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz3iWo59kx+F8YBwh8pPsSqhatEfjZdF4qA19XRdDX/9ZEsJi5K
+	vLVbz9DeyhropXvT/Oj//C8IWRRg0GQH/daDxnhoG7XCGCd4CkKtCZ6a
+X-Gm-Gg: ATEYQzy2RJNeNWvN9kOtLrLzj5d4NLQ5THl/EUcCZJVk4APZX+W0hbZaypQtnj7WB4n
+	iP8Dbjz5xNbHG/tdbDoFkjSuDo0YcKoT5Jnqp3/DTHMA7qEkidDFfvSqa3GGVymjQxmCRvyfeQS
+	FGaciL64U73ttePDNmJmBkvESqrSTvZ87ChBeN21ZcBZ5nO4KeHwk706L+Of6FUPsjG0BUl17Ja
+	DLCHGMx3qqO7tyKMTbI81kuSivBVO1kneDB/LOG7IkTBtW/AZLGTKqCZyF8GNLj60Wa4tZ6/Xyg
+	dz4p//XLasuXW+naRLPFVc7oCZd2j4/Rv9yeO3xpn0ZzWmYsqSRJX9hB8lrIyN9rM1NNK1zhNOo
+	XvmfAV0KFcnDTWSDCN3nHHdRlkALjiZd3uYwa8c3ir7T7vpWFfdopme/S5fUtcBaFQJBX2kBVpi
+	rs3Oym8X26iK5sWFfeXa5zgM6sdYt8jgibUUSDYzsS8e0zXm6kKd1m2SidnA==
+X-Received: by 2002:a05:6102:f10:b0:5f7:307e:80d9 with SMTP id ada2fe7eead31-5ffaafc647dmr351581137.28.1772589146690;
+        Tue, 03 Mar 2026 17:52:26 -0800 (PST)
+From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
+To: qemu-devel@nongnu.org
+Cc: sstabellini@kernel.org,
+	anthony@xenproject.org,
+	edgar.iglesias@amd.com,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v1 0/5] xen: pvh: Add machine option to disable the mapcache
+Date: Wed,  4 Mar 2026 02:52:16 +0100
+Message-ID: <20260304015222.979224-1-edgar.iglesias@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1743651114-1772582111=:3148344"
-X-Rspamd-Queue-Id: 3D9E01F88CC
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 00FAA1F9B4A
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	CTYPE_MIXED_BOGUS(1.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:Mykyta_Poturai@epam.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FORWARDED(0.00)[mailman];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[edgariglesias@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:qemu-devel@nongnu.org,m:sstabellini@kernel.org,m:anthony@xenproject.org,m:edgar.iglesias@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[edgariglesias@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 
---8323329-1743651114-1772582111=:3148344
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+This adds a mapcache option to the PVH machines allowing users to disable the
+mapcache. To remain backwards compatible, the option defaults to "on".
 
-On Thu, 5 Feb 2026, Bertrand Marquis wrote:
-> > On 5 Feb 2026, at 14:23, Mykyta Poturai <Mykyta_Poturai@epam.com> wrote:
-> > 
-> > On 04.02.26 16:20, Bertrand Marquis wrote:
-> >> Hi Mykyta.
-> >> 
-> >>> On 13 Jan 2026, at 09:45, Mykyta Poturai <Mykyta_Poturai@epam.com> wrote:
-> >>> 
-> >>> Move IRQs from dying CPU to the online ones when a CPU is getting
-> >>> offlined. When onlining, rebalance all IRQs in a round-robin fashion.
-> >>> Guest-bound IRQs are already handled by scheduler in the process of
-> >>> moving vCPUs to active pCPUs, so we only need to handle IRQs used by Xen
-> >>> itself.
-> >>> 
-> >>> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> >>> ---
-> >>> v4->v5:
-> >>> * handle CPU onlining as well
-> >>> * more comments
-> >>> * fix crash when ESPI is disabled
-> >>> * don't assume CPU 0 is a boot CPU
-> >>> * use insigned int for irq number
-> >>> * remove assumption that all irqs a bound to CPU 0 by default from the
-> >>>  commit message
-> >>> 
-> >>> v3->v4:
-> >>> * patch introduced
-> >>> ---
-> >>> xen/arch/arm/include/asm/irq.h |  2 ++
-> >>> xen/arch/arm/irq.c             | 54 ++++++++++++++++++++++++++++++++++
-> >>> xen/arch/arm/smpboot.c         |  6 ++++
-> >>> 3 files changed, 62 insertions(+)
-> >>> 
-> >>> diff --git a/xen/arch/arm/include/asm/irq.h b/xen/arch/arm/include/asm/irq.h
-> >>> index 09788dbfeb..a0250bac85 100644
-> >>> --- a/xen/arch/arm/include/asm/irq.h
-> >>> +++ b/xen/arch/arm/include/asm/irq.h
-> >>> @@ -126,6 +126,8 @@ bool irq_type_set_by_domain(const struct domain *d);
-> >>> void irq_end_none(struct irq_desc *irq);
-> >>> #define irq_end_none irq_end_none
-> >>> 
-> >>> +void rebalance_irqs(unsigned int from, bool up);
-> >>> +
-> >>> #endif /* _ASM_HW_IRQ_H */
-> >>> /*
-> >>>  * Local variables:
-> >>> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-> >>> index 7204bc2b68..a32dc729f8 100644
-> >>> --- a/xen/arch/arm/irq.c
-> >>> +++ b/xen/arch/arm/irq.c
-> >>> @@ -158,6 +158,58 @@ static int init_local_irq_data(unsigned int cpu)
-> >>>     return 0;
-> >>> }
-> >>> 
-> >>> +static int cpu_next;
-> >>> +
-> >>> +static void balance_irq(int irq, unsigned int from, bool up)
-> >>> +{
-> >>> +    struct irq_desc *desc = irq_to_desc(irq);
-> >>> +    unsigned long flags;
-> >>> +
-> >>> +    ASSERT(!cpumask_empty(&cpu_online_map));
-> >>> +
-> >>> +    spin_lock_irqsave(&desc->lock, flags);
-> >>> +    if ( likely(!desc->action) )
-> >>> +        goto out;
-> >>> +
-> >>> +    if ( likely(test_bit(_IRQ_GUEST, &desc->status) ||
-> >>> +                test_bit(_IRQ_MOVE_PENDING, &desc->status)) )
-> >>> +        goto out;
-> >>> +
-> >>> +    /*
-> >>> +     * Setting affinity to a mask of multiple CPUs causes the GIC drivers to
-> >>> +     * select one CPU from that mask. If the dying CPU was included in the IRQ's
-> >>> +     * affinity mask, we cannot determine exactly which CPU the interrupt is
-> >>> +     * currently routed to, as GIC drivers lack a concrete get_affinity API. So
-> >>> +     * to be safe we must reroute it to a new, definitely online, CPU. In the
-> >>> +     * case of CPU going down, we move only the interrupt that could reside on
-> >>> +     * it. Otherwise, we rearrange all interrupts in a round-robin fashion.
-> >>> +     */
-> >>> +    if ( !up && !cpumask_test_cpu(from, desc->affinity) )
-> >>> +        goto out;
-> >> 
-> >> I am a bit lost here on what you are trying to do in the case where
-> >> a cpu is coming up here, it feels like you are trying to change the
-> >> affinity of all interrupts in this case to cycle everything.
-> >> Is it really what is expected ?
-> >> If affinity was set by a VM on its interrupts, I would not expect
-> >> Xen to round-robin everything each time a cpu comes up.
-> >> 
-> > 
-> > The idea is to evenly spread interrupts between CPUs when the new ones 
-> > are being brought online. This is needed to prevent Xen-bound IRQs from 
-> > piling up on CPU 0 when other cores are being offlined and then onlined 
-> > back. It shouldn’t mess with guest affinities, as the code skips 
-> > everything that is assigned to guests and leaves it to be handled by the 
-> > scheduler/vgic. Performance-wise, it should also be okay, as from what 
-> > I’ve seen, there are not many interrupts used by Xen, and I expect CPU 
-> > hotplug operations to be fairly infrequent.
-> 
-> My fear here is a bit that by removing and adding a cpu we will completely
-> change irq affinities. I am not so sure that those kind of random assignments
-> are compatible with embedded or safety use cases and here there is no way
-> to configure this.
-> 
-> @Julien, Stefano and Michal: What do you think here ?
+When disabled, all guest memory is mapped at startup rather than on demand.
+Starting QEMU may take longer in this mode, but runtime overhead is reduced and
+it also enables virtio vhost backends to work.
 
-I think Bertrand's concern is valid. We need to make sure that
-balance_irq is not called in "normal" or safety use-cases. I am going by
-the assumption that pCPU offline/online is not going to happen in safety
-use-cases. So as long as balance_irq is not called unless CPU
-offline/online happens, then I think we are good. It should definitely
-not happen on normal boot.                                            
+As a trade-off, grants are unavailable without the mapcache and guests with
+large amounts of RAM can take quite a while to start.
+
+Cheers,
+Edgar
  
-There is also the other thought that while I do not like the idea of
-spreading the IRQ evenly, I also cannot suggest something better (unless
-we want to keep track of which IRQ used to belong to which dead CPU, but
-I think that is undesirable).
---8323329-1743651114-1772582111=:3148344--
+Edgar E. Iglesias (5):
+  xen: mapcache: Assert mapcache existance
+  xen: mapcache: Add function to check if the mapcache is enabled
+  physmem: xen: Conditionalize use of the mapcache
+  hw/xen-hvm: Add a mapcache arg to xen_register_ioreq()
+  hw/xen: xenpvh: Add prop to enable/disable the mapcache
+
+ hw/i386/xen/xen-hvm.c           |   2 +-
+ hw/xen/xen-hvm-common.c         |  18 +++--
+ hw/xen/xen-mapcache.c           |  16 ++++
+ hw/xen/xen-pvh-common.c         | 134 +++++++++++++++++++++++++++++---
+ hw/xen/xen_stubs.c              |   5 ++
+ include/hw/xen/xen-hvm-common.h |   3 +-
+ include/hw/xen/xen-pvh-common.h |   2 +
+ include/system/xen-mapcache.h   |   1 +
+ system/physmem.c                |  13 ++--
+ 9 files changed, 169 insertions(+), 25 deletions(-)
+
+-- 
+2.43.0
+
 
