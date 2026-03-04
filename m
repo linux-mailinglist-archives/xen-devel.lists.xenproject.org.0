@@ -2,61 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kLD1Hvn9p2nUnAAAu9opvQ
+	id iCcaCTMCqGkRnQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 10:40:09 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 10:58:11 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9F871FDC0A
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 10:40:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1245220.1544595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 779231FDFB7
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 10:58:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1245241.1544633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxihr-0003bJ-MI; Wed, 04 Mar 2026 09:39:51 +0000
+	id 1vxiyr-0007D3-CP; Wed, 04 Mar 2026 09:57:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1245220.1544595; Wed, 04 Mar 2026 09:39:51 +0000
+Received: by outflank-mailman (output) from mailman id 1245241.1544633; Wed, 04 Mar 2026 09:57:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxihr-0003YW-Ik; Wed, 04 Mar 2026 09:39:51 +0000
-Received: by outflank-mailman (input) for mailman id 1245220;
- Wed, 04 Mar 2026 09:39:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vxiyr-0007BL-9F; Wed, 04 Mar 2026 09:57:25 +0000
+Received: by outflank-mailman (input) for mailman id 1245241;
+ Wed, 04 Mar 2026 09:57:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4HQr=BE=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1vxihp-0003YK-DR
- for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 09:39:49 +0000
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c105::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 142f61de-17ae-11f1-9ccf-f158ae23cfc8;
- Wed, 04 Mar 2026 10:39:46 +0100 (CET)
-Received: from MN2PR19CA0011.namprd19.prod.outlook.com (2603:10b6:208:178::24)
- by DS0PR12MB7701.namprd12.prod.outlook.com (2603:10b6:8:133::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Wed, 4 Mar
- 2026 09:39:40 +0000
-Received: from BL6PEPF0001AB4D.namprd04.prod.outlook.com
- (2603:10b6:208:178:cafe::a1) by MN2PR19CA0011.outlook.office365.com
- (2603:10b6:208:178::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.22 via Frontend Transport; Wed,
- 4 Mar 2026 09:39:44 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB4D.mail.protection.outlook.com (10.167.242.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Wed, 4 Mar 2026 09:39:40 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 4 Mar
- 2026 03:39:39 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 4 Mar
- 2026 01:39:39 -0800
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Wed, 4 Mar 2026 03:39:38 -0600
+ <SRS0=JkSz=BE=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
+ id 1vxiyq-0007BC-7l
+ for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 09:57:24 +0000
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [2607:f8b0:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 89773025-17b0-11f1-b164-2bf370ae4941;
+ Wed, 04 Mar 2026 10:57:22 +0100 (CET)
+Received: by mail-ot1-x334.google.com with SMTP id
+ 46e09a7af769-7d4c307db9aso4228262a34.3
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 01:57:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,329 +45,477 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 142f61de-17ae-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L6jq/dXyVjlvypLOSHux/j2bTfTLJY6CZ/cGvdfdnEOOVeQl0q0AjECWX2S5pQ7oZk/eqwou1Gv5mOAtCCR8jTpAl80iF12dhjwr2j12YK6ohPix1mEnd2r+Jp4ImzB/+Gx1qUo5wp4VqzZ7UvD66FHMrWJX5HJepOxRc31GF0EL7uGJEj3tF61e1NTzzVHvpod/b+AxrY9Q52s6oYsXTP0KVXhPy+KNi0QJi7BfBIA/SBrpeZzT/vyhyw5o6zLlgoZGGbYFq5bYVT2XZHM5G88POKT9EzcIpQV8G13wsYgG3TN8NiJJeqYeb4qDe1szV5xZgFNFE8c7Sk3OEDNX/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5HQu2M+0XHijYHerBIMV7/hGMJZUp9enctuOgoOndY8=;
- b=fwlVcU2ypkmmkM7ZyWR8eC/bWnoF2zMzoHktik/fHh3ItozMPAOmDCPLyPpzuZvS/LBnwKR1HOpOj4QhCFpIfnCL1HZSo3CIPTF4SwM6aTW6gq6K3Cg4EzkRtVf4lOh62UWsNerdFgR/hfpZhxHnTtwbcHy1I1VeFwpzwZVlg8QsaKrRIREwRuveh3crhOEuK7v4fk/6pKhgijUaUxxsxO25Fc1NfgNS/I8dFY/OjDwHl9n5SQ1lMZiEqTPT4NH0Qe2G505RlaMuPT3wWAh8XrwJYqSVeKi3EespII64eoBxbkkB/3ovW2JQ/bi1CfKZotXuCbXIyCeUl95WEr1sRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5HQu2M+0XHijYHerBIMV7/hGMJZUp9enctuOgoOndY8=;
- b=hmu5kVqc6g4xzKcNhm9fsb152ZocRME9SbSN2YOGMpB2FkLjLJiUOY2mPu3a50A6rS/8sYw6uKQ9Jm0ey+NSYUDMWWnfJnarELQP+VSk47vMRYycuvpYo22EszYAgF2g0E5kF8AUaK3hHG3oOCGjFwgJNGw0h8zQe/qg8sbMIbQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2] arm/mm: Fix resource handling in xenmem_add_to_physmap_one
-Date: Wed, 4 Mar 2026 10:39:23 +0100
-Message-ID: <20260304093923.14293-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.43.0
+X-Inumbo-ID: 89773025-17b0-11f1-b164-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; t=1772618241; cv=none;
+        d=google.com; s=arc-20240605;
+        b=l1PuMxzQteA966OJCLvlfkBgRV7o6qV1ZozuZRmQnUbBKg+jDaZxeJEKM5f1I5NX3O
+         SmoW3hLEpMfS5uo+GlVVy6hm7ztJ/iehmhHdbT6CSYgjpzwAkVGEGev6/1w01WgTQNEQ
+         mM0oWl3xIiUygpL1eK2YegaDt+Ny/aGE8WnPp5+8uDLdUM34idAhZgejypcctj5jI46G
+         8WdCh6gPkSyuxAni+osuw8d0YWJlAUz69QGmgRhyJ71TfYi0C86/RL7MpXYHgXOoQB4i
+         Ur1uyHosYhSR3jMF9xaqleEoNyUSlc1LaI00lwiNJdZv5aneEMxx/XlYTCDiTBS8jPUF
+         AsDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NJrv+HwIDbQuRAZOh72iXVEhQflBFsynWIP/XUoI34s=;
+        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
+        b=do9ni7nGjwR5h1EoJTZmLjV5VSNSN11cAA4C62E5MPMdB1cgS5I+6ImoD7/UVWdrKe
+         /Jzf3x8E28VcwIJBvNTmZsQFGqJYnYMKmbkpYgE3q5k6vrh72NR0rtniC6IJkLfrMuSJ
+         /kPtD8nk9D8aSfgyQJOcXb1HH/ca4S5WC6idXEfT6svFYcLO2GTkFImo897vbFE8YESJ
+         iWxlkw9of0QiKF1xrIAYzvcfwTmZAGppMLKj3SM6Av6cD6J3gn0ltrFdpJ1gS3HVMxgF
+         0X1Z4HsDu9EEa2FZO3a2XYjiWg14kICFowpO0xho/ETrAKpzDXA6/ROTJWzHJ4a+yOrC
+         R8dQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1772618241; x=1773223041; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NJrv+HwIDbQuRAZOh72iXVEhQflBFsynWIP/XUoI34s=;
+        b=t+Gh2fklY7L0rvrtpXWmXFwAdthgrf7J3iRVzvibznI3mUlXnqFCy53vVcwb96300R
+         qEU8ZeJOGctfhJSWcrCrqLVNbQJsP317Pn97fXkcHhk6KLHK+MXjKs/dB4rq2OmSbjU7
+         PYzxELUu70bqOpD4PH2BmpIuZzDuXB4TdyPALYfr9q+GKz8MphaHhTzgk5OWYDCGzzLV
+         Svfc/gJYuWN8DfgoMEV3Fu9nXnP/0uOXV6WVCTef3aBVPpYR2v1Afav3ndJl3YC5+eqj
+         BgcetwY6BrWgM2hZ2o1cv8kjJKR6pHI7+2Y6ClsfxNFvnpzASK1D6Ag6E6YOslUUfAy3
+         fFNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772618241; x=1773223041;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=NJrv+HwIDbQuRAZOh72iXVEhQflBFsynWIP/XUoI34s=;
+        b=niPNjRdCUnYagSKscFlGJSvazKd7REXjUtlgsiK9dpqeghaIRtEjk4emiI8/LEukIb
+         6+tNe5sci4Is3W4pL6Ka93ln6csJh23AVf1BDUJoVhXSFAvzmhWTnC0crpDZZiYHFxKj
+         Tfz0C23IcJJQ+M6Iu87eS1ObTBzc525T++qp3XhV9f3FJej2fBwziTfOe7z1Zpi8OZ9y
+         4Q2z5KodJu5+/yK/gdTqsLqYzIQqRUINT126CZ3cx99IAkPtvwre/LYkBW/M5wTP9sWf
+         sMneW7lpaXaOjUEZR69Lhfxoh6Ob3ZKvLNnLJdL7JE/8XDxu+4jFt2p5RrIvMyZZ7FAb
+         MNxw==
+X-Gm-Message-State: AOJu0YybnKqOqoT4RHxBT+khese2HnoVb5WsXIFgKU4vBjSXZZsbpQ8p
+	ifEB3wMxR5lu31lWzal9klP5n2OjO4moj9uX2IgjuHemVPijT6NuOGqWeEKwXGqYwlr2ZNW/YK9
+	qG6e8dHeFxsC97/O9/IZzmOSUwZkcu8tye+vA7PiGjA==
+X-Gm-Gg: ATEYQzyxKRfCay8bG243yuhMWLfHDdGp2x89bJA+CZq3aGuam+LiQMelf6gOWVPHAeH
+	NzSBn5GtvAKLMwAcxc98eKj5tz2nzDcXiwgL1JyRgJQ8CYB/o+kM5MiYfmiaMAI8+uf9DoKgijM
+	AoIXN9geaW4a9l+6wlX8Ms7sutRr76emzH5rqomGkUmdwOZRcKZMiKYlCGjNMOX38ht3QFpLzkw
+	1uw1b+UefUGPucGwV+p228Q/No5HwwmghNfdz9Vt1hsl9ey77M8hihKA1fcWmp64yRKp6LMDcrW
+	gvOgplZXCxujepXe9/X3z3CuyRc2Vtte+iKcyw==
+X-Received: by 2002:a05:6830:6004:b0:7cf:d9ba:c9a6 with SMTP id
+ 46e09a7af769-7d6bf9196c9mr735966a34.0.1772618240772; Wed, 04 Mar 2026
+ 01:57:20 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4D:EE_|DS0PR12MB7701:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7fccc3d3-e1c7-47cd-6857-08de79d1f52e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026;
-X-Microsoft-Antispam-Message-Info:
-	d/4vmiIJ7oH3DeVwJkwLjlekR94sGlpT90yi55KecnApcmtSaJPZbSFH2vDfHgKSwHAR6HtzrtyDTHN5zFIgw4whHFSfz/Vwetqbd2tQ6RI+ODrp8zdykY70cob1ixbQJLONS8JykPrRjFuS+vh0nxoJqBp9HCc73hqeQeD+FKuxgByQSxCESmc/MzKi4L1FLucUDAoDisj2G47lurTuP32mW+sFQGo4NabXlxzbR42m4EAJ5AE1bSPYZUdTWIHd1EjVvR+ARpa7niNJxf6/7DUJMKl+iS1rCrwoJRLAbZ+BZ8CZEM0/InmCl+QOkILYmbhyr49OGRttxNIllgVhqAjeGZnwOWatdRHYy70SQOk7iIwT9Om4q8QLksTIP0PpsYrGVUxjsmgtRIJgChPGSKYEkBtiZc/Xczc5NBscA+lM9xsFoCOJpHdpWNAJY8viKaPiGsCtLly5gsBNhfbOg1uQ6w7X3hnRBYJ0Gh8jIvaDcnu9ugggj7amZ1B/1AneRTC6bSJKpcKxmHpNI9Dbk8grnUImG6OAt9ZIS8Zb9J6AXpbPdnDR6BxNobHvkm6xJPPWhc/xrtBeUy0fbxzKO3PY5QmtkMWzdt/ow1FYdwNGeN2O7GC5TsOCL5c+ebVWsa5dmeM5GYCCebUG6YkMXIyqPTAR5V4XSA2IsuMDfwPa/sLPrd1SFbY3O76p+NlO++zia7q57abB7Wf0cVbLvcoHp5hyskEkHBL8ttyuweFQKjMUvNzcj12sc9RGq264KGq6cP8shUX8w5SlAo334A==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	AhwGVb3skTKE/FeJrQLeNpYDgXuvEnIcO4Ywy8EcQ0mtkv82jriXHS5/KabXkWLWsb6J3dWp5s22AXd7HLnWs8C0Zsv9aPyWDkRk4lquuBcUnV7XdbSyzFV5wmYv5Gv7TfabSV9MW+BkTMji+IAeGCSty0FjyJfVOco6/okWJBQnSEulmyMFpYgqa/+8/FI5EwI1A/dyQvhdsrKYzVa18Sn13fCh4vCWeHgMCACSHhWcs6IzIVFBDAnhKF5XbZlj6hgcCK9pBYm2wsmypSwfe7zdQ+MQVjsRDXopLBdMhfuM0ON0zYOPPtDJu/RV1pRNig7XPBn17fuVkN3wlUcyi8V4kalQHItPZxomvojcOdqPMhisBi08ZPjpRzbE5iqeNnDAXuTjVC4RuRnKPlHImiX6Wv1nfZVO81Nk5GdPoD3lcfvRsvvApuhJpTrYutbD
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 09:39:40.1421
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7fccc3d3-e1c7-47cd-6857-08de79d1f52e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF0001AB4D.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7701
-X-Rspamd-Queue-Id: C9F871FDC0A
+References: <cover.1772464956.git.bertrand.marquis@arm.com> <e05fcde563e09dc63fbe4e3299049f6d6ebf903e.1772464956.git.bertrand.marquis@arm.com>
+In-Reply-To: <e05fcde563e09dc63fbe4e3299049f6d6ebf903e.1772464956.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 4 Mar 2026 10:57:09 +0100
+X-Gm-Features: AaiRm53rXnOqjPZrccAyxOHhScQz_4AYLdc_7WKEWrK1obIrIo_QP1oyH_ODXJU
+Message-ID: <CAHUa44HFaHLFucOgH2zkryDPM9zgR75xzX-VhAeCd5b_iZW=8w@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] xen/arm: ffa: Cache SP partition info at init
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Rspamd-Queue-Id: 779231FDFB7
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,mail.gmail.com:mid];
+	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	MISSING_XM_UA(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	RCVD_COUNT_TWELVE(0.00)[12];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,amd.com:dkim,amd.com:email,amd.com:mid]
+	RCVD_COUNT_SEVEN(0.00)[7]
 X-Rspamd-Action: no action
 
-The current implementation of xenmem_add_to_physmap_one() does not check
-for or remove existing mappings at the target GFN before inserting new
-mappings. This can lead to pages not being properly freed (until domain
-destruction) when replaced.
+Hi Bertrand,
 
-Add a proper old mapping detection and cleanup:
+On Mon, Mar 2, 2026 at 4:44=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> FFA_PARTITION_INFO_GET currently queries the SPMC on each call and walks =
+the
+> RX buffer every time. The SP list is expected to be static, so repeated
+> firmware calls and validation are unnecessary.
+>
+> Cache the SPMC partition-info list at init time, keeping only secure
+> endpoints, and reuse the cached entries for SP count and partition-info
+> responses. Initialize the VM create/destroy subscriber lists from the cac=
+hed
+> list and free the cache on init failure.
+>
+> SP partition info now reflects the init-time snapshot and will not change=
+.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes since v1:
+> - removed unneeded NULL assignment after XFREE
+> - remove warned usage and only rely on printk_once to warn on the 15-bit
+>   convention
+> - rework ffa_partinfo_init cleanup
+> - ensure we do not do unaligned accesses when building the SP cache
+> - enforce SPMC partinfo size to be at least 1.1 structure size when
+>   creating and remove tests when using the cache
+> ---
+>  xen/arch/arm/tee/ffa_partinfo.c | 216 +++++++++++++++++++++-----------
+>  1 file changed, 146 insertions(+), 70 deletions(-)
+>
+> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
+nfo.c
+> index 6a6f3ffb822e..b933becaa55a 100644
+> --- a/xen/arch/arm/tee/ffa_partinfo.c
+> +++ b/xen/arch/arm/tee/ffa_partinfo.c
+> @@ -6,6 +6,8 @@
+>  #include <xen/const.h>
+>  #include <xen/sizes.h>
+>  #include <xen/types.h>
+> +#include <xen/unaligned.h>
+> +#include <xen/xmalloc.h>
+>
+>  #include <asm/smccc.h>
+>  #include <asm/regs.h>
+> @@ -33,6 +35,10 @@ static uint16_t subscr_vm_created_count __read_mostly;
+>  static uint16_t *subscr_vm_destroyed __read_mostly;
+>  static uint16_t subscr_vm_destroyed_count __read_mostly;
+>
+> +/* SP list cache (secure endpoints only); populated at init. */
+> +static void *sp_list __read_mostly;
+> +static uint32_t sp_list_count __read_mostly;
+> +static uint32_t sp_list_entry_size __read_mostly;
 
-* Check for existing mappings at the target GFN before insertion
-* For special pages: unmap without freeing (not owned by domain)
-* For MMIO mappings: reject with -EPERM (questionable)
-* For grant mappings: reject with -EPERM (cleanup not implemented in
-  p2m_put_l3_page)
-* For RAM and foreign mappings: properly remove via guest_remove_page()
-* Optimize same-MFN remapping: detect and return early (no-op)
+Nit: prefer an empty line here, but it's fixed in a later patch.
 
-Fix XENMAPSPACE_dev_mmio by inlining its permission check and logic
-into the main switch statement, allowing it to go through the same cleanup
-path as other mapping types. This removes the early return that bypassed
-cleanup. The now-unused map_dev_mmio_page() function is removed.
+Looks good:
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
-Foreign mappings are allowed to be removed (matching x86 behavior) because
-proper cleanup via p2m_put_foreign_page() is already implemented in
-p2m_put_l3_page(). Grant mappings are rejected because cleanup is not yet
-implemented.
+Cheers,
+Jens
 
-Add new helpers p2m_is_grant() and p2m_is_mmio().
-
-Note: There are race conditions due to multiple P2M lock/unlock cycles
-during the check-remove-insert sequence. These are documented and
-subject to future improvements.
-
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
-Changes in v2:
- - handle all the spaces
- - drop references
- - add a comment about races (not handled in this attempt)
-
-guest_remove_page would work on MMIO, but for now I decided to take a conservative
-approach and reject it.
----
- xen/arch/arm/include/asm/p2m.h |  9 ++++-
- xen/arch/arm/mm.c              | 73 +++++++++++++++++++++++++++++++---
- xen/arch/arm/p2m.c             | 18 ---------
- 3 files changed, 74 insertions(+), 26 deletions(-)
-
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index 010ce8c9ebbd..d88f4f65c7bc 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -149,6 +149,11 @@ static inline p2m_type_t arch_dt_passthrough_p2m_type(void)
- #define P2M_RAM_TYPES (p2m_to_mask(p2m_ram_rw) |        \
-                        p2m_to_mask(p2m_ram_ro))
- 
-+/* MMIO types */
-+#define P2M_MMIO_TYPES (p2m_to_mask(p2m_mmio_direct_dev) | \
-+                        p2m_to_mask(p2m_mmio_direct_nc) | \
-+                        p2m_to_mask(p2m_mmio_direct_c))
-+
- /* Grant mapping types, which map to a real frame in another VM */
- #define P2M_GRANT_TYPES (p2m_to_mask(p2m_grant_map_rw) |  \
-                          p2m_to_mask(p2m_grant_map_ro))
-@@ -159,6 +164,8 @@ static inline p2m_type_t arch_dt_passthrough_p2m_type(void)
- 
- /* Useful predicates */
- #define p2m_is_ram(_t) (p2m_to_mask(_t) & P2M_RAM_TYPES)
-+#define p2m_is_mmio(_t) (p2m_to_mask(_t) & P2M_MMIO_TYPES)
-+#define p2m_is_grant(_t) (p2m_to_mask(_t) & P2M_GRANT_TYPES)
- #define p2m_is_foreign(_t) (p2m_to_mask(_t) & P2M_FOREIGN_TYPES)
- #define p2m_is_any_ram(_t) (p2m_to_mask(_t) &                   \
-                             (P2M_RAM_TYPES | P2M_GRANT_TYPES |  \
-@@ -318,8 +325,6 @@ int unmap_regions_p2mt(struct domain *d,
-                        unsigned long nr,
-                        mfn_t mfn);
- 
--int map_dev_mmio_page(struct domain *d, gfn_t gfn, mfn_t mfn);
--
- int p2m_insert_mapping(struct domain *d, gfn_t start_gfn, unsigned long nr,
-                        mfn_t mfn, p2m_type_t t);
- 
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index 6df8b616e464..0cee65d5ab5a 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -11,6 +11,7 @@
- #include <xen/domain_page.h>
- #include <xen/grant_table.h>
- #include <xen/guest_access.h>
-+#include <xen/iocap.h>
- #include <xen/mm.h>
- #include <xen/static-memory.h>
- #include <xen/static-shmem.h>
-@@ -166,10 +167,11 @@ int xenmem_add_to_physmap_one(
-     unsigned long idx,
-     gfn_t gfn)
- {
--    mfn_t mfn = INVALID_MFN;
-+    mfn_t mfn = INVALID_MFN, mfn_old;
-     int rc;
--    p2m_type_t t;
-+    p2m_type_t t, p2mt_old;
-     struct page_info *page = NULL;
-+    struct p2m_domain *p2m = p2m_get_hostp2m(d);
- 
-     switch ( space )
-     {
-@@ -237,13 +239,73 @@ int xenmem_add_to_physmap_one(
-         break;
-     }
-     case XENMAPSPACE_dev_mmio:
--        rc = map_dev_mmio_page(d, gfn, _mfn(idx));
--        return rc;
-+        if ( !iomem_access_permitted(d, idx, idx) )
-+            return 0;
-+
-+        mfn = _mfn(idx);
-+        t = p2m_mmio_direct_c;
-+        break;
- 
-     default:
-         return -ENOSYS;
-     }
- 
-+    /*
-+     * Release the old page reference if it was present.
-+     *
-+     * TODO: There are race conditions in this code due to multiple lock/unlock
-+     * cycles:
-+     *
-+     * Race #1: Between checking the old mapping and removing it, another CPU
-+     * could replace the mapping. We would then remove the wrong mapping.
-+     *
-+     * Race #2: Between removing the old mapping and inserting the new one,
-+     * another CPU could insert a different mapping. We would then silently
-+     * overwrite it.
-+     *
-+     * For now, we accept these races as they require concurrent
-+     * xenmem_add_to_physmap_one operations on the same GFN, which is not a
-+     * normal usage pattern.
-+     */
-+    p2m_read_lock(p2m);
-+    mfn_old = p2m_get_entry(p2m, gfn, &p2mt_old, NULL, NULL, NULL);
-+    p2m_read_unlock(p2m);
-+
-+    if ( mfn_valid(mfn_old) && !mfn_eq(mfn, mfn_old) )
-+    {
-+        if ( is_special_page(mfn_to_page(mfn_old)) )
-+        {
-+            /* Just unmap, don't free */
-+            p2m_write_lock(p2m);
-+            rc = p2m_set_entry(p2m, gfn, 1, INVALID_MFN,
-+                               p2m_invalid, p2m->default_access);
-+            p2m_write_unlock(p2m);
-+            if ( rc )
-+                goto out;
-+        }
-+        else if ( p2m_is_mmio(p2mt_old) || p2m_is_grant(p2mt_old) )
-+        {
-+            /* Reject MMIO and grant replacements */
-+            rc = -EPERM;
-+            goto out;
-+        }
-+        else
-+        {
-+            /* Allow RAM and foreign - both have proper cleanup */
-+            rc = guest_remove_page(d, gfn_x(gfn));
-+            if ( rc )
-+                goto out;
-+        }
-+    }
-+    else if ( mfn_valid(mfn_old) )
-+    {
-+        /* Mapping already exists. Drop the references taken above */
-+        if ( page != NULL )
-+            put_page(page);
-+
-+        return 0;
-+    }
-+
-     /*
-      * Map at new location. Here we need to map xenheap RAM page differently
-      * because we need to store the valid GFN and make sure that nothing was
-@@ -255,8 +317,6 @@ int xenmem_add_to_physmap_one(
-         rc = guest_physmap_add_entry(d, gfn, mfn, 0, t);
-     else
-     {
--        struct p2m_domain *p2m = p2m_get_hostp2m(d);
--
-         p2m_write_lock(p2m);
-         if ( gfn_eq(page_get_xenheap_gfn(mfn_to_page(mfn)), INVALID_GFN) )
-         {
-@@ -276,6 +336,7 @@ int xenmem_add_to_physmap_one(
-         p2m_write_unlock(p2m);
-     }
- 
-+ out:
-     /*
-      * For XENMAPSPACE_gmfn_foreign if we failed to add the mapping, we need
-      * to drop the reference we took earlier. In all other cases we need to
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index fb03978a19af..c91568926e4c 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -200,24 +200,6 @@ int unmap_mmio_regions(struct domain *d,
-     return p2m_remove_mapping(d, start_gfn, nr, mfn);
- }
- 
--int map_dev_mmio_page(struct domain *d, gfn_t gfn, mfn_t mfn)
--{
--    int res;
--
--    if ( !iomem_access_permitted(d, mfn_x(mfn), mfn_x(mfn)) )
--        return 0;
--
--    res = p2m_insert_mapping(d, gfn, 1, mfn, p2m_mmio_direct_c);
--    if ( res < 0 )
--    {
--        printk(XENLOG_G_ERR "Unable to map MFN %#"PRI_mfn" in %pd\n",
--               mfn_x(mfn), d);
--        return res;
--    }
--
--    return 0;
--}
--
- int guest_physmap_add_entry(struct domain *d,
-                             gfn_t gfn,
-                             mfn_t mfn,
--- 
-2.43.0
-
+>  static int32_t ffa_partition_info_get(struct ffa_uuid uuid, uint32_t fla=
+gs,
+>                                        uint32_t *count, uint32_t *fpi_siz=
+e)
+>  {
+> @@ -79,92 +85,84 @@ static int32_t ffa_copy_info(void **dst, void *dst_en=
+d, const void *src,
+>      return FFA_RET_OK;
+>  }
+>
+> -static int32_t ffa_get_sp_count(struct ffa_uuid uuid, uint32_t *sp_count=
+)
+> +static uint16_t ffa_sp_entry_read_id(const void *entry)
+>  {
+> -    uint32_t src_size;
+> -
+> -    return ffa_partition_info_get(uuid, FFA_PARTITION_INFO_GET_COUNT_FLA=
+G,
+> -                                  sp_count, &src_size);
+> +    return get_unaligned_t(uint16_t,
+> +                           (const uint8_t *)entry +
+> +                           offsetof(struct ffa_partition_info_1_0, id));
+>  }
+>
+> -static int32_t ffa_get_sp_partinfo(struct ffa_uuid uuid, uint32_t *sp_co=
+unt,
+> -                                   void **dst_buf, void *end_buf,
+> -                                   uint32_t dst_size)
+> +static bool ffa_sp_entry_matches_uuid(const void *entry, struct ffa_uuid=
+ uuid)
+>  {
+> -    int32_t ret;
+> -    int32_t release_ret;
+> -    uint32_t src_size, real_sp_count;
+> -    void *src_buf;
+> -    uint32_t count =3D 0;
+> -    bool notify_fw =3D false;
+> +    struct ffa_uuid sp_uuid;
+>
+> -    /* We need to use the RX buffer to receive the list */
+> -    src_buf =3D ffa_rxtx_spmc_rx_acquire();
+> -    if ( !src_buf )
+> -        return FFA_RET_DENIED;
+> +    if ( ffa_uuid_is_nil(uuid) )
+> +        return true;
+>
+> -    ret =3D ffa_partition_info_get(uuid, 0, &real_sp_count, &src_size);
+> -    if ( ret )
+> -        goto out;
+> -    notify_fw =3D true;
+> +    memcpy(&sp_uuid,
+> +           (const uint8_t *)entry +
+> +           offsetof(struct ffa_partition_info_1_1, uuid),
+> +           sizeof(sp_uuid));
+> +    return ffa_uuid_equal(uuid, sp_uuid);
+> +}
+>
+> -    /* Validate the src_size we got */
+> -    if ( src_size < sizeof(struct ffa_partition_info_1_0) ||
+> -         src_size >=3D FFA_PAGE_SIZE )
+> +static int32_t ffa_get_sp_count(struct ffa_uuid uuid, uint32_t *sp_count=
+)
+> +{
+> +    uint32_t count =3D 0;
+> +    uint32_t n;
+> +
+> +    for ( n =3D 0; n < sp_list_count; n++ )
+>      {
+> -        ret =3D FFA_RET_NOT_SUPPORTED;
+> -        goto out;
+> +        void *entry =3D sp_list + n * sp_list_entry_size;
+> +
+> +        if ( ffa_sp_entry_matches_uuid(entry, uuid) )
+> +            count++;
+>      }
+>
+> -    /*
+> -     * Limit the maximum time we hold the CPU by limiting the number of =
+SPs.
+> -     * We just ignore the extra ones as this is tested during init in
+> -     * ffa_partinfo_init so the only possible reason is SP have been add=
+ed
+> -     * since boot.
+> -     */
+> -    if ( real_sp_count > FFA_MAX_NUM_SP )
+> -        real_sp_count =3D FFA_MAX_NUM_SP;
+> +    *sp_count =3D count;
+>
+> -    /* Make sure the data fits in our buffer */
+> -    if ( real_sp_count > (FFA_RXTX_PAGE_COUNT * FFA_PAGE_SIZE) / src_siz=
+e )
+> -    {
+> -        ret =3D FFA_RET_NOT_SUPPORTED;
+> -        goto out;
+> -    }
+> +    if ( !ffa_uuid_is_nil(uuid) && !count )
+> +        return FFA_RET_INVALID_PARAMETERS;
+>
+> -    for ( uint32_t sp_num =3D 0; sp_num < real_sp_count; sp_num++ )
+> -    {
+> -        struct ffa_partition_info_1_1 *fpi =3D src_buf;
+> +    return FFA_RET_OK;
+> +}
+>
+> -        /* filter out SP not following bit 15 convention if any */
+> -        if ( FFA_ID_IS_SECURE(fpi->id) )
+> -        {
+> -            /*
+> -             * If VM is 1.0 but firmware is 1.1 we could have several en=
+tries
+> -             * with the same ID but different UUIDs. In this case the VM=
+ will
+> -             * get a list with several time the same ID.
+> -             * This is a non-compliance to the specification but 1.0 VMs=
+ should
+> -             * handle that on their own to simplify Xen implementation.
+> -             */
+> +static int32_t ffa_get_sp_partinfo(struct ffa_uuid uuid, uint32_t *sp_co=
+unt,
+> +                                   void **dst_buf, void *end_buf,
+> +                                   uint32_t dst_size)
+> +{
+> +    int32_t ret;
+> +    uint32_t count =3D 0;
+> +    uint32_t n;
+>
+> -            ret =3D ffa_copy_info(dst_buf, end_buf, src_buf, dst_size, s=
+rc_size);
+> -            if ( ret )
+> -                goto out;
+> +    for ( n =3D 0; n < sp_list_count; n++ )
+> +    {
+> +        void *entry =3D sp_list + n * sp_list_entry_size;
+>
+> -            count++;
+> -        }
+> +        if ( !ffa_sp_entry_matches_uuid(entry, uuid) )
+> +            continue;
+> +
+> +        /*
+> +         * If VM is 1.0 but firmware is 1.1 we could have several entrie=
+s
+> +         * with the same ID but different UUIDs. In this case the VM wil=
+l
+> +         * get a list with several time the same ID.
+> +         * This is a non-compliance to the specification but 1.0 VMs sho=
+uld
+> +         * handle that on their own to simplify Xen implementation.
+> +         */
+> +        ret =3D ffa_copy_info(dst_buf, end_buf, entry, dst_size,
+> +                            sp_list_entry_size);
+> +        if ( ret )
+> +            return ret;
+>
+> -        src_buf +=3D src_size;
+> +        count++;
+>      }
+>
+>      *sp_count =3D count;
+>
+> -out:
+> -    release_ret =3D ffa_rxtx_spmc_rx_release(notify_fw);
+> -    if ( release_ret )
+> -        gprintk(XENLOG_WARNING,
+> -                "ffa: Error releasing SPMC RX buffer: %d\n", release_ret=
+);
+> -    return ret;
+> +    if ( !ffa_uuid_is_nil(uuid) && !count )
+> +        return FFA_RET_INVALID_PARAMETERS;
+> +
+> +    return FFA_RET_OK;
+>  }
+>
+>  static int32_t ffa_get_vm_partinfo(struct ffa_uuid uuid, uint32_t start_=
+index,
+> @@ -435,6 +433,13 @@ static int32_t ffa_direct_req_send_vm(uint16_t sp_id=
+, uint16_t vm_id,
+>      return res;
+>  }
+>
+> +static void ffa_sp_list_cache_free(void)
+> +{
+> +    XFREE(sp_list);
+> +    sp_list_count =3D 0;
+> +    sp_list_entry_size =3D 0;
+> +}
+> +
+>  static void uninit_subscribers(void)
+>  {
+>          subscr_vm_created_count =3D 0;
+> @@ -443,6 +448,63 @@ static void uninit_subscribers(void)
+>          XFREE(subscr_vm_destroyed);
+>  }
+>
+> +static bool ffa_sp_list_cache_init(const void *buf, uint32_t count,
+> +                                   uint32_t fpi_size)
+> +{
+> +    const uint8_t *src =3D buf;
+> +    uint32_t secure_count =3D 0;
+> +    uint32_t n, idx =3D 0;
+> +
+> +    if ( fpi_size < sizeof(struct ffa_partition_info_1_1) ||
+> +         fpi_size >=3D FFA_PAGE_SIZE )
+> +        return false;
+> +
+> +    if ( count > (FFA_RXTX_PAGE_COUNT * FFA_PAGE_SIZE) / fpi_size )
+> +        return false;
+> +
+> +    for ( n =3D 0; n < count; n++ )
+> +    {
+> +        const uint8_t *entry =3D src + n * fpi_size;
+> +        uint16_t id =3D ffa_sp_entry_read_id(entry);
+> +
+> +        if ( !FFA_ID_IS_SECURE(id) )
+> +        {
+> +            printk_once(XENLOG_ERR
+> +                        "ffa: Firmware is not using bit 15 convention fo=
+r IDs !!\n");
+> +            printk(XENLOG_ERR
+> +                   "ffa: Secure partition with id 0x%04x cannot be used\=
+n",
+> +                   id);
+> +            continue;
+> +        }
+> +
+> +        secure_count++;
+> +    }
+> +
+> +    if ( secure_count )
+> +    {
+> +        sp_list =3D xzalloc_bytes(secure_count * fpi_size);
+> +        if ( !sp_list )
+> +            return false;
+> +    }
+> +
+> +    sp_list_count =3D secure_count;
+> +    sp_list_entry_size =3D fpi_size;
+> +
+> +    for ( n =3D 0; n < count; n++ )
+> +    {
+> +        const uint8_t *entry =3D src + n * fpi_size;
+> +        uint16_t id =3D ffa_sp_entry_read_id(entry);
+> +
+> +        if ( !FFA_ID_IS_SECURE(id) )
+> +            continue;
+> +
+> +        memcpy(sp_list + idx * fpi_size, entry, fpi_size);
+> +        idx++;
+> +    }
+> +
+> +    return true;
+> +}
+> +
+>  static bool init_subscribers(void *buf, uint16_t count, uint32_t fpi_siz=
+e)
+>  {
+>      uint16_t n;
+> @@ -538,7 +600,7 @@ bool ffa_partinfo_init(void)
+>      if ( e )
+>      {
+>          printk(XENLOG_ERR "ffa: Failed to get list of SPs: %d\n", e);
+> -        goto out;
+> +        goto out_release_rx;
+>      }
+>      notify_fw =3D true;
+>
+> @@ -546,15 +608,29 @@ bool ffa_partinfo_init(void)
+>      {
+>          printk(XENLOG_ERR "ffa: More SPs than the maximum supported: %u =
+- %u\n",
+>                 count, FFA_MAX_NUM_SP);
+> -        goto out;
+> +        goto out_release_rx;
+> +    }
+> +
+> +    if ( !ffa_sp_list_cache_init(spmc_rx, count, fpi_size) )
+> +    {
+> +        printk(XENLOG_ERR "ffa: Failed to cache SP list\n");
+> +        goto out_release_rx;
+>      }
+>
+> -    ret =3D init_subscribers(spmc_rx, count, fpi_size);
+> +    if ( !init_subscribers(sp_list, sp_list_count, sp_list_entry_size) )
+> +        goto out_free_sp_cache;
+>
+> -out:
+> +    ret =3D true;
+> +    goto out_release_rx;
+> +
+> +out_free_sp_cache:
+> +    ffa_sp_list_cache_free();
+> +
+> +out_release_rx:
+>      e =3D ffa_rxtx_spmc_rx_release(notify_fw);
+>      if ( e )
+>          printk(XENLOG_WARNING "ffa: Error releasing SPMC RX buffer: %d\n=
+", e);
+> +
+>      return ret;
+>  }
+>
+> --
+> 2.52.0
+>
 
