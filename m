@@ -2,51 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6GqpHOH8p2mlnAAAu9opvQ
+	id kLD1Hvn9p2nUnAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 10:35:29 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 10:40:09 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1C3F1FDB06
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 10:35:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1245201.1544584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9F871FDC0A
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 10:40:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1245220.1544595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxidS-0002YB-1H; Wed, 04 Mar 2026 09:35:18 +0000
+	id 1vxihr-0003bJ-MI; Wed, 04 Mar 2026 09:39:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1245201.1544584; Wed, 04 Mar 2026 09:35:18 +0000
+Received: by outflank-mailman (output) from mailman id 1245220.1544595; Wed, 04 Mar 2026 09:39:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxidR-0002WO-U6; Wed, 04 Mar 2026 09:35:17 +0000
-Received: by outflank-mailman (input) for mailman id 1245201;
- Wed, 04 Mar 2026 09:35:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vxihr-0003YW-Ik; Wed, 04 Mar 2026 09:39:51 +0000
+Received: by outflank-mailman (input) for mailman id 1245220;
+ Wed, 04 Mar 2026 09:39:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3gGj=BE=oss.qualcomm.com=vijayanand.jitta@srs-se1.protection.inumbo.net>)
- id 1vxidQ-0001p4-6i
- for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 09:35:16 +0000
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 71bcb6dd-17ad-11f1-b164-2bf370ae4941;
- Wed, 04 Mar 2026 10:35:14 +0100 (CET)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6245TGeh1679276
- for <xen-devel@lists.xenproject.org>; Wed, 4 Mar 2026 09:35:12 GMT
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cp73ha95s-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 09:35:12 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-c70f137aa4aso3935512a12.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 01:35:12 -0800 (PST)
-Received: from [10.219.57.109] ([202.46.23.19])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c73790f881esm1186795a12.10.2026.03.04.01.35.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Mar 2026 01:35:10 -0800 (PST)
+ <SRS0=4HQr=BE=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1vxihp-0003YK-DR
+ for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 09:39:49 +0000
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c105::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 142f61de-17ae-11f1-9ccf-f158ae23cfc8;
+ Wed, 04 Mar 2026 10:39:46 +0100 (CET)
+Received: from MN2PR19CA0011.namprd19.prod.outlook.com (2603:10b6:208:178::24)
+ by DS0PR12MB7701.namprd12.prod.outlook.com (2603:10b6:8:133::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Wed, 4 Mar
+ 2026 09:39:40 +0000
+Received: from BL6PEPF0001AB4D.namprd04.prod.outlook.com
+ (2603:10b6:208:178:cafe::a1) by MN2PR19CA0011.outlook.office365.com
+ (2603:10b6:208:178::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.22 via Frontend Transport; Wed,
+ 4 Mar 2026 09:39:44 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB4D.mail.protection.outlook.com (10.167.242.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9678.18 via Frontend Transport; Wed, 4 Mar 2026 09:39:40 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 4 Mar
+ 2026 03:39:39 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 4 Mar
+ 2026 01:39:39 -0800
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
+ via Frontend Transport; Wed, 4 Mar 2026 03:39:38 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,386 +68,329 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71bcb6dd-17ad-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t80u5LhNs8dedbnLQe3vnPgp0bI1VMt5bD83HvKUNdE=; b=g1/MgbWp9GnnXzTd
-	dYgjmB5pE0P9xO0EdT20U1vIXpi5wS3RFe61V/EBK+qRPr9eONuDqjb9UYV2umU/
-	XCP7CoOKVrwU57sHnaAy4LUA4efHqaLUfjweLNBhhI7Q2qzZR8QazjyrvWniEyPb
-	QQYK28Z1sRZka2ZE29KDYJXFNg/0EdRPi/TmeNbb4jH6w3G5fmFZKHC+H/PiUrdc
-	PTgx64nHg5jzDRyyzQ51s1Le/VaT5IGp7W8hsfQ7Yb6zp3JOAUrD3gO0jK5zYDmi
-	9lS2S2AOKeuSXQde+RvkHYShPDF/QlA7jTobiMPM3THAv1Ntk1wMS10nDiGYvKV5
-	Hm/DGg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1772616912; x=1773221712; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=t80u5LhNs8dedbnLQe3vnPgp0bI1VMt5bD83HvKUNdE=;
-        b=BII/8yAkyBbmFkPTGyuSFcqj4pFgi9dfWM2SQ5ZmWXAFxh9vXEM9cQs9AbkvNH6BkV
-         KL874RIZmQTLxh6xukjolnlazzx0xeUXbJw656UBNNRvf+D7NnhQi4PRePCIBb99vahp
-         FGcTDxUxsmy494iayct4UHMfM0d0UoNaMC1XqDhWFmwvHcKABRCrHfWT0pLuBpOIUmv1
-         koM2DECMdLAFfS27sF31J3pE3zuI47qOwZ8L82TKH7VsHGcjbvv0TDizf6E9ElBreu/b
-         Cnm0JfjcXqvwtM2dhicwmGHKDiQSEXj+wxVMjpdfz0gofdsBoKoJFZSiKUj+1R3lsEYK
-         KcOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772616912; x=1773221712;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=t80u5LhNs8dedbnLQe3vnPgp0bI1VMt5bD83HvKUNdE=;
-        b=rn1poLbPXeTnQGW9wAze76Vli0JZFZ/Cznk8U6unaJFTtXwun8m91aP2XWOKkuuQbL
-         GkluF8C8BneNiBA5e1uQaeVGQQ4ST6B9FP/vR8Z7/Zo7ZaOnWZgGjQCcg/HO5zPLmTyI
-         053D5A2Wt6HHvTVrxPMLbtys5tLZUHzLVcAXITLQAGPo/cPiFbTsPBjkcMmDO5i5psgk
-         0+Ax81QwSeqlpkF82ZWz34eIoHDRILRX15yDgvmeqIsd4BQtfxf1P02DgegGpgnMqb82
-         /lF7mJ+2ZceRJ+BHd7QtJJu0ipFIzY1OVsJc1T7OC+vgWwlEevRr79j84yEYE6QprZti
-         sBUg==
-X-Forwarded-Encrypted: i=1; AJvYcCUYvu4Kjs/7DMWVtNSnwsmhjLM6lXAlV3N3ZDfO/BbqOXTqt9JVgWvFgAbG0NhRguq98KXD9HgfqKo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy3iBvf+jB32ceqx0At695JlnoYcxnzEJyRkxXV9ZLv+YBbIrGK
-	gH0qVTB85uuYnmiSvsMAMEJ37IGf/D46L814sRFRFDUGsDkXILfZcY0R2H+7mp/xpe0B0TUcP2P
-	2JB3fRqXTBlczIbyQaBKbOc083T96X+peUV5/Xac+3VH3+f8k0xOyRgERGKt4QoVhFMzG0A==
-X-Gm-Gg: ATEYQzzs0F4MEFCfRBLTKON1rdIwpIjmkzf96ejFNBBvfaSfoeAW0O1MRRe5c1mJn6h
-	eUhVXsmwvIa9kEe8nrKbTRlEVpnu3QrmxHXX1j5SSI+thg6g8z7jDcfmwtZa2PKGmJ9asEH4Yzk
-	qDlLD7GEZy9rrD7nCvExPf4/MrpxkgKKj5bip+19Yzby/hSUl/AJWtFvgPq3nQY47Pp6wied70h
-	9tZfZ1UnJvITyZLOMPrfNMWUCoVuOaT3hjK2KTyFqKVWMwSc3rGlO1XbpOluS76VBK0ZO+KcOkm
-	KRMFV+I06L8QjGmyxP14j8vfshbm4/65omeCYMK0M0H3YqnJ1uNxRLPpRWowLLlni/QnhAiWgIw
-	T28KC7cf1N91eiKUv7qOACtWCGmR2nzbTibZw3wB5dmnGUKKpRuncrp2Q
-X-Received: by 2002:a05:6a21:608a:b0:35b:9ba2:8cd5 with SMTP id adf61e73a8af0-3982e2036d4mr1560336637.56.1772616911557;
-        Wed, 04 Mar 2026 01:35:11 -0800 (PST)
-X-Received: by 2002:a05:6a21:608a:b0:35b:9ba2:8cd5 with SMTP id adf61e73a8af0-3982e2036d4mr1560306637.56.1772616910991;
-        Wed, 04 Mar 2026 01:35:10 -0800 (PST)
-Message-ID: <9aa4c1d3-713e-4137-8042-a73bea8e8f34@oss.qualcomm.com>
-Date: Wed, 4 Mar 2026 15:04:59 +0530
+X-Inumbo-ID: 142f61de-17ae-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L6jq/dXyVjlvypLOSHux/j2bTfTLJY6CZ/cGvdfdnEOOVeQl0q0AjECWX2S5pQ7oZk/eqwou1Gv5mOAtCCR8jTpAl80iF12dhjwr2j12YK6ohPix1mEnd2r+Jp4ImzB/+Gx1qUo5wp4VqzZ7UvD66FHMrWJX5HJepOxRc31GF0EL7uGJEj3tF61e1NTzzVHvpod/b+AxrY9Q52s6oYsXTP0KVXhPy+KNi0QJi7BfBIA/SBrpeZzT/vyhyw5o6zLlgoZGGbYFq5bYVT2XZHM5G88POKT9EzcIpQV8G13wsYgG3TN8NiJJeqYeb4qDe1szV5xZgFNFE8c7Sk3OEDNX/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5HQu2M+0XHijYHerBIMV7/hGMJZUp9enctuOgoOndY8=;
+ b=fwlVcU2ypkmmkM7ZyWR8eC/bWnoF2zMzoHktik/fHh3ItozMPAOmDCPLyPpzuZvS/LBnwKR1HOpOj4QhCFpIfnCL1HZSo3CIPTF4SwM6aTW6gq6K3Cg4EzkRtVf4lOh62UWsNerdFgR/hfpZhxHnTtwbcHy1I1VeFwpzwZVlg8QsaKrRIREwRuveh3crhOEuK7v4fk/6pKhgijUaUxxsxO25Fc1NfgNS/I8dFY/OjDwHl9n5SQ1lMZiEqTPT4NH0Qe2G505RlaMuPT3wWAh8XrwJYqSVeKi3EespII64eoBxbkkB/3ovW2JQ/bi1CfKZotXuCbXIyCeUl95WEr1sRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5HQu2M+0XHijYHerBIMV7/hGMJZUp9enctuOgoOndY8=;
+ b=hmu5kVqc6g4xzKcNhm9fsb152ZocRME9SbSN2YOGMpB2FkLjLJiUOY2mPu3a50A6rS/8sYw6uKQ9Jm0ey+NSYUDMWWnfJnarELQP+VSk47vMRYycuvpYo22EszYAgF2g0E5kF8AUaK3hHG3oOCGjFwgJNGw0h8zQe/qg8sbMIbQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2] arm/mm: Fix resource handling in xenmem_add_to_physmap_one
+Date: Wed, 4 Mar 2026 10:39:23 +0100
+Message-ID: <20260304093923.14293-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/3] of: Respect #{iommu,msi}-cells in maps
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Nipun Gupta <nipun.gupta@amd.com>,
-        Nikhil Agarwal
- <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas
- <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski
- <krzk+dt@kernel.org>,
-        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-pci@vger.kernel.org, imx@lists.linux.dev,
-        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-References: <20260301-parse_iommu_cells-v9-0-4d1bceecc5e1@oss.qualcomm.com>
- <20260301-parse_iommu_cells-v9-3-4d1bceecc5e1@oss.qualcomm.com>
- <laif6gacqyacvchnfuyhu4w3f4746xlrlxrr23klrgtkbn7dn3@rracfqemavwd>
-Content-Language: en-US
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-In-Reply-To: <laif6gacqyacvchnfuyhu4w3f4746xlrlxrr23klrgtkbn7dn3@rracfqemavwd>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: gl-nuMCTUihnsaDRqu-7thYD4wiimU3o
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA0MDA3MiBTYWx0ZWRfX7Y/fPWeiWDGa
- IYW3syFEoAjVe2OtnCmYrrVwMdOB3HtTeamV19XnP5jQRTtiGLo0dw1tS1zxz3Kp01dXGkgQ1Ww
- 2VtVf7W8zd2sjH1WXROe1npXT5FK306XWno2i6MSvJmMyxdQD9U0o3FJ2lKoZNFymGPvBrnNkkE
- k2GgfOE78hXeA7pbIQUJEJBit8k3lFivTYBdwcRuX/EUplZ4d0sM8nGbbADmJInPxqIheV+zDdn
- b14Kn6AH6AM5jV4n5vMbmhhfVxUJasusSY9QvbmPqMdn3G3EXEDo3faXwDnWfPYg+edrBgvAg47
- ec6EGz3oW1C0yls1J/UdRESo2yODBpWlQM6yoQlAzrv5ak1x5FDBNwTeSYvcaWXvzOF3bIH5hlo
- /YRFzoNeyri4v9cCBBFYfpA5txkyxjPDZv/mPmJxP/WJGU0mwyLgV2uUKQl2wJXv+2pL27SjKUE
- Ge6CFGWgeXABRORpKFg==
-X-Proofpoint-ORIG-GUID: gl-nuMCTUihnsaDRqu-7thYD4wiimU3o
-X-Authority-Analysis: v=2.4 cv=BpWQAIX5 c=1 sm=1 tr=0 ts=69a7fcd0 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=FlLgGEtdp7AnL9SkOqcA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-04_05,2026-03-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0
- lowpriorityscore=0 impostorscore=0 priorityscore=1501 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2602130000
- definitions=main-2603040072
-X-Rspamd-Queue-Id: C1C3F1FDB06
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB4D:EE_|DS0PR12MB7701:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7fccc3d3-e1c7-47cd-6857-08de79d1f52e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026;
+X-Microsoft-Antispam-Message-Info:
+	d/4vmiIJ7oH3DeVwJkwLjlekR94sGlpT90yi55KecnApcmtSaJPZbSFH2vDfHgKSwHAR6HtzrtyDTHN5zFIgw4whHFSfz/Vwetqbd2tQ6RI+ODrp8zdykY70cob1ixbQJLONS8JykPrRjFuS+vh0nxoJqBp9HCc73hqeQeD+FKuxgByQSxCESmc/MzKi4L1FLucUDAoDisj2G47lurTuP32mW+sFQGo4NabXlxzbR42m4EAJ5AE1bSPYZUdTWIHd1EjVvR+ARpa7niNJxf6/7DUJMKl+iS1rCrwoJRLAbZ+BZ8CZEM0/InmCl+QOkILYmbhyr49OGRttxNIllgVhqAjeGZnwOWatdRHYy70SQOk7iIwT9Om4q8QLksTIP0PpsYrGVUxjsmgtRIJgChPGSKYEkBtiZc/Xczc5NBscA+lM9xsFoCOJpHdpWNAJY8viKaPiGsCtLly5gsBNhfbOg1uQ6w7X3hnRBYJ0Gh8jIvaDcnu9ugggj7amZ1B/1AneRTC6bSJKpcKxmHpNI9Dbk8grnUImG6OAt9ZIS8Zb9J6AXpbPdnDR6BxNobHvkm6xJPPWhc/xrtBeUy0fbxzKO3PY5QmtkMWzdt/ow1FYdwNGeN2O7GC5TsOCL5c+ebVWsa5dmeM5GYCCebUG6YkMXIyqPTAR5V4XSA2IsuMDfwPa/sLPrd1SFbY3O76p+NlO++zia7q57abB7Wf0cVbLvcoHp5hyskEkHBL8ttyuweFQKjMUvNzcj12sc9RGq264KGq6cP8shUX8w5SlAo334A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	AhwGVb3skTKE/FeJrQLeNpYDgXuvEnIcO4Ywy8EcQ0mtkv82jriXHS5/KabXkWLWsb6J3dWp5s22AXd7HLnWs8C0Zsv9aPyWDkRk4lquuBcUnV7XdbSyzFV5wmYv5Gv7TfabSV9MW+BkTMji+IAeGCSty0FjyJfVOco6/okWJBQnSEulmyMFpYgqa/+8/FI5EwI1A/dyQvhdsrKYzVa18Sn13fCh4vCWeHgMCACSHhWcs6IzIVFBDAnhKF5XbZlj6hgcCK9pBYm2wsmypSwfe7zdQ+MQVjsRDXopLBdMhfuM0ON0zYOPPtDJu/RV1pRNig7XPBn17fuVkN3wlUcyi8V4kalQHItPZxomvojcOdqPMhisBi08ZPjpRzbE5iqeNnDAXuTjVC4RuRnKPlHImiX6Wv1nfZVO81Nk5GdPoD3lcfvRsvvApuhJpTrYutbD
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 09:39:40.1421
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7fccc3d3-e1c7-47cd-6857-08de79d1f52e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0001AB4D.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7701
+X-Rspamd-Queue-Id: C9F871FDC0A
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[amd.com,8bytes.org,kernel.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com,oss.qualcomm.com,vger.kernel.org,lists.linux.dev,lists.infradead.org,lists.xenproject.org];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:dkim,oss.qualcomm.com:mid,arm.com:email,qualcomm.com:dkim,qualcomm.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	FORGED_SENDER(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[38];
-	FORGED_RECIPIENTS(0.00)[m:dmitry.baryshkov@oss.qualcomm.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:maz@kernel.org,m:lpieralisi@kernel.org,m:tglx@kernel.org,m:robh@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:linux-arm-msm@vger.kernel.org,m:charan.kalla@oss.qualcomm.com,m:cono
- r@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel,dt];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
+	RCVD_COUNT_TWELVE(0.00)[12];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,amd.com:dkim,amd.com:email,amd.com:mid]
 X-Rspamd-Action: no action
 
+The current implementation of xenmem_add_to_physmap_one() does not check
+for or remove existing mappings at the target GFN before inserting new
+mappings. This can lead to pages not being properly freed (until domain
+destruction) when replaced.
 
+Add a proper old mapping detection and cleanup:
 
-On 3/1/2026 3:44 PM, Dmitry Baryshkov wrote:
-> On Sun, Mar 01, 2026 at 02:04:21PM +0530, Vijayanand Jitta wrote:
->> From: Robin Murphy <robin.murphy@arm.com>
->>
->> So far our parsing of {iommu,msi}-map properites has always blindly
->> assumed that the output specifiers will always have exactly 1 cell.
->> This typically does happen to be the case, but is not actually enforced
->> (and the PCI msi-map binding even explicitly states support for 0 or 1
->> cells) - as a result we've now ended up with dodgy DTs out in the field
->> which depend on this behaviour to map a 1-cell specifier for a 2-cell
->> provider, despite that being bogus per the bindings themselves.
->>
->> Since there is some potential use in being able to map at least single
->> input IDs to multi-cell output specifiers (and properly support 0-cell
->> outputs as well), add support for properly parsing and using the target
->> nodes' #cells values, albeit with the unfortunate complication of still
->> having to work around expectations of the old behaviour too.
->>
->> Since there are multi-cell output specifiers, the callers of of_map_id()
->> may need to get the exact cell output value for further processing.
->> Added support for that part --charan
->>
->> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
->> Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
->> Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
->> ---
->>  drivers/iommu/of_iommu.c |   2 +-
->>  drivers/of/base.c        | 117 +++++++++++++++++++++++++++++++++++++----------
->>  include/linux/of.h       |  16 +++----
->>  3 files changed, 102 insertions(+), 33 deletions(-)
->>
-> 
->>  /**
->>   * of_map_id - Translate an ID through a downstream mapping.
->>   * @np: root complex device node.
->>   * @id: device ID to map.
->>   * @map_name: property name of the map to use.
->> + * @cells_name: property name of target specifier cells.
->>   * @map_mask_name: optional property name of the mask to use.
->>   * @arg: of_phandle_args structure,
->>   *	which includes:
->> @@ -2118,18 +2145,19 @@ int of_find_last_cache_level(unsigned int cpu)
->>   *
->>   * Return: 0 on success or a standard error code on failure.
->>   */
->> -int of_map_id(const struct device_node *np, u32 id,
->> -	       const char *map_name, const char *map_mask_name,
->> -	       struct of_phandle_args *arg)
->> +int of_map_id(const struct device_node *np, u32 id, const char *map_name,
->> +	      const char *cells_name, const char *map_mask_name,
->> +	      struct of_phandle_args *arg)
-> 
-> Some extra whitespace-related noise in here. Last line wasn't changed,
-> so there is no need to touch it.
-> 
+* Check for existing mappings at the target GFN before insertion
+* For special pages: unmap without freeing (not owned by domain)
+* For MMIO mappings: reject with -EPERM (questionable)
+* For grant mappings: reject with -EPERM (cleanup not implemented in
+  p2m_put_l3_page)
+* For RAM and foreign mappings: properly remove via guest_remove_page()
+* Optimize same-MFN remapping: detect and return early (no-op)
 
-Thanks for pointing this, Will fix it in next series.
+Fix XENMAPSPACE_dev_mmio by inlining its permission check and logic
+into the main switch statement, allowing it to go through the same cleanup
+path as other mapping types. This removes the early return that bypassed
+cleanup. The now-unused map_dev_mmio_page() function is removed.
 
->>  {
->>  	u32 map_mask, masked_id;
->> -	int map_len;
->> +	int map_bytes, map_len, offset = 0;
->> +	bool bad_map = false;
->>  	const __be32 *map = NULL;
->>  
->>  	if (!np || !map_name || !arg)
->>  		return -EINVAL;
->>  
->> -	map = of_get_property(np, map_name, &map_len);
->> +	map = of_get_property(np, map_name, &map_bytes);
->>  	if (!map) {
->>  		if (arg->np)
->>  			return -ENODEV;
->> @@ -2138,11 +2166,9 @@ int of_map_id(const struct device_node *np, u32 id,
->>  		return 0;
->>  	}
->>  
->> -	if (!map_len || map_len % (4 * sizeof(*map))) {
->> -		pr_err("%pOF: Error: Bad %s length: %d\n", np,
->> -			map_name, map_len);
->> -		return -EINVAL;
->> -	}
->> +	if (map_bytes % sizeof(*map))
->> +		goto err_map_len;
->> +	map_len = map_bytes / sizeof(*map);
->>  
->>  	/* The default is to select all bits. */
->>  	map_mask = 0xffffffff;
->> @@ -2155,27 +2181,63 @@ int of_map_id(const struct device_node *np, u32 id,
->>  		of_property_read_u32(np, map_mask_name, &map_mask);
->>  
->>  	masked_id = map_mask & id;
->> -	for ( ; map_len > 0; map_len -= 4 * sizeof(*map), map += 4) {
->> +
->> +	while (offset < map_len) {
->>  		struct device_node *phandle_node;
->> -		u32 id_base = be32_to_cpup(map + 0);
->> -		u32 phandle = be32_to_cpup(map + 1);
->> -		u32 out_base = be32_to_cpup(map + 2);
->> -		u32 id_len = be32_to_cpup(map + 3);
->> +		u32 id_base, phandle, id_len, id_off, cells = 0;
->> +		const __be32 *out_base;
->> +
->> +		if (map_len - offset < 2)
->> +			goto err_map_len;
->> +
->> +		id_base = be32_to_cpup(map + offset);
->>  
->>  		if (id_base & ~map_mask) {
->> -			pr_err("%pOF: Invalid %s translation - %s-mask (0x%x) ignores id-base (0x%x)\n",
->> -				np, map_name, map_name,
->> -				map_mask, id_base);
->> +			pr_err("%pOF: Invalid %s translation - %s (0x%x) ignores id-base (0x%x)\n",
->> +			       np, map_name, map_mask_name, map_mask, id_base);
->>  			return -EFAULT;
->>  		}
->>  
->> -		if (masked_id < id_base || masked_id >= id_base + id_len)
->> -			continue;
->> -
->> +		phandle = be32_to_cpup(map + offset + 1);
->>  		phandle_node = of_find_node_by_phandle(phandle);
->>  		if (!phandle_node)
->>  			return -ENODEV;
->>  
->> +		if (!bad_map && of_property_read_u32(phandle_node, cells_name, &cells)) {
->> +			pr_err("%pOF: missing %s property\n", phandle_node, cells_name);
->> +			return -EINVAL;
->> +		}
-> 
-> This will trigger the cells_name property check even if later we
-> discover that we have a "bad" map. Is it intended / required?
-> 
+Foreign mappings are allowed to be removed (matching x86 behavior) because
+proper cleanup via p2m_put_foreign_page() is already implemented in
+p2m_put_l3_page(). Grant mappings are rejected because cleanup is not yet
+implemented.
 
-It’s intended. We need the cells value here because determining whether
-a map is “bad” depends on it, as mentioned in description of of_check_bad_map
-this is specifically for the case where the DT has an iommu-map pointing to
-a 2‑cell IOMMU node but only provides 1 cell in the map entry.
+Add new helpers p2m_is_grant() and p2m_is_mmio().
 
->> +
->> +		if (map_len - offset < 3 + cells)
-> 
-> of_node_put(phandle_node);
-> 
->> +			goto err_map_len;
->> +
->> +		if (offset == 0 && cells == 2) {
-> 
-> ... if it's not required, then the bad_map check can be moved before the
-> loop.
-> 
+Note: There are race conditions due to multiple P2M lock/unlock cycles
+during the check-remove-insert sequence. These are documented and
+subject to future improvements.
 
-Given that, the bad_map check can’t be moved before the loop, because we only
-call of_check_bad_map() when cells == 2.
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+Changes in v2:
+ - handle all the spaces
+ - drop references
+ - add a comment about races (not handled in this attempt)
 
->> +			bad_map = of_check_bad_map(map, map_len);
->> +			if (bad_map) {
->> +				pr_warn_once("%pOF: %s mismatches target %s, assuming extra cell of 0\n",
->> +					     np, map_name, cells_name);
->> +				cells = 1;
->> +			}
->> +		}
->> +
->> +		out_base = map + offset + 2;
->> +		offset += 3 + cells;
->> +
->> +		id_len = be32_to_cpup(map + offset - 1);
->> +		if (id_len > 1 && cells > 1) {
->> +			/*
->> +			 * With 1 output cell we reasonably assume its value
->> +			 * has a linear relationship to the input; with more,
->> +			 * we'd need help from the provider to know what to do.
->> +			 */
->> +			pr_err("%pOF: Unsupported %s - cannot handle %d-ID range with %d-cell output specifier\n",
->> +			       np, map_name, id_len, cells);
->> +			return -EINVAL;
->> +		}
->> +		id_off = masked_id - id_base;
->> +		if (masked_id < id_base || id_off >= id_len)
->> +			continue;
->> +
->>  		if (arg->np)
->>  			of_node_put(phandle_node);
->>  		else
->> @@ -2184,11 +2246,14 @@ int of_map_id(const struct device_node *np, u32 id,
->>  		if (arg->np != phandle_node)
->>  			continue;
->>  
->> -		arg->args[0] = masked_id - id_base + out_base;
->> +		for (int i = 0; i < cells; i++)
->> +			arg->args[i] = (id_off + be32_to_cpu(out_base[i]));
->> +
->> +		arg->args_count = cells;
->>  
->>  		pr_debug("%pOF: %s, using mask %08x, id-base: %08x, out-base: %08x, length: %08x, id: %08x -> %08x\n",
->> -			np, map_name, map_mask, id_base, out_base,
->> -			id_len, id, masked_id - id_base + out_base);
->> +			 np, map_name, map_mask, id_base, be32_to_cpup(out_base),
->> +			 id_len, id, id_off + be32_to_cpup(out_base));
-> 
-> Again, having whitespace changes doesn't simplify reviewing.
-> 
+guest_remove_page would work on MMIO, but for now I decided to take a conservative
+approach and reject it.
+---
+ xen/arch/arm/include/asm/p2m.h |  9 ++++-
+ xen/arch/arm/mm.c              | 73 +++++++++++++++++++++++++++++++---
+ xen/arch/arm/p2m.c             | 18 ---------
+ 3 files changed, 74 insertions(+), 26 deletions(-)
 
-Will fix this in next series.
-
-Thanks,
-Vijay
->>  		return 0;
->>  	}
->>  
->> @@ -2198,5 +2263,9 @@ int of_map_id(const struct device_node *np, u32 id,
->>  	/* Bypasses translation */
->>  	arg->args[0] = id;
->>  	return 0;
->> +
->> +err_map_len:
->> +	pr_err("%pOF: Error: Bad %s length: %d\n", np, map_name, map_bytes);
->> +	return -EINVAL;
->>  }
->>  EXPORT_SYMBOL_GPL(of_map_id);
-> 
+diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+index 010ce8c9ebbd..d88f4f65c7bc 100644
+--- a/xen/arch/arm/include/asm/p2m.h
++++ b/xen/arch/arm/include/asm/p2m.h
+@@ -149,6 +149,11 @@ static inline p2m_type_t arch_dt_passthrough_p2m_type(void)
+ #define P2M_RAM_TYPES (p2m_to_mask(p2m_ram_rw) |        \
+                        p2m_to_mask(p2m_ram_ro))
+ 
++/* MMIO types */
++#define P2M_MMIO_TYPES (p2m_to_mask(p2m_mmio_direct_dev) | \
++                        p2m_to_mask(p2m_mmio_direct_nc) | \
++                        p2m_to_mask(p2m_mmio_direct_c))
++
+ /* Grant mapping types, which map to a real frame in another VM */
+ #define P2M_GRANT_TYPES (p2m_to_mask(p2m_grant_map_rw) |  \
+                          p2m_to_mask(p2m_grant_map_ro))
+@@ -159,6 +164,8 @@ static inline p2m_type_t arch_dt_passthrough_p2m_type(void)
+ 
+ /* Useful predicates */
+ #define p2m_is_ram(_t) (p2m_to_mask(_t) & P2M_RAM_TYPES)
++#define p2m_is_mmio(_t) (p2m_to_mask(_t) & P2M_MMIO_TYPES)
++#define p2m_is_grant(_t) (p2m_to_mask(_t) & P2M_GRANT_TYPES)
+ #define p2m_is_foreign(_t) (p2m_to_mask(_t) & P2M_FOREIGN_TYPES)
+ #define p2m_is_any_ram(_t) (p2m_to_mask(_t) &                   \
+                             (P2M_RAM_TYPES | P2M_GRANT_TYPES |  \
+@@ -318,8 +325,6 @@ int unmap_regions_p2mt(struct domain *d,
+                        unsigned long nr,
+                        mfn_t mfn);
+ 
+-int map_dev_mmio_page(struct domain *d, gfn_t gfn, mfn_t mfn);
+-
+ int p2m_insert_mapping(struct domain *d, gfn_t start_gfn, unsigned long nr,
+                        mfn_t mfn, p2m_type_t t);
+ 
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index 6df8b616e464..0cee65d5ab5a 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -11,6 +11,7 @@
+ #include <xen/domain_page.h>
+ #include <xen/grant_table.h>
+ #include <xen/guest_access.h>
++#include <xen/iocap.h>
+ #include <xen/mm.h>
+ #include <xen/static-memory.h>
+ #include <xen/static-shmem.h>
+@@ -166,10 +167,11 @@ int xenmem_add_to_physmap_one(
+     unsigned long idx,
+     gfn_t gfn)
+ {
+-    mfn_t mfn = INVALID_MFN;
++    mfn_t mfn = INVALID_MFN, mfn_old;
+     int rc;
+-    p2m_type_t t;
++    p2m_type_t t, p2mt_old;
+     struct page_info *page = NULL;
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+ 
+     switch ( space )
+     {
+@@ -237,13 +239,73 @@ int xenmem_add_to_physmap_one(
+         break;
+     }
+     case XENMAPSPACE_dev_mmio:
+-        rc = map_dev_mmio_page(d, gfn, _mfn(idx));
+-        return rc;
++        if ( !iomem_access_permitted(d, idx, idx) )
++            return 0;
++
++        mfn = _mfn(idx);
++        t = p2m_mmio_direct_c;
++        break;
+ 
+     default:
+         return -ENOSYS;
+     }
+ 
++    /*
++     * Release the old page reference if it was present.
++     *
++     * TODO: There are race conditions in this code due to multiple lock/unlock
++     * cycles:
++     *
++     * Race #1: Between checking the old mapping and removing it, another CPU
++     * could replace the mapping. We would then remove the wrong mapping.
++     *
++     * Race #2: Between removing the old mapping and inserting the new one,
++     * another CPU could insert a different mapping. We would then silently
++     * overwrite it.
++     *
++     * For now, we accept these races as they require concurrent
++     * xenmem_add_to_physmap_one operations on the same GFN, which is not a
++     * normal usage pattern.
++     */
++    p2m_read_lock(p2m);
++    mfn_old = p2m_get_entry(p2m, gfn, &p2mt_old, NULL, NULL, NULL);
++    p2m_read_unlock(p2m);
++
++    if ( mfn_valid(mfn_old) && !mfn_eq(mfn, mfn_old) )
++    {
++        if ( is_special_page(mfn_to_page(mfn_old)) )
++        {
++            /* Just unmap, don't free */
++            p2m_write_lock(p2m);
++            rc = p2m_set_entry(p2m, gfn, 1, INVALID_MFN,
++                               p2m_invalid, p2m->default_access);
++            p2m_write_unlock(p2m);
++            if ( rc )
++                goto out;
++        }
++        else if ( p2m_is_mmio(p2mt_old) || p2m_is_grant(p2mt_old) )
++        {
++            /* Reject MMIO and grant replacements */
++            rc = -EPERM;
++            goto out;
++        }
++        else
++        {
++            /* Allow RAM and foreign - both have proper cleanup */
++            rc = guest_remove_page(d, gfn_x(gfn));
++            if ( rc )
++                goto out;
++        }
++    }
++    else if ( mfn_valid(mfn_old) )
++    {
++        /* Mapping already exists. Drop the references taken above */
++        if ( page != NULL )
++            put_page(page);
++
++        return 0;
++    }
++
+     /*
+      * Map at new location. Here we need to map xenheap RAM page differently
+      * because we need to store the valid GFN and make sure that nothing was
+@@ -255,8 +317,6 @@ int xenmem_add_to_physmap_one(
+         rc = guest_physmap_add_entry(d, gfn, mfn, 0, t);
+     else
+     {
+-        struct p2m_domain *p2m = p2m_get_hostp2m(d);
+-
+         p2m_write_lock(p2m);
+         if ( gfn_eq(page_get_xenheap_gfn(mfn_to_page(mfn)), INVALID_GFN) )
+         {
+@@ -276,6 +336,7 @@ int xenmem_add_to_physmap_one(
+         p2m_write_unlock(p2m);
+     }
+ 
++ out:
+     /*
+      * For XENMAPSPACE_gmfn_foreign if we failed to add the mapping, we need
+      * to drop the reference we took earlier. In all other cases we need to
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index fb03978a19af..c91568926e4c 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -200,24 +200,6 @@ int unmap_mmio_regions(struct domain *d,
+     return p2m_remove_mapping(d, start_gfn, nr, mfn);
+ }
+ 
+-int map_dev_mmio_page(struct domain *d, gfn_t gfn, mfn_t mfn)
+-{
+-    int res;
+-
+-    if ( !iomem_access_permitted(d, mfn_x(mfn), mfn_x(mfn)) )
+-        return 0;
+-
+-    res = p2m_insert_mapping(d, gfn, 1, mfn, p2m_mmio_direct_c);
+-    if ( res < 0 )
+-    {
+-        printk(XENLOG_G_ERR "Unable to map MFN %#"PRI_mfn" in %pd\n",
+-               mfn_x(mfn), d);
+-        return res;
+-    }
+-
+-    return 0;
+-}
+-
+ int guest_physmap_add_entry(struct domain *d,
+                             gfn_t gfn,
+                             mfn_t mfn,
+-- 
+2.43.0
 
 
