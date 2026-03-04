@@ -2,43 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mKRqHIVpqGnYuQAAu9opvQ
+	id YETUBLtrqGn9uQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 18:19:01 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 18:28:27 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D577D2050EA
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 18:19:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1245832.1545201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79CB1205229
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 18:28:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1245845.1545211 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxprp-0002dy-O8; Wed, 04 Mar 2026 17:18:37 +0000
+	id 1vxq0z-0004NF-MU; Wed, 04 Mar 2026 17:28:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1245832.1545201; Wed, 04 Mar 2026 17:18:37 +0000
+Received: by outflank-mailman (output) from mailman id 1245845.1545211; Wed, 04 Mar 2026 17:28:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxprp-0002cH-LH; Wed, 04 Mar 2026 17:18:37 +0000
-Received: by outflank-mailman (input) for mailman id 1245832;
- Wed, 04 Mar 2026 17:18:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vxq0z-0004Kp-Ib; Wed, 04 Mar 2026 17:28:05 +0000
+Received: by outflank-mailman (input) for mailman id 1245845;
+ Wed, 04 Mar 2026 17:28:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8Avq=BE=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1vxpro-0002cB-JA
- for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 17:18:36 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2a7efe51-17ee-11f1-9ccf-f158ae23cfc8;
- Wed, 04 Mar 2026 18:18:30 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-4837907f535so63939635e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 09:18:30 -0800 (PST)
-Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
- [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4851881a844sm59032745e9.15.2026.03.04.09.18.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Mar 2026 09:18:28 -0800 (PST)
+ <SRS0=YYFb=BE=citrix.com=bernhard.kaindl@srs-se1.protection.inumbo.net>)
+ id 1vxq0y-0004Kj-AB
+ for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 17:28:04 +0000
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170120001.outbound.protection.outlook.com
+ [2a01:111:f403:c107::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7f0305cd-17ef-11f1-b164-2bf370ae4941;
+ Wed, 04 Mar 2026 18:28:03 +0100 (CET)
+Received: from LV3PR03MB7707.namprd03.prod.outlook.com (2603:10b6:408:28b::21)
+ by BLAPR03MB5556.namprd03.prod.outlook.com (2603:10b6:208:297::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Wed, 4 Mar
+ 2026 17:27:58 +0000
+Received: from LV3PR03MB7707.namprd03.prod.outlook.com
+ ([fe80::97e8:ef9c:9031:e2bf]) by LV3PR03MB7707.namprd03.prod.outlook.com
+ ([fe80::97e8:ef9c:9031:e2bf%6]) with mapi id 15.20.9678.016; Wed, 4 Mar 2026
+ 17:27:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,345 +52,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a7efe51-17ee-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1772644710; x=1773249510; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=kLgVDDKfnR6JHrXAy+RBeThIO2uC8DuDIEkoJk6r+O8=;
-        b=AOf3QJ5Ok3Qn99x4Tr86bdRFfMFzJIWS+pbUPQVm09kcyCxJIeJh99FygSzDmrZCwy
-         s4Yp9nTcnxpV4dMDzzh7vj7O63IaFn0JEOLYfHeYFdgyhYRahFUuqgOGc8BQ/7XlzQ3w
-         ah7kO7MRCBDQTtmURrmNUwHIqF+QZxrnOVroo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772644710; x=1773249510;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=kLgVDDKfnR6JHrXAy+RBeThIO2uC8DuDIEkoJk6r+O8=;
-        b=e2XA7PovXF0dcZ1HZaQvAsq17KtTdIaeHRAHlYnNmRw+Erg7gvmMybpKRon8xow5y2
-         /DkUCEnVVdjc8gLBULpzui9oeeFeqJqm20YWbvzQ9PfFRYrj9n1sQP6EGf1xPeBLuhKZ
-         nz6BxHs8U2ZCf0tKNpyr1Yeo5WwoiPRC9WsExIx0+IQLCBGcnCwZ5rGzBV6XKhED5hFt
-         H8whgZwmJdSc64rQswDLo806NCF8uT6EQzRmTnJGhnICdH1nvOM7WCsBFhyg4mIxqp7i
-         I2O8fvf7nZOrCvWSTqMLUWo1BIHDJ94jQHxWnMzSczpyFKXD3HBnBVd9NImB3sM5gshu
-         j1pQ==
-X-Gm-Message-State: AOJu0YwHJQa2fEXzgJroymagCOxdyw1YCBcnicy3IGGnfzUa4HHDI68k
-	ize3Uzrg7ZSJQyTNHCe4j9Z51lZFCVd/KOibuzEQYm0BGUmHW+aTQweXK7VaIF99WkBtrnGOG8U
-	P0j6O
-X-Gm-Gg: ATEYQzw9TeGiK3pH1pk0rU3VKbx3kJnmlG17IFs4nKnn3ygZZ8TrkC3T1GIH1Npkhkh
-	a9nvUzJ1xdYrvrEWShBs6nIpq+JWno1pZQQVonsRfTgPVvTLN7kwR+pVHKLndTEAv5R9PmwQ/DS
-	sMeEBNeNA/YiWLuCstQjLZ5NoiyLVsmjEB0cIj4b8wvu29Ntcc/L1RZQdQ9oswxQ59ZV26roi8y
-	JuHtOjd1wJEgSIW5EbVuO5NBYGeIX0zwWJ55PRPcLDWscubczJsu9MQpL7fqxWPy5Enf1GjRneP
-	h31I8OJQEmyro1SVvdDGB/cDBjg0PA5Bo+6m5R6KpViQ9PaUMB0TLhrX7GpZy9fy7QCQiL48WMg
-	fND0N1Ux69KuwaPz6ErFrhvpdDYBvA98mMKIdfxZKXI9eLjslwku4MQGuA5j2WQH09QFPG1kqzU
-	FZiCQW+kTK5VzMet2BfpdT51k7ET/dGN0nGvGydSYu1GbOcFulEYDzF7QaY86yrIYHxDEKZhY=
-X-Received: by 2002:a05:600c:3b12:b0:47a:814c:eea1 with SMTP id 5b1f17b1804b1-485198b3304mr47230035e9.35.1772644709130;
-        Wed, 04 Mar 2026 09:18:29 -0800 (PST)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v4.1 09/14] x86/pv: Adjust GS handling for FRED mode
-Date: Wed,  4 Mar 2026 17:18:26 +0000
-Message-Id: <20260304171826.45847-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260227231636.3955109-10-andrew.cooper3@citrix.com>
-References: <20260227231636.3955109-10-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 7f0305cd-17ef-11f1-b164-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SqGkz8Tlx3yj8xQe6jMXVqHorv8q2/Lyw+Qd/wbxTFeOdusQHWGFu2tBzVIw6h6ki7B7t36CrNBze3lGwRMYjRtZw9489ntT1OuLfXnXxoD9uapniGkTRK/7xvNsOJBlIYb4VwAwLaDizXnBmaZ6L10gYRgg89DzPXBZx3vNBUahcuopjRJhjfbZJfISyImzSLE7Ao61oCrSMPzBaj+WjjVV5f1uCPoo8elFwHzTavqW77HUyvUEa7nOCLLJY6kVAwySLR4jg0rbzjpTCWgreq2G6FnleGRlxK4xYoBnbgnsmjyjQPAssO2jfczlK3TriedIWOAGuRU72SVjbQbpHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BTW0OIApes7ucx+QNWFjxhTP/zA1bUY3ihHkrnMnzs8=;
+ b=JJN4qkhPgojYIgn+lFHrCAz3VmCsaPkCRhW/42IgoPCN/S/C2x46WmFqunju05T7Xy3ORfmmovnpvE512EjbjUHhRej+qzyNoNY1fwq7KR7QfcnnfM06EDYgR8s6U01FRfvw8dDJnJntg/gzjkkB2gF2FPbe0gzDR2Dw/exbjy91/jBECW/X40p9Eb6GY5TCTuluZpkBCLgwrklXblQ6rlqUyAUWPRH2T4ACU6Oak3GO3dvfJ8G1E8T2Q7Q012xEgOs0xZjkFXtbwzX6jaTQIC7skAYkUph9eqkXf78cIuG6++pWAvhrnAewZqDqpL90dTBZ69gSppDqd5Lxk9Z8qg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BTW0OIApes7ucx+QNWFjxhTP/zA1bUY3ihHkrnMnzs8=;
+ b=NOVg0tu4yXqX/1VkAvv52Rkh3I3j0a2pmfcgkkXE9jfK4wJdPPjySQYZL6nYYE3QCmVJENOB9Zy1OXtY7wtPaVaaH2XrJGqlWHJwuEro+/xs7nxzcCsFCotQ6n9li4Y+yLu426Uf7UNUDxFusT+PKsV5NpW+J0xW1Q9IHwFNvsI=
+From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
+ Grall <julien@xen.org>, Roger Pau Monne <roger.pau@citrix.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>, Juergen Gross <jgross@suse.com>, Christian
+ Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH v4 0/10] xen: Add NUMA-aware memory claims for domains
+Thread-Topic: [PATCH v4 0/10] xen: Add NUMA-aware memory claims for domains
+Thread-Index: AQHcq/EQ7U0dGER6F0e0O8+l9l+UF7Wen7Sg
+Date: Wed, 4 Mar 2026 17:27:57 +0000
+Message-ID:
+ <LV3PR03MB770736F52A297314CB0E0B36877CA@LV3PR03MB7707.namprd03.prod.outlook.com>
+References: <cover.1772098423.git.bernhard.kaindl@citrix.com>
+ <b1e6f37e-9d77-4aef-b088-73bba27382b9@suse.com>
+In-Reply-To: <b1e6f37e-9d77-4aef-b088-73bba27382b9@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV3PR03MB7707:EE_|BLAPR03MB5556:EE_
+x-ms-office365-filtering-correlation-id: 8d1fe9c3-8b44-4898-4000-08de7a1360c1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|376014|366016|38070700021;
+x-microsoft-antispam-message-info:
+ DMcfUBvB7RKPIzg/pfZYC9YbI1yvGxgglnmUMzYJOJ/uMmyx/pxaaRmOg16LR8kMFhZ9xZf7p2hP8kKCiLv9wkbE3r8f3HH5PtcdSZ9X535swVD08O0M7M97yOsMvkbjz/pP6FhWUrPJXd90CNCK1Ki0EpXXs4tR8Y8ekUU2Yg/yuaKC91pbeMUQ8jqxgIuVh+J8oBn0TV9xfb0rYvxKFTQgyP7uY5ZNBFDFGVOEb8fZMbYdTLgfqDiiXWW1MOst6ZJvt2I4z/7x/Dp5p6HykWW06qlzPML6FbCezkr0Cdi9xMmZzFT5OlFwVNEWneK9GtODwC4x34WgavJXpfijn04V7dRzWlP+Q99ZUTO6TK0CmhIjHNqOql3/xRdu/iZRe+/ResjlzHB9xYkLKx96PHqOWf20wQ9Woy71InV8oQVbux29gqzyGgaM65LJzoWanIbnyKXoAf3fzEXlCh7wEuptx0cHohxpvY1UQqTALCgEW1pBO3P+iA/qFGZJZGCDJ6XjvwNCyFIi8wPXaL/Seu/1xkLNsVKS1UhSE6m0zPIfUT+Jv6UiorctWQQJMQ7HCkxGfgdwufCxEfOomyeAnAcHdSDs36j62RW8c6wSy4A8q6RzqaCaMuLieFjMIXF7RqPZ6DOci8tRSGRX+A+5W1tTgKhqJZNz1nKYgkSA2oKcUfmq6kHOE3DFsCx8xVxAgcxhIlfdCvlHLTrgWYmEyKPeL1Xbx8bsZyO51oYZIEZVtiTD7FEMObcxbH8tMtjG48stszLpq8SED6NlyuM37R+6LoIe1R8Uh+vP6tXGPPs=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR03MB7707.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?Qi9iSmR6MWo2WHZCU1FYd0NPbk5HZTVyS0JCdVJ2amtTZXZ5MlZaU2QveGNZ?=
+ =?utf-8?B?RXNNVHZacGtodmduUkg3Q2ZGakkvS2phSXJDSlJDV3hOVTVITjU3eHJOKyth?=
+ =?utf-8?B?UzFzMkFOckRKL0F2K214QUROWUFQcnVaNmw5Z1dOL0RBNHA5cHZ2VEZqaG5o?=
+ =?utf-8?B?LzA3L2xIVFNlUXJIWlNCSnNtdFFYdTlrTXpZNmVUaWR0SktFNitncUFZZE1p?=
+ =?utf-8?B?bjh2MC83Z2daQUlla09qMnVld2tkdms3c3I5YVRzV0V4OWJod2hwUWg2cGxh?=
+ =?utf-8?B?U1NlMmd5bjQrWXR0ekhIRnNNN29tQUFNWmR0Ty9STkFGSUxJdC94djliRDV4?=
+ =?utf-8?B?QTc3UVpnVlJEU2lLRHhucmdqYnVhNFUrRVJQTzk3N1luMHR2SVk0cmc0NFhY?=
+ =?utf-8?B?K2NQUFVHaFJkbVcxajlsVFB6MmdMaFk5M3dsdWplK0RrWTJ6NlF0MzdwN3Bv?=
+ =?utf-8?B?MHU5a2FkUGhMQnFVbzd3OU5LQUZYTGlsUEhpc2F4dDNUMHNydlYrVm1aVlk5?=
+ =?utf-8?B?SWlyeitkckZyTmJzc0dEc2JRUVJsUkIvWVlKY1JkTEZZVVdnWUhkbFR1WVJw?=
+ =?utf-8?B?LzRyN0V5eUJ0dTkrU2I1dmtRbVFrVjU2d3YzbEEzdnVIZ2Y4dy9RaU9wNUUx?=
+ =?utf-8?B?d0pjbUw5Z0pDOHlJWUNGZjVpSlFhT3hwcnV4VmlaZ2Q0d1pDRFZNMWtMWUgv?=
+ =?utf-8?B?dEdaNWE0MEUzdTYxTDBiMXN0eTl1b096ZjRURmZFYVJhYnFYUnpOaWJZMHY5?=
+ =?utf-8?B?NWUxVUNjTWNWRmFYaG1NTWh4VmFTeEJGdGgyNHdKZS9CMkRGUkxVd2NmMEtR?=
+ =?utf-8?B?QzRDRVB3SFFPaUdILzNJVjh5NCtMM3hKUEEwMDIrRGVQT21DMFJHZm1XR3px?=
+ =?utf-8?B?cDA3dTlPaEkxNzYvaXV4N2hCSXREaWx4YkgxZERRZSt0L0NUaHJiUWlOUUVJ?=
+ =?utf-8?B?ZjdCbGh5RFFsQkNPWlhCeGN4bEUrci8yelh4RlM3Ny9tcTBhSndCNVgvQUxm?=
+ =?utf-8?B?NEE1WkpFRHE4RXZnNTNjU1RUYkhGWU5zOXVzWm5iU28wVCsvRU1CYkQxSXVS?=
+ =?utf-8?B?RDFiVEJ1dnhtbk52RERjNk5DMHoxQTlCVmZMYTAxOTZLamZYRVFrRDdIN2Ez?=
+ =?utf-8?B?cHk5ZFBMdHd5SFJvUUduQ0JMb2lTdExYZ2c2QnYydVluenRTOHRzQXdxRjE0?=
+ =?utf-8?B?SnFjSERPWWJNdXgzMTJhNEVYQWJxcWkrcmtwdk82NnNNbFVwOWdxYVhpL3Vv?=
+ =?utf-8?B?aXE5blpyZEd1UTdWM25idnFFeUpsSjZoMVNYYkJhQ1ZzeXYyN1U2WUFYeXlJ?=
+ =?utf-8?B?YVJKQm9KY2tJU0FNVGs2V0c5bnF1TUkxeGNCeER1TmQ5blZkYm5qUTdha3Nx?=
+ =?utf-8?B?NUxuU0t2WEszbGtZMUxBUVlnNjUwL3VXV2hHK21kaUJuaGV5L1dIWFl4czM2?=
+ =?utf-8?B?TzFWYjA2d0Vvd3NiNTFwOHV6WllpczNJa0dnQXJ1ZWRqS0hhd2R6VHUwTzVi?=
+ =?utf-8?B?cUhvdHFBWHhaVHlJaUhpdy9IYTF2enlDL2JaUjdZQXlvRFVkOG5rRVRZRTRu?=
+ =?utf-8?B?TlJMWHpzRmVJZ25MNDBXNkJOYytFTDFsQjdYVGJIS1Y4azYwRGFjeTZxUnpN?=
+ =?utf-8?B?U1FwY0MwYUhBbjc4V2dVVGo5TUhwbFdaU09oUVFNdEFWRWVSdDkvSVcvTXZ5?=
+ =?utf-8?B?NnVzSnAxaTBnalN1NkpYWHVSNy92SjhaWlJHcXVXTkVia2RUZkFKa3crU2VQ?=
+ =?utf-8?B?VjRielptZENtS1Y2cDE1R000ZDFrOGg1aVc0Y2t2QUJ1bTBIaXpOSXl0WlpL?=
+ =?utf-8?B?RWNmNnFkQ1E2djRJeG1oUlBRazh3bTU2T0o4RTF6c2tWWERIQWRKeTVLYW15?=
+ =?utf-8?B?cHA1RkRkQTQ5QklWTWVVK2VmSmdzSWJOTlhQQlFuVE9RZUZSVjNJcDV0bzdF?=
+ =?utf-8?B?Y1Jlb05jTzRSZ3pZeSs5UmZ4S0tnY2JnQ2NudnBDckd4NmZKSmtrMEdNeGFq?=
+ =?utf-8?B?RHY4RkIyaE40enJySndWUjdXaXZac0xFa2VPSEhJV2pQOFUveG1ZdDFYSURB?=
+ =?utf-8?B?SldGQS9zYm9QcGpEcmwraWI0aStJbEpGRkQya0lzMXV2dzNxUG11RTQyRUw2?=
+ =?utf-8?B?bXM1K3hWWVFyb09mMGQxZWdzYjFiQmFQNjdoZGtDUk44RTR1SXYxREdWdHJP?=
+ =?utf-8?B?MXJHTzFHWnYyb0c0Q200RFpRajNnWDRGRGM1VGsyVEdzUXdGTVlhcUxOaGY1?=
+ =?utf-8?B?WWVMUGFaTHZjVi9YU2NaYXBFanJ5NG9nMGJ6Y2NrNTcxd2llOWRwb0ZlTUtJ?=
+ =?utf-8?B?ZklkZ0VSSGkvT25LZ2d0ZEorWU4zTmRlbDZxMHBheDZhVTJDZGVGdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: D577D2050EA
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR03MB7707.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d1fe9c3-8b44-4898-4000-08de7a1360c1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2026 17:27:57.9096
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KWjZ+qLNuWCY0Yp10DdEmhH0pbiGpCD0MFeJezVgZm6QpuyjrwtPilwshLvdgJvgc4ZAtPGxb6eim8bxFABZLLdwCfK+S382HTDU6MWpRw8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5556
+X-Rspamd-Queue-Id: 79CB1205229
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [-2.08 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,m:jgross@suse.com,m:christian.lindig@citrix.com,m:dave@recoil.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:JBeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:email,citrix.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,citrix.com:dkim,LV3PR03MB7707.namprd03.prod.outlook.com:mid];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[citrix.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-When FRED is active, hardware automatically swaps GS when changing privilege,
-and the SWAPGS instruction is disallowed.
-
-For native OSes using GS as the thread local pointer this is a massive
-improvement on the pre-FRED architecture, but under Xen it makes handling PV
-guests more complicated.  Specifically, it means that GS_BASE and GS_SHADOW
-are the opposite way around in FRED mode, as opposed to IDT mode.
-
-This leads to the following changes:
-
-  * In load_segments(), we already load both GSes.  Account for FRED in the
-    SWAP() condition and avoid the path with SWAGS.
-
-  * In save_segments(), we need to read GS_SHADOW rather than GS_BASE.
-
-  * In toggle_guest_mode(), we need to emulate SWAPGS.
-
-  * In {read,write}_msr() which access the live registers, GS_SHADOW and
-    GS_BASE need swapping.
-
-  * In do_set_segment_base(), merge the SEGBASE_GS_{USER,KERNEL} cases and
-    take FRED into account when choosing which base to update.
-
-    SEGBASE_GS_USER_SEL was already an LKGS invocation (decades before FRED)
-    so under FRED needs to be just a MOV %gs.  Simply skip the SWAPGSes.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-
-v4.1:
- * Extra comments
-
-v4:
- * Adjust GS accesses for emulated {RD,WR}MSR too.
----
- xen/arch/x86/domain.c             | 16 +++++++++++-----
- xen/arch/x86/pv/domain.c          | 22 ++++++++++++++++++++--
- xen/arch/x86/pv/emul-priv-op.c    | 26 +++++++++++++++++---------
- xen/arch/x86/pv/misc-hypercalls.c | 23 +++++++++++++++--------
- 4 files changed, 63 insertions(+), 24 deletions(-)
-
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index e658c2d647b7..9c1f6ef76d52 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -1791,9 +1791,10 @@ static void load_segments(struct vcpu *n)
- 
-         /*
-          * Figure out which way around gsb/gss want to be.  gsb needs to be
--         * the active context, and gss needs to be the inactive context.
-+         * the active context, and gss needs to be the inactive context,
-+         * unless we're in FRED mode where they're reversed.
-          */
--        if ( !(n->arch.flags & TF_kernel_mode) )
-+        if ( !(n->arch.flags & TF_kernel_mode) ^ opt_fred )
-             SWAP(gsb, gss);
- 
-         if ( using_svm() && (n->arch.pv.fs | n->arch.pv.gs) <= 3 )
-@@ -1814,7 +1815,9 @@ static void load_segments(struct vcpu *n)
- 
-     if ( !fs_gs_done && !compat )
-     {
--        if ( read_cr4() & X86_CR4_FSGSBASE )
-+        unsigned long cr4 = read_cr4();
-+
-+        if ( !(cr4 & X86_CR4_FRED) && (cr4 & X86_CR4_FSGSBASE) )
-         {
-             __wrgsbase(gss);
-             __wrfsbase(n->arch.pv.fs_base);
-@@ -1931,6 +1934,9 @@ static void load_segments(struct vcpu *n)
-  * Guests however cannot use SWAPGS, so there is no mechanism to modify the
-  * inactive GS base behind Xen's back.  Therefore, Xen's copy of the inactive
-  * GS base is still accurate, and doesn't need reading back from hardware.
-+ *
-+ * Under FRED, hardware automatically swaps GS for us, so SHADOW_GS is the
-+ * active GS from the guest's point of view.
-  */
- static void save_segments(struct vcpu *v)
- {
-@@ -1946,12 +1952,12 @@ static void save_segments(struct vcpu *v)
-         if ( read_cr4() & X86_CR4_FSGSBASE )
-         {
-             fs_base = __rdfsbase();
--            gs_base = __rdgsbase();
-+            gs_base = opt_fred ? rdmsr(MSR_SHADOW_GS_BASE) : __rdgsbase();
-         }
-         else
-         {
-             fs_base = rdmsr(MSR_FS_BASE);
--            gs_base = rdmsr(MSR_GS_BASE);
-+            gs_base = opt_fred ? rdmsr(MSR_SHADOW_GS_BASE) : rdmsr(MSR_GS_BASE);
-         }
- 
-         v->arch.pv.fs_base = fs_base;
-diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
-index d16583a7454d..b85abb5ed903 100644
---- a/xen/arch/x86/pv/domain.c
-+++ b/xen/arch/x86/pv/domain.c
-@@ -14,9 +14,10 @@
- #include <asm/cpufeature.h>
- #include <asm/fsgsbase.h>
- #include <asm/invpcid.h>
--#include <asm/spec_ctrl.h>
- #include <asm/pv/domain.h>
- #include <asm/shadow.h>
-+#include <asm/spec_ctrl.h>
-+#include <asm/traps.h>
- 
- #ifdef CONFIG_PV32
- int8_t __read_mostly opt_pv32 = -1;
-@@ -514,11 +515,28 @@ void toggle_guest_mode(struct vcpu *v)
-      * subsequent context switch won't bother re-reading it.
-      */
-     gs_base = read_gs_base();
-+
-+    /*
-+     * In FRED mode, not only are the two GSes the other way around (i.e. we
-+     * want to read GS_SHADOW here), the SWAPGS instruction is disallowed so
-+     * we have to emulate it.
-+     */
-+    if ( opt_fred )
-+    {
-+        unsigned long gs_shadow = rdmsr(MSR_SHADOW_GS_BASE);
-+
-+        wrmsrns(MSR_SHADOW_GS_BASE, gs_base);
-+        write_gs_base(gs_shadow);
-+
-+        gs_base = gs_shadow;
-+    }
-+    else
-+        asm volatile ( "swapgs" );
-+
-     if ( v->arch.flags & TF_kernel_mode )
-         v->arch.pv.gs_base_kernel = gs_base;
-     else
-         v->arch.pv.gs_base_user = gs_base;
--    asm volatile ( "swapgs" );
- 
-     _toggle_guest_pt(v);
- 
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index 64d47ab677a4..53676b30219c 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -25,6 +25,7 @@
- #include <asm/pv/traps.h>
- #include <asm/shared.h>
- #include <asm/stubs.h>
-+#include <asm/traps.h>
- 
- #include <xsm/xsm.h>
- 
-@@ -926,7 +927,8 @@ static int cf_check read_msr(
-     case MSR_GS_BASE:
-         if ( !cp->extd.lm )
-             break;
--        *val = read_gs_base();
-+        /* Under FRED, GS is automatically swapped on privilege change. */
-+        *val = opt_fred ? rdmsr(MSR_SHADOW_GS_BASE) : read_gs_base();
-         return X86EMUL_OKAY;
- 
-     case MSR_SHADOW_GS_BASE:
-@@ -1066,17 +1068,23 @@ static int cf_check write_msr(
-         if ( !cp->extd.lm || !is_canonical_address(val) )
-             break;
- 
--        if ( reg == MSR_FS_BASE )
--            write_fs_base(val);
--        else if ( reg == MSR_GS_BASE )
--            write_gs_base(val);
--        else if ( reg == MSR_SHADOW_GS_BASE )
-+        switch ( reg )
-         {
--            write_gs_shadow(val);
-+        case MSR_FS_BASE:
-+            write_fs_base(val);
-+            break;
-+
-+        case MSR_SHADOW_GS_BASE:
-             curr->arch.pv.gs_base_user = val;
-+            fallthrough;
-+        case MSR_GS_BASE:
-+            /* Under FRED, GS is automatically swapped on privilege change. */
-+            if ( (reg == MSR_GS_BASE) ^ opt_fred )
-+                write_gs_base(val);
-+            else
-+                write_gs_shadow(val);
-+            break;
-         }
--        else
--            ASSERT_UNREACHABLE();
-         return X86EMUL_OKAY;
- 
-     case MSR_EFER:
-diff --git a/xen/arch/x86/pv/misc-hypercalls.c b/xen/arch/x86/pv/misc-hypercalls.c
-index 4c2abeb4add8..7e915d86b724 100644
---- a/xen/arch/x86/pv/misc-hypercalls.c
-+++ b/xen/arch/x86/pv/misc-hypercalls.c
-@@ -11,6 +11,7 @@
- 
- #include <asm/debugreg.h>
- #include <asm/fsgsbase.h>
-+#include <asm/traps.h>
- 
- long do_set_debugreg(int reg, unsigned long value)
- {
-@@ -192,11 +193,13 @@ long do_set_segment_base(unsigned int which, unsigned long base)
- 
-         case SEGBASE_GS_USER:
-             v->arch.pv.gs_base_user = base;
--            write_gs_shadow(base);
--            break;
--
-+            fallthrough;
-         case SEGBASE_GS_KERNEL:
--            write_gs_base(base);
-+            /* Under FRED, GS is automatically swapped on privilege change. */
-+            if ( (which == SEGBASE_GS_KERNEL) ^ opt_fred )
-+                write_gs_base(base);
-+            else
-+                write_gs_shadow(base);
-             break;
-         }
-         break;
-@@ -206,10 +209,13 @@ long do_set_segment_base(unsigned int which, unsigned long base)
-         unsigned int sel = (uint16_t)base;
- 
-         /*
--         * We wish to update the user %gs from the GDT/LDT.  Currently, the
--         * guest kernel's GS_BASE is in context.
-+         * We wish to update the user %gs from the GDT/LDT.  Currently, we are
-+         * in guest kernel context.
-+         *
-+         * Under IDT, this means updating GS_SHADOW.  Under FRED, plain GS.
-          */
--        asm volatile ( "swapgs" );
-+        if ( !opt_fred )
-+            asm volatile ( "swapgs" );
- 
-         if ( sel > 3 )
-             /* Fix up RPL for non-NUL selectors. */
-@@ -247,7 +253,8 @@ long do_set_segment_base(unsigned int which, unsigned long base)
-         /* Update the cache of the inactive base, as read from the GDT/LDT. */
-         v->arch.pv.gs_base_user = read_gs_base();
- 
--        asm volatile ( safe_swapgs );
-+        if ( !opt_fred )
-+            asm volatile ( safe_swapgs );
-         break;
-     }
- 
--- 
-2.39.5
-
+SmFuIEJldWxpY2ggd3JvdGU6DQo+ID4gLSBBbGVqYW5kcm8gVmFsbGVqbyBkZXZlbG9wZWQgdGhl
+IGluaXRpYWwgdmVyc2lvbg0KPiA+IC0gUm9nZXIgUGF1IE1vbm7DqSB1cGRhdGVkIHRoZSBpbXBs
+ZW1lbnRhdGlvbiBhbmQgdXBzdHJlYW1lZCBrZXkgaW1wcm92ZW1lbnRzDQo+ID4gLSBNYXJjdXMg
+R3JhbmFkbyBjb250cmlidXRlZCBhbmFseXNpcyBhbmQgc3VnZ2VzdGlvbnMgZHVyaW5nIGRldmVs
+b3BtZW50DQo+IA0KPiBEZXNwaXRlIGFueSBvZiB0aGlzLCAuLi4NClsuLi5dIA0KPiAuLi4gb25s
+eSBhIHNpbmdsZSBwYXRjaCBoYXMgYW4gUy1vLWIgb3RoZXIgdGhhbiB5b3Vycy4gSXMgdGhpcyBh
+IGNvcnJlY3QNCj4gcmVwcmVzZW50YXRpb24gb2YgYXV0aG9yc2hpcD8NCg0KUGF0Y2ggMyBzaG91
+bGQgaGF2ZSBTLW8tYnMgYnkgUm9nZXIgYW5kIEFsZWphbmRybyBpbiB0aGUgY29tbWl0LCBJIHdp
+bGwgZml4IGl0Lg0KDQpUaGFua3MgZm9yIHRoZSBjYXRjaCwNCkJlcm5oYXJkDQoNClBTOiBEZXRh
+aWxzIG9mIHRoZSBwYXRjaGVzOg0KDQpJJ2xsIGFsc28gYWRkIFJlcXVlc3RlZC1ieTogUm9nZXIg
+UGF1IE1vbm7DqSB0byB0aGUgaHlwZXJjYWxsIGhlIHJlcXVlc3RlZCB0bw0KaW1wbGVtZW50IGZv
+ciB0aGlzIHNlcmllcy4NCg0KSGVyZSBpcyB0aGUgYnJlYWtkb3duIG9mIGNvbnRyaWJ1dGlvbnM6
+DQoNCjEuIHhlbi9wYWdlX2FsbG9jOiBFeHRyYWN0IGNvZGUgZm9yIGNvbnN1bWluZyBjbGFpbXMg
+aW50byBpbmxpbmUgZnVuY3Rpb24NCg0KICAgLSBCeSBtZSBhcyBwcmVwYXJhdGlvbiB0byBhdm9p
+ZCBkdXBsaWNhdGVkIGNvZGUuDQoNCjIuIHhlbi9wYWdlX2FsbG9jOiBPcHRpbWl6ZSBnZXR0aW5n
+IHBlci1OVU1BLW5vZGUgZnJlZSBwYWdlIGNvdW50cw0KDQogICAtIEhhcyBTLW8tYiBieSBBbGVq
+YW5kcm8sDQogICAgIC0gRXh0cmFjdGVkIGludG8gYSBzZXBhcmF0ZSBwYXRjaCBmb3IgbW9yZSBm
+b2N1c3NlZCByZXZpZXcNCiAgICAgLSBVc2Ugbm9kZV9hdmFpbF9wYWdlc1tub2RlXSBhbHNvIGZv
+ciBhdmFpbF9ub2RlX2hlYXBfcGFnZXMobm9kZSkNCiAgICAgLSBVc2UgdW5zaWduZWQgKHRvIGJl
+IGZhY3RvcmVkIGludG8gYSBzZXBhcmF0ZSBjb21taXQgcGVyIHlvdXIgcmV2aWV3KQ0KDQozLiB4
+ZW4vcGFnZV9hbGxvYzogSW1wbGVtZW50IE5VTUEtbm9kZS1zcGVjaWZpYyBjbGFpbXMNCg0KICAg
+LSBUaGFua3MgZm9yIHRoZSBjYXRjaCwgSSB3aWxsIHRoZSBmaXggU3VnZ2VzdGVkLWJ5IHRvIFMt
+by1iJ3MuDQoNCjQuIHhlbi9wYWdlX2FsbG9jOiBDb25zb2xpZGF0ZSBwZXItbm9kZSBjb3VudGVy
+cyBpbnRvIGF2YWlsW10gYXJyYXkNCg0KICAgLSBJJ2xsIHJlbW92ZSBpdCBmcm9tIHRoZSBzZXJp
+ZXMsIHNraXAgaXRzIHJldmlldy4NCiAgICAgTm90IG5lZWRlZCwgYW5kIGl0IG1pc3NlZCBpbml0
+aWFsaXppbmcgbm9kZXMgd2l0aG91dCBhbnkgbWVtb3J5Lg0KDQo1LiB4ZW4vZG9tYWluOiBBZGQg
+RE9NQ1RMIGhhbmRsZXIgZm9yIGNsYWltaW5nIG1lbW9yeSB3aXRoIE5VTUEgYXdhcmVuZXNzDQo2
+LiB4c20vZmxhc2s6IEFkZCBYRU5fRE9NQ1RMX2NsYWltX21lbW9yeSB0byBmbGFzaw0KNy4gdG9v
+bHMvbGliL2N0cmwveGM6IEFkZCB4Y19kb21haW5fY2xhaW1fbWVtb3J5KCkgdG8gbGlieGVuY3Ry
+bA0KOC4gdG9vbHMvb2NhbWwvbGlicy94YzogYWRkIE9DYW1sIGRvbWFpbl9jbGFpbV9tZW1vcnkg
+YmluZGluZw0KOS4gdG9vbHMvdGVzdHM6IFVwZGF0ZSB0aGUgY2xhaW1zIHRlc3QgdG8gdGVzdCBj
+bGFpbV9tZW1vcnkgaHlwZXJjYWxsDQoxMC4gZG9jcy9ndWVzdC1ndWlkZTogZG9jdW1lbnQgdGhl
+IG1lbW9yeSBjbGFpbSBoeXBlcmNhbGxzDQoNCiAgIC0gVGhlc2UgYXJlIHRoZSBwYXRjaGVzIGZv
+ciB0aGUgbmV3IGh5cGVyY2FsbCBpbnRlcmZhY2UgcmVxdWVzdGVkIGJ5IFJvZ2VyLA0KICAgICBJ
+J2xsIGFkZCBhIFJlcXVlc3RlZC1ieTogUm9nZXIgUGF1IE1vbm7DqSB0byB0aGUgQVBJIGludGVy
+ZmFjZSBwYXRjaGVzLg0KICAgICBUaGV5IGFyZSBvZiBjb3Vyc2UgYmFzZWQgWGVuIGNvZGUsIGJ1
+dCBub3Qgb24gcGF0Y2hlcyBvZiBzb21lYm9keSBlbHNlLg0KDQpCZXJuaGFyZA0K
 
