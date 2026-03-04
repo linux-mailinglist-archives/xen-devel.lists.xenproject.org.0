@@ -2,38 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WGDZDhwNqGn2nQAAu9opvQ
+	id kK/fOmQbqGmYoAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 11:44:44 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 12:45:40 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 770121FE833
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 11:44:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1245268.1544663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 195F81FF365
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 12:45:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1245320.1544690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxjiG-0007ha-Ac; Wed, 04 Mar 2026 10:44:20 +0000
+	id 1vxkej-0000nH-1V; Wed, 04 Mar 2026 11:44:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1245268.1544663; Wed, 04 Mar 2026 10:44:20 +0000
+Received: by outflank-mailman (output) from mailman id 1245320.1544690; Wed, 04 Mar 2026 11:44:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxjiG-0007eQ-7q; Wed, 04 Mar 2026 10:44:20 +0000
-Received: by outflank-mailman (input) for mailman id 1245268;
- Wed, 04 Mar 2026 10:44:18 +0000
+	id 1vxkei-0000l2-UU; Wed, 04 Mar 2026 11:44:44 +0000
+Received: by outflank-mailman (input) for mailman id 1245320;
+ Wed, 04 Mar 2026 11:44:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JkSz=BE=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1vxjiE-0007dg-Bp
- for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 10:44:18 +0000
-Received: from mail-oa1-x2b.google.com (mail-oa1-x2b.google.com
- [2001:4860:4864:20::2b])
+ <SRS0=6LHA=BE=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1vxkeh-0000kc-C8
+ for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 11:44:43 +0000
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazlp170110003.outbound.protection.outlook.com
+ [2a01:111:f403:c201::3])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1655a109-17b7-11f1-9ccf-f158ae23cfc8;
- Wed, 04 Mar 2026 11:44:16 +0100 (CET)
-Received: by mail-oa1-x2b.google.com with SMTP id
- 586e51a60fabf-4152698e745so702070fac.1
- for <xen-devel@lists.xenproject.org>; Wed, 04 Mar 2026 02:44:15 -0800 (PST)
+ id 84f93f8c-17bf-11f1-9ccf-f158ae23cfc8;
+ Wed, 04 Mar 2026 12:44:37 +0100 (CET)
+Received: from DB8PR06CA0038.eurprd06.prod.outlook.com (2603:10a6:10:120::12)
+ by VI1PR08MB5519.eurprd08.prod.outlook.com (2603:10a6:803:133::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Wed, 4 Mar
+ 2026 11:44:24 +0000
+Received: from DU6PEPF0000A7E1.eurprd02.prod.outlook.com
+ (2603:10a6:10:120:cafe::6d) by DB8PR06CA0038.outlook.office365.com
+ (2603:10a6:10:120::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.22 via Frontend Transport; Wed,
+ 4 Mar 2026 11:43:58 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DU6PEPF0000A7E1.mail.protection.outlook.com (10.167.8.40) with Microsoft SMTP
+ Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.18 via
+ Frontend Transport; Wed, 4 Mar 2026 11:44:24 +0000
+Received: from PR3PR08MB5593.eurprd08.prod.outlook.com (2603:10a6:102:84::13)
+ by PA4PR08MB6206.eurprd08.prod.outlook.com (2603:10a6:102:ea::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.17; Wed, 4 Mar
+ 2026 11:43:21 +0000
+Received: from PR3PR08MB5593.eurprd08.prod.outlook.com
+ ([fe80::aae1:6871:afc4:620e]) by PR3PR08MB5593.eurprd08.prod.outlook.com
+ ([fe80::aae1:6871:afc4:620e%4]) with mapi id 15.20.9654.022; Wed, 4 Mar 2026
+ 11:43:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,528 +66,409 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1655a109-17b7-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; t=1772621054; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Y1zBp6fGmxJsW1WCuy9jCleg26qqAY2WFx4DenpauXdPPdl4vWRGfEP2iMm0haYLO6
-         pbeBjsYiOk39pKbBMofbGlvA80kK/4mIyG/6b7aRe91lwDn+9uewzGQdXHFdPXou1WpC
-         Zk7G/1hvEpmKjwSRulP7Qa+tWZlkjyc256+Sf3P8P4+i88ofYYnhJ493gS8Z8gQHFlgW
-         FVNvuIGMq4gb+N8iWBA8E7eGaskzkybjd6nPUzdo7RHj6GKtInjJfYVhE3q+HPaV63BL
-         4dfOYhhajRHaoBd3+6TJe1yC/hJZn0eutA0VetZyL9G/SJC/OURRbuOdBU27XpZI/ttw
-         Ml9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GxCxuIeq0ZlkpJHq3FJYHVbyqA6Ag06ecfzQyA5N5dQ=;
-        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
-        b=UIYoTqjW3FNt1YPi0kDLkGDYpSnTBQD3SAOPR2LYvypyOYbboRkddku3fBn9mZXU2v
-         xCRfHSqbqHqO17nw0Kfqe2Luk19BJem1ViprVYca8ouDTxv8nfIQq5DygE4wEbnbFIeS
-         y8r5jVWszgvmye0spS5qQrGpFdPdL2nv53mx1jFpGHiiJyu+reKPNgYxqb1a1IRbgCTT
-         JxZMIy0iGmOfdWP+pghgvoAeJl1XKaj/8WjrCl3YN0xO6iAGyc0L5iFxJZ6nLbd6ppyD
-         FIvF3vXKD4Z7MD0TsXosk9esakxzv+0vGep42ABa28GSOnZzvfsynuzZfCf3M6wzRlSY
-         zWIw==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1772621054; x=1773225854; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=GxCxuIeq0ZlkpJHq3FJYHVbyqA6Ag06ecfzQyA5N5dQ=;
-        b=SJLINArzjfaBNxiVgVmUl8wXsZLCbblfHgg0j81x6YduThLu7PbAN6P5shw6QH21is
-         xKLLZ5mOlBIwRIMPL0CBEKap8xBywxFL4SfPe9LScSH6wzZtHWMeCphuKAbHwgOqkbHd
-         V6xRSkcaay03U73zMRdA1n8rs0vfwi5BjWXB0ZIjZFLDxr//HUn/b8GCP8x5jO7PANe3
-         YrW34uWPzXKHk3byR7QvZAmEbIDqtQ3ILfhkS+9hqs8kfGx6zTOJNeOhpvQ1So+IYhIB
-         YFI5JOD18q5QYj4omEvDBKitKWaNumWMsryqkJy7x1T2pEOmiq/uvwKuMcL1AkVKCUeq
-         GwPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772621054; x=1773225854;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=GxCxuIeq0ZlkpJHq3FJYHVbyqA6Ag06ecfzQyA5N5dQ=;
-        b=fKlCz5eZBUlS3zAMMRRpVrJUVXBG2D8ym+U64XCaUyg8/Sl6q+k96e/D7f9Y6ibX73
-         vPU/cXqtitMTdGyJ0KUIlFKVomO+ehdFypI5xWtOLbCzcet7P40VNQaiU+9fX5x0i3+I
-         scp4VEMsHQIgXF+XGKIzT95d+uL82+UAWY+TWqNR9SXjOHL06aK8Dl9c0H0MqwsiOec/
-         yk3699s+pVoDIqmtSV1yBSVGY3Clk8BbpCedIZLKskmbIALTPIxwrsPDW0MrOKXYqN0H
-         jmSxY3h1VX/O4TvB17iv07pz/F2AxCAZFK+gMaItCtOnBG4cvYpt8rrHHVLophCrjsn3
-         mqpg==
-X-Gm-Message-State: AOJu0Yww5ErXZ0NKoXKXaZLDgwApur7Qi1y+onsz4fyZebJpZzG1QS4c
-	Ulw9aLeYy1AQWZ3D5aJX171ZQlB7ha/Hz2E1T9bDnE57YL5rs2Pld5HZzqggc5ynsc3sjtx4uM9
-	DBMd/8ykOVA00+zd5sRFwm2Ebb/8pQYxiz/WYFt3FYg==
-X-Gm-Gg: ATEYQzwPpmkR3CexVA1vMwCICtyyWQ6JWZpAKu5k40WV9IhbVRKvWGwXN2sC+y0jdXQ
-	mYIKCTgd1hE/1VZ2V8KnE71cMzrQC8kF91lSl9mi2PD7Xuu9XU6bVY6URJF6L6fJd/2YsSwvaKU
-	nUzPvw+2fjM6Ghem71W0caBZrlhvARRdZvh4v6bN75vVwt02qWBD3+x19wa82EWfXkHTM5vhXE6
-	HD6qopkUhexg1JPYzz2n6Pc9NZFvhA+c669wXdgMSC9iSSQxtdqSgZ2qa4MggVdL6Q3r85QmrS3
-	hdvgDn38H9rdouSHOLaGCaxib6zstm9cfJE8QQ==
-X-Received: by 2002:a05:6870:f2aa:b0:40f:c84:e59b with SMTP id
- 586e51a60fabf-416aba6999bmr906334fac.30.1772621053783; Wed, 04 Mar 2026
- 02:44:13 -0800 (PST)
-MIME-Version: 1.0
-References: <cover.1772464956.git.bertrand.marquis@arm.com> <a7a2ba28c75241c1f1340482ed31d521ef38d218.1772464956.git.bertrand.marquis@arm.com>
-In-Reply-To: <a7a2ba28c75241c1f1340482ed31d521ef38d218.1772464956.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Wed, 4 Mar 2026 11:44:02 +0100
-X-Gm-Features: AaiRm53ynxyazzqty8FDyjUylSW0eVwQ7WkkuOEBqe5vudRypS-nm3kCiGgnB4A
-Message-ID: <CAHUa44G3g+tLiViNh32ryVCmtfdWJNozmkOhVpYr_zgb7ks5Ng@mail.gmail.com>
+X-Inumbo-ID: 84f93f8c-17bf-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=x/PnP8ZejarHUbct6/iwbajkuCTwkvOtTtBgqAKrXTfz2ZxAwNVAaT2zyAoag6YadQLR6iHWhuLNYD79qrR+VWXdvSwaMGREcqntpmHYzRQA1nDRL1OaDJcHhX0VyCk1Vbv+NQWOM52+xMtymKFOhxTIk5hl4y6ZNrUf/3WUa6RpgltEyRqgBAjye3UtUjUHF4WvcoNuBzd3k60GJV0UcjxKYiX79GvhYZ0QaRtcDdSt3mL7KFiOoe4OU6Pq9fJaRCqAHRQn9RkTzgat5xgdXXAN+3UXCkkjN0WpJ/AHXdtyZ4BryK+49vjbExrzwIITsTe3kApCWupH1T0mvYPuhQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BMV26NOhbn4/xROmOocUyhrnyNxy916bRW2XhBd1/8o=;
+ b=R1RIEieS8+VvgIxqS0u0Ux0MdRaYTsUdgSHEpQm7VH0nf+hA9Fh+vroncMUQzcfQvm2NmWnI4ye9xPQde7CIFBe/YHgAnQQmTuWHkgL8+K/YL2T9kETK/HWv9G4sNW4jr/Uian8nGuhdS5l3mK8+U6JHSTLxAHZAiW7cq1OoyvfZzNyRcjmVjkDO4WSNp16IwsHzbQbY7lA1gAzy4L/gTVENNGLl+xk0b71dXtni+WVOjpmTrCswFg75rHMFAtBNc95eblE5NaIulWPqRg1fkGcFLn7JtmA79zIF41fXDG87t/32WOMbQQL0fDEjsg/J1sLnnpOhmDvQ8ZkQmDLFlQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=linaro.org smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BMV26NOhbn4/xROmOocUyhrnyNxy916bRW2XhBd1/8o=;
+ b=kbxWOq3u5nuQgD1L990uEo1ZCLz64+/JutDrQtEX6Km5tEes00v3D9vOVsCUCgfSjQ23SOFwU8Kh75dcssKJvXLxuDWvXZZecXmXJNswRFaS5y7mlgCUG9qWz3SvihjRvM7iqeAmb5hfeqjeIMkR6GDbx+jLDZCtqbttkyYcSJ8=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=frbX2MzNQsk6ZinpbEwUyixUDk/2KWc7qoK6HvSqhmBi8cM7uK9gxaQSeymTZmlFzX1ABi3v2Kev7cOpktqIulV3Ie0sgt4nKEOgjxd5C2s6zm/fMvjJNbM+QaOS5F+dr6RjodLpdmiXe4fF+SWiX3x0ABNVd1bFCU4hnA+ApulYYeKdPdD3zw2tbZqnGqLqPvxT8CtmCJ2DxssqIHKQ9IkI3y+xdtEZ75nVGI/46xwNt/6dt+v7OLqwDHpKfp8o+NWZthuMW6dIpCij+nit8DZu9rTXDRps6cNUf6vmVofGhY9Bjj47J/c0116J68SXownK1ZCkh8EByfnPYiKYWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BMV26NOhbn4/xROmOocUyhrnyNxy916bRW2XhBd1/8o=;
+ b=R6i4Gl8g6ELHu4n40VCmkcL3d4ZD6MrNUf9K7mJAuZtaHr/xVtJUhoVwksk6q3lLQ2+kHMR/sHOO0LxN649UShJMxbKjHyNSiTUsWoNQP1IqbYqz44ofibhFwW8+8mSj6i0VgT/EJElvCFytXufTUQ58AlX5IVaRVIKzT7UM2usTjk1D9HghjRVFQf/glo+kDQD0ejv/GI9oiLrSMxzW3pYG3kAe8MIdfPRIy7tupop93VGAccs5J0uBRPnGaueKNClrtkI1XLdTARMq8mJ5GDqKj0WBRze7AiSQYCPupLzaHKQWLFmIKHzkiI58uyG2k4vE0cOqrKO83fKawV6STQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BMV26NOhbn4/xROmOocUyhrnyNxy916bRW2XhBd1/8o=;
+ b=kbxWOq3u5nuQgD1L990uEo1ZCLz64+/JutDrQtEX6Km5tEes00v3D9vOVsCUCgfSjQ23SOFwU8Kh75dcssKJvXLxuDWvXZZecXmXJNswRFaS5y7mlgCUG9qWz3SvihjRvM7iqeAmb5hfeqjeIMkR6GDbx+jLDZCtqbttkyYcSJ8=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Jens Wiklander <jens.wiklander@linaro.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal Orzel
+	<michal.orzel@amd.com>
 Subject: Re: [PATCH v2 4/4] xen/arm: ffa: Add cached GET_REGS support
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Queue-Id: 770121FE833
+Thread-Topic: [PATCH v2 4/4] xen/arm: ffa: Add cached GET_REGS support
+Thread-Index: AQHcqluMWNwuk1kC7USqgRLmbYWnX7WeMukAgAAQhgA=
+Date: Wed, 4 Mar 2026 11:43:20 +0000
+Message-ID: <41F57B75-742A-4EC0-9C24-BEDBB78C5A60@arm.com>
+References: <cover.1772464956.git.bertrand.marquis@arm.com>
+ <a7a2ba28c75241c1f1340482ed31d521ef38d218.1772464956.git.bertrand.marquis@arm.com>
+ <CAHUa44G3g+tLiViNh32ryVCmtfdWJNozmkOhVpYr_zgb7ks5Ng@mail.gmail.com>
+In-Reply-To:
+ <CAHUa44G3g+tLiViNh32ryVCmtfdWJNozmkOhVpYr_zgb7ks5Ng@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3864.400.21)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	PR3PR08MB5593:EE_|PA4PR08MB6206:EE_|DU6PEPF0000A7E1:EE_|VI1PR08MB5519:EE_
+X-MS-Office365-Filtering-Correlation-Id: 582fafde-b8b9-4314-8d1b-08de79e3625f
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|366016|376014|38070700021;
+X-Microsoft-Antispam-Message-Info-Original:
+ vA/n6LPW/ch8J/F7pfKcTajGvM2LlKDZHKv5oNZmLKCiRaoF6MugrFDX+uQT8ZgJzoPnAS244BqSsEyyyFl3mcLImr9WpR4B8D+2GVapbzNnCQy+85ZT66Ka8EHAcHgO/5VYSH60DTa6l/HoTR2YfD21cfcK3KXuUxYbFQe8DNp+MCYTcsH/006z+WRB4vC3emxDMYFlzrFtpyhGO1LibcqnQcjkAZxq4434/WDs4IXJ3xeFF0s9MyjASUhEMNH1ZQFsxOmi3WNq/Y59S8W4t+k4ducyLuXP8AVBIwuLTg7YJSU6VsXOZiZMZ09eNUDCzUOCctmbr4h3NrngmLtThETo6qCa8oiitxp41MD7iegwT2O6Ay4KTnDE/FCJe3ILSnlf+ThYoEV1CGbkmriczusMSua6bf8d8SwMEsWmUCzY+l3SgH6k+HgisiQ0aVJYVtpX8IYiyc/9DXyJVWTSwnX+bwvUwwI00t8wJPObvvnaxeg6KyMcLDCImKdML2hrxi18xSBjbtXVWPyBWT1J2+iO1FANVp0hDEGwx7cQeXCs+at1VhXX5o7jNo/iuc0tWFGd51S79KGrIE8Wp/+t8WXpl8kpsI6d7m1KS4xdQqZ/5k5jn5o/Z1f0WBGbNzdTl2k3RGY/DGLh2xjl0OUjI9RrVVeh/LI9lQ2u9PzzKARVavLbsFqBHs7TCpgUjVHryyiOEREgnMn5Zb3QsH6WvhJyHQApuTJZcxzMdq1MQ3HCChFtHnHnlSoh0PLsi28HzG5SnQ2Ufng78X6iPW5vqNeClm8gEN4g0NwsD1TurhI=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR08MB5593.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <A3FEF3B515BDE04F9001E90C042EC024@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6206
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DU6PEPF0000A7E1.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	1fa8c3e6-b87d-498e-a5b9-08de79e33c5a
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|14060799003|82310400026|376014|36860700016|35042699022|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	YMnGOMfHmnzLsCoE0XYdEERtwjdSv+BEvYoKF7nFBUdSaKwmbl2A3UJCNVYaeNllH1LTj3SaICs8puGDZalqapTA8MuoSb+I7xS/G1pvX+5MVMShAlJ7ftiQqphzLjDbSQ9dVUeONMAtMLKwIO9DEMR72SH9hftIjlVw8daIywKf4uEv/MamEAsJi1b5pfibuDkayUMGO0JG3ydsAtqWY6V6gHpvYO5dKq1RXhEjKvs6Cg6gMumseFkSwKuZOEOUL2V7mI/1pinct0lU4XR00v5L9sEohmJG69/yk2fQ6x0rRTpWhuiRRUZMi28nY+M58hvim+B2ddRqbdH8QjF0xj/Op+7NBCJluZkUPzGiLllpgusnmvPe+sr5MaKQsSOtSGT1x9rjl+BfbMFy254qQhEImiaaiIdFeBb5XhTWODWx6PHK0qwRqCg+BI2Wja34RXod79xrM3zqYNDZDIBfedd4NPYDhCWVt5DSl+B+Y2aPfQaw7HJA3jVHdWEPlW7/9keAls+mXUsdUzyQym4dJM/vhdLxdvJcjZVS6Fa624LN86VsrWez4Wtn9V+7fR0jCuD+8b1UkrkiGpXL+gIyIkVRUPGiTY7ZqvUw2JbRWnEOpy6CV3NpM/ZrkYzT0UKN7OVyvhRTSDN+eMxAaCJzKoE+DCawuvo9uktNbYS9e2wIySI5laqZZf0bC5FzYUEjz4/LBodlAipfgo3Jvrg/9Hgjxha34+HJveUCox3JyvT4bw66ajirHLp/L5SA0e5XS4cRcPOsOSkVhVWoAUiSiA==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(14060799003)(82310400026)(376014)(36860700016)(35042699022)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Q93ig35uGBDnqx88ZA5OP3F9f1Q0xbM1EKb9bphIYGs8oNowftT+o74oGPkcyNKQGsLz/uRzACu16h6JPx2d9fbIaKfrZGnkoJlnqBkexhkZZY5zw8SHAv8EgRRPj0TX4eg7ALwQuqm/4TeWKi2EI0uxYJOIH39GAPfBTb8JQ20rChHxXnuBBkCC123iAwgrudWesRiESG0iTg5v1CXnFjwNwxfLoU/DhQFYOaVbvvbqtWmmreP/yv09kRyoc30OYcoT+OyaH1EZZQUiT0oHWcicrWFVTsevr5q/T5XFc11KzGMJr+OoayLd7j2zIU5oaKV4lZ/uZKAr3EisFgdlF/Ne6mB4pyklx0CpTz+RY85kV2x/kIQjCb2nbbpvS7I+U/INeiNPsiyNIPpWFFrXl9pOkC0djdo/4aGK/MCv3xSaphRSizcRJi/LcqL6sNgJ
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 11:44:24.7026
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 582fafde-b8b9-4314-8d1b-08de79e3625f
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU6PEPF0000A7E1.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB5519
+X-Rspamd-Queue-Id: 195F81FF365
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+X-Spamd-Result: default: False [-2.08 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
+	R_DKIM_ALLOW(-0.20)[arm.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
+	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jens.wiklander@linaro.org,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,linaro.org:dkim,linaro.org:email];
-	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER(0.00)[Bertrand.Marquis@arm.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,arm.com:dkim,arm.com:email,arm.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	APPLE_MAILER(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[Bertrand.Marquis@arm.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[arm.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[7]
+	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Action: no action
 
-Hi Bertrand,
-
-On Mon, Mar 2, 2026 at 4:44=E2=80=AFPM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> FF-A v1.2 defines PARTITION_INFO_GET_REGS for register-based partition
-> info retrieval, but Xen currently only supports the buffer-based GET
-> path for guests.
->
-> Implement GET_REGS using the cached SP list and VM entries, including
-> the register window layout and input validation. Track VM list changes
-> via the partinfo tag and use it to validate GET_REGS tag inputs. Ensure
-> that when a non-Nil UUID is specified, the UUID fields in both GET and
-> GET_REGS results are MBZ as required by the specification.
->
-> PARTITION_INFO_GET_REGS is available to v1.2 guests, returning cached SP
-> entries and VM entries with UUIDs zeroed for non-Nil UUID queries.
->
-> Also publish VM membership updates (VM count, ctx list, and partinfo
-> tag) under the same write-locked section so GET_REGS sees coherent state
-> and concurrent changes are reliably reported via RETRY.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
-> Changes since v1:
-> - ignore x4-x17 not being zero and x3 bits 63-32 not being zero (defined
->   as SBZ in the spec)
-> - detect tag changes during GET_REGS handling and return RETRY
-> - remove strict check of sp_list_entry_size, larger cache entry sizes
->   will now be accepted
-> - publish VM count, ctx list, and partinfo tag updates under
->   ffa_ctx_list_rwlock for coherent visibility
-> ---
->  xen/arch/arm/tee/ffa.c          |  23 +++-
->  xen/arch/arm/tee/ffa_partinfo.c | 200 ++++++++++++++++++++++++++++++++
->  xen/arch/arm/tee/ffa_private.h  |   4 +-
->  3 files changed, 223 insertions(+), 4 deletions(-)
->
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index aa43ae2595d7..d6cae67e1a48 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -44,6 +44,11 @@
->   *   - doesn't support signalling the secondary scheduler of pending
->   *     notification for secure partitions
->   *   - doesn't support notifications for Xen itself
-> + * o FFA_PARTITION_INFO_GET/GET_REGS:
-> + *   - v1.0 guests may see duplicate SP IDs when firmware provides UUIDs
-> + *   - SP list is cached at init; SPMC tag changes are not tracked
-> + *     between calls
-> + *   - SP list is capped at FFA_MAX_NUM_SP entries
->   *
->   * There are some large locked sections with ffa_spmc_tx_lock and
->   * ffa_spmc_rx_lock. Especially the ffa_spmc_tx_lock spinlock used
-> @@ -183,10 +188,11 @@ static bool ffa_negotiate_version(struct cpu_user_r=
-egs *regs)
->
->          if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
->          {
-> -            /* One more VM with FF-A support available */
-> -            inc_ffa_vm_count();
->              write_lock(&ffa_ctx_list_rwlock);
-> +            /* Publish VM membership changes atomically with tag updates=
-. */
-> +            inc_ffa_vm_count();
->              list_add_tail(&ctx->ctx_list, &ffa_ctx_head);
-> +            ffa_partinfo_inc_tag();
->              write_unlock(&ffa_ctx_list_rwlock);
->          }
->
-> @@ -341,6 +347,12 @@ static void handle_features(struct cpu_user_regs *re=
-gs)
->      case FFA_FEATURE_SCHEDULE_RECV_INTR:
->          ffa_set_regs_success(regs, GUEST_FFA_SCHEDULE_RECV_INTR_ID, 0);
->          break;
-> +    case FFA_PARTITION_INFO_GET_REGS:
-> +        if ( ACCESS_ONCE(ctx->guest_vers) >=3D FFA_VERSION_1_2 )
-> +            ffa_set_regs_success(regs, 0, 0);
-> +        else
-> +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> +        break;
->
->      case FFA_NOTIFICATION_BIND:
->      case FFA_NOTIFICATION_UNBIND:
-> @@ -402,6 +414,9 @@ static bool ffa_handle_call(struct cpu_user_regs *reg=
-s)
->      case FFA_PARTITION_INFO_GET:
->          ffa_handle_partition_info_get(regs);
->          return true;
-> +    case FFA_PARTITION_INFO_GET_REGS:
-> +        ffa_handle_partition_info_get_regs(regs);
-> +        return true;
->      case FFA_RX_RELEASE:
->          e =3D ffa_rx_release(ctx);
->          break;
-> @@ -625,9 +640,11 @@ static int ffa_domain_teardown(struct domain *d)
->
->      if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) && ACCESS_ONCE(ctx->guest_vers)=
- )
->      {
-> -        dec_ffa_vm_count();
->          write_lock(&ffa_ctx_list_rwlock);
-> +        /* Publish VM membership changes atomically with tag updates. */
-> +        dec_ffa_vm_count();
->          list_del(&ctx->ctx_list);
-> +        ffa_partinfo_inc_tag();
->          write_unlock(&ffa_ctx_list_rwlock);
->      }
->
-> diff --git a/xen/arch/arm/tee/ffa_partinfo.c b/xen/arch/arm/tee/ffa_parti=
-nfo.c
-> index 419e19510f6f..16da5ee567db 100644
-> --- a/xen/arch/arm/tee/ffa_partinfo.c
-> +++ b/xen/arch/arm/tee/ffa_partinfo.c
-> @@ -29,10 +29,39 @@ struct ffa_partition_info_1_1 {
->      uint8_t uuid[16];
->  };
->
-> +/* Registers a3..a17 (15 regs) carry partition descriptors, 3 regs each.=
- */
-> +#define FFA_PARTINFO_REG_MAX_ENTRIES \
-> +    ((15 * sizeof(uint64_t)) / sizeof(struct ffa_partition_info_1_1))
-> +
->  /* SP list cache (secure endpoints only); populated at init. */
->  static void *sp_list __read_mostly;
->  static uint32_t sp_list_count __read_mostly;
->  static uint32_t sp_list_entry_size __read_mostly;
-> +
-> +/* SP list is static; tag only moves when VMs are added/removed. */
-> +static atomic_t ffa_partinfo_tag =3D ATOMIC_INIT(1);
-> +
-> +void ffa_partinfo_inc_tag(void)
-> +{
-> +    atomic_inc(&ffa_partinfo_tag);
-> +}
-> +
-> +static inline uint16_t ffa_partinfo_get_tag(void)
-> +{
-> +    /*
-> +     * Tag moves with VM list changes only.
-> +     *
-> +     * Limitation: we cannot detect an SPMC tag change between calls bec=
-ause we
-> +     * do not retain the previous SPMC tag; we only refresh it via the m=
-andatory
-> +     * start_index=3D0 call and assume it stays stable while combined_ta=
-g (our
-> +     * VM/SP-count tag) is used for guest validation. This means SPMC ta=
-g
-> +     * changes alone will not trigger RETRY.
-> +     */
-> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> +        return atomic_read(&ffa_partinfo_tag) & GENMASK(15, 0);
-> +    else
-> +        return 1;
-> +}
-
-Please add an empty line here.
-
->  static int32_t ffa_partition_info_get(struct ffa_uuid uuid, uint32_t fla=
-gs,
->                                        uint32_t *count, uint32_t *fpi_siz=
-e)
->  {
-> @@ -140,6 +169,7 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uuid uu=
-id, uint32_t *sp_count,
->      for ( n =3D 0; n < sp_list_count; n++ )
->      {
->          void *entry =3D sp_list + n * sp_list_entry_size;
-> +        void *dst_pos;
->
->          if ( !ffa_sp_entry_matches_uuid(entry, uuid) )
->              continue;
-> @@ -151,11 +181,20 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uuid =
-uuid, uint32_t *sp_count,
->           * This is a non-compliance to the specification but 1.0 VMs sho=
-uld
->           * handle that on their own to simplify Xen implementation.
->           */
-> +        dst_pos =3D *dst_buf;
->          ret =3D ffa_copy_info(dst_buf, end_buf, entry, dst_size,
->                              sp_list_entry_size);
->          if ( ret )
->              return ret;
->
-> +        if ( !ffa_uuid_is_nil(uuid) &&
-> +             dst_size >=3D sizeof(struct ffa_partition_info_1_1) )
-> +        {
-> +            struct ffa_partition_info_1_1 *fpi =3D dst_pos;
-> +
-> +            memset(fpi->uuid, 0, sizeof(fpi->uuid));
-> +        }
-> +
->          count++;
->      }
->
-> @@ -167,6 +206,38 @@ static int32_t ffa_get_sp_partinfo(struct ffa_uuid u=
-uid, uint32_t *sp_count,
->      return FFA_RET_OK;
->  }
->
-> +static uint16_t ffa_get_sp_partinfo_regs(struct ffa_uuid uuid,
-> +                                         uint16_t start_index,
-> +                                         uint64_t *out_regs,
-> +                                         uint16_t max_entries)
-> +{
-> +    uint32_t idx =3D 0;
-> +    uint16_t filled =3D 0;
-> +    uint32_t n;
-> +
-> +    for ( n =3D 0; n < sp_list_count && filled < max_entries; n++ )
-> +    {
-> +        void *entry =3D sp_list + n * sp_list_entry_size;
-> +
-> +        if ( !ffa_sp_entry_matches_uuid(entry, uuid) )
-> +            continue;
-> +
-> +        if ( idx++ < start_index )
-> +            continue;
-> +
-> +        memcpy(&out_regs[filled * 3], entry,
-> +               sizeof(struct ffa_partition_info_1_1));
-> +        if ( !ffa_uuid_is_nil(uuid) )
-> +        {
-> +            out_regs[filled * 3 + 1] =3D 0;
-> +            out_regs[filled * 3 + 2] =3D 0;
-> +        }
-> +        filled++;
-> +    }
-> +
-> +    return filled;
-> +}
-> +
->  static int32_t ffa_get_vm_partinfo(struct ffa_uuid uuid, uint32_t start_=
-index,
->                                     uint32_t *vm_count, void **dst_buf,
->                                     void *end_buf, uint32_t dst_size)
-> @@ -383,6 +454,135 @@ out:
->      }
->  }
->
-> +void ffa_handle_partition_info_get_regs(struct cpu_user_regs *regs)
-> +{
-> +    struct domain *d =3D current->domain;
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
-> +    struct ffa_uuid uuid;
-> +    uint32_t sp_count =3D 0, vm_count =3D 0, total_count;
-> +    uint16_t start_index, tag;
-> +    uint16_t num_entries =3D 0;
-> +    uint64_t x3 =3D get_user_reg(regs, 3);
-> +    int32_t ret =3D FFA_RET_OK;
-> +    uint64_t out_regs[18] =3D { 0 };
-> +    unsigned int n;
-> +    uint16_t tag_out, tag_end;
-> +
-> +    if ( ACCESS_ONCE(ctx->guest_vers) < FFA_VERSION_1_2 )
-> +    {
-> +        ret =3D FFA_RET_NOT_SUPPORTED;
-> +        goto out;
-> +    }
-> +
-> +    /*
-> +     * Registers a3..a17 (15 regs) carry partition descriptors, 3 regs e=
-ach.
-> +     * For FF-A 1.2, that yields a maximum of 5 entries per GET_REGS cal=
-l.
-> +     * Enforce the assumed layout so window sizing stays correct.
-> +     */
-> +    BUILD_BUG_ON(FFA_PARTINFO_REG_MAX_ENTRIES !=3D 5);
-> +
-> +    start_index =3D x3 & GENMASK(15, 0);
-> +    tag =3D (x3 >> 16) & GENMASK(15, 0);
-> +
-> +    /* Start index must allow room for up to 5 entries without 16-bit ov=
-erflow. */
-
-Nit: The line above is over 80 columns.
-
-With or without the line above fixed. Looks good.
-Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
-
-Cheers,
-Jens
-
-> +    if ( start_index > (GENMASK(15, 0) - (FFA_PARTINFO_REG_MAX_ENTRIES -=
- 1)) )
-> +    {
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        goto out;
-> +    }
-> +
-> +    uuid.val[0] =3D get_user_reg(regs, 1);
-> +    uuid.val[1] =3D get_user_reg(regs, 2);
-> +
-> +    tag_out =3D ffa_partinfo_get_tag();
-> +
-> +    if ( start_index =3D=3D 0 )
-> +    {
-> +        if ( tag )
-> +        {
-> +            ret =3D FFA_RET_INVALID_PARAMETERS;
-> +            goto out;
-> +        }
-> +    }
-> +    else if ( tag !=3D tag_out )
-> +    {
-> +        ret =3D FFA_RET_RETRY;
-> +        goto out;
-> +    }
-> +
-> +    if ( ffa_uuid_is_nil(uuid) )
-> +    {
-> +        if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> +            vm_count =3D get_ffa_vm_count();
-> +        else
-> +            vm_count =3D 1; /* Caller VM only */
-> +    }
-> +
-> +    ret =3D ffa_get_sp_count(uuid, &sp_count);
-> +    if ( ret )
-> +        goto out;
-> +
-> +    total_count =3D sp_count + vm_count;
-> +
-> +    if ( total_count =3D=3D 0 || start_index >=3D total_count )
-> +    {
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        goto out;
-> +    }
-> +
-> +    if ( start_index < sp_count )
-> +        num_entries =3D ffa_get_sp_partinfo_regs(uuid, start_index, &out=
-_regs[3],
-> +                                               FFA_PARTINFO_REG_MAX_ENTR=
-IES);
-> +
-> +    if ( num_entries < FFA_PARTINFO_REG_MAX_ENTRIES )
-> +    {
-> +        uint32_t vm_start =3D start_index > sp_count ?
-> +                            start_index - sp_count : 0;
-> +        uint32_t filled =3D 0;
-> +        void *vm_dst =3D &out_regs[3 + num_entries * 3];
-> +        void *vm_end =3D &out_regs[18];
-> +
-> +        ret =3D ffa_get_vm_partinfo(uuid, vm_start, &filled, &vm_dst, vm=
-_end,
-> +                                  sizeof(struct ffa_partition_info_1_1))=
-;
-> +        if ( ret !=3D FFA_RET_OK && ret !=3D FFA_RET_NO_MEMORY )
-> +            goto out;
-> +
-> +        num_entries +=3D filled;
-> +    }
-> +
-> +    if ( num_entries =3D=3D 0 )
-> +    {
-> +        ret =3D FFA_RET_INVALID_PARAMETERS;
-> +        goto out;
-> +    }
-> +
-> +    /*
-> +     * Detect list changes while building the response so the caller can=
- retry
-> +     * with a coherent snapshot tag.
-> +     */
-> +    tag_end =3D ffa_partinfo_get_tag();
-> +    if ( tag_end !=3D tag_out )
-> +    {
-> +        ret =3D FFA_RET_RETRY;
-> +        goto out;
-> +    }
-> +
-> +    out_regs[0] =3D FFA_SUCCESS_64;
-> +    out_regs[2] =3D ((uint64_t)sizeof(struct ffa_partition_info_1_1) << =
-48) |
-> +                  ((uint64_t)tag_end << 32) |
-> +                  ((uint64_t)(start_index + num_entries - 1) << 16) |
-> +                  ((uint64_t)(total_count - 1) & GENMASK(15, 0));
-> +
-> +    for ( n =3D 0; n < ARRAY_SIZE(out_regs); n++ )
-> +        set_user_reg(regs, n, out_regs[n]);
-> +
-> +    return;
-> +
-> +out:
-> +    if ( ret )
-> +        ffa_set_regs_error(regs, ret);
-> +}
-> +
->  static int32_t ffa_direct_req_send_vm(uint16_t sp_id, uint16_t vm_id,
->                                        uint8_t msg)
->  {
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index 1a632983c860..c291f32b56ff 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -289,7 +289,7 @@
->  #define FFA_MSG_SEND2                   0x84000086U
->  #define FFA_CONSOLE_LOG_32              0x8400008AU
->  #define FFA_CONSOLE_LOG_64              0xC400008AU
-> -#define FFA_PARTITION_INFO_GET_REGS     0x8400008BU
-> +#define FFA_PARTITION_INFO_GET_REGS     0xC400008BU
->  #define FFA_MSG_SEND_DIRECT_REQ2        0xC400008DU
->  #define FFA_MSG_SEND_DIRECT_RESP2       0xC400008EU
->
-> @@ -452,6 +452,8 @@ bool ffa_partinfo_init(void);
->  int32_t ffa_partinfo_domain_init(struct domain *d);
->  bool ffa_partinfo_domain_destroy(struct domain *d);
->  void ffa_handle_partition_info_get(struct cpu_user_regs *regs);
-> +void ffa_handle_partition_info_get_regs(struct cpu_user_regs *regs);
-> +void ffa_partinfo_inc_tag(void);
->
->  int32_t ffa_endpoint_domain_lookup(uint16_t endpoint_id, struct domain *=
-*d_out,
->                                     struct ffa_ctx **ctx_out);
-> --
-> 2.52.0
->
+DQoNCj4gT24gNCBNYXIgMjAyNiwgYXQgMTE6NDQsIEplbnMgV2lrbGFuZGVyIDxqZW5zLndpa2xh
+bmRlckBsaW5hcm8ub3JnPiB3cm90ZToNCj4gDQo+IEhpIEJlcnRyYW5kLA0KPiANCj4gT24gTW9u
+LCBNYXIgMiwgMjAyNiBhdCA0OjQ04oCvUE0gQmVydHJhbmQgTWFycXVpcw0KPiA8YmVydHJhbmQu
+bWFycXVpc0Bhcm0uY29tPiB3cm90ZToNCj4+IA0KPj4gRkYtQSB2MS4yIGRlZmluZXMgUEFSVElU
+SU9OX0lORk9fR0VUX1JFR1MgZm9yIHJlZ2lzdGVyLWJhc2VkIHBhcnRpdGlvbg0KPj4gaW5mbyBy
+ZXRyaWV2YWwsIGJ1dCBYZW4gY3VycmVudGx5IG9ubHkgc3VwcG9ydHMgdGhlIGJ1ZmZlci1iYXNl
+ZCBHRVQNCj4+IHBhdGggZm9yIGd1ZXN0cy4NCj4+IA0KPj4gSW1wbGVtZW50IEdFVF9SRUdTIHVz
+aW5nIHRoZSBjYWNoZWQgU1AgbGlzdCBhbmQgVk0gZW50cmllcywgaW5jbHVkaW5nDQo+PiB0aGUg
+cmVnaXN0ZXIgd2luZG93IGxheW91dCBhbmQgaW5wdXQgdmFsaWRhdGlvbi4gVHJhY2sgVk0gbGlz
+dCBjaGFuZ2VzDQo+PiB2aWEgdGhlIHBhcnRpbmZvIHRhZyBhbmQgdXNlIGl0IHRvIHZhbGlkYXRl
+IEdFVF9SRUdTIHRhZyBpbnB1dHMuIEVuc3VyZQ0KPj4gdGhhdCB3aGVuIGEgbm9uLU5pbCBVVUlE
+IGlzIHNwZWNpZmllZCwgdGhlIFVVSUQgZmllbGRzIGluIGJvdGggR0VUIGFuZA0KPj4gR0VUX1JF
+R1MgcmVzdWx0cyBhcmUgTUJaIGFzIHJlcXVpcmVkIGJ5IHRoZSBzcGVjaWZpY2F0aW9uLg0KPj4g
+DQo+PiBQQVJUSVRJT05fSU5GT19HRVRfUkVHUyBpcyBhdmFpbGFibGUgdG8gdjEuMiBndWVzdHMs
+IHJldHVybmluZyBjYWNoZWQgU1ANCj4+IGVudHJpZXMgYW5kIFZNIGVudHJpZXMgd2l0aCBVVUlE
+cyB6ZXJvZWQgZm9yIG5vbi1OaWwgVVVJRCBxdWVyaWVzLg0KPj4gDQo+PiBBbHNvIHB1Ymxpc2gg
+Vk0gbWVtYmVyc2hpcCB1cGRhdGVzIChWTSBjb3VudCwgY3R4IGxpc3QsIGFuZCBwYXJ0aW5mbw0K
+Pj4gdGFnKSB1bmRlciB0aGUgc2FtZSB3cml0ZS1sb2NrZWQgc2VjdGlvbiBzbyBHRVRfUkVHUyBz
+ZWVzIGNvaGVyZW50IHN0YXRlDQo+PiBhbmQgY29uY3VycmVudCBjaGFuZ2VzIGFyZSByZWxpYWJs
+eSByZXBvcnRlZCB2aWEgUkVUUlkuDQo+PiANCj4+IFNpZ25lZC1vZmYtYnk6IEJlcnRyYW5kIE1h
+cnF1aXMgPGJlcnRyYW5kLm1hcnF1aXNAYXJtLmNvbT4NCj4+IC0tLQ0KPj4gQ2hhbmdlcyBzaW5j
+ZSB2MToNCj4+IC0gaWdub3JlIHg0LXgxNyBub3QgYmVpbmcgemVybyBhbmQgeDMgYml0cyA2My0z
+MiBub3QgYmVpbmcgemVybyAoZGVmaW5lZA0KPj4gIGFzIFNCWiBpbiB0aGUgc3BlYykNCj4+IC0g
+ZGV0ZWN0IHRhZyBjaGFuZ2VzIGR1cmluZyBHRVRfUkVHUyBoYW5kbGluZyBhbmQgcmV0dXJuIFJF
+VFJZDQo+PiAtIHJlbW92ZSBzdHJpY3QgY2hlY2sgb2Ygc3BfbGlzdF9lbnRyeV9zaXplLCBsYXJn
+ZXIgY2FjaGUgZW50cnkgc2l6ZXMNCj4+ICB3aWxsIG5vdyBiZSBhY2NlcHRlZA0KPj4gLSBwdWJs
+aXNoIFZNIGNvdW50LCBjdHggbGlzdCwgYW5kIHBhcnRpbmZvIHRhZyB1cGRhdGVzIHVuZGVyDQo+
+PiAgZmZhX2N0eF9saXN0X3J3bG9jayBmb3IgY29oZXJlbnQgdmlzaWJpbGl0eQ0KPj4gLS0tDQo+
+PiB4ZW4vYXJjaC9hcm0vdGVlL2ZmYS5jICAgICAgICAgIHwgIDIzICsrKy0NCj4+IHhlbi9hcmNo
+L2FybS90ZWUvZmZhX3BhcnRpbmZvLmMgfCAyMDAgKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysNCj4+IHhlbi9hcmNoL2FybS90ZWUvZmZhX3ByaXZhdGUuaCAgfCAgIDQgKy0NCj4+IDMg
+ZmlsZXMgY2hhbmdlZCwgMjIzIGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pDQo+PiANCj4+
+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0vdGVlL2ZmYS5jIGIveGVuL2FyY2gvYXJtL3RlZS9m
+ZmEuYw0KPj4gaW5kZXggYWE0M2FlMjU5NWQ3Li5kNmNhZTY3ZTFhNDggMTAwNjQ0DQo+PiAtLS0g
+YS94ZW4vYXJjaC9hcm0vdGVlL2ZmYS5jDQo+PiArKysgYi94ZW4vYXJjaC9hcm0vdGVlL2ZmYS5j
+DQo+PiBAQCAtNDQsNiArNDQsMTEgQEANCj4+ICAqICAgLSBkb2Vzbid0IHN1cHBvcnQgc2lnbmFs
+bGluZyB0aGUgc2Vjb25kYXJ5IHNjaGVkdWxlciBvZiBwZW5kaW5nDQo+PiAgKiAgICAgbm90aWZp
+Y2F0aW9uIGZvciBzZWN1cmUgcGFydGl0aW9ucw0KPj4gICogICAtIGRvZXNuJ3Qgc3VwcG9ydCBu
+b3RpZmljYXRpb25zIGZvciBYZW4gaXRzZWxmDQo+PiArICogbyBGRkFfUEFSVElUSU9OX0lORk9f
+R0VUL0dFVF9SRUdTOg0KPj4gKyAqICAgLSB2MS4wIGd1ZXN0cyBtYXkgc2VlIGR1cGxpY2F0ZSBT
+UCBJRHMgd2hlbiBmaXJtd2FyZSBwcm92aWRlcyBVVUlEcw0KPj4gKyAqICAgLSBTUCBsaXN0IGlz
+IGNhY2hlZCBhdCBpbml0OyBTUE1DIHRhZyBjaGFuZ2VzIGFyZSBub3QgdHJhY2tlZA0KPj4gKyAq
+ICAgICBiZXR3ZWVuIGNhbGxzDQo+PiArICogICAtIFNQIGxpc3QgaXMgY2FwcGVkIGF0IEZGQV9N
+QVhfTlVNX1NQIGVudHJpZXMNCj4+ICAqDQo+PiAgKiBUaGVyZSBhcmUgc29tZSBsYXJnZSBsb2Nr
+ZWQgc2VjdGlvbnMgd2l0aCBmZmFfc3BtY190eF9sb2NrIGFuZA0KPj4gICogZmZhX3NwbWNfcnhf
+bG9jay4gRXNwZWNpYWxseSB0aGUgZmZhX3NwbWNfdHhfbG9jayBzcGlubG9jayB1c2VkDQo+PiBA
+QCAtMTgzLDEwICsxODgsMTEgQEAgc3RhdGljIGJvb2wgZmZhX25lZ290aWF0ZV92ZXJzaW9uKHN0
+cnVjdCBjcHVfdXNlcl9yZWdzICpyZWdzKQ0KPj4gDQo+PiAgICAgICAgIGlmICggSVNfRU5BQkxF
+RChDT05GSUdfRkZBX1ZNX1RPX1ZNKSApDQo+PiAgICAgICAgIHsNCj4+IC0gICAgICAgICAgICAv
+KiBPbmUgbW9yZSBWTSB3aXRoIEZGLUEgc3VwcG9ydCBhdmFpbGFibGUgKi8NCj4+IC0gICAgICAg
+ICAgICBpbmNfZmZhX3ZtX2NvdW50KCk7DQo+PiAgICAgICAgICAgICB3cml0ZV9sb2NrKCZmZmFf
+Y3R4X2xpc3Rfcndsb2NrKTsNCj4+ICsgICAgICAgICAgICAvKiBQdWJsaXNoIFZNIG1lbWJlcnNo
+aXAgY2hhbmdlcyBhdG9taWNhbGx5IHdpdGggdGFnIHVwZGF0ZXMuICovDQo+PiArICAgICAgICAg
+ICAgaW5jX2ZmYV92bV9jb3VudCgpOw0KPj4gICAgICAgICAgICAgbGlzdF9hZGRfdGFpbCgmY3R4
+LT5jdHhfbGlzdCwgJmZmYV9jdHhfaGVhZCk7DQo+PiArICAgICAgICAgICAgZmZhX3BhcnRpbmZv
+X2luY190YWcoKTsNCj4+ICAgICAgICAgICAgIHdyaXRlX3VubG9jaygmZmZhX2N0eF9saXN0X3J3
+bG9jayk7DQo+PiAgICAgICAgIH0NCj4+IA0KPj4gQEAgLTM0MSw2ICszNDcsMTIgQEAgc3RhdGlj
+IHZvaWQgaGFuZGxlX2ZlYXR1cmVzKHN0cnVjdCBjcHVfdXNlcl9yZWdzICpyZWdzKQ0KPj4gICAg
+IGNhc2UgRkZBX0ZFQVRVUkVfU0NIRURVTEVfUkVDVl9JTlRSOg0KPj4gICAgICAgICBmZmFfc2V0
+X3JlZ3Nfc3VjY2VzcyhyZWdzLCBHVUVTVF9GRkFfU0NIRURVTEVfUkVDVl9JTlRSX0lELCAwKTsN
+Cj4+ICAgICAgICAgYnJlYWs7DQo+PiArICAgIGNhc2UgRkZBX1BBUlRJVElPTl9JTkZPX0dFVF9S
+RUdTOg0KPj4gKyAgICAgICAgaWYgKCBBQ0NFU1NfT05DRShjdHgtPmd1ZXN0X3ZlcnMpID49IEZG
+QV9WRVJTSU9OXzFfMiApDQo+PiArICAgICAgICAgICAgZmZhX3NldF9yZWdzX3N1Y2Nlc3MocmVn
+cywgMCwgMCk7DQo+PiArICAgICAgICBlbHNlDQo+PiArICAgICAgICAgICAgZmZhX3NldF9yZWdz
+X2Vycm9yKHJlZ3MsIEZGQV9SRVRfTk9UX1NVUFBPUlRFRCk7DQo+PiArICAgICAgICBicmVhazsN
+Cj4+IA0KPj4gICAgIGNhc2UgRkZBX05PVElGSUNBVElPTl9CSU5EOg0KPj4gICAgIGNhc2UgRkZB
+X05PVElGSUNBVElPTl9VTkJJTkQ6DQo+PiBAQCAtNDAyLDYgKzQxNCw5IEBAIHN0YXRpYyBib29s
+IGZmYV9oYW5kbGVfY2FsbChzdHJ1Y3QgY3B1X3VzZXJfcmVncyAqcmVncykNCj4+ICAgICBjYXNl
+IEZGQV9QQVJUSVRJT05fSU5GT19HRVQ6DQo+PiAgICAgICAgIGZmYV9oYW5kbGVfcGFydGl0aW9u
+X2luZm9fZ2V0KHJlZ3MpOw0KPj4gICAgICAgICByZXR1cm4gdHJ1ZTsNCj4+ICsgICAgY2FzZSBG
+RkFfUEFSVElUSU9OX0lORk9fR0VUX1JFR1M6DQo+PiArICAgICAgICBmZmFfaGFuZGxlX3BhcnRp
+dGlvbl9pbmZvX2dldF9yZWdzKHJlZ3MpOw0KPj4gKyAgICAgICAgcmV0dXJuIHRydWU7DQo+PiAg
+ICAgY2FzZSBGRkFfUlhfUkVMRUFTRToNCj4+ICAgICAgICAgZSA9IGZmYV9yeF9yZWxlYXNlKGN0
+eCk7DQo+PiAgICAgICAgIGJyZWFrOw0KPj4gQEAgLTYyNSw5ICs2NDAsMTEgQEAgc3RhdGljIGlu
+dCBmZmFfZG9tYWluX3RlYXJkb3duKHN0cnVjdCBkb21haW4gKmQpDQo+PiANCj4+ICAgICBpZiAo
+IElTX0VOQUJMRUQoQ09ORklHX0ZGQV9WTV9UT19WTSkgJiYgQUNDRVNTX09OQ0UoY3R4LT5ndWVz
+dF92ZXJzKSApDQo+PiAgICAgew0KPj4gLSAgICAgICAgZGVjX2ZmYV92bV9jb3VudCgpOw0KPj4g
+ICAgICAgICB3cml0ZV9sb2NrKCZmZmFfY3R4X2xpc3Rfcndsb2NrKTsNCj4+ICsgICAgICAgIC8q
+IFB1Ymxpc2ggVk0gbWVtYmVyc2hpcCBjaGFuZ2VzIGF0b21pY2FsbHkgd2l0aCB0YWcgdXBkYXRl
+cy4gKi8NCj4+ICsgICAgICAgIGRlY19mZmFfdm1fY291bnQoKTsNCj4+ICAgICAgICAgbGlzdF9k
+ZWwoJmN0eC0+Y3R4X2xpc3QpOw0KPj4gKyAgICAgICAgZmZhX3BhcnRpbmZvX2luY190YWcoKTsN
+Cj4+ICAgICAgICAgd3JpdGVfdW5sb2NrKCZmZmFfY3R4X2xpc3Rfcndsb2NrKTsNCj4+ICAgICB9
+DQo+PiANCj4+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0vdGVlL2ZmYV9wYXJ0aW5mby5jIGIv
+eGVuL2FyY2gvYXJtL3RlZS9mZmFfcGFydGluZm8uYw0KPj4gaW5kZXggNDE5ZTE5NTEwZjZmLi4x
+NmRhNWVlNTY3ZGIgMTAwNjQ0DQo+PiAtLS0gYS94ZW4vYXJjaC9hcm0vdGVlL2ZmYV9wYXJ0aW5m
+by5jDQo+PiArKysgYi94ZW4vYXJjaC9hcm0vdGVlL2ZmYV9wYXJ0aW5mby5jDQo+PiBAQCAtMjks
+MTAgKzI5LDM5IEBAIHN0cnVjdCBmZmFfcGFydGl0aW9uX2luZm9fMV8xIHsNCj4+ICAgICB1aW50
+OF90IHV1aWRbMTZdOw0KPj4gfTsNCj4+IA0KPj4gKy8qIFJlZ2lzdGVycyBhMy4uYTE3ICgxNSBy
+ZWdzKSBjYXJyeSBwYXJ0aXRpb24gZGVzY3JpcHRvcnMsIDMgcmVncyBlYWNoLiAqLw0KPj4gKyNk
+ZWZpbmUgRkZBX1BBUlRJTkZPX1JFR19NQVhfRU5UUklFUyBcDQo+PiArICAgICgoMTUgKiBzaXpl
+b2YodWludDY0X3QpKSAvIHNpemVvZihzdHJ1Y3QgZmZhX3BhcnRpdGlvbl9pbmZvXzFfMSkpDQo+
+PiArDQo+PiAvKiBTUCBsaXN0IGNhY2hlIChzZWN1cmUgZW5kcG9pbnRzIG9ubHkpOyBwb3B1bGF0
+ZWQgYXQgaW5pdC4gKi8NCj4+IHN0YXRpYyB2b2lkICpzcF9saXN0IF9fcmVhZF9tb3N0bHk7DQo+
+PiBzdGF0aWMgdWludDMyX3Qgc3BfbGlzdF9jb3VudCBfX3JlYWRfbW9zdGx5Ow0KPj4gc3RhdGlj
+IHVpbnQzMl90IHNwX2xpc3RfZW50cnlfc2l6ZSBfX3JlYWRfbW9zdGx5Ow0KPj4gKw0KPj4gKy8q
+IFNQIGxpc3QgaXMgc3RhdGljOyB0YWcgb25seSBtb3ZlcyB3aGVuIFZNcyBhcmUgYWRkZWQvcmVt
+b3ZlZC4gKi8NCj4+ICtzdGF0aWMgYXRvbWljX3QgZmZhX3BhcnRpbmZvX3RhZyA9IEFUT01JQ19J
+TklUKDEpOw0KPj4gKw0KPj4gK3ZvaWQgZmZhX3BhcnRpbmZvX2luY190YWcodm9pZCkNCj4+ICt7
+DQo+PiArICAgIGF0b21pY19pbmMoJmZmYV9wYXJ0aW5mb190YWcpOw0KPj4gK30NCj4+ICsNCj4+
+ICtzdGF0aWMgaW5saW5lIHVpbnQxNl90IGZmYV9wYXJ0aW5mb19nZXRfdGFnKHZvaWQpDQo+PiAr
+ew0KPj4gKyAgICAvKg0KPj4gKyAgICAgKiBUYWcgbW92ZXMgd2l0aCBWTSBsaXN0IGNoYW5nZXMg
+b25seS4NCj4+ICsgICAgICoNCj4+ICsgICAgICogTGltaXRhdGlvbjogd2UgY2Fubm90IGRldGVj
+dCBhbiBTUE1DIHRhZyBjaGFuZ2UgYmV0d2VlbiBjYWxscyBiZWNhdXNlIHdlDQo+PiArICAgICAq
+IGRvIG5vdCByZXRhaW4gdGhlIHByZXZpb3VzIFNQTUMgdGFnOyB3ZSBvbmx5IHJlZnJlc2ggaXQg
+dmlhIHRoZSBtYW5kYXRvcnkNCj4+ICsgICAgICogc3RhcnRfaW5kZXg9MCBjYWxsIGFuZCBhc3N1
+bWUgaXQgc3RheXMgc3RhYmxlIHdoaWxlIGNvbWJpbmVkX3RhZyAob3VyDQo+PiArICAgICAqIFZN
+L1NQLWNvdW50IHRhZykgaXMgdXNlZCBmb3IgZ3Vlc3QgdmFsaWRhdGlvbi4gVGhpcyBtZWFucyBT
+UE1DIHRhZw0KPj4gKyAgICAgKiBjaGFuZ2VzIGFsb25lIHdpbGwgbm90IHRyaWdnZXIgUkVUUlku
+DQo+PiArICAgICAqLw0KPj4gKyAgICBpZiAoIElTX0VOQUJMRUQoQ09ORklHX0ZGQV9WTV9UT19W
+TSkgKQ0KPj4gKyAgICAgICAgcmV0dXJuIGF0b21pY19yZWFkKCZmZmFfcGFydGluZm9fdGFnKSAm
+IEdFTk1BU0soMTUsIDApOw0KPj4gKyAgICBlbHNlDQo+PiArICAgICAgICByZXR1cm4gMTsNCj4+
+ICt9DQo+IA0KPiBQbGVhc2UgYWRkIGFuIGVtcHR5IGxpbmUgaGVyZS4NCg0KYWNrDQoNCj4gDQo+
+PiBzdGF0aWMgaW50MzJfdCBmZmFfcGFydGl0aW9uX2luZm9fZ2V0KHN0cnVjdCBmZmFfdXVpZCB1
+dWlkLCB1aW50MzJfdCBmbGFncywNCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgdWludDMyX3QgKmNvdW50LCB1aW50MzJfdCAqZnBpX3NpemUpDQo+PiB7DQo+PiBAQCAt
+MTQwLDYgKzE2OSw3IEBAIHN0YXRpYyBpbnQzMl90IGZmYV9nZXRfc3BfcGFydGluZm8oc3RydWN0
+IGZmYV91dWlkIHV1aWQsIHVpbnQzMl90ICpzcF9jb3VudCwNCj4+ICAgICBmb3IgKCBuID0gMDsg
+biA8IHNwX2xpc3RfY291bnQ7IG4rKyApDQo+PiAgICAgew0KPj4gICAgICAgICB2b2lkICplbnRy
+eSA9IHNwX2xpc3QgKyBuICogc3BfbGlzdF9lbnRyeV9zaXplOw0KPj4gKyAgICAgICAgdm9pZCAq
+ZHN0X3BvczsNCj4+IA0KPj4gICAgICAgICBpZiAoICFmZmFfc3BfZW50cnlfbWF0Y2hlc191dWlk
+KGVudHJ5LCB1dWlkKSApDQo+PiAgICAgICAgICAgICBjb250aW51ZTsNCj4+IEBAIC0xNTEsMTEg
+KzE4MSwyMCBAQCBzdGF0aWMgaW50MzJfdCBmZmFfZ2V0X3NwX3BhcnRpbmZvKHN0cnVjdCBmZmFf
+dXVpZCB1dWlkLCB1aW50MzJfdCAqc3BfY291bnQsDQo+PiAgICAgICAgICAqIFRoaXMgaXMgYSBu
+b24tY29tcGxpYW5jZSB0byB0aGUgc3BlY2lmaWNhdGlvbiBidXQgMS4wIFZNcyBzaG91bGQNCj4+
+ICAgICAgICAgICogaGFuZGxlIHRoYXQgb24gdGhlaXIgb3duIHRvIHNpbXBsaWZ5IFhlbiBpbXBs
+ZW1lbnRhdGlvbi4NCj4+ICAgICAgICAgICovDQo+PiArICAgICAgICBkc3RfcG9zID0gKmRzdF9i
+dWY7DQo+PiAgICAgICAgIHJldCA9IGZmYV9jb3B5X2luZm8oZHN0X2J1ZiwgZW5kX2J1ZiwgZW50
+cnksIGRzdF9zaXplLA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNwX2xpc3RfZW50
+cnlfc2l6ZSk7DQo+PiAgICAgICAgIGlmICggcmV0ICkNCj4+ICAgICAgICAgICAgIHJldHVybiBy
+ZXQ7DQo+PiANCj4+ICsgICAgICAgIGlmICggIWZmYV91dWlkX2lzX25pbCh1dWlkKSAmJg0KPj4g
+KyAgICAgICAgICAgICBkc3Rfc2l6ZSA+PSBzaXplb2Yoc3RydWN0IGZmYV9wYXJ0aXRpb25faW5m
+b18xXzEpICkNCj4+ICsgICAgICAgIHsNCj4+ICsgICAgICAgICAgICBzdHJ1Y3QgZmZhX3BhcnRp
+dGlvbl9pbmZvXzFfMSAqZnBpID0gZHN0X3BvczsNCj4+ICsNCj4+ICsgICAgICAgICAgICBtZW1z
+ZXQoZnBpLT51dWlkLCAwLCBzaXplb2YoZnBpLT51dWlkKSk7DQo+PiArICAgICAgICB9DQo+PiAr
+DQo+PiAgICAgICAgIGNvdW50Kys7DQo+PiAgICAgfQ0KPj4gDQo+PiBAQCAtMTY3LDYgKzIwNiwz
+OCBAQCBzdGF0aWMgaW50MzJfdCBmZmFfZ2V0X3NwX3BhcnRpbmZvKHN0cnVjdCBmZmFfdXVpZCB1
+dWlkLCB1aW50MzJfdCAqc3BfY291bnQsDQo+PiAgICAgcmV0dXJuIEZGQV9SRVRfT0s7DQo+PiB9
+DQo+PiANCj4+ICtzdGF0aWMgdWludDE2X3QgZmZhX2dldF9zcF9wYXJ0aW5mb19yZWdzKHN0cnVj
+dCBmZmFfdXVpZCB1dWlkLA0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgdWludDE2X3Qgc3RhcnRfaW5kZXgsDQo+PiArICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICB1aW50NjRfdCAqb3V0X3JlZ3MsDQo+PiArICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB1aW50MTZfdCBtYXhfZW50cmllcykNCj4+ICt7DQo+
+PiArICAgIHVpbnQzMl90IGlkeCA9IDA7DQo+PiArICAgIHVpbnQxNl90IGZpbGxlZCA9IDA7DQo+
+PiArICAgIHVpbnQzMl90IG47DQo+PiArDQo+PiArICAgIGZvciAoIG4gPSAwOyBuIDwgc3BfbGlz
+dF9jb3VudCAmJiBmaWxsZWQgPCBtYXhfZW50cmllczsgbisrICkNCj4+ICsgICAgew0KPj4gKyAg
+ICAgICAgdm9pZCAqZW50cnkgPSBzcF9saXN0ICsgbiAqIHNwX2xpc3RfZW50cnlfc2l6ZTsNCj4+
+ICsNCj4+ICsgICAgICAgIGlmICggIWZmYV9zcF9lbnRyeV9tYXRjaGVzX3V1aWQoZW50cnksIHV1
+aWQpICkNCj4+ICsgICAgICAgICAgICBjb250aW51ZTsNCj4+ICsNCj4+ICsgICAgICAgIGlmICgg
+aWR4KysgPCBzdGFydF9pbmRleCApDQo+PiArICAgICAgICAgICAgY29udGludWU7DQo+PiArDQo+
+PiArICAgICAgICBtZW1jcHkoJm91dF9yZWdzW2ZpbGxlZCAqIDNdLCBlbnRyeSwNCj4+ICsgICAg
+ICAgICAgICAgICBzaXplb2Yoc3RydWN0IGZmYV9wYXJ0aXRpb25faW5mb18xXzEpKTsNCj4+ICsg
+ICAgICAgIGlmICggIWZmYV91dWlkX2lzX25pbCh1dWlkKSApDQo+PiArICAgICAgICB7DQo+PiAr
+ICAgICAgICAgICAgb3V0X3JlZ3NbZmlsbGVkICogMyArIDFdID0gMDsNCj4+ICsgICAgICAgICAg
+ICBvdXRfcmVnc1tmaWxsZWQgKiAzICsgMl0gPSAwOw0KPj4gKyAgICAgICAgfQ0KPj4gKyAgICAg
+ICAgZmlsbGVkKys7DQo+PiArICAgIH0NCj4+ICsNCj4+ICsgICAgcmV0dXJuIGZpbGxlZDsNCj4+
+ICt9DQo+PiArDQo+PiBzdGF0aWMgaW50MzJfdCBmZmFfZ2V0X3ZtX3BhcnRpbmZvKHN0cnVjdCBm
+ZmFfdXVpZCB1dWlkLCB1aW50MzJfdCBzdGFydF9pbmRleCwNCj4+ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgdWludDMyX3QgKnZtX2NvdW50LCB2b2lkICoqZHN0X2J1ZiwNCj4+
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdm9pZCAqZW5kX2J1ZiwgdWludDMy
+X3QgZHN0X3NpemUpDQo+PiBAQCAtMzgzLDYgKzQ1NCwxMzUgQEAgb3V0Og0KPj4gICAgIH0NCj4+
+IH0NCj4+IA0KPj4gK3ZvaWQgZmZhX2hhbmRsZV9wYXJ0aXRpb25faW5mb19nZXRfcmVncyhzdHJ1
+Y3QgY3B1X3VzZXJfcmVncyAqcmVncykNCj4+ICt7DQo+PiArICAgIHN0cnVjdCBkb21haW4gKmQg
+PSBjdXJyZW50LT5kb21haW47DQo+PiArICAgIHN0cnVjdCBmZmFfY3R4ICpjdHggPSBkLT5hcmNo
+LnRlZTsNCj4+ICsgICAgc3RydWN0IGZmYV91dWlkIHV1aWQ7DQo+PiArICAgIHVpbnQzMl90IHNw
+X2NvdW50ID0gMCwgdm1fY291bnQgPSAwLCB0b3RhbF9jb3VudDsNCj4+ICsgICAgdWludDE2X3Qg
+c3RhcnRfaW5kZXgsIHRhZzsNCj4+ICsgICAgdWludDE2X3QgbnVtX2VudHJpZXMgPSAwOw0KPj4g
+KyAgICB1aW50NjRfdCB4MyA9IGdldF91c2VyX3JlZyhyZWdzLCAzKTsNCj4+ICsgICAgaW50MzJf
+dCByZXQgPSBGRkFfUkVUX09LOw0KPj4gKyAgICB1aW50NjRfdCBvdXRfcmVnc1sxOF0gPSB7IDAg
+fTsNCj4+ICsgICAgdW5zaWduZWQgaW50IG47DQo+PiArICAgIHVpbnQxNl90IHRhZ19vdXQsIHRh
+Z19lbmQ7DQo+PiArDQo+PiArICAgIGlmICggQUNDRVNTX09OQ0UoY3R4LT5ndWVzdF92ZXJzKSA8
+IEZGQV9WRVJTSU9OXzFfMiApDQo+PiArICAgIHsNCj4+ICsgICAgICAgIHJldCA9IEZGQV9SRVRf
+Tk9UX1NVUFBPUlRFRDsNCj4+ICsgICAgICAgIGdvdG8gb3V0Ow0KPj4gKyAgICB9DQo+PiArDQo+
+PiArICAgIC8qDQo+PiArICAgICAqIFJlZ2lzdGVycyBhMy4uYTE3ICgxNSByZWdzKSBjYXJyeSBw
+YXJ0aXRpb24gZGVzY3JpcHRvcnMsIDMgcmVncyBlYWNoLg0KPj4gKyAgICAgKiBGb3IgRkYtQSAx
+LjIsIHRoYXQgeWllbGRzIGEgbWF4aW11bSBvZiA1IGVudHJpZXMgcGVyIEdFVF9SRUdTIGNhbGwu
+DQo+PiArICAgICAqIEVuZm9yY2UgdGhlIGFzc3VtZWQgbGF5b3V0IHNvIHdpbmRvdyBzaXppbmcg
+c3RheXMgY29ycmVjdC4NCj4+ICsgICAgICovDQo+PiArICAgIEJVSUxEX0JVR19PTihGRkFfUEFS
+VElORk9fUkVHX01BWF9FTlRSSUVTICE9IDUpOw0KPj4gKw0KPj4gKyAgICBzdGFydF9pbmRleCA9
+IHgzICYgR0VOTUFTSygxNSwgMCk7DQo+PiArICAgIHRhZyA9ICh4MyA+PiAxNikgJiBHRU5NQVNL
+KDE1LCAwKTsNCj4+ICsNCj4+ICsgICAgLyogU3RhcnQgaW5kZXggbXVzdCBhbGxvdyByb29tIGZv
+ciB1cCB0byA1IGVudHJpZXMgd2l0aG91dCAxNi1iaXQgb3ZlcmZsb3cuICovDQo+IA0KPiBOaXQ6
+IFRoZSBsaW5lIGFib3ZlIGlzIG92ZXIgODAgY29sdW1ucy4NCg0KUmlnaHQsIGhvdyBkaWQgaSBt
+aXNzIHRoYXQuDQoNCj4gDQo+IFdpdGggb3Igd2l0aG91dCB0aGUgbGluZSBhYm92ZSBmaXhlZC4g
+TG9va3MgZ29vZC4NCj4gUmV2aWV3ZWQtYnk6IEplbnMgV2lrbGFuZGVyIDxqZW5zLndpa2xhbmRl
+ckBsaW5hcm8ub3JnPg0KDQpUaGFua3MsDQoNCkkgd2lsbCBjaGVjayBpZiB0aG9zZSBjYW4gYmUg
+Zml4ZWQgb24gY29tbWl0IG90aGVyd2lzZSBpIHdpbGwgZml4IHRob3NlIDIgYW5kDQpzdWJtaXQg
+YSB2MyB3aXRoIHlvdXIgUi1iIG9uIGFsbCBwYXRjaGVzIDotKQ0KDQpDaGVlcnMNCkJlcnRyYW5k
+DQoNCj4gDQo+IENoZWVycywNCj4gSmVucw0KPiANCj4+ICsgICAgaWYgKCBzdGFydF9pbmRleCA+
+IChHRU5NQVNLKDE1LCAwKSAtIChGRkFfUEFSVElORk9fUkVHX01BWF9FTlRSSUVTIC0gMSkpICkN
+Cj4+ICsgICAgew0KPj4gKyAgICAgICAgcmV0ID0gRkZBX1JFVF9JTlZBTElEX1BBUkFNRVRFUlM7
+DQo+PiArICAgICAgICBnb3RvIG91dDsNCj4+ICsgICAgfQ0KPj4gKw0KPj4gKyAgICB1dWlkLnZh
+bFswXSA9IGdldF91c2VyX3JlZyhyZWdzLCAxKTsNCj4+ICsgICAgdXVpZC52YWxbMV0gPSBnZXRf
+dXNlcl9yZWcocmVncywgMik7DQo+PiArDQo+PiArICAgIHRhZ19vdXQgPSBmZmFfcGFydGluZm9f
+Z2V0X3RhZygpOw0KPj4gKw0KPj4gKyAgICBpZiAoIHN0YXJ0X2luZGV4ID09IDAgKQ0KPj4gKyAg
+ICB7DQo+PiArICAgICAgICBpZiAoIHRhZyApDQo+PiArICAgICAgICB7DQo+PiArICAgICAgICAg
+ICAgcmV0ID0gRkZBX1JFVF9JTlZBTElEX1BBUkFNRVRFUlM7DQo+PiArICAgICAgICAgICAgZ290
+byBvdXQ7DQo+PiArICAgICAgICB9DQo+PiArICAgIH0NCj4+ICsgICAgZWxzZSBpZiAoIHRhZyAh
+PSB0YWdfb3V0ICkNCj4+ICsgICAgew0KPj4gKyAgICAgICAgcmV0ID0gRkZBX1JFVF9SRVRSWTsN
+Cj4+ICsgICAgICAgIGdvdG8gb3V0Ow0KPj4gKyAgICB9DQo+PiArDQo+PiArICAgIGlmICggZmZh
+X3V1aWRfaXNfbmlsKHV1aWQpICkNCj4+ICsgICAgew0KPj4gKyAgICAgICAgaWYgKCBJU19FTkFC
+TEVEKENPTkZJR19GRkFfVk1fVE9fVk0pICkNCj4+ICsgICAgICAgICAgICB2bV9jb3VudCA9IGdl
+dF9mZmFfdm1fY291bnQoKTsNCj4+ICsgICAgICAgIGVsc2UNCj4+ICsgICAgICAgICAgICB2bV9j
+b3VudCA9IDE7IC8qIENhbGxlciBWTSBvbmx5ICovDQo+PiArICAgIH0NCj4+ICsNCj4+ICsgICAg
+cmV0ID0gZmZhX2dldF9zcF9jb3VudCh1dWlkLCAmc3BfY291bnQpOw0KPj4gKyAgICBpZiAoIHJl
+dCApDQo+PiArICAgICAgICBnb3RvIG91dDsNCj4+ICsNCj4+ICsgICAgdG90YWxfY291bnQgPSBz
+cF9jb3VudCArIHZtX2NvdW50Ow0KPj4gKw0KPj4gKyAgICBpZiAoIHRvdGFsX2NvdW50ID09IDAg
+fHwgc3RhcnRfaW5kZXggPj0gdG90YWxfY291bnQgKQ0KPj4gKyAgICB7DQo+PiArICAgICAgICBy
+ZXQgPSBGRkFfUkVUX0lOVkFMSURfUEFSQU1FVEVSUzsNCj4+ICsgICAgICAgIGdvdG8gb3V0Ow0K
+Pj4gKyAgICB9DQo+PiArDQo+PiArICAgIGlmICggc3RhcnRfaW5kZXggPCBzcF9jb3VudCApDQo+
+PiArICAgICAgICBudW1fZW50cmllcyA9IGZmYV9nZXRfc3BfcGFydGluZm9fcmVncyh1dWlkLCBz
+dGFydF9pbmRleCwgJm91dF9yZWdzWzNdLA0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgRkZBX1BBUlRJTkZPX1JFR19NQVhfRU5UUklFUyk7DQo+PiAr
+DQo+PiArICAgIGlmICggbnVtX2VudHJpZXMgPCBGRkFfUEFSVElORk9fUkVHX01BWF9FTlRSSUVT
+ICkNCj4+ICsgICAgew0KPj4gKyAgICAgICAgdWludDMyX3Qgdm1fc3RhcnQgPSBzdGFydF9pbmRl
+eCA+IHNwX2NvdW50ID8NCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RhcnRfaW5k
+ZXggLSBzcF9jb3VudCA6IDA7DQo+PiArICAgICAgICB1aW50MzJfdCBmaWxsZWQgPSAwOw0KPj4g
+KyAgICAgICAgdm9pZCAqdm1fZHN0ID0gJm91dF9yZWdzWzMgKyBudW1fZW50cmllcyAqIDNdOw0K
+Pj4gKyAgICAgICAgdm9pZCAqdm1fZW5kID0gJm91dF9yZWdzWzE4XTsNCj4+ICsNCj4+ICsgICAg
+ICAgIHJldCA9IGZmYV9nZXRfdm1fcGFydGluZm8odXVpZCwgdm1fc3RhcnQsICZmaWxsZWQsICZ2
+bV9kc3QsIHZtX2VuZCwNCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2l6
+ZW9mKHN0cnVjdCBmZmFfcGFydGl0aW9uX2luZm9fMV8xKSk7DQo+PiArICAgICAgICBpZiAoIHJl
+dCAhPSBGRkFfUkVUX09LICYmIHJldCAhPSBGRkFfUkVUX05PX01FTU9SWSApDQo+PiArICAgICAg
+ICAgICAgZ290byBvdXQ7DQo+PiArDQo+PiArICAgICAgICBudW1fZW50cmllcyArPSBmaWxsZWQ7
+DQo+PiArICAgIH0NCj4+ICsNCj4+ICsgICAgaWYgKCBudW1fZW50cmllcyA9PSAwICkNCj4+ICsg
+ICAgew0KPj4gKyAgICAgICAgcmV0ID0gRkZBX1JFVF9JTlZBTElEX1BBUkFNRVRFUlM7DQo+PiAr
+ICAgICAgICBnb3RvIG91dDsNCj4+ICsgICAgfQ0KPj4gKw0KPj4gKyAgICAvKg0KPj4gKyAgICAg
+KiBEZXRlY3QgbGlzdCBjaGFuZ2VzIHdoaWxlIGJ1aWxkaW5nIHRoZSByZXNwb25zZSBzbyB0aGUg
+Y2FsbGVyIGNhbiByZXRyeQ0KPj4gKyAgICAgKiB3aXRoIGEgY29oZXJlbnQgc25hcHNob3QgdGFn
+Lg0KPj4gKyAgICAgKi8NCj4+ICsgICAgdGFnX2VuZCA9IGZmYV9wYXJ0aW5mb19nZXRfdGFnKCk7
+DQo+PiArICAgIGlmICggdGFnX2VuZCAhPSB0YWdfb3V0ICkNCj4+ICsgICAgew0KPj4gKyAgICAg
+ICAgcmV0ID0gRkZBX1JFVF9SRVRSWTsNCj4+ICsgICAgICAgIGdvdG8gb3V0Ow0KPj4gKyAgICB9
+DQo+PiArDQo+PiArICAgIG91dF9yZWdzWzBdID0gRkZBX1NVQ0NFU1NfNjQ7DQo+PiArICAgIG91
+dF9yZWdzWzJdID0gKCh1aW50NjRfdClzaXplb2Yoc3RydWN0IGZmYV9wYXJ0aXRpb25faW5mb18x
+XzEpIDw8IDQ4KSB8DQo+PiArICAgICAgICAgICAgICAgICAgKCh1aW50NjRfdCl0YWdfZW5kIDw8
+IDMyKSB8DQo+PiArICAgICAgICAgICAgICAgICAgKCh1aW50NjRfdCkoc3RhcnRfaW5kZXggKyBu
+dW1fZW50cmllcyAtIDEpIDw8IDE2KSB8DQo+PiArICAgICAgICAgICAgICAgICAgKCh1aW50NjRf
+dCkodG90YWxfY291bnQgLSAxKSAmIEdFTk1BU0soMTUsIDApKTsNCj4+ICsNCj4+ICsgICAgZm9y
+ICggbiA9IDA7IG4gPCBBUlJBWV9TSVpFKG91dF9yZWdzKTsgbisrICkNCj4+ICsgICAgICAgIHNl
+dF91c2VyX3JlZyhyZWdzLCBuLCBvdXRfcmVnc1tuXSk7DQo+PiArDQo+PiArICAgIHJldHVybjsN
+Cj4+ICsNCj4+ICtvdXQ6DQo+PiArICAgIGlmICggcmV0ICkNCj4+ICsgICAgICAgIGZmYV9zZXRf
+cmVnc19lcnJvcihyZWdzLCByZXQpOw0KPj4gK30NCj4+ICsNCj4+IHN0YXRpYyBpbnQzMl90IGZm
+YV9kaXJlY3RfcmVxX3NlbmRfdm0odWludDE2X3Qgc3BfaWQsIHVpbnQxNl90IHZtX2lkLA0KPj4g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1aW50OF90IG1zZykNCj4+IHsN
+Cj4+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0vdGVlL2ZmYV9wcml2YXRlLmggYi94ZW4vYXJj
+aC9hcm0vdGVlL2ZmYV9wcml2YXRlLmgNCj4+IGluZGV4IDFhNjMyOTgzYzg2MC4uYzI5MWYzMmI1
+NmZmIDEwMDY0NA0KPj4gLS0tIGEveGVuL2FyY2gvYXJtL3RlZS9mZmFfcHJpdmF0ZS5oDQo+PiAr
+KysgYi94ZW4vYXJjaC9hcm0vdGVlL2ZmYV9wcml2YXRlLmgNCj4+IEBAIC0yODksNyArMjg5LDcg
+QEANCj4+ICNkZWZpbmUgRkZBX01TR19TRU5EMiAgICAgICAgICAgICAgICAgICAweDg0MDAwMDg2
+VQ0KPj4gI2RlZmluZSBGRkFfQ09OU09MRV9MT0dfMzIgICAgICAgICAgICAgIDB4ODQwMDAwOEFV
+DQo+PiAjZGVmaW5lIEZGQV9DT05TT0xFX0xPR182NCAgICAgICAgICAgICAgMHhDNDAwMDA4QVUN
+Cj4+IC0jZGVmaW5lIEZGQV9QQVJUSVRJT05fSU5GT19HRVRfUkVHUyAgICAgMHg4NDAwMDA4QlUN
+Cj4+ICsjZGVmaW5lIEZGQV9QQVJUSVRJT05fSU5GT19HRVRfUkVHUyAgICAgMHhDNDAwMDA4QlUN
+Cj4+ICNkZWZpbmUgRkZBX01TR19TRU5EX0RJUkVDVF9SRVEyICAgICAgICAweEM0MDAwMDhEVQ0K
+Pj4gI2RlZmluZSBGRkFfTVNHX1NFTkRfRElSRUNUX1JFU1AyICAgICAgIDB4QzQwMDAwOEVVDQo+
+PiANCj4+IEBAIC00NTIsNiArNDUyLDggQEAgYm9vbCBmZmFfcGFydGluZm9faW5pdCh2b2lkKTsN
+Cj4+IGludDMyX3QgZmZhX3BhcnRpbmZvX2RvbWFpbl9pbml0KHN0cnVjdCBkb21haW4gKmQpOw0K
+Pj4gYm9vbCBmZmFfcGFydGluZm9fZG9tYWluX2Rlc3Ryb3koc3RydWN0IGRvbWFpbiAqZCk7DQo+
+PiB2b2lkIGZmYV9oYW5kbGVfcGFydGl0aW9uX2luZm9fZ2V0KHN0cnVjdCBjcHVfdXNlcl9yZWdz
+ICpyZWdzKTsNCj4+ICt2b2lkIGZmYV9oYW5kbGVfcGFydGl0aW9uX2luZm9fZ2V0X3JlZ3Moc3Ry
+dWN0IGNwdV91c2VyX3JlZ3MgKnJlZ3MpOw0KPj4gK3ZvaWQgZmZhX3BhcnRpbmZvX2luY190YWco
+dm9pZCk7DQo+PiANCj4+IGludDMyX3QgZmZhX2VuZHBvaW50X2RvbWFpbl9sb29rdXAodWludDE2
+X3QgZW5kcG9pbnRfaWQsIHN0cnVjdCBkb21haW4gKipkX291dCwNCj4+ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGZmYV9jdHggKipjdHhfb3V0KTsNCj4+IC0tDQo+
+PiAyLjUyLjANCg0KDQo=
 
