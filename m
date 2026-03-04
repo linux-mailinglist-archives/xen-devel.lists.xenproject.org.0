@@ -2,45 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MJlSG8eNqGmbvgAAu9opvQ
+	id cKDSMMazqGliwgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 20:53:43 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 23:35:50 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C51B2073D4
-	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 20:53:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1245965.1545327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2784A208B2F
+	for <lists+xen-devel@lfdr.de>; Wed, 04 Mar 2026 23:35:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1246049.1545341 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxsHo-00010a-Mn; Wed, 04 Mar 2026 19:53:36 +0000
+	id 1vxune-0005r7-Ar; Wed, 04 Mar 2026 22:34:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1245965.1545327; Wed, 04 Mar 2026 19:53:36 +0000
+Received: by outflank-mailman (output) from mailman id 1246049.1545341; Wed, 04 Mar 2026 22:34:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vxsHo-0000vh-Ep; Wed, 04 Mar 2026 19:53:36 +0000
-Received: by outflank-mailman (input) for mailman id 1245965;
- Wed, 04 Mar 2026 19:53:35 +0000
+	id 1vxune-0005op-81; Wed, 04 Mar 2026 22:34:38 +0000
+Received: by outflank-mailman (input) for mailman id 1246049;
+ Wed, 04 Mar 2026 22:34:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nfWr=BE=citrix.com=kevin.lampis@srs-se1.protection.inumbo.net>)
- id 1vxsHn-0007ik-KQ
- for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 19:53:35 +0000
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazlp170110009.outbound.protection.outlook.com
- [2a01:111:f403:c111::9])
+ <SRS0=+6HG=BE=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
+ id 1vxunc-0005oh-CY
+ for xen-devel@lists.xenproject.org; Wed, 04 Mar 2026 22:34:36 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d39365d0-1803-11f1-9ccf-f158ae23cfc8;
- Wed, 04 Mar 2026 20:53:34 +0100 (CET)
-Received: from BY1PR03MB7996.namprd03.prod.outlook.com (2603:10b6:a03:5b2::8)
- by DM4PR03MB6079.namprd03.prod.outlook.com (2603:10b6:5:392::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Wed, 4 Mar
- 2026 19:53:32 +0000
-Received: from BY1PR03MB7996.namprd03.prod.outlook.com
- ([fe80::5068:e1b5:b478:8d07]) by BY1PR03MB7996.namprd03.prod.outlook.com
- ([fe80::5068:e1b5:b478:8d07%5]) with mapi id 15.20.9678.016; Wed, 4 Mar 2026
- 19:53:32 +0000
+ id 50a91c7d-181a-11f1-9ccf-f158ae23cfc8;
+ Wed, 04 Mar 2026 23:34:33 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 150CA60053;
+ Wed,  4 Mar 2026 22:34:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93CB9C4CEF7;
+ Wed,  4 Mar 2026 22:34:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,169 +46,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d39365d0-1803-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z+DpwdNYvCUbuEZvQetU/o2rC+YTGyy7slJFQUX8uJS93iAevtdVC3v43og9tGp0SMS0D7Hw2wDt5ILyHe8WMhOdBaIxYly6PtZ9VcjsWhE3Pce5MZ37Bd7VUL2GCjSqkZHIA0q+q6osuFel0h6bewvuofefW4A2vdnTaZ4eNW1ARbLEHw0smk6abBJnoPCbXushu64o6okvfMWSmexbhKWkB4ehMJvctqvRSX6XoEUpzQki8Qxl9xtoVLt+VGx7AxQiXMaPraqPVCVCexn5hPul7W8xgVKliRfG6vvJcAueojknb7hFZ8WxoD8HxePhTr920mDHPst4GKvzSBBK7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nnVnsWYWKG7SVBrj/TXgZDuFUFT7AP5TCSelHpEbdVI=;
- b=W+NuaJcYpALgg+ksN8YfAKWxHeLghoxvKf4kSgFPjYqCLjeg6URo/lTpFaqrM2fT3a+FdHQuv0uYAwrm2/lLLlT5MYI/4h+k36zfvh6a/bays+3iCfpXQcJd71RKdXzlDyzx6fzYlmzpnl1zvuXXgqxWdvE7BQrP6zff9XJztl2X5pC2AWqXS0YGOB2I/3RIdFf1vvWxFm9CThze1910sBjBDZhXbBPtP9cOcMrSsL92KUjnkMYI8Bz4gMhSlZemCkjrApgG5dDwZ5fYzdS7d1rTfIN1OrSiw0EB+CKOzkvYtz0NMzkflt9at8In8qcT2a6a5HYnzTibs3n7SJF4Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nnVnsWYWKG7SVBrj/TXgZDuFUFT7AP5TCSelHpEbdVI=;
- b=LEBG8FLkSzNT/KVmvoYe+hqRNLdSLmiZkaiSiO9OTdMh9fH3XE1y+rfuNANmWQhh1gZIt29CtGvXb1+1xvOAaqNq9/zdQnq14y8HMv6SNA5R0AxxcZFLJjvYJHGxYyTtWUu/eSpgMtmfKioxeDNJogm3nELSI2QbunjPSU+RSE4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Kevin Lampis <kevin.lampis@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	Kevin Lampis <kevin.lampis@citrix.com>
-Subject: [PATCH 6/6] x86: Remove x86 prefixed names from cpuinfo
-Date: Wed,  4 Mar 2026 19:53:50 +0000
-Message-ID: <20260304195350.837593-7-kevin.lampis@citrix.com>
-X-Mailer: git-send-email 2.51.1
-In-Reply-To: <20260304195350.837593-1-kevin.lampis@citrix.com>
-References: <20260304195350.837593-1-kevin.lampis@citrix.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO6P123CA0014.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:338::17) To BY1PR03MB7996.namprd03.prod.outlook.com
- (2603:10b6:a03:5b2::8)
+X-Inumbo-ID: 50a91c7d-181a-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1772663671;
+	bh=xtXiT6HoQdMIWu8cMUXATW0+N0I6AwrbMofSK5cScOo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=nftlr+2Kn5zf3LbCRv8rT1Uqt20lvfH1sSG7gDi2AIWBjEkSvUXrNTSyefzr0YfX2
+	 ooAr07FsoZDHZJM2vVaReF/OGfw8hxlllUyfMpX9cBuNRd3CwV6vok8tKSGSr6W9gf
+	 HYH+8LicxHj+WbAflJo7llMdOe4wCHHGb0xBww6kiqSlPIZN27U2YNkR+OG7ymx2j6
+	 k+ZAMh5QNlKQJOkIpmtgCPjjDZAu+Og7oc7bRm5wlpR1wIOlZTv7w0M42DyPDBIUAB
+	 RLzLa+tBB1mKCCuRKudYupgp+qUGllTJQl5etZ+KJreLpoQqi2KqZvlJ9D1idV5rd6
+	 fOJZ7tdyyJ6Xg==
+Date: Wed, 4 Mar 2026 16:34:30 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+Cc: Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Richard Zhu <hongxing.zhu@nxp.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-pci@vger.kernel.org, imx@lists.linux.dev,
+	xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v9 1/3] of: Add convenience wrappers for of_map_id()
+Message-ID: <20260304223430.GA41322@bhelgaas>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PR03MB7996:EE_|DM4PR03MB6079:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9feeda4e-46d0-475b-0d4c-08de7a27b6f2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info:
-	0BToux3SEX8HOCLeeSSk6r2QIFwTw8ptRRbrGV7CwdCDwNSnEENQtqasyhzvKERVTPKV4/d0yzp4246eLTwtyoMLHF6r4M4qBMec0Q6Neq2NwFvbaEPBunEXG3WbBT2CIg2nP4Fl9L79bXkaDjwPYa6HZWovCMYBGh8lKb3rzTELhn72/XAY3LvYxcf10s3i9OaoIzJG4tXg/tJVznXeVXjoUyjW6FMFTDE2vsC5TfEPaausPyEjO7Jimmfv9WAfDae15m/ZSRSb9h/SYifbLWp8fZz6pkHuHNrvNwLVhQzqELYCOS/LEWSzppMV0dHtQzP01XwZJKGLOYmddySv3rOwII4Tqd0usvS+opNpcSK190cQyRCyPxXdPNgqR0p5E/bwkWT1yk+g2q7PGJgbEdfRKXT7jq9lL30crbm1pQMmfdvhJUcfI7sqwIapoXYoeZYOenMDj5pFJnzmPRGgfivri1vS6e9x+uy1uJMCfg0HstuDVbrpFsKXh9G/o2RrbOkijP8L/odo8HiDuDyyWLXhAYpzjvTnCzRb3cf19MdJwsDS3Z76DQ8mccVyUYGzKeNOvKTqipqr6EXSKlRZg8Z2RlXpBCZpjxVO41KQJ33i2QT1FVQ8EiWoRCRKgPUVIvBNI/m/a4UwbmbH0vC+GluNQRnoRjBA/PsuON2EfqDAleURh8RlNXpFyHGhxjWGiLYW9YVJZ+jxUDKDXrrJwLZM14fhQihjgPWgzNNXjLA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7996.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?loIK/d+NJUcGvTov20LAbL4h+0pMICbvhCbwbVlIdxCoUHH9W3NZir6ndFxe?=
- =?us-ascii?Q?tac9gWMcu3d7b/YoRLDbYPzvniQTxllMfvZLtXKAsSLofr/MGlmcAw+FXa6F?=
- =?us-ascii?Q?L9JCqpgwF3cUqf0dQ2PL7kCMtLYAP64OmCFZtehKhR+sBg8M0rW8/+Em2hX4?=
- =?us-ascii?Q?CCHbwX6HaL0EUZL77zwFNIZJ4up2ucW+ldnprEXFLuiqGdhZJ9mVtf2uRtar?=
- =?us-ascii?Q?hGvpK57bGXO7BsrXxPTvlu+vN5ZfcQA9JDBtlCgypSDS2p6nGV7jj9UOC7AC?=
- =?us-ascii?Q?Nj8S6BKxX9cuADNr0OdUaZT0eNwZP/xkRGJCLpUjKkdZisjP+EjQMSWTdXZw?=
- =?us-ascii?Q?QEeoFd+6cLNCsIZDZraz0u69WZbMO+05mA0aet5x0OpWFs5CeDKDjHRYSs8H?=
- =?us-ascii?Q?+6z2TmO5DHg0WQKP1ejoSO+kDV0gmC1QsRDcvdPM5lRuX2QP332WD+Nj/muj?=
- =?us-ascii?Q?rmzOg0+aslSdCeHnvAkKiEjw5GRTazILyqJ29clfNPkTjYMERG3NKdwktu/A?=
- =?us-ascii?Q?8SSwKSX9SKW1R4TPUQ+8wxPJCbIZ/4+XQXncR7Ot2uwpfrvLBVRVCHOoLuuz?=
- =?us-ascii?Q?wH22YAu3S/5TJm5exuzKQTK2WnEiPRJV6gB64D/ZqcxeIwwL1F0fw0i7Vp6h?=
- =?us-ascii?Q?yb/yMM61AXif9eG1Tn2mIGtbKJ5LkzDnnoj5pAWTiIgq2E7GxERt9EocEoxh?=
- =?us-ascii?Q?ZTMNinw/tj78e9PLEpaNmduYJJo3njCk39i7d2chaI9Ib9EINQ0+lhuxNJqc?=
- =?us-ascii?Q?Woj/zIf290KdQWIfWbqaZffrB+6+LoExsVgFvPWrTKw9IKpnX1J73ARdOy6D?=
- =?us-ascii?Q?Y9iTI8oMBXX+cQrDt79YUZ0KhIG0tVefB7gx/pjT48SEe4/DUCcQ2AFJl53i?=
- =?us-ascii?Q?tJEkbokwHYl+s+eg0kgkxJQW9pnHQEuwPaO8fD7fXPIGlAhxyxIP3rmaw54A?=
- =?us-ascii?Q?4SBeSw17nbPQZhDsPGMIVEpv30CPJoFpZ73qb3tV0z3R81aCIFvpBpiLc6aA?=
- =?us-ascii?Q?IWt9wnYL4ze96PT8WpLJNrJ7vFDyFIMMSedLIPx6TG4xl8kISABl7D0M2YR+?=
- =?us-ascii?Q?dvRiBLPXO5bkCf3N1AJu7CHSOMDWkJWG4aAcgmRWBvA2V9nZtFa2mVbo0+9c?=
- =?us-ascii?Q?rqlxVD85t3vZVUFeCFHkNqIKyJZ0lzQidrKN/lcBLjIk3rI0G1yuPl9r8sG+?=
- =?us-ascii?Q?Ng2Uw87lmRfyEtGNQvhfQU+FLybtueZXMOCr7kpUaTqhowY37dX1t4kC4blK?=
- =?us-ascii?Q?90m7epHt56tgS6XLZjKpGYQCX0cI4QxBfG7m9A0Dhkv3e3siEQOOUyluOD3V?=
- =?us-ascii?Q?VN6rzCxKb+SOadtJ+4m6n8LJtPu+l8xlTZpn92CxQMrN8vjsyKeKEUbmebit?=
- =?us-ascii?Q?2dGliWxFgsG1VvlXltBTAkh1ScaYR+lGSCUfO2m/lkLAja8PDZmPNtQ6bqdm?=
- =?us-ascii?Q?Fk/d//IEfiU0wTqvjgka3GK39b73rJYkDQbPYj9+r+TjnWIIbFSfnOr6+VsI?=
- =?us-ascii?Q?AISJstRWlHIENo+VQCqHZS1YwdueBJyrrU2VcNSqMm5WT+6IJfw0pQiQeOVd?=
- =?us-ascii?Q?PgZXBo/xEJgsvtlVzoW5XpRUbYYNS+VL2fZm4jnu+ZaS2InAksVZr055zRHm?=
- =?us-ascii?Q?lFNYbbRJtE93LQIR3f4PZ617YNZkMb75ZqauISn07GcqqpgLkApiRqH6CX2B?=
- =?us-ascii?Q?O0E2TRSf//VPbF0ccWCucFMfHnWcuU+/eR1Rgr0JT+VyqAjkS3HYWAoBuWKB?=
- =?us-ascii?Q?nfkDkRLHmw=3D=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9feeda4e-46d0-475b-0d4c-08de7a27b6f2
-X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7996.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 19:53:32.5625
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bz+dXb/uCkyyrZNw5sh0LIA1sxMw1pFcDNUljzF4ZgKoBEimyNCTj9l1TMBTFqTtavgYueJP6SftzFr5MOed3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR03MB6079
-X-Rspamd-Queue-Id: 1C51B2073D4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260301-parse_iommu_cells-v9-1-4d1bceecc5e1@oss.qualcomm.com>
+X-Rspamd-Queue-Id: 2784A208B2F
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [0.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:kevin.lampis@citrix.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[amd.com,8bytes.org,kernel.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com,oss.qualcomm.com,vger.kernel.org,lists.linux.dev,lists.infradead.org,lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[38];
+	FORGED_RECIPIENTS(0.00)[m:vijayanand.jitta@oss.qualcomm.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:maz@kernel.org,m:lpieralisi@kernel.org,m:tglx@kernel.org,m:robh@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:linux-arm-msm@vger.kernel.org,m:
+ conor@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[helgaas@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,nxp.com:email,arm.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[helgaas@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
+	TAGGED_RCPT(0.00)[xen-devel,dt];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
----
-With the first patch for intel.c this now compiles.
-https://lore.kernel.org/xen-devel/20251124111942.1325635-1-kevin.lampis@citrix.com/
----
- xen/arch/x86/include/asm/cpufeature.h | 5 -----
- 1 file changed, 5 deletions(-)
+On Sun, Mar 01, 2026 at 02:04:19PM +0530, Vijayanand Jitta wrote:
+> From: Robin Murphy <robin.murphy@arm.com>
+> 
+> Since we now have quite a few users parsing "iommu-map" and "msi-map"
+> properties, give them some wrappers to conveniently encapsulate the
+> appropriate sets of property names. This will also make it easier to
+> then change of_map_id() to correctly account for specifier cells.
+> 
+> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+> Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+> ---
+>  drivers/cdx/cdx_msi.c                    |  3 +--
+>  drivers/iommu/of_iommu.c                 |  4 +---
+>  drivers/irqchip/irq-gic-its-msi-parent.c |  2 +-
+>  drivers/of/irq.c                         |  3 +--
+>  drivers/pci/controller/dwc/pci-imx6.c    |  6 ++----
+>  drivers/pci/controller/pcie-apple.c      |  3 +--
 
-diff --git a/xen/arch/x86/include/asm/cpufeature.h b/xen/arch/x86/include/asm/cpufeature.h
-index dcd223d84f..09b1118cea 100644
---- a/xen/arch/x86/include/asm/cpufeature.h
-+++ b/xen/arch/x86/include/asm/cpufeature.h
-@@ -43,19 +43,15 @@
- #ifndef __ASSEMBLER__
- 
- struct cpuinfo_x86 {
--    /* TODO: Phase out the x86 prefixed names. */
-     union {
-         struct {
-             union {
--                uint8_t x86_model;
-                 uint8_t model;
-             };
-             union {
--                uint8_t x86;
-                 uint8_t family;
-             };
-             union {
--                uint8_t x86_vendor;
-                 uint8_t vendor;
-             };
-             uint8_t _rsvd;             /* Use of this needs coordinating with VFM_MAKE() */
-@@ -63,7 +59,6 @@ struct cpuinfo_x86 {
-         uint32_t vfm;                  /* Vendor Family Model */
-     };
-     union {
--        uint8_t x86_mask;
-         uint8_t stepping;
-     };
- 
--- 
-2.51.1
+Acked-by: Bjorn Helgaas <bhelgaas@google.com> # drivers/pci/
 
+>  drivers/xen/grant-dma-ops.c              |  3 +--
+>  include/linux/of.h                       | 14 ++++++++++++++
+>  8 files changed, 22 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/cdx/cdx_msi.c b/drivers/cdx/cdx_msi.c
+> index 91b95422b263..63b3544ec997 100644
+> --- a/drivers/cdx/cdx_msi.c
+> +++ b/drivers/cdx/cdx_msi.c
+> @@ -128,8 +128,7 @@ static int cdx_msi_prepare(struct irq_domain *msi_domain,
+>  	int ret;
+>  
+>  	/* Retrieve device ID from requestor ID using parent device */
+> -	ret = of_map_id(parent->of_node, cdx_dev->msi_dev_id, "msi-map", "msi-map-mask",
+> -			NULL, &dev_id);
+> +	ret = of_map_msi_id(parent->of_node, cdx_dev->msi_dev_id, NULL, &dev_id);
+>  	if (ret) {
+>  		dev_err(dev, "of_map_id failed for MSI: %d\n", ret);
+>  		return ret;
+> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
+> index 6b989a62def2..a511ecf21fcd 100644
+> --- a/drivers/iommu/of_iommu.c
+> +++ b/drivers/iommu/of_iommu.c
+> @@ -48,9 +48,7 @@ static int of_iommu_configure_dev_id(struct device_node *master_np,
+>  	struct of_phandle_args iommu_spec = { .args_count = 1 };
+>  	int err;
+>  
+> -	err = of_map_id(master_np, *id, "iommu-map",
+> -			 "iommu-map-mask", &iommu_spec.np,
+> -			 iommu_spec.args);
+> +	err = of_map_iommu_id(master_np, *id, &iommu_spec.np, iommu_spec.args);
+>  	if (err)
+>  		return err;
+>  
+> diff --git a/drivers/irqchip/irq-gic-its-msi-parent.c b/drivers/irqchip/irq-gic-its-msi-parent.c
+> index d36b278ae66c..b63343a227a9 100644
+> --- a/drivers/irqchip/irq-gic-its-msi-parent.c
+> +++ b/drivers/irqchip/irq-gic-its-msi-parent.c
+> @@ -180,7 +180,7 @@ static int of_pmsi_get_msi_info(struct irq_domain *domain, struct device *dev, u
+>  
+>  	struct device_node *msi_ctrl __free(device_node) = NULL;
+>  
+> -	return of_map_id(dev->of_node, dev->id, "msi-map", "msi-map-mask", &msi_ctrl, dev_id);
+> +	return of_map_msi_id(dev->of_node, dev->id, &msi_ctrl, dev_id);
+>  }
+>  
+>  static int its_pmsi_prepare(struct irq_domain *domain, struct device *dev,
+> diff --git a/drivers/of/irq.c b/drivers/of/irq.c
+> index 6367c67732d2..e37c1b3f8736 100644
+> --- a/drivers/of/irq.c
+> +++ b/drivers/of/irq.c
+> @@ -817,8 +817,7 @@ u32 of_msi_xlate(struct device *dev, struct device_node **msi_np, u32 id_in)
+>  	 * "msi-map" or an "msi-parent" property.
+>  	 */
+>  	for (parent_dev = dev; parent_dev; parent_dev = parent_dev->parent) {
+> -		if (!of_map_id(parent_dev->of_node, id_in, "msi-map",
+> -				"msi-map-mask", msi_np, &id_out))
+> +		if (!of_map_msi_id(parent_dev->of_node, id_in, msi_np, &id_out))
+>  			break;
+>  		if (!of_check_msi_parent(parent_dev->of_node, msi_np))
+>  			break;
+> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+> index a5b8d0b71677..bff8289f804a 100644
+> --- a/drivers/pci/controller/dwc/pci-imx6.c
+> +++ b/drivers/pci/controller/dwc/pci-imx6.c
+> @@ -1144,8 +1144,7 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+>  	u32 sid = 0;
+>  
+>  	target = NULL;
+> -	err_i = of_map_id(dev->of_node, rid, "iommu-map", "iommu-map-mask",
+> -			  &target, &sid_i);
+> +	err_i = of_map_iommu_id(dev->of_node, rid, &target, &sid_i);
+>  	if (target) {
+>  		of_node_put(target);
+>  	} else {
+> @@ -1158,8 +1157,7 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+>  	}
+>  
+>  	target = NULL;
+> -	err_m = of_map_id(dev->of_node, rid, "msi-map", "msi-map-mask",
+> -			  &target, &sid_m);
+> +	err_m = of_map_msi_id(dev->of_node, rid, &target, &sid_m);
+>  
+>  	/*
+>  	 *   err_m      target
+> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
+> index 2d92fc79f6dd..a0937b7b3c4d 100644
+> --- a/drivers/pci/controller/pcie-apple.c
+> +++ b/drivers/pci/controller/pcie-apple.c
+> @@ -764,8 +764,7 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
+>  	dev_dbg(&pdev->dev, "added to bus %s, index %d\n",
+>  		pci_name(pdev->bus->self), port->idx);
+>  
+> -	err = of_map_id(port->pcie->dev->of_node, rid, "iommu-map",
+> -			"iommu-map-mask", NULL, &sid);
+> +	err = of_map_iommu_id(port->pcie->dev->of_node, rid, NULL, &sid);
+>  	if (err)
+>  		return err;
+>  
+> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+> index c2603e700178..1b7696b2d762 100644
+> --- a/drivers/xen/grant-dma-ops.c
+> +++ b/drivers/xen/grant-dma-ops.c
+> @@ -325,8 +325,7 @@ static int xen_dt_grant_init_backend_domid(struct device *dev,
+>  		struct pci_dev *pdev = to_pci_dev(dev);
+>  		u32 rid = PCI_DEVID(pdev->bus->number, pdev->devfn);
+>  
+> -		if (of_map_id(np, rid, "iommu-map", "iommu-map-mask", &iommu_spec.np,
+> -				iommu_spec.args)) {
+> +		if (of_map_iommu_id(np, rid, &iommu_spec.np, iommu_spec.args)) {
+>  			dev_dbg(dev, "Cannot translate ID\n");
+>  			return -ESRCH;
+>  		}
+> diff --git a/include/linux/of.h b/include/linux/of.h
+> index be6ec4916adf..824649867810 100644
+> --- a/include/linux/of.h
+> +++ b/include/linux/of.h
+> @@ -1457,6 +1457,20 @@ static inline int of_property_read_s32(const struct device_node *np,
+>  	return of_property_read_u32(np, propname, (u32*) out_value);
+>  }
+>  
+> +static inline int of_map_iommu_id(const struct device_node *np, u32 id,
+> +				  struct device_node **target, u32 *id_out)
+> +{
+> +	return of_map_id(np, id, "iommu-map", "iommu-map-mask",
+> +			 target, id_out);
+> +}
+> +
+> +static inline int of_map_msi_id(const struct device_node *np, u32 id,
+> +				struct device_node **target, u32 *id_out)
+> +{
+> +	return of_map_id(np, id, "msi-map", "msi-map-mask",
+> +			 target, id_out);
+> +}
+> +
+>  #define of_for_each_phandle(it, err, np, ln, cn, cc)			\
+>  	for (of_phandle_iterator_init((it), (np), (ln), (cn), (cc)),	\
+>  	     err = of_phandle_iterator_next(it);			\
+> 
+> -- 
+> 2.34.1
+> 
 
