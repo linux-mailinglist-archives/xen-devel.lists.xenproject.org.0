@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wGZCFPuGqWkh+gAAu9opvQ
+	id mO+DNV2IqWki+gAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 14:36:59 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 14:42:53 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B42C8212A42
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 14:36:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1246640.1545751 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28A2D212B36
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 14:42:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1246653.1545761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy8sE-00057F-VP; Thu, 05 Mar 2026 13:36:18 +0000
+	id 1vy8xz-0006jX-I3; Thu, 05 Mar 2026 13:42:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1246640.1545751; Thu, 05 Mar 2026 13:36:18 +0000
+Received: by outflank-mailman (output) from mailman id 1246653.1545761; Thu, 05 Mar 2026 13:42:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy8sE-00055T-SJ; Thu, 05 Mar 2026 13:36:18 +0000
-Received: by outflank-mailman (input) for mailman id 1246640;
- Thu, 05 Mar 2026 13:36:17 +0000
+	id 1vy8xz-0006h5-Ew; Thu, 05 Mar 2026 13:42:15 +0000
+Received: by outflank-mailman (input) for mailman id 1246653;
+ Thu, 05 Mar 2026 13:42:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=00Q8=BF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vy8sD-00055N-7Y
- for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 13:36:17 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
+ id 1vy8xx-0006gz-Rh
+ for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 13:42:13 +0000
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [2a00:1450:4864:20::436])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 475ac266-1898-11f1-b164-2bf370ae4941;
- Thu, 05 Mar 2026 14:36:13 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-48374014a77so97281095e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 05 Mar 2026 05:36:13 -0800 (PST)
+ id 1d1ff0f1-1899-11f1-b164-2bf370ae4941;
+ Thu, 05 Mar 2026 14:42:12 +0100 (CET)
+Received: by mail-wr1-x436.google.com with SMTP id
+ ffacd0b85a97d-439b9cf8cb5so3993530f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Mar 2026 05:42:12 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4851fae5dbdsm41110415e9.8.2026.03.05.05.36.12
+ ffacd0b85a97d-439af926c53sm44193969f8f.8.2026.03.05.05.42.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Mar 2026 05:36:12 -0800 (PST)
+ Thu, 05 Mar 2026 05:42:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,64 +50,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 475ac266-1898-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 1d1ff0f1-1899-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772717773; x=1773322573; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772718132; x=1773322932; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TeN15VvfRLf2TeAbtoLUEDpP2YthgE2+O/U8siRzkGs=;
-        b=H3m7VAItWJzBeTRQthVOiVkZ2Vxq8uRJDYtcEmGDwR0eJekc++kzpzlLRkBPPQ1KcT
-         mrV366aYhWmU3ttLQ2rrAd9SAnkfMqVDGuD1qwhP/vOqa1ur5+L8D6fwwCmDH2uY92kk
-         Xov/yJ6aCKNUDyBgUkgthnA+lnkWQKIFD2PeRXjmIiqLVpaMrKArs2Kd5lfeXCnD8nJg
-         EnLK5Svv+b6/93xhaqfPB8y0OK1BDMLBdkxewJCaxdS2B7t/leH/IzkAx+2TWiFeOMzO
-         Qp1NyVUfquwgvSV8AeVNRu45LJhKseMAAFpdMAN01BEbnmo3zIJ3beeLSQvz1w5w3I7J
-         GFPA==
+        bh=MGPu7Ut75IVW+faT5wPACbbODt9XdGXp1pSw46SMeG4=;
+        b=A6UdqnmGGsrZP8Ukug9IqyIT80cZFxi2Rcqo9u+HCFFopA4swdpwkJrIZYsgwaJ2wd
+         g3XY+t4mvzB84yHKyQMSyLfmsm3hgK/h6fWAnwpSvzHSjc9061bECG+vIhKA4AxoENkx
+         j4nJYo+gkdnY2l/zFTfapCkq6mzkU9eDwPyCjY/dCVDImXYxw6Mrxb6NZkxyA+jiLGfQ
+         F6ZttSsXzvZBuVmU2KVkA97IKnyOPq023gFdb5xywirPBN2nLzes8Sgs+BD0cxY0MzRq
+         pbqzmi3uXxKOkNydAJpL8ZNprhBS7Ooai+AF1bQPyaiPBYAcFwRnJ4aqG2uJTCGmzur7
+         /Cuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772717773; x=1773322573;
+        d=1e100.net; s=20230601; t=1772718132; x=1773322932;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TeN15VvfRLf2TeAbtoLUEDpP2YthgE2+O/U8siRzkGs=;
-        b=vxEjIuD/eNyw+bYUIIznloyv10hLsfFvPjyrk5PBSqQyfZQ1HJtqCSfaCa8sFBotl8
-         q8Mq5Vl4sy3rdOLzRSeUiDMqlp8DhWMsGgRkhgNEffTeSpyNx6/Og+78ugzXE3kLQtSv
-         fMCxD9mKDA25U/9h1lJl5ymmy7zh++9WpEvCIqjBb3h6OjaoobLf7ouETj7ksnje58w4
-         1DVsJYoOq1xwkuvVAZy2H5lkmK2QxJqMK5uZgOo06fnF9gqKIWXIaKyfsXQ/baq6r8Il
-         ghTFaDyZbmQtzjAQ/TKQwFwKrsNSLGooShvk8GsjUmPbZscgs2cemnd1Z9gqvin5Tt/W
-         kceg==
-X-Forwarded-Encrypted: i=1; AJvYcCVN+g/AQXjeZ32leUNBGsdbGJ2k8hP1lVwkj75XI2hec3vSI3jSZ8I/aWsSiHOK2oJ9hToH3cUqLUY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzUf2JWpI3OF7mwzbZ2E0og5KCWAtjKO2HZvFtBdYRP+sFub1pA
-	p8eV30v8UiqtrFsZwXLCrOKMWVWajuhUyYgI1ijWwe/juL9bkCcDXXgmmNjrOwhstw==
-X-Gm-Gg: ATEYQzxWktgOvytHlS7OLSmlUMnk1OBzMwjMm1AwAIXSCpIntK93QDoYYV6EXi8eNQR
-	V+jIRqWORb7VtJYSabDPlnx1Ul9sP80WsVQaM8J/v3xSZDvPqov2pJ+vSxLAGoIxByZ0sfanidd
-	Zs1xMoilKYM6eS6xR9140uWRO/9OAiPjo2YsaKBD6+4P5rXNol0XQGHWcOGRk9EbWqFTDD5swzi
-	UPtyHAjdkP+Kl6VuMFx3kl1fmkq96Q4ZHoMXepiqZxF2PYedNmwEW41YsWUGs6LsPl+PQb+m+Ru
-	XbKSgfqsQhvo9I3X0XRPOEFvQZpO+C2GmLfyKfmUIjzdKrtFhwlDmN028Wtkq0nnXGj2e61w9xN
-	4lWr8QtzTchbxfqhpc201oFnd2zpLqrB1WeGLc/0NtHXYUoEVL10jkaXHN3TFVSk9PUi1coNmvp
-	RxKrXMVBr1A48LNd+X2eYwZm9pgIqMGFieq/FcwDZVjdy5NlZVIUlAlOH0yPTtYeBnMu/mg3ZAp
-	M2QBgaVThPvvfd2Y5YeOgA5+w==
-X-Received: by 2002:a05:600c:8b01:b0:477:7bca:8b2b with SMTP id 5b1f17b1804b1-485198554c3mr102428345e9.15.1772717773045;
-        Thu, 05 Mar 2026 05:36:13 -0800 (PST)
-Message-ID: <cea8125a-e111-4dd7-a314-4d04c7270b70@suse.com>
-Date: Thu, 5 Mar 2026 14:36:10 +0100
+        bh=MGPu7Ut75IVW+faT5wPACbbODt9XdGXp1pSw46SMeG4=;
+        b=tFXNXe1LRqMg/Qba4dC6qwGpBXTivkwB5ycaGQts0FgFLyCXEtoQsNt7BHsh67peyU
+         sKvtuqJgUTuvGCoPl2s03ZQFm3aJMPCRCU49irGs92acl0AwN3rAQNxFYgdLYJizPgRq
+         N2ipJR35CPWEs6Kc3ijIONN8vklYs2p5N4XjBHVr7jpmLsoWlDBKgw4WxfjsMEAVzfY+
+         I9PSDjbUGT2/ReooB4iZ1aK3xtRvMhH89fsWC4jz2fmdErbZWTqXa7BDDraxsx7vd9LS
+         z8ZIbF+VtBuxoLihwf0F1J+OM3+It9+EMfiONpV1nmQKlc2bneB3ZXdRp5uNj5dowCJt
+         sopA==
+X-Forwarded-Encrypted: i=1; AJvYcCW2zXtoVmRESbqmjQYN29IPATzAOaRy+9zK3cHdQyMO0Qq0ApE3qm6klI2tLqcRh013obRA7o33zV0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzDz7ustER49mZ7i6nNUMHJ5+Iim5WBEs9d0B0w9Tx2jrsh8esn
+	LObhRgLzbq1F1osJxXXRyuKJt8QlkLqRVJ1bU15wrhJn5RAP9TZXnSd+JiyqERW6EA==
+X-Gm-Gg: ATEYQzwH/ENbnLPY9zkBlpEYdZrpLFMMepnzCRiUWUqilK7TfLTM5CwUsskWAZZUAEB
+	4mAEBBK/wZ+ofbsKheSoz1VpTPFCb0WF0TvFIelAmVzNi9knJSQEn45nEi0sSgqppQG3YYcxuFb
+	k/voTOYoErazuH6Gx/oycum8UTxRUh8GN0Gq6Ls9BJaCdWMsQLZp9eMIVKmL65EasMsUritm2lJ
+	L/y3fKpy7LypKnDlWDmsl2jsRKV0UyFvNgwFvf5NmM597gT/1IHIbWHAjt8spQx/dqpGVehzvyY
+	EvqSwYQoPckyMTtKl9S6tLGzJ70bvIsfUrTyaQzfWsXQlk5lMlGAYag2ktGzT9u1bX2TxyEmdQC
+	v8JhyIbiMuj6YLb2NCXzZXXDnCvw+IL+GvMG9oEu78ijvgbnXhyW6AbMJMqIITrz8FMn/bSjN6C
+	COW/YKvjju5eXQ4VIAq0ZzAevnVInMdEkBFZlW0k0O2bZtcBkD7xjfeRHxK4g4zjRGUI1Pfp7+f
+	RAvzcQ9KwA/+4w=
+X-Received: by 2002:a05:6000:2404:b0:439:bce5:64fb with SMTP id ffacd0b85a97d-439c7fae131mr10442482f8f.23.1772718131557;
+        Thu, 05 Mar 2026 05:42:11 -0800 (PST)
+Message-ID: <2662bcd2-2403-4e43-92c9-a51b17c938f2@suse.com>
+Date: Thu, 5 Mar 2026 14:42:09 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/10] xen/page_alloc: Implement NUMA-node-specific
- claims
+Subject: Re: [PATCH v4 06/10] xsm/flask: Add XEN_DOMCTL_claim_memory to flask
 To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-Cc: Andrew Cooper <andrew.cooper@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Marcus Granado <Marcus.Granado@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Alejandro Vallejo <Alejandro.GarciaVallejo@amd.com>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
 References: <cover.1772098423.git.bernhard.kaindl@citrix.com>
- <6927e45bf7c2ce56b8849c16a2024edb86034358.1772098423.git.bernhard.kaindl@citrix.com>
- <1497b37d-f47a-41c6-8037-a00a555d13a0@suse.com>
- <LV3PR03MB7707BD13DBB8516C60B06927877DA@LV3PR03MB7707.namprd03.prod.outlook.com>
+ <8e5680575f37ce67a81a4c712e5409ccb3f6f612.1772098423.git.bernhard.kaindl@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,176 +124,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <LV3PR03MB7707BD13DBB8516C60B06927877DA@LV3PR03MB7707.namprd03.prod.outlook.com>
+In-Reply-To: <8e5680575f37ce67a81a4c712e5409ccb3f6f612.1772098423.git.bernhard.kaindl@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: B42C8212A42
+X-Rspamd-Queue-Id: 28A2D212B36
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo,citrix.com:email];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:andrew.cooper@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Marcus.Granado@citrix.com,m:xen-devel@lists.xenproject.org,m:Alejandro.GarciaVallejo@amd.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:dkim,suse.com:mid];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:dpsmith@apertussolutions.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_THREE(0.00)[4];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On 05.03.2026 14:12, Bernhard Kaindl wrote:
-> Jan Beulich wrote:
->>> +    d->claim_node = NUMA_NO_NODE;
->>
->> If, as the cover letter says, the new domctl is going to allow claiming from
->> multiple nodes in one go, why would this new field still be necessary?
+On 26.02.2026 15:29, Bernhard Kaindl wrote:
+> Add a Flask security policy for the new XEN_DOMCTL_claim_memory hypercall
+> introduced in the previous commit. When Flask is enabled, this permission
+> controls whether a domain can stake memory claims for another domain.
 > 
-> Roger requested the domctl API to allow claiming from multiple nodes in one go
-> and he specified that we should focus on getting the implementation for one
-> node-specific claim done first before we dive into multi-node claims code.
+> The permission is granted to:
+> - dom0_t: Dom0 needs this to claim memory for guest domains
+> - create_domain_common: Domain builders need this during domain creation
 > 
-> - Instead of adding/linking an array of claims to struct domain, we can keep
->   using d->outstanding_pages for the single-node claim.
-> 
-> - There are numerous comments and questions for this minimal implementation.
->   If we'd add multi-node claims to it, this review may become even more complex.
-> 
-> - The single-node claims backend contains the infrastructure and multi-node
->   claims would be an extension on top of that infrastructure.
+> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+> ---
+>  tools/flask/policy/modules/dom0.te  | 1 +
+>  tools/flask/policy/modules/xen.if   | 1 +
+>  xen/xsm/flask/hooks.c               | 3 +++
+>  xen/xsm/flask/policy/access_vectors | 2 ++
+>  4 files changed, 7 insertions(+)
 
-What is at the very least needed is an outline of how multi-node claims are
-intended to work. This is because what you do here needs to fit that scheme.
-Which in turn I think is going to be difficult when for a domain more memory
-is needed than any single node can supply. Hence why I think that you may
-not be able to get away with just single-node claims, no matter that this
-of course complicates things.
+Oh, here's the missing XSM/Flask change. First - this cannot come after the
+introduction of the sub-op. If it can be split and come first, fine. Else it
+needs to be folded in.
 
-It's also not quite clear to me how multiple successive claims against
-distinct nodes would work (which isn't all that different from a multi-node
-claim).
+> --- a/xen/xsm/flask/hooks.c
+> +++ b/xen/xsm/flask/hooks.c
+> @@ -820,6 +820,9 @@ static int cf_check flask_domctl(struct domain *d, unsigned int cmd,
+>      case XEN_DOMCTL_set_llc_colors:
+>          return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__SET_LLC_COLORS);
+>  
+> +    case XEN_DOMCTL_claim_memory:
+> +        return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__CLAIM_MEMORY);
 
-Thinking of it, interaction with the existing mem-op also wants clarifying.
-Imo only one of the two ought to be usable on a single domain.
-
->>> +static unsigned long node_outstanding_claims[MAX_NUMNODES];
->>
->> How come this is being added, rather than it replacing outstanding_claims?
-> 
-> The global outstanding_claims variable counts the host-level claimed pages.
-> 
-> It has the sum of all host-level claims that are not specific to a NUMA node
-> and also the sum of all node-specific claims (see more on that in an answer
-> to another question further below).
-> 
-> If we were to replace it, we'd not have the outstanding_claims counter,
-> which would result in not supporting global claims anymore in Xen.
-> 
-> If a toolstack would want to claim more memory than a single NUMA node
-> has, someone would have to go loop over all NUMA nodes with enough memory
-> and split the claim across a number or per-NUMA-node claims.
-> 
-> - This would be less flexible than what we have with it: With it, we can
->   still support host-level claims without those claims be placed on
->   specific NUMA nodes.
-> 
-> - This allows for many domains to be built in parallel where some
->   domains are built with claims specific to specific NUMA nodes, while
->   allowing the other domains are built dynamically at allocation time
->   from any remaining memory wherever that memory remains to be available.
->   
-> - There are use cases where the memory of some domains shall be spread
->   across NUMA nodes to have the memory bandwidth of those NUMA nodes
->   available to the individual processes in the guest domain but still
->   want the assurance of host-level claims for claimed memory when
->   constructing of many domains in parallel on a host.
-
-All fine, but why is this written down only in a reply to review comments,
-rather than right in the patch description?
-
->>> +/* Return available pages after subtracting claimed pages */
->>> +static inline unsigned long available_after_claims(unsigned long
->> avail_pages,
->>> +                                                   unsigned long claims)
->>> +{
->>> +    BUG_ON(claims > avail_pages);
->>> +    return avail_pages - claims; /* Due to the BUG_ON, it cannot be negative
->> */
->>> +}
->>
->> A helper for a simple subtraction?
-> 
-> It is about not having to repeat the BUG_ON(claims > avail_pages) everywhere.
-
-Which in turn I should have said I question. Imo this is supposed to be an
-ASSERT(), not a BUG_ON().
-
-> Also, the name of the helper makes clear what the result of the expression is,
-> So when using it, the flow of the code is more natural to understand.
-> 
-> Having to repeat the BUG_ON() everywhere would make the code less readable.
-> The BUG_ON() is good when refactoring as a guardrail when you broke the code.
-
-I'm not quite sure there.
-
->>> +/* Answer if host-level memory and claims permit this request to proceed */
->>> +static inline bool host_allocatable_request(const struct domain *d,
->>> +                                            unsigned int memflags,
->>> +                                            unsigned long request)
->>> +{
->>> +    unsigned long allocatable_pages;
->>> +
->>> +    ASSERT(spin_is_locked(&heap_lock));
->>> +
->>> +    allocatable_pages = available_after_claims(total_avail_pages,
->>> +                                               outstanding_claims);
->>> +    if ( allocatable_pages >= request )
->>> +        return true; /* The not claimed pages are enough to proceed */
->>> +
->>> +    if ( !d || (memflags & MEMF_no_refcount) )
->>> +        return false; /* Claims are not available for this allocation */
->>> +
->>> +    /* The domain's claims are available, return true if sufficient */
->>> +    return request <= allocatable_pages + d->outstanding_pages;
->>> +}
->>
->> This only uses variables which existed before, i.e. there's nothing NUMA-ish
->> in here. What's the deal?
-> 
-> The deal is that for taking unclaimed memory beyond the remaining claims
-> Into account for deciding that the host has usable memory for a domain with
-> a claim, the needed if-expression would be quite complicated to understand.
-> When factoring this logic into an if expression without extracting it into
-> a function, it would bloat flow alloc_heap_pages(), especially if one would
-> want to have the comments. I'm not sure if this is a good idea.
-
-I guess I don't really follow: Right here all you do is transform a complex
-if() into one that calls this function, with no functional difference. This
-function isn't changed by subsequent patches. Hence what's the concern?
-
-That said, I don't mind breaking it out, but as said - as a separate change,
-and then with its NUMA counterpart preferably folded in.
+You don't need two XSM checks, I don't think. As you use xsm_claim_pages(),
+all you need to do here should be to add a case label to the "These have
+individual XSM hooks (common/domctl.c)" block.
 
 Jan
 
