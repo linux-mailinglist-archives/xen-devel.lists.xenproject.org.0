@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aGj/DCM8qWkd3QAAu9opvQ
+	id YIhEKLE8qWmW3QAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 09:17:39 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 09:20:01 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9177720D575
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 09:17:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1246267.1545471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E9F220D5FF
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 09:20:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1246275.1545481 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy3tg-0004JC-E4; Thu, 05 Mar 2026 08:17:28 +0000
+	id 1vy3vS-0004pm-Oy; Thu, 05 Mar 2026 08:19:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1246267.1545471; Thu, 05 Mar 2026 08:17:28 +0000
+Received: by outflank-mailman (output) from mailman id 1246275.1545481; Thu, 05 Mar 2026 08:19:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy3tg-0004Go-BA; Thu, 05 Mar 2026 08:17:28 +0000
-Received: by outflank-mailman (input) for mailman id 1246267;
- Thu, 05 Mar 2026 08:17:27 +0000
+	id 1vy3vS-0004n4-M1; Thu, 05 Mar 2026 08:19:18 +0000
+Received: by outflank-mailman (input) for mailman id 1246275;
+ Thu, 05 Mar 2026 08:19:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=00Q8=BF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vy3tf-0004Gi-Lz
- for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 08:17:27 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1vy3vR-0004mh-Hh
+ for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 08:19:17 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id be9cfc8e-186b-11f1-b164-2bf370ae4941;
- Thu, 05 Mar 2026 09:17:26 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4836f363ad2so90834185e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 05 Mar 2026 00:17:26 -0800 (PST)
+ id 001bf376-186c-11f1-b164-2bf370ae4941;
+ Thu, 05 Mar 2026 09:19:16 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4836d4c26d3so59982355e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Mar 2026 00:19:16 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4851fae0202sm34657045e9.6.2026.03.05.00.17.25
+ 5b1f17b1804b1-4851faf089csm20814995e9.12.2026.03.05.00.19.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Mar 2026 00:17:25 -0800 (PST)
+ Thu, 05 Mar 2026 00:19:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,55 +50,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be9cfc8e-186b-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 001bf376-186c-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772698646; x=1773303446; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772698756; x=1773303556; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QEjeYz6lnIlzwxWNrjsCG0up/pNF6u3rQp6W7WOXyaA=;
-        b=RN+1F8fOi93FZ/Iz2PcbpI0nCJcTRweCiG+Lq3Tq72Q/72JObprmHIgRw+2XCyQj8q
-         cWD87rE6SbZo7HyyH9BG3vvx8LJQmzWAuWxixTc+8LZreQU13e0ZQx/BUUbZZClYlec/
-         Wf9w99JRH2IniSYnLJu40ywCxtLlihPmnt0B5Z19X/9wjBNly9/Q7FWKplWyYwZw+M2d
-         kSiA6i8v5JncWk+btsZFhO8WvfSHur9EouSdkkpDa2/lh9hp4izeLSZU6aw96ucAxJVQ
-         93WIHXQEShtNyULdJCzBIY9umQVNFpjeOGPXRA4YF7HMgRJm0gDwitW45qPcYaAhahoZ
-         Pu/w==
+        bh=RT5LRfOTjxi11ExpjXBqs4bzGkA0Zt33gMWSQGL1UJE=;
+        b=Ap5k6W8xVDDj2jEkcjk9pgfnq1BJ0QZxcfx6r7awHSbBFkQqB97OHZJwKdTdvr82Tp
+         S4NJlrSG0Axya114mUiZ1BKSotKvrxxw9gp+aKNP8jcUsPVqFE08H9dd1Z5VfKlL6vbh
+         +FOwJemMkKp03+/lRSxTZP6bQfhvreeEOYv3yXmWsI1aKsisnTrQgYqBFM79Lgeasn4e
+         5PmwTUsgcjNMmiU0HG1C12shPoZsRkqRtfaaD2TSmPEYb9TguF/9fs2yl9zA7QAEzHIn
+         SUPeXbM08mrLclJ8MppEQ38C983CXE6tj2hlH2YqskWVmVICZw/DK/vCeu7zmHFIy8tz
+         JQXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772698646; x=1773303446;
+        d=1e100.net; s=20230601; t=1772698756; x=1773303556;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QEjeYz6lnIlzwxWNrjsCG0up/pNF6u3rQp6W7WOXyaA=;
-        b=O9FeSIBGKFykBSFMvYB/VYTr8ch2MZ636A+uoDZfxHN/tqNxYuAJ1Q/IpgEGRF0lIT
-         1YpFpYvw9ivbfVe1MeZgRg8k7Z15ZeEg/3MN1I4gc8v2RnWZAAepHGWOL4KhU3EYeQpr
-         k/Xy23VwS2bT3vDMvHkIJUT6ll1n1AjjtF2FPQ7+OrC86iOz0Oqvv3aOXSWzUcLZx1lz
-         9Glu2L+O0Z7+czTxUOQJZSH4rRQ8NYyibQixE//7Ko0W0cNqhl5T0YW5sdLaM/e8QLpl
-         VSO+8ikgTzAjU3ceJg/zeiU5bxO9bAHZ0nQHOgE5pk+q/VMWDhJZhDaZcAeHaKbUkGhU
-         BhBQ==
-X-Gm-Message-State: AOJu0Yy8iVV2KrjFlOWSQhQzDho2+q/NR2PF+A8FQTMts5BRHSLJY7Sz
-	ZSvsDqzFACGVLLVPcPiVCKVubXfpaLMn7TnZuBsZSPw9oRZl2jwMrFiw8W5P70O0Lg==
-X-Gm-Gg: ATEYQzzE6y5He/qPPWXGgeHZhyThfVU2U1Y81i6gKHV6KI+tJWgxqeonDYPxaFDS+IF
-	QXjBP0nqo8h6Rvyo/G6FZZjI/xG62vPCkayBYieQ4YuOwJ3VxFejsDVKWEE+Y1Bsle+Fdu4P8Im
-	iw+yt1AJs9ASzc62K8UAhFkHU4o3fo32e59FLB6i1c994871f6UFUYXXVa5gxg+P7wo1Dqj5cz+
-	lVD+bVCC8vfOEPkYzWTa+SXujt+1XYBTFEyEyYnF7vJEbLN1FEtUn+V70GOBHDXBWXqwV/vUgS4
-	HT/bQtpdE+H8elQLP6tN4BXra/Sgpxc6WJI0ZJDw2Oci5cDHzlSg3rxYiYY1JrA2MDjQ/0l1YoE
-	z7XXBKS11f1vEaux3q+g0gMyCBw+EEgLx49eqkl/CXXfxlT7XLwv/7lLphbshG0WhZghOxfZ3V+
-	U1+wTS715YYYCoBnDWAAbRQtijYjbhVI58cbgNyIqCIaQwof7+fflcBxO9kjRDMOM0YQzcUKCR0
-	gn1x4Up3bo5k2Y=
-X-Received: by 2002:a05:600c:8b86:b0:483:3380:ca0c with SMTP id 5b1f17b1804b1-485198bf9f7mr98613605e9.35.1772698645782;
-        Thu, 05 Mar 2026 00:17:25 -0800 (PST)
-Message-ID: <3449aaf7-b221-4c45-9d22-54e340167b3f@suse.com>
-Date: Thu, 5 Mar 2026 09:17:23 +0100
+        bh=RT5LRfOTjxi11ExpjXBqs4bzGkA0Zt33gMWSQGL1UJE=;
+        b=kHo0JRegUDpHgQG+coYfTQzQGjNGzsNEiyswA32mD79ifeuGJcelIcJTVuUX8DX0cP
+         BMITnrzHYJPp0VPC8QeNbpXukDOJCcYhD1hoTx3BbjKsxgOcHuhf+yMIInWB/IU2a9yM
+         9r6jbARoBDPD7bt0Y95KcUmH5KtKHgwnxD/oAYGA07RmUwvn9ZVZ1pQFLkBIwOA+sdTg
+         Pzh1RBchEdY+Wj+5adMoE5yuLOzDPuYMOzwZBkDgOltwY3Q50WPtNoQkox45xuru3Y/E
+         nEomBxJsFqigpqdUc5Tp1SY3fnQtRZqVDZXbLivExWM6xiM/+GPrni5xsxehgCnUxBse
+         1rtg==
+X-Gm-Message-State: AOJu0YzZLxfDhDUw45Pq0tgDOgwpMSCcPNDwvERKo4aE4hhDScKlh6Rr
+	XWlY8tih8vnpZa4tyPsviV5FOM855Hb0zIIXmL1w+RrftkXJqWSIRAs0tcPWxhI1Pg==
+X-Gm-Gg: ATEYQzwNsxivuLKNfd5yrdmuU1Sdc2k7AW1tPAKJmTZIH83R6lB5PZeQCIJVkcu3Pl7
+	jjg9pnKVpjWWdaxmyGh5A8HDWbB1P7CoKTcn2yeaDzxQUQ17MOfcJl49M/G+zDQ8MRcaLKMAwHu
+	O6tJP492xchwlhxH5JsdRyqWcvLGopUNteYTsfUpqFwxNJrg4K3ArzIIJ8c01BdTfXt8u/THHRB
+	R55WnqTINissQ5AP2WuLZkjW30Yp5rcxoCDIyQpOMWaLe4ir8MjQVFUdHAlXqUDPbQC7PmgaT5A
+	vbkhQS3sNbknSc8baWW2IrUh+acutaAm8e+RHiDipcBiM21diLfyx6pQlzuX54mvss8xwNWKmBv
+	wWC09E4A2uHfVNFuoks0o8v31mZsgMizJ2st+xO2rzkwZAh0J8CPzINSBBDdCCO6JnazcEc8pyV
+	nnHslC+QSkL0xbOqVlEPRMk8m5EM385Wp18lDIRWmbHIvDLzU8/8C3+eL5w8w1XFAzWPzlTVXP/
+	OLMDou4VPfK3fZxpcGAGvA2BA==
+X-Received: by 2002:a05:600c:6098:b0:471:1717:411 with SMTP id 5b1f17b1804b1-48519888e49mr80752505e9.24.1772698755702;
+        Thu, 05 Mar 2026 00:19:15 -0800 (PST)
+Message-ID: <a0d1d51a-4819-421a-8947-a8271609cc9a@suse.com>
+Date: Thu, 5 Mar 2026 09:19:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/ACPI: _PDC bits vs HWP/CPPC
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Penny Zheng <Penny.Zheng@amd.com>
-References: <ca1812c2-dadf-422a-a195-9c285ce08077@suse.com>
- <aahfgDDNVwJPa-jF@macbook.local>
+Subject: Re: [PATCH v3] vpci/msix: check for BARs enabled in
+ vpci_make_msix_hole
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>
+Cc: xen-devel@lists.xenproject.org
+References: <20260226025740.71673-1-stewart.hildebrand@amd.com>
+ <aahOeefbhHq7IZZx@macbook.local>
+ <1e62a5ad-f865-4477-a899-0182dec38901@amd.com>
+ <aahjwTA0LLm7JISA@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,10 +126,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aahfgDDNVwJPa-jF@macbook.local>
+In-Reply-To: <aahjwTA0LLm7JISA@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 9177720D575
+X-Rspamd-Queue-Id: 0E9F220D5FF
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -136,99 +138,71 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:jason.andryuk@amd.com,m:Penny.Zheng@amd.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo,citrix.com:email,suse.com:dkim,suse.com:mid];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	FORWARDED(0.00)[mailman];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:stewart.hildebrand@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_THREE(0.00)[3];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On 04.03.2026 17:36, Roger Pau Monné wrote:
-> On Wed, Mar 04, 2026 at 03:37:25PM +0100, Jan Beulich wrote:
->> The treatment of ACPI_PDC_CPPC_NATIVE_INTR should follow that of other P-
->> state related bits. Add the bit to ACPI_PDC_P_MASK and apply "mask" in
->> arch_acpi_set_pdc_bits() when setting that bit. Move this next to the
->> other P-state related logic.
+On 04.03.2026 17:54, Roger Pau Monné wrote:
+> On Wed, Mar 04, 2026 at 10:39:56AM -0500, Stewart Hildebrand wrote:
+>> On 3/4/26 10:23, Roger Pau Monné wrote:
+>>> On Wed, Feb 25, 2026 at 09:57:38PM -0500, Stewart Hildebrand wrote:
+>>>> A hotplugged PCI device may be added uninitialized. In particular,
+>>>> memory decoding might be disabled and the BARs might be zeroed. In this
+>>>> case, the BARs will not be mapped in p2m. However, vpci_make_msix_hole()
+>>>> unconditionally attempts to punch holes in p2m, leading to init_msix()
+>>>> failing:
+>>>>
+>>>> (XEN) d0v0 0000:01:00.0: existing mapping (mfn: 1c1880 type: 0) at 0 clobbers MSIX MMIO area
+>>>> (XEN) d0 0000:01:00.0: init legacy cap 17 fail rc=-17, mask it
+>>>>
+>>>> vpci_make_msix_hole() should only attempt to punch holes if the BARs
+>>>> containing the MSI-X/PBA tables are mapped in p2m. Introduce a helper
+>>>> for checking if a BAR is enabled, and add a check for the situation
+>>>> inside vpci_make_msix_hole().
+>>>>
+>>>> As a result of the newly introduced checks in vpci_make_msix_hole(),
+>>>> move the call to vpci_make_msix_hole() within modify_decoding() to after
+>>>> setting ->enabled.
+>>>>
+>>>> Fixes: ee2eb6849d50 ("vpci: Refactor REGISTER_VPCI_INIT")
+>>>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+>>>
+>>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>
+>>> Thanks.
 >>
->> Further apply ACPI_PDC_P_MASK also when the amd-cppc driver is in use.
+>> Thanks!
 >>
->> Also leave a comment regarding the clearing of bits and add a couple of
->> blank lines.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Including XEN_PROCESSOR_PM_CPPC may need accompanying with some change to
->> arch_acpi_set_pdc_bits(), but it's entirely unclear to me what to do
->> there. I'm unaware of an AMD counterpart of Intel's "Intel® Processor
->> Vendor-Specific ACPI". Plus even when the powernow driver is in use, we
->> never set any bits, as EIST is an Intel-only feature.
+>> I would like to point out that this now needs a rebase:
+>> The helper vmsix_table_bar_valid() should be moved to the new private.h.
+>> I'd be happy to send v4, assuming I can retain your R-b.
 > 
-> We possibly never need to set any bits there for AMD, as those _PDC
-> Processor bits are Intel specific?
+> Sure, please keep the RB.
 
-Indeed, that's a possibility.
-
->> --- a/xen/drivers/cpufreq/cpufreq.c
->> +++ b/xen/drivers/cpufreq/cpufreq.c
->> @@ -694,14 +694,23 @@ int acpi_set_pdc_bits(unsigned int acpi_
->>      {
->>          uint32_t mask = 0;
->>  
->> +        /*
->> +         * Accumulate all the bits under Xen's control, to mask them off, for
->> +         * arch_acpi_set_pdc_bits() to then set those we want set.
->> +         */
->>          if ( xen_processor_pmbits & XEN_PROCESSOR_PM_CX )
->>              mask |= ACPI_PDC_C_MASK | ACPI_PDC_SMP_C1PT;
->> -        if ( xen_processor_pmbits & XEN_PROCESSOR_PM_PX )
->> +
->> +        if ( xen_processor_pmbits &
->> +             (XEN_PROCESSOR_PM_PX | XEN_PROCESSOR_PM_CPPC) )
-> 
-> Currently the CPPC driver is AMD only, and hence when using it we
-> don't care about filtering the _PDC bits, because the ones Xen knows
-> about are Intel-only?
-> 
-> As you say, we likely need some clarification about whether there's
-> _PDC bits AMD care about?
-> 
-> Linux seems to unconditionally set bits in _PDC, so some of those
-> might actually be parsed by AMD.
-
-Or it setting whatever it wants is meaningless on AMD systems. Where I
-have extracted ACPI tables readily to hand, there's no _PDC there.
-
-> I think we might want to split the setting of XEN_PROCESSOR_PM_CPPC
-> here from the addition of ACPI_PDC_CPPC_NATIVE_INTR into
-> ACPI_PDC_P_MASK.  The latter we can possibly untie from the questions
-> we have about AMD usage of _PDC.
-
-Hmm, yes, I can certainly split the patch. I'm looking at it a little
-differently, though: Us leaving any P-state related bits in place when
-cpufreq handling is done in Xen has been a mistake anyway. What's
-unclear is solely whether because of us driving things some bits need
-setting (likely none if AMD systems indeed don't surface _PDC in the
-first place).
+I was actually going to see about doing the rebasing when doing my next sweep
+(pretty soon, i.e. after finishing going through email).
 
 Jan
 
