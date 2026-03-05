@@ -2,43 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iP+oFaWLqWl3/AAAu9opvQ
+	id CClDMduUqWmKAQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 14:56:53 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 15:36:11 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE5C7212DE2
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 14:56:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1246722.1545842 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D651A213922
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 15:36:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1246831.1545900 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy9Bv-0003bi-I2; Thu, 05 Mar 2026 13:56:39 +0000
+	id 1vy9nd-0003gg-Sb; Thu, 05 Mar 2026 14:35:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1246722.1545842; Thu, 05 Mar 2026 13:56:39 +0000
+Received: by outflank-mailman (output) from mailman id 1246831.1545900; Thu, 05 Mar 2026 14:35:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy9Bv-0003Yb-EV; Thu, 05 Mar 2026 13:56:39 +0000
-Received: by outflank-mailman (input) for mailman id 1246722;
- Thu, 05 Mar 2026 13:56:37 +0000
+	id 1vy9nd-0003eP-Pj; Thu, 05 Mar 2026 14:35:37 +0000
+Received: by outflank-mailman (input) for mailman id 1246831;
+ Thu, 05 Mar 2026 14:35:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=00Q8=BF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vy9Bt-0003YV-Sw
- for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 13:56:37 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Giqy=BF=bounce.vates.tech=bounce-md_30504962.69a994b4.v1-13efca2423ce456a8fffcf306fd88959@srs-se1.protection.inumbo.net>)
+ id 1vy9nc-0003eJ-TM
+ for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 14:35:37 +0000
+Received: from mail133-21.atl131.mandrillapp.com
+ (mail133-21.atl131.mandrillapp.com [198.2.133.21])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1f99a60b-189b-11f1-9ccf-f158ae23cfc8;
- Thu, 05 Mar 2026 14:56:35 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-439c56e822eso2346811f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 05 Mar 2026 05:56:35 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439b34b6252sm34182860f8f.10.2026.03.05.05.56.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Mar 2026 05:56:34 -0800 (PST)
+ id 912783aa-18a0-11f1-9ccf-f158ae23cfc8;
+ Thu, 05 Mar 2026 15:35:34 +0100 (CET)
+Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail133-21.atl131.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fRXBr2gGDz1XLMvF
+ for <xen-devel@lists.xenproject.org>; Thu,  5 Mar 2026 14:35:32 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 13efca2423ce456a8fffcf306fd88959; Thu, 05 Mar 2026 14:35:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,340 +48,270 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f99a60b-189b-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772718995; x=1773323795; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=FendGPAIk98VHbhLv0gYNMJLU5gwi51eXUlXYQkH8iQ=;
-        b=ASEqV2L22YaEDPXUJDkhx/3EU1EckgsISGb+B9H3YZhUQZxStpf8pY2RtQf7V0J3zD
-         lso5rL74oh2VXaJjQfABpx/tkCazG3Gt7/ERkg2tSw1R2bbWtdHaXnAQYicMKkiloh5j
-         wqIadoyQVYJ0oZZ1O8RS6s3PsYpo9SsdGtqUlRMhg/JJIi5Pol/cQ86HUx/V9ZvRAK9y
-         htVJ5Sy/wxfF39ZKDmsjl+wB2YZpssksiRChs9rhBTBKYq0XUxR0vPowJ1l5l5dUJwkA
-         4EBYPAKYzsUPV0oWPdscfzkRCtijtdxWiC2lwvr2/zbmKvpoay9Sude4gCrJJ0GXBzny
-         NoQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772718995; x=1773323795;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FendGPAIk98VHbhLv0gYNMJLU5gwi51eXUlXYQkH8iQ=;
-        b=sjETGAjL1Fh37Emc99rgjW5dJuT1N2Irq+bdyp41MYXjoHm7Y6Kucx5OZ0OXhNedDo
-         tGz1VcFx8vJanBjd6pFpVfZk5Wls5sDNLj3fZ/plfmMbbl20cBc3Q67K24hucsqGFZmK
-         NPyBMKg5DEjlUOo+KQnTkwgU0vwSy6/boOdvGYOnEguZMfstfwtbzMQZsYn8kwU0fjDi
-         5mfnZcQxorHkqu8GXm1gmza1nfxvwGh46pZmEutMzUzYYwi3Rc6OqwxdRI5640GoHCgV
-         vST561ZW0Bi6Z++5/U0VlVJGrMvIE4VS0MV0WFkICjxB0TzkdOSnMfwexYDCV2ko48cj
-         Fg8w==
-X-Gm-Message-State: AOJu0YwvBbgnMcwCfRE7r1GyGKwmyBA+DrxcsG8piXQLRUeLnxE+TQTP
-	RM3YJVBT3yyQ+TrymW78Ga4/vkOhJkvurXa/xIVmDJ+z5XhdW8w671Cj9zG8ywMp9hPRlGB5+72
-	h+1M=
-X-Gm-Gg: ATEYQzxrj+oH6bpePzWc1UzZbJUdY31ZoEg0H1sJz8X23Jx8/emFcTRhXf8ZxbwJB9/
-	4DOrj9NXAwg8Y9jfqvFaradE/onkInLsBkCpx86QpaQyappvl+z8DHbCGnyFzMTzuX83SP9/jlH
-	WU8IzOzYHTkogUv1HUkQo1p8pll5XkCtgnf8xqbD+MXWz4RVYK/MDSD9/tCrqmMZNCc8aZEPRQq
-	YORsLgEkgQR2fe2TabJqOxiaEzyRDAjt+uegVCvFWqYfgeTX6I2dxHC+0Cnyqp6OLtGtphjfELA
-	xBhgnp8wzTOPZHd7ZCUzwEcNlifHbgsSFcuXUZPJ6IGIFLGRscx2YoRN+xQSvTETwgZhfM031PI
-	9KWuHNiWWtfWlvi60tReASbAbij3YPgCeZjw+M/qdOrXdcInfPQnn/QNtZeB9FZl0hFeluu0svr
-	tCpd20utDZBLIn/vec4AtBPE3noEZIIrUz/q3M/L0CDHTx/mWq/wLMFDAcfVACaa7MsyQbJUtZD
-	N+86u4yKFKd/Xo=
-X-Received: by 2002:a5d:5f83:0:b0:439:be78:e1e9 with SMTP id ffacd0b85a97d-439c7fadc99mr10784072f8f.14.1772718994779;
-        Thu, 05 Mar 2026 05:56:34 -0800 (PST)
-Message-ID: <689dae19-f83d-463f-95d9-c39c15a4e45c@suse.com>
-Date: Thu, 5 Mar 2026 14:56:32 +0100
+X-Inumbo-ID: 912783aa-18a0-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1772721332; x=1772991332;
+	bh=bjjglNVu4C0tfbhCkLt2PLAJ8HDOll2Ntt8/ixuBhH0=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=zXfHRxp+TrxQO5hhELYzBehD2iWfAkQ0DIPxDo7h8rzlod5nABEUdCh0SeP0z2TDg
+	 7qX6G8LE5KCue0U9Is4AveKsLmNpHc8+Ym8544m4kgy6uC+FaxgD90awHbUsnrqkBB
+	 r0XUw/L2RSyA1E1eCYzl8JyaSvsrRbJJadA/Yd7dGNzDQ13jTSLU+tnDx97sjUyR7x
+	 1bK02eVxhdg87/ZvtHKo57D8Dfl3gntmYs8JwLfEzDv02jB6Xi0obTO3mI73xq79Du
+	 YLIrMAy1BbuxlixnpZZ0BpvcUksAHrHpcFbmOsEGQGGFgdMTDUmlL/8X5Za+3IfeJ6
+	 E4/2ufMoXj7Tw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1772721332; x=1772981832; i=teddy.astie@vates.tech;
+	bh=bjjglNVu4C0tfbhCkLt2PLAJ8HDOll2Ntt8/ixuBhH0=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=ThKiC8+JBioN8O+ChwxU+6Ucuj2UmP1MslB9Jj+uNp64bB4CXCOSV9M6yH2KghWvB
+	 qWx1PpoN/efiNH3VT0rmZvRrhllZ8Lm5bEYS/xberN8w3Xzsv+3vV/wW07axvlQBDh
+	 z6U/UKAA5+RzX1CCpF9g9U1XsiOkmAIpsT2EN6t5nyqCbj8YUAto0ONrnAoMr3hgWg
+	 oL3WLyFP/uR1LrdolNM8dMv91DA+Xf/BsT0PVADXjJcEHmFQp4MhXfGG+deTMAKM61
+	 ZnPeg32WoaKT14kqpI7kbELQLDTqMnUJYAFtUnD2tK6Tj5hPLBp1C/SBXPfaOs8+qr
+	 LTytyFv3ub6yg==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20RFC:=20unmap=5Fpage=5Frange=20optimisation=20(avoiding=20emulation=20faults=20during=20VM=20migration)?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1772721331310
+Message-Id: <42bc5972-ecd0-4a3c-9ff7-0a5246f4bd6b@vates.tech>
+To: "Edwin Torok" <edwin.torok@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
+Cc: "Ross Lagerwall" <ross.lagerwall@citrix.com>, "Juergen Gross" <jgross@suse.com>
+References: <16133EFF-88FF-467F-B78F-E96EB148C3A5@citrix.com>
+In-Reply-To: <16133EFF-88FF-467F-B78F-E96EB148C3A5@citrix.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.13efca2423ce456a8fffcf306fd88959?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260305:md
+Date: Thu, 05 Mar 2026 14:35:32 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v6] vPCI: re-init extended-capabilities when MMCFG
- availability changed
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: BE5C7212DE2
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Rspamd-Queue-Id: D651A213922
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_ALL(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:edwin.torok@citrix.com,m:xen-devel@lists.xenproject.org,m:ross.lagerwall@citrix.com,m:jgross@suse.com,s:lists@lfdr.de];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
 	MIME_TRACE(0.00)[0:+];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.171];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_THREE(0.00)[4];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-When Dom0 informs us about MMCFG usability, this may change whether
-extended capabilities are available (accessible) for devices. Zap what
-might be on record, and re-initialize things.
+Adding Juergen
 
-No synchronization is added for the case where devices may already be in
-use. That'll need sorting when (a) DomU support was added and (b) DomU-s
-may run already while Dom0 / hwdom still boots (dom0less, Hyperlaunch).
+Le 12/02/2026 =C3=A0 18:50, Edwin Torok a =C3=A9crit=C2=A0:
+> Hi,
+> 
+> When profiling a VM migration I noticed that on the sender side a signifi=
+cant (~45%) time is spent in PV Dom0 Linux taking an emulation fault in unm=
+ap_page_range [1]:
+> 
+> The call comes from zap_pte_range (pgtable_64.h, inlined):
+>   ptent =3D ptep_get_and_clear_full(mm, addr, pte, tlb->fullmm);
+> 
+> This has 2 implementations: native and a generic one where pte_clear is i=
+mplemented using set_pte_at with a Xen pvop.
+> 
+> As a proof of concept I=E2=80=99ve deleted the native implementation [2],=
+ which makes it fall back to the generic implementation [3].
+> This is not necessarily safe on SMP (it reads and clears as 2 separate st=
+eps), but shows that a paravirt op is faster than emulation.
+> 
+> To fix this we may need to partially revert  https://git.kernel.org/pub/s=
+cm/linux/kernel/git/torvalds/linux.git/commit/?id=3D4cdd9c8931767e1c56a51a1=
+078d33a8c340f4405
+> 
+> To test this more easily I=E2=80=99ve written a small test program that m=
+aps/unmaps pages from a domain in Dom0 [4].
+> Before: 3.26932 +- 0.00503 seconds time elapsed  ( +-  0.15% )
+> After: 0.75642 +- 0.00202 seconds time elapsed  ( +-  0.27% )
+> 
+> It is more than 4x faster to use the paravirt ops than trapping and emula=
+ting.
+>  From a functional point of view the above commit is correct, Xen doesn=
+=E2=80=99t need a dedicated PV operation: trap and emulation works.
+> But from a performance point of view I=E2=80=99d say that Xen does need i=
+t. This is a hot-path during migration, and it=E2=80=99d be worthwhile to o=
+ptimise it.
+> 
+> Just deleting the native implementation is probably not the solution, sin=
+ce we also want a value returned, and the existing PV operation is void.
+> It probably needs a new PV operation (re)introduced with the desired sema=
+ntics?
+> 
 
-vpci_cleanup_capabilities() also shouldn't have used
-pci_find_ext_capability(), as already when the function was introduced
-extended config space may not have been (properly) accessible anymore,
-no matter whether it was during init. Extended capability cleanup hooks
-need to cope with being called when the respective capability doesn't
-exist (and hence the corresponding ->init() hook was never called).
+I can't find a MMUEXT hypercall which does roughly xchg on the 
+pagetable. You can write a entry through MMU_NORMAL_PT_UPDATE, but not 
+reading it before writing it atomically (xchg).
 
-Fixes: 70e6dace747e ("vpci: Use cleanup to free capability resource during deassign")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v6: Add comment in physdev_check_pci_extcfg(), while dropping the logging
-    of a(nother) message there. Drop hwdom restriction from
-    vpci_cleanup_capabilities(). In the re-init case don't bail early from
-    vpci_init_capabilities(). Simplify assertion and re-order actions in
-    vpci_reinit_ext_capabilities().
-v5: Don't use pci_find_ext_capability() in vpci_cleanup_capabilities().
-    Add assertion in vpci_reinit_ext_capabilities().
-v4: Make sure ->cleanup() and ->init() are invoked.
-v3: New.
+Maybe there is a way to achieve it, but otherwise, it would need a new 
+dedicated hypercall and related code for Linux.
 
---- a/xen/arch/x86/physdev.c
-+++ b/xen/arch/x86/physdev.c
-@@ -8,6 +8,8 @@
- #include <xen/guest_access.h>
- #include <xen/iocap.h>
- #include <xen/serial.h>
-+#include <xen/vpci.h>
-+
- #include <asm/current.h>
- #include <asm/io_apic.h>
- #include <asm/msi.h>
-@@ -169,8 +171,19 @@ int cf_check physdev_check_pci_extcfg(st
- 
-     ASSERT(pdev->seg == info->segment);
-     if ( pdev->bus >= info->start_bus && pdev->bus <= info->end_bus )
-+    {
-         pci_check_extcfg(pdev);
- 
-+        /*
-+         * The re-init failing doesn't mean the device becomes entirely non-
-+         * functional.  In case of failure, a message was already logged.
-+         * Hence don't otherwise act upon failure.
-+         *
-+         * FIXME: Re-visit when DomU support is added to vPCI.
-+         */
-+        vpci_reinit_ext_capabilities(pdev);
-+    }
-+
-     return 0;
- }
- #endif /* COMPAT */
---- a/xen/drivers/vpci/cap.c
-+++ b/xen/drivers/vpci/cap.c
-@@ -285,13 +285,16 @@ static int vpci_init_ext_capability_list
-     return 0;
- }
- 
--int vpci_init_capabilities(struct pci_dev *pdev)
-+int vpci_init_capabilities(struct pci_dev *pdev, bool ext_only)
- {
--    int rc;
-+    int rc, accum_rc = 0;
- 
--    rc = vpci_init_capability_list(pdev);
--    if ( rc )
--        return rc;
-+    if ( !ext_only )
-+    {
-+        rc = vpci_init_capability_list(pdev);
-+        if ( rc )
-+            return rc;
-+    }
- 
-     rc = vpci_init_ext_capability_list(pdev);
-     if ( rc )
-@@ -305,7 +308,7 @@ int vpci_init_capabilities(struct pci_de
-         unsigned int pos = 0;
- 
-         if ( !is_ext )
--            pos = pci_find_cap_offset(pdev->sbdf, cap);
-+            pos = !ext_only ? pci_find_cap_offset(pdev->sbdf, cap) : 0;
-         else if ( is_hardware_domain(pdev->domain) )
-             pos = pci_find_ext_capability(pdev, cap);
- 
-@@ -341,30 +344,40 @@ int vpci_init_capabilities(struct pci_de
-             {
-                 printk(XENLOG_ERR "%pd %pp: hide %s cap %u fail rc=%d\n",
-                        pdev->domain, &pdev->sbdf, type, cap, rc);
--                return rc;
-+
-+                /* Best effort for the re-init case. */
-+                if ( !ext_only )
-+                    return rc;
-+
-+                if ( !accum_rc )
-+                    accum_rc = rc;
-             }
-         }
-     }
- 
--    return 0;
-+    return accum_rc;
- }
- 
--void vpci_cleanup_capabilities(struct pci_dev *pdev)
-+void vpci_cleanup_capabilities(struct pci_dev *pdev, bool ext_only)
- {
-     for ( unsigned int i = 0; i < NUM_VPCI_INIT; i++ )
-     {
-         const vpci_capability_t *capability = &__start_vpci_array[i];
-         const unsigned int cap = capability->id;
--        unsigned int pos = 0;
- 
-         if ( !capability->cleanup )
-             continue;
- 
--        if ( !capability->is_ext )
--            pos = pci_find_cap_offset(pdev->sbdf, cap);
--        else if ( is_hardware_domain(pdev->domain) )
--            pos = pci_find_ext_capability(pdev, cap);
--        if ( pos )
-+        /*
-+         * Cannot call pci_find_ext_capability() here, as extended config space
-+         * may (no longer) be accessible.  As a result, extended capability
-+         * ->cleanup() handlers need to cope with being called despite ->init()
-+         * never having been called.  Which in turn allows calling them even
-+         * for DomU-s, no matter that vpci_init_capabilities() excludes them
-+         * there for now.
-+         */
-+        if ( capability->is_ext
-+             || (!ext_only && pci_find_cap_offset(pdev->sbdf, cap)) )
-         {
-             int rc = capability->cleanup(pdev, false);
- 
-@@ -376,6 +389,27 @@ void vpci_cleanup_capabilities(struct pc
-     }
- }
- 
-+int vpci_reinit_ext_capabilities(struct pci_dev *pdev)
-+{
-+    if ( !pdev->vpci )
-+        return 0;
-+
-+    /*
-+     * FIXME: DomU support is missing.  For already running domains we may
-+     * need to pause them around the entire re-evaluation of extended config
-+     * space accessibility.
-+     */
-+    ASSERT(pdev->domain == hardware_domain);
-+
-+    if ( vpci_remove_registers(pdev->vpci, PCI_CFG_SPACE_SIZE,
-+                               PCI_CFG_SPACE_EXP_SIZE - PCI_CFG_SPACE_SIZE) )
-+        ASSERT_UNREACHABLE();
-+
-+    vpci_cleanup_capabilities(pdev, true);
-+
-+    return vpci_init_capabilities(pdev, true);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
---- a/xen/drivers/vpci/private.h
-+++ b/xen/drivers/vpci/private.h
-@@ -46,8 +46,8 @@ typedef struct {
- 
- int __must_check vpci_init_header(struct pci_dev *pdev);
- 
--int vpci_init_capabilities(struct pci_dev *pdev);
--void vpci_cleanup_capabilities(struct pci_dev *pdev);
-+int vpci_init_capabilities(struct pci_dev *pdev, bool ext_only);
-+void vpci_cleanup_capabilities(struct pci_dev *pdev, bool ext_only);
- 
- /* Add/remove a register handler. */
- int __must_check vpci_add_register_mask(struct vpci *vpci,
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -102,7 +102,7 @@ void vpci_deassign_device(struct pci_dev
-                     &pdev->domain->vpci_dev_assigned_map);
- #endif
- 
--    vpci_cleanup_capabilities(pdev);
-+    vpci_cleanup_capabilities(pdev, false);
- 
-     spin_lock(&pdev->vpci->lock);
-     while ( !list_empty(&pdev->vpci->handlers) )
-@@ -159,7 +159,7 @@ int vpci_assign_device(struct pci_dev *p
-     if ( rc )
-         goto out;
- 
--    rc = vpci_init_capabilities(pdev);
-+    rc = vpci_init_capabilities(pdev, false);
- 
-  out:
-     if ( rc )
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -25,6 +25,8 @@ int __must_check vpci_assign_device(stru
- /* Remove all handlers and free vpci related structures. */
- void vpci_deassign_device(struct pci_dev *pdev);
- 
-+int vpci_reinit_ext_capabilities(struct pci_dev *pdev);
-+
- /* Generic read/write handlers for the PCI config space. */
- uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size);
- void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
-@@ -202,6 +204,11 @@ bool vpci_ecam_read(pci_sbdf_t sbdf, uns
- #else /* !CONFIG_HAS_VPCI */
- struct vpci_vcpu {};
- 
-+static inline int vpci_reinit_ext_capabilities(struct pci_dev *pdev)
-+{
-+    return 0;
-+}
-+
- static inline int vpci_assign_device(struct pci_dev *pdev)
- {
-     return 0;
+> Best regards,
+> --Edwin
+> 
+> [1]: https://cdn.jsdelivr.net/gh/edwintorok/xen@pmustack-coverletter/docs=
+/tmp/migrate-send.svg?x=3D950.6&y=3D2197
+> 
+> [2]:
+> diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtabl=
+e.h
+> index 690c0307afed..ab6318bb5676 100644
+> --- a/arch/x86/include/asm/pgtable.h
+> +++ b/arch/x86/include/asm/pgtable.h
+> @@ -1097,13 +1097,9 @@ extern int ptep_test_and_clear_young(struct vm_are=
+a_struct *vma,
+>   extern int ptep_clear_flush_young(struct vm_area_struct *vma,
+>                                    unsigned long address, pte_t *ptep);
+> 
+> -#define __HAVE_ARCH_PTEP_GET_AND_CLEAR
+> -static inline pte_t ptep_get_and_clear(struct mm_struct *mm, unsigned lo=
+ng addr,
+> -                                      pte_t *ptep)
+> -{
+> -       pte_t pte =3D native_ptep_get_and_clear(ptep);
+> -       return pte;
+> -}
+> +static inline pte_t ptep_get_and_clear(struct mm_struct *mm,
+> +                                      unsigned long address,
+> +                                      pte_t *ptep);
+> 
+>   #define __HAVE_ARCH_PTEP_GET_AND_CLEAR_FULL
+>   static inline pte_t ptep_get_and_clear_full(struct mm_struct *mm,
+> 
+> [3]:
+> #ifndef __HAVE_ARCH_PTEP_GET_AND_CLEAR
+> static inline pte_t ptep_get_and_clear(struct mm_struct *mm,
+>                                         unsigned long address,
+>                                         pte_t *ptep)
+> {
+>          pte_t pte =3D *ptep;
+>          pte_clear(mm, address, ptep);
+>          return pte;
+> }
+> #endif
+> static inline void pte_clear(struct mm_struct *mm, unsigned long addr, pt=
+e_t *ptep) { set_pte_at(mm, addr, ptep, __pte(0)); }
+> 
+> [4]:
+> $ cat >main.c <<EOF
+> #include <assert.h>
+> #include <stdio.h>
+> #include <stdlib.h>
+> #include <sys/mman.h>
+> #include <xenctrl.h>
+> #include <xenforeignmemory.h>
+> 
+> int main(int argc, char *argv[]) {
+>    if (argc !=3D 3) {
+>      fprintf(stderr, "Usage: %s <domid> <batchsize>\n", argv[0]);
+>      return 1;
+>    }
+>    uint32_t domid =3D atoi(argv[1]);
+>    uint32_t batch_size =3D atoi(argv[2]);
+> 
+>    if (!domid || !batch_size) {
+>      fprintf(stderr, "Invalid arguments, expected 2 integers");
+>      return 2;
+>    }
+> 
+>    xenforeignmemory_handle *handle =3D xenforeignmemory_open(NULL, 0);
+>    if (!handle)
+>      return 3;
+> 
+>    xc_interface *xc =3D xc_interface_open(NULL, NULL, 0);
+>    if (!xc)
+>      return 4;
+> 
+>    xen_pfn_t nr_pfns;
+>    if (xc_domain_nr_gpfns(xc, domid, &nr_pfns) < 0)
+>      return 5;
+> 
+>    unsigned mappings_size =3D nr_pfns / batch_size + 1;
+>    void **mappings =3D calloc(mappings_size, sizeof(void *));
+>    if (!mappings) {
+>      perror("calloc");
+>      return 6;
+>    }
+> 
+>    for (xen_pfn_t i =3D 0; i < nr_pfns; i +=3D batch_size) {
+>      xen_pfn_t arr[batch_size];
+>      int err[batch_size];
+> 
+>      for (unsigned j =3D 0; j < batch_size; j++)
+>        arr[j] =3D i + j;
+> 
+>      unsigned long idx =3D i / batch_size;
+>      assert(idx < mappings_size);
+>      mappings[idx] =3D xenforeignmemory_map(
+>          handle, domid, PROT_READ, sizeof(arr) / sizeof(arr[0]), arr, err=
+);
+>      if (!mappings[idx])
+>        return 7;
+>    }
+> 
+>    for (xen_pfn_t i =3D 0; i < nr_pfns; i +=3D batch_size) {
+>      unsigned long idx =3D i / batch_size;
+>      assert(idx < mappings_size);
+>      if (xenforeignmemory_unmap(handle, mappings[idx], batch_size))
+>        return 8;
+>    }
+> 
+>    free(mappings);
+>    xc_interface_close(xc);
+>    xenforeignmemory_close(handle);
+> 
+>    return EXIT_SUCCESS;
+> }
+> EOF
+> 
+> $ cat >meson.build <<EOF
+> project('xfm_scale', 'c', default_options:['c_std=3Dgnu11'])
+> xfm =3D dependency('xenforeignmemory')
+> xc =3D dependency('xencontrol=E2=80=99)
+> executable('xfm_scale', 'main.c', dependencies: [xfm, xc])
+> EOF
+
+Teddy
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
