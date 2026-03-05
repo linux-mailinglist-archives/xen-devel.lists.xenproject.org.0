@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qCdhKdVQqWkj4wAAu9opvQ
+	id cCVRAGZUqWkj4wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 10:45:57 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 11:01:10 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0953E20ED4B
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 10:45:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1246370.1545572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACD0420F330
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 11:01:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1246392.1545585 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy5Gx-000301-GS; Thu, 05 Mar 2026 09:45:35 +0000
+	id 1vy5VP-0005zP-Rd; Thu, 05 Mar 2026 10:00:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1246370.1545572; Thu, 05 Mar 2026 09:45:35 +0000
+Received: by outflank-mailman (output) from mailman id 1246392.1545585; Thu, 05 Mar 2026 10:00:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy5Gx-0002xh-Cw; Thu, 05 Mar 2026 09:45:35 +0000
-Received: by outflank-mailman (input) for mailman id 1246370;
- Thu, 05 Mar 2026 09:45:33 +0000
+	id 1vy5VP-0005xA-Os; Thu, 05 Mar 2026 10:00:31 +0000
+Received: by outflank-mailman (input) for mailman id 1246392;
+ Thu, 05 Mar 2026 10:00:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=00Q8=BF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vy5Gv-0002xb-GN
- for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 09:45:33 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1vy5VO-0005x4-9q
+ for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 10:00:30 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0cce88f2-1878-11f1-b164-2bf370ae4941;
- Thu, 05 Mar 2026 10:45:31 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id
- 5b1f17b1804b1-48371119eacso93340205e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 05 Mar 2026 01:45:31 -0800 (PST)
+ id 23c27d3a-187a-11f1-b164-2bf370ae4941;
+ Thu, 05 Mar 2026 11:00:29 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id
+ ffacd0b85a97d-439c5b40f60so1605059f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Mar 2026 02:00:29 -0800 (PST)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4851fadeb5bsm43355515e9.5.2026.03.05.01.45.30
+ 5b1f17b1804b1-4851fb3666asm28701775e9.14.2026.03.05.02.00.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Mar 2026 01:45:30 -0800 (PST)
+ Thu, 05 Mar 2026 02:00:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,58 +50,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cce88f2-1878-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 23c27d3a-187a-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772703931; x=1773308731; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1772704828; x=1773309628; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=u35ZfvqWtF9yNhv2mrL/KlcTzbQ+4dd3N9VGDV9JC/I=;
-        b=c58tsw59UOIXpJE81mFE1n3muTGEhzd/zHZrsFfJiqTA9j5Zb8awomB01emgCSlMpE
-         adC0Y6bkpEBVRW/HIvU8h1NoGcISXx0hH8MAG7bAahRaVM9zMyEiTGbQz0zCtWEX0mrv
-         ZK0rIlbaYUNnBLh/T0OJhQaPH98Q8CoXW0K7xHiDQG5Xq+lHY/urOePWcW+CG6vFu+9V
-         fSfiEQhCClA2lj2MazbvjRzgpxLgnmkIHMFa/V/RMWvSL2HYzqrE7utXKgHSfEjq/3UX
-         ypNTcZPEmtkke+jJN+NAu97lpsF4mfKdkbNweoE4xAHmMPJQJiY1b5zQmyG5xRBgDtWO
-         cwgw==
+        bh=jcpGEgEdNDn1d5L/htnJMQZXZeNQSDK3grLyRzw5sBw=;
+        b=X5VkzwoCZsu0X7YHTHsOaCqZioLZht6XLeX7TSU0TkJdqgR9WTW5pXfuIRcTCFSF2U
+         JihFogfrTIW5nrk56iQOGaY/LswEVW+ivbO4fcFRdS62fT9HcjywFXBrNh8iCVSZxan2
+         3g+TqR5+AROEO5SbscyYSaVPYDG0XgDmL0KeX1ulS+L2DiTlovFGRwsIILVG46waCxVy
+         2IDYz78mA0ZQ/nnrZlPrVawSF5kSiPUoqVwumFvC6L76jHkfIeP5BUITpUpUnAIJGG7a
+         1fegjESRTFBvRxBprYfBz9ODiZxMlphvEr6+p6M+wKA34Fgr2IWSV+14vDuQd2weho0w
+         V5lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772703931; x=1773308731;
+        d=1e100.net; s=20230601; t=1772704828; x=1773309628;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=u35ZfvqWtF9yNhv2mrL/KlcTzbQ+4dd3N9VGDV9JC/I=;
-        b=dTycBCiqiICZ1h27o4KVi/8SMHz6HwkK+8C8DC7lTIw9EbicwwAr1Fy0+XzoJ6O2wB
-         +RaIcEMt+l4SDXgQp58FQd8FQnTNqyZNX0KoEyeVJ5aCm1Jmi1cz/L9CwbBLKI1jQwAH
-         AipVio2QmI3djtro4h+405MJaqBfPJF85Kqbwr4buRyvCTh4ROhU9W2fiMQzRCw8pTE8
-         gxQJVvXlI8MjqSsafP0tE0Bq/HT2rOulC7mTIKkHeQ52OlhoGBG8H38GeUd1QrGaPcen
-         35MC6J4DJRPZFKZqyAXKVwi7frhf+evJMx2THOkbfIw3EYh0bg34nep/3kygS54fWocQ
-         b9gg==
-X-Gm-Message-State: AOJu0YyX1XBUa2whv08AiWNpvy765ZhvoDbuwg+F/zI3BmF6Px8YglVv
-	ZCtBm8/xMlRlDgROXHZ9NGPHAQQkV9+Mzcx9tHm/DWCxlGxAIjdDo5cPUt0DA6NnZg==
-X-Gm-Gg: ATEYQzz2AYzjDKqTwUdoDZ8ffUSAYYJo+uYr6hb5/u6A6cc3XD09IIl50VeYBWSOd3E
-	CxmdRBnEMQdFgGvX4xizayVAKczmAKDbTGAfVlqPnUwxNbEoaZnSAh+yYFKmSH0JMI+xqpMRUmW
-	4Z4iBQVdfGl0s81Hl6AeDfytVSHUJ5/gXGgKZEwk3rL7nmvSqK4oIcP6SyX7eT7oqpk5htTmS26
-	z+8IgdAm4zocC5FLxdBrYb4tCPnbz1FqxbKikdih6nlFqEsFvSUWD6C/qsZfM401uC5N9u871W4
-	PpgbKDZ5E0Rqesl8zfdCl6X8HVb4r/RaerokfYOALRUFkzxjcA4a4/4sA11KF4D8KShO3IHiR71
-	J6cOwB3z63DGAqIYL7YYMcLlk7Y22LZj+dCpWg6hAV803k4IP+gCcYIVaEDRczOwoKD+5Vb+LYg
-	bBZC/aOHMc+MWP7JaH9WMwjQ0y8dhGk2A5N/Eezhu7y2UcKgyBvcgVM9FlclBcDreCZNPgt9Sjc
-	PftIRMU9M77+aE=
-X-Received: by 2002:a05:600c:4f4c:b0:477:5c58:3d42 with SMTP id 5b1f17b1804b1-48519849bd4mr93711395e9.10.1772703930948;
-        Thu, 05 Mar 2026 01:45:30 -0800 (PST)
-Message-ID: <bb06fac8-43e7-4d9b-81b6-970066b8bb73@suse.com>
-Date: Thu, 5 Mar 2026 10:45:29 +0100
+        bh=jcpGEgEdNDn1d5L/htnJMQZXZeNQSDK3grLyRzw5sBw=;
+        b=FNt0DtiYo4mOV9RUYa03jgbOXrr4fRZSW5FaVNBshP0VvWKJ1qAF2bYYkrVtrdS3rn
+         Tr1AgmFvVvFk7AG30Avs+4vg8tHuqGKhAjszFwViRl36/vSQskxs+gfDMxmlYUMrBPqd
+         TiuCA5fj4qkkIA5KPaIB3wr2DUCxmPurkzpzK5ISXnFdkGF1VtOT5K9nID5lbKhsXVVw
+         wEUKLCYLpJDEM8+OK/2iCzObv36SQufFpHNCAPuNJK7btVsHtjuMB0JV+u25ULD8TQvB
+         KArtfnkrgEDVUNQRkmK4DJxewtDqxZvqrUJJgIxYhWOXpvsT6WEcubNDQRilLsOs308n
+         IdhA==
+X-Forwarded-Encrypted: i=1; AJvYcCUZ178/ne2Olyh+LyMNlBjogGqeJDqMZGdPNz1gTquO6FCbaaQVEBbCa6vuoMKxENfCtSxrywXdkIc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywrd0oFxfnoPIdEYTIplZtk8+fpR3VpEW4LGhtYkPhuynP6guRY
+	o9mxv+3LBtr+UR8oU/A4OiczAXjrmag+jR7RdboUzs/K/Rp9jcIfoNpPRBmJUvAhK3J9O13V74u
+	xHIo=
+X-Gm-Gg: ATEYQzwXiWwLiugUcXS/hoeZ0NLx2orOhFrL21q1aEpeqpREd+aQLnxiGgUAmJpxdXx
+	y/At5EvawAC+CVGWy1t8Y4p29iL/opdvtTb/tUHrQPxunbHpI6h865pLuGt5j9HTxzV92LN3NSU
+	m4WUGX7wRydKYE0skJyxJU5CU5KSZqnyPnAUxEYSVXdG905tbgZsgBfJlUszVFzmMP4vrYMnLFB
+	xRIc2pYsT0Y3rNHMU53+uq5ASqzvViia3unkFD9MzKd3TKTFsjDaYFTpkWX15I8POUdPhXDiKbO
+	jzpUT9Bv0aiDik4sSfEZe9AGl0f0+80tOJJ8uWsU7dMME+h9ofKNUg8E3yn8dHuoPJLNTq7bcdl
+	rIL28f7ADMkYStESd3y0aXt2xpZH8kyGFn6eneTD/rabgCaBhlPgKMt6IGrPk2nTFnLfc8QGUVW
+	S1HxRHKrI9GFNUqti+3IecpQVqIsUGtTWbNRah3F3zFLLz+yaWRD3ClZGkMMtHadaRhMERq6yp6
+	wt/TnjxyWKSFcI=
+X-Received: by 2002:a05:600c:4454:b0:483:702f:4633 with SMTP id 5b1f17b1804b1-4851982700amr76787235e9.4.1772704828280;
+        Thu, 05 Mar 2026 02:00:28 -0800 (PST)
+Message-ID: <9e873ced-59cd-4e5a-91d9-375e7cb2798b@suse.com>
+Date: Thu, 5 Mar 2026 11:00:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/5] vPCI: re-init extended-capabilities when MMCFG
- availability changed
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>
-References: <6202d2d4-ad80-4e37-b1f6-cd9d19add72f@suse.com>
- <9f1fcbfc-e7b6-4ef3-8f58-c88f9667d606@suse.com>
- <aahKkV2csf28Y0YC@macbook.local>
- <2c3fdfb6-5788-4177-a264-56719e1ae804@suse.com>
- <aalLc4tN5ywM3c_W@macbook.local>
+Subject: Re: [PATCH v4.1 09/14] x86/pv: Adjust GS handling for FRED mode
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260227231636.3955109-10-andrew.cooper3@citrix.com>
+ <20260304171826.45847-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,102 +125,82 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aalLc4tN5ywM3c_W@macbook.local>
+In-Reply-To: <20260304171826.45847-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 0953E20ED4B
+X-Rspamd-Queue-Id: ACD0420F330
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:dkim,suse.com:email,suse.com:mid,citrix.com:email];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	RSPAMD_EMAILBL_FAIL(0.00)[jbeulich.suse.com:query timed out,roger.pau.citrix.com:query timed out,andrew.cooper3.citrix.com:query timed out];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	RCPT_COUNT_THREE(0.00)[3];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On 05.03.2026 10:22, Roger Pau Monné wrote:
-> On Thu, Mar 05, 2026 at 10:00:13AM +0100, Jan Beulich wrote:
->> On 04.03.2026 16:06, Roger Pau Monné wrote:
->>> On Wed, Feb 25, 2026 at 12:44:44PM +0100, Jan Beulich wrote:
->>>> When Dom0 informs us about MMCFG usability, this may change whether
->>>> extended capabilities are available (accessible) for devices. Zap what
->>>> might be on record, and re-initialize things.
->>>>
->>>> No synchronization is added for the case where devices may already be in
->>>> use. That'll need sorting when (a) DomU support was added and (b) DomU-s
->>>> may run already while Dom0 / hwdom still boots (dom0less, Hyperlaunch).
->>>>
->>>> vpci_cleanup_capabilities() also shouldn't have used
->>>> pci_find_ext_capability(), as already when the function was introduced
->>>> extended config space may not have been (properly) accessible anymore,
->>>> no matter whether it was during init. Extended capability cleanup hooks
->>>> need to cope with being called when the respective capability doesn't
->>>> exist (and hence the corresponding ->init() hook was never called).
->>>>
->>>> Fixes: 70e6dace747e ("vpci: Use cleanup to free capability resource during deassign")
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>> ---
->>>> vpci_reinit_ext_capabilities()'es return value is checked only to log an
->>>> error; it doesn't feel quite right to fail the hypercall because of this.
->>>> Roger brought up the idea of de-assigning the device in such a case, but
->>>> if a driver doesn't use extended capabilities the device would likely
->>>> continue to work fine, for Dom0 this probably wouldn't be quite right
->>>> anyway, and it's also unclear whether calling deassign_device() could be
->>>> done from this context. Something like what pci_check_disable_device()
->>>> does may be an option, if we really think we need to "break" the device.
->>>
->>> We may want to add a note there, stating that we have considered all
->>> possible options, and hiding the capability and hoping the owner
->>> domain would continue to work as expected seems the less bad of all of
->>> them?
->>
->> While adding that note it occurred to me that in order to keep the device
->> as functioning as possible, in the re-init case vpci_init_capabilities()
->> might better not bail upon encountering a failure, but accumulate the
->> error while continuing its loop in a best-effort manner. Thoughts? (One
->> of the two return-s is already guarded by !is_hardware_domain(), so that
->> could be left alone for the immediate purpose.)
+On 04.03.2026 18:18, Andrew Cooper wrote:
+> When FRED is active, hardware automatically swaps GS when changing privilege,
+> and the SWAPGS instruction is disallowed.
 > 
-> Right, yes, that would be preferable.  We already print a message for
-> the failed to init capabilities, so there's no need to print another
-> one in the caller.
+> For native OSes using GS as the thread local pointer this is a massive
+> improvement on the pre-FRED architecture, but under Xen it makes handling PV
+> guests more complicated.  Specifically, it means that GS_BASE and GS_SHADOW
+> are the opposite way around in FRED mode, as opposed to IDT mode.
+> 
+> This leads to the following changes:
+> 
+>   * In load_segments(), we already load both GSes.  Account for FRED in the
+>     SWAP() condition and avoid the path with SWAGS.
+> 
+>   * In save_segments(), we need to read GS_SHADOW rather than GS_BASE.
+> 
+>   * In toggle_guest_mode(), we need to emulate SWAPGS.
+> 
+>   * In {read,write}_msr() which access the live registers, GS_SHADOW and
+>     GS_BASE need swapping.
+> 
+>   * In do_set_segment_base(), merge the SEGBASE_GS_{USER,KERNEL} cases and
+>     take FRED into account when choosing which base to update.
+> 
+>     SEGBASE_GS_USER_SEL was already an LKGS invocation (decades before FRED)
+>     so under FRED needs to be just a MOV %gs.  Simply skip the SWAPGSes.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> v4.1:
+>  * Extra comments
 
-Hmm, that's another aspect I didn't consider. Yes, the log message in the
-caller is redundant with the present code structure. If we expect that to
-remain like that, I can drop logging anything from
-physdev_check_pci_extcfg(). Which then re-raises the question whether
-vpci_reinit_ext_capabilities() might better return void. At which point
-the comment I put in physdev_check_pci_extcfg() (upon your request) would
-want to move there.
-
-But my earlier question went in a different direction, and you didn't
-comment on that at all.
+Thanks.
 
 Jan
 
