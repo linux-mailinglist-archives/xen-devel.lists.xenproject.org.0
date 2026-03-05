@@ -2,45 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uLzlCSZZqWkh5wAAu9opvQ
+	id sOeWK91gqWnj6QAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 11:21:26 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 11:54:21 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8659720F9D9
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 11:21:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1246415.1545606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 106AC210158
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 11:54:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1246438.1545615 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy5oz-0000vS-Kk; Thu, 05 Mar 2026 10:20:45 +0000
+	id 1vy6Kn-00056d-0n; Thu, 05 Mar 2026 10:53:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1246415.1545606; Thu, 05 Mar 2026 10:20:45 +0000
+Received: by outflank-mailman (output) from mailman id 1246438.1545615; Thu, 05 Mar 2026 10:53:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy5oz-0000tu-HC; Thu, 05 Mar 2026 10:20:45 +0000
-Received: by outflank-mailman (input) for mailman id 1246415;
- Thu, 05 Mar 2026 10:20:43 +0000
+	id 1vy6Km-00053i-UF; Thu, 05 Mar 2026 10:53:36 +0000
+Received: by outflank-mailman (input) for mailman id 1246438;
+ Thu, 05 Mar 2026 10:53:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NtvN=BF=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vy5ox-0000to-O8
- for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 10:20:43 +0000
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c105::7])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=00Q8=BF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1vy6Kl-00053c-Im
+ for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 10:53:35 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f657f35a-187c-11f1-b164-2bf370ae4941;
- Thu, 05 Mar 2026 11:20:42 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by BN8PR03MB4979.namprd03.prod.outlook.com (2603:10b6:408:db::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.18; Thu, 5 Mar
- 2026 10:20:38 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9678.016; Thu, 5 Mar 2026
- 10:20:38 +0000
+ id 8e0e3322-1881-11f1-b164-2bf370ae4941;
+ Thu, 05 Mar 2026 11:53:34 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-4836f4cbe0bso66974715e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Mar 2026 02:53:34 -0800 (PST)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-439abded86esm39427342f8f.6.2026.03.05.02.53.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Mar 2026 02:53:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,203 +50,352 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f657f35a-187c-11f1-b164-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AUNes5knhiUinrJgSmL2Z6XhQ+i2C/e+mt0gphyLoii3wIwIoMAEZrLl8Uxkip2DqXCReb6kNkJ0fE7l78+1Xdm8w4cCVtCIQyMb9NZgjgOks/JEAt8Cxc1Tp0GwlaL58eZPQP6jbzMlmiDB1V+nxbEEBrXatwHLiO8GvU2lmvEzLpRftWKxM2h1pMFQa0LuQuJxNxnCf+3Nr9ZmitKoADoivgz5CTaXPOkxsakjGRAl2RFuMBtcHFrjh7GLiR67q9VaQ/pJJV4VW10a2NBAGSfHLJ5dZz8kvPrDTnXY4K7rc0ztzJh/fLrMm1UDQb9C3XEiqKNkR3Gc1A2AVAtuWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4RJYvuNY00CmLT6r8wK/D8hHjvTR3SciKVM+OrZZ6UI=;
- b=iWmeUhMCAB2yPyKdE8m4Gr7H0baYycxl1EB7SmmKhDJ9HUVA//ObPVVB9aNrNRj/iSlUs0UNzX34tb5PGBIMUtJ0wPo+xIeb2Mdy4IQtDeuTVarrWuWu5HtgyZ+x9eURBLaP9RyDOjwEw6UaKZIgWLtZz4bPaaKGA54+4/aB2CrMSO2jrh7Xvdg4tBnFR2bd6ltK+WITHSrDcnV7EelPzD7h3oNS9h5DoYSIBOhjzCforxFoF58d8tPRIWGl9EDumWkD6e2h9wVaBfVn/5CgJcXhxLT0Xw7mpvdQsvGMIuixRDShRtYAC7jBDPxBDRIlvksmLEt9cjNPAYvCjAaPhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4RJYvuNY00CmLT6r8wK/D8hHjvTR3SciKVM+OrZZ6UI=;
- b=boY9qpJ4tNJDdpzEG/Tr2cBrM46UafOw+Ko5TP9nmD9/ZdORPSNmWS8X+5Un4dR3C0AG3ZuO9MBCXkAm6qZionQV9sZbfDe/I47zd6cWennnnlgOvZW4jgQVs5vDxgZLIM9XmMmob5sqSdYZf3FdjjJI4w6x89P8/mmPAdPlaSo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 5 Mar 2026 11:20:34 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>
-Subject: Re: [PATCH v5 5/5] vPCI: re-init extended-capabilities when MMCFG
- availability changed
-Message-ID: <aalY8t_2F0Pt5i3j@macbook.local>
-References: <6202d2d4-ad80-4e37-b1f6-cd9d19add72f@suse.com>
- <9f1fcbfc-e7b6-4ef3-8f58-c88f9667d606@suse.com>
- <aahKkV2csf28Y0YC@macbook.local>
- <2c3fdfb6-5788-4177-a264-56719e1ae804@suse.com>
- <aalLc4tN5ywM3c_W@macbook.local>
- <bb06fac8-43e7-4d9b-81b6-970066b8bb73@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <bb06fac8-43e7-4d9b-81b6-970066b8bb73@suse.com>
-X-ClientProxiedBy: MR1P264CA0004.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:2e::9) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: 8e0e3322-1881-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1772708013; x=1773312813; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=+/0CQKkeqc2XR5r4TdFszbCjUpD29tLEnzlXyjTUqUo=;
+        b=EXCcvy52QPb0Cm3nfQMZBq3WMLy+R0w1E7/8cB/wPpfo1VWKojGewieKIkpxnYjW2p
+         UuTAFZeWhS2k1ju79lERzISjjsay9kR6OxOUFdd74WW2D3g/dzhh5KnQwM4vPGzTR6CC
+         39n0dDFWTXtC+kZfnJAAw7GWm0rRfILKZhNye4HMSLrqNsqZ6J6CAiEzActrB7HNkjtw
+         PKWc72lwCiFqGBrG//nZY/mEhdq/4dwXpFg/Xa5Wi0xioDo+0Fpu59OdNThZuulpHaD3
+         oG76ZVd6zUbwdFpaJ1z4mkPr83R1XpK/NyVFfHGVlqPl2irvc3p3lUzSNPEcTOjR6k3n
+         XwwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1772708013; x=1773312813;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+/0CQKkeqc2XR5r4TdFszbCjUpD29tLEnzlXyjTUqUo=;
+        b=DprOFZ5XnYh5NOI0wexFDvYWLw3Uq76zF1ZrroSthzN0TwpP9Yw+kDSm2IVTtWfgy6
+         cw9zYU37cGK0ZbVH7VtoCpBZZdOvkKnzuTG9HWL9W9G371eZhkWe3xaKMUIYTGtPSvF4
+         vLMlr1ilnLFuA7lhSCunqhcutdWuAtgAyWnxXKd5FpYMI+64/ndRwbvAknMc7yyUuLWI
+         MNRH42aLaKn8VL8bvroSa9NHCfvkMIOf7a1WPf/cp0w2gvKRIqAxuy3lNpjj7eJIQI0X
+         U256QYCVFoNBM+t/ob44lLfIHcSMFenMRPqnD9Hgd2Eq4h3CS1MlD6YomGXfpWvf3mPP
+         vMpg==
+X-Forwarded-Encrypted: i=1; AJvYcCUrjVGFwfkV/14C9b/daDLgMG2VQDUIu22J5cUfeLV0K1IL4fpYtATGlaVy68z97wI8r3/MbgEbnBc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YweWEeRsFYulLNqw+vTPGnZIttAaFXiYjQ9qHUE0TL1WgFYrnj6
+	Z9Y6iGARHD8MWqVf7FoIm+MlBGl7y+J+iZYa1MO+SMTTc63iXPuM0vVX4FvfkA5bOQ==
+X-Gm-Gg: ATEYQzxYvUtW9X29rAUthP8KIZRQdwdcbsu1S/qYfCy7rgeLI2hf5MWlqmF2rNWKhWt
+	Qjel9YxtIlpS1oB9e23S2gPp2KTVxgAo1vnTR3UGrXvqWL/Q55EpRMFraqJWOICUialfV7UPrvE
+	jyn5VeaCmweZSrGMJ2qrN4EKC8Er4AQQnLfTMRRMSBvpVG1BILyIeBL83ImEoK83Djf0t6MmmqB
+	2hq+1nBkBMT/5O9EnQ+kLfasuoWzc0iwf/8SX70jCqZMe/RCuba/PxYZ9Jz+o5jBST/LAMfvOV1
+	8rjBctuWPbO9uE35y6kgCHTuho/wIRX1wKT72U+enuIGXJ1VFH4PZfkIiolRDDoUfyYpQS9wVIa
+	SBeRxmIQn0ZmkwiFa5ulp3D3m4l/5GOss9ornZzfmeC3Lgqo9KDjF4Fz320alIiV4IJ+0GX2AT6
+	F0hzcHKcuDHFHxxkFr+xZImI9L/DukSrCxzBAY9peKyzhj1hwUrJPrkUg5Hi6ohiJxgOeQ43OHr
+	8soPDuXylmoRrc=
+X-Received: by 2002:a05:600c:3e8f:b0:477:73e9:dc17 with SMTP id 5b1f17b1804b1-485198d8b81mr91267535e9.35.1772708013257;
+        Thu, 05 Mar 2026 02:53:33 -0800 (PST)
+Message-ID: <1497b37d-f47a-41c6-8037-a00a555d13a0@suse.com>
+Date: Thu, 5 Mar 2026 11:53:30 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BN8PR03MB4979:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6196aa5e-6b2e-423a-e6c0-08de7aa0d8b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	QmTejN0EZvpzt4x/LFFrQaahJV5D/ntGN8l7OuJP9ImNhoJRWgnbVGcEOK3Laj0RT5RCLEEIPw+u80vRFlndTESTE48OrSE8bVoUhDLjIZYZQrCeUPBddsf1n/p5qqNuOVPzMuxgzWi6r3n59nYgttasGk1Fm3wv5cv7qBW//h4YyT7h6DwCCsIXzr+YjIX+kQkW4TeS86ZwuZzNkViHLGeCmjhXKL41I9vbD+7SFlIJ9MvuCUQsXWpB2BowNxcqqOGN13gJPaSzy2gvbyC6p2uGo6E5D850r7kqVZfi/4LCtSGKUPARZ+6M4CVzV53Nvj78tL0zFsqzJbYJGaHM8aknw0hkRphxFOy8Iw9NwHvkZFtnv1mt5kM5YCt3gNZNq0Pk5ax1KbxUq1xZIhw7ZisibulPNBD6m9jqVGkvrpctOsdGS3KX5JRZs/oM1ZGZHFtHhJDxM1jV1XaJkeaTOEvC8wPhamN0RPtNy0cWg9hVK1SPwuxn8acRrZOB2cYtqFgbl0TtmCCq6+8iLz5B+JRqoyxx3XQzwItGB9GJa1kKxiNXzLWK3CX6j/N20j0g3ownH3juZIfG0XgEJJZN6ni5SesiJYkNa+zNbcI8eeEWI3mNVC2JxeMp55/eL9JCrnRld0Mw2anomKbJCxN8NjtHfnOyHwCF2E4FJtYQnBwb2Y6eK4PixiDxalvq00tgpR8or+2m9zdPxxrcuJXpJAhRBEz+lEjQXp8Ei7RJtZA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?czVUaHRxaGpPVkZRNzA2QVgwcmNVODFBWkRDK21vYzZHdUlKbG12dTNkYTlR?=
- =?utf-8?B?eVhzVEtZbFFEeDVJK3lkZUZqT05XbmpKSGh3ckx3Tkkzd2N0ak9CRkFsTFdm?=
- =?utf-8?B?RWpkeU1YUnN0TlB3TDhFaHZCbkY5MWx2OEpQNmpxMDZQWEY2RncvdmpUZVor?=
- =?utf-8?B?Y3FhdjlZUmI3Z0VnNk1HN3pPQkY3YjJnSDlEYUhJME1lNFR3SHp1ZmRyRFNq?=
- =?utf-8?B?THVGOFIrM2Q0MjQrR3F4elZkVkYzM2ZKZCtYZVJJQnFURjZFUGlrTFNDTU9m?=
- =?utf-8?B?eDhydElXQXFwYk9wRkdZWE9PY0VLK2UwZ05CVG81VTZncEM5L2NNWTFabWlH?=
- =?utf-8?B?Uk11bkRvTWI1aUxya2VGb3NMeVRzTTRZTDc2aURnNkRiYTZUa0ozSW5XMVh5?=
- =?utf-8?B?YWppV296WEJzaU00Yko3TXFwcTZMSXlIcEZuWUxkSEhqbnYwUncwdlQ4VkRY?=
- =?utf-8?B?a3FzRm5URjNoRisxUHJHWEVPbGNzems1YW8yZUFHSWNweFQ1UHJiT2w0ZS9W?=
- =?utf-8?B?dDlRNWFuZUFHbEpOeVZBRy9UYzVnY2dNNDF5WGN4VmxNMi85Z2laa1l2cE5Q?=
- =?utf-8?B?ZnhyRk5wNlFTTHNVbkkwcCtoL0pLN1AyRTJHR0g5SFJPME53M21lYnFHZzBh?=
- =?utf-8?B?ZmpoMTVLand3NExVTWZqK1ZpZFI0Yk9SdFM3amZrVGpxWndmMTYzQWxJRDQw?=
- =?utf-8?B?clBJTjBzM1dDTXZaMjh2Wk9ScEM3WnQxL2N2MTFxSWhFdnVNd1NuZ0huMXN3?=
- =?utf-8?B?eitQYmYvVVovT3RlT1BETVpCZ3Jud0ZyTkNrNlBXNWJNTC8xdEFqenEyazMy?=
- =?utf-8?B?cEdVRWRtTG56VXdQa29QejZVb0RRRUNRWlZnRUdnTllIc2Y0eGhFQjNVeTVU?=
- =?utf-8?B?Q29YMzB5YWdnTGFoR3k2K0YwTjFKOWVLRlY2eHJlZjVyODd6dDJNUnA4YVI4?=
- =?utf-8?B?RVFnclNrT245VVpCYWR1eHJaVFBqZjdnL3lSQmYzNEgrMUtFUVhRTHM4NThN?=
- =?utf-8?B?NXJBcmFBOEUwQ0dIc0JQZzhUbWpXcWRFMFAyQXdFWm5sSm9UNmd5VGE3SWFJ?=
- =?utf-8?B?S0w0bzdnbmNscmJpSVpiRlFBb1hLTm5ISW1ibkRSSXRMQlNFcWpJclo2K0R5?=
- =?utf-8?B?Y0VlZytBV2UycGRaNFA1R3VqeXNVMFhKRS9UdTZKY3FPMi9XMVd6dXBOdTZL?=
- =?utf-8?B?Q1JlNkxqUzNCcE9xL3pIbTVyRFpzcEFCcEFaZG5LcmNjVEdWUnAxak9ES0pk?=
- =?utf-8?B?Mk5aMGc4MzdqM3Qwb2M4NTlicWhManpRbXlQQ3lXQVlaT0FRWTdSVzNSZFoz?=
- =?utf-8?B?blg4dUNPQ1hCckdRSmRScUM4UDhCTzRiRytMeFVXNmg2ZWkrYlZXbGdIbzk0?=
- =?utf-8?B?MElRRk9iTC85ekNzUld2NXR5MmxramcwcWNpV053QVhnY3JaRU9ITFZiTzVJ?=
- =?utf-8?B?bWI3Z0JIenZjc1dZSk1WQkIwRTc5ay93RFM2S0pybDJXMmhJc2RkSU0wbXBC?=
- =?utf-8?B?cXpEeWNnelhtanJzUlRjME1ZbDFsODhqSktrSWRzSFg3NnpKU2xGN2lIME9M?=
- =?utf-8?B?Q05uSllsdU1BMk9mSEMrR09ndTNsZndCUy81UUc0Z0FtdmZxYm5ZOUtWZjYy?=
- =?utf-8?B?QnF6U2w2UFltSEdoNTZUeXhUWXp2U1g3S3hkMnp0Zy8xRENiMWVmanRzVThn?=
- =?utf-8?B?cW8zL0VIMFYxbDltUngyQVhSNFhiYXI5ZGhIQ2lGOURJWlVZTVpVejFTQ1Q5?=
- =?utf-8?B?NmQ2RHU4Y1FRL1VFRmVUTW90dmcvdnh0YkZGalNUdlBDZlVqa2o5MUN6NlRZ?=
- =?utf-8?B?SFNmR2ZNb0c2bEZZalVaZnNKMFVzUTd2alJZZEVxV0ZvVHBrNHZXMmFBRk1x?=
- =?utf-8?B?cU5hMjI2TXROZlk5eE82c0doeVFVdkx6MG5QeTcrUnFlbU9DYmJFZ1g1ejM3?=
- =?utf-8?B?VDdlSk9kQTR4TU8rYkN4eXdvOUdTREZZM0Z4ZXpWWk91K0hKYTBtVGlwUTFt?=
- =?utf-8?B?Mm5CZDJyTzE2N0pvOUFDUUJSbHIzclliYXBGNG9FN3N0TW4xOVRVSHVuSDFD?=
- =?utf-8?B?RDJVN0NhUWlESUFvYnVWK3QreVFZSDc4bWdHL3RLMnAxRy9iWDZrK1BOM2R4?=
- =?utf-8?B?bXVOYis5RlNubkZnL255TFRwZUV1YktSTzF0ZnlyeHBrOWI5R3d2V1huNlN2?=
- =?utf-8?B?b3NBZmYyWnQ1YlkrWDhxb21yQy9STlk2UEJOaEVnMlJ0N0FEaEVEK3QxeDRE?=
- =?utf-8?B?TDU1YURLMDYzaFhHRHVqT3h6NkVZaVZYanlRTVppZFR4RnZMVUFmQXN6MEc1?=
- =?utf-8?B?MUFKWTMzaFg2WWZZYjdPTXJ6dlo5dUFpa0ZDYnFLOTk2MXlBNy9Tdz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6196aa5e-6b2e-423a-e6c0-08de7aa0d8b3
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2026 10:20:38.4398
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YFIwK7bSSCIAO2HjS/M4kzbhyDBzay9cnz+qyLz8CS6YlF/y4BmGojPJW5BGzuJtG4GpLFwDsm6IXYHrlky1fA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB4979
-X-Rspamd-Queue-Id: 8659720F9D9
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 03/10] xen/page_alloc: Implement NUMA-node-specific
+ claims
+To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Marcus Granado <marcus.granado@citrix.com>, xen-devel@lists.xenproject.org,
+ Alejandro Vallejo <Alejandro.GarciaVallejo@amd.com>
+References: <cover.1772098423.git.bernhard.kaindl@citrix.com>
+ <6927e45bf7c2ce56b8849c16a2024edb86034358.1772098423.git.bernhard.kaindl@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <6927e45bf7c2ce56b8849c16a2024edb86034358.1772098423.git.bernhard.kaindl@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 106AC210158
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:marcus.granado@citrix.com,m:xen-devel@lists.xenproject.org,m:Alejandro.GarciaVallejo@amd.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[macbook.local:mid,suse.com:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On Thu, Mar 05, 2026 at 10:45:29AM +0100, Jan Beulich wrote:
-> On 05.03.2026 10:22, Roger Pau Monné wrote:
-> > On Thu, Mar 05, 2026 at 10:00:13AM +0100, Jan Beulich wrote:
-> >> On 04.03.2026 16:06, Roger Pau Monné wrote:
-> >>> On Wed, Feb 25, 2026 at 12:44:44PM +0100, Jan Beulich wrote:
-> >>>> When Dom0 informs us about MMCFG usability, this may change whether
-> >>>> extended capabilities are available (accessible) for devices. Zap what
-> >>>> might be on record, and re-initialize things.
-> >>>>
-> >>>> No synchronization is added for the case where devices may already be in
-> >>>> use. That'll need sorting when (a) DomU support was added and (b) DomU-s
-> >>>> may run already while Dom0 / hwdom still boots (dom0less, Hyperlaunch).
-> >>>>
-> >>>> vpci_cleanup_capabilities() also shouldn't have used
-> >>>> pci_find_ext_capability(), as already when the function was introduced
-> >>>> extended config space may not have been (properly) accessible anymore,
-> >>>> no matter whether it was during init. Extended capability cleanup hooks
-> >>>> need to cope with being called when the respective capability doesn't
-> >>>> exist (and hence the corresponding ->init() hook was never called).
-> >>>>
-> >>>> Fixes: 70e6dace747e ("vpci: Use cleanup to free capability resource during deassign")
-> >>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >>>> ---
-> >>>> vpci_reinit_ext_capabilities()'es return value is checked only to log an
-> >>>> error; it doesn't feel quite right to fail the hypercall because of this.
-> >>>> Roger brought up the idea of de-assigning the device in such a case, but
-> >>>> if a driver doesn't use extended capabilities the device would likely
-> >>>> continue to work fine, for Dom0 this probably wouldn't be quite right
-> >>>> anyway, and it's also unclear whether calling deassign_device() could be
-> >>>> done from this context. Something like what pci_check_disable_device()
-> >>>> does may be an option, if we really think we need to "break" the device.
-> >>>
-> >>> We may want to add a note there, stating that we have considered all
-> >>> possible options, and hiding the capability and hoping the owner
-> >>> domain would continue to work as expected seems the less bad of all of
-> >>> them?
-> >>
-> >> While adding that note it occurred to me that in order to keep the device
-> >> as functioning as possible, in the re-init case vpci_init_capabilities()
-> >> might better not bail upon encountering a failure, but accumulate the
-> >> error while continuing its loop in a best-effort manner. Thoughts? (One
-> >> of the two return-s is already guarded by !is_hardware_domain(), so that
-> >> could be left alone for the immediate purpose.)
-> > 
-> > Right, yes, that would be preferable.  We already print a message for
-> > the failed to init capabilities, so there's no need to print another
-> > one in the caller.
-> 
-> Hmm, that's another aspect I didn't consider. Yes, the log message in the
-> caller is redundant with the present code structure. If we expect that to
-> remain like that, I can drop logging anything from
-> physdev_check_pci_extcfg(). Which then re-raises the question whether
-> vpci_reinit_ext_capabilities() might better return void. At which point
-> the comment I put in physdev_check_pci_extcfg() (upon your request) would
-> want to move there.
-> 
-> But my earlier question went in a different direction, and you didn't
-> comment on that at all.
+On 26.02.2026 15:29, Bernhard Kaindl wrote:
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -944,6 +944,7 @@ struct domain *domain_create(domid_t domid,
+>      spin_lock_init(&d->node_affinity_lock);
+>      d->node_affinity = NODE_MASK_ALL;
+>      d->auto_node_affinity = 1;
+> +    d->claim_node = NUMA_NO_NODE;
 
-Yes, I think we should accumulate errors.  One device failing doesn't
-mean the rest will also fail.  We should continue the loop.
+If, as the cover letter says, the new domctl is going to allow claiming from
+multiple nodes in one go, why would this new field still be necessary?
 
-Thanks, Roger.
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -488,7 +488,10 @@ static unsigned long *avail[MAX_NUMNODES];
+>  /* Global available pages, updated in real-time, protected by heap_lock */
+>  static unsigned long total_avail_pages;
+>  
+> -/* The global heap lock, protecting access to the heap and related structures */
+> +/*
+> + * The global heap lock, protecting access to the heap and related structures
+> + * It protects the heap and claims, d->outstanding_pages and d->claim_node
+> + */
+>  static DEFINE_SPINLOCK(heap_lock);
+
+Nit: Comment style.
+
+> @@ -510,6 +513,71 @@ static unsigned long node_avail_pages[MAX_NUMNODES];
+>  /* total outstanding claims by all domains */
+>  static unsigned long outstanding_claims;
+>  
+> +/*
+> + * Per-node accessor for outstanding claims, protected by heap_lock, updated
+> + * in lockstep with the global outstanding_claims and d->outstanding_pages
+> + * in domain_set_outstanding_pages() and release_outstanding_claims().
+> + *
+> + * node_outstanding_claims(node) is used to determine the outstanding claims on
+> + * a node, which are subtracted from the node's available pages to determine if
+> + * a request can be satisfied without violating the node's memory availability.
+> + */
+> +#define node_outstanding_claims(node) (node_outstanding_claims[node])
+
+See the comment on the earlier patch regarding such a wrapper.
+
+> +/* total outstanding claims by all domains on node */
+> +static unsigned long node_outstanding_claims[MAX_NUMNODES];
+
+How come this is being added, rather than it replacing outstanding_claims?
+
+> +/* Return available pages after subtracting claimed pages */
+> +static inline unsigned long available_after_claims(unsigned long avail_pages,
+> +                                                   unsigned long claims)
+> +{
+> +    BUG_ON(claims > avail_pages);
+> +    return avail_pages - claims; /* Due to the BUG_ON, it cannot be negative */
+> +}
+
+A helper for a simple subtraction?
+
+> +/* Answer if host-level memory and claims permit this request to proceed */
+> +static inline bool host_allocatable_request(const struct domain *d,
+> +                                            unsigned int memflags,
+> +                                            unsigned long request)
+> +{
+> +    unsigned long allocatable_pages;
+> +
+> +    ASSERT(spin_is_locked(&heap_lock));
+> +
+> +    allocatable_pages = available_after_claims(total_avail_pages,
+> +                                               outstanding_claims);
+> +    if ( allocatable_pages >= request )
+> +        return true; /* The not claimed pages are enough to proceed */
+> +
+> +    if ( !d || (memflags & MEMF_no_refcount) )
+> +        return false; /* Claims are not available for this allocation */
+> +
+> +    /* The domain's claims are available, return true if sufficient */
+> +    return request <= allocatable_pages + d->outstanding_pages;
+> +}
+
+This only uses variables which existed before, i.e. there's nothing NUMA-ish
+in here. What's the deal?
+
+> +/* Answer if node-level memory and claims permit this request to proceed */
+> +static inline bool node_allocatable_request(const struct domain *d,
+> +                                            unsigned int memflags,
+> +                                            unsigned long request,
+> +                                            nodeid_t node)
+> +{
+> +    unsigned long allocatable_pages;
+> +
+> +    ASSERT(spin_is_locked(&heap_lock));
+> +    ASSERT(node < MAX_NUMNODES);
+> +
+> +    allocatable_pages = available_after_claims(node_avail_pages(node),
+> +                                               node_outstanding_claims(node));
+> +    if ( allocatable_pages >= request )
+> +        return true; /* The not claimed pages are enough to proceed */
+> +
+> +    if ( !d || (memflags & MEMF_no_refcount) || (node != d->claim_node) )
+> +        return false; /* Claims are not available for this allocation */
+> +
+> +    /* The domain's claims are available, return true if sufficient */
+> +    return request <= allocatable_pages + d->outstanding_pages;
+> +}
+
+And this is the NUMA counterpart, almost identical in the basic logic. If
+(for whatever reason) both are really needed, I think it should at least be
+considered to fold them (with NUMA_NO_NODE indicating the non-NUMA intent).
+
+In fact the node != d->claim_node would probably also apply to the non-NUMA
+variant (as d->claim_node != NUMA_NO_NODE).
+
+As to the comments in both functions, personally I think
+s/not claimed/unclaimed/ would be slightly more logical to follow.
+
+In any event, the first of these function looks like it could be split out
+in a separate, earlier patch. Then (as per above) ideally here that function
+would simply be extended to become NUMA-capable.
+
+> @@ -539,14 +607,23 @@ unsigned long domain_adjust_tot_pages(struct domain *d, long pages)
+>      return d->tot_pages;
+>  }
+>  
+> -/* Release outstanding claims on the domain, host and later also node */
+> +/* Release outstanding claims on the domain, host and node */
+>  static inline
+>  void release_outstanding_claims(struct domain *d, unsigned long release)
+>  {
+>      ASSERT(spin_is_locked(&heap_lock));
+>      BUG_ON(outstanding_claims < release);
+>      outstanding_claims -= release;
+> +
+> +    if ( d->claim_node != NUMA_NO_NODE )
+> +    {
+> +        BUG_ON(node_outstanding_claims(d->claim_node) < release);
+> +        node_outstanding_claims(d->claim_node) -= release;
+> +    }
+>      d->outstanding_pages -= release;
+> +
+> +    if ( d->outstanding_pages == 0 )
+> +        d->claim_node = NUMA_NO_NODE; /* Clear if no outstanding pages left */
+
+I fear I don't understand this. If the domain has claims on other nodes,
+why would would it be switched back to non-NUMA claims?
+
+> @@ -564,14 +642,41 @@ void consume_outstanding_claims(struct domain *d, unsigned long allocation)
+>  
+>      /* Of course, the domain can only release up its outstanding claims */
+>      allocation = min(allocation, d->outstanding_pages + 0UL);
+> +
+> +    if ( d->claim_node != NUMA_NO_NODE && d->claim_node != alloc_node )
+> +    {
+> +        /*
+> +         * The domain has a claim on a node, but the alloc is on a different
+> +         * node. If it would exceed the domain's max_pages, reduce the claim
+> +         * up to the excess over max_pages so we don't reduce the claim more
+> +         * than we have to to honor the max_pages limit.
+> +         */
+> +        unsigned long booked_pages = domain_tot_pages(d) + allocation +
+> +                                     d->outstanding_pages;
+> +        if ( booked_pages <= d->max_pages )
+> +            return; /* booked is within max_pages, no excess, keep the claim */
+> +
+> +        /* Excess detected, release the exceeding pages from the claimed node */
+> +        allocation = min(allocation, booked_pages - d->max_pages);
+> +    }
+>      release_outstanding_claims(d, allocation);
+
+Please can there be another blank line above this one?
+
+Why is the adjustment made excluded for the NUMA_NO_NODE case? That's odd in
+itself, but particularly with release_outstanding_claims() possibly switching a
+domain to NUMA_NO_NODE. Plus the caller looks to be passing in the actual node
+memory was taken from, not what the original request said (which is specifically
+relevant when the request named no particular node).
+
+>  }
+>  
+> -int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
+> +/*
+> + * Update outstanding claims for the domain. Note: The node is passed as an
+> + * unsigned int to allow checking for overflow above the uint8_t nodeid_t limit.
+> + */
+> +int domain_set_outstanding_pages(struct domain *d, unsigned long pages,
+> +                                 unsigned int node)
+>  {
+>      int ret = -ENOMEM;
+>      unsigned long claim, avail_pages;
+>  
+> +    /* When releasing a claim, the node must be NUMA_NO_NODE (it is not used) */
+
+Why would this be?
+
+> +    if ( pages == 0 && node != NUMA_NO_NODE )
+> +        return -EINVAL;
+> +    if ( node != NUMA_NO_NODE && (node >= MAX_NUMNODES || !node_online(node)) )
+> +        return -ENOENT;
+>      /*
+
+Again, can there please be a blank line after each of the if()s?
+
+> @@ -982,6 +1102,8 @@ static struct page_info *get_free_buddy(unsigned int zone_lo,
+>              }
+>          } while ( zone-- > zone_lo ); /* careful: unsigned zone may wrap */
+>  
+> + try_next_node:
+> +        /* If MEMF_exact_node was passed, we may not skip to a different node */
+>          if ( (memflags & MEMF_exact_node) && req_node != NUMA_NO_NODE )
+>              return NULL;
+
+As per this, ...
+
+> @@ -1042,13 +1164,8 @@ static struct page_info *alloc_heap_pages(
+>  
+>      spin_lock(&heap_lock);
+>  
+> -    /*
+> -     * Claimed memory is considered unavailable unless the request
+> -     * is made by a domain with sufficient unclaimed pages.
+> -     */
+> -    if ( (outstanding_claims + request > total_avail_pages) &&
+> -          ((memflags & MEMF_no_refcount) ||
+> -           !d || d->outstanding_pages < request) )
+> +    /* Proceed if host-level memory and claims permit this request to proceed */
+> +    if ( !host_allocatable_request(d, memflags, request) )
+
+... in the MEMF_exact_node case I see little reason to check the global value
+here.
+
+Jan
 
