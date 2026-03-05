@@ -2,43 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mO+DNV2IqWki+gAAu9opvQ
+	id oOUuI6GKqWki+gAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 14:42:53 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 14:52:33 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28A2D212B36
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 14:42:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1246653.1545761 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85B8F212C79
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 14:52:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1246664.1545771 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy8xz-0006jX-I3; Thu, 05 Mar 2026 13:42:15 +0000
+	id 1vy97f-0008PP-CZ; Thu, 05 Mar 2026 13:52:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1246653.1545761; Thu, 05 Mar 2026 13:42:15 +0000
+Received: by outflank-mailman (output) from mailman id 1246664.1545771; Thu, 05 Mar 2026 13:52:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vy8xz-0006h5-Ew; Thu, 05 Mar 2026 13:42:15 +0000
-Received: by outflank-mailman (input) for mailman id 1246653;
- Thu, 05 Mar 2026 13:42:13 +0000
+	id 1vy97f-0008Mw-9Y; Thu, 05 Mar 2026 13:52:15 +0000
+Received: by outflank-mailman (input) for mailman id 1246664;
+ Thu, 05 Mar 2026 13:52:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=00Q8=BF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vy8xx-0006gz-Rh
- for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 13:42:13 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ (envelope-from <SRS0=y0Pc=BF=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1vy97c-0008Mq-W3
+ for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 13:52:13 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1d1ff0f1-1899-11f1-b164-2bf370ae4941;
- Thu, 05 Mar 2026 14:42:12 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-439b9cf8cb5so3993530f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 05 Mar 2026 05:42:12 -0800 (PST)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439af926c53sm44193969f8f.8.2026.03.05.05.42.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Mar 2026 05:42:11 -0800 (PST)
+ id 820ae696-189a-11f1-b164-2bf370ae4941;
+ Thu, 05 Mar 2026 14:52:11 +0100 (CET)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6414C3F904;
+ Thu,  5 Mar 2026 13:52:10 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3A6DC3EA68;
+ Thu,  5 Mar 2026 13:52:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id pHcFDYqKqWlKTgAAD6G6ig
+ (envelope-from <jgross@suse.com>); Thu, 05 Mar 2026 13:52:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,151 +56,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d1ff0f1-1899-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1772718132; x=1773322932; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=MGPu7Ut75IVW+faT5wPACbbODt9XdGXp1pSw46SMeG4=;
-        b=A6UdqnmGGsrZP8Ukug9IqyIT80cZFxi2Rcqo9u+HCFFopA4swdpwkJrIZYsgwaJ2wd
-         g3XY+t4mvzB84yHKyQMSyLfmsm3hgK/h6fWAnwpSvzHSjc9061bECG+vIhKA4AxoENkx
-         j4nJYo+gkdnY2l/zFTfapCkq6mzkU9eDwPyCjY/dCVDImXYxw6Mrxb6NZkxyA+jiLGfQ
-         F6ZttSsXzvZBuVmU2KVkA97IKnyOPq023gFdb5xywirPBN2nLzes8Sgs+BD0cxY0MzRq
-         pbqzmi3uXxKOkNydAJpL8ZNprhBS7Ooai+AF1bQPyaiPBYAcFwRnJ4aqG2uJTCGmzur7
-         /Cuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1772718132; x=1773322932;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MGPu7Ut75IVW+faT5wPACbbODt9XdGXp1pSw46SMeG4=;
-        b=tFXNXe1LRqMg/Qba4dC6qwGpBXTivkwB5ycaGQts0FgFLyCXEtoQsNt7BHsh67peyU
-         sKvtuqJgUTuvGCoPl2s03ZQFm3aJMPCRCU49irGs92acl0AwN3rAQNxFYgdLYJizPgRq
-         N2ipJR35CPWEs6Kc3ijIONN8vklYs2p5N4XjBHVr7jpmLsoWlDBKgw4WxfjsMEAVzfY+
-         I9PSDjbUGT2/ReooB4iZ1aK3xtRvMhH89fsWC4jz2fmdErbZWTqXa7BDDraxsx7vd9LS
-         z8ZIbF+VtBuxoLihwf0F1J+OM3+It9+EMfiONpV1nmQKlc2bneB3ZXdRp5uNj5dowCJt
-         sopA==
-X-Forwarded-Encrypted: i=1; AJvYcCW2zXtoVmRESbqmjQYN29IPATzAOaRy+9zK3cHdQyMO0Qq0ApE3qm6klI2tLqcRh013obRA7o33zV0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzDz7ustER49mZ7i6nNUMHJ5+Iim5WBEs9d0B0w9Tx2jrsh8esn
-	LObhRgLzbq1F1osJxXXRyuKJt8QlkLqRVJ1bU15wrhJn5RAP9TZXnSd+JiyqERW6EA==
-X-Gm-Gg: ATEYQzwH/ENbnLPY9zkBlpEYdZrpLFMMepnzCRiUWUqilK7TfLTM5CwUsskWAZZUAEB
-	4mAEBBK/wZ+ofbsKheSoz1VpTPFCb0WF0TvFIelAmVzNi9knJSQEn45nEi0sSgqppQG3YYcxuFb
-	k/voTOYoErazuH6Gx/oycum8UTxRUh8GN0Gq6Ls9BJaCdWMsQLZp9eMIVKmL65EasMsUritm2lJ
-	L/y3fKpy7LypKnDlWDmsl2jsRKV0UyFvNgwFvf5NmM597gT/1IHIbWHAjt8spQx/dqpGVehzvyY
-	EvqSwYQoPckyMTtKl9S6tLGzJ70bvIsfUrTyaQzfWsXQlk5lMlGAYag2ktGzT9u1bX2TxyEmdQC
-	v8JhyIbiMuj6YLb2NCXzZXXDnCvw+IL+GvMG9oEu78ijvgbnXhyW6AbMJMqIITrz8FMn/bSjN6C
-	COW/YKvjju5eXQ4VIAq0ZzAevnVInMdEkBFZlW0k0O2bZtcBkD7xjfeRHxK4g4zjRGUI1Pfp7+f
-	RAvzcQ9KwA/+4w=
-X-Received: by 2002:a05:6000:2404:b0:439:bce5:64fb with SMTP id ffacd0b85a97d-439c7fae131mr10442482f8f.23.1772718131557;
-        Thu, 05 Mar 2026 05:42:11 -0800 (PST)
-Message-ID: <2662bcd2-2403-4e43-92c9-a51b17c938f2@suse.com>
-Date: Thu, 5 Mar 2026 14:42:09 +0100
+X-Inumbo-ID: 820ae696-189a-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1772718730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=x/tKo6sO/yEl7rIclC8Ou/RxLmCoSVX2S0UQLahfY5Y=;
+	b=W8Njhtr8phGTTkrM/iWOk5nQ1OdpnM8IfavIGp92qr8ObGu4rpQJ/w6Ox0t7RK/Nkdl+Ku
+	OjOsm8qme8KAc81wZk3rG5EkzEVOK36uO0X+Ar41yoDvxHVqR9BF0BsPERcLRkrLUtCZMK
+	RhaB1iGTPJS1VAsnFa5jaLFPPTJilvU=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1772718730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=x/tKo6sO/yEl7rIclC8Ou/RxLmCoSVX2S0UQLahfY5Y=;
+	b=W8Njhtr8phGTTkrM/iWOk5nQ1OdpnM8IfavIGp92qr8ObGu4rpQJ/w6Ox0t7RK/Nkdl+Ku
+	OjOsm8qme8KAc81wZk3rG5EkzEVOK36uO0X+Ar41yoDvxHVqR9BF0BsPERcLRkrLUtCZMK
+	RhaB1iGTPJS1VAsnFa5jaLFPPTJilvU=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Nick Rosbrook <enr0n@ubuntu.com>,
+	George Dunlap <gwd@xenproject.org>
+Subject: [PATCH 00/11] tools: add support for per-domain xenstore quota
+Date: Thu,  5 Mar 2026 14:51:57 +0100
+Message-ID: <20260305135208.2208663-1-jgross@suse.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 06/10] xsm/flask: Add XEN_DOMCTL_claim_memory to flask
-To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <cover.1772098423.git.bernhard.kaindl@citrix.com>
- <8e5680575f37ce67a81a4c712e5409ccb3f6f612.1772098423.git.bernhard.kaindl@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8e5680575f37ce67a81a4c712e5409ccb3f6f612.1772098423.git.bernhard.kaindl@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 28A2D212B36
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Score: -2.79
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 85B8F212C79
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo,citrix.com:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:dpsmith@apertussolutions.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:julien@xen.org,m:anthony.perard@vates.tech,m:enr0n@ubuntu.com,m:gwd@xenproject.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	DKIM_TRACE(0.00)[suse.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Action: no action
 
-On 26.02.2026 15:29, Bernhard Kaindl wrote:
-> Add a Flask security policy for the new XEN_DOMCTL_claim_memory hypercall
-> introduced in the previous commit. When Flask is enabled, this permission
-> controls whether a domain can stake memory claims for another domain.
-> 
-> The permission is granted to:
-> - dom0_t: Dom0 needs this to claim memory for guest domains
-> - create_domain_common: Domain builders need this during domain creation
-> 
-> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-> ---
->  tools/flask/policy/modules/dom0.te  | 1 +
->  tools/flask/policy/modules/xen.if   | 1 +
->  xen/xsm/flask/hooks.c               | 3 +++
->  xen/xsm/flask/policy/access_vectors | 2 ++
->  4 files changed, 7 insertions(+)
+This series is adding support for per-domain Xenstore quota to:
 
-Oh, here's the missing XSM/Flask change. First - this cannot come after the
-introduction of the sub-op. If it can be split and come first, fine. Else it
-needs to be folded in.
+- xenstored
+- libxenstore
+- libxl
+- xl
 
-> --- a/xen/xsm/flask/hooks.c
-> +++ b/xen/xsm/flask/hooks.c
-> @@ -820,6 +820,9 @@ static int cf_check flask_domctl(struct domain *d, unsigned int cmd,
->      case XEN_DOMCTL_set_llc_colors:
->          return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__SET_LLC_COLORS);
->  
-> +    case XEN_DOMCTL_claim_memory:
-> +        return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__CLAIM_MEMORY);
+With this it is possible to e.g. allow larger limits for driver
+domains.
 
-You don't need two XSM checks, I don't think. As you use xsm_claim_pages(),
-all you need to do here should be to add a case label to the "These have
-individual XSM hooks (common/domctl.c)" block.
+Juergen Gross (11):
+  tools/libs/store: add get- and set-quota related functions
+  tools/xenstored: add central quota check functions
+  tools/xenstored: rework hard_quotas and soft_quotas arrays
+  tools/xenstored: add GLOBAL_QUOTA_DATA record for live update
+  tools/xenstored: split acc[] array in struct domain
+  tools/xenstored: add infrastructure for per-domain quotas
+  tools/xenstored: implement the GET/SET_QUOTA commands
+  tools/libxl: add functions for retrieving and setting xenstore quota
+  tools/libxl: add support for xenstore quota in domain_config
+  tools/xl: add xl commands for xenstore quota operations
+  tools/xl: add support for xenstore quota setting via domain config
 
-Jan
+ docs/man/xl.cfg.5.pod.in             |  13 +
+ tools/golang/xenlight/helpers.gen.go |  84 +++++
+ tools/golang/xenlight/types.gen.go   |  10 +
+ tools/include/libxl.h                |  20 ++
+ tools/include/xenstore.h             |  19 ++
+ tools/libs/light/Makefile            |   1 +
+ tools/libs/light/libxl_dom.c         |   8 +
+ tools/libs/light/libxl_domain.c      |  10 +
+ tools/libs/light/libxl_types.idl     |  10 +
+ tools/libs/light/libxl_xsquota.c     | 102 ++++++
+ tools/libs/store/Makefile            |   2 +-
+ tools/libs/store/libxenstore.map     |   8 +
+ tools/libs/store/xs.c                | 111 +++++++
+ tools/xenstored/control.c            |  24 +-
+ tools/xenstored/core.c               |  41 ++-
+ tools/xenstored/domain.c             | 457 +++++++++++++++++++++------
+ tools/xenstored/domain.h             |  32 +-
+ tools/xenstored/lu.c                 |   6 +
+ tools/xenstored/transaction.c        |   2 +-
+ tools/xenstored/watch.c              |   4 +-
+ tools/xl/Makefile                    |   1 +
+ tools/xl/xl.h                        |   2 +
+ tools/xl/xl_cmdtable.c               |  10 +
+ tools/xl/xl_parse.c                  |  48 ++-
+ tools/xl/xl_parse.h                  |   1 +
+ tools/xl/xl_xsquota.c                |  88 ++++++
+ 26 files changed, 972 insertions(+), 142 deletions(-)
+ create mode 100644 tools/libs/light/libxl_xsquota.c
+ create mode 100644 tools/xl/xl_xsquota.c
+
+-- 
+2.53.0
+
 
