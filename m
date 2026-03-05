@@ -2,45 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2HTHJ+DmqWnuHQEAu9opvQ
+	id aIEJHC76qWncIwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 21:26:08 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 22:48:30 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 015A42181FB
-	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 21:26:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1247123.1545994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C54E9218A14
+	for <lists+xen-devel@lfdr.de>; Thu, 05 Mar 2026 22:48:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1247176.1546005 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vyFFv-0006vw-If; Thu, 05 Mar 2026 20:25:11 +0000
+	id 1vyGXX-00088j-7U; Thu, 05 Mar 2026 21:47:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1247123.1545994; Thu, 05 Mar 2026 20:25:11 +0000
+Received: by outflank-mailman (output) from mailman id 1247176.1546005; Thu, 05 Mar 2026 21:47:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vyFFv-0006sv-FZ; Thu, 05 Mar 2026 20:25:11 +0000
-Received: by outflank-mailman (input) for mailman id 1247123;
- Thu, 05 Mar 2026 20:25:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NtvN=BF=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vyFFt-0006sp-Rx
- for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 20:25:09 +0000
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c105::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 66adbf56-18d1-11f1-b164-2bf370ae4941;
- Thu, 05 Mar 2026 21:25:08 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by SJ0PR03MB6470.namprd03.prod.outlook.com (2603:10b6:a03:396::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.18; Thu, 5 Mar
- 2026 20:25:03 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9678.016; Thu, 5 Mar 2026
- 20:25:03 +0000
+	id 1vyGXX-00086M-4D; Thu, 05 Mar 2026 21:47:27 +0000
+Received: by outflank-mailman (input) for mailman id 1247176;
+ Thu, 05 Mar 2026 21:47:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=yoVW=BF=kernel.org=robh@srs-se1.protection.inumbo.net>)
+ id 1vyGXV-00086G-U9
+ for xen-devel@lists.xenproject.org; Thu, 05 Mar 2026 21:47:26 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e43a4258-18dc-11f1-9ccf-f158ae23cfc8;
+ Thu, 05 Mar 2026 22:47:23 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id CD1896011F;
+ Thu,  5 Mar 2026 21:47:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DA1CC116C6;
+ Thu,  5 Mar 2026 21:47:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,232 +46,281 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 66adbf56-18d1-11f1-b164-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aWOg0cpRru4auTsFsubdKbZ/UDipjtWMwjKLeXEQuG5w3IataLrAeH8jSj4uJcALW9Qyj+QtFUkZ0RW+sRBXQGbZBR/cvhgX4Yg7r/PrJ593lxP0eEa2ZfCS5ivskpBNr72RK0H98/q6dkfz7eLeyKNa5IcwfA84Iw3CQf2k6jr2u1j2mzQfz0EnJCf14oHL+JssnqZj/E6wNz52N0rGcUVqvotsqW2eq7AqZWWO0ZT5ZlUmySLIXN/fVGarEDzlnXHaZbYkq//ywUxPPcyxpQ671EZQZRo0GBGxrfqIoQSKWxPMI1B4QHx6EAalabHyedY31arT/L+W6YLIPXAULQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EwSb0AQsqbBm3g9wEJyMQTvkXvqq3aGJzRJL7F+bE04=;
- b=hNXwzqCBL1w+lHHiwntXhsJB9K3648m6b21nNbHCEvzA0A18lxy/ouGMBuAbgdkoxGZjQSzLyF+hd1CrFj3pHRzF5YExRFB1P0xgW6qptQzsX/gEB4tf3sURQ9vv3Y+bCeZTAbBJETz8mLMGfKVh3IHGq0AIA/qdcgfWL8Pb2oUCRyDmkoKME5PUMiqPwkW/uDFs0xdm2Feavn7mKU6lBK2kU2ovNSTNB7fJbo/dZzcrXW9WEtLfhwdqlGuUdo2DXbaqH4tu1NVyKg/DfbFkwzKcXEVCSDBKh3DwJ8BJuoVmRsFFEyCb8geAGGgKsSo+RZmFNRGsULBDjOawF0+8Iw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EwSb0AQsqbBm3g9wEJyMQTvkXvqq3aGJzRJL7F+bE04=;
- b=MI+vAFbIFmO5WNuXZsaRGVpunwuSUPgIQq0j/ZIJ1oJnxeajnsRe5Q13abM/2fvVdEmrOnlgKVKpEe1i1J9O3YD4ayMmjUSazM7nitBQDYMoirPGYHaUCwAb0FUcvNCNYwWIMeh0dmc1Xxt4NpGOMLpREfvC7LQVLXAYxTGSYKc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 5 Mar 2026 21:25:00 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>, Jason Andryuk <jason.andryuk@amd.com>,
-	Penny Zheng <Penny.Zheng@amd.com>,
-	Alejandro Vallejo <Alejandro.GarciaVallejo@amd.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] x86/ACPI: _PDC bits vs HWP/CPPC
-Message-ID: <aanmnEiwbmXoEkKr@macbook.local>
-References: <ca1812c2-dadf-422a-a195-9c285ce08077@suse.com>
- <aahfgDDNVwJPa-jF@macbook.local>
- <3449aaf7-b221-4c45-9d22-54e340167b3f@suse.com>
- <aalD5VRBBuM16pxN@macbook.local>
- <73dd0000-4044-486a-915d-6381d0820cf6@suse.com>
- <aalYScWQQx_vMqII@macbook.local>
- <cf959649-139b-4e9a-84ef-f7548edd7f42@suse.com>
- <aal3dVPUyh2_4g4z@macbook.local>
- <4264cd39-00f3-4114-af90-baa29f9a00b9@suse.com>
+X-Inumbo-ID: e43a4258-18dc-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1772747241;
+	bh=u0gj4H2h3Emn6PHCQ3NTJ6S3USkiCu4juy7VLJs6MK8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=oyoG2yF5B15y9Q5opzbe48/xqw/zEN/T6mwkbwIrHuNF/42yYeHMyAjl5ywJZXbgG
+	 4EZUKXvDRtMKjoAtHPGx3L9Nr8Y/rTzM4wJT9MldC7zoNLCst4XHv4NJZsp2DNZFyZ
+	 D1MHbqJG+BL/VExFOdNCTK9uSAKtDVz7abBLO/rDR8lLv/3iismgy95mI6m6DeSpyo
+	 oxDbb99Ib4gNDkpEsMj6AWSHxilPpBZpBooEQiWSUGxSs5K1fzA9OYoGp57sAr5dU5
+	 fmzFvUyNtrpdK8gfpJzTO7otOCU7TtXcPqH/6btO+MCDk18AjGmYBjF/CPzxr/Wt4W
+	 o0AY+HjRydIXA==
+Date: Thu, 5 Mar 2026 15:47:20 -0600
+From: Rob Herring <robh@kernel.org>
+To: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Richard Zhu <hongxing.zhu@nxp.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-pci@vger.kernel.org, imx@lists.linux.dev,
+	xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v9 1/3] of: Add convenience wrappers for of_map_id()
+Message-ID: <20260305214720.GA317432-robh@kernel.org>
+References: <20260301-parse_iommu_cells-v9-0-4d1bceecc5e1@oss.qualcomm.com>
+ <20260301-parse_iommu_cells-v9-1-4d1bceecc5e1@oss.qualcomm.com>
+ <86342janlx.wl-maz@kernel.org>
+ <d3687764-024d-4dbc-9342-8edc9b4f1fdd@oss.qualcomm.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4264cd39-00f3-4114-af90-baa29f9a00b9@suse.com>
-X-ClientProxiedBy: MA2P292CA0020.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250::10)
- To CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SJ0PR03MB6470:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5794cf8f-3437-422a-c7a5-08de7af5486f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info:
-	DKYWa59wWJPK6pycVf1rKDA8YqIyjTlY8FKe+PC6LoXKwzgzao6VCWN9Vk4y+8iF1+IkEcwHGfPOL7JO9+ITa3B4G0NYaIvO/WfQAUNyj6SMBnb55CXLOFHWBrQpKUh97c8JD1PTvoKLBHx3LYQIxCZuJSpv4angpV9Ef99NMRzz3aXtv43W+NEciS3bHCE1e3Cz2tfaarnU3HQHhyqlO7AmQYGQUcdgUYJyGr2niFNTAuOZljgJic6309/1hZwtXsg9XHkp9B90Nzg52mI+UGWIDP5NRIUMImXGE76oTvZod5hed1gwwabqTc2iAwwvoB2YqML7SSVu2qxpdWJqQz833CB2L/7se/Q7mU3bgoZzDO6wZc/zjLAB6dpetRgTgXDD/9jOANcxMPYWwc1cXiwNH7ntg26/n+8UqH0E+IYUzaeHWeOdWV3/uh//H/5erf6OBgI9CzMISHi3phH3phGKNTiNMOMWB9pFn6ZiiGnhQ9wKIhuU3ofJhrXSZvAv5jly8gxc7+oRTU4MmIIZ3nazmA8Km2TsLV3N9pgDGM8309dtuS6Q4UqVFGEMI9GhiykayPjAsaPE/oJriQCmeOB/kzxZwLW+mstghnibQjWfGZ/aRPqKbx6VSEeG9Dwaw54xyxNg3oLoxBFBKyLEnYioFll+yLsEuoXR6sobyA6iziqOKPGCylIgr1yBroaNKi57/psKzgLhtMi8uutKqOFDHT5UhJXw3bjL5sTDL/8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZnhITUFLQWloTFJERUJQL25WQmNQT0dhMXZFWmhQemxKNzlFUEVJdE9PZWlj?=
- =?utf-8?B?U3J1cHlmSUl6L1VldWxnb2ZDZTZxeXVKbXhxcjRQbEJCZFdwZWF6MUdDYnZ5?=
- =?utf-8?B?L0RNYmh6U200Z2ZzWDdhcW9JM3EyUUYvV1lIYU1aNnhLSlZHUVIzQXdTNFpv?=
- =?utf-8?B?elJMWWhwTER2dnRuM3NsdFpOcTJxZnhESkZBeDcrRjNtTjF6b1RQTlNsZnNI?=
- =?utf-8?B?eUJwWklXVVdRSlFDVXVzZmZ6UkFoSlZnUkNnQ1Nua1RBQ0Z3T2RzcnlFTHpN?=
- =?utf-8?B?b2lPWHFJWFQydFdrL3dlUW1hbGg3UllRYVRZWEowOXV4Vlp0SGZPMzZjQVVj?=
- =?utf-8?B?MGt6MlQ0cWJERjE1NFBaUzhneXNaaFJvNThucit4L0pBdG54YzFxeGJzaktK?=
- =?utf-8?B?TXl6R3hqSTNBNzFWY2t0akJmeVY1V3RHa3IyRXZxRzVqVFJUdUJyeDB5UlYw?=
- =?utf-8?B?cjFNdVBOR0tkVVdId3Zuc25rR3BOOSswYlkvdTBkRjMvLzloaU1mNTZGTkRj?=
- =?utf-8?B?a3UrbjNYaDRGNzF2TG9aNjBFK215SWpoZEp4U0YwM2R5ZnpGNFIraStSZUhJ?=
- =?utf-8?B?WmNFQzVCL0NWZncxVGtzRHFJd3h2REVySXhSaUYvOFdDQ1M1WUZZRmJoSWpK?=
- =?utf-8?B?RlFVL0hlQ2pMdCs5MllLbEw2Y3MyQ0w2OHV4aVhmL0FUVWFqZ3hjcnUwQkVn?=
- =?utf-8?B?RHB1R0duYllnTEVla0c1QUM4Z1BjV2p5UnRDeXh2TGZCNzdZdkZXOWhBcFNM?=
- =?utf-8?B?bEc4U0ZRbnQ2dytEV1NZWmU5aTlKeE5XeVlIOVowVlliU0R4Yy9YanZUMkhY?=
- =?utf-8?B?UmVkbkw5STZDMnQvL1hBWlE1THNLTkhNRkNjc25MNWwxQ2RJYTFyOHMxd2Yr?=
- =?utf-8?B?RTRBNFpOZjNmQWVwakh2L1EvRXl3bnFla1J0bXlVVEY0cjV4dXFGb2xmakVX?=
- =?utf-8?B?OWIzN2ZLVnR5SjdNRlNvU2o3WHFxM2toV0pJMEw3TUc1OUxiam13MDh1WXl6?=
- =?utf-8?B?cFNHbC8zS3k1aEZNcnByNXc5QXlLeHhhU0FWNDdFdDROZjFuUHNNN085cnNK?=
- =?utf-8?B?QWN6cmRyaGxnU2ZkeUZHN2Nvd2l5RFAya09HOFBMNHdTcDhHVHY4RENVNWoz?=
- =?utf-8?B?YmJqZHgvNVdVaDFCdjdxMUczQVg2a2lib1NXRDgvZUw1L05vR0pzYzVXT09N?=
- =?utf-8?B?Y05yQ3BRc3hHbENOTDlLbEJlUHIzY1J6b3pXc0kvbDcybTIwWk5LL3VJeVcr?=
- =?utf-8?B?TWNxTVlUS3F3ZWFPcXExdGVvWGVwdURQQXAyVXIxQk9CYWp4d0VpUHF5Qjh4?=
- =?utf-8?B?TEwyVXlocWtaN09iREttdGI5aDFjMGlDZncwandJMEJ5Sk9ldHh6QytpZ0VF?=
- =?utf-8?B?aE5qU0RPWkMvcEoxZG8vUGNpT2k4RU9lWEhjb0QwMkp4UkhYMURQdHpNdkZq?=
- =?utf-8?B?dVhicWRlRWR2SDNQQW1CWTg5QlFmVnVRK3RkcUozUE5ucUZVUnM3cVF3U0hV?=
- =?utf-8?B?YXhWcE8wUjYzMk9icGFmQlAxMHMzY2FxajNkbHlKVk1Wd1pyN3RkUTRGRDMw?=
- =?utf-8?B?a1RCRDk3VnNYeW1kY2tUbE93clNnNkxCWlZ0bm9FeTBESVl3WGEvbllLMDZP?=
- =?utf-8?B?OWE2MG9UUFpSQ3N1U1NzaGp0dDhiM0k1WE9TdElzM01FekQzM1NzVFZOZmZo?=
- =?utf-8?B?aWIyVzFISFc2bXl6bC9QYklnOGxDSEhCdUtFTE1va2hENzVMWGVORFNoajZP?=
- =?utf-8?B?RFVpSnc4VFNPNW1lMzBMYVNuTWI1b3RyQnNEdFZveHQ2MUtZcXZiWE1oOUlw?=
- =?utf-8?B?Nnk5Rjk3MWsvVmJpRzA5c0V6NjRuRlRWRThQdUg5Q0tpWXNVUEMxNStjY3lJ?=
- =?utf-8?B?QktTRSthSkE5UCtMck44QStWWnNtWWh4VzUyRmFra2pWa21qUzBNRHRycHlx?=
- =?utf-8?B?bVZLUGxiaVlBOHg1UzNLQThKVVdCYjFnN3BxZVNMVkxwZ2laNVNjaThkZEdD?=
- =?utf-8?B?UXpqdTJyQmdIb2FKdGJNOTQ2c1NTbnU2ZUs2bVpjbHlmemk1bm00eldLc25C?=
- =?utf-8?B?Qlk2a0ExN3lKS2t3UmtFenpUWUd4U0kwcHFybVhMTTR3eGFyRG9JMHJhMS8w?=
- =?utf-8?B?ZjBNU1RqTEpJWDRSWG1IeXlOekJFSHJ5aytmTDNlaDVJUkNKbVkwMnJKU3RE?=
- =?utf-8?B?S0drdjl6bm1mRmdVNWtoOUhOOWFCblhBTnh1Vld3bVJGQVp2ZmgwK2pnUng5?=
- =?utf-8?B?c2ZhQTNtd1NCYWNCdk5YYVhYRmtWVVpoZElOSm9PQktyc0NiSmNaOFZURnJq?=
- =?utf-8?B?NnIzM1BicUoxeDRXWTkrR3g5b1poU1hjT0w1dUdLMnBucWxTS0dxZz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5794cf8f-3437-422a-c7a5-08de7af5486f
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2026 20:25:03.6566
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iqP5gh6I5jxvVCCudR4+OLPcGzRQJatEf5HtWVsHB7R51rGBRn7s2dNnWBQhQOzHdOWCb26escayWG8KwcGLXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6470
-X-Rspamd-Queue-Id: 015A42181FB
+In-Reply-To: <d3687764-024d-4dbc-9342-8edc9b4f1fdd@oss.qualcomm.com>
+X-Rspamd-Queue-Id: C54E9218A14
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [1.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:jason.andryuk@amd.com,m:Penny.Zheng@amd.com,m:Alejandro.GarciaVallejo@amd.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,amd.com,8bytes.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com,oss.qualcomm.com,vger.kernel.org,lists.linux.dev,lists.infradead.org,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[robh@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[37];
+	FORGED_RECIPIENTS(0.00)[m:vijayanand.jitta@oss.qualcomm.com,m:maz@kernel.org,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:lpieralisi@kernel.org,m:tglx@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:linux-arm-msm@vger.kernel.org,m:conor@kernel.org,m
+ :krzk@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,nxp.com:email,arm.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[robh@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel,dt];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On Thu, Mar 05, 2026 at 01:40:23PM +0100, Jan Beulich wrote:
-> On 05.03.2026 13:30, Roger Pau Monné wrote:
-> > On Thu, Mar 05, 2026 at 12:39:51PM +0100, Jan Beulich wrote:
-> >> On 05.03.2026 11:17, Roger Pau Monné wrote:
-> >>> On Thu, Mar 05, 2026 at 10:20:02AM +0100, Jan Beulich wrote:
-> >>>> On 05.03.2026 09:50, Roger Pau Monné wrote:
-> >>>>> Since we have the parsing of the ACPI related data done from dom0 it's
-> >>>>> not only Xen that needs to support the feature, but dom0 also needs to
-> >>>>> know how to parse it.  Or we just assume the driver in dom0 must
-> >>>>> strictly know how to parse data from the features enabled by Xen.
-> >>>>>
-> >>>>> Maybe Xen supported bits should be & with the dom0 ones?  So dom0
-> >>>>> would set what it can parse, and Xen would AND that with what the
-> >>>>> cpufreq drivers support?  However that would be an ABI change.
-> >>>>
-> >>>> What cpufreq drivers are you talking about here?
-> >>>
-> >>> I was talking about the Xen cpufreq driver, sorry the context was
-> >>> confusing.
-> >>>
-> >>>> When Xen handles P-
-> >>>> state transitions, the drivers in Dom0 would preferably not even be
-> >>>> loaded. That's what the forward-port did. Upstream they may be loaded,
-> >>>> but they then can't actually do anything (and they may exit early).
-> >>>
-> >>> Well, yes, on FreeBSD I simply overtake the native ACPI Processor
-> >>> driver with a Xen specific one that has higher priority.  So the
-> >>> native ACPI Processor driver doesn't even attach.  I think Linux is
-> >>> slightly different in that it allows the native driver to do the
-> >>> fetching of the information, and then the Xen driver only does the
-> >>> uploading.
-> >>>
-> >>>> Coordination is necessary only with the ACPI driver(s), and that's what
-> >>>> this function is about.
-> >>>
-> >>> I think Xen also needs coordination with the driver in dom0 that
-> >>> fetches the information from ACPI?
+On Wed, Mar 04, 2026 at 03:02:14PM +0530, Vijayanand Jitta wrote:
+> 
+> 
+> On 3/1/2026 3:16 PM, Marc Zyngier wrote:
+> > On Sun, 01 Mar 2026 08:34:19 +0000,
+> > Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com> wrote:
 > >>
-> >> That's what I meant with "ACPI driver(s)".
+> >> From: Robin Murphy <robin.murphy@arm.com>
 > >>
-> >>>  It's not only Xen that needs to
-> >>> report what the cpufreq driver support, but also dom0 would need to
-> >>> expose what it can correctly parse.
+> >> Since we now have quite a few users parsing "iommu-map" and "msi-map"
+> >> properties, give them some wrappers to conveniently encapsulate the
+> >> appropriate sets of property names. This will also make it easier to
+> >> then change of_map_id() to correctly account for specifier cells.
 > >>
-> >> Hmm, yes, strictly speaking we should tie setting of respective bits to
-> >> Dom0 having uploaded corresponding data. The order of these operations
-> >> may, however, be at best undefined (and possibly be well defined in the
-> >> unhelpful - for us - order). I don't think I see anything we can do
-> >> about this.
+> >> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> >> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> >> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+> >> Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+> >> ---
+> >>  drivers/cdx/cdx_msi.c                    |  3 +--
+> >>  drivers/iommu/of_iommu.c                 |  4 +---
+> >>  drivers/irqchip/irq-gic-its-msi-parent.c |  2 +-
+> >>  drivers/of/irq.c                         |  3 +--
+> >>  drivers/pci/controller/dwc/pci-imx6.c    |  6 ++----
+> >>  drivers/pci/controller/pcie-apple.c      |  3 +--
+> >>  drivers/xen/grant-dma-ops.c              |  3 +--
+> >>  include/linux/of.h                       | 14 ++++++++++++++
+> >>  8 files changed, 22 insertions(+), 16 deletions(-)
+> >>
+> >> diff --git a/drivers/cdx/cdx_msi.c b/drivers/cdx/cdx_msi.c
+> >> index 91b95422b263..63b3544ec997 100644
+> >> --- a/drivers/cdx/cdx_msi.c
+> >> +++ b/drivers/cdx/cdx_msi.c
+> >> @@ -128,8 +128,7 @@ static int cdx_msi_prepare(struct irq_domain *msi_domain,
+> >>  	int ret;
+> >>  
+> >>  	/* Retrieve device ID from requestor ID using parent device */
+> >> -	ret = of_map_id(parent->of_node, cdx_dev->msi_dev_id, "msi-map", "msi-map-mask",
+> >> -			NULL, &dev_id);
+> >> +	ret = of_map_msi_id(parent->of_node, cdx_dev->msi_dev_id, NULL, &dev_id);
+> >>  	if (ret) {
+> >>  		dev_err(dev, "of_map_id failed for MSI: %d\n", ret);
+> >>  		return ret;
+> >> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
+> >> index 6b989a62def2..a511ecf21fcd 100644
+> >> --- a/drivers/iommu/of_iommu.c
+> >> +++ b/drivers/iommu/of_iommu.c
+> >> @@ -48,9 +48,7 @@ static int of_iommu_configure_dev_id(struct device_node *master_np,
+> >>  	struct of_phandle_args iommu_spec = { .args_count = 1 };
+> >>  	int err;
+> >>  
+> >> -	err = of_map_id(master_np, *id, "iommu-map",
+> >> -			 "iommu-map-mask", &iommu_spec.np,
+> >> -			 iommu_spec.args);
+> >> +	err = of_map_iommu_id(master_np, *id, &iommu_spec.np, iommu_spec.args);
+> >>  	if (err)
+> >>  		return err;
+> >>  
+> >> diff --git a/drivers/irqchip/irq-gic-its-msi-parent.c b/drivers/irqchip/irq-gic-its-msi-parent.c
+> >> index d36b278ae66c..b63343a227a9 100644
+> >> --- a/drivers/irqchip/irq-gic-its-msi-parent.c
+> >> +++ b/drivers/irqchip/irq-gic-its-msi-parent.c
+> >> @@ -180,7 +180,7 @@ static int of_pmsi_get_msi_info(struct irq_domain *domain, struct device *dev, u
+> >>  
+> >>  	struct device_node *msi_ctrl __free(device_node) = NULL;
+> >>  
+> >> -	return of_map_id(dev->of_node, dev->id, "msi-map", "msi-map-mask", &msi_ctrl, dev_id);
+> >> +	return of_map_msi_id(dev->of_node, dev->id, &msi_ctrl, dev_id);
+> >>  }
+> >>  
+> >>  static int its_pmsi_prepare(struct irq_domain *domain, struct device *dev,
+> >> diff --git a/drivers/of/irq.c b/drivers/of/irq.c
+> >> index 6367c67732d2..e37c1b3f8736 100644
+> >> --- a/drivers/of/irq.c
+> >> +++ b/drivers/of/irq.c
+> >> @@ -817,8 +817,7 @@ u32 of_msi_xlate(struct device *dev, struct device_node **msi_np, u32 id_in)
+> >>  	 * "msi-map" or an "msi-parent" property.
+> >>  	 */
+> >>  	for (parent_dev = dev; parent_dev; parent_dev = parent_dev->parent) {
+> >> -		if (!of_map_id(parent_dev->of_node, id_in, "msi-map",
+> >> -				"msi-map-mask", msi_np, &id_out))
+> >> +		if (!of_map_msi_id(parent_dev->of_node, id_in, msi_np, &id_out))
+> >>  			break;
+> >>  		if (!of_check_msi_parent(parent_dev->of_node, msi_np))
+> >>  			break;
+> >> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+> >> index a5b8d0b71677..bff8289f804a 100644
+> >> --- a/drivers/pci/controller/dwc/pci-imx6.c
+> >> +++ b/drivers/pci/controller/dwc/pci-imx6.c
+> >> @@ -1144,8 +1144,7 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+> >>  	u32 sid = 0;
+> >>  
+> >>  	target = NULL;
+> >> -	err_i = of_map_id(dev->of_node, rid, "iommu-map", "iommu-map-mask",
+> >> -			  &target, &sid_i);
+> >> +	err_i = of_map_iommu_id(dev->of_node, rid, &target, &sid_i);
+> >>  	if (target) {
+> >>  		of_node_put(target);
+> >>  	} else {
+> >> @@ -1158,8 +1157,7 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+> >>  	}
+> >>  
+> >>  	target = NULL;
+> >> -	err_m = of_map_id(dev->of_node, rid, "msi-map", "msi-map-mask",
+> >> -			  &target, &sid_m);
+> >> +	err_m = of_map_msi_id(dev->of_node, rid, &target, &sid_m);
+> >>  
+> >>  	/*
+> >>  	 *   err_m      target
+> >> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
+> >> index 2d92fc79f6dd..a0937b7b3c4d 100644
+> >> --- a/drivers/pci/controller/pcie-apple.c
+> >> +++ b/drivers/pci/controller/pcie-apple.c
+> >> @@ -764,8 +764,7 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
+> >>  	dev_dbg(&pdev->dev, "added to bus %s, index %d\n",
+> >>  		pci_name(pdev->bus->self), port->idx);
+> >>  
+> >> -	err = of_map_id(port->pcie->dev->of_node, rid, "iommu-map",
+> >> -			"iommu-map-mask", NULL, &sid);
+> >> +	err = of_map_iommu_id(port->pcie->dev->of_node, rid, NULL, &sid);
+> >>  	if (err)
+> >>  		return err;
+> >>  
+> >> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+> >> index c2603e700178..1b7696b2d762 100644
+> >> --- a/drivers/xen/grant-dma-ops.c
+> >> +++ b/drivers/xen/grant-dma-ops.c
+> >> @@ -325,8 +325,7 @@ static int xen_dt_grant_init_backend_domid(struct device *dev,
+> >>  		struct pci_dev *pdev = to_pci_dev(dev);
+> >>  		u32 rid = PCI_DEVID(pdev->bus->number, pdev->devfn);
+> >>  
+> >> -		if (of_map_id(np, rid, "iommu-map", "iommu-map-mask", &iommu_spec.np,
+> >> -				iommu_spec.args)) {
+> >> +		if (of_map_iommu_id(np, rid, &iommu_spec.np, iommu_spec.args)) {
+> >>  			dev_dbg(dev, "Cannot translate ID\n");
+> >>  			return -ESRCH;
+> >>  		}
+> >> diff --git a/include/linux/of.h b/include/linux/of.h
+> >> index be6ec4916adf..824649867810 100644
+> >> --- a/include/linux/of.h
+> >> +++ b/include/linux/of.h
+> >> @@ -1457,6 +1457,20 @@ static inline int of_property_read_s32(const struct device_node *np,
+> >>  	return of_property_read_u32(np, propname, (u32*) out_value);
+> >>  }
+> >>  
+> >> +static inline int of_map_iommu_id(const struct device_node *np, u32 id,
+> >> +				  struct device_node **target, u32 *id_out)
+> >> +{
+> >> +	return of_map_id(np, id, "iommu-map", "iommu-map-mask",
+> >> +			 target, id_out);
+> >> +}
+> >> +
+> >> +static inline int of_map_msi_id(const struct device_node *np, u32 id,
+> >> +				struct device_node **target, u32 *id_out)
+> >> +{
+> >> +	return of_map_id(np, id, "msi-map", "msi-map-mask",
+> >> +			 target, id_out);
+> >> +}
+> >> +
 > > 
-> > I'm afraid it's the other way around, you need to first call _PDC, and
-> > then fetch the data.  As I've learned the hard way while doing the
-> > FreeBSD driver: you must call _PDC before attempting to fetch the
-> > data, as ACPI will modulate what gets returned/is present on the
-> > Processor objects based on what support the OSPM has specified in the
-> > _PDC bits.
+> > Any particular reason why this is made inline instead of out of line
+> > in of/base.c? Also, some documentation would be helpful for the
+> > aspiring hackers dipping into this.
+> > 
+> > Other than that,
+> > 
+> > Acked-by: Marc Zyngier <maz@kernel.org>
+> > 
+> > 	M.
+> > 
 > 
-> In which case at least for Linux we're okay, as what we need it has always
-> been capable of parsing.
+> Thanks Marc.
 > 
-> > Anyway, not sure there's much we can do now about any of this, it's
-> > too late to change the interface, and what we have seems to kind of
-> > work on for the purpose.
+> I made them static inline mainly because they’re just trivial wrappers
+> around of_map_id(), so keeping them in include/linux/of.h avoids adding
+> new global symbols/exports and keeps the callsites simple (similar to
+> the existing of_property_read_*() inline wrappers).
 > 
-> Which reads almost(?) like an ack-in-disguise to me ...
+> That said, I don’t have a strong preference—if you’d rather have
+> out-of-line helpers in drivers/of/base.c, I’m happy to respin accordingly.
 
-Possibly, I'm just a bit hesitant because I'm unsure about what CPPC
-requires to be set in the _PDC.  Right now we would allow any
-P-related bits set by dom0 to be propagated into _PDC when using CPPC
-driver.  With this change we would mask any P-related bits from _PDC
-when using CPPC.
+The downside is we get N copies of the string args for N callers 
+assuming the callers are in different compilation units. It's not 
+performance critical either.
 
-I think this is likely fine, but would like to get confirmation from
-AMD.  Maybe I'm overthinking it.
-
-Penny, Jason, Alejandro, Stefano: do you know which/if there's any
-_PDC/_OSC bits defined on AMD Processor Objects, or is it just
-supposed to be always empty?  It would be good to get some
-clarification there about which bits if any are supposed to be
-meaningful when using CPPC.
-
-Also, on a related tangent, \_SB._OSC seems to also define some
-vendor-agnostic bits related to CPPC [0].  Should the CPPC cpufreq
-driver force any of those to be set?  "CPPC {2} Support" bits seem
-like they should be set when Xen is using the CPPC cpufreq driver?
-
-Thanks, Roger.
-
-[0] https://uefi.org/htmlspecs/ACPI_Spec_6_4_html/06_Device_Configuration/Device_Configuration.html#osc-operating-system-capabilities
+Rob
 
