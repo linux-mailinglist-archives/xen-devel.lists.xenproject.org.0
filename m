@@ -2,45 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mKqwJeatqmluVQEAu9opvQ
+	id wI+7FxevqmluVQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 06 Mar 2026 11:35:18 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Mar 2026 11:40:23 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09C1E21ED76
-	for <lists+xen-devel@lfdr.de>; Fri, 06 Mar 2026 11:35:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1247593.1546154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5FBD21EFA4
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Mar 2026 11:40:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1247605.1546163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vySWS-0004ed-TA; Fri, 06 Mar 2026 10:35:08 +0000
+	id 1vySbI-0006Gx-E6; Fri, 06 Mar 2026 10:40:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1247593.1546154; Fri, 06 Mar 2026 10:35:08 +0000
+Received: by outflank-mailman (output) from mailman id 1247605.1546163; Fri, 06 Mar 2026 10:40:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vySWS-0004br-QH; Fri, 06 Mar 2026 10:35:08 +0000
-Received: by outflank-mailman (input) for mailman id 1247593;
- Fri, 06 Mar 2026 10:35:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1WzZ=BG=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1vySWR-0004aY-38
- for xen-devel@lists.xenproject.org; Fri, 06 Mar 2026 10:35:07 +0000
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c111::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 210814a9-1948-11f1-9ccf-f158ae23cfc8;
- Fri, 06 Mar 2026 11:35:02 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by BLAPR03MB5587.namprd03.prod.outlook.com (2603:10b6:208:286::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Fri, 6 Mar
- 2026 10:34:58 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9678.017; Fri, 6 Mar 2026
- 10:34:58 +0000
+	id 1vySbI-0006Eg-B6; Fri, 06 Mar 2026 10:40:08 +0000
+Received: by outflank-mailman (input) for mailman id 1247605;
+ Fri, 06 Mar 2026 10:40:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1vySbH-0006Ea-87
+ for xen-devel@lists.xenproject.org; Fri, 06 Mar 2026 10:40:07 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vySbG-008D0L-2l;
+ Fri, 06 Mar 2026 10:40:06 +0000
+Received: from [2a02:8012:3a1:0:f0b8:207:419e:3d8a]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vySbG-001kA1-1y;
+ Fri, 06 Mar 2026 10:40:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,254 +44,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 210814a9-1948-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qqp6VyCrefGK5gIKZgPwOzkRUP0zKSM6+oMlQtWtiW4sckfn5WcD5M0wpU9moYLOSMdOLyANrZcwf32FxAO0a1iFrENsZv3mPx2/s9A8tvkdx92XL5iPPoGlqVnqeespN0e6n1fqhzdFRW3072Yf6G/aK5Y4bkPMGF+aDFE37jXHB/8Ji8h9ynw6d4Bxn4tC+IGCLY32Y5ZDoleEMBj+ywf37bBTlkFEEsUxizpTmvq5c4tEbi3gguaO7Wf/n0T3CzeF64SEr3kLtqGaDkNYVNKfY/5uFCtedxUoDCoE1kWIInorEVcxBfhJdYh0ONT+AI9XT7kDrK+ualGXV2QTmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Tci2VgEwyEMN52AZpLCVUTxgEFw2cVuPR8ixW2m7yk=;
- b=BmEwWNX0ypULMy1HH7O6EpKJM9AtLo4KpsEOh439hcVpHjr/U0W2Yxlb5hiT6gAZviURaT0MCy7E35/0WpflJaAVvpuKNjsTCRekVZo+Q/CrqvFlqzBeEMfd2+Eov98NUx7LsvvU4IQWr106ReffkHq31ScyKP4VrUq4/qADlJJcBPQQuGJvU7cf3HG37/40E9r4czR/iAoRH17n6u1FVHbzpOS2lu9cmY0zdnsYwip0X3R0RdF5zC8hXmc3ESW+vrgd7vublj3M/tp4B/I0WAT+ZAGZStaC2Bsqw33RqccYic7DESXceydjWLUcH6tyfYMMC6Gz1Tjdx1PZKUKg5A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Tci2VgEwyEMN52AZpLCVUTxgEFw2cVuPR8ixW2m7yk=;
- b=naEOYMlAuT7Hf8SYvLLnYZ3/OYO/W2wjW1+S1AHCaqgef1T78V2bNeDZ0xL0i1BNgmc+12cBawGnqXZvsR7IUJfP5RWzEPUKsfVx5ZShEObio8fgWvbynKDrFwg7ezIj5cL35yJd4mNlMUvKFnSFwgjpgNTqtnfD+55hWYKZbrg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Fri, 6 Mar 2026 11:34:55 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>
-Subject: Re: [PATCH v6] vPCI: re-init extended-capabilities when MMCFG
- availability changed
-Message-ID: <aaqtz-fL3bl1wS8P@macbook.local>
-References: <689dae19-f83d-463f-95d9-c39c15a4e45c@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <689dae19-f83d-463f-95d9-c39c15a4e45c@suse.com>
-X-ClientProxiedBy: MN2PR03CA0029.namprd03.prod.outlook.com
- (2603:10b6:208:23a::34) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=W0OhQJULL61N9iDqMbX1ksT7S5t5/3mGGFgX1NczVE8=; b=6j1tiyj7l7GuAUdQvYALMJrsds
+	K+3lNYE+tEsWV6zfSGIQ8HFnyUWDq8ZHyWYQmwBYyMnL3HxjRr+ll6BKrAcLTM9ktpQ4lxDk7ZBN6
+	Pm31iYm9yZf95YPjZzDOQ+/F/mzICmbUFGDIIo//QuPO+8k4OizgdE56k13Gbeeh8EHE=;
+Message-ID: <c075f47f-09f1-443b-949f-936534f75ded@xen.org>
+Date: Fri, 6 Mar 2026 10:40:03 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BLAPR03MB5587:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6106dc19-98d6-4955-55c4-08de7b6c0397
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	Lin1PyZLksNR6wA6NTU0WuFy4XXA3/zpZKQF2EEv/4fd4h93GYvvEoO7BSdg6uNBQXW0rdTSFRBY1M6HplEmtDJ0errh0rPbOc9s3H9tGJFVcMz4tAMHjaa4tdUYLs5h5Rj5Tb5fSKFj/ehWQ2nctDcDl/RAMf5AtDxC25qqligR8hzfgSdDu6m4KfbixI5ykFtz/ty7IxQczcpFsZrAMFTfYWPICPJ5M6oVWjF1h+moKeHO3AfOqfySfZXO6Dmv864N4bjVwNxu6TmR7sGesJ/c/cOK3KOLKfF+kMzRI7UTved47enW3jl6QLJkqAvPfHLgx5FwUfXmlPc3pjpHVQvE3uMGM8d8EW0YHEtSlbPR9ip9p49pOad5o1/3ClHQikXHvUJWvGPP3afJyHaxEchPwNjahlqskvtIfDxT4mnXxP6Lvp6BGlnmBjXtSP9keAIFDqibprkUmXt4UcfVlkyxFVmvfPTfhdOqzhPfyvRAr6UzotkkVpQWhDHIRhhWHrnaE4omBFph/C0KppwbWG6qSUfa6EF7O7iDPkg8sx/acmQBjFGX6sB23ldGxbVsVSGn+aor9zE3O49JAC0Ln33xkGJXJ+5+8TSLBBJyzzn07a6w18ahrumoD29BYf/UNbbmzMZ9tto+BQ94XBIKc8ykQY5yWVBj1EaQl2MRmuAWCYw/62t2GUQvxrWi9rDdP5DMf9WHcErg57SadWnnVAJ2/w9N/5vNb1mkjQ+klIs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V3MwNDFVVVFPQ1h6YXNmbnNSQTlkWU1TQ21MbnlGeFBka25zalN4SzRVY0Rz?=
- =?utf-8?B?TjltcGh1Kys5RnZ2ZitVNnI3anFMa3BxZ1VvQ2tCb1prNmpxTVFWb3cwa1Ri?=
- =?utf-8?B?UXZZL2ZaUklmQWpGWFg1c0ozWjQxa01PSGJzOVQvZEVzYjlkQXk3KzdVZU5s?=
- =?utf-8?B?U1JROXR3QzB2Nm1HWXVLQ2RuK254QWNpUjNjbXdCMUg0ZXNPeE1UVjN6NkF1?=
- =?utf-8?B?dU01NGJoTFA5aGJTcjl6WTRQd1FWSWhOL3hRTFArTnlTYmFHckNXaWduSEZN?=
- =?utf-8?B?UTlrZnA2YlU5dzJHUCttSzNpRGVHaExqTGI3SXdhRFJ5L2RuZG5CUU13c1pV?=
- =?utf-8?B?OEtmMlFMd2pCalRVRUtoY0l2dDZZK1IwcGhIcTAyZFYya2lXMi90RWwxcHd2?=
- =?utf-8?B?dEV3bHBtSVdYNy92Y1VZVkFVY2dMTE9lZEkyWkJyYk9xTVRsNU5lcDlIWENT?=
- =?utf-8?B?RGJVbW8vbXplVGpqa3dkOCtEVnlSNFFscHVtMUJXM3BrMmQ5eDFGWUVKNi83?=
- =?utf-8?B?a3lVdzJMQXArVmwrQzd3aHlPbEZiRzcvOWM0cW9QbHBmZVFKemlXSzIvVldZ?=
- =?utf-8?B?c05DMWRob1d4STBxazFqT00yeW1RTkRyL2lobk95SThDUDFxbmErVGFMTjF1?=
- =?utf-8?B?ODVSbExEeTdVUG4rUmpCQjdtT1c3T2FsTjIxeUdOSTNUMmpSc0dIS0xseXFE?=
- =?utf-8?B?NjBuaHFpWjExWlFWQWk3ajQ0QkV4MERJcjVNTTcxOTF3S2VReGxKZXhqMlpr?=
- =?utf-8?B?Z0pPR0hpRFVZRCtlamJGTndENHhreWY2eElxbUNrNERaMlM5TWVMdjF3YVpJ?=
- =?utf-8?B?Qis4TEQ4QUk0ak9IMFBVUUV2Q3NWcWdPM1dHYkRHRlNQcHpXYUozNVZvUGI3?=
- =?utf-8?B?SUliZ0plU1NqckliY1M2RWJPQnR3dS9mZ2E4SklIQnN3NExQN0hQWjFiUHh3?=
- =?utf-8?B?QUZoT1VRMXJjZGcxTFAyZzJTTjIzMG5YSHIyaGVpZHZLU3ZvdTRhRFBaR0E2?=
- =?utf-8?B?RGdNY05QN2dvQXB4MFBlY3RmRVIyZzEvNUhRT2ttZ3pEN2tUajFPeVVZV0NE?=
- =?utf-8?B?NzlKTDZNbVk3S1diV1ZPbEhUY1crSE5nL3N2SkN5WFdlOU1pd3d0T29vNmx5?=
- =?utf-8?B?WkYrYy9CNEVINDJadWFibHBneXA2Z0xHQXAvTHJySkJFbzdoNldPTVQ5MjRx?=
- =?utf-8?B?OTlKNzd4ZlN2cUZWazZLbjFGRnFyekl6ZWdFTXA4WXpDdUN2Y2RpT1VicGgx?=
- =?utf-8?B?aXRyNmVpb2xHUDJscDBzakNOMENuMkVXb0ZkSVhSa3RBYWVOR0JFZklheW1n?=
- =?utf-8?B?aDFiZGNFRGRob3RLR0hRbG1nR0RXVG85TEVWTE5UVzdjUFNZei9uL3RuMTly?=
- =?utf-8?B?dnErTnRWL2ZEbGg0aVZyU3dtSitxT2JUWkgzalg3RmViekx0MnpCZktzaUUy?=
- =?utf-8?B?cHp0SmpqSFF4L1AzRE1uT1dhc0xKSUFibWJXbGkrNGFscW50Q1E5MXAyWVFs?=
- =?utf-8?B?N3pXSGhzQ1grU29MRk1SdXpYNHVEbkk0TlZwTzQvUlgvOVg0eTIyKzU0c2VS?=
- =?utf-8?B?K1A3bEJ1WUdsaTJOYWF1eFkwbmFsMDRMTnRCZWQ2cVpFRk9Mbkk0TGJqT3ky?=
- =?utf-8?B?dTJaK3lOTnU3Y2k2Vlp1eFVkYjBhdlNtbTZtT1ZJYzNjNzZnTWJNcE53ZjEr?=
- =?utf-8?B?TTFXaGE3Yi9lWVpIQTBzT29GQmREeTR2NFgwcE5jVTZQdDgvQ2p2MDVMOEc5?=
- =?utf-8?B?aGU4UUlwSkljMzd2REN1Y3FJakFQUVFBbTBNdDlHU2RTdmVTZ1hRMys5em5I?=
- =?utf-8?B?WU5KYlFxQkw2TU9zYnZlVkxMcGVjTUdxMzZHaUtWTXU4bDhtdXRjL211ak1t?=
- =?utf-8?B?K0VBV1gvRlJHV3NMRis5RDFOeVJxZWJmSnZPYm5tOFZLbjNhaTNMU3FvOXJO?=
- =?utf-8?B?NXR6dTNRQlZCcGtmTUcra0lHR1F6OEFxV25UM0tKNEFhQzJndWlCMWRVY0Zx?=
- =?utf-8?B?ck5FWFJQaFVYek12UlRSNlpxenBaODNlZS91UHJPdTU0akVEcmw0SEl5TGlC?=
- =?utf-8?B?bEM3SVZ2aW1WL282QXF4WVdFQUNnUENzbk9IY3RONzljYmJReWRsVXp5eVR3?=
- =?utf-8?B?cW5VSysrKzJPemdxb2FsV2lPWHkraHZqZ21TK05ra3hWenZZalZDMzgyb3hP?=
- =?utf-8?B?K3hQM2p2U1ZIS2JyanJIZk1vNDAzaUM2NTQzc0ptQm5HUE5CL0NsOTJ1ZHU2?=
- =?utf-8?B?WUVSaWZ6ZWlJclJkVCs1NzdBL2tmL0hxTEJaRjBnQ1Nrc1Q3NmQ5MjR6SlBN?=
- =?utf-8?B?Z2x5Ti9XNUhpQjNBallyQzZCdUdXNlhvU012TE0vRXhtSTIxS2FKUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6106dc19-98d6-4955-55c4-08de7b6c0397
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 10:34:58.2933
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AQqQ2aGXdbeBBWhqNxh5oEkKZf/QVHoypM+3FzvEXIW62C82lKH4DY7teFkS1dgDxzRh0U7ZyD62PN/NQ57omQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5587
-X-Rspamd-Queue-Id: 09C1E21ED76
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] xen: gic-v3: Introduce CONFIG_GICV3_NR_LRS
+Content-Language: en-GB
+To: "Halder, Ayan Kumar" <ayankuma@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20260305194358.2564387-1-ayan.kumar.halder@amd.com>
+ <f1a5a509-bc6d-4616-872c-c5bb1ecf9da7@xen.org>
+ <f10e2a5e-446c-42f2-b9ce-44498acbfb1e@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <f10e2a5e-446c-42f2-b9ce-44498acbfb1e@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: D5FBD21EFA4
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	R_DKIM_ALLOW(-0.20)[xen.org:s=20200302mail];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:ayankuma@amd.com,m:ayan.kumar.halder@amd.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	DMARC_NA(0.00)[xen.org];
+	FORGED_SENDER(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[xen.org:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	ARC_NA(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_THREE(0.00)[3];
+	FROM_NEQ_ENVFROM(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[8]
+	RCVD_COUNT_SEVEN(0.00)[7]
 X-Rspamd-Action: no action
 
-On Thu, Mar 05, 2026 at 02:56:32PM +0100, Jan Beulich wrote:
-> When Dom0 informs us about MMCFG usability, this may change whether
-> extended capabilities are available (accessible) for devices. Zap what
-> might be on record, and re-initialize things.
+Hi Ayan,
+
+On 06/03/2026 09:51, Halder, Ayan Kumar wrote:
 > 
-> No synchronization is added for the case where devices may already be in
-> use. That'll need sorting when (a) DomU support was added and (b) DomU-s
-> may run already while Dom0 / hwdom still boots (dom0less, Hyperlaunch).
+> On 06/03/2026 09:24, Julien Grall wrote:
+>> Hi Ayan,
+> Hi Julien,
+>>
+>> On 05/03/2026 19:43, Ayan Kumar Halder wrote:
+>>> Set GICV3_NR_LRS as per the number of list registers in the supported
+>>> hardware. This ensures:
+>>>
+>>> 1. In gicv3_save_lrs()/gicv3_restore_lrs(), use the number of list
+>>> registers from GICV3_NR_LRS (if defined) instead of gicv3_info.nr_lrs.
+>>> This ensures that if the hardware does not support more than 4 LRs
+>>> (for example), the code accessing LR 4-15 is never reached. The
+>>> compiler can eliminate the unsupported cases as the switch case uses a
+>>> constant conditional.
+>>>
+>>> 2. Similarly In gicv3_ich_read_lr()/gicv3_ich_write_lr() , we can
+>>> justify that the unsupported LRs (4-15) will never be reached as Xen
+>>> will panic if the runtime value (lr) exceeds GICV3_NR_LRS. Some
+>>> compiler can eliminate the code accessing LR 4-15.
+>>> In this situation, using panic() is better than accessing a list
+>>> register which is not present in the hardware
+>>>
+>>> 3. Whenever GICV3_NR_LRS is defined, the default condition and the
+>>> related BUG() cannot be reached at all.
+>>
+>> I am not sure how this is better. You will still crash Xen is 'lr' >= 
+>> GICV3_NR_LRS. Can you provide some details?
+>>
+>> > > As part of functional safety effort, we are trying to enable system
+>>> integrator to configure Xen for a specific platform with a predefind
+>>> set of GICv3 list registers. So that we can minimize the chance of
+>>> runtime issues and reduce the codesize that will execute.
+>>>
+>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>> ---
+>>>   xen/arch/arm/Kconfig  |  9 +++++++++
+>>>   xen/arch/arm/gic-v3.c | 12 ++++++++++--
+>>>   2 files changed, 19 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+>>> index 2f2b501fda..6540013f97 100644
+>>> --- a/xen/arch/arm/Kconfig
+>>> +++ b/xen/arch/arm/Kconfig
+>>> @@ -276,6 +276,15 @@ config PCI_PASSTHROUGH
+>>>     endmenu
+>>>   +config GICV3_NR_LRS
+>>> +    int "Number of GICv3 Link Registers supported" if EXPERT
+>>> +    depends on GICV3
+>>> +    range 0 16
+>>> +    default 0
+>>> +    help
+>>> +      Controls the number of Link registers to be accessed.
+>>> +      Keep it set to 0 to use a value obtained from a hardware 
+>>> register.
+>>> +
+>>>   menu "ARM errata workaround via the alternative framework"
+>>>       depends on HAS_ALTERNATIVE
+>>>   diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+>>> index bc07f97c16..fb2985fd52 100644
+>>> --- a/xen/arch/arm/gic-v3.c
+>>> +++ b/xen/arch/arm/gic-v3.c
+>>> @@ -51,6 +51,8 @@ static DEFINE_PER_CPU(void __iomem*, rbase);
+>>>   #define GICD                   (gicv3.map_dbase)
+>>>   #define GICD_RDIST_BASE        (this_cpu(rbase))
+>>>   #define GICD_RDIST_SGI_BASE    (GICD_RDIST_BASE + SZ_64K)
+>>> +#define lrs                    (CONFIG_GICV3_NR_LRS ?: \
+>>> +                                gicv3_info.nr_lrs)
+>>
+>> We should avoid lowercase define, in particular with generic names 
+>> like 'lrs'. I think in this case, I would rather update 
+>> gicv3_info.nr_lrs:
+>>
+>> gicv3_info.nr_lrs = min(gv3_info.nr_lrs, CONFIG_GICV3_NR_LRS);
 > 
-> vpci_cleanup_capabilities() also shouldn't have used
-> pci_find_ext_capability(), as already when the function was introduced
-> extended config space may not have been (properly) accessible anymore,
-> no matter whether it was during init. Extended capability cleanup hooks
-> need to cope with being called when the respective capability doesn't
-> exist (and hence the corresponding ->init() hook was never called).
+> But we want to enforce the user to set CONFIG_GICV3_NR_LRS , so that we 
+> don't have to rely on gicv3_info.nr_lrs.
+> > The only reason to use gicv3_info.nr_lrs is for backward compatibility
+> i.e. when the user forgot to set the config and as a result it used the 
+> default value as 0. We don't want to allow this for the safety use cases.
+
+Xen upstream has to support various use cases. One of the use-case is 
+Linux distributions where they want one Xen binary booting on multiple 
+HW. So "gicv3_info.nr_lrs" will have to stay forever.
+
+Now with CONFIG_GICV3_NR_LRS in place, I am concerned that someone will 
+try to configure the value to let say 16 but their HW support only 4. I 
+can't find any check at boot, so any problem will still occur at runtime.
+
 > 
-> Fixes: 70e6dace747e ("vpci: Use cleanup to free capability resource during deassign")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-One comment below.
-
-> ---
-> v6: Add comment in physdev_check_pci_extcfg(), while dropping the logging
->     of a(nother) message there. Drop hwdom restriction from
->     vpci_cleanup_capabilities(). In the re-init case don't bail early from
->     vpci_init_capabilities(). Simplify assertion and re-order actions in
->     vpci_reinit_ext_capabilities().
-> v5: Don't use pci_find_ext_capability() in vpci_cleanup_capabilities().
->     Add assertion in vpci_reinit_ext_capabilities().
-> v4: Make sure ->cleanup() and ->init() are invoked.
-> v3: New.
+>>
+>> This would solve another problem where you don't sanity check that the 
+>> system effectively support CONFIG_GICV3_NR_LRS.
+>>
+>>> @@ -121,7 +123,7 @@ static inline void gicv3_save_lrs(struct vcpu *v)
+>>>   static inline void gicv3_restore_lrs(const struct vcpu *v)
+>>>   {
+>>>       /* Fall through for all the cases */
+>>> -    switch ( gicv3_info.nr_lrs )
+>>> +    switch ( lrs )
+>>>       {
+>>>       case 16:
+>>>           WRITE_SYSREG_LR(v->arch.gic.v3.lr[15], 15);
+>>> @@ -178,6 +180,9 @@ static inline void gicv3_restore_lrs(const struct 
+>>> vcpu *v)
+>>>     static uint64_t gicv3_ich_read_lr(int lr)
+>>>   {
+>>> +    if ( lr >= lrs )
+>>> +        panic("Unsupported number of LRs\n");
+>>
+>> Do we really have to panic in production build? Wouldn't it be better 
+>> to return '0' and maybe use ASSERT for a crash in debug build? Same 
+>> below.
+> You are right, we may not need this. One option I am thinking is ...
+>>
+>>> +
+>>>       switch ( lr )
 > 
-> --- a/xen/arch/x86/physdev.c
-> +++ b/xen/arch/x86/physdev.c
-> @@ -8,6 +8,8 @@
->  #include <xen/guest_access.h>
->  #include <xen/iocap.h>
->  #include <xen/serial.h>
-> +#include <xen/vpci.h>
-> +
->  #include <asm/current.h>
->  #include <asm/io_apic.h>
->  #include <asm/msi.h>
-> @@ -169,8 +171,19 @@ int cf_check physdev_check_pci_extcfg(st
->  
->      ASSERT(pdev->seg == info->segment);
->      if ( pdev->bus >= info->start_bus && pdev->bus <= info->end_bus )
-> +    {
->          pci_check_extcfg(pdev);
->  
-> +        /*
-> +         * The re-init failing doesn't mean the device becomes entirely non-
-> +         * functional.  In case of failure, a message was already logged.
-> +         * Hence don't otherwise act upon failure.
-> +         *
-> +         * FIXME: Re-visit when DomU support is added to vPCI.
-> +         */
-> +        vpci_reinit_ext_capabilities(pdev);
-> +    }
-> +
->      return 0;
->  }
->  #endif /* COMPAT */
-> --- a/xen/drivers/vpci/cap.c
-> +++ b/xen/drivers/vpci/cap.c
-> @@ -285,13 +285,16 @@ static int vpci_init_ext_capability_list
->      return 0;
->  }
->  
-> -int vpci_init_capabilities(struct pci_dev *pdev)
-> +int vpci_init_capabilities(struct pci_dev *pdev, bool ext_only)
->  {
-> -    int rc;
-> +    int rc, accum_rc = 0;
->  
-> -    rc = vpci_init_capability_list(pdev);
-> -    if ( rc )
-> -        return rc;
-> +    if ( !ext_only )
-> +    {
-> +        rc = vpci_init_capability_list(pdev);
-> +        if ( rc )
-> +            return rc;
-> +    }
->  
->      rc = vpci_init_ext_capability_list(pdev);
->      if ( rc )
-> @@ -305,7 +308,7 @@ int vpci_init_capabilities(struct pci_de
->          unsigned int pos = 0;
->  
->          if ( !is_ext )
-> -            pos = pci_find_cap_offset(pdev->sbdf, cap);
-> +            pos = !ext_only ? pci_find_cap_offset(pdev->sbdf, cap) : 0;
->          else if ( is_hardware_domain(pdev->domain) )
->              pos = pci_find_ext_capability(pdev, cap);
->  
-> @@ -341,30 +344,40 @@ int vpci_init_capabilities(struct pci_de
->              {
->                  printk(XENLOG_ERR "%pd %pp: hide %s cap %u fail rc=%d\n",
->                         pdev->domain, &pdev->sbdf, type, cap, rc);
-> -                return rc;
-> +
-> +                /* Best effort for the re-init case. */
-> +                if ( !ext_only )
-> +                    return rc;
-> +
-> +                if ( !accum_rc )
-> +                    accum_rc = rc;
+> switch ( lr & (lrs - 1) )
+> 
+> This ensures that we do not hit the unsupported cases.
 
-I've been wondering about this, for the hardware domain case we might
-as well do best effort for the init case also.  The other option for
-the hardware domain is to allow unmediated access to the device, which
-is likely worse than allowing it to work in a possibly degraded
-mediated mode.  We already special-case the hardware domain for
-failures of capability->cleanup(), and we should likely do the same
-here.
+What about implementing it as RAZ-WI? This would make any issue more 
+reliable/obvious (if you have multiple index accessing the same LR, then 
+you could end up overwriting an existing virtual interrupt).
 
-Thanks, Roger.
+Cheers,
+
+-- 
+Julien Grall
+
 
