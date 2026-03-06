@@ -2,57 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mA7dDcycqmnPUQEAu9opvQ
+	id 3V3NAUidqmlLUgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 06 Mar 2026 10:22:20 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Mar 2026 10:24:24 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90D9021DD1E
-	for <lists+xen-devel@lfdr.de>; Fri, 06 Mar 2026 10:22:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1247468.1546073 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B7021DDA6
+	for <lists+xen-devel@lfdr.de>; Fri, 06 Mar 2026 10:24:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1247485.1546082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vyRNV-00081y-V3; Fri, 06 Mar 2026 09:21:49 +0000
+	id 1vyRPr-00004y-Al; Fri, 06 Mar 2026 09:24:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1247468.1546073; Fri, 06 Mar 2026 09:21:49 +0000
+Received: by outflank-mailman (output) from mailman id 1247485.1546082; Fri, 06 Mar 2026 09:24:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vyRNV-0007zL-SB; Fri, 06 Mar 2026 09:21:49 +0000
-Received: by outflank-mailman (input) for mailman id 1247468;
- Fri, 06 Mar 2026 09:21:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pqZA=BG=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1vyRNU-0007zF-G7
- for xen-devel@lists.xenproject.org; Fri, 06 Mar 2026 09:21:48 +0000
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c110::3])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e54e4bf1-193d-11f1-b164-2bf370ae4941;
- Fri, 06 Mar 2026 10:21:46 +0100 (CET)
-Received: from BN9PR03CA0641.namprd03.prod.outlook.com (2603:10b6:408:13b::16)
- by MW3PR12MB4474.namprd12.prod.outlook.com (2603:10b6:303:2e::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.5; Fri, 6 Mar
- 2026 09:21:42 +0000
-Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
- (2603:10b6:408:13b:cafe::ad) by BN9PR03CA0641.outlook.office365.com
- (2603:10b6:408:13b::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.23 via Frontend Transport; Fri,
- 6 Mar 2026 09:21:41 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Fri, 6 Mar 2026 09:21:41 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 6 Mar
- 2026 03:21:40 -0600
-Received: from [10.71.194.215] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 6 Mar 2026 03:21:39 -0600
+	id 1vyRPr-0008Um-80; Fri, 06 Mar 2026 09:24:15 +0000
+Received: by outflank-mailman (input) for mailman id 1247485;
+ Fri, 06 Mar 2026 09:24:13 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1vyRPp-0008UN-PH
+ for xen-devel@lists.xenproject.org; Fri, 06 Mar 2026 09:24:13 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vyRPp-008BQo-17;
+ Fri, 06 Mar 2026 09:24:13 +0000
+Received: from [2a02:8012:3a1:0:f0b8:207:419e:3d8a]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1vyRPp-001fEE-0R;
+ Fri, 06 Mar 2026 09:24:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,124 +44,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e54e4bf1-193d-11f1-b164-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wHpMflHJfgEYjP+XdcU6CaLPD3xG4Qgq7bffqEvV1AEqT/q4j3HNzkdFiM9Y8pIRrxChbkrsPCN9hntGuk7faT7pLJhf9vSlcYR/wjuRqsjj+mwsE2wihZfHTmrKFpXRsplAYfM9GrSCSVE6a5IA/kZPsFDuPyUirqml4mi3zH/umoIq3BA2UwVUSyOQCSiZNj0Zs8HaK48j4XQrfAxe+7ESAnrhkCZUBBDe2vjbFXEnsDbT0Eg+KUY+9Bio3EhHd2hxXOlun/NSXJgkJikplETMTIXFlZ1J5l+2/G0Oprg26vzrO8QquNQfg5Ch/7J8TP8pyv7sAa6KCkHDd6/bSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sFRT5nAckARuk4H+S4Yw9VmrAdvcJew+SYc7fWR7jhg=;
- b=vBlHjDlXw+2mpaSVtVWOZO3AND1D6C3kWbnbg6z5YQHaDsYTEzJMiipYTSyUNhJA4PrqpgCBSqJf2uDeoFuOnLnextfYY3JEDafxMRpSfLnFygXxf3ukgWDozZL0CrKXfPLxyiAjuLvseU/nYQWfcOvgcjpaJOK41xutGIYOy4DLXQ/FbrSKOrhBfTJ+z8N5sT4j8elWpxvGS0ffukCPrwWRtOCoCGFvmX9piCY6DCO/Mql53naF7pSuEQHO0J48z9UJ+MQmV6Mrc8sFjjV6Z0HpoA/BZ4ZxSU+oCh6x1FHVUtZ/CVT6/svgHS9eHOj4IkGEXZkd44m/SWl52sxUMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sFRT5nAckARuk4H+S4Yw9VmrAdvcJew+SYc7fWR7jhg=;
- b=G1SADx0hf1PWuQX4ryh2I0srk87SLw0rt5pU6j6IzFdew2B+QQY11DuVtBKUOeu7eHpNXLT/HJeF6SpqIzAamI7ou/7u9mv7u+s7wvdKo3eklHwOJKIUQigWBnf574M9LmvdEEy8bl6ijjPgOV5hFWZIeRE+Dzrl7l2ily2mJkM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <16fc8fd8-9256-4c95-bce7-b7e696a27601@amd.com>
-Date: Fri, 6 Mar 2026 10:21:33 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=cdn80RzxzOqsgPuCqGcvDiArU6Lg0jBJMFIuE9EfUvg=; b=nrmELLSb1WF/XtIyDxwA41SMQy
+	r2TNJ3JtBbj1Bd6QUTH9+hihAEsTEUEFp+Wx1y076g2ledpAV4s4Vyd+atBfCQImZSdzb48XGttvh
+	Y/WAym3kcrgfYfVSIeP4zept/JpCHPkowdmSktbQGqS939LRuoatKRBe/g+RSHLhyXYw=;
+Message-ID: <f1a5a509-bc6d-4616-872c-c5bb1ecf9da7@xen.org>
+Date: Fri, 6 Mar 2026 09:24:09 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ARM/vgic: Use for_each_set_bit() in vgic_sync_from_lrs()
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Ayan Kumar Halder
-	<ayan.kumar.halder@amd.com>
-References: <20260305232845.62024-1-andrew.cooper3@citrix.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <20260305232845.62024-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [RFC PATCH] xen: gic-v3: Introduce CONFIG_GICV3_NR_LRS
+Content-Language: en-GB
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20260305194358.2564387-1-ayan.kumar.halder@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20260305194358.2564387-1-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|MW3PR12MB4474:EE_
-X-MS-Office365-Filtering-Correlation-Id: be7253f7-077a-4971-75bd-08de7b61c720
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	8txPSpvFdhEuDIgiTJq6xDQiOpaqBdy0S7TCp5Lb8Z/fEDQKMVSCDutv6u+ZsQWWX01oNYgsgAW3minjRRcgaIzCHdzZk5HbksQM3GAxxtr9nu8ZB7k27fvlGMSJ8e9cWyMnJOgxWcy/APNP127QeB4sPZcTfGN5pP/3QkLbEsvyam8AO1LxyhQqasJhIacbuLT/0l0oyY7gvpMNE/bze+6zr1ueT0iwWGojc8QTxX/XPKHhDKHPm0Pi1VDGg2SPfdGyBBpRMWEELcF+6N6P2HWSvZ6T2THbc1HUFtz4ZMPqDamGzYBk5hlk75UlV4G+QAvaT164kZaia5FaV06T3UzoXan8CDr+Gbwz2a3bdLe0AnH2HrIpq8YoTKRqQNVPIxKmiaxN5bBEqfi9f1CIHfsr/oEZK4XYH7cUPkBimJwBwadjEjAB4hcBasl+nGdnV0owiux7JkJFh1uPBXwIosVvffQTN8gJpys8U47N+DpbyUrogE6hKx7kk4hqKqvg5/zAL3pQco9fktBc++uwD2h5l7wxNpqiDxp1p5iPV7AJwHwozt1PZkXjN4sSpVqQwNa6qqIjO9AkDme4/m6mgsnzZKseRi1Io2idGMc+EDpGidSh7ppnpYuxWOZGua8JzoRlPL7gs4yzf4hGiBD4XDgxfp62BmG6jZ7rmW+60frumocYqFH540o0uSFP4q8XdXFcEfkXXOOnClCNhb9Dg52ealFuf/nDwbAJcPOwlLdIDW+oQCOjTEesi/WxB5OMtHVTOg+ElfTiIp06KriQUg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	TAJY06CRTF1zFWkjTjraiDMweFeVwcP6ddOScB/337qmEthorD3IDdUNjSj3rFaA6NxbJvlPb7dLo2cHcDJQ+A2TBsioEXWHGNm8svGyhNyHlbDpsdvc8h5ZfXk8CrybzChx3qEAaJMUj1I3NNSN+l3L+v3p5WjPEATjUiytKtQnv6CJINA1SsCKlB09dDZ7jUR9jJ4PsPoXtiX3MO2N3nmEPXKAe+sqZAxl9SZ32FIf6AftcKs+98EAPg8Y38Qi6VdGnLLyuPHj97fh+JbFGa5Ir1u4CGq/yR/zzKFUUjWIPJeLw+M/l10XSHLRKoQrk/XT+xaFMNl3WDGGf5IEIddnJh01hsu+Vty/j/ugyi9YHU4VO11b0K8LBh88bFN/DLXeEfU3++3COBoC/JspF8BI4xPQXKMX4Qcv1A+k5dQWeIEd3956lXKmuXYozQZ5
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 09:21:41.5590
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: be7253f7-077a-4971-75bd-08de7b61c720
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000449F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4474
-X-Rspamd-Queue-Id: 90D9021DD1E
+X-Rspamd-Queue-Id: 74B7021DDA6
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[xen.org:s=20200302mail];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:Volodymyr_Babchuk@epam.com,m:bertrand.marquis@arm.com,m:JBeulich@suse.com,m:roger.pau@citrix.com,m:ayan.kumar.halder@amd.com,s:lists@lfdr.de];
-	DKIM_TRACE(0.00)[amd.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	FORGED_RECIPIENTS(0.00)[m:ayan.kumar.halder@amd.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	DMARC_NA(0.00)[xen.org];
+	FORGED_SENDER(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:email,amd.com:mid,citrix.com:email];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	FROM_NEQ_ENVFROM(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[xen.org:+];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[11]
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
 X-Rspamd-Action: no action
 
+Hi Ayan,
 
+On 05/03/2026 19:43, Ayan Kumar Halder wrote:
+> Set GICV3_NR_LRS as per the number of list registers in the supported
+> hardware. This ensures:
+> 
+> 1. In gicv3_save_lrs()/gicv3_restore_lrs(), use the number of list
+> registers from GICV3_NR_LRS (if defined) instead of gicv3_info.nr_lrs.
+> This ensures that if the hardware does not support more than 4 LRs
+> (for example), the code accessing LR 4-15 is never reached. The
+> compiler can eliminate the unsupported cases as the switch case uses a
+> constant conditional.
+> 
+> 2. Similarly In gicv3_ich_read_lr()/gicv3_ich_write_lr() , we can
+> justify that the unsupported LRs (4-15) will never be reached as Xen
+> will panic if the runtime value (lr) exceeds GICV3_NR_LRS. Some
+> compiler can eliminate the code accessing LR 4-15.
+> In this situation, using panic() is better than accessing a list
+> register which is not present in the hardware
+> 
+> 3. Whenever GICV3_NR_LRS is defined, the default condition and the
+> related BUG() cannot be reached at all.
 
-On 06/03/2026 00:28, Andrew Cooper wrote:
-> lr_mask doesn't have bits set beyond the hardware limit, with the upper bits
-> remaining zero.  Therefore, for_each_set_bit() is a better option.
-> 
-> For ARM64, bloat-o-meter reports:
-> 
->   Function                                     old     new   delta
->   vgic_sync_from_lrs                           208     168     -40
-> 
-> but this doesn't highlight that it also removes a call to find_next_bit() from
-> each loop iteration.
-> 
-> No functional change.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+I am not sure how this is better. You will still crash Xen is 'lr' >= 
+GICV3_NR_LRS. Can you provide some details?
 
-~Michal
+ > > As part of functional safety effort, we are trying to enable system
+> integrator to configure Xen for a specific platform with a predefind
+> set of GICv3 list registers. So that we can minimize the chance of
+> runtime issues and reduce the codesize that will execute.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> ---
+>   xen/arch/arm/Kconfig  |  9 +++++++++
+>   xen/arch/arm/gic-v3.c | 12 ++++++++++--
+>   2 files changed, 19 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index 2f2b501fda..6540013f97 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -276,6 +276,15 @@ config PCI_PASSTHROUGH
+>   
+>   endmenu
+>   
+> +config GICV3_NR_LRS
+> +	int "Number of GICv3 Link Registers supported" if EXPERT
+> +	depends on GICV3
+> +	range 0 16
+> +	default 0
+> +	help
+> +	  Controls the number of Link registers to be accessed.
+> +	  Keep it set to 0 to use a value obtained from a hardware register.
+> +
+>   menu "ARM errata workaround via the alternative framework"
+>   	depends on HAS_ALTERNATIVE
+>   
+> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+> index bc07f97c16..fb2985fd52 100644
+> --- a/xen/arch/arm/gic-v3.c
+> +++ b/xen/arch/arm/gic-v3.c
+> @@ -51,6 +51,8 @@ static DEFINE_PER_CPU(void __iomem*, rbase);
+>   #define GICD                   (gicv3.map_dbase)
+>   #define GICD_RDIST_BASE        (this_cpu(rbase))
+>   #define GICD_RDIST_SGI_BASE    (GICD_RDIST_BASE + SZ_64K)
+> +#define lrs                    (CONFIG_GICV3_NR_LRS ?: \
+> +                                gicv3_info.nr_lrs)
+
+We should avoid lowercase define, in particular with generic names like 
+'lrs'. I think in this case, I would rather update gicv3_info.nr_lrs:
+
+gicv3_info.nr_lrs = min(gv3_info.nr_lrs, CONFIG_GICV3_NR_LRS);
+
+This would solve another problem where you don't sanity check that the 
+system effectively support CONFIG_GICV3_NR_LRS.
+
+> @@ -121,7 +123,7 @@ static inline void gicv3_save_lrs(struct vcpu *v)
+>   static inline void gicv3_restore_lrs(const struct vcpu *v)
+>   {
+>       /* Fall through for all the cases */
+> -    switch ( gicv3_info.nr_lrs )
+> +    switch ( lrs )
+>       {
+>       case 16:
+>           WRITE_SYSREG_LR(v->arch.gic.v3.lr[15], 15);
+> @@ -178,6 +180,9 @@ static inline void gicv3_restore_lrs(const struct vcpu *v)
+>   
+>   static uint64_t gicv3_ich_read_lr(int lr)
+>   {
+> +    if ( lr >= lrs )
+> +        panic("Unsupported number of LRs\n");
+
+Do we really have to panic in production build? Wouldn't it be better to 
+return '0' and maybe use ASSERT for a crash in debug build? Same below.
+
+> +
+>       switch ( lr )
+>       {
+>       case 0: return READ_SYSREG_LR(0);
+> @@ -203,6 +208,9 @@ static uint64_t gicv3_ich_read_lr(int lr)
+>   
+>   static void gicv3_ich_write_lr(int lr, uint64_t val)
+>   {
+> +    if ( lr >= lrs )
+> +        panic("Unsupported number of LRs\n");
+> +
+>       switch ( lr )
+>       {
+>       case 0:
+
+Cheers,
+
+-- 
+Julien Grall
 
 
