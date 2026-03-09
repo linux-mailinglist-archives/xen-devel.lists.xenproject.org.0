@@ -2,40 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oIB9Kpi9rmlEIgIAu9opvQ
+	id 6CKjH5m9rmlEIgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 13:31:20 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 13:31:21 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B618238DC9
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 13:31:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1249406.1546871 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E007238DD2
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 13:31:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1249410.1546907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzZlM-0005Yn-QG; Mon, 09 Mar 2026 12:31:08 +0000
+	id 1vzZlP-0006Ri-C6; Mon, 09 Mar 2026 12:31:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1249406.1546871; Mon, 09 Mar 2026 12:31:08 +0000
+Received: by outflank-mailman (output) from mailman id 1249410.1546907; Mon, 09 Mar 2026 12:31:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzZlM-0005V8-Mm; Mon, 09 Mar 2026 12:31:08 +0000
-Received: by outflank-mailman (input) for mailman id 1249406;
- Mon, 09 Mar 2026 12:31:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vzZlP-0006Mu-7P; Mon, 09 Mar 2026 12:31:11 +0000
+Received: by outflank-mailman (input) for mailman id 1249410;
+ Mon, 09 Mar 2026 12:31:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DTqT=BJ=bounce.vates.tech=bounce-md_30504962.69aebd88.v1-d8fdfcace5ef4539a0100fc8b528ea67@srs-se1.protection.inumbo.net>)
- id 1vzZlL-0005Rg-08
- for xen-devel@lists.xenproject.org; Mon, 09 Mar 2026 12:31:07 +0000
-Received: from mail132-19.atl131.mandrillapp.com
- (mail132-19.atl131.mandrillapp.com [198.2.132.19])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d741b392-1bb3-11f1-b164-2bf370ae4941;
- Mon, 09 Mar 2026 13:31:05 +0100 (CET)
-Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail132-19.atl131.mandrillapp.com (Mailchimp) with ESMTP id 4fTxFN4WnPz3XY
+ <SRS0=1Suo=BJ=bounce.vates.tech=bounce-md_30504962.69aebd88.v1-441784b254ef4839bf5042d28ceb1d2a@srs-se1.protection.inumbo.net>)
+ id 1vzZlN-0005Rm-S6
+ for xen-devel@lists.xenproject.org; Mon, 09 Mar 2026 12:31:09 +0000
+Received: from mail133-21.atl131.mandrillapp.com
+ (mail133-21.atl131.mandrillapp.com [198.2.133.21])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d85bf670-1bb3-11f1-9ccf-f158ae23cfc8;
+ Mon, 09 Mar 2026 13:31:07 +0100 (CET)
+Received: from pmta13.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail133-21.atl131.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fTxFN0mS4z1XLF8g
  for <xen-devel@lists.xenproject.org>; Mon,  9 Mar 2026 12:31:04 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- d8fdfcace5ef4539a0100fc8b528ea67; Mon, 09 Mar 2026 12:31:04 +0000
+ 441784b254ef4839bf5042d28ceb1d2a; Mon, 09 Mar 2026 12:31:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,51 +48,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d741b392-1bb3-11f1-b164-2bf370ae4941
+X-Inumbo-ID: d85bf670-1bb3-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
 	s=mte1; t=1773059464; x=1773329464;
-	bh=8FwzySD+VeRkqwNwwXfc+WPkvCmclVAnI84/IjWUKr8=;
+	bh=yBW+Fz2L+XcrjXyP9HkaoTV/8bPAxt7aYNJZwU0t0XE=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=DayO3pkTxMSxj2crN/XuedBvQAcLuCPvhClPTG8WAfDUCtOGC/0Uhs3lQULL2ALCk
-	 nCo+5jUp8tdPdIgDkhJjlIk8jZS6GZNo8mptT+rSsgh8r1pG77NMw+/5/dmqdmYjLH
-	 5epSZ6OYkbLMkW+ecNLu17v/etX31oB5QZTFWvPk/AHUI+Ywdy8hZHyD5NvAexgZGX
-	 KtVV6KB0SgnkN40ah7ZP4+RCo5Lilyr6JEHC8Mo09zkDkymRWYoaq58TANQy/Q+gxp
-	 YT98rVTFJPhpx/NF05GzpE8bxjCkG4UrURO2Jl6vt+PCNpQKMWQBrfCV6YWJ7m0mcY
-	 ydm0h/nfB6HuQ==
+	b=Xp5sdVjacc8RnFuJfvcwe/ETbTNzpRkkisANXtaG+bzfnCJCTnHgu0a52lBF5xaQm
+	 9I6r45bJF7sle0zkAau8V8Qz625BoaABloS3uIVZYlCT2HpAN2ip/w499YIodnudLi
+	 pKJg1OOWdw3dsMLn41ltdBg8I27RyAk6QLWisSzIluNlrC9q5iN25+3prPNktHr+/c
+	 hiRPu6/qaA2lTVYXFi1XBPfsAAOjYFNQIhWGbcJHRj3mxMI9whVJ41O4IfZZwGY99S
+	 og25ajL4U9VNjrnBY9bVnCmypEnWDc3sAh2rosxZM0H0oEYvbamYcZpVGymiuxbsfq
+	 390Y1somR984w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
 	t=1773059464; x=1773319964; i=julian.vetter@vates.tech;
-	bh=8FwzySD+VeRkqwNwwXfc+WPkvCmclVAnI84/IjWUKr8=;
+	bh=yBW+Fz2L+XcrjXyP9HkaoTV/8bPAxt7aYNJZwU0t0XE=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=HyiVpcp/2a1swNSndKKpodpq10hyD8LvqiN9/+/aa3P5tC9zEKyubtXVn7vOUj02F
-	 oWNxLjQmYVaaXIiEdR6oMgpqbIkRzvDX18Cnlsw2rnsHuk2ihC0GgrGxOmhT1YIKuv
-	 gmSVSkY3MOa1q7ON6mvhpRw2CT3z5//jcS9kGMYUQ3uR9ccDtQWBt7nXVLOY9a+DFu
-	 lXijYXiQoJWTRWKIxmZZ0JBEz1/BcH5xtGE3pfJEmxUEckhoVwZZYqSHKN7EmLctbe
-	 Fcej+8YS4Wx+61MI/SzjGdJTTVHOE3krefmTjZhYk1QI/nulZ5lFUfqafzbI3NsMRa
-	 rhWYvAnhEl+Cg==
+	b=K4A7jHYikj0Wkbrr2AKIEeyof7Rq8okhJSvjsk6pwZDMfA3sBluTQdl91wwTm74xK
+	 JEhHOxh6IP9/0Eoi0bUduHJRP+2itT4u7+emMqbGGm48BdA6pzJj+gnDetw68ltFfR
+	 5gjQInr3qaSTYVRBoM6q9ZeREdvOMvf51a3fkGKEjWKw2ElrHoh5OTbgpy/jJBJdBX
+	 rPkQnucPDz8WjCKAt8YTV9sB9i38KecEFMN3xIgHX6w7R3RgejpKEaEXvVEMkv0niP
+	 rgi2ixNZS295D20Dst9Whsdw3065WciTgevDdQQvojunNwQj+SCuprzlwoYNXcGl7A
+	 NFhcxTqpk7V3Q==
 From: "Julian Vetter" <julian.vetter@vates.tech>
-Subject: =?utf-8?Q?[PATCH=20v3=207/7]=20x86/cpuid:=20Advertise=20XEN=5FHVM=5FCPUID=5FEXT=5FDEST=5FID=20when=20device=20model=20opts=20in?=
+Subject: =?utf-8?Q?[PATCH=20v3=205/7]=20x86/dmop:=20Add=20XEN=5FDMOP=5F{bind,unbind}=5Fpt=5Fmsi=5Firq=20DM=20ops?=
 X-Mailer: git-send-email 2.51.0
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1773059463359
+X-Bm-Transport-Timestamp: 1773059462800
 To: xen-devel@lists.xenproject.org
 Cc: "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Juergen Gross" <jgross@suse.com>, "Julien Grall" <julien@xen.org>, "Julian Vetter" <julian.vetter@vates.tech>
-Message-Id: <20260309123055.880050-7-julian.vetter@vates.tech>
+Message-Id: <20260309123055.880050-5-julian.vetter@vates.tech>
 In-Reply-To: <20260309123055.880050-1-julian.vetter@vates.tech>
 References: <20260309123055.880050-1-julian.vetter@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.d8fdfcace5ef4539a0100fc8b528ea67?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.441784b254ef4839bf5042d28ceb1d2a?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20260309:md
 Date: Mon, 09 Mar 2026 12:31:04 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 3B618238DC9
+X-Rspamd-Queue-Id: 2E007238DD2
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.51 / 15.00];
 	URIBL_GREY(2.50)[mandrillapp.com:dkim];
@@ -101,7 +102,7 @@ X-Spamd-Result: default: False [4.51 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:email,vates.tech:url,vates.tech:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo,mandrillapp.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,vates.tech:dkim,vates.tech:email,vates.tech:url,vates.tech:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
@@ -120,59 +121,337 @@ X-Spamd-Result: default: False [4.51 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	NEURAL_HAM(-0.00)[-0.351];
+	NEURAL_HAM(-0.00)[-0.362];
 	RCPT_COUNT_SEVEN(0.00)[10];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-Set the XEN_HVM_CPUID_EXT_DEST_ID bit in the HVM hypervisor CPUID leaf
-only when the device model has called XEN_DMOP_enable_ext_dest_id,
-signalling it will use XEN_DMOP_bind_pt_msi_irq for passthrough MSIs.
-This guarantees that Xen will decode the extended destination bits from
-the raw MSI address internally, so the device model does not need to
-understand the encoding itself. This ensures that an old device model
-that still uses XEN_DOMCTL_bind_pt_irq will not trigger extended ID
-usage in the guest, preserving backwards compatibility. However a device
-model that calls XEN_DMOP_enable_ext_dest_id then has to use
-XEN_DMOP_{bind,unbind}_pt_msi_irq, and enables support for x2APIC
-destination IDs above 255.
+Add two DM ops for MSI passthrough IRQs. These new DM ops take the raw
+MSI address and data fields rather than a pre-decoded gflags values. Xen
+decodes the destination ID via msi_addr_to_gflags(), including any
+extended destination bits in address[11:5]. This means the device model
+does not need to understand the extended destination ID encoding, and
+simply forwards the MSI address it observes from the guest.
 
 Signed-off-by: Julian Vetter <julian.vetter@vates.tech>
 ---
 Changes in V3:
-- Addressed feedback from Jan and Roger -> Don't advertise the
-  XEN_HVM_CPUID_EXT_DEST_ID unconditionally
+- New patch addressing feedback from Roger
 ---
- xen/arch/x86/cpuid.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ tools/include/xendevicemodel.h |  37 ++++++++++++
+ tools/libs/devicemodel/core.c  |  44 ++++++++++++++
+ xen/arch/x86/hvm/dm.c          | 102 +++++++++++++++++++++++++++++++++
+ xen/include/public/hvm/dm_op.h |  23 ++++++++
+ xen/include/xlat.lst           |   1 +
+ 5 files changed, 207 insertions(+)
 
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index 5decfad8cd..c1f82f83ea 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -148,6 +148,18 @@ static void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
-         res->a |= XEN_HVM_CPUID_DOMID_PRESENT;
-         res->c = d->domain_id;
+diff --git a/tools/include/xendevicemodel.h b/tools/include/xendevicemodel.h
+index 227e7fd810..0d5d7b0ff1 100644
+--- a/tools/include/xendevicemodel.h
++++ b/tools/include/xendevicemodel.h
+@@ -375,6 +375,43 @@ int xendevicemodel_nr_vcpus(
+  */
+ int xendevicemodel_restrict(xendevicemodel_handle *dmod, domid_t domid);
  
-+        /*
-+         * Advertise extended destination ID support only when the device model
-+         * has opted in via XEN_DMOP_enable_ext_dest_id, making sure it will
-+         * use XEN_DMOP_bind_pt_msi_irq for passthrough MSI (passing raw
-+         * addr/data so Xen can decode extended bits). This allows guests to
-+         * use bits 11:5 of the MSI address and bits 55:49 of the IO-APIC RTE
-+         * for additional destination ID bits, expanding the addressable APIC
-+         * ID range from 8 to 15 bits.
-+         */
-+        if ( d->arch.hvm.ext_dest_id_enabled )
-+            res->a |= XEN_HVM_CPUID_EXT_DEST_ID;
++/**
++ * This function binds a passthrough physical IRQ to a guest MSI vector
++ * using raw MSI address/data fields. Unlike XEN_DOMCTL_bind_pt_irq,
++ * this interface supports extended (15-bit) destination IDs by having
++ * Xen decode the MSI address internally.
++ *
++ * @parm dmod a handle to an open devicemodel interface.
++ * @parm domid the domain id to be serviced.
++ * @parm machine_irq the physical IRQ number (pirq).
++ * @parm gvec the guest interrupt vector.
++ * @parm msi_addr the MSI address (0xfeexxxxx, includes extended dest ID).
++ * @parm msi_data the MSI data (vector, delivery mode, trigger mode).
++ * @parm gtable the MSI-X table base GFN, or 0 for plain MSI.
++ * @parm unmasked if non-zero, leave the IRQ unmasked after binding.
++ * @return 0 on success, -1 on failure.
++ */
++int xendevicemodel_bind_pt_msi_irq(
++    xendevicemodel_handle *dmod, domid_t domid, uint32_t machine_irq,
++    uint8_t gvec, uint64_t msi_addr, uint32_t msi_data, uint64_t gtable,
++    int unmasked);
 +
-         /*
-          * Per-vCPU event channel upcalls are implemented and work
-          * correctly with PIRQs routed over event channels.
++/**
++ * This function unbinds a passthrough physical IRQ previously bound
++ * with xendevicemodel_bind_pt_msi_irq.
++ *
++ * @parm dmod a handle to an open devicemodel interface.
++ * @parm domid the domain id to be serviced.
++ * @parm machine_irq the physical IRQ number (pirq).
++ * @parm gvec the guest interrupt vector.
++ * @parm msi_addr the MSI address.
++ * @parm msi_data the MSI data.
++ * @return 0 on success, -1 on failure.
++ */
++int xendevicemodel_unbind_pt_msi_irq(
++    xendevicemodel_handle *dmod, domid_t domid, uint32_t machine_irq,
++    uint8_t gvec, uint64_t msi_addr, uint32_t msi_data);
++
+ #endif /* XENDEVICEMODEL_H */
+ 
+ /*
+diff --git a/tools/libs/devicemodel/core.c b/tools/libs/devicemodel/core.c
+index 8e619eeb0a..4a52fe4750 100644
+--- a/tools/libs/devicemodel/core.c
++++ b/tools/libs/devicemodel/core.c
+@@ -645,6 +645,50 @@ int xendevicemodel_nr_vcpus(
+     return 0;
+ }
+ 
++int xendevicemodel_bind_pt_msi_irq(
++    xendevicemodel_handle *dmod, domid_t domid, uint32_t machine_irq,
++    uint8_t gvec, uint64_t msi_addr, uint32_t msi_data, uint64_t gtable,
++    int unmasked)
++{
++    struct xen_dm_op op;
++    struct xen_dm_op_bind_pt_msi_irq *data;
++
++    memset(&op, 0, sizeof(op));
++
++    op.op = XEN_DMOP_bind_pt_msi_irq;
++    data = &op.u.bind_pt_msi_irq;
++
++    data->machine_irq = machine_irq;
++    data->gvec = gvec;
++    data->data = msi_data;
++    data->addr = msi_addr;
++    data->gtable = gtable;
++    if ( unmasked )
++        data->flags |= XEN_DMOP_MSI_FLAG_UNMASKED;
++
++    return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
++}
++
++int xendevicemodel_unbind_pt_msi_irq(
++    xendevicemodel_handle *dmod, domid_t domid, uint32_t machine_irq,
++    uint8_t gvec, uint64_t msi_addr, uint32_t msi_data)
++{
++    struct xen_dm_op op;
++    struct xen_dm_op_bind_pt_msi_irq *data;
++
++    memset(&op, 0, sizeof(op));
++
++    op.op = XEN_DMOP_unbind_pt_msi_irq;
++    data = &op.u.bind_pt_msi_irq;
++
++    data->machine_irq = machine_irq;
++    data->gvec = gvec;
++    data->data = msi_data;
++    data->addr = msi_addr;
++
++    return xendevicemodel_op(dmod, domid, 1, &op, sizeof(op));
++}
++
+ int xendevicemodel_restrict(xendevicemodel_handle *dmod, domid_t domid)
+ {
+     return osdep_xendevicemodel_restrict(dmod, domid);
+diff --git a/xen/arch/x86/hvm/dm.c b/xen/arch/x86/hvm/dm.c
+index 3b53471af0..3d530d948f 100644
+--- a/xen/arch/x86/hvm/dm.c
++++ b/xen/arch/x86/hvm/dm.c
+@@ -7,12 +7,15 @@
+ #include <xen/guest_access.h>
+ #include <xen/dm.h>
+ #include <xen/hypercall.h>
++#include <xen/iocap.h>
++#include <xen/iommu.h>
+ #include <xen/ioreq.h>
+ #include <xen/nospec.h>
+ #include <xen/sched.h>
+ 
+ #include <asm/hap.h>
+ #include <asm/hvm/cacheattr.h>
++#include <asm/msi.h>
+ #include <asm/shadow.h>
+ 
+ #include <xsm/xsm.h>
+@@ -322,6 +325,25 @@ static int inject_event(struct domain *d,
+     return 0;
+ }
+ 
++static uint32_t msi_addr_to_gflags(uint64_t addr, uint32_t data, bool masked)
++{
++    uint32_t tmp = (uint32_t)addr;
++
++    return MASK_INSR(MASK_EXTR(tmp, MSI_ADDR_DEST_ID_MASK),
++                     XEN_DOMCTL_VMSI_X86_DEST_ID_MASK) |
++           MASK_INSR(MASK_EXTR(tmp, MSI_ADDR_EXT_DEST_ID_MASK),
++                     XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK) |
++           MASK_INSR(MASK_EXTR(tmp, MSI_ADDR_REDIRECTION_MASK),
++                     XEN_DOMCTL_VMSI_X86_RH_MASK) |
++           MASK_INSR(MASK_EXTR(tmp, MSI_ADDR_DESTMODE_MASK),
++                     XEN_DOMCTL_VMSI_X86_DM_MASK) |
++           MASK_INSR(MASK_EXTR(data, MSI_DATA_DELIVERY_MODE_MASK),
++                     XEN_DOMCTL_VMSI_X86_DELIV_MASK) |
++           MASK_INSR(MASK_EXTR(data, MSI_DATA_TRIGGER_MASK),
++                     XEN_DOMCTL_VMSI_X86_TRIG_MASK) |
++           (masked ? 0 : XEN_DOMCTL_VMSI_X86_UNMASKED);
++}
++
+ int dm_op(const struct dmop_args *op_args)
+ {
+     struct domain *d;
+@@ -350,6 +372,8 @@ int dm_op(const struct dmop_args *op_args)
+         [XEN_DMOP_relocate_memory]                  = sizeof(struct xen_dm_op_relocate_memory),
+         [XEN_DMOP_pin_memory_cacheattr]             = sizeof(struct xen_dm_op_pin_memory_cacheattr),
+         [XEN_DMOP_nr_vcpus]                         = sizeof(struct xen_dm_op_nr_vcpus),
++        [XEN_DMOP_bind_pt_msi_irq]                  = sizeof(struct xen_dm_op_bind_pt_msi_irq),
++        [XEN_DMOP_unbind_pt_msi_irq]                = sizeof(struct xen_dm_op_bind_pt_msi_irq),
+     };
+ 
+     rc = rcu_lock_remote_domain_by_id(op_args->domid, &d);
+@@ -607,6 +631,83 @@ int dm_op(const struct dmop_args *op_args)
+         break;
+     }
+ 
++    case XEN_DMOP_bind_pt_msi_irq:
++    {
++        const struct xen_dm_op_bind_pt_msi_irq *data =
++            &op.u.bind_pt_msi_irq;
++        struct xen_domctl_bind_pt_irq bind = {
++            .machine_irq = data->machine_irq,
++            .irq_type = PT_IRQ_TYPE_MSI,
++        };
++        int irq;
++
++        rc = -EINVAL;
++        if ( data->pad0 || data->pad1 )
++            break;
++
++        if ( data->flags & ~XEN_DMOP_MSI_FLAG_UNMASKED )
++            break;
++
++        irq = domain_pirq_to_irq(d, bind.machine_irq);
++
++        rc = -EPERM;
++        if ( irq <= 0 || !irq_access_permitted(current->domain, irq) )
++            break;
++
++        bind.u.msi.gvec = data->gvec;
++        bind.u.msi.gflags =
++            msi_addr_to_gflags(data->addr, data->data,
++                               !(data->flags & XEN_DMOP_MSI_FLAG_UNMASKED));
++        bind.u.msi.gtable = data->gtable;
++
++        rc = -ESRCH;
++        if ( is_iommu_enabled(d) )
++        {
++            pcidevs_lock();
++            rc = pt_irq_create_bind(d, &bind);
++            pcidevs_unlock();
++        }
++        if ( rc < 0 )
++            printk(XENLOG_G_ERR
++                   "pt_irq_create_bind failed (%ld) for dom%d\n",
++                   rc, d->domain_id);
++        break;
++    }
++
++    case XEN_DMOP_unbind_pt_msi_irq:
++    {
++        const struct xen_dm_op_bind_pt_msi_irq *data =
++            &op.u.bind_pt_msi_irq;
++        struct xen_domctl_bind_pt_irq bind = {
++            .machine_irq = data->machine_irq,
++            .irq_type = PT_IRQ_TYPE_MSI,
++        };
++        int irq;
++
++        rc = -EINVAL;
++        if ( data->pad0 || data->pad1 )
++            break;
++
++        irq = domain_pirq_to_irq(d, bind.machine_irq);
++
++        rc = -EPERM;
++        if ( irq <= 0 || !irq_access_permitted(current->domain, irq) )
++            break;
++
++        rc = -ESRCH;
++        if ( is_iommu_enabled(d) )
++        {
++            pcidevs_lock();
++            rc = pt_irq_destroy_bind(d, &bind);
++            pcidevs_unlock();
++        }
++        if ( rc < 0 )
++            printk(XENLOG_G_ERR
++                   "pt_irq_destroy_bind failed (%ld) for dom%d\n",
++                   rc, d->domain_id);
++        break;
++    }
++
+     default:
+         rc = ioreq_server_dm_op(&op, d, &const_op);
+         break;
+@@ -643,6 +744,7 @@ CHECK_dm_op_remote_shutdown;
+ CHECK_dm_op_relocate_memory;
+ CHECK_dm_op_pin_memory_cacheattr;
+ CHECK_dm_op_nr_vcpus;
++CHECK_dm_op_bind_pt_msi_irq;
+ 
+ int compat_dm_op(
+     domid_t domid, unsigned int nr_bufs, XEN_GUEST_HANDLE_PARAM(void) bufs)
+diff --git a/xen/include/public/hvm/dm_op.h b/xen/include/public/hvm/dm_op.h
+index 2bf0fdc1ae..fd0f3a6a99 100644
+--- a/xen/include/public/hvm/dm_op.h
++++ b/xen/include/public/hvm/dm_op.h
+@@ -444,6 +444,28 @@ struct xen_dm_op_nr_vcpus {
+ };
+ typedef struct xen_dm_op_nr_vcpus xen_dm_op_nr_vcpus_t;
+ 
++#define XEN_DMOP_bind_pt_msi_irq   21
++#define XEN_DMOP_unbind_pt_msi_irq 22
++
++struct xen_dm_op_bind_pt_msi_irq {
++    /* IN - physical IRQ (pirq) */
++    uint32_t machine_irq;
++    /* IN - guest vector */
++    uint8_t  gvec;
++    uint8_t  pad0;
++    uint16_t pad1;
++    /* IN - MSI data (vector, delivery, trigger) */
++    uint32_t data;
++    /* IN - flags */
++    uint32_t flags;
++#define XEN_DMOP_MSI_FLAG_UNMASKED (1u << 0)
++    /* IN - MSI address (0xfeexxxxx, includes ext dest) */
++    uint64_aligned_t addr;
++    /* IN - MSI-X table base GFN, 0 for MSI */
++    uint64_aligned_t gtable;
++};
++typedef struct xen_dm_op_bind_pt_msi_irq xen_dm_op_bind_pt_msi_irq_t;
++
+ struct xen_dm_op {
+     uint32_t op;
+     uint32_t pad;
+@@ -468,6 +490,7 @@ struct xen_dm_op {
+         xen_dm_op_relocate_memory_t relocate_memory;
+         xen_dm_op_pin_memory_cacheattr_t pin_memory_cacheattr;
+         xen_dm_op_nr_vcpus_t nr_vcpus;
++        xen_dm_op_bind_pt_msi_irq_t bind_pt_msi_irq;
+     } u;
+ };
+ 
+diff --git a/xen/include/xlat.lst b/xen/include/xlat.lst
+index 9d08dcc4bb..9236394786 100644
+--- a/xen/include/xlat.lst
++++ b/xen/include/xlat.lst
+@@ -107,6 +107,7 @@
+ ?	dm_op_map_mem_type_to_ioreq_server hvm/dm_op.h
+ ?	dm_op_modified_memory		hvm/dm_op.h
+ ?	dm_op_nr_vcpus			hvm/dm_op.h
++?	dm_op_bind_pt_msi_irq		hvm/dm_op.h
+ ?	dm_op_pin_memory_cacheattr	hvm/dm_op.h
+ ?	dm_op_relocate_memory		hvm/dm_op.h
+ ?	dm_op_remote_shutdown		hvm/dm_op.h
 -- 
 2.51.0
 
