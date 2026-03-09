@@ -2,46 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eI+3GJ3CrmmRIgIAu9opvQ
+	id SCiRF77KrmnEIwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 13:52:45 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 14:27:26 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15EF323933F
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 13:52:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1249475.1546929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD657239BA8
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 14:27:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1249496.1546966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vza5j-0003Rx-3L; Mon, 09 Mar 2026 12:52:11 +0000
+	id 1vzacp-00087M-1T; Mon, 09 Mar 2026 13:26:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1249475.1546929; Mon, 09 Mar 2026 12:52:11 +0000
+Received: by outflank-mailman (output) from mailman id 1249496.1546966; Mon, 09 Mar 2026 13:26:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vza5j-0003Q6-0M; Mon, 09 Mar 2026 12:52:11 +0000
-Received: by outflank-mailman (input) for mailman id 1249475;
- Mon, 09 Mar 2026 12:52:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BjhM=BJ=kernel.org=ardb@srs-se1.protection.inumbo.net>)
- id 1vza5h-0003Q0-Mv
- for xen-devel@lists.xenproject.org; Mon, 09 Mar 2026 12:52:09 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c6f9d7fa-1bb6-11f1-9ccf-f158ae23cfc8;
- Mon, 09 Mar 2026 13:52:06 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 839E6600AE;
- Mon,  9 Mar 2026 12:52:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDC24C4AF09;
- Mon,  9 Mar 2026 12:52:04 +0000 (UTC)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailfauth.phl.internal (Postfix) with ESMTP id C5D69F40069;
- Mon,  9 Mar 2026 08:52:03 -0400 (EDT)
-Received: from phl-imap-02 ([10.202.2.81])
- by phl-compute-01.internal (MEProxy); Mon, 09 Mar 2026 08:52:03 -0400
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id 999C9700065; Mon,  9 Mar 2026 08:52:03 -0400 (EDT)
+	id 1vzaco-00084y-U9; Mon, 09 Mar 2026 13:26:22 +0000
+Received: by outflank-mailman (input) for mailman id 1249496;
+ Mon, 09 Mar 2026 13:26:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mqfy=BJ=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1vzaco-00084s-8e
+ for xen-devel@lists.xenproject.org; Mon, 09 Mar 2026 13:26:22 +0000
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c105::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8ed9c572-1bbb-11f1-b164-2bf370ae4941;
+ Mon, 09 Mar 2026 14:26:20 +0100 (CET)
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by DM8PR03MB6232.namprd03.prod.outlook.com (2603:10b6:8:3d::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.25; Mon, 9 Mar
+ 2026 13:26:12 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9678.023; Mon, 9 Mar 2026
+ 13:26:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,129 +52,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6f9d7fa-1bb6-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773060725;
-	bh=+l3GAe2jq8eBBZZbhrY4uib7DNJV8apVKmihOAiT6Gw=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject:From;
-	b=TSHrbFKPoRXfsXlhpwIxl3kZJwS2F2BttFk5QfPdMtO/2V51HyX6rtBr4NBX7fAnm
-	 Mbo12H210Mu0rxpwX3x/oqe8N+CIQ1mUlnZIhdoYNbU87xSCxSCgXUoF4bHd6DbwKL
-	 +j3OY3s1TM2gTxkaNs9J/IL2QVgVH5IxrNLE7MfKcJzecIH3329B0ZuHStfd7xZVaf
-	 22b7kkG0HghO1/nWUHDjQHfrEUUYYxXoIdcvDQSPYVjLfLisQaKQqnPzaqg7HmmYlz
-	 7bNv+jsnCFNqTQbCbDvjVrZ0nnUx4ye+D9QI0EaF1Hfh3XWKkSdZs4NO48m/Ck6zau
-	 udgcC2oFo/FuA==
-X-ME-Sender: <xms:c8KuaT6g5dfW3c5CvJAmOIXVGTkdvWPf_1QM9tkj9Uo4Ih2HRipxsA>
-    <xme:c8KuaTvCc5M089GSvD9-x5Zb9s3cnu4ZwokOhjS_EvbvaTmzW5CmE8H91wSfVIP7N
-    p3Ji-kBKSk56OzjrjYv0-oLOd1BiRoGgnZarhy-VIwNaMlgMTUK_A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvjeekudehucetufdoteggodetrf
-    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
-    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
-    gurhepofggfffhvfevkfgjfhfutgfgsehtqhertdertdejnecuhfhrohhmpedftehrugcu
-    uehivghshhgvuhhvvghlfdcuoegrrhgusgeskhgvrhhnvghlrdhorhhgqeenucggtffrrg
-    htthgvrhhnpeefhefgtefgkefhgfdvffdukeejheeuvedthfdtiefhleejhfefjeffieeu
-    jeefteenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivg
-    eptdenucfrrghrrghmpehmrghilhhfrhhomheprghrugdomhgvshhmthhprghuthhhphgv
-    rhhsohhnrghlihhthidqudeijedthedttdejledqfeefvdduieegudehqdgrrhgusgeppe
-    hkvghrnhgvlhdrohhrghesfihorhhkohhfrghrugdrtghomhdpnhgspghrtghpthhtohep
-    iedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepshhouhhmhigrjhihohhtihhsrg
-    hrkhgrrhdvfeesghhmrghilhdrtghomhdprhgtphhtthhopehmrghrmhgrrhgvkhesihhn
-    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhrtghpthhtohepihhlihgrshdrrg
-    hprghlohguihhmrghssehlihhnrghrohdrohhrghdprhgtphhtthhopeigvghnqdguvghv
-    vghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopehlihhnuh
-    igqdgvfhhisehvghgvrhdrkhgvrhhnvghlrdhorhhgpdhrtghpthhtoheplhhinhhugidq
-    khgvrhhnvghlsehvghgvrhdrkhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:c8KuaWcjcsw5z56A4U-0I8TpxxtNTYgcBSta9LzT8FhkHsW1Wcpt4g>
-    <xmx:c8KuaSehKYxjTOw8IX5vaHSFoeHSbpymWVwezyS7Qb0SdlgfkExq_Q>
-    <xmx:c8KuaZyDumFDVKesUG2kbHmbcAltYywi6iHzDnG0QlWiUUaFGX8MSw>
-    <xmx:c8KuaZ-fJ1kWTGjVJ6UgZEl103GiQwkGGpA2aoIzzhEstZoUcvWo_g>
-    <xmx:c8KuaRilkN9J9Yo9bdHlekGBpuyCg3gIBWtOc77In4fmiYdaKWJgdz_p>
-Feedback-ID: ice86485a:Fastmail
-X-Mailer: MessagingEngine.com Webmail Interface
-MIME-Version: 1.0
-X-ThreadId: Al3Xjs-asQIN
-Date: Mon, 09 Mar 2026 13:51:43 +0100
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: 
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
- linux-kernel@vger.kernel.org
-Cc: "Soumyajyotii Ssarkar" <soumyajyotisarkar23@gmail.com>,
- xen-devel@lists.xenproject.org,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>, linux-efi@vger.kernel.org
-Message-Id: <2f8e9891-ef08-4094-ae86-c1b6d2dbe06c@app.fastmail.com>
-In-Reply-To: 
- <cover.751f45ebbb644244b1d9da3aff289d6b66db4c6b.1773058629.git-series.marmarek@invisiblethingslab.com>
-References: 
- <cover.751f45ebbb644244b1d9da3aff289d6b66db4c6b.1773058629.git-series.marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH 0/2] Allow using BGRT table under Xen dom0
+X-Inumbo-ID: 8ed9c572-1bbb-11f1-b164-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TtP1QJ7VIkT8vd01GEBRFmexd1GmbKxOds8N2Kulda2UQ8skGGSM8YkZ3v0wI1bcw4/vAQ8F1gSs3Vp7TbLHPXdo34qMgj6WofGRhYiV0rwas3w7zKEePUpHdf+4+mL+yVSpQqDsWk/ZVRJnSi8jqT/SnXEYDjzTiJ2ZxWh9q2InL+0g8yp5f52+lLShpx9nBcsIh6CjDxM+o42cHpNYwZzow3qMYvRb8ylthvYG4O6aeTdvGMNrTda8Ns7nEAbEYhUkXxhO8RnjvEQVoBQ2tskfd/0iDgddrKHbFeAJZ0ILiCfWaLSWaYh4R8F4zqAlYW88rPuVdKErhViqhudWWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l7n5O3eHZxb0m8XX25UCo/ymu9WkcyBzlfUUnlzR+e0=;
+ b=SwYcl3vsX6lc3NyItOTZfRqRI8YPGO7T8YYIe/aLcMG824v8bHl2Y4erjXRzfZRaWH0375CTx3OiEZ+KJ17/qmCsv/eCTNVUPbKyPeEBTnIqhd3zqO1WU8C47LDyosydPwOHhLOW99d3vqe6RcjK5rsd3fPgYYsIyE2xgTY3roCGUNL4YioQGwbT4jCQ2ZAfFMGjhlt00qDYDBTqTlJLV/7gH4CoHFqb7pqbyjpZIvBmlzZtT7j4VhhGetommWF9xi49fAYk0dwFeqBCrB4E+XJHqK2OPUAIRLv2o7dLe6YRQvpoWYoliS8zSVLuLtv4w2Ys4hrgU+dIQdMMHkGi5g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l7n5O3eHZxb0m8XX25UCo/ymu9WkcyBzlfUUnlzR+e0=;
+ b=sNQ0LbAUiotXBWKd2Xyh6Fgg6wE0C81HqB5qUpjka3dA9CqmwWbGGi7jrS/jJZvylx3zMBCRiXgb2rLyYw068dSfoKHvldaCW3xQUwNntTdW4Zlr7fdtL298km74RnRUPD9+4DNqkJKFSuO+gCMxGeKt9C133Nz2fLMeZEg0lBE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Mon, 9 Mar 2026 14:26:09 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Julian Vetter <julian.vetter@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v3 6/7] x86/dmop: Add XEN_DMOP_enable_ext_dest_id DM op
+Message-ID: <aa7KcQQoc3-HwlcE@macbook.local>
+References: <20260309123055.880050-1-julian.vetter@vates.tech>
+ <20260309123055.880050-6-julian.vetter@vates.tech>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Rspamd-Queue-Id: 15EF323933F
+Content-Disposition: inline
+In-Reply-To: <20260309123055.880050-6-julian.vetter@vates.tech>
+X-ClientProxiedBy: MA2P292CA0022.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250::11)
+ To CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|DM8PR03MB6232:EE_
+X-MS-Office365-Filtering-Correlation-Id: d86c132f-f008-4dec-c434-08de7ddf6ec9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info:
+	XvzjhGbOF+VlJKbv6FeAQhjk6ewuC8gBz+x929U6CY8F0q+e6jl+Q1Z/SQQdR8l50vXCxdpOfWtdnL7R+tDa9g+o6e4unvOUYMQ3tKkce5PuJnmHYMP9fri1iKxvNI26AGNcAun6gkjvjH9cx84MQs+shrqGtOxVG5hDLz04xz5dp3JvSwNm+9MkLIkqUB7eLIIoHgzFEnIz61FIHm3p68IxwtOqMzS8bQF5AiDOmGQ1CabWTOk92/JtRxQ5vhugorFqlhzj96SWKkMYY00bA/RpmzVx3RiRzfeY+PcNF1xRcg7WAzS87FRWDmkPPJMDuo7i49zZvj9D7NKw5WgWajl7AR+y+lau2rcocusyhlRhGZIfCC9SMXU02Aq2uFoHTeFIfwcfmh3QyMJwP+ZG5IaI5JAuo4PF04CaEuRnlpqbG6GWm64Lgb+LDm4imfgx/ciQOoTtPHYaGgVCeOM+RVNrkEf7/S0/t6Doeqsb9AAlpzzpIVDzHQ5F+I7AfPOdS1qR8SNMfd1SCHVNaMT3E3y4ErvYIBKC2SHP0cdSFjlp1mTYKKeV5WgfeJcZEN9A963aFmCy+nTeOoZPwDuitZ/hcXQ0xNoH2BUWATd9VU/Zwt9/njjdeAayuyDiOi9gEzNe21FprBUx3vW7EDTQKoniPmFeUytMJTuqgOzU1ZTyMvV4+6em5B/Hmbv/iJ3IQGCAAoGW1PUlnM6ls93CMEECnNZIhP8kxfVDc7838uo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?b3cxalVBZWFGVGtxRmY3cVMrUGlwUkQrNnZXZDE4Yit1SDFUdDkyaGwyZUJQ?=
+ =?utf-8?B?dTdDYnVoVXZkbjBSdExpTUdnaDl2QjEveVA5aU9zTzF1aW44QlBJUENRSlVw?=
+ =?utf-8?B?eGxva2JiS2pZSVFFbmVWUVdXUzJWWWcxTW16cXQyeVRFdTJkQ0Q1R3d4djNN?=
+ =?utf-8?B?aHBSRXZuc3hRWUFBMTlKSkxxKzVlbVhGTTIvam1IRktZZDJtaFFLUjFLMnFN?=
+ =?utf-8?B?SG14ODd1M0x6aGE2NVI4UWMvbWNUOFhNKzB4N24ySkdsYU52ODQzdk16M2E2?=
+ =?utf-8?B?WUI1TW1wWFVsSXFrQmorbDFyaFVrVlVoV2ZFUjd4Tmh4NUpIRldqbVlGbllC?=
+ =?utf-8?B?QlJsYUZoS2piNTg1bDNMRW5VbGw1a2YvUDdINUFCa1FBS2RHR2xvRzRwUU1a?=
+ =?utf-8?B?bHlDekNGTHlxVDQxQ2lmTGlGS0xXY0d6WHI0Q3hwODhQVEdjY3NzMi8zb2J2?=
+ =?utf-8?B?azZ2Mk44QWxlL0I5MFc5TlcwQUFsempEVmxScmNUQzZVYnVab2Y5SmpiUEpw?=
+ =?utf-8?B?d2xWcmdjN1pGT1ZZbW1YR0pLVHZGZUtUTXNuRzFHdCtYNXFpRGJOTzl3cGpq?=
+ =?utf-8?B?eHRYcUtUaUVIajdaZEI1RS9EWk1BTURiNzZVcUhVOW9zRldlTTF6YzJZcWRP?=
+ =?utf-8?B?WVRTUHIvUFVPaFBTdWVXQlJKT09pbEdDVDJMZTZzaEhwUXRobHluQVlwbzg5?=
+ =?utf-8?B?UjdHOXd4SHMwdkxMb1JrVHBwRHc5bjlpNm5SRXBERVRtaHJPVVdCSXVBVjJt?=
+ =?utf-8?B?Mm5BWVFoZW9STE04WkpGc2ttTXBoc3Q3ZThhbWt4c3dXZ1RiNUNjbE5DRW1Z?=
+ =?utf-8?B?RGx6OUVDWDl4b0dUeFYzMHlrOEZUMWd6V3d1K0FxcWZLeW5DWUpOazR6Mysz?=
+ =?utf-8?B?dCtLZ2xUQ3VIT3VxMktPVXpMaDk5SVp6a1NUZkhMSDZ5VVBoWk8zK3hzaG9P?=
+ =?utf-8?B?OVl1NncwTnBTbHFNQWFhRURzWEk5V2hhU3BDV25FaGlZMmdFeVJGbzZJUHpY?=
+ =?utf-8?B?aWVzWVZZTEVGYVd1VnZjbXlLVjR2RHhvVnZGZDl1TE5rR3pveXExdHVqZ1E1?=
+ =?utf-8?B?aHoxclFGa1FsVHFsYkF5UFlhdlVrTHBDOXUwTUtHUHpoU3ZXVmZVVUdSeFZz?=
+ =?utf-8?B?aUhqbWZkU1JDcVhUalhsTWk5cHp6dnZSK2o3Sk1zMnRIV29SVE4yajBoUHFX?=
+ =?utf-8?B?Vld5WHEwZjBuc1Znc3BXQ0hnbmU0UmZUMmFub3g5clR5ekZRcnhSL3pPcjVZ?=
+ =?utf-8?B?aWNTTmFFZjdCMlB1TTBZU2k1WUJYay9IcklncnU5a1JHMy9hUWlGMXJxbGhu?=
+ =?utf-8?B?d1IrVGpFcE94amptbmgwTzc2UmtUb01VTGV1THg1Z2dCckNJVHhDNHEzMU9l?=
+ =?utf-8?B?ZUxZVGk1QUpoZGNSNXQwS2YzZjNMWjZiaFhXNlBBMkUvRG5jVmR3YlBsU3l4?=
+ =?utf-8?B?OVprL24rQTNUMnBTanF4SjZVbUdRL3JGNHlLL2I2ZXAzSWVGUXRVOWtaQTdn?=
+ =?utf-8?B?SmppTlo4aUNOUk5vOStDenp3akc1SzVjOUhXWkIyRmhVb2x5djlRdmhPY0hv?=
+ =?utf-8?B?STEvbzlIaE02T0RpRUFhVW94Ry9aVkJqeExvS2tZVzRPWUhyOTd6QW1VaHJJ?=
+ =?utf-8?B?b0hHWkVZMytsOVhCK2pESkJuU3UrbmM1WW54WGZIcmxNMUxWZlk4NlB5V2lP?=
+ =?utf-8?B?WkUzcVczK01kNjdPVVdLM3U5T1lyU1hvaitkNFo5dnI0UUZVVS9MY0R1VFRi?=
+ =?utf-8?B?bStDVElUZi9WdksvTUI1bW1KaG1RTkZ1ZStmSk5GaVh1bkR2SVRaRm5KTk1I?=
+ =?utf-8?B?MkxCaFpIYlNMbVJxaG5nN1I0S01kWC84NWE2RHFMMmJKMVBUOUl6Zk9oc1Za?=
+ =?utf-8?B?MWtIM2hLcWN4MlFOUTFIRW8zODVuc3IwZm00Z2lqMmdrT2Y5WGVNZHZiNUtB?=
+ =?utf-8?B?Y0hFMnJBRlpnUm1MbWxVY09Xd0Q2YW45bzRncHFtV1E3UjFCVEhXNWhxUUhQ?=
+ =?utf-8?B?Ni9teEhvZ2dmM3FBSXBzM2hpc1dxWFB1OEduU3J6ekNySTdKSEZ6ZnVUWUpa?=
+ =?utf-8?B?OVg3cFNHZm00TzQ5NmpqWFU0cm9IeUMrU0ZGWG1BdDV3MXVWYmFrVEZPQWtx?=
+ =?utf-8?B?TEtLR3lJRmxKSjZrZ05WU1VGc29uQ041TlZQZm1YQ2RGV3lXK1FVTURtTisv?=
+ =?utf-8?B?RjhqcDlGcWJONFgvM2JCcXhCalB1cmtwRGlMajlpVFZLd2J2V1JiUElpVVVP?=
+ =?utf-8?B?dGdSZ2svSzJieHpkM09mekdOTURDYkx6Q3hHN0tDa2MyNVRZU1piKzVmeE9a?=
+ =?utf-8?B?K1JHcTAwaEU0R1Z5b3VEemhWRGdVd2NsbmNtRGlnQkxUWTFKRDc5UT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d86c132f-f008-4dec-c434-08de7ddf6ec9
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2026 13:26:12.6036
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: L3K97Ok4AZtVeGd2zeztPi9LMX5A+ytvOFRakzvERwUiWLj5aeePk0Ir2yQqRxM4QEdlGmlZ6JM2TXGTf1fAFg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR03MB6232
+X-Rspamd-Queue-Id: AD657239BA8
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.18 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:linux-kernel@vger.kernel.org,m:soumyajyotisarkar23@gmail.com,m:xen-devel@lists.xenproject.org,m:ilias.apalodimas@linaro.org,m:linux-efi@vger.kernel.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[app.fastmail.com:mid,linaro.org:email,lists.xenproject.org:rdns,lists.xenproject.org:helo,xenproject.org:email];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[ardb@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.993];
-	FROM_NEQ_ENVFROM(0.00)[ardb@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,lists.xenproject.org,linaro.org,vger.kernel.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[macbook.local:mid];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:jgross@suse.com,m:julien@xen.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[11]
+	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.970];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
+On Mon, Mar 09, 2026 at 12:31:03PM +0000, Julian Vetter wrote:
+> Xen cannot simply advertise XEN_HVM_CPUID_EXT_DEST_ID to the guest
+> without knowing that the device model will handle extended destination
+> IDs correctly for passthrough MSIs. A device model that still uses
+> XEN_DOMCTL_bind_pt_irq would pass only the low 8 bits of the destination
+> ID, misrouting interrupts to vCPUs with APIC IDs greater than 255. So,
+> add a DM op XEN_DMOP_enable_ext_dest_id that the device model can call
+> during domain setup (before vCPUs are started) to signal that it will
+> use XEN_DMOP_bind_pt_msi_irq for all passthrough MSI bindings. When
+> called, Xen sets ext_dest_id_enabled in struct hvm_domain, so it's
+> visible to the guest via CPUID.
 
-On Mon, 9 Mar 2026, at 13:17, Marek Marczykowski-G=C3=B3recki wrote:
-> For a long time Xen was invalidating BGRT table as it was reclaiming
-> BootServicesData memory (where boot graphics is located). This is now =
-changing,
-> and the boot graphics is preserved. This series has necessary changes =
-to
-> actually make Linux use the preserved graphics.
->
-> This is a companion series to Xen side at
-> https://lore.kernel.org/xen-devel/20260305191810.31033-1-soumyajyotisa=
-rkar23@gmail.com/
->
-> CC: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
-> Cc: xen-devel@lists.xenproject.org
-> Cc: Ard Biesheuvel <ardb@kernel.org> (maintainer:EXTENSIBLE FIRMWARE=20
-> INTERFACE (EFI))
-> Cc: Ilias Apalodimas <ilias.apalodimas@linaro.org> (reviewer:EXTENSIBL=
-E=20
-> FIRMWARE INTERFACE (EFI))
-> Cc: linux-efi@vger.kernel.org (open list:EXTENSIBLE FIRMWARE INTERFACE=20
-> (EFI))
->
-> Marek Marczykowski-G=C3=B3recki (2):
->   efi: make efi_mem_type() and efi_mem_attributes() work on Xen PV
->   efi: Enable BGRT loading under Xen
->
->  drivers/firmware/efi/efi-bgrt.c |  7 +++++--
->  drivers/firmware/efi/efi.c      | 27 +++++++++------------------
->  2 files changed, 14 insertions(+), 20 deletions(-)
->
+Have you considered whether you could re-use the padding in
+XEN_DMOP_create_ioreq_server to signal whether the device model
+supports Extended ID parsing?
 
-Looks good to me - if nobody else has any concerns, I'll queue this up f=
-or v7.1
+Also, you might want some negotiation between multiple ioreq servers
+on the same domain.  IOW: is multiple ioreq servers are registered
+ahead of the domain having finished creation you could level whether
+extended ID should be announced.  For ioreqs that are registered after
+the domain have started you need to enforce the currently set Extended
+ID support.  If the domain is running, and Extended ID is advertised
+you must prevent registering any new ioreq that doesn't support
+Extended ID.
+
+Thanks, Roger.
 
