@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4GBEFkWqrmntHQIAu9opvQ
+	id eHRmB0eqrmntHQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 12:08:53 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 12:08:55 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB0B023798D
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 12:08:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1249282.1546815 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8CA82379A1
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 12:08:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1249279.1546788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzYTd-0005cZ-VG; Mon, 09 Mar 2026 11:08:45 +0000
+	id 1vzYTa-0004sW-Mb; Mon, 09 Mar 2026 11:08:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1249282.1546815; Mon, 09 Mar 2026 11:08:45 +0000
+Received: by outflank-mailman (output) from mailman id 1249279.1546788; Mon, 09 Mar 2026 11:08:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzYTd-0005Y4-OI; Mon, 09 Mar 2026 11:08:45 +0000
-Received: by outflank-mailman (input) for mailman id 1249282;
- Mon, 09 Mar 2026 11:08:44 +0000
+	id 1vzYTa-0004nX-Go; Mon, 09 Mar 2026 11:08:42 +0000
+Received: by outflank-mailman (input) for mailman id 1249279;
+ Mon, 09 Mar 2026 11:08:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=OAaF=BJ=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1vzYTb-0003iR-Ui
- for xen-devel@lists.xenproject.org; Mon, 09 Mar 2026 11:08:44 +0000
+ id 1vzYTY-0003iR-Ty
+ for xen-devel@lists.xenproject.org; Mon, 09 Mar 2026 11:08:41 +0000
 Received: from MRWPR03CU001.outbound.protection.outlook.com
  (mail-francesouthazlp170110003.outbound.protection.outlook.com
  [2a01:111:f403:c207::3])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 54167cf5-1ba8-11f1-b164-2bf370ae4941;
- Mon, 09 Mar 2026 12:08:40 +0100 (CET)
+ id 533635de-1ba8-11f1-b164-2bf370ae4941;
+ Mon, 09 Mar 2026 12:08:39 +0100 (CET)
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  (2603:10a6:102:30d::12) by AS2PR03MB9695.eurprd03.prod.outlook.com
  (2603:10a6:20b:60d::13) with Microsoft SMTP Server (version=TLS1_2,
@@ -52,35 +52,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54167cf5-1ba8-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 533635de-1ba8-11f1-b164-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ufKkM76nCFoPrt5Nn8II0vupQM7nW/336xjv7ote/dWX1jCAEb+FUlBOww6D/nRnlSP9tgza5euNjWkJy7SuCPHBC42g+hZ+rVVzaafrdSd3aXlAlR9JY2LwVSpE4jST4vo0hGZ1uCWNWQL9qqOB+hPBfcG3c4evtbG1g6TelD9k/Iy+QvRmG7cQB6eaWs0N7T5KUcuj/M0ThNe1+IIkAlg8jKN1hheOBznmnK5ONJWfUdNLW5lX4DXq9/IoVoXm0a6i0LDmSXMjlW27vmYZs2bIR+kZ/QdP86YW+0Yh35B3eaK2CQGeq3j7unaPM+mA9r480SOPc9yEv9CzUYD8Lw==
+ b=JNvNmbgqDJK2L+vIoJyA85Uf7OEmPgIqHSQjq71ibsxBxaJV/uNZzMWDWczahzoMxf9+/T54BiUq4qYALg1OgRHUlT5tR90ligM7ibKaWvxouoX5ij49BkTi9ALDbmVTOCvbEcwBSmxU1UojQ+o0Nl6ukA0/NQ4qFI193HWJqeFSzKzhR3bBa5g3DLh8x5Sd0NN+NmRZsm6m+qF4wKuoI93E8clFIsJTqffgZodd8cCi7QSauJ1fqqsU/JKE84HeKtDwhCN0QWPhyN5uoqQ+9SKL+FrkNMboqZSPI7AJ698qX2CXTC05ZHhiTy4Rv6ogswmhPPmP8vwh4RYD32geyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lcvxHQYqTk81Exw11I8k3Jy5Hv2/V72aWoUK5BU4wB4=;
- b=mN8JHW05k2jAsw76jSA4mNSFSLtzHXVfoOrkLgaugGJipBe18LPeGUGmhazMaCP0zC9sHb4/ZY7JNldSCMDKXXGz0/UbQUb7EMTo2A1NzeZ+/qZ/UDl1Y4kVug23m7chgT0/Cbiehq0MuXsAn3g+ZNkyQ7kWZzFmHB6XZyEzPJlJbeT/yQmtj0obZA5WQds3dpQLsL84k94076O1N3s6obHNS0qpdu5FdSlyrKCi3Nu4/nstkovJRgWwxS+HpcdDXFtx+ubc47ZUSAFQGXDJRp1zPfHiJOGbp8YdvauvRwxjEimAI+wbzCrVVQlNI06Wi8w2kFZ8uyyp/YzIIUh8Zw==
+ bh=as8HXwLx1Zl9o2iQtPqGLoGRGBXmJbz5GSTKA8wbpEg=;
+ b=txDinyKu++Xk3mujU58GFWCEgby8z98yN6d8TAyvbNE1DluG9ZTNoCltTH2DWv+PHcQ62LestJKNB3qdLvlMdqCptsomW54Vco0clgt3JnPZDXxU0GrgaIHSLL4NhEnm9Bzergq1d9FnAcdATILM0kEtMSXqvGVNyg4jJN3bZcXTA4IU1mf/msVWm4qoacZm5Y4b+mITmJdK+V587V7OVvkAyZUDepSQVTO/1VCzsrPrMKvUncMdtjRwuEfX3uZTKUad8LzONANuANdxd2NbATIpNbRJUzXTVCQfbj/qI6pbt6nRj38uGhbYiQeLdP6nHVF3p43zUs3AefCHwicTDQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lcvxHQYqTk81Exw11I8k3Jy5Hv2/V72aWoUK5BU4wB4=;
- b=AclPR2nCcBzYHoAcRYSokkEwWghc+D66VDw0SrktIt1283aZ0eQT8Ii41ZfanK6NlKBrqOJIgt+i7n7s8Y/HpuI0SMRUlfIIALMFEih8kMl2lI+OLfkhaWFhcRCQimkBGYCkEoCBEnNlV2MZvOkdIxQm1o+khaLHSaz2rAfmmbXKeh+YAFBJzwUvtVW0O1NB9vrBh1Nam/HaB16jqhBDwQ3PkAH50sGp5KWtLzf5Zv40OuTcIJ8pRpWW4jLjU8zlG+3zaDpJzMpFqHGXMCjRyRazMVL2lkky2OWhEQKnVptd5JT1Ml8tqsVaX3a6FEfLOkSrOsBl9xe92EtlEohEQg==
+ bh=as8HXwLx1Zl9o2iQtPqGLoGRGBXmJbz5GSTKA8wbpEg=;
+ b=YM3ClKHI1XPlEwOAyXw2zRDGkOJ5KRE+ltfnNHslT062QWDp80yk4fMtSlAsRda2PQhWrGil+5WERPFJpMLyvWEkGRnSPmsS6SXitl9mFnXovLTfyXLl5ySoynbqniR/lKqiag6MEBoVf4hULpBp79oEekvveEG4yzEuNfaADUiYf0H8K+KNKZgMiZRlnty+Z1lCZK21CKaqNjzMOIvM99CS/pe02V9AKn6LD+fnx1Jr+a261VGN03Rm3vUtwfgN8Batt4oScq31YtVHa8EdDRjPsW8pJYqTMm5yTCmuQjwbeS6gnmPZuvQ59jqpej+UPFwRQcs3WHpsZlx8qmFodQ==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>, Stewart
+CC: Mykyta Poturai <Mykyta_Poturai@epam.com>,
+	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Stewart
  Hildebrand <stewart.hildebrand@amd.com>
-Subject: [PATCH v2 3/8] vpci: Use pervcpu ranges for BAR mapping
-Thread-Topic: [PATCH v2 3/8] vpci: Use pervcpu ranges for BAR mapping
-Thread-Index: AQHcr7UNO3bwYqCdZkmfzVSjd86SfA==
+Subject: [PATCH v2 4/8] vpci: add a wait operation to the vpci vcpu pending
+ actions
+Thread-Topic: [PATCH v2 4/8] vpci: add a wait operation to the vpci vcpu
+ pending actions
+Thread-Index: AQHcr7UNjpbdOXJQP0qdir/zrd85oQ==
 Date: Mon, 9 Mar 2026 11:08:26 +0000
 Message-ID:
- <43ce584a124f0bd07e641934e15e5ab56548e1ba.1772806036.git.mykyta_poturai@epam.com>
+ <ec941fbf4f8bde23fc3867e47f5ada028f8003aa.1772806036.git.mykyta_poturai@epam.com>
 References: <cover.1772806036.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1772806036.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -91,403 +90,228 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|AS2PR03MB9695:EE_
-x-ms-office365-filtering-correlation-id: c0ae7012-27d0-4fa2-b807-08de7dcc3252
+x-ms-office365-filtering-correlation-id: 9ba41daa-adda-4cbc-6641-08de7dcc3287
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|1800799024|38070700021;
 x-microsoft-antispam-message-info:
- VNTL2Y5weYB5w5gs2pnkOUmxLsZO4RZe41Or3CD8FPQYOdnQrT9c1YD88R+lbtnFX43mKxY9N2OTA66yE5HJ1KsB8MeUdwFYSRRVnSKuAYm3l3UoCgr4iQLF33HHldNqV7hOvqH7eZov+YW2LA7ZklXea/DpO0PPqHSE8UXTAOFE01JRTHJmyzP6qxcclQq6ltClMc72JQ1GmrhJlwdl6Tz1yglC2lOEcpEyxCbYUy+KLnSztlz4TI5lf3aExlZSHB01eGg70GreP76bGGAEr+KAa4HoJ1ATWetF1ppiMRBqR3KbF1SPCSKIuQY3Ck9NqlvKhOPmEjJq6+3uiAtSV56VS5eoBsf/GwA3Uy6vrjTjNQBMSMSB221+thbqKBKZ3zj1RmzDryx4RcpDSEQoEqqn7a7VXAK633FwHXnj28wPwiJknMWmaYuOtHiKk08a9+KyJV1bjt8uEKWmTIRIm3cLFsRe6JrjSDaUl9LukexVYfWizc6V5RGp8w3J64yQb5ptDP+4jjMq1gTwpO0tGODZfj9yZaDq7H79hgyG5BITA8Hbpts7dNnKNz0b9eTmb9QDC9IYhvFuCJMCe6Kq0zZ2dem2sJ50c18duICIN7pSuoFPjrsmzYjHPKub6dhlmZlKCOy/MMynFWYTraeBKCM5DL1b3lPmfZa9aG8WQ8xpRozzstDdBSWFwvrdfOlV6oraSBvOsKZLBTXFn+U98TPAX92Yo5dRa9PMZT9HAqzYiYRelCNFhhGjKeNmJbFJIED6wWS/+S8SXm1+TO9u5CQDTTofWtXblNBWn4UOvrk=
+ FgBkkkf5bQYCe5NIp3tiTwRBx5GxGX5OdGalTuAAIPC53cH+NHwLxFtKgRA79kB7vkr2ELmJqixBxsg/yGFosUEd/O0YwjsVUFw9H3pEAE6BeS9HwTe9l2OoUYmgpKgJMLo6AutEH36CO59lcBZJ/KOKNgSZ3vviafFTb1Pg3pDco9I0r4m7QCi1zQ22qbebJj342FvHie2uUFSQ48YMBEo+ROmNGbBsk3TzcCYdkZTu42QFA43pVIoYu+gEQzWAgLFNfZJayXbILBQ5tnH5bkeEiVPL9ZJYzDrE5yg1xDApeCkPBQbQVS7vzKeDcVMnaa3qL60c1wHLVxybZ415z/Ey4Sb/VUO+vAyUltW/Zh3Iq49+GRc5SMU38r3qZGKsb2lDKmcrCjzDybLuBZYKcd0WfDiEKIYGrvG1LGRoM4o/wv8AJi45EECRjp31MAUeL+dqRRStLhIxhhig/aAmLN6zCyc/Dq2CfmrwD59IDr6R2FlJVvve8E1jTUNjPhZ15CbHCi0l2EF+Z73XkRQlnIdnCNxvqmAFkEVqjKm638PITQaLmwpNvJGRpdmPGErWRnVVKdOyB7dqU3L80kJwfAcVj9/ZYAf//Sjj4ipRl/s8WD4eMt4XsM8/Ci7HWHeY1IK14enPg3Xgf49EOojbB8d4Pc+IwDGx3XVkG9FhmJ/iMNtdv7jWQVMcolT/XFoQSf3JGY0aoIph28l6KSy/gVbzZ4/mC2sx6mZfvQtB8nbN6m1VEtDjmyv8RT4tdtfK4LBnyKCKUeGSVUWT7mcbv7phPWvbaDWIFefp88Oz0q0=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700021);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?q2DbLmAQC1qUooapjiJkp0rfFBwH97vOEOJyEtZPwGq1gBvbvYdDmNi9PE?=
- =?iso-8859-1?Q?plJ99S5TfoEuejISpnhV5QdnxKcQqXGpI4cHb3MvqP9ZKnAnbc27R83x5A?=
- =?iso-8859-1?Q?7FdLNRlL2NpOuxQ4gTwnGE2VgH3+WKH63AprLfO1/lVVSDAJLd/pr7LC1W?=
- =?iso-8859-1?Q?Jrvz7d6QKuEDJOoyUsjkJf7C0qzK3f4npZgXfo0pofEvV00Z/jzCqSoulK?=
- =?iso-8859-1?Q?hDTC8yUgVYn74yLgNDpOg3XHt20qlvJKFFibfAS3BW48Z3T0jOQPfIcpRO?=
- =?iso-8859-1?Q?+/5gQQkgI/3My+84ljsDG+toI9vIXLkhzcM/X432gUOYu7q/MjnzSSsppx?=
- =?iso-8859-1?Q?WsCEV/h/BQAWXisIevHQ1ImBfWnDX2RSBSovCCsPfNEfSwNy93zwuCCTnq?=
- =?iso-8859-1?Q?2/uLEmJVk02WoCZPZ00kgI7GCEI2wAM+ne2FhY4GkOffkM0T2mIXzh1arp?=
- =?iso-8859-1?Q?IjLbr//8FZGj+B5VgWAHklR/wEghmj1xJ4vC9r76tb6pYwu7fwMN6f4GZ2?=
- =?iso-8859-1?Q?iXO01l7Jp8sODHhGPylBy12UJLRkkQbAeCYCE747y6zxabvEpMIUccIDSq?=
- =?iso-8859-1?Q?OfIIcW7h69HqqOF1CVyXWT8fFdNGknMiB1cUXFiUzMDihJWxi05p0wDkLN?=
- =?iso-8859-1?Q?SEbgYzrf3eXQj5TbQk4S8FhnTuZBoSCNgQb1wgKuiuJ1Zew+PhE0c37BqT?=
- =?iso-8859-1?Q?IuoaN9oV4Rf2z87Ly7aztX2Mst+5irxniuXWbI2wNSvL8qn0Tt+KLy+J6a?=
- =?iso-8859-1?Q?kNxV1TW/npgxeUPbFfRp7DzBfAgEwmlGSwVmakoLfX3m2X8A9Pv5N+MxXh?=
- =?iso-8859-1?Q?VZ7WNcuw3dGqX7YUYsRgnmH0VIbwa7O1XqbM7FJ8UbGfnsW+CHrikXF9kY?=
- =?iso-8859-1?Q?RxqFURv976dRhbwLSOIpeH9HOgTfRrVl4lzoNPK8NKg2XvWazDmoqMkgM9?=
- =?iso-8859-1?Q?cL+E+O1ym/WqdjKx563zIkte6UA3dM+fmKmBJvr6H+zgl5TvXVSwRXr5kt?=
- =?iso-8859-1?Q?owjotReVRy0l9EqmbHDFlVKRAL2BJQYcKw/mdQBoWJc9DNzopbJvKTIM+g?=
- =?iso-8859-1?Q?atmj3IuvITbOEf+bZj5DRbdfn/HQxqOOcV16JHJT/sJcfgF+j3ef57rSf4?=
- =?iso-8859-1?Q?VPND6G+6+xLh4Q9ytOfquQMgtPTDhLrZzJ07fNxLlThYdigpCHpVG2Cimi?=
- =?iso-8859-1?Q?0PfTVo8pHIBSjNBTsFMw2bTgUPHgE43CGVP4qbFsTI0rIv+h0RKmaPWdsq?=
- =?iso-8859-1?Q?E72GJBzDOWr8p5AyViPrCuHFGChRCNOq3AmtPDWZ/4hiAnMEvO7/52syP1?=
- =?iso-8859-1?Q?/TlwoBvaSn9N+qmbnTmJBNAptIdh55s4/pTYP4Hn0Pz4Ik167kz4AGjxFe?=
- =?iso-8859-1?Q?LVivL4uj97Sm0XKbPulbuM4R8yS3YqsIWg2L9sxxcH13blM2ZvUhlWuK7z?=
- =?iso-8859-1?Q?vtZg7wbNoQXGeNscN38eGMdKNRHIexQ7vFTjKKeub6E0WqkWI3mGpZA1zJ?=
- =?iso-8859-1?Q?pQ/bDZdB5Ystzpnumq3C5jLH/R+kja+TSyvWddR84qnOrAd9EB4t4L2+hJ?=
- =?iso-8859-1?Q?0MNQ+ZBmrrE+0mzAeJJaXDv+OCqP1xAy/Vo/q+8G2w4IZuNEExUyTEJtTZ?=
- =?iso-8859-1?Q?ZyDrZr/ZIXRzt7c7QCvLsDBFDaebAFJqMxwJ3058FHSN78m7CxcLufSIRM?=
- =?iso-8859-1?Q?X+6MS35BBDJ8lySTo3hxSbuJqN3Udc0xkG6EMb2ZImVXuP9z5tGFcHaF/Z?=
- =?iso-8859-1?Q?DPnF3uHd0/P3toJg5TfjjOVoHBjYbI/1d//7tjqVQZV8NDR+pr72AgS2Ky?=
- =?iso-8859-1?Q?EyGtafCu53X38MKgDep3Pn1p8XVBRK4=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ =?utf-8?B?eUxoTEtMcFJnanFUeFpxTjdsb2VoWDhMTktoRXFUZ2w2aFlMdnJvM1VoMEVv?=
+ =?utf-8?B?U05MZVZHaVB1ellZWnA4L25aVGplVlpUWGdHQ3ZBbGdGRlQwYU82VlBVWHMr?=
+ =?utf-8?B?NnV5Z0xzNWpwU0ZPTlRjYkhURWJqdlJjSDVIRUp0SlJ5MmFUS29FRUNjeVhq?=
+ =?utf-8?B?SnhicWVtS2hrdHZEejVLY1NMdW40d3ZBS1ZzWVRqeEJyTk9DNkdNa1dWNno5?=
+ =?utf-8?B?TFMyZXg0OVNpYnBvb1NuMGNORVNLZ2QxS3FuWEg5S2NUdlUyS3Ard3JVeEQy?=
+ =?utf-8?B?MnBKSnVqTE9VQW9ubHR3WUlsVmRvQmRiOUVUWmRmZEtXZ3BmdkE4RjR2anpz?=
+ =?utf-8?B?TTgzM3U5NGszazVrSU9XbXVXWnU4YlYyYkt6dlpHRWR5Zll0YkxhMFBPSVZR?=
+ =?utf-8?B?QUlFRU1TU2M3K2I3VEJhSkVhcUpaMlJLczljVStYb0NYa2lsdGtvd013aVJj?=
+ =?utf-8?B?K1VZdWlTRVVjRTROVU8rbmEyNkdKdXh4d2syTjYvcDdqWGRwR2pPalNncGJO?=
+ =?utf-8?B?bmNZQ0dkVDVpZVhUZllOSUtpN09oY1VFejhvbmc3OThYUTVFTVhtcFBGMVdD?=
+ =?utf-8?B?UnRSNGx2Tmw4eUN6RUxmVE5mL3ptTWRocmZYb2VoMEtOVGpzRWNmV3ppYkFY?=
+ =?utf-8?B?Zi9RcFZoYmdGdEVRZk9JMTVFRERSbUZMOG5lczB0b3lPaEZDcFRvdkhHS2VZ?=
+ =?utf-8?B?K0NNcmZtaEViK0xmTDhmOG1QdFdNcWhHOEF1UzBQbDFpRUZxMXMrMU53SEti?=
+ =?utf-8?B?ejBOVkZGU2ovSHBleDFyVXdyeTdZU0FCWldGbC9FREdZNmtjd0hVbDdsbTNi?=
+ =?utf-8?B?RmlyOGlMWHZuMXFmeXpZeHg3MkZCN1U0b25xbnM5N2pPMjg1MDN4L2NlSzAy?=
+ =?utf-8?B?TkYxUEo3TXRHc3VjNEJCa242K2FuZkV5QnlKVk1TRkpXcHc4bUUrLzhRZ1p6?=
+ =?utf-8?B?aENJWEZZVDJ3bEFjeW0wN1d0dXJMRnBaL1NkMC8zb0M2L1RaWlRSa2pyMmMr?=
+ =?utf-8?B?dmh4MTFPcEd4ZGRzR3o2cSs3WXQxQ25YRUhMYjJqWXBqQm5jYmJlMWJGMFRs?=
+ =?utf-8?B?VEJpT0s0eFNZbldGSU9nSU1YVkJyS3RFMnlKYWh4WkVuazRldnhpNmJIaHJi?=
+ =?utf-8?B?TjBudUlleWdBOUh1NlpabXZaU0J6bEZRYnVPelNHREhjaEQzdElNcTNIV3hl?=
+ =?utf-8?B?L0NWbHJJc3gvZlNVR0tOeWpOZjVUYnE2elNNdzdXQlZvQTdqb1VxWnp3T2hP?=
+ =?utf-8?B?aG1GWVczaS9QQW13ek5NTWE0d3dIdFkvVmhUUkJweXpTS0l2V0haVGFUeHMy?=
+ =?utf-8?B?ZEMzaHFhRUhDRzNDS1BnMmJyYUJJK0puQUFYWTJYT2NLdWtnTDVRa2E0Nk5p?=
+ =?utf-8?B?bnRmY0FDMUh1M0E4ek9FNytFbkJLMXFDZlZLUE0xTE5hb1MvTUlQdVpRNW85?=
+ =?utf-8?B?RDFKcm5NZzFFVUZYMlFWeE9BamxHa00wTEorbzRjSEZ0a25ISnlSYzFjT3h6?=
+ =?utf-8?B?OTl4b3NRYXhKSVdEK2NMZzhaQ0tGdXNMYjZKVkFPWGtiQ0luSlZPdUVFb2lI?=
+ =?utf-8?B?V1hUcW9qdXdHQk5QR3F4RTkveDVQbStGYzFUK2VWTy9UMmtqMmIrek5acW9M?=
+ =?utf-8?B?RnFwQWlTNk1KY05WcHlpRmJMNlJmTkpxSE1DWUxhT0VhbHhxRFFFeGIvMGor?=
+ =?utf-8?B?ditYMjNMeVdDRFFDT3U1ekhhZDVZUzNFN1gxbkRrU2UrMTUvVldnZjN1eUZP?=
+ =?utf-8?B?TFp2T0RFSmIvZW81MlRhNTU4ZkdRQ1htSFpoVjlBMkcwdXpPR0h4UWs3OVMx?=
+ =?utf-8?B?WE9rQnErSC80MmY3T2RrZ0JHM0NrT1BHajVZZzZ5UklRWHhGU1poTzBHRWtL?=
+ =?utf-8?B?cjU4NlgvdHo0MlYrZExRdEpuMnBleU10WVIwODhhNnF2SUk3WElXSGJEWjhs?=
+ =?utf-8?B?V0RVU1dSTThUamtkcmxzVVVWUGhLeUlUdkYwYXNTb0NUeHVsanA3NkgzVFcr?=
+ =?utf-8?B?OEZPV2NralpHL3JmdTh6aHlJQkx1S3JSbjc0WjRvL2ZhRTdGT3JPU2hTVnBI?=
+ =?utf-8?B?SHpJekNPcVFzRFNVb3crclJzMFV1ZTc2T3cxWTA2TGhueUZXckRWQTlJZDlV?=
+ =?utf-8?B?N21saUJROG5kTGlHNVRlNGFhR3ZmL2czYmhNRW5mdXdya0JwQ2Q3d1ZVQ2Ja?=
+ =?utf-8?B?M0V1TzlFOTQxZU4wbE16ak4rUkg5YWp5eVVkN1hDMHN4SXJKRkhHTkdmUGQy?=
+ =?utf-8?B?ZkpINWtRL1VQdE05VzFrb29tWjBNOS9LUUdiK2xuYnIyQXFKSkhMaW41dGpG?=
+ =?utf-8?B?ZnNyOTlzYjNrcklkUzNoK29GejdNdnVJZ1BGRWdDMUM1bXYydmlTczVYLzJH?=
+ =?utf-8?Q?YE9MyvWmuNlzAoG4=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <32432DDDF70C5D40839E4418016DD16E@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0ae7012-27d0-4fa2-b807-08de7dcc3252
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Mar 2026 11:08:26.5055
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ba41daa-adda-4cbc-6641-08de7dcc3287
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Mar 2026 11:08:26.9721
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eLbz4qPsJRc/HbrUPT1Xz/A5Ny+whi4Npp/OF4pyateOeuH6YOUVL/gICYaDdbjIINrbqlxJNDwLsmU3mBtL4A==
+X-MS-Exchange-CrossTenant-userprincipalname: dURlGtTLDghS1KYqIh8m0pMYhb9AQHdXq/yp2sOUZDoK+L1+rfAUoIe6S36WqqtLzt3CZjd6Xt1BmJnhhxSUrA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR03MB9695
-X-Rspamd-Queue-Id: DB0B023798D
+X-Rspamd-Queue-Id: A8CA82379A1
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [-1.08 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	MAILLIST(-0.18)[generic];
+	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:roger.pau@citrix.com,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[epam.com:+];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.981];
 	FROM_NEQ_ENVFROM(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[epam.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[10];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-There is no need to store ranges for each PCI device, as they are only
-used during the mapping/unmapping process and can be reused for each
-device. This also allows to avoid the need to allocate and destroy
-rangesets for each device.
-
-Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
----
-v1->v2:
-* new patch
----
- xen/common/domain.c       | 24 ++++++++++++++
- xen/drivers/vpci/header.c | 66 ++++++++++++++-------------------------
- xen/drivers/vpci/vpci.c   |  3 --
- xen/include/xen/vpci.h    |  4 ++-
- 4 files changed, 51 insertions(+), 46 deletions(-)
-
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index e06174fca7..76b0163616 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -454,6 +454,14 @@ static int vcpu_teardown(struct vcpu *v)
-  */
- static void vcpu_destroy(struct vcpu *v)
- {
-+#ifdef CONFIG_HAS_VPCI
-+    int i;
-+
-+    for ( i =3D 0; i < ARRAY_SIZE(v->vpci.bar_mem); i++ )
-+        if ( v->vpci.bar_mem[i] )
-+            rangeset_destroy(v->vpci.bar_mem[i]);
-+
-+#endif
-     free_vcpu_struct(v);
- }
-=20
-@@ -511,6 +519,22 @@ struct vcpu *vcpu_create(struct domain *d, unsigned in=
-t vcpu_id)
-     if ( arch_vcpu_create(v) !=3D 0 )
-         goto fail_sched;
-=20
-+#ifdef CONFIG_HAS_VPCI
-+    {
-+        int i;
-+
-+        for ( i =3D 0; i < ARRAY_SIZE(v->vpci.bar_mem); i++ )
-+        {
-+            char str[32];
-+
-+            snprintf(str, sizeof(str), "%pv:BAR%u", v, i);
-+            v->vpci.bar_mem[i] =3D rangeset_new(d, str, RANGESETF_no_print=
-);
-+            if ( !v->vpci.bar_mem[i] )
-+                goto fail_sched;
-+        }
-+    }
-+#endif
-+
-     d->vcpu[vcpu_id] =3D v;
-     if ( vcpu_id !=3D 0 )
-     {
-diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-index 07ec991a12..cb64d9b9fc 100644
---- a/xen/drivers/vpci/header.c
-+++ b/xen/drivers/vpci/header.c
-@@ -195,6 +195,7 @@ bool vpci_process_pending(struct vcpu *v)
-     for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
-     {
-         struct vpci_bar *bar =3D &header->bars[i];
-+        struct rangeset *mem =3D v->vpci.bar_mem[i];
-         struct map_data data =3D {
-             .d =3D v->domain,
-             .map =3D v->vpci.cmd & PCI_COMMAND_MEMORY,
-@@ -202,10 +203,10 @@ bool vpci_process_pending(struct vcpu *v)
-         };
-         int rc;
-=20
--        if ( rangeset_is_empty(bar->mem) )
-+        if ( rangeset_is_empty(mem) )
-             continue;
-=20
--        rc =3D rangeset_consume_ranges(bar->mem, map_range, &data);
-+        rc =3D rangeset_consume_ranges(mem, map_range, &data);
-=20
-         if ( rc =3D=3D -ERESTART )
-         {
-@@ -223,8 +224,8 @@ bool vpci_process_pending(struct vcpu *v)
-=20
-             /* Clean all the rangesets */
-             for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
--                if ( !rangeset_is_empty(header->bars[i].mem) )
--                     rangeset_purge(header->bars[i].mem);
-+                if ( !rangeset_is_empty(v->vpci.bar_mem[i]) )
-+                     rangeset_purge(v->vpci.bar_mem[i]);
-=20
-             v->vpci.pdev =3D NULL;
-=20
-@@ -259,13 +260,14 @@ static int __init apply_map(struct domain *d, const s=
-truct pci_dev *pdev,
-     for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
-     {
-         struct vpci_bar *bar =3D &header->bars[i];
-+        struct rangeset *mem =3D current->vpci.bar_mem[i];
-         struct map_data data =3D { .d =3D d, .map =3D true, .bar =3D bar }=
-;
-=20
--        if ( rangeset_is_empty(bar->mem) )
-+        if ( rangeset_is_empty(mem) )
-             continue;
-=20
--        while ( (rc =3D rangeset_consume_ranges(bar->mem, map_range,
--                                              &data)) =3D=3D -ERESTART )
-+        while ( (rc =3D rangeset_consume_ranges(mem, map_range, &data)) =
-=3D=3D
-+                -ERESTART )
-         {
-             /*
-              * It's safe to drop and reacquire the lock in this context
-@@ -330,12 +332,13 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint=
-16_t cmd, bool rom_only)
-     for ( i =3D 0; i < ARRAY_SIZE(header->bars); i++ )
-     {
-         struct vpci_bar *bar =3D &header->bars[i];
-+        struct rangeset *mem =3D current->vpci.bar_mem[i];
-         unsigned long start =3D PFN_DOWN(bar->addr);
-         unsigned long end =3D PFN_DOWN(bar->addr + bar->size - 1);
-         unsigned long start_guest =3D PFN_DOWN(bar->guest_addr);
-         unsigned long end_guest =3D PFN_DOWN(bar->guest_addr + bar->size -=
- 1);
-=20
--        if ( !bar->mem )
-+        if ( !mem )
-             continue;
-=20
-         if ( !MAPPABLE_BAR(bar) ||
-@@ -353,7 +356,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16=
-_t cmd, bool rom_only)
-             continue;
-         }
-=20
--        ASSERT(rangeset_is_empty(bar->mem));
-+        ASSERT(rangeset_is_empty(mem));
-=20
-         /*
-          * Make sure that the guest set address has the same page offset
-@@ -368,7 +371,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16=
-_t cmd, bool rom_only)
-             return -EINVAL;
-         }
-=20
--        rc =3D rangeset_add_range(bar->mem, start_guest, end_guest);
-+        rc =3D rangeset_add_range(mem, start_guest, end_guest);
-         if ( rc )
-         {
-             printk(XENLOG_G_WARNING "Failed to add [%lx, %lx]: %d\n",
-@@ -379,12 +382,12 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint=
-16_t cmd, bool rom_only)
-         /* Check for overlap with the already setup BAR ranges. */
-         for ( j =3D 0; j < i; j++ )
-         {
--            struct vpci_bar *prev_bar =3D &header->bars[j];
-+            struct rangeset *prev_mem =3D current->vpci.bar_mem[j];
-=20
--            if ( rangeset_is_empty(prev_bar->mem) )
-+            if ( rangeset_is_empty(prev_mem) )
-                 continue;
-=20
--            rc =3D rangeset_remove_range(prev_bar->mem, start_guest, end_g=
-uest);
-+            rc =3D rangeset_remove_range(prev_mem, start_guest, end_guest)=
-;
-             if ( rc )
-             {
-                 gprintk(XENLOG_WARNING,
-@@ -394,7 +397,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16=
-_t cmd, bool rom_only)
-             }
-         }
-=20
--        rc =3D pci_sanitize_bar_memory(bar->mem);
-+        rc =3D pci_sanitize_bar_memory(mem);
-         if ( rc )
-         {
-             gprintk(XENLOG_WARNING,
-@@ -411,14 +414,14 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint=
-16_t cmd, bool rom_only)
-         unsigned long end =3D PFN_DOWN(vmsix_table_addr(pdev->vpci, i) +
-                                      vmsix_table_size(pdev->vpci, i) - 1);
-=20
--        for ( j =3D 0; j < ARRAY_SIZE(header->bars); j++ )
-+        for ( j =3D 0; j < ARRAY_SIZE(current->vpci.bar_mem); j++ )
-         {
--            const struct vpci_bar *bar =3D &header->bars[j];
-+            struct rangeset *mem =3D current->vpci.bar_mem[j];
-=20
--            if ( rangeset_is_empty(bar->mem) )
-+            if ( rangeset_is_empty(mem) )
-                 continue;
-=20
--            rc =3D rangeset_remove_range(bar->mem, start, end);
-+            rc =3D rangeset_remove_range(mem, start, end);
-             if ( rc )
-             {
-                 gprintk(XENLOG_WARNING,
-@@ -468,8 +471,9 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16=
-_t cmd, bool rom_only)
-                 for ( j =3D 0; j < ARRAY_SIZE(header->bars); j++)
-                 {
-                     const struct vpci_bar *bar =3D &header->bars[j];
-+                    struct rangeset *mem =3D current->vpci.bar_mem[j];
-=20
--                    if ( !rangeset_overlaps_range(bar->mem, start, end) ||
-+                    if ( !rangeset_overlaps_range(mem, start, end) ||
-                          /*
-                           * If only the ROM enable bit is toggled check ag=
-ainst
-                           * other BARs in the same device for overlaps, bu=
-t not
-@@ -480,7 +484,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16=
-_t cmd, bool rom_only)
-                           bar->type =3D=3D VPCI_BAR_ROM) )
-                         continue;
-=20
--                    rc =3D rangeset_remove_range(bar->mem, start, end);
-+                    rc =3D rangeset_remove_range(mem, start, end);
-                     if ( rc )
-                     {
-                         gprintk(XENLOG_WARNING,
-@@ -733,18 +737,6 @@ static void cf_check rom_write(
-     }
- }
-=20
--static int bar_add_rangeset(const struct pci_dev *pdev, struct vpci_bar *b=
-ar,
--                            unsigned int i)
--{
--    char str[32];
--
--    snprintf(str, sizeof(str), "%pp:BAR%u", &pdev->sbdf, i);
--
--    bar->mem =3D rangeset_new(pdev->domain, str, RANGESETF_no_print);
--
--    return !bar->mem ? -ENOMEM : 0;
--}
--
- static int vpci_init_capability_list(struct pci_dev *pdev)
- {
-     int rc;
-@@ -989,10 +981,6 @@ int vpci_init_header(struct pci_dev *pdev)
-         else
-             bars[i].type =3D VPCI_BAR_MEM32;
-=20
--        rc =3D bar_add_rangeset(pdev, &bars[i], i);
--        if ( rc )
--            goto fail;
--
-         rc =3D pci_size_mem_bar(pdev->sbdf, reg, &addr, &size,
-                               (i =3D=3D num_bars - 1) ? PCI_BAR_LAST : 0);
-         if ( rc < 0 )
-@@ -1046,12 +1034,6 @@ int vpci_init_header(struct pci_dev *pdev)
-                                4, rom);
-         if ( rc )
-             rom->type =3D VPCI_BAR_EMPTY;
--        else
--        {
--            rc =3D bar_add_rangeset(pdev, rom, num_bars);
--            if ( rc )
--                goto fail;
--        }
-     }
-     else if ( !is_hwdom )
-     {
-diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index f66f50c8ba..af61b521b0 100644
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -357,9 +357,6 @@ void vpci_deassign_device(struct pci_dev *pdev)
-     }
-     spin_unlock(&pdev->vpci->lock);
-=20
--    for ( i =3D 0; i < ARRAY_SIZE(pdev->vpci->header.bars); i++ )
--        rangeset_destroy(pdev->vpci->header.bars[i].mem);
--
-     xfree(pdev->vpci);
-     pdev->vpci =3D NULL;
- }
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index dd233b8b03..fa654545e5 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -118,7 +118,6 @@ struct vpci {
-             uint64_t guest_addr;
-             uint64_t size;
-             uint64_t resizable_sizes;
--            struct rangeset *mem;
-             enum {
-                 VPCI_BAR_EMPTY,
-                 VPCI_BAR_IO,
-@@ -212,6 +211,9 @@ struct vpci {
- struct vpci_vcpu {
-     /* Per-vcpu structure to store state while {un}mapping of PCI BARs. */
-     const struct pci_dev *pdev;
-+#ifdef __XEN__
-+    struct rangeset *bar_mem[PCI_HEADER_NORMAL_NR_BARS + 1];
-+#endif
-     uint16_t cmd;
-     bool rom_only : 1;
- };
---=20
-2.51.2
+VGhpcyBhbGxvd3Mgd2FpdGluZyBhIHNwZWNpZmllZCBudW1iZXIgb2YgY3ljbGVzIG9uIHRoZSB2
+Y3B1LiBPbmNlIHRoZQ0Kd2FpdCBoYXMgZmluaXNoZWQgYSBjYWxsYmFjayBpcyBleGVjdXRlZC4N
+Cg0KTm90ZSB0aGF0IHRoaXMgaXMgc3RpbGwgbm90IHVzZWQsIGJ1dCBpbnRyb2R1Y2VkIGhlcmUg
+aW4gb3JkZXIgdG8NCnNpbXBsaWZ5IHRoZSBjb21wbGV4aXR5IG9mIHRoZSBwYXRjaGVzIHRoYXQg
+YWN0dWFsbHkgbWFrZSB1c2Ugb2YgaXQuDQoNClNpZ25lZC1vZmYtYnk6IFJvZ2VyIFBhdSBNb25u
+w6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPg0KU2lnbmVkLW9mZi1ieTogTXlreXRhIFBvdHVyYWkg
+PG15a3l0YV9wb3R1cmFpQGVwYW0uY29tPg0KLS0tDQp2MS0+djI6DQoqIG5ldyBwYXRjaA0KLS0t
+DQogeGVuL2RyaXZlcnMvdnBjaS9oZWFkZXIuYyB8IDEyNSArKysrKysrKysrKysrKysrKysrKysr
+LS0tLS0tLS0tLS0tLS0tLQ0KIHhlbi9pbmNsdWRlL3hlbi92cGNpLmggICAgfCAgMTkgKysrKysr
+DQogMiBmaWxlcyBjaGFuZ2VkLCA5MCBpbnNlcnRpb25zKCspLCA1NCBkZWxldGlvbnMoLSkNCg0K
+ZGlmZiAtLWdpdCBhL3hlbi9kcml2ZXJzL3ZwY2kvaGVhZGVyLmMgYi94ZW4vZHJpdmVycy92cGNp
+L2hlYWRlci5jDQppbmRleCBjYjY0ZDliOWZjLi4yODQ5NjRmMGQ0IDEwMDY0NA0KLS0tIGEveGVu
+L2RyaXZlcnMvdnBjaS9oZWFkZXIuYw0KKysrIGIveGVuL2RyaXZlcnMvdnBjaS9oZWFkZXIuYw0K
+QEAgLTE3NSw3NiArMTc1LDkyIEBAIHN0YXRpYyB2b2lkIG1vZGlmeV9kZWNvZGluZyhjb25zdCBz
+dHJ1Y3QgcGNpX2RldiAqcGRldiwgdWludDE2X3QgY21kLA0KIA0KIGJvb2wgdnBjaV9wcm9jZXNz
+X3BlbmRpbmcoc3RydWN0IHZjcHUgKnYpDQogew0KLSAgICBjb25zdCBzdHJ1Y3QgcGNpX2RldiAq
+cGRldiA9IHYtPnZwY2kucGRldjsNCi0gICAgc3RydWN0IHZwY2lfaGVhZGVyICpoZWFkZXIgPSBO
+VUxMOw0KLSAgICB1bnNpZ25lZCBpbnQgaTsNCi0NCi0gICAgaWYgKCAhcGRldiApDQotICAgICAg
+ICByZXR1cm4gZmFsc2U7DQotDQotICAgIHJlYWRfbG9jaygmdi0+ZG9tYWluLT5wY2lfbG9jayk7
+DQotDQotICAgIGlmICggIXBkZXYtPnZwY2kgfHwgKHYtPmRvbWFpbiAhPSBwZGV2LT5kb21haW4p
+ICkNCisgICAgc3dpdGNoICggdi0+dnBjaS50YXNrICkNCiAgICAgew0KLSAgICAgICAgdi0+dnBj
+aS5wZGV2ID0gTlVMTDsNCi0gICAgICAgIHJlYWRfdW5sb2NrKCZ2LT5kb21haW4tPnBjaV9sb2Nr
+KTsNCi0gICAgICAgIHJldHVybiBmYWxzZTsNCi0gICAgfQ0KLQ0KLSAgICBoZWFkZXIgPSAmcGRl
+di0+dnBjaS0+aGVhZGVyOw0KLSAgICBmb3IgKCBpID0gMDsgaSA8IEFSUkFZX1NJWkUoaGVhZGVy
+LT5iYXJzKTsgaSsrICkNCisgICAgY2FzZSBNT0RJRllfTUVNT1JZOg0KICAgICB7DQotICAgICAg
+ICBzdHJ1Y3QgdnBjaV9iYXIgKmJhciA9ICZoZWFkZXItPmJhcnNbaV07DQotICAgICAgICBzdHJ1
+Y3QgcmFuZ2VzZXQgKm1lbSA9IHYtPnZwY2kuYmFyX21lbVtpXTsNCi0gICAgICAgIHN0cnVjdCBt
+YXBfZGF0YSBkYXRhID0gew0KLSAgICAgICAgICAgIC5kID0gdi0+ZG9tYWluLA0KLSAgICAgICAg
+ICAgIC5tYXAgPSB2LT52cGNpLmNtZCAmIFBDSV9DT01NQU5EX01FTU9SWSwNCi0gICAgICAgICAg
+ICAuYmFyID0gYmFyLA0KLSAgICAgICAgfTsNCi0gICAgICAgIGludCByYzsNCisgICAgICAgIGNv
+bnN0IHN0cnVjdCBwY2lfZGV2ICpwZGV2ID0gdi0+dnBjaS5tZW1vcnkucGRldjsNCisgICAgICAg
+IHN0cnVjdCB2cGNpX2hlYWRlciAqaGVhZGVyID0gTlVMTDsNCisgICAgICAgIHVuc2lnbmVkIGlu
+dCBpOw0KIA0KLSAgICAgICAgaWYgKCByYW5nZXNldF9pc19lbXB0eShtZW0pICkNCi0gICAgICAg
+ICAgICBjb250aW51ZTsNCisgICAgICAgIGlmICggIXBkZXYgKQ0KKyAgICAgICAgICAgIGJyZWFr
+Ow0KIA0KLSAgICAgICAgcmMgPSByYW5nZXNldF9jb25zdW1lX3JhbmdlcyhtZW0sIG1hcF9yYW5n
+ZSwgJmRhdGEpOw0KKyAgICAgICAgcmVhZF9sb2NrKCZ2LT5kb21haW4tPnBjaV9sb2NrKTsNCiAN
+Ci0gICAgICAgIGlmICggcmMgPT0gLUVSRVNUQVJUICkNCisgICAgICAgIGlmICggIXBkZXYtPnZw
+Y2kgfHwgKHYtPmRvbWFpbiAhPSBwZGV2LT5kb21haW4pICkNCiAgICAgICAgIHsNCisgICAgICAg
+ICAgICB2LT52cGNpLm1lbW9yeS5wZGV2ID0gTlVMTDsNCiAgICAgICAgICAgICByZWFkX3VubG9j
+aygmdi0+ZG9tYWluLT5wY2lfbG9jayk7DQotICAgICAgICAgICAgcmV0dXJuIHRydWU7DQorICAg
+ICAgICAgICAgYnJlYWs7DQogICAgICAgICB9DQogDQotICAgICAgICBpZiAoIHJjICkNCisgICAg
+ICAgIGhlYWRlciA9ICZwZGV2LT52cGNpLT5oZWFkZXI7DQorICAgICAgICBmb3IgKCBpID0gMDsg
+aSA8IEFSUkFZX1NJWkUoaGVhZGVyLT5iYXJzKTsgaSsrICkNCiAgICAgICAgIHsNCi0gICAgICAg
+ICAgICBzcGluX2xvY2soJnBkZXYtPnZwY2ktPmxvY2spOw0KLSAgICAgICAgICAgIC8qIERpc2Fi
+bGUgbWVtb3J5IGRlY29kaW5nIHVuY29uZGl0aW9uYWxseSBvbiBmYWlsdXJlLiAqLw0KLSAgICAg
+ICAgICAgIG1vZGlmeV9kZWNvZGluZyhwZGV2LCB2LT52cGNpLmNtZCAmIH5QQ0lfQ09NTUFORF9N
+RU1PUlksDQotICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhbHNlKTsNCi0gICAgICAgICAg
+ICBzcGluX3VubG9jaygmcGRldi0+dnBjaS0+bG9jayk7DQorICAgICAgICAgICAgc3RydWN0IHZw
+Y2lfYmFyICpiYXIgPSAmaGVhZGVyLT5iYXJzW2ldOw0KKyAgICAgICAgICAgIHN0cnVjdCByYW5n
+ZXNldCAqbWVtID0gdi0+dnBjaS5iYXJfbWVtW2ldOw0KKyAgICAgICAgICAgIHN0cnVjdCBtYXBf
+ZGF0YSBkYXRhID0gew0KKyAgICAgICAgICAgICAgICAuZCA9IHYtPmRvbWFpbiwNCisgICAgICAg
+ICAgICAgICAgLm1hcCA9IHYtPnZwY2kubWVtb3J5LmNtZCAmIFBDSV9DT01NQU5EX01FTU9SWSwN
+CisgICAgICAgICAgICAgICAgLmJhciA9IGJhciwNCisgICAgICAgICAgICB9Ow0KKyAgICAgICAg
+ICAgIGludCByYzsNCisNCisgICAgICAgICAgICBpZiAoIHJhbmdlc2V0X2lzX2VtcHR5KG1lbSkg
+KQ0KKyAgICAgICAgICAgICAgICBjb250aW51ZTsNCiANCi0gICAgICAgICAgICAvKiBDbGVhbiBh
+bGwgdGhlIHJhbmdlc2V0cyAqLw0KLSAgICAgICAgICAgIGZvciAoIGkgPSAwOyBpIDwgQVJSQVlf
+U0laRShoZWFkZXItPmJhcnMpOyBpKysgKQ0KLSAgICAgICAgICAgICAgICBpZiAoICFyYW5nZXNl
+dF9pc19lbXB0eSh2LT52cGNpLmJhcl9tZW1baV0pICkNCi0gICAgICAgICAgICAgICAgICAgICBy
+YW5nZXNldF9wdXJnZSh2LT52cGNpLmJhcl9tZW1baV0pOw0KKyAgICAgICAgICAgIHJjID0gcmFu
+Z2VzZXRfY29uc3VtZV9yYW5nZXMobWVtLCBtYXBfcmFuZ2UsICZkYXRhKTsNCiANCi0gICAgICAg
+ICAgICB2LT52cGNpLnBkZXYgPSBOVUxMOw0KKyAgICAgICAgICAgIGlmICggcmMgPT0gLUVSRVNU
+QVJUICkNCisgICAgICAgICAgICB7DQorICAgICAgICAgICAgICAgIHJlYWRfdW5sb2NrKCZ2LT5k
+b21haW4tPnBjaV9sb2NrKTsNCisgICAgICAgICAgICAgICAgcmV0dXJuIHRydWU7DQorICAgICAg
+ICAgICAgfQ0KIA0KLSAgICAgICAgICAgIHJlYWRfdW5sb2NrKCZ2LT5kb21haW4tPnBjaV9sb2Nr
+KTsNCisgICAgICAgICAgICBpZiAoIHJjICkNCisgICAgICAgICAgICB7DQorICAgICAgICAgICAg
+ICAgIHNwaW5fbG9jaygmcGRldi0+dnBjaS0+bG9jayk7DQorICAgICAgICAgICAgICAgIC8qIERp
+c2FibGUgbWVtb3J5IGRlY29kaW5nIHVuY29uZGl0aW9uYWxseSBvbiBmYWlsdXJlLiAqLw0KKyAg
+ICAgICAgICAgICAgICBtb2RpZnlfZGVjb2RpbmcocGRldiwgdi0+dnBjaS5tZW1vcnkuY21kICYg
+flBDSV9DT01NQU5EX01FTU9SWSwNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZh
+bHNlKTsNCisgICAgICAgICAgICAgICAgc3Bpbl91bmxvY2soJnBkZXYtPnZwY2ktPmxvY2spOw0K
+Kw0KKyAgICAgICAgICAgICAgICAvKiBDbGVhbiBhbGwgdGhlIHJhbmdlc2V0cyAqLw0KKyAgICAg
+ICAgICAgICAgICBmb3IgKCBpID0gMDsgaSA8IEFSUkFZX1NJWkUoaGVhZGVyLT5iYXJzKTsgaSsr
+ICkNCisgICAgICAgICAgICAgICAgICAgIGlmICggIXJhbmdlc2V0X2lzX2VtcHR5KHYtPnZwY2ku
+YmFyX21lbVtpXSkgKQ0KKyAgICAgICAgICAgICAgICAgICAgICAgIHJhbmdlc2V0X3B1cmdlKHYt
+PnZwY2kuYmFyX21lbVtpXSk7DQorDQorICAgICAgICAgICAgICAgIHYtPnZwY2kubWVtb3J5LnBk
+ZXYgPSBOVUxMOw0KKw0KKyAgICAgICAgICAgICAgICByZWFkX3VubG9jaygmdi0+ZG9tYWluLT5w
+Y2lfbG9jayk7DQogDQotICAgICAgICAgICAgaWYgKCAhaXNfaGFyZHdhcmVfZG9tYWluKHYtPmRv
+bWFpbikgKQ0KLSAgICAgICAgICAgICAgICBkb21haW5fY3Jhc2godi0+ZG9tYWluKTsNCisgICAg
+ICAgICAgICAgICAgaWYgKCAhaXNfaGFyZHdhcmVfZG9tYWluKHYtPmRvbWFpbikgKQ0KKyAgICAg
+ICAgICAgICAgICAgICAgZG9tYWluX2NyYXNoKHYtPmRvbWFpbik7DQogDQotICAgICAgICAgICAg
+cmV0dXJuIGZhbHNlOw0KKyAgICAgICAgICAgICAgICBicmVhazsNCisgICAgICAgICAgICB9DQog
+ICAgICAgICB9DQotICAgIH0NCi0gICAgdi0+dnBjaS5wZGV2ID0gTlVMTDsNCisgICAgICAgIHYt
+PnZwY2kubWVtb3J5LnBkZXYgPSBOVUxMOw0KIA0KLSAgICBzcGluX2xvY2soJnBkZXYtPnZwY2kt
+PmxvY2spOw0KLSAgICBtb2RpZnlfZGVjb2RpbmcocGRldiwgdi0+dnBjaS5jbWQsIHYtPnZwY2ku
+cm9tX29ubHkpOw0KLSAgICBzcGluX3VubG9jaygmcGRldi0+dnBjaS0+bG9jayk7DQorICAgICAg
+ICBzcGluX2xvY2soJnBkZXYtPnZwY2ktPmxvY2spOw0KKyAgICAgICAgbW9kaWZ5X2RlY29kaW5n
+KHBkZXYsIHYtPnZwY2kubWVtb3J5LmNtZCwgdi0+dnBjaS5tZW1vcnkucm9tX29ubHkpOw0KKyAg
+ICAgICAgc3Bpbl91bmxvY2soJnBkZXYtPnZwY2ktPmxvY2spOw0KIA0KLSAgICByZWFkX3VubG9j
+aygmdi0+ZG9tYWluLT5wY2lfbG9jayk7DQorICAgICAgICByZWFkX3VubG9jaygmdi0+ZG9tYWlu
+LT5wY2lfbG9jayk7DQorDQorICAgICAgICBicmVhazsNCisgICAgfQ0KKyAgICBjYXNlIFdBSVQ6
+DQorICAgICAgICBpZiAoIE5PVygpIDwgdi0+dnBjaS53YWl0LmVuZCApDQorICAgICAgICAgICAg
+cmV0dXJuIHRydWU7DQorICAgICAgICB2LT52cGNpLndhaXQuY2FsbGJhY2sodi0+dnBjaS53YWl0
+LmRhdGEpOw0KKyAgICAgICAgYnJlYWs7DQorICAgIGNhc2UgTk9ORToNCisgICAgICAgIHJldHVy
+biBmYWxzZTsNCisgICAgfQ0KIA0KKyAgICB2LT52cGNpLnRhc2sgPSBOT05FOw0KICAgICByZXR1
+cm4gZmFsc2U7DQogfQ0KIA0KQEAgLTI5NSw5ICszMTEsMTAgQEAgc3RhdGljIHZvaWQgZGVmZXJf
+bWFwKGNvbnN0IHN0cnVjdCBwY2lfZGV2ICpwZGV2LCB1aW50MTZfdCBjbWQsIGJvb2wgcm9tX29u
+bHkpDQogICAgICAqIGlzIG1hcHBlZC4gVGhpcyBjYW4gbGVhZCB0byBwYXJhbGxlbCBtYXBwaW5n
+IG9wZXJhdGlvbnMgYmVpbmcNCiAgICAgICogc3RhcnRlZCBmb3IgdGhlIHNhbWUgZGV2aWNlIGlm
+IHRoZSBkb21haW4gaXMgbm90IHdlbGwtYmVoYXZlZC4NCiAgICAgICovDQotICAgIGN1cnItPnZw
+Y2kucGRldiA9IHBkZXY7DQotICAgIGN1cnItPnZwY2kuY21kID0gY21kOw0KLSAgICBjdXJyLT52
+cGNpLnJvbV9vbmx5ID0gcm9tX29ubHk7DQorICAgIGN1cnItPnZwY2kubWVtb3J5LnBkZXYgPSBw
+ZGV2Ow0KKyAgICBjdXJyLT52cGNpLm1lbW9yeS5jbWQgPSBjbWQ7DQorICAgIGN1cnItPnZwY2ku
+bWVtb3J5LnJvbV9vbmx5ID0gcm9tX29ubHk7DQorICAgIGN1cnItPnZwY2kudGFzayA9IE1PRElG
+WV9NRU1PUlk7DQogICAgIC8qDQogICAgICAqIFJhaXNlIGEgc2NoZWR1bGVyIHNvZnRpcnEgaW4g
+b3JkZXIgdG8gcHJldmVudCB0aGUgZ3Vlc3QgZnJvbSByZXN1bWluZw0KICAgICAgKiBleGVjdXRp
+b24gd2l0aCBwZW5kaW5nIG1hcHBpbmcgb3BlcmF0aW9ucywgdG8gdHJpZ2dlciB0aGUgaW52b2Nh
+dGlvbg0KZGlmZiAtLWdpdCBhL3hlbi9pbmNsdWRlL3hlbi92cGNpLmggYi94ZW4vaW5jbHVkZS94
+ZW4vdnBjaS5oDQppbmRleCBmYTY1NDU0NWU1Li40N2NkYjU0ZDQyIDEwMDY0NA0KLS0tIGEveGVu
+L2luY2x1ZGUveGVuL3ZwY2kuaA0KKysrIGIveGVuL2luY2x1ZGUveGVuL3ZwY2kuaA0KQEAgLTIx
+Miw3ICsyMTIsMjYgQEAgc3RydWN0IHZwY2lfdmNwdSB7DQogICAgIC8qIFBlci12Y3B1IHN0cnVj
+dHVyZSB0byBzdG9yZSBzdGF0ZSB3aGlsZSB7dW59bWFwcGluZyBvZiBQQ0kgQkFScy4gKi8NCiAg
+ICAgY29uc3Qgc3RydWN0IHBjaV9kZXYgKnBkZXY7DQogI2lmZGVmIF9fWEVOX18NCisgICAgZW51
+bSB7DQorICAgICAgICBOT05FLA0KKyAgICAgICAgTU9ESUZZX01FTU9SWSwNCisgICAgICAgIFdB
+SVQsDQorICAgIH0gdGFzazsNCiAgICAgc3RydWN0IHJhbmdlc2V0ICpiYXJfbWVtW1BDSV9IRUFE
+RVJfTk9STUFMX05SX0JBUlMgKyAxXTsNCisgICAgdW5pb24gew0KKyAgICAgICAgc3RydWN0IHsN
+CisgICAgICAgICAgICAvKiBTdG9yZSBzdGF0ZSB3aGlsZSB7dW59bWFwcGluZyBvZiBQQ0kgQkFS
+cy4gKi8NCisgICAgICAgICAgICBjb25zdCBzdHJ1Y3QgcGNpX2RldiAqcGRldjsNCisgICAgICAg
+ICAgICB1aW50MTZfdCBjbWQ7DQorICAgICAgICAgICAgYm9vbCByb21fb25seSA6IDE7DQorICAg
+ICAgICB9IG1lbW9yeTsNCisgICAgICAgIHN0cnVjdCB7DQorICAgICAgICAgICAgLyogU3RvcmUg
+d2FpdCBzdGF0ZS4gKi8NCisgICAgICAgICAgICBzX3RpbWVfdCBlbmQ7DQorICAgICAgICAgICAg
+dm9pZCAoKmNhbGxiYWNrKSh2b2lkICopOw0KKyAgICAgICAgICAgIHZvaWQgKmRhdGE7DQorICAg
+ICAgICB9IHdhaXQ7DQorICAgIH07DQogI2VuZGlmDQogICAgIHVpbnQxNl90IGNtZDsNCiAgICAg
+Ym9vbCByb21fb25seSA6IDE7DQotLSANCjIuNTEuMg0K
 
