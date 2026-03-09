@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CLUnFhkTr2nJNQIAu9opvQ
+	id yC9gORsTr2kiNgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 19:36:09 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 19:36:11 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEB2823EA7A
-	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 19:36:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1249622.1547092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0FBD23EA8B
+	for <lists+xen-devel@lfdr.de>; Mon, 09 Mar 2026 19:36:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1249626.1547101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzfSR-0007ts-ID; Mon, 09 Mar 2026 18:35:59 +0000
+	id 1vzfSU-0008DA-QO; Mon, 09 Mar 2026 18:36:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1249622.1547092; Mon, 09 Mar 2026 18:35:59 +0000
+Received: by outflank-mailman (output) from mailman id 1249626.1547101; Mon, 09 Mar 2026 18:36:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzfSR-0007ro-Ev; Mon, 09 Mar 2026 18:35:59 +0000
-Received: by outflank-mailman (input) for mailman id 1249622;
- Mon, 09 Mar 2026 18:35:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1vzfSU-0008BK-Lr; Mon, 09 Mar 2026 18:36:02 +0000
+Received: by outflank-mailman (input) for mailman id 1249626;
+ Mon, 09 Mar 2026 18:36:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9QdD=BJ=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1vzfSP-0007ml-KH
- for xen-devel@lists.xenproject.org; Mon, 09 Mar 2026 18:35:57 +0000
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [2a00:1450:4864:20::433])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ce1be43b-1be6-11f1-9ccf-f158ae23cfc8;
- Mon, 09 Mar 2026 19:35:54 +0100 (CET)
-Received: by mail-wr1-x433.google.com with SMTP id
- ffacd0b85a97d-439a89b6fd0so8685701f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 09 Mar 2026 11:35:54 -0700 (PDT)
+ id 1vzfST-0007JG-SA
+ for xen-devel@lists.xenproject.org; Mon, 09 Mar 2026 18:36:01 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d23a8f3a-1be6-11f1-b164-2bf370ae4941;
+ Mon, 09 Mar 2026 19:36:01 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-4852afd42ceso28017405e9.2
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Mar 2026 11:36:01 -0700 (PDT)
 Received: from localhost.localdomain (88-187-86-199.subs.proxad.net.
  [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439dae3a20fsm28028805f8f.28.2026.03.09.11.35.52
+ ffacd0b85a97d-439dad977f8sm28487057f8f.9.2026.03.09.11.35.59
  (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Mon, 09 Mar 2026 11:35:52 -0700 (PDT)
+ Mon, 09 Mar 2026 11:35:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,43 +50,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce1be43b-1be6-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: d23a8f3a-1be6-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1773081353; x=1773686153; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1773081360; x=1773686160; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UNqLEUifsz1cpFVFbx5viMkbYuuKYfbDoeHlGj5zHNY=;
-        b=bV+nNqVTnq6M8SC1jLgNDzkojYaMysQ4LhdKodcI3jGmCi+c1v+xGzpHsTNxzSX6sJ
-         X9E+WDgLrY5biFmthQJsJ+mDr66MuEgaM5XSiri/PEfE3lznNfTds2eB0Z9JW2CoWjUl
-         l9b0vFCT8Lzg0EmhCBM/y+mrTgiOEXN4gR3w7ZgRk0aUAYitvkGlkr+d9rJwGW9BDvgx
-         wau7rlAMb5drBh/OmUkLgzEfdoMt44Hxc4M2huGWyAt/aARewi65adJ7gq/ymx8H7v4J
-         Yrboh6izOg1MhJe3oM5VNDrwSFItgJmWzBffEEPkYgI8NtbXxK4eFCrmGnXpQTP7gjnG
-         X+5g==
+        bh=frENE9FJEJIJp1aKXCLyQE1na5fHvR5E0RLXQsidK/I=;
+        b=os2dCYM2iWuRmBmvtuR6wM13CdxyRW3KIePfht+f1sk+yiLI56doQBPzj4ypfiDw64
+         WPcYrFF6zb8b8aGH3dvw17K0Acu/JV0oBdhiWpDkslu9FS7NmyD40wdhme3M1Y3qgq3j
+         2g08aNgFkuW5W/47CiDKxSwaHy9gCSQSmH6W3xbJpPaovvFLzlX4MxsuZf6d9cgefu3f
+         QcL9pzdOVxHTZdN3wvdUBBHbNZ14kolnEzDsPSkjwWdGkBN2/oTmZJdv7YOkxtZHIFL8
+         fVYQ3tEcYxhRrwxlg+UsD7N4frQ1KtFPv9pj3IciXXkz/yseuNulVNnpXBQPwko1PAQF
+         Rf2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773081353; x=1773686153;
+        d=1e100.net; s=20230601; t=1773081360; x=1773686160;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=UNqLEUifsz1cpFVFbx5viMkbYuuKYfbDoeHlGj5zHNY=;
-        b=h/urbMSXlmG9Z9dreHHPm/yWGEZP0o5bK/Ba2jAInOzFHDqRgLTkeV0zhZ8zJvVgXz
-         qnQyl3AdudrhiTxRnbgVbWJDgL9obn7fbH5m1tTWFZESMj9J4z/5xfGlfss5PQAmWJ+a
-         pGxjHhh7PTLhWNgoVWDcGGVhQZVbctv+M6WdIgmoTmeFiac1v4AWTXIT9B/vFIwZZXg6
-         uQICshlFWbQ4se6/kHw1+8gvyXpBptCNs8uNmiI7yWZA531rPOL1BlblEOhx9okbazC/
-         mlZV7LZvNdb+sMg9ThEL8BLKbS01rEqWufxpd3udsCaC5N7Spt4yQIld84qzN7Fc7B3z
-         QN1Q==
-X-Forwarded-Encrypted: i=1; AJvYcCXvrz+u8zXQ3XUW1yJUuWI6D4dz+0g1WpGlg/ckVRvneEz9pRX/jThOiPHO6B2EsDA2lRYJUCUq8/M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy2kn0/z/pH0OPSzL5EFFztLsg8amCFUZ+Rxgs1m8fENpK1z4k6
-	/rpgrxQRk3sZttyl14o1hw3NUJW1DbG3tJb7wwS1Gr0R8cta9IDUojZcFG/v/dWR85M=
-X-Gm-Gg: ATEYQzxa+TtGequ+onEjjhywkVnTEpC2wJxwoUBjNr8DdUiZXc2zmvI2djaklTRx699
-	k/l2MtNriQ9/a9NPsjthGNXkoEHHbpWfmU238APbKpLopUa/B77QDsiBSRZEiUlsxfQ4NXtelHB
-	/aBMHwaBxVD2HAvjhR0Z5MwMDmxRMuREK+AGAQYh/FjNQ2s21rApcgobpp/wdObrjMMmkOrKkue
-	9wreQPw3No6BXh14StgfRap5gGduMh8vZ79W3keIKdcZrY3ID3DoEzRjFsBzc5jJadZVKl5wC51
-	+794N1+J/Dah4wgIJfWT/qSnUv78qIeOCUYr4k2vHW3lyZa4kTf1b83nC+7TRHgy6YoXFJ2AeHu
-	0wypLVvBSflKBkyet70joI5MxAaidOuOL5XXJgG6K8xsz6cmvqK0003Dzi//4R3UHU96N1i5Lhb
-	s8iIaXBs0dB7mrfLAEi83zIHVVuh/HMG8+l3G8xjx8DIG5c/YGxdz5trZcdtT/acfubLXXnj2X
-X-Received: by 2002:a05:6000:704:b0:439:df5f:4220 with SMTP id ffacd0b85a97d-439df5f42f8mr17289075f8f.18.1773081353315;
-        Mon, 09 Mar 2026 11:35:53 -0700 (PDT)
+        bh=frENE9FJEJIJp1aKXCLyQE1na5fHvR5E0RLXQsidK/I=;
+        b=hDgi6V2WqLex5z+mCq2HIC4UqaoMEbBTSQGPgFqirdQ2iL06r+yDpsmhwVJlPXSsxD
+         nldTNBxYQKzNZWjtryd99PjYA7rd/JBnD85rkfDHoomnGygHjw88mm4NSv0NNp8ACM4T
+         J+axL2A1IodAj2roe8CnoCUYNWUyuq/O22COsPxInvDaF8qo3/7iFfl3p25/iiyYHY+8
+         tb4CaiAr/1A1N7z6JLR8r6wQM4doYSYKd41EoorzVKT8lv1oMXF5UoTerWJkI+oh2nWa
+         AQ9vcc+9Zs/W5bREA7/xDDE38IgQ/dM24lkR8n/yt9IG+sQAg+C6hhNu+GJVtK8Llxet
+         zBHQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWPZ1CdnEN7/jcPMY71qqDgwjQfEpRLJ2t3AZgIuHOzQboRLT292qHLbKn3//3ezjLnOJFxomkxcsk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxIqN84mLl532odponTioOswoDGM9dpz1D/gdFBcUC6wa9Mlxpr
+	+w9iBFf73L4RHjSfDqIBIuxwty3NZ9CzkBTlRMtAy34WyMKA0IuqhxY1UeWC4qgBJZ8=
+X-Gm-Gg: ATEYQzxrVAS7jPaNI7KyP8iKbxfbxXY8ckqudVHh4HU/grU28WaXHeuJGpDDMImrNGy
+	Pez1PHz4TRGrg4ZF0EIwGDXqrWlybew1ykjKOabgvWg16NjyhoSQmq0M6tp98RU26PPosMLbp5s
+	Zl8uvJRRTilXuHMilQOgCUzyZTQEBpu3dYX9zcHvuJ01HP092MxvYcs6QwCvTNnaUwCG54uLLja
+	DFO99wAuc1s9xYAjkUwE5OkwcghagyRk/LFfF1mqksvIZUTiFk0iRNMgG65sghDByx/+iaX6tfY
+	vUIQ5xGiY8Q/zOmpHWz1kq6aEtE79HZeZtivyd9VHLpzWeoYYUS/UBW3GJOLMpzW1QvagvAgoU2
+	GrCcMbWpdP35G4EhqySPIsGiDeM4jk+LWzAbYCzXYC1+7kdrUQHR0H2T7PQQPX6lg0j4znAPn0W
+	fRE046Zk0Q6qhsgumo8TnBk87PenROxv/rHdLMwP4z/oIBr2lLjY5oyHouLVloSROI9OU/eMbE
+X-Received: by 2002:a05:6000:2681:b0:439:be4e:6e58 with SMTP id ffacd0b85a97d-439da891d17mr20945001f8f.47.1773081360467;
+        Mon, 09 Mar 2026 11:36:00 -0700 (PDT)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
 To: qemu-devel@nongnu.org
 Cc: Mohamed Mediouni <mohamed@unpredictable.fr>,
@@ -101,16 +101,16 @@ Cc: Mohamed Mediouni <mohamed@unpredictable.fr>,
 	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Subject: [PATCH v2 2/4] system/memory: Constify various MemoryRegion arguments
-Date: Mon,  9 Mar 2026 19:35:33 +0100
-Message-ID: <20260309183536.88976-3-philmd@linaro.org>
+Subject: [PATCH v2 3/4] system/xen: Constify various MemoryRegion arguments
+Date: Mon,  9 Mar 2026 19:35:34 +0100
+Message-ID: <20260309183536.88976-4-philmd@linaro.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260309183536.88976-1-philmd@linaro.org>
 References: <20260309183536.88976-1-philmd@linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: EEB2823EA7A
+X-Rspamd-Queue-Id: A0FBD23EA8B
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.32 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -150,335 +150,111 @@ X-Rspamd-Action: no action
 Mark the MemoryRegion structure const when is only accessed read-only.
 
 Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-Reviewed-by: Pierrick Bouvier <pierrick.bouvier@linaro.org>
-Reviewed-by: Peter Xu <peterx@redhat.com>
 ---
- include/system/memory.h | 38 +++++++++++++++++++-------------------
- system/memory.c         | 38 ++++++++++++++++++++------------------
- system/physmem.c        |  2 +-
- 3 files changed, 40 insertions(+), 38 deletions(-)
+ include/system/xen-mapcache.h | 2 +-
+ include/system/xen.h          | 6 +++---
+ hw/xen/xen-hvm-common.c       | 8 ++++----
+ hw/xen/xen-mapcache.c         | 2 +-
+ hw/xen/xen_stubs.c            | 6 +++---
+ 5 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/include/system/memory.h b/include/system/memory.h
-index 0562af31361..6a04c46db37 100644
---- a/include/system/memory.h
-+++ b/include/system/memory.h
-@@ -1749,14 +1749,14 @@ bool memory_region_init_rom_device(MemoryRegion *mr,
-  *
-  * @mr: the memory region being queried.
-  */
--Object *memory_region_owner(MemoryRegion *mr);
-+Object *memory_region_owner(const MemoryRegion *mr);
+diff --git a/include/system/xen-mapcache.h b/include/system/xen-mapcache.h
+index c46190dd0ce..114d1929c80 100644
+--- a/include/system/xen-mapcache.h
++++ b/include/system/xen-mapcache.h
+@@ -16,7 +16,7 @@ typedef hwaddr (*phys_offset_to_gaddr_t)(hwaddr phys_offset,
+ bool xen_map_cache_enabled(void);
+ void xen_map_cache_init(phys_offset_to_gaddr_t f,
+                         void *opaque);
+-uint8_t *xen_map_cache(MemoryRegion *mr, hwaddr phys_addr, hwaddr size,
++uint8_t *xen_map_cache(const MemoryRegion *mr, hwaddr phys_addr, hwaddr size,
+                        ram_addr_t ram_addr_offset,
+                        uint8_t lock, bool dma,
+                        bool is_write);
+diff --git a/include/system/xen.h b/include/system/xen.h
+index 9a7c53f2838..43b857e4d15 100644
+--- a/include/system/xen.h
++++ b/include/system/xen.h
+@@ -30,7 +30,7 @@ extern bool xen_allowed;
  
- /**
-  * memory_region_size: get a memory region's size.
-  *
-  * @mr: the memory region being queried.
-  */
--uint64_t memory_region_size(MemoryRegion *mr);
-+uint64_t memory_region_size(const MemoryRegion *mr);
+ void xen_hvm_modified_memory(ram_addr_t start, ram_addr_t length);
+ void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
+-                   struct MemoryRegion *mr, Error **errp);
+-bool xen_mr_is_memory(MemoryRegion *mr);
+-bool xen_mr_is_grants(MemoryRegion *mr);
++                   const MemoryRegion *mr, Error **errp);
++bool xen_mr_is_memory(const MemoryRegion *mr);
++bool xen_mr_is_grants(const MemoryRegion *mr);
+ #endif
+diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
+index eb7f6270a0d..62d88804c43 100644
+--- a/hw/xen/xen-hvm-common.c
++++ b/hw/xen/xen-hvm-common.c
+@@ -23,19 +23,19 @@
+ MemoryRegion xen_memory, xen_grants;
  
- /**
-  * memory_region_is_ram: check whether a memory region is random access
-@@ -1765,7 +1765,7 @@ uint64_t memory_region_size(MemoryRegion *mr);
-  *
-  * @mr: the memory region being queried
-  */
--static inline bool memory_region_is_ram(MemoryRegion *mr)
-+static inline bool memory_region_is_ram(const MemoryRegion *mr)
+ /* Check for any kind of xen memory, foreign mappings or grants.  */
+-bool xen_mr_is_memory(MemoryRegion *mr)
++bool xen_mr_is_memory(const MemoryRegion *mr)
  {
-     return mr->ram;
+     return mr == &xen_memory || mr == &xen_grants;
  }
-@@ -1777,7 +1777,7 @@ static inline bool memory_region_is_ram(MemoryRegion *mr)
-  *
-  * @mr: the memory region being queried
-  */
--bool memory_region_is_ram_device(MemoryRegion *mr);
-+bool memory_region_is_ram_device(const MemoryRegion *mr);
  
- /**
-  * memory_region_is_romd: check whether a memory region is in ROMD mode
-@@ -1787,7 +1787,7 @@ bool memory_region_is_ram_device(MemoryRegion *mr);
-  *
-  * @mr: the memory region being queried
-  */
--static inline bool memory_region_is_romd(MemoryRegion *mr)
-+static inline bool memory_region_is_romd(const MemoryRegion *mr)
+ /* Check specifically for grants.  */
+-bool xen_mr_is_grants(MemoryRegion *mr)
++bool xen_mr_is_grants(const MemoryRegion *mr)
  {
-     return mr->rom_device && mr->romd_mode;
+     return mr == &xen_grants;
  }
-@@ -1800,7 +1800,7 @@ static inline bool memory_region_is_romd(MemoryRegion *mr)
-  *
-  * @mr: the memory region being queried
-  */
--bool memory_region_is_protected(MemoryRegion *mr);
-+bool memory_region_is_protected(const MemoryRegion *mr);
  
- /**
-  * memory_region_has_guest_memfd: check whether a memory region has guest_memfd
-@@ -1810,7 +1810,7 @@ bool memory_region_is_protected(MemoryRegion *mr);
-  *
-  * @mr: the memory region being queried
-  */
--bool memory_region_has_guest_memfd(MemoryRegion *mr);
-+bool memory_region_has_guest_memfd(const MemoryRegion *mr);
- 
- /**
-  * memory_region_get_iommu: check whether a memory region is an iommu
-@@ -1820,7 +1820,7 @@ bool memory_region_has_guest_memfd(MemoryRegion *mr);
-  *
-  * @mr: the memory region being queried
-  */
--static inline IOMMUMemoryRegion *memory_region_get_iommu(MemoryRegion *mr)
-+static inline IOMMUMemoryRegion *memory_region_get_iommu(const MemoryRegion *mr)
+-void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size, MemoryRegion *mr,
+-                   Error **errp)
++void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
++                   const MemoryRegion *mr, Error **errp)
  {
-     if (mr->alias) {
-         return memory_region_get_iommu(mr->alias);
-@@ -1991,7 +1991,7 @@ const char *memory_region_name(const MemoryRegion *mr);
-  * @mr: the memory region being queried
-  * @client: the client being queried
-  */
--bool memory_region_is_logging(MemoryRegion *mr, uint8_t client);
-+bool memory_region_is_logging(const MemoryRegion *mr, uint8_t client);
+     unsigned target_page_bits = qemu_target_page_bits();
+     unsigned long nr_pfn;
+diff --git a/hw/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
+index a3c162cd4c6..85cf0cf359c 100644
+--- a/hw/xen/xen-mapcache.c
++++ b/hw/xen/xen-mapcache.c
+@@ -460,7 +460,7 @@ tryagain:
+     return mc->last_entry->vaddr_base + address_offset;
+ }
  
- /**
-  * memory_region_get_dirty_log_mask: return the clients for which a
-@@ -2002,7 +2002,7 @@ bool memory_region_is_logging(MemoryRegion *mr, uint8_t client);
-  *
-  * @mr: the memory region being queried
-  */
--uint8_t memory_region_get_dirty_log_mask(MemoryRegion *mr);
-+uint8_t memory_region_get_dirty_log_mask(const MemoryRegion *mr);
+-uint8_t *xen_map_cache(MemoryRegion *mr,
++uint8_t *xen_map_cache(const MemoryRegion *mr,
+                        hwaddr phys_addr, hwaddr size,
+                        ram_addr_t ram_addr_offset,
+                        uint8_t lock, bool dma,
+diff --git a/hw/xen/xen_stubs.c b/hw/xen/xen_stubs.c
+index a39efb5062d..f830768d998 100644
+--- a/hw/xen/xen_stubs.c
++++ b/hw/xen/xen_stubs.c
+@@ -19,12 +19,12 @@ void xen_hvm_modified_memory(ram_addr_t start, ram_addr_t length)
+ }
  
- /**
-  * memory_region_is_rom: check whether a memory region is ROM
-@@ -2011,7 +2011,7 @@ uint8_t memory_region_get_dirty_log_mask(MemoryRegion *mr);
-  *
-  * @mr: the memory region being queried
-  */
--static inline bool memory_region_is_rom(MemoryRegion *mr)
-+static inline bool memory_region_is_rom(const MemoryRegion *mr)
+ void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size,
+-                   struct MemoryRegion *mr, Error **errp)
++                   const MemoryRegion *mr, Error **errp)
  {
-     return mr->ram && mr->readonly;
+     g_assert_not_reached();
  }
-@@ -2023,7 +2023,7 @@ static inline bool memory_region_is_rom(MemoryRegion *mr)
-  *
-  * @mr: the memory region being queried
-  */
--static inline bool memory_region_is_nonvolatile(MemoryRegion *mr)
-+static inline bool memory_region_is_nonvolatile(const MemoryRegion *mr)
+ 
+-bool xen_mr_is_memory(MemoryRegion *mr)
++bool xen_mr_is_memory(const MemoryRegion *mr)
  {
-     return mr->nonvolatile;
+     g_assert_not_reached();
  }
-@@ -2036,7 +2036,7 @@ static inline bool memory_region_is_nonvolatile(MemoryRegion *mr)
-  *
-  * @mr: the RAM or alias memory region being queried.
-  */
--int memory_region_get_fd(MemoryRegion *mr);
-+int memory_region_get_fd(const MemoryRegion *mr);
- 
- /**
-  * memory_region_from_host: Convert a pointer into a RAM memory region
-@@ -2071,7 +2071,7 @@ MemoryRegion *memory_region_from_host(void *ptr, ram_addr_t *offset);
-  *
-  * @mr: the memory region being queried.
-  */
--void *memory_region_get_ram_ptr(MemoryRegion *mr);
-+void *memory_region_get_ram_ptr(const MemoryRegion *mr);
- 
- /* memory_region_ram_resize: Resize a RAM region.
-  *
-@@ -2421,7 +2421,7 @@ void memory_region_add_subregion_overlap(MemoryRegion *mr,
-  *
-  * @mr: the region to be queried
-  */
--ram_addr_t memory_region_get_ram_addr(MemoryRegion *mr);
-+ram_addr_t memory_region_get_ram_addr(const MemoryRegion *mr);
- 
- uint64_t memory_region_get_alignment(const MemoryRegion *mr);
- /**
-@@ -2521,7 +2521,7 @@ bool memory_region_present(MemoryRegion *container, hwaddr addr);
-  *
-  * @mr: a #MemoryRegion which should be checked if it's mapped
-  */
--bool memory_region_is_mapped(MemoryRegion *mr);
-+bool memory_region_is_mapped(const MemoryRegion *mr);
- 
- /**
-  * memory_region_get_ram_discard_manager: get the #RamDiscardManager for a
-@@ -2967,7 +2967,7 @@ void *qemu_map_ram_ptr(RAMBlock *ram_block, ram_addr_t addr);
- int memory_access_size(MemoryRegion *mr, unsigned l, hwaddr addr);
- bool prepare_mmio_access(MemoryRegion *mr);
- 
--static inline bool memory_region_supports_direct_access(MemoryRegion *mr)
-+static inline bool memory_region_supports_direct_access(const MemoryRegion *mr)
- {
-     /* ROM DEVICE regions only allow direct access if in ROMD mode. */
-     if (memory_region_is_romd(mr)) {
-@@ -2984,8 +2984,8 @@ static inline bool memory_region_supports_direct_access(MemoryRegion *mr)
-     return !memory_region_is_ram_device(mr);
+@@ -44,7 +44,7 @@ ram_addr_t xen_ram_addr_from_mapcache(void *ptr)
+     g_assert_not_reached();
  }
  
--static inline bool memory_access_is_direct(MemoryRegion *mr, bool is_write,
--                                           MemTxAttrs attrs)
-+static inline bool memory_access_is_direct(const MemoryRegion *mr,
-+                                           bool is_write, MemTxAttrs attrs)
- {
-     if (!memory_region_supports_direct_access(mr)) {
-         return false;
-diff --git a/system/memory.c b/system/memory.c
-index c51d0798a84..b130d956d4e 100644
---- a/system/memory.c
-+++ b/system/memory.c
-@@ -1819,9 +1819,9 @@ static void memory_region_finalize(Object *obj)
-     g_free(mr->ioeventfds);
- }
- 
--Object *memory_region_owner(MemoryRegion *mr)
-+Object *memory_region_owner(const MemoryRegion *mr)
- {
--    Object *obj = OBJECT(mr);
-+    const Object *obj = OBJECT(mr);
-     return obj->parent;
- }
- 
-@@ -1849,7 +1849,7 @@ void memory_region_unref(MemoryRegion *mr)
-     }
- }
- 
--uint64_t memory_region_size(MemoryRegion *mr)
-+uint64_t memory_region_size(const MemoryRegion *mr)
- {
-     if (int128_eq(mr->size, int128_2_64())) {
-         return UINT64_MAX;
-@@ -1866,25 +1866,25 @@ const char *memory_region_name(const MemoryRegion *mr)
-     return mr->name;
- }
- 
--bool memory_region_is_ram_device(MemoryRegion *mr)
-+bool memory_region_is_ram_device(const MemoryRegion *mr)
- {
-     return mr->ram_device;
- }
- 
--bool memory_region_is_protected(MemoryRegion *mr)
-+bool memory_region_is_protected(const MemoryRegion *mr)
- {
-     return mr->ram && (mr->ram_block->flags & RAM_PROTECTED);
- }
- 
--bool memory_region_has_guest_memfd(MemoryRegion *mr)
-+bool memory_region_has_guest_memfd(const MemoryRegion *mr)
- {
-     return mr->ram_block && mr->ram_block->guest_memfd >= 0;
- }
- 
--uint8_t memory_region_get_dirty_log_mask(MemoryRegion *mr)
-+uint8_t memory_region_get_dirty_log_mask(const MemoryRegion *mr)
- {
-     uint8_t mask = mr->dirty_log_mask;
--    RAMBlock *rb = mr->ram_block;
-+    const RAMBlock *rb = mr->ram_block;
- 
-     if (global_dirty_tracking && ((rb && qemu_ram_is_migratable(rb)) ||
-                              memory_region_is_iommu(mr))) {
-@@ -1898,7 +1898,7 @@ uint8_t memory_region_get_dirty_log_mask(MemoryRegion *mr)
-     return mask;
- }
- 
--bool memory_region_is_logging(MemoryRegion *mr, uint8_t client)
-+bool memory_region_is_logging(const MemoryRegion *mr, uint8_t client)
- {
-     return memory_region_get_dirty_log_mask(mr) & (1 << client);
- }
-@@ -2406,7 +2406,7 @@ void memory_region_reset_dirty(MemoryRegion *mr, hwaddr addr,
-         memory_region_get_ram_addr(mr) + addr, size, client, NULL);
- }
- 
--int memory_region_get_fd(MemoryRegion *mr)
-+int memory_region_get_fd(const MemoryRegion *mr)
- {
-     RCU_READ_LOCK_GUARD();
-     while (mr->alias) {
-@@ -2415,7 +2415,7 @@ int memory_region_get_fd(MemoryRegion *mr)
-     return mr->ram_block->fd;
- }
- 
--void *memory_region_get_ram_ptr(MemoryRegion *mr)
-+void *memory_region_get_ram_ptr(const MemoryRegion *mr)
- {
-     uint64_t offset = 0;
- 
-@@ -2440,7 +2440,7 @@ MemoryRegion *memory_region_from_host(void *ptr, ram_addr_t *offset)
-     return block->mr;
- }
- 
--ram_addr_t memory_region_get_ram_addr(MemoryRegion *mr)
-+ram_addr_t memory_region_get_ram_addr(const MemoryRegion *mr)
- {
-     return mr->ram_block ? mr->ram_block->offset : RAM_ADDR_INVALID;
- }
-@@ -2806,7 +2806,7 @@ static FlatRange *flatview_lookup(FlatView *view, AddrRange addr)
-                    sizeof(FlatRange), cmp_flatrange_addr);
- }
- 
--bool memory_region_is_mapped(MemoryRegion *mr)
-+bool memory_region_is_mapped(const MemoryRegion *mr)
- {
-     return !!mr->container || mr->mapped_via_alias;
- }
-@@ -3290,7 +3290,7 @@ void address_space_destroy_free(AddressSpace *as)
-     call_rcu(as, do_address_space_destroy_free, rcu);
- }
- 
--static const char *memory_region_type(MemoryRegion *mr)
-+static const char *memory_region_type(const MemoryRegion *mr)
- {
-     if (mr->alias) {
-         return memory_region_type(mr->alias);
-@@ -3483,7 +3483,6 @@ static void mtree_print_flatview(gpointer key, gpointer value,
-     GArray *fv_address_spaces = value;
-     struct FlatViewInfo *fvi = user_data;
-     FlatRange *range = &view->ranges[0];
--    MemoryRegion *mr;
-     int n = view->nr;
-     int i;
-     AddressSpace *as;
-@@ -3510,7 +3509,8 @@ static void mtree_print_flatview(gpointer key, gpointer value,
-     }
- 
-     while (n--) {
--        mr = range->mr;
-+        const MemoryRegion *mr = range->mr;
-+
-         if (range->offset_in_region) {
-             qemu_printf(MTREE_INDENT HWADDR_FMT_plx "-" HWADDR_FMT_plx
-                         " (prio %d, %s%s): %s @" HWADDR_FMT_plx,
-@@ -3683,8 +3683,10 @@ static void mtree_info_as(bool dispatch_tree, bool owner, bool disabled)
- 
-     /* print aliased regions */
-     QTAILQ_FOREACH(ml, &ml_head, mrqueue) {
--        qemu_printf("memory-region: %s\n", memory_region_name(ml->mr));
--        mtree_print_mr(ml->mr, 1, 0, &ml_head, owner, disabled);
-+        const MemoryRegion *mr = ml->mr;
-+
-+        qemu_printf("memory-region: %s\n", memory_region_name(mr));
-+        mtree_print_mr(mr, 1, 0, &ml_head, owner, disabled);
-         qemu_printf("\n");
-     }
- 
-diff --git a/system/physmem.c b/system/physmem.c
-index e5390d09bef..4a9e0760045 100644
---- a/system/physmem.c
-+++ b/system/physmem.c
-@@ -1975,7 +1975,7 @@ void qemu_ram_unset_idstr(RAMBlock *block)
-     }
- }
- 
--static char *cpr_name(MemoryRegion *mr)
-+static char *cpr_name(const MemoryRegion *mr)
- {
-     const char *mr_name = memory_region_name(mr);
-     g_autofree char *id = mr->dev ? qdev_get_dev_path(mr->dev) : NULL;
+-uint8_t *xen_map_cache(MemoryRegion *mr,
++uint8_t *xen_map_cache(const MemoryRegion *mr,
+                        hwaddr phys_addr,
+                        hwaddr size,
+                        ram_addr_t ram_addr_offset,
 -- 
 2.53.0
 
