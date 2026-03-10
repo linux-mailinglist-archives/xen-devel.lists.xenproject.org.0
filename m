@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AJB7Jk1QsGmBiAIAu9opvQ
+	id gF8TME1QsGnFhgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:33 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3493625547D
+	by mail.lfdr.de (Postfix) with ESMTPS id 760BF255484
 	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1250387.1547884 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1250388.1547894 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w00a5-0002JJ-TL; Tue, 10 Mar 2026 17:09:17 +0000
+	id 1w00a7-0002ZU-4v; Tue, 10 Mar 2026 17:09:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1250387.1547884; Tue, 10 Mar 2026 17:09:17 +0000
+Received: by outflank-mailman (output) from mailman id 1250388.1547894; Tue, 10 Mar 2026 17:09:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w00a5-0002Gb-PT; Tue, 10 Mar 2026 17:09:17 +0000
-Received: by outflank-mailman (input) for mailman id 1250387;
- Tue, 10 Mar 2026 17:09:16 +0000
+	id 1w00a7-0002Wi-1K; Tue, 10 Mar 2026 17:09:19 +0000
+Received: by outflank-mailman (input) for mailman id 1250388;
+ Tue, 10 Mar 2026 17:09:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eHsH=BK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1w00a4-0001QA-M9
- for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 17:09:16 +0000
+ id 1w00a5-0001QA-DA
+ for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 17:09:17 +0000
 Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
  [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dd807af5-1ca3-11f1-9ccf-f158ae23cfc8;
- Tue, 10 Mar 2026 18:09:14 +0100 (CET)
+ id de296016-1ca3-11f1-9ccf-f158ae23cfc8;
+ Tue, 10 Mar 2026 18:09:15 +0100 (CET)
 Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-485410a0a8aso16042795e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 10:09:14 -0700 (PDT)
+ 5b1f17b1804b1-4852e9ca034so34282465e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 10:09:15 -0700 (PDT)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-485359bf807sm119619845e9.2.2026.03.10.10.09.12
+ 5b1f17b1804b1-485359bf807sm119619845e9.2.2026.03.10.10.09.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Mar 2026 10:09:13 -0700 (PDT)
+ Tue, 10 Mar 2026 10:09:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,42 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd807af5-1ca3-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: de296016-1ca3-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773162554; x=1773767354; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1773162555; x=1773767355; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=y2l9GSTVdHf37ct2dJEvx0io7ScAIs5lEweSLfZGouo=;
-        b=iIuPKO4b+qUhMQwTITvT3pvAvG6IJR50piZmXbxla5v5v6ZUcQx+0PAERuup0F1qlo
-         g+FE2eOCLD8mjE0gXjHmdmxpAgiwWuZdOaWlO3IefvaqRIQtkhnHWmOiYGIkKNtXYLew
-         c2TrlXp0JEhUZGoOBTJoT1jiqDQ4t2nLhvhT/16OSaxAflo58U8L5NMDJPbRgwvkkOrw
-         fWej3C0xAQ5hvmvPh4hOgQ64RBzdavG4B9uU4sVCEA6lkpInrhHeTedkBC8wQvIQ5Ofa
-         iCbzDRUgAoHILRIEB6kt9FMU1QXS3xOrp1Bu1cVxBuM5K6SlH3YZaNZXNmzLEps2tA10
-         RDMA==
+        bh=F37HFkhRbnNKMwdsdySIIUyxwC6WRGnT9uYuIwl9b5U=;
+        b=BQC/eGi62ImYEG6jyp1sk7rfyLMl1c+jlrrDijPte6RZOeiV6ty0CH5C67cGie0P7v
+         hcW/eYDNFWtSZBxZBecbt75gRfF6PnQlgJRSGzN7a5leJFNrMvs1GxMZv8+eqIJjY+4w
+         ck0H8s5UguQTmw32G49tEJGiaQ6/il7alxiANHrZ+duSh6l8lMLQ5Vq9jMdjm8+9djiI
+         Q6kSx6AfgnGQXtQAVV7iWMMxSRJgkgY9PXh9ZFXdtvm4MhzCZqI05SP1M9le+QRJdpk7
+         US2iaCdzuVxDEKfLzsMI6+4P7O053U0fV6pHeFflsmRsH/FVUohVsfBLDc+l9suu2/gC
+         Cyjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773162554; x=1773767354;
+        d=1e100.net; s=20230601; t=1773162555; x=1773767355;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=y2l9GSTVdHf37ct2dJEvx0io7ScAIs5lEweSLfZGouo=;
-        b=MusXI6CI1bXU+TVEazp83y9f5vrpZoeWQygPJLTYc8pkPDwi0kXNrN6j/DJBMvFdkR
-         TfyBMUtgZT+42ctFQ7YzI/yO6Pl3O8JM99nXBq+W92s3loFIDBeYZzEfgZqIlz3PPxy+
-         w79mR6Oy4biyVBq/xCutI9F4GcMnd0zHru5fKLyuZB7OBM3BUoaK4rZHI5u40VYAzqJw
-         SFR585z/HuBYnUiM3sWrnsMIc/dNVh9txRv7v19/A6GuY+ATM1cDC+5CeF4EcihlB7R3
-         3SZjUzSZ2LBCKmnKzq5MEJHcWtq852JTkTTQCIEvwhe/KwIu0fN7HMHf3tDIp6ny1DVS
-         e8ew==
-X-Gm-Message-State: AOJu0YyN9sxMqexhh67wh+yTR/Rvo6e2m3q+QyI5dufTLdKT+48mvyfE
-	Y8eXMJN3hqQYwYwpWsaGAmz33zKA7++ouWIAss0mid7kiihgBM0Ny3wQ3xBJcKMt
-X-Gm-Gg: ATEYQzzbuSk7Qv9YN0xCaZhJA+xrSIbwJQSnzkdGONzi20jpYAa5jeJ+qlhKXz7dIGX
-	Hju9abVBhIt/V0A88CeIKgGv+uuP5OXVAwMO37rxr6JcgLyCuLn9r2UpCTV7Q9Ei5QQ0j/Ve6G/
-	rPSNoTWaHaG5/oAp1zjMslUuoM5PsHsybKG0YvtgQWe0PzVTr1BrRfVmsn9YP+fJOZcRnAzEbn6
-	BeuwwNAmbOhBJfdptYXPhmSObybJO2HBbOyd6zM2A6H11omDItrO34DIJMkBNi1qdgwy1aSfXaG
-	CUmVfRvLB5SuKDHBX6a8W23LoKSu40yI0HgOv0wOJr6h/T9a241pz19HwngaC7I7qkBWkjVZwGC
-	xoXqB+OH41NMjRPPx+560g4IrgMlBssqezdvb5JCk38T5oD+qGu6o1rTc/vhtopr4xrrFC0JFRA
-	XZ849b55hPNphvrboaCMIU1PzBysaAr0Rf2rL0lLGUyl3kv4sXeGMcn1rrTBAvguicJg==
-X-Received: by 2002:a05:600c:a12:b0:483:badb:618f with SMTP id 5b1f17b1804b1-48526966b07mr244053275e9.25.1773162553878;
-        Tue, 10 Mar 2026 10:09:13 -0700 (PDT)
+        bh=F37HFkhRbnNKMwdsdySIIUyxwC6WRGnT9uYuIwl9b5U=;
+        b=L+sCK/pY7zBWrFeULSBsucdxRnZyuBaVLnB9Ic2gzd4RlInBeNKEhAwPqNj3VUQe7A
+         r9LM6U/ykaVSqqQwSnqZLCVfoT9P80Sb/91vyR3cCX/CtwCMZXxIcvDC70P1Cfqg8G52
+         jDuVR49tPXQK5uri0WFXEm3n2kbiDOt43n+FawI1qCs0tTJrD2oTh9NOXe0t2+CsKasV
+         ZR5InQkGwNaeBlkP/NvMPzvLGaYOZu5+OMv+xW6mriL+j4QSO2yAvWkfsuKqvI2qIu/X
+         3KHeAfio5IRG8LqGuXBB+dWQOTnAJwAfTdTK0fEdCGkINdHwtJU5i2lit5mgeMYqCqhS
+         YbtQ==
+X-Gm-Message-State: AOJu0YwRY+qy9MTyF3loIENSdUS5f4vhnvXqvB/iMt5l0vcfGHZ4kNPl
+	25oN52dwENnsQyHFoBFRADclJUKCQT3gY1cPSCFV7LJeSqE1DWzUqh7i/qyKcV33
+X-Gm-Gg: ATEYQzzY16nUmn1/Lv3Eg/mMC4mzsxYjKB2AW6zijlaBghD36yUR7mLZa2gLxKS7z/J
+	P0IF+0mOPj96oSoPMdnkbbUEohf0CE8XNLLXDitk1X5TYozZvfJ1y8pkq2nvAcz7ipY0F0dUxR0
+	1PkCdVVc6ZpVDbPZ0P+brQQ4dxtlHeHb4gyhZjF8LV5y9T1gBpLzggMoR+AdZArfCYF5Ap2Tb/8
+	Kbp9HQ91aQXJGicoxK5Ciifn4J67T6y3dpYni7QB7dDyVRcD9n0RWg9TAVxIVVCxfaILtGiE4Hw
+	qdB/sdZdbKM2na2I3YVLeiDAYv9uqsE+rovg5TXZooFQ95HQUjZg771UKr3xqKxCsaUQNFRvVra
+	MlWMOYnshwB4PFGgdvhOAecKre3YNKOzlsetLeh7PEBvSvj3DJQmHoviV+zbFmOSpljN/MToAIe
+	cd+6zQCo+JPuu6K8lZPEChenesoMylSeDIIH7qhZEd325mPfdW7jqkbbxCs4NJ/RM7lQ==
+X-Received: by 2002:a05:600c:3b83:b0:485:35d3:ce57 with SMTP id 5b1f17b1804b1-48535d3cf0cmr190710405e9.34.1773162554952;
+        Tue, 10 Mar 2026 10:09:14 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -99,15 +99,15 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 04/27] xen/riscv: rework G-stage mode handling
-Date: Tue, 10 Mar 2026 18:08:37 +0100
-Message-ID: <2c8f1ea25b8d3ec78b00510fbe604a87e759e194.1773157782.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 05/27] xen/riscv: introduce guest riscv,isa string
+Date: Tue, 10 Mar 2026 18:08:38 +0100
+Message-ID: <007c0a0243ac7ff1d1ab3faa4ebcdd6fcd14e485.1773157782.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1773157782.git.oleksii.kurochko@gmail.com>
 References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 3493625547D
+X-Rspamd-Queue-Id: 760BF255484
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -131,7 +131,7 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,max_gstage_mode.name:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
@@ -147,210 +147,127 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-Rework G-stage mode handling to make the selected mode descriptor reusable
-outside of p2m initialization.
+Introduce generation of the riscv,isa string passed to the guest via the
+Device Tree riscv,isa property.
 
-As max_gstage_mode is going to be reused by code that creates CPU nodes for
-guest domains, not only max_gstage_mode->mode but also max_gstage_mode->name
-is required. To support this, make max_gstage_mode a global pointer to one of
-the entries in a global modes[] array, and remove get_max_supported_mode().
+The following changes are introduced:
 
-Update struct p2m_domain to store a pointer to a mode descriptor instead of
-embedding the structure directly.
+- According to the RISC-V privileged specification, M-mode software controls
+  the XLEN value used by S-mode and U-mode. For RV64 harts, the SXL and UXL
+  fields of the mstatus register are WARL fields that define the XLEN for
+  S-mode and U-mode.
 
-Refactor the modes[] array so that mode->name contains only the MMU scheme
-name (without the "x4" suffix), as this value is reused when filling the
-maximum MMU type passed to the guest. According to DT bindings [1], the MMU
-type must not include the "x4" suffix. Use "none" for the Bare mode to match
-the DT binding requirements.
+  The XLEN value is provided by M-mode software (OpenSBI in the case of Xen)
+  via the riscv,isa DT property. Introduce and initialize an xlen variable
+  when parsing the host riscv,isa string in riscv_isa_parse_string().
 
-Adjust modes[]->paging_levels to represent the maximum paging level rather
-than the total number of levels. This ensures that P2M_ROOT_LEVEL() and its
-users behave correctly without relying on hardcoded p2m mode values.
+- Introduce the guest_isa_str variable to store the riscv,isa string
+  generated for a guest domain during riscv,isa property parsing. Update
+  match_isa_ext() to populate guest_isa_str accordingly.
 
-Finally, drop __initconst from the modes[] declaration, as the array is
-referenced via p2m->mode and max_gstage_mode beyond the init stage.
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/riscv/cpus.yaml?h=v6.19-rc3#n82
+- Introduce guest_unsupp_bmp and guest_unsupp_exts[] to filter out ISA
+  extensions that should not be exposed to guests. For example, FPU-related
+  extensions are currently not supported for guests (at the moment) and are
+  therefore removed from the guest riscv,isa string.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/include/asm/p2m.h |  7 ++--
- xen/arch/riscv/p2m.c             | 60 +++++++++++++-------------------
- xen/arch/riscv/vmid.c            |  2 +-
- 3 files changed, 30 insertions(+), 39 deletions(-)
+ xen/arch/riscv/cpufeature.c             | 33 +++++++++++++++++++++++++
+ xen/arch/riscv/include/asm/cpufeature.h |  2 ++
+ 2 files changed, 35 insertions(+)
 
-diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
-index c6d846b96fb4..4441c0400b83 100644
---- a/xen/arch/riscv/include/asm/p2m.h
-+++ b/xen/arch/riscv/include/asm/p2m.h
-@@ -13,7 +13,7 @@
+diff --git a/xen/arch/riscv/cpufeature.c b/xen/arch/riscv/cpufeature.c
+index 987d36dc7eee..d7e483603dbe 100644
+--- a/xen/arch/riscv/cpufeature.c
++++ b/xen/arch/riscv/cpufeature.c
+@@ -38,6 +38,8 @@ struct riscv_isa_ext_data {
+ /* Host ISA bitmap */
+ static __ro_after_init DECLARE_BITMAP(riscv_isa, RISCV_ISA_EXT_MAX);
  
- #define P2M_ROOT_ORDER  (ilog2(GSTAGE_ROOT_PAGE_TABLE_SIZE) - PAGE_SHIFT)
- #define P2M_ROOT_PAGES  BIT(P2M_ROOT_ORDER, U)
--#define P2M_ROOT_LEVEL(p2m) ((p2m)->mode.paging_levels)
-+#define P2M_ROOT_LEVEL(p2m) ((p2m)->mode->paging_levels)
- 
- /*
-  * According to the RISC-V spec:
-@@ -58,6 +58,8 @@ struct gstage_mode_desc {
-     char name[8];
- };
- 
-+extern const struct gstage_mode_desc *max_gstage_mode;
++static __ro_after_init unsigned int xlen;
 +
- /* Per-p2m-table state */
- struct p2m_domain {
-     /*
-@@ -71,7 +73,7 @@ struct p2m_domain {
-     /* The root of the p2m tree. May be concatenated */
-     struct page_info *root;
- 
--    struct gstage_mode_desc mode;
-+    const struct gstage_mode_desc *mode;
- 
-     /* Back pointer to domain */
-     struct domain *domain;
-@@ -218,7 +220,6 @@ static inline bool arch_acquire_resource_check(struct domain *d)
- }
- 
- void guest_mm_init(void);
--unsigned char get_max_supported_mode(void);
- 
- int p2m_init(struct domain *d);
- 
-diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
-index 886e06196ba2..dce1eb205ec9 100644
---- a/xen/arch/riscv/p2m.c
-+++ b/xen/arch/riscv/p2m.c
-@@ -45,18 +45,32 @@ struct p2m_pte_ctx {
-     unsigned int level;          /* Paging level at which the PTE resides. */
+ static int __init dt_get_cpuid_from_node(const struct dt_device_node *cpu,
+                                          unsigned long *dt_cpuid)
+ {
+@@ -160,6 +162,19 @@ static const struct riscv_isa_ext_data __initconst required_extensions[] = {
+     RISCV_ISA_EXT_DATA(svpbmt),
  };
  
--static struct gstage_mode_desc __ro_after_init max_gstage_mode = {
--    .mode = HGATP_MODE_OFF,
--    .paging_levels = 0,
--    .name = "Bare",
--};
--
- /*
-  * Set to the maximum configured support for IPA bits, so the number of IPA bits can be
-  * restricted by external entity (e.g. IOMMU).
-  */
- unsigned int __read_mostly p2m_ipa_bits = PADDR_BITS;
- 
-+static const struct gstage_mode_desc modes[] = {
-+    /*
-+     * Based on the RISC-V spec:
-+     *   Bare mode is always supported, regardless of SXLEN.
-+     *   When SXLEN=32, the only other valid setting for MODE is Sv32.
-+     *   When SXLEN=64, three paged virtual-memory schemes are defined:
-+     *   Sv39, Sv48, and Sv57.
-+     */
-+    [0] = { HGATP_MODE_OFF,    0, "none" },
-+#ifdef CONFIG_RISCV_32
-+    [1] = { HGATP_MODE_SV32X4, 1, "sv32" }
-+#else
-+    [2] = { HGATP_MODE_SV39X4, 2, "sv39" },
-+    [3] = { HGATP_MODE_SV48X4, 3, "sv48" },
-+    [4] = { HGATP_MODE_SV57X4, 4, "sv57" },
-+#endif
++static const unsigned int __initconst guest_unsupp_exts[] = {
++    RISCV_ISA_EXT_f,
++    RISCV_ISA_EXT_d,
++    RISCV_ISA_EXT_h,
++    RISCV_ISA_EXT_q,
++    RISCV_ISA_EXT_v,
 +};
 +
-+const struct gstage_mode_desc * __ro_after_init max_gstage_mode = &modes[0];
++static __ro_after_init DECLARE_BITMAP(guest_unsupp_bmp, RISCV_ISA_EXT_MAX);
 +
- static void p2m_free_page(struct p2m_domain *p2m, struct page_info *pg);
- 
- static inline void p2m_free_metadata_page(struct p2m_domain *p2m,
-@@ -69,11 +83,6 @@ static inline void p2m_free_metadata_page(struct p2m_domain *p2m,
-     }
- }
- 
--unsigned char get_max_supported_mode(void)
--{
--    return max_gstage_mode.mode;
--}
--
- /*
-  * If anything is changed here, it may also require updates to
-  * p2m_{get,set}_type().
-@@ -154,23 +163,6 @@ static pte_t *p2m_get_root_pointer(struct p2m_domain *p2m, gfn_t gfn)
- 
- static void __init gstage_mode_detect(void)
++#define MAX_GUEST_ISA_STR_LEN 256
++char guest_isa_str[MAX_GUEST_ISA_STR_LEN];
++
+ static bool __init is_lowercase_extension_name(const char *str)
  {
--    static const struct gstage_mode_desc modes[] __initconst = {
--        /*
--         * Based on the RISC-V spec:
--         *   Bare mode is always supported, regardless of SXLEN.
--         *   When SXLEN=32, the only other valid setting for MODE is Sv32.
--         *   When SXLEN=64, three paged virtual-memory schemes are defined:
--         *   Sv39, Sv48, and Sv57.
--         */
--#ifdef CONFIG_RISCV_32
--        { HGATP_MODE_SV32X4, 2, "Sv32x4" }
--#else
--        { HGATP_MODE_SV39X4, 3, "Sv39x4" },
--        { HGATP_MODE_SV48X4, 4, "Sv48x4" },
--        { HGATP_MODE_SV57X4, 5, "Sv57x4" },
--#endif
--    };
--
-     for ( unsigned int mode_idx = ARRAY_SIZE(modes); mode_idx-- > 0; )
-     {
-         unsigned long mode = modes[mode_idx].mode;
-@@ -179,16 +171,16 @@ static void __init gstage_mode_detect(void)
- 
-         if ( MASK_EXTR(csr_read(CSR_HGATP), HGATP_MODE_MASK) == mode )
+     /*
+@@ -193,6 +208,15 @@ static void __init match_isa_ext(const char *name, const char *name_end,
+              !memcmp(name, ext->name, name_end - name) )
          {
--            max_gstage_mode = modes[mode_idx];
-+            max_gstage_mode = &modes[mode_idx];
- 
+             __set_bit(ext->id, bitmap);
++
++            if ( riscv_isa_extension_available(guest_unsupp_bmp, ext->id) )
++                break;
++
++            if ( ext->id >= RISCV_ISA_EXT_BASE )
++                safe_strcat(guest_isa_str, "_");
++
++            safe_strcat(guest_isa_str, ext->name);
++
              break;
          }
      }
- 
--    if ( max_gstage_mode.mode == HGATP_MODE_OFF )
-+    if ( max_gstage_mode->mode == HGATP_MODE_OFF )
-         panic("Xen expects that G-stage won't be Bare mode\n");
- 
--    printk("Max supported G-stage mode is %s\n", max_gstage_mode.name);
-+    printk("Max supported G-stage mode is %sx4\n", max_gstage_mode->name);
- 
-     csr_write(CSR_HGATP, 0);
- 
-@@ -289,7 +281,7 @@ static void clear_and_clean_page(struct page_info *page, bool clean_dcache)
- unsigned long construct_hgatp(const struct p2m_domain *p2m, uint16_t vmid)
- {
-     return MASK_INSR(mfn_x(page_to_mfn(p2m->root)), HGATP_PPN_MASK) |
--           MASK_INSR(p2m->mode.mode, HGATP_MODE_MASK) |
-+           MASK_INSR(p2m->mode->mode, HGATP_MODE_MASK) |
-            MASK_INSR(vmid, HGATP_VMID_MASK);
- }
- 
-@@ -369,9 +361,7 @@ int p2m_init(struct domain *d)
+@@ -207,13 +231,17 @@ static int __init riscv_isa_parse_string(const char *isa,
+ #if defined(CONFIG_RISCV_32)
+     if ( isa[2] != '3' && isa[3] != '2' )
+         return -EINVAL;
++    xlen = 32;
+ #elif defined(CONFIG_RISCV_64)
+     if ( isa[2] != '6' && isa[3] != '4' )
+         return -EINVAL;
++    xlen = 64;
+ #else
+ # error "unsupported RISC-V bitness"
  #endif
  
-     /* TODO: don't hardcode used for a domain g-stage mode. */
--    p2m->mode.mode = HGATP_MODE_SV39X4;
--    p2m->mode.paging_levels = 2;
--    safe_strcpy(p2m->mode.name, "Sv39x4");
-+    p2m->mode = &modes[2];
- 
-     return 0;
- }
-diff --git a/xen/arch/riscv/vmid.c b/xen/arch/riscv/vmid.c
-index 8fbcd500f24d..11c7e9d6d6c8 100644
---- a/xen/arch/riscv/vmid.c
-+++ b/xen/arch/riscv/vmid.c
-@@ -52,7 +52,7 @@ static DEFINE_PER_CPU(struct vmid_data, vmid_data);
- static unsigned int vmidlen_detect(void)
- {
-     unsigned int vmid_bits;
--    unsigned char gstage_mode = get_max_supported_mode();
-+    unsigned char gstage_mode = max_gstage_mode->mode;
- 
++    snprintf(guest_isa_str, sizeof(guest_isa_str), "rv%d", xlen);
++
      /*
-      * According to the RISC-V Privileged Architecture Spec:
+      * In unpriv. specification (*_20240411) is mentioned the following:
+      * (1) A RISC-V ISA is defined as a base integer ISA, which must be
+@@ -487,6 +515,11 @@ void __init riscv_fill_hwcap(void)
+     bool all_extns_available = true;
+     struct trap_info trap;
+ 
++    for ( i = 0; i < ARRAY_SIZE(guest_unsupp_exts); i++ )
++    {
++        __set_bit(guest_unsupp_exts[i], guest_unsupp_bmp);
++    }
++
+     riscv_fill_hwcap_from_isa_string();
+ 
+     if ( bitmap_empty(riscv_isa, RISCV_ISA_EXT_MAX) )
+diff --git a/xen/arch/riscv/include/asm/cpufeature.h b/xen/arch/riscv/include/asm/cpufeature.h
+index ef02a3e26d2c..aabbbf0c2cc3 100644
+--- a/xen/arch/riscv/include/asm/cpufeature.h
++++ b/xen/arch/riscv/include/asm/cpufeature.h
+@@ -43,6 +43,8 @@ enum riscv_isa_ext_id {
+     RISCV_ISA_EXT_MAX
+ };
+ 
++extern char guest_isa_str[];
++
+ void riscv_fill_hwcap(void);
+ 
+ bool riscv_isa_extension_available(const unsigned long *isa_bitmap,
 -- 
 2.53.0
 
