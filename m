@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UALTOU7Sr2kfcgIAu9opvQ
+	id OBlWNabSr2kfcgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 09:11:58 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 09:13:26 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6060E2470D2
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 09:11:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1249850.1547231 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A402247158
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 09:13:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1249858.1547240 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzsBx-0000ij-N0; Tue, 10 Mar 2026 08:11:49 +0000
+	id 1vzsDM-0001Cs-1Y; Tue, 10 Mar 2026 08:13:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1249850.1547231; Tue, 10 Mar 2026 08:11:49 +0000
+Received: by outflank-mailman (output) from mailman id 1249858.1547240; Tue, 10 Mar 2026 08:13:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzsBx-0000gC-K9; Tue, 10 Mar 2026 08:11:49 +0000
-Received: by outflank-mailman (input) for mailman id 1249850;
- Tue, 10 Mar 2026 08:11:48 +0000
+	id 1vzsDL-0001AH-Tu; Tue, 10 Mar 2026 08:13:15 +0000
+Received: by outflank-mailman (input) for mailman id 1249858;
+ Tue, 10 Mar 2026 08:13:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S17i=BK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vzsBw-0000fn-Rr
- for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 08:11:48 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ id 1vzsDK-0001AB-52
+ for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 08:13:14 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c84a2640-1c58-11f1-9ccf-f158ae23cfc8;
- Tue, 10 Mar 2026 09:11:47 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- 5b1f17b1804b1-482f454be5bso126083895e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 01:11:46 -0700 (PDT)
+ id fb19602a-1c58-11f1-9ccf-f158ae23cfc8;
+ Tue, 10 Mar 2026 09:13:12 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-48534b59cf3so18509495e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 01:13:12 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48541b6f708sm74400015e9.11.2026.03.10.01.11.45
+ 5b1f17b1804b1-48536b5b3absm59710785e9.32.2026.03.10.01.13.10
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Mar 2026 01:11:45 -0700 (PDT)
+ Tue, 10 Mar 2026 01:13:11 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,51 +50,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c84a2640-1c58-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: fb19602a-1c58-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773130306; x=1773735106; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773130391; x=1773735191; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=bYPN/tGDDB2gNXEumQ56ibMZof+RWYgUy2Nmn53+I3Y=;
-        b=JY3zyUpPT/i6XUnjvkKfp4VbzxnW+lJdJX3sDPEcxOo4KlaGQzqN2GIlkihyO8bGXo
-         SyLgUmPCGA0JQGnGOKkemUfZVNNBNdu3aMj5kVPzzPG6DzW12yzgdwhTuOVZUMggeFeS
-         Biw0Xlgkc6sSvqhylVC93t8gYp9BtKLRnr4jFA1UHPC10c/YdPuEuEQ1P6QJ9FGm7Lzb
-         G6hbfOlyEuc8QvY8YjmlF7QYj3Ek4j6LDQp2BCsgjgH49mlba7O6darV7R+AfgWlLQqy
-         jjqtZMZOwDtJfTBey/Iic7dyqTDddFN7NlOPg6BWFh6e3TgT/ipHacF26sVQn5mbMd10
-         n+sg==
+        bh=6b7G87Vo157IaGbJCatI+989xIlbUVkO1fK/stTSOIA=;
+        b=BNL7HLb2TGQS3fWjfvZq3/XttHJGyo+FIjjAxsP4kRL02NKDWV0mDMDBh5hvXn4UYx
+         alXJ/44X2HVTvUGK6JxukECSKSE8xXwTVjYNi8y6qiJzzFqWgQzqiWJr7UMF+njbLfLa
+         mqtTTz+Qg4iebkn6MYPoasc8qqcozIu+G0+2qlFdLlhHCy7mtNU9bzoieSHXRuzEh31O
+         nYHdhUxaybumuuEEH2wSbLDJl/pdoEtkl7oR8iOhBFATMzn/Pw/XJnW5jeOwsNDpZOWs
+         H1Y+VvVsHzoztFtkK7dMD9ilM4mTBjxExSPNSyjvDCHQqiMNY2BGJtckELocwPUoQjx1
+         eJfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773130306; x=1773735106;
+        d=1e100.net; s=20230601; t=1773130391; x=1773735191;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bYPN/tGDDB2gNXEumQ56ibMZof+RWYgUy2Nmn53+I3Y=;
-        b=HfcyesLBKJEizqCebhjNM0SXddv9QZjrfCZDE9LKdYVGeTZFjPvYYxURskBgQ8e1bZ
-         VbOw994RzmsdvrkBq6LWXtdKO4omoSmXoDVFwf+kha8hE2MDm5zYI3wmRC25f53P+Qfc
-         BRJM29vvRfuHmIfqKw7q0RkongABAbD393CL5oujkU/9sXv5Hry5SnCowm0JxKKjTTLu
-         tYJY/9OkZTxBz8JZoZcIXmf9hOwfFH8lp0+Xbbhf9zDJulsoXMGYadHtIdEIECKxFndb
-         5urqF/CX3OAaj47TLMVSin6TGj9S6r3/LmRioGC+TLI9iAONSbr64ApyOKmynxbKYgF1
-         umyg==
-X-Forwarded-Encrypted: i=1; AJvYcCUc7ebjQOVUMlmbijtaC6buuipJD+12EqjN38CahVS4I4R2swDBv86feg1iJ83zSLF6NxfGq+3b1yU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxZUxtIh9bR1DqsRws0z3H0efKSFzyifHRCwUYXz+KtQzEEnmwt
-	oR1BZXOi6/kXyYxSx/GItMWb4EfBUYLWAfYK20U2mPqyxMaLlJ2OqPf9xMcOZE343w==
-X-Gm-Gg: ATEYQzxC3/sezy1HONkoAfj4ntJ4S/QQJgxAOt16ePSBoFuvAqNVfpPJ/SIG4az7U2U
-	KJuIkNPTpDyMhRmXCxSNaeYEqtWaDyAf6qzDSqb1OXCNaEcu4p5wpc9DTJyUUdr2LtGMZLUrccE
-	GQeQwe/PeyduaocRY1eGIB0/jk4lqE7t+0uS+7fcmlGDOFDjfDP0trRFWMJUNGeI/wUXQfX0ip/
-	60ps2q1mds/In8AsYX9d5SvQOYsWpTmsgBEedi2lbSC0REygrZROKpefQZyE3E7JKC/7nZKRw+l
-	Yt+yLhhh3py0b2zw9/oDArajtvGD1Tl2kDpTgUJAh8ki0MYL5HPt9B+ptJ9BbMBLr/iG3qVZEVe
-	lzLO7O6FPxQJRbieTRacPd5WtQIuBZhAfePWtADfEkruMN/NQWwvPTztrabQAznulx4Q8MeXAA7
-	Mr/SyKmEbnwXWowfZsSNFvdF4Bj+77hG01UpZ7TcM97OVEZ+Vas+YhmI0+zw/2C4NzoMr45Y3UG
-	J2KygwSWtKCL2M=
-X-Received: by 2002:a05:600c:1d89:b0:485:3c2e:60d5 with SMTP id 5b1f17b1804b1-485419a2774mr35770765e9.2.1773130306204;
-        Tue, 10 Mar 2026 01:11:46 -0700 (PDT)
-Message-ID: <2de7f459-00b3-4968-aaa2-9067cb0c4aa4@suse.com>
-Date: Tue, 10 Mar 2026 09:11:44 +0100
+        bh=6b7G87Vo157IaGbJCatI+989xIlbUVkO1fK/stTSOIA=;
+        b=pUSI+Ud45RlsXLfxDQPGQ6fYSLSz6IH7o2HIBSbb/KXkRdbL1qV7ynUnNzKAtqCEBE
+         bp/p68SDi2BQ8zj+6Ki11hVu+NO41X007lpOM8TctVMNLfOJ1NxID8WA1bLf/bUu6fWD
+         oGATCzvbYjwUxxeXtlJmrDL0nziDtatRXGb7+UlzZTAjtKINH8TtPg+b9d6LNWkji/rk
+         DZ3kp8djD8YaxDd9pP9RLUdvl01WYJ1lBttyjzlOarjkN60PrA1bMzRjBiMjxjR8McDi
+         QAgpM6c/sKvJqYFAPqAE1bdur8NQBIGctZnN5DiCFhpkx4FospbJBeM5MPAUwI6YCR95
+         ubtw==
+X-Forwarded-Encrypted: i=1; AJvYcCUYsnXhbra5PgQhdj+lE3f0564L1Ik18n3fh/Ykm4j2MxB86UoQobchOHA+j68j1j55IW19I+2BqJ0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxIESGy4pEHVtmOZFOo4lboJ0T/SuiXFe6DcaYyZHLYgJ5TETXa
+	QBQo5JpIxOLbrNyvqyydatzNxGd2MUt1VsSlJZ8KMYs45vorAasuf7MgYZ67WsFBWw==
+X-Gm-Gg: ATEYQzxyNsS9b9kM4OO+E3Gaa3T8dUrfDocJZAsLrOWBYWGUnisXwtFAv+XprJ1TFyX
+	iRS05GheGfEmX+AiEh0DS9Lr8+USaHFNyGUnSFUSPDF2xpeA2vmzPp0cN73rTzwvrq8YuJK82E8
+	YF+Ox9qV2mrlsuS71L3nVzgZVo/OkJAt/eX6RKDGK/1zU4oHPYFC3a3+N0AQJOgbnRnEqNRDSxc
+	5fpnDoeGcP/uU/5cmK9mIH9mADRIgLofRSqanBJrBae2j0bJYuL22fQ756cKz8+kyWc9uKfYU0Z
+	NcPUS41DCt/18x1EGIPZATgayMdQcHzqOfFXhckptNeyYLPjMAU6tbQoZYqIuWbP0MKV7JUMR5n
+	mINdesFn+SkfXsxfddc28Jo3D5pou17ve1fIKLNBH1IbX0NvX0y53LHBgZnHYDpNguVmWao/Sj0
+	IUGqgLUuIe0Eg8JSWZTdDQBveErd1Y0UEhttABDBCHs1ah3wKvdlUZd9DGRo1LLG/jb/t6btlL0
+	bF6GRRvNDqyZ/oASKSq7wULag==
+X-Received: by 2002:a05:600c:811a:b0:485:4535:73d with SMTP id 5b1f17b1804b1-4854535091fmr11150265e9.2.1773130391408;
+        Tue, 10 Mar 2026 01:13:11 -0700 (PDT)
+Message-ID: <794ecd76-29f3-464e-889b-b3800fda9cd9@suse.com>
+Date: Tue, 10 Mar 2026 09:13:10 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 01/14] xen/riscv: detect and store supported hypervisor
- CSR bits at boot
+Subject: Re: [PATCH v7 03/14] xen/riscv: introduce tracking of pending vCPU
+ interrupts, part 1
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -105,7 +105,7 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1772814110.git.oleksii.kurochko@gmail.com>
- <3201951150104f17593e16c7ba00ada51ac1e10f.1772814110.git.oleksii.kurochko@gmail.com>
+ <949104bf183688fa0416845fe7e3c19c2c5b2a2d.1772814110.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,10 +131,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <3201951150104f17593e16c7ba00ada51ac1e10f.1772814110.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <949104bf183688fa0416845fe7e3c19c2c5b2a2d.1772814110.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 6060E2470D2
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 3A402247158
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -173,134 +173,104 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 X-Rspamd-Action: no action
 
 On 06.03.2026 17:33, Oleksii Kurochko wrote:
-> Some hypervisor CSRs expose optional functionality and may not implement
-> all architectural bits. Writing unsupported bits can either be ignored
-> or raise an exception depending on the platform.
+> Based on Linux kernel v6.16.0.
+> Note that smp_wmb() is used instead of smp_mb__before_atomic() as what
+> we want to guarantee that if a bit in irqs_pending_mask is obversable
+> that the correspondent bit in irqs_pending is observable too.
 > 
-> Detect the set of writable bits for selected hypervisor CSRs at boot and
-> store the resulting masks for later use. This allows safely programming
-> these CSRs during vCPU context switching and avoids relying on hardcoded
-> architectural assumptions.
+> Add lockless tracking of pending vCPU interrupts using atomic bitops.
+> Two bitmaps are introduced:
+>  - irqs_pending — interrupts currently pending for the vCPU
+>  - irqs_pending_mask — bits that have changed in irqs_pending
 > 
-> Use csr_read()&csr_write() instead of csr_swap()+all ones mask as some
-> CSR registers have WPRI fields which should be preserved during write
-> operation.
+> The design follows a multi-producer, single-consumer model, where the
+> consumer is the vCPU itself. Producers may set bits in
+> irqs_pending_mask without a lock. Clearing bits in irqs_pending_mask is
+> performed only by the consumer via xchg(). The consumer must not write
+> to irqs_pending and must not act on bits that are not set in the mask.
+> Otherwise, extra synchronization should be provided.
 > 
-> Also, ro_one struct is introduced to cover the cases when a bit in CSR
-> register (at the momemnt, it is only hstateen0) may be r/o-one to have
-> hypervisor view of register seen by guest correct.
+> On RISC-V interrupts are not injected via guest registers, so pending
+> interrupts must be recorded in irqs_pending (using the new
+> vcpu_{un}set_interrupt() helpers) and flushed to the guest by updating
+> HVIP before returning control to the guest. The consumer side is
+> implemented in a follow-up patch.
 > 
-> Masks are calculated at the moment only for hedeleg, henvcfg, hideleg,
-> hstateen0 registers as only them are going to be used in the follow up
-> patch.
+> A barrier between updating irqs_pending and setting the corresponding
+> mask bit in vcpu_set_interrupt()/vcpu_unset_interrupt() guarantees
+> that if the consumer observes a mask bit set, the corresponding pending
+> bit is also visible. This prevents missed interrupts during the flush.
 > 
-> If the Smstateen extension is not implemented, hstateen0 cannot be read
-> because the register is considered non-existent. Instructions that attempt
-> to access a CSR that is not implemented or not visible in the current mode
-> are reserved and will raise an illegal-instruction exception.
+> It is possible that a guest could have pending bit in the hardware
+> register without being marked pending in irq_pending bitmap as:
+>   According to the RISC-V ISA specification:
+>     Bits hip.VSSIP and hie.VSSIE are the interrupt-pending and
+>     interrupt-enable  bits for VS-level software interrupts. VSSIP in hip
+>     is an alias (writable) of the same bit in hvip.
+>   Additionally:
+>     When bit 2 of hideleg is zero, vsip.SSIP and vsie.SSIE are read-only
+>     zeros. Else, vsip.SSIP and vsie.SSIE are aliases of hip.VSSIP and
+>     hie.VSSIE.
+> This means the guest may modify vsip.SSIP, which implicitly updates
+> hip.VSSIP and the bit being written with 1 would also trigger an interrupt
+> as according to the RISC-V spec:
+>   These conditions for an interrupt trap to occur must be evaluated in a
+>   bounded   amount of time from when an interrupt becomes, or ceases to be,
+>   pending in sip,  and must also be evaluated immediately following the
+>   execution of an SRET  instruction or an explicit write to a CSR on which
+>   these interrupt trap conditions expressly depend (including sip, sie and
+>   sstatus).
+> What means that IRQ_VS_SOFT must be synchronized separately, what is done
+> in vcpu_sync_interrupts(). Note, also, that IRQ_PMU_OVF would want to be
+> synced for the similar reason as IRQ_VS_SOFT, but isn't sync-ed now as
+> PMU isn't supported now.
+> 
+> For the remaining VS-level interrupt types (IRQ_VS_TIMER and
+> IRQ_VS_EXT), the specification states they cannot be modified by the guest
+> and are read-only because of:
+>   Bits hip.VSEIP and hie.VSEIE are the interrupt-pending and interrupt-enable
+>   bits for VS-level external interrupts. VSEIP is read-only in hip, and is
+>   the logical-OR of these interrupt sources:
+>     • bit VSEIP of hvip;
+>     • the bit of hgeip selected by hstatus.VGEIN; and
+>     • any other platform-specific external interrupt signal directed to
+>       VS-level.
+>   Bits hip.VSTIP and hie.VSTIE are the interrupt-pending and interrupt-enable
+>   bits for VS-level timer interrupts. VSTIP is read-only in hip, and is the
+>   logical-OR of hvip.VSTIP and any other platform-specific timer interrupt
+>   signal directed to VS-level.
+> and
+>   When bit 10 of hideleg is zero, vsip.SEIP and vsie.SEIE are read-only zeros.
+>   Else, vsip.SEIP and vsie.SEIE are aliases of hip.VSEIP and hie.VSEIE.
+> 
+>   When bit 6 of hideleg is zero, vsip.STIP and vsie.STIE are read-only zeros.
+>   Else, vsip.STIP and vsie.STIE are aliases of hip.VSTIP and hie.VSTIE.
+> and also,
+>   Bits sip.SEIP and sie.SEIE are the interrupt-pending and interrupt-enable
+>   bits for supervisor-level external interrupts. If implemented, SEIP is
+>   read-only in sip, and is set and cleared by the execution environment,
+>   typically through a platform-specific interrupt controller.
+> 
+>   Bits sip.STIP and sie.STIE are the interrupt-pending and interrupt-enable
+>   bits for supervisor-level timer interrupts. If implemented, STIP is
+>   read-only in sip, and is set and cleared by the execution environment
+> Thus, for these interrupt types, it is sufficient to use vcpu_set_interrupt()
+> and vcpu_unset_interrupt(), and flush them during the call of
+> vcpu_flush_interrupts() (which is introduced in follow up patch).
+> 
+> vcpu_sync_interrupts(), which is called just before entering the VM,
+> slightly bends the rule that the irqs_pending bit must be written
+> first, followed by updating the corresponding bit in irqs_pending_mask.
+> However, it still respects the core guarantee that the producer never
+> clears the mask and only writes to irqs_pending if it is the one that
+> flipped the corresponding mask bit from 0 to 1.
+> Moreover, since the consumer won't run concurrently because
+> vcpu_sync_interrupts() and the consumer path are going to be invoked
+> sequentially immediately before VM entry, it is safe to slightly relax
+> this ordering rule in vcpu_sync_interrupts().
 > 
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
 Acked-by: Jan Beulich <jbeulich@suse.com>
 
-I'll commit as-is, yet still a couple of remarks:
-
-> ---
-> Changes in V7:
->  - Use csr_read_set() in INIT_CSR_MASK() instead of csr_read()+csr_write().
->  - Add undef of INIT_CSR_MASK().
->  - Move local variable old above INIT_CSR_MASK().
-
-This contradicts ...
-
->  - Introduce INIT_RO_ONE_MASK() to init csr_masks.ro_one.* fields.
->  - Introduce defines for masks intead of constants.
->  - Move old variable inside macros INIT_CSR_MASK() and INIT_RO_ONE_MASK().
-
-... this. You may want to prune revlog entries when making incremental
-changes within one revision.
-
-> --- a/xen/arch/riscv/domain.c
-> +++ b/xen/arch/riscv/domain.c
-> @@ -2,9 +2,66 @@
->  
->  #include <xen/init.h>
->  #include <xen/mm.h>
-> +#include <xen/sections.h>
->  #include <xen/sched.h>
->  #include <xen/vmap.h>
->  
-> +#include <asm/cpufeature.h>
-> +#include <asm/csr.h>
-> +
-> +struct csr_masks {
-> +    register_t hedeleg;
-> +    register_t henvcfg;
-> +    register_t hideleg;
-> +    register_t hstateen0;
-> +
-> +    struct {
-> +        register_t hstateen0;
-> +    } ro_one;
-> +};
-> +
-> +static struct csr_masks __ro_after_init csr_masks;
-> +
-> +#define HEDELEG_AVAIL_MASK ULONG_MAX
-> +#define HIDELEG_AVAIL_MASK ULONG_MAX
-> +#define HENVCFG_AVAIL_MASK _UL(0xE0000003000000FF)
-> +#define HSTATEEN0_AVAIL_MASK _UL(0xDE00000000000007)
-
-It's not quite clear to me what AVAIL in here is to signal. It's also not
-quite clear to me why you would use _UL() in #define-s sitting in a C file
-(and hence not possibly being used in assembly code; even for asm() I'd
-expect constants to be properly passed in as C operands).
-
-> +void __init init_csr_masks(void)
-> +{
-> +    /*
-> +     * The mask specifies the bits that may be safely modified without
-> +     * causing side effects.
-> +     *
-> +     * For example, registers such as henvcfg or hstateen0 contain WPRI
-> +     * fields that must be preserved. Any write to the full register must
-> +     * therefore retain the original values of those fields.
-> +     */
-> +#define INIT_CSR_MASK(csr, field, mask) do { \
-> +        register_t old = csr_read_set(CSR_##csr, mask); \
-> +        csr_masks.field = csr_swap(CSR_##csr, old); \
-> +    } while (0)
-> +
-> +#define INIT_RO_ONE_MASK(csr, field, mask) do { \
-> +        register_t old = csr_read_clear(CSR_HSTATEEN0, mask); \
-> +        csr_masks.ro_one.field = csr_swap(CSR_##csr, old) & mask; \
-> +    } while (0)
-> +
-> +    INIT_CSR_MASK(HEDELEG, hedeleg, HEDELEG_AVAIL_MASK);
-> +    INIT_CSR_MASK(HIDELEG, hideleg, HIDELEG_AVAIL_MASK);
-> +
-> +    INIT_CSR_MASK(HENVCFG, henvcfg, HENVCFG_AVAIL_MASK);
-> +
-> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_smstateen) )
-> +    {
-> +        INIT_CSR_MASK(HSTATEEN0, hstateen0, HSTATEEN0_AVAIL_MASK);
-> +        INIT_RO_ONE_MASK(HSTATEEN0, hstateen0, HSTATEEN0_AVAIL_MASK);
-> +    }
-
-The 3rd macro parameters are now redundant. At the example of INIT_CSR_MASK(),
-you could now have
-
-#define INIT_CSR_MASK(csr, field) do { \
-        register_t old = csr_read_set(CSR_ ## csr, csr ## _AVAIL_MASK); \
-        csr_masks.field = csr_swap(CSR_ ## csr, old); \
-    } while (0)
-
-This would reduce the risk of incomplete editing after copy-and-paste, or
-other typo-ing.
-
-Note also that ## being a binary operator, ./CODING_STYLE wants us to put
-blanks around it just like for non-pre-processor binary operators. I'll
-try to remember to make that adjustment when committing.
-
-Jan
 
