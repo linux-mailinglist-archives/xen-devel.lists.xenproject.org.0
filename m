@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UHOtFnNSsGmBiAIAu9opvQ
+	id IEU0AnZSsGmBiAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:18:43 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:18:46 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1188B255616
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:18:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1250566.1548061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B063925562B
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:18:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1250569.1548074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w00j7-0005Sz-9q; Tue, 10 Mar 2026 17:18:37 +0000
+	id 1w00j8-0005tj-Gs; Tue, 10 Mar 2026 17:18:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1250566.1548061; Tue, 10 Mar 2026 17:18:37 +0000
+Received: by outflank-mailman (output) from mailman id 1250569.1548074; Tue, 10 Mar 2026 17:18:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w00j7-0005PW-4b; Tue, 10 Mar 2026 17:18:37 +0000
-Received: by outflank-mailman (input) for mailman id 1250566;
- Tue, 10 Mar 2026 17:18:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w00j8-0005pe-DE; Tue, 10 Mar 2026 17:18:38 +0000
+Received: by outflank-mailman (input) for mailman id 1250569;
+ Tue, 10 Mar 2026 17:18:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eHsH=BK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1w00aK-0001QA-7F
- for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 17:09:32 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e6f7f498-1ca3-11f1-9ccf-f158ae23cfc8;
- Tue, 10 Mar 2026 18:09:30 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-4853c3c2fe7so15292575e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 10:09:30 -0700 (PDT)
+ id 1w00aL-0001Q4-H7
+ for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 17:09:33 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e7a07e20-1ca3-11f1-b164-2bf370ae4941;
+ Tue, 10 Mar 2026 18:09:31 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ 5b1f17b1804b1-4852c9b4158so28934155e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 10:09:31 -0700 (PDT)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-485359bf807sm119619845e9.2.2026.03.10.10.09.28
+ 5b1f17b1804b1-485359bf807sm119619845e9.2.2026.03.10.10.09.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Mar 2026 10:09:29 -0700 (PDT)
+ Tue, 10 Mar 2026 10:09:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,42 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e6f7f498-1ca3-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: e7a07e20-1ca3-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773162570; x=1773767370; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1773162571; x=1773767371; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PGO25D+/JyzUb694KNoTgwesllMgu7ATeYdD4+csfDI=;
-        b=I0lz8oGkbbdeJGgWF9PwMsPmHrpY0GCoFGgJDiD2sdYkbgaY0pSwBAtBYUYf+DGP+C
-         K/3A+OLTqwP0hkmTMLF1Ffv3Wi6ZElGjtw0hQx+SW2Ba3p2iMXugH8vB18TNY+3JI7dm
-         Z3OalrbQYz/z+xtylwSxOu2bp5cK7wvIgefKq3ffW3ocaCG5ppC6OY50O8nZV9vyEPGf
-         Xa8Oxc/4fylJep3spoLUnIc7Or/hrVijt7UqHXGZAeJXOJ8uA8+hwFjvZBdtzyJjLpAy
-         Mp95IJT4Jje6kfojOzAB8bHldDTskmrqw9j7G2JCxE4X3NBXYkExhhjEayfgP9ZMRlBc
-         OBqg==
+        bh=hH9znhbJsO7IzrzhoOYnrjac5Z3LLI2ieI1hChueBHI=;
+        b=Y4DkD/FJ6idyy/ETSIEB3Lce9eUGQw5qOmA5brIy9bFsihE5ZkKdJivL5KOxB3BaeX
+         SQ0fBpcbDGKb+qltfLu6uqgQMOlYBJr7VfCJ9SCwBET2c7s6k4L9/e2MEtAtvjoKrR4s
+         xXj6GLQGX2pd9W4cPwHj+NNBZUIzP//YY0s6ugNpHuIOVtoQmTAcBdG40mNU8QbAsBr9
+         tJUV2gKNyw07ofkZy9hc2sNUjKjMJLU7nC7eFh3ZZz+Zu0Jqn3xmd2PgJn3MH8MOxxr+
+         AFnXIfHCRd0eAm97JNB/vYubKihg7X7tqcXBKxeoDAoRNDa+FKwSQU9s9OIt+b3CobW0
+         47LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773162570; x=1773767370;
+        d=1e100.net; s=20230601; t=1773162571; x=1773767371;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=PGO25D+/JyzUb694KNoTgwesllMgu7ATeYdD4+csfDI=;
-        b=fmYgzj2kIrHOCJGG2/Ri5gsyFMqw7nYudkZhXZHPcTFoz7Q1vJ0TncRSDFhvKEorZX
-         dWdX7flMheowGoUAMSqfLIW0BD6wNE19/gVNvtFJo60QHgsIEzYa8h0asWeM85EHFwH3
-         ldU8EKXu+SD15qsqtNyDBMW3/heUYZlIm45Z1JzQzp/dxAIhxFIvYNR3GQ3RW2cBknm9
-         6Slkh6HPzbD6+tx8P093QEyQ6ga0VFbZTze+Hgjw4T53IowHoBqkUxGuB6QrS/Lamxou
-         5ZWIcFaumiq9G9fOKM3BT5l1IhW6dSfVoOSho2aZRKITFv8tVNOwv54BGnNB5WhVIIm2
-         uxbg==
-X-Gm-Message-State: AOJu0YxrsPJq9Z/i5TXKSrAK4hY3KMw5iIiTxbep+0FbdxWZ3cJri1t9
-	YuiVcf6/1AJ7YP1c6swCHKXc3CeTZ+4Av8OtqiUy6wUn4b0M5eQXrROQmAcwv4EZ
-X-Gm-Gg: ATEYQzwiwv45qjKiZv7EbveW/SoKohK2W45z9knRZfXknbLFItEyNJHGB3vTyF+3W72
-	CpiVq3rO1dd+MbRcHnFz6Vnmj7qChUYYv4PYoi9+LROc/JYjmhUEGxBJCYzwJWHgzPY4e7RUsnl
-	uKOLAlANTXREm+PWSAG0e4i9P3SwJ4h4VQP0gfr5KdewTNWH4Q0jRviEu6ThLiBDRpIiSo7nI0j
-	HcBM45bGjB6SUWBkxDJytQLgixNakBYpfyZxjU3k/PjvpBcp8J2yORHrh0Z0AE704PwLDMn0EZR
-	ytLUxSFM6PIn+VQvKlBKw7DxN7uN6lMMBerNDG2DrZztPqlVJjO68Iqo2ci3NbCnjdSjwsO9fa6
-	fBghiTf+Gnu2RpA0y3YRoVwm0eq6fLkAtlEGbkU0D4iU5c71P+yvzSKIlIrNLD+JZy8JAn3Lb9C
-	tThXcBUYEa8+/r8ECDPE9hU4fWsfysW570fV7vD1c9WjoRpPSkjkR1D9Z4nHOr9FjATA==
-X-Received: by 2002:a05:600c:8b67:b0:485:4371:539a with SMTP id 5b1f17b1804b1-485437154e5mr59713625e9.31.1773162569788;
-        Tue, 10 Mar 2026 10:09:29 -0700 (PDT)
+        bh=hH9znhbJsO7IzrzhoOYnrjac5Z3LLI2ieI1hChueBHI=;
+        b=s5bIpSPsmRDMnARCaWBRrBfgJ7kiKLqVfkgygy+f4vsIql46lN0tUGh85UbxzBkHcM
+         H4GC/RLg4Fiuwb1ctU6iSd245i/sOowycwTjlRQAnIh8WGQ8hvC2hB4EGfZT3W55Yeoq
+         NYsXcqGaMVeyUUyYMSOGgVsCq+98Cs9J6LNWL7oF6vp4DQMKMB1fQGMql95P7QDr7mUt
+         A83abdLLH4xjM9df3QiOTunTrXRqQ2HeH92tlUCgrtBIMcT24ygzSICFV9VksGZ6mSNt
+         c6G0B6Juc+wGFoJ6hzOjFuQ6ri8JW+jBZrLwFPANEPq1+N4GSTVsYrJwLk5Vea5jBV6Z
+         n5hQ==
+X-Gm-Message-State: AOJu0YzXHUVXdt6ffDH5Zma2zKtV5EEJ+6aCOZ0y4WGDOMN8keEm+6ms
+	4oExoqL05jtpzH84MVngwK9diCZ8eJIp5RHB0lgHLl/mrMj+XfcFSXX6D06hMZR8
+X-Gm-Gg: ATEYQzzzPkY4PTwqAcym4km0sRIM7X4QhNVdyN7qvxKjyVRS0gB9mtyU0PI7SB+DdWa
+	I+/7qmRwQUOye3njOV/DRQRFirWK1QLeGlU62Ywj6Xo8TNm8lT53S77z6zXfP22Wz30I3zfXQdk
+	X3thEGSgoXAsb1PgEcyMYCUYtMqjvpglSTWaebSNuaMwG71uqbu6UoRXmhwzFnGWrawrBeSXqYp
+	OCihTGWPjNjW83gEe4UZNAxkUCh4xhmQePyOINiXwFKuRYgO3xAnbWvBUnXEYwmR7tejQhoEugB
+	q1KghQHiiN/c53sqjEmJvo/NaEluMNn4zf7WsqwwYLe6JfZVLS6UHqJykaeTc8PC4oHbNr2peMw
+	A8TFuqljC57yyZk8AXtgl1W3tXUb2N5uxtspaDDpqLg/z7PYvVGPtDi8aA2+xqrCKsAqAIrWhLz
+	LB+aJTin3SZPZ+XvPbsGBYG4XzGiEVyLOQBmlbv0FXXu4iDrPWR+lzFU1yb0dpK2165zjNlQ==
+X-Received: by 2002:a05:600c:8707:b0:485:3ff1:d5c3 with SMTP id 5b1f17b1804b1-4853ff1d6a6mr122929915e9.5.1773162570910;
+        Tue, 10 Mar 2026 10:09:30 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -99,15 +99,15 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 17/27] xen/riscv: add missing APLIC register offsets, masks to asm/aplic.h.
-Date: Tue, 10 Mar 2026 18:08:50 +0100
-Message-ID: <2097fefb49fca36f641ddd7d7fb31e796a03619e.1773157782.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 18/27] xen/riscv: add vaplic access check
+Date: Tue, 10 Mar 2026 18:08:51 +0100
+Message-ID: <0fc9adf790d4f981e8117bd9759c7e64bb11e439.1773157782.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1773157782.git.oleksii.kurochko@gmail.com>
 References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 1188B255616
+X-Rspamd-Queue-Id: B063925562B
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -147,72 +147,78 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-These definitions are required for correct decoding of APLIC MMIO
-accesses and target configuration, and will be used by both the
-physical and virtual APLIC implementations.
+Provide a mechanism for the virtual APLIC to determine whether a guest
+access targets the physical APLIC MMIO region.
 
-No functional change is intended by this patch; it only centralises
-hardware definitions that were previously missing.
+This is required to correctly identify and route guest APLIC accesses.
 
 Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/include/asm/aplic.h | 35 ++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ xen/arch/riscv/aplic.c            |  1 +
+ xen/arch/riscv/include/asm/intc.h |  3 +++
+ xen/arch/riscv/vaplic.c           | 15 +++++++++++++++
+ 3 files changed, 19 insertions(+)
 
-diff --git a/xen/arch/riscv/include/asm/aplic.h b/xen/arch/riscv/include/asm/aplic.h
-index 55cd4a128de7..7e9161d98ceb 100644
---- a/xen/arch/riscv/include/asm/aplic.h
-+++ b/xen/arch/riscv/include/asm/aplic.h
-@@ -17,6 +17,11 @@
+diff --git a/xen/arch/riscv/aplic.c b/xen/arch/riscv/aplic.c
+index e139946a05a0..754b444a2a13 100644
+--- a/xen/arch/riscv/aplic.c
++++ b/xen/arch/riscv/aplic.c
+@@ -38,6 +38,7 @@ static struct aplic_priv aplic = {
  
- #define APLIC_NUM_REGS 32
+ static struct intc_info __ro_after_init aplic_info = {
+     .hw_version = INTC_APLIC,
++    .private = &aplic,
+ };
  
-+#define APLIC_REG_OFFSET_MASK   0x3FFF
-+#define APLIC_TARGET_IPRIO_MASK 0xFF
-+#define APLIC_TARGET_GUEST_IDX_SHIFT 12
-+#define APLIC_TARGET_EIID_MASK  0x7FF
-+
- #define APLIC_DOMAINCFG_IE      BIT(8, U)
- #define APLIC_DOMAINCFG_DM      BIT(2, U)
+ static void __init aplic_init_hw_interrupts(void)
+diff --git a/xen/arch/riscv/include/asm/intc.h b/xen/arch/riscv/include/asm/intc.h
+index 76d2fd09cb8b..e6b6c179415a 100644
+--- a/xen/arch/riscv/include/asm/intc.h
++++ b/xen/arch/riscv/include/asm/intc.h
+@@ -25,6 +25,9 @@ struct intc_info {
  
-@@ -27,6 +32,36 @@
- #define APLIC_SOURCECFG_SM_LEVEL_HIGH   0x6
- #define APLIC_SOURCECFG_SM_LEVEL_LOW    0x7
+     /* number of irqs */
+     unsigned int num_irqs;
++
++    /* private data pointer of the interrupt controller */
++    void *private;
+ };
  
-+#define APLIC_DOMAINCFG         0x0000
-+#define APLIC_SOURCECFG_BASE    0x0004
-+#define APLIC_SOURCECFG_LAST    0x0FFC
-+
-+#define APLIC_SMSICFGADDR       0x1BC8
-+#define APLIC_SMSICFGADDRH      0x1BCC
-+
-+#define APLIC_SETIP_BASE        0x1C00
-+#define APLIC_SETIP_LAST        0x1C7C
-+#define APLIC_SETIPNUM          0x1CDC
-+
-+#define APLIC_CLRIP_BASE        0x1D00
-+#define APLIC_CLRIP_LAST        0x1D7C
-+#define APLIC_CLRIPNUM          0x1DDC
-+
-+#define APLIC_SETIE_BASE        0x1E00
-+#define APLIC_SETIE_LAST        0x1E7C
-+#define APLIC_SETIENUM          0x1EDC
-+
-+#define APLIC_CLRIE_BASE        0x1F00
-+#define APLIC_CLRIE_LAST        0x1F7C
-+#define APLIC_CLRIENUM          0x1FDC
-+
-+#define APLIC_SETIPNUM_LE       0x2000
-+
-+#define APLIC_GENMSI            0x3000
-+
-+#define APLIC_TARGET_BASE       0x3004
-+#define APLIC_TARGET_LAST       0x3FFC
-+
- #define APLIC_TARGET_HART_IDX_SHIFT 18
+ struct intc_hw_operations {
+diff --git a/xen/arch/riscv/vaplic.c b/xen/arch/riscv/vaplic.c
+index 0c69f087cf4d..82e74a609ee6 100644
+--- a/xen/arch/riscv/vaplic.c
++++ b/xen/arch/riscv/vaplic.c
+@@ -127,6 +127,20 @@ int vaplic_map_device_irqs_to_domain(struct domain *d,
+     return 0;
+ }
  
- struct aplic_regs {
++static int cf_check vaplic_is_access(const struct vcpu *vcpu,
++                                     const unsigned long addr)
++{
++    const struct vaplic *vaplic = to_vaplic(vcpu->domain->arch.vintc);
++    const struct aplic_priv *priv = vaplic->base.info->private;
++    const paddr_t paddr_end = priv->paddr_start + priv->size;
++
++    /* check if it is an APLIC access */
++    if ( priv->paddr_start <= addr && addr < paddr_end )
++        return 1;
++
++    return 0;
++}
++
+ static int __init cf_check vcpu_vaplic_init(struct vcpu *v)
+ {
+     int rc = 0;
+@@ -143,6 +157,7 @@ static int __init cf_check vcpu_vaplic_init(struct vcpu *v)
+ static const struct vintc_ops vaplic_ops = {
+     .vcpu_init = vcpu_vaplic_init,
+     .map_device_irqs_to_domain = vaplic_map_device_irqs_to_domain,
++    .is_access = vaplic_is_access,
+ };
+ 
+ static struct vintc * __init vaplic_alloc(void)
 -- 
 2.53.0
 
