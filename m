@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GD8rMlJQsGnFhgIAu9opvQ
+	id uO1/KjRSsGmBiAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:38 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:17:40 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 773232554CB
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1250402.1547969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EADD2555C5
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:17:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1250499.1547992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w00aJ-0004yr-36; Tue, 10 Mar 2026 17:09:31 +0000
+	id 1w00i0-0001uP-2e; Tue, 10 Mar 2026 17:17:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1250402.1547969; Tue, 10 Mar 2026 17:09:30 +0000
+Received: by outflank-mailman (output) from mailman id 1250499.1547992; Tue, 10 Mar 2026 17:17:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w00aI-0004s7-K3; Tue, 10 Mar 2026 17:09:30 +0000
-Received: by outflank-mailman (input) for mailman id 1250402;
- Tue, 10 Mar 2026 17:09:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w00hz-0001sf-VO; Tue, 10 Mar 2026 17:17:27 +0000
+Received: by outflank-mailman (input) for mailman id 1250499;
+ Tue, 10 Mar 2026 17:17:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eHsH=BK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1w00aG-0001Q4-SQ
- for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 17:09:28 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e57a1eca-1ca3-11f1-b164-2bf370ae4941;
- Tue, 10 Mar 2026 18:09:28 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-48534b59cf3so23997145e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 10:09:28 -0700 (PDT)
+ id 1w00aJ-0001QA-9q
+ for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 17:09:31 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e635720d-1ca3-11f1-9ccf-f158ae23cfc8;
+ Tue, 10 Mar 2026 18:09:29 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ 5b1f17b1804b1-48539d21b76so20305135e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 10:09:29 -0700 (PDT)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-485359bf807sm119619845e9.2.2026.03.10.10.09.26
+ 5b1f17b1804b1-485359bf807sm119619845e9.2.2026.03.10.10.09.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Mar 2026 10:09:26 -0700 (PDT)
+ Tue, 10 Mar 2026 10:09:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,42 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e57a1eca-1ca3-11f1-b164-2bf370ae4941
+X-Inumbo-ID: e635720d-1ca3-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773162567; x=1773767367; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1773162569; x=1773767369; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RQUbsjGqpyJLaNssEnVD+AE4bLsCeyAg53aMfThr8Pc=;
-        b=aJE7+K0BbJsUvk1B1xX1Istj/kPDTotAGS6MqmEnPDM6IyYxmrq/qCAcSFCpIZLU5V
-         aeBci1Zrh92xcvw/OLEJeNnmM3vfcnhZ1JSC2Lux2tW9oFF/e0lgOvQzkRRZvdSGQ4u/
-         c+9PwLGbmYhYlhSAIsWUgir0fn3ElCUfZSimndynWdCAYyR00WQ1PxO49yo75zfxb5k6
-         H1rrtaJ5cyX+FC+jAPSlTrocRvfU8szxjqXptUzwd91yKBtUVfm+vG25ysFWl3GMoBYr
-         hYqE/SLV30xgNlDyUSKZ4azsa8QwtdQSb0cAG1O8J3P05g2+QpbBcakLVmcLSfoswHOR
-         2HPg==
+        bh=1QzhisNeEOl5GG/axHTaY1VrOGJ87S7KPahT63K4FL0=;
+        b=QRnE/YbuQxS5aJsCV1+VHm3IC/UsB81S8opwqaYiMnl3i672gr5xq3uwdlCOzBOaHR
+         HzEAe7scP69C2TpkeCRcpAwSZkj2qlea0fdUReJARKMwivOnu1QPubvlHIws9SBO7A6m
+         ll1TAX5d7wHh7VA+ihPtpsJOoO7ud3BQmaBlobhUeC41cKAYhltGByFIqS0kanz0VDTM
+         vW9Dbwg5JO3mhYWWenjb1bbRdCy4euHUot+8tzidopxZ0388Q9GwK0i0Hw6qhcRiKUTN
+         yvp/9CK063/uTOaxKU4+FA550XTu7mHht1eVgRN552Ck+k45H+jx3WNOLEy1CzagNCdr
+         kyTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773162567; x=1773767367;
+        d=1e100.net; s=20230601; t=1773162569; x=1773767369;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=RQUbsjGqpyJLaNssEnVD+AE4bLsCeyAg53aMfThr8Pc=;
-        b=ksmbL+54lHEsE0iM6G4Jb5laaA6XXFJXJGtyd2SqnfUoJJVG9dbjXqTX1zO8DxVpBh
-         l7XGTLIGu4HWHV8NlyEGrv6w7xKxoBKkp8dFtl+sps4NL5vKHpDb0o9itohjT5vQ1bNv
-         b9Jk89keU56BZkHzNwGVXfadzEzs/6XvP86RgJPlI/BT9i+mkHilMNv2RtGmDbTVdqRH
-         boB4+zgdIE0DCtJHocN9rl1atWnFVfketcY5VDsbAZmvlxRqkX8BAcSRwnqXiXzvolXw
-         7xUsDZjTjKZ7YxKrpOzTeEbiJW00Wk2P+LR0yjoPQMBPk3ousICy967ycAGI1iwev18H
-         9nDw==
-X-Gm-Message-State: AOJu0YygSFzMmw78j0HpEomguvy+0rzSEAuo8T/lc35ecv/u2uopoKQM
-	IjbCyPdGZqOvfs6TymaqbFUqJSSX1KQbhGG3OO2llIJ+dNF2vKUCjBvleYQdDLV8
-X-Gm-Gg: ATEYQzxuCZ/WCOLt8P7p2vtxyZLhi5CXJw1750jTpnF742lxp8+ytoRopOhdIzk6ksZ
-	fREDoxqLx2UCLYywB/PkNhyWEDyRZcxsBkE8TaejjYGnbsjXfVzudojOBwckoKO1i6DbQt3BTdV
-	ej4E9+tMY6sxELwknHQFaZDwqG0R81Yo/F0+JCUsxpImtmuRff68pv7rlpjvDDolZoIVC7JCCmz
-	KWfBwmMeDOuVzdzA87TENu/2zEeVp0yz3kOaqhlPmpWTXtjiBwMWxqmKjzNNpgKbUhuw8Snd0KH
-	1jZ7z2IUF3zQYNkLPZUpvxfvII2MiwOV13SAwGfGgQJwcVhZjU0FF4/cLFI7H4nH0Ajq32SvxDJ
-	jC/yP4p3m3uiOhZvK+ez9e4POxktRkdvKdObkS43JvX8QW5UqZl/S6pv5PAfuZLVyrdvY/3pOuf
-	2FD73PPZiqAQ2b3upWgj5HboPBV/nPkR0y8Fp1f0vJd8rf47kg3/Zrt/SX8aMRqzG2sw==
-X-Received: by 2002:a05:600c:8b86:b0:485:3473:d4a1 with SMTP id 5b1f17b1804b1-4853473d6dcmr167697795e9.34.1773162567282;
-        Tue, 10 Mar 2026 10:09:27 -0700 (PDT)
+        bh=1QzhisNeEOl5GG/axHTaY1VrOGJ87S7KPahT63K4FL0=;
+        b=uHhY1BSJcVMoHtrsi6XEY0VoUuRNenbTaAz593RRwsg+H3Znb8gj8Qlw1uGQJV5yU6
+         mPvpcA1DWm0OamktGw99yTDsWtx5yyk6HUyfLBJtNlZZONmyAmD29hEktzpXJIBrsERi
+         ARAoxDF24ZvQBVBrhd6ofWQ+NA5Qz087di6RS/QuFJhVg8frSkk9W2F/0Mq0PJo0Sm1f
+         K5BnYBie7IofBFf6BlEliWGhAwfQeujqss7KmgeGr0vye6ebT5Y5d9xSKCFcR7jI54Vh
+         OOOJyCTUaYbEOmSZGsS3dLqnmS3MJrXd59g+gsk+K/BUYqhytwNs+/H5Vh1JNdORSkTc
+         r6kQ==
+X-Gm-Message-State: AOJu0YwUjtVCh53HhmnBe9NzB1H9p2gVx2NwP+o51D3ElOjTAINqB1c5
+	IpAInqJZFqLx2WdPOaDTqEgBEXotpNTs81gxm8t1Z3WbgIYXh/atgEVKv2nOOgou
+X-Gm-Gg: ATEYQzybt1JojwHVHE5NESSNSDv6kr2dKw59Ge+Lq6sbMAIzu4k5URkk1oNlt/TZ+gs
+	D1Bl4RW/qAEs4d+sb1PHA7rnh4NC9rRRhmYafay0oYuUrNZlQ+7pBB9VATgUSM5N5EOkN9Yy9J8
+	VWwVzH4EnbDexnUj8gvkhlA2GNw0L3kfSgIoZET5VDPnmCIx0EAIpp4JozMClpXdmk6IRK89abc
+	3FpiJppI5shIkgUpwW+KcJ/SFa1Ci60UJS+lcv9GeWCHtT2LIkD/hdzgKZ752qYUr74xgTrPsaq
+	JLYHVNuF+7PuDoRpaidzhj00mqEyM0o8/KsZZ76+KxnpMVPz9hlzHrPWWNYXRGxs5HzDazY+YbJ
+	7ZbHdfpGRu7aBJN8zfzPEMKZ05JwmSf3NtVKTiS1cGSvZ79n2o4RRXaPF0zUhRnm4qXiJf+FP6r
+	xg/0E8AmWEBX8oSYH/HeprzQwBKVJsZ+KGCuzz/LcgteOiZIstg6sfEEEsgf5EcSmSPA==
+X-Received: by 2002:a05:600c:8719:b0:485:39d1:b4ca with SMTP id 5b1f17b1804b1-48539d1bb25mr151543855e9.9.1773162568498;
+        Tue, 10 Mar 2026 10:09:28 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -99,22 +99,22 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 15/27] xen/riscv: add very early virtual APLIC (vAPLIC) initialization support
-Date: Tue, 10 Mar 2026 18:08:48 +0100
-Message-ID: <e8bcf5618a19fb44d4391410f2f67ffd98a96647.1773157782.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 16/27] xen/riscv: implement IRQ mapping for device passthrough
+Date: Tue, 10 Mar 2026 18:08:49 +0100
+Message-ID: <10654a6c38fa929b5fdf6f214badfe4f60fe78d4.1773157782.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1773157782.git.oleksii.kurochko@gmail.com>
 References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 773232554CB
+X-Rspamd-Queue-Id: 1EADD2555C5
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -126,12 +126,12 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCPT_COUNT_TWELVE(0.00)[12];
 	FORWARDED(0.00)[mailman];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,gmail.com,wdc.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org];
 	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,gmail.com,wdc.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[microchip.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
@@ -147,264 +147,293 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-At the current development stage, only domain vINTC init and deinit
-operations are required, so implement those first.
+Add initial support for assigning device interrupts to domains in
+dom0less configurations.
 
-Initialize vAPLIC's domaincfg to with the interrupt-enable bit set and
-MSI delivery mode selected as the current solution is exepcted to have
-always IMSIC, and initialize vintc->ops.
+IRQs described in the device tree are retrieved and authorized for
+the target domain. Interrupts that are not connected to the primary
+interrupt controller (at the momemnt, I haven't seen the platform
+with secondary interrupt controller) are ignored, and IRQs already
+assigned to another domain are rejected to prevent sharing.
 
-Other operations such as emulate_load(), emulate_store(), and is_access()
-will be needed once guests are running and MMIO accesses to APLIC MMIO
-range must be handled. These will be introduced separately later.
-
-Introduce a structure to describe a virtual interrupt controller (vINTC)
-and a vintc_ops structure, which provides operations to emulate load and
-store accesses to interrupt controller MMIOs and to check whether a given
-address falls within the MMIO range of a specific virtual interrupt
-controller.
-
-The vAPLIC implementation of these operations will be provided later
-once guests can be run and these operations are actually needed.
-
-Introduce these structures here as they are required for the implementation
-of domain_vaplic_init() and domain_vaplic_alloc(). Also, introduce
-vcpu_vaplic_init() and init vintc_ops->vcpu_init() with it.
-
-Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/Makefile             |  1 +
- xen/arch/riscv/domain.c             | 11 ++---
- xen/arch/riscv/include/asm/domain.h |  2 +
- xen/arch/riscv/include/asm/intc.h   | 14 ++++++
- xen/arch/riscv/include/asm/vaplic.h | 36 ++++++++++++++
- xen/arch/riscv/intc.c               |  1 +
- xen/arch/riscv/vaplic.c             | 74 +++++++++++++++++++++++++++++
- 7 files changed, 131 insertions(+), 8 deletions(-)
- create mode 100644 xen/arch/riscv/include/asm/vaplic.h
- create mode 100644 xen/arch/riscv/vaplic.c
+For better undesrstanding how   auth_irq_bmp[] is going to be used
+it is also introduced two extra patches which are going after this.
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index d772b42386c0..b9941a230e03 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -24,6 +24,7 @@ obj-y += smpboot.o
- obj-y += stubs.o
- obj-y += time.o
- obj-y += traps.o
-+obj-y += vaplic.o
- obj-y += vmid.o
- obj-y += vm_event.o
- obj-y += vsbi/
-diff --git a/xen/arch/riscv/domain.c b/xen/arch/riscv/domain.c
-index 515735b32e30..560b21b16ffb 100644
---- a/xen/arch/riscv/domain.c
-+++ b/xen/arch/riscv/domain.c
-@@ -11,6 +11,7 @@
- #include <asm/bitops.h>
- #include <asm/cpufeature.h>
- #include <asm/csr.h>
-+#include <asm/intc.h>
- #include <asm/riscv_encoding.h>
- #include <asm/vtimer.h>
+They aren't really needed now as this code will be used when guest
+will be ran, but it improves understanding and it in general can
+go with this patch series.
+---
+---
+ xen/arch/riscv/include/asm/aplic.h |   2 +
+ xen/arch/riscv/include/asm/intc.h  |  12 +++
+ xen/arch/riscv/include/asm/setup.h |  17 ++++
+ xen/arch/riscv/intc.c              |   8 ++
+ xen/arch/riscv/vaplic.c            | 124 ++++++++++++++++++++++++++++-
+ 5 files changed, 162 insertions(+), 1 deletion(-)
+
+diff --git a/xen/arch/riscv/include/asm/aplic.h b/xen/arch/riscv/include/asm/aplic.h
+index b0724fe6f360..55cd4a128de7 100644
+--- a/xen/arch/riscv/include/asm/aplic.h
++++ b/xen/arch/riscv/include/asm/aplic.h
+@@ -15,6 +15,8 @@
  
-@@ -154,14 +155,8 @@ int arch_vcpu_create(struct vcpu *v)
-     if ( (rc = vcpu_vtimer_init(v)) )
-         goto fail;
+ #include <asm/imsic.h>
  
--    /*
--     * As interrupt controller (IC) is not yet implemented,
--     * return an error.
--     *
--     * TODO: Drop this once IC is implemented.
--     */
--    rc = -EOPNOTSUPP;
--    goto fail;
-+    if ( (rc = v->domain->arch.vintc->ops->vcpu_init(v)) )
-+        goto fail;
- 
-     return rc;
- 
-diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
-index bdb1ffd748c9..21a3e6876f36 100644
---- a/xen/arch/riscv/include/asm/domain.h
-+++ b/xen/arch/riscv/include/asm/domain.h
-@@ -98,6 +98,8 @@ struct arch_domain {
-     struct paging_domain paging;
- #endif
- 
-+    struct vintc *vintc;
++#define APLIC_NUM_REGS 32
 +
-     /* Next unused device tree phandle number */
-     uint32_t next_phandle;
- };
+ #define APLIC_DOMAINCFG_IE      BIT(8, U)
+ #define APLIC_DOMAINCFG_DM      BIT(2, U)
+ 
 diff --git a/xen/arch/riscv/include/asm/intc.h b/xen/arch/riscv/include/asm/intc.h
-index 8300d71d472f..c5a869db8bc5 100644
+index c5a869db8bc5..76d2fd09cb8b 100644
 --- a/xen/arch/riscv/include/asm/intc.h
 +++ b/xen/arch/riscv/include/asm/intc.h
 @@ -16,6 +16,7 @@ struct cpu_user_regs;
  struct dt_device_node;
  struct irq_desc;
  struct kernel_info;
-+struct vcpu;
++struct rangeset;
+ struct vcpu;
  
  struct intc_info {
-     enum intc_version hw_version;
-@@ -47,6 +48,19 @@ struct intc_hw_operations {
-                             const struct dt_device_node *intc);
+@@ -54,11 +55,22 @@ struct vintc_ops {
+ 
+     /* Check if a register is virtual interrupt controller MMIO */
+     int (*is_access)(const struct vcpu *vcpu, const unsigned long addr);
++
++    /*
++     * Retrieves the interrupts configuration from a device tree node and maps
++     * those interrupts to the target domain.
++     */
++    int (*map_device_irqs_to_domain)(struct domain *d,
++                                     struct dt_device_node *dev,
++                                     bool need_mapping,
++                                     struct rangeset *irq_ranges);
  };
  
-+struct vintc_ops {
-+    /* Initialize some vINTC-related stuff for a vCPU */
-+    int (*vcpu_init)(struct vcpu *vcpu);
+ struct vintc {
+     const struct intc_info *info;
+     const struct vintc_ops *ops;
 +
-+    /* Check if a register is virtual interrupt controller MMIO */
-+    int (*is_access)(const struct vcpu *vcpu, const unsigned long addr);
-+};
-+
-+struct vintc {
-+    const struct intc_info *info;
-+    const struct vintc_ops *ops;
-+};
-+
- void intc_preinit(void);
++    void *private;
+ };
  
- void register_intc_ops(const struct intc_hw_operations *ops);
-diff --git a/xen/arch/riscv/include/asm/vaplic.h b/xen/arch/riscv/include/asm/vaplic.h
-new file mode 100644
-index 000000000000..7684f3490829
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/vaplic.h
-@@ -0,0 +1,36 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * xen/arch/riscv/vaplic.c
-+ *
-+ * Virtual RISC-V Advanced Platform-Level Interrupt Controller support
-+ *
-+ * Copyright (c) Microchip.
-+ */
-+
-+#ifndef ASM__RISCV__VAPLIC_H
-+#define ASM__RISCV__VAPLIC_H
-+
-+#include <xen/kernel.h>
-+#include <xen/types.h>
-+
-+#include <asm/intc.h>
-+
+ void intc_preinit(void);
+diff --git a/xen/arch/riscv/include/asm/setup.h b/xen/arch/riscv/include/asm/setup.h
+index 2215894cfbb1..1c23043f409f 100644
+--- a/xen/arch/riscv/include/asm/setup.h
++++ b/xen/arch/riscv/include/asm/setup.h
+@@ -5,6 +5,10 @@
+ 
+ #include <xen/types.h>
+ 
 +struct domain;
++struct dt_device_node;
++struct rangeset;
 +
-+#define to_vaplic(v) container_of(v, struct vaplic, base)
+ #define max_init_domid (0)
+ 
+ void setup_mm(void);
+@@ -13,6 +17,19 @@ void copy_from_paddr(void *dst, paddr_t paddr, unsigned long len);
+ 
+ void init_csr_masks(void);
+ 
++/* TODO: move somewhere to common header? */
++/*
++ * Retrieves the interrupts configuration from a device tree node and maps
++ * those interrupts to the target domain.
++ *
++ * Returns:
++ *   < 0 error
++ *   0   success
++ */
++int map_device_irqs_to_domain(struct domain *d, struct dt_device_node *dev,
++                              bool need_mapping,
++                              struct rangeset *irq_ranges);
 +
-+struct vaplic_regs {
-+    uint32_t domaincfg;
-+    uint32_t smsiaddrcfg;
-+    uint32_t smsiaddrcfgh;
-+};
-+
-+struct vaplic {
-+    struct vintc base;
-+    struct vaplic_regs regs;
-+};
-+
-+int domain_vaplic_init(struct domain *d);
-+void domain_vaplic_deinit(struct domain *d);
-+
-+#endif /* ASM__RISCV__VAPLIC_H */
+ #endif /* ASM__RISCV__SETUP_H */
+ 
+ /*
 diff --git a/xen/arch/riscv/intc.c b/xen/arch/riscv/intc.c
-index c9f12651fda1..ff7a76accaca 100644
+index ff7a76accaca..a91dbc5e997c 100644
 --- a/xen/arch/riscv/intc.c
 +++ b/xen/arch/riscv/intc.c
-@@ -6,6 +6,7 @@
- #include <xen/init.h>
- #include <xen/irq.h>
- #include <xen/lib.h>
-+#include <xen/sched.h>
- #include <xen/spinlock.h>
+@@ -79,3 +79,11 @@ int __init intc_make_domu_dt_node(const struct kernel_info *kinfo)
  
- #include <asm/aia.h>
-diff --git a/xen/arch/riscv/vaplic.c b/xen/arch/riscv/vaplic.c
-new file mode 100644
-index 000000000000..9b105de7ed7d
---- /dev/null
-+++ b/xen/arch/riscv/vaplic.c
-@@ -0,0 +1,74 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * xen/arch/riscv/vaplic.c
-+ *
-+ * Virtual RISC-V Advanced Platform-Level Interrupt Controller support
-+ *
-+ * Copyright (c) Microchip.
-+ * Copyright (c) Vates
-+ */
+     return -ENOSYS;
+ }
 +
-+#include <xen/errno.h>
-+#include <xen/sched.h>
-+#include <xen/xvmalloc.h>
-+
-+#include <asm/aia.h>
-+#include <asm/imsic.h>
-+#include <asm/intc.h>
-+#include <asm/vaplic.h>
-+
-+#include "aplic-priv.h"
-+
-+static int __init cf_check vcpu_vaplic_init(struct vcpu *v)
++int map_device_irqs_to_domain(struct domain *d, struct dt_device_node *dev,
++                              bool need_mapping,
++                              struct rangeset *irq_ranges)
 +{
-+    int rc = 0;
-+
-+    rc = vcpu_imsic_init(v);
-+    if ( rc )
-+        return rc;
-+
-+    imsic_set_guest_file_id(v, vgein_assign(v));
-+
-+    return rc;
++    return d->arch.vintc->ops->map_device_irqs_to_domain(d, dev, need_mapping,
++                                                         irq_ranges);
 +}
-+
-+static const struct vintc_ops vaplic_ops = {
-+    .vcpu_init = vcpu_vaplic_init,
+diff --git a/xen/arch/riscv/vaplic.c b/xen/arch/riscv/vaplic.c
+index 9b105de7ed7d..0c69f087cf4d 100644
+--- a/xen/arch/riscv/vaplic.c
++++ b/xen/arch/riscv/vaplic.c
+@@ -9,6 +9,7 @@
+  */
+ 
+ #include <xen/errno.h>
++#include <xen/iocap.h>
+ #include <xen/sched.h>
+ #include <xen/xvmalloc.h>
+ 
+@@ -19,6 +20,113 @@
+ 
+ #include "aplic-priv.h"
+ 
++struct vaplic_priv {
++    /* Contains a legal interrupts for a domain */
++    uint32_t auth_irq_bmp[APLIC_NUM_REGS];
 +};
 +
-+static struct vintc * __init vaplic_alloc(void)
++static bool is_irq_shared_among_domains(const struct domain *d,
++                                        const unsigned int irq_num)
 +{
-+    struct vaplic *v = NULL;
++    struct domain *tmp;
++    unsigned int reg_num = irq_num / APLIC_NUM_REGS;
++    unsigned int bit_pos = irq_num % APLIC_NUM_REGS;
 +
-+    v = xvzalloc(struct vaplic);
-+    if ( !v )
-+        return NULL;
++    for_each_domain ( tmp )
++    {
++        uint32_t *auth_irq_bmp;
 +
-+    return &v->base;
++        if ( tmp == d )
++            continue;
++
++        auth_irq_bmp = tmp->arch.vintc->private;
++
++        if ( auth_irq_bmp[reg_num] & BIT(bit_pos, U) )
++        {
++            printk("%s: irq%d is shared between %pd and %pd\n", __func__,
++                   irq_num, tmp, d);
++
++            return true;
++        }
++    }
++
++    return false;
 +}
 +
-+int __init domain_vaplic_init(struct domain *d)
++int vaplic_map_device_irqs_to_domain(struct domain *d,
++                                     struct dt_device_node *dev,
++                                     bool need_mapping,
++                                     struct rangeset *irq_ranges)
 +{
-+    int ret = 0;
++    unsigned int i, nirq;
++    int res, irq;
++    struct dt_raw_irq rirq;
++    uint32_t *auth_irq_bmp = d->arch.vintc->private;
++    unsigned int reg_num;
 +
-+    d->arch.vintc = vaplic_alloc();
-+    if ( !d->arch.vintc )
++    nirq = dt_number_of_irq(dev);
++
++    /* Give permission and map IRQs */
++    for ( i = 0; i < nirq; i++ )
++    {
++        res = dt_device_get_raw_irq(dev, i, &rirq);
++        if ( res )
++        {
++            printk(XENLOG_ERR "Unable to retrieve irq %u for %s\n",
++                   i, dt_node_full_name(dev));
++            return res;
++        }
++
++        /*
++         * Don't map IRQ that have no physical meaning
++         * ie: IRQ whose controller is not APLIC/IMSIC/PLIC.
++         */
++        if ( rirq.controller != dt_interrupt_controller )
++        {
++            dt_dprintk("irq %u not connected to primary controller."
++                       "Connected to %s\n", i,
++                       dt_node_full_name(rirq.controller));
++            continue;
++        }
++
++        irq = platform_get_irq(dev, i);
++        if ( irq < 0 )
++        {
++            printk("Unable to get irq %u for %s\n", i, dt_node_full_name(dev));
++            return irq;
++        }
++
++        res = irq_permit_access(d, irq);
++        if ( res )
++        {
++            printk(XENLOG_ERR "Unable to permit to %pd access to IRQ %u\n", d,
++                   irq);
++            return res;
++        }
++
++        reg_num = irq / APLIC_NUM_REGS;
++
++        if ( is_irq_shared_among_domains(d, irq) )
++        {
++            printk("%s: Shared IRQ isn't supported\n", __func__);
++            return -EINVAL;
++        }
++
++        auth_irq_bmp[reg_num] |= BIT(irq % APLIC_NUM_REGS, U);
++
++        dt_dprintk("  - IRQ: %u\n", irq);
++
++        if ( irq_ranges )
++        {
++            res = rangeset_add_singleton(irq_ranges, irq);
++            if ( res )
++                return res;
++        }
++    }
++
++    return 0;
++}
++
+ static int __init cf_check vcpu_vaplic_init(struct vcpu *v)
+ {
+     int rc = 0;
+@@ -34,6 +142,7 @@ static int __init cf_check vcpu_vaplic_init(struct vcpu *v)
+ 
+ static const struct vintc_ops vaplic_ops = {
+     .vcpu_init = vcpu_vaplic_init,
++    .map_device_irqs_to_domain = vaplic_map_device_irqs_to_domain,
+ };
+ 
+ static struct vintc * __init vaplic_alloc(void)
+@@ -62,13 +171,26 @@ int __init domain_vaplic_init(struct domain *d)
+     to_vaplic(d->arch.vintc)->regs.domaincfg =
+         APLIC_DOMAINCFG_IE | APLIC_DOMAINCFG_DM;
+ 
++    d->arch.vintc->private = xvzalloc(struct vaplic_priv);
++    if ( !d->arch.vintc->private )
 +    {
 +        ret = -ENOMEM;
 +        goto fail;
 +    }
 +
-+    d->arch.vintc->ops = &vaplic_ops;
-+    to_vaplic(d->arch.vintc)->regs.domaincfg =
-+        APLIC_DOMAINCFG_IE | APLIC_DOMAINCFG_DM;
-+
-+ fail:
 +    return ret;
-+}
 +
-+void __init domain_vaplic_deinit(struct domain *d)
-+{
-+    struct vaplic *vaplic = to_vaplic(d->arch.vintc);
+  fail:
++    domain_vaplic_deinit(d);
 +
-+    XVFREE(vaplic);
-+}
+     return ret;
+ }
+ 
+ void __init domain_vaplic_deinit(struct domain *d)
+ {
+-    struct vaplic *vaplic = to_vaplic(d->arch.vintc);
++    struct vintc *vintc = d->arch.vintc;
++    struct vaplic *vaplic = to_vaplic(vintc);
+ 
++    XVFREE(vintc->private);
+     XVFREE(vaplic);
+ }
 -- 
 2.53.0
 
