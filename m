@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QM/aOE1QsGnFhgIAu9opvQ
+	id eOuiEktQsGmBiAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:33 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:31 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B073255486
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1250389.1547904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 404F825546E
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1250390.1547907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w00a9-0002rN-H0; Tue, 10 Mar 2026 17:09:21 +0000
+	id 1w00a9-0002wG-UJ; Tue, 10 Mar 2026 17:09:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1250389.1547904; Tue, 10 Mar 2026 17:09:21 +0000
+Received: by outflank-mailman (output) from mailman id 1250390.1547907; Tue, 10 Mar 2026 17:09:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w00a9-0002oO-AC; Tue, 10 Mar 2026 17:09:21 +0000
-Received: by outflank-mailman (input) for mailman id 1250389;
+	id 1w00a9-0002rC-Ll; Tue, 10 Mar 2026 17:09:21 +0000
+Received: by outflank-mailman (input) for mailman id 1250390;
  Tue, 10 Mar 2026 17:09:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eHsH=BK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1w00a7-0001QA-AZ
+ id 1w00a7-0001QA-Ml
  for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 17:09:19 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df095baa-1ca3-11f1-9ccf-f158ae23cfc8;
- Tue, 10 Mar 2026 18:09:17 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- 5b1f17b1804b1-4838c15e3cbso119284305e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 10:09:17 -0700 (PDT)
+ id df90eba6-1ca3-11f1-9ccf-f158ae23cfc8;
+ Tue, 10 Mar 2026 18:09:18 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4853c1ca73aso20324425e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 10:09:18 -0700 (PDT)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-485359bf807sm119619845e9.2.2026.03.10.10.09.15
+ 5b1f17b1804b1-485359bf807sm119619845e9.2.2026.03.10.10.09.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Mar 2026 10:09:15 -0700 (PDT)
+ Tue, 10 Mar 2026 10:09:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,42 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df095baa-1ca3-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: df90eba6-1ca3-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773162556; x=1773767356; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1773162557; x=1773767357; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=B5Dqi7QE0P+NZcaNQ4Uuko5WRqJ3CVy0ngqKC6es19A=;
-        b=nD53nNjwmA/lbqg4xCHcfXQrbVYhV5OqWNbt6K5tiI1lciiMxxVNBrIkCP5Qhq86PQ
-         xz4tMjoen8Fch0yA33lS3NPN65kRYnV9yg3clqoaLAbFFqPIlmVGiQQqcDbvqhT7Istd
-         k0BhuEdjc1LU86Mrk8wbxG2o/T7Pv9lQ/JxrOWEhAkUpriL4FUeHBvb4hIiy/7UTSr/e
-         lPaknNQlGwefi3kCGFLNCmxex7eNv9JjD0WfLoSqdTcdaV8QgCWFwt8td8hDpdWOnpzq
-         aOw0BpE63w7nGdb6HgzMli3QhOBPlgEZ8Vv11KWDW4oUUSX+2uWINTQXZa072E6HvqTY
-         bakA==
+        bh=WI2GmymuZn5ZjF6sh0Pndyef5xHCptAQOPGu6/MNHsM=;
+        b=bZDa2dD6Q+j7MrXH/ZZyIvTY0Nnz7lWJ9KKfC4nl98XtkpGVoRyqi5c1knYFbNhUdk
+         wMIDA0aruN5LBiTmanT8k24o7lLTdRdjLb362aVbt/IaJt3yFYvqLjBhaHw5o6qLKsoD
+         sdckNLKjOCV+vQLf9UIqsC0KYRGzY2Sy8UY/6L6XKyDRyj6d/yzVb9dC/aV97OLX8enT
+         go6lRkUqokO7gkWQmLYlXSTEGAljMDCzYXGCrogaPokidV5SOHNBWGWgwT5yU8Pg97/t
+         9fFjvU5IePrf6hDvFVcbtk+xrYy4/jl13QzrNxmO/6IwqOSfN8LkcD8pH/vtAu/7R7Xd
+         R75A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773162556; x=1773767356;
+        d=1e100.net; s=20230601; t=1773162557; x=1773767357;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=B5Dqi7QE0P+NZcaNQ4Uuko5WRqJ3CVy0ngqKC6es19A=;
-        b=Qn53DSGpIPvAvjCejPB1+Jv3XqYdNUvDRHpRjGKzYMEZlcQJ/d6e1rh4XH7s+bf6jZ
-         hbJWiXkBIb2cPyarJCFIh8eGkHq0sKx720vhgZHehRgSkI5CCtBHAaL50qSneNq/tpol
-         XS/fxJmjuzqK0gCeecQvVL7KbLmDVfT1b/H2BEfAY1qLVuhXUD8Zg3h1Nnplrrk2nkAW
-         cFsPBHg8rh9cvIxPNeLw3DIVAPq2kgYf4egY01OGiZWvfA/9to1L++X+2qGxiGvifF+z
-         l1AYbK/SC9gZgdb/jPgYOhJvPtwU05ht+ar9HY2a9c/cooZCfSuKoP/UVlWX6TbuBU/+
-         LL8w==
-X-Gm-Message-State: AOJu0Yz4Wwi508SJb20q5EBZmfyziBBrYGZqgFDeWXTsMtfxIT7yY1Xg
-	9lg8i5NNTx52qjorVXHm4nMpW785edZivoFKZxnywjHHTMaoUK7Rk5XDFfwH+WOc
-X-Gm-Gg: ATEYQzztahiCkTpZWpKbUqqmkRVRxPJLPGQKl9LHil858Ki5j0MCFZ0QB0yE2gPFB61
-	WiM4pqRCDoTSdOgfP6VH/z+i6cbF78tBe2bRiO9WykGVHVM2vQt+cU/3hLX0aYdpRHr5vzoYpED
-	ibcG6E37ROOwzTMxQDpiF6siJbbEwY+zlt9Nab/oL8NK2j6MOhJhWrYcCoq4hEPjhtwJtY/zLlm
-	Y4ajGR1bm6Cu50+yPbDQTNini2LpsRxz9WC3EW442lX2XvGYe+jZlYrapOMe/kqbauIbPF6+FEJ
-	Om/89IFMRK4W2P4ecmwGlXLb1loAzqS/M+vvfT/eRNu1IltQdrl1CEK+tUlZX4+CVFd1mLezETt
-	axs3TCPL4DDSqMX+2A+TVMhQQj3vPGXAUJctB7TNtqsCkxcxj2esdcawoLXd3dQeer6IRP5Jhh3
-	+RdJ3WyTJIb7Gf3T3iT7R5JOnfJ5WobxMPVg8FxaQu+Uz2yn7sz6Duhrhq3YSyemsoXA==
-X-Received: by 2002:a05:600c:3f0b:b0:485:3bb5:92c5 with SMTP id 5b1f17b1804b1-4853bb598e8mr120108175e9.14.1773162556236;
-        Tue, 10 Mar 2026 10:09:16 -0700 (PDT)
+        bh=WI2GmymuZn5ZjF6sh0Pndyef5xHCptAQOPGu6/MNHsM=;
+        b=XqqG+LAPwWLReFRUWv0hZ91Vy3TnYzCtYMAmLDEIUqlEiEEp1xAOYXPDpQGdlqtCDb
+         epJOYwEQ5Kg7+rPk+t0oCaV6mlhDtY6IaOjftEQmcn0RXhtevr32Fqx/77vo2D7P8ruB
+         ebbdfp5koFDBV9TZkVKTWXrC7tUkp/0gQ1XYzcL4mzjr2Mhy23z4kOlJexUvEvWFNYRM
+         nSYZNS/Fwn+ft0vkx9D/QwEprTUKjyoKwi19RsC0dv0Uh+lVEQhxNXxLXfIs5/PL+uiv
+         DPYwVag7lOZjLu9eE68XnBxRhAboqRdo1KZBglbwHzMXCOw/Q2CHUcwlvKqrcT82NbYR
+         CN7w==
+X-Gm-Message-State: AOJu0YwkZwVuisl22YCF+slQdADHQ3RUx3UfBqsC0+Cgy+dZJWLaNs3N
+	L+p2TraKga5q5JR54xefxtrboSE+mZrtahNeAKcTEzKdC9HbJ9jKNnv03nlxLpxk
+X-Gm-Gg: ATEYQzwkJnMYF+6qhbSzJODuEM6p/TxoBlrso8hmuNNGRy7upSYqvURl6Pc2DwrL1Ru
+	IiaBqAGHr0KdSOEJ9Gk4ij2H6UJQyE1ygt55FM4GWiiTMMFgYhSzuH/FtYfLf0H5Xq2Af7Nvdtz
+	+nMSP/c4Ac/kWD0D2TT3ElNvcp8PbKQ6asBYzks/M7JVxZu9VJHpV3Eh13L2LOanxuhXDcfnpxU
+	l4PJHWPZhAtHVj+fSYcDWvbFYJfw0ctdqFvXHR58EQJ2oSTjdyWObdEOUH1+q6VrUwaRs0YyJVp
+	4Bcsb84SDGlpg8jwh8TI+71c2MUMcwMbNaukO711KYHRWGY4hbRusHjsqdQkZGrCaBtnkCUuBWb
+	hTZjA+wrTZlR4MjUGH1uBPnBkaffC+CLGxcHgTuTkRzOZoscrc1JRRzCoKvg+4SdDmsKex2pSMQ
+	2zTsDsmC8hCmG/CJjxxIfH/8YeWR5W8r/d/prLfvpwrmFF4LE2AX+G/ckvhJxEA7UP1g==
+X-Received: by 2002:a05:600d:f:b0:485:345b:ccb1 with SMTP id 5b1f17b1804b1-485345bce86mr165965485e9.27.1773162557447;
+        Tue, 10 Mar 2026 10:09:17 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -99,15 +99,15 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 06/27] xen/riscv: implement make_cpus_node()
-Date: Tue, 10 Mar 2026 18:08:39 +0100
-Message-ID: <fd64b8526a23e9d7775b9b48c5a933b0673c4fba.1773157782.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 07/27] xen/riscv: implement make_timer_node()
+Date: Tue, 10 Mar 2026 18:08:40 +0100
+Message-ID: <f1b759f4fa43f3a01ede0f99f21c3ac59b61f438.1773157782.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1773157782.git.oleksii.kurochko@gmail.com>
 References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 9B073255486
+X-Rspamd-Queue-Id: 404F825546E
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -147,153 +147,36 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-Implement make_cpus_node() to create cpus node for a guest domain.
-
-This function is going to be use by common dom0less code during
-construction domain.
+The make_timer_node() function is implemented to return 0,
+as RISC-V does not require the creation of a timer node.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/Makefile       |   1 +
- xen/arch/riscv/domain-build.c | 108 ++++++++++++++++++++++++++++++++++
- 2 files changed, 109 insertions(+)
+ xen/arch/riscv/domain-build.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index b1514f1514a2..6c6c58ed1ac0 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -1,6 +1,7 @@
- obj-y += aplic.o
- obj-y += cpufeature.o
- obj-y += domain.o
-+obj-y += domain-build.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += entry.o
- obj-y += guestcopy.o
 diff --git a/xen/arch/riscv/domain-build.c b/xen/arch/riscv/domain-build.c
-index 0ce903a911ae..633f02e42c5e 100644
+index 633f02e42c5e..ae26faed09ed 100644
 --- a/xen/arch/riscv/domain-build.c
 +++ b/xen/arch/riscv/domain-build.c
-@@ -3,8 +3,10 @@
+@@ -3,6 +3,7 @@
  #include <xen/fdt-domain-build.h>
  #include <xen/fdt-kernel.h>
  #include <xen/init.h>
-+#include <xen/libfdt/libfdt.h>
++#include <xen/fdt-kernel.h>
+ #include <xen/libfdt/libfdt.h>
  #include <xen/sched.h>
  
-+#include <asm/cpufeature.h>
- #include <asm/current.h>
- #include <asm/guest_access.h>
+@@ -152,3 +153,10 @@ int __init make_cpus_node(const struct domain *d, void *fdt)
  
-@@ -44,3 +46,109 @@ int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
- 
-     return 0;
+     return res;
  }
 +
-+int __init make_cpus_node(const struct domain *d, void *fdt)
++int __init make_timer_node(const struct kernel_info *kinfo)
 +{
-+    int res;
-+    const struct dt_device_node *cpus = dt_find_node_by_path("/cpus");
-+    unsigned int cpu;
-+    u32 timebase_frequency;
-+    bool frequency_valid;
-+    uint32_t *next_phandle = &((struct domain *)d)->arch.next_phandle;
++    /* There is no need for timer node for RISC-V. */
 +
-+    dt_dprintk("Create cpus node\n");
-+
-+    if ( !cpus )
-+    {
-+        dprintk(XENLOG_ERR, "Missing /cpus node in the device tree?\n");
-+        return -ENOENT;
-+    }
-+
-+    frequency_valid = dt_property_read_u32(cpus, "timebase-frequency",
-+                                           &timebase_frequency);
-+
-+    res = fdt_begin_node(fdt, "cpus");
-+    if ( res )
-+        return res;
-+
-+    res = fdt_property_cell(fdt, "#address-cells", 1);
-+    if ( res )
-+        return res;
-+
-+    res = fdt_property_cell(fdt, "#size-cells", 0);
-+    if ( res )
-+        return res;
-+
-+    if ( frequency_valid )
-+        res = fdt_property_cell(fdt, "timebase-frequency", timebase_frequency);
-+
-+    for ( cpu = 0; cpu < d->max_vcpus; cpu++ )
-+    {
-+        char buf[64];
-+        uint32_t reg = cpu_to_fdt32(cpu);
-+
-+        snprintf(buf, sizeof(buf), "cpu@%u", cpu);
-+        res = fdt_begin_node(fdt, buf);
-+        if ( res )
-+            return res;
-+
-+        res = fdt_property(fdt, "reg", &reg, sizeof(reg));
-+        if ( res )
-+            return res;
-+
-+        res = fdt_property_string(fdt, "status", "okay");
-+        if ( res )
-+            return res;
-+
-+        res = fdt_property_string(fdt, "compatible", "riscv");
-+        if ( res )
-+            return res;
-+
-+        BUILD_BUG_ON((sizeof("riscv,") + sizeof_field(struct gstage_mode_desc, name) + 1) >= sizeof(buf));
-+        snprintf(buf, sizeof(buf), "riscv,%s", max_gstage_mode->name);
-+        res = fdt_property_string(fdt, "mmu-type", buf);
-+        if ( res )
-+            return res;
-+
-+        res = fdt_property_string(fdt, "riscv,isa", guest_isa_str);
-+        if ( res )
-+            return res;
-+
-+        res = fdt_property_string(fdt, "device_type", "cpu");
-+        if ( res )
-+            return res;
-+
-+        res = fdt_begin_node(fdt, "interrupt-controller");
-+        if ( res )
-+            return res;
-+
-+        res = fdt_property_string(fdt, "compatible", "riscv,cpu-intc");
-+        if ( res )
-+            return res;
-+
-+        res = fdt_property_cell(fdt, "#interrupt-cells", 1);
-+        if ( res )
-+            return res;
-+
-+        res = fdt_property(fdt, "interrupt-controller", NULL, 0);
-+        if ( res )
-+            return res;
-+
-+        res = fdt_property_u32(fdt, "phandle", (*next_phandle)++);
-+        if ( res )
-+            return res;
-+
-+        /* end of interrupt-controller */
-+        res = fdt_end_node(fdt);
-+        if ( res )
-+            return res;
-+
-+        res = fdt_end_node(fdt);
-+        if ( res )
-+            return res;
-+    }
-+
-+    res = fdt_end_node(fdt);
-+
-+    return res;
++    return 0;
 +}
 -- 
 2.53.0
