@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UBmjL7IBsGnOeQIAu9opvQ
+	id uAb2J4YDsGnOeQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 12:34:10 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 12:41:58 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3053324AFED
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 12:34:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1250020.1547424 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CAA724B572
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 12:41:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1250031.1547433 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzvLc-0006ZE-Cp; Tue, 10 Mar 2026 11:34:00 +0000
+	id 1vzvT7-0008K0-4J; Tue, 10 Mar 2026 11:41:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1250020.1547424; Tue, 10 Mar 2026 11:34:00 +0000
+Received: by outflank-mailman (output) from mailman id 1250031.1547433; Tue, 10 Mar 2026 11:41:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzvLc-0006XF-AH; Tue, 10 Mar 2026 11:34:00 +0000
-Received: by outflank-mailman (input) for mailman id 1250020;
- Tue, 10 Mar 2026 11:33:58 +0000
+	id 1vzvT7-0008HT-1e; Tue, 10 Mar 2026 11:41:45 +0000
+Received: by outflank-mailman (input) for mailman id 1250031;
+ Tue, 10 Mar 2026 11:41:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S17i=BK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vzvLa-0006X8-Db
- for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 11:33:58 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
+ id 1vzvT6-0008HN-FR
+ for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 11:41:44 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 05d3dd45-1c75-11f1-9ccf-f158ae23cfc8;
- Tue, 10 Mar 2026 12:33:56 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-485345e1013so18732085e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 04:33:56 -0700 (PDT)
+ id 1bbdaf51-1c76-11f1-9ccf-f158ae23cfc8;
+ Tue, 10 Mar 2026 12:41:42 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-439b9b190easo6310984f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 04:41:42 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48541a7f1f5sm123068205e9.4.2026.03.10.04.33.54
+ ffacd0b85a97d-439dae2ba5bsm33679643f8f.22.2026.03.10.04.41.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Mar 2026 04:33:55 -0700 (PDT)
+ Tue, 10 Mar 2026 04:41:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,50 +50,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05d3dd45-1c75-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 1bbdaf51-1c76-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773142435; x=1773747235; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773142902; x=1773747702; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6nXiOBgpVqJzWlI7izeUdI7naL+DVopaSDZJu+av888=;
-        b=CgLsRoJipRV+qyYfPsT4bH9qKFyGlg+yPPXlWEfCPHRVVtBhUWrZiaYbGGIkzzZquZ
-         UiwAdQ2xLQ2WEsbQK4RHYDBqmcoW8gcaGn2XkYzBCHvjGItblGVQcc1arLSHWT98FecV
-         y7WiDmMuPVzd8ps6waMvfZzcKzfNEfz47ncU1BQc5TqNO9qZQhC5nT6cP/h88BWt63S8
-         2WzwuM8+OEE9ghC+hhCcYKy8SHkPpAXkTBYE6jTjg+Hngh4bwIUa6omPyVYk+AflPBzN
-         MYfoOUYJz4bNqkfyUyXvSJEGBF1JU/ksgR+t+iQrY8IFV+LAlf3y0bh3yQVaOL3gwmLb
-         5MYg==
+        bh=0r05h2blS+gYEN1+6JRpyqm3ySQPHfmFxeqRQ6IxccM=;
+        b=dJWHuGX7uATfmk07gjjZyTfhGPcdQlGCN7OaoG3nl/qf1gfhvNKeGFNbfyjulv38si
+         Edj9KNPHBNabGcBUiEg9J6dglGKAr+lVA5ZiyYwj/FSpOTc+S9in/cvIpQqiK3BESYOs
+         3tr3/HJ67ElW8tRLqk25cfVOTooNeaHwqV2rj7OswC9O7lHRYf5Cjwm4GihibsHWuOKR
+         +E5d5Gk9c7RPQc/keZMqzobn4PRNfdftjJ9GtepyVYNBOstwLxR1LSQyNZgDe4Urfimf
+         pyQuwOzKgffTy4SaxkOUGPuLpKALCLK//dUbdAYtu9f1G8ITh+eMJKuYJRinNZeQx+2J
+         ReIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773142435; x=1773747235;
+        d=1e100.net; s=20230601; t=1773142902; x=1773747702;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6nXiOBgpVqJzWlI7izeUdI7naL+DVopaSDZJu+av888=;
-        b=nX3xEKiHVWqWwgwVP/Z1/qkIjADNm+/3x/Z7gMapC/3iz5qxzuhFqrxzeozVIt2t32
-         dVdHkMUyRG75v+fUP7IarAf1E4dom8BqVfdeatL2k4ExLKjln/DCE6AHi/r/JGEkY10F
-         ZmstLDhgFaDnGxshyMoJt1bOQoqh1LC3Zbe8E6yh/QGxKAeDIlE4psEzfEwrNhHMHrd+
-         XmqjVOmfENOUMpwdNgDH4YSqO4A4wmd2y8vQ9a1doX7S2/oTQ4GWA4o9dIikle+joWEo
-         8mHjE3iqv26m3OQTTsGaefedWyWwerhw+lu91eVKZcUSLUoT0bw3hjxY8Ls+ryS8XE3r
-         IsFw==
-X-Forwarded-Encrypted: i=1; AJvYcCWNd+4IuBYmDq5EGN3i6lfcgtO/C9UEYctgE0//ZCsPh0QQhbzSWW54WINfQXq4e5r72nGdb6WWbX4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywn/s1z2UlzyZnBFkhQltkhYQnT5VYTm1yJIdaa32UsHWnEQq3D
-	PGFknpHBJgDpKtBBHDAgWDhPHBYzYyFCtJ3IFYEg39E7PVbYDVgoKiXAL8EBxipJ9A==
-X-Gm-Gg: ATEYQzxvQC05t+AXcj+5ldb8hiVg31EUb4sIQUmqmYgCOXGp+P4eqGyDj+Y4lOcKVsq
-	Qf0Mn30kpoD9tznLSOkaDHyKGQQfe2o1ZMCcQcHLlcu6nFdzPpMH2/OmO9Mx8LRApt2Nx7F3reH
-	NstNYZ9TBzikU/tSR7j30vs5GPAaZJG/SBXoKUVTVE+mmf6JVv8GdJUtSLXs0xV36m5ONdYzbGP
-	jVodIH180JpPjBSKJcSQLjyfzNIP5nW45WpcLa+kqf7rycTSqj1Ki+RakrXZCOPFyXx/NNcVZdB
-	DEDg+o/4YaCF0LacdTrD82cmbaqNrp165gyrdHcjgNbRGY29+xsTJ3zIG2B724VEV46+lXLq6Re
-	aSdkwaTlZCnQ2f65JanHJhgk222At1Ev8oVxvlmd90C/hRE7Cc0aHacS7M+8ZfZVP29XYBDMQ9U
-	wyzf36K14MJ4XSKEi55nfp5aAUExFFzLnbn0hX6Qso59kWcJ3haVnwigsDuSNyQXFtC08XJYH8Q
-	SCjJW685xD6rhA=
-X-Received: by 2002:a05:600c:8488:b0:485:3989:b3e4 with SMTP id 5b1f17b1804b1-485419b61a2mr45900475e9.6.1773142435531;
-        Tue, 10 Mar 2026 04:33:55 -0700 (PDT)
-Message-ID: <6df95cb0-3f01-43a6-abc5-0e464c3c98e9@suse.com>
-Date: Tue, 10 Mar 2026 12:33:54 +0100
+        bh=0r05h2blS+gYEN1+6JRpyqm3ySQPHfmFxeqRQ6IxccM=;
+        b=YcysgiWu42EsPQI2ZkpDfAOcd4zGyUVHxF5Cg8LpZ+URTF9xdj4L+A7du4XMxgDrht
+         BJqXu3sGMASbAQmwMFuS7F8TVubT1A/iJEbKfMuQzxDO/cH4E7PeX3HHui036pmx1+p+
+         XqtYBCtpu4VeI9dycjtc20+a3xpoH3auYVuaVyVzhRdAbo//T8eiNWW6BMx2YdN0FJdG
+         w0AATnFYg3TM8VAed+9Sjk3HiwdalMP/XMy+vJCeJOCHbTsRyujdusC0FRDGO5enWrMv
+         d8QdT8Ft8OIAvF0dqC3M57utDvKwWTom1JzYvSMuQD5mbr2E7Q0RjaTuQunk42qEqUOH
+         17zQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUKVBtSX/w6snpbvTFuTFHEHO9AKzOByE/gZ4MTLoPAckHh9pjsV05aVkUVShZrnKDuHYovNb7bF+k=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxJ1tAnU+luJJ2qlySGBuEmATOw21dFL9MUM86jgK3K9/SGV77x
+	XiNEUqJ+QeWBjUBtPZQnKdq50mU24yyHhpC2HCHyCAY3tTnvYlJwwdi8w375sD/S+A==
+X-Gm-Gg: ATEYQzwQ8+8Di9YzFnS1EJx+ImVwtcxFQG0+lqRxLFZW3diNJM4dZextBFVlK722Hs4
+	BCCac54bpblh1dgBP8hsQNOseZdalJweqgppdrNXEx99+aZdmmx82YdNlAIJfYUt+kLZXmLNd6p
+	X7G4WYCerC5KzhRCR+Zsct7AwtBJ5SKxn28VIk1Kgpnz7T1FBOPZvFF1tQMqESpv9WqPS6Epogl
+	34YtZecAyLx7U/YeM3JdmPDql70DF7rNa4goTrOHiIayQk5pogNF1R7ymjLEhQbEh8Nw1eI96jm
+	5fWZ/RMrQaF2BIMZXyTFYmZEPa6jIp+QIko+0iK+Dqxw3o8eEeU2rSgUdBAFxtyh67b9fYPmHCJ
+	k8y0BRmIuEqNuVSjhgCRkVWoVN7cORR2mLFqNHKpZkh/cT/ejRsuYAOxIcr/glXCrzZK2KFJKU5
+	Pjm0JEOTBEGy1/XsXIU9/N/AuIHTulU9r4l7gZWrOPUcmnF/agNGdabsUoHv4l6TycNekT1/1aN
+	wBQWrPaZdvScfDcMbWjETzMCQ==
+X-Received: by 2002:a05:6000:400e:b0:439:b0ed:2afe with SMTP id ffacd0b85a97d-439da348192mr23599490f8f.11.1773142901645;
+        Tue, 10 Mar 2026 04:41:41 -0700 (PDT)
+Message-ID: <bce96393-9790-44fb-9958-0adeeafb78b9@suse.com>
+Date: Tue, 10 Mar 2026 12:41:40 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] x86/acpi: Clarify BGRT invalidation behavior with
+Subject: Re: [PATCH v2 3/3] x86/efi: Add opt-out mechanism for BGRT
  preservation
 To: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
 Cc: "Daniel P . Smith" <dpsmith@apertussolutions.com>,
@@ -103,7 +103,7 @@ Cc: "Daniel P . Smith" <dpsmith@apertussolutions.com>,
  <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org,
  sarkarsoumyajyoti23@gmail.com
 References: <20260306132935.13727-1-soumyajyotisarkar23@gmail.com>
- <20260306132935.13727-3-soumyajyotisarkar23@gmail.com>
+ <20260306132935.13727-4-soumyajyotisarkar23@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -129,59 +129,85 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260306132935.13727-3-soumyajyotisarkar23@gmail.com>
+In-Reply-To: <20260306132935.13727-4-soumyajyotisarkar23@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 3053324AFED
+X-Rspamd-Queue-Id: 0CAA724B572
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:soumyajyotisarkar23@gmail.com,m:dpsmith@apertussolutions.com,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:sarkarsoumyajyoti23@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
 	FREEMAIL_CC(0.00)[apertussolutions.com,citrix.com,invisiblethingslab.com,lists.xenproject.org,gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:soumyajyotisarkar23@gmail.com,m:dpsmith@apertussolutions.com,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:sarkarsoumyajyoti23@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-0.999];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
 On 06.03.2026 14:29, Soumyajyotii Ssarkar wrote:
-> Now that BGRT images are preserved during EFI boot (via
-> EfiACPIReclaimMemory allocation), the invalidation code in
-> acpi_parse_bgrt() is no longer needed.
-> However, The original invalidation code acts as a safety net for when
-> preservation fails or is disabled via "efi=no-bgrt".
-> 
-> Thus, Add comments to clarify this behavior for future reference.
-> 
-> Signed-off-by: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
+> As described in the task, BGRT preservation is now enabled by default to fix ACPI corruption
+> for desktop/workstation systems (similar to ESRT).
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+What's "the task"?
 
-I wonder though if this wasn't better folded into the earlier patch.
+> Add an opt-out parameter 'efi=no-bgrt' to allow disabling BGRT
+> preservation on systems where the ~1MB memory overhead is not
+> desired.
+
+This looks to contradict ...
+
+> The parameter is parsed during normal Xen boot (not during EFI
+> phase), so it only affects diagnostic logging.
+
+... this. For xen.efi you want to add code to the command line parsing
+near the top of efi_start(). What to do for the MB2 boot path perhaps
+the only thing there is to peek into the command line (see
+arch/x86/boot/cmdline.c).
+
+> @@ -1873,6 +1877,10 @@ static int __init cf_check parse_efi_param(const char *s)
+>              else
+>                  __clear_bit(EFI_RS, &efi_flags);
+>          }
+> +        else if ( (ss - s) == 7 && !memcmp(s, "no-bgrt", 7) )
+
+No "no-" prefixes please; you want to use parse_boolean().
+
+> @@ -1968,7 +1976,11 @@ void __init efi_init_memory(void)
+>      if ( !efi_enabled(EFI_BOOT) )
+>          return;
+> 
+> -    if ( bgrt_debug_info.preserved )
+> +    if ( opt_bgrt_disabled )
+> +    {
+> +        printk(XENLOG_INFO "EFI: BGRT preservation disabled\n");
+> +    }
+
+No need for figure braces here.
 
 Jan
 
