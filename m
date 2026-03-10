@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eOuiEktQsGmBiAIAu9opvQ
+	id 4CxdNlBQsGmBiAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:31 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:36 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 404F825546E
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1250390.1547907 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D33702554C3
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 18:09:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1250391.1547918 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w00a9-0002wG-UJ; Tue, 10 Mar 2026 17:09:21 +0000
+	id 1w00aA-000395-S0; Tue, 10 Mar 2026 17:09:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1250390.1547907; Tue, 10 Mar 2026 17:09:21 +0000
+Received: by outflank-mailman (output) from mailman id 1250391.1547918; Tue, 10 Mar 2026 17:09:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w00a9-0002rC-Ll; Tue, 10 Mar 2026 17:09:21 +0000
-Received: by outflank-mailman (input) for mailman id 1250390;
- Tue, 10 Mar 2026 17:09:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w00aA-000300-FZ; Tue, 10 Mar 2026 17:09:22 +0000
+Received: by outflank-mailman (input) for mailman id 1250391;
+ Tue, 10 Mar 2026 17:09:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eHsH=BK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1w00a7-0001QA-Ml
- for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 17:09:19 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id df90eba6-1ca3-11f1-9ccf-f158ae23cfc8;
- Tue, 10 Mar 2026 18:09:18 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4853c1ca73aso20324425e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 10:09:18 -0700 (PDT)
+ id 1w00a8-0001Q4-Af
+ for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 17:09:20 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e0890da2-1ca3-11f1-b164-2bf370ae4941;
+ Tue, 10 Mar 2026 18:09:19 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ 5b1f17b1804b1-4853510b4f3so41185485e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 10:09:19 -0700 (PDT)
 Received: from fedora (user-109-243-67-101.play-internet.pl. [109.243.67.101])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-485359bf807sm119619845e9.2.2026.03.10.10.09.16
+ 5b1f17b1804b1-485359bf807sm119619845e9.2.2026.03.10.10.09.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Mar 2026 10:09:17 -0700 (PDT)
+ Tue, 10 Mar 2026 10:09:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,42 +50,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df90eba6-1ca3-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: e0890da2-1ca3-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773162557; x=1773767357; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1773162559; x=1773767359; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WI2GmymuZn5ZjF6sh0Pndyef5xHCptAQOPGu6/MNHsM=;
-        b=bZDa2dD6Q+j7MrXH/ZZyIvTY0Nnz7lWJ9KKfC4nl98XtkpGVoRyqi5c1knYFbNhUdk
-         wMIDA0aruN5LBiTmanT8k24o7lLTdRdjLb362aVbt/IaJt3yFYvqLjBhaHw5o6qLKsoD
-         sdckNLKjOCV+vQLf9UIqsC0KYRGzY2Sy8UY/6L6XKyDRyj6d/yzVb9dC/aV97OLX8enT
-         go6lRkUqokO7gkWQmLYlXSTEGAljMDCzYXGCrogaPokidV5SOHNBWGWgwT5yU8Pg97/t
-         9fFjvU5IePrf6hDvFVcbtk+xrYy4/jl13QzrNxmO/6IwqOSfN8LkcD8pH/vtAu/7R7Xd
-         R75A==
+        bh=nhr/YFfUk73fJbCvGKZFP0P0mCzExALFTOhZRjG1AeU=;
+        b=ZFB8LKD577w5idg3ca7RIHLuzqpe2Fu47tUN54QV/8l+a3/zswFtxLLB+X9pw7D70S
+         4kPdDAGUl6qYCf5lOijzS+sXCPjMYio140HCkdMOVoKkyqJEcw1RMxCMITOvpG2e1gzs
+         cwUNyOq5UYaRnjNHZ3WoQObixO/L4pezOHHPrDwAXPid03gO07yqG2xbH9T0O4ILYRpi
+         PQP8E0dPXzQWRKGnHlW4h5ZpE8Z1aCSCQZ7q8X/3k0DRioJ999zuS6GEnWT3K31Xy6Ou
+         4qPG+l80rJj3hTxPuNkINB0e4FcAX6KiimVdnHlRaAtWgjAYu/eaWV3OQD+phCoEH+Qq
+         /qEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773162557; x=1773767357;
+        d=1e100.net; s=20230601; t=1773162559; x=1773767359;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=WI2GmymuZn5ZjF6sh0Pndyef5xHCptAQOPGu6/MNHsM=;
-        b=XqqG+LAPwWLReFRUWv0hZ91Vy3TnYzCtYMAmLDEIUqlEiEEp1xAOYXPDpQGdlqtCDb
-         epJOYwEQ5Kg7+rPk+t0oCaV6mlhDtY6IaOjftEQmcn0RXhtevr32Fqx/77vo2D7P8ruB
-         ebbdfp5koFDBV9TZkVKTWXrC7tUkp/0gQ1XYzcL4mzjr2Mhy23z4kOlJexUvEvWFNYRM
-         nSYZNS/Fwn+ft0vkx9D/QwEprTUKjyoKwi19RsC0dv0Uh+lVEQhxNXxLXfIs5/PL+uiv
-         DPYwVag7lOZjLu9eE68XnBxRhAboqRdo1KZBglbwHzMXCOw/Q2CHUcwlvKqrcT82NbYR
-         CN7w==
-X-Gm-Message-State: AOJu0YwkZwVuisl22YCF+slQdADHQ3RUx3UfBqsC0+Cgy+dZJWLaNs3N
-	L+p2TraKga5q5JR54xefxtrboSE+mZrtahNeAKcTEzKdC9HbJ9jKNnv03nlxLpxk
-X-Gm-Gg: ATEYQzwkJnMYF+6qhbSzJODuEM6p/TxoBlrso8hmuNNGRy7upSYqvURl6Pc2DwrL1Ru
-	IiaBqAGHr0KdSOEJ9Gk4ij2H6UJQyE1ygt55FM4GWiiTMMFgYhSzuH/FtYfLf0H5Xq2Af7Nvdtz
-	+nMSP/c4Ac/kWD0D2TT3ElNvcp8PbKQ6asBYzks/M7JVxZu9VJHpV3Eh13L2LOanxuhXDcfnpxU
-	l4PJHWPZhAtHVj+fSYcDWvbFYJfw0ctdqFvXHR58EQJ2oSTjdyWObdEOUH1+q6VrUwaRs0YyJVp
-	4Bcsb84SDGlpg8jwh8TI+71c2MUMcwMbNaukO711KYHRWGY4hbRusHjsqdQkZGrCaBtnkCUuBWb
-	hTZjA+wrTZlR4MjUGH1uBPnBkaffC+CLGxcHgTuTkRzOZoscrc1JRRzCoKvg+4SdDmsKex2pSMQ
-	2zTsDsmC8hCmG/CJjxxIfH/8YeWR5W8r/d/prLfvpwrmFF4LE2AX+G/ckvhJxEA7UP1g==
-X-Received: by 2002:a05:600d:f:b0:485:345b:ccb1 with SMTP id 5b1f17b1804b1-485345bce86mr165965485e9.27.1773162557447;
-        Tue, 10 Mar 2026 10:09:17 -0700 (PDT)
+        bh=nhr/YFfUk73fJbCvGKZFP0P0mCzExALFTOhZRjG1AeU=;
+        b=SRtqobsqq4ggtMGsYnwTFEI2sP8OFabO9IMc6UiJo6/jFQRdVU55dXNL/7MB7c/uGt
+         7+d0rwV9JmL2DzOKvSIDomaTX4TXH6YKYJ8g+j2C6+Z3Ic9Q491spU1LKJun6BgcW7tr
+         FsObgh5fr3ICfXBnLISHrZqsKWw9Kq5Mb7ce+5xb9VXO3MhawB4PzHrE0wIfdrGa6ng2
+         qu1JM52ea+B2LWbd8iKGw+zWZ+QcwTBcylMW2LKIJcawKssnSPPP0qBFvNKvIsK/oRWt
+         tlwSzdl7DI4LndijfgqwmVgH/UPqfvoaqSWm3PpZSNf3WTk3VST8WJLxWHihATjLsBOi
+         oyzQ==
+X-Gm-Message-State: AOJu0YwMN1IR8Rx3cs4SkliJPpq5z794UqsCOn0s8gWNaDYCJq1+n/Jx
+	oSavh44WKPWBsJz3b/q5/etEdXNTz5CRk2KsC80GPXIh8XY/hk0slgElaioABJhJ
+X-Gm-Gg: ATEYQzwTJdFqqZUyxY1CpAZP+OOj2DXV3O1qXW2Ot8qr+T9ZNgk0UK19WrhkMMspw7g
+	cNn+99Ilp5ax1cJFrtG8CHw+0a3JPSCKutyMv9ZUT/A1ab1oEVZ6aQZpQCLhvhErSWepTX4U1xF
+	hlr2MpxddjImo0IcjjXok0agmijOJt14lOtwwZw8dFXED/5Fsm6B7AuKe7c8j7lsyLfkZnrk19G
+	xwUj8exfS6GHzzZxSaBp99rIbsu9fiT1aS+ff8yYrBbwE9fqB/j+hE+WCNUGYizp9lJWnkg+gCg
+	uLdlaOjLLAh+C/KQfT6NoIdFl/AgZIyFytAH2aXwQxqKjEG/eIc/WzUGaJA3NZ+NE9LfhNlfK5c
+	QizKS9i4BxSGIOOfcOhlOYa7zXzh1K/WZyiT6rUotXzNv6CwBhzdR4zAiB440MUkWO9MzeEot5Z
+	VEiLUzp+/8vQzw2TWLkZI9q9U8EmgXqx5MzlcakbESidRD3OmKxJOYp60ubdWDA+UU7w==
+X-Received: by 2002:a05:600c:1e2a:b0:47e:e57d:404 with SMTP id 5b1f17b1804b1-485269582efmr253670135e9.16.1773162558685;
+        Tue, 10 Mar 2026 10:09:18 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -99,15 +99,15 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v1 07/27] xen/riscv: implement make_timer_node()
-Date: Tue, 10 Mar 2026 18:08:40 +0100
-Message-ID: <f1b759f4fa43f3a01ede0f99f21c3ac59b61f438.1773157782.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 08/27] xen/riscv: implement make_arch_nodes()
+Date: Tue, 10 Mar 2026 18:08:41 +0100
+Message-ID: <9c97b4bc6fb8a5e556c38cfe7e34de0eb3cbbbb0.1773157782.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1773157782.git.oleksii.kurochko@gmail.com>
 References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 404F825546E
+X-Rspamd-Queue-Id: D33702554C3
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -147,34 +147,41 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-The make_timer_node() function is implemented to return 0,
-as RISC-V does not require the creation of a timer node.
+No RISC-V-specific nodes need to be created at the moment,
+so make_arch_nodes() is implemented to simply return 0.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/domain-build.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ xen/arch/riscv/Makefile         |  1 +
+ xen/arch/riscv/dom0less-build.c | 11 +++++++++++
+ 2 files changed, 12 insertions(+)
+ create mode 100644 xen/arch/riscv/dom0less-build.c
 
-diff --git a/xen/arch/riscv/domain-build.c b/xen/arch/riscv/domain-build.c
-index 633f02e42c5e..ae26faed09ed 100644
---- a/xen/arch/riscv/domain-build.c
-+++ b/xen/arch/riscv/domain-build.c
-@@ -3,6 +3,7 @@
- #include <xen/fdt-domain-build.h>
- #include <xen/fdt-kernel.h>
- #include <xen/init.h>
-+#include <xen/fdt-kernel.h>
- #include <xen/libfdt/libfdt.h>
- #include <xen/sched.h>
- 
-@@ -152,3 +153,10 @@ int __init make_cpus_node(const struct domain *d, void *fdt)
- 
-     return res;
- }
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index 6c6c58ed1ac0..fb04cc5a56b2 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -1,5 +1,6 @@
+ obj-y += aplic.o
+ obj-y += cpufeature.o
++obj-y += dom0less-build.o
+ obj-y += domain.o
+ obj-y += domain-build.o
+ obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+diff --git a/xen/arch/riscv/dom0less-build.c b/xen/arch/riscv/dom0less-build.c
+new file mode 100644
+index 000000000000..10863cffc96b
+--- /dev/null
++++ b/xen/arch/riscv/dom0less-build.c
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +
-+int __init make_timer_node(const struct kernel_info *kinfo)
++#include <xen/fdt-kernel.h>
++#include <xen/init.h>
++
++int __init make_arch_nodes(struct kernel_info *kinfo)
 +{
-+    /* There is no need for timer node for RISC-V. */
++    /* No RISC-V specific nodes need to be made, at the moment. */
 +
 +    return 0;
 +}
