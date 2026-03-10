@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qGflLX/rr2nkdAIAu9opvQ
+	id iJnEKCXyr2nkdAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 10:59:27 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 11:27:49 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 258A3248F96
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 10:59:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1249937.1547302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0452E2495ED
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 11:27:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1249946.1547312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vztrt-00088R-PU; Tue, 10 Mar 2026 09:59:13 +0000
+	id 1vzuId-0003kx-S7; Tue, 10 Mar 2026 10:26:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1249937.1547302; Tue, 10 Mar 2026 09:59:13 +0000
+Received: by outflank-mailman (output) from mailman id 1249946.1547312; Tue, 10 Mar 2026 10:26:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vztrt-000869-Mh; Tue, 10 Mar 2026 09:59:13 +0000
-Received: by outflank-mailman (input) for mailman id 1249937;
- Tue, 10 Mar 2026 09:59:12 +0000
+	id 1vzuId-0003iT-Ob; Tue, 10 Mar 2026 10:26:51 +0000
+Received: by outflank-mailman (input) for mailman id 1249946;
+ Tue, 10 Mar 2026 10:26:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=S17i=BK=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1vztrs-000863-4U
- for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 09:59:12 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
+ id 1vzuIc-0003iN-CY
+ for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 10:26:50 +0000
+Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
+ [2a00:1450:4864:20::335])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c92d1449-1c67-11f1-b164-2bf370ae4941;
- Tue, 10 Mar 2026 10:59:10 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id
- ffacd0b85a97d-439b2965d4bso7424736f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 02:59:10 -0700 (PDT)
+ id a4df623b-1c6b-11f1-b164-2bf370ae4941;
+ Tue, 10 Mar 2026 11:26:48 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id
+ 5b1f17b1804b1-485445e80bdso3817825e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 03:26:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439dad977f8sm34419385f8f.9.2026.03.10.02.59.09
+ ffacd0b85a97d-439dad97abasm31852455f8f.10.2026.03.10.03.26.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 10 Mar 2026 02:59:09 -0700 (PDT)
+ Tue, 10 Mar 2026 03:26:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,55 +50,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c92d1449-1c67-11f1-b164-2bf370ae4941
+X-Inumbo-ID: a4df623b-1c6b-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773136750; x=1773741550; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773138407; x=1773743207; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qTdWkCNeBclAJHTd440+WKj08O236iton84b7CEgDhg=;
-        b=GTAVKkZTRMFi9tYJvgoigzjFI+U9g2cgXLdYUOiDzsM94/+9K7CRHt5Uo904YapJ0u
-         pY6c1cvTkxXq5FuYKatjQVni0KkSzj1wom2ih6jhw9pGp16hD5zFQVTaG+rYGApjTw6+
-         mRkHUSNe/SaWe+Zg4hpfUhm0x7md73KEsv2NBMRub9uMwHJrdBM/NHAl1Wk18nwSm1C0
-         QvBbNpP40nlHxs5FNaS63xkKKw7l2cNXxV1WaqCPjxS9NCanEIU+eLnMl9sTYPu/Swzt
-         w7okz8JcwXb8OE4c0hv3M6ZjLmuNGvirzTzCFPJ16JNec2WPstbAaVmHy9S/DnD9hC+v
-         0TmA==
+        bh=sXZ/Do0x+4Oc8KRITWR6W9eSNAsHpSr+C2VoN330X78=;
+        b=eIcm9j5YuIEo+nWYD+2OgurBX/GFT7mZOsqMY+orZ+5YKzwom7aBHXAng1uU+wdjn9
+         DiZIvCis/kj57j686tEteD6dll3eAeujkHcz+aX6zJ7qec30pWBASNLT6sgwbo51KFsI
+         2oYpjA31FLVNWqGAcTMIXsZXOFZlT6JSmHtnZP7HqOCSkQjOR3gFNpLAEGO8AMxG/OWr
+         oKjY0Hy5RJ7EusoiCpR5zdAoHwE9/Cch6h5OOrHkBw7ZR0r7umZjgU1EK6+JDh9o+DQX
+         F8rSudZU6muSbDD+5s5ygXy3KooJtbVGWDymM6X8dx1VAfbvzfZBmhghARUoGQJO5QFH
+         l4MA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773136750; x=1773741550;
+        d=1e100.net; s=20230601; t=1773138407; x=1773743207;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qTdWkCNeBclAJHTd440+WKj08O236iton84b7CEgDhg=;
-        b=GClrN/B//LQRrJVpFVEOB8byRXNMKoMwPzW6PK4vgIcX4gu4ejY4i/4g6MOEysO14Q
-         LYrc2HE8731Rwi+O6pqceCDhv6AAKq6TPm4+yBHc5KpkEz3MID2Kt/ORnE7DbD+py2EY
-         g6tTxkvwQn4kh8i6aLEi8dAsqGHL6wTmimCPA7EXna9JZ7AOZ5lnxzIv0TjIqwBj7mpS
-         hY3nonFinXu9hbBbdqKl/Rv5Osf+x+gB+o/YgAUR50K5T5hYKIfYzpXTVHWfQQLQAALu
-         qK0Yvl7Mahdr+7FzHAmjkvEoHNrFCPsbriVnzMlSDfgJOiTjmrJ9X3VzE4aIIt0hmmYB
-         cZlw==
-X-Forwarded-Encrypted: i=1; AJvYcCVa+WefBrHLkB2iYKKY1GKIwdcJV3JGhhMO6cz/TLGMvwFUzePY0G5bvmGUD4eAARg1DR7rwWxenlY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxg+xwxdW4lR6GaWOhGI6h42oLvGz72cxS5r2OS9E3oa7YYxQok
-	e8+cEpgcj7i8t2aR0LePTmghAy3z9iXdj6ZNImH6zUvbEGfPo31vf7M9aTLW+kZAAQ==
-X-Gm-Gg: ATEYQzzFbxGDIL/984jeN61AoyXaHzbUt8E0u2g81Jc+ZRFucUItbwNrs2XibDMPluX
-	PNogLnfnhsEF0wLCZfe6+GVBgwQPIgXhAvJrSdmgO/sK6VF264WWJXH2jOxEsbFDdatzD2HzJJ1
-	L5U8uKeMOApRh5nM0dKiwFHmahDv3W8BWO+eGP2/uZ4k2BQJfZPbTOWqk+cMGIyO6VXP7baCql4
-	2JRi03PCRDDZcZz+wV/NAo9SsUopwoQH8yY6IFfRZv05d+BhWQ9pjWcclfZ/wjNBo4vw9uuL+vL
-	OPi4UnR5a8siV0I4NUNiUa1U8cf84n9ewfTJe+F4iMgafaFd7k+V/8JIq79nWPrYWyPKHhtasOd
-	uWl5gUf9lE9l9LxBvFba7tHGjvGheg4VT/HMkCyZtdG/VOC9dZpbYm6UjHwJvrod8Zju7sKT7uz
-	5LtSo8LNXJp3c08KCIWIZG/RVPeGwiu1Qe4Q/U3mf0YBvxDEWILrcVIP4zI4+ll2p+qsxQ+eSwV
-	OzjDPMefBcmhbs=
-X-Received: by 2002:a05:600c:a115:b0:485:3b5b:eb8 with SMTP id 5b1f17b1804b1-4853b5b108emr88886155e9.26.1773136750263;
-        Tue, 10 Mar 2026 02:59:10 -0700 (PDT)
-Message-ID: <ccffd248-0b64-404b-b531-918b34a01b15@suse.com>
-Date: Tue, 10 Mar 2026 10:59:08 +0100
+        bh=sXZ/Do0x+4Oc8KRITWR6W9eSNAsHpSr+C2VoN330X78=;
+        b=N5ABbzUsJrlOlEBDCNpQ9IzTR6AtezQDHjFroe3scOQpmOC6G8/7Rlw3E/qrVG/+J2
+         995ZqRTbk9eJBaPJXQn1yJTL296hNPm+8bsS4DnUNZPjUFEuf4qDAUTT+/U/M7DY/SMb
+         mgjEx367vSbZLkQ4vyYVQw0otS7eTMkANYDQ7zU9u/WRudS4+zx8EyhsZpLy9QyPLriF
+         J9UvUVzhg/WC+BfUyXttbkTJ1D61Zs1w/C2Y3sS6VcRWXpy3UlBxs9PnMmVqb6uzSNyk
+         mWPnhehG43ec+GjfPgEKuX03DqOqAYwEDRoCzkfSu4yCW1MFqdACP+1iLQCUidmTp9zH
+         6Muw==
+X-Forwarded-Encrypted: i=1; AJvYcCUsqQA/vZ2/Swoy089yTLKcPidj/D4U3R4hSFNM2qmXRsxBRBUGK1riHixIQI6zslCsO7T+xO1Z+1s=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw1x7Zu5Yo9den8CNZwNiDGWuu8VgIJi3kI0CVEmJiMTTE+Oadp
+	+DIXiy+kfBcc/BW69i6JbD20b3yhZJfdSw9PopDbaYvPyLZOy20b6Gn8HQofGL5OsA==
+X-Gm-Gg: ATEYQzyOm+WDP2cQgI32Y/1GABUO7ZO3OzOKDRQF+vlJwKyyMk+ZZoziZEuhGdPIRw1
+	9ERLEa6dIr+6/Tg+2FU9Or+Mxgi8Rq8f+w+9IWM31s7xm9baANKj5tUvYTTx7YwMRn2Ec1uZrXh
+	o4apIBQRpTin0/PvKg/Ep6U+qgeyHm9Girgtg7JnXdhe0tmlCKNlOfFMBfkrVFIpTBWpsmHUWJW
+	utmLtLHEvyg785OBShXgUQ0omNJJFWtyK+cG26pXrgH4Hss+HaZA1t+czSLYXbXVtgoZrjeWtuL
+	EeARew2kdz6lUF3iP9cSggPYFxUK3r1/zmX0OMTOjM/t6msgkevOHKqFKDhYU5mLVweglk4XgtQ
+	RKu06LH3l6CHiiqoKVn6xDzqH3E5CFEMBv/uuipNYkZBUvri40SmhSXnCBDcsPR0TdHE7bmyk4s
+	wdWwRUa3YRn204pDaQ+cRqvXc40ik4SLms2YvQdvAzSAsszmGtGqcX+Zn5+/bNFT6Mx4s9CQP8j
+	siJmsFTisDHOoA=
+X-Received: by 2002:a05:6000:2008:b0:439:d73d:95e with SMTP id ffacd0b85a97d-439da66a476mr25320352f8f.27.1773138407218;
+        Tue, 10 Mar 2026 03:26:47 -0700 (PDT)
+Message-ID: <4a5018a2-9867-432b-9464-874532241316@suse.com>
+Date: Tue, 10 Mar 2026 11:26:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] x86: Remove x86 prefixed names from acpi code
+Subject: Re: [PATCH 3/6] x86: Remove x86 prefixed names from hvm code
 To: Kevin Lampis <kevin.lampis@citrix.com>
 Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
  xen-devel@lists.xenproject.org
 References: <20260304195350.837593-1-kevin.lampis@citrix.com>
- <20260304195350.837593-3-kevin.lampis@citrix.com>
+ <20260304195350.837593-4-kevin.lampis@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -124,10 +124,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260304195350.837593-3-kevin.lampis@citrix.com>
+In-Reply-To: <20260304195350.837593-4-kevin.lampis@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 258A3248F96
+X-Rspamd-Queue-Id: 0452E2495ED
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -136,7 +136,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,citrix.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
@@ -175,42 +175,208 @@ On 04.03.2026 20:53, Kevin Lampis wrote:
 > 
 > Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
 > ---
-> Inside do_get_hw_residencies()
-> there is an explicit check for `c->family != 6`
-> Do we need to add family 18/19 support here?
+> I couldn't find any information about these Intel family 6 processors:
+>   model 0x5d: /* SoFIA 3G Granite/ES2.1 */
+>   model 0x65: /* SoFIA LTE AOSP */
+>   model 0x6e: /* Cougar Mountain */
+> Should I add them to intel-family.h?
 
-I think there is more stuff to add there, as the last addition looks to have
-been quite a while back. But "yes" to the question. However, ...
+We should keep that in sync with Linux, I think, so "no" unless you mean to
+first have respective entries added there.
 
-> --- a/xen/arch/x86/acpi/cpu_idle.c
-> +++ b/xen/arch/x86/acpi/cpu_idle.c
-> @@ -178,10 +178,11 @@ static void cf_check do_get_hw_residencies(void *arg)
->      struct cpuinfo_x86 *c = &current_cpu_data;
->      struct hw_residencies *hw_res = arg;
->  
-> -    if ( c->x86_vendor != X86_VENDOR_INTEL || c->x86 != 6 )
-> +    /* XXX Does this need to be extented to include fam 18/19? */
-> +    if ( c->vendor != X86_VENDOR_INTEL || c->family != 6 )
->          return;
+0x5d is listed in the SDM, so I'd recommend keeping the entries (using IFM()
+directly for the time being).
 
-... I'd prefer if such a comment could be avoided, ideally by covering the
-case (in a separate change).
+0x65 and 0x6e aren't listed in the SDM, so may never really have hit the
+public. Respective cases can perhaps be dropped, but such dropping would
+again likely better be done in a separate change.
 
-> @@ -1059,8 +1060,7 @@ static void acpi_processor_power_init_bm_check(struct acpi_processor_flags *flag
->       * is not required while entering C3 type state on
->       * P4, Core and beyond CPUs
+> @@ -3073,71 +3077,71 @@ static bool __init has_if_pschange_mc(void)
+>       * IF_PSCHANGE_MC is only known to affect Intel Family 6 processors at
+>       * this time.
 >       */
-> -    if ( c->x86_vendor == X86_VENDOR_INTEL &&
-> -        (c->x86 > 0x6 || (c->x86 == 6 && c->x86_model >= 14)) )
-> +    if ( c->vendor == X86_VENDOR_INTEL && c->vfm >= INTEL_CORE_YONAH )
->              flags->bm_control = 0;
->  }
+> -    if ( boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
+> -         boot_cpu_data.x86 != 6 )
+> +    if ( boot_cpu_data.vendor != X86_VENDOR_INTEL ||
+> +         boot_cpu_data.family != 6 )
+>          return false;
+>  
+> -    switch ( boot_cpu_data.x86_model )
+> +    switch ( boot_cpu_data.vfm )
+>      {
+>          /*
+>           * Core processors since at least Nehalem are vulnerable.
+>           */
+> -    case 0x1f: /* Auburndale / Havendale */
+> -    case 0x1e: /* Nehalem */
+> -    case 0x1a: /* Nehalem EP */
+> -    case 0x2e: /* Nehalem EX */
+> -    case 0x25: /* Westmere */
+> -    case 0x2c: /* Westmere EP */
+> -    case 0x2f: /* Westmere EX */
+> -    case 0x2a: /* SandyBridge */
+> -    case 0x2d: /* SandyBridge EP/EX */
+> -    case 0x3a: /* IvyBridge */
+> -    case 0x3e: /* IvyBridge EP/EX */
+> -    case 0x3c: /* Haswell */
+> -    case 0x3f: /* Haswell EX/EP */
+> -    case 0x45: /* Haswell D */
+> -    case 0x46: /* Haswell H */
+> -    case 0x3d: /* Broadwell */
+> -    case 0x47: /* Broadwell H */
+> -    case 0x4f: /* Broadwell EP/EX */
+> -    case 0x56: /* Broadwell D */
+> -    case 0x4e: /* Skylake M */
+> -    case 0x5e: /* Skylake D */
+> -    case 0x55: /* Skylake-X / Cascade Lake */
+> -    case 0x7d: /* Ice Lake */
+> -    case 0x7e: /* Ice Lake */
+> -    case 0x8e: /* Kaby / Coffee / Whiskey Lake M */
+> -    case 0x9e: /* Kaby / Coffee / Whiskey Lake D */
+> -    case 0xa5: /* Comet Lake H/S */
+> -    case 0xa6: /* Comet Lake U */
+> +    case INTEL_NEHALEM_G:
+> +    case INTEL_NEHALEM:
+> +    case INTEL_NEHALEM_EP:
+> +    case INTEL_NEHALEM_EX:
+> +    case INTEL_WESTMERE:
+> +    case INTEL_WESTMERE_EP:
+> +    case INTEL_WESTMERE_EX:
+> +    case INTEL_SANDYBRIDGE:
+> +    case INTEL_SANDYBRIDGE_X:
+> +    case INTEL_IVYBRIDGE:
+> +    case INTEL_IVYBRIDGE_X:
+> +    case INTEL_HASWELL:
+> +    case INTEL_HASWELL_X:
+> +    case INTEL_HASWELL_L:
+> +    case INTEL_HASWELL_G:
+> +    case INTEL_BROADWELL:
+> +    case INTEL_BROADWELL_G:
+> +    case INTEL_BROADWELL_X:
+> +    case INTEL_BROADWELL_D:
+> +    case INTEL_SKYLAKE_L:
+> +    case INTEL_SKYLAKE:
+> +    case INTEL_SKYLAKE_X:
+> +    case INTEL_ICELAKE:
+> +    case INTEL_ICELAKE_L:
+> +    case INTEL_KABYLAKE_L:
+> +    case INTEL_KABYLAKE:
+> +    case INTEL_COMETLAKE:
+> +    case INTEL_COMETLAKE_L:
+>          return true;
+>  
+>          /*
+>           * Atom processors are not vulnerable.
+>           */
+> -    case 0x1c: /* Pineview */
+> -    case 0x26: /* Lincroft */
+> -    case 0x27: /* Penwell */
+> -    case 0x35: /* Cloverview */
+> -    case 0x36: /* Cedarview */
+> -    case 0x37: /* Baytrail / Valleyview (Silvermont) */
+> -    case 0x4d: /* Avaton / Rangely (Silvermont) */
+> -    case 0x4c: /* Cherrytrail / Brasswell */
+> -    case 0x4a: /* Merrifield */
+> -    case 0x5a: /* Moorefield */
+> -    case 0x5c: /* Goldmont */
+> -    case 0x5d: /* SoFIA 3G Granite/ES2.1 */
+> -    case 0x65: /* SoFIA LTE AOSP */
+> -    case 0x5f: /* Denverton */
+> -    case 0x6e: /* Cougar Mountain */
+> -    case 0x75: /* Lightning Mountain */
+> -    case 0x7a: /* Gemini Lake */
+> -    case 0x86: /* Jacobsville */
+> +    case INTEL_ATOM_BONNELL:
+> +    case INTEL_ATOM_BONNELL_MID:
+> +    case INTEL_ATOM_SALTWELL_MID:
+> +    case INTEL_ATOM_SALTWELL_TABLET:
+> +    case INTEL_ATOM_SALTWELL:
+> +    case INTEL_ATOM_SILVERMONT:
+> +    case INTEL_ATOM_SILVERMONT_D:
+> +    case INTEL_ATOM_AIRMONT:
+> +    case INTEL_ATOM_SILVERMONT_MID:
+> +    case INTEL_ATOM_SILVERMONT_MID2:
 
-Again a check that likely can simply be dropped (in a separate change, possibly
-together with those other droppings suggested in reply to patch 1)?
+Can the Silvermonts please be grouped together?
 
-With the adjustments:
-Acked-by: Jan Beulich <jbeulich@suse.com>
+> +    case INTEL_ATOM_GOLDMONT:
+> +    //case 0x5d: /* SoFIA 3G Granite/ES2.1 */ // XXX ???
+> +    //case 0x65: /* SoFIA LTE AOSP */         // XXX ???
+> +    case INTEL_ATOM_GOLDMONT_D:
+> +    //case 0x6e: /* Cougar Mountain */        // XXX ???
+> +    case INTEL_ATOM_AIRMONT_NP:
+
+Same for the Airmonts and ...
+
+> +    case INTEL_ATOM_GOLDMONT_PLUS:
+
+... the Goldmonts.
+
+> @@ -3431,23 +3435,20 @@ static void __init lbr_tsx_fixup_check(void)
+>       * fixed up as well.
+>       */
+>      if ( cpu_has_hle || cpu_has_rtm ||
+> -         boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
+> -         boot_cpu_data.x86 != 6 )
+> +         boot_cpu_data.vendor != X86_VENDOR_INTEL ||
+> +         boot_cpu_data.family != 6 )
+>          return;
+>  
+> -    switch ( boot_cpu_data.x86_model )
+> +    switch ( boot_cpu_data.vfm )
+>      {
+> -    case 0x3c: /* HSM182, HSD172 - 4th gen Core */
+> -    case 0x3f: /* HSE117 - Xeon E5 v3 */
+> -    case 0x45: /* HSM182 - 4th gen Core */
+> -    case 0x46: /* HSM182, HSD172 - 4th gen Core (GT3) */
+> -    case 0x3d: /* BDM127 - 5th gen Core */
+> -    case 0x47: /* BDD117 - 5th gen Core (GT3)
+> -                  BDW117 - Xeon E3-1200 v4 */
+> -    case 0x4f: /* BDF85  - Xeon E5-2600 v4
+> -                  BDH75  - Core-i7 for LGA2011-v3 Socket
+> -                  BDX88  - Xeon E7-x800 v4 */
+> -    case 0x56: /* BDE105 - Xeon D-1500 */
+> +    case INTEL_HASWELL:
+> +    case INTEL_HASWELL_X:
+> +    case INTEL_HASWELL_L:
+> +    case INTEL_HASWELL_G:
+> +    case INTEL_BROADWELL:
+> +    case INTEL_BROADWELL_G:
+> +    case INTEL_BROADWELL_X:
+> +    case INTEL_BROADWELL_D:
+>          break;
+
+I think it would be nice for the errata numbers to not be lost.
+
+> @@ -3476,19 +3477,16 @@ static void __init ler_to_fixup_check(void)
+>       * that are not equal to bit[47].  Attempting to context switch this value
+>       * may cause a #GP.  Software should sign extend the MSR.
+>       */
+> -    if ( boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
+> -         boot_cpu_data.x86 != 6 )
+> +    if ( boot_cpu_data.vendor != X86_VENDOR_INTEL ||
+> +         boot_cpu_data.family != 6 )
+>          return;
+>  
+> -    switch ( boot_cpu_data.x86_model )
+> +    switch ( boot_cpu_data.vfm )
+>      {
+> -    case 0x3d: /* BDM131 - 5th gen Core */
+> -    case 0x47: /* BDD??? - 5th gen Core (H-Processor line)
+> -                  BDW120 - Xeon E3-1200 v4 */
+> -    case 0x4f: /* BDF93  - Xeon E5-2600 v4
+> -                  BDH80  - Core-i7 for LGA2011-v3 Socket
+> -                  BDX93  - Xeon E7-x800 v4 */
+> -    case 0x56: /* BDE??? - Xeon D-1500 */
+> +    case INTEL_BROADWELL:
+> +    case INTEL_BROADWELL_G:
+> +    case INTEL_BROADWELL_X:
+> +    case INTEL_BROADWELL_D:
+>          ler_to_fixup_needed = true;
+>          break;
+>      }
+
+Same here then.
 
 Jan
 
