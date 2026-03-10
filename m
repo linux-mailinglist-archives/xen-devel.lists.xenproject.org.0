@@ -2,40 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oJqoCBNBsGlLhgIAu9opvQ
+	id QPzGBkVAsGkehgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 17:04:35 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 17:01:09 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7251B2543D7
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 17:04:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1250258.1547738 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DF2025433A
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2026 17:01:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1250261.1547728 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzzZE-0004uY-KD; Tue, 10 Mar 2026 16:04:20 +0000
+	id 1vzzVp-0004Oe-5r; Tue, 10 Mar 2026 16:00:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1250258.1547738; Tue, 10 Mar 2026 16:04:20 +0000
+Received: by outflank-mailman (output) from mailman id 1250261.1547728; Tue, 10 Mar 2026 16:00:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1vzzZE-0004sN-Ge; Tue, 10 Mar 2026 16:04:20 +0000
-Received: by outflank-mailman (input) for mailman id 1250258;
- Tue, 10 Mar 2026 15:59:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1vzzVp-0004Ml-39; Tue, 10 Mar 2026 16:00:49 +0000
+Received: by outflank-mailman (input) for mailman id 1250261;
+ Tue, 10 Mar 2026 16:00:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LFVH=BK=arm.com=jeremy.linton@srs-se1.protection.inumbo.net>)
- id 1vzzU8-0002mp-Hq
- for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 15:59:04 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 0e27e170-1c9a-11f1-b164-2bf370ae4941;
- Tue, 10 Mar 2026 16:59:01 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 74A8B16A3;
- Tue, 10 Mar 2026 08:58:54 -0700 (PDT)
-Received: from [192.168.20.93] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id
- 384493F7BD; Tue, 10 Mar 2026 08:58:53 -0700 (PDT)
+ <SRS0=eHsH=BK=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1vzzVn-0004Mf-Vd
+ for xen-devel@lists.xenproject.org; Tue, 10 Mar 2026 16:00:48 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4c636630-1c9a-11f1-9ccf-f158ae23cfc8;
+ Tue, 10 Mar 2026 17:00:45 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ 5b1f17b1804b1-48334ee0aeaso106670615e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Mar 2026 09:00:45 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
+ [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4852470c697sm115928445e9.31.2026.03.10.09.00.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 10 Mar 2026 09:00:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,312 +50,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e27e170-1c9a-11f1-b164-2bf370ae4941
-Message-ID: <657142d1-1632-4a3e-8800-ee1dd5763d78@arm.com>
-Date: Tue, 10 Mar 2026 10:58:49 -0500
+X-Inumbo-ID: 4c636630-1c9a-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773158445; x=1773763245; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=AQV8fZ84ZRFEpZsKly3NgEQ81YLTvarXOg/rJ1/KrGM=;
+        b=kjdNPiDr/0vTz7EHCuB8qc26VNR02x9P5X/Nie+nvYbqzyw/JEQkZs1TBdIup3nSzO
+         cJqpVbq9/q7k8OczsKSoLz7wIB5qMZvUxOKt9SlMIO6kJvXiukVZYT3fHXiNpZtbFAVx
+         PqrsKZ8vlbvOWhZ4uceiXJaSvpcy1BFzRjMot0o/tFXJe2igixED/Tyrn8accQcSWILU
+         jLBM5P1Q/DCDjjI55da9jWlSpHucOfeN2xRJVMqt9NvzLGbUNDJd/fPnBQretcxhmybp
+         BGeTKYpHwHJ5Rv4ORHg+QbZXxBOYwGEJNX0LmK8xHlRa+d9ZbTp07A5Y9p+HJ5iK637C
+         uypw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1773158445; x=1773763245;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AQV8fZ84ZRFEpZsKly3NgEQ81YLTvarXOg/rJ1/KrGM=;
+        b=MyszPuNCq6UXkHO0OFXlHmEFebHO78nywxG7/xJm9fpcwuvNMFmfNguPLFWPwBrgoE
+         qRS9CLYf/zg6iMj4iEQ+KqrIB8Bjby9K9omWY1lg5jNuewwpn6xQKWINY8XlDEVNK8Y/
+         G2IJYY3NsjIFr4MTyXVYrj7WQ69DKx34zv11+T30j0uos2sLUHfkYR5Ml7OEMSav+A7P
+         qwklf4Ahm6LGT+CJbCZMa4oT+IloqHpTKpc7SeLi9twl++TvfF1vinAOowzPp13P52Js
+         RXhLGFESIAxTFjQBoPo2vdcMRB5oZ0U9Lj0r4SPRoWqhOTS5ytzL7RDP/LyxBRXv19hQ
+         Sgag==
+X-Forwarded-Encrypted: i=1; AJvYcCW4Av+Uhlask9kuY2O5OQlbLTcPMeIqB+nIcNez2geaH50dS8ZGxcUpC++UqqQbDBZv/6Taqd228j8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzqUNIBKxpYkZ82+zBfqgCPS6IE5QsoJTckLSfP7OYK8YCY2P+K
+	mk9MkklYjKwnKm1gA6sQJj7g5KZ5pqgM9p/FbRuvSeuWNv+39IIbECmB
+X-Gm-Gg: ATEYQzwAi0Ane0SWwD9Ijs6AVE8eDfsMt0AFBKJJXsSbMFe1XJ6EFBOHRb9cKwV0TQZ
+	PoyQ+D+gmT/kYhq/tVpZr6dkc8K+luuA59OxcVWwLnOx+lGj5cA5KoHvIUkoYUY+knxhPeYXB07
+	Kuj7m8xMaAak+KmjGTAeteAT37uuNFg3vcQTuSCkYHJSwPWAyQw9MxekaZKAoo1/GWoM16E3eTe
+	zj2BHK56XMjiSnkVPUmb+gBTJ/U5fMqo1e4DSxaWneAw70F2B2gIvRUSg9Md0pQ13poNhht2P+i
+	pQXIvf+/3n1vlC7DZ4BPQNcCc+rmcBCy1726XU99Z2clhDVrGPtChXFSDehIHWsYXWUH2gIZqKS
+	/J9GrNLnahdv3nmgrmk+joy1MrZj97eOJCFBoBwi9tiNH2MAL6W6/XacHKSLTlCw36PQ3eRtz2q
+	dYkxVzryE70rjJ7NokB+lNU7/ex4O6Dtm3wKOJsbinewODARstTSZWJUdb0jLqhah+V+gAuDvc3
+	dHCEFs=
+X-Received: by 2002:a05:600c:3b92:b0:485:3b00:f939 with SMTP id 5b1f17b1804b1-4853b00fa43mr148729915e9.8.1773158444677;
+        Tue, 10 Mar 2026 09:00:44 -0700 (PDT)
+Message-ID: <5d15bc9b-ead9-4690-b5cd-3b63d83537b6@gmail.com>
+Date: Tue, 10 Mar 2026 17:00:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] PCI/TPH: Fix get cpu steer-tag fail on ARM64
- platform
-To: Chengwen Feng <fengchengwen@huawei.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
- Juergen Gross <jgross@suse.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Len Brown <lenb@kernel.org>,
- Sunil V L <sunilvl@ventanamicro.com>, Mark Rutland <mark.rutland@arm.com>,
- Jonathan Cameron <jonathan.cameron@huawei.com>, Kees Cook <kees@kernel.org>,
- Yanteng Si <si.yanteng@linux.dev>, Sean Christopherson <seanjc@google.com>,
- Kai Huang <kai.huang@intel.com>, Tom Lendacky <thomas.lendacky@amd.com>,
- Thomas Huth <thuth@redhat.com>, Thorsten Blum <thorsten.blum@linux.dev>,
- Kevin Loughlin <kevinloughlin@google.com>, Zheyun Shen
- <szy0127@sjtu.edu.cn>, Peter Zijlstra <peterz@infradead.org>,
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Xin Li <xin@zytor.com>,
- "Ahmed S . Darwish" <darwi@linutronix.de>,
- Sohil Mehta <sohil.mehta@intel.com>,
- Ilkka Koskinen <ilkka@os.amperecomputing.com>,
- Robin Murphy <robin.murphy@arm.com>, James Clark <james.clark@linaro.org>,
- Besar Wicaksono <bwicaksono@nvidia.com>, Ma Ke <make24@iscas.ac.cn>,
- Ajit Khaparde <ajit.khaparde@broadcom.com>, Wei Huang <wei.huang2@amd.com>,
- Andy Gospodarek <andrew.gospodarek@broadcom.com>,
- Somnath Kotur <somnath.kotur@broadcom.com>, wangzhou1@hisilicon.com,
- wanghuiqiang@huawei.com, liuyonglong@huawei.com, linux-pci@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
- linux-riscv@lists.infradead.org, xen-devel@lists.xenproject.org,
- linux-acpi@vger.kernel.org, linux-perf-users@vger.kernel.org,
- stable@vger.kernel.org, Wathsala Vithanage <wathsala.vithanage@arm.com>
-References: <20260310032049.25387-1-fengchengwen@huawei.com>
- <20260310032049.25387-3-fengchengwen@huawei.com>
+Subject: Re: [PATCH v7 01/14] xen/riscv: detect and store supported hypervisor
+ CSR bits at boot
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1772814110.git.oleksii.kurochko@gmail.com>
+ <3201951150104f17593e16c7ba00ada51ac1e10f.1772814110.git.oleksii.kurochko@gmail.com>
+ <2de7f459-00b3-4968-aaa2-9067cb0c4aa4@suse.com>
 Content-Language: en-US
-From: Jeremy Linton <jeremy.linton@arm.com>
-In-Reply-To: <20260310032049.25387-3-fengchengwen@huawei.com>
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <2de7f459-00b3-4968-aaa2-9067cb0c4aa4@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 7251B2543D7
+X-Rspamd-Queue-Id: 7DF2025433A
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.39 / 15.00];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
-	DMARC_POLICY_SOFTFAIL(0.10)[arm.com : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:fengchengwen@huawei.com,m:bhelgaas@google.com,m:catalin.marinas@arm.com,m:will@kernel.org,m:rafael@kernel.org,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:chenhuacai@kernel.org,m:kernel@xen0n.name,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:alex@ghiti.fr,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:lenb@kernel.org,m:sunilvl@ventanamicro.com,m:mark.rutland@arm.com,m:jonathan.cameron@huawei.com,m:kees@kernel.org,m:si.yanteng@linux.dev,m:seanjc@google.com,m:kai.huang@intel.com,m:thomas.lendacky@amd.com,m:thuth@redhat.com,m:thorsten.blum@linux.dev,m:kevinloughlin@google.com,m:szy0127@sjtu.edu.cn,m:peterz@infradead.org,m:pawan.kumar.gupta@linux.intel.com,m:xin@zytor.com,m:darwi@linutronix.de,m:sohil.mehta@intel.com,m:ilkka@os.amperecomputing.com,m:robin.murphy@arm.com,m:james.clark@linaro.org,m:bwicaksono@nvidia.com,m:make2
- 4@iscas.ac.cn,m:ajit.khaparde@broadcom.com,m:wei.huang2@amd.com,m:andrew.gospodarek@broadcom.com,m:somnath.kotur@broadcom.com,m:wangzhou1@hisilicon.com,m:wanghuiqiang@huawei.com,m:liuyonglong@huawei.com,m:linux-pci@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:loongarch@lists.linux.dev,m:linux-riscv@lists.infradead.org,m:xen-devel@lists.xenproject.org,m:linux-acpi@vger.kernel.org,m:linux-perf-users@vger.kernel.org,m:stable@vger.kernel.org,m:wathsala.vithanage@arm.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[jeremy.linton@arm.com,xen-devel-bounces@lists.xenproject.org];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[8];
-	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.997];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[62];
-	FROM_NEQ_ENVFROM(0.00)[jeremy.linton@arm.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.621];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	R_DKIM_NA(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:mid,pcisig.com:url,huawei.com:email]
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-Hi,
 
-+Wathsala who has been looking at TPH too.
+On 3/10/26 9:11 AM, Jan Beulich wrote:
+> On 06.03.2026 17:33, Oleksii Kurochko wrote:
+>> Some hypervisor CSRs expose optional functionality and may not implement
+>> all architectural bits. Writing unsupported bits can either be ignored
+>> or raise an exception depending on the platform.
+>>
+>> Detect the set of writable bits for selected hypervisor CSRs at boot and
+>> store the resulting masks for later use. This allows safely programming
+>> these CSRs during vCPU context switching and avoids relying on hardcoded
+>> architectural assumptions.
+>>
+>> Use csr_read()&csr_write() instead of csr_swap()+all ones mask as some
+>> CSR registers have WPRI fields which should be preserved during write
+>> operation.
+>>
+>> Also, ro_one struct is introduced to cover the cases when a bit in CSR
+>> register (at the momemnt, it is only hstateen0) may be r/o-one to have
+>> hypervisor view of register seen by guest correct.
+>>
+>> Masks are calculated at the moment only for hedeleg, henvcfg, hideleg,
+>> hstateen0 registers as only them are going to be used in the follow up
+>> patch.
+>>
+>> If the Smstateen extension is not implemented, hstateen0 cannot be read
+>> because the register is considered non-existent. Instructions that attempt
+>> to access a CSR that is not implemented or not visible in the current mode
+>> are reserved and will raise an illegal-instruction exception.
+>>
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>> --- a/xen/arch/riscv/domain.c
+>> +++ b/xen/arch/riscv/domain.c
+>> @@ -2,9 +2,66 @@
+>>   
+>>   #include <xen/init.h>
+>>   #include <xen/mm.h>
+>> +#include <xen/sections.h>
+>>   #include <xen/sched.h>
+>>   #include <xen/vmap.h>
+>>   
+>> +#include <asm/cpufeature.h>
+>> +#include <asm/csr.h>
+>> +
+>> +struct csr_masks {
+>> +    register_t hedeleg;
+>> +    register_t henvcfg;
+>> +    register_t hideleg;
+>> +    register_t hstateen0;
+>> +
+>> +    struct {
+>> +        register_t hstateen0;
+>> +    } ro_one;
+>> +};
+>> +
+>> +static struct csr_masks __ro_after_init csr_masks;
+>> +
+>> +#define HEDELEG_AVAIL_MASK ULONG_MAX
+>> +#define HIDELEG_AVAIL_MASK ULONG_MAX
+>> +#define HENVCFG_AVAIL_MASK _UL(0xE0000003000000FF)
+>> +#define HSTATEEN0_AVAIL_MASK _UL(0xDE00000000000007)
+> It's not quite clear to me what AVAIL in here is to signal.
 
-On 3/9/26 10:20 PM, Chengwen Feng wrote:
-> pcie_tph_get_cpu_st() is broken on ARM64:
-> 1. pcie_tph_get_cpu_st() passes cpu_uid to the PCI ACPI DSM method.
->     cpu_uid should be the ACPI Processor UID [1].
-> 2. In BNXT, pcie_tph_get_cpu_st() is passed a cpu_uid obtained via
->     cpumask_first(irq->cpu_mask) - the logical CPU ID of a CPU core,
->     generated and managed by kernel (e.g., [0,255] for a system  with 256
->     logical CPU cores).
-> 3. On ARM64 platforms, ACPI assigns Processor UID to cores listed in the
->     MADT table, and this UID may not match the kernel's logical CPU ID.
->     When this occurs, the mismatch results in the wrong CPU steer-tag.
-> 4. On AMD x86 the logical CPU ID is identical to the ACPI Processor UID
->     so the mismatch is not seen.
-> 
-> Resolution:
-> 1. Implement acpi_get_cpu_acpi_id() for x86, which replaces
->     cpu_acpi_id(). All ACPI platforms now have an implementation.
-> 2. Use acpi_get_cpu_acpi_id() in pcie_tph_get_cpu_st() to translate from
->     logical CPU ID to ACPI Processor UID needed for the DSM call.
-> 3. Rename pcie_tpu_get_cpu_st() parameter from cpu_uid to cpu to
->     reflect that it is a logical CPU_ID.
-> 
-> [1] According to ECN_TPH-ST_Revision_20200924
->      (https://members.pcisig.com/wg/PCI-SIG/document/15470), the input
->      is defined as: "If the target is a processor, then this field
->      represents the ACPI Processor UID of the processor as specified in
->      the MADT. If the target is a processor container, then this field
->      represents the ACPI Processor UID of the processor container as
->      specified in the PPTT."
+It signal that these bits are potentially available for s/w to be set.
+If you want to suggest the better naming and can change that in the
+follow-up patch.
 
-The bit about "processor containers" is not supported by linux yet, and 
-is potentially a problem worth considering.
 
-The original rename comments from the previous patch versions are on 
-point, but since they have grown large, i'm going to suggest the x86 
-rename/shuffle here is also in its own patch seperate from the TPH 
-specific changes like the arm ones now are.
+>   It's also not
+> quite clear to me why you would use _UL() in #define-s sitting in a C file
+> (and hence not possibly being used in assembly code; even for asm() I'd
+> expect constants to be properly passed in as C operands).
 
-Thanks for looking after this.
+I thought it is always be good to use _UL() for such type of constants as
+ULONG_MAX also uses UL, but not in form of _UL() macros. If it would be
+better to drop, I can do that in follow-up patch.
 
-> 
-> Fixes: d2e8a34876ce ("PCI/TPH: Add Steering Tag support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengwen Feng <fengchengwen@huawei.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-> ---
->   Documentation/PCI/tph.rst    |  4 ++--
->   arch/x86/include/asm/acpi.h  |  2 ++
->   arch/x86/include/asm/cpu.h   |  1 -
->   arch/x86/include/asm/smp.h   |  1 -
->   arch/x86/kernel/cpu/common.c | 12 ++++++++++++
->   arch/x86/xen/enlighten_hvm.c |  4 ++--
->   drivers/pci/tph.c            | 11 ++++++-----
->   include/linux/pci-tph.h      |  4 ++--
->   8 files changed, 26 insertions(+), 13 deletions(-)
-> 
-> diff --git a/Documentation/PCI/tph.rst b/Documentation/PCI/tph.rst
-> index e8993be64fd6..b6cf22b9bd90 100644
-> --- a/Documentation/PCI/tph.rst
-> +++ b/Documentation/PCI/tph.rst
-> @@ -79,10 +79,10 @@ To retrieve a Steering Tag for a target memory associated with a specific
->   CPU, use the following function::
->   
->     int pcie_tph_get_cpu_st(struct pci_dev *pdev, enum tph_mem_type type,
-> -                          unsigned int cpu_uid, u16 *tag);
-> +                          unsigned int cpu, u16 *tag);
->   
->   The `type` argument is used to specify the memory type, either volatile
-> -or persistent, of the target memory. The `cpu_uid` argument specifies the
-> +or persistent, of the target memory. The `cpu` argument specifies the
->   CPU where the memory is associated to.
->   
->   After the ST value is retrieved, the device driver can use the following
-> diff --git a/arch/x86/include/asm/acpi.h b/arch/x86/include/asm/acpi.h
-> index a03aa6f999d1..b968369715c1 100644
-> --- a/arch/x86/include/asm/acpi.h
-> +++ b/arch/x86/include/asm/acpi.h
-> @@ -157,6 +157,8 @@ static inline bool acpi_has_cpu_in_madt(void)
->   	return !!acpi_lapic;
->   }
->   
-> +u32 acpi_get_cpu_acpi_id(unsigned int cpu);
-> +
->   #define ACPI_HAVE_ARCH_SET_ROOT_POINTER
->   static __always_inline void acpi_arch_set_root_pointer(u64 addr)
->   {
-> diff --git a/arch/x86/include/asm/cpu.h b/arch/x86/include/asm/cpu.h
-> index ad235dda1ded..57a0786dfd75 100644
-> --- a/arch/x86/include/asm/cpu.h
-> +++ b/arch/x86/include/asm/cpu.h
-> @@ -11,7 +11,6 @@
->   
->   #ifndef CONFIG_SMP
->   #define cpu_physical_id(cpu)			boot_cpu_physical_apicid
-> -#define cpu_acpi_id(cpu)			0
->   #endif /* CONFIG_SMP */
->   
->   #ifdef CONFIG_HOTPLUG_CPU
-> diff --git a/arch/x86/include/asm/smp.h b/arch/x86/include/asm/smp.h
-> index 84951572ab81..05d1d479b4cf 100644
-> --- a/arch/x86/include/asm/smp.h
-> +++ b/arch/x86/include/asm/smp.h
-> @@ -130,7 +130,6 @@ __visible void smp_call_function_interrupt(struct pt_regs *regs);
->   __visible void smp_call_function_single_interrupt(struct pt_regs *r);
->   
->   #define cpu_physical_id(cpu)	per_cpu(x86_cpu_to_apicid, cpu)
-> -#define cpu_acpi_id(cpu)	per_cpu(x86_cpu_to_acpiid, cpu)
->   
->   /*
->    * This function is needed by all SMP systems. It must _always_ be valid
-> diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-> index 1c3261cae40c..93f4f3283c81 100644
-> --- a/arch/x86/kernel/cpu/common.c
-> +++ b/arch/x86/kernel/cpu/common.c
-> @@ -29,6 +29,7 @@
->   #include <linux/utsname.h>
->   #include <linux/efi.h>
->   
-> +#include <asm/acpi.h>
->   #include <asm/alternative.h>
->   #include <asm/cmdline.h>
->   #include <asm/cpuid/api.h>
-> @@ -57,6 +58,7 @@
->   #include <asm/asm.h>
->   #include <asm/bugs.h>
->   #include <asm/cpu.h>
-> +#include <asm/smp.h>
->   #include <asm/mce.h>
->   #include <asm/msr.h>
->   #include <asm/cacheinfo.h>
-> @@ -2643,3 +2645,13 @@ void __init arch_cpu_finalize_init(void)
->   	 */
->   	mem_encrypt_init();
->   }
-> +
-> +u32 acpi_get_cpu_acpi_id(unsigned int cpu)
-> +{
-> +#ifndef CONFIG_SMP
-> +	return 0;
-> +#else
-> +	return per_cpu(x86_cpu_to_acpiid, cpu);
-> +#endif
-> +}
-> +EXPORT_SYMBOL_GPL(acpi_get_cpu_acpi_id);
-> diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
-> index fe57ff85d004..0a5cde7865b2 100644
-> --- a/arch/x86/xen/enlighten_hvm.c
-> +++ b/arch/x86/xen/enlighten_hvm.c
-> @@ -161,8 +161,8 @@ static int xen_cpu_up_prepare_hvm(unsigned int cpu)
->   	 */
->   	xen_uninit_lock_cpu(cpu);
->   
-> -	if (cpu_acpi_id(cpu) != CPU_ACPIID_INVALID)
-> -		per_cpu(xen_vcpu_id, cpu) = cpu_acpi_id(cpu);
-> +	if (acpi_get_cpu_acpi_id(cpu) != CPU_ACPIID_INVALID)
-> +		per_cpu(xen_vcpu_id, cpu) = acpi_get_cpu_acpi_id(cpu);
->   	else
->   		per_cpu(xen_vcpu_id, cpu) = cpu;
->   	xen_vcpu_setup(cpu);
-> diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
-> index ca4f97be7538..c1bd60637b5a 100644
-> --- a/drivers/pci/tph.c
-> +++ b/drivers/pci/tph.c
-> @@ -236,18 +236,19 @@ static int write_tag_to_st_table(struct pci_dev *pdev, int index, u16 tag)
->    * with a specific CPU
->    * @pdev: PCI device
->    * @mem_type: target memory type (volatile or persistent RAM)
-> - * @cpu_uid: associated CPU id
-> + * @cpu: associated CPU id
->    * @tag: Steering Tag to be returned
->    *
->    * Return the Steering Tag for a target memory that is associated with a
-> - * specific CPU as indicated by cpu_uid.
-> + * specific CPU as indicated by cpu.
->    *
->    * Return: 0 if success, otherwise negative value (-errno)
->    */
->   int pcie_tph_get_cpu_st(struct pci_dev *pdev, enum tph_mem_type mem_type,
-> -			unsigned int cpu_uid, u16 *tag)
-> +			unsigned int cpu, u16 *tag)
->   {
->   #ifdef CONFIG_ACPI
-> +	u32 cpu_uid = acpi_get_cpu_acpi_id(cpu);
->   	struct pci_dev *rp;
->   	acpi_handle rp_acpi_handle;
->   	union st_info info;
-> @@ -265,9 +266,9 @@ int pcie_tph_get_cpu_st(struct pci_dev *pdev, enum tph_mem_type mem_type,
->   
->   	*tag = tph_extract_tag(mem_type, pdev->tph_req_type, &info);
->   
-> -	pci_dbg(pdev, "get steering tag: mem_type=%s, cpu_uid=%d, tag=%#04x\n",
-> +	pci_dbg(pdev, "get steering tag: mem_type=%s, cpu=%d, tag=%#04x\n",
->   		(mem_type == TPH_MEM_TYPE_VM) ? "volatile" : "persistent",
-> -		cpu_uid, *tag);
-> +		cpu, *tag);
->   
->   	return 0;
->   #else
-> diff --git a/include/linux/pci-tph.h b/include/linux/pci-tph.h
-> index ba28140ce670..be68cd17f2f8 100644
-> --- a/include/linux/pci-tph.h
-> +++ b/include/linux/pci-tph.h
-> @@ -25,7 +25,7 @@ int pcie_tph_set_st_entry(struct pci_dev *pdev,
->   			  unsigned int index, u16 tag);
->   int pcie_tph_get_cpu_st(struct pci_dev *dev,
->   			enum tph_mem_type mem_type,
-> -			unsigned int cpu_uid, u16 *tag);
-> +			unsigned int cpu, u16 *tag);
->   void pcie_disable_tph(struct pci_dev *pdev);
->   int pcie_enable_tph(struct pci_dev *pdev, int mode);
->   u16 pcie_tph_get_st_table_size(struct pci_dev *pdev);
-> @@ -36,7 +36,7 @@ static inline int pcie_tph_set_st_entry(struct pci_dev *pdev,
->   { return -EINVAL; }
->   static inline int pcie_tph_get_cpu_st(struct pci_dev *dev,
->   				      enum tph_mem_type mem_type,
-> -				      unsigned int cpu_uid, u16 *tag)
-> +				      unsigned int cpu, u16 *tag)
->   { return -EINVAL; }
->   static inline void pcie_disable_tph(struct pci_dev *pdev) { }
->   static inline int pcie_enable_tph(struct pci_dev *pdev, int mode)
+>
+>> +void __init init_csr_masks(void)
+>> +{
+>> +    /*
+>> +     * The mask specifies the bits that may be safely modified without
+>> +     * causing side effects.
+>> +     *
+>> +     * For example, registers such as henvcfg or hstateen0 contain WPRI
+>> +     * fields that must be preserved. Any write to the full register must
+>> +     * therefore retain the original values of those fields.
+>> +     */
+>> +#define INIT_CSR_MASK(csr, field, mask) do { \
+>> +        register_t old = csr_read_set(CSR_##csr, mask); \
+>> +        csr_masks.field = csr_swap(CSR_##csr, old); \
+>> +    } while (0)
+>> +
+>> +#define INIT_RO_ONE_MASK(csr, field, mask) do { \
+>> +        register_t old = csr_read_clear(CSR_HSTATEEN0, mask); \
+>> +        csr_masks.ro_one.field = csr_swap(CSR_##csr, old) & mask; \
+>> +    } while (0)
+>> +
+>> +    INIT_CSR_MASK(HEDELEG, hedeleg, HEDELEG_AVAIL_MASK);
+>> +    INIT_CSR_MASK(HIDELEG, hideleg, HIDELEG_AVAIL_MASK);
+>> +
+>> +    INIT_CSR_MASK(HENVCFG, henvcfg, HENVCFG_AVAIL_MASK);
+>> +
+>> +    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_smstateen) )
+>> +    {
+>> +        INIT_CSR_MASK(HSTATEEN0, hstateen0, HSTATEEN0_AVAIL_MASK);
+>> +        INIT_RO_ONE_MASK(HSTATEEN0, hstateen0, HSTATEEN0_AVAIL_MASK);
+>> +    }
+> The 3rd macro parameters are now redundant. At the example of INIT_CSR_MASK(),
+> you could now have
+>
+> #define INIT_CSR_MASK(csr, field) do { \
+>          register_t old = csr_read_set(CSR_ ## csr, csr ## _AVAIL_MASK); \
+>          csr_masks.field = csr_swap(CSR_ ## csr, old); \
+>      } while (0)
+>
+> This would reduce the risk of incomplete editing after copy-and-paste, or
+> other typo-ing.
+>
+> Note also that ## being a binary operator, ./CODING_STYLE wants us to put
+> blanks around it just like for non-pre-processor binary operators. I'll
+> try to remember to make that adjustment when committing.
+
+Good point. Thanks a lot!
+
+~ Oleksii
 
 
