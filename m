@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WFmWCJghsWkOrQIAu9opvQ
+	id 0KFdCJAlsWkOrQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 09:02:32 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 09:19:28 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 786A825E5A0
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 09:02:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1250810.1548167 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7308A25EF20
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 09:19:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1250822.1548176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0EVJ-0001f5-8U; Wed, 11 Mar 2026 08:01:17 +0000
+	id 1w0EmW-0003SO-Nu; Wed, 11 Mar 2026 08:19:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1250810.1548167; Wed, 11 Mar 2026 08:01:17 +0000
+Received: by outflank-mailman (output) from mailman id 1250822.1548176; Wed, 11 Mar 2026 08:19:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0EVJ-0001dg-5e; Wed, 11 Mar 2026 08:01:17 +0000
-Received: by outflank-mailman (input) for mailman id 1250810;
- Wed, 11 Mar 2026 08:01:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w0EmW-0003Px-KV; Wed, 11 Mar 2026 08:19:04 +0000
+Received: by outflank-mailman (input) for mailman id 1250822;
+ Wed, 11 Mar 2026 08:19:03 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oqCu=BL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w0EVI-0001da-B3
- for xen-devel@lists.xenproject.org; Wed, 11 Mar 2026 08:01:16 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 79ead6ab-1d20-11f1-b164-2bf370ae4941;
- Wed, 11 Mar 2026 09:01:14 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id
- ffacd0b85a97d-439f59dfda2so1028878f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 11 Mar 2026 01:01:14 -0700 (PDT)
+ id 1w0EmV-0003Pp-9d
+ for xen-devel@lists.xenproject.org; Wed, 11 Mar 2026 08:19:03 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f5129a28-1d22-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Mar 2026 09:19:00 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id
+ ffacd0b85a97d-439b9b1900bso7417045f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Mar 2026 01:19:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439f821e32csm4375761f8f.35.2026.03.11.01.01.13
+ ffacd0b85a97d-439f821d095sm4857322f8f.32.2026.03.11.01.18.58
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Mar 2026 01:01:13 -0700 (PDT)
+ Wed, 11 Mar 2026 01:18:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,64 +50,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79ead6ab-1d20-11f1-b164-2bf370ae4941
+X-Inumbo-ID: f5129a28-1d22-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773216074; x=1773820874; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773217140; x=1773821940; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=oRTAnGYYsAovvMfRW9G1obKwSv/FK+Ba49eC5EWIi1A=;
-        b=ewJCKMJpdTy+LAKbOsX9lC7HE3QztlFAviMyxVAVjhN3VEjf9Jd93/7Wf5NdTp74Fm
-         iX4Hx1oX44MiU3uDCAI5MqUnYo6+q/0rmRhjh8JSODy+iSswp9RYVKznkdClIvgF4nlE
-         0k3DULclgmcPu7XCnW++9ZOQfNDnSwK6xOMYvmjfXz/xnP10cU4qQYaXAgALk0Wwv5gQ
-         5xiX+eSLXobeYOBNReUb/1g82tMuZ9U7RLk3lVauokQ4fdfDncrxGE0SZQSNE7nS6q0N
-         xGPyOyemLjFWNwbc0EAMXswr1cj/Y1f9fFlbib5GfnwcB+acuKzUGYHUgFUGu+Kol4UY
-         vm3w==
+        bh=O6sc8H1H+f5MSSkuQGhURBScH13uJ0hgfCYgp5q5ld4=;
+        b=KnSsPwFTrGfgyeDAa7/si7Hgd1gvV6Z7aA4rRGmtfGrqRcCLVl2vS43oZ5bks8n+O8
+         qKDqPLsTIxOY2vCnjj4HsqnulIBQCqFQrKiQQKh/IOj7Eiak7LHH/dSXNNskC7hQn1sf
+         dJAV/l3v1zAHUrh10cIZ+N83hOkJEoq+2Ucer2codVfDVvD1uBuGZ87fsCXb1yfo/uS0
+         srYoaAdYiARybGSiCFMp4VigwCkpNLoaJQR5KIa+EHZ/4limnab6l2dJZQf62k/PdcI6
+         /XdX82v0gGT3UvKwDvP1fNcunVkUOaf5PxYA9pjvScGJdIJHeUI3gu7/wVj4Ed5Zplto
+         Wm9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773216074; x=1773820874;
+        d=1e100.net; s=20230601; t=1773217140; x=1773821940;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=oRTAnGYYsAovvMfRW9G1obKwSv/FK+Ba49eC5EWIi1A=;
-        b=WLP9NRXQ/YKt6aS9oqFfk30qpwRXjKNpN39JUTS97/VNyPwhup7SfZZVFTJf/OQi00
-         xzArDiMA4Gm6TJ7AecltTwODM9JWRlcjWZnGW72MILwKf8mD3UR0Jp6eVU/r1E8R+SI5
-         PyNAvjcgrOao58wx7X364x7TqSTZFMw7fuOrfc7i5NLh40szT4/gZXb+dndP3ffgW3S8
-         2cF+lJqUp7F/F0I4P1Cr8sDNrkoSzXAipPb5+LUeQo4VwpKUI22gPZ+x7Gvo8VSMv5Zq
-         ut5F/3OCOOe/YBqgT75auAyWsGpJs3SgiwM8x7e+KvaNdO+2QPueglV/l4T7Ib3bpoLs
-         AX+Q==
-X-Forwarded-Encrypted: i=1; AJvYcCWimZf+fNCkAt4/AChsWtVyOXqHPsFwqTO+qGWzY+kSJvxI2tdi8KUQGkRGWCZ8LN1TO/XTcSsZtHE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yys+z/w3s8PgkHwwR/jQO11ssztsTpZbk79qxkAY0emTf/43fmK
-	I8LjVzBGsI50LsRcMiqsMI+mVOCRjwGKydUg3gyjTbkBbZosJhxHGuo1O9dxfUaazjuTyYp0dCP
-	wM0w=
-X-Gm-Gg: ATEYQzwk/UuF+x8hYOEBDn11wuLnb/wd43ISxB3Wq4EpeE92l6fBvN0wEEym4uEPfrJ
-	YfchoSHLyHdoijzUN223VkmlTLQ0XewbRmPHW19KAZIn5+qPX/djC30D7L0NOtuQz/mNA/y3eZM
-	mLsDTjh8jOgMI8tNLRy642Cio8BvBPPFsc1mZ/sTCLizXsPpfwOv5SNgmlNTc/OgxWQDQggc4tL
-	uNVyu8Pttbw1reX+ZAiAzoOM5cAtTw3rDly9dM1Cs7aq+ZOJc+MnSCwAf45mPPrgtPp1lbmQ9H3
-	NicHei/iNigJM9hh+6fr86Zt7MASvkgzJFbg8yiygGIC5hcHifR4hPrk7JqPKytGCo2JRabKUVM
-	gWqhs8yX1yXVzqjjr5b7RkkwO3D6sQ+qBQsFVkNDLRqrr/amrpSvgLYqkGOSm7h5Bw94lPluPfU
-	iliKiRVCzZwP1oBprwulXXgQhVKB0suVXbIEh2+4d6GPdmx/qfYL6AucT39G4vF2kP+0TSpr6CW
-	lcs4sPMcGKONkfMVyRCMLgFgw==
-X-Received: by 2002:a5d:5f82:0:b0:439:f55c:b574 with SMTP id ffacd0b85a97d-439f81f3c13mr2973735f8f.12.1773216073968;
-        Wed, 11 Mar 2026 01:01:13 -0700 (PDT)
-Message-ID: <9b54666a-c61e-4cae-8234-f67ac8802947@suse.com>
-Date: Wed, 11 Mar 2026 09:01:13 +0100
+        bh=O6sc8H1H+f5MSSkuQGhURBScH13uJ0hgfCYgp5q5ld4=;
+        b=elZzJn2G6AXU1BO1Lnkhe9475ataM9T9ES8NKQJ7ymuGAIGBVFp1fNGPXPupYIR7/P
+         XGc5PNxx1Q5RZKoboFInl4pLYUiQ8ckh7yt/2TI5GpPgrTvZ/28NUZZRyF/SA22paLrT
+         W2YHL9mM/Q7cHVSPsRXujX9RwRWZFER1FLTIvAZ40Db9q2suxO7z0BtpwZx3ZDcDwe/E
+         eui8SWTyRiKMXtyfL/4WOCMj8wEy169IWaAUvVO7/RkOCJ7b6lpco/sZDu4Ae/UrjU1p
+         5by6hN629UcG4pAPKzz+AgKAfYipqUbABpkP7XToAgAq2O4TsIcBimXyJqoYJxaCFUhy
+         4ELA==
+X-Forwarded-Encrypted: i=1; AJvYcCWUkLPRI8IyPhfRu7nW6qfa60i/pnTzcWtpTmJIMEnF9y0VD38eqqWTKGbpU3u5dN8g1pofy3zgxBs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw431vCLXHX7lr1h+WKH6WVcm8riLJH2/IuKOx3T2fdxQ+oFh17
+	PnYa5RapE129bb03fk0aW2oNGwRbrpIu0kI2O+dboudvEl78lCVqAYBExeEiqH5sHQ==
+X-Gm-Gg: ATEYQzys/ochPqNa7UPri7wjsB3vfduBK2xckOqGEIHCjrPQrfqb63uKVi8w7fbNOcZ
+	8cY0/uplTCQxfS1u88PNZ/7HnHvzTKQrLOoS6yYBN7cV7hhYVr20FbRFwIbOmEKsfcgHgjV/gQf
+	nfLLUi6T2mDJiTv+QsWS6WufKxSZyeEo5z7EVS8SoCKJyowm20RKpWlzzPDVN+QZIGh1BBbvGCi
+	+35sPbWlaSBi0PxMmGoWgaDI19DaBxGSNOpIsqh0RkhblWvACVjGUDAJmtYywWQ/vW4TufutmYK
+	gggD22PkhTiVcDR7QpM0qUrRyeEKICH1+qoUHyf9nvyfdb6YPfspB4sTJwPjxzXqjG2gQttBnBz
+	Jsj0FmrKUPuz1O+QwU0bk8x02ZGTkqckR2G4rl301P73YQaSTZOf6DCy0LEfOEezBaJfMRjAhZj
+	2hNtgO0mPTI46NriNoim+KqSn3EhvsRyla/KvozO5zjOQnzUMZxhsJBUALp7SQBw+wAv+0T7s8e
+	IHMwMDgCXNKvks=
+X-Received: by 2002:a05:6000:1acc:b0:439:ef03:e0b7 with SMTP id ffacd0b85a97d-439f821ba49mr3269474f8f.27.1773217139684;
+        Wed, 11 Mar 2026 01:18:59 -0700 (PDT)
+Message-ID: <7340581a-51a3-43b2-b180-c2de37bda4b1@suse.com>
+Date: Wed, 11 Mar 2026 09:18:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] x86/ioreq: Extend ioreq server to support multiple
- ioreq pages
-To: Julian Vetter <julian.vetter@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v1 01/27] xen/riscv: Implement ARCH_PAGING_MEMPOOL
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260305130434.635276-1-julian.vetter@vates.tech>
- <20260305130434.635276-2-julian.vetter@vates.tech>
- <c73afb52-e39c-48c8-bf2c-41b509ca0dd0@suse.com>
- <a05e2d6c-5ba7-4651-b9d1-c1b502be0e7b@vates.tech>
- <5724bdb3-bec5-4159-a4f4-9bdad39acd7b@suse.com>
- <4509bc57-ea36-4208-b76b-465d15b25a09@vates.tech>
+References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
+ <887d914aa0ddb1884c19c9567d4633ecaf810066.1773157782.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,107 +130,128 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4509bc57-ea36-4208-b76b-465d15b25a09@vates.tech>
+In-Reply-To: <887d914aa0ddb1884c19c9567d4633ecaf810066.1773157782.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 786A825E5A0
+X-Rspamd-Queue-Id: 7308A25EF20
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.999];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On 10.03.2026 21:56, Julian Vetter wrote:
-> On 3/10/26 17:09, Jan Beulich wrote:
->> On 10.03.2026 16:56, Julian Vetter wrote:
->>> On 3/10/26 16:36, Jan Beulich wrote:
->>>> On 05.03.2026 14:04, Julian Vetter wrote:
->>>>> @@ -45,7 +52,8 @@ struct ioreq_server {
->>>>>        /* Lock to serialize toolstack modifications */
->>>>>        spinlock_t             lock;
->>>>>    
->>>>> -    struct ioreq_page      ioreq;
->>>>> +    ioreq_t                *ioreq;
->>>>> +    gfn_t                  ioreq_gfn;
->>>>>        struct list_head       ioreq_vcpu_list;
->>>>>        struct ioreq_page      bufioreq;
->>>>
->>>> This change in data arrangement should in principle be independent of the
->>>> step to supporting multiple pages. Hence it should be possible to separate
->>>> out. Problem being that just by looking here and at hvm_{,un}map_ioreq_gfn()
->>>> I can't conclude how you get away without the "page" field that struct
->>>> ioreq_page had. If you can get away without, it's not quite clear why the
->>>> field exists in the first place. If it's not needed, dropping it would be
->>>> yet another separate, prereq change. At which point the remaining pair of
->>>> fields could continue to be used, i.e. the change above then wouldn't be
->>>> needed; va could be renamed if need be, and its type changed.
->>>
->>> Thank you again Jan for your feedback! I don't need the page anymore.
->>> When I use vmap(), I don't need to keep track of it, because during
->>> teardown, I can recover it via vmap_to_page(). Currently it's necessary
->>> because in destroy_ring_for_helper we need the page, to be destroyed.
->>> But I see now, on X86 the map_domain_page_global called from
->>> prepare_ring_for_helper actually does vmap(&mfn, 1). So the page is also
->>> from the vmap range. So for the teardown I assume a vmap_to_page() could
->>> be used as well. But I also see there is a special case, if NDEBUG=1,
->>> map_domain_page_global short-circuits to mfn_to_virt() for low MFNs
->>> (putting the VA in the directmap range) and bypassing vmap. In that case
->>>
->>> vmap_to_page() would not work. So, this would be really messy. I would
->>> rather switch the bufioreq also to an explicitly vmap()'ed page, then we
->>> could remove the page pointer and both cases would be aligned again.
->>
->> That's an option. Yet are you aware of domain_page_map_to_mfn()? Perhaps
->> that's what you want to switch to using in the patch removing the "page"
->> field. To then, conditionally or uniformly, switch to vmap_to_{mfn,page}()
->> when doing the multi-page work in the subsequent patch.
-> 
-> Yes, thank you. I saw this function, but I was wondering whether it's a 
-> good idea to wrap the va in two translation functions like:
-> 
-> struct page_info *page = mfn_to_page(domain_page_map_to_mfn(va));
+On 10.03.2026 18:08, Oleksii Kurochko wrote:
+> The p2m_freelist is used to allocate pages for the P2M, but to initialize
+> this list, domain_p2m_set_allocation() might be called.
+> This function is invoked in construct_domU() within the common Dom0less
+> code, and providing an implementation of domain_p2m_set_allocation() when
+> CONFIG_ARCH_PAGING_MEMPOOL=y is appropriate for RISC-V.
 
-There's no fundamental problem with that (we have similar constructs elsewhere,
-I think), but ...
+With this wording it is odd to see ...
 
-> and then calling destroy_ring_for_helper() with it. But I will have a 
-> look, and this way we would be again aligned between the two cases. So, 
-> maybe it's the cleanest way.
+> --- a/xen/arch/riscv/Kconfig
+> +++ b/xen/arch/riscv/Kconfig
+> @@ -1,5 +1,6 @@
+>  config RISCV
+>  	def_bool y
+> +	select ARCH_PAGING_MEMPOOL
 
-... does destroy_ring_for_helper() actually need to have the page passed in?
-It's prepare_ring_for_helper() which calls __map_domain_page_global(), so
-destroy_ring_for_helper() could well obtain the MFN / page itself (using
-the above construct). VM event and vPL011 code also only ever use the page
-pointer supplied by prepare_ring_for_helper() to pass into
-destroy_ring_for_helper().
+... this. You really want to settle on whether it is selected unconditionally
+or not. Also for the code below, where ...
+
+> --- a/xen/arch/riscv/Makefile
+> +++ b/xen/arch/riscv/Makefile
+> @@ -10,7 +10,7 @@ obj-y += irq.o
+>  obj-y += kernel.o
+>  obj-y += mm.o
+>  obj-y += p2m.o
+> -obj-y += paging.o
+> +obj-$(CONFIG_ARCH_PAGING_MEMPOOL) += paging.o
+>  obj-y += pt.o
+>  obj-$(CONFIG_RISCV_64) += riscv64/
+>  obj-y += sbi.o
+
+... this change and any #ifdef-ary further down aren't needed unless the
+select became conditional. (Plus with the change above things likely wouldn't
+even build if ARCH_PAGING_MEMPOOL could be off under certain conditions.)
+
+> --- a/xen/arch/riscv/p2m.c
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -1568,3 +1568,34 @@ struct page_info *get_page_from_gfn(struct domain *d, unsigned long gfn,
+>  
+>      return page;
+>  }
+> +
+> +#ifdef CONFIG_ARCH_PAGING_MEMPOOL
+> +
+> +int arch_set_paging_mempool_size(struct domain *d, uint64_t size)
+> +{
+> +    unsigned long pages = PFN_DOWN(size);
+> +    bool preempted = false;
+> +    int rc;
+> +
+> +    if ( (size & ~PAGE_MASK) || /* Non page-sized request? */
+> +         pages != PFN_DOWN(size) ) /* 32-bit overflow? */
+> +        return -EINVAL;
+
+Can't this be had with just
+
+    if ( ((paddr_t)pages << PAGE_SHIFT) != size )
+        return -EINVAL;
+
+(and perhaps utilizing pfn_to_paddr(), even if it's not a PFN we're dealing
+with here)?
+
+> +    spin_lock(&d->arch.paging.lock);
+> +    rc = p2m_set_allocation(d, pages, &preempted);
+> +    spin_unlock(&d->arch.paging.lock);
+> +
+> +    ASSERT(preempted == (rc == -ERESTART));
+
+This actually suggests that (once again) Arm code perhaps shouldn't have been
+copied verbatim: There shouldn't be a need for the "preempted" state to be
+returned back in two distinct ways.
+
+> +    return rc;
+> +}
+> +
+> +/* Return the size of the pool, in bytes. */
+> +int arch_get_paging_mempool_size(struct domain *d, uint64_t *size)
+> +{
+> +    *size = (uint64_t)ACCESS_ONCE(d->arch.paging.total_pages) << PAGE_SHIFT;
+
+As per above, maybe use pfn_to_paddr()?
 
 Jan
 
