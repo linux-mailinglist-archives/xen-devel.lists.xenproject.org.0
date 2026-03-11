@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0KFdCJAlsWkOrQIAu9opvQ
+	id GK+iIkwnsWkBrgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 09:19:28 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 09:26:52 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7308A25EF20
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 09:19:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1250822.1548176 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED90D25F383
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 09:26:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1250831.1548185 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0EmW-0003SO-Nu; Wed, 11 Mar 2026 08:19:04 +0000
+	id 1w0Etr-0004zv-E9; Wed, 11 Mar 2026 08:26:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1250822.1548176; Wed, 11 Mar 2026 08:19:04 +0000
+Received: by outflank-mailman (output) from mailman id 1250831.1548185; Wed, 11 Mar 2026 08:26:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0EmW-0003Px-KV; Wed, 11 Mar 2026 08:19:04 +0000
-Received: by outflank-mailman (input) for mailman id 1250822;
- Wed, 11 Mar 2026 08:19:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w0Etr-0004yU-B3; Wed, 11 Mar 2026 08:26:39 +0000
+Received: by outflank-mailman (input) for mailman id 1250831;
+ Wed, 11 Mar 2026 08:26:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oqCu=BL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w0EmV-0003Pp-9d
- for xen-devel@lists.xenproject.org; Wed, 11 Mar 2026 08:19:03 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f5129a28-1d22-11f1-9ccf-f158ae23cfc8;
- Wed, 11 Mar 2026 09:19:00 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-439b9b1900bso7417045f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Mar 2026 01:19:00 -0700 (PDT)
+ id 1w0Etp-0004yO-C5
+ for xen-devel@lists.xenproject.org; Wed, 11 Mar 2026 08:26:37 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0456916a-1d24-11f1-b164-2bf370ae4941;
+ Wed, 11 Mar 2026 09:26:35 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-48374014a77so163556905e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Mar 2026 01:26:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439f821d095sm4857322f8f.32.2026.03.11.01.18.58
+ 5b1f17b1804b1-4854b65fe27sm38636615e9.9.2026.03.11.01.26.34
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Mar 2026 01:18:59 -0700 (PDT)
+ Wed, 11 Mar 2026 01:26:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,61 +50,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5129a28-1d22-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 0456916a-1d24-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773217140; x=1773821940; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773217595; x=1773822395; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=O6sc8H1H+f5MSSkuQGhURBScH13uJ0hgfCYgp5q5ld4=;
-        b=KnSsPwFTrGfgyeDAa7/si7Hgd1gvV6Z7aA4rRGmtfGrqRcCLVl2vS43oZ5bks8n+O8
-         qKDqPLsTIxOY2vCnjj4HsqnulIBQCqFQrKiQQKh/IOj7Eiak7LHH/dSXNNskC7hQn1sf
-         dJAV/l3v1zAHUrh10cIZ+N83hOkJEoq+2Ucer2codVfDVvD1uBuGZ87fsCXb1yfo/uS0
-         srYoaAdYiARybGSiCFMp4VigwCkpNLoaJQR5KIa+EHZ/4limnab6l2dJZQf62k/PdcI6
-         /XdX82v0gGT3UvKwDvP1fNcunVkUOaf5PxYA9pjvScGJdIJHeUI3gu7/wVj4Ed5Zplto
-         Wm9g==
+        bh=fR/7Rm1L0p85rks3QrTE23p/0Ae6Xjgc1bPPxxz3Xw0=;
+        b=YTOqATIicIimI8ArLpLIlGXXv6YNETQDs28Ik+ZjbVGYENtyXazISp41qNUM+7s+Ol
+         Dk0J7dLytMf3n45C8Sq6kEAhwzxxa39LFo8t9CuUCxMVq5UTmBiw+Rqgo+gQD9d0P0Ac
+         hW74JkuqBFhdrIedR1C/5tyhmIun+IYnSj3RhMpBxotSVcO0jWAoNUKGaQ/DxBjnKqNw
+         nElNIdrqDrKPIhXXKBsEOfAW6Xa1lUxoZsWdI0BVyDxE/76SwLA8JfE4NbCLpXqb4oGP
+         skfv+OyS1TkGc0O5uN9pA0ysHtILElHPHPdLnDqOjdpP/BmIDMgGgG36w1YILcxGw1hU
+         RaDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773217140; x=1773821940;
+        d=1e100.net; s=20230601; t=1773217595; x=1773822395;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=O6sc8H1H+f5MSSkuQGhURBScH13uJ0hgfCYgp5q5ld4=;
-        b=elZzJn2G6AXU1BO1Lnkhe9475ataM9T9ES8NKQJ7ymuGAIGBVFp1fNGPXPupYIR7/P
-         XGc5PNxx1Q5RZKoboFInl4pLYUiQ8ckh7yt/2TI5GpPgrTvZ/28NUZZRyF/SA22paLrT
-         W2YHL9mM/Q7cHVSPsRXujX9RwRWZFER1FLTIvAZ40Db9q2suxO7z0BtpwZx3ZDcDwe/E
-         eui8SWTyRiKMXtyfL/4WOCMj8wEy169IWaAUvVO7/RkOCJ7b6lpco/sZDu4Ae/UrjU1p
-         5by6hN629UcG4pAPKzz+AgKAfYipqUbABpkP7XToAgAq2O4TsIcBimXyJqoYJxaCFUhy
-         4ELA==
-X-Forwarded-Encrypted: i=1; AJvYcCWUkLPRI8IyPhfRu7nW6qfa60i/pnTzcWtpTmJIMEnF9y0VD38eqqWTKGbpU3u5dN8g1pofy3zgxBs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw431vCLXHX7lr1h+WKH6WVcm8riLJH2/IuKOx3T2fdxQ+oFh17
-	PnYa5RapE129bb03fk0aW2oNGwRbrpIu0kI2O+dboudvEl78lCVqAYBExeEiqH5sHQ==
-X-Gm-Gg: ATEYQzys/ochPqNa7UPri7wjsB3vfduBK2xckOqGEIHCjrPQrfqb63uKVi8w7fbNOcZ
-	8cY0/uplTCQxfS1u88PNZ/7HnHvzTKQrLOoS6yYBN7cV7hhYVr20FbRFwIbOmEKsfcgHgjV/gQf
-	nfLLUi6T2mDJiTv+QsWS6WufKxSZyeEo5z7EVS8SoCKJyowm20RKpWlzzPDVN+QZIGh1BBbvGCi
-	+35sPbWlaSBi0PxMmGoWgaDI19DaBxGSNOpIsqh0RkhblWvACVjGUDAJmtYywWQ/vW4TufutmYK
-	gggD22PkhTiVcDR7QpM0qUrRyeEKICH1+qoUHyf9nvyfdb6YPfspB4sTJwPjxzXqjG2gQttBnBz
-	Jsj0FmrKUPuz1O+QwU0bk8x02ZGTkqckR2G4rl301P73YQaSTZOf6DCy0LEfOEezBaJfMRjAhZj
-	2hNtgO0mPTI46NriNoim+KqSn3EhvsRyla/KvozO5zjOQnzUMZxhsJBUALp7SQBw+wAv+0T7s8e
-	IHMwMDgCXNKvks=
-X-Received: by 2002:a05:6000:1acc:b0:439:ef03:e0b7 with SMTP id ffacd0b85a97d-439f821ba49mr3269474f8f.27.1773217139684;
-        Wed, 11 Mar 2026 01:18:59 -0700 (PDT)
-Message-ID: <7340581a-51a3-43b2-b180-c2de37bda4b1@suse.com>
-Date: Wed, 11 Mar 2026 09:18:58 +0100
+        bh=fR/7Rm1L0p85rks3QrTE23p/0Ae6Xjgc1bPPxxz3Xw0=;
+        b=RJJeCHgBnWoSReXPuuJd+35Qce+FCY8ggBP+Sz2dI0YesHhKEuIi2RcFVQi6u5yXWL
+         MkdGyY99qhkbnZvc9BI9lAAIO5FiTR2I5uM80Jxm948YWThH8jcP6prjLrj2DV/sxfYO
+         VlD9jVBPyg8ss1xOhucQ8PZaHGL1kojz2JKEgDF50G8pOCBAaIq9HZ36Irjb6vYUsQQG
+         8Ptwp/fymVRMhrAm2H0cVhNgMxRwWkejsdKliVZZ7O4YENaTUTUCnjibO+EYW9QXpFJ/
+         YTDMeF31LpHDdtaOSKTaXwwtY/VIXGReVaWjkxcTojSUOFN5Pko0M+gDu8VSgZYR/Q8u
+         tkyA==
+X-Forwarded-Encrypted: i=1; AJvYcCVQKerLN9I3g1LJFf363LSof1OZHshS2FVxNWBGiQ7WAeRthSziKV68kI5mMBfLRFGsuIK7BCkBp4Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyAp7m/YUDteKaPzhNxT7DrwLM0zEuUzYUysRIWFfkZqg+HklkO
+	H8tlxLarqCkdJ9FPoXQY6w+QhZhoSdQus6e5vM0w8nI1wYGhE+0RHF3a930wuX3hbA==
+X-Gm-Gg: ATEYQzyv9p9PlEPh3S/4JDrKQkZnpTpdbX7OJGzncVpr4Yba4yBQPfTSphIPi6ZzYTh
+	L8QlzRhkHk1C7Z2DF4g4FaRW1bm4GEWHOTSAzY6S9SeLXKri8ND3Ga0I2jb9aoQ7aeBB6UgdZvZ
+	Ni1Ku5GwzQOodY78KoGXLPROknwzo32PETvIF6e9TCLSgM/KenaE+U6LcKtnTS32CccisiuBH/Y
+	j61y6/9NP3E6K0Qn1ACc80qT/tQ1bxwd3M5+IIYMRxQ1L7WWllu7/yLdzAWiVIC/n3f8w8h3Dbd
+	gBHGyw2JWlOvmV2oq6gdunN4zGOHNbQfX5S2i0fgo/NtmbsImI1mTSoUTVddCelZMt3m/slTS7i
+	SnyHNdlI4lGd0+qHml1gNPddUoDruHPbEnugMg6TH0z2aJ0DnQWOc6mkodnBXyUNMWvDSWLI9LD
+	Ss/2BeJWPyiPMlI1hM0O+L5OWrsenmYADP2K03zlTrdO7Q6tuCD0g1a8C/EcGkI+2QnovT0F1VQ
+	Xk1kpZcPiK62vs=
+X-Received: by 2002:a05:600c:4fd5:b0:485:379b:57be with SMTP id 5b1f17b1804b1-4854b0cb6c7mr25223625e9.1.1773217595177;
+        Wed, 11 Mar 2026 01:26:35 -0700 (PDT)
+Message-ID: <8ba61374-f05e-45d9-b1b2-0140edbb34a6@suse.com>
+Date: Wed, 11 Mar 2026 09:26:33 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 01/27] xen/riscv: Implement ARCH_PAGING_MEMPOOL
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
+Subject: Re: [PATCH v3 1/4] x86: Reject CPU policies with vendors other than
+ the host's
+To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Community Manager <community.manager@xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <887d914aa0ddb1884c19c9567d4633ecaf810066.1773157782.git.oleksii.kurochko@gmail.com>
+ Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20260213114232.42996-1-alejandro.garciavallejo@amd.com>
+ <20260213114232.42996-2-alejandro.garciavallejo@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,10 +128,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <887d914aa0ddb1884c19c9567d4633ecaf810066.1773157782.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20260213114232.42996-2-alejandro.garciavallejo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 7308A25EF20
+X-Rspamd-Queue-Id: ED90D25F383
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -143,115 +141,51 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,xenproject.org,citrix.com,vates.tech,lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:oleksii.kurochko@gmail.com,m:community.manager@xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Action: no action
 
-On 10.03.2026 18:08, Oleksii Kurochko wrote:
-> The p2m_freelist is used to allocate pages for the P2M, but to initialize
-> this list, domain_p2m_set_allocation() might be called.
-> This function is invoked in construct_domU() within the common Dom0less
-> code, and providing an implementation of domain_p2m_set_allocation() when
-> CONFIG_ARCH_PAGING_MEMPOOL=y is appropriate for RISC-V.
+On 13.02.2026 12:42, Alejandro Vallejo wrote:
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -22,6 +22,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>     - Xenoprofile support.  Oprofile themselves removed support for Xen in 2014
+>       prior to the version 1.0 release, and there has been no development since
+>       before then in Xen.
+> +   - Domains can no longer run on a CPU vendor if they were initially launched
+> +     on a different CPU vendor. This affects live migrations and save/restore
+> +     workflows accross mixed-vendor hosts. Cross-vendor emulation has always
+> +     been unreliable, but since 2017 with the advent of speculation security it
+> +     became unsustainably so.
 
-With this wording it is odd to see ...
+While the code adjustment looks okay to me, the wording is a little odd. What is
+"run on a CPU vendor"? How about "Domains can no longer run on a system with CPUs
+of a vendor different from the one they were initially launched on"?
 
-> --- a/xen/arch/riscv/Kconfig
-> +++ b/xen/arch/riscv/Kconfig
-> @@ -1,5 +1,6 @@
->  config RISCV
->  	def_bool y
-> +	select ARCH_PAGING_MEMPOOL
-
-... this. You really want to settle on whether it is selected unconditionally
-or not. Also for the code below, where ...
-
-> --- a/xen/arch/riscv/Makefile
-> +++ b/xen/arch/riscv/Makefile
-> @@ -10,7 +10,7 @@ obj-y += irq.o
->  obj-y += kernel.o
->  obj-y += mm.o
->  obj-y += p2m.o
-> -obj-y += paging.o
-> +obj-$(CONFIG_ARCH_PAGING_MEMPOOL) += paging.o
->  obj-y += pt.o
->  obj-$(CONFIG_RISCV_64) += riscv64/
->  obj-y += sbi.o
-
-... this change and any #ifdef-ary further down aren't needed unless the
-select became conditional. (Plus with the change above things likely wouldn't
-even build if ARCH_PAGING_MEMPOOL could be off under certain conditions.)
-
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -1568,3 +1568,34 @@ struct page_info *get_page_from_gfn(struct domain *d, unsigned long gfn,
->  
->      return page;
->  }
-> +
-> +#ifdef CONFIG_ARCH_PAGING_MEMPOOL
-> +
-> +int arch_set_paging_mempool_size(struct domain *d, uint64_t size)
-> +{
-> +    unsigned long pages = PFN_DOWN(size);
-> +    bool preempted = false;
-> +    int rc;
-> +
-> +    if ( (size & ~PAGE_MASK) || /* Non page-sized request? */
-> +         pages != PFN_DOWN(size) ) /* 32-bit overflow? */
-> +        return -EINVAL;
-
-Can't this be had with just
-
-    if ( ((paddr_t)pages << PAGE_SHIFT) != size )
-        return -EINVAL;
-
-(and perhaps utilizing pfn_to_paddr(), even if it's not a PFN we're dealing
-with here)?
-
-> +    spin_lock(&d->arch.paging.lock);
-> +    rc = p2m_set_allocation(d, pages, &preempted);
-> +    spin_unlock(&d->arch.paging.lock);
-> +
-> +    ASSERT(preempted == (rc == -ERESTART));
-
-This actually suggests that (once again) Arm code perhaps shouldn't have been
-copied verbatim: There shouldn't be a need for the "preempted" state to be
-returned back in two distinct ways.
-
-> +    return rc;
-> +}
-> +
-> +/* Return the size of the pool, in bytes. */
-> +int arch_get_paging_mempool_size(struct domain *d, uint64_t *size)
-> +{
-> +    *size = (uint64_t)ACCESS_ONCE(d->arch.paging.total_pages) << PAGE_SHIFT;
-
-As per above, maybe use pfn_to_paddr()?
+Also, nit: "across".
 
 Jan
 
