@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iIXrKXuDsWmjCwAAu9opvQ
+	id 4BP5NQ2KsWnkDAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 16:00:11 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 16:28:13 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16C4D265E6E
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 16:00:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1251252.1548470 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 408DA266829
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 16:28:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1251276.1548483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0L2T-0007Nn-MK; Wed, 11 Mar 2026 14:59:57 +0000
+	id 1w0LSv-0002yu-OO; Wed, 11 Mar 2026 15:27:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1251252.1548470; Wed, 11 Mar 2026 14:59:57 +0000
+Received: by outflank-mailman (output) from mailman id 1251276.1548483; Wed, 11 Mar 2026 15:27:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0L2T-0007LY-Jf; Wed, 11 Mar 2026 14:59:57 +0000
-Received: by outflank-mailman (input) for mailman id 1251252;
- Wed, 11 Mar 2026 14:59:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w0LSv-0002wA-Ks; Wed, 11 Mar 2026 15:27:17 +0000
+Received: by outflank-mailman (input) for mailman id 1251276;
+ Wed, 11 Mar 2026 15:27:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=oqCu=BL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w0L2S-0007LS-RI
- for xen-devel@lists.xenproject.org; Wed, 11 Mar 2026 14:59:56 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f65f2a3a-1d5a-11f1-9ccf-f158ae23cfc8;
- Wed, 11 Mar 2026 15:59:54 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4853fd7b59aso21159235e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 11 Mar 2026 07:59:54 -0700 (PDT)
+ id 1w0LSu-0002w4-2F
+ for xen-devel@lists.xenproject.org; Wed, 11 Mar 2026 15:27:16 +0000
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [2a00:1450:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c7c30de0-1d5e-11f1-b164-2bf370ae4941;
+ Wed, 11 Mar 2026 16:27:14 +0100 (CET)
+Received: by mail-wr1-x42b.google.com with SMTP id
+ ffacd0b85a97d-439af7d77f0so13951f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 11 Mar 2026 08:27:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48541b6f6b7sm202625995e9.9.2026.03.11.07.59.52
+ ffacd0b85a97d-439f8223dc2sm7656888f8f.38.2026.03.11.08.27.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Mar 2026 07:59:53 -0700 (PDT)
+ Wed, 11 Mar 2026 08:27:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,57 +50,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f65f2a3a-1d5a-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: c7c30de0-1d5e-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773241194; x=1773845994; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773242834; x=1773847634; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qgx4FhloQI16wj6SD7UudbddpkdRbcgUSx8DPO4fSDs=;
-        b=BH5OPGUURir5LkSUKLtOyCsk/Q/adGbCRdX7jMj65CWiBwXL5zPtaLdklXX6H8EtxE
-         ejyuE+i9w2ybWeywA83Jows+M+5VsaqXR+v1z0CC2wJTAdFlUY/kG/B+w0Otc1HNGVYf
-         wDH0U5z+FxNU19quvTzpc5kTYPvRACBnqsY/jEd7DpK16vNdoOzXJ/VW5ZUPJq7XB8jO
-         MbzwuQqsPlPN8NdkYgQFNg8eC6w9O6NsW7mcxCq9ejNyOdOnk2OvUkxa9P0djvhYQbEv
-         +HxfyeTJHxxW2Ne0YSwMg7MYpJMRhXY3MyFRkYMNuc7Pk8uDZJHSGKVeY+QwXOpPNSlP
-         qHxQ==
+        bh=TBnN2Dumri8XGwoA7NBPI1PL+2jwWyiT4+WfYmUV3Yo=;
+        b=bujf7qvTb9gRybh2hfjInKYWL/PnAHpPuZwjuHQkwxeeAKGo1ys/YY6rS2ooylTf3a
+         3Ymyodbh4+lADaA3rRBHwTpZFrbbDZIMZqOZ8PkjcT+0sf4y3uBu4EnI6BleoFCgOV0G
+         DtikvMA0Qsgm0psVpimwno/JShsBaGfiJLiYwVmainv9PeW5My/6xsXz68TCii5hmvEe
+         k5QP4UKs8VUPi1RiMMY/wOkCu18p3IYXbJWJmRg8Cb7Tlfj9oN+JmDti+XODgET9b1Mn
+         L5rrXU0Zxi2d1kFaK1eILWiWQxgS3tn8EnUd5HBLwut9sXwozebacKbqvzaYGByQ7Qf1
+         XwPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773241194; x=1773845994;
+        d=1e100.net; s=20230601; t=1773242834; x=1773847634;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qgx4FhloQI16wj6SD7UudbddpkdRbcgUSx8DPO4fSDs=;
-        b=b8WUDxlBmHzwnGS25wIbSR+WDoxeYiobmr9qq4EHeHW7oce54MKuR7d9dBZvq5JxT4
-         ltBmwoPknlU0cXZ5u5ZZocTW+F247YGTsUHgeApf6MU3MWGvmjgJiMuZTwvhUB7xk8H3
-         i97F1WdE8OG8LTiXBr17Iw7lBL9jB2KgTksi5/pf0URmrONcoPasFxmZKrzVagVqXdUo
-         KpAhkwjtOzbMOgxDk6Hsxd1appug4YEGzlajvigpSdFuU/jOkYtvaPLgIqh7BkOy3Ov7
-         X6R+Icu4tLxAdQ4laRJLqt6jDpoiIWf2B64/hoEIRRC8Uqsugx7t2jKTDyyTkpX9m84c
-         Wxhg==
-X-Forwarded-Encrypted: i=1; AJvYcCW3RzGi4nMmk46OMmWQS1AVbNlTZWhAqiIWJx6KheNeeJDsvxbYoV/H8Q96j893cPTWI1a0W/UVgOc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwmGJPeA/P78Oa9GWVIsAytllRgX7x1BfHIdyDlsaiA6AWuDhlo
-	teh1yBGoBwq7rdrKWUeoH7wL6T4ZsDKU2IcdrwMtXMXtF/HmesUuJTuc0v6qD5A67w==
-X-Gm-Gg: ATEYQzzAGtr8NSkXGam4v+sWuW7X9BnM/tNCR1dR+LAcpj9FysEEH1ynOkZ52aPSwaE
-	7nVPp1MXdVculGgJfprGL1T5XTh39uwH76BroU6vU2zdt1lcWhLaYgAJ04slklwscgC2DGosAef
-	cN6h14NN8mdGzEUv2EiS21YJsWRArwd9UaU1THXArTZv+UOnrp0jmI0z9vTlr1aJZlTme8g2dVv
-	SLB4dsS01JN7JGZuUJmZSXSzv4ThcPU2ICupADHeaQ5FNYv53ZwmI2n9dDNCtF1RrU6ynbtzKtE
-	69Bjf+/n45ZTj3EuqeagzvQiUwbYDeId2nyno/DxVGJ/f3S7xs47kn3+APgvYBc06UUfZbhOk2z
-	cJynzTkGvlZwzgs3XA/gMFwo5q637JtGDKP97GDowPK4vAfIaFwDxyIXdunbiYsiLYF4oJPinY5
-	3YIrVbowBlWol08jbe/Ex7eep3cITCa4tpkkbWgQOG8r1+Rqx9R9UFu3ERM3f7znZjzdf2mzR9q
-	wJfJQLLaRYz2GQ=
-X-Received: by 2002:a05:600c:8b38:b0:485:3fc8:de9c with SMTP id 5b1f17b1804b1-4854b0be1b5mr49753765e9.12.1773241193656;
-        Wed, 11 Mar 2026 07:59:53 -0700 (PDT)
-Message-ID: <d76d6c2c-b81a-417b-9d4e-07f301e35dbc@suse.com>
-Date: Wed, 11 Mar 2026 15:59:52 +0100
+        bh=TBnN2Dumri8XGwoA7NBPI1PL+2jwWyiT4+WfYmUV3Yo=;
+        b=KTiH+1IOhLOj4vujZ/dtRiCajzzY4FXthMvDJQMqJ10x+zpj+1wbNDNtm3RmEug3lN
+         l7IbS2n2fSepDWmSPGxMslI2tRyPBkqMh19MRKrtTU5qVJthLwvp5kZasuMJUVoNQ55/
+         Q7IyoR0pi+KEkazQbQOLrov7R9h9pUuh7Iv4cCoHqt0Kj2wZ6oSdvYoRUyIf4hQqHWF8
+         K3QvKMNyFQuuY1ND2NZTpRuLdfzZXt+CFjaCR6qtaOmkfFl/I8VS/PAu8gc0W7h8K0v8
+         AsQoZQiLe7uS3ylU4ER0a6X4suMyYgyDOBZyyUNygjuBPr6rOScF+VmRfCgp+B7XgoOu
+         XRAQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXNw/wG5PE9Fc4QjoaFfzGuPVbGhb4497YExG2tFib0E55axENo7tkykGhkKUa2aRUsTgZcYquu3Vk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyeF54UkaEgazkWt7sLbPPzoLhAi4Ck3E9JTaLdEOZn2q06UjfI
+	CA5Od7U8d8MhUDyhsKoSa/1JVg5mIu1B1JzNnOAppBqoZZQUcdW0kraYnmNNe7liyw==
+X-Gm-Gg: ATEYQzyR5A9m2QYSUf2DOD69Ujg1wvePOTOlSLzyB6POSfYUWJV2ImoYfvYyQRSC7jz
+	5VVjsDB0uxsXhg8wwvJB5+m/F8MRCqbOxQvaLpkYT6M3+CWK78IrZ+q5LfAdVq+Ywiy3XJVKiYR
+	Db86vssrSNB+5R4vs32uDPWpGbktj0Om8X9TUZpKvqFeGVtsvGipuqjaTw97XxjRRytO82mjFY2
+	7CH0EHVgoa+BaVBvwyfnjwtxkqOuYhphTzX75tw/9c4qYQzCcj3pPEkhRa5oHzgBa6pJPYf5E8F
+	sK0io5Xv53UyAAPo19dFqta4ze/bPnBpSZxihX1yEgHPVMaMx2stkVgc/himAkw9aob8B5RCN2i
+	3CMT14J0k1WJg8IBEG1KJ2JoPsgeeB9abqXYps1fsIlXPgVCQidPvPUUxN7+rbwvdQHqV+Wj+lX
+	spizkJ/xzuLQKEQ1Cg6c2iAwLsHmhIKxMttYw0ZiNLmAR+WPA8FApUomp79vHEyjwrbcOCVNaUA
+	cbsryS99l/0YcY=
+X-Received: by 2002:a05:6000:2283:b0:439:ae2a:755e with SMTP id ffacd0b85a97d-439f82017a2mr5884569f8f.23.1773242833530;
+        Wed, 11 Mar 2026 08:27:13 -0700 (PDT)
+Message-ID: <1e371e65-ca79-42a0-93f9-804f73084033@suse.com>
+Date: Wed, 11 Mar 2026 16:27:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] x86/hvm: Disable cross-vendor handling in #UD
- handler
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Subject: Re: [PATCH v3 3/7] x86/hvm: Support extended destination IDs in
+ virtual MSI and IO-APIC
+To: Julian Vetter <julian.vetter@vates.tech>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-References: <20260311142711.16754-1-alejandro.garciavallejo@amd.com>
- <20260311142711.16754-3-alejandro.garciavallejo@amd.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20260309123055.880050-1-julian.vetter@vates.tech>
+ <20260309123055.880050-3-julian.vetter@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -126,7 +130,7 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260311142711.16754-3-alejandro.garciavallejo@amd.com>
+In-Reply-To: <20260309123055.880050-3-julian.vetter@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Spamd-Result: default: False [-1.19 / 15.00];
@@ -136,151 +140,116 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid,amd.com:email];
+	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:jgross@suse.com,m:julien@xen.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 16C4D265E6E
+X-Rspamd-Queue-Id: 408DA266829
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 11.03.2026 15:27, Alejandro Vallejo wrote:
-> Remove cross-vendor support now that VMs can no longer have a different
-> vendor than the host.
-> 
-> While at it, refactor the function to exit early and skip initialising
-> the emulation context when FEP is not enabled.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-> ---
-> v4:
->   * Reverted refactor of the `walk` variable assignment
+On 09.03.2026 13:31, Julian Vetter wrote:
+> Use the newly defined masks to extract the full 15-bit destination ID
+> from guest MSI addresses and IO-APIC RTEs. In hvm_inject_msi() combine
+> the standard bits [19:12] with the extended bits [11:5] of the MSI
+> address into a 15-bit destination ID for LAPIC delivery. Increase the
+> dest parameter of vmsi_deliver() and hvm_girq_dest_2_vcpu_id() from
+> uint8_t to uint32_t. In vmsi_deliver_pirq() extract the full destination
+> from gflags via XEN_DOMCTL_VMSI_X86_FULL_DEST(). In msi_gflags() pack
+> the extended bits from the MSI address into the new
+> XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK field of gflags. In
+> vioapic_deliver() read the combined 15-bit destination using the
+> VIOAPIC_RTE_DEST() macro. Extend ioapic_check() to check for extended
+> destination bits set in a domain that does not advertise
+> XEN_HVM_CPUID_EXT_DEST_ID and refuse to restore the IO-APIC state,
+> preventing silent interrupt misrouting after live migration.
 
-"Revert" as in "move it even farther away from the original". As said, you
-want re-indentation, so please do just that, nothing else that isn't
-explicitly justified (like the moving of hvm_emulate_init_once() is). With
-this put back in its original shape (can do while committing, I suppose):
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+This is pretty hard to read without being split in a few paragraphs.
 
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -3832,67 +3832,50 @@ int hvm_descriptor_access_intercept(uint64_t exit_info,
->      return X86EMUL_OKAY;
+> --- a/xen/arch/x86/hvm/irq.c
+> +++ b/xen/arch/x86/hvm/irq.c
+> @@ -374,7 +374,16 @@ int hvm_set_pci_link_route(struct domain *d, u8 link, u8 isa_irq)
+>  int hvm_inject_msi(struct domain *d, uint64_t addr, uint32_t data)
+>  {
+>      uint32_t tmp = (uint32_t) addr;
+> -    uint8_t  dest = (tmp & MSI_ADDR_DEST_ID_MASK) >> MSI_ADDR_DEST_ID_SHIFT;
+> +    /*
+> +     * Standard MSI destination address bits 19:12 (8 bits).
+> +     * Extended MSI destination address bits 11:5 (7 more bits).
+> +     *
+> +     * As XEN_HVM_CPUID_EXT_DEST_ID is advertised, the guest may use bits 11:5
+> +     * for high destination ID bits, expanding to 15 bits total. Guests unaware
+> +     * of this feature set these bits to 0, so this is backwards-compatible.
+
+How do you know? Like for the IO-APIC RTE bits, there is (and cannot be)
+anything enforcing this. Hence for a guest to use this feature, it needs
+to have a way to opt in.
+
+> +     */
+> +    uint32_t dest = (MASK_EXTR(tmp, MSI_ADDR_EXT_DEST_ID_MASK) << MSI_ADDR_DEST_ID_BITS) |
+
+Nit: This line looks too long now.
+
+Here as well as ...
+
+> --- a/xen/arch/x86/hvm/vioapic.c
+> +++ b/xen/arch/x86/hvm/vioapic.c
+> @@ -411,7 +411,9 @@ static void ioapic_inj_irq(
+>  
+>  static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int pin)
+>  {
+> -    uint16_t dest = vioapic->redirtbl[pin].fields.dest_id;
+> +    uint32_t dest = ((uint32_t)vioapic->redirtbl[pin].fields.ext_dest_id <<
+> +                     VIOAPIC_RTE_DEST_ID_UPPER_BITS) |
+> +                    vioapic->redirtbl[pin].fields.dest_id;
+
+... e.g. here a macro or inline function doing the conversion would likely
+help readability quite a bit.
+
+> @@ -618,6 +620,21 @@ static int cf_check ioapic_check(const struct domain *d, hvm_domain_context_t *h
+>               e->fields.reserved[0] || e->fields.reserved[1] ||
+>               e->fields.reserved[2] || e->fields.reserved2 )
+>              return -EINVAL;
+> +
+> +        /*
+> +         * An RTE in the saved state has ext_dest_id bits set. Check that
+> +         * the destination Xen has extended destination ID support enabled,
+> +         * otherwise interrupt routing to APIC IDs > 255 would be broken
+> +         * after restore.
+> +         */
+> +        if ( e->fields.ext_dest_id && !d->arch.hvm.ext_dest_id_enabled )
+
+This won't build, as the ext_dest_id_enabled field appears only in patch 6.
+But yes, that looks to be the opt-in mechanism I mentioned above.
+
+> @@ -659,7 +676,7 @@ static int cf_check ioapic_load(struct domain *d, hvm_domain_context_t *h)
+>      return 0;
 >  }
 >  
-> -static bool cf_check is_cross_vendor(
-> -    const struct x86_emulate_state *state, const struct x86_emulate_ctxt *ctxt)
-> -{
-> -    switch ( ctxt->opcode )
-> -    {
-> -    case X86EMUL_OPC(0x0f, 0x05): /* syscall */
-> -    case X86EMUL_OPC(0x0f, 0x34): /* sysenter */
-> -    case X86EMUL_OPC(0x0f, 0x35): /* sysexit */
-> -        return true;
-> -    }
-> -
-> -    return false;
-> -}
-> -
->  void hvm_ud_intercept(struct cpu_user_regs *regs)
->  {
->      struct vcpu *cur = current;
-> -    bool should_emulate =
-> -        cur->domain->arch.cpuid->x86_vendor != boot_cpu_data.x86_vendor;
->      struct hvm_emulate_ctxt ctxt;
-> +    const struct segment_register *cs = &ctxt.seg_reg[x86_seg_cs];
-> +    uint32_t walk;
-> +    unsigned long addr;
-> +    char sig[5]; /* ud2; .ascii "xen" */
->  
-> -    hvm_emulate_init_once(&ctxt, opt_hvm_fep ? NULL : is_cross_vendor, regs);
-> -
-> -    if ( opt_hvm_fep )
-> +    if ( !opt_hvm_fep )
->      {
-> -        const struct segment_register *cs = &ctxt.seg_reg[x86_seg_cs];
-> -        uint32_t walk = ((ctxt.seg_reg[x86_seg_ss].dpl == 3)
-> -                         ? PFEC_user_mode : 0) | PFEC_insn_fetch;
-> -        unsigned long addr;
-> -        char sig[5]; /* ud2; .ascii "xen" */
-> -
-> -        if ( hvm_virtual_to_linear_addr(x86_seg_cs, cs, regs->rip,
-> -                                        sizeof(sig), hvm_access_insn_fetch,
-> -                                        cs, &addr) &&
-> -             (hvm_copy_from_guest_linear(sig, addr, sizeof(sig),
-> -                                         walk, NULL) == HVMTRANS_okay) &&
-> -             (memcmp(sig, "\xf\xb" "xen", sizeof(sig)) == 0) )
-> -        {
-> -            regs->rip += sizeof(sig);
-> -            regs->eflags &= ~X86_EFLAGS_RF;
-> -
-> -            /* Zero the upper 32 bits of %rip if not in 64bit mode. */
-> -            if ( !(hvm_long_mode_active(cur) && cs->l) )
-> -                regs->rip = (uint32_t)regs->rip;
-> +        ASSERT_UNREACHABLE();
-> +        goto reinject;
-> +    }
->  
-> -            add_taint(TAINT_HVM_FEP);
-> +    hvm_emulate_init_once(&ctxt, NULL, regs);
->  
-> -            should_emulate = true;
-> -        }
-> -    }
-> +    walk = ((ctxt.seg_reg[x86_seg_ss].dpl == 3)
-> +            ? PFEC_user_mode : 0) | PFEC_insn_fetch;
->  
-> -    if ( !should_emulate )
-> +    if ( hvm_virtual_to_linear_addr(x86_seg_cs, cs, regs->rip,
-> +                                    sizeof(sig), hvm_access_insn_fetch,
-> +                                    cs, &addr) &&
-> +         (hvm_copy_from_guest_linear(sig, addr, sizeof(sig),
-> +                                     walk, NULL) == HVMTRANS_okay) &&
-> +         (memcmp(sig, "\xf\xb" "xen", sizeof(sig)) == 0) )
->      {
-> -        hvm_inject_hw_exception(X86_EXC_UD, X86_EVENT_NO_EC);
-> -        return;
-> +        regs->rip += sizeof(sig);
-> +        regs->eflags &= ~X86_EFLAGS_RF;
-> +
-> +        /* Zero the upper 32 bits of %rip if not in 64bit mode. */
-> +        if ( !(hvm_long_mode_active(cur) && cs->l) )
-> +            regs->rip = (uint32_t)regs->rip;
-> +
-> +        add_taint(TAINT_HVM_FEP);
->      }
-> +    else
-> +        goto reinject;
->  
->      switch ( hvm_emulate_one(&ctxt, VIO_no_completion) )
->      {
->      case X86EMUL_UNHANDLEABLE:
->      case X86EMUL_UNIMPLEMENTED:
-> + reinject:
+> -HVM_REGISTER_SAVE_RESTORE(IOAPIC, ioapic_save, NULL, ioapic_load, 1,
+> +HVM_REGISTER_SAVE_RESTORE(IOAPIC, ioapic_save, ioapic_check, ioapic_load, 1,
+>                            HVMSR_PER_DOM);
 
-I'm inclined to suggest to indent this the same as the case labels.
+As per the comment there, this belongs in the earlier patch.
 
 Jan
 
