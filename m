@@ -2,43 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oGhxAyhmsWnsugIAu9opvQ
+	id +NknBv53sWk2vgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 13:55:04 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 15:11:10 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D467263EB3
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 13:55:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1251110.1548381 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7386526520F
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Mar 2026 15:11:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1251147.1548389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0J5M-0004yU-13; Wed, 11 Mar 2026 12:54:48 +0000
+	id 1w0KGI-0005uM-52; Wed, 11 Mar 2026 14:10:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1251110.1548381; Wed, 11 Mar 2026 12:54:48 +0000
+Received: by outflank-mailman (output) from mailman id 1251147.1548389; Wed, 11 Mar 2026 14:10:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0J5L-0004wS-U3; Wed, 11 Mar 2026 12:54:47 +0000
-Received: by outflank-mailman (input) for mailman id 1251110;
- Wed, 11 Mar 2026 12:54:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=oqCu=BL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w0J5K-0004wM-AU
- for xen-devel@lists.xenproject.org; Wed, 11 Mar 2026 12:54:46 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7a19ce25-1d49-11f1-b164-2bf370ae4941;
- Wed, 11 Mar 2026 13:54:44 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4853e1ce427so36785325e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 11 Mar 2026 05:54:44 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4854b66e3f8sm48934515e9.14.2026.03.11.05.54.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Mar 2026 05:54:43 -0700 (PDT)
+	id 1w0KGI-0005ry-1s; Wed, 11 Mar 2026 14:10:10 +0000
+Received: by outflank-mailman (input) for mailman id 1251147;
+ Wed, 11 Mar 2026 14:10:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=x/zG=BL=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1w0KGG-0004uP-Q9
+ for xen-devel@lists.xenproject.org; Wed, 11 Mar 2026 14:10:08 +0000
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazlp170130001.outbound.protection.outlook.com
+ [2a01:111:f403:c10c::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 00b9ee66-1d54-11f1-9ccf-f158ae23cfc8;
+ Wed, 11 Mar 2026 15:10:06 +0100 (CET)
+Received: from BN9PR03CA0526.namprd03.prod.outlook.com (2603:10b6:408:131::21)
+ by DS0PR12MB6560.namprd12.prod.outlook.com (2603:10b6:8:d0::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Wed, 11 Mar
+ 2026 14:09:58 +0000
+Received: from BL02EPF0002992A.namprd02.prod.outlook.com
+ (2603:10b6:408:131:cafe::3e) by BN9PR03CA0526.outlook.office365.com
+ (2603:10b6:408:131::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.26 via Frontend Transport; Wed,
+ 11 Mar 2026 14:09:57 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0002992A.mail.protection.outlook.com (10.167.249.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9678.18 via Frontend Transport; Wed, 11 Mar 2026 14:09:57 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 11 Mar
+ 2026 09:09:56 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 11 Mar
+ 2026 07:09:56 -0700
+Received: from [172.22.194.138] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 11 Mar 2026 09:09:55 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,244 +68,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7a19ce25-1d49-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773233684; x=1773838484; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=U5ulGpwPGUeubOHrOFQJRstkDUZXs/VLi5V3Py6WIZE=;
-        b=F3qfc0fW60rB261Eoyhmuqpk72nv9zDAMcqPqeO013RRZ71vOMcYVM2fe0gzbv06R3
-         t3e3o37knb/gFfBUvZv04QlwEWaQDIE25YgK05ZiBNnqWGmkr39a0r5N3GANTNnOzELW
-         PuAluxIufCGx1rmTXvLxH2jnx+yT1OBjPb4KLU7n+nJWBL2rYwHJ/QrFlSFatw8dvJBd
-         iGEfZ0GX9iSwiuLeQSZRjMcxWeiNBU2yFtRLeBSlwfx1JxROYMyqpqogQL/pRSGmrfOj
-         eu5j6HzG+zK21VK5wz1ZRVblH8XPXRSZk7RMiHxkg0SIZe9IJLa0/Ks+flv33fgJvJP6
-         hPrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773233684; x=1773838484;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=U5ulGpwPGUeubOHrOFQJRstkDUZXs/VLi5V3Py6WIZE=;
-        b=ead6s4OmnB+0KJJ/GnBh0VjuH+LZ2TesWBvbq7+g1dgUGSwuP6SF7Zv9V7jCVy5Ujq
-         wuq8vvWHaSvTJ9J8Cp3BUeFthIiQUmAPJWK2BZg1/+3e7SFdR4MDR9Pr31IGeYSOvvKX
-         /2lZmnH4aQrBwBmI1L9mHIjXy75zfH50xdKUKEDEWD2eXa2fV1V3X63uOKIapkoWi1Zu
-         RxPEqsf1LuZbkKv/qNAd88fACPWRYCaUGHtFN3qjBbm0H3IQLtHpdtbdp8l16vR4FvfS
-         hImyV9GAJjpRcAIkU6o8mOd2HR+gA0lII7CiTyYoUuYaas173U3XXEMLByhDy7S97L6W
-         Kobw==
-X-Forwarded-Encrypted: i=1; AJvYcCVvZg5Fj4qCBY56/veGoX0koqPgMDld/tes/4yX9CN42nS4m/AuMmyWo/OppMIbDUm/2EC6btE2854=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzwHP0lJopixWsXiWnsHrTBb7s5lvE2b4nPK+gMhFZiKKN9hNVm
-	MkQz8ctItkWKCPe8qJe6ZjCtwIYfoyb/HBHlSye6s7u45sdAOv9FOaxrrXbb/fDt7w==
-X-Gm-Gg: ATEYQzyrFvqUn6zFYBKDRNILGrWWgPtjdUW/LF4LjRDF4cqxl5Lu7EvzoFosfvyJFia
-	XiBp7ramOB+5mXmwyumyARGHaphhB3WegjacP9BRbn08E25D5qUXrKt8HimhsECno//An1O7wG3
-	uP970NAkK7HA2ugWcwZkABudXEpKrpGE97VSMe9B3E9nqyl1ONrTnVSLGdHWPO72GYq15nPyKXs
-	PNn1DAjMS0FSV/JAhw+w+nsZ/Zh184nw0TRcYAdUfC1cUruXZw+tLndJ7Qe9h93wkOqjevR5zCZ
-	dBgPlaURGyBZ1fkng7B362s7zf++3JXcrvJ9GDqm3a1vfq5NOkO8nhTizeWJfo88NPK9SIffoXP
-	RaXQEWmOSN0BHRz8X+Op/j8akYYsMBXvrKRB+mgZz+wYGz4eCvpEV6GSBRm4PGP3AkUwKIEsBqH
-	Genb+WoZMfrovNIltJSoD2AMYqRjjnXJo7+PDK007jwNOo0yMmVm8GqT2S7UveMQoLAEU+ZjBpi
-	Bssd5NXKM11MJE=
-X-Received: by 2002:a05:600c:4693:b0:485:481c:e7bb with SMTP id 5b1f17b1804b1-4854b1009d9mr37946765e9.20.1773233683850;
-        Wed, 11 Mar 2026 05:54:43 -0700 (PDT)
-Message-ID: <66a4763e-6d98-4919-b3d5-350c4d23fc32@suse.com>
-Date: Wed, 11 Mar 2026 13:54:42 +0100
+X-Inumbo-ID: 00b9ee66-1d54-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xHSB9k28sB7kUHz4QI13a+wqhdHaQdN+uJd3uXfo1wRZ1Ea0p6wCPjR4LUUXM9LbmiYzghENDXdop8LsnlEM50FOrYsm9W6Ubav+9z7LKfqCDz6pnFJDRs9gta64/R7wtz5wgHiBeHboPvcEJk0X4ExKGdaYzJ24ijdQppJsUxfkc3w0aRZZSuWzvQtosDDs4hkckd5vMqJE0dahi401Mk5vQhp6zDX0JwZi9zV9tUOAxU7jthtxLhSa8rxqiwVzn32SleNqIqYonOaFLc7kFnHZ6VHZ5+mN5gHj2c50AQVF80FV8kabDdNw3OcutUkkokoKKAedPAByukNQrvgp7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=F4YOctJBCJL3jsVpHCrS9Gm56uQh0xSYflxixPkOSk0=;
+ b=s51oPup+ET5DtgpUeZyIuhOQ4/fUpsAetxFhZ1KhxSacthz26RbbKsnS/gY5LDJ81FPkxdRj6CkrfXKdFkGArgurcvJcdV4I7TUWK4Huz1vCEMene41Sje6ndSWNIzSdZ8tuuZCY0cZN1IglcaxEPrh6kosxrms6OCxb2uIgSVKGCkdlHboSPIPY5iEEI/6Dkc+BYUxrhUHFbc75DV8ylQFm02tR7yF71uMmt95dBps8BbUrki0dxLqAglKLHXGjVkt/4vdZdYfRwY7GeUVQDSKt3hG9RQMttzJKz7k5pjFeBPhtnsKk5PSNhn8zU76BWXnVXDvq6U6o8M/SPcPZvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=F4YOctJBCJL3jsVpHCrS9Gm56uQh0xSYflxixPkOSk0=;
+ b=AU6uvStSt5BblpzqCx/zMevi9PksCnesTpynOqm/Xy52tcEtoQsk3yC8NaMWwb7dgCveXn4AHDBsfSg527NVaUNKcyLgnIGz9g6IxqrSuSip8fPceuZMttOyA2WKSfpHqQReqN+SV81PaICFAgshAWvTt1c3cJcdpyHWf004J00=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <8ccde8eb-d8a4-411c-bd6e-9c3fcea1150f@amd.com>
+Date: Wed, 11 Mar 2026 10:09:54 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 14/14] xen/riscv: Disable SSTC extension and add
- trap-based CSR probing
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1772814110.git.oleksii.kurochko@gmail.com>
- <f7b30c80eabd3ba371a0d541e3be023314ec37fd.1772814110.git.oleksii.kurochko@gmail.com>
- <9ff93ad1-0151-4f37-a6c2-f7dd4197ca84@suse.com>
- <e0a891c4-3283-4e1b-81e4-f2b4bb62b5fa@gmail.com>
- <2e471f54-1885-4615-8a23-c33ce683158f@suse.com>
- <87eb8fb1-aa50-436c-8e2e-050981af4d1b@gmail.com>
+Subject: Re: [PATCH] xen/arm: fix unmapped access trapping on GICv2 hardware
+To: "Orzel, Michal" <michal.orzel@amd.com>, <xen-devel@lists.xenproject.org>,
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+References: <20260205190128.38716-1-stewart.hildebrand@amd.com>
+ <f91e0f7e-9afe-40bd-8e44-4aadbdf8e4b0@amd.com>
+ <1e8f9976-b0b6-47b1-88c0-690d4f1589ce@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <87eb8fb1-aa50-436c-8e2e-050981af4d1b@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <1e8f9976-b0b6-47b1-88c0-690d4f1589ce@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 6D467263EB3
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992A:EE_|DS0PR12MB6560:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8486a416-9bba-4eeb-1342-08de7f77e01c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700016|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	O+2s6PO9jtD8zTXDjTw0EEXZFIfVtSV8cvM3SmCkm4gLz5evPPc9bf+i1aOMFwbm4uxijQQcuWd693ipFDyvCTvbOrE8YODnBlso/WvcEj8PJ+DmRYlaomx09pEMy7hGhTsFUIcx1BuBFkcYUZDAQi5itLW21KAp0veu+wa6pfOUMb5XCa7uob4kdX3aFdkR8FSdvYkJrVuHtkGKIpG9H6hIo1uYerkcVQplMYPxarP8wcVf+h733iQcDHD82SKQVO8WAEf5K2KPnV5zHuaWWMLPaqQ7V+OJGmnshV7PfwwZAAVBUuyhvq+1qWn8N/YAkiFDuaKyKIrPiNjR86QVhDT6wNURnZf5Nn1UHo8QMLonCcHaVYq69wzjNbjTD09joebf9T8t5ej13MJ0GCGBzRxE0KGPdtttcdikdOJ7mwwdJx16/u7Kb8KsvugQRpsW0652NK2YPoZEdwybGJD7rmfaeHH7OohMmWO/PCqiYNF9TF7HEQQHQ8BConh1OrUB+B9reBit2sUXJM6hVYwwpCw2k0xCut3DROjRMIYjlxP7y1kAeyCw531tMC0oXSkOQHi+eLoWp7u4VSfKkdpyFCAo4jDyr2CzQjG4K8IxjuJBSCONQzk3V1CluflzR0qqQgodoca/7iqSkLzJdvFrHL5+FU8ADGDtwlesYfhfVzEVt1cSEgX+RCWO3T3fovlXGuPKCeLTxdokrEg9rd9BCiUeSUYq5tfexQLFnOI9mYDAK7BzIHtJHU3J8T4moarM8S+509w0rG+mTs3UVQgGfQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	KzNDEO56otrvHbRZr8cnb7bbJoYUaf3lvxyaqKvA6GDXyNSptOmPFC/uXINRT1Xv4bP9MN+KNarr9ITDcurq9vWX4tCueU9fjoGDNCUZ8Ovjxx2HMKhgZQ06x9A4AUQnBdUhgObLRbjU5G9b6SOt4cIYexLimps0RGg0V+4lxOkYUcR52k7P0uSJ8ejWrZZ6hhEwSz5tE5TrZ7vJI7LZTLAjyZeYDX1Uu4ccmq6JqsRt/fOxJTSOfNkRuqqF2d6HZS0vistLRj6EGjgnGaJpvmjF67TKVm39gbHZAYeNpFdMvU+ws/3nhTPDRiI55Ose5+U2QU+hh8KXmTUhqg4obaxx/IaFTIZl3veTuuJLDi63O6X6orcq5JrGP46XSUuAFv4TK756l6HN81R9utvQXx27d/YdPuqXB9fLAHFMn25dBsYSgmt1XYYsGEG6lzK2
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2026 14:09:57.0517
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8486a416-9bba-4eeb-1342-08de7f77e01c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0002992A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6560
+X-Rspamd-Queue-Id: 7386526520F
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:cardoe@cardoe.com,m:sstabellini@kernel.org,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,cardoe.com,kernel.org,wdc.com,gmail.com,lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:dkim,suse.com:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[12];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[amd.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:email,amd.com:mid]
 X-Rspamd-Action: no action
 
-On 11.03.2026 12:38, Oleksii Kurochko wrote:
-> On 3/11/26 11:58 AM, Jan Beulich wrote:
->> On 11.03.2026 10:54, Oleksii Kurochko wrote:
->>> On 3/10/26 10:15 AM, Jan Beulich wrote:
->>>> On 06.03.2026 17:33, Oleksii Kurochko wrote:
->>>>> --- a/automation/scripts/qemu-smoke-riscv64.sh
->>>>> +++ b/automation/scripts/qemu-smoke-riscv64.sh
->>>>> @@ -7,7 +7,7 @@ rm -f smoke.serial
->>>>>    
->>>>>    export TEST_CMD="qemu-system-riscv64 \
->>>>>        -M virt,aia=aplic-imsic \
->>>>> -    -cpu rv64,svpbmt=on \
->>>>> +    -cpu rv64,svpbmt=on,sstc=off \
->>>>>        -smp 1 \
->>>>>        -nographic \
->>>>>        -m 2g \
->>>> How does this fit with you panic()ing when SSTC isn't available (i.e. the
->>>> register cannot be read)? I must be missing something, likely a result of
->>>> me not being able to really understand the description.
->>> When SSTC isn't available my panic() won't occur and then will continue to
->>> be executed. Otherwise, when SSTC is enabled (it is enabled by QEMU by default)
->>> my panic will occur.
->> Oh, I notice I misread the condition around the panic(), mainly because of
->> the misleading / ambiguous message passed to it: "SSTC isn't supported\n"
->> can mean unsupported by Xen or unsupported by the platform.
->>
->> Anyway, to me this is entirely bogus: Why would we panic() because there is
->> a certain extension available?
+On 2/18/26 12:16, Orzel, Michal wrote:
 > 
-> It is bogus because then we need also add support of SSTC for a guest what isn't
-> done now thereby if it is detected that SSTC is available that it is dangerous
-> to continue about full support (guest part) of it.
 > 
-> I thought about the case to let Xen use SSTC and just don't tell Linux that SSTC
-> is available by dropping from riscv,isa property the mentioning of SSTC, so then
-> Linux will still continue to use SBI set timer call to Xen and the will just
-> safely reprogram (if it is needed) a timer using SSTC instructions. But if to do
-> in this way still nothing will prevent a guest to test if SSTC is available by
-> reading CSR_STIMECMP and nothing will prevent to access CSR_VSTIMECMP by guest
-> what could also lead to some misleading behavior.
-> Likely we could set henvcfg.STCE to zero and it will forbid guest to access SSTC
-> registers but I am not sure that we really want such behavior when Xen is using
-> SSTC to setup a timer, but guest isn't allowed.
-
-I don't see what's wrong with Xen using an extension that isn't made available
-to guests.
-
-> It seems it will be better just
-> support SSTC extension fully and not to support it only for now.
-
-If at all, an ack for such from me would be pretty reluctantly given.
-
->>>>> +    register unsigned long ret = 0; \
->>>>> +    unsigned long flags; \
->>>>> +    ((struct trap_info *)(trap))->scause = 0; \
->>>> "trap" would better be of the correct type. Don't use casts like this, please.
->>>>
->>>> Further, wouldn't you better set the field to a guaranteed invalid value? 0 is
->>>> CAUSE_MISALIGNED_FETCH, after all.
->>> I don't see that such an invalid value exist for scause. I think we have to reserved
->>> a value from region 24-31 or 48-63 as they are designated for custom use.
->> Not sure that's possible. "Custom use" may mean "custom" from hw perspective.
->> I was rather thinking of picking something pretty high in the reserved range,
->> like (1 << (MXLEN-1)) - 1 or 1 << (MXLEN-2).
-> 
-> Agree, it could be an option.
+> On 18/02/2026 15:21, Stewart Hildebrand wrote:
+>> Gentle ping.
+> Sorry, I'm quite busy these days.
 > 
 >>
->>>>> +    local_irq_save(flags); \
->>>>> +    asm volatile ( \
->>>>> +        ".option push\n" \
->>>>> +        ".option norvc\n" \
->>>> Shouldn't this come later?
->>> Do you mean before where SSTC csr is really tried to be read ("csrr %[ret], %[csr]\n")?
->> Yes.
+>> To be clear, domU interrupts with vGICv2 are currently broken when
+>> XEN_DOMCTL_CDF_trap_unmapped_accesses is not set.
 >>
->>> Does it really matter in such small inline assembler?
->> Yes, if nothing else then to not raise questions. Plus (depending on the
->> specific operands used), the ADD (MV) could e.g. be representable by a C insn.
->>
->>>> And why set ttmp in the first place, when
->>>> that's what do_expected_trap() writes to?
->>> To force the compiler to materialize tinfo in register a4 (ttmp) before the
->>> trap handler runs as handler will use a4 as temporary register.
->> ??? I don't understand what you mean with "materialize".
-> 
-> Mean forcing the compiler to load the variable into the specific hardware
-> register (a4) before the potentially trapping instruction executes, so the
-> trap handler can safely use that register.
+>> On 2/5/26 14:01, Stewart Hildebrand wrote:
+>>> Since 4dbcb0653621, the vGICv2 CPU interface is mapped in a deferred
+>>> manner. On domains with XEN_DOMCTL_CDF_trap_unmapped_accesses unset on
+>>> GICv2 hardware, the vGICv2 CPU interface fails to be mapped. A visible
+>>> symptom is that a domU gets stuck at:
+>>>
+>>>   [    0.177983] smp: Bringing up secondary CPUs ...
+>>>
+>>> Move the 2nd check_p2m earlier so it's prioritized over try_handle_mmio.
+>>>
+>>> Fixes: 980aff4e8fcd ("xen/arm: Add way to disable traps on accesses to unmapped addresses")
+>>> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> I investigated whether the reordering is safe and it looks ok:
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-I fear there's some misunderstanding on inline assembly here. An output-only
-variable doesn't need "pre-loading". But anyway, all of this is gong to be
-moot here (but potentially relevant elsewhere in the future) when this
-becomes a mere clobber.
-
->>>>> +        "csrr %[ret], %[csr]\n" \
->>>>> +        "csrw " STR(CSR_STVEC) ", %[stvec]\n" \
->>>>> +        ".option pop" \
->>>>> +        : [stvec] "+&r" (stvec), [tinfo] "+&r" (tinfo), \
->>>> tinfo isn't modified, is it?
->>> It is modified by handler.
->> Where? It's only used as the address of the two stores.
-> 
-> There are to updates of tinfo in the do_expected_trap():
-> 
-> FUNC(do_expected_trap)
->          ...
->          REG_S   a4, RISCV_TRAP_SEPC(a3)
->          ...
->          REG_S   a4, RISCV_TRAP_SCAUSE(a3)
->          ...
-> END(do_expected_trap)
-
-a3 is used there twice, yes, but neither use modifies the register. If the
-first use modified it, the 2nd use would be broken.
-
-Jan
+Thanks! Is there any other feedback? Is this ready for commit?
 
