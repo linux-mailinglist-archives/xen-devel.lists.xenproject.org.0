@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OFMYG6DwsmlBRAAAu9opvQ
+	id CFNbF73wsmlaRAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:58:08 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:58:37 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC2282762B5
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:58:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1252793.1549355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4FBF2762F8
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:58:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1252806.1549363 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0jMG-0002FA-H0; Thu, 12 Mar 2026 16:58:00 +0000
+	id 1w0jMh-0002qI-PX; Thu, 12 Mar 2026 16:58:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1252793.1549355; Thu, 12 Mar 2026 16:58:00 +0000
+Received: by outflank-mailman (output) from mailman id 1252806.1549363; Thu, 12 Mar 2026 16:58:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0jMG-0002CG-Bo; Thu, 12 Mar 2026 16:58:00 +0000
-Received: by outflank-mailman (input) for mailman id 1252793;
- Thu, 12 Mar 2026 16:57:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w0jMh-0002os-Mo; Thu, 12 Mar 2026 16:58:27 +0000
+Received: by outflank-mailman (input) for mailman id 1252806;
+ Thu, 12 Mar 2026 16:58:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jTts=BM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w0jME-0001v3-AX
- for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 16:57:58 +0000
-Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
- [2a00:1450:4864:20::336])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9e78f7eb-1e34-11f1-b164-2bf370ae4941;
- Thu, 12 Mar 2026 17:57:57 +0100 (CET)
-Received: by mail-wm1-x336.google.com with SMTP id
- 5b1f17b1804b1-4853e1ce427so14010975e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Mar 2026 09:57:57 -0700 (PDT)
+ id 1w0jMg-0002Yf-51
+ for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 16:58:26 +0000
+Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
+ [2a00:1450:4864:20::32a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ae87bdf4-1e34-11f1-9ccf-f158ae23cfc8;
+ Thu, 12 Mar 2026 17:58:24 +0100 (CET)
+Received: by mail-wm1-x32a.google.com with SMTP id
+ 5b1f17b1804b1-4853e1ce427so14015765e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Mar 2026 09:58:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4854e2537c3sm131081495e9.15.2026.03.12.09.57.54
+ 5b1f17b1804b1-48541b6f708sm342809325e9.11.2026.03.12.09.58.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Mar 2026 09:57:55 -0700 (PDT)
+ Thu, 12 Mar 2026 09:58:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,51 +50,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9e78f7eb-1e34-11f1-b164-2bf370ae4941
+X-Inumbo-ID: ae87bdf4-1e34-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773334677; x=1773939477; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773334703; x=1773939503; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qOP/T1HJZb7a2znFHzhzofDtcxTuReCcTpVKKooOuJM=;
-        b=YpdDVmHrUl1fnaN0b7UEfpc2B69zzq4PDWMIVLkSH/OE8f+KUyAoAWj5qwOmxHKOXO
-         WIQPbOdi464bN8i5u/QnVdhMxRITYuJiCKC2ZVa2qWepZrhOWDfUUrij873xQx+B2AL0
-         HZX5uJkOL2HSjq8gMZedlpPboKvx22K3KzD9a7mZhBHoaArriFUCMNfjgYNWnHyIjszF
-         eG178JYq08MK63n1rAQSW4bQSPOOLNystY4V8MAfcB4Ymq8Pl/YZzI6iGVd9LkaW3bLq
-         VxB9VdQK4z/tI4eRiP5z5ievC3Ifnj1dl6BdAmV5c1Sx+jXTyaXIWYqXIGeIsgnAQLQN
-         /Iww==
+        bh=vVYFfqfJHLEO9z5Th4OdzRW5ThSuFwagPEe2uUt1u9I=;
+        b=fckAaDC8XWNt1oby6kWMJtv+EKjtz+eyidP04x5bb2UEKsn/FkFjYl73bYkt1SbSvQ
+         MO5nQ0vC2GDGUqe0emxCs6ZMictVbTfPozj7Fsi4YgKlOPeOOw8mWYjcekyTfD8/8rIn
+         nfzzydd/CmI0CNVdFJWyBpssc12i6GZUvA8ZY8YV+xSPW9aHg+DQCrmrmmZZETsDNiWb
+         Y0DNDBs27YAqvwaAm248gD0v0xQfc/3/lEXm1aHVQRy4koSXUk/qQDv/be/VyERHOh3S
+         MbokkLPbqV2xamUjJNHj1+fmtfDOBNr8L9hV/NxGGZiDb+KOzFdCb0dm9TJeb6bi+eC2
+         lq3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773334677; x=1773939477;
+        d=1e100.net; s=20230601; t=1773334703; x=1773939503;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qOP/T1HJZb7a2znFHzhzofDtcxTuReCcTpVKKooOuJM=;
-        b=owYw5N7z1YdrYAU7hCeVr+JKRWOOy+EWA6p/RI6UqF3FQlZKlUhCJKZRih66Lolg74
-         Pv4M04ZMIbRQj0541XGOu5RCT4wrIZ9Qrj4sBp3HOxyJ2QeNcSlS6g7WHh7nmhwHONLY
-         padvp1EwQeWHdaQJGIP7+lEa0MChQKZ0wtPRHDH0ZNqVJFgaeievXi5ex3Km0SnWg48P
-         zQXnZbczz8g1+z3V6cko3x1HrMjDihBYINaPOY8BY7+6HHh3MNqgrL1fXs/RCA11Iz+A
-         3BV+6bXyVQ3itgUkw4NfQ7J5V4rHTZOzoEZIBBCzfwXiwGHGt6j/ZOKbctVe3A9mzGP8
-         AZtQ==
-X-Gm-Message-State: AOJu0Yy8ixg6R3HxrvIFNl6ITUpP6fRdrxOyoAdmADQtb7pVWLzPMpAK
-	qw3ahf/5xRs+FEWh+NI2MLZvFCJdE6Hi3dAqMjbuM71lHlTBsqvWdTFvf0v2yVJojKw7prP4uM6
-	Ob3Q=
-X-Gm-Gg: ATEYQzz57WU74fMJ3As8n1t4tvM61WWSqgsxrFRLNH+CARShxddczd6oJK53xY4yhbr
-	Awh7pj/nNYeYLrqc7ypBPJVTdfOosPmz7qEQrPlBFcZXIxL5E2I3YhpnF5JzCYs8niNJzG7lr6v
-	nfnjUOaEJvqqjur+WUAinOLRT+ZUaz2mJw8PlTuEV+O5KnAnahQ6Sz18YXETDUFNmr+PPLa2zDZ
-	iQnaYommdv6UAqJUQHtgTDmkqfYuo0XeTAia1/XkSu+kMJrPSxVJzyAtMEf3lQNKPZ8x54MoHAx
-	00jbE0IOEO73BRRwIjEvW9Z44LC1aHuXRWwDploxmjH0cxDlVsixmJ/uyNcRnOL2lieZ8lS/9BC
-	mP7ya6NaWOG3IhRnAhwU5YG9ZqqrQVR9pjkJi2eKjaadr+9K5M1ANgHfzH12tNRfKbEzqgy/v5G
-	Gf71TTbD8G+WR1ynJov9r6pJdYqq7/qkdHFJdMp6krrbdFU7nvr43WcbiaONmk4RRpr2y/5py8t
-	wyJNMNsyxhaKuM=
-X-Received: by 2002:a05:600c:3490:b0:477:9b4a:a82 with SMTP id 5b1f17b1804b1-4854b13e5d7mr112510495e9.35.1773334676486;
-        Thu, 12 Mar 2026 09:57:56 -0700 (PDT)
-Message-ID: <addfdc9f-7f03-4b84-b998-1fdbef2edc78@suse.com>
-Date: Thu, 12 Mar 2026 17:57:53 +0100
+        bh=vVYFfqfJHLEO9z5Th4OdzRW5ThSuFwagPEe2uUt1u9I=;
+        b=C0Na1srSV5OvY5KhHfbWrK2ya91fRo3MjfnWUKVYXHZ2xfBDgJaiP3KgGOMygiDnOm
+         BXfyZufDAAn0iUDWpBNyFDAHRoFD0rCMZYhcIFzJvzU5ZJ6LZchNL0dX60+5tWaQVICz
+         6xHtGTZ6yZWCQbrLSjzarF2DJXx+ocgxlGG1b7tzbr3Zypl2G4jqM2nULqvOd3TS+eX2
+         UfVQEvbhm/KrtQRFpGbiVjYbd5l8+Q8pAdeBq+U2EyHHSmoXePR12knaLx+wflramjzk
+         y4lSzRm1/AzE0GXYDeREJ6GmTb7D9qZ0KSeGRoIuj++FBhw6CTUFPyv8kDo+1PpP8gGM
+         rAPA==
+X-Gm-Message-State: AOJu0YygwCO7PZDcs7QBckNRN22VsOYbVHK6JQq9fBCV0zAgOdHlGUce
+	Bg0h1cHC429BxOwex8fgqH9At6AWjDJN/fzD/IqhdyzsgmZBkz73lFSF7EH7A3wAxi73pJWXjye
+	yKvQ=
+X-Gm-Gg: ATEYQzzDT8IvxpjBSBOZIqowFjGgoL8Zp7wY0ATmSOJMpWlkZ6fScYsZaGLkEth0MQT
+	yKXw3MEI9+Dky4WmYK5Gk4E5rRglYtPDpqFYEv2T8GzONSr+bE0kGsNLBENsnJVP+gD2259ixRe
+	jlulxCzn5fm7rENxt/1EB7kn49jEj76dkOtas7i6ldfN0dLHXTCRiccwVTpvekhmVqOLsvfD4xe
+	3ikycEGnaH7SfLXyFFEIzHzUfy90kieEHjw6IgzbhYcEjpSWrwKZ5lgdIesCUA7n/TGkQ9HeNTP
+	A0OxQCmQ3CmaOgYxayaPJ3X9/k1oqbE3thacXlxY042241JAe4lAKUru5M14zb8cbq+5kM1ZFae
+	r3EqQOEAa+guUMnBWmHjPWoorl64RJD4+FcWEFtUG/ELqRxBI4TeaBJU5tEHiqhsE/0QOnBafG4
+	y0Ea8Kxy7NNhps0jTe8bNHtYr+BOX34QQH7v4A1b45vCplRWLUWujye5RKb2ME3AxgiZ92P0SYZ
+	iEYjZUAkF2Q1Eg=
+X-Received: by 2002:a05:600c:c3cc:10b0:485:54cc:2e7c with SMTP id 5b1f17b1804b1-48554cc2e8cmr25076595e9.24.1773334703593;
+        Thu, 12 Mar 2026 09:58:23 -0700 (PDT)
+Message-ID: <d13912c9-8820-44e7-8aad-d8ee9ea17980@suse.com>
+Date: Thu, 12 Mar 2026 17:58:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 8/9] x86/mwait-idle: Add cmdline option to adjust C-states
- table
+Subject: [PATCH 9/9] x86/mwait-idle: Add C-states validation
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -138,7 +137,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid,intel.com:email,msgid.link:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,msgid.link:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -159,284 +158,101 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: CC2282762B5
+X-Rspamd-Queue-Id: C4FBF2762F8
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
 
-Add a new module parameter that allows adjusting the C-states table used by
-the driver.
-
-Currently, the C-states table is hardcoded in the driver based on the CPU
-model. The goal is to have good enough defaults for most users.
-
-However, C-state characteristics, such as exit latency and residency, can
-vary between different variants of the same CPU model and BIOS settings.
-Moreover, different platform usage models and user preferences may benefit
-from different C-state target_residency values.
-
-Provide a way for users to adjust the C-states table via a module parameter
-"table". The general format is:
-"state1:latency1:target_residency1,state2:latency2:target_residency2,..."
-
-In other words, represent each C-state by its name, exit latency (in
-microseconds), and target residency (in microseconds), separated by colons.
-Separate multiple C-states by commas.
-
-For example, suppose a CPU has 3 C-states with the following
-characteristics:
-  C1:  exit_latency=1, target_residency=2
-  C1E: exit_latency=10, target_residency=10
-  C6:  exit_latency=100, target_residency=500
-
-Users can specify a custom C-states table as follows:
-
-1. intel_idle.table="C1:2:2,C1E:5:20,C6:150:600"
-   Result: C1:  exit_latency=2, target_residency=2
-           C1E: exit_latency=5, target_residency=20
-           C6:  exit_latency=150, target_residency=600
-2. intel_idle.table="C6::400"
-   Result: C1:  exit_latency=1, target_residency=2 (unchanged)
-           C1E: exit_latency=10, target_residency=10 (unchanged)
-           C6:  exit_latency=100, target_residency=400
-                (only target_residency changed)
+Add validation for C-states specified via the "table=" module parameter.
+Treat this module parameter as untrusted input and validate it thoroughly.
 
 Signed-off-by: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
-Link: https://patch.msgid.link/20251216080402.156988-3-dedekind1@gmail.com
+Link: https://patch.msgid.link/20251216080402.156988-4-dedekind1@gmail.com
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 111f77a23348
+Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git be6a150829b3
 
-Add __init to get_cmdline_field(). Put cmdline_table_str[] in .init.data.
-Other adjustments to fit our env.
+Add __init to validate_cmdline_cstate(). Other adjustments to fit our env.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-For the initial attempt, I've left the new option as a standalone one. It
-may be worth integrating with "mwait-idle", but I think much of the
-parsing would then want doing differently. It'll then likely be much
-harder to apply future Linux changes there.
 
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1928,6 +1928,23 @@ Print boot time MTRR state.
- Use the MWAIT idle driver (with model specific C-state knowledge) instead
- of the ACPI based one.
- 
-+### mwait-idle.table (x86)
-+> `= <string>`
-+
-+ Define the C-states table from a user input string. Expected format is
-+ 'name:latency:residency', where:
-+ - name: The C-state name.
-+ - latency: The C-state exit latency in us.
-+ - residency: The C-state target residency in us.
-+
-+ Multiple C-states can be defined by separating them with commas:
-+ 'name1:latency1:residency1,name2:latency2:residency2'
-+
-+ Example: intel_idle.table=C1:1:1,C1E:5:10,C6:100:600
-+
-+ To leave latency or residency unchanged, use an empty field, for example:
-+ 'C1:1:1,C1E::10' - leaves C1E latency unchanged.
-+
- ### nmi (x86)
- > `= ignore | dom0 | fatal`
- 
 --- a/xen/arch/x86/cpu/mwait-idle.c
 +++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -70,6 +70,11 @@
- static __initdata bool opt_mwait_idle = true;
- boolean_param("mwait-idle", opt_mwait_idle);
+@@ -72,6 +72,11 @@ boolean_param("mwait-idle", opt_mwait_id
  
-+/* The maximum allowed length for the 'table' module parameter  */
-+#define MAX_CMDLINE_TABLE_LEN 256
-+static char cmdline_table_str[MAX_CMDLINE_TABLE_LEN] __initdata;
-+string_param("mwait-idle.table", cmdline_table_str);
+ /* The maximum allowed length for the 'table' module parameter  */
+ #define MAX_CMDLINE_TABLE_LEN 256
++/* Maximum allowed C-state latency */
++#define MAX_CMDLINE_LATENCY_US (5 * 1000 /* USEC_PER_MSEC */)
++/* Maximum allowed C-state target residency */
++#define MAX_CMDLINE_RESIDENCY_US (100 * 1000 /* USEC_PER_MSEC */)
 +
- static unsigned int mwait_substates;
+ static char cmdline_table_str[MAX_CMDLINE_TABLE_LEN] __initdata;
+ string_param("mwait-idle.table", cmdline_table_str);
  
- #define LAPIC_TIMER_ALWAYS_RELIABLE 0xFFFFFFFF
-@@ -122,6 +127,9 @@ struct cpuidle_state {
-  */
- #define CPUIDLE_FLAG_IBRS		0x20000
- 
-+/* C-states data from the 'mwait-idle.table' cmdline parameter */
-+static struct cpuidle_state cmdline_states[ACPI_PROCESSOR_MAX_POWER] __initdata;
-+
- /*
-  * MWAIT takes an 8-bit "hint" in EAX "suggesting"
-  * the C-state (top nibble) and sub-state (bottom nibble)
-@@ -1546,6 +1554,161 @@ static void __init mwait_idle_state_tabl
- 	}
+@@ -1589,6 +1594,41 @@ static char *__init get_cmdline_field(ch
  }
  
-+ /**
-+  * get_cmdline_field - Get the current field from a cmdline string.
-+  * @args: The cmdline string to get the current field from.
-+  * @field: Pointer to the current field upon return.
-+  * @sep: The fields separator character.
-+  *
-+  * Examples:
-+  *   Input: args="C1:1:1,C1E:2:10", sep=':'
-+  *   Output: field="C1", return "1:1,C1E:2:10"
-+  *   Input: args="C1:1:1,C1E:2:10", sep=','
-+  *   Output: field="C1:1:1", return "C1E:2:10"
-+  *   Ipnut: args="::", sep=':'
-+  *   Output: field="", return ":"
-+  *
-+  * Return: The continuation of the cmdline string after the field or NULL.
-+  */
-+static char *__init get_cmdline_field(char *args, char **field, char sep)
+ /**
++ * validate_cmdline_cstate - Validate a C-state from cmdline.
++ * @state: The C-state to validate.
++ * @prev_state: The previous C-state in the table or NULL.
++ *
++ * Return: 0 if the C-state is valid or -EINVAL otherwise.
++ */
++static int __init validate_cmdline_cstate(struct cpuidle_state *state,
++					  struct cpuidle_state *prev_state)
 +{
-+	unsigned int i;
++	if (state->exit_latency == 0)
++		/* Exit latency 0 can only be used for the POLL state */
++		return -EINVAL;
 +
-+	for (i = 0; args[i] && !isspace(args[i]); i++) {
-+		if (args[i] == sep)
-+			break;
-+	}
++	if (state->exit_latency > MAX_CMDLINE_LATENCY_US)
++		return -EINVAL;
 +
-+	*field = args;
++	if (state->target_residency > MAX_CMDLINE_RESIDENCY_US)
++		return -EINVAL;
 +
-+	if (args[i] != sep)
-+		return NULL;
++	if (state->target_residency < state->exit_latency)
++		return -EINVAL;
 +
-+	args[i] = '\0';
-+	return args + i + 1;
++	if (!prev_state)
++		return 0;
++
++	if (state->exit_latency <= prev_state->exit_latency)
++		return -EINVAL;
++
++	if (state->target_residency <= prev_state->target_residency)
++		return -EINVAL;
++
++	return 0;
 +}
 +
 +/**
-+ * cmdline_table_adjust - Adjust the C-states table with data from cmdline.
-+ *
-+ * Adjust the C-states table with data from the 'mwait-idle.table' parameter
-+ * (if specified).
-+ */
-+static void __init cmdline_table_adjust(void)
-+{
-+	char *args = cmdline_table_str;
-+	struct cpuidle_state *state;
-+	unsigned int i, state_count;
+  * cmdline_table_adjust - Adjust the C-states table with data from cmdline.
+  *
+  * Adjust the C-states table with data from the 'mwait-idle.table' parameter
+@@ -1696,6 +1736,21 @@ static void __init cmdline_table_adjust(
+ 		       state->name, state->exit_latency, state->target_residency);
+ 	}
+ 
++	/* Validate the adjusted C-states */
++	for (i = 0; i < state_count; i++) {
++		struct cpuidle_state *prev_state;
 +
-+	if (args[0] == '\0')
-+		/* The 'mwait-idle.table' module parameter was not specified */
-+		return;
++		state = &cmdline_states[i];
++		prev_state = i ? &cmdline_states[i - 1] : NULL;
 +
-+	/* Create a copy of the C-states table */
-+	for (i = 0;
-+	     i < ARRAY_SIZE(cmdline_states) && icpu.state_table[i].name[0];
-+	     i++)
-+		cmdline_states[i] = icpu.state_table[i];
-+
-+	state_count = i;
-+
-+	/*
-+	 * Adjust the C-states table copy with data from the 'mwait-idle.table'
-+	 * module parameter.
-+	 */
-+	while (args) {
-+		char *fields, *name, *val;
-+
-+		/*
-+		 * Get the next C-state definition, which is expected to be
-+		 * '<name>:<latency_us>:<target_residency_us>'. Treat "empty"
-+		 * fields as unchanged. For example,
-+		 * '<name>::<target_residency_us>' leaves the latency unchanged.
-+		 */
-+		args = get_cmdline_field(args, &fields, ',');
-+
-+		/* name */
-+		fields = get_cmdline_field(fields, &name, ':');
-+		if (!fields)
-+			goto error;
-+
-+		/* Find the C-state by its name */
-+		state = NULL;
-+		for (i = 0; i < state_count; i++) {
-+			if (!strcmp(name, cmdline_states[i].name)) {
-+				state = &cmdline_states[i];
-+				break;
-+			}
-+		}
-+
-+		if (!state) {
-+			printk(XENLOG_ERR PREFIX "C-state '%s' was not found\n",
-+			       name);
-+			continue;
-+		}
-+
-+		/* Latency */
-+		fields = get_cmdline_field(fields, &val, ':');
-+		if (!fields)
-+			goto error;
-+
-+		if (*val) {
-+			const char *end;
-+			unsigned long n = simple_strtoul(val, &end, 0);
-+
-+			state->exit_latency = n;
-+			if (*end || state->exit_latency != n)
-+				goto error;
-+		}
-+
-+		/* Target residency */
-+		fields = get_cmdline_field(fields, &val, ':');
-+
-+		if (*val) {
-+			const char *end;
-+			unsigned long n = simple_strtoul(val, &end, 0);
-+
-+			state->target_residency = n;
-+			if (*end || state->target_residency != n)
-+				goto error;
-+		}
-+
-+		/*
-+		 * Allow for 3 more fields, but ignore them. Helps to make
-+		 * possible future extensions of the cmdline format backward
-+		 * compatible.
-+		 */
-+		for (i = 0; fields && i < 3; i++) {
-+			fields = get_cmdline_field(fields, &val, ':');
-+			if (!fields)
-+				break;
-+		}
-+
-+		if (fields) {
++		if (validate_cmdline_cstate(state, prev_state)) {
 +			printk(XENLOG_ERR PREFIX
-+			       "Too many fields for C-state '%s'\n",
++			       "C-state '%s' validation failed\n",
 +			       state->name);
 +			goto error;
 +		}
-+
-+		printk(XENLOG_INFO PREFIX
-+		       "C-state from cmdline: name=%s, latency=%u, residency=%u\n",
-+		       state->name, state->exit_latency, state->target_residency);
 +	}
 +
-+	/* Copy the adjusted C-states table back */
-+	for (i = 0; i < state_count; i++)
-+		icpu.state_table[i] = cmdline_states[i];
-+
-+	printk(XENLOG_INFO PREFIX
-+	       "Adjusted C-states with data from 'mwait-idle.table'\n");
-+	return;
-+
-+ error:
-+	printk(PREFIX
-+	       "Failed to adjust C-states with data from 'mwait-idle.table'\n");
-+}
-+
- static int __init mwait_idle_probe(void)
- {
- 	unsigned int eax, ebx, ecx;
-@@ -1595,6 +1758,8 @@ static int __init mwait_idle_probe(void)
- 
- 	mwait_idle_state_table_update();
- 
-+	cmdline_table_adjust();
-+
- 	return 0;
- }
- 
+ 	/* Copy the adjusted C-states table back */
+ 	for (i = 0; i < state_count; i++)
+ 		icpu.state_table[i] = cmdline_states[i];
 
 
