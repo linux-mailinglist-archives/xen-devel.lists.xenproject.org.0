@@ -2,61 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ECfOMcT6smmLRAAAu9opvQ
+	id GKl0FbMls2nMSgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 18:41:24 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 21:44:35 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D84C276AB8
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 18:41:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1252859.1549390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0D2B2797EE
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 21:44:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1252991.1549399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0k1e-0002OR-5M; Thu, 12 Mar 2026 17:40:46 +0000
+	id 1w0mso-0006Es-Ju; Thu, 12 Mar 2026 20:43:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1252859.1549390; Thu, 12 Mar 2026 17:40:46 +0000
+Received: by outflank-mailman (output) from mailman id 1252991.1549399; Thu, 12 Mar 2026 20:43:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0k1e-0002Lv-29; Thu, 12 Mar 2026 17:40:46 +0000
-Received: by outflank-mailman (input) for mailman id 1252859;
- Thu, 12 Mar 2026 17:40:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w0mso-0006CH-GK; Thu, 12 Mar 2026 20:43:50 +0000
+Received: by outflank-mailman (input) for mailman id 1252991;
+ Thu, 12 Mar 2026 20:43:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5Gzm=BM=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1w0k1c-0002Lm-FX
- for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 17:40:44 +0000
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c005::5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9436aed2-1e3a-11f1-9ccf-f158ae23cfc8;
- Thu, 12 Mar 2026 18:40:38 +0100 (CET)
-Received: from MN2PR01CA0066.prod.exchangelabs.com (2603:10b6:208:23f::35) by
- IA1PR12MB6211.namprd12.prod.outlook.com (2603:10b6:208:3e5::5) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.7; Thu, 12 Mar 2026 17:40:32 +0000
-Received: from BN3PEPF0000B06C.namprd21.prod.outlook.com
- (2603:10b6:208:23f:cafe::bc) by MN2PR01CA0066.outlook.office365.com
- (2603:10b6:208:23f::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.27 via Frontend Transport; Thu,
- 12 Mar 2026 17:40:33 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF0000B06C.mail.protection.outlook.com (10.167.243.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.1 via Frontend Transport; Thu, 12 Mar 2026 17:40:32 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 12 Mar
- 2026 12:40:25 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 12 Mar
- 2026 12:36:15 -0500
-Received: from amd-BIRMANPLUS.mshome.net (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Thu, 12 Mar 2026 12:36:13 -0500
+ <SRS0=QBWs=BM=citrix.com=kevin.lampis@srs-se1.protection.inumbo.net>)
+ id 1w0msm-0006Bj-Tj
+ for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 20:43:49 +0000
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c001::2])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2ae14ef8-1e54-11f1-b164-2bf370ae4941;
+ Thu, 12 Mar 2026 21:43:47 +0100 (CET)
+Received: from BY1PR03MB7996.namprd03.prod.outlook.com (2603:10b6:a03:5b2::8)
+ by PH0PR03MB6870.namprd03.prod.outlook.com (2603:10b6:510:167::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.12; Thu, 12 Mar
+ 2026 20:43:41 +0000
+Received: from BY1PR03MB7996.namprd03.prod.outlook.com
+ ([fe80::5068:e1b5:b478:8d07]) by BY1PR03MB7996.namprd03.prod.outlook.com
+ ([fe80::5068:e1b5:b478:8d07%5]) with mapi id 15.20.9700.010; Thu, 12 Mar 2026
+ 20:43:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,172 +52,168 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9436aed2-1e3a-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 2ae14ef8-1e54-11f1-b164-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sg8uF+fEJLpMLAmcI23RxViePufPtat9MchzkTBk7UpFttNlcazkvPCvn4u456q5nTr8yh2ENfvzEeZEk1vSb7SllMG/4ZOs+YATz+SvlbX3HtbIE0BRENfN5zJNJG+UauGLE5pMdK9yA/jDgMgT+Dk1zCxI4KtIXh84+UfiS1EeQxh/GGu8ClVpzN6zKEUIGI4Hb6AlUnc2SqYWxZtlTGj2LUF9cpXSpVftQdjDmwcAzTU45DNSQw96Go/qNOFzd6WYPjSh0hxw1z2Et/zMtqTQf4uAGd8Pr0WwUVnt3wJY/OYnJ0tZaFdyxrfRYVcDQBPFErxFcu5FjOo2ifZbxw==
+ b=eGf/mwDyAxINgSyzaYTGJnGnmixWrLchijbMrgcW/B3ICoAbfxC69f8l400uPpaDqKw1ZxxpYtJ2uD1ItxE3ETX9f11pzHLPqiF2R0zuSe2filfMWX4hZsZeOqkNuzTP1ZAXUm++K4MzutBnLPzHgB8BwJ9Ctk3pKuy7i4IRgAPfd3SiJtMFZZSBW1orsNssI5XU/L8CvsCz5JFAvWbQWMGRgOLqFa6XrqanqcG16AQ63MTgSVpD5V9wRuXSP1XV45zW3amqgO2uhCwxVYhbrA8KP9knnF0AXkJbnWGASC3QBBAkMoS7nnSLQQeoox6VcZ/zW7S2yJsqsmH5hzoBsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=07vyBeJURv8H6MFtvs6x930jEhHUd3uoBFGZSqh7bsQ=;
- b=J4WSCBwD1+wEVEZIg9OLjcabtRlHw2/ot4CV9bPZFoFKyZfp6xQosE71yxBuqAULsK6Br370uw8zwJkLb20x3HqOACMZX+g3ZlS6xeWks5D/D3+EozGyP2yMNq1CzfSbJEzW3ARy0L1zO+60Rnf8R0vmNToxm5gfp46RGb0L+pFHBtMlVoN4x1ZzQwcTxQoFjgYPSVcOcaueJ561y2e/9VmuGLvQnltJPOgzuN+Mt6KVuXQ15LwvdvK5+q5gFIL2G4SFFaL/xnGDmNoQlZ1QHMmb68BTwIU0E7fs6luVv5hBeimmh2Q4LqDZulVQuF5ppivw6lJ9pPoC+104vLs3hg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linuxfoundation.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=vvFBMjf1ft6LJLJ/hREPupitDQ4FviVQPCRmbRd33PU=;
+ b=cpYrdmJYsg6Q50MljJnKapeMimkpjbOh6AMjWdjnFZIOqF+B9Q9/KpUuwfYfLDmYmKwqL2iT6utqjRFGlv/HFUOsPi4NLhLXrll3qgx4ryB09AYKnkVu6vObdp+I8cD4U5eLZIZGh7qJJJ4h1uF7R1ZgoEYve04mIcvZ1N7e9aMPLtnkqcU0Wb0qnRckuWpcSOQv7VKGC9yjnOWUKGUeoTnlokz/a0v24GOFkqoRoY9M0gSyxlZGptDB0Zbzgg9NuWD4GChBoaw5rnfpwTuxIDkZNfXxd0rIaRuA2LHs+n7HyoIO15D0DFTKO91EJSDq756fccgnYHgW+FCIm8/zxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=07vyBeJURv8H6MFtvs6x930jEhHUd3uoBFGZSqh7bsQ=;
- b=tFkT9u02dDgQNoikKUp9dnGg9b3GdI1uKD6suq0li7IZl3fsNK4dOJ9499/HykDcGz464jIW/YgkXCAOxJecpyuTyt2Vx4rit6Qw3otyZjSmMqPmZOuOb+sDnjo9mn5UGbuaBn3wV2M4ptguZq07xHTbqFNBCnI0VXZ7/mAsHU8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
-	<jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>
-CC: Jason Andryuk <jason.andryuk@amd.com>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-kernel@vger.kernel.org>, <linux-serial@vger.kernel.org>,
-	<xen-devel@lists.xenproject.org>
-Subject: [PATCH] hvc/xen: Check console connection flag
-Date: Thu, 12 Mar 2026 13:38:44 -0400
-Message-ID: <20260312173845.47235-1-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ bh=vvFBMjf1ft6LJLJ/hREPupitDQ4FviVQPCRmbRd33PU=;
+ b=AgSZn4GI0xS5mdvKi/7B4ePqWpAhcakKqSM4rNSDgl+PS3ya5UX+QPP3y5TUfP6nQqZ+LKUCH9IkWPc0oMpsruw/uMPcILxK0m/Wyi7rWqwfhR/djsHmS7sJGtesfFDmn0SG/RxTiAekRv4E6kV7J757uRb3GrhnvPhD7pvhuvs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Kevin Lampis <kevin.lampis@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com,
+	andrew.cooper3@citrix.com,
+	roger.pau@citrix.com,
+	Kevin Lampis <kevin.lampis@citrix.com>
+Subject: [PATCH v v2 0/7] Remove x86 prefixed names from cpuinfo
+Date: Thu, 12 Mar 2026 20:43:32 +0000
+Message-ID: <20260312204339.740403-1-kevin.lampis@citrix.com>
+X-Mailer: git-send-email 2.51.1
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: jason.andryuk@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: LO4P123CA0553.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:33b::7) To BY1PR03MB7996.namprd03.prod.outlook.com
+ (2603:10b6:a03:5b2::8)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06C:EE_|IA1PR12MB6211:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d4849b2-c6fd-4998-a035-08de805e75a8
+X-MS-TrafficTypeDiagnostic: BY1PR03MB7996:EE_|PH0PR03MB6870:EE_
+X-MS-Office365-Filtering-Correlation-Id: 620c0013-b602-47d2-df9c-08de80780b99
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|30052699003|36860700016|1800799024|56012099003|18002099003;
+	BCL:0;ARA:13230040|366016|376014|1800799024|18002099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	ymtyRnfE3ZvQUhU1pERSLT7qLhoAJ8g+hmJl/BfwnAjMx0BV+l4EKysHcFWfZlccmVCiZlFv/zcqtRE38nvlOieIwnlzILJQ0Zdqfg+BOMfGWjHiKtkYkHkw14yjx8fCA4J8EgaRrHrpd35JY1fDkl6iJ8DwEH+i/BSijn/geceaDZ97RDYa1OHI4RqOPI+udOGw+dDN+rRnMknjV7f2jpo9E0YzLdqSsOFLuVEO2bit72BxZUwuPqVfUnXD6M56hy8Lzkz9U/xe0jkMTh009HIiwa+vs/RJU5eAG+7kfCfqbfmFDgeE43j8IAF3I2Prioh9zL2lfSfZmeThl15QyRndGOOJF+nwfPtylgIZbWtG3Hquf0i4r4+Vbp+QCDYNzWrMdoKtOcOZBVKhxHI2ncuWTH4Bx0OJbt8NJdOnHQrCRzXkk88Lg2amz5gBNs4VMNIrbDlGHPKQAFU5NAJJcYme4qyxpDFuOJL9B+cGZqzevfil2+37Prqafrc9u5PTkcxKVfI3HwNhwy+98EblccjtB2QeFOnJ0EUQ5j7AtReq8wxKnJzrvrkCilUn5Id3TRdzSLV5yVbMTgpi1osJsL6QTuNuAjkoaG6d1AxXkpw6kmOEPTSXSLiIPvsJ9cAPtBKon21strWohTSPEQIIhg93+9NkLE+gmCF67kHASAJbYFpFwSnx4/MDXvLM+L/q5ZR71W0is7trAt2Cpm49WMQsffxmI5zbFWoGxMfBaqU9rMM8KRy/Sp+xjxz/JMbTh6gHq5k/5Ml+wSTiXNc+Kw==
+	uPp6Q+1NxoTpsjB3cYRrcs21u3ZgHSk8gETDqAl6t82p+H80RX8OqmIKiQcOxA0ygwRYS/YcREp92k9ZxVsMXEO+bkNx5JrpNY4HUsVfiXFK6oxHxFMVim1M0ZGXWwcXzRmkrEUGoBRqIi9ZNM2o1x7hc1cGh32/qVAWkPNtsmHjHqlnwB484NbgzQu4sGT2kdC2UQRjwhicUB1C2P1sTLixWno7fayYGLu3KpGSrZ0Bp4YG+AekWa5G23wiPooF1lFfkPDUzsvJP4TRAWUGXPSG8NJDLkX2SNvqV9OlHVQ0r1JRQxKonsSV8r5EkjF0sEIkPTGNqQKYJ1j+zOGv4C8EPyShR/vzdhyfghJSDkvK2SyaNf+GldeL/OBxPffYzf40Mw2FQ4rtaGfJV8zsP2+zDs3DGUPm6DAaGm3U3WkRRWm6kQ0/df3x5CyQdhGL8TVZX8jDanlOCVWOiETKutdWx+c10QBrIh8nBjHBpWA2iNSMaDLygb2ZsJPVaxSOvClzQtqhqduOSMCtRr+57Yx6bqQA6iVpfWKLt600CAC2oS0hbgHyKInbrNIQAKs9vVPfP2Z5g5tVZbhSGtVgeV6Ipy6ptSnnHCe2hS90gETk3LSuAsouRfK6x2JOpnNmTV8sOa6kPnJk8JT56ULRZeTqF6HTjai2xdKhMlnUQvz2/u3WxXJPLEj1HcKeVz8ZpbfOhf/A9fg/iXME5w55tNrKnBJvpcQ86zxBUbOv7sg=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(30052699003)(36860700016)(1800799024)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7996.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	KgGtq4XNktfI7JVL0t7pdU+cJRf26J3nng+D5I13pZK+pCkB0kmwNvYQoEFoztC7GEJQU/qZl2YPBm1YIQpasWp/0tPWSNTPXysFk/yRGSTIPqCxSYudm/rXFrQMC7o8+7krF8kemS+S9HCnnu/pLYrUeH1ujPe507wXXxBKI2+Rkv6MqPXmiAlk2k1zYaAJvxPzDJJiNcRKnXSEyg0mLRfEZyCtd84dOzuXPGeDFIX1zeYqskuMyv74jP8rAopWBb/oO3/pO3IEBUYFYdL6UqCF3QMnrLfbO82+fcvw5RGy0TWHmgSXJCQ/fLUzi7DUlQ9G6RD1s/iBEdbvADGAsek4R4K+FMrUb6XrMiLwkcnMRk/WaVfQR9n19n17vq5rlr0t/fMKGeXkakOcZo1KROIRlDSJCKaZJWmXzBR67GU8hduVFMbLIpa/dRji+zVS
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 17:40:32.1929
+	=?us-ascii?Q?5ZQDxZzmp0UBOnfvRs1+TU/75W0Matmm8gt+HjGKPAkt5s1BBA5mwhDT0wp0?=
+ =?us-ascii?Q?EuC+Y3CFnK/FhwDn8T5xhvEV3jshxut0B6trAxeemcDsxw4wPjjXGztUf8Kg?=
+ =?us-ascii?Q?Hvm9QieOo2zGYxba3vOouQUzAmifYOPpCaY5IX2S47Yp8bB8vop7LtbQhzJ2?=
+ =?us-ascii?Q?XYvHnMDSqRGcRD/bQjOe/gzz4kxdSIP8DPeYTbXo0gsSpd+FxL1v4fp9X5fc?=
+ =?us-ascii?Q?WE4r+2VQSL4NesVilL4U8w/smog47np25fwn5EYe2fzCJr0RyhuV0gxJzXwL?=
+ =?us-ascii?Q?/pyX8ma8h0lKQfHRE/6kKlZiYplK6BneYIYkdRshZpAW5MJk/7gENo/nzH1O?=
+ =?us-ascii?Q?2un4NpIYGayWSeyG3WSVr4/jy8AELBXiSl011OkI7wNDmNmlXe2TwbyEad2r?=
+ =?us-ascii?Q?gFSbGD5+TYIbuXAvWP4cwe28ZducrdK30N477oejv95WT4iyM0djMcBB0ANn?=
+ =?us-ascii?Q?v+JZZl63JoETQA/Ytla84IIJxIiZDYVmvmX3A0mijkLh2XZ30GqqvzSUll2b?=
+ =?us-ascii?Q?gDaxnxblIhhabd3/hrY3WgKaIp7WbOaU/VLBSQ7EACooduqILszhngnD0Uji?=
+ =?us-ascii?Q?9bsecIgmAqojQcX1Iz6rwIBzvxTF6Rhhh9QdeMgStDmrga4jzCyEKbPh4yzL?=
+ =?us-ascii?Q?0hDLT8l4uM1wl85iV9of5bgSTdWFOTDEL8Q3K6okUcbBcoi/CDbx6XgsVTun?=
+ =?us-ascii?Q?m5HqHybXpGVFc9Hgh90ZLZ5w+SBIug6Gu5shgInTF4woVSMfspy8Dy8aa6lG?=
+ =?us-ascii?Q?D6nLI4aq+fMvx/l30lXgQc4g+hLy0xaeECOpDH5yyBQyUSqu5xb4V9RRlFU/?=
+ =?us-ascii?Q?mPyFXJTP02UR18pUUxbzPNLO1WrNsyHy9Mhaupc0d3H7ITFPzIDktCek6oYC?=
+ =?us-ascii?Q?F05x6Wr1HktRbz1baoH3S8uvdb/XCkppTl5bzjs9mWjGuaFvpqRRPSkjVoDB?=
+ =?us-ascii?Q?D/gMLlYGFbdIqkLqLv+9CQjjf0T60dG3rgTOGic1DdWm6NBTEgLHxtmjs9g/?=
+ =?us-ascii?Q?+Op8I/awkKJVJlcUGZSP82vR7sOzMYGrcE0zc747vm95wQKJQ2T0YGfr9JP2?=
+ =?us-ascii?Q?g8ES/Co8YjyCTqFveJIgu/dy2c1/iC/pYRII11EKndlvNaZ8cjv0ITJ6Yb45?=
+ =?us-ascii?Q?l5uxI9d1aMjdBYnLD2j16jR5ElVjnABFZnqmgkUKhXqCuC7S2Vfn+7LyLTAJ?=
+ =?us-ascii?Q?ep9nyar6g4bvlUnTZphWFmpKsd9EiYD5wuF3onbowuSPgoAOeDLUe/hPc+xs?=
+ =?us-ascii?Q?qo9Co48yqCIkVZwY9HpPfNtdwJF7Bg4biY4myfoizlHIWPeXIa7W4LBwBTtC?=
+ =?us-ascii?Q?Wpomd5c/5T6XiKht21agSkocEJtdQhmDD2OwEn0cTx3WgE95WFCn496aSyOX?=
+ =?us-ascii?Q?FKhY4DwJsBLRbt05Rpybxb2uhRS9rdOvKOgQbYcqP/gajrHx/w2OnYOqEB0v?=
+ =?us-ascii?Q?bSSsJ5tZnaz47hJe1JER1IWUhG4Xu9Y2fQEZVR19Kvib9TqpAc4Z45fSJplu?=
+ =?us-ascii?Q?B5W4KWvn2WewSdyG+CH1AgoWb+s74p6LlpZHh2r/YgJbgZGo6tX4lLcRG3Rn?=
+ =?us-ascii?Q?dulbpeoD8XGBnx8fw4A8U14lelW79NYxb+4MWjB3PGAIgPZoVeXjBr2Yjo+x?=
+ =?us-ascii?Q?q4mGcpUJXLvhaPtCN13cSdfhDjAeuD+bl7UJGmYSRHNqIw4aDau9vBbTWQDK?=
+ =?us-ascii?Q?r0YAiT7m0mmtEAgc2cVAUzEv6xzmK8BeDH77DC65PZ2zbDLQqkowPXmhb/cC?=
+ =?us-ascii?Q?PkBMaIuxvg=3D=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 620c0013-b602-47d2-df9c-08de80780b99
+X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7996.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 20:43:41.3345
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d4849b2-c6fd-4998-a035-08de805e75a8
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B06C.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6211
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Acj/Nj+WNFDBio4jBi8HFQgFEZuwrLQHYcTmVtFFi+Y7rs5Q1xK34UwuWK/6zw5L9AKgdE+OCGVtbKTmtS+E2A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6870
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:gregkh@linuxfoundation.org,m:jirislaby@kernel.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:jason.andryuk@amd.com,m:linuxppc-dev@lists.ozlabs.org,m:linux-kernel@vger.kernel.org,m:linux-serial@vger.kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[amd.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:kevin.lampis@citrix.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FROM_HAS_DN(0.00)[]
-X-Rspamd-Queue-Id: 2D84C276AB8
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: E0D2B2797EE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-When the console out buffer is filled, __write_console() will return 0
-as it cannot send any data.  domU_write_console() will then spin in
-`while (len)` as len doesn't decrement until xenconsoled attaches.  This
-would block a domU and nullify the parallelism of Hyperlaunch until dom0
-userspace starts xenconsoled, which empties the buffer.
+Remove x86 prefixed names from cpuinfo and all the places it is used.
+This work is part of making Xen safe for Intel family 18/19.
 
-Xen 4.21 added a connection field to the xen console page.  This is set
-to XENCONSOLED_DISCONNECTED (1) when a domain is built, and xenconsoled
-will set it to XENCONSOLED_CONNECTED (0) when it connects.
+Kevin Lampis (7):
+  x86: Remove x86 prefixed names from mcheck code
+  x86: Remove x86 prefixed names from acpi code
+  x86: Remove Intel 0x65, 0x6e, 0x5d from VMX code
+  x86: Remove x86 prefixed names from hvm code
+  x86: Remove x86 prefixed names from x86/cpu/ files
+  x86: Remove x86 prefixed names from cpuinfo
+  x86: relax some CPU checks for non-64 bit CPUs
 
-Update the hvc_xen driver to check the field.  When the field is
-disconnected, drop the write with -ENOTCONN.  We only drop the write
-when the field is XENCONSOLED_DISCONNECTED (1) to try for maximum
-compatibility.  The Xen toolstack has historically zero initialized the
-console, so it should see XENCONSOLED_CONNECTED (0) by default.  If an
-implemenation used uninitialized memory, only checking for
-XENCONSOLED_DISCONNECTED could have the lowest chance of not connecting.
+ xen/arch/x86/acpi/cpu_idle.c           |  19 +-
+ xen/arch/x86/acpi/cpufreq/acpi.c       |   2 +-
+ xen/arch/x86/acpi/cpufreq/cpufreq.c    |   4 +-
+ xen/arch/x86/acpi/cpufreq/powernow.c   |   4 +-
+ xen/arch/x86/cpu/centaur.c             |   4 +-
+ xen/arch/x86/cpu/hygon.c               |   4 +-
+ xen/arch/x86/cpu/intel_cacheinfo.c     |   6 +-
+ xen/arch/x86/cpu/mcheck/amd_nonfatal.c |   2 +-
+ xen/arch/x86/cpu/mcheck/mcaction.c     |   2 +-
+ xen/arch/x86/cpu/mcheck/mce.c          |  36 ++--
+ xen/arch/x86/cpu/mcheck/mce.h          |   2 +-
+ xen/arch/x86/cpu/mcheck/mce_amd.c      |  16 +-
+ xen/arch/x86/cpu/mcheck/mce_intel.c    |   5 +-
+ xen/arch/x86/cpu/mcheck/non-fatal.c    |   2 +-
+ xen/arch/x86/cpu/mcheck/vmce.c         |   8 +-
+ xen/arch/x86/cpu/mtrr/generic.c        |   5 +-
+ xen/arch/x86/cpu/mwait-idle.c          |   4 +-
+ xen/arch/x86/cpu/vpmu.c                |   4 +-
+ xen/arch/x86/cpu/vpmu_amd.c            |   6 +-
+ xen/arch/x86/cpu/vpmu_intel.c          |   4 +-
+ xen/arch/x86/hvm/hvm.c                 |   2 +-
+ xen/arch/x86/hvm/svm/svm.c             |   6 +-
+ xen/arch/x86/hvm/vmx/vmcs.c            |   4 +-
+ xen/arch/x86/hvm/vmx/vmx.c             | 280 ++++++++++++-------------
+ xen/arch/x86/include/asm/cpufeature.h  |  21 +-
+ 25 files changed, 214 insertions(+), 238 deletions(-)
 
-This lets the hyperlaunched domU boot without stalling.  Once dom0
-starts xenconsoled, xl console can be used to access the domU's hvc0.
-
-Update the console.h header to bring in the new field.
-
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
----
- drivers/tty/hvc/hvc_xen.c          |  3 +++
- include/xen/interface/io/console.h | 13 +++++++++++++
- 2 files changed, 16 insertions(+)
-
-diff --git a/drivers/tty/hvc/hvc_xen.c b/drivers/tty/hvc/hvc_xen.c
-index 7f0b6262488c..c407592442cd 100644
---- a/drivers/tty/hvc/hvc_xen.c
-+++ b/drivers/tty/hvc/hvc_xen.c
-@@ -139,6 +139,9 @@ static ssize_t domU_write_console(uint32_t vtermno, const u8 *data, size_t len)
- 	if (cons == NULL)
- 		return -EINVAL;
- 
-+	if (cons->intf->connection == XENCONSOLE_DISCONNECTED)
-+		return -ENOTCONN;
-+
- 	/*
- 	 * Make sure the whole buffer is emitted, polling if
- 	 * necessary.  We don't ever want to rely on the hvc daemon
-diff --git a/include/xen/interface/io/console.h b/include/xen/interface/io/console.h
-index cf17e89ed861..687949bdebb1 100644
---- a/include/xen/interface/io/console.h
-+++ b/include/xen/interface/io/console.h
-@@ -19,6 +19,19 @@ struct xencons_interface {
-     char out[2048];
-     XENCONS_RING_IDX in_cons, in_prod;
-     XENCONS_RING_IDX out_cons, out_prod;
-+/*
-+ * Flag values signaling from backend to frontend whether the console is
-+ * connected.  i.e. Whether it will be serviced and emptied.
-+ *
-+ * The flag starts as disconnected.
-+ */
-+#define XENCONSOLE_DISCONNECTED 1
-+/*
-+ * The flag is set to connected when the backend connects and the console
-+ * will be serviced.
-+ */
-+#define XENCONSOLE_CONNECTED    0
-+    uint8_t connection;
- };
- 
- #endif /* __XEN_PUBLIC_IO_CONSOLE_H__ */
 -- 
-2.34.1
+2.51.1
 
 
