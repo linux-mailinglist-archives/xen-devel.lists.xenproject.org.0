@@ -2,42 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CPueHCOgsmkOOQAAu9opvQ
+	id wGaPHHOgsmkOOQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 12:14:43 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 12:16:03 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F690270B61
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 12:14:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1252017.1548824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39447270BE1
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 12:16:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1252046.1548834 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0dzx-0002yH-2A; Thu, 12 Mar 2026 11:14:37 +0000
+	id 1w0e17-00048m-Er; Thu, 12 Mar 2026 11:15:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1252017.1548824; Thu, 12 Mar 2026 11:14:37 +0000
+Received: by outflank-mailman (output) from mailman id 1252046.1548834; Thu, 12 Mar 2026 11:15:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0dzw-0002vO-Uw; Thu, 12 Mar 2026 11:14:36 +0000
-Received: by outflank-mailman (input) for mailman id 1252017;
- Thu, 12 Mar 2026 11:14:35 +0000
+	id 1w0e17-00047o-BK; Thu, 12 Mar 2026 11:15:49 +0000
+Received: by outflank-mailman (input) for mailman id 1252046;
+ Thu, 12 Mar 2026 11:15:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R7O7=BM=gmail.com=soumyajyotisarkar23@srs-se1.protection.inumbo.net>)
- id 1w0dzv-0002tK-79
- for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 11:14:35 +0000
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [2607:f8b0:4864:20::644])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jTts=BM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1w0e15-0002tK-D4
+ for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 11:15:47 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a4e39ee7-1e04-11f1-9ccf-f158ae23cfc8;
- Thu, 12 Mar 2026 12:14:33 +0100 (CET)
-Received: by mail-pl1-x644.google.com with SMTP id
- d9443c01a7336-2ab39b111b9so4112565ad.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Mar 2026 04:14:32 -0700 (PDT)
-Received: from fedora ([103.2.232.250]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2aeae34eaacsm49271645ad.49.2026.03.12.04.14.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Mar 2026 04:14:30 -0700 (PDT)
+ id cecb0d8c-1e04-11f1-9ccf-f158ae23cfc8;
+ Thu, 12 Mar 2026 12:15:42 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id
+ ffacd0b85a97d-439aeed8a5bso938364f8f.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Mar 2026 04:15:42 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4854b0ea7easm87259465e9.5.2026.03.12.04.15.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 12 Mar 2026 04:15:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,196 +50,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4e39ee7-1e04-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: cecb0d8c-1e04-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773314071; x=1773918871; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1cDGQruln6tADqd5GJFoKiZEDSzQNLfuESS4cK4O5GU=;
-        b=i/Y93/TheXEqQDXW/9BrSmZcO5qI5NuQlvONMeYLP/QMZGOz+s8b7FoRfVKvZQhiOT
-         HxnV4WfgXmb7MaIWDC4nKRecpGhUHygB6ugUFJ0SuKEW3MIrn3lrAGKxCrmNJcqn80Fp
-         EvXNPT027RCDiUE3tDQYt+N8edG65scxFGZ3d/y9jme+RnIQv7cte8/OI0yEmfGiVOvN
-         BvnWrr2i/xL+YMSoYjRA2d3Gjy1ZmuTjSSuZtFHHaQonWZsBzOr0hbSJNIPGorzJakL3
-         0PcfBD4qX8Qka+is1mbVC6VYfxD+CZBjusMe/R+2fCyvSMmlaQIis8rKN89tXa3KirNd
-         CjZw==
+        d=suse.com; s=google; t=1773314142; x=1773918942; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=/YgVZzVAUCkiwt1usxKtFwmZSlfoYoGgDkLJLubAeSQ=;
+        b=DNW+8l+cyIxe7mIeflQNt2+bsKSo2a5qAjxxf9ETwil+9rhtOJbb1IWSgZzV/HWKm0
+         pa65cp/mIVIR9uuaTjuswys/cZA8QpHuqPKpBN/SWAysem3B26ajo4QL9IutTxLPCRuy
+         su8RS5SXyzjIkMgz2Jc8OhAOuyZdZ4BC2WJHjwU5/yxdRONiQCKKTBVRAu8LYaLRpRc+
+         WDnDBOd1GBY00sUSDHFCx5mdD8RtV67m++JolXEHPj51UVyBDD1jfShezfBGyEa9lqEd
+         7xYNp51YQXL8/FOGOG13O8ordF4HjJ14zSvgq0x2isYTT0nW9lcPFZ8WSxXcMMUaeFSo
+         GmIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773314071; x=1773918871;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=1cDGQruln6tADqd5GJFoKiZEDSzQNLfuESS4cK4O5GU=;
-        b=HlYNMcwnZLGoi47kEwvhtCMp35hIJB/EhRS8UeFvbqo0q2qiszJujckA6A2QHtykA0
-         ha45VfDNPDh7pG8QXsp5BS3GovUW94jIj9R7fH6T1R/5tazZDaVlz+NXWhu6TpeZ5skU
-         cGiTCMItm5E0EwKBi5DNtvKqnbSKVEKRHQaAp6djdEftDyAXdagcL+0XtJdQOJmgH9Es
-         imeHEjY2LN1IDNH4Z+ta58npU4Ap3WlGQDidhAjZXvPZY9YStBsscg93YVgn/x1w3jG5
-         FnQslpsNFxvntXDKna5bPKh/5TYGujlrqZQxJyywzeLaQ00nujxoA/MviXg8fBFSHZRH
-         hHhw==
-X-Gm-Message-State: AOJu0Yw3iRPoRmR61WVoDv/dZhVKZGa2Umu+6y5/z4u3jnBxn4uVcYUB
-	FsPrPcqOwqsDNCTXpN+jgtaOd8zaiAWUHqMZoEIg7OdDhtbr1RYUUoMlANDrn4C8
-X-Gm-Gg: ATEYQzy4SxhvbE6I4Zx3CXPUVLF6j1BV+BgaIghZPlqRUWbtnnmUzZdsFxNeIej516f
-	WxeAdy2rwmg/PbASzZgQprIeuasgzs3L9zmk8oQs/tg8MNnSjItvXy2tkwyrCvrSBzLrKidzuwy
-	jEBj4TtfmsOLLWkYphmc+XpJXveniK/7Gh8DyNkVpRQok63n5eaHr6lDuOX2yjkWN95UND+bxvy
-	9ZWf/yz3BnD3gifyOqkAbeP5qsQ3IHWLprGCD1uRxCGfAws4PJM4jbKqDwHckmaGtglICjgZzYX
-	ftc3+/7vDdq8XsnbVlafDTbn2tda5XQLYc3ztmW7rPG14y5CdaLdeG63JBhRhC9kftV/lUBoo+f
-	J1Tyn+aD53GWLAMybvAK/KbKvvSlvio7a4RMrJCQXsQe7YkA7xoVIeu6aypdv8yzyCicZjQA0oJ
-	UnagT44FGnBHEvlbZ9MUVegZfrRs1tpxD0XzFFFk2bTWqn5f2JBh2+DJK0p/sVQyr+LqR5+txCG
-	sQH7xBQTH3mlcaFm05HKO+NrKgxReX+FIMIPChUZx10G/fRaGPYXTP5aYS+ZvC4Tf7SbKrhAQ==
-X-Received: by 2002:a17:902:f68d:b0:2ae:5ec4:2f80 with SMTP id d9443c01a7336-2aeae8eaf1emr54731745ad.47.1773314070986;
-        Thu, 12 Mar 2026 04:14:30 -0700 (PDT)
-From: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
-To: xen-devel@lists.xenproject.org,
-	sarkarsoumyajyoti23@gmail.com
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
-Subject: [RFC PATCH v3 3/3] x86/efi: Add opt-out mechanism for BGRT preservation
-Date: Thu, 12 Mar 2026 16:44:14 +0530
-Message-ID: <20260312111414.17808-4-soumyajyotisarkar23@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260312111414.17808-1-soumyajyotisarkar23@gmail.com>
-References: <20260312111414.17808-1-soumyajyotisarkar23@gmail.com>
+        d=1e100.net; s=20230601; t=1773314142; x=1773918942;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/YgVZzVAUCkiwt1usxKtFwmZSlfoYoGgDkLJLubAeSQ=;
+        b=SEN5Gn5sVBTVsoKLRAsg23VSrQBbZWQqCmxqeFJzVt+PapWpY+imYf/SM7lPZ8tk4S
+         dLG0YMSmlC8k9tgDu88icHK5Xus6ormGCx6zhLPQ3BpPtgypD0mwBNdGbDcjeOAXUwIO
+         KTklVtpp+9PHc86SCXl1R7SUFWAjqi/PbK/JkhokkoMW5nw6zXCu4BKZn9o+tAkHf6fF
+         MG4IG6fdogcUvjdLsTqc0KFApH5SpUlIxQKw+jHGmzyw+OBXachyzDC1i8yLr9ft4dud
+         qyJa1dqccnTF/F+EgdxVCPl76s1AVLl/sIcYTLMfG8+R67KZeGxRliXOdsBkn3tE86Iw
+         k6SQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXj8ONRsJnCKu76X32+6zhzZ4THANqbSHAOrf2U+1bQnBSvPUF3zQJNdMYKud/ZUn6jSiUt6HTfFzA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyNwpUifX6OZb1DPLNXXKwvReH3hkY4d0Xqm1p/GK9I3+26Vg4j
+	d+J7VevcuWfgY76lo/+0bmIN96/mz8lvpmIFd552hPwAbov/JKV/pWShrOGUHGe+hQ==
+X-Gm-Gg: ATEYQzxHga7TXib01jXfR3mc2oCVV91WcOzNXQ6CdNwLV5Y/uB6SpW0WszOY2EsddfA
+	DbXY5rYpf9/unhcuzJSOQuLUBVEjCsjS/G/8Lj1wUu/S6hgWmuvz1RgFj6kjwddEyEfGtDaiOqV
+	JnBt6QBQ/kxT5EtCtrsV8yzPcPbPqIImM0YMc5Zu/fEii19azRMQzhUa8/lHivcefq3Y3RfJYfl
+	1r55QdmAy+D6DauPkHuwD/8olofp3MTbCKNO2k3aLNEZM6VH4DIzrK+P5B6f17d4uqQZCpTEuZI
+	5l1ZM1hj/R05iqQKUtLpn5VTqQeRfghganzhfFn7e2I1KKOzWEAKcAYPPktAHDS3wKFQPXg1TXX
+	2rtkCO1C9lh5xlyb6Isf7NxCfAKx9T7ogO5PHOQQpqTG7Oq/Uemswd4DEgl65vphR9OP0RWK+GI
+	127+XYTxMVVf5CYVjoAAvgyt7Q5f7oCEWVj7s8EYG41be7Q//N5FxFhACl+NTcJzSdJnE0WIcHW
+	8DqJRpvAu+NSiA=
+X-Received: by 2002:a05:600c:8b62:b0:485:4388:348b with SMTP id 5b1f17b1804b1-4854ad76aa7mr99817925e9.0.1773314141785;
+        Thu, 12 Mar 2026 04:15:41 -0700 (PDT)
+Message-ID: <9f40fbec-008f-4a50-bfb2-27c35d88f2a2@suse.com>
+Date: Thu, 12 Mar 2026 12:15:40 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [0.31 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/7] x86/hvm: Support extended destination IDs in
+ virtual MSI and IO-APIC
+From: Jan Beulich <jbeulich@suse.com>
+To: Julian Vetter <julian.vetter@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20260309123055.880050-1-julian.vetter@vates.tech>
+ <20260309123055.880050-3-julian.vetter@vates.tech>
+ <1e371e65-ca79-42a0-93f9-804f73084033@suse.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <1e371e65-ca79-42a0-93f9-804f73084033@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[citrix.com,apertussolutions.com,invisiblethingslab.com,suse.com,gmail.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[lists.xenproject.org,gmail.com];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sarkarsoumyajyoti23@gmail.com,m:andrew.cooper3@citrix.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:soumyajyotisarkar23@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[soumyajyotisarkar23@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:jgross@suse.com,m:julien@xen.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[soumyajyotisarkar23@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 1F690270B61
+X-Rspamd-Queue-Id: 39447270BE1
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-BGRT preservation is now enabled by default to fix ACPI corruption
-for desktop/workstation systems (similar to ESRT).
+On 11.03.2026 16:27, Jan Beulich wrote:
+> On 09.03.2026 13:31, Julian Vetter wrote:
+>> @@ -618,6 +620,21 @@ static int cf_check ioapic_check(const struct domain *d, hvm_domain_context_t *h
+>>               e->fields.reserved[0] || e->fields.reserved[1] ||
+>>               e->fields.reserved[2] || e->fields.reserved2 )
+>>              return -EINVAL;
+>> +
+>> +        /*
+>> +         * An RTE in the saved state has ext_dest_id bits set. Check that
+>> +         * the destination Xen has extended destination ID support enabled,
+>> +         * otherwise interrupt routing to APIC IDs > 255 would be broken
+>> +         * after restore.
+>> +         */
+>> +        if ( e->fields.ext_dest_id && !d->arch.hvm.ext_dest_id_enabled )
+> 
+> This won't build, as the ext_dest_id_enabled field appears only in patch 6.
+> But yes, that looks to be the opt-in mechanism I mentioned above.
 
-As described in the task:
-https://github.com/QubesOS/qubes-issues/issues/10764
+Actually no, how could it be. That's for the DM to invoke.
 
-Add an opt-out parameter to allow disabling BGRT preservation on
-systems where the ~1MB memory overhead is not desired.
-
-The opt-out is implemented through two boot paths with early parsing
-during the EFI boot phase before preservation runs:
-
-1. xen.efi direct boot: '-nobgrt' command line option (parsed in
-   efi_start())
-2. Multiboot2 (GRUB): 'efi=no-bgrt' peeked from mb2 cmdline tag
-   using get_option() in efi_multiboot2()
-
-The flag is checked at the start of efi_preserve_bgrt_img() to
-skip preservation entirely when disabled. Status logging indicates
-whether preservation was disabled, succeeded, or failed.
-
-Usage:
-  Default: BGRT preserved automatically
-  xen.efi: Add '-nobgrt' option
-  GRUB/MB2: Add 'efi=no-bgrt' to Xen command line
-
-Signed-off-by: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
----
- xen/arch/x86/efi/efi-boot.h |  3 +++
- xen/common/efi/boot.c       | 11 ++++++++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index 0547d845cd..6c986cf6c0 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -897,6 +897,9 @@ void __init efi_multiboot2(EFI_HANDLE ImageHandle,
-         efi_arch_edid(gop_handle);
-     }
-
-+    if ( cmdline && get_option(cmdline, "efi=no-bgrt") )
-+        opt_bgrt_disabled = true;
-+
-     efi_arch_edd();
-     efi_arch_cpu();
-
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 68e06d707c..dc46e783f3 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -170,6 +170,7 @@ static SIMPLE_TEXT_OUTPUT_INTERFACE *__initdata StdErr;
-
- static UINT32 __initdata mdesc_ver;
- static bool __initdata map_bs;
-+static bool __initdata opt_bgrt_disabled = false;
-
- static struct file __initdata cfg;
- static struct file __initdata kernel;
-@@ -825,6 +826,9 @@ static void __init efi_preserve_bgrt_img(void)
-
-     bgrt_info.preserved = false;
-
-+    if ( opt_bgrt_disabled )
-+        return;
-+
-     bgrt = efi_get_bgrt();
-     if ( !bgrt )
-     {
-@@ -1582,6 +1586,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
-                     base_video = true;
-                 else if ( wstrcmp(ptr + 1, L"mapbs") == 0 )
-                     map_bs = true;
-+                else if ( wstrcmp(ptr + 1, L"nobgrt") == 0 )
-+                    opt_bgrt_disabled = true;
-                 else if ( wstrncmp(ptr + 1, L"cfg=", 4) == 0 )
-                     cfg_file_name = ptr + 5;
-                 else if ( i + 1 < argc && wstrcmp(ptr + 1, L"cfg") == 0 )
-@@ -1592,6 +1598,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
-                     PrintStr(L"Xen EFI Loader options:\r\n");
-                     PrintStr(L"-basevideo   retain current video mode\r\n");
-                     PrintStr(L"-mapbs       map EfiBootServices{Code,Data}\r\n");
-+                    PrintStr(L"-nobgrt      disable BGRT preservation\r\n");
-                     PrintStr(L"-cfg=<file>  specify configuration file\r\n");
-                     PrintStr(L"-help, -?    display this help\r\n");
-                     blexit(NULL);
-@@ -1916,7 +1923,9 @@ void __init efi_bgrt_status_info(void)
-     if ( !efi_enabled(EFI_BOOT) )
-         return;
-
--    if ( bgrt_info.preserved )
-+    if ( opt_bgrt_disabled )
-+        printk(XENLOG_INFO "EFI: BGRT preservation disabled\n");
-+    else if ( bgrt_info.preserved )
-     {
-         printk(XENLOG_INFO "EFI: BGRT image preserved: %lu KB\n",
-                bgrt_info.size / 1024);
---
-2.53.0
-
+Jan
 
