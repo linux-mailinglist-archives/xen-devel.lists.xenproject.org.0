@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MF10F7Mls2nMSgAAu9opvQ
+	id 9N+KF7Mls2kMSwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 21:44:35 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACFD02797ED
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F26C2797EC
 	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 21:44:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1252998.1549436 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1253006.1549445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0mt9-0007Oz-Pm; Thu, 12 Mar 2026 20:44:11 +0000
+	id 1w0mtD-0007oL-AB; Thu, 12 Mar 2026 20:44:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1252998.1549436; Thu, 12 Mar 2026 20:44:11 +0000
+Received: by outflank-mailman (output) from mailman id 1253006.1549445; Thu, 12 Mar 2026 20:44:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0mt9-0007MJ-L6; Thu, 12 Mar 2026 20:44:11 +0000
-Received: by outflank-mailman (input) for mailman id 1252998;
- Thu, 12 Mar 2026 20:44:09 +0000
+	id 1w0mtD-0007kd-5T; Thu, 12 Mar 2026 20:44:15 +0000
+Received: by outflank-mailman (input) for mailman id 1253006;
+ Thu, 12 Mar 2026 20:44:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QBWs=BM=citrix.com=kevin.lampis@srs-se1.protection.inumbo.net>)
- id 1w0mt7-0006Bj-3z
- for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 20:44:09 +0000
+ id 1w0mtB-0006Bj-PA
+ for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 20:44:13 +0000
 Received: from SN4PR0501CU005.outbound.protection.outlook.com
  (mail-southcentralusazlp170110003.outbound.protection.outlook.com
  [2a01:111:f403:c10d::3])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 36872b5c-1e54-11f1-b164-2bf370ae4941;
- Thu, 12 Mar 2026 21:44:07 +0100 (CET)
+ id 39ec5d5d-1e54-11f1-b164-2bf370ae4941;
+ Thu, 12 Mar 2026 21:44:13 +0100 (CET)
 Received: from BY1PR03MB7996.namprd03.prod.outlook.com (2603:10b6:a03:5b2::8)
  by PH0PR03MB6979.namprd03.prod.outlook.com (2603:10b6:510:169::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Thu, 12 Mar
- 2026 20:44:02 +0000
+ 2026 20:44:10 +0000
 Received: from BY1PR03MB7996.namprd03.prod.outlook.com
  ([fe80::5068:e1b5:b478:8d07]) by BY1PR03MB7996.namprd03.prod.outlook.com
  ([fe80::5068:e1b5:b478:8d07%5]) with mapi id 15.20.9700.010; Thu, 12 Mar 2026
- 20:44:01 +0000
+ 20:44:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,22 +52,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36872b5c-1e54-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 39ec5d5d-1e54-11f1-b164-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QTABYxefRgz+caiV6A8n0fC8NPIcaiEOayj+Jk2RMeU7f4SN63gKdK1+6v+nVjjIAPMNr1olVOOcbVU4b1AXfmwPE4kXPpsR0Msykuvf4S8gsVj45Z7P2UDipitfV84aRawzMrez8wVGZfOmaqUyG7ek0lYl5nI82pBkGV/oFEP0mpe881PSfInfX5vAsDZdWJoGqMnwG8N5ivY7G07WMWeEPfscjxUR9shCjzlgQ3qpvig6TmxdNoSBR8Beh9d3DzaahMhIO/WThSnik2S4BokdG16PMrj9PRRFWHgABUElpAROQ4vfmxv4uNOQ3jyByVwpse2iYmFPRnaNplqJQA==
+ b=cwG5oXut7vqbXe8pKmroMCzc2RJRkWXAi0FWwK8tcLl/qL4gzhhcPomh+vMVZuU9YRNjof6IRH1mRdpU7igwScVhGc6ls+Rm5YKjiAKy1xWiX0nujIN3Q306xyQIFfAjgNTjDPTAztI3w1RzVPoQDRJ2MpLTvJTUoiTJwIHZHL6UPCROEyohQsEfzChUHDH3d5GrHVSxuQLbL/aMB2BxWIPRONC0IjqDTsPnGJMaKvEwUX8t/alKsBMaMqrbMh96zPCyrXfyYb3E/pezUQrXLMhyQxmR7SlMcfEPwpd4Y+RKivSJQm2tBmS0BTvrY+Pd9tnovOgI/8KSSXS1mqNacw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I56d0W50ljTEtq6zSKU8BUWqQNcOEh+rwGgmRDXjn/0=;
- b=Pk/uEyETf45EB8HLTPmgzAfB/M801AL/3kw/pWAAQVM2O+B5g01zPJHI9mfC8ua5xshB3FJyUfXPTiWY2HvPCYrFGlJ2pUulLFHMuoaFFKcuV+iSdQMJz2Jvo3rKlOfq960u7fqSw6Gp15FrGqJi73/CmyqdA8HKtbyd3N2uIC1V9GX0cwwLp+0AxyRoBR9w1Ne+VVZkTdyNvTG/UvYg/fNTDZ8lh+cZYaeqIv9xJTm656AydywPTD1MKPm5nzr/aVD4amUH78LaDcGCBn9YlM82pxN9rug2cpNFLilWmJnowxEM+xcvpkHbC6RdnV77VBuA668YIby3aAVJTeQ3cg==
+ bh=U0o9ybYsubF19k60JOis6AlLc6jRcwgP3O3U/ssKhw4=;
+ b=uinerQgjhulfa+OEa6ETFDEJPvfwyZy0CtX4wWA048lZVIUhdJIotVcbgKJtrYCetBMKFM+jldkXajsM+Ve9LcSDfcuEyxGvQ5qPcZNml+Gtm3WM3dS40TJzP/J4tc28qu7qyNh9y0OtmyplM4w/rVoOeCWukZAoWc8CC4NLX0AWG/JZ/BYuD5b/ioxmSafEc0OqnOda5PuNbBPhdw0ZV3oEH8kZmPV6Np8m+OAzLLQOXqdY6gt2syRmwHSEuCzk//Dcl1HhZk4HXf9BDUPZBCeYExcXsS6twOxSju4BIIAT5nogySi0nbo97ppXOZFQt/sD2+P7nj2+IDGpP6HJFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I56d0W50ljTEtq6zSKU8BUWqQNcOEh+rwGgmRDXjn/0=;
- b=tIFKHSs8RK6sAuUA2WRIqwh2MZn6pXVf08R/UP7aOd6OijmtTvsTjIhfbeJGA6Tp70f+6bCEGu3rMyYGXQ/OJ3I7K7XBB2iVoy18tLLQyd7WsJSWdU//2oS8+4nBY6uIKdxhArBj6V/R1IFnRDFe5FMoZilFwGKFTWRBh8IyPUA=
+ bh=U0o9ybYsubF19k60JOis6AlLc6jRcwgP3O3U/ssKhw4=;
+ b=y+HjgRKIjBB3dUFd5PB9yN757Q2AYaY9kuIb6kIp3A+8CKk/oxwIEVxKx/0gOdapDca7W8PAPPlkjMf68LAkCuno1EfJLzZ+4ricXWk9tJsHSVcerpfemyWAru6BiXL/nhrx4Jik+kl5mR9nuFOakW34qMkzBXyBgsTKxL4Nu+E=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
 From: Kevin Lampis <kevin.lampis@citrix.com>
@@ -76,78 +76,78 @@ Cc: jbeulich@suse.com,
 	andrew.cooper3@citrix.com,
 	roger.pau@citrix.com,
 	Kevin Lampis <kevin.lampis@citrix.com>
-Subject: [PATCH v v2 4/7] x86: Remove x86 prefixed names from hvm code
-Date: Thu, 12 Mar 2026 20:43:36 +0000
-Message-ID: <20260312204339.740403-5-kevin.lampis@citrix.com>
+Subject: [PATCH v v2 5/7] x86: Remove x86 prefixed names from x86/cpu/ files
+Date: Thu, 12 Mar 2026 20:43:37 +0000
+Message-ID: <20260312204339.740403-6-kevin.lampis@citrix.com>
 X-Mailer: git-send-email 2.51.1
 In-Reply-To: <20260312204339.740403-1-kevin.lampis@citrix.com>
 References: <20260312204339.740403-1-kevin.lampis@citrix.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO3P265CA0001.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:bb::6) To BY1PR03MB7996.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO0P265CA0008.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:355::11) To BY1PR03MB7996.namprd03.prod.outlook.com
  (2603:10b6:a03:5b2::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: BY1PR03MB7996:EE_|PH0PR03MB6979:EE_
-X-MS-Office365-Filtering-Correlation-Id: b0ca2fed-caa1-46d1-bd20-08de807817ba
+X-MS-Office365-Filtering-Correlation-Id: fc3b4f0c-1591-4fbb-f92c-08de80781cc1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|1800799024|376014|366016|22082099003|56012099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	xgZN8KO+FslGQjMxjt1pEECouLWRRcSfO2cJyyWQQeOCi+Ov9VCpnj/tffOG1qqyOewykMEmdSvso/mlbapwjYGAArHEBmQc0sl7hSsvtG5YHetsPUBDGfGc9Nkk1HerF+2lvXpxlI7VA+4SNhdjdIv5DhZMDRclX8X4Cd0k9Co5FqKdf/m5WdX518xVGz4NtebMaWb/zygZF20Fr9LQK43WXB7VEn00pJthU+xR/zECz03Sq213QRwo1LFdTqeaVCsjiXUHO3A9lYKZEy+BAX2AeS+3I3DJcrSn4wqJSIA0xubM+wTG/3WvRcYvPthNGsdH+iBXnq65GKTHPe4OUaQQXFiJsS5ojfh77FcST5j79NHGDy1GFiX0r61CfDI2uJ0Yit5qbgunh0Ocv/VsOdwQ/zkFVMJuNbT+sQv/hvHbMVDRLMsKpHDUQUsTTvSvkTATEciPhEP2iUs2jnDZC34NIZRBxz3q39PAza/rnXRf9Kt0qP4Z3Spq9qO0Y2sEEm2lYqOyRlTrbLBnMLvghu7dJW1HhaXsJbW65Z2jJFYkBA0k3yvQhn8g1P7QrUopzc1CTxi+GaJjP+rVUx5qOaBK6QKVPAnd0XMogPSlJF+qG5lOB6xvosPUGxVcxqDVZ7VAGqCetGJUO/yOC28lJb7UzpxxmXi/z2yyLuOia4lw9rXZzf6p5REy7/brqNVGA//7zMZtNfKz26sprrnKWDchiHN/pXV19/DKQYlrSzk=
+	34l+ql4KHgVLMDMiqPXKo0oyvVGpL+bCXc6jcScFCyoPQWdrHuf4HLaddNAuuQ6FUXr44wHgFUhi5ibgB6U8BoGBaGcVMFQunc1Rx4hX6tgcQS068LVrsSam/o0M79RZ3BSBojR/4BXSwUGrt4PEy0/kZzSD7D43MRj6DQFQB+56rPjZ5o0oMZNy17QBKl6RtCh2LZIVVaYh1p/M+UnfyMUKG0nhS4TRWmBR87VOkSGf4SbACTes8D4ABEYzOYsIvyYVMMyqN5PB5o048Xw1jVfRQzZc8BRurPEND+atB1LQj4f4dK3b/st8Q6gUJhG9n6d/PYTh5wAoSuGg6d1yuP2YwQaQey/8z7PPoha304sCDmx1imb5fAvj5MDViGHU3a2nupg4IUYjgdP3Wbm0PStbCV8O4DQrjIg+OuyCxR5pHJlUpjV6XAKkoTvoGZCyy4Wh65VRGjV12K1KGCqdqOw5HddYphm5klwAjn/xwDkDXtYHi6Wipw5OARBh4S95rVnwLREfF1crr9Gz6/wkB1Pu6CE1XmMZGDQzIRLvjk4wifkWISZJGM8d2Z3ZywOsR1mU5IzaQdg9fxE7EpOb6PlzjBklBxW0/lThE/rm7XB2Jf3kZp43evYXtp0DDmug7fvbOePCeYGfv35p1u7FzPWMal2QRbkuzJtAJ/UgUw1Epm9zZe2AmyTJtjOawS+NbccKVdzhN6qoVCpvdFkb1hr+nQc7A0Mt3y/UbPzipTo=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7996.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YlomapYLIuQCbvtccQpnrCzmXjF8xGqcCNtNoRqrc2R74KMixUhVxVUzuY8/?=
- =?us-ascii?Q?+fg7YEtxEIg1MjFoHGrHqqt59ptYGEF9sI212OCY2wJ7GTaowDc8mVeQuDVN?=
- =?us-ascii?Q?/0Wg89mH+ZRfbJrTFqoZ5+qhc3uIYGtI1DUu09QqylfqLMeWpiwS/twyXjIp?=
- =?us-ascii?Q?6q/prAMgw+eIZ9euFWASG8H3fqBfdxi6YZPTzDRQ6dXkCbOtHBGWA5UnWHbP?=
- =?us-ascii?Q?bauqtz9dYpv5cysZIBxUpcgeAILF6RyXUsT6k1Q+UiHvxQpMRWIVHSrYGfTl?=
- =?us-ascii?Q?1X3bleGnZ0W/jFP+RD78ualL3B1RClEVLWeZ9u80omrhWMWYU+6a7XDZ0bo9?=
- =?us-ascii?Q?ZFed95Mn0Te3MvblUKMNpQK6UKxrEy6jBUn2yy6lpb9QJhS1A0mGwhQkacIg?=
- =?us-ascii?Q?tz2O7DAyzCJMvgcNoMh0Kp4OLPoZyqzLOfQMdHyt+9Ze9qw8iWGOMZys34BB?=
- =?us-ascii?Q?lyI4WenObnQ9VMI3s5iFdRY9L3YB2RMmdu0mX/3ZJsa/OwWXpP/hOXwsEbU6?=
- =?us-ascii?Q?q+Fbyh3pMzMBSGYFP09nPqUV9ZfZ0I0WPTKQEqnxfDm5cwg55M65L1X/CxWt?=
- =?us-ascii?Q?KwaRfIWF0BBghdPGJtbG1te7jBXeNEyDoDWt7LyJnxlpd/VL9aQdMOD0CFQb?=
- =?us-ascii?Q?VMPhbZ+68uK7vIgh+0Gh76AecKw6XBhqZwM/7+80f8vMC/l6t2ArQOpvpoFk?=
- =?us-ascii?Q?sYKgq8djKd8CFodOXlfASH4byBXv5FjpSFabu2wi3VAoRXcTqzjt6LAnZTFE?=
- =?us-ascii?Q?Z0rZb6XMvdJd3xlbJD4d/jwliEltdYlBRkwo+OAUAMK4M/tMpKi1szOzTu7B?=
- =?us-ascii?Q?kUDgaHWv1I6FAGuszk029ja97BY1Do8dan+4jehySf8TgacyuZ8sFSeUGkQQ?=
- =?us-ascii?Q?kwSQjrAEAQDAyPRbFzfO4NUz0ZhCDuE0Tgwj0GXYVAgM8t9YwIS6lqRYioRy?=
- =?us-ascii?Q?ADKZmD1BjZSyQRMDAcXxnph6jsMSwEhpT/zHARqgu4l0hFb8p5ZiVOZxQQD4?=
- =?us-ascii?Q?tmMeln9aNPIUUoJYarCCCjz+HEquLB99jWEsi2mtVIf8GzMYaQjcaFMWqHBz?=
- =?us-ascii?Q?YmaPCzLQyezBeW5oV0pN1aQ9eyvHA/X/t7AXjACYiETNX5bf73V0WSZ3fhrB?=
- =?us-ascii?Q?Kf3zEEO62yXNS5tk330Ehn8k69RW0H7OCWpOcd752lhn0WCrTWSNCI8f+kh/?=
- =?us-ascii?Q?lQBD7VTUA0eb9LAxMCF9e5bpEx/MUi/f56WZb9EuFtcVa8+YH296SSYOR35B?=
- =?us-ascii?Q?l9SOxPEs4fk0MFe7/a3gWws2L5DgyHtpm1w2KWkHVT80DFL1kNwhCye8F7Zk?=
- =?us-ascii?Q?eQZena5z2Z6hnPGcJK0l7x9FekJ8HkPORYruiUgJhbVE0qaUMIy22GnD3Wme?=
- =?us-ascii?Q?h8soKFT9gtb5i/biXoLuw877dD7iqBPkXfLrIn4z9cSi5firkpJwuM2NCHZz?=
- =?us-ascii?Q?VUEStXLkuma0Ir9tnWcqeXMhyJl9fkmqm20ppQFptiyXsGz9c2WZMUySspR7?=
- =?us-ascii?Q?F4KQy3sDjIXaPGk2+y9yqzJlG3Z/rNT75/zMsp8ymN0QuD4aHq5nQ6sSdE6+?=
- =?us-ascii?Q?FmmKz4JbKodYogSwl68OFXnwWI8ziQEESdTZg01svv4az0HiqDERoaybD8Xk?=
- =?us-ascii?Q?1UGtjBLr4niDZKX9FApeqyB20MDQVbLp9L23W7hc47ByY0pU2c2b64C6VKYT?=
- =?us-ascii?Q?Un7q6oO18ZSy50CLjzzlpDFN0cY6ykADsx3d/EemxdZjy8SjtMzskKRzyRHo?=
- =?us-ascii?Q?y2B9ycA3pA=3D=3D?=
+	=?us-ascii?Q?P8fNO/MINTdSdgkyGvrqrhQahlb9MG08lsQf9WCIOl0vLnNl6rcbrWk5WprI?=
+ =?us-ascii?Q?OClFl8CDZA18J0wvcPd4VqlExrHU17Et/LLvYBaAcXcvFj0nYMV0IxXtZ265?=
+ =?us-ascii?Q?vrkiHg1ycVw8LO5Auh7cYOwkTgH9/Gie3Fiepv65ileAUMzWHBvVQ8c/Ik5w?=
+ =?us-ascii?Q?4CWjKp1tSsJkk/2PhSPS7Lm/JBTXkXFwlIpPdqtekwSAYBRiC+T9hFf+F7aY?=
+ =?us-ascii?Q?LKb/0Aw33YSYyA08r7vDRUBCIjSkquCTsck3iiASgLfHIwUcDwzqYUjS70/U?=
+ =?us-ascii?Q?o4k5aNhki1peiSc7LEG6LS+9RvpKngLbR1T+c03K87Wbl4Axe9WjxdUpSjgb?=
+ =?us-ascii?Q?FArp6a1y565y7xvL064Rbc38yJrmtyQquGOQRyzDUocnC27vz+ovArPuB9aC?=
+ =?us-ascii?Q?8fXXcT+TfRjg4DfNmJ5MEYjnB5FCNSztsW5Ro/sjaDe5tN1IgmT8F67M2BXx?=
+ =?us-ascii?Q?7LEC+CN6GtraitXXWYZr6jSA8WBYRkRWspxt2UOUHYgUigb25Ij3Z2IFEqQo?=
+ =?us-ascii?Q?XIn+Pc04R5+7GvpS9fc8KkEq1YsR0vhZko3QiuIvAkND+D5P8ByQ6NrQAc7e?=
+ =?us-ascii?Q?j7dEGuziojMJvgcz351lHTrA35XPvP1KGN7uIFfU+EYoG8mitOdFWzkuL+IY?=
+ =?us-ascii?Q?NAEV6vB7j7Bx3KISUzD/plm2+CEGWXJSB8+KDOKoxC8FDnudl2nmqC51GUFI?=
+ =?us-ascii?Q?zqZLfEsCG6PqPs+V/9rzKNUsq27X5n3fUMoDfqDZ/9o/A0/dobaBriaLTzDz?=
+ =?us-ascii?Q?OYaREx7XXLbgDgH1g0x0Oenp6TGqWFcBbaW+BTZ8W5UoN7YrAfFlQMG2nnNl?=
+ =?us-ascii?Q?u4lzWxClKSBOLZuT4a6ARb83UASh1RygUxjAjETY84t8MgWQLPe3zRRuILu0?=
+ =?us-ascii?Q?tBXsQ13lIWJsSUGoLgX/Gp69MQugP2gQhry4+S6b2JqGCZS0/DCfMo7wJXIX?=
+ =?us-ascii?Q?1JP1Y1q3sqSy2Fw+4pn5B4XGdvZ60jyH6hKpuKBNegB+4OuMeqY6TP8Ch2Wm?=
+ =?us-ascii?Q?8AGBcLCKP5MCtaNC0JhEj1gsl7/PQaMoONOWukvMOVZxUTun4Vy007J/Ylt2?=
+ =?us-ascii?Q?9ETWe8QEqT1vcqFTqRKWr7jy/Zxvq2tgVZZ7NJRFf2Ut06IhBBFurY6CWZK0?=
+ =?us-ascii?Q?+Qpu5Ftkt04sH12ktu8jlr7vgp4Hu82WvAlVU362gLbpyedD+E0xutAkEVE5?=
+ =?us-ascii?Q?kIKh6wmbqbVKg4fCVIyfXvamTDGGKeiWEDoZOIaX9f1RoNnMrw3yawFt+vi6?=
+ =?us-ascii?Q?5cvaJ3Q+z5JEHAJbDYLR03p3aW9krKRLokPyzFwB/bEZ2DA3O+VwHJD1OMBh?=
+ =?us-ascii?Q?U6YMGBeSUcZhhsQYHx8mkqjQBxG5Q9d6fy0wFJ2E4wKC+soAI66ZpOnqG+De?=
+ =?us-ascii?Q?85q+r1LWIlsbA1s2euJFEq140nW1M1yNgcDqv4lmrkCB3MgSWe/mutXHCpgd?=
+ =?us-ascii?Q?ZhJSUdGtoTOAoN6TMcOIIUaX0c8AChxJ5z2SqLMGjN8SJWIwCRTzsz1e4O7+?=
+ =?us-ascii?Q?9bc8xwh+TBMudfqZDNBcUzfio4KUmMUsOTI++sb5qPboQjt38A2hw23zbedI?=
+ =?us-ascii?Q?F3eGuIxdC+zySaS9G8JidqXPOjnR/FsPPG1OY+scU/N9Uue8Ug2qhc2+iq6K?=
+ =?us-ascii?Q?fXLDzdNDUwnBwHWD040VSj+cfI2UH9LYw9kXA7ecOVMMXZobeX+iv1TBXSfx?=
+ =?us-ascii?Q?v37qyWbmiBfoOgeYHSu+jApTmdKOzJv7wys1ADZHCaNA4Z/iBzwNRuHuNgVQ?=
+ =?us-ascii?Q?tf/UXC3QSw=3D=3D?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0ca2fed-caa1-46d1-bd20-08de807817ba
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc3b4f0c-1591-4fbb-f92c-08de80781cc1
 X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7996.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 20:44:01.7036
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 20:44:10.1132
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aBLlv7y8XDtgqzxceLWNihQNhcb9MM5Nhc13P9vsQducmy3Lr8LLlv7ongMaCwwiM6IhXMYxUtE8VnDihEB9uw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: eKzbMzWF+yQ4WduBdhHupxlD54RuCX4hJjRi1w65mJIN7D+SJMH0mcGjifPrAvrLXL6Ja66ZR93fZGrQGWfGdg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6979
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -166,13 +166,13 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[citrix.com:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:email,citrix.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:email,citrix.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,current_cpu_data.family:url];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: ACFD02797ED
+X-Rspamd-Queue-Id: 9F26C2797EC
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -189,426 +189,198 @@ This work is part of making Xen safe for Intel family 18/19.
 Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
 ---
 Changes in v2:
-- Group Silvermonts, Airmonts, Goldmonts in the switch statement
-- Restore Errata info in lbr_tsx_fixup_check() and ler_to_fixup_check()
+- Switch uint8_t to unsigned int in vpmu_arch_initialise()
+- Switch int to unsigned int in vpmu_init()
+- Remove XXX comments
 ---
- xen/arch/x86/hvm/hvm.c      |   2 +-
- xen/arch/x86/hvm/svm/svm.c  |   6 +-
- xen/arch/x86/hvm/vmx/vmcs.c |   4 +-
- xen/arch/x86/hvm/vmx/vmx.c  | 277 ++++++++++++++++++------------------
- 4 files changed, 146 insertions(+), 143 deletions(-)
+ xen/arch/x86/cpu/centaur.c         | 4 ++--
+ xen/arch/x86/cpu/hygon.c           | 4 ++--
+ xen/arch/x86/cpu/intel_cacheinfo.c | 6 +++---
+ xen/arch/x86/cpu/mtrr/generic.c    | 6 +++---
+ xen/arch/x86/cpu/mwait-idle.c      | 4 ++--
+ xen/arch/x86/cpu/vpmu.c            | 4 ++--
+ xen/arch/x86/cpu/vpmu_amd.c        | 6 +++---
+ xen/arch/x86/cpu/vpmu_intel.c      | 4 ++--
+ 8 files changed, 19 insertions(+), 19 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-index 4d37a93c57..6ad52e1197 100644
---- a/xen/arch/x86/hvm/hvm.c
-+++ b/xen/arch/x86/hvm/hvm.c
-@@ -3850,7 +3850,7 @@ void hvm_ud_intercept(struct cpu_user_regs *regs)
+diff --git a/xen/arch/x86/cpu/centaur.c b/xen/arch/x86/cpu/centaur.c
+index d2e7c8ec99..9123b05dc1 100644
+--- a/xen/arch/x86/cpu/centaur.c
++++ b/xen/arch/x86/cpu/centaur.c
+@@ -41,7 +41,7 @@ static void init_c3(struct cpuinfo_x86 *c)
+ 		}
+ 	}
+ 
+-	if (c->x86 == 0x6 && c->x86_model >= 0xf) {
++	if (c->family == 0x6 && c->model >= 0xf) {
+ 		c->x86_cache_alignment = c->x86_clflush_size * 2;
+ 		__set_bit(X86_FEATURE_CONSTANT_TSC, c->x86_capability);
+ 	}
+@@ -52,7 +52,7 @@ static void init_c3(struct cpuinfo_x86 *c)
+ 
+ static void cf_check init_centaur(struct cpuinfo_x86 *c)
  {
-     struct vcpu *cur = current;
-     bool should_emulate =
--        cur->domain->arch.cpuid->x86_vendor != boot_cpu_data.x86_vendor;
-+        cur->domain->arch.cpuid->x86_vendor != boot_cpu_data.vendor;
-     struct hvm_emulate_ctxt ctxt;
- 
-     hvm_emulate_init_once(&ctxt, opt_hvm_fep ? NULL : is_cross_vendor, regs);
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 243c41fb13..5e4d8b3c52 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -590,7 +590,7 @@ static void cf_check svm_cpuid_policy_changed(struct vcpu *v)
-     u32 bitmap = vmcb_get_exception_intercepts(vmcb);
- 
-     if ( opt_hvm_fep ||
--         (v->domain->arch.cpuid->x86_vendor != boot_cpu_data.x86_vendor) )
-+         (v->domain->arch.cpuid->x86_vendor != boot_cpu_data.vendor) )
-         bitmap |= (1U << X86_EXC_UD);
-     else
-         bitmap &= ~(1U << X86_EXC_UD);
-@@ -1057,7 +1057,7 @@ static void svm_guest_osvw_init(struct domain *d)
-      * be conservative here and therefore we tell the guest that erratum 298
-      * is present (because we really don't know).
-      */
--    if ( osvw_length == 0 && boot_cpu_data.x86 == 0x10 )
-+    if ( osvw_length == 0 && boot_cpu_data.family == 0x10 )
-         svm->osvw.status |= 1;
- 
-     spin_unlock(&osvw_lock);
-@@ -1805,7 +1805,7 @@ static int cf_check svm_msr_read_intercept(
-         if ( !rdmsr_safe(msr, msr_content) )
-             break;
- 
--        if ( boot_cpu_data.x86 == 0xf )
-+        if ( boot_cpu_data.family == 0xf )
-         {
-             /*
-              * Win2k8 x64 reads this MSR on revF chips, where it wasn't
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index c2e7f9aed3..d3b1730f1d 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -26,6 +26,7 @@
- #include <asm/hvm/vmx/vmx.h>
- #include <asm/hvm/vmx/vvmx.h>
- #include <asm/idt.h>
-+#include <asm/intel-family.h>
- #include <asm/monitor.h>
- #include <asm/msr.h>
- #include <asm/processor.h>
-@@ -2163,8 +2164,7 @@ int __init vmx_vmcs_init(void)
- 
-     if ( opt_ept_ad < 0 )
-         /* Work around Erratum AVR41 on Avoton processors. */
--        opt_ept_ad = !(boot_cpu_data.x86 == 6 &&
--                       boot_cpu_data.x86_model == 0x4d);
-+        opt_ept_ad = !(boot_cpu_data.vfm == INTEL_ATOM_SILVERMONT_D);
- 
-     ret = _vmx_cpu_up(true);
- 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index e45060d403..3d308e149c 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -34,6 +34,7 @@
- #include <asm/hvm/vmx/vmcs.h>
- #include <asm/hvm/vmx/vmx.h>
- #include <asm/hvm/vpt.h>
-+#include <asm/intel-family.h>
- #include <asm/io.h>
- #include <asm/iocap.h>
- #include <asm/mce.h>
-@@ -502,72 +503,74 @@ static const struct lbr_info *__ro_after_init model_specific_lbr;
- 
- static const struct lbr_info *__init get_model_specific_lbr(void)
- {
--    switch ( boot_cpu_data.x86 )
-+    switch ( boot_cpu_data.vfm )
-     {
--    case 6:
--        switch ( boot_cpu_data.x86_model )
--        {
--        /* Core2 Duo */
--        case 0x0f:
--        /* Enhanced Core */
--        case 0x17:
--        /* Xeon 7400 */
--        case 0x1d:
--            return c2_lbr;
--        /* Nehalem */
--        case 0x1a: case 0x1e: case 0x1f: case 0x2e:
--        /* Westmere */
--        case 0x25: case 0x2c: case 0x2f:
--        /* Sandy Bridge */
--        case 0x2a: case 0x2d:
--        /* Ivy Bridge */
--        case 0x3a: case 0x3e:
--        /* Haswell */
--        case 0x3c: case 0x3f: case 0x45: case 0x46:
--        /* Broadwell */
--        case 0x3d: case 0x47: case 0x4f: case 0x56:
--            return nh_lbr;
--        /* Skylake */
--        case 0x4e: case 0x5e:
--        /* Xeon Scalable */
--        case 0x55:
--        /* Cannon Lake */
--        case 0x66:
--        /* Goldmont Plus */
--        case 0x7a:
--        /* Ice Lake */
--        case 0x6a: case 0x6c: case 0x7d: case 0x7e:
--        /* Tiger Lake */
--        case 0x8c: case 0x8d:
--        /* Tremont */
--        case 0x86:
--        /* Kaby Lake */
--        case 0x8e: case 0x9e:
--        /* Comet Lake */
--        case 0xa5: case 0xa6:
--            return sk_lbr;
--        /* Atom */
--        case 0x1c: case 0x26: case 0x27: case 0x35: case 0x36:
--            return at_lbr;
--        /* Silvermont */
--        case 0x37: case 0x4a: case 0x4d: case 0x5a:
--        /* Airmont */
--        case 0x4c:
--            return sm_lbr;
--        /* Goldmont */
--        case 0x5c: case 0x5f:
--            return gm_lbr;
--        }
--        break;
--
--    case 15:
--        switch ( boot_cpu_data.x86_model )
--        {
--        /* Pentium4/Xeon with em64t */
--        case 3: case 4: case 6:
--            return p4_lbr;
--        }
--        break;
-+    case INTEL_CORE2_DUNNINGTON:
-+    case INTEL_CORE2_MEROM:
-+    case INTEL_CORE2_PENRYN:
-+        return c2_lbr;
-+
-+    case INTEL_NEHALEM:
-+    case INTEL_NEHALEM_EP:
-+    case INTEL_NEHALEM_EX:
-+    case INTEL_NEHALEM_G:
-+    case INTEL_WESTMERE:
-+    case INTEL_WESTMERE_EP:
-+    case INTEL_WESTMERE_EX:
-+    case INTEL_SANDYBRIDGE:
-+    case INTEL_SANDYBRIDGE_X:
-+    case INTEL_IVYBRIDGE:
-+    case INTEL_IVYBRIDGE_X:
-+    case INTEL_HASWELL:
-+    case INTEL_HASWELL_G:
-+    case INTEL_HASWELL_L:
-+    case INTEL_HASWELL_X:
-+    case INTEL_BROADWELL:
-+    case INTEL_BROADWELL_D:
-+    case INTEL_BROADWELL_G:
-+    case INTEL_BROADWELL_X:
-+        return nh_lbr;
-+
-+    case INTEL_SKYLAKE:
-+    case INTEL_SKYLAKE_L:
-+    case INTEL_SKYLAKE_X:
-+    case INTEL_CANNONLAKE_L:
-+    case INTEL_ATOM_GOLDMONT_PLUS:
-+    case INTEL_ICELAKE:
-+    case INTEL_ICELAKE_D:
-+    case INTEL_ICELAKE_L:
-+    case INTEL_ICELAKE_X:
-+    case INTEL_TIGERLAKE:
-+    case INTEL_TIGERLAKE_L:
-+    case INTEL_ATOM_TREMONT_D:
-+    case INTEL_KABYLAKE:
-+    case INTEL_KABYLAKE_L:
-+    case INTEL_COMETLAKE:
-+    case INTEL_COMETLAKE_L:
-+        return sk_lbr;
-+
-+    case INTEL_ATOM_BONNELL:
-+    case INTEL_ATOM_BONNELL_MID:
-+    case INTEL_ATOM_SALTWELL:
-+    case INTEL_ATOM_SALTWELL_MID:
-+    case INTEL_ATOM_SALTWELL_TABLET:
-+        return at_lbr;
-+
-+    case INTEL_ATOM_SILVERMONT:
-+    case INTEL_ATOM_SILVERMONT_MID:
-+    case INTEL_ATOM_SILVERMONT_D:
-+    case INTEL_ATOM_SILVERMONT_MID2:
-+    case INTEL_ATOM_AIRMONT:
-+        return sm_lbr;
-+
-+    case INTEL_ATOM_GOLDMONT:
-+    case INTEL_ATOM_GOLDMONT_D:
-+        return gm_lbr;
-+
-+    case INTEL_P4_PRESCOTT:
-+    case INTEL_P4_PRESCOTT_2M:
-+    case INTEL_P4_CEDARMILL:
-+        return p4_lbr;
-     }
- 
-     return NULL;
-@@ -804,7 +807,7 @@ static void cf_check vmx_cpuid_policy_changed(struct vcpu *v)
-     int rc = 0;
- 
-     if ( opt_hvm_fep ||
--         (v->domain->arch.cpuid->x86_vendor != boot_cpu_data.x86_vendor) )
-+         (v->domain->arch.cpuid->x86_vendor != boot_cpu_data.vendor) )
-         v->arch.hvm.vmx.exception_bitmap |= (1U << X86_EXC_UD);
-     else
-         v->arch.hvm.vmx.exception_bitmap &= ~(1U << X86_EXC_UD);
-@@ -3073,68 +3076,68 @@ static bool __init has_if_pschange_mc(void)
-      * IF_PSCHANGE_MC is only known to affect Intel Family 6 processors at
-      * this time.
-      */
--    if ( boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
--         boot_cpu_data.x86 != 6 )
-+    if ( boot_cpu_data.vendor != X86_VENDOR_INTEL ||
-+         boot_cpu_data.family != 6 )
-         return false;
- 
--    switch ( boot_cpu_data.x86_model )
-+    switch ( boot_cpu_data.vfm )
-     {
-         /*
-          * Core processors since at least Nehalem are vulnerable.
-          */
--    case 0x1f: /* Auburndale / Havendale */
--    case 0x1e: /* Nehalem */
--    case 0x1a: /* Nehalem EP */
--    case 0x2e: /* Nehalem EX */
--    case 0x25: /* Westmere */
--    case 0x2c: /* Westmere EP */
--    case 0x2f: /* Westmere EX */
--    case 0x2a: /* SandyBridge */
--    case 0x2d: /* SandyBridge EP/EX */
--    case 0x3a: /* IvyBridge */
--    case 0x3e: /* IvyBridge EP/EX */
--    case 0x3c: /* Haswell */
--    case 0x3f: /* Haswell EX/EP */
--    case 0x45: /* Haswell D */
--    case 0x46: /* Haswell H */
--    case 0x3d: /* Broadwell */
--    case 0x47: /* Broadwell H */
--    case 0x4f: /* Broadwell EP/EX */
--    case 0x56: /* Broadwell D */
--    case 0x4e: /* Skylake M */
--    case 0x5e: /* Skylake D */
--    case 0x55: /* Skylake-X / Cascade Lake */
--    case 0x7d: /* Ice Lake */
--    case 0x7e: /* Ice Lake */
--    case 0x8e: /* Kaby / Coffee / Whiskey Lake M */
--    case 0x9e: /* Kaby / Coffee / Whiskey Lake D */
--    case 0xa5: /* Comet Lake H/S */
--    case 0xa6: /* Comet Lake U */
-+    case INTEL_NEHALEM_G:
-+    case INTEL_NEHALEM:
-+    case INTEL_NEHALEM_EP:
-+    case INTEL_NEHALEM_EX:
-+    case INTEL_WESTMERE:
-+    case INTEL_WESTMERE_EP:
-+    case INTEL_WESTMERE_EX:
-+    case INTEL_SANDYBRIDGE:
-+    case INTEL_SANDYBRIDGE_X:
-+    case INTEL_IVYBRIDGE:
-+    case INTEL_IVYBRIDGE_X:
-+    case INTEL_HASWELL:
-+    case INTEL_HASWELL_X:
-+    case INTEL_HASWELL_L:
-+    case INTEL_HASWELL_G:
-+    case INTEL_BROADWELL:
-+    case INTEL_BROADWELL_G:
-+    case INTEL_BROADWELL_X:
-+    case INTEL_BROADWELL_D:
-+    case INTEL_SKYLAKE_L:
-+    case INTEL_SKYLAKE:
-+    case INTEL_SKYLAKE_X:
-+    case INTEL_ICELAKE:
-+    case INTEL_ICELAKE_L:
-+    case INTEL_KABYLAKE_L:
-+    case INTEL_KABYLAKE:
-+    case INTEL_COMETLAKE:
-+    case INTEL_COMETLAKE_L:
-         return true;
- 
-         /*
-          * Atom processors are not vulnerable.
-          */
--    case 0x1c: /* Pineview */
--    case 0x26: /* Lincroft */
--    case 0x27: /* Penwell */
--    case 0x35: /* Cloverview */
--    case 0x36: /* Cedarview */
--    case 0x37: /* Baytrail / Valleyview (Silvermont) */
--    case 0x4d: /* Avaton / Rangely (Silvermont) */
--    case 0x4c: /* Cherrytrail / Brasswell */
--    case 0x4a: /* Merrifield */
--    case 0x5a: /* Moorefield */
--    case 0x5c: /* Goldmont */
--    case 0x5f: /* Denverton */
--    case 0x75: /* Lightning Mountain */
--    case 0x7a: /* Gemini Lake */
--    case 0x86: /* Jacobsville */
-+    case INTEL_ATOM_BONNELL:
-+    case INTEL_ATOM_BONNELL_MID:
-+    case INTEL_ATOM_SALTWELL_MID:
-+    case INTEL_ATOM_SALTWELL_TABLET:
-+    case INTEL_ATOM_SALTWELL:
-+    case INTEL_ATOM_SILVERMONT:
-+    case INTEL_ATOM_SILVERMONT_D:
-+    case INTEL_ATOM_SILVERMONT_MID:
-+    case INTEL_ATOM_SILVERMONT_MID2:
-+    case INTEL_ATOM_GOLDMONT:
-+    case INTEL_ATOM_GOLDMONT_D:
-+    case INTEL_ATOM_GOLDMONT_PLUS:
-+    case INTEL_ATOM_AIRMONT:
-+    case INTEL_ATOM_AIRMONT_NP:
-+    case INTEL_ATOM_TREMONT_D:
-         return false;
- 
-     default:
-         printk("Unrecognised CPU model %#x - assuming vulnerable to IF_PSCHANGE_MC\n",
--               boot_cpu_data.x86_model);
-+               boot_cpu_data.model);
-         return true;
-     }
+-	if (c->x86 == 6)
++	if (c->family == 6)
+ 		init_c3(c);
  }
-@@ -3428,23 +3431,23 @@ static void __init lbr_tsx_fixup_check(void)
-      * fixed up as well.
-      */
-     if ( cpu_has_hle || cpu_has_rtm ||
--         boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
--         boot_cpu_data.x86 != 6 )
-+         boot_cpu_data.vendor != X86_VENDOR_INTEL ||
-+         boot_cpu_data.family != 6 )
-         return;
  
--    switch ( boot_cpu_data.x86_model )
-+    switch ( boot_cpu_data.vfm )
-     {
--    case 0x3c: /* HSM182, HSD172 - 4th gen Core */
--    case 0x3f: /* HSE117 - Xeon E5 v3 */
--    case 0x45: /* HSM182 - 4th gen Core */
--    case 0x46: /* HSM182, HSD172 - 4th gen Core (GT3) */
--    case 0x3d: /* BDM127 - 5th gen Core */
--    case 0x47: /* BDD117 - 5th gen Core (GT3)
--                  BDW117 - Xeon E3-1200 v4 */
--    case 0x4f: /* BDF85  - Xeon E5-2600 v4
--                  BDH75  - Core-i7 for LGA2011-v3 Socket
--                  BDX88  - Xeon E7-x800 v4 */
--    case 0x56: /* BDE105 - Xeon D-1500 */
-+    case INTEL_HASWELL:     /* HSM182, HSD172 - 4th gen Core */
-+    case INTEL_HASWELL_X:   /* HSE117 - Xeon E5 v3 */
-+    case INTEL_HASWELL_L:   /* HSM182 - 4th gen Core */
-+    case INTEL_HASWELL_G:   /* HSM182, HSD172 - 4th gen Core (GT3) */
-+    case INTEL_BROADWELL:   /* BDM127 - 5th gen Core */
-+    case INTEL_BROADWELL_G: /* BDD117 - 5th gen Core (GT3)
-+                               BDW117 - Xeon E3-1200 v4 */
-+    case INTEL_BROADWELL_X: /* BDF85  - Xeon E5-2600 v4
-+                               BDH75  - Core-i7 for LGA2011-v3 Socket
-+                               BDX88  - Xeon E7-x800 v4 */
-+    case INTEL_BROADWELL_D: /* BDE105 - Xeon D-1500 */
-         break;
-     default:
-         return;
-@@ -3473,19 +3476,19 @@ static void __init ler_to_fixup_check(void)
-      * that are not equal to bit[47].  Attempting to context switch this value
-      * may cause a #GP.  Software should sign extend the MSR.
-      */
--    if ( boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
--         boot_cpu_data.x86 != 6 )
-+    if ( boot_cpu_data.vendor != X86_VENDOR_INTEL ||
-+         boot_cpu_data.family != 6 )
-         return;
+diff --git a/xen/arch/x86/cpu/hygon.c b/xen/arch/x86/cpu/hygon.c
+index b99d83ed4d..7a9fc25d31 100644
+--- a/xen/arch/x86/cpu/hygon.c
++++ b/xen/arch/x86/cpu/hygon.c
+@@ -41,12 +41,12 @@ static void cf_check init_hygon(struct cpuinfo_x86 *c)
  
--    switch ( boot_cpu_data.x86_model )
-+    switch ( boot_cpu_data.vfm )
+ 	/* Probe for NSCB on Zen2 CPUs when not virtualised */
+ 	if (!cpu_has_hypervisor && !cpu_has_nscb && c == &boot_cpu_data &&
+-	    c->x86 == 0x18)
++	    c->family == 0x18)
+ 		detect_zen2_null_seg_behaviour();
+ 
+ 	/*
+ 	 * TODO: Check heuristic safety with Hygon first
+-	if (c->x86 == 0x18)
++	if (c->family == 0x18)
+ 		amd_init_spectral_chicken();
+ 	 */
+ 
+diff --git a/xen/arch/x86/cpu/intel_cacheinfo.c b/xen/arch/x86/cpu/intel_cacheinfo.c
+index e88faa7545..a81d0764fb 100644
+--- a/xen/arch/x86/cpu/intel_cacheinfo.c
++++ b/xen/arch/x86/cpu/intel_cacheinfo.c
+@@ -168,15 +168,15 @@ void init_intel_cacheinfo(struct cpuinfo_x86 *c)
+ 	 * Don't use cpuid2 if cpuid4 is supported. For P4, we use cpuid2 for
+ 	 * trace cache
+ 	 */
+-	if ((num_cache_leaves == 0 || c->x86 == 15) && c->cpuid_level > 1 &&
+-	    c->x86_vendor != X86_VENDOR_SHANGHAI)
++	if ((num_cache_leaves == 0 || c->family == 15) && c->cpuid_level > 1 &&
++	    c->vendor != X86_VENDOR_SHANGHAI)
+ 	{
+ 		/* supports eax=2  call */
+ 		unsigned int i, j, n, regs[4];
+ 		unsigned char *dp = (unsigned char *)regs;
+ 		int only_trace = 0;
+ 
+-		if (num_cache_leaves != 0 && c->x86 == 15)
++		if (num_cache_leaves != 0 && c->family == 15)
+ 			only_trace = 1;
+ 
+ 		/* Number of times to iterate */
+diff --git a/xen/arch/x86/cpu/mtrr/generic.c b/xen/arch/x86/cpu/mtrr/generic.c
+index c587e9140e..190be7f1b4 100644
+--- a/xen/arch/x86/cpu/mtrr/generic.c
++++ b/xen/arch/x86/cpu/mtrr/generic.c
+@@ -218,9 +218,9 @@ static void __init print_mtrr_state(const char *level)
+ 			printk("%s  %u disabled\n", level, i);
+ 	}
+ 
+-	if ((boot_cpu_data.x86_vendor == X86_VENDOR_AMD &&
+-	     boot_cpu_data.x86 >= 0xf) ||
+-	     boot_cpu_data.x86_vendor == X86_VENDOR_HYGON) {
++	if ((boot_cpu_data.vendor == X86_VENDOR_AMD &&
++	     boot_cpu_data.family >= 0xf) ||
++	     boot_cpu_data.vendor == X86_VENDOR_HYGON) {
+ 		uint64_t syscfg, tom2;
+ 
+ 		rdmsrl(MSR_K8_SYSCFG, syscfg);
+diff --git a/xen/arch/x86/cpu/mwait-idle.c b/xen/arch/x86/cpu/mwait-idle.c
+index 5962ec1db9..6776eeb9ac 100644
+--- a/xen/arch/x86/cpu/mwait-idle.c
++++ b/xen/arch/x86/cpu/mwait-idle.c
+@@ -1637,7 +1637,7 @@ static int __init mwait_idle_probe(void)
+ 		lapic_timer_reliable_states = LAPIC_TIMER_ALWAYS_RELIABLE;
+ 
+ 	pr_debug(PREFIX "v" MWAIT_IDLE_VERSION " model %#x\n",
+-		 boot_cpu_data.x86_model);
++		 boot_cpu_data.model);
+ 
+ 	pr_debug(PREFIX "lapic_timer_reliable_states %#x\n",
+ 		 lapic_timer_reliable_states);
+@@ -1816,7 +1816,7 @@ bool __init mwait_pc10_supported(void)
+ {
+ 	unsigned int ecx, edx, dummy;
+ 
+-	if (boot_cpu_data.x86_vendor != X86_VENDOR_INTEL ||
++	if (boot_cpu_data.vendor != X86_VENDOR_INTEL ||
+ 	    !cpu_has_monitor ||
+ 	    boot_cpu_data.cpuid_level < CPUID_MWAIT_LEAF)
+ 		return false;
+diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
+index c28192ea26..470f5ec98d 100644
+--- a/xen/arch/x86/cpu/vpmu.c
++++ b/xen/arch/x86/cpu/vpmu.c
+@@ -398,7 +398,7 @@ int vpmu_load(struct vcpu *v, bool from_guest)
+ static int vpmu_arch_initialise(struct vcpu *v)
+ {
+     struct vpmu_struct *vpmu = vcpu_vpmu(v);
+-    uint8_t vendor = current_cpu_data.x86_vendor;
++    unsigned int vendor = current_cpu_data.vendor;
+     int ret;
+ 
+     BUILD_BUG_ON(sizeof(struct xen_pmu_intel_ctxt) > XENPMU_CTXT_PAD_SZ);
+@@ -815,7 +815,7 @@ static struct notifier_block cpu_nfb = {
+ 
+ static int __init cf_check vpmu_init(void)
+ {
+-    int vendor = current_cpu_data.x86_vendor;
++    unsigned int vendor = current_cpu_data.vendor;
+     const struct arch_vpmu_ops *ops = NULL;
+ 
+     if ( !opt_vpmu_enabled )
+diff --git a/xen/arch/x86/cpu/vpmu_amd.c b/xen/arch/x86/cpu/vpmu_amd.c
+index d1f6bd5495..943a0f4ebe 100644
+--- a/xen/arch/x86/cpu/vpmu_amd.c
++++ b/xen/arch/x86/cpu/vpmu_amd.c
+@@ -532,7 +532,7 @@ static const struct arch_vpmu_ops *__init common_init(void)
+     if ( !num_counters )
      {
--    case 0x3d: /* BDM131 - 5th gen Core */
--    case 0x47: /* BDD??? - 5th gen Core (H-Processor line)
--                  BDW120 - Xeon E3-1200 v4 */
--    case 0x4f: /* BDF93  - Xeon E5-2600 v4
--                  BDH80  - Core-i7 for LGA2011-v3 Socket
--                  BDX93  - Xeon E7-x800 v4 */
--    case 0x56: /* BDE??? - Xeon D-1500 */
-+    case INTEL_BROADWELL:   /* BDM131 - 5th gen Core */
-+    case INTEL_BROADWELL_G: /* BDD??? - 5th gen Core (H-Processor line)
-+                             * BDW120 - Xeon E3-1200 v4 */
-+    case INTEL_BROADWELL_X: /* BDF93  - Xeon E5-2600 v4
-+                             * BDH80  - Core-i7 for LGA2011-v3 Socket
-+                             * BDX93  - Xeon E7-x800 v4 */
-+    case INTEL_BROADWELL_D: /* BDE??? - Xeon D-1500 */
-         ler_to_fixup_needed = true;
-         break;
+         printk(XENLOG_WARNING "VPMU: Unsupported CPU family %#x\n",
+-               current_cpu_data.x86);
++               current_cpu_data.family);
+         return ERR_PTR(-EINVAL);
      }
+ 
+@@ -557,7 +557,7 @@ static const struct arch_vpmu_ops *__init common_init(void)
+ 
+ const struct arch_vpmu_ops *__init amd_vpmu_init(void)
+ {
+-    switch ( current_cpu_data.x86 )
++    switch ( current_cpu_data.family )
+     {
+     case 0x15:
+     case 0x17:
+@@ -585,7 +585,7 @@ const struct arch_vpmu_ops *__init amd_vpmu_init(void)
+ 
+ const struct arch_vpmu_ops *__init hygon_vpmu_init(void)
+ {
+-    switch ( current_cpu_data.x86 )
++    switch ( current_cpu_data.family )
+     {
+     case 0x18:
+         num_counters = F15H_NUM_COUNTERS;
+diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.c
+index 1e3b06ef8e..ed9f62b936 100644
+--- a/xen/arch/x86/cpu/vpmu_intel.c
++++ b/xen/arch/x86/cpu/vpmu_intel.c
+@@ -917,7 +917,7 @@ const struct arch_vpmu_ops *__init core2_vpmu_init(void)
+         return ERR_PTR(-EINVAL);
+     }
+ 
+-    if ( current_cpu_data.x86 != 6 )
++    if ( current_cpu_data.family != 6 )
+     {
+         printk(XENLOG_WARNING "VPMU: only family 6 is supported\n");
+         return ERR_PTR(-EINVAL);
+@@ -958,7 +958,7 @@ const struct arch_vpmu_ops *__init core2_vpmu_init(void)
+               sizeof(struct xen_pmu_cntr_pair) * arch_pmc_cnt;
+ 
+     /* TODO: It's clearly incorrect for this to quirk all Intel Fam6 CPUs. */
+-    pmc_quirk = current_cpu_data.x86 == 6;
++    pmc_quirk = current_cpu_data.family == 6;
+ 
+     if ( sizeof(struct xen_pmu_data) + sizeof(uint64_t) * fixed_pmc_cnt +
+          sizeof(struct xen_pmu_cntr_pair) * arch_pmc_cnt > PAGE_SIZE )
 -- 
 2.51.1
 
