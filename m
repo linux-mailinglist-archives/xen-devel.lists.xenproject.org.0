@@ -2,43 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SDDvFTFksmntMAAAu9opvQ
+	id 77SJLghqsmnSMQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 07:58:57 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 08:23:52 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A99B226E1A9
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 07:58:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1251714.1548601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2951826E4CB
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 08:23:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1251724.1548611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0ZzN-0002aU-6M; Thu, 12 Mar 2026 06:57:45 +0000
+	id 1w0aON-0006LR-UB; Thu, 12 Mar 2026 07:23:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1251714.1548601; Thu, 12 Mar 2026 06:57:45 +0000
+Received: by outflank-mailman (output) from mailman id 1251724.1548611; Thu, 12 Mar 2026 07:23:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0ZzN-0002XT-0w; Thu, 12 Mar 2026 06:57:45 +0000
-Received: by outflank-mailman (input) for mailman id 1251714;
- Thu, 12 Mar 2026 06:57:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jTts=BM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w0ZzM-0002XN-2J
- for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 06:57:44 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bfcb0dd5-1de0-11f1-9ccf-f158ae23cfc8;
- Thu, 12 Mar 2026 07:57:36 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-4853f2826f7so5422925e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 11 Mar 2026 23:57:35 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439fe19aec5sm5513192f8f.4.2026.03.11.23.57.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Mar 2026 23:57:34 -0700 (PDT)
+	id 1w0aON-0006Jv-Os; Thu, 12 Mar 2026 07:23:35 +0000
+Received: by outflank-mailman (input) for mailman id 1251724;
+ Thu, 12 Mar 2026 07:23:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=/5IB=BM=huawei.com=fengchengwen@srs-se1.protection.inumbo.net>)
+ id 1w0aOL-0006Jf-P7
+ for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 07:23:34 +0000
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com
+ [113.46.200.223]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5d323081-1de4-11f1-b164-2bf370ae4941;
+ Thu, 12 Mar 2026 08:23:30 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+ by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4fWf9H3SBhzmV6N;
+ Thu, 12 Mar 2026 15:18:27 +0800 (CST)
+Received: from kwepemk500009.china.huawei.com (unknown [7.202.194.94])
+ by mail.maildlp.com (Postfix) with ESMTPS id 462344056C;
+ Thu, 12 Mar 2026 15:23:24 +0800 (CST)
+Received: from localhost.localdomain (10.50.163.32) by
+ kwepemk500009.china.huawei.com (7.202.194.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Thu, 12 Mar 2026 15:23:22 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,192 +51,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfcb0dd5-1de0-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773298655; x=1773903455; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4JY9BJ/9d+xdQsZgGB46qGlBtAWUT1DQpKWqvJ5veII=;
-        b=S6cj5je2C1HRdv6gqCUhczAWvBck+iECUVaYYm82OdvHLXWSR7HkfPATOGGRE/zrit
-         cbulWD2G1L0v/a5l9vLoUyF4FdujovZw9ez2p54aQRSLUBYFgGYLkLsJHMqFVbLgW0yx
-         01D1Hl2zeEd3IP95zqF27oIqBSig49ENPrYNJGQ0b8dfSNJ0BY7TibZjAAmPtyK9M7YJ
-         OtzSdmYA/TxHtFJwE5TTuDGrH/3n6XUWpbnCHq54wOnIGPLBewmZkXg+sSB2lKdZBXoC
-         CsC7CtWeoHb+z7iDNdVCu0hNc5eO+xnSUo+x7zFAiElHUjP22WktoGrDTGaWYloZl6LM
-         b6dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773298655; x=1773903455;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4JY9BJ/9d+xdQsZgGB46qGlBtAWUT1DQpKWqvJ5veII=;
-        b=vUxAFG0VtE0Lepx2gi+gqv6f3AaZSQ+qEtHQ8K4uV4mOyXbShxMQ72bikyJxMkx/j4
-         kN3nXRm2W6mzSiVwKDDb7r3FnUTmDmL13UGC92tPogbpbqXY42bwMvkj7hWU8gpPzC7/
-         gRWo69/QNgfBYkf7tOS7GXOagasa4o+ome093EpPtd0pcfqcD4zQgv3cFLYW9FnzotKc
-         cnTQ/WGnHa6xqMCN/R10SQcbpSxnQCnuxjyQxH+W8u107iLYIBgNMN2rl98KwOyQHoLI
-         uGSpt1PUbuUe59CikAep8mNFnISg1N6Ht9sA4FQgmtLmiXDxhXZZ8u3vAayrDL2GUy7u
-         nvvA==
-X-Forwarded-Encrypted: i=1; AJvYcCWi8vxpLb8gMTvBuUtksjHbA9ABncPfex/us9cjJMGuk6R75WTuXAJn42cBf0FX4XNcxViaPMBy7T4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywt9X0g+mRj1qqsLMyZJ7gSEpEpe2gqqqChFfCevXodQkgcpia9
-	KojaKFJuihMmSfL8IuaTfo+0Il196sjSDdppSmnGzN8Yq1pw1wSmix3sf41qee4qnA==
-X-Gm-Gg: ATEYQzz708B/jM6UTNM6HkmNRMJPYZDBI2QuarsLc0EjD4bntOQIYIzfqygK0QXiKWo
-	6/I+XGprIuqf9Bta8cS9SIEpitsA2/TFXI7bUZKJ32mZ3Lzq0nq888g6skcEsytWQLV9CazyrDx
-	Y4VFgSDsAcRgbm9GCEqNHD/P5ag20XJae2ysBnMbRd+0R9knHakl4nyrOR2C5xyv4N+8cALfLX/
-	WFUM5Y7urfVwokA45GGtxGRSs/G4Xxpjhl4wu4Ne4XURNjEavOf+CHylFtlNNzmhQ3Ce9ibqP2e
-	3qVAkAcuFwGa2vdAaIDTMnid5ejLJIea1YXrNhl5rlFfwc1YgHVcvLN5gqa6pyCCWqihYDN3tce
-	9tkTEeogPbXKSK8c8atpzmM2OCABkavO5xwNuPPy+v+fw4wWyWHLw+G+ek45Yd/+ftnrKd9K+gt
-	6EsgtolVBk9m2xX3I23gXdbaXHJHdgp9NQzHab7ePha9w1JdTG7i8u/ue2Ji1Mmu6ZMPm2z/2+x
-	m3LcmfiS3wnIYJZ+jffp447ZQ==
-X-Received: by 2002:a05:600c:3b16:b0:485:4535:73d with SMTP id 5b1f17b1804b1-4854b0a4920mr92305895e9.2.1773298654758;
-        Wed, 11 Mar 2026 23:57:34 -0700 (PDT)
-Message-ID: <536b659b-1eb8-4bc7-980b-35c1ad6922d0@suse.com>
-Date: Thu, 12 Mar 2026 07:57:33 +0100
+X-Inumbo-ID: 5d323081-1de4-11f1-b164-2bf370ae4941
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=JWR3I9L7KX8a3aClE88ycMtETglowguHrLZMRqWv8Io=;
+	b=rBBmv+LpmD6banh43JS0edaS84dH116/qBok6pLAmwhWmT+MsH/WPIcqF7IxzQwINsFJ6zh0d
+	mJIuJoBHbaPglNXiO3Pr3di3NekDdj/t9i9N3QwQMRBtfQLE/3NhfvwJKUgbM+kmEdJgVXGgKaE
+	7uxc8NBOtepchaLqk9hHm94=
+From: Chengwen Feng <fengchengwen@huawei.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, Catalin Marinas
+	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, "Rafael J .
+ Wysocki" <rafael@kernel.org>
+CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, Paul
+ Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Thomas Gleixner
+	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
+	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
+	"H . Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>, Boris
+ Ostrovsky <boris.ostrovsky@oracle.com>, Len Brown <lenb@kernel.org>, Sunil V
+ L <sunilvl@ventanamicro.com>, Mark Rutland <mark.rutland@arm.com>, Jonathan
+ Cameron <jonathan.cameron@huawei.com>, Kees Cook <kees@kernel.org>, Yanteng
+ Si <si.yanteng@linux.dev>, Sean Christopherson <seanjc@google.com>, Kai Huang
+	<kai.huang@intel.com>, Tom Lendacky <thomas.lendacky@amd.com>, Thomas Huth
+	<thuth@redhat.com>, Thorsten Blum <thorsten.blum@linux.dev>, Kevin Loughlin
+	<kevinloughlin@google.com>, Zheyun Shen <szy0127@sjtu.edu.cn>, Peter Zijlstra
+	<peterz@infradead.org>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Xin
+ Li <xin@zytor.com>, "Ahmed S . Darwish" <darwi@linutronix.de>, Sohil Mehta
+	<sohil.mehta@intel.com>, Ilkka Koskinen <ilkka@os.amperecomputing.com>, Robin
+ Murphy <robin.murphy@arm.com>, James Clark <james.clark@linaro.org>, Besar
+ Wicaksono <bwicaksono@nvidia.com>, Ma Ke <make24@iscas.ac.cn>, Wei Huang
+	<wei.huang2@amd.com>, Andy Gospodarek <andrew.gospodarek@broadcom.com>,
+	Somnath Kotur <somnath.kotur@broadcom.com>, <punit.agrawal@oss.qualcomm.com>,
+	<guohanjun@huawei.com>, <suzuki.poulose@arm.com>, <ryan.roberts@arm.com>,
+	<chenl311@chinatelecom.cn>, <masahiroy@kernel.org>,
+	<wangyuquan1236@phytium.com.cn>, <anshuman.khandual@arm.com>,
+	<heinrich.schuchardt@canonical.com>, <Eric.VanTassell@amd.com>,
+	<wangzhou1@hisilicon.com>, <wanghuiqiang@huawei.com>,
+	<liuyonglong@huawei.com>, <linux-pci@vger.kernel.org>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
+	<linux-riscv@lists.infradead.org>, <xen-devel@lists.xenproject.org>,
+	<linux-acpi@vger.kernel.org>, <linux-perf-users@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: [PATCH v6 0/3] Fix get cpu steer-tag fail on ARM64 platform
+Date: Thu, 12 Mar 2026 15:23:13 +0800
+Message-ID: <20260312072316.4806-1-fengchengwen@huawei.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] x86/hvm: Disable cross-vendor handling in #UD
- handler
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-References: <20260311142711.16754-1-alejandro.garciavallejo@amd.com>
- <20260311142711.16754-3-alejandro.garciavallejo@amd.com>
- <d76d6c2c-b81a-417b-9d4e-07f301e35dbc@suse.com>
- <DH05EHW9PD7C.132K81VFX47GG@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <DH05EHW9PD7C.132K81VFX47GG@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+Content-Type: text/plain
+X-Originating-IP: [10.50.163.32]
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk500009.china.huawei.com (7.202.194.94)
+X-Spamd-Result: default: False [0.31 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[huawei.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[huawei.com:s=dkim];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,suse.com:dkim,suse.com:email,suse.com:mid];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[fengchengwen@huawei.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:bhelgaas@google.com,m:catalin.marinas@arm.com,m:will@kernel.org,m:rafael@kernel.org,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:chenhuacai@kernel.org,m:kernel@xen0n.name,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:alex@ghiti.fr,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:lenb@kernel.org,m:sunilvl@ventanamicro.com,m:mark.rutland@arm.com,m:jonathan.cameron@huawei.com,m:kees@kernel.org,m:si.yanteng@linux.dev,m:seanjc@google.com,m:kai.huang@intel.com,m:thomas.lendacky@amd.com,m:thuth@redhat.com,m:thorsten.blum@linux.dev,m:kevinloughlin@google.com,m:szy0127@sjtu.edu.cn,m:peterz@infradead.org,m:pawan.kumar.gupta@linux.intel.com,m:xin@zytor.com,m:darwi@linutronix.de,m:sohil.mehta@intel.com,m:ilkka@os.amperecomputing.com,m:robin.murphy@arm.com,m:james.clark@linaro.org,m:bwicaksono@nvidia.com,m:make24@iscas.ac.cn,m:wei.huang2
+ @amd.com,m:andrew.gospodarek@broadcom.com,m:somnath.kotur@broadcom.com,m:punit.agrawal@oss.qualcomm.com,m:guohanjun@huawei.com,m:suzuki.poulose@arm.com,m:ryan.roberts@arm.com,m:chenl311@chinatelecom.cn,m:masahiroy@kernel.org,m:wangyuquan1236@phytium.com.cn,m:anshuman.khandual@arm.com,m:heinrich.schuchardt@canonical.com,m:Eric.VanTassell@amd.com,m:wangzhou1@hisilicon.com,m:wanghuiqiang@huawei.com,m:liuyonglong@huawei.com,m:linux-pci@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:loongarch@lists.linux.dev,m:linux-riscv@lists.infradead.org,m:xen-devel@lists.xenproject.org,m:linux-acpi@vger.kernel.org,m:linux-perf-users@vger.kernel.org,m:stable@vger.kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[huawei.com:dkim,huawei.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FROM_NEQ_ENVFROM(0.00)[fengchengwen@huawei.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[huawei.com:+];
+	RCPT_COUNT_GT_50(0.00)[69];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	HAS_XOIP(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: A99B226E1A9
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 2951826E4CB
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 11.03.2026 19:01, Alejandro Vallejo wrote:
-> On Wed Mar 11, 2026 at 3:59 PM CET, Jan Beulich wrote:
->> On 11.03.2026 15:27, Alejandro Vallejo wrote:
->>> Remove cross-vendor support now that VMs can no longer have a different
->>> vendor than the host.
->>>
->>> While at it, refactor the function to exit early and skip initialising
->>> the emulation context when FEP is not enabled.
->>>
->>> No functional change intended.
->>>
->>> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
->>> ---
->>> v4:
->>>   * Reverted refactor of the `walk` variable assignment
->>
->> "Revert" as in "move it even farther away from the original".
-> 
-> Revert as in not split the assignment and restore the orignal syntax _of the
-> assignment_, which was the main focus of the prior discussion.
-> 
-> It's hardly my intention to add unrequested changes, but I can't address that
-> which isn't explicitly requested.
-> 
->> As said, you want re-indentation,
-> 
-> This is an ambiguous piece of advice.
-> 
-> Of what? That can mean moving the prior logic back to its original location and
-> crate a minimal diff (1) or simply collapsing the indentation of the block (2).
-> 
-> (1) can't be done with hvm context initialiser moving after the early exit,
-> which I explicitly mentioned in the commit message I wanted to do.
-> 
-> (2) can't happen because declarations and statements cannot be mixed (though I
-> really wish we dropped that rule).
-> 
-> There's a third option of keeping a silly { ... } around just for indentation
-> purposes, but that's worse than either of the other 2 options.
-> 
-> Maybe there's a fourth code arrangement in your head that does all this in a
-> way you find less intrusive and I just don't see it. If so, feel free to send
-> a patch I can review. It'll be faster for the both of us. Or tell me precisely
-> what's at fault here.
-> 
-> If it's the diff, I'll go for option (1) above. I don't care enough about it to
-> argue.
-> 
->> so please do just that, nothing else that isn't
->> explicitly justified (like the moving of hvm_emulate_init_once() is).
-> 
-> I'm not sure if you're fine with that motion because it's in the commit message
-> or not because it's a refactor that shouldn't be in the patch. This statement
-> can be read either way.
+This patchset fixes the failure of CPU steer tag retrieval on ARM64
+platforms. The series is structured as follows:
 
-You justify that movement in the description, and I agree with that justification.
+1. First commit: Mechanical rename of the ACPI Processor UID retrieval
+   interface (no functional changes) to align naming conventions across
+   architectures;
+2. Second commit: Implement acpi_get_cpu_uid() for the x86 platform to
+   complete the unified ACPI Processor UID interface across all
+   ACPI-enabled architectures;
+3. Third commit: Implement the core fix for the CPU steer tag retrieval
+   logic on ARM64 (the root cause of the retrieval failure).
 
->> With
->> this put back in its original shape (can do while committing, I suppose):
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> I don't think it's very obvious what you mean to do on commit, so it wouldn't be
-> appropriate to agree to your adjustments, seeing how I just don't know what they
-> are. I'm happy to send a v4.5 on this particular patch with whatever else needs
-> modifying. Or a full v5 even. Or review whatever you wish to send as a v4.5 of
-> this patch.
+The renaming and x86 implementation lay the groundwork for the unified
+ACPI interface required by the ARM64 steer tag fix, ensuring consistent
+CPU UID retrieval across architectures before addressing the functional
+bug.
 
-The variable had an initializer, and mere re-indentation wants to keep it so.
-(There's no question that declarations may need to move, for the result to still
-compile.)
+---
+Changes in v6:
+- Rename existing get_acpi_id_for_cpu() to acpi_get_cpu_uid()
+- Split x86's modify as one commit
 
-Jan
+Changes in v5:
+- Refine commit-log of commit 2/2
+- Replace cpu_acpi_id() by acpi_get_cpu_acpi_id() on x86
+
+Changes in v4:
+- Split the rename into a separate commit.
+
+Changes in v3:
+- Rename existing get_acpi_id_for_cpu() to acpi_get_cpu_acpi_id() other
+  than add one new API.
+
+Changes in v2:
+- Add ECN _DSM reference doc name and its URL.
+- Separate implement acpi_get_cpu_acpi_id() in each arch which supports
+  ACPI.
+- Refine commit-log.
+
+Chengwen Feng (2):
+  ACPI: Rename get_acpi_id_for_cpu() to acpi_get_cpu_acpi_id() on
+    non-x86
+  PCI/TPH: Fix get cpu steer-tag fail on ARM64 platform
+
+Chengwen Feng (3):
+  ACPI: Rename get_acpi_id_for_cpu() to acpi_get_cpu_uid() on non-x86
+  x86: Implement acpi_get_cpu_uid()
+  PCI/TPH: Fix get cpu steer-tag fail on ARM64 platform
+
+ Documentation/PCI/tph.rst          |  4 +--
+ arch/arm64/include/asm/acpi.h      | 16 +---------
+ arch/arm64/kernel/acpi.c           | 16 ++++++++++
+ arch/arm64/kernel/acpi_numa.c      | 15 ++++++++++
+ arch/loongarch/include/asm/acpi.h  |  5 ----
+ arch/loongarch/kernel/acpi.c       |  9 ++++++
+ arch/riscv/include/asm/acpi.h      |  4 ---
+ arch/riscv/kernel/acpi.c           | 16 ++++++++++
+ arch/riscv/kernel/acpi_numa.c      |  8 +++--
+ arch/x86/include/asm/cpu.h         |  1 -
+ arch/x86/include/asm/smp.h         |  1 -
+ arch/x86/kernel/cpu/common.c       | 15 ++++++++++
+ arch/x86/xen/enlighten_hvm.c       |  5 ++--
+ drivers/acpi/pptt.c                | 47 +++++++++++++++++++++---------
+ drivers/acpi/riscv/rhct.c          |  7 ++++-
+ drivers/pci/tph.c                  | 16 ++++++----
+ drivers/perf/arm_cspmu/arm_cspmu.c |  6 ++--
+ include/linux/acpi.h               | 11 +++++++
+ include/linux/pci-tph.h            |  4 +--
+ 19 files changed, 151 insertions(+), 55 deletions(-)
+
+-- 
+2.17.1
+
 
