@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MDxYJ+yJsml4NQAAu9opvQ
+	id kJBCGuyJsml4NQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 10:39:56 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CB2626FB9D
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 10:39:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1251873.1548746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3B7726FB9B
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 10:39:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1251871.1548732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0cW4-0003aY-6v; Thu, 12 Mar 2026 09:39:40 +0000
+	id 1w0cW2-0003He-DZ; Thu, 12 Mar 2026 09:39:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1251873.1548746; Thu, 12 Mar 2026 09:39:40 +0000
+Received: by outflank-mailman (output) from mailman id 1251871.1548732; Thu, 12 Mar 2026 09:39:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0cW3-0003Wl-Vx; Thu, 12 Mar 2026 09:39:39 +0000
-Received: by outflank-mailman (input) for mailman id 1251873;
- Thu, 12 Mar 2026 09:39:38 +0000
+	id 1w0cW2-0003FM-9d; Thu, 12 Mar 2026 09:39:38 +0000
+Received: by outflank-mailman (input) for mailman id 1251871;
+ Thu, 12 Mar 2026 09:39:36 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=gOdu=BM=epam.com=Mykyta_Poturai@srs-se1.protection.inumbo.net>)
- id 1w0cW2-0002bV-Mr
- for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 09:39:38 +0000
+ id 1w0cW0-0002bV-ME
+ for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 09:39:36 +0000
 Received: from PA4PR04CU001.outbound.protection.outlook.com
  (mail-francecentralazlp170130007.outbound.protection.outlook.com
  [2a01:111:f403:c20a::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61c3fa2c-1df7-11f1-b164-2bf370ae4941;
- Thu, 12 Mar 2026 10:39:36 +0100 (CET)
+ id 6108d8fb-1df7-11f1-b164-2bf370ae4941;
+ Thu, 12 Mar 2026 10:39:34 +0100 (CET)
 Received: from AS2PR03MB10110.eurprd03.prod.outlook.com
  (2603:10a6:20b:57a::22) by VI0PR03MB11417.eurprd03.prod.outlook.com
  (2603:10a6:800:33f::13) with Microsoft SMTP Server (version=TLS1_2,
@@ -52,34 +52,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61c3fa2c-1df7-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 6108d8fb-1df7-11f1-b164-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lUh8+l8fAijN2tjwRMz8Ls5WZgIH0FYnN5h8Amy8zU0kaiawgXqNeD6hVrHCn+BnEqv/k8TTPu0qUJkLdZBKZyfGFW+kBZd5lh1G9punrVBk3CuAbQme7o40keiKBC5SfL17/S5z+PQc6T3mZu54garp/BGzzqLlukLNNNz2mYTPKSvqJS0mLrIPHIc25twrvxAWv02f14y8WsPTQofekBs0VUuGYK8ELV3kNlcHN0wpJiK4Mqe00PSDtTGGQ5NEdZAYYWkxZj70r4B71MoTNkP1zpHX0u8KfVuLBBattLHow1E8ZSLgM+JJMxDxGxJK+2OuYVax/Ep1LRqefAEDDg==
+ b=UbO9QMvNEXNJbjC5zad+7U4SMLE9fXhIhaxFLr6BlLhT6/wp8YoSIc3H0I8J8HWukrrwGFgg4ehllq8kjBkBg+NdGO7S+h3G/vaboiuVlyB+6HRaRQJaH85044ZHsLHQW5lzW+KtOwgqPTEhbsbJIa7W890VT0PpJW2tYXsQsUvoNAmfmOGWhj9v11g+OAb5wnuz52bTlPCcCl6SA5+IvKXpT8PipCSgCt97DVhILG7/ZlInA7jmkChR/HgI/gVkENxauUDiDYbuXQYf4EutkpKHjQyGxiJGYtRtRy6n7d/OLOmInI6cwkOyb8/FGS7whsHBXHtTlklVetDPVCkBEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nZy/cC7uH53ZqgH6AZbNe+UaJ7u0hXrJKUMyqSL4zZk=;
- b=i5DOcIAh42Em1RkW9sVfZt+GOfRSvQrPU0s/tzLVRG7wlPT5vjkS6oQcFNq8UN++WRIO5LayIAf+xJSCvbmuUcSOUWTENxOe+HveUiqiryowCwVA8zN8d9++01hrImIJOB7iWL1vHmoSkwzffZIYkTowcY2GoeEsSx3v36GXwMrVm3HLGarlij8VRdZJ5BTediOc9U5zYK2A31ZPUKsAkr3bwKd8dksvuNRbRL9O5VKgrm1tXgJh8RavDxMXpwRHGm2QVkCtV8e9OMvXZKbBU+ycJeDRU16mMveBNDLVb3M8r4hydUvskxOea0t54Ce782+rxxn4e6ra337JdG7iGg==
+ bh=yuWtjPWNU9VyXa2UEJJGgI+NAzHMcQ+u6cR6OJhOvo4=;
+ b=sVTmUMAVBwnKvuqyCMsed4Z+WMQKa1Qw7Ln/ew4NxhG+Ny1Zdx38Ms8AAptQI04FAcTZBHrhfK6skHIcig7lNW5UlQUpjxnokIwP/WPaiV2vcw+C/OuYbxn2oUKGk0Yumy2l9b2IzmwtzDGLOo3zxpNpIIwgk8V22lfmmSDAyrQqhjRyBi1XIzbr89adM3YR9PVfrwKvuXud5LWizeMwVV/2TFlMEdudavB50VIUOHbdA8w441/bEvx9uTj7gNrVRguNqVqW4ufrg4iEY1hmhF0ENkeCxCEAHvklcM4DHUgnSVPJ2pWPV+ueC8+s8Bg6htkfA+58TkCs9o2ISI/2MA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nZy/cC7uH53ZqgH6AZbNe+UaJ7u0hXrJKUMyqSL4zZk=;
- b=ooagV3cAaTaM6hBwkWIKXXpbyL7w6IzQvDFHw+taULEGJbX3T5hdqnR2tCOJAND9Z/5ttaiNaqwUrhIBc1qBj3fmb9VYDiluHe5kr/OzPMK5oJz2uAvfM2WVNFCvwPjFVscQVPFUpGAtbr+GQbePkqwFLZLHL9C4V+JsMDhS4jEo+QDwo4oidmUiRNlgGkgvj4u4eAQehc2E1eyU/otugMMZeOvLJNL45jNDSLR4xd3t3Xez5huDbASi+Frv6OFb4KIduAtCgIC+11UaHkQVaSLTL+v4pcSwby+ONyYpX01elR4BNn/8Fp8l96mgUWRtKA19oEy6cz0Q72agcNCYfw==
+ bh=yuWtjPWNU9VyXa2UEJJGgI+NAzHMcQ+u6cR6OJhOvo4=;
+ b=N3p1Ci6SYsi+Wq1YIzaR1PbjbJKNNL8uSBFkmvgKslpLtHtub6D1kqCEydb5L6ooyi+UhnJKri7LkTUWDlFaJCoHnj6O+8R1C2OP+e5omeV5MgFAzHADdkqR4PIY43R1/apyHtTSLVJEccMUGe/CFocgX7zLUXdcA/673DpUYxr6MBxjiZ/WoMaNQcpvJyuOr+6zdCTzsxiBMZYLNuRkwOoXyReCK/e9+z96eZBlXwv/D7GGVGge71k39UyTypKLbmrjLDSK4VoOE+qUB577VYjcF+7Ce4rtJfcyWpFXxbzcoBbi5KD/b4RZCC2t0S1mAVgU/UHrvtTZIP5leaz4gA==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v6 5/5] docs: Document CPU hotplug
-Thread-Topic: [PATCH v6 5/5] docs: Document CPU hotplug
-Thread-Index: AQHcsgQgNCk5TPCZikiOg71JPbDw/A==
+CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
+Subject: [PATCH v6 4/5] tools: Allow building xen-hptool without
+ CONFIG_MIGRATE
+Thread-Topic: [PATCH v6 4/5] tools: Allow building xen-hptool without
+ CONFIG_MIGRATE
+Thread-Index: AQHcsgQg0i4vH7ZL6U6laBW0/JcXiQ==
 Date: Thu, 12 Mar 2026 09:39:31 +0000
 Message-ID:
- <4857e0c10c59f283e4a3686bf9188a1809a9fd55.1773307749.git.mykyta_poturai@epam.com>
+ <7447a69b84ca9d737b04efca326f2bb884065f17.1773307749.git.mykyta_poturai@epam.com>
 References: <cover.1773307749.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1773307749.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -90,191 +89,160 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: AS2PR03MB10110:EE_|VI0PR03MB11417:EE_
-x-ms-office365-filtering-correlation-id: 2ce65a7d-1d19-4600-544e-08de801b436e
+x-ms-office365-filtering-correlation-id: 51a24de6-53bd-40a2-ae0f-08de801b4325
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
  BCL:0;ARA:13230040|1800799024|366016|376014|38070700021|18002099003|22082099003|56012099003;
 x-microsoft-antispam-message-info:
- /pw5MgR+Vim76jdh13fsrhqE4JYx4GqKkEgsIzRv4sQ2xVgHNzREX8/wRgFsouWAlG1pC4+vF9UcPHedthDbFj4g7EYcGQbzb3iEbOI3gxnm/EUof+FFEvpj5Y2HBJQyzPLJcqlXGiaLBc0OHSrUEMXf4uupSILYKyCouxXRTa7QT+FOUT+mKf56+79sLLQlL8Nqm1Ul30k0/jfJh7iGWhydoIDb/OSwyOboTr4vKl/kVeXayWmvYhsjHTNy50t3qOCYw26PASHSGGR4zlNRyBGQdsnYga0Xg30XhVe7u9mFi0asIsfS3cCpC7bZGKCIgqEjVmSe+bCA+sY4gsPemvKfhzSUP8sDOaFb3R761eFm4enbY94lHPY2V5XTR6m6o+6J3RYLKDfKRbjLq42owZFMXuL0b0p3JD3vWLwgTZ3JZ4OiuYFteR10CsChzENa6KA/BG6VY30mXHG4eH0oRNt+zv1lja3RdMs6A+cvVsqopTngi+P07R0VeeoW9S23q2HN1uMKWQGFeuAKT4zuOHDS5zh8wVjUA0Cm814jVIUCX+Ooz0RL8o7OiXYcmcav3GVxiMr7soLGHb7sHHaWZYkTERbEhnhafEnJdfMeLwl5/jCgv5K7hE2X91c6J1gxaghzu8MpHuWMztxaoigRzopelsTqGinnJMJ/Y45X4CGEGWPirde8lPq+291zMDH7c1Ql9XU9TG+EtQaDSTBSkUUQvuFWy9McOjeyQ+OfjKB6MqA3A5huHm/h5ALbgVP+g4ptmjgxyvVk77xPssd/4pw5MB/cSJO9On6+5uNmBTM=
+ v6h0aMpisgspyyncuiiN8bFUE+hbKmFm0H1QqFs0qnIL0t7xO9VsTu7GwmFlUbN2FNd233SkyrE2doPRvJJtIYn9skk4XGdIZhc3cErWlsZZNmT/MHiE8sF0zO+XwG9S7plE8qVSME93if1Zhlqhzzecu689gEgNF/MHZf7ZE55zmHhJqG4eJpg2rlsdi6buEjyXYW9TUAwtRGRIPUv2uNV1rpKCnXL4tjHALv+Ytj3OIWDVEa6L7/W22XDOP79iijg66a3/uqFzZBJenUWLuQLBxD0gb3f9yCuruoqjuA4qoVuHQpVIG8s0kJyMf6f3JATmYuHPKRruHM1X4ssHiJ4DOIiHV3NnOxkbj6Rm/bvXNHPRqQtkNM4GBGsIuw5NhKOXkI0fNm99WzZ7f3l2VyGHMTYFTry85TXwA61/qmOpaHVxr6cCbvhL1J3IsGspkar1zPc2Jgy/Xr4mdNNuVUi3WO/qV6FU0mWltSnkziyROZvgyvz7aOL0Ta2bVBIowwV7MdPHxDV1YVlaMBdHZgUXsZQF3L+yjw069mPgz7UnFH4OiXnBi/yX0e1V4RawROrgxyQDW1o43JAOkxBqJ8GXVO6PPKrNhKPHCu5UZTZj1KVnU0+BnA1N1MThz99XZWWenUBZQrElteLixDBgOFArPNVAa3n13gBzrMX2ewtXeDsniSIBMCV7NR7iZsM4DaSIH+R/CTgpWSnyMd96lHQY4LBMXALLPisO7ldJbo+AWvoGw0KfxrOCD6EUZUU9g0k+7jlynLxyOjCdnpC6zjIxfdwt2zKJjR37OwUmLvU=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB10110.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?Hz2A4oz6cnaHyT+0bWCfwgKISZKX/wZciT3GmEhzXYyiy1IVyWG4DmYUX0?=
- =?iso-8859-1?Q?MjFTyBK+e3GsYUU2NFrSuV9oOkr//WL/+gw29Isj+WJVVeCbSuAl1LwrXF?=
- =?iso-8859-1?Q?manyZuak5Fnx/X4LBeVCtB7cP+WoIdQCo6lnFgIvOhD8EIrcPytQrB0NOH?=
- =?iso-8859-1?Q?nA+fq02DdWs9MHK5Z1BYXsxx0LqJkhhuyI2xLunYgLgJBnKEqptBvLfieU?=
- =?iso-8859-1?Q?gOjf999+zPCbgrJbiPoFMUISJkMZN0QIAvJ2jWY8PoqKkEPm/XduAl2OoB?=
- =?iso-8859-1?Q?FAx25TvHeiqkPC5WTjVcASTXlM+NJEnI2ZcZ2v2YcR9+mIPs0rk9PqdFq6?=
- =?iso-8859-1?Q?OAQ2XwKUBGE3v1/JqpN9QWhVC060HrmRL2P6GTETTPNTqk+uiUqxc7Eu70?=
- =?iso-8859-1?Q?6JGVdLBrBf9Zu5iwL+LDwWCzk1NR4xk6qb9HzXL1uMNmf/2TmZFJIeulVt?=
- =?iso-8859-1?Q?LhHnPIvs6fkAZ2oVXqcGpDikm3SGTicLX/8tGJW4dMblVJF9t8ojeQaWWO?=
- =?iso-8859-1?Q?jKSyWzgVdsDrjOHsvbIxHXgekU/iw7HXilaVE+DE/yt1zkleC9G5qaI+EP?=
- =?iso-8859-1?Q?Wxxfn3nk+OZEWUZFN6GFm0wC2vYXm2mcyTfJWbb5kkhzDKRzG9cJU/f6Iw?=
- =?iso-8859-1?Q?931XfgpnxV74+KcZT9+8YmmLEqHeMKhvhTt1jiCQxmq8TXpaE2WgP84TpT?=
- =?iso-8859-1?Q?JPdS+205/IL8Sznw2ninJ3Bq/DKya540L4ykf30z33gzuSRry9TBIhl1sV?=
- =?iso-8859-1?Q?AHOGHyZtl65AyWO1gwp1unpuIg4vt/HhXNPAjRTxJZ0pvp9zHUwwJ0ESfq?=
- =?iso-8859-1?Q?82Xmj1xxfjs1QZ7j1vj0VOvNHS8s8m850SxzENkKqq6cld4Ruw9pbTlye1?=
- =?iso-8859-1?Q?mgluidoXea9IAIWeh9kaaosCquowr5TJFQAiCDxeFrFzLeb/m4ugMUSxor?=
- =?iso-8859-1?Q?6qUVl4X4ah6xzdnkuOD/n5LRGNQ/JhpX+bTNfnS1hXFegIqCjn0c2cXggc?=
- =?iso-8859-1?Q?YIURmNRl+5WFGZTvYakC46jGURF11KuvXyhJfO7za2HvKd0wVL58TMXTOI?=
- =?iso-8859-1?Q?3qxZtfUAGycovB3a3xVMflcpGlbqc6rDksXy6tvQCVQNcSY0uxDcSDWRFV?=
- =?iso-8859-1?Q?O1/hz4XZqph2tQnNXfyC4ScmBilqgJxf7Vmh78eNDqbIxL5QiwHZTTsNyn?=
- =?iso-8859-1?Q?yyz+TPd+dB+htpxZkLan99z85WT7mFZXR8jAZruO0KoP6LUvzOZziA1eB/?=
- =?iso-8859-1?Q?Hb5ond9Yz9NjUmT3TOg/X5O7shq5mn3g7DNKr024ZXgPfrc2avkJICp0MB?=
- =?iso-8859-1?Q?J9w6dvQGWss392iyPyZ6e31Tq5oyqmdPF5HzsWpaSaR+XA8uFpPnMEy/u0?=
- =?iso-8859-1?Q?OMGX/UNMBurh1DINkEA9ordPxFMzjRnrkTF/k2HEzGZutrz0bruQLzMLr9?=
- =?iso-8859-1?Q?fnTJjaffeRNXNwdUkqSf3gQbnbk+zbO9zZJTFlxUAByCPUVcKr8MRBWtpH?=
- =?iso-8859-1?Q?pZI4uhv+IhEbNz8MHTvETUmTXa+QGI67rIf7ddE68xeujFJ493oJ9hvjfd?=
- =?iso-8859-1?Q?3scQXElL3h1iL4Vpm4IDwh4CsAIPpkfm+hdp43Ata1YsINQ4WJSw3OGW5C?=
- =?iso-8859-1?Q?Lo2YuohBwl6mE31IzikdkAEXCxSGzTd9YfUvAC5rBHNDYk4Ox/PBILx/2L?=
- =?iso-8859-1?Q?sSCS3uHA6lcGR9MVDZxDAwtRFZ6joeZ2cUxhb0D0836Hz7SZI/uKctCc+W?=
- =?iso-8859-1?Q?IajxcTF6OOsD/rGcnw5YErVSN1OZxYqK5/LGkB9fJr0JFitk52S/QfyR7C?=
- =?iso-8859-1?Q?3NeX19VyCvz0uKs+XuJHAPQQAHlGYH0=3D?=
+ =?iso-8859-1?Q?A/Zh90b8syS4YlfjqxfFtYp1gBV9F23r6DnkixHCTILPJp8Ys9hda1zmaY?=
+ =?iso-8859-1?Q?SHpjPsVDYsVVbCsrH8MnmpFx5oa4bqd5gmd0NigGXY7OYBJE0mEKG4VQJG?=
+ =?iso-8859-1?Q?AYaHTrJbvEMIBsm8QmHnKz9QGxkjIZHtDz/+vALft7USnqsX9eUdrm5syH?=
+ =?iso-8859-1?Q?DJiKCPjmlg33OKO10w9rLVqwQ94g3XxPTfAMp88RcpbpE8F1+j+2mIP1aH?=
+ =?iso-8859-1?Q?u6QYwK/2Fv+FjkDiwW3axg1z58arhcK3iVmET+si02U8vil9hQf1+ZkiPY?=
+ =?iso-8859-1?Q?jkhShIhD0TFy1iQeTFBtUi/UefVg3rKRp/RtbdcB4QCwaqLlrxH5S/aKvF?=
+ =?iso-8859-1?Q?nOQ3aDTCzlO3w+mcCKpHnpdWL+be6C7VJxOFq6EIk1U41d6Kz8MFBu/zBm?=
+ =?iso-8859-1?Q?5ExPboaY2G5nQqtLpgadii+7Y5ZgsJ8KVFx515Kyfv2jwIFE22cpKs7HSt?=
+ =?iso-8859-1?Q?Xk7n7hx7qwn1k7mKe4v9Gfi0F23DiD2PBc8jD5srJSMIJMY7MQ2m/s3TCH?=
+ =?iso-8859-1?Q?98u7UB+aFOt/gwJg/eyMuL+LrX4FrguTDeo50QUpCjTp0q4fCkUyyExqbm?=
+ =?iso-8859-1?Q?+v4hzMN5dSTCP6bQXY04UOqaJSFAVMasCD/gGKxCRadkffQgvsJRQ21KRm?=
+ =?iso-8859-1?Q?hamTNlnkT1dKpO28OQ3jq+JiMRsL4F9wYksDAmChrBS9TYCaKj1tbNoR5U?=
+ =?iso-8859-1?Q?ipmMsw7BB4Paejb4gPAiCf11WAikhHM5ooUpviMDUKaQVRghumXVfbSBXr?=
+ =?iso-8859-1?Q?lv7Vud3mzSxOSaEtpglEaOd+gbBAKK/uL3/LARXmCq0RstBbu+l4odzG1A?=
+ =?iso-8859-1?Q?pNOS+kOBdj+PYSslTG9IkDOhbtCuYd1iKCT/SlPR8WFGQRKucZdX0Prvjt?=
+ =?iso-8859-1?Q?yio2QqIv/yDMNn3PNAwma4TQz58rXR3dExwcTemKr8lu+SMJYgjleci1m6?=
+ =?iso-8859-1?Q?dVe+WpKGPhL2FxKZywEOcBniFWqTsaMCirRMo0al4Vz6Px8+W1oMgHOdb0?=
+ =?iso-8859-1?Q?gdt1aV2oY9VHxKYk4CyS3CCLHOvrXhFnnAp7NIC93dOZKgrR5KymKLzQ0L?=
+ =?iso-8859-1?Q?4nUVw7ze7MHv1u05xzV+1UC9JkmPe50rB+Gw07rdzJ0sfjzVD+AzUgrOmQ?=
+ =?iso-8859-1?Q?y3LpRsyMWFEtY9+4y10zfzztafkQ+Bp4Q8H7MtuP8aElJV+YbKJmRws4vO?=
+ =?iso-8859-1?Q?zDecNkectBD8dzUrwD7aSONBlcMHDl0JtkDLuPmvAv4/REMIiKkBf/SmaA?=
+ =?iso-8859-1?Q?1r/XH+I9EpHOIlfhG9uQzTX8GyolEbPlPICcGV+kb+0fcy+hgXRZgG6evv?=
+ =?iso-8859-1?Q?NULIugStipSM196hjVn+PsueHB2Aby0/F9GOP6c23/279D/oTJM3Xj1DOJ?=
+ =?iso-8859-1?Q?vYL6CGy6RvP7eL02o01s01XyGhS1uZldFT8gIhsQUZq6d1FxlYQX3/brYj?=
+ =?iso-8859-1?Q?SVAkDwW4u3eCiNu3nM9IL6HkknIDl9vhsQYYBnOOPSg2rXUUzxL+qyDWOv?=
+ =?iso-8859-1?Q?YBkZsL3h+u0zZh4JnvEb6wXCp2SIbsP5NRSDckcTBqqWyvsms3hEyreGcc?=
+ =?iso-8859-1?Q?cztCB1vxJcFV/Du9NhZ5T72Gt7A1IoBhljaBA2X9loVCgLt18KJgcwtJsF?=
+ =?iso-8859-1?Q?9lrC9GyekPhDKZthP9FwXkk+gKnemVdizBkE+Kexdx2uQ2tJkajUHB2bQ4?=
+ =?iso-8859-1?Q?0QmK7pqbznRfz24q6ZQiTivFQQSAaWJC/QLUANxBT8+jmbWTv90oM0HyDN?=
+ =?iso-8859-1?Q?pBHzEcBMa0QrzwTynGF3MCnHzBulDbzLWnPSJqEqUUkZ4NLhi/ecKgmonF?=
+ =?iso-8859-1?Q?FxJnE18ERjsR1YxJJrtzGVrOYZbj5hw=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB10110.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ce65a7d-1d19-4600-544e-08de801b436e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Mar 2026 09:39:31.6558
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51a24de6-53bd-40a2-ae0f-08de801b4325
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Mar 2026 09:39:31.1478
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: u0I7QAJZ4S8sn/DVT3ofeYVTULjWtutwsHZtI7/p1aJzGVlS+L916ZLAXRj9S3Az8vEK4NpxjK4J+ZZJ+97gvg==
+X-MS-Exchange-CrossTenant-userprincipalname: kX5h9faaVDjX2+TkxQVP4pcsYBY+ndefZy3PgP/cO6owhuoBv2CGuPDjZmo11+qiLGyKYkK4Iu2wxvNtRNxu7Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR03MB11417
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	MID_CONTAINS_FROM(1.00)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:anthony.perard@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	FROM_NEQ_ENVFROM(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[epam.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 1CB2626FB9D
+X-Rspamd-Queue-Id: C3B7726FB9B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
+
+With CPU hotplug sysctls implemented on Arm it becomes useful to have a
+tool for calling them.
+
+According to the commit history it seems that putting hptool under
+config MIGRATE was a measure to fix IA64 build. As IA64 is no longer
+supported it can now be brought back. So build it unconditionally.
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 ---
 
 v5->v6:
-* no changes
+* don't change order in Makefile
 
 v4->v5:
-* s/supported/implemented/
-* update SUPPORT.md
+* make hptool always build
 
 v3->v4:
-* update configuration section
+* no changes
 
 v2->v3:
-* patch introduced
----
- SUPPORT.md                |  1 +
- docs/misc/cpu-hotplug.txt | 50 +++++++++++++++++++++++++++++++++++++++
- 2 files changed, 51 insertions(+)
- create mode 100644 docs/misc/cpu-hotplug.txt
+* no changes
 
-diff --git a/SUPPORT.md b/SUPPORT.md
-index d441bccf37..7b93ae69e7 100644
---- a/SUPPORT.md
-+++ b/SUPPORT.md
-@@ -52,6 +52,7 @@ For the Cortex A77 r0p0 - r1p0, see Errata 1508412.
- ### ACPI CPU Hotplug
+v1->v2:
+* switch to configure from legacy config
+---
+ tools/libs/guest/Makefile.common | 2 +-
+ tools/misc/Makefile              | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tools/libs/guest/Makefile.common b/tools/libs/guest/Makefile.c=
+ommon
+index b928a4a246..03dfcee7fa 100644
+--- a/tools/libs/guest/Makefile.common
++++ b/tools/libs/guest/Makefile.common
+@@ -7,6 +7,7 @@ OBJS-y +=3D xg_private.o
+ OBJS-y +=3D xg_domain.o
+ OBJS-y +=3D xg_suspend.o
+ OBJS-y +=3D xg_resume.o
++OBJS-y +=3D xg_offline_page.o
+ ifeq ($(CONFIG_MIGRATE),y)
+ OBJS-y +=3D xg_sr_common.o
+ OBJS-$(CONFIG_X86) +=3D xg_sr_common_x86.o
+@@ -17,7 +18,6 @@ OBJS-$(CONFIG_X86) +=3D xg_sr_save_x86_pv.o
+ OBJS-$(CONFIG_X86) +=3D xg_sr_save_x86_hvm.o
+ OBJS-y +=3D xg_sr_restore.o
+ OBJS-y +=3D xg_sr_save.o
+-OBJS-y +=3D xg_offline_page.o
+ else
+ OBJS-y +=3D xg_nomigrate.o
+ endif
+diff --git a/tools/misc/Makefile b/tools/misc/Makefile
+index 6ee783f43e..5a206133f7 100644
+--- a/tools/misc/Makefile
++++ b/tools/misc/Makefile
+@@ -16,7 +16,7 @@ INSTALL_BIN                    +=3D xencov_split
+ INSTALL_BIN +=3D $(INSTALL_BIN-y)
 =20
-     Status, x86: Experimental
-+    Status, Arm64: Experimental
-=20
- ### Physical Memory
-=20
-diff --git a/docs/misc/cpu-hotplug.txt b/docs/misc/cpu-hotplug.txt
-new file mode 100644
-index 0000000000..45f20c2002
---- /dev/null
-+++ b/docs/misc/cpu-hotplug.txt
-@@ -0,0 +1,50 @@
-+CPU Hotplug
-+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+
-+CPU hotplug is a feature that allows pCPU cores to be added to or removed =
-from a
-+running system without requiring a reboot. It is implemented on x86 and Ar=
-m64
-+architectures.
-+
-+Implementation Details
-+----------------------
-+
-+CPU hotplug is implemented through the `XEN_SYSCTL_CPU_HOTPLUG_*` sysctl c=
-alls.
-+The specific calls are:
-+
-+- `XEN_SYSCTL_CPU_HOTPLUG_ONLINE`: Brings a pCPU online
-+- `XEN_SYSCTL_CPU_HOTPLUG_OFFLINE`: Takes a pCPU offline
-+- `XEN_SYSCTL_CPU_HOTPLUG_SMT_ENABLE`: Enables SMT threads (x86 only)
-+- `XEN_SYSCTL_CPU_HOTPLUG_SMT_DISABLE`: Disables SMT threads (x86 only)
-+
-+All cores can be disabled, assuming hardware support, except for the boot =
-core.
-+Sysctl calls are routed to the boot core before doing any actual up/down
-+operations on other cores.
-+
-+Configuration
-+-------------
-+
-+The presence of the feature is controlled by CONFIG_CPU_HOTPLUG option. It=
- is
-+enabled by default on x86 architecture. On Arm64, the option is enabled by
-+default when ITS, FFA, and TEE configs are disabled.
-+xen-hptool userspace tool is built unconditionally.
-+
-+Usage
-+-----
-+
-+Disable core:
-+
-+$ xen-hptool cpu-offline 2
-+Prepare to offline CPU 2
-+(XEN) Removing cpu 2 from runqueue 0
-+CPU 2 offlined successfully
-+
-+Enable core:
-+
-+$ xen-hptool cpu-online 2
-+Prepare to online CPU 2
-+(XEN) Bringing up CPU2
-+(XEN) GICv3: CPU2: Found redistributor in region 0 @00000a004005c000
-+(XEN) CPU2: Guest atomics will try 1 times before pausing the domain
-+(XEN) CPU 2 booted.
-+(XEN) Adding cpu 2 to runqueue 0
-+CPU 2 onlined successfully
+ # Everything to be installed in regular sbin/
+-INSTALL_SBIN-$(CONFIG_MIGRATE) +=3D xen-hptool
++INSTALL_SBIN                   +=3D xen-hptool
+ INSTALL_SBIN-$(CONFIG_X86)     +=3D xen-hvmcrash
+ INSTALL_SBIN-$(CONFIG_X86)     +=3D xen-hvmctx
+ INSTALL_SBIN-$(CONFIG_X86)     +=3D xen-lowmemd
 --=20
 2.51.2
 
