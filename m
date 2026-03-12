@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eI/3N3/wsmlBRAAAu9opvQ
+	id OFMYG6DwsmlBRAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:57:35 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:58:08 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5470427623E
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:57:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1252785.1549346 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC2282762B5
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:58:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1252793.1549355 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0jLi-0001hl-7h; Thu, 12 Mar 2026 16:57:26 +0000
+	id 1w0jMG-0002FA-H0; Thu, 12 Mar 2026 16:58:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1252785.1549346; Thu, 12 Mar 2026 16:57:26 +0000
+Received: by outflank-mailman (output) from mailman id 1252793.1549355; Thu, 12 Mar 2026 16:58:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0jLi-0001fd-4u; Thu, 12 Mar 2026 16:57:26 +0000
-Received: by outflank-mailman (input) for mailman id 1252785;
- Thu, 12 Mar 2026 16:57:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w0jMG-0002CG-Bo; Thu, 12 Mar 2026 16:58:00 +0000
+Received: by outflank-mailman (input) for mailman id 1252793;
+ Thu, 12 Mar 2026 16:57:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jTts=BM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w0jLg-0001fS-0j
- for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 16:57:24 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8921ff55-1e34-11f1-9ccf-f158ae23cfc8;
- Thu, 12 Mar 2026 17:57:21 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- 5b1f17b1804b1-4852b81c73aso10860795e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 12 Mar 2026 09:57:21 -0700 (PDT)
+ id 1w0jME-0001v3-AX
+ for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 16:57:58 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9e78f7eb-1e34-11f1-b164-2bf370ae4941;
+ Thu, 12 Mar 2026 17:57:57 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4853e1ce427so14010975e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Mar 2026 09:57:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48541ab9f9esm251451895e9.4.2026.03.12.09.57.19
+ 5b1f17b1804b1-4854e2537c3sm131081495e9.15.2026.03.12.09.57.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Mar 2026 09:57:19 -0700 (PDT)
+ Thu, 12 Mar 2026 09:57:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,51 +50,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8921ff55-1e34-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 9e78f7eb-1e34-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773334641; x=1773939441; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773334677; x=1773939477; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=W72JevWeU/QiLig4xhCD0an3/J6aVnjef/9hQUIbYAo=;
-        b=XLkxS1d44mJSLviwzmOXRgoPggmonBVEb+WZ781Gg9CNNbGickzQuc2ghHZYYRNpJ+
-         HD+Qw6xrXrhEOcvN1mYWne7HT8BkW7OXAq0O9sj3YuINWYzePGVRJ+cIrzQ/QLTwgOu2
-         GKm93RPvx9PwBlUsZTyBSTxBNk0qdkbSOmNaAlfA+r1+Tte/jbHqWvLNAFZPDl9hbjW2
-         fxvzXMmx/GKYFTUoJ8EOK0YAw3Uspa1+yZ4nG/nvbCmxAfdHZcBi8o/3SWwApSfFy+Db
-         V6WqtlNoQLIxIzGKipJI5RM9RFopNDS2HyPusSNNT2eqPwyFBXxuE1UyLMMWEOe5WJnE
-         1Qfw==
+        bh=qOP/T1HJZb7a2znFHzhzofDtcxTuReCcTpVKKooOuJM=;
+        b=YpdDVmHrUl1fnaN0b7UEfpc2B69zzq4PDWMIVLkSH/OE8f+KUyAoAWj5qwOmxHKOXO
+         WIQPbOdi464bN8i5u/QnVdhMxRITYuJiCKC2ZVa2qWepZrhOWDfUUrij873xQx+B2AL0
+         HZX5uJkOL2HSjq8gMZedlpPboKvx22K3KzD9a7mZhBHoaArriFUCMNfjgYNWnHyIjszF
+         eG178JYq08MK63n1rAQSW4bQSPOOLNystY4V8MAfcB4Ymq8Pl/YZzI6iGVd9LkaW3bLq
+         VxB9VdQK4z/tI4eRiP5z5ievC3Ifnj1dl6BdAmV5c1Sx+jXTyaXIWYqXIGeIsgnAQLQN
+         /Iww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773334641; x=1773939441;
+        d=1e100.net; s=20230601; t=1773334677; x=1773939477;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=W72JevWeU/QiLig4xhCD0an3/J6aVnjef/9hQUIbYAo=;
-        b=DElH9eVI6EB2nxtvBl0GYe9BSvUhAJXcJovYgkYZ6hNeELtjaQ0IvD8zDJH7KYNA8F
-         Np3x0brAvXdKCH/6t7nQEECAPyeJLAeX3lmW0FU3ZeUw6HGAfqL7vWFK5kPsry0V/9VQ
-         1clzLrTujU0TRv+dFdlPvpJU3ZC93DqT1ZEA+hTCNv4zVIVDormjOII1yxdtn8ITHIHp
-         6kJMUg7JwlUK6uommgeNv/m40GV72HxGyOg5Ajfu7DXadi73NkYcms266I2MmzngsiY1
-         741Pe2tFsPrSFmXpcho8B835Idp4x/ahV15EqysCxCLCDOibkk1m9sCq44ueqrHrKmfb
-         eVTg==
-X-Gm-Message-State: AOJu0YzP1fnwzbuISScefD825KGPN2MQc+D/LKIneevxD6ib2jHq0CuW
-	Kq68AvEOTtDAfKtoL+cQD1bs3M3fuc3CF1VHkWyF4oJEAYEnJvueId9p++NqC6Q0s3SGLCyQvRR
-	z0dk=
-X-Gm-Gg: ATEYQzwnvXZzBK4U6mwmrRP8SpYYnQGLXUAAnXe2Hdf2vZjq+ikv6xJ5kTGyiFpzshm
-	EjYnegOqr5MdTd6Rmn3ssaEazh9dG0LGqxks1i9W+idrXseRJovzKerTRHVBaBwZtqwCIVoBOUV
-	Ty4kd+Y4USdnNhGVWF8M9jznybQDYtC9pu9p1mRh73sEkyFdgYVQmcWjNBnzAAnqx1zA/V14moJ
-	YHf+6IvhPgAWBSsdyAD6vwt4hPKMaldLX/0GSVnfrSrwP4Rbimt5BPbpqyprpQOKsevOUVfAs3Z
-	sE5djI+oiHlKLAHL7m/lwlAKG3Bgy+zUEz6KByy5lQGSLu1fP5HB4+nbncw3Y/rk4LCEWMRvYR0
-	1YNm+64jBguodd8DeW4EhBPYf9TBVhOcTbT5yJ0GB+B2BiwtKUTiaWUlNLFO0J260Sg5A8M9Ucw
-	HYeAYL8m/MQBGb8P1eDvCBP3ytFrRoG1pc3FBmKkV0QZIwfh43qStJew5B3GrQetfvAMmieXi1i
-	7IdQiEOuNUfQT0=
-X-Received: by 2002:a05:600c:8714:b0:485:389b:ee5f with SMTP id 5b1f17b1804b1-485566cf89fmr386065e9.2.1773334640845;
-        Thu, 12 Mar 2026 09:57:20 -0700 (PDT)
-Message-ID: <5516d0a1-8fac-48ff-bbe1-85726b730e94@suse.com>
-Date: Thu, 12 Mar 2026 17:57:18 +0100
+        bh=qOP/T1HJZb7a2znFHzhzofDtcxTuReCcTpVKKooOuJM=;
+        b=owYw5N7z1YdrYAU7hCeVr+JKRWOOy+EWA6p/RI6UqF3FQlZKlUhCJKZRih66Lolg74
+         Pv4M04ZMIbRQj0541XGOu5RCT4wrIZ9Qrj4sBp3HOxyJ2QeNcSlS6g7WHh7nmhwHONLY
+         padvp1EwQeWHdaQJGIP7+lEa0MChQKZ0wtPRHDH0ZNqVJFgaeievXi5ex3Km0SnWg48P
+         zQXnZbczz8g1+z3V6cko3x1HrMjDihBYINaPOY8BY7+6HHh3MNqgrL1fXs/RCA11Iz+A
+         3BV+6bXyVQ3itgUkw4NfQ7J5V4rHTZOzoEZIBBCzfwXiwGHGt6j/ZOKbctVe3A9mzGP8
+         AZtQ==
+X-Gm-Message-State: AOJu0Yy8ixg6R3HxrvIFNl6ITUpP6fRdrxOyoAdmADQtb7pVWLzPMpAK
+	qw3ahf/5xRs+FEWh+NI2MLZvFCJdE6Hi3dAqMjbuM71lHlTBsqvWdTFvf0v2yVJojKw7prP4uM6
+	Ob3Q=
+X-Gm-Gg: ATEYQzz57WU74fMJ3As8n1t4tvM61WWSqgsxrFRLNH+CARShxddczd6oJK53xY4yhbr
+	Awh7pj/nNYeYLrqc7ypBPJVTdfOosPmz7qEQrPlBFcZXIxL5E2I3YhpnF5JzCYs8niNJzG7lr6v
+	nfnjUOaEJvqqjur+WUAinOLRT+ZUaz2mJw8PlTuEV+O5KnAnahQ6Sz18YXETDUFNmr+PPLa2zDZ
+	iQnaYommdv6UAqJUQHtgTDmkqfYuo0XeTAia1/XkSu+kMJrPSxVJzyAtMEf3lQNKPZ8x54MoHAx
+	00jbE0IOEO73BRRwIjEvW9Z44LC1aHuXRWwDploxmjH0cxDlVsixmJ/uyNcRnOL2lieZ8lS/9BC
+	mP7ya6NaWOG3IhRnAhwU5YG9ZqqrQVR9pjkJi2eKjaadr+9K5M1ANgHfzH12tNRfKbEzqgy/v5G
+	Gf71TTbD8G+WR1ynJov9r6pJdYqq7/qkdHFJdMp6krrbdFU7nvr43WcbiaONmk4RRpr2y/5py8t
+	wyJNMNsyxhaKuM=
+X-Received: by 2002:a05:600c:3490:b0:477:9b4a:a82 with SMTP id 5b1f17b1804b1-4854b13e5d7mr112510495e9.35.1773334676486;
+        Thu, 12 Mar 2026 09:57:56 -0700 (PDT)
+Message-ID: <addfdc9f-7f03-4b84-b998-1fdbef2edc78@suse.com>
+Date: Thu, 12 Mar 2026 17:57:53 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 7/9] x86/mwait-idle: drop const from struct cpuidle_state
- arrays
+Subject: [PATCH 8/9] x86/mwait-idle: Add cmdline option to adjust C-states
+ table
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -138,7 +138,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid,intel.com:email,msgid.link:url];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -159,223 +159,284 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 5470427623E
+X-Rspamd-Queue-Id: CC2282762B5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-A subsequent change will want to be able to alter them based on a new
-command line option. (Note that some were __ro_after_init already.)
+From: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+
+Add a new module parameter that allows adjusting the C-states table used by
+the driver.
+
+Currently, the C-states table is hardcoded in the driver based on the CPU
+model. The goal is to have good enough defaults for most users.
+
+However, C-state characteristics, such as exit latency and residency, can
+vary between different variants of the same CPU model and BIOS settings.
+Moreover, different platform usage models and user preferences may benefit
+from different C-state target_residency values.
+
+Provide a way for users to adjust the C-states table via a module parameter
+"table". The general format is:
+"state1:latency1:target_residency1,state2:latency2:target_residency2,..."
+
+In other words, represent each C-state by its name, exit latency (in
+microseconds), and target residency (in microseconds), separated by colons.
+Separate multiple C-states by commas.
+
+For example, suppose a CPU has 3 C-states with the following
+characteristics:
+  C1:  exit_latency=1, target_residency=2
+  C1E: exit_latency=10, target_residency=10
+  C6:  exit_latency=100, target_residency=500
+
+Users can specify a custom C-states table as follows:
+
+1. intel_idle.table="C1:2:2,C1E:5:20,C6:150:600"
+   Result: C1:  exit_latency=2, target_residency=2
+           C1E: exit_latency=5, target_residency=20
+           C6:  exit_latency=150, target_residency=600
+2. intel_idle.table="C6::400"
+   Result: C1:  exit_latency=1, target_residency=2 (unchanged)
+           C1E: exit_latency=10, target_residency=10 (unchanged)
+           C6:  exit_latency=100, target_residency=400
+                (only target_residency changed)
+
+Signed-off-by: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+Link: https://patch.msgid.link/20251216080402.156988-3-dedekind1@gmail.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 111f77a23348
+
+Add __init to get_cmdline_field(). Put cmdline_table_str[] in .init.data.
+Other adjustments to fit our env.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+For the initial attempt, I've left the new option as a standalone one. It
+may be worth integrating with "mwait-idle", but I think much of the
+parsing would then want doing differently. It'll then likely be much
+harder to apply future Linux changes there.
 
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1928,6 +1928,23 @@ Print boot time MTRR state.
+ Use the MWAIT idle driver (with model specific C-state knowledge) instead
+ of the ACPI based one.
+ 
++### mwait-idle.table (x86)
++> `= <string>`
++
++ Define the C-states table from a user input string. Expected format is
++ 'name:latency:residency', where:
++ - name: The C-state name.
++ - latency: The C-state exit latency in us.
++ - residency: The C-state target residency in us.
++
++ Multiple C-states can be defined by separating them with commas:
++ 'name1:latency1:residency1,name2:latency2:residency2'
++
++ Example: intel_idle.table=C1:1:1,C1E:5:10,C6:100:600
++
++ To leave latency or residency unchanged, use an empty field, for example:
++ 'C1:1:1,C1E::10' - leaves C1E latency unchanged.
++
+ ### nmi (x86)
+ > `= ignore | dom0 | fatal`
+ 
 --- a/xen/arch/x86/cpu/mwait-idle.c
 +++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -83,7 +83,7 @@ enum c1e_promotion {
- };
+@@ -70,6 +70,11 @@
+ static __initdata bool opt_mwait_idle = true;
+ boolean_param("mwait-idle", opt_mwait_idle);
  
- struct idle_cpu {
--	const struct cpuidle_state *state_table;
-+	struct cpuidle_state *state_table;
++/* The maximum allowed length for the 'table' module parameter  */
++#define MAX_CMDLINE_TABLE_LEN 256
++static char cmdline_table_str[MAX_CMDLINE_TABLE_LEN] __initdata;
++string_param("mwait-idle.table", cmdline_table_str);
++
+ static unsigned int mwait_substates;
  
- 	/*
- 	 * Hardware C-state auto-demotion may not always be optimal.
-@@ -139,7 +139,7 @@ struct cpuidle_state {
-  * which is also the index into the MWAIT hint array.
-  * Thus C0 is a dummy.
+ #define LAPIC_TIMER_ALWAYS_RELIABLE 0xFFFFFFFF
+@@ -122,6 +127,9 @@ struct cpuidle_state {
   */
--static const struct cpuidle_state nehalem_cstates[] = {
-+static struct cpuidle_state __ro_after_init nehalem_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -167,7 +167,7 @@ static const struct cpuidle_state nehale
- 	{}
- };
+ #define CPUIDLE_FLAG_IBRS		0x20000
  
--static const struct cpuidle_state snb_cstates[] = {
-+static struct cpuidle_state __ro_after_init snb_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -201,7 +201,7 @@ static const struct cpuidle_state snb_cs
- 	{}
- };
++/* C-states data from the 'mwait-idle.table' cmdline parameter */
++static struct cpuidle_state cmdline_states[ACPI_PROCESSOR_MAX_POWER] __initdata;
++
+ /*
+  * MWAIT takes an 8-bit "hint" in EAX "suggesting"
+  * the C-state (top nibble) and sub-state (bottom nibble)
+@@ -1546,6 +1554,161 @@ static void __init mwait_idle_state_tabl
+ 	}
+ }
  
--static const struct cpuidle_state byt_cstates[] = {
-+static struct cpuidle_state __ro_after_init byt_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -235,7 +235,7 @@ static const struct cpuidle_state byt_cs
- 	{}
- };
++ /**
++  * get_cmdline_field - Get the current field from a cmdline string.
++  * @args: The cmdline string to get the current field from.
++  * @field: Pointer to the current field upon return.
++  * @sep: The fields separator character.
++  *
++  * Examples:
++  *   Input: args="C1:1:1,C1E:2:10", sep=':'
++  *   Output: field="C1", return "1:1,C1E:2:10"
++  *   Input: args="C1:1:1,C1E:2:10", sep=','
++  *   Output: field="C1:1:1", return "C1E:2:10"
++  *   Ipnut: args="::", sep=':'
++  *   Output: field="", return ":"
++  *
++  * Return: The continuation of the cmdline string after the field or NULL.
++  */
++static char *__init get_cmdline_field(char *args, char **field, char sep)
++{
++	unsigned int i;
++
++	for (i = 0; args[i] && !isspace(args[i]); i++) {
++		if (args[i] == sep)
++			break;
++	}
++
++	*field = args;
++
++	if (args[i] != sep)
++		return NULL;
++
++	args[i] = '\0';
++	return args + i + 1;
++}
++
++/**
++ * cmdline_table_adjust - Adjust the C-states table with data from cmdline.
++ *
++ * Adjust the C-states table with data from the 'mwait-idle.table' parameter
++ * (if specified).
++ */
++static void __init cmdline_table_adjust(void)
++{
++	char *args = cmdline_table_str;
++	struct cpuidle_state *state;
++	unsigned int i, state_count;
++
++	if (args[0] == '\0')
++		/* The 'mwait-idle.table' module parameter was not specified */
++		return;
++
++	/* Create a copy of the C-states table */
++	for (i = 0;
++	     i < ARRAY_SIZE(cmdline_states) && icpu.state_table[i].name[0];
++	     i++)
++		cmdline_states[i] = icpu.state_table[i];
++
++	state_count = i;
++
++	/*
++	 * Adjust the C-states table copy with data from the 'mwait-idle.table'
++	 * module parameter.
++	 */
++	while (args) {
++		char *fields, *name, *val;
++
++		/*
++		 * Get the next C-state definition, which is expected to be
++		 * '<name>:<latency_us>:<target_residency_us>'. Treat "empty"
++		 * fields as unchanged. For example,
++		 * '<name>::<target_residency_us>' leaves the latency unchanged.
++		 */
++		args = get_cmdline_field(args, &fields, ',');
++
++		/* name */
++		fields = get_cmdline_field(fields, &name, ':');
++		if (!fields)
++			goto error;
++
++		/* Find the C-state by its name */
++		state = NULL;
++		for (i = 0; i < state_count; i++) {
++			if (!strcmp(name, cmdline_states[i].name)) {
++				state = &cmdline_states[i];
++				break;
++			}
++		}
++
++		if (!state) {
++			printk(XENLOG_ERR PREFIX "C-state '%s' was not found\n",
++			       name);
++			continue;
++		}
++
++		/* Latency */
++		fields = get_cmdline_field(fields, &val, ':');
++		if (!fields)
++			goto error;
++
++		if (*val) {
++			const char *end;
++			unsigned long n = simple_strtoul(val, &end, 0);
++
++			state->exit_latency = n;
++			if (*end || state->exit_latency != n)
++				goto error;
++		}
++
++		/* Target residency */
++		fields = get_cmdline_field(fields, &val, ':');
++
++		if (*val) {
++			const char *end;
++			unsigned long n = simple_strtoul(val, &end, 0);
++
++			state->target_residency = n;
++			if (*end || state->target_residency != n)
++				goto error;
++		}
++
++		/*
++		 * Allow for 3 more fields, but ignore them. Helps to make
++		 * possible future extensions of the cmdline format backward
++		 * compatible.
++		 */
++		for (i = 0; fields && i < 3; i++) {
++			fields = get_cmdline_field(fields, &val, ':');
++			if (!fields)
++				break;
++		}
++
++		if (fields) {
++			printk(XENLOG_ERR PREFIX
++			       "Too many fields for C-state '%s'\n",
++			       state->name);
++			goto error;
++		}
++
++		printk(XENLOG_INFO PREFIX
++		       "C-state from cmdline: name=%s, latency=%u, residency=%u\n",
++		       state->name, state->exit_latency, state->target_residency);
++	}
++
++	/* Copy the adjusted C-states table back */
++	for (i = 0; i < state_count; i++)
++		icpu.state_table[i] = cmdline_states[i];
++
++	printk(XENLOG_INFO PREFIX
++	       "Adjusted C-states with data from 'mwait-idle.table'\n");
++	return;
++
++ error:
++	printk(PREFIX
++	       "Failed to adjust C-states with data from 'mwait-idle.table'\n");
++}
++
+ static int __init mwait_idle_probe(void)
+ {
+ 	unsigned int eax, ebx, ecx;
+@@ -1595,6 +1758,8 @@ static int __init mwait_idle_probe(void)
  
--static const struct cpuidle_state cht_cstates[] = {
-+static struct cpuidle_state __ro_after_init cht_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -269,7 +269,7 @@ static const struct cpuidle_state cht_cs
- 	{}
- };
+ 	mwait_idle_state_table_update();
  
--static const struct cpuidle_state ivb_cstates[] = {
-+static struct cpuidle_state __ro_after_init ivb_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -303,7 +303,7 @@ static const struct cpuidle_state ivb_cs
- 	{}
- };
++	cmdline_table_adjust();
++
+ 	return 0;
+ }
  
--static const struct cpuidle_state ivt_cstates[] = {
-+static struct cpuidle_state __ro_after_init ivt_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -331,7 +331,7 @@ static const struct cpuidle_state ivt_cs
- 	{}
- };
- 
--static const struct cpuidle_state ivt_cstates_4s[] = {
-+static struct cpuidle_state __ro_after_init ivt_cstates_4s[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -359,7 +359,7 @@ static const struct cpuidle_state ivt_cs
- 	{}
- };
- 
--static const struct cpuidle_state ivt_cstates_8s[] = {
-+static struct cpuidle_state __ro_after_init ivt_cstates_8s[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -387,7 +387,7 @@ static const struct cpuidle_state ivt_cs
- 	{}
- };
- 
--static const struct cpuidle_state hsw_cstates[] = {
-+static struct cpuidle_state __ro_after_init hsw_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -439,7 +439,7 @@ static const struct cpuidle_state hsw_cs
- 	{}
- };
- 
--static const struct cpuidle_state bdw_cstates[] = {
-+static struct cpuidle_state __ro_after_init bdw_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -565,7 +565,7 @@ static struct cpuidle_state __ro_after_i
- 	{}
- };
- 
--static const struct cpuidle_state icx_cstates[] = {
-+static struct cpuidle_state __ro_after_init icx_cstates[] = {
-        {
-                .name = "C1",
-                .flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_IRQ_ENABLE,
-@@ -665,7 +665,7 @@ static struct cpuidle_state __ro_after_i
- 	{}
- };
- 
--static const struct cpuidle_state mtl_l_cstates[] = {
-+static struct cpuidle_state __ro_after_init mtl_l_cstates[] = {
- 	{
- 		.name = "C1E",
- 		.flags = MWAIT2flg(0x01),
-@@ -687,7 +687,7 @@ static const struct cpuidle_state mtl_l_
- 	{}
- };
- 
--static const struct cpuidle_state gmt_cstates[] = {
-+static struct cpuidle_state __ro_after_init gmt_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_DISABLED,
-@@ -743,7 +743,7 @@ static struct cpuidle_state __ro_after_i
- 	{}
- };
- 
--static const struct cpuidle_state gnr_cstates[] = {
-+static struct cpuidle_state __ro_after_init gnr_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -771,7 +771,7 @@ static const struct cpuidle_state gnr_cs
- 	{}
- };
- 
--static const struct cpuidle_state gnrd_cstates[] = {
-+static struct cpuidle_state __ro_after_init gnrd_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -799,7 +799,7 @@ static const struct cpuidle_state gnrd_c
- 	{}
- };
- 
--static const struct cpuidle_state atom_cstates[] = {
-+static struct cpuidle_state __ro_after_init atom_cstates[] = {
- 	{
- 		.name = "C1E",
- 		.flags = MWAIT2flg(0x00),
-@@ -827,7 +827,7 @@ static const struct cpuidle_state atom_c
- 	{}
- };
- 
--static const struct cpuidle_state tangier_cstates[] = {
-+static struct cpuidle_state __ro_after_init tangier_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -861,7 +861,7 @@ static const struct cpuidle_state tangie
- 	{}
- };
- 
--static const struct cpuidle_state avn_cstates[] = {
-+static struct cpuidle_state __ro_after_init avn_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -923,7 +923,7 @@ static struct cpuidle_state __ro_after_i
- 	{}
- };
- 
--static const struct cpuidle_state dnv_cstates[] = {
-+static struct cpuidle_state __ro_after_init dnv_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -949,7 +949,7 @@ static const struct cpuidle_state dnv_cs
-  * Note, depending on HW and FW revision, SnowRidge SoC may or may not support
-  * C6, and this is indicated in the CPUID mwait leaf.
-  */
--static const struct cpuidle_state snr_cstates[] = {
-+static struct cpuidle_state __ro_after_init snr_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -971,7 +971,7 @@ static const struct cpuidle_state snr_cs
- 	{}
- };
- 
--static const struct cpuidle_state grr_cstates[] = {
-+static struct cpuidle_state __ro_after_init grr_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
-@@ -993,7 +993,7 @@ static const struct cpuidle_state grr_cs
- 	{}
- };
- 
--static const struct cpuidle_state srf_cstates[] = {
-+static struct cpuidle_state __ro_after_init srf_cstates[] = {
- 	{
- 		.name = "C1",
- 		.flags = MWAIT2flg(0x00),
 
 
