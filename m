@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mLB1BdfvsmnAQwAAu9opvQ
+	id eHQNAe7vsmnAQwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:54:47 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:55:10 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E25B276053
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:54:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1252746.1549310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67F6B2760C9
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2026 17:55:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1252755.1549319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0jJ0-00082k-4D; Thu, 12 Mar 2026 16:54:38 +0000
+	id 1w0jJO-0008Sw-BT; Thu, 12 Mar 2026 16:55:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1252746.1549310; Thu, 12 Mar 2026 16:54:38 +0000
+Received: by outflank-mailman (output) from mailman id 1252755.1549319; Thu, 12 Mar 2026 16:55:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0jJ0-00080W-0P; Thu, 12 Mar 2026 16:54:38 +0000
-Received: by outflank-mailman (input) for mailman id 1252746;
- Thu, 12 Mar 2026 16:54:36 +0000
+	id 1w0jJO-0008Q6-87; Thu, 12 Mar 2026 16:55:02 +0000
+Received: by outflank-mailman (input) for mailman id 1252755;
+ Thu, 12 Mar 2026 16:55:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jTts=BM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w0jIy-0007oX-6x
- for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 16:54:36 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
+ id 1w0jJN-0007oX-5H
+ for xen-devel@lists.xenproject.org; Thu, 12 Mar 2026 16:55:01 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24c33f1e-1e34-11f1-9ccf-f158ae23cfc8;
- Thu, 12 Mar 2026 17:54:33 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- 5b1f17b1804b1-485392de558so7899425e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 12 Mar 2026 09:54:33 -0700 (PDT)
+ id 3469e879-1e34-11f1-9ccf-f158ae23cfc8;
+ Thu, 12 Mar 2026 17:54:59 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id
+ ffacd0b85a97d-439b9cf8cb5so1397636f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 12 Mar 2026 09:54:59 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4854e2537c3sm130839255e9.15.2026.03.12.09.54.30
+ ffacd0b85a97d-439fe2187aasm8766001f8f.30.2026.03.12.09.54.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 12 Mar 2026 09:54:31 -0700 (PDT)
+ Thu, 12 Mar 2026 09:54:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,51 +50,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24c33f1e-1e34-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 3469e879-1e34-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773334472; x=1773939272; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773334499; x=1773939299; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dmoB6PX7E346IlhtAnwu7loC1BtwOSw/XEBFSLwwDtY=;
-        b=alFQUu+/YbCrNDl2LsdSAiAbljmNzUAZTnKIIEiMSQMlokUkSDGPXZvbwzcLxmheiv
-         ZhoWAbkGEr1BKgfEG/qK7bS2Uo/qF3NMB8j69Uq7Hh2Mu21rM12+7by4lOrELM/klKzQ
-         tfbvOey4adGG1faI91n+ViX+7JBe1v2OQiCIjQWKSFKThKLow/SZKFdOmu9p8yVedc4b
-         2lu2LSop8sZ7lFwo505eMMh5//hL3RfjDYXHeVamwXWWmFDGUImdXydVCgfptz/jMg0B
-         iCH1k9M6wbOubkVQeKIhg7tNImujlarEpYk5DRV//inmRojsLFTPYf/Z0K3ojds241Tl
-         qHNw==
+        bh=R5UX7rhqlDYYvqPxFRQg96W4qwOAL8dxcHZMY3uLDNc=;
+        b=a7VUtB1184aqabHp4Dvm4UelGYdqdKthkAQxEm4OFy+hrAEU0VuE0ADfYvscDLVLzK
+         A4gxMD/C/QVQfFYLm1dJ9lVjT+CGpmFLmo59VKohcWPLk2+OUnh3Sx8FmAWCKbWZEmIT
+         nGKlp8NLHKZevqrlIbdsT86wnpMquJM7gWIyoItrEThgOPajAJqHKa+Fu2ai9WPdf6ES
+         KLAQDHDIK2z5VIk2L5UWyRUYlF+aY/ydxlFB6MuJYCf9OiWG6iEDbgSjQDX5aK89vUoU
+         LRry9HX7JRalhHxDXFHl50uQIiLRZAh8J/p6dc0AowaM9nLoe6Pjinrp2lEcwtWbtaQU
+         NZ6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20230601; t=1773334472; x=1773939272;
+        d=1e100.net; s=20230601; t=1773334499; x=1773939299;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dmoB6PX7E346IlhtAnwu7loC1BtwOSw/XEBFSLwwDtY=;
-        b=l7simorpG+vB12wmpC09UeVVf51RwlvL6/jWnBnLQ01iv2C78zrc20/C/No3sjoVCV
-         p+Ul6fjRIeVOnVIkoz4yW48okgVHNoEQN8UJxcxIjraKpmtQo1Zq/a/fOc9TleqXZt5C
-         dQazl8X+JWteAXBitTgaX3pnHk/CCP23KZt+bdCOinkOGtQUW78gstfIzcNEVQFXybjv
-         5klHVStqm9NrH+FdRBpM+kV66z5jNquaNAzKIzX5XUO/xdiCNOSnQP00w0Czlv3FTDNY
-         G1n+kV5GZfqaTTsuOtubUT1vydPcNc8Vh4tOIjyGg4yyqkl03eJZsx7pwmPYCaD/Yqvx
-         9n3g==
-X-Gm-Message-State: AOJu0YwZZaTFfl3b+1bqYQGiZ5xNAU0/w5nHXvrMW97VVcE3mNsgI4IW
-	fBDnVp5VIgtYERJf6Gwg9nRh29S+bsZ5xaDmgAvrxgcnWv9xWjLMz2ZgZlZsdHsWH40XGYVS5k0
-	81ks=
-X-Gm-Gg: ATEYQzymRYQPNBLSpUrd6wXSJzmpR2AtNUU8SDFWNV4MA3KeERF3SuZHcoq1xWCsgoT
-	HRu06ccHe82pconInj+n0KxNgmeyf6yO6sosYyFQDbSL1lToVwHzymI6sbygCzYZ/atV6Dy15r/
-	ZsqdevTERGaKM8KtgdEndejKALWxmJJc/sikXX5dbEBASvOu+VV7oG4TBEN+715lTK+1bZNlg8D
-	Q83b1geOmcSmHcRNaUK94t/SRjVyWOgcVNNjHufwOGBaJ5QQjSKmC6HnnhVcJl7siTPl68++y+E
-	oFki39ui0L+bC5hTqzTbe8E1K8Tbm1GHgDaaOjSEGR/EDm2ENZh54+ci5P6VWdPavWN8tp+pfOm
-	NKTIbMi58BYmrq4gHOInveYTKCyRYMswS8ZGyhuC5SqmZ8zO9jhT8TIqRw/YUrc/jKGaaJMb+RX
-	NDEFb2zVKKwTTXjFiQIAziV1261MGnQrLtYeuCjPi6rP/CHJYcYxst4O9QTvxaFkFcDTENWOH7+
-	e3rdwpGlsjmXEI=
-X-Received: by 2002:a05:600c:45cb:b0:483:703e:4ad5 with SMTP id 5b1f17b1804b1-4854b109d3fmr114189105e9.22.1773334472428;
-        Thu, 12 Mar 2026 09:54:32 -0700 (PDT)
-Message-ID: <e5e03239-1d4e-4ab2-8f16-83d280f23b24@suse.com>
-Date: Thu, 12 Mar 2026 17:54:30 +0100
+        bh=R5UX7rhqlDYYvqPxFRQg96W4qwOAL8dxcHZMY3uLDNc=;
+        b=lqIWjhbsNMvVDG8Sq8Z7dtXl/Lj9sO7b05jdF6IDAtH6fMoGwseGDLpB9Kc2Xyadop
+         5WMTRzSwcam+TbQgBz9JdWdGAi793H62RwC4VMUDYeTUiGhy4vKcmPKKPGgAJqBv6RtB
+         BHACIHErDXrG1zT+AEER7qnuykKirW/7IRkCeYJQ3oM5m5M6rmcq10Uq/z0d8oOGQ/GT
+         GGIHcOHmkgA0jj0b8A78RH6NXjBYPeGb9QWPqx5B1Hwo5nH3kM/zU8ci8maJAFWr0CLR
+         EjgFzoIkUw55SBIjNPrUtX8+86KAqs93U0cP5xQkFffyGIWxkYpdfcnCpzBWlCAd21vP
+         SHuA==
+X-Gm-Message-State: AOJu0YzDqNy+t9u8Sm9jWtwLop23zf8QF0nH14kXjgLv0SY+r0FH+diu
+	TOvc2N2lFkzmP8LLlMe+N1vVMsDhmhvgEhyDPLWx3RAE5yrhDEEidAf/DsIdZSN1t5uiXOJhPGC
+	2pe4=
+X-Gm-Gg: ATEYQzyM13wVHweRjUb3Noo0GW0gFierL4CkLNpTuuVYPVt0figM2wQGLIVRCQARnG/
+	t/AvnnTD9qmLx7njUm3d0aKT7mgks7qaWyjrQXogQ3PflwOx8+tINQ7k65mGXtbFZJ+LHYaeg71
+	c2e2wNkjPW+ApDx+1MvF/OtA7WVwynxwitL3WuHPRHuaAztfCCROH+LLrt7kQd4evVEyF/okzDH
+	LVKjISBe8DZ/xlTXStr4g9vIavQgonB7OJiQLmb1Rfb8VOmibrKYYWOv8/cY9R+owAdovoU1uvq
+	1ILBUySmJyHR1biakhYjFys8+inQLkAr+kClN0coKpPo8ZlMXCM7eZ52LtaJtdsQMA3LxhSY8Fw
+	KD4hnFojGCjK39q0Ar9Mg+JOpadgalHsObDlm7QGfKvzlOPd/hmyVHhsIQOlpzSEbH3hX1nRF2h
+	HxGV0SDnWX+QUrG4um1kzBRprgv05+ZGHDIqG5uC+ia4w80+Lz2dN03mmUsvCKoTkuI4dQwPkdt
+	oMSLlt39CJhxt4=
+X-Received: by 2002:a05:6000:240e:b0:439:a95b:3c44 with SMTP id ffacd0b85a97d-43a04db618cmr685748f8f.30.1773334498673;
+        Thu, 12 Mar 2026 09:54:58 -0700 (PDT)
+Message-ID: <b906c3d5-5256-4ddf-9186-b52d8280e2ec@suse.com>
+Date: Thu, 12 Mar 2026 17:54:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/9] x86/mwait-idle: arrange for BSP MSR adjustments during S3
- resume
+Subject: [PATCH 2/9] x86/mwait-idle: clean up BYT/CHT auto demotion disable
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -158,122 +157,125 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 9E25B276053
+X-Rspamd-Queue-Id: 67F6B2760C9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-mwait_idle_cpu_init() is only called for APs, yet MSR writes will
-typically need re-doing post-S3 even for the BSP. When multiple cores /
-threads are present (and to come back online) in a package, for package
-scope MSRs this may be covered by APs doing the writes, but we can't rely
-on that.
+Bay Trail (BYT) and Cherry Trail (CHT) platforms have a very specific way
+of disabling auto-demotion via specific MSR bits. Clean up the code so that
+BYT/CHT-specifics do not show up in the common 'struct idle_cpu' data
+structure.
+
+Remove the 'byt_auto_demotion_disable_flag' flag from 'struct idle_cpu',
+because a better coding pattern is to avoid very case-specific fields like
+'bool byt_auto_demotion_disable_flag' in a common data structure, which is
+used for all platforms, not only BYT/CHT. The code is just more readable
+when common data structures contain only commonly used fields.
+
+Instead, match BYT/CHT in the 'intel_idle_init_cstates_icpu()' function,
+and introduce a small helper to take care of BYT/CHT auto-demotion. This
+is consistent with how platform-specific things are done for other
+platforms.
+
+No intended functional changes.
+
+Inspired by (and description largely taken from) Linux'es c93d13b661a6
+("intel_idle: clean up BYT/CHT auto demotion disable").
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/acpi/power.c
-+++ b/xen/arch/x86/acpi/power.c
-@@ -28,6 +28,7 @@
- #include <asm/io_apic.h>
- #include <asm/irq.h>
- #include <asm/microcode.h>
-+#include <asm/mwait.h>
- #include <asm/prot-key.h>
- #include <asm/spec_ctrl.h>
- #include <asm/tboot.h>
-@@ -299,6 +300,7 @@ static int enter_state(u32 state)
-     acpi_sleep_post(state);
-     if ( hvm_cpu_up() )
-         BUG();
-+    mwait_idle_resume();
-     cpufreq_add_cpu(0);
- 
-  enable_cpu:
 --- a/xen/arch/x86/cpu/mwait-idle.c
 +++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -1680,6 +1680,28 @@ static int __init mwait_idle_probe(void)
+@@ -104,7 +104,6 @@ struct idle_cpu {
+ 	 * Indicate which enable bits to clear here.
+ 	 */
+ 	unsigned long auto_demotion_disable_flags;
+-	bool byt_auto_demotion_disable_flag;
+ 	enum c1e_promotion c1e_promotion;
+ };
+ 
+@@ -1144,7 +1143,7 @@ static void cf_check auto_demotion_disab
+ 	wrmsrl(MSR_PKG_CST_CONFIG_CONTROL, msr_bits);
+ }
+ 
+-static void cf_check byt_auto_demotion_disable(void *dummy)
++static void byt_cht_auto_demotion_disable(void)
+ {
+ 	wrmsrl(MSR_CC6_DEMOTION_POLICY_CONFIG, 0);
+ 	wrmsrl(MSR_MC6_DEMOTION_POLICY_CONFIG, 0);
+@@ -1195,13 +1194,11 @@ static const struct idle_cpu idle_cpu_sn
+ static const struct idle_cpu idle_cpu_byt = {
+ 	.state_table = byt_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+-	.byt_auto_demotion_disable_flag = true,
+ };
+ 
+ static const struct idle_cpu idle_cpu_cht = {
+ 	.state_table = cht_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+-	.byt_auto_demotion_disable_flag = true,
+ };
+ 
+ static const struct idle_cpu idle_cpu_ivb = {
+@@ -1680,14 +1677,11 @@ static int __init mwait_idle_probe(void)
  	return 0;
  }
  
-+static void mwait_idle_cpu_tweak(unsigned int cpu)
-+{
-+	if (icpu->auto_demotion_disable_flags)
-+		on_selected_cpus(cpumask_of(cpu), auto_demotion_disable, NULL, 1);
-+
-+	if (icpu->byt_auto_demotion_disable_flag)
-+		on_selected_cpus(cpumask_of(cpu), byt_auto_demotion_disable, NULL, 1);
-+
-+	switch (icpu->c1e_promotion) {
-+	case C1E_PROMOTION_DISABLE:
-+		on_selected_cpus(cpumask_of(cpu), c1e_promotion_disable, NULL, 1);
-+		break;
-+
-+	case C1E_PROMOTION_ENABLE:
-+		on_selected_cpus(cpumask_of(cpu), c1e_promotion_enable, NULL, 1);
-+		break;
-+
-+	case C1E_PROMOTION_PRESERVE:
-+		break;
-+	}
-+}
-+
- static int cf_check mwait_idle_cpu_init(
-     struct notifier_block *nfb, unsigned long action, void *hcpu)
+-static void mwait_idle_cpu_tweak(unsigned int cpu)
++static void mwait_idle_cpu_tweak(unsigned int cpu, bool bsp)
  {
-@@ -1762,24 +1784,7 @@ static int cf_check mwait_idle_cpu_init(
- 		dev->count++;
- 	}
+ 	if (icpu->auto_demotion_disable_flags)
+ 		on_selected_cpus(cpumask_of(cpu), auto_demotion_disable, NULL, 1);
  
--	if (icpu->auto_demotion_disable_flags)
--		on_selected_cpus(cpumask_of(cpu), auto_demotion_disable, NULL, 1);
--
 -	if (icpu->byt_auto_demotion_disable_flag)
 -		on_selected_cpus(cpumask_of(cpu), byt_auto_demotion_disable, NULL, 1);
 -
--	switch (icpu->c1e_promotion) {
--	case C1E_PROMOTION_DISABLE:
--		on_selected_cpus(cpumask_of(cpu), c1e_promotion_disable, NULL, 1);
--		break;
--
--	case C1E_PROMOTION_ENABLE:
--		on_selected_cpus(cpumask_of(cpu), c1e_promotion_enable, NULL, 1);
--		break;
--
--	case C1E_PROMOTION_PRESERVE:
--		break;
--	}
-+	mwait_idle_cpu_tweak(cpu);
+ 	switch (icpu->c1e_promotion) {
+ 	case C1E_PROMOTION_DISABLE:
+ 		on_selected_cpus(cpumask_of(cpu), c1e_promotion_disable, NULL, 1);
+@@ -1700,12 +1694,24 @@ static void mwait_idle_cpu_tweak(unsigne
+ 	case C1E_PROMOTION_PRESERVE:
+ 		break;
+ 	}
++
++	/* Pkg-scope MSRs on 1-socket-only systems need writing only once. */
++	if (!bsp)
++		return;
++
++	switch (boot_cpu_data.vfm) {
++	case INTEL_ATOM_SILVERMONT:
++	case INTEL_ATOM_AIRMONT:
++		byt_cht_auto_demotion_disable();
++		break;
++	}
+ }
+ 
+ static int cf_check mwait_idle_cpu_init(
+     struct notifier_block *nfb, unsigned long action, void *hcpu)
+ {
+ 	unsigned int cpu = (unsigned long)hcpu, cstate;
++	static bool first;
+ 	struct acpi_processor_power *dev = processor_powers[cpu];
+ 
+ 	switch (action) {
+@@ -1784,7 +1790,8 @@ static int cf_check mwait_idle_cpu_init(
+ 		dev->count++;
+ 	}
+ 
+-	mwait_idle_cpu_tweak(cpu);
++	mwait_idle_cpu_tweak(cpu, first);
++	first = false;
  
  	return NOTIFY_DONE;
  }
-@@ -1811,6 +1816,14 @@ int __init mwait_idle_init(struct notifi
- 	return err;
+@@ -1821,7 +1828,7 @@ void mwait_idle_resume(void)
+ 	if (!icpu)
+ 		return;
+ 
+-	mwait_idle_cpu_tweak(smp_processor_id());
++	mwait_idle_cpu_tweak(smp_processor_id(), true);
  }
  
-+void mwait_idle_resume(void)
-+{
-+	if (!icpu)
-+		return;
-+
-+	mwait_idle_cpu_tweak(smp_processor_id());
-+}
-+
  /* Helper function for HPET. */
- bool __init mwait_pc10_supported(void)
- {
---- a/xen/arch/x86/include/asm/mwait.h
-+++ b/xen/arch/x86/include/asm/mwait.h
-@@ -14,9 +14,12 @@
- #define MWAIT_ECX_INTERRUPT_BREAK	0x1
- 
- void mwait_idle_with_hints(unsigned int eax, unsigned int ecx);
-+
- #ifdef CONFIG_INTEL
-+void mwait_idle_resume(void);
- bool mwait_pc10_supported(void);
- #else
-+static inline void mwait_idle_resume(void) {}
- static inline bool mwait_pc10_supported(void)
- {
-     return false;
 
 
