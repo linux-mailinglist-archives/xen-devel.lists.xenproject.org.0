@@ -2,51 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id INSaL0nBs2lQagAAu9opvQ
+	id 2DKFH07Bs2mEagAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2026 08:48:25 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2026 08:48:30 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BF0127EF6F
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2026 08:48:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1253354.1549652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C87727EF76
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2026 08:48:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1253364.1549660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0xFq-0004mt-Pv; Fri, 13 Mar 2026 07:48:18 +0000
+	id 1w0xFv-0005DN-38; Fri, 13 Mar 2026 07:48:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1253354.1549652; Fri, 13 Mar 2026 07:48:18 +0000
+Received: by outflank-mailman (output) from mailman id 1253364.1549660; Fri, 13 Mar 2026 07:48:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w0xFq-0004jW-Ll; Fri, 13 Mar 2026 07:48:18 +0000
-Received: by outflank-mailman (input) for mailman id 1253354;
- Fri, 13 Mar 2026 07:48:16 +0000
+	id 1w0xFu-0005Ah-Vr; Fri, 13 Mar 2026 07:48:22 +0000
+Received: by outflank-mailman (input) for mailman id 1253364;
+ Fri, 13 Mar 2026 07:48:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=CqhT=BN=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1w0xFo-0003TG-G4
- for xen-devel@lists.xenproject.org; Fri, 13 Mar 2026 07:48:16 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de
- [2a07:de40:b251:101:10:150:64:1])
+ id 1w0xFt-0003TG-OP
+ for xen-devel@lists.xenproject.org; Fri, 13 Mar 2026 07:48:21 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fe548862-1eb0-11f1-b164-2bf370ae4941;
- Fri, 13 Mar 2026 08:48:15 +0100 (CET)
+ id 0192254f-1eb1-11f1-b164-2bf370ae4941;
+ Fri, 13 Mar 2026 08:48:21 +0100 (CET)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 79DA24D656;
- Fri, 13 Mar 2026 07:48:15 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E69B94E3F0;
+ Fri, 13 Mar 2026 07:48:20 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5794B403F6;
- Fri, 13 Mar 2026 07:48:15 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C5051403F6;
+ Fri, 13 Mar 2026 07:48:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id NQ08FD/Bs2m5GAAAD6G6ig
- (envelope-from <jgross@suse.com>); Fri, 13 Mar 2026 07:48:15 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 7LTxLkTBs2nAGAAAD6G6ig
+ (envelope-from <jgross@suse.com>); Fri, 13 Mar 2026 07:48:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,7 +57,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe548862-1eb0-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 0192254f-1eb1-11f1-b164-2bf370ae4941
 Authentication-Results: smtp-out1.suse.de;
 	none
 From: Juergen Gross <jgross@suse.com>
@@ -66,9 +65,9 @@ To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH 4/8] tools/xenstored: add depth information to watches
-Date: Fri, 13 Mar 2026 08:47:47 +0100
-Message-ID: <20260313074751.2904215-5-jgross@suse.com>
+Subject: [PATCH 5/8] tools/xenstored: add depth handling to XS_WATCH
+Date: Fri, 13 Mar 2026 08:47:48 +0100
+Message-ID: <20260313074751.2904215-6-jgross@suse.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313074751.2904215-1-jgross@suse.com>
 References: <20260313074751.2904215-1-jgross@suse.com>
@@ -113,249 +112,75 @@ X-Spamd-Result: default: False [2.51 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: 9BF0127EF6F
+X-Rspamd-Queue-Id: 6C87727EF76
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Add the depth for matching subdirectories of a watch to the watch
-handling. A depth value of -1 is used for the current model of no
-limit.
+In case XENSTORE_SERVER_FEATURE_WATCHDEPTH is set, allow XS_WATCH to
+have "depth" as 3rd parameter.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/xenstored/lu.c    |   3 ++
- tools/xenstored/watch.c | 110 ++++++++++++++++++++++++++++------------
- tools/xenstored/watch.h |   1 +
- 3 files changed, 81 insertions(+), 33 deletions(-)
+ tools/xenstored/domain.c |  8 ++++++++
+ tools/xenstored/domain.h |  2 ++
+ tools/xenstored/watch.c  | 11 +++++++++--
+ 3 files changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/tools/xenstored/lu.c b/tools/xenstored/lu.c
-index eaffdbc69e..7d9f086a59 100644
---- a/tools/xenstored/lu.c
-+++ b/tools/xenstored/lu.c
-@@ -183,6 +183,9 @@ void lu_read_state(void)
- 		case XS_STATE_TYPE_WATCH:
- 			read_state_watch(ctx, state.buf);
- 			break;
-+		case XS_STATE_TYPE_WATCH_EXT:
-+			read_state_watch_ext(ctx, state.buf);
-+			break;
- 		case XS_STATE_TYPE_TA:
- 			xprintf("live-update: ignore transaction record\n");
- 			break;
+diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
+index ebeced3228..866c0aa908 100644
+--- a/tools/xenstored/domain.c
++++ b/tools/xenstored/domain.c
+@@ -387,6 +387,14 @@ void wrl_apply_debit_trans_commit(struct connection *conn)
+ 	wrl_apply_debit_actual(conn->domain);
+ }
+ 
++bool feature_available(const struct connection *conn, unsigned int feature)
++{
++	if (!conn->domain)
++		return XENSTORE_FEATURES & feature;
++
++	return conn->domain->features & feature;
++}
++
+ static unsigned int domain_get_soft_quota(struct domain *d, enum accitem what)
+ {
+ 	if (d && d->acc[what].val[Q_IDX_SOFT] != Q_VAL_DISABLED)
+diff --git a/tools/xenstored/domain.h b/tools/xenstored/domain.h
+index 6a06b0d1af..15d8f1a5b2 100644
+--- a/tools/xenstored/domain.h
++++ b/tools/xenstored/domain.h
+@@ -192,4 +192,6 @@ struct hashtable *domain_check_acc_init(void);
+ void domain_check_acc_add(const struct node *node, struct hashtable *domains);
+ void domain_check_acc(struct hashtable *domains);
+ 
++bool feature_available(const struct connection *conn, unsigned int feature);
++
+ #endif /* _XENSTORED_DOMAIN_H */
 diff --git a/tools/xenstored/watch.c b/tools/xenstored/watch.c
-index 36e4d33f22..3f1049911b 100644
+index 3f1049911b..5de386370d 100644
 --- a/tools/xenstored/watch.c
 +++ b/tools/xenstored/watch.c
-@@ -39,26 +39,35 @@ struct watch
- 	/* Offset into path for skipping prefix (used for relative paths). */
- 	unsigned int prefix_len;
- 
-+	int depth;	/* -1: no depth limit. */
- 	char *token;
- 	char *node;
- };
- 
- /* Is child a subnode of parent, or equal? */
--static bool is_child(const char *child, const char *parent)
-+static bool is_child(const char *child, const char *parent, int depth)
- {
--	unsigned int len = strlen(parent);
--
--	/*
--	 * / should really be "" for this algorithm to work, but that's a
--	 * usability nightmare.
--	 */
--	if (streq(parent, "/"))
--		return true;
-+	unsigned int len = strlen(parent);	/* len == 1 if parent is "/". */
-+	unsigned int sub_levels = (len == 1) ? 1 : 0;
- 
- 	if (strncmp(child, parent, len) != 0)
- 		return false;
- 
--	return child[len] == '/' || child[len] == '\0';
-+	if (child[len] != '/' && child[len] != '\0' && len > 1)
-+		return false;
-+
-+	if (depth < 0 || child[len] == '\0')
-+		return true;
-+
-+	while (sub_levels <= depth) {
-+		if (child[len] == '\0')
-+			return true;
-+		if (child[len] == '/')
-+			sub_levels++;
-+		len++;
-+	}
-+
-+	return false;
- }
- 
- static const char *get_watch_path(const struct watch *watch, const char *name)
-@@ -145,7 +154,7 @@ void fire_watches(struct connection *conn, const void *ctx, const char *name,
- 						   get_watch_path(watch, name),
- 						   watch->token);
- 			} else {
--				if (is_child(name, watch->node))
-+				if (is_child(name, watch->node, watch->depth))
- 					send_event(req, i,
- 						   get_watch_path(watch, name),
- 						   watch->token);
-@@ -170,7 +179,7 @@ static int check_watch_path(struct connection *conn, const void *ctx,
- }
- 
- static struct watch *add_watch(struct connection *conn, const char *path,
--			       const char *token, bool relative,
-+			       const char *token, int depth, bool relative,
- 			       bool no_quota_check)
+@@ -213,11 +213,18 @@ static struct watch *add_watch(struct connection *conn, const char *path,
+ int do_watch(const void *ctx, struct connection *conn, struct buffered_data *in)
  {
  	struct watch *watch;
-@@ -178,6 +187,7 @@ static struct watch *add_watch(struct connection *conn, const char *path,
- 	watch = talloc(conn, struct watch);
- 	if (!watch)
- 		goto nomem;
-+	watch->depth = depth;
- 	watch->node = talloc_strdup(watch, path);
- 	watch->token = talloc_strdup(watch, token);
- 	if (!watch->node || !watch->token)
-@@ -204,6 +214,7 @@ int do_watch(const void *ctx, struct connection *conn, struct buffered_data *in)
- {
- 	struct watch *watch;
- 	const char *vec[2];
-+	int depth = -1;
+-	const char *vec[2];
++	const char *vec[3];
++	unsigned int n_pars;
+ 	int depth = -1;
  	bool relative;
  
- 	if (get_strings(in, vec, ARRAY_SIZE(vec)) != ARRAY_SIZE(vec))
-@@ -223,7 +234,7 @@ int do_watch(const void *ctx, struct connection *conn, struct buffered_data *in)
- 	if (domain_check_quota_add(conn->domain, ACC_WATCH, 1))
- 		return ENOSPC;
+-	if (get_strings(in, vec, ARRAY_SIZE(vec)) != ARRAY_SIZE(vec))
++	n_pars = get_strings(in, vec, ARRAY_SIZE(vec));
++	if (n_pars == 3 &&
++	    feature_available(conn, XENSTORE_SERVER_FEATURE_WATCHDEPTH)) {
++		depth = atoi(vec[2]);
++		if (depth < 0)
++			return EINVAL;
++	} else if (n_pars != 2)
+ 		return EINVAL;
  
--	watch = add_watch(conn, vec[0], vec[1], relative, false);
-+	watch = add_watch(conn, vec[0], vec[1], depth, relative, false);
- 	if (!watch)
- 		return errno;
- 
-@@ -287,28 +298,47 @@ const char *dump_state_watches(FILE *fp, struct connection *conn,
- 	const char *ret = NULL;
- 	struct watch *watch;
- 	struct xs_state_watch sw;
-+	struct xs_state_watch_ext swe;
- 	struct xs_state_record_header head;
- 	const char *path;
--
--	head.type = XS_STATE_TYPE_WATCH;
-+	size_t path_len, token_len;
- 
- 	list_for_each_entry(watch, &conn->watches, list) {
--		head.length = sizeof(sw);
--
--		sw.conn_id = conn_id;
- 		path = get_watch_path(watch, watch->node);
--		sw.path_length = strlen(path) + 1;
--		sw.token_length = strlen(watch->token) + 1;
--		head.length += sw.path_length + sw.token_length;
-+		path_len = strlen(path) + 1;
-+		token_len = strlen(watch->token) + 1;
-+
-+		if (watch->depth >= 0) {
-+			head.type = XS_STATE_TYPE_WATCH_EXT;
-+			head.length = sizeof(swe);
-+			swe.conn_id = conn_id;
-+			swe.path_length = path_len;
-+			swe.token_length = token_len;
-+			swe.depth = watch->depth;
-+		} else {
-+			head.type = XS_STATE_TYPE_WATCH;
-+			head.length = sizeof(sw);
-+			sw.conn_id = conn_id;
-+			sw.path_length = path_len;
-+			sw.token_length = token_len;
-+		}
-+
-+		head.length += path_len + token_len;
- 		head.length = ROUNDUP(head.length, 3);
- 		if (fwrite(&head, sizeof(head), 1, fp) != 1)
- 			return "Dump watch state error";
--		if (fwrite(&sw, sizeof(sw), 1, fp) != 1)
--			return "Dump watch state error";
- 
--		if (fwrite(path, sw.path_length, 1, fp) != 1)
-+		if (watch->depth >= 0) {
-+			if (fwrite(&swe, sizeof(sw), 1, fp) != 1)
-+				return "Dump watch state ext error";
-+		} else {
-+			if (fwrite(&sw, sizeof(sw), 1, fp) != 1)
-+				return "Dump watch state error";
-+		}
-+
-+		if (fwrite(path, path_len, 1, fp) != 1)
- 			return "Dump watch path error";
--		if (fwrite(watch->token, sw.token_length, 1, fp) != 1)
-+		if (fwrite(watch->token, token_len, 1, fp) != 1)
- 			return "Dump watch token error";
- 
- 		ret = dump_state_align(fp);
-@@ -319,27 +349,41 @@ const char *dump_state_watches(FILE *fp, struct connection *conn,
- 	return ret;
- }
- 
--void read_state_watch(const void *ctx, const void *state)
-+static void process_state_watch(const void *ctx, unsigned int conn_id,
-+				const char *path, const char *token,
-+				int depth)
- {
--	const struct xs_state_watch *sw = state;
- 	struct connection *conn;
--	const char *path, *token;
- 	bool relative;
- 
--	conn = get_connection_by_id(sw->conn_id);
-+	conn = get_connection_by_id(conn_id);
- 	if (!conn)
- 		barf("connection not found for read watch");
- 
--	path = (char *)sw->data;
--	token = path + sw->path_length;
--
- 	/* Don't check success, we want the relative information only. */
- 	check_watch_path(conn, ctx, &path, &relative);
- 	if (!path)
- 		barf("allocation error for read watch");
- 
--	if (!add_watch(conn, path, token, relative, true))
-+	if (!add_watch(conn, path, token, depth, relative, true))
- 		barf("error adding watch");
-+
-+}
-+
-+void read_state_watch(const void *ctx, const void *state)
-+{
-+	const struct xs_state_watch *sw = state;
-+
-+	process_state_watch(ctx, sw->conn_id, (char *)sw->data,
-+			    (char *)sw->data + sw->path_length, -1);
-+}
-+
-+void read_state_watch_ext(const void *ctx, const void *state)
-+{
-+	const struct xs_state_watch_ext *swe = state;
-+
-+	process_state_watch(ctx, swe->conn_id, (char *)swe->data,
-+			    (char *)swe->data + swe->path_length, swe->depth);
- }
- 
- /*
-diff --git a/tools/xenstored/watch.h b/tools/xenstored/watch.h
-index d9ac6a334a..afdfdc6b2f 100644
---- a/tools/xenstored/watch.h
-+++ b/tools/xenstored/watch.h
-@@ -37,5 +37,6 @@ const char *dump_state_watches(FILE *fp, struct connection *conn,
- 			       unsigned int conn_id);
- 
- void read_state_watch(const void *ctx, const void *state);
-+void read_state_watch_ext(const void *ctx, const void *state);
- 
- #endif /* _XENSTORED_WATCH_H */
+ 	errno = check_watch_path(conn, ctx, &(vec[0]), &relative);
 -- 
 2.53.0
 
