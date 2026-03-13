@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OAPAHc88tGlAjgAAu9opvQ
+	id 4BHSBNA8tGmDjQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2026 17:35:27 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2026 17:35:28 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CEA72871CF
+	by mail.lfdr.de (Postfix) with ESMTPS id BB1962871D6
 	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2026 17:35:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1253909.1549878 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1253913.1549911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w15Th-0006hY-A8; Fri, 13 Mar 2026 16:35:09 +0000
+	id 1w15Tj-0007UB-S9; Fri, 13 Mar 2026 16:35:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1253909.1549878; Fri, 13 Mar 2026 16:35:09 +0000
+Received: by outflank-mailman (output) from mailman id 1253913.1549911; Fri, 13 Mar 2026 16:35:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w15Th-0006fR-3i; Fri, 13 Mar 2026 16:35:09 +0000
-Received: by outflank-mailman (input) for mailman id 1253909;
- Fri, 13 Mar 2026 16:35:07 +0000
+	id 1w15Tj-0007PE-I5; Fri, 13 Mar 2026 16:35:11 +0000
+Received: by outflank-mailman (input) for mailman id 1253913;
+ Fri, 13 Mar 2026 16:35:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UGzF=BN=bounce.vates.tech=bounce-md_30504962.69b43cb6.v1-67f6cedc721c42edbf171055fee92f62@srs-se1.protection.inumbo.net>)
- id 1w15Tf-0006Ek-Mo
- for xen-devel@lists.xenproject.org; Fri, 13 Mar 2026 16:35:07 +0000
-Received: from mail134-15.atl141.mandrillapp.com
- (mail134-15.atl141.mandrillapp.com [198.2.134.15])
+ <SRS0=WDTR=BN=bounce.vates.tech=bounce-md_30504962.69b43cb6.v1-be292d3c77f841e39b0ebfacbd36f6a1@srs-se1.protection.inumbo.net>)
+ id 1w15Th-0006Ek-N8
+ for xen-devel@lists.xenproject.org; Fri, 13 Mar 2026 16:35:09 +0000
+Received: from mail136-12.atl41.mandrillapp.com
+ (mail136-12.atl41.mandrillapp.com [198.2.136.12])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95fd48a8-1efa-11f1-9ccf-f158ae23cfc8;
+ id 95ec48ac-1efa-11f1-9ccf-f158ae23cfc8;
  Fri, 13 Mar 2026 17:35:03 +0100 (CET)
-Received: from pmta10.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail134-15.atl141.mandrillapp.com (Mailchimp) with ESMTP id
- 4fXVT26z4fzPm0Tfk
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-12.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fXVT26G1Rz5QlqMM
  for <xen-devel@lists.xenproject.org>; Fri, 13 Mar 2026 16:35:02 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 67f6cedc721c42edbf171055fee92f62; Fri, 13 Mar 2026 16:35:02 +0000
+ be292d3c77f841e39b0ebfacbd36f6a1; Fri, 13 Mar 2026 16:35:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,44 +48,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95fd48a8-1efa-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 95ec48ac-1efa-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1773419703; x=1773689703;
-	bh=JfHFYvtudm5KF8F0VORCJcQt4zo5UBXTcc/C8TzmeOA=;
+	s=mte1; t=1773419702; x=1773689702;
+	bh=qbZoeBv8SgU3eWXReXQKgYvL+qyJ7a3Zk9GQ6xJBpd4=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=Cr7ix8mpoVVF1RvAhtUe+IUrYgBDRBNVWvATBUdkAJ2uY6+EBxGn1JyzvK2jr/hK0
-	 +2FzWg9tElDWxwwrdRNVOYCacTF3/82Jr1yYNtVciklRlwa76WKeuMfgOH35LAnsfR
-	 kJZUYEIppgxM8XI1W2ONvjARsMfksjiZ6yj/7FKz2Jvr62mXAsbpgf+t6OA4a1AZea
-	 tG9ubT5uxIPHTlM6yFCZtq+EiDTSqNgxx7i5EBdX2pKNaSOUuDRZvP1pfGPO6gdqNB
-	 PDkBzqYxCtPkwPXi8c/+HvBrAezSR07XaiAHoEr7qKfpqkziTqNDEhhMqku2etTE78
-	 jRZP6fZdIFBfA==
+	b=0WwwoKl5Gg/CHOMM9d7EBMCDk3yE9YP2PwHUU/ZBrkTr2630+XXSVWVUBX7YopKAi
+	 7QWFjfczxzdDo+dRgdrGELUxF2+zLVX4e6SR+yvn3QV0Q/4/E95WeM+MKT4hdLrncw
+	 Y9hDbSx6Q06xmMPVcPzXsYpX5oHXck2MNScbg7KE2iJKc2+amV/GiuCcWrODLQcv8x
+	 rFbs8QC3QuEv+krEK7IWf9VzsEeWbCNao77K1SqEOhCDfqDrkR0ydIhhJdWR8G3G7G
+	 +sE4Uugh21fnsC5JbU0zEyB4xDOfC2TYZ5dMBV8Slxn8uAN63mwuz1xsy+Nqqx1tGB
+	 sOvO6ESEVnSRA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1773419703; x=1773680203; i=thierry.escande@vates.tech;
-	bh=JfHFYvtudm5KF8F0VORCJcQt4zo5UBXTcc/C8TzmeOA=;
+	t=1773419702; x=1773680202; i=thierry.escande@vates.tech;
+	bh=qbZoeBv8SgU3eWXReXQKgYvL+qyJ7a3Zk9GQ6xJBpd4=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=VJqFJtu2xGYuVcLOW7Apox2ntOVpWsXdMGjhm68+C5UgmO5mOaBcuv3T0zQZR55gc
-	 yPFw+iutjQLdj4RnAMKg2UHJlCj8QlPVXMG8eTqeU77Qz0CPBYIGC6qZWEI1493Uit
-	 wH/nKlGTZIS0Gwr6uKAtcP1/fDpdOSiOxR+wCV06PEFufh6galoubakN6LrigCxmU9
-	 DtxBSMegYH4bSHnqwUkOdTMHc6YSIUhNB84cFFpWkjravbnWHjzIQCC0pun01LF9YE
-	 xNjUgRrPw0l5C0C0yXIyG8AgkgUMQvYOI8+kcmuuVe1Kxyt4GRTZhNUvRBJ6ysacMv
-	 2a1rsCMbBZZGQ==
+	b=l9mt3IbMuetvw+obqEF3dVhNccAKFpxQjr7taWJQFUEetrltAOyhs8jY1wheecsmw
+	 TsbETwCC+GBgtDNako0VEMJV0DaGIFRgaWf/hd54SjqfBWwwt8DwpU67XMZ9s2iA+A
+	 x32KWc7RTkIdrpVIW3mRnSVNkU/cnrfETtA4cGPOXlNF2os0Sn6Gy258SYjYfdzZuN
+	 VUBwSkhXM4s4L9MuX25ZYy2eWgXophPT7TFUjwD10sJ3gmh1J65euyzCn8MhwgxnqK
+	 Ym5G7rl/UUP9c5AZA0wvXyYPGnaHwXRHnhii5SVv3RaeOQKmHFRiG7MSFBLxFTyTZN
+	 p/4gxWcpgI2tg==
 From: "Thierry Escande" <thierry.escande@vates.tech>
-Subject: =?utf-8?Q?[PATCH=2005/17]=20hvmloader:=20add=20Q35=20DSDT=20table=20loading?=
+Subject: =?utf-8?Q?[PATCH=2006/17]=20hvmloader:=20Move=20pci=20devices=20setup=20to=20a=20separate=20function?=
 X-Mailer: git-send-email 2.51.0
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1773419701817
+X-Bm-Transport-Timestamp: 1773419702054
 To: xen-devel@lists.xenproject.org
-Cc: "Thierry Escande" <thierry.escande@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Alexey Gerasimenko" <x1917x@gmail.com>
-Message-Id: <20260313163455.790692-6-thierry.escande@vates.tech>
+Cc: "Thierry Escande" <thierry.escande@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>
+Message-Id: <20260313163455.790692-7-thierry.escande@vates.tech>
 In-Reply-To: <20260313163455.790692-1-thierry.escande@vates.tech>
 References: <20260313163455.790692-1-thierry.escande@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.67f6cedc721c42edbf171055fee92f62?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.be292d3c77f841e39b0ebfacbd36f6a1?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20260313:md
 Date: Fri, 13 Mar 2026 16:35:02 +0000
@@ -100,93 +100,208 @@ X-Spamd-Result: default: False [4.51 / 15.00];
 	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:thierry.escande@vates.tech,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:x1917x@gmail.com,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:thierry.escande@vates.tech,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[vates.tech,suse.com,citrix.com,gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,vates.tech:dkim,vates.tech:mid,vates.tech:email,vates.tech:url];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.105];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
 	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_SPAM(0.00)[0.366];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 6CEA72871CF
+X-Rspamd-Queue-Id: BB1962871D6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This patch allows to select Q35 DSDT table in the function
-hvmloader_acpi_build_tables(). The machine_type global variable is used
-to select a proper table (i440/q35).
+For readability and code simplification, this patch moves PCI-device
+specific initializations out of the pci_setup() function to a new
+function class_specific_pci_device_setup().
 
-As we are bound to the qemu-xen device model for Q35, there is no need
-to initialize config->dsdt_15cpu/config->dsdt_15cpu_len fields.
-
-Signed-off-by: Alexey Gerasimenko <x1917x@gmail.com>
 Signed-off-by: Thierry Escande <thierry.escande@vates.tech>
 ---
- tools/firmware/hvmloader/util.c | 17 +++++++++++++++--
- tools/firmware/hvmloader/util.h |  2 ++
- 2 files changed, 17 insertions(+), 2 deletions(-)
+ tools/firmware/hvmloader/pci.c      | 117 +++++++++++++++-------------
+ tools/firmware/hvmloader/pci_regs.h |   4 +
+ 2 files changed, 68 insertions(+), 53 deletions(-)
 
-diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
-index f9116bea4d..45519ea583 100644
---- a/tools/firmware/hvmloader/util.c
-+++ b/tools/firmware/hvmloader/util.c
-@@ -885,8 +885,21 @@ void hvmloader_acpi_build_tables(struct acpi_config *config,
-     s = xenstore_read("platform/device-model", "");
-     if ( !strncmp(s, "qemu_xen", 9) )
-     {
--        config->dsdt_anycpu = dsdt_i440_anycpu_qemu_xen;
--        config->dsdt_anycpu_len = dsdt_i440_anycpu_qemu_xen_len;
-+        switch ( machine_type )
+diff --git a/tools/firmware/hvmloader/pci.c b/tools/firmware/hvmloader/pci.c
+index c41c8d946a..a76d051bdf 100644
+--- a/tools/firmware/hvmloader/pci.c
++++ b/tools/firmware/hvmloader/pci.c
+@@ -84,12 +84,71 @@ static int find_next_rmrr(uint32_t base)
+     return next_rmrr;
+ }
+ 
++static void class_specific_pci_device_setup(uint16_t vendor_id,
++                                            uint16_t device_id,
++                                            uint16_t class,
++                                            uint8_t bus,
++                                            uint8_t devfn, uint8_t *vga_devfn)
++{
++    switch ( class )
++    {
++    case PCI_CLASS_DISPLAY_VGA:
++        /* If emulated VGA is found, preserve it as primary VGA. */
++        if ( (vendor_id == 0x1234) && (device_id == 0x1111) )
 +        {
-+        case MACHINE_TYPE_Q35:
-+            config->dsdt_anycpu = dsdt_q35_anycpu_qemu_xen;
-+            config->dsdt_anycpu_len = dsdt_q35_anycpu_qemu_xen_len;
-+            break;
-+        case MACHINE_TYPE_I440:
-+            config->dsdt_anycpu = dsdt_i440_anycpu_qemu_xen;
-+            config->dsdt_anycpu_len = dsdt_i440_anycpu_qemu_xen_len;
-+            break;
-+        default:
-+            /* Not likely to happen */
-+            BUG();
++            *vga_devfn = devfn;
++            virtual_vga = VGA_std;
 +        }
++        else if ( (vendor_id == 0x1013) && (device_id == 0xb8) )
++        {
++            *vga_devfn = devfn;
++            virtual_vga = VGA_cirrus;
++        }
++        else if ( virtual_vga == VGA_none )
++        {
++            *vga_devfn = devfn;
++            virtual_vga = VGA_pt;
++            if ( vendor_id == 0x8086 )
++            {
++                igd_opregion_pgbase = mem_hole_alloc(IGD_OPREGION_PAGES);
++                /*
++                 * Write the the OpRegion offset to give the opregion
++                 * address to the device model. The device model will trap
++                 * and map the OpRegion at the give address.
++                 */
++                pci_writel(*vga_devfn, PCI_INTEL_OPREGION,
++                           igd_opregion_pgbase << PAGE_SHIFT);
++            }
++        }
++        break;
++    case PCI_CLASS_BRIDGE_OTHER:
++        /* PIIX4 ACPI PM. Special device with special PCI config space. */
++        ASSERT((vendor_id == 0x8086) && (device_id == 0x7113));
++        pci_writew(devfn, 0x20, 0x0000); /* No smb bus IO enable */
++        pci_writew(devfn, 0xd2, 0x0000); /* No smb bus IO enable */
++        pci_writew(devfn, 0x22, 0x0000);
++        pci_writew(devfn, 0x3c, 0x0009); /* Hardcoded IRQ9 */
++        pci_writew(devfn, 0x3d, 0x0001);
++        pci_writel(devfn, 0x40, ACPI_PM1A_EVT_BLK_ADDRESS_V1 | 1);
++        pci_writeb(devfn, 0x80, 0x01); /* enable PM io space */
++        break;
++    case PCI_CLASS_STORAGE_IDE:
++        if ( vendor_id == 0x8086 )
++        {
++            /* Intel ICHs since PIIX3: enable IDE legacy mode. */
++            pci_writew(devfn, 0x40, 0x8000); /* enable IDE0 */
++            pci_writew(devfn, 0x42, 0x8000); /* enable IDE1 */
++        }
++        break;
++    }
++}
 +
-         config->dsdt_15cpu = NULL;
-         config->dsdt_15cpu_len = 0;
+ void pci_setup(void)
+ {
+     uint8_t is_64bar, using_64bar, bar64_relocate = 0;
+     uint32_t devfn, bar_reg, cmd, bar_data, bar_data_upper;
+     uint64_t base, bar_sz, bar_sz_upper, mmio_total = 0;
+-    uint32_t vga_devfn = 256;
++    uint8_t vga_devfn = 0xff;
+     uint16_t class, vendor_id, device_id;
+     unsigned int bar, pin, link, isa_irq;
+     uint8_t pci_devfn_decode_type[256] = {};
+@@ -170,57 +229,9 @@ void pci_setup(void)
+         ASSERT((devfn != PCI_ISA_DEVFN) ||
+                ((vendor_id == 0x8086) && (device_id == 0x7000)));
+ 
+-        switch ( class )
+-        {
+-        case 0x0300:
+-            /* If emulated VGA is found, preserve it as primary VGA. */
+-            if ( (vendor_id == 0x1234) && (device_id == 0x1111) )
+-            {
+-                vga_devfn = devfn;
+-                virtual_vga = VGA_std;
+-            }
+-            else if ( (vendor_id == 0x1013) && (device_id == 0xb8) )
+-            {
+-                vga_devfn = devfn;
+-                virtual_vga = VGA_cirrus;
+-            }
+-            else if ( virtual_vga == VGA_none )
+-            {
+-                vga_devfn = devfn;
+-                virtual_vga = VGA_pt;
+-                if ( vendor_id == 0x8086 )
+-                {
+-                    igd_opregion_pgbase = mem_hole_alloc(IGD_OPREGION_PAGES);
+-                    /*
+-                     * Write the the OpRegion offset to give the opregion
+-                     * address to the device model. The device model will trap 
+-                     * and map the OpRegion at the give address.
+-                     */
+-                    pci_writel(vga_devfn, PCI_INTEL_OPREGION,
+-                               igd_opregion_pgbase << PAGE_SHIFT);
+-                }
+-            }
+-            break;
+-        case 0x0680:
+-            /* PIIX4 ACPI PM. Special device with special PCI config space. */
+-            ASSERT((vendor_id == 0x8086) && (device_id == 0x7113));
+-            pci_writew(devfn, 0x20, 0x0000); /* No smb bus IO enable */
+-            pci_writew(devfn, 0xd2, 0x0000); /* No smb bus IO enable */
+-            pci_writew(devfn, 0x22, 0x0000);
+-            pci_writew(devfn, 0x3c, 0x0009); /* Hardcoded IRQ9 */
+-            pci_writew(devfn, 0x3d, 0x0001);
+-            pci_writel(devfn, 0x40, ACPI_PM1A_EVT_BLK_ADDRESS_V1 | 1);
+-            pci_writeb(devfn, 0x80, 0x01); /* enable PM io space */
+-            break;
+-        case 0x0101:
+-            if ( vendor_id == 0x8086 )
+-            {
+-                /* Intel ICHs since PIIX3: enable IDE legacy mode. */
+-                pci_writew(devfn, 0x40, 0x8000); /* enable IDE0 */
+-                pci_writew(devfn, 0x42, 0x8000); /* enable IDE1 */
+-            }
+-            break;
+-        }
++        class_specific_pci_device_setup(vendor_id, device_id, class,
++                                        0 /* virt_bus support TBD */,
++                                        devfn, &vga_devfn);
+ 
+         /*
+          * It is recommended that BAR programming be done whilst decode
+@@ -583,7 +594,7 @@ void pci_setup(void)
+                           ((pci_hi_mem_start & -pci_hi_mem_start) - 1)) + 1;
      }
-diff --git a/tools/firmware/hvmloader/util.h b/tools/firmware/hvmloader/util.h
-index 2f37504aca..4641ca0c46 100644
---- a/tools/firmware/hvmloader/util.h
-+++ b/tools/firmware/hvmloader/util.h
-@@ -393,7 +393,9 @@ bool check_overlap(uint64_t start, uint64_t size,
-                    uint64_t reserved_start, uint64_t reserved_size);
  
- extern const unsigned char dsdt_i440_anycpu_qemu_xen[], dsdt_anycpu[], dsdt_15cpu[];
-+extern const unsigned char dsdt_q35_anycpu_qemu_xen[];
- extern const int dsdt_i440_anycpu_qemu_xen_len, dsdt_anycpu_len, dsdt_15cpu_len;
-+extern const int dsdt_q35_anycpu_qemu_xen_len;
+-    if ( vga_devfn != 256 )
++    if ( vga_devfn != 0xff )
+     {
+         /*
+          * VGA registers live in I/O space so ensure that primary VGA
+diff --git a/tools/firmware/hvmloader/pci_regs.h b/tools/firmware/hvmloader/pci_regs.h
+index 4d4dc0cd01..c94278855b 100644
+--- a/tools/firmware/hvmloader/pci_regs.h
++++ b/tools/firmware/hvmloader/pci_regs.h
+@@ -111,6 +111,10 @@
+ #define PCI_DEVICE_ID_INTEL_82441        0x1237
+ #define PCI_DEVICE_ID_INTEL_Q35_MCH      0x29c0
  
- unsigned long acpi_pages_allocated(void);
++#define PCI_CLASS_STORAGE_IDE            0x0101
++#define PCI_CLASS_DISPLAY_VGA            0x0300
++#define PCI_CLASS_BRIDGE_OTHER           0x0680
++
+ #endif /* __HVMLOADER_PCI_REGS_H__ */
  
+ /*
 -- 
 2.51.0
 
