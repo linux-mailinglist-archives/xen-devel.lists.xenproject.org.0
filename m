@@ -2,61 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6G7xAk+AtGmuowAAu9opvQ
+	id gNZdD3eRtGn7qAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2026 22:23:27 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2026 23:36:39 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6467228A1E8
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2026 22:23:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1254539.1550314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6C9728A7CE
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2026 23:36:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1254586.1550324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w19xe-0007kX-9n; Fri, 13 Mar 2026 21:22:22 +0000
+	id 1w1B6a-0007wJ-Eu; Fri, 13 Mar 2026 22:35:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1254539.1550314; Fri, 13 Mar 2026 21:22:22 +0000
+Received: by outflank-mailman (output) from mailman id 1254586.1550324; Fri, 13 Mar 2026 22:35:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w19xe-0007iX-6g; Fri, 13 Mar 2026 21:22:22 +0000
-Received: by outflank-mailman (input) for mailman id 1254539;
- Fri, 13 Mar 2026 21:22:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w1B6a-0007u8-C0; Fri, 13 Mar 2026 22:35:40 +0000
+Received: by outflank-mailman (input) for mailman id 1254586;
+ Fri, 13 Mar 2026 22:35:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Qi/i=BN=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
- id 1w19xc-0007iR-7S
- for xen-devel@lists.xenproject.org; Fri, 13 Mar 2026 21:22:20 +0000
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azlp170110003.outbound.protection.outlook.com
- [2a01:111:f403:c110::3])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b0b8b83f-1f22-11f1-9ccf-f158ae23cfc8;
- Fri, 13 Mar 2026 22:22:09 +0100 (CET)
-Received: from SJ0PR03CA0215.namprd03.prod.outlook.com (2603:10b6:a03:39f::10)
- by SJ5PPFABE38415D.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::99e) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Fri, 13 Mar
- 2026 21:22:04 +0000
-Received: from MWH0EPF000C6188.namprd02.prod.outlook.com
- (2603:10b6:a03:39f:cafe::29) by SJ0PR03CA0215.outlook.office365.com
- (2603:10b6:a03:39f::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.16 via Frontend Transport; Fri,
- 13 Mar 2026 21:21:59 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C6188.mail.protection.outlook.com (10.167.249.120) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Fri, 13 Mar 2026 21:22:04 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 13 Mar
- 2026 16:22:01 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 13 Mar
- 2026 14:22:01 -0700
-Received: from [172.31.96.139] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 13 Mar 2026 16:22:00 -0500
+ <SRS0=hEuA=BN=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1w1B6Y-0007u2-4J
+ for xen-devel@lists.xenproject.org; Fri, 13 Mar 2026 22:35:38 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org
+ [2600:3c04:e001:324:0:1991:8:25])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f39e365a-1f2c-11f1-b164-2bf370ae4941;
+ Fri, 13 Mar 2026 23:35:35 +0100 (CET)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8179A6183E;
+ Fri, 13 Mar 2026 22:35:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03834C19421;
+ Fri, 13 Mar 2026 22:35:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,153 +47,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b0b8b83f-1f22-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U0vGFm8r2bIRwvefxB/LV4zZmDQsoGlLPCo76QFzO/5Jo026RfPBufvZfGvVpZI+ILCAr33hFt6a52gzOwu35zVhF2Q0EX84yKuwrDF0iRt6CVYgWjM47Z4b1N3nsDtYDgA/9x3CA5XGLX8W2fCvLQQBzJIJ8KAX26MJZ6cMJxxquzbguXv7wfdtBoh89sAr++/d/7OUVGKMzkokSMCUVKiGG+VEQa5dfqppCiuLgYd6Eb/y4tlrf2wyGIkf564f0dRRJVD3XeQw9wn7r+cqFiGfB0sA9DI7y+BKcbFJW3qLqRZe5DWBh5nA268BNITBEJ5E1P8s9cM0QD7P88P7lQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xvd9igOVGt5yIkkA6IPxQ0vwUtUeB67QYH/xMRh2gnU=;
- b=sKQQw8ZnaUA3s2qvvllwRbmHfSTjoelMlnun9/xqKarRusSzcIKGBIkgqDsEBwqsNbNVWEq6CjNhKEuYD+kSXA65L0J1uxpRJOz12HXWjYyt819DMFth4kHRdrCd7PLgBcgoM3ATlG1fUzwD9pjRKovX4Ynw9xidqUtOndlJO4FUvc3UxQhyMwJDz7vwiN/y3YyRxKlsJhULpFEkfdrW6aRT8BVFuuNJCVo2aJwaQaGThO4nl3/6L/hXmcNRWrLQPNHC3PMh+YcqBCkzj1imAnhepB4FVxkwEP6IzhrdHFUuJr8rTInoNGZoOqgV+6iqRdsAHW4MWAiEIzGJGRggZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xvd9igOVGt5yIkkA6IPxQ0vwUtUeB67QYH/xMRh2gnU=;
- b=tglDAx2oFIc7aBA0JoA3ZgQ8hoyX/Ob0MSePAdvL7YO5cVhOGr64zV6shsUTeyo5LxBbtBBKlnGItslRn2PefjxiNv62ij4kPUqp4cHjqcYyaGogSe/ys6jTpi/lqkKX7vL+hbcWkuJAb7Zt9AnG3UXGK1SCxDb0w30PvNZl8pY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <735cfce6-28db-4fb9-9e0d-d3f3f18403a2@amd.com>
-Date: Fri, 13 Mar 2026 17:22:00 -0400
+X-Inumbo-ID: f39e365a-1f2c-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1773441334;
+	bh=NCbvP5f6b/mCFhMJmC9j3yAfcF6UdIqCTsj5FlU2tpw=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=VcP2stPLlc45efG1ATlBlz89qWp35F/JjEqHryh0F3Y9bmzCUrIvK8yF87waJcNGc
+	 SjKO/CMF5u+aetYSJTviVylA5gODS1qGJBfnvoDJ/NXbDFgzMrRFnbTTCztAzTGJ+T
+	 K/N6GhQ/HtDORPD/UDERYQzIFc8WQxkHxYYOhfJgoUSmJ8TFt0GP6Y9MJNbkc07Cj6
+	 8ufjgksNohKApFW9NTPO4YC8qdeh9jcKhG7/rW9wjkQFs/VzzyrgiRB9uQ0UNA4nwm
+	 r0d3OefD5V5LYb1e3xz0prUX/BxkOyU6H9u07+GAenyFQYk5we8A19XiohfzUuwj/+
+	 9F2EnCXuH/ZYA==
+Date: Fri, 13 Mar 2026 15:35:26 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jason Andryuk <jason.andryuk@amd.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+    linux-serial@vger.kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] hvc/xen: Check console connection flag
+In-Reply-To: <20260312173845.47235-1-jason.andryuk@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2603131535200.1759048@ubuntu-linux-20-04-desktop>
+References: <20260312173845.47235-1-jason.andryuk@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/11] tools/xenstored: add central quota check functions
-To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>
-CC: Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>
-References: <20260305135208.2208663-1-jgross@suse.com>
- <20260305135208.2208663-3-jgross@suse.com>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <20260305135208.2208663-3-jgross@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6188:EE_|SJ5PPFABE38415D:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2165522d-569f-4dac-7d2f-08de814692ad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|18002099003|22082099003|56012099003|7053199007;
-X-Microsoft-Antispam-Message-Info:
-	MdMQ5fnusIhmmCyL/3imLGDIpX0HhDS/HB8MDIWW1vqA8Ea6Zz4J9FzP+e28GzZvnq2IQw2dlKPOo8XHiu4pr4HNbxZCbQMkuovE+IwtaeQXGoF2+AyHYrBynnn7nH9AFaqQkAuAIg8JytveBGck4DybL47uQzOpLOaS2U4+mQBF+Pvq7nBnSTzxecb3jcYLyjiX2wNcaaLT+8dyuWiJqJr9mvSIBLHt2WW10NmxFyHdbQhjLGHmBkVGy62S6D2AyF6Zd0wxGp+PQIAjogNu4Yry+WPXihKhXujEDFxWiiM3hOdRmio0sd73JNgEoNwy+TEMqWMlwl6FfPy89uwcTyWSzqrxJN8F6Xl0W3evFSv+MFopNdauXOaK5g78Ueo5ZH1o0sknkHzWwVzENMoGU7td+nB07INAUCPbo9tcEj7tdLtDvYWsfeqUKbXAyHWvzaTjjgFarPYdVU4Abrh7PXbHKOf7JjBW46/6+wRBDHw/XmMCDVFTAT9m0iraX2uDerOp0IBzuIH6HYdBPbt4i+WoyAvRNtmbvdLKjw4G7UqXy8N30Q64rTKT5tUEoP4mV9CS96zfaC6g7EcKARql0oj4uaauBUc0QBsX0Q0KFYhzv0Wf6Kco8R7Fg74jaUXaYdrwf0v8nk8OesWD68eKYCNei8f0v4BG2ekWqSfQprr4sMXMe+jBXaG97Ll48og/gD/tu1aVy2iIKYtBvbWm15X+/7TO9KZf408xWAdeW29Dwhw/zZdFOXLjDYsgFMhZRYql2R3hKKNhBY5UdYQjug==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(22082099003)(56012099003)(7053199007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	wMJNKTGFDDh19PNGdtYv7c/aqBgCkYFuH1NqL8TAwWi0r5I7rJ3K0rMpzwyTnAQCmvx+X8TdjHjVistC50Jmx3MhrTQIPsPTKO5o25oc0RnAcpR0Y7xR0aq8U02f761yqtZ4wwSUg5DJJ0UnPgdS3qJF8H5EyjVjuqW5z8kxw9URdLMND+uxvl4o0vr5Z5k67FNhTCLWE+mDVm4wy+vC3wuya/IMoiEb0Z7hZRUVfKvHKQLaphdyIZNfLuFsjvAibJbi9CM9LfTwXfIV8ZIAjE/gb68IYRCzdHa/ENwaE/BBzD8K0ClVdkgDb63uL9zDRWEl13jYe85xfHldahR1S2mqaWc2LLVfiQuIBJgUOfUol5gmUMCO7fI06Cr5VHPA87BY3RuJPrGNeaKAJfzbYPTuT8N9BTNFE+A8n7+cbPAygYs5Cl6SHFl19OKfTaGG
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 21:22:04.0395
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2165522d-569f-4dac-7d2f-08de814692ad
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000C6188.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFABE38415D
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:xen-devel@lists.xenproject.org,m:julien@xen.org,m:anthony.perard@vates.tech,s:lists@lfdr.de];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_THREE(0.00)[4];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:gregkh@linuxfoundation.org,m:jirislaby@kernel.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:linuxppc-dev@lists.ozlabs.org,m:linux-kernel@vger.kernel.org,m:linux-serial@vger.kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email]
-X-Rspamd-Queue-Id: 6467228A1E8
+	RCPT_COUNT_SEVEN(0.00)[10];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: D6C9728A7CE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 2026-03-05 08:51, Juergen Gross wrote:
-> Add central functions for checking a value (either an absolute one or
-> the current domain value plus an offset) against a specific quota.
+On Thu, 11 Mar 2026, Jason Andryuk wrote:
+> When the console out buffer is filled, __write_console() will return 0
+> as it cannot send any data.  domU_write_console() will then spin in
+> `while (len)` as len doesn't decrement until xenconsoled attaches.  This
+> would block a domU and nullify the parallelism of Hyperlaunch until dom0
+> userspace starts xenconsoled, which empties the buffer.
 > 
-> This is in preparation of introducing per-domain quota.
+> Xen 4.21 added a connection field to the xen console page.  This is set
+> to XENCONSOLED_DISCONNECTED (1) when a domain is built, and xenconsoled
+> will set it to XENCONSOLED_CONNECTED (0) when it connects.
+
+It should be XENCONSOLE_DISCONNECTED
+
+
+> Update the hvc_xen driver to check the field.  When the field is
+> disconnected, drop the write with -ENOTCONN.  We only drop the write
+> when the field is XENCONSOLED_DISCONNECTED (1) to try for maximum
+> compatibility.  The Xen toolstack has historically zero initialized the
+> console, so it should see XENCONSOLED_CONNECTED (0) by default.  If an
+> implemenation used uninitialized memory, only checking for
+> XENCONSOLED_DISCONNECTED could have the lowest chance of not connecting.
 > 
-> The required changes allow to drop the "update" parameter from
-> domain_nbentry_fix().
+> This lets the hyperlaunched domU boot without stalling.  Once dom0
+> starts xenconsoled, xl console can be used to access the domU's hvc0.
 > 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Update the console.h header to bring in the new field.
+> 
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
 
-> diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
-> index e453b3061f..1df9265ad5 100644
-> --- a/tools/xenstored/domain.c
-> +++ b/tools/xenstored/domain.c
-> @@ -389,6 +389,25 @@ void wrl_apply_debit_trans_commit(struct connection *conn)
->   	wrl_apply_debit_actual(conn->domain);
->   }
->   
-> +static bool domain_check_quota_val(struct domain *d, enum accitem what,
-> +				   unsigned int val)
-> +{
-> +	unsigned int quota = hard_quotas[what].val;
+Aside from the minor comment on the commit message:
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+>  drivers/tty/hvc/hvc_xen.c          |  3 +++
+>  include/xen/interface/io/console.h | 13 +++++++++++++
+>  2 files changed, 16 insertions(+)
+> 
+> diff --git a/drivers/tty/hvc/hvc_xen.c b/drivers/tty/hvc/hvc_xen.c
+> index 7f0b6262488c..c407592442cd 100644
+> --- a/drivers/tty/hvc/hvc_xen.c
+> +++ b/drivers/tty/hvc/hvc_xen.c
+> @@ -139,6 +139,9 @@ static ssize_t domU_write_console(uint32_t vtermno, const u8 *data, size_t len)
+>  	if (cons == NULL)
+>  		return -EINVAL;
+>  
+> +	if (cons->intf->connection == XENCONSOLE_DISCONNECTED)
+> +		return -ENOTCONN;
 > +
-> +	if (!quota || !domid_is_unprivileged(d->domid))
-> +		return false;
-> +
-> +	return val >= quota;
-
-Personally, I don't like the naming of *check* where the "good" return 
-is false.  That seems backwards from what I expect.  So I'd suggest 
-either flipping the return value or renaming.  domain_quota_fail() or 
-something?
-
-> +}
-> +
-> +bool domain_check_quota_add(struct domain *d, enum accitem what, int add)
-> +{
-> +	if (add < 0 || !d)
-> +		return false;
-> +
-> +	return domain_check_quota_val(d, what, d->acc[what].val + add);
-> +}
-> +
->   static bool check_indexes(XENSTORE_RING_IDX cons, XENSTORE_RING_IDX prod)
->   {
->   	return ((prod - cons) <= XENSTORE_RING_SIZE);
-
-As an example, here "good" is true.
-
-I see Anthony already gave an R-b, so just consider it as a suggestion.
-
-Thanks,
-Jason
+>  	/*
+>  	 * Make sure the whole buffer is emitted, polling if
+>  	 * necessary.  We don't ever want to rely on the hvc daemon
+> diff --git a/include/xen/interface/io/console.h b/include/xen/interface/io/console.h
+> index cf17e89ed861..687949bdebb1 100644
+> --- a/include/xen/interface/io/console.h
+> +++ b/include/xen/interface/io/console.h
+> @@ -19,6 +19,19 @@ struct xencons_interface {
+>      char out[2048];
+>      XENCONS_RING_IDX in_cons, in_prod;
+>      XENCONS_RING_IDX out_cons, out_prod;
+> +/*
+> + * Flag values signaling from backend to frontend whether the console is
+> + * connected.  i.e. Whether it will be serviced and emptied.
+> + *
+> + * The flag starts as disconnected.
+> + */
+> +#define XENCONSOLE_DISCONNECTED 1
+> +/*
+> + * The flag is set to connected when the backend connects and the console
+> + * will be serviced.
+> + */
+> +#define XENCONSOLE_CONNECTED    0
+> +    uint8_t connection;
+>  };
+>  
+>  #endif /* __XEN_PUBLIC_IO_CONSOLE_H__ */
+> -- 
+> 2.34.1
+> 
 
