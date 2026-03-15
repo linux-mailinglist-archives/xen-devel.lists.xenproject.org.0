@@ -2,51 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UDxVAN3ntmmRKQEAu9opvQ
+	id vZgkK3Y2t2k+OAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 15 Mar 2026 18:09:49 +0100
+	for <lists+xen-devel@lfdr.de>; Sun, 15 Mar 2026 23:45:10 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 322E32919CD
-	for <lists+xen-devel@lfdr.de>; Sun, 15 Mar 2026 18:09:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1255256.1550359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2B86292E49
+	for <lists+xen-devel@lfdr.de>; Sun, 15 Mar 2026 23:45:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1255413.1550384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w1oww-0004wE-BS; Sun, 15 Mar 2026 17:08:22 +0000
+	id 1w1uBk-00035o-S9; Sun, 15 Mar 2026 22:44:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1255256.1550359; Sun, 15 Mar 2026 17:08:22 +0000
+Received: by outflank-mailman (output) from mailman id 1255413.1550384; Sun, 15 Mar 2026 22:44:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w1oww-0004tE-55; Sun, 15 Mar 2026 17:08:22 +0000
-Received: by outflank-mailman (input) for mailman id 1255256;
- Sun, 15 Mar 2026 17:08:20 +0000
+	id 1w1uBk-00033J-NN; Sun, 15 Mar 2026 22:44:00 +0000
+Received: by outflank-mailman (input) for mailman id 1255413;
+ Sun, 15 Mar 2026 22:43:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hpBg=BP=oss.qualcomm.com=vijayanand.jitta@srs-se1.protection.inumbo.net>)
- id 1w1owu-0004t7-7L
- for xen-devel@lists.xenproject.org; Sun, 15 Mar 2026 17:08:20 +0000
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f054677-2091-11f1-b164-2bf370ae4941;
- Sun, 15 Mar 2026 18:08:17 +0100 (CET)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62F6TFuS1106578
- for <xen-devel@lists.xenproject.org>; Sun, 15 Mar 2026 17:08:16 GMT
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cw04235dw-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Sun, 15 Mar 2026 17:08:16 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2aec8d85199so19160875ad.0
- for <xen-devel@lists.xenproject.org>; Sun, 15 Mar 2026 10:08:15 -0700 (PDT)
-Received: from hu-vjitta-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2aece56c393sm78973035ad.17.2026.03.15.10.08.04
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=vTDb=BP=gmail.com=x1917x@srs-se1.protection.inumbo.net>)
+ id 1w1uBj-00033D-64
+ for xen-devel@lists.xenproject.org; Sun, 15 Mar 2026 22:43:59 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7319f318-20c0-11f1-b164-2bf370ae4941;
+ Sun, 15 Mar 2026 23:43:56 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ 5b1f17b1804b1-48540d21f7dso46733735e9.0
+ for <xen-devel@lists.xenproject.org>; Sun, 15 Mar 2026 15:43:56 -0700 (PDT)
+Received: from LinuxLaptop ([156.146.63.148]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-485696a12d0sm9329865e9.13.2026.03.15.15.43.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Mar 2026 10:08:13 -0700 (PDT)
+ Sun, 15 Mar 2026 15:43:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,436 +49,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f054677-2091-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=thJzkvW9uOc7ANNbvpiJj/
-	JZWbmF086MfCsEV/kb1PM=; b=Amnfi7m0rPnXRh+qwWteFyKXFGRtWdWJPLHVgi
-	3X3StFtnBtdGAP3Vk7NREEwWfihYkgnwEA7QAWFi46mPrZp9eA2/lUA8HlJX9TxU
-	lq7Id5YO7BlZHa7YPPEqihviIVmDqJV8GytlpdfCGy41/Gfmd22lP3iZ0sd/ADBS
-	9uenNtpdCqDzntK2Ia1c0NA1NyblfMJ8+sTAvMGgpjkVDlvZv/IO76Wsgwo7NZRu
-	7bAm9wy+Qx/3iT8JyCoPTl3FkAvGAvMMQiVUlHw5/gomHywQN/V2INbXM5FWDeUC
-	eX4WYAy3dJqalyon/Ax8+4aiFxj2d6Bmr6g1IQfy3Kpvw6qg==
+X-Inumbo-ID: 7319f318-20c0-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1773594495; x=1774199295; darn=lists.xenproject.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=thJzkvW9uOc7ANNbvpiJj/JZWbmF086MfCsEV/kb1PM=;
-        b=VqUlM+lX5yvHBQos8dtApwtE4+GmCPbJPiWFcGQzMuxb3E2D38Q9vez8kgAgPW62m9
-         +4nR0Oda5tW10wpe9aMUHPyrCIznzPkZSlZ8Sp6sTCeGWDBi0A+gIzxpCw9ipv4l7pvQ
-         ao1YlgSvnVRXWJR4VL1MyN5+8rGLZI5EO5TvZIAIbK8LP+M7J09LIKPHDR35GWNLoBv3
-         RZpiIQT1mXdrY7apU1vYg31FFJbaoYBhhSE2/60o7Fz/p5KPz4GU6bFiDzg3irHxW6S5
-         YR6ZhCUw5csrxgB8ov5/0904Qf+ZSHsq9inPMWy7QGUr+5I8xNtcERE1Fano3u0lHV8N
-         D0wg==
+        d=gmail.com; s=20230601; t=1773614636; x=1774219436; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:organization:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=R+oKftX9fWed4q1JFI6dnkZ5cVOEANix0J2Szgkj1kw=;
+        b=Dd35wY4NsWP/uDxbPKxtLcemqgyEE6+K8ZGcYmnGHM486PGEjIigplwzWmY0e7xySJ
+         2LicqrxEj6zNjNwK+sYscDGAZ5jv+6RAMp7YFCP+n6Psz+YtBJfGuKxUjZqR2PYadLDk
+         QfNwtU+inPRbRDjWfqLNHRq17HUW6NvjWl37maTKr4dYsVgxflWoIP9PILE1V13yQRPh
+         6KM1DnqV2/NHuK3J67G0k/vhRnIZzLS74+gmuqdrl5fgxaU2Fye4BaCc4s5f270Jfxgx
+         4n0vrXG1hZyfHp8WulXG62WQPRzo7FqR2VBbZfyY7lHRgeKiYUqmNfFAuEa0verkbK+3
+         mvzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773594495; x=1774199295;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=thJzkvW9uOc7ANNbvpiJj/JZWbmF086MfCsEV/kb1PM=;
-        b=b25NJUgRWEpavm6Hlhxgrzk6CY7RtG76zSVMuolhDLJ3qQPqBHB2mnnGawoJU/FanN
-         m8YQLXoNudGK1lrV85TM3IUBzp0zxbjtF0KlLWmL/ctunVkzltHDKP6Lssslg3+EKeps
-         BSwWjewtcz5TRDyWuOo5J+O3IMZIVOt2o9gBuA9H46yQqLkKpBKW3gbFCNGr+udC02bL
-         53ZTcbi5tOJoD4tvpivPX4ZlSfuahkopAYd8JOR5ftrX2wOR7IfWp7QHbYBqpQ/GnsVI
-         K4SJB8XS0qmw5r3867ruR0wy31226yKgiUBVM+5PK22fI4JeSOfrnNkAb/KJSs6qA7Ad
-         5UWg==
-X-Forwarded-Encrypted: i=1; AJvYcCVUeoqWiq6rUGm1tZuS6gN07fxQ/sQqOjq3Swv8An01mdA3U4lo47eTQdECE7ygTOjW9807EEcYQWs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxrZSnh2Rs3lNBLXImyF/PARNcLPerSpfNyuicviDTinAvvSoCs
-	VpL69s15hHxJaxIzPBMY4U5KcpJ+vlaozj8Xrihm4CxuaM3Jpgm856Hj1WST8EIJIWCGPbBO2LT
-	0/CKN/6KnLTQ8sISRdQnPcsu+akj2AtF4n8Z5a/SR0hWJIg0PV6dOCAaTNRx1LKVNe/m6mA==
-X-Gm-Gg: ATEYQzyvSIRranRt1zca/WqptubG0v8BiVc9rHS9CeAJQzEQG1MxsXEIMm0QLJeEIjD
-	1s6h+YLp9Bd36MCrbju4i9VYvIH1WD2LbEHkGc31o+bqhVgksoPHJiJ+1EJDenZkbeGoqHghDwa
-	e+PYuEIFaTjYYK8BI5wZ2t4UKtlg5Gp20hqsxDBhwPaMR+WsYcn9MkScPgjRDLSyVBz08MGhesT
-	OtT5GutugjSrV73UAVwiWT/kn2MjsR8wfGdN4+9r9dNHkIMDCXzG5Ty8DBIylnms24wDCbOIlJ+
-	zsz2g6gX4uJiOom7Li9OJN7aSCjUn4rayRrrq7JTwxAdIWnD/1Lm9wW8dBSCGauljma7/8oAc7y
-	jqJn4kkkDwyRaQMj41n5wua+3KNzOGWMyia9wEmJRJLJQuuuCSWD+75pv
-X-Received: by 2002:a17:903:1b68:b0:2b0:5306:5f20 with SMTP id d9443c01a7336-2b0530674cemr17093155ad.18.1773594494908;
-        Sun, 15 Mar 2026 10:08:14 -0700 (PDT)
-X-Received: by 2002:a17:903:1b68:b0:2b0:5306:5f20 with SMTP id d9443c01a7336-2b0530674cemr17092635ad.18.1773594494295;
-        Sun, 15 Mar 2026 10:08:14 -0700 (PDT)
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Date: Sun, 15 Mar 2026 22:37:43 +0530
-Subject: [PATCH v2] of/iommu: support multiple iommu-map entries per input
- ID
+        d=1e100.net; s=20251104; t=1773614636; x=1774219436;
+        h=content-transfer-encoding:mime-version:organization:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=R+oKftX9fWed4q1JFI6dnkZ5cVOEANix0J2Szgkj1kw=;
+        b=jD7MRYOk/7m4lkpp1J/78jUJkb5DxBbhbBDWpUeQr6kk4fmj7R3tdRxrd9ZSV6eoM4
+         zEsuahwL2kBnsMtAQj5t/BL6bEE1j0Bdf+vt1CrNsd5b9JObmdhMHCSgT69sEyCZFi2A
+         5mC3gr28SPcmF74bhngNOWg8zF8R9HDCdDbGkgcXJTMpVXuS8y86szQJZbC7p7OY/4G1
+         YdQhI+T3brPCGpJMfD36mdnpeyfftMaXnda6X9w/IrDb64sHujAZpLac6Gle57vtQDPq
+         K9d4phtpS1oNqNpzzyDtipp4QQr5KcIWcT9zxlgodThc4RtNFUziCZgSpAGyiMXlI/8I
+         y/7w==
+X-Gm-Message-State: AOJu0YxrG+uQo6tFAEiUacPp09ku0RsC1MhgbH9VFkz34TQhdFz63jkQ
+	gJ8ipO4+C3l14DUNXSKVlaljI2mfi1Q8jjQ20VX9YvBMsRyDsIQwUb1/
+X-Gm-Gg: ATEYQzxlkdVnON5mIRLrLGDKQHwnwgWjCtNaWb4tLfuVgwZD045DLFMtU8cxZOhRDHz
+	ajKrAAifNNN2a4/GIVwcA1Pdzi0ec497t+C1C+/Zv5Q2Rv2rniYA0SDcWCp+AoDTD2iGHQAGrEP
+	mozkTfRB7VQEwr90xbocCd0Z73i3YOQKSW8pdiFo/j4ZZcKD+V/l5FUg/267rc8pGgT88L0bG64
+	HMLxQZvLA9oJ6MKsNf6QaGmy5OC7kRN4u/HLjO/CR2gCDgJ/hk3D42Jz7kph0VYVH0kT/S40JNg
+	WgjJp1gYiNa0IZcoecosm50buofXVbVMFW7QBkolqR2fJLSYR7YAhO3i2/XxUEXKwcKNMUBBwp5
+	iWgdXPtEwGXHqaTuSL7dX2rYbzIRJhD8gixzWwUulikPgYSFRqvXtVm+c3HrdHXTXlMbQ1R0apK
+	dedk18KamWjAG+F8VOGw==
+X-Received: by 2002:a05:600c:a09:b0:485:3f72:324d with SMTP id 5b1f17b1804b1-485566ddac0mr199693975e9.14.1773614635407;
+        Sun, 15 Mar 2026 15:43:55 -0700 (PDT)
+Date: Sun, 15 Mar 2026 23:43:49 +0100
+From: Alexey G <x1917x@gmail.com>
+To: "Thierry Escande" <thierry.escande@vates.tech>
+Cc: xen-devel@lists.xenproject.org, "Jan Beulich" <jbeulich@suse.com>,
+ "Andrew Cooper" <andrew.cooper3@citrix.com>, "Roger Pau =?UTF-8?B?TW9u?=
+ =?UTF-8?B?bsOp?=" <roger.pau@citrix.com>, "Anthony PERARD"
+ <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien
+ Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>,
+ "Juergen Gross" <jgross@suse.com>
+Subject: Re: [PATCH 00/17] Q35 initial support for HVM guests
+Message-ID: <20260315234349.36c0dd8b@LinuxLaptop>
+In-Reply-To: <20260313163455.790692-1-thierry.escande@vates.tech>
+References: <20260313163455.790692-1-thierry.escande@vates.tech>
+Organization: none
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260315-iommu_multi_map-v2-1-51b98cb79331@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAF7ntmkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHQUlJIzE
- vPSU3UzU4B8JSMDIzMDY0NT3cz83NzS+NzSnJLM+NzEAl2LZMskcwsTS4PE5FQloK6CotS0zAq
- widGxtbUA+zWOvmEAAAA=
-To: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Marc Zyngier <maz@kernel.org>,
-        Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        imx@lists.linux.dev, xen-devel@lists.xenproject.org,
-        linux-arm-msm@vger.kernel.org,
-        Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-X-Mailer: b4 0.12.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1773594484; l=11143;
- i=vijayanand.jitta@oss.qualcomm.com; s=20260301; h=from:subject:message-id;
- bh=SoPi6EZR36E7NYzW7ROn+VXlsuvtsMeKrxme0hCMUPk=;
- b=xJyzCudAB+iilqpGW9jjZhvmYkMUYUWeUOH6tnG/x8TC/YIZ05rxJXUEds5TaDqR7UknSPvcR
- OdGCrfnovcbBbST29yWlUwSy457WFOvR6FoxeZZsHPtfMKGP1PCqCGz
-X-Developer-Key: i=vijayanand.jitta@oss.qualcomm.com; a=ed25519;
- pk=Lpi7Cs3wHe8KZtqvyci7FTOLzsKpEHKGCaPNZw+1zRI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE1MDEzNSBTYWx0ZWRfX3fEKTBVtNwpT
- +26OC0b5Tw6XsDtWAhvbtqWOVjNWj6dqqbzJ7hQEuNtHs6/btWxRqvGy/U0/pb82tEsRnbOsvWU
- 9gifU9WJSVplij/l/xwXNLzx34yxMYOoReAmd0iZJhYLbenFPfhVW8O33rAUvUZszLSamqUfJlG
- 4hNQ021EHsg3AJ7ZIV6Km7B7wc76wEZ+uJ3Z3vGrLJBjdJqvvRVQ5j0Abih2oWx9p2jIe0aeS9+
- v+hhORIKqG2UKFQmIlta+J58MvzW6vZcBkNQG9OjZH2pSSoFhjJy9H3DzCc0/IqNC0q826OMZY4
- Nc0gCINTO7ZZ7lEpXFtExlzy5N2Ir49UG2xqFkHb4t8nkkfZNpI/skxbOp38Ty3a2tCE5bZesN2
- 2fJXowzJtlcAgkJ9yk7Rq2hwVU1kOjerPuxtScX1se9T96nPQvKt/eHmkz+xbys8L1t7Dbd/WPM
- OaPeXUZ0LGSj/Cg1uNg==
-X-Proofpoint-GUID: EqZjFfSRRNYEbVfiDr_xlHalRxNLFdG5
-X-Authority-Analysis: v=2.4 cv=SJJPlevH c=1 sm=1 tr=0 ts=69b6e780 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=kIQn9afXKFv-EtykHQIA:9
- a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: EqZjFfSRRNYEbVfiDr_xlHalRxNLFdG5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-15_06,2026-03-13_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
- impostorscore=0 priorityscore=1501 malwarescore=0 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603150135
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:robh@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:lpieralisi@kernel.org,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:maz@kernel.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:vijayanand.jitta@oss.qualcomm.com,m:conor@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:dkim,qualcomm.com:email,iommu_spec.np:url,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[37];
-	FREEMAIL_TO(0.00)[8bytes.org,kernel.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com,oss.qualcomm.com];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:jgross@suse.com,s:lists@lfdr.de];
 	FROM_HAS_DN(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[x1917x@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel,dt];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[x1917x@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	HAS_ORG_HEADER(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 322E32919CD
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: F2B86292E49
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-When multiple mappings are present for an input ID, linux matches
-just the first one. There is a usecase [1] where all the mappings
-are to be maintained in parallel for an iommu-map entry of a same
-input id.
+Hello,
 
-Add a next_offset iterator parameter to of_map_iommu_id() and
-refactor of_map_id() internals into a static helper to carry it.
-Update of_iommu_configure_dev_id() to loop over all matching
-entries to support this case. All other callers pass NULL and
-are unaffected.
+I'm glad someone wants to commit these patches (and surprised that
+they're still applicable after so many years), thank you for this
+effort. Feel free to proceed, it would be good if you manage to upstream
+them to Xen/QEMU code. But be prepared that it won't be an easy
+task - the patches cross multiple areas of responsibility, so it will
+require some effort to make all involved Xen/QEMU maintainers happy.
+I don't work on virtualization/x86 anymore and I barely remember
+anything after 8 years, so I probably won't be able to help much, but
+I'll keep an eye on the email thread.
 
-[1] https://lore.kernel.org/all/20250627-video_cb-v3-0-51e18c0ffbce@quicinc.com/
 
-Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
----
-On Qualcomm kaanapali, the VPU hardware has multiple internal blocks
-that generate different stream IDs for the same input ID. The device
-tree encodes them as separate iommu-map entries sharing the same input
-ID:
+Some historical background for the Q35 patches:
 
-  iommu-map = <0x100 &apps_smmu 0x1940 0x1>,
-              <0x100 &apps_smmu 0x1a20 0x1>, ...
+The project I was working on was relying on Xen for PCIe device
+passthrough (mostly GPUs, NICs and storage controllers) to HVM guests.
+So PCIe passthrough and HVM were the top priority - it affected many
+of my decisions.
 
-This requires multiple iommu-map entries per device.
-of_iommu_configure_dev_id() currently stops at the first match,
-so only one stream ID gets registered with the IOMMU.
+IIRC, there were 2 major obstacles to successfully passthrough any PCIe device:
 
-The v1 series [1] addressed this with a callback threaded through
-of_map_id().
+1. Even back then, there were **multiple PCIe devices whose drivers
+were attempting to read/write registers from their device's PCIe
+extended config space** (offsets above 100h). Supporting this feature
+required to have MMCONFIG/ECAM working, which was something only
+available for Q35 emulation at that time => hence Q35 support was
+added, with mostly PCIe passthrough in mind. In the process I also
+discovered that dreadful "PCIe topology check" issue which was bypassed
+by presenting the passed through PCIe device to the OS as a chipset
+built-in device. This solution was a bit hacky, but allowed to
+successfully pass through PCIe devices to a Q35 HVM guest.
 
-This patch uses a next_offset iterator on of_map_iommu_id() instead,
-keeping of_map_id() unchanged, and updates of_iommu_configure_dev_id()
-to loop over all matching entries.
+2. Some devices had mirrors of BAR registers' values _accessed through
+a proprietary mechanism_, like reading them through device-specific
+MMIO registers. As such, their drivers do not read a BAR value from
+the PCI conf space but rather get it directly from eg. MMIO, whose
+layout is completely unknown to us. This makes all BAR emulation in the
+hypervisor useless for such device - the hypervisor returns one value
+for BARs read via PCI conf space, but the driver sees the real values
+as it bypasses the PCI conf space. Among such devices were Nvidia GPUs
+BTW - but not including the "pro" models AFAIR, which were more
+virtualization-friendly.
 
-This patch also depends on iommu-cells series [4].
+That "BAR desync" problem was tricky - I solved it by implementing an
+option (in the domain config file) for a passed through device which,
+when turned on, was basically enabling 1:1 matching between virtual and
+physical BAR values for a given device, without affecting other devices
+(be it PT or emulated). This way virtual physical addresses in BARs
+match the real ones - hence the device driver sees the same values
+either in the PCI conf space or proprietary registers.
 
-Changes since v1:
-      - Split patches 2/7 [2] and 3/7 [3] out into this standalone series.
-      - Dropped the callback (of_map_id_cb / of_map_id_arg) entirely.
-      - Replaced with a next_offset iterator on of_map_iommu_id()
-    	only; of_map_id() public API is unchanged.
-      - of_iommu_configure_dev_id() now loops explicitly; no
-        bus-type heuristic (dev_is_platform()) needed.
+But it wasn't that simple, unfortunately - having a specific "locked"
+BAR value means we need to adjust the MMIO hole size for the guest
+accordingly. A straightforward approach is to make the MMIO hole size
+very big. This in turn brought another problems to solve:
 
-[1] https://lore.kernel.org/all/20260126-kaanapali-iris-v1-0-e2646246bfc1@oss.qualcomm.com/
-[2] https://lore.kernel.org/all/20260126-kaanapali-iris-v1-2-e2646246bfc1@oss.qualcomm.com/
-[3] https://lore.kernel.org/all/20260126-kaanapali-iris-v1-3-e2646246bfc1@oss.qualcomm.com/
-[4] https://lore.kernel.org/all/ce25b963-0e8e-4411-a406-7b466eadb1f9@oss.qualcomm.com/
+2.1. when a recent (back then) Windows OS sees PCI BAR allocation which
+is far from perfect - it can completely reallocate all BARs of all
+devices to other, very different addresses. They were calling this
+feature as PCIe "resource rebalancing" IIRC. This breaks 1:1 mirroring
+of given device's virtual/physical BARs - it's ok to present BARs with
+real physical addresses (the sneaky device driver knows them via MMIO
+registers anyway), but allowing to modify values in BARs is a no go, of
+course.
 
-Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
----
- drivers/iommu/of_iommu.c              | 20 +++++++----
- drivers/of/base.c                     | 65 ++++++++++++++++++++++++++++++-----
- drivers/pci/controller/dwc/pci-imx6.c |  2 +-
- drivers/pci/controller/pcie-apple.c   |  2 +-
- drivers/xen/grant-dma-ops.c           |  2 +-
- include/linux/of.h                    |  4 +--
- 6 files changed, 75 insertions(+), 20 deletions(-)
+Luckily, this problem was solved by a specific PCI BAR allocation - the
+idea was to keep the MMIO hole as small as possible while avoiding
+large unused gaps inside it, not claimed by any BAR. It was implemented
+inside hvmloader, which was populating the MMIO hole while taking into
+account both fixed and freely modifiable BARs and then reported the new
+RAM/MMIO hole layout back to Xen. This allowed to prevent the PCI BAR
+reallocation from the OS - and hotplugging was still working thanks to
+the high MMIO hole (above 4Gb).
 
-diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
-index a18bb60f6f3d..947eedd9a88b 100644
---- a/drivers/iommu/of_iommu.c
-+++ b/drivers/iommu/of_iommu.c
-@@ -46,14 +46,22 @@ static int of_iommu_configure_dev_id(struct device_node *master_np,
- 				     const u32 *id)
- {
- 	struct of_phandle_args iommu_spec = {};
--	int err;
-+	int offset = 0, err;
-+	bool found = false;
- 
--	err = of_map_iommu_id(master_np, *id, &iommu_spec);
--	if (err)
--		return err;
-+	while (!(err = of_map_iommu_id(master_np, *id, &iommu_spec, &offset))) {
-+		err = of_iommu_xlate(dev, &iommu_spec);
-+		of_node_put(iommu_spec.np);
-+		iommu_spec.np = NULL;
-+		if (err)
-+			return err;
-+		found = true;
-+	}
-+
-+	/* -ENODEV means all entries exhausted; success if at least one was processed */
-+	if (err == -ENODEV && found)
-+		return 0;
- 
--	err = of_iommu_xlate(dev, &iommu_spec);
--	of_node_put(iommu_spec.np);
- 	return err;
- }
- 
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index 9c44eb6d445d..71175e670757 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -2146,13 +2146,13 @@ static bool of_check_bad_map(const __be32 *map, int len)
-  *
-  * Return: 0 on success or a standard error code on failure.
-  */
--int of_map_id(const struct device_node *np, u32 id,
--	       const char *map_name, const char *cells_name,
--	       const char *map_mask_name,
--	       struct of_phandle_args *arg)
-+static int of_map_id_next(const struct device_node *np, u32 id,
-+			  const char *map_name, const char *cells_name,
-+			  const char *map_mask_name,
-+			  struct of_phandle_args *arg, int *next_offset)
- {
- 	u32 map_mask, masked_id;
--	int map_bytes, map_len, offset = 0;
-+	int map_bytes, map_len, offset = next_offset ? *next_offset : 0;
- 	bool bad_map = false;
- 	const __be32 *map = NULL;
- 
-@@ -2161,7 +2161,7 @@ int of_map_id(const struct device_node *np, u32 id,
- 
- 	map = of_get_property(np, map_name, &map_bytes);
- 	if (!map) {
--		if (arg->np)
-+		if (arg->np || next_offset)
- 			return -ENODEV;
- 		/* Otherwise, no map implies no translation */
- 		arg->args[0] = id;
-@@ -2262,9 +2262,16 @@ int of_map_id(const struct device_node *np, u32 id,
- 		pr_debug("%pOF: %s, using mask %08x, id-base: %08x, out-base: %08x, length: %08x, id: %08x -> %08x\n",
- 			np, map_name, map_mask, id_base, be32_to_cpup(out_base),
- 			id_len, id, id_off + be32_to_cpup(out_base));
-+
-+		if (next_offset)
-+			*next_offset = offset;	/* caller resumes from here */
- 		return 0;
- 	}
- 
-+	/* no (more) matches found in the map */
-+	if (next_offset)
-+		return -ENODEV;
-+
- 	pr_info("%pOF: no %s translation for id 0x%x on %pOF\n", np, map_name,
- 		id, arg->np);
- 
-@@ -2276,6 +2283,38 @@ int of_map_id(const struct device_node *np, u32 id,
- 	pr_err("%pOF: Error: Bad %s length: %d\n", np, map_name, map_bytes);
- 	return -EINVAL;
- }
-+
-+/**
-+ * of_map_id - Translate an ID through a downstream mapping.
-+ * @np: root complex device node.
-+ * @id: device ID to map.
-+ * @map_name: property name of the map to use.
-+ * @cells_name: property name of target specifier cells.
-+ * @map_mask_name: optional property name of the mask to use.
-+ * @arg: pointer to a &struct of_phandle_args. On input, @arg->np may be
-+ *	set to a target device node to match, or NULL to match any. On
-+ *	success, @arg->np will be set to the matched target node (with a
-+ *	reference held), @arg->args_count will be set to the number of
-+ *	output specifier cells as defined by @cells_name in the target node,
-+ *	and @arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values.
-+ *
-+ * Given a device ID, look up the appropriate implementation-defined
-+ * platform ID and/or the target device which receives transactions on that
-+ * ID, as per the "iommu-map" and "msi-map" bindings. If @arg->np points to
-+ * a non-NULL device node, only entries targeting that node will be matched;
-+ * if it is NULL, it will receive the device node of the first matching
-+ * target phandle, with a reference held.
-+ *
-+ * Return: 0 on success or a standard error code on failure.
-+ */
-+int of_map_id(const struct device_node *np, u32 id,
-+	      const char *map_name, const char *cells_name,
-+	      const char *map_mask_name,
-+	      struct of_phandle_args *arg)
-+{
-+	return of_map_id_next(np, id, map_name, cells_name, map_mask_name, arg, NULL);
-+}
- EXPORT_SYMBOL_GPL(of_map_id);
- 
- /**
-@@ -2285,15 +2324,23 @@ EXPORT_SYMBOL_GPL(of_map_id);
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-  *	@arg->np holds a reference to the target node that the caller must
-  *	release with of_node_put().
-+ * @next_offset: if non-NULL, on success it is set to the map offset just
-+ *	past the matched entry. Pass this value back on the next call to
-+ *	resume scanning from where the previous call left off, allowing all
-+ *	matching entries for the same @id to be iterated. Pass NULL (or a
-+ *	pointer to 0) to find only the first match.
-  *
-- * Convenience wrapper around of_map_id() using "iommu-map" and "iommu-map-mask".
-+ * Wrapper around the internal iommu-map scanner using "iommu-map" and
-+ * "iommu-map-mask". When @next_offset is non-NULL, returns -ENODEV once
-+ * all matching entries have been exhausted.
-  *
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_iommu_id(const struct device_node *np, u32 id,
--		    struct of_phandle_args *arg)
-+		    struct of_phandle_args *arg, int *next_offset)
- {
--	return of_map_id(np, id, "iommu-map", "#iommu-cells", "iommu-map-mask", arg);
-+	return of_map_id_next(np, id, "iommu-map", "#iommu-cells",
-+			      "iommu-map-mask", arg, next_offset);
- }
- EXPORT_SYMBOL_GPL(of_map_iommu_id);
- 
-diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-index 5f8a11774eb5..0d7f5e6d037a 100644
---- a/drivers/pci/controller/dwc/pci-imx6.c
-+++ b/drivers/pci/controller/dwc/pci-imx6.c
-@@ -1146,7 +1146,7 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
- 	u32 sid = 0;
- 
- 	target = NULL;
--	err_i = of_map_iommu_id(dev->of_node, rid, &iommu_spec);
-+	err_i = of_map_iommu_id(dev->of_node, rid, &iommu_spec, NULL);
- 	if (!err_i) {
- 		target = iommu_spec.np;
- 		sid_i = iommu_spec.args[0];
-diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
-index 2e86f8fd300b..c780e3f9d14d 100644
---- a/drivers/pci/controller/pcie-apple.c
-+++ b/drivers/pci/controller/pcie-apple.c
-@@ -765,7 +765,7 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
- 	dev_dbg(&pdev->dev, "added to bus %s, index %d\n",
- 		pci_name(pdev->bus->self), port->idx);
- 
--	err = of_map_iommu_id(port->pcie->dev->of_node, rid, &iommu_spec);
-+	err = of_map_iommu_id(port->pcie->dev->of_node, rid, &iommu_spec, NULL);
- 	if (err)
- 		return err;
- 
-diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-index 36547d7cf1d6..062beb5825f5 100644
---- a/drivers/xen/grant-dma-ops.c
-+++ b/drivers/xen/grant-dma-ops.c
-@@ -325,7 +325,7 @@ static int xen_dt_grant_init_backend_domid(struct device *dev,
- 		struct pci_dev *pdev = to_pci_dev(dev);
- 		u32 rid = PCI_DEVID(pdev->bus->number, pdev->devfn);
- 
--		if (of_map_iommu_id(np, rid, &iommu_spec)) {
-+		if (of_map_iommu_id(np, rid, &iommu_spec, NULL)) {
- 			dev_dbg(dev, "Cannot translate ID\n");
- 			return -ESRCH;
- 		}
-diff --git a/include/linux/of.h b/include/linux/of.h
-index 953f2dbe0e86..990849f00e74 100644
---- a/include/linux/of.h
-+++ b/include/linux/of.h
-@@ -467,7 +467,7 @@ int of_map_id(const struct device_node *np, u32 id,
- 	       struct of_phandle_args *arg);
- 
- int of_map_iommu_id(const struct device_node *np, u32 id,
--		    struct of_phandle_args *arg);
-+		    struct of_phandle_args *arg, int *next_offset);
- 
- int of_map_msi_id(const struct device_node *np, u32 id,
- 		  struct of_phandle_args *arg);
-@@ -943,7 +943,7 @@ static inline int of_map_id(const struct device_node *np, u32 id,
- }
- 
- static inline int of_map_iommu_id(const struct device_node *np, u32 id,
--				  struct of_phandle_args *arg)
-+				  struct of_phandle_args *arg, int *next_offset)
- {
- 	return -EINVAL;
- }
+2.2. after experimenting with dynamic resizing of the MMIO hole, I
+realized that Xen and QEMU have their own vision of the system memory
+layout which can get out of sync. And MMIO hole resize was creating
+this bad situation in fact, giving some hard to debug/reproduce bugs
+with unexpected guest memory corruption.
 
----
-base-commit: 9e94742cffb7541f55fa904a40c1ca9d836d303d
-change-id: 20260315-iommu_multi_map-8c9b78490ace
+The way I fixed this memory mismatch was emulating the real Q35
+facility for this - namely, chipset's REMAP register which was designed
+precisely for this goal - to reconfigure the MMIO hole size/position
+while relocating underlying RAM memory to another range (so no RAM is
+wasted). As the chipset was emulated by QEMU and the whole idea of HVM
+was to emulate real hardware as close as possible, this was the obvious
+solution - we do it in the way like it's done in a real firmware and
+then QEMU knows the RAM/MMIO hole layout, allowing to sync it with
+Xen's. There were some other fixed issues relying on this feature -
+AFAIR, I needed it also to make 'populate on demand' working with
+(hotplugged?) PT devices.
 
-Best regards,
--- 
-Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+I was planning to send patches for this feature too, after settling the
+Q35 patches. I'll try to find the relevant code/notes, maybe they will
+be helpful.
+
+On Fri, 13 Mar 2026 16:35:01 +0000
+"Thierry Escande" <thierry.escande@vates.tech> wrote:
+
+>This series introduces initial Q35 chipset support for HVM guests, based on the
+>patchset at [1] by Alexey Gerasimenko.
+>
+>Basic support means that this patchset allows to start an HVM guest that
+>emulates a Q35 chipset via Qemu and implements access to PCIe extended
+>configuration space for such devices emulated by Qemu.
+>
+>Support for PCIe device passthrough is not implemented yet. This is planned but
+>implies modifications in the hypervisor and the firmwares, mainly for the
+>support of multiple PCI buses.
+>
+>In order to create a Q35 guest, a new domain config option has been added,
+>named 'device_model_machine'. Possible values are:
+>- "i440" - i440 emulation (default)
+>- "q35"  - emulate a Q35 machine
+>
+>If the option is omitted it defaults to "i440", not impacting existing domain
+>configuration files.
+>
+>DSDT files for Q35 and i440 are largely similar so the existing file dsdt.asl
+>has been split with i440 and q35 specific parts put in seperated files.
+>
+>The PCIe MMCONFIG area is configured by hvmloader and its base address and size
+>are set in Xen using a new pair of hypercalls HVMOP_get|set_ecam_space. Access
+>to the MMCONFIG area from a guest is trapped by Xen and transfered to the
+>emulator as XEN_DMOP_IO_RANGE_PCI ioreq type.
+>
+>[1] https://lore.kernel.org/xen-devel/cover.1520867740.git.x1917x@gmail.com/
+>
+>Thierry Escande (17):
+>  libacpi: Split dsdt.asl file and extract i440 specific parts
+>  libacpi: new DSDT ACPI table for Q35
+>  hvmloader: add function to set the emulated machine type (i440/Q35)
+>  hvmloader: add ACPI enabling for Q35
+>  hvmloader: add Q35 DSDT table loading
+>  hvmloader: Move pci devices setup to a separate function
+>  hvmloader: add basic Q35 support
+>  hvmloader: Extend PCI BAR struct
+>  xev/hvm: Add HVMOP_get|set_ecam_space hypercalls
+>  hvmloader: Add support for HVMOP_set|get_ecam_space hypercalls
+>  hvmloader: allocate MMCONFIG area in the MMIO hole
+>  libxl: Q35 support (new option device_model_machine)
+>  libxl: Add xen-platform device for Q35 machine
+>  libacpi: build ACPI MCFG table if requested
+>  hvmloader: Set MCFG in ACPI table
+>  Handle PCIe ECAM space access from guests
+>  docs: provide description for device_model_machine option
 
 
