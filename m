@@ -2,61 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oLxQGyt4uGn5dgEAu9opvQ
+	id UPQdIHuYuGmsgQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 22:37:47 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 00:55:39 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A73BF2A10AD
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 22:37:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1255812.1550627 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A98022A21C3
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 00:55:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1255836.1550637 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2Fcf-0006jS-Vv; Mon, 16 Mar 2026 21:37:13 +0000
+	id 1w2HlO-0005xw-8Z; Mon, 16 Mar 2026 23:54:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1255812.1550627; Mon, 16 Mar 2026 21:37:13 +0000
+Received: by outflank-mailman (output) from mailman id 1255836.1550637; Mon, 16 Mar 2026 23:54:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2Fcf-0006hH-TD; Mon, 16 Mar 2026 21:37:13 +0000
-Received: by outflank-mailman (input) for mailman id 1255812;
- Mon, 16 Mar 2026 21:37:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w2HlO-0005ut-5S; Mon, 16 Mar 2026 23:54:22 +0000
+Received: by outflank-mailman (input) for mailman id 1255836;
+ Mon, 16 Mar 2026 23:54:20 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3wxl=BQ=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1w2Fce-0006hB-5q
- for xen-devel@lists.xenproject.org; Mon, 16 Mar 2026 21:37:12 +0000
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c000::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4852c03e-2180-11f1-9ccf-f158ae23cfc8;
- Mon, 16 Mar 2026 22:37:09 +0100 (CET)
-Received: from CH0PR03CA0272.namprd03.prod.outlook.com (2603:10b6:610:e6::7)
- by SN7PR12MB7371.namprd12.prod.outlook.com (2603:10b6:806:29a::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.5; Mon, 16 Mar
- 2026 21:36:53 +0000
-Received: from DS3PEPF000099E2.namprd04.prod.outlook.com
- (2603:10b6:610:e6:cafe::73) by CH0PR03CA0272.outlook.office365.com
- (2603:10b6:610:e6::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.24 via Frontend Transport; Mon,
- 16 Mar 2026 21:36:49 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS3PEPF000099E2.mail.protection.outlook.com (10.167.17.201) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Mon, 16 Mar 2026 21:36:53 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Mar
- 2026 16:36:52 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Mar
- 2026 16:36:52 -0500
-Received: from [172.24.66.250] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 16 Mar 2026 16:36:51 -0500
+ <SRS0=49j5=BQ=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
+ id 1w2HlL-0005un-Sq
+ for xen-devel@lists.xenproject.org; Mon, 16 Mar 2026 23:54:20 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 71ba9a6a-2193-11f1-b164-2bf370ae4941;
+ Tue, 17 Mar 2026 00:54:18 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-48535a0ef86so42951995e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Mar 2026 16:54:18 -0700 (PDT)
+Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
+ [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43b3a09e453sm24080003f8f.0.2026.03.16.16.54.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Mar 2026 16:54:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,426 +50,496 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4852c03e-2180-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lOs9YQRlo3lVyBz1vSj4b83aujd64gH3kce+l2iwo4cZ50SnRYkxjKXiYg+DF+yl1O98tEuvYNj7vpxLp19Q4M0F6noEQ0rrdlz2sjkNAg+VBaswftTPmTEVfp+ZG8uiSg+FThzOi76+XsBE7OcEles5m/EEJk1qIYXsCmtVSn88+qJ5VSOCBsYcaTRJNF9qdsdjs4pfDnsg7e+kgkcxsOKKFRvXEhBSICqw22o55tOoma8ej22yxxQ0QK6fZVgIEMwQkfHBVYRhb/PDrrwmUvqe/r+r9Z7Dp1FP4xhjb7aT4t9ko1IcQWh/s2efTs0coZCLRsrkkPI7ItI7z9gHeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7PMWSnaDhlLMDhDpWY6r+RsR0wkz8VRoSVDbqagQo1E=;
- b=Q/XdZZpHH5tW7NP4CkBOx2kaK3BaMYif8ZydOfCYIe4u8qwHuPdbUiriiVhtn+4wzZzbR33IjxB1mq0ubpZYiI16APyXIC5hIFxmJoOPRv0J4bxnywMNBlnLCrcHu/PTfzIqMXFgrPBIweNL9FL8ZfYay7Wzm7CZQWb10y2qnhoEM4+Khd/NtJiBml/+9iT6G7hwa0Izg1r3la3PGErnRFsnc3YgStWLSpda5gHZJg+y7hnSr435xI112tLjTwf2VH3leJiVX/2Wk3n1ULZKiHK1Negx2xDFr6JccBcsGnXCoqrgdfrDJLv1kTiMg7Ke6iGT5eSgYIfUyr+BdynStg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7PMWSnaDhlLMDhDpWY6r+RsR0wkz8VRoSVDbqagQo1E=;
- b=KuraBnMn5zuUnHscRgu2kZxWmjm8eZsHboaCXUNlvw+FJWfq+QnCBus2VpQvT1ZujgWLrv2ppG5aGcV9VH7L2kvwADPegefUTDXpchEKZmZ3GpWZUSOVTtb7ZaULySZ4DRLLZs8bw/7mF0ci8rOwiMBwoYHP+9gzu/L888WBkZ0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <9e3c18ce-814d-420e-81af-7ef8691a6efa@amd.com>
-Date: Mon, 16 Mar 2026 17:36:53 -0400
+X-Inumbo-ID: 71ba9a6a-2193-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1773705257; x=1774310057; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=VpDc41qTU05GQGpVEGDvS9cNjnVRzouYB5NsVGwgUmw=;
+        b=gDKuFhvMEhK380Tb1DK11/8pl0Z8tiDw9KHgrTZYd04HZml1GFn4tbRt9G0Cz5Xcxh
+         SlRWNJGc8OXrMEtP2GGSNG0Uv1FhLSU0AUJfLSURu/v6yEIzCkQslCDpBtrqUuwgHinE
+         /DLhv0Kfd1/hoClFdEFtodeevjdPRbINqYsxg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773705257; x=1774310057;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VpDc41qTU05GQGpVEGDvS9cNjnVRzouYB5NsVGwgUmw=;
+        b=nL/nwJH2BVbQeSDmbEt9JlSYqINKMOXtJMy1HBiSO1ZC0Yxm0Jy2w+nFtM8nun0JPN
+         hK2+ND6dGhxX7QUSvX8T8OrGRRkdseEh3QR/R3fN/Sn6blQL1wPkxzCTDt/wzieIEn2o
+         ILM4oE3W3VV0NfVEhrD843uEVTWTrLdAAkkI3v8rZydSq95O6/8JximzrRja1e1xV/Nf
+         BVkCoWvBBSr6s/4feLuv52o7Ly7ukP6/W9K+240MPrIK1UhNZudZGba0pihPsPJjSTj5
+         0jfYVqclIDmtwTSWfG8rhBOYU3M4Qiys0Ua15ToRxaiGVsnTPkZwGfMBj6LjswlpfohG
+         ZK3w==
+X-Gm-Message-State: AOJu0YwdH2H1pmvIgljNxM+wkWeKJ3OVeIaGoI/7N3UWxrhc7YrHHkga
+	yczw7/hZ3RcLdmmBR17ceIbMLPXYtV+441/14QVYkeuLJO7US+xfqxUkrejwaGGQUFzD4uaI1xk
+	8IU3i
+X-Gm-Gg: ATEYQzxSfZbS4Yz3ytr2rt+0FDYbgiXTCpInYqmIS4YK50kI/azci2V8xQgkIWaoc+x
+	hGecVSbIl2xM5DA5MxfFn0tXIMhIiLEi93gspIICic8HzxhZWfBTDJ/8jaFIx5+uLJBTGlpp5B3
+	MAyxuA9IVHHZjszgfZHhBZz/XmE77sJgFeEBcUhrGXmOdc4Fbs4KcodYs53dWD9ACWhMOWIW5uS
+	C9dErhC6YUzjrydTL2hU4bU17ynMcFga76I4HIgaMpUTpgFL9bFofdC+2jKg5lGC2Z47jgjWqfr
+	xORoR0ZKHzsCJC4dRPo4Og6ZirAusrQIg6vO3sMKsfCWTg1FlkuMKIeIul8hjRR3TyVDI4Biqvk
+	6lhRR2QS4oTDTJZ+P0RNFJ0i1lCF3z4P1uJcMCvGLu8yKmKcbBt1jNlzW6pUw+LAUEuqTXZ7m+I
+	bXvqcapXeovsX1n4mQIKoVm7CGKSgGz+3HjB8kv/F6/qchryuf35wH3lL0IcXewJ66KfUSeW8=
+X-Received: by 2002:a05:6000:2086:b0:439:b791:f920 with SMTP id ffacd0b85a97d-43a04d88460mr27429963f8f.17.1773705256758;
+        Mon, 16 Mar 2026 16:54:16 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] xen/coverage: Drop support for older GCOV
+Date: Mon, 16 Mar 2026 23:54:14 +0000
+Message-Id: <20260316235414.683426-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] vpci: Use pervcpu ranges for BAR mapping
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-References: <cover.1772806036.git.mykyta_poturai@epam.com>
- <43ce584a124f0bd07e641934e15e5ab56548e1ba.1772806036.git.mykyta_poturai@epam.com>
-Content-Language: en-US
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-In-Reply-To: <43ce584a124f0bd07e641934e15e5ab56548e1ba.1772806036.git.mykyta_poturai@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS3PEPF000099E2:EE_|SN7PR12MB7371:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5834e19d-e62b-4c00-f40d-08de83a423d4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|13003099007|7053199007|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	/XV6H/X3W6X0mTpJuJrVG7OpQ0WoKl5QzV6adySWKqLWJuL3jqrKTNmqhdWxfuQOvhJRKofWjm6aJouJviDltQ2bakqEI0mn5xmoEag/bfY/xEtHFNJZKsjJWRlb1CZiw+bJJ7gDR9BbBQCwMEaU8rOs5I5MYoFAQPQWqmEmDP9jHTHgmlJULrP7QjpunPJN/UPt0Z0B1x4yIlO2A+1AJ6NEMq/EJOD8IUPVZyAV7kkZoG29TP1iEeJUSZlArL6h08I9sduTNcfcy1iXmCMf0E09b/gxz4ndUUoEgKOs6oJeAmxVMpYDSavp9n2KqEwlgalVnYtQFhKqoUP6SAtiCj3xZnjcKF0nHK0WPkzwOZpBe30uzc2xNkNNQd8Ukzmyv0atPk/WNDqE4w6c4EwbHYaWAF/rNURGJ734K7PzULwPO1UDf6zZjBxOIwFneX2PYSBymkwS3evYhh2EjXPvHv4mAgKGkRc6Ct7SWdBaih3QtCu5WbW7v1VUzrRsu9rug3Lzoj84cobWxk2Sbpf1M5/thiy0yirfq8SZI0S1Qz0JIy18l89x2sDf0Jebk/znhOQMOKrTcd1OdrWTXtyuJKV1ZEg3XwYrKAgtGUr72dB2pSTV/ukrL4DP4sJS6JLB4HLWfMqHB9Dn4EULalBZf6/gHego/kkNiw6fptCbOyHvfDfCmBaGQA02BBW1/xQrPuwo7zMbOvNmuMLp2T6Uk2dNrSKTC7QlHuWlzC+JtGYZahMUqKKyPCiayji4ZRNzgRmISH8WfXxOB7ea6PQxifMNChZu+TeXDG0Vlz28ao8=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(13003099007)(7053199007)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	CdjTvrWx9l1oqiTiFpxjRkqaDBkRbe3LW1zx5AcrkjSpBtSM8VfwuAs9euZv28DrtVt0iSJw3pjADCH+qZRPbvrfnUz7smTPyhy9Ds1YokA2x+jKJVW5M9LT22Od2kVEICniixgHQww/Ia+y/tpAUE2JOvAxH9/z5jatsmISqiIl+JltjwHj42qNPgMQXr6PaopQjFB06x+dj53VCi5SEdNE7vbcdltWs7nIwHuw7MROIFbjKa8jkWSTSYZV7pKwbglQ3uW55+0vevn8kl9nCDv110c7JJ481XG4it8OQ6x2JRPiYJK8YXkd8x2euoCrwheX9PFQcuodv8bhYSVtjxBgZo16jAXX5Yxq5fWk06nnF/egTe6Uh7fGadpo0rOob2zYlOK61nXp/CUO3gFxI+1tsVoVK2AhGRTk1DKEwG2my4b8kyPzNi6/SmfLpAvp
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 21:36:53.1690
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5834e19d-e62b-4c00-f40d-08de83a423d4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS3PEPF000099E2.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7371
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,citrix.com:dkim,citrix.com:email,citrix.com:mid,suse.com:email];
 	RCVD_TLS_LAST(0.00)[];
+	TO_DN_ALL(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org]
-X-Rspamd-Queue-Id: A73BF2A10AD
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: A98022A21C3
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 3/9/26 07:08, Mykyta Poturai wrote:
-> There is no need to store ranges for each PCI device, as they are only
-> used during the mapping/unmapping process and can be reused for each
-> device. This also allows to avoid the need to allocate and destroy
-> rangesets for each device.
-> 
+With the GCC toolchain baseline now at 5.1, gcc_3_4.o (covering 3.4 through
+4.6) will never get chosen.  Drop it.
 
-Thank you for this.
+No functional change.
 
-Consider adding this tag:
-Amends: 622bdd962822 ("vpci/header: handle p2m range sets per BAR")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@vates.tech>
+CC: Michal Orzel <michal.orzel@amd.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Julien Grall <julien@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+---
+ xen/common/coverage/Makefile  |   2 +-
+ xen/common/coverage/gcc_3_4.c | 367 ----------------------------------
+ 2 files changed, 1 insertion(+), 368 deletions(-)
+ delete mode 100644 xen/common/coverage/gcc_3_4.c
 
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> ---
-> v1->v2:
-> * new patch
-> ---
->  xen/common/domain.c       | 24 ++++++++++++++
->  xen/drivers/vpci/header.c | 66 ++++++++++++++-------------------------
->  xen/drivers/vpci/vpci.c   |  3 --
->  xen/include/xen/vpci.h    |  4 ++-
->  4 files changed, 51 insertions(+), 46 deletions(-)
-> 
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index e06174fca7..76b0163616 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -454,6 +454,14 @@ static int vcpu_teardown(struct vcpu *v)
->   */
->  static void vcpu_destroy(struct vcpu *v)
->  {
-> +#ifdef CONFIG_HAS_VPCI
-> +    int i;
-> +
-> +    for ( i = 0; i < ARRAY_SIZE(v->vpci.bar_mem); i++ )
-> +        if ( v->vpci.bar_mem[i] )
-> +            rangeset_destroy(v->vpci.bar_mem[i]);
-
-Paraphrasing some previous feedback from [1], you might additionally want:
-
-    v->vpci.bar_mem[i] = NULL;
-
-or introduce a RANGESET_DESTROY() similar to XFREE().
-
-[1] https://lore.kernel.org/xen-devel/20250723163744.13095-1-stewart.hildebrand@amd.com/T/#t
-
-> +
-> +#endif
->      free_vcpu_struct(v);
->  }
->  
-> @@ -511,6 +519,22 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
->      if ( arch_vcpu_create(v) != 0 )
->          goto fail_sched;
->  
-> +#ifdef CONFIG_HAS_VPCI
-
-Would it make sense to introduce a vpci_* function instead of #ifdef? Same for
-the deallocation above.
-
-> +    {
-
-I'm not sure it's necessary to start a new block here.
-
-> +        int i;
-> +
-> +        for ( i = 0; i < ARRAY_SIZE(v->vpci.bar_mem); i++ )
-> +        {
-> +            char str[32];
-> +
-> +            snprintf(str, sizeof(str), "%pv:BAR%u", v, i);
-> +            v->vpci.bar_mem[i] = rangeset_new(d, str, RANGESETF_no_print);
-
-This seems to be performing an allocation for vPCI even for domains that don't
-have vPCI.
-
-> +            if ( !v->vpci.bar_mem[i] )
-> +                goto fail_sched;
-> +        }
-> +    }
-> +#endif
-> +
->      d->vcpu[vcpu_id] = v;
->      if ( vcpu_id != 0 )
->      {
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index 07ec991a12..cb64d9b9fc 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -195,6 +195,7 @@ bool vpci_process_pending(struct vcpu *v)
->      for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->      {
->          struct vpci_bar *bar = &header->bars[i];
-> +        struct rangeset *mem = v->vpci.bar_mem[i];
->          struct map_data data = {
->              .d = v->domain,
->              .map = v->vpci.cmd & PCI_COMMAND_MEMORY,
-> @@ -202,10 +203,10 @@ bool vpci_process_pending(struct vcpu *v)
->          };
->          int rc;
->  
-> -        if ( rangeset_is_empty(bar->mem) )
-> +        if ( rangeset_is_empty(mem) )
->              continue;
->  
-> -        rc = rangeset_consume_ranges(bar->mem, map_range, &data);
-> +        rc = rangeset_consume_ranges(mem, map_range, &data);
->  
->          if ( rc == -ERESTART )
->          {
-> @@ -223,8 +224,8 @@ bool vpci_process_pending(struct vcpu *v)
->  
->              /* Clean all the rangesets */
->              for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
-> -                if ( !rangeset_is_empty(header->bars[i].mem) )
-> -                     rangeset_purge(header->bars[i].mem);
-> +                if ( !rangeset_is_empty(v->vpci.bar_mem[i]) )
-> +                     rangeset_purge(v->vpci.bar_mem[i]);
->  
->              v->vpci.pdev = NULL;
->  
-> @@ -259,13 +260,14 @@ static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
->      for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->      {
->          struct vpci_bar *bar = &header->bars[i];
-> +        struct rangeset *mem = current->vpci.bar_mem[i];
->          struct map_data data = { .d = d, .map = true, .bar = bar };
->  
-> -        if ( rangeset_is_empty(bar->mem) )
-> +        if ( rangeset_is_empty(mem) )
->              continue;
->  
-> -        while ( (rc = rangeset_consume_ranges(bar->mem, map_range,
-> -                                              &data)) == -ERESTART )
-> +        while ( (rc = rangeset_consume_ranges(mem, map_range, &data)) ==
-> +                -ERESTART )
->          {
->              /*
->               * It's safe to drop and reacquire the lock in this context
-> @@ -330,12 +332,13 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->      for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->      {
->          struct vpci_bar *bar = &header->bars[i];
-> +        struct rangeset *mem = current->vpci.bar_mem[i];
->          unsigned long start = PFN_DOWN(bar->addr);
->          unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
->          unsigned long start_guest = PFN_DOWN(bar->guest_addr);
->          unsigned long end_guest = PFN_DOWN(bar->guest_addr + bar->size - 1);
->  
-> -        if ( !bar->mem )
-> +        if ( !mem )
->              continue;
->  
->          if ( !MAPPABLE_BAR(bar) ||
-> @@ -353,7 +356,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->              continue;
->          }
->  
-> -        ASSERT(rangeset_is_empty(bar->mem));
-> +        ASSERT(rangeset_is_empty(mem));
->  
->          /*
->           * Make sure that the guest set address has the same page offset
-> @@ -368,7 +371,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->              return -EINVAL;
->          }
->  
-> -        rc = rangeset_add_range(bar->mem, start_guest, end_guest);
-> +        rc = rangeset_add_range(mem, start_guest, end_guest);
->          if ( rc )
->          {
->              printk(XENLOG_G_WARNING "Failed to add [%lx, %lx]: %d\n",
-> @@ -379,12 +382,12 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->          /* Check for overlap with the already setup BAR ranges. */
->          for ( j = 0; j < i; j++ )
->          {
-> -            struct vpci_bar *prev_bar = &header->bars[j];
-> +            struct rangeset *prev_mem = current->vpci.bar_mem[j];
->  
-> -            if ( rangeset_is_empty(prev_bar->mem) )
-> +            if ( rangeset_is_empty(prev_mem) )
->                  continue;
->  
-> -            rc = rangeset_remove_range(prev_bar->mem, start_guest, end_guest);
-> +            rc = rangeset_remove_range(prev_mem, start_guest, end_guest);
->              if ( rc )
->              {
->                  gprintk(XENLOG_WARNING,
-> @@ -394,7 +397,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->              }
->          }
->  
-> -        rc = pci_sanitize_bar_memory(bar->mem);
-> +        rc = pci_sanitize_bar_memory(mem);
->          if ( rc )
->          {
->              gprintk(XENLOG_WARNING,
-> @@ -411,14 +414,14 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->          unsigned long end = PFN_DOWN(vmsix_table_addr(pdev->vpci, i) +
->                                       vmsix_table_size(pdev->vpci, i) - 1);
->  
-> -        for ( j = 0; j < ARRAY_SIZE(header->bars); j++ )
-> +        for ( j = 0; j < ARRAY_SIZE(current->vpci.bar_mem); j++ )
->          {
-> -            const struct vpci_bar *bar = &header->bars[j];
-> +            struct rangeset *mem = current->vpci.bar_mem[j];
->  
-> -            if ( rangeset_is_empty(bar->mem) )
-> +            if ( rangeset_is_empty(mem) )
->                  continue;
->  
-> -            rc = rangeset_remove_range(bar->mem, start, end);
-> +            rc = rangeset_remove_range(mem, start, end);
->              if ( rc )
->              {
->                  gprintk(XENLOG_WARNING,
-> @@ -468,8 +471,9 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->                  for ( j = 0; j < ARRAY_SIZE(header->bars); j++)
->                  {
->                      const struct vpci_bar *bar = &header->bars[j];
-> +                    struct rangeset *mem = current->vpci.bar_mem[j];
->  
-> -                    if ( !rangeset_overlaps_range(bar->mem, start, end) ||
-> +                    if ( !rangeset_overlaps_range(mem, start, end) ||
->                           /*
->                            * If only the ROM enable bit is toggled check against
->                            * other BARs in the same device for overlaps, but not
-> @@ -480,7 +484,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->                            bar->type == VPCI_BAR_ROM) )
->                          continue;
->  
-> -                    rc = rangeset_remove_range(bar->mem, start, end);
-> +                    rc = rangeset_remove_range(mem, start, end);
->                      if ( rc )
->                      {
->                          gprintk(XENLOG_WARNING,
-> @@ -733,18 +737,6 @@ static void cf_check rom_write(
->      }
->  }
->  
-> -static int bar_add_rangeset(const struct pci_dev *pdev, struct vpci_bar *bar,
-> -                            unsigned int i)
-> -{
-> -    char str[32];
-> -
-> -    snprintf(str, sizeof(str), "%pp:BAR%u", &pdev->sbdf, i);
-> -
-> -    bar->mem = rangeset_new(pdev->domain, str, RANGESETF_no_print);
-> -
-> -    return !bar->mem ? -ENOMEM : 0;
-> -}
-> -
->  static int vpci_init_capability_list(struct pci_dev *pdev)
->  {
->      int rc;
-> @@ -989,10 +981,6 @@ int vpci_init_header(struct pci_dev *pdev)
->          else
->              bars[i].type = VPCI_BAR_MEM32;
->  
-> -        rc = bar_add_rangeset(pdev, &bars[i], i);
-> -        if ( rc )
-> -            goto fail;
-> -
->          rc = pci_size_mem_bar(pdev->sbdf, reg, &addr, &size,
->                                (i == num_bars - 1) ? PCI_BAR_LAST : 0);
->          if ( rc < 0 )
-> @@ -1046,12 +1034,6 @@ int vpci_init_header(struct pci_dev *pdev)
->                                 4, rom);
->          if ( rc )
->              rom->type = VPCI_BAR_EMPTY;
-> -        else
-> -        {
-> -            rc = bar_add_rangeset(pdev, rom, num_bars);
-> -            if ( rc )
-> -                goto fail;
-> -        }
->      }
->      else if ( !is_hwdom )
->      {
-> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> index f66f50c8ba..af61b521b0 100644
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -357,9 +357,6 @@ void vpci_deassign_device(struct pci_dev *pdev)
->      }
->      spin_unlock(&pdev->vpci->lock);
->  
-> -    for ( i = 0; i < ARRAY_SIZE(pdev->vpci->header.bars); i++ )
-> -        rangeset_destroy(pdev->vpci->header.bars[i].mem);
-> -
->      xfree(pdev->vpci);
->      pdev->vpci = NULL;
->  }
-> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-> index dd233b8b03..fa654545e5 100644
-> --- a/xen/include/xen/vpci.h
-> +++ b/xen/include/xen/vpci.h
-> @@ -118,7 +118,6 @@ struct vpci {
->              uint64_t guest_addr;
->              uint64_t size;
->              uint64_t resizable_sizes;
-> -            struct rangeset *mem;
->              enum {
->                  VPCI_BAR_EMPTY,
->                  VPCI_BAR_IO,
-> @@ -212,6 +211,9 @@ struct vpci {
->  struct vpci_vcpu {
->      /* Per-vcpu structure to store state while {un}mapping of PCI BARs. */
->      const struct pci_dev *pdev;
-> +#ifdef __XEN__
-
-Why not enclose the whole vpci_vcpu struct inside __XEN__?
-
-> +    struct rangeset *bar_mem[PCI_HEADER_NORMAL_NR_BARS + 1];
-
-Maybe add a brief comment explaining the + 1 ?
-
-> +#endif
->      uint16_t cmd;
->      bool rom_only : 1;
->  };
+diff --git a/xen/common/coverage/Makefile b/xen/common/coverage/Makefile
+index d729afc9c7a0..26bc1b7c04cd 100644
+--- a/xen/common/coverage/Makefile
++++ b/xen/common/coverage/Makefile
+@@ -1,7 +1,7 @@
+ obj-y += coverage.o
+ ifneq ($(CONFIG_CC_IS_CLANG),y)
+ obj-y += gcov_base.o gcov.o
+-obj-y += $(call cc-ifversion,-lt,0407, gcc_3_4.o, gcc_4_7.o)
++obj-y += gcc_4_7.o
+ else
+ obj-y += llvm.o
+ endif
+diff --git a/xen/common/coverage/gcc_3_4.c b/xen/common/coverage/gcc_3_4.c
+deleted file mode 100644
+index 3631f4bc2535..000000000000
+--- a/xen/common/coverage/gcc_3_4.c
++++ /dev/null
+@@ -1,367 +0,0 @@
+-/*
+- *  This code provides functions to handle gcc's profiling data format
+- *  introduced with gcc 3.4. Future versions of gcc may change the gcov
+- *  format (as happened before), so all format-specific information needs
+- *  to be kept modular and easily exchangeable.
+- *
+- *  This file is based on gcc-internal definitions. Functions and data
+- *  structures are defined to be compatible with gcc counterparts.
+- *  For a better understanding, refer to gcc source: gcc/gcov-io.h.
+- *
+- *    Copyright IBM Corp. 2009
+- *    Author(s): Peter Oberparleiter <oberpar@linux.vnet.ibm.com>
+- *
+- *    Uses gcc-internal data definitions.
+- *
+- *  Imported from Linux and modified for Xen by
+- *    Wei Liu <wei.liu2@citrix.com>
+- */
+-
+-
+-#include <xen/lib.h>
+-
+-#include "gcov.h"
+-
+-#if !(GCC_VERSION >= 30400 && GCC_VERSION < 40700)
+-#error "Wrong version of GCC used to compile gcov"
+-#endif
+-
+-#define GCOV_COUNTERS 5
+-
+-static struct gcov_info *gcov_info_head;
+-
+-/**
+- * struct gcov_fn_info - profiling meta data per function
+- * @ident: object file-unique function identifier
+- * @checksum: function checksum
+- * @n_ctrs: number of values per counter type belonging to this function
+- *
+- * This data is generated by gcc during compilation and doesn't change
+- * at run-time.
+- */
+-struct gcov_fn_info
+-{
+-    unsigned int ident;
+-    unsigned int checksum;
+-    unsigned int n_ctrs[0];
+-};
+-
+-/**
+- * struct gcov_ctr_info - profiling data per counter type
+- * @num: number of counter values for this type
+- * @values: array of counter values for this type
+- * @merge: merge function for counter values of this type (unused)
+- *
+- * This data is generated by gcc during compilation and doesn't change
+- * at run-time with the exception of the values array.
+- */
+-struct gcov_ctr_info
+-{
+-    unsigned int num;
+-    gcov_type *values;
+-    void (*merge)(gcov_type *, unsigned int);
+-};
+-
+-/**
+- * struct gcov_info - profiling data per object file
+- * @version: gcov version magic indicating the gcc version used for compilation
+- * @next: list head for a singly-linked list
+- * @stamp: time stamp
+- * @filename: name of the associated gcov data file
+- * @n_functions: number of instrumented functions
+- * @functions: function data
+- * @ctr_mask: mask specifying which counter types are active
+- * @counts: counter data per counter type
+- *
+- * This data is generated by gcc during compilation and doesn't change
+- * at run-time with the exception of the next pointer.
+- */
+-struct gcov_info
+-{
+-    unsigned int              version;
+-    struct gcov_info          *next;
+-    unsigned int              stamp;
+-    const char                *filename;
+-    unsigned int              n_functions;
+-    const struct gcov_fn_info *functions;
+-    unsigned int              ctr_mask;
+-    struct gcov_ctr_info      counts[0];
+-};
+-
+-/**
+- * struct type_info - iterator helper array
+- * @ctr_type: counter type
+- * @offset: index of the first value of the current function for this type
+- *
+- * This array is needed to convert the in-memory data format into the in-file
+- * data format:
+- *
+- * In-memory:
+- *   for each counter type
+- *     for each function
+- *       values
+- *
+- * In-file:
+- *   for each function
+- *     for each counter type
+- *       values
+- *
+- * See gcc source gcc/gcov-io.h for more information on data organization.
+- */
+-struct type_info {
+-    int ctr_type;
+-    unsigned int offset;
+-};
+-
+-/**
+- * struct gcov_iterator - specifies current file position in logical records
+- * @info: associated profiling data
+- * @record: record type
+- * @function: function number
+- * @type: counter type
+- * @count: index into values array
+- * @num_types: number of counter types
+- * @type_info: helper array to get values-array offset for current function
+- */
+-struct gcov_iterator {
+-    const struct gcov_info *info;
+-
+-    int record;
+-    unsigned int function;
+-    unsigned int type;
+-    unsigned int count;
+-
+-    int num_types;
+-    struct type_info type_info[GCOV_COUNTERS];
+-};
+-
+-/* Mapping of logical record number to actual file content. */
+-#define RECORD_FILE_MAGIC       0
+-#define RECORD_GCOV_VERSION     1
+-#define RECORD_TIME_STAMP       2
+-#define RECORD_FUNCTION_TAG     3
+-#define RECORD_FUNCTON_TAG_LEN  4
+-#define RECORD_FUNCTION_IDENT   5
+-#define RECORD_FUNCTION_CHECK   6
+-#define RECORD_COUNT_TAG        7
+-#define RECORD_COUNT_LEN        8
+-#define RECORD_COUNT            9
+-
+-static int counter_active(const struct gcov_info *info, unsigned int type)
+-{
+-    return (1 << type) & info->ctr_mask;
+-}
+-
+-static unsigned int num_counter_active(const struct gcov_info *info)
+-{
+-    unsigned int i;
+-    unsigned int result = 0;
+-
+-    for ( i = 0; i < GCOV_COUNTERS; i++ )
+-        if ( counter_active(info, i) )
+-            result++;
+-
+-    return result;
+-}
+-
+-void gcov_info_link(struct gcov_info *info)
+-{
+-    info->next = gcov_info_head;
+-    gcov_info_head = info;
+-}
+-
+-struct gcov_info *gcov_info_next(const struct gcov_info *info)
+-{
+-    if ( !info )
+-        return gcov_info_head;
+-
+-    return info->next;
+-}
+-
+-const char *gcov_info_filename(const struct gcov_info *info)
+-{
+-    return info->filename;
+-}
+-
+-void gcov_info_reset(struct gcov_info *info)
+-{
+-    unsigned int active = num_counter_active(info);
+-    unsigned int i;
+-
+-    for ( i = 0; i < active; i++ )
+-        memset(info->counts[i].values, 0,
+-               info->counts[i].num * sizeof(gcov_type));
+-}
+-
+-static size_t get_fn_size(const struct gcov_info *info)
+-{
+-    size_t size;
+-
+-    size = sizeof(struct gcov_fn_info) + num_counter_active(info) *
+-        sizeof(unsigned int);
+-    if ( __alignof__(struct gcov_fn_info) > sizeof(unsigned int) )
+-        size = ROUNDUP(size, __alignof__(struct gcov_fn_info));
+-    return size;
+-}
+-
+-static struct gcov_fn_info *get_fn_info(const struct gcov_info *info,
+-                                        unsigned int fn)
+-{
+-    return (struct gcov_fn_info *)
+-        ((char *) info->functions + fn * get_fn_size(info));
+-}
+-
+-static struct gcov_fn_info *get_func(struct gcov_iterator *iter)
+-{
+-    return get_fn_info(iter->info, iter->function);
+-}
+-
+-static struct type_info *get_type(struct gcov_iterator *iter)
+-{
+-    return &iter->type_info[iter->type];
+-}
+-
+-/**
+- * gcov_iter_next - advance file iterator to next logical record
+- * @iter: file iterator
+- *
+- * Return zero if new position is valid, non-zero if iterator has reached end.
+- */
+-static int gcov_iter_next(struct gcov_iterator *iter)
+-{
+-    switch ( iter->record )
+-    {
+-    case RECORD_FILE_MAGIC:
+-    case RECORD_GCOV_VERSION:
+-    case RECORD_FUNCTION_TAG:
+-    case RECORD_FUNCTON_TAG_LEN:
+-    case RECORD_FUNCTION_IDENT:
+-    case RECORD_COUNT_TAG:
+-        /* Advance to next record */
+-        iter->record++;
+-        break;
+-    case RECORD_COUNT:
+-        /* Advance to next count */
+-        iter->count++;
+-        /* fall through */
+-    case RECORD_COUNT_LEN:
+-        if ( iter->count < get_func(iter)->n_ctrs[iter->type] )
+-        {
+-            iter->record = 9;
+-            break;
+-        }
+-        /* Advance to next counter type */
+-        get_type(iter)->offset += iter->count;
+-        iter->count = 0;
+-        iter->type++;
+-        /* fall through */
+-    case RECORD_FUNCTION_CHECK:
+-        if ( iter->type < iter->num_types )
+-        {
+-            iter->record = 7;
+-            break;
+-        }
+-        /* Advance to next function */
+-        iter->type = 0;
+-        iter->function++;
+-        /* fall through */
+-    case RECORD_TIME_STAMP:
+-        if ( iter->function < iter->info->n_functions )
+-            iter->record = 3;
+-        else
+-            iter->record = -1;
+-        break;
+-    }
+-    /* Check for EOF. */
+-    if ( iter->record == -1 )
+-        return -EINVAL;
+-    else
+-        return 0;
+-}
+-
+-/**
+- * gcov_iter_write - write data to buffer
+- * @iter: file iterator
+- * @buf: buffer to write to, if it is NULL, nothing is written
+- * @pos: position inside buffer to start writing
+- *
+- * Return number of bytes written into buffer.
+- */
+-static size_t gcov_iter_write(struct gcov_iterator *iter, char *buf,
+-                              size_t pos)
+-{
+-    size_t ret = 0;
+-
+-    switch ( iter->record )
+-    {
+-    case RECORD_FILE_MAGIC:
+-        ret = gcov_store_uint32(buf, pos, GCOV_DATA_MAGIC);
+-        break;
+-    case RECORD_GCOV_VERSION:
+-        ret = gcov_store_uint32(buf, pos, iter->info->version);
+-        break;
+-    case RECORD_TIME_STAMP:
+-        ret = gcov_store_uint32(buf, pos, iter->info->stamp);
+-        break;
+-    case RECORD_FUNCTION_TAG:
+-        ret = gcov_store_uint32(buf, pos, GCOV_TAG_FUNCTION);
+-        break;
+-    case RECORD_FUNCTON_TAG_LEN:
+-        ret = gcov_store_uint32(buf, pos, 2);
+-        break;
+-    case RECORD_FUNCTION_IDENT:
+-        ret = gcov_store_uint32(buf, pos, get_func(iter)->ident);
+-        break;
+-    case RECORD_FUNCTION_CHECK:
+-        ret = gcov_store_uint32(buf, pos, get_func(iter)->checksum);
+-        break;
+-    case RECORD_COUNT_TAG:
+-        ret = gcov_store_uint32(buf, pos,
+-                                GCOV_TAG_FOR_COUNTER(get_type(iter)->ctr_type));
+-        break;
+-    case RECORD_COUNT_LEN:
+-        ret = gcov_store_uint32(buf, pos,
+-                                get_func(iter)->n_ctrs[iter->type] * 2);
+-        break;
+-    case RECORD_COUNT:
+-        ret = gcov_store_uint64(buf, pos, iter->info->counts[iter->type].
+-                                values[iter->count + get_type(iter)->offset]);
+-        break;
+-    }
+-
+-    return ret;
+-}
+-
+-/* If buffer is NULL, no data is written. */
+-size_t gcov_info_to_gcda(char *buffer, const struct gcov_info *info)
+-{
+-    struct gcov_iterator iter = { .info = info };
+-    unsigned int i;
+-    size_t pos = 0;
+-
+-    for ( i = 0; i < GCOV_COUNTERS; i++ )
+-    {
+-        if ( counter_active(info, i) )
+-        {
+-            iter.type_info[iter.num_types].ctr_type = i;
+-            iter.type_info[iter.num_types].offset = 0;
+-            iter.num_types++;
+-        }
+-    }
+-
+-    do {
+-        pos += gcov_iter_write(&iter, buffer, pos);
+-    } while ( gcov_iter_next(&iter) == 0 );
+-
+-    return pos;
+-}
+-
+-/*
+- * Local variables:
+- * mode: C
+- * c-file-style: "BSD"
+- * c-basic-offset: 4
+- * tab-width: 4
+- * indent-tabs-mode: nil
+- * End:
+- */
+-- 
+2.39.5
 
 
