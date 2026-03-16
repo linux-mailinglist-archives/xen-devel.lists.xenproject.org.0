@@ -2,42 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id vZgkK3Y2t2k+OAEAu9opvQ
+	id IEpBGMq2t2mMUgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 15 Mar 2026 23:45:10 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 08:52:42 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2B86292E49
-	for <lists+xen-devel@lfdr.de>; Sun, 15 Mar 2026 23:45:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1255413.1550384 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8BF9295D95
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 08:52:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1255434.1550394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w1uBk-00035o-S9; Sun, 15 Mar 2026 22:44:00 +0000
+	id 1w22jf-0007GJ-1J; Mon, 16 Mar 2026 07:51:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1255413.1550384; Sun, 15 Mar 2026 22:44:00 +0000
+Received: by outflank-mailman (output) from mailman id 1255434.1550394; Mon, 16 Mar 2026 07:51:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w1uBk-00033J-NN; Sun, 15 Mar 2026 22:44:00 +0000
-Received: by outflank-mailman (input) for mailman id 1255413;
- Sun, 15 Mar 2026 22:43:59 +0000
+	id 1w22je-0007DZ-UF; Mon, 16 Mar 2026 07:51:34 +0000
+Received: by outflank-mailman (input) for mailman id 1255434;
+ Mon, 16 Mar 2026 07:51:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vTDb=BP=gmail.com=x1917x@srs-se1.protection.inumbo.net>)
- id 1w1uBj-00033D-64
- for xen-devel@lists.xenproject.org; Sun, 15 Mar 2026 22:43:59 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ (envelope-from <SRS0=6b3Y=BQ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1w22jd-0007DT-Om
+ for xen-devel@lists.xenproject.org; Mon, 16 Mar 2026 07:51:33 +0000
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [2a00:1450:4864:20::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7319f318-20c0-11f1-b164-2bf370ae4941;
- Sun, 15 Mar 2026 23:43:56 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- 5b1f17b1804b1-48540d21f7dso46733735e9.0
- for <xen-devel@lists.xenproject.org>; Sun, 15 Mar 2026 15:43:56 -0700 (PDT)
-Received: from LinuxLaptop ([156.146.63.148]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-485696a12d0sm9329865e9.13.2026.03.15.15.43.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Mar 2026 15:43:54 -0700 (PDT)
+ id ed355c2a-210c-11f1-b164-2bf370ae4941;
+ Mon, 16 Mar 2026 08:51:23 +0100 (CET)
+Received: by mail-ej1-x62f.google.com with SMTP id
+ a640c23a62f3a-b93698bb57aso795262066b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Mar 2026 00:51:22 -0700 (PDT)
+Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
+ (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
+ [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b9796cd0f3asm371655766b.7.2026.03.16.00.51.21
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 Mar 2026 00:51:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,242 +52,318 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7319f318-20c0-11f1-b164-2bf370ae4941
+X-Inumbo-ID: ed355c2a-210c-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773614636; x=1774219436; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:organization:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=suse.com; s=google; t=1773647482; x=1774252282; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=R+oKftX9fWed4q1JFI6dnkZ5cVOEANix0J2Szgkj1kw=;
-        b=Dd35wY4NsWP/uDxbPKxtLcemqgyEE6+K8ZGcYmnGHM486PGEjIigplwzWmY0e7xySJ
-         2LicqrxEj6zNjNwK+sYscDGAZ5jv+6RAMp7YFCP+n6Psz+YtBJfGuKxUjZqR2PYadLDk
-         QfNwtU+inPRbRDjWfqLNHRq17HUW6NvjWl37maTKr4dYsVgxflWoIP9PILE1V13yQRPh
-         6KM1DnqV2/NHuK3J67G0k/vhRnIZzLS74+gmuqdrl5fgxaU2Fye4BaCc4s5f270Jfxgx
-         4n0vrXG1hZyfHp8WulXG62WQPRzo7FqR2VBbZfyY7lHRgeKiYUqmNfFAuEa0verkbK+3
-         mvzQ==
+        bh=gVf7eqXFsNSUtVS+T8qM4oUWc9TUdMrRyi21/3vzEys=;
+        b=IY9ui6KOCHfzX9cH/a7mPgd0b/jFW5yVH23Xx71X3Tu4+wYgdxh8lI9hoJ+sqL3UDd
+         tSnkK4a4Km1AO47zYrJNC0Y5ubEHXIC0Khx4yZZvWnFFk4PXJZy/XEsruiviWBoYtA/l
+         mhfP+BMlqp+kfhNa0QAqoJ/en/sfVnH/hWPQ9hrWvjw/9CY9k11ak4oFz+yNPhfKz/f0
+         ieWCgGb3iTCY0u3D3C+HrcC6gtQZXRI/+tTWrpERWDFTyiMEnqwqaOIvtbQzVEe8+Tyx
+         nsT+jDl3V8rLWrqruzgA8595SEAr0S1GBEmlPgIHF5cOPDTRSm7Cjwhi1lYxhr3qEOGn
+         SO+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773614636; x=1774219436;
-        h=content-transfer-encoding:mime-version:organization:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1773647482; x=1774252282;
+        h=in-reply-to:autocrypt:from:content-language:references:cc:to
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=R+oKftX9fWed4q1JFI6dnkZ5cVOEANix0J2Szgkj1kw=;
-        b=jD7MRYOk/7m4lkpp1J/78jUJkb5DxBbhbBDWpUeQr6kk4fmj7R3tdRxrd9ZSV6eoM4
-         zEsuahwL2kBnsMtAQj5t/BL6bEE1j0Bdf+vt1CrNsd5b9JObmdhMHCSgT69sEyCZFi2A
-         5mC3gr28SPcmF74bhngNOWg8zF8R9HDCdDbGkgcXJTMpVXuS8y86szQJZbC7p7OY/4G1
-         YdQhI+T3brPCGpJMfD36mdnpeyfftMaXnda6X9w/IrDb64sHujAZpLac6Gle57vtQDPq
-         K9d4phtpS1oNqNpzzyDtipp4QQr5KcIWcT9zxlgodThc4RtNFUziCZgSpAGyiMXlI/8I
-         y/7w==
-X-Gm-Message-State: AOJu0YxrG+uQo6tFAEiUacPp09ku0RsC1MhgbH9VFkz34TQhdFz63jkQ
-	gJ8ipO4+C3l14DUNXSKVlaljI2mfi1Q8jjQ20VX9YvBMsRyDsIQwUb1/
-X-Gm-Gg: ATEYQzxlkdVnON5mIRLrLGDKQHwnwgWjCtNaWb4tLfuVgwZD045DLFMtU8cxZOhRDHz
-	ajKrAAifNNN2a4/GIVwcA1Pdzi0ec497t+C1C+/Zv5Q2Rv2rniYA0SDcWCp+AoDTD2iGHQAGrEP
-	mozkTfRB7VQEwr90xbocCd0Z73i3YOQKSW8pdiFo/j4ZZcKD+V/l5FUg/267rc8pGgT88L0bG64
-	HMLxQZvLA9oJ6MKsNf6QaGmy5OC7kRN4u/HLjO/CR2gCDgJ/hk3D42Jz7kph0VYVH0kT/S40JNg
-	WgjJp1gYiNa0IZcoecosm50buofXVbVMFW7QBkolqR2fJLSYR7YAhO3i2/XxUEXKwcKNMUBBwp5
-	iWgdXPtEwGXHqaTuSL7dX2rYbzIRJhD8gixzWwUulikPgYSFRqvXtVm+c3HrdHXTXlMbQ1R0apK
-	dedk18KamWjAG+F8VOGw==
-X-Received: by 2002:a05:600c:a09:b0:485:3f72:324d with SMTP id 5b1f17b1804b1-485566ddac0mr199693975e9.14.1773614635407;
-        Sun, 15 Mar 2026 15:43:55 -0700 (PDT)
-Date: Sun, 15 Mar 2026 23:43:49 +0100
-From: Alexey G <x1917x@gmail.com>
-To: "Thierry Escande" <thierry.escande@vates.tech>
-Cc: xen-devel@lists.xenproject.org, "Jan Beulich" <jbeulich@suse.com>,
- "Andrew Cooper" <andrew.cooper3@citrix.com>, "Roger Pau =?UTF-8?B?TW9u?=
- =?UTF-8?B?bsOp?=" <roger.pau@citrix.com>, "Anthony PERARD"
- <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien
- Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>,
- "Juergen Gross" <jgross@suse.com>
-Subject: Re: [PATCH 00/17] Q35 initial support for HVM guests
-Message-ID: <20260315234349.36c0dd8b@LinuxLaptop>
-In-Reply-To: <20260313163455.790692-1-thierry.escande@vates.tech>
-References: <20260313163455.790692-1-thierry.escande@vates.tech>
-Organization: none
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+        bh=gVf7eqXFsNSUtVS+T8qM4oUWc9TUdMrRyi21/3vzEys=;
+        b=Gezz7gYh5lOETI/MOamn7phBzB4RmvBktGEsKCPrBsZafomiOjAKWZSLf5esPZLiwJ
+         i86czTGiFQhbMuAtVY6/mwjdY0mAvincVYFB+zcXtZGDadLQuGjPQ03YwzO89k0ugXH2
+         PePMGi/levuV6YTHj487GHlKW5xu1kA7QZLJUIakyaAVeecsFj22PLuF7jw+Wvult4WH
+         /+z+7m7G3GGLfBb2zREY3/4TVHshq2Fnpnp0cfRMioF6zFpn7jpNhHh9bWW9YJ8dNSJo
+         Ch2YDSUEBau2nD1TduiNglB9hh16zJWgL5KbqHZkuIIQP7dIvIIkwsyZcCXBLyXIA7g8
+         g3yw==
+X-Gm-Message-State: AOJu0YxfT/cHJJSyS/uJBwlFkUYFhXzn7KCl28pAKUMelZHYTNXnEpTp
+	EKYIzSEXMeD0lQ1vPKqWQJTZPwVYV8XYds3FHWHAucv7vRg2dN9GOd792BciO81oteMx+CXf4Cw
+	PzBLK
+X-Gm-Gg: ATEYQzwE+unebjI3VE7uMsma4VbTkCVIOv13c/ZUThsEMgqxi2fSlBAOC1Ws4U+CVbp
+	rzZ9C46/Rkmq7debUay4babo7GfbZoRbkYm9BNbVziV+z4IGYHNlsCrc3tctqZ10oP0ZigFSBf9
+	sRggUcalrqu1H2cklnJSdUgpHNEGHYvyqUlAC8WC5qr0sTroo+JB+t98FriQbrX3bB1O1a3P7n3
+	rDgiPAYU7XqkZDAYO4kd5T829Ya+lTBmE8jx4IMfc9ymgFwwULG6wEo/Wqbk3p9vckL3KB2BJSH
+	+UX4z8dFfEPl2EE/4LB5PiVvMedISr+8pG+V/BEfy0DRmUnhbPwxSl1ETadrRyrEdfP4JYMxSi2
+	AJQviHPsuLjkX8WWtIbjUO1gYTMSF+ue7ErtMkDeutdc4OcdLkSCj99VkJ3pa8siJeLsRS3Y28X
+	vpYeDGtwRmjSH0Yu8h+G5qr8RkfXdo9fWswVyta60gQxqsE7KaYdUeMGygZSSwqMGN39OOpvbvC
+	OHuu93RZK9neM6L8ozMr0rb81KCcDneHnCOuK28tBFJ4rpAi5idpg==
+X-Received: by 2002:a17:907:6ea4:b0:b97:b149:4e72 with SMTP id a640c23a62f3a-b97b14977d6mr204643966b.28.1773647482139;
+        Mon, 16 Mar 2026 00:51:22 -0700 (PDT)
+Message-ID: <c7870ce3-fc52-4bda-997f-4791fe3020a1@suse.com>
+Date: Mon, 16 Mar 2026 08:51:21 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/11] tools/libs/store: add get- and set-quota related
+ functions
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
+References: <20260305135208.2208663-1-jgross@suse.com>
+ <20260305135208.2208663-2-jgross@suse.com> <abQd82Z8x3_9CY2Q@l14>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <abQd82Z8x3_9CY2Q@l14>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------wX2RZAj9dCG09f7FRF200Hqc"
+X-Spamd-Result: default: False [-1.50 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	R_MIXED_CHARSET(0.59)[subject];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:jgross@suse.com,s:lists@lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[x1917x@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
 	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[x1917x@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	HAS_ORG_HEADER(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	FORWARDED(0.00)[mailman];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:julien@xen.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	HAS_ATTACHMENT(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.999];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: F2B86292E49
+X-Rspamd-Queue-Id: B8BF9295D95
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hello,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------wX2RZAj9dCG09f7FRF200Hqc
+Content-Type: multipart/mixed; boundary="------------ItyVOjejs0x0CYt0HSY5Bsr1";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Anthony PERARD <anthony.perard@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>
+Message-ID: <c7870ce3-fc52-4bda-997f-4791fe3020a1@suse.com>
+Subject: Re: [PATCH 01/11] tools/libs/store: add get- and set-quota related
+ functions
+References: <20260305135208.2208663-1-jgross@suse.com>
+ <20260305135208.2208663-2-jgross@suse.com> <abQd82Z8x3_9CY2Q@l14>
+In-Reply-To: <abQd82Z8x3_9CY2Q@l14>
 
-I'm glad someone wants to commit these patches (and surprised that
-they're still applicable after so many years), thank you for this
-effort. Feel free to proceed, it would be good if you manage to upstream
-them to Xen/QEMU code. But be prepared that it won't be an easy
-task - the patches cross multiple areas of responsibility, so it will
-require some effort to make all involved Xen/QEMU maintainers happy.
-I don't work on virtualization/x86 anymore and I barely remember
-anything after 8 years, so I probably won't be able to help much, but
-I'll keep an eye on the email thread.
+--------------ItyVOjejs0x0CYt0HSY5Bsr1
+Content-Type: multipart/mixed; boundary="------------RJfLw1K0oAtZZfZT0NOujJJO"
 
+--------------RJfLw1K0oAtZZfZT0NOujJJO
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Some historical background for the Q35 patches:
+T24gMTMuMDMuMjYgMTU6MjMsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPiBPbiBUaHUsIE1h
+ciAwNSwgMjAyNiBhdCAwMjo1MTo1OFBNICswMTAwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
+Pj4gZGlmZiAtLWdpdCBhL3Rvb2xzL2luY2x1ZGUveGVuc3RvcmUuaCBiL3Rvb2xzL2luY2x1
+ZGUveGVuc3RvcmUuaA0KPj4gaW5kZXggNDIzNDIyZGM1MC4uNmI2NjFlNTg5NSAxMDA2NDQN
+Cj4+IC0tLSBhL3Rvb2xzL2luY2x1ZGUveGVuc3RvcmUuaA0KPj4gKysrIGIvdG9vbHMvaW5j
+bHVkZS94ZW5zdG9yZS5oDQo+PiBAQCAtMjc3LDYgKzI3NywyNSBAQCBib29sIHhzX2dldF9m
+ZWF0dXJlc19kb21haW4oc3RydWN0IHhzX2hhbmRsZSAqaCwgdW5zaWduZWQgaW50IGRvbWlk
+LA0KPj4gICBib29sIHhzX3NldF9mZWF0dXJlc19kb21haW4oc3RydWN0IHhzX2hhbmRsZSAq
+aCwgdW5zaWduZWQgaW50IGRvbWlkLA0KPj4gICAJCQkgICAgdW5zaWduZWQgaW50IGZlYXR1
+cmVzKTsNCj4+ICAgDQo+PiArLyogR2V0IG5hbWVzIG9mIHN1cHBvcnRlZCBxdW90YS4gKi8N
+Cj4+ICtjaGFyICoqeHNfZ2V0X3F1b3RhX25hbWVzKHN0cnVjdCB4c19oYW5kbGUgKmgsIHVu
+c2lnbmVkIGludCAqbnVtKTsNCj4+ICsNCj4+ICsvKiBHZXQgdGhlIHZhbHVlIG9mIG9uZSBn
+bG9iYWwgcXVvdGEuICovDQo+PiArYm9vbCB4c19nZXRfZ2xvYmFsX3F1b3RhKHN0cnVjdCB4
+c19oYW5kbGUgKmgsIGNoYXIgKnF1b3RhLA0KPj4gKwkJCSB1bnNpZ25lZCBpbnQgKnZhbHVl
+KTsNCj4+ICsNCj4+ICsvKiBTZXQgdGhlIHZhbHVlIG9mIG9uZSBnbG9iYWwgcXVvdGEuICov
+DQo+PiArYm9vbCB4c19zZXRfZ2xvYmFsX3F1b3RhKHN0cnVjdCB4c19oYW5kbGUgKmgsIGNo
+YXIgKnF1b3RhLA0KPj4gKwkJCSB1bnNpZ25lZCBpbnQgdmFsdWUpOw0KPj4gKw0KPj4gKy8q
+IEdldCB0aGUgdmFsdWUgb2Ygb25lIGRvbWFpbiBxdW90YS4gKi8NCj4+ICtib29sIHhzX2dl
+dF9kb21haW5fcXVvdGEoc3RydWN0IHhzX2hhbmRsZSAqaCwgdW5zaWduZWQgaW50IGRvbWlk
+LA0KPj4gKwkJCSBjaGFyICpxdW90YSwgdW5zaWduZWQgaW50ICp2YWx1ZSk7DQo+PiArDQo+
+PiArLyogU2V0IHRoZSB2YWx1ZSBvZiBvbmUgZG9tYWluIHF1b3RhLiAqLw0KPj4gK2Jvb2wg
+eHNfc2V0X2RvbWFpbl9xdW90YShzdHJ1Y3QgeHNfaGFuZGxlICpoLCB1bnNpZ25lZCBpbnQg
+ZG9taWQsDQo+PiArCQkJIGNoYXIgKnF1b3RhLCB1bnNpZ25lZCBpbnQgdmFsdWUpOw0KPj4g
+Kw0KPiANCj4gRG8geW91IHRoaW5rIGFsbCB0aG9zZSBuZXcgcHJvdG90eXBlIGNvdWxkIGdl
+dCBhIGJpdCBtb3JlIGRlc2NyaXB0aW9ucz8NCj4gV2hpY2ggcGFyYW1ldGVyIGFyZSBhY3R1
+YWxseSBvdXRwdXQgKGFuZCBub3QgaW5wdXQpLCB3aGF0IGRvZXMgaXQgbWVhbg0KPiB0byBy
+ZXR1cm4gZmFsc2UsIGRvIHRoZXkgc2V0IGVycm5vLCBpcyB0aGVyZSBzb21ldGhpbmcgdG8g
+ZG8gd2l0aCB0aGUNCj4gcmV0dXJuIHZhbHVlIG9mIHhzX2dldF9xdW90YV9uYW1lcz8NCg0K
+T2ggeWVzLCBvZiBjb3Vyc2UuDQoNCj4gRm9yIG91dHB1dCBhcmd1bWVudHMsIGxpYnhsIGhh
+dmUgYSBjb252ZW50aW9uICh3ZWxsIGF0IGxlYXN0IGEgbWVudGlvbg0KPiBpbiB0aGUgY29k
+aW5nIHN0eWxlKSB0byBzdWZmaXggYXJndW1lbnQgbmFtZXMgd2l0aCBgX3JgIG9yIGBfb3V0
+YC4NCg0KSG1tLCBJIGRvbid0IHRoaW5rIEknZCBsaWtlIHRvIGNoYW5nZSBzdHlsZSBub3cu
+IFRoaXMgaXMgbm90IGxpYnhsIGFmdGVyDQphbGwuDQoNCj4gRm9yIHRoZSBzdHJpbmdzLCBj
+b3VsZCB3ZSB1c2UgYGNvbnN0IGNoYXIgKmAgaW5zdGVhZCBvZiBub24tY29uc3Qgb25lPw0K
+DQpZZXMuDQoNCj4gDQo+PiBkaWZmIC0tZ2l0IGEvdG9vbHMvbGlicy9zdG9yZS94cy5jIGIv
+dG9vbHMvbGlicy9zdG9yZS94cy5jDQo+PiBpbmRleCA4ZjRiOTBhM2NmLi5kZGEzN2Y3NTI2
+IDEwMDY0NA0KPj4gLS0tIGEvdG9vbHMvbGlicy9zdG9yZS94cy5jDQo+PiArKysgYi90b29s
+cy9saWJzL3N0b3JlL3hzLmMNCj4+IEBAIC0xNDU2LDYgKzE0NTYsMTE3IEBAIGJvb2wgeHNf
+c2V0X2ZlYXR1cmVzX2RvbWFpbihzdHJ1Y3QgeHNfaGFuZGxlICpoLCB1bnNpZ25lZCBpbnQg
+ZG9taWQsDQo+PiAgIAlyZXR1cm4geHNfYm9vbCh4c190YWxrdihoLCBpb3YsIEFSUkFZX1NJ
+WkUoaW92KSwgTlVMTCkpOw0KPj4gICB9DQo+PiAgIA0KPj4gK2NoYXIgKip4c19nZXRfcXVv
+dGFfbmFtZXMoc3RydWN0IHhzX2hhbmRsZSAqaCwgdW5zaWduZWQgaW50ICpudW0pDQo+PiAr
+ew0KPj4gKwlzdHJ1Y3QgeHNkX3NvY2ttc2cgbXNnID0geyAudHlwZSA9IFhTX0dFVF9RVU9U
+QSB9Ow0KPj4gKwlzdHJ1Y3QgaW92ZWMgaW92WzFdOw0KPj4gKwljaGFyICoqcXVvdGE7DQo+
+PiArCWNoYXIgKnJlcGx5Ow0KPj4gKwljaGFyICpjOw0KPj4gKwl1bnNpZ25lZCBpbnQgaTsN
+Cj4+ICsNCj4+ICsJaW92WzBdLmlvdl9iYXNlID0gJm1zZzsNCj4+ICsJaW92WzBdLmlvdl9s
+ZW4gID0gc2l6ZW9mKG1zZyk7DQo+PiArDQo+PiArCXJlcGx5ID0geHNfdGFsa3YoaCwgaW92
+LCBBUlJBWV9TSVpFKGlvdiksIE5VTEwpOw0KPj4gKwlpZiAoIXJlcGx5KQ0KPj4gKwkJcmV0
+dXJuIE5VTEw7DQo+PiArDQo+PiArCSpudW0gPSAxOw0KPj4gKwlmb3IgKGMgPSByZXBseTsg
+KmM7IGMrKykNCj4+ICsJCWlmICgqYyA9PSAnICcpDQo+PiArCQkJKCpudW0pKys7DQo+PiAr
+DQo+PiArCXF1b3RhID0gbWFsbG9jKCpudW0gKiBzaXplb2YoY2hhciAqKSArIHN0cmxlbihy
+ZXBseSkgKyAxKTsNCj4+ICsJYyA9IChjaGFyICopKHF1b3RhICsgKm51bSk7DQo+PiArCXN0
+cmNweShjLCByZXBseSk7DQo+PiArCWZvciAoaSA9IDA7IGkgPCAqbnVtOyBpKyspIHsNCj4+
+ICsJCXF1b3RhW2ldID0gYzsNCj4+ICsJCWMgPSBzdHJjaHIoYywgJyAnKTsNCj4+ICsJCWlm
+IChjKSB7DQo+IA0KPiBJZiBgY2AgaXMgTlVMTCwgaXQncyBsaWtlbHkgdGhhdCB0aGlzIGlz
+IHRoZSBsYXN0IGl0ZXJhdGlvbiBvZiB0aGUgYGZvcmANCj4gbG9vcC4gQnV0IGp1c3QgaW4g
+Y2FzZSwgc2hvdWxkIHdlIHByZXZlbnQgdGhlIGNvZGUgZnJvbSBkb2luZyBhbm90aGVyDQo+
+IHJvdW5kIGFuZCBwcmV2ZW50IGBzdHJjaHIoTlVMTCwgJyAnKWA/IChPciBqdXN0IGNoZWNr
+IHRoYXQgYGNgIGlzICFOVUxMLA0KPiBhbmQgbGV0IHRoZSBsb29wIGZpbmlzaCBzZXQgTlVM
+TCBmb3IgdGhlIHJlbWFpbmluZyBzbG90IGluIGBxdW90YWApDQoNCk5vdCBzdXJlIHRoaXMg
+aXMgcmVhbGx5IG5lZWRlZC4gKm51bSBpcyBzZXQganVzdCBhIGZldyBsaW5lcyBmdXJ0aGVy
+IHVwDQp1c2luZyB0aGUgc2FtZSB3YXkgdG8gY291bnQgdGhlIG51bWJlciBvZiBzdHJpbmdz
+LiBEbyB3ZSByZWFsbHkgbmVlZCB0byBkbw0KY29uc2lzdGVuY3kgY2hlY2tzIG9mIGludGVy
+bWVkaWF0ZSByZXN1bHRzIGluIHN1Y2ggYSBzaG9ydCBmdW5jdGlvbj8NCg0KPiANCj4+ICsJ
+CQkqYyA9IDA7DQo+PiArCQkJYysrOw0KPj4gKwkJfQ0KPj4gKwl9DQo+PiArDQo+PiArCXJl
+dHVybiBxdW90YTsNCj4+ICt9DQo+PiArDQo+PiArYm9vbCB4c19nZXRfZ2xvYmFsX3F1b3Rh
+KHN0cnVjdCB4c19oYW5kbGUgKmgsIGNoYXIgKnF1b3RhLA0KPj4gKwkJCSB1bnNpZ25lZCBp
+bnQgKnZhbHVlKQ0KPj4gK3sNCj4+ICsJc3RydWN0IHhzZF9zb2NrbXNnIG1zZyA9IHsgLnR5
+cGUgPSBYU19HRVRfUVVPVEEgfTsNCj4+ICsJc3RydWN0IGlvdmVjIGlvdlsyXTsNCj4+ICsN
+Cj4+ICsJaW92WzBdLmlvdl9iYXNlID0gJm1zZzsNCj4+ICsJaW92WzBdLmlvdl9sZW4gID0g
+c2l6ZW9mKG1zZyk7DQo+PiArCWlvdlsxXS5pb3ZfYmFzZSA9IHF1b3RhOw0KPj4gKwlpb3Zb
+MV0uaW92X2xlbiAgPSBzdHJsZW4ocXVvdGEpICsgMTsNCj4+ICsNCj4+ICsJcmV0dXJuIHhz
+X3VpbnQoeHNfdGFsa3YoaCwgaW92LCBBUlJBWV9TSVpFKGlvdiksIE5VTEwpLCB2YWx1ZSk7
+DQo+PiArfQ0KPj4gKw0KPj4gK2Jvb2wgeHNfc2V0X2dsb2JhbF9xdW90YShzdHJ1Y3QgeHNf
+aGFuZGxlICpoLCBjaGFyICpxdW90YSwNCj4+ICsJCQkgdW5zaWduZWQgaW50IHZhbHVlKQ0K
+Pj4gK3sNCj4+ICsJc3RydWN0IHhzZF9zb2NrbXNnIG1zZyA9IHsgLnR5cGUgPSBYU19TRVRf
+UVVPVEEgfTsNCj4+ICsJY2hhciB2YWxfc3RyW01BWF9TVFJMRU4odmFsdWUpXTsNCj4gDQo+
+IE1BWF9TVFJMRU4gZG9lc24ndCBoYXZlIGEgZ3JlYXQgbmFtZSwgSSB3b3VuZGVyIHdoYXQg
+aXMgd2FzIDotKS4gQW5kDQo+IGl0J3Mgbm90IGFib3V0IGEgbWF4aW11bSBzaXplIG9mIHBh
+eWxvYWQgdGhhdCBjb3VsZCBnbyBvbiB4cyB3aXJlIG9yDQo+IHNvbWV0aGluZywgaXQncyBh
+Y3R1YWxseSB0aGUgbWF4aW11bSBzdHJpbmcgc2l6ZSB0aGF0IGNhbiB0YWtlIGENCj4gbnVt
+ZXJpY2FsIHZhbHVlLCB3aGVuIGNvbnZlcnRlZCB0byBjaGFyYXRlcnMuDQoNClVuZm9ydHVu
+YXRlbHkgdGhlIE1BWF9TVFJMRU4oKSBtYWNybyBpcyBkZWZpbmVkIGluIGEgcHVibGljIGhl
+YWRlciBmaWxlLg0KSSBjb3VsZCBkZWZpbmUgYW5vdGhlciBtYWNybyB3aXRoIGEgZGlmZmVy
+ZW50IG5hbWUgZG9pbmcgdGhlIHNhbWUgYW5kDQp1c2UgdGhhdCBoZXJlLCBidXQgTUFYX1NU
+UkxFTigpIHdvdWxkIHN0aWxsIGJlIHRoZXJlLg0KDQpXaGF0IGlzIHlvdXIgcHJlZmVyZW5j
+ZT8NCg0KDQpKdWVyZ2VuDQo=
+--------------RJfLw1K0oAtZZfZT0NOujJJO
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-The project I was working on was relying on Xen for PCIe device
-passthrough (mostly GPUs, NICs and storage controllers) to HVM guests.
-So PCIe passthrough and HVM were the top priority - it affected many
-of my decisions.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-IIRC, there were 2 major obstacles to successfully passthrough any PCIe device:
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-1. Even back then, there were **multiple PCIe devices whose drivers
-were attempting to read/write registers from their device's PCIe
-extended config space** (offsets above 100h). Supporting this feature
-required to have MMCONFIG/ECAM working, which was something only
-available for Q35 emulation at that time => hence Q35 support was
-added, with mostly PCIe passthrough in mind. In the process I also
-discovered that dreadful "PCIe topology check" issue which was bypassed
-by presenting the passed through PCIe device to the OS as a chipset
-built-in device. This solution was a bit hacky, but allowed to
-successfully pass through PCIe devices to a Q35 HVM guest.
+--------------RJfLw1K0oAtZZfZT0NOujJJO--
 
-2. Some devices had mirrors of BAR registers' values _accessed through
-a proprietary mechanism_, like reading them through device-specific
-MMIO registers. As such, their drivers do not read a BAR value from
-the PCI conf space but rather get it directly from eg. MMIO, whose
-layout is completely unknown to us. This makes all BAR emulation in the
-hypervisor useless for such device - the hypervisor returns one value
-for BARs read via PCI conf space, but the driver sees the real values
-as it bypasses the PCI conf space. Among such devices were Nvidia GPUs
-BTW - but not including the "pro" models AFAIR, which were more
-virtualization-friendly.
+--------------ItyVOjejs0x0CYt0HSY5Bsr1--
 
-That "BAR desync" problem was tricky - I solved it by implementing an
-option (in the domain config file) for a passed through device which,
-when turned on, was basically enabling 1:1 matching between virtual and
-physical BAR values for a given device, without affecting other devices
-(be it PT or emulated). This way virtual physical addresses in BARs
-match the real ones - hence the device driver sees the same values
-either in the PCI conf space or proprietary registers.
+--------------wX2RZAj9dCG09f7FRF200Hqc
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-But it wasn't that simple, unfortunately - having a specific "locked"
-BAR value means we need to adjust the MMIO hole size for the guest
-accordingly. A straightforward approach is to make the MMIO hole size
-very big. This in turn brought another problems to solve:
+-----BEGIN PGP SIGNATURE-----
 
-2.1. when a recent (back then) Windows OS sees PCI BAR allocation which
-is far from perfect - it can completely reallocate all BARs of all
-devices to other, very different addresses. They were calling this
-feature as PCIe "resource rebalancing" IIRC. This breaks 1:1 mirroring
-of given device's virtual/physical BARs - it's ok to present BARs with
-real physical addresses (the sneaky device driver knows them via MMIO
-registers anyway), but allowing to modify values in BARs is a no go, of
-course.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmm3tnkFAwAAAAAACgkQsN6d1ii/Ey/f
+tQf+OwXYZ8rIrIOR5AW+wRe30/jKhwFhADxFB0c0lP9tFz33rC/b26480zmtfUkB2Hekm/IckbXY
+6baLv9GhNCPazXlWhTcDzOL/qaBcLgSERyQVCCniDTr0FKG3EYUXpBWI5iQW36ek8wkgC+op3viA
+Qslz1V1evAfeqqCtSnIj6Y3C06VH19xwBzWJfmREDlGBpdK34mAkX+iSODPoGtX02Im5OfQEBue7
+P5foZUoWSJZwnkcaw/yFaiObhh7yLbE+ncDQq/5Kktyk11fKqhio9fTli385jKy4QhGotR75gAUW
+oqDAT3HWVY9WHdGiAyVelUnji0lY5YRCy4YlCwf4SQ==
+=Q3Fg
+-----END PGP SIGNATURE-----
 
-Luckily, this problem was solved by a specific PCI BAR allocation - the
-idea was to keep the MMIO hole as small as possible while avoiding
-large unused gaps inside it, not claimed by any BAR. It was implemented
-inside hvmloader, which was populating the MMIO hole while taking into
-account both fixed and freely modifiable BARs and then reported the new
-RAM/MMIO hole layout back to Xen. This allowed to prevent the PCI BAR
-reallocation from the OS - and hotplugging was still working thanks to
-the high MMIO hole (above 4Gb).
-
-2.2. after experimenting with dynamic resizing of the MMIO hole, I
-realized that Xen and QEMU have their own vision of the system memory
-layout which can get out of sync. And MMIO hole resize was creating
-this bad situation in fact, giving some hard to debug/reproduce bugs
-with unexpected guest memory corruption.
-
-The way I fixed this memory mismatch was emulating the real Q35
-facility for this - namely, chipset's REMAP register which was designed
-precisely for this goal - to reconfigure the MMIO hole size/position
-while relocating underlying RAM memory to another range (so no RAM is
-wasted). As the chipset was emulated by QEMU and the whole idea of HVM
-was to emulate real hardware as close as possible, this was the obvious
-solution - we do it in the way like it's done in a real firmware and
-then QEMU knows the RAM/MMIO hole layout, allowing to sync it with
-Xen's. There were some other fixed issues relying on this feature -
-AFAIR, I needed it also to make 'populate on demand' working with
-(hotplugged?) PT devices.
-
-I was planning to send patches for this feature too, after settling the
-Q35 patches. I'll try to find the relevant code/notes, maybe they will
-be helpful.
-
-On Fri, 13 Mar 2026 16:35:01 +0000
-"Thierry Escande" <thierry.escande@vates.tech> wrote:
-
->This series introduces initial Q35 chipset support for HVM guests, based on the
->patchset at [1] by Alexey Gerasimenko.
->
->Basic support means that this patchset allows to start an HVM guest that
->emulates a Q35 chipset via Qemu and implements access to PCIe extended
->configuration space for such devices emulated by Qemu.
->
->Support for PCIe device passthrough is not implemented yet. This is planned but
->implies modifications in the hypervisor and the firmwares, mainly for the
->support of multiple PCI buses.
->
->In order to create a Q35 guest, a new domain config option has been added,
->named 'device_model_machine'. Possible values are:
->- "i440" - i440 emulation (default)
->- "q35"  - emulate a Q35 machine
->
->If the option is omitted it defaults to "i440", not impacting existing domain
->configuration files.
->
->DSDT files for Q35 and i440 are largely similar so the existing file dsdt.asl
->has been split with i440 and q35 specific parts put in seperated files.
->
->The PCIe MMCONFIG area is configured by hvmloader and its base address and size
->are set in Xen using a new pair of hypercalls HVMOP_get|set_ecam_space. Access
->to the MMCONFIG area from a guest is trapped by Xen and transfered to the
->emulator as XEN_DMOP_IO_RANGE_PCI ioreq type.
->
->[1] https://lore.kernel.org/xen-devel/cover.1520867740.git.x1917x@gmail.com/
->
->Thierry Escande (17):
->  libacpi: Split dsdt.asl file and extract i440 specific parts
->  libacpi: new DSDT ACPI table for Q35
->  hvmloader: add function to set the emulated machine type (i440/Q35)
->  hvmloader: add ACPI enabling for Q35
->  hvmloader: add Q35 DSDT table loading
->  hvmloader: Move pci devices setup to a separate function
->  hvmloader: add basic Q35 support
->  hvmloader: Extend PCI BAR struct
->  xev/hvm: Add HVMOP_get|set_ecam_space hypercalls
->  hvmloader: Add support for HVMOP_set|get_ecam_space hypercalls
->  hvmloader: allocate MMCONFIG area in the MMIO hole
->  libxl: Q35 support (new option device_model_machine)
->  libxl: Add xen-platform device for Q35 machine
->  libacpi: build ACPI MCFG table if requested
->  hvmloader: Set MCFG in ACPI table
->  Handle PCIe ECAM space access from guests
->  docs: provide description for device_model_machine option
-
+--------------wX2RZAj9dCG09f7FRF200Hqc--
 
