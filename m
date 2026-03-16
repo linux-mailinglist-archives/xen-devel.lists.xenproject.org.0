@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qAwRA4ocuGlYZAEAu9opvQ
+	id KJ7WDeYcuGlYZAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 16:06:50 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 16:08:22 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFFD329BFB4
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 16:06:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1255619.1550519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A6B329C04D
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 16:08:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1255626.1550528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w29WQ-0005rw-UU; Mon, 16 Mar 2026 15:06:22 +0000
+	id 1w29YA-0006PT-8A; Mon, 16 Mar 2026 15:08:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1255619.1550519; Mon, 16 Mar 2026 15:06:22 +0000
+Received: by outflank-mailman (output) from mailman id 1255626.1550528; Mon, 16 Mar 2026 15:08:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w29WQ-0005ov-Rq; Mon, 16 Mar 2026 15:06:22 +0000
-Received: by outflank-mailman (input) for mailman id 1255619;
- Mon, 16 Mar 2026 15:06:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w29YA-0006Mz-5C; Mon, 16 Mar 2026 15:08:10 +0000
+Received: by outflank-mailman (input) for mailman id 1255626;
+ Mon, 16 Mar 2026 15:08:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4Dji=BQ=bounce.vates.tech=bounce-md_30504962.69b81c69.v1-271f0506bb074d7e981029c0320f1b4c@srs-se1.protection.inumbo.net>)
- id 1w29WP-0005op-JU
- for xen-devel@lists.xenproject.org; Mon, 16 Mar 2026 15:06:21 +0000
+ <SRS0=lC2O=BQ=bounce.vates.tech=bounce-md_30504962.69b81cd5.v1-6a3f9db5333c4ded9245fee67960302f@srs-se1.protection.inumbo.net>)
+ id 1w29Y9-0006Mr-7f
+ for xen-devel@lists.xenproject.org; Mon, 16 Mar 2026 15:08:09 +0000
 Received: from mail136-12.atl41.mandrillapp.com
  (mail136-12.atl41.mandrillapp.com [198.2.136.12])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af9449ee-2149-11f1-b164-2bf370ae4941;
- Mon, 16 Mar 2026 16:06:19 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ef907441-2149-11f1-9ccf-f158ae23cfc8;
+ Mon, 16 Mar 2026 16:08:06 +0100 (CET)
 Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
  by mail136-12.atl41.mandrillapp.com (Mailchimp) with ESMTP id
- 4fZJMF6nMBz5QkW2Q
- for <xen-devel@lists.xenproject.org>; Mon, 16 Mar 2026 15:06:17 +0000 (GMT)
+ 4fZJPK44YYz5QkLR2
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Mar 2026 15:08:05 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 271f0506bb074d7e981029c0320f1b4c; Mon, 16 Mar 2026 15:06:17 +0000
+ 6a3f9db5333c4ded9245fee67960302f; Mon, 16 Mar 2026 15:08:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,137 +48,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af9449ee-2149-11f1-b164-2bf370ae4941
+X-Inumbo-ID: ef907441-2149-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1773673577; x=1773943577;
-	bh=8V88MMOnEVAEXfQpk4zoBHdDg3/63NOPBcKopCaDPG8=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	s=mte1; t=1773673685; x=1773943685;
+	bh=Fz3JBKPQMyeowZWRMqZh8FyijgWgZh/CEClLY+5GdN0=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=Ss9wE/uFayCf0VXV4qhWKOGLli6dnPlxSLd0bm9a8BqloDhinkBw82LwAl670TE6h
-	 93fj2Yjswz7c2H5yk9rpg/31K2W3OLhLK3aRhr+WaAndxoMVGysubDyhTEh6tiAGm9
-	 /+GOJujszo4ZPzsW8EaxZOlycTAp8muHS/zuibhJpHVF63VNuQ1kcCrEomECcz7UBM
-	 P/VvUCJ8rqIc7eXpCg/Rhyn7XS6Dq1XGrl8p7avxSZ42H1SEfrxuaf1qN1a4sEtAfn
-	 HuPiI5Y7lU3lz6tMiR+49IlgujAGkQlCis0nXNgslC9bLRkm4uX1hRfFBR3ipvD5bU
-	 DBkZtvuFYfYlQ==
+	b=L/Et4zMvJMuMI0aqYJu0LKSplnE/VOALGYoUh9KnUKNIIf9M6IPcuv1fPn7QqWgrt
+	 Rwp6zfs4/6OxDx1kTy2p8KHvFszSgQpEz1jHwW2KfMNHpUqRj45iFFDX5P8bOnG+ek
+	 A1WxR2Bn4FsmXF7dStD1DNGfWMR0gG6qlIPEwREvLFQdBaHCUhJTmI5xyWlxrphjEV
+	 THAonOIyjUMMGf2gcsbEn+khpTPtanw3V/9BoAZUiTaQPSwAVIncsChJMxCGTFgXRo
+	 EA3uTr/iLS4UVXDfaDUjBMDvchVe6FV7p5VZZx35xVme/s8GVd/TC2YMu1RqcRgXrW
+	 5DCfYtAOuW1tQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1773673577; x=1773934077; i=julian.vetter@vates.tech;
-	bh=8V88MMOnEVAEXfQpk4zoBHdDg3/63NOPBcKopCaDPG8=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	t=1773673685; x=1773934185; i=anthony.perard@vates.tech;
+	bh=Fz3JBKPQMyeowZWRMqZh8FyijgWgZh/CEClLY+5GdN0=;
+	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=oljvqHrqklepyFZKcCRdQs+Zg/GlyKivxYRg9OH3Kyu7eLAdZYaeNne8BK1fDVC5H
-	 aEEp4BAn8uum7Wot4ub3PPH7kc/8oql9EA/BL+/rTAQMe82GV58Nkl8Y+Qu7ayJlHU
-	 Rxsq4qXBm7+ytSiJNytiCtLIXJYigR5XJC6ke/TYZSn+o2zr0Ea5dJVXK14M9c8CGP
-	 RZjDV9iqYeT2BnOQPXmxWYKeSpkltnab2eIdMi0pEFNtU+7jK5CktMIgxD2u8g9VRP
-	 O1Qk0NSWY1BjlCfl6/pS4ntqlu9i1zP2Sfq+TVxjiFu08fbIbFgd2WnPby5wqkCaQw
-	 PJm72qNntr6Bg==
-From: "Julian Vetter" <julian.vetter@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v3=203/7]=20x86/hvm:=20Support=20extended=20destination=20IDs=20in=20virtual=20MSI=20and=20IO-APIC?=
+	b=qaJT7yQ0KMY/7RkbXPmSXezvTcVoDptf1tBWB9IJIG1iFddqdVIP5gKpOxy58s4+Y
+	 hCo5o8NnYKMTycaeVmMLTsVq2uJt+sR4muZ2WrHlAxzhz8Lzh0idadKQOkqD8aA0Qk
+	 3bu3UQzU/nxWS49n6Cj84Sw3B0f9rJx61IsQci75KxITd5CGK+4hrg39amqLGqLExc
+	 zXWa2KU9m542AkxkGx2Qyfh+jxLZLBj83Zp0VndR9p28PA7DklSnsTkHKecmdBTpYW
+	 MUTlEbZViLoXZ0IjH82Jgn1X5+k+6knjIxhfz/JEMACatPsYm1rkVUjAXvY9JR2xiJ
+	 IYvS6XsUFFzVw==
+From: "Anthony PERARD" <anthony.perard@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=2007/11]=20tools/xenstored:=20implement=20the=20GET/SET=5FQUOTA=20commands?=
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1773673576518
-Message-Id: <635f1e21-f1e0-451a-9374-c91b33784894@vates.tech>
-To: "Jan Beulich" <jbeulich@suse.com>
-Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Juergen Gross" <jgross@suse.com>, "Julien Grall" <julien@xen.org>, xen-devel@lists.xenproject.org
-References: <20260309123055.880050-1-julian.vetter@vates.tech> <20260309123055.880050-3-julian.vetter@vates.tech> <1e371e65-ca79-42a0-93f9-804f73084033@suse.com> <9f40fbec-008f-4a50-bfb2-27c35d88f2a2@suse.com>
-In-Reply-To: <9f40fbec-008f-4a50-bfb2-27c35d88f2a2@suse.com>
+X-Bm-Transport-Timestamp: 1773673684981
+To: "Juergen Gross" <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org, "Julien Grall" <julien@xen.org>
+Message-Id: <abgc1Azehzw_m9Ff@l14>
+References: <20260305135208.2208663-1-jgross@suse.com> <20260305135208.2208663-8-jgross@suse.com>
+In-Reply-To: <20260305135208.2208663-8-jgross@suse.com>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.271f0506bb074d7e981029c0320f1b4c?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.6a3f9db5333c4ded9245fee67960302f?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20260316:md
-Date: Mon, 16 Mar 2026 15:06:17 +0000
+Date: Mon, 16 Mar 2026 15:08:05 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [3.51 / 15.00];
+X-Spamd-Result: default: False [4.01 / 15.00];
 	URIBL_GREY(2.50)[mandrillapp.com:dkim];
 	SUBJ_EXCESS_QP(1.20)[];
+	MID_RHS_NOT_FQDN(0.50)[];
 	MAILLIST(-0.18)[generic];
 	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
 	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:jgross@suse.com,m:julien@xen.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,mandrillapp.com:dkim];
+	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:xen-devel@lists.xenproject.org,m:julien@xen.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mandrillapp.com:dkim,vates.tech:dkim,vates.tech:mid,vates.tech:url];
-	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.924];
+	NEURAL_HAM(-0.00)[-0.875];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: AFFD329BFB4
+X-Rspamd-Queue-Id: 9A6B329C04D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 3/12/26 12:15 PM, Jan Beulich wrote:
-> On 11.03.2026 16:27, Jan Beulich wrote:
->> On 09.03.2026 13:31, Julian Vetter wrote:
->>> @@ -618,6 +620,21 @@ static int cf_check ioapic_check(const struct domain *d, hvm_domain_context_t *h
->>>                e->fields.reserved[0] || e->fields.reserved[1] ||
->>>                e->fields.reserved[2] || e->fields.reserved2 )
->>>               return -EINVAL;
->>> +
->>> +        /*
->>> +         * An RTE in the saved state has ext_dest_id bits set. Check that
->>> +         * the destination Xen has extended destination ID support enabled,
->>> +         * otherwise interrupt routing to APIC IDs > 255 would be broken
->>> +         * after restore.
->>> +         */
->>> +        if ( e->fields.ext_dest_id && !d->arch.hvm.ext_dest_id_enabled )
+On Thu, Mar 05, 2026 at 02:52:04PM +0100, Juergen Gross wrote:
+> diff --git a/tools/xenstored/core.c b/tools/xenstored/core.c
+> index 8a06b35808..e283d47184 100644
+> --- a/tools/xenstored/core.c
+> +++ b/tools/xenstored/core.c
+> @@ -2034,6 +2034,10 @@ static struct {
+>  	    { "GET_FEATURE",   do_get_feature,  XS_FLAG_PRIV },
+>  	[XS_SET_FEATURE]       =
+>  	    { "SET_FEATURE",   do_set_feature,  XS_FLAG_PRIV },
+> +	[XS_GET_QUOTA]         =
+> +	    { "GET_QUOTA",     do_get_quota,    XS_FLAG_PRIV },
+> +	[XS_SET_QUOTA]         =
+> +	    { "SET_QUOTA",     do_set_quota,    XS_FLAG_PRIV },
+>  };
+>  
+>  static const char *sockmsg_string(enum xsd_sockmsg_type type)
+> diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
+> index 8e52351695..c0bc8a3eb7 100644
+> --- a/tools/xenstored/domain.c
+> +++ b/tools/xenstored/domain.c
+> @@ -1363,6 +1363,112 @@ static bool parse_quota_name(const char *name, unsigned int *qidx,
+>  	return true;
+>  }
+>  
+> +int do_get_quota(const void *ctx, struct connection *conn,
+> +		 struct buffered_data *in)
+> +{
+> +	const char *vec[2];
+> +	unsigned int n_pars;
+> +	unsigned int domid;
+> +	unsigned int q;
+> +	unsigned int idx;
+> +	char *resp;
+> +	const char *name;
+> +	const struct quota *quota;
+> +	const struct domain *domain;
+> +
+> +	n_pars = get_strings(in, vec, ARRAY_SIZE(vec));
+> +
+> +	if (n_pars > 2)
+> +		return EINVAL;
+> +
+> +	if (n_pars == 0) {
+> +		resp = talloc_asprintf(ctx, "%s", "");
 
-Thank you for your feedback Jan! Yes, right the 'ext_dest_id_enabled' 
-must be defined before it can be checked. I have rearranged this in my 
-patch set.
+This could be written with talloc_strdup() instead, since there's no
+formatting involve.
 
->>
->> This won't build, as the ext_dest_id_enabled field appears only in patch 6.
->> But yes, that looks to be the opt-in mechanism I mentioned above.
-> 
-> Actually no, how could it be. That's for the DM to invoke.
+> +		if (!resp)
+> +			return ENOMEM;
+> +		for (q = 0; q < ACC_N; q++) {
+> +			if (!quota_adm[q].name)
+> +				continue;
+> +			if (quotas[q].val[Q_IDX_HARD] != Q_VAL_DISABLED) {
 
-But this comment here I'm not sure I fully understand. You mean that 
-checking 'if ( e->fields.ext_dest_id && !d->arch.hvm.ext_dest_id_enabled 
-)' is not enough? This check only verifies that if the target domain 
-doesn't support ext_dest_id_enabled, no RTE in the source domain is 
-allowed to have a ext_dest_id set. But now we also have to check that if 
-the source domain has ext_dest_id_enabled, the target also have to 
-announce it, right? So,
+Having set internally a value of Q_VAL_DISABLED, does it mean the named
+quota is unsupported?
 
-if ( s->ext_dest_id_enabled && !d->arch.hvm.ext_dest_id_enabled )
-{
-     //ERROR
-}
+> +				resp = talloc_asprintf_append(resp, "%s%s",
+> +					*resp ? " " : "", quota_adm[q].name);
+> +				if (!resp)
+> +					return ENOMEM;
+> +			}
+> +			if (quotas[q].val[Q_IDX_SOFT] != Q_VAL_DISABLED) {
+> +				resp = talloc_asprintf_append(resp, "%ssoft-%s",
+> +					*resp ? " " : "", quota_adm[q].name);
+> +				if (!resp)
+> +					return ENOMEM;
+> +			}
+> +		}
+> +	} else {
+> +		if (n_pars == 1) {
+> +			quota = quotas;
+> +			name = vec[0];
+> +		} else {
+> +			domid = atoi(vec[0]);
 
-Is this what you meant?
+Shall we check that vec[0] actually contain a plausible domid? (An
+integer between 0..65535). Right now, this accept everything, and would
+return 0 if there's not a single digit.
 
-Julian
+> +			domain = find_or_alloc_existing_domain(domid);
+> +			if (!domain)
+> +				return ENOENT;
+> +			quota = domain->acc;
+> +			name = vec[1];
+> +		}
+> +
+> +		if (parse_quota_name(name, &q, &idx))
+> +			return EINVAL;
+> +
+> +		resp = talloc_asprintf(ctx, "%u", quota[q].val[idx]);
 
-> 
-> Jan
+Why do we return 4294967295 for disabled quota check when the spec say
+to return "0" when a quota check is disabled? That is for quota names
+that are supposed to be not supported (if we ask "GET_QUOTA" first).
 
+> +		if (!resp)
+> +			return ENOMEM;
+> +	}
+> +
+> +	send_reply(conn, XS_GET_QUOTA, resp, strlen(resp) + 1);
+> +
+> +	return 0;
+> +}
+> +
+> +int do_set_quota(const void *ctx, struct connection *conn,
+> +		 struct buffered_data *in)
+> +{
+> +	const char *vec[3];
+> +	unsigned int n_pars;
+> +	unsigned int domid;
+> +	unsigned int q;
+> +	unsigned int idx;
+> +	const char *name;
+> +	unsigned int val;
+> +	struct quota *quota;
+> +	struct domain *domain;
+> +
+> +	n_pars = get_strings(in, vec, ARRAY_SIZE(vec));
+> +
+> +	if (n_pars < 2 || n_pars > 3)
+> +		return EINVAL;
+> +
+> +	if (n_pars == 2) {
+> +		quota = quotas;
+> +		name = vec[0];
+> +		val = atoi(vec[1]);
+
+We should check that vec[1] is a valid quota value, and also not an
+internal value. Otherwise, we can just have "-1" on the wire, and have
+unexpected changes for example. Only "0" is documented as a quota been
+disabled, "-1" or "4294967295" isn't.
+
+> +	} else {
+> +		domid = atoi(vec[0]);
+> +		domain = find_or_alloc_existing_domain(domid);
+> +		if (!domain)
+> +			return ENOENT;
+> +		quota = domain->acc;
+> +		name = vec[1];
+> +		val = atoi(vec[2]);
+> +	}
+> +
+> +	if (parse_quota_name(name, &q, &idx))
+> +		return EINVAL;
+> +
+> +	quota[q].val[idx] = val;
+> +
+> +	send_ack(conn, XS_SET_QUOTA);
+> +
+> +	return 0;
+> +}
+> +
+>  static int close_xgt_handle(void *_handle)
+>  {
+>  	xengnttab_close(*(xengnttab_handle **)_handle);
+> diff --git a/tools/xenstored/domain.h b/tools/xenstored/domain.h
+> index 62ce3b3166..6a06b0d1af 100644
+> --- a/tools/xenstored/domain.h
+> +++ b/tools/xenstored/domain.h
+> @@ -93,6 +93,14 @@ int do_get_feature(const void *ctx, struct connection *conn,
+>  int do_set_feature(const void *ctx, struct connection *conn,
+>  		   struct buffered_data *in);
+>  
+> +/* Get quota names or value */
+
+This could say "implement GET_QUOTA" or something instead. But a
+comment here isn't going to give much value for internal functions.
+
+> +int do_get_quota(const void *ctx, struct connection *conn,
+> +		 struct buffered_data *in);
+> +
+> +/* Set quota value */
+> +int do_set_quota(const void *ctx, struct connection *conn,
+> +		 struct buffered_data *in);
+> +
+>  void domain_early_init(void);
+>  void domain_init(int evtfd);
+>  void init_domains(bool live_update);
+
+
+Thanks,
 
 
 --
-Julian Vetter | Vates Hypervisor & Kernel Developer
+Anthony Perard | Vates XCP-ng Developer
 
 XCP-ng & Xen Orchestra - Vates solutions
 
