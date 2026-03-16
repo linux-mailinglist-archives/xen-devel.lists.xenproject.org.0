@@ -2,43 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UC68C0vyt2mfXQEAu9opvQ
+	id ADCMERUVuGl/YwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 13:06:35 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 15:35:01 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0C4C299228
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 13:06:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1255561.1550484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D87A329B768
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2026 15:35:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1255589.1550499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w26i4-0008Gi-3d; Mon, 16 Mar 2026 12:06:12 +0000
+	id 1w291L-0000cr-AN; Mon, 16 Mar 2026 14:34:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1255561.1550484; Mon, 16 Mar 2026 12:06:12 +0000
+Received: by outflank-mailman (output) from mailman id 1255589.1550499; Mon, 16 Mar 2026 14:34:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w26i4-0008EF-08; Mon, 16 Mar 2026 12:06:12 +0000
-Received: by outflank-mailman (input) for mailman id 1255561;
- Mon, 16 Mar 2026 12:06:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w291L-0000Yd-5M; Mon, 16 Mar 2026 14:34:15 +0000
+Received: by outflank-mailman (input) for mailman id 1255589;
+ Mon, 16 Mar 2026 14:34:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=49j5=BQ=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1w26i2-0008E9-HW
- for xen-devel@lists.xenproject.org; Mon, 16 Mar 2026 12:06:10 +0000
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [2a00:1450:4864:20::333])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 847d9a08-2130-11f1-b164-2bf370ae4941;
- Mon, 16 Mar 2026 13:06:09 +0100 (CET)
-Received: by mail-wm1-x333.google.com with SMTP id
- 5b1f17b1804b1-4855dbfc129so20868975e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Mar 2026 05:06:09 -0700 (PDT)
-Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
- [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4855640d915sm91540365e9.4.2026.03.16.05.06.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Mar 2026 05:06:07 -0700 (PDT)
+ <SRS0=1JYG=BQ=bounce.vates.tech=bounce-md_30504962.69b814dd.v1-32c867f81d6248ee9399a3f3f549431a@srs-se1.protection.inumbo.net>)
+ id 1w291J-0000Vg-Ck
+ for xen-devel@lists.xenproject.org; Mon, 16 Mar 2026 14:34:13 +0000
+Received: from mail136-12.atl41.mandrillapp.com
+ (mail136-12.atl41.mandrillapp.com [198.2.136.12])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2f8525ab-2145-11f1-9ccf-f158ae23cfc8;
+ Mon, 16 Mar 2026 15:34:06 +0100 (CET)
+Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
+ by mail136-12.atl41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fZHf516jZz5QkT3f
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Mar 2026 14:34:05 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 32c867f81d6248ee9399a3f3f549431a; Mon, 16 Mar 2026 14:34:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,157 +48,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 847d9a08-2130-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1773662768; x=1774267568; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=0rWbpJ2be8sUH/WQvbkRx6j6nRNRuf+/YSo/lRPoWO4=;
-        b=lq0avIugbPVTFIkF54Y8exXm1EQFWMPdWkRBOVxCATkeOVdoNjBaWEWxEqYi2YaI/B
-         cmVtEv6C8LwrfWjGWul1Fk/+InCyWYIVooKASfVAwS6otLfECAynm6MNJYCzvOpHa+Yz
-         NzAEOgrFdF/YrTP1WQEqL6yzEgjPaKnwSV/RM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773662768; x=1774267568;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=0rWbpJ2be8sUH/WQvbkRx6j6nRNRuf+/YSo/lRPoWO4=;
-        b=VtUHVkFNgtA/EbLs5R/6l45f1DanANFGSoXuoIJS1JJyIfrOUHReCzGtyYq+7F1xJX
-         UyHEoGFUutjGrteRBAIR/uyMZkF9atdNCX0A80E4wN2Ma8LgSf9iI8rx6SAf5I4yczKR
-         JIm6DEuwVx7/Yiwm1+iFdbn1w73dTNweexWfQ4FRJ5h0GYEf5qFyWoYo332Ir4OVKW9l
-         WF1uepKm7fZhh2mGxijhAlSq5joAPva5ShrG8bQoKvR+r9xjYzWBLJJEH/G3bspHILkG
-         cLJIvDa3o1uRGv0YwYuAls1pCafj9xrfGMF18tPOD5rJq6TFq1ZJq92H6U+Fz3WuA2f9
-         ZFBQ==
-X-Gm-Message-State: AOJu0YyuxhWaTaJacfFPxA4wReOeR+6iQUp5isVys68UsT2wSBI152pY
-	kaZWTFM4oJFjLytfuchcD6V+ODrxFNSKjkVpYkrbtGwHVW/gVUM+D+0qVUWNuRTuSs6LxdeN9ez
-	hopuz
-X-Gm-Gg: ATEYQzzlFjobwkQ2g9Nu0j/ExijxHkRhmkV7vJcLnsf0sYghItrhiw2aNllu2hLjE9D
-	KPcTcxEmYIftyW0RqsgjhyV8aVS0OtwjSov9Edej7A2zKjXSQIo5bosXYAFnTxDTw+yxJLG52/E
-	qOKA3uaRSGwNrbw2dG5EQg1/uYURJ0Q6ofZDOtdiiCGABJGIfnA+qwtUvzMUoNxmm7wXQybe3RM
-	fWUYNg+eKqPaGpweC22aUxk+DQjLPZX3uICWYBrUcwbwvmJoCcxqvdJdJ8ew8v99QfpJAHbkm/4
-	nDJVbjnQqAZd4n9EJMgl378R1KsflkWxeGxsgeY4GXRhZTOjOy5m17i80lcpGb5kFYGqs/DbcES
-	ZZEbRVrox7GZGaO1dUSHsWB/qzEMXRNCXTV5/s77f+W+8VHHVUjSf+ef4mPzlZK/kghm5Ue9uRz
-	o7jMQj/+//ZqCEYSs21oTssuoxNITbuHMNODa0LAOQ6uPZlhupuC+tkUAY5FZ/1SdUcVal4+Sms
-	iMrq6JaUQ==
-X-Received: by 2002:a05:600c:4fc6:b0:485:3fc8:de9c with SMTP id 5b1f17b1804b1-485566d520cmr199054845e9.12.1773662768233;
-        Mon, 16 Mar 2026 05:06:08 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/ucode: Exclude Zen6 from entrysign mitigations
-Date: Mon, 16 Mar 2026 12:06:05 +0000
-Message-Id: <20260316120605.661823-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: 2f8525ab-2145-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1773671645; x=1773941645;
+	bh=w+BKKtFI0vu/fLApqTU/xbShaAQvgsXeuvs+d59KFx0=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=kba9RbepLDqbep8omQBtFWXrDOn2uI+rJtvbvZEKrf5mgkorUo9g5kMcS7JVeZCM4
+	 hYsTMHBsZwo8jJsdC/geF+7MvYXAXXTQL895o5raZB3pimwDDK1xh9kAs3aFpESZel
+	 FcP8ebjv3hj/7YOV2m0m+k6P81wUkWjJOBZsjOtep8ky8bbT2G/fD6n2YFdhL0l7N7
+	 KB6lck2vPByaqOqx5dO5ayZY6jAa1+iFnEAiYqDis3ZTMadDPOvq+V6Oxw/BXp3jsR
+	 XJFNn8RPwCFysMfWVrFIkpirj0nDzCGKKbkUw5MD2YoDOFtM6PdqVVbXYy7VcA9mKY
+	 KMwTcAnMl8yHg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1773671645; x=1773932145; i=teddy.astie@vates.tech;
+	bh=w+BKKtFI0vu/fLApqTU/xbShaAQvgsXeuvs+d59KFx0=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=1HQoXE5quGo3LtlouCrjWbaKRfyJ9VAxtD/TgKf54/rZkKfUkF4RCVcvkWX5l8ePS
+	 uJatYR8SWbe0OurGOyeYJD6N9e2/YK4x+mrexXUm54Eb2dsEzHxRAV7WbDbe6OUYeJ
+	 5/4L02/s1HYlyORCM1B5Ks8jeRM5udO/BmG8uH+MJLlPREEJtASNimzttBwOkp/2dO
+	 kX4Er+5TG/sNGvQI2K0sIFmkgZwc9E7+jK+9iD/VJIpGDry6A860I1bOJS1yqGRuLu
+	 FaokhzpKfkwKhWppHtcTBT1D52fPzmBXSK13MygE8wGBulDIy1auRIp/GiogbEfYpk
+	 FQPjMFjtJvXoA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[PATCH=20v9=201/3]=20libxc:=20Report=20EINVAL=20in=20invalid=20xc=5Fresource=5Fop=20use?=
+X-Mailer: git-send-email 2.53.0
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1773671644458
+To: xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>
+Message-Id: <d7d0fa8ca02d59d34bd3be7ecfacd5c0376fafc0.1773671343.git.teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.32c867f81d6248ee9399a3f3f549431a?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260316:md
+Date: Mon, 16 Mar 2026 14:34:05 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-0.19 / 15.00];
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [4.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:JBeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:email,citrix.com:mid,suse.com:email,boot_cpu_data.family:url];
-	RCPT_COUNT_THREE(0.00)[4];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:mid,vates.tech:email,vates.tech:url,mandrillapp.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	NEURAL_HAM(-0.00)[-0.903];
 	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: A0C4C299228
+X-Rspamd-Queue-Id: D87A329B768
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Family 0x1a covers both Zen5 and Zen6, but the latter is not believed to be
-vulnerable to entrysign.
+xc_report_op doesn't update errno when called with 0 operations
+(even though it returns -1).
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
+ tools/libs/ctrl/xc_resource.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-This does want backporting, but it depends on 8e4775d118c327 which collects
-leaf 7a1 early enough to be used in this way.  So, it should hold off for the
-moment until the FRED backports are finalised.
----
- xen/arch/x86/cpu/microcode/amd.c | 6 ++++--
- xen/arch/x86/include/asm/amd.h   | 4 ++++
- 2 files changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-index 90f10ac8be37..2ba1fa825f2f 100644
---- a/xen/arch/x86/cpu/microcode/amd.c
-+++ b/xen/arch/x86/cpu/microcode/amd.c
-@@ -20,6 +20,7 @@
- #include <xen/mm.h> /* TODO: Fix asm/tlbflush.h breakage */
- #include <xen/sha2.h>
+diff --git a/tools/libs/ctrl/xc_resource.c b/tools/libs/ctrl/xc_resource.c
+index cb6a97202b..f65127f91c 100644
+--- a/tools/libs/ctrl/xc_resource.c
++++ b/tools/libs/ctrl/xc_resource.c
+@@ -137,6 +137,7 @@ int xc_resource_op(xc_interface *xch, uint32_t nr_ops, xc_resource_op_t *ops)
+     if ( nr_ops > 1 )
+         return xc_resource_op_multi(xch, nr_ops, ops);
  
-+#include <asm/amd.h>
- #include <asm/msr.h>
++    errno = EINVAL;
+     return -1;
+ }
  
- #include "private.h"
-@@ -576,7 +577,7 @@ void __init ucode_probe_amd(struct microcode_ops *ops)
-      */
-     if ( IS_ENABLED(CONFIG_MICROCODE_LOADING) &&
-          boot_cpu_data.family >= 0x17 && boot_cpu_data.family <= 0x1a &&
--         !opt_digest_check )
-+         !is_zen6_uarch() && !opt_digest_check )
-     {
-         printk(XENLOG_WARNING
-                "Microcode patch additional digest checks disabled\n");
-@@ -618,7 +619,8 @@ void __init amd_check_entrysign(void)
-     if ( !IS_ENABLED(CONFIG_MICROCODE_LOADING)  ||
-          boot_cpu_data.vendor != X86_VENDOR_AMD ||
-          boot_cpu_data.family < 0x17            ||
--         boot_cpu_data.family > 0x1a )
-+         boot_cpu_data.family > 0x1a            ||
-+         is_zen6_uarch() )
-         return;
- 
-     /*
-diff --git a/xen/arch/x86/include/asm/amd.h b/xen/arch/x86/include/asm/amd.h
-index 4036dd549835..d21df0741a32 100644
---- a/xen/arch/x86/include/asm/amd.h
-+++ b/xen/arch/x86/include/asm/amd.h
-@@ -59,6 +59,8 @@
-  * For Zen3 and Zen4 (Fam19h) the heuristic is the presence of AutoIBRS, as
-  * it's Zen4-specific.
-  *
-+ * For Zen5 and Zen6 (Fam1ah) the heuristic is the presence of FRED.
-+ *
-  * The caller is required to perform the appropriate vendor/family checks
-  * first.
-  */
-@@ -66,6 +68,8 @@
- #define is_zen2_uarch()   boot_cpu_has(X86_FEATURE_AMD_STIBP)
- #define is_zen3_uarch() (!boot_cpu_has(X86_FEATURE_AUTO_IBRS))
- #define is_zen4_uarch()   boot_cpu_has(X86_FEATURE_AUTO_IBRS)
-+#define is_zen5_uarch() (!boot_cpu_has(X86_FEATURE_FRED))
-+#define is_zen6_uarch()   boot_cpu_has(X86_FEATURE_FRED)
- 
- struct cpuinfo_x86;
- int cpu_has_amd_erratum(const struct cpuinfo_x86 *cpu, int osvw_id, ...);
 -- 
-2.39.5
+2.53.0
+
+
+
+--
+ | Vates
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
 
 
