@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aO70GKhDuWmK+QEAu9opvQ
+	id ALllLKZDuWkk+QEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 13:06:00 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 13:05:58 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 412E22A97E8
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 13:06:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1255911.1550687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3028E2A97DA
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 13:05:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1255915.1550741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2TAl-0008V9-6i; Tue, 17 Mar 2026 12:05:19 +0000
+	id 1w2TAp-0001Lz-IK; Tue, 17 Mar 2026 12:05:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1255911.1550687; Tue, 17 Mar 2026 12:05:19 +0000
+Received: by outflank-mailman (output) from mailman id 1255915.1550741; Tue, 17 Mar 2026 12:05:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2TAl-0008Te-35; Tue, 17 Mar 2026 12:05:19 +0000
-Received: by outflank-mailman (input) for mailman id 1255911;
- Tue, 17 Mar 2026 12:05:17 +0000
+	id 1w2TAp-0001JK-C8; Tue, 17 Mar 2026 12:05:23 +0000
+Received: by outflank-mailman (input) for mailman id 1255915;
+ Tue, 17 Mar 2026 12:05:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=pa/0=BR=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
- id 1w2TAj-0008QI-0T
- for xen-devel@lists.xen.org; Tue, 17 Mar 2026 12:05:17 +0000
+ id 1w2TAn-0008QI-1U
+ for xen-devel@lists.xen.org; Tue, 17 Mar 2026 12:05:21 +0000
 Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8b95c952-21f9-11f1-9ccf-f158ae23cfc8;
- Tue, 17 Mar 2026 13:05:11 +0100 (CET)
+ id 8d8f2755-21f9-11f1-9ccf-f158ae23cfc8;
+ Tue, 17 Mar 2026 13:05:13 +0100 (CET)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1w2TAW-00D7eF-1U;
- Tue, 17 Mar 2026 12:05:04 +0000
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1w2TAa-00D7eo-2J;
+ Tue, 17 Mar 2026 12:05:08 +0000
 Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.96)
- (envelope-from <andrewcoop@xenbits.xen.org>) id 1w2TAW-00DbXG-0N;
- Tue, 17 Mar 2026 12:05:04 +0000
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1w2TAa-00DbYI-1T;
+ Tue, 17 Mar 2026 12:05:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,7 +48,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b95c952-21f9-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 8d8f2755-21f9-11f1-9ccf-f158ae23cfc8
 Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
 Content-Transfer-Encoding: binary
 MIME-Version: 1.0
@@ -57,25 +57,25 @@ To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
  xen-users@lists.xen.org, oss-security@lists.openwall.com
 From: Xen.org security team <security@xen.org>
 CC: Xen.org security team <security-team-members@xen.org>
-Subject: Xen Security Advisory 480 v3 (CVE-2026-23554) - Use after free of
- paging structures in EPT
-Message-Id: <E1w2TAW-00DbXG-0N@xenbits.xenproject.org>
-Date: Tue, 17 Mar 2026 12:05:04 +0000
+Subject: Xen Security Advisory 481 v2 (CVE-2026-23555) - Xenstored DoS by
+ unprivileged domain
+Message-Id: <E1w2TAa-00DbYI-1T@xenbits.xenproject.org>
+Date: Tue, 17 Mar 2026 12:05:08 +0000
 X-Spamd-Result: default: False [0.56 / 15.00];
 	R_BAD_CTE_7BIT(1.05)[7bit,utf8];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[xenbits.xenproject.org:mid,xenproject.org:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xenproject.org:url,xenbits.xenproject.org:mid];
 	DMARC_NA(0.00)[xen.org];
 	FORGED_RECIPIENTS(0.00)[m:xen-announce@lists.xen.org,m:xen-devel@lists.xen.org,m:xen-users@lists.xen.org,m:oss-security@lists.openwall.com,m:security-team-members@xen.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[security@xen.org,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[security@xen.org,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -90,7 +90,7 @@ X-Spamd-Result: default: False [0.56 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 412E22A97E8
+X-Rspamd-Queue-Id: 3028E2A97DA
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -102,12 +102,12 @@ Content-Transfer-Encoding: 7bit
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
-            Xen Security Advisory CVE-2026-23554 / XSA-480
-                               version 3
+            Xen Security Advisory CVE-2026-23555 / XSA-481
+                               version 2
 
-              Use after free of paging structures in EPT
+                 Xenstored DoS by unprivileged domain
 
-UPDATES IN VERSION 3
+UPDATES IN VERSION 2
 ====================
 
 Public release.
@@ -115,61 +115,69 @@ Public release.
 ISSUE DESCRIPTION
 =================
 
-The Intel EPT paging code uses an optimization to defer flushing of any cached
-EPT state until the p2m lock is dropped, so that multiple modifications done
-under the same locked region only issue a single flush.
+Any guest issuing a Xenstore command accessing a node using the
+(illegal) node path "/local/domain/", will crash xenstored due to a
+clobbered error indicator in xenstored when verifying the node path.
 
-Freeing of paging structures however is not deferred until the flushing is
-done, and can result in freed pages transiently being present in cached state.
-Such stale entries can point to memory ranges not owned by the guest, thus
-allowing access to unintended memory regions.
+Note that the crash is forced via a failing assert() statement in
+xenstored. In case xenstored is being built with NDEBUG #defined,
+an unprivileged guest trying to access the node path "/local/domain/"
+will result in it no longer being serviced by xenstored, other guests
+(including dom0) will still be serviced, but xenstored will use up
+all cpu time it can get.
 
 IMPACT
 ======
 
-Privilege escalation, Denial of Service (DoS) affecting the entire host,
-and information leaks.
+Any unprivileged domain can cause xenstored to crash, causing a
+DoS (denial of service) for any Xenstore action. This will result
+in an inability to perform further domain administration on the host.
+
+In case xenstored has been built with NDEBUG defined, an unprivileged
+domain can force xenstored to be 100% busy, but without harming
+xenstored functionality for other guests otherwise.
 
 VULNERABLE SYSTEMS
 ==================
 
-Xen 4.17 and onwards are vulnerable.  Xen 4.16 and older are not vulnerable.
+All Xen systems from Xen 4.18 onwards are vulnerable. Systems up to
+Xen 4.17 are not vulnerable.
 
-Only x86 Intel systems with EPT support are vulnerable.
-
-Only x86 HVM/PVH guests using HAP can leverage the vulnerability on affected
-systems.
+Systems using the C variant of xenstored are vulnerable. Systems using
+xenstore-stubdom or the OCaml variant of Xenstore (oxenstored) are not
+vulnerable.
 
 MITIGATION
 ==========
 
-There are no mitigations.
+There is no known mitigation available.
 
 CREDITS
 =======
 
-This issue was discovered by Roger Pau Monné of XenServer.
+This issue was discovered by Marek Marczykowski-Góreckiof
+Invisible Things Lab.
 
 RESOLUTION
 ==========
 
-Applying the attached patch resolves this issue.
+Applying the appropriate attached patch resolves this issue.
 
 Note that patches for released versions are generally prepared to
 apply to the stable branches, and may not apply cleanly to the most
 recent release tarball.  Downstreams are encouraged to update to the
 tip of the stable branch before applying these patches.
 
-xsa480.patch           xen-unstable - Xen 4.17.x
+xsa481.patch         xen-unstable - Xen 4.18.x
 
-$ sha256sum xsa480*
-578f8fec3f34656e085419f6376d43987ffd6ed32e067b4024d3c83ce03a5901  xsa480.patch
+$ sha256sum xsa481*
+148147e4545a4670578c0f24aa136f67bc203c7b18ec980b8cc80cfbb04ace68  xsa481.patch
 $
 
 DEPLOYMENT DURING EMBARGO
 =========================
 
-Deployment of the patches and/or mitigations described above (or
+Deployment of the patch described above (or
 others which are substantially similar) is permitted during the
 embargo, even on public-facing systems with untrusted guest users and
 administrators.
@@ -181,6 +189,9 @@ Predisclosure list members who wish to deploy significantly different
 patches and/or mitigations, please contact the Xen Project Security
 Team.
 
+Switching xenstored with oxenstored or xenstore-stubdom is not permitted
+as a mitigation, as this is a guest visible change of the configuration.
+
 (Note: this during-embargo deployment notice is retained in
 post-embargo publicly released Xen Project advisories, even though it
 is then no longer applicable.  This is to enable the community to have
@@ -191,56 +202,62 @@ consult the Xen Project community's agreed Security Policy:
   http://www.xenproject.org/security-policy.html
 -----BEGIN PGP SIGNATURE-----
 
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmm5Q1MMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZKDgH/jDFwjlPNV0IQor3c5j9D7L++i5dFugypaF5OI+Q
-nboD7VEe6y1KexRsPa/a7UAvuabgGdudeS18IS3W34/9TZILZRITo9s3IgEnTfQR
-qqFlCTxymFuCn8Iptq8SJh37fG3nc9OJ/v28s+0+X9ERnjjjVcjhwcbQ5gQSpKU0
-7fAe+IpsO3YOMGb3fgpjhCWMjh9UTHnKOBmObNeDGZ3sXgh8+FYkt6snRs0bYwW4
-IcGpmEEgK+Id6n/0sG07Ntntb02EcCz3Vl8G0OflNQj/XOxHBuXbkFc36K2vpUDp
-dGrzGkIznA00Oz2UNlZrSrMWAQtKuHbB9+H2tU+7BNq+ag8=
-=RFix
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmm5Q1sMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZKmYIAKOrz2ZWyIQyEJCuci+pavN6zG8/qgBhoRhzB2gJ
+piwk6CDr0gB2LseEePPLbl+yoGmNxNVtXjgCNyWVbCA2HaCnPsENOOkZkUhwffN/
+fXVMJHC43YdiaknKTKc8QoRn0poiPLIBQE2eXpIMVo9J7FoPkqQZYM1DS6B5x/q3
+FWyKjHWwnGRv2pzRAm6mx22bu6wNpzYsfD2qCUe4d08njC3+iFLn1az+9XwF+Yw6
+nS51gB2KjzRoGNhfepwzHC9R2cysYQdySFbAbskcGBTTD2FI9D+k6fBbXc7Tuj4T
+v+JqgQMkmQitJepE875VWxfFAR2PTRcBbL2ev6tQvA1x5mQ=
+=Bv72
 -----END PGP SIGNATURE-----
 
 --=separator
-Content-Type: application/octet-stream; name="xsa480.patch"
-Content-Disposition: attachment; filename="xsa480.patch"
+Content-Type: application/octet-stream; name="xsa481.patch"
+Content-Disposition: attachment; filename="xsa481.patch"
 Content-Transfer-Encoding: base64
 
-RnJvbSA0NWY2ODY2ZTM0YjdlOWVlOGI2YWMxNmQ2NDZhMmU5NTRjOTdlNDhl
-IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBSb2dlciBQYXUgTW9u
-bmUgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgpEYXRlOiBUdWUsIDE3IEZlYiAy
-MDI2IDA5OjMzOjQzICswMTAwClN1YmplY3Q6IFtQQVRDSF0geDg2L3AybTog
-aXNzdWUgYSBzeW5jIGZsdXNoIGJlZm9yZSBmcmVlaW5nIHBhZ2luZyBwYWdl
-cwpNSU1FLVZlcnNpb246IDEuMApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47
-IGNoYXJzZXQ9VVRGLTgKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogOGJp
-dAoKSW4gdGhlIEVQVCBpbXBsZW1lbnRhdGlvbiwgdGhlIGRlZmVyIGZsdXNo
-aW5nIGxvZ2ljIGlzIHVzZWQKdW5jb25kaXRpb25hbGx5LCBhbmQgdGhhdCB3
-b3VsZCBsZWFkIHRvIHBhZ2luZyBtZW1vcnkgYmVpbmcgcmV0dXJuZWQgdG8g
-dGhlCnBhZ2luZyBwb29sIGJlZm9yZSBpdHMgcmVmZXJlbmNlcyBoYWQgYmVl
-biBmbHVzaGVkLgoKSXNzdWUgYW55IHBlbmRpbmcgZmx1c2hlcyBiZWZvcmUg
-ZnJlZWluZyB0aGUgcGFnaW5nIG1lbW9yeSBiYWNrIHRvIHRoZQpwb29sLgoK
-Tm90ZSBBTUQgKE5QVCkgYW5kIFNoYWRvdyBwYWdpbmcgYXJlIG5vdCBhZmZl
-Y3RlZCwgYXMgdGhleSBkb24ndCBpbXBsZW1lbnQKdGhlIGRlZmVycmVkIGZs
-dXNoaW5nIGxvZ2ljLgoKVGhpcyBpcyBYU0EtNDgwIC8gQ1ZFLTIwMjYtMjM1
-NTQKCkZpeGVzOiA0YTU5ZTZiYjNhOTYgKCJ4ODYvRVBUOiBzcXVhc2ggbWVh
-bmluZ2xlc3MgVExCIGZsdXNoIikKU2lnbmVkLW9mZi1ieTogUm9nZXIgUGF1
-IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+ClJldmlld2VkLWJ5OiBK
-YW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+Ci0tLQogeGVuL2FyY2gv
-eDg2L21tL3AybS5jIHwgNSArKysrKwogMSBmaWxlIGNoYW5nZWQsIDUgaW5z
-ZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL3hlbi9hcmNoL3g4Ni9tbS9wMm0u
-YyBiL3hlbi9hcmNoL3g4Ni9tbS9wMm0uYwppbmRleCBlOTE1ZGEyNmE4MzIu
-LmZkZGVjZGY5NzhlYyAxMDA2NDQKLS0tIGEveGVuL2FyY2gveDg2L21tL3Ay
-bS5jCisrKyBiL3hlbi9hcmNoL3g4Ni9tbS9wMm0uYwpAQCAtNDc5LDYgKzQ3
-OSwxMSBAQCB2b2lkIHAybV9mcmVlX3B0cChzdHJ1Y3QgcDJtX2RvbWFpbiAq
-cDJtLCBzdHJ1Y3QgcGFnZV9pbmZvICpwZykKICAgICBBU1NFUlQocDJtLT5k
-b21haW4pOwogICAgIEFTU0VSVChwMm0tPmRvbWFpbi0+YXJjaC5wYWdpbmcu
-ZnJlZV9wYWdlKTsKIAorICAgIC8qCisgICAgICogSXNzdWUgYW55IHBlbmRp
-bmcgZmx1c2ggaGVyZSwgaW4gY2FzZSBpdCB3YXMgZGVmZXJyZWQgYmVmb3Jl
-LiAgVGhlIHBhZ2UKKyAgICAgKiB3aWxsIGJlIHJldHVybmVkIHRvIHRoZSBw
-YWdpbmcgcG9vbCBub3cuCisgICAgICovCisgICAgcDJtX3RsYl9mbHVzaF9z
-eW5jKHAybSk7CiAgICAgcGFnZV9saXN0X2RlbChwZywgJnAybS0+cGFnZXMp
-OwogICAgIHAybS0+ZG9tYWluLT5hcmNoLnBhZ2luZy5mcmVlX3BhZ2UocDJt
-LT5kb21haW4sIHBnKTsKIAotLSAKMi41MS4wCgo=
+RnJvbSAwY2ZmMTZmMGE5OTdmMWIwODcxYjYyMWExZDYwNTA2NTI1MzBlNWQ5
+IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBKdWVyZ2VuIEdyb3Nz
+IDxqZ3Jvc3NAc3VzZS5jb20+CkRhdGU6IFRodSwgMTIgRmViIDIwMjYgMDg6
+Mjk6MzggKzAxMDAKU3ViamVjdDogW1BBVENIXSB0b29scy94ZW5zdG9yZWQ6
+IGZpeCBjYW5vbmljYWxpemUoKSBlcnJvciB0ZXN0aW5nCk1JTUUtVmVyc2lv
+bjogMS4wCkNvbnRlbnQtVHlwZTogdGV4dC9wbGFpbjsgY2hhcnNldD1VVEYt
+OApDb250ZW50LVRyYW5zZmVyLUVuY29kaW5nOiA4Yml0CgpUaGUgc2V0dGlu
+ZyBvZiBlcnJubyBpbiBjYW5vbmljYWxpemUoKSBpcyByYXRoZXIgZnJhZ2ls
+ZSBhbmQgc2VlbXMgdG8KYmUgZXZlbiB3cm9uZyBpbiBvbmUgY29ybmVyIGNh
+c2U6IHdoZW4gdGhlIGludmFsaWQgcGF0aCAiL2xvY2FsL2RvbWFpbi8iCmlz
+IHBhc3NlZCwgc3NjYW5mKCkgd2lsbCBzZXQgZXJybm8gdG8gMCwgcmVzdWx0
+aW5nIGluIGNhbm9uaWNhbGl6ZSgpIHRvCnJldHVybiBOVUxMIHdpdGggZXJy
+bm8gYmVpbmcgMC4gVGhpcyBjYW4gcmVzdWx0IGluIHRyaWdnZXJpbmcgdGhl
+CmFzc2VydChjb25uLT5pbiA9PSBOVUxMKSBpbiBjb25zaWRlcl9tZXNzYWdl
+KCkuCgpEb24ndCBhc3N1bWUgdGhlIGluaXRpYWwgc2V0dGluZyBvZiBlcnJu
+byB0byAiRUlOVkFMIiB3aWxsIHN0YXkgdmFsaWQKaW4gYWxsIGNhc2VzIGFu
+ZCBzZXQgaXQgdG8gRUlOVkFMIG9ubHkgd2hlbiByZXR1cm5pbmcgTlVMTCBk
+dWUgdG8gYW4KaW52YWxpZCBwYXRoLgoKVGhpcyBpcyBYU0EtNDgxL0NWRS0y
+MDI2LTIzNTU1CgpSZXBvcnRlZC1ieTogTWFyZWsgTWFyY3p5a293c2tpLUfD
+s3JlY2tpIDxtYXJtYXJla0BpbnZpc2libGV0aGluZ3NsYWIuY29tPgpTaWdu
+ZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+ClJl
+dmlld2VkLWJ5OiBKdWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4ub3JnPgotLS0K
+IHRvb2xzL3hlbnN0b3JlZC9jb3JlLmMgfCA1ICsrKy0tCiAxIGZpbGUgY2hh
+bmdlZCwgMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAt
+LWdpdCBhL3Rvb2xzL3hlbnN0b3JlZC9jb3JlLmMgYi90b29scy94ZW5zdG9y
+ZWQvY29yZS5jCmluZGV4IDY0YzQ3OGE4MDEuLjJlODI2Zjk5ZWIgMTAwNjQ0
+Ci0tLSBhL3Rvb2xzL3hlbnN0b3JlZC9jb3JlLmMKKysrIGIvdG9vbHMveGVu
+c3RvcmVkL2NvcmUuYwpAQCAtMTI0MCwxMSArMTI0MCwxMCBAQCBjb25zdCBj
+aGFyICpjYW5vbmljYWxpemUoc3RydWN0IGNvbm5lY3Rpb24gKmNvbm4sIGNv
+bnN0IHZvaWQgKmN0eCwKIAkgKiAtIGlsbGVnYWwgY2hhcmFjdGVyIGluIG5v
+ZGUKIAkgKiAtIHN0YXJ0cyB3aXRoICdAJyBidXQgbm8gc3BlY2lhbCBub2Rl
+IGFsbG93ZWQKIAkgKi8KLQllcnJubyA9IEVJTlZBTDsKIAlpZiAoIW5vZGUg
+fHwKIAkgICAgIXZhbGlkX2NoYXJzKG5vZGUpIHx8CiAJICAgIChub2RlWzBd
+ID09ICdAJyAmJiAhYWxsb3dfc3BlY2lhbCkpCi0JCXJldHVybiBOVUxMOwor
+CQlnb3RvIGludmFsOwogCiAJaWYgKG5vZGVbMF0gIT0gJy8nICYmIG5vZGVb
+MF0gIT0gJ0AnKSB7CiAJCW5hbWUgPSB0YWxsb2NfYXNwcmludGYoY3R4LCAi
+JXMvJXMiLCBnZXRfaW1wbGljaXRfcGF0aChjb25uKSwKQEAgLTEyNzIsNiAr
+MTI3MSw4IEBAIGNvbnN0IGNoYXIgKmNhbm9uaWNhbGl6ZShzdHJ1Y3QgY29u
+bmVjdGlvbiAqY29ubiwgY29uc3Qgdm9pZCAqY3R4LAogCWlmIChuYW1lICE9
+IG5vZGUpCiAJCXRhbGxvY19mcmVlKG5hbWUpOwogCisgaW52YWw6CisJZXJy
+bm8gPSBFSU5WQUw7CiAJcmV0dXJuIE5VTEw7CiB9CiAKLS0gCjIuNTMuMAoK
 
 --=separator--
 
