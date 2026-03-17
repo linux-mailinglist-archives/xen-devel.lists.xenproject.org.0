@@ -2,43 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UPQdIHuYuGmsgQEAu9opvQ
+	id CHgzLiSiuGlygwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 00:55:39 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 01:36:52 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A98022A21C3
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 00:55:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1255836.1550637 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D1BF2A24B9
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 01:36:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1255844.1550645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2HlO-0005xw-8Z; Mon, 16 Mar 2026 23:54:22 +0000
+	id 1w2IQ2-0003D0-9X; Tue, 17 Mar 2026 00:36:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1255836.1550637; Mon, 16 Mar 2026 23:54:22 +0000
+Received: by outflank-mailman (output) from mailman id 1255844.1550645; Tue, 17 Mar 2026 00:36:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2HlO-0005ut-5S; Mon, 16 Mar 2026 23:54:22 +0000
-Received: by outflank-mailman (input) for mailman id 1255836;
- Mon, 16 Mar 2026 23:54:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w2IQ2-0003AC-6j; Tue, 17 Mar 2026 00:36:22 +0000
+Received: by outflank-mailman (input) for mailman id 1255844;
+ Tue, 17 Mar 2026 00:36:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=49j5=BQ=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1w2HlL-0005un-Sq
- for xen-devel@lists.xenproject.org; Mon, 16 Mar 2026 23:54:20 +0000
-Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
- [2a00:1450:4864:20::32b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 71ba9a6a-2193-11f1-b164-2bf370ae4941;
- Tue, 17 Mar 2026 00:54:18 +0100 (CET)
-Received: by mail-wm1-x32b.google.com with SMTP id
- 5b1f17b1804b1-48535a0ef86so42951995e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 16 Mar 2026 16:54:18 -0700 (PDT)
-Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
- [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b3a09e453sm24080003f8f.0.2026.03.16.16.54.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Mar 2026 16:54:16 -0700 (PDT)
+ <SRS0=wERr=BR=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1w2IQ0-0003A6-Gc
+ for xen-devel@lists.xenproject.org; Tue, 17 Mar 2026 00:36:20 +0000
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azlp170120002.outbound.protection.outlook.com
+ [2a01:111:f403:c007::2])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4bbe2e9b-2199-11f1-9ccf-f158ae23cfc8;
+ Tue, 17 Mar 2026 01:36:11 +0100 (CET)
+Received: from CH2PR14CA0038.namprd14.prod.outlook.com (2603:10b6:610:56::18)
+ by CH3PR12MB9079.namprd12.prod.outlook.com (2603:10b6:610:1a1::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.13; Tue, 17 Mar
+ 2026 00:36:04 +0000
+Received: from CH3PEPF00000015.namprd21.prod.outlook.com
+ (2603:10b6:610:56:cafe::a3) by CH2PR14CA0038.outlook.office365.com
+ (2603:10b6:610:56::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.25 via Frontend
+ Transport; Tue, 17 Mar 2026 00:35:58 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.0 via Frontend Transport; Tue, 17 Mar 2026 00:36:00 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Mar
+ 2026 19:35:59 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Mar
+ 2026 17:35:59 -0700
+Received: from [172.24.66.250] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 16 Mar 2026 19:35:58 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,496 +68,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71ba9a6a-2193-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1773705257; x=1774310057; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=VpDc41qTU05GQGpVEGDvS9cNjnVRzouYB5NsVGwgUmw=;
-        b=gDKuFhvMEhK380Tb1DK11/8pl0Z8tiDw9KHgrTZYd04HZml1GFn4tbRt9G0Cz5Xcxh
-         SlRWNJGc8OXrMEtP2GGSNG0Uv1FhLSU0AUJfLSURu/v6yEIzCkQslCDpBtrqUuwgHinE
-         /DLhv0Kfd1/hoClFdEFtodeevjdPRbINqYsxg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773705257; x=1774310057;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VpDc41qTU05GQGpVEGDvS9cNjnVRzouYB5NsVGwgUmw=;
-        b=nL/nwJH2BVbQeSDmbEt9JlSYqINKMOXtJMy1HBiSO1ZC0Yxm0Jy2w+nFtM8nun0JPN
-         hK2+ND6dGhxX7QUSvX8T8OrGRRkdseEh3QR/R3fN/Sn6blQL1wPkxzCTDt/wzieIEn2o
-         ILM4oE3W3VV0NfVEhrD843uEVTWTrLdAAkkI3v8rZydSq95O6/8JximzrRja1e1xV/Nf
-         BVkCoWvBBSr6s/4feLuv52o7Ly7ukP6/W9K+240MPrIK1UhNZudZGba0pihPsPJjSTj5
-         0jfYVqclIDmtwTSWfG8rhBOYU3M4Qiys0Ua15ToRxaiGVsnTPkZwGfMBj6LjswlpfohG
-         ZK3w==
-X-Gm-Message-State: AOJu0YwdH2H1pmvIgljNxM+wkWeKJ3OVeIaGoI/7N3UWxrhc7YrHHkga
-	yczw7/hZ3RcLdmmBR17ceIbMLPXYtV+441/14QVYkeuLJO7US+xfqxUkrejwaGGQUFzD4uaI1xk
-	8IU3i
-X-Gm-Gg: ATEYQzxSfZbS4Yz3ytr2rt+0FDYbgiXTCpInYqmIS4YK50kI/azci2V8xQgkIWaoc+x
-	hGecVSbIl2xM5DA5MxfFn0tXIMhIiLEi93gspIICic8HzxhZWfBTDJ/8jaFIx5+uLJBTGlpp5B3
-	MAyxuA9IVHHZjszgfZHhBZz/XmE77sJgFeEBcUhrGXmOdc4Fbs4KcodYs53dWD9ACWhMOWIW5uS
-	C9dErhC6YUzjrydTL2hU4bU17ynMcFga76I4HIgaMpUTpgFL9bFofdC+2jKg5lGC2Z47jgjWqfr
-	xORoR0ZKHzsCJC4dRPo4Og6ZirAusrQIg6vO3sMKsfCWTg1FlkuMKIeIul8hjRR3TyVDI4Biqvk
-	6lhRR2QS4oTDTJZ+P0RNFJ0i1lCF3z4P1uJcMCvGLu8yKmKcbBt1jNlzW6pUw+LAUEuqTXZ7m+I
-	bXvqcapXeovsX1n4mQIKoVm7CGKSgGz+3HjB8kv/F6/qchryuf35wH3lL0IcXewJ66KfUSeW8=
-X-Received: by 2002:a05:6000:2086:b0:439:b791:f920 with SMTP id ffacd0b85a97d-43a04d88460mr27429963f8f.17.1773705256758;
-        Mon, 16 Mar 2026 16:54:16 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH] xen/coverage: Drop support for older GCOV
-Date: Mon, 16 Mar 2026 23:54:14 +0000
-Message-Id: <20260316235414.683426-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+X-Inumbo-ID: 4bbe2e9b-2199-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rRHwIB+4hj+ZDL+mf5Aew1jKIJSSi7mTSYqGvBzMd66ZAG3VnoB+Z/tOVhd4K1IPhFpPCfE7hKtRTqlE9xqXFe9altCU4aoBf8wm5jHCp8T3uS+uUmKwmgMEzP5ZYifH6Se7VxC7V7mK/zsrpSc22mJgHAcDhENPOtlHcGqMas/2pv0DBeS1q1MmXK/5nMHYa6ppV0szYL2TSI2A7+DGZ2Vmk9StX1/rEIIYRO6L3Q+uGLIsmpP5rCUbxQOMMD2bk7jusEq55Va4oUUhmuDX+LpkC+lCl/JaqL67tk3Qe0sbTLUZ9Wh5Wp7C8BULCSZVqUVaxLdAYx/AZiyhW1zaow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XUMtEea3a+YnlF3/9rKfmZaz3dVFSAle/v99I03LFEc=;
+ b=lcU7d16XZdkj0Jl1ERGegzK8+JxPjul3q7Y36rjK3odRtFqaXXVtMEyVXbZUODwCKGHbpwMrCU79CwCEnjHOP0dmCfSdyb7TnVEF12vkUA1QJ0EZZAg9LfP+udG7DrgcEwYDT49U8yP18KdSEWkhiie9vSp05FjmuDngEzfkj1NGwmiTpTMtceDO/hldZ4o6KBSy0pkPe2QdIl7vhBIa+W7MszeSpVvy3Ev0t+28URk8Y1Z4oHU0uSelUiABpxMIpTbQNf7yNLJEzFpvWJxr9z0hLau6G0yoTicIFf3KLMzHH6xpzdV22x6VA3nISxFJH4U9EK/5zNJw4X1wcH/tbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XUMtEea3a+YnlF3/9rKfmZaz3dVFSAle/v99I03LFEc=;
+ b=tr8UK26MwJf4KxExy+TWxI6N6ajQ9ISj2Na9euKHE1P+A9sVjC5Tl3Imjh0UxYKDXgg33KqdPa05iDgD9QfKRZLYGSm/p37U40iWqrwOSQ7iKRYL4+JKI2MpGHKnTg+ZzI7V8dP5gXZ28xAN0HzO83CvY5nvoAQtTGj+J559Hbo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <d4e9f2dd-803e-41b6-8093-6f3b67e941e3@amd.com>
+Date: Mon, 16 Mar 2026 20:36:06 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/8] vpci: Use pervcpu ranges for BAR mapping
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
+	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>
+References: <cover.1772806036.git.mykyta_poturai@epam.com>
+ <43ce584a124f0bd07e641934e15e5ab56548e1ba.1772806036.git.mykyta_poturai@epam.com>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <43ce584a124f0bd07e641934e15e5ab56548e1ba.1772806036.git.mykyta_poturai@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|CH3PR12MB9079:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9015ab85-1ceb-4865-2983-08de83bd299a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	krD3Os5vdt5gCyFxMagTVVHEjH61s2TvZvEPSIhn1Q4cZNJ0V4PFPPbIukpM8lgRRM1SHXdpJPUvu5DyOLeXtAqOk6lCV55skgN25N2Vw09xykxkSaFtCMV4UUZONWAC179yRTQtqY7J1n4MjU5/UuW9bhp2fqSrMz1Rk/XLuSZjTIu+9FjG7IBrhd3bxfUFrnoTgBvKASP3CjRAUYOPykadjzXpEIN3sCtUB5WxsHCwF/MPWIGgeIx/ZqMD2HyCqiNPYv2YSHTZldgGJ0ssIz3NLx0IGA5I5F14cbK9fVVJcAh1IWWktw2Os9wpZXy3oD4Co16ulYzmgUnxyoIzd4x6P/ceDD/Zk6ZcmxO3GPB62PdTAnytvSu9n3S7Wvh31CTFxCUroLXNkg/wEvWoX+cDStjXsHcZ5Kc7fln2jBlmTrUArPzXOGAx8xzL4GNOuThST1oJW20QYtuIuOSuRE39B4i5EniaJviS92rUguXPBmrMV416rrY2jdUZjlurTK81pQWfwFegqTkooOxvvosIVjbozeGe5G77AHESezviQrmk7NnbbohWjgW6OC9M5v8nWx5zRn4+Hqx50wOz5ILFNQDOZNLxfXNNOUhpfjUkbQWcaZ5tjs/aia0RwAro140XgInMokEdQ4K9QYbypuzvbVswoRr4a/Kc0C7fpUUkl1X3M7YdJc7fKOrtRHuDvfwOWWBDTfqaPwzgVFWFfONSaSdtnyYhZ4nCI4AlMR/PRKGg2NRdvsF9EaFC/lvG9Q/ju8d718W0eUfVXlQ9Pg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/pGHk/JJSZLeoUK5N/jOVK9r4arkXDszJHcXyymcjBaCmhkfwqRWEQCdURtHuZD0ibLL8rbxQhG8xnkRZCvNd6LqNBVTTWSiOQ+KBNARFUVq4+1OSMX2Xqp99wXzDiJTwrLw/nU7Nk3yEZNNFqS5EEa9JvKIEIcv1WytQd0bv5K3VMBBls2SriPGbVb/vtFEeZK+jfcfZnBC1FeIIkA+ZN9QYIGoPChWbv2K3Mx7IJI2BUScgapT1bOij2hbXS7IXnrp60SYx3phJ9QlBId4EC+buwtfEe2T+p9bp0thnL/8vDSwbvdpfYjZlXQELldcZSG/fxkvkZFPyBMaWXS58G7V+8qxyzr+CkIGmJXeKMuP9ax/THVO8wAfZ+aC9GQy53FNDBDDoBihov5hyR7oRapPrFC05LcZlsvhuObi2X2Vyqqn238pniMcR6kolxOW
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 00:36:00.2684
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9015ab85-1ceb-4865-2983-08de83bd299a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000015.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9079
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,citrix.com:dkim,citrix.com:email,citrix.com:mid,suse.com:email];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	DKIM_TRACE(0.00)[amd.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[12];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: A98022A21C3
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: 1D1BF2A24B9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-With the GCC toolchain baseline now at 5.1, gcc_3_4.o (covering 3.4 through
-4.6) will never get chosen.  Drop it.
+On 3/9/26 07:08, Mykyta Poturai wrote:
+> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> index 07ec991a12..cb64d9b9fc 100644
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
 
-No functional change.
+... snip ...
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Anthony PERARD <anthony.perard@vates.tech>
-CC: Michal Orzel <michal.orzel@amd.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Julien Grall <julien@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
----
- xen/common/coverage/Makefile  |   2 +-
- xen/common/coverage/gcc_3_4.c | 367 ----------------------------------
- 2 files changed, 1 insertion(+), 368 deletions(-)
- delete mode 100644 xen/common/coverage/gcc_3_4.c
+> @@ -330,12 +332,13 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
+>      for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
+>      {
+>          struct vpci_bar *bar = &header->bars[i];
+> +        struct rangeset *mem = current->vpci.bar_mem[i];
+>          unsigned long start = PFN_DOWN(bar->addr);
+>          unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
+>          unsigned long start_guest = PFN_DOWN(bar->guest_addr);
+>          unsigned long end_guest = PFN_DOWN(bar->guest_addr + bar->size - 1);
+>  
+> -        if ( !bar->mem )
+> +        if ( !mem )
 
-diff --git a/xen/common/coverage/Makefile b/xen/common/coverage/Makefile
-index d729afc9c7a0..26bc1b7c04cd 100644
---- a/xen/common/coverage/Makefile
-+++ b/xen/common/coverage/Makefile
-@@ -1,7 +1,7 @@
- obj-y += coverage.o
- ifneq ($(CONFIG_CC_IS_CLANG),y)
- obj-y += gcov_base.o gcov.o
--obj-y += $(call cc-ifversion,-lt,0407, gcc_3_4.o, gcc_4_7.o)
-+obj-y += gcc_4_7.o
- else
- obj-y += llvm.o
- endif
-diff --git a/xen/common/coverage/gcc_3_4.c b/xen/common/coverage/gcc_3_4.c
-deleted file mode 100644
-index 3631f4bc2535..000000000000
---- a/xen/common/coverage/gcc_3_4.c
-+++ /dev/null
-@@ -1,367 +0,0 @@
--/*
-- *  This code provides functions to handle gcc's profiling data format
-- *  introduced with gcc 3.4. Future versions of gcc may change the gcov
-- *  format (as happened before), so all format-specific information needs
-- *  to be kept modular and easily exchangeable.
-- *
-- *  This file is based on gcc-internal definitions. Functions and data
-- *  structures are defined to be compatible with gcc counterparts.
-- *  For a better understanding, refer to gcc source: gcc/gcov-io.h.
-- *
-- *    Copyright IBM Corp. 2009
-- *    Author(s): Peter Oberparleiter <oberpar@linux.vnet.ibm.com>
-- *
-- *    Uses gcc-internal data definitions.
-- *
-- *  Imported from Linux and modified for Xen by
-- *    Wei Liu <wei.liu2@citrix.com>
-- */
--
--
--#include <xen/lib.h>
--
--#include "gcov.h"
--
--#if !(GCC_VERSION >= 30400 && GCC_VERSION < 40700)
--#error "Wrong version of GCC used to compile gcov"
--#endif
--
--#define GCOV_COUNTERS 5
--
--static struct gcov_info *gcov_info_head;
--
--/**
-- * struct gcov_fn_info - profiling meta data per function
-- * @ident: object file-unique function identifier
-- * @checksum: function checksum
-- * @n_ctrs: number of values per counter type belonging to this function
-- *
-- * This data is generated by gcc during compilation and doesn't change
-- * at run-time.
-- */
--struct gcov_fn_info
--{
--    unsigned int ident;
--    unsigned int checksum;
--    unsigned int n_ctrs[0];
--};
--
--/**
-- * struct gcov_ctr_info - profiling data per counter type
-- * @num: number of counter values for this type
-- * @values: array of counter values for this type
-- * @merge: merge function for counter values of this type (unused)
-- *
-- * This data is generated by gcc during compilation and doesn't change
-- * at run-time with the exception of the values array.
-- */
--struct gcov_ctr_info
--{
--    unsigned int num;
--    gcov_type *values;
--    void (*merge)(gcov_type *, unsigned int);
--};
--
--/**
-- * struct gcov_info - profiling data per object file
-- * @version: gcov version magic indicating the gcc version used for compilation
-- * @next: list head for a singly-linked list
-- * @stamp: time stamp
-- * @filename: name of the associated gcov data file
-- * @n_functions: number of instrumented functions
-- * @functions: function data
-- * @ctr_mask: mask specifying which counter types are active
-- * @counts: counter data per counter type
-- *
-- * This data is generated by gcc during compilation and doesn't change
-- * at run-time with the exception of the next pointer.
-- */
--struct gcov_info
--{
--    unsigned int              version;
--    struct gcov_info          *next;
--    unsigned int              stamp;
--    const char                *filename;
--    unsigned int              n_functions;
--    const struct gcov_fn_info *functions;
--    unsigned int              ctr_mask;
--    struct gcov_ctr_info      counts[0];
--};
--
--/**
-- * struct type_info - iterator helper array
-- * @ctr_type: counter type
-- * @offset: index of the first value of the current function for this type
-- *
-- * This array is needed to convert the in-memory data format into the in-file
-- * data format:
-- *
-- * In-memory:
-- *   for each counter type
-- *     for each function
-- *       values
-- *
-- * In-file:
-- *   for each function
-- *     for each counter type
-- *       values
-- *
-- * See gcc source gcc/gcov-io.h for more information on data organization.
-- */
--struct type_info {
--    int ctr_type;
--    unsigned int offset;
--};
--
--/**
-- * struct gcov_iterator - specifies current file position in logical records
-- * @info: associated profiling data
-- * @record: record type
-- * @function: function number
-- * @type: counter type
-- * @count: index into values array
-- * @num_types: number of counter types
-- * @type_info: helper array to get values-array offset for current function
-- */
--struct gcov_iterator {
--    const struct gcov_info *info;
--
--    int record;
--    unsigned int function;
--    unsigned int type;
--    unsigned int count;
--
--    int num_types;
--    struct type_info type_info[GCOV_COUNTERS];
--};
--
--/* Mapping of logical record number to actual file content. */
--#define RECORD_FILE_MAGIC       0
--#define RECORD_GCOV_VERSION     1
--#define RECORD_TIME_STAMP       2
--#define RECORD_FUNCTION_TAG     3
--#define RECORD_FUNCTON_TAG_LEN  4
--#define RECORD_FUNCTION_IDENT   5
--#define RECORD_FUNCTION_CHECK   6
--#define RECORD_COUNT_TAG        7
--#define RECORD_COUNT_LEN        8
--#define RECORD_COUNT            9
--
--static int counter_active(const struct gcov_info *info, unsigned int type)
--{
--    return (1 << type) & info->ctr_mask;
--}
--
--static unsigned int num_counter_active(const struct gcov_info *info)
--{
--    unsigned int i;
--    unsigned int result = 0;
--
--    for ( i = 0; i < GCOV_COUNTERS; i++ )
--        if ( counter_active(info, i) )
--            result++;
--
--    return result;
--}
--
--void gcov_info_link(struct gcov_info *info)
--{
--    info->next = gcov_info_head;
--    gcov_info_head = info;
--}
--
--struct gcov_info *gcov_info_next(const struct gcov_info *info)
--{
--    if ( !info )
--        return gcov_info_head;
--
--    return info->next;
--}
--
--const char *gcov_info_filename(const struct gcov_info *info)
--{
--    return info->filename;
--}
--
--void gcov_info_reset(struct gcov_info *info)
--{
--    unsigned int active = num_counter_active(info);
--    unsigned int i;
--
--    for ( i = 0; i < active; i++ )
--        memset(info->counts[i].values, 0,
--               info->counts[i].num * sizeof(gcov_type));
--}
--
--static size_t get_fn_size(const struct gcov_info *info)
--{
--    size_t size;
--
--    size = sizeof(struct gcov_fn_info) + num_counter_active(info) *
--        sizeof(unsigned int);
--    if ( __alignof__(struct gcov_fn_info) > sizeof(unsigned int) )
--        size = ROUNDUP(size, __alignof__(struct gcov_fn_info));
--    return size;
--}
--
--static struct gcov_fn_info *get_fn_info(const struct gcov_info *info,
--                                        unsigned int fn)
--{
--    return (struct gcov_fn_info *)
--        ((char *) info->functions + fn * get_fn_size(info));
--}
--
--static struct gcov_fn_info *get_func(struct gcov_iterator *iter)
--{
--    return get_fn_info(iter->info, iter->function);
--}
--
--static struct type_info *get_type(struct gcov_iterator *iter)
--{
--    return &iter->type_info[iter->type];
--}
--
--/**
-- * gcov_iter_next - advance file iterator to next logical record
-- * @iter: file iterator
-- *
-- * Return zero if new position is valid, non-zero if iterator has reached end.
-- */
--static int gcov_iter_next(struct gcov_iterator *iter)
--{
--    switch ( iter->record )
--    {
--    case RECORD_FILE_MAGIC:
--    case RECORD_GCOV_VERSION:
--    case RECORD_FUNCTION_TAG:
--    case RECORD_FUNCTON_TAG_LEN:
--    case RECORD_FUNCTION_IDENT:
--    case RECORD_COUNT_TAG:
--        /* Advance to next record */
--        iter->record++;
--        break;
--    case RECORD_COUNT:
--        /* Advance to next count */
--        iter->count++;
--        /* fall through */
--    case RECORD_COUNT_LEN:
--        if ( iter->count < get_func(iter)->n_ctrs[iter->type] )
--        {
--            iter->record = 9;
--            break;
--        }
--        /* Advance to next counter type */
--        get_type(iter)->offset += iter->count;
--        iter->count = 0;
--        iter->type++;
--        /* fall through */
--    case RECORD_FUNCTION_CHECK:
--        if ( iter->type < iter->num_types )
--        {
--            iter->record = 7;
--            break;
--        }
--        /* Advance to next function */
--        iter->type = 0;
--        iter->function++;
--        /* fall through */
--    case RECORD_TIME_STAMP:
--        if ( iter->function < iter->info->n_functions )
--            iter->record = 3;
--        else
--            iter->record = -1;
--        break;
--    }
--    /* Check for EOF. */
--    if ( iter->record == -1 )
--        return -EINVAL;
--    else
--        return 0;
--}
--
--/**
-- * gcov_iter_write - write data to buffer
-- * @iter: file iterator
-- * @buf: buffer to write to, if it is NULL, nothing is written
-- * @pos: position inside buffer to start writing
-- *
-- * Return number of bytes written into buffer.
-- */
--static size_t gcov_iter_write(struct gcov_iterator *iter, char *buf,
--                              size_t pos)
--{
--    size_t ret = 0;
--
--    switch ( iter->record )
--    {
--    case RECORD_FILE_MAGIC:
--        ret = gcov_store_uint32(buf, pos, GCOV_DATA_MAGIC);
--        break;
--    case RECORD_GCOV_VERSION:
--        ret = gcov_store_uint32(buf, pos, iter->info->version);
--        break;
--    case RECORD_TIME_STAMP:
--        ret = gcov_store_uint32(buf, pos, iter->info->stamp);
--        break;
--    case RECORD_FUNCTION_TAG:
--        ret = gcov_store_uint32(buf, pos, GCOV_TAG_FUNCTION);
--        break;
--    case RECORD_FUNCTON_TAG_LEN:
--        ret = gcov_store_uint32(buf, pos, 2);
--        break;
--    case RECORD_FUNCTION_IDENT:
--        ret = gcov_store_uint32(buf, pos, get_func(iter)->ident);
--        break;
--    case RECORD_FUNCTION_CHECK:
--        ret = gcov_store_uint32(buf, pos, get_func(iter)->checksum);
--        break;
--    case RECORD_COUNT_TAG:
--        ret = gcov_store_uint32(buf, pos,
--                                GCOV_TAG_FOR_COUNTER(get_type(iter)->ctr_type));
--        break;
--    case RECORD_COUNT_LEN:
--        ret = gcov_store_uint32(buf, pos,
--                                get_func(iter)->n_ctrs[iter->type] * 2);
--        break;
--    case RECORD_COUNT:
--        ret = gcov_store_uint64(buf, pos, iter->info->counts[iter->type].
--                                values[iter->count + get_type(iter)->offset]);
--        break;
--    }
--
--    return ret;
--}
--
--/* If buffer is NULL, no data is written. */
--size_t gcov_info_to_gcda(char *buffer, const struct gcov_info *info)
--{
--    struct gcov_iterator iter = { .info = info };
--    unsigned int i;
--    size_t pos = 0;
--
--    for ( i = 0; i < GCOV_COUNTERS; i++ )
--    {
--        if ( counter_active(info, i) )
--        {
--            iter.type_info[iter.num_types].ctr_type = i;
--            iter.type_info[iter.num_types].offset = 0;
--            iter.num_types++;
--        }
--    }
--
--    do {
--        pos += gcov_iter_write(&iter, buffer, pos);
--    } while ( gcov_iter_next(&iter) == 0 );
--
--    return pos;
--}
--
--/*
-- * Local variables:
-- * mode: C
-- * c-file-style: "BSD"
-- * c-basic-offset: 4
-- * tab-width: 4
-- * indent-tabs-mode: nil
-- * End:
-- */
--- 
-2.39.5
-
+Since all the members of the bar_mem array are allocated unconditionally in
+vcpu_create, is the check here still necessary?
 
