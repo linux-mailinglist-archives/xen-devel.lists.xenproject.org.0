@@ -2,45 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mEOmLWtbuWnYAgIAu9opvQ
+	id +GelCTNfuWmrCgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 14:47:23 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 15:03:31 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EB9C2AB317
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 14:47:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1256127.1550827 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 805AF2AB5CF
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 15:03:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1256135.1550837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2Ul8-0000iv-PM; Tue, 17 Mar 2026 13:46:58 +0000
+	id 1w2V0S-0003gn-1X; Tue, 17 Mar 2026 14:02:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1256127.1550827; Tue, 17 Mar 2026 13:46:58 +0000
+Received: by outflank-mailman (output) from mailman id 1256135.1550837; Tue, 17 Mar 2026 14:02:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2Ul8-0000ga-MV; Tue, 17 Mar 2026 13:46:58 +0000
-Received: by outflank-mailman (input) for mailman id 1256127;
- Tue, 17 Mar 2026 13:46:57 +0000
+	id 1w2V0R-0003dk-Ug; Tue, 17 Mar 2026 14:02:47 +0000
+Received: by outflank-mailman (input) for mailman id 1256135;
+ Tue, 17 Mar 2026 14:02:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lT9B=BR=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1w2Ul7-0000gU-LJ
- for xen-devel@lists.xenproject.org; Tue, 17 Mar 2026 13:46:57 +0000
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazlp170120001.outbound.protection.outlook.com
- [2a01:111:f403:c10d::1])
+ <SRS0=wERr=BR=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1w2V0P-0003de-Ss
+ for xen-devel@lists.xenproject.org; Tue, 17 Mar 2026 14:02:46 +0000
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazlp170120007.outbound.protection.outlook.com
+ [2a01:111:f403:c101::7])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c2de5e06-2207-11f1-b164-2bf370ae4941;
- Tue, 17 Mar 2026 14:46:56 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by DS6PR03MB989093.namprd03.prod.outlook.com (2603:10b6:8:368::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.25; Tue, 17 Mar
- 2026 13:46:40 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9723.018; Tue, 17 Mar 2026
- 13:46:53 +0000
+ id f72ada8d-2209-11f1-b164-2bf370ae4941;
+ Tue, 17 Mar 2026 15:02:43 +0100 (CET)
+Received: from SA9PR13CA0157.namprd13.prod.outlook.com (2603:10b6:806:28::12)
+ by DM6PR12MB4417.namprd12.prod.outlook.com (2603:10b6:5:2a4::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 17 Mar
+ 2026 14:02:39 +0000
+Received: from SN1PEPF0002BA50.namprd03.prod.outlook.com
+ (2603:10b6:806:28:cafe::fa) by SA9PR13CA0157.outlook.office365.com
+ (2603:10b6:806:28::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Tue,
+ 17 Mar 2026 14:02:37 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF0002BA50.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 14:02:39 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 17 Mar
+ 2026 09:02:38 -0500
+Received: from [172.24.66.250] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 17 Mar 2026 09:02:38 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,192 +64,325 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2de5e06-2207-11f1-b164-2bf370ae4941
+X-Inumbo-ID: f72ada8d-2209-11f1-b164-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CBe24odqEaTA707Bbu6Tqdm7lIv/rmLewo1AcAi+BY5vfpJQ48DE4uL0lgvA84vpZCfk/M2hpJRWtYbuRbu3tH3n7tI6lqpdw6EBMzrRQ1tKCAdlPYa4rvAA80ZeoZ7qjKeXXxd94Pml6mtqTxWAmoxs1tDjmXaMSZztCVCbyWYaSi+6b5fjKz5yueJCYCVOM4TiYfNuJCe3GE80qwTnImLW8KIjEme7CBr/RGAYALUaxaAuRfkkIVjvASJuDk2QvUaukdX+fbIcVWugbuEHtJTO1mHfepKqDKg1H6QmkebjqKSrzEZ3PrpT7D2x8YJHYKXYYk9RisvaOTnmrVvsrw==
+ b=B1NXYDbV9zjjwoa0Sx7DwBkSuM8RvDILkDjVG8XSL/QeUK+J4Hz41PIsm+hDl9Ndf9UoBTOjpZm4w9OfIAD88222GTrAeh4xKxiVPQ1BuqlhDFgnsUTZouEzN/wM5WdA1Ac2EPUs8pysF6rLzXef50XA112bN2WUuPurqJ28RWKyhlz+cCxGQ6O/A9wk1Yjvj7Xba0cOzp3WWV99vrTrHn6QHpJaZferUUtxJmhE1j7eeLLDlkOPf7dz4uoXAzw7O/wVvWHYu2ubLv1znaKPnoH68+OC0U8Y6FzcUP/El8PAgo9r/i4ZoDaQBpVq5DTFhe3TaW4ixqOl/GrCAJLORg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kuNjVif0kI6xoqMZ8+Ck7gPk3cNBabG+q045428FfXE=;
- b=lEdDnvnmxBheqf4Aa1no8DNWZ7MrDnO2oR7u2l+6/Qn3XOvzkdXc/a7Tj/It3cwR5KpU7bVdZNNgKT5ncQR9PH/PFVkzI2sWbIO3jhEPlvb14zyIjOqWaYg43XN6o0QBTaJwRegEBSvNmGv0BoWOFxXsU6lXSXnR1o06prLgVQNLCgdNFyJARv6O750wLn3NbKzVAvgyECNuESMMgjZOT2UnAKaMhgCF+bNTPWz0LXGkDy/jvDsdp1Yo9AQZy1YV6C9Yk1YdQvie85TXpurwSE5bPiJLDzEll9ZM7XZdLo9rh9cbBooL6zaXgmeTQEV8vHnw5qdqYNOIk6W0tsB+Vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ bh=2WnqgkijuWbeWnj3nAVyJNEqnrR8a2gTEYVrpA262Xg=;
+ b=eOZnlR66m4NaW50Iz1B5ZgcsIwOdL4WM3UaE3DqhzZuFixe8SUUteQvPCll6jDADa4pJM9/uEnSbT3N19Dx67slSgtpqOciUefVkcxfiEW5IPChXD3hbnPLVn2WuKDdXsmCzxCldKNtSJOT2H0GpQDuXurWaR/jeYp2LpeK2yTjso4B8Ogfz5vPFoeEt91Nn1gmap2taHq4fuOP/xEZOON3nqrbVgnaduC/3IiKVZDw3DE9tQEppR2SWnJgCi7umI4X2PUiaBLgn81gk+gZUipPTgu8tWNljDA8czSKR1wXVynNbhZxXRe+ak+hNPzCjSwBe3YHiij6XY/e4g7HCPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kuNjVif0kI6xoqMZ8+Ck7gPk3cNBabG+q045428FfXE=;
- b=Ns72vTUgpDHAuFk7e56+EErCBWKLpwvrJJ2q26fgg23d0XKfdUOwM6B/BCqlcivA9gH4x7xzpf2e2j1JQHEWSNT0n3zKPq1+Cab6fWRthoNX0MzCLbOKe7BmrS8ZbMXzF4lMPVzR6dXAY/qvIGNeoSPC7qilzyAIf91jdcPKjWE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <dd928382-48a4-4bda-83ec-928bb98d7b7e@citrix.com>
-Date: Tue, 17 Mar 2026 13:46:48 +0000
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [RFC PATCH v3 2/3] x86/acpi: Integrate BGRT preservation with
- status reporting
-To: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>,
- xen-devel@lists.xenproject.org, sarkarsoumyajyoti23@gmail.com
-References: <20260312111414.17808-1-soumyajyotisarkar23@gmail.com>
- <20260312111414.17808-3-soumyajyotisarkar23@gmail.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <20260312111414.17808-3-soumyajyotisarkar23@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PA7P264CA0431.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:37d::18) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+ bh=2WnqgkijuWbeWnj3nAVyJNEqnrR8a2gTEYVrpA262Xg=;
+ b=tVqEAHNVUYSlKhKn4BKX39PSKskqiYQqARbfjhlr8xaN1y8Fy8gZsY1PMfBMw5tY8kGY5Rm9UlqpX13wDSGJ2z2Kof9uP2RbZp5E4OomNpIE9Y/l/p1eNPaXp7qTRVunOZkaXdEty2/sN1ZMkMuwzD4ceLeSUWl095GVry4n8/w=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <251fa26d-dffa-434c-ba51-f4826282f82a@amd.com>
+Date: Tue, 17 Mar 2026 10:02:50 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/8] vpci: add a wait operation to the vpci vcpu
+ pending actions
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <cover.1772806036.git.mykyta_poturai@epam.com>
+ <ec941fbf4f8bde23fc3867e47f5ada028f8003aa.1772806036.git.mykyta_poturai@epam.com>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <ec941fbf4f8bde23fc3867e47f5ada028f8003aa.1772806036.git.mykyta_poturai@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DS6PR03MB989093:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1913b41c-6005-4358-6978-08de842ba593
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA50:EE_|DM6PR12MB4417:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b75f39b-0ae0-4b0c-de57-08de842dd996
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003;
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|56012099003|18002099003|22082099003|7053199007;
 X-Microsoft-Antispam-Message-Info:
-	fY6/GdZT9M+rGNS+m44rqG+SfQHUzPhrDPGAS12H+E4YMNklePv3vm2FlhxjOV7uY86IT5ySziyQusEZfej6EZaR/iCcduvaTt2dp1c2nsAwsFqg8l4gYUS0q8HyQKEfeHY/LEzWY05wIcBqH4BWYeCrT4/4GkOC+weNKQl7v+oerLbJML2pAINwKkbijdzSpHf0C60nGMNzAZlLQz+HZfhmANmarHdva/RiDt59xTgi7kg/+WMppEowduWHkoz84fB3G1cjJecJdEAopfhL0CQACieoOOBJtR7ve/r09Pp4PueqNH1UTC/UgULX2XhsWNMwlDt48fN49gRRrydd2QOYbvjxf658yoAUwdKnMjYY0RozAFybnTaWEQh/5+Qj2/z+OaD953GqJeSB7EqUdo2EoHvevSMH7IClJ98+a9jarySlSCAibA4XU/PNZKinrvjJLivIUQKzI60dABudD+A6rysaw+uQcmzXr4JzYeKbm4IUgbf8HG64OWJoGfZ+PgmBF1EBdAfgJ2QskWV/1AG0zjb1W31G4yXsjm9AUAVzdTWu4iuyB8Lba5m41zsXeB4LBZFKAR7wRxD30X+wIKy10GHTz7gZwQtL2ABTcD4ozzLvSw37pBN0WW9XUDixnTeGy2E8180QNmlBAI84wq2s3hNeYh4+8uCOl3GEenxFcW5/TBXd1Cm/faVd7ErQT26DctH4RKC3EqeoLy3ywiVtMAytv9u1Gf9VWQIDiuU=
+	KVq9Ccd1T15ulOfRvqt6vqTU5SgoyQuGUdMAXAJoXW9bbW8/tmIMw0xcrAg4CP/8MCZUh6TK53CCYFKt//EHvecO2+5dW4SDndaV6kj5T7XxGBWTYcVeTWvqfpivUnXMOE6XjeofWSRzxGQHJVd6lp/OSUEEHGbx9MO5Al/6wiUU6gqhDV1P56J2QTvkuDMlXW252Ias+MOXmgyLKE/14A1/5ZGBiEauvSkoOKZW/GKuORkq7TIuRwfWJHPXFS1SJkR1ws1mMPwQwUnCOQSsaVWLcQ0hD1VUVOaKeCqY5GhjHmV54dd7LPAGpjHV3PzA2930Oiz8YXRbEWRipZ2yfkB4WSTUHbX9Ab16Fqf6w8StomUVZK+jdxv/GqdLI4vj5JxKQppBpXn+XJMvhwRRP5X95R5JvZhtG20AgsWM2hLY954eJC6fMLLtvMqQ6JzAJqi+3zFfsKNRBAVb7gUb+MN5s7xjSkjBqzqA0VlnU9CiCUp/j1nz22zQ2GwrR8f2qpbn9cFKug3MzX5jrX7F1g7dUWe/DGPSPGsWMI1lGnKg7AlUDRiS5K+NCs9RMs2DDgiF9Cw0NmPizwW4PC09ufTY0XTS0Pivd03YDp63mCshBU73+siU0lnGgg1E1tL29KeE2KtOGI4q+4/9jEQ4EWzzeXzuSrafaq4Aaso/jrQ7TqeaKeBiHwRt1lx7H9wWUpzaotdhfwaWNbaTV7boRPsQTMxxYKovyO9R5bdIfKjPVjOvzfvlMndq5fsg/P0l0YRlrslwkzH6PLT77K/5Gw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(56012099003)(18002099003)(22082099003)(7053199007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SGphdnBYYm9PZHRzd1FtK2g2QmM4N2h3bjdRalhvWmxCYzhvR0N1eGlGV3N0?=
- =?utf-8?B?akV4ZDZGc1M2VWpWNE50UktzaWl1LzVnb2dlWktYa0RTVUQ5K2dIZzBSZlps?=
- =?utf-8?B?QlV6Q29tNm93bDJ1TjlESlFZT1RyRDZ5azRqdmhDTXROc3JxNC9PT2VxOENR?=
- =?utf-8?B?ak1yYlJpQXBJYmZMSWZ1ZlhZVVdacVZBczlPZTZSbStNeStvYkZjeVc0ditj?=
- =?utf-8?B?aE9iVW9qLy9mRmZrdnREbmFWV1hCcWZ1alp0VmQ2L2Q0d1h3NUlUTWM5SGJE?=
- =?utf-8?B?TVduT2JXMWxoR3NaZTg4VHRQTnc1RlB2Uk56ZXMyY0wwSDFSUmFjY1QyQ3Q4?=
- =?utf-8?B?MGJZdkpraUpkd05sSWswSlpwVGx5N3V4UTZxYitpb3V6NERoSUxEUjRhay9w?=
- =?utf-8?B?N0JvYnlkU0VoNHRGaDZpNFdSNm5KL0RRRE5XRFI3MGUwb3d1NXBLay9RbmZZ?=
- =?utf-8?B?ZXBGdk1yZWpwTzNzNU0vNUwyQmpLY2h6bEwwZlVzN214MWdZOHF6YzdTY255?=
- =?utf-8?B?WmQzdStuay9ha1JsNy90UExxZys4Q1JPUThzZFVPVEhJNFR3UEdLOGFuYmU3?=
- =?utf-8?B?VDk5RkdSY0VrOGpMamYxb3J6V042LzgyUXMyS1ZJUGFhZUlXTWRkQkM2Uk8z?=
- =?utf-8?B?Mndmb29uRUExU3hsRFkxWGhvdmRtWm9RNUdCYkpMVXpBODErdlZOZE53ZnpZ?=
- =?utf-8?B?bVhkSzk5K2Q2Kzl4ZU9kN0J3d1M0QzNubWVhNmc0RzNZNFhPRWsrUTU5YzdC?=
- =?utf-8?B?eUNDUkVhd1BoU01ZeUxmbnRtMGxBaWsvN1JubGZRMmN0T0ptZ2RDQkZ0QWJV?=
- =?utf-8?B?cDkxeExZMWxmc01kK0VCNDUwZjJPL25jaEc2ZDBydDJIaGlDVmlXNnBIUDRW?=
- =?utf-8?B?ZUtMcjgvUFNWN05UVWlTNDcxck8ySVhCVSt0STQyNWg5TW45S2UyOElKdVNP?=
- =?utf-8?B?dmpENHYvU2V1MjZFaERTQTU1ZUU5Syt3bUUrZHFtbmFBbDRVbU53bENNelFv?=
- =?utf-8?B?b1ZHZUZkRzYramhEMnB3SmJ3M0VFYzcrUE5rTDErVFdjNlRyaWl4NmJMZktR?=
- =?utf-8?B?eklhR2RiQ1dQS2l4SVVMbUZMZlhqdlhIZG9MUXRxSmhwdzZSSGxsSmo5SDBW?=
- =?utf-8?B?djNOTW5RZWg2czNtdDBwbTB3ZVFBekZ4bVJCUUFLVlU2V0FqV0hXOUJUQnVL?=
- =?utf-8?B?bGFJZ0Fnc0lZYXd4QUV5dGtjZ0M0N2RPNUt6aFZ2clc5ME9BbHBEMy9sUWh6?=
- =?utf-8?B?bVJwMFN5SnM5YWRHcEFYRGNZSUw0VWJ3SkVMQnpnTGtER0ROMjNSeCt0M29l?=
- =?utf-8?B?VEdWbk95b2w5Z3JjRzJBTzJDZFo2OHlJancvNnBMWDNkREtVcDQzWXNzSlFJ?=
- =?utf-8?B?Y2M3WExIT2JHbFNaQ0FsVEZuL1YweGw3S21hbmQ5d2dqKzdTa3hicXZ2cyta?=
- =?utf-8?B?eHBtYmtYdm9lZUNJRFRheXFKMlVnQVErZ1BMODJBSVVSMStVTEw4R05Wa1Jn?=
- =?utf-8?B?VlBPQk9FZzh1OUE1RHVpdEc5MGdBUC9jbnU1M0pRSDVOK2N4b3N0RjN5Ujg5?=
- =?utf-8?B?akxyVVowSURyL0VQcWdTNm9wVVBBVXRZeFNXMVg1bUpPenZwYzBpKy9zcHdF?=
- =?utf-8?B?RDUrVVhKRytyQ2NISlVqUEYwS3hFQ2ZFN3VFRWlGQUpHNEJSRHJKSzZpNkl5?=
- =?utf-8?B?QUdlOHFQa0c1czVCRXRCS2pEQ1A4K0dheFRTa0s1c0JZZVdwYWZCYXhXeU02?=
- =?utf-8?B?K2ZnTUdVdTJLV0hyNWx3aGVqRVlzczJnUFI2WSsvVUM1bjgxRnE0aEhkanJG?=
- =?utf-8?B?QjFpaWZLbHdBaHhiQk91SFllSlBNcGhVa1VpTVNiNXJncG5CSy8xTjlsNjdp?=
- =?utf-8?B?L2lhVXBhWHIrL1hkQVB2MnhKQUdadGlwRFhJU1UwQXdTVFpzdFNTMTE5OVdY?=
- =?utf-8?B?UWdiMlk5d3ZJMGtJQjNtYnlxUUpiaWxZaUdMR29JbHR5Zk10emxqVWZ2cXd4?=
- =?utf-8?B?TmIrZmY3ejF1UmZ4amlqTEFRdGpYR1o4WTh1Wm9YaHgrY05yVkJpS29TSFFT?=
- =?utf-8?B?cmJMSDU2anZSTkZ3V1hNZ0RzL1d1Sm0vdy9EK2t2RkxIVC9QZTVQd01GbVVx?=
- =?utf-8?B?NjZwMmRDRkd0cGJibWhFL29ubWpUNEo5dE44SEl3QzNoSWJ2ekR6VFAvaDYw?=
- =?utf-8?B?S1hIUUFhbXkrR0tmN3QyZnJJa0E3RXVoNmhHMWMzdVV2MWdvdHptY0poOHhY?=
- =?utf-8?B?WlpiSUJsOGtOM1pTSHJDd1NGeWJ0VVJDcFYwMFdQUHlyN1c4TzNORnpUSzhx?=
- =?utf-8?B?WlF5RUl3S0VFYjFuMzcrZ3hBN245MmpFNEtDRlFmRSs5ZWk2ck9GZz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1913b41c-6005-4358-6978-08de842ba593
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 13:46:53.1455
+	iGvy+Xs1G+alYDHGnhQ5n2Y5G8heVXwgkr4FDkxuBeVSYEyq3vJXvUR3eVvvcJF0Xm4wZfRCnoEMCLSrNnwm5Xeg6aJe+Tcf/zIp55nwosKMmvedfi72p90KYAZZh0O3WuqDF9F0YPeijbfsIlVnyysuiFols4l2bdE7JsIyz8jiT3ep7nixyE7uLinn0BrWNWJ+h71XWf/vFgWT0jBLPwZ7XK9l0chsLcjEQVDKGfJFKRIYaX9XFPvVQKP2tUxeu+9URsSEUySqOpcWjm1ikzsMEGodRjciZf3NGnrOUQa2/H0zd6K+0aTokNiU2FQNyUionGV8x0FZHkAHbsQ10R54OYAOPtutA+8ZdMRWLdFbhqtGALm6TrErKCqFhagdX1HyfgcGZBmJXn0PNamEhJDKxjUib8oMvA2tiEUqqXXGORDpuzPyMUySUKNjoNYU
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 14:02:39.1816
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UHLUdYeVs9JQ3FYMa2+AnM8mGwi5g3ru/gLPexbcYITR34pGhZA+z8BMvaaUFp4YAjGC2BIxFwHWTjem+7JXgqNVCx9x9jicbKSuyaEjRDQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR03MB989093
-X-Spamd-Result: default: False [-2.19 / 15.00];
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b75f39b-0ae0-4b0c-de57-08de842dd996
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002BA50.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4417
+X-Spamd-Result: default: False [-2.18 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:soumyajyotisarkar23@gmail.com,m:xen-devel@lists.xenproject.org,m:sarkarsoumyajyoti23@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_TLS_LAST(0.00)[];
+	ASN_FAIL(0.00)[120.175.237.192.asn.rspamd.com:query timed out];
+	DKIM_TRACE(0.00)[amd.com:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_THREE(0.00)[3];
+	RBL_SEM_FAIL(0.00)[192.237.175.120:server fail];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	SEM_URIBL_FRESH15_UNKNOWN_FAIL(0.00)[epam.com:server fail,citrix.com:server fail,amd.com:server fail];
+	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	SEM_URIBL_UNKNOWN_FAIL(0.00)[citrix.com:server fail,amd.com:server fail,epam.com:server fail];
 	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[11];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 2EB9C2AB317
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:mid,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: 805AF2AB5CF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 12/03/2026 11:14 am, Soumyajyotii Ssarkar wrote:
-> diff --git a/xen/arch/x86/acpi/boot.c b/xen/arch/x86/acpi/boot.c
-> index 1ca2360e00..20afe79db9 100644
-> --- a/xen/arch/x86/acpi/boot.c
-> +++ b/xen/arch/x86/acpi/boot.c
->  static int __init cf_check acpi_invalidate_bgrt(struct acpi_table_header *table)
+On 3/9/26 07:08, Mykyta Poturai wrote:
+> This allows waiting a specified number of cycles on the vcpu. Once the
+> wait has finished a callback is executed.
+> 
+> Note that this is still not used, but introduced here in order to
+> simplify the complexity of the patches that actually make use of it.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> ---
+> v1->v2:
+> * new patch
+> ---
+>  xen/drivers/vpci/header.c | 125 ++++++++++++++++++++++----------------
+>  xen/include/xen/vpci.h    |  19 ++++++
+>  2 files changed, 90 insertions(+), 54 deletions(-)
+> 
+> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+> index cb64d9b9fc..284964f0d4 100644
+> --- a/xen/drivers/vpci/header.c
+> +++ b/xen/drivers/vpci/header.c
+> @@ -175,76 +175,92 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
+>  
+>  bool vpci_process_pending(struct vcpu *v)
 >  {
->  	struct acpi_table_bgrt *bgrt_tbl =
-> @@ -754,5 +760,7 @@ int __init acpi_boot_init(void)
->
->  	acpi_table_parse(ACPI_SIG_BGRT, acpi_invalidate_bgrt);
->
-> +	efi_bgrt_status_info();
-
-To help with your build failure, given this call from outside EFI code,
-you need...
-
+> -    const struct pci_dev *pdev = v->vpci.pdev;
+> -    struct vpci_header *header = NULL;
+> -    unsigned int i;
+> -
+> -    if ( !pdev )
+> -        return false;
+> -
+> -    read_lock(&v->domain->pci_lock);
+> -
+> -    if ( !pdev->vpci || (v->domain != pdev->domain) )
+> +    switch ( v->vpci.task )
+>      {
+> -        v->vpci.pdev = NULL;
+> -        read_unlock(&v->domain->pci_lock);
+> -        return false;
+> -    }
+> -
+> -    header = &pdev->vpci->header;
+> -    for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
+> +    case MODIFY_MEMORY:
+>      {
+> -        struct vpci_bar *bar = &header->bars[i];
+> -        struct rangeset *mem = v->vpci.bar_mem[i];
+> -        struct map_data data = {
+> -            .d = v->domain,
+> -            .map = v->vpci.cmd & PCI_COMMAND_MEMORY,
+> -            .bar = bar,
+> -        };
+> -        int rc;
+> +        const struct pci_dev *pdev = v->vpci.memory.pdev;
+> +        struct vpci_header *header = NULL;
+> +        unsigned int i;
+>  
+> -        if ( rangeset_is_empty(mem) )
+> -            continue;
+> +        if ( !pdev )
+> +            break;
+>  
+> -        rc = rangeset_consume_ranges(mem, map_range, &data);
+> +        read_lock(&v->domain->pci_lock);
+>  
+> -        if ( rc == -ERESTART )
+> +        if ( !pdev->vpci || (v->domain != pdev->domain) )
+>          {
+> +            v->vpci.memory.pdev = NULL;
+>              read_unlock(&v->domain->pci_lock);
+> -            return true;
+> +            break;
+>          }
+>  
+> -        if ( rc )
+> +        header = &pdev->vpci->header;
+> +        for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
+>          {
+> -            spin_lock(&pdev->vpci->lock);
+> -            /* Disable memory decoding unconditionally on failure. */
+> -            modify_decoding(pdev, v->vpci.cmd & ~PCI_COMMAND_MEMORY,
+> -                            false);
+> -            spin_unlock(&pdev->vpci->lock);
+> +            struct vpci_bar *bar = &header->bars[i];
+> +            struct rangeset *mem = v->vpci.bar_mem[i];
+> +            struct map_data data = {
+> +                .d = v->domain,
+> +                .map = v->vpci.memory.cmd & PCI_COMMAND_MEMORY,
+> +                .bar = bar,
+> +            };
+> +            int rc;
 > +
->  	return 0;
->  }
-> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-> index e6451130ce..68e06d707c 100644
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -1911,6 +1911,22 @@ static bool __init cf_check rt_range_valid(unsigned long smfn, unsigned long emf
->      return true;
->  }
->
-> +void __init efi_bgrt_status_info(void)
-> +{
-> +    if ( !efi_enabled(EFI_BOOT) )
-> +        return;
+> +            if ( rangeset_is_empty(mem) )
+> +                continue;
+>  
+> -            /* Clean all the rangesets */
+> -            for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
+> -                if ( !rangeset_is_empty(v->vpci.bar_mem[i]) )
+> -                     rangeset_purge(v->vpci.bar_mem[i]);
+> +            rc = rangeset_consume_ranges(mem, map_range, &data);
+>  
+> -            v->vpci.pdev = NULL;
+> +            if ( rc == -ERESTART )
+> +            {
+> +                read_unlock(&v->domain->pci_lock);
+> +                return true;
+> +            }
+>  
+> -            read_unlock(&v->domain->pci_lock);
+> +            if ( rc )
+> +            {
+> +                spin_lock(&pdev->vpci->lock);
+> +                /* Disable memory decoding unconditionally on failure. */
+> +                modify_decoding(pdev, v->vpci.memory.cmd & ~PCI_COMMAND_MEMORY,
+> +                                false);
+> +                spin_unlock(&pdev->vpci->lock);
 > +
-> +    if ( bgrt_info.preserved )
-> +    {
-> +        printk(XENLOG_INFO "EFI: BGRT image preserved: %lu KB\n",
-> +               bgrt_info.size / 1024);
-> +        printk(XENLOG_INFO "EFI: BGRT relocated from %p to %p\n",
-> +               bgrt_info.old_addr, bgrt_info.new_addr);
+> +                /* Clean all the rangesets */
+> +                for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
+> +                    if ( !rangeset_is_empty(v->vpci.bar_mem[i]) )
+> +                        rangeset_purge(v->vpci.bar_mem[i]);
+> +
+> +                v->vpci.memory.pdev = NULL;
+> +
+> +                read_unlock(&v->domain->pci_lock);
+>  
+> -            if ( !is_hardware_domain(v->domain) )
+> -                domain_crash(v->domain);
+> +                if ( !is_hardware_domain(v->domain) )
+> +                    domain_crash(v->domain);
+>  
+> -            return false;
+> +                break;
+> +            }
+>          }
+> -    }
+> -    v->vpci.pdev = NULL;
+> +        v->vpci.memory.pdev = NULL;
+>  
+> -    spin_lock(&pdev->vpci->lock);
+> -    modify_decoding(pdev, v->vpci.cmd, v->vpci.rom_only);
+> -    spin_unlock(&pdev->vpci->lock);
+> +        spin_lock(&pdev->vpci->lock);
+> +        modify_decoding(pdev, v->vpci.memory.cmd, v->vpci.memory.rom_only);
+> +        spin_unlock(&pdev->vpci->lock);
+>  
+> -    read_unlock(&v->domain->pci_lock);
+> +        read_unlock(&v->domain->pci_lock);
+> +
+> +        break;
 > +    }
-> +    else if ( bgrt_info.failure_reason[0] )
-> +        printk(XENLOG_WARNING "EFI: BGRT preservation failed: %s\n",
-> +               bgrt_info.failure_reason);
-> +}
 
-... a matching stub function in xen/common/efi/common-stub.c
+Nit: this is a lot of churn for a relatively small number of changes. Could the
+indentation level be retained (reducing churn) by putting the block in a new
+function?
 
-xen.efi is constructed by taking non-efi Xen and linking in a few more
-object files.  It is not a full rebuild with different toolchain settings.
+> +    case WAIT:
+> +        if ( NOW() < v->vpci.wait.end )
+> +            return true;
+> +        v->vpci.wait.callback(v->vpci.wait.data);
+> +        break;
+> +    case NONE:
+> +        return false;
+> +    }
+>  
+> +    v->vpci.task = NONE;
+>      return false;
+>  }
+>  
+> @@ -295,9 +311,10 @@ static void defer_map(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
+>       * is mapped. This can lead to parallel mapping operations being
+>       * started for the same device if the domain is not well-behaved.
+>       */
+> -    curr->vpci.pdev = pdev;
+> -    curr->vpci.cmd = cmd;
+> -    curr->vpci.rom_only = rom_only;
+> +    curr->vpci.memory.pdev = pdev;
+> +    curr->vpci.memory.cmd = cmd;
+> +    curr->vpci.memory.rom_only = rom_only;
+> +    curr->vpci.task = MODIFY_MEMORY;
+>      /*
+>       * Raise a scheduler softirq in order to prevent the guest from resuming
+>       * execution with pending mapping operations, to trigger the invocation
+> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+> index fa654545e5..47cdb54d42 100644
+> --- a/xen/include/xen/vpci.h
+> +++ b/xen/include/xen/vpci.h
+> @@ -212,7 +212,26 @@ struct vpci_vcpu {
+>      /* Per-vcpu structure to store state while {un}mapping of PCI BARs. */
+>      const struct pci_dev *pdev;
 
-~Andrew
+pdev can now be removed from here
+
+>  #ifdef __XEN__
+> +    enum {
+> +        NONE,
+> +        MODIFY_MEMORY,
+> +        WAIT,
+> +    } task;
+>      struct rangeset *bar_mem[PCI_HEADER_NORMAL_NR_BARS + 1];
+> +    union {
+> +        struct {
+> +            /* Store state while {un}mapping of PCI BARs. */
+> +            const struct pci_dev *pdev;
+> +            uint16_t cmd;
+> +            bool rom_only : 1;
+> +        } memory;
+> +        struct {
+> +            /* Store wait state. */
+> +            s_time_t end;
+> +            void (*callback)(void *);
+> +            void *data;
+> +        } wait;
+> +    };
+>  #endif
+>      uint16_t cmd;
+>      bool rom_only : 1;
+
+cmd and rom_only can be removed from here
 
