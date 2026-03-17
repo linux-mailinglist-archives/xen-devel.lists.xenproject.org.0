@@ -2,43 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mFtPJhJOuWnj/wEAu9opvQ
+	id mP1kHqhWuWnYAgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 13:50:26 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 14:27:04 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A4532AA1D0
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 13:50:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1256102.1550806 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3E252AAD7E
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 14:27:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1256115.1550819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2Trd-0001DK-Ch; Tue, 17 Mar 2026 12:49:37 +0000
+	id 1w2UR7-0006Am-3L; Tue, 17 Mar 2026 13:26:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1256102.1550806; Tue, 17 Mar 2026 12:49:37 +0000
+Received: by outflank-mailman (output) from mailman id 1256115.1550819; Tue, 17 Mar 2026 13:26:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2Trd-0001AH-9X; Tue, 17 Mar 2026 12:49:37 +0000
-Received: by outflank-mailman (input) for mailman id 1256102;
- Tue, 17 Mar 2026 12:49:35 +0000
+	id 1w2UR7-00068B-04; Tue, 17 Mar 2026 13:26:17 +0000
+Received: by outflank-mailman (input) for mailman id 1256115;
+ Tue, 17 Mar 2026 13:26:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=O8en=BR=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1w2Trb-0001AA-CA
- for xen-devel@lists.xenproject.org; Tue, 17 Mar 2026 12:49:35 +0000
-Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
- [2a00:1450:4864:20::335])
+ <SRS0=vPV1=BR=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1w2UR4-000682-Pg
+ for xen-devel@lists.xenproject.org; Tue, 17 Mar 2026 13:26:14 +0000
+Received: from fout-a3-smtp.messagingengine.com
+ (fout-a3-smtp.messagingengine.com [103.168.172.146])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf38b455-21ff-11f1-b164-2bf370ae4941;
- Tue, 17 Mar 2026 13:49:33 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- 5b1f17b1804b1-48334ee0aeaso50524975e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 17 Mar 2026 05:49:33 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-67-101.play-internet.pl.
- [109.243.67.101]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4856eaa4fb0sm69406085e9.12.2026.03.17.05.49.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 Mar 2026 05:49:32 -0700 (PDT)
+ id dd61fde5-2204-11f1-b164-2bf370ae4941;
+ Tue, 17 Mar 2026 14:26:12 +0100 (CET)
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+ by mailfout.phl.internal (Postfix) with ESMTP id A9FC3EC01DB;
+ Tue, 17 Mar 2026 09:26:10 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-12.internal (MEProxy); Tue, 17 Mar 2026 09:26:10 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 17 Mar 2026 09:26:08 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,129 +49,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf38b455-21ff-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773751773; x=1774356573; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=340Z7SYxTrLvTn40QEDHoPgyt7oFXcQVpMKjn0Y3oV4=;
-        b=K+eteeE3tKuPs2/UguiLrsajGZ4T6B/TdPQV2+Vh6KDpBvAVr+f8+ZjpXEfaO6oKkY
-         l7Q4GyyTlXQA2y4jH080Jtxiz5vpUE7V4IX42D+ogwJ+Klx/Tb4nnW2jPG0UI1SmA23p
-         491aP+xBmGA4Hf532dr7nbu0XnIJAKquiSom8AU8pSc8BCCH/SC0hsAOk+yRgZRNgVel
-         6/HAdj/wcJl/PzS0jQGvfgRAEKyxq0Qhafl6e4v4jQFIU0Ob4W8wi/AFTq9nMfSX8sSh
-         K35LBT1gQVMrAQjei+wfFahQHHmvr7CIfhldsecOjTf/2Y4pwANOeEllWJF9pju9Z4R4
-         gCrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773751773; x=1774356573;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=340Z7SYxTrLvTn40QEDHoPgyt7oFXcQVpMKjn0Y3oV4=;
-        b=j6asx9q+/KT6VgXEMH/x7+ONsTmsAF3eTH06GVCgyTEPyq15rli/W03VKZvxsmy2au
-         BYNa7ThulItVcAzxuh8uRgzQEAtHc1WSR1C6MXlRDXyMWVQ5C8C8Sdc4vXEPWb8pKYwa
-         SFFha2/ea5QwZD53Xjls2e15W9nexlu1FiBRODA668cb5pZUrfL+2Crp+MRT7jM1al5w
-         +315qee1PwjGAAMVF9wVXkOJH1y1vJw4+tqVAPwEKBV8jSop8/ot1lR0rG26vwEsO9Jl
-         gFhdQQRQDMJDDLy94Q2Dsrbz4bH+Nqdp1656ad4FctJrmtFerb16q3WkYK9hVtVqHc9q
-         5wnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWKMJlg6ZNQ8af21JMERx11CnRf3B3l+6FzjqRdZmccw4Rhdp4o6yPa3GntYMnKq4cgwwrpAswEcl4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4wnRYHwf50K84Vg6ruHkP06cl3heYmRsuTJx+3BNDPWGXfkGi
-	JIJS02awrmHuvfgiZPSXmU6Bk9/ZD08oAt1FZeIpBLKz2O/JvNsWWZsm
-X-Gm-Gg: ATEYQzyCf2CeiZlYtJxpHXjSkKZGSsacEBnHjBPAf5C7T+a3IHIUwd9PKTbekoreJ4q
-	Itflty0xjMTSRLen7yUFZLbKGoxV1HWiaP0H4uWJ17Wo0Blh3Ov6YYckwBiDOwB3x+bsxQdRi+g
-	5O2QT74Lx7j3YVjhpMFQhyE19mj6aZ4KboxSijH2JmGZ78KeBfCDoQqtVFx133TFmXeXbm+GkNy
-	2u17TtTEDJRYv2joLFCMgXEbUG7Ek3mh7E8W8WBzkj10WTx5CJ0/PTvQHcEWmCM4YlzkzJzfQwL
-	X9D8TJlmRGHEK8lm5t+sTrItjtb1aGO3lacpei3AcNrHFLS+2nCSZybbW+h/xNs484tNAjDcVJb
-	0q5zuvQcr038DkQqftuNd6O2SKlv50zkci0Yb28RvrCApv4X5d8LKTxTLTL+ucqio5Vxseo9B9/
-	hgiu8LgkfyHvsnBR2F/70XoFm9wvYs5sd8mUmoqi5S7vI+H0uerji1PcyF5ACOUvDsiLpfxQrZX
-	ZDtVO+NQUeGYg==
-X-Received: by 2002:a05:600c:1e8b:b0:485:4278:24f0 with SMTP id 5b1f17b1804b1-48556728bf7mr283490375e9.30.1773751772291;
-        Tue, 17 Mar 2026 05:49:32 -0700 (PDT)
-Message-ID: <ad59c5ea-ae8c-4e6e-8b49-dcd0eefc3197@gmail.com>
-Date: Tue, 17 Mar 2026 13:49:30 +0100
+X-Inumbo-ID: dd61fde5-2204-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1773753970;
+	 x=1773840370; bh=II9/LYsuzrJHS5+ItRRewIdo70SGmby1E+yml1dRBOE=; b=
+	lZ+2PzHd/+/IAqhPn1I5/+fnIPxqLv9o0rCdLPuV7jfk1bEb33hx4PzddLmqDcTN
+	NCPTcEaI97BBC6vx66b9MtUrMW3tHvZJMuc6bOdiAYs44wdmVdg9TiJtPpvbmHni
+	fQ9shA0pu1uO2M/Lz5A2xR2UX9OeNFXr4TI7FJuxy4lEpCitF8tqzyPEDdPX5Etk
+	3HqEAsgPB7pAFtocELb56pAcLZPwspx3shpaS3OsFqA+PZUAvRXfe416oMVV4QIy
+	CNozTL6g+6z9NpROa9tc+rrO3PfMuJKKGSI3APGsM3wElLLiMlPwSdnfmEdsJzHw
+	OI7wRvmn4DIHeRvF/dcOjg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1773753970; x=1773840370; bh=II9/LYsuzrJHS5+ItRRewIdo70SGmby1E+y
+	ml1dRBOE=; b=00pH3jSWLQZ1NpaQ2f40AaV2y3O3iajtU8U9PFXoHi3YuKHzb5C
+	gWGQE6cSqoSJPvi8uQiB5QC8Ce6D9lbDJZYJqpsjbGP0kpXR5txZ0BsNgffMopDA
+	4Sh0ArCg97KkAq/tZi0w8VY3amfSe5BgXVKagWbZEJuMpoii0WQTFa4Lh5jyQPJT
+	L+e/Pkzw2mfztRlBKvucLJ6BfTfutWT7mmj1N+aks5/feb+HcbCozN6hG1rSwnEA
+	VWOSJQGXSxweI6sj/gTulQVAVejIKBw3cBjfOIwjGwE53smVc1tsJ2ql9nlVlM0o
+	YNLD2/57qhBi01WjrPZYrQkPjAlp1/zs/7g==
+X-ME-Sender: <xms:cla5aX6TasairNVoCZaermR5mZq_05dD6DjNgKgW8JQRL2fdyn3JIQ>
+    <xme:cla5afIE2nY-PwLvEc1UwXQcnMya_XDovxUnZdSRzMRl-1fgpOwm04aYmu7tkdYsF
+    Yrj-0L4Z4m2qbcXG5BqkYr6xRJM9yRNoZnVOAZlON2gTZQh>
+X-ME-Received: <xmr:cla5aQtjodEUCt79R4O3qNnZ-NIWmOuMAsV7D3BvjcUA8ouCZ5KwQO77_T5-FrxdfFI7DWXAJ6jcwCbxATC5JkmU-8wXUzfOspg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeftddufeejucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepleehueff
+    gffftdffffffteehvdekjeevhfekleduueevgeffgeeuleeggeeljeehnecuffhomhgrih
+    hnpehgihhthhhusgdrtghomhdpphgrthgthhgvfidrohhrghdpghhithhlrggsrdgtohhm
+    necuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrh
+    hmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghp
+    thhtohepjedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepshhouhhmhigrjhihoh
+    htihhsrghrkhgrrhdvfeesghhmrghilhdrtghomhdprhgtphhtthhopeigvghnqdguvghv
+    vghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopehsrghrkh
+    grrhhsohhumhihrghjhihothhivdefsehgmhgrihhlrdgtohhmpdhrtghpthhtoheprghn
+    ughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthhopeguphhsmh
+    hithhhsegrphgvrhhtuhhsshholhhuthhiohhnshdrtghomhdprhgtphhtthhopehjsggv
+    uhhlihgthhesshhushgvrdgtohhmpdhrtghpthhtoheprhhoghgvrhdrphgruhestghith
+    hrihigrdgtohhm
+X-ME-Proxy: <xmx:cla5aeJ7hqe_KUkf9xofYE1_C4PAhT8h-9kBG_ipiZEAvGrlTwhyLA>
+    <xmx:cla5aZ-fnJ8aIbiqVfkGOWqk3ka7TBG16Uqkn2IEkdieUkdFay6T0w>
+    <xmx:cla5aXww-ge1qHwEwoM3AxxDV9O76I5NWrkZguv1u6AwCERADzXLKQ>
+    <xmx:cla5aW5oQNuVbhKKescqG24i97OaXMrT31E75vanHlldrMbbA2okkA>
+    <xmx:cla5aQXsXfHZtNaZ-XGTZ8sEhvIVzcVu3QY-eCL9AK1UunHg1LsMCyOc>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 17 Mar 2026 14:26:07 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
+Cc: xen-devel@lists.xenproject.org, sarkarsoumyajyoti23@gmail.com,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [RFC PATCH v3 0/3] Fixing ACPI BGRT (Boot Graphics Resource
+ Table) corruption
+Message-ID: <ablWb3STcioss8Jj@mail-itl>
+References: <20260312111414.17808-1-soumyajyotisarkar23@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 6/6] xen/riscv: enable DOMAIN_BUILD_HELPERS
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1770821989.git.oleksii.kurochko@gmail.com>
- <6ab04f3584e45795dc82c25f62a6c950913f5c7d.1770821989.git.oleksii.kurochko@gmail.com>
- <aac9b5ac-6660-4ec0-b88e-605903217588@suse.com>
- <b4ac883d-ce90-40b0-93fc-95c925c7ac61@gmail.com>
- <a35d5566-7da1-406d-abf7-13b423d013f8@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <a35d5566-7da1-406d-abf7-13b423d013f8@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="8hN24WjD+uI3YMbO"
+Content-Disposition: inline
+In-Reply-To: <20260312111414.17808-1-soumyajyotisarkar23@gmail.com>
+X-Spamd-Result: default: False [-2.78 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm1,messagingengine.com:s=fm1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:soumyajyotisarkar23@gmail.com,m:xen-devel@lists.xenproject.org,m:sarkarsoumyajyoti23@gmail.com,m:andrew.cooper3@citrix.com,m:dpsmith@apertussolutions.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,gmail.com,citrix.com,apertussolutions.com,suse.com];
 	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,suse.com:email,messagingengine.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 3A4532AA1D0
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: B3E252AAD7E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
-On 2/13/26 2:11 PM, Jan Beulich wrote:
->>>> +#define GUEST_RAM0_BASE   xen_mk_ullong(0x80000000) /* 2GB of low RAM @ 2GB */
->>>> +#define GUEST_RAM0_SIZE   xen_mk_ullong(0x80000000)
->>>> +
->>>> +#define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE }
->>>> +#define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE }
+--8hN24WjD+uI3YMbO
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 17 Mar 2026 14:26:07 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
+Cc: xen-devel@lists.xenproject.org, sarkarsoumyajyoti23@gmail.com,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [RFC PATCH v3 0/3] Fixing ACPI BGRT (Boot Graphics Resource
+ Table) corruption
 
-(cut)
+On Thu, Mar 12, 2026 at 04:44:11PM +0530, Soumyajyotii Ssarkar wrote:
+> This RFC series plans to addres ACPI BGRT (Boot Graphics Resource Table) =
+corruption,
+> that occured when Xen reuses the memory containing the boot logo
+> image before dom0 is able to parse ACPI tables.
+>=20
+> The BGRT table contains a pointer to a BMP image stored in
+> BootServicesData memory. When Xen reclaims this memory early in boot,
+> the pointer becomes invalid, causing Linux dom0 to report:
+> Xen: `(XEN) ACPI: BGRT: invalidating v1 image at 0x47cc2018`
+> Linux (dom0): `ACPI BIOS Warning (bug): Incorrect checksum
+> in table [BGRT] - 0xF9, should be 0xB4 (20250807/utcksum-58)`
+>=20
+> This series:
+> 1. Adds BGRT image preservation infrastructure during EFI boot
+> (validates BMP format, allocates EfiACPIReclaimMemory, stores pointers)
+>=20
+> 2. Integrates preservation with ACPI subsystem
+> (clarifies acpi_invalidate_bgrt() safety net behavior,
+> adds status reporting via efi_bgrt_status_info())
+>=20
+> 3. Provides opt-out mechanism
+> (-nobgrt for xen.efi direct boot, efi=3Dno-bgrt
+> for multiboot2, both via early EFI-phase parsing)
+>=20
+> The preservation is enabled by default to fix the corruption for all
+> users, with minimal overhead (~1MB). Also, servers that don't need boot
+> graphics can disable it using the "efi=3Dno-bgrt" option.
+>=20
+> Thank you everyone for the constructive feedback! It is really helpful,
+> I hope this RFC series is upto standards, I would greatly appriciate furt=
+her feedback.
+>=20
+> Changes since v1:
+> - The BGRT invalidation behaviour should still presist
+>   and server as a safety net when "efi=3Dno-bgrt" or the
+>   preservation fails for some reason thus: Add Clarify comment
+>   for BGRT invalidation behavior with preservation.
+> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+=2Ecom>
+>=20
+> Changes since v2:
+> - Use existing ACPI headers (actbl.h, actbl3.h) instead of custom structs
+> - Modify the function names and code in function to conform with Coding S=
+tyle.
+> - Reuse efi.acpi20 from efi_tables() instead of manual RSDP search
+> - Use appropriate types: EFI types for firmware code, unsigned int for
+>   loop counters (matching ESRT pattern)
+> - Used of sizeof(<expression>) over sizeof(<type>)
+> - Remove fixed-type widths & limited typecasting
+> - Add Blank line ahead of the main return statement of a function.
+> - Better wording error message for image cap size
+> - Remove parse_boolean(no-bgrt) since it could be bit misleading
+> - Add const qualifiers throughout for safety
+> - Use %p format for pointers (32-bit compatibility)
+> - Initialize failure_reason with string literal for proper relocation
+> - Use memcmp() with ACPI_SIG_* constants for signature checks
+> - Add direct Xen.efi calling.
+> - Add opt-out mechanism with proper early parsing during EFI phase.
+>=20
+> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+=2Ecom>
+> Reported-by: Jan Beulich=C2=A0<jbeulich@suse.com>
+>=20
+> Please refer to QubesOS Issue for more context:
+> https://github.com/QubesOS/qubes-issues/issues/10764
+>=20
+> This is a companion series to Linux Kernel side at
+> https://patchew.org/linux/cover.751f45ebbb644244b1d9da3aff289d6b66db4c6b.=
+1773058629.git-series.marmarek@invisiblethingslab.com/
+>=20
+> Testing:
+> - Verified on Intel UEFI system with Fedora 43 dom0
+> - Before: ACPI checksum errors in dom0
+> - After: Clean boot, no ACPI warnings
+> - Memory overhead: ~972 KB (preserved image size)
+>=20
+> Signed-off-by: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
 
-> If all you want are 2Gb guests, why would such guests be 64-bit? And with
-> (iirc) RV32 permitting more than 4Gb (via PPN being 22 bits wide), perhaps
-> even a 32-bit hypervisor would suffice?
+Hi,
 
-Btw, shouldn't we look at VPN width?
+I've pushed this series to CI, and it fails to build in several targets:
+https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/2390562809
 
-My understanding is that we should take GUEST_RAM0_BASE as sgfn address
-and then map it to mfn's page (allocated by alloc_domheap_pages())? And then
-repeat this process until we won't map GUEST_RAM0_SIZE.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-In this case for RV32 VPN (which is GFN in the current context) is 32-bit
-wide as RV32 supports only Sv32, what is 2^32 - 1, what is almost 4gb.
+--8hN24WjD+uI3YMbO
+Content-Type: application/pgp-signature; name=signature.asc
 
-~ Oleksii
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmm5Vm8ACgkQ24/THMrX
+1yxgbwf6A835c9cFWek5xGt5j+pqG6tAo6JzbrM+7Z21qBUDhYMgkLYWVidtGvBm
+YJaBkq/SfQNDm0VCXmOohrJT0pztgmFo1nx3VRUkYYyY4VANZgG32wCKxw3Dbrhf
+DTdm7xolenXd/ffmf13FRMkni7QH34esOy+iLQMXNkoXfl7rgkNCHzYR8lxxq740
+2RsbpT57ubTcOWiEvtkXnun/10VrZszdE35f0Pm9OFpgPWjmRcetf7LVOOJweFkj
+7pvC5qdAM15sO+Tn0Jb7Yzk5Bk/HgghZ6F4ztzRm3L1OdBdHkkQl/wBok4lENkqr
+vDyzL6azh9fkunAIzv7CcecP0xXNJw==
+=CFRG
+-----END PGP SIGNATURE-----
+
+--8hN24WjD+uI3YMbO--
 
