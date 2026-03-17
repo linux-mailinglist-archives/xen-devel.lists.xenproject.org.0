@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0IqdOZ0ruWmVtQEAu9opvQ
+	id aO70GKhDuWmK+QEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 11:23:25 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 13:06:00 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C9D02A7CD1
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 11:23:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1255894.1550673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 412E22A97E8
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2026 13:06:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1255911.1550687 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2RZB-0004wo-TW; Tue, 17 Mar 2026 10:22:25 +0000
+	id 1w2TAl-0008V9-6i; Tue, 17 Mar 2026 12:05:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1255894.1550673; Tue, 17 Mar 2026 10:22:25 +0000
+Received: by outflank-mailman (output) from mailman id 1255911.1550687; Tue, 17 Mar 2026 12:05:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2RZB-0004vH-PD; Tue, 17 Mar 2026 10:22:25 +0000
-Received: by outflank-mailman (input) for mailman id 1255894;
- Tue, 17 Mar 2026 10:22:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w2TAl-0008Te-35; Tue, 17 Mar 2026 12:05:19 +0000
+Received: by outflank-mailman (input) for mailman id 1255911;
+ Tue, 17 Mar 2026 12:05:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rXng=BR=bounce.vates.tech=bounce-md_30504962.69b92b5c.v1-02b8f13e50e84a3b8a35fff1d9082418@srs-se1.protection.inumbo.net>)
- id 1w2RZA-0004vB-GT
- for xen-devel@lists.xenproject.org; Tue, 17 Mar 2026 10:22:24 +0000
-Received: from mail136-12.atl41.mandrillapp.com
- (mail136-12.atl41.mandrillapp.com [198.2.136.12])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2f12a997-21eb-11f1-b164-2bf370ae4941;
- Tue, 17 Mar 2026 11:22:22 +0100 (CET)
-Received: from pmta11.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail136-12.atl41.mandrillapp.com (Mailchimp) with ESMTP id
- 4fZp1853Kmz5QkLq0
- for <xen-devel@lists.xenproject.org>; Tue, 17 Mar 2026 10:22:20 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 02b8f13e50e84a3b8a35fff1d9082418; Tue, 17 Mar 2026 10:22:20 +0000
+ <SRS0=pa/0=BR=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
+ id 1w2TAj-0008QI-0T
+ for xen-devel@lists.xen.org; Tue, 17 Mar 2026 12:05:17 +0000
+Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8b95c952-21f9-11f1-9ccf-f158ae23cfc8;
+ Tue, 17 Mar 2026 13:05:11 +0100 (CET)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1w2TAW-00D7eF-1U;
+ Tue, 17 Mar 2026 12:05:04 +0000
+Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.96)
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1w2TAW-00DbXG-0N;
+ Tue, 17 Mar 2026 12:05:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,160 +48,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f12a997-21eb-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1773742940; x=1774012940;
-	bh=SB8tee7BVwumhyB+qrZNJF8OpTB0mvIkzO0/xMyjFX4=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=XypLha3UJXljlUm3pYPBdTokSnEI5jZTHCvocl9ntTCjUlLW6+fRhqufXlDSFGZ5F
-	 9THjqrIu8PFUZ85EGt0/sggJh+iVazOO/nfMdT1k2syDtKWhYlfUj2rpVrjDmp6RgA
-	 AyMI1311UCZU0wsZUOVH3GkXTxFI+BVGGqlrUv0IlTwfDx6lUF7WI5cPBs23hX5ogs
-	 tzuOPBWE7pzRi8ln59F/jxjzDA2UR7bg5yjif6o33KTEqNW+JXrTMHMi3dhmk7VwrY
-	 DZlTArXhnmUCbzsukDUEfy4RKUWJMZieZy4ObW4RAYWB78FR+fZm+/iI8rpNUgGC/V
-	 +coCciOMkehiw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1773742940; x=1774003440; i=julian.vetter@vates.tech;
-	bh=SB8tee7BVwumhyB+qrZNJF8OpTB0mvIkzO0/xMyjFX4=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=minwlhCbxB8zHxzKqsjQhu83U4EpTfy8i+W4n2pfR9/BcLyUegx8+PkBDytBzUaw+
-	 mQ7j6I5VSpHd5L5QUh7Gwk7xUQwOsdS7vja0OXqxSuvVcKkriYUrmCfIObzwQxfPjl
-	 A/bCOW6r1uI1ECf6div4mOfIGfcddrAHgCDH/MfCPtw8VMlEJbWGQD7bJ6Tb2CuPI1
-	 abhO0hWFEzrA2QqQJlYyOx6odEvEfu5J8LERl43rCcVyNegaX6ZswHvrbRgXFiBQeM
-	 DYkzmVdmcrfo5zKxoy3YmTcp/Pp8MAqUMdTl8/rWgZTB2MLcBly0hQntH9VJECneYo
-	 0iDv76pGWoOpQ==
-From: "Julian Vetter" <julian.vetter@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v3=206/7]=20x86/dmop:=20Add=20XEN=5FDMOP=5Fenable=5Fext=5Fdest=5Fid=20DM=20op?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1773742939233
-Message-Id: <1124b3b3-6593-4ef0-ad9a-28d21e06bbfd@vates.tech>
-To: "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Stefano Stabellini" <sstabellini@kernel.org>, "Juergen Gross" <jgross@suse.com>, "Julien Grall" <julien@xen.org>
-References: <20260309123055.880050-1-julian.vetter@vates.tech> <20260309123055.880050-6-julian.vetter@vates.tech> <aa7KcQQoc3-HwlcE@macbook.local>
-In-Reply-To: <aa7KcQQoc3-HwlcE@macbook.local>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.02b8f13e50e84a3b8a35fff1d9082418?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260317:md
-Date: Tue, 17 Mar 2026 10:22:20 +0000
+X-Inumbo-ID: 8b95c952-21f9-11f1-9ccf-f158ae23cfc8
+Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
+Content-Transfer-Encoding: binary
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Spamd-Result: default: False [3.51 / 15.00];
-	URIBL_GREY(2.50)[mandrillapp.com:dkim];
-	SUBJ_EXCESS_QP(1.20)[];
+X-Mailer: MIME-tools 5.510 (Entity 5.510)
+To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
+ xen-users@lists.xen.org, oss-security@lists.openwall.com
+From: Xen.org security team <security@xen.org>
+CC: Xen.org security team <security-team-members@xen.org>
+Subject: Xen Security Advisory 480 v3 (CVE-2026-23554) - Use after free of
+ paging structures in EPT
+Message-Id: <E1w2TAW-00DbXG-0N@xenbits.xenproject.org>
+Date: Tue, 17 Mar 2026 12:05:04 +0000
+X-Spamd-Result: default: False [0.56 / 15.00];
+	R_BAD_CTE_7BIT(1.05)[7bit,utf8];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	BAD_REP_POLICIES(0.10)[];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:jgross@suse.com,m:julien@xen.org,s:lists@lfdr.de];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim];
-	MISSING_XM_UA(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.901];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xenbits.xenproject.org:mid,xenproject.org:url];
+	DMARC_NA(0.00)[xen.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-announce@lists.xen.org,m:xen-devel@lists.xen.org,m:xen-users@lists.xen.org,m:oss-security@lists.openwall.com,m:security-team-members@xen.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[security@xen.org,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[security@xen.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
+	NEURAL_HAM(-0.00)[-0.989];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 3C9D02A7CD1
+X-Rspamd-Queue-Id: 412E22A97E8
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 3/9/26 14:29, Roger Pau Monn=C3=A9 wrote:
-> On Mon, Mar 09, 2026 at 12:31:03PM +0000, Julian Vetter wrote:
->> Xen cannot simply advertise XEN_HVM_CPUID_EXT_DEST_ID to the guest
->> without knowing that the device model will handle extended destination
->> IDs correctly for passthrough MSIs. A device model that still uses
->> XEN_DOMCTL_bind_pt_irq would pass only the low 8 bits of the destination
->> ID, misrouting interrupts to vCPUs with APIC IDs greater than 255. So,
->> add a DM op XEN_DMOP_enable_ext_dest_id that the device model can call
->> during domain setup (before vCPUs are started) to signal that it will
->> use XEN_DMOP_bind_pt_msi_irq for all passthrough MSI bindings. When
->> called, Xen sets ext_dest_id_enabled in struct hvm_domain, so it's
->> visible to the guest via CPUID.
-> 
-> Have you considered whether you could re-use the padding in
-> XEN_DMOP_create_ioreq_server to signal whether the device model
-> supports Extended ID parsing?
-> 
-> Also, you might want some negotiation between multiple ioreq servers
-> on the same domain.  IOW: is multiple ioreq servers are registered
-> ahead of the domain having finished creation you could level whether
-> extended ID should be announced.  For ioreqs that are registered after
-> the domain have started you need to enforce the currently set Extended
-> ID support.  If the domain is running, and Extended ID is advertised
-> you must prevent registering any new ioreq that doesn't support
-> Extended ID.
-> 
+--=separator
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
 
-Thank you Roger for your feedback! It's very appreciated! This was a 
-good idea. I have implemented this now. I have used one of the reserved 
-bytes and use it as a flag field.
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
 
-But I have a remaining question/concern, which maybe you can clarify.
-If server A (e.g., a secondary emulator) registers WITH ext_dest_id 
-before the domain starts, hvm_ext_dest_id_enabled() returns true and the 
-guest will be advertised XEN_HVM_CPUID_EXT_DEST_ID. If QEMU's primary 
-ioreq server then registers WITHOUT the flag and goes on to use 
-XEN_DOMCTL_bind_pt_irq, pass-through MSIs will be misrouted (or rejected 
-if I then refuse calls to XEN_DOMCTL_bind_pt_irq for that domain). My 
-implementation allows this combination before 'd->creation_finished'.
+            Xen Security Advisory CVE-2026-23554 / XSA-480
+                               version 3
 
-I have added a check in ioreq_server_dm_op() for the 
-XEN_DMOP_create_ioreq_server case for the "runtime" case as you 
-suggested. If one of the existing ioreq servers announces it, and a new 
-server wants to join, that doesn't have this flag set, it will be 
-rejected with -EINVAL:
+              Use after free of paging structures in EPT
 
-if ( d->creation_finished && hvm_ext_dest_id_enabled(d) &&
-      !(data->flags & XEN_DMOP_IOREQ_SERVER_EXT_DEST_ID) )
-     break;
+UPDATES IN VERSION 3
+====================
 
-But what happens to the first case I described, how can I reasonably 
-negotiate between different ioreq servers or determine who is the "main" 
-server? In practice, usually if QEMU ("the only" server that matters for 
-pass-through) opted in, the feature is enabled. If it didn't, no other 
-server would have opted in either, no? The only "sort of" issue would be 
-if someone wrote a secondary emulator that sets ext_dest_id to basically 
-"lock out" a QEMU that doesn't support the new XEN_DMs?
+Public release.
 
-Thank you!
+ISSUE DESCRIPTION
+=================
 
-Julian
+The Intel EPT paging code uses an optimization to defer flushing of any cached
+EPT state until the p2m lock is dropped, so that multiple modifications done
+under the same locked region only issue a single flush.
 
-> Thanks, Roger.
-> 
+Freeing of paging structures however is not deferred until the flushing is
+done, and can result in freed pages transiently being present in cached state.
+Such stale entries can point to memory ranges not owned by the guest, thus
+allowing access to unintended memory regions.
 
+IMPACT
+======
 
+Privilege escalation, Denial of Service (DoS) affecting the entire host,
+and information leaks.
 
---
-Julian Vetter | Vates Hypervisor & Kernel Developer
+VULNERABLE SYSTEMS
+==================
 
-XCP-ng & Xen Orchestra - Vates solutions
+Xen 4.17 and onwards are vulnerable.  Xen 4.16 and older are not vulnerable.
 
-web: https://vates.tech
+Only x86 Intel systems with EPT support are vulnerable.
 
+Only x86 HVM/PVH guests using HAP can leverage the vulnerability on affected
+systems.
 
+MITIGATION
+==========
+
+There are no mitigations.
+
+CREDITS
+=======
+
+This issue was discovered by Roger Pau Monné of XenServer.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+Note that patches for released versions are generally prepared to
+apply to the stable branches, and may not apply cleanly to the most
+recent release tarball.  Downstreams are encouraged to update to the
+tip of the stable branch before applying these patches.
+
+xsa480.patch           xen-unstable - Xen 4.17.x
+
+$ sha256sum xsa480*
+578f8fec3f34656e085419f6376d43987ffd6ed32e067b4024d3c83ce03a5901  xsa480.patch
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team's decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community's agreed Security Policy:
+  http://www.xenproject.org/security-policy.html
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmm5Q1MMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZKDgH/jDFwjlPNV0IQor3c5j9D7L++i5dFugypaF5OI+Q
+nboD7VEe6y1KexRsPa/a7UAvuabgGdudeS18IS3W34/9TZILZRITo9s3IgEnTfQR
+qqFlCTxymFuCn8Iptq8SJh37fG3nc9OJ/v28s+0+X9ERnjjjVcjhwcbQ5gQSpKU0
+7fAe+IpsO3YOMGb3fgpjhCWMjh9UTHnKOBmObNeDGZ3sXgh8+FYkt6snRs0bYwW4
+IcGpmEEgK+Id6n/0sG07Ntntb02EcCz3Vl8G0OflNQj/XOxHBuXbkFc36K2vpUDp
+dGrzGkIznA00Oz2UNlZrSrMWAQtKuHbB9+H2tU+7BNq+ag8=
+=RFix
+-----END PGP SIGNATURE-----
+
+--=separator
+Content-Type: application/octet-stream; name="xsa480.patch"
+Content-Disposition: attachment; filename="xsa480.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSA0NWY2ODY2ZTM0YjdlOWVlOGI2YWMxNmQ2NDZhMmU5NTRjOTdlNDhl
+IE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBSb2dlciBQYXUgTW9u
+bmUgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgpEYXRlOiBUdWUsIDE3IEZlYiAy
+MDI2IDA5OjMzOjQzICswMTAwClN1YmplY3Q6IFtQQVRDSF0geDg2L3AybTog
+aXNzdWUgYSBzeW5jIGZsdXNoIGJlZm9yZSBmcmVlaW5nIHBhZ2luZyBwYWdl
+cwpNSU1FLVZlcnNpb246IDEuMApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47
+IGNoYXJzZXQ9VVRGLTgKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogOGJp
+dAoKSW4gdGhlIEVQVCBpbXBsZW1lbnRhdGlvbiwgdGhlIGRlZmVyIGZsdXNo
+aW5nIGxvZ2ljIGlzIHVzZWQKdW5jb25kaXRpb25hbGx5LCBhbmQgdGhhdCB3
+b3VsZCBsZWFkIHRvIHBhZ2luZyBtZW1vcnkgYmVpbmcgcmV0dXJuZWQgdG8g
+dGhlCnBhZ2luZyBwb29sIGJlZm9yZSBpdHMgcmVmZXJlbmNlcyBoYWQgYmVl
+biBmbHVzaGVkLgoKSXNzdWUgYW55IHBlbmRpbmcgZmx1c2hlcyBiZWZvcmUg
+ZnJlZWluZyB0aGUgcGFnaW5nIG1lbW9yeSBiYWNrIHRvIHRoZQpwb29sLgoK
+Tm90ZSBBTUQgKE5QVCkgYW5kIFNoYWRvdyBwYWdpbmcgYXJlIG5vdCBhZmZl
+Y3RlZCwgYXMgdGhleSBkb24ndCBpbXBsZW1lbnQKdGhlIGRlZmVycmVkIGZs
+dXNoaW5nIGxvZ2ljLgoKVGhpcyBpcyBYU0EtNDgwIC8gQ1ZFLTIwMjYtMjM1
+NTQKCkZpeGVzOiA0YTU5ZTZiYjNhOTYgKCJ4ODYvRVBUOiBzcXVhc2ggbWVh
+bmluZ2xlc3MgVExCIGZsdXNoIikKU2lnbmVkLW9mZi1ieTogUm9nZXIgUGF1
+IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+ClJldmlld2VkLWJ5OiBK
+YW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+Ci0tLQogeGVuL2FyY2gv
+eDg2L21tL3AybS5jIHwgNSArKysrKwogMSBmaWxlIGNoYW5nZWQsIDUgaW5z
+ZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL3hlbi9hcmNoL3g4Ni9tbS9wMm0u
+YyBiL3hlbi9hcmNoL3g4Ni9tbS9wMm0uYwppbmRleCBlOTE1ZGEyNmE4MzIu
+LmZkZGVjZGY5NzhlYyAxMDA2NDQKLS0tIGEveGVuL2FyY2gveDg2L21tL3Ay
+bS5jCisrKyBiL3hlbi9hcmNoL3g4Ni9tbS9wMm0uYwpAQCAtNDc5LDYgKzQ3
+OSwxMSBAQCB2b2lkIHAybV9mcmVlX3B0cChzdHJ1Y3QgcDJtX2RvbWFpbiAq
+cDJtLCBzdHJ1Y3QgcGFnZV9pbmZvICpwZykKICAgICBBU1NFUlQocDJtLT5k
+b21haW4pOwogICAgIEFTU0VSVChwMm0tPmRvbWFpbi0+YXJjaC5wYWdpbmcu
+ZnJlZV9wYWdlKTsKIAorICAgIC8qCisgICAgICogSXNzdWUgYW55IHBlbmRp
+bmcgZmx1c2ggaGVyZSwgaW4gY2FzZSBpdCB3YXMgZGVmZXJyZWQgYmVmb3Jl
+LiAgVGhlIHBhZ2UKKyAgICAgKiB3aWxsIGJlIHJldHVybmVkIHRvIHRoZSBw
+YWdpbmcgcG9vbCBub3cuCisgICAgICovCisgICAgcDJtX3RsYl9mbHVzaF9z
+eW5jKHAybSk7CiAgICAgcGFnZV9saXN0X2RlbChwZywgJnAybS0+cGFnZXMp
+OwogICAgIHAybS0+ZG9tYWluLT5hcmNoLnBhZ2luZy5mcmVlX3BhZ2UocDJt
+LT5kb21haW4sIHBnKTsKIAotLSAKMi41MS4wCgo=
+
+--=separator--
 
