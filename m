@@ -2,38 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0GNtDuZHumkFTwIAu9opvQ
+	id aFAlMV5dumnFUgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 07:36:22 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 09:07:58 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 747502B678A
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 07:36:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1256343.1551031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C4D12B7884
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 09:07:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1256363.1551040 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2kVM-000868-GC; Wed, 18 Mar 2026 06:35:44 +0000
+	id 1w2lvY-0003HU-1I; Wed, 18 Mar 2026 08:06:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1256343.1551031; Wed, 18 Mar 2026 06:35:44 +0000
+Received: by outflank-mailman (output) from mailman id 1256363.1551040; Wed, 18 Mar 2026 08:06:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2kVM-00083c-CD; Wed, 18 Mar 2026 06:35:44 +0000
-Received: by outflank-mailman (input) for mailman id 1256343;
- Wed, 18 Mar 2026 06:35:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w2lvX-0003Ex-U8; Wed, 18 Mar 2026 08:06:51 +0000
+Received: by outflank-mailman (input) for mailman id 1256363;
+ Wed, 18 Mar 2026 08:06:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SizD=BS=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1w2kVL-00083U-5A
- for xen-devel@lists.xenproject.org; Wed, 18 Mar 2026 06:35:43 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ae86b726-2294-11f1-9ccf-f158ae23cfc8;
- Wed, 18 Mar 2026 07:35:40 +0100 (CET)
-Received: by mail-lf1-x135.google.com with SMTP id
- 2adb3069b0e04-5a277379151so949216e87.2
- for <xen-devel@lists.xenproject.org>; Tue, 17 Mar 2026 23:35:40 -0700 (PDT)
+ <SRS0=cC/N=BS=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1w2lvW-0003Er-8I
+ for xen-devel@lists.xenproject.org; Wed, 18 Mar 2026 08:06:50 +0000
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c202::7])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 697033eb-22a1-11f1-b164-2bf370ae4941;
+ Wed, 18 Mar 2026 09:06:48 +0100 (CET)
+Received: from AS4PR09CA0011.eurprd09.prod.outlook.com (2603:10a6:20b:5e0::13)
+ by AM8PR08MB6419.eurprd08.prod.outlook.com (2603:10a6:20b:316::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.27; Wed, 18 Mar
+ 2026 08:06:44 +0000
+Received: from AMS0EPF000001B7.eurprd05.prod.outlook.com
+ (2603:10a6:20b:5e0:cafe::31) by AS4PR09CA0011.outlook.office365.com
+ (2603:10a6:20b:5e0::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Wed,
+ 18 Mar 2026 08:06:39 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AMS0EPF000001B7.mail.protection.outlook.com (10.167.16.171) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.17
+ via Frontend Transport; Wed, 18 Mar 2026 08:06:43 +0000
+Received: from PR3PR08MB5593.eurprd08.prod.outlook.com (2603:10a6:102:84::13)
+ by PAWPR08MB10209.eurprd08.prod.outlook.com (2603:10a6:102:365::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
+ 2026 08:05:39 +0000
+Received: from PR3PR08MB5593.eurprd08.prod.outlook.com
+ ([fe80::aae1:6871:afc4:620e]) by PR3PR08MB5593.eurprd08.prod.outlook.com
+ ([fe80::aae1:6871:afc4:620e%4]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
+ 08:05:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,669 +66,366 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae86b726-2294-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; t=1773815740; cv=none;
-        d=google.com; s=arc-20240605;
-        b=WNHW5r8bU1nR6lrVYASGwxl8VRztUXVM4uPCLHonM6QxgeJXCvR7DOaFWFFjaU4hSe
-         IrlRxBqo4/RpJvMYLuE1msFUu9Me+j0Nfw2y+qf2w+1v/MHntXxqFP+pGYGvxYFNGcgq
-         +zdXyd7UXfmOTVqG4guaX/9hoOgbHqdjhJhfmfPsRwkBxg3K5dIfMFsdi2iorfz9tFMV
-         Gcn9lEVJ9HRDWdt2cjmcwP9w0IFT0/prv9+C312dM43YE5fkXZoncDPygsu90+X2MkD/
-         V2qidagMqCJS4iOfrhv+0zHOrYJ074N4l+YwvlWyC1ZMWMAGLshURbtWmaDAp+yvREwR
-         YaXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xj/8qjLdJUYlFeq1ZqVOoJIykQbkpgeynPOtdumGMBM=;
-        fh=+z1me4HcwmMh3qCmrOCycJuAlwnlec/5AtLzgU3s9w0=;
-        b=CMGIpIt0xt52LlJCPb9r43K0ZDjC7yLme4pU6HxPzIu/pbF0xnxtj5N3jZ86lb5qrB
-         Sc9LW0iRsqVZKMbqO1VdabTiEqDh5Wq5S4dbJPm2pKnVRU27PQX76L87gIDqngXg7foK
-         FnLEVhXtoB/zv3MihZyXuZvTXaGxQINkk6xqtaJGsJVMNOvzfbq1H2ae7l4xbsDfuNh9
-         wB73FIDnO//xVLKzXeBUDIZJPvbXE3DkZNz8sMdf+8bmrYhkkoAgH1FwjuJ0qUlho7zG
-         iViaJmrARyWp5StWWyC6+oa9pcRFrsbSlkAPwMSxeEkfWfYX3cGXh6pnrSumKncITZM0
-         /yeA==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1773815740; x=1774420540; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xj/8qjLdJUYlFeq1ZqVOoJIykQbkpgeynPOtdumGMBM=;
-        b=d+ALUCGCxaQBQQfyz4+WgzZd/8r09eH7T0naIzktEycXwN1Mijq5miMEOw6wXQpeoU
-         KlzRzj5g2a8r/tfJmoi6yzDyWNtEb7p/WYWAVytVzCg9RLP5ExBJkV/EF/R8XjhLFVnV
-         i5NVGI0kF/da2x24I5sdkoXF9AVYvJW4EpJKBOhQH6DVZ7NOa5++qgjHSm97cbmFCY24
-         rJ6HsgHGeqCL41p+5QKYGBOyXwLXy9I6vAsiJT3HSE8RSSiZFJNrok20Z6n2NpBODoyo
-         3xs86D1lQheb3g3o8AT2w1BZ6mbUS1JKzMs4l32WDYTA9kn85OZ6jbzPfZrKCOQD6hz9
-         CmbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773815740; x=1774420540;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=xj/8qjLdJUYlFeq1ZqVOoJIykQbkpgeynPOtdumGMBM=;
-        b=SrKDtcpAwAK4sTPEpxmCTPB2+L6V/OR2VU+PA6aPUOXI8PUTaagQb4mJPJvv3jHVA5
-         ExntD5wAM/MfR2XaV+PByCsNu37yI/yHP2Hq1I52Wbcg1rKrHbRHkXAHe3iPrZNQbneM
-         BofLLKuupoUZGy2aGeWIajtSiCzKEVmoHTkrHxApZp96hjq4RIHCgAke3s9GdYx5p1zs
-         VyQKRXYVabRl+WxG2QM1TkrIhQLQozV35brq8yuRc6ayaASFMEHTk5rk5QAeKDzrDh0K
-         zD37LEkvVqYrkvNvIPWJxoYZ1aNrASZcZUyEFGDERebZAz4ajG1no/hTOwitHHJoW7g9
-         4Ssw==
-X-Gm-Message-State: AOJu0Yyzmva/kx0JEkX0c4Mq5kEeTkwvHVv8E00Gj21vnw/6Rxq1j/tl
-	Hp4RKFGnLmYkz8mevIHyozCIjXzVSB/nQxyKVpFsgqUibgyQui/i+2yTe5O4rHgfOYRWmQ4mtAG
-	zPfVq1BqHhhWrfSx/M6vX93m4RNIV7v4=
-X-Gm-Gg: ATEYQzzuKLZqW2emdpQyP4Zdn5TyeheZPzb1ofEBjOFTFi2o1QlvSdtk97PkgqQEcsz
-	q8MFy3fACHbdE5yolAl2fHqhobuxZVguJxqbQyH9NmnZ643ep91XDgWA1LKbBmBHeRgLXk++mLx
-	wEjFu10+hXV//7qQYdDvblbn8QDpAQN+0ppo873cRqH03jxiyVVtEBPaBM0lUPp5CVoUAcXFlBo
-	jBcKTrgJcZ6ZdXaPICKXQX0OXyOCsJvHZHJJmZnvTAjOl9Mewx72k141smPNL7WeQtJheWUQzY6
-	LsH42Pk=
-X-Received: by 2002:a05:6512:20c9:b0:5a1:23fe:b04c with SMTP id
- 2adb3069b0e04-5a27958b7f8mr762787e87.18.1773815739297; Tue, 17 Mar 2026
- 23:35:39 -0700 (PDT)
-MIME-Version: 1.0
-References: <cover.1765533584.git.mykola_kvach@epam.com> <f1d118552f84e2b894ec7163000f6dba98d0e3fa.1765533584.git.mykola_kvach@epam.com>
- <87jyv9kbxe.fsf@epam.com>
-In-Reply-To: <87jyv9kbxe.fsf@epam.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Wed, 18 Mar 2026 08:35:27 +0200
-X-Gm-Features: AaiRm53Egc9ZaBeax5JzNHHp1WzLacIeqmEvw0AWkyfatQaFr8fG6h3_s5sK60k
-Message-ID: <CAGeoDV-znwz8pG9VfrOOC57O2hp83vMuE9QZEtZMxc70VtDuKA@mail.gmail.com>
-Subject: Re: [PATCH v16 1/4] xen/arm: Implement PSCI SYSTEM_SUSPEND call for guests
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <Mykola_Kvach@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
-	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: 697033eb-22a1-11f1-b164-2bf370ae4941
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=jJkQvYHqGymcKuGeH91/4+GpQHFC+Y5ELkiD6X8dCiIWWvexg354i7mLsVkuvE2R67fZcJ0HUB6SGEhatvtT2s6lvaCOsKAwJT6Mc/d2bscU1cIpdteA6EeCFLso4g5Y+O+oECJNPBTf2rtrojT9EYZJcah6z9XPtsvRAZS3i/pO4jqDQPAb0QEsk5xvpDUSCCcSor5AbOWT18njSDO+nyEX5tIMFeH298UlYpXQo3SO8YTj5TBPZ/FnQCpk3kkfKpBXGnHhWB2kvQ5LZ66PnsHhExh2Y7b1cibaGQkxLR+HAFA42MQ+1JTJurA+Vkc7VJ/wynZowlpbxyrRLbbs/g==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e06hFaaSWzx0NqsxDjm0VeDdRrxM/xNlXBEnh3vcgR8=;
+ b=L6cr1V4y7QC8lInIMs+ARtGLEIby0/HqSk93uB/KK7zjPR68ocl5kwFfXapIboIMJCp2NmgtMyduWNAjzQxQY/xHHfqgGf0AkkRwwvY7jx6CQ5yhdRoyLiee8RGvegRgl+XdIGBTLzGIIrr/NiSMSdtbAtMTD3erslPlHnvVezwmG+Txm/rjQBHH/cUcPaMSIq8V58ThvbeDJoxnyc2nm0y+59eYc3PPBxJ6GNgY0m0k1+KxA4jXTa5AU3kDwqOiEzsb87GcMVc8yLDna+9Fuc6nUo1BCObLgKbd8F4osoiPLGXW3n5HjStrVTTbi8rPLiix+ljQKqHK3iGCP7LfLg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=epam.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e06hFaaSWzx0NqsxDjm0VeDdRrxM/xNlXBEnh3vcgR8=;
+ b=GW+D6Ur2G+LA4ZKQ7KElTjbvEW2+U51NFl2P0HAwMNRwme11EQinwtZ6lip5vDBsRgPCpH0zpTOVAGr6Jnx5N8l9MuA80Org6Y384ehlSBZ6WCa3kFEJpg+ras4UmqPA43YYPMtqwN0QhA/l7gsIW7Fi1IxstQMw7xcsEEGYNkc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G6uK+LT1CMkp8SZd5Ny2m4rZgu4u0EKaShjPRiO80CUdu+jtyHXh9Icort6lHEOfjucYyLTG26EVgbfwU+octV0kD/Dg8X4BCc+7K8aQqhXasn2RuWIuuUdmX4zmAwEIUfjBpVF0hAh0tDx9xoSusBg+gclLpSdnBCmI3xktiQKDHQdhExpNGavM5g7ceAQWjh3f57IlmjYx8VhiME5u4LbwVz5AbWGPElsrqLxLLzedorPKs0mfmTjeWCP6pwnTYJ5AEAAKt2KW83fW1pv0Z9mpqoWcXTOi7guxYGp5g6sVCV39XCN3f/C+yLlorpsHjqsPT/LBGaQ1Qj0nCfmMCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e06hFaaSWzx0NqsxDjm0VeDdRrxM/xNlXBEnh3vcgR8=;
+ b=frbz163zXzpy5oHa3CQ324WiLnLbj7oQhBcS5ZlbZDFgvwKb2qVSqJZEthw3ITd570aCUvx/Rr5U9npZz8Ae1ruTVQrDkJqQTSwdprHZvnbpQeUJiC9JkS/f4LCs/El+s1r80/s+MsQ3se8CyolJb9A9IEbO/DxRBQ+dbdivX4IvtR13f/w39uRjh30VwjChbCpklve9mIQvgmm80csDLlkeJuXvFJ1iXA39frzXOwRYtr2yeNSVNSonH4LOcrZnLlQ49egJjJFGrzQ6K2sk1+M4zARcaeex7FLBBcsNvRaN8t0jqPiHQ1Sce2R2CBoNrOmMh0r4bRnn2ocLVJpXwA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e06hFaaSWzx0NqsxDjm0VeDdRrxM/xNlXBEnh3vcgR8=;
+ b=GW+D6Ur2G+LA4ZKQ7KElTjbvEW2+U51NFl2P0HAwMNRwme11EQinwtZ6lip5vDBsRgPCpH0zpTOVAGr6Jnx5N8l9MuA80Org6Y384ehlSBZ6WCa3kFEJpg+ras4UmqPA43YYPMtqwN0QhA/l7gsIW7Fi1IxstQMw7xcsEEGYNkc=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal
+ Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v6 1/5] arm/irq: Keep track of irq affinities
+Thread-Topic: [PATCH v6 1/5] arm/irq: Keep track of irq affinities
+Thread-Index: AQHcsgQfYo2+uc7QB0+uZY6Wrq2BgrWz9+2A
+Date: Wed, 18 Mar 2026 08:05:37 +0000
+Message-ID: <63FE871D-35EB-45F4-A2E1-3359116C44CB@arm.com>
+References: <cover.1773307749.git.mykyta_poturai@epam.com>
+ <733d58a26766a1d15e47447ed4f3cd299dc28cf7.1773307749.git.mykyta_poturai@epam.com>
+In-Reply-To:
+ <733d58a26766a1d15e47447ed4f3cd299dc28cf7.1773307749.git.mykyta_poturai@epam.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3864.400.21)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	PR3PR08MB5593:EE_|PAWPR08MB10209:EE_|AMS0EPF000001B7:EE_|AM8PR08MB6419:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c02eb26-b975-4484-3fb8-08de84c54af5
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|376014|1800799024|38070700021|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ XH9Tjo73jkBYOK3EIwrxcpbh+OBPdKCtGwkoVktzjWOmIPhy6Eliy6psRgfkCbZhPU0dhIGlic69LKxbc/V97CKnC8E4ydX0H9eNiP8UpGKLQl2oVfAFjdfE0JPiMFuNDD2qFnlhoLsMWXGk4NLZrp+0L5tHEGmtYKkILJ6w7ox3Dx45a0RR8pmI9Pca3RRpviq38T5otf+8A7QqaZPZ8jOnl79sWofkKtPg/EhsjquGgMRx7UQaNYZhQJJ2FsUCpq24M0rvCqCHD18NzrtTfqfDdGj3NrCxVdTlhPnqSywv/xosoDAmZwsKKcvwRKlhIkZHooJrGcoMP5jKL2/pF36M587l6ymSMTKSj9GjP2xWEyDIRXCBEpghAErr2pxo3C5X7p0R+irwp0AufEaSE9hw81/9aX1nnr98zAiQHrDut78jHCjFUq4LBOkhQVeZ+o9MggIKY35tEdqADUAaKu6Jxy9B4Ba5rUnlaTx6zj03LQ9yIWw4gixVwA1LaOiq6RlJyqQUy1yNVsqGh8TG5A9hp4PGxfpr4ZD8SflhCW7QSp0VJZv0yrF/9AmbifAj0x1QE13XWAl8tbBCZytaBFLm3SNh8CTiFZhcL7WFId644qgRy4Kx++sdAqjqsoNGsfQ4nAcaH2k58l6EpObAHzpaxYrSumVauJyT4Ky3uQ7UFBcqg6Vyd374b+0gbfarfwQeu7VKiyIFkSjPzkNYjKle9S3n+xWwWvipE65W3paENO2rpQM5WRsaD5yNUQDZGq3mcpnvFX1EluERB0ehGs5tG9vm6QdJtDJP4tGovVA=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR08MB5593.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <E6CB80E92B8ABB47AEB3DC5E2B7BCFDF@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked:
+ D4O3vfIemz4Dx8YXVvC3N2Me8eSMV3sI+GKWP3WN2cmzdhPXF5gelriPrieWRBQJGE0AQolOAGWsvbqcFVuc7DmrOyU607cqrUKbRj9Ac5dwh8F4NNLGrUKh9UpgOXRxz4k2Rhl1vUJFLFIBwOimtvWwMmX90EjH4ew74Ow9LOE39ZE6Hmdbh36cm8JRI96FnzQGcTLVGbZWrj+ub91/ubY7IwcxQUgG/x9Xi319mstPs+TjjhVR6xoCu+x2h2noiTaqxl5lYwMAZglP1xaTvd9kYuB4kvHQpRnh/k4bENqYMUtLqIRf5YwQHIay96CuHkzU+73mh2fGOFb4EIUDfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB10209
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AMS0EPF000001B7.eurprd05.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	06353ab7-539b-41ba-b552-08de84c523e4
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|14060799003|36860700016|35042699022|376014|1800799024|82310400026|22082099003|18002099003|56012099003|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	HAmlSCdom+vG8gfoZHSVk3yP7eBABPFehHLZ5PbQ4Opo17wOPOQ650tkt0u1tMMJ92TDi2U00qr0UsUwxO5IJIquxM4Th4ZxGuT40CqWNnVomWN8W00MNJjdXgJKSb4UwOtXTYlUgsAF6v1fDSR0BA9arPXB0w1wc4pGECFQd4CqZTgp8tTsTRf90DOKzE5xh1rX9ilPXmBTCevDk9yckrHp+WEpRoa6YmLcfeM32bkOiatV4aV6eJ8AKodKyxho3+g5PO85v2fwJrriRFUFv0IZD9OQMnLtPyHU1bahaZN7+8MOVAMs9B0eki6pHL2nWeIqXG2ianXob0sCszZfRB9Y7IUcoFkEk8s1YjVp1CCIEpSSGQ95/MmmZ/OitxTsE2tnKlm439yCDwrgL7VGUUnlATDHKjI5K4kLu1cs++I7lhwA8ODyalAbMHRCZ+Mcp6RrkwQQtG0qZu/vjZtzp2keh6WiwubiQSYvp27A0vmOVVnDoQxpB0zXdoi24vMkmCGq0WvkZSyLSOip6vUFI5X2wv36oGK+6utSjRY+Oum9nGG3w21SsOj4ebJfgxA2ynC/Zs6xEDYwhGbcxk1DD1Y05Ploqvuul0ie/xMPfDoABaTJT09DaQzDl71me04AcHaXI/3ftkXVTqNc8L1Ynk1y0AWbJQYHqJxEaJjAaM9CzNvK0amiJVSa5meSm7PAtDlRwPKxYwAkDG9Qo2d90oNMRj8kxAMUqAfAZZ/8SxedkIXbi/RAG/wF5BaiE0UbMZowY+UPjYlVWxXiJnhfiQ==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(14060799003)(36860700016)(35042699022)(376014)(1800799024)(82310400026)(22082099003)(18002099003)(56012099003)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	qy5UCfzya8P9nH6u6o+PqZ87gBjozQYutIj49YXVydvH3MtDAjvi+wXPk0+Mf60lDBi4UNG0FrSkyML5mnnfXirTp4fzy8Bunf8SJSvpAXR60U1XXw+sqs2jQOLlg8zJ3U5FPyQx6nScKMleMi7q5MFuijOXqAcj593UTvzciTMIjDtCbZ1x4cc0gBCjaWM6Y4Dq7IMJ5p9LB3zZPUe0Wy7v57p6fgw1KXCGk1CkyRsbaT3yl7wSUgZ7OszzwJrQ3vV2iAUXDI3S/BcYGLK+4j1eakPg/hcs+9JOD4CVv+OqrZeNNt0FxDBO3vNieKJlT/12ISFPq+c4uMJF1uVqE+KtsjaMj89CSvQtMjAAnWtE27g87CuG6p6ltCZut6sN3BSN7RRvXzk8xJqd/+MEEj0UD4pM0ckKW+WEuc0pTLAzUlLTEQpCdvrF1QNBaz56
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 08:06:43.3115
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c02eb26-b975-4484-3fb8-08de84c54af5
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AMS0EPF000001B7.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6419
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
+	R_DKIM_ALLOW(-0.20)[arm.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,epam.com:email];
-	TAGGED_FROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,m:Mykola_Kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[Bertrand.Marquis@arm.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:dkim,arm.com:email,arm.com:mid,epam.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	APPLE_MAILER(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[Bertrand.Marquis@arm.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[arm.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 747502B678A
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[11]
+X-Rspamd-Queue-Id: 0C4D12B7884
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Volodymyr,
+Hi Mykyta,
 
-Thank you for the review.
+> On 12 Mar 2026, at 10:39, Mykyta Poturai <Mykyta_Poturai@epam.com> wrote:
+>=20
+> Currently on Arm the desc->affinity mask of an irq is never updated,
+> which makes it hard to know the actual affinity of an interrupt.
+>=20
+> Fix this by updating the field in irq_set_affinity.
 
-On Wed, Mar 18, 2026 at 6:18=E2=80=AFAM Volodymyr Babchuk
-<Volodymyr_Babchuk@epam.com> wrote:
->
-> Hi Mykola.
->
-> Mykola Kvach <xakep.amatop@gmail.com> writes:
->
-> > From: Mykola Kvach <mykola_kvach@epam.com>
-> >
-> > Add support for the PSCI SYSTEM_SUSPEND function in the vPSCI interface=
-,
-> > allowing guests to request suspend via the PSCI v1.0+ SYSTEM_SUSPEND ca=
-ll
-> > (both 32-bit and 64-bit variants).
-> >
-> > Implementation details:
-> > - Add SYSTEM_SUSPEND function IDs to PSCI definitions
-> > - Trap and handle SYSTEM_SUSPEND in vPSCI
-> > - Allow only non-hardware domains to invoke SYSTEM_SUSPEND; return
-> >   PSCI_NOT_SUPPORTED for the hardware domain to avoid halting the syste=
-m
-> >   in hwdom_shutdown() via domain_shutdown
-> > - Require all secondary VCPUs of the calling domain to be offline befor=
-e
-> >   suspend, as mandated by the PSCI specification
-> >
-> > The arch_domain_resume() function is an architecture-specific hook that=
- is
-> > invoked during domain resume to perform any necessary setup or restorat=
-ion
-> > steps required by the platform. arch_domain_resume() stays int to propa=
-gate
-> > errno-style detail into common logging; preserving the integer keeps th=
-e
-> > reason visible and leaves room for future arch-specific failures or ric=
-her
-> > handling.
-> >
-> > The new vpsci_vcpu_up_prepare() helper is called on the resume path to =
-set up
-> > the vCPU context (such as entry point, some system regs and context ID)=
- before
-> > resuming a suspended guest. This keeps ARM/vPSCI-specific logic out of =
-common
-> > code and avoids intrusive changes to the generic resume flow.
-> >
-> > Usage:
-> >
-> > For Linux-based guests, suspend can be initiated with:
-> >     echo mem > /sys/power/state
-> > or via:
-> >     systemctl suspend
-> >
-> > Resuming the guest is performed from control domain using:
-> >       xl resume <domain>
-> >
-> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> > ---
-> > Changes in V16:
-> > - Refactor error handling in domain_resume: move logging to generic cod=
-e,
-> >   use explicit return code checking.
-> > - Make context clearing conditional on success in arch_domain_resume.
-> > - The 'int' return type is retained for arch_domain_resume for consiste=
-ncy
-> >   with other arch hooks and to allow for specific negative error codes.
-> > ---
-> >  xen/arch/arm/domain.c                 |  39 +++++++++
-> >  xen/arch/arm/include/asm/domain.h     |   2 +
-> >  xen/arch/arm/include/asm/perfc_defn.h |   1 +
-> >  xen/arch/arm/include/asm/psci.h       |   2 +
-> >  xen/arch/arm/include/asm/suspend.h    |  27 ++++++
-> >  xen/arch/arm/include/asm/vpsci.h      |   5 +-
-> >  xen/arch/arm/vpsci.c                  | 116 +++++++++++++++++++++-----
-> >  xen/common/domain.c                   |  10 +++
-> >  xen/include/xen/suspend.h             |  25 ++++++
-> >  9 files changed, 205 insertions(+), 22 deletions(-)
-> >  create mode 100644 xen/arch/arm/include/asm/suspend.h
-> >  create mode 100644 xen/include/xen/suspend.h
-> >
-> > diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> > index 47973f99d9..f903e7d4f0 100644
-> > --- a/xen/arch/arm/domain.c
-> > +++ b/xen/arch/arm/domain.c
-> > @@ -12,6 +12,8 @@
-> >  #include <xen/softirq.h>
-> >  #include <xen/wait.h>
-> >
-> > +#include <public/sched.h>
-> > +
-> >  #include <asm/arm64/sve.h>
-> >  #include <asm/cpuerrata.h>
-> >  #include <asm/cpufeature.h>
-> > @@ -24,10 +26,12 @@
-> >  #include <asm/platform.h>
-> >  #include <asm/procinfo.h>
-> >  #include <asm/regs.h>
-> > +#include <asm/suspend.h>
-> >  #include <asm/firmware/sci.h>
-> >  #include <asm/tee/tee.h>
-> >  #include <asm/vfp.h>
-> >  #include <asm/vgic.h>
-> > +#include <asm/vpsci.h>
-> >  #include <asm/vtimer.h>
-> >
-> >  #include "vpci.h"
-> > @@ -851,6 +855,41 @@ void arch_domain_creation_finished(struct domain *=
-d)
-> >      p2m_domain_creation_finished(d);
-> >  }
-> >
-> > +int arch_domain_resume(struct domain *d)
-> > +{
-> > +    int rc;
-> > +    struct resume_info *ctx =3D &d->arch.resume_ctx;
-> > +
-> > +    if ( !d->is_shutting_down || d->shutdown_code !=3D SHUTDOWN_suspen=
-d )
-> > +    {
-> > +        dprintk(XENLOG_WARNING,
-> > +                "%pd: Invalid domain state for resume: is_shutting_dow=
-n=3D%u, shutdown_code=3D%u\n",
-> > +                d, d->is_shutting_down, d->shutdown_code);
-> > +        return -EINVAL;
-> > +    }
-> > +
-> > +    /*
-> > +     * It is still possible to call domain_shutdown() with a suspend r=
-eason
-> > +     * via some hypercalls, such as SCHEDOP_shutdown or SCHEDOP_remote=
-_shutdown.
-> > +     * In these cases, the resume context will be empty.
-> > +     * This is not expected to cause any issues, so we just notify abo=
-ut the
-> > +     * situation and return without error, allowing the existing logic=
- to
-> > +     * proceed as expected.
-> > +     */
-> > +    if ( !ctx->wake_cpu )
-> > +    {
-> > +        dprintk(XENLOG_INFO, "%pd: Wake CPU pointer context was not pr=
-ovided\n",
-> > +                d);
-> > +        return 0;
-> > +    }
-> > +
-> > +    rc =3D vpsci_vcpu_up_prepare(ctx->wake_cpu , ctx->ep, ctx->cid);
-> > +    if ( !rc )
-> > +        memset(ctx, 0, sizeof(*ctx));
-> > +
-> > +    return rc;
-> > +}
-> > +
-> >  static int is_guest_pv32_psr(uint32_t psr)
-> >  {
-> >      switch (psr & PSR_MODE_MASK)
-> > diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/a=
-sm/domain.h
-> > index 758ad807e4..66b1246892 100644
-> > --- a/xen/arch/arm/include/asm/domain.h
-> > +++ b/xen/arch/arm/include/asm/domain.h
-> > @@ -5,6 +5,7 @@
-> >  #include <xen/timer.h>
-> >  #include <asm/page.h>
-> >  #include <asm/p2m.h>
-> > +#include <asm/suspend.h>
-> >  #include <asm/vfp.h>
-> >  #include <asm/mmio.h>
-> >  #include <asm/gic.h>
-> > @@ -126,6 +127,7 @@ struct arch_domain
-> >      void *sci_data;
-> >  #endif
-> >
-> > +    struct resume_info resume_ctx;
-> >  }  __cacheline_aligned;
-> >
-> >  struct arch_vcpu
-> > diff --git a/xen/arch/arm/include/asm/perfc_defn.h b/xen/arch/arm/inclu=
-de/asm/perfc_defn.h
-> > index effd25b69e..8dfcac7e3b 100644
-> > --- a/xen/arch/arm/include/asm/perfc_defn.h
-> > +++ b/xen/arch/arm/include/asm/perfc_defn.h
-> > @@ -33,6 +33,7 @@ PERFCOUNTER(vpsci_system_reset,        "vpsci: system=
-_reset")
-> >  PERFCOUNTER(vpsci_cpu_suspend,         "vpsci: cpu_suspend")
-> >  PERFCOUNTER(vpsci_cpu_affinity_info,   "vpsci: cpu_affinity_info")
-> >  PERFCOUNTER(vpsci_features,            "vpsci: features")
-> > +PERFCOUNTER(vpsci_system_suspend,      "vpsci: system_suspend")
-> >
-> >  PERFCOUNTER(vcpu_kick,                 "vcpu: notify other vcpu")
-> >
-> > diff --git a/xen/arch/arm/include/asm/psci.h b/xen/arch/arm/include/asm=
-/psci.h
-> > index 4780972621..48a93e6b79 100644
-> > --- a/xen/arch/arm/include/asm/psci.h
-> > +++ b/xen/arch/arm/include/asm/psci.h
-> > @@ -47,10 +47,12 @@ void call_psci_system_reset(void);
-> >  #define PSCI_0_2_FN32_SYSTEM_OFF          PSCI_0_2_FN32(8)
-> >  #define PSCI_0_2_FN32_SYSTEM_RESET        PSCI_0_2_FN32(9)
-> >  #define PSCI_1_0_FN32_PSCI_FEATURES       PSCI_0_2_FN32(10)
-> > +#define PSCI_1_0_FN32_SYSTEM_SUSPEND      PSCI_0_2_FN32(14)
-> >
-> >  #define PSCI_0_2_FN64_CPU_SUSPEND         PSCI_0_2_FN64(1)
-> >  #define PSCI_0_2_FN64_CPU_ON              PSCI_0_2_FN64(3)
-> >  #define PSCI_0_2_FN64_AFFINITY_INFO       PSCI_0_2_FN64(4)
-> > +#define PSCI_1_0_FN64_SYSTEM_SUSPEND      PSCI_0_2_FN64(14)
-> >
-> >  /* PSCI v0.2 affinity level state returned by AFFINITY_INFO */
-> >  #define PSCI_0_2_AFFINITY_LEVEL_ON      0
-> > diff --git a/xen/arch/arm/include/asm/suspend.h b/xen/arch/arm/include/=
-asm/suspend.h
-> > new file mode 100644
-> > index 0000000000..313d03ea59
-> > --- /dev/null
-> > +++ b/xen/arch/arm/include/asm/suspend.h
-> > @@ -0,0 +1,27 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +
-> > +#ifndef ARM_SUSPEND_H
-> > +#define ARM_SUSPEND_H
-> > +
-> > +struct domain;
-> > +struct vcpu;
-> > +
-> > +struct resume_info {
-> > +    register_t ep;
-> > +    register_t cid;
-> > +    struct vcpu *wake_cpu;
-> > +};
-> > +
-> > +int arch_domain_resume(struct domain *d);
-> > +
-> > +#endif /* ARM_SUSPEND_H */
-> > +
-> > +/*
-> > + * Local variables:
-> > + * mode: C
-> > + * c-file-style: "BSD"
-> > + * c-basic-offset: 4
-> > + * tab-width: 4
-> > + * indent-tabs-mode: nil
-> > + * End:
-> > + */
-> > diff --git a/xen/arch/arm/include/asm/vpsci.h b/xen/arch/arm/include/as=
-m/vpsci.h
-> > index 0cca5e6830..d790ab3715 100644
-> > --- a/xen/arch/arm/include/asm/vpsci.h
-> > +++ b/xen/arch/arm/include/asm/vpsci.h
-> > @@ -23,12 +23,15 @@
-> >  #include <asm/psci.h>
-> >
-> >  /* Number of function implemented by virtual PSCI (only 0.2 or later) =
-*/
-> > -#define VPSCI_NR_FUNCS  12
-> > +#define VPSCI_NR_FUNCS  14
-> >
-> >  /* Functions handle PSCI calls from the guests */
-> >  bool do_vpsci_0_1_call(struct cpu_user_regs *regs, uint32_t fid);
-> >  bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid);
-> >
-> > +int vpsci_vcpu_up_prepare(struct vcpu *v, register_t entry_point,
-> > +                          register_t context_id);
-> > +
-> >  #endif /* __ASM_VPSCI_H__ */
-> >
-> >  /*
-> > diff --git a/xen/arch/arm/vpsci.c b/xen/arch/arm/vpsci.c
-> > index 7ba9ccd94b..c4d616ec68 100644
-> > --- a/xen/arch/arm/vpsci.c
-> > +++ b/xen/arch/arm/vpsci.c
-> > @@ -10,32 +10,16 @@
-> >
-> >  #include <public/sched.h>
-> >
-> > -static int do_common_cpu_on(register_t target_cpu, register_t entry_po=
-int,
-> > -                            register_t context_id)
-> > +int vpsci_vcpu_up_prepare(struct vcpu *v, register_t entry_point,
-> > +                          register_t context_id)
-> >  {
-> > -    struct vcpu *v;
-> > -    struct domain *d =3D current->domain;
-> > -    struct vcpu_guest_context *ctxt;
-> >      int rc;
-> > +    struct domain *d =3D v->domain;
-> >      bool is_thumb =3D entry_point & 1;
-> > -    register_t vcpuid;
-> > -
-> > -    vcpuid =3D vaffinity_to_vcpuid(target_cpu);
-> > -
-> > -    if ( (v =3D domain_vcpu(d, vcpuid)) =3D=3D NULL )
-> > -        return PSCI_INVALID_PARAMETERS;
-> > -
-> > -    /* THUMB set is not allowed with 64-bit domain */
-> > -    if ( is_64bit_domain(d) && is_thumb )
-> > -        return PSCI_INVALID_ADDRESS;
-> > -
-> > -    if ( !test_bit(_VPF_down, &v->pause_flags) )
-> > -        return PSCI_ALREADY_ON;
-> > +    struct vcpu_guest_context *ctxt;
-> >
-> >      if ( (ctxt =3D alloc_vcpu_guest_context()) =3D=3D NULL )
-> > -        return PSCI_DENIED;
-> > -
-> > -    vgic_clear_pending_irqs(v);
-> > +        return -ENOMEM;
-> >
-> >      memset(ctxt, 0, sizeof(*ctxt));
-> >      ctxt->user_regs.pc64 =3D (u64) entry_point;
-> > @@ -76,8 +60,37 @@ static int do_common_cpu_on(register_t target_cpu, r=
-egister_t entry_point,
-> >      free_vcpu_guest_context(ctxt);
-> >
-> >      if ( rc < 0 )
-> > +        return rc;
-> > +
-> > +    return 0;
-> > +}
-> > +
-> > +static int do_common_cpu_on(register_t target_cpu, register_t entry_po=
-int,
-> > +                            register_t context_id)
-> > +{
-> > +    struct vcpu *v;
-> > +    struct domain *d =3D current->domain;
-> > +    int rc;
-> > +    bool is_thumb =3D entry_point & 1;
-> > +    register_t vcpuid;
-> > +
-> > +    vcpuid =3D vaffinity_to_vcpuid(target_cpu);
-> > +
-> > +    if ( (v =3D domain_vcpu(d, vcpuid)) =3D=3D NULL )
-> > +        return PSCI_INVALID_PARAMETERS;
-> > +
-> > +    /* THUMB set is not allowed with 64-bit domain */
-> > +    if ( is_64bit_domain(d) && is_thumb )
-> > +        return PSCI_INVALID_ADDRESS;
-> > +
-> > +    if ( !test_bit(_VPF_down, &v->pause_flags) )
-> > +        return PSCI_ALREADY_ON;
-> > +
-> > +    rc =3D vpsci_vcpu_up_prepare(v, entry_point, context_id);
-> > +    if ( rc )
-> >          return PSCI_DENIED;
-> >
-> > +    vgic_clear_pending_irqs(v);
-> >      vcpu_wake(v);
-> >
-> >      return PSCI_SUCCESS;
-> > @@ -197,6 +210,48 @@ static void do_psci_0_2_system_reset(void)
-> >      domain_shutdown(d,SHUTDOWN_reboot);
-> >  }
-> >
-> > +static int32_t do_psci_1_0_system_suspend(register_t epoint, register_=
-t cid)
-> > +{
-> > +    int32_t rc;
-> > +    struct vcpu *v;
-> > +    struct domain *d =3D current->domain;
-> > +    bool is_thumb =3D epoint & 1;
-> > +
-> > +    /* THUMB set is not allowed with 64-bit domain */
-> > +    if ( is_64bit_domain(d) && is_thumb )
-> > +        return PSCI_INVALID_ADDRESS;
-> > +
-> > +    /* SYSTEM_SUSPEND is not supported for the hardware domain yet */
-> > +    if ( is_hardware_domain(d) )
-> > +        return PSCI_NOT_SUPPORTED;
-> > +
-> > +    /* Ensure that all CPUs other than the calling one are offline */
-> > +    domain_lock(d);
-> > +    for_each_vcpu ( d, v )
-> > +    {
-> > +        if ( v !=3D current && is_vcpu_online(v) )
-> > +        {
-> > +            domain_unlock(d);
-> > +            return PSCI_DENIED;
-> > +        }
-> > +    }
-> > +    domain_unlock(d);
-> > +
-> > +    rc =3D domain_shutdown(d, SHUTDOWN_suspend);
-> > +    if ( rc )
-> > +        return PSCI_DENIED;
-> > +
-> > +    d->arch.resume_ctx.ep =3D epoint;
-> > +    d->arch.resume_ctx.cid =3D cid;
-> > +    d->arch.resume_ctx.wake_cpu =3D current;
-> > +
-> > +    gprintk(XENLOG_DEBUG,
-> > +            "SYSTEM_SUSPEND requested, epoint=3D%#"PRIregister", cid=
-=3D%#"PRIregister"\n",
-> > +            epoint, cid);
-> > +
-> > +    return rc;
-> > +}
-> > +
-> >  static int32_t do_psci_1_0_features(uint32_t psci_func_id)
-> >  {
-> >      /* /!\ Ordered by function ID and not name */
-> > @@ -214,6 +269,8 @@ static int32_t do_psci_1_0_features(uint32_t psci_f=
-unc_id)
-> >      case PSCI_0_2_FN32_SYSTEM_OFF:
-> >      case PSCI_0_2_FN32_SYSTEM_RESET:
-> >      case PSCI_1_0_FN32_PSCI_FEATURES:
-> > +    case PSCI_1_0_FN32_SYSTEM_SUSPEND:
-> > +    case PSCI_1_0_FN64_SYSTEM_SUSPEND:
-> >      case ARM_SMCCC_VERSION_FID:
-> >          return 0;
-> >      default:
-> > @@ -344,6 +401,23 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs,=
- uint32_t fid)
-> >          return true;
-> >      }
-> >
-> > +    case PSCI_1_0_FN32_SYSTEM_SUSPEND:
-> > +    case PSCI_1_0_FN64_SYSTEM_SUSPEND:
-> > +    {
-> > +        register_t epoint =3D PSCI_ARG(regs, 1);
-> > +        register_t cid =3D PSCI_ARG(regs, 2);
-> > +
-> > +        if ( fid =3D=3D PSCI_1_0_FN32_SYSTEM_SUSPEND )
-> > +        {
-> > +            epoint &=3D GENMASK(31, 0);
-> > +            cid &=3D GENMASK(31, 0);
-> > +        }
-> > +
-> > +        perfc_incr(vpsci_system_suspend);
-> > +        PSCI_SET_RESULT(regs, do_psci_1_0_system_suspend(epoint, cid))=
-;
-> > +        return true;
-> > +    }
-> > +
-> >      default:
-> >          return false;
-> >      }
-> > diff --git a/xen/common/domain.c b/xen/common/domain.c
-> > index 93c71bc766..09ad0a26ee 100644
-> > --- a/xen/common/domain.c
-> > +++ b/xen/common/domain.c
-> > @@ -26,6 +26,7 @@
-> >  #include <xen/hypercall.h>
-> >  #include <xen/delay.h>
-> >  #include <xen/shutdown.h>
-> > +#include <xen/suspend.h>
-> >  #include <xen/percpu.h>
-> >  #include <xen/multicall.h>
-> >  #include <xen/rcupdate.h>
-> > @@ -1374,6 +1375,7 @@ int domain_shutdown(struct domain *d, u8 reason)
-> >  void domain_resume(struct domain *d)
-> >  {
-> >      struct vcpu *v;
-> > +    int rc;
-> >
-> >      /*
-> >       * Some code paths assume that shutdown status does not get reset =
-under
-> > @@ -1383,6 +1385,13 @@ void domain_resume(struct domain *d)
-> >
-> >      spin_lock(&d->shutdown_lock);
-> >
-> > +    rc =3D arch_domain_resume(d);
-> > +    if ( rc )
-> > +    {
-> > +        printk("%pd: Failed to resume domain (ret %d)\n", d, rc);
->
-> I am wondering about this error path... Domain clearly can't be resumed
-> anymore. Should we crash it in this case? But domain is already shut
-> down, so domain_crash() would do nothing.
->
-> Probably it is better to ensure that arch_domain_resume() will not
-> return an error by doing all required checks beforehand. Actually you
-> already doing this. So how we can get an error realistically?
+The commit message here should also explain what has changed regarding
+locks and irq affinity and justify why code is modified in other places (vg=
+ic.c,
+vgic-mmio) to follow the new locking requirements for it.
 
-vpsci_vcpu_up_prepare() can still fail on the resume path, currently due
-to alloc_vcpu_guest_context() or arch_set_info_guest().
+>=20
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+>=20
 
-So I agree with your point: it would be better to move all failure-prone
-preparation and validation to the suspend path, so that
-arch_domain_resume() does not need to return an error in normal
-operation.
+With that fixed:
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-The approach I see is:
-- allocate and populate the guest context during suspend;
-- split arch_set_info_guest() into two parts, something like
-    arch_validate_vcpu_guest_context() and
-    arch_apply_vcpu_guest_context();
-- call only the validation step during suspend;
-- on resume, only apply the already validated guest context and then
-free it.
+Cheers
+Bertrand
 
-This should make the resume path effectively non-failing and avoid the
-questionable error handling there.
+> ---
+> v5->v6:
+> * add missing locking around irq_set_affinity calls
+>=20
+> v4->v5:
+> * add locking
+>=20
+> v3->v4:
+> * patch introduced
+> ---
+> xen/arch/arm/gic-vgic.c          |  2 ++
+> xen/arch/arm/irq.c               |  9 +++++++--
+> xen/arch/arm/vgic.c              | 14 ++++++++++++--
+> xen/arch/arm/vgic/vgic-mmio-v2.c | 11 +++++------
+> xen/arch/arm/vgic/vgic.c         | 15 ++++++++-------
+> 5 files changed, 34 insertions(+), 17 deletions(-)
+>=20
+> diff --git a/xen/arch/arm/gic-vgic.c b/xen/arch/arm/gic-vgic.c
+> index ea48c5375a..5253caf002 100644
+> --- a/xen/arch/arm/gic-vgic.c
+> +++ b/xen/arch/arm/gic-vgic.c
+> @@ -232,7 +232,9 @@ static void gic_update_one_lr(struct vcpu *v, int i)
+>             if ( test_bit(GIC_IRQ_GUEST_MIGRATING, &p->status) )
+>             {
+>                 struct vcpu *v_target =3D vgic_get_target_vcpu(v, irq);
+> +                spin_lock(&p->desc->lock);
+>                 irq_set_affinity(p->desc, cpumask_of(v_target->processor)=
+);
+> +                spin_unlock(&p->desc->lock);
+>                 clear_bit(GIC_IRQ_GUEST_MIGRATING, &p->status);
+>             }
+>         }
+> diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
+> index 73e58a5108..7204bc2b68 100644
+> --- a/xen/arch/arm/irq.c
+> +++ b/xen/arch/arm/irq.c
+> @@ -216,10 +216,15 @@ static inline struct domain *irq_get_domain(struct =
+irq_desc *desc)
+>     return irq_get_guest_info(desc)->d;
+> }
+>=20
+> +/* Must be called with desc->lock held */
+> void irq_set_affinity(struct irq_desc *desc, const cpumask_t *mask)
+> {
+> -    if ( desc !=3D NULL )
+> -        desc->handler->set_affinity(desc, mask);
+> +    if ( desc =3D=3D NULL )
+> +        return;
+> +
+> +    ASSERT(spin_is_locked(&desc->lock));
+> +    cpumask_copy(desc->affinity, mask);
+> +    desc->handler->set_affinity(desc, mask);
+> }
+>=20
+> int request_irq(unsigned int irq, unsigned int irqflags,
+> diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
+> index 6647071ad4..c59f6873db 100644
+> --- a/xen/arch/arm/vgic.c
+> +++ b/xen/arch/arm/vgic.c
+> @@ -445,7 +445,9 @@ bool vgic_migrate_irq(struct vcpu *old, struct vcpu *=
+new, unsigned int irq)
+>=20
+>     if ( list_empty(&p->inflight) )
+>     {
+> +        spin_lock(&p->desc->lock);
+>         irq_set_affinity(p->desc, cpumask_of(new->processor));
+> +        spin_unlock(&p->desc->lock);
+>         spin_unlock_irqrestore(&old->arch.vgic.lock, flags);
+>         return true;
+>     }
+> @@ -453,7 +455,9 @@ bool vgic_migrate_irq(struct vcpu *old, struct vcpu *=
+new, unsigned int irq)
+>     if ( !list_empty(&p->lr_queue) )
+>     {
+>         vgic_remove_irq_from_queues(old, p);
+> +        spin_lock(&p->desc->lock);
+>         irq_set_affinity(p->desc, cpumask_of(new->processor));
+> +        spin_unlock(&p->desc->lock);
+>         spin_unlock_irqrestore(&old->arch.vgic.lock, flags);
+>         vgic_inject_irq(new->domain, new, irq, true);
+>         return true;
+> @@ -473,6 +477,7 @@ void arch_move_irqs(struct vcpu *v)
+>     struct domain *d =3D v->domain;
+>     struct pending_irq *p;
+>     struct vcpu *v_target;
+> +    unsigned long flags;
+>     int i;
+>=20
+>     /*
+> @@ -494,7 +499,13 @@ void arch_move_irqs(struct vcpu *v)
+>         p =3D irq_to_pending(v_target, virq);
+>=20
+>         if ( v_target =3D=3D v && !test_bit(GIC_IRQ_GUEST_MIGRATING, &p->=
+status) )
+> +        {
+> +            if ( !p->desc )
+> +                continue;
+> +            spin_lock_irqsave(&p->desc->lock, flags);
+>             irq_set_affinity(p->desc, cpu_mask);
+> +            spin_unlock_irqrestore(&p->desc->lock, flags);
+> +        }
+>     }
+> }
+>=20
+> @@ -574,8 +585,8 @@ void vgic_enable_irqs(struct vcpu *v, uint32_t r, uns=
+igned int n)
+>         spin_unlock_irqrestore(&v_target->arch.vgic.lock, flags);
+>         if ( p->desc !=3D NULL )
+>         {
+> -            irq_set_affinity(p->desc, cpumask_of(v_target->processor));
+>             spin_lock_irqsave(&p->desc->lock, flags);
+> +            irq_set_affinity(p->desc, cpumask_of(v_target->processor));
+>             /*
+>              * The irq cannot be a PPI, we only support delivery of SPIs
+>              * to guests.
+> @@ -944,4 +955,3 @@ void vgic_check_inflight_irqs_pending(struct vcpu *v,=
+ unsigned int rank, uint32_
+>  * indent-tabs-mode: nil
+>  * End:
+>  */
+> -
+> diff --git a/xen/arch/arm/vgic/vgic-mmio-v2.c b/xen/arch/arm/vgic/vgic-mm=
+io-v2.c
+> index b7c2d7ce99..fc04741ca1 100644
+> --- a/xen/arch/arm/vgic/vgic-mmio-v2.c
+> +++ b/xen/arch/arm/vgic/vgic-mmio-v2.c
+> @@ -159,24 +159,23 @@ static void vgic_mmio_write_target(struct vcpu *vcp=
+u,
+>     for ( i =3D 0; i < len; i++ )
+>     {
+>         struct vgic_irq *irq =3D vgic_get_irq(vcpu->domain, NULL, intid +=
+ i);
+> +        struct irq_desc *desc =3D irq_to_desc(irq->hwintid);
+>=20
+> -        spin_lock_irqsave(&irq->irq_lock, flags);
+> +        spin_lock_irqsave(&desc->lock, flags);
+> +        spin_lock(&irq->irq_lock);
+>=20
+>         irq->targets =3D (val >> (i * 8)) & cpu_mask;
+>         if ( irq->targets )
+>         {
+>             irq->target_vcpu =3D vcpu->domain->vcpu[ffs(irq->targets) - 1=
+];
+>             if ( irq->hw )
+> -            {
+> -                struct irq_desc *desc =3D irq_to_desc(irq->hwintid);
+> -
+>                 irq_set_affinity(desc, cpumask_of(irq->target_vcpu->proce=
+ssor));
+> -            }
+>         }
+>         else
+>             irq->target_vcpu =3D NULL;
+>=20
+> -        spin_unlock_irqrestore(&irq->irq_lock, flags);
+> +        spin_unlock(&irq->irq_lock);
+> +        spin_unlock_irqrestore(&desc->lock, flags);
+>         vgic_put_irq(vcpu->domain, irq);
+>     }
+> }
+> diff --git a/xen/arch/arm/vgic/vgic.c b/xen/arch/arm/vgic/vgic.c
+> index b2c0e1873a..81ba4099ef 100644
+> --- a/xen/arch/arm/vgic/vgic.c
+> +++ b/xen/arch/arm/vgic/vgic.c
+> @@ -812,21 +812,22 @@ void arch_move_irqs(struct vcpu *v)
+>     {
+>         struct vgic_irq *irq =3D vgic_get_irq(d, NULL, i + VGIC_NR_PRIVAT=
+E_IRQS);
+>         unsigned long flags;
+> +        irq_desc_t *desc;
+>=20
+>         if ( !irq )
+>             continue;
+>=20
+> -        spin_lock_irqsave(&irq->irq_lock, flags);
+> +        desc =3D irq_to_desc(irq->hwintid);
+>=20
+> -        /* Only hardware mapped vIRQs that are targeting this vCPU. */
+> -        if ( irq->hw && irq->target_vcpu =3D=3D v)
+> -        {
+> -            irq_desc_t *desc =3D irq_to_desc(irq->hwintid);
+> +        spin_lock_irqsave(&desc->lock, flags);
+> +        spin_lock(&irq->irq_lock);
+>=20
+> +        /* Only hardware mapped vIRQs that are targeting this vCPU. */
+> +        if ( irq->hw && irq->target_vcpu =3D=3D v )
+>             irq_set_affinity(desc, cpumask_of(v->processor));
+> -        }
+>=20
+> -        spin_unlock_irqrestore(&irq->irq_lock, flags);
+> +        spin_unlock(&irq->irq_lock);
+> +        spin_unlock_irqrestore(&desc->lock, flags);
+>         vgic_put_irq(d, irq);
+>     }
+> }
+> --=20
+> 2.51.2
 
-Does this sound like the right direction?
-
-Best regards,
-Mykola
-
-
->
-> > +        goto fail;
-> > +    }
-> > +
-> >      d->is_shutting_down =3D d->is_shut_down =3D 0;
-> >      d->shutdown_code =3D SHUTDOWN_CODE_INVALID;
-> >
-> > @@ -1393,6 +1402,7 @@ void domain_resume(struct domain *d)
-> >          v->paused_for_shutdown =3D 0;
-> >      }
-> >
-> > + fail:
-> >      spin_unlock(&d->shutdown_lock);
-> >
-> >      domain_unpause(d);
-> > diff --git a/xen/include/xen/suspend.h b/xen/include/xen/suspend.h
-> > new file mode 100644
-> > index 0000000000..528879c2a9
-> > --- /dev/null
-> > +++ b/xen/include/xen/suspend.h
-> > @@ -0,0 +1,25 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-only */
-> > +
-> > +#ifndef XEN_SUSPEND_H
-> > +#define XEN_SUSPEND_H
-> > +
-> > +#if __has_include(<asm/suspend.h>)
-> > +#include <asm/suspend.h>
-> > +#else
-> > +static inline int arch_domain_resume(struct domain *d)
-> > +{
-> > +    return 0;
-> > +}
-> > +#endif
-> > +
-> > +#endif /* XEN_SUSPEND_H */
-> > +
-> > +/*
-> > + * Local variables:
-> > + * mode: C
-> > + * c-file-style: "BSD"
-> > + * c-basic-offset: 4
-> > + * tab-width: 4
-> > + * indent-tabs-mode: nil
-> > + * End:
-> > + */
->
-> --
-> WBR, Volodymyr
 
