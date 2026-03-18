@@ -2,45 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6E28K47dumk3cwIAu9opvQ
+	id eDElLFT2umlvdgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 18:14:54 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 20:00:36 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 155322C0049
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 18:14:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1256497.1551093 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4C742C1B92
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 20:00:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1256523.1551102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2uSp-0004Np-TO; Wed, 18 Mar 2026 17:13:47 +0000
+	id 1w2w7B-0000EM-No; Wed, 18 Mar 2026 18:59:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1256497.1551093; Wed, 18 Mar 2026 17:13:47 +0000
+Received: by outflank-mailman (output) from mailman id 1256523.1551102; Wed, 18 Mar 2026 18:59:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2uSp-0004MA-QD; Wed, 18 Mar 2026 17:13:47 +0000
-Received: by outflank-mailman (input) for mailman id 1256497;
- Wed, 18 Mar 2026 17:13:46 +0000
+	id 1w2w7B-0000CN-Km; Wed, 18 Mar 2026 18:59:33 +0000
+Received: by outflank-mailman (input) for mailman id 1256523;
+ Wed, 18 Mar 2026 18:59:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EGn0=BS=citrix.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1w2uSo-0004M4-4h
- for xen-devel@lists.xenproject.org; Wed, 18 Mar 2026 17:13:46 +0000
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azlp170120001.outbound.protection.outlook.com
- [2a01:111:f403:c107::1])
+ <SRS0=SizD=BS=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
+ id 1w2w79-0000CH-Ov
+ for xen-devel@lists.xenproject.org; Wed, 18 Mar 2026 18:59:31 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d1bc3c5a-22ed-11f1-b164-2bf370ae4941;
- Wed, 18 Mar 2026 18:13:44 +0100 (CET)
-Received: from LV4PR03MB8282.namprd03.prod.outlook.com (2603:10b6:408:2d8::11)
- by SJ2PR03MB7355.namprd03.prod.outlook.com (2603:10b6:a03:557::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 17:13:31 +0000
-Received: from LV4PR03MB8282.namprd03.prod.outlook.com
- ([fe80::19b5:9cc6:3b73:3489]) by LV4PR03MB8282.namprd03.prod.outlook.com
- ([fe80::19b5:9cc6:3b73:3489%4]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
- 17:13:33 +0000
+ id 97f884a0-22fc-11f1-b164-2bf370ae4941;
+ Wed, 18 Mar 2026 19:59:30 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id
+ a640c23a62f3a-b97e5956208so13057666b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Mar 2026 11:59:30 -0700 (PDT)
+Received: from EPUAKYIW02F7.. ([45.12.24.197])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-667b12ade0dsm2392839a12.30.2026.03.18.11.59.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Mar 2026 11:59:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,174 +50,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d1bc3c5a-22ed-11f1-b164-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xt3ew7OZnw7ZkJvIgqyqd9Fo8cf0/2pWgWzSNkvS71Gue3tmO+AxAT3yehqZM4IgfVIaJ5ExvlZ7ZHBqEyzGOU8RVBiE4sdDo33xqrQXtQyJx96pfRrqrIb2wv3yN59rfGczsplrd6LDhPzf6HKuQowJS1gESEPjcqBNo+owzbRs+yheLrmMHOxV9oPZdMirPoXFHTZrWVpugnenMnaqULrXLSV1BexFP36KWX3Vj0cc8qwZ3UgNuZ7imOjZ3gt4c4EJEWQKjHYjTlsjKn4b2yKJxWlIfrkecIXwtATG+bD03x1hlTEOqspGidSaWM2lehcl2qGVMaVUDhlNYCXGiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xOSY9UtMZS1bFLCO9xPmBX9fiyIoFhDZrdg9EpZdgfU=;
- b=fkE9Y97BjQI7DOqPkqp6YQN6G0cNBTH3D9HDzAcnZV1NMz7pHlhZDMar1rxQA7oW/3hXjfUSY07qUy0oma6TE9O7lPKZW2IOsrkUkm7VPIMXzA3qUCpKW+ew89MoyDZxLt+SlOK2yDj8zN9vNn60rXO+VEKgnS1SV93hhuoVqrRwhWcqbsQUHYFKqvMynp66OvKlY577rKgAXsone2bIVKFvmfYCvXIQQRmAR754uCUXlHAuVotWQ6+IRdd9HS+Cv2qSlhZ5TctUBXHVf1uZbh+43EtF+sE66GxMS2GqnxAY1Rbrzv7rEycYVju/3YJwjH4fyRcWG1zHKXhBZ/pyUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xOSY9UtMZS1bFLCO9xPmBX9fiyIoFhDZrdg9EpZdgfU=;
- b=TFooy/DP8VLgONQ166+szextElhQgONrm7/uHNIF8y1lI09WjbAaDiwIQ6DqmFV0AWs86sUDvdZvm8k2nihY9fQqYOmyI6UqrWe2J0hgCDqVMuY71jdneSWk3uryIBTb7TbTg3hqYj/agS9wKsjypa1mFiUbj03JD0CObr1fu48=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
+X-Inumbo-ID: 97f884a0-22fc-11f1-b164-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1773860369; x=1774465169; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=m9vYhoGM8dW0LVBBOLhz8aVHBpT/7+h1R1jT8z35yWA=;
+        b=BJYN68P/pN0SWXWDtztB64RGftbv7FXIJFuKuyuqwZr9VWIi0GqvL7QEtMxV+G7BUI
+         XtQ8y4jIVisNVqUTbXrKEeMzPzUFyryHjE+yQZd7JfCbumYSowu0O0Io9awbjuteKz+u
+         a2KSZeEvOnjTTaRK/5d+HOufJSnT1ft6V23EPQg6HmftkXDIZuJoYbGBSB7zywVqyWdZ
+         CI3Qz1Yml7gc/7Bn+bc/6fXgmA4CzQu71OIL4eEV4VLgRlT5FOBjGs6ZZHTdBxhYYx92
+         wKL/6RWMMfi21ZAUjEROoihMLjW8tRzyowt5GGRueiyHB44BMeHQPJ88LccV+mA2A+Ux
+         ESYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1773860369; x=1774465169;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=m9vYhoGM8dW0LVBBOLhz8aVHBpT/7+h1R1jT8z35yWA=;
+        b=C9zTeRWXvcjrhigXVQc2W4rrL8ijEx6tJxdYJQfdoRGwe9egjJcURjP2nPGZc46zWS
+         h3WCggf06incICAj5hB9oYFXwuN2vOVvWhDREQ+pjVlqG4GaTSEhqmy93mV/FAwchuxw
+         jlvDOrBmXh3CfovlvZ+mDhNVbS1MUI/W5J7tzzPmrb+B82qRtFihvC3fMYmQxXQBgT2D
+         PJxqn7nLvSjAnH0XFzIxIZ6bADttXKpNJ1coMjEFYldpPzH78E+c7I3JbJL5odwlVfjp
+         Hg/NNcWZO/q6lCC1rnroagy/WtCTdfPcoEZ/54tL6YKXd6PO6gBaV5eelJMdG97Xhvu4
+         2oFQ==
+X-Gm-Message-State: AOJu0YyfS5z3IdSDnQgquYSvzQjh2R3fMkk6J2f6Ik99gbNI6MFeL2XG
+	k3l91sWF/CwPxDykqIxewu2cw+VSnVx+Bb+eMCCAlrtYHOMnhGYWsF6h3LpP/w==
+X-Gm-Gg: ATEYQzxOqTi3nHqtf5dSYoDFUmsp4qiPlLEr5GQCtD3yXL3s5EtyIJ6NLdhlif9D/u0
+	8V8pgNmrekF5U05e+SnZz+gAnB7wAgUtIEIkkvNZZogGKyffrS1XvzQsMbyi56glsue23sjkL73
+	ldGhLdRXB+bnJUnnTaz77DZ8JP3JDuz25rkGmImSXBCnnK/5mypDQTOJguFA6rZxBqG3r3HpZDC
+	mxWf2WvjYkV2JCydprPg7hr9yzUH+/pF+fkMNRSwdD8l3Jp7aK1/BVNtt8rSp5UdSnvg75pjliQ
+	XHttrxHKTJSSULhh91AnWep5t/OjfP20qlhNTkOJzRfGzk+9ZAIuRSB07DfMje64XzsGBOg+WS9
+	PGZBd8XMNQxrAOFUSsY+gNjSFhKsA8/SSCzmQOWYo0Kwsbd23frDjrgsNojr7kEhoFrKtc0v1tI
+	GfVCbB8xrxtMQW7BeV3igizk24Naw=
+X-Received: by 2002:a17:907:8e96:b0:b97:acca:fcf4 with SMTP id a640c23a62f3a-b97f4796681mr259901566b.11.1773860369067;
+        Wed, 18 Mar 2026 11:59:29 -0700 (PDT)
+From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH] x86/hap: Defer P2M TLB flushes
-Date: Wed, 18 Mar 2026 17:13:24 +0000
-Message-ID: <20260318171324.1362219-1-ross.lagerwall@citrix.com>
-X-Mailer: git-send-email 2.53.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0611.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:314::10) To LV4PR03MB8282.namprd03.prod.outlook.com
- (2603:10b6:408:2d8::11)
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: vpsci: ignore upper 32 bits for SMC32 PSCI arguments
+Date: Wed, 18 Mar 2026 20:56:11 +0200
+Message-ID: <3a3180b0f77d815e92c0c232a8f854d34ab7c2ea.1773860069.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV4PR03MB8282:EE_|SJ2PR03MB7355:EE_
-X-MS-Office365-Filtering-Correlation-Id: dcbba424-1c62-4157-0929-08de8511aee4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	vdSWkOD2CoLKQu1XWyhOaXm6GL9FvnBI3EWw6Psu5pKWMaupHMUG9dS6puhPxmAU1DD7xwd2pJ0C/k/RSu4aDXpOXmuwmnBAs6PSbQRdihR/HESffFm5//lWcCQRCpHAfHDcNp8HnFSc54Ks8O/CGRK64o/gQQ8Hl1F73SDgVPTUe9sRnpWntKRatA3a7T1Y0IkFzenoBqJDh+9NUs7DfVIKnTmEXCSmMQmiygz376Fslsf+8TDj2vza41fDrup2tDae/0iOm9wUD02TSD86gKUecsKhzcTeR9kMVMV/ww/r2dgIDkV92YwtFcokNBmymzMKFnNIaMm/ADyQ/WAp+wONPBQckcA3lBMeEDQdmdgaZD16/TeclCmwcE+wOZ7PrKV7U53TPXWsktUsPX/m/wzYzuBaJEJzhsXAsSZB95UCyKZYdm+1sy3pfMY4A3YHJ2mLmZIfYsz9osz7a4aTtHi4hx+0CqsZgoa07BotJxtcpCyAw2zwFyqoyKaCK7mZ0mGnbBLKZRjF0xWWsW4MDcZz3HbcVXFMrhi5WE5tbIsttUYiB/yWy/Od2iSEmIyrsdY/vkVaSax95ciqA+ZpHFdXl+P4Rhi7sGeJwuPIIAAUFhWLf75jiEbsYJAwhTayMLG3GT9lgmDT4Hk7m06Y2PZDn/28dzIwhXd/YDo33ENC9b6x3ZEwl7pYRtWHjwFDgCjNdMTjm78DKhzMdeudp3l016iXo5pS9yZJgoBypXE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV4PR03MB8282.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?uX7p8kDbT+wCy9gzya3wtl38Ey6KFCjV7jZ1u22zWKTwg4DbsmR92p3dzd/z?=
- =?us-ascii?Q?uwA8BLRt1CqJkfHqUsXFGB6QfZXfUkVawy/6JrMMwDojSSSuyRyWkilps4t7?=
- =?us-ascii?Q?Cmk4lZRclbuiliG5MCeaxmc5Hd6BVF66pQUNazHH88F8LVMs4RtjGnHuyet6?=
- =?us-ascii?Q?lBn9+G1Yw9i3Yzwen/jtzOJWEJsn1hHgiYZf4r5o0TNZn5wteGlQw4QJ5vaj?=
- =?us-ascii?Q?QPj6Xxyh/FITvP1MYWaet80MVYfpLOuz6jTv6jhCvUq57EijYAZWmKlOmus1?=
- =?us-ascii?Q?N5vQpA83r3wqBBpTf6J8BuUUWPDHJ22BQH3UGsCLM+mYz5RSz0G0YDFjIv5F?=
- =?us-ascii?Q?73BHirKLJ3EbpDCo+vyDgQXC5YlHNcGERe2aKg4/OnwXKCNeu9p7w5BmJOp3?=
- =?us-ascii?Q?YX4Er49poS1dCTkuMxrnEkp0pX7k666ojPjy24/Gk5SfVtx5srXcLsl5+zlb?=
- =?us-ascii?Q?73m+8BQc3Ar8uc2sDi4oI69jD997Tgcu+Usue0IRQxMxArTUXsENmTKtbUTR?=
- =?us-ascii?Q?s0h1XQLQayEnaXHNuqF9kUXBG2m3v9M1I8gL9Fv7vnukmpqO1MvnKLi9ArO2?=
- =?us-ascii?Q?OIfcdCBr3d3k6P5YU1jHdDtd1JZ3sQCGLZu6uMcFCjGCIApzhLLUmwXLfr1h?=
- =?us-ascii?Q?2/C0TJtte6A3ojfP3fSz+aJ4y76SdwJtdiOgNgjfAbz7dKPFT1T0VrIprp+Q?=
- =?us-ascii?Q?Mp1Ia9IddOv+ycQssMFrk6y4Csduz7hwSId20ngzGxGvna6V2ma6FfDvUslU?=
- =?us-ascii?Q?7jPUuAsJTUXVnxxx7b2ObZsdIrKYXqkBb2rgTD/PCcjNsU3V/cJ9UDZHpvoY?=
- =?us-ascii?Q?Ows5mTBge3DQA75m6499OnTHuUUyZjHemr48pY2VMBP5GlXoLhrRrbx5bj48?=
- =?us-ascii?Q?aOMFCQvuVX7Man7CXI2fXcS5CjfsZbwTvdW1f3hzbDbS8W0Gr4s/7r6C+6TC?=
- =?us-ascii?Q?nwOX7lY40X4zmvlMTvSlccDD7j5qj05RN3/E09+cveEg8I7b0bbePiPCYFBR?=
- =?us-ascii?Q?mwOp+th+UPwhqo5flL0X09iQ9/1JHsUnBK0veNohEC203++BaBTrx6/8gN2+?=
- =?us-ascii?Q?S7jmGu6PQNvWrZ5EGlYFZGZ7/OcMnj0KagwYoVfg7nylyUAxCMbP3p+/p/0A?=
- =?us-ascii?Q?y/QtZLzTtFA63MzYK6kxzPehBetnLy8xm7lvzHrU8hlJ5/SwU7YLPWylRRHB?=
- =?us-ascii?Q?4raFbYfEKEzEAVj7WvH2bSPZNFBM2gnfI4UmycZ/+ui4TZElfWnLWATeiWFn?=
- =?us-ascii?Q?M7Xq0rAWtFo5y/LRCUbv+Q0GBPK6GwBwBRUj+ybliwx+86dYK+g+ZtlO8bqE?=
- =?us-ascii?Q?Yf4qpMWc1KkZAIfSC1mOAE0es3/WQhMhew9dZFXPhTugu85oWwIbfaYFCDKn?=
- =?us-ascii?Q?4mamacqvxJeElnJYDw4+FGGX5N+nU9tzL1c8R2hnopDQcos+eXxAomA+epY6?=
- =?us-ascii?Q?IDtDzCFP9/qrI1slnrf++Ca7ECQvZc+ww0+aEG7mcSyCITdCXmAQ65PtsZSs?=
- =?us-ascii?Q?F05NajwN9cY5IbYdntIDoSC0BW1CRPA/BrSv4PriSKSfOtNYzxyYDf0Eqh5Y?=
- =?us-ascii?Q?+SQsxcOekY99iEGsImoaUwDo2Ldiydgit8eNrd6fmKaBMozkx96tvp5aJkwb?=
- =?us-ascii?Q?/by7mBPyDRwXBgcRq7oriwWUB3D1VMsRO3k6O4H/+Otca2PXisMro0O5lR72?=
- =?us-ascii?Q?MgbjGPPH+T8P7zU40I/hh0qyfghdCXp+7ypG6Vy8neTpmQtDDAA9NMtBGNSd?=
- =?us-ascii?Q?OvRGjlPe3Yg0RNM+0yd/L4kXeyTG15c=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcbba424-1c62-4157-0929-08de8511aee4
-X-MS-Exchange-CrossTenant-AuthSource: LV4PR03MB8282.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 17:13:32.9541
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HunjT+JC1/zw0rWIJzyDImwSQSVmuP9qD3qY/IFYwU10KiuPxuRc/RfDGXbQX7bFBooXiLDtdDukrNIDrBWFqvHS9WZf9Z+ZU7MwfMHqzkg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7355
+Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:ross.lagerwall@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TAGGED_FROM(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	NEURAL_HAM(-0.00)[-0.999];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	NEURAL_HAM(-0.00)[-0.995];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 155322C0049
+X-Rspamd-Queue-Id: E4C742C1B92
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Like the EPT code, defer TLB flushes to reduce the number of flushes and
-avoid holding the P2M lock while flushing. This can substantially
-improve performance in some scenarios.
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-The cases where the TLB needs to be flushed without deferring are
-already handled by the call to p2m_tlb_flush_sync() in p2m_free_ptp().
+SMCCC DEN0028G, section 3.1, states that for AArch64 SMC/HVC calls
+using Wn, only the least significant 32 bits are significant and the
+upper 32 bits must be ignored by the implementation.
 
-Suggested-by: Roger Pau Monne <roger.pau@citrix.com>
-Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+So for SMC32 PSCI calls, Xen must not treat non-zero upper bits in the
+argument registers as an error. Instead, they should be discarded when
+decoding the arguments.
+
+Arm ARM DDI 0487J.a (D1-5406) also notes that the upper 32 bits may be
+implementation defined when entering from AArch32. Xen zeros them on
+entry, but that guarantee is only relevant for 32-bit domains.
+
+Update PSCI v0.2+ CPU_ON, CPU_SUSPEND and AFFINITY_INFO to read SMC32
+arguments via PSCI_ARG32(), while keeping the SMC64 handling unchanged.
+
+Suggested-by: Julien Grall <julien@xen.org>
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 ---
- xen/arch/x86/mm/hap/hap.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+Link to discussion: https://patchew.org/Xen/cover.1751020456.git.mykola._5Fkvach@epam.com/072270e0940b6bcc2743d56a336363f4719ba60a.1751020456.git.mykola._5Fkvach@epam.com/#7070f416-119c-49f8-acd0-82c6e31f0fc6@xen.org
+---
+ xen/arch/arm/vpsci.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
-index a337752bf488..1eba995c7b39 100644
---- a/xen/arch/x86/mm/hap/hap.c
-+++ b/xen/arch/x86/mm/hap/hap.c
-@@ -813,16 +813,26 @@ static void cf_check hap_update_paging_modes(struct vcpu *v)
+diff --git a/xen/arch/arm/vpsci.c b/xen/arch/arm/vpsci.c
+index 7ba9ccd94b..1e844ed571 100644
+--- a/xen/arch/arm/vpsci.c
++++ b/xen/arch/arm/vpsci.c
+@@ -303,9 +303,10 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
+     case PSCI_0_2_FN32_CPU_ON:
+     case PSCI_0_2_FN64_CPU_ON:
+     {
+-        register_t vcpuid = PSCI_ARG(regs, 1);
+-        register_t epoint = PSCI_ARG(regs, 2);
+-        register_t cid = PSCI_ARG(regs, 3);
++        bool smc32 = (fid == PSCI_0_2_FN32_CPU_ON);
++        register_t vcpuid = smc32 ? PSCI_ARG32(regs, 1) : PSCI_ARG(regs, 1);
++        register_t epoint = smc32 ? PSCI_ARG32(regs, 2) : PSCI_ARG(regs, 2);
++        register_t cid = smc32 ? PSCI_ARG32(regs, 3) : PSCI_ARG(regs, 3);
  
- static void cf_check
- hap_write_p2m_entry_post(struct p2m_domain *p2m, unsigned int oflags)
-+{
-+    if ( oflags & _PAGE_PRESENT )
-+    {
-+        ASSERT(p2m->defer_flush);
-+        p2m->need_flush = true;
-+    }
-+}
-+
-+static void cf_check
-+hap_p2m_tlb_flush(struct p2m_domain *p2m)
- {
-     struct domain *d = p2m->domain;
+         perfc_incr(vpsci_cpu_on);
+         PSCI_SET_RESULT(regs, do_psci_0_2_cpu_on(vcpuid, epoint, cid));
+@@ -315,9 +316,10 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
+     case PSCI_0_2_FN32_CPU_SUSPEND:
+     case PSCI_0_2_FN64_CPU_SUSPEND:
+     {
++        bool smc32 = (fid == PSCI_0_2_FN32_CPU_SUSPEND);
+         uint32_t pstate = PSCI_ARG32(regs, 1);
+-        register_t epoint = PSCI_ARG(regs, 2);
+-        register_t cid = PSCI_ARG(regs, 3);
++        register_t epoint = smc32 ? PSCI_ARG32(regs, 2) : PSCI_ARG(regs, 2);
++        register_t cid = smc32 ? PSCI_ARG32(regs, 3) : PSCI_ARG(regs, 3);
  
--    if ( oflags & _PAGE_PRESENT )
--        guest_flush_tlb_mask(d, d->dirty_cpumask);
-+    guest_flush_tlb_mask(d, d->dirty_cpumask);
- }
+         perfc_incr(vpsci_cpu_suspend);
+         PSCI_SET_RESULT(regs, do_psci_0_2_cpu_suspend(pstate, epoint, cid));
+@@ -327,7 +329,8 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
+     case PSCI_0_2_FN32_AFFINITY_INFO:
+     case PSCI_0_2_FN64_AFFINITY_INFO:
+     {
+-        register_t taff = PSCI_ARG(regs, 1);
++        bool smc32 = (fid == PSCI_0_2_FN32_AFFINITY_INFO);
++        register_t taff = smc32 ? PSCI_ARG32(regs, 1) : PSCI_ARG(regs, 1);
+         uint32_t laff = PSCI_ARG32(regs, 2);
  
- void hap_p2m_init(struct p2m_domain *p2m)
- {
-     p2m->write_p2m_entry_post = hap_write_p2m_entry_post;
-+    p2m->tlb_flush = hap_p2m_tlb_flush;
- }
- 
- static unsigned long cf_check hap_gva_to_gfn_real_mode(
+         perfc_incr(vpsci_cpu_affinity_info);
 -- 
-2.53.0
+2.43.0
 
 
