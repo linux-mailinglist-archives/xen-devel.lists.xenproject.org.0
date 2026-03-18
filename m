@@ -2,59 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aFAlMV5dumnFUgIAu9opvQ
+	id CGYaCeheumnFUgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 09:07:58 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 09:14:32 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C4D12B7884
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 09:07:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1256363.1551040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D6112B7A6C
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2026 09:14:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1256371.1551049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2lvY-0003HU-1I; Wed, 18 Mar 2026 08:06:52 +0000
+	id 1w2m2f-0004vo-O1; Wed, 18 Mar 2026 08:14:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1256363.1551040; Wed, 18 Mar 2026 08:06:52 +0000
+Received: by outflank-mailman (output) from mailman id 1256371.1551049; Wed, 18 Mar 2026 08:14:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w2lvX-0003Ex-U8; Wed, 18 Mar 2026 08:06:51 +0000
-Received: by outflank-mailman (input) for mailman id 1256363;
- Wed, 18 Mar 2026 08:06:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w2m2f-0004sr-Km; Wed, 18 Mar 2026 08:14:13 +0000
+Received: by outflank-mailman (input) for mailman id 1256371;
+ Wed, 18 Mar 2026 08:14:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cC/N=BS=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1w2lvW-0003Er-8I
- for xen-devel@lists.xenproject.org; Wed, 18 Mar 2026 08:06:50 +0000
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazlp170130007.outbound.protection.outlook.com
- [2a01:111:f403:c202::7])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 697033eb-22a1-11f1-b164-2bf370ae4941;
- Wed, 18 Mar 2026 09:06:48 +0100 (CET)
-Received: from AS4PR09CA0011.eurprd09.prod.outlook.com (2603:10a6:20b:5e0::13)
- by AM8PR08MB6419.eurprd08.prod.outlook.com (2603:10a6:20b:316::13)
+ id 1w2m2d-0004sl-Fe
+ for xen-devel@lists.xenproject.org; Wed, 18 Mar 2026 08:14:11 +0000
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazlp170130006.outbound.protection.outlook.com
+ [2a01:111:f403:c201::6])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6e6116d4-22a2-11f1-9ccf-f158ae23cfc8;
+ Wed, 18 Mar 2026 09:14:05 +0100 (CET)
+Received: from AS9PR06CA0567.eurprd06.prod.outlook.com (2603:10a6:20b:485::35)
+ by DB9PR08MB7607.eurprd08.prod.outlook.com (2603:10a6:10:30a::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.27; Wed, 18 Mar
- 2026 08:06:44 +0000
-Received: from AMS0EPF000001B7.eurprd05.prod.outlook.com
- (2603:10a6:20b:5e0:cafe::31) by AS4PR09CA0011.outlook.office365.com
- (2603:10a6:20b:5e0::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.21; Wed, 18 Mar
+ 2026 08:13:58 +0000
+Received: from AMS0EPF000001B3.eurprd05.prod.outlook.com
+ (2603:10a6:20b:485:cafe::e5) by AS9PR06CA0567.outlook.office365.com
+ (2603:10a6:20b:485::35) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Wed,
- 18 Mar 2026 08:06:39 +0000
+ 18 Mar 2026 08:13:36 +0000
 Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS0EPF000001B7.mail.protection.outlook.com (10.167.16.171) with Microsoft
+ AMS0EPF000001B3.mail.protection.outlook.com (10.167.16.167) with Microsoft
  SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.17
- via Frontend Transport; Wed, 18 Mar 2026 08:06:43 +0000
+ via Frontend Transport; Wed, 18 Mar 2026 08:13:56 +0000
 Received: from PR3PR08MB5593.eurprd08.prod.outlook.com (2603:10a6:102:84::13)
- by PAWPR08MB10209.eurprd08.prod.outlook.com (2603:10a6:102:365::14)
+ by AS8PR08MB7742.eurprd08.prod.outlook.com (2603:10a6:20b:50a::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 08:05:39 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.21; Wed, 18 Mar
+ 2026 08:12:51 +0000
 Received: from PR3PR08MB5593.eurprd08.prod.outlook.com
  ([fe80::aae1:6871:afc4:620e]) by PR3PR08MB5593.eurprd08.prod.outlook.com
  ([fe80::aae1:6871:afc4:620e%4]) with mapi id 15.20.9723.018; Wed, 18 Mar 2026
- 08:05:37 +0000
+ 08:12:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -66,14 +66,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 697033eb-22a1-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 6e6116d4-22a2-11f1-9ccf-f158ae23cfc8
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=jJkQvYHqGymcKuGeH91/4+GpQHFC+Y5ELkiD6X8dCiIWWvexg354i7mLsVkuvE2R67fZcJ0HUB6SGEhatvtT2s6lvaCOsKAwJT6Mc/d2bscU1cIpdteA6EeCFLso4g5Y+O+oECJNPBTf2rtrojT9EYZJcah6z9XPtsvRAZS3i/pO4jqDQPAb0QEsk5xvpDUSCCcSor5AbOWT18njSDO+nyEX5tIMFeH298UlYpXQo3SO8YTj5TBPZ/FnQCpk3kkfKpBXGnHhWB2kvQ5LZ66PnsHhExh2Y7b1cibaGQkxLR+HAFA42MQ+1JTJurA+Vkc7VJ/wynZowlpbxyrRLbbs/g==
+ b=uiT2R5ZIi1O5Dc816utQ3d6aKj+P/1bPnJGn7eLQai07UIn7Oix0+LjuslDbdKKTIryjl3pxLrOdQVIK/WUb5PrWQr+t9ctVcdaV+ueL2whgON/tN0jB7p63NeA1mUwUbSjnU1q/4XD+gPBwhko7PNcWuUSWMp5d6FExgRUwjqJB+YcEVtriNXTEHfy9aRorkgDs/6Gi0ObOSf5ZCoVMrNFYDDbqhkiuvuiR6BiBb7p9FUoKsJVp8ww5mD4ZS8vQukb1oAyjkDWne0xv6fT9fTOutejC7XKEq/CmSV6lK0jolvDtyeOGYcc0kx0wVWANhB7AnHllmeoncrHgqKH3jQ==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e06hFaaSWzx0NqsxDjm0VeDdRrxM/xNlXBEnh3vcgR8=;
- b=L6cr1V4y7QC8lInIMs+ARtGLEIby0/HqSk93uB/KK7zjPR68ocl5kwFfXapIboIMJCp2NmgtMyduWNAjzQxQY/xHHfqgGf0AkkRwwvY7jx6CQ5yhdRoyLiee8RGvegRgl+XdIGBTLzGIIrr/NiSMSdtbAtMTD3erslPlHnvVezwmG+Txm/rjQBHH/cUcPaMSIq8V58ThvbeDJoxnyc2nm0y+59eYc3PPBxJ6GNgY0m0k1+KxA4jXTa5AU3kDwqOiEzsb87GcMVc8yLDna+9Fuc6nUo1BCObLgKbd8F4osoiPLGXW3n5HjStrVTTbi8rPLiix+ljQKqHK3iGCP7LfLg==
+ bh=K8ca9/rqyVn1q82sLTToHf+MDI+kOURQrnhg38Kx8R8=;
+ b=O3ppodTt1BjvIGbG7W4cXFcTA0u+yj/tNjeLMo9KufYGEYTRtmeI+FQOzvVHUsM/4JKbr/HjSwyHxaB0UZkoOHAmu7y5FO2Gd9iXNs4XJsKmDRDl4pX3udVpJGbNpRJu0pI9X1naZP5JKhEgr219XGA8YA7k6ZPJGiUR64OKLvp2UL+z5Dz6y7HD/esUScLyMaQjmcy/6v9uMNAfLlY2MpTCsPRpSLwimhw8lOlmdLnO0I6rUgi+GJ8le0RGikKxhiomOw0k5pnqJyZyLGzP1h7sIJtdzNXM2+IKOciYnu1aNuBwtYu+UJ/bxlGtwYk5ElOCVaCqCy+1J1m5kFQJLg==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  4.158.2.129) smtp.rcpttodomain=epam.com smtp.mailfrom=arm.com; dmarc=pass
  (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
@@ -82,8 +82,8 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  dmarc=[1,1,header.from=arm.com])
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e06hFaaSWzx0NqsxDjm0VeDdRrxM/xNlXBEnh3vcgR8=;
- b=GW+D6Ur2G+LA4ZKQ7KElTjbvEW2+U51NFl2P0HAwMNRwme11EQinwtZ6lip5vDBsRgPCpH0zpTOVAGr6Jnx5N8l9MuA80Org6Y384ehlSBZ6WCa3kFEJpg+ras4UmqPA43YYPMtqwN0QhA/l7gsIW7Fi1IxstQMw7xcsEEGYNkc=
+ bh=K8ca9/rqyVn1q82sLTToHf+MDI+kOURQrnhg38Kx8R8=;
+ b=YXSVfmX4Dpti2eir8h/SU+y9VQwwPIPdQfYFO6bT2+6ZXM4Yz3X2+oe3oNWzH7DWeAKm2bdxtngSkX+B+UvgmeYZM4Ye2VkVKqFwbaBYr2H3YkWbMij/XjPu6PM2J20sP1WV14mzAjJEgfT4QWs2rH4UzDfKb09d0Nlq8nafnUY=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=arm.com;dmarc=pass action=none header.from=arm.com;
@@ -91,33 +91,35 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  4.158.2.129 as permitted sender) receiver=protection.outlook.com;
  client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G6uK+LT1CMkp8SZd5Ny2m4rZgu4u0EKaShjPRiO80CUdu+jtyHXh9Icort6lHEOfjucYyLTG26EVgbfwU+octV0kD/Dg8X4BCc+7K8aQqhXasn2RuWIuuUdmX4zmAwEIUfjBpVF0hAh0tDx9xoSusBg+gclLpSdnBCmI3xktiQKDHQdhExpNGavM5g7ceAQWjh3f57IlmjYx8VhiME5u4LbwVz5AbWGPElsrqLxLLzedorPKs0mfmTjeWCP6pwnTYJ5AEAAKt2KW83fW1pv0Z9mpqoWcXTOi7guxYGp5g6sVCV39XCN3f/C+yLlorpsHjqsPT/LBGaQ1Qj0nCfmMCA==
+ b=M5LBaGhSjtLjJzVpL/GeITO4m8rnHg5vAotR2mh2amg+KqfJnYkvzlDPlwyLf24uEEddM/FgkesS4lSBPV/JwLgP45zat7zYRcjeegItgKDEHhxKpWwlOesUmEwvKLmALjdauVg/Yye5xOMz/tu3FZAtg7cpVHlQXHbCT9tLQc1b8yGBBJnfq7YynedMq3hgCkhKxUoytw6g4veIw842zHtYFQQnIc4pkqMhfIQIOVkNyIzp0fv6TNyGJ1GQR65avT/AJrT3qxERRzzidwW6wL6xUIiuXiKqEKKKAKGTpDHkY9wQyF9Dg6mRzUoYQM1nBY4ow6F2QkYb0gHmYobPwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e06hFaaSWzx0NqsxDjm0VeDdRrxM/xNlXBEnh3vcgR8=;
- b=frbz163zXzpy5oHa3CQ324WiLnLbj7oQhBcS5ZlbZDFgvwKb2qVSqJZEthw3ITd570aCUvx/Rr5U9npZz8Ae1ruTVQrDkJqQTSwdprHZvnbpQeUJiC9JkS/f4LCs/El+s1r80/s+MsQ3se8CyolJb9A9IEbO/DxRBQ+dbdivX4IvtR13f/w39uRjh30VwjChbCpklve9mIQvgmm80csDLlkeJuXvFJ1iXA39frzXOwRYtr2yeNSVNSonH4LOcrZnLlQ49egJjJFGrzQ6K2sk1+M4zARcaeex7FLBBcsNvRaN8t0jqPiHQ1Sce2R2CBoNrOmMh0r4bRnn2ocLVJpXwA==
+ bh=K8ca9/rqyVn1q82sLTToHf+MDI+kOURQrnhg38Kx8R8=;
+ b=nqw4tbqsFv6BwxWS7IB+P7RakeAHj3USwlVi8aITB5v9px/o+foL192fL1VgS3SFmJn21Nz+a9NIXhFuuwLNonV/IGoRx2WIUR6Do0ryEXBoY+0XrLtJRHpMAhTv7opBz5uZ2PXJ8JcYnUNHrIHddfuo96AAsqtrPPNEwshVos6XE+wqt18NuxJtNe2jtBItYiyOYhtJ7kvuA64fwSEuOsfElfTlIZYWUkhwJ/y/qru1e7ctOs+8Ow4uVbscQjaAUnSOtAu5EyXQgyBcUNrb/+kXpySc2QrPSukZVZuKfSfhkfpI/gtsZco+xXHkn2D/M3RY8vFAHCx0aQbqKAF8Xw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e06hFaaSWzx0NqsxDjm0VeDdRrxM/xNlXBEnh3vcgR8=;
- b=GW+D6Ur2G+LA4ZKQ7KElTjbvEW2+U51NFl2P0HAwMNRwme11EQinwtZ6lip5vDBsRgPCpH0zpTOVAGr6Jnx5N8l9MuA80Org6Y384ehlSBZ6WCa3kFEJpg+ras4UmqPA43YYPMtqwN0QhA/l7gsIW7Fi1IxstQMw7xcsEEGYNkc=
+ bh=K8ca9/rqyVn1q82sLTToHf+MDI+kOURQrnhg38Kx8R8=;
+ b=YXSVfmX4Dpti2eir8h/SU+y9VQwwPIPdQfYFO6bT2+6ZXM4Yz3X2+oe3oNWzH7DWeAKm2bdxtngSkX+B+UvgmeYZM4Ye2VkVKqFwbaBYr2H3YkWbMij/XjPu6PM2J20sP1WV14mzAjJEgfT4QWs2rH4UzDfKb09d0Nlq8nafnUY=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: Mykyta Poturai <Mykyta_Poturai@epam.com>
 CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
  Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal
  Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v6 1/5] arm/irq: Keep track of irq affinities
-Thread-Topic: [PATCH v6 1/5] arm/irq: Keep track of irq affinities
-Thread-Index: AQHcsgQfYo2+uc7QB0+uZY6Wrq2BgrWz9+2A
-Date: Wed, 18 Mar 2026 08:05:37 +0000
-Message-ID: <63FE871D-35EB-45F4-A2E1-3359116C44CB@arm.com>
+Subject: Re: [PATCH v6 2/5] arm/irq: Migrate IRQs during CPU up/down
+ operations
+Thread-Topic: [PATCH v6 2/5] arm/irq: Migrate IRQs during CPU up/down
+ operations
+Thread-Index: AQHcsgQkvTQo5LmM30WarGXZRjK5SbWz+fKA
+Date: Wed, 18 Mar 2026 08:12:51 +0000
+Message-ID: <E21F47AB-6848-442F-876D-34AE6AE06662@arm.com>
 References: <cover.1773307749.git.mykyta_poturai@epam.com>
- <733d58a26766a1d15e47447ed4f3cd299dc28cf7.1773307749.git.mykyta_poturai@epam.com>
+ <4e35d2a56d9ab1497dd1a706b80695a38ee90f60.1773307749.git.mykyta_poturai@epam.com>
 In-Reply-To:
- <733d58a26766a1d15e47447ed4f3cd299dc28cf7.1773307749.git.mykyta_poturai@epam.com>
+ <4e35d2a56d9ab1497dd1a706b80695a38ee90f60.1773307749.git.mykyta_poturai@epam.com>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -126,51 +128,51 @@ x-mailer: Apple Mail (2.3864.400.21)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 x-ms-traffictypediagnostic:
-	PR3PR08MB5593:EE_|PAWPR08MB10209:EE_|AMS0EPF000001B7:EE_|AM8PR08MB6419:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4c02eb26-b975-4484-3fb8-08de84c54af5
+	PR3PR08MB5593:EE_|AS8PR08MB7742:EE_|AMS0EPF000001B3:EE_|DB9PR08MB7607:EE_
+X-MS-Office365-Filtering-Correlation-Id: 555f05a7-663f-480d-4b92-08de84c64d6e
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|366016|376014|1800799024|38070700021|22082099003|18002099003|56012099003;
+ BCL:0;ARA:13230040|1800799024|376014|366016|22082099003|56012099003|18002099003|38070700021;
 X-Microsoft-Antispam-Message-Info-Original:
- XH9Tjo73jkBYOK3EIwrxcpbh+OBPdKCtGwkoVktzjWOmIPhy6Eliy6psRgfkCbZhPU0dhIGlic69LKxbc/V97CKnC8E4ydX0H9eNiP8UpGKLQl2oVfAFjdfE0JPiMFuNDD2qFnlhoLsMWXGk4NLZrp+0L5tHEGmtYKkILJ6w7ox3Dx45a0RR8pmI9Pca3RRpviq38T5otf+8A7QqaZPZ8jOnl79sWofkKtPg/EhsjquGgMRx7UQaNYZhQJJ2FsUCpq24M0rvCqCHD18NzrtTfqfDdGj3NrCxVdTlhPnqSywv/xosoDAmZwsKKcvwRKlhIkZHooJrGcoMP5jKL2/pF36M587l6ymSMTKSj9GjP2xWEyDIRXCBEpghAErr2pxo3C5X7p0R+irwp0AufEaSE9hw81/9aX1nnr98zAiQHrDut78jHCjFUq4LBOkhQVeZ+o9MggIKY35tEdqADUAaKu6Jxy9B4Ba5rUnlaTx6zj03LQ9yIWw4gixVwA1LaOiq6RlJyqQUy1yNVsqGh8TG5A9hp4PGxfpr4ZD8SflhCW7QSp0VJZv0yrF/9AmbifAj0x1QE13XWAl8tbBCZytaBFLm3SNh8CTiFZhcL7WFId644qgRy4Kx++sdAqjqsoNGsfQ4nAcaH2k58l6EpObAHzpaxYrSumVauJyT4Ky3uQ7UFBcqg6Vyd374b+0gbfarfwQeu7VKiyIFkSjPzkNYjKle9S3n+xWwWvipE65W3paENO2rpQM5WRsaD5yNUQDZGq3mcpnvFX1EluERB0ehGs5tG9vm6QdJtDJP4tGovVA=
+ Bltc6LD3jnBi6wUdZeXpiSkwZmdrhvpLVqc4sfHUAlCqXl60Rx4bXyrUIFhUQ1g5fvx4kEnJsu6SZkIlYCzES4EXql0CYhmu/cZphHfun5xODltl1SDiWEXe/A5I5B/nwp0HSHe8okPyy5Bk2ZS6u0ru2uYc74FJ8jExFYC9nbLhtTkVdZDt4S250rPvnzwyJVEr07FG9uTFQZ9OUh2Zg02vkElKjHZqj+NtSXVH/VYlJb3jndGZemF82GylX+6VK25VNu3LPJQH1LYataH5eoRLzZSq/jwwUUk5dxQy58DIBAPa2gjzdtd//nwPvWrVifzSktT2SOA5B7+TF3PnILvrRxlBpsM0AzjtpS3zKiQzURoe3BZMaWTV8/yY+QXUPD5kKlslruK2rIbnxYsnU8OXF+8JYe0lcsPDs6kXdcGmw6oF1rJeXb2RMcLehflqjWYHLoQm93JbdL5ZY7jIJq5fcY6O/tM3V+4X+3pr7kvzhIacZFeVLUbOX4d0o8cz3TR7ttlaUHDUd0QlaeaVRmZ7jX8K7ZRAmlyCKnGg4V3axPQi/w+mUWqhhDebEJyDLQUowguCjW5h38xeDO1RlU3xZyeQHnCC+y8lRbmm76fWe17M9vnaeqYPfb3prTKQLLMYSbk04+vHnhlxMfu0kVBQSd5LCrLMTjiVRgUCY3HkA0MPBjNU1TFSY9xHx46kCAnnfRFaIFzvSTiVpG6bNCBAihrbY7sZeByu0Sl1tzp1/0toXgMCz4j83yM2nJ13XI1tf35XdfDcZqE3zB/kcGlyeTirNA0P1sKQOutFyjU=
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR08MB5593.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR08MB5593.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(56012099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
 Content-Type: text/plain; charset="us-ascii"
-Content-ID: <E6CB80E92B8ABB47AEB3DC5E2B7BCFDF@eurprd08.prod.outlook.com>
+Content-ID: <7CCEAFCFE0A0C8478B1A6F93C9F537C1@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-Exchange-RoutingPolicyChecked:
- D4O3vfIemz4Dx8YXVvC3N2Me8eSMV3sI+GKWP3WN2cmzdhPXF5gelriPrieWRBQJGE0AQolOAGWsvbqcFVuc7DmrOyU607cqrUKbRj9Ac5dwh8F4NNLGrUKh9UpgOXRxz4k2Rhl1vUJFLFIBwOimtvWwMmX90EjH4ew74Ow9LOE39ZE6Hmdbh36cm8JRI96FnzQGcTLVGbZWrj+ub91/ubY7IwcxQUgG/x9Xi319mstPs+TjjhVR6xoCu+x2h2noiTaqxl5lYwMAZglP1xaTvd9kYuB4kvHQpRnh/k4bENqYMUtLqIRf5YwQHIay96CuHkzU+73mh2fGOFb4EIUDfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB10209
+ u8D+BJud1qvNRu0o/MWcdVIrxPI3MJfeE3i2Ob4E2OGN7gV3j9nb8MO7c9OIJCMLUUiTO6cHyDioPSJCYAI5JHngeuhb9xiBczFcd4g1X2/zwdLgsyL0i1/iWEltgb4dSNxr9P/pahIBbHdUNjgP0gMlgfzZAFU2m4sOlwO6CWfA8eELPV/Vm0bSvMovShYZ1AS7rtfg0kS3WNu5WeVsIwIEHKf7x9qkRXIS+6NX2s3xhdJp64yrZo6hNtjkxnyEvoFvFEcDn70AXQE4ZQi+7RBYqHG8uZMgCIJ/IOn/IHv78dbpwrJxseUAl4jCPM6GdF90W2PCRB51wsCbZJ/q6w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7742
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS0EPF000001B7.eurprd05.prod.outlook.com
+ AMS0EPF000001B3.eurprd05.prod.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	06353ab7-539b-41ba-b552-08de84c523e4
+	996de40b-9b0c-4936-ce6d-08de84c62653
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|14060799003|36860700016|35042699022|376014|1800799024|82310400026|22082099003|18002099003|56012099003|7053199007;
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|14060799003|82310400026|35042699022|7053199007|56012099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	HAmlSCdom+vG8gfoZHSVk3yP7eBABPFehHLZ5PbQ4Opo17wOPOQ650tkt0u1tMMJ92TDi2U00qr0UsUwxO5IJIquxM4Th4ZxGuT40CqWNnVomWN8W00MNJjdXgJKSb4UwOtXTYlUgsAF6v1fDSR0BA9arPXB0w1wc4pGECFQd4CqZTgp8tTsTRf90DOKzE5xh1rX9ilPXmBTCevDk9yckrHp+WEpRoa6YmLcfeM32bkOiatV4aV6eJ8AKodKyxho3+g5PO85v2fwJrriRFUFv0IZD9OQMnLtPyHU1bahaZN7+8MOVAMs9B0eki6pHL2nWeIqXG2ianXob0sCszZfRB9Y7IUcoFkEk8s1YjVp1CCIEpSSGQ95/MmmZ/OitxTsE2tnKlm439yCDwrgL7VGUUnlATDHKjI5K4kLu1cs++I7lhwA8ODyalAbMHRCZ+Mcp6RrkwQQtG0qZu/vjZtzp2keh6WiwubiQSYvp27A0vmOVVnDoQxpB0zXdoi24vMkmCGq0WvkZSyLSOip6vUFI5X2wv36oGK+6utSjRY+Oum9nGG3w21SsOj4ebJfgxA2ynC/Zs6xEDYwhGbcxk1DD1Y05Ploqvuul0ie/xMPfDoABaTJT09DaQzDl71me04AcHaXI/3ftkXVTqNc8L1Ynk1y0AWbJQYHqJxEaJjAaM9CzNvK0amiJVSa5meSm7PAtDlRwPKxYwAkDG9Qo2d90oNMRj8kxAMUqAfAZZ/8SxedkIXbi/RAG/wF5BaiE0UbMZowY+UPjYlVWxXiJnhfiQ==
+	/jupCfgwwrsU2AlqhMScfAtQpDho7oVPtaAhdR3ia7i1T7/2Le9AWRTgEts68DTG4NyUQOshpJ4avsC8zzCSeLwK25aoi661DqbuyaqqQkSCcE+qRBJjIlpwNo3btBhPP4y+PLMThGo/bHlgWJplMmg2TF0i3zW387usGvWhFLtbQeYO93fAne74NR+wOcnLRItXabUHrT4cIbYcDvgcdKaK5p7uKeb7YPyFefqG686wevGEyK9RVUW2ktdIsSVfNDU17dSINx563v9Py8+dbUMXsscDBMla/iseBAiSZnx/ajub33PDcE09SWogPDmbGzWb1O9990GYIhomjabtBgFSJkdQJAIdAi0soZUGIdtW7X3bT3btX1LL2JGyNWUV/Y+iNXxvxGL0OE+Hxa+/IYILgtSVIg/L3dGq9X0IrTBA3K35If0qI81Akq6ytSEZrdwb0jqY1vnpPEcUPKE62TVJ+Jv4eGRQQQIVxgTNgj7FKG3sXOpfTjA64usBW7/VVhZ+KBH+U1JeNv5qErJJvOvtQgIS59AHvUV++6c4NqV4ZbrxWu+CXOBLIV6ZQhS9npwLdb9J1JKx9zfDjLmRgOApwoUfOHCcsXtCY2b2TRmFRBOjAIXuD6ZzlTSaIEv8nHIARKjePs1h5qethEqgOymRi5r7H61GYqXfQeMowAjwwrx65ru+66Hc3D0IvApWO41se1yK8mBq5s2rjfK57BOkBPTtTmsFH1DyqgWQOUPiAG4Ozf6G9R647bdaK67jhyHGlZEsSZoe4HdsNqI+Yg==
 X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(14060799003)(36860700016)(35042699022)(376014)(1800799024)(82310400026)(22082099003)(18002099003)(56012099003)(7053199007);DIR:OUT;SFP:1101;
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(14060799003)(82310400026)(35042699022)(7053199007)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	qy5UCfzya8P9nH6u6o+PqZ87gBjozQYutIj49YXVydvH3MtDAjvi+wXPk0+Mf60lDBi4UNG0FrSkyML5mnnfXirTp4fzy8Bunf8SJSvpAXR60U1XXw+sqs2jQOLlg8zJ3U5FPyQx6nScKMleMi7q5MFuijOXqAcj593UTvzciTMIjDtCbZ1x4cc0gBCjaWM6Y4Dq7IMJ5p9LB3zZPUe0Wy7v57p6fgw1KXCGk1CkyRsbaT3yl7wSUgZ7OszzwJrQ3vV2iAUXDI3S/BcYGLK+4j1eakPg/hcs+9JOD4CVv+OqrZeNNt0FxDBO3vNieKJlT/12ISFPq+c4uMJF1uVqE+KtsjaMj89CSvQtMjAAnWtE27g87CuG6p6ltCZut6sN3BSN7RRvXzk8xJqd/+MEEj0UD4pM0ckKW+WEuc0pTLAzUlLTEQpCdvrF1QNBaz56
+	3PSY8DO/YXAO3WyvyrLYaotHrCxecZuuOUo0uPPtHMb20QrrC7z72PgxSqUunH3GmWqRVA5EtoZ3i3JLEltIGBsbx2VEe8mchy2Laj4I+wS6WYoHQaZHIqm9XjTVoLjnuJE5Ne19UiN/EBl5j57K7+TzhPgxbN6LUfUBPo1sgEsWy3hrlEVkEHut4NoBEPeoTnrmJEFv5CQ69SrpVNTmMra0x6SgS95biMzGunlF2v+GR4bm/kNnmCcsWk1mvd4UNW2K6gZIi4+2tkKbkA1KypHMRMgXH9FqmbkbvAd2q6TaPuyOfHCX087/bH/gUX3Tw6LGTkX9GGHvWMNKIil4jPJm38bTc3hDcS5tMQ2KDeJlO+7pB4ENK51PXzmXOLI5q23DA0/6KhJZT+pDadE5xbCzLzGzC3UCy6a8pZnBt224dwINcbmU6q6bKKFApd+z
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 08:06:43.3115
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 08:13:56.9514
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c02eb26-b975-4484-3fb8-08de84c54af5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 555f05a7-663f-480d-4b92-08de84c64d6e
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF000001B7.eurprd05.prod.outlook.com
+	AMS0EPF000001B3.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6419
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7607
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=2];
 	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
@@ -188,7 +190,7 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:dkim,arm.com:email,arm.com:mid,epam.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:dkim,arm.com:mid];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -202,7 +204,7 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	RCPT_COUNT_FIVE(0.00)[6];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: 0C4D12B7884
+X-Rspamd-Queue-Id: 6D6112B7A6C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -210,220 +212,183 @@ Hi Mykyta,
 
 > On 12 Mar 2026, at 10:39, Mykyta Poturai <Mykyta_Poturai@epam.com> wrote:
 >=20
-> Currently on Arm the desc->affinity mask of an irq is never updated,
-> which makes it hard to know the actual affinity of an interrupt.
->=20
-> Fix this by updating the field in irq_set_affinity.
-
-The commit message here should also explain what has changed regarding
-locks and irq affinity and justify why code is modified in other places (vg=
-ic.c,
-vgic-mmio) to follow the new locking requirements for it.
-
+> Move IRQs from dying CPU to the online ones when a CPU is getting
+> offlined. When onlining, rebalance all IRQs in a round-robin fashion.
+> Guest-bound IRQs are already handled by scheduler in the process of
+> moving vCPUs to active pCPUs, so we only need to handle IRQs used by Xen
+> itself.
 >=20
 > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
->=20
-
-With that fixed:
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-Cheers
-Bertrand
-
 > ---
 > v5->v6:
-> * add missing locking around irq_set_affinity calls
+> * don't do any balancing on boot
+> * only do balancing when cpu hotplug is enabled
 >=20
 > v4->v5:
-> * add locking
+> * handle CPU onlining as well
+> * more comments
+> * fix crash when ESPI is disabled
+> * don't assume CPU 0 is a boot CPU
+> * use insigned int for irq number
+> * remove assumption that all irqs a bound to CPU 0 by default from the
+>  commit message
 >=20
 > v3->v4:
 > * patch introduced
 > ---
-> xen/arch/arm/gic-vgic.c          |  2 ++
-> xen/arch/arm/irq.c               |  9 +++++++--
-> xen/arch/arm/vgic.c              | 14 ++++++++++++--
-> xen/arch/arm/vgic/vgic-mmio-v2.c | 11 +++++------
-> xen/arch/arm/vgic/vgic.c         | 15 ++++++++-------
-> 5 files changed, 34 insertions(+), 17 deletions(-)
+> xen/arch/arm/include/asm/irq.h |  4 +++
+> xen/arch/arm/irq.c             | 60 ++++++++++++++++++++++++++++++++++
+> xen/arch/arm/smpboot.c         |  8 +++++
+> 3 files changed, 72 insertions(+)
 >=20
-> diff --git a/xen/arch/arm/gic-vgic.c b/xen/arch/arm/gic-vgic.c
-> index ea48c5375a..5253caf002 100644
-> --- a/xen/arch/arm/gic-vgic.c
-> +++ b/xen/arch/arm/gic-vgic.c
-> @@ -232,7 +232,9 @@ static void gic_update_one_lr(struct vcpu *v, int i)
->             if ( test_bit(GIC_IRQ_GUEST_MIGRATING, &p->status) )
->             {
->                 struct vcpu *v_target =3D vgic_get_target_vcpu(v, irq);
-> +                spin_lock(&p->desc->lock);
->                 irq_set_affinity(p->desc, cpumask_of(v_target->processor)=
-);
-> +                spin_unlock(&p->desc->lock);
->                 clear_bit(GIC_IRQ_GUEST_MIGRATING, &p->status);
->             }
->         }
+> diff --git a/xen/arch/arm/include/asm/irq.h b/xen/arch/arm/include/asm/ir=
+q.h
+> index 09788dbfeb..a3897ec62d 100644
+> --- a/xen/arch/arm/include/asm/irq.h
+> +++ b/xen/arch/arm/include/asm/irq.h
+> @@ -126,6 +126,10 @@ bool irq_type_set_by_domain(const struct domain *d);
+> void irq_end_none(struct irq_desc *irq);
+> #define irq_end_none irq_end_none
+>=20
+> +#ifdef CONFIG_CPU_HOTPLUG
+> +void rebalance_irqs(unsigned int from, bool up);
+> +#endif
+
+Could you make here something like:
+#else
+static inline void rebalance_irqs(unsigned int from, bool up) {}
+#endif
+
+so that ...
+
+> +
+> #endif /* _ASM_HW_IRQ_H */
+> /*
+>  * Local variables:
 > diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-> index 73e58a5108..7204bc2b68 100644
+> index 7204bc2b68..d428d3118b 100644
 > --- a/xen/arch/arm/irq.c
 > +++ b/xen/arch/arm/irq.c
-> @@ -216,10 +216,15 @@ static inline struct domain *irq_get_domain(struct =
-irq_desc *desc)
->     return irq_get_guest_info(desc)->d;
+> @@ -158,6 +158,60 @@ static int init_local_irq_data(unsigned int cpu)
+>     return 0;
 > }
 >=20
-> +/* Must be called with desc->lock held */
-> void irq_set_affinity(struct irq_desc *desc, const cpumask_t *mask)
-> {
-> -    if ( desc !=3D NULL )
-> -        desc->handler->set_affinity(desc, mask);
-> +    if ( desc =3D=3D NULL )
+> +#ifdef CONFIG_CPU_HOTPLUG
+> +static int cpu_next;
+> +
+> +static void balance_irq(int irq, unsigned int from, bool up)
+> +{
+> +    struct irq_desc *desc =3D irq_to_desc(irq);
+> +    unsigned long flags;
+> +
+> +    ASSERT(!cpumask_empty(&cpu_online_map));
+> +
+> +    spin_lock_irqsave(&desc->lock, flags);
+> +    if ( likely(!desc->action) )
+> +        goto out;
+> +
+> +    if ( likely(test_bit(_IRQ_GUEST, &desc->status) ||
+> +                test_bit(_IRQ_MOVE_PENDING, &desc->status)) )
+> +        goto out;
+> +
+> +    /*
+> +     * Setting affinity to a mask of multiple CPUs causes the GIC driver=
+s to
+> +     * select one CPU from that mask. If the dying CPU was included in t=
+he IRQ's
+> +     * affinity mask, we cannot determine exactly which CPU the interrup=
+t is
+> +     * currently routed to, as GIC drivers lack a concrete get_affinity =
+API. So
+> +     * to be safe we must reroute it to a new, definitely online, CPU. I=
+n the
+> +     * case of CPU going down, we move only the interrupt that could res=
+ide on
+> +     * it. Otherwise, we rearrange all interrupts in a round-robin fashi=
+on.
+> +     */
+> +    if ( !up && !cpumask_test_cpu(from, desc->affinity) )
+> +        goto out;
+> +
+> +    cpu_next =3D cpumask_cycle(cpu_next, &cpu_online_map);
+> +    irq_set_affinity(desc, cpumask_of(cpu_next));
+> +
+> +out:
+> +    spin_unlock_irqrestore(&desc->lock, flags);
+> +}
+> +
+> +void rebalance_irqs(unsigned int from, bool up)
+> +{
+> +    int irq;
+> +
+> +    if ( cpumask_empty(&cpu_online_map) )
 > +        return;
 > +
-> +    ASSERT(spin_is_locked(&desc->lock));
-> +    cpumask_copy(desc->affinity, mask);
-> +    desc->handler->set_affinity(desc, mask);
-> }
->=20
-> int request_irq(unsigned int irq, unsigned int irqflags,
-> diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-> index 6647071ad4..c59f6873db 100644
-> --- a/xen/arch/arm/vgic.c
-> +++ b/xen/arch/arm/vgic.c
-> @@ -445,7 +445,9 @@ bool vgic_migrate_irq(struct vcpu *old, struct vcpu *=
-new, unsigned int irq)
->=20
->     if ( list_empty(&p->inflight) )
->     {
-> +        spin_lock(&p->desc->lock);
->         irq_set_affinity(p->desc, cpumask_of(new->processor));
-> +        spin_unlock(&p->desc->lock);
->         spin_unlock_irqrestore(&old->arch.vgic.lock, flags);
->         return true;
+> +    for ( irq =3D NR_LOCAL_IRQS; irq < NR_IRQS; irq++ )
+> +        balance_irq(irq, from, up);
+> +
+> +#ifdef CONFIG_GICV3_ESPI
+> +    for ( irq =3D ESPI_BASE_INTID; irq < ESPI_MAX_INTID; irq++ )
+> +        balance_irq(irq, from, up);
+> +#endif
+> +}
+> +#endif /* CONFIG_CPU_HOTPLUG */
+> +
+> static int cpu_callback(struct notifier_block *nfb, unsigned long action,
+>                         void *hcpu)
+> {
+> @@ -172,6 +226,12 @@ static int cpu_callback(struct notifier_block *nfb, =
+unsigned long action,
+>             printk(XENLOG_ERR "Unable to allocate local IRQ for CPU%u\n",
+>                    cpu);
+>         break;
+> +    case CPU_ONLINE:
+> +#ifdef CONFIG_CPU_HOTPLUG
+> +        if ( system_state >=3D SYS_STATE_active )
+> +            rebalance_irqs(cpu, true);
+> +#endif
+> +        break;
+
+This ifdef could be switched to if IS_ENABLED
+
 >     }
-> @@ -453,7 +455,9 @@ bool vgic_migrate_irq(struct vcpu *old, struct vcpu *=
-new, unsigned int irq)
->     if ( !list_empty(&p->lr_queue) )
->     {
->         vgic_remove_irq_from_queues(old, p);
-> +        spin_lock(&p->desc->lock);
->         irq_set_affinity(p->desc, cpumask_of(new->processor));
-> +        spin_unlock(&p->desc->lock);
->         spin_unlock_irqrestore(&old->arch.vgic.lock, flags);
->         vgic_inject_irq(new->domain, new, irq, true);
->         return true;
-> @@ -473,6 +477,7 @@ void arch_move_irqs(struct vcpu *v)
->     struct domain *d =3D v->domain;
->     struct pending_irq *p;
->     struct vcpu *v_target;
-> +    unsigned long flags;
->     int i;
 >=20
->     /*
-> @@ -494,7 +499,13 @@ void arch_move_irqs(struct vcpu *v)
->         p =3D irq_to_pending(v_target, virq);
+>     return notifier_from_errno(rc);
+> diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+> index 7f3cfa812e..f17e88e678 100644
+> --- a/xen/arch/arm/smpboot.c
+> +++ b/xen/arch/arm/smpboot.c
+> @@ -425,6 +425,14 @@ void __cpu_disable(void)
 >=20
->         if ( v_target =3D=3D v && !test_bit(GIC_IRQ_GUEST_MIGRATING, &p->=
-status) )
-> +        {
-> +            if ( !p->desc )
-> +                continue;
-> +            spin_lock_irqsave(&p->desc->lock, flags);
->             irq_set_affinity(p->desc, cpu_mask);
-> +            spin_unlock_irqrestore(&p->desc->lock, flags);
-> +        }
->     }
-> }
+>     smp_mb();
 >=20
-> @@ -574,8 +585,8 @@ void vgic_enable_irqs(struct vcpu *v, uint32_t r, uns=
-igned int n)
->         spin_unlock_irqrestore(&v_target->arch.vgic.lock, flags);
->         if ( p->desc !=3D NULL )
->         {
-> -            irq_set_affinity(p->desc, cpumask_of(v_target->processor));
->             spin_lock_irqsave(&p->desc->lock, flags);
-> +            irq_set_affinity(p->desc, cpumask_of(v_target->processor));
->             /*
->              * The irq cannot be a PPI, we only support delivery of SPIs
->              * to guests.
-> @@ -944,4 +955,3 @@ void vgic_check_inflight_irqs_pending(struct vcpu *v,=
- unsigned int rank, uint32_
->  * indent-tabs-mode: nil
->  * End:
->  */
-> -
-> diff --git a/xen/arch/arm/vgic/vgic-mmio-v2.c b/xen/arch/arm/vgic/vgic-mm=
-io-v2.c
-> index b7c2d7ce99..fc04741ca1 100644
-> --- a/xen/arch/arm/vgic/vgic-mmio-v2.c
-> +++ b/xen/arch/arm/vgic/vgic-mmio-v2.c
-> @@ -159,24 +159,23 @@ static void vgic_mmio_write_target(struct vcpu *vcp=
-u,
->     for ( i =3D 0; i < len; i++ )
->     {
->         struct vgic_irq *irq =3D vgic_get_irq(vcpu->domain, NULL, intid +=
- i);
-> +        struct irq_desc *desc =3D irq_to_desc(irq->hwintid);
->=20
-> -        spin_lock_irqsave(&irq->irq_lock, flags);
-> +        spin_lock_irqsave(&desc->lock, flags);
-> +        spin_lock(&irq->irq_lock);
->=20
->         irq->targets =3D (val >> (i * 8)) & cpu_mask;
->         if ( irq->targets )
->         {
->             irq->target_vcpu =3D vcpu->domain->vcpu[ffs(irq->targets) - 1=
-];
->             if ( irq->hw )
-> -            {
-> -                struct irq_desc *desc =3D irq_to_desc(irq->hwintid);
-> -
->                 irq_set_affinity(desc, cpumask_of(irq->target_vcpu->proce=
-ssor));
-> -            }
->         }
->         else
->             irq->target_vcpu =3D NULL;
->=20
-> -        spin_unlock_irqrestore(&irq->irq_lock, flags);
-> +        spin_unlock(&irq->irq_lock);
-> +        spin_unlock_irqrestore(&desc->lock, flags);
->         vgic_put_irq(vcpu->domain, irq);
->     }
-> }
-> diff --git a/xen/arch/arm/vgic/vgic.c b/xen/arch/arm/vgic/vgic.c
-> index b2c0e1873a..81ba4099ef 100644
-> --- a/xen/arch/arm/vgic/vgic.c
-> +++ b/xen/arch/arm/vgic/vgic.c
-> @@ -812,21 +812,22 @@ void arch_move_irqs(struct vcpu *v)
->     {
->         struct vgic_irq *irq =3D vgic_get_irq(d, NULL, i + VGIC_NR_PRIVAT=
-E_IRQS);
->         unsigned long flags;
-> +        irq_desc_t *desc;
->=20
->         if ( !irq )
->             continue;
->=20
-> -        spin_lock_irqsave(&irq->irq_lock, flags);
-> +        desc =3D irq_to_desc(irq->hwintid);
->=20
-> -        /* Only hardware mapped vIRQs that are targeting this vCPU. */
-> -        if ( irq->hw && irq->target_vcpu =3D=3D v)
-> -        {
-> -            irq_desc_t *desc =3D irq_to_desc(irq->hwintid);
-> +        spin_lock_irqsave(&desc->lock, flags);
-> +        spin_lock(&irq->irq_lock);
->=20
-> +        /* Only hardware mapped vIRQs that are targeting this vCPU. */
-> +        if ( irq->hw && irq->target_vcpu =3D=3D v )
->             irq_set_affinity(desc, cpumask_of(v->processor));
-> -        }
->=20
-> -        spin_unlock_irqrestore(&irq->irq_lock, flags);
-> +        spin_unlock(&irq->irq_lock);
-> +        spin_unlock_irqrestore(&desc->lock, flags);
->         vgic_put_irq(d, irq);
->     }
+> +    /*
+> +     * Now that the interrupts are cleared and the CPU marked as offline=
+,
+> +     * move interrupts out of it
+> +     */
+> +#ifdef CONFIG_CPU_HOTPLUG
+> +    rebalance_irqs(cpu, false);
+> +#endif
+
+and this one to.
+
+Doing it without the static inline will end up in an error and i think it i=
+s clearer
+to have IS_ENABLED here so that it is clear from the code that nothing is d=
+one
+if the config is not enabled.
+
+But happy to remove the IS_ENABLED part if other think differently.
+
+Cheers
+Bertrand
+
+> +
+>     /* Return to caller; eventually the IPI mechanism will unwind and the=
+=20
+>      * scheduler will drop to the idle loop, which will call stop_cpu(). =
+*/
 > }
 > --=20
 > 2.51.2
