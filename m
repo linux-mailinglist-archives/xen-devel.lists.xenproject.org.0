@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mFkbDFH6u2mzqwIAu9opvQ
+	id CFSNIE76u2mzqwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 14:29:53 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 14:29:50 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C0942CBFF9
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 14:29:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1257117.1551561 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AB1B2CBFF1
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 14:29:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1257118.1551571 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3DRT-00053p-9g; Thu, 19 Mar 2026 13:29:39 +0000
+	id 1w3DRW-0005Kw-Jf; Thu, 19 Mar 2026 13:29:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1257117.1551561; Thu, 19 Mar 2026 13:29:39 +0000
+Received: by outflank-mailman (output) from mailman id 1257118.1551571; Thu, 19 Mar 2026 13:29:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3DRT-000521-6t; Thu, 19 Mar 2026 13:29:39 +0000
-Received: by outflank-mailman (input) for mailman id 1257117;
- Thu, 19 Mar 2026 13:29:37 +0000
+	id 1w3DRW-0005Hi-F2; Thu, 19 Mar 2026 13:29:42 +0000
+Received: by outflank-mailman (input) for mailman id 1257118;
+ Thu, 19 Mar 2026 13:29:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wl8P=BT=citrix.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1w3DRR-0004oN-Ai
- for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 13:29:37 +0000
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c112::5])
+ id 1w3DRU-0004oN-TQ
+ for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 13:29:41 +0000
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazlp170100001.outbound.protection.outlook.com
+ [2a01:111:f403:c105::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ac4fabdd-2397-11f1-b164-2bf370ae4941;
- Thu, 19 Mar 2026 14:29:36 +0100 (CET)
+ id ae87c39f-2397-11f1-b164-2bf370ae4941;
+ Thu, 19 Mar 2026 14:29:40 +0100 (CET)
 Received: from DS0PR03MB8272.namprd03.prod.outlook.com (2603:10b6:8:28f::23)
- by CH5PR03MB7816.namprd03.prod.outlook.com (2603:10b6:610:210::6) with
+ by SA5PR03MB989126.namprd03.prod.outlook.com (2603:10b6:806:4d6::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.20; Thu, 19 Mar
- 2026 13:29:29 +0000
+ 2026 13:29:35 +0000
 Received: from DS0PR03MB8272.namprd03.prod.outlook.com
  ([fe80::2e63:9a7a:3701:7654]) by DS0PR03MB8272.namprd03.prod.outlook.com
  ([fe80::2e63:9a7a:3701:7654%5]) with mapi id 15.20.9723.019; Thu, 19 Mar 2026
- 13:29:31 +0000
+ 13:29:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,378 +52,357 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac4fabdd-2397-11f1-b164-2bf370ae4941
+X-Inumbo-ID: ae87c39f-2397-11f1-b164-2bf370ae4941
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sn5S4LLWoWAcwdsSLXvDqtVOZI/l10HD9JTXv4qfYSh+v/RWcXZZULRJalhaeaUg+xFNJwv10W3YTR5dbKX4zILYbB3n4Ov8zltbNLk9pRCQNmAetIcIK0oxd5gKg7UxHHLdcXPE7WhlWAKseLCJBuAUWqIpxySY/k5XGc+mz0BonSuvJKTk0iiZMyCLmrpu2GIg0OZsa2vm4C3ve9Lniib4qLS+XkpjqWwAYiVKo02keEEjEVWbEYH0WVFXixDiLs6pMn/I1r67Vxu5WUWSqEzyYo4FjBeKQCq9e3CEAkyBgvA/a+KAoKDWvD5IIDT3ifcEZPvgLYeFgeGXzh9cJA==
+ b=JfYug00C0Q8CpFjiqJvXhD4PuEY5A8DP479OochV43ghXHXCuBkD+GcTTtrf0aUYY9F+mLTDlNsOn3L3+YpiVCGNu8tQxGkvnHX019mlzWUvvjKko6W3M+mNhM4qvEMcyNAVYJ7FXhzuID7BWUjuWdop2/LhQdpzRxb2XbYfFXW2wDB47ADr+8m3owciUkut2qIFT/DJFIabPQD0J9/oxWYQEUqwnLLZ9e0GjwEL4z6+n3mqhfZcWO8N1bP0pItlEo43Brf6FsbObMZPYM2eVwLyMB2HcKGtyZimxGnVozUyC9+7VLMuojHBHHTNOUKg2fmvFjD4xX0lcRfzhkRROg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vfpfp46eTyMy7pfSeQnpjON24kwtKz4/QB3um9t+Ie4=;
- b=eD9e5QlvoERmpy6EXDnoTGf84inSpdqTsY/6SB249Z2C4az/jkxWytdz1AOcy3q0FUoxk8w89RoGKGU9sqnAd7rdOW5886AYuLMb6B15SGjB8rissxnHZJOGcQGgidbE5BUvUr2JCWh4CFrYJKx81ya0yzOxa2KuNmcPLXbvlGd1gTPCPnrTKe828JO3mSK4DpJx9riW8PF0hnivJCsquh/DlDeJyTPeRosXmJWsFbpbV6qZCxPp+aCzEzul8idGZJAMy3MkTIxJRYYAQ/bD5ztuipGRrm+zheasTVQsc9ZOgcY8smqPhbHc+5XIzfZoCp2EGMt8OXFrLc+Gr4071w==
+ bh=/i+towAPeqocTRa3nc54VevaTAJAqB/WA315HCtvc0Q=;
+ b=HidHL9Dhvza+l04Z/s52NDB8Na3WbSHfWMve99PLZFBTO5N3McnQPBszYH9CEfzGovjUK5VcS60Xs1VsO4/umhGqeuHGaTdCHeK+DUjiocf9V6FM6O5yHP/jzZYAPvVJXTy7dcR9ZCVSZFt1Gejw+2MSYqDTSiumdkadQsDhM6yrCDBUzARcwiY66q8WIxF54amMC4c4NioBIQseNBNQarXk+1ipdkbY8alGqvutyOD7mx4jeJ825rohS+DxCHIjwDW9ryYAI6PQ/9GUmz69fCKXzhIh6k/ZqhTcLM0eVjlqo7KrmQcze3252+uOmoeyNkOkwVeO5CEEGJiDrvKCuQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vfpfp46eTyMy7pfSeQnpjON24kwtKz4/QB3um9t+Ie4=;
- b=E4pFsrRZ5OHol2JvI2LmcvMN3/GQPPh9K8LqdIpcAk+dLMRGAKc3xWyJ6h5zi3ld2/mSmSvwLnAD6s9881/U57tc6W5MGusRC5D89hoYQPvS2tqOSeARpiTVjtAPNxit+2u0eB2oovcUs2I9GJkVkd8YgFS1ITa9zSwto5+W2+U=
+ bh=/i+towAPeqocTRa3nc54VevaTAJAqB/WA315HCtvc0Q=;
+ b=EUubIL8q8eKTSbRFERfQfrZq7MLSRp/vJs+hfvaJeiA+BP62zyQvZACEzJY2rJSdN6CKkOA9TPyE0jfuasWvobqOzI8TbQLoO3ioaj3fLULheV8xH/YUrdMCeE6klAJdCBGwZfdSSlx2wroGCNwbXsgN7EdshhlJVVuDqCe42CA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
 To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH v1 1/8] x86: Always use eager-fpu
-Date: Thu, 19 Mar 2026 13:29:17 +0000
-Message-ID: <20260319132924.1469809-2-ross.lagerwall@citrix.com>
+Subject: [PATCH v1 2/8] x86/vmx: Remove lazy FPU support
+Date: Thu, 19 Mar 2026 13:29:18 +0000
+Message-ID: <20260319132924.1469809-3-ross.lagerwall@citrix.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260319132924.1469809-1-ross.lagerwall@citrix.com>
 References: <20260319132924.1469809-1-ross.lagerwall@citrix.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0059.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2af::15) To DS0PR03MB8272.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO4P265CA0068.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2af::22) To DS0PR03MB8272.namprd03.prod.outlook.com
  (2603:10b6:8:28f::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR03MB8272:EE_|CH5PR03MB7816:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10c201f1-63c7-4458-1262-08de85bb8d6a
+X-MS-TrafficTypeDiagnostic: DS0PR03MB8272:EE_|SA5PR03MB989126:EE_
+X-MS-Office365-Filtering-Correlation-Id: 744ed12c-b5e4-4c91-37e2-08de85bb8fad
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|22082099003|56012099003|18002099003;
+	BCL:0;ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	PwctcuVXhW0DoRdJ4zFdxMrTtvo/JrGFXWRLB7mglFSZgmPRRvsBRkAZSpdS0W+mvTYaSCVxZiWEPI8iXY+SlEim7ulDso8MOlPMB6f90MEb58L8FzIZ59Sg7ev4V5Gaac+3EkZ+fRNHv9cXLHN1pucub3FThnUQRP2pUPiRNMz7Xgu1sfElBfug0Xucy0FSXzVfWiNqo+Cevyq3L96X/LhMgnL048cbA+fO5Yjqsvg2b8nLvWaazGF3viEamgYCj6bnCp5TxlINNQ4RkFdP3vYh6WdJaD97sXMdGZI9QMjzjlizXjEHEj3PAbi+/Vjge77s2sTWnF1NLPlG+d4lTGVTMVHft9xOM/oTVGLQE4NJoAltqZCPm7NYzKHEYBUOZdND0MF2/Qq8Gvw1/xR3rMNjne8iOUHLKR3sK8gGsar5J9eu5DUXc/A+XWWjr+j8bc+1/dDolC7OnsM50m80zRRqA5KvnWXXT+vLKQNPhEuHeDc/lK0ciK5+lyT4/rHMG0RnxrqO6vAekJQBmsHMjxL+DcCFX9EqhIoikgy7OIW+1uYx7/3uWIx/l2izKWHXnaFmuMBcl3mVeiV/Zghz6lSBBYtZCkHeV4yhqlku20FJmgsSikOVmLFkRY4y+6iO4YF7rbpHBwN7lmVu5XBv4qXKitIFfT7wheM8NJ0hs443KFCRVAp0bSrEVDqQpkgbz8UpltJeoulGabNBGPC1sRxHUcKTUF7vX6U/pR4h3bo=
+	WLl6nY1+Ndg1QZNDbmd2DvPi+ENMpouAPzh0T5WmyrO6P0P3PP+SmI+6wG55Og7Q2dLUWXR+H6nQasU238WM1z9iK0KnAoR+XzFze94xigLCfeyyO6spt8u+Zv06YP15wNX4uJNKphrV3wOJ8UvHOYN/LMrJoGumJHg/JVYCve/ca7Vuz99r1leuRTiKPI8VpSGP56bz/KV/IKLGUpX2M9NWdz1PPxl4dnN0n1qAlHELCfDi1NTI3alWm2a/wWz2VWBHP1wORXvJXECNHHsggCaln/0vMkTsas/rgbhXLY1rQRfg0vW59sSYTeQXUHzTwov0UNS1/5Ov+ED5ROKoF5iX2WfrjIXqW6rxatPVPekky5YSnPB6PCfuZpoXmE3VacfU3NnnYN/InXKmIR23zrMf0Wwh98XSTDWKrASwoG2CSGfRsc5YyeS+pg1u5g2qnXusEXQDJH7nRtyfVTPYFGTIMe+gvikxN0A7W9ESDl9r+ejvbCFKcljuQEAWj3OXE4TL3bOBZws4i+u5ATa8ILaKSLy7xdDB59QOrFVPF6HzFYLt8rhFb2o1/2oFoLLTrNvDjsir9juRkbza/ZpDxHnbYg1fg8RJ71NJovXsDwWHLpIXl3d21K/G5qu9OEzSBA+gbNFn+cCmNasR/3PDHxYsKvV7XfivaU87EBy0nz2/tU2nyXIYNRJugRp5vFgtDbJndCUGvQisvHqIjORmssDm/BU3opikqSVk815K4Kg=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR03MB8272.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR03MB8272.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?wI1uRyHvJdC2W1tMUoXdTmLy9tuydszLjrPktRBIwFqKBAPrqQIppbMmpnXU?=
- =?us-ascii?Q?ishS5ZZeDDq365NqnjG5Q3kHs9ymaPp5iyDRvRuFh1wp5ZgUQP115YjD3mMn?=
- =?us-ascii?Q?HKDs0h32cloglmLvmJsNn4BK3i6/MPomwPbrRDwq8bff9E4hj2QT+B4ij6tG?=
- =?us-ascii?Q?Wj596ESmF42PhGUXZdlfgPZBaPMTHDwIxrepRydZNbkhg5xqAB9mrC26+CL7?=
- =?us-ascii?Q?t6AubXXuFtqP/xU77dN8LMxiFjJ2vi7d5D72kEo9dJ3qftlT86d6ueqb7Z80?=
- =?us-ascii?Q?+aeri3OFxwZUmjEYZi1gPsYbqtBI82550LNn9wmk9W22WUaf9Z5FJW7aZyXu?=
- =?us-ascii?Q?PigDCxBrAcUycVKdKKlH+4efYNW7z/P476DWxrnswPBLjTjGY6EoCFuphxNk?=
- =?us-ascii?Q?pZYx/FQJHSx8gEsjTG7/6pmZK73e21ESVaxtM13SplKonmcR1dtLmqf2xK2l?=
- =?us-ascii?Q?KRdQvlnP7f6mdtxwvQKCr3u5IN/EzCoYmy47kvfAAxbcYwui9HUgpr1yMbG8?=
- =?us-ascii?Q?meQk7tJMpU9+d/cKIkzNV/G/0Dt68DIVcd4JkNcNnrot/H3Ow0wUWHyApWUi?=
- =?us-ascii?Q?Hmz9RzraUO4csnvrqckP8x/56wbz8etxO16Y9rc8caBy8GchV2phoPXqfy6B?=
- =?us-ascii?Q?TY0jsWtqkldxct7TaztzOfHA0ZX89q2evHHl0lpWTHVlF648MSvU+CZTiErP?=
- =?us-ascii?Q?ULHu2SbL7qixneaLRid2zm1XP9rGPz8JAmDiEQSNj34nbK9RPnvunUHRnwEr?=
- =?us-ascii?Q?XHXcG7ERCQkbk7t4zr81LNXy8YVGrU0+WOxPXU1l27kqQdU96sJlE5cN4ks6?=
- =?us-ascii?Q?kdUsj4zpiMxw31KIkz8W/cOp5K+85XJRwUFoHsXEOR2JgbqFVkQcDgP8Njdj?=
- =?us-ascii?Q?TMcceHqQ3groKiM71KA9EqizaZAN+UMMhN1tJSCm9tgU96abrIe059w1jLMF?=
- =?us-ascii?Q?BbDUOoFasE3flpArxcQ0ssreYyOlWS5dJyNzadB1KBimippXdZGFmD5YJqa0?=
- =?us-ascii?Q?nRkvsb/JEoVLszO+rE854KKdQmbJ9BbFe4nwAEdBXfdbmtnnKoSXjaqLy/l/?=
- =?us-ascii?Q?ShfnobhG0L8SKGERtdUaziABhB3aHPv6RCD5qfGjqlqzAfXLGYFVx8eektdA?=
- =?us-ascii?Q?KBl9MVNwEmYM7vcQoWs9y8HPDM801MpoA17IuH5xR8awVpvlDNVfM79vu0Sy?=
- =?us-ascii?Q?59OWZun8nhBB3sriCAuD7BFht8UhAV1ZOoPPO3obN69zNtsH7tx/fx/kwUyK?=
- =?us-ascii?Q?lDvAuPmZjmQLjJUTO5yWJVT5c6d4tPg7zT5rjj48SKFno4Rkjc0X4pWwY6wG?=
- =?us-ascii?Q?YEUbD6rn06OF4g/JK+S5p7xyK2BiKxHjQvKYEcmYkiLYzE291gzUOftuSrOs?=
- =?us-ascii?Q?xqwFDflR6+E0YCgKdWviMkHxA5BOS5BXBB87B7DS0bfjLdV2ud9E5x6PV1H2?=
- =?us-ascii?Q?pAFZAHxXbzE9BwhB2i4ykHoyS1D+y5xArlYEdEPAO1ZLEsjoW2msuyMKhZ4L?=
- =?us-ascii?Q?FJvdb1ct62DQR4bx19fSh6suc5uresiHSpYtPHtJdctk2lfcupKZ6FAkEDYu?=
- =?us-ascii?Q?CFSlO/E9EnuUt8NPIifvNYBGLcpB44547awG9vswKu2NhKD2NqP+q0D/epRG?=
- =?us-ascii?Q?sboAACnBnPXQwLDuzYDtyOa3w4UokA3xoigGyZj4UFvJninvG9PBfxI+7A9D?=
- =?us-ascii?Q?c/UnHgjsZf8j4teL25cTDCNdahcw/k2FjCVRDbJvVorAcVTpuZw6JxmgR8ru?=
- =?us-ascii?Q?l/Z8syziEQu92W0lmAbX70Cx772QcVI=3D?=
+	=?us-ascii?Q?sLNeTTBIYGINJ+HYWPfCfvGDq0PHF37IZ1A3m6Y5gsnO9ZalLUzioWhFld1i?=
+ =?us-ascii?Q?D8WlQ8ZBnHXeQQ4ItRkADrMHshUGAHKZZ+iCha38mI20gngs6zRSqRXpidH1?=
+ =?us-ascii?Q?NbAi2jJUJKHOUGLn4TWvJlI2NG+QZwvWkQzqryuN4LTkq72vrInTOfxuX0Ho?=
+ =?us-ascii?Q?5eSRN0kjjdEkVn6VgQCMcvCADvV3rSofURunRExSpqVzkNURPILIXyxRelkH?=
+ =?us-ascii?Q?MCMIyEXMpZ6v/StwJm7FiI5mwNHbzIZhFECaXCEs9bek3O/RKpAJ+yeXdcLC?=
+ =?us-ascii?Q?IcdT4HGh8OIPbsdLKg9yJOCm6XFkDk0wOzNeIPMmYiw8XTJvtFXBIKptrYpA?=
+ =?us-ascii?Q?JTcLL4PiwDbwqxg5M9IOC+zTGOj8eWmv80LhG3MrvVbKNkgY7D6UUyhjj9sa?=
+ =?us-ascii?Q?kOeAJmpXSDDpwG9jxq4jNNtS1DuGupaWPNqjHcZcvfVL+k9SNGNnPQzRk1SL?=
+ =?us-ascii?Q?br82OpIKOauEan/oL94MhMMx6hrnjTOKDz67MOjmQjhQ2Q9vP/M5gVV3xdQY?=
+ =?us-ascii?Q?hWNKHPHSE6fkdoF4LZBnQ2tpVr8Ef+DDcDO9Pjt/DugMNq34LHchw5iVHfWr?=
+ =?us-ascii?Q?IPjqxx0YcJ1w715+8L/APJ4DOmKVj94h7xjzcB/omQpAPImMU6101qlzWTsk?=
+ =?us-ascii?Q?7vWQlrJcvPva3++eWor0Qzc6cIiMRL/pP5qhEKxuRWijbuY/YV7NBTOWVd7T?=
+ =?us-ascii?Q?W5tUb9kyi4+Wx3C+FnX3KJj2uC4wcNYsLIIsb+sdJOS9LfOcixsjO/KWrKUV?=
+ =?us-ascii?Q?sDmcDpicE7NKjKGTXhwu3TK4+Q6175PiHz6M18MFZ1kfa9SAA36CKBYeRxF2?=
+ =?us-ascii?Q?h7oLn3UM5RoHuJ4WF83WXx+LjTn7HYO4N5dUsppXzS7CD6qOX/zj1hcHC9V1?=
+ =?us-ascii?Q?D0h6D7GbP1bOp/aD96WZzvnTviYwdbOJN6h+hnPR9gFtOYSwVFRU2yKEdJe1?=
+ =?us-ascii?Q?zp+zjEs5B2vqYGNFp3LSm2YPc/pCSngmFVmFfidP+JP32dSFCABcuNwpwFin?=
+ =?us-ascii?Q?vtbjVAaZgyMS6VGkLiLoMO1Lkv0svLRLCPNUnwbz0Aejy/5gL7cAZ5J0pD59?=
+ =?us-ascii?Q?wUcgDCfJyCidMiYVCs+el/lj78LMrtt5LJ+ld58ISAfuvwMyBoraa2fTEz1I?=
+ =?us-ascii?Q?aK4vRxd2ldNykuPQ5u44sXFWGsApZ4GXr8d9lbRbESfwd6wOT/wJnbE0/UcJ?=
+ =?us-ascii?Q?CFqmdta4c8CIM9D9unabLddOaKz1nmDc/bOty+ebVO/wiU9zkrKoMoI9Omwu?=
+ =?us-ascii?Q?ub+MU3+c/Wl4jVtEyA51hm7frCm9YM1MZ0OpOCKepZy4dSE0MrgLWly92L6A?=
+ =?us-ascii?Q?2pi0DNPBEl5i4jflTs+wVTiNQKNKiIsXtHiHYbHaFwUpA3G3BYsGVA5vP6E+?=
+ =?us-ascii?Q?qLoIGPEHyXfJfSStTVjI+FRHKH3c98WKjq8ZFRTtLPv7CFHfTdAREGjau8UY?=
+ =?us-ascii?Q?x2AxEN2EWkL1F8itZFyri2/ob/4lq3OCnS/DQqq68owknahvWtHtB+juDIea?=
+ =?us-ascii?Q?+DapqA78GPKzKmH5kG7dph18P7a3zbMEaAiwBj5ynzSVVtCtk4lXU1HMhRJ5?=
+ =?us-ascii?Q?zHP6YB5pEyce36/ADF5zhga0VjnAVisl+5ScPVq03J9NrXk1SmP3uvaU2Upa?=
+ =?us-ascii?Q?n+SqWrmMsGxgNMZxxIh7Ko9k4kkoQdYU1hVIon9zy7eDQ/dMNosIdsdTB3Q6?=
+ =?us-ascii?Q?3PA4gLvSCMgStBhgmfmVyapFRfQYi52tg+N0kM814DsAztiotGIk5yMIXIxP?=
+ =?us-ascii?Q?uQ7491sbCZrbDMlS5fvUWmqn09g0SQI=3D?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10c201f1-63c7-4458-1262-08de85bb8d6a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 744ed12c-b5e4-4c91-37e2-08de85bb8fad
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR03MB8272.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 13:29:31.1842
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 13:29:35.2754
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9ChuwEmEOZKBGmxyjhcmpaV0twMjOruI0xx83PK0o2Q1pL3D3GjHL0rMHix1v7nsZJTCSb6voIwpC2Sz4mxOB4Kj7lMKOv04MQw88Hhjg1w=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH5PR03MB7816
+X-MS-Exchange-CrossTenant-UserPrincipalName: OOz5oP5S0DjtYyNcMp9k48tc+O4cjnaFhDN2r53/wXGpRIwFWMLkLka3o24FEa6cWqaB13oTX2KCj7kF8G/EZfqe9zztl7qBMib7TeyhlW8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PR03MB989126
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:ross.lagerwall@citrix.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:ross.lagerwall@citrix.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:email,citrix.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,boot_cpu_data.family:url,amd.com:url];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:email,citrix.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	NEURAL_HAM(-0.00)[-0.999];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 7C0942CBFF9
+X-Rspamd-Queue-Id: 1AB1B2CBFF1
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Lazy FPU avoids some work during a context switch but pushes the costs
-elsewhere:
+Remove lazy FPU support from the VMX code since fully_eager_fpu is now
+always true.
 
-* For a workload running some Windows VMs, I measured about 83% of
-  context switches out had used the FPU so most of the time the FPU
-  save/restore is not avoided, just delayed.
-* Setting/clearing the cr0.TS bit is serializing and reportedly slower
-  than the processor optimized xsave/restore.
-* Linux uses PKRU so a partial xsave/restore is performed on each
-  context switch anyway, followed by a second xsave/restore at some
-  point during execution.
-
-There is no measurable performance benefit for using lazy FPU and it
-adds unwanted complexity so remove the option and always use eager-fpu.
+No functional change intended.
 
 Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 ---
- docs/misc/hypfs-paths.pandoc         |  2 -
- docs/misc/xen-command-line.pandoc    |  7 +--
- xen/arch/x86/i387.c                  |  2 +-
- xen/arch/x86/include/asm/spec_ctrl.h |  1 -
- xen/arch/x86/spec_ctrl.c             | 88 ++--------------------------
- 5 files changed, 6 insertions(+), 94 deletions(-)
+ xen/arch/x86/hvm/vmx/vmcs.c             |  8 +--
+ xen/arch/x86/hvm/vmx/vmx.c              | 70 +------------------------
+ xen/arch/x86/hvm/vmx/vvmx.c             | 15 +-----
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  2 -
+ 4 files changed, 5 insertions(+), 90 deletions(-)
 
-diff --git a/docs/misc/hypfs-paths.pandoc b/docs/misc/hypfs-paths.pandoc
-index e86f7d0dbef9..1553cb0bcb7f 100644
---- a/docs/misc/hypfs-paths.pandoc
-+++ b/docs/misc/hypfs-paths.pandoc
-@@ -108,12 +108,10 @@ A populated Xen hypervisor file system might look like the following example:
-             active-hvm/      directory for mitigations active in hvm doamins
-                 msr-spec-ctrl "No" or "Yes"
-                 rsb          "No" or "Yes"
--                eager-fpu    "No" or "Yes"
-                 md-clear     "No" or "Yes"
-             active-pv/       directory for mitigations active in pv doamins
-                 msr-spec-ctrl "No" or "Yes"
-                 rsb          "No" or "Yes"
--                eager-fpu    "No" or "Yes"
-                 md-clear     "No" or "Yes"
-                 xpti         "No" or list of "dom0", "domU", "PCID-on"
-                 l1tf-shadow  "No" or list of "dom0", "domU"
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index ebdca007d26b..6c77129732bf 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -2470,7 +2470,7 @@ By default SSBD will be mitigated at runtime (i.e `ssbd=runtime`).
- >              {msr-sc,rsb,verw,{ibpb,bhb}-entry}=<bool>|{pv,hvm}=<bool>,
- >              bti-thunk=retpoline|lfence|jmp,bhb-seq=short|tsx|long,
- >              {ibrs,ibpb,ssbd,psfd,
-->              eager-fpu,l1d-flush,branch-harden,srb-lock,
-+>              l1d-flush,branch-harden,srb-lock,
- >              unpriv-mmio,gds-mit,div-scrub,lock-harden,
- >              bhi-dis-s,bp-spec-reduce,ibpb-alt}=<bool> ]`
+diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+index c2e7f9aed39f..8e52ef4d497a 100644
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -1247,10 +1247,7 @@ static int construct_vmcs(struct vcpu *v)
+     __vmwrite(HOST_TR_SELECTOR, TSS_SELECTOR);
  
-@@ -2574,11 +2574,6 @@ On hardware supporting IBPB (Indirect Branch Prediction Barrier), the `ibpb=`
- option can be used to force (the default) or prevent Xen from issuing branch
- prediction barriers on vcpu context switches.
+     /* Host control registers. */
+-    v->arch.hvm.vmx.host_cr0 = read_cr0() & ~X86_CR0_TS;
+-    if ( !v->arch.fully_eager_fpu )
+-        v->arch.hvm.vmx.host_cr0 |= X86_CR0_TS;
+-    __vmwrite(HOST_CR0, v->arch.hvm.vmx.host_cr0);
++    __vmwrite(HOST_CR0, read_cr0());
+     __vmwrite(HOST_CR4, mmu_cr4_features);
+     if ( cpu_has_vmx_efer )
+         __vmwrite(HOST_EFER, read_efer());
+@@ -1330,8 +1327,7 @@ static int construct_vmcs(struct vcpu *v)
+     __vmwrite(VMCS_LINK_POINTER, ~0UL);
  
--On all hardware, the `eager-fpu=` option can be used to force or prevent Xen
--from using fully eager FPU context switches.  This is currently implemented as
--a global control.  By default, Xen will choose to use fully eager context
--switches on hardware believed to speculate past #NM exceptions.
--
- On hardware supporting L1D_FLUSH, the `l1d-flush=` option can be used to force
- or prevent Xen from issuing an L1 data cache flush on each VMEntry.
- Irrespective of Xen's setting, the feature is virtualised for HVM guests to
-diff --git a/xen/arch/x86/i387.c b/xen/arch/x86/i387.c
-index b84cd6f7a9e1..954ba3b1799b 100644
---- a/xen/arch/x86/i387.c
-+++ b/xen/arch/x86/i387.c
-@@ -297,7 +297,7 @@ void save_fpu_enable(void)
- /* Initialize FPU's context save area */
- int vcpu_init_fpu(struct vcpu *v)
- {
--    v->arch.fully_eager_fpu = opt_eager_fpu;
-+    v->arch.fully_eager_fpu = true;
+     v->arch.hvm.vmx.exception_bitmap = HVM_TRAP_MASK
+-              | (paging_mode_hap(d) ? 0 : (1U << X86_EXC_PF))
+-              | (v->arch.fully_eager_fpu ? 0 : (1U << X86_EXC_NM));
++              | (paging_mode_hap(d) ? 0 : (1U << X86_EXC_PF));
  
-     return xstate_alloc_save_area(v);
- }
-diff --git a/xen/arch/x86/include/asm/spec_ctrl.h b/xen/arch/x86/include/asm/spec_ctrl.h
-index 505e3ab863f0..8f82533c416a 100644
---- a/xen/arch/x86/include/asm/spec_ctrl.h
-+++ b/xen/arch/x86/include/asm/spec_ctrl.h
-@@ -79,7 +79,6 @@ static always_inline void spec_ctrl_new_guest_context(void)
- extern int8_t opt_ibpb_ctxt_switch;
- extern bool opt_ssbd;
- extern int8_t opt_bhi_dis_s;
--extern int8_t opt_eager_fpu;
- extern int8_t opt_l1d_flush;
- 
- extern bool bsp_delay_spec_ctrl;
-diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index dd0413e1fc13..bc8538a56f0e 100644
---- a/xen/arch/x86/spec_ctrl.c
-+++ b/xen/arch/x86/spec_ctrl.c
-@@ -61,7 +61,6 @@ static int8_t __initdata opt_psfd = -1;
- int8_t __ro_after_init opt_bhi_dis_s = -1;
- 
- int8_t __ro_after_init opt_ibpb_ctxt_switch = -1;
--int8_t __ro_after_init opt_eager_fpu = -1;
- int8_t __ro_after_init opt_l1d_flush = -1;
- static bool __initdata opt_branch_harden =
-     IS_ENABLED(CONFIG_SPECULATIVE_HARDEN_BRANCH);
-@@ -104,8 +103,6 @@ static int __init cf_check parse_spec_ctrl(const char *s)
-             opt_msr_sc_pv = false;
-             opt_msr_sc_hvm = false;
- 
--            opt_eager_fpu = 0;
--
-             if ( opt_xpti_hwdom < 0 )
-                 opt_xpti_hwdom = 0;
-             if ( opt_xpti_domu < 0 )
-@@ -336,8 +333,6 @@ static int __init cf_check parse_spec_ctrl(const char *s)
-         /* Misc settings. */
-         else if ( (val = parse_boolean("ibpb", s, ss)) >= 0 )
-             opt_ibpb_ctxt_switch = val;
--        else if ( (val = parse_boolean("eager-fpu", s, ss)) >= 0 )
--            opt_eager_fpu = val;
-         else if ( (val = parse_boolean("l1d-flush", s, ss)) >= 0 )
-             opt_l1d_flush = val;
-         else if ( (val = parse_boolean("branch-harden", s, ss)) >= 0 )
-@@ -648,32 +643,30 @@ static void __init print_details(enum ind_thunk thunk)
-      * mitigation support for guests.
-      */
- #ifdef CONFIG_HVM
--    printk("  Support for HVM VMs:%s%s%s%s%s%s%s%s\n",
-+    printk("  Support for HVM VMs:%s%s%s%s%s%s%s\n",
-            (boot_cpu_has(X86_FEATURE_SC_MSR_HVM) ||
-             boot_cpu_has(X86_FEATURE_SC_RSB_HVM) ||
-             boot_cpu_has(X86_FEATURE_IBPB_ENTRY_HVM) ||
-             opt_bhb_entry_hvm || amd_virt_spec_ctrl ||
--            opt_eager_fpu || opt_verw_hvm)           ? ""               : " None",
-+            opt_verw_hvm)                            ? ""               : " None",
-            boot_cpu_has(X86_FEATURE_SC_MSR_HVM)      ? " MSR_SPEC_CTRL" : "",
-            (boot_cpu_has(X86_FEATURE_SC_MSR_HVM) ||
-             amd_virt_spec_ctrl)                      ? " MSR_VIRT_SPEC_CTRL" : "",
-            boot_cpu_has(X86_FEATURE_SC_RSB_HVM)      ? " RSB"           : "",
--           opt_eager_fpu                             ? " EAGER_FPU"     : "",
-            opt_verw_hvm                              ? " VERW"          : "",
-            boot_cpu_has(X86_FEATURE_IBPB_ENTRY_HVM)  ? " IBPB-entry"    : "",
-            opt_bhb_entry_hvm                         ? " BHB-entry"     : "");
- 
- #endif
- #ifdef CONFIG_PV
--    printk("  Support for PV VMs:%s%s%s%s%s%s%s\n",
-+    printk("  Support for PV VMs:%s%s%s%s%s%s\n",
-            (boot_cpu_has(X86_FEATURE_SC_MSR_PV) ||
-             boot_cpu_has(X86_FEATURE_SC_RSB_PV) ||
-             boot_cpu_has(X86_FEATURE_IBPB_ENTRY_PV) ||
-             opt_bhb_entry_pv ||
--            opt_eager_fpu || opt_verw_pv)            ? ""               : " None",
-+            opt_verw_pv)                             ? ""               : " None",
-            boot_cpu_has(X86_FEATURE_SC_MSR_PV)       ? " MSR_SPEC_CTRL" : "",
-            boot_cpu_has(X86_FEATURE_SC_RSB_PV)       ? " RSB"           : "",
--           opt_eager_fpu                             ? " EAGER_FPU"     : "",
-            opt_verw_pv                               ? " VERW"          : "",
-            boot_cpu_has(X86_FEATURE_IBPB_ENTRY_PV)   ? " IBPB-entry"    : "",
-            opt_bhb_entry_pv                          ? " BHB-entry"     : "");
-@@ -959,75 +952,6 @@ static bool __init rsb_is_full_width(void)
-     return true;
+     if ( cpu_has_vmx_notify_vm_exiting )
+         __vmwrite(NOTIFY_WINDOW, vm_notify_window);
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 82c55f49aea9..03daf2f52bf2 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -68,7 +68,6 @@ static void cf_check vmx_update_guest_cr(
+     struct vcpu *v, unsigned int cr, unsigned int flags);
+ static void cf_check vmx_update_guest_efer(struct vcpu *v);
+ static void cf_check vmx_wbinvd_intercept(void);
+-static void cf_check vmx_fpu_dirty_intercept(void);
+ static int cf_check vmx_msr_read_intercept(
+     unsigned int msr, uint64_t *msr_content);
+ static int cf_check vmx_msr_write_intercept(
+@@ -1130,41 +1129,6 @@ static int cf_check vmx_load_vmcs_ctxt(struct vcpu *v, struct hvm_hw_cpu *ctxt)
+     return 0;
  }
  
--/* Calculate whether this CPU speculates past #NM */
--static bool __init should_use_eager_fpu(void)
+-static void vmx_fpu_enter(struct vcpu *v)
 -{
--    /*
--     * Assume all unrecognised processors are ok.  This is only known to
--     * affect Intel Family 6 processors.
--     */
--    if ( boot_cpu_data.vendor != X86_VENDOR_INTEL ||
--         boot_cpu_data.family != 6 )
--        return false;
+-    vcpu_restore_fpu_lazy(v);
+-    v->arch.hvm.vmx.exception_bitmap &= ~(1u << X86_EXC_NM);
+-    vmx_update_exception_bitmap(v);
+-    v->arch.hvm.vmx.host_cr0 &= ~X86_CR0_TS;
+-    __vmwrite(HOST_CR0, v->arch.hvm.vmx.host_cr0);
+-}
 -
--    switch ( boot_cpu_data.model )
+-static void cf_check vmx_fpu_leave(struct vcpu *v)
+-{
+-    ASSERT(!v->fpu_dirtied);
+-    ASSERT(read_cr0() & X86_CR0_TS);
+-
+-    if ( !(v->arch.hvm.vmx.host_cr0 & X86_CR0_TS) )
 -    {
--        /*
--         * Core processors since at least Nehalem are vulnerable.
--         */
--    case 0x1e: /* Nehalem */
--    case 0x1f: /* Auburndale / Havendale */
--    case 0x1a: /* Nehalem EP */
--    case 0x2e: /* Nehalem EX */
--    case 0x25: /* Westmere */
--    case 0x2c: /* Westmere EP */
--    case 0x2f: /* Westmere EX */
--    case 0x2a: /* SandyBridge */
--    case 0x2d: /* SandyBridge EP/EX */
--    case 0x3a: /* IvyBridge */
--    case 0x3e: /* IvyBridge EP/EX */
--    case 0x3c: /* Haswell */
--    case 0x3f: /* Haswell EX/EP */
--    case 0x45: /* Haswell D */
--    case 0x46: /* Haswell H */
--    case 0x3d: /* Broadwell */
--    case 0x47: /* Broadwell H */
--    case 0x4f: /* Broadwell EP/EX */
--    case 0x56: /* Broadwell D */
--    case 0x4e: /* Skylake M */
--    case 0x55: /* Skylake X */
--    case 0x5e: /* Skylake D */
--    case 0x66: /* Cannonlake */
--    case 0x67: /* Cannonlake? */
--    case 0x8e: /* Kabylake M */
--    case 0x9e: /* Kabylake D */
--        return true;
+-        v->arch.hvm.vmx.host_cr0 |= X86_CR0_TS;
+-        __vmwrite(HOST_CR0, v->arch.hvm.vmx.host_cr0);
+-    }
 -
--        /*
--         * Atom processors are not vulnerable.
--         */
--    case 0x1c: /* Pineview */
--    case 0x26: /* Lincroft */
--    case 0x27: /* Penwell */
--    case 0x35: /* Cloverview */
--    case 0x36: /* Cedarview */
--    case 0x37: /* Baytrail / Valleyview (Silvermont) */
--    case 0x4d: /* Avaton / Rangely (Silvermont) */
--    case 0x4c: /* Cherrytrail / Brasswell */
--    case 0x4a: /* Merrifield */
--    case 0x5a: /* Moorefield */
--    case 0x5c: /* Goldmont */
--    case 0x5f: /* Denverton */
--    case 0x7a: /* Gemini Lake */
--        return false;
--
--    default:
--        printk("Unrecognised CPU model %#x - assuming vulnerable to LazyFPU\n",
--               boot_cpu_data.model);
--        return true;
+-    /*
+-     * If the guest does not have TS enabled then we must cause and handle an
+-     * exception on first use of the FPU. If the guest *does* have TS enabled
+-     * then this is not necessary: no FPU activity can occur until the guest
+-     * clears CR0.TS, and we will initialise the FPU when that happens.
+-     */
+-    if ( !(v->arch.hvm.guest_cr[0] & X86_CR0_TS) )
+-    {
+-        v->arch.hvm.hw_cr[0] |= X86_CR0_TS;
+-        __vmwrite(GUEST_CR0, v->arch.hvm.hw_cr[0]);
+-        v->arch.hvm.vmx.exception_bitmap |= (1u << X86_EXC_NM);
+-        vmx_update_exception_bitmap(v);
 -    }
 -}
 -
- /*
-  * https://www.amd.com/content/dam/amd/en/documents/corporate/cr/speculative-return-stack-overflow-whitepaper.pdf
-  */
-@@ -2221,10 +2145,6 @@ void __init init_speculation_mitigations(void)
+ static void cf_check vmx_ctxt_switch_from(struct vcpu *v)
+ {
+     /*
+@@ -1187,8 +1151,6 @@ static void cf_check vmx_ctxt_switch_from(struct vcpu *v)
+         vmx_vmcs_reload(v);
+     }
  
-     div_calculations(hw_smt_enabled);
+-    if ( !v->arch.fully_eager_fpu )
+-        vmx_fpu_leave(v);
+     vmx_save_guest_msrs(v);
+     vmx_restore_host_msrs();
+     vmx_save_dr(v);
+@@ -1771,17 +1733,6 @@ static void cf_check vmx_update_guest_cr(
+         else
+             nvmx_set_cr_read_shadow(v, 0);
  
--    /* Check whether Eager FPU should be enabled by default. */
--    if ( opt_eager_fpu == -1 )
--        opt_eager_fpu = should_use_eager_fpu();
+-        if ( !(v->arch.hvm.guest_cr[0] & X86_CR0_TS) )
+-        {
+-            if ( v != current )
+-            {
+-                if ( !v->arch.fully_eager_fpu )
+-                    hw_cr0_mask |= X86_CR0_TS;
+-            }
+-            else if ( v->arch.hvm.hw_cr[0] & X86_CR0_TS )
+-                vmx_fpu_enter(v);
+-        }
 -
-     /* (Re)init BSP state now that default_scf has been calculated. */
-     init_shadow_spec_ctrl_state(get_cpu_info());
+         realmode = !(v->arch.hvm.guest_cr[0] & X86_CR0_PE);
+ 
+         if ( !vmx_unrestricted_guest(v) &&
+@@ -2915,7 +2866,6 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
+     .update_guest_cr      = vmx_update_guest_cr,
+     .update_guest_efer    = vmx_update_guest_efer,
+     .cpuid_policy_changed = vmx_cpuid_policy_changed,
+-    .fpu_leave            = vmx_fpu_leave,
+     .set_guest_pat        = vmx_set_guest_pat,
+     .get_guest_pat        = vmx_get_guest_pat,
+     .set_tsc_offset       = vmx_set_tsc_offset,
+@@ -2927,7 +2877,6 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
+     .cpu_up               = vmx_cpu_up,
+     .cpu_down             = vmx_cpu_down,
+     .wbinvd_intercept     = vmx_wbinvd_intercept,
+-    .fpu_dirty_intercept  = vmx_fpu_dirty_intercept,
+     .msr_read_intercept   = vmx_msr_read_intercept,
+     .msr_write_intercept  = vmx_msr_write_intercept,
+     .handle_cd            = vmx_handle_cd,
+@@ -3281,20 +3230,6 @@ void update_guest_eip(void)
+         hvm_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
+ }
+ 
+-static void cf_check vmx_fpu_dirty_intercept(void)
+-{
+-    struct vcpu *curr = current;
+-
+-    vmx_fpu_enter(curr);
+-
+-    /* Disable TS in guest CR0 unless the guest wants the exception too. */
+-    if ( !(curr->arch.hvm.guest_cr[0] & X86_CR0_TS) )
+-    {
+-        curr->arch.hvm.hw_cr[0] &= ~X86_CR0_TS;
+-        __vmwrite(GUEST_CR0, curr->arch.hvm.hw_cr[0]);
+-    }
+-}
+-
+ static void vmx_dr_access(unsigned long exit_qualification,
+                           struct cpu_user_regs *regs)
+ {
+@@ -4543,10 +4478,7 @@ void asmlinkage vmx_vmexit_handler(struct cpu_user_regs *regs)
+                 domain_pause_for_debugger();
+             }
+             break;
+-        case X86_EXC_NM:
+-            TRACE(TRC_HVM_TRAP, vector);
+-            vmx_fpu_dirty_intercept();
+-            break;
++
+         case X86_EXC_PF:
+             __vmread(EXIT_QUALIFICATION, &exit_qualification);
+             __vmread(VM_EXIT_INTR_ERROR_CODE, &ecode);
+diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
+index 38952f06961e..e4cdfe55c18e 100644
+--- a/xen/arch/x86/hvm/vmx/vvmx.c
++++ b/xen/arch/x86/hvm/vmx/vvmx.c
+@@ -1238,9 +1238,6 @@ static void virtual_vmentry(struct cpu_user_regs *regs)
+     regs->rsp = get_vvmcs(v, GUEST_RSP);
+     regs->rflags = get_vvmcs(v, GUEST_RFLAGS);
+ 
+-    /* updating host cr0 to sync TS bit */
+-    __vmwrite(HOST_CR0, v->arch.hvm.vmx.host_cr0);
+-
+     /* Setup virtual ETP for L2 guest*/
+     if ( nestedhvm_paging_mode_hap(v) )
+         /* This will setup the initial np2m for the nested vCPU */
+@@ -1468,9 +1465,6 @@ static void virtual_vmexit(struct cpu_user_regs *regs)
+     /* VM exit clears all bits except bit 1 */
+     regs->rflags = X86_EFLAGS_MBS;
+ 
+-    /* updating host cr0 to sync TS bit */
+-    __vmwrite(HOST_CR0, v->arch.hvm.vmx.host_cr0);
+-
+     if ( cpu_has_vmx_virtual_intr_delivery )
+         nvmx_update_apicv(v);
+ 
+@@ -2458,19 +2452,14 @@ int nvmx_n2_vmexit_handler(struct cpu_user_regs *regs,
+         __vmread(VM_EXIT_INTR_INFO, &intr_info);
+         vector = intr_info & INTR_INFO_VECTOR_MASK;
+         /*
+-         * decided by L0 and L1 exception bitmap, if the vetor is set by
+-         * both, L0 has priority on #PF and #NM, L1 has priority on others
++         * decided by L0 and L1 exception bitmap, if the vector is set by
++         * both, L0 has priority on #PF, L1 has priority on others
+          */
+         if ( vector == X86_EXC_PF )
+         {
+             if ( paging_mode_hap(v->domain) )
+                 nvcpu->nv_vmexit_pending = 1;
+         }
+-        else if ( vector == X86_EXC_NM )
+-        {
+-            if ( v->fpu_dirtied )
+-                nvcpu->nv_vmexit_pending = 1;
+-        }
+         else if ( (intr_info & valid_mask) == valid_mask )
+         {
+             exec_bitmap = get_vvmcs(v, EXCEPTION_BITMAP);
+diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+index 879ec10cefd0..88bded5190c9 100644
+--- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
++++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
+@@ -149,8 +149,6 @@ struct vmx_vcpu {
+     DECLARE_BITMAP(eoi_exit_bitmap, X86_IDT_VECTORS);
+     struct pi_desc       pi_desc;
+ 
+-    unsigned long        host_cr0;
+-
+     /* Do we need to tolerate a spurious EPT_MISCONFIG VM exit? */
+     bool                 ept_spurious_misconfig;
  
 -- 
 2.53.0
