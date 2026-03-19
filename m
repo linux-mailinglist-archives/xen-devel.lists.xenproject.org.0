@@ -2,44 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GHiQKiqiu2nbmAIAu9opvQ
+	id 2MX+Jm6qu2ngmQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 08:13:46 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 08:49:02 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 189EA2C7215
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 08:13:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1256745.1551246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4FE32C77BA
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 08:49:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1256754.1551255 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w37ZN-0002aW-8C; Thu, 19 Mar 2026 07:13:25 +0000
+	id 1w387K-0008Ca-Pm; Thu, 19 Mar 2026 07:48:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1256745.1551246; Thu, 19 Mar 2026 07:13:25 +0000
+Received: by outflank-mailman (output) from mailman id 1256754.1551255; Thu, 19 Mar 2026 07:48:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w37ZN-0002Xv-5T; Thu, 19 Mar 2026 07:13:25 +0000
-Received: by outflank-mailman (input) for mailman id 1256745;
- Thu, 19 Mar 2026 07:13:24 +0000
+	id 1w387K-00089y-Mw; Thu, 19 Mar 2026 07:48:30 +0000
+Received: by outflank-mailman (input) for mailman id 1256754;
+ Thu, 19 Mar 2026 07:48:29 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F4ko=BT=huawei.com=fengchengwen@srs-se1.protection.inumbo.net>)
- id 1w37ZK-0002Xm-W1
- for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 07:13:24 +0000
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com
- [113.46.200.224]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 185c9dc0-2363-11f1-9ccf-f158ae23cfc8;
- Thu, 19 Mar 2026 08:13:17 +0100 (CET)
-Received: from mail.maildlp.com (unknown [172.19.163.127])
- by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4fbxcD4jF6z1cyPP;
- Thu, 19 Mar 2026 15:08:12 +0800 (CST)
-Received: from kwepemk500009.china.huawei.com (unknown [7.202.194.94])
- by mail.maildlp.com (Postfix) with ESMTPS id 8543840363;
- Thu, 19 Mar 2026 15:13:12 +0800 (CST)
-Received: from [10.67.121.161] (10.67.121.161) by
- kwepemk500009.china.huawei.com (7.202.194.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 19 Mar 2026 15:13:10 +0800
+ <SRS0=JyL5=BT=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1w387J-00089s-5S
+ for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 07:48:29 +0000
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazlp170130007.outbound.protection.outlook.com
+ [2a01:111:f403:c202::7])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 013bcc00-2368-11f1-9ccf-f158ae23cfc8;
+ Thu, 19 Mar 2026 08:48:23 +0100 (CET)
+Received: from CWLP265CA0461.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d4::9)
+ by DU0PR08MB8495.eurprd08.prod.outlook.com (2603:10a6:10:404::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
+ 2026 07:48:17 +0000
+Received: from AM3PEPF0000A79A.eurprd04.prod.outlook.com
+ (2603:10a6:400:1d4:cafe::4) by CWLP265CA0461.outlook.office365.com
+ (2603:10a6:400:1d4::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Thu,
+ 19 Mar 2026 07:47:58 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AM3PEPF0000A79A.mail.protection.outlook.com (10.167.16.105) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19
+ via Frontend Transport; Thu, 19 Mar 2026 07:48:16 +0000
+Received: from PR3PR08MB5593.eurprd08.prod.outlook.com (2603:10a6:102:84::13)
+ by AS8PR08MB7861.eurprd08.prod.outlook.com (2603:10a6:20b:52c::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
+ 2026 07:47:11 +0000
+Received: from PR3PR08MB5593.eurprd08.prod.outlook.com
+ ([fe80::aae1:6871:afc4:620e]) by PR3PR08MB5593.eurprd08.prod.outlook.com
+ ([fe80::aae1:6871:afc4:620e%4]) with mapi id 15.20.9723.018; Thu, 19 Mar 2026
+ 07:47:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,192 +66,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 185c9dc0-2363-11f1-9ccf-f158ae23cfc8
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=rOgEX5LRjbf3VsJc30kly4+FTpT24EGUmpEIfFvp8FU=;
-	b=RRC8Qk+vDk32R8JHqebkm1tGtkV6aqC7Rw/5tqI1aHILlK2h2Fd3giMbyZt1JjR+/2C5nr3jN
-	LCoxznkWL7DSqvcKp14FgIYEdmkocS9XrRO5OVujVzcsJ5/bSzagK1Q0OB6Ne0iQgcMvxD/5fTO
-	P3k1x2ro3WxAtvbL88NnXM8=
-Message-ID: <264525a9-aa36-4848-80c0-f8cf246f93b8@huawei.com>
-Date: Thu, 19 Mar 2026 15:13:09 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/3] ACPI: Refactor get_acpi_id_for_cpu() to
- acpi_get_cpu_uid() on non-x86
-To: Bjorn Helgaas <helgaas@kernel.org>
-CC: Bjorn Helgaas <bhelgaas@google.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, "Rafael J .
- Wysocki" <rafael@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Ingo Molnar
-	<mingo@redhat.com>, Juergen Gross <jgross@suse.com>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>, Len Brown <lenb@kernel.org>, Sunil V L
-	<sunilvl@ventanamicro.com>, Mark Rutland <mark.rutland@arm.com>, Jonathan
- Cameron <jonathan.cameron@huawei.com>, Kees Cook <kees@kernel.org>, Yanteng
- Si <si.yanteng@linux.dev>, Sean Christopherson <seanjc@google.com>, Kai Huang
-	<kai.huang@intel.com>, Tom Lendacky <thomas.lendacky@amd.com>, Thomas Huth
-	<thuth@redhat.com>, Thorsten Blum <thorsten.blum@linux.dev>, Kevin Loughlin
-	<kevinloughlin@google.com>, Zheyun Shen <szy0127@sjtu.edu.cn>, Peter Zijlstra
-	<peterz@infradead.org>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Xin
- Li <xin@zytor.com>, "Ahmed S . Darwish" <darwi@linutronix.de>, Sohil Mehta
-	<sohil.mehta@intel.com>, Ilkka Koskinen <ilkka@os.amperecomputing.com>, Robin
- Murphy <robin.murphy@arm.com>, James Clark <james.clark@linaro.org>, Besar
- Wicaksono <bwicaksono@nvidia.com>, Ma Ke <make24@iscas.ac.cn>, Wei Huang
-	<wei.huang2@amd.com>, Andy Gospodarek <andrew.gospodarek@broadcom.com>,
-	Somnath Kotur <somnath.kotur@broadcom.com>, <punit.agrawal@oss.qualcomm.com>,
-	<guohanjun@huawei.com>, <suzuki.poulose@arm.com>, <ryan.roberts@arm.com>,
-	<chenl311@chinatelecom.cn>, <masahiroy@kernel.org>,
-	<wangyuquan1236@phytium.com.cn>, <anshuman.khandual@arm.com>,
-	<heinrich.schuchardt@canonical.com>, <Eric.VanTassell@amd.com>,
-	<wangzhou1@hisilicon.com>, <wanghuiqiang@huawei.com>,
-	<liuyonglong@huawei.com>, <linux-pci@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
-	<linux-riscv@lists.infradead.org>, <xen-devel@lists.xenproject.org>,
-	<linux-acpi@vger.kernel.org>, <linux-perf-users@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260318213458.GA474040@bhelgaas>
+X-Inumbo-ID: 013bcc00-2368-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=xBoInOU5IkjT2gMhShto+sjmUXXeuPhlFkKMqstGkh2Fr19Pk3NJ7/BeHF7XpUUbhTQtzaM2GQ6UTvwKsYegfxiXetqCqhXGAFizIk9WOl07XId0qLZBfjaqwF6+GzxGpb27y4pL18Lnd+q6GHdRwAKNctz31n01FKBACM6X+z1IwHth/1y/mrf3xZ6TlFSBxi9nvvPh7pocXIOzHCYGfrw1+jEsZVtsT5CeKDWiKznH3mh6aDiC1Rp04lqva1GoQHQWpYGkZs8ItTWqM4O7VMbbQ80pwM9nRZ1XJbdS8GLAQBJzfALG0GOFWF42huxS5lluTEtgJYpF4Ga9YHN6zQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cQPdJtxXB9V0+Yj4MQEHKzhovQFu4weOJ15tMIijuvM=;
+ b=R3UtOKcS2/jrvf6L4TFQj0WAujXKxWBDD4KOsrxgLZ0nknuXoLTknLI0OiPuXRHg6dFZlwNRlKKMwHyxD8kay95eej8xk2+EndgWgGrB03ObgyAo6vC9ALAwPbDXMnrB3DmPWg49bnb51LKFb81+wNEDs+N8F1h5U9XDh8B0i5IikcaSA6zEfwfHLXvSV3b00GHt9YuQPG8Pm8Ra2J2FjiION2hOiQO0OfiOLgaVapd25xg4ipBuG2edRTokVnOHEDBr8GnIHPu54MiE0KMUJ/TG4b4s2Md4fBQIW7y/+9t8B4/LN1N4LZIa6PAcxYj03BxrAOPZ5+OZoB7B40YkpQ==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=gmail.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cQPdJtxXB9V0+Yj4MQEHKzhovQFu4weOJ15tMIijuvM=;
+ b=Q74dw2MGvSxPtPJ9eXR35NhKwTWggRkj11PWTxORp8Z8udCzP6P6r/YgiyBBznA6ApfmZcZzEeGmUL4deB6htqHesw8QJXV+Emguc9Y+8piTnnkyhhNhlBY+mqDlAST0/j8LeYKqwiHy3s2XimBYjtShIncA1OVM37+6Rc7kdVM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZyfNBRNECpiu3RUxS5sMTMrByba2BKroTb9DLOvzcF3/FrP7GDHgmnU3lj+mucWxy0Ed1zuXRYLSgp/ltzeKDteZ10DBIV6G/7a61WXglrSwY8tTXpjmHNSV5yuHZFZcj1G4Wt+YySN9Ca1Bmc1fb4pfm37cV0dAPXnMtTULgflSZ5sXOI8gic+veVUexyyDVbpJTcFmudidr76i5qviIEgT9YZ5W/52jk3lZIB+P3bG3mkBTcwOLOZXz6I6EQrxyissO/DCYgioVmvp1IHJApatgcgF+A2lyEmuiC3Xwbg2ihS9lhm43rd/Bh2jJYklNrF3ruUpcYZjrEjmlcSIQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cQPdJtxXB9V0+Yj4MQEHKzhovQFu4weOJ15tMIijuvM=;
+ b=EvF1+qLjxosPoRbsxeJGU5fCI1m2jUunlGNLPPomiKqdVnBDS+tTSCRcP66/4ZP/6DQNVX8KEXtzXgqDUVpPtM152hO5L5uVNFq6sK0NP8YW2GxhXvmfDvirNYg2iQCH9gQ6WfzNkkEQfAfZI45z06ZCi098JbrkHtHNZCu9aL8rpG+CQDr6tghjSR4Kjc1kcuZ0WyA8ho9dwa/X4hz4XLvc71gBlBw9RVTbWfOPN/ZKOFGk/Q1+LqvAvJh50CddJ0aNLo1FZ84iXdACgWCzz2jnwlfGYHu7E8WCmUE12u0ChJyfHnvv31a9R9Yyjzg9O72+kmaoPqrdlWPjfL4UzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cQPdJtxXB9V0+Yj4MQEHKzhovQFu4weOJ15tMIijuvM=;
+ b=Q74dw2MGvSxPtPJ9eXR35NhKwTWggRkj11PWTxORp8Z8udCzP6P6r/YgiyBBznA6ApfmZcZzEeGmUL4deB6htqHesw8QJXV+Emguc9Y+8piTnnkyhhNhlBY+mqDlAST0/j8LeYKqwiHy3s2XimBYjtShIncA1OVM37+6Rc7kdVM=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Mykola Kvach <xakep.amatop@gmail.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola
+ Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: vpsci: ignore upper 32 bits for SMC32 PSCI
+ arguments
+Thread-Topic: [PATCH] xen/arm: vpsci: ignore upper 32 bits for SMC32 PSCI
+ arguments
+Thread-Index: AQHctwleCTTA2E8kAkG0JnS9VhefnrW1exAA
+Date: Thu, 19 Mar 2026 07:47:11 +0000
+Message-ID: <F2AB3928-C65E-43DC-80F0-1F2F4DDC8037@arm.com>
+References:
+ <3a3180b0f77d815e92c0c232a8f854d34ab7c2ea.1773860069.git.mykola_kvach@epam.com>
+In-Reply-To:
+ <3a3180b0f77d815e92c0c232a8f854d34ab7c2ea.1773860069.git.mykola_kvach@epam.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: fengchengwen <fengchengwen@huawei.com>
-In-Reply-To: <20260318213458.GA474040@bhelgaas>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.67.121.161]
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk500009.china.huawei.com (7.202.194.94)
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[huawei.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[huawei.com:s=dkim];
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3864.400.21)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	PR3PR08MB5593:EE_|AS8PR08MB7861:EE_|AM3PEPF0000A79A:EE_|DU0PR08MB8495:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0978a6a3-08ef-4ba0-d585-08de858be1bc
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|376014|366016|38070700021|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ 9uEU7lJjw3CzbzR8Cv/kkKttygoN3QwMEqhXwTAuhzyhLbiUkmdlDDkdkmATiUHX2OsbSPtn7NY/mcFKi1M6glaS/mtcjABCnr/v6BwBcy5CgQkqiwwtKMm/+lhtSFaDGH5Zxa1yDqMKtzFyA7yTD/psnMEYTmwKKM2JqWq9Vz/q5cukH6p1Q9URMkHTZOgV0ktLpxCl5LGPMSqMZH/h//oeEzz+TBnP9shmVgX9+OHu89JYD3aZ8BURMbuyPmpS4n1xi6pXFVdnRLgBKvaQvcCOdHMs2xeqNYHeY8TvgjhX4UXnXVWTa4Ki40xn+sCVyQLbFos/PL4QIsYZO2WBnt49uklgTg0QfwPzq0dHm1RELLYAcBt64w5d6Z4MyT3EIIA9HMO3pf/abUYqpRXtJE00HucDTkI8ahRzB1ycGopn8TXVDY4dweKZa89xrf9oZjTkEUqIUkkwTZ/v2nXrGTDekNVsH+1XmCGXzBKhV1+cWo3X8qwMgurYUdnP5tGAPM8R/WI6rmOk7+LAHz8QcIbmc1EjCLP9udh6JnCDHnBy9lmlcXU4rZWDUDICHue4WT3qZhhQ6eqaQpge2arLQ8nNaeoCUZzKSZAqULcsphxzVfKBu2ZCDtx2jXkJNZ9K1p8n4CeQViJ12a1MxOi6gs2w7aep85Ki7cZz78+1+Bb3+4xKmvk3jIQzhhwDX0MWXgKVX3BUKDJW1jAkBCdK4ZjCCiA9X6UcTNv5DjS7i+Q=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR3PR08MB5593.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(38070700021)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <8D99F25B0C1A414CB5B1FAC968571810@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked:
+ QCEoY9+OZ4L3erSPOqBdQVYQkEATCpVb43gukCNwYhAe4oXl/UVBviTMhQTvEEwO2OJc7eB589syrz9hoppUkRtCTRBNu8ZYskZ1aI+eF2uFq6XRCkjnnxkcUXn8KKzJzfIUT24lS3e6+kJeyFySOsAc7SqPgTJk5r6Rwo7nR53UNjExyUr3Ek2qcifyQb+/tddTZsjLs6LJIsD18lSKNMEvP7qQrLjE8BiWDx4LiEE2DNgbiQCf+mHMTA3bh7c5JcwH5XVkOzkxEeR2vu/d1RzbXx+dCaxg5HSPrqgjOEshsXLyCNjprsF313OYOrLHn57/pwxg6fxKosiCl2/Q8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7861
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM3PEPF0000A79A.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	7526ea5b-14a8-4a59-0d85-08de858bbada
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|14060799003|82310400026|376014|35042699022|7053199007|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	PPcNOsWIYrRWE/tHOvEura/XW4SCoPu4foDuuHobaBmKM3SzRZ4nZ8Gz5/CU8qg9HQM6/6IdZpaL3+UrkwYUl5RfKkHGAz9Eo6iwOfh0XLlsBJhBL4p8hHpdgVBvnDE5mIDYAzLyNnFDtm6CXViRY1EdZPdO+wZI2lWSvG+r75Ypou7+FgZwCfNYRk2RWKr2sUBvlpRpqlvjKYSYI+q8zarAyuPp9/8XS4sM0GZC6Qm3Jx5zZckrilLOSV6c5Fw9a51I1pkDvYPs+BVbMkwYF0i/pMfS6Xo8MvZElSZk2D7r8JyBTt2mqYdEqYDTj05KOZcKVjBycBu+IrPo8h4ju2zEF/oG8eUvWz6SuaBjSy2G/e1B/vsJlwluMcI6m6qmidZ7P0b/2Ke4QP5vRJ8CZO0fHWAVfoRF5DdqTau9A9r1Cpkrx7aV661NImNdqa6pJf68+z1K1oZM/fa2ppIuxwD7eYQbDxnZX7Vu2Cm8Npz/Ok8uH/KlCgTQLVrnp/pJ9U+Cs7FpdCpzyal+etbdPicM4TdLaG2Y6U2w3Dj+CNCsAhhxP+dQhYsnsWyGRd+f46rq4RKyjnIYRaB5f38SVeol5QzGK2rKN4Ssj6WzrqDxkyAc1ftgQwXuNQ8pHWA1xkJ7IuGxvHShDu1yJE6V6x+ihLDbw+1heE8Ipc3AdRBSqBUS1zZ8XF6X9MyD9Cw30pKxRp9z1QATjF6lHXq3HeCQj6p8anJU578csGaFo3c=
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(14060799003)(82310400026)(376014)(35042699022)(7053199007)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	7q0KRBYnwjDJ2VkqnPCKS2Lp5bPaKwgHb6vBHGKU+krGYvdOhA4jTjwoTAnu8lQLx80gUf2ek5liTrVqoaNQrr1PbbzoqSb5RNDCe8w5ALTNB9TcEm3cXy56/sKJL5Dj0ol7hGohBGhZMszkZ0QSbu73ac7rYwD0YXqyPZjLnGrowHLJ0zcS6Hit19GXYlQ1syBspbKw4ZKBIQYYJgefxCx6VkK0hZXZxTrbiTBubGaF5YG7YnK5cJQ9PEGBrZilPfGxb97b6faw7m+BSzb7yk1PaPB/kf8Dn6Uz1pXTRlY3+SbCkxQt3J1pftAAhZHrNRMlfBp+RovTaWh8TaQXb2S/CKh3FoY/0UZ61G+8/896dQhv3e2flLCna2dJMqofw/PvVuARaZgtPVkr0v9M7KJaWezj3sBgvA8cR4xRul6TNoyvyxg+qR5i9p6Pgki6
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 07:48:16.6435
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0978a6a3-08ef-4ba0-d585-08de858be1bc
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM3PEPF0000A79A.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB8495
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[arm.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:helgaas@kernel.org,m:bhelgaas@google.com,m:catalin.marinas@arm.com,m:will@kernel.org,m:rafael@kernel.org,m:corbet@lwn.net,m:mingo@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:lenb@kernel.org,m:sunilvl@ventanamicro.com,m:mark.rutland@arm.com,m:jonathan.cameron@huawei.com,m:kees@kernel.org,m:si.yanteng@linux.dev,m:seanjc@google.com,m:kai.huang@intel.com,m:thomas.lendacky@amd.com,m:thuth@redhat.com,m:thorsten.blum@linux.dev,m:kevinloughlin@google.com,m:szy0127@sjtu.edu.cn,m:peterz@infradead.org,m:pawan.kumar.gupta@linux.intel.com,m:xin@zytor.com,m:darwi@linutronix.de,m:sohil.mehta@intel.com,m:ilkka@os.amperecomputing.com,m:robin.murphy@arm.com,m:james.clark@linaro.org,m:bwicaksono@nvidia.com,m:make24@iscas.ac.cn,m:wei.huang2@amd.com,m:andrew.gospodarek@broadcom.com,m:somnath.kotur@broadcom.com,m:punit.agrawal@oss.qualcomm.com,m:guohanjun@huawei.com,m:suzuki.poulose@arm.com,m:ryan.roberts@arm.com,m:chenl311@chinatelecom.cn,m:masahiroy@kernel.org,
- m:wangyuquan1236@phytium.com.cn,m:anshuman.khandual@arm.com,m:heinrich.schuchardt@canonical.com,m:Eric.VanTassell@amd.com,m:wangzhou1@hisilicon.com,m:wanghuiqiang@huawei.com,m:liuyonglong@huawei.com,m:linux-pci@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:loongarch@lists.linux.dev,m:linux-riscv@lists.infradead.org,m:xen-devel@lists.xenproject.org,m:linux-acpi@vger.kernel.org,m:linux-perf-users@vger.kernel.org,m:stable@vger.kernel.org,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[huawei.com:dkim,huawei.com:email,huawei.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xakepamatop@gmail.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[Bertrand.Marquis@arm.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[fengchengwen@huawei.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[huawei.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:dkim,arm.com:mid,patchew.org:url,xen.org:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[58];
-	FROM_NEQ_ENVFROM(0.00)[fengchengwen@huawei.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	APPLE_MAILER(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[Bertrand.Marquis@arm.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[arm.com:+];
+	NEURAL_HAM(-0.00)[-0.999];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 189EA2C7215
+	RCVD_COUNT_SEVEN(0.00)[11]
+X-Rspamd-Queue-Id: D4FE32C77BA
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 3/19/2026 5:34 AM, Bjorn Helgaas wrote:
-> On Wed, Mar 18, 2026 at 02:01:49PM +0800, Chengwen Feng wrote:
->> Unify CPU ACPI ID retrieval interface across architectures by
->> refactoring get_acpi_id_for_cpu() to acpi_get_cpu_uid() on
->> arm64/riscv/loongarch:
->> - Add input parameter validation
->> - Adjust interface to int acpi_get_cpu_uid(unsigned int cpu, u32 *uid)
->>   (old: u32 get_acpi_id_for_cpu(unsigned int cpu), no input check)
->>
->> This refactoring (not a pure rename) enhances interface robustness while
->> preparing for consistent ACPI Processor UID retrieval across all
->> ACPI-enabled platforms. Valid inputs retain original behavior.
->>
->> Note: Move the ARM64-specific get_cpu_for_acpi_id() implementation to
->>       arch/arm64/kernel/acpi.c to fix compilation errors from circular
->>       header dependencies introduced by the rename.
->>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Chengwen Feng <fengchengwen@huawei.com>
->> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
->> ---
->>  arch/arm64/include/asm/acpi.h      | 16 +---------
->>  arch/arm64/kernel/acpi.c           | 30 ++++++++++++++++++
->>  arch/loongarch/include/asm/acpi.h  |  5 ---
->>  arch/loongarch/kernel/acpi.c       |  9 ++++++
->>  arch/riscv/include/asm/acpi.h      |  4 ---
->>  arch/riscv/kernel/acpi.c           | 16 ++++++++++
->>  arch/riscv/kernel/acpi_numa.c      |  9 ++++--
->>  drivers/acpi/pptt.c                | 50 ++++++++++++++++++++++--------
->>  drivers/acpi/riscv/rhct.c          |  7 ++++-
->>  drivers/perf/arm_cspmu/arm_cspmu.c |  6 ++--
->>  include/linux/acpi.h               | 13 ++++++++
->>  11 files changed, 122 insertions(+), 43 deletions(-)
-> 
-> There's a lot going on in this single patch, which makes it hard to
-> review.  I think this might make more sense as several patches:
-> 
->   - arm64: declare acpi_get_cpu_uid() in arch/arm64/include, implement
->     it, and use in drivers/perf/arm_cspmu/arm_cspmu.c
-> 
->   - loongarch: declare acpi_get_cpu_uid() in arch/loongarch/include
->     and implement
-> 
->   - riscv: declare acpi_get_cpu_uid() in arch/riscv/include, implement
->     it, and use in rhct.c, riscv/kernel/acpi_numa.c
-> 
->   - x86: declare acpi_get_cpu_uid() in arch/x86/include, implement it,
->     and use in xen
-> 
->   - declare acpi_get_cpu_uid() in include/linux/acpi.h, remove
->     declarations from arm64, loongarch, riscv, x86
-> 
->   - convert acpi/pptt.c to use acpi_get_cpu_uid(), remove unused
->     get_acpi_id_for_cpu() from arm64, loongarch, riscv
-> 
->   - use acpi_get_cpu_uid() in tph.c
+Hi Mykola,
 
-Thanks for the detailed guidance, done in v9
+> On 18 Mar 2026, at 19:56, Mykola Kvach <xakep.amatop@gmail.com> wrote:
+>=20
+> From: Mykola Kvach <mykola_kvach@epam.com>
+>=20
+> SMCCC DEN0028G, section 3.1, states that for AArch64 SMC/HVC calls
+> using Wn, only the least significant 32 bits are significant and the
+> upper 32 bits must be ignored by the implementation.
+>=20
+> So for SMC32 PSCI calls, Xen must not treat non-zero upper bits in the
+> argument registers as an error. Instead, they should be discarded when
+> decoding the arguments.
+>=20
+> Arm ARM DDI 0487J.a (D1-5406) also notes that the upper 32 bits may be
+> implementation defined when entering from AArch32. Xen zeros them on
+> entry, but that guarantee is only relevant for 32-bit domains.
+>=20
+> Update PSCI v0.2+ CPU_ON, CPU_SUSPEND and AFFINITY_INFO to read SMC32
+> arguments via PSCI_ARG32(), while keeping the SMC64 handling unchanged.
+>=20
+> Suggested-by: Julien Grall <julien@xen.org>
+> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> ---
+> Link to discussion: https://patchew.org/Xen/cover.1751020456.git.mykola._=
+5Fkvach@epam.com/072270e0940b6bcc2743d56a336363f4719ba60a.1751020456.git.my=
+kola._5Fkvach@epam.com/#7070f416-119c-49f8-acd0-82c6e31f0fc6@xen.org
+> ---
+> xen/arch/arm/vpsci.c | 15 +++++++++------
+> 1 file changed, 9 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/xen/arch/arm/vpsci.c b/xen/arch/arm/vpsci.c
+> index 7ba9ccd94b..1e844ed571 100644
+> --- a/xen/arch/arm/vpsci.c
+> +++ b/xen/arch/arm/vpsci.c
+> @@ -303,9 +303,10 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, u=
+int32_t fid)
+>     case PSCI_0_2_FN32_CPU_ON:
+>     case PSCI_0_2_FN64_CPU_ON:
+>     {
+> -        register_t vcpuid =3D PSCI_ARG(regs, 1);
+> -        register_t epoint =3D PSCI_ARG(regs, 2);
+> -        register_t cid =3D PSCI_ARG(regs, 3);
+> +        bool smc32 =3D (fid =3D=3D PSCI_0_2_FN32_CPU_ON);
+> +        register_t vcpuid =3D smc32 ? PSCI_ARG32(regs, 1) : PSCI_ARG(reg=
+s, 1);
+> +        register_t epoint =3D smc32 ? PSCI_ARG32(regs, 2) : PSCI_ARG(reg=
+s, 2);
+> +        register_t cid =3D smc32 ? PSCI_ARG32(regs, 3) : PSCI_ARG(regs, =
+3);
 
-> 
-> Doc nit below.
-> 
+It might be nicer to modify PSCI_ARG to take a convention argument instead =
+of
+redoing the same test everywhere, this would make the code nicer and ensure=
+ no PSCI_ARG
+would have been forgotten.
 
-...
+At the end all those conventions are coming from smccc so we could:
+- use smccc_is_conv_64(fid) from smccc.h to get 32 vs 64
+- use smccc_get_fn to get the function id without the convention and reduce=
+ the number of entries
+in the switch
 
->> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
->> index 4d2f0bed7a06..035094a55f18 100644
->> --- a/include/linux/acpi.h
->> +++ b/include/linux/acpi.h
->> @@ -324,6 +324,19 @@ int acpi_unmap_cpu(int cpu);
->>  
->>  acpi_handle acpi_get_processor_handle(int cpu);
->>  
->> +#ifndef CONFIG_X86
->> +/*
->> + * acpi_get_cpu_uid() - Get ACPI Processor UID of a specified CPU from MADT table
->> + * @cpu: Logical CPU number (0-based)
->> + * @uid: Pointer to store the ACPI Processor UID (valid only on successful return)
-> 
-> This would normally go at the implementation, but it probably does
-> make sense here because each arch has its own implementation.
-> 
-> Should start with "/**" to make it kernel-doc though.
-> 
-> Wrap to fit in 78 columns, like other comments in this file.
+That would allow to get the convention and fn before the switch and simplif=
+y a bit the code.
 
-done in v9
+The smccc part is definitely not something i would enforce in this patch bu=
+t could still be nice to do
+it if you are willing to.
 
-Thanks
+Cheers
+Bertrand
 
-> 
->> + * Return: 0 on successful retrieval (the ACPI Processor ID is stored in *uid);
->> + *         -EINVAL if the CPU number is invalid or out of range;
->> + *         -ENODEV if the ACPI Processor UID for the specified CPU is not found.
->> + */
->> +int acpi_get_cpu_uid(unsigned int cpu, u32 *uid);
->> +#endif
-> 
+>=20
+>         perfc_incr(vpsci_cpu_on);
+>         PSCI_SET_RESULT(regs, do_psci_0_2_cpu_on(vcpuid, epoint, cid));
+> @@ -315,9 +316,10 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, u=
+int32_t fid)
+>     case PSCI_0_2_FN32_CPU_SUSPEND:
+>     case PSCI_0_2_FN64_CPU_SUSPEND:
+>     {
+> +        bool smc32 =3D (fid =3D=3D PSCI_0_2_FN32_CPU_SUSPEND);
+>         uint32_t pstate =3D PSCI_ARG32(regs, 1);
+> -        register_t epoint =3D PSCI_ARG(regs, 2);
+> -        register_t cid =3D PSCI_ARG(regs, 3);
+> +        register_t epoint =3D smc32 ? PSCI_ARG32(regs, 2) : PSCI_ARG(reg=
+s, 2);
+> +        register_t cid =3D smc32 ? PSCI_ARG32(regs, 3) : PSCI_ARG(regs, =
+3);
+>=20
+>         perfc_incr(vpsci_cpu_suspend);
+>         PSCI_SET_RESULT(regs, do_psci_0_2_cpu_suspend(pstate, epoint, cid=
+));
+> @@ -327,7 +329,8 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, ui=
+nt32_t fid)
+>     case PSCI_0_2_FN32_AFFINITY_INFO:
+>     case PSCI_0_2_FN64_AFFINITY_INFO:
+>     {
+> -        register_t taff =3D PSCI_ARG(regs, 1);
+> +        bool smc32 =3D (fid =3D=3D PSCI_0_2_FN32_AFFINITY_INFO);
+> +        register_t taff =3D smc32 ? PSCI_ARG32(regs, 1) : PSCI_ARG(regs,=
+ 1);
+>         uint32_t laff =3D PSCI_ARG32(regs, 2);
+>=20
+>         perfc_incr(vpsci_cpu_affinity_info);
+> --=20
+> 2.43.0
+>=20
 
 
