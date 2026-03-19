@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QFmGB5yeu2nmlwIAu9opvQ
+	id uD0zBJyeu2nQlwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 07:58:36 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71D502C6F8D
+	by mail.lfdr.de (Postfix) with ESMTPS id 633D42C6F8C
 	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 07:58:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1256666.1551214 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1256667.1551229 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w37KU-0004v4-Jo; Thu, 19 Mar 2026 06:58:02 +0000
+	id 1w37KW-0005QS-PQ; Thu, 19 Mar 2026 06:58:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1256666.1551214; Thu, 19 Mar 2026 06:58:02 +0000
+Received: by outflank-mailman (output) from mailman id 1256667.1551229; Thu, 19 Mar 2026 06:58:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w37KU-0004oJ-CS; Thu, 19 Mar 2026 06:58:02 +0000
-Received: by outflank-mailman (input) for mailman id 1256666;
- Thu, 19 Mar 2026 06:58:01 +0000
+	id 1w37KW-0005OG-KM; Thu, 19 Mar 2026 06:58:04 +0000
+Received: by outflank-mailman (input) for mailman id 1256667;
+ Thu, 19 Mar 2026 06:58:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=F4ko=BT=huawei.com=fengchengwen@srs-se1.protection.inumbo.net>)
- id 1w37KT-0003m8-39
- for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 06:58:01 +0000
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com
- [113.46.200.219]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f570148a-2360-11f1-9ccf-f158ae23cfc8;
- Thu, 19 Mar 2026 07:57:58 +0100 (CET)
-Received: from mail.maildlp.com (unknown [172.19.163.104])
- by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4fbxGY46TBz1prKM;
- Thu, 19 Mar 2026 14:52:53 +0800 (CST)
+ id 1w37KV-0003m8-Et
+ for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 06:58:03 +0000
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com
+ [113.46.200.217]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6b94a0f-2360-11f1-9ccf-f158ae23cfc8;
+ Thu, 19 Mar 2026 07:58:01 +0100 (CET)
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+ by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4fbxFs2L2qzcZyY;
+ Thu, 19 Mar 2026 14:52:17 +0800 (CST)
 Received: from kwepemk500009.china.huawei.com (unknown [7.202.194.94])
- by mail.maildlp.com (Postfix) with ESMTPS id DA7944056A;
- Thu, 19 Mar 2026 14:57:55 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id 004D440363;
+ Thu, 19 Mar 2026 14:57:58 +0800 (CST)
 Received: from localhost.localdomain (10.50.163.32) by
  kwepemk500009.china.huawei.com (7.202.194.94) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 19 Mar 2026 14:57:53 +0800
+ 15.2.1544.11; Thu, 19 Mar 2026 14:57:55 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,14 +51,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f570148a-2360-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: f6b94a0f-2360-11f1-9ccf-f158ae23cfc8
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=deqvN/mz2FJFsKRgusCQZVunNs0GKMrytgWIJYyKC38=;
-	b=Q+InHx0t+fgSQtVLerCqnbpWuqjH25g8rq1c9ZrVB+5OCCEDVGxoUto5wjyaX4/Bl04WMbtaJ
-	D5pQTQF9XcjGForLBwmJbjk2yPwBl1ETh0zu94i3cxgLe/S/32diWFN4CZVJMw0StBVGyVJ58gg
-	PF0KAlLv+2qVOoGAxpaIJP4=
+	bh=yK49JnkLKpYBZOqDDiJ5tuFkHdnhSIg09tqBvQIMd28=;
+	b=kKHyA/oBTEDBLkGyt6IF5Mfl/9NSCdKjuLiy/HF08xBMphI4nGy1HFAwxMG51XNjBjkBo5mE1
+	yjJ8Kunab1b6+Q35VPZpdNjHq9uHYBsa/8T6vWVzXsQpo9LPA6UF2V4Yh93oUHRXBNRvgd2kM7T
+	N9D++v+eloU19GgyjqKPnrA=
 From: Chengwen Feng <fengchengwen@huawei.com>
 To: Bjorn Helgaas <bhelgaas@google.com>, Catalin Marinas
 	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, "Rafael J .
@@ -95,9 +95,9 @@ CC: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
 	<loongarch@lists.linux.dev>, <linux-riscv@lists.infradead.org>,
 	<xen-devel@lists.xenproject.org>, <linux-acpi@vger.kernel.org>,
 	<linux-perf-users@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH v9 6/7] ACPI: PPTT: Use acpi_get_cpu_uid() and remove get_acpi_id_for_cpu()
-Date: Thu, 19 Mar 2026 14:57:34 +0800
-Message-ID: <20260319065735.45954-7-fengchengwen@huawei.com>
+Subject: [PATCH v9 7/7] PCI/TPH: Fix get cpu steer-tag fail on ARM64 platform
+Date: Thu, 19 Mar 2026 14:57:35 +0800
+Message-ID: <20260319065735.45954-8-fengchengwen@huawei.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260319065735.45954-1-fengchengwen@huawei.com>
 References: <20260319065735.45954-1-fengchengwen@huawei.com>
@@ -111,14 +111,14 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[huawei.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[huawei.com:s=dkim];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[fengchengwen@huawei.com,xen-devel-bounces@lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[fengchengwen@huawei.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS(0.00)[m:bhelgaas@google.com,m:catalin.marinas@arm.com,m:will@kernel.org,m:rafael@kernel.org,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:chenhuacai@kernel.org,m:kernel@xen0n.name,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:alex@ghiti.fr,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:lenb@kernel.org,m:sunilvl@ventanamicro.com,m:mark.rutland@arm.com,m:jonathan.cameron@huawei.com,m:kees@kernel.org,m:si.yanteng@linux.dev,m:seanjc@google.com,m:kai.huang@intel.com,m:thomas.lendacky@amd.com,m:thuth@redhat.com,m:thorsten.blum@linux.dev,m:kevinloughlin@google.com,m:szy0127@sjtu.edu.cn,m:peterz@infradead.org,m:pawan.kumar.gupta@linux.intel.com,m:xin@zytor.com,m:darwi@linutronix.de,m:sohil.mehta@intel.com,m:ilkka@os.amperecomputing.com,m:robin.murphy@arm.com,m:james.clark@linaro.org,m:bwicaksono@nvidia.com,m:make24@iscas.ac.cn,m:wei.huang2
  @amd.com,m:andrew.gospodarek@broadcom.com,m:somnath.kotur@broadcom.com,m:punit.agrawal@oss.qualcomm.com,m:guohanjun@huawei.com,m:suzuki.poulose@arm.com,m:ryan.roberts@arm.com,m:chenl311@chinatelecom.cn,m:masahiroy@kernel.org,m:wangyuquan1236@phytium.com.cn,m:anshuman.khandual@arm.com,m:heinrich.schuchardt@canonical.com,m:Eric.VanTassell@amd.com,m:wangzhou1@hisilicon.com,m:wanghuiqiang@huawei.com,m:liuyonglong@huawei.com,m:fengchengwen@huawei.com,m:linux-pci@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:loongarch@lists.linux.dev,m:linux-riscv@lists.infradead.org,m:xen-devel@lists.xenproject.org,m:linux-acpi@vger.kernel.org,m:linux-perf-users@vger.kernel.org,m:stable@vger.kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
@@ -139,218 +139,133 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 71D502C6F8D
+X-Rspamd-Queue-Id: 633D42C6F8C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-- Convert acpi/pptt.c to use acpi_get_cpu_uid() instead of
-  get_acpi_id_for_cpu()
-- Remove unused get_acpi_id_for_cpu() implementations from
-  arm64/loongarch/riscv
+pcie_tph_get_cpu_st() is broken on ARM64:
+1. pcie_tph_get_cpu_st() passes cpu_uid to the PCI ACPI DSM method.
+   cpu_uid should be the ACPI Processor UID [1].
+2. In BNXT, pcie_tph_get_cpu_st() is passed a cpu_uid obtained via
+   cpumask_first(irq->cpu_mask) - the logical CPU ID of a CPU core,
+   generated and managed by kernel (e.g., [0,255] for a system  with 256
+   logical CPU cores).
+3. On ARM64 platforms, ACPI assigns Processor UID to cores listed in the
+   MADT table, and this UID may not match the kernel's logical CPU ID.
+   When this occurs, the mismatch results in the wrong CPU steer-tag.
+4. On AMD x86 the logical CPU ID is identical to the ACPI Processor UID
+   so the mismatch is not seen.
 
-This completes the migration to the unified ACPI CPU UID interface for
-PPTT code, and cleans up legacy unused functions to reduce technical
-debt.
+Resolution:
+1. Use acpi_get_cpu_uid() in pcie_tph_get_cpu_st() to translate from
+   logical CPU ID to ACPI Processor UID needed for the DSM call.
+2. Rename pcie_tpu_get_cpu_st() parameter from cpu_uid to cpu to
+   reflect that it is a logical CPU_ID.
 
+[1] According to ECN_TPH-ST_Revision_20200924
+    (https://members.pcisig.com/wg/PCI-SIG/document/15470), the input
+    is defined as: "If the target is a processor, then this field
+    represents the ACPI Processor UID of the processor as specified in
+    the MADT. If the target is a processor container, then this field
+    represents the ACPI Processor UID of the processor container as
+    specified in the PPTT."
+
+Fixes: d2e8a34876ce ("PCI/TPH: Add Steering Tag support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Chengwen Feng <fengchengwen@huawei.com>
 Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
 ---
- arch/arm64/include/asm/acpi.h     |  4 ---
- arch/loongarch/include/asm/acpi.h |  5 ----
- arch/riscv/include/asm/acpi.h     |  4 ---
- drivers/acpi/pptt.c               | 50 +++++++++++++++++++++++--------
- 4 files changed, 37 insertions(+), 26 deletions(-)
+ Documentation/PCI/tph.rst |  4 ++--
+ drivers/pci/tph.c         | 16 +++++++++++-----
+ include/linux/pci-tph.h   |  4 ++--
+ 3 files changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/include/asm/acpi.h b/arch/arm64/include/asm/acpi.h
-index bdb0ecf95b5c..8a54ca6ba602 100644
---- a/arch/arm64/include/asm/acpi.h
-+++ b/arch/arm64/include/asm/acpi.h
-@@ -114,10 +114,6 @@ static inline bool acpi_has_cpu_in_madt(void)
- }
+diff --git a/Documentation/PCI/tph.rst b/Documentation/PCI/tph.rst
+index e8993be64fd6..b6cf22b9bd90 100644
+--- a/Documentation/PCI/tph.rst
++++ b/Documentation/PCI/tph.rst
+@@ -79,10 +79,10 @@ To retrieve a Steering Tag for a target memory associated with a specific
+ CPU, use the following function::
  
- struct acpi_madt_generic_interrupt *acpi_cpu_get_madt_gicc(int cpu);
--static inline u32 get_acpi_id_for_cpu(unsigned int cpu)
--{
--	return	acpi_cpu_get_madt_gicc(cpu)->uid;
--}
- int get_cpu_for_acpi_id(u32 uid);
+   int pcie_tph_get_cpu_st(struct pci_dev *pdev, enum tph_mem_type type,
+-                          unsigned int cpu_uid, u16 *tag);
++                          unsigned int cpu, u16 *tag);
  
- static inline void arch_fix_phys_package_id(int num, u32 slot) { }
-diff --git a/arch/loongarch/include/asm/acpi.h b/arch/loongarch/include/asm/acpi.h
-index 7376840fa9f7..eda9d4d0a493 100644
---- a/arch/loongarch/include/asm/acpi.h
-+++ b/arch/loongarch/include/asm/acpi.h
-@@ -40,11 +40,6 @@ extern struct acpi_madt_core_pic acpi_core_pic[MAX_CORE_PIC];
+ The `type` argument is used to specify the memory type, either volatile
+-or persistent, of the target memory. The `cpu_uid` argument specifies the
++or persistent, of the target memory. The `cpu` argument specifies the
+ CPU where the memory is associated to.
  
- extern int __init parse_acpi_topology(void);
- 
--static inline u32 get_acpi_id_for_cpu(unsigned int cpu)
--{
--	return acpi_core_pic[cpu_logical_map(cpu)].processor_id;
--}
--
- #endif /* !CONFIG_ACPI */
- 
- #define ACPI_TABLE_UPGRADE_MAX_PHYS ARCH_LOW_ADDRESS_LIMIT
-diff --git a/arch/riscv/include/asm/acpi.h b/arch/riscv/include/asm/acpi.h
-index 6e13695120bc..26ab37c171bc 100644
---- a/arch/riscv/include/asm/acpi.h
-+++ b/arch/riscv/include/asm/acpi.h
-@@ -61,10 +61,6 @@ static inline void arch_fix_phys_package_id(int num, u32 slot) { }
- 
- void acpi_init_rintc_map(void);
- struct acpi_madt_rintc *acpi_cpu_get_madt_rintc(int cpu);
--static inline u32 get_acpi_id_for_cpu(int cpu)
--{
--	return acpi_cpu_get_madt_rintc(cpu)->uid;
--}
- 
- int acpi_get_riscv_isa(struct acpi_table_header *table,
- 		       unsigned int cpu, const char **isa);
-diff --git a/drivers/acpi/pptt.c b/drivers/acpi/pptt.c
-index de5f8c018333..7bd5bc1f225a 100644
---- a/drivers/acpi/pptt.c
-+++ b/drivers/acpi/pptt.c
-@@ -459,11 +459,14 @@ static void cache_setup_acpi_cpu(struct acpi_table_header *table,
- {
- 	struct acpi_pptt_cache *found_cache;
- 	struct cpu_cacheinfo *this_cpu_ci = get_cpu_cacheinfo(cpu);
--	u32 acpi_cpu_id = get_acpi_id_for_cpu(cpu);
-+	u32 acpi_cpu_id;
- 	struct cacheinfo *this_leaf;
- 	unsigned int index = 0;
- 	struct acpi_pptt_processor *cpu_node = NULL;
- 
-+	if (acpi_get_cpu_uid(cpu, &acpi_cpu_id) != 0)
-+		return;
-+
- 	while (index < get_cpu_cacheinfo(cpu)->num_leaves) {
- 		this_leaf = this_cpu_ci->info_list + index;
- 		found_cache = acpi_find_cache_node(table, acpi_cpu_id,
-@@ -546,7 +549,10 @@ static int topology_get_acpi_cpu_tag(struct acpi_table_header *table,
- 				     unsigned int cpu, int level, int flag)
- {
- 	struct acpi_pptt_processor *cpu_node;
--	u32 acpi_cpu_id = get_acpi_id_for_cpu(cpu);
-+	u32 acpi_cpu_id;
-+
-+	if (acpi_get_cpu_uid(cpu, &acpi_cpu_id) != 0)
-+		return -ENOENT;
- 
- 	cpu_node = acpi_find_processor_node(table, acpi_cpu_id);
- 	if (cpu_node) {
-@@ -614,18 +620,22 @@ static int find_acpi_cpu_topology_tag(unsigned int cpu, int level, int flag)
+ After the ST value is retrieved, the device driver can use the following
+diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
+index ca4f97be7538..b67c9ad14bda 100644
+--- a/drivers/pci/tph.c
++++ b/drivers/pci/tph.c
+@@ -236,21 +236,27 @@ static int write_tag_to_st_table(struct pci_dev *pdev, int index, u16 tag)
+  * with a specific CPU
+  * @pdev: PCI device
+  * @mem_type: target memory type (volatile or persistent RAM)
+- * @cpu_uid: associated CPU id
++ * @cpu: associated CPU id
+  * @tag: Steering Tag to be returned
   *
-  * Check the node representing a CPU for a given flag.
+  * Return the Steering Tag for a target memory that is associated with a
+- * specific CPU as indicated by cpu_uid.
++ * specific CPU as indicated by cpu.
   *
-- * Return: -ENOENT if the PPTT doesn't exist, the CPU cannot be found or
-- *	   the table revision isn't new enough.
-+ * Return: -ENOENT if can't get CPU's ACPI Processor UID, the PPTT doesn't
-+ *	   exist, the CPU cannot be found or the table revision isn't new
-+ *	   enough.
-  *	   1, any passed flag set
-  *	   0, flag unset
+  * Return: 0 if success, otherwise negative value (-errno)
   */
- static int check_acpi_cpu_flag(unsigned int cpu, int rev, u32 flag)
+ int pcie_tph_get_cpu_st(struct pci_dev *pdev, enum tph_mem_type mem_type,
+-			unsigned int cpu_uid, u16 *tag)
++			unsigned int cpu, u16 *tag)
  {
- 	struct acpi_table_header *table;
--	u32 acpi_cpu_id = get_acpi_id_for_cpu(cpu);
-+	u32 acpi_cpu_id;
- 	struct acpi_pptt_processor *cpu_node = NULL;
- 	int ret = -ENOENT;
- 
-+	if (acpi_get_cpu_uid(cpu, &acpi_cpu_id) != 0)
-+		return -ENOENT;
+ #ifdef CONFIG_ACPI
+ 	struct pci_dev *rp;
+ 	acpi_handle rp_acpi_handle;
+ 	union st_info info;
++	u32 cpu_uid;
++	int ret;
 +
- 	table = acpi_get_pptt();
- 	if (!table)
- 		return -ENOENT;
-@@ -651,7 +661,8 @@ static int check_acpi_cpu_flag(unsigned int cpu, int rev, u32 flag)
-  * in the PPTT. Errors caused by lack of a PPTT table, or otherwise, return 0
-  * indicating we didn't find any cache levels.
-  *
-- * Return: -ENOENT if no PPTT table or no PPTT processor struct found.
-+ * Return: -ENOENT if no PPTT table, can't get CPU's ACPI Process UID or no PPTT
-+ *	   processor struct found.
-  *	   0 on success.
-  */
- int acpi_get_cache_info(unsigned int cpu, unsigned int *levels,
-@@ -671,7 +682,9 @@ int acpi_get_cache_info(unsigned int cpu, unsigned int *levels,
++	ret = acpi_get_cpu_uid(cpu, &cpu_uid);
++	if (ret != 0)
++		return ret;
  
- 	pr_debug("Cache Setup: find cache levels for CPU=%d\n", cpu);
+ 	rp = pcie_find_root_port(pdev);
+ 	if (!rp || !rp->bus || !rp->bus->bridge)
+@@ -265,9 +271,9 @@ int pcie_tph_get_cpu_st(struct pci_dev *pdev, enum tph_mem_type mem_type,
  
--	acpi_cpu_id = get_acpi_id_for_cpu(cpu);
-+	if (acpi_get_cpu_uid(cpu, &acpi_cpu_id))
-+		return -ENOENT;
-+
- 	cpu_node = acpi_find_processor_node(table, acpi_cpu_id);
- 	if (!cpu_node)
- 		return -ENOENT;
-@@ -780,8 +793,9 @@ int find_acpi_cpu_topology_package(unsigned int cpu)
-  * It may not exist in single CPU systems. In simple multi-CPU systems,
-  * it may be equal to the package topology level.
-  *
-- * Return: -ENOENT if the PPTT doesn't exist, the CPU cannot be found
-- * or there is no toplogy level above the CPU..
-+ * Return: -ENOENT if the PPTT doesn't exist, can't get CPU's ACPI
-+ * Processor UID, the CPU cannot be found or there is no toplogy level
-+ * above the CPU.
-  * Otherwise returns a value which represents the package for this CPU.
-  */
+ 	*tag = tph_extract_tag(mem_type, pdev->tph_req_type, &info);
  
-@@ -797,7 +811,9 @@ int find_acpi_cpu_topology_cluster(unsigned int cpu)
- 	if (!table)
- 		return -ENOENT;
+-	pci_dbg(pdev, "get steering tag: mem_type=%s, cpu_uid=%d, tag=%#04x\n",
++	pci_dbg(pdev, "get steering tag: mem_type=%s, cpu=%d, tag=%#04x\n",
+ 		(mem_type == TPH_MEM_TYPE_VM) ? "volatile" : "persistent",
+-		cpu_uid, *tag);
++		cpu, *tag);
  
--	acpi_cpu_id = get_acpi_id_for_cpu(cpu);
-+	if (acpi_get_cpu_uid(cpu, &acpi_cpu_id) != 0)
-+		return -ENOENT;
-+
- 	cpu_node = acpi_find_processor_node(table, acpi_cpu_id);
- 	if (!cpu_node || !cpu_node->parent)
- 		return -ENOENT;
-@@ -872,7 +888,9 @@ static void acpi_pptt_get_child_cpus(struct acpi_table_header *table_hdr,
- 	cpumask_clear(cpus);
- 
- 	for_each_possible_cpu(cpu) {
--		acpi_id = get_acpi_id_for_cpu(cpu);
-+		if (acpi_get_cpu_uid(cpu, &acpi_id) != 0)
-+			continue;
-+
- 		cpu_node = acpi_find_processor_node(table_hdr, acpi_id);
- 
- 		while (cpu_node) {
-@@ -966,10 +984,13 @@ int find_acpi_cache_level_from_id(u32 cache_id)
- 	for_each_possible_cpu(cpu) {
- 		bool empty;
- 		int level = 1;
--		u32 acpi_cpu_id = get_acpi_id_for_cpu(cpu);
-+		u32 acpi_cpu_id;
- 		struct acpi_pptt_cache *cache;
- 		struct acpi_pptt_processor *cpu_node;
- 
-+		if (acpi_get_cpu_uid(cpu, &acpi_cpu_id) != 0)
-+			continue;
-+
- 		cpu_node = acpi_find_processor_node(table, acpi_cpu_id);
- 		if (!cpu_node)
- 			continue;
-@@ -1030,10 +1051,13 @@ int acpi_pptt_get_cpumask_from_cache_id(u32 cache_id, cpumask_t *cpus)
- 	for_each_possible_cpu(cpu) {
- 		bool empty;
- 		int level = 1;
--		u32 acpi_cpu_id = get_acpi_id_for_cpu(cpu);
-+		u32 acpi_cpu_id;
- 		struct acpi_pptt_cache *cache;
- 		struct acpi_pptt_processor *cpu_node;
- 
-+		if (acpi_get_cpu_uid(cpu, &acpi_cpu_id) != 0)
-+			continue;
-+
- 		cpu_node = acpi_find_processor_node(table, acpi_cpu_id);
- 		if (!cpu_node)
- 			continue;
+ 	return 0;
+ #else
+diff --git a/include/linux/pci-tph.h b/include/linux/pci-tph.h
+index ba28140ce670..be68cd17f2f8 100644
+--- a/include/linux/pci-tph.h
++++ b/include/linux/pci-tph.h
+@@ -25,7 +25,7 @@ int pcie_tph_set_st_entry(struct pci_dev *pdev,
+ 			  unsigned int index, u16 tag);
+ int pcie_tph_get_cpu_st(struct pci_dev *dev,
+ 			enum tph_mem_type mem_type,
+-			unsigned int cpu_uid, u16 *tag);
++			unsigned int cpu, u16 *tag);
+ void pcie_disable_tph(struct pci_dev *pdev);
+ int pcie_enable_tph(struct pci_dev *pdev, int mode);
+ u16 pcie_tph_get_st_table_size(struct pci_dev *pdev);
+@@ -36,7 +36,7 @@ static inline int pcie_tph_set_st_entry(struct pci_dev *pdev,
+ { return -EINVAL; }
+ static inline int pcie_tph_get_cpu_st(struct pci_dev *dev,
+ 				      enum tph_mem_type mem_type,
+-				      unsigned int cpu_uid, u16 *tag)
++				      unsigned int cpu, u16 *tag)
+ { return -EINVAL; }
+ static inline void pcie_disable_tph(struct pci_dev *pdev) { }
+ static inline int pcie_enable_tph(struct pci_dev *pdev, int mode)
 -- 
 2.17.1
 
