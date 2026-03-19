@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +GzbLa+su2ngmQIAu9opvQ
+	id iCq3Dva7u2mtmwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 08:58:39 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 10:03:50 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BBA22C792F
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 08:58:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1256764.1551265 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29DB22C84E5
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 10:03:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1256793.1551274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w38GZ-0001jc-No; Thu, 19 Mar 2026 07:58:03 +0000
+	id 1w39H2-00035D-ID; Thu, 19 Mar 2026 09:02:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1256764.1551265; Thu, 19 Mar 2026 07:58:03 +0000
+Received: by outflank-mailman (output) from mailman id 1256793.1551274; Thu, 19 Mar 2026 09:02:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w38GZ-0001iA-Kl; Thu, 19 Mar 2026 07:58:03 +0000
-Received: by outflank-mailman (input) for mailman id 1256764;
- Thu, 19 Mar 2026 07:58:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w39H2-000336-En; Thu, 19 Mar 2026 09:02:36 +0000
+Received: by outflank-mailman (input) for mailman id 1256793;
+ Thu, 19 Mar 2026 09:02:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8LP9=BT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w38GY-0001i4-G4
- for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 07:58:02 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 58c0f07a-2369-11f1-b164-2bf370ae4941;
- Thu, 19 Mar 2026 08:57:59 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- 5b1f17b1804b1-486fba7ce4cso1894385e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 19 Mar 2026 00:57:59 -0700 (PDT)
+ id 1w39H1-000330-Dh
+ for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 09:02:35 +0000
+Received: from mail-wm1-x336.google.com (mail-wm1-x336.google.com
+ [2a00:1450:4864:20::336])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5dae0435-2372-11f1-9ccf-f158ae23cfc8;
+ Thu, 19 Mar 2026 10:02:33 +0100 (CET)
+Received: by mail-wm1-x336.google.com with SMTP id
+ 5b1f17b1804b1-4852e09e23dso5170535e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Mar 2026 02:02:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-486f8b949e1sm85169095e9.9.2026.03.19.00.57.58
+ 5b1f17b1804b1-486f4bc96c6sm64498975e9.5.2026.03.19.02.02.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Mar 2026 00:57:58 -0700 (PDT)
+ Thu, 19 Mar 2026 02:02:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,65 +50,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58c0f07a-2369-11f1-b164-2bf370ae4941
+X-Inumbo-ID: 5dae0435-2372-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773907079; x=1774511879; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773910952; x=1774515752; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=652ZLo0i5CyA4ak0MrhJcA+UpfuQMsgf28bdy2WtHsI=;
-        b=MksdCy2VtBuouM/BRzBr8WrtUyU1a6ZC1/iEC6g327Zs28vZETprZ+UAPfTiy9ZP8G
-         T1YfeP6KW9ZFWpF2U2j3nOhB1dmfzdQCfHdIa8pijLIAuNL1Ma/cJ3/REF6mS2tweDko
-         K9AeT+jShSX4Js6APugYvcyXhuh2Zksqs6+ipLV4V/ozMddYCKJ68CmfNEuqNQwhn+63
-         d+qKIBEgzhM7wFq8tk6kSC/0Ox6A3CB0naY1wPccIL4GIPglApGuk2I6o3qsj9+71bw3
-         G9jXvf+dgPwZIWz/jNeL5xmZSvkWUEWBuS63LitQblD7ywB+uQbP9KSVAdjI6FkLhCaZ
-         RA/w==
+        bh=9DgtjIUdC3TKFqCbrlVPmz/AAoUU2Q5d0HjDWi74ZQU=;
+        b=IJyn/Xd4DHMhuw0+uf0jMRqwK3S8juNTbXEGNmRlFdEYDle4/FmwchKS0NexszKLr2
+         Uhg/IfbJkJnndgqDBwsP382YZeM1VFm7Gww10aUA15+bWLJMQ2LmU1nqVYPdgBCRdK/E
+         PKdB6Vp+6wHhPXsrGXUG9pZuqzjSlFbLqcKTJf/GsPpUysIR4hdyL2Ql7fewAlwORoLS
+         uXeUIrK73fXCse4fhj4qGS9bFfhcFyONltcWUAXN2Qy20dBwuViDzGgfPqsL/qCp2FJ7
+         KslSvcT+TtahhOS4NVmnmVnfrmF9NU5xX6uPN2O5a4mg2irHBFdTEkEe1BnX7CRo9B0b
+         33Uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773907079; x=1774511879;
+        d=1e100.net; s=20251104; t=1773910952; x=1774515752;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=652ZLo0i5CyA4ak0MrhJcA+UpfuQMsgf28bdy2WtHsI=;
-        b=JO7mm0HjNYNJ+8dpHNGs3VLsPQIwUtqboR2H4qzv2xWxTM/mdIby8a94GWUtEURVxz
-         KSVDqZHLj9QQjmC3CItTUxZ2zjWW4OMKXLpcd4WDMBfFeXkkAEyM8kc28vld4Wv9gKki
-         0jzmkk0kQwf2Cl5EPNhg/ln62hpYj9UYk0YQFpQPpmtf24z/A/5tJSAB1l54Eu+expe6
-         Jqbj5y6OiJ4NROQAIYqUz7MLRfxRpeR7QD2yQNDEz69W07d5ghc0f53ltgUPmYV7b3hN
-         6SYP1DJIbuEyEXI1knu9AQBBwANNdqMqmlQnqgHarV9nBCtRrt/1fCiuFfLavBTnoHvw
-         nOUQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXgUm2Am059y+VZbXQr8Q5rnlSGoNxQ6XL5epV3/pmtKK3G1GiLiZxgpb/TJl2GNZLWsKE3XAEx/1M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzvGKvo1YZDGgCxaTVN02Sv0ns58qBogyoXd5ESjbVQhSk/CQjh
-	MqdTjk/e80L4YVBwWu+ofbdsIdvBcXj1G55ObbCtyyEm5BrB4MYhwnP7dQQdq6migQ==
-X-Gm-Gg: ATEYQzxy77XjkfiUmUOaegfoi7W/102AruPe3DR8cqGPlDayGpyOa5/JraDeTN1VYdA
-	19+DJpLuMUI58RsgMgQjczSNhEEY5RD9z1zagrtb6Emou8i3EaB6NtEyN6KuNzZ9wNnx04We/xO
-	nQtwfACSiLMss9UNNFHNsdswhYoUcpG9qioCu3iqas9cgr8X/SyumyV0wFdI9av3/qH0+7iFznl
-	dQ+P+6x0KVWGLwQkII7KKPT1btcmNKlbAHIGuiFuP9XhNBxVemK6ERjF++x8sDcujeNDUZKx5nL
-	IHXxEAC4+sM75MgJ5sQzcOIZtjjCDL9Fk687QNxY1nfMFAc+XkLSIksHlTFxhBDaUYu5W5sJYcL
-	iOChQVk8Ol7HHzK+xBBKwdr9or0VjZKiNlrxoujQE5kR9kuxfZ+Ut8tB+7SpX2XNlhfvb9TDM7e
-	daSdBkHTiX3ntJRiL+ZQty8tFjxotrtuL9nCdSxjTq4avg4Hyx9EeHhBNva2Qa0wB5CA9H5hNJj
-	oe0NmTvyhaxd0A=
-X-Received: by 2002:a05:600c:630a:b0:485:5574:8ccc with SMTP id 5b1f17b1804b1-486f445122amr99962215e9.13.1773907078761;
-        Thu, 19 Mar 2026 00:57:58 -0700 (PDT)
-Message-ID: <1efcb5eb-1b59-4def-a527-254a31efe2b7@suse.com>
-Date: Thu, 19 Mar 2026 08:58:02 +0100
+        bh=9DgtjIUdC3TKFqCbrlVPmz/AAoUU2Q5d0HjDWi74ZQU=;
+        b=PEltxVejZ1wf7/rRTFZCYJLTTenLX00P1H7dxloNRyp/d2cNN/oS6Ps7fV+p/7eE1b
+         4FzxURO5IElxAdV8jabDSkqPxtoCe9UzWQw16DitR5/J33PWes1xivM2pz6bMqvvWdKH
+         ScbT66KaQoH5YIwtxAies2ceMqeHzpwQJISR444BC84FJ4J9ROdV/NNJdG1a0aBZz3wH
+         vC70Kzk4ooMFdzzMeIj68qxMgvURkuDGC7b2NGJut8popmPBquOs4ckTGFppddHI2Onq
+         VFvOX1lXec3ofAjKpSyzeXF9/f+paDySP2heFV16P1XoLJMkIixGky1TUVd0BmOmKhrI
+         3ZlA==
+X-Forwarded-Encrypted: i=1; AJvYcCUTKppcCM77ZCv8bgKhSxswZz3JMC9G6VpkGtTb3uXTqnog9r9PDvPpFaTmgKRkt/h4qGqfBBA6LSE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyODtPU3jApHB1IVkfoGLD2wfguavnLkiDqyJqHhUD60OvKr6+r
+	/kgq6snPpqSRq0j0AQrjaBJPIHG34JsM7NPM2aX0PXR5q1HGZai3sEWCcMtUbRm1XQ==
+X-Gm-Gg: ATEYQzy2FEwDB5hZecvrQtVea2p56nIE1X0FCRMl1TSI7NPQvriB4yGKlDFtE+zSx/J
+	hdZzF+cNPJTXKPAfr6ut5PO36N5RUG/Yucalg+c9VEh1fVy4yUlw0cLSJI7RkbTwtpHfGjzwljr
+	HjEFNneyfiPi5BAWlwHYMdUnVOO1iDGHDbIzWI/pQwRdL9lmTtVJD8QQ/QyNWyNBZErvqhyO82b
+	1q49TkP6ccho4Zi10xEoAuZQMnE1TyCm3d1o3aWVbQ2aOcadST47oa90Tb/hKwL+i8vZra0RJVn
+	ZnwFwK+ToiWdjfPkZYMEFmSebVEF6xrs6vTeMoX57QLy0u/Z1Ms/MF3RdVyTYuchIdAm67bI+B5
+	KS8Sm44PIYlXybzkS6sZLm96SEPs1pjVadVWsKYQp84SSIUPbIxnS9ZLIBMa+xSfPlj8LdwvsEU
+	PsDtDWkx34r+ZuIHHQQtpZfTqrhYPtFZlGQZgjLd4CyI44dxFFIkkjOH9Kx8k6GWtvxjwoeoR9H
+	yaepYsVfjgmi0YKl4ymvUe/DQ==
+X-Received: by 2002:a05:600c:8b0a:b0:485:3193:6ddb with SMTP id 5b1f17b1804b1-486f442207amr101268065e9.3.1773910952250;
+        Thu, 19 Mar 2026 02:02:32 -0700 (PDT)
+Message-ID: <325ee99b-f2a9-4eb1-8982-be25075f5ea4@suse.com>
+Date: Thu, 19 Mar 2026 10:02:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 6/6] xen/riscv: enable DOMAIN_BUILD_HELPERS
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH v3 3/7] x86/hvm: Support extended destination IDs in
+ virtual MSI and IO-APIC
+To: Julian Vetter <julian.vetter@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1770821989.git.oleksii.kurochko@gmail.com>
- <6ab04f3584e45795dc82c25f62a6c950913f5c7d.1770821989.git.oleksii.kurochko@gmail.com>
- <aac9b5ac-6660-4ec0-b88e-605903217588@suse.com>
- <b4ac883d-ce90-40b0-93fc-95c925c7ac61@gmail.com>
- <a35d5566-7da1-406d-abf7-13b423d013f8@suse.com>
- <ad59c5ea-ae8c-4e6e-8b49-dcd0eefc3197@gmail.com>
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
+ <jgross@suse.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20260309123055.880050-1-julian.vetter@vates.tech>
+ <20260309123055.880050-3-julian.vetter@vates.tech>
+ <1e371e65-ca79-42a0-93f9-804f73084033@suse.com>
+ <9f40fbec-008f-4a50-bfb2-27c35d88f2a2@suse.com>
+ <635f1e21-f1e0-451a-9374-c91b33784894@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,73 +133,90 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ad59c5ea-ae8c-4e6e-8b49-dcd0eefc3197@gmail.com>
+In-Reply-To: <635f1e21-f1e0-451a-9374-c91b33784894@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:jgross@suse.com,m:julien@xen.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.999];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 2BBA22C792F
+X-Rspamd-Queue-Id: 29DB22C84E5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 17.03.2026 13:49, Oleksii Kurochko wrote:
+On 16.03.2026 16:06, Julian Vetter wrote:
+> On 3/12/26 12:15 PM, Jan Beulich wrote:
+>> On 11.03.2026 16:27, Jan Beulich wrote:
+>>> On 09.03.2026 13:31, Julian Vetter wrote:
+>>>> @@ -618,6 +620,21 @@ static int cf_check ioapic_check(const struct domain *d, hvm_domain_context_t *h
+>>>>                e->fields.reserved[0] || e->fields.reserved[1] ||
+>>>>                e->fields.reserved[2] || e->fields.reserved2 )
+>>>>               return -EINVAL;
+>>>> +
+>>>> +        /*
+>>>> +         * An RTE in the saved state has ext_dest_id bits set. Check that
+>>>> +         * the destination Xen has extended destination ID support enabled,
+>>>> +         * otherwise interrupt routing to APIC IDs > 255 would be broken
+>>>> +         * after restore.
+>>>> +         */
+>>>> +        if ( e->fields.ext_dest_id && !d->arch.hvm.ext_dest_id_enabled )
 > 
-> On 2/13/26 2:11 PM, Jan Beulich wrote:
->>>>> +#define GUEST_RAM0_BASE   xen_mk_ullong(0x80000000) /* 2GB of low RAM @ 2GB */
->>>>> +#define GUEST_RAM0_SIZE   xen_mk_ullong(0x80000000)
->>>>> +
->>>>> +#define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE }
->>>>> +#define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE }
+> Thank you for your feedback Jan! Yes, right the 'ext_dest_id_enabled' 
+> must be defined before it can be checked. I have rearranged this in my 
+> patch set.
 > 
-> (cut)
+>>>
+>>> This won't build, as the ext_dest_id_enabled field appears only in patch 6.
+>>> But yes, that looks to be the opt-in mechanism I mentioned above.
+>>
+>> Actually no, how could it be. That's for the DM to invoke.
 > 
->> If all you want are 2Gb guests, why would such guests be 64-bit? And with
->> (iirc) RV32 permitting more than 4Gb (via PPN being 22 bits wide), perhaps
->> even a 32-bit hypervisor would suffice?
+> But this comment here I'm not sure I fully understand. You mean that 
+> checking 'if ( e->fields.ext_dest_id && !d->arch.hvm.ext_dest_id_enabled 
+> )' is not enough? This check only verifies that if the target domain 
+> doesn't support ext_dest_id_enabled, no RTE in the source domain is 
+> allowed to have a ext_dest_id set. But now we also have to check that if 
+> the source domain has ext_dest_id_enabled, the target also have to 
+> announce it, right? So,
 > 
-> Btw, shouldn't we look at VPN width?
+> if ( s->ext_dest_id_enabled && !d->arch.hvm.ext_dest_id_enabled )
+> {
+>      //ERROR
+> }
 > 
-> My understanding is that we should take GUEST_RAM0_BASE as sgfn address
-> and then map it to mfn's page (allocated by alloc_domheap_pages())? And then
-> repeat this process until we won't map GUEST_RAM0_SIZE.
-> 
-> In this case for RV32 VPN (which is GFN in the current context) is 32-bit
-> wide as RV32 supports only Sv32, what is 2^32 - 1, what is almost 4gb.
+> Is this what you meant?
 
-??? (IOW - I fear I'm confused enough by the question that I don't know how
-to respond.)
+No. What I tried to convey is that besides Xen <-> DM negotiation, there
+also needs to be Xen <-> DomU negotiation. While they shouldn't, existing
+domains can write non-zero values, and the behavior of such domains
+shouldn't change with your extension.
 
 Jan
 
