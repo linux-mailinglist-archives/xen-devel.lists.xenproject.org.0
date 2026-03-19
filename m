@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GLkGGYswvGnxuQIAu9opvQ
+	id 2F+vNk43vGl3uwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 18:21:15 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 18:50:06 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7EB92CFD7D
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 18:21:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1257460.1551857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22C0B2D04B3
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 18:50:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1257477.1551866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3H3E-00048m-Lw; Thu, 19 Mar 2026 17:20:52 +0000
+	id 1w3HUx-0007SW-Ty; Thu, 19 Mar 2026 17:49:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1257460.1551857; Thu, 19 Mar 2026 17:20:52 +0000
+Received: by outflank-mailman (output) from mailman id 1257477.1551866; Thu, 19 Mar 2026 17:49:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3H3E-00045r-IS; Thu, 19 Mar 2026 17:20:52 +0000
-Received: by outflank-mailman (input) for mailman id 1257460;
- Thu, 19 Mar 2026 17:20:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w3HUx-0007Pi-Qg; Thu, 19 Mar 2026 17:49:31 +0000
+Received: by outflank-mailman (input) for mailman id 1257477;
+ Thu, 19 Mar 2026 17:49:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mAdu=BT=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
- id 1w3H3C-00045l-U0
- for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 17:20:51 +0000
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazlp170100001.outbound.protection.outlook.com
- [2a01:111:f403:c000::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f790dfca-23b7-11f1-b164-2bf370ae4941;
- Thu, 19 Mar 2026 18:20:47 +0100 (CET)
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by DM6PR03MB5002.namprd03.prod.outlook.com (2603:10b6:5:1e8::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.20; Thu, 19 Mar
- 2026 17:20:41 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9723.019; Thu, 19 Mar 2026
- 17:20:42 +0000
+ <SRS0=kkR1=BT=epam.com=Oleksii_Moisieiev@srs-se1.protection.inumbo.net>)
+ id 1w3HUv-0007Pc-Jo
+ for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 17:49:30 +0000
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c200::5])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f8f97dd9-23bb-11f1-9ccf-f158ae23cfc8;
+ Thu, 19 Mar 2026 18:49:27 +0100 (CET)
+Received: from PAVPR03MB8946.eurprd03.prod.outlook.com (2603:10a6:102:32e::21)
+ by AM9PR03MB6881.eurprd03.prod.outlook.com (2603:10a6:20b:286::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
+ 2026 17:49:24 +0000
+Received: from PAVPR03MB8946.eurprd03.prod.outlook.com
+ ([fe80::98:900e:f8e2:716f]) by PAVPR03MB8946.eurprd03.prod.outlook.com
+ ([fe80::98:900e:f8e2:716f%6]) with mapi id 15.20.9723.018; Thu, 19 Mar 2026
+ 17:49:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,168 +52,286 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f790dfca-23b7-11f1-b164-2bf370ae4941
+X-Inumbo-ID: f8f97dd9-23bb-11f1-9ccf-f158ae23cfc8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o3g1BdYHhRd6PzYGSpspKwWaRybXBtuKJU1CZ9gcKdMmKYkio7yxFgHluBfjjnWs5Wx6fE0WcRSC5AQunr6YZfhO7eZIqhYlDXPIfM7ou7xeNp/kosLRber5ikTEoXvgrQzcAlu8Hg5gzRQkkVZxnRzWjDqegni1Iy/nH5AJ4OE/fpEo/42UfeLdF6YSF4MwKaoeYpKnmgNysHplneJ8+feIvBMvoU5VKlVTlQ/Gqmlku+LkZnucGl3cQnuhlve4SwkjP0+/TuDzvnWZ5QKHkBad7jZ9+Fe5Uep+tJiv3J4CmclWwMNIbkXWaCJ60MAbo4+uEjLMram7ESENQP+2iA==
+ b=jDtXr+16Z/XhtdCCgCgVJzb4+xbqT/aTm5rxujZIuSaopVI9v1Dj0zqX+kCvOqUR9zObNE1KfMnvV7breV+15kuraJxOW2SFV1p+0GradGojqVI5zBjuSfUGrpE9Hhd7Ly/1EYfQ1awyGV2yWQA5q5hOYshl0AUiCcyW1fbqmOTVOg5ufhoJxnzW08TzJUIV6YXSaZdMWNhNNTR0f4FvIiMsij0IJeDY41MZC/UiPpMqatjrhUbJMRPHVi9see+7tZ+f6rN3UOrpJudv9B7jYgZaZVp0ao0YYD26X7JBBz7phZSAlBCVX8Az3UR1NBO1s17EvQXq95RKW7wbKMY51w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=scM1kSyVmGbeR6Y1THi4aqXjhqrIk9N6xlBSqox0cGs=;
- b=ZtOK8vVBc3UzKe1wFtWORjkBgsQsNHrhoxb3KdR8avGhO+ng0BzsZxuSVcE7OwCBmDBsYrLpEFV3E92Lw64qJWBtkIniARS26W6S9gv9LrqKHt2nh18+AexKde5mdemJhvG7J8wcXa7HwMLN1loCHWu8cKAZAP64dzy+Zd5cwtNS2VDlcLvUso62AWLcO1TRnMQHv+Cl+4jAmbHaT2LeHApNyV7l+dZ8MwfVCGU4BbsaIg2OpoXLo17WKxx+gW4onLTeLuyHQGH+nVr84BZVnrZoN9Zhb8wUqJRxKK8PkJE/GOuEhnf3gXh3rpgzL82nzcA0F0Oeq/Znbd8cPnRL0A==
+ bh=TiV4OJ9RkuDFcSi2lKHDcz1LCfVpgQ9ioLTRJwYNCTs=;
+ b=uJA8yzOpB//TgOQ4UWR2An+6PZygbCTgW8v5wgdYTOrdkkh6tu8kMU0iRqUJLg5tDuzllEcIw9ENPTJa/nZ5Ywoo4XXlB/tcPp5AUEYViGEwwBtP0fDI+NDt/D7eygYJyPcD3c8v/u0LbvkoNlf9dVOC69UoCXPoM5pRaeGwquIUZH/QjwrxcisXNtsPUYrFxAku234HUuNzkhntAsHxHGov7ea3R6MQUxkjTVK5RgShcRclbchMUom0CF/tm5nWpaTgo4fCzckOQ39leUoauL1pMXy2qUGGhNxvsblvVrcocA/lb0dnVRlFSTzK0f2C8SHL6lmRx6ysf23j6KHW9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=scM1kSyVmGbeR6Y1THi4aqXjhqrIk9N6xlBSqox0cGs=;
- b=ihmGXZMowc1gUzdz+u1GL0yzbgTk0IPqKXk4ssodKHQlhWmQ2SKUaz31lpjQig5E43MfVZ2ZjaV1UzjNSlEI/0GRDm3xMzW0LxSJ9x8QRMY1VGw6Aaz+CqUQQzzWfdDOVscprK1hTJL307oEWyL6auhn3+POc/dEmMUochbcujI=
+ bh=TiV4OJ9RkuDFcSi2lKHDcz1LCfVpgQ9ioLTRJwYNCTs=;
+ b=TAt4NaLFLjb+UIN7UZ1JW5wpQhHios/8RO7mNN2M3xTURzaS38k3q70qU8x9vL20GdDRR9KI7Pit5lFgJoNPS99cpSdEHGqwD3SMiiutzu21TPcmuduBBItLwYiKuU25Z0k48042Ctm4W/uvG97GRTnWC08G0xkOs0Q5X8NPb3KH3MkMjIaQJMwcrPaMgRhiXWnUnVp3W8hCim6eFkJMPJ38g/+ZnefVsFOBfb/kR1Ia/vcp0ZmWV0/kx6HEtT8t26PcJ52Kk+4ZZabCfAU8kcqHxUoWGGOlPFflgxIr3VfnLId+OjRRmDtxzxV5kn/9Vhq69uAVvi6CkzaO+bJ5sA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <7e1381c5-4429-4580-bfc3-e91d31813a0b@citrix.com>
-Date: Thu, 19 Mar 2026 17:20:39 +0000
+ header.d=none;dmarc=none action=none header.from=epam.com;
+Content-Type: multipart/alternative;
+ boundary="------------ZnOiZ0itnUU4M7pRjwde1saL"
+Message-ID: <1c0f5bc3-5e04-4043-b950-bf9af10bf720@epam.com>
+Date: Thu, 19 Mar 2026 19:49:22 +0200
 User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Jason Andryuk <jason.andryuk@amd.com>
-Subject: Re: [PATCH v1 3/8] x86/svm: Remove lazy FPU support
-To: Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
-References: <20260319132924.1469809-1-ross.lagerwall@citrix.com>
- <20260319132924.1469809-4-ross.lagerwall@citrix.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <20260319132924.1469809-4-ross.lagerwall@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0547.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:319::16) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+Content-Language: en-US
+To: xen-devel@lists.xenproject.org
+Cc: dfaggioli@suse.com, mengxu@cis.upenn.edu, gwd@xenproject.org,
+ andrew.cooper3@citrix.com, julien@xen.org, jbeulich@suse.com,
+ tiche@cis.upenn.edu, tiche@seas.upenn.edu,
+ Stefano Stabellini <sstabellini@kernel.org>, dario.faggioli@citrix.com,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+From: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+Subject: [RFC] RTDS scheduler: potential issues found during safety analysis
+X-ClientProxiedBy: FR4P281CA0280.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e6::16) To PAVPR03MB8946.eurprd03.prod.outlook.com
+ (2603:10a6:102:32e::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DM6PR03MB5002:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa7e6a1d-847d-4bf8-5a85-08de85dbd94e
+X-MS-TrafficTypeDiagnostic: PAVPR03MB8946:EE_|AM9PR03MB6881:EE_
+X-MS-Office365-Filtering-Correlation-Id: 74982772-32e2-4540-af1a-08de85dfdbb4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|56012099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|8096899003|18002099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	QkWCpAzYs6aAs1MSdQQQcDvmqegl3OrOB10LvpvNOC0tFYcfoe2SV3aRwWNIVpUPhNSf/e9aUgig7H56O6eCrB5aNvjLQB0kIi7Pm1gYEfTqHpwwqpIRqgwFBsKjSFShteR3OZmHaRjUFMrLM8IVavdj/1zUJ2I65EBlbry5tV+B3Gjk8bW0aRMFiMnkhWMZL2i+d1JnycPUeiVJSXUwCqNT8w8GZ1nzyNvZg1S6P9Kr5KDDDxtYHWWUsye6c/H6J8y9TQ4YmelKNHHaZlNhzKF+4nQUadAqBo6L8jSBeYK9ho45i+uMkW0yA4b+VpdxkQcKufuMlRLuTHEHABmd+afEGVahnTjdmHSYhpkTk0zF4UqRFB+sbdrUjNxL1ii9j+aMBvx8qHCWj3Cve2U/EUfCpZl3zo0RJsRasD+/8S1NGWj7GC5gF0vYMebEErvc/LD5VxQRA+kDe2qBoMe75mJ4Qm6rLHP9SwxzvXO5Im/iK58FdQnAU5U7tflz8R8+K3k8aySipQNLq4T/zptuY8Yx6tQD6wJCW/OCepzPA+Lh7OFtETacmpYBBkHy086iYPsE3hW3r8lPBemFszK9/WDcQKPje5Xri961KewVk7m4y+5aqhZrsO88WyKgPMibniQN3m00lNusoyYApf26p6C68YcIFB+ajN75B+64k/95suWRvQiVszc8VwnflohYHQZnBrgfC6HHPWTpkQxUttG1dmMFGf9jP3SwFy/Z5Ew=
+	Bb3GsSKhiZC2KJlc1ks9HCU+KIAnX9tdrHnHyaKDlk+/zKdYcvQNEFUr/8wafzS1tlT3rxlB7FJiq0oIULtOYF+G24eozvkUwcE51gNmTkPmlXpgEjdt4LeHVQkb/13UmNm+wyejZYUW1iqd4OMeNPBPj5UBzcG6GPib+HxeutM4NhIwkJNMJ4dL8Ei9pgziW8lArDNpKsN7vOjycfTE2dj6zIpNCLK/TnFbgXp5OhYPVwBDc1l5ptm8EuWdgm43BxBQgzoXJHSc0NLTRBxcIGEup43sj0JU/gjlCVR0N4FoNCMGPW6Q9xc6oilZqG/v+gQIGaN3WTiMqn+tLDYPweG4CMSv5UChqHoO8sKy8gkr7Zu2JoE3vAg4jI0yKR+5fuqjVndo4QWT+CnVhQMRZhPWXRztqB2uqmvQxEck08IY1GecSXTuSBlH1ARlinFcy8nzjGBTZIrBTCbXby+vsn6BEm4uhw1m4ZjGSIupFqdmNnYqwghJceON5pnpyKyqzf5hshJyQ3XzSDW5+8oPbRvwoRRoQ0qeQiwdXRQQHBKNGjpNhOhGvfUgRQT9QabqEkUy2ad+pDvdpw9Yv8pOYNmzi22VIEsreYBCNdwHBzVgXsgs0x1Z5j411t52B47SFNhO3CFs2j4dmX38WIJ51FzmGlq7GjXHQPJo9Trb7yD6jLM6KNmpyhLTCHQpyT5DogFKYTEX2KYfqeiTS6/SfHY8XrKP/+gYcdtURINYDkI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB8946.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(8096899003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QkY3d1RMTTJaekV2VFlTWEN0RGRlZE9QNXlHV3NRUUhuL0kyVVQvSjI3VWJq?=
- =?utf-8?B?cGxwVXQzSXB4WFI3VGcrdlk3WjZkMFZrcTRMYUZNZmtqWWVtbFpkdjRtWE1T?=
- =?utf-8?B?NTZXWjhtVW1aNHBoK1RWZVBURDNnUzNCL25PSGtlcDZZaUxmOUVoQ2dBdXFM?=
- =?utf-8?B?NFpWUU9NQUE1L3R1bkY2dFJ4U09HM1BUUDlQdzlaWUFwaHVuTFhUWGgyVDlH?=
- =?utf-8?B?empKMVpNbytWcmYycU5TaEJ1QWs0Q2pqWXFkZVE2N3pCK2s2UWQyb0ErQnRo?=
- =?utf-8?B?Z2hKRzBwbVVpT3prU3pMclNjNGttTWVpM0pFNnRtMllNNTdiWndLMy9rRm1S?=
- =?utf-8?B?RTdJMFgzSTlmV3BKVFNuRkZyOFJkN3poaklCd09pNEN3QTNpeFZTMUNRK0Fo?=
- =?utf-8?B?cDZ2c2d2OHRnd2lBeWh4WFg3dkFxMHRybG9Kam1zYXVZRmo1T3EvNGV2Y2RC?=
- =?utf-8?B?SkhWQW8yR2hHUkRHazJWcmxHcFVBK0pGVzYvaWYrVjVaaEVKQmhUYklBZUtX?=
- =?utf-8?B?ZUFkbEJYbDVGR2IyVlVOZnpWYysvakU0U2w4Umpic3VhQ29GcFdrblNVcnF3?=
- =?utf-8?B?cWFQVkZjRW9RWjREVUdNYXZaWkRacmF2SUtJOUNzNlFBbjN2Uk13MWtjb3dO?=
- =?utf-8?B?bzZCNS9IQjZrZURDMC9zdUtyUWpwVFhZZVc2b2RLRDJDQWo2QjZ3VWJoOExH?=
- =?utf-8?B?RldkdDZTVW5rMk82UE1tWVAzMW05b3hvWXRjZ0xvemhRd2VaL1ZVZjNsZlY3?=
- =?utf-8?B?SUpGTlJiNW50eDdDRjl2M0d5SzQzaHZ1QzhtWW95QVZUZHVpWWxsTzZqam1V?=
- =?utf-8?B?YmVBZFhObXNpWFpJbExoNk01eVBGZlRJbm1FdUkxL0dmcFdBSytNWnhVNkJo?=
- =?utf-8?B?VFBkam0ySU5Cc25XQkVBM0JsRVo1N0VIMjZsWld5SDRFZU8rbHNzSGVOWFoy?=
- =?utf-8?B?WlA1TUozSFduWTl5VkM2cGwxcVRsQXViTUNMc1MyVmRBL2dvOG5VN1V4SmxZ?=
- =?utf-8?B?WDlyNW16R1lyS1lzTHpjRDJHYTN1Ri9zYWoxTU5MNmdKYXcxSTRBam9oQnl5?=
- =?utf-8?B?a20wQkpYb0lIZTdHdDFaWjNjSmhJTis1dm0xaTRKTmg1a3UyRmZkbnR4ditW?=
- =?utf-8?B?MHZZNVJvRVdoMEZ6Z0RiR2g3b0lDV0QzT2h6TWkxVFNwSUdwOXdCMTFJRUhF?=
- =?utf-8?B?MStpSVNmdm41TVBmdHdRMUJOSGdFMXdBdk9KcXpsL1BlK2N3WHcwQWhIYVpQ?=
- =?utf-8?B?UUlVUXFpdzB2RVRyVE9ZNUxxOVBFc3dHU3NEbm5tMzVwOGczS0tCRCtFSTFB?=
- =?utf-8?B?VlhYM2NtQmFuVDh6R0IzS1ZWWEpLYjh2SXNtVWl1RkZGQVVDblBJR3A4MXg4?=
- =?utf-8?B?dzJrcUJ2S0lBTU9lTDRqaEx2czYzS1pFcTF3TjVoUEI4YzFieUpMMU96SSt2?=
- =?utf-8?B?SUpFZGJ6QUthQ2xzRFB0ZjRoSy9BcW5hQzVObVFEUzJZSVJxZ3pTM2xGckJn?=
- =?utf-8?B?aWpFaURRNTBoQkJnY1o1WFFWSDlwbzNYOTJmNkZLU1Y1YmhNeXVtcFFmVWhJ?=
- =?utf-8?B?TTJDUm1OSElzL3JFb091M1VkMEJYZzZhQWVNTlpNamFYd2VwS1ZuYWF4bnJz?=
- =?utf-8?B?a2ZzSHRrK1lGYmNQTEJDcS9sTVF5Wk51WGtYaGc0V1ZZSk52VGhWNU5weUdx?=
- =?utf-8?B?eTNsZVRmUU5lTWV0QnBaYTVPR2xSTTFDaFR6SFByL2RpS1MrdmJidmNBdFIz?=
- =?utf-8?B?NWZ1RjJkSUxiWnFtaUpBR2JGZUtGTm1pay8rK1pQUVpHWWdvNVVDZUU0cFE4?=
- =?utf-8?B?WW41My9Ld2JCQUNVTFVtSVNBcVBEa0phUGI1YTlyeDlEYS85cTRIdjJ2NGVP?=
- =?utf-8?B?YUFUYjdRdlkwTFBnQ1A3SXJWWjU1WWF6SS9DL1o4NzhEZjR0OUh4RjZzV1U0?=
- =?utf-8?B?dzR5cHd6K3E1cEllYy94RG8rQUFBVzhLRVpBSFpWbUVIR2xuYk9VQ3VVSkUz?=
- =?utf-8?B?NkRsNGI0OHpoVXpzbm5LK1FMYnBJb0p2UXFnclc1ckx3NTVKR3kwNXFobGxJ?=
- =?utf-8?B?bUpJVTJ5QzFyUmNnRnBFYU0wMkM2VnNvYm0zbEVpbTZwejY5eG1seDM2RTBq?=
- =?utf-8?B?Nkozc1NQZnU1TkhHYk1rQTFCTEhOMG1WOSt5Z2hPWmVrQk5lWktIMXlVNUZN?=
- =?utf-8?B?SUo0TWl5NDlVSmo0NnpwRy93NFpwUHhHY1gyWE83czVMS2JmYW50RDg2bTFp?=
- =?utf-8?B?SzdXRTVUQVR2MzFNVlcwZWhUQWtuZVhFNDQ2ZlBuWUZEc3gwcnlFMFp0Q2N3?=
- =?utf-8?B?YVdvbGhZYXIrMjVubmtJTGlSSmRYWW9EV3EycTd0bzBuVVlhc2grQT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa7e6a1d-847d-4bf8-5a85-08de85dbd94e
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+	=?utf-8?B?TnJhUlFaQzNQNFZlelBlMm0rYWl2MFl3cmhMaENkYmZzOE9RUGZJTk9BbzBw?=
+ =?utf-8?B?ekRIUThaaEMzNkdRQVdkb1F2cURlcEpqMEhSeitTVmdBUG5qUXE0SDlaOEsw?=
+ =?utf-8?B?Y1JJK1pDMFpkeEpwOE55bFg5R2U1N1RiMkQwQi9Cc3NiZmlsb3VNN2IxRjU0?=
+ =?utf-8?B?RW9NSi85VFJMMEIzWGs5VXF2a2tWUVFwSEtCYzBlR2hjTkpScDNnckdUK2Qx?=
+ =?utf-8?B?RHBncmw3VmI3S1RSRjYwUVlFNTMvQ0NtaFR0Vk1WQ3pnWmJmNjFEVS95NERS?=
+ =?utf-8?B?WXh1bHVXbERPYzFYYTdIRjVyZ3ZBcUFlNEZpTjV6SUR4UkNLOURxRDRGYVFr?=
+ =?utf-8?B?a3dYak5Xbk16dEFsUWd4Zy9JZ0N2enV0TDNyOXZxTVJmRng5eEFMcTFZdVp2?=
+ =?utf-8?B?YnhLYWlmZmdwWVFJUUR4SGxxSkhIUDJKSU1qVTMrbUxiSmwvRHZiSCtRZXZ6?=
+ =?utf-8?B?b2c0ODF0Q2J1T2xXRXArTXR0aStmOFNreDAvaDNkRlAxTm41dkVQTmV0eWE3?=
+ =?utf-8?B?bFdFemM2S0VKMXZnWFZiRUNDZTc5WkluTzk5WHU3U3JQYUlqc1lkVjFlZEVw?=
+ =?utf-8?B?K2dQTTQ0THc0QjNRMHM2V0tnRDh1b3dOTXFReWt5MlJCRTBUV2pzVXA0bVE2?=
+ =?utf-8?B?VXNyakxzTkV4VkdOZ2U2MEZRTEY2amtYWmVTUFBvbXNyN055c2hLZy9ldkNr?=
+ =?utf-8?B?aGtxNGMvRmlqOUJ1M09sWU1VanhLNjREL3RjL3BocUdiN21Sd1BBblhybmJm?=
+ =?utf-8?B?MFBkMG91UFJ6Y3VmdStLUWlkdVU0enpWY1VxNzFybENDOVIyMVBiUy8weEs4?=
+ =?utf-8?B?aENtaXVzZVBXejJ5eUJ2Z1I5bGhoTlN5dU1vZzMzWis3MjNvQkVlVnFaclVH?=
+ =?utf-8?B?QVhLeUozY1Y4ZzZGd2xYNGtqM01rMG9reDZUQ0dUOU9IL0JZeENyVmFlbm5p?=
+ =?utf-8?B?YktrbktLSFVKRHVtaWo4S2VUYzV6K05vYXVGSEx4M24zckswSE0zK0h0SWRn?=
+ =?utf-8?B?NTlYY055czY4NmFWL1YyTDRvcmk0RWc4SVVCQmZuRW5CdW15eWRhVElEOXBn?=
+ =?utf-8?B?ejNYRzBuaURJTXY0cGxqb3ZIVitGT2NWd2I1b0twR0c4a2pVZ3g0YkNkU1B0?=
+ =?utf-8?B?TlhTTGMrQkVyKzhabVRHMHgzN1ljNklrZGNQNVZZQk1wMTV0dkNHN3lUcWUw?=
+ =?utf-8?B?alR0ektza0FGQVlkOW1KYkxxM3FjL254U1ZMc2hlejZ1N1NvbXplaURXL1NZ?=
+ =?utf-8?B?aGMvWE4zK0E2THJNR3l5ZFBlN3VTbE1RK2lFc0VQOFY4M3dYVzk0R082UlFs?=
+ =?utf-8?B?bVNVR2lTSytjUmhYY0FZeklOUEVuTlhha1VtcmVGQ3V6MEdEcjRwcFlXajRN?=
+ =?utf-8?B?ZXdBeXF6dTdEdlREUkpaU0txK0I5RnhHa29hb2QvekFxQUdnRDJCNTdTNS95?=
+ =?utf-8?B?Ym9XWlY1MFl5QXp6TmFONDVOYjluRitudnI2d2N2Vmhia2V1c25oeDdMUGwv?=
+ =?utf-8?B?TlcyYk1BRyt6WXV6cjZrSUcwK1NpTkRzQzlsM00rT3NnM2ozL0hJN2Q0a2JZ?=
+ =?utf-8?B?bFlQdFFsRFNtVzdGZDNHY0JlektETytLSE4wNmozNVU1dGVLYUFvenhZemE5?=
+ =?utf-8?B?cU9LSTJZR3R1czRFa1R0UG9MaVhPYjlXM2VxbjFlVXNZM2JGWVhvMlBaVTRk?=
+ =?utf-8?B?UXJRa1VISVQzbzJ0TFRQQ3JEYllvWVlTeFhFdXlaTzBYbUlmZnlMaVpqNFRK?=
+ =?utf-8?B?a0dvV0x6NmVma0tMNUx5NEtKek8zYjhDbE5WcE5TRlliZkJIa3lPWWtmRXV0?=
+ =?utf-8?B?U1FacEdQWnZmUjRiWkZmZDNwZTU0c0NVQVVUVG9SSzg0M0czaGZvbmFMY25v?=
+ =?utf-8?B?a2kwSlF4MUxrY01jaWNzOFA2RWJTRnp6bElpYVhFVC9DY1hKMmlkUlA3Qzgr?=
+ =?utf-8?B?dWNpSzhKNSsxVGtZcC90TjZERlJIa2tDaCt3RDZCVGNJSnFseTJCZWtFR0lU?=
+ =?utf-8?B?OWJyYzJpNjk3MHIzZ0Q1UUxMQXFySHBTK3Evbytxb1RoM3hhVXd5a3FqYytW?=
+ =?utf-8?B?ODA2MHR5eHBjV3p1NkRNbklMMTlHUWdaTDFNTHFvY2x1eXhacitSNW5BWklO?=
+ =?utf-8?B?aGpjampwL00vOGpvNDRvRU9jMlNRRmhhUDVmZEhtRGNQM3NRMHpNZ09TSlZR?=
+ =?utf-8?B?TWRLeDd3RnIyTlNxRDdieEplRVg0bjNTTmVCYS9TVm9XYWdiNXNoYzZjd2FY?=
+ =?utf-8?B?aHpNc0pIak5CY084c0ZGaENnVjJWYlpLVFcrMmp1NFRqSy8wdVU5VkpacS9Z?=
+ =?utf-8?B?KzNMRDRDcVAveWx1UmJ6MlppcVhjVTZNNkJveDBoWkN4alY4anlUdHMrN2ov?=
+ =?utf-8?Q?Jd9owrhUoaGjlr+w=3D?=
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74982772-32e2-4540-af1a-08de85dfdbb4
+X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB8946.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 17:20:42.4992
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 17:49:24.5058
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EbY1iG2a7EnWyCHf9ZFt7EMMU+TpUhn3FWu0dhRpKrWnLP93g1FiNHoLkXjmSZIuXDBNvnXMSUmT3DPRVuTKDvYwc7RCNkJawg68UyLrC2M=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5002
+X-MS-Exchange-CrossTenant-UserPrincipalName: StIX3svKupBA4OYWHiPK/s9JumZRCmr5XLMkMlNsQ+V/hPe4FjkP4TXYlOTC1ydKJIt0nH64fbSFuZZxCpklG5NLjASCW8pC4ng0QxvlTtU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB6881
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:ross.lagerwall@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:dfaggioli@suse.com,m:mengxu@cis.upenn.edu,m:gwd@xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:jbeulich@suse.com,m:tiche@cis.upenn.edu,m:tiche@seas.upenn.edu,m:sstabellini@kernel.org,m:dario.faggioli@citrix.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FORGED_SENDER(0.00)[oleksii_moisieiev@epam.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:email,citrix.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksii_moisieiev@epam.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	DKIM_TRACE(0.00)[epam.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	TO_DN_SOME(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: C7EB92CFD7D
+X-Rspamd-Queue-Id: 22C0B2D04B3
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 19/03/2026 1:29 pm, Ross Lagerwall wrote:
-> Remove lazy FPU support from the SVM code since fully_eager_fpu is now
-> always true.
->
-> No functional change intended.
->
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+--------------ZnOiZ0itnUU4M7pRjwde1saL
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hi all,
+We have been performing analysis of the RTDS
+scheduler code (xen/common/sched/rt.c) and identified several potential
+issues that we would like to bring to the community's attention. We would
+appreciate your feedback on whether these issues are considered worth
+addressing, and if so, what the preferred approach would be.
+Below is a summary of the findings. All references are to the current
+upstream code.
+1. Inconsistent validation in domain-wide vs per-vCPU parameter update
+----------------------------------------------------------------------
+In rt_dom_cntl(), the XEN_DOMCTL_SCHEDOP_putinfo path (domain-wide
+parameter update) only validates:
+if ( op->u.rtds.period == 0 || op->u.rtds.budget == 0 )
+In contrast, the XEN_DOMCTL_SCHEDOP_putvcpuinfo path (per-vCPU update)
+enforces stricter checks:
+if ( period > RTDS_MAX_PERIOD || budget < RTDS_MIN_BUDGET ||
+budget > period || period < RTDS_MIN_PERIOD )
+This means the domain-wide path accepts configurations where budget
+exceeds period, or where period/budget fall below the 10 us minimum that
+the per-vCPU path enforces. Such parameters can lead to scheduling
+overhead issues (very short periods) or over-allocation (budget > period).
+Suggested fix: apply identical validation constraints on both paths, i.e.
+add the same bounds checks (budget <= period, period >= RTDS_MIN_PERIOD,
+budget >= RTDS_MIN_BUDGET, period <= RTDS_MAX_PERIOD) to the putinfo path.
+Additionally, the putinfo path does not handle the extratime flag at all,
+unlike the putvcpuinfo path.
+2. Priority level overflow for extratime vCPUs
+----------------------------------------------
+In burn_budget(), when an extratime vCPU exhausts its budget:
+svc->priority_level++;
+svc->cur_budget = svc->budget;
+The priority_level field is declared as `unsigned` (32-bit) and there is no
+upper bound check before the increment. While rt_update_deadline() resets
+priority_level to 0 at each period rollover, for a long-running extratime
+vCPU that continuously exhausts its budget within a single period, the
+counter could theoretically wrap from UINT_MAX to 0. Since priority_level 0
+represents the highest scheduling priority, a wraparound would cause the
+extratime vCPU to suddenly preempt vCPUs with active real-time reservations.
+While this scenario requires an extreme number of budget exhaustion cycles
+within a single period, it is a concern for long-running embedded or safety
+systems that operate without reboot for extended durations.
+Suggested fix: saturate priority_level at a safe maximum value (e.g.,
+UINT_MAX - 1) instead of allowing unbounded increment.
+3. Replenishment timer loss during CPU pool reconfiguration
+-----------------------------------------------------------
+When the last pCPU is removed from an RTDS CPU pool, move_repl_timer()
+kills the replenishment timer via kill_timer(). When a pCPU is later
+re-added, rt_switch_sched() re-initializes the timer object (if status
+is TIMER_STATUS_killed) but does not re-arm it from the existing
+replenishment queue. If the replq already contains pending entries, those
+replenishments will not fire until some other event explicitly calls
+set_timer(), potentially stalling all non-extratime vCPUs.
+We believe this is actually a broader issue that goes beyond the RTDS
+scheduler: the common cpupool infrastructure probably should not allow
+a cpupool that has assigned vCPUs to lose all of its pCPUs. Preventing
+such a state at the cpupool management level would address the root cause
+for all schedulers, not just RTDS.
+Suggested fix (RTDS-specific): when timer ownership is re-established
+in rt_switch_sched(), re-arm the replenishment timer to the earliest
+deadline in the replq if the queue is non-empty.
+Suggested fix (common): the cpupool code should refuse to remove the
+last pCPU from a cpupool that still has domains/vCPUs assigned to it,
+returning an error instead. This would prevent the problematic state
+from arising in the first place.
+4. Missing scheduling notification on vCPU insertion
+----------------------------------------------------
+rt_unit_insert() inserts runnable units into the replenishment and run
+queues but does not call runq_tickle(). In contrast, rt_unit_wake() and
+rt_context_saved() both call runq_tickle() after runq_insert(). This
+means a newly inserted vCPU with a higher priority (earlier deadline)
+than currently running vCPUs will not be considered for execution until
+the next natural scheduling event (timer, sleep, budget expiry), which
+can delay scheduling by up to one full period.
+Suggested fix: add a runq_tickle() call after the runq_insert() in
+rt_unit_insert(), following the same pattern used in rt_unit_wake().
+5. Stale scheduling flags on vCPU removal during context switch
+---------------------------------------------------------------
+rt_unit_remove() removes queue membership via q_remove()/replq_remove()
+but does not clear the RTDS_delayed_runq_add or RTDS_scheduled flags.
+If a vCPU is removed while it is being context-switched off a pCPU (i.e.,
+RTDS_scheduled is set and RTDS_delayed_runq_add may be set),
+rt_context_saved() will later clear RTDS_scheduled and, finding
+RTDS_delayed_runq_add set, will re-insert the removed vCPU into the run
+queue via runq_insert() + runq_tickle(). This results in a stale vCPU
+reference on the scheduler's run queue, belonging to a domain that may be
+in the process of destruction or migration.
+Suggested fix: in rt_unit_remove(), explicitly clear RTDS_delayed_runq_add
+and RTDS_scheduled flags after removing queue membership, so that
+rt_context_saved() cannot re-insert a removed vCPU.
+We would appreciate any feedback on these findings. We are happy to
+prepare patches for any of the issues the community considers worth
+fixing.
+Best regards,
+Oleksii Moisieiev
 
-Unagling nestedsvm_fpu_vmentry() is tricky to follow but I've managed to
-convince myself that it's correct.
 
-> diff --git a/xen/arch/x86/hvm/svm/vmcb.c b/xen/arch/x86/hvm/svm/vmcb.c
-> index e583ef8548c7..5ed7123d9a69 100644
-> --- a/xen/arch/x86/hvm/svm/vmcb.c
-> +++ b/xen/arch/x86/hvm/svm/vmcb.c
-> @@ -138,9 +138,7 @@ static int construct_vmcb(struct vcpu *v)
->  
->      paging_update_paging_modes(v);
->  
-> -    vmcb->_exception_intercepts =
-> -        HVM_TRAP_MASK |
-> -        (v->arch.fully_eager_fpu ? 0 : (1U << X86_EXC_NM));
-> +    vmcb->_exception_intercepts = HVM_TRAP_MASK;
+--------------ZnOiZ0itnUU4M7pRjwde1saL
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Just an observation.  This handles HAP vs Shadow differently to the
-Intel side.  I expect we might want to bring them back in line in due
-course.
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <div style="color: #cccccc;background-color: #1f1f1f;font-family: 'Droid Sans Mono', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div>Hi all,</div>
+<div>We have been performing analysis of the RTDS</div><div>scheduler code (xen/common/sched/rt.c) and identified several potential</div><div>issues that we would like to bring to the community's attention. We would</div><div>appreciate your feedback on whether these issues are considered worth</div><div>addressing, and if so, what the preferred approach would be.</div>
+<div>Below is a summary of the findings. All references are to the current</div><div>upstream code.</div>
 
-~Andrew
+<div>1. Inconsistent validation in domain-wide vs per-vCPU parameter update</div><div>----------------------------------------------------------------------</div>
+<div>In rt_dom_cntl(), the XEN_DOMCTL_SCHEDOP_putinfo path (domain-wide</div><div>parameter update) only validates:</div>
+<div>    if ( op-&gt;u.rtds.period == 0 || op-&gt;u.rtds.budget == 0 )</div>
+<div>In contrast, the XEN_DOMCTL_SCHEDOP_putvcpuinfo path (per-vCPU update)</div><div>enforces stricter checks:</div>
+<div>    if ( period &gt; RTDS_MAX_PERIOD || budget &lt; RTDS_MIN_BUDGET ||</div><div>         budget &gt; period || period &lt; RTDS_MIN_PERIOD )</div>
+<div>This means the domain-wide path accepts configurations where budget</div><div>exceeds period, or where period/budget fall below the 10 us minimum that</div><div>the per-vCPU path enforces. Such parameters can lead to scheduling</div><div>overhead issues (very short periods) or over-allocation (budget &gt; period).</div>
+<div>Suggested fix: apply identical validation constraints on both paths, i.e.</div><div>add the same bounds checks (budget &lt;= period, period &gt;= RTDS_MIN_PERIOD,</div><div>budget &gt;= RTDS_MIN_BUDGET, period &lt;= RTDS_MAX_PERIOD) to the putinfo path.</div><div>Additionally, the putinfo path does not handle the extratime flag at all,</div><div>unlike the putvcpuinfo path.</div>
+
+<div>2. Priority level overflow for extratime vCPUs</div><div>----------------------------------------------</div>
+<div>In burn_budget(), when an extratime vCPU exhausts its budget:</div>
+<div>    svc-&gt;priority_level++;</div><div>    svc-&gt;cur_budget = svc-&gt;budget;</div>
+<div>The priority_level field is declared as `unsigned` (32-bit) and there is no</div><div>upper bound check before the increment. While rt_update_deadline() resets</div><div>priority_level to 0 at each period rollover, for a long-running extratime</div><div>vCPU that continuously exhausts its budget within a single period, the</div><div>counter could theoretically wrap from UINT_MAX to 0. Since priority_level 0</div><div>represents the highest scheduling priority, a wraparound would cause the</div><div>extratime vCPU to suddenly preempt vCPUs with active real-time reservations.</div>
+<div>While this scenario requires an extreme number of budget exhaustion cycles</div><div>within a single period, it is a concern for long-running embedded or safety</div><div>systems that operate without reboot for extended durations.</div>
+<div>Suggested fix: saturate priority_level at a safe maximum value (e.g.,</div><div>UINT_MAX - 1) instead of allowing unbounded increment.</div>
+<div>3. Replenishment timer loss during CPU pool reconfiguration</div><div>-----------------------------------------------------------</div>
+<div>When the last pCPU is removed from an RTDS CPU pool, move_repl_timer()</div><div>kills the replenishment timer via kill_timer(). When a pCPU is later</div><div>re-added, rt_switch_sched() re-initializes the timer object (if status</div><div>is TIMER_STATUS_killed) but does not re-arm it from the existing</div><div>replenishment queue. If the replq already contains pending entries, those</div><div>replenishments will not fire until some other event explicitly calls</div><div>set_timer(), potentially stalling all non-extratime vCPUs.</div>
+<div>We believe this is actually a broader issue that goes beyond the RTDS</div><div>scheduler: the common cpupool infrastructure probably should not allow</div><div>a cpupool that has assigned vCPUs to lose all of its pCPUs. Preventing</div><div>such a state at the cpupool management level would address the root cause</div><div>for all schedulers, not just RTDS.</div>
+<div>Suggested fix (RTDS-specific): when timer ownership is re-established</div><div>in rt_switch_sched(), re-arm the replenishment timer to the earliest</div><div>deadline in the replq if the queue is non-empty.</div>
+<div>Suggested fix (common): the cpupool code should refuse to remove the</div><div>last pCPU from a cpupool that still has domains/vCPUs assigned to it,</div><div>returning an error instead. This would prevent the problematic state</div><div>from arising in the first place.</div>
+
+<div>4. Missing scheduling notification on vCPU insertion</div><div>----------------------------------------------------</div>
+<div>rt_unit_insert() inserts runnable units into the replenishment and run</div><div>queues but does not call runq_tickle(). In contrast, rt_unit_wake() and</div><div>rt_context_saved() both call runq_tickle() after runq_insert(). This</div><div>means a newly inserted vCPU with a higher priority (earlier deadline)</div><div>than currently running vCPUs will not be considered for execution until</div><div>the next natural scheduling event (timer, sleep, budget expiry), which</div><div>can delay scheduling by up to one full period.</div>
+<div>Suggested fix: add a runq_tickle() call after the runq_insert() in</div><div>rt_unit_insert(), following the same pattern used in rt_unit_wake().</div>
+
+<div>5. Stale scheduling flags on vCPU removal during context switch</div><div>---------------------------------------------------------------</div>
+<div>rt_unit_remove() removes queue membership via q_remove()/replq_remove()</div><div>but does not clear the RTDS_delayed_runq_add or RTDS_scheduled flags.</div><div>If a vCPU is removed while it is being context-switched off a pCPU (i.e.,</div><div>RTDS_scheduled is set and RTDS_delayed_runq_add may be set),</div><div>rt_context_saved() will later clear RTDS_scheduled and, finding</div><div>RTDS_delayed_runq_add set, will re-insert the removed vCPU into the run</div><div>queue via runq_insert() + runq_tickle(). This results in a stale vCPU</div><div>reference on the scheduler's run queue, belonging to a domain that may be</div><div>in the process of destruction or migration.</div>
+<div>Suggested fix: in rt_unit_remove(), explicitly clear RTDS_delayed_runq_add</div><div>and RTDS_scheduled flags after removing queue membership, so that</div><div>rt_context_saved() cannot re-insert a removed vCPU.</div>
+
+<div>We would appreciate any feedback on these findings. We are happy to</div><div>prepare patches for any of the issues the community considers worth</div><div>fixing.</div>
+<div>Best regards,</div><div>Oleksii Moisieiev</div>
+
+</div>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------ZnOiZ0itnUU4M7pRjwde1saL--
 
