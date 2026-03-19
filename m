@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iEZ3Ct/9u2mzqwIAu9opvQ
+	id ePW3KqT+u2mzqwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 14:45:03 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 14:48:20 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E2B12CC223
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 14:45:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1257218.1551651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 154AB2CC2D1
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 14:48:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1257227.1551659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3Dg2-0004Yz-1q; Thu, 19 Mar 2026 13:44:42 +0000
+	id 1w3DjL-0005Eh-Fr; Thu, 19 Mar 2026 13:48:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1257218.1551651; Thu, 19 Mar 2026 13:44:42 +0000
+Received: by outflank-mailman (output) from mailman id 1257227.1551659; Thu, 19 Mar 2026 13:48:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3Dg1-0004Wu-V8; Thu, 19 Mar 2026 13:44:41 +0000
-Received: by outflank-mailman (input) for mailman id 1257218;
- Thu, 19 Mar 2026 13:44:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w3DjL-0005C1-DH; Thu, 19 Mar 2026 13:48:07 +0000
+Received: by outflank-mailman (input) for mailman id 1257227;
+ Thu, 19 Mar 2026 13:48:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=8LP9=BT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w3Dg0-0004W5-G5
- for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 13:44:40 +0000
-Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
- [2a00:1450:4864:20::42e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be9098c9-2399-11f1-9ccf-f158ae23cfc8;
- Thu, 19 Mar 2026 14:44:26 +0100 (CET)
-Received: by mail-wr1-x42e.google.com with SMTP id
- ffacd0b85a97d-439b9cf8cb5so1227445f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 19 Mar 2026 06:44:26 -0700 (PDT)
+ id 1w3DjJ-0005Bt-QY
+ for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 13:48:05 +0000
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [2a00:1450:4864:20::32b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 409c2db4-239a-11f1-b164-2bf370ae4941;
+ Thu, 19 Mar 2026 14:48:04 +0100 (CET)
+Received: by mail-wm1-x32b.google.com with SMTP id
+ 5b1f17b1804b1-486fda2a389so1813895e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Mar 2026 06:48:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b5189970fsm16901249f8f.27.2026.03.19.06.44.24
+ ffacd0b85a97d-43b51892244sm17861239f8f.22.2026.03.19.06.48.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Mar 2026 06:44:25 -0700 (PDT)
+ Thu, 19 Mar 2026 06:48:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,62 +50,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be9098c9-2399-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 409c2db4-239a-11f1-b164-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773927865; x=1774532665; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773928084; x=1774532884; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NO/XznmgDx9IYu7OvLPBUEtAZrfkpJjsR2iiABXNnMM=;
-        b=N5VnP7RpujU4lVa4OPeqvfohev29Xz3kBapBXuaoEAmSdquI6yJp3MOz+1DOrlBVRH
-         YEf3BNd4Vj9Dec/1TVi5VsaxcbMNm51wWJlHUpXUGFPcTOEQifZLulX2vBNbdmGYYxVB
-         s78+SNEYcRQ5a1WqeB+PjzGIcxvtBGqvRT4qQg5uOf8o4hOg49hLtch2PA5k+VyI4Jt5
-         dgFyf9oE9N6qc8aDyqoN1xYKeuap9Z5+z2kVPFa0pQCxg+mgrf5ffNeX9/XOwXv4do3P
-         nKlmr4mYJ3rvQr2R+IkutxYG6OZ+bddDEi/pvTpXYpVmX1NJPFo7GLOgOCN/inDSN9BL
-         PLOA==
+        bh=L5A8Yi8Xx2/O7DfoLjNaDgBerAqER/ekqs/fmTnOfj8=;
+        b=P/JovRZlSWdAjW+Go3LIov8a/Beh7trn6OP4EkBS1P7Bj0qax6rpbQmdaLVdFGyLdI
+         qRudJ274Oj/tPaVrediM4FuCWVfG95CjPkLLBXA8OTJ9Er3JD+jOzOPrH+lZshhCJ+ms
+         pZKqiiMXFFriFE+tqhdJBL+Uu6lo8pQQZzum3c8o84WFqBHLlq4zCU4AGCrwbSxglEA5
+         RW8OyRWTfNf6/FNjoXMZboLTWfU2QpYtx02B/o+37CDt56Jpkl6Hjx7JMzkn9lpD15ha
+         6Il5y93LME7ZBqfPGdTiEuPjNIwcOCkCiXO/qG9DD/jWqtLCjTOLdQ8eynSSyJBfqt6e
+         ezDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773927865; x=1774532665;
+        d=1e100.net; s=20251104; t=1773928084; x=1774532884;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NO/XznmgDx9IYu7OvLPBUEtAZrfkpJjsR2iiABXNnMM=;
-        b=lGicP0NMgO3gdlb198aqOVqcba6okw0rbyAVkUF3iRW68vt4VpQQ3k/ELMKHiBqcu9
-         ou+KWl4GYwa4Q4MtcQ/I0uYecdub4zF1WO0XdnDoIMgEe/u/yVx4u1aNMrT+cdDvfE9j
-         H/q/Z2Ttq8utjibg9Yn0J3ICVpboFwHw+r7ABs3LUWu7+2S2FvspJlR5MALQRNl75qRL
-         roBsZM2tsZlqhd+SE0lObGlXGvfw+bwHWmjtRDts9D4DuJIdQt1dFSQf3ijEDOzAxOAT
-         oJC2ON8z4OWmzuXrLekIrK7GqFsQG1RRCKSHEj/tfdABTdFGY9Dx48qeB254Ou1Fl26D
-         IGjA==
-X-Forwarded-Encrypted: i=1; AJvYcCXwbM4du+6+6D1knn+J9YnDqveWk7lZewB4RXw+wDMNY8QTJ3GVUnErWpyNOpKVBZX9JbDdRuDmEEs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw3rujiQFgzFe/zVvakBkEsuK/yqwHhheErfvVcYiJTnHPhIgri
-	1gucGg9tNpkBPYvfU2uqkvAQh4TtbIIAtx51jeVHpPph0Si2glkTB7+W5tz/8pjhOg==
-X-Gm-Gg: ATEYQzw9s8Xua8zCMcB4F1TwvO3gCiC1z1w18K7hR+tes3oN9scAA86qFGFhsQXdvDV
-	MTAPlJNsqzD5KPUhLo4ZB1NVMBC8tgi8JLAWZ5tErdRVX9ZMq6Trm7aIap3wwIbdtczGTTO1spb
-	w9LqS3UfZDb0Gb6u5KLpNw9dpN61fM6uQzWwqs2Bmk1wZbb5ld4XsFa6NVFoqhoFnYSlA+2sNuJ
-	KlODJgTRAPz25J6c6Qc2pxRy1Hkx+16i18CtiFvTsS1p2OcvFSggT2OGzfeNIvtCMbGmt8uRRhy
-	OQuQlIPMnOe53RqpJUpLgwcGtdRVgma5cbrJOQuqkpSw13f2b2H/Kg6dPmh1keuzFBGebgBrJ3e
-	S5l1kWHMjUoV1d2B+oS0lfKUVnwzkOtraTmmL9IzN+Q+f837KNte6H+aNeh5xwysboBbdAWLGs3
-	sHrXw3CWvjeOI8gPopqVXx694a052/Btjf7dLOMdPXSFVKc65xeVvF/KvQcMt0+88/3a8mhRpAJ
-	UW9E2AkLImtFoM=
-X-Received: by 2002:a05:600c:a206:b0:485:3e6c:aacb with SMTP id 5b1f17b1804b1-486f44385ecmr88375035e9.4.1773927865347;
-        Thu, 19 Mar 2026 06:44:25 -0700 (PDT)
-Message-ID: <48841930-bb2f-48e7-963a-e823fec70442@suse.com>
-Date: Thu, 19 Mar 2026 14:44:29 +0100
+        bh=L5A8Yi8Xx2/O7DfoLjNaDgBerAqER/ekqs/fmTnOfj8=;
+        b=is6XHKRwrY2tXBCXGYZjOMEyGZ4nFCAzhEUSH1Q9VfdBjQTm0lH5zTKUXZLxnkfxGS
+         UU03WZ9YUVoVQVh4ZrQNlhTqv2ZVxGGbWeMZ+KW8JDzCi4y+AM7MLOzUYMdqIGgZIWmu
+         Zwgd2ioiG5vvuC5JCrCUlZDaHK7HnEO/Oq7yBBWZLRIItOBgr0gnIfbBvlYLayy1cYTv
+         aU3oqG9d5IbmBPjApmxagj9zTvw5q5SPY3iQwFkqwBbJtcN692+eyChmRGFUVPndChSN
+         MZZQfnPHYFGmTwZTXMKUbgWwCe+l9osmSt66o02XEcd558QunE52qba1Gzp8m/FjcGx4
+         osMg==
+X-Forwarded-Encrypted: i=1; AJvYcCVfsdGtUqw2SW/g5MDQP66SNkCyu2NRi4xNfSk64UzldgcGzbd6odVZHwMzdas1P0rrCjF0KmedAI4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyt8dghnOFsGWakgDd2zguYezaRE10cylNd+pLsPVdUn+kwakJM
+	i3VJ2RbKD517tmQ3Uvp4QlBiR4g18K5WcozBICmGODL/zgXvV9iar9IWVsVASoyMFQ==
+X-Gm-Gg: ATEYQzwTLXVmKD+aM6kKvgm6bb4YmQ92CQGQQqHyDFdCEJWhmF/2ZE46/UZwjC0BBZk
+	YTyQ0ONdUiJri2oTosEL1rpXsBIoV/5/l+olCRvgBuM8exoYRAf9enLClR9MXoOs+vzEPvoKsN0
+	/JOwvHzZMfEyLSDgM1MkyM9PkZRS6UidltXAKk00alxCs2discEaQEI2FSUepwygJpK+5bdboMt
+	HO7FKFv813h8yDKYwUCv+Z+3+Rd9dOSSUqKqXe96FckqCWSgXMRWnx/SxYOZ0NceX6IwgnOtYeg
+	V0hARwoVy0ZjOnLvZoyy1E7khQQ+qXYw/W0zGbZ/+zpZYZM5MeXAlN89ha745GosGA1BcAo1TT6
+	fBkP76FwyL/vZWJp8sLKnGCZoEsSf6F8umjqE0nU6vxrRKWEcFEk3EsQUF7IfvyfFRk7EcP8Yr4
+	59og4VPVAkwS+aZCD/42WjeXLoQ2pzO271qOrKCP99DfEezSg0CuFAQ0sLO7NB+culW5Z6Gg5dr
+	soO2BkWGwk/FeM=
+X-Received: by 2002:a05:600c:b8a:b0:485:34b3:8589 with SMTP id 5b1f17b1804b1-486f4570873mr127939915e9.31.1773928083646;
+        Thu, 19 Mar 2026 06:48:03 -0700 (PDT)
+Message-ID: <929c9e0e-c465-447d-ba65-30053051a88e@suse.com>
+Date: Thu, 19 Mar 2026 14:48:07 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] xen: handle domain_shutdown() return values
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>, xen-devel@lists.xenproject.org
-References: <95dacecdce8f8417562548e16a4d3e11c41a3f27.1773923242.git.mykola_kvach@epam.com>
+Subject: Re: [PATCH] install.sh: Preserve directory symlinks
+To: Thierry Escande <thierry.escande@vates.tech>
+Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
+References: <20260313172456.871518-1-thierry.escande@vates.tech>
+ <7ee208c4-1f83-4bec-86db-bae22bd2040c@suse.com>
+ <3bc905c5-a0e5-4ca0-96f4-eb6bb73b2361@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,74 +124,79 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <95dacecdce8f8417562548e16a4d3e11c41a3f27.1773923242.git.mykola_kvach@epam.com>
+In-Reply-To: <3bc905c5-a0e5-4ca0-96f4-eb6bb73b2361@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:dfaggioli@suse.com,m:jgross@suse.com,m:gwd@xenproject.org,m:xen-devel@lists.xenproject.org,m:xakepamatop@gmail.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email];
+	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_THREE(0.00)[3];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 8E2B12CC223
+X-Rspamd-Queue-Id: 154AB2CC2D1
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 19.03.2026 13:42, Mykola Kvach wrote:
-> From: Mykola Kvach <mykola_kvach@epam.com>
+On 19.03.2026 14:26, Thierry Escande wrote:
 > 
-> Propagate domain_shutdown() return codes through the shutdown paths
-> which can still report errors to their callers, and log explicit
-> failures in fire-and-forget paths instead of silently discarding the
-> result.
 > 
-> This makes the shutdown contract explicit for callers which can report
-> errors, while preserving observable diagnostics for the remaining
-> fire-and-forget paths.
+> On 3/19/26 10:31, Jan Beulich wrote:
+>> On 13.03.2026 18:25, Thierry Escande wrote:
+>>> In various distros (i.e. Debian) some folders like /lib or /var/run are
+>>> symlinks. Using the tar option --keep-directory-symlink preserves these
+>>> symlinks.
+>>>
+>>> Signed-off-by: Thierry Escande <thierry.escande@vates.tech>
+>>> ---
+>>>  install.sh | 2 +-
+>>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>>
+>>> diff --git a/install.sh b/install.sh
+>>> index 3e11c4d46f..5d0b7a4933 100644
+>>> --- a/install.sh
+>>> +++ b/install.sh
+>>> @@ -27,7 +27,7 @@ tmp="`mktemp -d`"
+>>>  echo "Installing Xen from '$src' to '$dst'..."
+>>>  (cd $src; tar -cf - * ) | tar -C "$tmp" -xf -
+>>>  
+>>> -(cd $tmp; tar -cf - *) | tar --no-same-owner -C "$dst" -xf -
+>>> +(cd $tmp; tar -cf - *) | tar --no-same-owner -C "$dst" --keep-directory-symlink -xf -
+>>
+>> How compatible (between flavors of tar as well as between versions of GNU
+>> tar) is use of this option?
 > 
-> It also fixes MISRA Dir 4.7 and Rule 17.7 violations by ensuring that
-> the returned status is tested or otherwise used.
+> It's supported by GNU tar since version 1.27 (from ~12 years ago) but it
+> seems to be the only implementation that supports it. BSD and busybox
+> don't support it. I didn't check for other implementations.
 > 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> I can add a flavor/version check if that makes sense.
 
-I don't agree with this. For what you want to do (as per the link below)
-this is a prereq, but as an independent change I'm not convinced this is
-needed. Once it is grouped with that other change, it's kind of natural,
-and hence any Suggested-by: would feel odd.
-
-I'm further unconvinced logging is the right course of action in all of
-the cases. Some may want to be assertions instead?
+Possibly. One question then is what the behavior was prior to that option
+having been introduced.
 
 Jan
-
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> ---
-> Link to discussion: https://patchew.org/Xen/cover.1748848482.git.mykola._5Fkvach@epam.com/7bd75ecfff5b0a75ea5abd7cc4934582d7e1250c.1748848482.git.mykola._5Fkvach@epam.com/#90048f71-8313-4110-924c-f956a2bec5a0@suse.com
 
