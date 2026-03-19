@@ -2,39 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UKCpC0pBvGm7vwIAu9opvQ
+	id 6KjxMcJNvGkXwwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 19:32:42 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 20:25:54 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F6E02D10BD
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 19:32:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1257509.1551892 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2706F2D1A36
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 20:25:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1257524.1551902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3IAV-0006fD-Cx; Thu, 19 Mar 2026 18:32:27 +0000
+	id 1w3Iz4-0004u1-5t; Thu, 19 Mar 2026 19:24:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1257509.1551892; Thu, 19 Mar 2026 18:32:27 +0000
+Received: by outflank-mailman (output) from mailman id 1257524.1551902; Thu, 19 Mar 2026 19:24:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3IAV-0006d9-AM; Thu, 19 Mar 2026 18:32:27 +0000
-Received: by outflank-mailman (input) for mailman id 1257509;
- Thu, 19 Mar 2026 18:32:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w3Iz4-0004sZ-2z; Thu, 19 Mar 2026 19:24:42 +0000
+Received: by outflank-mailman (input) for mailman id 1257524;
+ Thu, 19 Mar 2026 19:24:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iU77=BT=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1w3IAT-0006d3-VI
- for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 18:32:25 +0000
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f8228e45-23c1-11f1-9ccf-f158ae23cfc8;
- Thu, 19 Mar 2026 19:32:23 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 72EAF60053;
- Thu, 19 Mar 2026 18:32:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2336C19424;
- Thu, 19 Mar 2026 18:32:20 +0000 (UTC)
+ <SRS0=mAdu=BT=citrix.com=andrew.cooper@srs-se1.protection.inumbo.net>)
+ id 1w3Iz1-0004sT-SB
+ for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 19:24:39 +0000
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azlp170120001.outbound.protection.outlook.com
+ [2a01:111:f403:c107::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 43da2881-23c9-11f1-b164-2bf370ae4941;
+ Thu, 19 Mar 2026 20:24:37 +0100 (CET)
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by LV5PR03MB8410.namprd03.prod.outlook.com (2603:10b6:408:35c::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.20; Thu, 19 Mar
+ 2026 19:24:32 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9723.019; Thu, 19 Mar 2026
+ 19:24:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,267 +52,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f8228e45-23c1-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1773945141;
-	bh=q/AIFKBlYrlqgaIU+R+X2Kbm55lVUhw1nLQSCLmd6ew=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=SLfxJBQH3ZBwLVeaWFuXtr69z+ue66UBDBXapfmCGZU/5sePR0jM8ttItsExbkxXd
-	 fat6HASgQmW8lTt+q9Fv/u0XJTf3d3wZAiJLqrgzYHG5GWO4lK+JttBOqJXt5pwhQF
-	 w+6FlJPTdi3oKlG3m7NbTFgXf1aiA6jp7uCbZskZpkhz+sWDidVqJYVEsczF3/Cr0q
-	 5HIA6+fCuzX4SwGeOuI+h7S9iLuLC57oeWrh6xVKPtDKceG2qv5E5rx2twVSmjZBNQ
-	 hX57e6N1IjMEwU/bgDkP0m8XkKB2jG/ioYVncpqZsFKATtztVHzIe50BPghhEOmL2B
-	 /aAbuSjpDjtvg==
-Date: Thu, 19 Mar 2026 13:32:19 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Chengwen Feng <fengchengwen@huawei.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Len Brown <lenb@kernel.org>, Sunil V L <sunilvl@ventanamicro.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Cameron <jonathan.cameron@huawei.com>,
-	Kees Cook <kees@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Sean Christopherson <seanjc@google.com>,
-	Kai Huang <kai.huang@intel.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Kevin Loughlin <kevinloughlin@google.com>,
-	Zheyun Shen <szy0127@sjtu.edu.cn>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Xin Li <xin@zytor.com>, "Ahmed S . Darwish" <darwi@linutronix.de>,
-	Sohil Mehta <sohil.mehta@intel.com>,
-	Ilkka Koskinen <ilkka@os.amperecomputing.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Besar Wicaksono <bwicaksono@nvidia.com>, Ma Ke <make24@iscas.ac.cn>,
-	Wei Huang <wei.huang2@amd.com>,
-	Andy Gospodarek <andrew.gospodarek@broadcom.com>,
-	Somnath Kotur <somnath.kotur@broadcom.com>,
-	punit.agrawal@oss.qualcomm.com, guohanjun@huawei.com,
-	suzuki.poulose@arm.com, ryan.roberts@arm.com,
-	chenl311@chinatelecom.cn, masahiroy@kernel.org,
-	wangyuquan1236@phytium.com.cn, anshuman.khandual@arm.com,
-	heinrich.schuchardt@canonical.com, Eric.VanTassell@amd.com,
-	wangzhou1@hisilicon.com, wanghuiqiang@huawei.com,
-	liuyonglong@huawei.com, linux-pci@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org, xen-devel@lists.xenproject.org,
-	linux-acpi@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v9 7/7] PCI/TPH: Fix get cpu steer-tag fail on ARM64
- platform
-Message-ID: <20260319183219.GA519221@bhelgaas>
+X-Inumbo-ID: 43da2881-23c9-11f1-b164-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OcYLPzlPNXai1X7CHKV6y94SS4mwqnUBt52ymx/PqXO/uNG3ooluQtqi031nzHaaC/nF2/5woLTS2pcrFqEAt8aPU/GLuOUKTo8fpxfhB150KoZ/jh0GuA/6ZmB3i6SZRbNkfTszf7GFiFM2SJjoqo/7DO7gc3nrLzt2DTRb6Afqw/xDzpo4noYhf6r3W/3I59JLNADLsxKjpP8mqYnu2vq/44+5x5/bUUazH5LlcPXIEZyoYesnynuRDXZoYxZ//0PwL8ECJDQ9PPB96xwsU13muuLO0LExCOsI8iCplZupGSbJqofZpjlxx3ReLF/3MzMDRhNPJjV5/iaAEbrpHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bnfoQD1iOxBQgVgIwHYtmITVbhRM6K62GUJs5V3R8iI=;
+ b=meE3YT7WC5GTQXNbv7ioK7T5Gaa1/A6Ue8ZkGb2edTCKCkyapm4k8d8bDFCrb39s43TzrBWC2CM/OezbX9J5o50zNGIAVkGsEvmT0HlnwRu0VJvKZrhvlu5ZcTtSChNFitPm2/dHYoWLwYI7W/rc4BWFEW10an7cMFaF/O5kGHPxejajd7O0Uppgjd5q3RqMNzOqWvkf8FqP5X5dmebMuEHusr3oWO9qXJQA5nWmdl4Txbp4pRtXzOUAexUEcVwBztvFakS58U2rqMZYhFMlUq2jePEaN8Vn2bMMVnn091ep5QCWpTq6p00DKiUdGZh18Q4kkrK9AkMk2r1VK2V+kQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bnfoQD1iOxBQgVgIwHYtmITVbhRM6K62GUJs5V3R8iI=;
+ b=NVN9UKAMSvuljDB1CNtqsmRLDfIyt9U4dat1WEpLLyq/iDL2ZiZcdyMbk+nX7QzLv7tNwyQuF/A82FIaHJxRppyXuo6bA4y2kug9+1SoIzO/5FNlkOqEniZH06IRreSdBRTGmU8i1H8grGTRt0kAl3AKis7g/h5udWHPXA48SO8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <c8f1cb30-d883-44a3-90d1-f3f07bc59f4e@citrix.com>
+Date: Thu, 19 Mar 2026 19:24:29 +0000
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH v1 5/8] x86: Remove fully_eager_fpu
+To: Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org
+References: <20260319132924.1469809-1-ross.lagerwall@citrix.com>
+ <20260319132924.1469809-6-ross.lagerwall@citrix.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <20260319132924.1469809-6-ross.lagerwall@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P265CA0139.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c4::14) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260319065735.45954-8-fengchengwen@huawei.com>
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|LV5PR03MB8410:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0bf368ce-73b2-41ce-bdaa-08de85ed25d3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	WJo2dleQ1RYnynMExco5tP26SAUBmVXiaFw1272Y2E1gHOLxeN7zXth7OMu6GTJPHqtfaFn/0H3uT2VfGFDrzE29Q8lgeaqX6WzOlAUUu0hVKU00eWmBfyivZWlfddXcZEYqcW1T64oowF58w+wjnD5P36z+WhY82vs8nTFlCon2DyH4FiTG+Vo++n0bIdIcXJQ/1jFtbbzsRdnglX91cE/BYO9FTc4HSAVIwr88+k1s2NmSuGlf2nv9w9xPSE4QavrDDfTPpaefepDnbHvdTDFzD37L8gCqmSMeSQ1AWGMoQUUSfD7qQkqUKhlzfoIV0NLQIyBU8ZFw27q7T5CsGHw7skWvpinFt4FMcmrqlz/di+9be2CS20bht0Fj00Mwfr+zkdy+58VKvuNjnjlD9zRplewTRcREb/Cs+ORfGzahmdoSFHrV3fpHiv/w5ibyR7B8g33ywuTANXSVgq14JmUgezV8gkPESN6QgzQWxZcbzf2guEHIO7NkHP0IdTXxfbJvxj6i1rIXpT5T2kaRRGxBl0WeOSXlpBHAHmAsGqwPK/OAwcF2dJnr7IzLFvHVtTcKZKRxDkmbjQ9dml8VIK58bINw3ru/mdVrIV7PKOEIlx38syTSTR84EftIZPDVnpfktlPdXIsb9P1KY2lVuyqf+g5mtoTRAiSHNj7TlR/HfMg9hKejbfFq2gNXAj/jtP8xaTYlcfBlFv/NWZ8M5kiPIzUM7T9TsEzyppfDW0A=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cGE4VzBmb3dqaUd0a3JvY05kRUY5am5pUlQ1Q2IveFljZjB1czNkcGdEa1ow?=
+ =?utf-8?B?VEQ4dWpZTFZMSmprN0MwSjJzQzI0d1hlU3A5bXVuUEJtRkhrSzdwVTZnSGth?=
+ =?utf-8?B?SG1XcC9yMG53dysxWnBxYlk4ZDArMmtiaUJUeXcrMnJja2ZYdUNZK0tYTmdj?=
+ =?utf-8?B?VkpSS212TVlKYW0rai9XNGJBUUQ5dWlJZytkdXVqVkphN3pDWHJseDV6SmhQ?=
+ =?utf-8?B?WkhuaXA5YWQwd3VOdnJwVnFSZnZuSDA1Q0RIeFFoYnM2RWhJNlpsNXE5Mkpx?=
+ =?utf-8?B?V0hTY0pYUURKbzMwL3BjK0MyYXIxeDRRWi9FQUdVQ2paYjlCNW9ObmpZMnJm?=
+ =?utf-8?B?U005ME90OHp5dmlSZnNZRlpCWTE0UGIwZGg4YWRSZkhTYWU3cjdqWm5tK1J4?=
+ =?utf-8?B?M1FBMVZYenNXU24xWmJ6SGVDVVA2QWNkMXZrSGtMenZLMFhpZkJTeXZBZ0xO?=
+ =?utf-8?B?c1doei9QekdzVDBnenUvckdPSzVPVGpHVmlVUWUwdGtrRmloZVRHZmFMakxo?=
+ =?utf-8?B?MktCQVpPWkRsYW9KdnNFd3VJSE1SUUlMb1ZWUGMyamh4TnBqSHZ2RjE3eEdL?=
+ =?utf-8?B?dUMrYURtb05zOWU5SUx2b2JuSFJ1QWd0eEpjUHFnb2RWWFJUQThJQ3lEV2RP?=
+ =?utf-8?B?QzhzOC9VQVIvb1FDbUtkRnJBWnliN0tLMjZlcDhqWFljQVJsZk1LQ3V5YVhR?=
+ =?utf-8?B?MXlCSGhhZzRBOUlNT3p2Vm9nUnZFYzBwVWMwYnR6Nk55V3czWjNPQ2VlaWQv?=
+ =?utf-8?B?VDY1eDYrRVRJU3RSenhTODVaMWUzc1ZCbkM2bU9CZnZIQisxcVNkOW5KU0Uv?=
+ =?utf-8?B?OGdtWVN1ZXNpOHZ3QjVRcEtPZDNLWEVRVEFCMW1QSkN0QnNXWDNwRWw0TWY1?=
+ =?utf-8?B?UWM5VGNMeE52NVZ1QjhvVnQyYjA1ZVF1a0dURXZabjB3TDlwNVFvTUJUbDlD?=
+ =?utf-8?B?VTlYQTBvNzM2S2JWcEhvQjRLZmRIVmo3ajRxZzdESjhacXR2QVl6TW9uTVRS?=
+ =?utf-8?B?Wm1UQWRlSWxKMFF6VWZMMHR4cElXS25uVW10WXoxandQVlZwQzY4Y3RrekpK?=
+ =?utf-8?B?bVV3N1BUNmJ3TW91d1BtYUJNSDFaU3FvSkdPMUk5bDhjWHJGN1VheUtUbDRN?=
+ =?utf-8?B?clNSM0R5NEh5MnJvazlucmhySS9hQ1J5RXA4cnBhczNQU1BOMDU1bXpndDh6?=
+ =?utf-8?B?MGZvc05NZVpKVHBUdVd0OG9rK1FFVEt3QWZ0NHhDZjhIWlFrZzFGQ0FQZW5a?=
+ =?utf-8?B?NURERkpycjlxYjdMcFlJSTVnc2FtNitTaFZGRFRueE1sOEkzd1JOS09VbUsz?=
+ =?utf-8?B?RGV3S3BFVTZOc0JLM0FYOVZWV3pyTnZXTklUOUFObDM5NzIreUNHbnNERExw?=
+ =?utf-8?B?WU1iM2luaytOK0VLV3Y4bWU5NGFwZkU0UEN0NmVCSWNzRW4xN2dDM3dVZTU3?=
+ =?utf-8?B?TlU3OUYrUjdWZ3NyZ1REY0w3VDRNcHY4bGdjbFhKeDNCU3BjejEya1N1czFm?=
+ =?utf-8?B?a0FNcUdaTXRaN2ppanl4OTJpOU1yMGdvYjlySkg1Y1dtdXcxZmRnUU1hWGlj?=
+ =?utf-8?B?V1hUa1Q0VjJjUXplN1MzMXE4eExQbCtUempWQ29xWmYrKytxU29vallCVXRl?=
+ =?utf-8?B?b0RCU055Qm5Qd0pRVUN6M3NxRzZ4S29rME5EbVNBZHNWRjFkZzJVanowRTRs?=
+ =?utf-8?B?VlZNVUFjZm5BKzlIMUpVeHkydnNiM2NnQ3NJMi8xbStud04wR2ZxUW9CbzR3?=
+ =?utf-8?B?bktIb01YeTY2dlhEZFNRazFLTWhOcUxtYkpzVWZjVTBIT2lpVWF0RGxiOGdo?=
+ =?utf-8?B?ZVBvaDBFdk9QeE5FbWxLeWNvcXpZK1BXZEdHVWpPZlVHWUJHVDVSZWhzYzBU?=
+ =?utf-8?B?L0VCL1dKUTRFQmRCNEpIazV6a2hDNzhYZGNKdGVmejRPTm1aYzc4WCs0SzRh?=
+ =?utf-8?B?ZzlkTlQ3V2x1TUF2NFJaL0QyRWJrKzQ2Z2l4Z2NRSFRzV2RwckgzUlhaOFA2?=
+ =?utf-8?B?VjEwNmZzOHh2bSt6WTFPM3oxdjdOTWVGYzNSWXhQVUdUYi93bC9penQzbHVE?=
+ =?utf-8?B?MGhDSmFNNUtYT2UrZ2Y3VVM1QUJ5ZHNYZGdkMVJqMDFPVHl5alFXcE5UVThN?=
+ =?utf-8?B?NHk5alRncGwzdllEVTIxV3hoeWNmZkNBTzN2YUt0WnNVREZocHBpVnRVV0pY?=
+ =?utf-8?B?MjZqeEMvc2VqUEpMR0xpUWdoQ1lXaFBCWEVEVEorVzBvc2xUd3MwRGtYUDBw?=
+ =?utf-8?B?U1NQeGRHdWxCZFBtTmRtczM2QXVEMmhUUzBzQS9mV2xtZk9GLy85VGI1ZUFu?=
+ =?utf-8?B?Z0VzdHF4aXk2YlFueFI1ZzFvdXRZWGhvSW1JbkNFTUVvS2N6eHJrb3NCcTU4?=
+ =?utf-8?Q?SEWTWOajfNQkuxY4=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bf368ce-73b2-41ce-bdaa-08de85ed25d3
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 19:24:32.5083
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DXJvlenMJa7XL5dcJCbH9immtsdpE2ipSziE6x2qLKn3YwEqSs7DE4UppkC1+04+fYTAxJtN8naFkDS2Qml3I28SRUU5+AGJm7zmxezhmiM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR03MB8410
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:fengchengwen@huawei.com,m:bhelgaas@google.com,m:catalin.marinas@arm.com,m:will@kernel.org,m:rafael@kernel.org,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:chenhuacai@kernel.org,m:kernel@xen0n.name,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:alex@ghiti.fr,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:lenb@kernel.org,m:sunilvl@ventanamicro.com,m:mark.rutland@arm.com,m:jonathan.cameron@huawei.com,m:kees@kernel.org,m:si.yanteng@linux.dev,m:seanjc@google.com,m:kai.huang@intel.com,m:thomas.lendacky@amd.com,m:thuth@redhat.com,m:thorsten.blum@linux.dev,m:kevinloughlin@google.com,m:szy0127@sjtu.edu.cn,m:peterz@infradead.org,m:pawan.kumar.gupta@linux.intel.com,m:xin@zytor.com,m:darwi@linutronix.de,m:sohil.mehta@intel.com,m:ilkka@os.amperecomputing.com,m:robin.murphy@arm.com,m:james.clark@linaro.org,m:bwicaksono@nvidia.com,m:make2
- 4@iscas.ac.cn,m:wei.huang2@amd.com,m:andrew.gospodarek@broadcom.com,m:somnath.kotur@broadcom.com,m:punit.agrawal@oss.qualcomm.com,m:guohanjun@huawei.com,m:suzuki.poulose@arm.com,m:ryan.roberts@arm.com,m:chenl311@chinatelecom.cn,m:masahiroy@kernel.org,m:wangyuquan1236@phytium.com.cn,m:anshuman.khandual@arm.com,m:heinrich.schuchardt@canonical.com,m:Eric.VanTassell@amd.com,m:wangzhou1@hisilicon.com,m:wanghuiqiang@huawei.com,m:liuyonglong@huawei.com,m:linux-pci@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:loongarch@lists.linux.dev,m:linux-riscv@lists.infradead.org,m:xen-devel@lists.xenproject.org,m:linux-acpi@vger.kernel.org,m:linux-perf-users@vger.kernel.org,m:stable@vger.kernel.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[helgaas@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[70];
-	NEURAL_HAM(-0.00)[-0.999];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,m:ross.lagerwall@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:email,citrix.com:mid];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[helgaas@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 6F6E02D10BD
+X-Rspamd-Queue-Id: 2706F2D1A36
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Let's make the subject a little more specific, e.g.,
+On 19/03/2026 1:29 pm, Ross Lagerwall wrote:
+> Since fully_eager_fpu is always true, remove it and adjust the code
+> accordingly. At the same time, rename vcpu_restore_fpu_nonlazy since it
+> always does the full restore.
+>
+> No functional change intended.
+>
+> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 
-  PCI/TPH: Pass ACPI Processor UID to Cache Locality _DSM
-
-On Thu, Mar 19, 2026 at 02:57:35PM +0800, Chengwen Feng wrote:
-> pcie_tph_get_cpu_st() is broken on ARM64:
-> 1. pcie_tph_get_cpu_st() passes cpu_uid to the PCI ACPI DSM method.
->    cpu_uid should be the ACPI Processor UID [1].
-> 2. In BNXT, pcie_tph_get_cpu_st() is passed a cpu_uid obtained via
->    cpumask_first(irq->cpu_mask) - the logical CPU ID of a CPU core,
->    generated and managed by kernel (e.g., [0,255] for a system  with 256
->    logical CPU cores).
-> 3. On ARM64 platforms, ACPI assigns Processor UID to cores listed in the
->    MADT table, and this UID may not match the kernel's logical CPU ID.
->    When this occurs, the mismatch results in the wrong CPU steer-tag.
-> 4. On AMD x86 the logical CPU ID is identical to the ACPI Processor UID
->    so the mismatch is not seen.
-> 
-> Resolution:
-> 1. Use acpi_get_cpu_uid() in pcie_tph_get_cpu_st() to translate from
->    logical CPU ID to ACPI Processor UID needed for the DSM call.
-> 2. Rename pcie_tpu_get_cpu_st() parameter from cpu_uid to cpu to
->    reflect that it is a logical CPU_ID.
-
-And simplify this, e.g.,
-
-  pcie_tph_get_cpu_st() uses the Query Cache Locality Features _DSM
-  [1] to retrieve the TPH Steering Tag for memory associated with the
-  CPU identified by its "cpu_uid" parameter, a Linux logical CPU ID.
-
-  The _DSM requires a ACPI Processor UID, which pcie_tph_get_cpu_st()
-  previously assumed was the same as the Linux logical CPU ID.  This
-  is true on x86 but not on arm64, so pcie_tph_get_cpu_st() failed on
-  arm64.
-
-  Convert the Linux logical CPU ID to the ACPI Processor UID with
-  acpi_get_cpu_uid() before passing it to the _DSM.
-
-If there's a specific error message from BNXT or similar that is a
-symptom of this problem, it'd be nice to include that.  Or if the
-problem was just poor performance because the _DSM returned the wrong
-Steering Tag, you could say something like:
-
-  ... so pcie_tph_get_cpu_st() returned the wrong Steering Tag,
-  resulting in poor network performance.
-
-> [1] According to ECN_TPH-ST_Revision_20200924
->     (https://members.pcisig.com/wg/PCI-SIG/document/15470), the input
->     is defined as: "If the target is a processor, then this field
->     represents the ACPI Processor UID of the processor as specified in
->     the MADT. If the target is a processor container, then this field
->     represents the ACPI Processor UID of the processor container as
->     specified in the PPTT."
-> 
-> Fixes: d2e8a34876ce ("PCI/TPH: Add Steering Tag support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengwen Feng <fengchengwen@huawei.com>
-> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-
-The patch looks good to me.  Thanks for all your work on this!
-
-Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
-
-> ---
->  Documentation/PCI/tph.rst |  4 ++--
->  drivers/pci/tph.c         | 16 +++++++++++-----
->  include/linux/pci-tph.h   |  4 ++--
->  3 files changed, 15 insertions(+), 9 deletions(-)
-> 
-> diff --git a/Documentation/PCI/tph.rst b/Documentation/PCI/tph.rst
-> index e8993be64fd6..b6cf22b9bd90 100644
-> --- a/Documentation/PCI/tph.rst
-> +++ b/Documentation/PCI/tph.rst
-> @@ -79,10 +79,10 @@ To retrieve a Steering Tag for a target memory associated with a specific
->  CPU, use the following function::
->  
->    int pcie_tph_get_cpu_st(struct pci_dev *pdev, enum tph_mem_type type,
-> -                          unsigned int cpu_uid, u16 *tag);
-> +                          unsigned int cpu, u16 *tag);
->  
->  The `type` argument is used to specify the memory type, either volatile
-> -or persistent, of the target memory. The `cpu_uid` argument specifies the
-> +or persistent, of the target memory. The `cpu` argument specifies the
->  CPU where the memory is associated to.
->  
->  After the ST value is retrieved, the device driver can use the following
-> diff --git a/drivers/pci/tph.c b/drivers/pci/tph.c
-> index ca4f97be7538..b67c9ad14bda 100644
-> --- a/drivers/pci/tph.c
-> +++ b/drivers/pci/tph.c
-> @@ -236,21 +236,27 @@ static int write_tag_to_st_table(struct pci_dev *pdev, int index, u16 tag)
->   * with a specific CPU
->   * @pdev: PCI device
->   * @mem_type: target memory type (volatile or persistent RAM)
-> - * @cpu_uid: associated CPU id
-> + * @cpu: associated CPU id
->   * @tag: Steering Tag to be returned
->   *
->   * Return the Steering Tag for a target memory that is associated with a
-> - * specific CPU as indicated by cpu_uid.
-> + * specific CPU as indicated by cpu.
->   *
->   * Return: 0 if success, otherwise negative value (-errno)
->   */
->  int pcie_tph_get_cpu_st(struct pci_dev *pdev, enum tph_mem_type mem_type,
-> -			unsigned int cpu_uid, u16 *tag)
-> +			unsigned int cpu, u16 *tag)
->  {
->  #ifdef CONFIG_ACPI
->  	struct pci_dev *rp;
->  	acpi_handle rp_acpi_handle;
->  	union st_info info;
-> +	u32 cpu_uid;
-> +	int ret;
-> +
-> +	ret = acpi_get_cpu_uid(cpu, &cpu_uid);
-> +	if (ret != 0)
-> +		return ret;
->  
->  	rp = pcie_find_root_port(pdev);
->  	if (!rp || !rp->bus || !rp->bus->bridge)
-> @@ -265,9 +271,9 @@ int pcie_tph_get_cpu_st(struct pci_dev *pdev, enum tph_mem_type mem_type,
->  
->  	*tag = tph_extract_tag(mem_type, pdev->tph_req_type, &info);
->  
-> -	pci_dbg(pdev, "get steering tag: mem_type=%s, cpu_uid=%d, tag=%#04x\n",
-> +	pci_dbg(pdev, "get steering tag: mem_type=%s, cpu=%d, tag=%#04x\n",
->  		(mem_type == TPH_MEM_TYPE_VM) ? "volatile" : "persistent",
-> -		cpu_uid, *tag);
-> +		cpu, *tag);
->  
->  	return 0;
->  #else
-> diff --git a/include/linux/pci-tph.h b/include/linux/pci-tph.h
-> index ba28140ce670..be68cd17f2f8 100644
-> --- a/include/linux/pci-tph.h
-> +++ b/include/linux/pci-tph.h
-> @@ -25,7 +25,7 @@ int pcie_tph_set_st_entry(struct pci_dev *pdev,
->  			  unsigned int index, u16 tag);
->  int pcie_tph_get_cpu_st(struct pci_dev *dev,
->  			enum tph_mem_type mem_type,
-> -			unsigned int cpu_uid, u16 *tag);
-> +			unsigned int cpu, u16 *tag);
->  void pcie_disable_tph(struct pci_dev *pdev);
->  int pcie_enable_tph(struct pci_dev *pdev, int mode);
->  u16 pcie_tph_get_st_table_size(struct pci_dev *pdev);
-> @@ -36,7 +36,7 @@ static inline int pcie_tph_set_st_entry(struct pci_dev *pdev,
->  { return -EINVAL; }
->  static inline int pcie_tph_get_cpu_st(struct pci_dev *dev,
->  				      enum tph_mem_type mem_type,
-> -				      unsigned int cpu_uid, u16 *tag)
-> +				      unsigned int cpu, u16 *tag)
->  { return -EINVAL; }
->  static inline void pcie_disable_tph(struct pci_dev *pdev) { }
->  static inline int pcie_enable_tph(struct pci_dev *pdev, int mode)
-> -- 
-> 2.17.1
-> 
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
