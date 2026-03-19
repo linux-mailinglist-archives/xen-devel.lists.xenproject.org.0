@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SNtAI3jru2liqQIAu9opvQ
+	id eFyHF3nru2liqQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 13:26:32 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 13:26:33 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 847512CB247
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 13:26:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1257011.1551463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56AF72CB24E
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2026 13:26:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1257014.1551483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3CRp-0007u4-6X; Thu, 19 Mar 2026 12:25:57 +0000
+	id 1w3CRr-0008H8-19; Thu, 19 Mar 2026 12:25:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1257011.1551463; Thu, 19 Mar 2026 12:25:57 +0000
+Received: by outflank-mailman (output) from mailman id 1257014.1551483; Thu, 19 Mar 2026 12:25:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3CRp-0007qz-3W; Thu, 19 Mar 2026 12:25:57 +0000
-Received: by outflank-mailman (input) for mailman id 1257011;
- Thu, 19 Mar 2026 12:25:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w3CRq-0008CW-Rx; Thu, 19 Mar 2026 12:25:58 +0000
+Received: by outflank-mailman (input) for mailman id 1257014;
+ Thu, 19 Mar 2026 12:25:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Yv1Q=BT=citrix.com=andrew.cooper3@srs-se1.protection.inumbo.net>)
- id 1w3CRn-0007dl-I3
- for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 12:25:55 +0000
-Received: from mail-wm1-x32a.google.com (mail-wm1-x32a.google.com
- [2a00:1450:4864:20::32a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c65eee1b-238e-11f1-b164-2bf370ae4941;
- Thu, 19 Mar 2026 13:25:54 +0100 (CET)
-Received: by mail-wm1-x32a.google.com with SMTP id
- 5b1f17b1804b1-486fd5360d4so2517205e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 19 Mar 2026 05:25:54 -0700 (PDT)
+ id 1w3CRp-0007qy-PN
+ for xen-devel@lists.xenproject.org; Thu, 19 Mar 2026 12:25:57 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c6c87e61-238e-11f1-9ccf-f158ae23cfc8;
+ Thu, 19 Mar 2026 13:25:55 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ 5b1f17b1804b1-486fd3a577eso2454285e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Mar 2026 05:25:55 -0700 (PDT)
 Received: from localhost.localdomain (host-92-22-18-152.as13285.net.
  [92.22.18.152]) by smtp.gmail.com with ESMTPSA id
  5b1f17b1804b1-486f8c350aesm60831395e9.4.2026.03.19.05.25.53
@@ -50,48 +50,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c65eee1b-238e-11f1-b164-2bf370ae4941
+X-Inumbo-ID: c6c87e61-238e-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1773923154; x=1774527954; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1773923155; x=1774527955; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=DfzaREpgue5aOwMwONNRYs0JWFfpCu2AsihViVXhTqA=;
-        b=jQulXTJyAiUaesbJ/uWRJCcVcZYa0XFWr2GPcdU795QS1uWDctqVWOANEC9FppQubO
-         c95d4KXGMqEGbBy8FScP30iD/eo0Lf9iJnWICgJUpkzJxCpcuT1xKcNgBfKjEhczmCv3
-         MbwqenpmksJmr736mcQ65dt1UCuPv9/vD7LWI=
+        bh=9p44d1QjTPa2JEIp8Q6GJVyP9/yGjHqxAPwdkkT/xok=;
+        b=ButVIA7qQACsmmtZXOyCZTkpG/9yM4/ZMqjoHXCQWE33BBw1iWt5OBz5FRClTegjxH
+         RWPbivp78mMWuJKo9eDPI+wmX32lGQUt5Mw7lD48TIltIGrdVJW7x2pIyQ2+NRJzDo+f
+         SRjNxCUTheLPUoECcYuGg+WQDiv2sfM9n7cZc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773923154; x=1774527954;
+        d=1e100.net; s=20251104; t=1773923155; x=1774527955;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=DfzaREpgue5aOwMwONNRYs0JWFfpCu2AsihViVXhTqA=;
-        b=CVQ5iQ6mX3pWXjT7j0lGE8EKwVGN9evUQYt+QHHwF8B4uRJQXp7Gkvu/HwZqmmBegU
-         13GpALh5ISMg+U2i9PQuuwtANVrhF66kuRvRWmR02Bmdb6uDSJLPvYix1OLa+F/Wd+p9
-         CqTXaeDbsirBrMicwAklwPB9ShzcsGSVWEn6ytrPsgUZdxI54RzsA0xRxasQqePOnmJ+
-         QECoRGtEF+4GSAY1Is0nxtegWMN3MirVhTGsiLep4IdxCXqv2sfYKoRG5lBE8YeSpXCi
-         lpKvulOxlAJvQFiSUGUvMXeDyADr78yvb6c5c9WnoYWTKRQXlb4CMt5r4H9S3wH2Nz6f
-         7e1w==
-X-Gm-Message-State: AOJu0YxdGigkZCYa9lb1a+3z4Ldq+mNQ9rYauoiVtyvIvsYDWG+p1fOP
-	9GojqEUe+2gctSVhqIum2kQqpiABHEQI/tcF4Qj8DvxBSI7gOqLoiZ2ljL+9IaFppXFoqYV2zY6
-	ajwse
-X-Gm-Gg: ATEYQzxOoZZmPz7Dq7nnY2zQk/hPTNsybZlQ3PXJ45NQFisVaeUiOBVUxYDsKcGVptM
-	55jhlyiAAUJw5Jqw3uFvK7DgRDb1PcZsLeNOm+NyrbfBLnAT53vjlX+EpVXq3mSzG6UNKp/enSp
-	2Os960FhCqZ+77J20OAbQQPOcOXIA8P/A1Dstd2oLExem1S+L+y62MxlYh9OZlMsM2v/d1ux2pA
-	EO4Kpul0kN3o9EXi6aZAhjIatpfRLSmUFxo8n4ynLzBQ5MMmJkFs3QnizTVKrP9O8L5NtMmwus0
-	B5rOMIHHrqfZR0s4araOYeSOYL9L/lTQHvBWbbrm+oM59l5GV7yA5RSo4Cw2Eb6F42UhGSxe6RS
-	9neXWBVB/nxeD7CDSfNdU9Py1l27OT15w9yDYmFxslkyzKfvKDl0o1T/nXNYekSHsC+UTBwbB1P
-	GzQpWgs4l8KyKOi1pW8+hf0NfuHrgdDU8Jm0eJj0NTbWOLOI0vxXsx0WCL9tlcUQKOqkIQmxw=
-X-Received: by 2002:a05:600c:8218:b0:47e:e57d:404 with SMTP id 5b1f17b1804b1-486f4475336mr131451655e9.16.1773923153601;
-        Thu, 19 Mar 2026 05:25:53 -0700 (PDT)
+        bh=9p44d1QjTPa2JEIp8Q6GJVyP9/yGjHqxAPwdkkT/xok=;
+        b=PF4D21Z3R8vZKr0gFuIMLkVkUnblW4X8IILk4SbAU8ABBnp2zYbK19Y4RytLElYHLV
+         j7y07Sz9RUONCtYCv5M6dl2E+uSo+ta+P889UHcVM0fGfsvpz50CWy0iDl3ESVWVQc74
+         v3JCtQ09uD4XLtdJqgXNHljoFm4pvg3OpTIsRW6KGgqSc3jWkSxN1+rVr95NDz/IZq1g
+         M6IC0A2zo/y0gxHNzqLLP/y5j/eEd2lGmJLyQswG18nnlgY3Zm5OoVy2XTsqq+cU+ZGU
+         PNPSbeMP+uPvo8b5y9nx8dEM5aRganUdOTgs9awgla2IfI9mjy1Lh7yBteFdavSlhJay
+         0R+w==
+X-Gm-Message-State: AOJu0YyA9heCCvK304QkCj+ct/2aOkcwIU1hpquZaOjQjTzZExE9EHRT
+	zh6Rw+ndAfXG0x4l823/PdwEwWutQwlx+wlOI8ipD0fSMw1GckzdVlIsBqkkZFGA+GV1mQgLmFh
+	2a9fj
+X-Gm-Gg: ATEYQzxhe2wLM0XAYmlIjjEojwduunRxkiVqrBLSf7bD2KGvLu/YUE87WAnuRjnca6h
+	9+k8GU02phEZHAvgiYkcQ42304/mr/n/tb1Bsbi1uVbGyW7VnIskTGhnLign0Ov47l/FgnRKizc
+	tiJFKiSxgw73Ad/SmuWGoBbmwhIAu6nXJa1pDyiE5Ppi6I4iN3JOgV49PNTZEh1qrRdeqfuRCiu
+	NoAoZPta+0p9fv8QTKz/dMF5Qo2Aqlj+BFnvpY4EsJ9JVWxGsRqSlfTsJWtYerE+F9eytUWJ6f5
+	d+mUC3wCFpWB1kpJPvYSGs0/eyHz5+0HBe42Q7iQ9b8gTyP63tgUyCkkbIyAxY89AhSCn8JMJ+a
+	zAPsLfyf8cKTcbxkpAgLmXBcoV9RpuyvIVffREsbcMi5UNUzCs3TP0oLQWxfVJa12ktsC1rKc5q
+	gGdGiQMJrLFqKHfac6hjzjlQmBfvcBiUteCNIoTAWc6d905P9Hvslt/Oe5qvbADqY0rWkdtZI=
+X-Received: by 2002:a05:600c:4507:b0:486:fb69:4960 with SMTP id 5b1f17b1804b1-486fb694a11mr28642655e9.19.1773923154081;
+        Thu, 19 Mar 2026 05:25:54 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 3/4] x86/kexec: Invalidate the IDT earlier in kexec_reloc()
-Date: Thu, 19 Mar 2026 12:25:48 +0000
-Message-Id: <20260319122549.922724-4-andrew.cooper3@citrix.com>
+Subject: [PATCH 4/4] x86/kexec: Disable FRED earlier in kexec_reloc()
+Date: Thu, 19 Mar 2026 12:25:49 +0000
+Message-Id: <20260319122549.922724-5-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260319122549.922724-1-andrew.cooper3@citrix.com>
 References: <20260319122549.922724-1-andrew.cooper3@citrix.com>
@@ -129,67 +129,68 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 847512CB247
+X-Rspamd-Queue-Id: 56AF72CB24E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-After switching stack, it is not safe to run any exception handlers, because
-attempts to access the cpu_info block are out-of-bounds and will generate wild
-accesses.
+With FRED just as with IDT, it's unsafe to run the exception handlers after
+switching stack.
 
-Invalidating the IDT in the common path means there's no need to do so again
-in the 32bit path, so drop compat_mode_idt entirely.
+To remove this unsafe window, %cr4 needs clearing earlier.  In turn, we may
+need to switch to PCID 0 earlier too in order to be able to clear CR4.PCIDE.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
+
+The pagetable switch cannot easily be moved to be earlier, as that leaves a
+period of time where FRED is enabled but all stack pointers point to
+non-existent mappings.
 ---
- xen/arch/x86/x86_64/kexec_reloc.S | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+ xen/arch/x86/x86_64/kexec_reloc.S | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
 diff --git a/xen/arch/x86/x86_64/kexec_reloc.S b/xen/arch/x86/x86_64/kexec_reloc.S
-index d0951ea1e1c4..7a6dd2cbe736 100644
+index 7a6dd2cbe736..81da81a827de 100644
 --- a/xen/arch/x86/x86_64/kexec_reloc.S
 +++ b/xen/arch/x86/x86_64/kexec_reloc.S
-@@ -44,6 +44,16 @@ FUNC(kexec_reloc, PAGE_SIZE)
+@@ -54,6 +54,21 @@ FUNC(kexec_reloc, PAGE_SIZE)
+         lidt    (%rsp)
+         add     $10, %rsp
  
-         movq    %rcx, %rbp
- 
++        /* Move to PCID 0 if necessary, as a prerequisite to clearing CR4.PCIDE */
++        mov     %cr3, %rax
++        test    $0xfff, %eax
++        jz      1f
++        and     $~0xfff, %rax
++        mov     %rax, %cr3
++1:
++
 +        /*
-+         * Invalidate the IDT.  After switching off Xen's stacks, the
-+         * exception handlers are unsafe to use, because there's no way to
-+         * perform arithmetic on the stack pointer to find the cpu_info block.
++         * Set CR4 to PAE only.  This may disable FRED, which must happen
++         * before switching off Xen's stack.
 +         */
-+        push    $0
-+        pushw   $0
-+        lidt    (%rsp)
-+        add     $10, %rsp
++        mov     $X86_CR4_PAE, %eax
++        mov     %rax, %cr4
 +
          /*
           * Move to the identity mapped stack.
           *
-@@ -94,8 +104,6 @@ FUNC(kexec_reloc, PAGE_SIZE)
-         jmp     *%rbp
+@@ -86,13 +101,6 @@ FUNC(kexec_reloc, PAGE_SIZE)
+         orl     $(X86_CR0_PG | X86_CR0_PE), %eax
+         movq    %rax, %cr0
  
- .L_call_32_bit:
--        /* Setup IDT. */
--        lidt    compat_mode_idt(%rip)
- 
-         /* Load compat GDT. */
-         leaq    compat_mode_gdt(%rip), %rax
-@@ -202,11 +210,6 @@ DATA_LOCAL(compat_mode_gdt, 8)
- .Lcompat_mode_gdt_end:
- END(compat_mode_gdt)
- 
--DATA_LOCAL(compat_mode_idt)
--        .word 0                      /* limit */
--        .long 0                      /* base */
--END(compat_mode_idt)
+-        /*
+-         * Set cr4 to a known state:
+-         *  - physical address extension enabled
+-         */
+-        movl    $X86_CR4_PAE, %eax
+-        movq    %rax, %cr4
 -
-         /*
-          * 16 words of stack are more than enough.
-          */
+         movq    %rdx, %rdi
+         call    relocate_pages
+ 
 -- 
 2.39.5
 
