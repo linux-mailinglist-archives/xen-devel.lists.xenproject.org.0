@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4MSpM0YQvWlf6QIAu9opvQ
+	id iDKjH6EQvWlf6QIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 10:15:50 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 10:17:21 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FD212D7D8E
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 10:15:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1257907.1552154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E35A32D7DEF
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 10:17:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1257915.1552163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3VxB-0000pL-0p; Fri, 20 Mar 2026 09:15:37 +0000
+	id 1w3Vyh-0001KZ-BX; Fri, 20 Mar 2026 09:17:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1257907.1552154; Fri, 20 Mar 2026 09:15:36 +0000
+Received: by outflank-mailman (output) from mailman id 1257915.1552163; Fri, 20 Mar 2026 09:17:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3VxA-0000mG-Tn; Fri, 20 Mar 2026 09:15:36 +0000
-Received: by outflank-mailman (input) for mailman id 1257907;
- Fri, 20 Mar 2026 09:15:35 +0000
+	id 1w3Vyh-0001IC-7C; Fri, 20 Mar 2026 09:17:11 +0000
+Received: by outflank-mailman (input) for mailman id 1257915;
+ Fri, 20 Mar 2026 09:17:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XX1m=BU=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1w3Vx9-0000mA-64
- for xen-devel@lists.xenproject.org; Fri, 20 Mar 2026 09:15:35 +0000
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azlp170100005.outbound.protection.outlook.com
- [2a01:111:f403:c005::5])
+ id 1w3Vyf-0001I4-78
+ for xen-devel@lists.xenproject.org; Fri, 20 Mar 2026 09:17:09 +0000
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazlp170120005.outbound.protection.outlook.com
+ [2a01:111:f403:c105::5])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 56b9f18e-243d-11f1-9ccf-f158ae23cfc8;
- Fri, 20 Mar 2026 10:15:30 +0100 (CET)
-Received: from SJ0PR13CA0041.namprd13.prod.outlook.com (2603:10b6:a03:2c2::16)
- by SA1PR12MB8141.namprd12.prod.outlook.com (2603:10b6:806:339::7)
+ id 900eb2a8-243d-11f1-9ccf-f158ae23cfc8;
+ Fri, 20 Mar 2026 10:17:06 +0100 (CET)
+Received: from SJ0PR13CA0032.namprd13.prod.outlook.com (2603:10b6:a03:2c2::7)
+ by SA1PR12MB6822.namprd12.prod.outlook.com (2603:10b6:806:25d::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Fri, 20 Mar
- 2026 09:15:24 +0000
-Received: from SJ5PEPF000001E8.namprd05.prod.outlook.com
- (2603:10b6:a03:2c2:cafe::22) by SJ0PR13CA0041.outlook.office365.com
- (2603:10b6:a03:2c2::16) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 09:16:59 +0000
+Received: from SJ5PEPF000001EA.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c2:cafe::20) by SJ0PR13CA0032.outlook.office365.com
+ (2603:10b6:a03:2c2::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19 via Frontend Transport; Fri,
- 20 Mar 2026 09:15:24 +0000
+ 20 Mar 2026 09:16:58 +0000
 Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF000001E8.mail.protection.outlook.com (10.167.242.196) with Microsoft
+ SJ5PEPF000001EA.mail.protection.outlook.com (10.167.242.198) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Fri, 20 Mar 2026 09:15:24 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ 15.20.9723.19 via Frontend Transport; Fri, 20 Mar 2026 09:16:59 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 20 Mar
- 2026 04:15:23 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 04:16:59 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 20 Mar
- 2026 04:15:23 -0500
+ 2026 02:16:59 -0700
 Received: from [10.71.194.215] (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 20 Mar 2026 04:15:22 -0500
+ Transport; Fri, 20 Mar 2026 04:16:58 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -68,75 +68,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 56b9f18e-243d-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 900eb2a8-243d-11f1-9ccf-f158ae23cfc8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FBxpi8cKm5XRU6olhgN4Gm40Btkp5Mc3MbjuDIlXCastJSV6/XN154Yfe5pxIUicnL80FxVcUaQbnGxfEKO0zpzATb/Lmkx9zedzp/zyt92M/CCBIEhke7bmnC1874Qczcivzz6grcWCDsl1UOcm4HttLibK9CN81rPa3vrKBUWg97lBKBldjNQL8YR7xVHUt1KR8nAbLfjYPAxKnTRU1sgFMPCV3Kp6DPtqbjhENAmAOR9nrHK6X38sTqSMdD0DlEjGVqgYIe8U2iWdF+yR/HXxJMToOqxKgTDyTE7VcJ3/wvr7zHRSUjIR/6FzbWb6LwHfUo/TXx6SCXldDYog/A==
+ b=TBNdxNc5WlLPBSbeOUYcv9U47Uam9TNRPxAHYwim0V+iykAV5Drz0vbrg88LNE1Jt9BfS+rTwiB7YapYbE91x01L870hNHfE9+Kw3ChwDTzKLFQ/l6VAzX/pg083vS/kRjTFG9lh2XJqnsnQm4Oq7hQOWOWh2FajA3o4k+FRTolqFd/auMPYI8M4h4931oBFOeA/ZFyEFzdqtqMuN/kEPWJit+zRzvn+E3XGJx0yXRDwxTz05BJ5vFK3xhNIm3Aa06OjMxsM39IAcagirglbXhoYQCQ3b5GFBtH6wrWgRk8dhtLEiQSy8I1nBKy6rMyqnsYMJFlF9dDQrLI6YKdnRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g7nWEB78XXjlSaW/R+PBuX8PG6e7TaYq8Up+wL+N6ZE=;
- b=qgZNRxH8JNFAD6BkFUG2LxPkqvyh5bsJ1I8E4fE9m+3fN6EUbCgrksptpiUoLCdn67YVlhGpVQRRu5fu5NfmwYMr+CuGUI5N4EnQMT1WKJt4f5mfP6N4jto4d8vbKARwlRFxDI0l/Lh1IvQbXyga3S02nn6rM96fvVcT0mu034bX+BCEbpkquALaXJ8CWuI/eZLpr+YIF4jCn2oJtBrlEdqec1AuGsJGk3OMBgGIU/j3kdxUzZCvCCx+SlgfeKUO8zpJNHvIzNswJ8FuY0oDhnvmqmZYZGAHc/UwnWtuEb1okIomZXaujx40tdmhgRUsvofgTDrqLOefTzglQ23z6Q==
+ bh=7eeZGSvzIySCPkF0XqPe02MVVawYn69quaGtofXl5Bc=;
+ b=Ervt8eDBXlAe5bXtTHZOMxy2lGImupKgxQppalGsdHvbRQ5+2K6M5JzK1Q4lNwTprZ1t2okpZN0ZWJNfdt0/HkHIE7zV9bq2sLZAvk5h/laA0LtqRIaEWiZJdgIgtcs8GwCeSbNewjC9zA5rqwQ5v5E74DTnMtCReNY4vOEPlnM8xVurXolAaNIcbJG9aPz5/4wGy0ZvpA1rsd9GtX6yteW+kf8kQ5+IkWc9WWQXccObKvgbkUhDV5kP3ThSa37od8g7Hf65DG1F4r1DBun4LHW8WCZ9/5VxcriOMYonnLeX1+fMXgWrbKFNq7xuvg8r4Mm7H5otKQk3paflk1KXyQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=g7nWEB78XXjlSaW/R+PBuX8PG6e7TaYq8Up+wL+N6ZE=;
- b=EO2JehxveAtdCQq8Sm5sqZqQZTwDyvzsOuRaJ7PvALQeBKZ0YRAFUanpW8sTDSzhbOUttCNM0JSC/sOgiT8CZqqRWCH7KPX4xae5CHMzLm/OVYFxOqc2N+thErviJRV+pvdq17DzDNjQOt72L0sS74HQ/OhJBamPk17MEDiU3e4=
+ bh=7eeZGSvzIySCPkF0XqPe02MVVawYn69quaGtofXl5Bc=;
+ b=C326olAY7Gqds2EB/gEdAo/mLGl0cRVH2Xy0fCP9gHDyEhq5S/g+8bAgiKcaXab2HlLWXDWDR5lAJ+MWnASKjKc8Ke3+gUurBu5S8TuHXXZCQDztO7OqWaBxTlKM0XOz1xRk1OwgfzPMdOtg1GzCsZIzqKpORSRhQgGmbjIRYuk=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <b09e3101-e0f5-417c-9d1b-e61c522ff7d6@amd.com>
-Date: Fri, 20 Mar 2026 10:15:21 +0100
+Message-ID: <1ff75249-e147-4086-a79e-9c9a3cf74030@amd.com>
+Date: Fri, 20 Mar 2026 10:16:57 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] xen/arm: ffa: Fix local ffa_vm_count shadowing
+Subject: Re: [PATCH 2/2] xen/arm: optee: Add MISRA-compliant switch default
+ labels
 To: Bertrand Marquis <bertrand.marquis@arm.com>,
 	<xen-devel@lists.xenproject.org>
 CC: Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Jens Wiklander
 	<jens.wiklander@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>
 References: <cover.1773911799.git.bertrand.marquis@arm.com>
- <030d24e1776af7c2391c588bc696592a64a92c51.1773911799.git.bertrand.marquis@arm.com>
+ <0050ab559814a619b4ae23dd070e7aa4629865e2.1773911799.git.bertrand.marquis@arm.com>
 From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-In-Reply-To: <030d24e1776af7c2391c588bc696592a64a92c51.1773911799.git.bertrand.marquis@arm.com>
+In-Reply-To: <0050ab559814a619b4ae23dd070e7aa4629865e2.1773911799.git.bertrand.marquis@arm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E8:EE_|SA1PR12MB8141:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03e94b2c-0a63-4f81-12fe-08de866137e7
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EA:EE_|SA1PR12MB6822:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9b81ca4-112f-4c07-83d5-08de866170d5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|1800799024|82310400026|7053199007|22082099003|56012099003|18002099003;
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|22082099003|7053199007|18002099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	fxGvIYgfRkrtR44daQhKSwmSM/vcj/yclV25A0sJDv07yZBE4l7eKl4N570yu3Tfwkb760cBwLne6KEQ6S0pluUndViMIyaqaX43gX+2bUHPwtmuLY/saurFsj5/3VePmuwkuubU14UDytnvlb1VTzBlU2y/OhbIJszV+okRcIgMAH3t9LN/qXBgdZEgjKJ8F8tUnDzI75JgEAmM+0Rn/+2cLd7ZViCjFptYw0Kst2IfTlZ/IMwLxJk5emZY8mHNMkoC1LhO7CeC4pQEwkpd8Mz4bJe+CrQERpvHifwi45/W1yuNkw0Pc/vnrz/aXCRKNuSx52315EKVlvrAGAseflCVDrGfNTgGn6+JuU+pKqBYjxO5ZGh6nGN027wU+f9Qf28PpnMkTPl2HnKzicKu+9p9fjq7DhNuilr9O4SHCGMk8Nl53kGKtkJ5bWKvBlIchQH2tjtXY9J3tRHuKo8j6Wayqj2p02SdrtfQQXEn6W2kwrYdD2fFW5kTahi2hCY0E9ReiA3mCgmRpwDTxRU4OczAk2uLXaQmvxJfwtno/LcKWg1xpqVAiu8H6LuRYSaEnta9nXBE02e3e5BjK9OW7FXZDJGJia3lBBC67VJM8u+AIy7E9CVmhqfpXF0DEhRAhivbGeSmK/JZ5oP6bCkufce2t+5vVJj08x4HS8aepOQ9eqw57yV4sam07VID6uo1q1VWGjHYH2hn/6gOx/UaHv1lY0TShmxAm5wdcwTDj5HO3zCu1KTS8mzKBdB8AfqY9jS2wHvSrGAZGRvO10QKFw==
+	YOvtNdjTa1SiwYYacaroLgLkAZyV7EdzIq1S2Tng7Od1maqHUzu7X7/qW4iTGcNnlMX0qz4QzB4hL5y1iU2OYrnfgGLfbdEahEFnsYl/QBoJkUJB2yNaHCgIMFXa43L4jjAUpRzm8392rAxpbvs6mD8UxM2mhFvs1fDNaFn9L9ZUdxIfY00STPV4iNoOSTJEuq5qISd6If22oO6H+znCKHf5a7sh5yTqXKZCxIOUXpdaQG7prCnj4XAIXby4InSOYRsVbv3W/AA8wKSvfbo8Ylz6Hys7UNlK/6nUlG0/2+ZxoVc/cv3NnffVfbjkitEIPcoiNyI5fS5h3SFhK2k4W3pOg5tktJESUPCi7Vtevah6OgkI0kDgmXvulIVwHwgRRH3PD7wm1Gm6k7n1pYaX7VwUIgM8loz8IDdMvuhq/Iaqobq5InqBJQoogDSBhixWMQlN+QKZMUJ9eYloHK4qmueUHFiAaUXQE1liaQKZJj31aHZs25cTWD1uOoJ/A7tX0d4IsppL/CvEuYMyE2/vza3adSYG9g7W9nJqK3g2GkqylEAs7wK2tG8/2j7o6OlL3eUX6ppcVOhwTBJiOCgUdeO8uzzOKlRBYcmKYNXH3x0CpYbyXVwoHmrtbryhnOzs/EzJs2e29Y7/cXlh1N0UKBDRX0WPSRo9JrjjSYkPZ+E8utN+WG4ruvCDi5GhTa8g/3SRzKTSkBHtJUEu5JJOS2CL0HE2ruCni9/vkuH4yO4yYlxDZhc3e9Qf91x4OvTZyb9tWfl1hL2fyd8ZxCok0Q==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(7053199007)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(22082099003)(7053199007)(18002099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	3CUhdALr+VPUAHWoSdDyBjQRH0pii2dVTA/88GN16LUC/YbPemeDL2nr3GTr+oLjgIJRJmVDNqF9cxYr4nvJMju0ggeM8UQLJKLKJKYTzh26w3rblEn/7qhCoTnJ2vxUtYIrsd6Ijy5F+Uc4lHdODFNNboCYZNf6hHQ44IntRfTWzBOrhUJ71FovwYcJKpecwfHWwzG0J5C8nh5KhmNf+Qj8dHsoMH9O3VhrUpzho7dtk1uhegTeMZGAQxLAvL/yE/+ebXzMsfaFrMlIZAKAUnuXc8fylean+uYxnH5hYUseOVOc2VZKRel69Tt5d/sDXUKXmGeKnVWVsosRHaMmkGV3xW4n3+Z9RU3bh434WaG+FlPLy3m5i7o7baq1zgoEdvLoetwp/C0SspC6QEaxWc54Vo853JcO7iaC32PPjmHrT7bgoJeJM8jHgQz/4UWM
+	3Q+INQLC9PWoO+RYkPLJlCAM9sHMdk8hYxzMEnH9Eoyhfnh58ZYkN/JeXkkvt4CMY4OCfqEWmmgSVdvPdR1IpQvmvoqxpMnuT2ATf8AYICdkMAfuVcPjG7Jma3tlFxf9I5U8pmOFQ07m0Tu2dOjsgbgg52sWNv4F+dqLxwVYd+6M9sMC//+gvWdlfl0hnZyQGzT+ZMpKsGaK9gmlhScQpCVCzDrTkVQn9Be10e+h+Guk6dHj8rQHYIzTfgbzaE9bxJj+JRfhZ88eyqpwQDkVzjXutK+qvzaf7man+hMa2pHQ3T84oWkavg2qZbqGAuXkoaXImJR77tmQvAuXcI0gYzIigl8aS6Qzzr8beOMudPOcHmddVYg4SXIXecmQW/mup+r8FoO9n2LIqPo3HNg4XeF0ZAR4XhB9HZxxhEH4CjCNgUzt9c1wriK5IsoV3Clb
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 09:15:24.0223
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 09:16:59.5092
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03e94b2c-0a63-4f81-12fe-08de866137e7
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9b81ca4-112f-4c07-83d5-08de866170d5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001E8.namprd05.prod.outlook.com
+	SJ5PEPF000001EA.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8141
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6822
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -161,23 +162,24 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[6];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:email,amd.com:mid,arm.com:email]
-X-Rspamd-Queue-Id: 3FD212D7D8E
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,amd.com:dkim,amd.com:email,amd.com:mid]
+X-Rspamd-Queue-Id: E35A32D7DEF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
 
 On 20/03/2026 10:07, Bertrand Marquis wrote:
-> ffa_handle_partition_info_get() declares a local variable named
-> ffa_vm_count, which hides the global atomic ffa_vm_count declared in
-> ffa_private.h.
+> optee.c has several switch statements over integer-valued OP-TEE fields
+> without a default label, and two default clauses that only contain
+> break. This triggers MISRA C Rule 16.4 findings.
 > 
-> This triggered the ECLAIR Rule 5.3 finding "non-compliant local variable
-> `ffa_vm_count'".
-> 
-> Rename the local counters to vm_count and sp_count and update their
-> uses.
+> Add explicit default labels to all reported switches and document the
+> intentional no-op defaults with rationale comments. The new default
+> paths preserve the existing behavior:
+> - unsupported parameter attribute types are ignored;
+> - non-handled RPC commands require no post-processing in Xen;
+> - unknown RPC function IDs are resumed unchanged.
 > 
 > No functional changes.
 > 
