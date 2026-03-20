@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oBnSN7nxvGls4wIAu9opvQ
+	id qJlPFCX2vGkt5AIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 08:05:29 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 08:24:21 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CC902D66A8
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 08:05:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1257810.1552082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7A722D68F3
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 08:24:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1257820.1552091 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3Tut-00054t-1h; Fri, 20 Mar 2026 07:05:07 +0000
+	id 1w3UCz-000810-G4; Fri, 20 Mar 2026 07:23:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1257810.1552082; Fri, 20 Mar 2026 07:05:07 +0000
+Received: by outflank-mailman (output) from mailman id 1257820.1552091; Fri, 20 Mar 2026 07:23:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3Tus-000520-Un; Fri, 20 Mar 2026 07:05:06 +0000
-Received: by outflank-mailman (input) for mailman id 1257810;
- Fri, 20 Mar 2026 07:05:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w3UCz-0007y9-Cm; Fri, 20 Mar 2026 07:23:49 +0000
+Received: by outflank-mailman (input) for mailman id 1257820;
+ Fri, 20 Mar 2026 07:23:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VTAn=BU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w3Tuq-00051r-Po
- for xen-devel@lists.xenproject.org; Fri, 20 Mar 2026 07:05:04 +0000
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [2a00:1450:4864:20::42a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1e206364-242b-11f1-b164-2bf370ae4941;
- Fri, 20 Mar 2026 08:05:03 +0100 (CET)
-Received: by mail-wr1-x42a.google.com with SMTP id
- ffacd0b85a97d-439c56e822eso1631931f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 20 Mar 2026 00:05:03 -0700 (PDT)
+ id 1w3UCy-0007y3-Ia
+ for xen-devel@lists.xenproject.org; Fri, 20 Mar 2026 07:23:48 +0000
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [2a00:1450:4864:20::32f])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bac473a8-242d-11f1-9ccf-f158ae23cfc8;
+ Fri, 20 Mar 2026 08:23:45 +0100 (CET)
+Received: by mail-wm1-x32f.google.com with SMTP id
+ 5b1f17b1804b1-4852c9b4158so12212025e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Mar 2026 00:23:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b6470b1f7sm4473882f8f.25.2026.03.20.00.05.02
+ ffacd0b85a97d-43b644bd0dcsm3477172f8f.11.2026.03.20.00.23.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 20 Mar 2026 00:05:02 -0700 (PDT)
+ Fri, 20 Mar 2026 00:23:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,58 +50,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e206364-242b-11f1-b164-2bf370ae4941
+X-Inumbo-ID: bac473a8-242d-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1773990303; x=1774595103; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1773991424; x=1774596224; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SMWOGgQ7ipyX7UhLb9ROJML2m6OW1MCvnD/K9ZvJDAQ=;
-        b=ERRQN+9aSxuDRIPZB+UbHxyOYSdNfcPvIVc0b0rFjeLohZ28yUdZDlulpykQCv8c/i
-         XRqeQQxfVaBqGZtkOTbvHvaCW/P+nM/knh26y1VPALYsIZz5R9qTOur0ZD/mNYLppP3t
-         Pob1VTA0Q3jL0MgvwE+yU+iZm2xWLmBUSDKwxXt19S+p0ryOcKwdrZtLwzmvyTcjrwnQ
-         NCiOUgbFyIKY1lXqVD1WMMrLoNK7Hj2Sv+lgUhDD4DaIEmvKnvTYZy3Ts/ue0PXdc2LJ
-         rx6s5/Y0hltVQzP3Q+Yv4R/EqlXmNgjvy9O//BEuRfyzQjelWfV/kCmDz1gercZ7yLdD
-         NlcA==
+        bh=WWVatIPeJwA8EeG9PIEXf1kkSpNMQx1kioB5xWFi8ns=;
+        b=eUY2HGg1FTCwsEuaHqf3e9LiwJ+HpeaWM/01G5yPlvy8tFT3JrMno9F4iYOMoJezFr
+         41FWOgyJYpzV73fidEYjqCFbNNlICtRY9P1KnECZ2KMuxLcM3sF4hugmWHbYOX73W8R3
+         bqIdVbPyH5jbvYTNHhJn+n/VBT9XH2c7sTpOMa1JD3SAPZwOrRSLt+rzq9YHvllIMm/X
+         oOVag9HwU1jEaIRp4oskj4I0/bqo9OxvrhMF+cSG+MMH36BOYDxFNcW2y8tNvOzP0rvL
+         pWrNbrOEgfdhMXD2rZxNN4ZSUwwliJ+sqt7+r76RMCCvpYB50/AQ8OwEM/ydiBbzOLcE
+         HzaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1773990303; x=1774595103;
+        d=1e100.net; s=20251104; t=1773991424; x=1774596224;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SMWOGgQ7ipyX7UhLb9ROJML2m6OW1MCvnD/K9ZvJDAQ=;
-        b=bDDxYD4eyKRYhKzMmOfGEtHCaD0uUxIfpviVkfDmb9MWfe6MtOjwW3dPkyKTanjmzM
-         8wWKdtDS/d3iY/RmPZTAp1+3VUcvDcUD6URxv3y8z1HTPnViOGNiBmbhjOKVyLKbI2DB
-         szrDf9JmACVAiVZhyktxL86AlvdWeeR2W3qGWXNHUFAtucSpgeTEzpriWH+R2ZEPk3KD
-         wfMpCNYI7emuVTZLLTI+LcpIGyFE+czxs9THVez59J7lRkOFD+UVdcfm9NJQR+vwAwrm
-         bEU2H43P1Lezxm4PuHdO5sVfjbOfzbupHXPvQFHwameTHA0ImMeLmOihL6ZGIx4xCPh2
-         meLA==
-X-Forwarded-Encrypted: i=1; AJvYcCXU+ppHAVZ9rs0s6tEQ2URHu+09csUrzW5QHPP6BdjWzxxDF6FaIspghMzy3ZsZeFCiBbZBHfc2Pbo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx+Nh/bAifgCU6+sVw8VmZHMz7JnbdQfSXJC3klXgTcnHUnP9b0
-	n+Ts8Qiu8dK+wq+Z8DfXAo7j1hQbTVnEdSSzKnKFXFGpRZVsbCGvY/j5YIYrdDDtEg==
-X-Gm-Gg: ATEYQzzLSSXw3MrBmf5uUyv21A52oYXxGCPeTgOX42o4V9ZZsVwifaTJb9D5v7ZEwRP
-	Hpm8xrmFnCK0+5oPfI9Ot2pLDKsTmZVod2TM2N5OfhmRKjN8tq76irZFnpD4oYAIPtvpXdbcttq
-	VAokgLh+82tliEa1gEOOScOPT/6N9L3n4Td2XBI51yURjqiSYW3y1JthggGx3McVtg7AlRRdVvx
-	mf3imPQhChUKJQFWzP+3nXaJecP7ejtMFshFpYwtBPYx8HTMKDbDx7CD1jmzLGLdExRw3PoqCoE
-	msla4j5DwQVohOxiZg4aaUdDT16I9KzUyJO+64jIHE4KjKKXc1HI2xZ0yMHffl99VS0k7Hvx2b3
-	Qs0EkXN4Wcb80U/EpRx8APpbomb2pHNhtusLAhZSqU/EtjvQmnKbdwWhxlZwjP31pP9wx60cp/N
-	lbcccK2u4WPpcGDgskOS6917TR0qmrCLySm8u4PaZLW25egruoCyPQUDRBHs4HCdd83scDYfo9g
-	teoECpxfS4trFH9+b2E8OZPFQ==
-X-Received: by 2002:a05:6000:290b:b0:43b:4468:b112 with SMTP id ffacd0b85a97d-43b6426b65fmr3331186f8f.25.1773990302715;
-        Fri, 20 Mar 2026 00:05:02 -0700 (PDT)
-Message-ID: <3e7d7fbb-55cc-4536-abfd-998cc10b01cc@suse.com>
-Date: Fri, 20 Mar 2026 08:05:01 +0100
+        bh=WWVatIPeJwA8EeG9PIEXf1kkSpNMQx1kioB5xWFi8ns=;
+        b=R7250y06yvoZaHmuZC3w9G4cdjuR71qEXBS9sTdr/wwSRPl7N0h3KUHsS+7aU/4PPJ
+         kO2e19KZV1iPptDtX1MWTPCAcZVRxLlfauL00kkal6IOeQMEHMjneYFJ/ZSawRh5cmXk
+         8VOMyiSJvb0+2nymtiIxKnvddfOQwlTFH56cWeM7BLEvQAF+5uNehlpLqGMSHegjrkhx
+         BmTLM3X9huu5kZMGHOEKf53KBqWwbWqkicVDSlxMsDk+x1Ra0KGeHRDoTYexMXTJoysh
+         mqPUbqnU5Aj/IHGoYCLR8RP7M5sxG5KjT4XEjq7DOrqd2EUkTsgqvP039r21mmb7rNID
+         x5sw==
+X-Forwarded-Encrypted: i=1; AJvYcCXwaO31pH2gRN1tVMB7D50F8awUT8WeSj8cjBjULwhGYDZaUdD7mY/6/Vktmjsa5IlXC8RCKbFU7Bs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxs6gv8IRcdzRFmqXVByW1lMEstFF05YoKXTUIvc3IEzF2FtRp9
+	/mRpS1ttCWeZR/LhKJNCvnub6acrrUWmXFyYt/chGZd9wjtBR+WObk47mL/3FJbX6w==
+X-Gm-Gg: ATEYQzwkd3kQZP8RRgH7op6MwZeiVFgplHlgcse33EvuGRay4UWJYIw3zR2gbXG+vrZ
+	vTJvhlUsE7UCHVEVpdW5wzxmrXHEsvOTU22sLtUVL9QMTQKEPqJWb8gLFLl8RNCkYlcITFBAxCq
+	iNt1NtbYm7DkmDnZnn5o1rx4mzX1Qc8rIZJnfVxov1CbnsLtn05VzA8+WUGY5+AvkdX9mkQdmL7
+	7eoh50o+MRsGBqDQxLX8yNU+1aJyZo9BMBPsuWIm3RWrRKrJvCwLbu+xmNyJMbBmP5Aj+djTBOM
+	2vueGiWW4HpHi5owr0TowhvWvGeaV8rCDA5PGIAL4ngg3HxO72mIU7RmimfpHVo/PkEAbRpsDAV
+	f7qJUKiiL5t2rrGhG4kn6cvQf/LHM3YqSlOXeikhLkdBt9PDm1otZz2YRbaWqrbYWO2/cWbL3Cx
+	6chkWu7TWbcODwEPDEoSJ59uoVGRULgzguXA5t8lqkbbEF+BcfHaF5jdQ9w/7A0AsWLKPyBBwsj
+	my5HPktn7MPmNc=
+X-Received: by 2002:a05:600c:1c0a:b0:485:40c6:f528 with SMTP id 5b1f17b1804b1-486fee2bb38mr25587495e9.30.1773991424380;
+        Fri, 20 Mar 2026 00:23:44 -0700 (PDT)
+Message-ID: <88d8a49c-035c-4201-855b-7a893c07b538@suse.com>
+Date: Fri, 20 Mar 2026 08:23:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/cache-col: address MISRA C Rule 5.3
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <ded7e2aeecd18109bf2fde5cff0d356932f08e28.1773952245.git.dmytro_prokopchuk1@epam.com>
+Subject: Re: [RFC] RTDS scheduler: potential issues found during safety
+ analysis
+To: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+Cc: dfaggioli@suse.com, mengxu@cis.upenn.edu, gwd@xenproject.org,
+ andrew.cooper3@citrix.com, julien@xen.org, tiche@cis.upenn.edu,
+ tiche@seas.upenn.edu, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>
+References: <1c0f5bc3-5e04-4043-b950-bf9af10bf720@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -127,29 +127,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ded7e2aeecd18109bf2fde5cff0d356932f08e28.1773952245.git.dmytro_prokopchuk1@epam.com>
+In-Reply-To: <1c0f5bc3-5e04-4043-b950-bf9af10bf720@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dmytro_prokopchuk1@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email];
+	FORGED_RECIPIENTS(0.00)[m:oleksii_moisieiev@epam.com,m:dfaggioli@suse.com,m:mengxu@cis.upenn.edu,m:gwd@xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:tiche@cis.upenn.edu,m:tiche@seas.upenn.edu,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,m:jgross@suse.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -157,26 +157,124 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 4CC902D66A8
+X-Rspamd-Queue-Id: B7A722D68F3
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 19.03.2026 21:31, Dmytro Prokopchuk1 wrote:
-> MISRA C:2012 Rule 5.3 states as following: An identifier declared in an
-> inner scope shall not hide an identifier declared in an outer scope.
-> 
-> Inside the 'if' block, the inner 'i' shadows the outer 'i'.
-> Reuse the outer variable and remove the inner declaration to fix that.
-> 
-> No functional change.
-> 
-> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+(dropping Dario's duplicate but wrong email; adding Jürgen - see ./MAINTAINERS)
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+On 19.03.2026 18:49, Oleksii Moisieiev wrote:
+> Hi all,
+> We have been performing analysis of the RTDS
+> scheduler code (xen/common/sched/rt.c) and identified several potential
+> issues that we would like to bring to the community's attention. We would
+> appreciate your feedback on whether these issues are considered worth
+> addressing, and if so, what the preferred approach would be.
+
+The question is a little odd: If you mean to use the scheduler in production,
+a goal is going to be to move it out of experimental state. For this, sorting
+issues like the ones you enumerate is pretty much a requirement. And yes, the
+suggested approaches look plausible to me.
+
+One other aspect: Please don't send HTML mail. I'm leaving everything as reply
+context, for you to see how it ends up looking when read as plain text (with
+my mail UI at least).
+
+Jan
+
+> Below is a summary of the findings. All references are to the current
+> upstream code.
+> 1. Inconsistent validation in domain-wide vs per-vCPU parameter update
+> ----------------------------------------------------------------------
+> In rt_dom_cntl(), the XEN_DOMCTL_SCHEDOP_putinfo path (domain-wide
+> parameter update) only validates:
+> if ( op->u.rtds.period == 0 || op->u.rtds.budget == 0 )
+> In contrast, the XEN_DOMCTL_SCHEDOP_putvcpuinfo path (per-vCPU update)
+> enforces stricter checks:
+> if ( period > RTDS_MAX_PERIOD || budget < RTDS_MIN_BUDGET ||
+> budget > period || period < RTDS_MIN_PERIOD )
+> This means the domain-wide path accepts configurations where budget
+> exceeds period, or where period/budget fall below the 10 us minimum that
+> the per-vCPU path enforces. Such parameters can lead to scheduling
+> overhead issues (very short periods) or over-allocation (budget > period).
+> Suggested fix: apply identical validation constraints on both paths, i.e.
+> add the same bounds checks (budget <= period, period >= RTDS_MIN_PERIOD,
+> budget >= RTDS_MIN_BUDGET, period <= RTDS_MAX_PERIOD) to the putinfo path.
+> Additionally, the putinfo path does not handle the extratime flag at all,
+> unlike the putvcpuinfo path.
+> 2. Priority level overflow for extratime vCPUs
+> ----------------------------------------------
+> In burn_budget(), when an extratime vCPU exhausts its budget:
+> svc->priority_level++;
+> svc->cur_budget = svc->budget;
+> The priority_level field is declared as `unsigned` (32-bit) and there is no
+> upper bound check before the increment. While rt_update_deadline() resets
+> priority_level to 0 at each period rollover, for a long-running extratime
+> vCPU that continuously exhausts its budget within a single period, the
+> counter could theoretically wrap from UINT_MAX to 0. Since priority_level 0
+> represents the highest scheduling priority, a wraparound would cause the
+> extratime vCPU to suddenly preempt vCPUs with active real-time reservations.
+> While this scenario requires an extreme number of budget exhaustion cycles
+> within a single period, it is a concern for long-running embedded or safety
+> systems that operate without reboot for extended durations.
+> Suggested fix: saturate priority_level at a safe maximum value (e.g.,
+> UINT_MAX - 1) instead of allowing unbounded increment.
+> 3. Replenishment timer loss during CPU pool reconfiguration
+> -----------------------------------------------------------
+> When the last pCPU is removed from an RTDS CPU pool, move_repl_timer()
+> kills the replenishment timer via kill_timer(). When a pCPU is later
+> re-added, rt_switch_sched() re-initializes the timer object (if status
+> is TIMER_STATUS_killed) but does not re-arm it from the existing
+> replenishment queue. If the replq already contains pending entries, those
+> replenishments will not fire until some other event explicitly calls
+> set_timer(), potentially stalling all non-extratime vCPUs.
+> We believe this is actually a broader issue that goes beyond the RTDS
+> scheduler: the common cpupool infrastructure probably should not allow
+> a cpupool that has assigned vCPUs to lose all of its pCPUs. Preventing
+> such a state at the cpupool management level would address the root cause
+> for all schedulers, not just RTDS.
+> Suggested fix (RTDS-specific): when timer ownership is re-established
+> in rt_switch_sched(), re-arm the replenishment timer to the earliest
+> deadline in the replq if the queue is non-empty.
+> Suggested fix (common): the cpupool code should refuse to remove the
+> last pCPU from a cpupool that still has domains/vCPUs assigned to it,
+> returning an error instead. This would prevent the problematic state
+> from arising in the first place.
+> 4. Missing scheduling notification on vCPU insertion
+> ----------------------------------------------------
+> rt_unit_insert() inserts runnable units into the replenishment and run
+> queues but does not call runq_tickle(). In contrast, rt_unit_wake() and
+> rt_context_saved() both call runq_tickle() after runq_insert(). This
+> means a newly inserted vCPU with a higher priority (earlier deadline)
+> than currently running vCPUs will not be considered for execution until
+> the next natural scheduling event (timer, sleep, budget expiry), which
+> can delay scheduling by up to one full period.
+> Suggested fix: add a runq_tickle() call after the runq_insert() in
+> rt_unit_insert(), following the same pattern used in rt_unit_wake().
+> 5. Stale scheduling flags on vCPU removal during context switch
+> ---------------------------------------------------------------
+> rt_unit_remove() removes queue membership via q_remove()/replq_remove()
+> but does not clear the RTDS_delayed_runq_add or RTDS_scheduled flags.
+> If a vCPU is removed while it is being context-switched off a pCPU (i.e.,
+> RTDS_scheduled is set and RTDS_delayed_runq_add may be set),
+> rt_context_saved() will later clear RTDS_scheduled and, finding
+> RTDS_delayed_runq_add set, will re-insert the removed vCPU into the run
+> queue via runq_insert() + runq_tickle(). This results in a stale vCPU
+> reference on the scheduler's run queue, belonging to a domain that may be
+> in the process of destruction or migration.
+> Suggested fix: in rt_unit_remove(), explicitly clear RTDS_delayed_runq_add
+> and RTDS_scheduled flags after removing queue membership, so that
+> rt_context_saved() cannot re-insert a removed vCPU.
+> We would appreciate any feedback on these findings. We are happy to
+> prepare patches for any of the issues the community considers worth
+> fixing.
+> Best regards,
+> Oleksii Moisieiev
+> 
+> 
 
 
