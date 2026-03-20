@@ -2,42 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CDTOHa9JvWlr8gIAu9opvQ
+	id eGI3ORRUvWlr8gIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 14:20:47 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 15:05:08 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2F992DADD1
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 14:20:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1258034.1552224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F19A2DB8DE
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 15:05:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1258059.1552233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3ZlC-0002lC-0G; Fri, 20 Mar 2026 13:19:30 +0000
+	id 1w3aSm-00017F-7g; Fri, 20 Mar 2026 14:04:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1258034.1552224; Fri, 20 Mar 2026 13:19:29 +0000
+Received: by outflank-mailman (output) from mailman id 1258059.1552233; Fri, 20 Mar 2026 14:04:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3ZlB-0002ih-T3; Fri, 20 Mar 2026 13:19:29 +0000
-Received: by outflank-mailman (input) for mailman id 1258034;
- Fri, 20 Mar 2026 13:19:28 +0000
+	id 1w3aSm-00015j-3n; Fri, 20 Mar 2026 14:04:32 +0000
+Received: by outflank-mailman (input) for mailman id 1258059;
+ Fri, 20 Mar 2026 14:04:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VTAn=BU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w3ZlA-0002ib-KD
- for xen-devel@lists.xenproject.org; Fri, 20 Mar 2026 13:19:28 +0000
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6b778f2e-245f-11f1-b164-2bf370ae4941;
- Fri, 20 Mar 2026 14:19:27 +0100 (CET)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4852c9b4158so14435265e9.0
- for <xen-devel@lists.xenproject.org>; Fri, 20 Mar 2026 06:19:27 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-486fe6d91fbsm60387855e9.3.2026.03.20.06.19.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 20 Mar 2026 06:19:25 -0700 (PDT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lc/M=BU=amd.com=Jason.Andryuk@srs-se1.protection.inumbo.net>)
+ id 1w3aSk-00015d-4R
+ for xen-devel@lists.xenproject.org; Fri, 20 Mar 2026 14:04:30 +0000
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011021.outbound.protection.outlook.com [52.101.52.21])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b445306e-2465-11f1-b164-2bf370ae4941;
+ Fri, 20 Mar 2026 15:04:26 +0100 (CET)
+Received: from SJ0PR03CA0201.namprd03.prod.outlook.com (2603:10b6:a03:2ef::26)
+ by BN7PPFA42F4F89B.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6dd) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Fri, 20 Mar
+ 2026 14:04:22 +0000
+Received: from MWH0EPF000C618E.namprd02.prod.outlook.com
+ (2603:10b6:a03:2ef:cafe::47) by SJ0PR03CA0201.outlook.office365.com
+ (2603:10b6:a03:2ef::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Fri,
+ 20 Mar 2026 14:04:21 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000C618E.mail.protection.outlook.com (10.167.249.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Fri, 20 Mar 2026 14:04:21 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 20 Mar
+ 2026 09:04:19 -0500
+Received: from [172.18.105.61] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Fri, 20 Mar 2026 09:04:18 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,193 +63,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6b778f2e-245f-11f1-b164-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774012766; x=1774617566; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NX2pgHc3DISbbTq4UXXnkCDUxohh1a0ZbTLVxm5DzuY=;
-        b=WDVdR0tTtvlNePkVVlyz+9G/PUC4grIrXaPpkp9qXqu3CqGqMawl4qFqp5a06UP2oh
-         u2cF4OD72mP+sV6kT3LDMMmClLggLQN9ldHKEysDaf2UX47QytyeLwMAfxxj4+lATqcx
-         9Am40ezBm6CyZsKZCvE6SEepSUjy3y1OJSnOMH26/llXRGifxb/SEWbWJbTN+VIgHxCj
-         CcdkfPKC135lxsa4RXO+rvoZN51Cmum3yyPZan5ppUx6w39kP2B1NGyHF21anhbnGtX0
-         fYxgE3yVHEdhDS817wjUpavIWEGCi7LjtEuLWlwpMftoFPVgQJFd36X+Fa+N351qIqWv
-         4qPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774012766; x=1774617566;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NX2pgHc3DISbbTq4UXXnkCDUxohh1a0ZbTLVxm5DzuY=;
-        b=FHUp3DeLIqRg6C94q3VT2E0WyP/UAC1PBLuJAzLPuec6bPInzs7P+NviTockN8lOkj
-         JnLtznIxmwly1hRTsxhaiZBMyL8Z4GDvKDdNr9PKWmji9FPZDV8dzvA4PgUojOvO+fGt
-         UE6uxzALTLo2Fv37ddrQOe92OCYmC1+dkmFfO86wh6fVSknySFifY+ihlu/e5SsVkeIo
-         flRC30Tg8BQpY+EI59NPJ6i+nnyYokkXE63fiohszkx7Kcb34PmAWvnbcNUcJ33y/vCT
-         Nmt9u6D4WdR6ERXeW2yjl24/7FIoYu2XGU9I980wtL8921e/PEOIP7kcRiCNvHWBAQQi
-         lSZA==
-X-Forwarded-Encrypted: i=1; AJvYcCXmYezch/wpSEYXw5GAWoAYQaXs+NDxHqupP8p+IfkBTRYF4ODUFUKVt21o1Rz1ZAPpO8nmkdAcUjQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyPPzO+cJMpN2V6mRek0IuHrNqfmrFEs5JaX008HyGymudK+hXq
-	MQuTTxmo/5Og6gETfPvSDLPtSRMDQTyVVmafqJs8vv1t7sPuulcvTLR8lbsT3Xyy9w==
-X-Gm-Gg: ATEYQzyyI0ogOtbrOBlyMeIsCJWma1w0JQcKGoLO2s1sbY6fXErJSY2hXFpTnoW62mi
-	B2PQtWFXGSXK2z1eO06WqssBzP+3QdmNazXQy0E1fU+ml8PcdViWU1TGVp6FKNhOI0JyODTG4U0
-	yTF+LCVQYvWub6+0mg5X5ZWv52h+eNs6G0bLfFjsEUubhVfoaqnQNY1LRgNiHples4XpmTtiVWK
-	NuFYrphEWRatx5AD2b4q+YgRNY5NNnMKDAVjy7VomfcxnmNNYuCNBrX7kROareAtixOEutW5ccl
-	FxKzqqDfxTDqz5A8YFuG4fWhyPeo7AsY4vxZc7S3QMgaXRQANwpcTGJh4hPWLcbN4D5ZUxFpsuS
-	d+7kWdw5HAcDWCjvwvR7PrvAo/URK8BCkCTK2/KYMdsz/YRwXxUMr+Mu4pqBex2ENnyMlG2g02g
-	v+a8g3B2FxkaLJkm4xOyNMTRxogyhOBvEdXwiVDV16JgLuY3Y4Wu1KaJJ/bejUFBYftI2SVp251
-	3g2oscYr8yXWpY=
-X-Received: by 2002:a05:600c:a55:b0:485:ae14:8192 with SMTP id 5b1f17b1804b1-486febb5da9mr47197995e9.7.1774012766320;
-        Fri, 20 Mar 2026 06:19:26 -0700 (PDT)
-Message-ID: <92becfa8-1f61-4137-b0ec-ee7160913c5c@suse.com>
-Date: Fri, 20 Mar 2026 14:19:24 +0100
+X-Inumbo-ID: b445306e-2465-11f1-b164-2bf370ae4941
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cvo42goeuLtQiuSt59iWCi2a/U51UGFHeX4Y/DHwJNN0b7gxU7zoLJDXeBC+BzImbegtXYVxt6oGHUIJL897fKW1fhQcXqu83x45X/tlrKSh3njaovwi/nBD0ljt8VJp1IZeGfCdTfd+iMALY0gWqpfxpkq4qD82bXL1hyRCKgC9Qi3eaxdr5xs5y9ZC57OBDbepmugYdKnZG5hr37ho85k5Xh8Z7yJhbE7mV7Jv+BsFHVw/bJcJjabwsdk92XXn+YTXoUjomDfd3UvZRBW7HlaxG/SQei4GZBjctkdxpED1oYXowtryEfTD3d3vhlvDiVdDFdrFLPQI+Qnfyxh86Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yynQ/Qm0Pqs20e8Rw/eeG0S9kKqL5d+CMvs0W75a+8o=;
+ b=JAMPCu4S6UFcvhbPdN5LnWim+NgEYzSy+z2v6Rn0/P9H2JKvIvx+vxShERWXW/WEEXb+OTxtZVSd/sAp1br0XLpwFfLjkrgK2eNIAmXrzb+TS8TfEJ5qQWsPrlD1eG51xPOzUFLJYTsqtW3ahrCLKyXspf8ekG2ozpEegu+ZuPRdtoMWiOzAiAels85NudVHh6oEcnR1Ri7oy3BJNsnj3Z4gSW7OBMnt5iKw+W9Okl+2WyGcOK4yyFwqYC0KlFcg9ZapNMNeEA7Rvoo8MV1cF96IicO47sfiK49i2Zcbq4iOndA+gVCWH2X63t1v5mT5M6smtj1fdVNI1STmlz99JQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vates.tech smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yynQ/Qm0Pqs20e8Rw/eeG0S9kKqL5d+CMvs0W75a+8o=;
+ b=NxC4uGWzsWeOSHHHNGRcLo2QBzEEDvKkw+vYCIdTwsvmbL5XcQXvuRszqJF+7xXqy0OaCvTbyp2Wcl4fRy3PWW5LkfKe60rMEdrHe+1BvmtijOtyFoOY0MPW9tKizIMLwsPeMi4YWWupES7+zGkej36thiqfohQugVVjNp7vBnA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <c64842e7-9b13-4549-a57c-1a642d7e1803@amd.com>
+Date: Fri, 20 Mar 2026 10:04:18 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 6/6] xen/riscv: enable DOMAIN_BUILD_HELPERS
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1770821989.git.oleksii.kurochko@gmail.com>
- <6ab04f3584e45795dc82c25f62a6c950913f5c7d.1770821989.git.oleksii.kurochko@gmail.com>
- <aac9b5ac-6660-4ec0-b88e-605903217588@suse.com>
- <b4ac883d-ce90-40b0-93fc-95c925c7ac61@gmail.com>
- <a35d5566-7da1-406d-abf7-13b423d013f8@suse.com>
- <ad59c5ea-ae8c-4e6e-8b49-dcd0eefc3197@gmail.com>
- <1efcb5eb-1b59-4def-a527-254a31efe2b7@suse.com>
- <a8e3b6fe-d1cc-44d5-b286-b59b65e25320@gmail.com>
+Subject: Re: [PATCH v2] install.sh: Preserve symlinks in destination file
+ system
+To: Thierry Escande <thierry.escande@vates.tech>,
+	<xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich
+	<jbeulich@suse.com>
+References: <20260319165047.900047-1-thierry.escande@vates.tech>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a8e3b6fe-d1cc-44d5-b286-b59b65e25320@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20260319165047.900047-1-thierry.escande@vates.tech>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C618E:EE_|BN7PPFA42F4F89B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 824617ab-4b5f-4741-c2c4-08de868995d7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700016|56012099003|22082099003|18002099003|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	A05FuuB0OhPvkdFA2T0FhzTAKUSbFoB8bMXeOr8Rjdz+d1W21vmviQlEVgONSnO3jv3LqopZYTCLdtBuOoc7GNUAsyWrKZypiFMFF8f7Jylu7mbqyFVtavdMm17dhnTtCNaqriztJnbdeQN07GOZZ03WWTwmhoIwto8nOFg7DHntTVecZEGHdHMzjGQaB5LO+M/Gq3AYD+7zRAA5knvueNABHadJxsiJyKcfZKkyqXgQFIs7eBsRLptfyqvRnEs5rJQAupncOgDF1HGjt20FWFfSK2oUZKruwGwqOxHKgVa+rt/IjhWDGgG09AnljWmHW86r49136e2QjVfdxZBQQmnlb2OsoSClbpuptIaKq0RBdusiWeZPaqivui9HPT19NTVsrVGJOO8OrWbw7NVXAcMGxhvBIJQ+PSK11ZWN368+D97Nz2IYgMX2fK4t9lQKtGVb4CAkSQiFeZwdHSosjavjL/8w3t9uMnrznzfJ40b+7Qv/MroUAG9k3+2IGjdomRd5PT/yeUVPpzvPfJU1I33JuM5oARPWSLC3S5NFLPwPIQ13kh2G/EhNiy+ZV898rhOPCgP7MMMp1JpIrnt6pFHWrItnpxXIBWnXbjknzk118e61bQvVNJHVjhh7ZyIz799/moUfehjzQTsQyAnk0KXNddzFXong9sIVRS1Pn+VySuGeZ7sZssnoNkcXnDBKnF/mrRzXKHehifU6WvPiPVV1tuH3vbA7E6jJGlNBZq/1fQL5qVj6qqenLS/WvfG2Bd4ePFRDEL5dF3iHVltr/A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(56012099003)(22082099003)(18002099003)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gXgb13u9+yfTlT8yr2ExMaS76QMWWi8yGUIvoHhdvvBI6+i5PhsIKxPV6C2KuEg2oGhE215hPiOdrlzhYTjoHrUSHrkQtt2knKNJhv3lUvaCXCEGsbyYmjPRnVour8uaXl5H4AbGqpVRHjZCG0UDXtln+S/SRJRdAtK8P5seVfCNo7px/3CBhgyNvX2YbqH/1J8nemEMUFJjYS8I8X0yBa9nuAcNg2t1mY0knMX6wo/vZAuWakoFn7tu3hXOvgEG7s8iS/JK+07cCFZJYTXYYORrogvMyChTml4nXj9np72Z7l8mzjPy0acNXTQ5r7SI1UgEHFeJznaHxvX3FsvY1tkDQm007XkoC+p4VbERwuXvRkTGiVfDFHB4lL8rfXZAmXjdSTMX1eD+BKRKy/9UfIGL5xwsZuG6zTX505a7qeqOjUvMdWrkFRUa7mcz/xti
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 14:04:21.4424
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 824617ab-4b5f-4741-c2c4-08de868995d7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C618E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFA42F4F89B
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.999];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jbeulich@suse.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:email,amd.com:mid,install.sh:url];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: A2F992DADD1
+	RCVD_COUNT_SEVEN(0.00)[11]
+X-Rspamd-Queue-Id: 1F19A2DB8DE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 20.03.2026 10:58, Oleksii Kurochko wrote:
-> On 3/19/26 8:58 AM, Jan Beulich wrote:
->> On 17.03.2026 13:49, Oleksii Kurochko wrote:
->>> On 2/13/26 2:11 PM, Jan Beulich wrote:
->>>>>>> +#define GUEST_RAM0_BASE   xen_mk_ullong(0x80000000) /* 2GB of low RAM @ 2GB */
->>>>>>> +#define GUEST_RAM0_SIZE   xen_mk_ullong(0x80000000)
->>>>>>> +
->>>>>>> +#define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE }
->>>>>>> +#define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE }
->>> (cut)
->>>
->>>> If all you want are 2Gb guests, why would such guests be 64-bit? And with
->>>> (iirc) RV32 permitting more than 4Gb (via PPN being 22 bits wide), perhaps
->>>> even a 32-bit hypervisor would suffice?
->>> Btw, shouldn't we look at VPN width?
->>>
->>> My understanding is that we should take GUEST_RAM0_BASE as sgfn address
->>> and then map it to mfn's page (allocated by alloc_domheap_pages())? And then
->>> repeat this process until we won't map GUEST_RAM0_SIZE.
->>>
->>> In this case for RV32 VPN (which is GFN in the current context) is 32-bit
->>> wide as RV32 supports only Sv32, what is 2^32 - 1, what is almost 4gb.
->> ??? (IOW - I fear I'm confused enough by the question that I don't know how
->> to respond.)
+On 2026-03-19 12:50, Thierry Escande wrote:
+> In various distros (i.e. Debian), /lib is a symbolic link. The tar
+> command in install.sh replaces the /lib symlink with a directory and
+> results in a non-functioning system. This has been introduced by the
+> installation of the systemd watchdog sleep script in /lib/systemd.
 > 
-> You mentioned above that:
->    "... And with (iirc) RV32 permitting more than 4Gb (via PPN being 22 bits wide) ..."
+> This patch adds the tar option --dereference (-h for short) to preserve
+> symlinks when extracting the dist archive.
 > 
-> I wanted to clarify why you use PPN here in the context of GUEST_RAM0_BASE definition.
-> (and maybe I just misinterpreted incorrectly your original message)
-> GUEST_RAM0_BASE is the address at which the guest believes RAM starts in its physical
-> address space, i.e. it is a GPA, which is then translated to an MPA.
-> 
->  From the MMU's perspective, the GPA looks like:
->    VPN[1] | VPN[0] | page_offset   (in Sv32x4 mode)
-> 
-> In Sv32x4, the GPA is 34 bits wide (or 22 bits wide in terms of GFNs), and the MPA is
-> also 32 bits wide (or 22 bits wide in terms of PPN).
+> Fixes: e54a6cd6a1f3 ("systemd: Add hooks to stop/start xen-watchdog on suspend/resume")
+> Signed-off-by: Thierry Escande <thierry.escande@vates.tech>
 
-You mentioning Sv32x4 may point at part of the problem: For the guest physical
-memory layout (and hence size), paging and hence virtual addresses don't matter
-at all. What matters is what the guest can put in the page table entries it
-writes. Addresses there are represented as PPNs, aren't they? Hence my use of
-that acronym.
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+Tested-by: Jason Andryuk <jason.andryuk@amd.com>
 
-> The distinction is not significant in Sv32x4, since PPN width equals VPN width, but
-> in other modes VPN < PPN (in terms of bit width).
-> So when we want to run a guest in Sv39x4 mode and want to give the guest the full
-> Sv39x4 address space, setting GUEST_RAM0_SIZE to the maximum possible value for
-> Sv39x4, shouldn't we look at the VPN width rather than the PPN width?
-
-No, why? The guest can arrange to map more than 2^39 bytes. Not all at the same
-time, sure, but by suitable switching page tables (or merely entries) around.
-
-Jan
-
-> In other words, GUEST_RAM0_SIZE should be (2^41 - 1) rather than (2^56 - 1)
-> for Sv39x4.
-> 
-> ~ Oleksii
-> 
-
+Thanks,
+Jason
 
