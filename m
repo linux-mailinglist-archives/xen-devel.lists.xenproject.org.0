@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0JqXAsJivWlh9gIAu9opvQ
+	id 2Ou9FJNjvWlF9gIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 16:07:46 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 16:11:15 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF18E2DC53F
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 16:07:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1258165.1552341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F26FE2DC633
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 16:11:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1258206.1552359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3bRo-0006Yt-By; Fri, 20 Mar 2026 15:07:36 +0000
+	id 1w3bV9-0000jH-5U; Fri, 20 Mar 2026 15:11:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1258165.1552341; Fri, 20 Mar 2026 15:07:36 +0000
+Received: by outflank-mailman (output) from mailman id 1258206.1552359; Fri, 20 Mar 2026 15:11:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3bRo-0006Wp-8C; Fri, 20 Mar 2026 15:07:36 +0000
-Received: by outflank-mailman (input) for mailman id 1258165;
- Fri, 20 Mar 2026 15:07:34 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1w3bV9-0000hq-1D; Fri, 20 Mar 2026 15:11:03 +0000
+Received: by outflank-mailman (input) for mailman id 1258206;
+ Fri, 20 Mar 2026 15:11:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=IyP1=BU=linaro.org=jens.wiklander@srs-se1.protection.inumbo.net>)
- id 1w3bMz-0001Ve-M2
- for xen-devel@lists.xenproject.org; Fri, 20 Mar 2026 15:02:37 +0000
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
- [209.85.160.43]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d47e7b0d-246d-11f1-b164-2bf370ae4941;
- Fri, 20 Mar 2026 16:02:36 +0100 (CET)
-Received: by mail-oa1-f43.google.com with SMTP id
- 586e51a60fabf-4094b31a037so1482211fac.1
- for <xen-devel@lists.xenproject.org>; Fri, 20 Mar 2026 08:02:36 -0700 (PDT)
+ id 1w3bV7-0000hk-OF
+ for xen-devel@lists.xenproject.org; Fri, 20 Mar 2026 15:11:01 +0000
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
+ [209.85.160.54]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 001dbd4d-246f-11f1-9ccf-f158ae23cfc8;
+ Fri, 20 Mar 2026 16:10:59 +0100 (CET)
+Received: by mail-oa1-f54.google.com with SMTP id
+ 586e51a60fabf-40ea611d1a4so326718fac.2
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Mar 2026 08:10:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,71 +44,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d47e7b0d-246d-11f1-b164-2bf370ae4941
-ARC-Seal: i=1; a=rsa-sha256; t=1774018955; cv=none;
+X-Inumbo-ID: 001dbd4d-246f-11f1-9ccf-f158ae23cfc8
+ARC-Seal: i=1; a=rsa-sha256; t=1774019458; cv=none;
         d=google.com; s=arc-20240605;
-        b=ZyyhOrXVXff4riATGoZMjnlTiENcMPt21IwX9FKv2R+CpEGCmiaIXPfWA2IDK8iwLC
-         W1B6VXgi1n/QYPMyk4IT769tCheNhaqSwCaAI3b/NOeXU8gk4cFhQCKFu7bgr0ssd/Xh
-         Bw6vh8PltTm5GOrDObOfua+ul3GVZmyBX8FnuTfRxjMoWPnVT2yfBer2A0Wdfz5G/6Y6
-         xHL0m3FiiStOpx3uBJTflQTd8DeV14JRdgGoJVG8+VbTxvu2W1upE2CCBIX/uz+NP2c+
-         a/eQqVmKvA+MnbSDAuaKAyug+6P74I1hUGd0i/h2+elzZA5SHmdaDuW8vkks2i1R07H9
-         IsLQ==
+        b=hrjL0uk4VUkRC2Wef0bAa+cIKD28zViD5+p5FXvxDkMCCMoP9JtiXVyvORdAOC9XkB
+         f0LhRpbY9r0gkG+zMioqHxwSdNHluGLkKnUq8IT3+PEBOBc9S3lkAS82hy7tB/4yE9QN
+         lArA1SPkp73P1m+J/uMSup7gVvJoVAPAh72KrCS5vUa9BoFEap1iUPQMDnJeS5gIYTto
+         rbCFO374l5wNBhNR1cSjEF2mpuYpUuV+T04KFJPzBAao5uiY8O2Sd8nqN+pWdf+QqOUy
+         nuq0L5c4H7XC9hig+WLdcUaywFs2JxCe64kiLtNINgSl6dMfu2nV9IYrFiWD/DByoGnC
+         AAag==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=5UaDWyjtfSyl77XXz0U7ShmHX+gyfVpxi6SPVf+gsF0=;
+        bh=ZGaoT6ic99GsF4u+JNCzJoc3s5ODFyKGLwhSZj48pv4=;
         fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
-        b=lr5E+h6WDTXGZHwEYaBgxwLMoUCnNsVHoET1my2txLkIDv+5j2re7jtp2Q4mnl8RJH
-         NixlzOya6ISgF+AKKMvjCxKAZA3vINmoPmMeoayK43VuPCoYXa+pvRrz0p62BC2wfjsw
-         6usMtfPzkUBQCCVqDd86pmyurbCLHpNviUrAeWeaQYF3DkOhlHxoYSSdQX1wip2hJvAY
-         sRN8jjQIyoegDjstIHEvS2JTLrxbHNTVrd7TejROef8j993+9/qWeEH53IGuW3e5Pq5f
-         1e0PVR52LZ9XqVbF7fe+Wmxkttk5Yd7xPxJLGNcZA/4aPYSpuQPZRJx5kaHGRNY/7jeh
-         yR+w==;
+        b=dzcHcf9bJk1BnWq1hTwDYbObAYgWeDiAEGuRPDcVkwi1jSyRV7JJkegAh5HlkWYDYI
+         VzQ3BADRbb8eGMg/+rpD6myMOtxfMU9qdmmtGDAGCdu7dWHE72RcMVpWzYA35+YxafEx
+         5Z6LYqHcUzNooLKwFwH4NFziy013GPYkZAN17NfcAS/ONvhxGKddaky3uMsKNjfFCbt7
+         UGxqztovXxGiQ/frAUgnRYJwUa5VmfjVgnAjwHoXnzHLtMYQv34xbp3L93Y3nc67iA8B
+         Zto2yI9XcGCWv0vn+F90GXjhz5qEiC+Yudt5UqQkSVOpliA39gVYtsm8FHBgdzZGsxyA
+         Z2yQ==;
         darn=lists.xenproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1774018955; x=1774623755; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1774019458; x=1774624258; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5UaDWyjtfSyl77XXz0U7ShmHX+gyfVpxi6SPVf+gsF0=;
-        b=Mq5cgfZaXafcUH3PKwUs+q2MFgJS2FN/YW01dqTFL7TjZcKOanajWB3VA2APnFnoP9
-         Y1xlajCwpbietzHoPhBf9Ty8wfbd7IFdhKlJ+3m6t8ejt4YnJMyLJ4wVrCHDmY/WVJn7
-         rP8L0e6LHjKTG0HxSY27z90T/YO/tFARbna9Eozne/ArQP4RvIU3OtUzZpgVwKHFsmX5
-         Re9/AKru/ecCbsLlvFpzob35DZdIzmbY2GpMdQ6hnkSxq4LoasLDkIiEgySOjXCOtHJF
-         NWpaZbkxjb3j9aE+zJERn9W420WUWTlhUnsG85GtzcV6909LM3VUJhyVV4Wz9pwJiUda
-         am9w==
+        bh=ZGaoT6ic99GsF4u+JNCzJoc3s5ODFyKGLwhSZj48pv4=;
+        b=jE2jelymMD2Y7V0HYnTiy75nSqmCGdODP1QpK47D+Y7nBInbbp2ZeWlgfvcFkr3g6Z
+         4l48TPGaHOfvaH/Q9FdMoba3BjQxl44IOvUzJQNla9vWphpkqKNZzKO/gX6LEF7w6vMH
+         OcDHA7PSRvnQeHjQMAQWe+RJuNzTDd3+Hpp3ihFxeN5lLNumNk2D3P7tpmbP2KrJi8tQ
+         f/ZF/ih3UQMWP8J1VrQmOeTVqIjdFUIF4M17XYTB85OM4foHaENxwQBCyeZ7GPm9uHs5
+         JPJlk+w3E9XCHGt3zInE0gh3Rk1Oc8E9QegjbZ7tNnS/e4wJD5GRjkNwEl3UOk/mVskb
+         CYIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774018955; x=1774623755;
+        d=1e100.net; s=20251104; t=1774019458; x=1774624258;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=5UaDWyjtfSyl77XXz0U7ShmHX+gyfVpxi6SPVf+gsF0=;
-        b=DdF+i4L+glf3NIXYh4BsNhlafE9Vfnvn5cPwn56FjlEsrYLHD1JmTCmahlHZrUluSd
-         TUGWWy52t4HFA/BM/CFdu/vRW4bAQARqVpcdR5qjQ7KrlGlzo9Bv9nBz6orSI+FEtlE+
-         kdnWWqbiXk42TLwXmIYPWzYweUiJtCSOat0eBCu8TT5gPAhxfmjuUtZW8Zh1guRYAk2y
-         Pi2UO8h/4GqIbGpjw1Tel2/olj7QjaJ13tImL2PwpGZvehvz72TD4kTAdgiLeHmMbcCs
-         1j+ZMVdl00JNiVcORX20IRB9PtP8zxvOb4idLPIis5Pjjxw7O7Y4uw+YhXjJnnTtffxv
-         s5GQ==
-X-Gm-Message-State: AOJu0YxbPVUcAFVy9dUX6RIv1qkNrDSkv3TeF+YshNwrPkpM8tNIYJte
-	ET7IOvFegNah64Wwf5784FsRwwW2zspFVijmz6HE+lNI2MGGZa9sZV1P05AhDU+9lReZ0jqav8v
-	YUlKOPseRdM61au8X029ZK9gCWxV+eC2pZR1CdBOT3Fsr77D4q5pZ7eLG5A==
-X-Gm-Gg: ATEYQzxPmjYLqhZgtKj289r1XEUopA7KR5b8Tro37JKJzAoD7DvsuWTVyWYXQ4t/ym2
-	EMbLwI6Cl8WjPyM+GouScpCAkrD1MtE/9lvx+5s/PF73XwIyn4KpUSBuIkaqcU7Q5f8GzkBR1JW
-	aYSdu2ubexO5p6j/a/TROR9hPusKwbbzlQq8TLDiYW1n10xIe71AuGK0uIYF1zy9obvUCTicgra
-	wKZvpw/McBr3In4tv8iAoDpoJi8N5wZHdXvAahrJ71shV71kH2QG342a5jPVhcdH52d/gcMpk4O
-	HrtmPpU5EZ3/Jh1rUTvpjrs+O+A16srabqUICQ==
-X-Received: by 2002:a05:6871:529a:b0:416:543c:9180 with SMTP id
- 586e51a60fabf-41c1146aca3mr1918897fac.50.1774018954782; Fri, 20 Mar 2026
- 08:02:34 -0700 (PDT)
+        bh=ZGaoT6ic99GsF4u+JNCzJoc3s5ODFyKGLwhSZj48pv4=;
+        b=NU45AP1OCFZXINqYDx3q1tXsnjRs5YTYHREm4FM0KTJ17wXXi3+qJkH/PfAHTqbK7u
+         OQ8m8uuvdECQx8VSo/T5y8K6ev3ZNX9dBgdHnCZNYh6WOZK2ZGkGZexgMj4fFyU7SC6d
+         +k+JvheWRb3rb5b0QPh8jRY/R1uTBsqZ4glqIfcoB1Zuy9i8mipmz3eWlSRckif5eT/b
+         2IRv9pkZ7gqxGeJKY3yR4a1Qy+SUsuUqXkOZ4sDdBVGwohNxun9mPRPGOpR4OMp+fttH
+         psORlO3pHOE/hBlqT5UEo1cbWP7DecvOLo4NVw9wfRBCY/YgxPYFj6c951ZxPgWviDGN
+         VLzA==
+X-Gm-Message-State: AOJu0YwPSJagQo8CJL4SYKCjKmvhg1gtQP0jiGRp1tPsVStIZ6rODwyg
+	xhfAeE8giCMS0PLHlr2awfRYsXZ8l2dc3MofPca16CYa8ZU70vTDIKmTA/F4WqmrQiqu3iwT+0Q
+	KfLmwcRZ2Q4yKh2a/qLrcSFvqoostU0krlGrE3+VAwA==
+X-Gm-Gg: ATEYQzzWu2EYzjV/WSxB4z7uh82znE39fpxtlgWvDy8J2jLNsRWt2wjnp4LUFzXvAr6
+	SDGm4DfwmzElTPgYDt3A5/WKrxQ8LnqNn5hWXxd8IUzpXktB2jkrox2QU67ggJVYTSmfmJ6SFvS
+	iTQXmFhsR+FeSok6XbIEK4s4XSvI8Br5qcewGAUF7Cj0TqCNTz5qUAUxGHbDpJ1YwFnBCAvLxWg
+	b4j9U3rF36Kw5PpiwcGjHa5KoAx7ZUA5pywXTwajZXRvXMpyvUGwHygkMwheWUHfaus2ea/QG/V
+	eB4pogGvzoEMLmslDZj9DPu8Scq+XUK4znvsQw==
+X-Received: by 2002:a05:6870:63ab:b0:417:6224:5855 with SMTP id
+ 586e51a60fabf-41c10c6ccaemr2074122fac.0.1774019457988; Fri, 20 Mar 2026
+ 08:10:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1773911799.git.bertrand.marquis@arm.com> <030d24e1776af7c2391c588bc696592a64a92c51.1773911799.git.bertrand.marquis@arm.com>
-In-Reply-To: <030d24e1776af7c2391c588bc696592a64a92c51.1773911799.git.bertrand.marquis@arm.com>
+References: <cover.1773911799.git.bertrand.marquis@arm.com> <0050ab559814a619b4ae23dd070e7aa4629865e2.1773911799.git.bertrand.marquis@arm.com>
+In-Reply-To: <0050ab559814a619b4ae23dd070e7aa4629865e2.1773911799.git.bertrand.marquis@arm.com>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Fri, 20 Mar 2026 16:02:23 +0100
-X-Gm-Features: AaiRm53ARa9Luu99yDzrIbj2IoLI11hjxXaZ0urSQ1XVJmbKlTftr6CwucdTTAo
-Message-ID: <CAHUa44Geu4ch=xo21w_bOJLM6GLVUn_xU6BiKhks=MLxyWoP2w@mail.gmail.com>
-Subject: Re: [PATCH 1/2] xen/arm: ffa: Fix local ffa_vm_count shadowing
+Date: Fri, 20 Mar 2026 16:10:45 +0100
+X-Gm-Features: AaiRm503kw4TRRLMqY0L2_uIEtBzREIoAAXo_6ZShucMyru2vptPC5CkoIKaCtI
+Message-ID: <CAHUa44GHBNfPTn91L_9K=QVMCy3MAaoQWBHGU9rxzrs818-b6g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] xen/arm: optee: Add MISRA-compliant switch default labels
 To: Bertrand Marquis <bertrand.marquis@arm.com>
 Cc: xen-devel@lists.xenproject.org, 
 	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
@@ -125,7 +125,7 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,linaro.org:dkim,linaro.org:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:dkim,linaro.org:email,arm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid];
 	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -145,29 +145,34 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: AF18E2DC53F
+X-Rspamd-Queue-Id: F26FE2DC633
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
+
+Hi Bertrand,
 
 On Fri, Mar 20, 2026 at 10:07=E2=80=AFAM Bertrand Marquis
 <bertrand.marquis@arm.com> wrote:
 >
-> ffa_handle_partition_info_get() declares a local variable named
-> ffa_vm_count, which hides the global atomic ffa_vm_count declared in
-> ffa_private.h.
+> optee.c has several switch statements over integer-valued OP-TEE fields
+> without a default label, and two default clauses that only contain
+> break. This triggers MISRA C Rule 16.4 findings.
 >
-> This triggered the ECLAIR Rule 5.3 finding "non-compliant local variable
-> `ffa_vm_count'".
->
-> Rename the local counters to vm_count and sp_count and update their
-> uses.
+> Add explicit default labels to all reported switches and document the
+> intentional no-op defaults with rationale comments. The new default
+> paths preserve the existing behavior:
+> - unsupported parameter attribute types are ignored;
+> - non-handled RPC commands require no post-processing in Xen;
+> - unknown RPC function IDs are resumed unchanged.
 >
 > No functional changes.
 >
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
->  xen/arch/arm/tee/ffa_partinfo.c | 14 +++++++-------
->  1 file changed, 7 insertions(+), 7 deletions(-)
+>  xen/arch/arm/tee/optee.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+
+Looks good.
 
 Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
