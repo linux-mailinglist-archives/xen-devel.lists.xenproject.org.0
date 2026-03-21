@@ -2,42 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mNF3I+ZuvWnL9gIAu9opvQ
+	id gPuJGKJ0vmmZQAMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 16:59:34 +0100
+	for <lists+xen-devel@lfdr.de>; Sat, 21 Mar 2026 11:36:18 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2FC92DCFC9
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Mar 2026 16:59:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1258254.1552402 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE4992E4C49
+	for <lists+xen-devel@lfdr.de>; Sat, 21 Mar 2026 11:36:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1258611.1552410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3cFB-0000xf-8t; Fri, 20 Mar 2026 15:58:37 +0000
+	id 1w3tff-0000WW-KH; Sat, 21 Mar 2026 10:35:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1258254.1552402; Fri, 20 Mar 2026 15:58:37 +0000
+Received: by outflank-mailman (output) from mailman id 1258611.1552410; Sat, 21 Mar 2026 10:35:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w3cFB-0000vV-5p; Fri, 20 Mar 2026 15:58:37 +0000
-Received: by outflank-mailman (input) for mailman id 1258254;
- Fri, 20 Mar 2026 15:58:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w3tff-0000Tx-Ct; Sat, 21 Mar 2026 10:35:07 +0000
+Received: by outflank-mailman (input) for mailman id 1258611;
+ Sat, 21 Mar 2026 10:35:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=8gqn=BU=kernel.org=rafael@srs-se1.protection.inumbo.net>)
- id 1w3cFA-0000vP-4q
- for xen-devel@lists.xenproject.org; Fri, 20 Mar 2026 15:58:36 +0000
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a4eeaa3d-2475-11f1-9ccf-f158ae23cfc8;
- Fri, 20 Mar 2026 16:58:33 +0100 (CET)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6156F43A1F
- for <xen-devel@lists.xenproject.org>; Fri, 20 Mar 2026 15:58:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E3E9C2BCB1
- for <xen-devel@lists.xenproject.org>; Fri, 20 Mar 2026 15:58:31 +0000 (UTC)
-Received: by mail-oi1-f169.google.com with SMTP id
- 5614622812f47-4645dde00a7so2668946b6e.1
- for <xen-devel@lists.xenproject.org>; Fri, 20 Mar 2026 08:58:31 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1w3tfd-0000To-Qq
+ for xen-devel@lists.xenproject.org; Sat, 21 Mar 2026 10:35:05 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1w3tfc-002AZW-2i;
+ Sat, 21 Mar 2026 10:35:04 +0000
+Received: from [2a02:8012:3a1:0:46:5a6f:bd3e:6c81]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1w3tfc-005B2F-1o;
+ Sat, 21 Mar 2026 10:35:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,189 +44,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4eeaa3d-2475-11f1-9ccf-f158ae23cfc8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774022311;
-	bh=5OVfAAKYK3pCoLiGVQAI4LiOth4ynX3Xbge5VJYkavc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=pl16mdaQ5+COvdD9bX5ZRystAoUG0uE2dY3Yvx/WMuBeNO8FE3lhKUIpOLQg17eGT
-	 0FhgrAVDhlH9C1iGGYtI3u+/XlktPJzKMcGFmHHp8+mQDNiY6rF0ztNzJijj3vq8oz
-	 gcGClnbQENyd5qhJdBGbF3h3Zc1ZGp9PFi4NGz8wvyodWXjcf2nK+eoVCNbBtlkRWZ
-	 TZACQxSFIr1KUyJi2Zg8TYtLAnIqjPEgRkNkZ5lAstrP+LSGDP85SJLPZzEYMWEzbT
-	 NE2qZUwQ3n20WaxKqnvQ7HzD401uSj8kc+q67u3Ngz+2UdaCD3Uvkpk1ncw5vWPpG1
-	 t0APO6MNg/N0Q==
-X-Forwarded-Encrypted: i=1; AJvYcCV5cSl3+mz461WjsRi0Fkkno/NLRGNuh/m8raJWFbKtczhFxbDodDa7rsYhU3O70fStA23y9GyxJJc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzvHUsnaMEzKOxZOYeLibTo+Hh+Q+AzUDooBMYqYjler3U25yU+
-	8a+EojdTFC2AjeOVnqFCPPhMjaXZBpvSfE3Ka8SWiu7ZUjG97qwkvApQWH2YWOn0Rl3l34MFimt
-	hjD6niDoaEhg8NprW+biz3elM4BNvquQ=
-X-Received: by 2002:a05:6808:4fe4:b0:467:cd8:7f5e with SMTP id
- 5614622812f47-467cd556a0dmr4624044b6e.4.1774022310328; Fri, 20 Mar 2026
- 08:58:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=jUpMezpGODoFu+Hi3WjVWW5R4Eqn42nXq8qQmVCK5Kw=; b=NouUXY45Rx0bB4Qll9ZPSn93cj
+	LX7FLd1WXZ7kuJaw6J4j+2onA0r7o2cDFoFljqMPaV21BnyjyHBi4j7luUNVnzU5Wpy21Ccz0ILT3
+	ABraHDVTnlIfwq3L3pokr0kgFaW20N2AAPHxt+ww4dI3vq5KZRKpkXmxeAPAQGfP1HPY=;
+Message-ID: <91968fdb-e0fb-43aa-9f8c-994ed733de6e@xen.org>
+Date: Sat, 21 Mar 2026 10:34:59 +0000
 MIME-Version: 1.0
-References: <8683270.T7Z3S40VBb@rafael.j.wysocki>
-In-Reply-To: <8683270.T7Z3S40VBb@rafael.j.wysocki>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Fri, 20 Mar 2026 16:58:18 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0gt72nhueFkpP1Hp9PNNbnQ6cmskq_sxEbdgzxy-ZWqjg@mail.gmail.com>
-X-Gm-Features: AaiRm53OWzJ_LsLSl2Q21Pi0otYOG2pKuGSzCAUkrh5-7mMws8P_z_zFxxlNZcA
-Message-ID: <CAJZ5v0gt72nhueFkpP1Hp9PNNbnQ6cmskq_sxEbdgzxy-ZWqjg@mail.gmail.com>
-Subject: Re: [PATCH v1] ACPI: PAD: xen: Convert to a platform driver
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>, xen-devel@lists.xenproject.org, 
-	LKML <linux-kernel@vger.kernel.org>, Juergen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] xen/arm: vpsci: ignore upper 32 bits for SMC32 PSCI
+ arguments
+Content-Language: en-GB
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Mykola Kvach <xakep.amatop@gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Mykola Kvach <mykola_kvach@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <3a3180b0f77d815e92c0c232a8f854d34ab7c2ea.1773860069.git.mykola_kvach@epam.com>
+ <F2AB3928-C65E-43DC-80F0-1F2F4DDC8037@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <F2AB3928-C65E-43DC-80F0-1F2F4DDC8037@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [0.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_ALLOW(-0.20)[xen.org:s=20200302mail];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,intel.com:email];
-	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xen.org:dkim,xen.org:email,xen.org:mid,patchew.org:url,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:rafael@kernel.org,m:linux-acpi@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[rafael@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xakepamatop@gmail.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	DMARC_NA(0.00)[xen.org];
 	ARC_NA(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	FREEMAIL_TO(0.00)[arm.com,gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[xen.org:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[rafael@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	RCPT_COUNT_SEVEN(0.00)[7];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: E2FC92DCFC9
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: AE4992E4C49
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Sat, Mar 14, 2026 at 12:57=E2=80=AFPM Rafael J. Wysocki <rafael@kernel.o=
-rg> wrote:
->
-> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
->
-> In all cases in which a struct acpi_driver is used for binding a driver
-> to an ACPI device object, a corresponding platform device is created by
-> the ACPI core and that device is regarded as a proper representation of
-> underlying hardware.  Accordingly, a struct platform_driver should be
-> used by driver code to bind to that device.  There are multiple reasons
-> why drivers should not bind directly to ACPI device objects [1].
->
-> Overall, it is better to bind drivers to platform devices than to their
-> ACPI companions, so convert the Xen ACPI processor aggregator device
-> (PAD) driver to a platform one.
->
-> While this is not expected to alter functionality, it changes sysfs
-> layout and so it will be visible to user space.
->
-> Link: https://lore.kernel.org/all/2396510.ElGaqSPkdT@rafael.j.wysocki/ [1=
-]
-> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Hi Bertrand,
 
-If there are any objections or concerns regarding this change, please
-let me know.
+On 19/03/2026 07:47, Bertrand Marquis wrote:
+> Hi Mykola,
+> 
+>> On 18 Mar 2026, at 19:56, Mykola Kvach <xakep.amatop@gmail.com> wrote:
+>>
+>> From: Mykola Kvach <mykola_kvach@epam.com>
+>>
+>> SMCCC DEN0028G, section 3.1, states that for AArch64 SMC/HVC calls
+>> using Wn, only the least significant 32 bits are significant and the
+>> upper 32 bits must be ignored by the implementation.
+>>
+>> So for SMC32 PSCI calls, Xen must not treat non-zero upper bits in the
+>> argument registers as an error. Instead, they should be discarded when
+>> decoding the arguments.
+>>
+>> Arm ARM DDI 0487J.a (D1-5406) also notes that the upper 32 bits may be
+>> implementation defined when entering from AArch32. Xen zeros them on
+>> entry, but that guarantee is only relevant for 32-bit domains.
+>>
+>> Update PSCI v0.2+ CPU_ON, CPU_SUSPEND and AFFINITY_INFO to read SMC32
+>> arguments via PSCI_ARG32(), while keeping the SMC64 handling unchanged.
+>>
+>> Suggested-by: Julien Grall <julien@xen.org>
+>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+>> ---
+>> Link to discussion: https://patchew.org/Xen/cover.1751020456.git.mykola._5Fkvach@epam.com/072270e0940b6bcc2743d56a336363f4719ba60a.1751020456.git.mykola._5Fkvach@epam.com/#7070f416-119c-49f8-acd0-82c6e31f0fc6@xen.org
+>> ---
+>> xen/arch/arm/vpsci.c | 15 +++++++++------
+>> 1 file changed, 9 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/vpsci.c b/xen/arch/arm/vpsci.c
+>> index 7ba9ccd94b..1e844ed571 100644
+>> --- a/xen/arch/arm/vpsci.c
+>> +++ b/xen/arch/arm/vpsci.c
+>> @@ -303,9 +303,10 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
+>>      case PSCI_0_2_FN32_CPU_ON:
+>>      case PSCI_0_2_FN64_CPU_ON:
+>>      {
+>> -        register_t vcpuid = PSCI_ARG(regs, 1);
+>> -        register_t epoint = PSCI_ARG(regs, 2);
+>> -        register_t cid = PSCI_ARG(regs, 3);
+>> +        bool smc32 = (fid == PSCI_0_2_FN32_CPU_ON);
+>> +        register_t vcpuid = smc32 ? PSCI_ARG32(regs, 1) : PSCI_ARG(regs, 1);
+>> +        register_t epoint = smc32 ? PSCI_ARG32(regs, 2) : PSCI_ARG(regs, 2);
+>> +        register_t cid = smc32 ? PSCI_ARG32(regs, 3) : PSCI_ARG(regs, 3);
+> 
+> It might be nicer to modify PSCI_ARG to take a convention argument instead of
+> redoing the same test everywhere, this would make the code nicer and ensure no PSCI_ARG
+> would have been forgotten.
 
-In the absence of any, I'll queue it up for 7.1.
+I would definitely agree with that. But...
 
-Thanks!
+> 
+> At the end all those conventions are coming from smccc so we could:
+> - use smccc_is_conv_64(fid) from smccc.h to get 32 vs 64
+> - use smccc_get_fn to get the function id without the convention and reduce the number of entries
+> in the switch
 
-> ---
->
-> Note that the original ACPI PAD driver has been a platform driver for
-> quite some time already.
->
-> ---
->  drivers/xen/xen-acpi-pad.c | 23 ++++++++++++-----------
->  1 file changed, 12 insertions(+), 11 deletions(-)
->
-> diff --git a/drivers/xen/xen-acpi-pad.c b/drivers/xen/xen-acpi-pad.c
-> index ede69a5278d3..75a39862c1df 100644
-> --- a/drivers/xen/xen-acpi-pad.c
-> +++ b/drivers/xen/xen-acpi-pad.c
-> @@ -11,6 +11,7 @@
->  #include <linux/kernel.h>
->  #include <linux/types.h>
->  #include <linux/acpi.h>
-> +#include <linux/platform_device.h>
->  #include <xen/xen.h>
->  #include <xen/interface/version.h>
->  #include <xen/xen-ops.h>
-> @@ -107,8 +108,9 @@ static void acpi_pad_notify(acpi_handle handle, u32 e=
-vent,
->         }
->  }
->
-> -static int acpi_pad_add(struct acpi_device *device)
-> +static int acpi_pad_probe(struct platform_device *pdev)
->  {
-> +       struct acpi_device *device =3D ACPI_COMPANION(&pdev->dev);
->         acpi_status status;
->
->         strcpy(acpi_device_name(device), ACPI_PROCESSOR_AGGREGATOR_DEVICE=
-_NAME);
-> @@ -122,13 +124,13 @@ static int acpi_pad_add(struct acpi_device *device)
->         return 0;
->  }
->
-> -static void acpi_pad_remove(struct acpi_device *device)
-> +static void acpi_pad_remove(struct platform_device *pdev)
->  {
->         mutex_lock(&xen_cpu_lock);
->         xen_acpi_pad_idle_cpus(0);
->         mutex_unlock(&xen_cpu_lock);
->
-> -       acpi_remove_notify_handler(device->handle,
-> +       acpi_remove_notify_handler(ACPI_HANDLE(&pdev->dev),
->                 ACPI_DEVICE_NOTIFY, acpi_pad_notify);
->  }
->
-> @@ -137,13 +139,12 @@ static const struct acpi_device_id pad_device_ids[]=
- =3D {
->         {"", 0},
->  };
->
-> -static struct acpi_driver acpi_pad_driver =3D {
-> -       .name =3D "processor_aggregator",
-> -       .class =3D ACPI_PROCESSOR_AGGREGATOR_CLASS,
-> -       .ids =3D pad_device_ids,
-> -       .ops =3D {
-> -               .add =3D acpi_pad_add,
-> -               .remove =3D acpi_pad_remove,
-> +static struct platform_driver acpi_pad_driver =3D {
-> +       .probe =3D acpi_pad_probe,
-> +       .remove =3D acpi_pad_remove,
-> +       .driver =3D {
-> +               .name =3D "acpi_processor_aggregator",
-> +               .acpi_match_table =3D pad_device_ids,
->         },
->  };
->
-> @@ -157,6 +158,6 @@ static int __init xen_acpi_pad_init(void)
->         if (!xen_running_on_version_or_later(4, 2))
->                 return -ENODEV;
->
-> -       return acpi_bus_register_driver(&acpi_pad_driver);
-> +       return platform_driver_register(&acpi_pad_driver);
->  }
->  subsys_initcall(xen_acpi_pad_init);
-> --
-> 2.51.0
->
->
->
->
->
+I am not sure about this suggestion. Not all 32-bit call have a matching 
+64-bit call (e.g. PSCI_VERSION).
+
+Also, it seems that so far the function ID is always matching between 
+the two convention, it is unclear whether this is guaranteed.
+
+Cheers,
+
+-- 
+Julien Grall
+
 
