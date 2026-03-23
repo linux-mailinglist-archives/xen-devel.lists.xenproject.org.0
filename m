@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yJGXO1Q3wWm7RQQAu9opvQ
+	id YMRFO4w5wWm7RQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 13:51:33 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 14:01:00 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A10B52F23B2
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 13:51:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1259310.1552623 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AAE92F261C
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 14:00:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1259322.1552633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4ekF-0002am-5o; Mon, 23 Mar 2026 12:50:59 +0000
+	id 1w4etf-0004cv-2j; Mon, 23 Mar 2026 13:00:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1259310.1552623; Mon, 23 Mar 2026 12:50:59 +0000
+Received: by outflank-mailman (output) from mailman id 1259322.1552633; Mon, 23 Mar 2026 13:00:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4ekF-0002Yf-3C; Mon, 23 Mar 2026 12:50:59 +0000
-Received: by outflank-mailman (input) for mailman id 1259310;
- Mon, 23 Mar 2026 12:50:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w4ete-0004bD-VN; Mon, 23 Mar 2026 13:00:42 +0000
+Received: by outflank-mailman (input) for mailman id 1259322;
+ Mon, 23 Mar 2026 13:00:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OIpU=BX=bounce.vates.tech=bounce-md_30504962.69c1372d.v1-020fb4d42f844abfbc94953b73f98011@srs-se1.protection.inumbo.net>)
- id 1w4ekE-0002YZ-2T
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 12:50:58 +0000
+ <SRS0=/4j2=BX=bounce.vates.tech=bounce-md_30504962.69c13976.v1-cf35a5d89feb464f8c8ecfef9dd581a5@srs-se1.protection.inumbo.net>)
+ id 1w4etd-0004b7-GI
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 13:00:41 +0000
 Received: from mail180-47.suw31.mandrillapp.com
  (mail180-47.suw31.mandrillapp.com [198.2.180.47])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ee03a985-26b6-11f1-9ccf-f158ae23cfc8;
- Mon, 23 Mar 2026 13:50:55 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4aac4b7b-26b8-11f1-b166-2bf370ae4941;
+ Mon, 23 Mar 2026 14:00:40 +0100 (CET)
 Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
  by mail180-47.suw31.mandrillapp.com (Mailchimp) with ESMTP id
- 4ffY1n58DQzPm0hHP
- for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 12:50:53 +0000 (GMT)
+ 4ffYF25Jy8zPm0kGK
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 13:00:38 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 020fb4d42f844abfbc94953b73f98011; Mon, 23 Mar 2026 12:50:53 +0000
+ cf35a5d89feb464f8c8ecfef9dd581a5; Mon, 23 Mar 2026 13:00:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,46 +48,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ee03a985-26b6-11f1-9ccf-f158ae23cfc8
+X-Inumbo-ID: 4aac4b7b-26b8-11f1-b166-2bf370ae4941
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1774270253; x=1774540253;
-	bh=QV6Ov3N//XtKC760wpPNi7XKYh20alxA4UR8FMz7buo=;
+	s=mte1; t=1774270838; x=1774540838;
+	bh=Y0lQ7deiDHXJ97ld/mcVoxOualtAgacMfezryY/K2rg=;
 	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=ghVdtAW3be4ChHCa3/2FQ5TryVBdzNVH710YKrOSHiuPGpeANSyYCanap6k67uBIN
-	 BdUUCwWOHM0lWmiKePeEnGCcQcZMAivTKUGruTVaVbw+eTQCsoX1tTKHqCETtq2CWx
-	 WKHRTOoHR2M2lFKU24YvWgd5VAaluJjNYy4EMuqGSu5O7B0twtMbRayTT0bhV5YEbX
-	 CJKFpjvhtETrgbyyBTcoxA9uIonDmN9bJjqacLv2I8u0j7UKQr0fdbqdvZCe6orZm0
-	 +klrnR143UR67/tIor8Ofs5ktFXNbsWL8ydgQH8yU1Yj9X0dLz+X+Jw7ziH8Dp8qwI
-	 4mCHZaItUq1Rg==
+	b=VahbI6eEvddOKKbEhoxLW7o+KJG9ctA/XfnVuKbXXXjAa+BDaxvq3m5ugoLDS6UMa
+	 6iO36GE9mklxj2vZnlAvj4lNYgvSA8cYB0YUfmeomIYHzscQRX0X4sGk54ZfATh3S0
+	 B9Vo58lBAwVOvBkN4nsBtp6ARtK+B8ofudl9ZjTV+T1zidiZy1gkLYP2birnSz6iOg
+	 w86hvnRqPIWsz3PXrJqfbWIDi/yZWtI+ykXjxu3kcLGjRLULeOmJaZnAYUd8g81Ycl
+	 bAouOXNo/hdPPdKibmYUCH/kc6J+GpoFH/dg9MdB9/gXOgZhyYbCs/5ubrLsC0Cd3U
+	 /DyGs4Yxp87dw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1774270253; x=1774530753; i=anthony.perard@vates.tech;
-	bh=QV6Ov3N//XtKC760wpPNi7XKYh20alxA4UR8FMz7buo=;
+	t=1774270838; x=1774531338; i=anthony.perard@vates.tech;
+	bh=Y0lQ7deiDHXJ97ld/mcVoxOualtAgacMfezryY/K2rg=;
 	h=From:Subject:To:Cc:Message-Id:References:In-Reply-To:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=YYjcQNyJR8ikmOGOvGb+6PXF9lhLCKJYsi2/rEQXeYGGBzBsTD9w3LqjIX+k6/6ID
-	 +zs6UGHc3X63cNIn7m9Suw9m/OLycBGc19hMObEy7yvTaUT/xO7aFZ0LDYsWlT5dAW
-	 Q0hic4BBrZOJxTV9Y5o+GG1NA7jt2xaffIoWSknDbP7x63uRFWz4iww4Li5zUfu4eL
-	 HSYOGdd7lNfeS8jUzPsCTxznrMZnaSd7nJpTcZA5k54nC29VG0gja6VTjln2OPb90/
-	 EV3q1FUp6KrbxoHtpEi03THDoE3qkjDC1Jbzb4Rq+LxmuwWeMq3waJsSoZt9lmjdA9
-	 ys2rMzhJ6xcjw==
+	b=z/tk+E6geigTmC+AXlboU0ikIg6aZ4XSXzZOJjmTqpS5Cg5r9w4JkvyNtwt2jtWkH
+	 14iiJkyxxjndXpTFHQSxF6MwQL/ihKeSaYeXZ9jByGIwfJdutFW97qir+4wRxrboMt
+	 xTt6kyBEjYROY8ndyX6nGRlm1F1ILdS/oUG/jwiAhnnCPvEpPPAa4S5Aua8pPgQVF8
+	 Sj07tFheY1ENPjegl/0rBGYxa2IZIZ4R84/GchmOQ9Z6YEVyfMherBgQkju/0LPuhK
+	 JrcKBDyja6KDwOur5BBFoWceatlJjY224ljG5F6yDYd+amzAx4lYnr9yiSXYyEJn/N
+	 lvf9sLSPrkYsw==
 From: "Anthony PERARD" <anthony.perard@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=20v2=2005/12]=20tools/xenstored:=20add=20GLOBAL=5FQUOTA=5FDATA=20record=20for=20live=20update?=
+Subject: =?utf-8?Q?Re:=20[PATCH=20v2=2008/12]=20tools/xenstored:=20implement=20the=20GET/SET=5FQUOTA=20commands?=
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1774270253135
+X-Bm-Transport-Timestamp: 1774270833297
 To: "Juergen Gross" <jgross@suse.com>
 Cc: xen-devel@lists.xenproject.org, "Julien Grall" <julien@xen.org>
-Message-Id: <acE3LNSwDIowgGJm@l14>
-References: <20260320150120.874878-1-jgross@suse.com> <20260320150120.874878-6-jgross@suse.com>
-In-Reply-To: <20260320150120.874878-6-jgross@suse.com>
+Message-Id: <acE5cC3MAk1yz2nW@l14>
+References: <20260320150120.874878-1-jgross@suse.com> <20260320150120.874878-9-jgross@suse.com>
+In-Reply-To: <20260320150120.874878-9-jgross@suse.com>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.020fb4d42f844abfbc94953b73f98011?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.cf35a5d89feb464f8c8ecfef9dd581a5?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20260323:md
-Date: Mon, 23 Mar 2026 12:50:53 +0000
+Date: Mon, 23 Mar 2026 13:00:38 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
@@ -100,7 +100,7 @@ X-Spamd-Result: default: False [4.01 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,mandrillapp.com:dkim,vates.tech:dkim,vates.tech:email,vates.tech:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,vates.tech:dkim,vates.tech:email,vates.tech:url,mandrillapp.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
@@ -126,33 +126,19 @@ X-Spamd-Result: default: False [4.01 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: A10B52F23B2
+X-Rspamd-Queue-Id: 5AAE92F261C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Fri, Mar 20, 2026 at 04:01:13PM +0100, Juergen Gross wrote:
-> Communicate the global quota settings via the GLOBAL_QUOTA_DATA
-> record to the new Xenstore instance.
-> 
-> This avoids to lose global quota settings done via xenstore-control.
-> 
-> In theory it would be possible to drop any quota related command line
-> parameters in the live update case, but they don't do any harm, as
-> the record data is applied on top of the command line data.
-> 
-> For soft-quota just prepend "soft-" to the quota name.
-> 
-> Use sub-functions for building and analyzing the quota part of the
-> migration stream, as they will be reused for per-domain quotas.
+On Fri, Mar 20, 2026 at 04:01:16PM +0100, Juergen Gross wrote:
+> Add the implementation of the GET_QUOTA and SET_QUOTA wire commands.
 > 
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 > ---
 > V2:
-> - add macros for soft-quota name prefix and its length (Anthony Perard)
-> - don't allow disabled quota in parse_quota_name() (Anthony Perard)
-> - rename "len" to "rec_len" in dump_state_glb_quota() (Anthony Perard)
-> - rename build_quota_data() parameter "name" to "names_buf" (Anthony Perard)
-> - let get_quota_size() start with len 0 (Anthony Perard)
+> - refuse quota value Q_VAL_DISABLED (Anthony Perard)
+> - use talloc_strdup() (Anthony Perard)
+> - drop comments in domain.h (Anthony Perard)
 
 Reviewed-by: Anthony PERARD <anthony.perard@vates.tech>
 
