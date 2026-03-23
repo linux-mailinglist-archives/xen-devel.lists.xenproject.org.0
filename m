@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kAPBKAXEwWlTWQQAu9opvQ
+	id GEtNLAbEwWlUWQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 23:51:49 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 23:51:50 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54D2F2FE8E0
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 23:51:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1259647.1553057 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D1B22FE917
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 23:51:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1259651.1553069 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4o7O-00013G-GO; Mon, 23 Mar 2026 22:51:30 +0000
+	id 1w4o7R-0001Zf-Sf; Mon, 23 Mar 2026 22:51:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1259647.1553057; Mon, 23 Mar 2026 22:51:30 +0000
+Received: by outflank-mailman (output) from mailman id 1259651.1553069; Mon, 23 Mar 2026 22:51:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4o7O-0000zU-9J; Mon, 23 Mar 2026 22:51:30 +0000
-Received: by outflank-mailman (input) for mailman id 1259647;
- Mon, 23 Mar 2026 22:51:28 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <milan_djokic@epam.com>) id 1w4o7M-0000YY-Ia
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 22:51:28 +0000
-Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w4o7L-004fuD-Uz
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 23:51:27 +0100
-Received: from [10.42.69.12] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <milan_djokic@epam.com>)
- id 69c1c36c-bab6-0a2a0a5309dd-0a2a450cb8d6-42
- for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 23:51:27 +0100
-Received: from [52.101.65.107]
- (helo=DU2PR03CU002.outbound.protection.outlook.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <milan_djokic@epam.com>)
- id 69c1c3ef-f93d-0a2a450c0019-3465416b464b-3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 23:51:27 +0100
+	id 1w4o7R-0001VV-Lu; Mon, 23 Mar 2026 22:51:33 +0000
+Received: by outflank-mailman (input) for mailman id 1259651;
+ Mon, 23 Mar 2026 22:51:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=P8gh=BX=epam.com=milan_djokic@srs-se1.protection.inumbo.net>)
+ id 1w4o7Q-0001IP-8l
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 22:51:32 +0000
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazon11021140.outbound.protection.outlook.com
+ [40.107.130.140]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d42862d5-270a-11f1-9ccf-f158ae23cfc8;
+ Mon, 23 Mar 2026 23:51:29 +0100 (CET)
 Received: from VI1PR03MB5088.eurprd03.prod.outlook.com (2603:10a6:803:c2::20)
  by AS8PR03MB7653.eurprd03.prod.outlook.com (2603:10a6:20b:34b::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Mon, 23 Mar
- 2026 22:51:26 +0000
+ 2026 22:51:27 +0000
 Received: from VI1PR03MB5088.eurprd03.prod.outlook.com
  ([fe80::8471:b7dd:8a1c:c30]) by VI1PR03MB5088.eurprd03.prod.outlook.com
  ([fe80::8471:b7dd:8a1c:c30%6]) with mapi id 15.20.9723.022; Mon, 23 Mar 2026
- 22:51:26 +0000
+ 22:51:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,34 +51,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
+X-Inumbo-ID: d42862d5-270a-11f1-9ccf-f158ae23cfc8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PneSxAPmX9AC0TJOdHpLsxyACMSyqwaKRLxNiEKK6RLAm3x+82Q0kjor2yY87bhNdA+g/OPROD/cOV69vgycrFZ8jN9CCqTYZdaC4ffE62wPiyhGThGtQPT/Q9VkUn10GcPr2p8A7MBkKcu6RjP5mF78bNo8fE+SEPlDfYyQIict4Fy+sbot5bRvwgReC4vVD9U2Ff9f02yByRt+U10s1hyTak4nS6SSYYFW9gFd67IuFbV0aG2ZelIhbaJ3IyfG0CXrT3TnEJDmC+IgEYnZ2xRLluAXau4Zhw3bgYpKQZXKimDwn7/Inp93dnRzl6eaqO9pU2Yz2ViLIR4AyeogWg==
+ b=GZaHfpskWRsWCWvVOX2nOi+PPWYpwFkzMMpmxB27zeefKxF+WkkvcNjOgE8hkocMD2ibGF+kT2i92fP9zH7j6BplCQB2ANWII1X4LsfukjtQbImpZC9xsbOU84BDLdFJamZ2YMT4DPIJEY21+QWv80PmvY2OwPADT4D8XSDByU7rs2XcCEAQbfbKNF/1UuP5IWqrdYom4IZxv17zzpt4wEwiUYbchVq72dYJXb1d2JZv1TMzQtwPqeak2VdvmEmPh/uCXxEnTxwh5nVuJ/FmCAJobUT/xs6W0sna6Lbk8wsBli9n/J8CYZ2CnAvb3ZYu60Ognxqs6L4UOPGX2P2HuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r9jWrlUaHZapt3O5ynx/NVtTbPKS9eli1IbAE7tSe/A=;
- b=vx4XfO7+uz6x42n5+bA9PDGFMJcEiY2eRfNgNFjG2dqfYMUS9J83WWSoFBPYQwJCRp1u1FQx32uqZTd7A96r5LlDiUhBgcUrwVUoasxWIVX/ZCoKS5Gm1DJJProv40oPyF73lO8QTuq3FeEWPedBr4RN6qv653QYg8534eV+mpaqBmRkn/F1Bp04yfC2E/QVb2vN6TGVOoLXhGqD9nWk76dmy3IfO78dA7obXZISiREnwku56VqhbXWOIVePSztvDxFXY00SY05efaBWpS1iHMbMqVWCxDrR0OzUpKWuanNhF1rBGjPNDGfpbB0jHALs7vnNfw7+5f8Qr/1mtNG0Lg==
+ bh=0XZSO1UVrC8SXwDBQpjDCvjjP780VAbXtnJxzn+t7Pc=;
+ b=tOX+UijnQiLRHJ+kS1RgkQkzAov/ZyORQoDYdMzsgfTcQror3I4C84LQlLWDujn5QDwgg6iyGZq9o1/DoiX8l9G9S7aLASBR2uUSlxxP6NZQj/Zh6Z3Iwnk0S9SuccI23+pxp5Gbo48JHzvz+isvP1JFVL8EfaI9oqZohzOBaXXajKcoSqEvQvFAL71DBNh+AN4ZW2xj3hWV+E1PxPPB9C19k7BLJweqYmM/j6mdXqNaZvRt+THoeKdGDFoI5gu+TKIg+tPe0uuyPOtrMMSSLJ0ultbhGjFHGzZbLIrg9ZjFeJfuFDuL+AjOpAMBymhi/bcUslNrATgfZWPMQ6Ke4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r9jWrlUaHZapt3O5ynx/NVtTbPKS9eli1IbAE7tSe/A=;
- b=Xn4ose7RiA4zNNLkZDWZp06xLhr00Icobgd1ENTct5P/sZ+bpj6taez72HVBPLnzXhzL8jMpO5Azav1jODLjzh4LaRjB1NK040x8N2R2CNYWikBy3eFevZjGLVUnDNvakXbysaTg+pi0tyM1bXyQTp/rX8vv09KqzGmFs0RBhtdxnyjzrxcwEzswX2yySDkg8vllRy1uN9a9l7tqgwTvZcmMvkZqVqHyvZrj75pD2/wUyOjewVMzB1MQuevzyiMLXIyFdSKydnJe+roBg3Gm63dt6/s0FnyPAS1S0WdZoYINj9Q48NEqSxbpAAhg7DELPEyobuyoyxRfet9rsEhf1A==
+ bh=0XZSO1UVrC8SXwDBQpjDCvjjP780VAbXtnJxzn+t7Pc=;
+ b=bpdJxJpk22n2LhrmUPCEA6nGTh46G39yF15w8WU2AuhsN4SAzwuIGUKh6LhQvdE2IozyDPyFt/ykZ/N1mp0XXrkseWdcKS6SL6Tl7fkFZXMBh+FKznkH2xLpYhju5p8LfrrPia7z0fbZ+eCDbdvayvkrFlMLZRLhwKJNRUmBB45lkNj2zZ2pau+g9J6YVyp8C4rKsb6VxubM+2p1YCawXhjhNerv+elPJ2IscfU4vT4Hg2LhJjcDm1uLNaBCZIAwtG4yTn6+tWx08okO5nXsq5tgknae5+rVnotzLTADwJbLXe/qTSls98jZJpc24KMuQI9r7lN9ynFQDlo8MuATig==
 From: Milan Djokic <milan_djokic@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Rahul Singh <rahul.singh@arm.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
  Babchuk <Volodymyr_Babchuk@epam.com>, Milan Djokic <milan_djokic@epam.com>
-Subject: [PATCH v2 09/23] xen/arm: vsmmuv3: Add support for cmdqueue handling
-Thread-Topic: [PATCH v2 09/23] xen/arm: vsmmuv3: Add support for cmdqueue
- handling
-Thread-Index: AQHcuxeU1Q8QMtGmy02igRjRvzbMGg==
-Date: Mon, 23 Mar 2026 22:51:26 +0000
+Subject: [PATCH v2 10/23] xen/arm: vsmmuv3: Add support for command
+ CMD_CFGI_STE
+Thread-Topic: [PATCH v2 10/23] xen/arm: vsmmuv3: Add support for command
+ CMD_CFGI_STE
+Thread-Index: AQHcuxeUYaeevOD7N0GVZ8vVI9YqNQ==
+Date: Mon, 23 Mar 2026 22:51:27 +0000
 Message-ID:
- <359a88c117af4d3eaedc6a762313a9cf54e250f6.1774305918.git.milan_djokic@epam.com>
+ <5e653fb05843d18725b6eaf50a8d7766ab82dabc.1774305918.git.milan_djokic@epam.com>
 References: <cover.1774305918.git.milan_djokic@epam.com>
 In-Reply-To: <cover.1774305918.git.milan_djokic@epam.com>
 Accept-Language: en-US
@@ -96,75 +90,71 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: VI1PR03MB5088:EE_|AS8PR03MB7653:EE_
-x-ms-office365-filtering-correlation-id: a7b12062-1724-4647-a040-08de892eb6db
+x-ms-office365-filtering-correlation-id: e5d9561b-6371-44ee-13ff-08de892eb762
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
  BCL:0;ARA:13230040|366016|376014|1800799024|38070700021|22082099003|18002099003|56012099003;
 x-microsoft-antispam-message-info:
- RRW1korzKyvDd7vjnMQ6xmm9zqnWpdpWJ9typkKjHrLgFYD+1O++cA8pxbohyfoqi3MWQ+31hETn0CgNjNLop4tKaVLp2/v1EKxrz7qvo2nDAfV/UqUZOVOQXeuaXOcc0GEZTk5MpeqbEI4XbRT6UKd4icY7OiEeiVswRaj/2lE1DdooEz+zXoPuI/1eh5hHUjHG8GfTJhioCCKzbcDVzBnZsLvwGPIXFu5TPp4/kw160G/4CCTxzfud9R96T2GTubtjjII0HQGDWxjukTfj44PdIoed6MY67krZMtiYVu6F5TwOHA7qn3/LQMd+bIrTQhMVwo5YOnR4HdoO4fUP50k4mzgjjtaHpc8sHk8s2ZnXPbT8VKa48aPq4cVgP+XCYSibzopuvvoi/Bz4ZhxvnnvT7zVK0edDhQiMRx32d4FB5FaoNy3HyB6rih7OmzCMSDTpM/+7QrjNDQmHvstJL/2qtv149iTYrz+ivjgTVREkRgRT9hx0brwAYJomC8zmndC+RRxqlPM7NV8osGmngYVDFi6SVfPWwgAPO1dirSOuwSTfUOzop92Q5wX5E0Xw4WmzMFeO8dWCAdEOVcPHzoWaJmM0WE4kjmBPsWjUdFHddMtqW/s2/FFfccLLaBeIHGSw6fcRDPPM2goYouU6nndLi5oZb2UMTueCD6USrMWcD1Wg1XUpwqixoZREl1ZbODGCWiLP0B5fkfvox1qUWIOXApiK11pmbt6NlTY0ipTs0RgOmccuXr8iKEt51ap0Ny/UcwzY2h3P53StQ5WPdcpPsFHaYkqNLI11/X9htLI=
+ P5pGoOuqQwrIIsuvHAjAq0I1F6P9rdTHcLdU/+PUgqmg4V6U1pnZ/EJPmfF4foMZX127aBY/Jh9KGU8eTOIRcST5SvBPYPx1bwMa/iX76YQlz4y8g0YcMp4ZOhfAgd9PrKgHeTO0lK6WdYCwg/CwKVAYO7Igyy1wq+0ymyZDzIX4EE4XRHuZ+9HUYqTZ8BpbyssOOBtJfiZkKYp7om1LHVu9Aj0VK9bzEwj1I5J9dIrlrXtSxKT9dZOJmYCdARW5w95H80c1QpbKiRtZNCEqp7ixbuqitw0BUXu0ZKUCS4YkK+b1+K89DTGpUbey+VDuG+jFVJBdRkLvmc1/Fhz51ViZb5cfquYcRRoov5Nr1gEwJSkIbIHCxj0G7ck0VfG/InOkdN2RT4w1iEZtfjwtb4b7PoYreP0iSc5q42jNdt38ZWtt1JRaPsKdQNdYOAAnMkBVgaX/q0z5B75zb8m+i9nqnXjbzUkWo58DoHLkksHfMolHy9LTTnfybM8OeJQ3DfE96pTeiTdt0P9kYU3YYXTvLnALx/FEMAt1Re248T/gQjJxCZ7IuBYBKrmbqZbLD6/9dKbPHac2MZocGnc+sXXP4yKuEss7PXSjeo/PcRKyX8PjBQ5h3YDkiZjVh5IFj56qwB/4WVZFStRkbOu/kp8ecT6bsjhcMGV1g8TmTAteef6fUHT5Hp03GAgWgJweg0CZlVpdTJ66eMK5QyV77eLGjLSKtkYi7ntGBHzSfi3oaFt/u0xyy+tbv+T6EP56qiGp7ktyR8PlDIFFrudTKmoZrS0h9QoR6Y1A0juWrwU=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB5088.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?3tQBjzxmsLdyn2LSunKhxnYOKV1VYPC4q78RCE8o4sD+l3svHYsNPRdIT2?=
- =?iso-8859-1?Q?UXcBZP6eN8clgDFzDGleccUB3FNy3rh52ePzGA7D1WuZTy/gGs2yIrHIrC?=
- =?iso-8859-1?Q?S9hN2EqEIPChQ3jURhg2aDmbYpRoFphCisvY225z3rWSAuSQJS3i0lmErL?=
- =?iso-8859-1?Q?Anm2jRw28ODzGVTg71svBQjiLCpfUJ0jqLx8eMXYGn4psXFoJHFtj6rms2?=
- =?iso-8859-1?Q?e3qbeMcygX7+F00YhIfZ7Jm2+5fIZ3WpY/IbdRMKJEL04ulhOZum/uSSOT?=
- =?iso-8859-1?Q?XPRw6B8gea5qGyOyehZnspRkvua8KgvP3/iDEr+sDTNBPNBM49HJ7682Xw?=
- =?iso-8859-1?Q?W9qXv/RUEofXfzMYpYet0508Td5+xt7pmZiOz+p3dT9v9xrbbdU9eWCrBJ?=
- =?iso-8859-1?Q?XIJrzZ9mNJM8QqKn0f69PqNJILFiVa20EtXtgimuZMKhcC3uX6rHZa/OFy?=
- =?iso-8859-1?Q?E/wcwH+kIZAsHycZTmHcAv1/IzQpxTxnMROiDK7H4B+7fJKzJngBZU34WC?=
- =?iso-8859-1?Q?3W8YQeErctGtZ8RL7/ycoLyegjK2ADfXzwd9WxEtfcEOmxV6RcTNSmZE7s?=
- =?iso-8859-1?Q?zMeH/RO1eF57WzNZIoZz4HL/rOLmX3KE/L9msYyDMWUtMrmn5P246l9a4m?=
- =?iso-8859-1?Q?cVYtF5CLp7xqr2dYESA89rGZFawMuF/QFBZrr3B84rdqtoVlfEZddqDVkM?=
- =?iso-8859-1?Q?PXL38YIGrXeJV+yVf+kMh8gx0UGpnsKM6eUyPOV9uD7sarK5zAXsEMV4od?=
- =?iso-8859-1?Q?iqDGRIockUXfEU/CAk7CoOqVCqdtC2pKCBWsOVdlN2QJWwKvO1jZgXXpUS?=
- =?iso-8859-1?Q?YUDR5qqZ97tbkG4kzx1q7eePgmtgam24g0fhXUC6rocm/PwXqyfCLTLu54?=
- =?iso-8859-1?Q?e734SFa5CVzN0jmLqHv1D6fETwEbgfKKOQjxsCZdWfiGtPyGcbfny23YnH?=
- =?iso-8859-1?Q?wB4UR8F92mniYi2Q8lxfSHW7iZahn5D1TgcyLHzJGELk9WF0OnJ1w+3xwb?=
- =?iso-8859-1?Q?NcfzlkTt7IjdYC8vuL30aUID3Je1hQbZtUXl/4FXis9m4HEx/OWy48WzBU?=
- =?iso-8859-1?Q?wlbDEjTA7Xh11NJ8QGf5SXNSV7FDweEPivhVxmX6ba3QG9hcEFA6s1Adtq?=
- =?iso-8859-1?Q?7eJY6M/12XdhwdcXK8qaoKMzQQF7tpujwscTsFthZumixr+z4zAdvwAnFw?=
- =?iso-8859-1?Q?tX3fxa22F+EW9gJbuhjQITHEbFf9ijOGqTGt4VFJk5minRW8JwGtQKuQmM?=
- =?iso-8859-1?Q?1Vo36rVOQ5Pg0s73IaKOP3Sfn/PqH3bPL4a4qcQh2nwW6ZhX4jO9dzzApW?=
- =?iso-8859-1?Q?H06jgaulKFyhg2UEPX/f9S2CC94qtZl34H7oj2/X/ox7hD+6cHkT5Af4jg?=
- =?iso-8859-1?Q?QPX84HIxeDLPOG8cI1jZHORYqjcMxhRpylzi5LF/KALqjULqvrZQocXyyy?=
- =?iso-8859-1?Q?UVRkhqOw7K1hrdKMLP1kyHhwCj+hTWNPJ/1uTPaQVeK/BOwKkDcHHZXOGN?=
- =?iso-8859-1?Q?0jSJSjohUvGGBk2qGhCrSSkcqMzEskEwAyvBSRJWx/s306fPqO7SYdIicr?=
- =?iso-8859-1?Q?7eOVRD4x0QTM36qqd6WljBhtuZpx0zTQxuaR9oXXbMY4MZAN5kI44ozDaG?=
- =?iso-8859-1?Q?E6DfQY6RoEQ4S+d1cymKwfPAOtvWG6sLXjdYp2B++eDylqZ6FlbB4xogc1?=
- =?iso-8859-1?Q?EuvoZHkSEYUFwSpbRyymFpOUOkhURcVS3j/Om941xdhOAVsvq5XQAS7kQC?=
- =?iso-8859-1?Q?Y2lwilCG9TxgJHUxNEwS71//BYjW4P6rtrWjXKKc38MzURD/9bBYKoxO/A?=
- =?iso-8859-1?Q?YvRdzBis4LacZa8zV6TAaMi/QHeMIdw=3D?=
+ =?iso-8859-1?Q?NQQKINRMe4tg6nznZCSWi3TnWWwNPzocRHAFCd2vDZaRRYz2Zo7Ko3C03g?=
+ =?iso-8859-1?Q?ksVwAFQB+/EKdSpT31bEnYn2GK+diZjGpW1nHqy6KI35wYN4XWGDb/M62m?=
+ =?iso-8859-1?Q?fOxsr4dbYbnWv64F2vY9ftXgIc1zJ21X0zO0LzmlkHWkdsy4x9Busz3gfu?=
+ =?iso-8859-1?Q?W6e8W8zZi5Of2WcC88WM7OGuTaCp4tDGGh44KKrVtcxpfvprdKBBaLBb5h?=
+ =?iso-8859-1?Q?gejGofaIwMj2SuHROZsfRzBnd6ZrEIZ65NCYkyZ2F38VArzOKrn8nS7xRN?=
+ =?iso-8859-1?Q?8Bx6vnHkuVa62GcHLIuwh0mLGS0ExyXwkUQ9EGqg66Tm0nPHHdaC4zolK6?=
+ =?iso-8859-1?Q?EdCy7Xbt5puKx95NvI6sb7cbT1b9Qw6sh2t+EEYEHGZ4zuP3IBUGilzrug?=
+ =?iso-8859-1?Q?Jaebow0kn39+LiGPP2XQYBLzzF6e7aD7M+ggrxBEw6Ui4li+SSnzOCb5zA?=
+ =?iso-8859-1?Q?L1ACrq4DZ6hMgRPjTpF2zCJKU2zmf01jcV1pavMcaYwgEFn0fjJ65hJE7k?=
+ =?iso-8859-1?Q?6RKeoJg2g7VW8j7mGR/7D8DGPn92TnL87RJBPGzov9s+H/Dtd0sSV7mGIT?=
+ =?iso-8859-1?Q?+NmiTw8WT8wj2dtbBuYuCZ01h1vNzOfsRJOzcZMkZbuWou9h3OfYkatj8Q?=
+ =?iso-8859-1?Q?xi+i5PCVBJiB3OY75F/EAQo5RXwkCT/UUZQTkRl/ma7LldIOh9Xpbco3Tl?=
+ =?iso-8859-1?Q?95dDBRGK5t51T+RYdkpjFstLqNmUNFvwVT10CaIjh+JO/S6t1n62WCOwY8?=
+ =?iso-8859-1?Q?aa4LzkC+KwYFAu0mu4360ktykpQteniJW2LO1l3D/x3KaK8VXq7czyBbn/?=
+ =?iso-8859-1?Q?jIfIciEhCwTzZ2AtVqKOXFC3tEjPs1rE0iEp5OIegM54s7NwvFd/qB1DaI?=
+ =?iso-8859-1?Q?3324FNP9foloBfg2JPTE+p2lJPmjTv6zAdF0sMKf/gUa75gZfZk+PeOr0D?=
+ =?iso-8859-1?Q?fNga+B1Ww03peWDwi55nUB33XPs+IUeEPM0nnWpSpupbx/lJsgtROt+If5?=
+ =?iso-8859-1?Q?PbvQ53I2sBDL3l0qbU/MtUxEZnemrR+FY5B4uLoOlJ0hrOgX8fHybGKorp?=
+ =?iso-8859-1?Q?mbSDhhIImXqAnCpT6hBvqiho6JKo6t3YQj/huJwMoLKtYHeCa/8YLVUC+5?=
+ =?iso-8859-1?Q?brak40tkN2qebSnhhD9mUbll+1xKLjo9RtFveOF4WDQjVPth0ptvnOZG59?=
+ =?iso-8859-1?Q?XSpsZMrf5A2h4Snbtc6IwaWYYpM1vDST17W5ooiOVWzqr2d+ZumNPDvEmV?=
+ =?iso-8859-1?Q?ScrijBnDjasB2N8ENNxLe4IdraVkGnNk+XKjQdfjiMnaGpH+F+kvgX06ol?=
+ =?iso-8859-1?Q?hoKEq1YrAVUt0oaRdTRm0RJlUfwz/G11Gl0AeTOMSHRAlByDgzlJY6yTfi?=
+ =?iso-8859-1?Q?WAiUEdLWqn8P7GHxiGDz8O9iRROdPkXYS9P13IRf3pKalf2f9MyU7jQ6K2?=
+ =?iso-8859-1?Q?y0uyPdpJG7c/WGaPgkhsexoqqHzSFiO9objBtSM8wyHHZlSfyrvW1R8mbW?=
+ =?iso-8859-1?Q?PbLJdizDC38Xa+1DQPJ7Fngp4gpGJFSK/nTtW+BBGylr2Bws+TJOP6O/Ci?=
+ =?iso-8859-1?Q?lOSmyuDC/3fjyTrVqBPQfDczEX5YtjvIqE5HmNhLeld26GF/pP294VVvAp?=
+ =?iso-8859-1?Q?V18h+4yEqinEy6ZYu35vOd/p+vDTfqY6tNdFolOOEAlPbOvDxTZZwPj5Iw?=
+ =?iso-8859-1?Q?4RtzLQlh+z4aBJ3M5ioV8mitDQhismurHBnrCtk/v9gDc7yDIGDxPt00lS?=
+ =?iso-8859-1?Q?XE8PLG6eNJJpqlcI1VVK5Z/vu7S4V1c/2uGhekWKDR1kZ7nXId+zmd+4Ea?=
+ =?iso-8859-1?Q?dQqJ5Tx/cnzuMnWiouOdHmGN7+SiXmE=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB5088.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7b12062-1724-4647-a040-08de892eb6db
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2026 22:51:26.2274
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5d9561b-6371-44ee-13ff-08de892eb762
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Mar 2026 22:51:27.1257
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Fepw+xRoXy2y49jfBMjG0jK7UYgrfkkBmqZSR9tYE+nnw95C8+zlsIRpESw+xm0UssvFyL7Ur4eIR/pX/VVkAg==
+X-MS-Exchange-CrossTenant-userprincipalname: KCk0okgF7V2k7oyLE+pPzct0CDPH4BO5vGXmwL6Y39NchAA2woAv8p8IeHIDbQ1JhfvVCbxUp5aEKx5piqoOfA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR03MB7653
-X-purgate-ID: tlsNG-d25034/1774306287-F66AF734-8FBCC3C1/0/0
-X-purgate-type: clean
-X-purgate-size: 5197
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email,epam.com:dkim,epam.com:email,epam.com:mid];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[milan_djokic@epam.com,xen-devel-bounces@lists.xenproject.org];
@@ -173,181 +163,218 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:rahul.singh@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:milan_djokic@epam.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[epam.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:dkim,epam.com:email,epam.com:mid];
 	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
 	FROM_NEQ_ENVFROM(0.00)[milan_djokic@epam.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	DKIM_TRACE(0.00)[epam.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 54D2F2FE8E0
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 4D1B22FE917
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Rahul Singh <rahul.singh@arm.com>
 
-Add support for virtual cmdqueue handling for guests
+CMD_CFGI_STE is used to invalidate/validate the STE. Emulated vSMMUv3
+driver in XEN will read the STE from the guest memory space and capture
+the Stage-1 configuration required to support nested translation.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 Signed-off-by: Milan Djokic <milan_djokic@epam.com>
 ---
- xen/drivers/passthrough/arm/vsmmu-v3.c | 101 +++++++++++++++++++++++++
- 1 file changed, 101 insertions(+)
+ xen/drivers/passthrough/arm/vsmmu-v3.c | 148 +++++++++++++++++++++++++
+ 1 file changed, 148 insertions(+)
 
 diff --git a/xen/drivers/passthrough/arm/vsmmu-v3.c b/xen/drivers/passthrou=
 gh/arm/vsmmu-v3.c
-index 3ae1e62a50..02fe6a4422 100644
+index 02fe6a4422..39ed4dc577 100644
 --- a/xen/drivers/passthrough/arm/vsmmu-v3.c
 +++ b/xen/drivers/passthrough/arm/vsmmu-v3.c
-@@ -1,5 +1,6 @@
- /* SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause) */
+@@ -45,6 +45,21 @@ extern const struct viommu_desc __read_mostly *cur_viomm=
+u;
+ /* Helper Macros */
+ #define smmu_get_cmdq_enabled(x)    FIELD_GET(CR0_CMDQEN, x)
+ #define smmu_cmd_get_command(x)     FIELD_GET(CMDQ_0_OP, x)
++#define smmu_cmd_get_sid(x)         FIELD_GET(CMDQ_PREFETCH_0_SID, x)
++#define smmu_get_ste_s1cdmax(x)     FIELD_GET(STRTAB_STE_0_S1CDMAX, x)
++#define smmu_get_ste_s1fmt(x)       FIELD_GET(STRTAB_STE_0_S1FMT, x)
++#define smmu_get_ste_s1stalld(x)    FIELD_GET(STRTAB_STE_1_S1STALLD, x)
++#define smmu_get_ste_s1ctxptr(x)    FIELD_PREP(STRTAB_STE_0_S1CTXPTR_MASK,=
+ \
++                                    FIELD_GET(STRTAB_STE_0_S1CTXPTR_MASK, =
+x))
++
++/* stage-1 translation configuration */
++struct arm_vsmmu_s1_trans_cfg {
++    paddr_t s1ctxptr;
++    uint8_t s1fmt;
++    uint8_t s1cdmax;
++    bool    bypassed;             /* translation is bypassed */
++    bool    aborted;              /* translation is aborted */
++};
 =20
-+#include <xen/guest_access.h>
- #include <xen/param.h>
- #include <xen/sched.h>
- #include <asm/mmio.h>
-@@ -25,6 +26,26 @@
- /* Struct to hold the vIOMMU ops and vIOMMU type */
- extern const struct viommu_desc __read_mostly *cur_viommu;
-=20
-+/* SMMUv3 command definitions */
-+#define CMDQ_OP_PREFETCH_CFG    0x1
-+#define CMDQ_OP_CFGI_STE        0x3
-+#define CMDQ_OP_CFGI_ALL        0x4
-+#define CMDQ_OP_CFGI_CD         0x5
-+#define CMDQ_OP_CFGI_CD_ALL     0x6
-+#define CMDQ_OP_TLBI_NH_ASID    0x11
-+#define CMDQ_OP_TLBI_NH_VA      0x12
-+#define CMDQ_OP_TLBI_NSNH_ALL   0x30
-+#define CMDQ_OP_CMD_SYNC        0x46
-+
-+/* Queue Handling */
-+#define Q_BASE(q)       ((q)->q_base & Q_BASE_ADDR_MASK)
-+#define Q_CONS_ENT(q)   (Q_BASE(q) + Q_IDX(q, (q)->cons) * (q)->ent_size)
-+#define Q_PROD_ENT(q)   (Q_BASE(q) + Q_IDX(q, (q)->prod) * (q)->ent_size)
-+
-+/* Helper Macros */
-+#define smmu_get_cmdq_enabled(x)    FIELD_GET(CR0_CMDQEN, x)
-+#define smmu_cmd_get_command(x)     FIELD_GET(CMDQ_0_OP, x)
-+
  /* virtual smmu queue */
  struct arm_vsmmu_queue {
-     uint64_t    q_base; /* base register */
-@@ -49,8 +70,80 @@ struct virt_smmu {
-     uint64_t    gerror_irq_cfg0;
-     uint64_t    evtq_irq_cfg0;
-     struct      arm_vsmmu_queue evtq, cmdq;
-+    spinlock_t  cmd_queue_lock;
- };
-=20
-+/* Queue manipulation functions */
-+static bool queue_empty(struct arm_vsmmu_queue *q)
+@@ -91,6 +106,138 @@ static void dump_smmu_command(uint64_t *command)
+     gdprintk(XENLOG_ERR, "cmd 0x%02llx: %016lx %016lx\n",
+              smmu_cmd_get_command(command[0]), command[0], command[1]);
+ }
++static int arm_vsmmu_find_ste(struct virt_smmu *smmu, uint32_t sid,
++                              uint64_t *ste)
 +{
-+    return Q_IDX(q, q->prod) =3D=3D Q_IDX(q, q->cons) &&
-+           Q_WRP(q, q->prod) =3D=3D Q_WRP(q, q->cons);
-+}
-+
-+static void queue_inc_cons(struct arm_vsmmu_queue *q)
-+{
-+    uint32_t cons =3D (Q_WRP(q, q->cons) | Q_IDX(q, q->cons)) + 1;
-+    q->cons =3D Q_OVF(q->cons) | Q_WRP(q, cons) | Q_IDX(q, cons);
-+}
-+
-+static void dump_smmu_command(uint64_t *command)
-+{
-+    gdprintk(XENLOG_ERR, "cmd 0x%02llx: %016lx %016lx\n",
-+             smmu_cmd_get_command(command[0]), command[0], command[1]);
-+}
-+static int arm_vsmmu_handle_cmds(struct virt_smmu *smmu)
-+{
-+    struct arm_vsmmu_queue *q =3D &smmu->cmdq;
++    paddr_t addr, strtab_base;
 +    struct domain *d =3D smmu->d;
-+    uint64_t command[CMDQ_ENT_DWORDS];
-+    paddr_t addr;
++    uint32_t log2size;
++    int strtab_size_shift;
++    int ret;
 +
-+    if ( !smmu_get_cmdq_enabled(smmu->cr[0]) )
-+        return 0;
++    log2size =3D FIELD_GET(STRTAB_BASE_CFG_LOG2SIZE, smmu->strtab_base_cfg=
+);
 +
-+    while ( !queue_empty(q) )
++    if ( sid >=3D (1 << MIN(log2size, SMMU_IDR1_SIDSIZE)) )
++        return -EINVAL;
++
++    if ( smmu->features & STRTAB_BASE_CFG_FMT_2LVL )
 +    {
-+        int ret;
++        int idx, max_l2_ste, span;
++        paddr_t l1ptr, l2ptr;
++        uint64_t l1std;
 +
-+        addr =3D Q_CONS_ENT(q);
-+        ret =3D access_guest_memory_by_gpa(d, addr, command,
-+                                         sizeof(command), false);
-+        if ( ret )
-+            return ret;
++        strtab_size_shift =3D MAX(5, (int)log2size - smmu->sid_split - 1 +=
+ 3);
++        strtab_base =3D smmu->strtab_base & STRTAB_BASE_ADDR_MASK &
++                        ~GENMASK_ULL(strtab_size_shift, 0);
++        idx =3D (sid >> STRTAB_SPLIT) * STRTAB_L1_DESC_DWORDS;
++        l1ptr =3D (paddr_t)(strtab_base + idx * sizeof(l1std));
 +
-+        switch ( smmu_cmd_get_command(command[0]) )
-+        {
-+        case CMDQ_OP_CFGI_STE:
-+            break;
-+        case CMDQ_OP_PREFETCH_CFG:
-+        case CMDQ_OP_CFGI_CD:
-+        case CMDQ_OP_CFGI_CD_ALL:
-+        case CMDQ_OP_CFGI_ALL:
-+        case CMDQ_OP_CMD_SYNC:
-+            break;
-+        case CMDQ_OP_TLBI_NH_ASID:
-+        case CMDQ_OP_TLBI_NSNH_ALL:
-+        case CMDQ_OP_TLBI_NH_VA:
-+            if ( !iommu_iotlb_flush_all(smmu->d, 1) )
-+                break;
-+        default:
-+            gdprintk(XENLOG_ERR, "vSMMUv3: unhandled command\n");
-+            dump_smmu_command(command);
-+            break;
-+        }
-+
++        ret =3D access_guest_memory_by_gpa(d, l1ptr, &l1std,
++                                         sizeof(l1std), false);
 +        if ( ret )
 +        {
 +            gdprintk(XENLOG_ERR,
-+                     "vSMMUv3: command error %d while handling command\n",
-+                     ret);
-+            dump_smmu_command(command);
++                     "Could not read L1PTR at 0X%"PRIx64"\n", l1ptr);
++            return ret;
 +        }
-+        queue_inc_cons(q);
++
++        span =3D FIELD_GET(STRTAB_L1_DESC_SPAN, l1std);
++        if ( !span )
++        {
++            gdprintk(XENLOG_ERR, "Bad StreamID span\n");
++            return -EINVAL;
++        }
++
++        max_l2_ste =3D (1 << span) - 1;
++        l2ptr =3D FIELD_PREP(STRTAB_L1_DESC_L2PTR_MASK,
++                    FIELD_GET(STRTAB_L1_DESC_L2PTR_MASK, l1std));
++        idx =3D sid & ((1 << smmu->sid_split) - 1);
++        if ( idx > max_l2_ste )
++        {
++            gdprintk(XENLOG_ERR, "idx=3D%d > max_l2_ste=3D%d\n",
++                     idx, max_l2_ste);
++            return -EINVAL;
++        }
++        addr =3D l2ptr + idx * sizeof(*ste) * STRTAB_STE_DWORDS;
 +    }
++    else
++    {
++        strtab_size_shift =3D log2size + 5;
++        strtab_base =3D smmu->strtab_base & STRTAB_BASE_ADDR_MASK &
++                      ~GENMASK_ULL(strtab_size_shift, 0);
++        addr =3D strtab_base + sid * sizeof(*ste) * STRTAB_STE_DWORDS;
++    }
++    ret =3D access_guest_memory_by_gpa(d, addr, ste, sizeof(*ste), false);
++    if ( ret )
++    {
++        gdprintk(XENLOG_ERR,
++                "Cannot fetch pte at address=3D0x%"PRIx64"\n", addr);
++        return -EINVAL;
++    }
++
 +    return 0;
 +}
 +
- static int vsmmuv3_mmio_write(struct vcpu *v, mmio_info_t *info,
-                               register_t r, void *priv)
++static int arm_vsmmu_decode_ste(struct virt_smmu *smmu, uint32_t sid,
++                                struct arm_vsmmu_s1_trans_cfg *cfg,
++                                uint64_t *ste)
++{
++    uint64_t val =3D ste[0];
++
++    if ( !(val & STRTAB_STE_0_V) )
++        return -EAGAIN;
++
++    switch ( FIELD_GET(STRTAB_STE_0_CFG, val) )
++    {
++    case STRTAB_STE_0_CFG_BYPASS:
++        cfg->bypassed =3D true;
++        return 0;
++    case STRTAB_STE_0_CFG_ABORT:
++        cfg->aborted =3D true;
++        return 0;
++    case STRTAB_STE_0_CFG_S1_TRANS:
++        break;
++    case STRTAB_STE_0_CFG_S2_TRANS:
++        gdprintk(XENLOG_ERR, "vSMMUv3 does not support stage 2 yet\n");
++        goto bad_ste;
++    default:
++        BUG(); /* STE corruption */
++    }
++
++    cfg->s1ctxptr =3D smmu_get_ste_s1ctxptr(val);
++    cfg->s1fmt =3D smmu_get_ste_s1fmt(val);
++    cfg->s1cdmax =3D smmu_get_ste_s1cdmax(val);
++    if ( cfg->s1cdmax !=3D 0 )
++    {
++        gdprintk(XENLOG_ERR,
++                 "vSMMUv3 does not support multiple context descriptors\n"=
+);
++        goto bad_ste;
++    }
++
++    return 0;
++
++bad_ste:
++    return -EINVAL;
++}
++
++static int arm_vsmmu_handle_cfgi_ste(struct virt_smmu *smmu, uint64_t *cmd=
+ptr)
++{
++    int ret;
++    uint64_t ste[STRTAB_STE_DWORDS];
++    struct arm_vsmmu_s1_trans_cfg s1_cfg =3D {0};
++    uint32_t sid =3D smmu_cmd_get_sid(cmdptr[0]);
++
++    ret =3D arm_vsmmu_find_ste(smmu, sid, ste);
++    if ( ret )
++        return ret;
++
++    ret =3D arm_vsmmu_decode_ste(smmu, sid, &s1_cfg, ste);
++    if ( ret )
++        return (ret =3D=3D -EAGAIN ) ? 0 : ret;
++
++    return 0;
++}
++
+ static int arm_vsmmu_handle_cmds(struct virt_smmu *smmu)
  {
-@@ -104,9 +197,15 @@ static int vsmmuv3_mmio_write(struct vcpu *v, mmio_inf=
-o_t *info,
-         break;
-=20
-     case VREG32(ARM_SMMU_CMDQ_PROD):
-+        spin_lock(&smmu->cmd_queue_lock);
-         reg32 =3D smmu->cmdq.prod;
-         vreg_reg32_update(&reg32, r, info);
-         smmu->cmdq.prod =3D reg32;
-+
-+        if ( arm_vsmmu_handle_cmds(smmu) )
-+            gdprintk(XENLOG_ERR, "error handling vSMMUv3 commands\n");
-+
-+        spin_unlock(&smmu->cmd_queue_lock);
-         break;
-=20
-     case VREG32(ARM_SMMU_CMDQ_CONS):
-@@ -326,6 +425,8 @@ static int vsmmuv3_init_single(struct domain *d, paddr_=
-t addr, paddr_t size)
-     smmu->evtq.q_base =3D FIELD_PREP(Q_BASE_LOG2SIZE, SMMU_EVTQS);
-     smmu->evtq.ent_size =3D EVTQ_ENT_DWORDS * DWORDS_BYTES;
-=20
-+    spin_lock_init(&smmu->cmd_queue_lock);
-+
-     register_mmio_handler(d, &vsmmuv3_mmio_handler, addr, size, smmu);
-=20
-     /* Register the vIOMMU to be able to clean it up later. */
+     struct arm_vsmmu_queue *q =3D &smmu->cmdq;
+@@ -114,6 +261,7 @@ static int arm_vsmmu_handle_cmds(struct virt_smmu *smmu=
+)
+         switch ( smmu_cmd_get_command(command[0]) )
+         {
+         case CMDQ_OP_CFGI_STE:
++            ret =3D arm_vsmmu_handle_cfgi_ste(smmu, command);
+             break;
+         case CMDQ_OP_PREFETCH_CFG:
+         case CMDQ_OP_CFGI_CD:
 --=20
 2.43.0
 
