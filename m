@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6CCdJ7xqwWkVTAQAu9opvQ
+	id WKhhIMtqwWkVTAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 17:30:52 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 17:31:07 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12C832F836D
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 17:30:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1259447.1552765 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 079AD2F838C
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 17:31:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1259452.1552773 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4iAv-0005lr-7E; Mon, 23 Mar 2026 16:30:45 +0000
+	id 1w4iB8-0006H9-F5; Mon, 23 Mar 2026 16:30:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1259447.1552765; Mon, 23 Mar 2026 16:30:45 +0000
+Received: by outflank-mailman (output) from mailman id 1259452.1552773; Mon, 23 Mar 2026 16:30:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4iAv-0005ju-40; Mon, 23 Mar 2026 16:30:45 +0000
-Received: by outflank-mailman (input) for mailman id 1259447;
- Mon, 23 Mar 2026 16:30:43 +0000
+	id 1w4iB8-0006Ew-BX; Mon, 23 Mar 2026 16:30:58 +0000
+Received: by outflank-mailman (input) for mailman id 1259452;
+ Mon, 23 Mar 2026 16:30:56 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <oleksii.kurochko@gmail.com>) id 1w4iAt-0005jA-Kb
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 16:30:43 +0000
+ (envelope-from <oleksii.kurochko@gmail.com>) id 1w4iB6-0006Dc-HE
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 16:30:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w4iAr-005upU-Ey
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 17:30:43 +0100
-Received: from [10.42.69.5] (helo=localhost)
+ id 1w4iB5-007jD4-TT
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 17:30:55 +0100
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 69c16aa9-e002-0a2a0a5209dd-0a2a45059b5c-28
- for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 17:30:42 +0100
-Received: from [209.85.218.52] (helo=mail-ej1-f52.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c16a97-bab6-0a2a0a5309dd-0a2a4503b4ec-44
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 17:30:55 +0100
+Received: from [209.85.208.49] (helo=mail-ed1-f49.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 69c16ab2-5aeb-0a2a45050019-d155da34e82d-3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 17:30:42 +0100
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-b79f8f7ea43so63035366b.2
- for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 09:30:42 -0700 (PDT)
+ id 69c16abf-1947-0a2a45030019-d155d031c542-3
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 17:30:55 +0100
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-668d70fabc4so918391a12.1
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 09:30:55 -0700 (PDT)
 Received: from fedora (user-109-243-69-121.play-internet.pl. [109.243.69.121])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9832f8be14sm536248166b.17.2026.03.23.09.30.27
+ a640c23a62f3a-b9832f8be14sm536248166b.17.2026.03.23.09.30.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2026 09:30:32 -0700 (PDT)
+ Mon, 23 Mar 2026 09:30:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,65 +58,64 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20230601 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20230601; t=1774283442; x=1774888242; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1774283455; x=1774888255; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=RkR/V7e+x0LZ5vy6oulB2qy/2ayyRS6OQM1v0e6EP4s=;
-        b=kQONQ+ql+0NfUwfI+2YTrOyGjlQXtHKYc8N9K1vzadtKjj31evo5OpQgo/JcKqARpG
-         aTLm5GjYzAfJEdmth0czFIWoZhUMBZJTneElC16iC8lDkZVhDtreBCEDpMc9eOaMg9Pz
-         LZhL4Eoosw/A3PA9HO3k0aSvbBpY2X1oE0fz6T+7i+flL7YRaYYeN7AlK0hhHOwFjntb
-         GlhuR7AfZSKkDbZ9VINyQeG7LJAb9H0nRRMLrYaZvkBVk0f6ByoexsqyKB5U8CRPArMx
-         D9skUlQHGMDFDlIPS27u4gO6m0zagHUhaFZt3+UH+As5siZ8bKc9+T6S8t9hFCIzAdl5
-         LIxQ==
+        bh=WFYQihohLvdN+/ExvCQUaHnRoG/WzCRUsmGA2ZwH768=;
+        b=BygPlh7JyaB2oqV1Hw5pK5nqh+z3d2fFq/BfAmHqSaQxb55iWBvP5JrKi9JlsfR035
+         DBFumNI0vVYr8ylPJXfEK/QCMrGIlLGbms1VVnntq91ciHT/q8v9zkbPfRPOglML9fjd
+         EkZ7KTMtXyPr9YRbDDCn6wC5Raf4CDkZO5fWpDGbqrGVQ40c/b3fxXuZljNoFk6mJt76
+         G4oVasqOURMGSOuw+3GrynBhtIE4jvQfO+fdK2q+JGC51qfFH3uUC1WIGNX1Dpfrk7Go
+         vF4igWtIo7OvwOGwf+pWVOQyGUKKOP7INkYS/g4wk59P9uE8H1ZpLWF+D4jUP6fGWWgQ
+         TpWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774283442; x=1774888242;
+        d=1e100.net; s=20251104; t=1774283455; x=1774888255;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=RkR/V7e+x0LZ5vy6oulB2qy/2ayyRS6OQM1v0e6EP4s=;
-        b=r91PBURODfBE1HyXiNLoPXeYMfBHjh2MU22cFmNqRp6Kc7T6oyyb/nt56wJ2jmCFOp
-         tPmg7aVOxjZqdP+Ipcz8xm4PW7PqEPg9EDC50GxbkUnbKb73Z5UMvcVMofce2Rg8Tjax
-         4A5KynHEAOWWhZ5qPGdIscSfPMHFiEq46+pvWC+Pv35Ldi1HsXCGAk09BYMHQFBGUwJ0
-         zN9Wb7tVJgQphCMdU8qShUP7D3Y5KFuqpEALgjbErR/KVzaRDG1FIkxa084UPD+coYeO
-         O4z6Hl73TA49cLQg0K2PCaFsXZmZhFfCrKPDpg2tTNw8GZhFubjv5LFra6wJZHlx9QhD
-         Qg3w==
-X-Gm-Message-State: AOJu0YxmW4+mRYVDNDiWVxXFbUnxshCJGDfKWtJ0Ujz06dIWdODQdQbz
-	CozV8AolfFgg7fPSeHSqjFFqwGZp1Q4Z4VqDYMpta4CbRHcMjUhmYFA9FfHROw==
-X-Gm-Gg: ATEYQzzhgJzFrESC5Z5PZI9JHjEVPCYkY/iGCpGBLJUjV/x//4Kf+KN2sezilUsdJ9D
-	Dn/rN1c1PY+czW98GDLsC8dTOzf9o2BE6OmE85GLmGLuHuq8uA2ooAQWO7swz0sUR79WnZFmv3d
-	Zsk6VRBWQ0720Yg8uUrJMIOav2SZ7QApgrgwkuYu4yKz8jeIzdoqx2MhSDuZ6D6znd0LjAGJUQ4
-	MGMwBzjfp7cDcjrPkNePXBasrzPsq1x4ScXA0V/JS5EUuypdSJr7skEI8+viLdrIUZ9UYsJwx8/
-	AcLP6ewFKwtoCOysxld8Eqp7sUCAPeEnPaOOpfUkGuXAh+OOSe3FQcSiXUgDPCtKBKJ9tcxMC7q
-	1ZL4BJaWyiyd138aGe0HCHSE5rAnUMJGzEpwZSGUqJOAWt3IlES/l3u4hasxuQ1f2d9z6jrC/In
-	icyH/qlKvYCA6ERdbtz14g492IZECGncv7hObBXymcIenPzK9Lhr9wn8NMAApAx/ya9bB8h8XCY
-	XnE
-X-Received: by 2002:a17:906:37cb:b0:b93:5e04:a74b with SMTP id a640c23a62f3a-b982f39a063mr658768666b.31.1774283441888;
-        Mon, 23 Mar 2026 09:30:41 -0700 (PDT)
+        bh=WFYQihohLvdN+/ExvCQUaHnRoG/WzCRUsmGA2ZwH768=;
+        b=Gtv2zOWG5bfqsNTlNwUKVtEG974cUpMck18pNgIGdxybz6x4BIsPfpe5a1HcW5DHre
+         DiF2L31WQ6HFbXs9AxvHWhNpHZ6Zeg5sOqXvXZ0/FuXnBJ7Ps3IBaBG66PTNFe4g2ETb
+         UdAREwpja5uuJPVlpofh3kIRSFJzMw9Yo9+PqQOVn75Cyi8C2HZbmHSRHRGxyAL8ZApU
+         npGHxehtq9QJX4XwzQRDLtXTz0r3C5dkntbI1G0B+PQ3tJWZ/olps7gXNHWOa9tk+iwR
+         KFwdOq/g3OPouE038TVFW/zeOQJTMoMzF9hih3Qt+exLWnF4L8hpRbTsxteS5FmD89CB
+         Io6g==
+X-Gm-Message-State: AOJu0YzdSnPNfyrw4iqQpRGdP1C6ugL3F1w5XI6jv19rs8rQWb1O3tfi
+	OZUR66KsO5dD5NtNeMkk3aEkj2uptHpVyfjPCx8xQkOVCKSiOuMF6QC+LGFxtA==
+X-Gm-Gg: ATEYQzxUrCEKriWaeZCFeGGJNoE69PlHZtEZDZx8tyXpI0oH+s/5aZ936JHcfLTZDIG
+	hln0cBlXiVsvA3ZfdIRuX+gc/IUb/Lk37LZvWPBS2Hwvc3d6ra7KQE3D/F0UGv2BxSzPD6iNgrf
+	QXs8rus8M1HhwoAuNJx74fZVcnYs1feBR7gxmfKmZdSokF4vWD00g1gxj40vKN6wZWkztOFrFB9
+	pssaB9YYWeQTgAZEqOSrk7FKdsNdn2auYpYGjsGNQ2htx7Bj+UgqmDOCw2M7zrUykYoN5/J6Kym
+	APmeHonTfVNnTmi16ZSGuZKjzl6ug9lAEndn04EdtMyFDoY9jqvXiGSJd+aeqbsTA2DpmvIe+mt
+	BFb45maQ7Z1KM8o+BM6x+5LjdooC8uF/bmHBPTNm5rC6bIxCIitIJV8vUXisBisBHrUgC9Fsumq
+	4ItzwPESx48GqQKA/VHKK20aluqxx6caTZXfmKZHXpF0VBF7tE0ZhlM9MfddTIG+t0pw==
+X-Received: by 2002:a17:906:5985:b0:b98:5b2:77fe with SMTP id a640c23a62f3a-b982f21d401mr575939166b.3.1774283454732;
+        Mon, 23 Mar 2026 09:30:54 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 03/11] xen/riscv: implement copy_to_guest_phys()
-Date: Mon, 23 Mar 2026 17:29:44 +0100
-Message-ID: <062e50c596b9271858d2d63e101bfde5311a3817.1774281309.git.oleksii.kurochko@gmail.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 04/11] xen/dom0less: rename kernel_zimage_probe() to kernel_image_probe()
+Date: Mon, 23 Mar 2026 17:29:45 +0100
+Message-ID: <0fc8039cce1d8bcce1539e7c9ced71f2d1e85b6c.1774281309.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1774281309.git.oleksii.kurochko@gmail.com>
 References: <cover.1774281309.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c201ff/1774283442-23082488-FF239CAA/0/0
+X-purgate-ID: tlsNG-33051d/1774283455-4905472C-809ABE1F/0/0
 X-purgate-type: clean
-X-purgate-size: 6033
+X-purgate-size: 7643
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	R_MISSING_CHARSET(0.50)[];
@@ -126,20 +125,20 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:oleksii.kurochko@gmail.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	RCPT_COUNT_TWELVE(0.00)[12];
 	FORWARDED(0.00)[mailman];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,gmail.com,wdc.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org];
+	FREEMAIL_CC(0.00)[microchip.com,gmail.com,kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,vates.tech,suse.com];
 	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
@@ -151,201 +150,221 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 12C832F836D
+X-Rspamd-Queue-Id: 079AD2F838C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Introduce copy_to_guest_phys() for RISC-V, based on the Arm implementation.
+The helper kernel_zimage_probe() is referenced from common code
+(xen/common/device-tree/kernel.c), but its name is tied to the zImage
+format which is specific to Arm (from architectures supported by Xen).
 
-Add a generic copy_guest() helper for copying to and from guest physical
-(and potentially virtual addresses in the future), and implement
-translate_get_page() to translate a guest physical address into a struct
-page_info via the domain p2m.
+Other architectures supported by Xen, such as RISC-V, do not use the
+zImage format and instead rely on other kernel image types (e.g. Image
+or compressed Image variants: Image.gz, etc). Using "zimage" in the
+name is therefore misleading in architecture-independent code.
 
-Compared to the Arm code:
-- Drop COPY_flush_dcache(), as no such use cases exist on RISC-V.
-- Do not implement the linear mapping case, which is currently unused.
-- Use PAGE_OFFSET() to initialize the local offset variable in copy_guest().
+Rename kernel_zimage_probe() to kernel_image_probe() and update the
+associated structure field from "zimage" to "image" to reflect that the
+code handles generic kernel images rather than the zImage format
+specifically.
 
+No functional change intended.
+
+Reported-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v2:
- - Use BIT() instead of open-coding.
- - Rename COPY_ipa to COPY_gpa.
- - Rename COPY_linear to COPY_gva.
- - Use  BUG_ON(linear) instead if (lineer) + BUG_ON.
- - Rename arg liner to gva for translate_get_page().
- - Update translate_get_page() to properly handling write argument.
- - Return unsigned int for copy_guest() and copy_to_guest_phys() as
-   len function parameter is only 'unsigned int'.
- - Reformat function arguments for alignment
+ - new patch.
 ---
- xen/arch/riscv/Makefile                   |   1 +
- xen/arch/riscv/guestcopy.c                | 116 ++++++++++++++++++++++
- xen/arch/riscv/include/asm/guest_access.h |   7 ++
- 3 files changed, 124 insertions(+)
- create mode 100644 xen/arch/riscv/guestcopy.c
+ xen/arch/arm/kernel.c           | 48 ++++++++++++++++-----------------
+ xen/common/device-tree/kernel.c |  2 +-
+ xen/include/xen/fdt-kernel.h    |  4 +--
+ 3 files changed, 27 insertions(+), 27 deletions(-)
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index 6b3f3ed90bdb..6d3c822409b8 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -4,6 +4,7 @@ obj-y += domain.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += entry.o
- obj-$(CONFIG_HAS_EX_TABLE) += extables.o
-+obj-y += guestcopy.o
- obj-y += imsic.o
- obj-y += intc.o
- obj-y += irq.o
-diff --git a/xen/arch/riscv/guestcopy.c b/xen/arch/riscv/guestcopy.c
-new file mode 100644
-index 000000000000..d774a90bff92
---- /dev/null
-+++ b/xen/arch/riscv/guestcopy.c
-@@ -0,0 +1,116 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#include <xen/domain_page.h>
-+#include <xen/page-size.h>
-+#include <xen/sched.h>
-+#include <xen/string.h>
-+
-+#include <asm/guest_access.h>
-+
-+#define COPY_from_guest     0U
-+#define COPY_to_guest       BIT(0, U)
-+#define COPY_gpa            0U
-+#define COPY_gva            BIT(1, U)
-+
-+typedef union
-+{
-+    struct
-+    {
-+        struct vcpu *v;
-+    } gva;
-+
-+    struct
-+    {
-+        struct domain *d;
-+    } gpa;
-+} copy_info_t;
-+
-+#define GVA_INFO(vcpu) ((copy_info_t) { .gva = { vcpu } })
-+#define GPA_INFO(domain) ((copy_info_t) { .gpa = { domain } })
-+
-+static struct page_info *translate_get_page(copy_info_t info, uint64_t addr,
-+                                            bool gva, bool write)
-+{
-+    p2m_type_t p2mt;
-+    struct page_info *page;
-+
-+    /*
-+     * Not implemented yet.
-+     *
-+     * If gva == true, the operation will likely require a struct vcpu
-+     * rather than just a struct domain. For this reason copy_info_t is
-+     * already passed here instead of only struct domain.
-+     */
-+    BUG_ON(gva);
-+
-+    page = get_page_from_gfn(info.gpa.d, paddr_to_pfn(addr), &p2mt, P2M_ALLOC);
-+
-+    if ( !page )
-+        return NULL;
-+
-+    if ( write ? p2mt != p2m_ram_rw : !p2m_is_ram(p2mt) )
-+    {
-+        put_page(page);
-+        return NULL;
-+    }
-+
-+    return page;
-+}
-+
-+static unsigned int copy_guest(void *buf, uint64_t addr, unsigned int len,
-+                               copy_info_t info, unsigned int flags)
-+{
-+    unsigned int offset = PAGE_OFFSET(addr);
-+
-+    BUILD_BUG_ON((sizeof(addr)) < sizeof(vaddr_t));
-+    BUILD_BUG_ON((sizeof(addr)) < sizeof(paddr_t));
-+
-+    while ( len )
-+    {
-+        void *p;
-+        unsigned int size = min(len, (unsigned int)PAGE_SIZE - offset);
-+        struct page_info *page;
-+
-+        page = translate_get_page(info, addr, flags & COPY_gva,
-+                                  flags & COPY_to_guest);
-+        if ( page == NULL )
-+            return len;
-+
-+        p = __map_domain_page(page);
-+        p += offset;
-+        if ( flags & COPY_to_guest )
-+        {
-+            /*
-+             * buf will be NULL when the caller request to zero the
-+             * guest memory.
-+             */
-+            if ( buf )
-+                memcpy(p, buf, size);
-+            else
-+                memset(p, 0, size);
-+        }
-+        else
-+            memcpy(buf, p, size);
-+
-+        unmap_domain_page(p - offset);
-+        put_page(page);
-+        len -= size;
-+        buf += size;
-+        addr += size;
-+
-+        /*
-+         * After the first iteration, guest virtual address is correctly
-+         * aligned to PAGE_SIZE.
-+         */
-+        offset = 0;
-+    }
-+
-+    return 0;
-+}
-+
-+unsigned int copy_to_guest_phys(struct domain *d, paddr_t gpa, void *buf,
-+                                unsigned int len)
-+{
-+    return copy_guest(buf, gpa, len, GPA_INFO(d),
-+                      COPY_to_guest | COPY_gpa);
-+}
-diff --git a/xen/arch/riscv/include/asm/guest_access.h b/xen/arch/riscv/include/asm/guest_access.h
-index 3f4c68e4da20..f0a42745330e 100644
---- a/xen/arch/riscv/include/asm/guest_access.h
-+++ b/xen/arch/riscv/include/asm/guest_access.h
-@@ -2,6 +2,10 @@
- #ifndef ASM__RISCV__GUEST_ACCESS_H
- #define ASM__RISCV__GUEST_ACCESS_H
+diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+index 7544fd50a20f..3c613cdb233f 100644
+--- a/xen/arch/arm/kernel.c
++++ b/xen/arch/arm/kernel.c
+@@ -101,8 +101,8 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
+     paddr_t load_addr;
  
-+#include <xen/types.h>
-+
-+struct domain;
-+
- unsigned int raw_copy_to_guest(void *to, const void *from, unsigned len);
- unsigned int raw_copy_from_guest(void *to, const void *from, unsigned len);
- unsigned int raw_clear_guest(void *to, unsigned int len);
-@@ -18,6 +22,9 @@ unsigned int raw_clear_guest(void *to, unsigned int len);
- #define guest_handle_okay(hnd, nr) (1)
- #define guest_handle_subrange_okay(hnd, first, last) (1)
+ #ifdef CONFIG_ARM_64
+-    if ( (info->arch.type == DOMAIN_64BIT) && (info->zimage.start == 0) )
+-        return mem->bank[0].start + info->zimage.text_offset;
++    if ( (info->arch.type == DOMAIN_64BIT) && (info->image.start == 0) )
++        return mem->bank[0].start + info->image.text_offset;
+ #endif
  
-+unsigned int copy_to_guest_phys(struct domain *d, paddr_t gpa, void *buf,
-+                                unsigned int len);
-+
- #endif /* ASM__RISCV__GUEST_ACCESS_H */
+     /*
+@@ -111,19 +111,19 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
+      * and above 32MiB. Load it as high as possible within these
+      * constraints, while also avoiding the DTB.
+      */
+-    if ( info->zimage.start == 0 )
++    if ( info->image.start == 0 )
+     {
+         paddr_t load_end;
+ 
+         load_end = mem->bank[0].start + mem->bank[0].size;
+         load_end = MIN(mem->bank[0].start + MB(128), load_end);
+ 
+-        load_addr = load_end - info->zimage.len;
++        load_addr = load_end - info->image.len;
+         /* Align to 2MB */
+         load_addr &= ~((2 << 20) - 1);
+     }
+     else
+-        load_addr = info->zimage.start;
++        load_addr = info->image.start;
+ 
+     return load_addr;
+ }
+@@ -131,8 +131,8 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
+ static void __init kernel_zimage_load(struct kernel_info *info)
+ {
+     paddr_t load_addr = kernel_zimage_place(info);
+-    paddr_t paddr = info->zimage.kernel_addr;
+-    paddr_t len = info->zimage.len;
++    paddr_t paddr = info->image.kernel_addr;
++    paddr_t len = info->image.len;
+     void *kernel;
+     int rc;
+ 
+@@ -215,7 +215,7 @@ int __init kernel_uimage_probe(struct kernel_info *info,
+         return -EOPNOTSUPP;
+     }
+ 
+-    info->zimage.start = be32_to_cpu(uimage.load);
++    info->image.start = be32_to_cpu(uimage.load);
+     info->entry = be32_to_cpu(uimage.ep);
+ 
+     /*
+@@ -224,20 +224,20 @@ int __init kernel_uimage_probe(struct kernel_info *info,
+      * independent image. That means Xen is free to load such an image at
+      * any valid address.
+      */
+-    if ( info->zimage.start == 0 )
++    if ( info->image.start == 0 )
+         printk(XENLOG_INFO
+                "No load address provided. Xen will decide where to load it.\n");
+     else
+         printk(XENLOG_INFO
+                "Provided load address: %"PRIpaddr" and entry address: %"PRIpaddr"\n",
+-               info->zimage.start, info->entry);
++               info->image.start, info->entry);
+ 
+     /*
+      * If the image supports position independent execution, then user cannot
+      * provide an entry point as Xen will load such an image at any appropriate
+      * memory address. Thus, we need to return error.
+      */
+-    if ( (info->zimage.start == 0) && (info->entry != 0) )
++    if ( (info->image.start == 0) && (info->entry != 0) )
+     {
+         printk(XENLOG_ERR
+                "Entry point cannot be non zero for PIE image.\n");
+@@ -257,13 +257,13 @@ int __init kernel_uimage_probe(struct kernel_info *info,
+         if ( rc )
+             return rc;
+ 
+-        info->zimage.kernel_addr = mod->start;
+-        info->zimage.len = mod->size;
++        info->image.kernel_addr = mod->start;
++        info->image.len = mod->size;
+     }
+     else
+     {
+-        info->zimage.kernel_addr = addr + sizeof(uimage);
+-        info->zimage.len = len;
++        info->image.kernel_addr = addr + sizeof(uimage);
++        info->image.len = len;
+     }
+ 
+     info->load = kernel_zimage_load;
+@@ -289,7 +289,7 @@ int __init kernel_uimage_probe(struct kernel_info *info,
+      * Thus, Xen uses uimage.load attribute to determine the load address and
+      * zimage.text_offset is ignored.
+      */
+-    info->zimage.text_offset = 0;
++    info->image.text_offset = 0;
+ #endif
+ 
+     return 0;
+@@ -338,10 +338,10 @@ static int __init kernel_zimage64_probe(struct kernel_info *info,
+     if ( (end - start) > size )
+         return -EINVAL;
+ 
+-    info->zimage.kernel_addr = addr;
+-    info->zimage.len = end - start;
+-    info->zimage.text_offset = zimage.text_offset;
+-    info->zimage.start = 0;
++    info->image.kernel_addr = addr;
++    info->image.len = end - start;
++    info->image.text_offset = zimage.text_offset;
++    info->image.start = 0;
+ 
+     info->load = kernel_zimage_load;
+ 
+@@ -389,10 +389,10 @@ static int __init kernel_zimage32_probe(struct kernel_info *info,
+         }
+     }
+ 
+-    info->zimage.kernel_addr = addr;
++    info->image.kernel_addr = addr;
+ 
+-    info->zimage.start = start;
+-    info->zimage.len = end - start;
++    info->image.start = start;
++    info->image.len = end - start;
+ 
+     info->load = kernel_zimage_load;
+ 
+@@ -403,7 +403,7 @@ static int __init kernel_zimage32_probe(struct kernel_info *info,
+     return 0;
+ }
+ 
+-int __init kernel_zimage_probe(struct kernel_info *info, paddr_t addr,
++int __init kernel_image_probe(struct kernel_info *info, paddr_t addr,
+                                paddr_t size)
+ {
+     int rc;
+diff --git a/xen/common/device-tree/kernel.c b/xen/common/device-tree/kernel.c
+index 28096121a52d..cfa27464f0fc 100644
+--- a/xen/common/device-tree/kernel.c
++++ b/xen/common/device-tree/kernel.c
+@@ -235,7 +235,7 @@ int __init kernel_probe(struct kernel_info *info,
+     if ( rc && rc != -EINVAL )
+         return rc;
+ 
+-    rc = kernel_zimage_probe(info, mod->start, mod->size);
++    rc = kernel_image_probe(info, mod->start, mod->size);
+ 
+     return rc;
+ }
+diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
+index 33a60597bb4d..2af3bd5f0722 100644
+--- a/xen/include/xen/fdt-kernel.h
++++ b/xen/include/xen/fdt-kernel.h
+@@ -56,7 +56,7 @@ struct kernel_info {
+             paddr_t text_offset; /* 64-bit Image only */
+ #endif
+             paddr_t start; /* Must be 0 for 64-bit Image */
+-        } zimage;
++        } image;
+     };
+ 
+ #if __has_include(<asm/kernel.h>)
+@@ -122,7 +122,7 @@ void kernel_load(struct kernel_info *info);
+ 
+ int kernel_decompress(struct boot_module *mod, uint32_t offset);
+ 
+-int kernel_zimage_probe(struct kernel_info *info, paddr_t addr, paddr_t size);
++int kernel_image_probe(struct kernel_info *info, paddr_t addr, paddr_t size);
+ 
  /*
-  * Local variables:
+  * uImage isn't really used nowadays thereby leave kernel_uimage_probe()
 -- 
 2.53.0
 
