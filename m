@@ -2,42 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QGoxFdEQwWk7QQQAu9opvQ
+	id oPzmHKUfwWmTQwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 11:07:13 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 12:10:29 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B52AB2EFAE2
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 11:07:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1259180.1552492 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC3B72F0EB5
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 12:10:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1259191.1552500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4cBV-0002Pe-0P; Mon, 23 Mar 2026 10:06:57 +0000
+	id 1w4dAA-000574-Bp; Mon, 23 Mar 2026 11:09:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1259180.1552492; Mon, 23 Mar 2026 10:06:56 +0000
+Received: by outflank-mailman (output) from mailman id 1259191.1552500; Mon, 23 Mar 2026 11:09:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4cBU-0002NU-Tw; Mon, 23 Mar 2026 10:06:56 +0000
-Received: by outflank-mailman (input) for mailman id 1259180;
- Mon, 23 Mar 2026 10:06:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1w4dAA-00055e-8t; Mon, 23 Mar 2026 11:09:38 +0000
+Received: by outflank-mailman (input) for mailman id 1259191;
+ Mon, 23 Mar 2026 11:09:36 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+HLc=BX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1w4cBS-0002NL-Qr
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 10:06:54 +0000
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0322143e-26a0-11f1-9ccf-f158ae23cfc8;
- Mon, 23 Mar 2026 11:06:52 +0100 (CET)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-486507134e4so49428825e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 03:06:51 -0700 (PDT)
+ (envelope-from <jbeulich@suse.com>) id 1w4dA8-000555-42
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 11:09:36 +0000
+Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
+ id 1w4dA6-00Emu6-U6
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 12:09:34 +0100
+Received: from [10.42.69.5] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 69c11f6b-2eae-0a2a0a5409dd-0a2a4505aff4-24
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 12:09:34 +0100
+Received: from [209.85.221.48] (helo=mail-wr1-f48.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <jbeulich@suse.com>)
+ id 69c11f6e-5aeb-0a2a45050019-d155dd30e5bb-3
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 12:09:34 +0100
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-43b3f91a7abso25401f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 04:09:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-487031790fdsm224071185e9.3.2026.03.23.03.06.50
+ ffacd0b85a97d-43b646b0b0csm27371468f8f.15.2026.03.23.04.09.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Mar 2026 03:06:50 -0700 (PDT)
+ Mon, 23 Mar 2026 04:09:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,55 +56,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0322143e-26a0-11f1-9ccf-f158ae23cfc8
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774260411; x=1774865211; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774264174; x=1774868974; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tAN8s1MLc3CnVtZFMdiJWxSGZN2ch+3z5qKXHGdayH4=;
-        b=XcWQcoZykwOAtwXwULF1X/CFvEhBs7f+XE+wKQUG1ZPsl6oDfXaFSElaGnqEPJo4tx
-         Ad78DdQObngTxAwl06QS787OtDh4nGBE4IzkPz3egnKy60fJkAJScvUj4jEe/PuXsRxp
-         WvfPj+FazGN+TbS27kqTk/W5N4hvPBv+UxywMTZGaHAOamxw5raGWdCV8u0lJGm4RNdr
-         rbjF+guY1CF6LnBxXVVQL8X8JyCNMeCFPB+e9+DGdmJrJUS39BDMbz3Cp/jgnpVKHk2z
-         i85GTnYSdpiqEvkB6l+H9Mev6SzOP7JNvk6MXosNbRjenJvuXF5sMEiEjNyx3A+nLLQb
-         lrew==
+        bh=PdlyT9UcJOh3tpxG2oyEQb9yFmwXI+XnbU5QuELQG+o=;
+        b=JxIGVw7AZBX6ZtXPiRzg72NvZtA+DLEQ7XgopaBJ+CjtyUB9TQB6qFpCA8rCD9x/WF
+         /ITn8/iGuuevSaaVyX4hLgPKefsy8Q2lTWpmAUMC8l8+CC9UUawvbuupvM9ubg4YQ0xf
+         fW/djwLQKpwQhDA1Di85XchF4dO6Ukdqm6/R5Yj3lOqxhty9WzC/Zkypp3W6lQ5hDUvA
+         MWik99Am0jDDWPZ4TxFjWVlW287NNSFUSS/5Mo8B9Vyh0ZCBEPXl0GJGyp/xXSWclGNP
+         J7xm4SRccFRLfEcAd5nZEqvDYI8uuOyf2qFN1h0Xw+U5TmW6hGSuZfavSdGsBbuDbdDs
+         dphw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774260411; x=1774865211;
+        d=1e100.net; s=20251104; t=1774264174; x=1774868974;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tAN8s1MLc3CnVtZFMdiJWxSGZN2ch+3z5qKXHGdayH4=;
-        b=pTp5mg7M3zEoZegIGSt1TguI4TZe26YPmo/HOZGvKgmfAALOeUKcHxnog0pUrgsFc3
-         DKYTqp4mEpgHYsn9NMr575dMUwhumBu/waMbAJLOH6Z63zjUIq3bGCB9qrSVJCwjRGm5
-         zvS9fjlHv6y9/yjBQuBNDQnNnnli+fXdP4lDw9vmH6bqqP1cG8qmXRP+ZBGhQqyroFlz
-         G5sDk2UMXZ9xS/19UtHCK6DZXrijCnbrwQo9+hqXgprd1DjT83xEcJthknp8YeRqp1wK
-         cbsMbFgQDWoXqfbzkyfZxUGX3t/qFKrGvXjE4Bs12P6XyuuYCFFGpiPM/sQVC2L76T9R
-         ybvg==
-X-Forwarded-Encrypted: i=1; AJvYcCUTl6xQGNvrZp4Z5KEO/sraxqQvXnD8mraWcNZ7Y/0EV0pVbA0raMS1FvugqrldY36xrJc+BJkzgyM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywaj4Ollasz2Nq2Y78zAn0VYBNpA19t8RdrNzFCDod5uYkwXFV8
-	4k/GFG7gRS+XxjRE1mme6ILnWO3EN+XdNY9mTzcF1UppAeGojBPz2L0m9EBGbix82w==
-X-Gm-Gg: ATEYQzyiKf2hJ/1gilnXTOHsdyUKpFTAUevq6ND/AZEtG2C0+JmYkG/mpc2+BNbKlDp
-	R0AJVEtiqO9bbB7f+AiRFfpjMNQSSAyiqD+SSdBVCAvgQYc6W6qOgDF77BXxeJjY634nRTao8JX
-	oymFBYfLDnoaPWjnuDbyof2QSMeX9uCgvU9g1sdP/K/bUOxbowd1pla5t9Mgze01JxvYVE2XrBf
-	RMxK3G26E8c/ZIK6AYElEDRQY4hzIil8PnL6y5neqI1cnfWl82how4PuN5HVjqnGpy3wmzNE84/
-	Z/U0gqpmAhjE/x4F3plVTZjd1WiTKLU1Sk1yiIHyUi4hxsaSvBN08GD7VaymV1iSnqZYCA1GFDY
-	3mk2NE48PdnxnA3o1reh5qsPdxtXtupOYZPfaPKh5AZJ0zp/iXyhGi700Dqb5GGXK5jRE4ggmG1
-	yIWAVCAdNKKxBjDAEzuB+wMVyw1Mjf4D8MXQJDE6eSHFQMYucwbw5ii/hfg3zpZ7jbdlv4m1VN4
-	l3W+f+cX1bIzYw=
-X-Received: by 2002:a05:600c:2d95:b0:487:338:b4f3 with SMTP id 5b1f17b1804b1-4870338b5f9mr61514105e9.17.1774260410824;
-        Mon, 23 Mar 2026 03:06:50 -0700 (PDT)
-Message-ID: <383ef1a4-781f-46f9-baf7-824e9f8f601a@suse.com>
-Date: Mon, 23 Mar 2026 11:06:53 +0100
+        bh=PdlyT9UcJOh3tpxG2oyEQb9yFmwXI+XnbU5QuELQG+o=;
+        b=bgYO2lw1So0RiGAVPj6ngtqt/q/DvO0hjbkeaJJTQ4tBvoN6KPonmeuFjX4tmjfOw0
+         tX/8NaJc0rBp1ivngHwDgNEq4aSc24yHibQpCHdOOybPqOigKwUZjGuYCuKfW1UgGc/v
+         yKO48eDqxnlOl2mv7dhxXHSs8b745hhvMIJrlTq/1MDCAIIlYl8J0YYVtKYxFzWyRaIl
+         ZnYpccjkLwsYQ4l9N6EVSQ7KUCMXuOywerJYpFVJOwFnp1bOUaCkvcd0YUa1coF6rkpi
+         wlXM4LXYuFswtVro00tYA9vzZDWVXEkApw5loMLZ8lpfJvJRcEv+o/j4IDOgfvLPowLH
+         F8UQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXmLio4go2pL0J2lAM11svNl3fDckFfq3Kb2lcCRwt5Rs84e8pFz0CAjDXUTZEXeO2ofnOU4zNJz5E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwN4VxZbRjbpvkzj5vRX30f5WrU7fcZDdoY6HiveVObscrWfVRQ
+	nIzTdqsQMxImmlJfo1EWtJXbG6hluK0RwNfGCMfCyLVaz/MV+Mhgr0HJmkIEv3MJnA==
+X-Gm-Gg: ATEYQzyFJZcr0jpTaYPfOAkvENcljHvrNQKF0n8TTtqfWPCacHiiX7HUBGxjTVOg8Cr
+	dVhHSop64lTGaF3g/Z8LIsFAaAZfOphzSCtLHZRhICGxQJhpGaTRJKzfbaGWxVOIyv+YIlcRDsu
+	1UBo9nfmApepy+rnocrRz0TP1aO78YLpJ/GirB5BeLOK5mUv+gnUPMSoP6spc6gggnzvcFBBoXd
+	P+WyQljwk4EzNw17pIHe8Uwq4rbq64HvnLBnMnSA00PG/Fl5TOMt2jGgrgKo6Icl48zh/FEAMGa
+	aIAlTAxSHe5RkUt5mUzL2dEaB4ESXOTHLHgN/kT4CH8qWhT6ErN+AN5tWB5AZ2FQIBg+1wXE0i6
+	JU0REdVzvGAI2qBnjrQhgRLqNU+h22HDazsRGHLKDo9FjUPaCO3EiIC2UIETXuWFrmThgOdScvu
+	mKG+1xV2+GnFo5NtHEnsmhbhU3OTwSoEU3UG9u4gAWAyfbg0rsob/H9jmlaxUDw+F84eszbQ1Gc
+	A/nDZDXFwdpdtc=
+X-Received: by 2002:a05:6000:2086:b0:43b:48e3:fbee with SMTP id ffacd0b85a97d-43b64286faemr20828148f8f.37.1774264173894;
+        Mon, 23 Mar 2026 04:09:33 -0700 (PDT)
+Message-ID: <be38f4ce-48f8-459c-9bfc-caa60794a652@suse.com>
+Date: Mon, 23 Mar 2026 12:09:36 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v v3 5/7] x86: Remove x86 prefixed names from hvm code
-To: Kevin Lampis <kevin.lampis@citrix.com>
-Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com,
- xen-devel@lists.xenproject.org
-References: <20260313163630.1073019-1-kevin.lampis@citrix.com>
- <20260313163630.1073019-6-kevin.lampis@citrix.com>
+Subject: Re: [PATCH v6 3/5] arm/sysctl: Implement cpu hotplug ops
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Timothy Pearson <tpearson@raptorengineering.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1773307749.git.mykyta_poturai@epam.com>
+ <206261ba0b60ebcff25e083c22d9e9b885645199.1773307749.git.mykyta_poturai@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -123,72 +141,312 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260313163630.1073019-6-kevin.lampis@citrix.com>
+In-Reply-To: <206261ba0b60ebcff25e083c22d9e9b885645199.1773307749.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-purgate-ID: tlsNG-c201ff/1774264174-80568488-91BF6857/0/0
+X-purgate-type: clean
+X-purgate-size: 7824
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,vates.tech,raptorengineering.com,wdc.com,gmail.com,apertussolutions.com,lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:kevin.lampis@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:tpearson@raptorengineering.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:oleksii.kurochko@gmail.com,m:dpsmith@apertussolutions.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[support.md:url,suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: B52AB2EFAE2
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: AC3B72F0EB5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 13.03.2026 17:36, Kevin Lampis wrote:
-> struct cpuinfo_x86
->   .x86        => .family
->   .x86_vendor => .vendor
->   .x86_model  => .model
->   .x86_mask   => .stepping
-> 
-> No functional change.
-> 
-> This work is part of making Xen safe for Intel family 18/19.
-> 
-> Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
-
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-> @@ -2163,8 +2164,7 @@ int __init vmx_vmcs_init(void)
+On 12.03.2026 10:39, Mykyta Poturai wrote:
+> --- a/xen/arch/arm/smp.c
+> +++ b/xen/arch/arm/smp.c
+> @@ -44,6 +44,15 @@ void smp_send_call_function_mask(const cpumask_t *mask)
+>      }
+>  }
 >  
->      if ( opt_ept_ad < 0 )
->          /* Work around Erratum AVR41 on Avoton processors. */
-> -        opt_ept_ad = !(boot_cpu_data.x86 == 6 &&
-> -                       boot_cpu_data.x86_model == 0x4d);
-> +        opt_ept_ad = !(boot_cpu_data.vfm == INTEL_ATOM_SILVERMONT_D);
+> +/*
+> + * We currently don't support SMT on ARM so we don't need any special logic for
+> + * CPU disabling
+> + */
+> +bool arch_cpu_can_stay_online(unsigned int cpu)
+> +{
+> +    return true;
+> +}
 
-Nit: Why not simply
+Something as simple as this would be nice to be an inline function (or, less
+desirably, a macro).
 
-        opt_ept_ad = (boot_cpu_data.vfm != INTEL_ATOM_SILVERMONT_D);
+> --- a/xen/arch/x86/platform_hypercall.c
+> +++ b/xen/arch/x86/platform_hypercall.c
+> @@ -735,6 +735,12 @@ ret_t do_platform_op(
+>      {
+>          int cpu = op->u.cpu_ol.cpuid;
+>  
+> +        if ( !IS_ENABLED(CONFIG_CPU_HOTPLUG) )
+> +        {
+> +            ret = -EOPNOTSUPP;
+> +            break;
+> +        }
+> +
+>          ret = xsm_resource_plug_core(XSM_HOOK);
+>          if ( ret )
+>              break;
+> @@ -761,6 +767,12 @@ ret_t do_platform_op(
+>      {
+>          int cpu = op->u.cpu_ol.cpuid;
+>  
+> +        if ( !IS_ENABLED(CONFIG_CPU_HOTPLUG) )
+> +        {
+> +            ret = -EOPNOTSUPP;
+> +            break;
+> +        }
+> +
+>          ret = xsm_resource_unplug_core(XSM_HOOK);
+>          if ( ret )
+>              break;
 
-? Will take the liberty of adjusting while committing.
+I wonder whether on x86 this really should become an optional thing (and
+if so, whether that wouldn't better be a separate change with proper
+justification). See also the comment on common/Kconfig further down - by
+the name of the option, and given the support status the change above may
+be legitimate, but not some of the similar restrictions added elsewhere.
+
+> --- a/xen/arch/x86/smp.c
+> +++ b/xen/arch/x86/smp.c
+> @@ -418,35 +418,8 @@ void cf_check call_function_interrupt(void)
+>      smp_call_function_interrupt();
+>  }
+>  
+> -long cf_check cpu_up_helper(void *data)
+> +bool arch_cpu_can_stay_online(unsigned int cpu)
+>  {
+> -    unsigned int cpu = (unsigned long)data;
+> -    int ret = cpu_up(cpu);
+> -
+> -    /* Have one more go on EBUSY. */
+> -    if ( ret == -EBUSY )
+> -        ret = cpu_up(cpu);
+> -
+> -    if ( !ret && !opt_smt &&
+> -         cpu_data[cpu].compute_unit_id == INVALID_CUID &&
+> -         cpumask_weight(per_cpu(cpu_sibling_mask, cpu)) > 1 )
+> -    {
+> -        ret = cpu_down_helper(data);
+> -        if ( ret )
+> -            printk("Could not re-offline CPU%u (%d)\n", cpu, ret);
+> -        else
+> -            ret = -EPERM;
+> -    }
+> -
+> -    return ret;
+> -}
+> -
+> -long cf_check cpu_down_helper(void *data)
+> -{
+> -    int cpu = (unsigned long)data;
+> -    int ret = cpu_down(cpu);
+> -    /* Have one more go on EBUSY. */
+> -    if ( ret == -EBUSY )
+> -        ret = cpu_down(cpu);
+> -    return ret;
+> +    return opt_smt || cpu_data[cpu].compute_unit_id != INVALID_CUID ||
+> +           cpumask_weight(per_cpu(cpu_sibling_mask, cpu)) <= 1;
+>  }
+
+Unlike for Arm, this may indeed better be an out-of-line function.
+
+> --- a/xen/arch/x86/sysctl.c
+> +++ b/xen/arch/x86/sysctl.c
+> @@ -49,6 +49,7 @@ static void cf_check l3_cache_get(void *arg)
+>  
+>  static long cf_check smt_up_down_helper(void *data)
+>  {
+> +    #ifdef CONFIG_CPU_HOTPLUG
+>      bool up = (bool)data;
+>      unsigned int cpu, sibling_mask = boot_cpu_data.x86_num_siblings - 1;
+>      int ret = 0;
+> @@ -89,6 +90,8 @@ static long cf_check smt_up_down_helper(void *data)
+>                 up ? "enabled" : "disabled", CPUMASK_PR(&cpu_online_map));
+>  
+>      return ret;
+> +    #endif /* CONFIG_CPU_HOTPLUG */
+> +    return 0;
+>  }
+
+The #-es or pre-processor directives want to be in the very first column.
+
+Sharing "return ret" would also be nice, imo. Would require ret's decl to
+move ahead of the #ifdef. Actually - is there anything preventing
+
+    if ( !IS_ENABLED(CONFIG_CPU_HOTPLUG) )
+        return 0;
+
+at the top of the function? Perhaps even with ASSERT_UNREACHABLE() added
+in?
+
+> @@ -115,24 +118,24 @@ long arch_do_sysctl(
+>  
+>      case XEN_SYSCTL_cpu_hotplug:
+>      {
+> -        unsigned int cpu = sysctl->u.cpu_hotplug.cpu;
+>          unsigned int op  = sysctl->u.cpu_hotplug.op;
+>          bool plug;
+>          long (*fn)(void *data);
+>          void *hcpu;
+>  
+> -        switch ( op )
+> +        if ( !IS_ENABLED(CONFIG_CPU_HOTPLUG) )
+>          {
+> -        case XEN_SYSCTL_CPU_HOTPLUG_ONLINE:
+> -            plug = true;
+> -            fn = cpu_up_helper;
+> -            hcpu = _p(cpu);
+> +            ret = -EOPNOTSUPP;
+>              break;
+
+ASSERT_UNREACHABLE() looks to also be valid to be added here, seeing how
+do_sysctl() now works.
+
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -637,6 +637,12 @@ config SYSTEM_SUSPEND
+>  
+>  	  If unsure, say N.
+>  
+> +config CPU_HOTPLUG
+> +	bool "Enable CPU hotplug"
+
+I'm not happy with this prompt. For x86 SUPPORT.md declares (ACPI) CPU
+hotplug as experimental. That's physical hotplug. The code you're
+fiddling with, however, is also used for soft-{off,on}lining. Which,
+e.g. to disable SMT on x86, may need to be used for security purposes.
+
+> +	depends on (X86 || ARM_64) && !FFA && !TEE && !HAS_ITS
+
+What if on x86 FFA, TEE, or ITS gain a meaning?
+
+> +	default y
+> +
+> +
+
+Nit: No double blank lines please.
+
+> --- a/xen/common/sysctl.c
+> +++ b/xen/common/sysctl.c
+> @@ -483,6 +483,52 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
+>              copyback = 1;
+>          break;
+>  
+> +    case XEN_SYSCTL_cpu_hotplug:
+> +    {
+> +        unsigned int cpu = op->u.cpu_hotplug.cpu;
+
+I don't think this variable is very useful to keep. Instead use ...
+
+> +        unsigned int hp_op = op->u.cpu_hotplug.op;
+> +        bool plug;
+> +        long (*fn)(void *data);
+> +        void *hcpu;
+
+        void *hcpu = _p(op->u.cpu_hotplug.op);
+
+right here, dropping the assignments further down.
+
+> +        ret = -EOPNOTSUPP;
+> +        if ( !IS_ENABLED(CONFIG_CPU_HOTPLUG) )
+> +            break;
+> +
+> +        switch ( hp_op )
+> +        {
+> +        case XEN_SYSCTL_CPU_HOTPLUG_ONLINE:
+> +            plug = true;
+> +            fn = cpu_up_helper;
+> +            hcpu = _p(cpu);
+> +            break;
+> +
+> +        case XEN_SYSCTL_CPU_HOTPLUG_OFFLINE:
+> +            plug = false;
+> +            fn = cpu_down_helper;
+> +            hcpu = _p(cpu);
+> +            break;
+> +
+> +        default:
+> +            fn = NULL;
+> +            break;
+> +        }
+> +
+> +        if ( fn )
+> +        {
+> +            ret = plug ? xsm_resource_plug_core(XSM_HOOK)
+> +                       : xsm_resource_unplug_core(XSM_HOOK);
+> +
+> +            if ( !ret )
+> +                ret = continue_hypercall_on_cpu(0, fn, hcpu);
+> +
+> +            break;
+> +        }
+> +
+> +        /* Use the arch handler for cases not handled here */
+> +        fallthrough;
+> +    }
+> +
+>      default:
+>          ret = arch_do_sysctl(op, u_sysctl);
+>          copyback = 0;
+
+This form of falling through may be a little risky, towards someone not
+looking closely enough and inserting another case label immediately ahead
+of the default one. While I don't think there's a really good solution to
+this, please consider
+
+    }
+        /* Use the arch handler for cases not handled above */
+        fallthrough;
+    default:
+
+instead.
+
+> --- a/xen/xsm/flask/hooks.c
+> +++ b/xen/xsm/flask/hooks.c
+> @@ -835,7 +835,7 @@ static int cf_check flask_sysctl(int cmd)
+>      case XEN_SYSCTL_getdomaininfolist:
+>      case XEN_SYSCTL_page_offline_op:
+>      case XEN_SYSCTL_scheduler_op:
+> -#ifdef CONFIG_X86
+> +#ifdef CONFIG_CPU_HOTPLUG
+>      case XEN_SYSCTL_cpu_hotplug:
+>  #endif
+>          return 0;
+
+Is there a reason the #ifdef can't simply be dropped?
 
 Jan
 
