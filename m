@@ -2,44 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oO4AIDIhwWmTQwQAu9opvQ
+	id cF8pDFoiwWmTQwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 12:17:06 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 12:22:02 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2A582F10D5
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 12:17:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1259212.1552519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97E792F120A
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 12:22:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1259220.1552527 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4dHA-0007d2-Dj; Mon, 23 Mar 2026 11:16:52 +0000
+	id 1w4dLw-00016N-VC; Mon, 23 Mar 2026 11:21:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1259212.1552519; Mon, 23 Mar 2026 11:16:52 +0000
+Received: by outflank-mailman (output) from mailman id 1259220.1552527; Mon, 23 Mar 2026 11:21:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4dHA-0007aT-AJ; Mon, 23 Mar 2026 11:16:52 +0000
-Received: by outflank-mailman (input) for mailman id 1259212;
- Mon, 23 Mar 2026 11:16:51 +0000
+	id 1w4dLw-00013q-S9; Mon, 23 Mar 2026 11:21:48 +0000
+Received: by outflank-mailman (input) for mailman id 1259220;
+ Mon, 23 Mar 2026 11:21:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lIW0=BX=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1w4dH9-0007aM-7g
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 11:16:51 +0000
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012027.outbound.protection.outlook.com [52.101.48.27])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c82c1006-26a9-11f1-9ccf-f158ae23cfc8;
- Mon, 23 Mar 2026 12:16:48 +0100 (CET)
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by PH7PR03MB6995.namprd03.prod.outlook.com (2603:10b6:510:12f::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Mon, 23 Mar
- 2026 11:16:42 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9723.030; Mon, 23 Mar 2026
- 11:16:26 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=+HLc=BX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1w4dLv-00013k-II
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 11:21:47 +0000
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 796877dc-26aa-11f1-9ccf-f158ae23cfc8;
+ Mon, 23 Mar 2026 12:21:45 +0100 (CET)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-439bc14dcf4so3455845f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 04:21:45 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43b6cdfdfa9sm19643036f8f.9.2026.03.23.04.21.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Mar 2026 04:21:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,173 +49,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c82c1006-26a9-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OTsgLp5VlSz8eHreozwGWQSNbBe+MbIKFTF3VsdbcsiLQ8PIZHfxaPedoF31+Oi+NzI8Pr8z3LQOMWQKQm/JYu3pkIUA/aTSm0ihc4+yt6OmMLxLslaCKJWOm1s1rntKbKVBfvYY0rG68nbodpNe/XCvtX7i37b+CljjfkacK+IoHxyHT7NGbNXp15KU1bF9S7nWMAh00qxISPGu7AP/sQ/t6UgmhVhWt1JqKQ7TALnCtjaY9XguQ36FEVfzJc+RKES1jQaDYI9Oz9XvJHltieLlKgaqKnnCYhlx8NDiW8BKuXn3fE3DYfjacHz0MTdj3+gAzWdT47rLmWVyiLBiJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xAUfQ8s+1FGN6f2MApaLd8d/AGOLqbmY+xkVDnQuE4Q=;
- b=G3XVkBiG6aoo2IL0ryfefvgMfDx2FCWKn+24m7wtYY1Mnr5glwv5AR5LojA2TzSNK58jacTCDIS8xCN8wnjExdOMEhE1u/T9rhhWUgdeIlynoH5OHHAaqO7ayyd7gK0vBIFXUR+gufpmF3jLG7wQ3G35S1Qed8zqG4KQ2XKJQa9puXphi6QM5c1zHdqRMJ2ElQhj1BzDoxeB/mew3+WA/3R9usi5WtzFKmuf5Hat5ACCBNhJxNns85rv50zvf3rEnJMTV0pePTOAhG8Jec8mHfSzUVkhi6AXzzAX4AtWk5Olji8pjp5770aXTYQLcCNMKrG0XMi21StY6lJxvGJVYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xAUfQ8s+1FGN6f2MApaLd8d/AGOLqbmY+xkVDnQuE4Q=;
- b=CR8tjewR/UUendkEyzEWvPYDPcXyULQLyhcYALJko8zaN/FUO2U2ZTAxSs+qBs9sQ/AGXwNd44Rup+RJ4H39NQ9x+wkyReue9nMznrIJWSnWWkO4LdLPyZjw3EILnDxDX6kHLs1nRKW41GYrryUl3V7kLwEpuvXBzYqHvQtMpYI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Mon, 23 Mar 2026 12:16:39 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Marek Marczykowski <marmarek@invisiblethingslab.com>
-Subject: Re: [PATCH] x86/S3: restore MCE (APs) and add MTRR (BSP) init
-Message-ID: <acEhF0NnlImMHwiO@macbook.local>
-References: <12fbad10-78ad-4679-a1db-3995e34da094@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <12fbad10-78ad-4679-a1db-3995e34da094@suse.com>
-X-ClientProxiedBy: MR1P264CA0004.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:2e::9) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-Inumbo-ID: 796877dc-26aa-11f1-9ccf-f158ae23cfc8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1774264904; x=1774869704; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=a74I+JkLGusfBhOhvZxoIP68cNb9aOakHdNPfBY6ahQ=;
+        b=Qbkc2MlIhAL+YtdHYE6e2226u/JAxDHTtEqpHFIAZN2F+LabJK7ykZTlXycFFpXHFV
+         RG2ANS0ct7WLQSutgjjbnXn8kK1q3+r5BINZyFe81l5Q0B9PpHr55Yi7Ln7Ejf5jyRwp
+         v5vtYj771ZxMTu4vUWRLCWaYDBiic8c0P/CT6K3WXNEHg0BTHwLIC7a8Fh9lLDSP0Epa
+         sjUr3hkoSUit1kQTOEk2K8l77ODbah/Rlryyi7hXSek9I2du6o/Z7kkb6FWanSFmOwOA
+         vpbDJ9vCkesH5j3o6oTvcYOTV+Q/g4jK6c92qwSQpsJDcDk8TVYC4WjQaiZOHIxfx0xU
+         2j1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774264904; x=1774869704;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=a74I+JkLGusfBhOhvZxoIP68cNb9aOakHdNPfBY6ahQ=;
+        b=OYonvNhW9gUTLfCJF5jkEAArys5PRMooV+6CHoZBH7ozabPqYFAF3R5eZGz5IqOf5u
+         9WmiDJaGaSrPtvQMn+2C1gHI08aED3iS0r32zRc7LngdfxHtaUgmLTNPj4o1lSHbdf2q
+         lkKIBJrsqCIMzAlU7lt29C0S9+Kl5iEXhsNi+ijfCddssdkmmGzGShzvwNDU0mdaHbRi
+         r5J5GgflvPOqgf7e0P7/9n7hm9Wj1MHRMHfyQ55DULd5Sf7lis2Vd34rUz17CtpzQ5xA
+         4u81RHCAjKZRO3NvFUKS0YA25bjpN26SAeY4VziltJjCnK2025+QUPInHeJRGja+jdqP
+         fuJA==
+X-Gm-Message-State: AOJu0YwLJAjavijCzwTXDxhCpCn8KGlwXvCW2rTC87mZBw9/UUNDEuE0
+	Pn4v5ocC7H/eBnc6tLpbnrY4iLtQOPjsR31F7W/g/sQKMnK9SwA+1sCc+U08vwfzGw==
+X-Gm-Gg: ATEYQzxyJKGXH8QpyZcMh70z1HpTAjxVGUHXPJoAdUmUjiPtiGAKFo+DiC6Jyf/2XiN
+	jHSAdNvBjuA9jNPgiYpI0cNqME9+ZQPGy4HiDPp1dgtaLWA4G1Zt1Wq/U104TxbWhgxFGAK9Mv2
+	ts3cAAawcTOKbYkERWjRzTAn2NPrnSvsjOYbeDdjXUMHmNMOlQZBpW1By8vHFuiV3O8CiiVOrNv
+	gpFxCPnWzKztfbfRcgcOaEO/xG3qG4+Q0loVvwG6RVU6USbco1CAfjVFOb/o9rGOMmjwOyL8P7q
+	Sz+DuI0iQehkqFX30RYMMWim1q/xEBJlLzVyzvGYcwiFG5oZVwmizsIISE1UVpI6uAY5dAMa7Nw
+	W9nqFV51buT8VhLT3K6u39lCCMuDmyRUDVz5YJQuatTEPfaiWLK9ogPFlRAqQHXnDX+HQaZY55T
+	eIdC5fqxsRcoSGANoqR8xda1b/tcF1ed4CuH699Eu7SBK7Gxd91lRTj8ZcWRpnw2LGmCRElLKrF
+	3FPVDujpscST0Y=
+X-Received: by 2002:a05:6000:401e:b0:43b:5091:39db with SMTP id ffacd0b85a97d-43b6427249cmr19475056f8f.13.1774264904277;
+        Mon, 23 Mar 2026 04:21:44 -0700 (PDT)
+Message-ID: <24401de6-eceb-4087-b3e9-05c99cba1d0c@suse.com>
+Date: Mon, 23 Mar 2026 12:21:46 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|PH7PR03MB6995:EE_
-X-MS-Office365-Filtering-Correlation-Id: f53e2779-4ee6-4faf-7d64-08de88cd9f81
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|56012099003|22082099003|7053199007|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	U8LfSXpZCKGbWvhPbk+yEl/uM45yRtHlVk/1UCmSEKC0+jGPhBkRspZNynyD8c8N9KipQwHFE9pLhx23+aqj5/SI7eRjWg6tETfxMp/Zvd5BHtKpKsmK/lgZP34dokhQiRtDMErVItOvO7HbmPer59/4Elq5OoSH7BdqgXHPoexhqedFOy20lAnxqmr3aGI8Zo9zMWRMqbP7Czad4AqTFIWOqeGLnGPH20QftrxZvyb/jQ9GkofBISHxwP0a6RDfGkjuEL4X77ys7phn7tJSkBHZgyZ73DPqRvUXkb2OC82F2ow7X2atx09wIRuH7cNG7k/+wL1QqZyNWMqbHXmV/0f8XMg+0DsX5U1TjKfha6R5PC9fnYMX/Htcy6L37tx0O8cmM1QxORfeiANnxPvedMqVwJbNkH7/Yf0Y243BR6qQ5jQjw8ByaKq5371zlrUBnjY4WZKKk65wk7ZZ3SCmv8tADNCPrWTpyDtCzndPD8P14Xv/PYBhjkx7ePmvSz/akK7sb7MMfOLD3sC+2iulwqyT4IQjM4rHf1mr603YW+4YlvNJ7uDaXgGRk/+sLEmnArQlWeTNL5XCTg2Q0rSM+cCux+S8Tf7dj82ZSSWibutGhz0pNRMZ/9yFcVTAlR+xm+wMwdz2nbk/bhEhsEDrgbRPnx80cMT7DRT186hWjBX+6jOshZRJuh0T/6KiQ4MtsqV3UF2a1XzbwGEr4iwmaTHcTa6MABCKL5wKwGZ8c2k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(7053199007)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SUV3YVlsR25aaFVyaUdCNXNvMWp3UmFxVFkvOHNIaFdhY2JqbTRvdk5wMUNn?=
- =?utf-8?B?RHZtb2JQc1VYYmtOVkVGc3lXMmRVVjkwN2hxVTkyMGVibHpyWHR6WmswNG9n?=
- =?utf-8?B?ZGV0eDhQeEpOVmsvSUYxUm4zVDB4TndPREkwWjNESmFUSTJpNC9LMWhsVjc5?=
- =?utf-8?B?dXVkTVhQZ1lkclVoRFFUZ1BWbmc4WFRvc3BVOC9XWXhTRE9oNXZ2YU50dlhR?=
- =?utf-8?B?bjlsOW9vMzJMbzNkUG1aVkdLUmhyUURLOWVrOUVUNllaclhMS1pTdnZmcnlT?=
- =?utf-8?B?SHJVVkdHbm5ZSWFqZ01nOEY3Rm5jd2w0NDloNTd2Tkh6L3p6OUlGZ1RBdFJS?=
- =?utf-8?B?U3VqZzRmS09sWk16TU5ndzRSd0dBalQyMG9NWUFFVnBqM3daSE9YTnBwZWY2?=
- =?utf-8?B?RU1qTHhVYTJuM0txUC85M0c4ZzRIMGxubi9VZ2kwUEo4WFBlaS9qcnVta2tF?=
- =?utf-8?B?cUtwczhNMmVoR2FYbGNyQys4MTRBTHlZbEZCbzlvdTROS3U2Z3BYK2lIQWdq?=
- =?utf-8?B?ckxZaitqbDEvU2h0aXNXZkdqanFuZ2JNVlBUVm9kREtuVjB0Y1VwY3N4eDhJ?=
- =?utf-8?B?RUxPT3lYZE1aL0o3WG15aTZOWVFmTW9zdmNwNUVNYWxmL2VDbm93SUxPRUdD?=
- =?utf-8?B?ZGxwdmNiUGdtV0pYQkdqZ1lkVVBod3RqRHpmKzViOEVCRWdaV010MWlJckds?=
- =?utf-8?B?ZXdwZk5RN1ZSb25xVHZPNjVaRCtId3dOdUJmSGVzQXBiRUpuL0lXaElVTzhP?=
- =?utf-8?B?L0MwWjhZTXV6U3J6c1VEdkQwR3JwNnNtNUpBRml1Nmd5OGZKaG5lV2ZrSE85?=
- =?utf-8?B?WmU1Q3FzZzF3aHVlWlNROEJ4OEJLb1F2SnJKTGJuQzBLWHEvaWM1c3hUZDJu?=
- =?utf-8?B?eW4vYmo4WHJHbnZKRkFqei9FTHVQUjdGNm05bmVoQ2Q1VmpDdVdIdmZZaGVO?=
- =?utf-8?B?WWpjek5pUUJ2ZkVoWGRsVUtGYnVRWmJkVEdBM2kvWEVSSWppNExpVGMrRFg2?=
- =?utf-8?B?bzYvanlRbEJQamt3dTBRZTNNQjdEdFNJdzd6eVNDbjFYdnFXNUdoUjYwSDdM?=
- =?utf-8?B?enkxRklQWVE5eXVuQXlOZVZ0MlV6eVdUZURFV3RqQkVIQWFqMnl2NnpoSXRj?=
- =?utf-8?B?dWZIbFFaQVBhTjNQY1R3WXhEQ3h3NWpvN0VkYTFTK293bHJCL1pZbTY5d0Zh?=
- =?utf-8?B?Z1VMQmxSTi9yOTd4Rnpwbmp6YnREOFByU3JuMW5GbklWejM2YkxtQldGZEZY?=
- =?utf-8?B?R1U3SEFrYXUyblRCbW0vUzE2RTZzVDF0cngrREh0S2hUZVpxQ1UwUW9FZVFB?=
- =?utf-8?B?MzJvTDJ5ek9BOXA5VUpMR3dXSWJFckdoOUUrQmk4djNGWVMydU0xUWF2dllN?=
- =?utf-8?B?OTR6Z08vVUNKQXNmWnRwRVVZcmYzMitPMlgvczdQRXpWWWhoS0pUcU1OclhS?=
- =?utf-8?B?RFdmWWJSc1Vxa01EQStDYjAxUzFnK0ZwaExkOXVSSjJ3SzFHaFVySkpHK2Vk?=
- =?utf-8?B?aGxqZHkyeTlkajk1a2hXd0EvWGcvN2gxcTlaU3ZmdjNPcWV5RmNsM1lIMDdy?=
- =?utf-8?B?aGQ4VXJHK205dzBEZXNLTHdRbHRxTlJnYnF2amdocDdrMDExMDhYbFdTb2lQ?=
- =?utf-8?B?MXY2NWU4QmRjaHB5amFteEg2Ni8vSFhrRmhTaTg2b1cwOWc0YU5sT1l0dDdG?=
- =?utf-8?B?SnhRREZnR3k1T2xvWExqUGtEM2lJbkpoclppZ01xZ0ZkTjBGS1M3c21aWHNi?=
- =?utf-8?B?SUtkbkhpWGZtQ1l3NUpoN3RMUmpqZEwwVHI3WGZweXYybE0wVlhqVXVNdTdl?=
- =?utf-8?B?R1AybWRPaXNJMlJjelc0SGZUOEgrSmw2ZGhCK3ExRFR2WlV0YjVURk9Wb29k?=
- =?utf-8?B?bnBhL05qTFhSMXJXdVlRN0dWRTBLNkYwNkxXU3l3MFNZc0EzWURVYUN5bHFO?=
- =?utf-8?B?aFJNN0JMUjJSWmRTQWd0V3ZlSHZZSm1uNE5mSEcrYVMreEJSa2dUTHlQTjM5?=
- =?utf-8?B?dlFqQmp1NEdLeTR4UDVUQjNBTzU3VDVaRU9tSjQ0bm1FZ29aZENyM1hPTzVh?=
- =?utf-8?B?aEtocGk1dGE5REcrajVHbndxTEU2NmVDeEFSYjFnNVA2SEJBTWxGdnoySjFh?=
- =?utf-8?B?U0dROXVRaENRc3Q2Y2pldGRvbWtYakcxdmp1Q1RDSEVVUDJxd0Z2S24xVTVv?=
- =?utf-8?B?V3dLTjNYa3Fxc3FyaVg3OGJ0YmdqTmkyL3NRcWVSVGxTTlN5NndsdDN3b3Rj?=
- =?utf-8?B?SzY5TWxicER1QUd3ZkMvRHoydktPQ2pkK0tCa1hYRGZ2SnFwZithcUcrRTB2?=
- =?utf-8?B?ZHdnQXh4eUtzZlZFQWhYNkpTYzVPdFVKWVVDMVdrVExZUXgzYXBTUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f53e2779-4ee6-4faf-7d64-08de88cd9f81
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2026 11:16:26.1085
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G0Jk6JpmMpZJqbz2XIX0tPuJRg9wvAClAWLyfupy1CdZgO7Vrz6Wfts+X2leA9D59oomT1bs7Bg7OOeTGayWww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB6995
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/S3: restore MCE (APs) and add MTRR (BSP) init
+To: Marek Marczykowski <marmarek@invisiblethingslab.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <12fbad10-78ad-4679-a1db-3995e34da094@suse.com>
+ <aahDX_QvrB1MTLcq@mail-itl> <0c556f7c-6567-43ec-a9cd-eb542fc970b3@suse.com>
+ <aahJJdA6ftj3OucN@mail-itl>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <aahJJdA6ftj3OucN@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[invisiblethingslab.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,invisiblethingslab.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,macbook.local:mid,citrix.com:dkim];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	RCPT_COUNT_THREE(0.00)[4];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: E2A582F10D5
+X-Rspamd-Queue-Id: 97E792F120A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Wed, Mar 04, 2026 at 02:39:01PM +0100, Jan Beulich wrote:
-> MCE init for APs was broken when CPU feature re-checking was added. MTRR
-> (re)init for the BSP looks to never have been there on the resume path.
-
-I'm not sure the statement about MTRR init is correct, AFAICT
-mtrr_aps_sync_end() will also re-init the MTRRs on the BSP, and hence
-the added mtrr_ap_init() seems to duplicate what's already done in
-mtrr_aps_sync_end().
-
-> Fixes: bb502a8ca592 ("x86: check feature flags after resume")
-> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Sadly we need to go by CPU number (zero vs non-zero) here. See the call
-> site of recheck_cpu_features() in enter_state().
+On 04.03.2026 16:00, Marek Marczykowski wrote:
+> On Wed, Mar 04, 2026 at 03:47:14PM +0100, Jan Beulich wrote:
+>> On 04.03.2026 15:36, Marek Marczykowski wrote:
+>>> On Wed, Mar 04, 2026 at 02:39:01PM +0100, Jan Beulich wrote:
+>>>> MCE init for APs was broken when CPU feature re-checking was added. MTRR
+>>>> (re)init for the BSP looks to never have been there on the resume path.
+>>>>
+>>>> Fixes: bb502a8ca592 ("x86: check feature flags after resume")
+>>>> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> Sadly we need to go by CPU number (zero vs non-zero) here. See the call
+>>>> site of recheck_cpu_features() in enter_state().
+>>>
+>>> With this patch, I now see the "Thermal monitoring enabled" on resume
+>>> also for AP.
+>>> And then, the "Temperature above threshold" + "Running in modulated
+>>> clock mode" for AP too. But, I don't see matching "Temperature/speed
+>>> normal" for any of them...
+>>
+>> Which would imply that for each CPU you see at most one such message after
+>> resume. Can you confirm this? 
 > 
-> --- a/xen/arch/x86/cpu/common.c
-> +++ b/xen/arch/x86/cpu/common.c
-> @@ -642,16 +642,21 @@ void identify_cpu(struct cpuinfo_x86 *c)
->  			       smp_processor_id());
->  	}
->  
-> -	if (system_state == SYS_STATE_resume)
-> -		return;
-> +	if (system_state == SYS_STATE_resume) {
-> +		unsigned int cpu = smp_processor_id();
->  
-> +		if (cpu)
-> +			mcheck_init(&cpu_data[cpu], false);
-> +		else /* Yes, the BSP needs to use the AP function here. */
-> +			mtrr_ap_init();
+> For the current test, yes. I got the messages for CPUs 16, 6, 18, 4, 2 -
+> in this order. Not for 0, 8-15 or 20-21. Not sure about CPU0, but for
+> others it kinda looks like I got it for P cores, but not E cores? But
+> I'm not sure how to reliably distinguish them - I base it on the holes
+> in numbering due to smt=off. Specifically I have online CPUs:
+> 0,2,4,6,8-16,18,20-21 (yeah, weird ordering...).
 
-For symmetry with the BSP path, is it really needed to init MCE so
-early for the BSP by calling it directly in enter_state(), or could it
-also be done here?
+I wonder, btw, if this is good enough to translate into a Tested-by: for
+this patch. Thoughts?
 
-Thanks, Roger.
+Jan
 
