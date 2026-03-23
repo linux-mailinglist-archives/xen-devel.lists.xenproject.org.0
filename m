@@ -2,42 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uLHiMO5qwWnVSwQAu9opvQ
+	id KKmIMvVqwWkVTAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 17:31:42 +0100
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 17:31:49 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 711852F83FF
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 17:31:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1259480.1552810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B6622F8416
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2026 17:31:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1259487.1552819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4iBi-00085u-HF; Mon, 23 Mar 2026 16:31:34 +0000
+	id 1w4iBp-00006r-Rz; Mon, 23 Mar 2026 16:31:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1259480.1552810; Mon, 23 Mar 2026 16:31:34 +0000
+Received: by outflank-mailman (output) from mailman id 1259487.1552819; Mon, 23 Mar 2026 16:31:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4iBi-00083t-Cu; Mon, 23 Mar 2026 16:31:34 +0000
-Received: by outflank-mailman (input) for mailman id 1259480;
- Mon, 23 Mar 2026 16:31:33 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n/J7=BX=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1w4iBh-0005Bu-Fk
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 16:31:33 +0000
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bfbc9c21-26d5-11f1-9ccf-f158ae23cfc8;
- Mon, 23 Mar 2026 17:31:31 +0100 (CET)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-b97ba4c2be2so55769266b.1
- for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 09:31:31 -0700 (PDT)
+	id 1w4iBp-0008VC-OR; Mon, 23 Mar 2026 16:31:41 +0000
+Received: by outflank-mailman (input) for mailman id 1259487;
+ Mon, 23 Mar 2026 16:31:40 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <oleksii.kurochko@gmail.com>) id 1w4iBo-0008TZ-JI
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 16:31:40 +0000
+Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
+ id 1w4iBm-005v6Z-De
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2026 17:31:39 +0100
+Received: from [10.42.69.1] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69c16ae6-5cb7-0a2a0a5109dd-0a2a4501b08a-14
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 17:31:39 +0100
+Received: from [209.85.218.47] (helo=mail-ej1-f47.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69c16aeb-6400-0a2a45010019-d155da2fa404-3
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 17:31:39 +0100
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-b93698bb57aso836110966b.0
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2026 09:31:39 -0700 (PDT)
 Received: from fedora (user-109-243-69-121.play-internet.pl. [109.243.69.121])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9832f8be14sm536248166b.17.2026.03.23.09.31.23
+ a640c23a62f3a-b9832f8be14sm536248166b.17.2026.03.23.09.31.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2026 09:31:24 -0700 (PDT)
+ Mon, 23 Mar 2026 09:31:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,66 +56,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfbc9c21-26d5-11f1-9ccf-f158ae23cfc8
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20230601 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774283490; x=1774888290; darn=lists.xenproject.org;
+        d=gmail.com; s=20230601; t=1774283499; x=1774888299; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=r1qaV10ihMFV1jFtGW95X77joTg/NVVxfQDdtdd2358=;
-        b=pVjJ6K/twCoz8DZmff6UFa/z+pgdMFXpITKbM7R9D35D74XzxbC8UpcXJG30WlzvdR
-         h9SFLNoO+xjIIuSJSzRjhgSg7eWlZaUkZ5JtLPuwfj7wSNYwNNioGYb/3hobM7+ILzqo
-         +2R5wn3ayQK+OIhxgoRYfytvSkyfXF6hk0Yq9Gdd/MAC3SCSQPL0EX0EBa1Zjcj2KTXe
-         jpFiQsBvnd5rKD6TKybfCRe7FNssWOJZa5WrSTLsWty/mBbt03PRPc+j1gvzCajNNg8c
-         DJNI7bF8p4RkZqJV8Q5CtJhTwDaCXwJbJ86sLwu3U/D+RFf0uI4GN+pijC2Vk+3qePFG
-         edCg==
+        bh=zE/rD5OgNgJkWO/wss6LPCSbET9QBlr+zsTkckbS38c=;
+        b=VjRa8xur2kIBCZkDMDTb6+7pAb2SX5QydzqluAX+FFbmtyhsK4aEAxdiP1UvbTRx4X
+         1eMTMRPIckMdn7SAzUltiG2g+wCQNCFfi+xsslcaWC/Pm9twr1KdiLGho5wkN92K/TSb
+         s5Rmv3e8CsYGpydT2TlLLxHAts+b54ovntazA6BOVILMQkURH29tqV5LTXpaKf9YbaAd
+         mM3e4X5HkThrdoJK0by6RLO/6tRhmmiv+YVQ1dqi+RcDT90kK173RdVQGkPhT2imk4tN
+         gj2nQoTmjgfevy1mzJRFewchpU8zU1e9mTMAECV8daDNuKMpBKBeYpfDAqwBvqPipWbD
+         ct4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774283490; x=1774888290;
+        d=1e100.net; s=20251104; t=1774283499; x=1774888299;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=r1qaV10ihMFV1jFtGW95X77joTg/NVVxfQDdtdd2358=;
-        b=aZOr5MKFWSHj0tGD3OQQdGpMlFQoXuPzhEbbes68DVlja7Oe1U4M5FE+IV3DIpoLJ5
-         mzfzgaBA4sZDHfvnALCD1PYBS22aTIbA3xY63jVlAdyfadbwx+FAEX4TB8U4xSC4CgDd
-         QqmMEpnDXV1ulWlf1vbaQoyS4uiDQiQVMWArUBJZnC+a6LaxRlfbYmx/sJZB8ovtsYPz
-         uL5fyMhikVb9R01EDYoQ0qA/t4hmCJxLvIsoKj/uVqORUKtNKxguvUK6s0SNke4v95jw
-         6VXj/B3tclRuar7xKrGMYns6Z4/DrgBd//sBoONUPGuFSTGJKNTvuqGNem05bGIbvY/N
-         4/Tw==
-X-Gm-Message-State: AOJu0Yx+SM05TUkSu9VSb76xMMFXusQsbia7T01XQGMbL5r9oxdUYRGc
-	SsE+KqI9D5nJgU+xmxjKV/RCXGnG+zAnrHGCtTI2K17n2wyGZXebizjaMoiC8w==
-X-Gm-Gg: ATEYQzzMixmuGf4OxOLaBNh0Fzb1ljoWcnPEX1pPTMa8IDgcUtVJu41c4Qn7Ne03HdL
-	XiRx6luMSOMLvXyULvMA9U7q9n+PLHL9StCe5Eh4yQX17Uu8Rpm9WY4xsXYMR3sEcWw0dv1Ax5f
-	35e+wvuT89Tr9Q/OnxtC+UB8nL1pFH+x6ywPMmnDjUBBGKFSIboMy4Y6svlvMZxzV+jMNKCbWuA
-	KGm0C0J8Mk+l5O6qhucZgmEX5Z/No2iir+dhSvpJIBrqQmS/r+59eMB8AZ+Z7PniyAo+/S5Tb4T
-	B5wFr1mYdjuwj6Mg1CiNjx2uZY6e1QCRNF2tuxLU1NuOfpvzkWWrbkXJNA+woZw7gjaEkU9szZz
-	6V4ECi96JXolBmo042RYM8bQ9qxaOyQ8/6WFNW3jEhdt6eO149unAByxL1r8zooGvvHrUuYSMEe
-	eo5TKzGlwLyuuwkk8OowUrCl7++CDKj4YY1PDVDeN9BHm9z4pU9/VMoyMEIlMXGB7ZwQ==
-X-Received: by 2002:a17:907:3f20:b0:b98:53d5:9b20 with SMTP id a640c23a62f3a-b9853d5b03dmr517013766b.12.1774283490285;
-        Mon, 23 Mar 2026 09:31:30 -0700 (PDT)
+        bh=zE/rD5OgNgJkWO/wss6LPCSbET9QBlr+zsTkckbS38c=;
+        b=LbBg0vT4tk7aCk1Nhh++fkAEZYnLhSTJ+fQ9PPranJrR8qBwVndPd+wD3Hhwkq5Vtd
+         XgX/4xuwLbY/qcakKttUZEmU7dncNnQr2v+2mjlHo3MhbQToo3h/Rxy0qQL7aB2Illfy
+         7W2YCaGKUBFW30RAeJ/URM1ZWHbLvNBiyKNcbb0u0yRRSl5TgYCWF5K8HP2nmhhv9Aqq
+         fGLXFXdxWxANeHAS0OmUpOrqXHT81zsT6/W+0H10FjerQC3D8fPsuvBbTck+T6Be48Nw
+         jqGHBBIJ08ngysuovFgNrjW8nnDGR82C7TsU2sy2ySGaUxB0iHZ0OTf48PpnRxpJDtEb
+         GlxA==
+X-Gm-Message-State: AOJu0YzcTsFg1+o2Xv+oJpVx/NlMTJt02Jc4a9uaw/wBf3nNW+dQMMUK
+	dfz9lYNTeXrLrsSNKsMZZ2osAEn1WwsDhQPdD6LSSmxALFTeys9GqdY3RDIDKQ==
+X-Gm-Gg: ATEYQzwO6gLDIBiMnSwdRr6lIY2V6cUaGy4rBgxf2ts0LXrfBGG44vRI3FUpUZtYkpI
+	jfKs//8UsekrnUi5mA+tQK0JdaNV3dsPV+sOISQOIFvdVMA7yXoXbXZKOiq1SYYVfsML3FPswi2
+	M0fgKuk1fE34iMf43J5lHq+TIcT+9qnwWXHQsRPvv+jluxVcvm8vuL/Cqu08TWOSCMbbReXDnum
+	7zcV/uZfl8JNT7KEWE+g3RbWBsBKYvBICwv1KL7ovJnbiySSuaIc1wItD9uLZHIjd5MdThbPGML
+	ePyj5KUcc7FpWM9Sxg9nATNabqs0YtTZl0VvwaalWP3V5I/Upomxvs3vbJpZn06tZC92/8tHxmu
+	rIRIXY1m2bVKo0jui7ri9qufpMA77K+wXINLCcAqtln1aAJ42J4tQzKu+VXNMaj2VEARjst2Xx+
+	RMhC2yxhvIY3rb3F9/05An0hS+Zc6udeaUEUKWnbUGlL+oEBE5MYAtbQ9NG4wjsTH1rw==
+X-Received: by 2002:a17:906:7947:b0:b98:cfa:f54e with SMTP id a640c23a62f3a-b988632193dmr17738966b.12.1774283498891;
+        Mon, 23 Mar 2026 09:31:38 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Rahul Singh <rahul.singh@arm.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2 08/11] xen: rename p2m_ipa_bits to p2m_gpa_bits
-Date: Mon, 23 Mar 2026 17:29:49 +0100
-Message-ID: <05365c2b70147f30fd97a2fe5b7ab66d773c0f32.1774281309.git.oleksii.kurochko@gmail.com>
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 09/11] xen/riscv: introduce p2m_gpa_bits
+Date: Mon, 23 Mar 2026 17:29:50 +0100
+Message-ID: <775374eab7b9868b7cabe6c76fa1b7ac2f8466d8.1774281309.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1774281309.git.oleksii.kurochko@gmail.com>
 References: <cover.1774281309.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-d62444/1774283499-8FEEADF3-39222399/0/0
+X-purgate-type: clean
+X-purgate-size: 4473
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20230601];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -116,288 +128,159 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:oleksii.kurochko@gmail.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:rahul.singh@arm.com,m:jbeulich@suse.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,gmail.com,kernel.org,xen.org,arm.com,amd.com,epam.com,suse.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[microchip.com,gmail.com,wdc.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[gmail.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[8]
-X-Rspamd-Queue-Id: 711852F83FF
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 6B6622F8416
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The IPA terminology is Arm-specific, so rename p2m_ipa_bits to
-p2m_gpa_bits to use architecture-neutral naming.
+p2m_gpa_bits is used by common/device-tree/domain-build.c thereby when
+CONFIG_DOMAIN_BUILD_HELPERS=y it is necessary to have p2m_gpa_bits properly
+defined as it is going to be used to find unused regions.
 
-No functional changes.
+Introduce default_gstage_mode to have ability to limit p2m_gpa_bits before
+p2m_init() is being called as it will be too late.
 
-Reported-by: Jan Beulich <jbeulich@suse.com>
+Limit p2m_gpa_bits in guest_mm_init() as it could be that default G-stage
+MMU mode uses less VA wide bits than IOMMU, so p2m_gpa_bits should be
+restricted more so that dom0less code uses the correct GPA bits.
+
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v2:
- - New patch
+ - New patch.
 ---
- xen/arch/arm/domain_build.c              | 12 ++++++------
- xen/arch/arm/domctl.c                    |  2 +-
- xen/arch/arm/include/asm/p2m.h           |  4 ++--
- xen/arch/arm/mmu/p2m.c                   | 18 +++++++++---------
- xen/arch/arm/p2m.c                       |  6 +++---
- xen/common/device-tree/domain-build.c    |  2 +-
- xen/drivers/passthrough/arm/ipmmu-vmsa.c |  4 ++--
- xen/drivers/passthrough/arm/smmu-v3.c    |  2 +-
- xen/drivers/passthrough/arm/smmu.c       |  2 +-
- 9 files changed, 26 insertions(+), 26 deletions(-)
+ xen/arch/riscv/include/asm/p2m.h | 10 ++++++++--
+ xen/arch/riscv/p2m.c             | 34 ++++++++++++++++++++++++++++----
+ 2 files changed, 38 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index e8795745ddc7..38ab41ec6b19 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -744,7 +744,7 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
+diff --git a/xen/arch/riscv/include/asm/p2m.h b/xen/arch/riscv/include/asm/p2m.h
+index 54ea67990f06..76b30af8dacb 100644
+--- a/xen/arch/riscv/include/asm/p2m.h
++++ b/xen/arch/riscv/include/asm/p2m.h
+@@ -32,10 +32,13 @@
+  */
+ #define P2M_LEVEL_ORDER(lvl) XEN_PT_LEVEL_ORDER(lvl)
  
-     /* Start with maximum possible addressable physical memory range */
-     start = 0;
--    end = (1ULL << p2m_ipa_bits) - 1;
-+    end = (1ULL << p2m_gpa_bits) - 1;
-     res = rangeset_add_range(mem_holes, PFN_DOWN(start), PFN_DOWN(end));
-     if ( res )
-     {
-@@ -815,7 +815,7 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
-     }
+-#define P2M_ROOT_EXTRA_BITS(p2m, lvl) (2 * ((lvl) == P2M_ROOT_LEVEL(p2m)))
++#define P2M_ROOT_EXTRA_BITS 2
++
++#define P2M_LEVEL_EXTRA_BITS(p2m, lvl) \
++    (P2M_ROOT_EXTRA_BITS * ((lvl) == P2M_ROOT_LEVEL(p2m)))
  
-     start = 0;
--    end = (1ULL << p2m_ipa_bits) - 1;
-+    end = (1ULL << p2m_gpa_bits) - 1;
-     res = rangeset_report_ranges(mem_holes, PFN_DOWN(start), PFN_DOWN(end),
-                                  add_ext_regions,  ext_regions);
-     if ( res )
-@@ -849,7 +849,7 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
+ #define P2M_PAGETABLE_ENTRIES(p2m, lvl) \
+-    (BIT(PAGETABLE_ORDER + P2M_ROOT_EXTRA_BITS(p2m, lvl), UL))
++    (BIT(PAGETABLE_ORDER + P2M_LEVEL_EXTRA_BITS(p2m, lvl), UL))
  
-         start = ROUNDUP(bankbase[i] + kinfo_mem->bank[i].size, SZ_2M);
+ #define P2M_TABLE_OFFSET(p2m, lvl) (P2M_PAGETABLE_ENTRIES(p2m, lvl) - 1UL)
  
--        bankend = ~0ULL >> (64 - p2m_ipa_bits);
-+        bankend = ~0ULL >> (64 - p2m_gpa_bits);
-         bankend = min(bankend, bankbase[i] + banksize[i] - 1);
+@@ -44,6 +47,9 @@
+ #define P2M_LEVEL_MASK(p2m, lvl) \
+     (P2M_TABLE_OFFSET(p2m, lvl) << P2M_GFN_LEVEL_SHIFT(lvl))
  
-         if ( bankend > start )
-@@ -881,7 +881,7 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
-     }
- 
-     res = rangeset_report_ranges(mem_holes, 0,
--                                 PFN_DOWN((1ULL << p2m_ipa_bits) - 1),
-+                                 PFN_DOWN((1ULL << p2m_gpa_bits) - 1),
-                                  add_ext_regions, ext_regions);
-     if ( res )
-         ext_regions->nr_banks = 0;
-@@ -907,7 +907,7 @@ static unsigned int __init count_ranges(struct rangeset *r)
- {
-     unsigned int cnt = 0;
- 
--    (void) rangeset_report_ranges(r, 0, PFN_DOWN((1ULL << p2m_ipa_bits) - 1),
-+    (void) rangeset_report_ranges(r, 0, PFN_DOWN((1ULL << p2m_gpa_bits) - 1),
-                                   count, &cnt);
- 
-     return cnt;
-@@ -972,7 +972,7 @@ static int __init find_host_extended_regions(const struct kernel_info *kinfo,
-         }
- 
-         rangeset_report_ranges(kinfo->xen_reg_assigned, 0,
--                               PFN_DOWN((1ULL << p2m_ipa_bits) - 1),
-+                               PFN_DOWN((1ULL << p2m_gpa_bits) - 1),
-                                rangeset_to_membank, xen_reg);
-     }
- 
-diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
-index ad914c915f81..d8db595ab348 100644
---- a/xen/arch/arm/domctl.c
-+++ b/xen/arch/arm/domctl.c
-@@ -23,7 +23,7 @@ void arch_get_domain_info(const struct domain *d,
-     /* All ARM domains use hardware assisted paging. */
-     info->flags |= XEN_DOMINF_hap;
- 
--    info->gpaddr_bits = p2m_ipa_bits;
-+    info->gpaddr_bits = p2m_gpa_bits;
- }
- 
- static int handle_vuart_init(struct domain *d, 
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index 010ce8c9ebbd..b15b57aa32bd 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -12,7 +12,7 @@
++/* Holds the bit size of GPAs in p2m tables */
++extern unsigned int p2m_gpa_bits;
++
  #define paddr_bits PADDR_BITS
  
- /* Holds the bit size of IPAs in p2m tables.  */
--extern unsigned int p2m_ipa_bits;
-+extern unsigned int p2m_gpa_bits;
+ /* Get host p2m table */
+diff --git a/xen/arch/riscv/p2m.c b/xen/arch/riscv/p2m.c
+index 11beaeead5ac..cd682d6586c7 100644
+--- a/xen/arch/riscv/p2m.c
++++ b/xen/arch/riscv/p2m.c
+@@ -51,6 +51,24 @@ static struct gstage_mode_desc __ro_after_init max_gstage_mode = {
+     .name = "Bare",
+ };
  
- #define MAX_VMID_8_BIT  (1UL << 8)
- #define MAX_VMID_16_BIT (1UL << 16)
-@@ -186,7 +186,7 @@ static inline bool arch_acquire_resource_check(struct domain *d)
++static struct gstage_mode_desc __ro_after_init default_gstage_mode = {
++    .mode = HGATP_MODE_SV39X4,
++    .paging_levels = 2,
++    .name = "Sv39x4",
++};
++
++/*
++ * Set to the maximum configured support for GPA bits, so the number of GPA
++ * bits can be restricted by an external entity (e.g. IOMMU) and the
++ * restriction must happen before the call of guest_mm_init().
++ *
++ * The widest G-stage mode defined by the RISC-V specification is Sv57x4,
++ * which yields 59-bit GPAs: Sv57 maps 57-bit VAs onto 56-bit PAs (PADDR_BITS),
++ * and the G-stage "x4" extension widens the address space by a further 2 bits,
++ * hence PADDR_BITS + 1 + P2M_ROOT_EXTRA_BITS.
++ */
++unsigned int __ro_after_init p2m_gpa_bits = PADDR_BITS + P2M_ROOT_EXTRA_BITS + 1;
++
+ static void p2m_free_page(struct p2m_domain *p2m, struct page_info *pg);
+ 
+ static inline void p2m_free_metadata_page(struct p2m_domain *p2m,
+@@ -191,8 +209,13 @@ static void __init gstage_mode_detect(void)
+ 
+ void __init guest_mm_init(void)
+ {
++    unsigned int gpa_bits;
++    unsigned int paging_levels = default_gstage_mode.paging_levels;
++
+     gstage_mode_detect();
+ 
++    ASSERT(default_gstage_mode.paging_levels <= max_gstage_mode.paging_levels);
++
+     vmid_init();
+ 
+     /*
+@@ -226,6 +249,11 @@ void __init guest_mm_init(void)
+      * so it could be that we polluted local TLB so flush all guest TLB.
+      */
+     local_hfence_gvma_all();
++
++    gpa_bits = P2M_GFN_LEVEL_SHIFT(paging_levels + 1) + P2M_ROOT_EXTRA_BITS;
++
++    if ( gpa_bits < p2m_gpa_bits )
++        p2m_gpa_bits = gpa_bits;
  }
  
  /*
-- * Helper to restrict "p2m_ipa_bits" according the external entity
-+ * Helper to restrict "p2m_gpa_bits" according the external entity
-  * (e.g. IOMMU) requirements.
-  *
-  * Each corresponding driver should report the maximum IPA bits
-diff --git a/xen/arch/arm/mmu/p2m.c b/xen/arch/arm/mmu/p2m.c
-index 51abf3504fcf..08871c61b812 100644
---- a/xen/arch/arm/mmu/p2m.c
-+++ b/xen/arch/arm/mmu/p2m.c
-@@ -1734,11 +1734,11 @@ void __init setup_virt_paging(void)
-     } t0sz_32;
- #else
-     /*
--     * Restrict "p2m_ipa_bits" if needed. As P2M table is always configured
-+     * Restrict "p2m_gpa_bits" if needed. As P2M table is always configured
-      * with IPA bits == PA bits, compare against "pabits".
-      */
--    if ( pa_range_info[system_cpuinfo.mm64.pa_range].pabits < p2m_ipa_bits )
--        p2m_ipa_bits = pa_range_info[system_cpuinfo.mm64.pa_range].pabits;
-+    if ( pa_range_info[system_cpuinfo.mm64.pa_range].pabits < p2m_gpa_bits )
-+        p2m_gpa_bits = pa_range_info[system_cpuinfo.mm64.pa_range].pabits;
- 
-     /*
-      * cpu info sanitization made sure we support 16bits VMID only if all
-@@ -1748,10 +1748,10 @@ void __init setup_virt_paging(void)
-         max_vmid = MAX_VMID_16_BIT;
+@@ -363,9 +391,7 @@ int p2m_init(struct domain *d)
  #endif
  
--    /* Choose suitable "pa_range" according to the resulted "p2m_ipa_bits". */
-+    /* Choose suitable "pa_range" according to the resulted "p2m_gpa_bits". */
-     for ( i = 0; i < ARRAY_SIZE(pa_range_info); i++ )
-     {
--        if ( p2m_ipa_bits == pa_range_info[i].pabits )
-+        if ( p2m_gpa_bits == pa_range_info[i].pabits )
-         {
-             pa_range = i;
-             break;
-@@ -1760,7 +1760,7 @@ void __init setup_virt_paging(void)
+     /* TODO: don't hardcode used for a domain g-stage mode. */
+-    p2m->mode.mode = HGATP_MODE_SV39X4;
+-    p2m->mode.paging_levels = 2;
+-    safe_strcpy(p2m->mode.name, "Sv39x4");
++    p2m->mode = default_gstage_mode;
  
-     /* Check if we found the associated entry in the array */
-     if ( pa_range >= ARRAY_SIZE(pa_range_info) || !pa_range_info[pa_range].pabits )
--        panic("%u-bit P2M is not supported\n", p2m_ipa_bits);
-+        panic("%u-bit P2M is not supported\n", p2m_gpa_bits);
- 
- #ifdef CONFIG_ARM_64
-     val |= VTCR_PS(pa_range);
-@@ -1778,14 +1778,14 @@ void __init setup_virt_paging(void)
-     p2m_root_level = 2 - pa_range_info[pa_range].sl0;
- 
- #ifdef CONFIG_ARM_64
--    p2m_ipa_bits = 64 - pa_range_info[pa_range].t0sz;
-+    p2m_gpa_bits = 64 - pa_range_info[pa_range].t0sz;
- #else
-     t0sz_32.val = pa_range_info[pa_range].t0sz;
--    p2m_ipa_bits = 32 - t0sz_32.val;
-+    p2m_gpa_bits = 32 - t0sz_32.val;
- #endif
- 
-     printk("P2M: %d-bit IPA with %d-bit PA and %d-bit VMID\n",
--           p2m_ipa_bits,
-+           p2m_gpa_bits,
-            pa_range_info[pa_range].pabits,
-            ( MAX_VMID == MAX_VMID_16_BIT ) ? 16 : 8);
- 
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index fb03978a19af..5564e7d3c1db 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -19,7 +19,7 @@ unsigned int __read_mostly max_vmid = MAX_VMID_8_BIT;
-  * Set to the maximum configured support for IPA bits, so the number of IPA bits can be
-  * restricted by external entity (e.g. IOMMU).
-  */
--unsigned int __read_mostly p2m_ipa_bits = PADDR_BITS;
-+unsigned int __read_mostly p2m_gpa_bits = PADDR_BITS;
- 
- /* Unlock the flush and do a P2M TLB flush if necessary */
- void p2m_write_unlock(struct p2m_domain *p2m)
-@@ -603,8 +603,8 @@ void __init p2m_restrict_ipa_bits(unsigned int ipa_bits)
-      * Calculate the minimum of the maximum IPA bits that any external entity
-      * can support.
-      */
--    if ( ipa_bits < p2m_ipa_bits )
--        p2m_ipa_bits = ipa_bits;
-+    if ( ipa_bits < p2m_gpa_bits )
-+        p2m_gpa_bits = ipa_bits;
+     return 0;
  }
- 
- /*
-diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
-index 6708c9dd66e6..362da1cae780 100644
---- a/xen/common/device-tree/domain-build.c
-+++ b/xen/common/device-tree/domain-build.c
-@@ -220,7 +220,7 @@ int __init find_unallocated_memory(const struct kernel_info *kinfo,
-     }
- 
-     start = 0;
--    end = (1ULL << p2m_ipa_bits) - 1;
-+    end = (1ULL << p2m_gpa_bits) - 1;
-     res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
-                                  cb, free_regions);
-     if ( res )
-diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-index ea9fa9ddf3ce..e2b4c95dcc67 100644
---- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-+++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-@@ -575,11 +575,11 @@ static int ipmmu_domain_init_context(struct ipmmu_vmsa_domain *domain)
- 
-     /*
-      * TTBCR
--     * We use long descriptors and allocate the whole "p2m_ipa_bits" IPA space
-+     * We use long descriptors and allocate the whole "p2m_gpa_bits" IPA space
-      * to TTBR0. Use 4KB page granule. Start page table walks at first level.
-      * Always bypass stage 1 translation.
-      */
--    tsz0 = (64 - p2m_ipa_bits) << IMTTBCR_TSZ0_SHIFT;
-+    tsz0 = (64 - p2m_gpa_bits) << IMTTBCR_TSZ0_SHIFT;
-     ipmmu_ctx_write_root(domain, IMTTBCR, IMTTBCR_EAE | IMTTBCR_PMB |
-                          IMTTBCR_SL0_LVL_1 | tsz0);
- 
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-index bf153227dbd9..9e86cd7b0ad0 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.c
-+++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -1202,7 +1202,7 @@ static int arm_smmu_domain_finalise_s2(struct arm_smmu_domain *smmu_domain,
- 		return -EINVAL;
- 	}
- 
--	vtcr->tsz = 64 - p2m_ipa_bits;
-+	vtcr->tsz = 64 - p2m_gpa_bits;
- 	vtcr->sl = 2 - P2M_ROOT_LEVEL;
- 
- 	arm_lpae_s2_cfg.vttbr  = page_to_maddr(smmu_domain->d->arch.p2m.root);
-diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-index 22d306d0cb80..fa28fd7db79c 100644
---- a/xen/drivers/passthrough/arm/smmu.c
-+++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -1276,7 +1276,7 @@ static void arm_smmu_init_context_bank(struct arm_smmu_domain *smmu_domain)
- 			 * Xen: The IOMMU share the page-tables with the P2M
- 			 * which may have restrict the size further.
- 			 */
--			reg |= (64 - p2m_ipa_bits) << TTBCR_T0SZ_SHIFT;
-+			reg |= (64 - p2m_gpa_bits) << TTBCR_T0SZ_SHIFT;
- 
- 			switch (smmu->s2_output_size) {
- 			case 32:
+@@ -1304,7 +1330,7 @@ static mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
+ {
+     unsigned int level = P2M_ROOT_LEVEL(p2m);
+     unsigned int gfn_limit_bits =
+-        P2M_LEVEL_ORDER(level + 1) + P2M_ROOT_EXTRA_BITS(p2m, level);
++        P2M_LEVEL_ORDER(level + 1) + P2M_LEVEL_EXTRA_BITS(p2m, level);
+     pte_t entry, *table;
+     int rc;
+     mfn_t mfn = INVALID_MFN;
 -- 
 2.53.0
 
