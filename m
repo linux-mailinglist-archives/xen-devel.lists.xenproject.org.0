@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2K6JDXpRwmnNbgQAu9opvQ
+	id MDFiN3BVwmnNbgQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 09:55:22 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 10:12:16 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C1BA3051FD
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 09:55:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1260151.1553515 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BECC30556A
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 10:12:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1260165.1553524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4xXW-0004ES-EO; Tue, 24 Mar 2026 08:55:06 +0000
+	id 1w4xnN-0007aS-Ue; Tue, 24 Mar 2026 09:11:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1260151.1553515; Tue, 24 Mar 2026 08:55:06 +0000
+Received: by outflank-mailman (output) from mailman id 1260165.1553524; Tue, 24 Mar 2026 09:11:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4xXW-0004D5-Aq; Tue, 24 Mar 2026 08:55:06 +0000
-Received: by outflank-mailman (input) for mailman id 1260151;
- Tue, 24 Mar 2026 08:55:05 +0000
+	id 1w4xnN-0007YH-Ru; Tue, 24 Mar 2026 09:11:29 +0000
+Received: by outflank-mailman (input) for mailman id 1260165;
+ Tue, 24 Mar 2026 09:11:27 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w4xXV-0004Cz-K2
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 08:55:05 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w4xnL-0007YA-TM
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 09:11:27 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w4xXU-001Hnb-RB
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 09:55:04 +0100
-Received: from [10.42.69.6] (helo=localhost)
+ id 1w4xnK-005q6L-GW
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 10:11:26 +0100
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69c25166-bab6-0a2a0a5309dd-0a2a4506d1c4-20
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 09:55:04 +0100
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c2553a-5cb7-0a2a0a5109dd-0a2a4502e3b4-12
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 10:11:26 +0100
+Received: from [209.85.221.50] (helo=mail-wr1-f50.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69c25168-3034-0a2a45060019-d1558032d1e6-3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 09:55:04 +0100
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4853e1ce427so38526815e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 01:55:04 -0700 (PDT)
+ id 69c2553c-63bb-0a2a45020019-d155dd32d189-3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 10:11:24 +0100
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-439fe4985efso3253841f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 02:11:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-487116f173csm42556465e9.2.2026.03.24.01.55.03
+ ffacd0b85a97d-43b64714decsm32874759f8f.31.2026.03.24.02.11.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Mar 2026 01:55:03 -0700 (PDT)
+ Tue, 24 Mar 2026 02:11:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,55 +58,54 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774342504; x=1774947304; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774343484; x=1774948284; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hUFnKR3WYShIN8354QNofRdIMmgGO/69e0L2uV7um+o=;
-        b=OFslypEECVbTCUqJB5UH3g/ObmfF2dPzlwBbex9NMGy6dWgewAQW1zYBBXtUDOMcDq
-         yqtkP+CSnuj2WBOutvhTru1sxaRjMAHYxzNsUW9JSV83OUq0GkckHJkSq0u/wUoJY5dX
-         4xCpPDPo7yujcKu6R6p4wr7fZZZCWbBWzZTNf8Iq2Rk9UzcZphev0Is7Lk0vQZ6nLLsB
-         Ij647gjOElowg0bsa5SHGvvf4BrBo+65rQWSBZDLatth5cHMesLKosoFHHSH8jdMZ8SS
-         Mqhd9uGRVwtoVAmSFYXEP8eUbt5ymj4f3pZZsQIE8QJVNKDmWVcZ/bTBQjGyIYSGytjJ
-         ExHQ==
+        bh=LUYv0lo+bI9qydu+AFKFxYiD/hyH7p+5ptOyBoQnNas=;
+        b=DrjFa8POBJOH60U0f0gTtfZq6qtpZBJy7lQBQbUJy89Z3f0EvvlWJJHZfebalfwX1c
+         FOT/ewdTH7OzMyzJU6haC6Ttu+Zrl/ui1xbgkXNc1cAGDQk29ChuM9cfKrAllVKoTy/g
+         Wgkzy4w/GVKkz1Y7FIWdQbVrglbZ3wg/TZtsoho7OtLLlBo3116uYY6LVZL18XD9xGko
+         dbMw3sXLgr1BY7olPX86HTWj32zzQC2n6NV8G3TJrMLdxNEykrM7LgsN1YNGdRQloLWD
+         8hFW8sF0mbaC9BZjD98Mw2X6BMjwMCnKM+L6jLJ02t9nYrrNmZ4n12TquEe0AsxzrmBK
+         fNUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774342504; x=1774947304;
+        d=1e100.net; s=20251104; t=1774343484; x=1774948284;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hUFnKR3WYShIN8354QNofRdIMmgGO/69e0L2uV7um+o=;
-        b=PnSOAVPR3TPcHOlqxmjURe4PkVtuHphudfZF3DbAsf71m11l9mtI8mabNFzTGuIqOI
-         bbnF37gve8txn8k7ZzOJSYkfLPMRZtWQ0eCgiWUQKA2zmjCcOiRJyq4z7VW6K1gofpx9
-         jKLo+Yb87Cy/trrat/PixUFPX0XWk2B+QSP4zCloHqy/CqrjRRu/vQgHXLYnBhWhnf6X
-         OjH3fEMqG62EFnwrcFaz3y94nRhMkuzkwytAS5G0hdUlUsOv8nFfIJTcvlKleMlt6AtE
-         jcGAok+eJv0zWHm1/ISBhuCQ+qytCZX3utMs5/caWDfdas+5RZyhIvU2NkVf84vHjn5a
-         LzYw==
-X-Forwarded-Encrypted: i=1; AJvYcCV4RLDpWqzME9EGAFLzk1QoPNBncopuI7CDzyKhgser0Nkp40m1w6tvtxxvq6Ijz7AtndxvFGP60TY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw4aeBv6jBiqPbVEAYSiY/JinLrs4ICuytJmL07RQKxDGfU4Ir9
-	Q7eJQWbKD01dwFBPB78KqpyPZUmhv5clKeO4wYti3xaOUawhfiEk99q6Y812W6+XLg==
-X-Gm-Gg: ATEYQzwuTBinnuih4stwXuvNojPzsdfRm2owEWN4OhqLr+ZeP23dwpLdVca12EEDzpA
-	FZ8VJskWMBgUmFpkJYOpcjl/4XJnXFoN/nF8MfG+qu1ey2gK7v2zs++iYQEiRNkAlL7+qqQEnVf
-	58KnSHoLwVTAJxXc7x0lzv9UwJQ02u1Cdml6/ywnXXfN2Da2/VHUQPBS/moGUjAH4oFcNn2ZWnJ
-	VFaROcx6o2LC38JQMLt9C3IiLosLDCvgatzWAMNYcPEtvjTTi0cLOczlxAoKZrdUrsl4EjRQr7i
-	ic6m66bFf92UfUS1+d+4RBpc+Q4U9UMqtIVuhonCOe0PODBHh+9HLIma3Wl+pzShYpiCK4A9Fo2
-	yJrPK5B1qWOVCj6SQLbqlPt1B/M4td/lHBr/zDVJEeL9uensjsu1akpjGP+9z+SNbbmo7miEFk4
-	S/h3O+uDtToum+Wzfw4ATJNwl1uurkCGZHyilUVglzwvGzkzvSNdh3nwy29++fF1aoaN0CNddca
-	mc5S+0jA17FW/Y=
-X-Received: by 2002:a05:600c:c083:b0:485:3f72:324d with SMTP id 5b1f17b1804b1-486fee0481amr164606415e9.14.1774342504009;
-        Tue, 24 Mar 2026 01:55:04 -0700 (PDT)
-Message-ID: <48655cc4-d892-404b-a107-787539effeea@suse.com>
-Date: Tue, 24 Mar 2026 09:55:02 +0100
+        bh=LUYv0lo+bI9qydu+AFKFxYiD/hyH7p+5ptOyBoQnNas=;
+        b=WcTSeF7kywVjHnag4yzLAto7ueA26kMCiP3Bo4z/6vVAUSR3iJiKwM8N1RmlHIf0za
+         tD8uFBAXZZBf2Ukraxnas5pKV/CbFwGmzSeowoiAsjXdhyWFoKmuiW22h4kbHZBCnAWX
+         uATrx/M3BibyhHGYDMsmWP8PVHrOhILQjcRY1+DesbHXeNOxEX2ltwvMN16Ufmh7/sgP
+         ARVhXg1P25Xi9+INsmlfVU9ElIp2rnW2LgpuMaX66tFPDTfP8bDHYnSLXfGP15VGUgiZ
+         /pYsOuWpVQAImOtP1K5c/lbd+cP2SR6QKlOAbeopXCQjqlSGMuL8tkXkHrHO+ijqS02Z
+         2Emg==
+X-Forwarded-Encrypted: i=1; AJvYcCV+P4kloJhrzgXP7PO1vIzs126ZmUrYrq7H6E44JjE2uCZ3IYAs3bebYzQxRwU0+aUaHcbQNRqKEII=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx/+DUb4XxkTGfn8xF6QDkkOyW9l0ApUfbN2GmP11Ei5HDCceH9
+	hJxB1PaHq+o4OhsSrALThKNiNlhzpqroDuo6oE2Gj+UCy5NpG4suZgi+0cMtHzxkFg==
+X-Gm-Gg: ATEYQzxhanSnZSvR9VAhyZ818VWXwMxzqfAWbtrpXjETPwE6wyPmk7nWlfVLuWY2FEm
+	A5Zxl1V5Z4BOoMDi+hA0mxlNi+bTVhli27xlc1wuFKLa198F9KvsUzDkRSN/+Rl1jjqh8UKHZYK
+	YlO1FIzaEoBDitsxI9lePkNLBoFkIiqXxd6Aos8IqbA6pMwMLRjqbsxhyVsY11wFQei8wopaJbj
+	C/fPWmXy36RPMSiWYCxQvYnl6iqUo4+yuXC+b/90DbmqSNXMDsqkdWPMNV/gxlANO6qhQOPwgO9
+	6U0WtYakDSgDaZEClFJ3eyIWG8c5Y7ysrkQ1k0G5RrQJWPECu5SK6xKwatF3QkxWSX2fq15mHen
+	0Zz3Q4vsPkQhaeUyYsjIuQX24cBoRNqxwQGSdzb6jluIyROHax7KWaTP+moLbWzf3iii1HzO0YS
+	s1ypnK6M0BAzRUB81fAuYdh+duxSNk0s5KPBU6CKV6T12h2wadrh8EPXQRwxUlhiPyEUBeqWRxw
+	CuUIoJCeQbPJ5g9sRN2fXD7GA==
+X-Received: by 2002:a05:6000:2484:b0:43b:4396:674c with SMTP id ffacd0b85a97d-43b6427d7a6mr22588856f8f.55.1774343484304;
+        Tue, 24 Mar 2026 02:11:24 -0700 (PDT)
+Message-ID: <7e4be441-c0ae-498f-9fdf-e5ea8bf11e48@suse.com>
+Date: Tue, 24 Mar 2026 10:11:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] x86/vpmu: Expose up to 8 Intel event selectors in PV
- Dom0
+Subject: Re: [PATCH 2/6] x86/vpmu: Expose PEBS and DS area in PV mode
 To: Teddy Astie <teddy.astie@vates.tech>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  xen-devel@lists.xenproject.org
 References: <cover.1773160025.git.teddy.astie@vates.tech>
- <715834969eb198850e1fe0d1e66046f929c8d658.1773160025.git.teddy.astie@vates.tech>
+ <0762ceb722be83bbdf6703cf419debf30609feb0.1773160025.git.teddy.astie@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,12 +131,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <715834969eb198850e1fe0d1e66046f929c8d658.1773160025.git.teddy.astie@vates.tech>
+In-Reply-To: <0762ceb722be83bbdf6703cf419debf30609feb0.1773160025.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1774342504-7A5911C2-649187A0/0/0
+X-purgate-ID: tlsNG-720697/1774343484-BF48FDB8-C73F42A2/0/0
 X-purgate-type: clean
-X-purgate-size: 847
+X-purgate-size: 750
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -168,28 +167,26 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 9C1BA3051FD
+X-Rspamd-Queue-Id: 3BECC30556A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 10.03.2026 17:44, Teddy Astie wrote:
-> Most (if not all) Intel CPUs starting from Sandy Bridge have up to 8
-> event selectors per core, which could be halved per hyperthread.
-> 
-> However, current PV emulation logic doesn't support up to 8 event selector,
-> leading to errors when trying to access them, hence, preventing Linux from
-> driving the vPMU correctly.
-> 
-> Make sure up to MSR_P6_EVNTSEL(7) is usable, which is the same upper bound as
-> used in VMX code.
-> 
-> The check if the event selector actually exist for the hardware is done in
-> core2_vpmu_do_{rdmsr,wrmsr}, hence we're not allowing to access non-existent
-> MSRs.
-> 
+> I don't see any reason for them for not be available, especially
+> since core2_vpmu_do_wrmsr has PV specific logic for MSR_IA32_DS_AREA.
+
+This is really dangerous: You allow PV domains to control whether the area
+is actually mapped. It lacking a mapping can, iirc, on at least some CPUs
+result in a complete hang. I do, in fact, have been carrying a patch to
+completely disallow DS area use for PV, eliminating the misleading code
+you refer to.
+
+Also note that VPMU_CPU_HAS_DS cannot be set for PV vCPU-s anyway.
+
 > Fixes: 27c554198666 ("x86/VPMU: add support for PMU register handling on PV guests")
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Not just because of the above, I'm pretty sure a Fixes: tag is inappropriate
+here.
 
+Jan
 
