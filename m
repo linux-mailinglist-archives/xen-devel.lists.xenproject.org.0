@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CI4BE1GtwmkyggQAu9opvQ
+	id wMWNMvWywmmRkwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 16:27:13 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 16:51:17 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87FC7318002
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 16:27:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1260989.1554140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EEE331862A
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 16:51:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1261006.1554149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w53el-0002ks-B0; Tue, 24 Mar 2026 15:26:59 +0000
+	id 1w541w-0007RG-8k; Tue, 24 Mar 2026 15:50:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1260989.1554140; Tue, 24 Mar 2026 15:26:59 +0000
+Received: by outflank-mailman (output) from mailman id 1261006.1554149; Tue, 24 Mar 2026 15:50:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w53el-0002il-7D; Tue, 24 Mar 2026 15:26:59 +0000
-Received: by outflank-mailman (input) for mailman id 1260989;
- Tue, 24 Mar 2026 15:26:58 +0000
+	id 1w541w-0007OD-5b; Tue, 24 Mar 2026 15:50:56 +0000
+Received: by outflank-mailman (input) for mailman id 1261006;
+ Tue, 24 Mar 2026 15:50:54 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w53ej-0002if-Ux
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 15:26:57 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w541u-0007O7-DZ
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 15:50:54 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w53ej-00DdOV-6m
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 16:26:57 +0100
-Received: from [10.42.69.2] (helo=localhost)
+ id 1w541t-002jyM-Pf
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 16:50:53 +0100
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69c2ad40-bab6-0a2a0a5309dd-0a2a45028734-4
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 16:26:57 +0100
-Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c2b2cf-5cb7-0a2a0a5109dd-0a2a450b9050-32
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 16:50:53 +0100
+Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69c2ad40-63bb-0a2a45020019-d1558030a9bf-3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 16:26:57 +0100
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-486fe36cfabso22504365e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 08:26:57 -0700 (PDT)
+ id 69c2b2dd-ef63-0a2a450b0019-d1558036ec61-3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 16:50:53 +0100
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-486507134e4so17974445e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 08:50:53 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4870f7f5682sm31572855e9.3.2026.03.24.08.26.55
+ ffacd0b85a97d-43b647120a1sm40792140f8f.30.2026.03.24.08.50.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Mar 2026 08:26:56 -0700 (PDT)
+ Tue, 24 Mar 2026 08:50:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,57 +56,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Subject:From:Cc:To:Content-Language:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774366016; x=1774970816; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ODZCxIGZjnHbkVmC3bG1mIyGlf3Z2j1k8VIBD4mpc6o=;
-        b=B3301QOYbUp/5OZYgbrT62vcP74hXtfYYqQe1OxzX56htZxFNdWT0mbyT+N7Wp9YSg
-         uEVR8Cnwz6IGnL60RfACx+MWc1LEUcEOMPCA6hZg4ARAcpGc+VEdMYk+G7mBb7vPzY1q
-         bn5WmYhk21OJRkoW2JlszH5pBqiEskDTNv7H67mE/rL+90jiIXCuuGDRrgLC0Hy/M0Yp
-         gqR1H6tHCxCQNJ7lAXLi1VYZN9IYJ3HtnpCF88dmUnh6ME5u6jTr3aK8qJ/C298rPNx8
-         IU+gREfhfmgotxm70hVCCYy/PM+HIOzWL+jkTxz9VDzNJ9IpJZuwHJrFJ5rxSibPBCoo
-         kcFw==
+        d=suse.com; s=google; t=1774367453; x=1774972253; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=6H+fWNvFjytn0KdbQL/2Do7fiGCzA00Gpa1KeCPYAWc=;
+        b=bcCUlxLEtl0imRRRqpkJ0BH5oUpE9s4rZS7/brhD/TO5BWFXoTthqH3x49n4/Ibu/V
+         egCn0Tqt31cTU1wF/cwXGs9jZzq3LPIoJPYUCIsH5MApAVfPJ/tXjQcHkgvuPjFEL+Pz
+         h/dufNnmMKOWa2/A+FCEZDEGetFI9cjPQjbVD1cdNA2nqqzhx6PebEVObcSPOeaB0HFJ
+         DCW5J/zSzDop7CrJyVkl6jmF3WTbxeCdMcP1iFh0gkIM0Sq3w+T+MUrhGQeu42JEGrvw
+         LRFji0u1ZcqNAPng0YAijk7jt7/LD+SdykGFXss4icG9pZAK29BeveteC3KC1gDn+/m+
+         WZ+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774366016; x=1774970816;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ODZCxIGZjnHbkVmC3bG1mIyGlf3Z2j1k8VIBD4mpc6o=;
-        b=G7qhNyGW6drqTCmJKRBGRTWveJODZtl3VHYLyuaDywY4/wPyHt0iUBeGDoAtLZ5dLC
-         oVmRxmf9SZFHm9x8LPMkOCnYpI7qI+ZHO1qIOrN7cp/GIwklESwjq8XumA74NdqmyCTA
-         GMhS5zE10rRmDfS0+bp8dXBL+rbntu/9GvFXAfxTg/yHg8T6ZCo48AMaCBqcDMAue8Nt
-         DURu5GJVswjf0rppayoMEY7HmU3aOxgfT07AM5Ddp1Ss94/GSJpL1I4QRACPTaQWAfDX
-         Im58HeI5jeEJc3eiHPtkJt1vAlJpOAVwmwcdV1uvvD3hMsJngiYHZZMWKLYlvW5DoHzP
-         ub4g==
-X-Gm-Message-State: AOJu0YwipzBOcwFV2MAEkgMi4TIJxyZAps80Zej0ZOu8gWRcis1zgkcQ
-	XWwBA+tyIg0/waMZHNklAt9Er15va+iswspgSQJZPAida2z2M6LhpZ5N3FwevZh3xEArZ6feOgQ
-	ksQq79A==
-X-Gm-Gg: ATEYQzwoUi71IFD1xySsOjBNNO+FAn283x/n1UgyEYLL/xxRvJ+OCF1TliunsO+QAmU
-	U20vKNUIry7oUkd1Id9z0A+JMTHj6oKEgUlAEv2vIa9/BNRJ8vgUN52MWY9Dsbnc40n5RL67tLk
-	WxvNvlBCRHFUciuizMjg0sY1akU21VDt5l3zE9bQaUzjTyB34hyMHy7CRO82zXhPe7XyLRj90u0
-	VloBnkwjOtd98lQQ/KZSWQyH+YNtD7nyDSJGvyg1gF7uAurr9ptuCrf2doIaHJgPnbuX4Zo+2ah
-	JELqql3gsp3gnSCTUmcTeXWKijDmnjblcjLZHeEMWOpkN64+qnwU4UMkkLXRT8oghMAWSOD5Plh
-	ehmY9hCgBgkANksaR/TSphw0FW7p3bX4YDL/ycU+cVZjojBpPRg1nks1WFSpmgmrU5y2t2lHFhe
-	sHT9R9omxDr4tvV0S3UooO8bPDY4GcE9RMTEpmGzv6qt9t4YPAKS+cKCXTVzk8RuBT0CVdbKDI7
-	i9X/xJVXIOYfFY=
-X-Received: by 2002:a05:600c:3106:b0:486:fbc4:8fe2 with SMTP id 5b1f17b1804b1-487160aac25mr2322785e9.15.1774366016512;
-        Tue, 24 Mar 2026 08:26:56 -0700 (PDT)
-Message-ID: <cb5ad24b-03a5-4c1b-9d98-8df534854b2f@suse.com>
-Date: Tue, 24 Mar 2026 16:26:54 +0100
+        d=1e100.net; s=20251104; t=1774367453; x=1774972253;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6H+fWNvFjytn0KdbQL/2Do7fiGCzA00Gpa1KeCPYAWc=;
+        b=nKUGDyQLT/mqcvS4sDVQ49TuBDysgwcJ/heC0xM1sHNDi61U/51NtvmJrR9oXLR31F
+         3qsG91Ezi2frpc5a40PBTlS6Psu+kM/a0NFCHxN/3ggIQIQnUyvOrTnRdg/rEb+d3n6x
+         izJW3Zw8cRNYxzo8ODr2XzuGsuW4XdRYRKdbblB48oT5la+hObWM2t7N35oxViAYuiiW
+         1ARJzYunMdlJY9WiDFld6IRsQnfiNbK9KI4WYok6mX0tYokxLZH5ijqQtAbay+HTtrXM
+         99MPf83YsIejplk3/RNCl/+WzrVpRCZYxGIu3UrAzCV/1UCFOYOfVZYT6bLu9ofnvBEV
+         6OWQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUHkfZHvyHuqfo0MfOn1zPDWhhOMHl0iWRoFwBTdyiIGZ+fnuWermdbL8pTbLWBWe6y+CIZl1c8bdU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywqu3FnAT6Cs1WsrHtdGLqsu4RA4KdSvDy1W7s+mBEXcfUV79pX
+	EXJImPlOIb5mGHLC9252HKlVhe0wpDvvLYHT2/BFe91XodCdd2uz912KMsKPgRly3A==
+X-Gm-Gg: ATEYQzyk9ASU5n3i9PGJeYLB+TVU3kY0x+nXc8ivTCqBBebigjyHJAOy5956Hwz3jW3
+	8YGV7DYBh3n6UJO26ap2ojLSoj5igSQUQconBhf7f2dd9G2fAVTUjJz9zxYnMxMjN/2ydsxQolM
+	yFRgXrxdMonx6B7DuYTGDkjSKEc2ecRlZBDqjv+fq8UNMFG54AXD4McHdVhqeqU7DClTMMjowIy
+	+pWgH/BoK9pj8ypo2X4gBnOkzRDcwp+j7e5jYAacDvmuuVjK9y4Zz+Xyc2Gfry03RuUDSEHFuTj
+	ttXfEJFGM+ROnQQtXYFdhSRlHDv7vPG5ITkucj9ak4/O9+qC0x4eYqdCP0E+9Qg1LMpIhBVo2mS
+	Mpp07xv3MTR3opMXV7C/M3br3DTYJ35tzdJMEl8wlhjZ5VEPsvhf/cVVT5Cv0matyyNxKcsd+GS
+	m/WUsRy9wR32BIlXzzCF6VhLXgRLsHOsb4+uqZlAeOmfVpdxfELOgsPFbEd6NR3QPHCMnoBTlXg
+	Jku5rFt9LkB3io=
+X-Received: by 2002:a05:600c:1394:b0:485:4388:348b with SMTP id 5b1f17b1804b1-48715f0389dmr4840375e9.0.1774367452933;
+        Tue, 24 Mar 2026 08:50:52 -0700 (PDT)
+Message-ID: <5553b84a-d34e-4008-ad65-a322555b5ebe@suse.com>
+Date: Tue, 24 Mar 2026 16:50:51 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v5 3/3] x86/ioreq: Extend ioreq server to support multiple
+ ioreq pages
+To: Julian Vetter <julian.vetter@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Kamil Frankowicz <kamil.frankowicz@cert.pl>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260316111653.178104-1-julian.vetter@vates.tech>
+ <20260316111653.178104-4-julian.vetter@vates.tech>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] unlzma: avoid UB shift
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -130,71 +134,254 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260316111653.178104-4-julian.vetter@vates.tech>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-720697/1774366017-40497DB8-796185C1/0/0
+X-purgate-ID: tlsNG-42698a/1774367453-98ABC112-0ECC46F3/0/0
 X-purgate-type: clean
-X-purgate-size: 918
+X-purgate-size: 6850
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:kamil.frankowicz@cert.pl,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,cert.pl:email];
+	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 87FC7318002
+X-Rspamd-Queue-Id: 2EEE331862A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Shifting signed quantities has restrictions. Since the wrapping macro of
-read_int() type-casts the result anyway, switch function return type as
-well as the local variable to the corresponding unsigned type.
+On 16.03.2026 12:17, Julian Vetter wrote:
+> --- a/xen/arch/x86/hvm/ioreq.c
+> +++ b/xen/arch/x86/hvm/ioreq.c
+> @@ -163,6 +163,14 @@ static int hvm_map_ioreq_gfn(struct ioreq_server *s, bool buf)
+>      if ( d->is_dying )
+>          return -EINVAL;
+>  
+> +    /*
+> +     * The legacy GFN path supports only a single ioreq page. Guests requiring
+> +     * more ioreq slots must use the resource mapping interface
+> +     * (XENMEM_acquire_resource).
+> +     */
+> +    if ( !buf && nr_ioreq_pages(d) > 1 )
+> +        return -EOPNOTSUPP;
 
-Reported-by: Kamil Frankowicz <kamil.frankowicz@cert.pl>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-We've inherited that code from Linux, and the same code still exists
-there. As I'm entirely uncertain whether they would even care, I'd prefer
-to not take the route of posting a patch against Linux first.
+Nit towards the comment: It's not guests using this themselves, but their
+device models. This wants wording accurately.
 
---- a/xen/common/unlzma.c
-+++ b/xen/common/unlzma.c
-@@ -30,10 +30,10 @@
- 
- #include "decompress.h"
- 
--static long long __init read_int(unsigned char *ptr, int size)
-+static unsigned long long __init read_int(unsigned char *ptr, int size)
- {
- 	int i;
--	long long ret = 0;
-+	unsigned long long ret = 0;
- 
- 	for (i = 0; i < size; i++)
- 		ret = (ret << 8) | ptr[size-i-1];
+> --- a/xen/common/ioreq.c
+> +++ b/xen/common/ioreq.c
+> @@ -261,8 +261,9 @@ bool vcpu_ioreq_handle_completion(struct vcpu *v)
+>  static int ioreq_server_alloc_mfn(struct ioreq_server *s, bool buf)
+>  {
+>      struct ioreq_page *iorp = buf ? &s->bufioreq : &s->ioreq;
+> -    struct page_info *page;
+> -    mfn_t mfn;
+> +    unsigned int i, nr_pages = buf ? 1 : nr_ioreq_pages(s->target);
+> +    mfn_t *mfns;
+> +    int rc;
+>  
+>      if ( iorp->va )
+>      {
+> @@ -277,11 +278,20 @@ static int ioreq_server_alloc_mfn(struct ioreq_server *s, bool buf)
+>          return 0;
+>      }
+>  
+> +    mfns = xmalloc_array(mfn_t, nr_pages);
+> +    if ( !mfns )
+> +        return -ENOMEM;
+
+It would be nice to avoid this allocation for guests requiring only a single
+page, perhaps even for ones requiring only a few. (Ideally we'd avoid such a
+runtime allocation altogether, as they hinder certification aiui.)
+
+> +    for ( i = 0; i < nr_pages; i++ )
+>      {
+> -        page = alloc_domheap_page(s->target, MEMF_no_refcount);
+> +        struct page_info *page = alloc_domheap_page(s->target,
+> +                                                    MEMF_no_refcount);
+
+To limit churn in this patch as much as possible, this scope reduction of
+"page" may want to also move into the earlier, purely mechanical change.
+
+>          if ( !page )
+> -            return -ENOMEM;
+> +        {
+> +            rc = -ENOMEM;
+> +            goto fail;
+> +        }
+
+This and ...
+
+>          if ( !get_page_and_type(page, s->target, PGT_writable_page) )
+>          {
+> @@ -290,41 +300,60 @@ static int ioreq_server_alloc_mfn(struct ioreq_server *s, bool buf)
+>               * here is a clear indication of something fishy going on.
+>               */
+>              domain_crash(s->emulator);
+> -            return -ENODATA;
+> +            rc = -ENODATA;
+> +            goto fail;
+>          }
+
+... this error patch have different cleanup needs, yet they both simply
+"goto fail".
+
+> -        mfn = page_to_mfn(page);
+> +        mfns[i] = page_to_mfn(page);
+>      }
+> -    iorp->va = vmap(&mfn, 1);
+> +
+> +    iorp->va = vmap(mfns, nr_pages);
+>      if ( !iorp->va )
+> +    {
+> +        rc = -ENOMEM;
+>          goto fail;
+> +    }
+> +
+> +    xfree(mfns);
+> +
+> +    for ( i = 0; i < nr_pages; i++ )
+> +        clear_page((char *)iorp->va + i * PAGE_SIZE);
+
+As before - please prefer casts to void * when no particular type is needed.
+Plus you don't need a cast here at all, do you?
+
+I wonder though - might this not better be a single memset()? (Else we may
+want to introduce clear_pages().)
+
+> -    clear_page(iorp->va);
+>      return 0;
+>  
+>   fail:
+> -    put_page_alloc_ref(page);
+> -    put_page_and_type(page);
+> +    while ( i-- )
+> +    {
+> +        struct page_info *page = mfn_to_page(mfns[i]);
+> +
+> +        put_page_alloc_ref(page);
+> +        put_page_and_type(page);
+> +    }
+> +    xfree(mfns);
+>  
+> -    return -ENOMEM;
+> +    return rc;
+>  }
+>  
+>  static void ioreq_server_free_mfn(struct ioreq_server *s, bool buf)
+>  {
+>      struct ioreq_page *iorp = buf ? &s->bufioreq : &s->ioreq;
+> -    struct page_info *page;
+> +    unsigned int i, nr_pages;
+>  
+>      if ( !iorp->va )
+>          return;
+>  
+> +    nr_pages = vmap_size(iorp->va);
+
+Why would you need to query this? You should be able to calculate this the
+same as ioreq_server_alloc_mfn() does, I suppose.
+
+> +    for ( i = 0; i < nr_pages; i++ )
+>      {
+> -        page = vmap_to_page(iorp->va);
+> -        vunmap(iorp->va);
+> -        iorp->va = NULL;
+> +        struct page_info *page = vmap_to_page(iorp->va + i * PAGE_SIZE);
+>  
+>          put_page_alloc_ref(page);
+>          put_page_and_type(page);
+>      }
+> +
+> +    vunmap(iorp->va);
+> +    iorp->va = NULL;
+>  }
+
+This re-ordering isn't nice. At least iorp->va ought to be cleared before
+the references on the pages are dropped. I fear, though, that even the
+mapping needs dropping ahead of time: By (likely) freeing the pages, they
+can be reused for another purpose. Speculative accesses through the
+mapping would better be excluded as a possibile source of a security issue.
+
+> @@ -337,12 +366,28 @@ bool is_ioreq_server_page(struct domain *d, const struct page_info *page)
+>  
+>      FOR_EACH_IOREQ_SERVER(d, id, s)
+>      {
+> -        if ( (s->ioreq.va && vmap_to_page(s->ioreq.va) == page) ||
+> -             (s->bufioreq.va && vmap_to_page(s->bufioreq.va) == page) )
+> +        if ( s->bufioreq.va && vmap_to_page(s->bufioreq.va) == page )
+>          {
+>              found = true;
+>              break;
+>          }
+> +
+> +        if ( s->ioreq.va )
+> +        {
+> +            unsigned int i;
+> +
+> +            for ( i = 0; i < vmap_size(s->ioreq.va); i++ )
+> +            {
+> +                if ( vmap_to_page(s->ioreq.va + i * PAGE_SIZE) == page )
+> +                {
+> +                    found = true;
+> +                    break;
+> +                }
+> +            }
+
+This raises the question whether storing the array of MFNs permanently
+wouldn't be better. This would then also eliminate other concerns voiced
+above.
+
+> @@ -818,26 +863,30 @@ int ioreq_server_get_frame(struct domain *d, ioservid_t id,
+>      if ( rc )
+>          goto out;
+>  
+> -    switch ( idx )
+> +    if ( idx == XENMEM_resource_ioreq_server_frame_bufioreq )
+>      {
+> -    case XENMEM_resource_ioreq_server_frame_bufioreq:
+>          rc = -ENOENT;
+>          if ( !HANDLE_BUFIOREQ(s) )
+>              goto out;
+>  
+>          *mfn = page_to_mfn(vmap_to_page(s->bufioreq.va));
+>          rc = 0;
+> -        break;
+> +    }
+> +    else if ( idx >= XENMEM_resource_ioreq_server_frame_ioreq(0) &&
+> +              idx < XENMEM_resource_ioreq_server_frame_ioreq(nr_ioreq_pages(d)) )
+> +    {
+> +        unsigned int page_idx = idx - XENMEM_resource_ioreq_server_frame_ioreq(0);
+> +        if ( page_idx >= vmap_size(s->ioreq.va) )
+
+This ought to be impossible, so may at best want to be an ASSERT().
+
+Also, nit: Blank line please between declaration(s) and statement(s).
+
+Jan
 
