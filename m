@@ -2,46 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QNNlBWnowWnzXwQAu9opvQ
+	id 3NKNIGjowWnpXwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 02:27:05 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 02:27:04 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2A4F3007D5
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 02:27:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1259873.1553222 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C82673007B2
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 02:27:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1259875.1553228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4qXN-0008FV-TX; Tue, 24 Mar 2026 01:26:29 +0000
+	id 1w4qXO-0008RQ-Aw; Tue, 24 Mar 2026 01:26:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1259873.1553222; Tue, 24 Mar 2026 01:26:29 +0000
+Received: by outflank-mailman (output) from mailman id 1259875.1553228; Tue, 24 Mar 2026 01:26:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4qXN-00087U-LR; Tue, 24 Mar 2026 01:26:29 +0000
-Received: by outflank-mailman (input) for mailman id 1259873;
- Tue, 24 Mar 2026 01:00:14 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1w4qXO-0008CX-3S; Tue, 24 Mar 2026 01:26:30 +0000
+Received: by outflank-mailman (input) for mailman id 1259875;
+ Tue, 24 Mar 2026 01:00:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dakr@kernel.org>) id 1w4q7x-0001KD-VV
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 01:00:13 +0000
-Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w4q7x-00GhUR-Bc
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 02:00:13 +0100
-Received: from [10.42.69.3] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <dakr@kernel.org>)
- id 69c1e217-2eae-0a2a0a5409dd-0a2a4503cb90-12
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 02:00:13 +0100
-Received: from [172.234.252.31] (helo=sea.source.kernel.org)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <dakr@kernel.org>)
- id 69c1e21b-1947-0a2a45030019-aceafc1fc250-3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 02:00:13 +0100
+ (envelope-from <SRS0=t6JZ=BY=kernel.org=dakr@srs-se1.protection.inumbo.net>)
+ id 1w4q89-0005Au-IS
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 01:00:25 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d521cbb5-271c-11f1-9ccf-f158ae23cfc8;
+ Tue, 24 Mar 2026 02:00:22 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3E66F435AF;
+ by tor.source.kernel.org (Postfix) with ESMTP id 0775E60103;
+ Tue, 24 Mar 2026 01:00:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E74C2BCB0;
  Tue, 24 Mar 2026 01:00:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98196C4CEF7;
- Tue, 24 Mar 2026 01:00:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,17 +46,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="From:To:Cc:Subject:Date:In-Reply-To:References"
+X-Inumbo-ID: d521cbb5-271c-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774314011;
-	bh=n8Np19d6r8hZP3UfKo2xpfAW6SzD3g4bxMFuAspv2o0=;
+	s=k20201202; t=1774314020;
+	bh=zi0v4zurXgdLP04GC9K8onaZXN/N3Qlem6TWYef3iJk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=UaBbnH6K5PmlHRTAv2QpnB7L6Oek7DpdNRyO3DZniaipx3T4OH8aQr0MWP23mO+nu
-	 bfEd7aSy90OVPMONjSRlDR+BhJep8zQkJXj3EuTj+FdEJ7Qnz1bGziLI/rD717BPhk
-	 b0qHoXuzvssQYxYxewY0RImhKrTnweUaP7b/G+xvgY86M3nL9h5A6viQlAO4cSYSa+
-	 cTGrxdvuLF6cPLHkd8IEp6jriRalhcgoEWJdpC8TUtaMkApKMmASLxQKpBLi0FdDUk
-	 0+jAHYnaXmU5F6R+YbNbusudC4hG0VrqpKsYsYuN7LhJINQFVJ9EqYYng4Ywg7RJ8h
-	 GAjkf9mQ3//og==
+	b=QIEgBZSeprBd8eco5o8dw+zg/Y5BKWKjmLND8s3b+DopMyWSHVyEjpTlL4MeXNu6J
+	 X/vMHl5tcRAtlKG5k4UUt+iHGlqdNZ7OAGIqIUnN+AuKhAX5Gfvn1RJ2JN+B+b/8oV
+	 Dnw348XctBIWTV33IkRHOMoqJWQCsfR8SsPVZoMNEUBzpdW4p6GRIYIot6LJvdMFsS
+	 3QbEZOR+DnIpCdhzlekCzLxRc423a9T2znnXXKY+47An9vD8vHI4TrhpijQMqnokV+
+	 3RMAL22cwN1WStl+aUt4vfTVte+eCLX64fU0XiBT76DmRE+t61UwtJ1wkOziB9Utd8
+	 OLcnfwwHxuprw==
 From: Danilo Krummrich <dakr@kernel.org>
 To: Russell King <linux@armlinux.org.uk>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -115,52 +108,48 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	Danilo Krummrich <dakr@kernel.org>,
 	Gui-Dong Han <hanguidong02@gmail.com>
-Subject: [PATCH 04/12] hv: vmbus: use generic driver_override infrastructure
-Date: Tue, 24 Mar 2026 01:59:08 +0100
-Message-ID: <20260324005919.2408620-5-dakr@kernel.org>
+Subject: [PATCH 05/12] PCI: use generic driver_override infrastructure
+Date: Tue, 24 Mar 2026 01:59:09 +0100
+Message-ID: <20260324005919.2408620-6-dakr@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260324005919.2408620-1-dakr@kernel.org>
 References: <20260324005919.2408620-1-dakr@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1774314013-4846E72C-6E93E4BE/0/0
-X-purgate-type: clean
-X-purgate-size: 3844
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	FREEMAIL_CC(0.00)[vger.kernel.org,lists.linux.dev,lists.ozlabs.org,lists.xenproject.org,lists.infradead.org,kernel.org,gmail.com];
+	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:gregkh@linuxfoundation.org,m:rafael@kernel.org,m:ioana.ciornei@nxp.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:bhelgaas@google.com,m:W_Armin@gmx.de,m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:vneethv@linux.ibm.com,m:oberpar@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:agordeev@linux.ibm.com,m:borntraeger@linux.ibm.com,m:svens@linux.ibm.com,m:freude@linux.ibm.com,m:dengler@linux.ibm.com,m:broonie@kernel.org,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:eperezma@redhat.com,m:alex@shazbot.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:chleroy@kernel.org,m:linux-kernel@vger.kernel.org,m:driver-core@lists.linux.dev,m:linuxppc-dev@lists.ozlabs.org,m:linux-hyperv@vger.kernel.org,m:linux-pci@vger.kernel.org,m:platform-driver-x86@vger.kernel.org,m
  :linux-arm-msm@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-s390@vger.kernel.org,m:linux-spi@vger.kernel.org,m:virtualization@lists.linux.dev,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-arm-kernel@lists.infradead.org,m:dakr@kernel.org,m:hanguidong02@gmail.com,s:lists@lfdr.de];
 	FREEMAIL_TO(0.00)[armlinux.org.uk,linuxfoundation.org,kernel.org,nxp.com,amd.com,microsoft.com,google.com,gmx.de,linaro.org,linux.ibm.com,redhat.com,linux.alibaba.com,shazbot.org,suse.com,epam.com];
-	FORGED_SENDER(0.00)[dakr@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[dakr@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_GT_50(0.00)[50];
 	FROM_NEQ_ENVFROM(0.00)[dakr@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	RCPT_COUNT_GT_50(0.00)[50];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: B2A4F3007D5
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: C82673007B2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -177,29 +166,85 @@ held is intentional. [1]
 Link: https://lore.kernel.org/driver-core/DGRGTIRHA62X.3RY09D9SOK77P@kernel.org/ [1]
 Reported-by: Gui-Dong Han <hanguidong02@gmail.com>
 Closes: https://bugzilla.kernel.org/show_bug.cgi?id=220789
-Fixes: d765edbb301c ("vmbus: add driver_override support")
+Fixes: 782a985d7af2 ("PCI: Introduce new device binding path using pci_dev.driver_override")
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/hv/vmbus_drv.c | 36 +++++-------------------------------
- include/linux/hyperv.h |  5 -----
- 2 files changed, 5 insertions(+), 36 deletions(-)
+ drivers/pci/pci-driver.c           | 11 +++++++----
+ drivers/pci/pci-sysfs.c            | 28 ----------------------------
+ drivers/pci/probe.c                |  1 -
+ drivers/vfio/pci/vfio_pci_core.c   |  5 ++---
+ drivers/xen/xen-pciback/pci_stub.c |  6 ++++--
+ include/linux/pci.h                |  6 ------
+ 6 files changed, 13 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-index bc4fc1951ae1..bc8dfd136f3c 100644
---- a/drivers/hv/vmbus_drv.c
-+++ b/drivers/hv/vmbus_drv.c
-@@ -541,34 +541,6 @@ static ssize_t device_show(struct device *dev,
+diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
+index dd9075403987..d10ece0889f0 100644
+--- a/drivers/pci/pci-driver.c
++++ b/drivers/pci/pci-driver.c
+@@ -138,9 +138,11 @@ static const struct pci_device_id *pci_match_device(struct pci_driver *drv,
+ {
+ 	struct pci_dynid *dynid;
+ 	const struct pci_device_id *found_id = NULL, *ids;
++	int ret;
+ 
+ 	/* When driver_override is set, only bind to the matching driver */
+-	if (dev->driver_override && strcmp(dev->driver_override, drv->name))
++	ret = device_match_driver_override(&dev->dev, &drv->driver);
++	if (ret == 0)
+ 		return NULL;
+ 
+ 	/* Look at the dynamic ids first, before the static ones */
+@@ -164,7 +166,7 @@ static const struct pci_device_id *pci_match_device(struct pci_driver *drv,
+ 		 * matching.
+ 		 */
+ 		if (found_id->override_only) {
+-			if (dev->driver_override)
++			if (ret > 0)
+ 				return found_id;
+ 		} else {
+ 			return found_id;
+@@ -172,7 +174,7 @@ static const struct pci_device_id *pci_match_device(struct pci_driver *drv,
+ 	}
+ 
+ 	/* driver_override will always match, send a dummy id */
+-	if (dev->driver_override)
++	if (ret > 0)
+ 		return &pci_device_id_any;
+ 	return NULL;
  }
- static DEVICE_ATTR_RO(device);
+@@ -452,7 +454,7 @@ static int __pci_device_probe(struct pci_driver *drv, struct pci_dev *pci_dev)
+ static inline bool pci_device_can_probe(struct pci_dev *pdev)
+ {
+ 	return (!pdev->is_virtfn || pdev->physfn->sriov->drivers_autoprobe ||
+-		pdev->driver_override);
++		device_has_driver_override(&pdev->dev));
+ }
+ #else
+ static inline bool pci_device_can_probe(struct pci_dev *pdev)
+@@ -1722,6 +1724,7 @@ static const struct cpumask *pci_device_irq_get_affinity(struct device *dev,
+ 
+ const struct bus_type pci_bus_type = {
+ 	.name		= "pci",
++	.driver_override = true,
+ 	.match		= pci_bus_match,
+ 	.uevent		= pci_uevent,
+ 	.probe		= pci_device_probe,
+diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
+index 16eaaf749ba9..a9006cf4e9c8 100644
+--- a/drivers/pci/pci-sysfs.c
++++ b/drivers/pci/pci-sysfs.c
+@@ -615,33 +615,6 @@ static ssize_t devspec_show(struct device *dev,
+ static DEVICE_ATTR_RO(devspec);
+ #endif
  
 -static ssize_t driver_override_store(struct device *dev,
 -				     struct device_attribute *attr,
 -				     const char *buf, size_t count)
 -{
--	struct hv_device *hv_dev = device_to_hv_device(dev);
+-	struct pci_dev *pdev = to_pci_dev(dev);
 -	int ret;
 -
--	ret = driver_set_override(dev, &hv_dev->driver_override, buf, count);
+-	ret = driver_set_override(dev, &pdev->driver_override, buf, count);
 -	if (ret)
 -		return ret;
 -
@@ -209,74 +254,96 @@ index bc4fc1951ae1..bc8dfd136f3c 100644
 -static ssize_t driver_override_show(struct device *dev,
 -				    struct device_attribute *attr, char *buf)
 -{
--	struct hv_device *hv_dev = device_to_hv_device(dev);
+-	struct pci_dev *pdev = to_pci_dev(dev);
 -	ssize_t len;
 -
 -	device_lock(dev);
--	len = sysfs_emit(buf, "%s\n", hv_dev->driver_override);
+-	len = sysfs_emit(buf, "%s\n", pdev->driver_override);
 -	device_unlock(dev);
--
 -	return len;
 -}
 -static DEVICE_ATTR_RW(driver_override);
 -
- /* Set up per device attributes in /sys/bus/vmbus/devices/<bus device> */
- static struct attribute *vmbus_dev_attrs[] = {
- 	&dev_attr_id.attr,
-@@ -599,7 +571,6 @@ static struct attribute *vmbus_dev_attrs[] = {
- 	&dev_attr_channel_vp_mapping.attr,
- 	&dev_attr_vendor.attr,
- 	&dev_attr_device.attr,
+ static struct attribute *pci_dev_attrs[] = {
+ 	&dev_attr_power_state.attr,
+ 	&dev_attr_resource.attr,
+@@ -669,7 +642,6 @@ static struct attribute *pci_dev_attrs[] = {
+ #ifdef CONFIG_OF
+ 	&dev_attr_devspec.attr,
+ #endif
 -	&dev_attr_driver_override.attr,
+ 	&dev_attr_ari_enabled.attr,
  	NULL,
  };
+diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+index bccc7a4bdd79..b4707640e102 100644
+--- a/drivers/pci/probe.c
++++ b/drivers/pci/probe.c
+@@ -2488,7 +2488,6 @@ static void pci_release_dev(struct device *dev)
+ 	pci_release_of_node(pci_dev);
+ 	pcibios_release_device(pci_dev);
+ 	pci_bus_put(pci_dev->bus);
+-	kfree(pci_dev->driver_override);
+ 	bitmap_free(pci_dev->dma_alias_mask);
+ 	dev_dbg(dev, "device released\n");
+ 	kfree(pci_dev);
+diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+index d43745fe4c84..460852f79f29 100644
+--- a/drivers/vfio/pci/vfio_pci_core.c
++++ b/drivers/vfio/pci/vfio_pci_core.c
+@@ -1987,9 +1987,8 @@ static int vfio_pci_bus_notifier(struct notifier_block *nb,
+ 	    pdev->is_virtfn && physfn == vdev->pdev) {
+ 		pci_info(vdev->pdev, "Captured SR-IOV VF %s driver_override\n",
+ 			 pci_name(pdev));
+-		pdev->driver_override = kasprintf(GFP_KERNEL, "%s",
+-						  vdev->vdev.ops->name);
+-		WARN_ON(!pdev->driver_override);
++		WARN_ON(device_set_driver_override(&pdev->dev,
++						   vdev->vdev.ops->name));
+ 	} else if (action == BUS_NOTIFY_BOUND_DRIVER &&
+ 		   pdev->is_virtfn && physfn == vdev->pdev) {
+ 		struct pci_driver *drv = pci_dev_driver(pdev);
+diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
+index e4b27aecbf05..79a2b5dfd694 100644
+--- a/drivers/xen/xen-pciback/pci_stub.c
++++ b/drivers/xen/xen-pciback/pci_stub.c
+@@ -598,6 +598,8 @@ static int pcistub_seize(struct pci_dev *dev,
+ 	return err;
+ }
  
-@@ -711,9 +682,11 @@ static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *
- {
- 	const guid_t *guid = &dev->dev_type;
- 	const struct hv_vmbus_device_id *id;
-+	int ret;
++static struct pci_driver xen_pcibk_pci_driver;
++
+ /* Called when 'bind'. This means we must _NOT_ call pci_reset_function or
+  * other functions that take the sysfs lock. */
+ static int pcistub_probe(struct pci_dev *dev, const struct pci_device_id *id)
+@@ -609,8 +611,8 @@ static int pcistub_probe(struct pci_dev *dev, const struct pci_device_id *id)
  
- 	/* When driver_override is set, only bind to the matching driver */
--	if (dev->driver_override && strcmp(dev->driver_override, drv->name))
-+	ret = device_match_driver_override(&dev->device, &drv->driver);
-+	if (ret == 0)
- 		return NULL;
+ 	match = pcistub_match(dev);
  
- 	/* Look at the dynamic ids first, before the static ones */
-@@ -722,7 +695,7 @@ static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *
- 		id = hv_vmbus_dev_match(drv->id_table, guid);
+-	if ((dev->driver_override &&
+-	     !strcmp(dev->driver_override, PCISTUB_DRIVER_NAME)) ||
++	if (device_match_driver_override(&dev->dev,
++					 &xen_pcibk_pci_driver.driver) > 0 ||
+ 	    match) {
  
- 	/* driver_override will always match, send a dummy id */
--	if (!id && dev->driver_override)
-+	if (!id && ret > 0)
- 		id = &vmbus_device_null;
- 
- 	return id;
-@@ -1024,6 +997,7 @@ static const struct dev_pm_ops vmbus_pm = {
- /* The one and only one */
- static const struct bus_type  hv_bus = {
- 	.name =		"vmbus",
-+	.driver_override =	true,
- 	.match =		vmbus_match,
- 	.shutdown =		vmbus_shutdown,
- 	.remove =		vmbus_remove,
-diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
-index dfc516c1c719..bf689d07d750 100644
---- a/include/linux/hyperv.h
-+++ b/include/linux/hyperv.h
-@@ -1272,11 +1272,6 @@ struct hv_device {
- 	u16 device_id;
- 
- 	struct device device;
+ 		if (dev->hdr_type != PCI_HEADER_TYPE_NORMAL
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 1c270f1d5123..57e9463e4347 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -575,12 +575,6 @@ struct pci_dev {
+ 	u8		supported_speeds; /* Supported Link Speeds Vector */
+ 	phys_addr_t	rom;		/* Physical address if not from BAR */
+ 	size_t		romlen;		/* Length if not from BAR */
 -	/*
 -	 * Driver name to force a match.  Do not set directly, because core
 -	 * frees it.  Use driver_set_override() to set or clear it.
 -	 */
--	const char *driver_override;
+-	const char	*driver_override;
+-
+ 	unsigned long	priv_flags;	/* Private flags for the PCI driver */
  
- 	struct vmbus_channel *channel;
- 	struct kset	     *channels_kset;
+ 	/* These methods index pci_reset_fn_methods[] */
 -- 
 2.53.0
 
