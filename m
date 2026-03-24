@@ -2,48 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GEkZErmEwmkAegQAu9opvQ
+	id kpTLInR3w2lCrAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 13:34:01 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 06:49:40 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC92C30850E
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 13:34:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1260639.1553915 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5B9C31FF50
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 06:49:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1260715.1554471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w50x1-0005k4-2R; Tue, 24 Mar 2026 12:33:39 +0000
+	id 1w5H6r-0004p0-Nx; Wed, 25 Mar 2026 05:48:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1260639.1553915; Tue, 24 Mar 2026 12:33:39 +0000
+Received: by outflank-mailman (output) from mailman id 1260715.1554471; Wed, 25 Mar 2026 05:48:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w50x0-0005gS-VI; Tue, 24 Mar 2026 12:33:38 +0000
-Received: by outflank-mailman (input) for mailman id 1260639;
- Tue, 24 Mar 2026 12:33:37 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <soumyajyotisarkar23@gmail.com>) id 1w50wy-0005dz-UH
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 12:33:37 +0000
-Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w50wy-006OfX-A7
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 13:33:36 +0100
-Received: from [10.42.69.5] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <soumyajyotisarkar23@gmail.com>)
- id 69c2849b-bab6-0a2a0a5309dd-0a2a4505ea44-40
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 13:33:36 +0100
-Received: from [209.85.216.66] (helo=mail-pj1-f66.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <soumyajyotisarkar23@gmail.com>)
- id 69c2849e-5aeb-0a2a45050019-d155d842a439-3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 13:33:36 +0100
-Received: by mail-pj1-f66.google.com with SMTP id
- 98e67ed59e1d1-35a1d4a095bso3177885a91.0
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 05:33:35 -0700 (PDT)
-Received: from fedora ([103.2.232.250]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35c031ed04esm2215792a91.12.2026.03.24.05.33.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Mar 2026 05:33:33 -0700 (PDT)
+	id 1w5H6r-0004mZ-FF; Wed, 25 Mar 2026 05:48:53 +0000
+Received: by outflank-mailman (input) for mailman id 1260715;
+ Tue, 24 Mar 2026 12:42:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=QNhb=BY=linux.ibm.com=freude@srs-se1.protection.inumbo.net>)
+ id 1w515E-00022N-Pk
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 12:42:08 +0000
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dd2c4f03-277e-11f1-b166-2bf370ae4941;
+ Tue, 24 Mar 2026 13:42:06 +0100 (CET)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62O7DT6Q481575; Tue, 24 Mar 2026 12:41:32 GMT
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1ktxudx6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 Mar 2026 12:41:31 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62OC7Gcu008722;
+ Tue, 24 Mar 2026 12:41:30 GMT
+Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4d26nnhuw0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 24 Mar 2026 12:41:30 +0000
+Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com
+ [10.39.53.233])
+ by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 62OCf5V326608298
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 24 Mar 2026 12:41:05 GMT
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 201225803F;
+ Tue, 24 Mar 2026 12:41:29 +0000 (GMT)
+Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 946D658055;
+ Tue, 24 Mar 2026 12:41:25 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
+ by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Tue, 24 Mar 2026 12:41:25 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,200 +71,325 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774355614; x=1774960414; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6/EFfTLPPvtpKfYbDxMVwQU9jDgu7ScMy19tpR6gQjI=;
-        b=gMIWUa7uwCC9TMeUOldNRKNCQ5mmAtOCr51KtRqFcKQPgOEaOwQWMir2feHE6bYBiX
-         iOyppAN9vlFmomvhbjsG+qrsEOcWdaeuGqN+b1ItkHY/8zJvuJqKM1lnUN+8accZPnB1
-         21NRjtOOhCbA2KWwWSZKJX6pbRE5UvUhizfrQalnrFGIRU84LIV1STugqgIPqwqMo9cR
-         DQANL1/iTIq5+2B+Ya9XosR03KdnJpAjvWLEpUiRF+NZJInRM5jHN+I1OfoSYIkWUpXS
-         Fe+wc4ctNUeFu06V36xn1YYdbeUwFw0AMu8VuTgPikn8re+eYY9beJBHCuPinclJAcw8
-         BkEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774355614; x=1774960414;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=6/EFfTLPPvtpKfYbDxMVwQU9jDgu7ScMy19tpR6gQjI=;
-        b=Ev9D62IsymfQteD1zN1QMsOEBUwlezEpC4J6dhcYCQAmUXJ7gpVFvmlA4Fo1b5Nk4U
-         fOoKOx6ATcgsBw+3ffJV1Xw8b3pLlqiDPjoKgHRYZhNLy6QgDzeFif2oiFciSt1wWxuc
-         l3fQORk7mCYYpL6ndEH0ldlozEpnWi3KllMsDLw51LGCew6SktKJ8Q48wYWOKTx6DYd1
-         MtDPmb5rkIY/083loCgAis+YQw+lnSc5Dqvnywjb1mc77nnjRic4vTd2WCEhOKkM3sn4
-         Hpg6YxquiCy5L43o58G8Qm+Thbzr1Ihp4sWDdRcuQOyRP+IktEiXdgrBhD9DWg+AWgp1
-         TvgA==
-X-Forwarded-Encrypted: i=1; AJvYcCU8peUw3/j6DS1vCOl90O8OIYlO6488I3b80Pr7wjaQ5/f5ED10a1UXwZXUXRWOXo1+DB4oqCjAesw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxRDbXjmFkcFI0R0uh/XlU0vOVqAcbKZme5s9f0l212lVUqwnmM
-	WmvbTE4ZHkeA45ZH6Y/IXbcrbKjrUa2aZf2tm/JVidOmN6fmEjZMZ/KIL5eWfnSn
-X-Gm-Gg: ATEYQzySL70rFRDa3K8RGeSoNr5iX/GwJeYG9IUUrKeK3vDhOGiKQ0bZFY+6Q++14kp
-	Y5wgFit3IvyOk4yMH97mwB9N+IGybtQLUx6ctr/+xCUkgtF28QYSJvfunsEu3tsYuImrucEBNJ+
-	wEHcL8Yxcz2d222ePPY1P/hZHq5XblFZXGIWDoVFfbq3sMFNBXoMxwu22yqLmo0lgDuV9jii45m
-	2ms35TeHT1br1ROI5QmOQfOqxa94hSoYsBb+GU3o74Wf8mhNT/Usf/O3PmGxxKfZ73NQcJVO7Eg
-	l1UaaukNNCmueoCTVR3yO3EP+06z8ATWq2ZT9hepv9dzh58mzYtY4NB9s2+JteVr8BEm+H5JR0v
-	wxpAXRAWrE/VMtqqDH10jnsUpn1giSV8QzXzz2eMlFSVhTG7Vhwqd434ac1KDTbBZdIE3RR6CjH
-	FY3PGRS8vbZJnDoL+1Dq0IbZd7CEEf6H82G/gUoS+8Y1UW2O50V9llIwQa63xIULFQFo/ZouVao
-	Au6KbZl4hWFGXBTDr/JRBVdI7BYc5Q/Z7vOU364UkjPMrMcsqBDQ37WNMiQJxDXKjvkayRaKQ==
-X-Received: by 2002:a17:90b:1e44:b0:34a:be93:72ee with SMTP id 98e67ed59e1d1-35c0083302cmr2487364a91.8.1774355613938;
-        Tue, 24 Mar 2026 05:33:33 -0700 (PDT)
-From: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
-To: sarkarsoumyajyoti23@gmail.com,
-	xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
-Subject: [PATCH v5 3/3] x86/efi: Add opt-out mechanism for BGRT preservation
-Date: Tue, 24 Mar 2026 18:03:12 +0530
-Message-ID: <20260324123312.11076-4-soumyajyotisarkar23@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260324123312.11076-1-soumyajyotisarkar23@gmail.com>
-References: <20260324123312.11076-1-soumyajyotisarkar23@gmail.com>
+X-Inumbo-ID: dd2c4f03-277e-11f1-b166-2bf370ae4941
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=pp1;
+	 bh=Shk48Guqth0dMGtPHiYWn3blJ70CgjGVRZHzaVpvLPY=; b=nqs3h6SkcQWZ
+	+OwoltQeMxOO6RblQPqe55tAVjsackvCM4KkhWNpCQq04FPsFlS93zfiGSC7Di4+
+	S9HKMl0Sjn5QTzbM3NfhhnAIAYBvkUkrdxOKSw7d0UM43AXyYRkeT8yYGAz8hak7
+	ZGJjdVwyS8NI2NFgL8wvwtd0s6FHAxSN4ucTbH9O2vRt2+dg7MkFcwB5Thprjrjc
+	U/howCgydGuthvICdFGdQd3XIc0EaU0k/lS6es2878jUgr/pm+7/onljXHYAZGv+
+	d2SOZp5c+3ZgwIjW+EEdkE2KjadPhRrKOtZM1Zuf8LiFRmTbl3wfp/kpxlXGAEqB
+	O8U48KsXUA==
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c201ff/1774355616-82759488-AE5003A6/0/0
-X-purgate-type: clean
-X-purgate-size: 3800
-X-Spamd-Result: default: False [0.31 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+Date: Tue, 24 Mar 2026 13:41:25 +0100
+From: Harald Freudenberger <freude@linux.ibm.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Russell King <linux@armlinux.org.uk>,
+        Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Ioana
+ Ciornei <ioana.ciornei@nxp.com>,
+        Nipun Gupta <nipun.gupta@amd.com>,
+        Nikhil
+ Agarwal <nikhil.agarwal@amd.com>,
+        "K. Y. Srinivasan" <kys@microsoft.com>,
+        Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+        Dexuan
+ Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+        Bjorn Helgaas
+ <bhelgaas@google.com>, Armin Wolf <W_Armin@gmx.de>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Vineeth Vijayan <vneethv@linux.ibm.com>,
+        Peter Oberparleiter
+ <oberpar@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik
+ <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>,
+        Christian
+ Borntraeger <borntraeger@linux.ibm.com>,
+        Sven Schnelle
+ <svens@linux.ibm.com>,
+        Holger Dengler <dengler@linux.ibm.com>,
+        Mark Brown
+ <broonie@kernel.org>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Jason Wang
+ <jasowang@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+        Alex Williamson
+ <alex@shazbot.org>, Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini
+ <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko
+ <oleksandr_tyshchenko@epam.com>,
+        "Christophe Leroy (CS GROUP)"
+ <chleroy@kernel.org>,
+        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+        linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org,
+        linux-pci@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        linux-s390@vger.kernel.org, linux-spi@vger.kernel.org,
+        virtualization@lists.linux.dev, kvm@vger.kernel.org,
+        xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 10/12] s390/ap: use generic driver_override infrastructure
+Reply-To: freude@linux.ibm.com
+Mail-Reply-To: freude@linux.ibm.com
+In-Reply-To: <20260324005919.2408620-11-dakr@kernel.org>
+References: <20260324005919.2408620-1-dakr@kernel.org>
+ <20260324005919.2408620-11-dakr@kernel.org>
+Message-ID: <b5a80e06aa0240348dfa6826c20f3aec@linux.ibm.com>
+X-Sender: freude@linux.ibm.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=IqITsb/g c=1 sm=1 tr=0 ts=69c2867c cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=V8-k01nbhAtxNRQPXScA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA5OCBTYWx0ZWRfX5BtF+dGcqKne
+ ud3qOj4gTSLR9zLNfAq3JG6g/oOlaoDuAoL5ugYqpH9s9vpJjplhqsv+C5Fn13wLfcNuqTFjG2K
+ 8B20fOIVvCqa5XvNqyGQnMAHAZ9m7lornaYpmzRxy2uj+A1xP4iQsysQ7y+S7A488UAEKXq5qZ6
+ LBbN3vhPXZJ/bEjV349pY7YewQW80X8aJiv4wUe79X39dz6GUwBnh+wAamLPOldfeVWA3ylebkO
+ fpE77uN6WRT54jS8FnW/ZhUlXkVn14gcYRIyrgSPpzwxEiZ3nS5fgK7DV0UKCoQQHx0EyIcKLvI
+ sxcDzd1vSEY19GMOKPv1ZW+MN86TCAn4dq3ojgq1Xg0hwRVL0L3YGoz9QETDntcaSlj/0kKtlA6
+ UfD/yUxgwr0WFEGPDCZ3E/gq/ajxwH4hTrddRdALUSslhqrcmAjUB1i/qil1QJJkf8vWuRKoJjs
+ AJigNCQkv9LzvxCAnUQ==
+X-Proofpoint-GUID: YK3KYDPHgye9e3NvrRpemo-oOEIjjzeD
+X-Proofpoint-ORIG-GUID: IG7OyOmEsbO9ZGMbJn71CzQus0Ee1qWf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-24_02,2026-03-23_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1011 spamscore=0 impostorscore=0 suspectscore=0
+ phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240098
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[ibm.com,none];
+	R_DKIM_ALLOW(-0.20)[ibm.com:s=pp1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[citrix.com,suse.com,apertussolutions.com,invisiblethingslab.com,gmail.com];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dakr@kernel.org,m:linux@armlinux.org.uk,m:gregkh@linuxfoundation.org,m:rafael@kernel.org,m:ioana.ciornei@nxp.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:bhelgaas@google.com,m:W_Armin@gmx.de,m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:vneethv@linux.ibm.com,m:oberpar@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:agordeev@linux.ibm.com,m:borntraeger@linux.ibm.com,m:svens@linux.ibm.com,m:dengler@linux.ibm.com,m:broonie@kernel.org,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:eperezma@redhat.com,m:alex@shazbot.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:chleroy@kernel.org,m:linux-kernel@vger.kernel.org,m:driver-core@lists.linux.dev,m:linuxppc-dev@lists.ozlabs.org,m:linux-hyperv@vger.kernel.org,m:linux-pci@vger.kernel.org,m:platform-driver-x86@vger.kernel.org,m:linu
+ x-arm-msm@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-s390@vger.kernel.org,m:linux-spi@vger.kernel.org,m:virtualization@lists.linux.dev,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:sarkarsoumyajyoti23@gmail.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:dpsmith@apertussolutions.com,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,m:soumyajyotisarkar23@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[soumyajyotisarkar23@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[freude@linux.ibm.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[armlinux.org.uk,linuxfoundation.org,kernel.org,nxp.com,amd.com,microsoft.com,google.com,gmx.de,linaro.org,linux.ibm.com,redhat.com,linux.alibaba.com,shazbot.org,suse.com,epam.com,vger.kernel.org,lists.linux.dev,lists.ozlabs.org,lists.xenproject.org,lists.infradead.org];
+	RCPT_COUNT_TWELVE(0.00)[48];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[ibm.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	HAS_REPLYTO(0.00)[freude@linux.ibm.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[soumyajyotisarkar23@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	FROM_NEQ_ENVFROM(0.00)[freude@linux.ibm.com,xen-devel-bounces@lists.xenproject.org];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: CC92C30850E
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.ibm.com:replyto,linux.ibm.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: B5B9C31FF50
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-BGRT preservation is now enabled by default to fix ACPI corruption
-for desktop/workstation systems (similar to ESRT).
+On 2026-03-24 01:59, Danilo Krummrich wrote:
+> When the AP masks are updated via apmask_store() or aqmask_store(),
+> ap_bus_revise_bindings() is called after ap_attr_mutex has been
+> released.
+> 
+> This calls __ap_revise_reserved(), which accesses the driver_override
+> field without holding any lock, racing against a concurrent
+> driver_override_store() that may free the old string, resulting in a
+> potential UAF.
+> 
+> Fix this by using the driver-core driver_override infrastructure, which
+> protects all accesses with an internal spinlock.
+> 
+> Note that unlike most other buses, the AP bus does not check
+> driver_override in its match() callback; the override is checked in
+> ap_device_probe() and __ap_revise_reserved() instead.
+> 
+> Also note that we do not enable the driver_override feature of struct
+> bus_type, as AP - in contrast to most other buses - passes "" to
+> sysfs_emit() when the driver_override pointer is NULL. Thus, printing
+> "\n" instead of "(null)\n".
+> 
+> Additionally, AP has a custom counter that is modified in the
+> corresponding custom driver_override_store().
+> 
+> Fixes: d38a87d7c064 ("s390/ap: Support driver_override for AP queue 
+> devices")
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  drivers/s390/crypto/ap_bus.c   | 34 +++++++++++++++++-----------------
+>  drivers/s390/crypto/ap_bus.h   |  1 -
+>  drivers/s390/crypto/ap_queue.c | 24 ++++++------------------
+>  3 files changed, 23 insertions(+), 36 deletions(-)
+> 
+> diff --git a/drivers/s390/crypto/ap_bus.c 
+> b/drivers/s390/crypto/ap_bus.c
+> index d652df96a507..f24e27add721 100644
+> --- a/drivers/s390/crypto/ap_bus.c
+> +++ b/drivers/s390/crypto/ap_bus.c
+> @@ -859,25 +859,24 @@ static int
+> __ap_queue_devices_with_id_unregister(struct device *dev, void *data)
+> 
+>  static int __ap_revise_reserved(struct device *dev, void *dummy)
+>  {
+> -	int rc, card, queue, devres, drvres;
+> +	int rc, card, queue, devres, drvres, ovrd;
+> 
+>  	if (is_queue_dev(dev)) {
+>  		struct ap_driver *ap_drv = to_ap_drv(dev->driver);
+>  		struct ap_queue *aq = to_ap_queue(dev);
+> -		struct ap_device *ap_dev = &aq->ap_dev;
+> 
+>  		card = AP_QID_CARD(aq->qid);
+>  		queue = AP_QID_QUEUE(aq->qid);
+> 
+> -		if (ap_dev->driver_override) {
+> -			if (strcmp(ap_dev->driver_override,
+> -				   ap_drv->driver.name)) {
+> -				pr_debug("reprobing queue=%02x.%04x\n", card, queue);
+> -				rc = device_reprobe(dev);
+> -				if (rc) {
+> -					AP_DBF_WARN("%s reprobing queue=%02x.%04x failed\n",
+> -						    __func__, card, queue);
+> -				}
+> +		ovrd = device_match_driver_override(dev, &ap_drv->driver);
+> +		if (ovrd > 0) {
+> +			/* override set and matches, nothing to do */
+> +		} else if (ovrd == 0) {
+> +			pr_debug("reprobing queue=%02x.%04x\n", card, queue);
+> +			rc = device_reprobe(dev);
+> +			if (rc) {
+> +				AP_DBF_WARN("%s reprobing queue=%02x.%04x failed\n",
+> +					    __func__, card, queue);
+>  			}
+>  		} else {
+>  			mutex_lock(&ap_attr_mutex);
+> @@ -928,7 +927,7 @@ int ap_owned_by_def_drv(int card, int queue)
+>  	if (aq) {
+>  		const struct device_driver *drv = aq->ap_dev.device.driver;
+>  		const struct ap_driver *ap_drv = to_ap_drv(drv);
+> -		bool override = !!aq->ap_dev.driver_override;
+> +		bool override = device_has_driver_override(&aq->ap_dev.device);
+> 
+>  		if (override && drv && ap_drv->flags & AP_DRIVER_FLAG_DEFAULT)
+>  			rc = 1;
+> @@ -977,7 +976,7 @@ static int ap_device_probe(struct device *dev)
+>  {
+>  	struct ap_device *ap_dev = to_ap_dev(dev);
+>  	struct ap_driver *ap_drv = to_ap_drv(dev->driver);
+> -	int card, queue, devres, drvres, rc = -ENODEV;
+> +	int card, queue, devres, drvres, rc = -ENODEV, ovrd;
+> 
+>  	if (!get_device(dev))
+>  		return rc;
+> @@ -991,10 +990,11 @@ static int ap_device_probe(struct device *dev)
+>  		 */
+>  		card = AP_QID_CARD(to_ap_queue(dev)->qid);
+>  		queue = AP_QID_QUEUE(to_ap_queue(dev)->qid);
+> -		if (ap_dev->driver_override) {
+> -			if (strcmp(ap_dev->driver_override,
+> -				   ap_drv->driver.name))
+> -				goto out;
+> +		ovrd = device_match_driver_override(dev, &ap_drv->driver);
+> +		if (ovrd > 0) {
+> +			/* override set and matches, nothing to do */
+> +		} else if (ovrd == 0) {
+> +			goto out;
+>  		} else {
+>  			mutex_lock(&ap_attr_mutex);
+>  			devres = test_bit_inv(card, ap_perms.apm) &&
+> diff --git a/drivers/s390/crypto/ap_bus.h 
+> b/drivers/s390/crypto/ap_bus.h
+> index 51e08f27bd75..04ea256ecf91 100644
+> --- a/drivers/s390/crypto/ap_bus.h
+> +++ b/drivers/s390/crypto/ap_bus.h
+> @@ -166,7 +166,6 @@ void ap_driver_unregister(struct ap_driver *);
+>  struct ap_device {
+>  	struct device device;
+>  	int device_type;		/* AP device type. */
+> -	const char *driver_override;
+>  };
+> 
+>  #define to_ap_dev(x) container_of((x), struct ap_device, device)
+> diff --git a/drivers/s390/crypto/ap_queue.c 
+> b/drivers/s390/crypto/ap_queue.c
+> index 3fe2e41c5c6b..ca9819e6f7e7 100644
+> --- a/drivers/s390/crypto/ap_queue.c
+> +++ b/drivers/s390/crypto/ap_queue.c
+> @@ -734,26 +734,14 @@ static ssize_t driver_override_show(struct device 
+> *dev,
+>  				    struct device_attribute *attr,
+>  				    char *buf)
+>  {
+> -	struct ap_queue *aq = to_ap_queue(dev);
+> -	struct ap_device *ap_dev = &aq->ap_dev;
+> -	int rc;
+> -
+> -	device_lock(dev);
+> -	if (ap_dev->driver_override)
+> -		rc = sysfs_emit(buf, "%s\n", ap_dev->driver_override);
+> -	else
+> -		rc = sysfs_emit(buf, "\n");
+> -	device_unlock(dev);
+> -
+> -	return rc;
+> +	guard(spinlock)(&dev->driver_override.lock);
+> +	return sysfs_emit(buf, "%s\n", dev->driver_override.name ?: "");
+>  }
+> 
+>  static ssize_t driver_override_store(struct device *dev,
+>  				     struct device_attribute *attr,
+>  				     const char *buf, size_t count)
+>  {
+> -	struct ap_queue *aq = to_ap_queue(dev);
+> -	struct ap_device *ap_dev = &aq->ap_dev;
+>  	int rc = -EINVAL;
+>  	bool old_value;
+> 
+> @@ -764,13 +752,13 @@ static ssize_t driver_override_store(struct 
+> device *dev,
+>  	if (ap_apmask_aqmask_in_use)
+>  		goto out;
+> 
+> -	old_value = ap_dev->driver_override ? true : false;
+> -	rc = driver_set_override(dev, &ap_dev->driver_override, buf, count);
+> +	old_value = device_has_driver_override(dev);
+> +	rc = __device_set_driver_override(dev, buf, count);
+>  	if (rc)
+>  		goto out;
+> -	if (old_value && !ap_dev->driver_override)
+> +	if (old_value && !device_has_driver_override(dev))
+>  		--ap_driver_override_ctr;
+> -	else if (!old_value && ap_dev->driver_override)
+> +	else if (!old_value && device_has_driver_override(dev))
+>  		++ap_driver_override_ctr;
+> 
+>  	rc = count;
 
-As described in the task:
-https://github.com/QubesOS/qubes-issues/issues/10764
-
-Add an opt-out parameter to allow disabling BGRT preservation on
-systems where the ~1MB memory overhead is not desired.
-
-The opt-out is implemented through two boot paths with early parsing
-during the EFI boot phase before preservation runs:
-
-1. xen.efi direct boot: '-nobgrt' command line option (parsed in
-   efi_start())
-2. Multiboot2 (GRUB): 'efi=no-bgrt' peeked from mb2 cmdline tag
-   using get_option() in efi_multiboot2()
-
-The flag is checked at the start of efi_preserve_bgrt_img() to
-skip preservation entirely when disabled. Status logging indicates
-whether preservation was disabled, succeeded, or failed.
-
-Usage:
-  Default: BGRT preserved automatically
-  xen.efi: Add '-nobgrt' option
-  GRUB/MB2: Add 'efi=no-bgrt' to Xen command line
-
-Signed-off-by: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
----
- xen/arch/x86/efi/efi-boot.h |  3 +++
- xen/common/efi/boot.c       | 11 ++++++++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index 0547d845cd..6c986cf6c0 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -897,6 +897,9 @@ void __init efi_multiboot2(EFI_HANDLE ImageHandle,
-         efi_arch_edid(gop_handle);
-     }
-
-+    if ( cmdline && get_option(cmdline, "efi=no-bgrt") )
-+        opt_bgrt_disabled = true;
-+
-     efi_arch_edd();
-     efi_arch_cpu();
-
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index e22a42c15b..a4db7ee516 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -170,6 +170,7 @@ static SIMPLE_TEXT_OUTPUT_INTERFACE *__initdata StdErr;
-
- static UINT32 __initdata mdesc_ver;
- static bool __initdata map_bs;
-+static bool __initdata opt_bgrt_disabled = false;
-
- static struct file __initdata cfg;
- static struct file __initdata kernel;
-@@ -825,6 +826,9 @@ static void __init efi_preserve_bgrt_img(void)
-
-     bgrt_info.preserved = false;
-
-+    if ( opt_bgrt_disabled )
-+        return;
-+
-     bgrt = efi_get_bgrt();
-     if ( !bgrt )
-     {
-@@ -1582,6 +1586,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
-                     base_video = true;
-                 else if ( wstrcmp(ptr + 1, L"mapbs") == 0 )
-                     map_bs = true;
-+                else if ( wstrcmp(ptr + 1, L"nobgrt") == 0 )
-+                    opt_bgrt_disabled = true;
-                 else if ( wstrncmp(ptr + 1, L"cfg=", 4) == 0 )
-                     cfg_file_name = ptr + 5;
-                 else if ( i + 1 < argc && wstrcmp(ptr + 1, L"cfg") == 0 )
-@@ -1592,6 +1598,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
-                     PrintStr(L"Xen EFI Loader options:\r\n");
-                     PrintStr(L"-basevideo   retain current video mode\r\n");
-                     PrintStr(L"-mapbs       map EfiBootServices{Code,Data}\r\n");
-+                    PrintStr(L"-nobgrt      disable BGRT preservation\r\n");
-                     PrintStr(L"-cfg=<file>  specify configuration file\r\n");
-                     PrintStr(L"-help, -?    display this help\r\n");
-                     blexit(NULL);
-@@ -1916,7 +1923,9 @@ void __init efi_bgrt_status_info(void)
-     if ( !efi_enabled(EFI_BOOT) )
-         return;
-
--    if ( bgrt_info.preserved )
-+    if ( opt_bgrt_disabled )
-+        printk(XENLOG_INFO "EFI: BGRT preservation disabled\n");
-+    else if ( bgrt_info.preserved )
-     {
-         printk(XENLOG_INFO "EFI: BGRT image preserved: %lu KB\n",
-                bgrt_info.size / 1024);
---
-2.53.0
-
+Thanks Danilo
+Reviewed-by: Harald Freudenberger <freude@linux.ibm.com>
 
