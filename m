@@ -2,46 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mPCfGGnowWnzXwQAu9opvQ
+	id 85rcJmjowWnrXwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 02:27:05 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 02:27:04 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1777A3007E2
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 02:27:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1259887.1553282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3654D3007B5
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 02:27:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1259879.1553249 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4qXR-0001Cf-Iv; Tue, 24 Mar 2026 01:26:33 +0000
+	id 1w4qXP-0000QE-9n; Tue, 24 Mar 2026 01:26:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1259887.1553282; Tue, 24 Mar 2026 01:26:33 +0000
+Received: by outflank-mailman (output) from mailman id 1259879.1553249; Tue, 24 Mar 2026 01:26:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4qXQ-0000yr-UT; Tue, 24 Mar 2026 01:26:32 +0000
-Received: by outflank-mailman (input) for mailman id 1259887;
- Tue, 24 Mar 2026 01:04:53 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1w4qXO-0000BI-VK; Tue, 24 Mar 2026 01:26:30 +0000
+Received: by outflank-mailman (input) for mailman id 1259879;
+ Tue, 24 Mar 2026 01:01:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dakr@kernel.org>) id 1w4qCT-00059A-0M
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 01:04:53 +0000
-Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w4qCS-00Gi8O-4k
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 02:04:52 +0100
-Received: from [10.42.69.8] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <dakr@kernel.org>)
- id 69c1e32e-bab6-0a2a0a5309dd-0a2a45089b8c-14
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 02:04:52 +0100
-Received: from [172.234.252.31] (helo=sea.source.kernel.org)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <dakr@kernel.org>)
- id 69c1e242-1950-0a2a45080019-aceafc1fbff0-3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 02:00:51 +0100
+ (envelope-from <SRS0=t6JZ=BY=kernel.org=dakr@srs-se1.protection.inumbo.net>)
+ id 1w4q8k-0005Au-6W
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 01:01:02 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ec01ef05-271c-11f1-9ccf-f158ae23cfc8;
+ Tue, 24 Mar 2026 02:01:00 +0100 (CET)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A8BF1402D2;
+ by tor.source.kernel.org (Postfix) with ESMTP id 6F07260121;
+ Tue, 24 Mar 2026 01:00:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F37F1C4CEF7;
  Tue, 24 Mar 2026 01:00:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 600FAC2BCB3;
- Tue, 24 Mar 2026 01:00:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,17 +46,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="From:To:Cc:Subject:Date:In-Reply-To:References"
+X-Inumbo-ID: ec01ef05-271c-11f1-9ccf-f158ae23cfc8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774314049;
-	bh=2lHhdrgE9qzH1ZdWMWGXkZLiIUExSh17kxoWzoBpEYw=;
+	s=k20201202; t=1774314059;
+	bh=ByobimVvZngWYiBS4MISNoCZaILbn7MyP0EmUHxONX8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=urbkSyPC//Mc+7xDMT60BWD1PM5iJno/Pv3C12Ww9BFBlm+Txslon6hgVop799Zux
-	 g+Sv+q81mxYoKpArwgNlL1ZLxKeJEZHi/lM3U9lsj91wt+dVuwPQVluFb1QQ+HQlCj
-	 sv5wTpgn5xlflwnnmanQE9E5F/Pn2wr+wAILRhGodQgtrhj4oxFDHJG9NtY75ERcHC
-	 m7A8DB8J2Ne77LkVgV0/eIo9dU9uCfUYKNhjjLT4Tt3E8Clc0+8oqnyAcHS/Bg4R5L
-	 D1zJWmU8m174lSqL3A0Ubvc3fqLrq3bwEdahRa42TfG/CVeZDK4Hwt1j/T6kr4aNVX
-	 9oiBCcvJ5IK1g==
+	b=M5cmM+6DyqmK+EAGRvLHS/yaDqvmCvw5jU4r7SCyXiBwcQBFFqbb4X/i4pXN2bi2S
+	 gHkRbl+Xo3RELYoiG4jfGiG71cPBeRkIjOhdvO7LyCtTJjVMWWsggEZfDrMHEQh/LT
+	 sJPml12ZLm2ZXWcUV7+rSBuPDv4wlXIGpfa5Mp3UMgF0NSXsREGrGnuvEljzT3nxKU
+	 rRCqRHzFA+L/AZEsNVivSFaFs9zyzzt9OOmEyPjs+2mnPiQ4PBAEg9i9nAYF6+ohUT
+	 5vkv2XGga3nnGd1hHPKmfzckD1wY8wwkbKkdLTe4mZgsX9KBZZceAs6EiZe7MaJYyF
+	 N2W+3BMlOYL3w==
 From: Danilo Krummrich <dakr@kernel.org>
 To: Russell King <linux@armlinux.org.uk>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -115,52 +108,48 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	Danilo Krummrich <dakr@kernel.org>,
 	Gui-Dong Han <hanguidong02@gmail.com>
-Subject: [PATCH 08/12] vdpa: use generic driver_override infrastructure
-Date: Tue, 24 Mar 2026 01:59:12 +0100
-Message-ID: <20260324005919.2408620-9-dakr@kernel.org>
+Subject: [PATCH 09/12] s390/cio: use generic driver_override infrastructure
+Date: Tue, 24 Mar 2026 01:59:13 +0100
+Message-ID: <20260324005919.2408620-10-dakr@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260324005919.2408620-1-dakr@kernel.org>
 References: <20260324005919.2408620-1-dakr@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c1860d/1774314051-E8E85726-F86AC08E/0/0
-X-purgate-type: clean
-X-purgate-size: 3902
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+	R_MISSING_CHARSET(0.50)[];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	FREEMAIL_CC(0.00)[vger.kernel.org,lists.linux.dev,lists.ozlabs.org,lists.xenproject.org,lists.infradead.org,kernel.org,gmail.com];
+	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:gregkh@linuxfoundation.org,m:rafael@kernel.org,m:ioana.ciornei@nxp.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:bhelgaas@google.com,m:W_Armin@gmx.de,m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:vneethv@linux.ibm.com,m:oberpar@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:agordeev@linux.ibm.com,m:borntraeger@linux.ibm.com,m:svens@linux.ibm.com,m:freude@linux.ibm.com,m:dengler@linux.ibm.com,m:broonie@kernel.org,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:eperezma@redhat.com,m:alex@shazbot.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:chleroy@kernel.org,m:linux-kernel@vger.kernel.org,m:driver-core@lists.linux.dev,m:linuxppc-dev@lists.ozlabs.org,m:linux-hyperv@vger.kernel.org,m:linux-pci@vger.kernel.org,m:platform-driver-x86@vger.kernel.org,m
  :linux-arm-msm@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-s390@vger.kernel.org,m:linux-spi@vger.kernel.org,m:virtualization@lists.linux.dev,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-arm-kernel@lists.infradead.org,m:dakr@kernel.org,m:hanguidong02@gmail.com,s:lists@lfdr.de];
 	FREEMAIL_TO(0.00)[armlinux.org.uk,linuxfoundation.org,kernel.org,nxp.com,amd.com,microsoft.com,google.com,gmx.de,linaro.org,linux.ibm.com,redhat.com,linux.alibaba.com,shazbot.org,suse.com,epam.com];
-	FORGED_SENDER(0.00)[dakr@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[dakr@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_GT_50(0.00)[50];
 	FROM_NEQ_ENVFROM(0.00)[dakr@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	RCPT_COUNT_GT_50(0.00)[50];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 1777A3007E2
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Queue-Id: 3654D3007B5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -177,43 +166,53 @@ held is intentional. [1]
 Link: https://lore.kernel.org/driver-core/DGRGTIRHA62X.3RY09D9SOK77P@kernel.org/ [1]
 Reported-by: Gui-Dong Han <hanguidong02@gmail.com>
 Closes: https://bugzilla.kernel.org/show_bug.cgi?id=220789
-Fixes: 539fec78edb4 ("vdpa: add driver_override support")
+Fixes: ebc3d1791503 ("s390/cio: introduce driver_override on the css bus")
 Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 ---
- drivers/vdpa/vdpa.c  | 48 +++++---------------------------------------
- include/linux/vdpa.h |  4 ----
- 2 files changed, 5 insertions(+), 47 deletions(-)
+ drivers/s390/cio/cio.h |  5 -----
+ drivers/s390/cio/css.c | 34 ++++------------------------------
+ 2 files changed, 4 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/vdpa/vdpa.c b/drivers/vdpa/vdpa.c
-index 34874beb0152..caf0ee5d6856 100644
---- a/drivers/vdpa/vdpa.c
-+++ b/drivers/vdpa/vdpa.c
-@@ -67,57 +67,20 @@ static void vdpa_dev_remove(struct device *d)
+diff --git a/drivers/s390/cio/cio.h b/drivers/s390/cio/cio.h
+index 08a5e9380e75..bad142c536e1 100644
+--- a/drivers/s390/cio/cio.h
++++ b/drivers/s390/cio/cio.h
+@@ -103,11 +103,6 @@ struct subchannel {
+ 	struct work_struct todo_work;
+ 	struct schib_config config;
+ 	u64 dma_mask;
+-	/*
+-	 * Driver name to force a match.  Do not set directly, because core
+-	 * frees it.  Use driver_set_override() to set or clear it.
+-	 */
+-	const char *driver_override;
+ } __attribute__ ((aligned(8)));
  
- static int vdpa_dev_match(struct device *dev, const struct device_driver *drv)
- {
--	struct vdpa_device *vdev = dev_to_vdpa(dev);
-+	int ret;
+ DECLARE_PER_CPU_ALIGNED(struct irb, cio_irb);
+diff --git a/drivers/s390/cio/css.c b/drivers/s390/cio/css.c
+index 5ab239f38588..e5a0ec6b4e3e 100644
+--- a/drivers/s390/cio/css.c
++++ b/drivers/s390/cio/css.c
+@@ -159,7 +159,6 @@ static void css_subchannel_release(struct device *dev)
  
- 	/* Check override first, and if set, only use the named driver */
--	if (vdev->driver_override)
--		return strcmp(vdev->driver_override, drv->name) == 0;
-+	ret = device_match_driver_override(dev, drv);
-+	if (ret >= 0)
-+		return ret;
- 
- 	/* Currently devices must be supported by all vDPA bus drivers */
- 	return 1;
+ 	sch->config.intparm = 0;
+ 	cio_commit_config(sch);
+-	kfree(sch->driver_override);
+ 	kfree(sch);
  }
+ 
+@@ -323,37 +322,9 @@ static ssize_t modalias_show(struct device *dev, struct device_attribute *attr,
+ 
+ static DEVICE_ATTR_RO(modalias);
  
 -static ssize_t driver_override_store(struct device *dev,
 -				     struct device_attribute *attr,
 -				     const char *buf, size_t count)
 -{
--	struct vdpa_device *vdev = dev_to_vdpa(dev);
+-	struct subchannel *sch = to_subchannel(dev);
 -	int ret;
 -
--	ret = driver_set_override(dev, &vdev->driver_override, buf, count);
+-	ret = driver_set_override(dev, &sch->driver_override, buf, count);
 -	if (ret)
 -		return ret;
 -
@@ -223,64 +222,44 @@ index 34874beb0152..caf0ee5d6856 100644
 -static ssize_t driver_override_show(struct device *dev,
 -				    struct device_attribute *attr, char *buf)
 -{
--	struct vdpa_device *vdev = dev_to_vdpa(dev);
+-	struct subchannel *sch = to_subchannel(dev);
 -	ssize_t len;
 -
 -	device_lock(dev);
--	len = sysfs_emit(buf, "%s\n", vdev->driver_override);
+-	len = sysfs_emit(buf, "%s\n", sch->driver_override);
 -	device_unlock(dev);
--
 -	return len;
 -}
 -static DEVICE_ATTR_RW(driver_override);
 -
--static struct attribute *vdpa_dev_attrs[] = {
+ static struct attribute *subch_attrs[] = {
+ 	&dev_attr_type.attr,
+ 	&dev_attr_modalias.attr,
 -	&dev_attr_driver_override.attr,
--	NULL,
--};
--
--static const struct attribute_group vdpa_dev_group = {
--	.attrs  = vdpa_dev_attrs,
--};
--__ATTRIBUTE_GROUPS(vdpa_dev);
--
- static const struct bus_type vdpa_bus = {
- 	.name  = "vdpa",
--	.dev_groups = vdpa_dev_groups,
+ 	NULL,
+ };
+ 
+@@ -1356,9 +1327,11 @@ static int css_bus_match(struct device *dev, const struct device_driver *drv)
+ 	struct subchannel *sch = to_subchannel(dev);
+ 	const struct css_driver *driver = to_cssdriver(drv);
+ 	struct css_device_id *id;
++	int ret;
+ 
+ 	/* When driver_override is set, only bind to the matching driver */
+-	if (sch->driver_override && strcmp(sch->driver_override, drv->name))
++	ret = device_match_driver_override(dev, drv);
++	if (ret == 0)
+ 		return 0;
+ 
+ 	for (id = driver->subchannel_type; id->match_flags; id++) {
+@@ -1415,6 +1388,7 @@ static int css_uevent(const struct device *dev, struct kobj_uevent_env *env)
+ 
+ static const struct bus_type css_bus_type = {
+ 	.name     = "css",
 +	.driver_override = true,
- 	.match = vdpa_dev_match,
- 	.probe = vdpa_dev_probe,
- 	.remove = vdpa_dev_remove,
-@@ -132,7 +95,6 @@ static void vdpa_release_dev(struct device *d)
- 		ops->free(vdev);
- 
- 	ida_free(&vdpa_index_ida, vdev->index);
--	kfree(vdev->driver_override);
- 	kfree(vdev);
- }
- 
-diff --git a/include/linux/vdpa.h b/include/linux/vdpa.h
-index 2bfe3baa63f4..782c42d25db1 100644
---- a/include/linux/vdpa.h
-+++ b/include/linux/vdpa.h
-@@ -72,9 +72,6 @@ struct vdpa_mgmt_dev;
-  * struct vdpa_device - representation of a vDPA device
-  * @dev: underlying device
-  * @vmap: the metadata passed to upper layer to be used for mapping
-- * @driver_override: driver name to force a match; do not set directly,
-- *                   because core frees it; use driver_set_override() to
-- *                   set or clear it.
-  * @config: the configuration ops for this device.
-  * @map: the map ops for this device
-  * @cf_lock: Protects get and set access to configuration layout.
-@@ -90,7 +87,6 @@ struct vdpa_mgmt_dev;
- struct vdpa_device {
- 	struct device dev;
- 	union virtio_map vmap;
--	const char *driver_override;
- 	const struct vdpa_config_ops *config;
- 	const struct virtio_map_ops *map;
- 	struct rw_semaphore cf_lock; /* Protects get/set config */
+ 	.match    = css_bus_match,
+ 	.probe    = css_probe,
+ 	.remove   = css_remove,
 -- 
 2.53.0
 
