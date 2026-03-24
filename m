@@ -2,49 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ACpcLnDEwmlflgQAu9opvQ
+	id YDBNIpDFwmmIlgQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 18:05:52 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 18:10:40 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CCD4319AB4
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 18:05:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1261176.1554283 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0706319C1F
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 18:10:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1261187.1554292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w55Bq-0001Gs-GZ; Tue, 24 Mar 2026 17:05:14 +0000
+	id 1w55Gv-0002zj-1h; Tue, 24 Mar 2026 17:10:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1261176.1554283; Tue, 24 Mar 2026 17:05:14 +0000
+Received: by outflank-mailman (output) from mailman id 1261187.1554292; Tue, 24 Mar 2026 17:10:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w55Bq-0001Eo-Do; Tue, 24 Mar 2026 17:05:14 +0000
-Received: by outflank-mailman (input) for mailman id 1261176;
- Tue, 24 Mar 2026 17:05:12 +0000
+	id 1w55Gu-0002xo-Uw; Tue, 24 Mar 2026 17:10:28 +0000
+Received: by outflank-mailman (input) for mailman id 1261187;
+ Tue, 24 Mar 2026 17:10:27 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w55Bo-0001Eh-LM
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 17:05:12 +0000
+ (envelope-from <Stewart.Hildebrand@amd.com>) id 1w55Gt-0002xi-F1
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 17:10:27 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w55Bn-002wzG-HB
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 18:05:11 +0100
-Received: from [10.42.69.11] (helo=localhost)
+ id 1w55Gr-009oRH-5W
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 18:10:26 +0100
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69c2c442-bab6-0a2a0a5309dd-0a2a450b8f66-16
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 18:05:11 +0100
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <jbeulich@suse.com>)
- id 69c2c447-ef63-0a2a450b0019-d1558032b40d-3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 18:05:11 +0100
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4852c9b4158so42519025e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 10:05:11 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b85082842sm4748658f8f.20.2026.03.24.10.05.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Mar 2026 10:05:10 -0700 (PDT)
+ (envelope-from <Stewart.Hildebrand@amd.com>)
+ id 69c2c573-e002-0a2a0a5209dd-0a2a4504829e-14
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 18:10:26 +0100
+Received: from [40.93.201.43]
+ (helo=CY3PR05CU001.outbound.protection.outlook.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <Stewart.Hildebrand@amd.com>)
+ id 69c2c580-c823-0a2a45040019-285dc92b0a99-3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 18:10:25 +0100
+Received: from PH2PEPF00003854.namprd17.prod.outlook.com (2603:10b6:518:1::74)
+ by DS7PR12MB8323.namprd12.prod.outlook.com (2603:10b6:8:da::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9745.20; Tue, 24 Mar 2026 17:10:20 +0000
+Received: from CY4PEPF0000E9D2.namprd03.prod.outlook.com
+ (2a01:111:f403:f912::4) by PH2PEPF00003854.outlook.office365.com
+ (2603:1036:903:48::3) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend
+ Transport; Tue, 24 Mar 2026 17:10:20 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D2.mail.protection.outlook.com (10.167.241.137) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Tue, 24 Mar 2026 17:10:19 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 24 Mar
+ 2026 12:10:19 -0500
+Received: from [172.24.66.250] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 24 Mar 2026 12:10:18 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,323 +70,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774371910; x=1774976710; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=eCOVSUINbr3qzFl702prxHTOtaujcdyX+FM++DzfP/M=;
-        b=Y4fDjA63Y66n8ne/nrbxIV8uMP1/kpK/6F5rxO+WjPVi8utynasgDJKhXMMTprcXyY
-         RmcUPjYiXm3t7RUXEUCFfsb6UIJd8FPagpHMLIN+MnLuX0zxA7631mEgJUoPnbu23Zi6
-         pogzq+69A/SFfK3QGgSR0SE9iPbTR+sNgyTznym1J8c/a+ntw1VJYzflXIa5AIFKMBJj
-         ebSo1bGehI7spCBCl9H7PcUXIh0eyB9iy1PSwZzQ+GRMjNEHuU3nLazKoLIRwZG0Lswx
-         sEsC/Bx3YRhwIzXCIgQGv3eR4oy2OqGe/EyXFJAhkw6EZhRpw0gQtLDPJTBaUPu9czcW
-         94WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774371911; x=1774976711;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=eCOVSUINbr3qzFl702prxHTOtaujcdyX+FM++DzfP/M=;
-        b=iCb1vkOhDkys7qbcb1TwzkCWv/q+8Ha0V3VDaO1zUb8aSXyjhv58PK1jwZjaQiEoEY
-         WnYezO9nfGyhHVHuSpYej9MiQAnZEQW+OSoNvpxH0ORwfd+ExDdJat1+YDGA4ba5zRHm
-         /9QsJ3su6cVgbpy5cS6zzcvU8W3KboKenurwrG/Er+XBlbnessofBXGDPpAOmnbCuYka
-         krQ3SSOCA99fLwEuNNDHsoRGCJOkhaVDR2gXA7LDbU6dNsavPtgtOl8iiki5eJ5KsCx8
-         lvYqxMSbie93nGvjLPFcHEKyZrYPicBLfOYJQEVsUYtnRYuftUmKwn7Z8hROlnJH/SKf
-         nR2g==
-X-Forwarded-Encrypted: i=1; AJvYcCUQYZLMCVW6uHJZJLA3+V4sH22FWq2VE/KP2baTmvTaiv+9/MsIhO1p812L7hB+xpSZ4CcHxrpRHwQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzzSSIlYG+ZKHXTAMwlZMy27XsSonGueXGN0XqTeL+wk2AX+liL
-	E3luwYZ4tWIHXlwrOABa3Z+wM41SHGMLUs/SSX5Tp74NL+9usMBsPGmiHGO1Ho7xrA==
-X-Gm-Gg: ATEYQzzPLOEmCt8lqdQSFB1HGhf6hPzemu8QoGyKSFbIjZ7dmWuxL1fhfRK4Ce3/1ge
-	0xCiBoehfnCLIAMbDg02Yo4SsgacEPZzaum7QmWr7LMmRg62bRepdh7D0i3jxjaGK9INXanpW14
-	V3C1a8qofy6yAt+jsGfGDjyJazfanaXe81qAhWtx93DkT4ScSIwDgdeW91Fy6WPzAXsSIvW5uJE
-	YN1/GDV/Wl4TG1Eb36IXoX5WS0vQa/mhQP9Vh4ZtrPxB1GAf2SvFQXu+5FYZmFLS7Ue+Gz4QXe1
-	UYGSD2bMMEccAIlw28V0W2GqjeyvcQLUEIpn8i3MDpLBj8vM73XnQWy5+26VP9771TLyl+0+ftI
-	13E5+7gzLKDsOET98UizwJM04bOolIB132yPDllrl872DMbvhTg/Wm20+Kz0ZkTxFC1t8Q9BK2f
-	BjltEwZCh49P0wWzhuAewQRoov/S+Qqay1WKlTdAqQAd9OzsXmS0jqgafSuWWwvP/NYTXH8Ao1I
-	2xCiaS/AgQXYGk=
-X-Received: by 2002:a05:600c:350f:b0:485:40c6:f528 with SMTP id 5b1f17b1804b1-487160a213bmr6751605e9.30.1774371910556;
-        Tue, 24 Mar 2026 10:05:10 -0700 (PDT)
-Message-ID: <2c601553-504c-405f-be5e-8ed24f21796d@suse.com>
-Date: Tue, 24 Mar 2026 18:05:09 +0100
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JL4Gs6tjlx1h81wcV9aSS4C5ubNfVesAtrYhNMLaxP8UmHsFaY0938VFby1Qx2U6Ak9DUL6YaitaT9HqplKmWWe4cLf4pBk849oTQIJNOnqlUxLVMzlUpGdm/fi89NGUpa9V+ZaWXtDgywmIlqrS5kx4HLzhlCerYYdXiXonaPeOOkSrXBb9iqBUMUWCJQPtxW/fRok122pxTVq4WeCIcbFOK0L27Y1pgSMEY68WdUFdPH3vUf4ERrnC4OqpNhGukDnz3Obl4rfQ3p/gbZlenRVR8NB0AtB+VqmUDMnzgZ7H2jLAE8jb7p48aqX6yiUJB+1JhN724iMZDCd27GGpug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T0Ycnt3TcU5xZ6fDy6W+2rUveknrflnOUoPUpGf64OQ=;
+ b=BuuhzFfAMEWg/hsKN4Hd6NLVciLsEIXXl0/nXO3h9fuKnYNs8gUrzSb0wjoagc0SlJK7H7RIGXweahwwKHVg6OdAwcw+Pnw5WW/1//3mGiLng5rq0NdLUKJaT9HHa+2/sXWPcqXQU/Z+lHsj9PvHW6/Rsc9u2OPMNHfz3/ctBixDuq5GR8Nl/ZIywyYb2lm5jCLWJm9ebz9wVYlvW3sn/PH9wpe5/miz1f/KIXD9+xtPYvUXAJvWLCu9Mh4eKg4jzlKF/6FlOlIpbzQTCz3JT/7KyzxRTM5D41vp0Rpsgm29/d02fm4zo5I+3ec/M9EkQBn1vVKTzlPfhV/3zx+oJw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T0Ycnt3TcU5xZ6fDy6W+2rUveknrflnOUoPUpGf64OQ=;
+ b=tPh6BNfcfJcmIR7RPcoFz96Z1H8kSK5IFvO0dtrmIJTnFL85+RnZI8nd3HATQFFJd9WHiB1uwsgD4TjIjvAKdwYTXqEa8NeoO5GLzFDOQQZzegvjfNxEROSwKY8gvbp3y3J0vGmxVkjA9DTUNlke+maLW+PbJyDM8e/QZyTwu/M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <435e3eb6-76c8-4ac3-8838-ccb7174a13e7@amd.com>
+Date: Tue, 24 Mar 2026 13:10:13 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/3] x86/efi: Add BGRT image preservation
- infrastructure
-To: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, sarkarsoumyajyoti23@gmail.com,
- xen-devel@lists.xenproject.org
-References: <20260324123312.11076-1-soumyajyotisarkar23@gmail.com>
- <20260324123312.11076-2-soumyajyotisarkar23@gmail.com>
+Subject: Re: [PATCH] arinc653: clear entire .dom_handle[] for Dom0 slots
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Nathan Studer <nathan.studer@dornerworks.com>, Stewart Hildebrand
+	<stewart@stew.dk>
+References: <3cde1263-d5fd-4bb0-a0ce-c5bf5d735a20@suse.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260324123312.11076-2-soumyajyotisarkar23@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <3cde1263-d5fd-4bb0-a0ce-c5bf5d735a20@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1774371911-9AAAC112-35B0D6D1/0/0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D2:EE_|DS7PR12MB8323:EE_
+X-MS-Office365-Filtering-Correlation-Id: ba85878c-e2a0-42cf-ff57-08de89c83a65
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|56012099003|22082099003|18002099003|7053199007;
+X-Microsoft-Antispam-Message-Info:
+	kkFZF36j7fWZOVpfhdCk9xdA6s0FJACBaivWvf5UtziKMuh5MWDlO65MKpeWctVW3vED2M0mbW3Uyowu33U2b1L/lU0T+FIzQQVFg24tLzHb+Wg0Zf63KeUWH+OGfc93m9CHg6pB+TpQeBLyUFe2Wcy58psx19eiBO2ls3CmCoiquLVJAU4ENFMy9NvVPjwkbjDToDJdwXcuB+jzXU5JvYJcHizwFQuThMrn1dO8D/QtSqZB3RYjjN0pXdxk4lKCAcmkbIJ4+Pkf05In/0a0KTSC6ordkvVibVWrCYYQUoNbw3QiqhFBa49S5X6Uifw7EPseonKiQniR4DTgfpnUUc7PekSOqIB1fj5g2X2DPqb/AiI44Bh8zBO0zSEEGR3XdxBwlhWlXMWef/BSG5PBPJnKC1jTWiM4mTUAMjyn4GAsb1TY4UUciWKuB8mcVwipwtA6RjNHBnex6oMq1sNbVwtup7R+4sfByplDFpesd7YaoL29c9tWFOX9MO/C6zTDtRT4wMRsPygj2BSeQROXgutD+0ktpOnL9u9ywcMwEMo2ijUZKJ40XWkmJFDaob2K1vBrCJaq1/gi/tiEgYFM7QGwDi/Kyqe/Zl1OMJabmC6gogGbYd74E5SNFPcQQMjLa3upkPy8Vhd2XpSxVI7WYViPamjBh339frJflvlFTmMiXrvhIh2zSInf8r9GcZuQAfUX9mPbSLFXCBNHsZfppDzpXMR8r2AKlnai7wZO+vs=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(56012099003)(22082099003)(18002099003)(7053199007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Sj3vzLTcAaNVtDjMFTjiLo0wsmjlYT/NIUdT0nDpvOKRXYrQg91P18XR0LNuzslqcSmXd0Bw+auk+yZ3ZQhmrkLPpqURS3CSW3430Kl3u8XtwBWmXG3z4BQ++00FAvs3V0B3E5KKOmlV+Zhixx38cLhx/UR1u5ctnd41sKODaqLsExOULH2+1Tsrym75u0784VGSdyFRkbGgu5oFwyFHLUCbmdfjmCd3pf3B9txzxpfAegY1AOVcdMCaSkgnN2zf7scDwlzX9BBTrHR11VhxJfCY8eth9M/D1n1g6vcHdc2coHpx52FnQIzqBIlgYl2Snuvcceep2mH9oAgaV3WwRC2UuO7T1ymddp1/qlHnX+uzo5tRpDpTtzzIIDvD00VhKnmtF6EznsuiwBbbTjED3ar3EXq1vS3j28+gXk3fCYwZ7NZZ1gL0YwDKrT4D3+gz
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 17:10:19.8434
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba85878c-e2a0-42cf-ff57-08de89c83a65
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D2.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8323
+X-purgate-ID: tlsNG-ebf023/1774372226-BB29A9D1-B93C5712/0/0
 X-purgate-type: clean
-X-purgate-size: 5805
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-purgate-size: 2569
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_CC(0.00)[citrix.com,apertussolutions.com,invisiblethingslab.com,gmail.com,lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:soumyajyotisarkar23@gmail.com,m:andrew.cooper3@citrix.com,m:dpsmith@apertussolutions.com,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,m:sarkarsoumyajyoti23@gmail.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:nathan.studer@dornerworks.com,m:stewart@stew.dk,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.996];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_THREE(0.00)[4];
+	RCVD_COUNT_TWELVE(0.00)[13];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[amd.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 1CCD4319AB4
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:dkim,amd.com:mid]
+X-Rspamd-Queue-Id: F0706319C1F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 24.03.2026 13:33, Soumyajyotii Ssarkar wrote:
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -1,12 +1,16 @@
->  #include "efi.h"
->  #include <efi/efiprot.h>
->  #include <efi/efipciio.h>
-> +#include <acpi/acconfig.h>
-> +#include <acpi/actbl.h>
-> +#include <acpi/actbl3.h>
+On 3/24/26 11:54, Jan Beulich wrote:
+> When that code still lived in a653sched_init(), it was redundant with the
+> earlier memset() / xzalloc(). Once moved, the full structure field needs
+> setting, as dom_handle_cmp() uses memcmp().
 
-I fear this is pretty fragile. acpi/acpi.h is what is supposed to be included
-from outside of (the little bit of) ACPICA code that we have got. Which in
-turn may conflict with efi/*.h, which is why previously I had suggested to put
-the ACPI parsing code elsewhere (if indeed nothing we already have can be
-reused).
+The whole a653sched_priv_t *sched_priv is still allocated in a653sched_init()
+with xzalloc(), so it's still redundant post-move. With that said, the code is
+only setting the first element (of an already-zeroed array), which is suspicious
+and misleading. What we really should be doing here is copy unit->domain->handle
+to sched_priv->schedule[entry].dom_handle.
 
->  #include <public/xen.h>
->  #include <xen/bitops.h>
->  #include <xen/compile.h>
->  #include <xen/ctype.h>
->  #include <xen/dmi.h>
->  #include <xen/domain_page.h>
-> +#include <xen/errno.h>
+> Fixes: 9f0c658baedc ("arinc: add cpu-pool support to scheduler")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> There being no "else" to the if(), what about other Dom0 vCPU-s?
 
-Is this really needed? Afaict it's included implicitly already.
+The condition is checking minor frame entries (i.e. available slots in the
+schedule). Once those are exhausted, Dom0 units beyond
+ARINC653_MAX_DOMAINS_PER_SCHEDULE would never be scheduled. Currently the
+scheduler only supports scheduling a single unit at a time, so this way of
+adding units to the schedule would result in Dom0 vCPUs being scheduled
+sequentially, which is incredibly inefficient and unlikely to be what anyone
+would actually want, but I don't think there are other possibilities given the
+current lack of multicore support.
 
-> @@ -747,6 +751,133 @@ static void __init efi_relocate_esrt(EFI_SYSTEM_TABLE *SystemTable)
->      efi_bs->FreePool(memory_map);
->  }
+There was an effort some time ago to introduce multicore scheduling, see [1].
+I'd be happy to review if somebody wants to pick that up again.
+
+[1] https://lore.kernel.org/xen-devel/20200916181854.75563-1-jeff.kubascik@dornerworks.com/T/#t
+
+> And why
+> is it that domain ID 0 is special here, rather than the hardware and/or
+> control domain(s)? (Likely the latter as that's what would invoke
+> XEN_SYSCTL_SCHEDOP_putinfo, and hence needs to be able to run without
+> that having been issued first.)
+
+This likely should be updated to is_control_domain(unit->domain).
+
 > 
-> +typedef struct {
-> +    UINT16 signature;
-> +    UINT32 file_size;
-> +    UINT16 reserved[2];
-> +    UINT32 data_offset;
-> +} __attribute__((packed)) BMP_HEADER;
-
-All capitals identifiers are by convention #define-s. bmp_header_t perhaps?
-
-> +static __initdata struct {
-> +    bool preserved;
-> +    const void *old_addr;
-> +    const void *new_addr;
-> +    UINTN size;
-> +    const char *failure_reason;
-> +} bgrt_info = {
-> +    /* We would prefer the failure_reason to print */
-> +    .failure_reason = "",
-> +};
-
-I don't understand what the comment is supposed to be telling the reader.
-Clearly it's not about the relocation subtlety which (imo) absolutely
-needs commenting on.
-
-> +static struct acpi_table_bgrt *__init efi_get_bgrt(void)
-> +{
-> +    const struct acpi_table_rsdp *rsdp;
-> +    const struct acpi_table_xsdt *xsdt;
-> +    UINTN entry_count;
-> +    unsigned int i;
-> +
-> +    if ( efi.acpi20 == EFI_INVALID_TABLE_ADDR )
-> +        return NULL;
-> +
-> +    rsdp = (const void *)(UINTN)efi.acpi20;
-
-Why the intermediate cast to UINTN?
-
-> +    if ( !rsdp || !rsdp->xsdt_physical_address )
-> +        return NULL;
-> +
-> +    xsdt = (const void *)rsdp->xsdt_physical_address;
-
-What if only an RSDT is supplied?
-
-> +    if ( memcmp(xsdt->header.signature, ACPI_SIG_XSDT, 4) != 0 )
-> +        return NULL;
-> +
-> +    if ( xsdt->header.length < sizeof(xsdt->header) )
-> +        return NULL;
-> +    entry_count = (xsdt->header.length - sizeof(xsdt->header)) /
-> +                  sizeof(xsdt->table_offset_entry[0]);
-> +
-> +    for ( i = 0; i < entry_count; i++ )
-
-This calls for i and entry_count to have the same type.
-
-> +    {
-> +        const struct acpi_table_header *hdr;
-> +
-> +        hdr = (const void *)xsdt->table_offset_entry[i];
-> +        if ( !hdr )
-> +            continue;
-> +
-> +        if ( memcmp(hdr->signature, ACPI_SIG_BGRT, 4) == 0 &&
-> +             hdr->length >= sizeof(struct acpi_table_bgrt) )
-> +            return (struct acpi_table_bgrt *)hdr;
-
-Please use container_of() in favor of casts.
-
-> +    }
-> +
-> +    return NULL;
-> +}
-> +
-> +#define BMP_SIGNATURE 0x4D42
-> +#define MAX_BGRT_IMAGE_SIZE (16 * 1024 * 1024)
-
-Still an uncommented arbitrary constant.
-
-> +static void __init efi_preserve_bgrt_img(void)
-> +{
-> +    struct acpi_table_bgrt *bgrt;
-> +    const BMP_HEADER *bmp;
-> +    const void *old_image;
-> +    void *new_image;
-> +    UINTN image_size;
-> +    EFI_STATUS status;
-> +    UINT8 checksum;
-> +    unsigned int i;
-> +
-> +    bgrt_info.preserved = false;
-> +
-> +    bgrt = efi_get_bgrt();
-> +    if ( !bgrt )
-> +    {
-> +        bgrt_info.failure_reason = "BGRT table not found";
-> +        return;
-> +    }
-> +
-> +    if ( !bgrt->image_address )
-> +        return;
-> +
-> +    old_image = (const void *)bgrt->image_address;
-> +    bmp = old_image;
-> +
-> +    if ( bmp->signature != BMP_SIGNATURE )
-> +    {
-> +        bgrt_info.failure_reason = "Invalid BMP signature";
-> +        return;
-> +    }
-> +
-> +    image_size = bmp->file_size;
-> +    if ( !image_size || image_size > MAX_BGRT_IMAGE_SIZE )
-> +    {
-> +        bgrt_info.failure_reason = "Image size exceeds limit";
-
-Does it, when it's zero?
-
-> +        return;
-> +    }
-> +
-> +    /*
-> +     * Allocate memory of type EfiACPIReclaimMemory so that the image
-> +     * will remain available for the OS after ExitBootServices().
-> +     */
-> +    status = efi_bs->AllocatePool(EfiACPIReclaimMemory, image_size, &new_image);
-> +    if ( EFI_ERROR(status) )
-> +    {
-> +        bgrt_info.failure_reason = "Memory allocation failed";
-> +        return;
-> +    }
-> +    memcpy(new_image, old_image, image_size);
-> +    bgrt->image_address = (UINTN)new_image;
-
-This looks like the wrong cast to me, even if in practice this likely is
-going to be fine even on 32-bit EFI.
-
-> +    bgrt->header.checksum = 0;
-> +    checksum = 0;
-> +
-> +    for ( i = 0; i < bgrt->header.length; i++ )
-> +        checksum += ((const UINT8 *)bgrt)[i];
-> +
-> +    bgrt->header.checksum = -checksum;
-> +
-> +    /* Filling the debug struct for printing later */
-> +    bgrt_info.preserved = true;
-> +    bgrt_info.old_addr = old_image;
-> +    bgrt_info.new_addr = new_image;
-> +    bgrt_info.size = image_size;
-
-I'd suggest to drop "debug" from the comment.
-
-> --- a/xen/common/efi/common-stub.c
-> +++ b/xen/common/efi/common-stub.c
-> @@ -19,6 +19,7 @@ unsigned long efi_get_time(void)
->  }
+> --- a/xen/common/sched/arinc653.c
+> +++ b/xen/common/sched/arinc653.c
+> @@ -420,7 +420,8 @@ a653sched_alloc_udata(const struct sched
+>  
+>          if ( entry < ARINC653_MAX_DOMAINS_PER_SCHEDULE )
+>          {
+> -            sched_priv->schedule[entry].dom_handle[0] = '\0';
+> +            memset(sched_priv->schedule[entry].dom_handle, '\0',
+> +                   sizeof(sched_priv->schedule[entry].dom_handle));
+>              sched_priv->schedule[entry].unit_id = unit->unit_id;
+>              sched_priv->schedule[entry].runtime = DEFAULT_TIMESLICE;
+>              sched_priv->schedule[entry].unit = unit;
 > 
->  void efi_reset_system(bool warm) { }
-> +void __init efi_bgrt_status_info(void) { }
 
-What is this? Does this belong into a later patch? And did you pay
-attention to Marek's earlier comment (as to the use of __init)?
-
-Jan
 
