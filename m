@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sPoZJ89gwmmecAQAu9opvQ
+	id 8A01DvdgwmmecAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 11:00:47 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 11:01:27 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23DC9306136
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 11:00:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1260208.1553568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4567306187
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 11:01:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1260216.1553578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4yYk-0008L7-8T; Tue, 24 Mar 2026 10:00:26 +0000
+	id 1w4yZQ-0000Oq-Gu; Tue, 24 Mar 2026 10:01:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1260208.1553568; Tue, 24 Mar 2026 10:00:26 +0000
+Received: by outflank-mailman (output) from mailman id 1260216.1553578; Tue, 24 Mar 2026 10:01:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4yYk-0008Jj-5e; Tue, 24 Mar 2026 10:00:26 +0000
-Received: by outflank-mailman (input) for mailman id 1260208;
- Tue, 24 Mar 2026 10:00:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ehxs=BY=gmail.com=xakep.amatop@srs-se1.protection.inumbo.net>)
- id 1w4yYi-0008JZ-T5
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 10:00:25 +0000
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
- [209.85.208.172]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 454081e2-2768-11f1-9ccf-f158ae23cfc8;
- Tue, 24 Mar 2026 11:00:21 +0100 (CET)
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-38bd3c6c502so25368201fa.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 03:00:21 -0700 (PDT)
+	id 1w4yZQ-0000MF-Dn; Tue, 24 Mar 2026 10:01:08 +0000
+Received: by outflank-mailman (input) for mailman id 1260216;
+ Tue, 24 Mar 2026 10:01:07 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <xakep.amatop@gmail.com>) id 1w4yZP-0000Lf-1h
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 10:01:07 +0000
+Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
+ id 1w4yZO-001ZCN-Dh
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 11:01:06 +0100
+Received: from [10.42.69.3] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69c260da-e002-0a2a0a5209dd-0a2a4503b0c4-30
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 11:01:06 +0100
+Received: from [209.85.208.169] (helo=mail-lj1-f169.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69c260e1-1947-0a2a45030019-d155d0a9cd8a-3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 11:01:06 +0100
+Received: by mail-lj1-f169.google.com with SMTP id
+ 38308e7fff4ca-38bd3c6c502so25373511fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 03:01:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,130 +51,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 454081e2-2768-11f1-9ccf-f158ae23cfc8
-ARC-Seal: i=1; a=rsa-sha256; t=1774346421; cv=none;
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1774346465; cv=none;
         d=google.com; s=arc-20240605;
-        b=C/wb4elKdp+Ha0KL8O9taextno0BFoRrG9GObsf3ZMYWup95RIsIZrO2P1giRToyiD
-         Hn8q2TJyMbvEyRxj4u8WBJGVNCka3f3bHArBhJpK0k8D7P6dbbSEi4hv2mjd9r0jhEPp
-         n8UveL15H6SOMkKUhHenMl0XlmXcRQUiZw0YwdbEGrCia6DWH/KlrRQV0LEHYQ8nb06i
-         nbcUAFDMxFKlXXjKAkZrSI84FtahcVt0xquedsMDFouyskdO37Y+9oIMI+ACAl/+mmEL
-         j9o0RqsrdBONJTm7wGaBfPV5lXjzJh4YkQSe31iNO/5YMZnBOAbXZe7kN9UtLmrmPW7i
-         zzwQ==
+        b=bzd0ZDY7qSSQwWaeY/JHYAYPRzLxRt86HMBG8mdY6MKjyoJhzN28XF4ulilEur13Mh
+         c8gAbJo+H5xmvIjgp8hxZOjWcpiXplQaKZzn8xL6q0Wq7gRvYttpkn67iARvqRJwJN1t
+         gx/vwBuC2F+6edmC+vS/L7vslGmccv02V8NDbtojLBrXbuyIyFPJ7BU2opltvLqH4+k0
+         nOQovdT1D3shcOMoNQtK2z9VhOjxd+abZ1hCHb45acKURuzjI7NgwcBcySqtEtsslFPU
+         TZjbDA96wczdVUuHxK0EnjIsKxEy5GMprH5zYe4VHhc1v3m/bMleQkgbh2e7tydXc4QQ
+         ziJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=ar1bjqW5Lo0tgcZE6DdGTP/006Egrh4tUuj0RN0FzWo=;
-        fh=ZqQ1W4s2sAoJbRyzgY8rmX9kckACA2A930LY2DVXlfc=;
-        b=i1u7bakG/N3YwpvMf03J+I33gj8mtCd/JsxV/kl1/A/+rnIhUEmvVNe/uG+a9YVVFe
-         NvuXzOf7SHLqjFWx5aRw9PniM67qbLkwg03NKPDjG7b7t/9YHgS4HyaYxcUJWS8r0UPx
-         W5m/BO1szHEAk+98TqxVhCJoREuTFhOL8rB6V3Q2Nmww9yuYu3xVeeq+9Uyn77e2IxU/
-         T7y/3NkWjRgmBfJXeZGPjwiz3G3iWIFhoFxyd89ZRn1G7e463mmMU/D7WKeSv6OjQ49M
-         b77zuZ0na/M4eGW+zQw/Pgy9W+yH0EJ4wiT9U+kvp5MaVmK9Z/BFNclfwpq3U+vXdscG
-         GnYg==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Vti3dJ2V5oeI+p3j2rVJPrK82fkJwwm+IMJOx28LmOM=;
+        fh=VOXfUY/9jxVlo5Oie8g2PfMfSuQb+LU+K1sdCNvuHos=;
+        b=Ai/rZHMI3Kk43VySoqCAf05LW1cT9fC1KZEFEHnbOTp4CJ1y/NQZATVl4N13AR8Q7C
+         qHFWbHzaSgyfH1hhYmrRiikyCt2rDJOZAhwNazIwqZD5qpfxKNj5ZQMEahObbpWZp0pv
+         eb+LmCe0YE8xP6snxgVR/CwbaPXPSychXzrPAYOKIusfEjc7tNSuRisSTPXoUnwPm0ig
+         fzX9XjIVA5RvBBVvPENtRn6Uuq1emQNPnxtDV/ewz6cMwbJBVCVuHsejWQ71WgTUuF9+
+         CJTGeXvhxMBWY+h2WRbUhX/LUZ4B33GVtn4eydFtKf47frDoUi0pmqL2BW1BqoAGPJ/v
+         zkcw==;
         darn=lists.xenproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774346421; x=1774951221; darn=lists.xenproject.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=ar1bjqW5Lo0tgcZE6DdGTP/006Egrh4tUuj0RN0FzWo=;
-        b=kidA2v3nakXHomlUvAwq85ou8keCcpKDlPK1V+zlCexXPR/s5/EiKXJgKVHkxDXOsM
-         z/xXS0IHDwQqTtxzLDeNSU17hrVKJ7uxuc3YOUIlLwOvQ8Lw80zNQf9+3rS+uSzrYp1z
-         OGUtn3f6tMR7y/kIO3vWUzY+/WYijpTurH9mGGHcDvWiry/F25Tvz7pZvWWFcPtkrTnB
-         387+q69HA5UvIvnovzI979Vs2yTIJ/lDeXY/PwVjMybInHOowBreS4H0l2BBLzoxc41L
-         1mdSO0YhO94yWhj9laufyrd3f+/43XAF+AtRzuYw/1E0zKq9mVHAA2b4+JRykDtyW1ra
-         6XsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774346421; x=1774951221;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1774346465; x=1774951265; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ar1bjqW5Lo0tgcZE6DdGTP/006Egrh4tUuj0RN0FzWo=;
-        b=UiCt5Vw6t0lzDLjZxlwZerpEcw2mem2iDSU8wMBA7B8B6l61Axu/b36HNzQdev/is/
-         JNcSctmOgqkYuOMOV7tzYjXUZVaKpQ9GY+w0H87qdMxY5Xe+Z6ljLBw9G9qgldvJLJV7
-         4nkytgSyhAi/12bYYtVDb6S+1AywSfLAjTlvp2xxdHRcc6rBIs03+hKha8W/ticsbOGI
-         5nDm9j38yEIwK1FxM5pDydGmvD/Z2CV2gj/HGx+iIVMHCQ1l7SjaLkBUx27F4gBg37mz
-         D2aerZ6qpZrQWv6BavfYz5m30kS9XvKJPKrczd9qvirEyZ8ZHU4m3FCaTFpEm1Nly4fd
-         ztnQ==
-X-Forwarded-Encrypted: i=1; AJvYcCVdR8CHDbxGjA2WHJFwW+NRO3JwM/U5E7mNUgMHo6DLw0Oe2FkZVtWIDWZjjfog0q1j+XUgWy9eA4o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyUy6F0nkBBUUOvfdZ0Wv9Y+HR+ge5oX+cTueQNvJ8SvtVCJZZx
-	lPE6HPvL//TAlV7HobMWTsVNcPRy0umTDt1R4rpKbowM81CBPy1VKhECMBVm2onlB7NICsJLXfY
-	FAGm7fKgKKwHR/K0St63y7xQeDJ96viA=
-X-Gm-Gg: ATEYQzw5xGImPT26A+0ABpCKoxKEXS367BBZw7Z2ItIOZXSu6UH2kSORmy6s7KrNo7K
-	XnLcYsWAfNVfRpJ1C4X6z0BMXPohUXIa0O+ciscHth1kM1+ooODtz1nmlRW8v7Ex5tNieZ7NxcW
-	M6CRHHXipTftYnOkCr7SFN7CyJ4JWYkm/Bzq5x6Ml+A4EEGTJGFBZH9/Fi//e97CvDOP79cNMnc
-	HBgamLs+zZeAmXC7UDy7JKUVwZHjLdRf26f0mGwwSRORv/kzinYwXsk5IA7JPbM2ohv7jKFpwKh
-	cG0YEg==
-X-Received: by 2002:a2e:be23:0:b0:383:5390:bc96 with SMTP id
- 38308e7fff4ca-38bf9497737mr50967261fa.0.1774346420485; Tue, 24 Mar 2026
- 03:00:20 -0700 (PDT)
+        bh=Vti3dJ2V5oeI+p3j2rVJPrK82fkJwwm+IMJOx28LmOM=;
+        b=Pg22emfQ35VWc2vsvw+iQSKQJgtP5d3Rde2iC9OsJc+T6ggY2+BDrPKclUPtpsU51h
+         9LyuDQyg1z+viQ5fhBLaQd5cRBqmkiKlmNvhhA+gQTstSoALOo3k9eNyT+5nOOaDN2+Y
+         xq45p+llpNKLISuQJ8Pzr4Y2yIsoKVfxWjhlqmybAR9HKo2UdisB7+OQrjAx+8Elpv2P
+         /Q+EuS6+sctlmyIU7mEDZnt5STIAkOIm4CD8nnAIZ+YBe6kfPwLjVlzwK4G0qbrEXEvH
+         DiwYM1QUoHojZc3CK49ATnfbjpcikzGskFOHxI5i5YXxjC3r29J9ZsAfBjaGo2VgYjqm
+         RFrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774346465; x=1774951265;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Vti3dJ2V5oeI+p3j2rVJPrK82fkJwwm+IMJOx28LmOM=;
+        b=Fd3Alv2I1zZyTBbgBft7gH4ISoPAPlyQqCp6tSG79Cn2v/srZtxqDPDp1Kyz7B2i7E
+         0JgDCbE3gmhqT+aWzebHBbIx0B3tx63nGCUuP7xf8ht7B6qfukHaszEI6e66JorPhoYb
+         FnIXdRGpy08S5vuYfojGO/pSSQ8A7thKkEqO+yksUZflsmZxPdLTTnOi+RHv9zDIbDRA
+         4O6X7lVI8JUCPY1jy8tRT0JFHLrgkzWG0bmT3LIFBthWmdUDZ0RvZhQ9BJGVygduhn1Y
+         8bkQgaBGwq13SmdYSnQF64lJ2kJnimeHO3CeofBWHM5O9zbPfOqYjXlfKskatlNmJMaS
+         yykQ==
+X-Gm-Message-State: AOJu0Yx4SDG85S9uHnRa6sgwmF31zUfZM68jPttz8uXKalEJgTqScwq+
+	Xz+PGNbtlSvGSTTR4KbHoWgY3kYfpjvgWlrZ6BVgNEKX0SFEb5hE8EYjeN0DaCWVt/5OgeWvyCV
+	jKZUQKWVRuUi3yq2B0QDd0tOp9v1bJg7UcmAB
+X-Gm-Gg: ATEYQzxvMGtMfWgQX4DePQn+UWenJXh1rUoKz5BM/3am2m/NkeNGEOaGy37+HGN7RNR
+	bk4t7Hqh4O2IpqsE8lgn2PFZoxUrdSI0vD/5a0uVSNIUHFHdZfgIA9tuWYJ9/kJ+zd+a81VMytQ
+	h3brRsC4rR0j2U5hnHDrg/V07dpeBuETw5k2VrmvsQc8EI1DOPdIwsUuvzsEjuxGJxG3WXY/rqU
+	88xnJNycN+orwSK/Ccd8VLKmvUKE1rlX3JT9VymPvidIi9UVCZ7Y/XI6rYifzSCGhhO6ZAvCAwf
+	7bWeDg==
+X-Received: by 2002:a05:651c:19a6:b0:38b:fb66:5797 with SMTP id
+ 38308e7fff4ca-38bfb6659e1mr50336661fa.12.1774346463809; Tue, 24 Mar 2026
+ 03:01:03 -0700 (PDT)
 MIME-Version: 1.0
 References: <2004584dbbe393c9de4b3231bf91a24f6e5de5de.1773875416.git.mykola_kvach@epam.com>
- <c37859f7-bac6-4394-ae12-83e054a1743e@suse.com>
-In-Reply-To: <c37859f7-bac6-4394-ae12-83e054a1743e@suse.com>
+ <5bc8a4ab-3e23-494a-b5ce-d1aa5c6ec7de@amd.com>
+In-Reply-To: <5bc8a4ab-3e23-494a-b5ce-d1aa5c6ec7de@amd.com>
 From: Mykola Kvach <xakep.amatop@gmail.com>
 Date: Tue, 24 Mar 2026 12:00:00 +0200
-X-Gm-Features: AaiRm51g_2nk-mf2Q3XudCZiifG074T4J_3rZ9J6ays6Lex437u85Sfiggq91cs
-Message-ID: <CAGeoDV8v3=b46qrmzmBjH8BN7rs3CRcSAkrOCgHGgr=8+PcuEg@mail.gmail.com>
+X-Gm-Features: AQROBzDl7RQmCd1VGU60veq1_tOcAsHY0kZIBGxaD1yzx1vIKnDvdn8u5ekTIDI
+Message-ID: <CAGeoDV8aHc7hZR=WV1dyncvgPxwPuqw8bdQz_s+ujzZPtuS5bg@mail.gmail.com>
 Subject: Re: [PATCH] xen/domain: make shutdown state explicit
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>, Paul Durrant <paul@xen.org>, 
+To: "Orzel, Michal" <michal.orzel@amd.com>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>, 
 	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Tim Deegan <tim@xen.org>, 
-	Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>, 
-	xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000001a0122064dc2388f"
-X-Spamd-Result: default: False [-2.18 / 15.00];
+	Anthony PERARD <anthony.perard@vates.tech>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Tim Deegan <tim@xen.org>, 
+	Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>, George Dunlap <gwd@xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-33051d/1774346466-4806C72C-AE2F7EEF/0/0
+X-purgate-type: clean
+X-purgate-size: 2517
+X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,amd.com:email];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:mykola_kvach@epam.com,m:paul@xen.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:tim@xen.org,m:dfaggioli@suse.com,m:jgross@suse.com,m:gwd@xenproject.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RSPAMD_URIBL_FAIL(0.00)[epam.com:query timed out];
 	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:paul@xen.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:sstabellini@kernel.org,m:tim@xen.org,m:dfaggioli@suse.com,m:jgross@suse.com,m:gwd@xenproject.org,s:lists@lfdr.de];
 	RCPT_COUNT_TWELVE(0.00)[14];
 	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	RCVD_COUNT_SEVEN(0.00)[7];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	RSPAMD_EMAILBL_FAIL(0.00)[jbeulich.suse.com:query timed out];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: 23DC9306136
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: E4567306187
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
---0000000000001a0122064dc2388f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Jan,
+Hi Michal,
 
 Thank you for the review.
 
-On Thu, Mar 19, 2026 at 12:32=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wr=
-ote:
+On Thu, Mar 19, 2026 at 12:09=E2=80=AFPM Orzel, Michal <michal.orzel@amd.co=
+m> wrote:
 >
-> On 19.03.2026 00:25, Mykola Kvach wrote:
+>
+>
+> On 19/03/2026 00:25, Mykola Kvach wrote:
 > > From: Mykola Kvach <mykola_kvach@epam.com>
 > >
 > > The domain shutdown flow currently overloads is_shutting_down and
@@ -179,178 +188,53 @@ ote:
 > > enum domain_shutdown_state and converting the existing users to helper
 > > predicates describing whether shutdown is in progress, complete, or
 > > active.
->
-> Mind me asking what the distinction is between "active" and "in progress"=
-?
-> They feel like synonyms to me. To me "is shutting down" vs "was shut down=
-"
-> would be the clearer distinction (i.e. domain_shutting_down() and
-> domain_shut_down() or some such, albeit for the latter I could also live
-> with domain_shutdown_complete() as you have it, or maybe slightly less
-> ambiguously domain_shutdown_completed()). Yet then I'm not a native
-> speaker.
-
-Yes, the distinction I was trying to make is:
-
-  - in progress: shutdown has been initiated, but not all vCPUs may
-    have reached the paused-for-shutdown state yet
-
-  - complete: shutdown has been finalized, i.e. all vCPUs are paused
-    and the domain is fully shut down
-
-  - active: a shorthand for "shutdown_state !=3D none", i.e. covering
-    both of the above
-
-So "active" was meant as a broader "the domain is already in shutdown
-state", rather than as a synonym for "shutdown is currently progressing".
-
->
-> Further, I can't quite derive upon what criteria you chose whether
-> ->is_shutting_down checks are to be converted to domain_shutdown_active()
-> vs domain_shutdown_in_progress(). This could do with writing down. (It
-> also might be easier with the suggested alternative naming.)
-
-Likewise, the conversions from is_shutting_down/is_shut_down were not
-meant to be mechanical. The criterion I used was:
-
-  - domain_shutdown_in_progress() where the code cares specifically
-    about the transient phase before shutdown is fully finalized
-
-  - domain_shutdown_complete() where the code is specifically about
-    the fully shut down state being reported or tested
-
-  - domain_shutdown_active() where the old logic was effectively using
-    the combined condition "the domain is already somewhere in the
-    shutdown lifecycle"
-
-One detail which likely wasn't obvious from the patch is that the old
-flags were not mutually exclusive. Once is_shut_down became true,
-is_shutting_down still remains set as well.
-
-Because of that, the conversion was not just about replacing old
-is_shutting_down checks. I also had to account for sites using
-is_shut_down explicitly, so that the resulting logic would preserve the
-old distinctions between the in-progress, complete, and combined cases.
-
-In particular, old !is_shutting_down checks implicitly excluded both
-the in-progress and fully shut down states. Those are the places where
-I used domain_shutdown_active(). Sites specifically testing the fully
-shut down state were converted to domain_shutdown_complete(), while the
-ones caring about the transient shutdown phase were converted to
-domain_shutdown_in_progress().
-
-vcpu_check_shutdown() is an example of the latter. That path exists to
-drive a shutdown already in flight to completion: it may still need to
-pause this vCPU, clear defer_shutdown, and then re-check whether
-shutdown can now be finalized. Once shutdown is already complete,
-there is nothing left for that path to do, so using the broader
-combined state there would not be appropriate.
-
-I agree this selection criterion is not obvious enough from the patch
-as posted. I'll make that rationale explicit in the commit message.
-
-
-If you think naming is part of the confusion, I could switch to
-something along these lines instead:
-
-  - domain_shutting_down()      for the in-progress state
-  - domain_shutdown_completed() for the finalized state
-  - domain_in_shutdown_state()  for the union of both
-
-Would that look better to you?
-
->
-> > @@ -1444,9 +1458,17 @@ void domain_resume(struct domain *d)
-> >          v->paused_for_shutdown =3D 0;
-> >      }
 > >
-> > +out_unlock:
->
-> Nit (style): Labels indented by at least one blank please.
+> > At the same time, make domain_resume() validate its input state and
+> > return an error to its callers. Resume is now accepted only from the
+> > fully shut down state.
+> Also, you limit it now to SHUTDOWN_suspend or SHUTDOWN_soft_reset. Ideall=
+y you
+> should explain why i.e. resuming from crash/poweroff/reboot is semantical=
+ly
+> meaningless.
 
-Ack.
+That makes sense. Looking at the existing flow more closely, the
+suspend and soft-reset cases are not symmetric.
+
+For suspend, the intended semantics are explicit and long-standing:
+the public SCHEDOP_shutdown documentation describes special resume
+semantics only for SHUTDOWN_suspend, libxl documents resume for a
+suspended domain, and xc_domain_resume has long rejected domains
+which are not shut down with SHUTDOWN_suspend.
+
+Soft reset is different. The toolstack may choose soft-reset as the
+action for other shutdown reasons too, e.g. on_reboot=3Dsoft-reset.
+In that case the domain reaches the soft-reset path with
+shutdown_code still set to SHUTDOWN_reboot, and only afterwards the
+toolstack decides to perform a soft reset. So the new validation in
+domain_resume() is too strict for the existing soft-reset flow.
+
+Given that, I agree the checks should not be there in the current
+form.
+
+I'll drop the checks in the next version.
 
 Best regards,
 Mykola
 
 >
-> Jan
-
---0000000000001a0122064dc2388f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Jan,<br><br>Thank you for the review.<br><br>On Thu, Ma=
-r 19, 2026 at 12:32=E2=80=AFPM Jan Beulich &lt;<a href=3D"mailto:jbeulich@s=
-use.com">jbeulich@suse.com</a>&gt; wrote:<br>&gt;<br>&gt; On 19.03.2026 00:=
-25, Mykola Kvach wrote:<br>&gt; &gt; From: Mykola Kvach &lt;<a href=3D"mail=
-to:mykola_kvach@epam.com">mykola_kvach@epam.com</a>&gt;<br>&gt; &gt;<br>&gt=
-; &gt; The domain shutdown flow currently overloads is_shutting_down and<br=
->&gt; &gt; is_shut_down to represent multiple phases of the shutdown lifecy=
-cle,<br>&gt; &gt; while some users treat is_shutting_down as a broader &quo=
-t;domain is no<br>&gt; &gt; longer normal&quot; condition.<br>&gt; &gt;<br>=
-&gt; &gt; Make the shutdown lifecycle explicit by introducing<br>&gt; &gt; =
-enum domain_shutdown_state and converting the existing users to helper<br>&=
-gt; &gt; predicates describing whether shutdown is in progress, complete, o=
-r<br>&gt; &gt; active.<br>&gt;<br>&gt; Mind me asking what the distinction =
-is between &quot;active&quot; and &quot;in progress&quot;?<br>&gt; They fee=
-l like synonyms to me. To me &quot;is shutting down&quot; vs &quot;was shut=
- down&quot;<br>&gt; would be the clearer distinction (i.e. domain_shutting_=
-down() and<br>&gt; domain_shut_down() or some such, albeit for the latter I=
- could also live<br>&gt; with domain_shutdown_complete() as you have it, or=
- maybe slightly less<br>&gt; ambiguously domain_shutdown_completed()). Yet =
-then I&#39;m not a native<br>&gt; speaker.<br><br>Yes, the distinction I wa=
-s trying to make is:<br><br>=C2=A0 - in progress: shutdown has been initiat=
-ed, but not all vCPUs may<br>=C2=A0 =C2=A0 have reached the paused-for-shut=
-down state yet<br><br>=C2=A0 - complete: shutdown has been finalized, i.e. =
-all vCPUs are paused<br>=C2=A0 =C2=A0 and the domain is fully shut down<br>=
-<br>=C2=A0 - active: a shorthand for &quot;shutdown_state !=3D none&quot;, =
-i.e. covering<br>=C2=A0 =C2=A0 both of the above<br><br>So &quot;active&quo=
-t; was meant as a broader &quot;the domain is already in shutdown<br>state&=
-quot;, rather than as a synonym for &quot;shutdown is currently progressing=
-&quot;.<br><br>&gt;<br>&gt; Further, I can&#39;t quite derive upon what cri=
-teria you chose whether<br>&gt; -&gt;is_shutting_down checks are to be conv=
-erted to domain_shutdown_active()<br>&gt; vs domain_shutdown_in_progress().=
- This could do with writing down. (It<br>&gt; also might be easier with the=
- suggested alternative naming.)<br><br>Likewise, the conversions from is_sh=
-utting_down/is_shut_down were not<br>meant to be mechanical. The criterion =
-I used was:<br><br>=C2=A0 - domain_shutdown_in_progress() where the code ca=
-res specifically<br>=C2=A0 =C2=A0 about the transient phase before shutdown=
- is fully finalized<br><br>=C2=A0 - domain_shutdown_complete() where the co=
-de is specifically about<br>=C2=A0 =C2=A0 the fully shut down state being r=
-eported or tested<br><br>=C2=A0 - domain_shutdown_active() where the old lo=
-gic was effectively using<br>=C2=A0 =C2=A0 the combined condition &quot;the=
- domain is already somewhere in the<br>=C2=A0 =C2=A0 shutdown lifecycle&quo=
-t;<br><br>One detail which likely wasn&#39;t obvious from the patch is that=
- the old<br>flags were not mutually exclusive. Once is_shut_down became tru=
-e,<br>is_shutting_down still remains set as well.<br><br>Because of that, t=
-he conversion was not just about replacing old<br>is_shutting_down checks. =
-I also had to account for sites using<br>is_shut_down explicitly, so that t=
-he resulting logic would preserve the<br>old distinctions between the in-pr=
-ogress, complete, and combined cases.<br><br>In particular, old !is_shuttin=
-g_down checks implicitly excluded both<br>the in-progress and fully shut do=
-wn states. Those are the places where<br>I used domain_shutdown_active(). S=
-ites specifically testing the fully<br>shut down state were converted to do=
-main_shutdown_complete(), while the<br>ones caring about the transient shut=
-down phase were converted to<br>domain_shutdown_in_progress().<br><br>vcpu_=
-check_shutdown() is an example of the latter. That path exists to<br>drive =
-a shutdown already in flight to completion: it may still need to<br>pause t=
-his vCPU, clear defer_shutdown, and then re-check whether<br>shutdown can n=
-ow be finalized. Once shutdown is already complete,<br>there is nothing lef=
-t for that path to do, so using the broader<br>combined state there would n=
-ot be appropriate.<br><br>I agree this selection criterion is not obvious e=
-nough from the patch<br>as posted. I&#39;ll make that rationale explicit in=
- the commit message.<br><br><br>If you think naming is part of the confusio=
-n, I could switch to<br>something along these lines instead:<br><br>=C2=A0 =
-- domain_shutting_down() =C2=A0 =C2=A0 =C2=A0for the in-progress state<br>=
-=C2=A0 - domain_shutdown_completed() for the finalized state<br>=C2=A0 - do=
-main_in_shutdown_state() =C2=A0for the union of both<br><br>Would that look=
- better to you?<br><br>&gt;<br>&gt; &gt; @@ -1444,9 +1458,17 @@ void domain=
-_resume(struct domain *d)<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0v-=
-&gt;paused_for_shutdown =3D 0;<br>&gt; &gt; =C2=A0 =C2=A0 =C2=A0}<br>&gt; &=
-gt;<br>&gt; &gt; +out_unlock:<br>&gt;<br>&gt; Nit (style): Labels indented =
-by at least one blank please.<br><br>Ack.<br><br>Best regards,<br>Mykola<br=
-><br>&gt;<br>&gt; Jan</div>
-
---0000000000001a0122064dc2388f--
+> >
+> > This removes the implicit coupling between unrelated users of
+> > is_shutting_down and makes the shutdown/resume state transitions
+> > self-describing.
+> >
+> > Suggested-by: Jan Beulich <jbeulich@suse.com>
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> This is mostly a mechanical change. I verified that correct helpers are u=
+sed in
+> place of old flags.
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+>
+> ~Michal
+>
 
