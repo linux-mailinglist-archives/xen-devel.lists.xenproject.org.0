@@ -2,49 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qDX/MWnRwmnRmQQAu9opvQ
+	id oP3oLdjVwmllmgQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 19:01:13 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 19:20:08 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92FD731A6DC
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 19:01:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1261224.1554310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D39331AA8D
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 19:20:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1261239.1554322 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5634-0001p7-T9; Tue, 24 Mar 2026 18:00:14 +0000
+	id 1w56M1-0003dD-IA; Tue, 24 Mar 2026 18:19:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1261224.1554310; Tue, 24 Mar 2026 18:00:14 +0000
+Received: by outflank-mailman (output) from mailman id 1261239.1554322; Tue, 24 Mar 2026 18:19:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5634-0001nK-QR; Tue, 24 Mar 2026 18:00:14 +0000
-Received: by outflank-mailman (input) for mailman id 1261224;
- Tue, 24 Mar 2026 18:00:13 +0000
+	id 1w56M1-0003bU-Bf; Tue, 24 Mar 2026 18:19:49 +0000
+Received: by outflank-mailman (input) for mailman id 1261239;
+ Tue, 24 Mar 2026 18:19:47 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <bounce-md_30504962.69c2d129.v1-0b4b279376b94a448135603ca331192e@bounce.vates.tech>)
- id 1w5632-0001nE-Sf
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 18:00:13 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <ross.lagerwall@citrix.com>) id 1w56Ly-0003bI-Ve
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 18:19:47 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5631-00BcEG-Kb
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 19:00:11 +0100
-Received: from [10.42.69.5] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <bounce-md_30504962.69c2d129.v1-0b4b279376b94a448135603ca331192e@bounce.vates.tech>)
- id 69c2d124-bab6-0a2a0a5309dd-0a2a4505bf60-20
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 19:00:11 +0100
-Received: from [198.2.180.47] (helo=mail180-47.suw31.mandrillapp.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from
- <bounce-md_30504962.69c2d129.v1-0b4b279376b94a448135603ca331192e@bounce.vates.tech>)
- id 69c2d12a-5aeb-0a2a45050019-c602b42fe45f-3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 19:00:11 +0100
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-47.suw31.mandrillapp.com (Mailchimp) with ESMTP id
- 4fgHr94mczzPm0wVT
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 18:00:09 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 0b4b279376b94a448135603ca331192e; Tue, 24 Mar 2026 18:00:09 +0000
+ id 1w56Ly-00FIkF-BF
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 19:19:46 +0100
+Received: from [10.42.69.8] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <ross.lagerwall@citrix.com>)
+ id 69c2d5a2-2eae-0a2a0a5409dd-0a2a450887c8-24
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 19:19:46 +0100
+Received: from [52.101.57.50]
+ (helo=BN8PR05CU002.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <ross.lagerwall@citrix.com>)
+ id 69c2d5c1-1950-0a2a45080019-346539324965-3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 19:19:46 +0100
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com (2603:10b6:610:2ba::5)
+ by CH4PR03MB7771.namprd03.prod.outlook.com (2603:10b6:610:237::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Tue, 24 Mar
+ 2026 18:19:42 +0000
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096]) by CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096%5]) with mapi id 15.20.9745.019; Tue, 24 Mar 2026
+ 18:19:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,327 +58,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mte1 header.d=mandrillapp.com header.i="@mandrillapp.com" header.h="From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"; dkim=pass header.s=mte1 header.d=vates.tech header.i="teddy.astie@vates.tech" header.h="From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1774375209; x=1774645209;
-	bh=5UEBEVoFw//9avZMtrqgrtr3/YITnllGPjBvoyHdWeI=;
-	h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=hLkiZOrDG9As5kyfosM0F1LL4DLWqr05QUIfHVTq8Myv2hQXII2jiy99OvOc1WCPv
-	 QqaLKxs7iYNRH4uPL75Wb8JH9Kcg7dPpc1iaKqvb4wErHvzZacPkkIlVDq+skt1EQh
-	 +otb+nU1Dt7Lifmt0owdYci3gEp8TvTYBYdyt8ArUzwLx5EysvT3cGHzSY2WduTVtN
-	 r9MMs+AjHJaOYcAYUIllu/bR3Oa2Sia9INQiablRIFZx8CqWZt5SbNjNvzfciTCLSx
-	 gvmhijR4bDn8icFoXrRDMaVT8UobdWIoUTtxJSuZ3rmYq8JC++xOyARPrjYHmuHvLw
-	 SnlnrfMLBYmYQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1774375209; x=1774635709; i=teddy.astie@vates.tech;
-	bh=5UEBEVoFw//9avZMtrqgrtr3/YITnllGPjBvoyHdWeI=;
-	h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=mOxAh5Q0RqZ5wMwrHUAf8WnRtJMVLgV9KqPfzeMArXJd9d87rdL35NHv9lELwLT4s
-	 9Do6WCwyzd4Flvb4yIXwmo4bLVkD5eUhqvIWCKMhleEaa8Tetofoy7XVzJUi45MOwa
-	 8xHqsLWvAsjhnyK/zTZsd3D8YgO7/5oGXXAxOf1a8xoRkNVJw3LVbE/l5PaBSynn5d
-	 r50zdJdTFt0Jqo5MBZ9ZApgcdibbPXsj/Vz5tNzoopXLKlngH1XsEyQ9hu0/USFLYl
-	 /WXV/bv59ZNwmScTs39pEbkGCW5rIcO3hHQ2tCO8tHt3ZPv/JVI4bMNdoQPsWONUzd
-	 VHPmA27VnUSpw==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20Mapping=20non-pinned=20memory=20from=20one=20Xen=20domain=20into=20another?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1774375206965
-Message-Id: <5123c11c-3b8a-4633-809f-16c24418a4ce@vates.tech>
-To: "Demi Marie Obenour" <demiobenour@gmail.com>, "Xen developer discussion" <xen-devel@lists.xenproject.org>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, "Jan Beulich" <jbeulich@suse.com>, "Val Packett" <val@invisiblethingslab.com>, "Ariadne Conill" <ariadne@ariadne.space>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Juergen Gross" <jgross@suse.com>
-References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
-In-Reply-To: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.0b4b279376b94a448135603ca331192e?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260324:md
-Date: Tue, 24 Mar 2026 18:00:09 +0000
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=i15pewFpMkhVkSh2KFM1clt4taaBhTz1F6+Eh1FpwYjT5bSSpLmMzToV2EsrsxetgrHFZuya/cNVJfWWIiGX/bJQdKKvCEx6qN2/C+CsCEHVz480ZRJmjB3hsIuHWT2FgO23TrJoB0IrEOYR2U4qi/ZzGoiADyJ8/14USV8uWh4Obfh3yKoi1DBdrVbAZGVFsUECTBARwNY8QzQcoHDF583m2sMqOgRS+CxwFulOWKRsNp62LAgkj1lUiM4SF1jW59XWJekDzd4iNvecjJCMB3Tw8HIp6Be9bcZmMUAzQebCw/FCnFZ/gsZZ1cwKxerLvbcS6JPHAuS31v2l+WBweQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SsDVWm2HyHxUVi0OR75wg4R0kv0bP476+3frH8dkrtE=;
+ b=PzJC6pQZ0I/wHZ3g9riHnz6xsCtDkVzZ84u2DTf8cTTHAfV44SCyQZ+vYhP/kWDC3b29LzmOjxT3WQMpwtqwWdqFPE4TgEr6dNjm3WSTvFTEH8DA6Xf8xjdwx5kGiWzNsy1tXmmDYvCVyZRrBevxR643iTMS3Uc9FhXHZxL/Ot6k5yZXfPYRqyDOEtV+X4f2BoJ+vRXMTAyYwcVDrofPZzSjomEHIXH2TbW5M8ST8IWPzeKuuljPV4a3ZJBk33DFGFju3LgMw5hghVz0eayNUc0EmUc70uiOCEiYDfC1GbLNlHFguC5CKJ4yBiUvoXItHrG8aFd/Uk7T4OVBuQFUCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SsDVWm2HyHxUVi0OR75wg4R0kv0bP476+3frH8dkrtE=;
+ b=hoGIi+xLxGJ5cOQeGTAnf5u1XVuY93PHktHOm+VeUrnBH3L0bx48Bd7nEzfSYsuSOsDF1dpBHoE6GAVjZJJ9Nvjj7sip/Im2RO2bmjVjsFAVHpJ1FMUo/YgufXl6zKdSpgPbptKGL48X58hBNRqfPf6ysL5hyTrlUMPPla9pHpg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jason Andryuk <jason.andryuk@amd.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v2 0/9] x86: Always use eager-fpu
+Date: Tue, 24 Mar 2026 18:19:28 +0000
+Message-ID: <20260324181937.2465574-1-ross.lagerwall@citrix.com>
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P123CA0295.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:196::12) To CH8PR03MB8274.namprd03.prod.outlook.com
+ (2603:10b6:610:2ba::5)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-c201ff/1774375211-22A87488-3D2CCEE8/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|CH4PR03MB7771:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0000c53e-6835-4650-5f95-08de89d1eb71
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	IsQzS0msO5SKADCwosXn2ErGnl1mrcNz/jgf5Nf9/tHEK8AM4d8XXjqcoVEG0GQUe1p/IzFRaonX5awoOJhpiiM7N306Meu+5GHXt3kXaHDKNyy9p5gxk02TZCSVUqz11gRBdsE4ZjnkSZdB5ZRbIu5ppwzHtdb37w/rinRN9vdFhiUgNrjeQDFfxWnwD30fEXcZUNsM0JP4MLxSdvECqn7JVy2xjZ7iSLiezC9msoubY8/NVQJ7VPplfw7V7yqukyGUkXv75GBD9f09RP9yc8R4mZbA7zYgHCXHqHg++cULkqr8FixHYzhO7jHPB9YS5gvOv+Prntp31oHxIDRPz+a9Vk8u8ddtOFlRLeYKBfTswFEY39EleEsc9xhb7QB/9qtXJlKy9OvFStTjA0mDQ0X8sXwau0vhmvIB2Ks3eH2+gh1whpxHK0eotPole8od4puB+qZ1ryyuNmLR4agObW8lbeC8bhyzcQCCRApjGLlpbCm3Jz7gGSlt1kekx09qasghFm5+Li1slZojbee7DDdI2Yn9yl4n/bzSZo2EAiE1ws1uiDmfHNJaeO62ICxMAPM9tZyrMv5lEuG/KpIrMjiD2cl9T78fexasHq5v8rselQj92cyXKEIypYYF8VcUFw5Nevcy+9AThxtkpVax33P3JB1Xzl+CvdBTTK57Fsg7qcetO3FoaoOOhtzqzAUZUWY5QVk4BCalpqAGTaUuqZeVk3uhIiumbcY/Tt+uuyw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/q3LzfXZrPVjjTHqBFup73B2xolMkx0K2kk6wXyLMZlmtABL8p8JIcGXpEny?=
+ =?us-ascii?Q?Z2wOS46T86n/RUDyr1Zr+Ms9/3Z/SxS2N288AYtmMMewxtNCpSb7gpUIWv3P?=
+ =?us-ascii?Q?REKBzoRpXd2TwcWRLs4hiK1I+66KZYX9B5QmUmhoiNolCNdapghAs7JiZwNB?=
+ =?us-ascii?Q?q34lQ8qjWZwCDoo89s0N/UK4+0Y4aJ6Y3HBiMEF4oOYrMu2sbiE8WfcQ1Fmp?=
+ =?us-ascii?Q?3t2crEEzFQpA7PVyYqV2+ipciM6rVRKlNZk3CqYfs02jQ4ShphswNYMXNTxI?=
+ =?us-ascii?Q?SPhMRYTm/ZPuQCdq5lPzLSBkPQRYqM1KfVzIJCr3JfFwqaVDhlBm12lmuqMi?=
+ =?us-ascii?Q?+PU1ley8KdIkiFGtac6AQNs4qz5qiUdaFuoUx61M9wifp43Khy7bBhq2mCRk?=
+ =?us-ascii?Q?CTdt8Aa+Lowi/iqiyyepwRghdnSI8mmnZxh5lFe/9qCQnT0QcIp8q93xK7e3?=
+ =?us-ascii?Q?9ldP024LytKkp4MwkwRPDupt7tJxOR6GCGB7AztiJ5JdY6SUB+rBnn0xC3pm?=
+ =?us-ascii?Q?S3kEvpLTVBqryJrBDcO2IYC3Na1+Nm0beUuhvSp2tUoxZ20MA9+tPHhTObPZ?=
+ =?us-ascii?Q?61XlBUaCx/HxgJRNTlPqZJu/O66QThYKRz94XUJYKvrL1AzANo6nqpjrn5ru?=
+ =?us-ascii?Q?DiqLl/QvFU7qr+xEp8uJpVrz1Do+wOtdPZ1hJv5DYMqpcdcKdBaEp2iJM5zj?=
+ =?us-ascii?Q?trB7fj5mCfd3VNejVrXJUJZW+7bGWQq4ZQpR2aqd2fW7tKdp/ZmYFD2d2+sg?=
+ =?us-ascii?Q?Wn77f5IbkUw6B8ATtHLxeImt6SDIBWGT8XxUlCAF9v3/6FHa4wE85Fe3U4wg?=
+ =?us-ascii?Q?rECU1l6mvyv08irFcZV3bsAPoJMjmo/VgcJV6VjXPFj2j5WJOWz2/WanLHoG?=
+ =?us-ascii?Q?7yxlwpznzgtY5JcLT4iokv1XDtjJIB6cS3mAROaK1abFvRcB5NEsu9uTy6nA?=
+ =?us-ascii?Q?Lb1BldfSlfCNMM/DsTLatgPZHG6k/DPakT6x5O+rgzI0tq/Qg3ZWEcCtM7L+?=
+ =?us-ascii?Q?cdBmyD+i7Lypd/ljHm2yQMEBM9ZxACKF5/T0tvaJblL409iDSiqI+owUi9l8?=
+ =?us-ascii?Q?fUOEyK/bRGbC4oTKHMOgtUGJAs+TNiMReCSgfs7/jJQ1BQiGUuuir4Gu4Crf?=
+ =?us-ascii?Q?lxHC/qBezqNqN3TSrDXwUzWZqjt4EyVqdQ2pcfct5DJMLRqroJZtOrF6/8AV?=
+ =?us-ascii?Q?jM+LoRpGjuquZnICP7qdsXdrM/QSINJCCQjDyDEs1BEhGcUPzWFq+edEZqXU?=
+ =?us-ascii?Q?uatzIG5M14TETXEYKIe13YWhObBfu0IP89pWVCwePlvSjMlWGzP7be3XltQj?=
+ =?us-ascii?Q?AP0mtKW7YLnMD25yr9DHZBm0t0hYG0ouLixh0P9snm3qeUCz82Ok0/D3AGfm?=
+ =?us-ascii?Q?Lrz83FNHGoNqFzL94GMdNsR0jHIAyQg5DMHvOdhBZC6IU0WePYgWNZX7vNpm?=
+ =?us-ascii?Q?F0wfeF9X7nzzsynKWNZXd/A3Y/kB2Biqi+ilrRpQhuA03svv9XE1dzpNytGZ?=
+ =?us-ascii?Q?nBF07tXWjOBqXrxaaR5j8I6HbsjRQqHo6Ra8HgT9KcbFV/4iY6b7dxlPcxNY?=
+ =?us-ascii?Q?MFQmJAzPD+mA33ujLPNBYcnCqcn+H5E+XdHn1nQQSFhx/5MQpGtoUr150PTx?=
+ =?us-ascii?Q?iniPjbsiwft7EMuaiqslhD44eJG68IcKl07T6jwiztNQM0LyUDxri06Pc3Mt?=
+ =?us-ascii?Q?4ru12HT+/TmQFBkCRsI2VFC5wS9wwwYqpQEY+M1DSzVJ8pUmhj+LcRVFH47j?=
+ =?us-ascii?Q?oGmGt5V/b+QGD8ek14SXgbCwVcabkm4=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0000c53e-6835-4650-5f95-08de89d1eb71
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8274.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 18:19:42.5262
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lhDFNRIKgapF7T0pR3EVdnm+0Dhwri1t6VHrpg1Fs1FewR5pxG853ctcC7Mna+TJi1B/uLE0g0kUcF03hNn0pLfwMLovU52T6MInKMXxD2M=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR03MB7771
+X-purgate-ID: tlsNG-c1860d/1774376386-EBC9C726-8B1A7A87/0/0
 X-purgate-type: clean
-X-purgate-size: 11259
-X-Spamd-Result: default: False [3.51 / 15.00];
-	URIBL_GREY(2.50)[mandrillapp.com:dkim];
-	SUBJ_EXCESS_QP(1.20)[];
+X-purgate-size: 2843
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:mid];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org,lists.freedesktop.org,kvack.org,suse.com,invisiblethingslab.com,ariadne.space,citrix.com];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:demiobenour@gmail.com,m:xen-devel@lists.xenproject.org,m:dri-devel@lists.freedesktop.org,m:linux-mm@kvack.org,m:jbeulich@suse.com,m:val@invisiblethingslab.com,m:ariadne@ariadne.space,m:andrew.cooper3@citrix.com,m:jgross@suse.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,vates.tech:dkim,vates.tech:mid,vates.tech:url];
-	MISSING_XM_UA(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.272];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:jason.andryuk@amd.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	FROM_NEQ_ENVFROM(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	TO_DN_SOME(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 92FD731A6DC
+X-Rspamd-Queue-Id: 2D39331AA8D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hello,
+Remove the eager-fpu option and cleanup the code accordingly.
 
-I assume all this only concerns HVM/PVH DomU, I don't think it is doable 
-for PV DomU (if that matters).
+The first patch is a bugfix, new in v2.
+The second patch removes the option and includes the justification.
+The rest of the patches are cleanup and mostly have no functional change.
 
-Le 24/03/2026 =C3=A0 15:17, Demi Marie Obenour a =C3=A9crit=C2=A0:
-> Here is a proposed design document for supporting mapping GPU VRAM
-> and/or file-backed memory into other domains.  It's not in the form of
-> a patch because the leading + characters would just make it harder to
-> read for no particular gain, and because this is still RFC right now.
-> Once it is ready to merge, I'll send a proper patch.  Nevertheless,
-> you can consider this to be
-> 
-> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
-> 
-> This approach is very different from the "frontend-allocates"
-> approach used elsewhere in Xen.  It is very much Linux-centric,
-> rather than Xen-centric.  In fact, MMU notifiers were invented for
-> KVM, and this approach is exactly the same as the one KVM implements.
-> However, to the best of my understanding, the design described here is
-> the only viable one.  Linux MM and GPU drivers require it, and changes
-> to either to relax this requirement will not be accepted upstream.
-> ---
-> # Memory lending: Mapping pageable memory, such as GPU VRAM, from one Xen=
- domain into another
-> 
-> ## Background
-> 
-> Some Linux kernel subsystems require full control over certain memory
-> regions.  This includes the ability to handle page faults from any
-> entity accessing this memory.  Such entities include not only that
-> kernel's userspace, but also kernels belonging to other guests.
-> 
-> For instance, GPU drivers reserve the right to migrate data between
-> VRAM and system RAM at any time.  Furthermore, there is a set of
-> page tables between the "aperture" (mapped as a PCI BAR) and the
-> actual VRAM.  This means that the GPU driver can make the memory
-> temporarily inaccessible to the CPU.  This is in fact _required_
-> when resizable BAR is not supported, as otherwise there is too much
-> VRAM to expose it all via a single BAR.
-> 
-> Since the backing storage of this memory must be movable, pinning
-> it is not supported.  However, the existing grant table interface
-> requires pinned memory.  Therefore, such memory currently cannot be
-> shared with another guest.  As a result, implementing virtio-GPU blob
-> objects is not possible.  Since blob objects are a prerequisite for
-> both Venus and native contexts, supporting Vulkan via virtio-GPU on
-> Xen is also impossible.
-> 
+I measured a 0.7% geometric mean improvement with this series across a few
+different benchmarks (Linux VMs on an AMD host). I'm not sure the
+improvement is statistically significant, but it likely indicates it is
+no worse than before.
 
-I'm not sure Vulkan fully allow memory to be moved between RAM and VRAM. 
-Or at least, you would need to lie a bit on the 
-VK_MEMORY_HEAP_DEVICE_LOCAL_BIT property.
+A previous series to do this was submitted here:
+https://lore.kernel.org/xen-devel/20240304091307.2295344-1-fouad.hilly@cloud.com/
 
-So I assume there is a way to choose between having memory as VRAM or as 
-RAM somehow, unless it is only a hint ?
+With the exception of patch 5, I haven't kept authorship and sign-offs
+since this is a reimplementation, albeit ending up at a similar place.
 
-> Direct Access to Differentiated Memory (DAX) also relies on non-pinned
-> memory.  In the (now rare) case of persistent memory, it is because
-> the filesystem may need to move data blocks around on disk.  In the
-> case of virtio-pmem and virtio-fs, it is because page faults on write
-> operations are used to inform filesystems that they need to write the
-> data back at some point.  Without these page faults, filesystems will
-> not write back the data and silent data loss will result.
-> 
-> There are other use-cases for this too.  For instance, virtio-GPU
-> cross-domain Wayland exposes host shared memory buffers to the guest.
-> These buffers are mmap()'d file descriptors provided by the Wayland
-> compositor, and as such are not guaranteed to be anonymous memory.
-> Using grant tables for such mappings would conflict with the design
-> of existing virtio-GPU implementations, which assume that GPU VRAM
-> and shared memory can be handled uniformly.
-> 
-> Additionally, this is needed to support paging guest memory out to the
-> host's disks.  While this is significantly less efficient than using
-> an in-guest balloon driver, it has the advantage of not requiring
-> guest cooperation.  Therefore, it can be useful for situations in
-> which the performance of a guest is irrelevant, but where saving the
-> guest isn't appropriate.
-> 
-> ## Informing drivers that they must stop using memory: MMU notifiers
-> 
-> Kernel drivers, such as xen_privcmd, in the same domain that has
-> the GPU (the "host") may map GPU memory buffers.  However, they must
-> register an *MMU notifier*.  This is a callback that Linux core memory
-> management code ("MM") uses to tell the driver that it must stop
-> all accesses to the memory.  Once the memory is no longer accessed,
-> Linux assumes it can do whatever it wants with this memory:
-> 
-> - The GPU driver can move it from VRAM to system RAM or visa versa,
->   move it within VRAM or system RAM, or it temporarily inaccessible
->   so that other VRAM can be accessed.
-> - MM can swap the page out to disk/zram/etc.
-> - MM can move the page in system RAM to create huge pages.
-> - MM can write the pages out to their backing files and then free them.
-> - Anything else in Linux can do whatever it wants with the memory.
-> 
-> Suspending access to memory is not allowed to block indefinitely.
-> It can sleep, but it must finish in finite time regardless of what
-> userspace (or other VMs) do.  Otherwise, bad things (which I believe
-> includes deadlocks) may result.  I believe it can fail temporarily,
-> but permanent failure is also not allowed.  Once the MMU notifier
-> has succeeded, userspace or other domains **must not be allowed to
-> access the memory**.  This would be an exploitable use-after-free
-> vulnerability.
-> 
-> Due to these requirements, MMU notifier callbacks must not require
-> cooperation from other guests.  This means that they are not allowed to
-> wait for memory that has been granted to another guest to no longer
-> be mapped by that guest.  Therefore, MMU notifiers and the use of
-> grant tables are inherently incompatible.
+Thanks,
+Ross
 
+Ross Lagerwall (8):
+  x86/domain: Ensure a vCPU's FPU is reset early
+  x86: Always use eager-fpu
+  x86/vmx: Remove lazy FPU support
+  x86/svm: Remove lazy FPU support
+  x86: Remove fully_eager_fpu
+  x86: Remove fpu_initialised/fpu_dirty
+  x86/xstate: Stop tracking nonlazy xstate use
+  x86: Cleanup cr0.TS flag handling
 
-> 
-> ## Memory lending: A different approach
-> 
-> Instead, xen_privcmd must use a different hypercall to _lend_ memory to
-> another domain (the "guest").  When MM triggers the guest MMU notifier,
-> xen_privcmd _tells_ Xen (via hypercall) to revoke the guest's access
-> to the memory.  This hypercall _must succeed in bounded time_ even
-> if the guest is malicious.
-> 
-> Since the other guests are not aware this has happened, they will
-> continue to access the memory.  This will cause p2m faults, which
-> trap to Xen.  Xen normally kills the guest in this situation which is
-> obviously not desired behavior.  Instead, Xen must pause the guest
-> and inform the host's kernel.  xen_privcmd will have registered a
-> handler for such events, so it will be informed when this happens.
-> 
-> When xen_privcmd is told that a guest wants to access the revoked
-> page, it will ask core MM to make the page available.  Once the page
-> _is_ available, core MM will inform xen_privcmd, which will in turn
-> provide a page to Xen that will be mapped into the guest's stage 2
-> translation tables.  This page will generally be different than the
-> one that was originally lent.
-> 
-> Requesting a new page can fail.  This is usually due to rare errors,
-> such as a GPU being hot-unplugged or an I/O error faulting pages
-> from disk.  In these cases, the old content of the page is lost.
-> 
-> When this happens, xen_privcmd can do one of two things:
-> 
-> 1. It can provide a page that is filled with zeros.
-> 2. It can tell Xen that it is unable to fulfill the request.
-> 
-> Which choice it makes is under userspace control.  If userspace
-> chooses the second option, Xen injects a fault into the guest.
-> It is up to the guest to handle the fault correctly.
-> 
-Is it some ioreq-like mechanism where :
-- A guest access a "non-ready" page
-- Nothing there -> pagefault (e.g NPF) and guest vCPU is blocked
-- Xen asks Dom0 what to do (event channel, VIRQ, ...)
-- Dom0 explicitly maps memory to the guest (or do any other operation)
-- Guest resumes execution with the page mapped
+Wei Liu (1):
+  x86/traps: Remove lazy FPU support
 
-Something that looks a bit similar to "memory paging".
+ docs/misc/hypfs-paths.pandoc             |   2 -
+ docs/misc/xen-command-line.pandoc        |   7 +-
+ xen/arch/x86/cpu/common.c                |   3 -
+ xen/arch/x86/domain.c                    |   4 +-
+ xen/arch/x86/domctl.c                    |   4 +-
+ xen/arch/x86/hvm/emulate.c               |  38 +-------
+ xen/arch/x86/hvm/hvm.c                   |  16 ++--
+ xen/arch/x86/hvm/svm/nestedsvm.c         |  67 +-------------
+ xen/arch/x86/hvm/svm/svm.c               |  81 +----------------
+ xen/arch/x86/hvm/svm/vmcb.c              |   4 +-
+ xen/arch/x86/hvm/vlapic.c                |   3 -
+ xen/arch/x86/hvm/vmx/vmcs.c              |   8 +-
+ xen/arch/x86/hvm/vmx/vmx.c               |  70 +--------------
+ xen/arch/x86/hvm/vmx/vvmx.c              |  15 +---
+ xen/arch/x86/i387.c                      | 109 ++---------------------
+ xen/arch/x86/include/asm/domain.h        |   6 --
+ xen/arch/x86/include/asm/hvm/hvm.h       |   3 -
+ xen/arch/x86/include/asm/hvm/svm-types.h |   6 --
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h  |   2 -
+ xen/arch/x86/include/asm/i387.h          |   4 +-
+ xen/arch/x86/include/asm/spec_ctrl.h     |   1 -
+ xen/arch/x86/include/asm/xstate.h        |  17 +---
+ xen/arch/x86/pv/misc-hypercalls.c        |   3 +-
+ xen/arch/x86/spec_ctrl.c                 |  88 +-----------------
+ xen/arch/x86/traps.c                     |  20 +++--
+ xen/arch/x86/xstate.c                    |  24 ++---
+ xen/common/domain.c                      |   2 -
+ xen/common/efi/runtime.c                 |   4 +-
+ xen/include/xen/sched.h                  |   4 -
+ 29 files changed, 59 insertions(+), 556 deletions(-)
 
-> ## Restrictions on lent memory
-> 
-> Lent memory is still considered to belong to the lending domain.
-> The borrowing domain can only access it via its p2m.  Hypercalls made
-> by the borrowing domain act as if the borrowed memory was not present.
-> This includes, but is not limited to:
-> 
-> - Using pointers to borrowed memory in hypercall arguments.
-> - Granting borrowed memory to other VMs.
-> - Any other operation that depends on whether a page is accessible
->    by a domain.
-
-What about emulated instructions that refers to this memory ?
-
-> 
-> Furthermore:
-> 
-> - Borrowed memory isn't mapped into the IOMMU of any PCIe devices
->    the guest has attached, because IOTLB faults generally are not
->    replayable.
-> 
-
-Given that (as written bellow) Borrowed memory is a part of some form of 
-emulated BAR or special region, there is no guarantee that DMA will work 
-properly anyway (unless P2P DMA support is advertised).
-
-Splitting the IOMMU side from the P2M is not a good idea as it rules out 
-the "IOMMU HAP PT Share" optimization.
-
-> - Foreign mapping hypercalls that reference lent memory will fail.
->    Otherwise, the domain making the foreign mapping hypercall could
->    continue to access the borrowed memory after the lease had been
->    revoked.  This is true even if the domain performing the foreign
->    mapping is an all-powerful dom0.  Otherwise, an emulated device
->    could access memory whose lease had been revoked.
-> 
-> This also means that live migration of a domain that has borrowed
-> memory requires cooperation from the lending domain.  For now, it
-> will be considered out of scope.  Live migration is typically used
-> with server workloads, and accelerators for server hardware often
-> support SR-IOV.
-> 
-> ## Where will lent memory appear in a guest's address space?
-> 
-> Typically, lent memory will be an emulated PCI BAR.  It may be emulated
-> by dom0 or an alternate ioreq server.  However, it is not *required*
-> to be a PCI BAR.
-> 
-
----
-
-While the design could work (albeit the implied complexity), I'm not a 
-big fan of it, or at least, it needs to consider some constraints for 
-having reasonable performance.
-One of the big issue is that a performance-sensitive system (virtualized 
-GPU) is interlocking with several "hard to optimize" subsystem like P2M 
-or Dom0 having to process a paging event.
-
-Modifying the P2M (especially removing entries) is a fairly expensive 
-operation as it sometimes requires pausing all the vCPUs each time it's 
-done.
-
-If it's done at 4k granularity, it would also lack superpage support, 
-which wouldn't help either. (doing things at the 2M+ scale would help, 
-but I don't know enough how MMU notifier does things.
-
-While I agree that grants is not a adequate mechanism for this (for 
-multiples reasons), I'm not fully convinced of the proposal.
-I would prefer a strategy where we map a fixed amount of RAM+VRAM as a 
-blob, along with some form of cooperative hotplug mechanism to 
-dynamically provision the amount.
-
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
+-- 
+2.53.0
 
 
