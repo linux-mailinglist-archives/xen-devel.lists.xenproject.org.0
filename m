@@ -2,64 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kpTLInR3w2lCrAQAu9opvQ
+	id IP2uLsKIwmkAegQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 06:49:40 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 13:51:14 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5B9C31FF50
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 06:49:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1260715.1554471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33A37308AA4
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 13:51:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1260752.1553961 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5H6r-0004p0-Nx; Wed, 25 Mar 2026 05:48:53 +0000
+	id 1w51DT-00044Z-DZ; Tue, 24 Mar 2026 12:50:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1260715.1554471; Wed, 25 Mar 2026 05:48:53 +0000
+Received: by outflank-mailman (output) from mailman id 1260752.1553961; Tue, 24 Mar 2026 12:50:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5H6r-0004mZ-FF; Wed, 25 Mar 2026 05:48:53 +0000
-Received: by outflank-mailman (input) for mailman id 1260715;
- Tue, 24 Mar 2026 12:42:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QNhb=BY=linux.ibm.com=freude@srs-se1.protection.inumbo.net>)
- id 1w515E-00022N-Pk
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 12:42:08 +0000
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dd2c4f03-277e-11f1-b166-2bf370ae4941;
- Tue, 24 Mar 2026 13:42:06 +0100 (CET)
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62O7DT6Q481575; Tue, 24 Mar 2026 12:41:32 GMT
-Received: from ppma21.wdc07v.mail.ibm.com
- (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4d1ktxudx6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 24 Mar 2026 12:41:31 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62OC7Gcu008722;
- Tue, 24 Mar 2026 12:41:30 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
- by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4d26nnhuw0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 24 Mar 2026 12:41:30 +0000
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com
- [10.39.53.233])
- by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 62OCf5V326608298
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 24 Mar 2026 12:41:05 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 201225803F;
- Tue, 24 Mar 2026 12:41:29 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 946D658055;
- Tue, 24 Mar 2026 12:41:25 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
- by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
- Tue, 24 Mar 2026 12:41:25 +0000 (GMT)
+	id 1w51DT-000423-Aa; Tue, 24 Mar 2026 12:50:39 +0000
+Received: by outflank-mailman (input) for mailman id 1260752;
+ Tue, 24 Mar 2026 12:50:37 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <andrew.cooper@citrix.com>) id 1w51DR-00041x-Ou
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 12:50:37 +0000
+Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
+ id 1w51DR-0016n4-1K
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 13:50:37 +0100
+Received: from [10.42.69.7] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 69c2888a-bab6-0a2a0a5309dd-0a2a4507e84c-34
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 13:50:36 +0100
+Received: from [40.107.209.4]
+ (helo=PH8PR06CU001.outbound.protection.outlook.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 69c2889a-fd74-0a2a45070019-286bd104bc5a-3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 13:50:36 +0100
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by SA3PR03MB7318.namprd03.prod.outlook.com (2603:10b6:806:395::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Tue, 24 Mar
+ 2026 12:50:29 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9723.030; Tue, 24 Mar 2026
+ 12:50:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,325 +58,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd2c4f03-277e-11f1-b166-2bf370ae4941
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:to; s=pp1;
-	 bh=Shk48Guqth0dMGtPHiYWn3blJ70CgjGVRZHzaVpvLPY=; b=nqs3h6SkcQWZ
-	+OwoltQeMxOO6RblQPqe55tAVjsackvCM4KkhWNpCQq04FPsFlS93zfiGSC7Di4+
-	S9HKMl0Sjn5QTzbM3NfhhnAIAYBvkUkrdxOKSw7d0UM43AXyYRkeT8yYGAz8hak7
-	ZGJjdVwyS8NI2NFgL8wvwtd0s6FHAxSN4ucTbH9O2vRt2+dg7MkFcwB5Thprjrjc
-	U/howCgydGuthvICdFGdQd3XIc0EaU0k/lS6es2878jUgr/pm+7/onljXHYAZGv+
-	d2SOZp5c+3ZgwIjW+EEdkE2KjadPhRrKOtZM1Zuf8LiFRmTbl3wfp/kpxlXGAEqB
-	O8U48KsXUA==
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Vp6VTSAL0xbGOQvfSeA/3iupGzWES+QLMF1xGkiuNTPVcrMH2cPxWsOvN70w2qwMueTepOwCDU/5gENtsOV1PyH5QBL0yeu/DP72deeI4UnFmh8RLTmBpg7urtLHyu4eq2yyVZ/3ZB5nahJ2ZseOmXYHVbjiTI49hteDmPwECljcaCrn4U6Dkkgll/h9GLLlP5fdkVRzY1lpxa0w4RbTlPU4+dQPHmPR3vKsqrad3Xg07V8QREwS0/dz1Ir79YxczJKnG3tkyIUsJn0TQps+g3ixMUqocMOttXX6VC0ZvopGhGyBGSjAn6nCop12FN2mWU3s22IPOuNmast72KPbmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=titZYvq9gVWep25ap3pPF9wgZy59OhvNTTW1t1nOmiA=;
+ b=rk4bw486wCZGhWYNQzRYj619YlFGfGG+knDXgEuIEpIJOaRsN29obDVRp3zeNx4KRCN15Uau3WhUjQuYK5BJig7mx7RR78mAJQihGy6/7F5oc+e5tdkaRf3KUsJvUcyTBrLS0fkz/B46VrGE1vfskoMycrSmPq3UVEPKlJyXZSTuDDlJ/AWvzOydytY1RHZ0JiAl0sJlxpsMpgfXWvdrjW7eqUWjw6hgwx8Yy7hyIRXMsHs5qujRH++WQziSqcgqmKZCyLKWB3DGU7XcLL2bAcbGf2fBYEJZr1nBTlvsF+EsZfw4sXU/CJTH94ZG0ojAP7J7wr5nZA3sOQaml8056A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=titZYvq9gVWep25ap3pPF9wgZy59OhvNTTW1t1nOmiA=;
+ b=zctObK2PTsSC2KeQAwGtf7ETwDM0ndHc6ZISaHtDGyemB6lFtgLMldI613BAslFKBDzxsWPwLIkKLEFzbWk2p4Mi2e5Q9jrT2yl6wFWjZHD+0DZIYgYr45FH9fh9BFbHp2l2OzB4HzY+MoT/YNGgm3rQ0xf/u+y8UaxLox7YRCU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <8c64e93e-cade-4c25-b8e8-cd23028628e4@citrix.com>
+Date: Tue, 24 Mar 2026 12:50:26 +0000
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 1/4] x86/kexec: Stop hooking NMIs with trap_nop()
+To: Jan Beulich <jbeulich@suse.com>
+References: <20260319122549.922724-1-andrew.cooper3@citrix.com>
+ <20260319122549.922724-2-andrew.cooper3@citrix.com>
+ <c2129389-cc61-44bd-a680-c75b05725749@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <c2129389-cc61-44bd-a680-c75b05725749@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0114.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c3::18) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
-Date: Tue, 24 Mar 2026 13:41:25 +0100
-From: Harald Freudenberger <freude@linux.ibm.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Russell King <linux@armlinux.org.uk>,
-        Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Ioana
- Ciornei <ioana.ciornei@nxp.com>,
-        Nipun Gupta <nipun.gupta@amd.com>,
-        Nikhil
- Agarwal <nikhil.agarwal@amd.com>,
-        "K. Y. Srinivasan" <kys@microsoft.com>,
-        Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
-        Dexuan
- Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
-        Bjorn Helgaas
- <bhelgaas@google.com>, Armin Wolf <W_Armin@gmx.de>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Vineeth Vijayan <vneethv@linux.ibm.com>,
-        Peter Oberparleiter
- <oberpar@linux.ibm.com>,
-        Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik
- <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian
- Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle
- <svens@linux.ibm.com>,
-        Holger Dengler <dengler@linux.ibm.com>,
-        Mark Brown
- <broonie@kernel.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang
- <jasowang@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
-        Alex Williamson
- <alex@shazbot.org>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini
- <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko
- <oleksandr_tyshchenko@epam.com>,
-        "Christophe Leroy (CS GROUP)"
- <chleroy@kernel.org>,
-        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-        linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org,
-        linux-pci@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-s390@vger.kernel.org, linux-spi@vger.kernel.org,
-        virtualization@lists.linux.dev, kvm@vger.kernel.org,
-        xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 10/12] s390/ap: use generic driver_override infrastructure
-Reply-To: freude@linux.ibm.com
-Mail-Reply-To: freude@linux.ibm.com
-In-Reply-To: <20260324005919.2408620-11-dakr@kernel.org>
-References: <20260324005919.2408620-1-dakr@kernel.org>
- <20260324005919.2408620-11-dakr@kernel.org>
-Message-ID: <b5a80e06aa0240348dfa6826c20f3aec@linux.ibm.com>
-X-Sender: freude@linux.ibm.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=IqITsb/g c=1 sm=1 tr=0 ts=69c2867c cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=V8-k01nbhAtxNRQPXScA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI0MDA5OCBTYWx0ZWRfX5BtF+dGcqKne
- ud3qOj4gTSLR9zLNfAq3JG6g/oOlaoDuAoL5ugYqpH9s9vpJjplhqsv+C5Fn13wLfcNuqTFjG2K
- 8B20fOIVvCqa5XvNqyGQnMAHAZ9m7lornaYpmzRxy2uj+A1xP4iQsysQ7y+S7A488UAEKXq5qZ6
- LBbN3vhPXZJ/bEjV349pY7YewQW80X8aJiv4wUe79X39dz6GUwBnh+wAamLPOldfeVWA3ylebkO
- fpE77uN6WRT54jS8FnW/ZhUlXkVn14gcYRIyrgSPpzwxEiZ3nS5fgK7DV0UKCoQQHx0EyIcKLvI
- sxcDzd1vSEY19GMOKPv1ZW+MN86TCAn4dq3ojgq1Xg0hwRVL0L3YGoz9QETDntcaSlj/0kKtlA6
- UfD/yUxgwr0WFEGPDCZ3E/gq/ajxwH4hTrddRdALUSslhqrcmAjUB1i/qil1QJJkf8vWuRKoJjs
- AJigNCQkv9LzvxCAnUQ==
-X-Proofpoint-GUID: YK3KYDPHgye9e3NvrRpemo-oOEIjjzeD
-X-Proofpoint-ORIG-GUID: IG7OyOmEsbO9ZGMbJn71CzQus0Ee1qWf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-24_02,2026-03-23_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1011 spamscore=0 impostorscore=0 suspectscore=0
- phishscore=0 bulkscore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603240098
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[ibm.com,none];
-	R_DKIM_ALLOW(-0.20)[ibm.com:s=pp1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SA3PR03MB7318:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06dc0659-b5c3-4edb-1803-08de89a3e7cf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|18002099003|22082099003|7053199007|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	EgYMWE1iqrkjo6NWT2qo4YncyVoDR89D1P4yMU071PlZTXnUCP8dCBeycT+l546q6x6OeQ1Ink+ljBRdy5w/NkHXDpBAM5UjlPkG1CFZ1oqLSoT0H/+Z19TPR5GwNgzohA2xOqw/8wsPbTldHpXic1wqCegIKQiAMiMQOswFCf+UO8/gqFpkt70WhM78o1sNKKH09u4TyJnZ4Up5oghxVlzJ/+vf5PqqAPnMJgjwMrcbQPo9rRu/e/Mgi10RGDFUeDBpNTDpIAQp2TQxDsdj/2C01Eh9fGKv0rPQQzgC6i87m/qD9dOFTUdOrFJm3AGFvJ7UfB0AdzvudpcM2SyoseRbhZVxkvZFQZE90h/ztLvab7KwhHqTiXEDIxn2nF8Kg7MicLTl1egB9AetPK9lKazPPKlVLHRe5EB9HNjkTXJ0PNxv01McehHgwB/bSXn2LwXp6rahB4dCZ5MQUFxPrcq01Ut1INQhkQUkOGUg4a7Q6RPi0qPTHY/vTQVekMGL1fDL8ov8TNs3o2rWqMKw2m0q1Ucf5EEkgxQs7BTFUhmaD2SDz6Rlp0wbZb3i7CxiIlZ7MTaYUWYDhCQ40GXlMQX/AQDe9csfsmyrRItRieTK6R6czXQFsOh4uhGNDb6RoHOp+DZ7TUepv05CMVeszFrOJf736w15NjhVh5zQXuPtY3A1YDNzWzmAO274Pp6tZ9KdkDGds8Nns5sz8GtHfHgGe5Fu2BUmt7bwn2T4zLM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(22082099003)(7053199007)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eGlWRDZaNFg3OVJIbUFZQnh5Y04ybklLNHJ1UmRxTnpqZW1mYnlhY0VtNVdu?=
+ =?utf-8?B?U2NXRUxuMXJrR29UdDZ6a3QwSU5OZkF5NmxnNkVVMm9KYXhTUmVFT1dwWU9r?=
+ =?utf-8?B?QjYzUWdMUE5RK25EeTc1TXNXejhzRjIrTUFGQzVPYm5obzhXWUlCT2VrT0w2?=
+ =?utf-8?B?OHd4SHdQZVdyTTBwcEVlbzJIV1UwZUtCdGI0VHdzL09wUmVSMmZyUUJzdzlG?=
+ =?utf-8?B?YS95ZFFnSFc0bjhibXVENm51NVRmVTNoeXlwS1BoZDM1Szhsd0VSckNZUEFE?=
+ =?utf-8?B?eFhHVHpicmV3YVF2WVNiNHAwZzJ1RlRDeVgxQTFVUG5PNzZNNDRGR3dzMElB?=
+ =?utf-8?B?L3ZrSFlrNnpDQkZLRCs2YTllM0VBcGdHN1REbzlQOFdEYzRDUWpQclhXS3BI?=
+ =?utf-8?B?T2lmeFZTa3Y2a3BWZDB4alo0ZE42RG1hZTEwQzVEbm9iK2dQSkNRWlBJdEpm?=
+ =?utf-8?B?WmRaQlhXSHJUNkpPQzgwZThYckhsa3ZJUzF6M0RabXVGZVU2Mmdlb3lKeUtS?=
+ =?utf-8?B?dFkwQ2o4ZkVGNnRzdjl5ZzY3T0tqV28rVS83ZTlIV0twbUhEcnlBVzdOelVT?=
+ =?utf-8?B?bHNQVitDVGRWRjMvdjc2MWRIaXBqT1pPd0RiZDY0WS9EK2dWdk5ITVlWVXVT?=
+ =?utf-8?B?T2tuc3RYb3VXWkZRa25NOXc0NHBSaVplL2NZQUZLN0dEeVd1U2FTOUdmYksw?=
+ =?utf-8?B?OTFwakdRQmswWWFaTG1NcStFallqbkovMFEwSVVqVWw0dG5OWGpxUW1ubDJY?=
+ =?utf-8?B?ZVZWOWlrZjk3RkRtQUd4MEZSRnB3ZzZqWC9EelBMR1FRZXd1eHhmODJwaDV4?=
+ =?utf-8?B?NVJIVDFzU0VvVWo1ZmpYWkN2alk0WGtSbG05SktMUDRCbjN6c0NHOUdZaFJZ?=
+ =?utf-8?B?d1Jla1ZXZUhRTzdSekNRd1J3WEdXdzlFaVNWYnBSTkJ1VGRTeVgrOHpCdWxU?=
+ =?utf-8?B?cUxWcTk2eGVmMlhSZStQY2lZVWNSTSszUmFlb25HNFozN2JsRGl4VmlMMkxk?=
+ =?utf-8?B?Wmx0VWFmTXdyMWFTZDRpY1ArdXZ5QUtIa2IvMnQzSGZsWnpRQ2dzYnFwMXZG?=
+ =?utf-8?B?QlUxZVp4T1BXUGMvdVRmdzFWeVNBNjJrdmhWQjZkNUUxUkZxanYrbmFVeUxV?=
+ =?utf-8?B?ZXIrYTYyWnE0NkdVSGMyOHAzUXowWGJ0ZEJHQmpnY3FxMW1SRmtjeFEwdThW?=
+ =?utf-8?B?dVRLREVkYWJ2SWpCS3R0WEgxSGRhNC91OU9sTWg1ZCtRYnlEcllpWUhrNm9h?=
+ =?utf-8?B?R2tMRlVLQVVGbGNvMFNNc1lLelFzemgwZUlycG41bmtHVnpYS1BzOTZtaE1U?=
+ =?utf-8?B?bEF2bnkyUk13SU5TMWRnblA5SzJNVytiTERYYVhkNjhKbXVLbTg2cnB2Q1lC?=
+ =?utf-8?B?TjhteGFWcldQNkNlRVVjZi84eVU3N2Z6VmZJOVBvaHJpZi90OXZXWUFXNjFk?=
+ =?utf-8?B?QUh1MjNJRTJ5RXJYNmxLQmVSOWVlVDh4NXovbVVzanU5Q0hPRzRkelJTcTJJ?=
+ =?utf-8?B?UzJIYVVsUUE3eHN5VzJJVTN6V0hoekkwNHlKMU9hRXFRN2pFeDgxbDVrWkJ5?=
+ =?utf-8?B?eFI4czVsZzVna1h3M0VubzRCdHc1ZE8yZDZRSWpoSnF6YnA5aDQwaWIwNkJQ?=
+ =?utf-8?B?VElQWWVUKzg0cTVyNE0ybjJSOWVlZGVjaTZ0M0ZCZGJ3Yi9JUzNSMFp3WERq?=
+ =?utf-8?B?ZXQ1OFdwRUVHbEV1TXVYQlp1L3VRRllackdCeU8vaTZQWVhob2p4UVptVWYz?=
+ =?utf-8?B?M1htM01YNUxuNkhTN0c2WDgwdlpwSzNVRVJWTjNnZWd4NkRadFI3aDhrSnMx?=
+ =?utf-8?B?MTlJc3RHaHlQSkFWRnVVbk5QbEFrYlN2VWVMR3N5YW1EMjNZeWdwK3pwck5J?=
+ =?utf-8?B?VE5Wd0VSQWhDcHdsaklWZXNQTmEvRjB6d0ZsdC9mTTJYUWJnUmhhOFFIOHY2?=
+ =?utf-8?B?UjF3enZMQ09aZE5DT2ViNjdoQktmb1NwaVA0ZEY2Mis0bEswZnhLQXNoZ3NC?=
+ =?utf-8?B?SzZhbVBoL1FFd0Y0eElCYUhwZjkyaVo5V01HYXBCdmlXU3grMytzQ09GTWR0?=
+ =?utf-8?B?VUpjZzh0UTdaQU1namtFMDE5bTkrMXlDc1NrY09XYmYwWVV0ZEh6Ykg4STRy?=
+ =?utf-8?B?MDNoYkJEekJCYVlPem1KYVRWUFNNZ005SUlmbCtRY2x0ZXdFZkpkN1VnYy8w?=
+ =?utf-8?B?aWlxeXQ1VklGQm01c1N1eWdFRmhJZW5uUEVXaTFnQTlrK2RwdFJTOTU0dXl4?=
+ =?utf-8?B?WEZaSnZtOC95eU1NTFEza1MrWVo2QXlyVkJoYS9BK0NTSCtRelJubFpNNVR1?=
+ =?utf-8?B?cHZ5YWx0dEF6V0RaVHI0Wmt1M1E1Y2U5bkdDY2RLYzNYYzl0dzVIdFBvbTR2?=
+ =?utf-8?Q?avDLnvQ9asywEZ/I=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06dc0659-b5c3-4edb-1803-08de89a3e7cf
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2026 12:50:19.6678
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r/BWuPWXfNqkYgOmm4LkXEYaHTuAxbBs0PnvTptEdAh8LqDq8S3mIjOG+GdDdXNKog1yPQtAZ4FLZxQ80BFCqRdJ3OwDfGRvQZt0MZ3bjoU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR03MB7318
+X-purgate-ID: tlsNG-ef75cf/1774356636-4E4AE303-1CD0870D/0/0
+X-purgate-type: clean
+X-purgate-size: 2150
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:dakr@kernel.org,m:linux@armlinux.org.uk,m:gregkh@linuxfoundation.org,m:rafael@kernel.org,m:ioana.ciornei@nxp.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:bhelgaas@google.com,m:W_Armin@gmx.de,m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:vneethv@linux.ibm.com,m:oberpar@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:agordeev@linux.ibm.com,m:borntraeger@linux.ibm.com,m:svens@linux.ibm.com,m:dengler@linux.ibm.com,m:broonie@kernel.org,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:eperezma@redhat.com,m:alex@shazbot.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:chleroy@kernel.org,m:linux-kernel@vger.kernel.org,m:driver-core@lists.linux.dev,m:linuxppc-dev@lists.ozlabs.org,m:linux-hyperv@vger.kernel.org,m:linux-pci@vger.kernel.org,m:platform-driver-x86@vger.kernel.org,m:linu
- x-arm-msm@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-s390@vger.kernel.org,m:linux-spi@vger.kernel.org,m:virtualization@lists.linux.dev,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[freude@linux.ibm.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[armlinux.org.uk,linuxfoundation.org,kernel.org,nxp.com,amd.com,microsoft.com,google.com,gmx.de,linaro.org,linux.ibm.com,redhat.com,linux.alibaba.com,shazbot.org,suse.com,epam.com,vger.kernel.org,lists.linux.dev,lists.ozlabs.org,lists.xenproject.org,lists.infradead.org];
-	RCPT_COUNT_TWELVE(0.00)[48];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,citrix.com:dkim,citrix.com:email,citrix.com:mid];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[ibm.com:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	HAS_REPLYTO(0.00)[freude@linux.ibm.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[14];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[freude@linux.ibm.com,xen-devel-bounces@lists.xenproject.org];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.ibm.com:replyto,linux.ibm.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: B5B9C31FF50
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 33A37308AA4
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 2026-03-24 01:59, Danilo Krummrich wrote:
-> When the AP masks are updated via apmask_store() or aqmask_store(),
-> ap_bus_revise_bindings() is called after ap_attr_mutex has been
-> released.
-> 
-> This calls __ap_revise_reserved(), which accesses the driver_override
-> field without holding any lock, racing against a concurrent
-> driver_override_store() that may free the old string, resulting in a
-> potential UAF.
-> 
-> Fix this by using the driver-core driver_override infrastructure, which
-> protects all accesses with an internal spinlock.
-> 
-> Note that unlike most other buses, the AP bus does not check
-> driver_override in its match() callback; the override is checked in
-> ap_device_probe() and __ap_revise_reserved() instead.
-> 
-> Also note that we do not enable the driver_override feature of struct
-> bus_type, as AP - in contrast to most other buses - passes "" to
-> sysfs_emit() when the driver_override pointer is NULL. Thus, printing
-> "\n" instead of "(null)\n".
-> 
-> Additionally, AP has a custom counter that is modified in the
-> corresponding custom driver_override_store().
-> 
-> Fixes: d38a87d7c064 ("s390/ap: Support driver_override for AP queue 
-> devices")
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
->  drivers/s390/crypto/ap_bus.c   | 34 +++++++++++++++++-----------------
->  drivers/s390/crypto/ap_bus.h   |  1 -
->  drivers/s390/crypto/ap_queue.c | 24 ++++++------------------
->  3 files changed, 23 insertions(+), 36 deletions(-)
-> 
-> diff --git a/drivers/s390/crypto/ap_bus.c 
-> b/drivers/s390/crypto/ap_bus.c
-> index d652df96a507..f24e27add721 100644
-> --- a/drivers/s390/crypto/ap_bus.c
-> +++ b/drivers/s390/crypto/ap_bus.c
-> @@ -859,25 +859,24 @@ static int
-> __ap_queue_devices_with_id_unregister(struct device *dev, void *data)
-> 
->  static int __ap_revise_reserved(struct device *dev, void *dummy)
->  {
-> -	int rc, card, queue, devres, drvres;
-> +	int rc, card, queue, devres, drvres, ovrd;
-> 
->  	if (is_queue_dev(dev)) {
->  		struct ap_driver *ap_drv = to_ap_drv(dev->driver);
->  		struct ap_queue *aq = to_ap_queue(dev);
-> -		struct ap_device *ap_dev = &aq->ap_dev;
-> 
->  		card = AP_QID_CARD(aq->qid);
->  		queue = AP_QID_QUEUE(aq->qid);
-> 
-> -		if (ap_dev->driver_override) {
-> -			if (strcmp(ap_dev->driver_override,
-> -				   ap_drv->driver.name)) {
-> -				pr_debug("reprobing queue=%02x.%04x\n", card, queue);
-> -				rc = device_reprobe(dev);
-> -				if (rc) {
-> -					AP_DBF_WARN("%s reprobing queue=%02x.%04x failed\n",
-> -						    __func__, card, queue);
-> -				}
-> +		ovrd = device_match_driver_override(dev, &ap_drv->driver);
-> +		if (ovrd > 0) {
-> +			/* override set and matches, nothing to do */
-> +		} else if (ovrd == 0) {
-> +			pr_debug("reprobing queue=%02x.%04x\n", card, queue);
-> +			rc = device_reprobe(dev);
-> +			if (rc) {
-> +				AP_DBF_WARN("%s reprobing queue=%02x.%04x failed\n",
-> +					    __func__, card, queue);
->  			}
->  		} else {
->  			mutex_lock(&ap_attr_mutex);
-> @@ -928,7 +927,7 @@ int ap_owned_by_def_drv(int card, int queue)
->  	if (aq) {
->  		const struct device_driver *drv = aq->ap_dev.device.driver;
->  		const struct ap_driver *ap_drv = to_ap_drv(drv);
-> -		bool override = !!aq->ap_dev.driver_override;
-> +		bool override = device_has_driver_override(&aq->ap_dev.device);
-> 
->  		if (override && drv && ap_drv->flags & AP_DRIVER_FLAG_DEFAULT)
->  			rc = 1;
-> @@ -977,7 +976,7 @@ static int ap_device_probe(struct device *dev)
->  {
->  	struct ap_device *ap_dev = to_ap_dev(dev);
->  	struct ap_driver *ap_drv = to_ap_drv(dev->driver);
-> -	int card, queue, devres, drvres, rc = -ENODEV;
-> +	int card, queue, devres, drvres, rc = -ENODEV, ovrd;
-> 
->  	if (!get_device(dev))
->  		return rc;
-> @@ -991,10 +990,11 @@ static int ap_device_probe(struct device *dev)
->  		 */
->  		card = AP_QID_CARD(to_ap_queue(dev)->qid);
->  		queue = AP_QID_QUEUE(to_ap_queue(dev)->qid);
-> -		if (ap_dev->driver_override) {
-> -			if (strcmp(ap_dev->driver_override,
-> -				   ap_drv->driver.name))
-> -				goto out;
-> +		ovrd = device_match_driver_override(dev, &ap_drv->driver);
-> +		if (ovrd > 0) {
-> +			/* override set and matches, nothing to do */
-> +		} else if (ovrd == 0) {
-> +			goto out;
->  		} else {
->  			mutex_lock(&ap_attr_mutex);
->  			devres = test_bit_inv(card, ap_perms.apm) &&
-> diff --git a/drivers/s390/crypto/ap_bus.h 
-> b/drivers/s390/crypto/ap_bus.h
-> index 51e08f27bd75..04ea256ecf91 100644
-> --- a/drivers/s390/crypto/ap_bus.h
-> +++ b/drivers/s390/crypto/ap_bus.h
-> @@ -166,7 +166,6 @@ void ap_driver_unregister(struct ap_driver *);
->  struct ap_device {
->  	struct device device;
->  	int device_type;		/* AP device type. */
-> -	const char *driver_override;
->  };
-> 
->  #define to_ap_dev(x) container_of((x), struct ap_device, device)
-> diff --git a/drivers/s390/crypto/ap_queue.c 
-> b/drivers/s390/crypto/ap_queue.c
-> index 3fe2e41c5c6b..ca9819e6f7e7 100644
-> --- a/drivers/s390/crypto/ap_queue.c
-> +++ b/drivers/s390/crypto/ap_queue.c
-> @@ -734,26 +734,14 @@ static ssize_t driver_override_show(struct device 
-> *dev,
->  				    struct device_attribute *attr,
->  				    char *buf)
->  {
-> -	struct ap_queue *aq = to_ap_queue(dev);
-> -	struct ap_device *ap_dev = &aq->ap_dev;
-> -	int rc;
-> -
-> -	device_lock(dev);
-> -	if (ap_dev->driver_override)
-> -		rc = sysfs_emit(buf, "%s\n", ap_dev->driver_override);
-> -	else
-> -		rc = sysfs_emit(buf, "\n");
-> -	device_unlock(dev);
-> -
-> -	return rc;
-> +	guard(spinlock)(&dev->driver_override.lock);
-> +	return sysfs_emit(buf, "%s\n", dev->driver_override.name ?: "");
->  }
-> 
->  static ssize_t driver_override_store(struct device *dev,
->  				     struct device_attribute *attr,
->  				     const char *buf, size_t count)
->  {
-> -	struct ap_queue *aq = to_ap_queue(dev);
-> -	struct ap_device *ap_dev = &aq->ap_dev;
->  	int rc = -EINVAL;
->  	bool old_value;
-> 
-> @@ -764,13 +752,13 @@ static ssize_t driver_override_store(struct 
-> device *dev,
->  	if (ap_apmask_aqmask_in_use)
->  		goto out;
-> 
-> -	old_value = ap_dev->driver_override ? true : false;
-> -	rc = driver_set_override(dev, &ap_dev->driver_override, buf, count);
-> +	old_value = device_has_driver_override(dev);
-> +	rc = __device_set_driver_override(dev, buf, count);
->  	if (rc)
->  		goto out;
-> -	if (old_value && !ap_dev->driver_override)
-> +	if (old_value && !device_has_driver_override(dev))
->  		--ap_driver_override_ctr;
-> -	else if (!old_value && ap_dev->driver_override)
-> +	else if (!old_value && device_has_driver_override(dev))
->  		++ap_driver_override_ctr;
-> 
->  	rc = count;
+On 24/03/2026 11:52 am, Jan Beulich wrote:
+> On 19.03.2026 13:25, Andrew Cooper wrote:
+>> When FRED is active, it is not possible to hook NMIs like this.
+>>
+>> NMI hooking in the crash path has undergone several revisions since its
+>> introduction.  Notably since commit e7f147bf4ac7 ("x86/crash: Drop manual
+>> hooking of exception_table[]") we use the regular nmi_callback()
+>> infrastructure.
+>>
+>> Instead of asserting that we don't enter do_nmi_crash() on the crashing CPU,
+>> tolerate it and return early.  It's a marginally longer codepath but behaves
+>> the same and is compatible with FRED.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>
+>> The other use of hooking the NMI handler like this is in play_dead() and
+>> introduced by commit 73cb1383bf8d ("x86/idle: re-arrange dead-idle
+>> handling").  It's unsafe, and the commit even mentions so for #MC.
+> Why is wiring to trap_nop() unsafe?
 
-Thanks Danilo
-Reviewed-by: Harald Freudenberger <freude@linux.ibm.com>
+I meant unsafe in FRED for the same reason; trap_nop() doesn't make the
+NMI path safe.
+
+> For FRED, shouldn't do_nmi() then gain a similar early exit for offlined
+> CPUs, replacing the IDT editing?
+
+That's not really good enough in FRED.  For starters it doesn't cover
+entry_from_{pv,xen}().
+
+e.g. I've discovered (the hard way) the problems of putting printk()
+ahead of NMI dispatch when testing NMIs.
+
+And there's still an open question about #MC in both modes.
+
+>
+>> On x86, we simply cannot free the per-cpu block for any CPU that hasn't been
+>> put back into the wait-for-SIPI state.
+> Please remind me, is there a reason we can't put CPUs we have offlined (not
+> parked) into that state?
+
+INIT clears CR4.MCE.  Any multi-target #MC (even non-fully-broadcast
+ones) which includes this CPU escalates to SHUTDOWN.
+
+Also if you INIT any CPU the system doesn't like, you get SHUTDOWN too. 
+Doing this to CPU0 is guaranteed to SHUTDOWN.
+
+One fun issue I found doing the AMD Entrysign work was that firmware no
+longer hands over to the OS with the APs in the Wait-for-SIPI state;
+they're typically handed over in Mwait.
+
+~Andrew
 
