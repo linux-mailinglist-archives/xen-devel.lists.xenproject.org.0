@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sE6DKCC+wmmOlQQAu9opvQ
+	id ONDtNkC+wmmOlQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 17:38:56 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 17:39:28 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1048231925B
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 17:38:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1261126.1554248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47455319282
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 17:39:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1261137.1554257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w54mE-0002xw-Tj; Tue, 24 Mar 2026 16:38:46 +0000
+	id 1w54mj-0003QK-4S; Tue, 24 Mar 2026 16:39:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1261126.1554248; Tue, 24 Mar 2026 16:38:46 +0000
+Received: by outflank-mailman (output) from mailman id 1261137.1554257; Tue, 24 Mar 2026 16:39:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w54mE-0002us-Qb; Tue, 24 Mar 2026 16:38:46 +0000
-Received: by outflank-mailman (input) for mailman id 1261126;
- Tue, 24 Mar 2026 16:38:45 +0000
+	id 1w54mj-0003Nq-1S; Tue, 24 Mar 2026 16:39:17 +0000
+Received: by outflank-mailman (input) for mailman id 1261137;
+ Tue, 24 Mar 2026 16:39:15 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w54mD-0002ug-Md
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 16:38:45 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w54mh-0003Ni-TF
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 16:39:15 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w54mC-001q6T-UB
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 17:38:44 +0100
-Received: from [10.42.69.3] (helo=localhost)
+ id 1w54mf-009iyf-NS
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 17:39:15 +0100
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69c2bdf6-2eae-0a2a0a5409dd-0a2a4503ba16-48
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 17:38:44 +0100
+ id 69c2be2a-e002-0a2a0a5209dd-0a2a4508cf38-38
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 17:39:15 +0100
 Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69c2be14-1947-0a2a45030019-d1558035bd03-3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 17:38:44 +0100
+ id 69c2be32-1950-0a2a45080019-d1558035e044-3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 17:39:15 +0100
 Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-486ff201041so36507355e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 09:38:44 -0700 (PDT)
+ 5b1f17b1804b1-486b96760easo13743175e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 09:39:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48716549160sm905435e9.3.2026.03.24.09.38.43
+ 5b1f17b1804b1-48711702191sm58742875e9.5.2026.03.24.09.39.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Mar 2026 09:38:44 -0700 (PDT)
+ Tue, 24 Mar 2026 09:39:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,48 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774370324; x=1774975124; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774370354; x=1774975154; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PYk9vEEfGRYDleF6fCoNLGed2AL29CgD3kCqdLh6Eqg=;
-        b=Ka25E67T5QSaxqUuPbGBjeu4LGthhVk0aCnO6VyrZLOYoPKDSudDTzOzMpbYGz24mu
-         zhaNupCEpVzx9MSzzNxTs3EPW7YsgnGPRqRglJ3Xu+fyp3bK/jmhdi5el98Erd8CcWFv
-         YOB6nVxrMoyKAG2pofO8gTJtAD+u0Tveul9ovVf5mXd9yAMV4djGi2TYNCMYh8UfNXNu
-         MiLAWPO3KrYGkAHWA39SmkzqiItWumFW7aBilLcF+8rhja8gRmjWBBC2jsWkr7UsnwgO
-         ZJ/Axj5FsBmjvNmqjuHeNPR3VQp1zZDJKt2OTzc6uMf2wV2FDvjjAmhTCIz6XXI2zAVw
-         wEZQ==
+        bh=56tWNbz8qa5QLyK5OKVcFjuIr6ITFbD/4bSejjAPp80=;
+        b=Gd47qZhOYNt8HfYvSq6KUOb+12F0jwrTNQkNwzlaUmKKRFmiCtDW3kxZRU9mTv8CkK
+         qB4Z80IX30974QgX2dW5dTX3PjAp26SWuSV4YRCUaq0wuUeTsprSmGRJgvuy1hDIE8Gt
+         bOWLZEHBFYRBw78fDKPbdtG3Uny/WNsKwISSmJuzQCnlMuv0nWGElyoPV1wuVfv7iUXl
+         RZR786bdVrBHXOR2XTVwTnlSLMcDAYkcfFZRkF018rSSzGLR7ytPY8AKT0eifLSzdINC
+         eN4K7GCKL7y8mZ1+0/LR8lunh1PkQ4RFEafcF18sguiLnlEQK4X7x025AGCaJxmYdwZd
+         UrIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774370324; x=1774975124;
+        d=1e100.net; s=20251104; t=1774370354; x=1774975154;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PYk9vEEfGRYDleF6fCoNLGed2AL29CgD3kCqdLh6Eqg=;
-        b=TuD7FuHXKttKC7b+pt5B8+M1976NM87J7cjwgVFXmc6FdiFb/pktDzf+siwm6WOcqe
-         Z4x+pBXhghljn92+OwyhpfErWsAPtt9YFJiYwBNxNfSHDYnn3zrfLk0PmjT7dwrKmR7u
-         EWjpPOyx+3sxppO1jstRY1IdVEmNVFq5oRq7akBornwLBT8hGnGDtvY+66VK8VFcLN5I
-         oKtk0Ml8pNCxx1mUzn26Qf4QviQJO3QYWnXJ7lFpjSCUvAvqhgku2zFCUd2C7hCJAVQF
-         0n/P3EKY4N3as6LAfhRb/LuDTONhq0l70JcJxxZGM1m4xiqFOAon6C36pk9t3R8JpxzP
-         IFfw==
-X-Gm-Message-State: AOJu0YwUHVhwMWr6s/u66ULOsWFjdHQoikKTl96ax5CQAOBjHYD7l0Np
-	fh5gSG5zbNPgP7vNmrAGzT68Trc/71B/AlPAD9PVzwszmM95SulUo3VsvFQgZbPAetZ8JVjeNgk
-	tkzMOGw==
-X-Gm-Gg: ATEYQzzHM3/OKU41WtfPAfCnz+nhCX1TpPLuMGI6iAEkrXzvPsTnO4l2wHZO241hcHB
-	aRllZ/NKwTQPq2qf0yHK8iDyl2yp8XQzIeqKjFtnuIvcZ5gYzAh1B5hGhLbRlpN2IgFBGMBHIDl
-	0H2XBCKrCeH26jf35ogqn+VlI4r3h8hJTd1F17KdFTEVzhsA0hrkAhR2IQIXo24P2T5KkRkzB8D
-	8n+Xkf2+P7bA2nWN5ZWtfHHQESLSIRvy/N08acptKJqDuyJyRjNaAGD5aulTZp3bVPmrdlF0eED
-	ViRu1Q1TZrhjOzZWTffpxU2+UAHBpJV0WyOqHxXas35v62fAVtIFZnmQLxT0vaQqPZReaH9ArgF
-	YfnoCyUZwTDIg9xpT6Hb4YFH2hQvy5GPpsBW59Eq/DevRdJg+1mZx/cqV+Pc4PgPbUaGtpGIKSn
-	SErnpWAvDndF5ylAXHLx3E1+Tivlp7/dr58XYi+eU8Qf2jUQzUHYciFpo248xdGghoFu3qVd007
-	z4Grh1SJeDz5DOMNXAwgDZDRQ==
-X-Received: by 2002:a05:600c:8886:b0:480:4a8f:2d5c with SMTP id 5b1f17b1804b1-4871606dd88mr4297395e9.29.1774370324272;
-        Tue, 24 Mar 2026 09:38:44 -0700 (PDT)
-Message-ID: <b34b6e26-49ba-4ab8-8f43-a53c5dac63b7@suse.com>
-Date: Tue, 24 Mar 2026 17:38:42 +0100
+        bh=56tWNbz8qa5QLyK5OKVcFjuIr6ITFbD/4bSejjAPp80=;
+        b=J2SUoWrg0RE54/BH7wgjOz+XCwq2LZArJECeY7cFj488BYxldkmPDTbW/Ky2kagxRu
+         TxX313c/afQJVdg1hiqjHgOlWtOzi1I1pQTf2paQCKPicIxf6QSaN1TPCgYAxJvLXx6N
+         foZJOd0AaiQAjVIH43tnhcLl/rnantggCbtPOWxj+wl9PoqvrmpUyRKq3aBykBs3DESM
+         rgPqbPbJweXb5E2/FcP42nUeoSz5U29WE1yK9uu1txiFJVQETZ1qovjD1w9/4RmVYw3d
+         N/y6UlSHuSlUaLp/L0X+1gNORSSOkBVnKMcZfiQKu5wc3LC/vCHwtor2gpa+vHmUPTCY
+         oxXg==
+X-Gm-Message-State: AOJu0YzkC+y2G+2qhA77zw4vRWFkKkEu09icrpwGxK30eK5LGvp61K26
+	9ceoFEkD2W2tsfo/2cwDWq4s3MVTPOFChJ+2HiQ7Udg6Td3Pa9HuJm8y2b5um110fEKas/sJTeZ
+	V9LS8Dg==
+X-Gm-Gg: ATEYQzzZR0W/vK2iGi8sSGO0c1StkrkGqef9Wgx6zoDmoBLufsV72ZCpRamgTnPUFQH
+	Dtvate+Dr/QVWt3xj7pAGh1lJpiKMRXuBdkGMdGvLvDkL7Er5wC7VOEYoB8kQ4Ft/XYfdNxjw29
+	kdbEBV03US/xm/zB8+PHZAfHqt4XUerK6tg0diTCqTJy82siiHTflw+JDzwamAJ7VwDN2hTCcjT
+	/woVPuH8R88qcF+AKG8Dh5+D9ie2mU1Ler2i6JICn5pLjcTnHVu5kG0HCNgCeUAxyCyfZooW9jt
+	rXTPq5aSiLu2hIVQ1k1Itrha0oSYlSsgnZaurgCg0pSeMpt25x7yZ94ZyF/oAf4SVgKRJ9geBBK
+	DJRsEkZzoX4xIk3LDscIVcaTaZUf1p98gWIu5WInr9+778vkwtVNx3aszXEl8Wdacm+zd+VJ1g9
+	pnHk0Zg7tBS3DQt0cy6F8QWVZvsxC0uMUfvqxjwmg7JNfuctk6sN7wb84UzQF+buPghAqb5xTIw
+	ZkJVQEQgn6Wk0c=
+X-Received: by 2002:a05:600c:8b31:b0:485:30f7:6e88 with SMTP id 5b1f17b1804b1-487160881a5mr6352565e9.31.1774370354351;
+        Tue, 24 Mar 2026 09:39:14 -0700 (PDT)
+Message-ID: <5e8b4faa-5540-4406-8706-d546e3d2c46b@suse.com>
+Date: Tue, 24 Mar 2026 17:39:12 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/5] ns16550: harden positional parsing
+Subject: [PATCH 5/5] video/vesa: harden font height parsing
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
@@ -135,12 +135,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <63284ab7-8e38-4448-a789-1b9c23c4d95c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1774370324-4866F72C-FF9CEDF9/0/0
+X-purgate-ID: tlsNG-c1860d/1774370355-F1CE2726-B768BCF5/0/0
 X-purgate-type: clean
-X-purgate-size: 706
+X-purgate-size: 810
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -148,16 +148,16 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:kamil.frankowicz@cert.pl,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid,cert.pl:email];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,cert.pl:email,suse.com:dkim,suse.com:email,suse.com:mid];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -170,28 +170,29 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 1048231925B
+X-Rspamd-Queue-Id: 47455319282
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Advancing past a character without knowing whether that's the NUL char is
-at risk of reading beyond the buffer.
+We should not prematurely increment the pointer, to avoid inadvertently
+skipping the NUL terminator.
 
-Fixes: 25de1f692059 ("Allow arch-specific defaults to be specified for ns16550")
+Fixes: 6d9199bd0f22 ("x86-64: enable hypervisor output on VESA frame buffer")
 Reported-by: Kamil Frankowicz <kamil.frankowicz@cert.pl>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -1541,6 +1541,9 @@ static bool __init parse_positional(stru
-     {
-         uart->data_bits = simple_strtoul(conf, &conf, 10);
+--- a/xen/drivers/video/vesa.c
++++ b/xen/drivers/video/vesa.c
+@@ -31,8 +31,8 @@ static unsigned int __initdata vram_rema
+ static unsigned int __initdata font_height;
+ static int __init cf_check parse_font_height(const char *s)
+ {
+-    if ( simple_strtoul(s, &s, 10) == 8 && (*s++ == 'x') )
+-        font_height = simple_strtoul(s, &s, 10);
++    if ( simple_strtoul(s, &s, 10) == 8 && (*s == 'x') )
++        font_height = simple_strtoul(s + 1, &s, 10);
+     if ( *s != '\0' )
+         font_height = 0;
  
-+        if ( !*conf )
-+            PARSE_ERR_RET("bad DPS setting");
-+
-         uart->parity = parse_parity_char(*conf);
- 
-         uart->stop_bits = simple_strtoul(conf + 1, &conf, 10);
 
 
