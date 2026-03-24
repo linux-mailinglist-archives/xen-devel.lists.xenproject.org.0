@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GB5rCehkwmmecAQAu9opvQ
+	id aGbOMOVkwmmecAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 11:18:16 +0100
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 11:18:13 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1E5B306567
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 11:18:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1260275.1553641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3408530655E
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2026 11:18:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1260277.1553650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4ypS-0005NC-Ap; Tue, 24 Mar 2026 10:17:42 +0000
+	id 1w4ypW-0005fk-Iu; Tue, 24 Mar 2026 10:17:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1260275.1553641; Tue, 24 Mar 2026 10:17:42 +0000
+Received: by outflank-mailman (output) from mailman id 1260277.1553650; Tue, 24 Mar 2026 10:17:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w4ypS-0005LX-7h; Tue, 24 Mar 2026 10:17:42 +0000
-Received: by outflank-mailman (input) for mailman id 1260275;
- Tue, 24 Mar 2026 10:17:41 +0000
+	id 1w4ypW-0005ed-Dh; Tue, 24 Mar 2026 10:17:46 +0000
+Received: by outflank-mailman (input) for mailman id 1260277;
+ Tue, 24 Mar 2026 10:17:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <soumyajyotisarkar23@gmail.com>) id 1w4ypR-0005L7-5g
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 10:17:41 +0000
+ (envelope-from <soumyajyotisarkar23@gmail.com>) id 1w4ypV-0005ck-9l
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 10:17:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w4ypQ-0063h1-I8
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 11:17:40 +0100
-Received: from [10.42.69.7] (helo=localhost)
+ id 1w4ypT-008Ntf-44
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2026 11:17:44 +0100
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <soumyajyotisarkar23@gmail.com>)
- id 69c264c4-2eae-0a2a0a5409dd-0a2a4507e97c-0
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 11:17:40 +0100
-Received: from [209.85.216.66] (helo=mail-pj1-f66.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c264bc-5cb7-0a2a0a5109dd-0a2a45048a58-28
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 11:17:44 +0100
+Received: from [209.85.216.67] (helo=mail-pj1-f67.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <soumyajyotisarkar23@gmail.com>)
- id 69c264c2-fd74-0a2a45070019-d155d842cce5-3
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 11:17:40 +0100
-Received: by mail-pj1-f66.google.com with SMTP id
- 98e67ed59e1d1-35a1f549e7eso2174018a91.0
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 03:17:39 -0700 (PDT)
+ id 69c264c7-c823-0a2a45040019-d155d843a56e-3
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 11:17:44 +0100
+Received: by mail-pj1-f67.google.com with SMTP id
+ 98e67ed59e1d1-35b88a4f123so2545909a91.1
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2026 03:17:43 -0700 (PDT)
 Received: from fedora ([103.2.232.250]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35c031412f2sm1939382a91.7.2026.03.24.03.17.34
+ 98e67ed59e1d1-35c031412f2sm1939382a91.7.2026.03.24.03.17.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Mar 2026 03:17:37 -0700 (PDT)
+ Tue, 24 Mar 2026 03:17:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,41 +57,41 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774347458; x=1774952258; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1774347462; x=1774952262; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vMyU7Zt+Npx8war2PFOLJHgfUteMUgErNfOEenK+5EA=;
-        b=hFgvvYm7JK4qpzrHClfHA2EgU2oGJeIj8TNTsQHRr549XY6B6NzyBCd3I8gCW3apB7
-         Fn4+mrbaIyPwBH5yqbrFtwDwRmLkc8fnJL+BXJaCTsSz0vOIxYOogO2TT7z6hjdQHKWf
-         KUdv70bfh2dMdPM3DxnY8VISbAjnTZRdnDFjEZbtIjk3HknC29svknlJojRYIfZnwveo
-         yUEICIhTD/ngKYNI5+XbUp3Q9lxXmwZOREdv+23N/tHWcN63uDaUeqh95/eG0vItx8fn
-         Wh51ggrWy2oyu7tAcZbmnE+oKOnUuhjPiSxDPcdy8S6VSnMThgBHfgLuJykDFgEWwLSi
-         t+fQ==
+        bh=S7lJOGAyXgWXm5RAImeMolbrvF/QPjaKzs3OuvcIdvo=;
+        b=oaSCFT8H5Eo46cbTddQidd7PgV2YPdTRKX9hGjN59sPMuaAhDQH7ohF6K2NSEa/2/Y
+         Ts4d6B6NxhhGtNSE9mKf0znqnrhxqqjzYxeE2RhODNkDQat7gnsJUKT0qF+f8vIOMju+
+         71L2VpJHl7hjQCAJDTsDIfV6EE5BJyPC2Wn1nA7U4MP8LHlJIOfPNdPQ81hAkMEsSV5U
+         krATnXDDwsWa1DRRMUARN51YGqmY71+PM6DDb1BZTPlIW4LNEku5B9/VKzNGCkU7YtM7
+         IJWdShJqyHD2oI5v8gKxnV1DQOM+9nMavvrB/Lt2Sx6c5KoXMBEyzDGeMMknzcuPAnqs
+         OqtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774347458; x=1774952258;
+        d=1e100.net; s=20251104; t=1774347462; x=1774952262;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=vMyU7Zt+Npx8war2PFOLJHgfUteMUgErNfOEenK+5EA=;
-        b=dHWnV5+HBASObTZhrfGkUuvpVO2GMvAiCaKNoIOHljpFdmslq1BNcUWT7Z6bx/ohKJ
-         /tAkThuWUI4k6H9uwAVqUaQsLeLZ6RUYIM8RPUr8r5dTbeHF8BCVRuTqCf+xYOXf2bjk
-         RsIAZu+7Oh3uS5g3ZcjqmNCyROEFkosn+aQuNvbDLzabmDhXUb+qHJVp8qBYe64IYu53
-         XAing7KlC/RzOfwUrNsDZZUZMAxmLLb9MVjX/YbotqEKnMzsSjXiKDbhSD1hS5jeLqqI
-         m+tKzofOoR+03ycceBwuc+kXbohr0fcPldHrm+9wh8G3Sv2JgusbGyfKSf4ddOYQDkAQ
-         k4Rw==
-X-Gm-Message-State: AOJu0Yz/sl1QvR3cC/pwM43a8pm9HJxE6aWlVTx2JpAPgYygPb8+vScB
-	Ve4CCJbirW5NKzD0LL9E/KS6tqUVj9i8uZej90KfPqIOa+bNQb2kWme/fl2g3MDv
-X-Gm-Gg: ATEYQzw8jLLfuHDGiiBCdijxGAyOJANBDL8wOTLKVxNkJYz6bSmhfGnDWIo1CbmcUhF
-	eILIpGPuS84ClwS4ZNNOSYRDKH4fNLGTkiV8NosZr6XCbvenXw7fWqgA63O39/QuayhBYmCh/5H
-	gnVE1xwQ3eQeXnYNpIihqlmKxFqUkHEKXM9ozneTIl6eSqV/Ce54ppHxi5kkxidgHNdyapmFdZz
-	b/KW9HnwmEIQVhwDTf+pNUdYNobKFQGHSmnCmIvLczFiKxdhItDMb6yM5HEkzaIk9Qyvg4Mjsy0
-	zHPMa2Tv4LwNTF9sOr5cXiDYn6gVU8bugc7bdi4tQq1u0gxcFWZhcy9Sj3tFNzrWsACvQNAfPbm
-	LFqAcJwHcjxIkhf4TREmDZOvAZLN1qb/efl4qrcLbEvsBFTPpmniXGvZR4ZhA2DB8aiFT13ja1M
-	NbxmFpilU4vTZRkNhzVkDrVyWY624zoQ4sVruIJ4/7nFSMHRQleAdtrhozU0DFrJOTUn9+XoicS
-	JhBtfbnLetjUyUiBQVHVSjCOLbBgWcs2Q/9i73wpxKS38C2hk2NqF93rV3TVzEvBvqEIrfGEA==
-X-Received: by 2002:a17:90b:3d03:b0:35b:9682:51dd with SMTP id 98e67ed59e1d1-35bd2cde5a4mr12713503a91.24.1774347457887;
-        Tue, 24 Mar 2026 03:17:37 -0700 (PDT)
+        bh=S7lJOGAyXgWXm5RAImeMolbrvF/QPjaKzs3OuvcIdvo=;
+        b=GkhP64fCKalzHfv4Gja0acbuUanCJcAZK/cWcNlH+ON/8w7tzF9dGYgDei5pehVqjB
+         wBXzXJ7cZpU5oyGtuV0A/mDQYhB251R9Cqdph8PEl5jeBPnM69QgDXToI+u1Xmsc9XvZ
+         rjFfAb5nPAxcL8Q0vVXYmVIuIkoE+6n28P39Ytmn6KXrPh9Q5Qz/seTy3hitrC5Lp+SX
+         4NB0HAzSp7t2ITMgSUQslT30+Do9jC7o7DvXZljl0b2T88m9z7dJEZuOUfHOgGk5XPwg
+         ePI2Gg+sE/sLhSzGtbCFke2Qp5JOrwJiG0RRysSxFKFnrn3EgRjDHvVFu7hoGhHF2+DQ
+         W4tw==
+X-Gm-Message-State: AOJu0YwgK4vCoJL5vEt3ZyWfeU6MAtbBsoNcvsHn6bdtePWKxUtnFIFX
+	koa4WaPYnhhBoGB47htzQt2D0RgrfsJ70Izh/ECAePFroav3YZSI3nOywFhbh2y6
+X-Gm-Gg: ATEYQzxw/vPBMibGRupDgX6u25Ru8u+ciaDryZldIhO++CGQrAktYFroKHjDaLPLLpJ
+	rffgRLq9Yxofa73PwlPoVG7vXFeB8ZmlFG8XBl/AHmXoBNNFzP8zcOS8E/J6xAgFST9UyjrVnzY
+	ZdkSDfuDb8zj5T3xM9Z17LzkPveJzD0m/isSRMQLaudiaxBG1GfAUNl4/P/j3dxAGXD1jjPks2G
+	N/TrYq7notyHwwx8wadz6Ewx/tXg9xTcTi7dyqzGPW/BMlHZ92rfgRUTKzzZP2b5dsLOdQKHiiU
+	dTvR7fD0OGU+vyO4bfCfuQZLd4OWMUPzctKGfPB1MsNd4dK5ZfRCZ/BvWu6CKKt2eKz0aHMDbtX
+	4E4ZiL398h8SpUz1MXuVviLTGs+ta/Ntth+IEvlOKxXvm6M3wk2ZnYYQQxqgzhGl6euWKDgCYfq
+	Ivip3EwT5yQz09LPZApb05mm4tvZGDBgljBVshXJFCS/iOuATXMqmrPEqzWZlfCLbSkIrj4ST7q
+	BWocstk4xNAykWrZ83BR7WKgFzRM7wH/i2aQPpy16CKcahsEFnvrzLMoWFXqCHx67DLaBPKIw==
+X-Received: by 2002:a17:90b:1fc4:b0:35b:92ba:66e4 with SMTP id 98e67ed59e1d1-35c008311e5mr1936050a91.7.1774347462028;
+        Tue, 24 Mar 2026 03:17:42 -0700 (PDT)
 From: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
 To: xen-devel@lists.xenproject.org,
 	sarkarsoumyajyoti23@gmail.com
@@ -101,22 +101,22 @@ Cc: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
-Subject: [PATCH v4 1/3] x86/efi: Add BGRT image preservation infrastructure
-Date: Tue, 24 Mar 2026 15:47:24 +0530
-Message-ID: <20260324101726.6929-2-soumyajyotisarkar23@gmail.com>
+Subject: [PATCH v4 2/3] x86/acpi: Integrate BGRT preservation with status reporting
+Date: Tue, 24 Mar 2026 15:47:25 +0530
+Message-ID: <20260324101726.6929-3-soumyajyotisarkar23@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260324101726.6929-1-soumyajyotisarkar23@gmail.com>
 References: <20260324101726.6929-1-soumyajyotisarkar23@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1774347460-576A7303-9BBDAAFE/0/0
+X-purgate-ID: tlsNG-ebf023/1774347464-B9C819D1-A61567DF/0/0
 X-purgate-type: clean
-X-purgate-size: 6339
+X-purgate-size: 3168
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -129,9 +129,9 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sarkarsoumyajyoti23@gmail.com,m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,m:soumyajyotisarkar23@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[soumyajyotisarkar23@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
 	ARC_NA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[soumyajyotisarkar23@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
@@ -147,220 +147,100 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: C1E5B306567
+X-Rspamd-Queue-Id: 3408530655E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Add core EFI boot services code to preserve BGRT (Boot Graphics Resource
-Table) images during Xen boot. The BGRT contains a pointer to a boot logo
-stored in BootServicesData memory. Without preservation, this memory is
-reclaimed causing ACPI checksum errors in dom0.
+Add status reporting for BGRT preservation and integrate with Xen's
+ACPI subsystem:
+- efi_bgrt_status_info() prints preservation status (success/failure)
+- Called from acpi_boot_init() after ACPI tables are processed
+- Clarifying comment explains why invalidation code remains
 
-Implementation:
-- Walk XSDT to locate BGRT table (reusing efi.acpi20 from efi_tables())
-- Validate BMP image signature and size constraints (max 16MB)
-- Allocate EfiACPIReclaimMemory and copy image data
-- Update BGRT table with new address and recalculate checksum
-
-The preservation follows the ESRT pattern, running before
-ExitBootServices() to ensure image remains accessible.
+The invalidation code in acpi_invalidate_bgrt() now acts as a safety
+net: if preservation fails, the image remains in conventional RAM
+and gets invalidated. If preservation succeeds, the image is in
+EfiACPIReclaimMemory which won't match the RAM_TYPE_CONVENTIONAL
+check, leaving the table valid.
 
 Signed-off-by: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>
 ---
- xen/arch/x86/efi/efi-boot.h  |   2 +
- xen/common/efi/boot.c        | 133 +++++++++++++++++++++++++++++++++++
- xen/common/efi/common-stub.c |   1 +
- 3 files changed, 136 insertions(+)
+ xen/arch/x86/acpi/boot.c |  8 ++++++++
+ xen/common/efi/boot.c    | 16 ++++++++++++++++
+ xen/include/xen/efi.h    |  1 +
+ 3 files changed, 25 insertions(+)
 
-diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index 42a2c46b5e..0547d845cd 100644
---- a/xen/arch/x86/efi/efi-boot.h
-+++ b/xen/arch/x86/efi/efi-boot.h
-@@ -910,6 +910,8 @@ void __init efi_multiboot2(EFI_HANDLE ImageHandle,
-
-     efi_relocate_esrt(SystemTable);
-
-+    efi_preserve_bgrt_img();
-+
-     efi_exit_boot(ImageHandle, SystemTable);
+diff --git a/xen/arch/x86/acpi/boot.c b/xen/arch/x86/acpi/boot.c
+index 1ca2360e00..20afe79db9 100644
+--- a/xen/arch/x86/acpi/boot.c
++++ b/xen/arch/x86/acpi/boot.c
+@@ -29,6 +29,7 @@
+ #include <xen/mm.h>
+ #include <xen/param.h>
+ #include <xen/dmi.h>
++#include <xen/efi.h>
+ #include <asm/fixmap.h>
+ #include <asm/page.h>
+ #include <asm/apic.h>
+@@ -327,6 +328,11 @@ static int __init cf_check acpi_parse_hpet(struct acpi_table_header *table)
+ 	return 0;
  }
 
++/*
++ * Invalidate BGRT if image is in conventional RAM (preservation failed).
++ * If preservation succeeded, image is in EfiACPIReclaimMemory, which
++ * won't match RAM_TYPE_CONVENTIONAL check, so table remains valid.
++ */
+ static int __init cf_check acpi_invalidate_bgrt(struct acpi_table_header *table)
+ {
+ 	struct acpi_table_bgrt *bgrt_tbl =
+@@ -754,5 +760,7 @@ int __init acpi_boot_init(void)
+
+ 	acpi_table_parse(ACPI_SIG_BGRT, acpi_invalidate_bgrt);
+
++	efi_bgrt_status_info();
++
+ 	return 0;
+ }
 diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 967094994d..47d5b9b2a8 100644
+index 47d5b9b2a8..e22a42c15b 100644
 --- a/xen/common/efi/boot.c
 +++ b/xen/common/efi/boot.c
-@@ -1,12 +1,16 @@
- #include "efi.h"
- #include <efi/efiprot.h>
- #include <efi/efipciio.h>
-+#include <acpi/acconfig.h>
-+#include <acpi/actbl.h>
-+#include <acpi/actbl3.h>
- #include <public/xen.h>
- #include <xen/bitops.h>
- #include <xen/compile.h>
- #include <xen/ctype.h>
- #include <xen/dmi.h>
- #include <xen/domain_page.h>
-+#include <xen/errno.h>
- #include <xen/init.h>
- #include <xen/keyhandler.h>
- #include <xen/lib.h>
-@@ -747,6 +751,133 @@ static void __init efi_relocate_esrt(EFI_SYSTEM_TABLE *SystemTable)
-     efi_bs->FreePool(memory_map);
+@@ -1911,6 +1911,22 @@ static bool __init cf_check rt_range_valid(unsigned long smfn, unsigned long emf
+     return true;
  }
 
-+typedef struct {
-+    UINT16 signature;
-+    UINT32 file_size;
-+    UINT16 reserved[2];
-+    UINT32 data_offset;
-+} __attribute__((packed)) BMP_HEADER;
-+
-+static __initdata struct {
-+    bool preserved;
-+    const void *old_addr;
-+    const void *new_addr;
-+    UINTN size;
-+    const char *failure_reason;
-+} bgrt_info = {
-+    /* We would prefer the failure_reason to print */
-+    .failure_reason = "",
-+};
-+
-+static struct acpi_table_bgrt *__init efi_get_bgrt(void)
++void __init efi_bgrt_status_info(void)
 +{
-+    const struct acpi_table_rsdp *rsdp;
-+    const struct acpi_table_xsdt *xsdt;
-+    UINTN entry_count;
-+    unsigned int i;
++    if ( !efi_enabled(EFI_BOOT) )
++        return;
 +
-+    if ( efi.acpi20 == EFI_INVALID_TABLE_ADDR )
-+        return NULL;
-+
-+    rsdp = (const void *)(UINTN)efi.acpi20;
-+    if ( !rsdp || !rsdp->xsdt_physical_address )
-+        return NULL;
-+
-+    xsdt = (const void *)rsdp->xsdt_physical_address;
-+
-+    if ( memcmp(xsdt->header.signature, ACPI_SIG_XSDT, 4) != 0 )
-+        return NULL;
-+
-+    if ( xsdt->header.length < sizeof(xsdt->header) )
-+        return NULL;
-+    entry_count = (xsdt->header.length - sizeof(xsdt->header)) /
-+                  sizeof(xsdt->table_offset_entry[0]);
-+
-+    for ( i = 0; i < entry_count; i++ )
++    if ( bgrt_info.preserved )
 +    {
-+        const struct acpi_table_header *hdr;
-+
-+        hdr = (const void *)xsdt->table_offset_entry[i];
-+        if ( !hdr )
-+            continue;
-+
-+        if ( memcmp(hdr->signature, ACPI_SIG_BGRT, 4) == 0 &&
-+             hdr->length >= sizeof(struct acpi_table_bgrt) )
-+            return (struct acpi_table_bgrt *)hdr;
++        printk(XENLOG_INFO "EFI: BGRT image preserved: %lu KB\n",
++               bgrt_info.size / 1024);
++        printk(XENLOG_INFO "EFI: BGRT relocated from %p to %p\n",
++               bgrt_info.old_addr, bgrt_info.new_addr);
 +    }
-+
-+    return NULL;
++    else if ( bgrt_info.failure_reason[0] )
++        printk(XENLOG_WARNING "EFI: BGRT preservation failed: %s\n",
++               bgrt_info.failure_reason);
 +}
-+
-+#define BMP_SIGNATURE 0x4D42
-+#define MAX_BGRT_IMAGE_SIZE (16 * 1024 * 1024)
-+
-+static void __init efi_preserve_bgrt_img(void)
-+{
-+    struct acpi_table_bgrt *bgrt;
-+    const BMP_HEADER *bmp;
-+    const void *old_image;
-+    void *new_image;
-+    UINTN image_size;
-+    EFI_STATUS status;
-+    UINT8 checksum;
-+    unsigned int i;
-+
-+    bgrt_info.preserved = false;
-+
-+    bgrt = efi_get_bgrt();
-+    if ( !bgrt )
-+    {
-+        bgrt_info.failure_reason = "BGRT table not found";
-+        return;
-+    }
-+
-+    if ( !bgrt->image_address )
-+        return;
-+
-+    old_image = (const void *)bgrt->image_address;
-+    bmp = old_image;
-+
-+    if ( bmp->signature != BMP_SIGNATURE )
-+    {
-+        bgrt_info.failure_reason = "Invalid BMP signature";
-+        return;
-+    }
-+
-+    image_size = bmp->file_size;
-+    if ( !image_size || image_size > MAX_BGRT_IMAGE_SIZE )
-+    {
-+        bgrt_info.failure_reason = "Image size exceeds limit";
-+        return;
-+    }
-+
-+    /*
-+     * Allocate memory of type EfiACPIReclaimMemory so that the image
-+     * will remain available for the OS after ExitBootServices().
-+     */
-+    status = efi_bs->AllocatePool(EfiACPIReclaimMemory, image_size, &new_image);
-+    if ( EFI_ERROR(status) )
-+    {
-+        bgrt_info.failure_reason = "Memory allocation failed";
-+        return;
-+    }
-+    memcpy(new_image, old_image, image_size);
-+    bgrt->image_address = (UINTN)new_image;
-+    bgrt->header.checksum = 0;
-+    checksum = 0;
-+
-+    for ( i = 0; i < bgrt->header.length; i++ )
-+        checksum += ((const UINT8 *)bgrt)[i];
-+
-+    bgrt->header.checksum = -checksum;
-+
-+    /* Filling the debug struct for printing later */
-+    bgrt_info.preserved = true;
-+    bgrt_info.old_addr = old_image;
-+    bgrt_info.new_addr = new_image;
-+    bgrt_info.size = image_size;
-+}
-+
- /*
-  * Include architecture specific implementation here, which references the
-  * static globals defined above.
-@@ -1671,6 +1802,8 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
 
-     efi_relocate_esrt(SystemTable);
-
-+    efi_preserve_bgrt_img();
-+
-     efi_exit_boot(ImageHandle, SystemTable);
-
-     efi_arch_post_exit_boot(); /* Doesn't return. */
-diff --git a/xen/common/efi/common-stub.c b/xen/common/efi/common-stub.c
-index 77f138a6c5..9e595600d7 100644
---- a/xen/common/efi/common-stub.c
-+++ b/xen/common/efi/common-stub.c
-@@ -20,6 +20,7 @@ unsigned long efi_get_time(void)
-
- void efi_halt_system(void) { }
- void efi_reset_system(bool warm) { }
-+void __init efi_bgrt_status_info(void) { }
-
- int efi_get_info(uint32_t idx, union xenpf_efi_info *info)
+ void __init efi_init_memory(void)
  {
+diff --git a/xen/include/xen/efi.h b/xen/include/xen/efi.h
+index 723cb80852..e72ab3c6b5 100644
+--- a/xen/include/xen/efi.h
++++ b/xen/include/xen/efi.h
+@@ -39,6 +39,7 @@ static inline bool efi_enabled(unsigned int feature)
+ extern bool efi_secure_boot;
+
+ void efi_init_memory(void);
++void efi_bgrt_status_info(void);
+ bool efi_boot_mem_unused(unsigned long *start, unsigned long *end);
+ bool efi_rs_using_pgtables(void);
+ unsigned long efi_get_time(void);
 --
 2.53.0
 
