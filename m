@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0H6VETH4w2nPvAQAu9opvQ
+	id 8CarCzX4w2nPvAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 15:58:57 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 15:59:01 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 728AB32750A
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 15:58:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1262511.1555000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5874327526
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 15:59:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1262512.1555009 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5Ph1-0003YV-Q3; Wed, 25 Mar 2026 14:58:47 +0000
+	id 1w5Ph7-0003sL-7z; Wed, 25 Mar 2026 14:58:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1262511.1555000; Wed, 25 Mar 2026 14:58:47 +0000
+Received: by outflank-mailman (output) from mailman id 1262512.1555009; Wed, 25 Mar 2026 14:58:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5Ph1-0003Vq-Mn; Wed, 25 Mar 2026 14:58:47 +0000
-Received: by outflank-mailman (input) for mailman id 1262511;
- Wed, 25 Mar 2026 14:58:46 +0000
+	id 1w5Ph7-0003pF-2x; Wed, 25 Mar 2026 14:58:53 +0000
+Received: by outflank-mailman (input) for mailman id 1262512;
+ Wed, 25 Mar 2026 14:58:51 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1w5Ph0-0003Hw-35
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 14:58:46 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1w5Ph4-0003mm-UI
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 14:58:51 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5Pgz-00H94M-FS
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 15:58:45 +0100
-Received: from [10.42.69.11] (helo=localhost)
+ id 1w5Ph4-00GX2B-A4
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 15:58:50 +0100
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <roger.pau@citrix.com>)
- id 69c3f81e-5cb7-0a2a0a5109dd-0a2a450b8c88-20
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 15:58:45 +0100
-Received: from [52.101.52.57]
- (helo=BL2PR02CU003.outbound.protection.outlook.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c3f811-bab6-0a2a0a5309dd-0a2a4507d41a-46
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 15:58:50 +0100
+Received: from [40.93.194.40]
+ (helo=SN4PR0501CU005.outbound.protection.outlook.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <roger.pau@citrix.com>)
- id 69c3f823-ef63-0a2a450b0019-3465343945fa-4
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 15:58:45 +0100
+ id 69c3f828-fd74-0a2a45070019-285dc228b9de-3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 15:58:50 +0100
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
  by SA1PR03MB8032.namprd03.prod.outlook.com (2603:10b6:806:45a::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.25; Wed, 25 Mar
- 2026 14:58:18 +0000
+ 2026 14:58:21 +0000
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 14:58:42 +0000
+ 14:58:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,20 +60,20 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yrOZvG87EWg2+nb8D2wy4UXJeKw94N+vnlnZHBiIX1qvPOQyozCmu+itxY8/EukLpJ/w+Ida/YFBlZW4hBXLF1ag1+5lGHBbyWG50G+0xHjylMyNp1adyGFWH1Js+Drm5dlDtVzVhhmGeLcF6zZ+d1uZ/iEKwncRi1j3CzR7O7XvKiS0lEYnDgUuYRaXTuMXpWgU17RfXywLuFc4QCrbDLNriAJZ34FBeP0K4/G4PyHcTrkCtmUZNr+VWs5oU+JDht7DfeaaHd02l/oSEJgyrN6xr3Sj8/dHOvBuQWtCaPnouPl4veEg/QT7glYXcep7EfkH2yTPsrffgBfTz6Rg7Q==
+ b=ieuV3YtokPS0ABuZKF/6NiNMC60w3jO6TVXXDyJ7yOcYFOKzMeF7bkzE3p1A0C75Jjd5lQLzvtjYwwTV4amSxBosBnAhTfmf0oWhQAPYTtzKqeg5obsdwgF9LHWGK+7qxhTT3XwkSnRvrSqM2aQqJUxpZRn2feQ6NitgXTt315tEUn9g+omAaZCDe5b2RslgcCLf9GhkL2GxTai5SBlaIwLI07fYVjP58rS8bEXXXIJMGMus/4AoLfnAv6hzJk/zuaDC4qCoQtMy4rS9ikDBia3EoTriaFXkfVYz3JfZO9B0NE2yafFcdredkqWWneiJMGMhAjS6xmNk71THFoWNTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JEgJ8Wd5qW4VAjfsP1HrFdECze8KglxkMRJ4l8ASAB0=;
- b=JYz8VkFiJeUV7GhVv/mkweX8N1FBLB4kBUnKy0nk9S/9p644R/W0BxA9Tse5SP3v26M2ZnfwMHjRIc6iE2tnj0mhNNJRBjPVJz9dmfUPNPcC75TZHFF0ZnPNgHJzUWsQYgoSYQOK2W2mctmTFaV654uZLJ3LdLBuWOx8OJZOZnv8CxlU/86cq9nA22oaDIRmAj8Op4kkfLcP8gv66ntwW6v3qDRIfucHvUETwMw+odzSDdff9Lu05st1XbsP+uBLGg1DwpOOyDdeU6xXE5dX3TpipN4DzKdS55JoWQSGNJM21KJE62wANKnx6ZyTFc9a97i91XXXmyt8sZ8/8XiW+w==
+ bh=0HJQmWV5LXBRJiOFnmS7ItBccNC3tJXifThqLT1z2f4=;
+ b=Z/SQHsk2JRf1VMo2/GFthJBiuHybXPX8FY1lW9AyfTZ5NuJ1t2JYPAPKDaqfJLxfaaa3owYieABzbZ8gALnL4X6+IXStifKUhXNpG3eyOipCeE9OdRZ9BIRo4w6/ELjYomY11mRKR1aG7fSzVVLfAGtnIs7OGEYaIKbMs+d396P9ThsGSm7higNnmIgtOFReK0zuGvtst4Rrp13yyV8lLlAjj7clPm5gearfYfjvnlw0c6uBoHi6rmf8BvflADuHjOkQ+hsLGECqwuV6tcZj0zUpWOKqZB9UtvoTXNRtAaXhs48mNwgA44itM/jLkTZW8kd+y6/x5dbM+cPt0Kz46g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JEgJ8Wd5qW4VAjfsP1HrFdECze8KglxkMRJ4l8ASAB0=;
- b=pAnYjCspYhtEyK+cRQ8dyslOlEPqx7OB/58KLBcYQTWNS47W0yYhlahiDbhtxTefg+exHf/OyiQ4g73edQmBA+5wGjX2Reu30d3bUdHnAGJsIHXTTeo+ZuFa1nYLG2rtTClnobNMNnqdhEB4x6fKZKGX4GzXDfEZUr7TBMUXav8=
+ bh=0HJQmWV5LXBRJiOFnmS7ItBccNC3tJXifThqLT1z2f4=;
+ b=S/IBT+kADLsTiVLCvN2ri338FFRaVXWQHu8eyTala17a8MQ1r+TQ3OmMUj5fb9CEIsz4pF2yJTjk2nXU8Hsu7q+wYDfCi416c/I/ZVCpagiiq5EAOyBEmEY+tMnuZBjCgb0HU8Os3lT0gt4dQA3d7oGNH4B3lEJlBaq6ZVao/6M=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
 From: Roger Pau Monne <roger.pau@citrix.com>
@@ -85,101 +85,100 @@ Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH 2/4] xen/uart: switch ns16550 to use pci_sbdf_t
-Date: Wed, 25 Mar 2026 15:58:22 +0100
-Message-ID: <20260325145824.31601-3-roger.pau@citrix.com>
+Subject: [PATCH 3/4] xen/uart: report an error if the device type is not supported
+Date: Wed, 25 Mar 2026 15:58:23 +0100
+Message-ID: <20260325145824.31601-4-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260325145824.31601-1-roger.pau@citrix.com>
 References: <20260325145824.31601-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA3P292CA0046.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:48::16) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+X-ClientProxiedBy: MA2P292CA0022.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250::11)
+ To CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SA1PR03MB8032:EE_
-X-MS-Office365-Filtering-Correlation-Id: d60645bd-1fb3-42cd-946f-08de8a7f01ab
+X-MS-Office365-Filtering-Correlation-Id: e827eb6a-1d12-41a7-d930-08de8a7f03dc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|366016|376014|1800799024|18002099003|56012099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	1QC4Z8XYk+zkmknKj+WDxIUxvTy6QewrXQw7dZyr4rUMn8B0Imd3zLS92xf4cDz7Tro1siCeHHYP4JvXX7b15o15Oyo9bKqZjX019caYJ0nzwSg02ag64/GN2hJgOVW0cbWdHx9dbmVsYHaa1Pf9hTJfTJc7+AIKyId5NjOMveBvoZGzVCAE9oajNMclK0R5kwKvGYgJ8s4YFA2mPDh0O5lNxqewqleCkhY8VJbvsn7YKf/CzY1AHqdXUAzPhJiq/vlW1gLVR5uyHhxKbUX8Mekm5HXqOzKQkemYnkdJjhG8FnRnbUfMeimfw611yN/M+AdUcoIGndyOLgR5PoT4O0ACHAd44tuk9SyvUszws6VQ7H4F2whJXQ0SQGvvz6YMnAE04YO0FhbbLtnCxfHmZprFQ/fEpWhPnqaMfh63S4JpGEA3ws/SciBEJTe4kMX+K7YalmaB2aIuUeTYNatw7LiA0jRCLH9stQHDpEDZ/8B6evagZGE6pT0CPPC4A3U8d0i7SQM+IMjX+kHv0UCgifQuiSubZVl3vA5wKNkr4FsdbAlYJBibOLKp8jemjNKca5WrZvy5jrw50E9IGjdIZN+8QV34xwQFLwf0T62TO/cBKc88qdKsMzltUAbwizL4xRfMc4kJKj7HzmqMnP10m/pP29wfRb/glkTFW0wvsf2gCuNwn/mb42jrFmJWhv58ejP+7nx3ykuR+kqMpmg3ao+uvzK8gEe/JbN6S/xGgAE=
+	jgMgvq5l2jx1XL5JtOr3YkaG8hN4J0SyAItSaVOmSVwC+MTST00q01Y0y8VHiHWJmtk1AGgm01V8fYrYPetv9j30MtXfeKqWamMJ2pGcOjLlR7DyJKnYSsZyvU38pdj2ZEyfT91Kv9UQAWBUYQk/FEXNmULyNcPdY5pNhdzo8JrhYq7bWninjeNDOZqXvroxaky8we+ppTmk8Gh6zZVtjrziFOacOpMnuozV8Ey7nyJm5lk0vmWq3LPgCr/1wdw2MjQpHzsTsbDeF5jOJV3szfaYrSI+E8Flfccmo7G3p0gyg3m6oo12XwSFyn9wzXq4KzmXb/YWUvS9uIwXb749pyP6dr1IjTlqRqzAdT/SiUd0m0BvqRQy6QLFURQXOVGYyJeRScSclRney/3SArmoWdr94oieXFLpeiK0FlFsYHcDrphN4v5dj+10GBtdWhR9cgHn94jYcgz9Q4VDy9cIYVFVURWPO8WJ27d5Eg3VH4g5YOh1RWyPUFnUgO5Jaa5Dz08jv7f2dgJywhTRixqrIgDZ5zgTlTbGqNtnW/oWhO+05VwVfJ1Bk7I7sNjR0CiOaojGIJcD1SckaFCVv6O1deSpIy8x9WRlFKR4KLQQMbSHgo68jrnJrcnMGHa8htoVG0YFFILKdQ048XvGviHwkIRw7Xsqbu2jHNNl1v2x1uyegmvg1Ix9G64MeBb0+x6opWXV35K2zVBpBNb4lGdwc+4XZIDaA+BlsiTUgvIAOwo=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M0JxWVd5UkJlTlJYOXIyZXFwNmJGU0l4U2xZbGY3Vk03Q3pqSUlLNm9WT3dN?=
- =?utf-8?B?dDNhSWpLYTQxNDFaWEpIMVJnTzJ4RWU3aUw5Q0x0b2x1S0FUM3plRjZEbDRj?=
- =?utf-8?B?WGdhVExCYi8xaE4zTXdHTDVJMGZPOUkydldRNDl6aVFvaDUxU0U2U01ZT09m?=
- =?utf-8?B?ZXpIZWtwNjZ0TEJZOVN2RFV1c09nVjBGL2lOeDNzQVdpZUtoYVd4bHdSSnls?=
- =?utf-8?B?YlZCU3ZNRzlUbHVZTlNhTkdOdTZuOENXSUlJUVF6cG4vN3RHR3FEUzU2WmV3?=
- =?utf-8?B?a1JmRi9YbXR1WENJUXcyODkwdDRWRmE4MXMzdCtURU8vLzJTV2JYQjkyMmxY?=
- =?utf-8?B?RmNrL05FWEpJUm41WVEzaE1DSkJjWVZMMXE4eDVVR1hKNERuUi9qVUQwYUhS?=
- =?utf-8?B?bTRZRmZDaVhoQktPUHV5cDlzVmdZMjJTd280L214cUpDNmU2dWp4YmxUTkVF?=
- =?utf-8?B?cUplc08xbWUxZTZIZVFsVmc2T3IyZU5SMC9WSzZta0M2MHJ5aDJXRGdweUlU?=
- =?utf-8?B?VGRrZjdUNloyZWZKUnFVaFZpSis2ZUJBTDQvK25xRml4K1A5VDdCajBSZDc5?=
- =?utf-8?B?bysySzFHay81UlJXTXNMUEFjdzgwZ2hLTXZacXRRMTd1V3Nzc0Q3cWlrZDR4?=
- =?utf-8?B?N0JNWTNNUHIvbnV5R3hzeXhKcjI0cUw5VFpoUnp5cTdyOEJkVkZNYmM2UC9V?=
- =?utf-8?B?ckJjcW1ZYzNZR1ZsK0t5R3V1ZVcwMkE3MGU3VXlncXBYV3FuZVFyVXhQTTZC?=
- =?utf-8?B?ci8wRXF4T05ST3FuNjJNTW1Tb2tERlZieVpFMldQSmt1WHZDZzE5RFk5aGNH?=
- =?utf-8?B?ZHFvVnVTUFZQV1FoSkF6RmNReHhVclBzMmlzQzZJUTR4RzYyNFl4SlBaR2xH?=
- =?utf-8?B?VzJwUjFRaHZTaTcxTmVtNkEveVNWMUhJT01TcnR0am5BeU1vM0xGbTI1KzB4?=
- =?utf-8?B?dTRqOGU1em1IckNhU01jQTZaanptQWxXMDJtQWEvNC8rV2l0Y2pZV1ZlSU1l?=
- =?utf-8?B?eXFvY21LVk9wUUhyeDdnTEN0Zld5T1dCMUVpa1FHYTdvalgvZUt2UytWRGZp?=
- =?utf-8?B?YXZLUzJsY25EUGx5aTZaU3RqSWZzRFZwZDZPYkJHL0pldUJaMFVTaHVtenZz?=
- =?utf-8?B?eDlxWFNOMWs5bFpYVUZxRU1qbkpoNmVGZnk4U1Irbll2ZmppOUR2bFJqb3Iy?=
- =?utf-8?B?N3BXRzRsalpxMExJMTRvTnpZVDlxQjZ0UTIvKzJGWUVaMzZaVHAzbEgrZVZR?=
- =?utf-8?B?MEthc1Z3ZGJxU3BYaC9Bd0pQeEF6RGUrTVpSMmJwNGp1VDkzR2NWSWI3Rmp5?=
- =?utf-8?B?enEvNmJmZE5BUHQ2L0R5NHQrWDVyTzRjY2o3T3h6ckJKOGVSam42MkdCZVFJ?=
- =?utf-8?B?M29tTmpML3dFOWVrM3dNdGVDYlVWNGJFNFcrdzZSa0ZoMWhlcStlcmlFVnB0?=
- =?utf-8?B?YUQ1WUw3Vng3bzhlWTB2WGpJbVl0QnA2MDZvU3lONHdKVWhSLytUMDczNmtr?=
- =?utf-8?B?bkFqZFNQbXIzeGpNdHREaUorNnh2YUlyUElJOG5NY2kyUjB6OGpEZnFtM1pz?=
- =?utf-8?B?UVV0ODNXUVNFUUJodjREZ2hqNFlxUEJTU3pzR1dFY3RJSXgrV3pXcjg3YXFH?=
- =?utf-8?B?RVNEVEhlUEtGcTc2T1IxRmJhdUJhSEx1d1ovckVhTExlVDkySWFIcmdtUWx5?=
- =?utf-8?B?ZGlEcnoyYmVlbHZsK2RpUGF4aHAwWkFIUmNUaUd6d1pSaXBYUngzeENnbkN5?=
- =?utf-8?B?Q0h2bWpabEVoN2hxbXpGSlFlQ2hJUTF3YkpsdzVsTEY3dVNnMmFVeUkrQzdm?=
- =?utf-8?B?ZEJuRDc1NlFzVW5HNVdSMSsrb1llbVUxZWlzTlRZdEdtbGp2WnNPZjROWnFo?=
- =?utf-8?B?dm9CYzEwZFdWMWMwZGo0Y09YanVuUEIzS2E5UTBSNndSUGhXa0owSnFLZVlO?=
- =?utf-8?B?dm1JdTI3M25sV2Q0MlBTWGlYTWhpT0piemxoc2FkYTRIZ2dmdjhwRkJRUUdo?=
- =?utf-8?B?cTQ4NDdZNGNRUmpKWCs5NUd0NzNrZW5PV2RveXN2NzhQZnJ2WTcxb0h2MTRB?=
- =?utf-8?B?WVBWV1R3cFJlZCtLbXZCM1pzb3pvcUR0VkZCVDhXa25EMTVaaU5hZGhyY3Z2?=
- =?utf-8?B?NUlqMy9jcDJ4WnVWWU5NTDlndk9PVVNVRDJGcWNwdEZQVDhhQ2JQYlRvTUdJ?=
- =?utf-8?B?bXdDMnp4MExwSStVZGJlSTRlWHllSVJxMVdtVVR0M1I3aTQrOHVKc251WnhB?=
- =?utf-8?B?S21TOGJ6cnliSVduMGpiY3pHa0FUK2t2a2dsOHN0RW9taGJlQlM1SFdHQ3JQ?=
- =?utf-8?B?QXh4RlNLZTZTSlJjWUs1N3hrRjlBc1c1THpqdExGZUovWTVtL0p0Zz09?=
+	=?utf-8?B?a3VrZHNrSjcreUNCUExBYnQrV3E0SS9MZzA2QlgvcXIvVGNhYU5wd3FwNTRX?=
+ =?utf-8?B?SjZBNHJ3Z1FKd1Qya3cvOFFtTHFNNC9qYkMzQmRYbEJ4SDVWRVBIcEhSNnpp?=
+ =?utf-8?B?QmdhK2NETXpDa01xL0NycytGSWZXVkd2eURkcFRTcTJTbzd5NHh2bG4vUkM2?=
+ =?utf-8?B?cEdUM3ZJSmJHT3pkVDJ0TEFkR0kzRXJMWlJzTUhkRkRWOUFobDByaWVIT0hV?=
+ =?utf-8?B?dGw1TmpmbThFWHpuMjhxdk1FZGo3RFJJQ1NBaU1nRFRRV2t3bHNjSjNGc0RK?=
+ =?utf-8?B?Vno4MkI4cUdTNEZHYXVPM0tza1VJRzU0N3RpQkxxc01aUUV6QWxleGhFWUhy?=
+ =?utf-8?B?K0pHdFA5ZmxkSHI0WERlR1puM0w0cC91TFZxYnEzUHRIMmJKRXV1aGJ5Nmw4?=
+ =?utf-8?B?MjFaZUFrN3pWSFlwN2RVejdJRFBUdW1wUDk1cDduelNua1lXM1RLZkU1Vm9r?=
+ =?utf-8?B?UjVaeEJrdlJiNnhkSVQxamI3RER0M3JGNzErUkwra1JVWjZGMnBpUzRxaEta?=
+ =?utf-8?B?UjNXbTk2UmFvd09OSTJHQ25hZTVCL2dvQnZvS2c1SUpkWWxxdGM1ZHNlZVNP?=
+ =?utf-8?B?WTY4aE40cG5mUTZDUWRqcTFKdTErazIyR1FUQVJsalhnb0I5ZklTN1QyOXJo?=
+ =?utf-8?B?cDNhM09pcTR4ZWszckFaRU9PQUVMYVhJUDlqaDNtOS9QaDRRcVNnbS91TWRZ?=
+ =?utf-8?B?d3JIdlMwMGRLN3dIaGRaVkExNHJBeHVIcW0vSW1TY2tBbzU0YVRyL3lVN01Y?=
+ =?utf-8?B?bE4zVjJWUm9pY3VJZDB4TzhkNmhRd1NRM0FHQzYwclYvazR1dmcyVTlzR1NJ?=
+ =?utf-8?B?VGltOGl0U1ZaR0FLUlpqaThlNWkwRTdoR1dsWGRHazVKeG5uQVpNd09ZdGox?=
+ =?utf-8?B?QkZtOFhxdWhUclo2RkRwemFicGNJd2FLNEd4cE1iSmo1cFNPTGs4WmxWT0pB?=
+ =?utf-8?B?Tjhjd0ZQQWttV00xRjVCSDJvU2JQYm4zZzhsQlA4a0cwYjlnTUJZQ3JYVkh1?=
+ =?utf-8?B?L0VTcFZxRi83aTl3d2NNTGUwM29pWFJ0U093blVWVXFuQS9VYkJvK2ZMOUFo?=
+ =?utf-8?B?aFFNSUxyTnBEMElIUXQ1a05CR3REVXpQQklLdDlmUWdCc2hmSElFMEJYdFps?=
+ =?utf-8?B?dG90bDMzQ1VPU1h5R2NVOEgrL0pVMGZoazFnYU8vcUpiM0JnRGRRQUt3YUJN?=
+ =?utf-8?B?dEdNd1NSLzhUOFBqMUZ3dXlEc3RPa3JtT1FSM0c1NGVwalN0M2N2VVhXYU5I?=
+ =?utf-8?B?SHU4cUJnYktPRGlObHFhN0NWNDFLcEJzUmo5cDRVZUJSTG9LeHFiOXlERDRz?=
+ =?utf-8?B?TUczZEhDN1c1SGszOUNXb1U3c0Jsc3VndzUzNVQxTzJHSnJMWGN5QldQcEQ4?=
+ =?utf-8?B?Q0E1dExNN3N5clRleFhYc0FwaDBDRG00b0E2TkpuQnpIdmVYbUpaWGF2NDNC?=
+ =?utf-8?B?eGVHQm9ZR214a3ZZVzd1WXNFR25zU0xKTnV6d2pPbzcrcjlIZGNhcTY3RC9H?=
+ =?utf-8?B?SVNqWEd5VE1lRzhucXh4bFU1Z3ZWZ3ZGNnVBQlI4VVJLak9EdjlHVXFoTFYw?=
+ =?utf-8?B?bUtJSlI4Q2lqT3JxY0ZtKzR1NDJQcll1bE1HajVRUlZ1QjIxUHAwWUowYXc1?=
+ =?utf-8?B?N2RzV1VMbS80Z1Y1MXlCUUl0bllvcE5xbFV1ZVQ4cUVuSXRpQzg5bFI0bWhi?=
+ =?utf-8?B?dmo3aGthZkprUkhZNkNhMDdaYk16TjNGVTJHQ1FuWEdSbEFVbTBkMTlCdEFs?=
+ =?utf-8?B?M1gxRVZDelh2MDN1bE53azM0NFdwU21MOVhJZURvNWJVOW8yU0V1YmN0S2Zq?=
+ =?utf-8?B?NGN4ejRURVRWOHhCNVdXaW1Ma2pCWkJaeXpoWkJKaW90OFhjZ3NrdkQzbXdX?=
+ =?utf-8?B?RTNxdXlLU0FQVXo4MUhldkhKVDdDd3ZvOTFrb0ZvVGZ4ZXpHditUZkFrQ01X?=
+ =?utf-8?B?cUNlWWFwOGx1RDZBMHdIUDZqQzV2SWs3aWZ3TnU5Tng4cElBejU5a2FQSVJ4?=
+ =?utf-8?B?Z0RzbVpsSkZQTlFIdDNjeTdWS2orcW5CZFJRVFVDMGJ0dXRZMGJFL1Uvdjg5?=
+ =?utf-8?B?MVBFZFBsem5YL0Y4Z1dpUFdLeVFKL3RHVE9GS2FTSG45Ykd3WHFEVEl4Y3pY?=
+ =?utf-8?B?TTZyWWVFdWY3QlMvNlFLL2wyYTgrSEQyTlRYYkdiRTVkMXd4QnA0bEZvSVp0?=
+ =?utf-8?B?TUJQUUhuY1ZxWmhnVWlTWkVwRE1SNk5mblhiTDF0UU03cmJRUlNCS2VwUXEr?=
+ =?utf-8?B?Qmx1RlpUa1kvallLc0RjenN5T2E5WkhmT2c0a1RkTDhRS216L2JldzhDQkF2?=
+ =?utf-8?B?eW1NMW4xblkvSHliRFg2M3RxeWt4NmxFbU8wdDlsVkRyY25GRnowdz09?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d60645bd-1fb3-42cd-946f-08de8a7f01ab
+X-MS-Exchange-CrossTenant-Network-Message-Id: e827eb6a-1d12-41a7-d930-08de8a7f03dc
 X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 14:58:42.8157
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 14:58:46.5378
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OKib/BomPupOiiXOtPbmkn9ZZD/ciFx4/4s0gbxWHPp8I7CQzyEmpeyLVL36ABxXfbjUuDJTWpEJarIcPhBy1g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: x1Pjeil8tVgIbzkgke61f+qGv1DHyRqM0T6HyDWTRAelUAgoN9J7lYUpJlVCwTXoOPpoGUKyRGy82z/laxJ/8Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB8032
-X-purgate-ID: tlsNG-42698a/1774450725-BB0A9112-9A782E94/0/0
+X-purgate-ID: tlsNG-ef75cf/1774450730-566AF303-9F04E9DC/0/0
 X-purgate-type: clean
-X-purgate-size: 13785
+X-purgate-size: 866
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:email,citrix.com:mid];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:email,citrix.com:mid];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[citrix.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
@@ -193,305 +192,32 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 728AB32750A
+X-Rspamd-Queue-Id: D5874327526
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-No functional change intended.
+When using key pairs for the uart configuration (com1 and com2 command line
+options), report an error if the passed device=<type> is not recognized
+instead of silently ignoring it.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/drivers/char/ns16550.c | 133 ++++++++++++++++---------------------
- 1 file changed, 58 insertions(+), 75 deletions(-)
+ xen/drivers/char/ns16550.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index 41d6380367ca..da3b6fdf99d9 100644
+index da3b6fdf99d9..9cd3e471bfa5 100644
 --- a/xen/drivers/char/ns16550.c
 +++ b/xen/drivers/char/ns16550.c
-@@ -67,8 +67,8 @@ static struct ns16550 {
-     /* PCI card parameters. */
-     bool pb_bdf_enable;     /* if =1, pb-bdf effective, port behind bridge */
-     bool ps_bdf_enable;     /* if =1, ps_bdf effective, port on pci card */
--    unsigned int pb_bdf[3]; /* pci bridge BDF */
--    unsigned int ps_bdf[3]; /* pci serial port BDF */
-+    pci_sbdf_t pci_bridge;
-+    pci_sbdf_t pci_device;
-     u32 bar;
-     u32 bar64;
-     u16 cr;
-@@ -286,14 +286,11 @@ static void pci_serial_early_init(struct ns16550 *uart)
-     uint16_t cmd = 0;
- 
-     if ( uart->ps_bdf_enable )
--        cmd = pci_conf_read16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
--                                       uart->ps_bdf[2]), PCI_COMMAND);
-+        cmd = pci_conf_read16(uart->pci_device, PCI_COMMAND);
- 
-     if ( uart->bar && uart->io_base >= 0x10000 )
-     {
--        pci_conf_write16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
--                                  uart->ps_bdf[2]),
--                         PCI_COMMAND, cmd | PCI_COMMAND_MEMORY);
-+        pci_conf_write16(uart->pci_device, PCI_COMMAND, cmd | PCI_COMMAND_MEMORY);
-         return;
-     }
- 
-@@ -301,19 +298,13 @@ static void pci_serial_early_init(struct ns16550 *uart)
-         return;
- 
-     if ( uart->pb_bdf_enable )
--        pci_conf_write16(PCI_SBDF(0, uart->pb_bdf[0], uart->pb_bdf[1],
--                                  uart->pb_bdf[2]),
--                         PCI_IO_BASE,
-+        pci_conf_write16(uart->pci_bridge, PCI_IO_BASE,
-                          (uart->io_base & 0xF000) |
-                          ((uart->io_base & 0xF000) >> 8));
- 
--    pci_conf_write32(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
--                              uart->ps_bdf[2]),
--                     PCI_BASE_ADDRESS_0,
-+    pci_conf_write32(uart->pci_device, PCI_BASE_ADDRESS_0,
-                      uart->io_base | PCI_BASE_ADDRESS_SPACE_IO);
--    pci_conf_write16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
--                              uart->ps_bdf[2]),
--                     PCI_COMMAND, cmd | PCI_COMMAND_IO);
-+    pci_conf_write16(uart->pci_device, PCI_COMMAND, cmd | PCI_COMMAND_IO);
- #endif
- }
- 
-@@ -453,17 +444,16 @@ static void __init cf_check ns16550_init_postirq(struct serial_port *port)
-                                 PFN_UP(uart->io_base + uart->io_size) - 1) )
-             printk(XENLOG_INFO "Error while adding MMIO range of device to mmio_ro_ranges\n");
- 
--        if ( pci_ro_device(0, uart->ps_bdf[0],
--                           PCI_DEVFN(uart->ps_bdf[1], uart->ps_bdf[2])) )
--            printk(XENLOG_INFO "Could not mark config space of %02x:%02x.%u read-only.\n",
--                   uart->ps_bdf[0], uart->ps_bdf[1],
--                   uart->ps_bdf[2]);
-+        if ( pci_ro_device(uart->pci_device.seg, uart->pci_device.bus,
-+                           uart->pci_device.devfn) )
-+            printk(XENLOG_INFO
-+                   "Could not mark config space of %pp read-only.\n",
-+                   &uart->pci_device);
- 
-         if ( uart->msi )
-         {
-             struct msi_info msi = {
--                .sbdf = PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
--                                 uart->ps_bdf[2]),
-+                .sbdf = uart->pci_device,
-                 .irq = uart->irq,
-                 .entry_nr = 1
-             };
-@@ -505,9 +495,8 @@ static void __init cf_check ns16550_init_postirq(struct serial_port *port)
+@@ -1655,6 +1655,8 @@ static bool __init parse_namevalue_pairs(char *str, struct ns16550 *uart)
+                 pci_uart_config(uart, 0, uart - ns16550_com);
+                 dev_set = true;
              }
- 
-             if ( rc )
--                printk(XENLOG_WARNING
--                       "MSI setup failed (%d) for %02x:%02x.%o\n",
--                       rc, uart->ps_bdf[0], uart->ps_bdf[1], uart->ps_bdf[2]);
-+                printk(XENLOG_WARNING "MSI setup failed (%d) for %pp\n",
-+                       rc, &uart->pci_device);
-         }
-     }
- #endif
-@@ -534,8 +523,7 @@ static void cf_check ns16550_suspend(struct serial_port *port)
- 
- #ifdef NS16550_PCI
-     if ( uart->bar )
--       uart->cr = pci_conf_read16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
--                                  uart->ps_bdf[2]), PCI_COMMAND);
-+       uart->cr = pci_conf_read16(uart->pci_device, PCI_COMMAND);
- #endif
- }
- 
-@@ -546,19 +534,15 @@ static void _ns16550_resume(struct serial_port *port)
- 
-     if ( uart->bar )
-     {
--       pci_conf_write32(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
--                                 uart->ps_bdf[2]),
-+       pci_conf_write32(uart->pci_device,
-                         PCI_BASE_ADDRESS_0 + uart->bar_idx*4, uart->bar);
- 
-         /* If 64 bit BAR, write higher 32 bits to BAR+4 */
-         if ( uart->bar & PCI_BASE_ADDRESS_MEM_TYPE_64 )
--            pci_conf_write32(PCI_SBDF(0, uart->ps_bdf[0],  uart->ps_bdf[1],
--                                      uart->ps_bdf[2]),
-+            pci_conf_write32(uart->pci_device,
-                         PCI_BASE_ADDRESS_0 + (uart->bar_idx+1)*4, uart->bar64);
- 
--       pci_conf_write16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
--                                 uart->ps_bdf[2]),
--                        PCI_COMMAND, uart->cr);
-+       pci_conf_write16(uart->pci_device, PCI_COMMAND, uart->cr);
-     }
- #endif
- 
-@@ -1218,13 +1202,12 @@ pci_uart_config(struct ns16550 *uart, bool skip_amt, unsigned int idx)
-                 uint32_t bar, bar_64 = 0, len, len_64;
-                 u64 size = 0;
-                 const struct ns16550_config_param *param = uart_param;
-+                pci_sbdf_t sbdf = PCI_SBDF(0, b, d, f);
- 
--                nextf = (f || (pci_conf_read16(PCI_SBDF(0, b, d, f),
--                                               PCI_HEADER_TYPE) &
-+                nextf = (f || (pci_conf_read16(sbdf, PCI_HEADER_TYPE) &
-                                0x80)) ? f + 1 : 8;
- 
--                switch ( pci_conf_read16(PCI_SBDF(0, b, d, f),
--                                         PCI_CLASS_DEVICE) )
-+                switch ( pci_conf_read16(sbdf, PCI_CLASS_DEVICE) )
-                 {
-                 case 0x0700: /* single port serial */
-                 case 0x0702: /* multi port serial */
-@@ -1241,10 +1224,8 @@ pci_uart_config(struct ns16550 *uart, bool skip_amt, unsigned int idx)
-                 /* Check for params in uart_config lookup table */
-                 for ( i = 0; i < ARRAY_SIZE(uart_config); i++ )
-                 {
--                    u16 vendor = pci_conf_read16(PCI_SBDF(0, b, d, f),
--                                                 PCI_VENDOR_ID);
--                    u16 device = pci_conf_read16(PCI_SBDF(0, b, d, f),
--                                                 PCI_DEVICE_ID);
-+                    u16 vendor = pci_conf_read16(sbdf, PCI_VENDOR_ID);
-+                    u16 device = pci_conf_read16(sbdf, PCI_DEVICE_ID);
- 
-                     if ( uart_config[i].vendor_id == vendor &&
-                          uart_config[i].dev_id == device )
-@@ -1267,29 +1248,26 @@ pci_uart_config(struct ns16550 *uart, bool skip_amt, unsigned int idx)
-                 }
- 
-                 uart->io_base = 0;
--                bar = pci_conf_read32(PCI_SBDF(0, b, d, f),
--                                      PCI_BASE_ADDRESS_0 + bar_idx * 4);
-+                bar = pci_conf_read32(sbdf, PCI_BASE_ADDRESS_0 + bar_idx * 4);
- 
-                 /* MMIO based */
-                 if ( param->mmio && !(bar & PCI_BASE_ADDRESS_SPACE_IO) )
-                 {
--                    pci_conf_write32(PCI_SBDF(0, b, d, f),
--                                     PCI_BASE_ADDRESS_0 + bar_idx*4, ~0u);
--                    len = pci_conf_read32(PCI_SBDF(0, b, d, f),
-+                    pci_conf_write32(sbdf, PCI_BASE_ADDRESS_0 + bar_idx*4, ~0u);
-+                    len = pci_conf_read32(sbdf,
-                                           PCI_BASE_ADDRESS_0 + bar_idx * 4);
--                    pci_conf_write32(PCI_SBDF(0, b, d, f),
--                                     PCI_BASE_ADDRESS_0 + bar_idx*4, bar);
-+                    pci_conf_write32(sbdf, PCI_BASE_ADDRESS_0 + bar_idx*4, bar);
- 
-                     /* Handle 64 bit BAR if found */
-                     if ( bar & PCI_BASE_ADDRESS_MEM_TYPE_64 )
-                     {
--                        bar_64 = pci_conf_read32(PCI_SBDF(0, b, d, f),
-+                        bar_64 = pci_conf_read32(sbdf,
-                                       PCI_BASE_ADDRESS_0 + (bar_idx + 1) * 4);
--                        pci_conf_write32(PCI_SBDF(0, b, d, f),
-+                        pci_conf_write32(sbdf,
-                                     PCI_BASE_ADDRESS_0 + (bar_idx+1)*4, ~0u);
--                        len_64 = pci_conf_read32(PCI_SBDF(0, b, d, f),
-+                        len_64 = pci_conf_read32(sbdf,
-                                     PCI_BASE_ADDRESS_0 + (bar_idx + 1) * 4);
--                        pci_conf_write32(PCI_SBDF(0, b, d, f),
-+                        pci_conf_write32(sbdf,
-                                     PCI_BASE_ADDRESS_0 + (bar_idx+1)*4, bar_64);
-                         size  = ((u64)~0 << 32) | PCI_BASE_ADDRESS_MEM_MASK;
-                         size &= ((u64)len_64 << 32) | len;
-@@ -1303,12 +1281,9 @@ pci_uart_config(struct ns16550 *uart, bool skip_amt, unsigned int idx)
-                 /* IO based */
-                 else if ( !param->mmio && (bar & PCI_BASE_ADDRESS_SPACE_IO) )
-                 {
--                    pci_conf_write32(PCI_SBDF(0, b, d, f),
--                                     PCI_BASE_ADDRESS_0 + bar_idx*4, ~0u);
--                    len = pci_conf_read32(PCI_SBDF(0, b, d, f),
--                                          PCI_BASE_ADDRESS_0);
--                    pci_conf_write32(PCI_SBDF(0, b, d, f),
--                                     PCI_BASE_ADDRESS_0 + bar_idx*4, bar);
-+                    pci_conf_write32(sbdf, PCI_BASE_ADDRESS_0 + bar_idx*4, ~0u);
-+                    len = pci_conf_read32(sbdf, PCI_BASE_ADDRESS_0);
-+                    pci_conf_write32(sbdf, PCI_BASE_ADDRESS_0 + bar_idx*4, bar);
-                     size = len & PCI_BASE_ADDRESS_IO_MASK;
- 
-                     uart->io_base = bar & ~PCI_BASE_ADDRESS_SPACE_IO;
-@@ -1341,18 +1316,14 @@ pci_uart_config(struct ns16550 *uart, bool skip_amt, unsigned int idx)
-                 if ( param->fifo_size )
-                     uart->fifo_size = param->fifo_size;
- 
--                uart->ps_bdf[0] = b;
--                uart->ps_bdf[1] = d;
--                uart->ps_bdf[2] = f;
-+                uart->pci_device = sbdf;
-                 uart->bar_idx = bar_idx;
-                 uart->bar = bar;
-                 uart->bar64 = bar_64;
-                 uart->io_size = max(8U << param->reg_shift,
-                                     param->uart_offset);
--                uart->irq = pci_conf_read8(PCI_SBDF(0, b, d, f),
--                                           PCI_INTERRUPT_PIN) ?
--                            pci_conf_read8(PCI_SBDF(0, b, d, f),
--                                           PCI_INTERRUPT_LINE) : 0;
-+                uart->irq = pci_conf_read8(sbdf, PCI_INTERRUPT_PIN) ?
-+                            pci_conf_read8(sbdf, PCI_INTERRUPT_LINE) : 0;
- 
- #ifdef CONFIG_X86
-                 /*
-@@ -1591,18 +1562,22 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
- #ifdef CONFIG_HAS_PCI
-     if ( *conf == ',' && *++conf != ',' )
-     {
--        conf = parse_pci(conf, NULL, &uart->ps_bdf[0],
--                         &uart->ps_bdf[1], &uart->ps_bdf[2]);
-+        unsigned int b, d, f;
-+
-+        conf = parse_pci(conf, NULL, &b, &d, &f);
-         if ( !conf )
-             PARSE_ERR_RET("Bad port PCI coordinates");
-+        uart->pci_device = PCI_SBDF(0, b, d, f);
-         uart->ps_bdf_enable = true;
-     }
- 
-     if ( *conf == ',' && *++conf != ',' )
-     {
--        if ( !parse_pci(conf, NULL, &uart->pb_bdf[0],
--                        &uart->pb_bdf[1], &uart->pb_bdf[2]) )
-+        unsigned int b, d, f;
-+
-+        if ( !parse_pci(conf, NULL, &b, &d, &f) )
-             PARSE_ERR_RET("Bad bridge PCI coordinates");
-+        uart->pci_bridge = PCI_SBDF(0, b, d, f);
-         uart->pb_bdf_enable = true;
-     }
- #endif
-@@ -1683,18 +1658,26 @@ static bool __init parse_namevalue_pairs(char *str, struct ns16550 *uart)
++            else
++                PARSE_ERR_RET("Unknown device type %s\n", param_value);
              break;
  
          case port_bdf:
--            if ( !parse_pci(param_value, NULL, &uart->ps_bdf[0],
--                            &uart->ps_bdf[1], &uart->ps_bdf[2]) )
-+        {
-+            unsigned int b, d, f;
-+
-+            if ( !parse_pci(param_value, NULL, &b, &d, &f) )
-                 PARSE_ERR_RET("Bad port PCI coordinates\n");
-+            uart->pci_device = PCI_SBDF(0, b, d, f);
-             uart->ps_bdf_enable = true;
-             break;
-+        }
- 
-         case bridge_bdf:
--            if ( !parse_pci(param_value, NULL, &uart->pb_bdf[0],
--                            &uart->pb_bdf[1], &uart->pb_bdf[2]) )
-+        {
-+            unsigned int b, d, f;
-+
-+            if ( !parse_pci(param_value, NULL, &b, &d, &f) )
-                 PARSE_ERR_RET("Bad bridge PCI coordinates\n");
-+            uart->pci_bridge = PCI_SBDF(0, b, d, f);
-             uart->pb_bdf_enable = true;
-             break;
-+        }
- #endif
- 
-         default:
 -- 
 2.51.0
 
