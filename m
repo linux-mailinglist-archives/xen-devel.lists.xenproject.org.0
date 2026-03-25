@@ -2,48 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6H1+NKDQw2lBuQQAu9opvQ
+	id SE9jKAG7w2kKtwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 13:10:08 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 11:37:53 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8515C324825
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 13:10:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1261898.1554774 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B9AD3231C1
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 11:37:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1261916.1554639 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5N3P-0001GS-Fd; Wed, 25 Mar 2026 12:09:43 +0000
+	id 1w5LcA-0003WB-2W; Wed, 25 Mar 2026 10:37:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1261898.1554774; Wed, 25 Mar 2026 12:09:43 +0000
+Received: by outflank-mailman (output) from mailman id 1261916.1554639; Wed, 25 Mar 2026 10:37:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5N3P-0001EK-D0; Wed, 25 Mar 2026 12:09:43 +0000
-Received: by outflank-mailman (input) for mailman id 1261898;
- Wed, 25 Mar 2026 10:18:25 +0000
+	id 1w5Lc9-0003U2-W1; Wed, 25 Mar 2026 10:37:29 +0000
+Received: by outflank-mailman (input) for mailman id 1261916;
+ Wed, 25 Mar 2026 10:37:27 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <eperezma@redhat.com>) id 1w5LJh-0000qR-6O
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 10:18:25 +0000
+ (envelope-from <ross.lagerwall@citrix.com>) id 1w5Lc7-0003Tw-Jt
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 10:37:27 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5LJg-00FbXh-IQ
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 11:18:24 +0100
-Received: from [10.42.69.6] (helo=localhost)
+ id 1w5Lc6-00CDEz-Vt
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 11:37:27 +0100
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <eperezma@redhat.com>)
- id 69c3b660-bab6-0a2a0a5309dd-0a2a4506a894-42
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 11:18:24 +0100
-Received: from [170.10.129.124] (helo=us-smtp-delivery-124.mimecast.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <eperezma@redhat.com>)
- id 69c3b66f-3034-0a2a45060019-aa0a817c8cdd-3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 11:18:24 +0100
-Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
- [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-77-akHOpxKhN6WAkXex-vokJg-1; Wed, 25 Mar 2026 06:18:21 -0400
-Received: by mail-yw1-f197.google.com with SMTP id
- 00721157ae682-79868381229so25442097b3.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 03:18:21 -0700 (PDT)
+ (envelope-from <ross.lagerwall@citrix.com>)
+ id 69c3bae0-2eae-0a2a0a5409dd-0a2a4505b816-26
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 11:37:26 +0100
+Received: from [52.101.201.35]
+ (helo=PH7PR06CU001.outbound.protection.outlook.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <ross.lagerwall@citrix.com>)
+ id 69c3bae4-5aeb-0a2a45050019-3465c923774a-3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 11:37:26 +0100
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com (2603:10b6:610:2ba::5)
+ by CH0PR03MB6052.namprd03.prod.outlook.com (2603:10b6:610:bf::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
+ 2026 10:37:16 +0000
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096]) by CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096%7]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
+ 10:37:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,265 +58,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mimecast20190719 header.d=redhat.com header.i="@redhat.com" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:References"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1774433903;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HBOh/aoPlGxYDPbqkk5UK0G4/ytz0Hu0GxFXOarsu9g=;
-	b=G8h17s9J2A17bpLlEZzx+cMqFoWKBjIwok/JGT+oyiL2v93hAn+uN4vWrMqf/bS6njEgQZ
-	u/PfmWYtA1Zr7nKpg3Jdk67X9os+pigzYkdnyW9CLjLrczbeon9GJdjPgZx2NPVKG7HjvA
-	ZB6mXl8lDGE/G9qCrGITbXOUFGU7xCk=
-X-MC-Unique: akHOpxKhN6WAkXex-vokJg-1
-X-Mimecast-MFC-AGG-ID: akHOpxKhN6WAkXex-vokJg_1774433901
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774433901; x=1775038701;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=HBOh/aoPlGxYDPbqkk5UK0G4/ytz0Hu0GxFXOarsu9g=;
-        b=DpB3+lYwaPUyElstlPgRPrxK9aUuvI37CSomPUUcejou1IIRkGWRgHfT9M8NavMYJ8
-         CBxUIgLCgtq+dXDcx0QzcPnwPlxlYA+xRV3+jL5nmGwILNAwkQgSKApqXi8sxD56NL6c
-         Ael2tjPlDukHSqL0vPzLnZ3KHDTwbCXPTfNlw+cKVrQp4wc3jA2SfJoc2T4H0OZOL1PI
-         ndP6GEBc3yxcv+bo+cEbchJ0YCeTv4ArKTiKwtZ2qdOTclMKUk5AoN3c475Lx/zc6XZ4
-         YCb8YRmnFZkMglS7kwHkZDLkcFiMP9GTzP9kreNeY09Z9BqWhcSIgCllQ4CbYRwpkcOm
-         nDJw==
-X-Forwarded-Encrypted: i=1; AJvYcCWyOQQevRGadJTT3JXKpQFEiRSZ/qMHukI4o4tifl0olaMNnCBY6PGRhgjtXpEvE5ANd4jw1lHt5CQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyLxND0oYUtIGVAxXzxugnJASUV5hWGIEGtux+jR4yKMmBq1Ptv
-	BQt9tG9nbbSnJ/n/rhqcxvPD/SZOJGYdJIwL4ohMG5D0FbTG4TxL9fcmlT93n8CdaYUwAizn0kz
-	ABwma2DzbLCSc07aBorTUxRmeLS2DtmXNbQaOzmijNWf/NlHTronR+JO7xBbHMnYBTnBkPY/Yjv
-	+1W0t3jRefulpfpT6gRokTPbIKUS5IDfDrgmAWE1RwPXk=
-X-Gm-Gg: ATEYQzzD90d+PEWf+s9J8JTzBcmcJcgl1K/ie9txw/gQQG/CtS0dFvjoHZk9TcswH1H
-	HllK03lsJSz443seFCyvzr3WnqS+k7bqfWsx8tQLvv3cGD59GRb5xNdD7F4orsvvMHadkMe4fN2
-	X9m0/lKvmFug6fpXU2YyEfsrSrxUIjsDCrZXtGE4ICkUOuhkzMuPIOGNeR4gNv27HDFjO621aiO
-	9oGsw==
-X-Received: by 2002:a53:acd1:0:20b0:64c:9f60:19d4 with SMTP id 956f58d0204a3-64ed77ef1ecmr4805254d50.8.1774433900686;
-        Wed, 25 Mar 2026 03:18:20 -0700 (PDT)
-X-Received: by 2002:a53:acd1:0:20b0:64c:9f60:19d4 with SMTP id
- 956f58d0204a3-64ed77ef1ecmr4805242d50.8.1774433900219; Wed, 25 Mar 2026
- 03:18:20 -0700 (PDT)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AnjR8Br1oNeRYamYqaeptcsjcM+ORLBgonCk6EJb35zt/pzO0qnuebcHpoEc9grb096YBbXdUg15DK/PBneB5mVP3HBtVcE+r3kQbXrKwqDJjLgF4WMzmlUgoP9+y0vW8t3DHHzdtbA6v0vllTeV2+Zhq6sTPb8yrZMMbNMftt6Ppg4rsRwg3qhwIXd1ZKsxunAdqhu8rXb2PpYq9pevGiNIpeLHnKWGh3TED5QjwfItcDooR3qih9DfaNygFN0E4QPtwo2/nqg5+1mK+OshJSnfWFD3LKs7HB7AgohxDwbHh/1+I/RTA+73kT/SR88E7xjj8NavSY+vL6PWTXrpQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OB0QI9da2qSM09sqEfgTvllWC+wma82Oqe1TiKZfULY=;
+ b=Wqb+u4WcBepn9nvj5VPkmFXjf1fos1nVD9/9+gEbDysmFRDkA6DoEty8fasB/1z86ULY0pux9nz/mG/T2WYuJjpTA5VGEPoiUOR2UAYGQJduRn92tskq0YfpCIfFuEcGkQamvxtTlZP9scCK6JpZpPRQCjd0gpiwDKwHPYXp7OQRR1TAYlPQrgsdHLKk1lYQVGYHAflQPfdCpfbCzQ2wNCEDjFc2Qbgt1QGcHPVbjk0eAxHGL98WfmK/60TbDOoebwyYnfbDSwU8ZDzze+NIKXyFx84zcbnHjFPttVYGXLCKLtAJ8Whtl9Fm1h1ls4yBfGlzISO69bcI6barZUsG8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OB0QI9da2qSM09sqEfgTvllWC+wma82Oqe1TiKZfULY=;
+ b=0SlebMSkcrmkdbdlewny8pmp2dXWkkjqibrs1QnAFnZzmdeN4qbqVjh+D2QhcYrMqVLm9o1sk/nB+DFCm2k5v6+ZA0q0D2DSmRv93A7a/cZMMh7FalIbDc+fw9OKYnHA4amEbQHNY7yrTcbAGo1QLpp9Iz1PhhXe6ZonXVPpcJE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <68469e6b-33c8-4020-bd8b-75afe8f6570a@citrix.com>
+Date: Wed, 25 Mar 2026 10:36:03 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/9] x86/domain: Ensure a vCPU's FPU is reset early
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20260324181937.2465574-1-ross.lagerwall@citrix.com>
+ <20260324181937.2465574-2-ross.lagerwall@citrix.com>
+ <0471e754-9ea7-4fb5-b573-b770713b2f53@citrix.com>
+Content-Language: en-US
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+In-Reply-To: <0471e754-9ea7-4fb5-b573-b770713b2f53@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0691.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:37b::19) To CH8PR03MB8274.namprd03.prod.outlook.com
+ (2603:10b6:610:2ba::5)
 MIME-Version: 1.0
-References: <20260324005919.2408620-1-dakr@kernel.org> <20260324005919.2408620-9-dakr@kernel.org>
-In-Reply-To: <20260324005919.2408620-9-dakr@kernel.org>
-From: Eugenio Perez Martin <eperezma@redhat.com>
-Date: Wed, 25 Mar 2026 11:17:43 +0100
-X-Gm-Features: AaiRm50qMzjkKEJ7Fkr-Roi7I1a_DrzOw3E963yu_3LAy7xQt4ygKXGG9Px12Pc
-Message-ID: <CAJaqyWeuvD+XntgE9q4epQELpYYTOs1CznFn_tuOxeh_LurrcA@mail.gmail.com>
-Subject: Re: [PATCH 08/12] vdpa: use generic driver_override infrastructure
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Russell King <linux@armlinux.org.uk>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Ioana Ciornei <ioana.ciornei@nxp.com>, 
-	Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>, 
-	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Armin Wolf <W_Armin@gmx.de>, 
-	Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	Vineeth Vijayan <vneethv@linux.ibm.com>, Peter Oberparleiter <oberpar@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Harald Freudenberger <freude@linux.ibm.com>, 
-	Holger Dengler <dengler@linux.ibm.com>, Mark Brown <broonie@kernel.org>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Alex Williamson <alex@shazbot.org>, 
-	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
-	linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org, 
-	platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-remoteproc@vger.kernel.org, linux-s390@vger.kernel.org, 
-	linux-spi@vger.kernel.org, virtualization@lists.linux.dev, 
-	kvm@vger.kernel.org, xen-devel@lists.xenproject.org, 
-	linux-arm-kernel@lists.infradead.org, Gui-Dong Han <hanguidong02@gmail.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: SBdhpUkHwzTBhfqiubrRuwpH8nm53Y2Dhu-p-cVttc0_1774433901
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-16d1c6/1774433904-7998F1C2-2706C7ED/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|CH0PR03MB6052:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef861b0a-101c-40c3-35dc-08de8a5a7bec
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	+JVw/hvRfIyg2FOQe705MG8ENeQRNJw1qREjF2nGO5iK0M8akTsM81RYV2cQRJjz9JsoRGxk4GnTFpFBv6OLAhmmvoOqFzQ9m/KZ+eQzG+xrorrHKPfDXW/3xdCkOcAmzgWGduDe0Jr4fanzFwmugP9d/E3rBU+OqfhFcyCdwKsjCX47Gb5s205dhka1k5v2vR9H4PQwnEZbhTcEN7eaW27mAzHuFQV3mI/4hN0y02adstUcdD+wS1e2gdOm9MnD6QFJRqkLXMdKTGouT+S/4oBbk3880uiL5awBS7Fv+4zYd6CBdxLzFDaJ3Z1Abkekrq8XzZFGmeoithFxitZafxTouADFIibRCi7JV1G8uWH1V02HjRTBLKbWeFoiXq2pjHPVNFZ8MMXCz+iqqy3g5rn5JM+JlctrASjOhvZqFPWj3JkH9CwZ4/gVEUATHQwRfVdkFnMouMGzT6pUrVqJ4LgxZDgHCAfgin9f4bfsle1Teuws4BRkF7MLcALij0aXhFEXfkbcQ+poEQWQJBcxdvkSuCakHmGSvv7iojYEx4m0Mv1Jc1QqUartY8Hm+2BzGWYU6BdWAGMMuePgyNHDdIZSGSaqD/VgdygdEUXfstaTOlZv9itNdkI6jaqvBDg/j1tqejg2u1Do90lSn/LqTqRW4wxTGBNnLsOcVs/ovyJE+/ltLGSVedhQ9KkmzIab
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dEhadmo1bDRKdDV6WnZmLzVVZ0gvZjRBY054dEpTTlRzNEtJUkRUWU9mWElG?=
+ =?utf-8?B?ODh6UlgxK2tpcDFJQlVEelJqS2NJcEZHRVVrM3Z6bVBXN3p0UWMrazNkYWJM?=
+ =?utf-8?B?bjJwbGhENElHSzZ6NGN5TERTQ09ncWZFUUp5WThmeHA5c1J2RDVDMll6cWdD?=
+ =?utf-8?B?RHhvdWRwdFdLMGMwWU9UeWJLMnhLYXI2OHFWT3YvaGIxZGJ1VHhuT0ZZQnBv?=
+ =?utf-8?B?MmViSkxrcXFhWWxBTDFUN0JOZUJMeGMreDhVVXYzSmxYNUNVdHJvV0ZRWk1v?=
+ =?utf-8?B?NXpmUGIrQnFDVTUvbUozTlN0eDVRZHdOMWR4WUl1OC9YUU56MkpUOWpTbHk4?=
+ =?utf-8?B?cVhKK0VQQnNjbTVTWmo3VE1vejZmTHQxQ1M2a0phd0Yzbkp0WUFLRU4ybW1X?=
+ =?utf-8?B?VWU4bUhhdFFsUXFFazJvMTJlRm9lUFl5V2N6VzR6dzQrbEU1Q3Z0dld5MHlY?=
+ =?utf-8?B?UHIzcFhudWM3YTY4QnQyOXZOREhtT3ZtWE0zYlJYeENySXBHV3VpV3VOanF1?=
+ =?utf-8?B?eWdpZU9aUkQvWEpFLzVkemErNUhWemJJNGJQZUlSYlpkcU5jMlZzQm8yYmFk?=
+ =?utf-8?B?UEF5a0RuS0FmaWlxQXdBb1E4bnNlb3FLaUdUTW5iNTdkUXIybC95c0tHRjlY?=
+ =?utf-8?B?Q2R5Y3l5eXVTd0p6Yzd2MFJlQkJUTDdSQzd0b1YwSVN0a2Fnbit3WDhiaUQx?=
+ =?utf-8?B?YnJyQXpJUTlYNnJqc0YrYWc3ZUZyVXNLNnNlU25ydll2dmYvTC85WGk0UFNF?=
+ =?utf-8?B?NkNzOHZ0YUdmelZaMHFBN2xrRHRBRkpqWDZnam15c2RIR3NxRHlGT2k5MGE2?=
+ =?utf-8?B?cXJVajUyTEVRNnlEcWJ2TkloRkgzbDQ0eUU5T0FrTlZqZ1REMkk0Z3FSeG9M?=
+ =?utf-8?B?OUtPV1J6bDMyckNtL09DL0pSc0VOa3pyOTNwM1NMMmhzdENSOTQzVUhXK01Q?=
+ =?utf-8?B?YkRqenlrK09VdG13bUVpYkNucWRFdWU3U3ZBR0xpVHptVVozdlVlbkkwd211?=
+ =?utf-8?B?clp3TnlsbVI2N243MThuZGQ5eEdWWlV2RXdDTzkxUEJkRXdQVXh6ekZ3b25y?=
+ =?utf-8?B?bEMwbU9zdDZ3dXpTYnhhSldkY3VKTHRzV0VTZ3k4WlNTQ0RVaUhnQzF1MzhU?=
+ =?utf-8?B?MloxYnZ6WEFBYU1MWWM4K3dTV2JjUjBzWWNQelh2UC9JQnlaYkt1OU9KMFFs?=
+ =?utf-8?B?eXNVNkVxRkRxNVZsQktXaWc1TitnNlRTU3U1MTJkdDQ4TDgvMzdmazF0VG1n?=
+ =?utf-8?B?Q3F0aGJZajNSc1N0MmJKbTRraG1BM1BiMTU3cVgzMzFXQ093SkNLaWV3YUpG?=
+ =?utf-8?B?dzE1YytDVTQ2UVRQcm1mTHh5Y0F0MFpuTFdNSHIwcnZQTTBJQkhJZ2RZWWho?=
+ =?utf-8?B?RHE3U0JsanZzbEtMb2EweUNiU1lVcFpxMEhGWXp1ajBFclBSQWZ1WHJUYWhO?=
+ =?utf-8?B?LzFQNjBkR1ZCdEh0NnFIMXIvQkpLV2Jhc0NMOUFyeFpGUTZ5YlRmSTRtUFQr?=
+ =?utf-8?B?Vko4L3lxUVhFSFFqbTZROXpQOEk0dGk1aG1CeWJpL01zbWFGelN0dVZXNjhK?=
+ =?utf-8?B?NUhpSE92b25wR0VLajZsNmZUOHZZRFVLODl0c3plc0VocEZlVFFDRUlLWmcr?=
+ =?utf-8?B?OC8yZVhmRFRVV0ZzNEsvc1R3YXVMbXhKU3drcEhEM3pURUphTVJscERtR1dL?=
+ =?utf-8?B?NkJPSkhtcEx5T25nSW9ZZEc1M1JPYXF6UmR1WDAybnkrSVhPbUVBeGtVM2tN?=
+ =?utf-8?B?WEcxMERZdDlsSzg5NWlKbElHMURyZEY2cUFDL2d6TmlWWi9yREU1eDIrSEE1?=
+ =?utf-8?B?bDJ4aTVMZDNMZC9BeHcyTXZHSldQdzlwTFk5SmVHSkpsY1VWcFN0alZxY1By?=
+ =?utf-8?B?UnVLck1qYXhrUDcycDFGcXhkL1lsaisxcGkxTWdkZmtyTkI0NndTUmdudzVw?=
+ =?utf-8?B?RVFkTXZRVXd1NVNzZ2lzc1dzTWNhQWdCbno4dmN0Q2I1TE9td0xrdHZnOTU3?=
+ =?utf-8?B?VjVTcllteURMZFF1RmhqT2tjQjFoUHZRWnZWVW5YcTQyUUJMN3B0aGliT2Jv?=
+ =?utf-8?B?VzQzQXpGZGtZT2VQUDNpWHhoOGpVT1RQRmNMaSs5TTlZMWFMUUt1Y0pwclFP?=
+ =?utf-8?B?cXlaRzVRbnJ0WHNBdnNZcmZrRVVDR2F6U3gxRlhSeE0xeFc2SFFYTmZqeFBu?=
+ =?utf-8?B?dit4SjFGWkd6MERXenFSYzBVKzlSK0ZsWVRPcFM2K2Mrcy9sRmt6Wng0R3Y4?=
+ =?utf-8?B?UEZBR3c0VEpsUnEvMkRZb3MzZEJIYVZORnZFc0cybzNFWDU4azVrQjVKdDhJ?=
+ =?utf-8?B?T3FRY1Mvcm1qQUprMHhQRThNZ3hqTmFGWGhrRmRNQllZdDZ6SHdlTmVrcVpY?=
+ =?utf-8?Q?9d23as5hACym8Dds=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef861b0a-101c-40c3-35dc-08de8a5a7bec
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8274.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 10:37:16.5735
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: opwcYXo1tMq+U+OJVFPbOhgqNjQwpMrxpY5P1zrt0HobukQAPQLw0WG3fQxyPuu7Nb8eLlqk+wGSHiKqGybsdutpzlT1JPrKCVjJrYheJJA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR03MB6052
+X-purgate-ID: tlsNG-c201ff/1774435046-2368D488-440F7024/0/0
 X-purgate-type: clean
-X-purgate-size: 4897
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719];
+X-purgate-size: 4225
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_CC(0.00)[armlinux.org.uk,linuxfoundation.org,kernel.org,nxp.com,amd.com,microsoft.com,google.com,gmx.de,linaro.org,linux.ibm.com,redhat.com,linux.alibaba.com,shazbot.org,suse.com,epam.com,vger.kernel.org,lists.linux.dev,lists.ozlabs.org,lists.xenproject.org,lists.infradead.org,gmail.com];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dakr@kernel.org,m:linux@armlinux.org.uk,m:gregkh@linuxfoundation.org,m:rafael@kernel.org,m:ioana.ciornei@nxp.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:bhelgaas@google.com,m:W_Armin@gmx.de,m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:vneethv@linux.ibm.com,m:oberpar@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:agordeev@linux.ibm.com,m:borntraeger@linux.ibm.com,m:svens@linux.ibm.com,m:freude@linux.ibm.com,m:dengler@linux.ibm.com,m:broonie@kernel.org,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:alex@shazbot.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:chleroy@kernel.org,m:linux-kernel@vger.kernel.org,m:driver-core@lists.linux.dev,m:linuxppc-dev@lists.ozlabs.org,m:linux-hyperv@vger.kernel.org,m:linux-pci@vger.kernel.org,m:platform-driver-x86@vger.kernel.org,m:lin
- ux-arm-msm@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-s390@vger.kernel.org,m:linux-spi@vger.kernel.org,m:virtualization@lists.linux.dev,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-arm-kernel@lists.infradead.org,m:hanguidong02@gmail.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_SENDER(0.00)[eperezma@redhat.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[49];
-	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:email,citrix.com:mid,sandpile.org:url];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[redhat.com:+];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[eperezma@redhat.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 8515C324825
+X-Rspamd-Queue-Id: 0B9AD3231C1
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Tue, Mar 24, 2026 at 2:00=E2=80=AFAM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> When a driver is probed through __driver_attach(), the bus' match()
-> callback is called without the device lock held, thus accessing the
-> driver_override field without a lock, which can cause a UAF.
->
-> Fix this by using the driver-core driver_override infrastructure taking
-> care of proper locking internally.
->
-> Note that calling match() from __driver_attach() without the device lock
-> held is intentional. [1]
->
-> Link: https://lore.kernel.org/driver-core/DGRGTIRHA62X.3RY09D9SOK77P@kern=
-el.org/ [1]
-> Reported-by: Gui-Dong Han <hanguidong02@gmail.com>
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D220789
-> Fixes: 539fec78edb4 ("vdpa: add driver_override support")
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
->  drivers/vdpa/vdpa.c  | 48 +++++---------------------------------------
->  include/linux/vdpa.h |  4 ----
->  2 files changed, 5 insertions(+), 47 deletions(-)
->
+On 3/24/26 11:02 PM, Andrew Cooper wrote:
+> On 24/03/2026 6:19 pm, Ross Lagerwall wrote:
+>> When using eager-fpu, a vCPU's FPU is always marked as initialized on
+>> context switch but it is possible that neither vcpu_reset_fpu() nor
+>> vcpu_setup_fpu() has been called on it.
+> 
+> How?
+> 
+> I don't think a PV vCPU can.  You cannot VCPUOP_up a vCPU for which
+> v->is_initialised is false, and setting is_initialised involves either
+> giving a good FPU, or taking the "reset" path.
+> 
+> An HVM use of VCPUOP_initialise only passes basic state, so can be used
+> to set v->is_initialised without touching the FPU state.
+> 
 
-Consolidate this logic is great, thanks!
+Yes, then a subsequent VCPUOP_up allows the VCPU to be scheduled.
+vcpu_restore_fpu_nonlazy(), called on context switch, always sets
+fpu_initialised to 1 in the eager-fpu case. I confirmed this happens
+with some debug logging during VM start:
 
-> diff --git a/drivers/vdpa/vdpa.c b/drivers/vdpa/vdpa.c
-> index 34874beb0152..caf0ee5d6856 100644
-> --- a/drivers/vdpa/vdpa.c
-> +++ b/drivers/vdpa/vdpa.c
-> @@ -67,57 +67,20 @@ static void vdpa_dev_remove(struct device *d)
->
->  static int vdpa_dev_match(struct device *dev, const struct device_driver=
- *drv)
->  {
-> -       struct vdpa_device *vdev =3D dev_to_vdpa(dev);
-> +       int ret;
->
->         /* Check override first, and if set, only use the named driver */
-> -       if (vdev->driver_override)
-> -               return strcmp(vdev->driver_override, drv->name) =3D=3D 0;
-> +       ret =3D device_match_driver_override(dev, drv);
-> +       if (ret >=3D 0)
-> +               return ret;
->
->         /* Currently devices must be supported by all vDPA bus drivers */
->         return 1;
+[  106.281001] vcpu_init_fpu vCPU 1 (fpu_initialised is 0)
+[  110.088015] vcpu_restore_fpu_nonlazy vCPU 1 (set fpu_initialised to 1)
+[  110.088155] vcpu_restore_fpu_nonlazy vCPU 1 (set fpu_initialised to 1)
+[  110.088518] vcpu_restore_fpu_nonlazy vCPU 1 (set fpu_initialised to 1)
+[  110.356216] vcpu_reset_fpu vCPU 1 (set fpu_initialised to 0)
+[  110.356236] vcpu_restore_fpu_nonlazy vCPU 1 (set fpu_initialised to 1)
+...
 
-Nit: Maybe all of this can be replaced by
-abs(device_match_driver_override(dev,drv))? Or maybe we're putting too
-much in the same line.
+> 
+>>   If that happens,
+>> arch_get_info_guest() would return a block of all 0's for the FPU
+>> context claiming it to be valid.
+>>
+>> Fix this by calling vcpu_reset_fpu() during vCPU creation.
+>>
+>> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> 
+> The phrasing is a bit awkward, and the function names don't help, but it
+> is something we're going to have to address properly when doing nested virt.
+> 
+> (A minor tangent which is relevant to where we want to end up)
+> 
+> https://sandpile.org/x86/initial.htm
+> 
+> #RESET and #INIT used to be a physical pins, but are just a message on
+> the fabric. Either way they're events which alter state in well defined
+> ways.
+> 
+>  From Xen's point of view, vcpu_create() is the only #RESET-like thing
+> we've got.  If we didn't model crash/reboot as constructing a new
+> domain, that would be the other place to use #RESET.
+> 
+> #INIT exists explicitly for HVM guests, via the APIC interface.  Xen has
+> no working model of this because HVM guests were built on PV which
+> wasn't modelled on how CPUs work.
+> 
+> v->is_initialised is a PV-ism which has infected x86 HVM and non-x86
+> architectures too.  The key thing which PV vCPUs need that doesn't work
+> like CPUs in the slightest is the chosen vCR3 (and vCR1 for PV64) need
+> to refer to a property typed L4/L3 pagetable, and PV guests can't take a
+> type ref on 0.
+> 
+> 
+> Anyway, returning from the tangent ...
+> 
+>> ---
+>> New in v2
+>>
+>>   xen/arch/x86/domain.c | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+>> index 9ba2774762cc..82da1c5d7b38 100644
+>> --- a/xen/arch/x86/domain.c
+>> +++ b/xen/arch/x86/domain.c
+>> @@ -522,6 +522,8 @@ int arch_vcpu_create(struct vcpu *v)
+>>           if ( (rc = vcpu_init_fpu(v)) != 0 )
+>>               return rc;
+>>   
+>> +        vcpu_reset_fpu(v);
+>> +
+> 
+> ... this really should be part of allocating the memory.
+> 
+> First, we should never have the backing memory in the wrong state, and
+> second, the idle vCPU doesn't take this path.  i.e. in
+> xstate_alloc_save_area().
+> 
+> Looking into this asks more questions.
+> 
+> xstate_alloc_save_area() does set some of the backing state, but misses
+> FXSAVE_FTW_RESET.  That's easy enough to fix, and turns out to address
+> my original concern.
+> 
+> vcpu_reset_fpu() sets v->fpu_initialised = false.  Doesn't this defeat
+> the point of this patch?
 
-Either way,
+No, since it means the backing memory has been properly initialised by
+the time fpu_initalised gets unilaterally set in
+vcpu_restore_fpu_nonlazy()...
 
-Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
+> 
+> Maybe it's easiest just to fix FXSAVE_FTW_RESET and then purge the
+> booleans in the way this series does.  I don't think trying to unpick
+> any other bugfixes is going to be fruitful.
+> 
 
-Thanks!
+... but yes, that does seem like the best way to fix this.
 
-
-
-
->  }
->
-> -static ssize_t driver_override_store(struct device *dev,
-> -                                    struct device_attribute *attr,
-> -                                    const char *buf, size_t count)
-> -{
-> -       struct vdpa_device *vdev =3D dev_to_vdpa(dev);
-> -       int ret;
-> -
-> -       ret =3D driver_set_override(dev, &vdev->driver_override, buf, cou=
-nt);
-> -       if (ret)
-> -               return ret;
-> -
-> -       return count;
-> -}
-> -
-> -static ssize_t driver_override_show(struct device *dev,
-> -                                   struct device_attribute *attr, char *=
-buf)
-> -{
-> -       struct vdpa_device *vdev =3D dev_to_vdpa(dev);
-> -       ssize_t len;
-> -
-> -       device_lock(dev);
-> -       len =3D sysfs_emit(buf, "%s\n", vdev->driver_override);
-> -       device_unlock(dev);
-> -
-> -       return len;
-> -}
-> -static DEVICE_ATTR_RW(driver_override);
-> -
-> -static struct attribute *vdpa_dev_attrs[] =3D {
-> -       &dev_attr_driver_override.attr,
-> -       NULL,
-> -};
-> -
-> -static const struct attribute_group vdpa_dev_group =3D {
-> -       .attrs  =3D vdpa_dev_attrs,
-> -};
-> -__ATTRIBUTE_GROUPS(vdpa_dev);
-> -
->  static const struct bus_type vdpa_bus =3D {
->         .name  =3D "vdpa",
-> -       .dev_groups =3D vdpa_dev_groups,
-> +       .driver_override =3D true,
->         .match =3D vdpa_dev_match,
->         .probe =3D vdpa_dev_probe,
->         .remove =3D vdpa_dev_remove,
-> @@ -132,7 +95,6 @@ static void vdpa_release_dev(struct device *d)
->                 ops->free(vdev);
->
->         ida_free(&vdpa_index_ida, vdev->index);
-> -       kfree(vdev->driver_override);
->         kfree(vdev);
->  }
->
-> diff --git a/include/linux/vdpa.h b/include/linux/vdpa.h
-> index 2bfe3baa63f4..782c42d25db1 100644
-> --- a/include/linux/vdpa.h
-> +++ b/include/linux/vdpa.h
-> @@ -72,9 +72,6 @@ struct vdpa_mgmt_dev;
->   * struct vdpa_device - representation of a vDPA device
->   * @dev: underlying device
->   * @vmap: the metadata passed to upper layer to be used for mapping
-> - * @driver_override: driver name to force a match; do not set directly,
-> - *                   because core frees it; use driver_set_override() to
-> - *                   set or clear it.
->   * @config: the configuration ops for this device.
->   * @map: the map ops for this device
->   * @cf_lock: Protects get and set access to configuration layout.
-> @@ -90,7 +87,6 @@ struct vdpa_mgmt_dev;
->  struct vdpa_device {
->         struct device dev;
->         union virtio_map vmap;
-> -       const char *driver_override;
->         const struct vdpa_config_ops *config;
->         const struct virtio_map_ops *map;
->         struct rw_semaphore cf_lock; /* Protects get/set config */
-> --
-> 2.53.0
->
-
+Ross
 
