@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EF/iOi0VxGmfwAQAu9opvQ
+	id WGSDOC0VxGmfwAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 18:02:37 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5636432987C
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 18:02:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1262814.1555184 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3985B32987A
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 18:02:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1262815.1555198 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5RcV-0000vs-Ar; Wed, 25 Mar 2026 17:02:15 +0000
+	id 1w5RcX-0001IW-LK; Wed, 25 Mar 2026 17:02:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1262814.1555184; Wed, 25 Mar 2026 17:02:15 +0000
+Received: by outflank-mailman (output) from mailman id 1262815.1555198; Wed, 25 Mar 2026 17:02:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5RcV-0000pw-6l; Wed, 25 Mar 2026 17:02:15 +0000
-Received: by outflank-mailman (input) for mailman id 1262814;
- Wed, 25 Mar 2026 17:02:13 +0000
+	id 1w5RcX-0001FM-IL; Wed, 25 Mar 2026 17:02:17 +0000
+Received: by outflank-mailman (input) for mailman id 1262815;
+ Wed, 25 Mar 2026 17:02:16 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper3@citrix.com>) id 1w5RcT-0000o9-Pt
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 17:02:13 +0000
+ (envelope-from <andrew.cooper3@citrix.com>) id 1w5RcW-00018Y-0M
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 17:02:16 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5RcT-00HVHT-5m
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 18:02:13 +0100
-Received: from [10.42.69.1] (helo=localhost)
+ id 1w5RcV-005jek-C5
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 18:02:15 +0100
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <andrew.cooper3@citrix.com>)
- id 69c41509-2eae-0a2a0a5409dd-0a2a4501c680-34
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 18:02:13 +0100
-Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c41509-bab6-0a2a0a5309dd-0a2a45038590-32
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 18:02:15 +0100
+Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <andrew.cooper3@citrix.com>)
- id 69c41514-6400-0a2a45010019-d155802fbd6e-3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 18:02:12 +0100
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-486ff201041so710935e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 10:02:12 -0700 (PDT)
+ id 69c41517-1947-0a2a45030019-d1558029ac02-3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 18:02:15 +0100
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-486fb439299so1020355e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 10:02:15 -0700 (PDT)
 Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
  [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-487117077cbsm138217235e9.6.2026.03.25.10.02.11
+ 5b1f17b1804b1-487117077cbsm138217235e9.6.2026.03.25.10.02.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Mar 2026 10:02:11 -0700 (PDT)
+ Wed, 25 Mar 2026 10:02:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,56 +58,56 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=citrix.com header.i="@citrix.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1774458132; x=1775062932; darn=lists.xenproject.org;
+        d=citrix.com; s=google; t=1774458134; x=1775062934; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LmcFhx4OSAl5i+MrI+E6cImUT8FkRbryJfKmykppon0=;
-        b=b99jg8PqqcZG/RfDEfgzRXhpzsYNcOZ6gblCeW1cSkAaK3Buf/+NjTybFijYABaux+
-         f04/xsDPx0hrZLSWt7aJypgLMmyg3bA25RJI6XFIi9bjM9GueLF93+X09ddWmM33YHW6
-         GK0B4UndT4exKNEehtwkL3SlRNtwWOK7RA79g=
+        bh=WaXXbZJGFw+J/a9/KjyHV/e8LqVzMv38oF803pEEldA=;
+        b=smiY0GGz4FIA/6Ohev05TBGT7cyKSsRP2rAUPDurL7VGgGUnL5+dxc3uLSmc11DpdV
+         gTK82axJaY70kXMw1Yu4bKSvuWcrW4KQPlx4ed76pw8B5OR3xdcjzPjAll0YkvJ/ntn+
+         /VAI3qlR2UF0vKH3eZPlDRQDiUmgl1XLNlhvM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774458132; x=1775062932;
+        d=1e100.net; s=20251104; t=1774458134; x=1775062934;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=LmcFhx4OSAl5i+MrI+E6cImUT8FkRbryJfKmykppon0=;
-        b=jbUDp7TfzGGcs/OWrpuzpGXiSGM2qnyqUhnSNnRv26xBAYrXS2JLJzSOqRz1UKfszn
-         5VhaW3+tA0OG/82EtMAKcFQn2kHQ2L6IJZsBYsXDmgzHlrDlimU2iUmBs7gsMKnnQFzD
-         TqGmju/4pIy0aVmUAPxNnDptvyUpFehsu+DkeqElFU8sp67jhtnWUkHMKOJbBbgBEBJ3
-         tMt36Gel815ZxN6MnjIw+kvjpk+OaqsS/+r2GDqYYB0FgZd+ngRdowo1OuOyWCqmd5Zf
-         hxjbBCP0SCsO774FKxb8Kugj3Dqgf6W21PpWJpT3xa8Y/OxDGjL69LyS7Xmf//65kQno
-         8FhA==
-X-Gm-Message-State: AOJu0YwAmKSk5NwDLGwB6Olv5lLlIZkS/3/uIC6s7Y8lMrPWAfjXie4l
-	4KB1dAAw6fo+Vb/pJJX1g89OrUXbRDTxUuJh5ciE42fSosSi5rgOLdIWU2Eh0e1/bL5DST8Rr5j
-	Kl9/W
-X-Gm-Gg: ATEYQzwpHNIKpTLSFqUV3I3xjJZ5uN/e1PgdxM1xrXSnXyCzrZiF+7vGnZcswXQXK1U
-	alWbo20q2gDzUf3KrbM9wu0xmQH8QW3LwGjgfcpmZGsNO3GFZl3/cVF5c6Pud2gNo6K+3lHR1Q+
-	rB1XP6lX76WUZkb+4wce1UVqD+4KL9iE8mQcYPiOHZ3YiOshJq1+4gSUybOhjoTEwPGlEp4xyyJ
-	Zy6dzl47t/z4zY2hgdslpSTuJXJKaPzNuGFBLYuHQxTtSyjXpr78vuVbjk5icJ2yXPj+Lfrsa3h
-	Iy6SK0bwNRhbkuUVsVmPqmzaJNlTf8gwQ/yy45QOGnId6bF41GDIZencWccgec4LEv/zmdlgFQI
-	C64yaTjE7g8SoBJHWhdb5N64A1g1fcTEP+tKpSQwANOTmF45AjdXbZzyspjoRWYkua45z0noz3Y
-	qi8RWXlYKpRCLCAiW7P+0sX5WOezB9d2SWSD9fAy8IJX5zNFK+mT8ci6nwtL4fMegOGRabWTkNg
-	b6DEyBpT+ejg8M=
-X-Received: by 2002:a05:600d:1c:b0:485:3fe6:2209 with SMTP id 5b1f17b1804b1-48715fd4de3mr53159555e9.11.1774458131958;
-        Wed, 25 Mar 2026 10:02:11 -0700 (PDT)
+        bh=WaXXbZJGFw+J/a9/KjyHV/e8LqVzMv38oF803pEEldA=;
+        b=aApead63ykhcZmI8E3DLZRpcQJg9LHI+dcGAo7maEmP9B6gptc1NNMQXxEiFv0BzNY
+         z6IeW7CJKoU1TpIj46ivYEFOsQA/s/qOqYunk5r6+QlOhwiefnTqq88svDIo//Z8jz8L
+         driVkk9YkBpbWqkrHs4uPaFEkGN2iSuUji8t4zWgcRWi2H2eI82pSXEv7keK3VXr3RSe
+         YCibvQtQBq+4M2noIb+p/6zXtmrNoqQzx33tji3Evqn+k9aSGxlse8CWQRVlZIr/3L7o
+         63yniz32saeqSGSmhv0kUtSpqRXIT4CHNRsLV+8iTf91S+lgYH/latOJybezFQXchKqP
+         UTZw==
+X-Gm-Message-State: AOJu0Yy/4SMg7DCPpc+sgvmI72JFfCEKgHv/+nxXNxofP/KQEkjZ6bFR
+	W9ZkosqPqARKMjyccMKBdFOJPk9/pa4ZIW06VfEU90ecbcfosI8SkfIFKOE4JBgukkLNL+B5VWL
+	HFZfJ
+X-Gm-Gg: ATEYQzw4DRAqaRUvU+sUklom0Dw2w0Ve3/CHLGekmsfmVwPyJ6zl2DSHrfLtl2Lz4wM
+	Z6PtKX/09URdhTzDHqWBSVHTXxj2eKNX4iymQzrJnxi3y8gCEwzEJujmiIWty3qXgSes0nP27rD
+	zGYIxNBNp9rKM1zwoFD3s6w/umUeLLfc/tmvyaqPdVcMXEGrRFtNEnsLifWnOhvum5AtIyptfm3
+	dzbFWMYtuo/2AejB6+lt1L6yNysdFMverncM247K/BY57JDcviF21geCKweUULuFSHqAB9DFmq/
+	hpI8HDaXfz+qHqTVVsaN46108oN/tSfomRo+ru9oj3hRJP5joltiu+bHTrrVUCO1/h8KcUrc6mu
+	Xm1Q0ggJ0KsMMFrnF+Zx5AK58UZZw76ZflXkQVoKCoqKZuHiDqI8dfKD22JeC9YpKk/li3RXGhC
+	OWd+jdoLV8bT97Ineu3dXRXZBwogmnyvPBThrXCPEhqg6vaKqh9wGlejDWNw4TD5QpAUynKOtLI
+	lTf3vFR3L+i0es=
+X-Received: by 2002:a05:600c:a41b:b0:486:fbe1:2499 with SMTP id 5b1f17b1804b1-48716043a6cmr38693335e9.22.1774458133043;
+        Wed, 25 Mar 2026 10:02:13 -0700 (PDT)
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jan Beulich <JBeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 1/2] x86/fred: Fix FRED name in comments
-Date: Wed, 25 Mar 2026 17:02:07 +0000
-Message-Id: <20260325170208.1115832-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/2] x86/pv: Provide better SYSCALL backwards compatibility in FRED mode
+Date: Wed, 25 Mar 2026 17:02:08 +0000
+Message-Id: <20260325170208.1115832-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260325170208.1115832-1-andrew.cooper3@citrix.com>
 References: <20260325170208.1115832-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d62444/1774458133-22AE4DF3-EF2AF4A8/0/0
+X-purgate-ID: tlsNG-33051d/1774458135-EA68172C-9DB9FEFA/0/0
 X-purgate-type: clean
-X-purgate-size: 2004
+X-purgate-size: 2865
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
@@ -140,47 +140,86 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email]
-X-Rspamd-Queue-Id: 5636432987C
+X-Rspamd-Queue-Id: 3985B32987A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The patch introducing these constants predate the feature being renamed.
+In FRED mode, the SYSCALL instruction does not modify %rcx/%r11.  Software
+using SYSCALL spills %rcx/%r11 around the invocation, which is why FRED not
+doing this goes largely unnoticed.
 
+However, consider the following migration scenario:
+
+ * VM suspends.  Hypercall, so SYSCALL, %rcx/%r11 left unmodified
+ * VM moves to a non-FRED system
+ * Xen resumes the VM with a real SYSRET instruction
+
+Instead of resuming at the instruction following the SYSCALL instruction, the
+VM is resumed at whatever dead value was in %rcx.
+
+In FRED mode, manually adjust %rcx/%r11 when SYSCALL is and SYSRET would have
+been used.
+
+Regarding the choice of instructions in eretu_exit_to_guest(), a branch would
+be a context dependent 50/50 split (i.e. increased chance of mispredict), and
+only saves one instruction.  The CMOVs read the same cacheline that ERETU is
+about to process, so are as close to free as we can reasonably get.
+
+Fixes: 76193ef47d91 ("x86/pv: System call handling in FRED mode")
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/include/asm/x86-defns.h        | 2 +-
- xen/include/public/arch-x86/cpufeatureset.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/x86-defns.h b/xen/arch/x86/include/asm/x86-defns.h
-index edeb0b4ff95a..6dae36ef8134 100644
---- a/xen/arch/x86/include/asm/x86-defns.h
-+++ b/xen/arch/x86/include/asm/x86-defns.h
-@@ -82,7 +82,7 @@
- #define X86_CR4_PKE        0x00400000 /* enable PKE */
- #define X86_CR4_CET        0x00800000 /* Control-flow Enforcement Technology */
- #define X86_CR4_PKS        0x01000000 /* Protection Key Supervisor */
--#define X86_CR4_FRED       (_AC(1, ULL) << 32) /* Fast Return and Event Delivery */
-+#define X86_CR4_FRED       (_AC(1, ULL) << 32) /* Flexible Return and Event Delivery */
+Slightly RFC.  I'm still still completing the testing for this.
+---
+ xen/arch/x86/traps.c             |  2 ++
+ xen/arch/x86/x86_64/entry-fred.S | 12 +++++++++++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index b6b119769722..0013606baa19 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -2405,6 +2405,8 @@ void asmlinkage entry_from_pv(struct cpu_user_regs *regs)
  
- #define X86_CR8_VALID_MASK 0xf
+             regs->ssx = l ? FLAT_KERNEL_SS   : FLAT_USER_SS32;
+             regs->csx = l ? FLAT_KERNEL_CS64 : FLAT_USER_CS32;
++            regs->rcx = regs->rip;
++            regs->r11 = regs->rflags;
  
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index 9cd778586f10..3bc4f5cad666 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -310,7 +310,7 @@ XEN_CPUFEATURE(ARCH_PERF_MON, 10*32+8) /*   Architectural Perfmon */
- XEN_CPUFEATURE(FZRM,         10*32+10) /*A  Fast Zero-length REP MOVSB */
- XEN_CPUFEATURE(FSRS,         10*32+11) /*A  Fast Short REP STOSB */
- XEN_CPUFEATURE(FSRCS,        10*32+12) /*A  Fast Short REP CMPSB/SCASB */
--XEN_CPUFEATURE(FRED,         10*32+17) /*   Fast Return and Event Delivery */
-+XEN_CPUFEATURE(FRED,         10*32+17) /*   Flexible Return and Event Delivery */
- XEN_CPUFEATURE(LKGS,         10*32+18) /*   Load Kernel GS instruction */
- XEN_CPUFEATURE(WRMSRNS,      10*32+19) /*S  WRMSR Non-Serialising */
- XEN_CPUFEATURE(NMI_SRC,      10*32+20) /*   NMI-Source Reporting */
+             if ( guest_kernel_mode(curr, regs) )
+                 pv_hypercall(regs);
+diff --git a/xen/arch/x86/x86_64/entry-fred.S b/xen/arch/x86/x86_64/entry-fred.S
+index 2fa57beb930c..e9c84423dacd 100644
+--- a/xen/arch/x86/x86_64/entry-fred.S
++++ b/xen/arch/x86/x86_64/entry-fred.S
+@@ -4,6 +4,7 @@
+ 
+ #include <asm/asm_defns.h>
+ #include <asm/page.h>
++#include <asm/processor.h>
+ 
+         .section .text.entry, "ax", @progbits
+ 
+@@ -26,7 +27,16 @@ FUNC(entry_FRED_R3, 4096)
+ END(entry_FRED_R3)
+ 
+ FUNC(eretu_exit_to_guest)
+-        POP_GPRS
++        /*
++         * PV guests aren't aware of FRED.  If Xen in IDT mode would have used
++         * a SYSRET instruction, preserve the legacy behaviour for %rcx/%r11
++         */
++        testb   $TRAP_syscall >> 8, UREGS_entry_vector + 1(%rsp)
++
++        POP_GPRS /* Preserves flags */
++
++        cmovnz  EFRAME_rip(%rsp), %rcx
++        cmovnz  EFRAME_eflags(%rsp), %r11
+ 
+         /*
+          * Exceptions here are handled by redirecting either to
 -- 
 2.39.5
 
