@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cPaJHvbJw2lKuAQAu9opvQ
+	id 0OVzOi3Mw2lKuAQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 12:41:42 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 12:51:09 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5C1632410B
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 12:41:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1262090.1554757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4705B3243B7
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 12:51:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1262103.1554765 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5Mc8-0004aj-Rb; Wed, 25 Mar 2026 11:41:32 +0000
+	id 1w5Ml4-0006ba-LA; Wed, 25 Mar 2026 11:50:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1262090.1554757; Wed, 25 Mar 2026 11:41:32 +0000
+Received: by outflank-mailman (output) from mailman id 1262103.1554765; Wed, 25 Mar 2026 11:50:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5Mc8-0004Yl-Of; Wed, 25 Mar 2026 11:41:32 +0000
-Received: by outflank-mailman (input) for mailman id 1262090;
- Wed, 25 Mar 2026 11:41:31 +0000
+	id 1w5Ml4-0006Yz-I4; Wed, 25 Mar 2026 11:50:46 +0000
+Received: by outflank-mailman (input) for mailman id 1262103;
+ Wed, 25 Mar 2026 11:50:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w5Mc7-0004Yf-Cl
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 11:41:31 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w5Ml3-0006Yt-2x
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 11:50:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5Mc6-00GRvB-Oz
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 12:41:30 +0100
-Received: from [10.42.69.12] (helo=localhost)
+ id 1w5Ml2-00E3je-E8
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 12:50:44 +0100
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69c3c9d9-2eae-0a2a0a5409dd-0a2a450c8356-32
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 12:41:30 +0100
-Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c3cc12-2eae-0a2a0a5409dd-0a2a45038522-4
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 12:50:44 +0100
+Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69c3c9ea-f93d-0a2a450c0019-d155802abd67-3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 12:41:30 +0100
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-486ff201041so44204965e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 04:41:30 -0700 (PDT)
+ id 69c3cc14-1947-0a2a45030019-d155802eec8d-3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 12:50:44 +0100
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-486507134e4so28693315e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 04:50:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-487116f17f3sm118826675e9.1.2026.03.25.04.41.29
+ 5b1f17b1804b1-48717341e29sm18769975e9.15.2026.03.25.04.50.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2026 04:41:29 -0700 (PDT)
+ Wed, 25 Mar 2026 04:50:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,57 +58,53 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774438890; x=1775043690; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774439444; x=1775044244; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vrnG1blid79MHtdcU5CENzTWQvRfwshseOaU/wz0hKA=;
-        b=Rw+gLcS1cB2MAuf3SZyxoOMm+VvjDzUxQtftqhZJUFqEBqM5+ZoCO3V5+9sx+ktN+A
-         bx/H8bo7Na4z/bn+Kl5JhFxspcGd6WC1dwxDRRRG0tfbH/NSIf8tO8WnRlGbXKxujFWy
-         8btF0v4DavnS9105dNFXEb9qP2+7gyCyi7gf8mRuSaNfRCSqp7b725sd0pJJkIuwyDJ9
-         jXY5HRrv2OUoJIJ94QqfJbA3jb7afzoVRIlXIBi7T0Q9dwEge8Y6Lh3eTOxt5ulSt8e1
-         fP1loh5kbh3+73R9pjOXWJXmfYY8UG2/xVP4R4vLz7mhL8Ft08PBc+ynwhJb94woeGpg
-         I6mw==
+        bh=tn9KdA6knE2yrL+FHC4SIwpDMGXgGXscbEGwvd31e9Q=;
+        b=JZygfRB+nvZ8FzWzAexXEHLqhzspM1AOzyJTcZ1szZAyTSZy9fz75+ikyHPj6Hzziv
+         QTDRT9vFKZv0lsYrUpaMtNiMx1UXqPciikXCPiSeeSkpIUcr/TuDhjJsS1diGT25BcyR
+         aJuntGwArDqpylbqCmu2dMSsxAwntUVFL3ye9Zn9wWflesEoG8+rRoXUykFYFOS6nV7t
+         yfud3rVOKP/UPJrgONrMYXLqotBWkMdVWSkVdfp6rvgCsWmF6B92hjGNtlnVcYP1P+jU
+         aw4fh26oruavqf1f7Dj+GPzhKAu5X0W0rQISwqZcHf1z64V6nWi5tGRQHs5CPhJz0xf9
+         F9xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774438890; x=1775043690;
+        d=1e100.net; s=20251104; t=1774439444; x=1775044244;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vrnG1blid79MHtdcU5CENzTWQvRfwshseOaU/wz0hKA=;
-        b=ht2TvUEdKF4ra0syqzrnSZ50cA33qYJYUmaNwsqLzEr4O+hzimFwc8QiOvwfKXwZ3X
-         1s+IFUpryAgRlPoBNxJtw9P3fK7tTK+OLHnF+Yxu7WYnLVctyVd9MR/pugKRes4M9yue
-         qp0lOdEvlgjExWjBHdr2J2UvXBuWlEMhsAZp47MYCGWxBi+d9qaq8XbF52vuPi0KfSrd
-         UolbXvX/Hk14Gwt/73RCSWU/MF/iC0kL6QyCqUTOTxWGSw/qdrVblQfL/SPA2kcghqmI
-         yo29IZaTPNsOBIMfIE1JgkUbJveQMVWepPx2RMLCgM/QFao9VLxu9Bzd09jPsL79muxq
-         17aQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW2uD3bi//A9p6MbTVQyJeqnq3B+O8UCZoc7l6ep8b5H6iwu6DL37OhvmNsoY96GwpkMee7Bn907SU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz+8lN9UEEuAxG6xBhEk5VcCbvpjm91jY3EYkGvOCFoYVwg744N
-	vSV++2K9p8WAi45PvEFWg9cPJaDpA3tjFU0fNMYc0wJux3tZHBcm1LYirbE8QXwyx69YJP/2YQm
-	HXMuBKg==
-X-Gm-Gg: ATEYQzzNn4tKGnhmpu7nQyicRXaSD9TumUpQTVF1nA81FeO2g00wIrKxuQa7qoJyQrE
-	bQOnxurW3nyeLOxSTUC6aDSw4Pu+6+gEq6wA3Uhg/BhDuSuNoHYPxZ0jReqCNCEV+/igQc61D1L
-	Ch7LAW/tk1lwlk/QwNyTihd2IUldMF9KxxQGWgzV2LFiXsleTHu5LgexOTEzkEF7peP1WltIMEp
-	CtXJsBmJF4oHNjleoGJtjIwRPW4bgOX1GBmQPeGh2LnrWGfPpJc9JxpvzEt0lRUFCcaRnuu+jXm
-	mzsa5Tuo8G2Fbuf0pDTgKjQl0N3Zk7PicXHk795cJ15Nyze2gAFmU8ih1r5vOpYRo2qyfLVicpy
-	6fP3uWR87HUKSnhLzFn9VFlc9GirxuFOO5YY5Pc/Mwrp1CPYHEnj1fR5ze75FkjAzwnXXCaSDsH
-	WXljwd1ux/WQ4H3kNqAjLiN/IVyQCLbKmCNux83ACnK5L9gW4WT6gimSSnd16ng4mimFOGSZQJO
-	aQ/tgk6rtb4X2w=
-X-Received: by 2002:a05:600c:1d0e:b0:485:3ec6:e634 with SMTP id 5b1f17b1804b1-48715febda2mr46101175e9.15.1774438889929;
-        Wed, 25 Mar 2026 04:41:29 -0700 (PDT)
-Message-ID: <ab2802f8-1253-4be4-a4c8-5094d7378a8f@suse.com>
-Date: Wed, 25 Mar 2026 12:41:28 +0100
+        bh=tn9KdA6knE2yrL+FHC4SIwpDMGXgGXscbEGwvd31e9Q=;
+        b=PXuIaY/HDQagJTA6wk6XHi0k/MVhipeZyAvgrbdEFoRcG9SDyAlqYoInClNYYuQq3N
+         U6HVgkDPQnfkpYn5SlcXl784YjbTqga+ze4J12EYd5zJ60NdN6j1TbpZQ3PUVXrU2+G3
+         hsAYGzXzMMDZIO0h020mbwQDMKzsDgf/IbOBlU3+bTUcEBH/RSNDJ47hyMYQHPCWKevO
+         Gp7OK647HhnPAneCTbX8S5Th4p5IrsIFdUBYjXrHZUahHRrs3uO0h9mpfIVTHIEiMw8Z
+         CqxXkcWsr62uPPDwBI5uVHLinhogfPlCYAoKIXQN9PsNkQC9yYJGQQcSBEdPyCN5muFP
+         B5BQ==
+X-Forwarded-Encrypted: i=1; AJvYcCVabhoISblOPtd4v+MCcu2fa0Bj+qzeWoCZ+ZQiIBDLiZm97n51XkDoE9I9Z0dib8Hrl2oPjsIcNO0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzSrAzFCUKrlDgYXifx2/JL1CSYfISbHGWUi2/B8/hNGN8fYlOA
+	VVOGw5IhzFhJQ3TRwF1b2IZkpTOzZxLE3u4KvRfY+bLj6Gta1UDLqWcA0z6faqyE+A==
+X-Gm-Gg: ATEYQzxIoagHxpTdB4z51mnAfrHGbTioXndTwCiAEkOO9cFzLLw2ykY9Dxx8qn7vhBa
+	c1rNz6q0WZcMjQkgR10c+u+vFb2qmM0ZTqhDMHfJXc48KoOWUfYkc0yVmbVKdJ1HofUaAtSOT6z
+	UAIjGIk31jH8g3I8D+duBaOMepKJ8Bg10mrJ2MM28TJ3rGVhXFtXjGcDFBdNX0gZ7I3HXtOIOAw
+	C/Pq4jnfOlpK9WqOMytzokYh+Y1tIQ4kUFgrdm7/p9cTYIhCKeh3EbkF47U73sh2+QItWC+6Xqb
+	DjP01akz8+tYoOMrMSmxN0IE+crCVZZ/8iedJFeDXEc5Q98qNhXWIBK2jTW5IgfEeOAhLfTtDWB
+	1+P4yKh8Zn/j0ZCdqfp1NHZg1LB/E6XGLXJWn/x+G1IuWh8GaBR2WxXb6e4XW45gNKYHg4t9W6x
+	XCQEDVkTyxNr7snNYf8quKL0AHvt50qelJ1D3a0Et09Pj6TLf4Z68R6EvTvaHFIh0ukfji1yAMr
+	emSrZ9EnCTC+6LB95E1lTULIw==
+X-Received: by 2002:a05:600c:3b12:b0:485:363b:fafe with SMTP id 5b1f17b1804b1-48715fc37f7mr51466725e9.1.1774439443108;
+        Wed, 25 Mar 2026 04:50:43 -0700 (PDT)
+Message-ID: <f49dcd5e-d905-4f43-8143-afd7209a1300@suse.com>
+Date: Wed, 25 Mar 2026 12:50:41 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/6] x86: Define some Intel vPMU leafs
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <cover.1773160025.git.teddy.astie@vates.tech>
- <83a573dcb365761c0f089325365090b6f963fb03.1773160025.git.teddy.astie@vates.tech>
- <d7438af9-1aad-446b-bd80-7d9e8f955cdc@suse.com>
- <690ad4c0-d9b1-45ec-8634-f8c002c0282a@vates.tech>
+Subject: Re: [PATCH] xen/sched: validate RTDS putinfo period and budget
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Cc: Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>,
+ Juergen Gross <jgross@suse.com>, Meng Xu <mengxu@cis.upenn.edu>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <1a235cca6f37ee3d3f03132675247edfc19953cd.1774431761.git.oleksii_moisieiev@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,108 +130,87 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <690ad4c0-d9b1-45ec-8634-f8c002c0282a@vates.tech>
+In-Reply-To: <1a235cca6f37ee3d3f03132675247edfc19953cd.1774431761.git.oleksii_moisieiev@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d25034/1774438890-F6AAD734-6A79268A/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-33051d/1774439444-E909672C-C690DEC2/0/0
 X-purgate-type: clean
-X-purgate-size: 2514
+X-purgate-size: 1767
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Oleksii_Moisieiev@epam.com,m:dfaggioli@suse.com,m:gwd@xenproject.org,m:jgross@suse.com,m:mengxu@cis.upenn.edu,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
 	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: E5C1632410B
+X-Rspamd-Queue-Id: 4705B3243B7
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 25.03.2026 10:48, Teddy Astie wrote:
-> Le 24/03/2026 à 10:25, Jan Beulich a écrit :
->> On 10.03.2026 17:44, Teddy Astie wrote:
->>> --- a/xen/include/xen/lib/x86/cpu-policy.h
->>> +++ b/xen/include/xen/lib/x86/cpu-policy.h
->>> @@ -162,7 +162,15 @@ struct cpu_policy
->>>               uint64_t :64, :64; /* Leaf 0x9 - DCA */
->>>   
->>>               /* Leaf 0xa - Intel PMU. */
->>> -            uint8_t pmu_version, _pmu[15];
->>> +            struct {
->>> +                uint8_t /* a */ version, num_gp_ctrs, gp_ctr_width,
->>> +                                event_enum_length;
->>> +                uint32_t /* b */:32;
->>> +                uint32_t /* c */ fixed_ctr_mask;
->>> +                uint32_t /* d */ num_fixed_ctr:5, fixed_ctr_width:8, :1,
->>> +                                 anythread_depreciation:1, slots_per_cyc:4,
->>> +                                 :13;
->>> +            } pmu;
->>
->> Style-wise this looks to follow e.g. the cache leaf, so perhaps okay, even
->> if I would have preferred you to follow what we did for leaf 6. 
+On 25.03.2026 10:43, Oleksii Moisieiev wrote:
+> The RTDS domain-wide XEN_DOMCTL_SCHEDOP_putinfo path only checks for
+> zero values before applying period and budget to all vCPUs in the
+> domain.
 > 
-> My idea was to put all that as .pmu.*, so I wouldn't need to prefix 
-> everything with "pmu_". I'm not sure if you're talking about a different 
-> approach.
-
-The "pmu" is fine. I'm talking of what's inside the struct {}.
-
->  > The named> boolean field, however, wants to be of type bool.
+> This is weaker than the per-vCPU XEN_DOMCTL_SCHEDOP_putvcpuinfo path,
+> which already rejects values below the minimum, above the maximum, and
+> cases where budget exceeds period.
 > 
-> Which fields ?
-
-There's only one named 1-bit field: anythread_depreciation.
-
->  > And then the unnamed 1-bit> field really wants to be 2 bits, for 
-> anythread_depreciation to be bit 15
->> (etc).
->>
+> Use the same validation rules for putinfo as for putvcpuinfo, so
+> invalid domain-wide updates are rejected with -EINVAL instead of being
+> applied inconsistently.
 > 
-> Ah yes thanks, I got confused with the fields size for a second.
-> I also found that slots_per_cyc is 3 bits instead of 4.
-
-Not as far as I can see.
-
-> I think this diff fixes it overall.
+> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> ---
 > 
-> --- a/xen/include/xen/lib/x86/cpu-policy.h
-> +++ b/xen/include/xen/lib/x86/cpu-policy.h
-> @@ -167,9 +167,9 @@ struct cpu_policy
->                                   event_enum_length;
->                   uint32_t /* b */:32;
->                   uint32_t /* c */ fixed_ctr_mask;
-> -                uint32_t /* d */ num_fixed_ctr:5, fixed_ctr_width:8, :1,
-> -                                 anythread_depreciation:1, slots_per_cyc:4,
-> -                                 :13;
-> +                uint32_t /* d */ num_fixed_ctr:5, fixed_ctr_width:8, :2,
-> +                                 anythread_depreciation:1, slots_per_cyc:3,
-> +                                 :11;
+>  xen/common/sched/rt.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/common/sched/rt.c b/xen/common/sched/rt.c
+> index 7b1f64a779..62188f37c6 100644
+> --- a/xen/common/sched/rt.c
+> +++ b/xen/common/sched/rt.c
+> @@ -1388,7 +1388,10 @@ rt_dom_cntl(
+>          op->u.rtds.budget = RTDS_DEFAULT_BUDGET / MICROSECS(1);
+>          break;
+>      case XEN_DOMCTL_SCHEDOP_putinfo:
+> -        if ( op->u.rtds.period == 0 || op->u.rtds.budget == 0 )
+> +        if ( op->u.rtds.period > RTDS_MAX_PERIOD ||
+> +            op->u.rtds.budget < RTDS_MIN_BUDGET ||
+> +            op->u.rtds.budget > op->u.rtds.period ||
+> +            op->u.rtds.period < RTDS_MIN_PERIOD )
 
-Why 11 all of the sudden?
+Besides there being an indentation issue here, are the inputs of putinfo
+really in different units than those of putvcpuinfo? The latter first
+applies MICROSECS() before comparing against bounds. Assuming they are
+using identical units (actually, they do, as putinfo uses MICROSECS()
+when storing the values into the internal structure), I guess you'd best
+make a small helper function used by both.
 
 Jan
 
