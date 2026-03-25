@@ -2,51 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YAdFIS4ixGmZwgQAu9opvQ
+	id IPKtK0UvxGkAxQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 18:58:06 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 19:53:57 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9A9C32A2F9
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 18:58:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1262908.1555216 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16AE432AD2F
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 19:53:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1262950.1555224 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5SU1-0002M0-OM; Wed, 25 Mar 2026 17:57:33 +0000
+	id 1w5TLc-00022u-No; Wed, 25 Mar 2026 18:52:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1262908.1555216; Wed, 25 Mar 2026 17:57:33 +0000
+Received: by outflank-mailman (output) from mailman id 1262950.1555224; Wed, 25 Mar 2026 18:52:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5SU1-0002Iv-KF; Wed, 25 Mar 2026 17:57:33 +0000
-Received: by outflank-mailman (input) for mailman id 1262908;
- Wed, 25 Mar 2026 17:57:32 +0000
+	id 1w5TLc-00021O-L9; Wed, 25 Mar 2026 18:52:56 +0000
+Received: by outflank-mailman (input) for mailman id 1262950;
+ Wed, 25 Mar 2026 18:52:54 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1w5SU0-0002Ip-40
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 17:57:32 +0000
+ (envelope-from <SRS0=b6f6=B2=ubuntu.com=enr0n@fe-bounces.ubuntu.com>)
+ id 1w5TLa-00021I-0I
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 18:52:54 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5STz-00Djdd-GA
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 18:57:31 +0100
-Received: from [10.42.69.8] (helo=localhost)
+ id 1w5TLX-00Dk8Z-MX
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 19:52:53 +0100
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69c421f6-5cb7-0a2a0a5109dd-0a2a450895de-16
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 18:57:31 +0100
-Received: from [52.101.62.3]
- (helo=DM5PR21CU001.outbound.protection.outlook.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <roger.pau@citrix.com>)
- id 69c4220a-1950-0a2a45080019-34653e0333f2-3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 18:57:31 +0100
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by CH7PR03MB7834.namprd03.prod.outlook.com (2603:10b6:610:250::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 17:57:22 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 17:57:22 +0000
+ (envelope-from <SRS0=b6f6=B2=ubuntu.com=enr0n@fe-bounces.ubuntu.com>)
+ id 69c42eed-bab6-0a2a0a5309dd-0a2a4501e2ee-26
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 19:52:53 +0100
+Received: from [149.28.215.223] (helo=smtp.forwardemail.net)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <SRS0=b6f6=B2=ubuntu.com=enr0n@fe-bounces.ubuntu.com>)
+ id 69c42f03-6400-0a2a45010019-951cd7df6139-3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 19:52:52 +0100
+Received: by mail-ua1-f69.google.com with SMTP id
+ a1e0cc1a2514c-94de7380eeeso289315241.2
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 11:52:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,196 +52,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FpA0x0MiyKe+UFkaZE24Px6Y705K0b0BBqnGYrlctsJ7LwcWBXLMTMOa1Wa2g5b+/Gi2ivIfLynBRtTkp1rZHv+8W/SY8ZB9aMgJE3uFIP2ZyJc4YYaluHhNjljX7R0C3nQ0Ks7Kq/JezpEfrIwMWmKIDI2G2IAbwpK/9+rlayVpwgJXAsyi/Mq9vP4E2EDxX7/k/WE9LBUb2PiJgPMy8pWF1bzQfzDlvR2Lf4gWub5zczXUVryYuxzgRz4/qLIZV/tB26Exvr8It4Z/YmB30ZTfXX8NB5RjfO638vLac5cJj1bgm98zF72YS88fakctQLPmTyTxfHJbfvwHCC71sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vDI5HUHEtewLgS8n/ZdbVrbOmqMLBLVgjnZksf+/KaM=;
- b=DxN/Vd3DYW3WW3sj1riV28FzA+WkBMA7U0neD7+cz9TtA0g/ZlREmTdV3XDOtqDORysPtrx0xnwRWtjHNCAocpbm0aNCx5+2Q9dyKf76TFbNAEnlO9K79ltOL6ac7ECRVTa8qnkGF/syzGJLopDBsaV4DlFrL1KI7MXXsZU08BiGqllFWyRnqjmFiX764bGb/3km5wcj/2+LsMPJmg5fiAgl2jSa0IJPl9QZ75fVtMbpko4RZBlUd4XUmqlpsBKz8881cvKZIGrvrpAJ8SAdM9rgEWAovHEKwkAdoTRbm/e7A/D7s9z6PjHPgJ4Ywxapk3JktdrEnmoRh3WkvAssqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vDI5HUHEtewLgS8n/ZdbVrbOmqMLBLVgjnZksf+/KaM=;
- b=JmOzmlclb31sFMcUwaD0QSiXmclP9rXQtodkFOiexnhi4+8AcbwuIA0Opr8qHpIf5J02i1IYfmAfWhXXRTPY1x1U5XTtmxLHrW+THbFtB4/6dBuNoK+zplE/GJq1mt4jTIU5dWROnp4Yey3XUlluq7KakX111brdPl8Vf8fzU94=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 25 Mar 2026 18:57:19 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] x86/time: adjust handling of negative delta in
- stime2tsc()
-Message-ID: <acQh__WRAoav6IHN@macbook.local>
-References: <f97bbfb5-389c-4845-84fb-e6f07ba0ade8@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f97bbfb5-389c-4845-84fb-e6f07ba0ade8@suse.com>
-X-ClientProxiedBy: BL1P221CA0003.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:2c5::9) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fe-953a8a3ca9 header.d=ubuntu.com header.i="@ubuntu.com" header.h="Content-Transfer-Encoding:Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=Content-Transfer-Encoding: Content-Type: Cc: To: Subject: Message-ID:
+ Date: From: In-Reply-To: References: MIME-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1774464770;
+ bh=nBHC2L9kQozGOnVl8ryO7ws91nevlMJi3dCrj7mCwow=;
+ b=aLPiAkEpJ81IOmgWxi42I/wnYNs6mZR9Gsuy42pNwFq/PScc2S/2kNYAiFkV6t940iTT6IvIg
+ Cw/zHzk6Eoz7+FCDHhVxcXUTaNe0q/uEin4KzEvgr78pmixEtia1j+FElCD6qnzNzHIVKN7Y/Q7
+ W62HxzIpo/5XbTn211TjqAMfOT60qW4SQKvV7TLjpAFHQm6BNaTCayh8Wqc28iK98VlBFgcVPNN
+ 9eXRMFn8Ue9uL1RQ4F5XmUvL3dFL6Sy2xKETK3Dgyy6uph6AxKA2W59TQNxTRYzMAEOa1/aAbQD
+ Z0fzs6gdpENHNd4wzbFKkibJ6FKOpCIb0CxHOUtdmp3g==
+X-Forward-Email-ID: 69c42efe07e0c3ba78d7a45e
+X-Forward-Email-Sender: rfc822; enr0n@ubuntu.com, smtp.forwardemail.net,
+ 149.28.215.223
+X-Forward-Email-Version: 2.6.55
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+X-Gm-Message-State: AOJu0Ywk8+BECjM9sgNfOf2Bymj/yK2+5sKZGW7zQMxO01nJ3Ecfyhkx
+	ptAv97GiCVDfxUYhYYWVCMofthMei0eT5cmWO5qyO5DheJhi//ovOZl7pTOrWaG4f0fN+a1E69V
+	5qX5bSUO5lFhd0YvgaRgli1j7L/x1zqUq7DU3QvKHY9LxI9sOgkZHCl99BLf+1WxVUVPepwxfAE
+	rlXq2vhBAbiQFZFJp2AUQpkGuV49hvW/6Fx0VHTCHZeHvhDQRrWQOXdjzp3ro=
+X-Gm-Gg: ATEYQzw9KEc5LrWMQOnoVGimF9zSC+hWM6P1V2MMQHa6gwNUL3EEV6QoH++5JFjyj5r
+	zeg8URK69FyLOXkXiFL0lF/JibE62A6DkidU5DXX8XZUyskj2p1FS3uICRvGMcc3bjrpj2s1iPN
+	vM5S6LRhQ/1O3RuoN7gLpsymxyjnaC+GunBAgLuVtx6bapdgyship4jNUjNdhq9IftatTRJsQmE
+	GWP
+X-Received: by 2002:a05:6102:6c4:b0:5ff:ed38:1889 with SMTP id ada2fe7eead31-60386ebc6c1mr2610995137.10.1774464764823;
+        Wed, 25 Mar 2026 11:52:44 -0700 (PDT)
+X-Received: by 2002:a05:6102:6c4:b0:5ff:ed38:1889 with SMTP id
+ ada2fe7eead31-60386ebc6c1mr2610987137.10.1774464764544; Wed, 25 Mar 2026
+ 11:52:44 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CH7PR03MB7834:EE_
-X-MS-Office365-Filtering-Correlation-Id: f70f2c08-f8ed-4ae4-8d98-08de8a97f6f6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	8+32wdfH9gjXnreTrIHfsPJ7X1ZquyS8arM/TfzP6Bpb16JH3lmHrqvuyKJCQEwsTFL1JMXaEQvhvmHFJ/QSj816GU5a9G+n2zISVgZieliKbKxTspqsRibUGXXuUt9vE9dSGpb+0FVxcFMOKkFnMahpWe056F8u03ArQfMUC+wFgs3H+Y4kPP/BXF8OWsXMTGU5OsBF25pc708rGgbjnCSFmcKcmVjzFLvU3abgqoSVRLzsQyOW0I4TkIeJG6dB5MN/bVOOMi8T0w3czqKv6r/xQ7w3PS/LJgz2yijBLhCRhi+RYf5qE5McQmI4gc+SdniSlUKvwFnjkGpxFZVN37R+8UtEfgNoogt7bkHYSI90FRMuPmHIcyp0aCKlvjDDrfICp5s/RW0Ubxo2P0B8M0Wq5sHjtOA02BMKLr56FqxSoRYjKejfqYjlrv31CKShNbIGVte7ESLjJtJ5aVKrvs2lcvEyP5wKf8t61J9rUYH8pfJvK+JFt12MVZosZ8LFrREFqhSNm63n72wkprNGPgfrJLnNHvwQj/8jyUUCO00IGVPwbfMb+rrTXP4LAzNfJuWJult8OmLaMsqCkNGqvHIbH3AGuWWpLw812UACVz5WjHiy9kMt/uV3DEyuUnCb65iQdtl+JX5dzVDvT0FOvsFakF1AwfBpcSkob9NgznxeHPjsv5pL6wN1BGt3mW3msOI66Q10/SuzZBAg/JDqFN5CwiKAaQdAMeJix80t2Mw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b2xsMitNVDBwcmdEQTJBS25Ec2ZORDdrSEoxejZhREdmbE13S1Q2bFB6RXR0?=
- =?utf-8?B?MU9XZUJMbW5nU3lpdytjVFNTa0QwUUFVOStrUDV2SGs4UFJTaks3d0s0d09o?=
- =?utf-8?B?akNDNDd0TXBFeVB3RGVvSTc1SGRPNXRCSVVoeUMybWFEcFBVbEJua3QvYmdO?=
- =?utf-8?B?L2lQditzL0YwbktBSWlvQlk3bHdQUTFHaWRXUGxwekN4b1RTR0N2Nzd2SWRn?=
- =?utf-8?B?c0FEMXdWZnBGa0twWG1tV0haK0tkZHM0ZlFsaWVhV3pWWDlLT0VOeld6SGZo?=
- =?utf-8?B?VkJqZ1dyUVROY2FwcG5ZY0lFZmdiVDJyZ2c1OWFyd3lqQmlCblpSYkpPZ21Y?=
- =?utf-8?B?Q1IzTzdDOXRHNTRJc2w3bnpmSmhWZVQ2cTZHZzU4eWVZYmxrVDlreGlpdEMx?=
- =?utf-8?B?ais4Q3p6L0FuOXp2dElyVVU3Ny9iWGJlQlFaYzhDK2diN1JibVpYY3BMZ0U2?=
- =?utf-8?B?ZFpQSTNaWnpFZnpmU1dSYmVja2NtdStEVENTQlU3VkZzeEtFb0VmbThYNUc0?=
- =?utf-8?B?NXovOWI0Zk4ybk8vSi9OZWJubCtHanhNa1NJN0pQak82L21lTjhlSnRDdTFh?=
- =?utf-8?B?SnBMc1hLRzBDalNqNDk2RzJ2K0M1dEQyT09SQ2hwSVR2SFpMRlY4QmtXMHZN?=
- =?utf-8?B?ZTBvc3lBQ1BveXAwWHZGcWNnYWV1S256R3RFOVJpRW1FNDVHT1FLTmZpajJt?=
- =?utf-8?B?UEZpOXdTb2RlQlFtNmNORWZ4bmQwQWxQQWxucXdXYStTNWRrd0Nid212dWhV?=
- =?utf-8?B?dnJsTUpVYlFzcGhZcmdwUnZJY1ovYmsxbUtydlpZaStTdEFlUE5Ba3lwbGtI?=
- =?utf-8?B?K0t4Ri9tQXFFcGxndFM1K3liQVV1MWZsZmh6V05jN0dkRDV2Z3FERWpwWjY2?=
- =?utf-8?B?aDVYRmpjRkh4VE5ZamZ3dFNuVDZBQWwyM3ZpRi9kK3ZmZ095L1c2REp1TzFz?=
- =?utf-8?B?NHVycE1BUzBncTZ3dFVJU3M2VGZnRjQ5dGFsaXhWcld4enJBblBXNzBzY1hY?=
- =?utf-8?B?by83QktvazZHeHZQTlVzcmJxNXFaWjVDcWRGaTdscG5zQWE3L0JTaXhwRTZG?=
- =?utf-8?B?ZFNYdFRxRS9sMm9vcGR0ZS9lOVFXUFgrTUVOT2VQeDNHa0kzdUZ6d1VCMXEx?=
- =?utf-8?B?UzBGSktnRjR0V1RGMmwyNE8zR1ptZDlQSG5RN2pZZHBYU0Q3MVR1MDBsOEl3?=
- =?utf-8?B?bWd3OWNLK0lwV0ZXN3ltb0dwMnhoR29UOG9RSkZDR1lkalRROXd2M1grakxY?=
- =?utf-8?B?MGFYRjVSRkRWcjRsdVpVT1d6N0d1VnRaVjlOa3dxTExJZWpCRkhESGl4TFgv?=
- =?utf-8?B?NTdVRzROdE5zeGhOUWEydjR6Y0gwWWFpdmV4cDBrV3liZzZ1dlFDMEtpVkM0?=
- =?utf-8?B?T1NodUZLRW5hcGRKK0pQd2ZaM1Byb1dMUGdVWU83dzNjZmhKL2g2WlhLRkx2?=
- =?utf-8?B?VXJyTmJ6ZjI2bFlkV0o0NjY2ak1jTXpYbk1WTTUrcDBrVmVpR0dUWVV3VnRs?=
- =?utf-8?B?VzdkQzdUaUVhNzFzU21FVThBTFNhazM0TDJjb2pRcU8yY3ErMFdWdE82Rlhl?=
- =?utf-8?B?VHlMeUZwQlEyTXp1WXFQcVJ5QzhOdTg0eXo1Sm93aTRqUllUNGdpT1EyMHhT?=
- =?utf-8?B?QytmQktjSnpXYXZDRkhtbEVreFZtMUpCeE9jVGU4TVUxb2xqT3RteFFXaWw1?=
- =?utf-8?B?aWR0YjYxUlpoMVBLTGJ0VFM0VDkybmxvZzhNd0x2emdNVlBwZlExMllUbkcv?=
- =?utf-8?B?VTRDZFhaZTBIOW1CV3BaOEhJVjRvODVCUko0Y1RqRHBnZjFMczZza2hOQmRW?=
- =?utf-8?B?bjNjTTBGa1FVVk9aQVlUN2NPTWdpM0FhRGRuZEFma052TTlab2dqdzhjcFRw?=
- =?utf-8?B?bHZwbEdzNGs4OERpV3RyQm1nbzJIY2drWUhhcVRrOHlySnVkMjFQLzFnRjFH?=
- =?utf-8?B?c3kvMFJLRlBhVlplK25VaW14a3JuVTdCazMyVlhYN21HV1BKanFBby9McjB5?=
- =?utf-8?B?S2swME50VFRhUlFna2tWQkRYRDBJM3djTmIxU3pySllidDhwVFNnMHpYUGQ1?=
- =?utf-8?B?WXpFTGdJWHJDZ3U0eVppbk1XU3lZQ3pieGxZTWVIcTdoU3VVK25GZ3EyTWtv?=
- =?utf-8?B?VzRRYXpYOEc3T1hoRlVPRDNHM3lGQXU1aWNyM0txMllNcGM4NVNBSy9VcWFm?=
- =?utf-8?B?bndRMFJleGlCalJQVmlTcHZGeHFlWVcyYkJsNTFkdXZqT01KRU5RdEl2VkZD?=
- =?utf-8?B?bmFaQ3g1K1dkU05adHFnNzA0TVdFSmdhaTh1WjJ4QmxNbEwxcVU2a0tvamVC?=
- =?utf-8?B?eVZxeS90VFl2eTdONDJRb1hKN2xIOFVSSVU5bFV1V2tYWEZjRG50UT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f70f2c08-f8ed-4ae4-8d98-08de8a97f6f6
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 17:57:22.3643
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pzOnyha8qGftnbFOPngNj9TRK2oP0M+1TAsnqofBoSQu46PsyEs+eCMJuPYG3ILaftNL2zfteqjLby0LcIcqwQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH7PR03MB7834
-X-purgate-ID: tlsNG-c1860d/1774461451-F141E726-8D8BFFA3/0/0
+References: <cover.1774305918.git.milan_djokic@epam.com> <f04d9186eb3b83a4f5fb27db412bf10fb6fb092c.1774305918.git.milan_djokic@epam.com>
+In-Reply-To: <f04d9186eb3b83a4f5fb27db412bf10fb6fb092c.1774305918.git.milan_djokic@epam.com>
+From: Nick Rosbrook <enr0n@ubuntu.com>
+Date: Wed, 25 Mar 2026 14:52:33 -0400
+X-Gmail-Original-Message-ID: <CAEN5XSFA4AdFKXGiyYW58=Ltm+uVRrsSxGrNCC3T8UdHtivcnA@mail.gmail.com>
+X-Gm-Features: AQROBzBNzU0BIDGovNQeyVE3tkTBqY0sSAyphFru-oY3R4n_dgn-5eJ_tDiKJzI
+Message-ID: <CAEN5XSFA4AdFKXGiyYW58=Ltm+uVRrsSxGrNCC3T8UdHtivcnA@mail.gmail.com>
+Subject: Re: [PATCH v2 06/23] xen/domctl: Add XEN_DOMCTL_CONFIG_VIOMMU_* and
+ viommu config param
+To: Milan Djokic <milan_djokic@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Rahul Singh <rahul.singh@arm.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, George Dunlap <gwd@xenproject.org>, 
+	Juergen Gross <jgross@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-d62444/1774464772-228E5DF3-8681F2F4/0/0
 X-purgate-type: clean
-X-purgate-size: 2097
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-purgate-size: 6485
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[ubuntu.com,none];
+	R_DKIM_ALLOW(-0.20)[ubuntu.com:s=fe-953a8a3ca9];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[enr0n@ubuntu.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:milan_djokic@epam.com,m:xen-devel@lists.xenproject.org,m:rahul.singh@arm.com,m:anthony.perard@vates.tech,m:gwd@xenproject.org,m:jgross@suse.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,macbook.local:mid];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[enr0n@ubuntu.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	DKIM_TRACE(0.00)[ubuntu.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: E9A9C32A2F9
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 16AE432AD2F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Tue, Feb 10, 2026 at 11:04:59AM +0100, Jan Beulich wrote:
-> When we cap negative values to 0 (see code comment as to why), going
-> through scale_delta() is pointless - it'll return 0 anyway. Therefore make
-> the call conditional (and then also the one to scale_reciprocal()), adding
-> a comment as to why there is this capping.
-> 
-> Modernize types used while there, and switch to usiong initializers for
-> the local variables.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Mon, Mar 23, 2026 at 6:51=E2=80=AFPM Milan Djokic <milan_djokic@epam.com=
+> wrote:
+>
+> From: Rahul Singh <rahul.singh@arm.com>
+>
+> Add new viommu_type field and field values XEN_DOMCTL_CONFIG_VIOMMU_NONE
+> XEN_DOMCTL_CONFIG_VIOMMU_SMMUV3 in xen_arch_domainconfig to
+> enable/disable vIOMMU support for domains.
+>
+> Also add viommu=3D"N" parameter to xl domain configuration to enable the
+> vIOMMU for the domains. Currently, only the "smmuv3" type is supported
+> for ARM.
+>
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> Signed-off-by: Milan Djokic <milan_djokic@epam.com>
 > ---
-> Adding likely() to the conditional here does make a difference. Question
-> is whether to do so, seeing that there looks to be a possibility (of
-> unknown frequency) for the delta to be non-positive.
-
-Hm, what I've done lately with {un}likely() is not attempting to
-optimize for the most taken path, but rather use it to force the
-compiler to optimize the fast path, if the function has one.  The slow
-path will be slow anyway, and hence any compiler optimization should
-be towards making the fast path possibly faster IMO.
-
-This function doesn't seem to have any fast (or slow) paths, so I
-would leave it as-is.
-
-> 
-> --- a/xen/arch/x86/time.c
-> +++ b/xen/arch/x86/time.c
-> @@ -1176,20 +1176,26 @@ uint64_t __init calibrate_apic_timer(voi
->      return elapsed * CALIBRATE_FRAC;
+>  docs/man/xl.cfg.5.pod.in             | 13 +++++++++++++
+>  tools/golang/xenlight/helpers.gen.go |  2 ++
+>  tools/golang/xenlight/types.gen.go   |  1 +
+>  tools/include/libxl.h                |  5 +++++
+>  tools/libs/light/libxl_arm.c         | 13 +++++++++++++
+>  tools/libs/light/libxl_types.idl     |  6 ++++++
+>  tools/xl/xl_parse.c                  |  9 +++++++++
+>  7 files changed, 49 insertions(+)
+>
+> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> index 27c455210b..f69cdee55c 100644
+> --- a/docs/man/xl.cfg.5.pod.in
+> +++ b/docs/man/xl.cfg.5.pod.in
+> @@ -3162,6 +3162,19 @@ option.
+>
+>  =3Dback
+>
+> +=3Dover 4
+> +
+> +=3Ditem B<viommu=3D"N">
+> +
+> +To enable viommu, user must specify the following option in the VM
+> +config file:
+> +
+> +viommu =3D "smmuv3"
+> +
+> +Currently, only the "smmuv3" type is supported for ARM.
+> +
+> +=3Dback
+> +
+>  =3Dhead3 x86
+>
+>  =3Dover 4
+> diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight=
+/helpers.gen.go
+> index 8909fe8a1b..4f0997f02f 100644
+> --- a/tools/golang/xenlight/helpers.gen.go
+> +++ b/tools/golang/xenlight/helpers.gen.go
+> @@ -1195,6 +1195,7 @@ x.ArchArm.NrSpis =3D uint32(xc.arch_arm.nr_spis)
+>  if err :=3D x.ArchArm.ArmSci.fromC(&xc.arch_arm.arm_sci);err !=3D nil {
+>  return fmt.Errorf("converting field ArchArm.ArmSci: %v", err)
 >  }
->  
-> -u64 stime2tsc(s_time_t stime)
-> +uint64_t stime2tsc(s_time_t stime)
->  {
-> -    struct cpu_time *t;
-> -    struct time_scale sys_to_tsc;
-> -    s_time_t stime_delta;
-> +    const struct cpu_time *t = &this_cpu(cpu_time);
-> +    s_time_t stime_delta = stime - t->stamp.local_stime;
-> +    int64_t delta = 0;
+> +x.ArchArm.Viommu =3D ViommuType(xc.arch_arm.viommu)
+>  if err :=3D x.ArchX86.MsrRelaxed.fromC(&xc.arch_x86.msr_relaxed);err !=
+=3D nil {
+>  return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+>  }
+> @@ -1734,6 +1735,7 @@ xc.arch_arm.nr_spis =3D C.uint32_t(x.ArchArm.NrSpis=
+)
+>  if err :=3D x.ArchArm.ArmSci.toC(&xc.arch_arm.arm_sci); err !=3D nil {
+>  return fmt.Errorf("converting field ArchArm.ArmSci: %v", err)
+>  }
+> +xc.arch_arm.viommu =3D C.libxl_viommu_type(x.ArchArm.Viommu)
+>  if err :=3D x.ArchX86.MsrRelaxed.toC(&xc.arch_x86.msr_relaxed); err !=3D=
+ nil {
+>  return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+>  }
+> diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/t=
+ypes.gen.go
+> index ab9d4ca7b4..8a37b52a82 100644
+> --- a/tools/golang/xenlight/types.gen.go
+> +++ b/tools/golang/xenlight/types.gen.go
+> @@ -610,6 +610,7 @@ Vuart VuartType
+>  SveVl SveType
+>  NrSpis uint32
+>  ArmSci ArmSci
+> +Viommu ViommuType
+>  }
+>  ArchX86 struct {
+>  MsrRelaxed Defbool
 
-Why do you make delta a signed integer, the value returned by
-scale_delta() is unsigned.
+The generated go code doesn't look right - it appears to be missing a
+definition for `ViommuType` and the associated constants for the
+"viommu_type" Enumeration added to libxl_types.idl. Does the code need
+re-generating?
 
->  
-> -    t = &this_cpu(cpu_time);
-> -    sys_to_tsc = scale_reciprocal(t->tsc_scale);
-> +    /*
-> +     * While for reprogram_timer() the capping at 0 isn't relevant (the returned
+> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+> index bc35e412da..f7d5c77e23 100644
+> --- a/tools/include/libxl.h
+> +++ b/tools/include/libxl.h
+> @@ -318,6 +318,11 @@
+>   */
+>  #define LIBXL_HAVE_BUILDINFO_ARCH_ARM_SCI 1
+>
+> +/*
+> + * libxl_domain_build_info has the arch_arm.viommu_type field.
+> + */
+> +#define LIBXL_HAVE_BUILDINFO_ARM_VIOMMU 1
+> +
+>  /*
+>   * LIBXL_HAVE_SOFT_RESET indicates that libxl supports performing
+>   * 'soft reset' for domains and there is 'soft_reset' shutdown reason
+> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+> index 7e9f8a1bc3..a248793588 100644
+> --- a/tools/libs/light/libxl_arm.c
+> +++ b/tools/libs/light/libxl_arm.c
+> @@ -247,6 +247,19 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+>      }
+>      LOG(DEBUG, " - SCI type=3D%u", config->arch.arm_sci_type);
+>
+> +    switch (d_config->b_info.arch_arm.viommu_type) {
+> +    case LIBXL_VIOMMU_TYPE_NONE:
+> +        config->arch.viommu_type =3D XEN_DOMCTL_CONFIG_VIOMMU_NONE;
+> +        break;
+> +    case LIBXL_VIOMMU_TYPE_SMMUV3:
+> +        config->arch.viommu_type =3D XEN_DOMCTL_CONFIG_VIOMMU_SMMUV3;
+> +        break;
+> +    default:
+> +        LOG(ERROR, "Unknown vIOMMU type %d",
+> +            d_config->b_info.arch_arm.viommu_type);
+> +        return ERROR_FAIL;
+> +    }
+> +
+>      return 0;
+>  }
+>
+> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_ty=
+pes.idl
+> index d64a573ff3..c7ad0e77b2 100644
+> --- a/tools/libs/light/libxl_types.idl
+> +++ b/tools/libs/light/libxl_types.idl
+> @@ -561,6 +561,11 @@ libxl_arm_sci =3D Struct("arm_sci", [
+>      ("type", libxl_arm_sci_type),
+>      ])
+>
+> +libxl_viommu_type =3D Enumeration("viommu_type", [
+> +    (0, "none"),
+> +    (1, "smmuv3")
+> +    ], init_val =3D "LIBXL_VIOMMU_TYPE_NONE")
+> +
+>  libxl_rdm_reserve =3D Struct("rdm_reserve", [
+>      ("strategy",    libxl_rdm_reserve_strategy),
+>      ("policy",      libxl_rdm_reserve_policy),
+> @@ -736,6 +741,7 @@ libxl_domain_build_info =3D Struct("domain_build_info=
+",[
+>                                 ("sve_vl", libxl_sve_type),
+>                                 ("nr_spis", uint32, {'init_val': 'LIBXL_N=
+R_SPIS_DEFAULT'}),
+>                                 ("arm_sci", libxl_arm_sci),
+> +                               ("viommu_type", libxl_viommu_type),
+>                                ])),
+>      ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
+>                                ])),
+> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> index 1a2ea8b5d5..dcae8314fe 100644
+> --- a/tools/xl/xl_parse.c
+> +++ b/tools/xl/xl_parse.c
+> @@ -3033,6 +3033,15 @@ skip_usbdev:
+>          }
+>      }
+>
+> +    if (!xlu_cfg_get_string (config, "viommu", &buf, 1)) {
+> +        e =3D libxl_viommu_type_from_string(buf, &b_info->arch_arm.viomm=
+u_type);
+> +        if (e) {
+> +            fprintf(stderr,
+> +                    "Unknown vIOMMU type \"%s\" specified\n", buf);
+> +            exit(-ERROR_FAIL);
+> +        }
+> +    }
+> +
+>      parse_vkb_list(config, d_config);
+>
+>      d_config->virtios =3D NULL;
+> --
+> 2.43.0
 
-The capping might want mentioning in the function prototype, as maybe
-new users expect stime2tsc() to return TSC values from times in the
-past.
-
-Otherwise LGTM.
-
-Thanks, Roger.
+-Nick
 
