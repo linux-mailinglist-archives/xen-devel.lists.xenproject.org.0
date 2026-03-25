@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YDKPEAPiw2lvugQAu9opvQ
+	id GDY7Ohjiw2lvugQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 14:24:19 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 14:24:40 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A297325ACF
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 14:24:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1262330.1554883 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54342325AE5
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 14:24:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1262336.1554892 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5ODP-0001wP-8h; Wed, 25 Mar 2026 13:24:07 +0000
+	id 1w5ODp-0002Q9-Gv; Wed, 25 Mar 2026 13:24:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1262330.1554883; Wed, 25 Mar 2026 13:24:07 +0000
+Received: by outflank-mailman (output) from mailman id 1262336.1554892; Wed, 25 Mar 2026 13:24:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5ODP-0001uH-5o; Wed, 25 Mar 2026 13:24:07 +0000
-Received: by outflank-mailman (input) for mailman id 1262330;
- Wed, 25 Mar 2026 13:24:05 +0000
+	id 1w5ODp-0002NH-DF; Wed, 25 Mar 2026 13:24:33 +0000
+Received: by outflank-mailman (input) for mailman id 1262336;
+ Wed, 25 Mar 2026 13:24:32 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w5ODN-0001u9-8h
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 13:24:05 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w5ODn-0002N4-S5
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 13:24:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5ODM-00ES7v-Kj
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 14:24:04 +0100
-Received: from [10.42.69.6] (helo=localhost)
+ id 1w5ODn-00A2Wh-7v
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 14:24:31 +0100
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69c3e1f4-bab6-0a2a0a5309dd-0a2a4506d9ba-0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 14:24:04 +0100
-Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c3e1fd-5cb7-0a2a0a5109dd-0a2a450998f4-40
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 14:24:31 +0100
+Received: from [209.85.221.53] (helo=mail-wr1-f53.google.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69c3e1f4-3034-0a2a45060019-d1558036f039-3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 14:24:04 +0100
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4852afd42ceso18539075e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 06:24:04 -0700 (PDT)
+ id 69c3e20e-e484-0a2a45090019-d155dd35e5bf-3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 14:24:31 +0100
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-43b9144790dso2518f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 06:24:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-487172f909asm29347635e9.6.2026.03.25.06.24.03
+ ffacd0b85a97d-43b644bdaf8sm53050131f8f.13.2026.03.25.06.24.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2026 06:24:03 -0700 (PDT)
+ Wed, 25 Mar 2026 06:24:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,53 +58,52 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774445044; x=1775049844; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774445070; x=1775049870; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=4z2f6acb15Hu47Bm0pjYeGaxQ7vqXYq12+Jv1/7oZr4=;
-        b=bzayj5fA/Y9qLJkhj7Eg1DtmI5MLZPGOusszw2Fw7X/d2g4VBTDD/yu6YBtaglW1HG
-         1mW8fzP7OgHfWOiYaFjnWIKwU+ZFYbt1GYJiGZkrh7MTI2M4TM8WlGycGnpjzjyarJTx
-         N6dZbdsk/a9XkdyGLsoRB/l1imSK/mRuq6bBVQLHV5NabLBO+lbezH30YxVVPCVlOKT3
-         pv82enE9PjKnXRiO48ISsin2XMG2iT9pMBk+zbPuUbhGZGxgRwSSeJC26QLErmocpD5Z
-         SuQ2MjyYZ0fS9350+Al/rM1yXHGT3vLvGntmzXo7OvmzqZrDxkLKjJHgLrqJp2k7VXFq
-         KJmQ==
+        bh=9BxAnQbQlusdq+Un61mXTAQpPPP3xW8V/k0uzyq9UTY=;
+        b=bkVe48Vk84IlAUBMmIwCIYXQFLPevH8kNgSVd7sRqcVqZGx32lmyYG0o4g6ml23RBX
+         Q3NqIU/958xf9ieoz/VDEvXuSlZ/RhyOl4rg0hyFNooVBKW0Tvj3tGVfC6pPWjjvOOZY
+         1H4NQlu++B9I/PVI0h4YsekjsWXRbw//3iM8M7nOlfOJMfXEEdc3rXv3Vd2CGccVJ1d3
+         ppiIsh/5kvX0e9a5cPNzaIqTx8YcCztaCfqzK5kLHPO63CzE4OOxoVKDSSsKLB+Mnjy0
+         FxyJwgVNZQNYSLU0UbkUC1OplEcamBZEHQrf41tZbYrr/ElfrsnUPmZOGHWN6ymNpgQ3
+         Dgrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774445044; x=1775049844;
+        d=1e100.net; s=20251104; t=1774445070; x=1775049870;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4z2f6acb15Hu47Bm0pjYeGaxQ7vqXYq12+Jv1/7oZr4=;
-        b=EAVs3oSHjnsxlb/UBqVvIRa4XFhcqXQoKExbblgAusMK2GAQ/tHHJgNVr+OYSf96dx
-         0hP5oHKReSDJUS/gk5Ck2fMTZRz6q7MLf+F0O2XYy2nvpA542I0lkGJ3DtcjVEMpvCvM
-         2cYDjBzo7qPGdYrdYVQGpFlOsktNkpSNf0VBUuHIagb/cuGEORbg1wgRg9B6XEwZGwEq
-         1xCmeGs7ES8YhieLD2JvYtQednCqyQUr5rWx7S0YvaobbRXPgodv6GkSYPVr7IUS6Xu1
-         EmLHp7RmVBHkm/RlzYKBYX5b+E6SZsgnqDJYw3zsSwWOGuYta2ThYQEfwZMPR8Rw2IR/
-         K8gQ==
-X-Gm-Message-State: AOJu0YwrJEyyA6FXNvM/rMDwBLdkx3K/bNJUp3fRZPzo5ZNG4QdwzZlE
-	0OtlBdj3/Po7mwFco+2MZq4/wLnzACpaCCz3cP7C9pgDa2HE0jyQrk/6vl0b0YuSeRxx6xF7pfh
-	sdJyjjg==
-X-Gm-Gg: ATEYQzxAUfJUBE6Oh+GJFFw/RRQZaJ6jQDaO8mudRUaTTH56z3Ws/hSB64VO9uO3qgC
-	y0eF8TTgyhIcHSDhAHvd1n/9u0BhN806rJDk7CQdEaOinTxdz/LzuRKrMsVEMCMzKH82BztnQnG
-	Mx6of3/838MXe6ICDyoOasXvbTqvIG2AtHhU0QqJ7tiLmvv7dge+G6FHbozEGU/fF3eAzHIbBzh
-	6dGf8Y4wrcZdbbt9tLOE9DitcijW45ZA7t22T6P9rHqoj5ZmQPhbSbTTeE+lkBTPB330oieSyLd
-	BS98fLeWknVdHOk0wt/F5MdJWOaMSc3SMHZU8+5YAPAPEj27y+L1s3p+wTJmwdJhx+v++3vIp8D
-	JSM5qN9ziKSdWfiTWpoHhLUVOrUuyZEwxHiKvYvsl1o1x1Ec5p8usARLrHtb3G7bWEX7KUpgOV+
-	BfDyA74iLmG1zStl5ikADyyVX5jMJNNd4KziIxt0MAlVacmSVNw3K8Vv3pHEkVEvWXedpOAp4HL
-	ABrVCqYsTWkyhTqvfPLxIVJmw==
-X-Received: by 2002:a05:600c:6287:b0:479:1b0f:dfff with SMTP id 5b1f17b1804b1-48715fd545bmr54798785e9.10.1774445043897;
-        Wed, 25 Mar 2026 06:24:03 -0700 (PDT)
-Message-ID: <f0cd81c0-81d2-4273-a2c8-736ce976670a@suse.com>
-Date: Wed, 25 Mar 2026 14:24:02 +0100
+        bh=9BxAnQbQlusdq+Un61mXTAQpPPP3xW8V/k0uzyq9UTY=;
+        b=r55fAWeaPP3HYP+PwnRg2cAEBHKcePvnK6NPqj3uK6AGaDFdOJUWYSknkzgDltGAfD
+         Me7htZiu8TmdUeuElArgw2NiZRqV3KmIN81rwhRJTiDhJwmU4srxwYuyvUCUZ6UXFLkh
+         sgPeXzeHc6rqeMb8rWTZ8V428b7XkWEdWA8h5y6VaAG1DuQ7H21/On4+EbLHD96jE16c
+         NpXNtnSc+uwJ5hhFKeLtwP00G5KP735csb3AWMqO46aHgVfbKmgWv9cLY+RC+NDJlbOc
+         jEnMS5AAArAXbYdrb9hgyg6I+NYh3b4QkdETEUwY9VOsdUMbp8mAGec+MCc0kD7bHNnp
+         M8Ng==
+X-Gm-Message-State: AOJu0YyFVt2tDCo7VBgsUOm/KUaKUpDlF6RXpyzirzT0EFP+keE/Gs1S
+	Q1YFLt+UAGEW1Igu0cTm8fzBZDTbv33IwdnEvohk6KXqvhn+MhBwqZunDbgIsAfQ55nIlFvtAeT
+	askTb5A==
+X-Gm-Gg: ATEYQzwrlsZXDckFi5l+4T64Xf7eFmAl1xOdKfgPT67K86miSYzlIzIzHM+jlmArTTT
+	Ja78SX/ndgZgt9fN6KFh1unN0BH2zggiexLeup46iBmg4b/O4MK/16PS5V/Jdzkg+4nUL3icZ8Z
+	CSDq8ZSNOffAyRiNiucV3WjyvzfcyPsVHw3p8fWEIuCD3l3abrHR7I5aDRhrr6y5w/Z2rGvs4s0
+	szRs0coAt6Mq1MYL+34VJ7DdknchXF3j8FKGXWSE3NK5H2wyWaeFfIToXKYRwijlZTD+TBsvmid
+	Km/267EQMLdI/jlfVwQQdeYbQsZKw+AaUjyBJiEhX1H3kvTynOnkdqYEiLMQtwEMKf5xjtYSniZ
+	MIkJEzSehf01C8yemg1lFZi7wxZc/vpfxzq1eVmKn+pwy5BqVTH3Fni16IjqqD56eXG4HRBDTmR
+	tjjStbTFuMo4a/ePFNo32qmq9hj8M1Hx8Ay8PmjCv5eKW9Z5d0Xrnsu8/6BNa+QDwtybKO2nMnw
+	lwPOWSUYt6Q7lA=
+X-Received: by 2002:a5d:5d0b:0:b0:43b:4592:f91b with SMTP id ffacd0b85a97d-43b8899d295mr5377546f8f.5.1774445070438;
+        Wed, 25 Mar 2026 06:24:30 -0700 (PDT)
+Message-ID: <32ae65d3-8305-419e-8180-183a2fc8c29e@suse.com>
+Date: Wed, 25 Mar 2026 14:24:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 1/2] EFI: avoid OOB config file reads
+Subject: [PATCH v2 2/2] EFI: move pre_parse() back next to get_value()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
- Daniel Smith <dpsmith@apertussolutions.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+ Daniel Smith <dpsmith@apertussolutions.com>
 References: <aa19318c-c91a-4cda-b36f-d2049914c42c@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,9 +132,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <aa19318c-c91a-4cda-b36f-d2049914c42c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1774445044-82B961C2-9087AD82/0/0
+X-purgate-ID: tlsNG-bad1c0/1774445071-68152A73-45487F9D/0/0
 X-purgate-type: clean
-X-purgate-size: 3185
+X-purgate-size: 1941
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -146,7 +145,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:marmarek@invisiblethingslab.com,m:dpsmith@apertussolutions.com,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:marmarek@invisiblethingslab.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -160,7 +159,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	RCPT_COUNT_THREE(0.00)[3];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -168,93 +167,81 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 9A297325ACF
+X-Rspamd-Queue-Id: 54342325AE5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The message emitted by pre_parse() pretty clearly states the original
-intention. Yet what it said wasn't done, and would have been unfriendly to
-the user. Hence accesses past the allocated buffer were possible. Insert a
-terminating NUL immediately past the data read, to then drop the no longer
-applicable message.
+These are siblings, so better would live close together. Sadly in
+1f9540cd8eb6 ("EFI: move efi-boot.h inclusion point") I moved get_value()
+without also moving pre_parse().
 
-NB: The iscntrl() check of just the last byte is more strict than what
-pre_parse() would accept without issuing its prior message, yet I'd like
-to keep the new logic reasonably simple. Config files shouldn't be huge,
-and we shouldn't be _that_ short of memory (or we'd fail elsewhere pretty
-soon).
-
-Fixes: bf6501a62e80 ("x86-64: EFI boot code")
-Reported-by: Kamil Frankowicz <kamil.frankowicz@cert.pl>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Is the efi_arch_flush_dcache_area() really needed for config files? Else
-it could be in an "else" to the "if()" added to read_file(). And then,
-how is it guaranteed that data from the area isn't brought back into the
-cache (perhaps speculatively)?
-
-In read_section() we could further leverage section alignment padding (if
-present, and if filled with zeroes), to limit when to allocate and copy.
-Thoughts?
----
-v2: Entirely different approach.
 
 --- a/xen/common/efi/boot.c
 +++ b/xen/common/efi/boot.c
-@@ -833,8 +833,9 @@ static bool __init read_file(EFI_FILE_HA
-     what = L"Allocation";
-     file->addr = min(1UL << (32 + PAGE_SHIFT),
-                      HYPERVISOR_VIRT_END - DIRECTMAP_VIRT_START);
-+    /* For config files allocate an extra byte to put a NUL there. */
-     ret = efi_bs->AllocatePages(AllocateMaxAddress, EfiLoaderData,
--                                PFN_UP(size), &file->addr);
-+                                PFN_UP(size + (file == &cfg)), &file->addr);
-     if ( EFI_ERROR(ret) )
-         goto fail;
- 
-@@ -853,6 +854,9 @@ static bool __init read_file(EFI_FILE_HA
- 
-     efi_arch_flush_dcache_area(file->ptr, file->size);
- 
-+    if ( file == &cfg )
-+        file->str[file->size] = 0;
-+
-     return true;
- 
-  fail:
-@@ -878,6 +882,23 @@ static bool __init read_section(const EF
- 
-     file->ptr = ptr;
- 
-+    /* For cfg file, if necessary allocate space to put an extra NUL there. */
-+    if ( file == &cfg && file->size && !iscntrl(file->str[file->size - 1]) )
-+    {
-+        EFI_PHYSICAL_ADDRESS addr;
-+        EFI_STATUS ret = efi_bs->AllocatePages(AllocateMaxAddress,
-+                                               EfiLoaderData,
-+                                               PFN_UP(file->size + 1), &addr);
-+
-+        if ( EFI_ERROR(ret) )
-+            return false;
-+
-+        memcpy((void *)addr, ptr, file->size);
-+        file->addr = addr;
-+        file->need_to_free = true;
-+        file->str[file->size] = 0;
-+    }
-+
-     handle_file_info(name, file, options);
- 
-     return true;
-@@ -906,9 +927,6 @@ static void __init pre_parse(const struc
-         else
-             start = 0;
-     }
--    if ( file->size && end[-1] )
--         PrintStr(L"No newline at end of config file,"
--                   " last line will be ignored.\r\n");
+@@ -581,6 +581,31 @@ static char * __init split_string(char *
+     return NULL;
  }
  
++static void __init pre_parse(const struct file *file)
++{
++    char *ptr = file->str, *end = ptr + file->size;
++    bool start = true, comment = false;
++
++    for ( ; ptr < end; ++ptr )
++    {
++        if ( iscntrl(*ptr) )
++        {
++            comment = false;
++            start = true;
++            *ptr = 0;
++        }
++        else if ( comment || (start && isspace(*ptr)) )
++            *ptr = 0;
++        else if ( *ptr == '#' || (start && *ptr == ';') )
++        {
++            comment = true;
++            *ptr = 0;
++        }
++        else
++            start = 0;
++    }
++}
++
+ static char *__init get_value(const struct file *file, const char *section,
+                               const char *item)
+ {
+@@ -904,31 +929,6 @@ static bool __init read_section(const EF
+     return true;
+ }
+ 
+-static void __init pre_parse(const struct file *file)
+-{
+-    char *ptr = file->str, *end = ptr + file->size;
+-    bool start = true, comment = false;
+-
+-    for ( ; ptr < end; ++ptr )
+-    {
+-        if ( iscntrl(*ptr) )
+-        {
+-            comment = false;
+-            start = true;
+-            *ptr = 0;
+-        }
+-        else if ( comment || (start && isspace(*ptr)) )
+-            *ptr = 0;
+-        else if ( *ptr == '#' || (start && *ptr == ';') )
+-        {
+-            comment = true;
+-            *ptr = 0;
+-        }
+-        else
+-            start = 0;
+-    }
+-}
+-
  static void __init init_secure_boot_mode(void)
+ {
+     static EFI_GUID __initdata gv_uuid = EFI_GLOBAL_VARIABLE;
 
 
