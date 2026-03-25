@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KDi3FdUMxGk+vgQAu9opvQ
+	id yFGSDaEOxGk+vgQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 17:27:01 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 17:34:41 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A301C328F77
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 17:27:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1262743.1555143 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92654329175
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 17:34:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1262754.1555152 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5R3a-0001T0-OX; Wed, 25 Mar 2026 16:26:10 +0000
+	id 1w5RBT-0003N7-Fq; Wed, 25 Mar 2026 16:34:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1262743.1555143; Wed, 25 Mar 2026 16:26:10 +0000
+Received: by outflank-mailman (output) from mailman id 1262754.1555152; Wed, 25 Mar 2026 16:34:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5R3a-0001RN-Lg; Wed, 25 Mar 2026 16:26:10 +0000
-Received: by outflank-mailman (input) for mailman id 1262743;
- Wed, 25 Mar 2026 16:26:10 +0000
+	id 1w5RBT-0003LW-D0; Wed, 25 Mar 2026 16:34:19 +0000
+Received: by outflank-mailman (input) for mailman id 1262754;
+ Wed, 25 Mar 2026 16:34:18 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1w5R3Z-0001RH-Tf
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 16:26:10 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1w5RBS-0003L6-5U
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 16:34:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5R3Z-00HPYk-5W
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 17:26:09 +0100
-Received: from [10.42.69.3] (helo=localhost)
+ id 1w5RBP-00DOOh-Hq
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 17:34:17 +0100
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69c40c8d-e002-0a2a0a5209dd-0a2a45039ae4-44
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 17:26:09 +0100
-Received: from [40.93.196.69]
- (helo=SA9PR02CU001.outbound.protection.outlook.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <roger.pau@citrix.com>)
- id 69c40c9f-1947-0a2a45030019-285dc445d95e-3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 17:26:08 +0100
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by SA1PR03MB8084.namprd03.prod.outlook.com (2603:10b6:806:45a::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 25 Mar
- 2026 16:25:59 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 16:26:04 +0000
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69c40e74-e002-0a2a0a5209dd-0a2a4508cdaa-38
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 17:34:16 +0100
+Received: from [209.85.167.48] (helo=mail-lf1-f48.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69c40e88-1950-0a2a45080019-d155a730a85a-3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 17:34:16 +0100
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-5a1443780c4so1040140e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 09:34:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,244 +51,269 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rZOI9rsADKKeNl1q1ZepXYELgTn4C1MgFBMY/QgPKWeD3recIt2WLzjgW7EvDbbAL/g0sXZj5MhWSKCXgmWVH/5IhpB2+CxF3ZJvIoBdZMFpRT/V2/esruMf6L9CiEQZD1T9WrdfZFcaEz/gdZ6Vo6LzjOOYzth37EwFmi38BufIasLr/GFd9LnLIljul6prgpKwMwOEQ3FQvmnhVh1Shjg2TOOge6szhlkXFikIEcPtjHHGIUBm3p/OOTsAj2ZnbxqnXQTeufBI/sEfC8X7FzZKadm6qb3tbfcI0XjNlsd2GjtMtm/KCbgkwtSjRhEKtQFO27M6rpS+Zi9djcI4+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OxRHVU4Ie4B2eNaBFNdJ9gSoN4f0appxL4CDJDX7deQ=;
- b=Ypa0xvqAcg1WJqnPTOdWHE+gd1Apm/TchzFu0pXGas2kKVYBfaxcGOV0jB1zqGEoA38ym9DjTakdpVOSln5rGXM9pe1UWH1hvGlt8S5mUZtpDbHUb8DpJPkhobPKhb3EVndzqguqEkAwJ0CAPFcsM6QmcGf7PZiFMsu1GVk11OfTVArue1/a15xClWMHLLawq9n8gkd4YMSzcsPe7j5eH0OIsqGxUemAYPEMDk2VnjbV08sstotl/OtR2NKxccvwCZ/EMT/GPf+EIiAxuaDNbmWKvOy8GKMmI2E793Cc6h0G8u9r/+2Tkwe9SH8PL+Nf6BQBBSv9b1knE5ieEdq5Cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OxRHVU4Ie4B2eNaBFNdJ9gSoN4f0appxL4CDJDX7deQ=;
- b=oYHHv+KI5jXIgwkLnnokS0qea1NcWx/cdK0LOOnkQ9dX+78GqH9rBVJDykI83QEBAPZzfBLycyKWRW5mVjBuoiPc/p4CsCffEjBenFoTV99/r/g7wAPoNqKPiYA0NJw3E47Nii2iRXbN664SgarsCcyPUzVjiJQlomFbQ3LpXxQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 25 Mar 2026 17:26:01 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] xen/mm: do not assign pages to a domain until they
- are scrubbed
-Message-ID: <acQMmXyOGFe5AN2i@macbook.local>
-References: <20260325100803.6640-1-roger.pau@citrix.com>
- <20260325100803.6640-3-roger.pau@citrix.com>
- <73c705eb-95f9-456c-ba0b-c6e0f7730ef1@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <73c705eb-95f9-456c-ba0b-c6e0f7730ef1@suse.com>
-X-ClientProxiedBy: MA4P292CA0013.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2d::11) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1774456456; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ZBkI3sC0XliC+PVcAXXT/ZyUmkaG4YCEGPpnhjNSipQyQTk7RV5JMVex89R7Hfn9Aq
+         zZmJGYSELD+W0n+mau6Ii3L0CaJMrE+s7qn0AOc2xo2tCswmUsJOGm6UZa+SGY/an/Gn
+         E5p1NMHn8ZhjRtD8exvSS64ZesnPppjQDQdHGS4iCc+upT+CLXMvfICXEjEtL78vIC4C
+         skp9t2hjOHUeMWPx/x6YWjLgNmwNhHPp2pMyeZMwgrfLVqcfRn5X8bTZxuMSWA/RzN5D
+         k4uzJdrtyyIy+Rtzp7NYvxbqWKY0tqAqi82FzgsH0yXr2BmFvvRyAe3xMxpSnkwcNo2b
+         eYxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oTEq9ukb/cjWdMxVcUQOINtz10aJOqZ6riJGIfoU3Sc=;
+        fh=HHRjWkdysX2ZkNpVMY4DcdwfNbPq2J2BPJfxbJK3Acs=;
+        b=UfcMGxgy9rNlqj3h20z3PZR9U7QcOW7tlQopgKaA45v/UWlJL+PaX4rvJaiatp80Zl
+         v8Fmr6iWfUvOPdFK66GYsEa63BcBu/G50PpCt3FfKZKDIguvFIBzL3iu72SHzyJ0x/DP
+         Qig+5bstFCJ6PV6tkknDmV+OuqxTtY31olPbuRmXSm9UrRd7Xps0eZR8tWR7tc8AWpU4
+         J+sSExj7/Q8m/vPLCgcgORmRegjy0hfDSY5a2xjcgRBTUvEKj8CeBcTJlBqLWhcO51yR
+         FBxwBnigNYZcQ9FDuvxP0Hl17miCm8vmXzJPBMIU+h09ROBFRHckDwQVV3Xijk6tPgqT
+         hUKQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774456456; x=1775061256; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=oTEq9ukb/cjWdMxVcUQOINtz10aJOqZ6riJGIfoU3Sc=;
+        b=kAQfd8cIU5FM90qq+wlsqqBMMMmobxdLQFgDlDd4e655cPA+bcFGu5rjMUXqhBWeXI
+         9BeDSh5VOdtjRu4fdGlc5LLDSmCM/T9Wz/c0sFSCX/2a3qvw9cbtgy/ErBrmKlUAyhfi
+         XHqztYZh120f2hQk9sVQBV8ig+3UggxtFfTx1ncaDQy4xGWWj0zXfK+pmit40QwCAUs3
+         Hmxu9x8cUQXEfwnsiL5ijT24/6TFap55GpSR14iJ7N2S0JhLWZBuCmETniNaD6ZNiyPz
+         NsmrjwBX6aNVmwjvPixz9FRUxY/OwJNo9vavlsoy49hThnyGfRIZK3+XIWOzNJ/MxWQK
+         q+uQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774456456; x=1775061256;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=oTEq9ukb/cjWdMxVcUQOINtz10aJOqZ6riJGIfoU3Sc=;
+        b=OaND5PyGx3y1ayCxVYbYCU5ANgEHF265mkAuhsQNxQnU9kLvQ1gUzUKKb3xp52BiqS
+         za7Oz8jAhqkSZXvM+qmB7KcwEPDlMQ3nKdM+ZiCiCXFmWt6U1nGGkUUGteMipw/kXiWy
+         KnwDciA3KYIuWT7snViD+9LO5FpQ4PY18hyxXQRAjZr6vzSMNM479mwFFhSs9WAvvmpJ
+         qVSZIuuV/TCeKgyxZrBedzPnZDfMxZhuHwKEKE+zZyUd3mCiMiRYLRpDJjXHRml74YjY
+         zHUJFZAf117sG4sqinrywS2aZWEXMmxHiMUbMI4OacO71ROzRkOcCohrVVYZni2P12yu
+         NRMQ==
+X-Gm-Message-State: AOJu0Yw0EXV7SOhZyXzqgpRpnOXgHSDc7vttw6KVZdbl2LJ39rpzF1WV
+	0jNfpJ2bPf8vaYgiTRLAwcm3i4wm08iqUm9lN1HOIAFeGHC5iqtXx2KnNwiOg2SERyrNq+L3r1x
+	fzk3y9KDoLp0IOrl40lW//XPJ/TyWk4I=
+X-Gm-Gg: ATEYQzx5+668Sg3sxzSjv78IjCMVaiPSCtCLyUl6cM6gXf2lZyf3CqdsEdPAmpMou4S
+	ITx0vbNGhBeRp8026HgfOPjcoM8CgyuGEd7YOI1DJlNLEMQaaPYsImPHjsjCCFF54+dTkcOCazd
+	3HdBpDRn1LHG/PTGM8ZYmXM39XkVfuFZfralXXLcPSRZngQ5VYHQJ9T75icZjZwrsnVgcc4X+8D
+	RynbXxyd6NG/1rb43RXOl3FmyfEOFePY6Is8I8JToPrLgB5VjkntnJ7x0ozqum7j9h1UIw6Q7v9
+	QXvQ9F0JMXys0Mw=
+X-Received: by 2002:a05:6512:318f:b0:5a0:4ca4:4872 with SMTP id
+ 2adb3069b0e04-5a29b4ef506mr1498140e87.5.1774456455488; Wed, 25 Mar 2026
+ 09:34:15 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SA1PR03MB8084:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1944c5e-168d-4cc3-cde2-08de8a8b35ee
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	6QF4se3Re0+foaRwLqiwnhehmCge21ntxm7PQI7eYFchns/erU5NZ1YxQkNss7HLjN/rTIFolKMOktjCMGeqLYKO9bunxV82J86aGmivRO9JH53E9UEA9ZQCsOihetSE5oK4jW92H5qKMPA39P3sU617NxkCGL9j2E75hxDbZIrQluJNdXO5ODhTdPBqd6Z9rsY9WVgjsfByNpfLNCRQw9GsX0aBGnPTjjmcI3Ck3e2JotTmAGQNMJyMEtSg/jGAqxTlytUKNP2welz7m5mb+eueZraLFMkxhrxoHREvh6c1LdCLTUWCu16+4KB1aYBqchoh+aK6udQGnqhRIIylLPEXIGtIzNhHQP+Z1VUmZ+jLGuUkLgocj9X+6CvRzR6BuqFMoziQZqG1gM7od0dq2tMb9Ijh/S3S6dE0bbMfCAZAVoKdJjhLNhp8cc7Zdh0AvWzVaW7STJqMjyPof+eHYcEfhg7AzgXtCiboYl7p93cvkbW9trs9EnhgrKuEcAuAuHAHtcJmEb8UeqUE7CkDKE/hs6wHO9AGaH8zU9Jbp8U3agHLaq0h4kBGBkRzw7Q9TMsIYFxciF1ieCb4D5T7tWw7Bay2JTEyf6HUCWWcxJvNdmp9Gj7nC+BmADaLrnSkQowR+lj/s4efN3PmMacgg3S7J+kRq9NY+g6eaG75EOJW2JK5VNkP8biAErAmz0cKSxQtM47X7YlecMpvRW3H5HSiZt8/jxOVPBKxeoCpaws=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RzdBdlJZTUkvL3VGWmJSdkZ4NjdZa28xQURrVzlVcFp0YW01UGRQSkdXeDI0?=
- =?utf-8?B?NXpJQTF3YW8xTmJlbGN6MjRXYU93cUR5ODlOclVtSE10YjZ0V3FLdnNmOU9U?=
- =?utf-8?B?dFE2MHJZQzBuVURIa3RlTDVEWDlsQ3pCZlBGdzRtMVoyNzFySUd4RElScXRB?=
- =?utf-8?B?dFpZUGJoUFh1Z2RsWXA4Ui9zT1NzTE1hdkt1UnlncmtmeEROMEhDb0JCdnFD?=
- =?utf-8?B?dHl5eWFaeFNLcnJkZkNubVlIQmI5U3M1eFN3YVpLbXBZUnFNVWJzTFZkeVNS?=
- =?utf-8?B?UURuTmg2VFF1MHBVOUtmdEpZK01yY3B4TzgrcWdUOU1jT1o0WDU3WVdqZkky?=
- =?utf-8?B?R2tra0t0SGUybXBnOVlCWTErVGxSUUZvdmZCM1A5emIweFNTS2xXUXNsQlNk?=
- =?utf-8?B?b2w1SWprY3pOQmpxTlNvT0dXd0VZSVk5UWxzN1FpNDRWOHlEZTA1WTNvak1H?=
- =?utf-8?B?ZWFsOURJRm1EWEs0bTcwTGhkUXhNcGtYZ0JFWUZvbU1kdlpMSkZaWFRtNDV2?=
- =?utf-8?B?cDRTM3VsbG9CZjBXT1FXRnR5M2hrQlBWV2pUVHdFU0tMMkRIK0t2Z2JQRVUw?=
- =?utf-8?B?QmlXd1ovcDEzS3ZsQm4yeWZnQmZYdXp2cWlKSkhNc3lPakh0T1FLSTdTRFRR?=
- =?utf-8?B?YzFkN2xWY0pkcEh3ekcwQmxFc0psRFE3b0xiMHJuMjZOZWxQODg1RFpMd0Ns?=
- =?utf-8?B?QnlZK2ErNzFQS3FXU1hwNjAxZzR2VE5seC9DUjY1QnFhU3loTXhGWWhvd0pY?=
- =?utf-8?B?eUkyeGdERm9Sd3F3VUVLY2FWM3FpSzZmTVBYMHQxTy9GRldrbVFQRFRQbVF0?=
- =?utf-8?B?WVM1ZUtVWmQwWmZqRmtBcEdsZUlrdy9xMk1sbFI3U1BvTXgzd0JMZ2haUlNZ?=
- =?utf-8?B?dWNEZHdveUcreUxmK29YZThVTUVqcFBLUi9ZdlA3a1dBd1RvODVjMWtCZUpY?=
- =?utf-8?B?d2x6Q3E4TExGeDV4WEhKK051OUxEbmVvcWxkZDdwcDkzaWpKem5BUXh4UVds?=
- =?utf-8?B?MGlVZitxRklQYkl4MnNZUDRRR3N5TUJMSGlGQktKY2dGbG5LTFh4NENUNmFT?=
- =?utf-8?B?d2FaTzhoVkZubHZ1dDJwbEVaTUZwblBWa2lOMkpWb2xRc2lURWZRMFU2SmND?=
- =?utf-8?B?bVgyamk1MEh3cjlVeUE4clNoOVdnZWd2UkdUTllvT3VLMkN3ZUJhTVFYb3Vm?=
- =?utf-8?B?YVBsOGhRanRMcVRxdzVXVUl1aEpQdHplVFlRRHdUUWhGOG8wcStpT00ycGth?=
- =?utf-8?B?NjhVcHBQVVRnK0tKMDg5NzNaRlo1V0JpK2JoY3JOYitFM3Ezdi9WMTI2Z3dD?=
- =?utf-8?B?eWtKSUV5b05Cb2RGUHpSQ0s4RFk2OGNyMzJWY0hIWHNndDBodzBRdEJDeE43?=
- =?utf-8?B?MEI0Q1NVZW5KRGVySjhZdkhOejM2cHpIbzBOMjJiN2daUGQ5SjJIR0ZvY1lM?=
- =?utf-8?B?MTZmNE5Nc2VQZG9xa2F0TlFjR3BMMXd6REF0ZlQxZEtMYXhVenRnOHQyaUtj?=
- =?utf-8?B?WHg1UEcxT29ZRTlHTThqQXdETEFxZFYzVm80UHlNbUFIQVZVN3N4dk5DOGV1?=
- =?utf-8?B?V1kwS3hKcHREQjFqL2M1RHZNK0pKYW9qVGJsbVdxNmJOQXgvUFEwalllZnJR?=
- =?utf-8?B?YWh6eUxyVW1YQ2lvNTVBaCtpOHRxbGFPRVk2QUNWSCs5TlNxK2tDMzFGUm5z?=
- =?utf-8?B?dUtrOXM3cWR5Q1hwQmp3SXJWb3IveGRVdkwwcUlUZTV4OHUyYXptbG8veEpF?=
- =?utf-8?B?bzJCbXpBeFAzMmFzVm4yanVMSzBmUWNqU2s5Y1VsdnE2aUgwa0R5N3hxa2lC?=
- =?utf-8?B?VVNBeDhMcVkwUUM0bTVURHJSbFNYZFRSWWxPMzhyQkpPM2t3eHZZWDd1VlB0?=
- =?utf-8?B?ZERLUkhPaU1sQVJxOEtsVnV5OHQ5TDJKNWtxajBXTnNYdGwxS1RKcHVpK28y?=
- =?utf-8?B?d2w4UVQ4OWNJK200OUFJdWxlSzdKVlJWbzRxWENzb1RxV1FNbXhpdFlKL25S?=
- =?utf-8?B?TDYwVDVmdGNhUlhLalJ0MnVrTldvb2FaUWxYZU1nbWpxNW0yMWM4cjM0Y0Fl?=
- =?utf-8?B?ZkxDeE5KSHlqdUZyM0laSUc1Ykx6QUR2UE85bUo5UG5NYWp4ZzlzNmIwVWVT?=
- =?utf-8?B?UXNvVVBKWEI3MVZsODdLWGtsSWlJd01yQy9DZHBHbVFaN1hNNUxNa0JWbWtG?=
- =?utf-8?B?WGhnSjVVQjN3bUNYM1BpVXE1dHFLT25UQThqQVJGOWE5ajNXcXo0RnJBQ0hQ?=
- =?utf-8?B?TGZlaDlBKzlGaS9BU0ZkTTlYMHBZYVNGZmRiZ2lIa2l1a1c4SDlVSEVLZktw?=
- =?utf-8?B?clN1MGQvQmxFUGJ3OGNLNzRsbUlXU3prbGowZUZpUkJSVWlPd3hDdz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1944c5e-168d-4cc3-cde2-08de8a8b35ee
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 16:26:04.5544
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XN+xnjtTpoCl84duPdbEOd9lcUkG3D2nWIt9Xanm9EOBwmByWSzo8k3kTe1KJTsWwtyy6687CxRlsxcMikV9CQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB8084
-X-purgate-ID: tlsNG-33051d/1774455969-4A45E72C-C2AE650D/0/0
+References: <cover.1774431310.git.mykola_kvach@epam.com> <10da5cf38dded9c3373c4b0ba54d7f7a7b2fd98f.1774431311.git.mykola_kvach@epam.com>
+ <87341ovugw.fsf@epam.com>
+In-Reply-To: <87341ovugw.fsf@epam.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Wed, 25 Mar 2026 18:34:04 +0200
+X-Gm-Features: AaiRm51RmYn8g3aoKcsDWCg6iUpTKZ4RjUpaY2awpdyuUE5YQdrF3YhOTjgHPfY
+Message-ID: <CAGeoDV_1Zzh8pxBe=Mf7Yu1OXfNhzH7aFpsT+ktM62DwK-ropg@mail.gmail.com>
+Subject: Re: [PATCH 2/4] xen/arm: its: add platform match callback for ITS quirks
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <Mykola_Kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-c1860d/1774456456-EA892726-61C79DD5/0/0
 X-purgate-type: clean
-X-purgate-size: 4172
+X-purgate-size: 5559
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,epam.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,m:Mykola_Kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
 	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: A301C328F77
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 92654329175
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Wed, Mar 25, 2026 at 03:56:05PM +0100, Jan Beulich wrote:
-> On 25.03.2026 11:08, Roger Pau Monne wrote:
+Hi Volodymyr,
+
+Thank you for the review.
+
+On Wed, Mar 25, 2026 at 4:45=E2=80=AFPM Volodymyr Babchuk
+<Volodymyr_Babchuk@epam.com> wrote:
+>
+> Hi Mykola,
+>
+> Mykola Kvach <xakep.amatop@gmail.com> writes:
+>
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > Extend ITS quirk lookup with an optional match callback so that
+> > platforms sharing the same IIDR can still be distinguished.
+> >
+> > Use the board compatible string to positively identify Renesas R-Car
+> > Gen4 before applying ITS workaround flags, preventing false matches
+> > on other SoCs that happen to use the same GIC IP block.
+> >
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 > > ---
-> > I've attempted various different ways to solve this, but they all ended up
-> > being impossible.
-> > 
-> >  * Prevent non-scrubbed pages from getting extra refcounts (iow: make
-> >    get_page() fail for them).  This seemed nice, but the cleanup using
-> >    put_page_alloc_ref() was impossible as non-scrubbed pages would return
-> >    failure in get_page(), and so I couldn't take the extra reference ahead
-> >    of calling put_page_alloc_ref().
-> 
-> A special-case variant of get_page() could be introduced, but maybe that
-> would still be overly fragile.
+> >  xen/arch/arm/gic-v3-its.c | 22 +++++++++++++++++++---
+> >  1 file changed, 19 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
+> > index 00524b43a3..c40629731f 100644
+> > --- a/xen/arch/arm/gic-v3-its.c
+> > +++ b/xen/arch/arm/gic-v3-its.c
+> > @@ -57,6 +57,7 @@ struct its_device {
+> >   */
+> >  struct its_quirk {
+> >      const char *desc;
+> > +    bool (*match)(const struct host_its *hw_its);
+>
+> If you are introducing match predicate, then why do you need...
+>
+> >      uint32_t iidr;
+> >      uint32_t mask;
+> >      uint32_t flags;
+>
+> these? You can use a predicate function to match against iidr
 
-It seemed too much complexity (and risk), just to deal with this
-scenario.
+The rationale for keeping iidr/mask while adding match() is to keep
+the quirk table declarative and easy to read. The match() callback is
+meant only as an optional refinement for ambiguous cases where IIDR
+alone is not sufficient to identify the platform.
 
-> When we discussed this, what I had proposed didn't require use of get_page()
-> though. assign_pages() would install two general references (plus one type
-> ref for PGT_writable) in this special case. To free, you'd call
-> put_page_alloc_ref() followed by put_page_and_type().
+In this design, iidr/mask remains the primary match key. If matching
+were made entirely callback-based, the standard IIDR comparison would
+have to move into callback code as well. That would make quirk entries
+more open-coded and less data-driven, while the current split keeps the
+common case simple and structured.
 
-Doesn't that risk under flowing the page counter if there's a parallel
-call to decrease_reservation() against this MFN before?
+This is also close to what Linux does: IIDR-based matching remains the
+generic declarative mechanism, and platform-specific checks such as
+compatible strings are added only where needed.
 
-How would the freeing done in populate_physmap() (in case of
-concurrent calls) know whether already scrubbed pages have had it's
-PGC_allocated bit dropped?
+That said, I agree that the callbacks introduced in this series are all
+doing roughly the same kind of platform identification. A reasonable
+follow-up cleanup would be to model this more generically, for example
+by adding an optional compatible string list to struct its_quirk, and
+reserving match() for cases that cannot be expressed through static
+data.
 
-> That said, the patch here is still less intrusive than I feared, so I'm not
-> asking to re-work this again.
+So the intent here was to keep the table clean, with matching logic
+effectively being:
 
-Thanks.
+  quirk_match =3D IIDR match && (no extra match rule || extra match passes)
 
-> >  * Disallow XENMEM_decrease_reservation until the domain has finished
-> >    creation would fix the issue of pages being freed while pending scrub,
-> >    but it's not clear there might be other usages that would be problematic,
-> >    as get_page() on non-scrubbed pages would still return success.
-> 
-> I agree this is of concern.
-> 
-> > --- a/xen/common/memory.c
-> > +++ b/xen/common/memory.c
-> > @@ -388,6 +388,12 @@ static void populate_physmap(struct memop_args *a)
-> >                              goto out;
-> >                          }
-> >                      }
+If you prefer, I can rework this either into a fully callback-based
+scheme, or introduce generic compatible-string matching in this series
+and drop the match() callback for now.
+
+>
+> > @@ -64,11 +65,24 @@ struct its_quirk {
+> >
+> >  static uint32_t __ro_after_init its_quirk_flags;
+> >
+> > +static bool gicv3_its_match_quirk_gen4(const struct host_its *hw_its)
+> > +{
+> > +    if ( !hw_its->dt_node )
+> > +        return false;
 > > +
-> > +                    if ( assign_page(page, a->extent_order, d, memflags) )
-> > +                    {
-> > +                        free_domheap_pages(page, a->extent_order);
-> 
-> The pages don't have an owner set yet, so that function will go straight
-> to free_heap_pages(), needlessly passing "true" as last argument. Correct,
-> but (for large pages, which the stashing is about) highly inefficient.
-
-My bad, I was sure I was using the same freeing function as
-alloc_domheap_pages() on failure to assign, but I clearly wasn't.  I
-will switch to using free_heap_pages().
-
-> > --- a/xen/common/page_alloc.c
-> > +++ b/xen/common/page_alloc.c
-> > @@ -2699,7 +2699,13 @@ struct page_info *alloc_domheap_pages(
-> >                                    memflags, d)) == NULL)) )
-> >           return NULL;
-> >  
-> > -    if ( d && !(memflags & MEMF_no_owner) )
-> > +    /*
-> > +     * Don't add pages with the PGC_need_scrub bit set to the domain, the
-> > +     * caller must clean the bit and then manually call assign_pages().
-> > +     * Otherwise pages with the PGC_need_scrub would be reachable using
-> > +     * get_page().
-> > +     */
-> 
-> How about replacing the latter "with the PGC_need_scrub" by "still subject
-> to scrubbing"?
-
-Sure.
-
-> > +    if ( d && !(memflags & MEMF_no_owner) && !(memflags & MEMF_keep_scrub) )
+> > +    if ( !dt_machine_is_compatible("renesas,r8a779f0") &&
+> > +         !dt_machine_is_compatible("renesas,r8a779g0") )
+> > +        return false;
+> > +
+> > +    return true;
+> > +}
+> > +
+> >  static const struct its_quirk its_quirks[] =3D {
 > >      {
-> >          if ( memflags & MEMF_no_refcount )
-> >          {
-> 
-> This no-refcount code isn't repeated at the new call site of assign_page().
-> It's not needed there, yes, but wouldn't we better allow this to be taken
-> care of right here, moving the MEMF_keep_scrub check immediately ahead of
-> the call to assign_page()?
-> 
-> Otherwise should we reject (much earlier) MEMF_no_refcount used together
-> with MEMF_keep_scrub?
+> >          .desc  =3D "R-Car Gen4",
+> >          .iidr  =3D 0x0201743b,
+> >          .mask  =3D 0xffffffffU,
+> > +        .match =3D gicv3_its_match_quirk_gen4,
+> >          .flags =3D HOST_ITS_WORKAROUND_NC_NS |
+> >                   HOST_ITS_WORKAROUND_32BIT_ADDR,
+> >      },
+> > @@ -77,7 +91,8 @@ static const struct its_quirk its_quirks[] =3D {
+> >      }
+> >  };
+> >
+> > -static const struct its_quirk *gicv3_its_find_quirk(uint32_t iidr)
+> > +static const struct its_quirk *gicv3_its_find_quirk(
+> > +    const struct host_its *hw_its, uint32_t iidr)
+> >  {
+> >      const struct its_quirk *quirk =3D its_quirks;
+> >
+> > @@ -86,7 +101,8 @@ static const struct its_quirk *gicv3_its_find_quirk(=
+uint32_t iidr)
+> >          if ( quirk->iidr !=3D (quirk->mask & iidr) )
+> >              continue;
+> >
+> > -        return quirk;
+> > +        if ( !quirk->match || quirk->match(hw_its) )
+> > +            return quirk;
 
-hm, I was likely too focus on the specific use-case of
-populate_physmap(), which is the only user of MEMF_keep_scrub.  I've
-noticed the MEMF_no_refcount bits here, but since populate_physmap()
-never uses that flag I just left it as-is.
+Also, while reviewing gicv3_its_find_quirk() I realized that the
+current first-match semantics may not scale well. Since the table
+supports partial IIDR masks, we could have a broad entry covering
+an entire GIC family alongside a narrower entry for a specific
+platform. With first-match, only one of them would ever apply, so
+their flags could never be combined. The same issue applies to the
+match() callback: if an entry with match() is checked first and
+fails, the loop does continue, but if it succeeds, all subsequent
+entries for the same IIDR -- whether with different masks or different
+match() predicates -- are skipped entirely.
 
-Will see about adjusting it.
+If others agree, I will switch to accumulating flags from all
+matching entries in v2.
 
-Thanks, Roger.
+
+Best regards,
+Mykola
+
+> >      }
+> >
+> >      return NULL;
+> > @@ -99,7 +115,7 @@ static uint32_t gicv3_its_collect_quirks(const struc=
+t host_its *hw_its,
+> >      uint32_t flags =3D 0;
+> >      uint32_t iidr =3D readl_relaxed(hw_its->its_base + GITS_IIDR);
+> >
+> > -    quirk =3D gicv3_its_find_quirk(iidr);
+> > +    quirk =3D gicv3_its_find_quirk(hw_its, iidr);
+> >      if ( quirk )
+> >          flags |=3D quirk->flags;
+>
+> --
+> WBR, Volodymyr
 
