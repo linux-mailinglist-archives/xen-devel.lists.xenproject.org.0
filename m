@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +N9tDyoDxGnOvQQAu9opvQ
+	id 4JUOIbsDxGnOvQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 16:45:46 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 16:48:11 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9CD328545
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 16:45:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1262674.1555099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3ECE328671
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 16:48:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1262688.1555108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5QQD-0000Ae-QR; Wed, 25 Mar 2026 15:45:29 +0000
+	id 1w5QSb-0000x4-8f; Wed, 25 Mar 2026 15:47:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1262674.1555099; Wed, 25 Mar 2026 15:45:29 +0000
+Received: by outflank-mailman (output) from mailman id 1262688.1555108; Wed, 25 Mar 2026 15:47:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5QQD-000090-MR; Wed, 25 Mar 2026 15:45:29 +0000
-Received: by outflank-mailman (input) for mailman id 1262674;
- Wed, 25 Mar 2026 15:45:28 +0000
+	id 1w5QSb-0000vB-5W; Wed, 25 Mar 2026 15:47:57 +0000
+Received: by outflank-mailman (input) for mailman id 1262688;
+ Wed, 25 Mar 2026 15:47:56 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper@citrix.com>) id 1w5QQB-00008q-VP
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 15:45:28 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1w5QSa-0000v5-5H
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 15:47:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5QQB-00Eyv7-BH
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 16:45:27 +0100
-Received: from [10.42.69.12] (helo=localhost)
+ id 1w5QSZ-005Y5v-HY
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 16:47:55 +0100
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper@citrix.com>)
- id 69c4030e-e002-0a2a0a5209dd-0a2a450cbc1c-18
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 16:45:27 +0100
-Received: from [40.93.196.15]
- (helo=SA9PR02CU001.outbound.protection.outlook.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <andrew.cooper@citrix.com>)
- id 69c40314-f93d-0a2a450c0019-285dc40f2f01-3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 16:45:27 +0100
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by SJ2PR03MB7356.namprd03.prod.outlook.com (2603:10b6:a03:55c::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.20; Wed, 25 Mar
- 2026 15:45:17 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9745.019; Wed, 25 Mar 2026
- 15:45:17 +0000
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69c403a9-e002-0a2a0a5209dd-0a2a450acd32-10
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 16:47:55 +0100
+Received: from [209.85.208.178] (helo=mail-lj1-f178.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69c403ab-1772-0a2a450a0019-d155d0b2f198-3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 16:47:55 +0100
+Received: by mail-lj1-f178.google.com with SMTP id
+ 38308e7fff4ca-38be5e86918so25640351fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 08:47:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,212 +51,309 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yUttoXpksp6qJa6osLtVUTMnfGespKX7rnS9x3dzFWhiemaJZCcAq1NQyUzucT+d8uaitC4xSudX3f2jnvciQ6jE19NC7VEnd32DRh6FW93CLPyv88md8JHbe+t2mFfhZNnWr1TN+CPSo1o2kiYiCKj6J5OW4Cuk/cWRJROuElnlBUB4x3/ntL0wRehbMCj+xnOmla1Vz8aM+TZf9S8zKcJEC1DptZLNNFwdloqbVjKAtvvpHr9SWyxyuao2opTOzUJOL1mswFJ+PwDrLkeglYpZ1+GIzZuvVgtgLBagessXMJiJ2CsdSBGbpnLkSTJpJh8cQqMvQfjjRNeqTvmjtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gc2QDuvsxN8t5/jIo64cdy98ZNZAYdRd08s7dNyjEXQ=;
- b=KLnwJ7dukECD6lsTWHvsWPU1Rdj0QARc6Dr8A6477ca6hekQskt+hlFe8+NPlhyktFX3l1dS41wWEFMoWsse8oF1Qfgba0HZfn6l5y3542GAjsuq09qwQ6KAM3rNPtKME3vvlE3RvS+DDcwZ2XFxSErGgwNZuDbb480FLDlIyTungbRrqjIkBLQ87GbKM3FEnIoHSBN36ySfQn4Ghk728ZWjIul2H/RwoJSupmEnpVWVC43oZankXKG3Ext6x9ZpO4xftgsKxbk1s9vXwd59BERbmMhK94Gmcr7KKA0pwpYvgWTiWYSjQMnwk0J8Uz+1icOamJZCSocRe/v6sHRX9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gc2QDuvsxN8t5/jIo64cdy98ZNZAYdRd08s7dNyjEXQ=;
- b=H0ApaMYNclEc9Y7ZfGqvF6AbZV+WUSb+xlNHwXhFmWOPmcEH2DcyP34o4or4OvEC0Oj248YGlAFOjU74MtozD8xX+mHTHVVujU0loEECZJp1ichjxm9cpZBaeCzntqdJjJ+2QyDnnnSNY/v91fvjkHs96La8X5k1q7L9kEOMJYM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <d37e995a-332d-4917-aa42-15a5fec2d960@citrix.com>
-Date: Wed, 25 Mar 2026 15:45:13 +0000
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>,
- Juergen Gross <jgross@suse.com>, Meng Xu <mengxu@cis.upenn.edu>
-Subject: Re: [PATCH v2] xen/sched: validate RTDS putinfo period and budget
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <c629e66ebf05d620423babf1e4e98866c1f75357.1774452210.git.oleksii_moisieiev@epam.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <c629e66ebf05d620423babf1e4e98866c1f75357.1774452210.git.oleksii_moisieiev@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0201.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a5::8) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1774453674; cv=none;
+        d=google.com; s=arc-20240605;
+        b=XKLJZapprnbqy1h+U4D5egSIO15tkfG8vJc6aD9QkAXyrtM1oOI7nsAkMjycJzfoPU
+         fJkn1RGzRd6Hcns1l9SkZaIJDFr4+BNvU+tUqg48CZ5iieJ37f3ohc85AdWysfElFUaa
+         z+vGKToM8tO2wSV2m8LaOW6S3t5bjOvaSnvycUwWElXSIKoZ9mMGMs387juIbiZVDZUc
+         VSM26LseT5V2bJjiQkNQlC3KOAHaDdp9TgXNiJZ8GxlBttEWf11DEQymtKSmbB1ls+wE
+         oqAz8RfwkGwRfGZfVvbk1PgYWZHN3MTzXtt1OGh5QVZFQFQYDTulGHyYx6QQ/3ojUftW
+         qP7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wAC3dqVfQvzAfd2kLmhoLQ9o/WOFwtsH7xtwSy4+Feo=;
+        fh=HHRjWkdysX2ZkNpVMY4DcdwfNbPq2J2BPJfxbJK3Acs=;
+        b=OdSYwgx70M4wgo9RLMKAmvrTrRbUoavgNqefGvRhUM6vOZIfEQNvI+O8Em4HWfdvXh
+         qDT7RSBtu4kCBSzkwKSv1E7dEv1Hn3E9mU/qzljVIXjJXjjVIdgYY0LxzqfHod6hRE4i
+         QlsUTEx1+Vot3rEPI0DoywAbfzyrbXBq6XIHLbMP6/jg5Xjw9WjxpbM1QiI7Wr1E6sHB
+         l5Ux+20vCzSL5mGwxGK3LmCDhmiDqD8pzZbByAo4kUbjx0KQ2SV/NxyV0Uj6hqYa+zlw
+         tm8qYpz1Rd3B9B7m9ESUKNaJ4cEZSViV5hQIQx8WpFA74wuI3uyWXL3eeMOYJNr5T8Pj
+         m05g==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774453674; x=1775058474; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wAC3dqVfQvzAfd2kLmhoLQ9o/WOFwtsH7xtwSy4+Feo=;
+        b=jDs599uW66+WvcJjMxhNuLWDA8kaLXtbMeLBXf8XMskAZF8oeUry6gBJileQ6ltcPy
+         6YlP2frtLTmj0StqYCXVOdV5/JHQWg5PJ0IHKL6zJt4dEczL1sAlNSiPDD7ZJnxQelLk
+         bXxAliQjf72LDmSpeGS9FiFpP+PFRjCIFdJ68dJq9TqygmqRp/pmcMX3lg+Tx8EMnQpt
+         IHnJ8BqJBBAm8QA73TZroPUdbqMMAklvMhSsddi3h4pGM5V1S8Bskk2FnzQ0zdvdnY69
+         /D5vdtJ0S/DZlMPMtVatCbC872UAekNR74XNGJGTKr32TtSCngHXp+Mwyyqe4dzAaOm6
+         xg7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774453674; x=1775058474;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=wAC3dqVfQvzAfd2kLmhoLQ9o/WOFwtsH7xtwSy4+Feo=;
+        b=AkhlhIGxuv9IuaWUDw06h/DMf3RVkvNQDchfK8gXUG/JgY2eaiKAYgaxkxZMUo9jqw
+         gwOm75xsFm1AAO4axNgYBD41p3sG0993BWpAShjRXGkgF/TytaGri7c1MmVIf1SIL+y9
+         4FBI96o6qF/1wpKcYstXI/lZ7vEP7JzrScNYRVThHKaEW5jOTYSdbzqRxV5Ttie8YRk9
+         Wl3lE827yDta3BWAerqAmV33FuxJfvw6KgEVLtjk8yBBq3p4B/oDueZL1uW+RvMZC/In
+         muVm7imhJn2HiY1NPWTtQoC7eDBnLck+cqqIROIRH+CiBsP6xlUK27jv2jmk8oBNAVya
+         jTuw==
+X-Gm-Message-State: AOJu0Ywx7Joq0AujrN3OBn5PaJCAcFT3Z9qlF3I64HHNEbDdiDVgZaSk
+	UyrOMt4OuywlbjATRGW/KRjOeAd7v7kHu2Eu46Te+8WAiHPgdQjSfmJh331BuPLamS3ep747sDE
+	MVxllcNsd/xQVfkZ5mJSBrrNtYw7SyPY=
+X-Gm-Gg: ATEYQzzWosAdLQtf+VEiLsfvCRGFn+ZNAnQxEBMw4G85dbZT9yu/9IwZVhT59ulOBfz
+	hlB+lnOJXwozzru3HS1+TJHa9WzCsdZe+0IDvoCQM9VZeHsaajZ3fDy+ZlFcHY5BHHx76sWbR7z
+	0X4tyVJrPLFjhr8DUVVoTg7vQCBocfkmh8AO7Fjs+PwPrkqiOfWltNYiBtARihqsm/TscLqGDzC
+	chsWkmhxisoYexX2rNt6gKIq5vbgZ2HWzoM7/fdNn9Mkv0hwoY6yggcpS6SxBwg9OZPTwe+oKWQ
+	yEIZ
+X-Received: by 2002:a2e:90d2:0:b0:389:e6d4:e7cb with SMTP id
+ 38308e7fff4ca-38c4313da9dmr11147721fa.22.1774453674110; Wed, 25 Mar 2026
+ 08:47:54 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SJ2PR03MB7356:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2871fdb6-8b9b-48b8-bcf2-08de8a858365
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|56012099003|7053199007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	WrMX+epEsQslVC6HoT2UgCL/3+Nz48CHfcecd0n91276c0kjwLT/pv2EvsgoX2fMSH+9t5NRew7QdmysbeMUn/CrIbZOXjKXrq8hw0qIJomz6NqvqgReXY3SkkUs7arjFmv3QvFWcpQA03l7qQo3hTi1vqdWLfaBxvX3pYWHIOWMqOaheSeBHMqMhVS1fh6L7graaUfPzoZxQOSFbvTUucoO0HTAdzFhsRq12QhSrNQra/zytXC6ZgpNzWvv/5hLXMj1x5y9qiPlHx8Vp/PxKqI37Og2nJVb0SHg+eJsI24bJt93hyPpFqsJ8lGAlYmjrf26jPUQu9L5clHkteHjegDO6sB1vHIqjNpOK0c0I1w6Ps9BJdJ5KUkUG4zoY30DWUe9puio14x4tm+4Yq4YeRUCLrL9g4wgGNIlfAesZ/MHuTBUvfLYaUGRD78E9XJYiwpjUWy1Lz8oLaypsT8UYrO5wuouggcbBcfKVKhRkX6PfT4GiUpVzl7TPY5I8H/Ze5xztImlRrpK1NEJVA7ikpb2Jeq4Mt16De+lbfjDciMhZn6oUPpAYfhnxI9AY699/phDwZ8mcaHOMacxW0f4mMEqrrQT1mnU/NOFPAsgYeP5uTxDcnYwpgEtJgyq0mGtspeiaSXETPjg+YJKoKlzR9A03xBYGV7VIuAYPAyM19dhnc+U/BzCH8T5bSrCvUVO
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(7053199007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MjQxbHY5dnhTNE1RaXFtWHgzSUUxODJOL1dUdmRieTU2eXBFTWc2UHRUdy9h?=
- =?utf-8?B?ZWJEQjU3RG83ZzFSbXJtMnNQQ1pGT0dhamdkY1hKSWxtU3Y5VjVZK1hZQzhU?=
- =?utf-8?B?NUlWK29wR21FdVJmQ1E2Q0hERDRNbmthQ3RkcE9vWkZmWkxFTHc2UU9hRElQ?=
- =?utf-8?B?S3NXbXVrbVNvSThxZHBGM0k1ZnJwUUNzRGhIempoZjF4Ky9tenVrVlZCZjVm?=
- =?utf-8?B?TDRtTUx3TDYwQ0gveHBBRWhRK3VkeWpoUmZudFZ3b296MXBzQ2xPZFJpWW9a?=
- =?utf-8?B?MTRlUGZnaHlNeEk1SW9Fc1p6SWdwT01wSktEZ21xamVoQ0RJTHR1Q1ZyaWoy?=
- =?utf-8?B?S0p4TmQ5YWRYc083alYrRWlpRU5nUmNYeTYxck9XZVdoWDZraFFvNkJhZlhw?=
- =?utf-8?B?ajdKV0gwMDNBUTgrK0R3ejd0TitmM1dzZGgwanhYS2RrQW5xcy9JT2tiNWwx?=
- =?utf-8?B?ak82YkxxMGVHWWc1Wld3QVJMLzBzR3Y3elduak5qUGlHS1Y1ZWM0MklFY3Z0?=
- =?utf-8?B?Y1FBeVgvYkh3cGhjQmo3bDR0YmV0SUtGdFQzekF2NjJKUk5JeFdhOWhjNXIw?=
- =?utf-8?B?NnFvaDY2T25PVUpsSUFrV0xWeWRMTlBKQUszWXlkVzlsSGlVdUNyTG9leXFY?=
- =?utf-8?B?MnJhSUVkUXhsR2NCdlZkUGlvQVM1bGtZR2lCSjIwL0duVEorR3JLZk82NlN3?=
- =?utf-8?B?U3hDSkthNC9PZkZDaFlBWnlXZUVhTitnTG9SaDJjU0hBNWxWcmYvY0UvaUl1?=
- =?utf-8?B?YVhsTCtQNGdDN3N4ZWROQmtMRHV6WEhSdndLT2xhY2JDa29VZXAvbUh3Y1Rl?=
- =?utf-8?B?eStYTjdRNkIwMlNTL0RxNitZWEV6dll3dU9YaGhJOXhGZ0RDY2hvOW0vTGRX?=
- =?utf-8?B?d3ByWXhpVDBMclkrbDIrL0MvdXIySlFoQXBMTWpPbElRRE9nRzBvUU1GMCtp?=
- =?utf-8?B?NFk2ZDgzY3Q3NzZ0bE1CQy9GS2xwK0Evc2JwNVJ1YkdUdVBmMWxKS2dMdXBR?=
- =?utf-8?B?Q2VyZ01od0NuWEJrMk9JeEo0NVgyK1JDOWF4VG13ZWV6UkxvQ2JLeFZLQ2Fl?=
- =?utf-8?B?RlJ5MHpFQzJBNUtYdjFxbzAzUzlSanFCYVcyMDBxR0hucVllVUdTRldFcTB5?=
- =?utf-8?B?RHhrMlFoMzQxTmVHSGlYYkFSNnJsRlJqUFZNMmtFOUlSRTVmbHRZYkFPa09x?=
- =?utf-8?B?WkhuT0FFRyt3Z2ZuNGRNYVFya3l5OFVQaU9nMHlva1AvTEd0V00zNUtNa0Jt?=
- =?utf-8?B?WmlOTWxJUDMxNXNhVEgzT3JtS2czZVlVNnVXTXczRnlNQVE0bHdueWg0WXNW?=
- =?utf-8?B?c21ZN1AwY1lOTUdIZkFMZ1c2VjAvd3htTlNaUTNOTVA0YXdHN2NkVzVWY0tT?=
- =?utf-8?B?eXFQUEpGNFAvTWVwN0JXZEZRWGsvd29uZ0RhNDRiUWJRTHNzYUs4djUxbGhn?=
- =?utf-8?B?aEo5Q280Kzhxb1hGWVY2U0VocEM5c0hIamdPZi95dzFQTnJlRWwxTFd5ZXlp?=
- =?utf-8?B?MFBuVWozUnFKTUpIcHc0T2lCbEhrYU8rNHBPL0xTRU5oRnJwaUtBd0dRcFVu?=
- =?utf-8?B?STRwaDc0RUFtSTZTN2FxUTV6bmNXbnB0Uk9yZlN1YW1qNVVaT1o5YnhWNVFJ?=
- =?utf-8?B?WGxxNmpGdjJOUFVLMSt0NkJjaUFEajZNMkhyb28weGVqUEVtTDRGcE1NU0lR?=
- =?utf-8?B?Vm1pQkpFUWh3UDZ0SzNSOGdXQ1ZDWDdERlByRkN0NDJEbVNzQndISkxkKzlj?=
- =?utf-8?B?Qy9jZk4wN2NTLzcxekdFNlF3d2ZGMXJUL2JaQmRrZ2YzUkFYSFhsMzJNVWUy?=
- =?utf-8?B?UkZBZVNsV1VKVVE5UThYVlBOTEJOSnNteHRLZnVXSzJ0bVVjZ0s3Q2NJVXBp?=
- =?utf-8?B?NU9yRFYrNkh3YTBjMDFXYVUxNGk0em1YSXF4bE5JQk9ZR3RhZUtrbFkwV3VP?=
- =?utf-8?B?eEgrSG41S1NxN2R1Q1ZQWXI5RFFXbVUvdDJ3TDFlT29uczEyeTJHMnptTkRY?=
- =?utf-8?B?WlpNQjV2UlQ3d2MvOFRYWXlnWFNXUjFCNU5WQ3pMY0Z5Y0tVaWNDLzdtc24y?=
- =?utf-8?B?d3hBOEw2a2o1eHBCbFRsdFJ5bXJzVzdzZUx4b2k5S0s1ZzlmMUNuanJsWmxB?=
- =?utf-8?B?UnJDcHM4Nk5oaUlzNnhZZndxdk4zQnlQMnU5N0VhenVlSGdVSHdaRHVRdWM3?=
- =?utf-8?B?Wld5Rldmck5oL3YyRzltcVgxaTRFOGhSUzFsQUJlSVFaUmdhWU1IRm5wSHdn?=
- =?utf-8?B?VEtqa1ByeHlHMnFxWVhGalkrL0RTYnRJMDJ1U3BOSkFNTVIvWkw0Nzd5aGpQ?=
- =?utf-8?B?aS84M2p1MEpvemhWYk42ZWNiMG1TYmdia3N4bzVsOWpKNWw0WWdpakMya1E3?=
- =?utf-8?Q?uKJO+/+wtHzc8xmY=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2871fdb6-8b9b-48b8-bcf2-08de8a858365
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 15:45:17.4519
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bfxa0VrXsljqb+uTpcJ5LLGRl0BXGi+AE9I79pnFgajJsaEQtlsY3/f14UlbhxP2qtBp9x+UavuEjWBUijb7xZ7bP0hgkS5cCiJJgKXQ3kI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7356
-X-purgate-ID: tlsNG-d25034/1774453527-6FEA3734-70A0E5A1/0/0
+References: <cover.1774431310.git.mykola_kvach@epam.com> <5b68fa0a8403ea60db3047f6505876bc03a41f3f.1774431310.git.mykola_kvach@epam.com>
+ <87bjgcvul6.fsf@epam.com>
+In-Reply-To: <87bjgcvul6.fsf@epam.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Wed, 25 Mar 2026 17:47:43 +0200
+X-Gm-Features: AQROBzBnvr8t7Gz0_HZFVSoDxw4XxCynisr9rsnzwBgu3i9XQHZjS24fTikQv2o
+Message-ID: <CAGeoDV87irnVf8k+Z2L6=k41p87N9O6DpLCFdkMwErzDpXB9KA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] xen/arm: its: collect quirk flags and honor dma-noncoherent
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <Mykola_Kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-4011c0/1774453675-BCA83900-C48F5392/0/0
 X-purgate-type: clean
-X-purgate-size: 2202
+X-purgate-size: 6385
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid,bootlin.com:url];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:dfaggioli@suse.com,m:gwd@xenproject.org,m:jgross@suse.com,m:mengxu@cis.upenn.edu,m:Oleksii_Moisieiev@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,m:Mykola_Kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCPT_COUNT_SEVEN(0.00)[7];
-	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 9D9CD328545
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: D3ECE328671
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 25/03/2026 3:24 pm, Oleksii Moisieiev wrote:
-> The RTDS domain-wide XEN_DOMCTL_SCHEDOP_putinfo path only checks for
-> zero values before applying period and budget to all vCPUs in the
-> domain.
+Hi Volodymyr,
+
+Thank you for the review.
+
+On Wed, Mar 25, 2026 at 4:42=E2=80=AFPM Volodymyr Babchuk
+<Volodymyr_Babchuk@epam.com> wrote:
 >
-> This is weaker than the per-vCPU XEN_DOMCTL_SCHEDOP_putvcpuinfo path,
-> which already rejects values below the minimum, above the maximum, and
-> cases where budget exceeds period.
+> Hi Mykola,
 >
-> Use the same validation rules for putinfo as for putvcpuinfo, so
-> invalid domain-wide updates are rejected with -EINVAL instead of being
-> applied inconsistently.
+> Mykola Kvach <xakep.amatop@gmail.com> writes:
 >
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> ---
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > Replace the per-quirk init callback with declarative flags in
+> > struct its_quirk, and introduce gicv3_its_collect_quirks() to gather
+> > the effective workaround flags from both the IIDR-matched quirk entry
+> > and the "dma-noncoherent" device-tree property.
+> >
+> > This lets non-coherent platforms force non-cacheable ITS table
+> > attributes even when no IIDR quirk entry matches.
+> >
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> >  xen/arch/arm/gic-v3-its.c | 70 ++++++++++++++++++++++++---------------
+> >  1 file changed, 43 insertions(+), 27 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
+> > index 9ba068c46f..00524b43a3 100644
+> > --- a/xen/arch/arm/gic-v3-its.c
+> > +++ b/xen/arch/arm/gic-v3-its.c
+> > @@ -57,71 +57,87 @@ struct its_device {
+> >   */
+> >  struct its_quirk {
+> >      const char *desc;
+> > -    bool (*init)(struct host_its *hw_its);
+> >      uint32_t iidr;
+> >      uint32_t mask;
+> > +    uint32_t flags;
+> >  };
+> >
+> >  static uint32_t __ro_after_init its_quirk_flags;
+> >
+> > -static bool gicv3_its_enable_quirk_gen4(struct host_its *hw_its)
+> > -{
+> > -    its_quirk_flags |=3D HOST_ITS_WORKAROUND_NC_NS |
+> > -        HOST_ITS_WORKAROUND_32BIT_ADDR;
+> > -
+> > -    return true;
+> > -}
+> > -
+> >  static const struct its_quirk its_quirks[] =3D {
+> >      {
+> > -        .desc        =3D "R-Car Gen4",
+> > -        .iidr        =3D 0x0201743b,
+> > -        .mask        =3D 0xffffffffU,
+> > -        .init        =3D gicv3_its_enable_quirk_gen4,
+> > +        .desc  =3D "R-Car Gen4",
+> > +        .iidr  =3D 0x0201743b,
+> > +        .mask  =3D 0xffffffffU,
+> > +        .flags =3D HOST_ITS_WORKAROUND_NC_NS |
+> > +                 HOST_ITS_WORKAROUND_32BIT_ADDR,
+> >      },
+> >      {
+> >          /* Sentinel. */
+> >      }
+> >  };
+> >
+> > -static struct its_quirk* gicv3_its_find_quirk(uint32_t iidr)
+> > +static const struct its_quirk *gicv3_its_find_quirk(uint32_t iidr)
+> >  {
+> > -    const struct its_quirk *quirks =3D its_quirks;
+> > +    const struct its_quirk *quirk =3D its_quirks;
+> >
+> > -    for ( ; quirks->desc; quirks++ )
+> > +    for ( ; quirk->desc; quirk++ )
+> >      {
+> > -        if ( quirks->iidr =3D=3D (quirks->mask & iidr) )
+> > -            return (struct its_quirk *)quirks;
+> > +        if ( quirk->iidr !=3D (quirk->mask & iidr) )
+> > +            continue;
+> > +
+> > +        return quirk;
+> >      }
+> >
+> >      return NULL;
+> >  }
+> >
+> > -static void gicv3_its_enable_quirks(struct host_its *hw_its)
+> > +static uint32_t gicv3_its_collect_quirks(const struct host_its *hw_its=
+,
+> > +                                         const struct its_quirk **matc=
+hed_quirk)
+> >  {
+> > +    const struct its_quirk *quirk;
+> > +    uint32_t flags =3D 0;
+> >      uint32_t iidr =3D readl_relaxed(hw_its->its_base + GITS_IIDR);
+> > -    const struct its_quirk *quirk =3D gicv3_its_find_quirk(iidr);
+> >
+> > -    if ( quirk && quirk->init(hw_its) )
+> > +    quirk =3D gicv3_its_find_quirk(iidr);
+> > +    if ( quirk )
+> > +        flags |=3D quirk->flags;
+> > +
+> > +    if ( hw_its->dt_node &&
+> > +         dt_property_read_bool(hw_its->dt_node, "dma-noncoherent") )
+> > +        flags |=3D HOST_ITS_WORKAROUND_NC_NS;
+> > +
+> > +    if ( matched_quirk )
+> > +        *matched_quirk =3D quirk;
+> > +
+> > +    return flags;
+> > +}
+> > +
+> > +static void gicv3_its_enable_quirks(struct host_its *hw_its)
+> > +{
+> > +    const struct its_quirk *quirk;
+> > +
+> > +    its_quirk_flags =3D gicv3_its_collect_quirks(hw_its, &quirk);
+> > +
+> > +    if ( quirk )
+> >          printk("GICv3: enabling workaround for ITS: %s\n", quirk->desc=
+);
+> >  }
+> >
+> >  static void gicv3_its_validate_quirks(void)
+> >  {
+> > -    const struct its_quirk *quirk =3D NULL, *prev =3D NULL;
+> > +    uint32_t quirks, prev_quirks;
+> >      const struct host_its *hw_its;
+> >
+> >      if ( list_empty(&host_its_list) )
+> >          return;
+> >
+> >      hw_its =3D list_first_entry(&host_its_list, struct host_its, entry=
+);
+> > -    prev =3D gicv3_its_find_quirk(readl_relaxed(hw_its->its_base + GIT=
+S_IIDR));
+> > +    prev_quirks =3D gicv3_its_collect_quirks(hw_its, NULL);
+> >
+> > -    list_for_each_entry(hw_its, &host_its_list, entry)
+> > +    list_for_each_entry_continue(hw_its, &host_its_list, entry)
+> >      {
+> > -        quirk =3D gicv3_its_find_quirk(readl_relaxed(hw_its->its_base =
++ GITS_IIDR));
+> > -        BUG_ON(quirk !=3D prev);
+> > -        prev =3D quirk;
+> > +        quirks =3D gicv3_its_collect_quirks(hw_its, NULL);
+> > +        BUG_ON(quirks !=3D prev_quirks);
 >
-> Changes in v2:
-> - introduce rt_validate_params helper function to check period and budget
+> I know it was in the previous version, but as you are already touching
+> this... This is not Xen BUG(). This is a platform problem. So you need
+> to panic here. Something like
 >
->  xen/common/sched/rt.c | 37 ++++++++++++++++++++++++-------------
->  1 file changed, 24 insertions(+), 13 deletions(-)
+>  if (quirks !=3D prev_quirks)
+>         panic("Different ITS instances has different quirks")
+
+Ack.
+
+
 >
-> diff --git a/xen/common/sched/rt.c b/xen/common/sched/rt.c
-> index 7b1f64a779..645b091de7 100644
-> --- a/xen/common/sched/rt.c
-> +++ b/xen/common/sched/rt.c
-> @@ -1362,6 +1362,20 @@ out:
->      unit_schedule_unlock_irq(lock, unit);
->  }
->  
-> +static int
-> +rt_validate_params(uint32_t period_us, uint32_t budget_us,
-> +                   s_time_t *period, s_time_t *budget)
-> +{
-> +    *period = MICROSECS(period_us);
-> +    *budget = MICROSECS(budget_us);
-> +
-> +    if ( *period > RTDS_MAX_PERIOD || *budget < RTDS_MIN_BUDGET ||
-> +         *budget > *period || *period < RTDS_MIN_PERIOD )
-> +        return -EINVAL;
-> +
-> +    return 0;
-> +}
+>
+> Also, I want to point out that you are not validating "dma-noncoherent"
+> quirk here. I mean, some ITS entries can have this property, some other
+> - don't. This makes me think that you need to promote this
+> "dma-noncoherent" quirk from open coded check to a `struct
+> its_quirk` entry, so it will be handled in generic way.
 
-Code written like this is horrible; both to read, and in terms of
-generated code.  Because of potential aliasing, that's 7 distinct memory
-accesses because the values cannot be cached in registers.
+Just to clarify your point about dma-noncoherent:
 
-You'll get far better code generation by writing it more like:
+In the current version it is already part of the effective quirk set,
+because gicv3_its_validate_quirks() compares the flags returned by
+gicv3_its_collect_quirks(), and those already include the
+dma-noncoherent DT property.
 
-{
-    s_time_t p = MICROSECS(period_us);
-    s_time_t b = MICROSECS(budget_us);
+So is your concern that DT-derived ITS properties such as
+dma-noncoherent should also go through the same common quirk/collection
+plumbing as the other ITS workaround sources, rather than being handled
+as a separate open-coded check, similar to how Linux models this [1]?
 
-    if ( p > RTDS_MAX_PERIOD || ... )
-        return -EINVAL;
+Or did you have something else in mind?
 
-    *period = p;
-    *budget = b;
 
-    return 0;
-}
+Best regards,
+Mykola
 
-See https://godbolt.org/z/W63TY8qTW
+[1] https://elixir.bootlin.com/linux/v6.19.9/source/drivers/irqchip/irq-gic=
+-v3-its.c#L4973
 
-But it would also be better still if you passed op->u.rtds into this
-function rather than {period,budget}_us separately.
-
-~Andrew
+>
+>
+> --
+> WBR, Volodymyr
 
