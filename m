@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QAl5JBbbw2lwuQQAu9opvQ
+	id MMQAJELbw2lwuQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 13:54:46 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 13:55:30 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00BF6325427
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 13:54:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1262241.1554829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECF03325456
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 13:55:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1262250.1554838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5Nkm-00032m-RW; Wed, 25 Mar 2026 12:54:32 +0000
+	id 1w5NlY-0003as-4b; Wed, 25 Mar 2026 12:55:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1262241.1554829; Wed, 25 Mar 2026 12:54:32 +0000
+Received: by outflank-mailman (output) from mailman id 1262250.1554838; Wed, 25 Mar 2026 12:55:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5Nkm-0002zy-Os; Wed, 25 Mar 2026 12:54:32 +0000
-Received: by outflank-mailman (input) for mailman id 1262241;
- Wed, 25 Mar 2026 12:54:31 +0000
+	id 1w5NlY-0003YI-1b; Wed, 25 Mar 2026 12:55:20 +0000
+Received: by outflank-mailman (input) for mailman id 1262250;
+ Wed, 25 Mar 2026 12:55:18 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w5Nkl-0002zm-Fg
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 12:54:31 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w5NlW-0003Xd-Of
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 12:55:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5Nkk-009vQn-Rt
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 13:54:30 +0100
-Received: from [10.42.69.12] (helo=localhost)
+ id 1w5NlW-004tIQ-4X
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 13:55:18 +0100
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69c3dafc-e002-0a2a0a5209dd-0a2a450c9200-34
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 13:54:30 +0100
-Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c3db2d-5cb7-0a2a0a5109dd-0a2a45049b9c-28
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 13:55:18 +0100
+Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69c3db06-f93d-0a2a450c0019-d1558035bcdc-3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 13:54:30 +0100
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-486b9675d36so54026355e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 05:54:30 -0700 (PDT)
+ id 69c3db35-c823-0a2a45040019-d1558034e97e-3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 13:55:18 +0100
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-486fba7ce4cso23780265e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 05:55:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-487172f916asm30216625e9.5.2026.03.25.05.54.29
+ 5b1f17b1804b1-487116f17f3sm123754005e9.1.2026.03.25.05.55.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2026 05:54:29 -0700 (PDT)
+ Wed, 25 Mar 2026 05:55:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,52 +58,53 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774443270; x=1775048070; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774443317; x=1775048117; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Hr58uimG8bI+Ne0+PIoQEbzojsnDffZKHoNOIV+6NWk=;
-        b=S9qirmPZ0uSESPmxXwrC6lvjY94O7XFwAHQuM5esE7sIbUCC9sEuV3W9oHtAql/kzR
-         GdpmXBrG8ZnzLeLEruvIARu/NBU55rexoghJL2qDS0Lx3ojzcuRUDyukLPAPSMbVQ8d9
-         O+QjyPUHDGZMX086pk0x2bzSaIBWS6PGGY+7pulzKn90SedsnS8FrDXcPuVOqQ782QCx
-         NqrHZd8lqyBlPADA2EEWTE1TpNr/grPMHUQ/uW3DXn0x45/vFl58tm8rn+pzT+fUjrry
-         T7Hjsxg87ygF/wxohxISAyVcH6fyMo5K/6oHL/Bdp/ml4cGnhPuagT9hjWt3dK0uZK/e
-         9cCQ==
+        bh=oR28QN8+Eegb6HhdyO3GVPROtcEHLWwVpemo8dhr310=;
+        b=ULvoizBodET5YDqgan504+BSaiIamkGn1+4QRcnkIoRHA8fRjuiL5M2qS1olyMnbOr
+         jNgXJFJJ8pxmwpM8+gfZUiJMOngQinzsTWeo1hFkReOzDAz8A30CDJwWI+gd3LKOfJpv
+         +tL66KOcmKEQqtkgoOfL+F9/Lf8RMXprzznSwGCgtuNVttnz41h1goHOZXIybi29k1wQ
+         McEdEJcSlfGlZD84psZf3c4MSzrvpHg0INt3MlT9mkWdaTc9lGS4ipQvsumqtu1SBVFS
+         vEmqvnLSDXcYySuTq2b8whxkopOP5dJ7S2SPpKdwTyz26skTq80/StD+Q9zoW/WcCi/I
+         vrcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774443270; x=1775048070;
+        d=1e100.net; s=20251104; t=1774443317; x=1775048117;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Hr58uimG8bI+Ne0+PIoQEbzojsnDffZKHoNOIV+6NWk=;
-        b=bNw9iRh9tJIDnrRiIx5LcKCEtBXtInRfcyljpvnsWhRNE8p+uahHdYS2atrida160X
-         gulZnLhdDyLsqc0OKQMYJ4Y2k3dDw23YuFz23641x6KrDqjjfj9suvBhm/CM/0DWG0Hw
-         nNbAgfFmzFIN3JC2wBzVpgEwIk8vpDqyKZ21jHFLntzmvObR+o7P7S9ILXCFv1lhGHID
-         4xHeW5G4ot5tTCioknruBISl2x1jxK6LcQk1WSi4Dm+/MkSQsUqC4UAteXTSwkrvsnUe
-         huh42PxRmnz2Mzobm87/wO4/LF+VcYN0uzbgX/ZQj6n87zqPsEhxiBRBEPZJSSuAZPEc
-         K83A==
-X-Gm-Message-State: AOJu0YxOKBPSEuwXA9buucNhtTZnw7louMGK0SEmx84H5DChk95gi7Co
-	aP4c5BlQhRnNOFV9gop03OWYVdsLpIfEGa1e7toCdHxCXChL36fvh4Jtjj3VjxWoBr6H6bjPit/
-	Ec2Hlyg==
-X-Gm-Gg: ATEYQzykOpnhOS8Z/30TJXtdVXOwcGZI6SCc7vXE3vbCAi13daaGTjtXUq3XwQDhOti
-	MU3fMtLqcl0CTvzXFmw/1skYiywYME7cFom7PBfvVIHRHWIkzyP7jJ8ZMcNsekZQOq7ThXKoOve
-	ML/zHv8K9VBIudy7l0qiprS2XRyGpN+Lqp2Um+chz2ljqgOcxF7A0vbQAzZ+UJDkYmgDeCLB4m2
-	MLXAhnXYKkRA14dTFVwoDahVOI8JCbAP7TkLvzr4Rc+1A6djDqJ4pnVHbAI4mvBgLwJ9EcFDT01
-	s9JbnUEt5m46aUkvNBwogFJQB+ToJtxtgwP/UH2LeQSyl0cUp+p0xX2smTX3ua0I3SvPaGyyKhr
-	UB8UhhNk+5yb8YOJoYXgfZDQMvThr+qqRE39CBvLCyp771i8xcEtLqisv5fAwAJZV3YkBvKtamB
-	A8k90AIzSwsy1sG2972ZGeN9EWj1PTUPtBDrK+jEMvUdAKt1pFkFvd/w0MvbAgdkCVhyX/MBg3I
-	K0EeKDDzhI6GzQ5eHBQyzgo1g==
-X-Received: by 2002:a05:600c:45c4:b0:485:3dfc:57a with SMTP id 5b1f17b1804b1-487160717d3mr49116945e9.32.1774443270200;
-        Wed, 25 Mar 2026 05:54:30 -0700 (PDT)
-Message-ID: <3a491956-81a6-4c7e-acb0-14f135fc5596@suse.com>
-Date: Wed, 25 Mar 2026 13:54:28 +0100
+        bh=oR28QN8+Eegb6HhdyO3GVPROtcEHLWwVpemo8dhr310=;
+        b=Tx9e1qCWNq3NobCDmy+9eGv3Jh/rqHZ5jOBalyjVslgfWcd+p4rv5phPIoUsrYHeS6
+         a9l27cAIW3zxNz7B5Xm2hE4XxqHyUtIzVTuCio1BZ83aMcb+cUpGeJYonx22kOA9TUwu
+         SkKVqTTcaVgC/nHaCES3XtdeGB3qoQ1MRdrUYWIGyWvm4wDz0mo7tzqliF19RpldXlWi
+         nYxhvNWwItJAqpXdbAugoKC/pNF61QPsmzWRPs6/l38iA0k4bpvzb+sKV5eq35WO1DWp
+         sxaQSBvD467IzN1NSJTIA737O32B2bLkC2Rsp9Cwl09yuBLbRV+LP91n/yC6KElL5XSS
+         NDMQ==
+X-Gm-Message-State: AOJu0YxqOTbfUqWSIckIfTgf28dgDAoHvLFM4L4w4YElNr71FAbEGwEq
+	mWED1Q1Osl356RG+UE852YnIiFa00/ei1no8OqpXTHcrlAQVWfr71/c4WnxCf91HVCrEZWj7xdf
+	GZO/k3Q==
+X-Gm-Gg: ATEYQzwLAXNl6mES3iQxO5carzsWU47GSSPRNhmM+w8G3BTOrcHSqUjrrNa6GOMS3Ou
+	VlfSuPQ9Ro6Smk4ZtSIFKVEOtdi1M6qUgJyZYPHA0wxXQl0zXb3PoCxlGVMrvL0jt3bnNnuxwVX
+	ITHW4Q0kUoaTnjedVC/1hvHDThqSC3nw4JdlF5ufhFnWDmlfrA/0tzcOoOp+coB2kmMsAGDyWWD
+	f4sdFkwA9cB73CB8hYMNF8cSKS5D6yzGkEAt1GhAXx7b/Xi4uc8jlqHfyCMLNR6Sryd7XL3KAA2
+	tKZN4RIyaBazQNCQSTaOYMwYdV5/+PzyM9p6zPjsde5I8kAAwGvmFTW6kG5LawB4CDtHP+LwswH
+	+krxmioKhE2NiwXHNk/llDSQ9NWBx10lW3oC91yu4BXHSj0cuw9LXhbhq19ibhN2jHn/h+1gwNk
+	dPlruDZ9ITz0MNEjEla3Xa+O8Dbz5PdkcgFyv8Wf3unsJ5lknxiQi8AlD7NSmZtk5pM8aLg7dev
+	2QV0AqAFtA79QtrxYBt7R9LNQ==
+X-Received: by 2002:a05:600c:3b12:b0:471:700:f281 with SMTP id 5b1f17b1804b1-4871607a3c5mr56024565e9.25.1774443317484;
+        Wed, 25 Mar 2026 05:55:17 -0700 (PDT)
+Message-ID: <7829c799-64b2-4686-8895-6ec73231c5d8@suse.com>
+Date: Wed, 25 Mar 2026 13:55:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 2/3] arinc653: don't assume Dom0 is the control domain
+Subject: [PATCH v2 3/3] arinc653: avoid array overrun
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>
+ Stewart Hildebrand <stewart@stew.dk>,
+ Kamil Frankowicz <kamil.frankowicz@cert.pl>, Juergen Gross <jgross@suse.com>
 References: <89d17a24-0a1f-4f3f-ac2f-f3701a8d78dd@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,10 +132,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <89d17a24-0a1f-4f3f-ac2f-f3701a8d78dd@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d25034/1774443270-F5AB5734-4CB8D694/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-ebf023/1774443318-1227B9D1-2EB0B1F5/0/0
 X-purgate-type: clean
-X-purgate-size: 1090
+X-purgate-size: 1659
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -142,24 +143,24 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:nathan.studer@dornerworks.com,m:stewart@stew.dk,m:kamil.frankowicz@cert.pl,m:jgross@suse.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:nathan.studer@dornerworks.com,m:stewart@stew.dk,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid];
+	FORWARDED(0.00)[mailman];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -167,38 +168,50 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 00BF6325427
+X-Rspamd-Queue-Id: ECF03325456
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Leaving aside highly disaggregated environments, the control domain is
-what will invoke XEN_SYSCTL_SCHEDOP_putinfo. Its vCPU-s therefore need to
-be able to run unconditionally, not those of the domain with ID 0 (which
-may not exist at all).
+Incrementing ->sched_index between bounds check and array access may
+result in accessing one past the array when that is fully filled
+(->num_schedule_entries == ARINC653_MAX_DOMAINS_PER_SCHEDULE).
 
-Fixes: 9f0c658baedc ("arinc: add cpu-pool support to scheduler")
+Fixes: 22787f2e107c ("ARINC 653 scheduler")
+Reported-by: Kamil Frankowicz <kamil.frankowicz@cert.pl>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-There being no "else" to the if(), what about other control domain vCPU-s?
-And why are they added to all scheduler instances?
+Jürgen, provided I understood him correctly, suggests that something like
+
+    while ( now >= sched_priv->next_switch_time )
+    {
+        sched_priv->sched_index++;
+        ASSERT(sched_priv->sched_index < sched_priv->num_schedule_entries);
+        sched_priv->next_switch_time +=
+            sched_priv->schedule[sched_priv->sched_index].runtime;
+    }
+
+should also be valid to move to, due to constraints applied by
+arinc653_sched_set(). I'm hesitant to make such a change though, not
+really knowing the scheduler; the change here looks more obviously correct
+to me. Albeit the Fixes: tag may thus want dropping.
 ---
 v2: New.
 
 --- a/xen/common/sched/arinc653.c
 +++ b/xen/common/sched/arinc653.c
-@@ -411,10 +411,10 @@ a653sched_alloc_udata(const struct sched
-     spin_lock_irqsave(&sched_priv->lock, flags);
+@@ -552,12 +552,9 @@ a653sched_do_schedule(
+ 
+     /* Switch minor frame or find correct minor frame after a miss */
+     while ( (now >= sched_priv->next_switch_time) &&
+-        (sched_priv->sched_index < sched_priv->num_schedule_entries) )
+-    {
+-        sched_priv->sched_index++;
++            (++sched_priv->sched_index < sched_priv->num_schedule_entries) )
+         sched_priv->next_switch_time +=
+             sched_priv->schedule[sched_priv->sched_index].runtime;
+-    }
  
      /*
--     * Add every one of dom0's units to the schedule, as long as there are
--     * slots available.
-+     * Add every one of the control domain's units to the schedule, as long as
-+     * there are slots available.
-      */
--    if ( unit->domain->domain_id == 0 )
-+    if ( is_control_domain(unit->domain) )
-     {
-         entry = sched_priv->num_schedule_entries;
- 
+      * If we exhausted the domains in the schedule and still have time left
 
 
