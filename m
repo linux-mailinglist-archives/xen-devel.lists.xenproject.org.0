@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +CjtHrQwxGkAxQQAu9opvQ
+	id uF1QIe0zxGkAxQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 20:00:04 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 20:13:49 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C56B432AEBE
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 20:00:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1262962.1555234 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C076F32B11E
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 20:13:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1262977.1555242 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5TSI-0002r3-Ca; Wed, 25 Mar 2026 18:59:50 +0000
+	id 1w5TfS-0005k1-HA; Wed, 25 Mar 2026 19:13:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1262962.1555234; Wed, 25 Mar 2026 18:59:50 +0000
+Received: by outflank-mailman (output) from mailman id 1262977.1555242; Wed, 25 Mar 2026 19:13:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5TSI-0002or-9U; Wed, 25 Mar 2026 18:59:50 +0000
-Received: by outflank-mailman (input) for mailman id 1262962;
- Wed, 25 Mar 2026 18:59:49 +0000
+	id 1w5TfS-0005hF-Dg; Wed, 25 Mar 2026 19:13:26 +0000
+Received: by outflank-mailman (input) for mailman id 1262977;
+ Wed, 25 Mar 2026 19:13:25 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1w5TSG-0002ol-Rx
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 18:59:49 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1w5TfR-0005h9-0Y
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 19:13:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5TSE-00Dl8m-Bo
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 19:59:47 +0100
-Received: from [10.42.69.8] (helo=localhost)
+ id 1w5TfQ-001WkW-Cn
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 20:13:24 +0100
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69c43081-2eae-0a2a0a5409dd-0a2a45089c3e-38
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 19:59:47 +0100
-Received: from [209.85.218.52] (helo=mail-ej1-f52.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69c430a3-1950-0a2a45080019-d155da34f1f2-3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 19:59:47 +0100
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-b9825ba7e8dso22545266b.3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 11:59:47 -0700 (PDT)
-Received: from [192.168.50.2] ([45.12.25.73]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-66ad6c56b55sm109782a12.31.2026.03.25.11.59.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2026 11:59:46 -0700 (PDT)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 69c433a4-e002-0a2a0a5209dd-0a2a45069d6e-20
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 20:13:24 +0100
+Received: from [202.12.124.147] (helo=fout-b4-smtp.messagingengine.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 69c433d2-3034-0a2a45060019-ca0c7c93e5f7-3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 20:13:23 +0100
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfout.stl.internal (Postfix) with ESMTP id B34B91D000EA
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 15:13:21 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Wed, 25 Mar 2026 15:13:21 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA for
+ <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 15:13:20 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,358 +55,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774465187; x=1775069987; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=esmbZU2btHIqRpTS2Duxt2q456pim/XTgYgC0Cgzg0o=;
-        b=Rbpb2I5k3BcHEg0d3mkvPEYqsZ6UNpKf0bxU2F1jQkLtyHLhw6//zilUEBLWO+uy9X
-         2QLfPFA6j+z8IPYOXt+h+YURSPM52r2sQMOd5YHYnICgb/ho96GQNk8pbbUJ5arRsrEt
-         LQL3Cx/KKHfVD9hMj/lIh97RCORwy6xOkCoIX6zE3MhwI9vdA0uxopWhEdvvo8CSxItR
-         VKGQdJVExWZgjd53abHaRLHcajFWOSIBhnv2uYTTY4FE04vQo9Y6hryj2tC+JfxaFOrN
-         IPqFOiVgzTJwBYnrqQzGQmOvEGSOmUCWTovc0qvShvLyo3W9nBgwXZ4VgQUiyYgMWF3+
-         VtYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774465187; x=1775069987;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=esmbZU2btHIqRpTS2Duxt2q456pim/XTgYgC0Cgzg0o=;
-        b=tQSA6faSzdrhJiNf+46X5avPYCw5mHYSAPkNWeqSnlOb5MxSIZoX5H+174UtfT7zoH
-         hEo3qYueKKV9NkNQ7UaFOCkG/bi78AzDAmdVPXj1yx1lZcn1tkqeIXNKtFracaqOn45a
-         cavzA3Jfms78pIYx5zmw7PDo5xmDwZRnqNFFIUmESUUiWAr7FVvBMnFAokp14+6UEqpA
-         jdcHrVTSZ/NIXwZV4Oca6imREl1eM8nr4/EKfz7puv5msTrANVWCtA7tINvR8Ec0Its6
-         qRo7sJidaw/OZI7MFZYkLE8LRXqjNHJEm5Q6gfr8ZUZKFe6+dHpaPvdddk5IGa5JINW3
-         kOmQ==
-X-Forwarded-Encrypted: i=1; AJvYcCUZrLFZBFq+tvWg0s/icqcSIiOdaL7qGngm/KkCb7E7+wjzv8i7pIfW+Eh4977L3Gte7nr8i9ohgsg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw/HtYftg8xptQu/YAOva8RHKOuZmPHZKzXzJmIbxo2zjbpMrgS
-	HwxNUoLwxbNI2trldyKFPiu4KxawJh3FjG2Pnu6+Nw2DvKbbfOCfXf4V
-X-Gm-Gg: ATEYQzz0HQWrWU2MpN8kao24hSwuXw6P8LS0r6TSf2k6QRw/akbr1SEmMY6c5nOx3C9
-	Lvu5O+c7BSJnW2QUedultiJMMkvpOiIgWYIYASfFvJmOFICRopp+0peBH2qG00uKFRuR6tHGi2V
-	7gSTueTnhRyhVtnoNbPfbBa/TKpUm0+Os0PSLUsSdV73NrD5Dz9MBQcTKch8YPb3/BUkE+Js/Ex
-	l2FjX8aLF5VGlUv8eYEv0u5ktbTxKzxSsX6LwvXrBbjcUfJLAnmKNgabeFlAHIpHZRhWLxr9pKo
-	5rAoNDxuTf0jtY7DUQUdiVYGk2+KNPE625i88dXq2nguhCcKcCGC0AsjeJ5wzijV9v91nCP0R0H
-	lC/BNH7JI6qC7kQvOP1bMJVx9ZCk4VeERvLEcL2Owy+0QY9Ms7sWfXmcg+SagJwG11Gq5rdweQA
-	0d1YMlkzbVyRmkkLI6CmYzoQ90HA==
-X-Received: by 2002:a17:907:1ca3:b0:b9b:183a:7346 with SMTP id a640c23a62f3a-b9b183acecemr173427866b.12.1774465187032;
-        Wed, 25 Mar 2026 11:59:47 -0700 (PDT)
-Message-ID: <89f644a3-9d91-4971-8fb9-6b2b5cca5b29@gmail.com>
-Date: Wed, 25 Mar 2026 20:57:31 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fm1 header.d=invisiblethingslab.com header.i="@invisiblethingslab.com" header.h="Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=fm1 header.d=messagingengine.com header.i="@messagingengine.com" header.h="Content-Type:Date:Feedback-ID:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To:X-ME-Proxy:X-ME-Sender"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:content-type:content-type:date:date
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1774466001;
+	 x=1774552401; bh=nMQNNNSmSCNW7nA5E6CSZFFUyNcWL9Sr+QS6B/QMb4M=; b=
+	XLdjha7zsG63I3jxRL9ngIAiGFbWjRAdcAiawC17RaCmRm0kNRRln7ZHdNbibK5T
+	zQKzgp8WmATEPE3or3ZY0WJzq2fxaPp9D5R8iHGt4RGGzMs7cDZthaR9A4S46TnL
+	Ps+U/9SVZcBB0bDEvnEJ+RmKwN1Nyu2WqIhS4HyKImnZLngrmuriqQkYwMMma4Eh
+	n18k7kl/ldc3fNx0CbH3Yfg0yROnfDOU0QMUWtCjCAEjjaVZDy8Hr9EERQmu2Yw/
+	4hzI8gU4RM/zJIPnGi+U4qIzamSKFgvbfISFxYeOFspNasWKOPS/XVFEddpnlVIT
+	7FrwhWvBYlmeOEdz7eetzw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1774466001; x=1774552401; bh=nMQNNNSmSCNW7nA5E6CSZFFUyNcWL9Sr+QS
+	6B/QMb4M=; b=RQTvdilcOdqC8sTEVpTdfJCSjZDiOyI2sNRN3wTJ1yoHJpe53Ut
+	/xPtYzt7Y26+55N8GbM+0eeORq+tM8r+PHiOOJIro9UW1t+aIR3wsK4ssiJxsGiK
+	4W+xgMROycUQAGfr/z/8UVn7w50LB5fzI71B79ORckTlCzrMBjCkJ5kK+wdLQ1vC
+	I27817+RPiOi+Vbns1etAFlz79hdG0ZhurCmewz7/AtGpP9WuBpr3nN15KBC8jfR
+	mNNQ3zOWAdxU0rF7POradozKzdoaDAKgbrzxN+Rx051KQZD+ZxkhAcR3Vcegc4vw
+	ofoRVNkZnwjguR5nzYuGIgg9f5KaXc2N/9w==
+X-ME-Sender: <xms:0TPEaZCeF416IXMdx_sC7E6RxBuHzeFw-gNl4aO3XcRXPDkcfscW5w>
+    <xme:0TPEaef34_5AwMkojwNOiCDoLYCiXCVYG2_TdDmmXcFibI35nVC1PPeLXNk81qFBx
+    mFx49Gz3Y2sm3-Oe2EP9ZE8HsBJReOUPHFSCYYKu3WzcRtOnHU>
+X-ME-Received: <xmr:0TPEaaOC4K6L2iwXXSQLMP8Be7xlpSGjtgc-2edIbdf47qQsC4QWlV47WC9PpQlah0wrz8C-bGA9zmtBe_9J4ficJ5gHyPpKFJ4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdefvdehvdejucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujgesghdtreertd
+    dtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhi
+    uceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
+    cuggftrfgrthhtvghrnhepkeegtdfgvdeihefhhedtvdelieeiueetveehteffjeejjedv
+    ieejvefhueeffeegnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvg
+    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
+    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedupdhmoh
+    guvgepshhmthhpohhuthdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdig
+    vghnphhrohhjvggtthdrohhrgh
+X-ME-Proxy: <xmx:0TPEaY6Sr1sH13hAam65vvfhIiyNmFnT5rYe_UWzki2cC2ZxR2tEpQ>
+    <xmx:0TPEaeLveackY7HGgscQZl4eqol8U73edCh25rrdchpOofYyNocIjA>
+    <xmx:0TPEaSccc74wRNXJzzqU-ezsLZJCsBEmBJg9TGBExJdYBfcwB7YGaw>
+    <xmx:0TPEaRcQQVefBfQAGpaxk6UdO7KuD55eRvtHnkQZxqtGE4kRLqaD8g>
+    <xmx:0TPEaXxETLWqVzKDkJ4otU4EBJr9gSymuFFYMUD3rYD3Myl-f2DAQMbD>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 25 Mar 2026 20:13:18 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
+ 4.17 -> 4.19 ?
+Message-ID: <acQzzlXNDxNq885V@mail-itl>
+References: <aPzBO_eW8mQHM66u@mail-itl>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/23] xen/arm: smmuv3: Maintain a SID->device
- structure
-To: Milan Djokic <milan_djokic@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Jean-Philippe Brucker <jean-philippe@linaro.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jonathan Cameron <Jonathan.Cameron@huawei.com>,
- Eric Auger <eric.auger@redhat.com>, Keqian Zhu <zhukeqian1@huawei.com>,
- Will Deacon <will@kernel.org>, Joerg Roedel <jroedel@suse.de>
-References: <cover.1774305918.git.milan_djokic@epam.com>
- <1621f3abdcaac0e941df7474dfaaa035fb819b4c.1774305918.git.milan_djokic@epam.com>
-Content-Language: en-US
-From: Mykola Kvach <xakep.amatop@gmail.com>
-In-Reply-To: <1621f3abdcaac0e941df7474dfaaa035fb819b4c.1774305918.git.milan_djokic@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c1860d/1774465187-E8E85726-A98D719B/0/0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="cdCRxXTfxIus4DWw"
+Content-Disposition: inline
+In-Reply-To: <aPzBO_eW8mQHM66u@mail-itl>
+X-purgate-ID: tlsNG-16d1c6/1774466004-781831C2-BA19E5AE/0/0
 X-purgate-type: clean
-X-purgate-size: 8087
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-purgate-size: 4630
+X-Spamd-Result: default: False [-1.78 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	SUBJECT_ENDS_QUESTION(1.00)[];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm1,messagingengine.com:s=fm1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:milan_djokic@epam.com,m:xen-devel@lists.xenproject.org,m:jean-philippe@linaro.org,m:bertrand.marquis@arm.com,m:rahul.singh@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:Jonathan.Cameron@huawei.com,m:eric.auger@redhat.com,m:zhukeqian1@huawei.com,m:will@kernel.org,m:jroedel@suse.de,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_ALL(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	RCPT_COUNT_ONE(0.00)[1];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: C56B432AEBE
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[11]
+X-Rspamd-Queue-Id: C076F32B11E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
+--cdCRxXTfxIus4DWw
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Mar 2026 20:13:18 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
+ 4.17 -> 4.19 ?
 
-On 24/03/2026 00:51, Milan Djokic wrote:
-> From: Jean-Philippe Brucker <jean-philippe@linaro.org>
-> 
-> Backport Linux commit cdf315f907d4. This is the clean backport without
-> any changes.
-> 
-> When handling faults from the event or PRI queue, we need to find the
-> struct device associated with a SID. Add a rb_tree to keep track of
-> SIDs.
-> 
-> Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-> Reviewed-by: Eric Auger <eric.auger@redhat.com>
-> Reviewed-by: Keqian Zhu <zhukeqian1@huawei.com>
-> Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
-> Acked-by: Will Deacon <will@kernel.org>
-> Link: https://lore.kernel.org/r/20210401154718.307519-8-jean-philippe@linaro.org
-> Signed-off-by: Joerg Roedel <jroedel@suse.de>
-> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git cdf315f907d4
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+On Sat, Oct 25, 2025 at 02:23:23PM +0200, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> Hi,
+>=20
+> After updating from Xen 4.17 to 4.19 it appears that I have some
+> performance issues if system was suspended before. For now this is just
+> vague observation, as I don't have much data yet.
+>=20
+> Generally, the user observable effect is that audio playback (over
+> Qubes's PV audio thing) becomes very choppy, beyond usefulness (cannot
+> make audio calls anymore, music/video playback also becomes useless with
+> some players. For me this suggests some increased latency in scheduling
+> - maybe some timer fires too late?
+>=20
+> This doesn't happen always, but I'd say quite often after S3, sometimes
+> may need two or three suspend cycles to trigger the issue. But it's
+> possible it is also some other factor, like which pCPU the VM gets
+> scheduled on, maybe? But for now I didn't hit this issue before
+> performing any S3. I don't have a reliable reproducer yet.
+>=20
+> While I write it's related to 4.17 -> 4.19 update, there is also slight
+> possibility it's related to hardware change (CFL -> MTL). But, it's
+> unlikely, since I'd probably get much more bug reports about that (the
+> stable Qubes version uses 4.17, and we have many users on MTL).
+>=20
+> What would be the method to collect some useful debugging info? Some
+> debug-keys (r? a?), some cmdline options?
 
-Your Signed-off-by is missing:
-Signed-off-by: Milan Djokic <milan_djokic@epam.com>
+In the meantime (sharing some of it on Matrix already), I managed to
+build a much more isolated test. Specifically, a single PVH domU with
+VLC, preloading 1s of audio (and not playing it really, the output is
+set to a file). The specific command is:
 
-> ---
->   xen/drivers/passthrough/arm/smmu-v3.c | 131 +++++++++++++++++++++-----
->   xen/drivers/passthrough/arm/smmu-v3.h |  13 ++-
->   2 files changed, 118 insertions(+), 26 deletions(-)
-> 
-> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-> index bf153227db..73cc4ef08f 100644
-> --- a/xen/drivers/passthrough/arm/smmu-v3.c
-> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
-> @@ -809,6 +809,27 @@ static int arm_smmu_init_l2_strtab(struct arm_smmu_device *smmu, u32 sid)
->   	return 0;
->   }
->   
-> +__maybe_unused
-> +static struct arm_smmu_master *
-> +arm_smmu_find_master(struct arm_smmu_device *smmu, u32 sid)
-> +{
-> +	struct rb_node *node;
-> +	struct arm_smmu_stream *stream;
-> +
-> +	node = smmu->streams.rb_node;
-> +	while (node) {
-> +		stream = rb_entry(node, struct arm_smmu_stream, node);
-> +		if (stream->id < sid)
-> +			node = node->rb_right;
-> +		else if (stream->id > sid)
-> +			node = node->rb_left;
-> +		else
-> +			return stream->master;
-> +	}
-> +
-> +	return NULL;
-> +}
-> +
->   /* IRQ and event handlers */
->   static void arm_smmu_evtq_tasklet(void *dev)
->   {
-> @@ -1042,8 +1063,8 @@ static int arm_smmu_atc_inv_master(struct arm_smmu_master *master,
->   	if (!master->ats_enabled)
->   		return 0;
->   
-> -	for (i = 0; i < master->num_sids; i++) {
-> -		cmd->atc.sid = master->sids[i];
-> +	for (i = 0; i < master->num_streams; i++) {
-> +		cmd->atc.sid = master->streams[i].id;
->   		arm_smmu_cmdq_issue_cmd(master->smmu, cmd);
->   	}
->   
-> @@ -1271,13 +1292,13 @@ static void arm_smmu_install_ste_for_dev(struct arm_smmu_master *master)
->   	int i, j;
->   	struct arm_smmu_device *smmu = master->smmu;
->   
-> -	for (i = 0; i < master->num_sids; ++i) {
-> -		u32 sid = master->sids[i];
-> +    for (i = 0; i < master->num_streams; ++i) {
-> +		u32 sid = master->streams[i].id;
->   		__le64 *step = arm_smmu_get_step_for_sid(smmu, sid);
->   
->   		/* Bridged PCI devices may end up with duplicated IDs */
->   		for (j = 0; j < i; j++)
-> -			if (master->sids[j] == sid)
-> +			if (master->streams[j].id == sid)
->   				break;
->   		if (j < i)
->   			continue;
-> @@ -1486,6 +1507,80 @@ static bool arm_smmu_sid_in_range(struct arm_smmu_device *smmu, u32 sid)
->   
->   	return sid < limit;
->   }
-> +
-> +static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
-> +				  struct arm_smmu_master *master)
-> +{
-> +	int i;
-> +	int ret = 0;
-> +	struct arm_smmu_stream *new_stream, *cur_stream;
-> +	struct rb_node **new_node, *parent_node = NULL;
-> +	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(master->dev);
-> +
-> +	master->streams = _xzalloc_array(sizeof(*master->streams), sizeof(void *),
-> +					fwspec->num_ids);
-> +	if (!master->streams)
-> +		return -ENOMEM;
-> +	master->num_streams = fwspec->num_ids;
-> +
-> +	mutex_lock(&smmu->streams_mutex);
-> +	for (i = 0; i < fwspec->num_ids; i++) {
-> +		u32 sid = fwspec->ids[i];
-> +
-> +		new_stream = &master->streams[i];
-> +		new_stream->id = sid;
-> +		new_stream->master = master;
-> +
-> +		/*
-> +		 * Check the SIDs are in range of the SMMU and our stream table
-> +		 */
-> +		if (!arm_smmu_sid_in_range(smmu, sid)) {
-> +			ret = -ERANGE;
-> +			break;
-> +		}
-> +
-> +		/* Ensure l2 strtab is initialised */
-> +		if (smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB) {
-> +			ret = arm_smmu_init_l2_strtab(smmu, sid);
-> +			if (ret)
-> +				break;
-> +		}
-> +
-> +		/* Insert into SID tree */
-> +		new_node = &(smmu->streams.rb_node);
-> +		while (*new_node) {
-> +			cur_stream = rb_entry(*new_node, struct arm_smmu_stream,
-> +					      node);
-> +			parent_node = *new_node;
-> +			if (cur_stream->id > new_stream->id) {
-> +				new_node = &((*new_node)->rb_left);
-> +			} else if (cur_stream->id < new_stream->id) {
-> +				new_node = &((*new_node)->rb_right);
-> +			} else {
-> +				dev_warn(master->dev,
-> +					 "stream %u already in tree\n",
-> +					 cur_stream->id);
-> +				ret = -EINVAL;
-> +				break;
-> +			}
-> +		}
-> +		if (ret)
-> +			break;
-> +
-> +		rb_link_node(&new_stream->node, parent_node, new_node);
-> +		rb_insert_color(&new_stream->node, &smmu->streams);
-> +	}
-> +
-> +	if (ret) {
-> +		for (i--; i >= 0; i--)
-> +			rb_erase(&master->streams[i].node, &smmu->streams);
-> +		xfree(master->streams);
-> +	}
-> +	mutex_unlock(&smmu->streams_mutex);
-> +
-> +	return ret;
-> +}
-> +
->   /* Forward declaration */
->   static struct arm_smmu_device *arm_smmu_get_by_dev(const struct device *dev);
->   static int arm_smmu_assign_dev(struct domain *d, u8 devfn, struct device *dev,
-> @@ -1495,7 +1590,7 @@ static int arm_smmu_deassign_dev(struct domain *d, uint8_t devfn,
->   
->   static int arm_smmu_add_device(u8 devfn, struct device *dev)
->   {
-> -	int i, ret;
-> +	int ret;
->   	struct arm_smmu_device *smmu;
->   	struct arm_smmu_master *master;
->   	struct iommu_fwspec *fwspec;
-> @@ -1532,26 +1627,11 @@ static int arm_smmu_add_device(u8 devfn, struct device *dev)
->   
->   	master->dev = dev;
->   	master->smmu = smmu;
-> -	master->sids = fwspec->ids;
-> -	master->num_sids = fwspec->num_ids;
->   	dev_iommu_priv_set(dev, master);
->   
-> -	/* Check the SIDs are in range of the SMMU and our stream table */
-> -	for (i = 0; i < master->num_sids; i++) {
-> -		u32 sid = master->sids[i];
-> -
-> -		if (!arm_smmu_sid_in_range(smmu, sid)) {
-> -			ret = -ERANGE;
-> -			goto err_free_master;
-> -		}
-> -
-> -		/* Ensure l2 strtab is initialised */
-> -		if (smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB) {
-> -			ret = arm_smmu_init_l2_strtab(smmu, sid);
-> -			if (ret)
-> -				goto err_free_master;
-> -		}
-> -	}
-> +	ret = arm_smmu_insert_master(smmu, master);
-> +	if (ret)
-> +		goto err_free_master;
->   
->   	/*
->   	 * Note that PASID must be enabled before, and disabled after ATS:
-> @@ -1796,6 +1876,9 @@ static int __init arm_smmu_init_structures(struct arm_smmu_device *smmu)
->   {
->   	int ret;
->   
-> +	mutex_init(&smmu->streams_mutex);
-> +	smmu->streams = RB_ROOT;
-> +
->   	ret = arm_smmu_init_queues(smmu);
->   	if (ret)
->   		return ret;
-> diff --git a/xen/drivers/passthrough/arm/smmu-v3.h b/xen/drivers/passthrough/arm/smmu-v3.h
-> index ab07366294..ab1f29f6c7 100644
-> --- a/xen/drivers/passthrough/arm/smmu-v3.h
-> +++ b/xen/drivers/passthrough/arm/smmu-v3.h
-> @@ -639,6 +639,15 @@ struct arm_smmu_device {
->   	struct tasklet		evtq_irq_tasklet;
->   	struct tasklet		priq_irq_tasklet;
->   	struct tasklet		combined_irq_tasklet;
-> +
-> +	struct rb_root		streams;
-> +	struct mutex		streams_mutex;
-> +};
-> +
-> +struct arm_smmu_stream {
-> +	u32							id;
-> +	struct arm_smmu_master		*master;
-> +	struct rb_node				node;
->   };
->   
->   /* SMMU private data for each master */
-> @@ -647,8 +656,8 @@ struct arm_smmu_master {
->   	struct device			*dev;
->   	struct arm_smmu_domain		*domain;
->   	struct list_head		domain_head;
-> -	u32				*sids;
-> -	unsigned int			num_sids;
-> +	struct arm_smmu_stream		*streams;
-> +	unsigned int				num_streams;
->   	bool				ats_enabled;
->   };
->   
+    VLC_VERBOSE=3D3 vlc -I cli -A afile --no-loop --play-and-exit --run-tim=
+e 1   ./melodigne-quiz-blind-test-187140.mp3
 
+The domU rootfs (or rather: initramfs) is based on AppImage of VLC,
+there is not much more inside, and the above command is called as part
+of init script (and domU is terminated shortly after).
+
+There is no persistent state in the test, the whole thing is network
+booted from the same base. The only things changing between runs is xen
+binary + toolstack.
+
+In the output I'm looking for this line: main input debug: Stream buffering=
+ done (1018 ms in 2 ms)
+
+Before S3 it takes 0-2ms, sometimes (rarely) 10ms (not sure why). Just
+after S3 it takes very similar amount of time.
+Then, I wait 30min, and run that command (or really the whole domU)
+again a few times. I consider it "good" if I get at least one result
+below 10ms. With this test in hand, I did run bisect between
+staging-4.17 and staging-4.19. And here stuff gets interesting:
+
+At 498a4ded74b3f062c52e42568223dc5858d27731 I get the following times
+(in ms):
+
+    30m after S3: 2, 2, 10, 10,=20
+    1h after S3: 2, 16, 16, 2, 17
+
+At 5effd810c629d9a836e46ee321ca7409dad27212:
+
+    30m after S3: 26, 27, 26, 15
+    1h after S3: 24, 25, 37, 37, 25
+
+This doesn't make any sense to me. There is a clear difference, yet
+5effd810c629d9a836e46ee321ca7409dad27212 looks like a no-op change (at
+least for this Intel system).
+The earlier case is still not great, as there is still some
+degradation after S3, but it gets significantly worse after that commit.
+
+Console log of both versions:
+https://gist.github.com/marmarek/ebcb0ff65dbdb31875e4e69db19e4729
+
+In the "bad" case, I see this extra line:
+(XEN) [    6.902973] Platform timer appears to have unexpectedly wrapped 1 =
+times.
+
+But in an earlier run of the same build it's not there.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--cdCRxXTfxIus4DWw
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmnEM84ACgkQ24/THMrX
+1yxLdAf+Le2Z/FsOifJWVC7scOVsd8thHkmifsXSBDutriwore/ZIKaami4Dzm96
+JRxncqB7J7Rp/jT1FwtD51mmwKrpUQ2Jc7w+I3ArLf9oncswPe73spAd0OUN7J2c
+sC6tSw1+AZDEIVfqFoDK2WcB6u+JNnibnr+DWBG7sZf/pDvHfy5FlFYFHz7F/Vsa
+LuqVjCeSsXjwiAOgQMKef1xPsdQSgbR8gP3XPD1pGFATTJWYQgoeSB2dXjKBaHAb
+pydmBhDanogsell0PNRgrz0eRLIizrZYbCFa2QWHOUiIrWyrW9YI70E3cT/vJgAr
+x/UMN3UWq70VsTRveKTvl1WSeP2MHg==
+=x2wZ
+-----END PGP SIGNATURE-----
+
+--cdCRxXTfxIus4DWw--
 
