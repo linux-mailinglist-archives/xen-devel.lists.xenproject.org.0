@@ -2,45 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IPKtK0UvxGkAxQQAu9opvQ
+	id +CjtHrQwxGkAxQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 19:53:57 +0100
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 20:00:04 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16AE432AD2F
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 19:53:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1262950.1555224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C56B432AEBE
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2026 20:00:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1262962.1555234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5TLc-00022u-No; Wed, 25 Mar 2026 18:52:56 +0000
+	id 1w5TSI-0002r3-Ca; Wed, 25 Mar 2026 18:59:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1262950.1555224; Wed, 25 Mar 2026 18:52:56 +0000
+Received: by outflank-mailman (output) from mailman id 1262962.1555234; Wed, 25 Mar 2026 18:59:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5TLc-00021O-L9; Wed, 25 Mar 2026 18:52:56 +0000
-Received: by outflank-mailman (input) for mailman id 1262950;
- Wed, 25 Mar 2026 18:52:54 +0000
+	id 1w5TSI-0002or-9U; Wed, 25 Mar 2026 18:59:50 +0000
+Received: by outflank-mailman (input) for mailman id 1262962;
+ Wed, 25 Mar 2026 18:59:49 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=b6f6=B2=ubuntu.com=enr0n@fe-bounces.ubuntu.com>)
- id 1w5TLa-00021I-0I
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 18:52:54 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1w5TSG-0002ol-Rx
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 18:59:49 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5TLX-00Dk8Z-MX
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 19:52:53 +0100
-Received: from [10.42.69.1] (helo=localhost)
+ id 1w5TSE-00Dl8m-Bo
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2026 19:59:47 +0100
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <SRS0=b6f6=B2=ubuntu.com=enr0n@fe-bounces.ubuntu.com>)
- id 69c42eed-bab6-0a2a0a5309dd-0a2a4501e2ee-26
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 19:52:53 +0100
-Received: from [149.28.215.223] (helo=smtp.forwardemail.net)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <SRS0=b6f6=B2=ubuntu.com=enr0n@fe-bounces.ubuntu.com>)
- id 69c42f03-6400-0a2a45010019-951cd7df6139-3
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 19:52:52 +0100
-Received: by mail-ua1-f69.google.com with SMTP id
- a1e0cc1a2514c-94de7380eeeso289315241.2
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 11:52:45 -0700 (PDT)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69c43081-2eae-0a2a0a5409dd-0a2a45089c3e-38
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 19:59:47 +0100
+Received: from [209.85.218.52] (helo=mail-ej1-f52.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69c430a3-1950-0a2a45080019-d155da34f1f2-3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 19:59:47 +0100
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-b9825ba7e8dso22545266b.3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2026 11:59:47 -0700 (PDT)
+Received: from [192.168.50.2] ([45.12.25.73]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-66ad6c56b55sm109782a12.31.2026.03.25.11.59.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Mar 2026 11:59:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,273 +55,358 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fe-953a8a3ca9 header.d=ubuntu.com header.i="@ubuntu.com" header.h="Content-Transfer-Encoding:Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=Content-Transfer-Encoding: Content-Type: Cc: To: Subject: Message-ID:
- Date: From: In-Reply-To: References: MIME-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1774464770;
- bh=nBHC2L9kQozGOnVl8ryO7ws91nevlMJi3dCrj7mCwow=;
- b=aLPiAkEpJ81IOmgWxi42I/wnYNs6mZR9Gsuy42pNwFq/PScc2S/2kNYAiFkV6t940iTT6IvIg
- Cw/zHzk6Eoz7+FCDHhVxcXUTaNe0q/uEin4KzEvgr78pmixEtia1j+FElCD6qnzNzHIVKN7Y/Q7
- W62HxzIpo/5XbTn211TjqAMfOT60qW4SQKvV7TLjpAFHQm6BNaTCayh8Wqc28iK98VlBFgcVPNN
- 9eXRMFn8Ue9uL1RQ4F5XmUvL3dFL6Sy2xKETK3Dgyy6uph6AxKA2W59TQNxTRYzMAEOa1/aAbQD
- Z0fzs6gdpENHNd4wzbFKkibJ6FKOpCIb0CxHOUtdmp3g==
-X-Forward-Email-ID: 69c42efe07e0c3ba78d7a45e
-X-Forward-Email-Sender: rfc822; enr0n@ubuntu.com, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.6.55
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-X-Gm-Message-State: AOJu0Ywk8+BECjM9sgNfOf2Bymj/yK2+5sKZGW7zQMxO01nJ3Ecfyhkx
-	ptAv97GiCVDfxUYhYYWVCMofthMei0eT5cmWO5qyO5DheJhi//ovOZl7pTOrWaG4f0fN+a1E69V
-	5qX5bSUO5lFhd0YvgaRgli1j7L/x1zqUq7DU3QvKHY9LxI9sOgkZHCl99BLf+1WxVUVPepwxfAE
-	rlXq2vhBAbiQFZFJp2AUQpkGuV49hvW/6Fx0VHTCHZeHvhDQRrWQOXdjzp3ro=
-X-Gm-Gg: ATEYQzw9KEc5LrWMQOnoVGimF9zSC+hWM6P1V2MMQHa6gwNUL3EEV6QoH++5JFjyj5r
-	zeg8URK69FyLOXkXiFL0lF/JibE62A6DkidU5DXX8XZUyskj2p1FS3uICRvGMcc3bjrpj2s1iPN
-	vM5S6LRhQ/1O3RuoN7gLpsymxyjnaC+GunBAgLuVtx6bapdgyship4jNUjNdhq9IftatTRJsQmE
-	GWP
-X-Received: by 2002:a05:6102:6c4:b0:5ff:ed38:1889 with SMTP id ada2fe7eead31-60386ebc6c1mr2610995137.10.1774464764823;
-        Wed, 25 Mar 2026 11:52:44 -0700 (PDT)
-X-Received: by 2002:a05:6102:6c4:b0:5ff:ed38:1889 with SMTP id
- ada2fe7eead31-60386ebc6c1mr2610987137.10.1774464764544; Wed, 25 Mar 2026
- 11:52:44 -0700 (PDT)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774465187; x=1775069987; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=esmbZU2btHIqRpTS2Duxt2q456pim/XTgYgC0Cgzg0o=;
+        b=Rbpb2I5k3BcHEg0d3mkvPEYqsZ6UNpKf0bxU2F1jQkLtyHLhw6//zilUEBLWO+uy9X
+         2QLfPFA6j+z8IPYOXt+h+YURSPM52r2sQMOd5YHYnICgb/ho96GQNk8pbbUJ5arRsrEt
+         LQL3Cx/KKHfVD9hMj/lIh97RCORwy6xOkCoIX6zE3MhwI9vdA0uxopWhEdvvo8CSxItR
+         VKGQdJVExWZgjd53abHaRLHcajFWOSIBhnv2uYTTY4FE04vQo9Y6hryj2tC+JfxaFOrN
+         IPqFOiVgzTJwBYnrqQzGQmOvEGSOmUCWTovc0qvShvLyo3W9nBgwXZ4VgQUiyYgMWF3+
+         VtYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774465187; x=1775069987;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=esmbZU2btHIqRpTS2Duxt2q456pim/XTgYgC0Cgzg0o=;
+        b=tQSA6faSzdrhJiNf+46X5avPYCw5mHYSAPkNWeqSnlOb5MxSIZoX5H+174UtfT7zoH
+         hEo3qYueKKV9NkNQ7UaFOCkG/bi78AzDAmdVPXj1yx1lZcn1tkqeIXNKtFracaqOn45a
+         cavzA3Jfms78pIYx5zmw7PDo5xmDwZRnqNFFIUmESUUiWAr7FVvBMnFAokp14+6UEqpA
+         jdcHrVTSZ/NIXwZV4Oca6imREl1eM8nr4/EKfz7puv5msTrANVWCtA7tINvR8Ec0Its6
+         qRo7sJidaw/OZI7MFZYkLE8LRXqjNHJEm5Q6gfr8ZUZKFe6+dHpaPvdddk5IGa5JINW3
+         kOmQ==
+X-Forwarded-Encrypted: i=1; AJvYcCUZrLFZBFq+tvWg0s/icqcSIiOdaL7qGngm/KkCb7E7+wjzv8i7pIfW+Eh4977L3Gte7nr8i9ohgsg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw/HtYftg8xptQu/YAOva8RHKOuZmPHZKzXzJmIbxo2zjbpMrgS
+	HwxNUoLwxbNI2trldyKFPiu4KxawJh3FjG2Pnu6+Nw2DvKbbfOCfXf4V
+X-Gm-Gg: ATEYQzz0HQWrWU2MpN8kao24hSwuXw6P8LS0r6TSf2k6QRw/akbr1SEmMY6c5nOx3C9
+	Lvu5O+c7BSJnW2QUedultiJMMkvpOiIgWYIYASfFvJmOFICRopp+0peBH2qG00uKFRuR6tHGi2V
+	7gSTueTnhRyhVtnoNbPfbBa/TKpUm0+Os0PSLUsSdV73NrD5Dz9MBQcTKch8YPb3/BUkE+Js/Ex
+	l2FjX8aLF5VGlUv8eYEv0u5ktbTxKzxSsX6LwvXrBbjcUfJLAnmKNgabeFlAHIpHZRhWLxr9pKo
+	5rAoNDxuTf0jtY7DUQUdiVYGk2+KNPE625i88dXq2nguhCcKcCGC0AsjeJ5wzijV9v91nCP0R0H
+	lC/BNH7JI6qC7kQvOP1bMJVx9ZCk4VeERvLEcL2Owy+0QY9Ms7sWfXmcg+SagJwG11Gq5rdweQA
+	0d1YMlkzbVyRmkkLI6CmYzoQ90HA==
+X-Received: by 2002:a17:907:1ca3:b0:b9b:183a:7346 with SMTP id a640c23a62f3a-b9b183acecemr173427866b.12.1774465187032;
+        Wed, 25 Mar 2026 11:59:47 -0700 (PDT)
+Message-ID: <89f644a3-9d91-4971-8fb9-6b2b5cca5b29@gmail.com>
+Date: Wed, 25 Mar 2026 20:57:31 +0200
 MIME-Version: 1.0
-References: <cover.1774305918.git.milan_djokic@epam.com> <f04d9186eb3b83a4f5fb27db412bf10fb6fb092c.1774305918.git.milan_djokic@epam.com>
-In-Reply-To: <f04d9186eb3b83a4f5fb27db412bf10fb6fb092c.1774305918.git.milan_djokic@epam.com>
-From: Nick Rosbrook <enr0n@ubuntu.com>
-Date: Wed, 25 Mar 2026 14:52:33 -0400
-X-Gmail-Original-Message-ID: <CAEN5XSFA4AdFKXGiyYW58=Ltm+uVRrsSxGrNCC3T8UdHtivcnA@mail.gmail.com>
-X-Gm-Features: AQROBzBNzU0BIDGovNQeyVE3tkTBqY0sSAyphFru-oY3R4n_dgn-5eJ_tDiKJzI
-Message-ID: <CAEN5XSFA4AdFKXGiyYW58=Ltm+uVRrsSxGrNCC3T8UdHtivcnA@mail.gmail.com>
-Subject: Re: [PATCH v2 06/23] xen/domctl: Add XEN_DOMCTL_CONFIG_VIOMMU_* and
- viommu config param
-To: Milan Djokic <milan_djokic@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Rahul Singh <rahul.singh@arm.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, George Dunlap <gwd@xenproject.org>, 
-	Juergen Gross <jgross@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-d62444/1774464772-228E5DF3-8681F2F4/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 01/23] xen/arm: smmuv3: Maintain a SID->device
+ structure
+To: Milan Djokic <milan_djokic@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Jean-Philippe Brucker <jean-philippe@linaro.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Rahul Singh <rahul.singh@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+ Eric Auger <eric.auger@redhat.com>, Keqian Zhu <zhukeqian1@huawei.com>,
+ Will Deacon <will@kernel.org>, Joerg Roedel <jroedel@suse.de>
+References: <cover.1774305918.git.milan_djokic@epam.com>
+ <1621f3abdcaac0e941df7474dfaaa035fb819b4c.1774305918.git.milan_djokic@epam.com>
+Content-Language: en-US
+From: Mykola Kvach <xakep.amatop@gmail.com>
+In-Reply-To: <1621f3abdcaac0e941df7474dfaaa035fb819b4c.1774305918.git.milan_djokic@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-c1860d/1774465187-E8E85726-A98D719B/0/0
 X-purgate-type: clean
-X-purgate-size: 6485
+X-purgate-size: 8087
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[ubuntu.com,none];
-	R_DKIM_ALLOW(-0.20)[ubuntu.com:s=fe-953a8a3ca9];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
+	TAGGED_FROM(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[enr0n@ubuntu.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:milan_djokic@epam.com,m:xen-devel@lists.xenproject.org,m:rahul.singh@arm.com,m:anthony.perard@vates.tech,m:gwd@xenproject.org,m:jgross@suse.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:milan_djokic@epam.com,m:xen-devel@lists.xenproject.org,m:jean-philippe@linaro.org,m:bertrand.marquis@arm.com,m:rahul.singh@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:Jonathan.Cameron@huawei.com,m:eric.auger@redhat.com,m:zhukeqian1@huawei.com,m:will@kernel.org,m:jroedel@suse.de,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[14];
 	FORWARDED(0.00)[mailman];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[enr0n@ubuntu.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[ubuntu.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 16AE432AD2F
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: C56B432AEBE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Mon, Mar 23, 2026 at 6:51=E2=80=AFPM Milan Djokic <milan_djokic@epam.com=
-> wrote:
->
-> From: Rahul Singh <rahul.singh@arm.com>
->
-> Add new viommu_type field and field values XEN_DOMCTL_CONFIG_VIOMMU_NONE
-> XEN_DOMCTL_CONFIG_VIOMMU_SMMUV3 in xen_arch_domainconfig to
-> enable/disable vIOMMU support for domains.
->
-> Also add viommu=3D"N" parameter to xl domain configuration to enable the
-> vIOMMU for the domains. Currently, only the "smmuv3" type is supported
-> for ARM.
->
+
+
+On 24/03/2026 00:51, Milan Djokic wrote:
+> From: Jean-Philippe Brucker <jean-philippe@linaro.org>
+> 
+> Backport Linux commit cdf315f907d4. This is the clean backport without
+> any changes.
+> 
+> When handling faults from the event or PRI queue, we need to find the
+> struct device associated with a SID. Add a rb_tree to keep track of
+> SIDs.
+> 
+> Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+> Reviewed-by: Eric Auger <eric.auger@redhat.com>
+> Reviewed-by: Keqian Zhu <zhukeqian1@huawei.com>
+> Signed-off-by: Jean-Philippe Brucker <jean-philippe@linaro.org>
+> Acked-by: Will Deacon <will@kernel.org>
+> Link: https://lore.kernel.org/r/20210401154718.307519-8-jean-philippe@linaro.org
+> Signed-off-by: Joerg Roedel <jroedel@suse.de>
+> Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git cdf315f907d4
 > Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> Signed-off-by: Milan Djokic <milan_djokic@epam.com>
+
+Your Signed-off-by is missing:
+Signed-off-by: Milan Djokic <milan_djokic@epam.com>
+
 > ---
->  docs/man/xl.cfg.5.pod.in             | 13 +++++++++++++
->  tools/golang/xenlight/helpers.gen.go |  2 ++
->  tools/golang/xenlight/types.gen.go   |  1 +
->  tools/include/libxl.h                |  5 +++++
->  tools/libs/light/libxl_arm.c         | 13 +++++++++++++
->  tools/libs/light/libxl_types.idl     |  6 ++++++
->  tools/xl/xl_parse.c                  |  9 +++++++++
->  7 files changed, 49 insertions(+)
->
-> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-> index 27c455210b..f69cdee55c 100644
-> --- a/docs/man/xl.cfg.5.pod.in
-> +++ b/docs/man/xl.cfg.5.pod.in
-> @@ -3162,6 +3162,19 @@ option.
->
->  =3Dback
->
-> +=3Dover 4
+>   xen/drivers/passthrough/arm/smmu-v3.c | 131 +++++++++++++++++++++-----
+>   xen/drivers/passthrough/arm/smmu-v3.h |  13 ++-
+>   2 files changed, 118 insertions(+), 26 deletions(-)
+> 
+> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
+> index bf153227db..73cc4ef08f 100644
+> --- a/xen/drivers/passthrough/arm/smmu-v3.c
+> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
+> @@ -809,6 +809,27 @@ static int arm_smmu_init_l2_strtab(struct arm_smmu_device *smmu, u32 sid)
+>   	return 0;
+>   }
+>   
+> +__maybe_unused
+> +static struct arm_smmu_master *
+> +arm_smmu_find_master(struct arm_smmu_device *smmu, u32 sid)
+> +{
+> +	struct rb_node *node;
+> +	struct arm_smmu_stream *stream;
 > +
-> +=3Ditem B<viommu=3D"N">
+> +	node = smmu->streams.rb_node;
+> +	while (node) {
+> +		stream = rb_entry(node, struct arm_smmu_stream, node);
+> +		if (stream->id < sid)
+> +			node = node->rb_right;
+> +		else if (stream->id > sid)
+> +			node = node->rb_left;
+> +		else
+> +			return stream->master;
+> +	}
 > +
-> +To enable viommu, user must specify the following option in the VM
-> +config file:
+> +	return NULL;
+> +}
 > +
-> +viommu =3D "smmuv3"
+>   /* IRQ and event handlers */
+>   static void arm_smmu_evtq_tasklet(void *dev)
+>   {
+> @@ -1042,8 +1063,8 @@ static int arm_smmu_atc_inv_master(struct arm_smmu_master *master,
+>   	if (!master->ats_enabled)
+>   		return 0;
+>   
+> -	for (i = 0; i < master->num_sids; i++) {
+> -		cmd->atc.sid = master->sids[i];
+> +	for (i = 0; i < master->num_streams; i++) {
+> +		cmd->atc.sid = master->streams[i].id;
+>   		arm_smmu_cmdq_issue_cmd(master->smmu, cmd);
+>   	}
+>   
+> @@ -1271,13 +1292,13 @@ static void arm_smmu_install_ste_for_dev(struct arm_smmu_master *master)
+>   	int i, j;
+>   	struct arm_smmu_device *smmu = master->smmu;
+>   
+> -	for (i = 0; i < master->num_sids; ++i) {
+> -		u32 sid = master->sids[i];
+> +    for (i = 0; i < master->num_streams; ++i) {
+> +		u32 sid = master->streams[i].id;
+>   		__le64 *step = arm_smmu_get_step_for_sid(smmu, sid);
+>   
+>   		/* Bridged PCI devices may end up with duplicated IDs */
+>   		for (j = 0; j < i; j++)
+> -			if (master->sids[j] == sid)
+> +			if (master->streams[j].id == sid)
+>   				break;
+>   		if (j < i)
+>   			continue;
+> @@ -1486,6 +1507,80 @@ static bool arm_smmu_sid_in_range(struct arm_smmu_device *smmu, u32 sid)
+>   
+>   	return sid < limit;
+>   }
 > +
-> +Currently, only the "smmuv3" type is supported for ARM.
+> +static int arm_smmu_insert_master(struct arm_smmu_device *smmu,
+> +				  struct arm_smmu_master *master)
+> +{
+> +	int i;
+> +	int ret = 0;
+> +	struct arm_smmu_stream *new_stream, *cur_stream;
+> +	struct rb_node **new_node, *parent_node = NULL;
+> +	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(master->dev);
 > +
-> +=3Dback
+> +	master->streams = _xzalloc_array(sizeof(*master->streams), sizeof(void *),
+> +					fwspec->num_ids);
+> +	if (!master->streams)
+> +		return -ENOMEM;
+> +	master->num_streams = fwspec->num_ids;
 > +
->  =3Dhead3 x86
->
->  =3Dover 4
-> diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight=
-/helpers.gen.go
-> index 8909fe8a1b..4f0997f02f 100644
-> --- a/tools/golang/xenlight/helpers.gen.go
-> +++ b/tools/golang/xenlight/helpers.gen.go
-> @@ -1195,6 +1195,7 @@ x.ArchArm.NrSpis =3D uint32(xc.arch_arm.nr_spis)
->  if err :=3D x.ArchArm.ArmSci.fromC(&xc.arch_arm.arm_sci);err !=3D nil {
->  return fmt.Errorf("converting field ArchArm.ArmSci: %v", err)
->  }
-> +x.ArchArm.Viommu =3D ViommuType(xc.arch_arm.viommu)
->  if err :=3D x.ArchX86.MsrRelaxed.fromC(&xc.arch_x86.msr_relaxed);err !=
-=3D nil {
->  return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
->  }
-> @@ -1734,6 +1735,7 @@ xc.arch_arm.nr_spis =3D C.uint32_t(x.ArchArm.NrSpis=
-)
->  if err :=3D x.ArchArm.ArmSci.toC(&xc.arch_arm.arm_sci); err !=3D nil {
->  return fmt.Errorf("converting field ArchArm.ArmSci: %v", err)
->  }
-> +xc.arch_arm.viommu =3D C.libxl_viommu_type(x.ArchArm.Viommu)
->  if err :=3D x.ArchX86.MsrRelaxed.toC(&xc.arch_x86.msr_relaxed); err !=3D=
- nil {
->  return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
->  }
-> diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/t=
-ypes.gen.go
-> index ab9d4ca7b4..8a37b52a82 100644
-> --- a/tools/golang/xenlight/types.gen.go
-> +++ b/tools/golang/xenlight/types.gen.go
-> @@ -610,6 +610,7 @@ Vuart VuartType
->  SveVl SveType
->  NrSpis uint32
->  ArmSci ArmSci
-> +Viommu ViommuType
->  }
->  ArchX86 struct {
->  MsrRelaxed Defbool
+> +	mutex_lock(&smmu->streams_mutex);
+> +	for (i = 0; i < fwspec->num_ids; i++) {
+> +		u32 sid = fwspec->ids[i];
+> +
+> +		new_stream = &master->streams[i];
+> +		new_stream->id = sid;
+> +		new_stream->master = master;
+> +
+> +		/*
+> +		 * Check the SIDs are in range of the SMMU and our stream table
+> +		 */
+> +		if (!arm_smmu_sid_in_range(smmu, sid)) {
+> +			ret = -ERANGE;
+> +			break;
+> +		}
+> +
+> +		/* Ensure l2 strtab is initialised */
+> +		if (smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB) {
+> +			ret = arm_smmu_init_l2_strtab(smmu, sid);
+> +			if (ret)
+> +				break;
+> +		}
+> +
+> +		/* Insert into SID tree */
+> +		new_node = &(smmu->streams.rb_node);
+> +		while (*new_node) {
+> +			cur_stream = rb_entry(*new_node, struct arm_smmu_stream,
+> +					      node);
+> +			parent_node = *new_node;
+> +			if (cur_stream->id > new_stream->id) {
+> +				new_node = &((*new_node)->rb_left);
+> +			} else if (cur_stream->id < new_stream->id) {
+> +				new_node = &((*new_node)->rb_right);
+> +			} else {
+> +				dev_warn(master->dev,
+> +					 "stream %u already in tree\n",
+> +					 cur_stream->id);
+> +				ret = -EINVAL;
+> +				break;
+> +			}
+> +		}
+> +		if (ret)
+> +			break;
+> +
+> +		rb_link_node(&new_stream->node, parent_node, new_node);
+> +		rb_insert_color(&new_stream->node, &smmu->streams);
+> +	}
+> +
+> +	if (ret) {
+> +		for (i--; i >= 0; i--)
+> +			rb_erase(&master->streams[i].node, &smmu->streams);
+> +		xfree(master->streams);
+> +	}
+> +	mutex_unlock(&smmu->streams_mutex);
+> +
+> +	return ret;
+> +}
+> +
+>   /* Forward declaration */
+>   static struct arm_smmu_device *arm_smmu_get_by_dev(const struct device *dev);
+>   static int arm_smmu_assign_dev(struct domain *d, u8 devfn, struct device *dev,
+> @@ -1495,7 +1590,7 @@ static int arm_smmu_deassign_dev(struct domain *d, uint8_t devfn,
+>   
+>   static int arm_smmu_add_device(u8 devfn, struct device *dev)
+>   {
+> -	int i, ret;
+> +	int ret;
+>   	struct arm_smmu_device *smmu;
+>   	struct arm_smmu_master *master;
+>   	struct iommu_fwspec *fwspec;
+> @@ -1532,26 +1627,11 @@ static int arm_smmu_add_device(u8 devfn, struct device *dev)
+>   
+>   	master->dev = dev;
+>   	master->smmu = smmu;
+> -	master->sids = fwspec->ids;
+> -	master->num_sids = fwspec->num_ids;
+>   	dev_iommu_priv_set(dev, master);
+>   
+> -	/* Check the SIDs are in range of the SMMU and our stream table */
+> -	for (i = 0; i < master->num_sids; i++) {
+> -		u32 sid = master->sids[i];
+> -
+> -		if (!arm_smmu_sid_in_range(smmu, sid)) {
+> -			ret = -ERANGE;
+> -			goto err_free_master;
+> -		}
+> -
+> -		/* Ensure l2 strtab is initialised */
+> -		if (smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB) {
+> -			ret = arm_smmu_init_l2_strtab(smmu, sid);
+> -			if (ret)
+> -				goto err_free_master;
+> -		}
+> -	}
+> +	ret = arm_smmu_insert_master(smmu, master);
+> +	if (ret)
+> +		goto err_free_master;
+>   
+>   	/*
+>   	 * Note that PASID must be enabled before, and disabled after ATS:
+> @@ -1796,6 +1876,9 @@ static int __init arm_smmu_init_structures(struct arm_smmu_device *smmu)
+>   {
+>   	int ret;
+>   
+> +	mutex_init(&smmu->streams_mutex);
+> +	smmu->streams = RB_ROOT;
+> +
+>   	ret = arm_smmu_init_queues(smmu);
+>   	if (ret)
+>   		return ret;
+> diff --git a/xen/drivers/passthrough/arm/smmu-v3.h b/xen/drivers/passthrough/arm/smmu-v3.h
+> index ab07366294..ab1f29f6c7 100644
+> --- a/xen/drivers/passthrough/arm/smmu-v3.h
+> +++ b/xen/drivers/passthrough/arm/smmu-v3.h
+> @@ -639,6 +639,15 @@ struct arm_smmu_device {
+>   	struct tasklet		evtq_irq_tasklet;
+>   	struct tasklet		priq_irq_tasklet;
+>   	struct tasklet		combined_irq_tasklet;
+> +
+> +	struct rb_root		streams;
+> +	struct mutex		streams_mutex;
+> +};
+> +
+> +struct arm_smmu_stream {
+> +	u32							id;
+> +	struct arm_smmu_master		*master;
+> +	struct rb_node				node;
+>   };
+>   
+>   /* SMMU private data for each master */
+> @@ -647,8 +656,8 @@ struct arm_smmu_master {
+>   	struct device			*dev;
+>   	struct arm_smmu_domain		*domain;
+>   	struct list_head		domain_head;
+> -	u32				*sids;
+> -	unsigned int			num_sids;
+> +	struct arm_smmu_stream		*streams;
+> +	unsigned int				num_streams;
+>   	bool				ats_enabled;
+>   };
+>   
 
-The generated go code doesn't look right - it appears to be missing a
-definition for `ViommuType` and the associated constants for the
-"viommu_type" Enumeration added to libxl_types.idl. Does the code need
-re-generating?
-
-> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-> index bc35e412da..f7d5c77e23 100644
-> --- a/tools/include/libxl.h
-> +++ b/tools/include/libxl.h
-> @@ -318,6 +318,11 @@
->   */
->  #define LIBXL_HAVE_BUILDINFO_ARCH_ARM_SCI 1
->
-> +/*
-> + * libxl_domain_build_info has the arch_arm.viommu_type field.
-> + */
-> +#define LIBXL_HAVE_BUILDINFO_ARM_VIOMMU 1
-> +
->  /*
->   * LIBXL_HAVE_SOFT_RESET indicates that libxl supports performing
->   * 'soft reset' for domains and there is 'soft_reset' shutdown reason
-> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-> index 7e9f8a1bc3..a248793588 100644
-> --- a/tools/libs/light/libxl_arm.c
-> +++ b/tools/libs/light/libxl_arm.c
-> @@ -247,6 +247,19 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
->      }
->      LOG(DEBUG, " - SCI type=3D%u", config->arch.arm_sci_type);
->
-> +    switch (d_config->b_info.arch_arm.viommu_type) {
-> +    case LIBXL_VIOMMU_TYPE_NONE:
-> +        config->arch.viommu_type =3D XEN_DOMCTL_CONFIG_VIOMMU_NONE;
-> +        break;
-> +    case LIBXL_VIOMMU_TYPE_SMMUV3:
-> +        config->arch.viommu_type =3D XEN_DOMCTL_CONFIG_VIOMMU_SMMUV3;
-> +        break;
-> +    default:
-> +        LOG(ERROR, "Unknown vIOMMU type %d",
-> +            d_config->b_info.arch_arm.viommu_type);
-> +        return ERROR_FAIL;
-> +    }
-> +
->      return 0;
->  }
->
-> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_ty=
-pes.idl
-> index d64a573ff3..c7ad0e77b2 100644
-> --- a/tools/libs/light/libxl_types.idl
-> +++ b/tools/libs/light/libxl_types.idl
-> @@ -561,6 +561,11 @@ libxl_arm_sci =3D Struct("arm_sci", [
->      ("type", libxl_arm_sci_type),
->      ])
->
-> +libxl_viommu_type =3D Enumeration("viommu_type", [
-> +    (0, "none"),
-> +    (1, "smmuv3")
-> +    ], init_val =3D "LIBXL_VIOMMU_TYPE_NONE")
-> +
->  libxl_rdm_reserve =3D Struct("rdm_reserve", [
->      ("strategy",    libxl_rdm_reserve_strategy),
->      ("policy",      libxl_rdm_reserve_policy),
-> @@ -736,6 +741,7 @@ libxl_domain_build_info =3D Struct("domain_build_info=
-",[
->                                 ("sve_vl", libxl_sve_type),
->                                 ("nr_spis", uint32, {'init_val': 'LIBXL_N=
-R_SPIS_DEFAULT'}),
->                                 ("arm_sci", libxl_arm_sci),
-> +                               ("viommu_type", libxl_viommu_type),
->                                ])),
->      ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
->                                ])),
-> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-> index 1a2ea8b5d5..dcae8314fe 100644
-> --- a/tools/xl/xl_parse.c
-> +++ b/tools/xl/xl_parse.c
-> @@ -3033,6 +3033,15 @@ skip_usbdev:
->          }
->      }
->
-> +    if (!xlu_cfg_get_string (config, "viommu", &buf, 1)) {
-> +        e =3D libxl_viommu_type_from_string(buf, &b_info->arch_arm.viomm=
-u_type);
-> +        if (e) {
-> +            fprintf(stderr,
-> +                    "Unknown vIOMMU type \"%s\" specified\n", buf);
-> +            exit(-ERROR_FAIL);
-> +        }
-> +    }
-> +
->      parse_vkb_list(config, d_config);
->
->      d_config->virtios =3D NULL;
-> --
-> 2.43.0
-
--Nick
 
