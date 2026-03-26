@@ -2,46 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UD/4BDh2xWnw+QQAu9opvQ
+	id KN+jLJF6xWnw+QQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 19:08:56 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 19:27:29 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B483339CE7
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 19:08:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1264643.1556077 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1238C33A0E5
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 19:27:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1264668.1556085 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5p8B-0002QJ-Qt; Thu, 26 Mar 2026 18:08:31 +0000
+	id 1w5pPx-0005Od-8e; Thu, 26 Mar 2026 18:26:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1264643.1556077; Thu, 26 Mar 2026 18:08:31 +0000
+Received: by outflank-mailman (output) from mailman id 1264668.1556085; Thu, 26 Mar 2026 18:26:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5p8B-0002OF-Nx; Thu, 26 Mar 2026 18:08:31 +0000
-Received: by outflank-mailman (input) for mailman id 1264643;
- Thu, 26 Mar 2026 18:08:30 +0000
+	id 1w5pPx-0005NB-5n; Thu, 26 Mar 2026 18:26:53 +0000
+Received: by outflank-mailman (input) for mailman id 1264668;
+ Thu, 26 Mar 2026 18:26:52 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <helgaas@kernel.org>) id 1w5p8A-0002O9-Di
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 18:08:30 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <bounce-md_30504962.69c57a69.v1-452d7e70b9d944b4b844328b68b68019@bounce.vates.tech>)
+ id 1w5pPw-0005N5-Bc
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 18:26:52 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5p89-005UDX-Pq
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 19:08:29 +0100
+ id 1w5pPv-003Juu-MM
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 19:26:51 +0100
 Received: from [10.42.69.11] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <helgaas@kernel.org>)
- id 69c57600-bab6-0a2a0a5309dd-0a2a450b9052-46
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 19:08:29 +0100
-Received: from [172.234.252.31] (helo=sea.source.kernel.org)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <bounce-md_30504962.69c57a69.v1-452d7e70b9d944b4b844328b68b68019@bounce.vates.tech>)
+ id 69c57a66-bab6-0a2a0a5309dd-0a2a450bc52e-6
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 19:26:51 +0100
+Received: from [198.2.179.37] (helo=mail179-37.suw41.mandrillapp.com)
  by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <helgaas@kernel.org>)
- id 69c5761c-ef63-0a2a450b0019-aceafc1fbf2a-3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 19:08:29 +0100
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 34FE9439AF;
- Thu, 26 Mar 2026 18:08:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1DE6C116C6;
- Thu, 26 Mar 2026 18:08:26 +0000 (UTC)
+ (envelope-from
+ <bounce-md_30504962.69c57a69.v1-452d7e70b9d944b4b844328b68b68019@bounce.vates.tech>)
+ id 69c57a6a-ef63-0a2a450b0019-c602b325c953-3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 19:26:51 +0100
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-37.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fhXL169rkzG0CLs3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 18:26:49 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 452d7e70b9d944b4b844328b68b68019; Thu, 26 Mar 2026 18:26:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,308 +56,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="Date:From:To:Cc:Subject:In-Reply-To"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1774548507;
-	bh=0X1DCc+9Eo0RuIwrj7oY6TUZUNFxGIFKgMRZYFFzcYo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=NM6w98Z1qWs2v5XGqBHmCWm6JxAhr8BMb8fUamV5wL+wE7MKHdSXLxwSME5ezhUbH
-	 VOyIPsSXzcgwwfMsCgAvfntHYvRMCI5McoXeBkzm7PxpPr6CtwJ2j/g/tXcwFVa4Wo
-	 mfwgQnoNGj3+Q2qe/VwxwVJGO8tkG/hoHlV41bfq7nPm+ifUdXZJTQQCfLoSTGkKKZ
-	 GO/exOJI1I8y/8270z+FNS+HBZvuGqcXZFp+0eaxpOWl3481O7GW2mWATZewkwIy7q
-	 K/JDPU1QB11yIcAtsgX6nNiKmDxqpi1JcRBv8ZiWu3lRldZ84kirC/fAvXlie0d9kJ
-	 aLY5/Yv6bcogQ==
-Date: Thu, 26 Mar 2026 13:08:25 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Russell King <linux@armlinux.org.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Nipun Gupta <nipun.gupta@amd.com>,
-	Nikhil Agarwal <nikhil.agarwal@amd.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>, Bjorn Helgaas <bhelgaas@google.com>,
-	Armin Wolf <W_Armin@gmx.de>, Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Vineeth Vijayan <vneethv@linux.ibm.com>,
-	Peter Oberparleiter <oberpar@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Harald Freudenberger <freude@linux.ibm.com>,
-	Holger Dengler <dengler@linux.ibm.com>,
-	Mark Brown <broonie@kernel.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
-	Alex Williamson <alex@shazbot.org>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org,
-	linux-pci@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-spi@vger.kernel.org,
-	virtualization@lists.linux.dev, kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-arm-kernel@lists.infradead.org,
-	Gui-Dong Han <hanguidong02@gmail.com>
-Subject: Re: [PATCH 05/12] PCI: use generic driver_override infrastructure
-Message-ID: <20260326180825.GA1330769@bhelgaas>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mte1 header.d=mandrillapp.com header.i="@mandrillapp.com" header.h="From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"; dkim=pass header.s=mte1 header.d=vates.tech header.i="teddy.astie@vates.tech" header.h="From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1774549609; x=1774819609;
+	bh=1AD6XtpInmedqkHt3lklQZZmmP5HZmKfK2sFPcPiL8Q=;
+	h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=vEsv4QQsazjAHRM3hDgnHJS/DV6TE2qRjFuL1KhzeJEGCPdaWKlZPr6GPJY8sd6Lw
+	 DZbmBwgTTq5yuaPvSCCKPsOI6uX2VDeZ4cIxWKN2g8+e3cQnaHllnigRL447kxoEs6
+	 y/YoG1nYUFel6p0+ipkWJz8SeNBs8+HM9Stb+fk9Bog5M6eoUo5e4gPumDYRZbPDgy
+	 V1oIXg50UiDsBtspuPVmZwNkXymBPS2yKgqdIrNnE5dRjSFLPIilbAUGnUud8evcBP
+	 2kbvHboKx2habjDMpda3HioZuqiWVkllMSer9+izacIc6QWMyYD6orGVNHYpw7ipka
+	 /uw4MohVwXkLg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1774549609; x=1774810109; i=teddy.astie@vates.tech;
+	bh=1AD6XtpInmedqkHt3lklQZZmmP5HZmKfK2sFPcPiL8Q=;
+	h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=l8JHY/Tea6yBGHD1sI4FsunVDPU7/Y++mbqvOpZSJoQBLtQfgCYHF2QDpq3fUF0G5
+	 ZOJNfuLl/mrRjHZIfkczqwaAAGxKopAkS+iAB/75GKxEACbuTACL7DEj4EFtSQa5fs
+	 0WuDayNMs/82LGffSVpuHGz91NrlfQSQlqakKSfNY86YFvMegVGZ+eQoOxjs5+X8q0
+	 lNWw2MZRVQPeQzjGf0eYFqALRkbag1S7yGwyvJmoO8ZkAbAxAoAA9itHVNLTgPWImw
+	 8lITpTTpOP3FDfQFiM6Xdaj0AZ12vLBF70kI7ILOUaOHnMuRl6/GC7/iB+ZlW+EcHc
+	 5urfVUKW3eWCg==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20Mapping=20non-pinned=20memory=20from=20one=20Xen=20domain=20into=20another?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1774549607657
+Message-Id: <df6194cf-1fc4-4a20-ad46-6eeab1d920a2@vates.tech>
+To: "Demi Marie Obenour" <demiobenour@gmail.com>, "Xen developer discussion" <xen-devel@lists.xenproject.org>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, "Jan Beulich" <jbeulich@suse.com>, "Val Packett" <val@invisiblethingslab.com>, "Ariadne Conill" <ariadne@ariadne.space>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Juergen Gross" <jgross@suse.com>
+References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com> <5123c11c-3b8a-4633-809f-16c24418a4ce@vates.tech> <4f201188-31ac-4dac-9cc6-79c4283486e5@gmail.com>
+In-Reply-To: <4f201188-31ac-4dac-9cc6-79c4283486e5@gmail.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.452d7e70b9d944b4b844328b68b68019?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260326:md
+Date: Thu, 26 Mar 2026 18:26:49 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260324005919.2408620-6-dakr@kernel.org>
-X-purgate-ID: tlsNG-42698a/1774548509-A000B112-24DD8271/0/0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-42698a/1774549611-990B9112-8381C09B/0/0
 X-purgate-type: clean
-X-purgate-size: 7864
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+X-purgate-size: 6581
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dakr@kernel.org,m:linux@armlinux.org.uk,m:gregkh@linuxfoundation.org,m:rafael@kernel.org,m:ioana.ciornei@nxp.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:bhelgaas@google.com,m:W_Armin@gmx.de,m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:vneethv@linux.ibm.com,m:oberpar@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:agordeev@linux.ibm.com,m:borntraeger@linux.ibm.com,m:svens@linux.ibm.com,m:freude@linux.ibm.com,m:dengler@linux.ibm.com,m:broonie@kernel.org,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:eperezma@redhat.com,m:alex@shazbot.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:chleroy@kernel.org,m:linux-kernel@vger.kernel.org,m:driver-core@lists.linux.dev,m:linuxppc-dev@lists.ozlabs.org,m:linux-hyperv@vger.kernel.org,m:linux-pci@vger.kernel.org,m:platform-driver-x86
- @vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-s390@vger.kernel.org,m:linux-spi@vger.kernel.org,m:virtualization@lists.linux.dev,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-arm-kernel@lists.infradead.org,m:hanguidong02@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[helgaas@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org,lists.freedesktop.org,kvack.org,suse.com,invisiblethingslab.com,ariadne.space,citrix.com];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[armlinux.org.uk,linuxfoundation.org,kernel.org,nxp.com,amd.com,microsoft.com,google.com,gmx.de,linaro.org,linux.ibm.com,redhat.com,linux.alibaba.com,shazbot.org,suse.com,epam.com,vger.kernel.org,lists.linux.dev,lists.ozlabs.org,lists.xenproject.org,lists.infradead.org,gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:demiobenour@gmail.com,m:xen-devel@lists.xenproject.org,m:dri-devel@lists.freedesktop.org,m:linux-mm@kvack.org,m:jbeulich@suse.com,m:val@invisiblethingslab.com,m:ariadne@ariadne.space,m:andrew.cooper3@citrix.com,m:jgross@suse.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_GT_50(0.00)[50];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[helgaas@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim];
 	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.232];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 7B483339CE7
+X-Rspamd-Queue-Id: 1238C33A0E5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Tue, Mar 24, 2026 at 01:59:09AM +0100, Danilo Krummrich wrote:
-> When a driver is probed through __driver_attach(), the bus' match()
-> callback is called without the device lock held, thus accessing the
-> driver_override field without a lock, which can cause a UAF.
+Le 26/03/2026 =C3=A0 18:18, Demi Marie Obenour a =C3=A9crit=C2=A0:
+> On 3/24/26 14:00, Teddy Astie wrote:
+>>> ## Restrictions on lent memory>>
+>>> Lent memory is still considered to belong to the lending domain.
+>>> The borrowing domain can only access it via its p2m.  Hypercalls made
+>>> by the borrowing domain act as if the borrowed memory was not present.
+>>> This includes, but is not limited to:
+>>>
+>>> - Using pointers to borrowed memory in hypercall arguments.
+>>> - Granting borrowed memory to other VMs.
+>>> - Any other operation that depends on whether a page is accessible
+>>>     by a domain.
+>>
+>> What about emulated instructions that refers to this memory ?
 > 
-> Fix this by using the driver-core driver_override infrastructure taking
-> care of proper locking internally.
+> This would be allowed if (and only if) it can trigger paging as you
+> wrote above.
 > 
-> Note that calling match() from __driver_attach() without the device lock
-> held is intentional. [1]
+>>> Furthermore:
+>>>
+>>> - Borrowed memory isn't mapped into the IOMMU of any PCIe devices
+>>>     the guest has attached, because IOTLB faults generally are not
+>>>     replayable.
+>>>
+>>
+>> Given that (as written bellow) Borrowed memory is a part of some form of
+>> emulated BAR or special region, there is no guarantee that DMA will work
+>> properly anyway (unless P2P DMA support is advertised).
+>>
+>> Splitting the IOMMU side from the P2M is not a good idea as it rules out
+>> the "IOMMU HAP PT Share" optimization.
 > 
-> Link: https://lore.kernel.org/driver-core/DGRGTIRHA62X.3RY09D9SOK77P@kernel.org/ [1]
-> Reported-by: Gui-Dong Han <hanguidong02@gmail.com>
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=220789
-> Fixes: 782a985d7af2 ("PCI: Introduce new device binding path using pci_dev.driver_override")
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
->  drivers/pci/pci-driver.c           | 11 +++++++----
->  drivers/pci/pci-sysfs.c            | 28 ----------------------------
->  drivers/pci/probe.c                |  1 -
->  include/linux/pci.h                |  6 ------
+> If the pages are mapped in the IOMMU, paging them out requires an
+> IOTLB invalidation.  My understanding is that these are far too slow.
+> 
 
-For the above:
+yes (aside specific cases like with paravirtualized IOMMU), but only if 
+you have a device in the guest.
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+The problem is that that would force us to modify the ABI to have 
+"non-DMA-able" memory in the guest, which doesn't exist yet aside 
+specific cases like grants in PV.
 
-"driver_override" is mentioned several places in
-Documentation/ABI/testing/sysfs-bus-*.  I assume this series doesn't
-change the behavior documented there?  Should any of this doc be
-consolidated?
-
->  drivers/vfio/pci/vfio_pci_core.c   |  5 ++---
->  drivers/xen/xen-pciback/pci_stub.c |  6 ++++--
->  6 files changed, 13 insertions(+), 44 deletions(-)
+> How important is sharing the HAP and IOMMU page tables?
 > 
-> diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-> index dd9075403987..d10ece0889f0 100644
-> --- a/drivers/pci/pci-driver.c
-> +++ b/drivers/pci/pci-driver.c
-> @@ -138,9 +138,11 @@ static const struct pci_device_id *pci_match_device(struct pci_driver *drv,
->  {
->  	struct pci_dynid *dynid;
->  	const struct pci_device_id *found_id = NULL, *ids;
-> +	int ret;
->  
->  	/* When driver_override is set, only bind to the matching driver */
-> -	if (dev->driver_override && strcmp(dev->driver_override, drv->name))
-> +	ret = device_match_driver_override(&dev->dev, &drv->driver);
-> +	if (ret == 0)
->  		return NULL;
->  
->  	/* Look at the dynamic ids first, before the static ones */
-> @@ -164,7 +166,7 @@ static const struct pci_device_id *pci_match_device(struct pci_driver *drv,
->  		 * matching.
->  		 */
->  		if (found_id->override_only) {
-> -			if (dev->driver_override)
-> +			if (ret > 0)
->  				return found_id;
->  		} else {
->  			return found_id;
-> @@ -172,7 +174,7 @@ static const struct pci_device_id *pci_match_device(struct pci_driver *drv,
->  	}
->  
->  	/* driver_override will always match, send a dummy id */
-> -	if (dev->driver_override)
-> +	if (ret > 0)
->  		return &pci_device_id_any;
->  	return NULL;
->  }
-> @@ -452,7 +454,7 @@ static int __pci_device_probe(struct pci_driver *drv, struct pci_dev *pci_dev)
->  static inline bool pci_device_can_probe(struct pci_dev *pdev)
->  {
->  	return (!pdev->is_virtfn || pdev->physfn->sriov->drivers_autoprobe ||
-> -		pdev->driver_override);
-> +		device_has_driver_override(&pdev->dev));
->  }
->  #else
->  static inline bool pci_device_can_probe(struct pci_dev *pdev)
-> @@ -1722,6 +1724,7 @@ static const struct cpumask *pci_device_irq_get_affinity(struct device *dev,
->  
->  const struct bus_type pci_bus_type = {
->  	.name		= "pci",
-> +	.driver_override = true,
->  	.match		= pci_bus_match,
->  	.uevent		= pci_uevent,
->  	.probe		= pci_device_probe,
-> diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-> index 16eaaf749ba9..a9006cf4e9c8 100644
-> --- a/drivers/pci/pci-sysfs.c
-> +++ b/drivers/pci/pci-sysfs.c
-> @@ -615,33 +615,6 @@ static ssize_t devspec_show(struct device *dev,
->  static DEVICE_ATTR_RO(devspec);
->  #endif
->  
-> -static ssize_t driver_override_store(struct device *dev,
-> -				     struct device_attribute *attr,
-> -				     const char *buf, size_t count)
-> -{
-> -	struct pci_dev *pdev = to_pci_dev(dev);
-> -	int ret;
-> -
-> -	ret = driver_set_override(dev, &pdev->driver_override, buf, count);
-> -	if (ret)
-> -		return ret;
-> -
-> -	return count;
-> -}
-> -
-> -static ssize_t driver_override_show(struct device *dev,
-> -				    struct device_attribute *attr, char *buf)
-> -{
-> -	struct pci_dev *pdev = to_pci_dev(dev);
-> -	ssize_t len;
-> -
-> -	device_lock(dev);
-> -	len = sysfs_emit(buf, "%s\n", pdev->driver_override);
-> -	device_unlock(dev);
-> -	return len;
-> -}
-> -static DEVICE_ATTR_RW(driver_override);
-> -
->  static struct attribute *pci_dev_attrs[] = {
->  	&dev_attr_power_state.attr,
->  	&dev_attr_resource.attr,
-> @@ -669,7 +642,6 @@ static struct attribute *pci_dev_attrs[] = {
->  #ifdef CONFIG_OF
->  	&dev_attr_devspec.attr,
->  #endif
-> -	&dev_attr_driver_override.attr,
->  	&dev_attr_ari_enabled.attr,
->  	NULL,
->  };
-> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-> index bccc7a4bdd79..b4707640e102 100644
-> --- a/drivers/pci/probe.c
-> +++ b/drivers/pci/probe.c
-> @@ -2488,7 +2488,6 @@ static void pci_release_dev(struct device *dev)
->  	pci_release_of_node(pci_dev);
->  	pcibios_release_device(pci_dev);
->  	pci_bus_put(pci_dev->bus);
-> -	kfree(pci_dev->driver_override);
->  	bitmap_free(pci_dev->dma_alias_mask);
->  	dev_dbg(dev, "device released\n");
->  	kfree(pci_dev);
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index d43745fe4c84..460852f79f29 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -1987,9 +1987,8 @@ static int vfio_pci_bus_notifier(struct notifier_block *nb,
->  	    pdev->is_virtfn && physfn == vdev->pdev) {
->  		pci_info(vdev->pdev, "Captured SR-IOV VF %s driver_override\n",
->  			 pci_name(pdev));
-> -		pdev->driver_override = kasprintf(GFP_KERNEL, "%s",
-> -						  vdev->vdev.ops->name);
-> -		WARN_ON(!pdev->driver_override);
-> +		WARN_ON(device_set_driver_override(&pdev->dev,
-> +						   vdev->vdev.ops->name));
->  	} else if (action == BUS_NOTIFY_BOUND_DRIVER &&
->  		   pdev->is_virtfn && physfn == vdev->pdev) {
->  		struct pci_driver *drv = pci_dev_driver(pdev);
-> diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
-> index e4b27aecbf05..79a2b5dfd694 100644
-> --- a/drivers/xen/xen-pciback/pci_stub.c
-> +++ b/drivers/xen/xen-pciback/pci_stub.c
-> @@ -598,6 +598,8 @@ static int pcistub_seize(struct pci_dev *dev,
->  	return err;
->  }
->  
-> +static struct pci_driver xen_pcibk_pci_driver;
-> +
->  /* Called when 'bind'. This means we must _NOT_ call pci_reset_function or
->   * other functions that take the sysfs lock. */
->  static int pcistub_probe(struct pci_dev *dev, const struct pci_device_id *id)
-> @@ -609,8 +611,8 @@ static int pcistub_probe(struct pci_dev *dev, const struct pci_device_id *id)
->  
->  	match = pcistub_match(dev);
->  
-> -	if ((dev->driver_override &&
-> -	     !strcmp(dev->driver_override, PCISTUB_DRIVER_NAME)) ||
-> +	if (device_match_driver_override(&dev->dev,
-> +					 &xen_pcibk_pci_driver.driver) > 0 ||
->  	    match) {
->  
->  		if (dev->hdr_type != PCI_HEADER_TYPE_NORMAL
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index 1c270f1d5123..57e9463e4347 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -575,12 +575,6 @@ struct pci_dev {
->  	u8		supported_speeds; /* Supported Link Speeds Vector */
->  	phys_addr_t	rom;		/* Physical address if not from BAR */
->  	size_t		romlen;		/* Length if not from BAR */
-> -	/*
-> -	 * Driver name to force a match.  Do not set directly, because core
-> -	 * frees it.  Use driver_set_override() to set or clear it.
-> -	 */
-> -	const char	*driver_override;
-> -
->  	unsigned long	priv_flags;	/* Private flags for the PCI driver */
->  
->  	/* These methods index pci_reset_fn_methods[] */
-> -- 
-> 2.53.0
+>>> - Foreign mapping hypercalls that reference lent memory will fail.
+>>>     Otherwise, the domain making the foreign mapping hypercall could
+>>>     continue to access the borrowed memory after the lease had been
+>>>     revoked.  This is true even if the domain performing the foreign
+>>>     mapping is an all-powerful dom0.  Otherwise, an emulated device
+>>>     could access memory whose lease had been revoked.
+>>>
+>>> This also means that live migration of a domain that has borrowed
+>>> memory requires cooperation from the lending domain.  For now, it
+>>> will be considered out of scope.  Live migration is typically used
+>>> with server workloads, and accelerators for server hardware often
+>>> support SR-IOV.
+>>>
+>>> ## Where will lent memory appear in a guest's address space?
+>>>
+>>> Typically, lent memory will be an emulated PCI BAR.  It may be emulated
+>>> by dom0 or an alternate ioreq server.  However, it is not *required*
+>>> to be a PCI BAR.
+>>>
+>>
+>> ---
+>>
+>> While the design could work (albeit the implied complexity), I'm not a
+>> big fan of it, or at least, it needs to consider some constraints for
+>> having reasonable performance.
+>> One of the big issue is that a performance-sensitive system (virtualized
+>> GPU) is interlocking with several "hard to optimize" subsystem like P2M
+>> or Dom0 having to process a paging event.
+>>
+>> Modifying the P2M (especially removing entries) is a fairly expensive
+>> operation as it sometimes requires pausing all the vCPUs each time it's
+>> done.
 > 
+> Not every GPU supports recoverable page faults.  Even when they
+> are supported, they are extremely expensive.  Each of them involves
+> a round-trip from the GPU to the CPU and back, which means that a
+> potentially very large number of GPU cores are blocked until the
+> CPU can respond.  Therefore, GPU driver developers avoid relying on
+> GPU page faults whenever possible.  Instead, data is moved in large
+> chunks using a dedicated DMA engine in the GPU.
+> As a result, I'm not too concerned with the cost of P2M manipulation.
+> Anything that requires making a GPU buffer temporarily inaccessible
+> is already an expensive process, and driver developers have strong
+> incentives to keep the time the buffer is unmapped as short as
+> possible.
+> If performance turns out to be a problem, something like KVM's
+> asynchronous page faults might be a better solution.
+> 
+
+Asynchronous page fault looks like a interesting and potentially easier 
+to implement.
+
+IIUC, the idea is to make the pages disappears on the guest behalf, and 
+the guest would have to deal with the eventual page fault. Currently in 
+Xen, a unhandled #NPF is fatal, but that could be tuned down for 
+specific regions and transformed into a #PF or another exception for the 
+guest to handle.
+
+We have actually a similar need for SEV-ES MMIO handling, as we need to 
+distinguish "MMIO-related NPF" (to paravirtualize through GHCB) to the 
+other NPF; which needs to be configured in advance in page-tables (so 
+that the CPU choose between #VC and VMEXIT#NPF).
+
+It would also need some form of para-virtualization coming from virtio 
+or a new Xen PV driver for the guest to be made aware of this mechanism.
+I also assume that the guest handles properly that kind of event.
+
+>> If it's done at 4k granularity, it would also lack superpage support,
+>> which wouldn't help either. (doing things at the 2M+ scale would help,
+>> but I don't know enough how MMU notifier does things.
+>>
+>> While I agree that grants is not a adequate mechanism for this (for
+>> multiples reasons), I'm not fully convinced of the proposal.
+>> I would prefer a strategy where we map a fixed amount of RAM+VRAM as a
+>> blob, along with some form of cooperative hotplug mechanism to
+>> dynamically provision the amount.
+> 
+> I asked the GPU driver developers about pinning VRAM like this a couple
+> years ago or so.  The response I got was that it isn't supported.
+> I suspect that anyone needing VRAM pinning for graphics workloads is
+> using non-upstreamable hacks, most likely specific to a single driver.
+> 
+> More generally, the entire graphics stack receives essentially no
+> testing under Xen.  There have been bugs that have affected Qubes OS
+> users for months or more, and they went unfixed because they couldn't
+> be reproduced outside of Xen.  To the upstream graphics developers,
+> Xen might as well not exist.  This means that any solution that
+> requires changing the graphics stack is not a practical option,
+> and I do not expect this to change in the foreseeable future.
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
