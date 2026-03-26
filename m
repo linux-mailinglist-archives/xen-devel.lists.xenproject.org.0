@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uBX3HI3sxGm+5AQAu9opvQ
+	id wDnmLhzuxGnN5AQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 09:21:33 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 09:28:12 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D653033134B
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 09:21:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1263454.1555378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 277AE331554
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 09:28:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1263465.1555386 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5fxv-0004ov-Kt; Thu, 26 Mar 2026 08:21:19 +0000
+	id 1w5g4O-0005ac-9O; Thu, 26 Mar 2026 08:28:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1263454.1555378; Thu, 26 Mar 2026 08:21:19 +0000
+Received: by outflank-mailman (output) from mailman id 1263465.1555386; Thu, 26 Mar 2026 08:28:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5fxv-0004mE-IA; Thu, 26 Mar 2026 08:21:19 +0000
-Received: by outflank-mailman (input) for mailman id 1263454;
- Thu, 26 Mar 2026 08:21:18 +0000
+	id 1w5g4O-0005Yo-6m; Thu, 26 Mar 2026 08:28:00 +0000
+Received: by outflank-mailman (input) for mailman id 1263465;
+ Thu, 26 Mar 2026 08:27:58 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w5fxu-0004m8-9R
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 08:21:18 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w5g4M-0005Yi-PC
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 08:27:58 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5fxt-007gN8-LW
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 09:21:17 +0100
+ id 1w5g4M-003FZi-4c
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 09:27:58 +0100
 Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69c4ec77-5cb7-0a2a0a5109dd-0a2a450a85d8-12
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:21:17 +0100
-Received: from [209.85.221.52] (helo=mail-wr1-f52.google.com)
+ id 69c4ee09-5cb7-0a2a0a5109dd-0a2a450a864e-34
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:27:58 +0100
+Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
  by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69c4ec7d-1772-0a2a450a0019-d155dd34a88f-3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:21:17 +0100
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-43b949bf4easo289316f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 01:21:17 -0700 (PDT)
+ id 69c4ee0d-1772-0a2a450a0019-d155802ec476-3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:27:57 +0100
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-486fe2024a9so5171155e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 01:27:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b919df6d4sm5949774f8f.25.2026.03.26.01.21.16
+ 5b1f17b1804b1-48722d49c18sm14272485e9.14.2026.03.26.01.27.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Mar 2026 01:21:16 -0700 (PDT)
+ Thu, 26 Mar 2026 01:27:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,45 +58,45 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Cc:Content-Language:References:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774513277; x=1775118077; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774513677; x=1775118477; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=6urAeXWvgk6cNlszjl/35+RojX308Y1j/QIq7vY/jLU=;
-        b=PGAHk17HZfCZgsDzQ3BGAkboymZPWfEUQbRL6uBZX1o9tAtJYBUnr9Ln7MqkwQ53Iv
-         9B96kgzex1/7blxpyTJ+qkqY6RjGNS1YXAShMnD6zXt4ZgCpIcpRB8RVLhC0/xPsKWe7
-         DWlq1pym3RQcpMNxkPm8cXeD+YLFPrhXhqL8jTHcOENAoWRU2rRoyA0umI9c4Y36SAVY
-         EtcqZTxF1mprMKYu6gUQgCazBAEZXohmVS/t5k1J5ywTQ1w8Zs3cQTu4pV7FaikibLsq
-         4L3mvDCDdBEx4tuf2+vUvDV8++1V9Yg2LSGgZIo5WUumdmkR7LsrHgh2zSQPfRq44HRQ
-         dgrg==
+        bh=BGh+VegIMFtFjLOpSwyfOkMDimDxlBlonwHQUY/NTe4=;
+        b=OzNR34btWqSboqFBkalD5ggHeb4T/5HKWZlKG8X/Ypr8wc8kfrKWkh+L9ecl24Han3
+         axhmfF5BKs9O/oW/qdcllu1dIKOf+DYGzVnPa3FmgE6SBiRPHvnfqcBlp9FpnhrFCvil
+         iMinKXfqyrDiJY2Bfw9PCSPdKTbmg16FkFfVCbFs5V9lHnEcoyxo7RCvOoQc0UM62GyC
+         05Q6ERtSYDBC+UGDKv4whefWohjwzZw4XpFlM4wX08dUhuS8Jpzj2ZDRRh+9+Wlx0fex
+         phNdO8+dWERljU+xzTvPci6unDaHUcOvmRMzmM/YfOo9wbxhX22Kif/84HDyjiprAnzy
+         w2tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774513277; x=1775118077;
+        d=1e100.net; s=20251104; t=1774513677; x=1775118477;
         h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
          :content-language:references:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=6urAeXWvgk6cNlszjl/35+RojX308Y1j/QIq7vY/jLU=;
-        b=VKAowxlI+5XNx1M7HR0smiT9XxepArFdGh6eWEFMhh0wqx1Kj1nhHdCf2NxOGolyoj
-         YYI14/PW1gEL6UN2NSl6CJhwFCsGxqz1KDumZI9+L4LetbFgTqIryW/AZ2Ni5aKURuj6
-         E21kMPPO+btGkOfTO+hOyhdjzH4/dQB/ha5MBemeKPwZlrDCtnmgoxGQoSG8J/pq150v
-         49zWlQttP3MnLFmIJCnVEvpVd2Ve0s4HINkNSqnl69ABQTFp9I4Y5fBy1+0odFJ4J6ms
-         oTAarcTPTNN6tuhHdOuzg0Qn4tWwVPvNdftIxRGetNGUk0oIXWGGHMBMfNqRE2nmnDd0
-         8Hwg==
-X-Gm-Message-State: AOJu0Ywp2IBGSm2XeTr6GmJxHpP/ux6u/ldciB1GwYajhp4JsBucTP+N
-	XLvnmbk45S4RLJ2ovicuLRsvEeWE1nu9o9XW6/NzXtTPZ3XbuToAZ1KyasLFC2ZHyhqXAIr/8Qs
-	cI2CQXQ==
-X-Gm-Gg: ATEYQzxChxfrOD4vK5lN+viTwDIXKi2w2W4D3zpiMW6hlCpIX4oKyFxXhIdpimgmrZt
-	hvenPhX/OmxJTXKDGznayrBqEa2kqFUw023T3YucUSM06xXwDIiLsZkYZq0FH8ekn5e1MxcotVC
-	eUUO7oxPnGvdklC5CN96gw/mHjTTi6JdZYiH+j73G9CjVzDKOvGw6nTb0PwGN/8wYDAiOVju00b
-	HYoz3CZSk/hgu5mtwU5nGZmNf5wLwqAznctLmDSIX/KdjoZju8rwnKHOMKP40YvI2L50IvCVlFH
-	byIop+A2Pl/MDjh3iEI9eskEme0bXzS1W/6XamMdzWGm924MfFIlR8VWqHR1rpKlgOWKyBmH7Vj
-	QgetTkMgTwuGjeYsO3B2GLYfUCyEZzAKFpiXp1Whctv5cdDUPcCw1obHkIP3sjd9dgzRKNrIkcK
-	viS31FOHFCM6112+iY4oFH6vY65aNsYh7ceWFzBMgfZhW3BXNIAxaT4EbCN83Wjc+2T7cWq2ae/
-	yMxbJLlsW4Lul4=
-X-Received: by 2002:a05:600c:792:b0:485:4f11:aabc with SMTP id 5b1f17b1804b1-48722bf80d6mr5917265e9.15.1774513276976;
-        Thu, 26 Mar 2026 01:21:16 -0700 (PDT)
-Message-ID: <330c25da-1f7b-4af1-b14c-1c5e732ea441@suse.com>
-Date: Thu, 26 Mar 2026 09:21:16 +0100
+        bh=BGh+VegIMFtFjLOpSwyfOkMDimDxlBlonwHQUY/NTe4=;
+        b=cOiJSpEduJWX1MwGmjDiD1Lu81JUWlV6UzAHxRS/Z5f3O8JfV01RskMoEV7LsXKKYE
+         GBltpP+SWS/4/t+DgAeJvbbWOFxNWyVoHFPFGBILHv7grQMzrPoohDwQAtmy/0khiHSB
+         ok+3ZduVZFh4+U9DqC6mb7uFtfsOSl75yJEU+zrurE1nbvVQ+Q51qGLibCw/bh+HZfI2
+         oaQDB/duJzcnERQoi2ayVSwjzhnqpDfL/O8Os89WDkqCfrcuyQWxbSOkdsMsy4XgBcVH
+         uIF+SJAujshbITGmymJqrikxUSt1Gf1oK+N1QESZuFoquDOOvmolDeBEWMSvRJvgVpP6
+         towQ==
+X-Gm-Message-State: AOJu0YycifaPPpPjc6yMadFb4sG4FT323CdLo/MNl+rV+Mns14XIT2TK
+	AthFyBQiPPGMjzC+q1OCIAvVfeS1b6gzf3jV+TsoH5eD7gsd/3igtmN21mwSv0ykIzLzBOI1Bsg
+	tYnp/gA==
+X-Gm-Gg: ATEYQzzBxdwEghyoBy/kWxAWJafBYXeHKpAiYoNz2e8BaelEU8KbAFz1danpiw5MxnW
+	SZjauQg045frnpcn8HWjs3P+hUt1w7dqsIk87FnGc2mk2SxtFUWECfFkbMmjH0flygJEZjKXcwC
+	F3WFzQY7aAi5dld5h1zxZAOqW+hkO2T2wsP0c92aYX+h9t7tlvIJ9xmRl86+03PQT+wZK3XK2BT
+	E2/fQBgTYv+01XSNch517QLhsTYgIJsMjMzqgy+6XPoAbQW4Ukz9mT1k9paPKtejYnMko0Chu7l
+	41d4DaFod6wvLy78ZL6DPWZYclvoW4j2p/etYQOO1DOcDwh2O1tvcUIilcK6Sri5COf0fI7fa/h
+	FkKWC5+iT0BWJePDvchawoKG20/HjxJlIqXRI0ZZOcCkaAq7rWE+4tvX83cXSMtX8L7ZOCsITa+
+	sUd5fIXbUCjfUJaJ893fKIY3s1xr/e5X89p4+jc7UK4V70KR67aRR9VApR3JH44MGXaOWFv0xvx
+	sHJ8L28oc4Ot3Y=
+X-Received: by 2002:a05:600c:484a:b0:487:1fbf:e0a1 with SMTP id 5b1f17b1804b1-4871fbfe189mr14672745e9.4.1774513677166;
+        Thu, 26 Mar 2026 01:27:57 -0700 (PDT)
+Message-ID: <29775afa-e17b-4c44-a2a8-4ef4bc7cdf0f@suse.com>
+Date: Thu, 26 Mar 2026 09:27:56 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
@@ -133,27 +133,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <acQzzlXNDxNq885V@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-4011c0/1774513277-53E9D900-6A42FC99/0/0
+X-purgate-ID: tlsNG-4011c0/1774513677-5389A900-4A15B4DD/0/0
 X-purgate-type: clean
-X-purgate-size: 324
+X-purgate-size: 3864
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	SUBJECT_ENDS_QUESTION(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	TO_DN_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	TO_DN_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
 	RCPT_COUNT_TWO(0.00)[2];
-	FORWARDED(0.00)[mailman];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -168,17 +168,87 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: D653033134B
+X-Rspamd-Queue-Id: 277AE331554
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 25.03.2026 20:13, Marek Marczykowski-Górecki wrote:
-> In the "bad" case, I see this extra line:
-> (XEN) [    6.902973] Platform timer appears to have unexpectedly wrapped 1 times.
+> On Sat, Oct 25, 2025 at 02:23:23PM +0200, Marek Marczykowski-Górecki wrote:
+>> Hi,
+>>
+>> After updating from Xen 4.17 to 4.19 it appears that I have some
+>> performance issues if system was suspended before. For now this is just
+>> vague observation, as I don't have much data yet.
+>>
+>> Generally, the user observable effect is that audio playback (over
+>> Qubes's PV audio thing) becomes very choppy, beyond usefulness (cannot
+>> make audio calls anymore, music/video playback also becomes useless with
+>> some players. For me this suggests some increased latency in scheduling
+>> - maybe some timer fires too late?
+>>
+>> This doesn't happen always, but I'd say quite often after S3, sometimes
+>> may need two or three suspend cycles to trigger the issue. But it's
+>> possible it is also some other factor, like which pCPU the VM gets
+>> scheduled on, maybe? But for now I didn't hit this issue before
+>> performing any S3. I don't have a reliable reproducer yet.
+>>
+>> While I write it's related to 4.17 -> 4.19 update, there is also slight
+>> possibility it's related to hardware change (CFL -> MTL). But, it's
+>> unlikely, since I'd probably get much more bug reports about that (the
+>> stable Qubes version uses 4.17, and we have many users on MTL).
+>>
+>> What would be the method to collect some useful debugging info? Some
+>> debug-keys (r? a?), some cmdline options?
 > 
-> But in an earlier run of the same build it's not there.
+> In the meantime (sharing some of it on Matrix already), I managed to
+> build a much more isolated test. Specifically, a single PVH domU with
+> VLC, preloading 1s of audio (and not playing it really, the output is
+> set to a file). The specific command is:
+> 
+>     VLC_VERBOSE=3 vlc -I cli -A afile --no-loop --play-and-exit --run-time 1   ./melodigne-quiz-blind-test-187140.mp3
+> 
+> The domU rootfs (or rather: initramfs) is based on AppImage of VLC,
+> there is not much more inside, and the above command is called as part
+> of init script (and domU is terminated shortly after).
+> 
+> There is no persistent state in the test, the whole thing is network
+> booted from the same base. The only things changing between runs is xen
+> binary + toolstack.
+> 
+> In the output I'm looking for this line: main input debug: Stream buffering done (1018 ms in 2 ms)
+> 
+> Before S3 it takes 0-2ms, sometimes (rarely) 10ms (not sure why). Just
+> after S3 it takes very similar amount of time.
+> Then, I wait 30min, and run that command (or really the whole domU)
+> again a few times. I consider it "good" if I get at least one result
+> below 10ms. With this test in hand, I did run bisect between
+> staging-4.17 and staging-4.19. And here stuff gets interesting:
+> 
+> At 498a4ded74b3f062c52e42568223dc5858d27731 I get the following times
+> (in ms):
+> 
+>     30m after S3: 2, 2, 10, 10, 
+>     1h after S3: 2, 16, 16, 2, 17
+> 
+> At 5effd810c629d9a836e46ee321ca7409dad27212:
+> 
+>     30m after S3: 26, 27, 26, 15
+>     1h after S3: 24, 25, 37, 37, 25
+> 
+> This doesn't make any sense to me. There is a clear difference, yet
+> 5effd810c629d9a836e46ee321ca7409dad27212 looks like a no-op change (at
+> least for this Intel system).
 
-And in that earlier run, did the post-S3 delays also not occur?
+Pretty odd indeed. I assume you double checked the effect by going back
+and forth between the two commits. If the effect persists, could you make
+both binaries (xen-syms or xen.efi respectively, depending on which one
+you use of the system) available somewhere for inspection? There has to
+be some relevant difference, e.g. by addresses shifting slightly.
+
+Another possible further step may be to move forward from that commit,
+putting a revert of 5effd810c629 on top. If the behavioral effect is due
+to particular layout of the linked images, the effect should re-surface
+later (likely again at a seeming innocent change).
 
 Jan
 
