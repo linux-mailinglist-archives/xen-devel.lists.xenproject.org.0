@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6B3QKc3vxGnv5AQAu9opvQ
+	id sGCfDmzyxGnv5AQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 09:35:25 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 09:46:36 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EB8F3316F3
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 09:35:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1263498.1555414 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A35FF331960
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 09:46:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1263511.1555422 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5gBF-0008C1-IJ; Thu, 26 Mar 2026 08:35:05 +0000
+	id 1w5gLc-0001dg-Eo; Thu, 26 Mar 2026 08:45:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1263498.1555414; Thu, 26 Mar 2026 08:35:05 +0000
+Received: by outflank-mailman (output) from mailman id 1263511.1555422; Thu, 26 Mar 2026 08:45:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5gBF-000896-FX; Thu, 26 Mar 2026 08:35:05 +0000
-Received: by outflank-mailman (input) for mailman id 1263498;
- Thu, 26 Mar 2026 08:35:03 +0000
+	id 1w5gLc-0001bR-CA; Thu, 26 Mar 2026 08:45:48 +0000
+Received: by outflank-mailman (input) for mailman id 1263511;
+ Thu, 26 Mar 2026 08:45:47 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w5gBD-000890-Qk
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 08:35:03 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w5gLb-0001bL-03
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 08:45:47 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5gBD-001Fux-6J
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 09:35:03 +0100
-Received: from [10.42.69.4] (helo=localhost)
+ id 1w5gLa-008fyN-C7
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 09:45:46 +0100
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69c4efb3-bab6-0a2a0a5309dd-0a2a4504d9ba-22
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:35:03 +0100
-Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c4f232-e002-0a2a0a5209dd-0a2a450cd698-28
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:45:46 +0100
+Received: from [209.85.221.50] (helo=mail-wr1-f50.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69c4efb6-c823-0a2a45040019-d155dd2cb566-3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:35:03 +0100
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-43b8e8e7432so550220f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 01:35:03 -0700 (PDT)
+ id 69c4f239-f93d-0a2a450c0019-d155dd32e42a-3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:45:45 +0100
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-439c6fc2910so407007f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 01:45:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b919df903sm6708466f8f.30.2026.03.26.01.35.01
+ ffacd0b85a97d-43b919e722dsm5824472f8f.35.2026.03.26.01.45.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Mar 2026 01:35:02 -0700 (PDT)
+ Thu, 26 Mar 2026 01:45:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,58 +58,60 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774514102; x=1775118902; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774514745; x=1775119545; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JhzzZ2880Nvz6taQCKxFGYMBBImG7WeDD9RWx4ASTEA=;
-        b=FrYa6n/pe/iWV17O4gqf33itLlroWQ9AusyIc1MR+hqFVkZ7EFFTAXHto2mY/8UJeL
-         ++Oga0aYzSEV0np9GiMmEgxQLu4SeUCsh9JGPQdJNLMQrPfmDrCGvB6COpRTUXVk6t+I
-         R9bL9hkePcDCJM4lBReN+vorW1fAEQbjybD1uH93UbPZr88wpVobapiV+OSKRBT/Wpvg
-         N70K+c1OB3VnGUAK8wRhXOIqzTOVMdkryAfyjVr1WfPe9ZLSsDUGDRUKlId2YITZdmTt
-         YVs426ST1Rb4NMUI4F8gNRaD6oCIN7blFexF8uqVDWkYrnRrDziHa27Ty4IcmMv27Yxi
-         5W9w==
+        bh=OK6kAUOsV5F4+1Xd/60jF2be9L/gHqBtwrdyMSriVKI=;
+        b=F9uv4O07gUA+hVQN9sX2s7ndjBmYqUZazXq1/YQjX+mPJmVvq5/ILUvyLJUMmPZez/
+         tDtFCAjo24qOp3rDVoxA3U4PWr2aOQkVwfu/z2Y+e9loUuhfSjXJpkYZF9XXPMojqp61
+         Lq30de18z30gECOo84va+YGSg4ApXdmoJIlKkP9D/mPscwv6GBHkAAOParlmk7qms3Oc
+         x4KK0GN+zKtclNBUXFGifoguXTDYuM9FnLIkoWN9ZMyPowJL5IUTg7REJwkDwR6MDaHp
+         WDqsTbLB5Wgd3QrGwXP9fzT7qM+oeaMLM9ZcylPofyaWnbiJn2+lHWMMdJN1MkK7dYoX
+         uTxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774514102; x=1775118902;
+        d=1e100.net; s=20251104; t=1774514745; x=1775119545;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JhzzZ2880Nvz6taQCKxFGYMBBImG7WeDD9RWx4ASTEA=;
-        b=EPCgbOuUKzKl2RkHjv3ntq2WCZOeY8IInkWEMd8I3LGIpsrGv7j/TXqzdaD78Q/lXT
-         mhBjLc7w8ekrX/L+zNoBy+YEWCNMUIPGuETo6vFrLIqD4S3NXkgyCjlZTod0D4Bj7dNC
-         e2dDJBsZJjUuubCmzbLnEVmakATo6MoaeT6Kz9DEi4FSqF5tJNS80Aty6e9dmvlKmJsF
-         axzyRKy6pHAl8v9d78viA4dXKIGD5Fdk+D4lk5XOqQuTj//zIP7kFSJoQY0hkIvldVZ1
-         WvC8GiCwrmwOe/0MlX8uYib8DdSO4Vdc3FgKRkNkxc2t2mL0w19/jf123/kVwkwkP8ul
-         b26w==
-X-Forwarded-Encrypted: i=1; AJvYcCUh7X407iGglWWYQtnqd6rsykk88y/guG3XZ0Rn4Hm1b5zVL5+OptiWy+0MAZhzsrcu9tgwkKcPikQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz/rsmZ/2Q+tX+ovegMaduzLWu4jQha6Ctoe57nLdCQ5wqtk88S
-	iR3nhwTKwqlxOr450G7WOr4ANHJdatH2ueZa+ORy6rTnKksUz64r2euLPGbD4ibLdQ==
-X-Gm-Gg: ATEYQzzs8X1bFEw/VTYMw5meiCwidqI6IWGGFdRtEi67dABx/jZzTVJ7wLJJeOWoeYl
-	YEE+sj12DI994UHMSyHJBxlD2KVMcEaZ+fc24BDJnqsD5UGp8p+FOmfO8JODS18ggWdqDsMcWn5
-	GQ4hz2JHtulimDKgzf5xLqGUqSgkYEUBB/rJPW8SeBl/zSEtabGtsxBxbBEy47aRwoYGQWkhoBE
-	wC8Tfaba4BnjG1ASDiatKsqcA3brgPJm1jBITHNIERhcXWh7tj9hQNyFSgbQQ8hCMX3SoWhuza8
-	+REgDGJz8QOTyLhlqFeosLw1fnqawWESjVMYTLhkBsR440SxUy2wriZFHA5evEO9QQb1ny8Aqgy
-	bkkm2E8UdN0WchZagCAgUsiuYEnAogzLr8tXHYE7izmLlV5+o3wg/dg/t3iq6rUsc55qUGA+qZo
-	3mRHZQ1bPicdbUu7NFUAgCMyHnrZ8NJeAQhAo7GmnJqvb81RzTeRLXtDBQ6ipfzw9XHaj1gGYzg
-	FMfGF0USIpGFJtjsBgGw/N26A==
-X-Received: by 2002:a05:6000:2892:b0:439:b59e:5e65 with SMTP id ffacd0b85a97d-43b8896cedbmr9250073f8f.6.1774514102480;
-        Thu, 26 Mar 2026 01:35:02 -0700 (PDT)
-Message-ID: <73fdb2fd-8ec0-43ae-8e09-77a3d095633f@suse.com>
-Date: Thu, 26 Mar 2026 09:35:01 +0100
+        bh=OK6kAUOsV5F4+1Xd/60jF2be9L/gHqBtwrdyMSriVKI=;
+        b=gZzVY04lgDQqOY7E2kJ4zo7cY1d6S9cwAifVkhx3lhpcS1PWw0nc2DK8RjVoqAzVz1
+         FVKLaedFuXAod/65mDPaEGvCLcrBnW4cASdx2xGZebqyDAtabqg6/ndUYwW0llPuqAYX
+         uHtbJZw4Grv9unez6TUSJRtN8q4D+n2ikVPwqr6ss7nnuWd3ZYcO+9BDkurqLoswSrjr
+         OzUxc1h9Ap1Ikr7ppoAR6TTzjELiVZu7r924seXCSL1zjts7udW7B2nNe3ec8BUuuILi
+         ZxIXTK7HfAl3po8vUA9I3x1iXZhu7Jlbjwg1fHFIN6nAyMWNgC/m/2DvYL3AFG1wokF7
+         jqLw==
+X-Forwarded-Encrypted: i=1; AJvYcCWJSpmmjv2Ex4L6y4Ztjmud9MI2vyb13QQ/AY0Eg0AcKw6FoJrJISkvdPwmv+nzWphowhwhcS9kYJo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxmg+4Cry0ZroaPCoW9pPs2ew7954Xb+Od1cYTE14uR4Px7WjQ4
+	Rg7Nkm0cjUFwhxd4w4HIK+ALPLRRhM0db7eTk74cJciehxLOTmvQ6dJj2qawtrQybA==
+X-Gm-Gg: ATEYQzxsZEA02TIIvyqsD0GsLhNruqXpDml3zRCiSs5+vEvRNpOqoYSYkf2zcLyUz+q
+	6ZFHTYQMbJhRwIhxdoXoavMIuezUr6Xx8lUZpyCSR6a1DNUlp2XOy0mn7fjzBr9RvehSQMcUICR
+	a7RSCw0AMUfyX5qF09uiYzUlOLEPczw9JhtxtmUjvkCOXnGeHFq4A1Ucm8J/fJ8SZYfeAO3qGmt
+	AREX3J5NFztQcvdYqP3DK/FhulaIieXbxndIPIjhuk6Ufqdduop1tq78doltrzE6IEFSpghGLjE
+	9LnN7ta9MAuHCho/gS5jFYwkCjZ4fg58IeoJvLEv1SysetAtXANgJSnxnjECLS56K9ibynRu+XS
+	vQhmdvQqOQwpIwwi62Lr6qOG0Y0712TYelo7xw/LyWUqw5BkdOq2NwnWGrH+WUP5NdXOY1TVLsO
+	gHsmHNKAd0tXIjqsEpU82dPcY9MWMy8XvCokIXhqoK5Ry8MjkpwujATNhNhaagyrJtv9S4JDu/z
+	S4llE1jMdvfZ/A=
+X-Received: by 2002:a05:6000:220b:b0:43b:43ae:8c25 with SMTP id ffacd0b85a97d-43b88a44842mr10137377f8f.52.1774514744853;
+        Thu, 26 Mar 2026 01:45:44 -0700 (PDT)
+Message-ID: <11c0a822-afc7-4e3d-b6f5-ef8e32bd2f0f@suse.com>
+Date: Thu, 26 Mar 2026 09:45:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/mm: do not assign pages to a domain until they
- are scrubbed
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260325100803.6640-1-roger.pau@citrix.com>
- <20260325100803.6640-3-roger.pau@citrix.com>
- <73c705eb-95f9-456c-ba0b-c6e0f7730ef1@suse.com>
- <acQMmXyOGFe5AN2i@macbook.local>
+Subject: Re: [PATCH v5 2/3] x86/acpi: Integrate BGRT preservation with status
+ reporting
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: Soumyajyotii Ssarkar <soumyajyotisarkar23@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ "Daniel P . Smith" <dpsmith@apertussolutions.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ sarkarsoumyajyoti23@gmail.com, xen-devel@lists.xenproject.org
+References: <20260324123312.11076-1-soumyajyotisarkar23@gmail.com>
+ <20260324123312.11076-3-soumyajyotisarkar23@gmail.com>
+ <751e1d3e-d95a-4129-8baa-450a53d15efa@suse.com> <acQADhcNzkVBm3C3@mail-itl>
+ <5e121a98-fcd1-4d20-aa6c-a02af7f7eef4@suse.com> <acQF5Kd4kZzo3BN6@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -135,12 +137,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <acQMmXyOGFe5AN2i@macbook.local>
+In-Reply-To: <acQF5Kd4kZzo3BN6@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ebf023/1774514103-B249D9D1-B6431888/0/0
+X-purgate-ID: tlsNG-d25034/1774514745-6D2B9734-953399DA/0/0
 X-purgate-type: clean
-X-purgate-size: 1574
+X-purgate-size: 3564
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -148,67 +150,124 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FREEMAIL_CC(0.00)[gmail.com,citrix.com,apertussolutions.com,lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:soumyajyotisarkar23@gmail.com,m:andrew.cooper3@citrix.com,m:dpsmith@apertussolutions.com,m:roger.pau@citrix.com,m:sarkarsoumyajyoti23@gmail.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 1EB8F3316F3
+X-Rspamd-Queue-Id: A35FF331960
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 25.03.2026 17:26, Roger Pau Monné wrote:
-> On Wed, Mar 25, 2026 at 03:56:05PM +0100, Jan Beulich wrote:
->> On 25.03.2026 11:08, Roger Pau Monne wrote:
->>> ---
->>> I've attempted various different ways to solve this, but they all ended up
->>> being impossible.
+On 25.03.2026 16:57, Marek Marczykowski-Górecki wrote:
+> On Wed, Mar 25, 2026 at 04:44:15PM +0100, Jan Beulich wrote:
+>> On 25.03.2026 16:32, Marek Marczykowski-Górecki wrote:
+>>> On Wed, Mar 25, 2026 at 04:16:25PM +0100, Jan Beulich wrote:
+>>>> On 24.03.2026 13:33, Soumyajyotii Ssarkar wrote:
+>>>>> @@ -327,6 +328,11 @@ static int __init cf_check acpi_parse_hpet(struct acpi_table_header *table)
+>>>>>  	return 0;
+>>>>>  }
+>>>>>
+>>>>> +/*
+>>>>> + * Invalidate BGRT if image is in conventional RAM (preservation failed).
+>>>>> + * If preservation succeeded, image is in EfiACPIReclaimMemory, which
+>>>>> + * won't match RAM_TYPE_CONVENTIONAL check, so table remains valid.
+>>>>> + */
+>>>>>  static int __init cf_check acpi_invalidate_bgrt(struct acpi_table_header *table)
+>>>>>  {
+>>>>>  	struct acpi_table_bgrt *bgrt_tbl =
+>>>>> @@ -754,5 +760,7 @@ int __init acpi_boot_init(void)
+>>>>>
+>>>>>  	acpi_table_parse(ACPI_SIG_BGRT, acpi_invalidate_bgrt);
+>>>>>
+>>>>> +	efi_bgrt_status_info();
+>>>>> +
+>>>>>  	return 0;
+>>>>>  }
+>>>>
+>>>> Does this really need doing from here? If you called it ...
+>>>>
+>>>>> --- a/xen/common/efi/boot.c
+>>>>> +++ b/xen/common/efi/boot.c
+>>>>> @@ -1911,6 +1911,22 @@ static bool __init cf_check rt_range_valid(unsigned long smfn, unsigned long emf
+>>>>>      return true;
+>>>>>  }
+>>>>>
+>>>>> +void __init efi_bgrt_status_info(void)
+>>>>> +{
+>>>>> +    if ( !efi_enabled(EFI_BOOT) )
+>>>>> +        return;
+>>>>> +
+>>>>> +    if ( bgrt_info.preserved )
+>>>>> +    {
+>>>>> +        printk(XENLOG_INFO "EFI: BGRT image preserved: %lu KB\n",
+>>>>> +               bgrt_info.size / 1024);
+>>>>> +        printk(XENLOG_INFO "EFI: BGRT relocated from %p to %p\n",
+>>>>> +               bgrt_info.old_addr, bgrt_info.new_addr);
+>>>>> +    }
+>>>>> +    else if ( bgrt_info.failure_reason[0] )
+>>>>> +        printk(XENLOG_WARNING "EFI: BGRT preservation failed: %s\n",
+>>>>> +               bgrt_info.failure_reason);
+>>>>> +}
+>>>>>
+>>>>>  void __init efi_init_memory(void)
+>>>>>  {
+>>>>
+>>>> ... out of this function, it could be static and no stub (misplaced in
+>>>> the earlier patch) would be needed either.
 >>>
->>>  * Prevent non-scrubbed pages from getting extra refcounts (iow: make
->>>    get_page() fail for them).  This seemed nice, but the cleanup using
->>>    put_page_alloc_ref() was impossible as non-scrubbed pages would return
->>>    failure in get_page(), and so I couldn't take the extra reference ahead
->>>    of calling put_page_alloc_ref().
+>>> It was here before, and I complained about it, because it printed the
+>>> invalidation reason way later than the actual invalidation.
 >>
->> A special-case variant of get_page() could be introduced, but maybe that
->> would still be overly fragile.
+>> Sadly now I complain about this call out of acpi_boot_init(). What's wrong
+>> with logging the BGRT stuff together with the memory map?
 > 
-> It seemed too much complexity (and risk), just to deal with this
-> scenario.
-> 
->> When we discussed this, what I had proposed didn't require use of get_page()
->> though. assign_pages() would install two general references (plus one type
->> ref for PGT_writable) in this special case. To free, you'd call
->> put_page_alloc_ref() followed by put_page_and_type().
-> 
-> Doesn't that risk under flowing the page counter if there's a parallel
-> call to decrease_reservation() against this MFN before?
-> 
-> How would the freeing done in populate_physmap() (in case of
-> concurrent calls) know whether already scrubbed pages have had it's
-> PGC_allocated bit dropped?
+> If you try to diagnose what went wrong with BGRT, that's not very
+> intuitive to find - for example on my system it's 32 messages later.
 
-In that case put_page_alloc_ref() simply does nothing. That's why we have
-this wrapper: To avoid open-coding the same check in many places.
+Simply grep the log for BGRT?
+
+> It's even worse if system happens to crash between those two points.
+
+Hmm, perhaps.
+
+> IMO it makes sense to log reason for BGRT invalidation together with
+> the actual invalidation (message). I would be okay with moving it before
+> the actual invalidation, but I don't think there is a place like this in
+> xen/common/efi/boot.c (at a point where normal printk can be used already).
+
+I guess what you really mean is printk() output actually going out (i.e.
+not just to the ring buffer).
+
+While still requiring the function to be extern (and there to be a stub),
+how about adding the call much earlier in __start_xen, in here:
+
+    else if ( efi_enabled(EFI_BOOT) )
+        memmap_type = "EFI";
+
+? Or alternatively anywhere between setting system_state to SYS_STATE_boot
+and the call to acpi_boot_init()? Or re-using the other EFI_BOOT check that
+we have in __start_xen()?
 
 Jan
 
