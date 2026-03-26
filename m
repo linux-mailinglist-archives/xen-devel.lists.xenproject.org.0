@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EA/yAiZYxWkk9gQAu9opvQ
+	id iEXxDq1YxWkk9gQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:00:38 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:02:53 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70DC1338040
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:00:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1264446.1556000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D9A53380DD
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:02:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1264453.1556009 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5n89-0005hf-7J; Thu, 26 Mar 2026 16:00:21 +0000
+	id 1w5nAN-0006Mm-HW; Thu, 26 Mar 2026 16:02:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1264446.1556000; Thu, 26 Mar 2026 16:00:21 +0000
+Received: by outflank-mailman (output) from mailman id 1264453.1556009; Thu, 26 Mar 2026 16:02:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5n89-0005fh-3h; Thu, 26 Mar 2026 16:00:21 +0000
-Received: by outflank-mailman (input) for mailman id 1264446;
- Thu, 26 Mar 2026 16:00:19 +0000
+	id 1w5nAN-0006KT-Es; Thu, 26 Mar 2026 16:02:39 +0000
+Received: by outflank-mailman (input) for mailman id 1264453;
+ Thu, 26 Mar 2026 16:02:38 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w5n87-0005fb-4A
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 16:00:19 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w5nAM-0006KJ-7m
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 16:02:38 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5n86-00EN5P-GI
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 17:00:18 +0100
-Received: from [10.42.69.12] (helo=localhost)
+ id 1w5nAL-001Gvm-Jq
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 17:02:37 +0100
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69c55808-5cb7-0a2a0a5109dd-0a2a450cdb3a-48
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:00:18 +0100
-Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c55899-e002-0a2a0a5209dd-0a2a4503babe-28
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:02:37 +0100
+Received: from [209.85.221.53] (helo=mail-wr1-f53.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69c55812-f93d-0a2a450c0019-d1558036d9eb-3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:00:18 +0100
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4852b81c73aso10370625e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:00:18 -0700 (PDT)
+ id 69c5589d-1947-0a2a45030019-d155dd35cc72-3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:02:37 +0100
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-439b94a19fdso1085161f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:02:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-487209422b3sm16503695e9.36.2026.03.26.09.00.16
+ ffacd0b85a97d-43b919df903sm9147491f8f.30.2026.03.26.09.02.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Mar 2026 09:00:16 -0700 (PDT)
+ Thu, 26 Mar 2026 09:02:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,58 +58,55 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774540818; x=1775145618; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774540957; x=1775145757; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SIjMwhrmXUnvxM6ihNtRA+/qOvvHP3HVBfBVvX5Bah8=;
-        b=EzOz8kS4tHayEfV4/FzEvbKisfgLqPz/NnEdzPqDztHcTouge5t2jT12gzbjbIZgG3
-         Oa8ZAuLb3DvH+GoVjpxpRC+suSuqsvVHuD2KomjNf+0knmQGdMQy33ncV4Z8tt4AbQwt
-         IdG0LSBbUcO9iZGKYDNKwb0RPXdPHLYjdcEsOsjxQUV7w/9vl9eeZrxnW/LfXK2QLD9F
-         CWMORgQ7S8DeRDNSRuyNPV6aVtk24tM1plakXPUovecTcccSdEuI5G2EWkUC84HkRktf
-         A5+00/u97FICE/rUVxDrkPCqCTx/8gqR9CE0jp7zaJ0NYu75qBoJARNi12ASTDYe2Jw+
-         09xQ==
+        bh=dI8bo9ARUgtzJLHKohHwufYiwlIKOeOrKOtPwrW4eX4=;
+        b=fkGJHPpI1NFPVh74Yk9gR+42DXyupW9+TGUYUAN61k7ro4crt3hR0TC34fdCcCsVjM
+         qYjVOueuxjImZDX+gEcpWkiZ7ohp2zIf2I43SzKA8vv6pLAyXzcm6jytg9uI6rydI6Xh
+         sKSAZ4ucl93PbKZqiumQVy69KNE0YvvrCOtwMRHBjVjHYOGfzlU3vP2qsLEKvTPHkTYQ
+         lbvhnn0C6jnu7Z6UzS47rRq6vlmo7guJgHO0C3GPKV0nA2ru4kTH09BkCiPJMSGeziwc
+         /jEs4OZEdSYb2n7vpTfFMGaMJ59+SWrzNf83D0XME5o/783Fg0VNPxkjKo7te7GnIgTX
+         U/tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774540818; x=1775145618;
+        d=1e100.net; s=20251104; t=1774540957; x=1775145757;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=SIjMwhrmXUnvxM6ihNtRA+/qOvvHP3HVBfBVvX5Bah8=;
-        b=b6LkaC3t766+gKOFaOtUQG+9PQQiL6IRncqugmU709NFmG3oA3F4xHMu5cbfDvIgBx
-         Nzh00XF0w43rqN9cF6uxB08suuOGhZ09J8xY7m9PbkxY+vwayWcgcIDjHeYgn+ri2awx
-         XXqPhhK/Y3UIxnfifeQaCDEtJZ2YVbWmhC02r5TWWU9r4GTVQLnWuRC7xhIpe/Xo9rm0
-         eaZEHIfdpg4yKm8xxo1f+6coVHAAbXcpVyY1d1s6rcm1kq9nJn6zQ3eagQSwPAU15hKT
-         x32VIrVPrPlZAw7MAdpPLztHO5sRN9uiPxpKqlnsb3SCkVN0BNiXMtORkkTAxqmdmYpZ
-         rZ5A==
-X-Forwarded-Encrypted: i=1; AJvYcCUtVtxbgc1L6Eith7T6KBvuxeo8kF/I5zg1Df44x3rhmYgW7BYpnCe7G1FetwqJ5M+fr7hK+dqgc9Q=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxrEQe8bPf5LAyB3G8OxZ5UPaXlAZF5PCaA08OsiECJh/ux3mJx
-	NtEn3pfI7OWg6/Dld0P8Ha33h9iFCxOVRBDWGvavDf3mnorwiew9fz0faMbOWeysIQ==
-X-Gm-Gg: ATEYQzysUsySZil0RGTx7jnhJNXVg7TwVkvcOYU72vXEWrE6c56Uc9w+617pS8tbZij
-	3WI7xSz742T/IkGZD301JhSk638t7+CD19OQLXkzGVDd0+uzbGEUGRPxUGZPR4m9gE9Wx2gmDdA
-	KEuNmJzP1kZT3v+jS0ohMAOyE2roIPzru7BIDYQ5X3NE5iWsLUvXwX9eOIA8mPNs57dMbKiZbKV
-	CWhJklmmoYXsrCROgxY/9eJTRAl2gtJc4ZtJlkyvtZGRDvZPCwxYkR70H+imjliPrj/vaUVKLGA
-	ESj6y4W/loZX0cOCgaxIK0J1V5amFpLMwbxKy6OE1MR51VDCBpOThGPdiLGhXN0lCNFUCiv8vOG
-	miz9dxu2sAVIjj/kxWZSR79m7YHb+CB5fO5QiyKFWeWwV72jyTmUNq932ESOmt03+cVruxE9Kvk
-	jfwT0q6IEPPm3h1jPWmlXU1gQtm9sdDYU5aCo3WkIcR+iiCkcNMFowBK9oopFDOoCkxTMKXcQBf
-	kDpk1oGRYCRt3w=
-X-Received: by 2002:a05:600c:3490:b0:486:f8e9:add5 with SMTP id 5b1f17b1804b1-48716042c08mr122203105e9.19.1774540817521;
-        Thu, 26 Mar 2026 09:00:17 -0700 (PDT)
-Message-ID: <b4b67bc1-c7e4-4872-a018-789d7e87dcb2@suse.com>
-Date: Thu, 26 Mar 2026 17:00:15 +0100
+        bh=dI8bo9ARUgtzJLHKohHwufYiwlIKOeOrKOtPwrW4eX4=;
+        b=tY1KwzjuT6jlLmUf3/2Iv2YKzVUcq6B9GUJY0VTrTHbjmktuz/3tYroQJxD/7VgTjA
+         /8L25+Dag0ds6wEbYS66sKn33MqN4siVVMvK2vE8Ilcl2qvUND4C8ZOd6zWQ03qmo+kY
+         i/GH7cjil9qB8EC3cuVJjV1ZBVGIJdFGiAe7UoNjhCTVocm0zXT+RpH+zatDbvg8DjAO
+         F/vgsNDqQV+lyvW6k3QfDZOzW1fsAvbbFSLWMNOs35EBtRfCR9FjNvdT1Tz1SsXBTa9x
+         K190WdIW66NQAH0knjvZkJOtFtfdfofVjKS3cNex2TvKrSV/TMHFjzH6owxNhEnFc3mO
+         eBGA==
+X-Gm-Message-State: AOJu0YxqqY08cWs4fLMWuIWVLz5/r5rDkBqWsGjxDsvDhTHoWZnhuOWh
+	Mj6SnKH+z4vB5792Ui6f2nHDTfFrJ0crI8lXxroUMDErwTbGLHROiYb0nMcVoeqZpfmLPbSjnwo
+	RxXUe9Q==
+X-Gm-Gg: ATEYQzwwj7zn+KcNIJX3E1pXcPzZWIOsaYAn6fpfgHRRZ4P+njd45sZQGRpqFes02sa
+	tkl2N+vQlgowENVlltvP8C3uV1GERcpDrI1XZn5Z2nBKMXwbzmDuTEJmTgECXClLiI6HacLO2oI
+	+OyOmhi06nvsIaiL81xMho8ZLg0s8hcpMdPFaZZrrmnAyVBaWKACnP0aBBlvTzyhsBLy0Qf1Lxw
+	znM/j67DGjanvmUCPrSYK6wnkJDx/VnK88GI3JN3sOKJLSXqv4b+8Z87og3swOMaGbVgO9Bi4YG
+	bTB4PdM95Oq7oi0l+8I+9FJNVHGEAw/uLsfhvidTcCuWunmWpn9AJtt6HVSZKEwwiY5JnivEibB
+	HHfyzcHbmh+vzpoVYhsvHsJiwnEAZR93fkglk2uboDJxXU1rTrqBDAvaEwd5vXk7Z4xKRc6tmo8
+	WFk8PkMPX8cNRcewJsT8OFvyFTJMXLnlsBDUysU96pukDLDlxy0K/6AA54Vfo5H2UwqMTMJdWnR
+	CGaZQ0NfW3AXaA=
+X-Received: by 2002:a05:6000:40e0:b0:439:af81:1b23 with SMTP id ffacd0b85a97d-43b889aaf9fmr12259715f8f.21.1774540956671;
+        Thu, 26 Mar 2026 09:02:36 -0700 (PDT)
+Message-ID: <88c65ec7-b7f7-4d8b-a453-d707440b43cb@suse.com>
+Date: Thu, 26 Mar 2026 17:02:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] xen/uart: be more careful with changes to the PCI
- command register
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260325145824.31601-1-roger.pau@citrix.com>
- <20260325145824.31601-2-roger.pau@citrix.com>
- <2a00a1d2-7017-4c76-8344-018eb3f30f50@suse.com>
- <acVNMQ_HqRpgkP7i@macbook.local>
+Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
+ 4.17 -> 4.19 ?
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+References: <aPzBO_eW8mQHM66u@mail-itl> <acQzzlXNDxNq885V@mail-itl>
+ <29775afa-e17b-4c44-a2a8-4ef4bc7cdf0f@suse.com> <acUqOL232lp-Lw1v@mail-itl>
+ <cbed767b-4ac4-4989-8778-43ff321ae977@suse.com> <acVWX8vkhZiFfonP@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -135,128 +132,152 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <acVNMQ_HqRpgkP7i@macbook.local>
+In-Reply-To: <acVWX8vkhZiFfonP@mail-itl>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d25034/1774540818-6CABD734-C2999C66/0/0
+X-purgate-ID: tlsNG-33051d/1774540957-77C8C72C-844C0C78/0/0
 X-purgate-type: clean
-X-purgate-size: 3475
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-purgate-size: 5123
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	SUBJECT_ENDS_QUESTION(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	TO_DN_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,qubes-os.org:url];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWO(0.00)[2];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 70DC1338040
+X-Rspamd-Queue-Id: 9D9A53380DD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 26.03.2026 16:13, Roger Pau Monné wrote:
-> On Thu, Mar 26, 2026 at 01:02:22PM +0100, Jan Beulich wrote:
->> On 25.03.2026 15:58, Roger Pau Monne wrote:
->>> Read the existing PCI command register and only add the required bits to
->>> it, as to avoid clearing bits that might be possibly set by the firmware
->>> already.
+On 26.03.2026 16:53, Marek Marczykowski-Górecki wrote:
+> On Thu, Mar 26, 2026 at 02:20:04PM +0100, Jan Beulich wrote:
+>> On 26.03.2026 13:44, Marek Marczykowski-Górecki wrote:
+>>> On Thu, Mar 26, 2026 at 09:27:56AM +0100, Jan Beulich wrote:
+>>>> On 25.03.2026 20:13, Marek Marczykowski-Górecki wrote:
+>>>>> On Sat, Oct 25, 2025 at 02:23:23PM +0200, Marek Marczykowski-Górecki wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> After updating from Xen 4.17 to 4.19 it appears that I have some
+>>>>>> performance issues if system was suspended before. For now this is just
+>>>>>> vague observation, as I don't have much data yet.
+>>>>>>
+>>>>>> Generally, the user observable effect is that audio playback (over
+>>>>>> Qubes's PV audio thing) becomes very choppy, beyond usefulness (cannot
+>>>>>> make audio calls anymore, music/video playback also becomes useless with
+>>>>>> some players. For me this suggests some increased latency in scheduling
+>>>>>> - maybe some timer fires too late?
+>>>>>>
+>>>>>> This doesn't happen always, but I'd say quite often after S3, sometimes
+>>>>>> may need two or three suspend cycles to trigger the issue. But it's
+>>>>>> possible it is also some other factor, like which pCPU the VM gets
+>>>>>> scheduled on, maybe? But for now I didn't hit this issue before
+>>>>>> performing any S3. I don't have a reliable reproducer yet.
+>>>>>>
+>>>>>> While I write it's related to 4.17 -> 4.19 update, there is also slight
+>>>>>> possibility it's related to hardware change (CFL -> MTL). But, it's
+>>>>>> unlikely, since I'd probably get much more bug reports about that (the
+>>>>>> stable Qubes version uses 4.17, and we have many users on MTL).
+>>>>>>
+>>>>>> What would be the method to collect some useful debugging info? Some
+>>>>>> debug-keys (r? a?), some cmdline options?
+>>>>>
+>>>>> In the meantime (sharing some of it on Matrix already), I managed to
+>>>>> build a much more isolated test. Specifically, a single PVH domU with
+>>>>> VLC, preloading 1s of audio (and not playing it really, the output is
+>>>>> set to a file). The specific command is:
+>>>>>
+>>>>>     VLC_VERBOSE=3 vlc -I cli -A afile --no-loop --play-and-exit --run-time 1   ./melodigne-quiz-blind-test-187140.mp3
+>>>>>
+>>>>> The domU rootfs (or rather: initramfs) is based on AppImage of VLC,
+>>>>> there is not much more inside, and the above command is called as part
+>>>>> of init script (and domU is terminated shortly after).
+>>>>>
+>>>>> There is no persistent state in the test, the whole thing is network
+>>>>> booted from the same base. The only things changing between runs is xen
+>>>>> binary + toolstack.
+>>>>>
+>>>>> In the output I'm looking for this line: main input debug: Stream buffering done (1018 ms in 2 ms)
+>>>>>
+>>>>> Before S3 it takes 0-2ms, sometimes (rarely) 10ms (not sure why). Just
+>>>>> after S3 it takes very similar amount of time.
+>>>>> Then, I wait 30min, and run that command (or really the whole domU)
+>>>>> again a few times. I consider it "good" if I get at least one result
+>>>>> below 10ms. With this test in hand, I did run bisect between
+>>>>> staging-4.17 and staging-4.19. And here stuff gets interesting:
+>>>>>
+>>>>> At 498a4ded74b3f062c52e42568223dc5858d27731 I get the following times
+>>>>> (in ms):
+>>>>>
+>>>>>     30m after S3: 2, 2, 10, 10, 
+>>>>>     1h after S3: 2, 16, 16, 2, 17
+>>>>>
+>>>>> At 5effd810c629d9a836e46ee321ca7409dad27212:
+>>>>>
+>>>>>     30m after S3: 26, 27, 26, 15
+>>>>>     1h after S3: 24, 25, 37, 37, 25
+>>>>>
+>>>>> This doesn't make any sense to me. There is a clear difference, yet
+>>>>> 5effd810c629d9a836e46ee321ca7409dad27212 looks like a no-op change (at
+>>>>> least for this Intel system).
+>>>>
+>>>> Pretty odd indeed. I assume you double checked the effect by going back
+>>>> and forth between the two commits.
 >>>
->>> This fixes serial output when booting with `com1=device=amt` on a system
->>> using an "Alder Lake AMT SOL Redirection" PCI device (Vendor ID 0x8086 and
->>> Device ID 0x51e3).  That device has both IO and memory decoding enabled by
->>> the firmware, and disabling memory decoding causes the serial to stop
->>> working (even when the serial register BAR is in the IO space).
+>>> Yes...
 >>>
->>> Fixes: f2ff5d6628b3 ("ns16550: enable PCI serial card usage")
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>> If the effect persists, could you make
+>>>> both binaries (xen-syms or xen.efi respectively, depending on which one
+>>>> you use of the system) available somewhere for inspection? There has to
+>>>> be some relevant difference, e.g. by addresses shifting slightly.
+>>>
+>>> Sure, here: https://salmon.qubes-os.org/~marmarek/xen-perf-weird.tar.gz
 >>
->> I'm not convinced Fixes: is appropriate here. There's nothing wrong with that
->> commit, aiui. What's bogus is the device behavior.
+>> While said commit changes the size of init_nonfatal_mce_checker() by 4
+>> bytes, that doesn't lead to any other changes. I.e. all addresses remain
+>> the same. I.e. I'm completely lost as to explaining the observed behavior
+>> (or even just making a wild guess).
 > 
-> Hm, I would argue that disabling command register bits for devices
-> that have those enabled is in general dangerous.  What about device
-> RMRR or similar residing in BARs, and Xen disabling memory decoding
-> unintentionally while attempting to enable IO decoding?
-
-RMRRs in BARs seems unlikely (as BARs can be moved), but you have a
-point in general. Otoh devices are fully under our (later under Dom0's)
-control, so we may clear (or set) bits as we see fit to get a device
-to function. FTAOD, I'm not outright objecting to the tag, I'm merely
-questioning it some.
-
->>> --- a/xen/drivers/char/ns16550.c
->>> +++ b/xen/drivers/char/ns16550.c
->>> @@ -283,11 +283,17 @@ static int cf_check ns16550_getc(struct serial_port *port, char *pc)
->>>  static void pci_serial_early_init(struct ns16550 *uart)
->>>  {
->>>  #ifdef NS16550_PCI
->>> +    uint16_t cmd = 0;
->>> +
->>> +    if ( uart->ps_bdf_enable )
->>> +        cmd = pci_conf_read16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
->>> +                                       uart->ps_bdf[2]), PCI_COMMAND);
->>
->> Why is this conditional? While fine for the use at the bottom, ...
+> With staging-4.19 from a week ago +
+> 5effd810c629d9a836e46ee321ca7409dad27212 reverted, I got the following
+> results:
 > 
-> The comment next to the field states:
+> 30m after S3: 23, 22, 22, 23
+> 1h after S3: 7, 25, 22, 8, 25
 > 
->     bool ps_bdf_enable;     /* if =1, ps_bdf effective, port on pci card */
+> So, there are some fast runs, but most are in line with the "bad" case
+> above...
 > 
-> So it didn't seem like further checking was needed and that was the
-> sole filed to decide whether ps_bdf is populated or not.
-> 
-> However, I also found that when using device=amt|pci ps_bdf_enable
-> doesn't get set, and hence I'm not sure if that's intended or not.
-> Shouldn't ps_bdf_enable get set unconditionally when the serial device
-> is a PCI one?
+> But, I have another idea why that seemingly no-op commit may change
+> something: maybe it's about stack content during/after the function
+> call, influencing some uninitialized variable down the road?
 
-I think this was deliberate, hence why ...
-
->>>      if ( uart->bar && uart->io_base >= 0x10000 )
->>>      {
->>>          pci_conf_write16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
->>>                                    uart->ps_bdf[2]),
->>> -                         PCI_COMMAND, PCI_COMMAND_MEMORY);
->>> +                         PCI_COMMAND, cmd | PCI_COMMAND_MEMORY);
->>>          return;
->>>      }
->>
->> ... it looks wrong(ish) for this path. Actually, in ns16550_init_postirq()
->> we use
->>     if ( uart->bar || uart->ps_bdf_enable )
-
-... this conditional is now in use.
+Possible in principle, but not something which would change specifically
+by said commit, or specifically across S3.
 
 Jan
-
->> for example. With the new conditional updated accordingly:
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Thanks for the review, I don't mind adjusting, but I have a further
-> question above.
-> 
-> Roger.
-
 
