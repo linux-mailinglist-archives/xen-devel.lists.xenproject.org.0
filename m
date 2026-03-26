@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iEXxDq1YxWkk9gQAu9opvQ
+	id qKm4CXxZxWkk9gQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:02:53 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:06:20 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9A53380DD
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:02:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1264453.1556009 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE8CC3381EC
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:06:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1264467.1556018 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5nAN-0006Mm-HW; Thu, 26 Mar 2026 16:02:39 +0000
+	id 1w5nDe-0006yy-2O; Thu, 26 Mar 2026 16:06:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1264453.1556009; Thu, 26 Mar 2026 16:02:39 +0000
+Received: by outflank-mailman (output) from mailman id 1264467.1556018; Thu, 26 Mar 2026 16:06:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5nAN-0006KT-Es; Thu, 26 Mar 2026 16:02:39 +0000
-Received: by outflank-mailman (input) for mailman id 1264453;
- Thu, 26 Mar 2026 16:02:38 +0000
+	id 1w5nDd-0006wl-Vy; Thu, 26 Mar 2026 16:06:01 +0000
+Received: by outflank-mailman (input) for mailman id 1264467;
+ Thu, 26 Mar 2026 16:06:01 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w5nAM-0006KJ-7m
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 16:02:38 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w5nDd-0006wf-3p
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 16:06:01 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5nAL-001Gvm-Jq
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 17:02:37 +0100
-Received: from [10.42.69.3] (helo=localhost)
+ id 1w5nDc-001Hfk-Fy
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 17:06:00 +0100
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69c55899-e002-0a2a0a5209dd-0a2a4503babe-28
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:02:37 +0100
-Received: from [209.85.221.53] (helo=mail-wr1-f53.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c55968-2eae-0a2a0a5409dd-0a2a450bd40a-0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:06:00 +0100
+Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69c5589d-1947-0a2a45030019-d155dd35cc72-3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:02:37 +0100
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-439b94a19fdso1085161f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:02:37 -0700 (PDT)
+ id 69c55968-ef63-0a2a450b0019-d1558031cd26-3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:06:00 +0100
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-486fda2a389so9330575e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:06:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b919df903sm9147491f8f.30.2026.03.26.09.02.36
+ 5b1f17b1804b1-48722c845b8sm37225365e9.4.2026.03.26.09.05.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Mar 2026 09:02:36 -0700 (PDT)
+ Thu, 26 Mar 2026 09:05:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,55 +58,58 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774540957; x=1775145757; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774541160; x=1775145960; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dI8bo9ARUgtzJLHKohHwufYiwlIKOeOrKOtPwrW4eX4=;
-        b=fkGJHPpI1NFPVh74Yk9gR+42DXyupW9+TGUYUAN61k7ro4crt3hR0TC34fdCcCsVjM
-         qYjVOueuxjImZDX+gEcpWkiZ7ohp2zIf2I43SzKA8vv6pLAyXzcm6jytg9uI6rydI6Xh
-         sKSAZ4ucl93PbKZqiumQVy69KNE0YvvrCOtwMRHBjVjHYOGfzlU3vP2qsLEKvTPHkTYQ
-         lbvhnn0C6jnu7Z6UzS47rRq6vlmo7guJgHO0C3GPKV0nA2ru4kTH09BkCiPJMSGeziwc
-         /jEs4OZEdSYb2n7vpTfFMGaMJ59+SWrzNf83D0XME5o/783Fg0VNPxkjKo7te7GnIgTX
-         U/tg==
+        bh=XvDKUxnp63sk9ZHITRCSTf+wf8aqBXRHHagMNfACX7Q=;
+        b=NBQOjtMauMU2iRjcWzvs133pIFL4qKT+IHvWB9GdnUbhJjJethQWkkvVA+RuP2Syh1
+         ynhI0a73Da8tUOzT3YQOcwYuVcIWYzxeXPj0xX+FFL/Srx3RKsUQiV4xnrJ1h/NtvDO1
+         GVbfwQmu10RedZmCgWoKz7nJ/bcWl8maqJqHC4cXHdPEzTHB/jTAOXGVWrqwIH8ZVjrk
+         vmQoXReWVEEWMa67zIZFN3umnGLKJea7e2eL3hXTWOvxyjnUryQ987Fan+frSBSbV/MA
+         aA5BrXfBkmutNHsct1Z5YacwlQdZu8IC4zexdnRNL8If5dIX4z7C3RTwPI/zMLhV6zMW
+         mylw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774540957; x=1775145757;
+        d=1e100.net; s=20251104; t=1774541160; x=1775145960;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=dI8bo9ARUgtzJLHKohHwufYiwlIKOeOrKOtPwrW4eX4=;
-        b=tY1KwzjuT6jlLmUf3/2Iv2YKzVUcq6B9GUJY0VTrTHbjmktuz/3tYroQJxD/7VgTjA
-         /8L25+Dag0ds6wEbYS66sKn33MqN4siVVMvK2vE8Ilcl2qvUND4C8ZOd6zWQ03qmo+kY
-         i/GH7cjil9qB8EC3cuVJjV1ZBVGIJdFGiAe7UoNjhCTVocm0zXT+RpH+zatDbvg8DjAO
-         F/vgsNDqQV+lyvW6k3QfDZOzW1fsAvbbFSLWMNOs35EBtRfCR9FjNvdT1Tz1SsXBTa9x
-         K190WdIW66NQAH0knjvZkJOtFtfdfofVjKS3cNex2TvKrSV/TMHFjzH6owxNhEnFc3mO
-         eBGA==
-X-Gm-Message-State: AOJu0YxqqY08cWs4fLMWuIWVLz5/r5rDkBqWsGjxDsvDhTHoWZnhuOWh
-	Mj6SnKH+z4vB5792Ui6f2nHDTfFrJ0crI8lXxroUMDErwTbGLHROiYb0nMcVoeqZpfmLPbSjnwo
-	RxXUe9Q==
-X-Gm-Gg: ATEYQzwwj7zn+KcNIJX3E1pXcPzZWIOsaYAn6fpfgHRRZ4P+njd45sZQGRpqFes02sa
-	tkl2N+vQlgowENVlltvP8C3uV1GERcpDrI1XZn5Z2nBKMXwbzmDuTEJmTgECXClLiI6HacLO2oI
-	+OyOmhi06nvsIaiL81xMho8ZLg0s8hcpMdPFaZZrrmnAyVBaWKACnP0aBBlvTzyhsBLy0Qf1Lxw
-	znM/j67DGjanvmUCPrSYK6wnkJDx/VnK88GI3JN3sOKJLSXqv4b+8Z87og3swOMaGbVgO9Bi4YG
-	bTB4PdM95Oq7oi0l+8I+9FJNVHGEAw/uLsfhvidTcCuWunmWpn9AJtt6HVSZKEwwiY5JnivEibB
-	HHfyzcHbmh+vzpoVYhsvHsJiwnEAZR93fkglk2uboDJxXU1rTrqBDAvaEwd5vXk7Z4xKRc6tmo8
-	WFk8PkMPX8cNRcewJsT8OFvyFTJMXLnlsBDUysU96pukDLDlxy0K/6AA54Vfo5H2UwqMTMJdWnR
-	CGaZQ0NfW3AXaA=
-X-Received: by 2002:a05:6000:40e0:b0:439:af81:1b23 with SMTP id ffacd0b85a97d-43b889aaf9fmr12259715f8f.21.1774540956671;
-        Thu, 26 Mar 2026 09:02:36 -0700 (PDT)
-Message-ID: <88c65ec7-b7f7-4d8b-a453-d707440b43cb@suse.com>
-Date: Thu, 26 Mar 2026 17:02:35 +0100
+        bh=XvDKUxnp63sk9ZHITRCSTf+wf8aqBXRHHagMNfACX7Q=;
+        b=iCbQ+M6CqYPhMJI88OQE96hRepQiMPSsIJ1oXKN5r2/iJ32tPTQgXkXgZid6vvbX9c
+         cCCyinN36EsPDV8JJ4hYfZVchF1LhNBA4q47jZFizZtXjtxyl/CGllSBnwDN4Nj9z4G9
+         q/g7s1jdVRpuo5qQLGI6vKKbWTEjVj9MwBd5nSyFTAsjUmdpF40n6V4AxwfEBE4HVNtj
+         hLQ/nwKfgLkJ1MZdHORaAtmhdmMVjNCKxXz/rxhb4ZygKEL73rJPJ+RkAgcWkxLEZ0iH
+         fZIqt9wrRpQlQCuXCLPb1a8lqqYEsnW5dbQczSfIJOxySJaJufNW4MsjNpHxmHGIBB/j
+         aqqg==
+X-Forwarded-Encrypted: i=1; AJvYcCWbHnmnPKe4GJ39f+FLn8A2apy58k13DE1VuytOlllBxCgDYSo6QvXjeY4k9EFb8HCi9XWlirmFFWk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy+WTGfNA+jM9bEpyIi0tbn0VrH9K/AdI4fNeXTqWPp5HhYZJlu
+	WuBMBvP6LNIUbBFeGH92ZsXIMGAijI+ZpfOIh4NH4qw6sgvfFLanovNzZZmYyKoSYA==
+X-Gm-Gg: ATEYQzzqmCQRj+fI4kEx6Ykrptkl+vcjRJvwCaiEE3kXZaxV2pZc1rio6f9o333LfEU
+	JjCRYt4Y2Xcroq1LYcUyq1JUM0lnKnjoKIHd/Jc1zlKjJ5pBf9bnYO4ynz7tnPcxdKKCzDcvpHs
+	6CLwXQTirRdB8lwl+I6yQyqOrw+YbPCL1ItwSVHL9r+p1zs8VAYfwtHwKA1lxhquDMhm4mmlOnx
+	RIdCjPrdW73VTU8VO+ZEVAFKPBGJlCquDK0WzrnG9o0WHub55nhwEKO04e9dhcU6KBxClqO86gz
+	XqKm8apLbn7xYjgi4s6AATx1sT1N8aUh5beCetTKYWQEogANVVIsU3U5kqHeLx8Ct+tXMoDEd1h
+	SNRY4doU3SkJ6WkacZhCKeNd8zjDiuWRWrkZNQQPDItBucKlP2qAn/Tnjsc8lZKFCn85bcUKetB
+	TwWIzeYUGicYkNQqUBWxOYqELqxALvyGgkYMCEDqFeBfGIcxZw5ImLRbEa6B2RNuD10Q+GK1EEm
+	VgzA25ZKZRuBrI=
+X-Received: by 2002:a05:600c:46c6:b0:485:40c6:f507 with SMTP id 5b1f17b1804b1-4871609d044mr133530395e9.30.1774541159782;
+        Thu, 26 Mar 2026 09:05:59 -0700 (PDT)
+Message-ID: <8043652a-368a-4819-a680-4dbe64168c3b@suse.com>
+Date: Thu, 26 Mar 2026 17:05:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
- 4.17 -> 4.19 ?
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-References: <aPzBO_eW8mQHM66u@mail-itl> <acQzzlXNDxNq885V@mail-itl>
- <29775afa-e17b-4c44-a2a8-4ef4bc7cdf0f@suse.com> <acUqOL232lp-Lw1v@mail-itl>
- <cbed767b-4ac4-4989-8778-43ff321ae977@suse.com> <acVWX8vkhZiFfonP@mail-itl>
+Subject: Re: [PATCH v2 3/3] xen/mm: improve freeing of partially scrubbed
+ pages
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260326085145.61380-1-roger.pau@citrix.com>
+ <20260326085145.61380-4-roger.pau@citrix.com>
+ <77e3a765-39dd-4eea-898d-cf9e31912cfb@suse.com>
+ <acVWidFD7twir5od@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,152 +135,99 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <acVWX8vkhZiFfonP@mail-itl>
+In-Reply-To: <acVWidFD7twir5od@macbook.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1774540957-77C8C72C-844C0C78/0/0
+X-purgate-ID: tlsNG-42698a/1774541160-9ACAB112-26B4F518/0/0
 X-purgate-type: clean
-X-purgate-size: 5123
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	SUBJECT_ENDS_QUESTION(1.00)[];
+X-purgate-size: 2508
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	TO_DN_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,qubes-os.org:url];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWO(0.00)[2];
-	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 9D9A53380DD
+X-Rspamd-Queue-Id: AE8CC3381EC
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 26.03.2026 16:53, Marek Marczykowski-Górecki wrote:
-> On Thu, Mar 26, 2026 at 02:20:04PM +0100, Jan Beulich wrote:
->> On 26.03.2026 13:44, Marek Marczykowski-Górecki wrote:
->>> On Thu, Mar 26, 2026 at 09:27:56AM +0100, Jan Beulich wrote:
->>>> On 25.03.2026 20:13, Marek Marczykowski-Górecki wrote:
->>>>> On Sat, Oct 25, 2025 at 02:23:23PM +0200, Marek Marczykowski-Górecki wrote:
->>>>>> Hi,
->>>>>>
->>>>>> After updating from Xen 4.17 to 4.19 it appears that I have some
->>>>>> performance issues if system was suspended before. For now this is just
->>>>>> vague observation, as I don't have much data yet.
->>>>>>
->>>>>> Generally, the user observable effect is that audio playback (over
->>>>>> Qubes's PV audio thing) becomes very choppy, beyond usefulness (cannot
->>>>>> make audio calls anymore, music/video playback also becomes useless with
->>>>>> some players. For me this suggests some increased latency in scheduling
->>>>>> - maybe some timer fires too late?
->>>>>>
->>>>>> This doesn't happen always, but I'd say quite often after S3, sometimes
->>>>>> may need two or three suspend cycles to trigger the issue. But it's
->>>>>> possible it is also some other factor, like which pCPU the VM gets
->>>>>> scheduled on, maybe? But for now I didn't hit this issue before
->>>>>> performing any S3. I don't have a reliable reproducer yet.
->>>>>>
->>>>>> While I write it's related to 4.17 -> 4.19 update, there is also slight
->>>>>> possibility it's related to hardware change (CFL -> MTL). But, it's
->>>>>> unlikely, since I'd probably get much more bug reports about that (the
->>>>>> stable Qubes version uses 4.17, and we have many users on MTL).
->>>>>>
->>>>>> What would be the method to collect some useful debugging info? Some
->>>>>> debug-keys (r? a?), some cmdline options?
->>>>>
->>>>> In the meantime (sharing some of it on Matrix already), I managed to
->>>>> build a much more isolated test. Specifically, a single PVH domU with
->>>>> VLC, preloading 1s of audio (and not playing it really, the output is
->>>>> set to a file). The specific command is:
->>>>>
->>>>>     VLC_VERBOSE=3 vlc -I cli -A afile --no-loop --play-and-exit --run-time 1   ./melodigne-quiz-blind-test-187140.mp3
->>>>>
->>>>> The domU rootfs (or rather: initramfs) is based on AppImage of VLC,
->>>>> there is not much more inside, and the above command is called as part
->>>>> of init script (and domU is terminated shortly after).
->>>>>
->>>>> There is no persistent state in the test, the whole thing is network
->>>>> booted from the same base. The only things changing between runs is xen
->>>>> binary + toolstack.
->>>>>
->>>>> In the output I'm looking for this line: main input debug: Stream buffering done (1018 ms in 2 ms)
->>>>>
->>>>> Before S3 it takes 0-2ms, sometimes (rarely) 10ms (not sure why). Just
->>>>> after S3 it takes very similar amount of time.
->>>>> Then, I wait 30min, and run that command (or really the whole domU)
->>>>> again a few times. I consider it "good" if I get at least one result
->>>>> below 10ms. With this test in hand, I did run bisect between
->>>>> staging-4.17 and staging-4.19. And here stuff gets interesting:
->>>>>
->>>>> At 498a4ded74b3f062c52e42568223dc5858d27731 I get the following times
->>>>> (in ms):
->>>>>
->>>>>     30m after S3: 2, 2, 10, 10, 
->>>>>     1h after S3: 2, 16, 16, 2, 17
->>>>>
->>>>> At 5effd810c629d9a836e46ee321ca7409dad27212:
->>>>>
->>>>>     30m after S3: 26, 27, 26, 15
->>>>>     1h after S3: 24, 25, 37, 37, 25
->>>>>
->>>>> This doesn't make any sense to me. There is a clear difference, yet
->>>>> 5effd810c629d9a836e46ee321ca7409dad27212 looks like a no-op change (at
->>>>> least for this Intel system).
->>>>
->>>> Pretty odd indeed. I assume you double checked the effect by going back
->>>> and forth between the two commits.
+On 26.03.2026 16:53, Roger Pau Monné wrote:
+> On Thu, Mar 26, 2026 at 12:50:27PM +0100, Jan Beulich wrote:
+>> On 26.03.2026 09:51, Roger Pau Monne wrote:
+>>> When freeing possibly partially scrubbed pages in populate_physmap() the
+>>> whole page is marked as dirty, but that's not fully accurate.  Since the
+>>> PGC_need_scrub bit is preserved for the populate_physmap() allocation we
+>>> can use those when freeing to detect which pages need scrubbing instead of
+>>> marking the whole page as dirty.
 >>>
->>> Yes...
+>>> This requires exposing free_heap_pages() globally, and switching
+>>> populate_physmap() to use it instead of free_domheap_pages().
 >>>
->>>> If the effect persists, could you make
->>>> both binaries (xen-syms or xen.efi respectively, depending on which one
->>>> you use of the system) available somewhere for inspection? There has to
->>>> be some relevant difference, e.g. by addresses shifting slightly.
->>>
->>> Sure, here: https://salmon.qubes-os.org/~marmarek/xen-perf-weird.tar.gz
+>>> Suggested-by: Jan Beulich <jbeulich@suse.com>
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> ---
+>>> Jan: I'm not sure if that's what you suggested in the review of v1.  I've
+>>> added your Suggested-by but I can drop it if that's not what you were
+>>> thinking of.
 >>
->> While said commit changes the size of init_nonfatal_mce_checker() by 4
->> bytes, that doesn't lead to any other changes. I.e. all addresses remain
->> the same. I.e. I'm completely lost as to explaining the observed behavior
->> (or even just making a wild guess).
+>> You're going quite a bit farther. In my comment I really only meant the one
+>> new use you add in patch 2 (in which case no changes to the body of
+>> free_heap_pages() would have been needed, and hence why I thought that it
+>> could maybe be done right there). Up to you whether to keep the tag.
 > 
-> With staging-4.19 from a week ago +
-> 5effd810c629d9a836e46ee321ca7409dad27212 reverted, I got the following
-> results:
-> 
-> 30m after S3: 23, 22, 22, 23
-> 1h after S3: 7, 25, 22, 8, 25
-> 
-> So, there are some fast runs, but most are in line with the "bad" case
-> above...
-> 
-> But, I have another idea why that seemingly no-op commit may change
-> something: maybe it's about stack content during/after the function
-> call, influencing some uninitialized variable down the road?
+> I see, you meant to change the single usage in case assign_page()
+> fails.  I think going a bit further is fine, seeing the adjustment to
+> free_heap_pages() is very minimal?
 
-Possible in principle, but not something which would change specifically
-by said commit, or specifically across S3.
+Oh, yes, sure. I was merely trying to address your remark.
+
+>>> --- a/xen/include/xen/mm.h
+>>> +++ b/xen/include/xen/mm.h
+>>> @@ -153,6 +153,12 @@ unsigned long avail_node_heap_pages(unsigned int nodeid);
+>>>  } while ( false )
+>>>  #define FREE_DOMHEAP_PAGE(p) FREE_DOMHEAP_PAGES(p, 0)
+>>>  
+>>> +/*
+>>> + * Most callers should use free_{xen,dom}heap_pages() instead of directly
+>>> + * calling free_heap_pages().
+>>> + */
+>>> +void free_heap_pages(struct page_info *pg, unsigned int order, bool need_scrub);
+>>
+>> Might we better not put this here, but instead in a private header in common/?
+> 
+> No strong opinion.  It could logically be used outside of common in
+> principle, hence we might end up moving it anyway.  Would you prefer
+> me to introduce a common/memory.h header with just this prototype?
+
+It would help if others could voice an opinion. To me exposing this
+supposedly internal (to the page allocator) function feels a little
+risky. Yet of course any undue use would likely be spotted and objected
+to during review.
 
 Jan
 
