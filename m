@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GGFiGpcyxWk98AQAu9opvQ
+	id AE69CNw5xWn/8AQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 14:20:23 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 14:51:24 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A066D335E10
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 14:20:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1264122.1555845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88169336498
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 14:51:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1264173.1555874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5kd6-0000FN-Bl; Thu, 26 Mar 2026 13:20:08 +0000
+	id 1w5l6l-0005kT-QS; Thu, 26 Mar 2026 13:50:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1264122.1555845; Thu, 26 Mar 2026 13:20:08 +0000
+Received: by outflank-mailman (output) from mailman id 1264173.1555874; Thu, 26 Mar 2026 13:50:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5kd6-0000CZ-8i; Thu, 26 Mar 2026 13:20:08 +0000
-Received: by outflank-mailman (input) for mailman id 1264122;
- Thu, 26 Mar 2026 13:20:07 +0000
+	id 1w5l6l-0005hf-NO; Thu, 26 Mar 2026 13:50:47 +0000
+Received: by outflank-mailman (input) for mailman id 1264173;
+ Thu, 26 Mar 2026 13:50:46 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w5kd5-00006D-IS
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 13:20:07 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w5l6k-0005hZ-Hf
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 13:50:46 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5kd4-009lZ2-UW
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 14:20:06 +0100
-Received: from [10.42.69.1] (helo=localhost)
+ id 1w5l6j-0093OK-U0
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 14:50:45 +0100
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69c53282-2eae-0a2a0a5409dd-0a2a45018922-30
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 14:20:06 +0100
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69c539b3-bab6-0a2a0a5309dd-0a2a4502bc30-6
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 14:50:45 +0100
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69c53286-6400-0a2a45010019-d1558032d4cf-3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 14:20:06 +0100
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4852a9c6309so9201515e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 06:20:06 -0700 (PDT)
+ id 69c539b5-63bb-0a2a45020019-d1558030ac90-3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 14:50:45 +0100
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-486fb439299so9500255e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 06:50:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43b9192e35esm7365813f8f.6.2026.03.26.06.20.05
+ ffacd0b85a97d-43b9192e528sm7867942f8f.1.2026.03.26.06.50.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Mar 2026 06:20:05 -0700 (PDT)
+ Thu, 26 Mar 2026 06:50:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,54 +58,59 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774531206; x=1775136006; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774533045; x=1775137845; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rcYqFzyqvI8ig/NcoUHj2uFaipLPsf86wtjiCfYrbmU=;
-        b=gI0b8CCaJlgJ5sXy+HtFh+Q5n4OLESpBaNvfex3KEv1kiWZzXykJgOY5+6Jv6Pfiup
-         Le5MROHqo+l7THP0HJRwA5da2+E72kure2v5cNs7K4uHFiGfFCLoMmj8clpI2DaOAeBu
-         UT7Wz5IqxdLunkJw3VL2M0VSyoKJdlJjfKSz3WsxlmHypXOzrO/oG3VMGgmBFBi1t8an
-         qTcKuunsOLR66CkS3q7HJSE16UTgJdaxXrBluSMMoog+VWCiWJ9VPnHXdTYPCvUSgg9t
-         Zfagozrx1mbtRfpVRgor9GOszWN3EwPADr2f17O7IbCyYqB18/Xe8WkfVI0ITSgRYXhn
-         BT+A==
+        bh=oRmIAczwzc6tHf8uMCnh9Nawk+I6B82vpZqm967EGkk=;
+        b=faTpQdFTVGFyuPUNiV4a7ovm20Sv1D7pEydIAjcU03dis8b/NkmjHb/lwF9wQJdj6I
+         FpRUgGo26AVq9V9pHG5K5qIB8f8OuoXGNnWc4piJ0X1eLHy40DwXR9mF9DIo9npZpEsF
+         0PdJafWPO+2gqOdUBlp6cEgtzLNv1fU3zMTli7iL1hDvbkJ9+44+HZLH3Kqb741ot76W
+         /5z+XzGqVLl6lPzuPgvUDkV5M8aOBCAGv3zkc2tx6hHWmwe9eoXrq3KQLUskc1QR3mrm
+         ZV3ZxsPiOIhFWqnFNz8+yivrdirVkKkoTzJhKA7zC85w+IpB1S0TmkaIsBcwmMTrWQIb
+         Y/8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774531206; x=1775136006;
+        d=1e100.net; s=20251104; t=1774533045; x=1775137845;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rcYqFzyqvI8ig/NcoUHj2uFaipLPsf86wtjiCfYrbmU=;
-        b=i06ZFctn4dPZnWTW1gpn6GS0hYzA6WJb8BHUlGr37wXI9ZEnKU/Y+uGNOhmoJUpORt
-         3LJd86UPrsOfz1BvyjURO3rPG0qW8nB9tB1rnaY8h0xSNNPyF4PxT4wPf9haA6jAh4D+
-         b2zy9nwkaQwjAknGFKsh9pnoRP9Pn4lpy4VHYcA8E3bx6zNSvQRfcNGQMa5BUzxdLfWP
-         2lJRbwypKR1W9zmnTRgOXnrqW4PtYmhgWZdpRvQjNWbYDR0ZN65k49RtjMPK9Hi/D8EB
-         CtP9qEsJL2aMLMGNbbd5K/jND9Zz0slYI6XlApmO1acOC0WerYlUW6gbNguJrFWXo7HK
-         sO7g==
-X-Gm-Message-State: AOJu0YzMWzuKvXY1gvFG1f7VvA7THtxA8okEATE4TpWXZS7spcXJ5hH8
-	zumlRS7jyrSFhd5BgDWvUYDpUcsWQiwFJJIOkb16kn1hidybnT0Ga6Sojsb+cQRS5UPj7iunJJv
-	TDErQ3g==
-X-Gm-Gg: ATEYQzxftaFPcRhsTiLmqbitkrD4xoYcezXrlb7uQOn+vn/KDw1MowHLFJbHRkEgPWA
-	gnQpUv6sbTNpxKyoP0nXfNQbOTyJYSzBLbkgr8RdZv4ZXV3sfXBbKSL7l5UkOTmIGS+EtMR+HaY
-	vlJ1LOaob8CMmaCuN6LnQoXKlxUo0aRVVSKN1x6D8ek/RqrPcLLCvrOUzf/WXlknF+Mj9KInbaJ
-	cFJxQg6jRIOgT5+BhMBuXgBI59PyUgKoo+1MBf7BbxQzKXCSE3Jazhdw5olqi9c7yxEwZ/N9R/p
-	zM8oflm9YUmnPGbBhx6FLyj3fJmPBEoZZ3GLYFtRu0zMqSQTjRtgnaaRsQan2IpIPuXBs9Oq4Ok
-	9Rf7yPMO84HhOkXNfOqh7o7uR8BWhRB7MaqjJTOBA7Jrm+P2E3DB3ZfI/NUHFmjF2WPMyDPRHvW
-	KCF985SYTxYt3iGI+rOeag8qHhGopXbT441O/RuSEwSLRcg/sKQR7uZJKi6EGJkdG1qDQ2Brf0D
-	KarQ4O6T2fU+r8=
-X-Received: by 2002:a05:600c:1394:b0:486:fe46:b647 with SMTP id 5b1f17b1804b1-48715fd6193mr114025445e9.10.1774531206116;
-        Thu, 26 Mar 2026 06:20:06 -0700 (PDT)
-Message-ID: <cbed767b-4ac4-4989-8778-43ff321ae977@suse.com>
-Date: Thu, 26 Mar 2026 14:20:04 +0100
+        bh=oRmIAczwzc6tHf8uMCnh9Nawk+I6B82vpZqm967EGkk=;
+        b=rOlBtSPKXHA9yHOApm9kxhm9dMC1EIW9q0+Vi5gkNRlJdi6PXsOyEZt3mpd3v0dGwR
+         Pe7XH69OWWDh2XZIFhufNDiZOoP2G3TEs2keFHYMceZWHXh/Q9ITRwKYC/qin9W961ra
+         6Jc4ZaKM2S4T+2cFJvioxLfZ5ZGFQipoXxZRq1O7F4NFvtbrl7vX+Z0WmN7V3F7dNuMB
+         gfg9YAepj6CJ37ImU++5cZlbdn0tlFpMHphg8Wq9IXxn4jYgvz3bNqMfug8iyxCpYPRs
+         37KWCjvm2jnNPQHEtowOsJSxj3bnFvn6s97UjeuwSOHR4bx3sZYhaGVsC4Rc5SC07gGs
+         zRmw==
+X-Forwarded-Encrypted: i=1; AJvYcCUspGGwxuh6TPCfwJgMsIfFwGt1e8nhscfLZTkdDbXI+OPrDBfTJp9Xx/jzR6gVpeKskxjiLmPbwuo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzQR7RPYlfvgRLSselF9DBpvRO4Y3NNZFNG1NDQxD4JUJGoLhK9
+	sIKfTySVRglYCsmwbUx63cqXj3rRee3tIigEJ/ddeXCa0uMa7BiHFP898zNAj6izAQ==
+X-Gm-Gg: ATEYQzyHtOO/URIiZwncXVPURG3C32vQj5cRwIt8xToUtA5opLTeT6vU91P6qPycHzy
+	6N8eWS8DfdufeE2X+vRezuev+7XyCfAbIVBDIrMmqie2LhKFzi7WwS7jqQtN3TnqUV5dPGHJgoy
+	BOrV/fj6bSf6SZeVnOQD+3ruEVLZ10a9mfPhaRFyutTssRdFJSXq6HY5RCBPebyjyRgF/VQIAaq
+	kznPn8vsAKEmUEdBetFSIUR4MDhU2/sQxqcQXKNIpeXcIdGlSBAbdJvRvtoO07ZEB08LjBxRoBz
+	QxcafHXxOXUnjwsLk37I09H5SwhpWNrGg0WlqbjNSX8kOK9uwcFKFovAXyB1FPpLRNgezd+1Sg8
+	ZA+M2AOaiqnUmPB3rHeoh21t4nFH4/iUSiLXKKdX2d31mh+xvSoKB0MIm1jp8AGm/eB/l5zy8vx
+	3ol3SSyfTVbnmbLNGtPKXcnC0OZW9QXXbQ33S1fTRFVbiiGnWexvj6GaXIzbgGCfV4H8/kEqdb9
+	odefvHUtz774Yo=
+X-Received: by 2002:a05:600c:1394:b0:485:3fe6:21f5 with SMTP id 5b1f17b1804b1-48715fd9fe7mr115439815e9.10.1774533045062;
+        Thu, 26 Mar 2026 06:50:45 -0700 (PDT)
+Message-ID: <ef4eac20-d136-4c9a-82be-72259c088537@suse.com>
+Date: Thu, 26 Mar 2026 14:50:43 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
- 4.17 -> 4.19 ?
-To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-References: <aPzBO_eW8mQHM66u@mail-itl> <acQzzlXNDxNq885V@mail-itl>
- <29775afa-e17b-4c44-a2a8-4ef4bc7cdf0f@suse.com> <acUqOL232lp-Lw1v@mail-itl>
+Subject: Re: [PATCH v2 01/11] xen/riscv: implement get_page_from_gfn()
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1774281309.git.oleksii.kurochko@gmail.com>
+ <ba0ea599c4ced7fca0b8f5dd66bb7ffb277f3a4f.1774281309.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,133 +136,106 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <acUqOL232lp-Lw1v@mail-itl>
+In-Reply-To: <ba0ea599c4ced7fca0b8f5dd66bb7ffb277f3a4f.1774281309.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d62444/1774531206-8EEE2DF3-35FB3285/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-720697/1774533045-BF88DDB8-D8C17B95/0/0
 X-purgate-type: clean
-X-purgate-size: 4212
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	SUBJECT_ENDS_QUESTION(1.00)[];
+X-purgate-size: 1935
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,qubes-os.org:url];
-	RCPT_COUNT_TWO(0.00)[2];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORWARDED(0.00)[mailman];
 	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.981];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: A066D335E10
+X-Rspamd-Queue-Id: 88169336498
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 26.03.2026 13:44, Marek Marczykowski-Górecki wrote:
-> On Thu, Mar 26, 2026 at 09:27:56AM +0100, Jan Beulich wrote:
->> On 25.03.2026 20:13, Marek Marczykowski-Górecki wrote:
->>> On Sat, Oct 25, 2025 at 02:23:23PM +0200, Marek Marczykowski-Górecki wrote:
->>>> Hi,
->>>>
->>>> After updating from Xen 4.17 to 4.19 it appears that I have some
->>>> performance issues if system was suspended before. For now this is just
->>>> vague observation, as I don't have much data yet.
->>>>
->>>> Generally, the user observable effect is that audio playback (over
->>>> Qubes's PV audio thing) becomes very choppy, beyond usefulness (cannot
->>>> make audio calls anymore, music/video playback also becomes useless with
->>>> some players. For me this suggests some increased latency in scheduling
->>>> - maybe some timer fires too late?
->>>>
->>>> This doesn't happen always, but I'd say quite often after S3, sometimes
->>>> may need two or three suspend cycles to trigger the issue. But it's
->>>> possible it is also some other factor, like which pCPU the VM gets
->>>> scheduled on, maybe? But for now I didn't hit this issue before
->>>> performing any S3. I don't have a reliable reproducer yet.
->>>>
->>>> While I write it's related to 4.17 -> 4.19 update, there is also slight
->>>> possibility it's related to hardware change (CFL -> MTL). But, it's
->>>> unlikely, since I'd probably get much more bug reports about that (the
->>>> stable Qubes version uses 4.17, and we have many users on MTL).
->>>>
->>>> What would be the method to collect some useful debugging info? Some
->>>> debug-keys (r? a?), some cmdline options?
->>>
->>> In the meantime (sharing some of it on Matrix already), I managed to
->>> build a much more isolated test. Specifically, a single PVH domU with
->>> VLC, preloading 1s of audio (and not playing it really, the output is
->>> set to a file). The specific command is:
->>>
->>>     VLC_VERBOSE=3 vlc -I cli -A afile --no-loop --play-and-exit --run-time 1   ./melodigne-quiz-blind-test-187140.mp3
->>>
->>> The domU rootfs (or rather: initramfs) is based on AppImage of VLC,
->>> there is not much more inside, and the above command is called as part
->>> of init script (and domU is terminated shortly after).
->>>
->>> There is no persistent state in the test, the whole thing is network
->>> booted from the same base. The only things changing between runs is xen
->>> binary + toolstack.
->>>
->>> In the output I'm looking for this line: main input debug: Stream buffering done (1018 ms in 2 ms)
->>>
->>> Before S3 it takes 0-2ms, sometimes (rarely) 10ms (not sure why). Just
->>> after S3 it takes very similar amount of time.
->>> Then, I wait 30min, and run that command (or really the whole domU)
->>> again a few times. I consider it "good" if I get at least one result
->>> below 10ms. With this test in hand, I did run bisect between
->>> staging-4.17 and staging-4.19. And here stuff gets interesting:
->>>
->>> At 498a4ded74b3f062c52e42568223dc5858d27731 I get the following times
->>> (in ms):
->>>
->>>     30m after S3: 2, 2, 10, 10, 
->>>     1h after S3: 2, 16, 16, 2, 17
->>>
->>> At 5effd810c629d9a836e46ee321ca7409dad27212:
->>>
->>>     30m after S3: 26, 27, 26, 15
->>>     1h after S3: 24, 25, 37, 37, 25
->>>
->>> This doesn't make any sense to me. There is a clear difference, yet
->>> 5effd810c629d9a836e46ee321ca7409dad27212 looks like a no-op change (at
->>> least for this Intel system).
->>
->> Pretty odd indeed. I assume you double checked the effect by going back
->> and forth between the two commits.
-> 
-> Yes...
-> 
->> If the effect persists, could you make
->> both binaries (xen-syms or xen.efi respectively, depending on which one
->> you use of the system) available somewhere for inspection? There has to
->> be some relevant difference, e.g. by addresses shifting slightly.
-> 
-> Sure, here: https://salmon.qubes-os.org/~marmarek/xen-perf-weird.tar.gz
+On 23.03.2026 17:29, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/p2m.c
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -1534,3 +1534,32 @@ void p2m_handle_vmenter(void)
+>       * won't be reused until need_flush is set to true.
+>       */
+>  }
+> +
+> +struct page_info *get_page_from_gfn(struct domain *d, unsigned long gfn,
+> +                                    p2m_type_t *t, p2m_query_t q)
+> +{
+> +    struct page_info *page;
+> +    p2m_type_t p2mt;
+> +
+> +    /* Special case for DOMID_XEN as it isn't "normal" domain */
+> +    if ( likely(d != dom_xen) )
+> +        return p2m_get_page_from_gfn(p2m_get_hostp2m(d), _gfn(gfn), t);
 
-While said commit changes the size of init_nonfatal_mce_checker() by 4
-bytes, that doesn't lead to any other changes. I.e. all addresses remain
-the same. I.e. I'm completely lost as to explaining the observed behavior
-(or even just making a wild guess).
+Comments usually apply to immediately following code. When that's not
+the case (as it is here), the comment either wants moving or wording
+accordingly.
+
+> +    if ( !t )
+> +        t = &p2mt;
+> +
+> +    *t = p2m_invalid;
+> +
+> +    /* DOMID_XEN sees 1-1 RAM. The p2m_type is based on the type of the page */
+
+As before - I don't think implying any kind of translation (even 1:1) is
+correct for system domains.
+
+> +    page = mfn_to_page(_mfn(gfn));
+
+This, strictly speaking, is UB until ...
+
+> +    if ( !mfn_valid(_mfn(gfn)) || !get_page(page, d) )
+
+... the mfn_valid() check succeeded. Yes, Arm code has it like this, but
+I can only repeat that you want to carefully inspect any code you copy.
+
+> +        return NULL;
+> +
+> +    if ( page->u.inuse.type_info & PGT_writable_page )
+> +        *t = p2m_ram_rw;
+> +    else
+> +        BUG_ON("unimplemented. p2m_ram_ro hasn't been introduced yet");
+> +
+> +    return page;
+> +}
+
+Finally, what doesn't become clear at all is why dom_xen needs special
+casing. ISTR that when looking at the Arm code in the context of reviewing
+v1, I spotted why Arm has this special case. Maybe I'm misremembering, as
+now I can't spot it again / anymore. Yet whatever the reason there may not
+apply at all to RISC-V.
 
 Jan
 
