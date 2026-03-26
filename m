@@ -2,49 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qKm4CXxZxWkk9gQAu9opvQ
+	id EKrIHehcxWlM9wQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:06:20 +0100
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:20:56 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE8CC3381EC
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:06:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1264467.1556018 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE8AC33846A
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2026 17:20:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1264498.1556028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5nDe-0006yy-2O; Thu, 26 Mar 2026 16:06:02 +0000
+	id 1w5nRD-0001P6-6Y; Thu, 26 Mar 2026 16:20:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1264467.1556018; Thu, 26 Mar 2026 16:06:02 +0000
+Received: by outflank-mailman (output) from mailman id 1264498.1556028; Thu, 26 Mar 2026 16:20:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w5nDd-0006wl-Vy; Thu, 26 Mar 2026 16:06:01 +0000
-Received: by outflank-mailman (input) for mailman id 1264467;
- Thu, 26 Mar 2026 16:06:01 +0000
+	id 1w5nRD-0001Ls-3S; Thu, 26 Mar 2026 16:20:03 +0000
+Received: by outflank-mailman (input) for mailman id 1264498;
+ Thu, 26 Mar 2026 16:20:01 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w5nDd-0006wf-3p
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 16:06:01 +0000
+ (envelope-from <helgaas@kernel.org>) id 1w5nRB-00010d-BW
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 16:20:01 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w5nDc-001Hfk-Fy
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 17:06:00 +0100
-Received: from [10.42.69.11] (helo=localhost)
+ id 1w5nRA-009bfB-Ne
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2026 17:20:00 +0100
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69c55968-2eae-0a2a0a5409dd-0a2a450bd40a-0
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:06:00 +0100
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <jbeulich@suse.com>)
- id 69c55968-ef63-0a2a450b0019-d1558031cd26-3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:06:00 +0100
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-486fda2a389so9330575e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 09:06:00 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48722c845b8sm37225365e9.4.2026.03.26.09.05.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Mar 2026 09:05:59 -0700 (PDT)
+ (envelope-from <helgaas@kernel.org>)
+ id 69c55cb0-bab6-0a2a0a5309dd-0a2a450cd54a-0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:20:00 +0100
+Received: from [172.105.4.254] (helo=tor.source.kernel.org)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <helgaas@kernel.org>)
+ id 69c55caf-f93d-0a2a450c0019-ac6904feaa5e-3
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2026 17:20:00 +0100
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id CF4E960053;
+ Thu, 26 Mar 2026 16:19:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58181C116C6;
+ Thu, 26 Mar 2026 16:19:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,178 +53,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774541160; x=1775145960; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=XvDKUxnp63sk9ZHITRCSTf+wf8aqBXRHHagMNfACX7Q=;
-        b=NBQOjtMauMU2iRjcWzvs133pIFL4qKT+IHvWB9GdnUbhJjJethQWkkvVA+RuP2Syh1
-         ynhI0a73Da8tUOzT3YQOcwYuVcIWYzxeXPj0xX+FFL/Srx3RKsUQiV4xnrJ1h/NtvDO1
-         GVbfwQmu10RedZmCgWoKz7nJ/bcWl8maqJqHC4cXHdPEzTHB/jTAOXGVWrqwIH8ZVjrk
-         vmQoXReWVEEWMa67zIZFN3umnGLKJea7e2eL3hXTWOvxyjnUryQ987Fan+frSBSbV/MA
-         aA5BrXfBkmutNHsct1Z5YacwlQdZu8IC4zexdnRNL8If5dIX4z7C3RTwPI/zMLhV6zMW
-         mylw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774541160; x=1775145960;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XvDKUxnp63sk9ZHITRCSTf+wf8aqBXRHHagMNfACX7Q=;
-        b=iCbQ+M6CqYPhMJI88OQE96hRepQiMPSsIJ1oXKN5r2/iJ32tPTQgXkXgZid6vvbX9c
-         cCCyinN36EsPDV8JJ4hYfZVchF1LhNBA4q47jZFizZtXjtxyl/CGllSBnwDN4Nj9z4G9
-         q/g7s1jdVRpuo5qQLGI6vKKbWTEjVj9MwBd5nSyFTAsjUmdpF40n6V4AxwfEBE4HVNtj
-         hLQ/nwKfgLkJ1MZdHORaAtmhdmMVjNCKxXz/rxhb4ZygKEL73rJPJ+RkAgcWkxLEZ0iH
-         fZIqt9wrRpQlQCuXCLPb1a8lqqYEsnW5dbQczSfIJOxySJaJufNW4MsjNpHxmHGIBB/j
-         aqqg==
-X-Forwarded-Encrypted: i=1; AJvYcCWbHnmnPKe4GJ39f+FLn8A2apy58k13DE1VuytOlllBxCgDYSo6QvXjeY4k9EFb8HCi9XWlirmFFWk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy+WTGfNA+jM9bEpyIi0tbn0VrH9K/AdI4fNeXTqWPp5HhYZJlu
-	WuBMBvP6LNIUbBFeGH92ZsXIMGAijI+ZpfOIh4NH4qw6sgvfFLanovNzZZmYyKoSYA==
-X-Gm-Gg: ATEYQzzqmCQRj+fI4kEx6Ykrptkl+vcjRJvwCaiEE3kXZaxV2pZc1rio6f9o333LfEU
-	JjCRYt4Y2Xcroq1LYcUyq1JUM0lnKnjoKIHd/Jc1zlKjJ5pBf9bnYO4ynz7tnPcxdKKCzDcvpHs
-	6CLwXQTirRdB8lwl+I6yQyqOrw+YbPCL1ItwSVHL9r+p1zs8VAYfwtHwKA1lxhquDMhm4mmlOnx
-	RIdCjPrdW73VTU8VO+ZEVAFKPBGJlCquDK0WzrnG9o0WHub55nhwEKO04e9dhcU6KBxClqO86gz
-	XqKm8apLbn7xYjgi4s6AATx1sT1N8aUh5beCetTKYWQEogANVVIsU3U5kqHeLx8Ct+tXMoDEd1h
-	SNRY4doU3SkJ6WkacZhCKeNd8zjDiuWRWrkZNQQPDItBucKlP2qAn/Tnjsc8lZKFCn85bcUKetB
-	TwWIzeYUGicYkNQqUBWxOYqELqxALvyGgkYMCEDqFeBfGIcxZw5ImLRbEa6B2RNuD10Q+GK1EEm
-	VgzA25ZKZRuBrI=
-X-Received: by 2002:a05:600c:46c6:b0:485:40c6:f507 with SMTP id 5b1f17b1804b1-4871609d044mr133530395e9.30.1774541159782;
-        Thu, 26 Mar 2026 09:05:59 -0700 (PDT)
-Message-ID: <8043652a-368a-4819-a680-4dbe64168c3b@suse.com>
-Date: Thu, 26 Mar 2026 17:05:58 +0100
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="Date:From:To:Cc:Subject:In-Reply-To"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774541998;
+	bh=HUtRwEpymq8y1tHT5IuCcbjZ8WgelRutIBJgFxgBfwY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=F8mHPbZMLywhR2KPKiO47GUlQve1aWTvrP9jUY2zHBn/GgXJAJ8kIosO6KRmT2xPy
+	 0IOXnbxBuiHeZMvRl+TjIGCZL+xLIklcHleCk7JhPz7DuyprdCRvXeIavUjsvsJn3u
+	 2Q1RhEo14xk900QBnukOrxjvVlgBCi/2LncSYTzSdhsFA5hJ9IBKJY83E/k7nfnIj+
+	 5lTlIF6wm86KROEBrkkqhHauUmxF3ByqGulkPiq2SUiGMalg+b2lo7okZjYoEqA7SE
+	 DQIUYImcIBQS+JZCWgUDtLEZ0SBKAUGmugBagt425A+Pxg6+wxIOHa2m/AYEY0slHj
+	 ZzEGDAJHfpMMw==
+Date: Thu, 26 Mar 2026 11:19:57 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
+	Richard Zhu <hongxing.zhu@nxp.com>,
+	Lucas Stach <l.stach@pengutronix.de>
+Cc: Nipun Gupta <nipun.gupta@amd.com>,
+	Nikhil Agarwal <nikhil.agarwal@amd.com>,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-pci@vger.kernel.org, imx@lists.linux.dev,
+	xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
+	Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
+Subject: Re: [PATCH v11 2/3] of: Factor arguments passed to of_map_id() into
+ a struct
+Message-ID: <20260326161957.GA1324845@bhelgaas>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] xen/mm: improve freeing of partially scrubbed
- pages
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260326085145.61380-1-roger.pau@citrix.com>
- <20260326085145.61380-4-roger.pau@citrix.com>
- <77e3a765-39dd-4eea-898d-cf9e31912cfb@suse.com>
- <acVWidFD7twir5od@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <acVWidFD7twir5od@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1774541160-9ACAB112-26B4F518/0/0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260325-parse_iommu_cells-v11-2-1fefa5c0e82c@oss.qualcomm.com>
+X-purgate-ID: tlsNG-d25034/1774542000-F7CA2734-0DE1B763/0/0
 X-purgate-type: clean
-X-purgate-size: 2508
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-purgate-size: 4293
+X-Spamd-Result: default: False [0.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[helgaas@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[39];
 	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:vijayanand.jitta@oss.qualcomm.com,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:maz@kernel.org,m:lpieralisi@kernel.org,m:tglx@kernel.org,m:saravanak@kernel.org,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:linux-arm-msm@vger.kernel.org,m:
+ charan.kalla@oss.qualcomm.com,m:conor@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FREEMAIL_CC(0.00)[amd.com,8bytes.org,kernel.org,arm.com,google.com,nxp.com,pengutronix.de,gmail.com,suse.com,epam.com,oss.qualcomm.com,vger.kernel.org,lists.linux.dev,lists.infradead.org,lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,iommu_spec.np:url];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FROM_NEQ_ENVFROM(0.00)[helgaas@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	TAGGED_RCPT(0.00)[xen-devel,dt];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: AE8CC3381EC
+X-Rspamd-Queue-Id: CE8AC33846A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 26.03.2026 16:53, Roger Pau Monné wrote:
-> On Thu, Mar 26, 2026 at 12:50:27PM +0100, Jan Beulich wrote:
->> On 26.03.2026 09:51, Roger Pau Monne wrote:
->>> When freeing possibly partially scrubbed pages in populate_physmap() the
->>> whole page is marked as dirty, but that's not fully accurate.  Since the
->>> PGC_need_scrub bit is preserved for the populate_physmap() allocation we
->>> can use those when freeing to detect which pages need scrubbing instead of
->>> marking the whole page as dirty.
->>>
->>> This requires exposing free_heap_pages() globally, and switching
->>> populate_physmap() to use it instead of free_domheap_pages().
->>>
->>> Suggested-by: Jan Beulich <jbeulich@suse.com>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>> Jan: I'm not sure if that's what you suggested in the review of v1.  I've
->>> added your Suggested-by but I can drop it if that's not what you were
->>> thinking of.
->>
->> You're going quite a bit farther. In my comment I really only meant the one
->> new use you add in patch 2 (in which case no changes to the body of
->> free_heap_pages() would have been needed, and hence why I thought that it
->> could maybe be done right there). Up to you whether to keep the tag.
+[cc->to: Richard, Lucas for pci-imx6.c question]
+
+On Wed, Mar 25, 2026 at 04:38:23PM +0530, Vijayanand Jitta wrote:
+> From: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
 > 
-> I see, you meant to change the single usage in case assign_page()
-> fails.  I think going a bit further is fine, seeing the adjustment to
-> free_heap_pages() is very minimal?
-
-Oh, yes, sure. I was merely trying to address your remark.
-
->>> --- a/xen/include/xen/mm.h
->>> +++ b/xen/include/xen/mm.h
->>> @@ -153,6 +153,12 @@ unsigned long avail_node_heap_pages(unsigned int nodeid);
->>>  } while ( false )
->>>  #define FREE_DOMHEAP_PAGE(p) FREE_DOMHEAP_PAGES(p, 0)
->>>  
->>> +/*
->>> + * Most callers should use free_{xen,dom}heap_pages() instead of directly
->>> + * calling free_heap_pages().
->>> + */
->>> +void free_heap_pages(struct page_info *pg, unsigned int order, bool need_scrub);
->>
->> Might we better not put this here, but instead in a private header in common/?
+> Change of_map_id() to take a pointer to struct of_phandle_args
+> instead of passing target device node and translated IDs separately.
+> Update all callers accordingly.
 > 
-> No strong opinion.  It could logically be used outside of common in
-> principle, hence we might end up moving it anyway.  Would you prefer
-> me to introduce a common/memory.h header with just this prototype?
+> Add an explicit filter_np parameter to of_map_id() and of_map_msi_id()
+> to separate the filter input from the output. Previously, the target
+> parameter served dual purpose: as an input filter (if non-NULL, only
+> match entries targeting that node) and as an output (receiving the
+> matched node with a reference held). Now filter_np is the explicit
+> input filter and arg->np is the pure output.
+> 
+> Previously, of_map_id() would call of_node_put() on the matched node
+> when a filter was provided, making reference ownership inconsistent.
+> Remove this internal of_node_put() call so that of_map_id() now always
+> transfers ownership of the matched node reference to the caller via
+> arg->np. Callers are now consistently responsible for releasing this
+> reference with of_node_put(arg->np) when done.
+> ...
 
-It would help if others could voice an opinion. To me exposing this
-supposedly internal (to the page allocator) function feels a little
-risky. Yet of course any undue use would likely be spotted and objected
-to during review.
+Not actually part of *this* patch, and AFAICS this patch is correct
+as-is, but is it necessary to have different logic around
+of_node_put() for imx_pcie_add_lut_by_rid() and
+apple_pcie_enable_device()?
 
-Jan
+> +++ b/drivers/pci/controller/dwc/pci-imx6.c
+> @@ -1137,6 +1137,8 @@ static void imx_pcie_remove_lut(struct imx_pcie *imx_pcie, u16 rid)
+>  
+>  static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+>  {
+> +	struct of_phandle_args iommu_spec = {};
+> +	struct of_phandle_args msi_spec = {};
+>  	struct device *dev = imx_pcie->pci->dev;
+>  	struct device_node *target;
+>  	u32 sid_i, sid_m;
+> @@ -1144,7 +1146,12 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+>  	u32 sid = 0;
+>  
+>  	target = NULL;
+> -	err_i = of_map_iommu_id(dev->of_node, rid, &target, &sid_i);
+> +	err_i = of_map_iommu_id(dev->of_node, rid, &iommu_spec);
+> +	if (!err_i) {
+> +		target = iommu_spec.np;
+> +		sid_i = iommu_spec.args[0];
+> +	}
+> +
+>  	if (target) {
+>  		of_node_put(target);
+
+Here it's conditional on "target" even though of_node_put() checks
+internally for non-NULL, so it would be safe without the conditional
+here.
+
+>  	} else {
+> @@ -1156,8 +1163,11 @@ static int imx_pcie_add_lut_by_rid(struct imx_pcie *imx_pcie, u32 rid)
+>  		err_i = -EINVAL;
+>  	}
+>  
+> -	target = NULL;
+> -	err_m = of_map_msi_id(dev->of_node, rid, &target, &sid_m);
+> +	err_m = of_map_msi_id(dev->of_node, rid, NULL, &msi_spec);
+> +	if (!err_m) {
+> +		target = msi_spec.np;
+> +		sid_m = msi_spec.args[0];
+> +	}
+>  
+>  	/*
+>  	 *   err_m      target
+
+And here (outside the diff context) we also call of_node_put()
+conditionally:
+
+  ...
+  else if (target)
+    of_node_put(target);
+
+> diff --git a/drivers/pci/controller/pcie-apple.c b/drivers/pci/controller/pcie-apple.c
+> index a0937b7b3c4d..c2cffc0659f4 100644
+> --- a/drivers/pci/controller/pcie-apple.c
+> +++ b/drivers/pci/controller/pcie-apple.c
+> @@ -755,6 +755,7 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
+>  {
+>  	u32 sid, rid = pci_dev_id(pdev);
+>  	struct apple_pcie_port *port;
+> +	struct of_phandle_args iommu_spec = {};
+>  	int idx, err;
+>  
+>  	port = apple_pcie_get_port(pdev);
+> @@ -764,10 +765,12 @@ static int apple_pcie_enable_device(struct pci_host_bridge *bridge, struct pci_d
+>  	dev_dbg(&pdev->dev, "added to bus %s, index %d\n",
+>  		pci_name(pdev->bus->self), port->idx);
+>  
+> -	err = of_map_iommu_id(port->pcie->dev->of_node, rid, NULL, &sid);
+> +	err = of_map_iommu_id(port->pcie->dev->of_node, rid, &iommu_spec);
+>  	if (err)
+>  		return err;
+>  
+> +	of_node_put(iommu_spec.np);
+
+Here we call of_node_put() unconditionally.
+
+I think it would be much nicer if imx_pcie_add_lut_by_rid() used the
+same style as apple_pcie_enable_device() and did the of_node_put()
+unconditionally.  That would untangle the function a bit and make it
+easier to analyze.
+
+> +	sid = iommu_spec.args[0];
+>  	mutex_lock(&port->pcie->lock);
+>  
+>  	idx = bitmap_find_free_region(port->sid_map, port->sid_map_sz, 0);
 
