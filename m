@@ -2,51 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MKTKH4s8xmm7HgUAu9opvQ
+	id 2LPTBCdFxmmgIAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2026 09:15:07 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2026 09:51:51 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6D0D340D0A
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2026 09:15:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1265183.1556230 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BF10341519
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2026 09:51:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1265209.1556238 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w62Ko-0007UA-GQ; Fri, 27 Mar 2026 08:14:26 +0000
+	id 1w62u7-0005mX-8m; Fri, 27 Mar 2026 08:50:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1265183.1556230; Fri, 27 Mar 2026 08:14:26 +0000
+Received: by outflank-mailman (output) from mailman id 1265209.1556238; Fri, 27 Mar 2026 08:50:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w62Ko-0007Rj-Co; Fri, 27 Mar 2026 08:14:26 +0000
-Received: by outflank-mailman (input) for mailman id 1265183;
- Fri, 27 Mar 2026 08:14:24 +0000
+	id 1w62u7-0005k7-5M; Fri, 27 Mar 2026 08:50:55 +0000
+Received: by outflank-mailman (input) for mailman id 1265209;
+ Fri, 27 Mar 2026 08:50:53 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1w62Km-0007RW-J8
- for xen-devel@lists.xenproject.org; Fri, 27 Mar 2026 08:14:24 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w62u5-0005k1-Fn
+ for xen-devel@lists.xenproject.org; Fri, 27 Mar 2026 08:50:53 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w62Kl-001ars-R5
- for xen-devel@lists.xenproject.org; Fri, 27 Mar 2026 09:14:23 +0100
-Received: from [10.42.69.3] (helo=localhost)
+ id 1w62u4-00583o-RB
+ for xen-devel@lists.xenproject.org; Fri, 27 Mar 2026 09:50:52 +0100
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69c63c56-5cb7-0a2a0a5109dd-0a2a45039b1a-36
- for <xen-devel@lists.xenproject.org>; Fri, 27 Mar 2026 09:14:23 +0100
-Received: from [52.101.201.4]
- (helo=PH7PR06CU001.outbound.protection.outlook.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <roger.pau@citrix.com>)
- id 69c63c5e-1947-0a2a45030019-3465c904bcba-3
- for <xen-devel@lists.xenproject.org>; Fri, 27 Mar 2026 09:14:23 +0100
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by SN7PR03MB7118.namprd03.prod.outlook.com (2603:10b6:806:322::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.23; Fri, 27 Mar
- 2026 08:14:18 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9745.023; Fri, 27 Mar 2026
- 08:14:18 +0000
+ (envelope-from <jbeulich@suse.com>)
+ id 69c644df-5cb7-0a2a0a5109dd-0a2a450c9176-26
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Mar 2026 09:50:52 +0100
+Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <jbeulich@suse.com>)
+ id 69c644ec-f93d-0a2a450c0019-d1558029e93b-3
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Mar 2026 09:50:52 +0100
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-486fba7ce4cso18963795e9.3
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Mar 2026 01:50:52 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48725fd18b7sm13173765e9.13.2026.03.27.01.50.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Mar 2026 01:50:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,243 +56,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oa28S9416hr+vkBHwh1d0+0A5g+ZSafZa+wWGmI4mGW/uzQQxad/ahQIrDJnau8nhLNlE3mZ/mvo3tCMgJ+10kgYJ0PgOqb698rGFAV6i0lyI196YyP1EnYrI7VuUI205+2b5Vd9ZZMhrPaNCrLleRpDASXkaKfNWwTMk70Fs1AlPnDMn8rEFlvdBxqKlSCLHv1WdckHTrIG+S6bIMSHzxDsGlFhGFOuuJ8nKGS0r9siy5/9NYXzoAHXtdkOd0XxzK2r2QzZsHMyRGWuzhfIlLGkO0myuqdgOPIScbT8GPNXJRhtdsIvAEUHVHFRipD0jCY9mS4URWa240TkHCNYZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HjdDxTpWumEmfH0pI7JNY96NwPFteWjL7Ie4XZQQ3ww=;
- b=Tx3rjqu4Lde2E8e88IsAlORaukQ+nuSMj/5/78YO5NrZLSqioa9fV8/XPRKDfcZYjexUoipNF5qDu4wZmLrg5+vgc5twlrJ9rzUyjFEEXjNwE09EhDnpmXifTkFL2FHc5+Lbq8bxDih6WaBWUV5YXuiJ6Rf1W+32OJmFQuHx8CmMA9EwdkDFVN9mexocRmYRwYIfb9P5hpc3ycsXgTYa8zLO37u5SKqQH3nmCXzwGS12em+krJWnTGkrq8H/92YajnnA/zgiINsHstvB13HCvLJAsWTCyC5DKfkSsK+9nTloGO/4aNny8xa5nUpCvPd1lio0fGxlx/1qBJi1HzTGFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HjdDxTpWumEmfH0pI7JNY96NwPFteWjL7Ie4XZQQ3ww=;
- b=mWHD4jJdXe+53yl0ZHtH3OfwbZSq2zBvnrnMhR+xWNz/7/mFGt+rAvA79S/OM2+sRLKy7mEvpFbnZ6s2ZB4r1Rvidl8AwhIQ5ZKMEp4C+cWAeCzrhCklHcTvF9CJR8+W8xfqig+/GZkGyNerAqf/wMYU9wygVkpKnfU2E5Xulf8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Fri, 27 Mar 2026 09:14:15 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 1/4] xen/uart: be more careful with changes to the PCI
- command register
-Message-ID: <acY8VygqtQL7ZRQy@macbook.local>
-References: <20260325145824.31601-1-roger.pau@citrix.com>
- <20260325145824.31601-2-roger.pau@citrix.com>
- <2a00a1d2-7017-4c76-8344-018eb3f30f50@suse.com>
- <acVNMQ_HqRpgkP7i@macbook.local>
- <b4b67bc1-c7e4-4872-a018-789d7e87dcb2@suse.com>
- <acVmj-agJOAX9hGV@macbook.local>
- <f671aca0-2782-40cc-9ee5-03916c1a31eb@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f671aca0-2782-40cc-9ee5-03916c1a31eb@suse.com>
-X-ClientProxiedBy: MN2PR05CA0016.namprd05.prod.outlook.com
- (2603:10b6:208:c0::29) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1774601452; x=1775206252; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=wuAQ4Bxx/ykp94+TYpISvvtOEOUswdYHZTQGuqAiPb4=;
+        b=M1yDmIQRO7nYHn08M4MYjL4Rzgjau8HPV7wS96BQ7Kjvii5O4/6qte2b3ge4Ik/Mdp
+         /5WrufgT2yjimaljHLCdt+NpqF3RKqrM68Ugm1SqMZcNeKcgfUF1wnjMj74pZUAGbJKZ
+         exoMbIpnDhTrnqt7qyOxGFh9hvOYxlMBQLqCidgqJ0RcT30lErM4shxH8FkNf34ionOY
+         R+0LDZo3quMfMDxltYspl6W7HC1Kj0SK30rFZqSzk2K+wsoB/KACzz/zTO0YZmZLCtC4
+         uQC6fV70oTTs3YJgw7cIlcofUZvyoGRwQFzaaQ45h6PbD4kOG8HMi9wazTR8BKvSh3pB
+         k4NQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774601452; x=1775206252;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wuAQ4Bxx/ykp94+TYpISvvtOEOUswdYHZTQGuqAiPb4=;
+        b=dN0Iga2DidB3TQ86Nt4ZIvUreaMQSNF5XL/ex0C5nOul53zy3putMpHYCkCplBtITb
+         Egxg5YNk5iFJ/uQnlPnG7mDaewem6uO3btry9ATlzLhFaq4GQb5Tt1gcsMhgFHV927If
+         OJbdEijgE9J1GxSyB1CJvw/LwsltW/IHp3jGeOgKXjgAJK8htmJ7DyDRx54lP2oIZCSF
+         4xbNlv9pZvkWTzulTTjE5GPnvbINrQamHwDgF3AcBG0Dko/gV0acv0/RKD/iH+Pc96PH
+         GSxSwcshUR9wbCFzNUUx/4PyDeReHsdiSHpdgqd0b806i9hVmsgNt74t6wrYEtvZn4ur
+         8s3A==
+X-Forwarded-Encrypted: i=1; AJvYcCVAHFfe++ipUB0VQ1QrGj9t4tdSCbsFVbE9HnlgBpS90ROSspT26/1KxjEEfdbet9i36Z+Y319fPDI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxvf8bPfjl/cq8+Es6DUOPMEWOJWQ1Qsrw0wU6nkd5EFUbzGmml
+	NaNXzqQYtH3jALdQ/b6HHODnLCjlHP/b0L9H8/PSttiXEGFZbfeAJyT2d1Gpr48+PQ==
+X-Gm-Gg: ATEYQzz2HLyvN0ygBgyvSyuNt29Ov2tKowSd23EQ552iJyNj/0uX2CatyHVbonRwS/y
+	l2hL6Ijjaz/1BWV7hOARziN4aWK4t/+gHq5PUeTLO7UPe/u4AcerIs/s06hRxx0frWMopsCm0cK
+	j0rMuo0D65k47gy3wlKeDpcTgbjCD4HJNEBQ2CGTJOqhUSqDi4vX77ZuzQtxPf1yLYDckApRg+i
+	GftWYTQysiUOjn3yq1qYCyTq0bcMW23eQ8uACWai7CfTeJ7DK5Y7QFNO7Lwz3rQEfq2cGRX3hUi
+	Q8kAHl/ROwf03pmFRSh/givr09BuHK0KoscHHNyp6fMlz+PbzpECqkmMeWbJj21jP+Lxjt6uNVF
+	8GsXW5wDDqjUkdvKUswVVzfCHsab52yXb3Do74h5Cl1ZNtg8yVuGYvqWei9Lq9kkSntxjl/Kvhs
+	0d5Ik8xBSmzqF7iZ7PraxXIwqALs6sC+YHHRHYHM4Hj6g6b+cO7NxL67U6JmelGK41cGn7PIcIy
+	qp0fNcuTOcTig4=
+X-Received: by 2002:a05:600c:c493:b0:471:700:f281 with SMTP id 5b1f17b1804b1-48727ef16f4mr24811555e9.25.1774601451990;
+        Fri, 27 Mar 2026 01:50:51 -0700 (PDT)
+Message-ID: <b67bbdd7-e1dd-4a18-b552-1c90d6323ac9@suse.com>
+Date: Fri, 27 Mar 2026 09:50:50 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SN7PR03MB7118:EE_
-X-MS-Office365-Filtering-Correlation-Id: f979722a-6b3c-4d3c-1e6f-08de8bd8d7be
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Kh9pCNPl8t52ivaUF1y+6gSuniT1ChsaMs+9n6BsXxOz6ZNdhi6mr64F++JvOgktivYFpgeZfu7XQLkCe6KrpId4s2G0ltgJRrjjwL72ThgWK/iQzArRT3aPOfCTfu+jfhNOvbLmaPAXe9exw/OXFBqWpsVhMQABra1L224LBNf12gOq1J7e3dvd8U3OeGI7m9+BJWMgBzQmjUSddSWi7Naw5jdHiy6Axp0N4FBvvfpQarpvack+H03h95n2l+Gh6LgFhaVp61xOzzb9btg8sbJeJBOwRUZuyeaNgwyvFyycHHxQ2Y1tsghUOHDt/3HZtCgFyxIWzo6IU+AOWipQ+Uithh1CCEIm1/IQezp0OnV6JGR/6RPwh5gRS6VBDdN28005hnz8u6hcCfTYMhRbNhtX1ReSYn7nKMjhMAebivIwiC/9zPdlLjSBhZLcdE/7IPmdZFeWb4FeMriHh+c3egAvkgINWZVyImIsG4vuaJZtXGaBDKm4Hfpv53KdHxhZ7Q8TNBuBaowbtPOOS8lZm4Lf0/WP19Rrg6iPoot+QMUCgzOHtcQQNRp18buRLbWwvRKebXa74FpyZQpB3ehWoZWq8wX/DGQLmPXHI6UDkWeSUefLxMxFt7sfa1oBComBNWWbNa21ajo+zX2YyMf42IDZV/bxB6HsP7V6VXQlcPbzPR9ufNFcjpsD5fJIvonMD3SVEsLprn4V8p6q7UIE4pwmUluTjoUPMMnSzQYpQnk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T3pnQTBVOGxOTCthekduZGk2RERRVDJ1VitJZmhXVHkxUGh1ekxjcDl1Ymwy?=
- =?utf-8?B?M0piSWpjcHpDaTZ3U3IwRmtDMGttR1Zvc291bnZsTWw2d0pDdUQ0bStuVFlL?=
- =?utf-8?B?UXRmbXFTUmlpRGd3aGZPWDNNd0xVWmJrL1BXWmdoZzFyUS8yM2F2dHhkYzE1?=
- =?utf-8?B?ZkllcGMwb2VqSk9INzU0MFViZlVwRlNzVlhnWFl3ZkZGNzBmc1pKMVJJOGVi?=
- =?utf-8?B?c01hUXplbWZIb0hyV1Y2NXRXUE84SFFQN25nN2Z0MlZuZDBwY0FQMkxrSzUr?=
- =?utf-8?B?MGVPRnJSUi92WVJjMmlsT1RBY1VJNGc5aC9MbEZNKzBZQ29VVjI0VTBjLzl2?=
- =?utf-8?B?T0VoUU9UMVl4YWpybDczdEN4TDRNRG52YWdsMW1YbE1mVnU2K1hRa3ZyOG92?=
- =?utf-8?B?WUFIMS9zL0lXODNYVDdzRk1Fc3IxdmZVVlNISytldnJVeEROcGNIcTVvUUhw?=
- =?utf-8?B?Q2FXc1g0ZExWdEJmcFFMVGpuRmJHeXpKQ01HQ3dheXVWdWppZzJ3b3lRY1NW?=
- =?utf-8?B?bGRTTStCZ1EvRENRVUpPY0xaeHNJb1VBMjlQdWdmelcvQklSNkx0Umo0czN6?=
- =?utf-8?B?R2psaDNud1BrT1J1anpqSUpMMEhFWWlkT3R2d2xMZWtHcko4NjFTTENzUDRk?=
- =?utf-8?B?emlFYVlKUktlb0svUStRcjJrZ05GbHdjVndocnVadlhKR3ZMZXRuNlc3Ulpy?=
- =?utf-8?B?Z3owU2JncGVVNGZpTnlUalZyOENhc3VZSWJlUkJDWDU5UmVjdytCc3RSZUtp?=
- =?utf-8?B?UzdubjNMZEtTdnJ4RWRIWDI4RVptTXlqNGZua096cDNqbjFPdzFIakRYWWxp?=
- =?utf-8?B?b01yZmcwRFhpbjhHR082ZVZJR2xpWE1nUzJHT2JkM0hwbC9zZkxHdzlVM0c3?=
- =?utf-8?B?TGd5M0k4ZHpyN2tyOC9iRXRPVUF0VnNGaEtwb0ZjNlROUzBJSVZKc21VQ2lT?=
- =?utf-8?B?UXFKN3BaSVpWM3RRZ2cxOWVzYmEvOER1am84WVBLOGFzbTRBcW1KeEs2YjFw?=
- =?utf-8?B?NVArelgvL0RDeWJuTGVXOVhxQUlZNy9vYVlHSFlHcStKdmg3VitkN1Y2UFp1?=
- =?utf-8?B?L0Y1QnRGbXRTTDl4T3BNMmV3STBuSVpTeExKejl3Q0hJMFpCQ2xLQWhMYmI2?=
- =?utf-8?B?Z0NqOVg0ZEl1STcrSWhLR2xWSU92RHJ4L1pSTFhZZGNhZjhyNUdKazFzNHB6?=
- =?utf-8?B?d2E0M24zYkUyd0VJaW5ZOHE2VWNyY3lSUzRIQ0RJZjE2RUo3UkxWNms4anNU?=
- =?utf-8?B?dnJBQkhLK2lEZkczTjA4T1BaOEE2Vzl1K2lWUy9qN2NXQVIrUEx2c0Mxbk9s?=
- =?utf-8?B?ZnNjU3N5M3dPcU4wOW9Mb3pKSUFUZFRNTUFGN000RmZNc0d4VGdrd29jZHBm?=
- =?utf-8?B?czR5eHRRSHZJbmdsY2paMWVYSFRkL1R0S0ZkSFVJdWxEM3Rqd1dHTnJrSnNx?=
- =?utf-8?B?U0g4TkZJTVlOYUo4azRkMGNYUVhWTHNFRFA0ZlJ6OTNxM2FLNCtERldSVzB3?=
- =?utf-8?B?eDdoOWlSYVpnRDMySVNvQjVCK1pjQ1RuK0tXN3Exa0RnUEJaNzVSK3d0OVVl?=
- =?utf-8?B?aVJEMHM0aE93VFpDUjhzN0g4ek40czFxZWxXR2pZRFlEZ2w5YmRqTEpmb05U?=
- =?utf-8?B?WGlRRnZ5dlhMWDVUSVplYmZxYTJ4cmt4ZDdXcjdxQnF2cnQ3L0xoNVhDZmxl?=
- =?utf-8?B?UFFpT3ZHaFNpdUU1TXFFL3hZVTJaYTMvZmkzZ3Fqcy9OWjA4Z0tjbDFLVGxi?=
- =?utf-8?B?MDN6SitzLytnQW94Y2MrZUlYcGNpSnNXVFB6NDFFVlMvUEtDeEN0WlhFY0Na?=
- =?utf-8?B?K05PRjFGNi80Q2R5d1N1YnhZZ1REaVRGZ2syWmtYRWhJQTg0Z2pTMm1pSFQ3?=
- =?utf-8?B?WmpjeUpLZ1N5K2RYK0h3bWdhc3pmeGFzY1N4U2Jxd0pra3dWeVlNam5xQitv?=
- =?utf-8?B?N3BQek1LVncxWUR5b3BQM0tYc3lBRDJqam9Md2NZZ2lvMERzZjJzamVnMXZw?=
- =?utf-8?B?Yk1lUkRzbFp6RmFuSlFNQkNGU3dkY2xidURDZXpzZ3BOTlpSbUpEbHB6Mjkx?=
- =?utf-8?B?QVVTTEFKZUVFYWdNMzZCSXVtQkNoWGdCbkdEVWNHR3lBOXlqRTJ5USs5c3k2?=
- =?utf-8?B?Mk9YTkk0M0dyd3dzWFFrdnMrS0Z2dytUT2szM21JV1B2T2w1dXJIOVAxV1E4?=
- =?utf-8?B?UFl6WnFBeGtHd0RVbW56Q1ZJUStDUmR6WEcrVXQvVi9HZDNEdVBpOXJkZUs5?=
- =?utf-8?B?U29ZWTJoOEF3S3NtejhZOHpqK1p5bUQ4bm1JcVlaSkxLcDdYU0NUblhXcDFx?=
- =?utf-8?B?QkZvSURZSDN6Q043QVZmOFB5RnFiWHRDYTFDcVNFZkNLbGpETVhzdz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f979722a-6b3c-4d3c-1e6f-08de8bd8d7be
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2026 08:14:18.4275
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: In7d2Gl7p82xIsFz/LaXG7n7HNwIIlNEUxVvHXkpHvOqBa8fX6VjfR1mIWnKcUQNu3WOdWpT1ZUo7LZAf9aZug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR03MB7118
-X-purgate-ID: tlsNG-33051d/1774599263-49C5A72C-FD4368C1/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] x86/pv: Provide better SYSCALL backwards
+ compatibility in FRED mode
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260325170208.1115832-1-andrew.cooper3@citrix.com>
+ <20260325170208.1115832-3-andrew.cooper3@citrix.com>
+ <059588cd-d73e-40a1-98b4-65be01957d41@suse.com>
+ <08a02b65-92f5-4e78-8c34-38a22ae4d906@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <08a02b65-92f5-4e78-8c34-38a22ae4d906@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-d25034/1774601452-F5EB3734-33FFD780/0/0
 X-purgate-type: clean
-X-purgate-size: 4647
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+X-purgate-size: 3971
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:email,macbook.local:mid];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
 	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: D6D0D340D0A
+X-Rspamd-Queue-Id: 6BF10341519
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Fri, Mar 27, 2026 at 08:59:29AM +0100, Jan Beulich wrote:
-> On 26.03.2026 18:02, Roger Pau Monné wrote:
-> > On Thu, Mar 26, 2026 at 05:00:15PM +0100, Jan Beulich wrote:
-> >> On 26.03.2026 16:13, Roger Pau Monné wrote:
-> >>> On Thu, Mar 26, 2026 at 01:02:22PM +0100, Jan Beulich wrote:
-> >>>> On 25.03.2026 15:58, Roger Pau Monne wrote:
-> >>>>> Read the existing PCI command register and only add the required bits to
-> >>>>> it, as to avoid clearing bits that might be possibly set by the firmware
-> >>>>> already.
-> >>>>>
-> >>>>> This fixes serial output when booting with `com1=device=amt` on a system
-> >>>>> using an "Alder Lake AMT SOL Redirection" PCI device (Vendor ID 0x8086 and
-> >>>>> Device ID 0x51e3).  That device has both IO and memory decoding enabled by
-> >>>>> the firmware, and disabling memory decoding causes the serial to stop
-> >>>>> working (even when the serial register BAR is in the IO space).
-> >>>>>
-> >>>>> Fixes: f2ff5d6628b3 ("ns16550: enable PCI serial card usage")
-> >>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> >>>>
-> >>>> I'm not convinced Fixes: is appropriate here. There's nothing wrong with that
-> >>>> commit, aiui. What's bogus is the device behavior.
-> >>>
-> >>> Hm, I would argue that disabling command register bits for devices
-> >>> that have those enabled is in general dangerous.  What about device
-> >>> RMRR or similar residing in BARs, and Xen disabling memory decoding
-> >>> unintentionally while attempting to enable IO decoding?
-> >>
-> >> RMRRs in BARs seems unlikely (as BARs can be moved), but you have a
-> >> point in general. Otoh devices are fully under our (later under Dom0's)
-> >> control, so we may clear (or set) bits as we see fit to get a device
-> >> to function. FTAOD, I'm not outright objecting to the tag, I'm merely
-> >> questioning it some.
-> >>
-> >>>>> --- a/xen/drivers/char/ns16550.c
-> >>>>> +++ b/xen/drivers/char/ns16550.c
-> >>>>> @@ -283,11 +283,17 @@ static int cf_check ns16550_getc(struct serial_port *port, char *pc)
-> >>>>>  static void pci_serial_early_init(struct ns16550 *uart)
-> >>>>>  {
-> >>>>>  #ifdef NS16550_PCI
-> >>>>> +    uint16_t cmd = 0;
-> >>>>> +
-> >>>>> +    if ( uart->ps_bdf_enable )
-> >>>>> +        cmd = pci_conf_read16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
-> >>>>> +                                       uart->ps_bdf[2]), PCI_COMMAND);
-> >>>>
-> >>>> Why is this conditional? While fine for the use at the bottom, ...
-> >>>
-> >>> The comment next to the field states:
-> >>>
-> >>>     bool ps_bdf_enable;     /* if =1, ps_bdf effective, port on pci card */
-> >>>
-> >>> So it didn't seem like further checking was needed and that was the
-> >>> sole filed to decide whether ps_bdf is populated or not.
-> >>>
-> >>> However, I also found that when using device=amt|pci ps_bdf_enable
-> >>> doesn't get set, and hence I'm not sure if that's intended or not.
-> >>> Shouldn't ps_bdf_enable get set unconditionally when the serial device
-> >>> is a PCI one?
-> >>
-> >> I think this was deliberate, hence why ...
-> >>
-> >>>>>      if ( uart->bar && uart->io_base >= 0x10000 )
-> >>>>>      {
-> >>>>>          pci_conf_write16(PCI_SBDF(0, uart->ps_bdf[0], uart->ps_bdf[1],
-> >>>>>                                    uart->ps_bdf[2]),
-> >>>>> -                         PCI_COMMAND, PCI_COMMAND_MEMORY);
-> >>>>> +                         PCI_COMMAND, cmd | PCI_COMMAND_MEMORY);
-> >>>>>          return;
-> >>>>>      }
-> >>>>
-> >>>> ... it looks wrong(ish) for this path. Actually, in ns16550_init_postirq()
-> >>>> we use
-> >>>>     if ( uart->bar || uart->ps_bdf_enable )
-> >>
-> >> ... this conditional is now in use.
-> > 
-> > Right, but then the logic in pci_serial_early_init() doesn't apply to
-> > those devices (device=amt|pci) when the BARs are in IO space?
-> > 
-> > As uart->ps_bdf_enable == false, and uart->io_base < 0x10000, it will
-> > return early from the function without attempting to enable the IO
-> > BAR.  Is this really expected?  It looks like Xen should always make
-> > sure the respective BARs are enabled if the device is to be used for
-> > serial output?
+On 26.03.2026 22:05, Andrew Cooper wrote:
+> On 26/03/2026 9:14 am, Jan Beulich wrote:
+>> On 25.03.2026 18:02, Andrew Cooper wrote:
+>>> In FRED mode, the SYSCALL instruction does not modify %rcx/%r11.  Software
+>>> using SYSCALL spills %rcx/%r11 around the invocation, which is why FRED not
+>>> doing this goes largely unnoticed.
+>>>
+>>> However, consider the following migration scenario:
+>>>
+>>>  * VM suspends.  Hypercall, so SYSCALL, %rcx/%r11 left unmodified
+>>>  * VM moves to a non-FRED system
+>>>  * Xen resumes the VM with a real SYSRET instruction
+>>>
+>>> Instead of resuming at the instruction following the SYSCALL instruction, the
+>>> VM is resumed at whatever dead value was in %rcx.
+>> Would it? In restore_all_guest we load %r11 and %rcx from the stack
+>> frame's EFLAGS and RIP fields. If we didn't, various other things wouldn't
+>> work either.
 > 
-> I agree. Many of the changes were hacked in just to make someone's
-> device work, without having general aspects in mind. I expect most if
-> not all checks of ->ps_bdf_enable want amending by adding ->bar ones.
+> Hmm.  I suppose so.  regs->rip/eflags is always going to be
+> reconstructed properly for the records in the transmitted stream.
+> 
+> What will be wrong is the %rcx/%r11 put onto the guest stack.
 
-Wouldn't it be easier to unconditionally set ->ps_bdf_enable when a
-PCI device is being used?  I find it confusing that there are two
-different fields (->ps_bdf_enable and ->bar) that signal whether a PCI
-device is in-use.
+Okay, this is addressed by ...
 
-Thanks, Roger.
+>>> --- a/xen/arch/x86/traps.c
+>>> +++ b/xen/arch/x86/traps.c
+>>> @@ -2405,6 +2405,8 @@ void asmlinkage entry_from_pv(struct cpu_user_regs *regs)
+>>>  
+>>>              regs->ssx = l ? FLAT_KERNEL_SS   : FLAT_USER_SS32;
+>>>              regs->csx = l ? FLAT_KERNEL_CS64 : FLAT_USER_CS32;
+>>> +            regs->rcx = regs->rip;
+>>> +            regs->r11 = regs->rflags;
+
+... this change.
+
+>> Don't you also need to set TRAP_syscall here, for the new code in
+>> eretu_exit_to_guest to actually make a difference?
+> 
+> It is create_bounce_frame() which sets up TRAP_syscall.
+
+Hmm, right. I was misled by {l,c}star_enter and sysenter_entry setting
+the flag explicitly. That looks to be necessary only for the pv_hypercall()
+path out of lstar_enter; everything else goes through create_bounce_frame().
+
+>>  (There actually is
+>> a paragraph about this in the comment out of context above, which then
+>> may also want adjusting.)
+>>
+>> Further a question as to limiting overhead: Doing this on every SYSCALL
+>> entry ...
+>>
+>>> @@ -26,7 +27,16 @@ FUNC(entry_FRED_R3, 4096)
+>>>  END(entry_FRED_R3)
+>>>  
+>>>  FUNC(eretu_exit_to_guest)
+>>> -        POP_GPRS
+>>> +        /*
+>>> +         * PV guests aren't aware of FRED.  If Xen in IDT mode would have used
+>>> +         * a SYSRET instruction, preserve the legacy behaviour for %rcx/%r11
+>>> +         */
+>>> +        testb   $TRAP_syscall >> 8, UREGS_entry_vector + 1(%rsp)
+>>> +
+>>> +        POP_GPRS /* Preserves flags */
+>>> +
+>>> +        cmovnz  EFRAME_rip(%rsp), %rcx
+>>> +        cmovnz  EFRAME_eflags(%rsp), %r11
+>> ... and every exit-to-guest isn't very nice when concern is about just the
+>> specific case of migrating FRED -> non-FRED. Couldn't we instead make the
+>> adjustment when generating the save record for the register state of the
+>> vCPU?
+> 
+> Ignoring migration for a moment, there are two further cases where
+> things go wrong.  Consider a VM which logically does this:
+> 
+>     // user mode
+>     SYSCALL
+>     mov %rcx, dbg_syscall_was_here
+> 
+>     // kernel mode
+> entry_SYSCALL:
+>     ... setup stack
+>     mov %rcx, UREGS_rip(%rsp)
+> 
+> 
+> Both of these positions under FRED have unexpected content in %rcx/%r11.
+> 
+> In userspace it is common to spill %rcx/%r11 and restore them around
+> SYSCALL, but that's not an ABI.  This is addressed by the hunk in
+> entry_from_pv().
+
+Right, and the eretu_exit_to_guest change mirrors what we do ahead of
+SYSRET (or its conversion to IRET). While there are cases (for both
+paths) where RESTORE_ALL / POP_GPRS would already have restored the
+intended values, there are enough other cases where the value would
+have changed.
+
+Overall, however, I think that the patch description would want
+altering, to cover more aspects (as discussed).
+
+Jan
 
