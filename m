@@ -2,49 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oKhrHqV8xmnwKgUAu9opvQ
+	id 6AcJL6h8xmnwKgUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2026 13:48:37 +0100
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2026 13:48:40 +0100
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8D823448B1
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2026 13:48:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.1265567.1556404 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F17D63448C1
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2026 13:48:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.1265568.1556413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w66bW-0000In-Cw; Fri, 27 Mar 2026 12:47:58 +0000
+	id 1w66ba-0000XQ-Kq; Fri, 27 Mar 2026 12:48:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1265567.1556404; Fri, 27 Mar 2026 12:47:58 +0000
+Received: by outflank-mailman (output) from mailman id 1265568.1556413; Fri, 27 Mar 2026 12:48:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w66bW-0000Gj-AF; Fri, 27 Mar 2026 12:47:58 +0000
-Received: by outflank-mailman (input) for mailman id 1265567;
- Fri, 27 Mar 2026 12:47:56 +0000
+	id 1w66ba-0000UH-HS; Fri, 27 Mar 2026 12:48:02 +0000
+Received: by outflank-mailman (input) for mailman id 1265568;
+ Fri, 27 Mar 2026 12:48:01 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <oleksii.kurochko@gmail.com>) id 1w66bU-0000Gd-Mt
- for xen-devel@lists.xenproject.org; Fri, 27 Mar 2026 12:47:56 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1w66bZ-0000Tz-3m
+ for xen-devel@lists.xenproject.org; Fri, 27 Mar 2026 12:48:01 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w66bU-008Gwh-2b
- for xen-devel@lists.xenproject.org; Fri, 27 Mar 2026 13:47:56 +0100
+ id 1w66bY-008Gwh-7A
+ for xen-devel@lists.xenproject.org; Fri, 27 Mar 2026 13:48:00 +0100
 Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69c67c7a-e002-0a2a0a5209dd-0a2a4505dc78-10
- for <xen-devel@lists.xenproject.org>; Fri, 27 Mar 2026 13:47:56 +0100
-Received: from [209.85.218.52] (helo=mail-ej1-f52.google.com)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 69c67c7a-e002-0a2a0a5209dd-0a2a4505dc78-22
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Mar 2026 13:48:00 +0100
+Received: from [202.12.124.152] (helo=fhigh-b1-smtp.messagingengine.com)
  by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69c67c7b-5aeb-0a2a45050019-d155da34a96a-3
- for <xen-devel@lists.xenproject.org>; Fri, 27 Mar 2026 13:47:55 +0100
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-b980b35534eso479465266b.1
- for <xen-devel@lists.xenproject.org>; Fri, 27 Mar 2026 05:47:55 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
- [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-66ad6a4c4b3sm2225062a12.22.2026.03.27.05.47.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Mar 2026 05:47:54 -0700 (PDT)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 69c67c7e-5aeb-0a2a45050019-ca0c7c98e05d-3
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Mar 2026 13:47:59 +0100
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 419007A0154;
+ Fri, 27 Mar 2026 08:47:58 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-09.internal (MEProxy); Fri, 27 Mar 2026 08:47:58 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 27 Mar 2026 08:47:56 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,430 +55,309 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1774615675; x=1775220475; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=G1JZ7x4TFZ9YUUsRHNL827EegWnaHOoVxvnjo4qZ/vc=;
-        b=KG3jd4XriBqlzXsU0KdFgG7nOHd9/rXBCtef1NKYTAZLJl2bfvml8tRtTi9BjEEyLY
-         ZjCaf9Pd/EMl8DOt/vuzQBe4vyoyKr7+psQGG0zL0PLNTLw/e/XymA+ceazuX9ID3rU3
-         AFgQ3oAYygF2pLYlAKkhrn3GAtDP6bYGUJdHHfiSa1AhPwdnf+3J+Id1Ps7EzrGUasBu
-         aZn0YowdjB8Ym87vfjUyuUkjebQTdbMdYbruRM7xzUrueGrufcf031hhI3rqiL1VyE8g
-         IaYV0BPKjo7jwvPSwfAQWYIzkgJLohY9VyrT9CtNvTt56UUPSmqHNaAuZEV5AiHDY0uB
-         Z3LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774615675; x=1775220475;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=G1JZ7x4TFZ9YUUsRHNL827EegWnaHOoVxvnjo4qZ/vc=;
-        b=QzKIPACzJII+OsJEVS9iH3fKx7G/Xq0GRTpJ7bc7ZSxGoK2JcOJlcLPHTyMXmg55CB
-         KS/DBuOJgn8toUwYULFQXlf74DHsbyZpMRPw582FGi96b/dTVwyb2Jk9gXJB6D8CZ4+J
-         60O+CQ4RrYLM9Sbc4+anMlFwHppEzOBvfhlC+P4Z85Fdj9UBiUPsdUtqFLck58JomWFP
-         yP+0G/iSI5yA+UGvumBKAv76kwQ5HLzaoDDVsIF+ZPPOGuvFz6lD8Zu8K6YHqr4xzIv0
-         ihKeJ0uO+w7nwQHuQd4ckEor+uzp5znsfIgn4OX7QflTe/+6Bref5ZholOk6HphVQwUt
-         y+OA==
-X-Forwarded-Encrypted: i=1; AJvYcCXWSyMF2u+O6f29dWbD4sivDEEWE+6LXx5AIVgj4EUnTmzPlUGBkBlmJdK9JScylLDGbnMoB8nmWgg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzHZi6myfaGZ2gym6qa6es+sR0PIJ7DKoqapuXtQSO8c8RqEKEt
-	A/WmDeMcCK/biOJ5++wuQu74qzS/8uPfyvD326K7LnLQlfpAVZdS/zfz
-X-Gm-Gg: ATEYQzyvjRjjeVf7dgLQeGdXV6kPkcgxJ6nDG1ox1s/UM5FdkH9EFQFBZOqLZJNtSR1
-	+I0wtQdrIC1gPo5cXEPN+StOITtvqGEs4S+o4JK18TY2PN0fu7WHYH8qi5xl/0jQUkS+bLdQSEM
-	rgZkZ1jEi3OKFa+inKLQq/V6qNB+4Bf5n1kB0fbIodd+qZCwSj2PDVdjcMy5r6cLUQXBAM3wtI8
-	Mm+ZkMzzAlq1P4NHHq+1QtdLuZM4U5tP/WdUhN+4CbgS+yqWGlO2cS25dSxz/I2gN4VRvH0Xl1q
-	iB1OkRYVcA3ympIf+1QPaAiG1TGld2tcczvM8Vts/8J2sme1oMChfo3XCenv6DU8DpGCJCFB5JJ
-	R912ThTG+pN4hUduB1PZGSlCOqy+yykNaOsLVBG0/B3utVRRGlVCzv2H7oV9eL8fWH+08E74D6F
-	5Ee50+6sYczbh5A0Hce/GZM49xaOW3y0NRtuLngHDgcr47zMRfcaNzMjXm/43QnCf0Ro8H3d4UF
-	50=
-X-Received: by 2002:a17:907:2d8a:b0:b98:f1d:6a63 with SMTP id a640c23a62f3a-b9b2e5921bbmr345986566b.9.1774615674917;
-        Fri, 27 Mar 2026 05:47:54 -0700 (PDT)
-Message-ID: <09c5badb-f58b-4331-8138-cba99eba17b0@gmail.com>
-Date: Fri, 27 Mar 2026 13:47:53 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/4] xen/riscv: add exception table support
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fm1 header.d=invisiblethingslab.com header.i="@invisiblethingslab.com" header.h="Cc:Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=fm1 header.d=messagingengine.com header.i="@messagingengine.com" header.h="Cc:Content-Type:Date:Feedback-ID:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To:X-ME-Proxy:X-ME-Sender"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1774615678;
+	 x=1774702078; bh=kgH6kXJD5WWblM90MR2rtcRLFzDJDDUs/OympKktGHM=; b=
+	UfsN30xbA73JrguiPoXf+zllTYSIwaj8x2UrTmHps7im7UKAxgBsmdEQ8Rj+Xz8c
+	A68IdqfAXIV4+n3yYhus57Yvv34mGqSUxx5usZ7GAEW3gJn4is1GJdlkpwieTAaD
+	VJOuDzjGRVtbv3WWoVtX6FPEw+uF8sSKHQ7U1/1pDaqDVwI5oB1cY4p8ojOqT4dZ
+	9GXOkRo70kGzn2tmT8f2C2lqBzce5JE2o+Hc3HVpHbQKU+N9Xcei0Y/SVQHTotkA
+	V2b5BWpYzsui16nAe2FsEPfj5MzSOOx95cdPFDiMrVsLk+BNHOFQByvTVM+4txxH
+	CcV+7fClR1VkvPFhWWEk3Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1774615678; x=1774702078; bh=kgH6kXJD5WWblM90MR2rtcRLFzDJDDUs/Oy
+	mpKktGHM=; b=QQ2exnl2XYnTHVSs4U1IMLrrcbX6BX5viF0q4xru6lnOrjTGIgM
+	P0vVgfiAoihIdyLbJO841JnYDrfPIBr74ZHSaL5ZHsAJFcIgK8HuUVUp71WJgaQR
+	EvdeD8k3HycH8WhcYGwB18SzXnRIm51g3v7/DCvFA5eiWryN7ZN2N2n0sgnrZPJM
+	4HnrmMrtjJLF34VN0pfzP/lqaRzdMHZHucE+pzGb33vUTc82cGY/81C28rO4d7r5
+	q5+HC9KXMI9InyzJ1CTgSs38/Vfu4VfvadKYcsEFcYmzhZ+kRF4NH9iX9OiNrMnG
+	vWXG1LD9FHAlUgqxdqY066Fgznol5c/FLQA==
+X-ME-Sender: <xms:fXzGaQxm0XXRi3zrY-WQhKgFKIF_LS_8KXEHG0x0GqKF7pa4abn7ag>
+    <xme:fXzGabsyuXhM4TVqwDi_-m0t9kgNNMiNiUyoSPNPDWR4KIhmbPIOI2EyguqmLZPCE
+    4qnQcjNAedmBo74WuP70F_7JUM70tAr4V_I6hhKaokURvE7jA>
+X-ME-Received: <xmr:fXzGafujUO1Qv-KkioTdbTMNgNzF86nLKbcJ06AaIEa3pHTw9QfKJahxj9Ww7eD2upThbPvvHYta4pcyFOZU7lCqcY7c7dshhLA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdeffedtfedvucetufdoteggodetrf
+    dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+    rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+    gurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleet
+    feevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsth
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepfedpmh
+    houggvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtgho
+    mhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtth
+    drohhrghdprhgtphhtthhopehjghhrohhsshesshhushgvrdgtohhm
+X-ME-Proxy: <xmx:fXzGaYPX1zw0PlZpCjOQioeJggd-n49Ccsp-QKG5KeER5n4MNiVlYg>
+    <xmx:fXzGaV3wq4Rd5Flfw49YrjhDArqvpJfdu7oDv97YaUShcCvMSPCKpA>
+    <xmx:fXzGacNmdj3TD0mcXmiSWx-ynHiv-aER-oWfBiufY6siA6MVOZzQPQ>
+    <xmx:fXzGad38U8-Ip4TbGGwkzTmbovasKbH_4AMYW7SzV8zF53IZqNi3sg>
+    <xmx:fnzGadV2JosnlcVxY4FdOwwXLkoZnFP9y2z-D7ie_w-GE-HiEGcGS6FW>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 27 Mar 2026 13:47:55 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773419622.git.oleksii.kurochko@gmail.com>
- <c6d30625371d56bb8345c987ac6d8095cc7301d2.1773419622.git.oleksii.kurochko@gmail.com>
- <db8fd1fa-2db4-4df4-8e21-1412783786b2@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <db8fd1fa-2db4-4df4-8e21-1412783786b2@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c201ff/1774615675-81D5C488-6C13E4F5/0/0
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
+ 4.17 -> 4.19 ?
+Message-ID: <acZ8ez4dmQay1JSw@mail-itl>
+References: <aPzBO_eW8mQHM66u@mail-itl>
+ <acQzzlXNDxNq885V@mail-itl>
+ <29775afa-e17b-4c44-a2a8-4ef4bc7cdf0f@suse.com>
+ <acUqOL232lp-Lw1v@mail-itl>
+ <cbed767b-4ac4-4989-8778-43ff321ae977@suse.com>
+ <acVWX8vkhZiFfonP@mail-itl>
+ <88c65ec7-b7f7-4d8b-a453-d707440b43cb@suse.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="U3WZiaCdmRm0vx68"
+Content-Disposition: inline
+In-Reply-To: <88c65ec7-b7f7-4d8b-a453-d707440b43cb@suse.com>
+X-purgate-ID: tlsNG-c201ff/1774615680-200AA488-EF344AC8/0/0
 X-purgate-type: clean
-X-purgate-size: 10888
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-purgate-size: 10324
+X-Spamd-Result: default: False [-1.78 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	SUBJECT_ENDS_QUESTION(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm1,messagingengine.com:s=fm1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.999];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_ALL(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:jgross@suse.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,messagingengine.com:dkim,invisiblethingslab.com:dkim];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
+	NEURAL_HAM(-0.00)[-0.999];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: D8D823448B1
+	RCVD_COUNT_SEVEN(0.00)[11]
+X-Rspamd-Queue-Id: F17D63448C1
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
+--U3WZiaCdmRm0vx68
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Mar 2026 13:47:55 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
+ 4.17 -> 4.19 ?
 
-On 3/24/26 3:04 PM, Jan Beulich wrote:
-> On 13.03.2026 17:44, Oleksii Kurochko wrote:
->> Introduce exception table handling for RISC-V so faults from selected
->> instructions can be recovered via fixup handlers instead of being
->> treated as fatal.
->>
->> Add the RISC-V exception table format, sorting at boot to allow binary
->> search used furthuer, and lookup from the trap handler. Update the
->> linker script to emit the .ex_table section using introduced common
->> EX_TABLE macro shared with other architectures.
->>
->> Also, the __start___ext_table is aligned now by POINTER_ALIGN instead
->> of just using hard-coded 8 as there is no too much sense to align
->> __start___ext_table by 8 for 32-bit systems.
-> 
-> Nit: The identifier named here twice isn't correct (extra 't').
-> 
->> This implementation is based on Linux 6.16.
->>
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->> ---
->> Open question:
->>
->> With some renaming the following could be generic, at least, between
->> x86 and RISC-V:
->>   - ASM_EXTABLE() definition
->>   - All what is conencted with sort_extable().
->>   - With some change of how x86 searchs an extension this cmp_ex_search()
->>     could also go to common file.
->>
->> Does it make sense to introduce xen/extable.h and common/extable.c?
-> 
-> Maybe, but not right here. Already the introduction of EX_TABLE for
-> linker script use might better have been broken out.
-> 
-> Seeing the names you suggest here, ...
-> 
->> ---
->>   xen/arch/riscv/Kconfig                |  1 +
->>   xen/arch/riscv/Makefile               |  1 +
->>   xen/arch/riscv/extables.c             | 85 +++++++++++++++++++++++++++
->>   xen/arch/riscv/include/asm/extables.h | 72 +++++++++++++++++++++++
->>   xen/arch/riscv/setup.c                |  3 +
->>   xen/arch/riscv/traps.c                |  3 +
->>   xen/arch/riscv/xen.lds.S              |  3 +
->>   xen/arch/x86/xen.lds.S                |  6 +-
->>   xen/include/xen/xen.lds.h             | 10 ++++
->>   9 files changed, 179 insertions(+), 5 deletions(-)
->>   create mode 100644 xen/arch/riscv/extables.c
->>   create mode 100644 xen/arch/riscv/include/asm/extables.h
-> 
-> ... is there a reason you use plural in the name here?
+Some further observation, this time regarding timers:
 
-No, I'll use singular form.
+Just before S3:
 
-I called it tables as potentially I will need a different types of 
-exception table, so I counted different types as different exception tables.
+    (XEN) [  150.264757] Dumping timer queues:
+    (XEN) [  150.265181] CPU00:
+    (XEN) [  150.265497]   ex=3D         736us timer=3Dffff82d040643540 cb=
+=3Ddrivers/char/xhci-dbc.c#dbc_uart_poll(ffff82d0404e5e78)
+    (XEN) [  150.266590]   ex=3D      460377us timer=3Dffff82d04065d2c0 cb=
+=3Darch/x86/time.c#time_calibration(0000000000000000)
+    (XEN) [  150.267636]   ex=3D     1377460us timer=3Dffff82d04065d220 cb=
+=3Darch/x86/time.c#plt_overflow(0000000000000000)
+    (XEN) [  150.268651]   ex=3D    13525100us timer=3Dffff82d040644c20 cb=
+=3Darch/x86/cpu/mcheck/intel-nonfatal.c#mce_work_fn(0000000000000000)
+    (XEN) [  150.269820] CPU02:
+    (XEN) [  150.270126]   ex=3D      616653us timer=3Dffff830461931070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461931000)
+    (XEN) [  150.271276] CPU04:
+    (XEN) [  150.271577]   ex=3D      630577us timer=3Dffff830461935070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461935000)
+    (XEN) [  150.272734]   ex=3D      634586us timer=3Dffff830461921070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461921000)
+    (XEN) [  150.273884] CPU06:
+    (XEN) [  150.274184]   ex=3D       44474us timer=3Dffff830461905070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461905000)
+    (XEN) [  150.275334] CPU08:
+    (XEN) [  150.275633]   ex=3D       11465us timer=3Dffff83046190d070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff83046190d000)
+    (XEN) [  150.276783] CPU09:
+    (XEN) [  150.277083]   ex=3D       12465us timer=3Dffff830461909070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461909000)
+    (XEN) [  150.278236] CPU10:
+    (XEN) [  150.278536]   ex=3D       14464us timer=3Dffff830461901070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461901000)
+    (XEN) [  150.279686] CPU11:
+    (XEN) [  150.279986]   ex=3D       15464us timer=3Dffff830461911070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461911000)
+    (XEN) [  150.281139] CPU12:
+    (XEN) [  150.281438]   ex=3D       17463us timer=3Dffff830461919070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461919000)
+    (XEN) [  150.282592] CPU13:
+    (XEN) [  150.282890]   ex=3D      347090us timer=3Dffff830461941070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461941000)
+    (XEN) [  150.284040] CPU14:
+    (XEN) [  150.284341]   ex=3D       20462us timer=3Dffff83046191d070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff83046191d000)
+    (XEN) [  150.285496] CPU15:
+    (XEN) [  150.285806]   ex=3D         470us timer=3Dffff83046192d070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff83046192d000)
+    (XEN) [  150.286972]   ex=3D       15316us timer=3Dffff8304619cdaa0 cb=
+=3Ddrivers/cpufreq/cpufreq_ondemand.c#do_dbs_timer(ffff8304619cdae0)
+    (XEN) [  150.288156]   ex=3D        6230us timer=3Dffff8304619e8ed0 cb=
+=3Dcommon/sched/core.c#s_timer_fn(0000000000000000)
+    (XEN) [  150.289192] CPU16:
+    (XEN) [  150.289492]   ex=3D      633594us timer=3Dffff830461929070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461929000)
+    (XEN) [  150.290642] CPU18:
+    (XEN) [  150.290942]   ex=3D      614601us timer=3Dffff830461939070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461939000)
+    (XEN) [  150.292094] CPU20:
+    (XEN) [  150.292394]   ex=3D       27459us timer=3Dffff830461915070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461915000)
+    (XEN) [  150.293553]   ex=3D       55316us timer=3Dffff830461979aa0 cb=
+=3Ddrivers/cpufreq/cpufreq_ondemand.c#do_dbs_timer(ffff830461979ae0)
+    (XEN) [  150.294744]   ex=3D       35413us timer=3Dffff83046198fdc0 cb=
+=3Dcommon/sched/core.c#s_timer_fn(0000000000000000)
+    (XEN) [  150.295776] CPU21:
+    (XEN) [  150.296076]   ex=3D      617580us timer=3Dffff830461925070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461925000)
 
-> 
->> --- a/xen/arch/riscv/Makefile
->> +++ b/xen/arch/riscv/Makefile
->> @@ -3,6 +3,7 @@ obj-y += cpufeature.o
->>   obj-y += domain.o
->>   obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
->>   obj-y += entry.o
->> +obj-$(CONFIG_HAS_EX_TABLE) += extables.o
-> 
-> Simply obj-y please as long as the select is unconditional.
+Just after S3:
 
-I see your point and at the moment there is no also other options how
-to handle case(s) for which exception table is introduced now. But if 
-potentially another mechanism will be introduced what will be the point 
-to have extable.o code in the final binary?
+    (XEN) [  164.462198] Dumping timer queues:
+    (XEN) [  164.462630] CPU00:
+    (XEN) [  164.462949]   ex=3D         768us timer=3Dffff82d040643540 cb=
+=3Ddrivers/char/xhci-dbc.c#dbc_uart_poll(ffff82d0404e5e78)
+    (XEN) [  164.464064]   ex=3D     1286532us timer=3Dffff82d04065d220 cb=
+=3Darch/x86/time.c#plt_overflow(0000000000000000)
+    (XEN) [  164.465099]   ex=3D      395997us timer=3Dffff830461921070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461921000)
+    (XEN) [  164.466262]   ex=3D    15327843us timer=3Dffff82d040644c20 cb=
+=3Darch/x86/cpu/mcheck/intel-nonfatal.c#mce_work_fn(0000000000000000)
+    (XEN) [  164.467461] CPU02:
+    (XEN) [  164.467773]   ex=3D       37756us timer=3Dffff830461931070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461931000)
+    (XEN) [  164.468953] CPU04:
+    (XEN) [  164.469267]   ex=3D      940042us timer=3Dffff830461935070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461935000)
+    (XEN) [  164.470444] CPU06:
+    (XEN) [  164.470759]   ex=3D      485896us timer=3Dffff830461905070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461905000)
+    (XEN) [  164.471937] CPU08:
+    (XEN) [  164.472251]   ex=3D      459720us timer=3Dffff83046190d070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff83046190d000)
+    (XEN) [  164.473430] CPU09:
+    (XEN) [  164.473745]   ex=3D     1563081us timer=3Dffff830461909070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461909000)
+    (XEN) [  164.474922] CPU10:
+    (XEN) [  164.475237]   ex=3D      948204us timer=3Dffff830461901070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461901000)
+    (XEN) [  164.476417] CPU11:
+    (XEN) [  164.476732]   ex=3D      948071us timer=3Dffff830461911070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461911000)
+    (XEN) [  164.477912] CPU12:
+    (XEN) [  164.478219]   ex=3D      892163us timer=3Dffff830461919070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461919000)
+    (XEN) [  164.479398] CPU13:
+    (XEN) [  164.479713]   ex=3D      308429us timer=3Dffff830461941070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461941000)
+    (XEN) [  164.480893] CPU14:
+    (XEN) [  164.481208]   ex=3D      954493us timer=3Dffff83046191d070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff83046191d000)
+    (XEN) [  164.482386] CPU15:
+    (XEN) [  164.482700]   ex=3D     1487692us timer=3Dffff83046192d070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff83046192d000)
+    (XEN) [  164.483881] CPU16:
+    (XEN) [  164.484195]   ex=3D       22890us timer=3Dffff830461929070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461929000)
+    (XEN) [  164.485373] CPU18:
+    (XEN) [  164.485688]   ex=3D       85902us timer=3Dffff830461939070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461939000)
+    (XEN) [  164.486864] CPU20:
+    (XEN) [  164.487171]   ex=3D         895us timer=3Dffff830461915070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461915000)
+    (XEN) [  164.488358]   ex=3D       17895us timer=3Dffff830461979aa0 cb=
+=3Ddrivers/cpufreq/cpufreq_ondemand.c#do_dbs_timer(ffff830461979ae0)
+    (XEN) [  164.489569]   ex=3D        2914us timer=3Dffff83046198fdc0 cb=
+=3Dcommon/sched/core.c#s_timer_fn(0000000000000000)
+    (XEN) [  164.490633] CPU21:
+    (XEN) [  164.490947]   ex=3D      461154us timer=3Dffff830461925070 cb=
+=3Dcommon/sched/core.c#vcpu_singleshot_timer_fn(ffff830461925000)
 
-> 
->> --- /dev/null
->> +++ b/xen/arch/riscv/extables.c
->> @@ -0,0 +1,85 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +
->> +#include <xen/init.h>
->> +#include <xen/bsearch.h>
->> +#include <xen/lib.h>
->> +#include <xen/sort.h>
->> +#include <xen/virtual_region.h>
->> +
->> +#include <asm/extables.h>
->> +#include <asm/processor.h>
->> +
->> +#define EX_FIELD(ptr, field) ((unsigned long)&(ptr)->field + (ptr)->field)
->> +
->> +static inline unsigned long ex_insn(const struct exception_table_entry *ex)
->> +{
->> +    return EX_FIELD(ex, insn);
->> +}
->> +
->> +static inline unsigned long ex_fixup(const struct exception_table_entry *ex)
->> +{
->> +    return EX_FIELD(ex, fixup);
->> +}
->> +
->> +static void __init cf_check swap_ex(void *a, void *b)
->> +{
->> +    struct exception_table_entry *x = a, *y = b, tmp;
->> +    int delta = b - a;
-> 
-> Better play safe and use "long" (as we have it for x86)?
+In the latter case, I see only one cb=3Dcommon/sched/core.c#s_timer_fn
+(two of them before). And also only one
+cb=3Ddrivers/cpufreq/cpufreq_ondemand.c#do_dbs_timer.
 
-It makes sense. Lets switch to "long".
+Is the s_timer_fn related to runqueues? I have two of them:
 
-> 
->> +    tmp = *x;
->> +    x->insn = y->insn + delta;
->> +    y->insn = tmp.insn - delta;
->> +
->> +    x->fixup = y->fixup + delta;
->> +    y->fixup = tmp.fixup - delta;
->> +}
->> +
->> +static int __init cf_check cmp_ex_sort(const void *a, const void *b)
->> +{
->> +    const unsigned long l = ex_insn(a);
->> +    const unsigned long r = ex_insn(b);
->> +
->> +    /* avoid overflow */
->> +    return (l > r) - (l < r);
->> +}
->> +
->> +void __init sort_extable(void)
-> 
-> Better account for live-patching right away (see corresponding x86 code)?
+    (XEN) [   11.751480] Adding cpu 0 to runqueue 0
+    (XEN) [   11.753580]  First cpu on runqueue, activating
+    (XEN) [   11.755731] Adding cpu 2 to runqueue 0
+    (XEN) [   11.757818] Adding cpu 4 to runqueue 0
+    (XEN) [   11.759891] Adding cpu 6 to runqueue 0
+    (XEN) [   11.761955] Adding cpu 8 to runqueue 0
+    (XEN) [   11.764001] Adding cpu 9 to runqueue 0
+    (XEN) [   11.766029] Adding cpu 10 to runqueue 0
+    (XEN) [   11.768045] Adding cpu 11 to runqueue 0
+    (XEN) [   11.770050] Adding cpu 12 to runqueue 1
+    (XEN) [   11.772033]  First cpu on runqueue, activating
+    (XEN) [   11.774051] Adding cpu 13 to runqueue 1
+    (XEN) [   11.776047] Adding cpu 14 to runqueue 1
+    (XEN) [   11.777993] Adding cpu 15 to runqueue 1
+    (XEN) [   11.779913] Adding cpu 16 to runqueue 1
+    (XEN) [   11.781872] Adding cpu 18 to runqueue 1
+    (XEN) [   11.783912] Adding cpu 20 to runqueue 1
+    (XEN) [   11.785855] Adding cpu 21 to runqueue 1
 
-I will introduce then void init_or_livepatch sort_exception_table(...) 
-and re-use it inside sort_extable() with renaming it to 
-sort_exception_tables() to take into account live-patching which 
-requires sort_exception_table().
+But when I force all CPUs into a single runqueue, there are still two of
+those s_timer_fn timers (and also two cpufreq ones). And still only one
+after S3. And still the issue after S3 persists.
 
-> 
->> +{
->> +    sort(__start___ex_table,  __stop___ex_table - __start___ex_table,
->> +         sizeof(struct exception_table_entry), cmp_ex_sort, swap_ex);
->> +}
->> +
->> +static int cf_check cmp_ex_search(const void *key, const void *elt)
->> +{
->> +    const unsigned long k = *(const unsigned long *)key;
-> 
-> The deref here looks to be needed solely because you pass &pc into bsearch().
-> Generally I'd expect both search functions to be pretty similar (if already
-> distinct ones are needed, which indeed looks to make things easier here).
-
-The stuff is easier with such implementation.
-
-We could really drop cmp_ex_search() if to pass struct 
-exception_table_entry instead of (unsigned long *) so the following will 
-allow to drop cmp_ex_search():
-
-@@ -78,12 +78,15 @@ bool fixup_exception(struct cpu_user_regs *regs)
-      unsigned long pc = regs->sepc;
-      const struct virtual_region *region = find_text_region(pc);
-      const struct exception_table_entry *ex;
-+    struct exception_table_entry key;
-
-      if ( !region || !region->ex )
-          return false;
-
--    ex = bsearch(&pc, region->ex, region->ex_end - region->ex,
--                 sizeof(struct exception_table_entry), cmp_ex_search);
-+    key.insn = pc - (unsigned long)&key.insn;
-+
-+    ex = bsearch(&key, region->ex, region->ex_end - region->ex,
-+                 sizeof(struct exception_table_entry), cmp_ex_sort 
-/*cmp_ex_search*/);
-
-Also, then I will rename l and r variable inside cmp_ex_sort() to
-insn_a and insn_b.
-
-> 
->> +    const unsigned long insn = ex_insn(elt);
->> +
->> +    /* avoid overflow */
->> +    return (k > insn) - (k < insn);
->> +}
->> +
->> +static bool ex_handler_fixup(const struct exception_table_entry *ex,
->> +			                 struct cpu_user_regs *regs)
-> 
-> Nit: Bad indentation.
-> 
->> +{
->> +	regs->sepc = ex_fixup(ex);
->> +
->> +	return true;
-> 
-> Nit: Bad use of hard tabs.
-> 
-> And then - why the boolean return type, when this can't fail anyway?
-
-As potentially we could have other handlers which might return not only 
-true, so it will be easier to handle return type inside fixup_exception().
-
-But if you think there is no any sense to have for handlers the same 
-signature then I am also return void instead of bool for 
-ex_handler_fixup().
-
-> 
->> --- /dev/null
->> +++ b/xen/arch/riscv/include/asm/extables.h
->> @@ -0,0 +1,72 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +
->> +#ifndef ASM__RISCV__ASM_EXTABLES_H
->> +#define ASM__RISCV__ASM_EXTABLES_H
->> +
->> +#ifdef __ASSEMBLER__
->> +
->> +#define ASM_EXTABLE(insn, fixup)    \
->> +    .pushsection .ex_table, "a";    \
->> +    .balign     4;                  \
->> +    .long		((insn) - .);       \
->> +    .long		((fixup) - .);      \
-> 
-> Nit: More uses of hard tabs. Maybe that alone is the reason for the mis-aligned
-> trailing backslashes.
-> 
->> +    .popsection;
->> +.endm
-> 
-> I can't spot the corresponding .macro. What's going on here?
-
-Good question... It was:
-
-.macro asm_extable, insn, fixup
-     ASM_EXTABLE(\insn, \fixup)
-.endm
-
->> +
->> +/*
->> + * The exception table consists of pairs of relative offsets: the first
->> + * is the relative offset to an instruction that is allowed to fault,
->> + * and the second is the relative offset at which the program should
->> + * continue. No registers are modified, so it is entirely up to the
->> + * continuation code to figure out what to do.
-> 
-> And the program counter is not a register?
-It is. "No register" meant no general purpose register. I will reprase 
-this part to:
-
-No general-purpose registers are modified by the exception handling 
-mechanism itself, so it is up to the fixup code to handle any necessary 
-state cleanup.
-
-Or it could be just dropped.
-
-> 
->> + * All the routines below use bits of fixup code that are out of line
->> + * with the main instruction path.  This means when everything is well,
->> + * we don't even have to jump over them.  Further, they do not intrude
->> + * on our cache or tlb entries.
-> 
-> What is this paragraph about? There's nothing "below" which I can
-> associate this with.
-
-It is orphaned from Linux (generally it is about that some functions 
-from uaccess.h are using ASM_EXTABLE, the similar for Xen has in 
-x86/uaccess.h). I'll rephrase it to:
-  * The exception table and fixup code live out of line with the main
-  * instruction path. This means when everything is well, we don't even
-  * have to jump over them. Further, they do not intrude on our cache or
-  * tlb entries.
-
-> 
->> + */
->> +struct exception_table_entry {
->> +	int32_t insn, fixup;
->> +};
->> +
->> +extern struct exception_table_entry __start___ex_table[];
->> +extern struct exception_table_entry __stop___ex_table[];
->> +
->> +#ifdef CONFIG_HAS_EX_TABLE
-> 
-> Why, when this is a RISC-V specific header and HAS_EX_TABLE is selected
-> unconditionally?
-
-To handle the potential in future case that CONFIG_HAS_EX_TABLE will 
-become conditional.
-I thought that it makes sense to be in sync with common/virtual_region.c 
-also uses ifdef around exception table related information.
-
-> 
->> --- a/xen/include/xen/xen.lds.h
->> +++ b/xen/include/xen/xen.lds.h
->> @@ -219,4 +219,14 @@
->>   #define VPCI_ARRAY
->>   #endif
->>   
->> +#ifdef CONFIG_HAS_EX_TABLE
-> 
-> No real need for this?
-
-Here I can agree that there is not reason as if CONFIG_HAS_EX_TABLE is n
-then no one is expected to use exception table so the section is empty 
-and don't occupy any extra space in binary (except potentially some 
-space because of alignment).
+Could the issue be related to those timer differences?
 
 
-> 
->> +#define EX_TABLE                  \
->> +        . = ALIGN(POINTER_ALIGN); \
-> 
-> Strictly speaking the original 8 (in x86 code) as much as this is more
-> than we need - each element is a struct of 2 4-byte entities, after all.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-For the  current struct - yes, we can do . = ALIGN(4) but if the 
-architecture will add uint64_t inside (or unsigned long) shouldn't we 
-then have ALIGN(POINTER_ALIGN)?
+--U3WZiaCdmRm0vx68
+Content-Type: application/pgp-signature; name=signature.asc
 
-Thanks.
+-----BEGIN PGP SIGNATURE-----
 
-~ Oleksii
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmnGfHsACgkQ24/THMrX
+1yyOoAf+J/Um5unsDNqh4unMBlGJx5D7CJPTanfcEDzpgk5X0epHrClkkGdzKTb6
+gCiSxQ3GtlgGkCaEiavQkx2qDvjoMZfhNK5A6wjZgS1uh39J9na95zUUUCWaTIJb
+uzmdY/Lt96RBrcEka1sloDSFAOpBsszmzt3QdGOgLYhvASEIJ4uC/JUNOrjOfKFK
+GxLdhyNq3cjypqWMgGXi9r5580Qw/xIXo53uR4BHb6Uo4uBXlZgQe7YNYEJ1pzw8
+kjhpwmpzv7z4Bz2FrfpuMVBSlX1gPwETfnhvjXw/tQunXZifTp1axKNpBlDSGy8q
+ItDK6dbcew77Q1yv8p3gGA/isjUhyQ==
+=wcyC
+-----END PGP SIGNATURE-----
 
+--U3WZiaCdmRm0vx68--
 
