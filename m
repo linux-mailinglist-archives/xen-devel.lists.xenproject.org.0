@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ACh1HJ9tymnG8gUAu9opvQ
+	id gAh4LIBuymnG8gUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:33:35 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:37:20 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D84C535B15F
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:33:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1267570.1557034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 104F335B205
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:37:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1267580.1557042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7BnU-0003Uo-UH; Mon, 30 Mar 2026 12:32:48 +0000
+	id 1w7Brb-0004AJ-Dk; Mon, 30 Mar 2026 12:37:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1267570.1557034; Mon, 30 Mar 2026 12:32:48 +0000
+Received: by outflank-mailman (output) from mailman id 1267580.1557042; Mon, 30 Mar 2026 12:37:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7BnU-0003Sf-RS; Mon, 30 Mar 2026 12:32:48 +0000
-Received: by outflank-mailman (input) for mailman id 1267570;
- Mon, 30 Mar 2026 12:32:47 +0000
+	id 1w7Brb-00047k-Az; Mon, 30 Mar 2026 12:37:03 +0000
+Received: by outflank-mailman (input) for mailman id 1267580;
+ Mon, 30 Mar 2026 12:37:01 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w7BnT-0003SZ-CJ
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 12:32:47 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w7BrZ-00047e-4e
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 12:37:01 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7BnS-00FISc-KH
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 14:32:46 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1w7BrY-0041AB-Gk
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 14:37:00 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69ca6d65-5cb7-0a2a0a5109dd-0a2a45039648-42
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 14:32:46 +0200
-Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69ca6e65-e002-0a2a0a5209dd-0a2a45048efc-24
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 14:37:00 +0200
+Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69ca6d6e-1947-0a2a45030019-d155dd2cd0b6-3
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 14:32:46 +0200
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-43ba1f3fa7eso2480275f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 05:32:46 -0700 (PDT)
+ id 69ca6e6c-c823-0a2a45040019-d155802ff1ac-3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 14:37:00 +0200
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-486fb14227cso58629945e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 05:37:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43cf2471ee2sm17710611f8f.29.2026.03.30.05.32.44
+ 5b1f17b1804b1-48722c845b8sm256351125e9.4.2026.03.30.05.36.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Mar 2026 05:32:45 -0700 (PDT)
+ Mon, 30 Mar 2026 05:36:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,56 +58,57 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774873966; x=1775478766; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774874220; x=1775479020; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=qdTqZk0U2u2U5c9sisVKBhh6F1UstE0ElJysNxuRGvU=;
-        b=MEsZCZO7FhfWBer+1Hq8FK7r4MaBRqPdjwtWJ3CPCTXQmZvIl3PHW/v10HaqHfvzPE
-         hRHj6SXwemSi++FNITf0a3vQhBQsMAscemqoLSeAWQiL0q2Ta+5BLUKQufRq9lfn3J0l
-         R9AO/VAWnqNhPSIOMtLGrb6YEpy3QJEwR9Opvs9k+MJo8heqgRTUHajCFSHd5n8I44/U
-         iwONNkHNLIane4UKmwUieag6WIDl5pk/cRu+LjjqL9KrV2HX1BDK5O1NG8K9gEt4IQ7S
-         jl6Z8WIYkcQYlvKGKplW6GZvPYeTp6UIOzCuiWbk9+3lSJxE6e2K131/Uek2XcmolJDU
-         2rIw==
+        bh=wqbTovqReXLHlu4nksmlR9M7+VDsBy7ec+OQZw5Bb9U=;
+        b=dBvkKpQz820VKJgMREfGMm7l8WKcsCeXgULh6QWN4SJKrLv+w+YpK7bcHWFlU5FeIj
+         t4il94G73Bn1NVacnqoMjYI6xGoIW2IoRPND/SGY3QYNrqaSlJgKYuFCya7t9/687wXQ
+         /F632AvwWOI1c4wnJ1tMym1E1MUPa8066oMBwurkjjpQQ0QPwo0o2ztKW5vBPmCmDe+x
+         tUrZsV63A12EIABunKYFNwkaMusYMVkim3H4nPWHCY/RCX4+dKSq8doybYFGFHVzylx/
+         jAA2SiI/rjPTxBGAUQp2/8I5Wwa9/zyamMr/RH69GTM9uHpCDHnmU/CG1Z6voJazONjB
+         yQdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774873966; x=1775478766;
+        d=1e100.net; s=20251104; t=1774874220; x=1775479020;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qdTqZk0U2u2U5c9sisVKBhh6F1UstE0ElJysNxuRGvU=;
-        b=FZTKTziRIGaBXdZzxqEv0lrjkny3HsOv/geEapdCQLx5xro0aJEner6bcHRwXcN5ZX
-         mRYsHEvS3xTb81tX3sZu1OfhBIsNKB0YX7ZHNUI9rLV09O6/POOWra7UxL6rq8jEk8ym
-         xc7Q5OjzPh49llERt6NQKAi7/FiTsAauGfPpnFz+H4gqX9pGSorbXtGbzAOUvYQ7L6gz
-         0XXZz91EM6bWKP81HNx5Efdqiz0/enwBLV9X8zO9ndSooc5zylnsKjJFPIEq4Ti8YMXW
-         /xEjONNoVSDOKvIVXjBAEGFTtY4JMFPtcnj0XYJxqEi2Ox5NM6siskDhtpnNtRaHFPNz
-         X6DA==
-X-Forwarded-Encrypted: i=1; AJvYcCWPjbn68Yk+TfPYfoejPPZszF4Evkccp2SlnGcr63M9DlNyux8y0B8zdNT3aQP1viucVKYAegcalPI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwG/doc7i+uwRqmuC9RHIUPZcmFhESv4AX8Bj16QsxbkptThT1d
-	16s5i4t60esuaxTFgthVGegPapMxE7enOhz/tEwKZ+BeltANcVR3ae6nyerP8yTg1qShADg2lgl
-	Bw2jDQg==
-X-Gm-Gg: ATEYQzxgY/cRf1b1AeYAj0FdA4Y18+/MFUaVgPvVhHTQM/jrq9Mpc9Zdeo6Q58JhSx2
-	7t1H8F8bjaKMBA1bJX77H/ri4u9eRbg4ubZ3bq42qUE1pbqUOvQFD9wLltH/mMGth8UCirF27BD
-	s+6jMq7JfxFRtvGQUpnUaScoXUgNEvsv/UBGdREOGQcwZKQZb5yW878HIBewJNHI4OyFEc1qsPR
-	cLHayEGZX/pF/7YSBYPEz6MhH/hAl5YXB32Pi5JU1TIQ0m6EBVYBVSxwdXo4cALIrIqMZlbrReU
-	qT24xyKp7+PHq3VIbsQPTbQWlCgiJDbO+O5iIxsn+Lk0xazbeIuO8bc9vSuXE9Zw0tNMbB6hH+S
-	J8mfvMAUZiPA71yebtSKzG0ZHbPOopGpLvlIwVr40TnMjkfpOWzf2R2Zw7sltRpAK21LvCL81Q3
-	2zmNiQ9Un8j9AXQoWYcJIcI1yBg0ZMPlkZuxdMKeJ4rLvz6S4GbzlqnxUcFMfiqeSGVmUfUA0gs
-	g97hoyW5OvpOfw=
-X-Received: by 2002:a05:6000:24c7:b0:43c:f81f:3e7c with SMTP id ffacd0b85a97d-43cf81f4010mr10747414f8f.3.1774873965922;
-        Mon, 30 Mar 2026 05:32:45 -0700 (PDT)
-Message-ID: <58cfab3b-7cf2-4e38-9968-1248e665f985@suse.com>
-Date: Mon, 30 Mar 2026 14:32:46 +0200
+        bh=wqbTovqReXLHlu4nksmlR9M7+VDsBy7ec+OQZw5Bb9U=;
+        b=tUZbxRi3lX/ctVJMhZHNt5AGicMnyUlrhe4xkAwp7Oprgr/tjKzPL1Pj7Dx6YSNa+X
+         Ix2HLhvACDvvdcVuv3hS2yK6yyI8H4jbwc3Yb6iDYBMbG5KKPBL/lo2sxnlL1PCmX9uO
+         62gPLjyF9uHG+7JILLmO4LMHw3yafYEOP26a5ZFNFvzFgE6sH5CFsDzOAjbk7b6LIrZT
+         J+P/5M20EqLQBZLuXNIsRdN1CY7SB9g1FvwxxCR/qpxeKF6bgqCCtnVMN/BpRawQ/TGy
+         oC5lkcj5QF0qngyX6qMaIF4UnYAwQoBf80jSXCZU0ZRoaKpnwIAmB6cveoE8EzDBzJuG
+         R22A==
+X-Forwarded-Encrypted: i=1; AJvYcCVkHsgPW45gos8H6H3kvsXGjhKdNI1y4n9vyw0lHexhHf5z+ZVK4h/Fd7/AB/P3AOGsJbgWzCrRABE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxi5qcsT4gSd8NW1uvp8vo9Svjp8nJ7k0m6+o/OBG34ranDjHrK
+	O+Yp+9j0hbyeVU4QhKPvdEjMG2DKrBN/cUFmnjL5/Yi5RMo8ciMORJAtOLfdHxA5MQ==
+X-Gm-Gg: ATEYQzyRr1u5KRn4RGYDdY2qYJIrcSJrz+XugxJ49CY77A+RCSQAi0WcBo7GgzIQtot
+	NdoGD6GvHVm5Dis+NdnDNTO0BSbobitFWz9rJMUIj3e4DXWJeuEQ7jNbynZoZ2VtK0Atv+mFnzX
+	QQwYRiLKfk6EMUi5JXvmIJaooJDn9DGlK35kYCExdzNsRlNUVGGsbC7Khq67/1bmq4vZqHHqQe4
+	jPnlNek4lC+6Ay0Vrpw6lrexwtmnKiBC/qKNS/H0W6JO1FYnKw3omBwlqcU8E5Q/XBcWOW0kFbb
+	+gANOthBA6DreUei4r0oWT7em0HlPS0qSYLyXyIRzsREjFc4KBG6YQl9m01/AKkszZHI22sWxI7
+	QjgyW5sDDBgIgUq7cv12TZoHKu37ccleRgt484gPjb+tT+vvW/rZ44rbPf0OoXVrAX0bxB/KG2Y
+	Mio/KROrMSq8mHiUy3FCwCbLBWVp2H6GGHYJ/zvadRnpmCOp1iNwv7HTQKE+raLZfEACDnVC62Q
+	W/dPUxVdKoV4DU=
+X-Received: by 2002:a05:600c:6819:b0:485:40fd:8390 with SMTP id 5b1f17b1804b1-48727f238d9mr215317195e9.26.1774874219827;
+        Mon, 30 Mar 2026 05:36:59 -0700 (PDT)
+Message-ID: <c5cef874-b47c-4b18-a069-e6656fed6080@suse.com>
+Date: Mon, 30 Mar 2026 14:37:00 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 5/6] tools: Allow building xen-hptool without
- CONFIG_MIGRATE
+Subject: Re: [PATCH v7 6/6] docs: Document CPU hotplug
 To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <cover.1774871881.git.mykyta_poturai@epam.com>
- <73db845e6617130966a565cdca6274db4cb46428.1774871881.git.mykyta_poturai@epam.com>
+ <97ad7b68c5e42fc396b155ef1d0a69a738b28881.1774871881.git.mykyta_poturai@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,104 +134,59 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <73db845e6617130966a565cdca6274db4cb46428.1774871881.git.mykyta_poturai@epam.com>
+In-Reply-To: <97ad7b68c5e42fc396b155ef1d0a69a738b28881.1774871881.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1774873966-4925572C-7D649678/0/0
+X-purgate-ID: tlsNG-ebf023/1774874220-BB6949D1-5A0EA12F/0/0
 X-purgate-type: clean
-X-purgate-size: 1725
+X-purgate-size: 358
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:anthony.perard@vates.tech,m:jgross@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: D84C535B15F
+X-Rspamd-Queue-Id: 104F335B205
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 30.03.2026 13:59, Mykyta Poturai wrote:
-> With CPU hotplug sysctls implemented on Arm it becomes useful to have a
-> tool for calling them.
-> 
-> According to the commit history it seems that putting hptool under
-> config MIGRATE was a measure to fix IA64 build. As IA64 is no longer
-> supported it can now be brought back. So build it unconditionally.
-> 
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> ---
-> v6->v7:
-> * no changes
-> 
-> v5->v6:
-> * don't change order in Makefile
-> 
-> v4->v5:
-> * make hptool always build
-> 
-> v3->v4:
-> * no changes
-> 
-> v2->v3:
-> * no changes
-> 
-> v1->v2:
-> * switch to configure from legacy config
-> ---
->  tools/libs/guest/Makefile.common | 2 +-
->  tools/misc/Makefile              | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/tools/libs/guest/Makefile.common b/tools/libs/guest/Makefile.common
-> index b928a4a246..03dfcee7fa 100644
-> --- a/tools/libs/guest/Makefile.common
-> +++ b/tools/libs/guest/Makefile.common
-> @@ -7,6 +7,7 @@ OBJS-y += xg_private.o
->  OBJS-y += xg_domain.o
->  OBJS-y += xg_suspend.o
->  OBJS-y += xg_resume.o
-> +OBJS-y += xg_offline_page.o
->  ifeq ($(CONFIG_MIGRATE),y)
->  OBJS-y += xg_sr_common.o
->  OBJS-$(CONFIG_X86) += xg_sr_common_x86.o
-> @@ -17,7 +18,6 @@ OBJS-$(CONFIG_X86) += xg_sr_save_x86_pv.o
->  OBJS-$(CONFIG_X86) += xg_sr_save_x86_hvm.o
->  OBJS-y += xg_sr_restore.o
->  OBJS-y += xg_sr_save.o
-> -OBJS-y += xg_offline_page.o
->  else
->  OBJS-y += xg_nomigrate.o
->  endif
+> --- a/SUPPORT.md
+> +++ b/SUPPORT.md
+> @@ -52,6 +52,7 @@ For the Cortex A77 r0p0 - r1p0, see Errata 1508412.
+>  ### ACPI CPU Hotplug
+>  
+>      Status, x86: Experimental
+> +    Status, Arm64: Experimental
 
-This looks wrong to me. There are x86-specifics in that file, which shouldn't
-be built on Arm. And the name of the file also doesn't indicate any relation
-to CPU management.
+Are you sure? I didn't spot an ACPI connection in the patches (in particular
+in patch 4).
 
 Jan
 
