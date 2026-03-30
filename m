@@ -2,51 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ABcFAtNlymll8gUAu9opvQ
+	id 4LgwCSFpymnG8gUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:00:19 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:14:25 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB34435AB78
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:00:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1267452.1556964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78C9335ADFE
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:14:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1267525.1556997 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7BHh-0000rN-Gh; Mon, 30 Mar 2026 11:59:57 +0000
+	id 1w7BVG-0006df-OV; Mon, 30 Mar 2026 12:13:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1267452.1556964; Mon, 30 Mar 2026 11:59:57 +0000
+Received: by outflank-mailman (output) from mailman id 1267525.1556997; Mon, 30 Mar 2026 12:13:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7BHh-0000oS-96; Mon, 30 Mar 2026 11:59:57 +0000
-Received: by outflank-mailman (input) for mailman id 1267452;
- Mon, 30 Mar 2026 11:59:55 +0000
+	id 1w7BVG-0006bY-La; Mon, 30 Mar 2026 12:13:58 +0000
+Received: by outflank-mailman (input) for mailman id 1267525;
+ Mon, 30 Mar 2026 12:13:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Mykyta_Poturai@epam.com>) id 1w7BHf-0000HC-Cl
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 11:59:55 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <bounce-md_30504962.69ca6902.v1-42acbbf6014e4024bb2f48564484fbd8@bounce.vates.tech>)
+ id 1w7BVE-0006bS-W4
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 12:13:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7BHe-00CdRq-Oc
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 13:59:54 +0200
-Received: from [10.42.69.3] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Mykyta_Poturai@epam.com>)
- id 69ca65af-bab6-0a2a0a5309dd-0a2a4503af12-42
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 13:59:54 +0200
-Received: from [52.101.70.120]
- (helo=AS8PR04CU009.outbound.protection.outlook.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <Mykyta_Poturai@epam.com>)
- id 69ca65ba-1947-0a2a45030019-346546784220-4
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 13:59:54 +0200
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- (2603:10a6:102:30d::12) by GV1PR03MB8639.eurprd03.prod.outlook.com
- (2603:10a6:150:95::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Mon, 30 Mar
- 2026 11:59:52 +0000
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::b8c6:f37a:987a:beb]) by PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::b8c6:f37a:987a:beb%5]) with mapi id 15.20.9745.027; Mon, 30 Mar 2026
- 11:59:52 +0000
+ id 1w7BVE-003vEH-Bf
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 14:13:56 +0200
+Received: from [10.42.69.8] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <bounce-md_30504962.69ca6902.v1-42acbbf6014e4024bb2f48564484fbd8@bounce.vates.tech>)
+ id 69ca68fb-bab6-0a2a0a5309dd-0a2a4508b11c-42
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 14:13:56 +0200
+Received: from [198.2.179.37] (helo=mail179-37.suw41.mandrillapp.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from
+ <bounce-md_30504962.69ca6902.v1-42acbbf6014e4024bb2f48564484fbd8@bounce.vates.tech>)
+ id 69ca6902-1950-0a2a45080019-c602b325dd49-3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 14:13:55 +0200
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-37.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fkqst4cJXzG0CBMd
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 12:13:54 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 42acbbf6014e4024bb2f48564484fbd8; Mon, 30 Mar 2026 12:13:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,203 +56,303 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hIc499sFUw8lkh0bZ9WPSTPEF/tZbScmczs5jRBtBQXZYHpb7WPfRKFzqbDZ6JFmUsdT4sZshblvXnbsYza5WWt7XjlkUOAnElEAwGukPjwcYDjE4fdqMtWi4yaqCLkPHdF1cTOilVaeLebFUNM/WSMA/Y+T6vY/jygc8/Sj5uo+7P8Mvp6FZR6IDuDpMSjyBPTb9xpw0XW+u8Cxcw1B4XmOB6o7vLEjlwULV+uJFhN7DFOL5BxS4Vu9sRnuIFph4fjMM35kT0W1Xrj+cxplc3xeXCemheQPXMVn8iKs010r93Vi1BqmjrgfURrUEAer+tM35p17OzFk9xFp0PtqpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UVva9UsjGtzKa4kTaxsRcqz3Xro518EwThLU9bHiHLQ=;
- b=oaIwkaXabe6VckHHSaH6mrkZ2P6WFkYm2l8trGBDSaPOKEEVtOtoDKiJR/T/mdUvG9ELXvccr8fJHGs+pDesQd4QdSaq/0xYrUk6eRu/3ik4xyflHabrKF9X17ZVfcp8oIUzQF7Z9ZEvroprgzw2SWIo0NxFHpg981SYJ2Cp87QC0DJPrqSAACiI4JoLCRYJMda3yqclDe9inaWhGaVJ4OfEzI8VehtBkStJ6MbDYoPEkSKJdIVy0ioOXlKIEDJpt/R92A4AHLn7C1i2FTc6ltegXwFjk1+ei8pv3ZcHBYSFinc4lIbToydoZADOtHOzFJ4DNyD+Zs501/qxhh9TDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UVva9UsjGtzKa4kTaxsRcqz3Xro518EwThLU9bHiHLQ=;
- b=VyiCBU3WxecZXxOV+u6HH58eb8bIXiu3ksJ5dhDx0qzUlr2TRdq6sjss2uo+MkKiHYfGbUmMmx/5aRyYC17aTLeZUqRCal7Yby7b3gmP+KXkjHiSpM2rVSbyJwSdYaGdY0vn2ZwklJlMTVK3olxFQ2qcy4zXzPP2YtPcWi0QLPGmy9zYMGrJU48ep5NTHZuwF/Lq/LLYN0hZP8i81RniNPFOd3iFU4wW72PNVGqcySNZb2MHNRdwZgw0bJB+C5nO1TCw9vJs2f9EtAdpaFJ5BYfdMImykK1XUdPUihV1Pgkga+icsHPWXtgMoqln/ufH+nMbUZJRG/TvvV561azzqw==
-From: Mykyta Poturai <Mykyta_Poturai@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>
-Subject: [PATCH v7 5/6] tools: Allow building xen-hptool without
- CONFIG_MIGRATE
-Thread-Topic: [PATCH v7 5/6] tools: Allow building xen-hptool without
- CONFIG_MIGRATE
-Thread-Index: AQHcwDy3LJnr4T20vUWAas874pXmiw==
-Date: Mon, 30 Mar 2026 11:59:52 +0000
-Message-ID:
- <73db845e6617130966a565cdca6274db4cb46428.1774871881.git.mykyta_poturai@epam.com>
-References: <cover.1774871881.git.mykyta_poturai@epam.com>
-In-Reply-To: <cover.1774871881.git.mykyta_poturai@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|GV1PR03MB8639:EE_
-x-ms-office365-filtering-correlation-id: a55796dc-0cfa-40eb-83a6-08de8e53da0b
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|366016|1800799024|38070700021|22082099003|18002099003|56012099003;
-x-microsoft-antispam-message-info:
- Nf361VG/sV0FUImvp1vegKN61Dz8HAKlLKRNyVnOK5cWaosrjE4TRY8z1pVG3DC0rxn0Rw14J7+LbjAyb8A2l5NifFT91sODAtaVY+IslGMNmoqu5ZfqxnFtGC84kUy50c3b37EmsGEEPzaJesVoTkOX6zYFDlHjZaqFBMlLbBbRAPfWy+FL94pty6BjTA51qTi3pC1/91a7aEhjrC57Bzq8LaTPp0Uy8AdeduMCSFNlEG6tGZYIsLCBt06aZ4MTCB++C4juPgKPiI0ltfrmkGvw70InDhBsWY3GsNgibk9OUh/Ic5rTynSVVmoKapxbe9Z3aiEpvaiazmYeCbkEgYb/d5/Yw9CHYt/RjBUnVdMchz3Avng6jdexJP9uNGmhbzJU08xiN6a2vShqjZ7MGmRHJXbyJsCDqBlwc6oh5I7JIf6zYSqPXB4Incf2ognHzhhXY0rtPlWZb0QEbCvja+EiH4tdWS52yGtiXpwLT4DHPQRaB2cO/oPLylZHOkPJRxRxY9WVl8PB0DJJDja0K2Fs/I5ORbIXhkEKtDcskiD7bb3ynHLVmpcT2UwH8Q5wkkM069ykBnm0dJajtsmvEmx1AE/nt7RZ5GAeKLl3AHH3pETEt/1tdtl9Vc4EBCZxf686hi8BByWC79dEzU2qhzG15ZRi8bRlQeV6gBhAGgMH81ejj+OZg+nZGFFn3us7pZg4a4VP9EGt0OsE3i3v4AqCFfMoytg9vy0ptChR5U7ghbcG90LKuiqGBmAq58XAv4T3aZIois9hsIWHah/06NnZaDVVjFtPzn+M0B7JZJg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?pkQu8vurc0ihZimgWYMKjGaHrjHwWPfG4ouLCLax5yHS2SdmMN/zFk8/7u?=
- =?iso-8859-1?Q?yQPMPPNNGgu8yEW34tKxEQ+sG1TmGZqz+WrDPdIUOhqkhQj2IRyQ6dImdN?=
- =?iso-8859-1?Q?PdyjHfqYEAFSRGcAgFemIKEQtMc111+7mVM9OYL47HNEpHXcKPlM6gdSzc?=
- =?iso-8859-1?Q?Mg09w+VVmVz/+DgeTiqjMztqe/MNnlSMiT6qtierHFfLb7gqd0bEqN6n6g?=
- =?iso-8859-1?Q?PQGQdvB9nLTg1rU+cZ1INe2qJXBt7/S3SOYz6/G7eubEoa8yGefep1/OPX?=
- =?iso-8859-1?Q?1U2Aom/hXQfQyK/cZP8FUdLrhwwOY0+Ok9DLte25aeOsfZ1/Kzrt/R/LH+?=
- =?iso-8859-1?Q?V7J/e8LcnVoZkRhvBUk1inaMqE76fOYTBZzMr6C5y2oEIXvjABHQHxqqMi?=
- =?iso-8859-1?Q?zOT+JufZdBtxZ6LrfxQ4EJculTQo+sx15gb95hm0btm18NIspYxBcLjcXS?=
- =?iso-8859-1?Q?65bap9uwuJVQ6vEXZW8dxDbwHKVOicy8E5O/A+GEx5HRXRqWUb6IOI4bJm?=
- =?iso-8859-1?Q?aPw6sdw/5EVl67PI3P5hXBqxsvzEaGN4apiYzqOJAZSMFgm4sVJmbkTAJu?=
- =?iso-8859-1?Q?+ML//r0c5G6YvDeHXIzkfKcDlCt4auSnaoYKhueQYo9brKtlBfib4uNjm6?=
- =?iso-8859-1?Q?cQMoxhJske+52VCLjyhUnpX+bJbXzmofL+relwWR715w8b+hgEdg6R/29t?=
- =?iso-8859-1?Q?LiDvpWdFR7ArDueMx5W/aSqfhtcK9LBK4w2CZu9BiYmK71eWJCdoyVMvkv?=
- =?iso-8859-1?Q?poE7MPKYJGin5fIVTPhmWnmekeWI2cv5Q6+1sSZtLQxAl0LJW64KBOqI5U?=
- =?iso-8859-1?Q?BIxK9+vF98utuu+z+D3FPMfKPbCsKJKCQQm1GdTea5+HGTCj6lfHLY9QzU?=
- =?iso-8859-1?Q?cVfpvtB63irfGhVUOGDWc48kr/xgDpB9EYSx6K2eCTV1IrtYtH9Gpds3DR?=
- =?iso-8859-1?Q?WpwY/R1EN+8y+9hKPDO4qzje7lz4pnDAFK2nlsCAWartSKZSx/HzOEE9bj?=
- =?iso-8859-1?Q?yONNljgcLy5EbBKL3h5bBOh6bNe6/bqen/fMmwmUoj0QLLzdfPQzo/sBdu?=
- =?iso-8859-1?Q?PUtQzSwp5+RJpb9YPP2AiuDcK3h7mHpCh9XIt+tIwGUulf+xdtM3Dmm4gC?=
- =?iso-8859-1?Q?Bort6sbHwNSA+8CW8C9a2BtqogvVHHArdmp6JKV0INN36uS46y60X3lmT6?=
- =?iso-8859-1?Q?t0FLUZ03w5v/KxwZwcwHJjErXrRKTmfhFfjYonYCrZRCub6zNTTnyXEr32?=
- =?iso-8859-1?Q?8by4kU1NVylBxMWy1SKtGU9P+sFJS/6M6p+jVn3ic8cSv2U60OSp3EUoEv?=
- =?iso-8859-1?Q?D7SJeskd3EcQAIlXrQ2tIgLrH9aPrRWWmetREm9Mefk4hDthhHOCJ4o3Yy?=
- =?iso-8859-1?Q?hMsv9RKyXE2xuLNOZciCVFu8v0BaWHbw93m3ansxOA0G/Xd9ba/n3R8EjE?=
- =?iso-8859-1?Q?3YxnSzsqTM8nmkBqcvcqJQcRUh6+6RqE3WygbCnquGJYd7cCHFepVOSmJi?=
- =?iso-8859-1?Q?4Kulvbvm0qLueZfEMFF36qsXMe61Qjf9gIOuX+Z3wMPJPThNaGtRLKv5T/?=
- =?iso-8859-1?Q?H2GuVq8ib1VIGuSA9mZ3iuod49kv45i41eRTlWhJ8zG9tgt5fun0LMIFRz?=
- =?iso-8859-1?Q?IE57cMDsO7lpBQvkceSChhpq5gRUUoU5UXKCVqoAazMQFmADA3LhjKul9W?=
- =?iso-8859-1?Q?dFtZS0yl2Ca7Fl1tyryr9KaZT4cGW+fmep9QVTpSFOJ0ysvn3PGLPQ3QHE?=
- =?iso-8859-1?Q?43wIInjjFf3tSEDE+2sEog0ejK392+jThApzCWAIEvgCbS6eRFCABe8XR3?=
- =?iso-8859-1?Q?lLTzEPyxyfWKx9AZe1W8ifY34xty618=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mte1 header.d=mandrillapp.com header.i="@mandrillapp.com" header.h="From:Subject:Message-Id:To:References:Cc:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"; dkim=pass header.s=mte1 header.d=vates.tech header.i="teddy.astie@vates.tech" header.h="From:Subject:Message-Id:To:References:Cc:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1774872834; x=1775142834;
+	bh=8/UEoCpZgSsa/b7GuIF8NEs0PMrAel8kk9xZN9ljZb4=;
+	h=From:Subject:Message-Id:To:References:Cc:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=RSV7sX3WkfWGHnsfyQghtG8deP1aTV1h9tcowxjf/4kdRwGvFCNyiNNBOq1XQlwRT
+	 Gp+8lqEcpcYn4Eyy/GVpTJtHjDLnGmfYkRafyXnInywCazCCQ+mwNIWGKiBACdsUlx
+	 tP7h6LjCy4UP8EOKnGqRL1oej9eeUw3OgdN/p2KQc2dP5azlnNQ5Q5A+hDrbxG1AOj
+	 3WZsYJ8LyfweLDncqqJ1kepSuMI/snqj2D7mD1QxkfJhViyHkEgApKN+RryitqtXu3
+	 dnnw2m9Jeo9iH4I62zdVxYj70UEWPvLJ7fDr0wCnUkF8jR4CKiPdAuvvsVXWNdOb2V
+	 XTtKfch6Tt+Lw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1774872834; x=1775133334; i=teddy.astie@vates.tech;
+	bh=8/UEoCpZgSsa/b7GuIF8NEs0PMrAel8kk9xZN9ljZb4=;
+	h=From:Subject:Message-Id:To:References:Cc:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=FjfHojRPHKxVbVOirgIkXCEiz3LY3QjJRReQeqIf7oU0QS3mAaQeIGjS4pHxeqApm
+	 Xd+OZorH7atLW/vSfNqZEhGlC71mEy/v4h+7Gr4TkT+fwKUKsZvFaJc+2etaLlTkjY
+	 JEvaj/sPe+qYBCmVXaVUlqJRrBc1WlUdttYQNvlDKVj+FfMvDdDMAED7cSF9QKGnTf
+	 KZwaHjbUxWTK/rLKIYE3Ifb4GFIdKic/5DIUqCNqy569dbOFjHplrvLcKPLlHHSYIx
+	 1hDS1quLmMHiJ0az4t14q7R++yc61vt7b9v0VICMtxPsaqmqncC/UtzgxmLc2ZgpuD
+	 xZLrOlnuCxDGA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20Mapping=20non-pinned=20memory=20from=20one=20Xen=20domain=20into=20another?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1774872833084
+Message-Id: <bd136f57-3d16-482a-9014-be44183bc86f@vates.tech>
+To: "Demi Marie Obenour" <demiobenour@gmail.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, "Val Packett" <val@invisiblethingslab.com>, "Ariadne Conill" <ariadne@ariadne.space>
+References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
+Cc: "Xen developer discussion" <xen-devel@lists.xenproject.org>
+In-Reply-To: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.42acbbf6014e4024bb2f48564484fbd8?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260330:md
+Date: Mon, 30 Mar 2026 12:13:54 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a55796dc-0cfa-40eb-83a6-08de8e53da0b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2026 11:59:52.1375
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Ek5dL2mc6Wu9WnJ+VuYQVkSO0YEG4cqWg85oR1lNr/Tb+51h2r+RgBJDlMNc0pSI3jIdvWShUjf9m5nDplv4OA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR03MB8639
-X-purgate-ID: tlsNG-33051d/1774871994-EAE8572C-4DE07EC7/0/0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-c1860d/1774872836-F0E1B726-9ACFCCC3/0/0
 X-purgate-type: clean
-X-purgate-size: 1989
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-purgate-size: 10061
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:anthony.perard@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCPT_COUNT_THREE(0.00)[4];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:demiobenour@gmail.com,m:dri-devel@lists.freedesktop.org,m:linux-mm@kvack.org,m:val@invisiblethingslab.com,m:ariadne@ariadne.space,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com,lists.freedesktop.org,kvack.org,invisiblethingslab.com,ariadne.space];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	NEURAL_SPAM(0.00)[1.000];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[epam.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
+	RCPT_COUNT_FIVE(0.00)[6];
+	TAGGED_RCPT(0.00)[xen-devel];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: AB34435AB78
+X-Rspamd-Queue-Id: 78C9335ADFE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-With CPU hotplug sysctls implemented on Arm it becomes useful to have a
-tool for calling them.
+(back to the original problem)
 
-According to the commit history it seems that putting hptool under
-config MIGRATE was a measure to fix IA64 build. As IA64 is no longer
-supported it can now be brought back. So build it unconditionally.
+Le 24/03/2026 =C3=A0 15:17, Demi Marie Obenour a =C3=A9crit=C2=A0:
+> Here is a proposed design document for supporting mapping GPU VRAM
+> and/or file-backed memory into other domains.  It's not in the form of
+> a patch because the leading + characters would just make it harder to
+> read for no particular gain, and because this is still RFC right now.
+> Once it is ready to merge, I'll send a proper patch.  Nevertheless,
+> you can consider this to be
+> 
+> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
+> 
+> This approach is very different from the "frontend-allocates"
+> approach used elsewhere in Xen.  It is very much Linux-centric,
+> rather than Xen-centric.  In fact, MMU notifiers were invented for
+> KVM, and this approach is exactly the same as the one KVM implements.
+> However, to the best of my understanding, the design described here is
+> the only viable one.  Linux MM and GPU drivers require it, and changes
+> to either to relax this requirement will not be accepted upstream.
+> ---
+> # Memory lending: Mapping pageable memory, such as GPU VRAM, from one Xen=
+ domain into another
+> 
 
-Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
----
-v6->v7:
-* no changes
+(...)
 
-v5->v6:
-* don't change order in Makefile
+> ## Informing drivers that they must stop using memory: MMU notifiers
+> 
+> Kernel drivers, such as xen_privcmd, in the same domain that has
+> the GPU (the "host") may map GPU memory buffers.  However, they must
+> register an *MMU notifier*.  This is a callback that Linux core memory
+> management code ("MM") uses to tell the driver that it must stop
+> all accesses to the memory.  Once the memory is no longer accessed,
+> Linux assumes it can do whatever it wants with this memory:
+> 
+> - The GPU driver can move it from VRAM to system RAM or visa versa,
+>    move it within VRAM or system RAM, or it temporarily inaccessible
+>    so that other VRAM can be accessed.
+> - MM can swap the page out to disk/zram/etc.
+> - MM can move the page in system RAM to create huge pages.
+> - MM can write the pages out to their backing files and then free them.
+> - Anything else in Linux can do whatever it wants with the memory.
+> 
+> Suspending access to memory is not allowed to block indefinitely.
+> It can sleep, but it must finish in finite time regardless of what
+> userspace (or other VMs) do.  Otherwise, bad things (which I believe
+> includes deadlocks) may result.  I believe it can fail temporarily,
+> but permanent failure is also not allowed.  Once the MMU notifier
+> has succeeded, userspace or other domains **must not be allowed to
+> access the memory**.  This would be an exploitable use-after-free
+> vulnerability.
+> 
+> Due to these requirements, MMU notifier callbacks must not require
+> cooperation from other guests.  This means that they are not allowed to
+> wait for memory that has been granted to another guest to no longer
+> be mapped by that guest.  Therefore, MMU notifiers and the use of
+> grant tables are inherently incompatible.
+> 
+> ## Memory lending: A different approach
+> 
+> Instead, xen_privcmd must use a different hypercall to _lend_ memory to
+> another domain (the "guest").  When MM triggers the guest MMU notifier,
+> xen_privcmd _tells_ Xen (via hypercall) to revoke the guest's access
+> to the memory.  This hypercall _must succeed in bounded time_ even
+> if the guest is malicious.
+> 
+> Since the other guests are not aware this has happened, they will
+> continue to access the memory.  This will cause p2m faults, which
+> trap to Xen.  Xen normally kills the guest in this situation which is
+> obviously not desired behavior.  Instead, Xen must pause the guest
+> and inform the host's kernel.  xen_privcmd will have registered a
+> handler for such events, so it will be informed when this happens.
+> 
+> When xen_privcmd is told that a guest wants to access the revoked
+> page, it will ask core MM to make the page available.  Once the page
+> _is_ available, core MM will inform xen_privcmd, which will in turn
+> provide a page to Xen that will be mapped into the guest's stage 2
+> translation tables.  This page will generally be different than the
+> one that was originally lent.
+> 
+> Requesting a new page can fail.  This is usually due to rare errors,
+> such as a GPU being hot-unplugged or an I/O error faulting pages
+> from disk.  In these cases, the old content of the page is lost.
+> 
+> When this happens, xen_privcmd can do one of two things:
+> 
+> 1. It can provide a page that is filled with zeros.
+> 2. It can tell Xen that it is unable to fulfill the request.
+> 
+> Which choice it makes is under userspace control.  If userspace
+> chooses the second option, Xen injects a fault into the guest.
+> It is up to the guest to handle the fault correctly.
+> 
 
-v4->v5:
-* make hptool always build
+To me there are multiples problems :
+- mapping a host-owned page into the guest
+- make such mapping "non-persistent", i.e letting Linux discard it
+- tracking guest access to such "non-existent mappings" (to remap it)
 
-v3->v4:
-* no changes
+All problems could be mixed into a single solution, but I don't think 
+it's a good idea, that means various kind of MM events for Linux could 
+originate from Xen. There is also the "process disappeared" situation 
+that could cause of lof of problems for the kernel. In KVM, the guest 
+existence is tied to the process by construction but with Xen, things 
+are different.
+But I think at least for the virtio-gpu use-case, these can be separated.
 
-v2->v3:
-* no changes
+Here is a approach (multiples parties) :
 
-v1->v2:
-* switch to configure from legacy config
----
- tools/libs/guest/Makefile.common | 2 +-
- tools/misc/Makefile              | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+The first 2 problems can be solved in a "simple" way, just make a 
+"reverse foreign map" with a MMU notifier attached to it. If Linux wants 
+to discard the mapping, the remote mapping in the guest is unmapped.
+(something still needs to be done for doing that for VRAM)
 
-diff --git a/tools/libs/guest/Makefile.common b/tools/libs/guest/Makefile.c=
-ommon
-index b928a4a246..03dfcee7fa 100644
---- a/tools/libs/guest/Makefile.common
-+++ b/tools/libs/guest/Makefile.common
-@@ -7,6 +7,7 @@ OBJS-y +=3D xg_private.o
- OBJS-y +=3D xg_domain.o
- OBJS-y +=3D xg_suspend.o
- OBJS-y +=3D xg_resume.o
-+OBJS-y +=3D xg_offline_page.o
- ifeq ($(CONFIG_MIGRATE),y)
- OBJS-y +=3D xg_sr_common.o
- OBJS-$(CONFIG_X86) +=3D xg_sr_common_x86.o
-@@ -17,7 +18,6 @@ OBJS-$(CONFIG_X86) +=3D xg_sr_save_x86_pv.o
- OBJS-$(CONFIG_X86) +=3D xg_sr_save_x86_hvm.o
- OBJS-y +=3D xg_sr_restore.o
- OBJS-y +=3D xg_sr_save.o
--OBJS-y +=3D xg_offline_page.o
- else
- OBJS-y +=3D xg_nomigrate.o
- endif
-diff --git a/tools/misc/Makefile b/tools/misc/Makefile
-index 6ee783f43e..5a206133f7 100644
---- a/tools/misc/Makefile
-+++ b/tools/misc/Makefile
-@@ -16,7 +16,7 @@ INSTALL_BIN                    +=3D xencov_split
- INSTALL_BIN +=3D $(INSTALL_BIN-y)
-=20
- # Everything to be installed in regular sbin/
--INSTALL_SBIN-$(CONFIG_MIGRATE) +=3D xen-hptool
-+INSTALL_SBIN                   +=3D xen-hptool
- INSTALL_SBIN-$(CONFIG_X86)     +=3D xen-hvmcrash
- INSTALL_SBIN-$(CONFIG_X86)     +=3D xen-hvmctx
- INSTALL_SBIN-$(CONFIG_X86)     +=3D xen-lowmemd
---=20
-2.51.2
+The 3rd one is a bit trickier. It's mostly a result of the 2nd problem 
+e.g swap or RAM/VRAM migration. The page has disappeared in the guest. 
+That could be dealt with a slightly modified ioreq server, but instead 
+of responding to read/writes, it would just act on "accesses" (it's 
+mostly to avoid having to emulate the read/writes in the device model).
+
+So overall, pages are mapped but "may disappears" (by kernel) and device 
+model (e.g QEMU) would need to remap them explicitly if that happens and 
+guest needs it.
+
+What do you think ?
+
+> ## Restrictions on lent memory
+> 
+> Lent memory is still considered to belong to the lending domain.
+> The borrowing domain can only access it via its p2m.  Hypercalls made
+> by the borrowing domain act as if the borrowed memory was not present.
+> This includes, but is not limited to:
+> 
+> - Using pointers to borrowed memory in hypercall arguments.
+> - Granting borrowed memory to other VMs.
+> - Any other operation that depends on whether a page is accessible
+>    by a domain.
+> 
+> Furthermore:
+> 
+> - Borrowed memory isn't mapped into the IOMMU of any PCIe devices
+>    the guest has attached, because IOTLB faults generally are not
+>    replayable.
+> 
+> - Foreign mapping hypercalls that reference lent memory will fail.
+>    Otherwise, the domain making the foreign mapping hypercall could
+>    continue to access the borrowed memory after the lease had been
+>    revoked.  This is true even if the domain performing the foreign
+>    mapping is an all-powerful dom0.  Otherwise, an emulated device
+>    could access memory whose lease had been revoked.
+> 
+> This also means that live migration of a domain that has borrowed
+> memory requires cooperation from the lending domain.  For now, it
+> will be considered out of scope.  Live migration is typically used
+> with server workloads, and accelerators for server hardware often
+> support SR-IOV.
+> 
+> ## Where will lent memory appear in a guest's address space?
+> 
+> Typically, lent memory will be an emulated PCI BAR.  It may be emulated
+> by dom0 or an alternate ioreq server.  However, it is not *required*
+> to be a PCI BAR.
+> 
+> ## Privileges required for memory lending
+> 
+> For obvious reasons, the domain lending the memory must be privileged
+> over the domain borrowing it.  The lending domain does not inherently
+> need to be privileged over the whole system.  However, supporting
+> situations where the providing domain is not dom0 will require
+> extensions to Xen's permission model, except for the case where the
+> providing domain only serves a single VM.
+> 
+> Memory lending hypercalls are not subject to the restrictions of
+> XSA-77.  They may safely be delegated to VMs other than dom0.
+> 
+> ## Userspace API
+> 
+> To the extent possible, the memory lending API should be similar
+> to KVM's uAPI.  Ideally, userspace should be able to abstract over
+> the differences.  Using the API should not require root privileges
+> or be equivalent to root on the host.  It should only require a file
+> descriptor that only allows controlling a single domain.
+> 
+> ## Future directions: Creating & running Xen VMs without special privileg=
+es
+> 
+> With the exception of a single page used for hypercalls, it is
+> possible for a Xen domain to *only* have borrowed memory.  Such a
+> domain can be managed by an entirely unprivileged userspace process,
+> just like it would manage a KVM VM.  Since the "host" in this scenario
+> only needs privilege over a domain it itself created, it is possible
+> (once a subset of XSA-77 restrictions are lifted) for this domain
+> to not actually be dom0.
+> 
+> Even with XSA-77, the domain could still request dom0 to create and
+> destroy the domain on its behalf.  Qubes OS already allows unprivileged
+> guests to cause domain creation and destruction, so this does not
+> introduce any new Xen attack surface.
+> 
+> This could allow unprivileged processes in a domU to create and manage
+> sub-domUs, just as if the domU had nested virtualization support and
+> KVM was used.  However, this should provide significantly better
+> performance than nested virtualization.
+
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
