@@ -2,51 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YM6lCFFJymkQ7QUAu9opvQ
+	id KEknMGxNymmb7QUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 11:58:41 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 12:16:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73AE3358B74
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 11:58:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1267367.1556881 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BED4358FFD
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 12:16:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1267380.1556889 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w79NP-0004o9-No; Mon, 30 Mar 2026 09:57:43 +0000
+	id 1w79ex-00088o-3A; Mon, 30 Mar 2026 10:15:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1267367.1556881; Mon, 30 Mar 2026 09:57:43 +0000
+Received: by outflank-mailman (output) from mailman id 1267380.1556889; Mon, 30 Mar 2026 10:15:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w79NP-0004lj-Kg; Mon, 30 Mar 2026 09:57:43 +0000
-Received: by outflank-mailman (input) for mailman id 1267367;
- Mon, 30 Mar 2026 09:57:42 +0000
+	id 1w79ex-00086p-0d; Mon, 30 Mar 2026 10:15:51 +0000
+Received: by outflank-mailman (input) for mailman id 1267380;
+ Mon, 30 Mar 2026 10:15:49 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1w79NO-0004ld-EN
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 09:57:42 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <bounce-md_30504962.69ca4d52.v1-6de7ea1bf3054b2aaf7438b3b3807385@bounce.vates.tech>)
+ id 1w79ev-00086j-0F
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 10:15:49 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w79NM-007YUL-GL
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 11:57:40 +0200
-Received: from [10.42.69.10] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69ca4907-2eae-0a2a0a5409dd-0a2a450a8194-48
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 11:57:40 +0200
-Received: from [40.107.200.46]
- (helo=CH5PR02CU005.outbound.protection.outlook.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <roger.pau@citrix.com>)
- id 69ca4912-1772-0a2a450a0019-286bc82efab2-3
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 11:57:40 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by SJ0PR03MB5760.namprd03.prod.outlook.com (2603:10b6:a03:2d3::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Mon, 30 Mar
- 2026 09:57:36 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9745.027; Mon, 30 Mar 2026
- 09:57:36 +0000
+ id 1w79eu-00ElqN-CG
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 12:15:48 +0200
+Received: from [10.42.69.3] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <bounce-md_30504962.69ca4d52.v1-6de7ea1bf3054b2aaf7438b3b3807385@bounce.vates.tech>)
+ id 69ca4d4a-2eae-0a2a0a5409dd-0a2a4503eb60-34
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 12:15:48 +0200
+Received: from [198.2.179.37] (helo=mail179-37.suw41.mandrillapp.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from
+ <bounce-md_30504962.69ca4d52.v1-6de7ea1bf3054b2aaf7438b3b3807385@bounce.vates.tech>)
+ id 69ca4d53-1947-0a2a45030019-c602b325afdb-3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 12:15:48 +0200
+Received: from pmta12.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail179-37.suw41.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fknFZ6120zG0CBJN
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 10:15:46 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 6de7ea1bf3054b2aaf7438b3b3807385; Mon, 30 Mar 2026 10:15:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,191 +56,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yvEtOwVBUlZu7A119Soj8xvd7Mf5lEy85A/vYife9dN96oZcmMk2R+pygR1B4HbQRi8NEdVd6GYlDZQGCKffKDbGFWhg1A4zP/cWMAz2AXz5xCbfJzjIjtBOVtiXOWFMXmC80ErA+4vrhWGh9doz+RcFhv88PfkVEYhLNtt5oviMIInnvd54cX2G5/0e2gDyfKzJWPY5sOJZHNKZX0AMPw+9ogjrlhtCJONBmkr42BGw/hnzKQh7XBBj5+FquhiijYdldP6+rUwVVFZAeJuLgJbgg2fgOoHW0WN/ZMoOnnaqUOdeuGfMB4/1deRr6qcxYv7mJxVo3yCcNqGXu1PNdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d/spZ7bUzzZXh1IwnaF8NBSOaFQlR5NAV/f+qjpJJuU=;
- b=J8hqWXHerI1qVUHMqO1h07TVlIInPxA7lXXcNCgrrboQFrgi9fyyRMfr7e5N5X3+4rOk7mNPbgFP/MavVr7om4cfhxkbko9zKIjIemQqT1leDrdWIaIsda6XXnrWdjgR62BzB1nEQQUil2cB0lH0cQNzLXy0qp4PB4uMv4EF6LirsVVxPv0qolO+MF+z+YO8m5oFZCWCTm7fkA5pd4aeBHPnNaHLp3YkL1/Hehg81nGRlMf8tchPYSDfH0n9Hk/F5H5o5aftcaUN3w7JyOm6gGKT/LEifjVvDkq9nYHtufeGjkBTdfsMxhGpRr0HxoMhRC4r55h1E1dvXpuNG24SFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d/spZ7bUzzZXh1IwnaF8NBSOaFQlR5NAV/f+qjpJJuU=;
- b=Sil3mGmQA+QrVIGKIJ4gQPrCniQeKd99QFGGFYqZX4G8MTjWtnREMW1TjPKTYWQvyuZGGe7WnfN+W8o+fugvru2ABDoEOYUAoLRJmywMZuSRIEwwYl/Pi299l46ofuhz5edekYQo0V2neOuoyd/DSfjpyJr5/1p6BQ3aNNUdpsQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Mon, 30 Mar 2026 11:57:32 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2 2/3] xen/uart: be more careful with changes to the PCI
- command register
-Message-ID: <acpJDODr4hXTqDxz@macbook.local>
-References: <20260327135420.7246-1-roger.pau@citrix.com>
- <20260327135420.7246-3-roger.pau@citrix.com>
- <93a09dbb-0a8c-4eeb-b544-c9409b9f85ce@suse.com>
- <aco8-8hc5xJCZeal@macbook.local>
- <ad18bddf-9cc5-469c-8b8e-d5cf39840660@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ad18bddf-9cc5-469c-8b8e-d5cf39840660@suse.com>
-X-ClientProxiedBy: MR1P264CA0051.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:3e::26) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mte1 header.d=mandrillapp.com header.i="@mandrillapp.com" header.h="From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"; dkim=pass header.s=mte1 header.d=vates.tech header.i="teddy.astie@vates.tech" header.h="From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1774865746; x=1775135746;
+	bh=4ftzqy59DoR80wgnd7UbR3KsoDNOo82PR4o/Q/pNvFk=;
+	h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=zAunaEDMh9/YaluxSVYm/LbBfNkwZdAWDDxMInhP8qlK4tgUKH72JncQLkeTFNjfx
+	 r8eZlKsgbPb5yN1Trg6xGvUlF99OdiV660Mmcy8RQTfyWeAKHWnAQoai5mHeNlwpzZ
+	 m6i7TJ1pRJLpzjR12c4DJx2IueaQJlXZ0yWdBY9c7BvZQ5jdJ5ib7iv8zPMNil5trx
+	 W/5LmDl2Vc/teqwzR6B/IM8XDKLsq8ZJZOPTXIKtrDT3nGvaPCG4i68yEth9MpEA/G
+	 VgDUVSf9MqvDFej0rMvWlNYKaIOoc/qoZSLw4rRUnj/s84VkWOkeqjCI+IA/CRAAI+
+	 l21DhC9yAGDbg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1774865746; x=1775126246; i=teddy.astie@vates.tech;
+	bh=4ftzqy59DoR80wgnd7UbR3KsoDNOo82PR4o/Q/pNvFk=;
+	h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=jI2M4JuXtzdviGXc3SgG/8H7DsUure+J+CuF316hFxaEkomdKq8pGWY8jUWUHVCcV
+	 VCd5SeraVdhFe7faKY/x9N08aTGYmh3K6AtsnMWHd8vl0ideBc0QKMw4WnuCzs4d5G
+	 dkjm6VLQbnSyRjvUf51vGcpOGjS9ba+XfHPXAvosZFsOTdsZDDMc3srKC2/TZC81YW
+	 K7ApGsDXWAhzBix7m6vgq9PwTXF26TmdNZCAp/TnykoYKZWSD5WkBswZwxLx708f8R
+	 ZK5g46Mxl1XyffPjlR7JN4khsn407MdW8hO3ZzGHHNvapmTEQxMpwWdiVfnTFJgtV0
+	 MebEzFjIV9qdQ==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20Why=20memory=20lending=20is=20needed=20for=20GPU=20acceleration?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1774865745207
+Message-Id: <ce114f02-f45e-4638-84ee-a8fd86ce1c5d@vates.tech>
+To: "Demi Marie Obenour" <demiobenour@gmail.com>, "Xen developer discussion" <xen-devel@lists.xenproject.org>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, "Jan Beulich" <jbeulich@suse.com>, "Val Packett" <val@invisiblethingslab.com>, "Ariadne Conill" <ariadne@ariadne.space>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Juergen Gross" <jgross@suse.com>
+References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com> <c38387fe-beef-4f50-b928-74f96b881b7a@gmail.com>
+In-Reply-To: <c38387fe-beef-4f50-b928-74f96b881b7a@gmail.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.6de7ea1bf3054b2aaf7438b3b3807385?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260330:md
+Date: Mon, 30 Mar 2026 10:15:46 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SJ0PR03MB5760:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36ad50f9-c2fa-4190-5543-08de8e42c52b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ZM6HKsDoF+FuvBEGajT5oB+bB86ri6+KtjAHTg7bOj8tugVSl8g22Kp05CSxJ9ko8wxXm5EbkAUlfqwMFOa8+WYQiwR03vQUYvOkpeJIAdAvse7WD5XS4nqfDB76ZqKGYLrojcDPsadCdzyUN+rmiAlktIQ7jUESFMCnPBYgyNyKv0sVV1Srwznf2ZcRpd2/w94IIf8SPspT9QO9fGWFlNas2HMO80aYpEY2apa0oipBZ25R0QBCW9g9kmZsuQPMYHNzJLNueurrY24bJ9Ra7bi79HYzhtDZApzbHc6JKWmo9vECbh9ZdjS11r1Nzd0OpGJtve6uL9RJ8VD5N+1Aujtz352cDXjwBavIW5roEVsBBQnUDfkxrAVbEW0DX3Kha+RwD9+ZgKV+Bj524G3ApbL5i4iKfIT8eBWXoJb2tzlcc09cuUXRT+8tjao05DB3uJ2/gRcDUh9g/A39ayoR57n56SLvZricoalzXkoK+7sEKQOWw8l3EHq93dvgd+ukUWjGscyczMpGrTLwRISBkmjTL5oXx8Qnua7ykvkV5aWk8Q3CDu0CBAkpYI4178jazDN2j+Bv81ZT8gj8obLpHlN2yp8H6bnh5R8F1/jNoIUHyYPAEiTNq2nEqR+QD7R/2Ezu1EKCC1rIJEK/K3tN8Vg41Nwlsm+4rlQys3ltWu0K532MiTHwfD1XGjcxehcBDWDFy6m9wdGq7vjYAO1tzE7q27Uy+uHivG1EnaXjwZo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VEtoV25FVWNXbFFBZXNrUGZBWEEzeVhpd29HSnlLS1FBSlhqcG40ZDhqdGVm?=
- =?utf-8?B?aXBybE5KR0RaYXg4YWQvaEFGTWJWN2hHSDAzbjlHV1VMWm9KQzc0Qk5tY3pM?=
- =?utf-8?B?L0c1cEFSNDVtcFBWMzlsRm1UeURCZ1RDSWVVdVZKYURPUVZmRnFwblRKbnlK?=
- =?utf-8?B?VlY1VnFNWXNzWjJ5TnAvL1ZIdnZZNEpZNWJMcDBDSTRrU1E2VElwUDVGSFRr?=
- =?utf-8?B?ZmEyQzQzQ24rMFBiMUFQOXZHS1VFR282QUtQZzhjRlRoLzdPN0ZTZjRpYzZn?=
- =?utf-8?B?aXRpRVR3eDYyeFl2ZCtlSFZqRVFCN2h6ZHh2czRNRnVEOTdUTlRjd0FwdVdK?=
- =?utf-8?B?ajc4NlJqT0ZmMitqZ1BtRkZGY3FCTldqcmhzV3B5aUl1bEFIc29udTFBNVhr?=
- =?utf-8?B?QXFEZm5NcG5GRG1YbkRISG1WdGRGOU9ld3BQWERwcjVTRnF4Sk5sdDJKVWo4?=
- =?utf-8?B?d3YydWFkY1dVdG9Lb1NZOXE4aE84RjRtYlB4MS9ncW55aWlyV3M3blcvTGF2?=
- =?utf-8?B?WEV2VE0vdEEwejZTbHRDMk9pRzVVZFhLQUJvU3FOa0N6ZmJHNlZMQzV4eEVY?=
- =?utf-8?B?UFhpR2R0YldQV0pUN08wVUlvQW9DOWU2TWFkMmgrZ2JNYWxnYkdnNE1RNHdX?=
- =?utf-8?B?QW02VjlMeXF3a3JBcFVmZjY3VkhjK2l3bUtjUVh0aUY4a0RzcExXWUNUb1ZQ?=
- =?utf-8?B?YW8wZnJJaEhBNDYrNzdRbmovbExYeGlnSVJNVitlQTlqbzRCYmFXVTFUa0pJ?=
- =?utf-8?B?d3g3UjlQTWtzNlF3UEhpZmpDMTg3QVlkV0k5aEtycHFCL1Awb3dYdC9IU1Fs?=
- =?utf-8?B?WUI0MjJIMGNDdThxSUI0NTFJS2NweFQwVktkMzJPRkM3amhEZFdnZFRWNUox?=
- =?utf-8?B?eGxXdVZTYW1DWmtVVVBJWk1pZm4vejVGRFNvWXNlYjhEZUlWMjZ5NFJGa3l3?=
- =?utf-8?B?eXZqZmVlR2J4em5JS1lJZHNHS0lTalZTRUNDbXhEREJ1aS9DdkEzeE1YMndz?=
- =?utf-8?B?NUJ6TEx6QkRaWVRlV0ZhRHh3S016eFZjeWNlM2tIQkV2TEJHU1B1K29mSUd6?=
- =?utf-8?B?d09hUVBvN2JBbzU1V1dOZklPSWgzOEk0eGRVWis2Qk1RakhpMWVZM1lmMUxj?=
- =?utf-8?B?M3ZkZ1RaRDBVR3JYbHFzNmpHOVJEQWJVTXM5V1NzY3ZUVFpZK1QzR3lmMkZG?=
- =?utf-8?B?dHdqTHBhUkQ2QUJjaWdGM0JxTVJBUUw3NnlUOHhFZmhISXlhdm1kSGg0THZv?=
- =?utf-8?B?T2F2L2hqZTgrT1lGSWcwYkdlTyt6N05YMm1YaGdHSVdmL3FOUlVFd0RHRkhr?=
- =?utf-8?B?c0RBWUo0a0NoVWFHUmthZFFraDZuUjFYbGNSK0wvWlBBRW8yUDJGQ1c4Tmwz?=
- =?utf-8?B?UEdsZXpsN0h1YkxPc0pEWUpjZzA2UGdoYnNkRENoR1BUOXZDenJ2WUJpVzdy?=
- =?utf-8?B?Kzljb0Y5RmRXT212OGE0SGhOVHg1UG1WN0h1MXJTT2xORmtoUGtRdUVsU2FT?=
- =?utf-8?B?YURYS3R0enJyWUVqWlhKb2lON2dpVUJycldkY2JNcTk4dUhMZXRjQTFrVUg3?=
- =?utf-8?B?dGZXNzQ1Z29NU2s1Q29MaGhNMW0wOVhrY1k1b2xydUJXWXg3bStMY2ZVOHlE?=
- =?utf-8?B?Q1VUU081Y0tjM2R1YjkrQzl1SlNpYnM1TmlXUTdXOG1iRlBRZmVaTFA0Q2M3?=
- =?utf-8?B?MGZhTWw2eFY0WVpJZ3cybTk4cUk0MmM3YkhFVzNDK3BJNzBmMlRUa0JYRGtC?=
- =?utf-8?B?dUp4SGVyYVAwKzJFMncyQXZpTVRFaUp4U091VjZJZE5NSmVmeWVqUDBmWTZw?=
- =?utf-8?B?ZnRSKzYwQVhlajBQVFVXUWtnUURYVUc0SkpOMENLdUtZUTMyaWNnWE9KUnYz?=
- =?utf-8?B?YitBcm1PR0NUSmRGMUpOUGV3VWdNdUZKUFcxeWJmWlF3UEUzeVc0bnFrMDEw?=
- =?utf-8?B?R3E2V29rdmg5ejlsK25SeGl4Wk9QSHE3b1dXWW9PS2d6SWJ1TWZxaEc5cUFS?=
- =?utf-8?B?bVNCN1Bxd3lTTS9SZjFyT1pOMGhnR0RyRHlMUjVxWlBxclh6d2U3TVkrblhM?=
- =?utf-8?B?QWZQakZpWXFBVlFKcVZEY0V6NmVQTVQvSWUzaTUvdER6cGlRVTQ3NnhQaUFa?=
- =?utf-8?B?Q2V5R0lwWkpoaEdWdTVHVTdPR3Q3YW0xK0hjeXhDb1cyTFBTQnRJbnczQksx?=
- =?utf-8?B?Q0xoRDEzdmNIT0FRcU5PdUN5RFc4S284cndtdDRpcy8zSXhVb043WEVMSXpW?=
- =?utf-8?B?dmhGSzVTV0dOWTJzeHFFNW51TkJjZ0tnOGpWbWliYVI5a25sQmpFR3RHVkw5?=
- =?utf-8?B?SDlKRk8wdVV2Y1FzMkhSMEFkNThHR0lRRmtzQitqb0Vkcm9pRHhiUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36ad50f9-c2fa-4190-5543-08de8e42c52b
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2026 09:57:36.2720
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uDsOHn8XwYY915HP3G5rMOShITxgo8EcwvxRhB5I8DMYKZc2W26KUQqjptAZkde+SbOoxI3C49LZu/0L811aoQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5760
-X-purgate-ID: tlsNG-4011c0/1774864660-BFC9C900-41A61AA8/0/0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-33051d/1774865748-E9A9B72C-06826D80/0/0
 X-purgate-type: clean
-X-purgate-size: 2142
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-purgate-size: 5267
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,citrix.com:dkim,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,macbook.local:mid];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	FORGED_RECIPIENTS(0.00)[m:demiobenour@gmail.com,m:xen-devel@lists.xenproject.org,m:dri-devel@lists.freedesktop.org,m:linux-mm@kvack.org,m:jbeulich@suse.com,m:val@invisiblethingslab.com,m:ariadne@ariadne.space,m:andrew.cooper3@citrix.com,m:jgross@suse.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org,lists.freedesktop.org,kvack.org,suse.com,invisiblethingslab.com,ariadne.space,citrix.com];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mandrillapp.com:dkim,vates.tech:dkim,vates.tech:mid,vates.tech:url];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	NEURAL_SPAM(0.00)[1.000];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 73AE3358B74
+X-Rspamd-Queue-Id: 2BED4358FFD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Mon, Mar 30, 2026 at 11:09:10AM +0200, Jan Beulich wrote:
-> On 30.03.2026 11:06, Roger Pau Monné wrote:
-> > On Mon, Mar 30, 2026 at 10:00:05AM +0200, Jan Beulich wrote:
-> >> On 27.03.2026 14:54, Roger Pau Monne wrote:
-> >>> Read the existing PCI command register and only add the required bits to
-> >>> it, as to avoid clearing bits that might be possibly set by the firmware
-> >>> already, which might put the device into a non-working state.
-> >>>
-> >>> Fixes: f2ff5d6628b3 ("ns16550: enable PCI serial card usage")
-> >>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> >>
-> >> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> >>
-> >> I would have preferred if the description mentioned the particular case,
-> >> turning this more into a workaround than an apparent bugfix. 
-> > 
-> > It turns out that the console does seem to work fine, even with memory
-> > decoding disabled on the device (as expected).  I've updated the
-> > firmware in the meantime, so I'm unsure whether that update has
-> > changed the behavior of the device, or it simply was some other
-> > instability that was causing the issue in the past.  This SOL AMT
-> > device is not reliable at all I'm afraid.
-> > 
-> >> As mentioned,
-> >> us driving the device generally means we're free to do whatever we want to
-> >> the command register, as long as resulting device state is consistent
-> >> overall (or else we may indeed have a non-working device). Having to keep
-> >> memory decoding enabled in order for I/O ports to function is pretty
-> >> clearly a bug in the device, and hence us "violating" that requirement
-> >> isn't really o bug of ours.
-> > 
-> > I think given the fragility of some of those SOL devices it's best to
-> > limit the number of bits Xen changes, as to having a bigger chances of
-> > getting output working.
+Le 29/03/2026 =C3=A0 19:32, Demi Marie Obenour a =C3=A9crit=C2=A0:
+> On 3/24/26 10:17, Demi Marie Obenour wrote:
+>> Here is a proposed design document for supporting mapping GPU VRAM
+>> and/or file-backed memory into other domains.  It's not in the form of
+>> a patch because the leading + characters would just make it harder to
+>> read for no particular gain, and because this is still RFC right now.
+>> Once it is ready to merge, I'll send a proper patch.  Nevertheless,
+>> you can consider this to be
+>>
+>> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
+>>
+>> This approach is very different from the "frontend-allocates"
+>> approach used elsewhere in Xen.  It is very much Linux-centric,
+>> rather than Xen-centric.  In fact, MMU notifiers were invented for
+>> KVM, and this approach is exactly the same as the one KVM implements.
+>> However, to the best of my understanding, the design described here is
+>> the only viable one.  Linux MM and GPU drivers require it, and changes
+>> to either to relax this requirement will not be accepted upstream.
 > 
-> That's okay(ish); I merely would wish the patch description was less
-> suggesting that Xen was actually buggy.
+> Teddy Astie (CCd) proposed a couple of alternatives on Matrix:
+> 
+> 1. Create dma-bufs for guest pages and import them into the host.
+> 
+>     This is a win not only for Xen, but also for KVM.  Right now, shared
+>     (CPU) memory buffers must be copied from the guest to the host,
+>     which is pointless.  So fixing that is a good thing!  That said,
+>     I'm still concerned about triggering GPU driver code-paths that
+>     are not tested on bare metal.
+>     
+> 2. Use PASID and 2-stage translation so that the GPU can operate in
+>     guest physical memory.
+>     
+>     This is also a win.  AMD XDNA absolutely requires PASID support,
+>     and apparently AMD GPUs can also use PASID.  So being able to use
+>     PASID is certainly helpful.
+> 
+> However, I don't think either approach is sufficient for two reasons.
+> 
+> First, discrete GPUs have dedicated VRAM, which Xen knows nothing about.
+> Only dom0's GPU drivers can manage VRAM, and they will insist on being
+> able to migrate it between the CPU and the GPU.  Furthermore, VRAM
+> can only be allocated using GPU driver ioctls, which will allocate
+> it from dom0-owned memory.
+> 
+> Second, Certain Wayland protocols, such as screencapture, require program=
+s
+> to be able to import dmabufs.  Both of the above solutions would
+> require that the pages be pinned.  I don't think this is an option,
+> as IIUC pin_user_pages() fails on mappings of these dmabufs.  It's why
+> direct I/O to dmabufs doesn't work.
+> 
 
-What about if I change the title to:
+I suppose it fails because of the RAM/VRAM constraint you said 
+previously. If the location of the memory stays the same (i.e guest 
+memory mapping), pin should be almost "no-op".
 
-xen/uart: avoid clearing PCI command register bits set by the firmware
+(though, having dma-buf buffers coming from GPU drivers failing to pin 
+is probably not a good thing in term of stability; some stuff like 
+cameras probably break as a result; but I'm not a expert on that subject)
 
-I think that's clearer and less blameful?
+> To the best of my knowledge, these problems mean that lending memory
+> is the only way to get robust GPU acceleration for both graphics and
+> compute workloads under Xen.  Simpler approaches might work for pure
+> compute workloads, for iGPUs, or for drivers that have Xen-specific
+> changes.  None of them, however, support graphics workloads on dGPUs
+> while using the GPU driver the same way bare metal workloads do.
+> 
+> Linux's graphics stack is massive, and trying to adapt it to work with
+> Xen isn't going to be sustainable in the long term.  Adapting Xen to
+> fit the graphics stack is probably more work up front, but it has the
+> advantage of working with all GPU drivers, including ones that have not
+> been written yet.  It also means that the testing done on bare metal is
+> still applicable, and that bugs found when using this driver can either
+> be reproduced on bare metal or can be fixed without driver changes.
 
-Thanks, Roger.
+One of my main concerns was about whether dma-buf can be used as 
+"general purpose" GPU buffers; what I read in driver code suggest it 
+should be fine, but it's a bit on the edge.
+
+> 
+> Finally, I'm not actually attached to memory lending at all.  It's a
+> lot of complexity, and it's not at all similar to how the rest of
+> Xen works.  If someone else can come up with a better solution that
+> doesn't require GPU driver changes, I'd be all for it.  Unfortunately,
+> I suspect none exists.  One can make almost anything work if one is
+> willing to patch the drivers, but I am virtually certain that this
+> will not be long-term sustainable.
+> 
+
+There's also the virtio-gpu side to consider. Blob mechanism appears to 
+insist that GPU memory to come from the host by allowing buffers that 
+aren't bound to virtio-gpu BAR yet (that also complexifies the KVM 
+situation).
+
+You can have GPU memory that exists in virtio-gpu, without being 
+guest-visible, then the guest can map it on its own BAR.
+
+> If Xen had its own GPU drivers, the situation would be totally
+> different.  However, Xen must rely on Linux's GPU drivers, and that
+> means it must play by their rules.
+
+
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
