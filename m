@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qBw8LJEtymkA6AUAu9opvQ
+	id mA3eOvAtymkA6AUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 10:00:17 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 10:01:52 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32B36356CEA
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 10:00:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1267298.1556824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C8BA356D10
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 10:01:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1267309.1556833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w77Xd-0002Qn-T9; Mon, 30 Mar 2026 08:00:09 +0000
+	id 1w77Yy-00037f-5u; Mon, 30 Mar 2026 08:01:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1267298.1556824; Mon, 30 Mar 2026 08:00:09 +0000
+Received: by outflank-mailman (output) from mailman id 1267309.1556833; Mon, 30 Mar 2026 08:01:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w77Xd-0002P2-Pc; Mon, 30 Mar 2026 08:00:09 +0000
-Received: by outflank-mailman (input) for mailman id 1267298;
- Mon, 30 Mar 2026 08:00:08 +0000
+	id 1w77Yy-00035F-36; Mon, 30 Mar 2026 08:01:32 +0000
+Received: by outflank-mailman (input) for mailman id 1267309;
+ Mon, 30 Mar 2026 08:01:30 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w77Xc-0002J5-LF
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 08:00:08 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w77Yw-00034n-2Z
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 08:01:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w77Xc-00BkGu-0S
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 10:00:08 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1w77Yv-00EBZI-DD
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 10:01:29 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69ca2d87-5cb7-0a2a0a5109dd-0a2a4509ce10-6
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 10:00:07 +0200
-Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69ca2dd6-e002-0a2a0a5209dd-0a2a450cb86e-6
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 10:01:29 +0200
+Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69ca2d85-e484-0a2a45090019-d155802cf059-3
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 10:00:05 +0200
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4873ce69ba9so6057895e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 01:00:05 -0700 (PDT)
+ id 69ca2dd9-f93d-0a2a450c0019-d155802fa4be-3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 10:01:29 +0200
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-48538c5956bso40798715e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 01:01:29 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4873062ec9bsm161486845e9.7.2026.03.30.01.00.04
+ 5b1f17b1804b1-4873061ef41sm167216895e9.3.2026.03.30.01.01.27
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Mar 2026 01:00:04 -0700 (PDT)
+ Mon, 30 Mar 2026 01:01:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,56 +58,55 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774857605; x=1775462405; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774857689; x=1775462489; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iUAoe2m34DxJl0uWWmPyamVUQZ4sX3dBrUARbb2few8=;
-        b=LE/3cTWRLNFttiNS4xwfR23MVmflAankgD/Myas34TLa2JyNMxTj/nmmmVUVgZS0R5
-         WdxUTmO24uoaGgKqilkWjJjlH/zzJAzwBCKBeOg3s3+0roH1epIK6BnpY+G64r73+fOk
-         Ag189XgZilEKy1oQ7jfNIBxKC4Jz+8sO551eyFaeAsocSPVv4Opm/wo+El1THKRR3zHL
-         448o2EvGlRg12o/LOnv+/hHBF1Q0NZnBxURyBqQ6t/LcWPRJttuQ53ZszHuwtligz7SB
-         Seie2jcHPYu18f3sXYYjog9rRjQFflCZ+l7ogriqlX06SaysODLEHNUBnpf8Inhwe7Wf
-         zxOA==
+        bh=oZeMVZq3dQAUfClGA/R2uQq6s60jStnII12uavj4k9I=;
+        b=ajCsNEuf6b9fUqCq+7iqY7OkXaTwuyYazjn8S59zcN1RlLqaU5HcPV0+7XOIRWm/o9
+         vmkQxY93O9jtCaGXFm5lGnIpbydq8JcMhXDSe6f7nm3jnyoqS2CZ8odfDtPtYqbu/olu
+         uwK9OCjEKC+FDT/NDezTfHSDRIMn6eLDjJezzGi6RZQWoQ1vVR+wNiTvih5ZvhliboYh
+         xDd9PLcmYAR9SIlcFzM8Mx0WR4wStFdXly1ArZE9u8IZjW7/6CKGDtwHgUa1HAmA1r9P
+         cF8JRHuxk1zwULQcOFn+MKXvlzOPbcdMtTQWbjxWiJLz0MKtfogrYM4FzZfCPGEg+hfW
+         PcWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774857605; x=1775462405;
+        d=1e100.net; s=20251104; t=1774857689; x=1775462489;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iUAoe2m34DxJl0uWWmPyamVUQZ4sX3dBrUARbb2few8=;
-        b=eLc5DxK1VqAMogvSAzqkeMJzbhlAXxy4EAzBs6WeNOU2B27K3h0EifK+tq8bjdgbyl
-         F7wmoL4bgVASQHURmFds2hvn/bKtiRtzH1DwwV4wumidRQpc0IM+qefN5Kvo2szr2YFs
-         q9pHtTju1WGNnP/fCzTH25YBDmhjgSiPEhZ4nyu9vO68FJpfFPC4yYdRfqADFfjhMZiE
-         Zsy9nqYt+QNLtIMH0Gw6choJ83yip7ijfe0JL0r7Z/JU0LdPe+ynvoRbm+GOuSxXYJH7
-         EnSS2p1vuYf0nzJCLpk/vL9j80YN1vP9Y6iGMjAB+eH3/jnT69F+hVb5Rs7/IO1hYz3P
-         zqQA==
-X-Forwarded-Encrypted: i=1; AJvYcCW5lNSGCxqRaFXoIdpvx/rtSVPjHfRggD2AWEsif49fkj4HykRu5AZ/FHVYGyICZvx5T32uufvf43g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzTl/pERH6X/WsKAgfi/Mzbau0JUY0zGRr3dq10PrnuzejCV6+u
-	udFo54KVsgFAk7KXZI7MqJzXcY4zNEB2xiuMcBLL3hgrrNSBW/xF22DIboUjjtMl7Q==
-X-Gm-Gg: ATEYQzxorNv0FNiY8sZI7NvxleztJupcgMsbZNcJ9pSwsWEZEw1DqizlIJZbyDPJO6Q
-	wYdRL5CNjdRnugbXw4vsi9aDO/LdSVVv85CQUVG4sPvDVejRIDEHWwF2DW6s+nCULmuH9UloNgD
-	xmAo3GH/v1fZ1fnQl+wsQ23Dj1THyISaoX8nx+DGaL+fFoUjrC99ITqQ5SS8D5yqgmPGQPjrDNM
-	1sDZMTUTmb/e2Nhv/IxI+zH3TXEAdOCL1fhlXMDWfrBoM+E7K8PfxDkb4AKr95Zr/7QBz5r3IqG
-	7DsQN6q9yFTV4QIPCS5XTW2YFtIpTz0vgQWDfikBmCEvG2iA3v4sCNyOG0NoCrtDsjoPOG5eXxq
-	aaYZZ4Pok6KjLR7wNwCbO4Gwe+JGOcS2wPsmAnvv+cGlgRxHnCGLBs2eUdWONehp6B72z12ZVzP
-	jrmOM7s6QxBrmYGXUlX07JTjBkNqYsjOXGerCX59LgUzEEuMhIBy6es2LljBFAD0ea+6W0dz9NR
-	7pZRQxqRjn1EC4=
-X-Received: by 2002:a05:600c:638d:b0:477:76bf:e1fb with SMTP id 5b1f17b1804b1-48727efadcamr188554685e9.16.1774857604723;
-        Mon, 30 Mar 2026 01:00:04 -0700 (PDT)
-Message-ID: <93a09dbb-0a8c-4eeb-b544-c9409b9f85ce@suse.com>
-Date: Mon, 30 Mar 2026 10:00:05 +0200
+        bh=oZeMVZq3dQAUfClGA/R2uQq6s60jStnII12uavj4k9I=;
+        b=NzzYdY2B9hi/fWImwe8pPuroTImQvYe3JPOfIImvbZHlRirEmqCOKQpWAjj/ndYjDe
+         fZmcg00d/pu3KS0mQE3GWeta2mY0m6Za7JOY77ZxiDreyQB5qxe579JV0jORLLklPyOk
+         nJ0mUsWaimUoM4Fhk5iUexPIq6HsaJOCRca5yupFBJ6YBlynKnAaMkaskKPhSvNZzoq2
+         SCoqEHHL5I6Uz0OBE32LFx4aDxn4ZmvpZG3iEULvA0Z5HqwDOc7uTaThZuDP3RnIaQ/v
+         tDQtC7omPpDt0ZDAMGud5HOMGGhd18tgxwWZmbkQ7oTBfPbl/EKjfQ6isK7bX6/ggk2b
+         6KdA==
+X-Forwarded-Encrypted: i=1; AJvYcCWLPHrMxGDSV7oAPq6JtWrFns6TIdyW7gt43UnLmd1+iWWk0cVe5Lw1Oe6n7iGHSSwRQIutCsCxXFQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxPYM1lQMCQ9Jk2ceuXwIxuUkUx9iCPZhW+WDLTzLLpABwLC9cg
+	YvW5fzPG+pKNfUCaUDYEnSwJq0M8jNBb3oiZw+UCGJO1uJygwRKElt9/90nvM1SA9A==
+X-Gm-Gg: ATEYQzww12qk+1rzayQAQAcU5i41C62w4YVzSHdfBG40AtcgblczO5wD3e23fRV9DB/
+	8p+yF5HCaCYXncGLuisv4QJ32rFckgmF1+KqcxH1KmCOGpi+/EXE8L6Hs6ra1zmi335XsnAJbDN
+	dXKfgwqoXNbR1hc4rTCLnz6w+HVvBY83JyfZU3Nup/PfN3Skc/t4hCrp7w5qATAHLEqO8vjS7fQ
+	iyc4avPA/3LDefev9CrqW9MrgGBQe89yEEiNhzzs8Y+290MPzGeU8e2eOS/hL3QxJ9YHcOhkLIr
+	qRaV5vpqluv1co8dJyb5dPJ7NXPP5Z8oVO+Dpb5FUfK8tETy6XiY0FWXn22tCCoYwl2F0J23eWn
+	AYzoEPoDVBNNEJZWnT4D8fQLSQVtvQCZBpvU0PwQXkwp0fKfBigpw28qncg/XMWFTxS+CR2l4n5
+	XiMzlE3RnYFjoMcKplVk8TqhDt3AE1q1igG0Rmj5F0pfpnM26Ppk4TW6HuNL/fatSY/dGYc8ynE
+	iF/SncOiFJQPVA=
+X-Received: by 2002:a05:600c:4e0b:b0:485:fbd2:f72 with SMTP id 5b1f17b1804b1-487290a9254mr168328545e9.1.1774857688478;
+        Mon, 30 Mar 2026 01:01:28 -0700 (PDT)
+Message-ID: <45bd794d-62bb-4680-8f7f-4dc98ccb4c4e@suse.com>
+Date: Mon, 30 Mar 2026 10:01:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] xen/uart: be more careful with changes to the PCI
- command register
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260327135420.7246-1-roger.pau@citrix.com>
- <20260327135420.7246-3-roger.pau@citrix.com>
+Subject: Re: [PATCH] CHANGELOG: add xenstore quota support
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Community Manager <community.manager@xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <20260327152103.438997-1-jgross@suse.com>
+ <49a3c6fe-db8a-4814-8638-6242dfee495d@citrix.com>
+ <f172ffac-777d-4280-9538-a4d0e20ffc06@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,65 +132,79 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260327135420.7246-3-roger.pau@citrix.com>
+In-Reply-To: <f172ffac-777d-4280-9538-a4d0e20ffc06@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-bad1c0/1774857605-62AACA73-7FE428C1/0/0
+X-purgate-ID: tlsNG-d25034/1774857689-F7EA3734-459CFF9A/0/0
 X-purgate-type: clean
-X-purgate-size: 989
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-purgate-size: 977
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:oleksii.kurochko@gmail.com,m:community.manager@xenproject.org,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,xenproject.org,citrix.com,lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[keepachangelog.com:url,suse.com:dkim,suse.com:email,suse.com:mid,citrix.com:email,changelog.md:url];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	DKIM_TRACE(0.00)[suse.com:+];
+	NEURAL_HAM(-0.00)[-0.841];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 32B36356CEA
+X-Rspamd-Queue-Id: 5C8BA356D10
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 27.03.2026 14:54, Roger Pau Monne wrote:
-> Read the existing PCI command register and only add the required bits to
-> it, as to avoid clearing bits that might be possibly set by the firmware
-> already, which might put the device into a non-working state.
+On 30.03.2026 09:59, Jürgen Groß wrote:
+> On 27.03.26 18:39, Andrew Cooper wrote:
+>> On 27/03/2026 3:21 pm, Juergen Gross wrote:
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>
+>> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>
+>>> ---
+>>>   CHANGELOG.md | 2 ++
+>>>   1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/CHANGELOG.md b/CHANGELOG.md
+>>> index c191e504ab..566fe510c5 100644
+>>> --- a/CHANGELOG.md
+>>> +++ b/CHANGELOG.md
+>>> @@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+>>>   ### Changed
+>>>   
+>>>   ### Added
+>>> + - Support of per-domain Xenstore quota in C xenstored (includes
+>>> +   xenstore-stubdom), libxl and xl.
+>>
+>> A minor point, but "Support for", mainly for consistency with the rest
+>> of the section.
 > 
-> Fixes: f2ff5d6628b3 ("ns16550: enable PCI serial card usage")
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Fine with me.
+> 
+> Can this be changed while committing, or do you want me to send V2?
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-I would have preferred if the description mentioned the particular case,
-turning this more into a workaround than an apparent bugfix. As mentioned,
-us driving the device generally means we're free to do whatever we want to
-the command register, as long as resulting device state is consistent
-overall (or else we may indeed have a non-working device). Having to keep
-memory decoding enabled in order for I/O ports to function is pretty
-clearly a bug in the device, and hence us "violating" that requirement
-isn't really o bug of ours.
+I'm fine making the adjustment while committing.
 
 Jan
 
