@@ -2,56 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AA2nCpGlymmx+gUAu9opvQ
+	id CBUGGWu1ymmE/QUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 18:32:17 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 19:39:55 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF96235ED5E
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 18:32:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1268038.1557392 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00B1535F5F5
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 19:39:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1268069.1557464 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7FWw-000740-Kr; Mon, 30 Mar 2026 16:31:58 +0000
+	id 1w7GZl-0006f3-RO; Mon, 30 Mar 2026 17:38:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1268038.1557392; Mon, 30 Mar 2026 16:31:58 +0000
+Received: by outflank-mailman (output) from mailman id 1268069.1557464; Mon, 30 Mar 2026 17:38:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7FWw-000721-HS; Mon, 30 Mar 2026 16:31:58 +0000
-Received: by outflank-mailman (input) for mailman id 1268038;
- Mon, 30 Mar 2026 16:31:57 +0000
+	id 1w7GZl-0006cx-OM; Mon, 30 Mar 2026 17:38:57 +0000
+Received: by outflank-mailman (input) for mailman id 1268069;
+ Mon, 30 Mar 2026 17:38:55 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jgross@suse.com>) id 1w7FWv-00071t-EM
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 16:31:57 +0000
+ (envelope-from <dakr@kernel.org>) id 1w7GZj-0006cr-Tx
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 17:38:55 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7FWu-004nCd-QW
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 18:31:56 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1w7GZj-00HT9e-5l
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 19:38:55 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jgross@suse.com>)
- id 69caa56f-bab6-0a2a0a5309dd-0a2a450388b4-28
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 18:31:56 +0200
-Received: from [195.135.223.130] (helo=smtp-out1.suse.de)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <jgross@suse.com>)
- id 69caa57c-1947-0a2a45030019-c387df82a4f2-3
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 18:31:56 +0200
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4DB994D522;
- Mon, 30 Mar 2026 16:31:56 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 211514A0A2;
- Mon, 30 Mar 2026 16:31:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id QcD9Bnylymm0WwAAD6G6ig
- (envelope-from <jgross@suse.com>); Mon, 30 Mar 2026 16:31:56 +0000
+ (envelope-from <dakr@kernel.org>)
+ id 69cab521-e002-0a2a0a5209dd-0a2a4507c428-18
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 19:38:54 +0200
+Received: from [172.234.252.31] (helo=sea.source.kernel.org)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <dakr@kernel.org>)
+ id 69cab52d-fd74-0a2a45070019-aceafc1fe2a4-3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 19:38:54 +0200
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9772E42A31;
+ Mon, 30 Mar 2026 17:38:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39967C2BCB5;
+ Mon, 30 Mar 2026 17:38:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,100 +53,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=susede1 header.d=suse.com header.i="@suse.com" header.h="From:Date:Message-ID:To:Cc:MIME-Version:Content-Transfer-Encoding"; dkim=pass header.s=susede1 header.d=suse.com header.i="@suse.com" header.h="From:Date:Message-ID:To:Cc:MIME-Version:Content-Transfer-Encoding"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1774888316; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=cCmmnfsjsR1FfBOfPVTo9rY5b6iLiQ5Z5igoSN4IYdM=;
-	b=a0ukubFl7Z3WCJVnh5jv+V2cuLge4x6EkE6WIHA9vjM8fBKItg6FEm4BGCkpA10/fK8K0C
-	vYBaBUz66kk8PAe5TMCP78N1iBVy48GZAnsSctZ2dI+Guv5SAkyzM9MvCH7NjsvN9ElqUp
-	EuW8uxwlR70WF+0AznRjPRhlajZ4jD8=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1774888316; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=cCmmnfsjsR1FfBOfPVTo9rY5b6iLiQ5Z5igoSN4IYdM=;
-	b=a0ukubFl7Z3WCJVnh5jv+V2cuLge4x6EkE6WIHA9vjM8fBKItg6FEm4BGCkpA10/fK8K0C
-	vYBaBUz66kk8PAe5TMCP78N1iBVy48GZAnsSctZ2dI+Guv5SAkyzM9MvCH7NjsvN9ElqUp
-	EuW8uxwlR70WF+0AznRjPRhlajZ4jD8=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH] tools/xenstored: remove unneeded check in create_node()
-Date: Mon, 30 Mar 2026 18:31:53 +0200
-Message-ID: <20260330163153.676464-1-jgross@suse.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spam-Flag: NO
-X-purgate-ID: tlsNG-33051d/1774888316-EB48872C-F3D4C910/0/0
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="Date:From:Subject:Cc:To:References:In-Reply-To"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774892332;
+	bh=/8RwifExta3hi9wb0UAvoCzja5DI/LlE9XUZDEKtDlU=;
+	h=Date:From:Subject:Cc:To:References:In-Reply-To:From;
+	b=S56YWHrxhwHLS+EfSzEoW6H9YreN8wrQZ/7HEDAWqAjDAvn6rNoi6jXsbwo3fyTXv
+	 TjHIGPt2qRPbkCCC5yCfSjAbtAw6BzXCZXCaq/yn658JrR6/xBRJ7/mYaDQNBA9Pmv
+	 wsEtOTKeR8oMh9VC6LyR87wz4W/9tT1+Zpl9oixkuOSdi9YZxoGPEs7WRJpEIUF6YP
+	 QT3eMcBSThXdTkmokN7Q16p5we5dG5K2/LjDkgP9NUYvkxjgwB7vubbfIKhxuyu2dj
+	 oq30Tych+FNSMtuze99IC0ZOa+AcROHbp3uZujJVXn+3TGN1ylZ7O8WH21Mk5oRMNX
+	 /gBaIKRkeOGJg==
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 30 Mar 2026 19:38:41 +0200
+Message-Id: <DHGATG6LJOM1.2AI7BYQ2O4DFU@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH 05/12] PCI: use generic driver_override infrastructure
+Cc: "Russell King" <linux@armlinux.org.uk>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ "Ioana Ciornei" <ioana.ciornei@nxp.com>, "Nipun Gupta"
+ <nipun.gupta@amd.com>, "Nikhil Agarwal" <nikhil.agarwal@amd.com>, "K. Y.
+ Srinivasan" <kys@microsoft.com>, "Haiyang Zhang" <haiyangz@microsoft.com>,
+ "Wei Liu" <wei.liu@kernel.org>, "Dexuan Cui" <decui@microsoft.com>, "Long
+ Li" <longli@microsoft.com>, "Bjorn Helgaas" <bhelgaas@google.com>, "Armin
+ Wolf" <W_Armin@gmx.de>, "Bjorn Andersson" <andersson@kernel.org>, "Mathieu
+ Poirier" <mathieu.poirier@linaro.org>, "Vineeth Vijayan"
+ <vneethv@linux.ibm.com>, "Peter Oberparleiter" <oberpar@linux.ibm.com>,
+ "Heiko Carstens" <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>,
+ "Alexander Gordeev" <agordeev@linux.ibm.com>, "Christian Borntraeger"
+ <borntraeger@linux.ibm.com>, "Sven Schnelle" <svens@linux.ibm.com>, "Harald
+ Freudenberger" <freude@linux.ibm.com>, "Holger Dengler"
+ <dengler@linux.ibm.com>, "Mark Brown" <broonie@kernel.org>, "Michael S.
+ Tsirkin" <mst@redhat.com>, "Jason Wang" <jasowang@redhat.com>, "Xuan Zhuo"
+ <xuanzhuo@linux.alibaba.com>, =?utf-8?q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>, "Juergen Gross" <jgross@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, "Oleksandr Tyshchenko"
+ <oleksandr_tyshchenko@epam.com>, "Christophe Leroy (CS GROUP)"
+ <chleroy@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+ <linux-hyperv@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <platform-driver-x86@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-remoteproc@vger.kernel.org>, <linux-s390@vger.kernel.org>,
+ <linux-spi@vger.kernel.org>, <virtualization@lists.linux.dev>,
+ <kvm@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
+ <linux-arm-kernel@lists.infradead.org>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Gui-Dong Han" <hanguidong02@gmail.com>
+To: "Alex Williamson" <alex@shazbot.org>, "Jason Gunthorpe" <jgg@ziepe.ca>
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+References: <20260324005919.2408620-1-dakr@kernel.org>
+ <20260324005919.2408620-6-dakr@kernel.org>
+In-Reply-To: <20260324005919.2408620-6-dakr@kernel.org>
+X-purgate-ID: tlsNG-ef75cf/1774892334-4EAAD303-DB0ACEB9/0/0
 X-purgate-type: clean
-X-purgate-size: 727
-X-Spamd-Result: default: False [0.31 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-purgate-size: 1452
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	MV_CASE(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[armlinux.org.uk,linuxfoundation.org,kernel.org,nxp.com,amd.com,microsoft.com,google.com,gmx.de,linaro.org,linux.ibm.com,redhat.com,linux.alibaba.com,suse.com,epam.com,vger.kernel.org,lists.linux.dev,lists.ozlabs.org,lists.xenproject.org,lists.infradead.org,gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:julien@xen.org,m:anthony.perard@vates.tech,s:lists@lfdr.de];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	RCPT_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:gregkh@linuxfoundation.org,m:rafael@kernel.org,m:ioana.ciornei@nxp.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:bhelgaas@google.com,m:W_Armin@gmx.de,m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:vneethv@linux.ibm.com,m:oberpar@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:agordeev@linux.ibm.com,m:borntraeger@linux.ibm.com,m:svens@linux.ibm.com,m:freude@linux.ibm.com,m:dengler@linux.ibm.com,m:broonie@kernel.org,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:eperezma@redhat.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:chleroy@kernel.org,m:linux-kernel@vger.kernel.org,m:driver-core@lists.linux.dev,m:linuxppc-dev@lists.ozlabs.org,m:linux-hyperv@vger.kernel.org,m:linux-pci@vger.kernel.org,m:platform-driver-x86@vger.kernel.org,m:linux-arm-msm@vger
+ .kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-s390@vger.kernel.org,m:linux-spi@vger.kernel.org,m:virtualization@lists.linux.dev,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-arm-kernel@lists.infradead.org,m:dakr@kernel.org,m:hanguidong02@gmail.com,m:alex@shazbot.org,m:jgg@ziepe.ca,s:lists@lfdr.de];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[dakr@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_GT_50(0.00)[51];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dakr@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: CF96235ED5E
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 00B1535F5F5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-create_node() is called only for issued xenstore commands. This means
-that the "conn" parameter is never NULL.
+(Cc: Jason)
 
-Remove checking whether "conn" is not NULL.
+On Tue Mar 24, 2026 at 1:59 AM CET, Danilo Krummrich wrote:
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci=
+_core.c
+> index d43745fe4c84..460852f79f29 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -1987,9 +1987,8 @@ static int vfio_pci_bus_notifier(struct notifier_bl=
+ock *nb,
+>  	    pdev->is_virtfn && physfn =3D=3D vdev->pdev) {
+>  		pci_info(vdev->pdev, "Captured SR-IOV VF %s driver_override\n",
+>  			 pci_name(pdev));
+> -		pdev->driver_override =3D kasprintf(GFP_KERNEL, "%s",
+> -						  vdev->vdev.ops->name);
+> -		WARN_ON(!pdev->driver_override);
+> +		WARN_ON(device_set_driver_override(&pdev->dev,
+> +						   vdev->vdev.ops->name));
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- tools/xenstored/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Technically, this is a change in behavior. If vdev->vdev.ops->name is NULL,=
+ it
+will trigger the WARN_ON(), whereas before it would have just written "(nul=
+l)"
+into driver_override.
 
-diff --git a/tools/xenstored/core.c b/tools/xenstored/core.c
-index 4786a2a82e..34cb266e8a 100644
---- a/tools/xenstored/core.c
-+++ b/tools/xenstored/core.c
-@@ -1524,7 +1524,7 @@ static struct node *create_node(struct connection *conn, const void *ctx,
- 	if (!node)
- 		return NULL;
- 
--	if (conn && conn->transaction)
-+	if (conn->transaction)
- 		ta_node_created(conn->transaction);
- 
- 	node->data = data;
--- 
-2.53.0
+I assume that vfio_pci_core drivers are expected to set the name in struct
+vfio_device_ops in the first place and this code (silently) relies on this
+invariant?
 
+Alex, Jason: Should we keep this hunk above as is and check for a proper na=
+me in
+struct vfio_device_ops in vfio_pci_core_register_device() with a subsequent
+patch?
+
+>  	} else if (action =3D=3D BUS_NOTIFY_BOUND_DRIVER &&
+>  		   pdev->is_virtfn && physfn =3D=3D vdev->pdev) {
+>  		struct pci_driver *drv =3D pci_dev_driver(pdev);
 
