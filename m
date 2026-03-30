@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mOf8KNJlymll8gUAu9opvQ
+	id CPsJINZlymll8gUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:00:18 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:00:22 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CB1E35AB77
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:00:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1267449.1556939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 355B335AB9B
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2026 14:00:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1267450.1556953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7BHf-0000JM-FY; Mon, 30 Mar 2026 11:59:55 +0000
+	id 1w7BHg-0000jT-U1; Mon, 30 Mar 2026 11:59:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1267449.1556939; Mon, 30 Mar 2026 11:59:55 +0000
+Received: by outflank-mailman (output) from mailman id 1267450.1556953; Mon, 30 Mar 2026 11:59:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7BHf-0000Hm-C7; Mon, 30 Mar 2026 11:59:55 +0000
-Received: by outflank-mailman (input) for mailman id 1267449;
- Mon, 30 Mar 2026 11:59:53 +0000
+	id 1w7BHg-0000gK-PF; Mon, 30 Mar 2026 11:59:56 +0000
+Received: by outflank-mailman (input) for mailman id 1267450;
+ Mon, 30 Mar 2026 11:59:55 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Mykyta_Poturai@epam.com>) id 1w7BHc-0000F4-WF
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 11:59:53 +0000
+ (envelope-from <Mykyta_Poturai@epam.com>) id 1w7BHf-0000FF-0o
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 11:59:55 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7BHc-003QIn-8F
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 13:59:52 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1w7BHe-00CdRq-Ck
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2026 13:59:54 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <Mykyta_Poturai@epam.com>)
- id 69ca65a8-2eae-0a2a0a5409dd-0a2a4509bac8-40
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 13:59:52 +0200
-Received: from [52.101.66.84]
- (helo=DUZPR83CU001.outbound.protection.outlook.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69ca65af-bab6-0a2a0a5309dd-0a2a4503af12-36
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 13:59:54 +0200
+Received: from [52.101.70.120]
+ (helo=AS8PR04CU009.outbound.protection.outlook.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <Mykyta_Poturai@epam.com>)
- id 69ca65b7-e484-0a2a45090019-34654254c0bd-4
- for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 13:59:52 +0200
+ id 69ca65ba-1947-0a2a45030019-346546784220-3
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Mar 2026 13:59:54 +0200
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- (2603:10a6:102:30d::12) by PA4PR03MB6847.eurprd03.prod.outlook.com
- (2603:10a6:102:eb::5) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10a6:102:30d::12) by GV1PR03MB8639.eurprd03.prod.outlook.com
+ (2603:10a6:150:95::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Mon, 30 Mar
- 2026 11:59:50 +0000
+ 2026 11:59:51 +0000
 Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::b8c6:f37a:987a:beb]) by PAVPR03MB10102.eurprd03.prod.outlook.com
  ([fe80::b8c6:f37a:987a:beb%5]) with mapi id 15.20.9745.027; Mon, 30 Mar 2026
- 11:59:50 +0000
+ 11:59:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,31 +60,32 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IXKq9730CIG8FDs14n6+zIQP3QWBKuUeE9//gOy6VPERJ47vRa6VCMJ4fPuWbPXtCT3XHGIO2KHfvOMho2d8dXf1qHfbG8DmefpI8y0HCIE55Pjvc95n06AMPyy8TI8xxgGg89L/tiXimI307krVDafL2YeC5++G605zg6AWiMz7bbB7xgZtcihblLX+UZLNF6uJ/CdOoR1TaEXG73iKSqRI8kS9enclgKutv0sGOcdnSSFP/5UuUEy8GuGS+3DJ8juHOlW+zys5ra5KT8n8tZn7W+szyYu//ouyaob1agGQtIpk8C1bSZYk+vt8HAc7a5RSH3mIkth3CGLZYvXZlQ==
+ b=AM50aZ4ISwxkt5YJBE1FQ86cgijEhTNV3pJgK42CHERX9trvYaFyIVHi/4SbO98/KYLIkCrTjmdBvPfWKQxDYX6cbJCqJXZ2Mtyd5L8pGp3B/vQMh50BMu/y7pDEOhovVPmZ9gAqRpjA7+jfT7EhDBqiKxyFUtArXofrZ+xsR6ozRh5qZ8+0R4DMgWC2uBU0BS7v7jEFChV7D1WQ1qvxvJ2BwLQqBaB4DcndJEjDPEPc4Rzpk20/1oQrKUxMkXU3nbIkOInKP/QDxTQ9zjVsQU1VXsMXYm9D7v1Z9yE4QN4TTH1i3hs0u7A9aIMKynpYoseNp2iTm2VGiVMVCx4bTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v1iQlWpWUlX2W69fYSmCagQKGYvJZO6E1KFm/axIUUg=;
- b=g8ov3+pshNY746ORxGglTCSQNSJXjM7mwsVFK9EUrb5p8EDd6919GA3u7P+ULvEaQm6uAv774O/fyP5DMTEzR/VTFT1lof3g9NxMdpbMftfNzAF+lysxqiuaZAGLLpYPt0RyKuBxRQvcwML5WrAt8TnSYYoxvwrrp/0tkn2kXX/LgwQ4eWFj0I4tNhn5cIpwDR0a7Nrb9VrDZh+sBFIkHbsnrACJuFUgw4DDQIQkvhAzNs8+NxkYEt01qcpGk+/Bt0Wwm1x2BVgswpMZ1VlKdg575TtV5H4kPluK9VkjZoEoW3y5a4Z6X7yy5WLE1JIcdEaOvMC5+Xt5YDdxuz/7mw==
+ bh=0xTyO2upwSLUp4nTUcsf626YB6NY7IhNhJBAKKSZkKc=;
+ b=KFG3LU+rUONVXNued0k9UCdoiq2CIsT5qat1iiS5mPbdI1xhtZcuK9/x7xVKjrV/2QAPqr+6D+HZp2Bg7WuIjBe5mm6G1VjyGh0iJn4ZNOWWJOos/oMftQwlxy563GslH4s3qisi9iXl5l59JElihD1PDnRhAfZmIS5KUgw9S51ibW+dgPpkQVAqMeJVD2jLUv8kQkQemEIs3ltQpCsEe9c626GaomiyAxVawzMQVCq6u2kf2Ou1CRkq4DaP8FAtNQAhxlfc89/FSy9YgyLV9Z7ChzXxU4E3VweqQUWR0Jy9b1/cRerIE+mOlFnmKhfASxaexkTIsDX1EQn0UypfNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v1iQlWpWUlX2W69fYSmCagQKGYvJZO6E1KFm/axIUUg=;
- b=DvL2aOqrRNw73RDbq7Q/Sx5ZJCzV33PWcpajV+fIi9Q6VzbzmKBggdkWlVvwVrCtsfYsvyL/Ekh6H3laI68IPxWeYVi6BWjmyfCxXFL6oeCI3kj6s2BYjVTV289Yx5JM14/gNkm0imJ5NXuPzjvQvJBaxvjFY3+0p1nM0fHOvsEqJ62FS2KOhqetEyR4YYYket9YqVEWfXD6KTIweFotVw6JssyDAnKWf2XXLfBGFa3J0z5R8AEMf4EP/O5lp0YH1khV37qcje3p60aay345F6Br0mX0amMYOVF5r8z3H6E6angVLAREJOrRUw63kwbF0hVvk+wEor3Q0iU+BqLmMg==
+ bh=0xTyO2upwSLUp4nTUcsf626YB6NY7IhNhJBAKKSZkKc=;
+ b=PdOKF9ULXnmuQcAL7nTvTaTDbUg1NGfdsrE66Gbl0lXtfBeArg2EehwuntCsZkdNciZfTnWnDuvYLSWt4W/DKnatnI3mYk9XM/5Zj1bfEy9pHyBD7rMYw2SeqGMMxn9QkFOKtnhPMrTO0pXh6xs/8kGQB0jeEdzL2chJr1yG30qvte+dAL/rqJqsoQu+peXvYvaJwk+A78cxt3i8LUMwy3cyEJ6+MR5+7amyeS8LRNipHhRiUegr8fe+mgLVRJJWwbCkAqDoiV+WeJLrp9Ib1rEai+fiCl4s0DpkITTYh2s8ZV9aF+kTdMSZL+d6tlYWf1u/cyHpPYx1vVal80qAMA==
 From: Mykyta Poturai <Mykyta_Poturai@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v7 1/6] arm/irq: Keep track of irq affinities
-Thread-Topic: [PATCH v7 1/6] arm/irq: Keep track of irq affinities
-Thread-Index: AQHcwDy2nbDObKGCpEa2H43UsrK34Q==
-Date: Mon, 30 Mar 2026 11:59:50 +0000
+CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, Michal
+ Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v7 3/6] Kconfig: Make cpu hotplug configurable
+Thread-Topic: [PATCH v7 3/6] Kconfig: Make cpu hotplug configurable
+Thread-Index: AQHcwDy29LsBHsG5wEG6AuodBSMA4Q==
+Date: Mon, 30 Mar 2026 11:59:51 +0000
 Message-ID:
- <0ff697dc791aeb6c2a44db93b862ec381a1e7468.1774871881.git.mykyta_poturai@epam.com>
+ <f3c523ef5b94e930902016d69b440032c9e6c3bd.1774871881.git.mykyta_poturai@epam.com>
 References: <cover.1774871881.git.mykyta_poturai@epam.com>
 In-Reply-To: <cover.1774871881.git.mykyta_poturai@epam.com>
 Accept-Language: en-US
@@ -94,66 +95,66 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|PA4PR03MB6847:EE_
-x-ms-office365-filtering-correlation-id: be2a7249-5093-41c6-186a-08de8e53d8b2
+x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|GV1PR03MB8639:EE_
+x-ms-office365-filtering-correlation-id: a4b55bc4-8d77-4b4c-be4c-08de8e53d956
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|1800799024|56012099003|18002099003|22082099003|38070700021;
+ BCL:0;ARA:13230040|376014|366016|1800799024|38070700021|22082099003|18002099003|56012099003;
 x-microsoft-antispam-message-info:
- gnBdlEtCEzoZajGMVs650NqjZddKBJRCPWOQvPVytpSzXPrPDTU9ePLwMSF+3vzD3LGVAM9QGG3yYcVHJY7+b7h/gclyAWW2ZBG5kKtkIAo/EXRwBwttgBSLO8cqKHWGsUvJlwwWWWgs9AqjJbk4qyjykjyHpmPlNv30fC63T9jb46MaPhBZ09EM55WZwxDe8OjliL3tYMc5vnA3pwCbtADLNaWGG+sx7WC0f48FTaG/K2ocDXH4DtmpSHBL2oKEUqEVRCaLPHLYIwiIN2FHp2d5iGFMlci7WT37isH/dQWnjHh0FQG2My5Y85LApPZBmfwspmlsfNxaQmI9JiWryAaRmgvsMp5LYLkCouUs5k6QN8Frm2D3misxTDYg0cvDmsaN2O+/S3QS/ZhGxmZ7Ap/YrIEAvscof5JSzAme/p4tXy/SRpwP79hXNEdsQM4TDrfu45QWYbJds16ktFli0wb6cWDdZ2/T1XEc+c3RBveLGlyOnet9m+ojBWM9pAb6CGtpVbnbvLhmveN5gLu8QUviwTO3ddV3q84bO9nr+QUMstkfvUyBVeRBWN9tTs3JeVpge/LofTxNl/XOo8fTbOxGm0aPQJ599AE0TdpkSK9/HFUtOX+P339NW3G3nnByQ0MOZaHlJZl7iMXdG7ow043snTUzgIXfwEIe+omNTJ10yhKCPnoL8v1nEMUNdtGNa9xclAPISpUKS0RRQnVpq6e7JmbeOKF8MIswCXLsJkyCVusxuuxXK6wrnuCz/8Yd46M7998xter9Sk3hQpdG1fpQkXMQanDedDuVgR/pFds=
+ Nlt9eYmtIXFMEHBUlvs1NuKeGDjx2nl7cBuut0T0rVbgrmtsSUAdnbvUvqbIVcAQXbI+SrW9BA7xCz9y0Jowdt2pUuaVEDLbEtruVlybCWnroa4w3A+W4mIMSrV5oCoVMCBJ20LWB2n3ggl251Pewp8xKmrkXywTmcJQKfoqZCuRbz/BZsDngUTHZw87On0b671sYLoDh87UXR91twqPEShoxNsrFs/+D37120jfDt4TXmbpM6nK/ZgdLOp5ffKq7TTqIFHGhMNeUBkNxCUNNKOYoeWrMLmCkM8gV66I0HaARO1iikS+u+l87qU83o5FTpQQ3XQU35FNdwRHQ7OvZJaT+v89dmANJSIVeEEoP6jL3KDvBFy011qg7xjTe8g6Xq1hHK/eT6lb0AZUMdI+2wjbbA9wXvTuFNfh2DR/HKbPyk2+7l87u9G4KhdSsUgYYI9fXzy1JXjiRuRuYrBg+ibd0oyhrw28SJ7pW4a5Xsz5/wdmPFzpFflY8WdPNOLRTCIld1iGN1E29UHF23swLRC3BLqvh6UWLhZQIYjrtcZi0T46S8WP2+b+aUSs/7sMuHaDjeIvSX7hIBMNvk2m2WVBuVy6aeflCne5QxOzcCEk1pf0sU0xB86mT1DMf0zaNBM2t4MWTLbiM6Gb+8ad3hnNQLQbqiJ5tH2gxBaep7NwlD8/94q80hYVQVWwcCuOP8yJwMYDsIJpuFPFo61F92IpMFxG+zadvtRgFi9mGt4b4v9dhMkvSfeKpjQdFIeneNGbXDvif5/miYvzNxbDoAHLEXjF8yYQCN60wuKFzQ4=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?TuSvTM3f6ViM80kTjl/9Z+e29tfyMPyps358Ahtc7FnNYkwcqav+kcro3c?=
- =?iso-8859-1?Q?AgIZER/z1ALKyCTCfQINEBoRPE36CtD3FOxdkRFJKLnagHHKWqxyFJNIaP?=
- =?iso-8859-1?Q?9DacwkpS1Zg7+RfaxE2yEjM9oEwwCEV9BybTckx+SBF+EgkfJ8c7PThTsX?=
- =?iso-8859-1?Q?R5yMPldfPRLzkQ+RYsJEvIWP7aOzuAOoAf41R3Zhw4pGpMbf+5JrTj54uc?=
- =?iso-8859-1?Q?EiM/fxN4GZhuueJRfWJJNu9dueup+xMOWtP7IxqJuz18bNJ9gpzp6Ho7sa?=
- =?iso-8859-1?Q?HqJ/vxtyPpZL4jSP0c7sefkD4cQx03trFZx7D7242qQlgrButyow3iRXBU?=
- =?iso-8859-1?Q?+CAs7CpBhwgLCj40jka+xjk4w+aX4QMIDHPnB3eZQLYBdXuz7gvY8l49IQ?=
- =?iso-8859-1?Q?CAC4lXtW77+2025USmeXZheaNeTdlzzahjyyRbqsRF7pav9PFuqRVS1jKN?=
- =?iso-8859-1?Q?KMni4NCxMg/Iek+5CHnRuTzMgr3+eEuclNC8XntzjQrgZyRZ5JOk6Vu2y0?=
- =?iso-8859-1?Q?90/aBIgQ/ItgzdMFiz/ETw/MFUimS2gOO8Qxa3rYoxxtp9eySKhKaRhTdt?=
- =?iso-8859-1?Q?qUhOCJ4vOfSC96qoOBAl1o8HAsEkF1G0mpz47sBfhTvVdyjZezs/c0IxDS?=
- =?iso-8859-1?Q?NJXCOj196UrBVebNX8g0S+IKNN/6b/IYsUpEnNEPO+pnKOwWf7cf/jND17?=
- =?iso-8859-1?Q?PKw8aAua63VXYb+ZEJnsvBC7t8clr5aXItG9xZQKFAgY86np3bXTxkbsoA?=
- =?iso-8859-1?Q?SYrwLY4bN1sE52HdnJdW2QjE2Ikc929LMyp494Rdnsx2DGvFo2Yi+uQYe+?=
- =?iso-8859-1?Q?xqmBqv56kNfDmeMIcLfKZR1e0gJ9h6Wx/Sd//qLpv8j9YhbTWBOaWd8fR2?=
- =?iso-8859-1?Q?rZZ61EWLiSyv805IixHA0xoOEkI5Y0AghoQ6F7/j9FSRPEAdfX9426285w?=
- =?iso-8859-1?Q?n05JaP8CP8dfpY0rr6P3fosEQK2JxACZCfTuf6GAPnl2FxRCp/DVn/cMlN?=
- =?iso-8859-1?Q?czmVvAPqkv2kiwlARGVW1kMJQOcpJ3wdiUbDT/OVQEnzooC1Ct87zvpbwF?=
- =?iso-8859-1?Q?affhfLqn01PFxbKORiEBUYqwHVmHc0EZ0P2qr+4dDpIpliLL+pE0L8qgYF?=
- =?iso-8859-1?Q?umN4C94DEP73IdXY7wp+W29Z+QMJYyV24ztGAfXfCb6wPa6Uo1LUnI3fAf?=
- =?iso-8859-1?Q?wxTc5ne0aBxXLg5fAIY2/xPbBIAt3YmE3MS/JNaUbWJhumCxWl4yW+62IY?=
- =?iso-8859-1?Q?5JoMbKKBccDtpb/JHWtCmQ5JPdmKmf4RyDkx724NWh6ku2WNx5abEe2tox?=
- =?iso-8859-1?Q?AlqEu8zpjetaSnwpnCJY6GTgoGN/1N6gWE0rQ0LfAqRmOU90OZk3QeLdHJ?=
- =?iso-8859-1?Q?faWjpQ6DCqvac4l/0MRcxd8JcTcsUHvBI8cJNHYANMFPJgKbuO15eoQdaP?=
- =?iso-8859-1?Q?cX3w3eWzPhEPsqn+sTweKbsAkwUrJG2jiaQjBpdv0foTfpwy9Mu0ZzpzI4?=
- =?iso-8859-1?Q?S6oCCnc4psfe9kZcmU7NL10v9HMj3eYOw/3zmY+TLPKVNp5/gf0UcHXXP/?=
- =?iso-8859-1?Q?u2UBLaWhIfOG3LqWXYSlCv6q6cTy34aiDLVrU2WNL20eti4OstNkqT6pmS?=
- =?iso-8859-1?Q?jR2KKbFPy4ivyll2t20xteGcnc+w8YcUA6psT73QVLpVRaQOAMoV/aiYTj?=
- =?iso-8859-1?Q?p6NceTLZ+Sk7M//7crq9oS61CDz+F1lAZUnoqIZjUPD9lodUZ9BBjlOFel?=
- =?iso-8859-1?Q?qv+m+gWRIopca3IAKDISjfKlrlICsl8jsPc0Xw5joHwadIelMz75maFibs?=
- =?iso-8859-1?Q?/FkeU+YdUw5cK+WTr1pIgBYtCgTIfDw=3D?=
+ =?iso-8859-1?Q?y18DOCd6FB5TRyYlHfbH8ie1UWQg94USW+ZPCKL304nmDyvBGws4ozM1Uk?=
+ =?iso-8859-1?Q?IgybyGc5SRrGFJ5E0G+Ac8KOIjUFxWzj0dVe6ZpdQbkJ8+dxuLzOONMhbi?=
+ =?iso-8859-1?Q?l/FoFrYVrYb2/sQCSDtGQdpDzNeia7am0m5bHbnvvA6VyAZjrraL4Qltbw?=
+ =?iso-8859-1?Q?Nl5e7uN+teM0S3VhhDVWDS4kMgwgothasCeMiK3BofxqKx8NwwHmJmga7q?=
+ =?iso-8859-1?Q?rF8ahXDe//9c5WDfp/dSoPKVOOdlBfX5ltc6qM2wGEELoU826EpoOfbmwD?=
+ =?iso-8859-1?Q?pDF2gldCHtu+w1jR/a9+uiEGYhGIv4p/kYyCUzquux+tHGjUzz633Zrzmr?=
+ =?iso-8859-1?Q?ylm917NZj4Ay0+fMUIhKNNHXKtY08Mj1Z19lmtYM9kqFbycr1b6c0VEKSI?=
+ =?iso-8859-1?Q?Aptetq4QiFRc5R6XX2hRAIz3uoRDeXFiBvKAzmUl+eaz9ZbzboRrdeLAuT?=
+ =?iso-8859-1?Q?bHkO190dnJNC///97r/B0e6c68s2SUMCJmRAs4br8w2k/d8N9thxQbhPTI?=
+ =?iso-8859-1?Q?dEnUtD3Lcd300ZnkGIvuO1eUiXB9MazYJeSWp1xLFPNoAdZDDylPqpMlf5?=
+ =?iso-8859-1?Q?tr2wuE7L5fui1gPj3WYEERfUPl8YVDykcji4pfrWHYHLACPO4aesGtSXwj?=
+ =?iso-8859-1?Q?Gvu6n2v0hh+jCoSqN17cRvohBUbvFVpdJLRMWJRJxW/36a9zu+qAIdaz2x?=
+ =?iso-8859-1?Q?CEGMVRYpGrpNyCcZ3tteycFyVDci+kgBs/hf1XOzWiUayIPq1Mm3hVLO8u?=
+ =?iso-8859-1?Q?aNnbuqmlEQtfTfNpuNNcPZAvzhdUSfUmNxE7R3oX2x+4fjGixNE5DtS3VO?=
+ =?iso-8859-1?Q?t48G9t7uxMumIWJR8lkpY+xzgp213QuC1eyQXi12eZBbvtYF00XvUn8UO7?=
+ =?iso-8859-1?Q?p/B6uFLVGKXQKrsUa8bqP2hiUHvjhXc5hb708ovcNhElI9gYTQxUvAfT7i?=
+ =?iso-8859-1?Q?/HkxiVT1Gj2dSD+EVqScGY22mxEIRm9PeJzwxgZlPQRznmJYgjEJqe48Uo?=
+ =?iso-8859-1?Q?lCK+Lng6J6vHb6k/8RU4yKXUXEtk+531xAG310afGGpgi9vS1pPgjuMXnG?=
+ =?iso-8859-1?Q?LT8TI0Z0k/IOGiXMObijxJeCz2U5eoJJEECNPyHdK2KBqGhYrmypdl4fo7?=
+ =?iso-8859-1?Q?YofcPL9zEM0DBRtUVE0yHGz90DL6mQiTnz/TnegazgmnKe8DjgZemO2RJS?=
+ =?iso-8859-1?Q?njh46zMXmBpEWBOTOYlmLmhb5YdxRtsWUGcV6Ro/CGl3sMuB5U7oeZQoaA?=
+ =?iso-8859-1?Q?jkDu5Tjizg8TP0wubCuZHvHOsF+xRYKVuGYD2S9K3tH5+K1EMjLD/SNsvc?=
+ =?iso-8859-1?Q?zhP7Z4Fl08MAewFcYyXH1gZpGrV4jqjOBrbXy6qlagyo6j2SUgGMEJzGEr?=
+ =?iso-8859-1?Q?nXVtfIvBleVnl95ThbHfL48igDgVhVLmTGaIZ0+xK3vv9sVnL71qlA0S4e?=
+ =?iso-8859-1?Q?8OMn6A1ly3NXDXsrXACnboSzU4U//5Grkjft9TsWFWPvHguAm20ud+6U9B?=
+ =?iso-8859-1?Q?OFVp8ukZFJa/z5Vtwv+0/L4taoJpCWlVvfmBlbP8RjCcEoAtBevF6wjScq?=
+ =?iso-8859-1?Q?KT7XEHSJ98YJUrfgOFpO3sN43N44CbBTSXgkaagblDDzFFGTbUkVRUD/U+?=
+ =?iso-8859-1?Q?TXveJJLAQqiqj0PhexnRT0qa8AqDm5/twAnChnRbNBwtmNdR0zhGS93G3Q?=
+ =?iso-8859-1?Q?jdMbDyAAygmT25XiWuOQGTCcEKloLZhgtqOlLZlkoeufC7aBaS6DsX9zaM?=
+ =?iso-8859-1?Q?O5zgHOnnLg8iF7ELQn9OFc5GDhQYws5pZZJK19EMY68XtgCZ0GZ+/2dWDK?=
+ =?iso-8859-1?Q?I5GiudqolywFUa9bP1j4MfrHt8XRqRA=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be2a7249-5093-41c6-186a-08de8e53d8b2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2026 11:59:50.2131
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4b55bc4-8d77-4b4c-be4c-08de8e53d956
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Mar 2026 11:59:51.2052
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WTQ6777rsV0tXglTjQKIm//O4hlULHrdbL8t16ASMvrV4G+rhd+2JhZL83A3bvIYUePA1C6olV28loJqq4O45g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB6847
-X-purgate-ID: tlsNG-bad1c0/1774871992-69D44A73-30B83DD5/0/0
+X-MS-Exchange-CrossTenant-userprincipalname: aLFBYyMAEBtiNhzqULvvMNchQZhws9v59nQEYmKH3lgW4klhP6fxvPKA9tOGgRpTU7/e3I0me338OE5DuUcqNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR03MB8639
+X-purgate-ID: tlsNG-33051d/1774871994-7748872C-DC4FCF76/0/0
 X-purgate-type: clean
-X-purgate-size: 7495
+X-purgate-size: 3464
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	MID_CONTAINS_FROM(1.00)[];
@@ -163,13 +164,13 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[epam.com:+];
@@ -181,231 +182,132 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 1CB1E35AB77
+X-Rspamd-Queue-Id: 355B335AB9B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Currently on Arm the desc->affinity mask of an irq is never updated,
-which makes it hard to know the actual affinity of an interrupt. Fix
-this by updating the field in irq_set_affinity. Changing desc->affinity
-requires desc->lock to be held, so add an assertion to ensure that
-callers of irq_set_affinity are doing so correctly.
-
-With desc->lock now being required for irq_set_affinity, add locking
-around calls to it where it was missing.
+For the purposes of certification, we want as little code as possible to
+be unconditionally compiled in. Make CPU hotplug and SMT operations
+configurable to ease the process. This will also help with introducing
+CPU hotplug on Arm, where it needs to be configurable.
 
 Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
 ---
 v6->v7:
-* update commit message
-* fix possible locking on null desc
-* collect RBs
-
-v5->v6:
-* add missing locking around irq_set_affinity calls
-
-v4->v5:
-* add locking
-
-v3->v4:
-* patch introduced
+* new patch
 ---
- xen/arch/arm/gic-vgic.c          |  2 ++
- xen/arch/arm/irq.c               |  9 +++++++--
- xen/arch/arm/vgic.c              | 14 ++++++++++++--
- xen/arch/arm/vgic/vgic-mmio-v2.c | 11 +++++------
- xen/arch/arm/vgic/vgic.c         | 21 +++++++++++++--------
- 5 files changed, 39 insertions(+), 18 deletions(-)
+ xen/arch/x86/platform_hypercall.c | 12 ++++++++++++
+ xen/arch/x86/smp.c                |  3 +++
+ xen/arch/x86/sysctl.c             | 11 +++++++++++
+ xen/common/Kconfig                |  8 ++++++++
+ 4 files changed, 34 insertions(+)
 
-diff --git a/xen/arch/arm/gic-vgic.c b/xen/arch/arm/gic-vgic.c
-index ea48c5375a..5253caf002 100644
---- a/xen/arch/arm/gic-vgic.c
-+++ b/xen/arch/arm/gic-vgic.c
-@@ -232,7 +232,9 @@ static void gic_update_one_lr(struct vcpu *v, int i)
-             if ( test_bit(GIC_IRQ_GUEST_MIGRATING, &p->status) )
-             {
-                 struct vcpu *v_target =3D vgic_get_target_vcpu(v, irq);
-+                spin_lock(&p->desc->lock);
-                 irq_set_affinity(p->desc, cpumask_of(v_target->processor))=
-;
-+                spin_unlock(&p->desc->lock);
-                 clear_bit(GIC_IRQ_GUEST_MIGRATING, &p->status);
-             }
-         }
-diff --git a/xen/arch/arm/irq.c b/xen/arch/arm/irq.c
-index 73e58a5108..7204bc2b68 100644
---- a/xen/arch/arm/irq.c
-+++ b/xen/arch/arm/irq.c
-@@ -216,10 +216,15 @@ static inline struct domain *irq_get_domain(struct ir=
-q_desc *desc)
-     return irq_get_guest_info(desc)->d;
- }
-=20
-+/* Must be called with desc->lock held */
- void irq_set_affinity(struct irq_desc *desc, const cpumask_t *mask)
- {
--    if ( desc !=3D NULL )
--        desc->handler->set_affinity(desc, mask);
-+    if ( desc =3D=3D NULL )
-+        return;
-+
-+    ASSERT(spin_is_locked(&desc->lock));
-+    cpumask_copy(desc->affinity, mask);
-+    desc->handler->set_affinity(desc, mask);
- }
-=20
- int request_irq(unsigned int irq, unsigned int irqflags,
-diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-index 6647071ad4..c59f6873db 100644
---- a/xen/arch/arm/vgic.c
-+++ b/xen/arch/arm/vgic.c
-@@ -445,7 +445,9 @@ bool vgic_migrate_irq(struct vcpu *old, struct vcpu *ne=
-w, unsigned int irq)
-=20
-     if ( list_empty(&p->inflight) )
+diff --git a/xen/arch/x86/platform_hypercall.c b/xen/arch/x86/platform_hype=
+rcall.c
+index cd4f0ae5e5..e745151790 100644
+--- a/xen/arch/x86/platform_hypercall.c
++++ b/xen/arch/x86/platform_hypercall.c
+@@ -735,6 +735,12 @@ ret_t do_platform_op(
      {
-+        spin_lock(&p->desc->lock);
-         irq_set_affinity(p->desc, cpumask_of(new->processor));
-+        spin_unlock(&p->desc->lock);
-         spin_unlock_irqrestore(&old->arch.vgic.lock, flags);
-         return true;
-     }
-@@ -453,7 +455,9 @@ bool vgic_migrate_irq(struct vcpu *old, struct vcpu *ne=
-w, unsigned int irq)
-     if ( !list_empty(&p->lr_queue) )
-     {
-         vgic_remove_irq_from_queues(old, p);
-+        spin_lock(&p->desc->lock);
-         irq_set_affinity(p->desc, cpumask_of(new->processor));
-+        spin_unlock(&p->desc->lock);
-         spin_unlock_irqrestore(&old->arch.vgic.lock, flags);
-         vgic_inject_irq(new->domain, new, irq, true);
-         return true;
-@@ -473,6 +477,7 @@ void arch_move_irqs(struct vcpu *v)
-     struct domain *d =3D v->domain;
-     struct pending_irq *p;
-     struct vcpu *v_target;
-+    unsigned long flags;
-     int i;
+         int cpu =3D op->u.cpu_ol.cpuid;
 =20
-     /*
-@@ -494,7 +499,13 @@ void arch_move_irqs(struct vcpu *v)
-         p =3D irq_to_pending(v_target, virq);
-=20
-         if ( v_target =3D=3D v && !test_bit(GIC_IRQ_GUEST_MIGRATING, &p->s=
-tatus) )
++        if ( !IS_ENABLED(CONFIG_CPU_HOTPLUG) )
 +        {
-+            if ( !p->desc )
-+                continue;
-+            spin_lock_irqsave(&p->desc->lock, flags);
-             irq_set_affinity(p->desc, cpu_mask);
-+            spin_unlock_irqrestore(&p->desc->lock, flags);
++            ret =3D -EOPNOTSUPP;
++            break;
 +        }
-     }
- }
-=20
-@@ -574,8 +585,8 @@ void vgic_enable_irqs(struct vcpu *v, uint32_t r, unsig=
-ned int n)
-         spin_unlock_irqrestore(&v_target->arch.vgic.lock, flags);
-         if ( p->desc !=3D NULL )
-         {
--            irq_set_affinity(p->desc, cpumask_of(v_target->processor));
-             spin_lock_irqsave(&p->desc->lock, flags);
-+            irq_set_affinity(p->desc, cpumask_of(v_target->processor));
-             /*
-              * The irq cannot be a PPI, we only support delivery of SPIs
-              * to guests.
-@@ -944,4 +955,3 @@ void vgic_check_inflight_irqs_pending(struct vcpu *v, u=
-nsigned int rank, uint32_
-  * indent-tabs-mode: nil
-  * End:
-  */
--
-diff --git a/xen/arch/arm/vgic/vgic-mmio-v2.c b/xen/arch/arm/vgic/vgic-mmio=
--v2.c
-index b7c2d7ce99..fc04741ca1 100644
---- a/xen/arch/arm/vgic/vgic-mmio-v2.c
-+++ b/xen/arch/arm/vgic/vgic-mmio-v2.c
-@@ -159,24 +159,23 @@ static void vgic_mmio_write_target(struct vcpu *vcpu,
-     for ( i =3D 0; i < len; i++ )
-     {
-         struct vgic_irq *irq =3D vgic_get_irq(vcpu->domain, NULL, intid + =
-i);
-+        struct irq_desc *desc =3D irq_to_desc(irq->hwintid);
-=20
--        spin_lock_irqsave(&irq->irq_lock, flags);
-+        spin_lock_irqsave(&desc->lock, flags);
-+        spin_lock(&irq->irq_lock);
-=20
-         irq->targets =3D (val >> (i * 8)) & cpu_mask;
-         if ( irq->targets )
-         {
-             irq->target_vcpu =3D vcpu->domain->vcpu[ffs(irq->targets) - 1]=
-;
-             if ( irq->hw )
--            {
--                struct irq_desc *desc =3D irq_to_desc(irq->hwintid);
--
-                 irq_set_affinity(desc, cpumask_of(irq->target_vcpu->proces=
-sor));
--            }
-         }
-         else
-             irq->target_vcpu =3D NULL;
-=20
--        spin_unlock_irqrestore(&irq->irq_lock, flags);
-+        spin_unlock(&irq->irq_lock);
-+        spin_unlock_irqrestore(&desc->lock, flags);
-         vgic_put_irq(vcpu->domain, irq);
-     }
- }
-diff --git a/xen/arch/arm/vgic/vgic.c b/xen/arch/arm/vgic/vgic.c
-index b2c0e1873a..1c44236c4f 100644
---- a/xen/arch/arm/vgic/vgic.c
-+++ b/xen/arch/arm/vgic/vgic.c
-@@ -812,22 +812,27 @@ void arch_move_irqs(struct vcpu *v)
-     {
-         struct vgic_irq *irq =3D vgic_get_irq(d, NULL, i + VGIC_NR_PRIVATE=
-_IRQS);
-         unsigned long flags;
-+        irq_desc_t *desc;
-=20
-         if ( !irq )
-             continue;
-=20
--        spin_lock_irqsave(&irq->irq_lock, flags);
--
--        /* Only hardware mapped vIRQs that are targeting this vCPU. */
--        if ( irq->hw && irq->target_vcpu =3D=3D v)
-+        if ( !irq->hw )
-         {
--            irq_desc_t *desc =3D irq_to_desc(irq->hwintid);
-+            vgic_put_irq(d, irq);
-+            continue;
-+        }
-=20
-+        desc =3D irq_to_desc(irq->hwintid);
-+        spin_lock_irqsave(&desc->lock, flags);
-+        spin_lock(&irq->irq_lock);
 +
-+        /* Only hardware mapped vIRQs that are targeting this vCPU. */
-+        if ( irq->target_vcpu =3D=3D v )
-             irq_set_affinity(desc, cpumask_of(v->processor));
--        }
+         ret =3D xsm_resource_plug_core(XSM_HOOK);
+         if ( ret )
+             break;
+@@ -761,6 +767,12 @@ ret_t do_platform_op(
+     {
+         int cpu =3D op->u.cpu_ol.cpuid;
 =20
--        spin_unlock_irqrestore(&irq->irq_lock, flags);
--        vgic_put_irq(d, irq);
-+        spin_unlock(&irq->irq_lock);
-+        spin_unlock_irqrestore(&desc->lock, flags);
-     }
++        if ( !IS_ENABLED(CONFIG_CPU_HOTPLUG) )
++        {
++            ret =3D -EOPNOTSUPP;
++            break;
++        }
++
+         ret =3D xsm_resource_unplug_core(XSM_HOOK);
+         if ( ret )
+             break;
+diff --git a/xen/arch/x86/smp.c b/xen/arch/x86/smp.c
+index 7936294f5f..a49505fb57 100644
+--- a/xen/arch/x86/smp.c
++++ b/xen/arch/x86/smp.c
+@@ -418,6 +418,7 @@ void cf_check call_function_interrupt(void)
+     smp_call_function_interrupt();
  }
+=20
++#ifdef CONFIG_CPU_HOTPLUG
+ long cf_check cpu_up_helper(void *data)
+ {
+     unsigned int cpu =3D (unsigned long)data;
+@@ -445,8 +446,10 @@ long cf_check cpu_down_helper(void *data)
+ {
+     int cpu =3D (unsigned long)data;
+     int ret =3D cpu_down(cpu);
++
+     /* Have one more go on EBUSY. */
+     if ( ret =3D=3D -EBUSY )
+         ret =3D cpu_down(cpu);
+     return ret;
+ }
++#endif
+diff --git a/xen/arch/x86/sysctl.c b/xen/arch/x86/sysctl.c
+index 1b04947516..bdad44fef1 100644
+--- a/xen/arch/x86/sysctl.c
++++ b/xen/arch/x86/sysctl.c
+@@ -53,6 +53,11 @@ static long cf_check smt_up_down_helper(void *data)
+     unsigned int cpu, sibling_mask =3D boot_cpu_data.x86_num_siblings - 1;
+     int ret =3D 0;
+=20
++    if ( !IS_ENABLED(CONFIG_CPU_HOTPLUG) )
++    {
++        ASSERT_UNREACHABLE();
++        return -EOPNOTSUPP;
++    }
+     opt_smt =3D up;
+=20
+     for_each_present_cpu ( cpu )
+@@ -121,6 +126,12 @@ long arch_do_sysctl(
+         long (*fn)(void *data);
+         void *hcpu;
+=20
++        if ( !IS_ENABLED(CONFIG_CPU_HOTPLUG) )
++        {
++            ret =3D -EOPNOTSUPP;
++            break;
++        }
++
+         switch ( op )
+         {
+         case XEN_SYSCTL_CPU_HOTPLUG_ONLINE:
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index d7e79e752a..0e5b4738a8 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -637,6 +637,14 @@ config SYSTEM_SUSPEND
+=20
+ 	  If unsure, say N.
+=20
++config CPU_HOTPLUG
++	bool "CPU online/offline support"
++	depends on X86
++	default y
++	help
++	  Enable support for bringing CPUs online and offline at runtime. On
++	  X86 this is required for disabling SMT.
++
+ menu "Supported hypercall interfaces"
+ 	visible if EXPERT
 =20
 --=20
 2.51.2
