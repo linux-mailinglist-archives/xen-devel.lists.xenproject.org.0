@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QKkYDSyYy2mYJQYAu9opvQ
+	id GHuBIqyZy2mYJQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 11:47:24 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 11:53:48 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81C523674F6
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 11:47:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1268820.1558014 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E852C367653
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 11:53:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1268831.1558023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7Vgn-0000Cn-O5; Tue, 31 Mar 2026 09:47:13 +0000
+	id 1w7Vmk-00021h-Be; Tue, 31 Mar 2026 09:53:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1268820.1558014; Tue, 31 Mar 2026 09:47:13 +0000
+Received: by outflank-mailman (output) from mailman id 1268831.1558023; Tue, 31 Mar 2026 09:53:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7Vgn-0000BL-L1; Tue, 31 Mar 2026 09:47:13 +0000
-Received: by outflank-mailman (input) for mailman id 1268820;
- Tue, 31 Mar 2026 09:47:12 +0000
+	id 1w7Vmk-0001yv-8B; Tue, 31 Mar 2026 09:53:22 +0000
+Received: by outflank-mailman (input) for mailman id 1268831;
+ Tue, 31 Mar 2026 09:53:20 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w7Vgm-0000BF-NI
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 09:47:12 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w7Vmi-0001yp-Ot
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 09:53:20 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7Vgl-0012I4-Ok
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 11:47:11 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1w7Vmh-00BLMJ-Sq
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 11:53:19 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69cb981c-5cb7-0a2a0a5109dd-0a2a4508d3da-26
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 11:47:11 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69cb998c-e002-0a2a0a5209dd-0a2a450cd358-12
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 11:53:19 +0200
+Received: from [209.85.221.43] (helo=mail-wr1-f43.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69cb981f-1950-0a2a45080019-d1558032c0a9-3
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 11:47:11 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-486ff3a0fc1so49522505e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 02:47:11 -0700 (PDT)
+ id 69cb998f-f93d-0a2a450c0019-d155dd2be16d-3
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 11:53:19 +0200
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-43b87970468so4897090f8f.3
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 02:53:19 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4887c769841sm15080415e9.7.2026.03.31.02.47.09
+ ffacd0b85a97d-43cf90424fcsm21066707f8f.32.2026.03.31.02.53.18
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Mar 2026 02:47:10 -0700 (PDT)
+ Tue, 31 Mar 2026 02:53:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,54 +58,55 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774950431; x=1775555231; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774950799; x=1775555599; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=K0CFshowMOymJ1/0mq1dpX0/bASAZZ89bF72K6ZuD3E=;
-        b=dPmvgyhv0YzCD23A+jztwnJItZzm2Tvw6A+PsJQcQWZy/4pkReh5g/b3wEQ8v/yh/r
-         RDjmXCQtxIyIcAJJ0o+8MHdBY2GkPk38A+Z1Mo2GXU5FJJ+NsPQstbj25q1L/GS/qc9I
-         Nuxo5kytdae6AJ+SnAMe1vOkJHdgaiI21dlGtXayeatjv3t4sQU9h4e0XzzhfjpaOwkn
-         2KzAgSW8Lm70gsFGFWGjfuhQFIfsJcf7w86Ho+yG2VDYOhf2c8UqxlmCZCaal8jLZ6sV
-         m4jVAdIlus0dKdND1dDq0eRid/x2JIETVybjl9Ix+uNcPlIXVq/gbqjQdlt2Akb8On21
-         NFng==
+        bh=y7iSkdwsr8Da3sth56YaQEbb24kVM2rBJC3YUVWOatA=;
+        b=A4ixTmm4edTonUR5X0yr2pze+0FRqV+bRgG+xgYgdgQVCKyLVufkx/ChPcNWNAKekR
+         cpMc7mPpiEC0bOeugnJ43CQjCQDFiRavVDxapDFoJX1CDHKdcrHgrmg2EZ/zAUVNnCq9
+         9jbr201IDqlJGLH5kOIuF+zQeL/UVJ0rPjLBqmURnaKw5Dy9Vk4CVK8v06g7qbDoPI2p
+         kwjRyr9ENIPdr7QBNgs2vlOuoF3giYIF8A0DmOIi+7oDEVlEJ4ToGQpg8Ygfc6UcmMIg
+         ejQIc8yHzILTE/5VeY6CO0ylWnRlcH/norJdVcHJvjXr4ADCZQIT4WwrpgYlgBBALlc9
+         Ro/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774950431; x=1775555231;
+        d=1e100.net; s=20251104; t=1774950799; x=1775555599;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=K0CFshowMOymJ1/0mq1dpX0/bASAZZ89bF72K6ZuD3E=;
-        b=gI+YLCrssCRUVzxBM+3CeNl8ItuYic5AQB9boui+g1EsduMzLzV6dlzT1vEg2m7ddw
-         njqeRU241LuKbWdGzQP1/AGuZ+CgkHHk0avzD+273dl9EH4BV4AFjFoiiL62WPIJ9HOA
-         qO5H/t3gNBRAjvXWfE1NxKF6M/3y5L5I/CHKi0bILsW8dWVXUrUdZNR1ymBWd+NHZ8fg
-         Vhklc4PYhWnUBPH3gG7b1rc/wN3f/46aBBfRe462PMolqCQ2ZpmQy1/48tL/MaDNWv86
-         uKbT9654btc2Fvl1WTNFtoIbkCV4MUyC5xfnwK6+s86Os6fuCTxFtW+5R5wEcpx3KMtV
-         +1Zg==
-X-Forwarded-Encrypted: i=1; AJvYcCWny8kRe5yCnwqVUjWa+HBjiOi3hwkiNIO+sJj1vOCxtvaJwzo4o/Af5+QXvY8u73j9nJm/MwxUcNI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyP0oJyEnF3N/rMmKETgFQYbvUHKevIZDf2Jx3wfF4n3Hgbsgxt
-	95bStJWbkE+GLClBBb1mTC0cuU6xuWtgVQCNNTdJYEwOvTHneK8vzmxaelCrFeLceQ==
-X-Gm-Gg: ATEYQzwfPRDGYzq8DF3Vnlg8Y7D6GpARxFDjGW3mQIWWv5D8C5xKKoC0GbvhuTY1lbB
-	2ONdlLapx2FaerK3ld6bjmN6DVXjG2oIzU0vbDe/iocD3HNEAt9CElU1/PQmVcGVQpLZXtVSG5k
-	kBOXO2+7s1TvqKdCmLJl4sP2xLUhKQPhWLxStpca4mgPLG+SewIa7xx5IevBzWdug0eML7jhhxx
-	Y6dCU9kflVGTp/1jxPzpoZca9LWORbBScT8F2B/CkvWU2E3STNrYRVbODhmRR1RdthnE4Lu3Kut
-	n0hpyCZc7dYTZ/usEBiER6WE0yGiGPPcwpky5jRiiVSehvtaEvJwiUCZ8uHgLy7a3/XDaln2/AE
-	gfTUnTiIbwJkDgpyDdFQRhA/k0PQgH5o6yKZU2sSOaxOXQp394Ycn13iFZM4Pb9pvkVOBFltf1X
-	qWHvO9+iq6teUlwOsRFFdaHqdwNEcWG73edBtNQZRS+jaz3UOSEa9NcbZiOIN5s0BuZk3nGwad5
-	ZmLuRLbi4UTmlk=
-X-Received: by 2002:a05:600c:3b95:b0:486:fa35:aef2 with SMTP id 5b1f17b1804b1-48727d59448mr247106405e9.4.1774950430786;
-        Tue, 31 Mar 2026 02:47:10 -0700 (PDT)
-Message-ID: <10e688af-3134-45d1-a8f5-f1f1efb3094e@suse.com>
-Date: Tue, 31 Mar 2026 11:47:09 +0200
+        bh=y7iSkdwsr8Da3sth56YaQEbb24kVM2rBJC3YUVWOatA=;
+        b=SSKwJj2Cje7XXbsvcptU1c3nZM5IBMKmKtXWtNRWUV4fNYJZy8qL/1sHFzfAnf3wqV
+         BRbkOWVpr5Ll9poozLGfMsht8hFOosvVKlCTBMHD9C5yWbQfXFVrgax1iXNl6fZ0NZFP
+         VTu6drDuRKjnjEDRXMcL0UluuwmrYPLdXrekh+paAosUyPbv7dWJ8OmzxbYOL5E4Psny
+         b2vy3eypUWPQWRVp3btkA865LghZtho4FDK1AtPl7AAWroJKfUo4/RGkK4SdnnnW03o2
+         5Ags5AGpil5nPfBOc6+lgO7IpVpzduUpeRe2n9LBosyf4h6IfEEMO8Y7hhxzW/8xAORU
+         SFHA==
+X-Forwarded-Encrypted: i=1; AJvYcCVquortzmgJorm7BNTxnmDXC633n76mmBmSB0dyov57dyS8z0bZMDuIxRaT3prkNaNqVTSa4fY75y4=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxLqJ4FNzmxIywLCws/PTJQZUiMvjp+qDXAdToKgJ+zI1Ca+/16
+	Fh3PyLiMB2vL9bTpTnMryoLARBsZC/BOworycjcu35EeJYY+wsgp+eQvNNUfBG9rXg==
+X-Gm-Gg: ATEYQzzMQCNTmCp5wvtZwdN4qViqQsSXYOYjiD13GCNzBzj48W8nEPt4nRXTvz9S6Ez
+	cR3HQMKG+kRwQT92MMhwYIiVqER7DjKl6GP3NB5WqBMkU8qEn3RESLiUiK20rmU73JgUp2Nxbzs
+	8CGDwoBTdW+GN6rKHgdZUE6GyTQKUph2fWTF+JzmQgUFsPKuzlPfnNemXEgPT+1CGKfaAZTcnxz
+	/fkNwUE6uT4zmWlVV1xzbTpxkvfITi6ReFrsfSYgKGr1IZvEU0jNkfG0hy3ltBezcRqePjB0yzv
+	ZMI2BWX04uIBUFR7LHEqDjt4qEplWm35i1mrmqCLCTXFOIaiuk0tNtVLz2mbdWtjjUrRx942EIH
+	QScI6VGORkyBpAfkGqM05Ubpg0QzW6GBuvJ1ccUxh6r4UOI7L5ecUDVlWhn2TjYHsePVT58faJ5
+	99SKR0EZF+Vf5HxQ/iD/3vukO+ksmT7UBzsHiIWhXIiMxMAiJBWroKLe10rdWQzjOHtoLaeS4Q8
+	p9z7eE4GBzD8QA=
+X-Received: by 2002:a05:6000:430b:b0:43c:fe7a:491e with SMTP id ffacd0b85a97d-43cfe7a4b9amr12424633f8f.32.1774950799047;
+        Tue, 31 Mar 2026 02:53:19 -0700 (PDT)
+Message-ID: <b202c2c9-e313-4abb-8613-2aea0e6c0500@suse.com>
+Date: Tue, 31 Mar 2026 11:53:17 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/mm: improve freeing of partially scrubbed pages
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20260330150119.10546-1-roger.pau@citrix.com>
+Subject: Re: [PATCH v2 4/8] vpci: add a wait operation to the vpci vcpu
+ pending actions
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1772806036.git.mykyta_poturai@epam.com>
+ <ec941fbf4f8bde23fc3867e47f5ada028f8003aa.1772806036.git.mykyta_poturai@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,131 +132,66 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260330150119.10546-1-roger.pau@citrix.com>
+In-Reply-To: <ec941fbf4f8bde23fc3867e47f5ada028f8003aa.1772806036.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c1860d/1774950431-F1EE3726-D940C099/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-d25034/1774950799-F68AC734-53B96A62/0/0
 X-purgate-type: clean
-X-purgate-size: 3323
+X-purgate-size: 745
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid,citrix.com:email];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:roger.pau@citrix.com,m:stewart.hildebrand@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_THREE(0.00)[4];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 81C523674F6
+X-Rspamd-Queue-Id: E852C367653
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 30.03.2026 17:01, Roger Pau Monne wrote:
-> When freeing possibly partially scrubbed pages in populate_physmap() and
-> domain_pending_scrub_free() the whole page is marked as dirty, but that's
-> not fully accurate.  Since the PGC_need_scrub bit is preserved for the
-> populate_physmap() allocation we can use those when freeing to detect which
-> pages need scrubbing instead of marking the whole page as dirty.
-> 
-> This requires exposing free_heap_pages() globally, and switching
-> populate_physmap() and domain_pending_scrub_free() to use it instead of
-> free_domheap_pages().
-> 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 09.03.2026 12:08, Mykyta Poturai wrote:
+> --- a/xen/include/xen/vpci.h
+> +++ b/xen/include/xen/vpci.h
+> @@ -212,7 +212,26 @@ struct vpci_vcpu {
+>      /* Per-vcpu structure to store state while {un}mapping of PCI BARs. */
+>      const struct pci_dev *pdev;
+>  #ifdef __XEN__
+> +    enum {
+> +        NONE,
+> +        MODIFY_MEMORY,
+> +        WAIT,
+> +    } task;
 
-This is okay as is, i.e.:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-However, a few remarks below.
-
-> ---
->  xen/common/domain.c     |  4 +++-
->  xen/common/memory.c     |  8 +++++---
->  xen/common/page_alloc.c | 16 +++++++++++++---
->  xen/common/page_alloc.h | 14 ++++++++++++++
->  4 files changed, 35 insertions(+), 7 deletions(-)
->  create mode 100644 xen/common/page_alloc.h
-
-I'm on the edge of requesting page-alloc.h as the name here. I can see though
-how the name you picked better fits page_alloc.c.
-
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -1529,13 +1529,13 @@ static bool mark_page_free(struct page_info *pg, mfn_t mfn)
->  static void free_color_heap_page(struct page_info *pg, bool need_scrub);
->  
->  /* Free 2^@order set of pages. */
-> -static void free_heap_pages(
-> -    struct page_info *pg, unsigned int order, bool need_scrub)
-> +void free_heap_pages(struct page_info *pg, unsigned int order, bool need_scrub)
->  {
->      unsigned long mask;
->      mfn_t mfn = page_to_mfn(pg);
->      unsigned int i, node = mfn_to_nid(mfn);
->      unsigned int zone = page_to_zone(pg);
-> +    unsigned int first_dirty = INVALID_DIRTY_IDX, dirty_cnt = 0;
->      bool pg_offlined = false;
->  
->      ASSERT(order <= MAX_ORDER);
-> @@ -1552,6 +1552,13 @@ static void free_heap_pages(
->              pg[i].count_info |= PGC_need_scrub;
->              poison_one_page(&pg[i]);
->          }
-> +        else if ( test_bit(_PGC_need_scrub, &pg[i].count_info) )
-> +        {
-> +            /* The caller might have returned pages pending scrub. */
-> +            if ( first_dirty == INVALID_DIRTY_IDX )
-> +                first_dirty = i;
-> +            dirty_cnt++;
-> +        }
-
-Would we perhaps want another "else" here, invoking check_one_page()?
-
-> --- /dev/null
-> +++ b/xen/common/page_alloc.h
-> @@ -0,0 +1,14 @@
-> +#ifndef PAGE_ALLOC_H
-> +#define PAGE_ALLOC_H
-> +
-> +void free_heap_pages(struct page_info *pg, unsigned int order, bool need_scrub);
-> +
-> +/* Free an allocation, and zero the pointer to it. */
-> +#define FREE_HEAP_PAGES(p, o, s) do { \
-> +    void *_ptr_ = (p);                \
-> +    (p) = NULL;                       \
-> +    free_heap_pages(_ptr_, o, s);     \
-> +} while ( false )
-> +#define FREE_HEAP_PAGE(p, s) FREE_HEAP_PAGES(p, 0, s)
-
-I'm not quite sure whether in this case we need the order-0 shorthand. I'm
-inclined to think that either we want to go further:
-
-#define FREE_HEAP_PAGE(p) FREE_HEAP_PAGES(p, 0, true)
-
-Or that we want to omit the shorthand, until a clear need appears.
+Unlike structure or union fields, the scope of enumerators is global. I
+don't think generic names like NONE and WAIT should be introduced into
+global scope. At the very least VPCI_ wants prefixing to them, albeit
+VPCI_NONE of course isn't to going to read very well either. Hence
+either replace "NONE" there as well, or use e.g. VPCI_OP_* as a prefix.
 
 Jan
 
