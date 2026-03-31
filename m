@@ -2,47 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qNOpNDwFzGnPNQYAu9opvQ
+	id gLrTCt0TzGmGOAYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 19:32:44 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 20:35:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C78036EE6D
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 19:32:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1269219.1558314 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AD7A3700C1
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 20:35:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1269237.1558323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7cwN-0000Il-Mw; Tue, 31 Mar 2026 17:31:47 +0000
+	id 1w7duU-0008IS-61; Tue, 31 Mar 2026 18:33:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1269219.1558314; Tue, 31 Mar 2026 17:31:47 +0000
+Received: by outflank-mailman (output) from mailman id 1269237.1558323; Tue, 31 Mar 2026 18:33:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7cwN-0000Fx-JN; Tue, 31 Mar 2026 17:31:47 +0000
-Received: by outflank-mailman (input) for mailman id 1269219;
- Tue, 31 Mar 2026 17:31:45 +0000
+	id 1w7duU-0008Fb-2x; Tue, 31 Mar 2026 18:33:54 +0000
+Received: by outflank-mailman (input) for mailman id 1269237;
+ Tue, 31 Mar 2026 18:33:51 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <catalin.marinas@arm.com>) id 1w7cwL-0000Fr-Ir
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 17:31:45 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1w7duR-0008FF-Mh
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 18:33:51 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7cwJ-00GC7q-85
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 19:31:44 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1w7duQ-003y83-T5
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 20:33:50 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <catalin.marinas@arm.com>)
- id 69cc04f8-5cb7-0a2a0a5109dd-0a2a4507bf18-28
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 19:31:43 +0200
-Received: from [217.140.110.172] (helo=foss.arm.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTP (eXpurgate 4.55.2)
- (envelope-from <catalin.marinas@arm.com>)
- id 69cc04ff-fd74-0a2a45070019-d98c6eacb23c-1
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 19:31:43 +0200
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8FA1C1E5E;
- Tue, 31 Mar 2026 10:31:36 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BDE373F915;
- Tue, 31 Mar 2026 10:31:35 -0700 (PDT)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69cc138c-2eae-0a2a0a5409dd-0a2a450abc7c-6
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 20:33:50 +0200
+Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69cc138e-1772-0a2a450a0019-d1558032e823-3
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 20:33:50 +0200
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4853c1ca73aso62397525e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 11:33:50 -0700 (PDT)
+Received: from EPUAKYIW02F7.. ([45.12.26.38]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43cf257b72dsm29583474f8f.34.2026.03.31.11.33.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Mar 2026 11:33:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,152 +55,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=foss header.d=arm.com header.i="@arm.com" header.h="Date:From:To:Cc:Subject:References:In-Reply-To"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1774978302; bh=3i1Gq4JAIizBknxjSLlecxNj8YdouZQOldf/Gi8SPcc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WDzivK/ay0BT4/Mfila47ssOCUKcoC8mcE1OJ3YzJDm9s79Zs686E4kzJf4HRuKB6
-	 lpHJ/DyPCzQqdZR0SBq1PcmDDq9UF0avGeThJW47JsQ4fAL+D9oqkCMCvB+7zuGSCf
-	 u5jO9aDk1QLnYCQi+3kmjhvfmGJUmFBpQyUk3kzE=
-Date: Tue, 31 Mar 2026 18:31:33 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Chengwen Feng <fengchengwen@huawei.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Will Deacon <will@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Borislav Petkov <bp@alien8.de>,
-	"H . Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Len Brown <lenb@kernel.org>, Sunil V L <sunilvl@ventanamicro.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Cameron <jonathan.cameron@huawei.com>,
-	Kees Cook <kees@kernel.org>, Yanteng Si <si.yanteng@linux.dev>,
-	Sean Christopherson <seanjc@google.com>,
-	Kai Huang <kai.huang@intel.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Kevin Loughlin <kevinloughlin@google.com>,
-	Zheyun Shen <szy0127@sjtu.edu.cn>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Xin Li <xin@zytor.com>, "Ahmed S . Darwish" <darwi@linutronix.de>,
-	Sohil Mehta <sohil.mehta@intel.com>,
-	Ilkka Koskinen <ilkka@os.amperecomputing.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Besar Wicaksono <bwicaksono@nvidia.com>, Ma Ke <make24@iscas.ac.cn>,
-	Wei Huang <wei.huang2@amd.com>,
-	Andy Gospodarek <andrew.gospodarek@broadcom.com>,
-	Somnath Kotur <somnath.kotur@broadcom.com>,
-	punit.agrawal@oss.qualcomm.com, guohanjun@huawei.com,
-	suzuki.poulose@arm.com, ryan.roberts@arm.com,
-	chenl311@chinatelecom.cn, masahiroy@kernel.org,
-	wangyuquan1236@phytium.com.cn, anshuman.khandual@arm.com,
-	heinrich.schuchardt@canonical.com, Eric.VanTassell@amd.com,
-	wangzhou1@hisilicon.com, wanghuiqiang@huawei.com,
-	liuyonglong@huawei.com, linux-pci@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org, xen-devel@lists.xenproject.org,
-	linux-acpi@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v10 0/8] ACPI: Unify CPU UID interface and fix ARM64 TPH
- steer-tag issue
-Message-ID: <acwE9V-r63-W2wby@arm.com>
-References: <20260320031737.35048-1-fengchengwen@huawei.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1774982030; x=1775586830; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Nr9yScUaDD+TJWaJvRWr6iRI0sI5FP2KmlYSEbZolD0=;
+        b=SV/E/rd+2VRSxYzNmH9ZSBIENgtkPjh4pCYqkkC/C0QlnBj8dxJNl3L/agUVd5SbDv
+         YkF8Vj6VaLyydPQRARPq++3BqxmOp1mn/I54BDjY/Q/4rngFGfWM0fy/xqHqsjy96Xov
+         aYGTrwoBBY9oXBrD/cC6V50OM1wmpaPz/J/NjoCPbUjdkVnBZF0BPe90HCkGuXmV5wWS
+         aQXev6x6Lin/3lCLINtsJzLPbkxk2D5oTl0F+IGYU/IRkTmZtY7IXhhdbyqfGVIRJx7l
+         g6oFHhHd+b8kFFKLGdBFV8VI2Dp9f7SvqgHtdXr6zC+LwKAVc3qvKUA74Da+Y4/JSEvG
+         JvRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774982030; x=1775586830;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Nr9yScUaDD+TJWaJvRWr6iRI0sI5FP2KmlYSEbZolD0=;
+        b=HGXKSB42gu3OTMjO1BSCBkOTNkCkQ31oHpMZiiGZGsg/BC+0uzjgYKzeBxWKEFuaig
+         PhUJ0S5ppm5rVEFF0+Vtarm4NnbSNrMB5zXu2cjllcuDkYrKuZ2QLGwQhPnJw/1Rqrm9
+         7FgBstiOOEZf6b2aFQnt2dh5uFSNFyGUMAWy956aKEBigLajQ5qsz4KSJCKiROLOySSV
+         3Y6DzSZsfaox6KVJFdXzFCHb9KuSctxLDFw6aaZb9IuRVCnK+tQ/r+pJigRYFX46eMg6
+         R0F8fuA1aYPS9tI4eBRaliYks+wpB5mJSikP25LPLHBUSvVm97mRR7YjqF3k7FnfYbCj
+         OKUA==
+X-Gm-Message-State: AOJu0Yw19Wkz4OTTFKMupV2ut3aqA7z5lUJG+AoZsc25oi8YlKPTCyXY
+	VfH5WQRMfJXqJHhz9FEToH8e7FHqFag/17QZ/YUl1at45fqWAoRTIYvfpKhLUQga
+X-Gm-Gg: ATEYQzzIUTp7RUIVtfNhxUV9BrZxyknFUza14tjJWumXx9Uylv0YKaUVuWAp3AeBhHU
+	4+5e+8SNq8lZP6y+qdIS550dpn73SjygBms3LcTt5YXvEr3tc91NQOuYV++BSmgKJS1vrI5dS4T
+	fnlFcMJDcr5Tcni0ZRDksF9Ys6RouyZk0gXpA3JhSl5VXecus/a+HFH8ckPi/QFFniX7i6mItM0
+	idfwtb9NR8AkNABzZtReoyMm0d8S/7sz1/tsVI30571fpcwgxtKGeK7vwdy2wAq1t06p1vlfW4C
+	eFn7cIwIuRD7vA308jgEpeU10Vg+9H6SbBr3iobj8Qf1occ3WVwzwpR+IO9smlFP3cYaU4ufcyH
+	GMrXz83BA6wrosLudhNQKQzUGFMHTwxhbMHm/7RKEDHEYbi2thRcz3BtV/zVAKVzvBF7DDA41cj
+	5GfvfJwatFc3qDX9CJ0UJVsPdbFgJJsrs8Mhb8
+X-Received: by 2002:a05:600c:848d:b0:485:3c66:e230 with SMTP id 5b1f17b1804b1-488835b78f1mr7815175e9.29.1774982029338;
+        Tue, 31 Mar 2026 11:33:49 -0700 (PDT)
+From: Mykola Kvach <xakep.amatop@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v3] xen/arm: vpsci: ignore upper 32 bits for SMC32 PSCI arguments
+Date: Tue, 31 Mar 2026 21:31:29 +0300
+Message-ID: <e1d18d55557ebe232fd62174f186b1cf228e48e5.1774981189.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260320031737.35048-1-fengchengwen@huawei.com>
-X-purgate-ID: tlsNG-ef75cf/1774978303-578A4303-814D3AD7/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-4011c0/1774982030-BEE95900-FD43B49B/0/0
 X-purgate-type: clean
-X-purgate-size: 2086
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
+X-purgate-size: 4884
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[arm.com:s=foss];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:fengchengwen@huawei.com,m:bhelgaas@google.com,m:will@kernel.org,m:rafael@kernel.org,m:corbet@lwn.net,m:palmer@dabbelt.com,m:bp@alien8.de,m:hpa@zytor.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:lenb@kernel.org,m:sunilvl@ventanamicro.com,m:mark.rutland@arm.com,m:jonathan.cameron@huawei.com,m:kees@kernel.org,m:si.yanteng@linux.dev,m:seanjc@google.com,m:kai.huang@intel.com,m:thomas.lendacky@amd.com,m:thuth@redhat.com,m:thorsten.blum@linux.dev,m:kevinloughlin@google.com,m:szy0127@sjtu.edu.cn,m:peterz@infradead.org,m:pawan.kumar.gupta@linux.intel.com,m:xin@zytor.com,m:darwi@linutronix.de,m:sohil.mehta@intel.com,m:ilkka@os.amperecomputing.com,m:robin.murphy@arm.com,m:james.clark@linaro.org,m:bwicaksono@nvidia.com,m:make24@iscas.ac.cn,m:wei.huang2@amd.com,m:andrew.gospodarek@broadcom.com,m:somnath.kotur@broadcom.com,m:punit.agrawal@oss.qualcomm.com,m:guohanjun@huawei.com,m:suzuki.poulose@arm.com,m:ryan.roberts@arm.com,m:chenl311@chinatelecom.cn,m:masahiroy
- @kernel.org,m:wangyuquan1236@phytium.com.cn,m:anshuman.khandual@arm.com,m:heinrich.schuchardt@canonical.com,m:Eric.VanTassell@amd.com,m:wangzhou1@hisilicon.com,m:wanghuiqiang@huawei.com,m:liuyonglong@huawei.com,m:linux-pci@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:loongarch@lists.linux.dev,m:linux-riscv@lists.infradead.org,m:xen-devel@lists.xenproject.org,m:linux-acpi@vger.kernel.org,m:linux-perf-users@vger.kernel.org,m:stable@vger.kernel.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:dkim,arm.com:email,arm.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_SENDER(0.00)[catalin.marinas@arm.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[arm.com:+];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[catalin.marinas@arm.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[patchew.org:url,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[59];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 7C78036EE6D
+X-Rspamd-Queue-Id: 6AD7A3700C1
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Fri, Mar 20, 2026 at 11:17:29AM +0800, Chengwen Feng wrote:
-> This patchset unifies ACPI Processor UID retrieval across
-> arm64/loongarch/riscv/x86 via acpi_get_cpu_uid() (with input validation)
-> and fixes ARM64 CPU steer-tag retrieval failure in PCI/TPH:
-> 
-> 1-4: Add acpi_get_cpu_uid() for arm64/loongarch/riscv/x86 (update
->      respective users)
-> 5: Centralize acpi_get_cpu_uid() declaration in include/linux/acpi.h
-> 6: Clean up perf/arm_cspmu
-> 7: Clean up ACPI/PPTT and remove unused get_acpi_id_for_cpu()
-> 8: Pass ACPI Processor UID to Cache Locality _DSM
-> 
-> The interface refactor ensures consistent CPU UID retrieval across
-> architectures (no functional changes for valid inputs) and provides the
-> unified interface required for the ARM64 TPH fix.
-> 
-> ---
-> Changes in v10:
-> - Refine commit header&log according to Punit's and Bjorn's review
-> - Split perf/arm_cspmu as a separate commit which address Punit's
->   review
-> 
-> Changes in v9:
-> - Address Bjorn's review: split commits to each platform so that make
->   them easy to review
-> 
-> Changes in v8:
-> - Moving arm64's get_cpu_for_acpi_id() to kernel/acpi.c which address
->   Jeremy's review
-> 
-> Chengwen Feng (8):
->   arm64: acpi: Add acpi_get_cpu_uid() for unified ACPI CPU UID retrieval
->   LoongArch: Add acpi_get_cpu_uid() for unified ACPI CPU UID retrieval
->   RISC-V: ACPI: Add acpi_get_cpu_uid() for unified ACPI CPU UID
->     retrieval
->   x86/acpi: Add acpi_get_cpu_uid() for unified ACPI CPU UID retrieval
->   ACPI: Centralize acpi_get_cpu_uid() declaration in
->     include/linux/acpi.h
->   perf: arm_cspmu: Switch to acpi_get_cpu_uid() from
->     get_acpi_id_for_cpu()
->   ACPI: PPTT: Use acpi_get_cpu_uid() and remove get_acpi_id_for_cpu()
->   PCI/TPH: Pass ACPI Processor UID to Cache Locality _DSM
-> 
->  Documentation/PCI/tph.rst          |  4 +--
->  arch/arm64/include/asm/acpi.h      | 17 +---------
->  arch/arm64/kernel/acpi.c           | 30 ++++++++++++++++++
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-For the arm64 bits:
+SMCCC DEN0028G, section 3.1, states that for AArch64 SMC/HVC calls
+using Wn, only the least significant 32 bits are significant and the
+upper 32 bits must be ignored by the implementation.
 
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+So for SMC32 PSCI calls, Xen must not treat non-zero upper bits in the
+argument registers as an error. Instead, they should be discarded when
+decoding the arguments.
+
+Arm ARM DDI 0487J.a (D1-5406) also notes that the upper 32 bits may be
+implementation defined when entering from AArch32. Xen zeros them on
+entry, but that guarantee is only relevant for 32-bit domains.
+
+Update PSCI v0.2+ CPU_ON, CPU_SUSPEND, AFFINITY_INFO and SYSTEM_SUSPEND
+to read SMC32 arguments via PSCI_ARG32(), while keeping the SMC64
+handling unchanged.
+
+No functional change is intended for PSCI 0.1.
+
+Suggested-by: Julien Grall <julien@xen.org>
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+---
+v3:
+ - use PSCI_ARG_CONV for SYSTEM_SUSPEND
+
+v2:
+ - introduce PSCI_ARG_CONV() to centralize convention-dependent argument
+   decoding for PSCI v0.2+ calls;
+ - use smccc_is_conv_64(fid) instead of open-coding per-call SMC32 checks;
+ - keep PSCI 0.1 handling unchanged, except switch on the already-decoded
+   fid instead of re-reading x0/r0.
+
+Link to discussion: https://patchew.org/Xen/cover.1751020456.git.mykola._5Fkvach@epam.com/072270e0940b6bcc2743d56a336363f4719ba60a.1751020456.git.mykola._5Fkvach@epam.com/#7070f416-119c-49f8-acd0-82c6e31f0fc6@xen.org
+---
+ xen/arch/arm/vpsci.c | 29 ++++++++++++++---------------
+ 1 file changed, 14 insertions(+), 15 deletions(-)
+
+diff --git a/xen/arch/arm/vpsci.c b/xen/arch/arm/vpsci.c
+index bd87ec430d..ac6af6118f 100644
+--- a/xen/arch/arm/vpsci.c
++++ b/xen/arch/arm/vpsci.c
+@@ -305,13 +305,16 @@ static int32_t do_psci_1_0_features(uint32_t psci_func_id)
+ #define PSCI_ARG32(reg, n) PSCI_ARG(reg, n)
+ #endif
+ 
++#define PSCI_ARG_CONV(reg, n, conv_64) \
++    ((conv_64) ? PSCI_ARG(reg, n) : PSCI_ARG32(reg, n))
++
+ /*
+  * PSCI 0.1 calls. It will return false if the function ID is not
+  * handled.
+  */
+ bool do_vpsci_0_1_call(struct cpu_user_regs *regs, uint32_t fid)
+ {
+-    switch ( (uint32_t)get_user_reg(regs, 0) )
++    switch ( fid )
+     {
+     case PSCI_cpu_off:
+     {
+@@ -346,6 +349,8 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
+      * adding/removing a function. SSSC_SMCCC_*_REVISION should be
+      * updated once per release.
+      */
++    bool is_conv_64 = smccc_is_conv_64(fid);
++
+     switch ( fid )
+     {
+     case PSCI_0_2_FN32_PSCI_VERSION:
+@@ -378,9 +383,9 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
+     case PSCI_0_2_FN32_CPU_ON:
+     case PSCI_0_2_FN64_CPU_ON:
+     {
+-        register_t vcpuid = PSCI_ARG(regs, 1);
+-        register_t epoint = PSCI_ARG(regs, 2);
+-        register_t cid = PSCI_ARG(regs, 3);
++        register_t vcpuid = PSCI_ARG_CONV(regs, 1, is_conv_64);
++        register_t epoint = PSCI_ARG_CONV(regs, 2, is_conv_64);
++        register_t cid = PSCI_ARG_CONV(regs, 3, is_conv_64);
+ 
+         perfc_incr(vpsci_cpu_on);
+         PSCI_SET_RESULT(regs, do_psci_0_2_cpu_on(vcpuid, epoint, cid));
+@@ -391,8 +396,8 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
+     case PSCI_0_2_FN64_CPU_SUSPEND:
+     {
+         uint32_t pstate = PSCI_ARG32(regs, 1);
+-        register_t epoint = PSCI_ARG(regs, 2);
+-        register_t cid = PSCI_ARG(regs, 3);
++        register_t epoint = PSCI_ARG_CONV(regs, 2, is_conv_64);
++        register_t cid = PSCI_ARG_CONV(regs, 3, is_conv_64);
+ 
+         perfc_incr(vpsci_cpu_suspend);
+         PSCI_SET_RESULT(regs, do_psci_0_2_cpu_suspend(pstate, epoint, cid));
+@@ -402,7 +407,7 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
+     case PSCI_0_2_FN32_AFFINITY_INFO:
+     case PSCI_0_2_FN64_AFFINITY_INFO:
+     {
+-        register_t taff = PSCI_ARG(regs, 1);
++        register_t taff = PSCI_ARG_CONV(regs, 1, is_conv_64);
+         uint32_t laff = PSCI_ARG32(regs, 2);
+ 
+         perfc_incr(vpsci_cpu_affinity_info);
+@@ -422,14 +427,8 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
+     case PSCI_1_0_FN32_SYSTEM_SUSPEND:
+     case PSCI_1_0_FN64_SYSTEM_SUSPEND:
+     {
+-        register_t epoint = PSCI_ARG(regs, 1);
+-        register_t cid = PSCI_ARG(regs, 2);
+-
+-        if ( fid == PSCI_1_0_FN32_SYSTEM_SUSPEND )
+-        {
+-            epoint &= GENMASK(31, 0);
+-            cid &= GENMASK(31, 0);
+-        }
++        register_t epoint = PSCI_ARG_CONV(regs, 1, is_conv_64);
++        register_t cid = PSCI_ARG_CONV(regs, 2, is_conv_64);
+ 
+         perfc_incr(vpsci_system_suspend);
+         PSCI_SET_RESULT(regs, do_psci_1_0_system_suspend(epoint, cid));
+-- 
+2.43.0
+
 
