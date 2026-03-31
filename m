@@ -2,49 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gAGCLieEy2l4IgYAu9opvQ
+	id ENg4EVCEy2l4IgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 10:21:59 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 10:22:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EFC3366072
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 10:21:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1268672.1557905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE3C0366095
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 10:22:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1268686.1557915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7UMB-0007QL-7L; Tue, 31 Mar 2026 08:21:51 +0000
+	id 1w7UMo-00082z-GO; Tue, 31 Mar 2026 08:22:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1268672.1557905; Tue, 31 Mar 2026 08:21:51 +0000
+Received: by outflank-mailman (output) from mailman id 1268686.1557915; Tue, 31 Mar 2026 08:22:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7UMB-0007Oh-40; Tue, 31 Mar 2026 08:21:51 +0000
-Received: by outflank-mailman (input) for mailman id 1268672;
- Tue, 31 Mar 2026 08:21:49 +0000
+	id 1w7UMo-0007zt-CM; Tue, 31 Mar 2026 08:22:30 +0000
+Received: by outflank-mailman (input) for mailman id 1268686;
+ Tue, 31 Mar 2026 08:22:28 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper3@citrix.com>) id 1w7UM9-0007OG-IH
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 08:21:49 +0000
+ (envelope-from <dakr@kernel.org>) id 1w7UMm-0007zh-P5
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 08:22:28 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7UM8-00AxBH-UO
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 10:21:48 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1w7UMm-00AxkI-4w
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 10:22:28 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 69cb8417-bab6-0a2a0a5309dd-0a2a4507b9b6-30
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 10:21:48 +0200
-Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 69cb841c-fd74-0a2a45070019-d155802eb5c8-3
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 10:21:48 +0200
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-48704db565eso68667515e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 01:21:48 -0700 (PDT)
-Received: from andrew-laptop.home ([2a01:cb15:80df:da00:ec5b:e128:36bf:56b1])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4887adadf4fsm12957915e9.11.2026.03.31.01.21.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Mar 2026 01:21:46 -0700 (PDT)
+ (envelope-from <dakr@kernel.org>)
+ id 69cb8441-5cb7-0a2a0a5109dd-0a2a4501c6be-16
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 10:22:28 +0200
+Received: from [172.105.4.254] (helo=tor.source.kernel.org)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <dakr@kernel.org>)
+ id 69cb8442-6400-0a2a45010019-ac6904feb67a-3
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 10:22:27 +0200
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id C4EA460126;
+ Tue, 31 Mar 2026 08:22:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491C9C19423;
+ Tue, 31 Mar 2026 08:22:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,184 +53,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=citrix.com header.i="@citrix.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1774945308; x=1775550108; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=DU+l8B0GE1vEY8ASsI9rW+ZnbwyOq7iyyV/9tiDTUYQ=;
-        b=aTneldfpoSt5a/nzQaMTE8gRZ1Gsl/Ynxx8OM48wooQrYw4deN27C6MIGVYuGyRs/F
-         HkW+aLIaXfJBnasghe0fD2QkcoqeniI2QB76dvzwYt2+ZRTjrQa2goEWvYGJIKrly5Ds
-         majKGj/6W756PFYQSrLbXLR3Bu8lmqNu3n0uo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774945308; x=1775550108;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DU+l8B0GE1vEY8ASsI9rW+ZnbwyOq7iyyV/9tiDTUYQ=;
-        b=AIp6NkI3U269tYyCdm0eMvyX0ZmFjOhQJaB+lCxYbMJfvLNMKQ1z24ihhF96XYPloe
-         BS7ELWbtoyQrHrCfYdKTSOB9tFE9iZjywfU3BbUMO6RAcF0oIBse+kHPKOmrIzu3Ix4d
-         BoQj6oxgoUUc122TbU0JR0BMY+EqJOBiwB+5SUSV0kLG95axCdgNbWD6CoLAqTpro2+S
-         ukHXoPGwKBhaxJ9B2IRsrfpKcJfRKmSIeMGBKli6QpGdivE3qCrCJbugn2zgybQnLdcZ
-         qgvXdhemy4Aiq2QCyuQrcRwAFk1eHuOzTxQMTIlBpHHtFQCBlke4eHHXmPFGvUsyAk6P
-         E+sw==
-X-Gm-Message-State: AOJu0YzusM8IfUarNjtdgbdN827pXiBSsxnRp0wIEi0f8tpwaygbijIF
-	Pi2BO3ZKsO2i9YuSA08v2rg8DALnxj0UJq2T/eO4ymO/mnPcHifpcUpWDgZ7cqtPnxRAnxY88H9
-	9ZBTS
-X-Gm-Gg: ATEYQzxRk3yRusEklAE4ISxMwOYfn2mkLxNW17gfitLEnFCXtbLdwY8FJhG+3ZMDG9u
-	KyTOaKdr74e2js4rOS+8vVFKxVRAelFSjlnFvokNp2Ye5ey1eiaB4QbhB0iy4+CkQN7jWrZ0y6O
-	NfI5ruyKGvCmqoxKVvVtVDiUKQNZGibTR2Pv0MzaflnBjjailsoUIXP/tLKl/V0q7ng/umyBaqs
-	2NQydeKUHR2jN//cWEgmBVovusp+PbGWRk0Rq75L7v+hpGPPvtBvJMgIp/zrSGVdhS2dQak6IzC
-	O6GpsTUfU3tmbeIB45GD4q002Zb7AqeO3FKun0+4rBaq4Q8cdGLQJNwrz3qKd0oLRE19DgXmKAN
-	PIWqPI4SmxTPy1PZRqbpTf6eY+/YM24tBd4dAqrvhQt9LJu6S86gzwzQS/h4/3VN6koj8zRALrF
-	pBXXuBTMvC0225EPwPnZXOWE4s3/Plkz0XWVAVrlKSujxv
-X-Received: by 2002:a05:600c:c168:b0:485:35a4:939f with SMTP id 5b1f17b1804b1-48727eddeacmr250819025e9.28.1774945307186;
-        Tue, 31 Mar 2026 01:21:47 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <JBeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2] x86/pv: Provide better SYSCALL backwards compatibility in FRED mode
-Date: Tue, 31 Mar 2026 09:21:42 +0100
-Message-Id: <20260331082142.13254-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="Date:Subject:Cc:To:From:References:In-Reply-To"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774945345;
+	bh=l6+1fNT+srCycsiVVoib27WaB3v/ZfJTiLnjMUHoUKo=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
+	b=hSy9+x0oWet2Vv+Oa/3w4GpGm2W4uKeHJBTg9yWIIsbEo6AeK4CHA2HWQrg43wVml
+	 UVDFcKRzAiCTcPrPYa8DFRgndlsXnw4fTPckVVFiVQb06rsmUThpiBFwbHCwFpNgx9
+	 aItzsCrpgMmhdBzOksIXuo4KjSj0zwKhq5Cid6OYUD9yR5jXXRbnJ0gLf3fnZTo/+d
+	 1ltaJGKRSE2hkkenVvfpB0JLleI13qUWazlmX5cCzMNZECQq3dZ5sC7thgT6+6cjC8
+	 i3Qv/NInrpLzf5qRyZ3z333YkadqamLF6R3ft0Ny0IUSwt34LY7sCNzSn76UOiN7FG
+	 7FAeA2EXbVc6w==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1774945308-55EB3303-DA90FA0A/0/0
+Date: Tue, 31 Mar 2026 10:22:14 +0200
+Message-Id: <DHGTLY0FJWD2.2VLT6NQWF97YY@kernel.org>
+Subject: Re: [PATCH 05/12] PCI: use generic driver_override infrastructure
+Cc: "Jason Gunthorpe" <jgg@ziepe.ca>, "Russell King"
+ <linux@armlinux.org.uk>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, "Ioana Ciornei"
+ <ioana.ciornei@nxp.com>, "Nipun Gupta" <nipun.gupta@amd.com>, "Nikhil
+ Agarwal" <nikhil.agarwal@amd.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ "Haiyang Zhang" <haiyangz@microsoft.com>, "Wei Liu" <wei.liu@kernel.org>,
+ "Dexuan Cui" <decui@microsoft.com>, "Long Li" <longli@microsoft.com>,
+ "Bjorn Helgaas" <bhelgaas@google.com>, "Armin Wolf" <W_Armin@gmx.de>,
+ "Bjorn Andersson" <andersson@kernel.org>, "Mathieu Poirier"
+ <mathieu.poirier@linaro.org>, "Vineeth Vijayan" <vneethv@linux.ibm.com>,
+ "Peter Oberparleiter" <oberpar@linux.ibm.com>, "Heiko Carstens"
+ <hca@linux.ibm.com>, "Vasily Gorbik" <gor@linux.ibm.com>, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, "Christian Borntraeger"
+ <borntraeger@linux.ibm.com>, "Sven Schnelle" <svens@linux.ibm.com>, "Harald
+ Freudenberger" <freude@linux.ibm.com>, "Holger Dengler"
+ <dengler@linux.ibm.com>, "Mark Brown" <broonie@kernel.org>, "Michael S.
+ Tsirkin" <mst@redhat.com>, "Jason Wang" <jasowang@redhat.com>, "Xuan Zhuo"
+ <xuanzhuo@linux.alibaba.com>, =?utf-8?q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>, "Juergen Gross" <jgross@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, "Oleksandr Tyshchenko"
+ <oleksandr_tyshchenko@epam.com>, "Christophe Leroy (CS GROUP)"
+ <chleroy@kernel.org>, <linux-kernel@vger.kernel.org>,
+ <driver-core@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
+ <linux-hyperv@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+ <platform-driver-x86@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <linux-remoteproc@vger.kernel.org>, <linux-s390@vger.kernel.org>,
+ <linux-spi@vger.kernel.org>, <virtualization@lists.linux.dev>,
+ <kvm@vger.kernel.org>, <xen-devel@lists.xenproject.org>,
+ <linux-arm-kernel@lists.infradead.org>, "Gui-Dong Han"
+ <hanguidong02@gmail.com>
+To: "Alex Williamson" <alex@shazbot.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260324005919.2408620-1-dakr@kernel.org>
+ <20260324005919.2408620-6-dakr@kernel.org>
+ <DHGATG6LJOM1.2AI7BYQ2O4DFU@kernel.org>
+ <20260330141050.2cb47bd9@shazbot.org>
+ <DHGT9XCG8Y96.3IB1EI6FF1ZDZ@kernel.org>
+In-Reply-To: <DHGT9XCG8Y96.3IB1EI6FF1ZDZ@kernel.org>
+X-purgate-ID: tlsNG-d62444/1774945347-8ECE3DF3-7CFEC196/0/0
 X-purgate-type: clean
-X-purgate-size: 3856
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+X-purgate-size: 3732
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	MV_CASE(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[ziepe.ca,armlinux.org.uk,linuxfoundation.org,kernel.org,nxp.com,amd.com,microsoft.com,google.com,gmx.de,linaro.org,linux.ibm.com,redhat.com,linux.alibaba.com,suse.com,epam.com,vger.kernel.org,lists.linux.dev,lists.ozlabs.org,lists.xenproject.org,lists.infradead.org,gmail.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jgg@ziepe.ca,m:linux@armlinux.org.uk,m:gregkh@linuxfoundation.org,m:rafael@kernel.org,m:ioana.ciornei@nxp.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:bhelgaas@google.com,m:W_Armin@gmx.de,m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:vneethv@linux.ibm.com,m:oberpar@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:agordeev@linux.ibm.com,m:borntraeger@linux.ibm.com,m:svens@linux.ibm.com,m:freude@linux.ibm.com,m:dengler@linux.ibm.com,m:broonie@kernel.org,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:eperezma@redhat.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:chleroy@kernel.org,m:linux-kernel@vger.kernel.org,m:driver-core@lists.linux.dev,m:linuxppc-dev@lists.ozlabs.org,m:linux-hyperv@vger.kernel.org,m:linux-pci@vger.kernel.org,m:platform-driver-x86@vger.kernel.org,m:lin
+ ux-arm-msm@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-s390@vger.kernel.org,m:linux-spi@vger.kernel.org,m:virtualization@lists.linux.dev,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-arm-kernel@lists.infradead.org,m:hanguidong02@gmail.com,m:alex@shazbot.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:JBeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[dakr@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:email,citrix.com:mid];
-	RCPT_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[dakr@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[50];
 	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 2EFC3366072
+X-Rspamd-Queue-Id: BE3C0366095
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-In FRED mode, the SYSCALL instruction does not modify %rcx/%r11.  Software
-using SYSCALL spills %rcx/%r11 around the invocation, which is why FRED not
-doing this goes largely unnoticed.
+On Tue Mar 31, 2026 at 10:06 AM CEST, Danilo Krummrich wrote:
+> On Mon Mar 30, 2026 at 10:10 PM CEST, Alex Williamson wrote:
+>> On Mon, 30 Mar 2026 19:38:41 +0200
+>> "Danilo Krummrich" <dakr@kernel.org> wrote:
+>>
+>>> (Cc: Jason)
+>>>=20
+>>> On Tue Mar 24, 2026 at 1:59 AM CET, Danilo Krummrich wrote:
+>>> > diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio=
+_pci_core.c
+>>> > index d43745fe4c84..460852f79f29 100644
+>>> > --- a/drivers/vfio/pci/vfio_pci_core.c
+>>> > +++ b/drivers/vfio/pci/vfio_pci_core.c
+>>> > @@ -1987,9 +1987,8 @@ static int vfio_pci_bus_notifier(struct notifie=
+r_block *nb,
+>>> >  	    pdev->is_virtfn && physfn =3D=3D vdev->pdev) {
+>>> >  		pci_info(vdev->pdev, "Captured SR-IOV VF %s driver_override\n",
+>>> >  			 pci_name(pdev));
+>>> > -		pdev->driver_override =3D kasprintf(GFP_KERNEL, "%s",
+>>> > -						  vdev->vdev.ops->name);
+>>> > -		WARN_ON(!pdev->driver_override);
+>>> > +		WARN_ON(device_set_driver_override(&pdev->dev,
+>>> > +						   vdev->vdev.ops->name)); =20
+>>>=20
+>>> Technically, this is a change in behavior. If vdev->vdev.ops->name is N=
+ULL, it
+>>> will trigger the WARN_ON(), whereas before it would have just written "=
+(null)"
+>>> into driver_override.
+>>
+>> It's worse than that.  Looking at the implementation in [1], we have:
+>>
+>> +static inline int device_set_driver_override(struct device *dev, const =
+char *s)
+>> +{
+>> +	return __device_set_driver_override(dev, s, strlen(s));
+>> +}
+>>
+>> So if name is NULL, we oops in strlen() before we even hit the -EINVAL
+>> and WARN_ON().
+>
+> This was changed in v2 [2] and the actual code in-tree is
+>
+> 	static inline int device_set_driver_override(struct device *dev, const c=
+har *s)
+> 	{
+> 		return __device_set_driver_override(dev, s, s ? strlen(s) : 0);
+> 	}
+>
+> so it does indeed return -EINVAL for a NULL pointer.
+>
+>> I don't believe we have any vfio-pci variant drivers where the name is
+>> NULL, but kasprintf() handling NULL as "(null)" was a consideration in
+>> this design, that even if there is no name the device is sequestered
+>> with a driver_override that won't match an actual driver.
+>>
+>>> I assume that vfio_pci_core drivers are expected to set the name in str=
+uct
+>>> vfio_device_ops in the first place and this code (silently) relies on t=
+his
+>>> invariant?
+>>
+>> We do expect that, but it was previously safe either way to make sure
+>> VFs are only bound to the same ops driver or barring that, at least
+>> don't perform a standard driver match.  The last thing we want to
+>> happen automatically is for a user owned PF to create SR-IOV VFs that
+>> automatically bind to native kernel drivers.
+>> =20
+>>> Alex, Jason: Should we keep this hunk above as is and check for a prope=
+r name in
+>>> struct vfio_device_ops in vfio_pci_core_register_device() with a subseq=
+uent
+>>> patch?
+>>
+>> Given the oops, my preference would be to roll it in here.  This change
+>> is what makes it a requirement that name cannot be NULL, where this was
+>> safely handled with kasprintf().
+>
+> Again, no oops here. :)
+>
+> I still think it makes more sense to fail early in
+> vfio_pci_core_register_device(), rather than silently accept "(null)" in
+> driver_override. It also doesn't seem unreasonable with only the WARN_ON(=
+), but
+> I can also just add vdev->vdev.ops->name ?: "(null)".
 
-Nevertheless, there is a difference in the guest immediately following cases
-where Xen would use SYSRET in non-FRED mode.  These are:
+(Or just skip the call if !vdev->vdev.ops->name, as a user will read "(null=
+)"
+from sysfs either way.)
 
- * HYPERCALL_iret with VGCF_in_syscall set.
- * Delivery to a registered entrypoint.  In the PV ABI this is always SYSRET'd
-   to, with %rcx/%r11 provided on the stack.
-
-Debugging or snapshotting activities will observe the stale contents of
-%rcx/%r11 in FRED mode, rather than the %rip/eflags value they'd have in
-IDT mode.  Manually adjust them when SYSRET would have been used.
-
-Regarding the choice of instructions in eretu_exit_to_guest(), a branch would
-be a context dependent 50/50 split (i.e. increased chance of mispredict), and
-only saves one instruction.  The CMOVs read the same cacheline that ERETU is
-about to process, so are as close to free as we can reasonably get.
-
-Fixes: 76193ef47d91 ("x86/pv: System call handling in FRED mode")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-
-v2:
- * Rewrite the commit message.
- * Set TRAP_syscall in the SYSCALL path.
----
- xen/arch/x86/traps.c             |  9 +++++----
- xen/arch/x86/x86_64/entry-fred.S | 12 +++++++++++-
- 2 files changed, 16 insertions(+), 5 deletions(-)
-
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 8aa1e4181bd1..656ad337ab90 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -2392,10 +2392,6 @@ void asmlinkage entry_from_pv(struct cpu_user_regs *regs)
-              * The guest isn't aware of FRED, so recreate the legacy
-              * behaviour.
-              *
--             * The non-FRED SYSCALL path sets TRAP_syscall in entry_vector to
--             * signal that SYSRET can be used, but this isn't relevant in FRED
--             * mode.
--             *
-              * When setting the selectors, clear all upper metadata again for
-              * backwards compatibility.  In particular fred_ss.swint becomes
-              * pend_DB on ERETx, and nothing else in the pv_hypercall() would
-@@ -2411,9 +2407,14 @@ void asmlinkage entry_from_pv(struct cpu_user_regs *regs)
- 
-             regs->ssx = l ? FLAT_KERNEL_SS   : FLAT_USER_SS32;
-             regs->csx = l ? FLAT_KERNEL_CS64 : FLAT_USER_CS32;
-+            regs->rcx = regs->rip;
-+            regs->r11 = regs->rflags;
- 
-             if ( guest_kernel_mode(curr, regs) )
-+            {
-+                regs->entry_vector |= TRAP_syscall;
-                 pv_hypercall(regs);
-+            }
-             else if ( (l ? curr->arch.pv.syscall_callback_eip
-                          : curr->arch.pv.syscall32_callback_eip) == 0 )
-             {
-diff --git a/xen/arch/x86/x86_64/entry-fred.S b/xen/arch/x86/x86_64/entry-fred.S
-index 2fa57beb930c..e9c84423dacd 100644
---- a/xen/arch/x86/x86_64/entry-fred.S
-+++ b/xen/arch/x86/x86_64/entry-fred.S
-@@ -4,6 +4,7 @@
- 
- #include <asm/asm_defns.h>
- #include <asm/page.h>
-+#include <asm/processor.h>
- 
-         .section .text.entry, "ax", @progbits
- 
-@@ -26,7 +27,16 @@ FUNC(entry_FRED_R3, 4096)
- END(entry_FRED_R3)
- 
- FUNC(eretu_exit_to_guest)
--        POP_GPRS
-+        /*
-+         * PV guests aren't aware of FRED.  If Xen in IDT mode would have used
-+         * a SYSRET instruction, preserve the legacy behaviour for %rcx/%r11
-+         */
-+        testb   $TRAP_syscall >> 8, UREGS_entry_vector + 1(%rsp)
-+
-+        POP_GPRS /* Preserves flags */
-+
-+        cmovnz  EFRAME_rip(%rsp), %rcx
-+        cmovnz  EFRAME_eflags(%rsp), %r11
- 
-         /*
-          * Exceptions here are handled by redirecting either to
--- 
-2.34.1
+> Please let me know what you prefer.
+>
+> - Danilo
+>
+>> [1] https://lore.kernel.org/all/20260302002729.19438-2-dakr@kernel.org/
+>
+> [2] https://lore.kernel.org/driver-core/20260303115720.48783-1-dakr@kerne=
+l.org/
 
 
