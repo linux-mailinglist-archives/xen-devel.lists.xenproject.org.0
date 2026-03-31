@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gNwNMRyXy2mYJQYAu9opvQ
+	id QKkYDSyYy2mYJQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 11:42:52 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 11:47:24 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 245D73673C3
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 11:42:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1268807.1558004 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81C523674F6
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 11:47:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1268820.1558014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7VcB-00082P-23; Tue, 31 Mar 2026 09:42:27 +0000
+	id 1w7Vgn-0000Cn-O5; Tue, 31 Mar 2026 09:47:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1268807.1558004; Tue, 31 Mar 2026 09:42:27 +0000
+Received: by outflank-mailman (output) from mailman id 1268820.1558014; Tue, 31 Mar 2026 09:47:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7VcA-00080W-Vd; Tue, 31 Mar 2026 09:42:26 +0000
-Received: by outflank-mailman (input) for mailman id 1268807;
- Tue, 31 Mar 2026 09:42:24 +0000
+	id 1w7Vgn-0000BL-L1; Tue, 31 Mar 2026 09:47:13 +0000
+Received: by outflank-mailman (input) for mailman id 1268820;
+ Tue, 31 Mar 2026 09:47:12 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <bounce-md_30504962.69cb96fe.v1-52638ce042e943f3823308eb28947edd@bounce.vates.tech>)
- id 1w7Vc8-00080Q-N6
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 09:42:24 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1w7Vgm-0000BF-NI
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 09:47:12 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7Vc6-00EVxg-B7
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 11:42:23 +0200
-Received: from [10.42.69.6] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <bounce-md_30504962.69cb96fe.v1-52638ce042e943f3823308eb28947edd@bounce.vates.tech>)
- id 69cb96f6-bab6-0a2a0a5309dd-0a2a4506ad36-18
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 11:42:23 +0200
-Received: from [198.2.132.14] (helo=mail132-14.atl131.mandrillapp.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from
- <bounce-md_30504962.69cb96fe.v1-52638ce042e943f3823308eb28947edd@bounce.vates.tech>)
- id 69cb96fe-3034-0a2a45060019-c602840e8b19-3
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 11:42:23 +0200
-Received: from pmta09.mandrill.prod.atl01.rsglab.com (localhost [127.0.0.1])
- by mail132-14.atl131.mandrillapp.com (Mailchimp) with ESMTP id
- 4flNSZ2Hqdz8XS1gG
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 09:42:22 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 52638ce042e943f3823308eb28947edd; Tue, 31 Mar 2026 09:42:22 +0000
+ id 1w7Vgl-0012I4-Ok
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 11:47:11 +0200
+Received: from [10.42.69.8] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 69cb981c-5cb7-0a2a0a5109dd-0a2a4508d3da-26
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 11:47:11 +0200
+Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <jbeulich@suse.com>)
+ id 69cb981f-1950-0a2a45080019-d1558032c0a9-3
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 11:47:11 +0200
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-486ff3a0fc1so49522505e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 02:47:11 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4887c769841sm15080415e9.7.2026.03.31.02.47.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 31 Mar 2026 02:47:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,288 +56,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mte1 header.d=mandrillapp.com header.i="@mandrillapp.com" header.h="From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"; dkim=pass header.s=mte1 header.d=vates.tech header.i="teddy.astie@vates.tech" header.h="From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1774950142; x=1775220142;
-	bh=3QgvblZRN6364QSNdN+5EIl2FiHO33eGJxLYGl+92ks=;
-	h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=Bq7yUCFM20kCL6CPQJXf611Un+GYwgGR5ewS4M2DIEZwvof3LGMpO3PCjY3YyExxy
-	 kmmiTHcMw13gmlGN5uX82wB6H+GqKBFcW+DB48AnlQ4fZE4IIHAT2dFLOuT81i0dML
-	 sh5EUEka6mzEOEZZNUGqgZ2GpDNU7PBC/5uZMijvsEIVVlzxI4BP9DFEjMy4Dq+Pf4
-	 4KgX4DOSErbuyp2HoD4iZazXKwCkPhm3dyg0ZFYE9IVYqZvcwJpPGd24mWHC9TG8YV
-	 Cx1E5mOIGFTzBQ8tSCb228J/MT6ZathvYbqsuy6q9Pn6TaP57HDaqVEsSwHlmn2pn4
-	 faow1I7tVh8pw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1774950142; x=1775210642; i=teddy.astie@vates.tech;
-	bh=3QgvblZRN6364QSNdN+5EIl2FiHO33eGJxLYGl+92ks=;
-	h=From:Subject:Message-Id:To:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=Bkj9YPnV0mnLac8LZvCOR926I4LR5uj7ZVUiphokpu1hDmgiCjvRdrL1qxKVn69Oy
-	 dS4mQk3B8EWV3+dsvX4D7tKPnYtRZcdBmdZ7xYB+HDAK6J7G4cMiXbu0iJXL2auGPo
-	 nmhiWyhHYJvKiUkYFXNX2BZ/tSUC7jd7yOBGsAU8++5QoP16R9ARUhPbpi5U5CHR9x
-	 xUTcDRFTlMqOw6+X4eSekQoSlgIUl3+oWSWPug5iGUPL44F1uC7Km0/V/pZ3h0uh0N
-	 3c9a1QItU/aRSh4y5bxxepXp5K24FZgZMfWfAPhbTcygTKiHTmE+gtaFdNzWQZgYrV
-	 eZSvinDiyAgmQ==
-From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?Re:=20Why=20memory=20lending=20is=20needed=20for=20GPU=20acceleration?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1774950140736
-Message-Id: <1de15ce0-9f7e-4253-80a7-ecd94caa4325@vates.tech>
-To: "Val Packett" <val@invisiblethingslab.com>, "Demi Marie Obenour" <demiobenour@gmail.com>, "Xen developer discussion" <xen-devel@lists.xenproject.org>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, "Ariadne Conill" <ariadne@ariadne.space>
-References: <84462c4b-7813-4ad1-aeb2-862ae4f3a627@gmail.com> <c38387fe-beef-4f50-b928-74f96b881b7a@gmail.com> <0bbf0349-1006-485f-a2db-6c8b795b4242@invisiblethingslab.com>
-In-Reply-To: <0bbf0349-1006-485f-a2db-6c8b795b4242@invisiblethingslab.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.52638ce042e943f3823308eb28947edd?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260331:md
-Date: Tue, 31 Mar 2026 09:42:22 +0000
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1774950431; x=1775555231; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=K0CFshowMOymJ1/0mq1dpX0/bASAZZ89bF72K6ZuD3E=;
+        b=dPmvgyhv0YzCD23A+jztwnJItZzm2Tvw6A+PsJQcQWZy/4pkReh5g/b3wEQ8v/yh/r
+         RDjmXCQtxIyIcAJJ0o+8MHdBY2GkPk38A+Z1Mo2GXU5FJJ+NsPQstbj25q1L/GS/qc9I
+         Nuxo5kytdae6AJ+SnAMe1vOkJHdgaiI21dlGtXayeatjv3t4sQU9h4e0XzzhfjpaOwkn
+         2KzAgSW8Lm70gsFGFWGjfuhQFIfsJcf7w86Ho+yG2VDYOhf2c8UqxlmCZCaal8jLZ6sV
+         m4jVAdIlus0dKdND1dDq0eRid/x2JIETVybjl9Ix+uNcPlIXVq/gbqjQdlt2Akb8On21
+         NFng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774950431; x=1775555231;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=K0CFshowMOymJ1/0mq1dpX0/bASAZZ89bF72K6ZuD3E=;
+        b=gI+YLCrssCRUVzxBM+3CeNl8ItuYic5AQB9boui+g1EsduMzLzV6dlzT1vEg2m7ddw
+         njqeRU241LuKbWdGzQP1/AGuZ+CgkHHk0avzD+273dl9EH4BV4AFjFoiiL62WPIJ9HOA
+         qO5H/t3gNBRAjvXWfE1NxKF6M/3y5L5I/CHKi0bILsW8dWVXUrUdZNR1ymBWd+NHZ8fg
+         Vhklc4PYhWnUBPH3gG7b1rc/wN3f/46aBBfRe462PMolqCQ2ZpmQy1/48tL/MaDNWv86
+         uKbT9654btc2Fvl1WTNFtoIbkCV4MUyC5xfnwK6+s86Os6fuCTxFtW+5R5wEcpx3KMtV
+         +1Zg==
+X-Forwarded-Encrypted: i=1; AJvYcCWny8kRe5yCnwqVUjWa+HBjiOi3hwkiNIO+sJj1vOCxtvaJwzo4o/Af5+QXvY8u73j9nJm/MwxUcNI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyP0oJyEnF3N/rMmKETgFQYbvUHKevIZDf2Jx3wfF4n3Hgbsgxt
+	95bStJWbkE+GLClBBb1mTC0cuU6xuWtgVQCNNTdJYEwOvTHneK8vzmxaelCrFeLceQ==
+X-Gm-Gg: ATEYQzwfPRDGYzq8DF3Vnlg8Y7D6GpARxFDjGW3mQIWWv5D8C5xKKoC0GbvhuTY1lbB
+	2ONdlLapx2FaerK3ld6bjmN6DVXjG2oIzU0vbDe/iocD3HNEAt9CElU1/PQmVcGVQpLZXtVSG5k
+	kBOXO2+7s1TvqKdCmLJl4sP2xLUhKQPhWLxStpca4mgPLG+SewIa7xx5IevBzWdug0eML7jhhxx
+	Y6dCU9kflVGTp/1jxPzpoZca9LWORbBScT8F2B/CkvWU2E3STNrYRVbODhmRR1RdthnE4Lu3Kut
+	n0hpyCZc7dYTZ/usEBiER6WE0yGiGPPcwpky5jRiiVSehvtaEvJwiUCZ8uHgLy7a3/XDaln2/AE
+	gfTUnTiIbwJkDgpyDdFQRhA/k0PQgH5o6yKZU2sSOaxOXQp394Ycn13iFZM4Pb9pvkVOBFltf1X
+	qWHvO9+iq6teUlwOsRFFdaHqdwNEcWG73edBtNQZRS+jaz3UOSEa9NcbZiOIN5s0BuZk3nGwad5
+	ZmLuRLbi4UTmlk=
+X-Received: by 2002:a05:600c:3b95:b0:486:fa35:aef2 with SMTP id 5b1f17b1804b1-48727d59448mr247106405e9.4.1774950430786;
+        Tue, 31 Mar 2026 02:47:10 -0700 (PDT)
+Message-ID: <10e688af-3134-45d1-a8f5-f1f1efb3094e@suse.com>
+Date: Tue, 31 Mar 2026 11:47:09 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-16d1c6/1774950143-7BE9E1C2-521428B3/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] xen/mm: improve freeing of partially scrubbed pages
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260330150119.10546-1-roger.pau@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260330150119.10546-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-c1860d/1774950431-F1EE3726-D940C099/0/0
 X-purgate-type: clean
-X-purgate-size: 8803
-X-Spamd-Result: default: False [3.51 / 15.00];
-	URIBL_GREY(2.50)[mandrillapp.com:dkim];
-	SUBJ_EXCESS_QP(1.20)[];
+X-purgate-size: 3323
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
-	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid,citrix.com:email];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:val@invisiblethingslab.com,m:demiobenour@gmail.com,m:xen-devel@lists.xenproject.org,m:dri-devel@lists.freedesktop.org,m:linux-mm@kvack.org,m:ariadne@ariadne.space,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[invisiblethingslab.com,gmail.com,lists.xenproject.org,lists.freedesktop.org,kvack.org,ariadne.space];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,invisiblethingslab.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,vates.tech:dkim,vates.tech:mid,vates.tech:url];
-	RCPT_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.838];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 245D73673C3
+X-Rspamd-Queue-Id: 81C523674F6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Le 30/03/2026 =C3=A0 22:13, Val Packett a =C3=A9crit=C2=A0:
-> Hi,
+On 30.03.2026 17:01, Roger Pau Monne wrote:
+> When freeing possibly partially scrubbed pages in populate_physmap() and
+> domain_pending_scrub_free() the whole page is marked as dirty, but that's
+> not fully accurate.  Since the PGC_need_scrub bit is preserved for the
+> populate_physmap() allocation we can use those when freeing to detect which
+> pages need scrubbing instead of marking the whole page as dirty.
 > 
-> On 3/29/26 2:32 PM, Demi Marie Obenour wrote:
->> On 3/24/26 10:17, Demi Marie Obenour wrote:
->>> Here is a proposed design document for supporting mapping GPU VRAM
->>> and/or file-backed memory into other domains.=C2=A0 It's not in the for=
-m of
->>> a patch because the leading + characters would just make it harder to
->>> read for no particular gain, and because this is still RFC right now.
->>> Once it is ready to merge, I'll send a proper patch.=C2=A0 Nevertheless=
-,
->>> you can consider this to be
->>>
->>> Signed-off-by: Demi Marie Obenour <demiobenour@gmail.com>
->>>
->>> This approach is very different from the "frontend-allocates"
->>> approach used elsewhere in Xen.=C2=A0 It is very much Linux-centric,
->>> rather than Xen-centric.=C2=A0 In fact, MMU notifiers were invented for
->>> KVM, and this approach is exactly the same as the one KVM implements.
->>> However, to the best of my understanding, the design described here is
->>> the only viable one.=C2=A0 Linux MM and GPU drivers require it, and cha=
-nges
->>> to either to relax this requirement will not be accepted upstream.
->> Teddy Astie (CCd) proposed a couple of alternatives on Matrix:
->>
->> 1. Create dma-bufs for guest pages and import them into the host.
->>
->> =C2=A0=C2=A0=C2=A0 This is a win not only for Xen, but also for KVM.=C2=
-=A0 Right now, shared
->> =C2=A0=C2=A0=C2=A0 (CPU) memory buffers must be copied from the guest to=
- the host,
->> =C2=A0=C2=A0=C2=A0 which is pointless.=C2=A0 So fixing that is a good th=
-ing!=C2=A0 That said,
->> =C2=A0=C2=A0=C2=A0 I'm still concerned about triggering GPU driver code-=
-paths that
->> =C2=A0=C2=A0=C2=A0 are not tested on bare metal.
+> This requires exposing free_heap_pages() globally, and switching
+> populate_physmap() and domain_pending_scrub_free() to use it instead of
+> free_domheap_pages().
 > 
-> To expand on this: the reason cross-domain Wayland proxies have been 
-> doing this SHM copy dance was a deficiency in Linux UAPI. Basically, 
-> applications allocate shared memory using local mechanisms like memfd 
-> (and good old unlink-of-regular-file, ugh) which weren't compatible with 
-> cross-VM sharing. However udmabuf should basically solve it, at least 
-> for memfds. (I haven't yet investigated what happens with "unlinked 
-> regular files" yet but I don't expect anything good there, welp.)
-> 
-> But I have landed a patch in Linux that removes a silly restriction that 
-> tied dmabuf import into virtgpu to KMS-only mode:
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/ 
-> commit/?id=3Ddf4dc947c46bb9f80038f52c6e38cb2d40c10e50
-> 
-> And I have experimented with it and got a KVM-based VMM to successfully 
-> access and print guest memfd contents that were passed to the host via 
-> this mechanism. (Time to actually properly implement it into the full 
-> system..)
-> 
->> 2. Use PASID and 2-stage translation so that the GPU can operate in
->> =C2=A0=C2=A0=C2=A0 guest physical memory.
->> =C2=A0=C2=A0=C2=A0 This is also a win.=C2=A0 AMD XDNA absolutely require=
-s PASID support,
->> =C2=A0=C2=A0=C2=A0 and apparently AMD GPUs can also use PASID.=C2=A0 So =
-being able to use
->> =C2=A0=C2=A0=C2=A0 PASID is certainly helpful.
->>
->> However, I don't think either approach is sufficient for two reasons.
->>
->> First, discrete GPUs have dedicated VRAM, which Xen knows nothing about.
->> Only dom0's GPU drivers can manage VRAM, and they will insist on being
->> able to migrate it between the CPU and the GPU.=C2=A0 Furthermore, VRAM
->> can only be allocated using GPU driver ioctls, which will allocate
->> it from dom0-owned memory.
->>
->> Second, Certain Wayland protocols, such as screencapture, require 
->> programs
->> to be able to import dmabufs.=C2=A0 Both of the above solutions would
->> require that the pages be pinned.=C2=A0 I don't think this is an option,
->> as IIUC pin_user_pages() fails on mappings of these dmabufs.=C2=A0 It's =
-why
->> direct I/O to dmabufs doesn't work.
->>
->> To the best of my knowledge, these problems mean that lending memory
->> is the only way to get robust GPU acceleration for both graphics and
->> compute workloads under Xen.=C2=A0 Simpler approaches might work for pur=
-e
->> compute workloads, for iGPUs, or for drivers that have Xen-specific
->> changes.=C2=A0 None of them, however, support graphics workloads on dGPU=
-s
->> while using the GPU driver the same way bare metal workloads do.
->> [=E2=80=A6]
-> To recap, how virtio-gpu Host3d memory currently works with KVM is:
-> 
-> - the VMM/virtgpu receives a dmabuf over a socket (Wayland/D-Bus/ 
-> whatever) and registers it internally with some resource ID that's 
-> passed to the guest;
-> - When the guest imports that resource, it calls 
-> VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB to get a PRIME buffer that can be 
-> turned into a dmabuf fd;
-> - the VMM's handler for VIRTIO_GPU_CMD_RESOURCE_MAP_BLOB (referencing 
-> libkrun here) literally just calls mmap() on the host dmabuf, using the 
-> MAP_FIXED flag to place it correctly inside of the VMM process's guest- 
-> exposed VA region (configured via KVM_SET_USER_MEMORY_REGION);
-> - so any resource imported by the guest, even before guest userspace 
-> does mmap(), is mapped (as VM_PFNMAP|VM_IO) until the guest releases it.
-> 
-> So the generic kernel MM is out of the way, these mappings can't be 
-> paged out to swap etc. But accessing them may fault, as the comment for 
-> drm_gem_mmap_obj says:
-> 
->  =C2=A0* Depending on their requirements, GEM objects can either
->  =C2=A0* provide a fault handler in their vm_ops (in which case any acces=
-ses to
->  =C2=A0* the object will be trapped, to perform migration, GTT binding, s=
-urface
->  =C2=A0* register allocation, or performance monitoring), or mmap the buf=
-fer 
-> memory
->  =C2=A0* synchronously after calling drm_gem_mmap_obj
-> 
-> It all "just works" in KVM because KVM's resolution of the guest's 
-> memory accesses tries to be literally equivalent to what's mapped into 
-> the userspace VMM process: hva_to_pfn_remapped explicitly calls 
-> fixup_user_fault and eventually gets to the GPU driver's fault handler.
-> 
-> Now for Xen this would be=E2=80=A6 painful,
-> 
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-indeed
+This is okay as is, i.e.:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> but,
-> 
-> we have no need to replicate what KVM does. That's far from the only 
-> thing that can be done with a dmabuf.
-> 
-> The import-export machinery on the other hand actually does pin the 
-> buffers on the driver level, importers are not obligated to support 
-> movable buffers (move_notify in dma_buf_attach_ops=C2=A0is entirely optio=
-nal).
-> 
+However, a few remarks below.
 
-dma-buf is by concept non-movable if actively used (otherwise, it would 
-break DMA). It's just a foreign buffer, and from device standpoint, just 
-plain RAM that needs to be mapped.
+> ---
+>  xen/common/domain.c     |  4 +++-
+>  xen/common/memory.c     |  8 +++++---
+>  xen/common/page_alloc.c | 16 +++++++++++++---
+>  xen/common/page_alloc.h | 14 ++++++++++++++
+>  4 files changed, 35 insertions(+), 7 deletions(-)
+>  create mode 100644 xen/common/page_alloc.h
 
-> Interestingly, there is already XEN_GNTDEV_DMABUF=E2=80=A6
-> 
-> Wait, do we even have any reason at all to suspect 
-> that=C2=A0XEN_GNTDEV_DMABUF doesn't already satisfy all of our buffer-sha=
-ring 
-> requirements?
-> 
+I'm on the edge of requesting page-alloc.h as the name here. I can see though
+how the name you picked better fits page_alloc.c.
 
-XEN_GNTDEV_DMABUF has been designed for GPU use-cases, and more 
-precisely for paravirtualizing a display. The only issue I would have 
-with it is that grants are not scalable for GPU 3D use cases (with 
-hundreds of MB to share).
-But we can still keep the concept of a structured guest-owned memory 
-that is shared with Dom0 (but for larger quantities), I have some ideas 
-regarding improving that area in Xen.
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -1529,13 +1529,13 @@ static bool mark_page_free(struct page_info *pg, mfn_t mfn)
+>  static void free_color_heap_page(struct page_info *pg, bool need_scrub);
+>  
+>  /* Free 2^@order set of pages. */
+> -static void free_heap_pages(
+> -    struct page_info *pg, unsigned int order, bool need_scrub)
+> +void free_heap_pages(struct page_info *pg, unsigned int order, bool need_scrub)
+>  {
+>      unsigned long mask;
+>      mfn_t mfn = page_to_mfn(pg);
+>      unsigned int i, node = mfn_to_nid(mfn);
+>      unsigned int zone = page_to_zone(pg);
+> +    unsigned int first_dirty = INVALID_DIRTY_IDX, dirty_cnt = 0;
+>      bool pg_offlined = false;
+>  
+>      ASSERT(order <= MAX_ORDER);
+> @@ -1552,6 +1552,13 @@ static void free_heap_pages(
+>              pg[i].count_info |= PGC_need_scrub;
+>              poison_one_page(&pg[i]);
+>          }
+> +        else if ( test_bit(_PGC_need_scrub, &pg[i].count_info) )
+> +        {
+> +            /* The caller might have returned pages pending scrub. */
+> +            if ( first_dirty == INVALID_DIRTY_IDX )
+> +                first_dirty = i;
+> +            dirty_cnt++;
+> +        }
 
-The only issue with changing the memory sharing model is that you would 
-need to adjust the virtio-gpu aspect, but the rest can stay the same.
+Would we perhaps want another "else" here, invoking check_one_page()?
 
-The biggest concern regarding driver compatibility is more about :
-- can dma-buf be used as general buffers : probably yes (even with 
-OpenGL/Vulkan); exception may be proprietary Nvidia drivers that lacks 
-the feature; maybe very old hardware may struggle more with it
-- can guest UMD work without access to vram : yes (apparently), AMDGPU 
-has a special case where VRAM is not visible (e.g too small PCI BAR), 
-there is vram size vs "vram visible size" (which could be 0); you could 
-fallback vram-guest-visible with ram mapped on device
-- can it be defined in Vulkan terms (from driver) : You can have 
-device_local memory without having it host-visible (i.e memory exists, 
-but can't be added in the guest). You would probably just lose some 
-zero-copy paths with VRAM. Though you still have RAM shared with GPU 
-(GTT in AMDGPU) if that matters.
+> --- /dev/null
+> +++ b/xen/common/page_alloc.h
+> @@ -0,0 +1,14 @@
+> +#ifndef PAGE_ALLOC_H
+> +#define PAGE_ALLOC_H
+> +
+> +void free_heap_pages(struct page_info *pg, unsigned int order, bool need_scrub);
+> +
+> +/* Free an allocation, and zero the pointer to it. */
+> +#define FREE_HEAP_PAGES(p, o, s) do { \
+> +    void *_ptr_ = (p);                \
+> +    (p) = NULL;                       \
+> +    free_heap_pages(_ptr_, o, s);     \
+> +} while ( false )
+> +#define FREE_HEAP_PAGE(p, s) FREE_HEAP_PAGES(p, 0, s)
 
-Worth noting that if you're on integration graphics, you don't have VRAM 
-and everything is RAM anyway.
+I'm not quite sure whether in this case we need the order-0 shorthand. I'm
+inclined to think that either we want to go further:
 
-> 
-> Thanks,
-> ~val
-> 
-> P.S. while I have everyone's attention, can I get some eyes on:
-> https://lore.kernel.org/all/20251126062124.117425-1- 
-> val@invisiblethingslab.com/ ?
-> 
-> 
+#define FREE_HEAP_PAGE(p) FREE_HEAP_PAGES(p, 0, true)
 
+Or that we want to omit the shorthand, until a clear need appears.
 
-
---
-Teddy Astie | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+Jan
 
