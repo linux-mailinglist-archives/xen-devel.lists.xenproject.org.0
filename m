@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oN5VNfFYzGk4SgYAu9opvQ
+	id +1VhI/VYzGk9SgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 01:29:53 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 01:29:57 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8392A372CB0
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 01:29:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1269505.1558548 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C430372CCA
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 01:29:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1269507.1558557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7iWl-0008R4-UI; Tue, 31 Mar 2026 23:29:43 +0000
+	id 1w7iWn-0000Fx-8F; Tue, 31 Mar 2026 23:29:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1269505.1558548; Tue, 31 Mar 2026 23:29:43 +0000
+Received: by outflank-mailman (output) from mailman id 1269507.1558557; Tue, 31 Mar 2026 23:29:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7iWl-0008Q1-ON; Tue, 31 Mar 2026 23:29:43 +0000
-Received: by outflank-mailman (input) for mailman id 1269505;
- Tue, 31 Mar 2026 23:29:42 +0000
+	id 1w7iWn-0000E2-3C; Tue, 31 Mar 2026 23:29:45 +0000
+Received: by outflank-mailman (input) for mailman id 1269507;
+ Tue, 31 Mar 2026 23:29:43 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <marmarek@invisiblethingslab.com>) id 1w7iWk-0008C2-6m
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 23:29:42 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1w7iWl-0008O2-HB
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 23:29:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7iWj-003L8K-Jr
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 01:29:41 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1w7iWk-004YpL-UD
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 01:29:42 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <marmarek@invisiblethingslab.com>)
- id 69cc58e1-5cb7-0a2a0a5109dd-0a2a450bd72a-4
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 01:29:41 +0200
-Received: from [103.168.172.153] (helo=fhigh-a2-smtp.messagingengine.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69cc58e6-bab6-0a2a0a5309dd-0a2a4509c0a6-2
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 01:29:42 +0200
+Received: from [103.168.172.149] (helo=fout-a6-smtp.messagingengine.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <marmarek@invisiblethingslab.com>)
- id 69cc57f4-ef63-0a2a450b0019-67a8ac99909b-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 01:25:41 +0200
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 1953114001FE;
- Tue, 31 Mar 2026 19:25:40 -0400 (EDT)
+ id 69cc57f5-e484-0a2a45090019-67a8ac95c24b-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 01:25:42 +0200
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfout.phl.internal (Postfix) with ESMTP id 642CDEC0252;
+ Tue, 31 Mar 2026 19:25:41 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-12.internal (MEProxy); Tue, 31 Mar 2026 19:25:40 -0400
+ by phl-compute-05.internal (MEProxy); Tue, 31 Mar 2026 19:25:41 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 31 Mar 2026 19:25:38 -0400 (EDT)
+ 31 Mar 2026 19:25:40 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,31 +60,31 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1774999540; x=1775085940; bh=42O2MeqbMS
-	WypilSXFr/gkKBXnpJRqk7rPx+38DHJBA=; b=XkEOnW1MYKcAPSKK5CnsWG/P7L
-	5CCOOHWsWqc432ak5985JYx3oqRFrrfvbM7okvBC2j0BEih/mDkELbp6QM71t6RL
-	MRotW2sN8GbzFJZUVsBxicMLRlZ96SxHh8TIkf1vkKl72WQwlQcAijYY6PgdhMyG
-	4bFCPyaE5QZiinc0kl2gTCeOGHtd4Rstjq997K7rk7FL3vDdQ/OxZquAgSvn/fYx
-	SZ0/IWmT0fqa+bSd4UmE7bJwAHs5zV30g/qpQNMdoeGpqGQa91aoVfG/j3mUMUCz
-	RlMjSj6c5QGMe9BUMZS14XzsLXBhVdHoMom9tUKBotoqqiTT+Aua4PJmeKpw==
+	:subject:to:to; s=fm1; t=1774999541; x=1775085941; bh=Pbl6hENohF
+	btGGC0Gw3P9MXarDAJt6eXsMQHLBHvuXw=; b=doWTw13O/LQ5rTHi5X9ZaZtDNa
+	+gvszLCPXfCT9c5uSEP/IJADLCalLMlhQR1XKUCSHW3zO+DHz1lpR4HzZ94V3Dix
+	Fd2l72e1NXjqFcYrKgeAx9g+rn/8lFtgxQeGIFLQgTJ7nUfEgkDHLPRKQ94f35hy
+	TUKyqH2gwCeqjxEWk+cTclKnMZYjUYUZXv/unRSxJ8Vv1CTyKDQ15Ie1DT/DhEy/
+	SaPb6oME9WPNcf7Y/uvjIaSu/Ke5nbYvFmg83Zjt5aCVjfdmD9AwRlsnNZXwZzDb
+	u0VAx/5nOo9kERGI+NPJMnLm2O2he4E0IGSRv7b0gvFchxeJ3zyRj8v5Debw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1774999540; x=
-	1775085940; bh=42O2MeqbMSWypilSXFr/gkKBXnpJRqk7rPx+38DHJBA=; b=S
-	HAv+c7VANZuKNUJ6ArRyLaLkq3kEWznipWQYI1T1H7t6JIOmJ5tHX7WfwizMKjD3
-	5OZwUQyHON4FJrOxvEGYnvXqbOMiH2RlC/QRfV6GKbIaGFOtdSnVg5KuiOfXUVrJ
-	PIRRhrXaeXthp2hw1dtbpoFEvxRb6M7IQGdZ0gogOrMav0sIm2c1aIUdJZLFWrho
-	lf6PL+T5+qYXcSrjw11pS5YzYXI9SFlVnHEhM3/4FpY6AWJ4XFfs+Gfc0gzSgEJi
-	PgAApD9Wd/GXb+cYDiHrc+1vlqsNSlG5JOly1AXMK6r6XAKx2QiDSDbvCInzPsfc
-	uOAiqGZi9kV6OneKyX/Jw==
-X-ME-Sender: <xms:81fMaY52nMpS2LTHfV83Ni2rnLdrYPc8ChSnhMiL0wlNqRvF-ivN9g>
-    <xme:81fMaVahHOnh7TT511_m-jjbKT73QfZHfs-MD24zP17IIEk8dX4TvExO3BGtJWL4n
-    h7aBSB3bSRWXXdSO_TLUvt1f7PyTRzeN_ps8gCwdMW7I4zH>
-X-ME-Received: <xmr:81fMad4fDc9d6vQNrQaz6BcAUvV0ReoM4_tpgqyMbp3hEGu9R_dkUQLJwQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdduhedvucetufdoteggodetrfdotf
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1774999541; x=
+	1775085941; bh=Pbl6hENohFbtGGC0Gw3P9MXarDAJt6eXsMQHLBHvuXw=; b=i
+	nox1QWGhNPHLEaapd/+S5I+BmEvfyUdGUq2w88C/WPv7LlIVObnNLLPORaFFXS3f
+	n0Rh3IqL+shiRWlmXmp/rahspHsurzguwvaTfhVN/CYYjoWhNjaXlChYoqdYhJnq
+	+BpCwquS33Bo+gooIWRarVQKqWGLbT2A37gPxkbF4ui4hFS7NzLFPVuAxoAg60dC
+	0NLwDQkNwppAKGfrsibDNSRaxsrz86Fh79pcOQ67RhCpGvnJc2qDl/GAG1VtC5/v
+	3ZSYijswoJ7Cp1tVhpe8jn2KMgoH3phjafDyorUAs6DF+1aI85ySOTklVaLFRPK4
+	ID6aAr2S6KKQkLaKjVAlg==
+X-ME-Sender: <xms:9VfMaXwrQFcz_4q9w2qCYNxurbvQeJEu6nrMfqjduFoua7UagOwMsA>
+    <xme:9VfMaWLS4Ib-hdX7eb6j6oC1vvoyg1GL8aPpMeQ-f3Chk57Kjhs-NZ1KroxX8pYdF
+    wg6FaJevU53R1gLZnk_VNxB1myBdJOW0Mly7w20HgrWqesWpw>
+X-ME-Received: <xmr:9VfMaZoyKPymPJs6rgUHKmOPE5mYEy5GBzeZGbZhzTBWwB7SahBnArNGzw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdduheduucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
     lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
     ephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghkucfo
@@ -98,11 +98,11 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdduhedvucetufdoteggod
     hrnhgvlhdrohhrghdprhgtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhr
     ihigrdgtohhmpdhrtghpthhtohepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhih
     hnghhslhgrsgdrtghomhdprhgtphhtthhopegtrghrughovgestggrrhguohgvrdgtohhm
-X-ME-Proxy: <xmx:81fMaYDC9QxDCCUP4hYJaPwoW5O-7xKCUanQwgrdw_ofNXokN-gjcA>
-    <xmx:9FfMaTcqX6MYN9nujTg7__cvh7E1sFOCNMLggTypM2uGRUBthZ3wfA>
-    <xmx:9FfMaXKrXwJLLhM3k1WmRqwePbx8azjdlBS_IVgInEX2m76nEoZVsA>
-    <xmx:9FfMae2sTdcTyFewnn7kzEipWOnMXm332hQiqyUBu_2x2D_4V7bbQg>
-    <xmx:9FfMaTnxs0_oJrV01q2dxfMtSImCdCbT4Dm_rgNwv3QyXbP7r9n4SXtU>
+X-ME-Proxy: <xmx:9VfMadIRLTJHrBG3JbIUsl183s9oZgG_dFIUBP-FQctcnLWt8bVshA>
+    <xmx:9VfMaWT_4JllQewSy6QeVOczyjO5idKbUsvj67FJbt2CkLSXM46Z_g>
+    <xmx:9VfMaUvvbNZeNtC5Z9alFW2lrTkdGF_miX7QIRJaiFGEyx_85rXpCQ>
+    <xmx:9VfMafaMvCRo9FAAcYRJZmb7alTRzrCkSG0xrK4ZHK0e73fJvomm6A>
+    <xmx:9VfMaX-9wUQNhhgyM31v-WMmSbK0hwqZhfcxRCYUOG6dRjrOQ6I7WEu9>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -110,18 +110,18 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	Doug Goldstein <cardoe@cardoe.com>
-Subject: [PATCH v2 3/6] ci: introduce BUILD_FOR_TESTS_ONLY
-Date: Wed,  1 Apr 2026 01:24:52 +0200
-Message-ID: <c5247e0a41dc49bd18cca23864f9adaf86bb2147.1774999414.git-series.marmarek@invisiblethingslab.com>
+Subject: [PATCH v2 4/6] CI: use Alpine's network setup
+Date: Wed,  1 Apr 2026 01:24:53 +0200
+Message-ID: <2a02d9e9a4fc47674d771f22e65b202b3dbf6336.1774999414.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.ca38f9571ab23e254a985ecfd4715235675aa06e.1774999414.git-series.marmarek@invisiblethingslab.com>
 References: <cover.ca38f9571ab23e254a985ecfd4715235675aa06e.1774999414.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1774999541-A203B112-1D00B3D0/13/0
+X-purgate-ID: tlsNG-bad1c0/1774999542-5B8A5A73-D4C2F213/13/0
 X-purgate-type: clean
-X-purgate-size: 5138
+X-purgate-size: 1555
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
@@ -153,179 +153,60 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: 8392A372CB0
+X-Rspamd-Queue-Id: 3C430372CCA
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-When the variable is set, only build jobs that are used in tests are
-scheduled. This saves a lot of time, for example when scheduling a test
-pipeline with alternative linux branch.
+This allows Alpine startup script to properly handle service
+dependencies - necessary for starting dropbear ssh server.
+For the latter, always take the IP address from DHCP, in addition to the
+test-local one.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
- .gitlab-ci.yml                  |  2 ++
- automation/gitlab-ci/build.yaml | 25 +++++++++++++++++++++++++
- 2 files changed, 27 insertions(+)
+ automation/scripts/qubes-x86-64.sh | 20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-index 2124e3a79eef..f42a9abeaaaf 100644
---- a/.gitlab-ci.yml
-+++ b/.gitlab-ci.yml
-@@ -3,6 +3,8 @@ variables:
-   SELECTED_JOBS_ONLY:
-     description: "Regex to select only some jobs, must be enclosed with /. For example /job1|job2/"
-     value: "/.*/"
-+  BUILD_FOR_TESTS_ONLY:
-+    description: "Include only build jobs necessary for running tests"
-   ARTIFACTS_REPO:
-     description: "Path to the test-artifacts repo"
-     value: xen-project/hardware/test-artifacts
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index b69bad9202c2..f4e277780311 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -13,6 +13,14 @@
-     when: always
-   needs: []
-   rules:
-+    - if: $BUILD_FOR_TESTS_ONLY
-+      when: never
-+    - if: $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
-+      when: on_success
+diff --git a/automation/scripts/qubes-x86-64.sh b/automation/scripts/qubes-x86-64.sh
+index 7a59fa5f1116..91c0d5bec829 100755
+--- a/automation/scripts/qubes-x86-64.sh
++++ b/automation/scripts/qubes-x86-64.sh
+@@ -214,25 +214,23 @@ cat "${dom0_rootfs_parts[@]}" > binaries/dom0-rootfs.cpio.gz
+ # test-local configuration
+ mkdir -p rootfs
+ cd rootfs
+-mkdir -p boot etc/local.d root
++mkdir -p boot etc/local.d root etc/network
+ cp -a ../automation/scripts/run-tools-tests root/
+ 
++echo "
++auto xenbr0
++iface xenbr0 inet dhcp
++    bridge-ports eth0
++    bridge-stp 0
++    up ip a a 192.168.0.1/24 dev \$IFACE
++" > etc/network/interfaces
 +
-+# override BUILD_FOR_TESTS_ONLY exclusion
-+.build-test-tpl: &build-test
-+  rules:
-     - if: $CI_JOB_NAME =~ $SELECTED_JOBS_ONLY
-       when: on_success
+ echo "#!/bin/bash
  
-@@ -296,11 +304,13 @@ qemu-system-aarch64-6.0.0-arm32-export:
+ bash /etc/init.d/xencommons start
  
- alpine-3.18-gcc:
-   extends: .gcc-x86-64-build
-+  <<: *build-test
-   variables:
-     CONTAINER: alpine:3.18
+-brctl addbr xenbr0
+-brctl addif xenbr0 eth0
+-ifconfig eth0 up
+-ifconfig xenbr0 up
+-ifconfig xenbr0 192.168.0.1
+-
+ " > etc/local.d/xen.start
  
- alpine-3.18-gcc-debug:
-   extends: .gcc-x86-64-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: alpine:3.18
-     BUILD_QEMU_XEN: y
-@@ -315,16 +325,19 @@ alpine-3.18-gcc-debug:
- 
- debian-13-x86_64-gcc-debug:
-   extends: .gcc-x86-64-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: debian:13-x86_64
- 
- debian-13-x86_64-clang-debug:
-   extends: .clang-x86-64-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: debian:13-x86_64
- 
- debian-13-ppc64le-gcc-debug:
-   extends: .gcc-ppc64le-cross-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: debian:13-ppc64le
-     KBUILD_DEFCONFIG: ppc64_defconfig
-@@ -335,6 +348,7 @@ debian-13-ppc64le-gcc-debug:
- 
- debian-13-riscv64-gcc-debug:
-   extends: .gcc-riscv64-cross-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: debian:13-riscv64
-     KBUILD_DEFCONFIG: tiny64_defconfig
-@@ -347,12 +361,14 @@ debian-13-riscv64-gcc-debug:
- 
- debian-bookworm-gcc-arm32:
-   extends: .gcc-arm32-cross-build
-+  <<: *build-test
-   variables:
-     CONTAINER: debian:bookworm-arm64v8-arm32-gcc
-     HYPERVISOR_ONLY: y
- 
- debian-bookworm-gcc-arm32-debug:
-   extends: .gcc-arm32-cross-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: debian:bookworm-arm64v8-arm32-gcc
-     HYPERVISOR_ONLY: y
-@@ -366,6 +382,7 @@ debian-bookworm-gcc-arm32-randconfig:
- 
- debian-bookworm-gcc-arm32-debug-staticmem:
-   extends: .gcc-arm32-cross-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: debian:bookworm-arm64v8-arm32-gcc
-     HYPERVISOR_ONLY: y
-@@ -376,6 +393,7 @@ debian-bookworm-gcc-arm32-debug-staticmem:
- 
- debian-bookworm-gcc-arm32-debug-earlyprintk:
-   extends: .gcc-arm32-cross-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: debian:bookworm-arm64v8-arm32-gcc
-     HYPERVISOR_ONLY: y
-@@ -407,11 +425,13 @@ debian-bookworm-gcc-debug-arm64:
- 
- alpine-3.18-gcc-arm64:
-   extends: .gcc-arm64-build
-+  <<: *build-test
-   variables:
-     CONTAINER: alpine:3.18-arm64v8
- 
- alpine-3.18-gcc-debug-arm64:
-   extends: .gcc-arm64-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: alpine:3.18-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -426,6 +446,7 @@ alpine-3.18-gcc-arm64-randconfig:
- 
- alpine-3.18-gcc-debug-arm64-staticmem:
-   extends: .gcc-arm64-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: alpine:3.18-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -435,6 +456,7 @@ alpine-3.18-gcc-debug-arm64-staticmem:
- 
- alpine-3.18-gcc-debug-arm64-static-shared-mem:
-   extends: .gcc-arm64-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: alpine:3.18-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -444,6 +466,7 @@ alpine-3.18-gcc-debug-arm64-static-shared-mem:
- 
- alpine-3.18-gcc-debug-arm64-boot-cpupools:
-   extends: .gcc-arm64-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: alpine:3.18-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -451,6 +474,7 @@ alpine-3.18-gcc-debug-arm64-boot-cpupools:
- 
- alpine-3.18-gcc-debug-arm64-earlyprintk:
-   extends: .gcc-arm64-build-debug
-+  <<: *build-test
-   variables:
-     CONTAINER: alpine:3.18-arm64v8
-     EXTRA_XEN_CONFIG: |
-@@ -496,6 +520,7 @@ debian-bookworm-gcc-cppcheck:
- 
- debian-bookworm-gcc-arm32-cppcheck:
-   extends: .gcc-arm32-cross-build
-+  <<: *build-test
-   variables:
-     CONTAINER: debian:bookworm-cppcheck
-     CROSS_COMPILE: /usr/bin/arm-linux-gnueabihf-
+-if [ -n "$retrieve_xml" ]; then
+-    echo "timeout 30s udhcpc -i xenbr0" >> etc/local.d/xen.start
+-fi
+-
+ if [ -n "$domU_check" ]; then
+     echo "
+ # get domU console content into test log
 -- 
 git-series 0.9.1
 
