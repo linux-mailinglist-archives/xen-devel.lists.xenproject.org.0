@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oPAuOzXiy2n0MAYAu9opvQ
+	id 6Dh9Ai/iy2n0MAYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 17:03:17 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 17:03:11 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DB6536B54C
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 17:03:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1269062.1558214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6931436B53F
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 17:03:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1269061.1558206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7acO-00074z-59; Tue, 31 Mar 2026 15:03:00 +0000
+	id 1w7acJ-0006qf-VD; Tue, 31 Mar 2026 15:02:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1269062.1558214; Tue, 31 Mar 2026 15:03:00 +0000
+Received: by outflank-mailman (output) from mailman id 1269061.1558206; Tue, 31 Mar 2026 15:02:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7acO-00072S-2T; Tue, 31 Mar 2026 15:03:00 +0000
-Received: by outflank-mailman (input) for mailman id 1269062;
- Tue, 31 Mar 2026 15:02:59 +0000
+	id 1w7acJ-0006ou-SK; Tue, 31 Mar 2026 15:02:55 +0000
+Received: by outflank-mailman (input) for mailman id 1269061;
+ Tue, 31 Mar 2026 15:02:55 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ilpo.jarvinen@linux.intel.com>) id 1w7acM-000723-MM
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 15:02:59 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w7acJ-0006oo-87
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 15:02:55 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7acM-008jFp-2C
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 17:02:58 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1w7acI-00HGu1-Jy
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 17:02:54 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <ilpo.jarvinen@linux.intel.com>)
- id 69cbe218-2eae-0a2a0a5409dd-0a2a4505be9e-30
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 17:02:56 +0200
-Received: from [192.198.163.9] (helo=mgamail.intel.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <ilpo.jarvinen@linux.intel.com>)
- id 69cbe21e-5aeb-0a2a45050019-c0c6a30982d7-3
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 17:02:56 +0200
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 08:02:53 -0700
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.6])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 08:02:37 -0700
+ (envelope-from <jbeulich@suse.com>)
+ id 69cbe214-5cb7-0a2a0a5109dd-0a2a45039f52-24
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 17:02:54 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <jbeulich@suse.com>)
+ id 69cbe21e-1947-0a2a45030019-d1558030d486-3
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 17:02:54 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4852a9c6309so49282415e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 08:02:54 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4887adc5690sm32151685e9.2.2026.03.31.08.02.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 31 Mar 2026 08:02:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,240 +56,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=Intel header.d=intel.com header.i="@intel.com" header.h="From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1774969376; x=1806505376;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=lKc0nR0+3UMuWZyWz6l9MjXgdkdLagd8O+NJe9KaxV4=;
-  b=F+VgHQWfalgDZR7+DXUrOTZbIFCO9gX3e0aVFmlQkhph+bZPKjQOLol8
-   ryixn/jEJ3gHgKULmO5Jeffxxs6C8teDBbz9U3rkydZoeiLkeNVDKQq8C
-   E3JaqdlsglB2zmIhcPtROCVTmWWP2XYvs+XJWy9En8ElVd0GQAdm9cyyN
-   sbcY0i5+z1dAfaPQVzI4Gj2GuUV15lq+xMYLbKqQesmRVvNq3595hVp7n
-   cJ7MjLt5OQWnOmMZQw/Qi7jO19cuuqH4f5FFrCheZv6WCF66F7F12e31n
-   fXew6N8oYYJNjqHPLY7UETBKSPU6ZbrHgefuvnTCmrPIOaeWp5q6+rIr4
-   A==;
-X-CSE-ConnectionGUID: LIGBrtE1QUmVGo4tiRwZzA==
-X-CSE-MsgGUID: dJNhuoN1S+S4Fh2xlD85+Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="86682249"
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; 
-   d="scan'208";a="86682249"
-X-CSE-ConnectionGUID: JHiKH3CWRemnPBHhcWS24A==
-X-CSE-MsgGUID: Gcx1iYgWQJaJHg3SKbkrBg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; 
-   d="scan'208";a="221527611"
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 31 Mar 2026 18:02:33 +0300 (EEST)
-To: Danilo Krummrich <dakr@kernel.org>
-cc: Russell King <linux@armlinux.org.uk>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    "Rafael J. Wysocki" <rafael@kernel.org>, 
-    Ioana Ciornei <ioana.ciornei@nxp.com>, Nipun Gupta <nipun.gupta@amd.com>, 
-    Nikhil Agarwal <nikhil.agarwal@amd.com>, 
-    "K. Y. Srinivasan" <kys@microsoft.com>, 
-    Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-    Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
-    Bjorn Helgaas <bhelgaas@google.com>, Armin Wolf <W_Armin@gmx.de>, 
-    Bjorn Andersson <andersson@kernel.org>, 
-    Mathieu Poirier <mathieu.poirier@linaro.org>, 
-    Vineeth Vijayan <vneethv@linux.ibm.com>, 
-    Peter Oberparleiter <oberpar@linux.ibm.com>, 
-    Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-    Alexander Gordeev <agordeev@linux.ibm.com>, 
-    Christian Borntraeger <borntraeger@linux.ibm.com>, 
-    Sven Schnelle <svens@linux.ibm.com>, 
-    Harald Freudenberger <freude@linux.ibm.com>, 
-    Holger Dengler <dengler@linux.ibm.com>, Mark Brown <broonie@kernel.org>, 
-    "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>, 
-    Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
-    =?ISO-8859-15?Q?Eugenio_P=E9rez?= <eperezma@redhat.com>, 
-    Alex Williamson <alex@shazbot.org>, Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-    LKML <linux-kernel@vger.kernel.org>, driver-core@lists.linux.dev, 
-    linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org, 
-    linux-pci@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
-    linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
-    linux-s390@vger.kernel.org, linux-spi@vger.kernel.org, 
-    virtualization@lists.linux.dev, kvm@vger.kernel.org, 
-    xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org, 
-    Gui-Dong Han <hanguidong02@gmail.com>
-Subject: Re: [PATCH 06/12] platform/wmi: use generic driver_override
- infrastructure
-In-Reply-To: <20260324005919.2408620-7-dakr@kernel.org>
-Message-ID: <f15629e4-ef8f-b1b6-0158-064f40f111da@linux.intel.com>
-References: <20260324005919.2408620-1-dakr@kernel.org> <20260324005919.2408620-7-dakr@kernel.org>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1774969374; x=1775574174; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=Uev4nSdenuKcsR/y5Q48D1UtxhwbVJygbdeoloBJ2K4=;
+        b=JGjJCfjbeB41qUgz4M6Bw4PWSqePmCL1jeWgDcsrAoxUF0YHwx0I8+kXnmHfvKxvtG
+         jIfaDcFX0q3oIHfCVJ/+GmaLp8oNu0+uknyg9/7TrZsdQo8DARmGJSa6npHO5ady6Gxc
+         HbeVtm6hE0olQeI5AhSQmUJ5S37A/WQxiseurFtQFZoNf7RqV6wDWt+U3KVrGd5tWq8e
+         ebi+7RW8ZBENRckLGelYTEznxuND8i2hbjE8eSeS3LPRMB94UFrD5xT5ezbebATUwjVm
+         w9cuz6qqJfN6/OmFy/yl5J570PWXmsuBfx0x+hbFK8L4o/0nVezmuzehPJk0Hvdm8XCV
+         OReA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1774969374; x=1775574174;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Uev4nSdenuKcsR/y5Q48D1UtxhwbVJygbdeoloBJ2K4=;
+        b=LPPf3MJQn1vnFTD0wLw3eLqK6FjM83H65bm3BiIdL20vEl17+rhoO/89VqcV8JaS42
+         dNGTxWMUd9VVxV0OR7iAoEQbweKYS6hHhc24DU813LQHDQpMgLFCVStQtGiGj1uinPKg
+         8W3vIw4c/QBscuHD9angJ0WWFm9oGopRcWFsp3tevYDpmCymQ567gqlHt6+Sf4Z3yHWU
+         VAswdgRArG4MnaY//uBR9WTmI8CBjWCpNrDyIc+QWaRBsqazCQi6ZQlDpclZGH+y0uTz
+         BVPAIpp/IQ8sRB+ysvdYabpX//LpJBbsgosCmegZ5pt59MNacQQRLKra1m0Yl/Sl0g52
+         IEIA==
+X-Forwarded-Encrypted: i=1; AJvYcCVjkfaY3m5NUk68XYaCsGKXUd8JmQ7+ZZOJTYo3Bso/IsE+mdhhrZma+cTCJPngSnF3Oj5O82kcMlA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwyLeCQLF0SQsmfdMcGQBQszTT+OqcZM3+OBkDbJYcfetswyxvN
+	TguxoodNuptQj7X1NPnzJ3uae8a7nYbwZ8L88PqEGSiukR3KberujR8fgNw5/u8pYg==
+X-Gm-Gg: ATEYQzytD6GK6YwzBb31dYxX69ozLIz9ryzLCPcQucI25sggm0CigHPUdie6dDb75xU
+	eQgvqoDLH4mGo6Fivm91bEtbQRKRs9NDARKiK6uW5rjxksZFb1sv8MOKvSMaGLN78IpsuCT1QPJ
+	VKP4DxzyZmHHmaYQdPGS6UX1O6trbMTv2j19KDGXbixNw3NJPhJDQxRQNWRlSrLCqYmH0nEmZ7Q
+	rKlH0GYT6+DGJ6p0yhhFSYIY1zGa3Tkg8JNcu0azw86gdzzeX1tpPde1kKfmhD/3zTb7bbJA51x
+	51UI6mXMVaTCxPmy3/PDK2V7ucRtdY5/2MRoIje219q1aGT7g8oAFM0HrnPTpqAl8pi/pCIIUWc
+	o4eXJfoj3JTkPubpta8v0s2G+A9vTe74gprtx81/ysUQHJ/qKTYByUBhlKxVxzOHdmGjXQXrkkU
+	FUhRTXecIvDdPN2v3saOnV2dUjAJdpn5ByBoeLaCgMN9b341BV+heymRmhKU7mDMtVZmO2lGQWp
+	az4Mp/JOk7cO4c=
+X-Received: by 2002:a05:600c:8b2a:b0:485:3dfc:57c with SMTP id 5b1f17b1804b1-48727f5fe97mr292619545e9.21.1774969373785;
+        Tue, 31 Mar 2026 08:02:53 -0700 (PDT)
+Message-ID: <f6c3560a-1b2f-47a4-9386-77d688abba75@suse.com>
+Date: Tue, 31 Mar 2026 17:02:51 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-purgate-ID: tlsNG-c201ff/1774969376-9F283488-BFCDF2BC/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 7/8] vpci: add SR-IOV support for DomUs
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1772806036.git.mykyta_poturai@epam.com>
+ <4df03dab1dc6ce3ac7524b9f06641bc90889f743.1772806036.git.mykyta_poturai@epam.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <4df03dab1dc6ce3ac7524b9f06641bc90889f743.1772806036.git.mykyta_poturai@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-33051d/1774969374-EAC8472C-6B3AE64D/0/0
 X-purgate-type: clean
-X-purgate-size: 4261
+X-purgate-size: 2941
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[intel.com,none];
-	R_DKIM_ALLOW(-0.20)[intel.com:s=Intel];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[armlinux.org.uk,linuxfoundation.org,kernel.org,nxp.com,amd.com,microsoft.com,google.com,gmx.de,linaro.org,linux.ibm.com,redhat.com,linux.alibaba.com,shazbot.org,suse.com,epam.com,vger.kernel.org,lists.linux.dev,lists.ozlabs.org,lists.xenproject.org,lists.infradead.org,gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:dakr@kernel.org,m:linux@armlinux.org.uk,m:gregkh@linuxfoundation.org,m:rafael@kernel.org,m:ioana.ciornei@nxp.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:bhelgaas@google.com,m:W_Armin@gmx.de,m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:vneethv@linux.ibm.com,m:oberpar@linux.ibm.com,m:hca@linux.ibm.com,m:gor@linux.ibm.com,m:agordeev@linux.ibm.com,m:borntraeger@linux.ibm.com,m:svens@linux.ibm.com,m:freude@linux.ibm.com,m:dengler@linux.ibm.com,m:broonie@kernel.org,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:eperezma@redhat.com,m:alex@shazbot.org,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:chleroy@kernel.org,m:linux-kernel@vger.kernel.org,m:driver-core@lists.linux.dev,m:linuxppc-dev@lists.ozlabs.org,m:linux-hyperv@vger.kernel.org,m:linux-pci@vger.kernel.org,m:platform-driver-x86
- @vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-s390@vger.kernel.org,m:linux-spi@vger.kernel.org,m:virtualization@lists.linux.dev,m:kvm@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-arm-kernel@lists.infradead.org,m:hanguidong02@gmail.com,s:lists@lfdr.de];
-	RCVD_COUNT_SEVEN(0.00)[10];
-	FORGED_SENDER(0.00)[ilpo.jarvinen@linux.intel.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:stewart.hildebrand@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[intel.com:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[ilpo.jarvinen@linux.intel.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[50];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.intel.com:mid,intel.com:dkim]
-X-Rspamd-Queue-Id: 2DB6536B54C
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 6931436B53F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Tue, 24 Mar 2026, Danilo Krummrich wrote:
-
-> When a driver is probed through __driver_attach(), the bus' match()
-> callback is called without the device lock held, thus accessing the
-> driver_override field without a lock, which can cause a UAF.
+On 09.03.2026 12:08, Mykyta Poturai wrote:
+> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
 > 
-> Fix this by using the driver-core driver_override infrastructure taking
-> care of proper locking internally.
-> 
-> Note that calling match() from __driver_attach() without the device lock
-> held is intentional. [1]
-> 
-> Link: https://lore.kernel.org/driver-core/DGRGTIRHA62X.3RY09D9SOK77P@kernel.org/ [1]
-> Reported-by: Gui-Dong Han <hanguidong02@gmail.com>
-> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=220789
-> Fixes: 12046f8c77e0 ("platform/x86: wmi: Add driver_override support")
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> ---
->  drivers/platform/wmi/core.c | 36 +++++-------------------------------
->  include/linux/wmi.h         |  4 ----
->  2 files changed, 5 insertions(+), 35 deletions(-)
-> 
-> diff --git a/drivers/platform/wmi/core.c b/drivers/platform/wmi/core.c
-> index b8e6b9a421c6..750e3619724e 100644
-> --- a/drivers/platform/wmi/core.c
-> +++ b/drivers/platform/wmi/core.c
-> @@ -842,39 +842,11 @@ static ssize_t expensive_show(struct device *dev,
->  }
->  static DEVICE_ATTR_RO(expensive);
->  
-> -static ssize_t driver_override_show(struct device *dev, struct device_attribute *attr,
-> -				    char *buf)
-> -{
-> -	struct wmi_device *wdev = to_wmi_device(dev);
-> -	ssize_t ret;
-> -
-> -	device_lock(dev);
-> -	ret = sysfs_emit(buf, "%s\n", wdev->driver_override);
-> -	device_unlock(dev);
-> -
-> -	return ret;
-> -}
-> -
-> -static ssize_t driver_override_store(struct device *dev, struct device_attribute *attr,
-> -				     const char *buf, size_t count)
-> -{
-> -	struct wmi_device *wdev = to_wmi_device(dev);
-> -	int ret;
-> -
-> -	ret = driver_set_override(dev, &wdev->driver_override, buf, count);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	return count;
-> -}
-> -static DEVICE_ATTR_RW(driver_override);
-> -
->  static struct attribute *wmi_attrs[] = {
->  	&dev_attr_modalias.attr,
->  	&dev_attr_guid.attr,
->  	&dev_attr_instance_count.attr,
->  	&dev_attr_expensive.attr,
-> -	&dev_attr_driver_override.attr,
->  	NULL
->  };
->  ATTRIBUTE_GROUPS(wmi);
-> @@ -943,7 +915,6 @@ static void wmi_dev_release(struct device *dev)
->  {
->  	struct wmi_block *wblock = dev_to_wblock(dev);
->  
-> -	kfree(wblock->dev.driver_override);
->  	kfree(wblock);
->  }
->  
-> @@ -952,10 +923,12 @@ static int wmi_dev_match(struct device *dev, const struct device_driver *driver)
->  	const struct wmi_driver *wmi_driver = to_wmi_driver(driver);
->  	struct wmi_block *wblock = dev_to_wblock(dev);
->  	const struct wmi_device_id *id = wmi_driver->id_table;
-> +	int ret;
->  
->  	/* When driver_override is set, only bind to the matching driver */
-> -	if (wblock->dev.driver_override)
-> -		return !strcmp(wblock->dev.driver_override, driver->name);
-> +	ret = device_match_driver_override(dev, driver);
-> +	if (ret >= 0)
-> +		return ret;
->  
->  	if (id == NULL)
->  		return 0;
-> @@ -1076,6 +1049,7 @@ static struct class wmi_bus_class = {
->  static const struct bus_type wmi_bus_type = {
->  	.name = "wmi",
->  	.dev_groups = wmi_groups,
-> +	.driver_override = true,
->  	.match = wmi_dev_match,
->  	.uevent = wmi_dev_uevent,
->  	.probe = wmi_dev_probe,
-> diff --git a/include/linux/wmi.h b/include/linux/wmi.h
-> index 75cb0c7cfe57..14fb644e1701 100644
-> --- a/include/linux/wmi.h
-> +++ b/include/linux/wmi.h
-> @@ -18,16 +18,12 @@
->   * struct wmi_device - WMI device structure
->   * @dev: Device associated with this WMI device
->   * @setable: True for devices implementing the Set Control Method
-> - * @driver_override: Driver name to force a match; do not set directly,
-> - *		     because core frees it; use driver_set_override() to
-> - *		     set or clear it.
->   *
->   * This represents WMI devices discovered by the WMI driver core.
->   */
->  struct wmi_device {
->  	struct device dev;
->  	bool setable;
-> -	const char *driver_override;
->  };
->  
->  /**
-> 
+> SR-IOV virtual functions have simplified configuration space such as
+> Vendor ID is derived from the physical function and Device ID comes
+> from SR-IOV extended capability.
+> Emulate those, so we can provide VID/DID pair for guests which use PCI
+> passthrough for SR-IOV virtual functions.
 
-Hi,
+Why do we need to emulate what hardware would do anyway? These are r/o
+fields, so likely okay to expose directly to a domain?
 
-I tried applying this to platform-drivers tree but it failed to compile so 
-I ended up dropping the changed.
+> --- a/xen/drivers/vpci/sriov.c
+> +++ b/xen/drivers/vpci/sriov.c
+> @@ -303,6 +303,63 @@ int vf_init_header(struct pci_dev *vf_pdev)
+>      sriov_pos = pci_find_ext_capability(pf_pdev, PCI_EXT_CAP_ID_SRIOV);
+>      ctrl = pci_conf_read16(pf_pdev->sbdf, sriov_pos + PCI_SRIOV_CTRL);
+>  
+> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
+> +    if ( pf_pdev->domain != vf_pdev->domain )
 
--- 
- i.
+Is there anything speaking against the (preferred) use of
+IS_ENABLED(CONFIG_HAS_VPCI_GUEST_SUPPORT) here?
 
+> +    {
+> +        uint16_t vid = pci_conf_read16(pf_pdev->sbdf, PCI_VENDOR_ID);
+> +        uint16_t did = pci_conf_read16(pf_pdev->sbdf,
+> +                                       sriov_pos + PCI_SRIOV_VF_DID);
+> +        struct vpci_bar *bars = vf_pdev->vpci->header.bars;
+> +        unsigned int i;
+> +
+> +        rc = vpci_add_register(vf_pdev->vpci, vpci_read_val, NULL,
+> +                               PCI_VENDOR_ID, 2, (void *)(uintptr_t)vid);
+> +        if ( rc )
+> +            return rc;
+> +
+> +        rc = vpci_add_register(vf_pdev->vpci, vpci_read_val, NULL,
+> +                               PCI_DEVICE_ID, 2, (void *)(uintptr_t)did);
+> +        if ( rc )
+> +            return rc;
+> +
+> +        /* Hardcode multi-function device bit to 0 */
+> +        rc = vpci_add_register(vf_pdev->vpci, vpci_read_val, NULL,
+> +                               PCI_HEADER_TYPE, 1,
+> +                               (void *)PCI_HEADER_TYPE_NORMAL);
+> +        if ( rc )
+> +            return rc;
+> +
+> +        rc = vpci_add_register(vf_pdev->vpci, vpci_hw_read32, NULL,
+> +                               PCI_CLASS_REVISION, 4, NULL);
+> +        if ( rc )
+> +            return rc;
+> +
+> +        for ( i = 0; i < PCI_SRIOV_NUM_BARS; i++ )
+> +        {
+> +            switch ( pf_pdev->vpci->sriov->vf_bars[i].type )
+> +            {
+> +            case VPCI_BAR_MEM32:
+> +            case VPCI_BAR_MEM64_LO:
+> +            case VPCI_BAR_MEM64_HI:
+> +                rc = vpci_add_register(vf_pdev->vpci, vpci_guest_mem_bar_read,
+> +                                       vpci_guest_mem_bar_write,
+> +                                       PCI_BASE_ADDRESS_0 + i * 4, 4, &bars[i]);
+> +                if ( rc )
+> +                    return rc;
+> +                break;
+> +            default:
+
+Nit: Blank lines please between non-fall-through case blocks.
+
+Jan
 
