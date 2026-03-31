@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +IGmFusoy2n/EQYAu9opvQ
+	id QJVjCO4oy2n8EQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 03:52:43 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 03:52:46 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E86DA3632D0
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 03:52:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1268293.1557703 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91F263632ED
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 03:52:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1268302.1557715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7OHS-0005ca-AJ; Tue, 31 Mar 2026 01:52:34 +0000
+	id 1w7OHV-0006Kx-6l; Tue, 31 Mar 2026 01:52:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1268293.1557703; Tue, 31 Mar 2026 01:52:33 +0000
+Received: by outflank-mailman (output) from mailman id 1268302.1557715; Tue, 31 Mar 2026 01:52:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7OHQ-0005I2-St; Tue, 31 Mar 2026 01:52:32 +0000
-Received: by outflank-mailman (input) for mailman id 1268293;
- Tue, 31 Mar 2026 01:52:26 +0000
+	id 1w7OHU-00067R-0Z; Tue, 31 Mar 2026 01:52:36 +0000
+Received: by outflank-mailman (input) for mailman id 1268302;
+ Tue, 31 Mar 2026 01:52:30 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <milan_djokic@epam.com>) id 1w7OHJ-0003xy-Mx
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 01:52:25 +0000
+ (envelope-from <milan_djokic@epam.com>) id 1w7OHM-0004eW-Tq
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 01:52:29 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7OHJ-00HCwd-1g
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 03:52:25 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1w7OHM-00EbSb-8G
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 03:52:28 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <milan_djokic@epam.com>)
- id 69cb2873-e002-0a2a0a5209dd-0a2a450ba5e2-44
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 03:52:25 +0200
-Received: from [52.101.69.102]
- (helo=AM0PR83CU005.outbound.protection.outlook.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69cb28c1-2eae-0a2a0a5409dd-0a2a4501906e-30
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 03:52:28 +0200
+Received: from [52.101.83.106]
+ (helo=GVXPR05CU001.outbound.protection.outlook.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <milan_djokic@epam.com>)
- id 69cb28d8-ef63-0a2a450b0019-34654566fbfa-3
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 03:52:24 +0200
+ id 69cb28db-6400-0a2a45010019-3465536aceae-3
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 03:52:28 +0200
 Received: from VI1PR03MB5088.eurprd03.prod.outlook.com (2603:10a6:803:c2::20)
  by GVXPR03MB11035.eurprd03.prod.outlook.com (2603:10a6:150:287::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Tue, 31 Mar
- 2026 01:52:22 +0000
+ 2026 01:52:25 +0000
 Received: from VI1PR03MB5088.eurprd03.prod.outlook.com
  ([fe80::8471:b7dd:8a1c:c30]) by VI1PR03MB5088.eurprd03.prod.outlook.com
  ([fe80::8471:b7dd:8a1c:c30%4]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
- 01:52:22 +0000
+ 01:52:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,37 +60,32 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ws6PUbXKGGRlZaBlFrjlff9zr+s1xpZE3U1hxDkbttsanRnjfGJNqKrRcByRQXfu7b8D4yseUYC4Hfv/KSf0hIPpOLwh4Hbu0uz7etIx4CfTbTohYCgJaVPeAZq8+k5oWGZvkWFaRscx+xH+cK4MSPbrW2bL5Eza5e5bEWHDWBq+Vrk7pKbMsJEH1QiN5pbhK/ilEyU55v0O8htI521g/j6FHuDCgNx9Yf4KZLnqnFuxtLudKr+mM5i+6J4iRe4TPsWcmEtnOfSHd9fD1Vaxw5h4dqvgpn4hYkF+J3Rbg2+Bw2NCrcHvB8NRhLRHUPK2EWLhrJczD/WdZCITfo40mQ==
+ b=NC/61llCGtq9vLa+tsmLmjl3bi9tGMzYA7X+1hBGENzVu7Gfcu31bYsKpcTxX/QxCwuDMfqI6/FUxf0n67y3mrJLNk69ctdJkQRFpqwoyT8VczeUQwxV4VFD1jUz8WD56h0N9AdqZmQmZgTvK+6ehm0zTYD4a8Co7GSvZGHFet1HPUQyNusWDmxyvv9vz7qgi9iKh/NHJjBmz9502GJLMf+tet3g/xMiyrh1yXyZwPEZxXDepD+fMVQMRbjT1gH7lcTqgsXRbjgRTFgLmc6oE3iK8GbaKZ1g482MLgG8otpcoIkVFAxLcdh7gmi7uGVAJm9utEIzW9euTFVIdjs30Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nj6Z81N01vY3XvfYQy+xhGlOvhCvIFvRcD16AMxsTXg=;
- b=s+gd5PSO457PO0gfIW5IqoLPqF+NCfNs1bIgvYExrrWPtDYywjb18YB4QuqEyHPWW2FaE577DgeEACEgQ+b5I6cjIXmi4igItU078aHvLQ9GCvmmda76QQMNdxSU4oq/wKbQafEoZ1YLJbUHP8zEW5L2X99WGuBVB0hcttxIj212mMSH6TAZJ3jO1tz6kP/UlpJaesWPW4LSSAPgWy8XB1lNS9EJE2zNiAYQ9mCImYdE2j0xwLKe+OtmdT07+0QmMdpNAes04da8TEtnj3spJFVAsOrEH6yQlDMpTIG3xKxElu73u1753q6t+rGpTYMuBMS2SwFKE+9IAo9l15i55Q==
+ bh=POdIWiyq3zK2RST8fX5c8KWOFnxRtRBhHZSCrNKk+HM=;
+ b=apR314B8h83ujfWVb8lkwR2rRvGT6VRc3AS6+hWpTDkpJjec4ubVGIKEDLil+1o8t8DTdbYar44bmSqqh5oT3KU/j9VqpJ6uISLUwXiM+uCf4/GpoOZWJLSMKAqprfuAzgxycEBadTd11qcTICemKdc92cMxcLfXwma9aoI35oeK9WbFfUHDquKvTk0lnCnIf6qsjwrGDrWjYA425qqSOdqjyvZOZmZkA1QrP6Wlyr1qf2Y07WpFxtH1VB1s6czoynv02/9Gn1L25SUTiXb9hGKTMt0cucPF8Sy977PWmm41sbLh8rxw1l4OhwG54ct/OM+j7FWQzaVcBpptY6XFmw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nj6Z81N01vY3XvfYQy+xhGlOvhCvIFvRcD16AMxsTXg=;
- b=s6/KERyy3wuzd+j0K0XyC8g71kVxwQGCJxtd/ekw3weR8Iet5bovlLq0rGf4W2l+OjTYV85iBIa3SCVKx70lNJPD+RJCtjpbF1qK4uy3j05ahujvDAS9ETTnXdxiMYTqeeVMpgug6YP93q5jESBaqMRS0a0NlDb2tE3jI/JUuo/LudkmumPNa/TQfa2GjH6K8HFULdfCXjBhpHkNinHKOvTZZwQV+nh04A4QgKnz7g5WeAd5iz1vWeOpqmNpRMiigi+Ue3lH6eMvNhydWn73oxrQgQq84zryw++9CojXtGHyOwWtvPujbxjr1wV/QCjjooNk8iWn/hm9fP8jaoiqww==
+ bh=POdIWiyq3zK2RST8fX5c8KWOFnxRtRBhHZSCrNKk+HM=;
+ b=sKCPwGxkL9M262F1Xf4VAmWJONo+Nz/MNMyfD7MFWq3xjs5ao03W22byFCG8uMbR1p/4mOJlQ+8J7xotFKHrYRh2F7SJ7+GjHr40AQT9yHLcqHDwChY/E0sKTBUxYzLMJEsnsA9LhxBfWX+sKfZmjL/Md2eWvl6DJ2MWTUzZ9YC966vMiGqyVROmTQuc/KOFICNFmTigyILl2MM95noAYmgP/C3dpaQEyBPgYoiYt59gx8oNwzZ5jp83piDCR6dQ8/NvUrhK8RU4dhF4maYQvTB49kfB8RRuTQJDWqkTZWdKjiU2E9ZfargbOj72pfgEoyldkeK83zMUX7kRnRXmlQ==
 From: Milan Djokic <milan_djokic@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Milan Djokic <milan_djokic@epam.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Juergen Gross <jgross@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Michal Orzel <michal.orzel@amd.com>, Jan Beulich
-	<jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "Daniel P. Smith"
-	<dpsmith@apertussolutions.com>
-Subject: [PATCH v3 22/23] libxl/arm: Introduce domctl command for IOMMU
- vSID/vRID mapping
-Thread-Topic: [PATCH v3 22/23] libxl/arm: Introduce domctl command for IOMMU
- vSID/vRID mapping
-Thread-Index: AQHcwLEEe+7BrcQh2EWF8RsNhJr7LQ==
-Date: Tue, 31 Mar 2026 01:52:22 +0000
+CC: Milan Djokic <milan_djokic@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v3 23/23] doc/arm: vIOMMU design document
+Thread-Topic: [PATCH v3 23/23] doc/arm: vIOMMU design document
+Thread-Index: AQHcwLEF/MF3mCsLfEau6Nk62vBvCw==
+Date: Tue, 31 Mar 2026 01:52:25 +0000
 Message-ID:
- <9db4c7b985de8cafacf778c41c35699f2ef07fe2.1774918270.git.milan_djokic@epam.com>
+ <06d3f9dd178c40b9b2360c24cc2ed55f9559eba6.1774918270.git.milan_djokic@epam.com>
 References: <cover.1774918270.git.milan_djokic@epam.com>
 In-Reply-To: <cover.1774918270.git.milan_djokic@epam.com>
 Accept-Language: en-US
@@ -101,518 +96,533 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: VI1PR03MB5088:EE_|GVXPR03MB11035:EE_
-x-ms-office365-filtering-correlation-id: 804f03c1-f56b-4395-cb4d-08de8ec8268f
+x-ms-office365-filtering-correlation-id: 62dfcb1f-9599-4e47-06ff-08de8ec82854
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|7416014|376014|56012099003|22082099003|18002099003|38070700021;
+ BCL:0;ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003|3122999024|38070700021;
 x-microsoft-antispam-message-info:
- Yz/X4i7nCApIpbIywaDfpjPLI+BPnPTmMhB5enAXvhMGoEFE7hx8DaVqg0di986D2holyvsUy5uVp32c90PFTwvUQLeFbkzQeCROe0Dv+GUYbNjDKyZk4uM87HiEjbYJSx950XH1Kd4OggZIHxmNN5IYBX5vDTf8fCgDuy575u5DvIx35Oxzr/uo3yEmpOz2CzWrd8ZwjgEmmafPoKF78SjejlQmjtlz4ef8e6zbD1iXgUzmMHmsW6qL8G9Z4K2C0k+PksV7dDmHYq1IXYp/PiRkx8mTij/JjiH6nd4nmFwmgSFZtOOu7CohTok5BNy7puoQKcMoaDNZuBNM846YEJ+E9uQ3ke3FLfxX5LDnlxHhzzV/kDpMblJmMDe6zVljvE0hxs80dk7xgvThErJSCJhbChWBsmanpSsG9gyaLrtSKJXoPkBXCVGxhgHgC/wEGdSb0rov3lg6QTnwbwM24usHSa6/3ZrfMr6IjSHzmaBCxhtd+YYuHbxQ67wMtp1JcPJx/C2bCqUKJAsiAvuEIaY1nAz1y3VczC4RVXWF+N0uAXmprjzrO0v4T8Nd8Ip2Dvpoze0c3+fT374LfM7/BFRg23uZcOVzPxcZfi295Q/9p8pciVuOt11XvygMgUGs8ZiDuh6sg0I9tKfwu1UmzeVoZPd7qBXOiLM6ICe3P+Wc0B5mmyIO25Fm7KEIu3fnyqSQV1KXFuvxUhLVGh4b2Tu5ZNOgUVdFBFL8xe7f6K7Mj9ZOuDOXgUKzo7mSS/oRQm1nsnyrLLwbwAr3rrutZK/QEWC7q+fNI/Gk1V9mTto=
+ sJInYFNifUqVb6/1col1mHFHR01oGpaEFG9GWgB/Pyo2TlAFByd+uG8WUtsGUy8i0QV7Te7DF+0asMq7pre166HAXUbYW06N43e3BaTgrrd3SC75+xPW6dlyifhlSZLKS3aMrKV9xSU9M2YLx9B02l34HBsgoM8hst5N5IMY6SSumvVsJZcEh45zbQvKGwnv3vG6bCY04uVxYse8q2+bDvX43L7Jo80ZZXghKOW4+1V1x7ykEENZf+9CG/B7XVkScG+FGkGZbm9XRi0OaAl1Rffsb6KN9/HPAL0rzIq20a/KmfLK/Ygs96dfk0vqbrApg3wH+5C2cHV4vlYn1B1G4dsigXyVdCn6stiMPCswqzgPz7cNRLXu/W3q//6miFX952NhBGY8M6hCw+i5syXsK7W3x/4osCQNro6cofsrY1ML/Fe0SEpVqR7253L3QaNZT81cm/7/omvmwqAwra6KomxzJHFNSdW0+G7UZ8enGD6pG2ltLxtoh5R2jd4RaE2ZtJ09jm7o6gq7IBd9zylRmwENYDQm7VIX0YvFhcQK8fooKQXeDOC+xjXYrBLzMjHzk39xP7gCxJk8UlvKZNS9oocL77L8msnwMrH8MRNpXNe5fUyrpoXZXr3XTWXTxrpKuBafNo3quK/dmErH/Mc9M0F2ot9tn2LXub9pUDypmqFAlHVAy8mo3A8wnwA3kUJ01lqnmD/V9HGD08AwB5YKNXMr5BpPCblzHr1YwrwNDAvuKRpRdqyt9jJ/4aOKAyHvTA8msN/wiabTP1IcG/3MHdCgIczK7Re0f8lpd48H43k=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB5088.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(56012099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB5088.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003)(3122999024)(38070700021);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?yisMQU7nZE43+sOI4RfpQRzMulELgvCfGseOWpQKnfq3AWTqcgjc+3Kojc?=
- =?iso-8859-1?Q?9Sz0o1S6t9QUQe4IF4DMqsO9qhJbyp8dzPQuWZ6JswK/6zKYODSm1TJVS/?=
- =?iso-8859-1?Q?dMd//sKl8lNapBZt7XxBMhJ/XzzBsfdvGIgb2PAoY1TQZWACUeGVzaNyC1?=
- =?iso-8859-1?Q?FLl3zaI1tKBIosvg8DtJYBmIq92WgHzwMIqRM11uvJb5QF+AXBcIlVFYHW?=
- =?iso-8859-1?Q?2M4HzWeZIAWgTKFff240O83IlMegqWRTJ62lbl59NZ7o9DG+f8R1LIiZeL?=
- =?iso-8859-1?Q?YC9qd/Ywfs0mzOmKkD9L0UN9cb9P8aG19U6CyI1357AsEjfOHPUzEMRB+K?=
- =?iso-8859-1?Q?o1rKoxmroy3ePpuJQ/yZUWbmqEn6qgVTVQTD/ID0QpfYiZCd0rJW+Bu+s0?=
- =?iso-8859-1?Q?k7PpAUxksq7jm4+tlJvD6iGv7yeqyXOT9gWttU2RcEhj3PITDhlVMbQKg7?=
- =?iso-8859-1?Q?fHUIgm2CalL5PPbtQQib7OqMoJiDd4qULEFyVwGB2UhRlicpy3G88TT12V?=
- =?iso-8859-1?Q?+n78Q4lvYR/JQaTIbbqXUG4Qn7CQDYc2GkvcAzlY45L0RYQPEXR6ZH25xP?=
- =?iso-8859-1?Q?33251rh1Ao2MnmuxpQPRU4OqGx+BNFHVFcONke3tiEj+VwO+xYqIWsc0D+?=
- =?iso-8859-1?Q?0yE7AC2b7Urr0zb2eziZlAP1vq2jWa0N6FT8Lic3st2ao8cR0U/q7ztoQc?=
- =?iso-8859-1?Q?B7eT8k5aMp9tKcuaOkeQyDxwkGdduk7E5+6+eNvPJvW35fq6YGzNuTsCga?=
- =?iso-8859-1?Q?pXovEfurt0kiwpfkHn1k6hchVljRcEl6BGJ7ljpd891zR+7Zob4O7aZuHI?=
- =?iso-8859-1?Q?nFYqdJbxcFuaka4jNl2b05htkanLDoWp4NWQw2nL1UYddzvzj7jMzhJ35+?=
- =?iso-8859-1?Q?ejiAJYwCMDQS9fXqPJAgiPWt3rr64X6ILLsXTsWLipDWiXqfmRGipQq4Z2?=
- =?iso-8859-1?Q?KW8gsusU1uArOVXzLuBw2WSmFQ0j0rG1ODSyRdAd9oPSgZX3qaS9ftqxvC?=
- =?iso-8859-1?Q?gdRI4SaJ8Norp/XhI1KbDEB2/YTzoaWDF9HiA+fCgJsu8MtcwQw4OVJ8/0?=
- =?iso-8859-1?Q?SIoC0uvnMTAPt7kNw/wPiG5l7A2oyfe0w3ybYdIqezDJIGNaOAXYSAelZq?=
- =?iso-8859-1?Q?OMMjhldckYJcncl7fTK41YU5MEylvvz50xSfm6Nvhrzx3xilkxO5V3ZS9I?=
- =?iso-8859-1?Q?4ybDhdxZxyuhgU8gfHDa4dF0gF5Gbd9sBn8TpeMZuHWybzEMBZQN4SGiNS?=
- =?iso-8859-1?Q?WaAXp1I/K8UA0zmO7+7k0XOTktXfTi9WHVaOdMQkw6AmSzUIdwg6UD7Ht2?=
- =?iso-8859-1?Q?L51VmsZy52mNVvmyBBeq+eIQA2LOZ0OhYJNYbQ8rp11sdcKdbfNY+OWM3y?=
- =?iso-8859-1?Q?jLoXed/DO9Xfr4jKV2XCAvEfUP6WuNm9omHQP6P32E4JjkqU2IGNZVWYmI?=
- =?iso-8859-1?Q?AZiN1gLkaCDVM6C709o86FMlh0hBHC9jjekC6FEGIQwmL+GP/JDjAoY6n7?=
- =?iso-8859-1?Q?Dk0THu8UVylr0DgYWJ9O6ToXSzGRe7I4kOSALWy+rIyyU/cRHpFWh8rt8S?=
- =?iso-8859-1?Q?qZXwow5ppxQr5FGSVcdsl8wR07Pps+WcWc/NcBdSYS5XggwuZicl8JKrFC?=
- =?iso-8859-1?Q?dFCaixpB0VKn3JsQSjs7PhOWu6s9+xaDfcMnZ31VLVIfP5pUTOmjZxf2jE?=
- =?iso-8859-1?Q?Ft8u82SFqbLEPdNjBpOB9C8d/C//Mn9+dN+RVL5bhevjcWZpfMFzF1OW7H?=
- =?iso-8859-1?Q?xo+I7cxZzrvjsDqDn4xr7OHfceUy9uHD7wlz9kQBsUDPle22njqP56eLdY?=
- =?iso-8859-1?Q?3UPjzHrymwjyXgwdbRpsCuNYiKVguHw=3D?=
+ =?iso-8859-1?Q?SCcK2yqU8STACJbqomU5IYSnJCp7Ek2RNMCA/VwSlvZn4PdXaIDkwaIw6z?=
+ =?iso-8859-1?Q?ggkZlTCprCpoK3Odn5uG5B2IVFuAnepUerJ38vYVFSfe8q3HqJOwgMdF/2?=
+ =?iso-8859-1?Q?3yxT3eMM2Sv+BzM9gg7zhB+oJBkXI41KXJBH+n775hxZHrQ7vczvz/JssX?=
+ =?iso-8859-1?Q?XyeW8HWL8c1Skoxo0f5xC8In6bWFh82CeAK+3InplpEIQLMCiJl+3gD8S1?=
+ =?iso-8859-1?Q?7P91jDf4l/0k5kS+InzyzwpXVrMqmOGmC7bikjfe2XYnE43nJyJz2Mw2F1?=
+ =?iso-8859-1?Q?a6elSfybIu1QimkCJYUmJn11OwedxAU1c9Pli+VMFbxeavukIb9kjZECBU?=
+ =?iso-8859-1?Q?GoiSXvdZTnWTZiJAeF24lfASCvLFVO2AHAG5dh7FpX+5kyYN5+h9SAuxUQ?=
+ =?iso-8859-1?Q?vqE2JediexOHH9wVi7mVrqZ93O1VcNL8phxTwxXKrx9WMckRLfSPQNMrNG?=
+ =?iso-8859-1?Q?9P3h91o4vXquCDT0gma4RixySLt95DYS3z0SqjJcyFB1Q3wcCqDClgibCs?=
+ =?iso-8859-1?Q?SSqpxABo/oYSFIacR+XdwgM1v32+hnvTz0NNvPouaSdf1rLIJTvdywOLT9?=
+ =?iso-8859-1?Q?mQgZXvzTHpwRAJBFfoMoPmZKvyltMZ4+twNCXJnwdLZ37kaNg/Rt5xlzC8?=
+ =?iso-8859-1?Q?tErrgYWo9SwbHnFhIgnTC9XQOR+Lu22qLJpBCuc5AQUOqv9WYKiC3KW3CF?=
+ =?iso-8859-1?Q?4ZkaPFh5AgTYupT1KbfY2msyCT/ekUHVnCdFfFmlkBcrxv35MNrAKV/ehY?=
+ =?iso-8859-1?Q?1dk+hZk5Mu5MJqLsIGs6Ajv2qKsCIgftIfJUSj6pEpHKq6oY1oh+1okN5Q?=
+ =?iso-8859-1?Q?H+SOXLpi5bgP3l5svDY/MeZDsZOA3YJ/eM6uhVzv/wWM5oAKGsHMPm+1C2?=
+ =?iso-8859-1?Q?odL+e1ANtGIuoKwMh5RLQUALq4DnkQzPR5OKtWpT6DZJ+BZA4ZFk3NUvHN?=
+ =?iso-8859-1?Q?ZPFZ3/tvi5n0HcclRO/MefIRSHD6Pehx+1rdemw26maqJxpsl2to4IdUPr?=
+ =?iso-8859-1?Q?xKzWeHYH1lipErTyrU79Z2KDx40O/ILQgkuHOinneK3aQoDY9TMxSaQsWh?=
+ =?iso-8859-1?Q?63S8+WbJ1oimJ7Rn0j+0m4K9R9+QTntjeOWIQwD5sIfx4Ixf8p5aMK74Gu?=
+ =?iso-8859-1?Q?r96uxTKi9QDq3BEMZ7HWL2HaDIB+BSyu4B0KoYhiNtGrqpylLSjYc3mKOC?=
+ =?iso-8859-1?Q?LNV7GHSnF3kN9u1Jmc1NI+TPx0YCWGPkMglQRRL/DHD7+kI+AusekUSIVb?=
+ =?iso-8859-1?Q?ca+dPjl3ZvdcOLmDmHWboJw6BdBb3UyaY9bKXQ675NlaWw9UU8hsewVucB?=
+ =?iso-8859-1?Q?KgI5AAs41m4AvQ2odEBJvrP31aI0upQrll/MKuhy7+QgzjcazwB45wagBe?=
+ =?iso-8859-1?Q?bDu0vu1ALoWoXchc2FlbZHJrdQeLKjqeVAR0b0fNbEOzinhoIufVtTbAe4?=
+ =?iso-8859-1?Q?sL6YRBy9ak7t5FxqlwlFp+ItCr0DLRWTAp8viqtm4KjVjUPyKofnIljtFY?=
+ =?iso-8859-1?Q?uSJY+FFbiBe3ai0rVma0ZwTZg3i5DXQVGijFr27A2fJgPahIfPT6AANrez?=
+ =?iso-8859-1?Q?/3qH6W2QqkwTs0K8S7RG2lRlT6C4HrCsK1Fh8Y1rALw3saD+vmzG+NS8JE?=
+ =?iso-8859-1?Q?wSPqRVPmd9S+7XivgHqwShwAz6D5BhcY39Tyrpfo6yJDd8CNfBWDlbHV9w?=
+ =?iso-8859-1?Q?N2BtACMwpnIGobUBCYb4VQv8PnqnCrlaCQcZhnnHnOaHVAtspaU3QKHsAH?=
+ =?iso-8859-1?Q?+seGkcFrfyGVKpFwq4TzT3f9NxAUg/+13OHXY/fTReX/VCdm6PFwdmB2BB?=
+ =?iso-8859-1?Q?A5AwVwmOwl77/j6hrJHTjKyWE9JmIX4=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB5088.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 804f03c1-f56b-4395-cb4d-08de8ec8268f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2026 01:52:22.4564
+X-MS-Exchange-CrossTenant-Network-Message-Id: 62dfcb1f-9599-4e47-06ff-08de8ec82854
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2026 01:52:25.4274
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GHnZjfP09eRHyRfFUO5922MsEUCGb7kImApF59E8PQOi73qe32K6qHPVku1phlUxwps0HXA2J82Zl4NaC8nXmQ==
+X-MS-Exchange-CrossTenant-userprincipalname: Ovr8rekdWniPGrfsEo1bQA87nDcch8aOhadWadoMqZC59lkaXPI1cflpyVES43u1ohEpg0aqo9fWIF6R7g8AKA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB11035
-X-purgate-ID: tlsNG-42698a/1774921945-A0C05112-B9E7E765/0/0
+X-purgate-ID: tlsNG-d62444/1774921948-49011DF3-D7ED07B8/0/0
 X-purgate-type: clean
-X-purgate-size: 14731
+X-purgate-size: 16730
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER(0.00)[milan_djokic@epam.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:milan_djokic@epam.com,m:anthony.perard@vates.tech,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:milan_djokic@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[milan_djokic@epam.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[epam.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[milan_djokic@epam.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[epam.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: E86DA3632D0
+X-Rspamd-Queue-Id: 91F263632ED
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-For guests created via control domain (xl, zephyr xenlib), partial device
-tree is parsed and loaded on control domain side.
-SIDs in guests device tree have to be replaced with
-virtual SIDs which are mapped to physical SIDs. In order
-to do that, control domain has to request from Xen to create
-a new vSID and map it to original pSID for every guest device IOMMU
-stream ID. For this purpose, new domctl command (XEN_DOMCTL_viommu_allocate=
-_vid)
-is introduced which control domain can use to request a new vSID mapping an=
-d
-insert a new vSID into guest device tree once mapped.
-Requested vSID allocation using this interface for vPCI/DT devices.
+This document outlines the design of the emulated IOMMU,
+including security considerations and future improvements.
 
 Signed-off-by: Milan Djokic <milan_djokic@epam.com>
 ---
- tools/include/xenctrl.h             |  12 +++
- tools/libs/ctrl/xc_domain.c         |  23 +++++
- tools/libs/light/libxl_arm.c        | 127 +++++++++++++++++++++++++---
- xen/arch/arm/domctl.c               |  34 ++++++++
- xen/include/public/domctl.h         |  20 +++++
- xen/xsm/flask/hooks.c               |   4 +
- xen/xsm/flask/policy/access_vectors |   2 +
- 7 files changed, 212 insertions(+), 10 deletions(-)
+ docs/designs/arm-viommu.rst | 390 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 390 insertions(+)
+ create mode 100644 docs/designs/arm-viommu.rst
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index d5dbf69c89..61be892cc8 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2659,6 +2659,18 @@ int xc_domain_set_llc_colors(xc_interface *xch, uint=
-32_t domid,
-                              const uint32_t *llc_colors,
-                              uint32_t num_llc_colors);
-=20
-+/*
-+ * Allocate guest IOMMU vSID and establish its mapping to pSID.
-+ * It can only be used on domain DT creation.
-+ * Currently used for ARM only, possibly for RISC-V in the
-+ * future. Function has no effect for x86.
-+ */
-+int xc_domain_viommu_allocate_vsid_range(xc_interface *xch,
-+                                         uint32_t domid,
-+                                         uint16_t nr_sids,
-+                                         uint32_t first_psid,
-+                                         uint32_t *first_vsid);
+diff --git a/docs/designs/arm-viommu.rst b/docs/designs/arm-viommu.rst
+new file mode 100644
+index 0000000000..0cf55d7108
+--- /dev/null
++++ b/docs/designs/arm-viommu.rst
+@@ -0,0 +1,390 @@
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D
++Design Proposal: Add SMMUv3 Stage-1 Support for XEN Guests
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D
 +
- #if defined(__arm__) || defined(__aarch64__)
- int xc_dt_overlay(xc_interface *xch, void *overlay_fdt,
-                   uint32_t overlay_fdt_size, uint8_t overlay_op);
-diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-index 01c0669c88..39ffe80e6d 100644
---- a/tools/libs/ctrl/xc_domain.c
-+++ b/tools/libs/ctrl/xc_domain.c
-@@ -2222,6 +2222,29 @@ out:
-=20
-     return ret;
- }
++:Author:     Milan Djokic <milan_djokic@epam.com>
++:Date:       2026-02-13
++:Status:     Draft
 +
-+int xc_domain_viommu_allocate_vsid_range(xc_interface *xch,
-+                                         uint32_t domid,
-+                                         uint16_t nr_sids,
-+                                         uint32_t first_psid,
-+                                         uint32_t *first_vsid)
-+{
-+    int err;
-+    struct xen_domctl domctl =3D {};
++Introduction
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 +
-+    domctl.cmd =3D XEN_DOMCTL_viommu_alloc_vsid_range;
-+    domctl.domain =3D domid;
-+    domctl.u.viommu_alloc_vsid_range.first_psid =3D first_psid;
-+    domctl.u.viommu_alloc_vsid_range.nr_sids =3D nr_sids;
++The SMMUv3 supports two stages of translation. Each stage of translation=20
++can be
++independently enabled. An incoming address is logically translated from=20
++VA to
++IPA in stage 1, then the IPA is input to stage 2 which translates the IPA =
+to
++the output PA. Stage 1 translation support is required to provide=20
++isolation between different
++devices within OS. XEN already supports Stage 2 translation but there is n=
+o
++support for Stage 1 translation.
++This design proposal outlines the introduction of Stage-1 SMMUv3 support=20
++in Xen for ARM guests.
 +
-+    if ( (err =3D do_domctl(xch, &domctl)) !=3D 0 )
-+        return err;
++Motivation
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 +
-+    *first_vsid =3D domctl.u.viommu_alloc_vsid_range.first_vsid;
++ARM systems utilizing SMMUv3 require stage-1 address translation to=20
++ensure secure DMA and
++guest managed I/O memory mappings.
++With stage-1 enabled, guest manages IOVA to IPA mappings through its own=20
++IOMMU driver.
 +
-+    return 0;
-+}
++This feature enables:
 +
- /*
-  * Local variables:
-  * mode: C
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index 7b887898bb..79904b746c 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -955,6 +955,13 @@ static int make_vsmmuv3_node(libxl__gc *gc, void *fdt,
-     return 0;
- }
-=20
-+/*
-+ * Stores starting vSID of vPCI IOMMU SID range
-+ * Used as a lookup value to avoid repeated
-+ * vSID range allocation on every fdt resize.
-+ */
-+static int vpci_first_vsid =3D -1;
++- Stage-1 translation for the guest domain
++- Device passthrough with per-device I/O address space
 +
- static int make_vpci_node(libxl__gc *gc, void *fdt,
-                           const struct arch_info *ainfo,
-                           struct xc_dom_image *dom)
-@@ -963,6 +970,9 @@ static int make_vpci_node(libxl__gc *gc, void *fdt,
-     const uint64_t vpci_ecam_base =3D GUEST_VPCI_ECAM_BASE;
-     const uint64_t vpci_ecam_size =3D GUEST_VPCI_ECAM_SIZE;
-     const char *name =3D GCSPRINTF("pcie@%"PRIx64, vpci_ecam_base);
-+    uint16_t iommu_range_size =3D 0x1000;
-+    uint32_t first_vsid;
-+    uint32_t first_psid =3D 0;
-=20
-     res =3D fdt_begin_node(fdt, name);
-     if (res) return res;
-@@ -996,8 +1006,20 @@ static int make_vpci_node(libxl__gc *gc, void *fdt,
-         GUEST_VPCI_PREFETCH_MEM_SIZE);
-     if (res) return res;
-=20
-+    /* request vSID range allocation if not already allocated */
-+    if (vpci_first_vsid < 0) {
-+        res =3D xc_domain_viommu_allocate_vsid_range(CTX->xch, dom->guest_=
-domid,
-+            iommu_range_size, first_psid, &first_vsid);
-+        if (res)
-+            return res;
-+        vpci_first_vsid =3D first_vsid;
-+    }
-+    else {
-+        first_vsid =3D vpci_first_vsid;
-+    }
++Design Overview
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 +
-     res =3D fdt_property_values(gc, fdt, "iommu-map", 4, 0,
--                              GUEST_PHANDLE_VSMMUV3, 0, 0x10000);
-+                             GUEST_PHANDLE_VSMMUV3, first_vsid, iommu_rang=
-e_size);
-     if (res) return res;
-=20
-     res =3D fdt_end_node(fdt);
-@@ -1326,11 +1348,92 @@ static int copy_partial_fdt(libxl__gc *gc, void *fd=
-t, void *pfdt)
-     return 0;
- }
-=20
--static int modify_partial_fdt(libxl__gc *gc, void *pfdt)
-+/*
-+ * Store virtualized 'iommus' properties for every node attached to IOMMU
-+ * and passthroughed to guest.
-+ * Used as a lookup table for mapping <phandle pSID> -> <vhandle vSID>
-+ */
-+struct viommu_stream {
-+    XEN_LIST_ENTRY(struct viommu_stream) entry;
-+    char path[128];          /* DT path, stable across resizes */
-+    fdt32_t *iommus;         /* fully virtualized iommus property */
-+};
++These changes provide emulated SMMUv3 support:
 +
-+static XEN_LIST_HEAD(, struct viommu_stream) viommu_stream_list;
++- **SMMUv3 Stage-1 Translation**: stage-1 and nested translation support
++  in SMMUv3 driver.
++- **vIOMMU Abstraction**: Virtual IOMMU framework for guest stage-1
++  handling.
++- **Register/Command Emulation**: SMMUv3 register emulation and command
++  queue handling.
++- **Device Tree Extensions**: Adds `iommus` and virtual SMMUv3 nodes to
++  device trees for dom0 and dom0less scenarios.
++- **Runtime Configuration**: Introduces a `viommu` boot parameter for
++  dynamic enablement.
 +
-+/*
-+ * Helper function which creates mapping of dt node to
-+ * to virtualized 'iommus' property
-+ * Mappings stored in a global 'viommu_stream_list' to
-+ * make it reusable for every fdt resize
-+ */
-+static int viommu_get_stream(libxl__gc *gc,
-+                             uint32_t domid,
-+                             const fdt32_t *prop,
-+                             int proplen,
-+                             const char* path, fdt32_t **iommus)
-+{
-+    int i, r;
-+    uint32_t vsid, psid;
-+    struct viommu_stream *viommu_stream;
++A single vIOMMU device is exposed to the guest and mapped to one or more
++physical IOMMUs through a Xen-managed translation layer.
++The vIOMMU feature provides a generic framework together with a backend
++implementation specific to the target IOMMU type. The backend is responsib=
+le
++for implementing the hardware-specific data structures and command handlin=
+g
++logic (currently only SMMUv3 is supported).
 +
-+    /* Lookup if stream for target device is already allocated */
-+    XEN_LIST_FOREACH(viommu_stream, &viommu_stream_list, entry)
-+    {
-+        if (!strcmp(viommu_stream->path, path)) {
-+            *iommus =3D viommu_stream->iommus;
-+            return 0;
-+        }
-+    }
++This modular design allows the stage-1 support to be reused
++for other IOMMU architectures in the future.
 +
-+    /* Allocate new viommu stream */
-+    viommu_stream =3D malloc(sizeof(struct viommu_stream));
-+    if (!viommu_stream)
-+        return ERROR_NOMEM;
-+    memset(viommu_stream, 0, sizeof(struct viommu_stream));
-+    viommu_stream->iommus =3D malloc(proplen);
-+    if (!viommu_stream->iommus)
-+        return ERROR_NOMEM;
-+    memset(viommu_stream->iommus, 0, proplen);
++vIOMMU architecture
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
 +
-+    LOG(DEBUG, "Creating vIOMMU stream for device %s",
-+        path);
++Responsibilities:
 +
-+    /*
-+     * Virtualize device "iommus" property
-+     * (replace pIOMMU with vIOMMU phandle and pSIDs with mapped vSIDs)
-+     */
-+    for (i =3D 0; i < proplen / 8; ++i) {
-+        viommu_stream->iommus[i * 2] =3D cpu_to_fdt32(GUEST_PHANDLE_VSMMUV=
-3);
-+        /* Allocate new vSID mapped to pSID */
-+        psid =3D fdt32_to_cpu(prop[i * 2 + 1]);
-+        r =3D xc_domain_viommu_allocate_vsid_range(CTX->xch, domid, 1, psi=
-d, &vsid);
-+        if (r) {
-+            LOG(ERROR, "Can't allocate new vSID/vRID for guest IOMMU devic=
-e");
-+            return r;
-+        }
-+        viommu_stream->iommus[i * 2 + 1] =3D cpu_to_fdt32(vsid);
-+        LOG(DEBUG, "Mapped vSID: %u to pSID: %u", vsid, psid);
-+    }
++Guest:
++ - Configures stage-1 via vIOMMU commands.
++ - Handles stage-1 faults received from Xen.
 +
-+    strcpy(viommu_stream->path, path);
-+    *iommus =3D  viommu_stream->iommus;
++Xen:
++ - Emulates the IOMMU interface (registers, commands, events).
++ - Provides vSID->pSID mappings.
++ - Programs stage-1/stage-2 configuration in the physical IOMMU.
++ - Propagate stage-1 faults to guest.
 +
-+    XEN_LIST_INSERT_HEAD(&viommu_stream_list, viommu_stream, entry);
++vIOMMU commands and faults are transmitted between guest and Xen via
++command and event queues (one command/event queue created per guest).
 +
-+    return 0;
-+}
++vIOMMU command Flow:
 +
-+/*
-+ * Used to update partial fdt when vIOMMU is enabled
-+ * Maps dt properties of IOMMU devices to virtual IOMMU
-+ */
-+static int viommu_modify_partial_fdt(libxl__gc *gc, void *pfdt, uint32_t d=
-omid)
- {
--    int nodeoff, proplen, i, r;
-+    int nodeoff, proplen, r;
-     const fdt32_t *prop;
-     fdt32_t *prop_c;
-+    char path[128];
-=20
-     nodeoff =3D fdt_path_offset(pfdt, "/passthrough");
-     if (nodeoff < 0)
-@@ -1344,11 +1447,16 @@ static int modify_partial_fdt(libxl__gc *gc, void *=
-pfdt)
-         if (!prop)
-             continue;
-=20
--        prop_c =3D libxl__zalloc(gc, proplen);
-+        r =3D fdt_get_path(pfdt, nodeoff, path, sizeof(path));
-+        if ( r < 0 ) {
-+            LOG(ERROR, "Can't get passthrough node path");
-+            return r;
-+        }
-=20
--        for (i =3D 0; i < proplen / 8; ++i) {
--            prop_c[i * 2] =3D cpu_to_fdt32(GUEST_PHANDLE_VSMMUV3);
--            prop_c[i * 2 + 1] =3D prop[i * 2 + 1];
-+        r =3D viommu_get_stream(gc, domid, prop, proplen, path, &prop_c);
-+        if (r) {
-+            LOG(ERROR, "Can't get viommu stream");
-+            return r;
-         }
-=20
-         r =3D fdt_setprop(pfdt, nodeoff, "iommus", prop_c, proplen);
-@@ -1360,7 +1468,6 @@ static int modify_partial_fdt(libxl__gc *gc, void *pf=
-dt)
-=20
-     return 0;
- }
--
- #else
-=20
- static int check_partial_fdt(libxl__gc *gc, void *fdt, size_t size)
-@@ -1379,7 +1486,7 @@ static int copy_partial_fdt(libxl__gc *gc, void *fdt,=
- void *pfdt)
-     return -FDT_ERR_INTERNAL;
- }
-=20
--static int modify_partial_fdt(libxl__gc *gc, void *pfdt)
-+static int viommu_modify_partial_fdt(libxl__gc *gc, void *pfdt, uint32_t d=
-omid)
- {
-     LOG(ERROR, "partial device tree not supported");
-=20
-@@ -1511,7 +1618,7 @@ next_resize:
-         if (info->arch_arm.viommu_type =3D=3D LIBXL_VIOMMU_TYPE_SMMUV3) {
-             FDT( make_vsmmuv3_node(gc, fdt, ainfo, dom) );
-             if (pfdt)
--                FDT( modify_partial_fdt(gc, pfdt) );
-+                FDT( viommu_modify_partial_fdt(gc, pfdt, dom->guest_domid)=
- );
-         }
-=20
-         for (i =3D 0; i < d_config->num_disks; i++) {
-diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
-index ad914c915f..c85853e4cb 100644
---- a/xen/arch/arm/domctl.c
-+++ b/xen/arch/arm/domctl.c
-@@ -16,6 +16,7 @@
- #include <xen/types.h>
- #include <xsm/xsm.h>
- #include <public/domctl.h>
-+#include <asm/viommu.h>
-=20
- void arch_get_domain_info(const struct domain *d,
-                           struct xen_domctl_getdomaininfo *info)
-@@ -179,6 +180,39 @@ long arch_do_domctl(struct xen_domctl *domctl, struct =
-domain *d,
-     }
-     case XEN_DOMCTL_dt_overlay:
-         return dt_overlay_domctl(d, &domctl->u.dt_overlay);
++::
 +
-+#ifdef CONFIG_ARM_VIRTUAL_IOMMU
-+    case XEN_DOMCTL_viommu_alloc_vsid_range:
-+    {
-+        int rc =3D 0;
-+        uint16_t i;
-+        uint32_t vsid;
-+        struct xen_domctl_viommu_alloc_vsid_range *viommu_alloc_vsid_range=
- =3D
-+            &domctl->u.viommu_alloc_vsid_range;
++    Guest:
++        smmu_cmd(vSID, IOVA -> IPA)
 +
-+        if ( viommu_alloc_vsid_range->pad )
-+            return -EINVAL;
++    Xen:
++        trap MMIO read/write
++        translate vSID->pSID
++        store stage-1 state
++        program pIOMMU for (pSID, IPA -> PA)
 +
-+        for ( i =3D 0; i < viommu_alloc_vsid_range->nr_sids; i++ )
-+        {
-+            rc =3D viommu_allocate_free_vid(d, viommu_alloc_vsid_range->fi=
-rst_psid
-+                                            + i, &vsid);
-+            if( rc )
-+                return rc;
-+        }
++All hardware programming of the physical IOMMU is performed exclusively by=
+ Xen.
 +
-+        if ( !rc )
-+        {
-+            /* Calculate first vSID from allocated range */
-+            viommu_alloc_vsid_range->first_vsid =3D vsid -
-+                viommu_alloc_vsid_range->nr_sids + 1;
-+            rc =3D copy_to_guest(u_domctl, domctl, 1);
-+        }
++vIOMMU Stage-1 fault handling flow:
 +
-+        return rc;
-+    }
-+#endif
++::
 +
-     default:
-         return subarch_do_domctl(domctl, d, u_domctl);
-     }
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 23124547f3..190aed1e59 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -1276,6 +1276,24 @@ struct xen_domctl_get_domain_state {
-     uint64_t unique_id;      /* Unique domain identifier. */
- };
-=20
-+/*
-+ * XEN_DOMCTL_viommu_alloc_vsid_range
-+ *
-+ * Allocate guest vSID range and
-+ * establish pSID->vSID mapping for target range.
-+ * Allocated range is continous
-+ */
-+struct xen_domctl_viommu_alloc_vsid_range {
-+    /* IN: Range first pSID  */
-+    uint32_t first_psid;
-+    /* IN: Number of vSIDs to allocate */
-+    uint16_t nr_sids;
-+    /* padding, must be 0 */
-+    uint16_t pad;
-+    /* OUT: Mapped range first vSID */
-+    uint32_t first_vsid;
-+};
++    Xen:
++        receives stage-1 fault
++        triggers vIOMMU callback
++        injects virtual fault
 +
- struct xen_domctl {
- /* Stable domctl ops: interface_version is required to be 0.  */
-     uint32_t cmd;
-@@ -1368,6 +1386,7 @@ struct xen_domctl {
- #define XEN_DOMCTL_gsi_permission                88
- #define XEN_DOMCTL_set_llc_colors                89
- #define XEN_DOMCTL_get_domain_state              90 /* stable interface */
-+#define XEN_DOMCTL_viommu_alloc_vsid_range       91
- #define XEN_DOMCTL_gdbsx_guestmemio            1000
- #define XEN_DOMCTL_gdbsx_pausevcpu             1001
- #define XEN_DOMCTL_gdbsx_unpausevcpu           1002
-@@ -1436,6 +1455,7 @@ struct xen_domctl {
- #endif
-         struct xen_domctl_set_llc_colors    set_llc_colors;
-         struct xen_domctl_get_domain_state  get_domain_state;
-+        struct xen_domctl_viommu_alloc_vsid_range viommu_alloc_vsid_range;
-         uint8_t                             pad[128];
-     } u;
- };
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index b250b27065..91e80ea80d 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -820,6 +820,10 @@ static int cf_check flask_domctl(struct domain *d, uns=
-igned int cmd,
-     case XEN_DOMCTL_set_llc_colors:
-         return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__SET_LLC_COLO=
-RS);
-=20
-+    case XEN_DOMCTL_viommu_alloc_vsid_range:
-+        return current_has_perm(d, SECCLASS_DOMAIN2,
-+            DOMAIN2__VIOMMU_ALLOC_VSID_RANGE);
++    Guest:
++        receives and handles fault
 +
-     default:
-         return avc_unknown_permission("domctl", cmd);
-     }
-diff --git a/xen/xsm/flask/policy/access_vectors b/xen/xsm/flask/policy/acc=
-ess_vectors
-index ce907d50a4..e4ffe2f5db 100644
---- a/xen/xsm/flask/policy/access_vectors
-+++ b/xen/xsm/flask/policy/access_vectors
-@@ -255,6 +255,8 @@ class domain2
-     set_llc_colors
- # XEN_DOMCTL_get_domain_state
-     get_domain_state
-+# XEN_DOMCTL_viommu_alloc_vsid_range
-+    viommu_alloc_vsid_range
- }
-=20
- # Similar to class domain, but primarily contains domctls related to HVM d=
-omains
++vSID Mapping Layer
++------------------
++
++Each guest-visible Stream ID (vSID) is mapped by Xen to a physical Stream =
+ID
++(pSID). The mapping is maintained per-domain. The allocation policy guaran=
+tees
++vSID uniqueness within a domain while allowing reuse of pSIDs for differen=
+t
++pIOMMUs.
++
++* Platform devices receive individually allocated vSIDs.
++* PCI devices receive a contiguous vSID range derived from RID space.
++
++
++Supported Device Model
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++
++Currently, the vIOMMU framework supports only devices described via the
++Device Tree (DT) model. This includes platform devices and basic PCI
++devices support instantiated through the vPCI DT node. ACPI-described
++devices are not supported.
++
++Guest assigned platform devices are mapped via `iommus` property:
++
++::
++
++    <&pIOMMU pSID> -> <&vIOMMU vSID>
++
++PCI devices use RID-based mapping via the root complex `iommu-map`:
++
++::
++
++    <RID-base &viommu vSID-base length>
++
++PCI Topology Assumptions and Constraints:
++
++- RID space must be contiguous
++- Pre-defined continuous pSID space (0-0x1000)
++- No runtime PCI reconfiguration
++- Single root complex assumed
++- Mapping is fixed at guest DT construction
++
++Constraints for PCI devices will be addressed as part of the future work o=
+n
++this feature.
++
++Security Considerations
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++
++Stage-1 translation provides isolation between guest devices by
++enforcing a per-device I/O address space, preventing unauthorized DMA.
++With the introduction of emulated IOMMU, additional protection
++mechanisms are required to minimize security risks.
++
++1. Observation:
++---------------
++Support for Stage-1 translation in SMMUv3 introduces new data structures=20
++(`s1_cfg` alongside `s2_cfg`)
++and logic to write both Stage-1 and Stage-2 entries in the Stream Table=20
++Entry (STE), including an `abort`
++field to handle partial configuration states.
++
++**Risk:**
++Without proper handling, a partially applied configuration
++might leave guest DMA mappings in an inconsistent state, potentially
++enabling unauthorized access or causing cross-domain interference.
++
++**Mitigation:** *(Handled by design)*
++This feature introduces logic that writes both `s1_cfg` and `s2_cfg` to
++STE and manages the `abort` field - only considering
++configuration if fully attached. This ensures  incomplete or invalid
++device configurations are safely ignored by the hypervisor.
++
++2. Observation:
++---------------
++Guests can now invalidate Stage-1 caches; invalidation needs forwarding
++to SMMUv3 hardware to maintain coherence.
++
++**Risk:**
++Failing to propagate cache invalidation could allow stale mappings,
++enabling access to old mappings and possibly
++data leakage or misrouting between devices assigned to the same guest.
++
++**Mitigation:**
++The guest must issue appropriate invalidation commands whenever
++its stage-1 I/O mappings are modified to ensure that translation caches
++remain coherent.
++
++3. Observation:
++---------------
++Introducing optional per-guest enabled features (`viommu` argument in xl=20
++guest config) means some guests
++may opt-out.
++
++**Risk:**
++Guests without vIOMMU enabled (stage-2 only) could potentially dominate
++access to the physical command and event queues, since they bypass the
++emulation layer and processing is faster comparing to vIOMMU-enabled guest=
+s.
++
++**Mitigation:**
++Audit the impact of emulation overhead effect on IOMMU processing fairness
++in a multi-guest environment.
++Consider enabling/disabling stage-1 on a system level, instead of per-doma=
+in.
++
++4. Observation:
++---------------
++Guests have the ability to issue Stage-1 IOMMU commands like cache=20
++invalidation, stream table entries
++configuration, etc. An adversarial guest may issue a high volume of=20
++commands in rapid succession.
++
++**Risk:**
++Excessive commands requests can cause high hypervisor CPU consumption=20
++and disrupt scheduling,
++leading to degraded system responsiveness and potential=20
++denial-of-service scenarios.
++
++**Mitigation:**
++
++- Implement vIOMMU commands execution restart and continuation support:
++
++  - Introduce processing budget with only a limited amount of commands
++    handled per invocation.
++  - If additional commands remain pending after the budget is exhausted,
++    defer further processing and resume it asynchronously, e.g. via a
++    per-domain tasklet.
++
++- Batch multiple commands of same type to reduce emulation overhead:
++
++  - Inspect the command queue and group commands that can be processed
++    together (e.g. multiple successive invalidation requests or STE
++    updates for the same SID).
++  - Execute the entire batch in one go, reducing repeated accesses to
++    guest memory and emulation overhead per command.
++  - This reduces CPU time spent in the vIOMMU command processing loop.
++    The optimization is applicable only when consecutive commands of the
++    same type operate on the same SID/context.
++
++5. Observation:
++---------------
++Some guest commands issued towards vIOMMU are propagated to pIOMMU=20
++command queue (e.g. TLB invalidate).
++
++**Risk:**
++Excessive commands requests from abusive guest can cause flooding of=20
++physical IOMMU command queue,
++leading to degraded pIOMMU responsiveness on commands issued from other=20
++guests.
++
++**Mitigation:**
++
++- Batch commands that are propagated to the pIOMMU command queue and
++  implement batch execution pause/continuation.
++  Rely on the same mechanisms as in the previous observation
++  (command continuation and batching of pIOMMU-related commands of the sam=
+e
++  type and context).
++- If possible, implement domain penalization by adding a per-domain budget
++  for vIOMMU/pIOMMU usage:
++
++  - Apply per-domain dynamic budgeting of allowed IOMMU commands to
++    execute per invocation, reducing the budget for guests with
++    excessive command requests over a longer period of time
++  - Combine with command continuation mechanism
++
++6. Observation:
++---------------
++The vIOMMU feature includes an event queue used to forward IOMMU events
++to the guest (e.g. translation faults, invalid Stream IDs, permission erro=
+rs).
++A malicious guest may misconfigure its IOMMU state or intentionally trigge=
+r
++faults at a high rate.
++
++**Risk:**
++Occurrence of IOMMU events with high frequency can cause Xen to flood the
++event queue and disrupt scheduling with
++high hypervisor CPU load for events handling.
++
++**Mitigation:**
++
++- Implement fail-safe state by disabling events forwarding when faults=20
++  are occurred with high frequency and
++  not processed by guest:
++
++  - Introduce a per-domain pending event counter.
++  - Stop forwarding events to the guest once the number of unprocessed
++    events reaches a predefined threshold.
++
++- Consider disabling the emulated event queue for untrusted guests.
++- Note that this risk is more general and may also apply to stage-2-only
++  guests. This section addresses mitigations in the emulated IOMMU layer
++  only. Mitigation of physical event queue flooding should also be conside=
+red
++  in the target pIOMMU driver.
++
++Performance Impact
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++
++With iommu stage-1 and nested translation inclusion, performance=20
++overhead is introduced comparing to existing,
++stage-2 only usage in Xen. Once mappings are established, translations=20
++should not introduce significant overhead.
++Emulated paths may introduce moderate overhead, primarily affecting=20
++device initialization and event/command handling.
++Testing is performed on Renesas R-Car platform.
++Performance is mostly impacted by emulated vIOMMU operations, results=20
++shown in the following table.
++
+++-------------------------------+---------------------------------+
++| vIOMMU Operation              | Execution time in guest         |
+++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D+
++| Reg read                      | median: 645ns, worst-case: 2us  |
+++-------------------------------+---------------------------------+
++| Reg write                     | median: 630ns, worst-case: 1us  |
+++-------------------------------+---------------------------------+
++| Invalidate TLB                | median: 2us, worst-case: 10us   |
+++-------------------------------+---------------------------------+
++| Invalidate STE                | median: 5us worst_case: 100us   |
+++-------------------------------+---------------------------------+
++
++With vIOMMU exposed to guest, guest OS has to initialize IOMMU device
++and configure stage-1 mappings for the devices
++attached to it.
++Following table shows initialization stages which impact stage-1 enabled=20
++guest boot time and compares it with
++stage-1 disabled guest.
++
++NOTE: Device probe execution time varies depending on device complexity.
++A USB host controller was selected as the test device in this case.
++
+++---------------------+-----------------------+------------------------+
++| Stage               | Stage-1 Enabled Guest | Stage-1 Disabled Guest |
+++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D+=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D+=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D+
++| IOMMU Init          | ~10ms                 | /                      |
+++---------------------+-----------------------+------------------------+
++| Dev Attach / Mapping| ~100ms                | ~90ms                  |
+++---------------------+-----------------------+------------------------+
++
++For devices configured with dynamic DMA mappings, DMA allocate/map/unmap=20
++operations performance is
++also impacted on stage-1 enabled guests.
++Dynamic DMA mapping operation trigger emulated IOMMU functions like mmio=20
++write/read and TLB invalidations.
++
+++---------------+---------------------------+--------------------------+
++| DMA Op        | Stage-1 Enabled Guest     | Stage-1 Disabled Guest   |
+++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D+=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D+=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D+
++| dma_alloc     | median: 20us, worst: 5ms  | median: 8us, worst: 60us |
+++---------------+---------------------------+--------------------------+
++| dma_free      | median: 500us, worst: 10ms| median: 6us, worst: 30us |
+++---------------+---------------------------+--------------------------+
++| dma_map       | median: 12us, worst: 60us | median: 3us, worst: 20us |
+++---------------+---------------------------+--------------------------+
++| dma_unmap     | median: 400us, worst: 5ms | median: 5us, worst: 20us |
+++---------------+---------------------------+--------------------------+
++
++Testing
++=3D=3D=3D=3D=3D=3D=3D
++
++- QEMU-based ARM system tests for Stage-1 translation.
++- Actual hardware validation to ensure compatibility with real SMMUv3=20
++implementations.
++- Unit/Functional tests validating correct translations (not implemented).
++
++Migration and Compatibility
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
++
++This optional feature defaults to disabled (`viommu=3D""`) for backward=20
++compatibility.
++
++Future improvements
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++
++- Implement the proposed mitigations to address security risks that are=20
++  not covered by the current design
++  (events batching, commands execution continuation)
++- PCI support
++- Support for other IOMMU HW (Renesas, RISC-V, etc.)
++
++References
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++
++- Original feature implemented by Rahul Singh:
++ =20
++https://patchwork.kernel.org/project/xen-devel/cover/cover.1669888522.git.=
+rahul.singh@arm.com/=20
++
++- SMMUv3 architecture documentation
++- Existing vIOMMU code patterns (KVM, QEMU)
+\ No newline at end of file
 --=20
 2.43.0
 
