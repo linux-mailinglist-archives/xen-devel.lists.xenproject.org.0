@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CAECNiPuy2m5MgYAu9opvQ
+	id WIZtGLvuy2m5MgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 17:54:11 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 17:56:43 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DA0036C2AC
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 17:54:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1269149.1558268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5A2536C33C
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 17:56:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1269161.1558277 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7bPf-0000d0-0n; Tue, 31 Mar 2026 15:53:55 +0000
+	id 1w7bS8-0001Aw-Ba; Tue, 31 Mar 2026 15:56:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1269149.1558268; Tue, 31 Mar 2026 15:53:54 +0000
+Received: by outflank-mailman (output) from mailman id 1269161.1558277; Tue, 31 Mar 2026 15:56:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7bPe-0000au-UT; Tue, 31 Mar 2026 15:53:54 +0000
-Received: by outflank-mailman (input) for mailman id 1269149;
- Tue, 31 Mar 2026 15:53:53 +0000
+	id 1w7bS8-00018q-8Q; Tue, 31 Mar 2026 15:56:28 +0000
+Received: by outflank-mailman (input) for mailman id 1269161;
+ Tue, 31 Mar 2026 15:56:26 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w7bPd-0000ao-5x
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 15:53:53 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w7bS6-00018k-Aj
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 15:56:26 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7bPc-008tDB-I4
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 17:53:52 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1w7bS3-00Fy82-VJ
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 17:56:25 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69cbedfb-e002-0a2a0a5209dd-0a2a4502cd5c-22
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 17:53:52 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69cbee8e-2eae-0a2a0a5409dd-0a2a45038a6e-18
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 17:56:25 +0200
+Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <jbeulich@suse.com>)
- id 69cbee10-63bb-0a2a45020019-d155802bd51c-3
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 17:53:52 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-486fb112c09so54677035e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 08:53:52 -0700 (PDT)
+ id 69cbeea9-1947-0a2a45030019-d155802fb5ef-3
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 17:56:25 +0200
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-48704db565eso73804785e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 08:56:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4887e967badsm55461665e9.14.2026.03.31.08.53.51
+ 5b1f17b1804b1-4887e83682fsm49749425e9.7.2026.03.31.08.56.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Mar 2026 08:53:51 -0700 (PDT)
+ Tue, 31 Mar 2026 08:56:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,63 +58,63 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1774972432; x=1775577232; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1774972585; x=1775577385; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=fNRanloXQ19oIIHAgQidmrgH/LvEZVRiIP7N7oI/i3Y=;
-        b=WzH81CUDtuf2eLXV1PsT9HjtYiL25t/aBCid7kI6a7mCJzvyB8bvGMprbrvNOpvpXe
-         0Je4h5EZ00/tbdeYT2NQR0Tmz0MpupbxY33sK1rc//1UNoTVMKgfziAYwxjktQb3Mt+v
-         rg2CY4+anJFOVI81fhZbA9p2J/cvSsLnWomXL+FykSfPbJz9u0ECevkZ1BoFqK4gVqfB
-         5n03bDSdn6aVO/fj56s28ThTUXhRy+Yk0GUyXX2xlwuCRxPj0Bug1Koh6MfhITPmGnhk
-         dLrCcW4pJTeTLUazh4FQyPfZ8vTWjtpL6uZU0NXa17ZDsjs7W6AoMZ60wyHMAN5zUHuh
-         7C4w==
+        bh=InSI0fJBvNdmLz7Lbfu1htsosIRCbjjDLgKx+8Uljrs=;
+        b=PfnGZEpJYd6egXpUDmP2LqBrBeu2RCnfpuDCldVhfg7jDHrZSDFINVlcbkYtZR9BUN
+         048dfE0VnbEzyww0ZKB39lbg/NIqY6IpchAZfP5iDFyF7HEEW397KW+IfCmJnoO+pdaV
+         PaaGUaznnzjpJjTqb/HK2/3t3kGj0A5czBCGx3mFqzIfGOcBhybA8RwkMlVMXr78D0Mm
+         yKQwANQsqAhfpUV2rWYmHKMYGWgkeeLChJ6fJx8VNot3Bk1EPris80cHg+OKpuAzF9Ys
+         QLush8sYJuHZ0gZxk23rFUroaPkKINX2Emyg/m3c+WVNaPXCyLAceno9pYKinZNBkc61
+         2DlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1774972432; x=1775577232;
+        d=1e100.net; s=20251104; t=1774972585; x=1775577385;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fNRanloXQ19oIIHAgQidmrgH/LvEZVRiIP7N7oI/i3Y=;
-        b=mW36lvVUn8+QFHoxjfvJN0EDidVlwQSc5PSZlCHYzE8hp91FYH1Pcpc3WV+R8vyXKk
-         1FiyNTjl9U4vUvogCwbsbMWiullAApMrGg6KSuvCs6K8uX0YbJgeJVxv3kHeK5iy/9ws
-         RtN/YzU+oN6+dywGtC1VvlXu0afqf8QCGP8wNmA2e9QOcviQBzupDI9YUcuZBfx5qrvB
-         9MpEm5nxma8bMEl9ABPg8gn8opPCrA3RRawdXMJff3UrPkJYwy9+yvhUDphZprEsf+74
-         kTaX4Em9vNl99nSXWLqR2WFttpGjlkGw/+5axh8+cf19QlCpQhgC1s/hXsYvzamnrsVE
-         WksA==
-X-Forwarded-Encrypted: i=1; AJvYcCUwLcLKZ0TLw+qm2NLsjdmVB6k9O9x8Whm7BkyL3YRBGT5U9TtpytOTfjSkqjK7vFd3ZykMvITxlG8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwTvRT3xQgGuYq1Yb5Ul+vh26966opS06SawyF5EkQCaGD0tL1X
-	Hh+PWjt2u81uSYvPdXJpL9ym3Q3IIFQEnCld4SPOXmuEEywNqRMcp1SD5PDQ0z81vg==
-X-Gm-Gg: ATEYQzxiSOTxgPdmxYC3CB8mZK+08LVllcdSOARsvomrgK8+C32jXXtQP9pt0+3Glja
-	AWOhqp4EumqT2weOGuakwq9zdM24WLHJbbF85ZNoYt8T6Jb85GmyGc3RjyiQcRAclHMLOgOpcvp
-	JMGUcNi6haH66Yqo8PMyaOAnrnRwiOa9YaGqRQCs66Ds8ImhVsY78MU8h4SGJ/nc1j1wYwjj01X
-	19iZjMIo9IiMZIX0q922mN7J+QkZFSAb0QaszQJ0/A+mqqWQoGI2YeHeOVuLmMvg2/gLl7/Utx+
-	dEJB8TnqD1N6/Wj9Z5yvNH/r90eTdenXxnWRDoz991f4UkOPEHlGFY+j32CE6NAXpTXSNZnysxU
-	s5VmQmbLBrFAHUryILX6bVEil18gSkNMpp9SA0Yhf6iny47OeByAthyW5gPidBeMn6STE2hU9QS
-	AWQDjoJcVWp1PcDAFMINJvlO9yC3TPCWJhEPTj+yUlHFBUnphscInQqNzVXL/fpCJAPsXPhsjP6
-	GKNcLYP1MlrdHQ=
-X-Received: by 2002:a05:600c:4205:b0:488:7784:d06 with SMTP id 5b1f17b1804b1-48877840d50mr46870985e9.31.1774972431809;
-        Tue, 31 Mar 2026 08:53:51 -0700 (PDT)
-Message-ID: <d1288db4-2001-4914-919f-b613fd607bcc@suse.com>
-Date: Tue, 31 Mar 2026 17:53:50 +0200
+        bh=InSI0fJBvNdmLz7Lbfu1htsosIRCbjjDLgKx+8Uljrs=;
+        b=Az3taz6PP0Upm4Dkj72uMA0aAWjdEec/E7iyLqhPpqGJz2eKK9lPlw3YekC4lKRCPy
+         Gr4qIYcHtTKR5/v4/0qgAPiU3jTjXUcfttLW18zuNsy1gIS6Mu/ZqOUnMA7LYC0Ws+V9
+         jv8Y5TeGq/QQq+412UijmCnxePtTlTMiX/EyHyWwKD9Z76mSAQ5VGCtwVX6xTGcMtvZh
+         KUW4LNs5/VCiqcWvTtSUsAvFOrt8wjjFuBTinGO2ADHJItXLYQ8ptEfKBfskzd+Ml6At
+         enqyjB07e4uVSFZ7IQOIEIuEkszQDHIFRJBYSkGF+IA+cNzyJa/biywIfo5bzWCBlE8L
+         Sc+w==
+X-Forwarded-Encrypted: i=1; AJvYcCWw3ump2ZvTVq0VVPIqaM4SD9rgRXAdsLm4Lg4UjiShczVuly/rS2fLV7UOhSHLaX1MW8D5i5iis4Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwlPOIvBiMfae6AdPIMyYSo3zNeVcS3jRaDlbE9wxns2+JZdsg+
+	0mrMjIYGfj0vKt+jfDmTD2nNJ6j0stYFdkGY+HLjX+UWK6gd88OgF98GWhfkoXmoBQ==
+X-Gm-Gg: ATEYQzwdC/rw0HSBSjjrCxJXsLaa1m3SPwRijXx+Wu5WNnxU2naPWHm2so+T6Ucxrc0
+	pzAabG/L8FcrVoQTjG5bJrEGsUKvOo1jaw/tE+f16dYIC+FaKAEzZFOARviF3ghhDNrMx5u1KPg
+	c7nkQx4nPstCxnC+GVX2Kdl9Yfa264m1tg+1WPlQhC24M668tE4aFHr5mgKjAoLRRugPClEUgKE
+	pk9M4waFyTIRUSBdGL4pfTtx5SvJuooAhH9qkW7W40r4iGu/a0asee1ip9C/+LEQgoGVUlaf3mN
+	mntYJ5BmRL9iZGCIwO3KtawlY888OzbC/2y6mrYCWIeRIiohqcYL6IWt/MqafgqlPn8IOrd143S
+	eSgujO2B56HnPpt//Gt0vRjKZ6/xPDPu7xJ/UbU5o+AB74JQQYZr2Dn+VFsjwpXxqWL2X8HS1ZL
+	XkrOhuBeZcrTWTdyQVWM3IEX5IQN8DLZBqnG9oulxlGNUqu1gWLVCApNexj7WJIIVpWhTSvdagA
+	ZUu1nBD6lN5BQ2XSTNPaDMMbA==
+X-Received: by 2002:a05:600c:35c3:b0:488:81b1:ae36 with SMTP id 5b1f17b1804b1-48881b1af51mr17100385e9.23.1774972584795;
+        Tue, 31 Mar 2026 08:56:24 -0700 (PDT)
+Message-ID: <ff2c91e3-6da3-4561-bcd6-054ac7ba47d4@suse.com>
+Date: Tue, 31 Mar 2026 17:56:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 07/11] xen: move domain_use_host_layout() to common
- code
+Subject: Re: [PATCH v2 05/11] xen/riscv: add kernel loading support
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1774281309.git.oleksii.kurochko@gmail.com>
- <533d01db2b36b8357cd87e99a64a6e66dbdd1db4.1774281309.git.oleksii.kurochko@gmail.com>
- <6df9470e-4969-48d1-bf0c-c6569a5e5577@suse.com>
- <57581b7d-cb9f-444c-9321-63b2fc3d09f0@gmail.com>
+ <1688c6e0e616b2d1bc1a9050d66f007e0e65d3b2.1774281309.git.oleksii.kurochko@gmail.com>
+ <0a28eda9-a1c5-4e12-907e-b85f8972881c@suse.com>
+ <05b1bc67-bbed-412e-881e-a3fb2c2d873b@gmail.com>
+ <57f01614-e742-4f2b-be9f-6687ea0b79e5@suse.com>
+ <a0efb7a6-4854-4fe5-bbf4-2561f25d7133@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -140,35 +140,37 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <57581b7d-cb9f-444c-9321-63b2fc3d09f0@gmail.com>
+In-Reply-To: <a0efb7a6-4854-4fe5-bbf4-2561f25d7133@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-720697/1774972432-4149FDB8-82194609/0/0
+X-purgate-ID: tlsNG-33051d/1774972585-48E5372C-D16AE819/0/0
 X-purgate-type: clean
-X-purgate-size: 2582
+X-purgate-size: 1638
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -178,79 +180,50 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 4DA0036C2AC
+X-Rspamd-Queue-Id: C5A2536C33C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 31.03.2026 17:20, Oleksii Kurochko wrote:
-> On 3/30/26 5:13 PM, Jan Beulich wrote:
->> On 23.03.2026 17:29, Oleksii Kurochko wrote:
->>> domain_use_host_layout() is not really architecture-specific, so move it
->>> from the Arm header to the common header xen/domain.h and provide a common
->>> implementation in xen/common/domain.c. domain_use_host_layout() potentially
->>> is needed for x86 [1].
+On 31.03.2026 17:36, Oleksii Kurochko wrote:
+> On 3/31/26 5:14 PM, Jan Beulich wrote:
+>> On 31.03.2026 16:30, Oleksii Kurochko wrote:
+>>> On 3/30/26 4:47 PM, Jan Beulich wrote:
+>>>> On 23.03.2026 17:29, Oleksii Kurochko wrote:
+>>>>> +    /* Currently there is no length in the header, so just use the size */
+>>>>> +    start = 0;
+>>>>> +    end = size;
+>>>>
+>>>> What's image_size then?
+>>>
+>>> The comment is incorrect, the length is present in the header, but it is
+>>> effective length which isn't equal to the size of binary and is actually
+>>> bigger then binary size.
+>>>
+>>> So here we want to use 'size' as it is a size of binary itself.
 >>
->> No matter that this may indeed be true, ...
->>
->>> Turn the macro into a function to avoid header dependency issues.
->>
->> ... this introduces unreachable code on x86, i.e. a Misra rule 2.1 violation.
+>> What is "effective length"? That sounds a little like e.g. .bss extending
+>> past the (file) image, yet such would nee taking into account for allocation
+>> (but not for reading in / copying over).
 > 
-> Do we have some deviation tag for such cases when the code temporary 
-> isn't used?
-
-I'm sorry, but it'll take me about as long as you to find out. I wonder
-about "temporary" though: Do you have a clear understanding as to when
-that will change?
-
->>> @@ -2544,6 +2544,12 @@ void thaw_domains(void)
->>>   
->>>   #endif /* CONFIG_SYSTEM_SUSPEND */
->>>   
->>> +bool domain_use_host_layout(struct domain *d)
->>> +{
->>> +    return is_domain_direct_mapped(d) ||
->>> +           (paging_mode_translate(d) && is_hardware_domain(d));
->>> +}
->>
->> The placement of paging_mode_translate() doesn't match ...
->>
->>> --- a/xen/include/xen/domain.h
->>> +++ b/xen/include/xen/domain.h
->>> @@ -62,6 +62,22 @@ void domid_free(domid_t domid);
->>>   #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
->>>   #define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
->>>   
->>> +/*
->>> + * Is the auto-translated domain using the host memory layout?
->>> + *
->>> + * domain_use_host_layout() is always False for PV guests.
->>
->> ... the description of the function.
+> Yes, correct.
+> Effective length is how much memory the image needs when loaded and 
+> running. So it includes .bss (and similar sections) that are not stored 
+> in the file but need zeroed memory at runtime. So:
+>   size = actual bytes in the binary file
+>   image_size (from header) = total memory the kernel occupies at runtime 
+>   (larger, includes BSS)
 > 
-> But why the placement should be different?
-
-If you focus on auto-translated, then imo paging_mode_translate()
-better would guard everything.
-
-> is_domain_direct_mapped() is false for PV guests (and for other guest 
-> types on x86).
+> So I think that:
+>      start = 0;
+>      end = size;
+> that could be dropped at all. then:
+>    info->image.len = size;
 > 
-> So if domain_use_host_layout() is fully depends on 
-> paging_mode_translate(d) && is_hardware_domain(d) and for which 
-> paging_mode_translate() is false if it is PV guest.
-> Thereby domain_use_host_layout() is false too.
-> 
->>
->> Further, the first sentence above suggests the caller has to check
->> paging_mode_translate() before calling, which as per the implementation
->> clearly isn't the intention.
-> 
-> Sorry, I don't follow you here.
+> Then in kernel_image_load, pass load_addr + info->image.effective_size 
+> to place_modules instead of load_addr + len.
 
-By starting the comment with "Is the auto-translated domain using", you
-imply the caller checked for that aspect already. At least the way I
-read it.
+Not really - for loading you need to know how much to load/copy. For
+allocation/placement you need to know the overall size.
 
 Jan
 
