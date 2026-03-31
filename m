@@ -2,51 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aAjTFqy2y2kpKAYAu9opvQ
+	id 8CoCLkK9y2kwKwYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 13:57:32 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 14:25:38 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC59C3692F8
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 13:57:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1268875.1558074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17717369718
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 14:25:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1268894.1558083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7XiH-00022L-BA; Tue, 31 Mar 2026 11:56:53 +0000
+	id 1w7Y9E-0006Js-I2; Tue, 31 Mar 2026 12:24:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1268875.1558074; Tue, 31 Mar 2026 11:56:53 +0000
+Received: by outflank-mailman (output) from mailman id 1268894.1558083; Tue, 31 Mar 2026 12:24:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7XiH-00020h-7i; Tue, 31 Mar 2026 11:56:53 +0000
-Received: by outflank-mailman (input) for mailman id 1268875;
- Tue, 31 Mar 2026 11:56:52 +0000
+	id 1w7Y9E-0006Gp-Ex; Tue, 31 Mar 2026 12:24:44 +0000
+Received: by outflank-mailman (input) for mailman id 1268894;
+ Tue, 31 Mar 2026 12:24:43 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper@citrix.com>) id 1w7XiF-00020b-W5
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 11:56:52 +0000
+ (envelope-from <rafael@kernel.org>) id 1w7Y9C-0006Gj-T2
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 12:24:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7XiF-007Ouq-5T
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 13:56:51 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1w7Y9C-00GUsy-4u
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 14:24:42 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper@citrix.com>)
- id 69cbb67a-e002-0a2a0a5209dd-0a2a45059400-44
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 13:56:51 +0200
-Received: from [40.107.208.20]
- (helo=PH0PR06CU001.outbound.protection.outlook.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <andrew.cooper@citrix.com>)
- id 69cbb681-5aeb-0a2a45050019-286bd014a7a8-3
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 13:56:50 +0200
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by PH7PR03MB6994.namprd03.prod.outlook.com (2603:10b6:510:12e::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.27; Tue, 31 Mar
- 2026 11:56:47 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
- 11:56:47 +0000
+ (envelope-from <rafael@kernel.org>)
+ id 69cbbd08-5cb7-0a2a0a5109dd-0a2a4503da2a-8
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 14:24:42 +0200
+Received: from [172.234.252.31] (helo=sea.source.kernel.org)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <rafael@kernel.org>)
+ id 69cbbd08-1947-0a2a45030019-aceafc1fcf0c-3
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 14:24:41 +0200
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9C23B44054
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 12:24:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7809EC2BCB2
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 12:24:39 +0000 (UTC)
+Received: by mail-oa1-f43.google.com with SMTP id
+ 586e51a60fabf-4042fe53946so2173781fac.3
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 05:24:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,169 +56,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Aq2zfdgm8D7Ym4A1ltscvh6lfarNS7v21+XrwLbPGIx9zBuFFF5EtXVrR9u1zDyaWASw22YR2ybTZbfu63BLt9RHan46//2Msg9zqT+MVmmDFC+CRHWuMj9IWu2Pnnlvp0WzNolDP5yWtaIlLV0aO4G0ri7rLz+p9HP/VwnGyaN901ehUuHVcZ0ruwj4hDNqnWurdD/YESoGjUAWJ/YfIrZ6pLtSquzaGqxr+cVe17mpHk/pjEMKEEXWwlGKuGfxyt2QP61Cf23m8g2dUqP8D5NCSaDJlkn1NwipPY0yMEPYhmNlPkrAH1FSNT5l7y8pLnmrjlAVmcdvws8URHapFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UfGjFthC/K00Gy1hqVzQCHMfTBwwcc9Qc2chCxNKKXs=;
- b=zJ5GdxikHlSrOrZFRM2YS+gF7ALwwKY8uT9XZb9r7BkeDUj9p8NAEwkpPTal7Qa6Pqe4Wr+/f52QaJETR27LC02vFoNDyaj/QwWRQAStTk+0vqEh2qgEEjpcp92038zhh69Y7uLIteBtW3kGhmNVgsHYRMI0ktYH2iQvICShnopnOxJew9m2JgULEYWTOVIvfbc6YvIjpHhIs/svZR8CMcc3rLwrYCze37kzlAhlLZv1MYekX0HKDhM9IPl8xrAoCz1Gt5yN/A13uoHxM43VfjHBXgit6rNTQNfuEkN6Njcy+ASKlXnBrAGtqBnXk3n+pXEi/PNStjAYK9Wdeodq6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UfGjFthC/K00Gy1hqVzQCHMfTBwwcc9Qc2chCxNKKXs=;
- b=jHJVdCA7Nca9gTPjtbpm7NzNwtJ8/GF/cd4i5LXxVxP29Le+g//Ykt46IhNUKYmWjhmw1921nCRKNMg+WctNY22oqV5H8gIRKr0s64KD321AsfWUCNmA38FLR6wU8uvOOioZliXHQnOCPrJlGZ1VI8y9MNJetyQ9x97VD11XVW4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <4c5fc93a-bbd8-4936-8c5c-9e963fd59bd4@citrix.com>
-Date: Tue, 31 Mar 2026 13:56:33 +0200
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2 3/8] vpci: Use pervcpu ranges for BAR mapping
-To: Jan Beulich <jbeulich@suse.com>, Mykyta Poturai <Mykyta_Poturai@epam.com>
-References: <cover.1772806036.git.mykyta_poturai@epam.com>
- <43ce584a124f0bd07e641934e15e5ab56548e1ba.1772806036.git.mykyta_poturai@epam.com>
- <5edfcb6c-c36e-48cb-a8ec-39e0ff7ceb91@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <5edfcb6c-c36e-48cb-a8ec-39e0ff7ceb91@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR3P251CA0009.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:102:b5::31) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="References:In-Reply-To:From:Date:Subject:To:Cc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1774959879;
+	bh=+v0lsG31lmz9yOKp4sThWdLD00iDG9mSDxn4BdCze+s=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=omuA/iF4+/FkdTsRVxIQoSSk6EjrGq0GdFZvkmVdYBhdF9aSJsS3owD2CZrk8EmAQ
+	 xyqPWZppC48aFkIIBxuXGNwQPeZfMOH5oF6HXLDLIZHJohFCDhEZjBZoT49L9yEQ+v
+	 eBeS+3VkRaNHQ7xAiMvumxAbPbsGEfeKqFIm+Rr+plAZ2rIPNy9cUvuyzSIPdYCCVI
+	 eKaHGME1nzobiO5Bovw9QyQWVlHZkO2LmTuo8IFDhEHXPkzEXWfGDcb7CeP/P4Lijg
+	 PtYrJPJYxyq+D3waEB2Obf6vekVjZgfeMDUrfbAk6WvpyPtcRN8IUkWtbrtxFD27Ds
+	 atJCJpRptuMsQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWNuW/P44DabtIk9FKfjRgs7uvTdRg9K3jS84x/0znadlUlMqGd8xFww97yhEI4BITRR4RjM7+0rVQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzCoLu0zTHc0KdFut4ZFjrFZjtw94AYQ630xxJXj9+scoFcKF6Y
+	gV+H7Gho5310Mc2Qfruuo9d3MIw9lw/Zp3IlaXdUXjwSKAzW91mGHEWRopxmlLpZvSrVXFdFpmE
+	7soxS7KGDJDWhvFl7nPPIpCPMfBghqNQ=
+X-Received: by 2002:a05:6870:3212:b0:41c:5212:2c7e with SMTP id
+ 586e51a60fabf-41cec149624mr8736242fac.20.1774959878527; Tue, 31 Mar 2026
+ 05:24:38 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|PH7PR03MB6994:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c9296cf-da68-4ea2-7d27-08de8f1c95f3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|10070799003|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	739tk0BoI4OWA9ZjzZWvuDD5/r0BnlyFf0Cce77zu5tQXykxCTkvpywCAHgduLtgpZg1R3lKjraL5Rq9A+B3WXnHUaCEknPDrrdgN1BQ5bcJ3s5KdrfCzl42jFwFzqNYfyb58LtNX+EUY3VjSaITlp6QcU0ehH+h2J9IsRX4LykcWMMEDxSUTQTlZx+IDifgy4MuYFyBVvN9V+QAhFTpFHWoe374xL21D8uL8r/nc51dFzfgzqpfDEYg6LSMemXc0YrA3TkiruaaVKxHO3WWfwQNAwjgjUGL2TMTIW6ZIbdPGexthe+DM9kLeJA/hfRmrGRGB9Ga4LwdIHGk/8/lClbuKQQGV/kaxml1ZGsAqegwohKfVHvgeVpzzZyC5a5+yRMGWaRh8eQ9dUTpy7CUyxKCA61hG0FHXk0V56lVCHFXc0UuZgcPsiNfGt8IxIABnPaUrGnEd0cHA264Lp1drj5oJoCvMUZNRKxgMJNBMQj9xWG11WsHCqDNmk72hk76Q2jrvoBxlPehk7lfU1KED/u2RZCfibRaaD6ZnlbZZyJKl8BXkAKrnpXdcrvFI0uNkZ1U/yJTRY8CFqYl722fGSQf2tfTE3azoE22eogpPXUa2rHGgN82GVC/71aLEqOnVPeRdAK2Z0BbdLQ34MjLWdq07ftZUBwY6sdpjHs0sEPVvtDBQKIdCBy3fw0Sx6zpzCla5kRGJ4nqhL9ReAd7AN4qDoSFzlIkf0LDfoS9Y+I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(10070799003)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T1J6OTlLQi9GYkRxNXloQ1MyVHRMd2ZWd3E0dW5PSnhmZUl4cElWQk4yR1Ro?=
- =?utf-8?B?WFc5anFUNmNTTk9ESGJNMFNIdFVMckVER2tVNkgrWStUdktLWElZazQ5emJj?=
- =?utf-8?B?ZDJtUU5mS2VsRUcxRXhjcFd4MC9zRXZZYlFTR0tuZkdPM1M1ejhybHY5YTM5?=
- =?utf-8?B?ejBxYVJ4a1hUOHZaL2hFSnZvaTBKekhHRlZKSGxub05YUjhYb282ZjU4VUdp?=
- =?utf-8?B?UDVCSkgvblRVS0hmZ0k0cG9yOWVrWXB1anRrcjVZMGRYRW5jeGIxQk9McSsy?=
- =?utf-8?B?Tmg4VUovSzBRWTMrQTQyc09YSXhITWlxSTFlQTIvSUh5R2owNTh1QnR1T1Vr?=
- =?utf-8?B?Q1I4WXRMamRZWEx3dnJ4OTRJa2ZVeHpFY3ZOamVtV3NycU43MHYzTXJDVzN5?=
- =?utf-8?B?ZnZPRXVzMzFTbysxYm1oMG01TStXRGg1MVYyY2Q0eDVERFNiMU5MZWc2SjFQ?=
- =?utf-8?B?UmdlQTBsM3BuTG1GaFdlY21IbERQMDdSZXF5ckxiYmREMDZwalYwbkFOZVd4?=
- =?utf-8?B?Y05OdFBXeTdCTmh0TVB4RXozamdtQVhNOXFOWlF5ME5uK2owRFlodzl6aWFF?=
- =?utf-8?B?ekE0M0NnVTZuUnpiaytsQU9HdXFuTFZqdTNzYlB6NU5FZ2djMHR4NTh0d3J1?=
- =?utf-8?B?aEFjdTFkNVlnV21yeDlkdDFqcVczMUhSVTNZY1p0L3Z0elp4V2I1dTBtSjRX?=
- =?utf-8?B?S09JeUx4TDRjVlhJcWJwVFNTN0ZMOStlQlVqYjZtdlBZWUdCN2oyM3R5VzUv?=
- =?utf-8?B?K1VLSDdIdzV1aGgvemdoTWRNWVhQNHZ1NlNURThPVXdrMTJtbHM2S2NZblpj?=
- =?utf-8?B?aWlodG8ySWFwM3RRY3lyY3NSMy8yWXo4OHI0MTNXL3dUZHEwRGw2NlJMMDhF?=
- =?utf-8?B?dVdPcjU0eGF2clBWMGx2ZjJlL3NMTnd6cjRsVHZGdEdZSWkvclBqNUt4eFFX?=
- =?utf-8?B?aEM1ajRveDkybDJ3SU1VcTVyc01FYVZoaTg3Vzk3ZlhvSzVVZVJlRVB6dFYy?=
- =?utf-8?B?SFlwZVBFK3NveFdZaW1SSHJCeXViVmdvNVlpNlhPR3dLa3dTNmljdWNrcW5q?=
- =?utf-8?B?SHpGUGlZYURZZi9TRjdPb1Bqa2R2RWVPZUpsNURrcUNJckRJRGQ5cUVXVTZR?=
- =?utf-8?B?SmN1QWV5ZEM3NTNpWHFTNERubjFuRm1GcFBDOHVPR2FxUWxWcjU2dytXTjdw?=
- =?utf-8?B?OHhqUmJJNmkxZHpoUG9tamszaXZPSy9nWlpIOHNwTWt5ay9TRjZKY2hWV0Vi?=
- =?utf-8?B?Rnc2TWl3ajd3elc1TGx3WUF1emt2VHcyZjIyK0lQRU40UmpEaUNzbk5SQkFy?=
- =?utf-8?B?aHpVbVlyWldwSmVIelZxSFZoSjdMNlNWZkZJV3JUMHFUTVRTdTE0d29hZUZx?=
- =?utf-8?B?Rm1GYUV3RGZHd2tRdG9UcUhOemRiOWp3aTZ2ZTJEZGZJRXJndGVRQ2hhTlow?=
- =?utf-8?B?b0xpMk5GbjIzSytDTUU0NmZjT0gwb21maFB6NUtERFBwS0NtbURtc1R2bzZn?=
- =?utf-8?B?b1k0U092TVZDWEx0V00zdmY3Mk92ZjdCcTFTbEZJSzNmRjhPNkhrR3g3TXZY?=
- =?utf-8?B?OG5yZi83YUR0YXI1cGUvbEVmNU05VEhUUlcwaXd0dDEzNlZydWZKMnVDUzlE?=
- =?utf-8?B?aTJ6OCtoaTBjaGdPaEFTaTdiMm1xditMRmN6Y09RZXR0VWdTWnE5c1V4WVlZ?=
- =?utf-8?B?MzRXQzRCZVAvcjZEV1M0RlNITUVnT1BxRExQSk9BaFVud2ZxSDIrdGR6Szdk?=
- =?utf-8?B?VTM4RnJHWmVSMUhpWEVmQkFiVzhaUTFVOE83azhUdGpMbzlIRUprWTVHRFkr?=
- =?utf-8?B?LzhBNTVrRlNVcG10bWdwQmY3cG9aUk12cnFrdlZ0UUdsQThwZVZUTjNyNmQy?=
- =?utf-8?B?aldDT0sxNTIwc1lHYU1HK1V1OGVXRlV5TWdWS2RTMEJXdjREWkRpak8yOHUz?=
- =?utf-8?B?cTA2ZExPOEtGSk1KMHlxTjgwOHdwTkNsV0tFVnFFRk5ldll1R08wNlhVQk1O?=
- =?utf-8?B?SHRkS3p5NmVKZEdpbVBhOWN1Y0lCNlNFQVNDajc2ZTNQdWd1aDRYRFlCOTVV?=
- =?utf-8?B?TTUyYnU5c0xsUi9RSnZ4Umttc0Jkcm5hTzh0S1pzczR3TFpGaUp2Ny9sdHZU?=
- =?utf-8?B?SzZxbHlmUFc1ZGplcU55czBkb05WWW0vSHBhK0owdnRydjVjNGNYNVo4V1R2?=
- =?utf-8?B?YWdtUjQzZjIvVE9xbUNEMGRoeUxnS0VsVTdMTlFCUk1iUm81bWEwT0VTbHB3?=
- =?utf-8?B?aHhpdUhIS3NIMXZpMUJtUHZ6cGUzYUlyZ0F6aG93eHBocmtxUG91ZGthL1Fv?=
- =?utf-8?B?bExzWXpiNzhMTFJBYXllWXRJK3ZJYVFlT0svUFdXYVg1OHlWVk8rdHVKTlpj?=
- =?utf-8?Q?wGOYZZAirrnjVnel9upFcMpXdVh8za3LNiLgq2CUQ1YWS?=
-X-MS-Exchange-AntiSpam-MessageData-1: Sp8zORDzdCuu0rAclN3MDx/de2ZFJUiX0IQ=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c9296cf-da68-4ea2-7d27-08de8f1c95f3
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 11:56:47.2740
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1VMimtFjvP+pwswsWh+1n3pWSf5pucd4hhh8WxD1Tuqj4hAmmZ6Ydl4kZsUgYzQKS7Ip6sBi3aOR3bXI0pbE9D0wXUScMF29qlq3nd7zePk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB6994
-X-purgate-ID: tlsNG-c201ff/1774958211-200AA488-794D974E/0/0
+References: <20260320031737.35048-1-fengchengwen@huawei.com>
+In-Reply-To: <20260320031737.35048-1-fengchengwen@huawei.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Tue, 31 Mar 2026 14:24:26 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gO1VSPs58JeupaiTZBkP3i_-H2bEQpfU-6k2TXjdiaOQ@mail.gmail.com>
+X-Gm-Features: AQROBzDL-JtY7QC0BpuyBPGCuLquO5-Gf9GrQy5Yvy_4yGsymDKEHbc8tb9l0x0
+Message-ID: <CAJZ5v0gO1VSPs58JeupaiTZBkP3i_-H2bEQpfU-6k2TXjdiaOQ@mail.gmail.com>
+Subject: Re: [PATCH v10 0/8] ACPI: Unify CPU UID interface and fix ARM64 TPH
+ steer-tag issue
+To: Chengwen Feng <fengchengwen@huawei.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Borislav Petkov <bp@alien8.de>, "H . Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Sunil V L <sunilvl@ventanamicro.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Jonathan Cameron <jonathan.cameron@huawei.com>, 
+	Kees Cook <kees@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
+	Sean Christopherson <seanjc@google.com>, Kai Huang <kai.huang@intel.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Thomas Huth <thuth@redhat.com>, 
+	Thorsten Blum <thorsten.blum@linux.dev>, Kevin Loughlin <kevinloughlin@google.com>, 
+	Zheyun Shen <szy0127@sjtu.edu.cn>, Peter Zijlstra <peterz@infradead.org>, 
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Xin Li <xin@zytor.com>, 
+	"Ahmed S . Darwish" <darwi@linutronix.de>, Sohil Mehta <sohil.mehta@intel.com>, 
+	Ilkka Koskinen <ilkka@os.amperecomputing.com>, Robin Murphy <robin.murphy@arm.com>, 
+	James Clark <james.clark@linaro.org>, Besar Wicaksono <bwicaksono@nvidia.com>, 
+	Ma Ke <make24@iscas.ac.cn>, Wei Huang <wei.huang2@amd.com>, 
+	Andy Gospodarek <andrew.gospodarek@broadcom.com>, Somnath Kotur <somnath.kotur@broadcom.com>, 
+	punit.agrawal@oss.qualcomm.com, guohanjun@huawei.com, suzuki.poulose@arm.com, 
+	ryan.roberts@arm.com, chenl311@chinatelecom.cn, masahiroy@kernel.org, 
+	wangyuquan1236@phytium.com.cn, anshuman.khandual@arm.com, 
+	heinrich.schuchardt@canonical.com, Eric.VanTassell@amd.com, 
+	wangzhou1@hisilicon.com, wanghuiqiang@huawei.com, liuyonglong@huawei.com, 
+	linux-pci@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-33051d/1774959882-7768972C-F4345EC5/0/0
 X-purgate-type: clean
-X-purgate-size: 621
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-purgate-size: 3160
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:stewart.hildebrand@amd.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:Mykyta_Poturai@epam.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:fengchengwen@huawei.com,m:bhelgaas@google.com,m:catalin.marinas@arm.com,m:will@kernel.org,m:corbet@lwn.net,m:palmer@dabbelt.com,m:bp@alien8.de,m:hpa@zytor.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:sunilvl@ventanamicro.com,m:mark.rutland@arm.com,m:jonathan.cameron@huawei.com,m:kees@kernel.org,m:si.yanteng@linux.dev,m:seanjc@google.com,m:kai.huang@intel.com,m:thomas.lendacky@amd.com,m:thuth@redhat.com,m:thorsten.blum@linux.dev,m:kevinloughlin@google.com,m:szy0127@sjtu.edu.cn,m:peterz@infradead.org,m:pawan.kumar.gupta@linux.intel.com,m:xin@zytor.com,m:darwi@linutronix.de,m:sohil.mehta@intel.com,m:ilkka@os.amperecomputing.com,m:robin.murphy@arm.com,m:james.clark@linaro.org,m:bwicaksono@nvidia.com,m:make24@iscas.ac.cn,m:wei.huang2@amd.com,m:andrew.gospodarek@broadcom.com,m:somnath.kotur@broadcom.com,m:punit.agrawal@oss.qualcomm.com,m:guohanjun@huawei.com,m:suzuki.poulose@arm.com,m:ryan.roberts@arm.com,m:chenl311@chinatelecom.cn,m:masahiroy@kernel.org,
+ m:wangyuquan1236@phytium.com.cn,m:anshuman.khandual@arm.com,m:heinrich.schuchardt@canonical.com,m:Eric.VanTassell@amd.com,m:wangzhou1@hisilicon.com,m:wanghuiqiang@huawei.com,m:liuyonglong@huawei.com,m:linux-pci@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:loongarch@lists.linux.dev,m:linux-riscv@lists.infradead.org,m:xen-devel@lists.xenproject.org,m:linux-acpi@vger.kernel.org,m:linux-perf-users@vger.kernel.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,huawei.com:email];
+	FORGED_SENDER(0.00)[rafael@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:mid];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[rafael@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[57];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: BC59C3692F8
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[11]
+X-Rspamd-Queue-Id: 17717369718
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 31/03/2026 10:59 am, Jan Beulich wrote:
-> On 09.03.2026 12:08, Mykyta Poturai wrote:
->> --- a/xen/common/domain.c
->> +++ b/xen/common/domain.c
->> @@ -454,6 +454,14 @@ static int vcpu_teardown(struct vcpu *v)
->>   */
->>  static void vcpu_destroy(struct vcpu *v)
->>  {
->> +#ifdef CONFIG_HAS_VPCI
->> +    int i;
-> Nit: No plain int please when ...
+On Fri, Mar 20, 2026 at 4:17=E2=80=AFAM Chengwen Feng <fengchengwen@huawei.=
+com> wrote:
 >
->> +    for ( i = 0; i < ARRAY_SIZE(v->vpci.bar_mem); i++ )
-> ... its values are only ever non-negative. (Applies elsewhere as well.)
+> This patchset unifies ACPI Processor UID retrieval across
+> arm64/loongarch/riscv/x86 via acpi_get_cpu_uid() (with input validation)
+> and fixes ARM64 CPU steer-tag retrieval failure in PCI/TPH:
+>
+> 1-4: Add acpi_get_cpu_uid() for arm64/loongarch/riscv/x86 (update
+>      respective users)
+> 5: Centralize acpi_get_cpu_uid() declaration in include/linux/acpi.h
+> 6: Clean up perf/arm_cspmu
+> 7: Clean up ACPI/PPTT and remove unused get_acpi_id_for_cpu()
+> 8: Pass ACPI Processor UID to Cache Locality _DSM
+>
+> The interface refactor ensures consistent CPU UID retrieval across
+> architectures (no functional changes for valid inputs) and provides the
+> unified interface required for the ARM64 TPH fix.
+>
+> ---
+> Changes in v10:
+> - Refine commit header&log according to Punit's and Bjorn's review
+> - Split perf/arm_cspmu as a separate commit which address Punit's
+>   review
+>
+> Changes in v9:
+> - Address Bjorn's review: split commits to each platform so that make
+>   them easy to review
+>
+> Changes in v8:
+> - Moving arm64's get_cpu_for_acpi_id() to kernel/acpi.c which address
+>   Jeremy's review
+>
+> Chengwen Feng (8):
+>   arm64: acpi: Add acpi_get_cpu_uid() for unified ACPI CPU UID retrieval
+>   LoongArch: Add acpi_get_cpu_uid() for unified ACPI CPU UID retrieval
+>   RISC-V: ACPI: Add acpi_get_cpu_uid() for unified ACPI CPU UID
+>     retrieval
+>   x86/acpi: Add acpi_get_cpu_uid() for unified ACPI CPU UID retrieval
+>   ACPI: Centralize acpi_get_cpu_uid() declaration in
+>     include/linux/acpi.h
+>   perf: arm_cspmu: Switch to acpi_get_cpu_uid() from
+>     get_acpi_id_for_cpu()
+>   ACPI: PPTT: Use acpi_get_cpu_uid() and remove get_acpi_id_for_cpu()
+>   PCI/TPH: Pass ACPI Processor UID to Cache Locality _DSM
+>
+>  Documentation/PCI/tph.rst          |  4 +--
+>  arch/arm64/include/asm/acpi.h      | 17 +---------
+>  arch/arm64/kernel/acpi.c           | 30 ++++++++++++++++++
+>  arch/loongarch/include/asm/acpi.h  |  5 ---
+>  arch/loongarch/kernel/acpi.c       |  9 ++++++
+>  arch/riscv/include/asm/acpi.h      |  4 ---
+>  arch/riscv/kernel/acpi.c           | 16 ++++++++++
+>  arch/riscv/kernel/acpi_numa.c      |  9 ++++--
+>  arch/x86/include/asm/cpu.h         |  1 -
+>  arch/x86/include/asm/smp.h         |  1 -
+>  arch/x86/kernel/acpi/boot.c        | 20 ++++++++++++
+>  arch/x86/xen/enlighten_hvm.c       |  5 +--
+>  drivers/acpi/pptt.c                | 50 ++++++++++++++++++++++--------
+>  drivers/acpi/riscv/rhct.c          |  7 ++++-
+>  drivers/pci/tph.c                  | 16 +++++++---
+>  drivers/perf/arm_cspmu/arm_cspmu.c |  6 ++--
+>  include/linux/acpi.h               | 11 +++++++
+>  include/linux/pci-tph.h            |  4 +--
+>  18 files changed, 158 insertions(+), 57 deletions(-)
+>
+> --
 
-Furthermore, please use `for ( unsigned int i = ...`
+It doesn't look like anyone has a particular heartburn related to this
+series, so I could apply it in principle, but I'd appreciate some ACKs
+from arch maintainers.
 
-That avoids needing to play weird scope games for i.
-
-~Andrew
+Why don't you resend it with all of the tags collected so far (and
+please add x86@kernel.org to the CC list)?
 
