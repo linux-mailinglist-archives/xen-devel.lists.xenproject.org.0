@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iPBNL+ooy2nLEQYAu9opvQ
+	id 6CwALOwoy2n/EQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 03:52:42 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 03:52:44 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 561E43632C9
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 03:52:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1268231.1557589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49D283632E5
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2026 03:52:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1268234.1557608 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7OH5-0000tl-Gg; Tue, 31 Mar 2026 01:52:11 +0000
+	id 1w7OH8-0001VP-Bk; Tue, 31 Mar 2026 01:52:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1268231.1557589; Tue, 31 Mar 2026 01:52:11 +0000
+Received: by outflank-mailman (output) from mailman id 1268234.1557608; Tue, 31 Mar 2026 01:52:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7OH5-0000ni-4C; Tue, 31 Mar 2026 01:52:11 +0000
-Received: by outflank-mailman (input) for mailman id 1268231;
- Tue, 31 Mar 2026 01:52:09 +0000
+	id 1w7OH7-0001Ox-OM; Tue, 31 Mar 2026 01:52:13 +0000
+Received: by outflank-mailman (input) for mailman id 1268234;
+ Tue, 31 Mar 2026 01:52:10 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <milan_djokic@epam.com>) id 1w7OH2-0000a1-RQ
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 01:52:09 +0000
+ (envelope-from <milan_djokic@epam.com>) id 1w7OH4-0000eF-CW
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 01:52:10 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7OH2-00CyDl-7T
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 03:52:08 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1w7OH3-00CyDl-Oc
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2026 03:52:09 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <milan_djokic@epam.com>)
- id 69cb2851-5cb7-0a2a0a5109dd-0a2a450ce0c0-46
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 03:52:08 +0200
-Received: from [52.101.66.116]
- (helo=DUZPR83CU001.outbound.protection.outlook.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69cb28c8-5cb7-0a2a0a5109dd-0a2a45089e38-4
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 03:52:09 +0200
+Received: from [40.107.162.75]
+ (helo=PA4PR04CU001.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
  (envelope-from <milan_djokic@epam.com>)
- id 69cb28c7-f93d-0a2a450c0019-34654274e50f-3
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 03:52:08 +0200
+ id 69cb28c9-1950-0a2a45080019-286ba24bfb1c-4
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 03:52:09 +0200
 Received: from VI1PR03MB5088.eurprd03.prod.outlook.com (2603:10a6:803:c2::20)
- by PAWPR03MB9202.eurprd03.prod.outlook.com (2603:10a6:102:342::12)
+ by GVXPR03MB11035.eurprd03.prod.outlook.com (2603:10a6:150:287::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Tue, 31 Mar
- 2026 01:52:06 +0000
+ 2026 01:52:07 +0000
 Received: from VI1PR03MB5088.eurprd03.prod.outlook.com
  ([fe80::8471:b7dd:8a1c:c30]) by VI1PR03MB5088.eurprd03.prod.outlook.com
  ([fe80::8471:b7dd:8a1c:c30%4]) with mapi id 15.20.9745.027; Tue, 31 Mar 2026
- 01:52:06 +0000
+ 01:52:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,33 +60,33 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=t7PgGh9060MxH3nAmbKr7cCxI8gfyi8tWyM96JGu6kS4OHb9vAx63YoUb0esMhlf2cwFpM3BKldcbYJka+p5VaDGWlk/Xwb8Tf4eBRI84Qk8khb3AHND9qjHeZ/yi+kz4/HJst7zHS5GkVVmHGpLSWCslU6fvX9vJN+Mm8GiSFXpJT8vhp/ygPdhzsL6JAHqq7208eSa8KomuoP7bGS9ziG7/1+jDkUxW9vjTZiN2JfCP97HxxcojGl0pQle7mjhT6bbL/JlwJnMti1XhDcPoG2VFbf2hxF/qKVREZuLT5goDd7hRyBpabyiNFjkjYOaiKB1pzLtMn94NA+U0RvJig==
+ b=wCp+eC77mxtfOHbAVbFEe+XCLRKDmmfZi1UyaPgCcf+Ia0RIHLmgQa+/8SPUkPwqrv6Bg39DGHCsGxu0S4yKiCJQRiMl7R76lFVpP1OT2DnmTlz7P4I9s8/zueGPIBiBe0PfFPLF8OLUvQZVbt50KFrkK3aafHTYS0nlpzfZcMESbGTyaH4zpD9IJA6sZrxPcFcdoRnDFJKkyEIYO5pXvmhIiThlIQd4zbmQfUTxYxDilJnI0E56TJ0bhhZlG7gO8lv08tfhJghg2GpOVSxI2V8CEwiErhilkQypMrE1mJwqrGPORRRoGdriXEA8TDQ4s723v2ZNkImWlUgRd8S7Ew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a0wTnJYqnknl+EFQ6EApvgx2yijg5oFENe59EsVpe3Q=;
- b=UmZCRFbNHSwNiaCLZpWbiUGW9htnIGFEEg98gCHGKSyH9NQSiQP/7KUe/SFyIYtDVJ9GOSjSRNswpudUkedHx3VridzcEdtl3AQ+EAL65rgai2YL3Q3SWITb+IAx3vxzIobnccRDeoUKek7vPrhaY/dz8GMWImaHh7KWJ1DKrxgqnVycSEu87yhoYca26MBk4xi9DeQnBvb07PPjaTTy3oxyxkrXDgrXBDcbsRbehRpCj6esmKtlNCa6JqVUn0RHCTMotGXJ6JSTNxRj9X8xMYjMw5zpTFsM+T3vOLjK7LlSrUjN2IuR0MRmcOU5mGcdc9bYYVZ0XNCyx8x63Ry4jw==
+ bh=0XZSO1UVrC8SXwDBQpjDCvjjP780VAbXtnJxzn+t7Pc=;
+ b=TXfHO/7jBZthazLL8ZdvgXpF3sW8kKh6PqhExkiVl9oA5uAkqYDl0oAjcdlyHmMyFkLdBe7Y0xsaybDd1BxLKNsD2oPgzCOWAhmwc/LhR9LyyfJr2tYjSXZ9j2F9wpe7r/5zqJOqB9jZcsVNJcnEHfRqufRzLBflvM/sreO2LUkeMAvYLcD7H7QBdFpZmBhoL9xG/qPN7WIv4e5HEMpvYeSFUcP4aQ1akhfurCXerTurLFl9owlum7F/eiTrfl/Qb/U3TrA2aEUOLWCpBUNwqrNM2OB4glRFri3s7PjemdjtpNGJ8tG5LaZRMukq9KWo2NZ1qZBP10GWf1W+IbTRyQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a0wTnJYqnknl+EFQ6EApvgx2yijg5oFENe59EsVpe3Q=;
- b=amPN8jgQxnU7pOU6C6ZqTjoKHfTjL6eaUXWJxv9psdqZN6gzVVPBD0STPIhtrV+vsa3AWDLdYBzLl3KKZLif1vdNlla4CVNN90CIU41ke279IFCHEKBP/UM3lbjQCjLX3GsRJUaAsidMQizYn2r30P6dwowsq8YgDABYqbZK7pMRntfYXBs6NgyBBqpE+9cPsjWOW4Vuh11mNDi9BwcNnmkKa2fVB3yTlhZEYGBJOtmuiTvh0VBsc27Tmr1pEOd3+RomP1YyUTJsI2PjmnzDOlBAApdDFqzuI/uCd4kmSB0P097uIxTzpfAaBBmepI2C6jfth9pDV5xf4iESuKgirQ==
+ bh=0XZSO1UVrC8SXwDBQpjDCvjjP780VAbXtnJxzn+t7Pc=;
+ b=SEbNCSAsy8w55b6rHF9DgXITNIG6QXTFMOYrdP7bixKu+J2fC3ubWtuKakzrBhRxnjRL1IfYe5poAUHEeq099AZj3YfeCZ2slid3k+EFmVcXR43XgannNtdJ2K7o8zTYLJUDWVrRoilZOsclFXNK6r4R4fourtMnvGUGJc5mvMwTXMWsmuqcFnj+VAim7AFxq49Htoi6/WpomRB3TNDe62y16wexOKuBP1g+dDC3oNsXIv3KXx4f6U5gZZx2mcHRr5YAZRlmI9LxUD8q8pgGtiUl212UCPvEY7bGPTfenDkbtCVyzk/pMcVVkfw4zu8iG8fXgNCxNBVCBcB1DhaT8w==
 From: Milan Djokic <milan_djokic@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Rahul Singh <rahul.singh@arm.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
 	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
  Babchuk <Volodymyr_Babchuk@epam.com>, Milan Djokic <milan_djokic@epam.com>
-Subject: [PATCH v3 08/23] xen/arm: vsmmuv3: Add support for registers
- emulation
-Thread-Topic: [PATCH v3 08/23] xen/arm: vsmmuv3: Add support for registers
- emulation
-Thread-Index: AQHcwLD6roDhpzKvfUK5dtMCNddjVQ==
-Date: Tue, 31 Mar 2026 01:52:06 +0000
+Subject: [PATCH v3 10/23] xen/arm: vsmmuv3: Add support for command
+ CMD_CFGI_STE
+Thread-Topic: [PATCH v3 10/23] xen/arm: vsmmuv3: Add support for command
+ CMD_CFGI_STE
+Thread-Index: AQHcwLD70TVWtdvxQUW3kRgdvQZ+4g==
+Date: Tue, 31 Mar 2026 01:52:07 +0000
 Message-ID:
- <25adb33c4be3932c2d946cf7757c933eb042476c.1774918270.git.milan_djokic@epam.com>
+ <5342a5355191ae3b5b7bfcb86c6494334dda82e6.1774918270.git.milan_djokic@epam.com>
 References: <cover.1774918270.git.milan_djokic@epam.com>
 In-Reply-To: <cover.1774918270.git.milan_djokic@epam.com>
 Accept-Language: en-US
@@ -96,66 +96,66 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: VI1PR03MB5088:EE_|PAWPR03MB9202:EE_
-x-ms-office365-filtering-correlation-id: 327efae3-b2f1-4d50-cfb0-08de8ec81cdd
+x-ms-traffictypediagnostic: VI1PR03MB5088:EE_|GVXPR03MB11035:EE_
+x-ms-office365-filtering-correlation-id: e3cfe55f-b415-4c94-e090-08de8ec81de0
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|366016|38070700021|18002099003|56012099003|22082099003;
+ BCL:0;ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003|38070700021;
 x-microsoft-antispam-message-info:
- udSCqRR+VMk9Gk6GABZtZkkBGNpBtePpGq1FDCIh6rPZNcqwwR5dXiaZ/k4FCrH30cxOHtWfUycMgVGRPjZ1HcetWHI8kUcCMagDwqNKpIzKCQYvdnzJ8kKfX9V9nJXabMf6eQFiV2SeDJzBbbPqNFReFiywsEmxEydAAwUOafCrUEDxvtgb5cNLT6hvKWTWBEDldX0jcsWHXpBWuEKGKNHvxTmE8dNCU/ZinHio9TaFrfrEOfss5C+6jOaKFrvOp6SfoFVIBVh3b8AnobaLbTlbu6QbOQpaB0gMRLiHDJyjMrUjBZZbONaDFF0Xc/xj89OSS0JbUX7HkVwP8zbzI8UtrELARQvA8bLxwFFhStHVipPa0rk6r8K5E1rcrBGqgCxCL1CKXj2cxVSw1KfAaUlnTY/osjMztm0Yi8aGddYIIgvpTv2aC3uSlayqGK7kS62vGQtlGbDjINa/HEuXT4qg5zCp8t5YdX0LjD13V68dYOatLNGyaSiDYymeY7z6dLa1NnGO0pTnfVEOeYi2E9fhoZOsp9PjiI0tGeGo1DClfDde+bcqq+E0SJl1LibYwe+jkCH8ItsLQ077j6YilmczHOFf/zhEX14tBFkLDexeACTHYtiKWSkcLHHmf08swKjVp4IHMWmuJ56b8d95OrkSOZ50H25HBNmIkUTttbS/xJMQplpWJylofP/iZRJi6g5sb4HvkiZ/lSoTj5O2aZNIbS3ITKy6OvtCBxqUX2Ctg4/6MEs7GQ9VLEwKETDcgVK6VvDaVHvjUsAzqsVWzPRYTsxaPgktPagaGosMNaw=
+ gdNwvrXbu5UFMj6Ao6fGg6rUsOmDVUjFjAAkDsbgTvAYM9emuG3siihCIR4DsXBejRM807yimNXoqITbNjIp2fGuh3cfcxjl7T3fncjU4jax/aYs9bG4HHaz/iWDzuou9nxcgXKjZIVN1bAxMEU07LHKVIbuus3vWmdUGbzEnl/44LhyLmAlyQys3HKXw2uzRFDJ10c/g9WsNcR1e75+D+/XVryy5n4QkkgdyG9397aYOwuLM2GRvN3memIn5Ui4FHRtELknCQi19H/HEIZ8TqDeIAPAvlU4of354I5JQ0dhbUrr+wLbzykb3sQT7y9khIPoLr70uxA9ZntI9yxCgy1DvwqO/3zefMrLYM12kMyaWRUy1vzfNK6bmcnxp8ylDMeutCMlLJz9dC6aaPEoHK1ROc0mZDFcre3vRzYjS+SBRisLgeqaybbFuqbPWUmgGJKupXKD9d2da09CT4ErcaoqqVkWltU1iWkz7vGyqm9giYLIqZ0dY/k5Tv8eD/xil5L/DWvTwD6dYl8gsunjA59TzJ7Ld/39UmNOHsxPlgZZEPIqaP/9IQ6Z86jrHGH2JmePW4pd0S5Uk99VABUDjUYNP7NWk8cynhx/8eM0N/BRNX+97MRoN7pKSIotwU4CNyfE24lu48HMgVZ6i3L4JGPD2hJ5gtGU+MypYfVOkMLI6dL7D9aCUS5FhK3ivKPmRqVPf39PY5xpon0Ot5QqWiVko8NZmesqHIrPZ0ppEFWOYL8HtC4JVh86FucfTfaC80gURSXMfsaB1RpRfDd9uobIiXROYEcqjBoruUXeqg0=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB5088.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB5088.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?zZMNNFwUOUddFy4gBa7ong6Qvomb2IZOmsJ0XV0riyOPOpr4NfqrV6nbWK?=
- =?iso-8859-1?Q?V8e4EdrSSzopUHNumd2RycEW1kkkaDOndVNK/WCK04C0HeseSSrlf6u2GK?=
- =?iso-8859-1?Q?kymiDRj1uhQgwbc0JNiCRx3MSE4/YwVFAKITGHzUUczur0YwxSycXv33fV?=
- =?iso-8859-1?Q?UrVGkNYmjp25fY7iHY2pEv+PmzHJLqdAX0ajtv83pf9h9DITPFEgRm0gYN?=
- =?iso-8859-1?Q?qclvJmFZ8XYKVT20tbQDE/Nve5xuKPz3cb+0KPffEXblOdEawargaQPlTA?=
- =?iso-8859-1?Q?HbWvColp/Iu6yOh+cZwxsp0lR9O1fUq5TJh/HTD611kjy1/N8yzZburnPi?=
- =?iso-8859-1?Q?dpPsZHjVUMR+BeFLj8nKpEM5yztFuOupJnc9Rw9pb5YIRiV3XLX8GivWwH?=
- =?iso-8859-1?Q?2C7rcV2b2hm9z+jQ6V3uzFzJdqj/vdqzkFwTm5BrjtDyxAx4YUO/CcbFma?=
- =?iso-8859-1?Q?VSJtvqV6TlNAj6PsyrcsaifH7zdLWfMpYlsWzXccGNIL3jZ8Rd84tf2BNU?=
- =?iso-8859-1?Q?Zu8U4xxxnoBI03QTDOTxPq0hkPBPBU/Qzbt3K3AV4POnZNzp0KBcJO2HPv?=
- =?iso-8859-1?Q?QRxIomDl/6mDvxloWWkPXipsFIIylIWh4QsyFrnoH0gIEIXIAAOXuiC6r/?=
- =?iso-8859-1?Q?sMY/aag5I5TXekJGs457lTHeT2YHKtz6/ZPw8Ni+NmcqNgBJD9afSnMN4K?=
- =?iso-8859-1?Q?A8KLY+alJgHaEI5GIkZTjO0x2wYlF3bT+oxcHG3KNr60CyyniIaTRJufA3?=
- =?iso-8859-1?Q?xJS7TLjfWcdB9YDjk0tSacXkSz+anb66F/JWRhT+9lpdTbCoiaWMHt+5eg?=
- =?iso-8859-1?Q?1hqMlLycJPh6ujpKlMGonUX4pI2xl7f9oEqL51fIs44EahpTFEX/jkAxAo?=
- =?iso-8859-1?Q?tcy7oEBi2ujNih/8dTYqGmBjLacPD2FqGq2M0K4o86cLNC2CNBwwaFPW1e?=
- =?iso-8859-1?Q?j0P5nOQPFsuo4cTuSJxhwvVCDwPa3+9hpjfHst4TRf1+rILvl3d5aK+Srl?=
- =?iso-8859-1?Q?HM7BcG55fG+7zJORra2izUi528/3SPymLifpmhee7Oe+XHVCIWbuNw2qBw?=
- =?iso-8859-1?Q?aifrCMc2DjC3QX0tdNU2ThUPQOH4D6gb6zu/y8RVXu5hRxEJmMVxW1sqjf?=
- =?iso-8859-1?Q?M5qhPjd9YpwArpSqmL5IIvEIbrbu4wmIbiNgw8boynVn2nbkEJ48p/ts1+?=
- =?iso-8859-1?Q?ihE0KCo0x+rapDSFngSp+w/K+NPbphHiw+/1omvWkHsnQ7TykKpANhZt6v?=
- =?iso-8859-1?Q?5xy2I7Pxwn5jYM/gY4GjUAu2TrQn+cV308c/evMhxy3fRNG+87MPUHWaSc?=
- =?iso-8859-1?Q?6Sqcre6hNZmaVFwRfDSztKspN9PM30qPlbxFV3cho9NwaqvcuFkDZVL0s4?=
- =?iso-8859-1?Q?coYVRzwJEwlvjccP7CNLGk4BaHfzJNpfsjCxg3AEANf40RO7s6eV17YSfM?=
- =?iso-8859-1?Q?ma/pFgwNUfR+yakmZ3l03ZyQS2/jyzDVO1fl92RcFlx3oa+KdTDiBQE8uj?=
- =?iso-8859-1?Q?gVCGeFILAqNBdDGFOYmDNv04HrNAcrTxQeirFdq3jP20zBEU89BC9QVI8g?=
- =?iso-8859-1?Q?9MZDBJ/nF/OMLHbPBnhLxDsCRIJlkFOWJibIdyV3RVFBymV9y5mKLAu5QC?=
- =?iso-8859-1?Q?GU7ObsIV0yifYga9wCKY7hpNdoEJbqa/XRGOZIvR9ghZzukZADfMagEf2L?=
- =?iso-8859-1?Q?Dq23BWHy7om/5nHSMGHoyC6Kjs41UmVi9jSiz1MEkYj2Bt/WPyAViFngUw?=
- =?iso-8859-1?Q?p39zZ11qcZDt+9Ut1Rz3IfWaU/qE4cJcQGlCYF5XMW10uoVkNAVE/7kDhy?=
- =?iso-8859-1?Q?K6UtfTzs8VzogYilLGnkXzntKufuXAs=3D?=
+ =?iso-8859-1?Q?xziJyB3N6vEIPqEI0vqi3UYzbmg/1myUBY5y/alK7hT4Q55vTeoIp2upfZ?=
+ =?iso-8859-1?Q?OD8pwp2W8JBD/+x+nDRqmol3AHuqo+i0v2GE036fKcu33cz2GJNQZiSJf+?=
+ =?iso-8859-1?Q?2C3udVckR9vJMkj2tDGiaFi0Im9apONRj+LdmoRwRJ5eozwsbiOrxMV2yN?=
+ =?iso-8859-1?Q?jaMOoDYrRdp1HO6bPJSKc9a3VtBPMkmDxwuLKVmsgoFbbfUS+/TQ8JNkum?=
+ =?iso-8859-1?Q?4Q6C++MjTofstAmS1PwdMfMrfCz2BOwdeLVI2r4xxMsSBc8UpXVTrkTeAt?=
+ =?iso-8859-1?Q?fLhq1TPVzwdCGge1ZILBYJ5I20/ok6hINKfQqJ9eIkQZsa6bG+yZfGfZIz?=
+ =?iso-8859-1?Q?KyIAngdvn1Ii6z38aHhEVC+EGvlXJokMepuHICQ5faOh+nAKdsCwn9LH2U?=
+ =?iso-8859-1?Q?x+MBmjTQScZcP6H7amGmp2HsYRSBiDkp+PKNwAgB+AYm7Kmchx6f0YtwDN?=
+ =?iso-8859-1?Q?Ou5loZvUakQ3Z4m/B2127KnGOj70Y5MS8kDviqynTDsiaQz4CCvROMQ4Id?=
+ =?iso-8859-1?Q?f/6+sMcbsqsCke/9yT69fj4ZBxaDw9Ta3uYlu43l5TWrlDsI4JptEwoy9Q?=
+ =?iso-8859-1?Q?duACIvPylzfvVhRAw6bVDhAguvPt71o2iHvih3jXhPz8NVTyyz65tzYlTB?=
+ =?iso-8859-1?Q?igr5BkkuDh+V0WvYOCkKfg6Zr5gm+eRMheiqM0aDy5DERXUXGce1VGyC4A?=
+ =?iso-8859-1?Q?nPHI4zMl/caHMCaoAIGi6WW16ZWmTZroqRC3LwS8PZ58ll1NQZvp3aA4YM?=
+ =?iso-8859-1?Q?yYnYHdqLuUkA0n9dve529gKExC3w4WWal8bI++CuzpRhrBiqlvHHZU/Sw5?=
+ =?iso-8859-1?Q?90bRDP1DMSKtny8nswWtg+41buXxpw33S+S0qC2DQMs7PkTTe2alJ4BKbM?=
+ =?iso-8859-1?Q?T4FhhdqnrmKJVuWfv9+54adazahLwQhSIiKVrg9LN80KaBH6aEewEzhwbc?=
+ =?iso-8859-1?Q?oJojWCNsscPJoIpDmlhasUptxvY2Km9V5k7MdplVk9ZWFuH4Yw9LsG8RMt?=
+ =?iso-8859-1?Q?wQKT08NcW+l3akDGPgxgJGKzYNNtUk0+szIY93jgFVRlnAi3OeqyL2XDmm?=
+ =?iso-8859-1?Q?GyC0pYyFkxMlCQCNSrmW35hpUSBJMcZNSIB/JFksLW5N/av/5Ys6LjryJ7?=
+ =?iso-8859-1?Q?ABfYnDMgAA6QdTY3+4DbXGfPjQeixTfU4QFVhtL3LeEMXyxTYpjMdcDvF6?=
+ =?iso-8859-1?Q?QSJpSNJX0naWA2VxHp7qFOy5jhUAc4gcdkhkC4HuzuoOf3xFmyktOgrE/8?=
+ =?iso-8859-1?Q?PLnG2lgTE+bEOl9vWdac+TSYp3F1BBiiC5zGJaMYxxsm65yhibSzN4lbHd?=
+ =?iso-8859-1?Q?NE9XbMsJTZHAbqs3ZOCCbQa6hRmdXZNKQwYADrPDaiLLqI6R00jeMeKcCj?=
+ =?iso-8859-1?Q?C0Vgs9C0wKd8HhHjkv8M32/PouHedzNlyKrPCw9U2w1dB4KA4S8sxWBdKI?=
+ =?iso-8859-1?Q?hWNKS3jsg8ALEYR6ekH1FSi/HkeuEI1mUxKDuWDLaxTTHVL+FvSc/s3Y5n?=
+ =?iso-8859-1?Q?eLWDusyZ2A2UHzjbyNr6OLqS+29Dkmch6zNiczhcGALDCwxsnQ99AGMvmw?=
+ =?iso-8859-1?Q?ga94VshdZaMl6/ffc3NCmfcMMn+M9UpbsPrQCThIWy7Db6d0qMYH17xPD3?=
+ =?iso-8859-1?Q?3o+wng5mUoLf2uFaIyx4UBX1bBsrd8pFq2ZN0gTepI5Sv/18xhBi6PhCYw?=
+ =?iso-8859-1?Q?udnRAyGAQCFEz709U3OEFEdp7vbK2f0cdt/81IQdsKFdUxpnKpfM6V2GyS?=
+ =?iso-8859-1?Q?75Arvo7+L94/rUv9UNMJL17z9XCCwMBi20f9W1qGrWd1gdkgOBBiRKpUwz?=
+ =?iso-8859-1?Q?Il/kF91/dhO/QDH00pz8USAJwGIlXUU=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB5088.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 327efae3-b2f1-4d50-cfb0-08de8ec81cdd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2026 01:52:06.1534
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3cfe55f-b415-4c94-e090-08de8ec81de0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2026 01:52:07.8804
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ssrluwS1qSIoCqo5EGvewI3xzsCFVBV1Ajrp1RAHji5v59GT9Ap+C8BNJlzGKeaLgy8ygJWONslanKb0iE6e8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR03MB9202
-X-purgate-ID: tlsNG-d25034/1774921928-F7EA3734-293B3C77/0/0
+X-MS-Exchange-CrossTenant-userprincipalname: xlLiwwyey/ZnI69M6yMxr1NHTEt2VOCWSwqWgbiM6zq7U+mc8kktGZMD6qA8Lw+Zxh+vGy7851JC9jPgO+v8KQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR03MB11035
+X-purgate-ID: tlsNG-c1860d/1774921929-EA691726-963038AB/0/0
 X-purgate-type: clean
-X-purgate-size: 11293
+X-purgate-size: 6564
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	MID_CONTAINS_FROM(1.00)[];
@@ -187,371 +187,204 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 561E43632C9
+X-Rspamd-Queue-Id: 49D283632E5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Rahul Singh <rahul.singh@arm.com>
 
-Add initial support for various emulated registers for virtual SMMUv3
-for guests and also add support for virtual cmdq and eventq.
+CMD_CFGI_STE is used to invalidate/validate the STE. Emulated vSMMUv3
+driver in XEN will read the STE from the guest memory space and capture
+the Stage-1 configuration required to support nested translation.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 Signed-off-by: Milan Djokic <milan_djokic@epam.com>
 ---
- xen/drivers/passthrough/arm/smmu-v3.h  |   6 +
- xen/drivers/passthrough/arm/vsmmu-v3.c | 286 +++++++++++++++++++++++++
- 2 files changed, 292 insertions(+)
+ xen/drivers/passthrough/arm/vsmmu-v3.c | 148 +++++++++++++++++++++++++
+ 1 file changed, 148 insertions(+)
 
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.h b/xen/drivers/passthroug=
-h/arm/smmu-v3.h
-index 3fb13b7e21..fab4fd5a26 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.h
-+++ b/xen/drivers/passthrough/arm/smmu-v3.h
-@@ -60,6 +60,12 @@
- #define IDR5_VAX			GENMASK(11, 10)
- #define IDR5_VAX_52_BIT			1
-=20
-+#define ARM_SMMU_IIDR			0x18
-+#define IIDR_PRODUCTID			GENMASK(31, 20)
-+#define IIDR_VARIANT			GENMASK(19, 16)
-+#define IIDR_REVISION			GENMASK(15, 12)
-+#define IIDR_IMPLEMENTER		GENMASK(11, 0)
-+
- #define ARM_SMMU_CR0			0x20
- #define CR0_ATSCHK			(1 << 4)
- #define CR0_CMDQEN			(1 << 3)
 diff --git a/xen/drivers/passthrough/arm/vsmmu-v3.c b/xen/drivers/passthrou=
 gh/arm/vsmmu-v3.c
-index e36f200ba5..3ae1e62a50 100644
+index 02fe6a4422..39ed4dc577 100644
 --- a/xen/drivers/passthrough/arm/vsmmu-v3.c
 +++ b/xen/drivers/passthrough/arm/vsmmu-v3.c
-@@ -3,25 +3,307 @@
- #include <xen/param.h>
- #include <xen/sched.h>
- #include <asm/mmio.h>
-+#include <asm/vgic-emul.h>
- #include <asm/viommu.h>
-+#include <asm/vreg.h>
+@@ -45,6 +45,21 @@ extern const struct viommu_desc __read_mostly *cur_viomm=
+u;
+ /* Helper Macros */
+ #define smmu_get_cmdq_enabled(x)    FIELD_GET(CR0_CMDQEN, x)
+ #define smmu_cmd_get_command(x)     FIELD_GET(CMDQ_0_OP, x)
++#define smmu_cmd_get_sid(x)         FIELD_GET(CMDQ_PREFETCH_0_SID, x)
++#define smmu_get_ste_s1cdmax(x)     FIELD_GET(STRTAB_STE_0_S1CDMAX, x)
++#define smmu_get_ste_s1fmt(x)       FIELD_GET(STRTAB_STE_0_S1FMT, x)
++#define smmu_get_ste_s1stalld(x)    FIELD_GET(STRTAB_STE_1_S1STALLD, x)
++#define smmu_get_ste_s1ctxptr(x)    FIELD_PREP(STRTAB_STE_0_S1CTXPTR_MASK,=
+ \
++                                    FIELD_GET(STRTAB_STE_0_S1CTXPTR_MASK, =
+x))
 +
-+#include "smmu-v3.h"
-+
-+/* Register Definition */
-+#define ARM_SMMU_IDR2       0x8
-+#define ARM_SMMU_IDR3       0xc
-+#define ARM_SMMU_IDR4       0x10
-+#define IDR0_TERM_MODEL     (1 << 26)
-+#define IDR3_RIL            (1 << 10)
-+#define CR0_RESERVED        0xFFFFFC20
-+#define SMMU_IDR1_SIDSIZE   16
-+#define SMMU_CMDQS          19
-+#define SMMU_EVTQS          19
-+#define DWORDS_BYTES        8
-+#define ARM_SMMU_IIDR_VAL   0x12
-=20
- /* Struct to hold the vIOMMU ops and vIOMMU type */
- extern const struct viommu_desc __read_mostly *cur_viommu;
-=20
-+/* virtual smmu queue */
-+struct arm_vsmmu_queue {
-+    uint64_t    q_base; /* base register */
-+    uint32_t    prod;
-+    uint32_t    cons;
-+    uint8_t     ent_size;
-+    uint8_t     max_n_shift;
++/* stage-1 translation configuration */
++struct arm_vsmmu_s1_trans_cfg {
++    paddr_t s1ctxptr;
++    uint8_t s1fmt;
++    uint8_t s1cdmax;
++    bool    bypassed;             /* translation is bypassed */
++    bool    aborted;              /* translation is aborted */
 +};
-+
- struct virt_smmu {
-     struct      domain *d;
-     struct      list_head viommu_list;
-+    uint8_t     sid_split;
-+    uint32_t    features;
-+    uint32_t    cr[3];
-+    uint32_t    cr0ack;
-+    uint32_t    gerror;
-+    uint32_t    gerrorn;
-+    uint32_t    strtab_base_cfg;
-+    uint64_t    strtab_base;
-+    uint32_t    irq_ctrl;
-+    uint64_t    gerror_irq_cfg0;
-+    uint64_t    evtq_irq_cfg0;
-+    struct      arm_vsmmu_queue evtq, cmdq;
- };
 =20
- static int vsmmuv3_mmio_write(struct vcpu *v, mmio_info_t *info,
-                               register_t r, void *priv)
- {
-+    struct virt_smmu *smmu =3D priv;
-+    uint64_t reg;
-+    uint32_t reg32;
+ /* virtual smmu queue */
+ struct arm_vsmmu_queue {
+@@ -91,6 +106,138 @@ static void dump_smmu_command(uint64_t *command)
+     gdprintk(XENLOG_ERR, "cmd 0x%02llx: %016lx %016lx\n",
+              smmu_cmd_get_command(command[0]), command[0], command[1]);
+ }
++static int arm_vsmmu_find_ste(struct virt_smmu *smmu, uint32_t sid,
++                              uint64_t *ste)
++{
++    paddr_t addr, strtab_base;
++    struct domain *d =3D smmu->d;
++    uint32_t log2size;
++    int strtab_size_shift;
++    int ret;
 +
-+    switch ( info->gpa & 0xffff )
++    log2size =3D FIELD_GET(STRTAB_BASE_CFG_LOG2SIZE, smmu->strtab_base_cfg=
+);
++
++    if ( sid >=3D (1 << MIN(log2size, SMMU_IDR1_SIDSIZE)) )
++        return -EINVAL;
++
++    if ( smmu->features & STRTAB_BASE_CFG_FMT_2LVL )
 +    {
-+    case VREG32(ARM_SMMU_CR0):
-+        reg32 =3D smmu->cr[0];
-+        vreg_reg32_update(&reg32, r, info);
-+        smmu->cr[0] =3D reg32;
-+        smmu->cr0ack =3D reg32 & ~CR0_RESERVED;
-+        break;
++        int idx, max_l2_ste, span;
++        paddr_t l1ptr, l2ptr;
++        uint64_t l1std;
 +
-+    case VREG32(ARM_SMMU_CR1):
-+        reg32 =3D smmu->cr[1];
-+        vreg_reg32_update(&reg32, r, info);
-+        smmu->cr[1] =3D reg32;
-+        break;
++        strtab_size_shift =3D MAX(5, (int)log2size - smmu->sid_split - 1 +=
+ 3);
++        strtab_base =3D smmu->strtab_base & STRTAB_BASE_ADDR_MASK &
++                        ~GENMASK_ULL(strtab_size_shift, 0);
++        idx =3D (sid >> STRTAB_SPLIT) * STRTAB_L1_DESC_DWORDS;
++        l1ptr =3D (paddr_t)(strtab_base + idx * sizeof(l1std));
 +
-+    case VREG32(ARM_SMMU_CR2):
-+        reg32 =3D smmu->cr[2];
-+        vreg_reg32_update(&reg32, r, info);
-+        smmu->cr[2] =3D reg32;
-+        break;
++        ret =3D access_guest_memory_by_gpa(d, l1ptr, &l1std,
++                                         sizeof(l1std), false);
++        if ( ret )
++        {
++            gdprintk(XENLOG_ERR,
++                     "Could not read L1PTR at 0X%"PRIx64"\n", l1ptr);
++            return ret;
++        }
 +
-+    case VREG64(ARM_SMMU_STRTAB_BASE):
-+        reg =3D smmu->strtab_base;
-+        vreg_reg64_update(&reg, r, info);
-+        smmu->strtab_base =3D reg;
-+        break;
++        span =3D FIELD_GET(STRTAB_L1_DESC_SPAN, l1std);
++        if ( !span )
++        {
++            gdprintk(XENLOG_ERR, "Bad StreamID span\n");
++            return -EINVAL;
++        }
 +
-+    case VREG32(ARM_SMMU_STRTAB_BASE_CFG):
-+        reg32 =3D smmu->strtab_base_cfg;
-+        vreg_reg32_update(&reg32, r, info);
-+        smmu->strtab_base_cfg =3D reg32;
-+
-+        smmu->sid_split =3D FIELD_GET(STRTAB_BASE_CFG_SPLIT, reg32);
-+        smmu->features |=3D STRTAB_BASE_CFG_FMT_2LVL;
-+        break;
-+
-+    case VREG32(ARM_SMMU_CMDQ_BASE):
-+        reg =3D smmu->cmdq.q_base;
-+        vreg_reg64_update(&reg, r, info);
-+        smmu->cmdq.q_base =3D reg;
-+        smmu->cmdq.max_n_shift =3D FIELD_GET(Q_BASE_LOG2SIZE, smmu->cmdq.q=
-_base);
-+        if ( smmu->cmdq.max_n_shift > SMMU_CMDQS )
-+            smmu->cmdq.max_n_shift =3D SMMU_CMDQS;
-+        break;
-+
-+    case VREG32(ARM_SMMU_CMDQ_PROD):
-+        reg32 =3D smmu->cmdq.prod;
-+        vreg_reg32_update(&reg32, r, info);
-+        smmu->cmdq.prod =3D reg32;
-+        break;
-+
-+    case VREG32(ARM_SMMU_CMDQ_CONS):
-+        reg32 =3D smmu->cmdq.cons;
-+        vreg_reg32_update(&reg32, r, info);
-+        smmu->cmdq.cons =3D reg32;
-+        break;
-+
-+    case VREG32(ARM_SMMU_EVTQ_BASE):
-+        reg =3D smmu->evtq.q_base;
-+        vreg_reg64_update(&reg, r, info);
-+        smmu->evtq.q_base =3D reg;
-+        smmu->evtq.max_n_shift =3D FIELD_GET(Q_BASE_LOG2SIZE, smmu->evtq.q=
-_base);
-+        if ( smmu->cmdq.max_n_shift > SMMU_EVTQS )
-+            smmu->cmdq.max_n_shift =3D SMMU_EVTQS;
-+        break;
-+
-+    case VREG32(ARM_SMMU_EVTQ_PROD):
-+        reg32 =3D smmu->evtq.prod;
-+        vreg_reg32_update(&reg32, r, info);
-+        smmu->evtq.prod =3D reg32;
-+        break;
-+
-+    case VREG32(ARM_SMMU_EVTQ_CONS):
-+        reg32 =3D smmu->evtq.cons;
-+        vreg_reg32_update(&reg32, r, info);
-+        smmu->evtq.cons =3D reg32;
-+        break;
-+
-+    case VREG32(ARM_SMMU_IRQ_CTRL):
-+        reg32 =3D smmu->irq_ctrl;
-+        vreg_reg32_update(&reg32, r, info);
-+        smmu->irq_ctrl =3D reg32;
-+        break;
-+
-+    case VREG64(ARM_SMMU_GERROR_IRQ_CFG0):
-+        reg =3D smmu->gerror_irq_cfg0;
-+        vreg_reg64_update(&reg, r, info);
-+        smmu->gerror_irq_cfg0 =3D reg;
-+        break;
-+
-+    case VREG64(ARM_SMMU_EVTQ_IRQ_CFG0):
-+        reg =3D smmu->evtq_irq_cfg0;
-+        vreg_reg64_update(&reg, r, info);
-+        smmu->evtq_irq_cfg0 =3D reg;
-+        break;
-+
-+    case VREG32(ARM_SMMU_GERRORN):
-+        reg =3D smmu->gerrorn;
-+        vreg_reg64_update(&reg, r, info);
-+        smmu->gerrorn =3D reg;
-+        break;
-+
-+    default:
-+        printk(XENLOG_G_ERR
-+               "%pv: vSMMUv3: unhandled write r%d offset %"PRIpaddr"\n",
-+               v, info->dabt.reg, (unsigned long)info->gpa & 0xffff);
-+        return IO_ABORT;
++        max_l2_ste =3D (1 << span) - 1;
++        l2ptr =3D FIELD_PREP(STRTAB_L1_DESC_L2PTR_MASK,
++                    FIELD_GET(STRTAB_L1_DESC_L2PTR_MASK, l1std));
++        idx =3D sid & ((1 << smmu->sid_split) - 1);
++        if ( idx > max_l2_ste )
++        {
++            gdprintk(XENLOG_ERR, "idx=3D%d > max_l2_ste=3D%d\n",
++                     idx, max_l2_ste);
++            return -EINVAL;
++        }
++        addr =3D l2ptr + idx * sizeof(*ste) * STRTAB_STE_DWORDS;
++    }
++    else
++    {
++        strtab_size_shift =3D log2size + 5;
++        strtab_base =3D smmu->strtab_base & STRTAB_BASE_ADDR_MASK &
++                      ~GENMASK_ULL(strtab_size_shift, 0);
++        addr =3D strtab_base + sid * sizeof(*ste) * STRTAB_STE_DWORDS;
++    }
++    ret =3D access_guest_memory_by_gpa(d, addr, ste, sizeof(*ste), false);
++    if ( ret )
++    {
++        gdprintk(XENLOG_ERR,
++                "Cannot fetch pte at address=3D0x%"PRIx64"\n", addr);
++        return -EINVAL;
 +    }
 +
-     return IO_HANDLED;
- }
-=20
- static int vsmmuv3_mmio_read(struct vcpu *v, mmio_info_t *info,
-                              register_t *r, void *priv)
- {
-+    struct virt_smmu *smmu =3D priv;
-+    uint64_t reg;
++    return 0;
++}
 +
-+    switch ( info->gpa & 0xffff )
++static int arm_vsmmu_decode_ste(struct virt_smmu *smmu, uint32_t sid,
++                                struct arm_vsmmu_s1_trans_cfg *cfg,
++                                uint64_t *ste)
++{
++    uint64_t val =3D ste[0];
++
++    if ( !(val & STRTAB_STE_0_V) )
++        return -EAGAIN;
++
++    switch ( FIELD_GET(STRTAB_STE_0_CFG, val) )
 +    {
-+    case VREG32(ARM_SMMU_IDR0):
-+        reg  =3D FIELD_PREP(IDR0_S1P, 1) | FIELD_PREP(IDR0_TTF, 2) |
-+            FIELD_PREP(IDR0_COHACC, 0) | FIELD_PREP(IDR0_ASID16, 1) |
-+            FIELD_PREP(IDR0_TTENDIAN, 0) | FIELD_PREP(IDR0_STALL_MODEL, 1)=
- |
-+            FIELD_PREP(IDR0_ST_LVL, 1) | FIELD_PREP(IDR0_TERM_MODEL, 1);
-+        *r =3D vreg_reg32_extract(reg, info);
++    case STRTAB_STE_0_CFG_BYPASS:
++        cfg->bypassed =3D true;
++        return 0;
++    case STRTAB_STE_0_CFG_ABORT:
++        cfg->aborted =3D true;
++        return 0;
++    case STRTAB_STE_0_CFG_S1_TRANS:
 +        break;
-+
-+    case VREG32(ARM_SMMU_IDR1):
-+        reg  =3D FIELD_PREP(IDR1_SIDSIZE, SMMU_IDR1_SIDSIZE) |
-+            FIELD_PREP(IDR1_CMDQS, SMMU_CMDQS) |
-+            FIELD_PREP(IDR1_EVTQS, SMMU_EVTQS);
-+        *r =3D vreg_reg32_extract(reg, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_IDR2):
-+        goto read_reserved;
-+
-+    case VREG32(ARM_SMMU_IDR3):
-+        reg  =3D FIELD_PREP(IDR3_RIL, 0);
-+        *r =3D vreg_reg32_extract(reg, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_IDR4):
-+        goto read_impl_defined;
-+
-+    case VREG32(ARM_SMMU_IDR5):
-+        reg  =3D FIELD_PREP(IDR5_GRAN4K, 1) | FIELD_PREP(IDR5_GRAN16K, 1) =
-|
-+            FIELD_PREP(IDR5_GRAN64K, 1) | FIELD_PREP(IDR5_OAS, IDR5_OAS_48=
-_BIT);
-+        *r =3D vreg_reg32_extract(reg, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_IIDR):
-+        *r =3D vreg_reg32_extract(ARM_SMMU_IIDR_VAL, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_CR0):
-+        *r =3D vreg_reg32_extract(smmu->cr[0], info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_CR0ACK):
-+        *r =3D vreg_reg32_extract(smmu->cr0ack, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_CR1):
-+        *r =3D vreg_reg32_extract(smmu->cr[1], info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_CR2):
-+        *r =3D vreg_reg32_extract(smmu->cr[2], info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_STRTAB_BASE):
-+        *r =3D vreg_reg64_extract(smmu->strtab_base, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_STRTAB_BASE_CFG):
-+        *r =3D vreg_reg32_extract(smmu->strtab_base_cfg, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_CMDQ_BASE):
-+        *r =3D vreg_reg64_extract(smmu->cmdq.q_base, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_CMDQ_PROD):
-+        *r =3D vreg_reg32_extract(smmu->cmdq.prod, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_CMDQ_CONS):
-+        *r =3D vreg_reg32_extract(smmu->cmdq.cons, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_EVTQ_BASE):
-+        *r =3D vreg_reg64_extract(smmu->evtq.q_base, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_EVTQ_PROD):
-+        *r =3D vreg_reg32_extract(smmu->evtq.prod, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_EVTQ_CONS):
-+        *r =3D vreg_reg32_extract(smmu->evtq.cons, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_IRQ_CTRL):
-+    case VREG32(ARM_SMMU_IRQ_CTRLACK):
-+        *r =3D vreg_reg32_extract(smmu->irq_ctrl, info);
-+        break;
-+
-+    case VREG64(ARM_SMMU_GERROR_IRQ_CFG0):
-+        *r =3D vreg_reg64_extract(smmu->gerror_irq_cfg0, info);
-+        break;
-+
-+    case VREG64(ARM_SMMU_EVTQ_IRQ_CFG0):
-+        *r =3D vreg_reg64_extract(smmu->evtq_irq_cfg0, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_GERROR):
-+        *r =3D vreg_reg64_extract(smmu->gerror, info);
-+        break;
-+
-+    case VREG32(ARM_SMMU_GERRORN):
-+        *r =3D vreg_reg64_extract(smmu->gerrorn, info);
-+        break;
-+
++    case STRTAB_STE_0_CFG_S2_TRANS:
++        gdprintk(XENLOG_ERR, "vSMMUv3 does not support stage 2 yet\n");
++        goto bad_ste;
 +    default:
-+        printk(XENLOG_G_ERR
-+               "%pv: vSMMUv3: unhandled read r%d offset %"PRIpaddr"\n",
-+               v, info->dabt.reg, (unsigned long)info->gpa & 0xffff);
-+        return IO_ABORT;
++        BUG(); /* STE corruption */
 +    }
 +
-+    return IO_HANDLED;
++    cfg->s1ctxptr =3D smmu_get_ste_s1ctxptr(val);
++    cfg->s1fmt =3D smmu_get_ste_s1fmt(val);
++    cfg->s1cdmax =3D smmu_get_ste_s1cdmax(val);
++    if ( cfg->s1cdmax !=3D 0 )
++    {
++        gdprintk(XENLOG_ERR,
++                 "vSMMUv3 does not support multiple context descriptors\n"=
+);
++        goto bad_ste;
++    }
 +
-+ read_impl_defined:
-+    printk(XENLOG_G_DEBUG
-+           "%pv: vSMMUv3: RAZ on implementation defined register offset %"=
-PRIpaddr"\n",
-+           v, info->gpa & 0xffff);
-+    *r =3D 0;
-+    return IO_HANDLED;
++    return 0;
 +
-+ read_reserved:
-+    printk(XENLOG_G_DEBUG
-+           "%pv: vSMMUv3: RAZ on reserved register offset %"PRIpaddr"\n",
-+           v, info->gpa & 0xffff);
-+    *r =3D 0;
-     return IO_HANDLED;
- }
-=20
-@@ -39,6 +321,10 @@ static int vsmmuv3_init_single(struct domain *d, paddr_=
-t addr, paddr_t size)
-         return -ENOMEM;
-=20
-     smmu->d =3D d;
-+    smmu->cmdq.q_base =3D FIELD_PREP(Q_BASE_LOG2SIZE, SMMU_CMDQS);
-+    smmu->cmdq.ent_size =3D CMDQ_ENT_DWORDS * DWORDS_BYTES;
-+    smmu->evtq.q_base =3D FIELD_PREP(Q_BASE_LOG2SIZE, SMMU_EVTQS);
-+    smmu->evtq.ent_size =3D EVTQ_ENT_DWORDS * DWORDS_BYTES;
-=20
-     register_mmio_handler(d, &vsmmuv3_mmio_handler, addr, size, smmu);
-=20
++bad_ste:
++    return -EINVAL;
++}
++
++static int arm_vsmmu_handle_cfgi_ste(struct virt_smmu *smmu, uint64_t *cmd=
+ptr)
++{
++    int ret;
++    uint64_t ste[STRTAB_STE_DWORDS];
++    struct arm_vsmmu_s1_trans_cfg s1_cfg =3D {0};
++    uint32_t sid =3D smmu_cmd_get_sid(cmdptr[0]);
++
++    ret =3D arm_vsmmu_find_ste(smmu, sid, ste);
++    if ( ret )
++        return ret;
++
++    ret =3D arm_vsmmu_decode_ste(smmu, sid, &s1_cfg, ste);
++    if ( ret )
++        return (ret =3D=3D -EAGAIN ) ? 0 : ret;
++
++    return 0;
++}
++
+ static int arm_vsmmu_handle_cmds(struct virt_smmu *smmu)
+ {
+     struct arm_vsmmu_queue *q =3D &smmu->cmdq;
+@@ -114,6 +261,7 @@ static int arm_vsmmu_handle_cmds(struct virt_smmu *smmu=
+)
+         switch ( smmu_cmd_get_command(command[0]) )
+         {
+         case CMDQ_OP_CFGI_STE:
++            ret =3D arm_vsmmu_handle_cfgi_ste(smmu, command);
+             break;
+         case CMDQ_OP_PREFETCH_CFG:
+         case CMDQ_OP_CFGI_CD:
 --=20
 2.43.0
 
