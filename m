@@ -2,49 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cBeBKek2zWlwawYAu9opvQ
+	id iJu5DpJBzWkkbAYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 17:16:57 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 18:02:26 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 104BB37CDDD
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 17:16:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1270630.1559249 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB4D437D9A9
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 18:02:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1270662.1559257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7xJ9-0001fV-Ho; Wed, 01 Apr 2026 15:16:39 +0000
+	id 1w7y0c-00027v-Td; Wed, 01 Apr 2026 16:01:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1270630.1559249; Wed, 01 Apr 2026 15:16:39 +0000
+Received: by outflank-mailman (output) from mailman id 1270662.1559257; Wed, 01 Apr 2026 16:01:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7xJ9-0001dY-EX; Wed, 01 Apr 2026 15:16:39 +0000
-Received: by outflank-mailman (input) for mailman id 1270630;
- Wed, 01 Apr 2026 15:16:37 +0000
+	id 1w7y0c-00024u-Qz; Wed, 01 Apr 2026 16:01:34 +0000
+Received: by outflank-mailman (input) for mailman id 1270662;
+ Wed, 01 Apr 2026 16:01:33 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w7xJ7-0001dS-NO
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 15:16:37 +0000
+ (envelope-from <krzk@kernel.org>) id 1w7y0b-00024m-Il
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 16:01:33 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7xJ6-0053IJ-UW
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 17:16:36 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1w7y0a-00CfIT-By
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 18:01:32 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69cd36c0-2eae-0a2a0a5409dd-0a2a4502c88e-38
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 17:16:36 +0200
-Received: from [209.85.218.54] (helo=mail-ej1-f54.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <jbeulich@suse.com>)
- id 69cd36d4-42fa-0a2a45020019-d155da36e0b1-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 17:16:36 +0200
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-b982b0889d8so859745566b.2
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 08:16:36 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e2a6f13sm570264f8f.3.2026.04.01.08.16.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 08:16:35 -0700 (PDT)
+ (envelope-from <krzk@kernel.org>)
+ id 69cd414e-2eae-0a2a0a5409dd-0a2a450cdb74-28
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 18:01:32 +0200
+Received: from [172.105.4.254] (helo=tor.source.kernel.org)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <krzk@kernel.org>)
+ id 69cd415b-f40c-0a2a450c0019-ac6904fe98be-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 18:01:32 +0200
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8B28B61339;
+ Wed,  1 Apr 2026 16:01:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E304CC19423;
+ Wed,  1 Apr 2026 16:01:22 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,205 +53,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775056596; x=1775661396; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QmAa9ky8MH+ew0LJxnDQPff8r9p6/FG1sNdb8AFPXHI=;
-        b=CjWzBmPfQzQOmYyNjljDsot0kJiib01IHagMgSSvwSMY/yKewOCCDtq/WnicBvMIJi
-         YULNfKbpI3PaaJOjodS2hASm3t4pCOyKVuYfIYLw3R+6Gau8Qc9v7mJvaL6IlErKIpiH
-         TyNklP4hBuMs8MZYmlARr2WRuwwkQHS8ZFcU9qCOXSZM1rDL/ZzC8xej2FdKCM+8gNjR
-         6ilLi+NLFLYYGBYA4sQLWLzNDT/0f09eCKY21Ej9m/ph1wsXkbv/vASuCfzZ+fvUeqjt
-         ORdOCjmJrlIRtn9S2DlZ77MrUCH1DBxUcKov7gE4bj0LBcnf8bQRCx+4IZrk/DKawjIl
-         ehZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775056596; x=1775661396;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QmAa9ky8MH+ew0LJxnDQPff8r9p6/FG1sNdb8AFPXHI=;
-        b=I+w4HJccihaYxWphSAxB7w+KwfMO2/3z0WWjuuhKJUZeh1DnIoYOWRkjQIE7nCnyer
-         ueTx42UUdKBuHnLMwM7UCPRpJijDsQTbjLRKyG7v4N6VBL78+5A3z54WDwOn3rSsJE0S
-         bNAfgKp2Ys8spk5E5ThFHEd3n3TQwYC/B3gIlMC/s9DCMVWsNJwsBpy04meSjPB6tJpL
-         /o8I5yAi76mE/frDlJPNBm4hOTs06qgmL/iDLP9cPFFV6Cdv26a3K7S6LOsO3u8dxuIs
-         6p0c6CmlkeGvwx45T5sDC1XToTzEAmI9+rLNzOUWjgxpj8tOIePmj2LRBgIczxMsjoKP
-         A1tw==
-X-Forwarded-Encrypted: i=1; AJvYcCW3ktR10qij7mWURTJ/2hsZCFF5HpnX/bm55BWRLzLukzXfIHKY/CEGY7xYR9ZFnNTeE2oknaGw5Bw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YznYiNfnJIlf8Se4t0DxPqGEyVduu5SioklZfP8+tC4ZtNhCdCa
-	bB9y27uhvY7BVqj/ergcS717lA3OVo573m0uUQ4BI9nR4fuV6ARREkv5yVEc2E1Xvg==
-X-Gm-Gg: ATEYQzzz/5YLEScoxcYCnxnFEl4BGp6tQ0AwSAtiULsty8/etax0sWUgfZ2KrBfFEQr
-	vzvvJqtobfBw2Tg+yG4hmFwUprRBo00JbmNsAsDtKwZtNURkUTjZ3iYqov7640XQcZvdMQZcFdd
-	YtdXgzfloGPZQi6q/yut5NlzNNLn12FxBw7U3Uh5vULK1S1XyeC1QVlSuP1YBh6nnAK75B4TJG7
-	2xWxfCqoPqIEFxOpf49rw5tLJLO6dWRW3n60LzlrI3XnwJ9FM31hwEj55kh8nipGW1Bq98raWSJ
-	+A+DIkzUkiPhzwXYCi5Wurx76+oHSIdE3JOoz5eCby5yQ4SI83XyxMrLoV4t8Xhc0+KHhlWVgZj
-	W31llW103wfx6dPwkdQOpOEWgOLtHdMT0u6Y+hbdQagj4lh51YNad4Ip1EmYW0Jt4ay1XbRs5eA
-	9+hj37OIRECpBzLnqjwg6RbtfTmPSc8ptTcgZeAd1Ildim0jSoe/RAVnqAA0IXn7umKsqO2vQvZ
-	MW1h5fq8hNQ1dM=
-X-Received: by 2002:a17:906:c24d:b0:b98:36cd:7e14 with SMTP id a640c23a62f3a-b9c13cac9eemr244965066b.42.1775056596167;
-        Wed, 01 Apr 2026 08:16:36 -0700 (PDT)
-Message-ID: <362d1e3a-409c-40ab-8d2c-36dc30a04b88@suse.com>
-Date: Wed, 1 Apr 2026 17:16:33 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="Date:Subject:To:Cc:References:From:In-Reply-To"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1775059290;
+	bh=W9qx/b89lLAH5xKATjSr4FjoF8xSzZzboxnb+4KLYY8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=gKwgVmSAxxvBbw1CPLzmPJv7PtM7inQR8cZwoafTWDdo4dBnnR87DPqffL+itfKia
+	 jLGAooi36YLbRnOlZDk4cfJkhQ70pO4Y86FtHaYjtr6IVn78mKX71s3sBGlNhPgVfG
+	 ziq9gdKcEDwgBcmTp0E18lygeAR3rk5K2WKN/2nRQ7PyqfA+eKN4FAJKBKRLZTtLnr
+	 oIBzTon1i40EZHvzz3GO0xpnaN4Crt7W9DVWwzKRyQzxha85dZAJOD/SJhCFpnm7pO
+	 BqRFv9sXOXsUigZ/ZhYC9HbVHD9HkaSeYly7cBvhskECynru7k7o036e3LI0JumiYc
+	 FpuYi+9bF5/xg==
+Message-ID: <b64a71fc-9a3f-49c0-a035-be6fe2a1ea4d@kernel.org>
+Date: Wed, 1 Apr 2026 18:01:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 11/27] xen/riscv: create APLIC DT node for guest
- domains
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <462b5f7dbe4e5084a35fb869b59327c6c92d1fbf.1773157782.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v12 2/3] of: Factor arguments passed to of_map_id() into a
+ struct
+To: Frank Li <Frank.li@nxp.com>,
+ Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+Cc: Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal
+ <nikhil.agarwal@amd.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Marc Zyngier <maz@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ Richard Zhu <hongxing.zhu@nxp.com>, Lucas Stach <l.stach@pengutronix.de>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-pci@vger.kernel.org, imx@lists.linux.dev,
+ xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
+ Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
+References: <20260331-parse_iommu_cells-v12-0-decfd305eea9@oss.qualcomm.com>
+ <20260331-parse_iommu_cells-v12-2-decfd305eea9@oss.qualcomm.com>
+ <acvdqQvcitLTCZbm@lizhi-Precision-Tower-5810>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <462b5f7dbe4e5084a35fb869b59327c6c92d1fbf.1773157782.git.oleksii.kurochko@gmail.com>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <acvdqQvcitLTCZbm@lizhi-Precision-Tower-5810>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-720697/1775056596-4CBF5CD1-819FB2AD/0/0
+X-purgate-ID: tlsNG-d25034/1775059292-FF348A3D-2E1C22D6/0/0
 X-purgate-type: clean
-X-purgate-size: 2195
+X-purgate-size: 2575
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_COUNT_SEVEN(0.00)[10];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:Frank.li@nxp.com,m:vijayanand.jitta@oss.qualcomm.com,m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:maz@kernel.org,m:lpieralisi@kernel.org,m:tglx@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:linux-arm-msm@vger.kernel.org,m:
+ charan.kalla@oss.qualcomm.com,m:conor@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[krzk@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[39];
+	RSPAMD_URIBL_FAIL(0.00)[nxp.com:query timed out];
+	ASN_FAIL(0.00)[120.175.237.192.asn.rspamd.com:query timed out];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_CC(0.00)[amd.com,8bytes.org,kernel.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com,oss.qualcomm.com,vger.kernel.org,lists.linux.dev,lists.infradead.org,lists.xenproject.org];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 104BB37CDDD
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel,dt];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email]
+X-Rspamd-Queue-Id: CB4D437D9A9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 10.03.2026 18:08, Oleksii Kurochko wrote:
-> @@ -295,6 +297,85 @@ static void cf_check aplic_set_irq_type(struct irq_desc *desc,
->      spin_unlock(&aplic.lock);
->  }
->  
-> +static int __init cf_check aplic_make_dom_dt_node(
-> +                                    const struct kernel_info *kinfo,
-> +                                    const struct dt_device_node *aplic_node)
+On 31/03/2026 16:43, Frank Li wrote:
+> On Tue, Mar 31, 2026 at 07:34:47PM +0530, Vijayanand Jitta wrote:
+>> From: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
+>>
+>> Change of_map_id() to take a pointer to struct of_phandle_args
+>> instead of passing target device node and translated IDs separately.
+>> Update all callers accordingly.
+>>
+>> Add an explicit filter_np parameter to of_map_id() and of_map_msi_id()
+>> to separate the filter input from the output. Previously, the target
+>> parameter served dual purpose: as an input filter (if non-NULL, only
+>> match entries targeting that node) and as an output (receiving the
+>> matched node with a reference held). Now filter_np is the explicit
+>> input filter and arg->np is the pure output.
+>>
+>> Previously, of_map_id() would call of_node_put() on the matched node
+>> when a filter was provided, making reference ownership inconsistent.
+>> Remove this internal of_node_put() call so that of_map_id() now always
+>> transfers ownership of the matched node reference to the caller via
+>> arg->np. Callers are now consistently responsible for releasing this
+>> reference with of_node_put(arg->np) when done.
+>>
+>> Suggested-by: Rob Herring (Arm) <robh@kernel.org>
+>> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>> Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
+>> Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+>> ---
+>>  drivers/cdx/cdx_msi.c                    |  7 ++--
+>>  drivers/iommu/of_iommu.c                 |  4 +-
+>>  drivers/irqchip/irq-gic-its-msi-parent.c | 11 ++++--
+>>  drivers/of/base.c                        | 68 +++++++++++++++++---------------
+>>  drivers/of/irq.c                         | 10 ++++-
+>>  drivers/pci/controller/dwc/pci-imx6.c    | 32 +++++++--------
+>>
+>> for imx part.
+>>
+>> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Nit: Entirely bogus indentation.
+So that's an Ack. Leaving a Rb tag for a tiny tiny piece of big patch
+will give impression that everything is reviewed on v13. And the patch
+was not reviewed by you.
 
-> +{
-> +    uint32_t len;
-> +    const __be32 *regs;
-> +    const void *data = NULL;
+If you cannot certify the reviewers statement of oversight then use acked
 
-Again, why the initializer?
+"For instance, maintainers may use it to signify that they are OK with a
+patch landing, but they may not have reviewed it as thoroughly as if a
+Reviewed-by: was provided."
 
-> +    int res = 0;
-> +    void *fdt = kinfo->fdt;
-> +
-> +    res = imsic_make_dt_node(kinfo);
-> +    if ( res )
-> +        return res;
-> +
-> +    res = fdt_begin_node(fdt, aplic_node->full_name);
-> +    if (res)
+"For example, if a patch affects multiple subsystems and has an
+Acked-by: from one subsystem maintainer then this usually indicates
+acknowledgement of *just the part which affects that maintainer's code.*"
 
-Nit: Style.
 
-> +        return res;
-> +
-> +    data = dt_get_property(aplic_node, "#interrupt-cells", &len);
-> +    if ( !data )
-> +    {
-> +        printk("%s: Can't find '#interrupt-cells' property\n",
-> +               aplic_node->full_name);
-> +        return -FDT_ERR_XEN(ENOENT);
-> +    }
-
-Again, pull this up to be first in the function?
-
-> +    res = fdt_property(fdt, "#interrupt-cells", data, len);
-> +    if ( res )
-> +        return res;
-
-So host properties are again directly handed through to the guest?
-Shouldn't the number of interrupts (aiui that's the "number of cells"
-here) a guest gets be independent from the host it runs one?
-
-> +    regs = dt_get_property(aplic_node, "reg", &len);
-> +    if ( !regs )
-> +    {
-> +        printk("%s: Can't find 'reg' property\n", aplic_node->full_name);
-> +        return -FDT_ERR_XEN(ENOENT);
-> +    }
-> +
-> +    res = fdt_property(fdt, "reg", regs, len);
-> +    if ( res )
-> +        return res;
-> +
-> +    data = dt_get_property(aplic_node, "riscv,num-sources", &len);
-> +    if ( !data )
-> +    {
-> +        printk("%s: Can't find 'riscv,num-sources' property\n",
-> +                aplic_node->full_name);
-> +        return -FDT_ERR_XEN(ENOENT);
-> +    }
-> +
-> +    res = fdt_property(fdt, "riscv,num-sources", data, len);
-> +    if ( res )
-> +        return res;
-
-Or maybe this is the number of interrupts?
-
-Jan
+Best regards,
+Krzysztof
 
