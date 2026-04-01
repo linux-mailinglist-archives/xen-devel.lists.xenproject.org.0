@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kLfUC7onzWlkaQYAu9opvQ
+	id oBd6I24ozWnTaQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 16:12:10 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 16:15:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91B6837BEAF
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 16:12:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1270379.1559059 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0913337BF5F
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 16:15:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1270389.1559069 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7wIT-0006gf-Qp; Wed, 01 Apr 2026 14:11:53 +0000
+	id 1w7wLI-0007Cu-7m; Wed, 01 Apr 2026 14:14:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1270379.1559059; Wed, 01 Apr 2026 14:11:53 +0000
+Received: by outflank-mailman (output) from mailman id 1270389.1559069; Wed, 01 Apr 2026 14:14:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7wIT-0006eP-O8; Wed, 01 Apr 2026 14:11:53 +0000
-Received: by outflank-mailman (input) for mailman id 1270379;
- Wed, 01 Apr 2026 14:11:53 +0000
+	id 1w7wLI-0007BT-4q; Wed, 01 Apr 2026 14:14:48 +0000
+Received: by outflank-mailman (input) for mailman id 1270389;
+ Wed, 01 Apr 2026 14:14:46 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w7wIS-0006eJ-PH
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 14:11:52 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w7wLG-0007BN-O1
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 14:14:46 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7wIS-005ki7-1I
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 16:11:52 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1w7wLF-00Bn3l-Ov
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 16:14:45 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69cd2797-5cb7-0a2a0a5109dd-0a2a450a961e-40
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 16:11:51 +0200
-Received: from [209.85.221.52] (helo=mail-wr1-f52.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69cd284f-e002-0a2a0a5209dd-0a2a450c9d80-20
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 16:14:45 +0200
+Received: from [209.85.221.45] (helo=mail-wr1-f45.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69cd27a7-ee98-0a2a450a0019-d155dd34ad6f-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 16:11:51 +0200
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-43cfd832155so2174582f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 07:11:51 -0700 (PDT)
+ id 69cd2855-f40c-0a2a450c0019-d155dd2dbd07-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 16:14:45 +0200
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-43cfd96354aso2226729f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 07:14:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e4d2738sm101692f8f.24.2026.04.01.07.11.49
+ ffacd0b85a97d-43d1e2a7223sm189136f8f.5.2026.04.01.07.14.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 07:11:49 -0700 (PDT)
+ Wed, 01 Apr 2026 07:14:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,59 +58,59 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775052711; x=1775657511; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775052885; x=1775657685; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q3lWGWqEq4HaQ9kSwZTMIzIH7MdC2UvMjfZou9rdJlo=;
-        b=cpSjOc9gan8Vm8lQe7YPNzIbtnYqgTG/cYaY/EIc73touPvCT7lfVVK8wUOclChH1h
-         m3jrSjAQ/qRuAH74HYY3FFJpkyOsN4Wwr8CbsSrHQIzQfZXw36iST7u2S7k7Z1br1WbS
-         I8n/8L28v//VI3TolWYsoqn3TRdxRNjLrkhT+kpr24Z6Qr94T0wId9/Kdo/VSYJuDvcR
-         jjL+tDW/KT5WCIacjLa74I4sA/AtNVw6JEfdtQ6CvHwQoDxSxs6VvCJTrX3dP3jiNwYb
-         uxtKrYNLExGq9mjj4gu7E9XhtLeSlGjjlB/x/iKp08vl+A23+geQGKWy1NQMZsM+ZDYL
-         QANA==
+        bh=hL/cATlmDI+H92KCyzPoZzMYt2GziKP7L0ibyB0fKAE=;
+        b=AgW1rP6p5Vg4ocDC3a2M5ucoRJ37n5NtQjmoTyaawsGkxcSuJ2xtsxV84JIBhmu/ow
+         4mMElM60jz6ktVsxEVdVaeqFotU/WlugKx/XHd/pKEntChy8bCNcGWJQy2onzF5vdnql
+         vM06zk052YFln3egLVWW8sqUsYXbX9kR37eH+K34c1OjIT0Kg4X87gt2b120cnZy3hGf
+         cc4Wpmaz/8WdqQqmMgwQ6AlO6aYqL0w62HS6thu7t8VJAMUFU2EAko8pzoj4gilDkayS
+         3dCCu+81GnLpCuwVTDLG2WzG6toUWjQDw9fi6u+ACZc3Jzb7RlsO8+LTkamAenUxV7bK
+         6Sig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775052711; x=1775657511;
+        d=1e100.net; s=20251104; t=1775052885; x=1775657685;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Q3lWGWqEq4HaQ9kSwZTMIzIH7MdC2UvMjfZou9rdJlo=;
-        b=YCOX3AYDm0rTfevceG0hHoCkccexMuYx3Y3aWiTZ6c0LRInMtDZAxcFXHEE8g0N9Ph
-         odFIV3QSpYNusZt5bCr/IA9q0Ynz3F6WlzB9oZKM1ya90PjUWl6f4d3cFWQboEb7DJrX
-         j67Il14otCEoLJyRo1ZYdOnk5YLchQ52euIMOWTNRLOcW8oLkalJVe3QfCF1n7MYpjeW
-         fnDiXwwaSGsvvWNdfu5oe48GFX0HNkc1ySlz5rXpcrNNlS0a3c9KxVfY6Lj93+P/KOsS
-         e3JPy0e+XvO1CdfB1ZwygIANna2QWljIhreMD68E8cKfhj+YtPlF9blJL9/Bqqu0bicZ
-         6ngQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXSdujHDL/nI84eBnQYDpviHqP8dlz/NLp8jhVRM5+M9SZcy65OqbLPVFi4cAzMjlprhe8n2qRVR9M=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YziMJ1xO8wVbL8tzg+2Rwulfvrl2/bmENwUqZawD83YDPuKmZ3a
-	n6htvKxmb1XzEIi4u5rL/d7JHKT3yvIOkjxnaJcYb6N4GO3b6A1M2PfyCkD9klMMDw==
-X-Gm-Gg: ATEYQzzm/G4cOVLmKcS58XYKyCXpRQXsxkVhjgsyRRyFd227ZY2pptEkaX5ztN+gSA8
-	4oQDchEZGv0V3k2Fun/a30SkjeQrbNjC7LE7uJ8PTowcMTg4rnRF4Jh1tldkfo5svZXSzKVxABV
-	Pse7K6zUxRSJ68XGYEQoKNRyBZxaaWY/ZhRhPUA6OT/d+f2cQZrAHPIpOGHBIYyzxD2VqS8OPun
-	Or/7zkwjGrDiHjLj8ETHHBcjrUFT38D2uWAlALEGtFdh16qqxYefrGyMata3nC5Gl4kzqsOidpn
-	/Njox7GDjHiFZ/514AZOifFEh+iwieDRN/CdpLsj3ljc05s+srqZjQ9yBs4laEW/n/ZgjmB6EHM
-	IOSbXgPDkgwMSUzQwMtlT6mOwGNVmlR+J6+Oi2RpGdHflFUDye1oMGVbOxkL5hJfJrqEIx327Y7
-	vq8TQNand3AVqpEs7JYzd7MdwmTLo+8O/wfmoIUhEcZtEV9L0hAimZiUSTyomDcT1aBk7gjP1Rp
-	Oeji9bJEj1JbHE=
-X-Received: by 2002:a05:6000:26cb:b0:439:c040:cc8a with SMTP id ffacd0b85a97d-43d150b81c3mr6948512f8f.32.1775052709759;
-        Wed, 01 Apr 2026 07:11:49 -0700 (PDT)
-Message-ID: <7505a281-b481-4f3a-a7df-d8c234f28279@suse.com>
-Date: Wed, 1 Apr 2026 16:11:47 +0200
+        bh=hL/cATlmDI+H92KCyzPoZzMYt2GziKP7L0ibyB0fKAE=;
+        b=VJPeaJ1j28KEM8300ASF+1S8XAkUYuYbpbL5FbjV5VNbsy7S4wHydU/fCBz2PvVU6K
+         8/uhEIxGbOiKYYxCNMdbYBqQ+5Cysf6x9qqsAssuGMo2ImcCLXV4eRS8kORtQlsdQPAi
+         AosXS8zfEKG3WxCuYf3tasVewjG360hkVQHpBjwXGDg0gj4XJEN4oe8BOtewaazFO1Lc
+         3ae/REflKHQ8fQP3wGrbgFaX4ExH9B1Ltnl/sHzdXtj5qpzAOn86/dtUzFJ7tsnKraQt
+         Y1XrS0ROFyq/KrJSEOykn0hsLHBITvpYv9Mp2Ck6zrbhMlsIxtPau2m/bUHKsEXhbn2h
+         0BcA==
+X-Forwarded-Encrypted: i=1; AJvYcCXidl/QhQfUhiGFM6J/cQSlQOjwdLSuG+jNZsFwMEhClVP47ZrPNHdt/lely4TcfY8qWVQTkWA6W+8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxJn9rqalaCQiPRXcLNsbkwOcigwzhzXWBifOU+5gleRBCk2kMq
+	qUOvq2/WeQ75c+0EL0y1TSe4Y5ir3CTSnmUSFEneYMVeQvlYfDiGvf6QloD5tVfFNQ==
+X-Gm-Gg: ATEYQzylyrmvM+/Ofp8yOATtqdRRWCCOZFCrkqYvNuaJu6SICrzV7KMMpEsKPzGQ5jo
+	wypv0mCX8ZgSZJEY7IcYoXV1bYHoHAb1qjg3dw/7ftxTrzJRuPadcl6PHEBJTFtTV02UcMEq5m9
+	mKmUgwE4UjVx4sYeNZ6Y/JIA6VqiPAnZEhB8YIfg90S4AVF2+mtpeHaAm6+SBIXtdpPzxIKy2T+
+	FHKNdyaWqvR9MycWMmzYwSWSTx50IyiKKqun3RRk7DgBsR1AkMi/dUpVfB3+UsZeAov0M8kB0xx
+	1HQUK0Rb5yBt8dRagqOV6udO42/amjUXTcATSI9oPOE7Olc2+SLHxYDWvDymSLyyOkN2DO94m6b
+	IznIAdp8y2EVEjt6w65hjnkEuPfwSqE0fUI98wnPrga+i2VJOo/3pfttFYCfFPzNNgeeQy+Qcbi
+	ZYEbcL8ckY0QzGxGhDbwNR6sYekJHAM0b0RKAbXeNxF0LT4cgp51Cy45iDwBbRDmualgOOjoagM
+	0VRC+1P6X15BWs=
+X-Received: by 2002:a05:6000:1445:b0:43c:f969:2e1 with SMTP id ffacd0b85a97d-43d15094489mr7559208f8f.6.1775052884969;
+        Wed, 01 Apr 2026 07:14:44 -0700 (PDT)
+Message-ID: <8856a1d8-51f7-40ee-9def-570af5c6d42f@suse.com>
+Date: Wed, 1 Apr 2026 16:14:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 06/27] xen/riscv: implement make_cpus_node()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <fd64b8526a23e9d7775b9b48c5a933b0673c4fba.1773157782.git.oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v2 4/8] vpci: add a wait operation to the vpci vcpu
+ pending actions
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1772806036.git.mykyta_poturai@epam.com>
+ <ec941fbf4f8bde23fc3867e47f5ada028f8003aa.1772806036.git.mykyta_poturai@epam.com>
+ <f546ae19-2107-469e-847b-7a4cde2c95fd@suse.com>
+ <0275be7d-d1d9-47ee-bec2-bfbbb90b4bae@epam.com>
+ <46f4a4c5-cc44-47d7-8d6d-03ddaa75bb7f@suse.com>
+ <13714c88-838b-4dc7-bc0b-b6ca590fd944@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,203 +136,229 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <fd64b8526a23e9d7775b9b48c5a933b0673c4fba.1773157782.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <13714c88-838b-4dc7-bc0b-b6ca590fd944@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1775052711-0F1480B1-44076064/0/0
+X-purgate-ID: tlsNG-d25034/1775052885-A4DBDA3D-365E61DC/0/0
 X-purgate-type: clean
-X-purgate-size: 4503
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-purgate-size: 8059
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:roger.pau@citrix.com,m:stewart.hildebrand@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 91B6837BEAF
+X-Rspamd-Queue-Id: 0913337BF5F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 10.03.2026 18:08, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/Makefile
-> +++ b/xen/arch/riscv/Makefile
-> @@ -1,6 +1,7 @@
->  obj-y += aplic.o
->  obj-y += cpufeature.o
->  obj-y += domain.o
-> +obj-y += domain-build.o
->  obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
->  obj-y += entry.o
->  obj-y += guestcopy.o
+On 01.04.2026 16:07, Mykyta Poturai wrote:
+> On 4/1/26 11:21, Jan Beulich wrote:
+>> On 01.04.2026 09:59, Mykyta Poturai wrote:
+>>> On 3/31/26 17:55, Jan Beulich wrote:
+>>>> On 09.03.2026 12:08, Mykyta Poturai wrote:
+>>>>> --- a/xen/drivers/vpci/header.c
+>>>>> +++ b/xen/drivers/vpci/header.c
+>>>>> @@ -175,76 +175,92 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
+>>>>>    
+>>>>>    bool vpci_process_pending(struct vcpu *v)
+>>>>>    {
+>>>>> -    const struct pci_dev *pdev = v->vpci.pdev;
+>>>>> -    struct vpci_header *header = NULL;
+>>>>> -    unsigned int i;
+>>>>> -
+>>>>> -    if ( !pdev )
+>>>>> -        return false;
+>>>>> -
+>>>>> -    read_lock(&v->domain->pci_lock);
+>>>>> -
+>>>>> -    if ( !pdev->vpci || (v->domain != pdev->domain) )
+>>>>> +    switch ( v->vpci.task )
+>>>>>        {
+>>>>> -        v->vpci.pdev = NULL;
+>>>>> -        read_unlock(&v->domain->pci_lock);
+>>>>> -        return false;
+>>>>> -    }
+>>>>> -
+>>>>> -    header = &pdev->vpci->header;
+>>>>> -    for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
+>>>>> +    case MODIFY_MEMORY:
+>>>>>        {
+>>>>> -        struct vpci_bar *bar = &header->bars[i];
+>>>>> -        struct rangeset *mem = v->vpci.bar_mem[i];
+>>>>> -        struct map_data data = {
+>>>>> -            .d = v->domain,
+>>>>> -            .map = v->vpci.cmd & PCI_COMMAND_MEMORY,
+>>>>> -            .bar = bar,
+>>>>> -        };
+>>>>> -        int rc;
+>>>>> +        const struct pci_dev *pdev = v->vpci.memory.pdev;
+>>>>> +        struct vpci_header *header = NULL;
+>>>>> +        unsigned int i;
+>>>>>    
+>>>>> -        if ( rangeset_is_empty(mem) )
+>>>>> -            continue;
+>>>>> +        if ( !pdev )
+>>>>> +            break;
+>>>>>    
+>>>>> -        rc = rangeset_consume_ranges(mem, map_range, &data);
+>>>>> +        read_lock(&v->domain->pci_lock);
+>>>>>    
+>>>>> -        if ( rc == -ERESTART )
+>>>>> +        if ( !pdev->vpci || (v->domain != pdev->domain) )
+>>>>>            {
+>>>>> +            v->vpci.memory.pdev = NULL;
+>>>>>                read_unlock(&v->domain->pci_lock);
+>>>>> -            return true;
+>>>>> +            break;
+>>>>>            }
+>>>>>    
+>>>>> -        if ( rc )
+>>>>> +        header = &pdev->vpci->header;
+>>>>> +        for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
+>>>>>            {
+>>>>> -            spin_lock(&pdev->vpci->lock);
+>>>>> -            /* Disable memory decoding unconditionally on failure. */
+>>>>> -            modify_decoding(pdev, v->vpci.cmd & ~PCI_COMMAND_MEMORY,
+>>>>> -                            false);
+>>>>> -            spin_unlock(&pdev->vpci->lock);
+>>>>> +            struct vpci_bar *bar = &header->bars[i];
+>>>>> +            struct rangeset *mem = v->vpci.bar_mem[i];
+>>>>> +            struct map_data data = {
+>>>>> +                .d = v->domain,
+>>>>> +                .map = v->vpci.memory.cmd & PCI_COMMAND_MEMORY,
+>>>>> +                .bar = bar,
+>>>>> +            };
+>>>>> +            int rc;
+>>>>> +
+>>>>> +            if ( rangeset_is_empty(mem) )
+>>>>> +                continue;
+>>>>>    
+>>>>> -            /* Clean all the rangesets */
+>>>>> -            for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
+>>>>> -                if ( !rangeset_is_empty(v->vpci.bar_mem[i]) )
+>>>>> -                     rangeset_purge(v->vpci.bar_mem[i]);
+>>>>> +            rc = rangeset_consume_ranges(mem, map_range, &data);
+>>>>>    
+>>>>> -            v->vpci.pdev = NULL;
+>>>>> +            if ( rc == -ERESTART )
+>>>>> +            {
+>>>>> +                read_unlock(&v->domain->pci_lock);
+>>>>> +                return true;
+>>>>> +            }
+>>>>>    
+>>>>> -            read_unlock(&v->domain->pci_lock);
+>>>>> +            if ( rc )
+>>>>> +            {
+>>>>> +                spin_lock(&pdev->vpci->lock);
+>>>>> +                /* Disable memory decoding unconditionally on failure. */
+>>>>> +                modify_decoding(pdev, v->vpci.memory.cmd & ~PCI_COMMAND_MEMORY,
+>>>>> +                                false);
+>>>>> +                spin_unlock(&pdev->vpci->lock);
+>>>>> +
+>>>>> +                /* Clean all the rangesets */
+>>>>> +                for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
+>>>>> +                    if ( !rangeset_is_empty(v->vpci.bar_mem[i]) )
+>>>>> +                        rangeset_purge(v->vpci.bar_mem[i]);
+>>>>> +
+>>>>> +                v->vpci.memory.pdev = NULL;
+>>>>> +
+>>>>> +                read_unlock(&v->domain->pci_lock);
+>>>>>    
+>>>>> -            if ( !is_hardware_domain(v->domain) )
+>>>>> -                domain_crash(v->domain);
+>>>>> +                if ( !is_hardware_domain(v->domain) )
+>>>>> +                    domain_crash(v->domain);
+>>>>>    
+>>>>> -            return false;
+>>>>> +                break;
+>>>>> +            }
+>>>>>            }
+>>>>> -    }
+>>>>> -    v->vpci.pdev = NULL;
+>>>>> +        v->vpci.memory.pdev = NULL;
+>>>>>    
+>>>>> -    spin_lock(&pdev->vpci->lock);
+>>>>> -    modify_decoding(pdev, v->vpci.cmd, v->vpci.rom_only);
+>>>>> -    spin_unlock(&pdev->vpci->lock);
+>>>>> +        spin_lock(&pdev->vpci->lock);
+>>>>> +        modify_decoding(pdev, v->vpci.memory.cmd, v->vpci.memory.rom_only);
+>>>>> +        spin_unlock(&pdev->vpci->lock);
+>>>>>    
+>>>>> -    read_unlock(&v->domain->pci_lock);
+>>>>> +        read_unlock(&v->domain->pci_lock);
+>>>>> +
+>>>>> +        break;
+>>>>> +    }
+>>>>> +    case WAIT:
+>>>>> +        if ( NOW() < v->vpci.wait.end )
+>>>>> +            return true;
+>>>>> +        v->vpci.wait.callback(v->vpci.wait.data);
+>>>>> +        break;
+>>>>
+>>>> As just indicated in reply to patch 6, busy waiting isn't really acceptable.
+>>>> This is even more so when the waiting exceeds the typical length of a
+>>>> scheduling timeslice.
+>>>>
+>>>> In that other reply I said to put the vCPU to sleep, but you need to be careful
+>>>> there too: The domain may not expect its vCPU to not make any progress for such
+>>>> an extended period of time. This may need doing entirely differently: Once the
+>>>> command register was written, you may want to record the time after which
+>>>> accesses to the VF registers are permitted. Earlier accesses would simply be
+>>>> terminated. You may still additionally need a timer, in order to kick off BAR
+>>>> mapping after that time. (Yet better would  be if the BAR mapping could be
+>>>> done during those 100ms. After all that may be a reason why this long a delay
+>>>> is specified: Firmware on the device may also require some time to set up the
+>>>> BARs accordingly.)
+>>>
+>>> I am not sure it would work that way. If we look at how linux
+>>> initialized sriov, it writes VFE and MSE bits, waits 100ms and then
+>>> expects VFs to be operational. If they are not operational at that
+>>> moment, then it considers the operation failed and removes all VFs. If
+>>> we also wait 100ms before enabling access, the probability of a guest
+>>> trying to access something before we allow it would be very high.
+>>
+>> Well, not really. Our counting of the 100ms necessarily starts before Dom0's.
+>> Furthermore it may be acceptable (or even appropriate) to stall premature
+>> accesses (because they shouldn't occur in the first place), by blocking the
+>> vCPU at that point. A middle route may be possible: Terminate accesses in,
+>> say, the first 90ms, and stall the vCPU for any access past that, but before
+>> the 100ms expired.
+> 
+> Is there any real benefit to doing all this work instead of just waiting 
+> for Dom0 to register the FVs? Implementing it the way you described 
+> would require a relatively complex state machine and two timers per 
+> sriov-capable device. And will also probably require some hacks to 
+> handle partially initialized VFs in Xen. This adds a lot of work and 
+> many possible bugs for not a lot of benefit in my opinion.
 
-Doesn't this belong in patch 02? And then domain-build.init.o?
-
-> --- a/xen/arch/riscv/domain-build.c
-> +++ b/xen/arch/riscv/domain-build.c
-> @@ -3,8 +3,10 @@
->  #include <xen/fdt-domain-build.h>
->  #include <xen/fdt-kernel.h>
->  #include <xen/init.h>
-> +#include <xen/libfdt/libfdt.h>
->  #include <xen/sched.h>
->  
-> +#include <asm/cpufeature.h>
->  #include <asm/current.h>
->  #include <asm/guest_access.h>
->  
-> @@ -44,3 +46,109 @@ int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
->  
->      return 0;
->  }
-> +
-> +int __init make_cpus_node(const struct domain *d, void *fdt)
-> +{
-> +    int res;
-> +    const struct dt_device_node *cpus = dt_find_node_by_path("/cpus");
-> +    unsigned int cpu;
-> +    u32 timebase_frequency;
-
-uint32_t please.
-
-> +    bool frequency_valid;
-> +    uint32_t *next_phandle = &((struct domain *)d)->arch.next_phandle;
-
-No casting away of const, please.
-
-> +    dt_dprintk("Create cpus node\n");
-> +
-> +    if ( !cpus )
-> +    {
-> +        dprintk(XENLOG_ERR, "Missing /cpus node in the device tree?\n");
-> +        return -ENOENT;
-> +    }
-> +
-> +    frequency_valid = dt_property_read_u32(cpus, "timebase-frequency",
-> +                                           &timebase_frequency);
-> +
-> +    res = fdt_begin_node(fdt, "cpus");
-> +    if ( res )
-> +        return res;
-> +
-> +    res = fdt_property_cell(fdt, "#address-cells", 1);
-> +    if ( res )
-> +        return res;
-> +
-> +    res = fdt_property_cell(fdt, "#size-cells", 0);
-> +    if ( res )
-> +        return res;
-> +
-> +    if ( frequency_valid )
-> +        res = fdt_property_cell(fdt, "timebase-frequency", timebase_frequency);
-
-Handing through a property directly makes me wonder how that's going to
-fit with migration. I understand migration may not even be a mid-term
-goal, but still.
-
-> +    for ( cpu = 0; cpu < d->max_vcpus; cpu++ )
-> +    {
-> +        char buf[64];
-> +        uint32_t reg = cpu_to_fdt32(cpu);
-> +
-> +        snprintf(buf, sizeof(buf), "cpu@%u", cpu);
-> +        res = fdt_begin_node(fdt, buf);
-> +        if ( res )
-> +            return res;
-> +
-> +        res = fdt_property(fdt, "reg", &reg, sizeof(reg));
-> +        if ( res )
-> +            return res;
-> +
-> +        res = fdt_property_string(fdt, "status", "okay");
-> +        if ( res )
-> +            return res;
-> +
-> +        res = fdt_property_string(fdt, "compatible", "riscv");
-> +        if ( res )
-> +            return res;
-> +
-> +        BUILD_BUG_ON((sizeof("riscv,") + sizeof_field(struct gstage_mode_desc, name) + 1) >= sizeof(buf));
-
-Nit: Overlong line. Also, why +1? The name field has to include a nul, or
-else ...
-
-> +        snprintf(buf, sizeof(buf), "riscv,%s", max_gstage_mode->name);
-
-... you can't use plain %s here.
-
-> +        res = fdt_property_string(fdt, "mmu-type", buf);
-> +        if ( res )
-> +            return res;
-> +
-> +        res = fdt_property_string(fdt, "riscv,isa", guest_isa_str);
-> +        if ( res )
-> +            return res;
-> +
-> +        res = fdt_property_string(fdt, "device_type", "cpu");
-> +        if ( res )
-> +            return res;
-> +
-> +        res = fdt_begin_node(fdt, "interrupt-controller");
-> +        if ( res )
-> +            return res;
-> +
-> +        res = fdt_property_string(fdt, "compatible", "riscv,cpu-intc");
-> +        if ( res )
-> +            return res;
-> +
-> +        res = fdt_property_cell(fdt, "#interrupt-cells", 1);
-> +        if ( res )
-> +            return res;
-> +
-> +        res = fdt_property(fdt, "interrupt-controller", NULL, 0);
-> +        if ( res )
-> +            return res;
-> +
-> +        res = fdt_property_u32(fdt, "phandle", (*next_phandle)++);
-> +        if ( res )
-> +            return res;
-> +
-> +        /* end of interrupt-controller */
-> +        res = fdt_end_node(fdt);
-> +        if ( res )
-> +            return res;
-> +
-> +        res = fdt_end_node(fdt);
-> +        if ( res )
-> +            return res;
-> +    }
-> +
-> +    res = fdt_end_node(fdt);
-> +
-> +    return res;
-
-Simply "return fdt_end_node(fdt);"?
+Odd that you ask me this question. If there was no benefit, why did you do
+it this way?
 
 Jan
 
