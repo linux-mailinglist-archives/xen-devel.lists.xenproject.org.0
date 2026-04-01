@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YBL6Bn40zWlwawYAu9opvQ
+	id uFPKBnk1zWlwawYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 17:06:38 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 17:10:49 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C35237CAEC
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 17:06:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1270606.1559230 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7649C37CC21
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 17:10:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1270618.1559239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7x8k-0007Jy-C8; Wed, 01 Apr 2026 15:05:54 +0000
+	id 1w7xDH-000179-TY; Wed, 01 Apr 2026 15:10:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1270606.1559230; Wed, 01 Apr 2026 15:05:54 +0000
+Received: by outflank-mailman (output) from mailman id 1270618.1559239; Wed, 01 Apr 2026 15:10:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7x8k-0007IY-9E; Wed, 01 Apr 2026 15:05:54 +0000
-Received: by outflank-mailman (input) for mailman id 1270606;
- Wed, 01 Apr 2026 15:05:53 +0000
+	id 1w7xDH-00014a-Qv; Wed, 01 Apr 2026 15:10:35 +0000
+Received: by outflank-mailman (input) for mailman id 1270618;
+ Wed, 01 Apr 2026 15:10:34 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w7x8j-0007IS-Ea
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 15:05:53 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w7xDF-00014U-V3
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 15:10:34 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7x8i-00BwTF-Lh
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 17:05:52 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1w7xDF-00By62-0e
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 17:10:33 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69cd3437-2eae-0a2a0a5409dd-0a2a450b94c4-36
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 17:05:52 +0200
-Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69cd3556-bab6-0a2a0a5309dd-0a2a45099302-46
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 17:10:32 +0200
+Received: from [209.85.221.41] (helo=mail-wr1-f41.google.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69cd3450-bca8-0a2a450b0019-d1558029d0a6-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 17:05:52 +0200
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-48702d51cd0so82594525e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 08:05:52 -0700 (PDT)
+ id 69cd3568-bf79-0a2a45090019-d155dd29a4a6-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 17:10:32 +0200
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-43ccda008cdso793157f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 08:10:32 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e4e56fesm356141f8f.27.2026.04.01.08.05.51
+ ffacd0b85a97d-43d1e4e56fesm383358f8f.27.2026.04.01.08.10.31
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 08:05:51 -0700 (PDT)
+ Wed, 01 Apr 2026 08:10:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,60 +58,63 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775055952; x=1775660752; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775056232; x=1775661032; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+iaDKuOi3FwVgN1qeXcXFnW7xUHsI7m5CwiI2dqvb60=;
-        b=BVDhYstAWoFUcJKyRnGq1Fzq2OGetRnPWuo8bR5txLvK4oJS0pHyGCAWj/mPXhrERr
-         50Bi6fCQJEIhh6D+YysC41S+S3Z2spzgvThC9kJ1lF72mxi0IevCvusdQnBF5V+YMSPE
-         WzTGADfl7r8L20Y4M20pmlpqAn9qumt7mcxoFztcn8a2TgWono3KNcTvCATfgDf0sZNu
-         WCvRS7Gj9iaRiMdPz5o5GeHxHAG/u7UtWLPIl59gagY1R2AVUNNlABqevubVYhKjy6Sx
-         BoBeeVKEXW2/LU+q3085wQz51kCIb0lLUfqM4ZB4dmwCXIENyEfzFYvMsPPtDpqwkkzQ
-         BjeA==
+        bh=Of1OV/sjI0XhbplbJcGwuBdgsHi+597BjgLgYsaHQDo=;
+        b=PmBs8kGDNo87/N91ogIkWT/KIO8jJFEhfImKt3UcRO8bsP76r30LJDOiGbq73mx3DQ
+         uKzzusYlhT1OfL6Y2O4Dy/9Thunz0quAKCJmgFWQS4MugYsqyhE2JqeWUM5mbBQNlyJi
+         IqTlvWEUJJXOBMu2cUxT4ELOGHIM43Xbxa045pKJM0RXscSrSHyBMyZMGw9z67gR8SzP
+         F5Y/s/i3ZIHmon3N5Kt7pp79lUE/2pNtdIVZhx57aTeC04xuWCJRZtNAlO9D9eBQYYqp
+         Q8FvWnxrxVSzbasM9MjYfsQi24zLk0zSoUdsbm45rJak+8D++MYksNdX6DF8kLInAmMr
+         /nrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775055952; x=1775660752;
+        d=1e100.net; s=20251104; t=1775056232; x=1775661032;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+iaDKuOi3FwVgN1qeXcXFnW7xUHsI7m5CwiI2dqvb60=;
-        b=fnMNvKJQ7lVAymktg0Ck0h8ZrzvbopjS0IH6tC5uEOp6V6NxX9VSjTUadyh4nD/S0O
-         nNsoQ+85J+431PJ28CnwwOHmO9n3V+y+KAomMHPI3RA99aHAwrIGOns8XVl0KxQUUWX7
-         5ucxXt0mq/++/+zgkDlAExOrtQYDh1gSF2w5SNH7YoF6/EEt6OcP5SYMU5LQbtwwjV9R
-         aMaJWC9i/7FdZLp8gP0+89jF0PSu//FpchUMYtg+XUgV1fkF+TySSvhGDPQ6/a7W1dMV
-         Sz9/xmiszr/PdxiaGnAp2AvCEMXykfRRz063/9Cr236X2Nx3jNzXRU3cQD/AL4OByC9m
-         PiCg==
-X-Forwarded-Encrypted: i=1; AJvYcCUD7/fGVbrRs9LtzYv7nI9f7GDMLzYVrUC3XClEiMC3ru/rfpx6w4VsynTN+td/esyYaAZ5I9OhKo8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyojg8egRG/YVM0TwvfgNhLxHc1+r+RyM8s1G2Kue9g/cqNeYPP
-	wVouUduLhw5Y1fGzih6WybR9Wn35dWtaskg/mk65BYalNzcTlCLfuZI3s8C2PqPTlA==
-X-Gm-Gg: ATEYQzym6tk0xBJKqzLtFXSIjDuI3DI0PvGg7T4KjPPZa/17lVOtovsrnnEwYo/R0iB
-	1bkN1IpALD8QOB7wWozTl+SC0mbDZRpHaYW+5rsf4Za1FRXkvZhRkBGKUe9BsshjOaTFwSxT5lW
-	WBy2JxjmbvVflAMWyTdKIYUEnKf5QISzmn/Qx8DkeRw7Da3WKjUomhizQ3R7ezamxojbau5AsoJ
-	qbYlpfYKUIRQqTKUjjiGB1qVBuD0tehIMiVJiFptE9UYFwByv0qxbY33GFeNiJk/5w12nInH60v
-	CXir0kh3Apzsag+5a75SFzCsXbmN2kjwFYJTueLOqX5UH2uLiInRlgWXXR9Z8S7zvP1YaDtOWcm
-	dy/KhiBzrruFhXnm8ANsLzwKn83VgqAbe6cG3taGXVIDQaVgSX6hCRQuga+7GwRJK5ElUnsol0w
-	x1bsI2l+Lfs/Q58Xe8PqAUxaHSeqmrM892G2VlEUAwTRXx0+dK+OUc47uYWVtl31A0IcYGSqyXm
-	a9/B3nBKOCgQmw=
-X-Received: by 2002:a05:600c:46d3:b0:485:f1d1:8f3d with SMTP id 5b1f17b1804b1-4888355e820mr65800625e9.6.1775055951859;
-        Wed, 01 Apr 2026 08:05:51 -0700 (PDT)
-Message-ID: <93e8407e-cff0-42cc-8cfd-2d82f536a886@suse.com>
-Date: Wed, 1 Apr 2026 17:05:49 +0200
+        bh=Of1OV/sjI0XhbplbJcGwuBdgsHi+597BjgLgYsaHQDo=;
+        b=k4WeLfHHdvuFCr8GgVbNm00ax/69FhJ0PzZ4uLTe6U3oaL1cqkdTBzoEhs/d7Vsa71
+         v1XAiu9ClhznnvuBQmznT8krsrrgK5caT6/ISScyBJV/wBznqod11+YVokBSWDzQQ8DN
+         laFV1BK1qBYKQkrQCT3Tn4nlbR55kSl1k4QhuPOdvltSXcCICOTLUgmmD12/HFOA6+fw
+         oUEqIz7isPzI3sNPgNaiHOgLrUYCHjRe3V46sPufUHQ0Bwx/MMv358jTOduUycoYxgtz
+         1O5vOUfZB07jyNwD3YyKVSm4v0OVfl+aigHRFhiC6Hs0U31tXxbDaLdgMd2D+bJ53j/3
+         VcZQ==
+X-Forwarded-Encrypted: i=1; AJvYcCWSjNsAomfQuEoEIGDMuMpsBjlBz201oici8NPCtsMGePpjr7hdP4wfzVxZc5j1Dzbfx0SZO8fbpCU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzboU2YPQ9hPl6lSJl2OqUjyR1TkePyfyQqtw9yBPw9QkS1b59R
+	FlvovPg4OploUp0o2wnf6IFqtHlh9OfGX3b/J0mCmN1/WYQnO4aX+yDQapb/dWYS/w==
+X-Gm-Gg: ATEYQzxmdY2P/L0jiu4wg5gNbRUdpcXMfPvPOQ8USOetzFRLY+0SzSn6VKDMPjHcwDB
+	x3qWm1kuIbRwdPxZ8m3wIL48Zr4BAtbFS7VJoKk+icBCXotFiG0tyGwyqeVFs4zo3TE22zoH7p4
+	gCKFEB1SzgYTFm2ZMbFyuMicfmwVwJFNhhxMg6QmKfwBVmL6cJ4sv4k054e7JvgwUU6V/RH5MsY
+	YacDPAVCbJpHuFyZKwoyVs17+B84jRGOZ6qyacmulQNwaTX9Lgm7TG6YYMa2njisQpPbGABOFSz
+	YvQtc3zZ+q7gJyuzFZnc1B1D7sJ0AMbj9fQCAKhdrTnYljEVsZ7vGPfGdPkUaJlTWnXyrpr9PkF
+	63SRZ+JAPzfNuvGT+tCM8yd3ONN2Q07bwMSeVQZhzawUt8BSvROZ43eRdm4c0/zUV3gaZnU3GWV
+	E5nEq+arXK2NsL/H9Fi8rl/UZLvZ3fPJLsDfIQeMa4n8dLIA/ZDyUbjvmpKVlFB6j75cf4prpXc
+	eVZRD6BoiVY190=
+X-Received: by 2002:a05:6000:184d:b0:43c:f257:c706 with SMTP id ffacd0b85a97d-43d1561081fmr7389718f8f.23.1775056232256;
+        Wed, 01 Apr 2026 08:10:32 -0700 (PDT)
+Message-ID: <0e37083a-42ab-4c99-83fc-b77f519394b9@suse.com>
+Date: Wed, 1 Apr 2026 17:10:30 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 10/27] xen/riscv: generate IMSIC DT node for guest
- domains
+Subject: Re: [PATCH v2 10/11] xen/riscv: add definition of guest RAM banks
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <8154eae081d14da89f27bad581270cc5bba6ccfc.1773157782.git.oleksii.kurochko@gmail.com>
+References: <cover.1774281309.git.oleksii.kurochko@gmail.com>
+ <8278256f3d270b456d19cb9891b89b88a46548a5.1774281309.git.oleksii.kurochko@gmail.com>
+ <1a3a316e-f0ea-4514-95d6-9813d6d5ca76@suse.com>
+ <691be850-9145-4bbf-a897-d10a0193b730@gmail.com>
+ <dfd2a666-f3a5-4d88-b034-438f8fbb85ba@suse.com>
+ <2bae9e12-8f71-4ff0-b077-bfb4215e5e14@gmail.com>
+ <ffd3a7cd-8c47-4a9b-864a-26a053b5b7d2@suse.com>
+ <bc5a9826-c1ff-43b2-a3d1-1a4862301aea@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -137,179 +140,96 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <8154eae081d14da89f27bad581270cc5bba6ccfc.1773157782.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <bc5a9826-c1ff-43b2-a3d1-1a4862301aea@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1775055952-EC9592A1-5420D53C/0/0
+X-purgate-ID: tlsNG-bad1c0/1775056232-5535C152-3E42469B/0/0
 X-purgate-type: clean
-X-purgate-size: 4271
+X-purgate-size: 2196
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 7C35237CAEC
+X-Rspamd-Queue-Id: 7649C37CC21
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 10.03.2026 18:08, Oleksii Kurochko wrote:
-> Guests using the IMSIC interrupt controller require a corresponding
-> Device Tree description. Add support for generating an IMSIC node when
-> building the guest DT.
+On 01.04.2026 16:53, Oleksii Kurochko wrote:
 > 
-> Keep a reference to the host IMSIC DT node and reuse its compatible
-> property while constructing the guest-visible node.
+> 
+> On 4/1/26 4:22 PM, Jan Beulich wrote:
+>> On 01.04.2026 15:57, Oleksii Kurochko wrote:
+>>> On 4/1/26 8:17 AM, Jan Beulich wrote:
+>>>> On 31.03.2026 18:14, Oleksii Kurochko wrote:
+>>>>> On 3/30/26 5:51 PM, Jan Beulich wrote:
+>>>>>> On 23.03.2026 17:29, Oleksii Kurochko wrote:
+>>>>>>> The dom0less solution uses defined RAM banks as compile-time constants,
+>>>>>>> so introduce macros to describe guest RAM banks.
+>>>>>>>
+>>>>>>> The reason for 2 banks is that there is typically always a use case for
+>>>>>>> low memory under 4 GB, but the bank under 4 GB ends up being small because
+>>>>>>> there are other things under 4 GB it can conflict with (interrupt
+>>>>>>> controller, PCI BARs, etc.).
+>>>>>> Fixed layouts like the one you suggest come with (potentially severe)
+>>>>>> downsides. For example, what if more than 2Gb of MMIO space are needed
+>>>>>> for non-64-bit BARs?
+>>>>> It looks where usually RAM on RISC-V boards start, so I expect that 2gb
+>>>>> before RAM start is enough for MMIO space.
+>>>> Likely in the common case. Board designers aren't constrained by this,
+>>>> though (aiui). Whereas you set in stone a single, fixed layout.
+>>>>
+>>>> Arm maintainers - since a similar fixed layout is used there iirc,
+>>>> could you chime in here, please?
+>>>>
+>>>>> Answering your question it will be an issue or it will also use some
+>>>>> space before banks, no?
+>>>> I fear I don't understand what you're trying to tell me.
+>>> I meant that there is also some space between banks and pretty big which
+>>> could be used for MMIO which could be used for non-64-bit BARs.
+>> I don't follow: Bank 0 extends to 4G. There's no space above it, below
+>> bank 1, which could be use for non-64-bit BARs.
+> 
+> So we have two banks:
+> bank[0] -> [0x80000000, 0x100000000)
+> bank[1] -> [0x0200000000, 10000000000)
+> 
+> So i think we have some space between them [0x100000000, 0x0200000000) 
+> -> 4gb to be used for non-64-bit BARs.
 
-Again raises a migration concern. Presumably a guest would then be able
-to migrate only to other hosts with the same compatible property.
+But a non-64-bit BAR need to be assigned an address below 0x100000000?
 
-> @@ -487,3 +492,111 @@ int __init imsic_init(const struct dt_device_node *node)
->  
->      return rc;
->  }
-> +
-> +static int __init imsic_make_reg_property(struct domain *d, void *fdt)
-> +{
-> +    __be32 regs[4];
-> +
-> +    regs[0] = cpu_to_be32(imsic_cfg.base_addr >> 32);
-> +    regs[1] = cpu_to_be32(imsic_cfg.base_addr);
-> +    regs[2] = cpu_to_be32((IMSIC_MMIO_PAGE_SZ * d->max_vcpus) >> 32);
-> +    regs[3] = cpu_to_be32(IMSIC_MMIO_PAGE_SZ * d->max_vcpus);
+> And also we have another 2gb before bank[0].
 
-Might be nice to encode as an initializer of the array variable. There don't
-look to be any side effects in the expressions used, so Misra should take no
-issue with this.
-
-> +    return fdt_property(fdt, "reg", regs, sizeof(regs));
-> +}
-> +
-> +static int __init imsic_set_interrupt_extended_prop(struct domain *d,
-> +                                                    void *fdt)
-> +{
-> +    uint32_t len = 0, pos = 0, cpu, phandle;
-
-At least pos and cpu should be of fixed width types.
-
-> +    uint32_t *irq_ext;
-> +    char buf[64];
-
-Move this one into the loop's scope?
-
-> +    int res;
-> +
-> +    irq_ext = xvzalloc_array(uint32_t, d->max_vcpus * 2);
-> +    if ( !irq_ext )
-> +        return -ENOMEM;
-> +
-> +    for ( cpu = 0; cpu < d->max_vcpus; cpu++ )
-> +    {
-> +        snprintf(buf, sizeof(buf), "/cpus/cpu@%u/interrupt-controller", cpu);
-> +        phandle = fdt_get_phandle(fdt, fdt_path_offset(fdt, buf));
-> +
-> +        if ( phandle <= 0 )
-> +            return phandle;
-
-<= is odd to use on an unsigned type. Arm, in a similar situation, uses != .
-
-Yet then - if 0 is an error indicator, aren't you converting this into a
-success indicator for the caller?
-
-> +        irq_ext[pos++] = cpu_to_be32(phandle);
-> +        len += sizeof(uint32_t);
-
-As before, preferably sizeof(<expression>) to clarify the connection. It's
-pretty obvious here, but still. Yet then - do you really need to maintain
-"len"? Why not use ...
-
-> +        irq_ext[pos++] = cpu_to_be32(IRQ_S_EXT);
-> +        len += sizeof(uint32_t);
-> +    }
-> +
-> +    res = fdt_property(fdt, "interrupts-extended", irq_ext, len);
-
-... "d->max_vcpus * 2 * sizeof(*irq_ext)" here?
-
-> +    XVFREE(irq_ext);
-
-This can be just xvfree(), as the variable goes out of scpoe just afterwards
-anyway.
-
-> +    return res;
-> +}
-> +
-> +int __init imsic_make_dt_node(const struct kernel_info *kinfo)
-
-So this function is unused until the next patch. Acceptable as long as Eclair
-(or other) scans aren't done for RISC-V, but generally you may want to try to
-get used to order patches such that this is avoided.
-
-> +{
-> +    uint32_t len;
-> +    const void *data = NULL;
-
-Why the initializer?
-
-> +    int res = 0;
-> +    void *fdt = kinfo->fdt;
-> +    const struct dt_device_node *host_imsic_node = imsic_cfg.host_node;
-> +    uint32_t *next_phandle = &kinfo->bd.d->arch.next_phandle;
-> +
-> +    res = fdt_begin_node(fdt, host_imsic_node->full_name);
-> +    if ( res )
-> +        return res;
-> +
-> +    data = dt_get_property(host_imsic_node, "compatible", &len);
-> +    if ( !data )
-> +    {
-> +        printk(XENLOG_ERR "%s: Can't find 'compatible' property\n",
-> +               host_imsic_node->full_name);
-> +
-> +        return -ENOENT;
-> +    }
-
-Move fdt_begin_node() down below here?
-
-> --- a/xen/arch/riscv/include/asm/imsic.h
-> +++ b/xen/arch/riscv/include/asm/imsic.h
-> @@ -57,11 +57,16 @@ struct imsic_config {
->      /* MSI */
->      const struct imsic_msi *msi;
->  
-> +    /* DT node of IMSIC */
-> +    const struct dt_device_node *host_node;
-
-Does "host" in the name carry much of a meaning? Maybe better dt_node, to
-(potentially) distinguish it from a NUMA node which also may need tracking
-for an imsic at some point?
+Yes, but I talked about that before.
 
 Jan
 
