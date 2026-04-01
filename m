@@ -2,49 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EPTBKle7zGmcWAYAu9opvQ
+	id J1XkOqy+zGnEWQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 08:29:43 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 08:43:56 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE5BD3752FC
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 08:29:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1269714.1558629 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F0BE37555F
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 08:43:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1269733.1558647 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7p4m-0007Ka-H3; Wed, 01 Apr 2026 06:29:16 +0000
+	id 1w7pIm-0002TX-Tl; Wed, 01 Apr 2026 06:43:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1269714.1558629; Wed, 01 Apr 2026 06:29:16 +0000
+Received: by outflank-mailman (output) from mailman id 1269733.1558647; Wed, 01 Apr 2026 06:43:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7p4m-0007Hb-DY; Wed, 01 Apr 2026 06:29:16 +0000
-Received: by outflank-mailman (input) for mailman id 1269714;
- Wed, 01 Apr 2026 06:29:14 +0000
+	id 1w7pIm-0002Qn-QS; Wed, 01 Apr 2026 06:43:44 +0000
+Received: by outflank-mailman (input) for mailman id 1269733;
+ Wed, 01 Apr 2026 06:43:44 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w7p4k-0007HV-Mt
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 06:29:14 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1w7pIl-0002Qh-OC
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 06:43:44 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7p4j-005R2s-OG
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 08:29:13 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1w7pIl-0037F1-2Y
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 08:43:43 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69ccbb32-e002-0a2a0a5209dd-0a2a4502c4d4-6
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 08:29:13 +0200
-Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
- (envelope-from <jbeulich@suse.com>)
- id 69ccbb39-63bb-0a2a45020019-d1558030ec58-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 08:29:13 +0200
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-486507134e4so73107455e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 23:29:13 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4887e83e906sm85638505e9.8.2026.03.31.23.29.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Mar 2026 23:29:12 -0700 (PDT)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69ccbe97-bab6-0a2a0a5309dd-0a2a450ac3bc-38
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 08:43:43 +0200
+Received: from [209.85.208.51] (helo=mail-ed1-f51.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69ccbe9e-1772-0a2a450a0019-d155d033e88c-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 08:43:43 +0200
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-66c05fb27e4so4354828a12.2
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 23:43:42 -0700 (PDT)
+Received: from EPUAKYIW02F7.. ([45.12.26.38]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-66b72760506sm4206665a12.5.2026.03.31.23.43.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Mar 2026 23:43:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,184 +55,574 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775024953; x=1775629753; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8Bmie9qj6MlGel6w/+sZbpTxj82sDgs07ODjWhFHiCQ=;
-        b=SbP69BvZuSPscGsD8sRgOyN0AO4C1jUGN+TT7tFHp1F14iOLINfs1RSdP6FEXHckSq
-         kQEYIHlN4hD9oqOCg2MmytYx1ODMLZ05BGBGWnIN2SH8MIk+tgk7NS+W8+L5e4uHr3mQ
-         /ghh9uoXHwU+me7CDHf39uEdpKegvai6wxQ3LNDtnWvpoX4mRjgofMDWXyxg06K7lAWI
-         c9XEwO7Pkjz4T5A8MHY5xqf9vLp1pahl99eFArKW7d6HGHBhycH5dpNi6sCbpquCZ4tW
-         sS7CvPSXoBSL/X0D6mz7HMokgzdTGMv+OEx1u/9+U6hyK46m3RnGcyhJTBMYDGS2sz7/
-         I2gw==
+        d=gmail.com; s=20251104; t=1775025822; x=1775630622; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wXfGbxEgVK86zP9EXSrRv04RVHrSL1xGXF93+I1C8b4=;
+        b=GK7hJBRSPxcmvjwP8qEdPOas5MH3DoIW1V2u5JhTgTHUEOBAYTEBeL5Ia8FED+mpvZ
+         y4CB98uBKXmEqDqX7R0HBjZ+CsrZKrfbCR3lBorNff6IlW3bYyVEThQ4YFjLxqJAY+K8
+         HT4vOnVkzG5Ww35c4/gSdtuJijDgtL/4W6OvWHXVW9h8fG/QEs9yuk70CnnoY/aEQIJ0
+         B/Mx24E+/PrRoFMVge8tBuAnAqoU3/cQ12x4lLRp6hMGNhF17O0X36XVYAtTFjrvzbV9
+         Y2iDHX7yb5ttOgQisoMIr3wOwT5QwjeoUHPkvozP86mXBQLp7cJM9rrdGuD5xlg1YTOo
+         Xxtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775024953; x=1775629753;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1775025822; x=1775630622;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8Bmie9qj6MlGel6w/+sZbpTxj82sDgs07ODjWhFHiCQ=;
-        b=NWNOmLNiyTKve3usXU3b695OH4mFBx9sqfTTuZ7QNH2fY+nzaBodNAmGRFsufg5cmd
-         ZqQbn0zsBso+iGoLef5REeHdJCHze2K3XK+zjDGfAfUzVPjRoF7o0o8U5IpvMPbRLFL9
-         dSmjhZ4R8smtxnMcVWidKL9CF6zPAnslsUT9iby2j6LH+afo+4i/h0L0gq3toZnS/J3h
-         q2ky2mv2Hp8bjJ2pH+2jzvN+CZRP2G3oGeiPJ/JBCwvjy1FlMfMtBQ2mkXlyVk0CXG+6
-         VRhV5sTv9+9Q197mznYMNwZh8gACT1V6XwFfsl3El5Xqc8j8cErnjV9XtLteNH9kOJaA
-         LJSg==
-X-Forwarded-Encrypted: i=1; AJvYcCUFkYSQ57mHdqxf9P7fTUYTUzfPrV0MA88S7RCRjgMZI0UEKFAxx9ydW56SSf8W2LqpG+iFjjbqPTk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyuQYzPzx4lDKJAm/MTe/L/wQLLHB5n/AOD2/oileEgSF6aT4hB
-	HLkFYT2nCRJDmyUxKJ2i+Jb22WPburM4e9nsoZnhfPcJ9JdFdHZf9vMy6Jpoam9B5g==
-X-Gm-Gg: ATEYQzwyHw/QP+EQb0AXFPqcvhLuUYvnK7qElTcS+qEMJ9w5cRneTlSCVpH6SMkO4ig
-	Tb/S78QpJWuF6xt/KPY5EpdimGCWZUxj/R6wx94wgXUdyl5gzyl14JA2792UHC5c/rddMQTG5eR
-	+XQphCGjkQ3ORpGnfdwK7oQ+7tR5nnAWqLofaQEg/0JTw93+o5OJfCxXrCw5Ygns/DajnXqRv7w
-	/FR/3LVEf/m7uBLuYa+RkuT3VpfMMWWgE/K4aWUl88RvhReP5zdL3VjiIHUX7tHkW2uONx9RyID
-	bhWlSmYYCidDDJMx7uwp91r+v1OlIMnJZeDACWYkiXhj5OfNE2GrQHIU/aYY2S5R0e7vr8HEBHM
-	IPq/IhD2y4niYLhS3bozQUDnYvccpC4YdIMrhoa4Fj19FZGEotPIoayfJJ498JpSb3++Y31bAM/
-	UpkezI1pKvxLzHZjntRqTpWZMn1OKfIdAExp4ZVJX5Hl9lepGhUiSSD74EyXFJbZhEn/3boEPBd
-	w6YzVyTFYJI5hA=
-X-Received: by 2002:a05:600c:4f94:b0:487:338:b4f3 with SMTP id 5b1f17b1804b1-4888359cec9mr31653315e9.17.1775024952916;
-        Tue, 31 Mar 2026 23:29:12 -0700 (PDT)
-Message-ID: <dc5550d7-5a2d-4ca1-85de-5a17c24aeac4@suse.com>
-Date: Wed, 1 Apr 2026 08:29:11 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] xen/arm: vpsci: ignore upper 32 bits for SMC32 PSCI
- arguments
-To: Mykola Kvach <xakep.amatop@gmail.com>
+        bh=wXfGbxEgVK86zP9EXSrRv04RVHrSL1xGXF93+I1C8b4=;
+        b=NXt9JUIvCLJJbPOGilnYTGzO0wHyK+rkieUt4w3uvaAyx3yfmGUDE6E2DfEpov5MLc
+         I3sGOldvtyBgXsaz5dsRJu/r+hbYEpSdNmicgyrS7XJ42Dupc10A/F+wzsi95LFBrhHr
+         zn2x06oRylyYWlZNAaBEHmaCFLz0zj4Tyrrjod8bVWOJfg+rNH78g0xDf/AzVj8zzlGP
+         sti7OHuU5j0CJoedmR0YEim+E5x6iyyrSA2uokN9Zd1e9l5dUrQdj4GPXlmTuvsYu1Fn
+         +7sHNw6g17e4XSy1vbxL4fHZP8NbV3zPx4x7s1Kq7bEVel0EcRCLrfDBC82PSW6mRdCU
+         wrKA==
+X-Gm-Message-State: AOJu0Yy5pjDe0IkQfnlWUIjm7CHsqKRDun5vE/zNvScYI4KYZ4DXu+d9
+	ChgfNDF0EcKI9lgwfCOQz1tFhDhckNYVYkY7CnHi9v8DEZmqQJyfQzhrCNRo1Rpd
+X-Gm-Gg: ATEYQzz7x+ETXDjdvBppm30d1XYf8LS9huEeMTEFYZyXT/MGo2ezketRoc/WR+SHssY
+	mnJiORNNjQdf73Wif31CBQ3SJAwvQTRMw62sMEm2+VfEpR5sDVMeykxGNWDnUBOCGqBt5omDziB
+	VJRrAh99VPtirt0FmfvqovSnkxyyO8XNFAb1tJYC7KB8dPPXGK27F+mCU21ufOXSWnSJ3aT3lyS
+	693hV24c8RjXZ3dZnIJqoR0ev9qLetS+rxdQ6zjhaGrb5e3LqIuHQpCX4ZD9+WrHizlvavNnw21
+	qnntDh0/WKDulJqHChsyf0PKT6bbg88vN7f4Wr4bChrHQiMQdG/9TNXRmKHyX8owyYF/zRmPxtj
+	cpHLor5iB5z19Cs1CBJPTRaLXAtjBDvM+BnYLaydub0HUNc8OqfxDayBQFqiTYU1Yr13TYJNB84
+	ZoA0f6dGhigGdSHGln39uHvXxbQQ==
+X-Received: by 2002:aa7:c507:0:b0:66d:cfa5:9707 with SMTP id 4fb4d7f45d1cf-66dcfa5c4c9mr737212a12.0.1775025821867;
+        Tue, 31 Mar 2026 23:43:41 -0700 (PDT)
+From: Mykola Kvach <xakep.amatop@gmail.com>
+To: xen-devel@lists.xenproject.org
 Cc: Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <e1d18d55557ebe232fd62174f186b1cf228e48e5.1774981189.git.mykola_kvach@epam.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e1d18d55557ebe232fd62174f186b1cf228e48e5.1774981189.git.mykola_kvach@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-720697/1775024953-69371DB8-BDD92897/0/0
+	Paul Durrant <paul@xen.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Tim Deegan <tim@xen.org>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	Juergen Gross <jgross@suse.com>,
+	George Dunlap <gwd@xenproject.org>
+Subject: [PATCH v2] xen/domain: make shutdown state explicit
+Date: Wed,  1 Apr 2026 09:41:13 +0300
+Message-ID: <e9c45be41bb36ca341dad57196c753fbe82d1526.1774998397.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-4011c0/1775025823-51E8D900-FCAFAFB0/0/0
 X-purgate-type: clean
-X-purgate-size: 2350
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-purgate-size: 19099
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,xen.org:email,arm.com:email];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCPT_COUNT_TWELVE(0.00)[14];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,m:xakepamatop@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
+	TAGGED_FROM(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:paul@xen.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:tim@xen.org,m:dfaggioli@suse.com,m:jgross@suse.com,m:gwd@xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: CE5BD3752FC
+X-Rspamd-Queue-Id: 3F0BE37555F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 31.03.2026 20:31, Mykola Kvach wrote:
-> From: Mykola Kvach <mykola_kvach@epam.com>
-> 
-> SMCCC DEN0028G, section 3.1, states that for AArch64 SMC/HVC calls
-> using Wn, only the least significant 32 bits are significant and the
-> upper 32 bits must be ignored by the implementation.
-> 
-> So for SMC32 PSCI calls, Xen must not treat non-zero upper bits in the
-> argument registers as an error. Instead, they should be discarded when
-> decoding the arguments.
-> 
-> Arm ARM DDI 0487J.a (D1-5406) also notes that the upper 32 bits may be
-> implementation defined when entering from AArch32. Xen zeros them on
-> entry, but that guarantee is only relevant for 32-bit domains.
-> 
-> Update PSCI v0.2+ CPU_ON, CPU_SUSPEND, AFFINITY_INFO and SYSTEM_SUSPEND
-> to read SMC32 arguments via PSCI_ARG32(), while keeping the SMC64
-> handling unchanged.
-> 
-> No functional change is intended for PSCI 0.1.
-> 
-> Suggested-by: Julien Grall <julien@xen.org>
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-I thought I might as well include this in my next commit sweep, but isn't
-this R-b being invalidated by ...
+The shutdown flow currently overloads is_shutting_down and
+is_shut_down to represent multiple phases of the shutdown lifecycle.
+Some users treat is_shutting_down narrowly as "shutdown still needs to
+be driven to completion", while others rely on it more broadly as
+"the domain is no longer in its normal running state".
 
-> ---
-> v3:
->  - use PSCI_ARG_CONV for SYSTEM_SUSPEND
+Make the lifecycle explicit by introducing enum
+domain_shutdown_state and helper predicates whose names match their
+semantics: domain_shutting_down() for the transient phase,
+domain_shutdown_completed() for the final state, and
+domain_in_shutdown_state() for checks that need the union of both.
 
-... this change. That's ...
+The conversion is intentionally not mechanical. The old flags were not
+mutually exclusive: once a domain became fully shut down,
+is_shutting_down remained set. As a result, sites that previously
+used the absence of is_shutting_down to exclude both the transient and
+completed states now use domain_in_shutdown_state(), sites that care
+specifically about the final state use domain_shutdown_completed(),
+and only paths that still have work to do before shutdown finalization
+use domain_shutting_down().
 
-> @@ -422,14 +427,8 @@ bool do_vpsci_0_2_call(struct cpu_user_regs *regs, uint32_t fid)
->      case PSCI_1_0_FN32_SYSTEM_SUSPEND:
->      case PSCI_1_0_FN64_SYSTEM_SUSPEND:
->      {
-> -        register_t epoint = PSCI_ARG(regs, 1);
-> -        register_t cid = PSCI_ARG(regs, 2);
-> -
-> -        if ( fid == PSCI_1_0_FN32_SYSTEM_SUSPEND )
-> -        {
-> -            epoint &= GENMASK(31, 0);
-> -            cid &= GENMASK(31, 0);
-> -        }
-> +        register_t epoint = PSCI_ARG_CONV(regs, 1, is_conv_64);
-> +        register_t cid = PSCI_ARG_CONV(regs, 2, is_conv_64);
->  
->          perfc_incr(vpsci_system_suspend);
->          PSCI_SET_RESULT(regs, do_psci_1_0_system_suspend(epoint, cid));
+At the same time, make domain_resume() validate its input state and
+return an error to its callers. Resume is now accepted only from the
+fully shut down state.
 
-... this hunk aiui, which is far from merely cosmetic imo. While
-behavior looks to remain the same for PSCI_1_0_FN32_SYSTEM_SUSPEND, it
-clearly changes for PSCI_1_0_FN64_SYSTEM_SUSPEND. That may be intended
-and for the better, but the change clearly wasn't reviewed by Bertrand,
-nor - when offering the R-b - did he ask for this extra change.
+This removes the implicit coupling between unrelated users of the old
+flags and makes the shutdown/resume transitions self-describing.
 
-Jan
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+---
+Changes in v2:
+- Drop the shutdown reason restrictions from domain_resume(), so the
+  validation remains compatible with the existing soft-reset flow.
+- Use clearer helper naming for the three shutdown-state predicates.
+- Document in the commit message how old is_shutting_down/is_shut_down
+  users map to the new shutdown-state helpers.
+- Fix label indentation noted during review.
+
+Link to discussion: https://patchew.org/Xen/cover.1756392094.git.mykola._5Fkvach@epam.com/bb53d9911b00879c7b25f5258d0e3e48005671f9.1756392094.git.mykola._5Fkvach@epam.com/#a64cff9f-df5f-467b-a944-74e803c64ab9@suse.com
+---
+ xen/arch/x86/hvm/viridian/time.c |  2 +-
+ xen/arch/x86/mm.c                |  2 +-
+ xen/arch/x86/mm/hap/hap.c        |  2 +-
+ xen/arch/x86/mm/shadow/common.c  |  5 ++--
+ xen/arch/x86/mm/shadow/multi.c   | 12 +++++----
+ xen/common/domain.c              | 43 +++++++++++++++++++++++---------
+ xen/common/domctl.c              |  4 +--
+ xen/common/sched/core.c          |  2 +-
+ xen/drivers/passthrough/iommu.c  |  8 +++---
+ xen/drivers/passthrough/pci.c    |  2 +-
+ xen/include/xen/sched.h          | 30 ++++++++++++++++++----
+ 11 files changed, 77 insertions(+), 35 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/viridian/time.c b/xen/arch/x86/hvm/viridian/time.c
+index 9311858d63..514b1643bc 100644
+--- a/xen/arch/x86/hvm/viridian/time.c
++++ b/xen/arch/x86/hvm/viridian/time.c
+@@ -102,7 +102,7 @@ static void time_ref_count_thaw(const struct domain *d)
+     struct viridian_domain *vd = d->arch.hvm.viridian;
+     struct viridian_time_ref_count *trc = &vd->time_ref_count;
+ 
+-    if ( d->is_shutting_down ||
++    if ( domain_in_shutdown_state(d) ||
+          test_and_set_bit(_TRC_running, &trc->flags) )
+         return;
+ 
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index 4c404b6c13..402bbf2309 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -1219,7 +1219,7 @@ void put_page_from_l1e(l1_pgentry_t l1e, struct domain *l1e_owner)
+      */
+ #if _PAGE_GNTTAB
+     if ( (l1e_get_flags(l1e) & _PAGE_GNTTAB) &&
+-         !l1e_owner->is_shutting_down && !l1e_owner->is_dying )
++         !domain_in_shutdown_state(l1e_owner) && !l1e_owner->is_dying )
+     {
+         gprintk(XENLOG_WARNING,
+                 "Attempt to implicitly unmap %pd's grant PTE %" PRIpte "\n",
+diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
+index 5ccb80bda5..9db6d8fa9e 100644
+--- a/xen/arch/x86/mm/hap/hap.c
++++ b/xen/arch/x86/mm/hap/hap.c
+@@ -414,7 +414,7 @@ static mfn_t hap_make_monitor_table(struct vcpu *v)
+ 
+  oom:
+     if ( !d->is_dying &&
+-         (!d->is_shutting_down || d->shutdown_code != SHUTDOWN_crash) )
++         (!domain_in_shutdown_state(d) || d->shutdown_code != SHUTDOWN_crash) )
+     {
+         printk(XENLOG_G_ERR "%pd: out of memory building monitor pagetable\n",
+                d);
+diff --git a/xen/arch/x86/mm/shadow/common.c b/xen/arch/x86/mm/shadow/common.c
+index dd2d04d049..14f808dc61 100644
+--- a/xen/arch/x86/mm/shadow/common.c
++++ b/xen/arch/x86/mm/shadow/common.c
+@@ -164,7 +164,7 @@ void shadow_promote(struct domain *d, mfn_t gmfn, unsigned int type)
+     /* We should never try to promote a gmfn that has writeable mappings */
+     ASSERT((page->u.inuse.type_info & PGT_type_mask) != PGT_writable_page
+            || (page->u.inuse.type_info & PGT_count_mask) == 0
+-           || d->is_shutting_down);
++           || domain_in_shutdown_state(d));
+ 
+     /* Is the page already shadowed? */
+     if ( !test_and_set_bit(_PGC_shadowed_pt, &page->count_info) )
+@@ -442,7 +442,8 @@ bool shadow_prealloc(struct domain *d, unsigned int type, unsigned int count)
+         count += paging_logdirty_levels();
+ 
+     ret = _shadow_prealloc(d, count);
+-    if ( !ret && (!d->is_shutting_down || d->shutdown_code != SHUTDOWN_crash) )
++    if ( !ret && (!domain_in_shutdown_state(d) ||
++                  d->shutdown_code != SHUTDOWN_crash) )
+         /*
+          * Failing to allocate memory required for shadow usage can only result in
+          * a domain crash, do it here rather that relying on every caller to do it.
+diff --git a/xen/arch/x86/mm/shadow/multi.c b/xen/arch/x86/mm/shadow/multi.c
+index 80cd3299fa..a1e9129dd8 100644
+--- a/xen/arch/x86/mm/shadow/multi.c
++++ b/xen/arch/x86/mm/shadow/multi.c
+@@ -2373,7 +2373,8 @@ static int cf_check sh_page_fault(
+      * already used for some special purpose (ioreq pages, or granted pages).
+      * If that happens we'll have killed the guest already but it's still not
+      * safe to propagate entries out of the guest PT so get out now. */
+-    if ( unlikely(d->is_shutting_down && d->shutdown_code == SHUTDOWN_crash) )
++    if ( unlikely(domain_in_shutdown_state(d) &&
++                  d->shutdown_code == SHUTDOWN_crash) )
+     {
+         SHADOW_PRINTK("guest is shutting down\n");
+         goto propagate;
+@@ -2483,7 +2484,7 @@ static int cf_check sh_page_fault(
+ #if GUEST_PAGING_LEVELS == 3
+         sh_update_cr3(v, false);
+ #else
+-        ASSERT(d->is_shutting_down);
++        ASSERT(domain_in_shutdown_state(d));
+         sh_trace_va(TRC_SHADOW_DOMF_DYING, va);
+ #endif
+         paging_unlock(d);
+@@ -2497,7 +2498,8 @@ static int cf_check sh_page_fault(
+          && ft == ft_demand_write )
+         sh_unsync(v, gmfn);
+ 
+-    if ( unlikely(d->is_shutting_down && d->shutdown_code == SHUTDOWN_crash) )
++    if ( unlikely(domain_in_shutdown_state(d) &&
++                  d->shutdown_code == SHUTDOWN_crash) )
+     {
+         /* We might end up with a crashed domain here if
+          * sh_remove_shadows() in a previous sh_resync() call has
+@@ -3269,7 +3271,7 @@ static pagetable_t cf_check sh_update_cr3(struct vcpu *v, bool noflush)
+                                        sh_make_shadow);
+     if ( unlikely(pagetable_is_null(v->arch.paging.shadow.shadow_table[0])) )
+     {
+-        ASSERT(d->is_dying || d->is_shutting_down);
++        ASSERT(d->is_dying || domain_in_shutdown_state(d));
+         return old_entry;
+     }
+     if ( !paging_mode_external(d) && !is_pv_32bit_domain(d) )
+@@ -3336,7 +3338,7 @@ static pagetable_t cf_check sh_update_cr3(struct vcpu *v, bool noflush)
+     ASSERT(pagetable_is_null(old_entry));
+     if ( unlikely(pagetable_is_null(v->arch.paging.shadow.shadow_table[0])) )
+     {
+-        ASSERT(d->is_dying || d->is_shutting_down);
++        ASSERT(d->is_dying || domain_in_shutdown_state(d));
+         return old_entry;
+     }
+ #else
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index bb9e210c28..503836872d 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -191,7 +191,7 @@ static void set_domain_state_info(struct xen_domctl_get_domain_state *info,
+                                   const struct domain *d)
+ {
+     info->state = XEN_DOMCTL_GETDOMSTATE_STATE_EXIST;
+-    if ( d->is_shut_down )
++    if ( domain_shutdown_completed(d) )
+         info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_SHUTDOWN;
+     if ( d->is_dying == DOMDYING_dying )
+         info->state |= XEN_DOMCTL_GETDOMSTATE_STATE_DYING;
+@@ -282,14 +282,14 @@ static void __domain_finalise_shutdown(struct domain *d)
+ 
+     BUG_ON(!spin_is_locked(&d->shutdown_lock));
+ 
+-    if ( d->is_shut_down )
++    if ( domain_shutdown_completed(d) )
+         return;
+ 
+     for_each_vcpu ( d, v )
+         if ( !v->paused_for_shutdown )
+             return;
+ 
+-    d->is_shut_down = 1;
++    d->shutdown_state = DOMSHUTDOWN_complete;
+     domain_changed_state(d);
+     if ( (d->shutdown_code == SHUTDOWN_suspend) && d->suspend_evtchn )
+         evtchn_send(d, d->suspend_evtchn);
+@@ -303,7 +303,7 @@ static void vcpu_check_shutdown(struct vcpu *v)
+ 
+     spin_lock(&d->shutdown_lock);
+ 
+-    if ( d->is_shutting_down )
++    if ( domain_shutting_down(d) )
+     {
+         if ( !v->paused_for_shutdown )
+             vcpu_pause_nosync(v);
+@@ -1356,7 +1356,7 @@ int domain_kill(struct domain *d)
+ 
+ void __domain_crash(struct domain *d)
+ {
+-    if ( d->is_shutting_down )
++    if ( domain_in_shutdown_state(d) )
+     {
+         /* Print nothing: the domain is already shutting down. */
+     }
+@@ -1394,13 +1394,13 @@ int domain_shutdown(struct domain *d, u8 reason)
+     if ( is_hardware_domain(d) )
+         hwdom_shutdown(reason);
+ 
+-    if ( d->is_shutting_down )
++    if ( domain_in_shutdown_state(d) )
+     {
+         spin_unlock(&d->shutdown_lock);
+         return 0;
+     }
+ 
+-    d->is_shutting_down = 1;
++    d->shutdown_state = DOMSHUTDOWN_in_progress;
+ 
+     smp_mb(); /* set shutdown status /then/ check for per-cpu deferrals */
+ 
+@@ -1423,9 +1423,12 @@ int domain_shutdown(struct domain *d, u8 reason)
+     return 0;
+ }
+ 
+-void domain_resume(struct domain *d)
++int domain_resume(struct domain *d)
+ {
+     struct vcpu *v;
++    enum domain_shutdown_state shutdown_state;
++    unsigned int shutdown_code;
++    int rc = 0;
+ 
+     /*
+      * Some code paths assume that shutdown status does not get reset under
+@@ -1435,10 +1438,18 @@ void domain_resume(struct domain *d)
+ 
+     spin_lock(&d->shutdown_lock);
+ 
+-    d->is_shutting_down = d->is_shut_down = 0;
++    shutdown_state = d->shutdown_state;
++    shutdown_code = d->shutdown_code;
++
++    if ( !domain_shutdown_completed(d) )
++    {
++        rc = -EINVAL;
++        goto out_unlock;
++    }
+ 
+     arch_domain_resume(d);
+ 
++    d->shutdown_state = DOMSHUTDOWN_none;
+     d->shutdown_code = SHUTDOWN_CODE_INVALID;
+ 
+     for_each_vcpu ( d, v )
+@@ -1448,9 +1459,17 @@ void domain_resume(struct domain *d)
+         v->paused_for_shutdown = 0;
+     }
+ 
++ out_unlock:
+     spin_unlock(&d->shutdown_lock);
+ 
+     domain_unpause(d);
++
++    if ( rc )
++        dprintk(XENLOG_WARNING,
++                "%pd: Invalid domain state for resume: shutdown_state=%u, shutdown_code=%u\n",
++                d, shutdown_state, shutdown_code);
++
++    return rc;
+ }
+ 
+ int vcpu_start_shutdown_deferral(struct vcpu *v)
+@@ -1460,7 +1479,7 @@ int vcpu_start_shutdown_deferral(struct vcpu *v)
+ 
+     v->defer_shutdown = 1;
+     smp_mb(); /* set deferral status /then/ check for shutdown */
+-    if ( unlikely(v->domain->is_shutting_down) )
++    if ( unlikely(domain_shutting_down(v->domain)) )
+         vcpu_check_shutdown(v);
+ 
+     return v->defer_shutdown;
+@@ -1470,7 +1489,7 @@ void vcpu_end_shutdown_deferral(struct vcpu *v)
+ {
+     v->defer_shutdown = 0;
+     smp_mb(); /* clear deferral status /then/ check for shutdown */
+-    if ( unlikely(v->domain->is_shutting_down) )
++    if ( unlikely(domain_shutting_down(v->domain)) )
+         vcpu_check_shutdown(v);
+ }
+ 
+@@ -1802,7 +1821,7 @@ int domain_soft_reset(struct domain *d, bool resuming)
+ 
+     rc = arch_domain_soft_reset(d);
+     if ( !rc )
+-        domain_resume(d);
++        rc = domain_resume(d);
+     else
+         domain_crash(d);
+ 
+diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+index 93738931c5..e816ff755c 100644
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -86,7 +86,7 @@ void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info)
+ 
+     info->flags = (info->nr_online_vcpus ? flags : 0) |
+         ((d->is_dying == DOMDYING_dead) ? XEN_DOMINF_dying     : 0) |
+-        (d->is_shut_down                ? XEN_DOMINF_shutdown  : 0) |
++        (domain_shutdown_completed(d)   ? XEN_DOMINF_shutdown  : 0) |
+         (d->controller_pause_count > 0  ? XEN_DOMINF_paused    : 0) |
+         (d->debugger_attached           ? XEN_DOMINF_debugged  : 0) |
+         (is_xenstore_domain(d)          ? XEN_DOMINF_xs_domain : 0) |
+@@ -404,7 +404,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+         if ( d == current->domain ) /* no domain_pause() */
+             ret = -EINVAL;
+         else
+-            domain_resume(d);
++            ret = domain_resume(d);
+         break;
+ 
+     case XEN_DOMCTL_createdomain:
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index a57d5dd929..26cdb8a857 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -1540,7 +1540,7 @@ static void cf_check domain_watchdog_timeout(void *data)
+ 
+     BUILD_BUG_ON(alignof(*d) < PAGE_SIZE);
+ 
+-    if ( d->is_shutting_down || d->is_dying )
++    if ( domain_in_shutdown_state(d) || d->is_dying )
+         return;
+ 
+     printk("Watchdog timer %u fired for %pd\n", id, d);
+diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
+index c9425d6971..428ac89f50 100644
+--- a/xen/drivers/passthrough/iommu.c
++++ b/xen/drivers/passthrough/iommu.c
+@@ -355,7 +355,7 @@ long iommu_map(struct domain *d, dfn_t dfn0, mfn_t mfn0,
+         if ( likely(!rc) )
+             continue;
+ 
+-        if ( !d->is_shutting_down && printk_ratelimit() )
++        if ( !domain_in_shutdown_state(d) && printk_ratelimit() )
+             printk(XENLOG_ERR
+                    "d%d: IOMMU mapping dfn %"PRI_dfn" to mfn %"PRI_mfn" failed: %d\n",
+                    d->domain_id, dfn_x(dfn), mfn_x(mfn), rc);
+@@ -427,7 +427,7 @@ long iommu_unmap(struct domain *d, dfn_t dfn0, unsigned long page_count,
+         if ( likely(!err) )
+             continue;
+ 
+-        if ( !d->is_shutting_down && printk_ratelimit() )
++        if ( !domain_in_shutdown_state(d) && printk_ratelimit() )
+             printk(XENLOG_ERR
+                    "d%d: IOMMU unmapping dfn %"PRI_dfn" failed: %d\n",
+                    d->domain_id, dfn_x(dfn), err);
+@@ -492,7 +492,7 @@ int iommu_iotlb_flush(struct domain *d, dfn_t dfn, unsigned long page_count,
+                     flush_flags);
+     if ( unlikely(rc) )
+     {
+-        if ( !d->is_shutting_down && printk_ratelimit() )
++        if ( !domain_in_shutdown_state(d) && printk_ratelimit() )
+             printk(XENLOG_ERR
+                    "d%d: IOMMU IOTLB flush failed: %d, dfn %"PRI_dfn", page count %lu flags %x\n",
+                    d->domain_id, rc, dfn_x(dfn), page_count, flush_flags);
+@@ -517,7 +517,7 @@ int iommu_iotlb_flush_all(struct domain *d, unsigned int flush_flags)
+                     flush_flags | IOMMU_FLUSHF_all);
+     if ( unlikely(rc) )
+     {
+-        if ( !d->is_shutting_down && printk_ratelimit() )
++        if ( !domain_in_shutdown_state(d) && printk_ratelimit() )
+             printk(XENLOG_ERR
+                    "d%d: IOMMU IOTLB flush all failed: %d\n",
+                    d->domain_id, rc);
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index 464bb0fee4..74b53e5430 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -1746,7 +1746,7 @@ void iommu_dev_iotlb_flush_timeout(struct domain *d, struct pci_dev *pdev)
+ 
+     pdev->broken = true;
+ 
+-    if ( !d->is_shutting_down && printk_ratelimit() )
++    if ( !domain_in_shutdown_state(d) && printk_ratelimit() )
+         printk(XENLOG_ERR "dom%d: ATS device %pp flush failed\n",
+                d->domain_id, &pdev->sbdf);
+     if ( !is_hardware_domain(d) )
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 212c7d765c..0e55e4df3b 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -222,7 +222,7 @@ struct vcpu
+     bool             force_context_switch;
+     /* Require shutdown to be deferred for some asynchronous operation? */
+     bool             defer_shutdown;
+-    /* VCPU is paused following shutdown request (d->is_shutting_down)? */
++    /* VCPU is paused following a domain shutdown request? */
+     bool             paused_for_shutdown;
+     /* VCPU need affinity restored */
+     uint8_t          affinity_broken;
+@@ -382,6 +382,12 @@ struct domain_console {
+     char buf[256];
+ };
+ 
++enum domain_shutdown_state {
++    DOMSHUTDOWN_none,
++    DOMSHUTDOWN_in_progress,
++    DOMSHUTDOWN_complete,
++};
++
+ struct domain
+ {
+     domid_t          domain_id;
+@@ -548,10 +554,9 @@ struct domain
+     struct rangeset *iomem_caps;
+     struct rangeset *irq_caps;
+ 
+-    /* Guest has shut down (inc. reason code)? */
++    /* Guest shutdown state and associated reason code. */
+     spinlock_t       shutdown_lock;
+-    bool             is_shutting_down; /* in process of shutting down? */
+-    bool             is_shut_down;     /* fully shut down? */
++    enum domain_shutdown_state shutdown_state;
+ #define SHUTDOWN_CODE_INVALID ~0u
+     unsigned int     shutdown_code;
+ 
+@@ -670,6 +675,21 @@ struct domain
+     unsigned int pending_scrub_index;
+ } __aligned(PAGE_SIZE);
+ 
++static inline bool domain_shutting_down(const struct domain *d)
++{
++    return d->shutdown_state == DOMSHUTDOWN_in_progress;
++}
++
++static inline bool domain_shutdown_completed(const struct domain *d)
++{
++    return d->shutdown_state == DOMSHUTDOWN_complete;
++}
++
++static inline bool domain_in_shutdown_state(const struct domain *d)
++{
++    return d->shutdown_state != DOMSHUTDOWN_none;
++}
++
+ static inline struct page_list_head *page_to_list(
+     struct domain *d, const struct page_info *pg)
+ {
+@@ -824,7 +844,7 @@ static inline void put_pg_owner(struct domain *pg_owner)
+ void domain_destroy(struct domain *d);
+ int domain_kill(struct domain *d);
+ int domain_shutdown(struct domain *d, u8 reason);
+-void domain_resume(struct domain *d);
++int domain_resume(struct domain *d);
+ 
+ int domain_soft_reset(struct domain *d, bool resuming);
+ 
+-- 
+2.43.0
+
 
