@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uFPKBnk1zWlwawYAu9opvQ
+	id cBeBKek2zWlwawYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 17:10:49 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 17:16:57 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7649C37CC21
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 17:10:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1270618.1559239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 104BB37CDDD
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 17:16:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1270630.1559249 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7xDH-000179-TY; Wed, 01 Apr 2026 15:10:35 +0000
+	id 1w7xJ9-0001fV-Ho; Wed, 01 Apr 2026 15:16:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1270618.1559239; Wed, 01 Apr 2026 15:10:35 +0000
+Received: by outflank-mailman (output) from mailman id 1270630.1559249; Wed, 01 Apr 2026 15:16:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7xDH-00014a-Qv; Wed, 01 Apr 2026 15:10:35 +0000
-Received: by outflank-mailman (input) for mailman id 1270618;
- Wed, 01 Apr 2026 15:10:34 +0000
+	id 1w7xJ9-0001dY-EX; Wed, 01 Apr 2026 15:16:39 +0000
+Received: by outflank-mailman (input) for mailman id 1270630;
+ Wed, 01 Apr 2026 15:16:37 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w7xDF-00014U-V3
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 15:10:34 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w7xJ7-0001dS-NO
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 15:16:37 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7xDF-00By62-0e
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 17:10:33 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1w7xJ6-0053IJ-UW
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 17:16:36 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69cd3556-bab6-0a2a0a5309dd-0a2a45099302-46
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 17:10:32 +0200
-Received: from [209.85.221.41] (helo=mail-wr1-f41.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69cd36c0-2eae-0a2a0a5409dd-0a2a4502c88e-38
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 17:16:36 +0200
+Received: from [209.85.218.54] (helo=mail-ej1-f54.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69cd3568-bf79-0a2a45090019-d155dd29a4a6-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 17:10:32 +0200
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-43ccda008cdso793157f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 08:10:32 -0700 (PDT)
+ id 69cd36d4-42fa-0a2a45020019-d155da36e0b1-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 17:16:36 +0200
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-b982b0889d8so859745566b.2
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 08:16:36 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e4e56fesm383358f8f.27.2026.04.01.08.10.31
+ ffacd0b85a97d-43d1e2a6f13sm570264f8f.3.2026.04.01.08.16.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 08:10:31 -0700 (PDT)
+ Wed, 01 Apr 2026 08:16:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,63 +58,60 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775056232; x=1775661032; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775056596; x=1775661396; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Of1OV/sjI0XhbplbJcGwuBdgsHi+597BjgLgYsaHQDo=;
-        b=PmBs8kGDNo87/N91ogIkWT/KIO8jJFEhfImKt3UcRO8bsP76r30LJDOiGbq73mx3DQ
-         uKzzusYlhT1OfL6Y2O4Dy/9Thunz0quAKCJmgFWQS4MugYsqyhE2JqeWUM5mbBQNlyJi
-         IqTlvWEUJJXOBMu2cUxT4ELOGHIM43Xbxa045pKJM0RXscSrSHyBMyZMGw9z67gR8SzP
-         F5Y/s/i3ZIHmon3N5Kt7pp79lUE/2pNtdIVZhx57aTeC04xuWCJRZtNAlO9D9eBQYYqp
-         Q8FvWnxrxVSzbasM9MjYfsQi24zLk0zSoUdsbm45rJak+8D++MYksNdX6DF8kLInAmMr
-         /nrw==
+        bh=QmAa9ky8MH+ew0LJxnDQPff8r9p6/FG1sNdb8AFPXHI=;
+        b=CjWzBmPfQzQOmYyNjljDsot0kJiib01IHagMgSSvwSMY/yKewOCCDtq/WnicBvMIJi
+         YULNfKbpI3PaaJOjodS2hASm3t4pCOyKVuYfIYLw3R+6Gau8Qc9v7mJvaL6IlErKIpiH
+         TyNklP4hBuMs8MZYmlARr2WRuwwkQHS8ZFcU9qCOXSZM1rDL/ZzC8xej2FdKCM+8gNjR
+         6ilLi+NLFLYYGBYA4sQLWLzNDT/0f09eCKY21Ej9m/ph1wsXkbv/vASuCfzZ+fvUeqjt
+         ORdOCjmJrlIRtn9S2DlZ77MrUCH1DBxUcKov7gE4bj0LBcnf8bQRCx+4IZrk/DKawjIl
+         ehZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775056232; x=1775661032;
+        d=1e100.net; s=20251104; t=1775056596; x=1775661396;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Of1OV/sjI0XhbplbJcGwuBdgsHi+597BjgLgYsaHQDo=;
-        b=k4WeLfHHdvuFCr8GgVbNm00ax/69FhJ0PzZ4uLTe6U3oaL1cqkdTBzoEhs/d7Vsa71
-         v1XAiu9ClhznnvuBQmznT8krsrrgK5caT6/ISScyBJV/wBznqod11+YVokBSWDzQQ8DN
-         laFV1BK1qBYKQkrQCT3Tn4nlbR55kSl1k4QhuPOdvltSXcCICOTLUgmmD12/HFOA6+fw
-         oUEqIz7isPzI3sNPgNaiHOgLrUYCHjRe3V46sPufUHQ0Bwx/MMv358jTOduUycoYxgtz
-         1O5vOUfZB07jyNwD3YyKVSm4v0OVfl+aigHRFhiC6Hs0U31tXxbDaLdgMd2D+bJ53j/3
-         VcZQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWSjNsAomfQuEoEIGDMuMpsBjlBz201oici8NPCtsMGePpjr7hdP4wfzVxZc5j1Dzbfx0SZO8fbpCU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzboU2YPQ9hPl6lSJl2OqUjyR1TkePyfyQqtw9yBPw9QkS1b59R
-	FlvovPg4OploUp0o2wnf6IFqtHlh9OfGX3b/J0mCmN1/WYQnO4aX+yDQapb/dWYS/w==
-X-Gm-Gg: ATEYQzxmdY2P/L0jiu4wg5gNbRUdpcXMfPvPOQ8USOetzFRLY+0SzSn6VKDMPjHcwDB
-	x3qWm1kuIbRwdPxZ8m3wIL48Zr4BAtbFS7VJoKk+icBCXotFiG0tyGwyqeVFs4zo3TE22zoH7p4
-	gCKFEB1SzgYTFm2ZMbFyuMicfmwVwJFNhhxMg6QmKfwBVmL6cJ4sv4k054e7JvgwUU6V/RH5MsY
-	YacDPAVCbJpHuFyZKwoyVs17+B84jRGOZ6qyacmulQNwaTX9Lgm7TG6YYMa2njisQpPbGABOFSz
-	YvQtc3zZ+q7gJyuzFZnc1B1D7sJ0AMbj9fQCAKhdrTnYljEVsZ7vGPfGdPkUaJlTWnXyrpr9PkF
-	63SRZ+JAPzfNuvGT+tCM8yd3ONN2Q07bwMSeVQZhzawUt8BSvROZ43eRdm4c0/zUV3gaZnU3GWV
-	E5nEq+arXK2NsL/H9Fi8rl/UZLvZ3fPJLsDfIQeMa4n8dLIA/ZDyUbjvmpKVlFB6j75cf4prpXc
-	eVZRD6BoiVY190=
-X-Received: by 2002:a05:6000:184d:b0:43c:f257:c706 with SMTP id ffacd0b85a97d-43d1561081fmr7389718f8f.23.1775056232256;
-        Wed, 01 Apr 2026 08:10:32 -0700 (PDT)
-Message-ID: <0e37083a-42ab-4c99-83fc-b77f519394b9@suse.com>
-Date: Wed, 1 Apr 2026 17:10:30 +0200
+        bh=QmAa9ky8MH+ew0LJxnDQPff8r9p6/FG1sNdb8AFPXHI=;
+        b=I+w4HJccihaYxWphSAxB7w+KwfMO2/3z0WWjuuhKJUZeh1DnIoYOWRkjQIE7nCnyer
+         ueTx42UUdKBuHnLMwM7UCPRpJijDsQTbjLRKyG7v4N6VBL78+5A3z54WDwOn3rSsJE0S
+         bNAfgKp2Ys8spk5E5ThFHEd3n3TQwYC/B3gIlMC/s9DCMVWsNJwsBpy04meSjPB6tJpL
+         /o8I5yAi76mE/frDlJPNBm4hOTs06qgmL/iDLP9cPFFV6Cdv26a3K7S6LOsO3u8dxuIs
+         6p0c6CmlkeGvwx45T5sDC1XToTzEAmI9+rLNzOUWjgxpj8tOIePmj2LRBgIczxMsjoKP
+         A1tw==
+X-Forwarded-Encrypted: i=1; AJvYcCW3ktR10qij7mWURTJ/2hsZCFF5HpnX/bm55BWRLzLukzXfIHKY/CEGY7xYR9ZFnNTeE2oknaGw5Bw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YznYiNfnJIlf8Se4t0DxPqGEyVduu5SioklZfP8+tC4ZtNhCdCa
+	bB9y27uhvY7BVqj/ergcS717lA3OVo573m0uUQ4BI9nR4fuV6ARREkv5yVEc2E1Xvg==
+X-Gm-Gg: ATEYQzzz/5YLEScoxcYCnxnFEl4BGp6tQ0AwSAtiULsty8/etax0sWUgfZ2KrBfFEQr
+	vzvvJqtobfBw2Tg+yG4hmFwUprRBo00JbmNsAsDtKwZtNURkUTjZ3iYqov7640XQcZvdMQZcFdd
+	YtdXgzfloGPZQi6q/yut5NlzNNLn12FxBw7U3Uh5vULK1S1XyeC1QVlSuP1YBh6nnAK75B4TJG7
+	2xWxfCqoPqIEFxOpf49rw5tLJLO6dWRW3n60LzlrI3XnwJ9FM31hwEj55kh8nipGW1Bq98raWSJ
+	+A+DIkzUkiPhzwXYCi5Wurx76+oHSIdE3JOoz5eCby5yQ4SI83XyxMrLoV4t8Xhc0+KHhlWVgZj
+	W31llW103wfx6dPwkdQOpOEWgOLtHdMT0u6Y+hbdQagj4lh51YNad4Ip1EmYW0Jt4ay1XbRs5eA
+	9+hj37OIRECpBzLnqjwg6RbtfTmPSc8ptTcgZeAd1Ildim0jSoe/RAVnqAA0IXn7umKsqO2vQvZ
+	MW1h5fq8hNQ1dM=
+X-Received: by 2002:a17:906:c24d:b0:b98:36cd:7e14 with SMTP id a640c23a62f3a-b9c13cac9eemr244965066b.42.1775056596167;
+        Wed, 01 Apr 2026 08:16:36 -0700 (PDT)
+Message-ID: <362d1e3a-409c-40ab-8d2c-36dc30a04b88@suse.com>
+Date: Wed, 1 Apr 2026 17:16:33 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/11] xen/riscv: add definition of guest RAM banks
+Subject: Re: [PATCH v1 11/27] xen/riscv: create APLIC DT node for guest
+ domains
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1774281309.git.oleksii.kurochko@gmail.com>
- <8278256f3d270b456d19cb9891b89b88a46548a5.1774281309.git.oleksii.kurochko@gmail.com>
- <1a3a316e-f0ea-4514-95d6-9813d6d5ca76@suse.com>
- <691be850-9145-4bbf-a897-d10a0193b730@gmail.com>
- <dfd2a666-f3a5-4d88-b034-438f8fbb85ba@suse.com>
- <2bae9e12-8f71-4ff0-b077-bfb4215e5e14@gmail.com>
- <ffd3a7cd-8c47-4a9b-864a-26a053b5b7d2@suse.com>
- <bc5a9826-c1ff-43b2-a3d1-1a4862301aea@gmail.com>
+References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
+ <462b5f7dbe4e5084a35fb869b59327c6c92d1fbf.1773157782.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -140,96 +137,124 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <bc5a9826-c1ff-43b2-a3d1-1a4862301aea@gmail.com>
+In-Reply-To: <462b5f7dbe4e5084a35fb869b59327c6c92d1fbf.1773157782.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-bad1c0/1775056232-5535C152-3E42469B/0/0
+X-purgate-ID: tlsNG-720697/1775056596-4CBF5CD1-819FB2AD/0/0
 X-purgate-type: clean
-X-purgate-size: 2196
+X-purgate-size: 2195
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 7649C37CC21
+X-Rspamd-Queue-Id: 104BB37CDDD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 01.04.2026 16:53, Oleksii Kurochko wrote:
-> 
-> 
-> On 4/1/26 4:22 PM, Jan Beulich wrote:
->> On 01.04.2026 15:57, Oleksii Kurochko wrote:
->>> On 4/1/26 8:17 AM, Jan Beulich wrote:
->>>> On 31.03.2026 18:14, Oleksii Kurochko wrote:
->>>>> On 3/30/26 5:51 PM, Jan Beulich wrote:
->>>>>> On 23.03.2026 17:29, Oleksii Kurochko wrote:
->>>>>>> The dom0less solution uses defined RAM banks as compile-time constants,
->>>>>>> so introduce macros to describe guest RAM banks.
->>>>>>>
->>>>>>> The reason for 2 banks is that there is typically always a use case for
->>>>>>> low memory under 4 GB, but the bank under 4 GB ends up being small because
->>>>>>> there are other things under 4 GB it can conflict with (interrupt
->>>>>>> controller, PCI BARs, etc.).
->>>>>> Fixed layouts like the one you suggest come with (potentially severe)
->>>>>> downsides. For example, what if more than 2Gb of MMIO space are needed
->>>>>> for non-64-bit BARs?
->>>>> It looks where usually RAM on RISC-V boards start, so I expect that 2gb
->>>>> before RAM start is enough for MMIO space.
->>>> Likely in the common case. Board designers aren't constrained by this,
->>>> though (aiui). Whereas you set in stone a single, fixed layout.
->>>>
->>>> Arm maintainers - since a similar fixed layout is used there iirc,
->>>> could you chime in here, please?
->>>>
->>>>> Answering your question it will be an issue or it will also use some
->>>>> space before banks, no?
->>>> I fear I don't understand what you're trying to tell me.
->>> I meant that there is also some space between banks and pretty big which
->>> could be used for MMIO which could be used for non-64-bit BARs.
->> I don't follow: Bank 0 extends to 4G. There's no space above it, below
->> bank 1, which could be use for non-64-bit BARs.
-> 
-> So we have two banks:
-> bank[0] -> [0x80000000, 0x100000000)
-> bank[1] -> [0x0200000000, 10000000000)
-> 
-> So i think we have some space between them [0x100000000, 0x0200000000) 
-> -> 4gb to be used for non-64-bit BARs.
+On 10.03.2026 18:08, Oleksii Kurochko wrote:
+> @@ -295,6 +297,85 @@ static void cf_check aplic_set_irq_type(struct irq_desc *desc,
+>      spin_unlock(&aplic.lock);
+>  }
+>  
+> +static int __init cf_check aplic_make_dom_dt_node(
+> +                                    const struct kernel_info *kinfo,
+> +                                    const struct dt_device_node *aplic_node)
 
-But a non-64-bit BAR need to be assigned an address below 0x100000000?
+Nit: Entirely bogus indentation.
 
-> And also we have another 2gb before bank[0].
+> +{
+> +    uint32_t len;
+> +    const __be32 *regs;
+> +    const void *data = NULL;
 
-Yes, but I talked about that before.
+Again, why the initializer?
+
+> +    int res = 0;
+> +    void *fdt = kinfo->fdt;
+> +
+> +    res = imsic_make_dt_node(kinfo);
+> +    if ( res )
+> +        return res;
+> +
+> +    res = fdt_begin_node(fdt, aplic_node->full_name);
+> +    if (res)
+
+Nit: Style.
+
+> +        return res;
+> +
+> +    data = dt_get_property(aplic_node, "#interrupt-cells", &len);
+> +    if ( !data )
+> +    {
+> +        printk("%s: Can't find '#interrupt-cells' property\n",
+> +               aplic_node->full_name);
+> +        return -FDT_ERR_XEN(ENOENT);
+> +    }
+
+Again, pull this up to be first in the function?
+
+> +    res = fdt_property(fdt, "#interrupt-cells", data, len);
+> +    if ( res )
+> +        return res;
+
+So host properties are again directly handed through to the guest?
+Shouldn't the number of interrupts (aiui that's the "number of cells"
+here) a guest gets be independent from the host it runs one?
+
+> +    regs = dt_get_property(aplic_node, "reg", &len);
+> +    if ( !regs )
+> +    {
+> +        printk("%s: Can't find 'reg' property\n", aplic_node->full_name);
+> +        return -FDT_ERR_XEN(ENOENT);
+> +    }
+> +
+> +    res = fdt_property(fdt, "reg", regs, len);
+> +    if ( res )
+> +        return res;
+> +
+> +    data = dt_get_property(aplic_node, "riscv,num-sources", &len);
+> +    if ( !data )
+> +    {
+> +        printk("%s: Can't find 'riscv,num-sources' property\n",
+> +                aplic_node->full_name);
+> +        return -FDT_ERR_XEN(ENOENT);
+> +    }
+> +
+> +    res = fdt_property(fdt, "riscv,num-sources", data, len);
+> +    if ( res )
+> +        return res;
+
+Or maybe this is the number of interrupts?
 
 Jan
 
