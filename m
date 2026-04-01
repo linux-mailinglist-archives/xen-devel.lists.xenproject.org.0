@@ -2,49 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +D29G3AkzWlkaQYAu9opvQ
+	id wAgRAw4mzWlkaQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 15:58:08 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 16:05:02 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E76D537BB2B
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 15:58:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1270334.1559033 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E54137BCBF
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 16:04:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1270351.1559041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7w4z-0002NN-7J; Wed, 01 Apr 2026 13:57:57 +0000
+	id 1w7wB5-0004D8-Qo; Wed, 01 Apr 2026 14:04:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1270334.1559033; Wed, 01 Apr 2026 13:57:57 +0000
+Received: by outflank-mailman (output) from mailman id 1270351.1559041; Wed, 01 Apr 2026 14:04:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7w4z-0002KX-3k; Wed, 01 Apr 2026 13:57:57 +0000
-Received: by outflank-mailman (input) for mailman id 1270334;
- Wed, 01 Apr 2026 13:57:55 +0000
+	id 1w7wB5-0004Ah-O5; Wed, 01 Apr 2026 14:04:15 +0000
+Received: by outflank-mailman (input) for mailman id 1270351;
+ Wed, 01 Apr 2026 14:04:13 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1w7w4x-0002K0-BW
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 13:57:55 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7629=CB=ubuntu.com=enr0n@fe-bounces.ubuntu.com>)
+ id 1w7wB3-0004Ab-J8
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 14:04:13 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7w4w-0075oB-NN
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 15:57:54 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1w7wB2-00CLV8-FB
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 16:04:12 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69cd2457-5cb7-0a2a0a5109dd-0a2a4509a278-40
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 15:57:54 +0200
-Received: from [209.85.221.47] (helo=mail-wr1-f47.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69cd2462-bf79-0a2a45090019-d155dd2fbcf9-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 15:57:54 +0200
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-43d17bb1c65so428429f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 06:57:54 -0700 (PDT)
-Received: from ?IPV6:2a01:cb15:80df:da00:6d45:ff60:3ad6:d7fa?
- ([2a01:cb15:80df:da00:6d45:ff60:3ad6:d7fa])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e4e52a0sm12470f8f.30.2026.04.01.06.57.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 06:57:53 -0700 (PDT)
+ (envelope-from <SRS0=7629=CB=ubuntu.com=enr0n@fe-bounces.ubuntu.com>)
+ id 69cd25db-e002-0a2a0a5209dd-0a2a4506b7a0-10
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 16:04:12 +0200
+Received: from [121.127.44.66] (helo=smtp.forwardemail.net)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <SRS0=7629=CB=ubuntu.com=enr0n@fe-bounces.ubuntu.com>)
+ id 69cd25da-0df0-0a2a45060019-797f2c42241f-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 16:04:12 +0200
+Received: by mail-vk1-f200.google.com with SMTP id
+ 71dfb90a1353d-56ce17e1f56so4892866e0c.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 07:04:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,158 +52,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775051874; x=1775656674; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=lUZMAdF4ivbIXalcOFKTDwoVQAHa9uHqKk5ZVbAmvHo=;
-        b=kLrQbLsEuK7Oib0oeh7LP7chiWqQuB0kTdijuhvx+Ss0EwFUlkXrzV0/Rs24omsGWI
-         lw9palfhx5GFVZ3I2NM+VhnnQUQ4yUEgZ8AjKrbchS0Wk6nc5IOQeSSRggt0tyNdRSkM
-         IRNtr7U5adkrCtHGNTMHsgV4XqLcw/4/p5eL2yFAY18DOpnXVstDPDndF8yhuNc0vXeL
-         Nn2mTqyR+a8F2prdoUYgbOlChxk16fRZYUzVTt4svFvfO0man9TDA14bYLpI0TekSP7z
-         5OMlfhcxNvyAmV3V7bCPhT5eeREM4dFlz0dt0P+819UtQ+mvLe/P36JabRn0c/zDNELF
-         ueQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775051874; x=1775656674;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=lUZMAdF4ivbIXalcOFKTDwoVQAHa9uHqKk5ZVbAmvHo=;
-        b=XahNZRJ5ub3tCIOMYgS09CG6RjQfVXJLrJnvlh8eYWFmNAyt8YhBQ6wDzkqUftcd8h
-         2JOZA5yF3TeJzjYdTmTYJZhSUSFEyGHMfWpnNPSyXyFUrIBA+ytmdlozEkeAmMODCJ30
-         h3wKWjnlnj5OGKwkykswOOTgItUMqPTGS/mqkcoGPydY6l4i77Pl0bdo+kcBpAn4X6OU
-         00Vvthj1T96Dw+K1dObUlLYpiE8KdOFQrL3TwgDQ0sHZOgwgDjgT+Eb+x0FS2B+PdbgV
-         pca8Dn4aMIdhxjkAnm75Z5MnDZNXsib0gvHMqjT00FSDq3svjJpv4PVHEmMm1Qispwov
-         +JhA==
-X-Forwarded-Encrypted: i=1; AJvYcCU6WicD0nLzPj0WNOngkyQ9NUAYHNz1XAymgfo7hovKPy2gpOaiVc6NdRUcSQzu1LL24/G6+geYLbU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyVE+rZPAwOWuQY7iTF41722KmJ0ZFaRccONvTeGgJwFnoGV7Hi
-	4AgomAD5/BnAcb0f50JIJm2amWVOqj+OOvh/R850YRvGMVHB0RloJpWB
-X-Gm-Gg: ATEYQzwEeUQRdPepGLWqOmC+HSxaJqm0vOZNR/4vTwfN6myuBHsGq2NRMi9MW4okY9n
-	/Ok9m94SS+6zeY+x3wV+Oo//qnXNtD5+clZE4ALpWYyrQm0E2gy2/SYGvV89Wnya6O/t0mXfFaf
-	CUjK/nQwE+kj0s/6oVLeyAaOQZAn93PE9hHMnOgTkWqZjSKBAP3PxnMFsvYgMwHczXAKcZIwwyu
-	Qp8DAdnBC/H7x/hpnRaTnmw9GB00xOP3p9WW6zqdpuqVNfF+bU4DQ9k9aBFdjLuKVV3g6kYzWV3
-	SU76szfRONFUJf1/m83roSqKJ1iVGYgO4THSZ/7lD8owb0aiykGXmQz50saNVRFk1F/AGoQI1zg
-	fqXdlMNfF+n6Tfd2GflfGHF5mbqtFgg/XhMh0Dqg4f/pB/8m08KObDhkMRFVbbIK0fhr0ivdj4v
-	caoJXSdy31yTLsaBonFEpSJzPhksdnPE/pYBj0/YSjxI6nmiqB5xKJxOZi8fa/GccF9SnadpV2O
-	HbvnIq8S8aVrUGRDczBJw==
-X-Received: by 2002:a05:6000:18a3:b0:43c:faee:87e with SMTP id ffacd0b85a97d-43d1512f373mr7334739f8f.48.1775051873960;
-        Wed, 01 Apr 2026 06:57:53 -0700 (PDT)
-Message-ID: <2bae9e12-8f71-4ff0-b077-bfb4215e5e14@gmail.com>
-Date: Wed, 1 Apr 2026 15:57:52 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fe-953a8a3ca9 header.d=ubuntu.com header.i="@ubuntu.com" header.h="Content-Transfer-Encoding:Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
+ h=Content-Transfer-Encoding: Content-Type: Cc: To: Subject: Message-ID:
+ Date: From: In-Reply-To: References: MIME-Version; q=dns/txt;
+ s=fe-953a8a3ca9; t=1775052250;
+ bh=ZYLQqX4T/QfgbLaRjWzbcTh4jjHfhPMxLig3H0OSreo=;
+ b=bBr8arU/+f2uonEskRZVY+POvjpQeC7J+ZSxU6i5Ry54oTtTQdz3avq/CRPCHQMgecKMdt6hr
+ 5KKLS5dRKqCUCnmRfYj5mwgMsY99KLsWX6WFN7k2QgspbrWJ57XKKE96DxrQxkcON4g2NXxBQqn
+ mgwfET9xxJNYDX05ZZnwIpZznfVsO0/UuIS5TLSoxEBzHdXtd2Ftf4f/QU1pFbGze/aEDA2dIcv
+ dYZ6R+tUet8PDFXDubS3NbSs9JWGC126alRQEoWi1Hh4tU9/17oihfokxofCE4QKBrXdmupMcau
+ A9jNPJZUxAU/Oet4Fu7OLzA609A60OAGpR4AdhXrhYwA==
+X-Forward-Email-ID: 69cd25d713aa77a31744c685
+X-Forward-Email-Sender: rfc822; enr0n@ubuntu.com, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.6.64
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+X-Gm-Message-State: AOJu0YyoF3wHoM9k8JaBiirgQVfXFqWYLCTL3Vk+IyAtE5JTvq+0Uh7b
+	3nf3x5htfwOW6ZVWA6eo7H68GufJ5XVPeOdi72uEnw5loMghXdzX5AdZFRibqgkYfzXhadogoBd
+	67asvCDKPlbswhK0vW5DR2YXail4XFVsVnC542VjwiqRnPFNGrvQ3KhPjKzFHf9YWiHMXuhHhH/
+	/V0UigUc7DbuRGzYIREANw0TTqrulWQsVIg+7X6mvIPBMzWoWD/jT1WC5Z2TM=
+X-Gm-Gg: ATEYQzyoRbmosTflW2feJ//TwyxehQUZSrvQvt4qCMfCJ8gpHPby2yIrg2VlkA10xG6
+	2BhDUL4wuekKfsOn8Q7NzN1aeRV1R3QB5vAezpjRmLP3v2YT0hMzHZshsJEW89xPGL4CQpxpK9+
+	YzrclwX2lXp472/Mi5UdDtAYloLCjSujcC1LZ76Vmq1j5VhyFcwDbW6dfqWQprx40oclwkkUypa
+	1+o
+X-Received: by 2002:a05:6122:6087:b0:56c:dacc:9c3a with SMTP id 71dfb90a1353d-56d8a975f93mr1564556e0c.16.1775052245521;
+        Wed, 01 Apr 2026 07:04:05 -0700 (PDT)
+X-Received: by 2002:a05:6122:6087:b0:56c:dacc:9c3a with SMTP id
+ 71dfb90a1353d-56d8a975f93mr1564518e0c.16.1775052245226; Wed, 01 Apr 2026
+ 07:04:05 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/11] xen/riscv: add definition of guest RAM banks
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1774281309.git.oleksii.kurochko@gmail.com>
- <8278256f3d270b456d19cb9891b89b88a46548a5.1774281309.git.oleksii.kurochko@gmail.com>
- <1a3a316e-f0ea-4514-95d6-9813d6d5ca76@suse.com>
- <691be850-9145-4bbf-a897-d10a0193b730@gmail.com>
- <dfd2a666-f3a5-4d88-b034-438f8fbb85ba@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <dfd2a666-f3a5-4d88-b034-438f8fbb85ba@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-bad1c0/1775051874-2E949152-40001258/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 2432
+References: <cover.1774918270.git.milan_djokic@epam.com> <5bcbeb1d614be413c13196a38d13eb3de5c549e4.1774918270.git.milan_djokic@epam.com>
+In-Reply-To: <5bcbeb1d614be413c13196a38d13eb3de5c549e4.1774918270.git.milan_djokic@epam.com>
+From: Nick Rosbrook <enr0n@ubuntu.com>
+Date: Wed, 1 Apr 2026 10:03:54 -0400
+X-Gmail-Original-Message-ID: <CAEN5XSFSZ+LYxX0FSP3P54dH+GY6AnNZv0E8SRdXmpJZR8q1kQ@mail.gmail.com>
+X-Gm-Features: AQROBzDsIAkTT-BXTxpHUg7wEs4HsANEVI2yOsm8f9UXch0MQDO40ngiQI9DM5g
+Message-ID: <CAEN5XSFSZ+LYxX0FSP3P54dH+GY6AnNZv0E8SRdXmpJZR8q1kQ@mail.gmail.com>
+Subject: Re: [PATCH v3 06/23] xen/domctl: Add XEN_DOMCTL_CONFIG_VIOMMU_* and
+ viommu config param
+To: Milan Djokic <milan_djokic@epam.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Rahul Singh <rahul.singh@arm.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, George Dunlap <gwd@xenproject.org>, 
+	Juergen Gross <jgross@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-16d1c6/1775052252-64A4C3D8-CE7ECAD2/0/0
+X-purgate-type: clean
+X-purgate-size: 3457
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	DMARC_POLICY_ALLOW(-0.50)[ubuntu.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[ubuntu.com:s=fe-953a8a3ca9];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:milan_djokic@epam.com,m:xen-devel@lists.xenproject.org,m:rahul.singh@arm.com,m:anthony.perard@vates.tech,m:gwd@xenproject.org,m:jgross@suse.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ubuntu.com:dkim,ubuntu.com:email,mail.gmail.com:mid,arm.com:email,epam.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[enr0n@ubuntu.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TAGGED_FROM(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[ubuntu.com:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	MAILSPIKE_FAIL(0.00)[192.237.175.120:query timed out];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[enr0n@ubuntu.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: E76D537BB2B
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 6E54137BCBF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+On Mon, Mar 30, 2026 at 9:52=E2=80=AFPM Milan Djokic <milan_djokic@epam.com=
+> wrote:
+>
+> From: Rahul Singh <rahul.singh@arm.com>
+>
+> Add new viommu_type field and field values XEN_DOMCTL_CONFIG_VIOMMU_NONE
+> XEN_DOMCTL_CONFIG_VIOMMU_SMMUV3 in xen_arch_domainconfig to
+> enable/disable vIOMMU support for domains.
+>
+> Also add viommu=3D"N" parameter to xl domain configuration to enable the
+> vIOMMU for the domains. Currently, only the "smmuv3" type is supported
+> for ARM.
+>
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
+> Signed-off-by: Milan Djokic <milan_djokic@epam.com>
+> ---
+>  docs/man/xl.cfg.5.pod.in             | 13 +++++++++++++
+>  tools/golang/xenlight/helpers.gen.go |  2 ++
+>  tools/golang/xenlight/types.gen.go   |  7 +++++++
+>  tools/include/libxl.h                |  5 +++++
+>  tools/libs/light/libxl_arm.c         | 13 +++++++++++++
+>  tools/libs/light/libxl_types.idl     |  6 ++++++
+>  tools/xl/xl_parse.c                  |  9 +++++++++
+>  7 files changed, 55 insertions(+)
+>
+> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> index 3aac0bc4fb..4de8db42ac 100644
+> --- a/docs/man/xl.cfg.5.pod.in
+> +++ b/docs/man/xl.cfg.5.pod.in
+> @@ -3175,6 +3175,19 @@ option.
+>
+>  =3Dback
+>
+> +=3Dover 4
+> +
+> +=3Ditem B<viommu=3D"N">
+> +
+> +To enable viommu, user must specify the following option in the VM
+> +config file:
+> +
+> +viommu =3D "smmuv3"
+> +
+> +Currently, only the "smmuv3" type is supported for ARM.
+> +
+> +=3Dback
+> +
+>  =3Dhead3 x86
+>
+>  =3Dover 4
+> diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight=
+/helpers.gen.go
+> index b0c09da910..b24cfd0533 100644
+> --- a/tools/golang/xenlight/helpers.gen.go
+> +++ b/tools/golang/xenlight/helpers.gen.go
+> @@ -1273,6 +1273,7 @@ x.ArchArm.NrSpis =3D uint32(xc.arch_arm.nr_spis)
+>  if err :=3D x.ArchArm.ArmSci.fromC(&xc.arch_arm.arm_sci);err !=3D nil {
+>  return fmt.Errorf("converting field ArchArm.ArmSci: %v", err)
+>  }
+> +x.ArchArm.ViommuType =3D ViommuType(xc.arch_arm.viommu_type)
+>  if err :=3D x.ArchX86.MsrRelaxed.fromC(&xc.arch_x86.msr_relaxed);err !=
+=3D nil {
+>  return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+>  }
+> @@ -1815,6 +1816,7 @@ xc.arch_arm.nr_spis =3D C.uint32_t(x.ArchArm.NrSpis=
+)
+>  if err :=3D x.ArchArm.ArmSci.toC(&xc.arch_arm.arm_sci); err !=3D nil {
+>  return fmt.Errorf("converting field ArchArm.ArmSci: %v", err)
+>  }
+> +xc.arch_arm.viommu_type =3D C.libxl_viommu_type(x.ArchArm.ViommuType)
+>  if err :=3D x.ArchX86.MsrRelaxed.toC(&xc.arch_x86.msr_relaxed); err !=3D=
+ nil {
+>  return fmt.Errorf("converting field ArchX86.MsrRelaxed: %v", err)
+>  }
+> diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/t=
+ypes.gen.go
+> index e0fd78ec03..e306f9c1ac 100644
+> --- a/tools/golang/xenlight/types.gen.go
+> +++ b/tools/golang/xenlight/types.gen.go
+> @@ -530,6 +530,12 @@ type ArmSci struct {
+>  Type ArmSciType
+>  }
+>
+> +type ViommuType int
+> +const(
+> +ViommuTypeNone ViommuType =3D 0
+> +ViommuTypeSmmuv3 ViommuType =3D 1
+> +)
+> +
+>  type RdmReserve struct {
+>  Strategy RdmReserveStrategy
+>  Policy RdmReservePolicy
+> @@ -619,6 +625,7 @@ Vuart VuartType
+>  SveVl SveType
+>  NrSpis uint32
+>  ArmSci ArmSci
+> +ViommuType ViommuType
+>  }
+>  ArchX86 struct {
+>  MsrRelaxed Defbool
 
+This looks right now. For the golang bits:
 
-On 4/1/26 8:17 AM, Jan Beulich wrote:
-> On 31.03.2026 18:14, Oleksii Kurochko wrote:
->> On 3/30/26 5:51 PM, Jan Beulich wrote:
->>> On 23.03.2026 17:29, Oleksii Kurochko wrote:
->>>> The dom0less solution uses defined RAM banks as compile-time constants,
->>>> so introduce macros to describe guest RAM banks.
->>>>
->>>> The reason for 2 banks is that there is typically always a use case for
->>>> low memory under 4 GB, but the bank under 4 GB ends up being small because
->>>> there are other things under 4 GB it can conflict with (interrupt
->>>> controller, PCI BARs, etc.).
->>> Fixed layouts like the one you suggest come with (potentially severe)
->>> downsides. For example, what if more than 2Gb of MMIO space are needed
->>> for non-64-bit BARs?
->> It looks where usually RAM on RISC-V boards start, so I expect that 2gb
->> before RAM start is enough for MMIO space.
-> Likely in the common case. Board designers aren't constrained by this,
-> though (aiui). Whereas you set in stone a single, fixed layout.
-> 
-> Arm maintainers - since a similar fixed layout is used there iirc,
-> could you chime in here, please?
-> 
->> Answering your question it will be an issue or it will also use some
->> space before banks, no?
-> I fear I don't understand what you're trying to tell me.
+Acked-by: Nick Rosbrook <enr0n@ubuntu.com>
 
-I meant that there is also some space between banks and pretty big which 
-could be used for MMIO which could be used for non-64-bit BARs.
-
-> 
->> Further, assuming that the space 4G...8G is what
->>> you expect 64-bit BARs to be put into, what if there's a device with a
->>> 4G BAR? It'll eat up that entire space, requiring everything else to
->>> fit in the 2G you reserve below 4G.
->> I assume that such big devices could use high memory without any issue.
-> Well, I could go (almost) arbitrarily low with individual BAR size,
-> merely increasing the number of BARs accordingly. Assuming 2G BARs are
-> 64-bit capable is likely fine. Maybe the same is true for 1G and 512M
-> ones as well. Yet a some size the assumption will break.
-> 
-> IMO RAM layout wants establishing dynamically based on the MMIO needs
-> of a guest.
-
-I have this in my TODO.
-
-But with the current implementation of dom0less it requires to have RAM 
-banks defined in compile time.
-
-Can we process with the current suggested way with the following update 
-of dom0less code to work with dynamically allocated RAM layout?
-
-~ Oleksii
+-Nick
 
