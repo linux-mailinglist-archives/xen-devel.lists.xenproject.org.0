@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oBd6I24ozWnTaQYAu9opvQ
+	id 2KEiIkMqzWn7aQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 16:15:10 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 16:22:59 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0913337BF5F
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 16:15:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1270389.1559069 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF44837C14B
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 16:22:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1270402.1559077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7wLI-0007Cu-7m; Wed, 01 Apr 2026 14:14:48 +0000
+	id 1w7wSe-0000fl-V9; Wed, 01 Apr 2026 14:22:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1270389.1559069; Wed, 01 Apr 2026 14:14:48 +0000
+Received: by outflank-mailman (output) from mailman id 1270402.1559077; Wed, 01 Apr 2026 14:22:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7wLI-0007BT-4q; Wed, 01 Apr 2026 14:14:48 +0000
-Received: by outflank-mailman (input) for mailman id 1270389;
- Wed, 01 Apr 2026 14:14:46 +0000
+	id 1w7wSe-0000dI-SX; Wed, 01 Apr 2026 14:22:24 +0000
+Received: by outflank-mailman (input) for mailman id 1270402;
+ Wed, 01 Apr 2026 14:22:23 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w7wLG-0007BN-O1
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 14:14:46 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w7wSc-0000dC-Tb
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 14:22:23 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7wLF-00Bn3l-Ov
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 16:14:45 +0200
+ id 1w7wSc-005mml-97
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 16:22:22 +0200
 Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69cd284f-e002-0a2a0a5209dd-0a2a450c9d80-20
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 16:14:45 +0200
-Received: from [209.85.221.45] (helo=mail-wr1-f45.google.com)
+ id 69cd2a13-bab6-0a2a0a5309dd-0a2a450c8e80-26
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 16:22:22 +0200
+Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
  by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69cd2855-f40c-0a2a450c0019-d155dd2dbd07-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 16:14:45 +0200
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-43cfd96354aso2226729f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 07:14:45 -0700 (PDT)
+ id 69cd2a1d-f40c-0a2a450c0019-d155802fdc73-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 16:22:22 +0200
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-48557c8ad47so55071385e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 07:22:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e2a7223sm189136f8f.5.2026.04.01.07.14.44
+ 5b1f17b1804b1-4887a630901sm70110215e9.0.2026.04.01.07.22.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 07:14:44 -0700 (PDT)
+ Wed, 01 Apr 2026 07:22:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,59 +58,61 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775052885; x=1775657685; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775053341; x=1775658141; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=hL/cATlmDI+H92KCyzPoZzMYt2GziKP7L0ibyB0fKAE=;
-        b=AgW1rP6p5Vg4ocDC3a2M5ucoRJ37n5NtQjmoTyaawsGkxcSuJ2xtsxV84JIBhmu/ow
-         4mMElM60jz6ktVsxEVdVaeqFotU/WlugKx/XHd/pKEntChy8bCNcGWJQy2onzF5vdnql
-         vM06zk052YFln3egLVWW8sqUsYXbX9kR37eH+K34c1OjIT0Kg4X87gt2b120cnZy3hGf
-         cc4Wpmaz/8WdqQqmMgwQ6AlO6aYqL0w62HS6thu7t8VJAMUFU2EAko8pzoj4gilDkayS
-         3dCCu+81GnLpCuwVTDLG2WzG6toUWjQDw9fi6u+ACZc3Jzb7RlsO8+LTkamAenUxV7bK
-         6Sig==
+        bh=ZGKM4c+KwZfU+nhjGTLnKpBO8o7GVudcQfFbHy16yfs=;
+        b=HLYPufP2jqf8QPxGI/5ejXZ1dDHVYH/UzAV4jX9tEmpaTp7duWAascUaTCH25n4YUt
+         9DFWv3ucpm/DGWLDcpFL3bmaRasz6NH8uZub9MKnrIWOc6Yz4h1LL2Dj8sCgEMhaUrYO
+         cHOLNwa9no3jiBb7b56kKEV0Jf8cteYV/tAriRExgq1nFVEMRpSJ8JzXxaRNG+GV8lg4
+         4lkzIeev0sgbMTzhXW/i9HXAfm4uPDJkD5WXXEnvoGSZT67/bxal+VbGsZAxY7H+EnpI
+         LPCinJv+T8U7CRCAS4Pw3SVj8u8NSVZjWEjWTxvdqumZIfn6AyPJMd8mOKQ7uyeEYmzR
+         TBlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775052885; x=1775657685;
+        d=1e100.net; s=20251104; t=1775053341; x=1775658141;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hL/cATlmDI+H92KCyzPoZzMYt2GziKP7L0ibyB0fKAE=;
-        b=VJPeaJ1j28KEM8300ASF+1S8XAkUYuYbpbL5FbjV5VNbsy7S4wHydU/fCBz2PvVU6K
-         8/uhEIxGbOiKYYxCNMdbYBqQ+5Cysf6x9qqsAssuGMo2ImcCLXV4eRS8kORtQlsdQPAi
-         AosXS8zfEKG3WxCuYf3tasVewjG360hkVQHpBjwXGDg0gj4XJEN4oe8BOtewaazFO1Lc
-         3ae/REflKHQ8fQP3wGrbgFaX4ExH9B1Ltnl/sHzdXtj5qpzAOn86/dtUzFJ7tsnKraQt
-         Y1XrS0ROFyq/KrJSEOykn0hsLHBITvpYv9Mp2Ck6zrbhMlsIxtPau2m/bUHKsEXhbn2h
-         0BcA==
-X-Forwarded-Encrypted: i=1; AJvYcCXidl/QhQfUhiGFM6J/cQSlQOjwdLSuG+jNZsFwMEhClVP47ZrPNHdt/lely4TcfY8qWVQTkWA6W+8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxJn9rqalaCQiPRXcLNsbkwOcigwzhzXWBifOU+5gleRBCk2kMq
-	qUOvq2/WeQ75c+0EL0y1TSe4Y5ir3CTSnmUSFEneYMVeQvlYfDiGvf6QloD5tVfFNQ==
-X-Gm-Gg: ATEYQzylyrmvM+/Ofp8yOATtqdRRWCCOZFCrkqYvNuaJu6SICrzV7KMMpEsKPzGQ5jo
-	wypv0mCX8ZgSZJEY7IcYoXV1bYHoHAb1qjg3dw/7ftxTrzJRuPadcl6PHEBJTFtTV02UcMEq5m9
-	mKmUgwE4UjVx4sYeNZ6Y/JIA6VqiPAnZEhB8YIfg90S4AVF2+mtpeHaAm6+SBIXtdpPzxIKy2T+
-	FHKNdyaWqvR9MycWMmzYwSWSTx50IyiKKqun3RRk7DgBsR1AkMi/dUpVfB3+UsZeAov0M8kB0xx
-	1HQUK0Rb5yBt8dRagqOV6udO42/amjUXTcATSI9oPOE7Olc2+SLHxYDWvDymSLyyOkN2DO94m6b
-	IznIAdp8y2EVEjt6w65hjnkEuPfwSqE0fUI98wnPrga+i2VJOo/3pfttFYCfFPzNNgeeQy+Qcbi
-	ZYEbcL8ckY0QzGxGhDbwNR6sYekJHAM0b0RKAbXeNxF0LT4cgp51Cy45iDwBbRDmualgOOjoagM
-	0VRC+1P6X15BWs=
-X-Received: by 2002:a05:6000:1445:b0:43c:f969:2e1 with SMTP id ffacd0b85a97d-43d15094489mr7559208f8f.6.1775052884969;
-        Wed, 01 Apr 2026 07:14:44 -0700 (PDT)
-Message-ID: <8856a1d8-51f7-40ee-9def-570af5c6d42f@suse.com>
-Date: Wed, 1 Apr 2026 16:14:43 +0200
+        bh=ZGKM4c+KwZfU+nhjGTLnKpBO8o7GVudcQfFbHy16yfs=;
+        b=TNvgWiidjovwXo1N8ub8wB3+gncGv66qSOIiCN1K/kCld+AB9+99WZ8kgJy33Lqhoj
+         zVTP6IpaCPdc0b48bGNP8b1FfrmlO8LAxWgGIdMvT5B0TH5d29Uvh15p6cz0m8TgRuBP
+         niMfxJrT06WRH9TPk3t4XJnKO/CM54TAB0Ph8k0FV4tvuLt/lSDptoh6kMaQ91M4VFOe
+         hGxRwAdvKBdP3vUPJ1U8EkNP864Xt3vr7cYmTaX4TbKl6E/naodVXB90rDYDh6vUGV+2
+         1PFBj5SpVWMFLAquOmBUqz3TcaBxfRwyb14LQsfV0pkNCyXa7ENf9j2UoHybcCtagDQH
+         gC+g==
+X-Forwarded-Encrypted: i=1; AJvYcCVWwBjzrhUh7MTZPPpTUebQ2dcisFeoswNL40hrRoW9LqTO7txzaWmslUW1yJjep+nsNWJoAo3JNWA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwpGopdVMEuV+KG2pmOEhPFk+5V62Hv/UJdq955mPl1F1zxgdFz
+	jTvOz1APzXehgOkvQyhrUJSp0iE9rNgc4kNd+JI+x43lbITlkZKBRT2UsbIRXO+Wmw==
+X-Gm-Gg: ATEYQzy1NcC7A3tXMgxwUCRhBJ4Q8RA+uVJrk42pG4G4366mzLVuX7ZMVJOgSmpTsBL
+	+nPmj7Hy7JW5jQaAuIRYn4L6mYXECpYAEg82wuiFdwK0v2U6ILdWTqzGLFLQRWAz8NPRTITJmv1
+	NqaPGZjvEj+OLGiXh27Qdy8w1UqXKfBZrCF+uH5L0e+O4sHBTi/we5Q3iAYKaX0T5GkXWwJ9pfF
+	pktkKaTSWr8JevbatN/qmRyyHw74y/B0J0tNAb5BCMlVdKzEVW3kMY5Wj7dB1nW44+jqD7YvLmt
+	6kELIBiF4XK69XxssJaHsevUxTERFoCKhsxk5FDH3q3II+2c0H/BfRRtbZ3KMMNYwkBjVU18Ii0
+	t9wyNcWKs4xJbHaIxTjR/yb1WhWx/uiz0PTkc9DVcuYuu7HgYqnVVrEExy/Vu76/1tTZoVdFgKy
+	+lzCkEG7MjYls/wcoBH9I+F8VvLlKr2086jPtEk9nc7878j4+at4MJ2xDKW+vTb4V8e42+1yR8A
+	pNbrV5VPTlFj0A=
+X-Received: by 2002:a05:600c:8b62:b0:487:338:b4df with SMTP id 5b1f17b1804b1-488835903abmr64709315e9.15.1775053341482;
+        Wed, 01 Apr 2026 07:22:21 -0700 (PDT)
+Message-ID: <ffd3a7cd-8c47-4a9b-864a-26a053b5b7d2@suse.com>
+Date: Wed, 1 Apr 2026 16:22:19 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/8] vpci: add a wait operation to the vpci vcpu
- pending actions
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stewart Hildebrand <stewart.hildebrand@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1772806036.git.mykyta_poturai@epam.com>
- <ec941fbf4f8bde23fc3867e47f5ada028f8003aa.1772806036.git.mykyta_poturai@epam.com>
- <f546ae19-2107-469e-847b-7a4cde2c95fd@suse.com>
- <0275be7d-d1d9-47ee-bec2-bfbbb90b4bae@epam.com>
- <46f4a4c5-cc44-47d7-8d6d-03ddaa75bb7f@suse.com>
- <13714c88-838b-4dc7-bc0b-b6ca590fd944@epam.com>
+Subject: Re: [PATCH v2 10/11] xen/riscv: add definition of guest RAM banks
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1774281309.git.oleksii.kurochko@gmail.com>
+ <8278256f3d270b456d19cb9891b89b88a46548a5.1774281309.git.oleksii.kurochko@gmail.com>
+ <1a3a316e-f0ea-4514-95d6-9813d6d5ca76@suse.com>
+ <691be850-9145-4bbf-a897-d10a0193b730@gmail.com>
+ <dfd2a666-f3a5-4d88-b034-438f8fbb85ba@suse.com>
+ <2bae9e12-8f71-4ff0-b077-bfb4215e5e14@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,229 +138,115 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <13714c88-838b-4dc7-bc0b-b6ca590fd944@epam.com>
+In-Reply-To: <2bae9e12-8f71-4ff0-b077-bfb4215e5e14@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d25034/1775052885-A4DBDA3D-365E61DC/0/0
+X-purgate-ID: tlsNG-d25034/1775053342-83D43A3D-04901D80/0/0
 X-purgate-type: clean
-X-purgate-size: 8059
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-purgate-size: 3244
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:roger.pau@citrix.com,m:stewart.hildebrand@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 0913337BF5F
+X-Rspamd-Queue-Id: EF44837C14B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 01.04.2026 16:07, Mykyta Poturai wrote:
-> On 4/1/26 11:21, Jan Beulich wrote:
->> On 01.04.2026 09:59, Mykyta Poturai wrote:
->>> On 3/31/26 17:55, Jan Beulich wrote:
->>>> On 09.03.2026 12:08, Mykyta Poturai wrote:
->>>>> --- a/xen/drivers/vpci/header.c
->>>>> +++ b/xen/drivers/vpci/header.c
->>>>> @@ -175,76 +175,92 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
->>>>>    
->>>>>    bool vpci_process_pending(struct vcpu *v)
->>>>>    {
->>>>> -    const struct pci_dev *pdev = v->vpci.pdev;
->>>>> -    struct vpci_header *header = NULL;
->>>>> -    unsigned int i;
->>>>> -
->>>>> -    if ( !pdev )
->>>>> -        return false;
->>>>> -
->>>>> -    read_lock(&v->domain->pci_lock);
->>>>> -
->>>>> -    if ( !pdev->vpci || (v->domain != pdev->domain) )
->>>>> +    switch ( v->vpci.task )
->>>>>        {
->>>>> -        v->vpci.pdev = NULL;
->>>>> -        read_unlock(&v->domain->pci_lock);
->>>>> -        return false;
->>>>> -    }
->>>>> -
->>>>> -    header = &pdev->vpci->header;
->>>>> -    for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->>>>> +    case MODIFY_MEMORY:
->>>>>        {
->>>>> -        struct vpci_bar *bar = &header->bars[i];
->>>>> -        struct rangeset *mem = v->vpci.bar_mem[i];
->>>>> -        struct map_data data = {
->>>>> -            .d = v->domain,
->>>>> -            .map = v->vpci.cmd & PCI_COMMAND_MEMORY,
->>>>> -            .bar = bar,
->>>>> -        };
->>>>> -        int rc;
->>>>> +        const struct pci_dev *pdev = v->vpci.memory.pdev;
->>>>> +        struct vpci_header *header = NULL;
->>>>> +        unsigned int i;
->>>>>    
->>>>> -        if ( rangeset_is_empty(mem) )
->>>>> -            continue;
->>>>> +        if ( !pdev )
->>>>> +            break;
->>>>>    
->>>>> -        rc = rangeset_consume_ranges(mem, map_range, &data);
->>>>> +        read_lock(&v->domain->pci_lock);
->>>>>    
->>>>> -        if ( rc == -ERESTART )
->>>>> +        if ( !pdev->vpci || (v->domain != pdev->domain) )
->>>>>            {
->>>>> +            v->vpci.memory.pdev = NULL;
->>>>>                read_unlock(&v->domain->pci_lock);
->>>>> -            return true;
->>>>> +            break;
->>>>>            }
->>>>>    
->>>>> -        if ( rc )
->>>>> +        header = &pdev->vpci->header;
->>>>> +        for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->>>>>            {
->>>>> -            spin_lock(&pdev->vpci->lock);
->>>>> -            /* Disable memory decoding unconditionally on failure. */
->>>>> -            modify_decoding(pdev, v->vpci.cmd & ~PCI_COMMAND_MEMORY,
->>>>> -                            false);
->>>>> -            spin_unlock(&pdev->vpci->lock);
->>>>> +            struct vpci_bar *bar = &header->bars[i];
->>>>> +            struct rangeset *mem = v->vpci.bar_mem[i];
->>>>> +            struct map_data data = {
->>>>> +                .d = v->domain,
->>>>> +                .map = v->vpci.memory.cmd & PCI_COMMAND_MEMORY,
->>>>> +                .bar = bar,
->>>>> +            };
->>>>> +            int rc;
->>>>> +
->>>>> +            if ( rangeset_is_empty(mem) )
->>>>> +                continue;
->>>>>    
->>>>> -            /* Clean all the rangesets */
->>>>> -            for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->>>>> -                if ( !rangeset_is_empty(v->vpci.bar_mem[i]) )
->>>>> -                     rangeset_purge(v->vpci.bar_mem[i]);
->>>>> +            rc = rangeset_consume_ranges(mem, map_range, &data);
->>>>>    
->>>>> -            v->vpci.pdev = NULL;
->>>>> +            if ( rc == -ERESTART )
->>>>> +            {
->>>>> +                read_unlock(&v->domain->pci_lock);
->>>>> +                return true;
->>>>> +            }
->>>>>    
->>>>> -            read_unlock(&v->domain->pci_lock);
->>>>> +            if ( rc )
->>>>> +            {
->>>>> +                spin_lock(&pdev->vpci->lock);
->>>>> +                /* Disable memory decoding unconditionally on failure. */
->>>>> +                modify_decoding(pdev, v->vpci.memory.cmd & ~PCI_COMMAND_MEMORY,
->>>>> +                                false);
->>>>> +                spin_unlock(&pdev->vpci->lock);
->>>>> +
->>>>> +                /* Clean all the rangesets */
->>>>> +                for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->>>>> +                    if ( !rangeset_is_empty(v->vpci.bar_mem[i]) )
->>>>> +                        rangeset_purge(v->vpci.bar_mem[i]);
->>>>> +
->>>>> +                v->vpci.memory.pdev = NULL;
->>>>> +
->>>>> +                read_unlock(&v->domain->pci_lock);
->>>>>    
->>>>> -            if ( !is_hardware_domain(v->domain) )
->>>>> -                domain_crash(v->domain);
->>>>> +                if ( !is_hardware_domain(v->domain) )
->>>>> +                    domain_crash(v->domain);
->>>>>    
->>>>> -            return false;
->>>>> +                break;
->>>>> +            }
->>>>>            }
->>>>> -    }
->>>>> -    v->vpci.pdev = NULL;
->>>>> +        v->vpci.memory.pdev = NULL;
->>>>>    
->>>>> -    spin_lock(&pdev->vpci->lock);
->>>>> -    modify_decoding(pdev, v->vpci.cmd, v->vpci.rom_only);
->>>>> -    spin_unlock(&pdev->vpci->lock);
->>>>> +        spin_lock(&pdev->vpci->lock);
->>>>> +        modify_decoding(pdev, v->vpci.memory.cmd, v->vpci.memory.rom_only);
->>>>> +        spin_unlock(&pdev->vpci->lock);
->>>>>    
->>>>> -    read_unlock(&v->domain->pci_lock);
->>>>> +        read_unlock(&v->domain->pci_lock);
->>>>> +
->>>>> +        break;
->>>>> +    }
->>>>> +    case WAIT:
->>>>> +        if ( NOW() < v->vpci.wait.end )
->>>>> +            return true;
->>>>> +        v->vpci.wait.callback(v->vpci.wait.data);
->>>>> +        break;
->>>>
->>>> As just indicated in reply to patch 6, busy waiting isn't really acceptable.
->>>> This is even more so when the waiting exceeds the typical length of a
->>>> scheduling timeslice.
->>>>
->>>> In that other reply I said to put the vCPU to sleep, but you need to be careful
->>>> there too: The domain may not expect its vCPU to not make any progress for such
->>>> an extended period of time. This may need doing entirely differently: Once the
->>>> command register was written, you may want to record the time after which
->>>> accesses to the VF registers are permitted. Earlier accesses would simply be
->>>> terminated. You may still additionally need a timer, in order to kick off BAR
->>>> mapping after that time. (Yet better would  be if the BAR mapping could be
->>>> done during those 100ms. After all that may be a reason why this long a delay
->>>> is specified: Firmware on the device may also require some time to set up the
->>>> BARs accordingly.)
->>>
->>> I am not sure it would work that way. If we look at how linux
->>> initialized sriov, it writes VFE and MSE bits, waits 100ms and then
->>> expects VFs to be operational. If they are not operational at that
->>> moment, then it considers the operation failed and removes all VFs. If
->>> we also wait 100ms before enabling access, the probability of a guest
->>> trying to access something before we allow it would be very high.
+On 01.04.2026 15:57, Oleksii Kurochko wrote:
+> On 4/1/26 8:17 AM, Jan Beulich wrote:
+>> On 31.03.2026 18:14, Oleksii Kurochko wrote:
+>>> On 3/30/26 5:51 PM, Jan Beulich wrote:
+>>>> On 23.03.2026 17:29, Oleksii Kurochko wrote:
+>>>>> The dom0less solution uses defined RAM banks as compile-time constants,
+>>>>> so introduce macros to describe guest RAM banks.
+>>>>>
+>>>>> The reason for 2 banks is that there is typically always a use case for
+>>>>> low memory under 4 GB, but the bank under 4 GB ends up being small because
+>>>>> there are other things under 4 GB it can conflict with (interrupt
+>>>>> controller, PCI BARs, etc.).
+>>>> Fixed layouts like the one you suggest come with (potentially severe)
+>>>> downsides. For example, what if more than 2Gb of MMIO space are needed
+>>>> for non-64-bit BARs?
+>>> It looks where usually RAM on RISC-V boards start, so I expect that 2gb
+>>> before RAM start is enough for MMIO space.
+>> Likely in the common case. Board designers aren't constrained by this,
+>> though (aiui). Whereas you set in stone a single, fixed layout.
 >>
->> Well, not really. Our counting of the 100ms necessarily starts before Dom0's.
->> Furthermore it may be acceptable (or even appropriate) to stall premature
->> accesses (because they shouldn't occur in the first place), by blocking the
->> vCPU at that point. A middle route may be possible: Terminate accesses in,
->> say, the first 90ms, and stall the vCPU for any access past that, but before
->> the 100ms expired.
+>> Arm maintainers - since a similar fixed layout is used there iirc,
+>> could you chime in here, please?
+>>
+>>> Answering your question it will be an issue or it will also use some
+>>> space before banks, no?
+>> I fear I don't understand what you're trying to tell me.
 > 
-> Is there any real benefit to doing all this work instead of just waiting 
-> for Dom0 to register the FVs? Implementing it the way you described 
-> would require a relatively complex state machine and two timers per 
-> sriov-capable device. And will also probably require some hacks to 
-> handle partially initialized VFs in Xen. This adds a lot of work and 
-> many possible bugs for not a lot of benefit in my opinion.
+> I meant that there is also some space between banks and pretty big which 
+> could be used for MMIO which could be used for non-64-bit BARs.
 
-Odd that you ask me this question. If there was no benefit, why did you do
-it this way?
+I don't follow: Bank 0 extends to 4G. There's no space above it, below
+bank 1, which could be use for non-64-bit BARs.
+
+>>> Further, assuming that the space 4G...8G is what
+>>>> you expect 64-bit BARs to be put into, what if there's a device with a
+>>>> 4G BAR? It'll eat up that entire space, requiring everything else to
+>>>> fit in the 2G you reserve below 4G.
+>>> I assume that such big devices could use high memory without any issue.
+>> Well, I could go (almost) arbitrarily low with individual BAR size,
+>> merely increasing the number of BARs accordingly. Assuming 2G BARs are
+>> 64-bit capable is likely fine. Maybe the same is true for 1G and 512M
+>> ones as well. Yet a some size the assumption will break.
+>>
+>> IMO RAM layout wants establishing dynamically based on the MMIO needs
+>> of a guest.
+> 
+> I have this in my TODO.
+> 
+> But with the current implementation of dom0less it requires to have RAM 
+> banks defined in compile time.
+
+Oh well.
+
+> Can we process with the current suggested way with the following update 
+> of dom0less code to work with dynamically allocated RAM layout?
+
+If you want me to ack such, the limitations will need clearly calling out
+as such (and why it needs doing like this). Further the public interface
+wants leaving as tidy as possible, as removing stuff from there is
+usually not a straightforward thing to do. Ideally, no part of this would
+be encoded into the public headers, if at all possible.
+
+You also may recall that I have reservations towards this work targeting
+dom0less alone. Yet that's likely okay(ish) as long as this is the mutual
+understanding of interested parties (and again clearly expressed in
+relevant places).
 
 Jan
 
