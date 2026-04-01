@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eJ3qHUO0zGlWVwYAu9opvQ
+	id eJjDNVq0zGlWVwYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 07:59:31 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 07:59:54 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7C9C375016
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 07:59:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1269659.1558583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E69137502C
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 07:59:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1269668.1558593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7oan-0000H0-Ch; Wed, 01 Apr 2026 05:58:17 +0000
+	id 1w7ocD-0000pc-P7; Wed, 01 Apr 2026 05:59:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1269659.1558583; Wed, 01 Apr 2026 05:58:17 +0000
+Received: by outflank-mailman (output) from mailman id 1269668.1558593; Wed, 01 Apr 2026 05:59:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7oan-0000E7-6t; Wed, 01 Apr 2026 05:58:17 +0000
-Received: by outflank-mailman (input) for mailman id 1269659;
- Wed, 01 Apr 2026 05:58:15 +0000
+	id 1w7ocD-0000mj-MK; Wed, 01 Apr 2026 05:59:45 +0000
+Received: by outflank-mailman (input) for mailman id 1269668;
+ Wed, 01 Apr 2026 05:59:44 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w7oak-0000E1-T5
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 05:58:15 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w7ocC-0000md-4k
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 05:59:44 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7oak-00AZ8R-8p
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 07:58:14 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1w7ocB-0001Ze-H0
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 07:59:43 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69ccb3dd-2eae-0a2a0a5409dd-0a2a450a8f5a-48
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 07:58:14 +0200
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.55.2)
+ id 69ccb44b-e002-0a2a0a5209dd-0a2a4501e11c-8
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 07:59:43 +0200
+Received: from [209.85.221.41] (helo=mail-wr1-f41.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69ccb3f5-1772-0a2a450a0019-d1558031a8f4-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 07:58:13 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-482f454be5bso5224535e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 22:58:13 -0700 (PDT)
+ id 69ccb44f-6fc9-0a2a45010019-d155dd29e4d3-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 07:59:43 +0200
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-43cf906b007so1849477f8f.0
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2026 22:59:43 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4887adc52b2sm35212055e9.12.2026.03.31.22.58.12
+ ffacd0b85a97d-43cf257b72dsm33363865f8f.34.2026.03.31.22.59.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Mar 2026 22:58:12 -0700 (PDT)
+ Tue, 31 Mar 2026 22:59:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,45 +58,45 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775023093; x=1775627893; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775023183; x=1775627983; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cKMT8KyzZ1Mt9osAqCAjw+gKQXf80yubGZVZ0kKFnWo=;
-        b=OEApTtg7Uni/BnVUZzcnKCg5RR0hRvEsIVyK8MZXDf4gVqbNtXmMEF8CX3vVYk3tt3
-         +TbJehgElfA5hjRyW0pe9vQyizk7ojpCsPDHmvevAPtoxL3/1327FomJfF8/0M3EPFz2
-         DPQOBIwcLYjg2e2E2YXFTHH1SmKpzrLAbmSGzeoyYhbeO9D6fsbMyn1ureWwWFRxrDjq
-         Xo3Q6v/BogXnOqg5RFCIlpG55RK0TbS8EbdJPLvH7oUBfxTj5SNGiRkEGmb2fIniTeD8
-         62Vs4pIWx9okyyjE7aZEj8Wyakn4a13Ccm9KLPPebAyO+NQc55dPPUTrBZxbM662HniH
-         nCfg==
+        bh=ME3AW82qZDw/pfDlCDyK6nh4Ak9vBhwCI9g2zYdnqvE=;
+        b=EjrF4L2o/Ffz1sf4x+0OdOlCjJAxmbm81xyST/kY6QHvs3Wqy6C69vGZyreunBEvsD
+         JqNxJ9p2+JoXEf79ExjSNlANpxFcMSpDsq5aKFYo3wZUCvlwNGcxYnRlwMozQK18BcPr
+         ZcRPUfgHXnkavZzUNyCMaWxFBqCB97lQ5LkzGOPVLwi5al5T08qbOiXaGnmT7eO0t/pH
+         jA+1t5Br1MX7FSwnM0GB0FMHJR51x9bgKWlUnUvfmpUIY1WyxT5N4w8LhFEXhjPvzhQc
+         +Vs5g44XEQ+5V/hNsmyhvUDgo9XxNvZ9RAN17lWvbfSehtA9r29TN6yec0QFZRLIe85U
+         iJeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775023093; x=1775627893;
+        d=1e100.net; s=20251104; t=1775023183; x=1775627983;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=cKMT8KyzZ1Mt9osAqCAjw+gKQXf80yubGZVZ0kKFnWo=;
-        b=IN+aetq+vV5cfoytHno0a7p+TkXhKMCP0uUZgJ5uTdvBoNFpEXM9RWYrLxdDAI2OoI
-         S+ILeVydU38SV5gHcK+6cKxk4MJdmwSczmaqifOqmtVEz56j+RhaBA8qwyeETt8/I3NL
-         /041wNuJpVKR3QZ7EZ2XZBV6l+Eluo5pXgzRvEXxyzJvmGBrMCBk4MJEJSjJCTj0Tkmq
-         mJHFZLK6UA+B0938TkGXl5VteFH0lPdGRpiaF3IThtIp9lid0IeMJ0YnQJFOtJLq342R
-         BnfnMDADvGLRfFMb4zfmeIpWRNl7vPoJUGzqlvlR+UJDq8xJoE1ALjEq3dNGLghykZW7
-         Nrng==
-X-Forwarded-Encrypted: i=1; AJvYcCWd1tUVoHUo01wQDrP/X96na4iKkKSrHBp92M83ZWbB9kqwnbGzEdKG8AiYaBa6fpvCBs1+r/634yc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw1vqszRs+DYC8ai3TsLYaZ2Sei9ThB/KwvFf/w4OPqeMhJcp3H
-	KRkpH7sbGUTEsKl1flj865ycUAGhdP4ckwD1Wv8F5kn5Au6xsQMQI+IIhQ911S/KaA==
-X-Gm-Gg: ATEYQzzVVPRxIV3BvF3IZhh/0gM4M2A2DtfnaHQjhT9atbT4hwe4ONqYkL/5npUVpCR
-	we3tregbQjNmUCcM1r8nKPmblKdpgIdFjJjegqQittDUxaYovo1gIrvqv64PKgktWGQH3266eGB
-	VILgixe4kaXJ0Verg8Qgog49ISJwJJF04aiyWeSXqt3SHLNe1zDAT0ZNIHAIb+LPdtQJ/v16IZT
-	KWDAr0WMsj56dTqM1Gkqr1HgLvZDYjfK7a2NpYLe/4bSnb7e/xunfDSoAIPaLZkAbvJjbgdtGwC
-	8InLE2WMbUQ0q5pavUu6h6g+uoP7zeoIQvoJBkGzL/uT1pm3gVpDjNwLL0bnZs2ExNkieC+o82g
-	c3FJ23yUDCeBsLzau/GXY38H3WkQovZ0xDWb5BSxd55rWg9zmBk168svmG/pwJjH/8A92e5AGPd
-	wXMd41Chfv1R6GjheNMG8e1yovMNi9rTIgUp15RjGtmXYDb+ixPz7TwKK527KqkpdO17/UYQSxR
-	JDzYwCUwFNsVsHusnHOyC18XA==
-X-Received: by 2002:a05:600c:8b77:b0:485:3cef:d6ea with SMTP id 5b1f17b1804b1-488835bc362mr32141985e9.13.1775023093070;
-        Tue, 31 Mar 2026 22:58:13 -0700 (PDT)
-Message-ID: <cdacc6a8-cd49-4327-a98c-636545e8579b@suse.com>
-Date: Wed, 1 Apr 2026 07:58:11 +0200
+        bh=ME3AW82qZDw/pfDlCDyK6nh4Ak9vBhwCI9g2zYdnqvE=;
+        b=jH7q2vpArxUJ1sqMlGZxgs4ugc1p+s3VAoC5DiEshyGT/Det+1qz1EdZhBmL82GD2m
+         QcO/IXI5azREOG+3BDLjTt8ALUw3bqTjqBMGOeJSzg1llWe4TxIxyRUDa6eFh5GdHXAw
+         pv++PXW/x8fmXgwsSDoyHl6eS0R/5Ex4epCPXaFfYksMNkCjH6bCVAZxPdT8w7xAI5ro
+         jEa2TaY9Nnc3BifPI+Nrrk37kXdSoCiya4cDY6h8YzLB3HEONBkAqgUquNbiWWYQNsxC
+         aoaEF65vG0C8x7SvqGTY0yJIAQ4ZXI8DS+FCkeBQSlKCZFGetaiIQ073Md1SwpnQcl9U
+         6qew==
+X-Forwarded-Encrypted: i=1; AJvYcCUbS5wWEIzEXtUnGzNCUZyN+t9ENkxaGYBRGZEDkaxzoHtM7ygSyfJ5zZuOLWjTh5pMb5qIR29+nuk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzvEHwM7it5dNt6U0AdtvGLNtQtslMT0U7at3RetKakwRiphoxc
+	77qesr6TQtuPuFlkPFWZwzM+y+cETGVteCVn9PT5V4dWSCF0hfFv3jfQbVbQBJxhNw==
+X-Gm-Gg: ATEYQzw45G22iAqrVCnHPxbLzQ81kzf/PaiOuFd6j19ZTQRfgWP8t2U1UEIQN9QDPrR
+	UupCZ3kjstXqvxDCq6Ol8nHGX/S98kCTUitoOPLcWFK2UjL4Ylh1QQAuTkKBieeVXVVs7unDLWS
+	kWxmXoXMMR4dQ+t30PM6yyP0rqeol+wIRKPmfls+VqHGAruWYMkke35ctVWHowzMeBlRmp8cWAk
+	ZPJZk2NE2jqRvGOIvjcWYxo+VuL36WmJL6kuj1u+vGT9zpEExJOcruF7z1x0lyt5xHXCTs2j1Yy
+	S6l/MgFRRuhsA+oOY76NJgoIHyoaiGDG7s7V2ZQWMJ5dqqZYqIexS6b+fHlfov39uoG/Mawwv6F
+	eBmqXnGg9oeZ0PIWSVQG+dPrgPK/5Lg1IKxwD/4dVxCoZwwF1IMHs2vsczfCcy/dbw12k5WNp0K
+	NwZJjHhNOQ9fQatHvCUIuQ+6Fk3OmiwSN1DsdV7FZ7SwyN51x480zgQ13RWKFiCU9qT97iH4mKb
+	EoLqxRWKPNvTvE=
+X-Received: by 2002:a05:6000:4008:b0:43b:8858:1146 with SMTP id ffacd0b85a97d-43d150f0ae4mr3961824f8f.41.1775023182895;
+        Tue, 31 Mar 2026 22:59:42 -0700 (PDT)
+Message-ID: <a57b4cee-e230-4fc5-a7a6-a62635b54a76@suse.com>
+Date: Wed, 1 Apr 2026 07:59:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 07/11] xen: move domain_use_host_layout() to common
@@ -117,6 +117,7 @@ References: <cover.1774281309.git.oleksii.kurochko@gmail.com>
  <57581b7d-cb9f-444c-9321-63b2fc3d09f0@gmail.com>
  <d1288db4-2001-4914-919f-b613fd607bcc@suse.com>
  <d67b2856-bf93-4254-afa1-745dc37e0623@gmail.com>
+ <38d93a26-dfce-4d4e-a1d2-c4e8d13c4ead@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -142,17 +143,17 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <d67b2856-bf93-4254-afa1-745dc37e0623@gmail.com>
+In-Reply-To: <38d93a26-dfce-4d4e-a1d2-c4e8d13c4ead@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1775023093-BC882900-80AF429B/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-d62444/1775023183-BCD65185-790A1592/0/0
 X-purgate-type: clean
-X-purgate-size: 3959
+X-purgate-size: 1660
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -160,8 +161,8 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
@@ -181,111 +182,51 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: C7C9C375016
+X-Rspamd-Queue-Id: 5E69137502C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 31.03.2026 18:32, Oleksii Kurochko wrote:
-> On 3/31/26 5:53 PM, Jan Beulich wrote:
->> On 31.03.2026 17:20, Oleksii Kurochko wrote:
->>> On 3/30/26 5:13 PM, Jan Beulich wrote:
->>>> On 23.03.2026 17:29, Oleksii Kurochko wrote:
->>>>> domain_use_host_layout() is not really architecture-specific, so move it
->>>>> from the Arm header to the common header xen/domain.h and provide a common
->>>>> implementation in xen/common/domain.c. domain_use_host_layout() potentially
->>>>> is needed for x86 [1].
+On 31.03.2026 21:49, Oleksii Kurochko wrote:
+> On 3/31/26 6:32 PM, Oleksii Kurochko wrote:
+>>>>>> @@ -2544,6 +2544,12 @@ void thaw_domains(void)
+>>>>>>    #endif /* CONFIG_SYSTEM_SUSPEND */
+>>>>>> +bool domain_use_host_layout(struct domain *d)
+>>>>>> +{
+>>>>>> +    return is_domain_direct_mapped(d) ||
+>>>>>> +           (paging_mode_translate(d) && is_hardware_domain(d));
+>>>>>> +}
+>>>>>
+>>>>> The placement of paging_mode_translate() doesn't match ...
+>>>>>
+>>>>>> --- a/xen/include/xen/domain.h
+>>>>>> +++ b/xen/include/xen/domain.h
+>>>>>> @@ -62,6 +62,22 @@ void domid_free(domid_t domid);
+>>>>>>    #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
+>>>>>>    #define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
+>>>>>> +/*
+>>>>>> + * Is the auto-translated domain using the host memory layout?
+>>>>>> + *
+>>>>>> + * domain_use_host_layout() is always False for PV guests.
+>>>>>
+>>>>> ... the description of the function.
 >>>>
->>>> No matter that this may indeed be true, ...
->>>>
->>>>> Turn the macro into a function to avoid header dependency issues.
->>>>
->>>> ... this introduces unreachable code on x86, i.e. a Misra rule 2.1 violation.
+>>>> But why the placement should be different?
 >>>
->>> Do we have some deviation tag for such cases when the code temporary
->>> isn't used?
+>>> If you focus on auto-translated, then imo paging_mode_translate()
+>>> better would guard everything.
 >>
->> I'm sorry, but it'll take me about as long as you to find out.
+>> Then it make sense to do in the following way:
+>>   bool domain_use_host_layout(struct domain *d)
+>>   {
+>> -    return is_domain_direct_mapped(d) ||
+>> -           (paging_mode_translate(d) && is_hardware_domain(d));
+>> +    return paging_mode_translate(d) &&
+>> +           (is_domain_direct_mapped(d) || is_hardware_domain(d));
+>>   }
 > 
-> Sure, I will take a look. I just thought that maybe you have a solution 
-> already just in your head.
+> This is not really correct.
 
-Well, I do: Don't make this an out-of-line function.
-
->   I wonder
->> about "temporary" though: Do you have a clear understanding as to when
->> that will change?
-> 
-> No, I don't. As Stefano mentioned they will need this function one day. 
-> Another option we could use ifndef x86 or ifdef DOM0_LESS and then when 
-> someone will really need it on x86, this ifdef will be dropped. I don't 
-> know if it is better solution.
-> 
-> It seems like the best one solution will still make a try to make 
-> declare this function as macro.
-
-Or an inline function. There's nothing ...
-
->>>>> @@ -2544,6 +2544,12 @@ void thaw_domains(void)
->>>>>    
->>>>>    #endif /* CONFIG_SYSTEM_SUSPEND */
->>>>>    
->>>>> +bool domain_use_host_layout(struct domain *d)
->>>>> +{
->>>>> +    return is_domain_direct_mapped(d) ||
->>>>> +           (paging_mode_translate(d) && is_hardware_domain(d));
->>>>> +}
->>>>
->>>> The placement of paging_mode_translate() doesn't match ...
->>>>
->>>>> --- a/xen/include/xen/domain.h
->>>>> +++ b/xen/include/xen/domain.h
->>>>> @@ -62,6 +62,22 @@ void domid_free(domid_t domid);
->>>>>    #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
->>>>>    #define is_domain_using_staticmem(d) ((d)->cdf & CDF_staticmem)
->>>>>    
->>>>> +/*
->>>>> + * Is the auto-translated domain using the host memory layout?
->>>>> + *
->>>>> + * domain_use_host_layout() is always False for PV guests.
->>>>
->>>> ... the description of the function.
->>>
->>> But why the placement should be different?
->>
->> If you focus on auto-translated, then imo paging_mode_translate()
->> better would guard everything.
-> 
-> Then it make sense to do in the following way:
->   bool domain_use_host_layout(struct domain *d)
->   {
-> -    return is_domain_direct_mapped(d) ||
-> -           (paging_mode_translate(d) && is_hardware_domain(d));
-> +    return paging_mode_translate(d) &&
-> +           (is_domain_direct_mapped(d) || is_hardware_domain(d));
->   }
-
-... in here which clearly speaks against doing so. And yes, this is what I
-was asking for (with the function parameter also suitably constified).
-
->>> So if domain_use_host_layout() is fully depends on
->>> paging_mode_translate(d) && is_hardware_domain(d) and for which
->>> paging_mode_translate() is false if it is PV guest.
->>> Thereby domain_use_host_layout() is false too.
->>>
->>>>
->>>> Further, the first sentence above suggests the caller has to check
->>>> paging_mode_translate() before calling, which as per the implementation
->>>> clearly isn't the intention.
->>>
->>> Sorry, I don't follow you here.
->>
->> By starting the comment with "Is the auto-translated domain using", you
->> imply the caller checked for that aspect already. At least the way I
->> read it.
-> 
-> My understanding was that it is an explanation what function is checking.
-
-For that you'd want to omit "auto-translated" from the first sentence, imo.
+... because of ... ? (After all, then the comment isn't correct either.)
 
 Jan
 
