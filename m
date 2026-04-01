@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GKD0NIjUzGlFWwYAu9opvQ
+	id yIlMJYnUzGlFWwYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 10:17:12 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 10:17:13 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 580E737696D
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 10:17:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1269883.1558786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D869376974
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 10:17:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1269884.1558794 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7ql3-0006Bg-Mm; Wed, 01 Apr 2026 08:17:01 +0000
+	id 1w7ql6-0006TF-1w; Wed, 01 Apr 2026 08:17:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1269883.1558786; Wed, 01 Apr 2026 08:17:01 +0000
+Received: by outflank-mailman (output) from mailman id 1269884.1558794; Wed, 01 Apr 2026 08:17:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7ql3-00068e-Iw; Wed, 01 Apr 2026 08:17:01 +0000
-Received: by outflank-mailman (input) for mailman id 1269883;
- Wed, 01 Apr 2026 08:17:00 +0000
+	id 1w7ql5-0006QL-S7; Wed, 01 Apr 2026 08:17:03 +0000
+Received: by outflank-mailman (input) for mailman id 1269884;
+ Wed, 01 Apr 2026 08:17:02 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <fengchengwen@huawei.com>) id 1w7ql2-0005zU-2l
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 08:17:00 +0000
+ (envelope-from <fengchengwen@huawei.com>) id 1w7ql4-0006G2-24
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 08:17:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7ql1-003Uhh-Dx
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 10:16:59 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1w7ql3-00Ez7l-Dz
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 10:17:01 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <fengchengwen@huawei.com>)
- id 69ccd472-5cb7-0a2a0a5109dd-0a2a4501cb74-24
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 10:16:59 +0200
-Received: from [113.46.200.220] (helo=canpmsgout05.his.huawei.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69ccd476-2eae-0a2a0a5409dd-0a2a4506e4f2-26
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 10:17:00 +0200
+Received: from [113.46.200.217] (helo=canpmsgout02.his.huawei.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <fengchengwen@huawei.com>)
- id 69ccd478-6fc9-0a2a45010019-712ec8dc105a-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 10:16:58 +0200
-Received: from mail.maildlp.com (unknown [172.19.162.144])
- by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4flyPG5v0Lz12LJb;
- Wed,  1 Apr 2026 16:11:30 +0800 (CST)
+ id 69ccd478-0df0-0a2a45060019-712ec8d97316-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 10:16:59 +0200
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+ by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4flyNW224WzcZxn;
+ Wed,  1 Apr 2026 16:10:51 +0800 (CST)
 Received: from kwepemk500009.china.huawei.com (unknown [7.202.194.94])
- by mail.maildlp.com (Postfix) with ESMTPS id 225C340538;
- Wed,  1 Apr 2026 16:16:54 +0800 (CST)
+ by mail.maildlp.com (Postfix) with ESMTPS id BC54C203B2;
+ Wed,  1 Apr 2026 16:16:55 +0800 (CST)
 Received: from localhost.localdomain (10.50.163.32) by
  kwepemk500009.china.huawei.com (7.202.194.94) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Wed, 1 Apr 2026 16:16:52 +0800
+ 15.2.1544.11; Wed, 1 Apr 2026 16:16:53 +0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,10 +62,10 @@ Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=dkim header.
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=/bDHT0vostLWviBcH0LGnrUXN/7+wtQhJKC8xvlaZ1w=;
-	b=I76d5QkgB06G/X/wos41vVtgRQepXQMzc5bCmZUjG61rsMvqBqMxjyiWV13dSj/N0vARfMR+I
-	TIpo+e0ZZ/G2PYTKyAK+od5BAX4GJxZnIIHvWHRL80Tl9ySzHsM4ReaK/m6QcwIZU7CfdK4/sr4
-	hK45B5FTc4PW95z2AIDDxVc=
+	bh=ANvjKw/V+x/xgnK84bsEKs2slfuc72S2wtUZ6Ltd7AU=;
+	b=gAhZczIG65dC2yh+2aADvwVAp++19t5FyGF4ZzbeSLiKAirv37HFkiFuy/A1lWBlr5MpsM4Ut
+	Lnhv1/GDpeZI1w99rpED8gfQlunCOXOTiUjR1yp3rBy23eO6v/Ttq6ZYJsfo+fm/1xgWotDODEb
+	YV0jLZY6lrTP0qpYzZ1KoG4=
 From: Chengwen Feng <fengchengwen@huawei.com>
 To: Bjorn Helgaas <bhelgaas@google.com>, Catalin Marinas
 	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, "Rafael J .
@@ -99,9 +99,9 @@ CC: Jonathan Corbet <corbet@lwn.net>, WANG Xuerui <kernel@xen0n.name>, Thomas
 	<xen-devel@lists.xenproject.org>, <linux-acpi@vger.kernel.org>,
 	<linux-perf-users@vger.kernel.org>, <stable@vger.kernel.org>,
 	<x86@kernel.org>
-Subject: [PATCH RESEND v10 4/8] x86/acpi: Add acpi_get_cpu_uid() for unified ACPI CPU UID retrieval
-Date: Wed, 1 Apr 2026 16:16:36 +0800
-Message-ID: <20260401081640.26875-5-fengchengwen@huawei.com>
+Subject: [PATCH RESEND v10 5/8] ACPI: Centralize acpi_get_cpu_uid() declaration in include/linux/acpi.h
+Date: Wed, 1 Apr 2026 16:16:37 +0800
+Message-ID: <20260401081640.26875-6-fengchengwen@huawei.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260401081640.26875-1-fengchengwen@huawei.com>
 References: <20260401081640.26875-1-fengchengwen@huawei.com>
@@ -110,9 +110,9 @@ Content-Type: text/plain
 X-Originating-IP: [10.50.163.32]
 X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
  kwepemk500009.china.huawei.com (7.202.194.94)
-X-purgate-ID: tlsNG-d62444/1775031419-14EE3185-4F85D5D4/0/0
+X-purgate-ID: tlsNG-16d1c6/1775031420-5F93A3D8-FD3324E8/0/0
 X-purgate-type: clean
-X-purgate-size: 3673
+X-purgate-size: 3353
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
@@ -136,7 +136,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FROM_NEQ_ENVFROM(0.00)[fengchengwen@huawei.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -147,118 +147,97 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: 580E737696D
+X-Rspamd-Queue-Id: 4D869376974
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-As a step towards unifying the interface for retrieving ACPI CPU UID
-across architectures, introduce a new function acpi_get_cpu_uid() for
-x86. While at it, add input validation to make the code more robust.
-
-Update Xen-related code to use acpi_get_cpu_uid() instead of the legacy
-cpu_acpi_id() function, and remove the now-unused cpu_acpi_id() to clean
-up redundant code.
+Centralize acpi_get_cpu_uid() in include/linux/acpi.h (global scope) and
+remove arch-specific declarations from arm64/loongarch/riscv/x86
+asm/acpi.h. This unifies the interface across architectures and
+simplifies maintenance by eliminating duplicate prototypes.
 
 Cc: stable@vger.kernel.org
 Signed-off-by: Chengwen Feng <fengchengwen@huawei.com>
 Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
 ---
- arch/x86/include/asm/acpi.h  |  2 ++
- arch/x86/include/asm/cpu.h   |  1 -
- arch/x86/include/asm/smp.h   |  1 -
- arch/x86/kernel/acpi/boot.c  | 20 ++++++++++++++++++++
- arch/x86/xen/enlighten_hvm.c |  5 +++--
- 5 files changed, 25 insertions(+), 4 deletions(-)
+ arch/arm64/include/asm/acpi.h     |  1 -
+ arch/loongarch/include/asm/acpi.h |  1 -
+ arch/riscv/include/asm/acpi.h     |  1 -
+ arch/x86/include/asm/acpi.h       |  2 --
+ include/linux/acpi.h              | 11 +++++++++++
+ 5 files changed, 11 insertions(+), 5 deletions(-)
 
+diff --git a/arch/arm64/include/asm/acpi.h b/arch/arm64/include/asm/acpi.h
+index 2219a3301e72..bdb0ecf95b5c 100644
+--- a/arch/arm64/include/asm/acpi.h
++++ b/arch/arm64/include/asm/acpi.h
+@@ -118,7 +118,6 @@ static inline u32 get_acpi_id_for_cpu(unsigned int cpu)
+ {
+ 	return	acpi_cpu_get_madt_gicc(cpu)->uid;
+ }
+-int acpi_get_cpu_uid(unsigned int cpu, u32 *uid);
+ int get_cpu_for_acpi_id(u32 uid);
+ 
+ static inline void arch_fix_phys_package_id(int num, u32 slot) { }
+diff --git a/arch/loongarch/include/asm/acpi.h b/arch/loongarch/include/asm/acpi.h
+index 8bb101b4557e..7376840fa9f7 100644
+--- a/arch/loongarch/include/asm/acpi.h
++++ b/arch/loongarch/include/asm/acpi.h
+@@ -44,7 +44,6 @@ static inline u32 get_acpi_id_for_cpu(unsigned int cpu)
+ {
+ 	return acpi_core_pic[cpu_logical_map(cpu)].processor_id;
+ }
+-int acpi_get_cpu_uid(unsigned int cpu, u32 *uid);
+ 
+ #endif /* !CONFIG_ACPI */
+ 
+diff --git a/arch/riscv/include/asm/acpi.h b/arch/riscv/include/asm/acpi.h
+index f3520cc85af3..6e13695120bc 100644
+--- a/arch/riscv/include/asm/acpi.h
++++ b/arch/riscv/include/asm/acpi.h
+@@ -65,7 +65,6 @@ static inline u32 get_acpi_id_for_cpu(int cpu)
+ {
+ 	return acpi_cpu_get_madt_rintc(cpu)->uid;
+ }
+-int acpi_get_cpu_uid(unsigned int cpu, u32 *uid);
+ 
+ int acpi_get_riscv_isa(struct acpi_table_header *table,
+ 		       unsigned int cpu, const char **isa);
 diff --git a/arch/x86/include/asm/acpi.h b/arch/x86/include/asm/acpi.h
-index a03aa6f999d1..92b5c27c4fea 100644
+index 92b5c27c4fea..a03aa6f999d1 100644
 --- a/arch/x86/include/asm/acpi.h
 +++ b/arch/x86/include/asm/acpi.h
-@@ -157,6 +157,8 @@ static inline bool acpi_has_cpu_in_madt(void)
+@@ -157,8 +157,6 @@ static inline bool acpi_has_cpu_in_madt(void)
  	return !!acpi_lapic;
  }
  
-+int acpi_get_cpu_uid(unsigned int cpu, u32 *uid);
-+
+-int acpi_get_cpu_uid(unsigned int cpu, u32 *uid);
+-
  #define ACPI_HAVE_ARCH_SET_ROOT_POINTER
  static __always_inline void acpi_arch_set_root_pointer(u64 addr)
  {
-diff --git a/arch/x86/include/asm/cpu.h b/arch/x86/include/asm/cpu.h
-index ad235dda1ded..57a0786dfd75 100644
---- a/arch/x86/include/asm/cpu.h
-+++ b/arch/x86/include/asm/cpu.h
-@@ -11,7 +11,6 @@
+diff --git a/include/linux/acpi.h b/include/linux/acpi.h
+index 4d2f0bed7a06..74a73f0e5944 100644
+--- a/include/linux/acpi.h
++++ b/include/linux/acpi.h
+@@ -324,6 +324,17 @@ int acpi_unmap_cpu(int cpu);
  
- #ifndef CONFIG_SMP
- #define cpu_physical_id(cpu)			boot_cpu_physical_apicid
--#define cpu_acpi_id(cpu)			0
- #endif /* CONFIG_SMP */
+ acpi_handle acpi_get_processor_handle(int cpu);
  
- #ifdef CONFIG_HOTPLUG_CPU
-diff --git a/arch/x86/include/asm/smp.h b/arch/x86/include/asm/smp.h
-index 84951572ab81..05d1d479b4cf 100644
---- a/arch/x86/include/asm/smp.h
-+++ b/arch/x86/include/asm/smp.h
-@@ -130,7 +130,6 @@ __visible void smp_call_function_interrupt(struct pt_regs *regs);
- __visible void smp_call_function_single_interrupt(struct pt_regs *r);
- 
- #define cpu_physical_id(cpu)	per_cpu(x86_cpu_to_apicid, cpu)
--#define cpu_acpi_id(cpu)	per_cpu(x86_cpu_to_acpiid, cpu)
- 
- /*
-  * This function is needed by all SMP systems. It must _always_ be valid
-diff --git a/arch/x86/kernel/acpi/boot.c b/arch/x86/kernel/acpi/boot.c
-index a3f2fb1fea1b..ceba24f65ae3 100644
---- a/arch/x86/kernel/acpi/boot.c
-+++ b/arch/x86/kernel/acpi/boot.c
-@@ -1848,3 +1848,23 @@ void __iomem * (*acpi_os_ioremap)(acpi_physical_address phys, acpi_size size) =
- 	x86_acpi_os_ioremap;
- EXPORT_SYMBOL_GPL(acpi_os_ioremap);
++/**
++ * acpi_get_cpu_uid() - Get ACPI Processor UID of from MADT table
++ * @cpu: Logical CPU number (0-based)
++ * @uid: Pointer to store ACPI Processor UID
++ *
++ * Return: 0 on success (ACPI Processor ID stored in *uid);
++ *         -EINVAL if CPU number is invalid or out of range;
++ *         -ENODEV if ACPI Processor UID for the CPU is not found.
++ */
++int acpi_get_cpu_uid(unsigned int cpu, u32 *uid);
++
+ #ifdef CONFIG_ACPI_HOTPLUG_IOAPIC
+ int acpi_get_ioapic_id(acpi_handle handle, u32 gsi_base, u64 *phys_addr);
  #endif
-+
-+int acpi_get_cpu_uid(unsigned int cpu, u32 *uid)
-+{
-+	u32 acpi_id;
-+
-+	if (cpu >= nr_cpu_ids)
-+		return -EINVAL;
-+
-+#ifdef CONFIG_SMP
-+	acpi_id = per_cpu(x86_cpu_to_acpiid, cpu);
-+	if (acpi_id == CPU_ACPIID_INVALID)
-+		return -ENODEV;
-+#else
-+	acpi_id = 0;
-+#endif
-+
-+	*uid = acpi_id;
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(acpi_get_cpu_uid);
-diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
-index fe57ff85d004..2f9fa27e5a3c 100644
---- a/arch/x86/xen/enlighten_hvm.c
-+++ b/arch/x86/xen/enlighten_hvm.c
-@@ -151,6 +151,7 @@ static void xen_hvm_crash_shutdown(struct pt_regs *regs)
- 
- static int xen_cpu_up_prepare_hvm(unsigned int cpu)
- {
-+	u32 cpu_uid;
- 	int rc = 0;
- 
- 	/*
-@@ -161,8 +162,8 @@ static int xen_cpu_up_prepare_hvm(unsigned int cpu)
- 	 */
- 	xen_uninit_lock_cpu(cpu);
- 
--	if (cpu_acpi_id(cpu) != CPU_ACPIID_INVALID)
--		per_cpu(xen_vcpu_id, cpu) = cpu_acpi_id(cpu);
-+	if (acpi_get_cpu_uid(cpu, &cpu_uid) == 0)
-+		per_cpu(xen_vcpu_id, cpu) = cpu_uid;
- 	else
- 		per_cpu(xen_vcpu_id, cpu) = cpu;
- 	xen_vcpu_setup(cpu);
 -- 
 2.17.1
 
