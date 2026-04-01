@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id INeWOujczGm0XAYAu9opvQ
+	id 8LEsBGDezGm0XAYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 10:52:56 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 10:59:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62A113771A0
-	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 10:52:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1270025.1558857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76FA337731A
+	for <lists+xen-devel@lfdr.de>; Wed, 01 Apr 2026 10:59:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1270041.1558866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7rJZ-0001Hx-U7; Wed, 01 Apr 2026 08:52:41 +0000
+	id 1w7rPa-0002NA-K5; Wed, 01 Apr 2026 08:58:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1270025.1558857; Wed, 01 Apr 2026 08:52:41 +0000
+Received: by outflank-mailman (output) from mailman id 1270041.1558866; Wed, 01 Apr 2026 08:58:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w7rJZ-0001G7-RW; Wed, 01 Apr 2026 08:52:41 +0000
-Received: by outflank-mailman (input) for mailman id 1270025;
- Wed, 01 Apr 2026 08:52:40 +0000
+	id 1w7rPa-0002Ky-Gy; Wed, 01 Apr 2026 08:58:54 +0000
+Received: by outflank-mailman (input) for mailman id 1270041;
+ Wed, 01 Apr 2026 08:58:53 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w7rJY-0001G1-3D
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 08:52:40 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w7rPZ-0002Ks-C2
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 08:58:53 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w7rJV-000i76-Ti
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 10:52:39 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1w7rPY-00AbGc-OC
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2026 10:58:52 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69ccdcd4-2eae-0a2a0a5409dd-0a2a450496b4-18
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 10:52:39 +0200
-Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69ccde3e-5cb7-0a2a0a5109dd-0a2a450592b2-32
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 10:58:52 +0200
+Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69ccdcd7-bb33-0a2a45040019-d155802ad1a9-3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 10:52:39 +0200
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4853e1ce427so81441185e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 01:52:39 -0700 (PDT)
+ id 69ccde4c-3760-0a2a45050019-d1558029e56b-3
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 10:58:52 +0200
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-48334ee0aeaso59269905e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 01:58:52 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43cf21e265fsm35928746f8f.1.2026.04.01.01.52.38
+ 5b1f17b1804b1-4887eb5aff3sm141709225e9.15.2026.04.01.01.58.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 01:52:38 -0700 (PDT)
+ Wed, 01 Apr 2026 01:58:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,45 +58,45 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775033559; x=1775638359; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775033932; x=1775638732; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=F3XXD4t95daMHDkYOgQ1NzCXzD43KbIUUcpMFxOeYh0=;
-        b=St99gkx5OwrnMcihlB+EGbEakxMd9FoiWuNRO6si1Ulsm5oQEk8QqKfG6wPqgpmIh6
-         2w6I4L+nV2S2XJ8kca3Yjd+KFpzmnxIoJ7sljY04Hu4bnnS7ooYnLRLvl4qn/oJHO52M
-         ot0MwbCp93uZ+vn4Gpx2F5y/3oPAMgPJGaV92rl48v0qQpawpb3YUtQWuyxOoH7l3bky
-         j4jgSNFKRRKjJ95xSvJpM6hNdUK6Qd5Y7UqOmfOEcNiU8i9OLf4cPreN4zXqdCJ2CNw6
-         XaDxZ0gNTj2XAWC1RRL3Vf5FpxkXm5aE6QrOE7q9INW6LY28sOXDIkRSCSy+bcbqUh1H
-         A0aA==
+        bh=KqAYsIV/DmBO32oQbhpURcICJKetiNIvgP+vIH+N9uw=;
+        b=g4FsSdm/+EWJ3EGEU1IB/JupduM7XC5KrzwaICzXKqKtDlP8ZXc0Uc4y3iS/NqGwZ2
+         kMzswUWRwSVwKLPoUp6Gt6UXogXN4ZWim2AAct9koaeah2XAQlIzSy0ajBz+2hWbA5IG
+         uzLV5j4POhwmpZl9oNygX4hx28aVqweI2GC1BQru57rz+Q6rO8bREGopi8yMnxOOmF8M
+         3ikjFD2++X9fDb/t3ez3RvwYPPOz7LvU1XSLC4cdAl55DHx0IDWJg11+0cECq5ePGoAs
+         x/NZv7TLLoDTa5THa/HkKAHeEyfeVPhRXLxyTUu9XML9jsj9jn+/NySo2IrM8kQHzaAk
+         TQSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775033559; x=1775638359;
+        d=1e100.net; s=20251104; t=1775033932; x=1775638732;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=F3XXD4t95daMHDkYOgQ1NzCXzD43KbIUUcpMFxOeYh0=;
-        b=nyXKXGNMjERc864nZu1KlfEW/8GNCdAwzxxegJSPNUSBBdj4qF/4yMv2Ux9LwnbO/S
-         kVUfI/XHDfoctDS71cKBIbwEyOKOyHtF0fZ1QgZ0qJMPrTK6hdgeZkdh4UHx2aA0GDr7
-         Ny1/I1IApRz2ZB6k+m67j9g6t8dH/GrKuvDQzkGsPWHly+TJlSr35cFdDXhcA10ixU11
-         7auuf8chXqsURvAEuebHiJjSH/42zZwroZejTKInhodcxuoBYebr+KtDoZDfN+2ybwnl
-         D8iPB6fjFuoih/AUgrPRvIYKN+8EDJoWmeR9pMdo+bkKjDRpmu1cyJIUIN2FtdKXRcMG
-         mOhg==
-X-Gm-Message-State: AOJu0YxR8eMUN7ztxD8t5zIyLsLxh+Jp6/usms4VLMPwn+xuZn3bl5zT
-	j333w1B7BuvMRunjfJXbPvLA0RnbqSfUnDF+I8m4HPTKi9e+ImVLdlW7oyZX3QS0q+FLcUCf+iL
-	cjh3GNQ==
-X-Gm-Gg: ATEYQzzyom4EpJnegD9JwtQa4ulBLdbCRuY5E1sB0jnsxH5j6eAojzdIRQm0J8VibaX
-	aMpOrsSfLau6WYBuA9ELgu+tir9QsF3SVxo5Unyhwlw8MaGVlSWDGoXrnBAPtRzyW8OuMwD4wmQ
-	7rjASKfTUQU1OQ4Va3vOOT9FAxuoJQx3dgTAy54KsPy0pog1kHB9zT04Nn8/ZY3pOOuOTGY9nAV
-	SReKguSX6tQr6SUwMwoE9BBD217taVVY7lnsr2ycLeGLvXEUPYaNGQpCQj27EqMaNBffi4s7xLD
-	xkokYqR+vVG4+P32jDGwgY1TAbPDJbiMgin6G9gncRcC6fvIhXkoLlCglJVIOCEsqbuFxGryMXn
-	ftNOMscI3+eusUN/2EcZWIaK3sq38FC7QdeTKwytf7DoHvhVnHJj81HnseF7Y1KR/lT1i8zRhdT
-	FSfMrrr1qvy9luY8a3TFX/Ybaxgxi+yOFGbLHtDPw1nWla7BJWCukmAk9D8JJIuIgWhtjbGbWb9
-	BvMIcvfnlvTzyE=
-X-Received: by 2002:a05:6000:4201:b0:43c:f66e:f24 with SMTP id ffacd0b85a97d-43d150d5c14mr5405444f8f.35.1775033558669;
-        Wed, 01 Apr 2026 01:52:38 -0700 (PDT)
-Message-ID: <090b8b8f-141b-4a24-92eb-879c0a0c73e1@suse.com>
-Date: Wed, 1 Apr 2026 10:52:37 +0200
+        bh=KqAYsIV/DmBO32oQbhpURcICJKetiNIvgP+vIH+N9uw=;
+        b=qN5UWlDl2GoyVXDMbrPvcxirfCGtuefsmGJ1jCHlukPwG2aZadlhNOujaNv0TBSX1N
+         S074H1tZFkriHP0OhAXc1hw0ebKKwLIecMW4PUs/glMCx92QYhmjqDBT4NfhI7c/9iZx
+         pwch1dGqCXmvVUuKRQsdiJP6hBRnqjPzSfD374mgD40TjXzWscvwexmgozdFStnyXjgN
+         qfJ9IfVia3Kz+9fF3ciBi7KcksEp/ssA+04jBvKyjz0YulEOsIhuy1dH1gDuT1f7yXJI
+         eyE8B53snLDxiQxjqYRP1YqJNI0ObbkjtR9sws0GuKgHzfPe1QEZ/qzArslE0q3CjcIm
+         j6hg==
+X-Gm-Message-State: AOJu0Ywd2xLfnPriru1Os4N7V2rEHKkbw5N0ARz7/0jM8d+CI7qSvEdS
+	2NvlwOQRah8k2wcl1z77J3H3Xshs803PQ/sn8BBv9+2I/jIMqw6wfuGUFHVBesXLna7pEOOMfTL
+	fDXxRUQ==
+X-Gm-Gg: ATEYQzw2/ZhslH2DpgAWtojm+kHO6+e93adKQGG+ZddBhSs1H8A8ryQJwiDIBOG1Ird
+	ZswoI/eDgqxVnxdWzAQCq4oBcv9pQBYIPpBkVQnP87NlGgFSJKw1jr2/vKAkKJZiaOIGhXbHaBo
+	5rOtJIPK9sWoZjO4G7jStmcMAunVmRWjimNmJ3XB29JRyqomzq1B40b+AAMGWa8++UXPzUlbtCz
+	WKMUbQMT9gZ3+9ajERIBmMZh2Uh1/aObXhoMjJ+ZqdqmdAGQQmxDNA14ZUo+T1hNghMF58snGjz
+	uS5rWP+gROIjuhxH+O/r0q5bwDcXt0QdiPV46W6pbZbXZFoR0ni1ckTTEdMSLjKFljR6wbXTtsC
+	X29I401TT30N23Ycwtyk4rJYYRMMhDhtEro/75ean9+tTjyEwfnwA+83TSB99Ximw3+ltnL5/KK
+	1Nv8DniitLe4Ve96/PEGYQM4m2ToXwdgVc4CP1e+JAs2IlclytxBbhsRbXmWZwungPgtSIXtUsn
+	nBDkoc1VYAM2/0=
+X-Received: by 2002:a05:600c:a4c:b0:487:1c2:6a56 with SMTP id 5b1f17b1804b1-4888356844bmr45338675e9.3.1775033931802;
+        Wed, 01 Apr 2026 01:58:51 -0700 (PDT)
+Message-ID: <69782260-4d92-4979-b624-9c5c6e9a4cba@suse.com>
+Date: Wed, 1 Apr 2026 10:58:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: IOMMU faults after S3
@@ -132,27 +132,27 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 In-Reply-To: <e8bbaae2-5cff-4549-9f27-fbbda7346f60@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ebf023/1775033559-B253B51B-6B86F8DE/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-c201ff/1775033932-2312596F-A91EE571/0/0
 X-purgate-type: clean
-X-purgate-size: 3397
+X-purgate-size: 759
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid,gitlab.com:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
 	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCPT_COUNT_TWO(0.00)[2];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -167,56 +167,11 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 62A113771A0
+X-Rspamd-Queue-Id: 76FA337731A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 01.04.2026 09:14, Jan Beulich wrote:
-> On 27.03.2026 11:19, Marek Marczykowski-Górecki wrote:
->> I noticed that on some systems, there are a lot of IOMMU faults after
->> S3. I can see it also on a laptop with MTL, but it affects also the ADL
->> gitlab runner:
->>
->>     https://gitlab.com/xen-project/hardware/xen/-/jobs/13661033722
->>     (XEN) [   37.201160] [VT-D]DMAR:[DMA Write] Request device [0000:00:1e.6] fault addr 0
->>     (XEN) [   37.201164] [VT-D]DMAR: reason 02 - Present bit in context entry is clear
->>     (XEN) [   37.202332] [VT-D]DMAR:[DMA Write] Request device [0000:00:1e.6] fault addr 0
->>     (XEN) [   37.202339] [VT-D]DMAR: reason 02 - Present bit in context entry is clear
->>
->> Interestingly, the 0000:00:1e.6 device is not even listed by lspci.
->>
->> The issue is present only on staging, not staging-4.21.
->>
->> Bisect says:
->>
->> 5ec93b2f19ff8873fca65d38c1164b0a56d3898b is the first bad commit
->> commit 5ec93b2f19ff8873fca65d38c1164b0a56d3898b
->> Author: Jan Beulich <jbeulich@suse.com>
->> Date:   Thu Jan 22 14:13:35 2026 +0100
->>
->>     x86/HPET: drop .set_affinity hook
-> 
-> Looking into this, I find several things I can't quite understand (yet).
-> First there is
-> 
-> (XEN) [000000456c0fe39f] Disabling HPET for being unreliable
-> 
-> which looks to only affect clocksource selection, but not use as
-> broadcast source for CPU-idle management. (This may be an independent
-> issue.)
-> 
-> Then there is
-> 
-> (XEN) [    2.760248] HPET: 8 timers usable for broadcast (8 total)
-> 
-> which should only occur on ARAT-incapable systems. That should only be
-> older hardware. (On my much older Skylake I don't see this line, for
-> example.) What does CPUID leaf 6 have on this system? Sadly xen-cpuid
-> is purely featureset based, and hence doesn't expose info about that
-> leaf. The leaf also isn't exposed to domains, so CPUID output in Dom0
-> isn't useful to look at either. It would need to be CPUID output on a
-> bare metal kernel.
-> 
 > Further I suspect the fingered commit may only have uncovered an issue
 > elsewhere. I don't think we clear any context table entries during
 > suspend or resume. Hence in
@@ -225,23 +180,12 @@ On 01.04.2026 09:14, Jan Beulich wrote:
 > (XEN) [   20.554819] [VT-D]DMAR: reason 02 - Present bit in context entry is clear
 > 
 > the latter message is confusing me.
-> 
-> The fault address being zero may, otoh, be a hint of hpet_msi_write()
-> never having run post-resume. Which may be the connection to the
-> dropping of hpet_msi_set_affinity(), as that did call that function.
 
-There clearly is an issue with the handling of the max_cstate variable,
-but I expect you don't use xenpm to limit usable C-states (there clearly
-is no respective command line option in the log you referenced)?
+Actually, it makes sense. The address being outside of the interrupt remap
+MMIO window (FEExxxxx), it's subject to DMA translation. Yet the HPET has no
+entry in the context table; only its IRQs have entries in the intremap table.
 
-From what the log has, I conclude hpet_broadcast_resume() is called.
-Question is whether it does what we want it to. Could you instrument it
-some, so we have confirmation that it is called, and we also know whether
-__hpet_setup_msi_irq() is not only called on all 8 channels, but also
-succeeds there? (If it failed, I suppose we better wouldn't set
-HPET_TN_FSB and/or HPET_TN_ENABLE.) If, however, it succeeds, I couldn't
-explain why the fault address would be reported as 0, as then we
-definitely must have written HPET_Tn_ROUTE.
+So it really all looks to be boiling down to missing HPET_Tn_ROUTE writes.
 
 Jan
 
