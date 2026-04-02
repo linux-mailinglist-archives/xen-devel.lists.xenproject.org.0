@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6AS0HV1JzmknmgYAu9opvQ
+	id +UDeKl9JzmlRmgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 12:47:57 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 12:47:59 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21CEB387DA2
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 12:47:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1271526.1559687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D6F6387DCD
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 12:47:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1271527.1559692 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8FaJ-0005R8-LC; Thu, 02 Apr 2026 10:47:35 +0000
+	id 1w8FaJ-0005U0-To; Thu, 02 Apr 2026 10:47:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1271526.1559687; Thu, 02 Apr 2026 10:47:35 +0000
+Received: by outflank-mailman (output) from mailman id 1271527.1559692; Thu, 02 Apr 2026 10:47:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8FaJ-0005N0-DE; Thu, 02 Apr 2026 10:47:35 +0000
-Received: by outflank-mailman (input) for mailman id 1271526;
- Thu, 02 Apr 2026 10:47:33 +0000
+	id 1w8FaJ-0005R1-Lf; Thu, 02 Apr 2026 10:47:35 +0000
+Received: by outflank-mailman (input) for mailman id 1271527;
+ Thu, 02 Apr 2026 10:47:34 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1w8FaH-0004vd-62
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 10:47:33 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1w8FaI-0005CF-8o
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 10:47:34 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w8FaG-00Ej0u-IP
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 12:47:32 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1w8FaH-009qA7-Lh
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 12:47:33 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <xakep.amatop@gmail.com>)
- id 69ce493d-2eae-0a2a0a5409dd-0a2a450be30c-20
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 12:47:32 +0200
-Received: from [209.85.208.46] (helo=mail-ed1-f46.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69ce4932-e002-0a2a0a5209dd-0a2a450cd128-40
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 12:47:33 +0200
+Received: from [209.85.218.49] (helo=mail-ej1-f49.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <xakep.amatop@gmail.com>)
- id 69ce4944-bca8-0a2a450b0019-d155d02eadcf-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 12:47:32 +0200
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-65c4152313fso1006449a12.1
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 03:47:32 -0700 (PDT)
+ id 69ce4945-f40c-0a2a450c0019-d155da31ad3b-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 12:47:33 +0200
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-b932fe2e1a7so84945766b.1
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 03:47:33 -0700 (PDT)
 Received: from EPUAKYIW02F7.. ([45.12.26.38]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9c3d028955sm76392366b.61.2026.04.02.03.47.30
+ a640c23a62f3a-b9c3d028955sm76392366b.61.2026.04.02.03.47.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Apr 2026 03:47:30 -0700 (PDT)
+ Thu, 02 Apr 2026 03:47:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,40 +57,40 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775126852; x=1775731652; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1775126853; x=1775731653; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Tm0K7gfsRpBFVrENvrubslPphiODpeHwAJ+aZ5FZLuc=;
-        b=HFYnDybK1UebaDizt6eZk5c/4D3c+mPJXXC6AbSiViBhbZG5antkrqTM9lJUkh3ZGD
-         neu0txMAzrokKucmGjVz+qCAU5oPoVFHgNO00ejSQdWPWJabozdybnkBVIc+46aD7KFc
-         kRN//S1D/0uVC/AZywsm+MRozj4nEvC6ZWn2eLHKsxOcb9Zn0c4bmO9as6M5B9h/oQBF
-         rRpkkoiBCRplhwBANaIGo64VeXvlgUNXvAVtelFJKnWwuQBXOqNpN6tnE6O3U+mdY6EI
-         KhjTUuYCukQ3n5RW1ViuDMKzTrgp0O9s5zbe2xbOkeX+jiXzzsVJLmH/yub36nb/uTS9
-         HsXg==
+        bh=E2TvwCSkEBb4iQcEjFfj1UiUN2JVsCuECcxIJOnRftY=;
+        b=jRdeBmAlBkJ9d7HKYA1KQjZt6GAJcV3zxI57FF1bfypMIDOk29Q5LUJt+GfHevhl/6
+         nmYuLiLgDgR8X8ULKWPvEfzvmF6DKwe2ZT4nIdBDkFZIoieRkoR9ucEPset5ELOvn1J8
+         PG7OHn8JPTd/jpwwnTLek4JuFDGWcSDEtI8/6DbM/5vFckkImvfT8snl07grHHz0IdgQ
+         EyYUCz8b4MAJXIAH34lcwhi9mgzouWpabG9gf504rCzJAKAmVaQODJqZztl1XTQsw5eY
+         Wvu9WotApk4fkEXZQkrdtjQb+4kuDf7zj6LKQti6G/+Oe2mWQKdP1WDOEx/u2kwCK+X7
+         28uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775126852; x=1775731652;
+        d=1e100.net; s=20251104; t=1775126853; x=1775731653;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Tm0K7gfsRpBFVrENvrubslPphiODpeHwAJ+aZ5FZLuc=;
-        b=FlAzh8urW6VtDmpUrQ4PIzbfsw8YxRyC0u6808JRJo0JZGDcST3X4FB7izpnd+OmP/
-         tiOZCgyqtnvKfHJOyqjhbNVn/lbYJ78gBTIfaA61mDLrowRxq6xdMwOFxrPoRLFX2Dyg
-         elqeBC2BIIut92kS1thTWZHx1ZuLUqf4byz6zMdm0ga5hCicFvbeg4jS21GJG3wMLit4
-         ymhdeg3ihvs1Q7n3HxSxkMpxJTSatorShWhTdLHZ+xtEt/IRkXWIxcWtQXebiTtvyGF4
-         0h1NIDhLNxMvAle+UsvRJyiR5gHC3B9D8zRnsqYJEWz9kWNpS3bwiPABDWAjoQYBgpUL
-         B4LQ==
-X-Gm-Message-State: AOJu0YzDWOsv2om6poBHpliKwqJTujoEwPNq4xMV2CKCqe+YSVi8QIqC
-	LFb7k1TuJj1v1+V4uuTldCLy/tE1Vgp04NiIXl10ear8U+Tscf5G2oBxUiG9sQ7N
-X-Gm-Gg: ATEYQzzCqvHHryOIyPZlc0Jc1lLNhDkoNbLXIVl4tt/uNWAe/oKqOHEln4HuWOI1wSn
-	pt1bxl6S5bJqKjj34NMcPejC8+HHwi6Z9gcgiMR65aYnEsm5x3M66jN2Ala/+m1vyrVve7QMvEa
-	7047Hj6qnT/Gu3oAKcItDtMkRmDLrYfAn+SU+E7FDSumGInnIeeXiQgfmYyBT72zSbGdVj2pqQ+
-	rhFUPRsc0lhZIIcoX3SzPteQp6C09i2HwBe7k5kcDL9H9+VMcZrNsDHtEsItdyVWFGC9vIuPItn
-	YPBXQAxKr6B9w65gMSVMeNMGIq1ZWwFMQ/92fVCG68nTnYuEKzpq9LBkmG+myCfgUZ8mMjjav6A
-	kgM/UwEtUrcz3peVq7q2w44UkeDSC2Jwf8y+b+YkcLhzAZVFZm4BduBKcLE/1PHYYgKs0/As3+V
-	neZpebnNnjMkaT+Tx/A9yMlPX1RQ==
-X-Received: by 2002:a17:906:6207:b0:b98:3d79:40c1 with SMTP id a640c23a62f3a-b9c13b0a2f2mr479932666b.33.1775126851612;
-        Thu, 02 Apr 2026 03:47:31 -0700 (PDT)
+        bh=E2TvwCSkEBb4iQcEjFfj1UiUN2JVsCuECcxIJOnRftY=;
+        b=pk/Sn5S8f6f5Jd+huJEvjmV3RQOfPwM8QPuWz/TjmcxY7vudxAIg3omq8jqiPQTzd4
+         VgMn8VnTBQVOAmspVxwgvZVcfpkaGFVKwp88tAn0rj8DnnbEZxdLOSaWvfaVjduk0yHn
+         KEDJ6HCHbZpB34hNVQYM910V65Y3tP9Yl0CSyoucGlQlWfI00EmiVZlDFvRDIMSa1pi6
+         zM232UvmnSBCqQEcDiTy6urGUqug2GvSowLDruMXXRaBTFDie+a4LIcZ1SbEtjGK2vDk
+         p6k2DRAOBDvbrIx1oVM/OfiAE5Klo8BpX22tm/SZJlhjZBF+ImjyNZzl5AiPnVeioR4L
+         cFkg==
+X-Gm-Message-State: AOJu0YympHjsWZAXTF0MdK44dh71T/9up9yYNAMPEDQmQxYoJFu890aP
+	qXcAI3r0Vij825KpUHSILdSvesOCwfAOaIe3LvKrFueQ9UItrzcADuVNX+crkz6G
+X-Gm-Gg: ATEYQzzH20BgsMnl/jrvpnZDX9bb31UjHPdYvZk4bTq2i7uhIDxQlRyotzUwPlhDfXY
+	Hpur2q8uikY71dLmP1ENLv1YKoqxmlVUISHpNYq1yTRQ9yTkqUp4NCEmLMOLrStGeZFbeWRR3GI
+	hblxwoVGL4N0EA0bVpQtfDI5I0j4PE3xsTEUM6YQc/tS33Zpbq+4BMh2/Saww2CvBRIBztmzyFs
+	fJKl7JZ1p08CUm6AeTJlRMKNKAXG+c9Kj3TUVbfF0cGl9LZqkG49t53KNd//rwAcupUn+cp28un
+	mDH3CNZEBZS4UP123Ste+aX8DZsv58abKiJkTEd9kr6KC0xmfhlcKYXFgXfKOjZCoAO/b0MK9hk
+	dU6Q26bjiQrbPAzb0Nlx9XM7BZHhVlAcIizkTHYNTK13qX7dvL2kmQQi4ZMAM+okwdcB/TYxHYz
+	BfGe0Dp9K1M0w5VTEg2c9/MxSWIQ==
+X-Received: by 2002:a17:906:ba84:b0:b94:2648:4672 with SMTP id a640c23a62f3a-b9c13b7bdbemr484677266b.41.1775126852622;
+        Thu, 02 Apr 2026 03:47:32 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Mykola Kvach <mykola_kvach@epam.com>,
@@ -100,40 +100,40 @@ Cc: Mykola Kvach <mykola_kvach@epam.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v8 06/13] xen/arm: tee: keep init_tee_secondary() for hotplug and resume
-Date: Thu,  2 Apr 2026 13:45:07 +0300
-Message-ID: <666917e8e8e435640c272c19908f412c315b2dc6.1775125380.git.mykola_kvach@epam.com>
+Subject: [PATCH v8 07/13] xen/arm: ffa: fix notification SRI across CPU hotplug/suspend
+Date: Thu,  2 Apr 2026 13:45:08 +0300
+Message-ID: <a977e246d1d0a32a6618efd1385ad178779c2a61.1775125380.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1775125380.git.mykola_kvach@epam.com>
 References: <cover.1775125380.git.mykola_kvach@epam.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1775126852-1714D2A1-F11E7718/0/0
+X-purgate-ID: tlsNG-d25034/1775126853-81557A3D-86A1C0B4/0/0
 X-purgate-type: clean
-X-purgate-size: 892
+X-purgate-size: 3590
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:volodymyr_babchuk@epam.com,m:bertrand.marquis@arm.com,m:jens.wiklander@linaro.org,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[gmail.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,epam.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email,epam.com:mid];
 	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -144,35 +144,124 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 21CEB387DA2
+X-Rspamd-Queue-Id: 5D6F6387DCD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Mykola Kvach <mykola_kvach@epam.com>
 
-init_tee_secondary() was marked __init and freed after boot. Calling it
-from the CPU hotplug/resume path then executed discarded code, which
-could crash Xen. Drop __init so the TEE mediator secondary init can run
-safely on hotplugged and resumed CPUs.
+The FF-A notification SRI interrupt handler was not correctly tied to
+CPU hotplug and suspend/resume. As a result, CPUs going offline and
+back online could end up with stale or missing handlers, breaking
+delivery of FF-A notifications.
 
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 ---
- xen/arch/arm/tee/tee.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ xen/arch/arm/tee/ffa_notif.c | 63 ++++++++++++++++++++++++++++--------
+ 1 file changed, 50 insertions(+), 13 deletions(-)
 
-diff --git a/xen/arch/arm/tee/tee.c b/xen/arch/arm/tee/tee.c
-index 8501443c8e..00e561fc78 100644
---- a/xen/arch/arm/tee/tee.c
-+++ b/xen/arch/arm/tee/tee.c
-@@ -128,7 +128,7 @@ static int __init tee_init(void)
+diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
+index 186e726412..513c399594 100644
+--- a/xen/arch/arm/tee/ffa_notif.c
++++ b/xen/arch/arm/tee/ffa_notif.c
+@@ -360,10 +360,28 @@ static int32_t ffa_notification_bitmap_destroy(uint16_t vm_id)
+     return ffa_simple_call(FFA_NOTIFICATION_BITMAP_DESTROY, vm_id, 0, 0, 0);
+ }
  
- presmp_initcall(tee_init);
- 
--void __init init_tee_secondary(void)
-+void init_tee_secondary(void)
+-void ffa_notif_init_interrupt(void)
++static DEFINE_PER_CPU_READ_MOSTLY(struct irqaction, sri_irq);
++
++static int request_sri_irq(void)
  {
-     if ( cur_mediator && cur_mediator->ops->init_secondary )
-         cur_mediator->ops->init_secondary();
+     int ret;
++    struct irqaction *sri_action = &this_cpu(sri_irq);
++
++    sri_action->name = "FF-A notif";
++    sri_action->handler = notif_irq_handler;
++    sri_action->dev_id = NULL;
++    sri_action->free_on_release = 0;
++
++    ret = setup_irq(notif_sri_irq, 0, sri_action);
++    if ( ret )
++        printk(XENLOG_ERR "ffa: setup_irq irq %u failed: error %d\n",
++               notif_sri_irq, ret);
+ 
++    return ret;
++}
++
++void ffa_notif_init_interrupt(void)
++{
+     if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI )
+     {
+         /*
+@@ -376,14 +394,36 @@ void ffa_notif_init_interrupt(void)
+          * pending, while the SPMC in the secure world will not notice that
+          * the interrupt was lost.
+          */
+-        ret = request_irq(notif_sri_irq, 0, notif_irq_handler, "FF-A notif",
+-                          NULL);
+-        if ( ret )
+-            printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n",
+-                   notif_sri_irq, ret);
++        request_sri_irq();
+     }
+ }
+ 
++static void deinit_ffa_notif_interrupt(void)
++{
++    if ( fw_notif_enabled && notif_sri_irq < NR_GIC_SGI )
++        release_irq(notif_sri_irq, NULL);
++}
++
++static int cpu_ffa_notif_callback(struct notifier_block *nfb,
++                                  unsigned long action,
++                                  void *hcpu)
++{
++    switch ( action )
++    {
++    case CPU_DYING:
++        deinit_ffa_notif_interrupt();
++        break;
++    default:
++        break;
++    }
++
++    return NOTIFY_DONE;
++}
++
++static struct notifier_block cpu_ffa_notif_nfb = {
++    .notifier_call = cpu_ffa_notif_callback,
++};
++
+ void ffa_notif_init(void)
+ {
+     const struct arm_smccc_1_2_regs arg = {
+@@ -392,7 +432,6 @@ void ffa_notif_init(void)
+     };
+     struct arm_smccc_1_2_regs resp;
+     unsigned int irq;
+-    int ret;
+ 
+     /* Only enable fw notification if all ABIs we need are supported */
+     if ( ffa_fw_supports_fid(FFA_NOTIFICATION_BITMAP_CREATE) &&
+@@ -408,13 +447,11 @@ void ffa_notif_init(void)
+         notif_sri_irq = irq;
+         if ( irq >= NR_GIC_SGI )
+             irq_set_type(irq, IRQ_TYPE_EDGE_RISING);
+-        ret = request_irq(irq, 0, notif_irq_handler, "FF-A notif", NULL);
+-        if ( ret )
+-        {
+-            printk(XENLOG_ERR "ffa: request_irq irq %u failed: error %d\n",
+-                   irq, ret);
++
++        if ( request_sri_irq() )
+             return;
+-        }
++
++        register_cpu_notifier(&cpu_ffa_notif_nfb);
+         fw_notif_enabled = true;
+     }
+ }
 -- 
 2.43.0
 
