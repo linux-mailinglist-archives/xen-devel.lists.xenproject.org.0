@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SCFZJI5EzmlQmQYAu9opvQ
+	id IPIBHmdEzmlQmQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 12:27:26 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 12:26:47 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C77B6387B68
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 12:27:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1271473.1559613 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7A7A387B49
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 12:26:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1271499.1559623 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8EuB-0006ax-ST; Thu, 02 Apr 2026 10:04:03 +0000
+	id 1w8FFd-000187-In; Thu, 02 Apr 2026 10:26:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1271473.1559613; Thu, 02 Apr 2026 10:04:03 +0000
+Received: by outflank-mailman (output) from mailman id 1271499.1559623; Thu, 02 Apr 2026 10:26:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8EuB-0006Ye-Pi; Thu, 02 Apr 2026 10:04:03 +0000
-Received: by outflank-mailman (input) for mailman id 1271473;
- Thu, 02 Apr 2026 10:04:02 +0000
+	id 1w8FFd-00015z-G8; Thu, 02 Apr 2026 10:26:13 +0000
+Received: by outflank-mailman (input) for mailman id 1271499;
+ Thu, 02 Apr 2026 10:26:11 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w8EuA-0006YY-R5
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 10:04:02 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w8FFb-00015s-HM
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 10:26:11 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w8EuA-00F5J2-36
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 12:04:02 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1w8FFa-008YTB-QH
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 12:26:10 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69ce3f11-2eae-0a2a0a5409dd-0a2a450b8f02-2
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 12:04:01 +0200
-Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69ce442e-2eae-0a2a0a5409dd-0a2a4502b270-44
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 12:26:10 +0200
+Received: from [209.85.221.51] (helo=mail-wr1-f51.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69ce3f11-bca8-0a2a450b0019-d1558034d03d-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 12:04:01 +0200
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-48702d51cd0so8413765e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 03:04:01 -0700 (PDT)
+ id 69ce438d-42fa-0a2a45020019-d155dd33f094-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 12:23:10 +0200
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-43d23305225so290635f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 03:23:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4888a626100sm104214135e9.1.2026.04.02.03.04.00
+ ffacd0b85a97d-43d1e4f5016sm7290604f8f.33.2026.04.02.03.23.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Apr 2026 03:04:00 -0700 (PDT)
+ Thu, 02 Apr 2026 03:23:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,60 +58,57 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775124241; x=1775729041; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775125389; x=1775730189; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sEeSB2R8YMZaBkK4fuhIHo275MsR8H9lYYg2WvMdxmA=;
-        b=fIU5SMFnsp/Km/TL3ZI7s9/JIhG02SHouOjCKgVj1GLBkoygYvNNOItkNztGOLl3zi
-         UQQ/snKJ/R923r9ynRSfdSSucuYG7SLco0ND4w2w9YCfYS6ng3c0SXy7JBZnTLC/QD10
-         HPvDLfieShtlLThfm0Cf5D8HDRt7KDo2d2Sl++daRq9ssWK7nGYMVM5asBQm1bqYpMEP
-         soUkjxNTrMyb/G3fSyG1/Y65nLXyVenI66sM40ocr5hEt2IyyXXK9//oXzPnRCXWibcw
-         6XmPgI8aKd/lCK7fs6GPpcE2RW3sxPtoB4MiwaRVtXy7ZrFjQ+dh+kewUb14ULAr+STa
-         T99w==
+        bh=TByXgXUf0dXmY7eeNlUMjgWwY1dliRPveG2PCCoifUQ=;
+        b=R8DTZ8J/CBD6TOwPi8Lvyy1rUB4gC0M3ApxUxKDeb5ZQHpfdzQ09wgDVi0np79wNMx
+         SC0p0UigZ57Z5BlX7BF0nQoKL4xC4LSiCCFu+DdtH5sWckWU2h7mUzTXwYyR24nn6bcH
+         LBqDlxHj9o+V6LxpLajz6dafrE/GtHK4JGYUS31TZ0dJDLUnyLUEeZyvz9xRWX6f1pve
+         mgGdrHqk+5bf4KR8HpeBwydH9tLEuLtn2p+DWok9qployoHiqb/anRj6DE8X+oOGWYxr
+         29u25kJSXktj6noJt/h5/SPxPdQvupKy+vTo7+eMPlDb0ktSv0ob5M6t+QvZ5UKWFGP1
+         3uaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775124241; x=1775729041;
+        d=1e100.net; s=20251104; t=1775125389; x=1775730189;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sEeSB2R8YMZaBkK4fuhIHo275MsR8H9lYYg2WvMdxmA=;
-        b=Mq/bCGBG0sdxxG5fLlaJVSTzgJXH63++4r/79QRp1Lr+S+KOl4kVSi2KW4qbXpSnME
-         wYmlbCO20LRPwI6/f8gD6gdQwEOt2mfJY4N0yCE3dsEAnpVy2EHI6OBCgRp8KvGmgCBZ
-         isiU/FB85cSuD3KD/l8fJn2ahaLDgHzczZguNwaS3EMn10e7ZxO+PY6xDW3dDWs4czLa
-         GrRjV21/zqid+UaJA4eKyN4/ZqFYr7AIk5ps9zl5j8gfOlNGWzAXucMYVQFESZnDWlju
-         7VVamkFxxWiNwxerJWlc/IHZbWra/VRuN/yS30NV/YMptJKXVLSX9Z/2QjBr12JnM66W
-         41EQ==
-X-Forwarded-Encrypted: i=1; AJvYcCV+p1eEAPPtyXGWOP08UHM7zS1+Q9+ofNqYhpjVGFbA1zUbQy7pwIe9owZ6Kj8ecmewM7Vke4qwzj8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzoxnQZcI7rRAGSQWMrcRy3jz0d0cV6vd8bkg04KKviAK2dyK9i
-	Hb7jXt2P9PZjEiwL5w2uFm03i6dEHXO9DvqE7hx/I82QRi7vW2anEvY/yM4SHWi/hg==
-X-Gm-Gg: ATEYQzzDMrsP91ADaXwnykv3xxiKMqtI9Uft6HlOxdXtehWP5vnqi+whXLjfo5CMQRv
-	+W/aFxAl5094OX3cpf1ZDUnBusGrWspIWTxk754n7vkK35xnb1zMAxpFui7amr8RNyfL7GGO7+M
-	zu9p5uBYMzdWxs1DEuKFzCqbHFnpDmwXOzDCjGrt0XEC79z0vryJSqRd7sz4SuZAm1xJhtxoF0A
-	ek6L/I5udA4zEUBN8eiczOireD0ZFyNw3+dk9oxQwzZ2BqQKbzrDP6YcObnlCe+QTHuD3Q+CsdL
-	OuVM6mtrD57eMe6BlQYvqOCBvnys0vldMtQ3Us10NUhT3LKUiAKgNX0/dKXpRG5IUnspJcwAqbI
-	NUARKCdnfTR4UgWa98m14tdvPC4mEjBpk9wfcvsY923rcGgTy26wLpyQbi3N/nUYIX05+KntWCn
-	qx3ORl0QHmtAIjTshIR9Ir84/lcJOLT4NK2CVTHzqEeYxgcy7zt7G/TH7tAcTF++8htqC07kz+O
-	eHxV+A7PAWhNKL5teV12s714g==
-X-Received: by 2002:a05:600c:354a:b0:487:1fb4:7e1 with SMTP id 5b1f17b1804b1-48883592076mr113085105e9.22.1775124241164;
-        Thu, 02 Apr 2026 03:04:01 -0700 (PDT)
-Message-ID: <09fed304-685c-46a9-9159-72baa1721224@suse.com>
-Date: Thu, 2 Apr 2026 12:03:59 +0200
+        bh=TByXgXUf0dXmY7eeNlUMjgWwY1dliRPveG2PCCoifUQ=;
+        b=q8T3uLcI2Ps/VC1z53QdVzqEi/9SHvNCOs0rp/0tjubJ5nksr7Q84wz7DTxY+txPYV
+         YaO3GGxFbtkZwx+FE3SJKA5U6rkOIA5KzBDKl/VK9pyS1FV6JAy3pncwPEsIzvCp685y
+         QwLflgxjg+8cmNj9z1kkP9HJzdlXVBpjp6fAPfTXxgfp50VkZZ+2WZhjI196IcwjRdpc
+         jfXN2Dzp0Y8cMOJZ4kJOPfq6Vktut17b3rSEUsqTbEa+oXDiBQv6kqnOIdSnxH+3d+Py
+         edb3VBFnhMseLSikN2+l8nnqesrVLWtJsWttia3HdU4IIQYDjXxjPqwwydP5QoiIti41
+         Mj2A==
+X-Gm-Message-State: AOJu0YxXChRj3tzGjHDNDhIcRMt5Y0MEiXNgO93zeSgtil7E7H/6lxMo
+	HUW7n65pW7O4AM+QGJb/llXepLLeVa5t1ER+rUq+ID/CmsbDN2yDv32MIk/6xorGoA==
+X-Gm-Gg: AeBDiev3Zbw69GX4GeV8mAOFofnN2Cqp1b5qAGpmgAo7lEE4Lp4Q0v5NNYe2RwEn21m
+	7ooGSYGrsrDsFZFIaLHOd7TgIEaYPdn2h2LUpCw3XdsBoibu7P627NPdicmX8wngXjXIPZli8ZD
+	kpr0aI2Z0u6JodchBiF1WYi3naPsMsAk79iJNOrLkGsgmNqLR1Q8QbacRS4RAQUZg+HT3MCZxft
+	QK5CJlKApg4u/BzRj/LP1TAXhdJ1gh5ZwcN4czl16hYXS6qteqOnTxSSve1vkEmqmcfTmPpPttk
+	qx0q6lfhVQfHNoQVBPqABujVn0livJqsGgKZCEddhUZCA7Uir+jiIfqjYTZjRST0G2Ka0L/5FWD
+	R4RIu1mHd1rkHgvP2GDdZhtVeRzNHih64r6cGDX7ntXBj2e6JFI1YpVnKnSWT7CAxwFb1O/PlwX
+	2xwz1E0iU2n6LJjyCEvltsdlizXE6VVzK7oUuGCR8aacPoblGT8v8Zwy8rQ3AguCgCpptX8yh7x
+	Wbo80zr0o8QPrw=
+X-Received: by 2002:a5d:584a:0:b0:43b:5672:efe with SMTP id ffacd0b85a97d-43d150488e1mr13247849f8f.9.1775125389460;
+        Thu, 02 Apr 2026 03:23:09 -0700 (PDT)
+Message-ID: <0b284c32-4dd3-4663-881b-834c47070328@suse.com>
+Date: Thu, 2 Apr 2026 12:23:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 13/27] xen/riscv: add basic VGEIN management for AIA
- guests
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <f358325514c91c540e0edf992ca51414a1964fe0.1773157782.git.oleksii.kurochko@gmail.com>
+Subject: Re: IOMMU faults after S3
+To: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <acZZmGXIJlmN3KGm@mail-itl>
+ <e8bbaae2-5cff-4549-9f27-fbbda7346f60@suse.com>
+ <090b8b8f-141b-4a24-92eb-879c0a0c73e1@suse.com> <ac2nibFfvGm_7elv@mail-itl>
+ <933a3e95-33d2-4e20-a4d5-2d8b20c2da7f@suse.com> <ac4kCq87SQSc6ddV@mail-itl>
+ <aa6910f1-365a-4534-b229-9730b3aede02@suse.com>
+ <97bfb299-a465-48a3-a036-f217de683c2c@suse.com> <ac46HK_KiUaLdK4N@mail-itl>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -137,30 +134,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f358325514c91c540e0edf992ca51414a1964fe0.1773157782.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <ac46HK_KiUaLdK4N@mail-itl>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1775124241-F49CB2A1-DDE6FB35/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-720697/1775125390-AEF21CD1-987A9CF9/13/0
 X-purgate-type: clean
-X-purgate-size: 7886
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-purgate-size: 3288
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -168,266 +163,95 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
+	RCPT_COUNT_THREE(0.00)[4];
 	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: C77B6387B68
+X-Rspamd-Queue-Id: D7A7A387B49
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 10.03.2026 18:08, Oleksii Kurochko wrote:
-> AIA provides a hardware-accelerated mechanism for delivering external
-> interrupts to domains via "guest interrupt files" located in IMSIC.
-> A single physical hart can implement multiple such files (up to GEILEN),
-> allowing several virtual harts to receive interrupts directly from hardware
+On 02.04.2026 11:42, Marek Marczykowski-Górecki wrote:
+> On Thu, Apr 02, 2026 at 10:47:53AM +0200, Jan Beulich wrote:
+>> On 02.04.2026 10:39, Jan Beulich wrote:
+>>> On 02.04.2026 10:08, Marek Marczykowski-Górecki wrote:
+>>>> The xl dmesg output (from MTL this time):
+>>>>
+>>>>     (XEN) [  123.477511] Entering ACPI S3 state.
+>>>>     (XEN) [18446743903.571842] _disable_pit_irq:2649: using_pit: 0, cpu_has_apic: 1
+>>>>     (XEN) [18446743903.571856] _disable_pit_irq:2659: cpuidle_using_deep_cstate: 1, boot_cpu_has(X86_FEATURE_XEN_ARAT): 0
+>>>
+>>> XEN_ARAT being off is the one odd aspect here. That'll want tracking down
+>>> separately. As per xen-cpuid output (below) ARAT is available.
+>>
+>> For this you may want to also add logging to intel_init_arat(): Since opt_arat
+>> can be false only due to command line option use, it can only be the function
+>> not being called (which looks impossible on plain staging code), or cpu_has_arat
+>> being false despite the xen-cpuid output that you supplied earlier (inexplicable
+>> as well, at least for now).
+> 
+> Hm, I got this:
+> 
+>     (XEN) [   11.403340] intel_init_arat:674: opt_arat: 1, cpu_has_arat: 0
+> 
+> so, cpu_has_arat=0 ...
+> next lines are those, to hint when it happened in the boot process:
+> 
+>     (XEN) [   11.409754] mwait-idle: MWAIT substates: 0x11112020
+>     (XEN) [   11.416130] mwait-idle: v0.4.1 model 0xaa
+>     (XEN) [   11.422396] mwait-idle: lapic_timer_reliable_states 0x2
+> 
+> Looks like calculate_host_policy() runs much later...
 
-Isn't use of such an optimization coming prematurely? Shouldn't this series
-focus on getting basic functionality in place?
+Hmm, yes, and that's the problem. The reason I don't see this is that a newer
+version of [1] has this
 
-> --- a/xen/arch/riscv/aia.c
-> +++ b/xen/arch/riscv/aia.c
-> @@ -1,11 +1,24 @@
->  /* SPDX-License-Identifier: GPL-2.0-only */
->  
-> +#include <xen/bitmap.h>
->  #include <xen/errno.h>
->  #include <xen/init.h>
->  #include <xen/sections.h>
-> +#include <xen/sched.h>
-> +#include <xen/spinlock.h>
->  #include <xen/types.h>
-> +#include <xen/xvmalloc.h>
->  
-> +#include <asm/aia.h>
->  #include <asm/cpufeature.h>
-> +#include <asm/csr.h>
-> +#include <asm/current.h>
-> +
-> +/*
-> + * Bitmap for each physical cpus to detect which VS (guest)
-> + * interrupt file id was used.
-> + */
-> +DEFINE_PER_CPU(struct vgein_bmp, vgein_bmp);
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -628,6 +628,8 @@ void identify_cpu(struct cpuinfo_x86 *c)
+ 	}
+ 
+ 	/* Now the feature flags better reflect actual CPU features! */
++	if (c == &boot_cpu_data)
++		calculate_host_policy();
+ 
+ 	xstate_init(c);
+ 
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -384,7 +384,7 @@ void calculate_raw_cpu_policy(void)
+     /* Was already added by probe_cpuid_faulting() */
+ }
+ 
+-static void __init calculate_host_policy(void)
++void __init calculate_host_policy(void)
+ {
+     struct cpu_policy *p = &host_cpu_policy;
+ 
+@@ -959,6 +959,7 @@ static void __init calculate_hvm_def_pol
+ 
+ void __init init_guest_cpu_policies(void)
+ {
++    /* Do this a 2nd time to account for setup_{clear,force}_cpu_cap() uses. */
+     calculate_host_policy();
+ 
+     if ( IS_ENABLED(CONFIG_PV) )
 
-Why can this not be static? All management looks to be in this same file.
+and of course I'm doing my work (and my analysis) with that in place.
 
-> @@ -14,12 +27,109 @@ bool aia_available(void)
->      return is_aia_available;
->  }
->  
-> +int __init vgein_init(unsigned int cpu)
-
-If this needs invoking once per CPU being brought up, it can't be __init.
-
-Also - static?
-
-> +{
-> +    struct vgein_bmp *vgein = &per_cpu(vgein_bmp, cpu);
-> +
-> +    csr_write(CSR_HGEIE, -1UL);
-> +    vgein->geilen = flsl(csr_read(CSR_HGEIE));
-> +    csr_write(CSR_HGEIE, 0);
-> +    if ( vgein->geilen )
-> +        vgein->geilen--;
-
-I don't understand this. The "len" in "geilen" stands for "length", I suppose,
-i.e. the number of bits. Hmm, the spec itself is inconsistent: "The number of
-bits implemented in hgeip and hgeie for guest external interrupts is UNSPECIFIED
-and may be zero. This number is known as GEILEN." This may or may not include
-bit 0 (which is implemented, but r/o zero). Then saying "Hence, if GEILEN is
-nonzero, bits GEILEN:1 shall be writable in ..." suggests 0 isn't included, but
-that's not unambiguous.
-
-Anyway, may I suggest
-
-    vgein->geilen = flsl(csr_read(CSR_HGEIE) >> 1);
-
-instead?
-
-> +    BUG_ON(!vgein->geilen);
-
-You can return (an error, but see the respective remark on the earlier patch),
-no need to crash the system. That return may want to come after the printk()
-below, though.
-
-> +    printk("cpu%d.geilen=%d\n", cpu, vgein->geilen);
-
-As before - %u please with unsigned int.
-
-> +    if ( !vgein->bmp )
-
-Why would this check be needed?
-
-> +    {
-> +        vgein->bmp = xvzalloc_array(unsigned long, BITS_TO_LONGS(vgein->geilen));
-
-With the determination above, isn't BITS_TO_LONGS(vgein->geilen) ==
-BITS_PER_LONG in all cases? Surely you don't mean to runtime-allocate
-space for a single unsigned long? So I wonder is the dimension used
-is wrong.
-
-If it isn't, dynamically allocating the owners array may be more
-useful, as (on RV64) occupies a fixed 512 bytes right now.
-
-> +        if ( !vgein->bmp )
-> +            return -ENOMEM;
-> +    }
-> +
-> +    spin_lock_init(&vgein->lock);
-> +
-> +    return 0;
-> +}
-> +
->  int __init aia_init(void)
->  {
-> +    int rc = 0;
-> +
->      if ( !riscv_isa_extension_available(NULL, RISCV_ISA_EXT_ssaia) )
->          return -ENODEV;
->  
-> +    if ( (rc = vgein_init(0)) )
-> +        return rc;
-> +
->      is_aia_available = true;
-
-Ah, this answers a question of mine on the earlier patch: This boolean
-indicates more than just the extension being available. But why does
-the description there not simply say so? How am I as a reviewer supposed
-to know?
-
-> -    return 0;
-> +    return rc;
-> +}
-> +
-> +unsigned int vgein_assign(struct vcpu *v)
-> +{
-> +    unsigned int vgein_id;
-> +
-
-Seemingly undue blank line.
-
-> +    struct vgein_bmp *vgein_bmp = &per_cpu(vgein_bmp, v->processor);
-> +    unsigned long *bmp = vgein_bmp->bmp;
-> +    unsigned long flags;
-> +
-> +    spin_lock_irqsave(&vgein_bmp->lock, flags);
-> +    vgein_id = bitmap_weight(bmp, vgein_bmp->geilen);
-
-How can the ID to use be the number of bits which are set? This only works
-if all set bits are contiguous at the bottom.
-
-> +    /*
-> +     * All vCPU guest interrupt files are used and we don't support a case
-> +     * when number of vCPU on 1 pCPU is bigger then geilen.
-> +     */
-
-This wants checking in vgein_init() then. CPUs (beyond the boot one)
-violating this should not be brought online.
-
-> +    ASSERT(vgein_id < vgein_bmp->geilen);
-
-What if not bit is available? By asserting, you assume the caller will not
-call here when no ID is available. Yet there is no caller of this function,
-so how can one verify whether this assertion is appropriate?
-
-> +    bitmap_set(bmp, vgein_id, 1);
-
-__set_bit()?
-
-> +    spin_unlock_irqrestore(&vgein_bmp->lock, flags);
-> +
-> +    /*
-> +     * The vgein_id shouldn't be zero, as it will indicate that no guest
-> +     * external interrupt source is selected for VS-level external interrupts
-> +     * according to RISC-V priviliged spec:
-> +     *   8.2.1 Hypervisor Status Register (hstatus) in RISC-V priviliged spec:
-
-Please avoid section numbers in such references. The section of this name
-in the version I'm looking at is 21.2.1.
-
-> +     *   The VGEIN (Virtual Guest External Interrupt Number) field selects
-> +     *   a guest external interrupt source for VS-level external interrupts.
-> +     *   VGEIN is a WLRL field that must be able to hold values between zero
-> +     *   and the maximum guest external interrupt number (known as GEILEN),
-> +     *   inclusive.
-> +     *   When VGEIN=0, no guest external interrupt source is selected for
-> +     *   VS-level external interrupts.
-> +     */
-> +    vgein_id++;
-
-Related to my comment regarding GEILEN, this shouldn't be necessary. Keep
-bits in their natural positions, and simply avoid using bit 0 (either by
-setting it during init and then never clearing it, or by starting the
-scan for clear bits at bit 1).
-
-> +#ifdef VGEIN_DEBUG
-> +    printk("%s: %pv: vgein_id(%u), xen_cpu%d_bmp=%#lx\n",
-> +           __func__, v, vgein_id, v->processor, *bmp);
-> +#endif
-> +
-> +    vcpu_guest_cpu_user_regs(v)->hstatus &= ~HSTATUS_VGEIN;
-> +    vcpu_guest_cpu_user_regs(v)->hstatus |=
-> +        MASK_INSR(vgein_id, HSTATUS_VGEIN);
-
-When is this function going to be invoked? (As before, not knowing this is
-one of the problems with introducing functions with no callers.)
-
-> +    return vgein_id;
-> +}
-> +
-> +void vgein_release(struct vcpu *v, unsigned int vgen_id)
-> +{
-> +    unsigned long flags;
-> +
-
-Another seemingly stray blank line.
-
-> +    struct vgein_bmp *vgein_bmp = &per_cpu(vgein_bmp, v->processor);
-> +
-> +    spin_lock_irqsave(&vgein_bmp->lock, flags);
-> +    bitmap_clear(vgein_bmp->bmp, vgen_id - 1, 1);
-
-__clear_bit()?
-
-> +    spin_unlock_irqrestore(&vgein_bmp->lock, flags);
-> +
-> +#ifdef VGEIN_DEBUG
-> +    printk("%s: vgein_id(%u), xen_cpu%d_bmp=%#lx\n",
-> +           __func__, vgen_id, v->processor, *vgein_bmp->bmp);
-
-I can't spot a difference from the message in vgein_assign(). How is one
-to distinguish the two in a log?
-
-> --- a/xen/arch/riscv/include/asm/aia.h
-> +++ b/xen/arch/riscv/include/asm/aia.h
-> @@ -3,8 +3,26 @@
->  #ifndef ASM__RISCV__AIA_H
->  #define ASM__RISCV__AIA_H
->  
-> +#include <xen/percpu.h>
-> +#include <xen/spinlock.h>
-> +
-> +struct vcpu;
-> +
-> +struct vgein_bmp {
-
-What does the _bmp suffix indicate here? There's ...
-
-> +    unsigned long *bmp;
-
-... a bitmap field, yes, but ...
-
-> +    spinlock_t lock;
-> +    struct vcpu *owners[BITS_PER_LONG];
-> +    unsigned int geilen;
-> +};
-
-... the structure as a whole has quite a bit more.
+I may need to break this out and submit independently, but really the problem
+here is that the containing series has been sitting largely unreviewed (and
+hence not in a position to plausibly re-post) for almost 5 years. Andrew,
+(maybe also Roger) - I'm open to suggestions how to proceed. When your xstate
+cleanup patches were helped to go in ahead of mine, you promised to help mine
+going in afterwards. Yet nothing has happened (and I'm tired of re-submitting
+large pieces of work just for the sake of re-submitting, i.e. without having
+has [sufficient] feedback on the earlier version).
 
 Jan
+
+[1] https://lists.xen.org/archives/html/xen-devel/2021-04/msg01336.html
 
