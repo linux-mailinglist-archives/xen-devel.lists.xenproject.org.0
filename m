@@ -2,51 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iFUcOOm3zmmTpgYAu9opvQ
+	id p785LsL2zmnqsAYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 20:39:37 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 03 Apr 2026 01:07:46 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4151738D437
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 20:39:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1272334.1560051 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6A0138EF66
+	for <lists+xen-devel@lfdr.de>; Fri, 03 Apr 2026 01:07:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1272433.1560061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8MwC-0000SF-G2; Thu, 02 Apr 2026 18:38:40 +0000
+	id 1w8R7W-0005Nc-BP; Thu, 02 Apr 2026 23:06:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1272334.1560051; Thu, 02 Apr 2026 18:38:40 +0000
+Received: by outflank-mailman (output) from mailman id 1272433.1560061; Thu, 02 Apr 2026 23:06:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8MwC-0000Qo-DK; Thu, 02 Apr 2026 18:38:40 +0000
-Received: by outflank-mailman (input) for mailman id 1272334;
- Thu, 02 Apr 2026 18:38:39 +0000
+	id 1w8R7W-0005LY-8o; Thu, 02 Apr 2026 23:06:38 +0000
+Received: by outflank-mailman (input) for mailman id 1272433;
+ Thu, 02 Apr 2026 23:06:37 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Oleksandr_Tyshchenko@epam.com>) id 1w8MwA-0000Qa-PX
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 18:38:38 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1w8R7U-0005LS-Lq
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 23:06:37 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w8MwA-002vpY-5y
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 20:38:38 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1w8R7T-007pBR-07
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2026 01:06:35 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Oleksandr_Tyshchenko@epam.com>)
- id 69ceb7ae-5cb7-0a2a0a5109dd-0a2a4509c00e-0
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 20:38:38 +0200
-Received: from [52.101.83.140]
- (helo=GVXPR05CU001.outbound.protection.outlook.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <Oleksandr_Tyshchenko@epam.com>)
- id 69ceb7ad-bf79-0a2a45090019-3465538c3268-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 20:38:38 +0200
-Received: from AM4PR03MB11152.eurprd03.prod.outlook.com
- (2603:10a6:20b:6cc::22) by PAVPR03MB9408.eurprd03.prod.outlook.com
- (2603:10a6:102:307::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Thu, 2 Apr
- 2026 18:38:35 +0000
-Received: from AM4PR03MB11152.eurprd03.prod.outlook.com
- ([fe80::bbbf:5b9b:1043:4510]) by AM4PR03MB11152.eurprd03.prod.outlook.com
- ([fe80::bbbf:5b9b:1043:4510%5]) with mapi id 15.20.9769.016; Thu, 2 Apr 2026
- 18:38:35 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 69cef65d-2eae-0a2a0a5409dd-0a2a450cbe9a-46
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Apr 2026 01:06:34 +0200
+Received: from [103.168.172.159] (helo=fhigh-a8-smtp.messagingengine.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 69cef677-f40c-0a2a450c0019-67a8ac9fd733-3
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Apr 2026 01:06:33 +0200
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 5D23D14003B3;
+ Thu,  2 Apr 2026 19:06:31 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Thu, 02 Apr 2026 19:06:31 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 2 Apr 2026 19:06:30 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,210 +55,301 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W9gIPlxvCp1zTRpNxVpdIIv0hZ1WXGQ2nvOGc1MrtTF2jgq6qQpkf+CTt+1YvXtYAG+wOeiXmeEjSSYq6RoWXEPuy/qZ6iwLp3AIg17ZMXJXLvkn5lCAQ1AvxgEIykHKqNbHo2cl6DxlOJo14QacmNUxNEK4aCqmsjuOAXgiz+R25Wb7V8fXW/pVySNOW7Ag9nCIqeDcfCHyCAUGpZDjuenqiZAhQmVduoS3EQ3Zj7ZUHYaz9zFVcsB7I7NVL4O/h7921roJEdmZoXeP5T+xVLrqjKCZpD9ZrMwvy5m8Ydn29PxBuHeo5uc4O4oJwVnrhnuRFH0lGjgeF1eay5SJtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8yXz7rfI4PY70kRbzfvSDIjlUz3zdZiB6oYj3pBrM1E=;
- b=Qn5aB7yYin9znS1typM4QGLlnIVRnxJk9fslCN4irNDPOjqMVsMpdA4mYcRcpPZJNwGZ5BIz56+7iosJQkYx9FdhuhJ0QUTRppuZDYxL8JP6alouHeaDcCr9X+phGeH2Kmp1aKeIpit0n3fKgUVmHz5iha++NFsWpjYHSaKMz0007eCsuTm9NJNv6seu3ZgzenyTPCY7DLQtJHbIobOzM7uvd4y28ew9fOiU77okN9lHNuUGvZaFvJyVYInFgJL0N9PtwynEemPAAb0oZI+HH7b/jouFjpGPKPINgA+BFva8NMq/EkwaG1ysz1AG4uif5Fg0iObb+8ulJnKDzcUEAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8yXz7rfI4PY70kRbzfvSDIjlUz3zdZiB6oYj3pBrM1E=;
- b=HJZjQlZinVrWadmtCHtqIDba4pKXx+aeAp+4IKeqrfKY7MbERwOZlC6S4tdyUi9i3z5EQw+JATRnzwQv2gc53uHTihlylN8xHn/cVm9pKQlKxqgBaQb11bIU8v9gFyeqNX1J/kPj9I0tsIQ7kstyePdH+J2o9uuBVn9t0GnvrYhnprpa7flvaGtJ3Wtc+b36m+s4XI4bTYCUU1OwEBskufZqG2TtwhY8HPrrKTsOOJT10tqxoI8tlL7tDPjYzMSHceyUEdyTYCZL2gq6aPmmEgV0Gfsfs0rjB7XthMfFiTBtVlY6d1Gmd2D7THfLO3XnTwwADXVyzwP5Mhl0m9zBhA==
-From: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel
-	<michal.orzel@amd.com>, Ayan Kumar Halder <ayankuma@amd.com>
-Subject: [PATCH V2] xen/device-tree: Fix off-by-one bounds check in
- make_memory_node()
-Thread-Topic: [PATCH V2] xen/device-tree: Fix off-by-one bounds check in
- make_memory_node()
-Thread-Index: AQHcws/qu0Bt5vsAHEqQEICE62xUmQ==
-Date: Thu, 2 Apr 2026 18:38:35 +0000
-Message-ID: <20260402183834.3660003-1-oleksandr_tyshchenko@epam.com>
-Accept-Language: en-US, ru-RU
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM4PR03MB11152:EE_|PAVPR03MB9408:EE_
-x-ms-office365-filtering-correlation-id: 664bf726-6373-48e6-7918-08de90e70cad
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|42112799006|376014|38070700021|56012099003|18002099003;
-x-microsoft-antispam-message-info:
- 025p32btwj6Pa9Ga/+IM9sLpqowj2IqS3RgadJn75NnzXnebwI7tgb2Ix/CJRtyQ5y5/vofN0WZAHXDxMAESfS0nrndBJs0ze4vHFYPRYQzmDVmHGOElMfBOuIy3FZYUG+Ro39zrZ6yK2OZdRYVk+ryy+d6IQ6CJt+Ghzt5P82ZCYHFcDGeuLpy6Es2kPijJWwM9d6ws+9CPwzZerHadrcl23ads+V5hDv+onOCVm9kmfJyjE1CdCii6BI2rToPN/OgA+dBjbfj1lU1tFD7jGnzBh5USIsjqU1Iz0EHUrdJZLVNkWToSb4Eujat8F1sAhLrmAxgIC6ej+sOIROjX2C3p5u/nGFZB/6z+F5dwmrp1Dm/rFzHS/ctZlJUzhALYyXPu7GXZ9zJuaHjaz+Kf4EvsHMFYR3Wo2iucvQYr0kWf6bY4O42QxBCqybdF1BDcTUdDFrp2sio+y+uuGO9B1wbT+sh+BhuSsrMytRzE2A+OPwWx/qm8B4cwrruo/R5Eclrl5o5+rXUVtjk8halrdejF5MmWKsjMGXY2Ogv2Rps8rJwH5qFzzbmJpNlkDeGW6S0/37fqDAGPvGj1rAIDF5A6O2TiUoAChpsa5bMHz4GqvKH6PQkFGWR2gohoDLToOyn/2P2fBtfIjojNGLDzuIqZY2DfCfL56mzj+Dqvb5Aecfct4wIyx10YVnDJSg0IoiYohF1IkEcISnpHUo6MDLK5gZWsmS0j/cbydgaRIYg3eDcAyMK6AhPvr0SmefXaewDbPFYwHB8U1m+Ppf1w2wr5X54Rj+d6VxPTDBfBNtI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM4PR03MB11152.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(42112799006)(376014)(38070700021)(56012099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?WrJ56VkQCFUmTQH9aGnbiReplAGa4xxw7mZqKYJUy8mW2dgmqXpB5doQzS?=
- =?iso-8859-1?Q?fTDHTsQNwm0KrWbV6SwCO39477WMxRGGp+xUYmmiNEsJFjEc4a3+c8gpyc?=
- =?iso-8859-1?Q?NwZPxS6ZuKl1ym6SIkIvyL81dxnhajWVCpgY1XOfO55Cpu5GF/1daoFWJ2?=
- =?iso-8859-1?Q?2fqfZAVaGsZQ8aDCm3c8aQpiJiXtMayV4gtzMWYyLGQsr+GVzlmfUzyq38?=
- =?iso-8859-1?Q?LDqj5rfZsQiyDaneXSV3QaVBdizYwT7FPQ/AR9B2vi6ozWEEz5LPEyUDC2?=
- =?iso-8859-1?Q?TVfT8r5hNjl9v2eyxr82l8GkP9a5OtmTCHU+QeR2dCv0u7V0hv3r2K7Ti4?=
- =?iso-8859-1?Q?YtYY3w9QWqEiAsS+UVdkEJZdU4VG3Og8s5u8epgSGVScnpgAZfwy5FVpxw?=
- =?iso-8859-1?Q?EwBTeaqOTA7kRwjTCcJ5ccw2iXtBFJkqad/91qG59Kbm+PYZyFFKTktYmE?=
- =?iso-8859-1?Q?aok6XXq7fuV0nE4e+9ddAn0a3Qly/yJuJ0h8zutnjQ4og7BCw1SUlP9RO8?=
- =?iso-8859-1?Q?NJvWTZNFEfJWeT3Zh+4qL/NggTJAK5jv0u5pm9Aj8Qb1LG5VdADWWa3o1Z?=
- =?iso-8859-1?Q?odc+1aOk3olavkOKxQE4QHHf2lHYczJyjYSo5NS4+3KGB0zD4fMyIpT14P?=
- =?iso-8859-1?Q?QWVRFBNFDs10oVXkqpicXMwaDpZkhoP4KYcHj0WTSI6DP6bmUGe5qubAc9?=
- =?iso-8859-1?Q?Jp/KjXokwJMm66KhQ90JLjc1PDnwfUA6aPPnog5Q2KJmejnPOZG69oxLed?=
- =?iso-8859-1?Q?SZAS+EOFvbvcCn/Ockxk46Vnf+X7OED3Nyd7LCuiJGhcyiktAOO6f+33Od?=
- =?iso-8859-1?Q?MQTKwL/17lNfO75TqJ7866e6Jg7e+8/Qq1bP6AeDKhSXDo5lI07AhLx26H?=
- =?iso-8859-1?Q?DnBotQdEY8rhcTYPVKJgQTe40u6LpzK4+xNUr5bA16qkG8p5iDt693pys5?=
- =?iso-8859-1?Q?GiCnMkGkNbC7Z6V4Sjax46IbsZ8L6HygIGDtE9zszZCBTev0F4fG/purdQ?=
- =?iso-8859-1?Q?eo09ih8Ftr1P7w8u+dQSyytsebQMVJ5MLy2ZFGzhcIWzb6mRA+cn8A/Xkm?=
- =?iso-8859-1?Q?+RM4pc2ehyc6F2PKvx5gYQfeO9rzKhSumbd200Iz2RbJPnUnAOic3+5MSJ?=
- =?iso-8859-1?Q?9sdfg48IUCa83QHP62d2S99hQau8GWERjYuAFnKrMrJQKdBh4euH/NK02H?=
- =?iso-8859-1?Q?smlqbnHci4ZmiGNMrtSacEizOtHuFmiBpr6fMU4gIZukt6PHqi+EA+aYMZ?=
- =?iso-8859-1?Q?TViVCovRc5s4E6MAdPd9yjL3RZPyyJVemL4LR3gKiS4NrD/oRuGJrDxDWd?=
- =?iso-8859-1?Q?ghxEO+qygTjq/sqTBLNAhlmecKtfyasZsUE0vT3eGQsmlOvEg0vvbDMct9?=
- =?iso-8859-1?Q?Ukxy4HcT4qBKiK5CQmsXbQ1WmHV/8vda7oYhHbOiFoneb7YRM13X3bKpSW?=
- =?iso-8859-1?Q?mh3NUN6NN23gwxCrsInH1vqLKwNt+5E2GJsVrqldrnWTW2BwkL1AHeN7YO?=
- =?iso-8859-1?Q?dNmHixNr77kamUhDStjzQzYd2aI0a2ecauHtJrE4q7p3XvxZMziZnrUxh7?=
- =?iso-8859-1?Q?aPvjFb/Zv35TEriwW1/FuHTBehMQeRaMrg6MUC87jDslrQBcCykEUyiR3l?=
- =?iso-8859-1?Q?nYsV4OTIk0HEbhmrzIDkmerxIpAVQ2XcX1aK66ndmGcFvuHvekBuR+mIJN?=
- =?iso-8859-1?Q?JepyygjnF0FxnrqtZvhMkBzpwdDx/nwBvRoQZM2gVhkaWa3jsd+1NmuLiu?=
- =?iso-8859-1?Q?kPm0yzhl01AqjIKmg7J0dxnomNNbAYNKfAitiHbGWM6sl+AbTai2DXM9EC?=
- =?iso-8859-1?Q?vkRwf3hK5aFjfPEuVTrbCGExtjC4IJ8=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fm1 header.d=invisiblethingslab.com header.i="@invisiblethingslab.com" header.h="Cc:Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=fm2 header.d=messagingengine.com header.i="@messagingengine.com" header.h="Cc:Content-Type:Date:Feedback-ID:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To:X-ME-Proxy:X-ME-Sender"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1775171191;
+	 x=1775257591; bh=X+clZ5enQvBxtYJdPEKxn/+Re5Vq6l3RFjkF4cyvR4g=; b=
+	ZESAzYbcrUvnFJKk/B9Uk5SjgMtqdNkonBA6XQDKuLd8ivKTAf5/04NnHW3h0kZO
+	rLnWqloDCGPy1xKg6KZ3x+mMX4aekxBHPqFcfHPojIee1Lg50SPnCYROKzCRjx9w
+	9tZxJNgMT589BD38l1zNnU7ocIuMqHn3ekPP0vAypn61RI+btDwdvRtLxftZ/g2l
+	jZjkcJDLW3hfU/yu5Eo4uQC2aK3HsaP7nkYf3ecDjfOaD8IvtJq9yRBd1eUqc5Zg
+	Tc5KFpj3ggag1MNJK+pYew9rdUpRxLPGrcXMaHygWCdgsCFleqci7S+rS6hyHLXe
+	amEXj55otP36A2HMHS0SJQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1775171191; x=1775257591; bh=X+clZ5enQvBxtYJdPEKxn/+Re5Vq6l3RFjk
+	F4cyvR4g=; b=P0uzHr9q/2Bhymle34GnK+JFsoN/tG8IUFkt2j8wa+SJft6ynlI
+	/EcOx46MxfxYDY6Bs5o+CRfxn8lyjR9lYgQz3YRsMQjirUyX1IuJ6PJk8RIuK7FN
+	hRoE8dYlMSDmwdlZqsh3wvV9KMkNIsY4R5z6XYa9MCZoA3FpHMiLyXVuiJuQW4fp
+	z3krpLKtJ43L2lzdCKZewseukD196lW95uV3CfCUBRM3KkSkq4zhaEtP0ea8ntmh
+	qEkS5NeFTWaBwVsibi+eVVxofpOIUA2W8k/zWghuzC4ELlIFQ4M8EKN+nH+7/QKU
+	bNg0FYBRiEoPvjnswvMdCJxSrS0yv5L/vrQ==
+X-ME-Sender: <xms:d_bOadJkBqNseM0tsNe3S4308IDJ4tUmPepspyGjtAEKQO03pBU7AA>
+    <xme:d_bOafI4eQ57688lbF0gUOcO2vVLT8ZzSoOP_HJryuokR9DKoirtoId4oOT7yFG6b
+    dy2DwbqWMAf75dQMNtmKmfpO9xtuBlSsbpj5Aq5bsB6moNlmuo>
+X-ME-Received: <xmr:d_bOaTWhJ6Jf7WSV8T9W5rLh5gOsJx-uGB_yeNs2JiB3AeNGPG3hqMUI8KC2dSdRf4avdKXMaQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdejfeduucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
+    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
+    epfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
+    rhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsih
+    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleetfeev
+    hfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsthgvrh
+    fuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhv
+    ihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepvddpmhhoug
+    gvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdp
+    rhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdroh
+    hrgh
+X-ME-Proxy: <xmx:d_bOaZiKa2CcwZwhm6QCoItOK3c9RqdyOeys80bMaTiaDI9HZIrk8Q>
+    <xmx:d_bOaW8QNSoTOU3n1qUzeLhHdR5lGtwotW99aU-41l6DMY86nZf2bA>
+    <xmx:d_bOabCkR6tQaeBYQOKnycDz4sqKHnw_UEYXtgv0Cwa5derhaT4Nrg>
+    <xmx:d_bOabLxS5mVp0B7L18kwU19PEFN_Of3Vv86WCzFMRA0v8E9vPZzQw>
+    <xmx:d_bOaVc3ZtTINPSGFpOS20xTq0cWer2kZMi6tSI5M8YJmfRWulWYNBKA>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 3 Apr 2026 01:06:30 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: IOMMU faults after S3
+Message-ID: <ac72dp3yEHikJzw2@mail-itl>
+References: <e8bbaae2-5cff-4549-9f27-fbbda7346f60@suse.com>
+ <090b8b8f-141b-4a24-92eb-879c0a0c73e1@suse.com>
+ <ac2nibFfvGm_7elv@mail-itl>
+ <933a3e95-33d2-4e20-a4d5-2d8b20c2da7f@suse.com>
+ <ac4kCq87SQSc6ddV@mail-itl>
+ <aa6910f1-365a-4534-b229-9730b3aede02@suse.com>
+ <ac44SVW1cPhKYFKU@mail-itl>
+ <2caff339-4ce9-42ea-9b78-afeac42b6f0f@suse.com>
+ <ac6Bg21hMLBRDNdm@mail-itl>
+ <92e0151b-3fb1-4108-9788-f0fbac43512b@suse.com>
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM4PR03MB11152.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 664bf726-6373-48e6-7918-08de90e70cad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Apr 2026 18:38:35.7281
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: J1MM2j5L5EK1Kk9cHeC9CiPF/LRCykjsOmvA1LrBJyodECzHP5+de3BeH6J5cdTOaj7gvUk2EbY4l54S07F0J1aGzogoT6uBx81+kTEsnmU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR03MB9408
-X-purgate-ID: tlsNG-bad1c0/1775155118-2DD57152-E3D40AC0/0/0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="fbsx/PxUsQ8mae8A"
+Content-Disposition: inline
+In-Reply-To: <92e0151b-3fb1-4108-9788-f0fbac43512b@suse.com>
+X-purgate-ID: tlsNG-d25034/1775171194-80D5BA3D-E652C045/0/0
 X-purgate-type: clean
-X-purgate-size: 2949
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
+X-purgate-size: 8514
+X-Spamd-Result: default: False [-2.23 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	R_MIXED_CHARSET(0.56)[subject];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm1,messagingengine.com:s=fm2];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:ayankuma@amd.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[Oleksandr_Tyshchenko@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email];
+	RCPT_COUNT_TWO(0.00)[2];
+	TO_DN_ALL(0.00)[];
+	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[invisiblethingslab.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[Oleksandr_Tyshchenko@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[epam.com:+];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 4151738D437
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[11]
+X-Rspamd-Queue-Id: E6A0138EF66
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-When building Xen with CONFIG_STATIC_SHM=3Dn, booting a hardware
-domain with exactly NR_MEM_BANKS (256) reserved-memory regions
-causes a panic:
 
-(XEN) Xen BUG at common/device-tree/domain-build.c:497
-(XEN) Xen call trace:
-(XEN)    [<00000a0000289aa8>] make_memory_node+0x178/0x234 (PC)
+--fbsx/PxUsQ8mae8A
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 3 Apr 2026 01:06:30 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: IOMMU faults after S3
 
-This occurs due to an off-by-one error in the bounds checking of
-the reg array in make_memory_node(). The check:
-    BUG_ON(nr_cells >=3D ARRAY_SIZE(reg));
-incorrectly triggers when the array is exactly full (i.e., when
-nr_cells =3D=3D ARRAY_SIZE(reg)), preventing the 256th and final valid
-memory region from being written.
+On Thu, Apr 02, 2026 at 04:53:31PM +0200, Jan Beulich wrote:
+> On 02.04.2026 16:47, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Thu, Apr 02, 2026 at 12:48:14PM +0200, Jan Beulich wrote:
+> >> On 02.04.2026 11:35, Marek Marczykowski-G=C3=B3recki wrote:
+> >>> On Thu, Apr 02, 2026 at 10:39:41AM +0200, Jan Beulich wrote:
+> >>>> On 02.04.2026 10:08, Marek Marczykowski-G=C3=B3recki wrote:
+> >>>>> The xl dmesg output (from MTL this time):
+> >>>>>
+> >>>>>     (XEN) [  123.477511] Entering ACPI S3 state.
+> >>>>>     (XEN) [18446743903.571842] _disable_pit_irq:2649: using_pit: 0,=
+ cpu_has_apic: 1
+> >>>>>     (XEN) [18446743903.571856] _disable_pit_irq:2659: cpuidle_using=
+_deep_cstate: 1, boot_cpu_has(X86_FEATURE_XEN_ARAT): 0
+> >>>
+> >>>> Hmm, but what you didn't log is whether __hpet_setup_msi_irq() actua=
+lly
+> >>>> succeeded everywhere. (And if it did, also logging HPET_Tn_ROUTE() v=
+alues
+> >>>> might be a good idea, if only to double check.)
+> >>>
+> >>> Updated output:
+> >>>
+> >>>     (XEN) [18446743899.720395] _disable_pit_irq:2649: using_pit: 0, c=
+pu_has_apic: 1
+> >>>     (XEN) [18446743899.720409] _disable_pit_irq:2659: cpuidle_using_d=
+eep_cstate: 1, boot_cpu_has(X86_FEATURE_XEN_ARAT): 0
+> >>>     (XEN) [18446743899.720420] _disable_pit_irq:2662: init: 0
+> >>>     (XEN) [18446743899.720431] hpet_broadcast_resume:663: hpet_events=
+: ffff83046bc1f080
+> >>>     (XEN) [18446743899.720579] hpet_broadcast_resume:674: num_hpets_u=
+sed: 8
+> >>>     (XEN) [18446743899.720587] hpet_broadcast_resume:692: cfg: 0x1
+> >>>     (XEN) [18446743899.720599] hpet_broadcast_resume:697: i:0, hpet_e=
+vents[i].msi.irq: 122, hpet_events[i].flags: 0
+> >>>     (XEN) [18446743899.720612] hpet_msi_write:283: iommu_intremap: 2 =
+(iommu_intremap_off: 0), HPET_Tn_ROUTE(ch->idx): 0x110
+> >>>     (XEN) [18446743899.720638] hpet_msi_write:287: iommu_update_ire_f=
+rom_msi rc: 0
+> >>
+> >> So it succeeds, and the low half of HPET_Tn_ROUTE also looks plausible=
+=2E The high
+> >> half is, however, the address that the low half value is written to. I=
+t's hard
+> >> to imagine that it would be zero when the low half isn't, but it is ab=
+out the
+> >> last thing I can think of which could explain observed behavior. (Yet =
+then, all
+> >> of this is pretty meaningless; see below.)
+> >>
+> >>> And the current debug diff attached.
+> >>
+> >> Hmm, you log HPET_Tn_ROUTE _before_ our update. That's not very useful=
+=2E You want
+> >> to move that part of logging to the bottom of hpet_msi_write(), or may=
+be to
+> >> where you also log the per-channel cfg value in hpet_broadcast_resume(=
+) (thus
+> >> making the logging overall less verbose).
+> >=20
+> > This test is with the updated patch (attached) + your extra
+> > calculate_host_policy() call and "no-arat" on cmdline:
+>=20
+> And IOMMU faults still occurring as before, I expect.
+>=20
+> Sadly you now log the low halves of HPET_Tn_ROUTE twice, while you don't =
+log
+> the high halves at all.
 
-When CONFIG_STATIC_SHM=3Dy, this bug is usually hidden because
-DT_MEM_NODE_REG_RANGE_SIZE adds extra space for SHM banks.
-This extra capacity prevents the array from reaching its
-maximum limit while processing the 256th memory region.
-However, if a domain is configured with exactly NR_MEM_BANKS
-and NR_SHMEM_BANKS, the array will completely fill up and trigger
-the same panic.
+I was missing hpet_read32 there...
 
-Fix this by changing the condition to strictly greater than (>).
-Apply the exact same fix to shm_mem_node_fill_reg_range() to
-prevent the same error.
+Updated:
+(XEN) [  116.921573] Entering ACPI S3 state.
+(XEN) [18446743895.088893] _disable_pit_irq:2649: using_pit: 0, cpu_has_api=
+c: 1
+(XEN) [18446743895.088907] _disable_pit_irq:2659: cpuidle_using_deep_cstate=
+: 1, boot_cpu_has(X86_FEATURE_XEN_ARAT): 0
+(XEN) [18446743895.088918] _disable_pit_irq:2662: init: 0
+(XEN) [18446743895.088928] hpet_broadcast_resume:662: hpet_events: ffff8304=
+6bc1f080
+(XEN) [18446743895.089072] hpet_broadcast_resume:673: num_hpets_used: 8
+(XEN) [18446743895.089081] hpet_broadcast_resume:691: cfg: 0x1
+(XEN) [18446743895.089092] hpet_broadcast_resume:696: i:0, hpet_events[i].m=
+si.irq: 122, hpet_events[i].flags: 0
+(XEN) [18446743895.089122] hpet_msi_write:286: iommu_update_ire_from_msi rc=
+: 0
+(XEN) [18446743895.089132] hpet_broadcast_resume:700: i:0, __hpet_setup_msi=
+_irq ret: 0
+(XEN) [18446743895.089168] hpet_broadcast_resume:710: i:0, cfg: 0xc134, hpe=
+t_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROUTE(h=
+pet_events[i].idx) + 4): 0xf18
+(XEN) [18446743895.089180] hpet_broadcast_resume:696: i:1, hpet_events[i].m=
+si.irq: 123, hpet_events[i].flags: 0
+(XEN) [18446743895.089203] hpet_msi_write:286: iommu_update_ire_from_msi rc=
+: 0
+(XEN) [18446743895.089213] hpet_broadcast_resume:700: i:1, __hpet_setup_msi=
+_irq ret: 0
+(XEN) [18446743895.089242] hpet_broadcast_resume:710: i:1, cfg: 0xc104, hpe=
+t_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROUTE(h=
+pet_events[i].idx) + 4): 0xf38
+(XEN) [18446743895.089254] hpet_broadcast_resume:696: i:2, hpet_events[i].m=
+si.irq: 124, hpet_events[i].flags: 0
+(XEN) [18446743895.089278] hpet_msi_write:286: iommu_update_ire_from_msi rc=
+: 0
+(XEN) [18446743895.089288] hpet_broadcast_resume:700: i:2, __hpet_setup_msi=
+_irq ret: 0
+(XEN) [18446743895.089316] hpet_broadcast_resume:710: i:2, cfg: 0xc104, hpe=
+t_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROUTE(h=
+pet_events[i].idx) + 4): 0xf58
+(XEN) [18446743895.089327] hpet_broadcast_resume:696: i:3, hpet_events[i].m=
+si.irq: 125, hpet_events[i].flags: 0
+(XEN) [18446743895.089350] hpet_msi_write:286: iommu_update_ire_from_msi rc=
+: 0
+(XEN) [18446743895.089361] hpet_broadcast_resume:700: i:3, __hpet_setup_msi=
+_irq ret: 0
+(XEN) [18446743895.089390] hpet_broadcast_resume:710: i:3, cfg: 0xc104, hpe=
+t_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROUTE(h=
+pet_events[i].idx) + 4): 0xf78
+(XEN) [18446743895.089401] hpet_broadcast_resume:696: i:4, hpet_events[i].m=
+si.irq: 126, hpet_events[i].flags: 0
+(XEN) [18446743895.089425] hpet_msi_write:286: iommu_update_ire_from_msi rc=
+: 0
+(XEN) [18446743895.089436] hpet_broadcast_resume:700: i:4, __hpet_setup_msi=
+_irq ret: 0
+(XEN) [18446743895.089465] hpet_broadcast_resume:710: i:4, cfg: 0xc104, hpe=
+t_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROUTE(h=
+pet_events[i].idx) + 4): 0xf98
+(XEN) [18446743895.089476] hpet_broadcast_resume:696: i:5, hpet_events[i].m=
+si.irq: 127, hpet_events[i].flags: 0
+(XEN) [18446743895.089499] hpet_msi_write:286: iommu_update_ire_from_msi rc=
+: 0
+(XEN) [18446743895.089509] hpet_broadcast_resume:700: i:5, __hpet_setup_msi=
+_irq ret: 0
+(XEN) [18446743895.089540] hpet_broadcast_resume:710: i:5, cfg: 0xc104, hpe=
+t_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROUTE(h=
+pet_events[i].idx) + 4): 0xfb8
+(XEN) [18446743895.089551] hpet_broadcast_resume:696: i:6, hpet_events[i].m=
+si.irq: 128, hpet_events[i].flags: 0
+(XEN) [18446743895.089574] hpet_msi_write:286: iommu_update_ire_from_msi rc=
+: 0
+(XEN) [18446743895.089584] hpet_broadcast_resume:700: i:6, __hpet_setup_msi=
+_irq ret: 0
+(XEN) [18446743895.089622] hpet_broadcast_resume:710: i:6, cfg: 0xc104, hpe=
+t_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROUTE(h=
+pet_events[i].idx) + 4): 0xfd8
+(XEN) [18446743895.089633] hpet_broadcast_resume:696: i:7, hpet_events[i].m=
+si.irq: 129, hpet_events[i].flags: 0
+(XEN) [18446743895.089655] hpet_msi_write:286: iommu_update_ire_from_msi rc=
+: 0
+(XEN) [18446743895.089665] hpet_broadcast_resume:700: i:7, __hpet_setup_msi=
+_irq ret: 0
+(XEN) [18446743895.089702] hpet_broadcast_resume:710: i:7, cfg: 0xc104, hpe=
+t_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROUTE(h=
+pet_events[i].idx) + 4): 0xff8
 
-Fixes: cd8015b634b0 ("ARM/dom0: Avoid using a variable length array in make=
-_memory_node()")
-Fixes: 7846f7699fea ("xen/arm: List static shared memory regions as /memory=
- nodes")
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
----
-  V2:
-   - slightly update commit desc (according to Michal's remark)
-   - add Fixes tags
-   - add R-b tag
----
----
- xen/common/device-tree/domain-build.c | 2 +-
- xen/common/device-tree/static-shmem.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree=
-/domain-build.c
-index 6708c9dd66..540627b74e 100644
---- a/xen/common/device-tree/domain-build.c
-+++ b/xen/common/device-tree/domain-build.c
-@@ -494,7 +494,7 @@ int __init make_memory_node(const struct kernel_info *k=
-info, int addrcells,
-             continue;
-=20
-         nr_cells +=3D reg_size;
--        BUG_ON(nr_cells >=3D ARRAY_SIZE(reg));
-+        BUG_ON(nr_cells > ARRAY_SIZE(reg));
-         dt_child_set_range(&cells, addrcells, sizecells, start, size);
-     }
-=20
-diff --git a/xen/common/device-tree/static-shmem.c b/xen/common/device-tree=
-/static-shmem.c
-index 79f23caa77..4c4cc1b123 100644
---- a/xen/common/device-tree/static-shmem.c
-+++ b/xen/common/device-tree/static-shmem.c
-@@ -838,7 +838,7 @@ void __init shm_mem_node_fill_reg_range(const struct ke=
-rnel_info *kinfo,
-         paddr_t size =3D mem->bank[i].size;
-=20
-         *nr_cells +=3D addrcells + sizecells;
--        BUG_ON(*nr_cells >=3D DT_MEM_NODE_REG_RANGE_SIZE);
-+        BUG_ON(*nr_cells > DT_MEM_NODE_REG_RANGE_SIZE);
-         dt_child_set_range(&cells, addrcells, sizecells, start, size);
-     }
- }
+
+
 --=20
-2.34.1
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--fbsx/PxUsQ8mae8A
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmnO9nYACgkQ24/THMrX
+1yw4+ggAjeBgaIS4YoxfNLIVVP+1oVkX3F6I6XhD3x1yiZ/zciW6Cm1NxHRdiUVu
+78pZSaK9adlOW5I6XQ2Dr02J152I1N12a8nWyYurUcbrKQzecJ70kKIPm/hCEszv
+RCrrPreY1WoLrhsgxSXQV0txJ3R/gRfsELJEgOwK3aXZ6ZmiO8ZJchA1KDzb4lzS
+u+Y/ypQ6PFXi2lc/EMDVItBT+guBaQs5ByS1Tw/P1+zM+ZmhFH9EUuGoL04gi4Lr
+H48uFWzirwwTIwNgCVcf6SBHhsHDLfmLSzSM42bHfkpeXOTYH1JgSuzwGHEnfzAc
+xXi5E3locUdzihMNYmMGFMxOs9YBdw==
+=MpIb
+-----END PGP SIGNATURE-----
+
+--fbsx/PxUsQ8mae8A--
 
