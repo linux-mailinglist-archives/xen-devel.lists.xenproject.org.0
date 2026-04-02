@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IL2LBdULzmmnkgYAu9opvQ
+	id oNApGhANzmmnkgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 08:25:25 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 08:30:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77AC9384704
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 08:25:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1271100.1559393 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBA373847BF
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 08:30:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1271111.1559401 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8BUB-0001Ej-Eg; Thu, 02 Apr 2026 06:24:59 +0000
+	id 1w8BZU-0002qk-0S; Thu, 02 Apr 2026 06:30:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1271100.1559393; Thu, 02 Apr 2026 06:24:59 +0000
+Received: by outflank-mailman (output) from mailman id 1271111.1559401; Thu, 02 Apr 2026 06:30:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8BUB-0001DF-Ao; Thu, 02 Apr 2026 06:24:59 +0000
-Received: by outflank-mailman (input) for mailman id 1271100;
- Thu, 02 Apr 2026 06:24:58 +0000
+	id 1w8BZT-0002o4-Tu; Thu, 02 Apr 2026 06:30:27 +0000
+Received: by outflank-mailman (input) for mailman id 1271111;
+ Thu, 02 Apr 2026 06:30:26 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w8BUA-0001D9-10
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 06:24:58 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w8BZS-0002ny-Md
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 06:30:26 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w8BU7-003rfY-On
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 08:24:57 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1w8BZS-000iIe-2h
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 08:30:26 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69ce0bb9-2eae-0a2a0a5409dd-0a2a4506c406-0
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 08:24:57 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69ce0d00-2eae-0a2a0a5409dd-0a2a450adba8-6
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 08:30:25 +0200
+Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69ce0bb9-0df0-0a2a45060019-d1558032c5c9-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 08:24:57 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-486fd3a577eso3862715e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 23:24:57 -0700 (PDT)
+ id 69ce0d01-ee98-0a2a450a0019-d155802ae8c9-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 08:30:25 +0200
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4853c1ca73aso4168135e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 23:30:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4887c8852a5sm138753715e9.9.2026.04.01.23.24.55
+ 5b1f17b1804b1-4888a66c766sm42807645e9.8.2026.04.01.23.30.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 23:24:56 -0700 (PDT)
+ Wed, 01 Apr 2026 23:30:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,48 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775111097; x=1775715897; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775111425; x=1775716225; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KYjlo8eTh1e3f7SUAmu5caQMG1Fwh+iun7Ol8ixjQvw=;
-        b=DNdW34uJAEAGG5x29sxLnCUUqO/QBMtB+/1x0p/qYcj26OZ7jlGehsKLUHNfJqIhzI
-         ESlMgslyuFSYchKs8U4w9GXhby52kzkmOzEIKsKq/o0hrxj+Lrx3A7fr9k6t5boqvnMU
-         WV+MiQJp+B/Rme15QfE40JbopjZtBd7Xam37iW41dVvkEs16U3QLiVngkhPmR1YxlJzd
-         Qra14NH61zAnUF5PSK08JSWLMeVWhJR+Os1LT4UMswNUXp65lZiOEtqCjNAinRb/lyCK
-         VmmkIaPzv5vufGPHUdtM5lGWxQosF34uEWlhmyfMS5wpaBVFp6GJpdTxII52A6pki2p9
-         112g==
+        bh=PnHnPivMYhqkCaCgYVM251gRAV0D5haFazOmw5q5iWM=;
+        b=atyAXFw5w7wZuIpSOrCay5AOxY+1OS3y1Q8sBe+PI5dXNIUWZVi3k9v2O6UY1M9pLM
+         RfUngTHoLlAvFFx/Se6W1hF0d1aeDhSqSWUHfEKqMLIn4ZLjUnhdF/F/GIDt3Mw4PTha
+         ECBAiKF8AIllnt5kZzhXum0XxQoy4J4bo58kwNcAlfl/dPP8HU3F0S+uKTIjvcznjci1
+         CFEtTW0hhRKVhQA4ASH6CPVH/zKSvyc5V0ajFy1R+ix/e4O9KlgKCVA8C4lnZxaU6abB
+         upOootCUT28iIePt2B47gz0jEL7+6MC54aWKAmQEE2Zl0P6iABNw0Y5Ty2qcnD/BQNL4
+         YHTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775111097; x=1775715897;
+        d=1e100.net; s=20251104; t=1775111425; x=1775716225;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KYjlo8eTh1e3f7SUAmu5caQMG1Fwh+iun7Ol8ixjQvw=;
-        b=chIC+JuqqWNhc8VLlUQ3t+JUKeDZL2TB37988yJFxPSf3H7xFqaqQLjW+vBsGwfM2i
-         9bcEy+gyhMtpqIu0FmvRSq4o8sSOwsxEDn4Gk9MvvSliMg/bgGTgYrn5IlN764XnRdoN
-         Y86O3Gv9q/iftqO8SiNi/6SCD9soC8+Tn4xaCnhEVQnwq1w7kFFEZ8UkECYIcm72gQYS
-         hxMmCueB+1TeUBri3FTL/6w+VJIuJ2EXz/JCQwK+6D0txuTfGdD5CERAjAgFJ4f8Y3mC
-         5/ek1Y9AUOD1U3ufSvZEfBvQS5HQkXFb9kHPQAZcs7LdKiOm+MUB+pd219xkE1j/wIxy
-         XmnA==
-X-Forwarded-Encrypted: i=1; AJvYcCWvKsXmaE5iLsEn2pLXSODC8lgeWRBee7mr5QLIyKaqfp3j/geFcPQU2oJAh5HXiX38sq64r61lDHU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzeqy82L/Xo115mahJEYyCZWaKLWBKwOihDTAQHsnrIg5gbfbVM
-	Qkx9ymQqpIlF3AqzmxCIXqsTKxzAurDxr3HMlz4oNXTBX18v5Zi98/nTYlEdjCh5ow==
-X-Gm-Gg: ATEYQzycvc/mrOMbcQ164UnmbBP5T8TCMR708MRYtsUdxOJEw3Sdw1B7uY0Nq6SeaXJ
-	TBv2XQjyOupmmeg0khGLbi0f1AoE0GvLKsv3oobMSF/v4NQ8mJPUYU1YnSHqhhaYcgyteUWQC3L
-	qb3HK4rZxFtBZPwthvQ3TxrLM7HZhme3n2GPgegKi7MzNTbtTq8smAhO/lfDIHiMuOByJ14x+zC
-	riJ2aw6ZTs5MztbcPcImXqRwESYDZ7VYSOv4fncJhe7rSTDFiy37ZERUkL75gV4QKLSl4+0d5aq
-	iqsb9EJUjyvUIoKH3OKhURCGTUcru1LHb2etsTaXICrutsKI6EG2vbTHXhRrMGvukIw67YolW4L
-	ra5bDcY2lH1wJFWh3h8Zapukor2DI4IHqeWpMLJafse6QFQTmXRJGgtzmmE/aEcEfkU5nnUfgYm
-	pKr8TA70+hy/K1P7c0n9ueh2zpAJZ62AW2KuQWtUNUeH0y23UBmPcbi/3O/eQ4Fc5dOJTF7N4H2
-	QCZPmN2moOwyiE=
-X-Received: by 2002:a05:600c:4594:b0:486:ffa3:55f with SMTP id 5b1f17b1804b1-488835d0f0cmr108092575e9.27.1775111096583;
-        Wed, 01 Apr 2026 23:24:56 -0700 (PDT)
-Message-ID: <a6c95e44-e324-493d-8e55-532223e56b17@suse.com>
-Date: Thu, 2 Apr 2026 08:24:55 +0200
+        bh=PnHnPivMYhqkCaCgYVM251gRAV0D5haFazOmw5q5iWM=;
+        b=d2K+sfpFQq8q4mki3owLnZpxlER8m60r2xwSwhMoa/j2nM9eJUwFQtZMMcH51h2wbc
+         oz77k3WQMr02TGSKkBMtsGm2UxxyG4aZ3amNUJJM9VevLhs+V+eu0aPqgLZ1lFEr339B
+         jS18p3O5ztCtifdueaBjEI57VKpRwWGqAkw5pZV6aATseLK0SZL3NQVjs9HToaPrCZZ1
+         qEnRQf4OVNHm/oLplIWpbONPaIhoLJcV4zw+RNroKnhef7Ora4Nsx/HDwVaW3SFt0v3k
+         liXEqtbj/Py5UfVC3aJAhYlLWxrT7qvKlNQRXdTpeOwyAapK6w3SBJxlvKRk+do2TmN7
+         a7qA==
+X-Forwarded-Encrypted: i=1; AJvYcCX2EAlg5s0Bkl7P9iQWIi1P369zgDJJfTxhksKOe6E64uGQ63QpPxrHNGpCcC9NmOieMzUWcXZRlBc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzGb5uZ2uv3zI8FyNdrsUC/6k/5b0IwuP08pnoaOqhY0cJ/bJ0u
+	mCCBP8DuVUMXdNWIgNTQeg0NrHQLilkmnw2CJxZzFu2Wieq6mpLBwym/tT6HkH9/lg==
+X-Gm-Gg: ATEYQzxUL4ACqnIsGMm9tJsX90rTTM9u/t674P9vMfiKO1MGagp8+olW9SbMIStTU2t
+	GDLezoCO04fxi/aDMRwl3bYi5ngJqtSLPjhBxOi+++a2qKTTD97IVS15o0SnrGAOY1C0Je/oZEC
+	MtbJFvAx4dU1OJcW1L2Gc2AbV4yen51SLf8b+QV7wqR6Qr4snBlLYZiibjOr7dzJ9ANfUrgZwMJ
+	WdVEzqaY3L5zu74IntKE5izn01AHiX7SYPPwXWK5ErbmYHVb4eXNzfChJ21ZtT7ZEsNYeyo/0/e
+	WBjfgAaWoxEz2g7mFVMCqidi8951KYbRRdRVH4SkZAyPhHge7Iw+eTxXfrikQWQwZpykPjiIEn+
+	qEMnLvFcBGxpsb642UxYru8kmDoXC5kP3D4YfGR0O0rmVPHGglFPLkSf1XCMh3Y0UBt8IzddE2z
+	8CYeFxnYE0ll0889NawwmPeNu43ukWqfeNk6qbElxpKcF/y+/BCDlZNISEJA/8cwEsCDSE7ns8q
+	4PavlCsimii7Bk=
+X-Received: by 2002:a05:600c:4f91:b0:483:64b4:79da with SMTP id 5b1f17b1804b1-488835b7582mr99390035e9.26.1775111425231;
+        Wed, 01 Apr 2026 23:30:25 -0700 (PDT)
+Message-ID: <f28b1c99-9d84-4338-9278-b85cf283e7ef@suse.com>
+Date: Thu, 2 Apr 2026 08:30:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] xen/riscv: add exception table support
+Subject: Re: [PATCH v2 2/4] xen/riscv: add csr_read_safe() helper
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -110,7 +110,7 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1774863161.git.oleksii.kurochko@gmail.com>
- <dcf5786b4ec99edcec6554a338904c52f0c3b03f.1774863161.git.oleksii.kurochko@gmail.com>
+ <f870d5def964ee06471d6dde0f66d6585eb5ca36.1774863161.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,12 +136,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <dcf5786b4ec99edcec6554a338904c52f0c3b03f.1774863161.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <f870d5def964ee06471d6dde0f66d6585eb5ca36.1774863161.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1775111097-5D92A3D8-69493B11/0/0
+X-purgate-ID: tlsNG-4011c0/1775111425-0F3490B1-FC35DB84/0/0
 X-purgate-type: clean
-X-purgate-size: 2982
+X-purgate-size: 1113
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -176,111 +176,51 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 77AC9384704
+X-Rspamd-Queue-Id: CBA373847BF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 31.03.2026 21:04, Oleksii Kurochko wrote:
-> --- /dev/null
-> +++ b/xen/arch/riscv/extable.c
-> @@ -0,0 +1,85 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#include <xen/init.h>
-> +#include <xen/bsearch.h>
-> +#include <xen/lib.h>
-> +#include <xen/livepatch.h>
-> +#include <xen/sort.h>
-> +#include <xen/virtual_region.h>
-> +
-> +#include <asm/extable.h>
-> +#include <asm/processor.h>
-> +
-> +#define EX_FIELD(ptr, field) ((unsigned long)&(ptr)->field + (ptr)->field)
-> +
-> +static inline unsigned long ex_insn(const struct exception_table_entry *ex)
+> @@ -78,6 +80,38 @@
+>                             : "memory" );                        \
+>  })
+>  
+> +static always_inline bool csr_read_safe(unsigned long csr,
+> +                                        unsigned long *val)
 > +{
-> +    return EX_FIELD(ex, insn);
-> +}
-> +
-> +static inline unsigned long ex_fixup(const struct exception_table_entry *ex)
-> +{
-> +    return EX_FIELD(ex, fixup);
-> +}
-> +
-> +static void __init cf_check swap_ex(void *a, void *b)
-> +{
-> +    struct exception_table_entry *x = a, *y = b, tmp;
-> +    long delta = b - a;
-> +
-> +    tmp = *x;
-> +    x->insn = y->insn + delta;
-> +    y->insn = tmp.insn - delta;
-> +
-> +    x->fixup = y->fixup + delta;
-> +    y->fixup = tmp.fixup - delta;
-> +}
-> +
-> +static int cf_check cmp_ex(const void *a, const void *b)
-> +{
-> +    const unsigned long insn_a = ex_insn(a);
-> +    const unsigned long insn_b = ex_insn(b);
-> +
-> +    /* avoid overflow */
-> +    return (insn_a > insn_b) - (insn_a < insn_b);
+> +#ifdef CONFIG_CC_HAS_ASM_GOTO_OUTPUT
+> +    asm_inline goto (
+> +        "1: csrr %[val], %[csr]\n"
+> +        ASM_EXTABLE(1b, %l[fault])
+> +        : [val] "=&r" (*val)
 
-What is the (slightly malformed) comment about? I don't see anything close
-to possibly causing overflow here.
+Why the & when there's only a single insn?
 
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/extable.h
-> @@ -0,0 +1,58 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +        : [csr] "i" (csr)
+> +        :
+> +        : fault );
 > +
-> +#ifndef ASM__RISCV__ASM_EXTABLE_H
-> +#define ASM__RISCV__ASM_EXTABLE_H
+> +    return true;
 > +
-> +#ifdef __ASSEMBLER__
+> + fault:
+> +    return false;
+> +#else
+> +    bool allowed = false;
 > +
-> +#define ASM_EXTABLE(insn, fixup)    \
-> +    .pushsection .ex_table, "a";    \
-> +    .balign     4;                  \
-> +    .long       ((insn) - .);       \
-> +    .long       ((fixup) - .);      \
+> +    asm_inline volatile (
+> +        "1: csrr %[val], %[csr]\n"
+> +        "   li %[allowed], 1\n"
+> +        "2:\n"
+> +        ASM_EXTABLE(1b, 2b)
+> +        : [val] "=&r" (*val), [allowed] "+r" (allowed)
+> +        : [csr] "i" (csr)
+> +        : );
 
-For readability's sake I'm generally advocating for having enough, but
-not more parentheses than necessary. What's the purpose of the outer pair
-here and ...
+Why the excess colon?
 
-> +    .popsection;
-> +
-> +.macro asm_extable, insn, fixup
-> +    ASM_EXTABLE(\insn, \fixup)
-> +.endm
-> +
-> +#else /* __ASSEMBLER__ */
-> +
-> +#include <xen/stringify.h>
-> +#include <xen/types.h>
-> +
-> +struct cpu_user_regs;
-> +
-> +#define ASM_EXTABLE(insn, fixup)        \
-> +    ".pushsection .ex_table, \"a\"\n"   \
-> +    ".balign    4\n"                    \
-> +    ".long      ((" #insn ") - .)\n"    \
-> +    ".long      ((" #fixup ") - .)\n"   \
-
-... here?
-
-I'm also uncertain about the use of .long (generally in RISC-V code, and
-really also in some other architectures). Imo, considering suffixes used
-in the instruction set (e.g. load/store insns or OP-32 ones in RV64) .word
-may be the more expressive directive.
-
-Preferably with the adjustments:
-Acked-by: Jan Beulich <jbeulich@suse.com>
-Happy to carry out while committing, provided you agree.
+With these adjusted (again happy to do so while committing, so long
+as you agree):
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
