@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mNdBF1cGzmnpkQYAu9opvQ
+	id oD9EHR0IzmkwkgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 08:01:59 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 08:09:33 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B59893843EC
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 08:01:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1271072.1559374 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9A2938449A
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 08:09:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1271086.1559384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8B6p-0006Bu-AG; Thu, 02 Apr 2026 06:00:51 +0000
+	id 1w8BF2-0006pG-23; Thu, 02 Apr 2026 06:09:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1271072.1559374; Thu, 02 Apr 2026 06:00:51 +0000
+Received: by outflank-mailman (output) from mailman id 1271086.1559384; Thu, 02 Apr 2026 06:09:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8B6p-0006AM-7A; Thu, 02 Apr 2026 06:00:51 +0000
-Received: by outflank-mailman (input) for mailman id 1271072;
- Thu, 02 Apr 2026 06:00:49 +0000
+	id 1w8BF1-0006nH-VT; Thu, 02 Apr 2026 06:09:19 +0000
+Received: by outflank-mailman (input) for mailman id 1271086;
+ Thu, 02 Apr 2026 06:09:19 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w8B6n-0006AG-EK
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 06:00:49 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w8BF1-0006nB-51
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 06:09:19 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w8B6m-008rsg-IM
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 08:00:48 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1w8BF0-008t0F-Hl
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 08:09:18 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69ce060d-e002-0a2a0a5209dd-0a2a45088202-8
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 08:00:48 +0200
-Received: from [209.85.221.50] (helo=mail-wr1-f50.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69ce0806-5cb7-0a2a0a5109dd-0a2a450aea0e-18
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 08:09:18 +0200
+Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69ce0610-fab6-0a2a45080019-d155dd32e0ea-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 08:00:48 +0200
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-43d0deb7ad5so451053f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 23:00:48 -0700 (PDT)
+ id 69ce080e-ee98-0a2a450a0019-d155802bb881-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 08:09:18 +0200
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-48891776099so2070785e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2026 23:09:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e2a6f5bsm5101239f8f.7.2026.04.01.23.00.47
+ ffacd0b85a97d-43d1e2c60a2sm5214493f8f.10.2026.04.01.23.09.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2026 23:00:47 -0700 (PDT)
+ Wed, 01 Apr 2026 23:09:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,62 +58,55 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775109648; x=1775714448; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775110158; x=1775714958; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yaf0L/aba7KFXbNtMvWN19EjHOGvOBBMQ+U+ojOOcWE=;
-        b=PGR/5hECkMQ1lKD+eDmTfWSgsdqOWOzqVNULRlFYUZoG8tv7MScdtID32vjL3e3A1z
-         K1jQlwYNxoB2gYIlvfkgYAXtC1ziJMMckiDmjpCbaz+7eQsTyskbiiWWw69BadptuAgP
-         UFCYuGSvremUnIF4BMc1GA5rvTRYJ1n/02lpaYoyOq1fP4sUbt+s/OARiI0Ns8ZzDtYc
-         LUatVSZj1PhzUFAzSADbJplGIYKX+ow3/SCMxA02UXK4+y0V7lCd7WPoAByyWXk1/P2o
-         ipRGVv5gG/j6n4kPcVsdMYjD/XQrL8BdXh+6F2QUrQQODVQi0j7kPUmAZ+3apd9TREe+
-         5ZsA==
+        bh=wvcurm6D7Kk9ztMyZ9pmbclUAnFvWsUBR6b0jGFOz3M=;
+        b=AUIQQIqus3HHDEB1hqUhwmGoihc37TfM3xIJ4Si3WhsAgcb/YbCKJR3n6JlvZnkj83
+         rJ9ufpYrVCcAriLNSkjohGS5is50MVvIwhEQy/EfEhvaT+yy2UcVRcwkkGqgPsVRigFZ
+         tHWZaZ8P/kFgTU6Gg2rDQrsbn2KF3Zwz/yiE1GgzPteSHXIWX/q7zIFmkUwYgcMwKizK
+         OAt/vQMJz9ZbOd/muZFHij9lT0WT/G3m4XSK8kOFQ+kn82UOKWZ0H7TRtjGqOY4pg5e5
+         Dr0CfXg43JeE0IIwvaO6jdPYiyLXpHqnBoRXkh4Sd5EAaVdUdD+1p6+iozx8a7xqSh9J
+         AZZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775109648; x=1775714448;
+        d=1e100.net; s=20251104; t=1775110158; x=1775714958;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yaf0L/aba7KFXbNtMvWN19EjHOGvOBBMQ+U+ojOOcWE=;
-        b=a31eKQj1rLZ50eCsE+mdiRVk7h07bQPz+XgJlvYmkuMhly3hko0JpWgMG1wtcUpfi6
-         8rtT6xx/BHCea4tomc7n8iqx/m9vDGGXKynuPZhe2l3BSPfVxxfv+o4W6VFwe/YhZG/S
-         4EyuP+ApB9Il8QqAWZHRpJgSls9Tid1v0k2Jc1rXHCxZ2jyvccVF/uQDTrK1A0vdXLEo
-         b8p8C3m2+DXYIcP/5pfJ111M5km88PYawe1+AujXWJc9AFXP43IBt3rVr3uU73jbgK9K
-         UDHIgwTzq3Wlu7nzkvY6zbnIVroggfjruhZjKM9GOgxGPrlU4bNfJltySTHze9DaQkxR
-         pC/A==
-X-Forwarded-Encrypted: i=1; AJvYcCU+/gd10STEjKKx15c9ev4QWUCk8jBnHSkJ9tEdrM9+xXdHx8iCX0e7eBFWNQMTp0nR6qcgp2xnTk4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxN1AkSievcRETS7nVCNn7Q83TwhVAracIm/OjMQwTmFfmtLQ0Q
-	PbcUiIxFiufaRR+FTNvHaMmBM4miGfF0KwvML4Tyr1VcKQZRioVjFXNlrunSL4rLQw==
-X-Gm-Gg: ATEYQzzHdaeVZvGkcJN9LCSsA8g2Mxdsc0U9pW6TWX1icKwUnFrIZMTPrf7Wu+p66vm
-	faRyOZEpvEogVWxJ14/KJEUyUxhAycd4GjJOJo/Lx2iTuWSlxmE9WBTp8KJNWgHG3LnkvGiU0Ng
-	fXUwZULvDSfFMK0enNb9bF5uEvqSbbv5tg10rE+79Sf7zeGijji/YGStgZrKCL/lY3Kxr0pwnli
-	gQLxxSDfifrfAfZYhyYyl/LQ9rwdF3gPdr+mrHuPjyNnytU6UT+beoaXjqutDFfWQRVc7jvh3vy
-	JPe8/mtjksatVFsZlUVqEG60WNrhvBpsuOYd11HfhzSbilcMeMCaV45KNKH+fCqirqfJzuy1Zdz
-	MVerzKGJBXF0IEL27tJjOQQ/zsfW9NEKCmb66dBZpM/ICGa/oZNvlM/xSmUD1W34MKIZEA+Kpb1
-	bBaLIHWxLAIX3z0s9LChPLNIs0ToCt7lXFBolFVTVhIiv5xpMoBFS7Fk9JTXvrHrM17jXfBmN6l
-	tNZcM9W8Em1zcE=
-X-Received: by 2002:a5d:5f86:0:b0:437:75c1:5777 with SMTP id ffacd0b85a97d-43d1507b692mr11678625f8f.16.1775109647701;
-        Wed, 01 Apr 2026 23:00:47 -0700 (PDT)
-Message-ID: <51916e05-6b41-4fc6-8cce-57b580f17aea@suse.com>
-Date: Thu, 2 Apr 2026 08:00:46 +0200
+        bh=wvcurm6D7Kk9ztMyZ9pmbclUAnFvWsUBR6b0jGFOz3M=;
+        b=AYKp6oL0OgWeiHLA4k8nMXSYj3+t5iFz71lXcyztdvipd4OhF7zDFhj2iteaYD4T72
+         qhm8PXUiUgORGV4l6mgBFevYXUNUlGQl4/RH9JLBmhlAI9mvgKLJjB9QBQQ00OL6Th6j
+         RRnkL6jtUzukW2dSb+3Mgs9BakO347MegTNdx3INMqBhJ7+qpvseV9FzEO3+JDbkWbjN
+         QteX8n0KSE9I5gEBh28bF8mnyZG6er8dIjFCLrJhlRBtMq994seoCguuALprbCjGqMaO
+         +FBuIGfl+1B9xTJdLeNvkoFgeRqUPYF4Dk8UvNZyumAKuZnDRRrNGdjDYaQZkaiL7yR/
+         Poag==
+X-Forwarded-Encrypted: i=1; AJvYcCWFC9+hac8QTDvTCKisw7e4yFegoFebX7ea6qTNuJp6uaymF0tK4DNOSB2rpNwQhPmU9E9zmcY6V/Y=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyy5wB08qDmXdxQXxtvuGItDOZGTd46Bie4qOMGkOW5KT7b1pdS
+	KBSw4apQWxvl5yQkDLb4xBlztGzrf51YyktITApIHChVRnp7iC9w6UYNw3IwdQ2t1w==
+X-Gm-Gg: ATEYQzwSKl29rbMFqHcqU9/c8H14+Uu6oHsP00tfaXMslDfgPmKpOA482w6Ppo9Na/F
+	/yOVsl6USy8A48Vte5U6uNuFJv5r5iT6HLS4FxdFpdOwMHM3plWUk6KGDeCAExSpO6iKoZKW3RG
+	jvxF4oV+HXuatW+nsVSVsRJajV+n1ZQ+qG2ynxeK2QDf7r6DsJx9KBpGI0ownneeP8hCr+O3dAN
+	hdmoOArE6r2u8/sij+WQC9rJ6yhrMYKrnih71bzGEFOuqrfZ//yulL96GxONxB7jaC1+qgtFhE9
+	n/U7LCM3J0+YjbPUNJNIJ2BKasLuk5cg0iS6kETwvJzMVHXyrg2iL+vXuDVSb2p9nSbxBLb6a8o
+	rY4R5aurcCBOwqBH59DjWo53gnDnqC4+kYIXY0YqsgaremLQJi1kZdWf/1brSaHxv5krfRDKep4
+	VsjO7lNVRfiRqGgO3tQHzuPpJqLR8B+USVrNe1VMSY0KNAe7DhWsBKOpLQ9utxbG7IMyQh9/8O4
+	pSc1mj8XwAfmhg=
+X-Received: by 2002:a05:600c:1f89:b0:485:303b:c50a with SMTP id 5b1f17b1804b1-4888b7135d1mr32158855e9.13.1775110157857;
+        Wed, 01 Apr 2026 23:09:17 -0700 (PDT)
+Message-ID: <94b2e444-844a-4d34-9c9f-de0b9e6e23b1@suse.com>
+Date: Thu, 2 Apr 2026 08:09:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] make ioremap_wc() x86 only (for the time being)
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+Subject: Re: [PATCH v1 0/3] Lockless SMP function call and TLB flushing
+To: Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <924f3ef2-7883-4322-a921-edc814c96719@suse.com>
- <20adacfa-06ce-4508-916d-f15d8f17788f@suse.com>
- <3bf90b33-c028-4f45-bda0-9d1bd5386c02@gmail.com>
- <6fa82fcc-d21d-476d-b020-fc40a645a74c@gmail.com>
- <97c56309-1bbf-471b-88c4-d13af3867f95@xen.org>
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260401163521.3603665-1-ross.lagerwall@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -139,125 +132,88 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <97c56309-1bbf-471b-88c4-d13af3867f95@xen.org>
+In-Reply-To: <20260401163521.3603665-1-ross.lagerwall@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c1860d/1775109648-75159497-32347FC1/0/0
+X-purgate-ID: tlsNG-4011c0/1775110158-BE1500B1-E009B9EE/0/0
 X-purgate-type: clean
-X-purgate-size: 3282
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-purgate-size: 2028
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[kernel.org,vates.tech,amd.com,wdc.com,gmail.com,lists.xenproject.org,arm.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:bertrand.marquis@arm.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:ross.lagerwall@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: B59893843EC
+X-Rspamd-Queue-Id: C9A2938449A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 02.04.2026 05:31, Julien Grall wrote:
-> Hi Oleksii,
+On 01.04.2026 18:35, Ross Lagerwall wrote:
+> Hi,
 > 
-> On 30/03/2026 15:24, Oleksii Kurochko wrote:
->>
->>
->> On 3/30/26 4:22 PM, Oleksii Kurochko wrote:
->>>
->>>
->>> On 2/19/26 4:53 PM, Jan Beulich wrote:
->>>> Its use in domain building is questionable: Already at the point both 
->>>> uses
->>>> were introduced, ioremap_cache() existed. I can't see why kernel and
->>>> initrd would need mapping WC, when at the same time other similar 
->>>> mappings
->>>> (in common/device-tree/) are done WB.
->>>>
->>>> With those uses replaced, neither Arm nor RISC-V have a need for the
->>>> function anymore.
->>>>
->>>
->>> It is okay for RISC-V, but for Arm, IIRC, likely it was done because 
->>> guest might start with cache disabled and PAGE_HYPERVISOR_WC on Arm 
->>> uses "Normal Non-cacheable" what could lead to that guest won't see 
->>> some part of kernel and/or initrd as it could be in a cache and won't 
->>> be flushed to RAM.
->>>
->>> But probably I misremembered something and 
->>> clean_and_invalidate_dcache_va_range() or something similar should be 
->>> called before guest is laucned.
->>
->> okay, so for this case copy_to_guest_phys_flush_dcache() is called after 
->> initrd and kernel are loaded.
+> This series implements lockless SMP function call and then rewrites x86 TLB
+> flushing to use SMP function calls.
 > 
-> Looking at the code, we are using ioremap_wc() on the source side rather 
-> than the destination. So the use of copy_to_guest_phys_flush_cache() 
-> would not matter as this only applies to the destination.
+> We have observed that the TLB flush lock can be a point of contention for
+> certain workloads, e.g. migrating 10 VMs off a host during a host evacuation.
 > 
-> Regarding the source side, the cache only guarantees coherency when either:
->    * the memory attributes are similar between the component that loaded 
-> it (most likely the firmware) and Xen
->    * The component that loaded it issued a cache flush
+> Performance numbers:
 > 
-> I saw Jan mentioned that other part of the device-tree code are using 
-> ioremap_cache(). They were adding afterwards and I can't remember why we 
-> consisder it was ok.
+> I wrote a synthetic benchmark to measure the performance. The benchmark has one
+> or more CPUs in Xen calling on_selected_cpus() with between 1 and 64 CPUs in
+> the selected mask. The executed function simply delays for 500 microseconds.
+> 
+> The table below shows the % change in execution time of on_selected_cpus():
+> 
+>                   1 thread   2 threads    4 threads
+> 1 CPU in mask     0.02       -35.23       -51.18
+> 2 CPUs in mask    0.01       -47.20       -69.27
+> 4 CPUs in mask    -0.02      -42.40       -66.55
+> 8 CPUs in mask    -0.03      -47.82       -68.39
+> 16 CPUs in mask   0.12       -41.95       -58.26
+> 32 CPUs in mask   0.02       -25.43       -39.35
+> 64 CPUs in mask   0.00       -24.70       -37.83
+> 
+> With 1 thread (i.e. no contention), there is no regression in execution time.
+> With multiple threads, as expected there is a significant improvement in
+> execution time.
+> 
+> As a more practical benchmark to simulate host evacuation, I measured the
+> memory dirtying rate across 10 VMs after enabling log dirty (on an AMD system,
+> so without PML). The rate increased by 16% with this patch series, even
+> after the recent deferred TLB flush changes.
 
-This sounds like you think it isn't okay.
-
-> For older mapping we would be switching from a 
-> non-cacheable mapping (HYPERVISOR_WC) to a cacheable one (HYPERVISOR).
-
-Whereas this sounds like you think switching everything to WB (or whatever
-the correct term on Arm) would be okay. IOW - I'm confused, and hence I'm
-...
-
-> While I agree we should have some consistency in the mappings, I am a 
-> bit unease to change the attributes without any written details on why 
-> there will not be any impact.
-
-... also unclear as to whether this actually is an objection to the Arm
-part of the change (incl patch 1). Please clarify.
-
-As to written details: Mappings of ordinary RAM shouldn't need any extra
-documentation when done WB. Any non-standard mappings (like WC) should
-instead have comments. The absence of such comments indicates to me that
-at the time the "best thing thought to be available" was used, i.e. WC
-preferred over UC (which plain ioremap() would have used). Additionally,
-the use of ioremap_wc() from initrd_load() (not Arm-specific) pretty
-clearly isn't appropriate for RISC-V, aiui.
-
-That said, using ioremap*() for RAM feels bogus in the first place. At
-the time vmap() didn't exist yet, so it may have been appropriate. If
-there are reasons not to use it here, perhaps something like Linux'es
-memremap() should long have been introduced?
+Is this a positive thing though? In the context of some related work something
+similar was mentioned iirc, accompanied by stating that this is actually
+problematic. A guest in log-dirty mode generally wants to be making progress,
+but also wants to be throttled enough to limit re-dirtying, such that
+subsequent iterations (in particular the final one) of page contents
+migration won't have to process overly many pages a 2nd time.
 
 Jan
 
