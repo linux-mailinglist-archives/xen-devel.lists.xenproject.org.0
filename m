@@ -2,49 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6Gl9EkIwzmnIlQYAu9opvQ
+	id kGofE5E4zmmAmAYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 11:00:50 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 11:36:17 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A91D6386677
-	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 11:00:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1271368.1559561 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B80A38701E
+	for <lists+xen-devel@lfdr.de>; Thu, 02 Apr 2026 11:36:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1271401.1559571 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8DuX-0004ti-Dd; Thu, 02 Apr 2026 09:00:21 +0000
+	id 1w8ESG-00018G-U1; Thu, 02 Apr 2026 09:35:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1271368.1559561; Thu, 02 Apr 2026 09:00:21 +0000
+Received: by outflank-mailman (output) from mailman id 1271401.1559571; Thu, 02 Apr 2026 09:35:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8DuX-0004rT-Ao; Thu, 02 Apr 2026 09:00:21 +0000
-Received: by outflank-mailman (input) for mailman id 1271368;
- Thu, 02 Apr 2026 09:00:20 +0000
+	id 1w8ESG-00015I-QS; Thu, 02 Apr 2026 09:35:12 +0000
+Received: by outflank-mailman (input) for mailman id 1271401;
+ Thu, 02 Apr 2026 09:35:11 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w8DuW-0004rM-8A
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 09:00:20 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1w8ESF-00015C-4X
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 09:35:11 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w8DuV-004H3w-9x
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 11:00:19 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1w8ESD-005hHv-NE
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2026 11:35:09 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69ce3018-2eae-0a2a0a5409dd-0a2a45079790-32
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 11:00:19 +0200
-Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <jbeulich@suse.com>)
- id 69ce301f-ba2d-0a2a45070019-d155dd2ec5a5-3
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 11:00:15 +0200
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-43cfa33a983so403459f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 02:00:15 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e4d29bbsm6563011f8f.21.2026.04.02.02.00.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Apr 2026 02:00:14 -0700 (PDT)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 69ce383c-2eae-0a2a0a5409dd-0a2a4509de0e-48
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 11:35:09 +0200
+Received: from [103.168.172.144] (helo=fout-a1-smtp.messagingengine.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <marmarek@invisiblethingslab.com>)
+ id 69ce384c-bf79-0a2a45090019-67a8ac90ba1f-3
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2026 11:35:09 +0200
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+ by mailfout.phl.internal (Postfix) with ESMTP id 11DF5EC017D;
+ Thu,  2 Apr 2026 05:35:08 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-02.internal (MEProxy); Thu, 02 Apr 2026 05:35:08 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 2 Apr 2026 05:35:06 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,190 +55,396 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775120415; x=1775725215; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=BLOc/JW8ZMw+OFh6xrKpF1PhXLvQuUzOtlqad9fG2lc=;
-        b=Tcbd+aq7tTejc8uKubmtpjcp3iCIp193ssSayVGwZaKyk7d8RinnjOFmdHaFVv5i7D
-         cdlkpznmbpCSRiJoGO8mzxtsEoqiZzh6w/5PnSdSeEkpcVRSoTSwJ7mmykUycux9+pks
-         9Nh29VrGrJhNgb9QJVawtZj3UOAWgscTvZaGq+Lwowigs2w8PlY1Q4K8//CIPNGWHK5l
-         Mi3ZwP8o1NxegaFEhntv3OqYzttQs7q6eVZF/nixYc8HO3UHsH2isfhxbz3BkjRqbATt
-         oCYELvZN2htxmT5fplrKbwQ+DxcCx6T5byzuA+c12ip5hq2tudYJeWnpNFxC2T8q2Doo
-         a0wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775120415; x=1775725215;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=BLOc/JW8ZMw+OFh6xrKpF1PhXLvQuUzOtlqad9fG2lc=;
-        b=awgKEieHRIq3vfVi6/7ngN6uVnQ2YEgAkar6eKSwKEYQNeDUKFxgwBFMeXiiWG39iQ
-         hONawE3frW5LIjQ9Lg0UKkXxjLpSdueA3cnShxnnAZ/5fIIAJrJQ8hHDA6PN97WwJa26
-         ueMH/ew3JDTdc4kYu2u6bZImg9NO4cmQ7huxGzQ2oEc7Of5geUHeAInEsLjVQOGwOJVl
-         /knuIYujpUN2WVD6K5x+uWwrSXZAI3Rojg/l8q1FJFCJ9oSAs+/0J9cFQO38B0DDEaN7
-         OEjB6tuoKc0k2au+AFHz/YkKbFGdf02bmXEhdNGXz2T9JOjrVu1oxUcnCk/YahE0kwuC
-         W0sw==
-X-Forwarded-Encrypted: i=1; AJvYcCVXolr+NYTG3fUjelhLzgJ6z/ibe4AFivTTQuMjY45qitvQDjuIPdAKgX1AAzv7KIZfiC5KdS4NxWA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwR2QRLOfi0JCC+S/gmAfLHzfY51+l8yHwAkZdJtvKcJUeLLtxm
-	2OxzJI+oZJVqgpwVv1t31W131CHPr3Bq7e+TksM5sT07biP6GkrCUXq9Io8uKVet2A==
-X-Gm-Gg: ATEYQzy1Y7HQ+a6o0QxM/HwO9uCwQUPnjHpctZFxi8lK3fY7rizg4IhTQF2/nUWBsX0
-	v4h1CsYS9miaBDD+5341cABvUxlJx6bqb5+4Dk02JAtaGVDYlSt+s1fRsOcS7SfBgE7qX0GSPD9
-	055jHAc5HQipG08LUA5tXknFztC9+pYYwD2IT2eNK5yXZxx5lygb5D08vEvNFSML6vayNqqig2u
-	OGK3QEMffz2PrVBmm654/koZGcfTnxuajYj0M0zF5mwU6z3RqqySNVG9j1QYpQ8qKwmIFIaqPHN
-	fl4B2U4HiVuttMQ+Rcqh3Gmsnq5ptOmQKnLeaCH3G/P7Z01eZ7jfGd9MUPhj7aKUNZn12cni5ba
-	TqDHbECukIzJClTcz3dRLAQB/2EYYl/G1tTW4lavSrxZpSUlEsdMhsVs0i1JcNOZcmiWSk1my6d
-	1Z5Hwb/GImDyPpXdbtSCnrkCtuSLab75zGnVI+fRuHAQMMuRn7nIi/9pfLRouBRbgJedq9hRaQA
-	0uigJfg1CebjGg=
-X-Received: by 2002:a05:6000:2909:b0:43d:29a:e42a with SMTP id ffacd0b85a97d-43d150c211dmr12433330f8f.29.1775120414796;
-        Thu, 02 Apr 2026 02:00:14 -0700 (PDT)
-Message-ID: <8393b8fe-6ba9-439c-ae15-a84409d0976d@suse.com>
-Date: Thu, 2 Apr 2026 11:00:13 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fm1 header.d=invisiblethingslab.com header.i="@invisiblethingslab.com" header.h="Cc:Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=fm2 header.d=messagingengine.com header.i="@messagingengine.com" header.h="Cc:Content-Type:Date:Feedback-ID:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To:X-ME-Proxy:X-ME-Sender"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1775122507;
+	 x=1775208907; bh=apQO9KLZiAeVK8BLrH4tF5lCXaQLZ06gLCcaCkpBSKE=; b=
+	JE+XUUHwBtcaZNxIbuvhmEivNvbKJUfkOnEFTAvTGPBiHXM5wFpjvci4QwsU4O/f
+	cDNCEVWvNzs2xhCx1jFrLaP9Q/qiRzBuheETtE/QEtj4PmLd+RqrPH4Dw4rEXqiS
+	B0noFkqqNcGQwMBjURkP/T38zpiA8wEJwG6FSGWo2ZPwbvV555LBG3KbidqzWNqz
+	A21GumU5i1OiFSkA+lQxN8qCtLN8VUYtI38Ek1g5k4NHP/9cN8wFCLrlvSYv7Ze2
+	vgNtRmh03tiBrxzkcN9sbzQb+56xB2POsfA8KDH1Phl+gXeARtEOndM7ZGFE+DWJ
+	obm5PAJFGYJH8f6eRWRShw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1775122507; x=1775208907; bh=apQO9KLZiAeVK8BLrH4tF5lCXaQLZ06gLCc
+	aCkpBSKE=; b=NZW8hKJjL0CpWhSgjnMlBqF9Cx+3VaB5sDkGVJerWv1ZDHd8i+2
+	njrZUeJUtijVL59F6oId1rYTkniG6agrZSFnL1xwk8bqYhkmf736FsVxFMK0BIBw
+	BKJei451D4BTlkHE3+/7pC9M963ew8obGu8HHOL9Rom4mjauevNEOFqTNLjwliCP
+	ysufmr0sHiybhxNh/HeYVqHj5uiuLnY+jhCUIammWuuroUFPBeaBDhoklSOp0knz
+	z0b0CVnPWqHLGCy3WF2o6MqYGER6TRQ+d6D2iWxxnTT/Uzd9ShEqbWCAnvFOvNFy
+	2tDjDfvpZ3uNkb5VA1TMh5gxpBLVoLX0YoQ==
+X-ME-Sender: <xms:SzjOaQqeBOYMjeWhKyMHuiEVarbCJ87JY6Hg9i_d_GAS9r91LukZjg>
+    <xme:SzjOacrlv0uXcIqV00l5ue5AU055mqYHRklvBkObxeYRvqzIkfEFwEu7M_OUAxLfA
+    Js1GM-33mIn_Lc53E3bqeXkyFpKxYsIosr1TsaADZFtBSTc>
+X-ME-Received: <xmr:SzjOaS1Jqd82hT6v0Gt9eBgV2zTsfGlJYvwjNrHI1lKEZYr_pPkqCg77>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdehieejucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceurghi
+    lhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurh
+    epfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcuofgr
+    rhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvihhsih
+    gslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfduleetfeev
+    hfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluhhsthgvrh
+    fuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhv
+    ihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohepvddpmhhoug
+    gvpehsmhhtphhouhhtpdhrtghpthhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdp
+    rhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdroh
+    hrgh
+X-ME-Proxy: <xmx:SzjOaTDfKPbUKxwi_TrQj7hYbGMpIn6S81YUYEKsFQ0aUehahgsZSw>
+    <xmx:SzjOaSel8tE89SvAGnO955uPqBO5US71MQs09OLYDGH9UU_4mBpVgg>
+    <xmx:SzjOaQhHPRRCAsZ3TqJQnuQdKEbSXbW0YK-vFPfC8ZmE8QJCHUbZsQ>
+    <xmx:SzjOaSoh3fImrgiR6FKY_Ibmzat6vD9kA7iMxVUJbURiCHTQHWUUnw>
+    <xmx:SzjOaY_dR8sHxhHOstOtSBUykwfYaf3g2jK5wgK_FsuCaDEpmNGovHUJ>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 2 Apr 2026 11:35:05 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: IOMMU faults after S3
+Message-ID: <ac44SVW1cPhKYFKU@mail-itl>
+References: <acZZmGXIJlmN3KGm@mail-itl>
+ <e8bbaae2-5cff-4549-9f27-fbbda7346f60@suse.com>
+ <090b8b8f-141b-4a24-92eb-879c0a0c73e1@suse.com>
+ <ac2nibFfvGm_7elv@mail-itl>
+ <933a3e95-33d2-4e20-a4d5-2d8b20c2da7f@suse.com>
+ <ac4kCq87SQSc6ddV@mail-itl>
+ <aa6910f1-365a-4534-b229-9730b3aede02@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 12/27] xen/riscv: introduce aia_init() and
- aia_available()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <74f15b1db86139b36b721ef9d12b998fe4f0f348.1773157782.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <74f15b1db86139b36b721ef9d12b998fe4f0f348.1773157782.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ef75cf/1775120415-1334C41E-922DAA10/0/0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="DAxEOqDSYZNEEJoQ"
+Content-Disposition: inline
+In-Reply-To: <aa6910f1-365a-4534-b229-9730b3aede02@suse.com>
+X-purgate-ID: tlsNG-bad1c0/1775122509-2E155152-A8CA5F06/0/0
 X-purgate-type: clean
-X-purgate-size: 1521
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-purgate-size: 11641
+X-Spamd-Result: default: False [-2.23 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	R_MIXED_CHARSET(0.56)[subject];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm1,messagingengine.com:s=fm2];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	RCPT_COUNT_TWO(0.00)[2];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_ALL(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~];
 	FORWARDED(0.00)[mailman];
-	RCVD_COUNT_SEVEN(0.00)[10];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid]
-X-Rspamd-Queue-Id: A91D6386677
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[11]
+X-Rspamd-Queue-Id: 9B80A38701E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 10.03.2026 18:08, Oleksii Kurochko wrote:
-> aia_init() is going to contain all the stuff related to AIA initialization.
-> At the moment, it is just Check if SSAIA extension is available and if yes
-> set is_aia_available to true.
 
-And (future) users of aia_available() can't directly call
-riscv_isa_extension_available()? Nor can aia_available() be a convenience
-wrapper around that call? It's only ...
+--DAxEOqDSYZNEEJoQ
+Content-Type: multipart/mixed; protected-headers=v1;
+	boundary="NVNT4aiuL2yDymiY"
+Content-Disposition: inline
+Date: Thu, 2 Apr 2026 11:35:05 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: IOMMU faults after S3
 
-> --- /dev/null
-> +++ b/xen/arch/riscv/aia.c
-> @@ -0,0 +1,25 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +
-> +#include <xen/errno.h>
-> +#include <xen/init.h>
-> +#include <xen/sections.h>
-> +#include <xen/types.h>
-> +
-> +#include <asm/cpufeature.h>
-> +
-> +static bool __ro_after_init is_aia_available;
 
-... a boolean, yes, but still.
+--NVNT4aiuL2yDymiY
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> +bool aia_available(void)
-> +{
-> +    return is_aia_available;
-> +}
-> +
-> +int __init aia_init(void)
-> +{
-> +    if ( !riscv_isa_extension_available(NULL, RISCV_ISA_EXT_ssaia) )
-> +        return -ENODEV;
-> +
-> +    is_aia_available = true;
-> +
-> +    return 0;
-> +}
+On Thu, Apr 02, 2026 at 10:39:41AM +0200, Jan Beulich wrote:
+> On 02.04.2026 10:08, Marek Marczykowski-G=C3=B3recki wrote:
+> > The xl dmesg output (from MTL this time):
+> >=20
+> >     (XEN) [  123.477511] Entering ACPI S3 state.
+> >     (XEN) [18446743903.571842] _disable_pit_irq:2649: using_pit: 0, cpu=
+_has_apic: 1
+> >     (XEN) [18446743903.571856] _disable_pit_irq:2659: cpuidle_using_dee=
+p_cstate: 1, boot_cpu_has(X86_FEATURE_XEN_ARAT): 0
 
-Why the return value, when ...
+> Hmm, but what you didn't log is whether __hpet_setup_msi_irq() actually
+> succeeded everywhere. (And if it did, also logging HPET_Tn_ROUTE() values
+> might be a good idea, if only to double check.)
 
-> --- a/xen/arch/riscv/intc.c
-> +++ b/xen/arch/riscv/intc.c
-> @@ -8,6 +8,7 @@
->  #include <xen/lib.h>
->  #include <xen/spinlock.h>
->  
-> +#include <asm/aia.h>
->  #include <asm/intc.h>
->  
->  static const struct intc_hw_operations *__ro_after_init intc_hw_ops;
-> @@ -27,6 +28,8 @@ void __init intc_preinit(void)
->  
->  void __init intc_init(void)
->  {
-> +    aia_init();
+Updated output:
 
-... the sole caller doesn't care?
+    (XEN) [18446743899.720395] _disable_pit_irq:2649: using_pit: 0, cpu_has=
+_apic: 1
+    (XEN) [18446743899.720409] _disable_pit_irq:2659: cpuidle_using_deep_cs=
+tate: 1, boot_cpu_has(X86_FEATURE_XEN_ARAT): 0
+    (XEN) [18446743899.720420] _disable_pit_irq:2662: init: 0
+    (XEN) [18446743899.720431] hpet_broadcast_resume:663: hpet_events: ffff=
+83046bc1f080
+    (XEN) [18446743899.720579] hpet_broadcast_resume:674: num_hpets_used: 8
+    (XEN) [18446743899.720587] hpet_broadcast_resume:692: cfg: 0x1
+    (XEN) [18446743899.720599] hpet_broadcast_resume:697: i:0, hpet_events[=
+i].msi.irq: 122, hpet_events[i].flags: 0
+    (XEN) [18446743899.720612] hpet_msi_write:283: iommu_intremap: 2 (iommu=
+_intremap_off: 0), HPET_Tn_ROUTE(ch->idx): 0x110
+    (XEN) [18446743899.720638] hpet_msi_write:287: iommu_update_ire_from_ms=
+i rc: 0
+    (XEN) [18446743899.720649] hpet_broadcast_resume:701: i:0, __hpet_setup=
+_msi_irq ret: 0
+    (XEN) [18446743899.720665] hpet_broadcast_resume:711: i:0, cfg: 0xc134
+    (XEN) [18446743899.720674] hpet_broadcast_resume:697: i:1, hpet_events[=
+i].msi.irq: 123, hpet_events[i].flags: 0
+    (XEN) [18446743899.720684] hpet_msi_write:283: iommu_intremap: 2 (iommu=
+_intremap_off: 0), HPET_Tn_ROUTE(ch->idx): 0x130
+    (XEN) [18446743899.720707] hpet_msi_write:287: iommu_update_ire_from_ms=
+i rc: 0
+    (XEN) [18446743899.720717] hpet_broadcast_resume:701: i:1, __hpet_setup=
+_msi_irq ret: 0
+    (XEN) [18446743899.720728] hpet_broadcast_resume:711: i:1, cfg: 0xc104
+    (XEN) [18446743899.720737] hpet_broadcast_resume:697: i:2, hpet_events[=
+i].msi.irq: 124, hpet_events[i].flags: 0
+    (XEN) [18446743899.720747] hpet_msi_write:283: iommu_intremap: 2 (iommu=
+_intremap_off: 0), HPET_Tn_ROUTE(ch->idx): 0x150
+    (XEN) [18446743899.720771] hpet_msi_write:287: iommu_update_ire_from_ms=
+i rc: 0
+    (XEN) [18446743899.720781] hpet_broadcast_resume:701: i:2, __hpet_setup=
+_msi_irq ret: 0
+    (XEN) [18446743899.720797] hpet_broadcast_resume:711: i:2, cfg: 0xc104
+    (XEN) [18446743899.720805] hpet_broadcast_resume:697: i:3, hpet_events[=
+i].msi.irq: 125, hpet_events[i].flags: 0
+    (XEN) [18446743899.720816] hpet_msi_write:283: iommu_intremap: 2 (iommu=
+_intremap_off: 0), HPET_Tn_ROUTE(ch->idx): 0x170
+    (XEN) [18446743899.720838] hpet_msi_write:287: iommu_update_ire_from_ms=
+i rc: 0
+    (XEN) [18446743899.720848] hpet_broadcast_resume:701: i:3, __hpet_setup=
+_msi_irq ret: 0
+    (XEN) [18446743899.720863] hpet_broadcast_resume:711: i:3, cfg: 0xc104
+    (XEN) [18446743899.720872] hpet_broadcast_resume:697: i:4, hpet_events[=
+i].msi.irq: 126, hpet_events[i].flags: 0
+    (XEN) [18446743899.720882] hpet_msi_write:283: iommu_intremap: 2 (iommu=
+_intremap_off: 0), HPET_Tn_ROUTE(ch->idx): 0x190
+    (XEN) [18446743899.720905] hpet_msi_write:287: iommu_update_ire_from_ms=
+i rc: 0
+    (XEN) [18446743899.720915] hpet_broadcast_resume:701: i:4, __hpet_setup=
+_msi_irq ret: 0
+    (XEN) [18446743899.720931] hpet_broadcast_resume:711: i:4, cfg: 0xc104
+    (XEN) [18446743899.720939] hpet_broadcast_resume:697: i:5, hpet_events[=
+i].msi.irq: 127, hpet_events[i].flags: 0
+    (XEN) [18446743899.720949] hpet_msi_write:283: iommu_intremap: 2 (iommu=
+_intremap_off: 0), HPET_Tn_ROUTE(ch->idx): 0x1b0
+    (XEN) [18446743899.720971] hpet_msi_write:287: iommu_update_ire_from_ms=
+i rc: 0
+    (XEN) [18446743899.720981] hpet_broadcast_resume:701: i:5, __hpet_setup=
+_msi_irq ret: 0
+    (XEN) [18446743899.720997] hpet_broadcast_resume:711: i:5, cfg: 0xc104
+    (XEN) [18446743899.721006] hpet_broadcast_resume:697: i:6, hpet_events[=
+i].msi.irq: 128, hpet_events[i].flags: 0
+    (XEN) [18446743899.721016] hpet_msi_write:283: iommu_intremap: 2 (iommu=
+_intremap_off: 0), HPET_Tn_ROUTE(ch->idx): 0x1d0
+    (XEN) [18446743899.721039] hpet_msi_write:287: iommu_update_ire_from_ms=
+i rc: 0
+    (XEN) [18446743899.721048] hpet_broadcast_resume:701: i:6, __hpet_setup=
+_msi_irq ret: 0
+    (XEN) [18446743899.721064] hpet_broadcast_resume:711: i:6, cfg: 0xc104
+    (XEN) [18446743899.721072] hpet_broadcast_resume:697: i:7, hpet_events[=
+i].msi.irq: 129, hpet_events[i].flags: 0
+    (XEN) [18446743899.721082] hpet_msi_write:283: iommu_intremap: 2 (iommu=
+_intremap_off: 0), HPET_Tn_ROUTE(ch->idx): 0x1f0
+    (XEN) [18446743899.721105] hpet_msi_write:287: iommu_update_ire_from_ms=
+i rc: 0
+    (XEN) [18446743899.721115] hpet_broadcast_resume:701: i:7, __hpet_setup=
+_msi_irq ret: 0
+    (XEN) [18446743899.721130] hpet_broadcast_resume:711: i:7, cfg: 0xc104
 
-Jan
+And the current debug diff attached.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--NVNT4aiuL2yDymiY
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: attachment; filename=xen-debug.diff
+Content-Transfer-Encoding: quoted-printable
+
+diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
+index 5273fe0ae435..9916afd5ed68 100644
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -364,6 +364,7 @@ static void __init calculate_host_policy(void)
+     struct cpu_policy *p =3D &host_cpu_policy;
+     unsigned int max_extd_leaf;
+=20
++    printk("%s:%d\n", __func__, __LINE__);
+     *p =3D raw_cpu_policy;
+=20
+     p->basic.max_leaf =3D
+diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+index 18b3c79dc97f..51a3d1c4b5f3 100644
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -671,6 +671,7 @@ const struct cpu_dev __initconst_cf_clobber intel_cpu_d=
+ev =3D {
+=20
+ void __init intel_init_arat(void)
+ {
++    printk("%s:%d: opt_arat: %d, cpu_has_arat: %d\n", __func__, __LINE__, =
+opt_arat, cpu_has_arat);
+     if ( opt_arat && cpu_has_arat )
+         setup_force_cpu_cap(X86_FEATURE_XEN_ARAT);
+ }
+diff --git a/xen/arch/x86/hpet.c b/xen/arch/x86/hpet.c
+index 1ea8ae457424..7731654efa9b 100644
+--- a/xen/arch/x86/hpet.c
++++ b/xen/arch/x86/hpet.c
+@@ -280,9 +280,11 @@ static int hpet_msi_write(struct hpet_event_channel *c=
+h, struct msi_msg *msg)
+ {
+     ch->msi.msg =3D *msg;
+=20
++    printk("%s:%d: iommu_intremap: %d (iommu_intremap_off: %d), HPET_Tn_RO=
+UTE(ch->idx): %#x\n", __func__, __LINE__, iommu_intremap, iommu_intremap_of=
+f, HPET_Tn_ROUTE(ch->idx));
+     if ( iommu_intremap !=3D iommu_intremap_off )
+     {
+         int rc =3D iommu_update_ire_from_msi(&ch->msi, msg);
++        printk("%s:%d: iommu_update_ire_from_msi rc: %d\n", __func__, __LI=
+NE__, rc);
+=20
+         if ( rc < 0 )
+             return rc;
+@@ -658,6 +660,8 @@ void hpet_broadcast_resume(void)
+     u32 cfg;
+     unsigned int i, n;
+=20
++    printk("%s:%d: hpet_events: %p\n", __func__, __LINE__, hpet_events);
++
+     if ( !hpet_events )
+         return;
+=20
+@@ -667,25 +671,35 @@ void hpet_broadcast_resume(void)
+=20
+     if ( num_hpets_used > 0 )
+     {
++        printk("%s:%d: num_hpets_used: %d\n", __func__, __LINE__, num_hpet=
+s_used);
+         /* Stop HPET legacy interrupts */
+         cfg &=3D ~HPET_CFG_LEGACY;
+         n =3D num_hpets_used;
+     }
+     else if ( hpet_events->flags & HPET_EVT_DISABLE )
++    {
++        printk("%s:%d: hpet_events->flags: %#x\n", __func__, __LINE__, hpe=
+t_events->flags);
+         return;
++    }
+     else
+     {
+         /* Start HPET legacy interrupts */
++        printk("%s:%d\n", __func__, __LINE__);
+         cfg |=3D HPET_CFG_LEGACY;
+         n =3D 1;
+     }
+=20
++    printk("%s:%d: cfg: %#x\n", __func__, __LINE__, cfg);
+     hpet_write32(cfg, HPET_CFG);
+=20
+     for ( i =3D 0; i < n; i++ )
+     {
++        printk("%s:%d: i:%d, hpet_events[i].msi.irq: %d, hpet_events[i].fl=
+ags: %#x\n", __func__, __LINE__, i, hpet_events[i].msi.irq, hpet_events[i].=
+flags);
+         if ( hpet_events[i].msi.irq >=3D 0 )
+-            __hpet_setup_msi_irq(irq_to_desc(hpet_events[i].msi.irq));
++        {
++            int ret =3D __hpet_setup_msi_irq(irq_to_desc(hpet_events[i].ms=
+i.irq));
++            printk("%s:%d: i:%d, __hpet_setup_msi_irq ret: %d\n", __func__=
+, __LINE__, i, ret);
++        }
+=20
+         /* set HPET Tn as oneshot */
+         cfg =3D hpet_read32(HPET_Tn_CFG(hpet_events[i].idx));
+@@ -694,6 +708,7 @@ void hpet_broadcast_resume(void)
+         if ( !(hpet_events[i].flags & HPET_EVT_LEGACY) )
+             cfg |=3D HPET_TN_FSB;
+         hpet_write32(cfg, HPET_Tn_CFG(hpet_events[i].idx));
++        printk("%s:%d: i:%d, cfg: %#x\n", __func__, __LINE__, i, cfg);
+=20
+         hpet_events[i].next_event =3D STIME_MAX;
+     }
+diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
+index fed30a919d2c..15113ebdfb6c 100644
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -2646,6 +2646,7 @@ static int _disable_pit_irq(bool init)
+ {
+     int ret =3D 1;
+=20
++    printk("%s:%d: using_pit: %d, cpu_has_apic: %d\n", __func__, __LINE__,=
+ using_pit, cpu_has_apic);
+     if ( using_pit || !cpu_has_apic )
+         return -1;
+=20
+@@ -2655,8 +2656,10 @@ static int _disable_pit_irq(bool init)
+      * XXX dom0 may rely on RTC interrupt delivery, so only enable
+      * hpet_broadcast if FSB mode available or if force_hpet_broadcast.
+      */
++    printk("%s:%d: cpuidle_using_deep_cstate: %d, boot_cpu_has(X86_FEATURE=
+_XEN_ARAT): %d\n", __func__, __LINE__, cpuidle_using_deep_cstate(), boot_cp=
+u_has(X86_FEATURE_XEN_ARAT));
+     if ( cpuidle_using_deep_cstate() && !boot_cpu_has(X86_FEATURE_XEN_ARAT=
+) )
+     {
++        printk("%s:%d: init: %d\n", __func__, __LINE__, init);
+         init ? hpet_broadcast_init() : hpet_broadcast_resume();
+         if ( !hpet_broadcast_is_available() )
+         {
+diff --git a/xen/source b/xen/source
+new file mode 120000
+index 000000000000..945c9b46d684
+--- /dev/null
++++ b/xen/source
+@@ -0,0 +1 @@
++.
+\ No newline at end of file
+
+--NVNT4aiuL2yDymiY--
+
+--DAxEOqDSYZNEEJoQ
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmnOOEkACgkQ24/THMrX
+1yyr3Af/YrnnApygs7blpY0N0dlpMs479gI7O4+mv0PjmEMajTt9+Lsb3DSowbPL
+H88eI33brO740l/t1w1YYmOAZBBgKuZNbsjR1jzJLqjWkJ/l0SBe463DgEtfhaXa
+Qo4H3mF2JHXqHh0V3TtcuqRxIHUIUziIV5LiWKiIrrc0X1gQU9CYUGo1reh5iW56
+5Wvxd6eNnJiSXNMSt9B02OpIgBaT42SsIYMnrzEGtmZcw2h9whE3+/e+3fLCCx37
+Vb93YeXPMo88H5yVKj2REb/9LR9FsfIX/eCoHjibfqBBMqeDWrBEmcVPXftkv9sI
+Uhs/wUWR2sdA5cpUJyIi1Lq25OvzPA==
+=px07
+-----END PGP SIGNATURE-----
+
+--DAxEOqDSYZNEEJoQ--
 
