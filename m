@@ -2,44 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wMlLL1VYz2llvQYAu9opvQ
+	id GLtkLFVYz2llvQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Fri, 03 Apr 2026 08:04:05 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4FCF3914F5
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DB7C3914F4
 	for <lists+xen-devel@lfdr.de>; Fri, 03 Apr 2026 08:04:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1272575.1560074 (Exim 4.92)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=lists.xenproject.org; s=20200302lists; h=Date:From:Message-Id:Sender:
+	List-Subscribe:List-Help:List-Post:List-Unsubscribe:List-Id:Reply-To:Subject:
+	To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References:List-Owner:List-Archive;
+	bh=zHXLOAwkputQDAed/3u/W6+dmB6s6SIgIz6c6q8DnIw=; b=FGhLxI5KcIPVpYK/yks3vcDexo
+	KP9tvqgGlOBDttLuzMvKHvdrGn3SzooQYHwHKJhE202B4kRRkqgvGcJYzdANulDukRJu+FhPzuqKW
+	9U2BUCkJBGhECr/tielxR5zJsQPMb8WZevmzqMa1F2McAvS+mG7UHAHNXtIlMbUwxaWw=;
+Received: from list by lists.xenproject.org with outflank-mailman.1272521.1560072 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8Xcj-0002bS-FO; Fri, 03 Apr 2026 06:03:17 +0000
+	id 1w8Xcj-0002Ye-Bp; Fri, 03 Apr 2026 06:03:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1272575.1560074; Fri, 03 Apr 2026 06:03:17 +0000
+Received: by outflank-mailman (output) from mailman id 1272521.1560072; Fri, 03 Apr 2026 06:03:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w8Xcj-0002Xe-CR; Fri, 03 Apr 2026 06:03:17 +0000
-Received: by outflank-mailman (input) for mailman id 1272575;
- Fri, 03 Apr 2026 05:33:55 +0000
+	id 1w8Xcj-0002VT-3x; Fri, 03 Apr 2026 06:03:17 +0000
+Received: by outflank-mailman (input) for mailman id 1272521;
+ Fri, 03 Apr 2026 02:50:03 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <pengpeng@iscas.ac.cn>) id 1w8XAJ-0007Zl-7U
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2026 05:33:55 +0000
+ (envelope-from <pengpeng@iscas.ac.cn>) id 1w8Ubj-0005tH-D3
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2026 02:50:03 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w8XAI-00B7EO-Jt
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2026 07:33:54 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1w8Ubi-009xNC-PV
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2026 04:50:02 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <pengpeng@iscas.ac.cn>)
- id 69cf5134-bab6-0a2a0a5309dd-0a2a450badec-26
- for <xen-devel@lists.xenproject.org>; Fri, 03 Apr 2026 07:33:53 +0200
+ id 69cf2a9c-2eae-0a2a0a5409dd-0a2a4503ac78-24
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Apr 2026 04:50:01 +0200
 Received: from [159.226.251.81] (helo=cstnet.cn)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <pengpeng@iscas.ac.cn>)
- id 69cf513e-bca8-0a2a450b0019-9fe2fb5184e8-3
- for <xen-devel@lists.xenproject.org>; Fri, 03 Apr 2026 07:33:52 +0200
-Received: from 0002-arm-xen.resend.eml (unknown [111.196.245.197])
- by APP-03 (Coremail) with SMTP id rQCowACHqeA9Uc9pjEK7DA--.32598S2;
- Fri, 03 Apr 2026 13:33:49 +0800 (CST)
+ id 69cf2ad6-02b3-0a2a45030019-9fe2fb51aed2-3
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Apr 2026 04:50:00 +0200
+Received: from 0002-arm-xen.eml (unknown [111.196.245.197])
+ by APP-03 (Coremail) with SMTP id rQCowACXtt3UKs9pxlS4DA--.8142S2;
+ Fri, 03 Apr 2026 10:49:56 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,69 +61,65 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; none
+X-purgate-ID: tlsNG-33051d/1775184601-41311C9A-214F4CF7/0/0
+X-purgate-type: clean
+X-purgate-size: 3762
+Message-Id: <E1w8Xcj-0002Ye-Bp@lists.xenproject.org>
+From: xen-devel-bounces@lists.xenproject.org
+Date: Fri, 03 Apr 2026 06:03:17 +0000
+X-Spamd-Result: default: False [3.31 / 15.00];
+	MISSING_TO(2.00)[];
+	MISSING_SUBJECT(2.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[lists.xenproject.org,none];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[lists.xenproject.org:s=20200302lists];
+	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
+	HAS_LIST_UNSUB(-0.01)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FROM_NO_DN(0.00)[];
+	ARC_NA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MIME_TRACE(0.00)[0:+];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[lists.xenproject.org:+];
+	FROM_EQ_ENVFROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_TLS_LAST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 4DB7C3914F4
+X-Rspamd-Action: no action
+X-Rspamd-Server: lfdr
+
+From beef0e250a8453d76f9c6fb530a61b8110d4bd53 Mon Sep 17 00:00:00 2001
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 Date: Fri, 3 Apr 2026 10:42:09 +0800
-Message-ID: <20260403151502.2-dt-arm-xen-resend-pengpeng@iscas.ac.cn>
+Message-ID: <20260403111502.2-dt-arm-xen-pengpeng@iscas.ac.cn>
 To: Stefano Stabellini <sstabellini@kernel.org>
 Cc: xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, pengpeng@iscas.ac.cn
 Subject: [PATCH] ARM: xen: validate hypervisor compatible before parsing its
  version
-X-CM-TRANSID:rQCowACHqeA9Uc9pjEK7DA--.32598S2
+X-CM-TRANSID:rQCowACXtt3UKs9pxlS4DA--.8142S2
 X-Coremail-Antispam: 1UD129KBjvJXoW7Zr4rtFWkCF4rJr1kZF1UKFg_yoW8Zw4fpF
 	Zakr9avFWrt3WxWa4IyFyv9Fy5GF4kXrW2qFykZ3Wjyrnrtw1rXrWIvF1SvFn3ArW8W343
 	ZrWjyFn5AF47X3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkq14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	9KBjDU0xBIdaVrnRJUUUkm14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r1D
-	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
-	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
-	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjG-e7UUUUU==
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_
+	Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
+	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI
+	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
+	1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
+	42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU5oGQDUUUU
 X-Originating-IP: [111.196.245.197]
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
-X-purgate-ID: tlsNG-42698a/1775194433-F47D42A1-6AE0A4CF/0/0
-X-purgate-type: clean
-X-purgate-size: 2060
-X-Spamd-Result: default: False [1.01 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
-	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DMARC_NA(0.00)[iscas.ac.cn];
-	FORGED_RECIPIENTS(0.00)[m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:pengpeng@iscas.ac.cn,s:lists@lfdr.de];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[pengpeng@iscas.ac.cn,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[pengpeng@iscas.ac.cn,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	HAS_XOIP(0.00)[];
-	R_DKIM_NA(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: B4FCF3914F5
-X-Rspamd-Action: no action
-X-Rspamd-Server: lfdr
 
 fdt_find_hyper_node() reads the raw compatible property and then
 derives hyper_node.version from a prefix match before later printing it
