@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IGeqHqDR02m6mgcAu9opvQ
+	id WJ0NFqzU02nGmgcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Apr 2026 17:30:40 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Apr 2026 17:43:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C32B83A4BA3
-	for <lists+xen-devel@lfdr.de>; Mon, 06 Apr 2026 17:30:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1274229.1560400 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B387D3A4D9A
+	for <lists+xen-devel@lfdr.de>; Mon, 06 Apr 2026 17:43:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1274238.1560408 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w9ltw-00023y-HT; Mon, 06 Apr 2026 15:30:08 +0000
+	id 1w9m6j-0003iG-J9; Mon, 06 Apr 2026 15:43:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1274229.1560400; Mon, 06 Apr 2026 15:30:08 +0000
+Received: by outflank-mailman (output) from mailman id 1274238.1560408; Mon, 06 Apr 2026 15:43:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w9ltw-00021d-EC; Mon, 06 Apr 2026 15:30:08 +0000
-Received: by outflank-mailman (input) for mailman id 1274229;
- Mon, 06 Apr 2026 15:30:07 +0000
+	id 1w9m6j-0003g5-Ga; Mon, 06 Apr 2026 15:43:21 +0000
+Received: by outflank-mailman (input) for mailman id 1274238;
+ Mon, 06 Apr 2026 15:43:19 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <marmarek@invisiblethingslab.com>) id 1w9ltu-0001yI-Sq
- for xen-devel@lists.xenproject.org; Mon, 06 Apr 2026 15:30:07 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1w9m6h-0003fz-At
+ for xen-devel@lists.xenproject.org; Mon, 06 Apr 2026 15:43:19 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w9ltt-001E1I-Od
- for xen-devel@lists.xenproject.org; Mon, 06 Apr 2026 17:30:05 +0200
+ id 1w9m6g-001FUV-8x
+ for xen-devel@lists.xenproject.org; Mon, 06 Apr 2026 17:43:18 +0200
 Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d3d15a-2eae-0a2a0a5409dd-0a2a4501e71a-42
- for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2026 17:30:05 +0200
-Received: from [103.168.172.151] (helo=fout-a8-smtp.messagingengine.com)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69d3d465-2eae-0a2a0a5409dd-0a2a4501e4ba-40
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2026 17:43:18 +0200
+Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
  by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d3d17b-6fc9-0a2a45010019-67a8ac97a193-3
- for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2026 17:30:04 +0200
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
- by mailfout.phl.internal (Postfix) with ESMTP id 5A028EC03FD;
- Mon,  6 Apr 2026 11:30:02 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-03.internal (MEProxy); Mon, 06 Apr 2026 11:30:02 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 6 Apr 2026 11:30:00 -0400 (EDT)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69d3d496-6fc9-0a2a45010019-d1558034b4a3-3
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2026 17:43:18 +0200
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-488af96f6b2so15926475e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2026 08:43:18 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
+ [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48899e49229sm98976505e9.15.2026.04.06.08.43.16
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Apr 2026 08:43:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,199 +55,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fm1 header.d=invisiblethingslab.com header.i="@invisiblethingslab.com" header.h="Cc:Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=fm2 header.d=messagingengine.com header.i="@messagingengine.com" header.h="Cc:Content-Type:Date:Feedback-ID:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To:X-ME-Proxy:X-ME-Sender"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1775489402;
-	 x=1775575802; bh=0sQ1pmUCsIAULZ6+kpDaBqJOkWcTJ+PmOvsnYD2tNLc=; b=
-	mDWMz2S3AwyfHzecVu8tSEYVEFQrhkhQ9m2hZl4ZLBRyBpOIDp/I39Z23f412D5X
-	Hg1oALXcNmOl6lJ0zFUr6g68platPKNO06DEo8OfBxq1ti+nRyhsszqOaWGazv60
-	MEEaYIouR3ibsgR3JKjkRljV/29mBmON9XXQLbBkCkhmupld/66utzd+on5Qq60y
-	BOA2HqMj2/BBQE+Uw0AsFoTDJOX1tHXBU4bJuK7d2n4g8bG/cjnXUpDz8izCu9jT
-	rF+jSCdXNcF6jVNYoqqKsqrczOw+B3YCHIBmGPaXjpqVBBwRx2QT3wKc/AYGLm3H
-	b75n/u0pNpMKfN1ft3iniw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1775489402; x=1775575802; bh=0sQ1pmUCsIAULZ6+kpDaBqJOkWcTJ+PmOvs
-	nYD2tNLc=; b=o5ry1wnS6FC549d+HELAr/PD9Za4Uz3432rvWFhXC7/37JjWKje
-	U9ogjzPZpBT51g1YnGxrNM8h+f/KpJcDZVmoA17qQtte1IuzaKq7YI4z14TUfxL+
-	jzFqn28Yxw/2FbSZTnkWu3T94rpJclj4qV8OEXTKgGZcwe4yp/n3amV9rGEpGmZF
-	S+0F5LIzUgpUuXZRHETouu8wq1+sZArI7pNobvCRD/yir7f/pkoJXyW2Gz/u4yh9
-	HKG3VKSs6/xWXWKftDh0lVNoewBjAlVGZEt1cY17WpE6S7kmSWdWskGdtnuHSRCy
-	coOeozHSMsdF9EUgwLldXeUXVS1FBIGJo9Q==
-X-ME-Sender: <xms:edHTaRT0wMMo9r9PNyztsNytDPXE8ogAM5C3bjYGYbIP1ttXAeuTnQ>
-    <xme:edHTaRylEHLlYPEHqV1bZni4RWBc_N_Txdu-1POwERG673CH5edhrQcT7jwDG1a1y
-    t5tDm0vg3uL_kU0giFtU4_of6b0EqQ6RMBShRxnGhlE-51O>
-X-ME-Received: <xmr:edHTab2CJ3ESCZMxXUU9LSxf0tWPI4oX6wxwuXQ2zjMGHNfP7YxYLgGGzQJmHG4iCPFS1ZisU9fUFbxVV-_d_QEQg0BsFQEY25k>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddukedtkecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtdorredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeukeegleef
-    uedvffekleefveeggedtueejhfeggfeflefgieejhedtkeejheffjeenucffohhmrghinh
-    epnhhtphdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhl
-    fhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
-    hmpdhnsggprhgtphhtthhopeegpdhmohguvgepshhmthhpohhuthdprhgtphhtthhopehj
-    sggvuhhlihgthhesshhushgvrdgtohhmpdhrtghpthhtohepgigvnhdquggvvhgvlheslh
-    hishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtohepjhhgrhhoshhssehs
-    uhhsvgdrtghomhdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
-X-ME-Proxy: <xmx:edHTaX6GpPLzOK7FiPeIajuZZoka5iug9AnmSPL33sQUj7e4NiWTlQ>
-    <xmx:edHTaWWtSw4pW4UAqf4ljmaoN5x2SKVk9aRT49yJxS-SnUa9vutOLw>
-    <xmx:edHTaeDfs9GdMzFlQruC4ULel8MecFbcspJEmvIwZrgcj1_S_zX8cg>
-    <xmx:edHTad6lJA9x04ifEPN8nVeGs_6spvUDmS46d3wpNj8CQPs5sEKj-Q>
-    <xmx:etHTacPTdHHo6j-SK6E_4WSl_SdRauuF3gEyCeOwq3lq3r76yJ6FcBlR>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 6 Apr 2026 17:29:58 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
- 4.17 -> 4.19 ?
-Message-ID: <adPRdiCTLZEXtXpq@mail-itl>
-References: <aPzBO_eW8mQHM66u@mail-itl>
- <acQzzlXNDxNq885V@mail-itl>
- <29775afa-e17b-4c44-a2a8-4ef4bc7cdf0f@suse.com>
- <acUqOL232lp-Lw1v@mail-itl>
- <cbed767b-4ac4-4989-8778-43ff321ae977@suse.com>
- <acVWX8vkhZiFfonP@mail-itl>
- <88c65ec7-b7f7-4d8b-a453-d707440b43cb@suse.com>
- <acZ8ez4dmQay1JSw@mail-itl>
- <ac5l-HgbDRcVkiWb@mail-itl>
- <ac_Gu2lm4Jnoz7WN@mail-itl>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775490198; x=1776094998; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Qp9xvCexd+og9CWs2NBxRDicMXJNAJsIGHdkUhjLJDY=;
+        b=ry1H4Ms3BCf3jKsKykgJNYO1kaRN0zv3731TVMf/e2Shf0h1qyATNQOmu45EZSEaMc
+         c5FJReCMT8oT/rCDY0DyMvxGEv4WUWSC8FedEKpPh9E393Fdla501CVyaV78CbulF24Q
+         EOfq6//3CNguAoUMjDdsT+pl+e/V9Eb/uHL6EUBEb1Pqm+1P0kbOd+3EBneUlaNyC6Hp
+         PURocFYe/mPrfjlV0AcNcmyTIzqTqDghx5hKBrr8CMGuVaxDigzdGEv7qdySEBpUJi0D
+         MqQq4GS8VKDlVor/fjHkzElfU64dCBqhRtqjHbp9vWsHzqspD2e3RVXRX8281wtBVjgQ
+         X+DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775490198; x=1776094998;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Qp9xvCexd+og9CWs2NBxRDicMXJNAJsIGHdkUhjLJDY=;
+        b=L4xqivsy5WnYIs8n+/d53SJzWX/fawlat/UtJCJuxFL1BdDZkgkHx86sEjc7QVBX76
+         lvL0m3qUYaKL22fx5tHWWc8I9JH+9rw1+5mtciWrTtpHV++je7IeINVWaGWShv+nphLv
+         iJwKOY5E40QTfi66XYygTeXrrpGUnKC5B7q0T+7jcXv33Iac55/IeaJaKnsGkwt4DY1+
+         Nv5zRwlvUa9upY0UJCMyUGdDp7DrvhCB9LymXqG5s7rM07aeYO9ICncRM1ODAkQFTsax
+         J3jqNhKYTlCz6gKYTIfJtGoGnRlj2vGSL4ttrT3Wfyea6x6GgJeY5fGy/c54/FZVGmeC
+         XddA==
+X-Forwarded-Encrypted: i=1; AJvYcCUCiO/5GWbpje6vUk+29XzLdwV3ns8HwYUxomOUaF+WyR6WoLgMIZJNfw6eVoHDcUsoggeWyJdISU0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxgmHNCG3emi+G2gq0Q/0/gwkCEmPeKGdvR4OY85WTA5BqeSogS
+	K/CvRQJgj1pQoF4aJz3R72mcIYW4Opi4DR2qpzHfAwxLN+3mhEg5g8hE
+X-Gm-Gg: AeBDietHCcoFBjv5sR/4UEBIFEyciX/MhPMUz2NgxCdHnqznwX5jQhahL+zC9MuLsce
+	7SoXHW3mbkBiAF52xHiUv0bz42Bupi7ywEuVmRszK+r83nv9T8cypx+9NA8MC5XabpU1S5CJreq
+	fcUf3bBcSR1QC2568WOHFadljh04QrjReAh5WhopBKKLabeKhbfLNwP8SJ0jA13CPbW3Kc/scLY
+	IeOiUfgQgrD7tWRZdUTbn86f2PwJRfluqpz9VPoNpED9mNWmddBHkrPZbCY84GPAnA821sAP5Aw
+	z3YI7yNblKJ7eDSOzDrnlKXQoSnmQbUj+mb7FNNt2NkJsoWbxtIEbwhKekbzm2cmfzQ3QtInDh3
+	BSwG0HFAfzbjNvC9punXffMtNgPnCtPxxucGLa4hZMO35x8iwbqUH+TAoV1M3c0Wcq9chwD3FXR
+	NCEn7DfFE04ThODyCOyVODrj1l/UBbAZxNu0+LmLBxPKMhjz/IeNXjuCsJhx+NYAMXDdEmnQbrU
+	fj5jOgyhh8LlQ==
+X-Received: by 2002:a05:600c:8599:b0:488:aff1:a7cc with SMTP id 5b1f17b1804b1-488aff1a9ebmr54576975e9.9.1775490197429;
+        Mon, 06 Apr 2026 08:43:17 -0700 (PDT)
+Message-ID: <912263a2-8dff-414e-bea4-64428ce2ec36@gmail.com>
+Date: Mon, 6 Apr 2026 17:43:16 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="F629bKJhvAiDwbl3"
-Content-Disposition: inline
-In-Reply-To: <ac_Gu2lm4Jnoz7WN@mail-itl>
-X-purgate-ID: tlsNG-d62444/1775489405-BC766185-E61D7C9F/0/0
-X-purgate-type: clean
-X-purgate-size: 3042
-X-Spamd-Result: default: False [-1.78 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	SUBJECT_ENDS_QUESTION(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm1,messagingengine.com:s=fm2];
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 10/11] xen/riscv: add definition of guest RAM banks
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1774281309.git.oleksii.kurochko@gmail.com>
+ <8278256f3d270b456d19cb9891b89b88a46548a5.1774281309.git.oleksii.kurochko@gmail.com>
+ <1a3a316e-f0ea-4514-95d6-9813d6d5ca76@suse.com>
+ <691be850-9145-4bbf-a897-d10a0193b730@gmail.com>
+ <dfd2a666-f3a5-4d88-b034-438f8fbb85ba@suse.com>
+ <2bae9e12-8f71-4ff0-b077-bfb4215e5e14@gmail.com>
+ <ffd3a7cd-8c47-4a9b-864a-26a053b5b7d2@suse.com>
+ <bc5a9826-c1ff-43b2-a3d1-1a4862301aea@gmail.com>
+ <0e37083a-42ab-4c99-83fc-b77f519394b9@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <0e37083a-42ab-4c99-83fc-b77f519394b9@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-d62444/1775490198-156EF185-1987B9D1/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 2515
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,invisiblethingslab.com:dkim];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	FORWARDED(0.00)[mailman];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: C32B83A4BA3
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: B387D3A4D9A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---F629bKJhvAiDwbl3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 6 Apr 2026 17:29:58 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
- 4.17 -> 4.19 ?
 
-On Fri, Apr 03, 2026 at 03:55:07PM +0200, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Thu, Apr 02, 2026 at 03:02:15PM +0200, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > On Fri, Mar 27, 2026 at 01:47:55PM +0100, Marek Marczykowski-G=C3=B3rec=
-ki wrote:
-> > > Some further observation, this time regarding timers:
-> >=20
-> > In the meantime Roger suggested it might be about C-states. So, I just
-> > tried booting with max_cstate=3D0. I got this:
->=20
-> We had a design session on this issue, and managed to find (thanks Roger!)
-> that adding:
->=20
->     tsc_mode=3D'always_emulate'
->=20
-> to the domU config fixes the issue. Now, the question is how to fix it
-> properly...
+On 4/1/26 5:10 PM, Jan Beulich wrote:
+> On 01.04.2026 16:53, Oleksii Kurochko wrote:
+>>
+>>
+>> On 4/1/26 4:22 PM, Jan Beulich wrote:
+>>> On 01.04.2026 15:57, Oleksii Kurochko wrote:
+>>>> On 4/1/26 8:17 AM, Jan Beulich wrote:
+>>>>> On 31.03.2026 18:14, Oleksii Kurochko wrote:
+>>>>>> On 3/30/26 5:51 PM, Jan Beulich wrote:
+>>>>>>> On 23.03.2026 17:29, Oleksii Kurochko wrote:
+>>>>>>>> The dom0less solution uses defined RAM banks as compile-time constants,
+>>>>>>>> so introduce macros to describe guest RAM banks.
+>>>>>>>>
+>>>>>>>> The reason for 2 banks is that there is typically always a use case for
+>>>>>>>> low memory under 4 GB, but the bank under 4 GB ends up being small because
+>>>>>>>> there are other things under 4 GB it can conflict with (interrupt
+>>>>>>>> controller, PCI BARs, etc.).
+>>>>>>> Fixed layouts like the one you suggest come with (potentially severe)
+>>>>>>> downsides. For example, what if more than 2Gb of MMIO space are needed
+>>>>>>> for non-64-bit BARs?
+>>>>>> It looks where usually RAM on RISC-V boards start, so I expect that 2gb
+>>>>>> before RAM start is enough for MMIO space.
+>>>>> Likely in the common case. Board designers aren't constrained by this,
+>>>>> though (aiui). Whereas you set in stone a single, fixed layout.
+>>>>>
+>>>>> Arm maintainers - since a similar fixed layout is used there iirc,
+>>>>> could you chime in here, please?
+>>>>>
+>>>>>> Answering your question it will be an issue or it will also use some
+>>>>>> space before banks, no?
+>>>>> I fear I don't understand what you're trying to tell me.
+>>>> I meant that there is also some space between banks and pretty big which
+>>>> could be used for MMIO which could be used for non-64-bit BARs.
+>>> I don't follow: Bank 0 extends to 4G. There's no space above it, below
+>>> bank 1, which could be use for non-64-bit BARs.
+>>
+>> So we have two banks:
+>> bank[0] -> [0x80000000, 0x100000000)
+>> bank[1] -> [0x0200000000, 10000000000)
+>>
+>> So i think we have some space between them [0x100000000, 0x0200000000)
+>> -> 4gb to be used for non-64-bit BARs.
+> 
+> But a non-64-bit BAR need to be assigned an address below 0x100000000?
 
-I also did another test with NTP inside domU (after host S3):
+Right, I had in mind that RV32 uses for guest Sv32x4 which could 
+translate 34-bit GPA into 34-bit MPA and automatically applied that to 
+32-bit BAR...
 
-$ ntpdate -q pool.ntp.org
-2026-04-06 00:07:01.559218 (+0200) -0.216281 +/- 0.012486 pool.ntp.org 141.=
-144.241.16 s2 no-leap
-$ ntpdate -q pool.ntp.org
-2026-04-06 00:57:40.852612 (+0200) -0.255782 +/- 0.013022 pool.ntp.org 185.=
-252.140.125 s2 no-leap
-$ ntpdate -q pool.ntp.org
-2026-04-06 13:07:57.647126 (+0200) -0.791802 +/- 0.056578 pool.ntp.org 185.=
-248.188.98 s1 no-leap
-$ ntpdate -q pool.ntp.org
-2026-04-06 13:08:01.844118 (+0200) -0.832599 +/- 0.012563 pool.ntp.org 185.=
-248.188.98 s1 no-leap
-$ ntpdate -q 141.144.241.16
-2026-04-06 13:08:47.835271 (+0200) -0.819725 +/- 0.028655 141.144.241.16 s2=
- no-leap
-$ ntpdate -q 141.144.241.16
-2026-04-06 13:08:51.290526 (+0200) -0.833668 +/- 0.015501 141.144.241.16 s2=
- no-leap
-$ ntpdate -q 141.144.241.16
-2026-04-06 13:08:56.136567 (+0200) -0.832294 +/- 0.014493 141.144.241.16 s2=
- no-leap
-$ ntpdate -q 141.144.241.16
-2026-04-06 17:21:41.017554 (+0200) -1.044511 +/- 0.021817 141.144.241.16 s2=
- no-leap
+I can keep first 4gb for MMIO purpose and start bank[0] at 4gb as 34 MPA 
+address space is more then enough to cover reserved 2gb of bank[0] after 
+4gb.
 
-So, domU's clock definitely drifts.
+~ Oleksii
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
 
---F629bKJhvAiDwbl3
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmnT0XYACgkQ24/THMrX
-1yynEwf/eRO74GKeVMvcaA9wOJKDjsLG/ZweEvDhjBWJRfwMXyWfOFb/CbUfBWDc
-CBcOa5DtGph5YQnU9ckWdyN16HlW0GiDSuY/X99KfcUpCFXaJLdxSLlJdRBXFHvh
-vinuBwUty868tWz8wED0OvRlmZOK6X8SwAi26ea6ur4FJ5JRC2Gjjv8efqY2HLjM
-kEqg5jxUCMSGivAl/HVrlYSIGiZZhQ6f0/647JlFMzww6zNS0Xvew+80egOQniqy
-rrOLtyrIWSnmHJj/dqAKfTmj2WwwWmgBJNpuU/LS93C16lgLqnUMHdxbCK2jfYu6
-xJkXeln+ATuroCLIbyouNn+N59LlTw==
-=tz0q
------END PGP SIGNATURE-----
-
---F629bKJhvAiDwbl3--
 
