@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sAkINK+h1GlEwAcAu9opvQ
+	id KJpqLeqi1GmAwAcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 08:18:23 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 08:23:38 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 418473AA31A
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 08:18:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1274446.1560553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CC393AA386
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 08:23:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1274458.1560562 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w9zlJ-0003H6-Jp; Tue, 07 Apr 2026 06:18:09 +0000
+	id 1w9zqP-0004s8-AO; Tue, 07 Apr 2026 06:23:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1274446.1560553; Tue, 07 Apr 2026 06:18:09 +0000
+Received: by outflank-mailman (output) from mailman id 1274458.1560562; Tue, 07 Apr 2026 06:23:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1w9zlJ-0003F3-GS; Tue, 07 Apr 2026 06:18:09 +0000
-Received: by outflank-mailman (input) for mailman id 1274446;
- Tue, 07 Apr 2026 06:18:08 +0000
+	id 1w9zqP-0004q0-7W; Tue, 07 Apr 2026 06:23:25 +0000
+Received: by outflank-mailman (input) for mailman id 1274458;
+ Tue, 07 Apr 2026 06:23:23 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1w9zlI-0003Ex-6H
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 06:18:08 +0000
+ (envelope-from <jbeulich@suse.com>) id 1w9zqN-0004pu-17
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 06:23:23 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1w9zlH-00AdVx-Ic
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 08:18:07 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1w9zqM-00Enko-9R
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 08:23:22 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69d4a181-2eae-0a2a0a5409dd-0a2a45078ba4-38
- for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 08:18:07 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69d4a2c5-2eae-0a2a0a5409dd-0a2a4508dbbc-46
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 08:23:22 +0200
+Received: from [209.85.221.50] (helo=mail-wr1-f50.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69d4a19f-ba2d-0a2a45070019-d1558032dcf1-3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 08:18:07 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-488ba6366a7so8336695e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2026 23:18:07 -0700 (PDT)
+ id 69d4a2d9-fab6-0a2a45080019-d155dd32bd34-3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 08:23:22 +0200
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-43cfd96354aso2750385f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2026 23:23:22 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488b6ff70bcsm182479135e9.14.2026.04.06.23.18.06
+ ffacd0b85a97d-43d1e4f5016sm50659184f8f.33.2026.04.06.23.23.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Apr 2026 23:18:06 -0700 (PDT)
+ Mon, 06 Apr 2026 23:23:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,58 +58,65 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775542687; x=1776147487; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775543001; x=1776147801; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=kcQFR3uT498ouHE205N7B6E8t/HZpBYCNaFWd85c+vY=;
-        b=dPdpR11rz1CUu4NL1WbwEuYCeWLrJiQyFcOVC1ruqLf+YaYaZANYuFozbR6XuSx/IJ
-         1mgXW42wgZcrN4iHeUbftkKw5kWwdCGxkUJZq57LmOGdX71OdBzWtybk+QxyztoilRdw
-         AKF9Vt4oNy+/+DUFrK6U8A7DCj4zA5zPFLJLis5AmNVSrNxaTmgUDzWYrap+ZgoSAjkv
-         yELcQANWf8ftJ/pC3yIYg0I5d33f0YI66POZk5sy0uvJ+5zV5F6MwUto8fIqrrJjvNTh
-         l3IdRGS6rPwoizp6iqd1IvAd01Y5pnn7al386sxs1nSygpa8QK/xAhnxSplAP+RMktWP
-         K4kA==
+        bh=NgWmYvzi0YbSz0p3AjXF31b3cTUVzBHVKyfc4bMxKIo=;
+        b=DLNWMdCMJkhZ/XO7zy+vifh4BIYtlI+TlTMfXqW32smU4qiMoyb+1PD3F/kxZr1OLq
+         gznV8tL/GG49CVGRMC0EkQuBtNSGC5rAJkXNnNlR2Bo6zWp8yH00DlrFm9Ao2Rzq3UI8
+         C1ryiVakK5c71bm5OnEYZSYeuA84+899q115npTqOBAL+BYmPb2WHhdWUJmA3Km4iPM5
+         ghi3chHVja1F40CGeFc4pRCJ9HrcDrbHzeDe1+0/B2Xn6uxM9rofF00+mHNWTXCfFBhm
+         YgT8ITqGR4E1DI73R2IHZLlFzSPdgLOdFmqaeDoRJltrWsKIoEmRVZHe1v5oGlOb6Q9x
+         Trig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775542687; x=1776147487;
+        d=1e100.net; s=20251104; t=1775543001; x=1776147801;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=kcQFR3uT498ouHE205N7B6E8t/HZpBYCNaFWd85c+vY=;
-        b=i93atXPqxid2c9a+qz4fMYKeZeL80LF68cX8+20ccePjiNZFZ8f4dqLvw4fMmKY+0S
-         4wOR1odV/wkZtvxROl6l47QUU1/ivxQcU4BXAsFOzTNClGQ3s1ubTKRv0dN+7/zM/cj1
-         +/u9alADTlz+EcoiHdNLw1ao5g+WhKssykcghuoYKhZX4phoAq86rfKxOxocOs+uFSt4
-         6WkCLMl35u2arUJoeIYbsC30aprya4BUiuMQdoTjdSVYxFKSb/O9+13uqjbCx+BVaAtv
-         CxmcubXGxT9sNHFr0S+iaMqNgEsfbbXQYXlUMfNc0FcTfdc9jaDwA1CKOPN/D+7ubkP9
-         oCNA==
-X-Forwarded-Encrypted: i=1; AJvYcCVzCdxUt+YNZHJNa8NbTa21hv4UkH2J8eplD27r4HnqrL7HVSh1LiaXx8APFWWonvZRNQZe0sQvupI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyUKCTPeVQmYGZMHDOU+5kg3F2duN/IBuGt3uXEZXVwzNvOhuI2
-	TboAAuPPk+icG07RV7rQvi7sTTB0lwTIOjHe5ia1YQXdCtGzm6LJ0SV2VRT6Mud5sg==
-X-Gm-Gg: AeBDiesG0PPFak+j0ZBxIZsWyyb2B9lMhM3qLHnaU6u90ZCsPgW4mRiux3c6lRYqKpl
-	QXPsdmndK3zDJPVo4lJV/Rk/pOU5xjuF5/TJXlwg9ZogtGMshI0LIbxgWp4hbKNkeQNA8wLGKY+
-	0YlW/ywb3tiHe83VGe9rRCeHWUQYNYPr/Oh7vW1pQ0o4UQOmPQdn4Y+rPUfx2d3Yj79ptPnbu8+
-	iRYstPNpWrsL3/W9ffB8r5TWPbLkMQleqHBVobJrvevZMCdR4tIYC1Kl0w0g4huB9RBUkN3+Zjf
-	gW0Gd9c11gkb2F6B6f3J8Y7y8z8eBYmhtYcTnhByOZ2O2XVLG3yMpI+gmFzP5isstLmVgliZFEA
-	jiXJIBMSZTGJwLigUadzgWo1p/bETcRbM77m16UiozgwFi5uaZIf+0Mrkfd+3kFEunJdTdk8V9o
-	FdeoidIRiM5tr5WGHPMuogGd/xFllYf3ufKp5uG8W6Wmp20IKCczKxSUkHhZKBwCAP0KEvbNS9W
-	yBn/kLWsn0G4Zg=
-X-Received: by 2002:a05:600c:a009:b0:488:ab26:8fe0 with SMTP id 5b1f17b1804b1-488ab26986cmr116328825e9.15.1775542686718;
-        Mon, 06 Apr 2026 23:18:06 -0700 (PDT)
-Message-ID: <4dfd48a9-37c1-4f28-87f3-19646a339b08@suse.com>
-Date: Tue, 7 Apr 2026 08:18:10 +0200
+        bh=NgWmYvzi0YbSz0p3AjXF31b3cTUVzBHVKyfc4bMxKIo=;
+        b=TA/f3jDJYpDYhpzen4WGJ7jUK0NZTjWTt4WAFVXf5OryqqTtJ7FY25JY91idOKhdAg
+         8LJ9J/xoFd0bUb2+q5eH2WeAdACa4MRUJj+eK9MiolEAQoE+ePYPEuGiJzti85ZHgk/2
+         h1dprcZcrlip2aY/Zp7kixVr6ATf1QYf3OIFD6iNhrgr2jXVnPj9dA/0dHk4UIRRGc8b
+         pVNBnYEvf6BSNnHvf5GqOVUQ8ePwN0f+IScdGbNaE0Dltghziv8JCo+ddiEFq51EWlt7
+         3CfIjaiB9nyTQz7bst45SeJMZzYM7BQunrGnyfGYOyq5F7ZBHtuxFbngsgbHl9WppjAv
+         VSqA==
+X-Forwarded-Encrypted: i=1; AJvYcCXt/szULc55F66b2FUD3w6VWSHm9bIcGIa42gI+efFj7pwxFdMXwId/I22ktVHqe8lc+JEI5k29dfc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwShp5+Pm/LFFH8G09A2ujOYb6nu9Q8S9XXScISI10dBWPAyInW
+	ZzQ1mPmqtBhhwI6b0FvGlozt2piE5B3fUqMCv7JHp+WA550z8vkAA85EhSc1YKaeWQ==
+X-Gm-Gg: AeBDiev3IZF56xQWUuKbq8Qb85veWUnNhpmz/3vM5IOu4LTOoLapTPhwATfNxitCGEU
+	v/SfaBIRuexWWbX0tqo5o/eaIumRbeo83MsQ+HQP3bqSH7xFLluOZsBDdRIIDdp19iY939f+AF3
+	UEli7bzZ/ICKrQMyFmvayVCOQdqiZIqakhQPBQUc7Qsio69d7cvO7aE34joqbL9d+7FcpU1zdxo
+	qZ5dlpo4X40o4a4xY/O9wzm7dw9ZC6/+NI+t4FY5YTjteWnzI3VB4vU87r66/2mFGSFlQpSwTuV
+	NivC8MD7HWjBhoRa51rzuRYotYBLGMfSv6GtW4j+H55j/EWbIS/FGLCNB3mMXTY+IP/959iYIA9
+	v0uNEj63FXfY2wJkSWtIomaUJ1gMVnkf2qvUGXtw5AGzMz2mdMDxTGqhhPIqy+XQrSpIgpQMPdp
+	5+m9Zdsa/2tM7igAsg5HfR7xAiY1Qma1tKfm5jafmIYbt5Rf1DHcRxxVx/qdPG5He2DV/Co+wZk
+	UNQG/yg4lVQTakiuaRYGQT/Pw==
+X-Received: by 2002:a05:6000:26c7:b0:43c:f793:f1c5 with SMTP id ffacd0b85a97d-43d292e1b17mr22651651f8f.34.1775543001562;
+        Mon, 06 Apr 2026 23:23:21 -0700 (PDT)
+Message-ID: <4a1f7cfb-df74-4083-a681-f79911da10e1@suse.com>
+Date: Tue, 7 Apr 2026 08:23:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] arinc653: don't assume Dom0 is the control domain
-To: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Cc: Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-References: <89d17a24-0a1f-4f3f-ac2f-f3701a8d78dd@suse.com>
- <4a4c011e-9666-4416-be1b-33d1dcad5afe@suse.com>
- <73e51afc-ae7c-4d08-9054-75dab660bf42@suse.com>
- <ca934061-f3e2-4511-bdad-465c4f2d0de1@suse.com>
- <fa04f9e1-bc9e-4b34-84f4-dc7ca8999eb3@amd.com>
+Subject: Re: [PATCH v2 10/11] xen/riscv: add definition of guest RAM banks
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1774281309.git.oleksii.kurochko@gmail.com>
+ <8278256f3d270b456d19cb9891b89b88a46548a5.1774281309.git.oleksii.kurochko@gmail.com>
+ <1a3a316e-f0ea-4514-95d6-9813d6d5ca76@suse.com>
+ <691be850-9145-4bbf-a897-d10a0193b730@gmail.com>
+ <dfd2a666-f3a5-4d88-b034-438f8fbb85ba@suse.com>
+ <2bae9e12-8f71-4ff0-b077-bfb4215e5e14@gmail.com>
+ <ffd3a7cd-8c47-4a9b-864a-26a053b5b7d2@suse.com>
+ <bc5a9826-c1ff-43b2-a3d1-1a4862301aea@gmail.com>
+ <0e37083a-42ab-4c99-83fc-b77f519394b9@suse.com>
+ <912263a2-8dff-414e-bea4-64428ce2ec36@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -135,140 +142,107 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <fa04f9e1-bc9e-4b34-84f4-dc7ca8999eb3@amd.com>
+In-Reply-To: <912263a2-8dff-414e-bea4-64428ce2ec36@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1775542687-10F5E41E-53F6A628/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-c1860d/1775543002-94365497-10DC61EB/0/0
 X-purgate-type: clean
-X-purgate-size: 4508
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-purgate-size: 2822
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:stewart.hildebrand@amd.com,m:nathan.studer@dornerworks.com,m:stewart@stew.dk,m:xen-devel@lists.xenproject.org,m:jgross@suse.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid];
-	FORWARDED(0.00)[mailman];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.999];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 418473AA31A
+X-Rspamd-Queue-Id: 1CC393AA386
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 03.04.2026 10:47, Stewart Hildebrand wrote:
-> On 4/1/26 09:03, Jan Beulich wrote:
->> On 01.04.2026 14:57, Jürgen Groß wrote:
->>> On 01.04.26 14:29, Jan Beulich wrote:
->>>> Leaving aside highly disaggregated environments, the control domain is
->>>> what will invoke XEN_SYSCTL_SCHEDOP_putinfo. Its vCPU-s therefore need to
->>>> be able to run unconditionally, not those of the domain with ID 0 (which
->>>> may not exist at all).
->>>>
->>>> Fixes: 9f0c658baedc ("arinc: add cpu-pool support to scheduler")
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>> ---
->>>> There being no "else" to the if(), what about other control domain vCPU-s?
+On 06.04.2026 17:43, Oleksii Kurochko wrote:
+> 
+> 
+> On 4/1/26 5:10 PM, Jan Beulich wrote:
+>> On 01.04.2026 16:53, Oleksii Kurochko wrote:
 >>>
->>> I guess this is a stale leftover. Doesn't matter for committing anyway.
 >>>
->>>> ---
->>>> v3: Don't mistakenly include the idle domain.
->>>> v2: New.
->>>>
->>>> --- a/xen/common/sched/arinc653.c
->>>> +++ b/xen/common/sched/arinc653.c
->>>> @@ -411,10 +411,10 @@ a653sched_alloc_udata(const struct sched
->>>>       spin_lock_irqsave(&sched_priv->lock, flags);
->>>>   
->>>>       /*
->>>> -     * Add every one of dom0's units to the schedule, as long as there are
->>>> -     * slots available.
->>>> +     * Add every one of the control domain's units to the schedule, as long as
->>>> +     * there are slots available.
->>>>        */
->>>> -    if ( unit->domain->domain_id == 0 )
->>>> +    if ( is_control_domain(unit->domain) && !is_idle_domain(unit->domain) )
->>>>       {
->>>>           entry = sched_priv->num_schedule_entries;
->>>>   
+>>> On 4/1/26 4:22 PM, Jan Beulich wrote:
+>>>> On 01.04.2026 15:57, Oleksii Kurochko wrote:
+>>>>> On 4/1/26 8:17 AM, Jan Beulich wrote:
+>>>>>> On 31.03.2026 18:14, Oleksii Kurochko wrote:
+>>>>>>> On 3/30/26 5:51 PM, Jan Beulich wrote:
+>>>>>>>> On 23.03.2026 17:29, Oleksii Kurochko wrote:
+>>>>>>>>> The dom0less solution uses defined RAM banks as compile-time constants,
+>>>>>>>>> so introduce macros to describe guest RAM banks.
+>>>>>>>>>
+>>>>>>>>> The reason for 2 banks is that there is typically always a use case for
+>>>>>>>>> low memory under 4 GB, but the bank under 4 GB ends up being small because
+>>>>>>>>> there are other things under 4 GB it can conflict with (interrupt
+>>>>>>>>> controller, PCI BARs, etc.).
+>>>>>>>> Fixed layouts like the one you suggest come with (potentially severe)
+>>>>>>>> downsides. For example, what if more than 2Gb of MMIO space are needed
+>>>>>>>> for non-64-bit BARs?
+>>>>>>> It looks where usually RAM on RISC-V boards start, so I expect that 2gb
+>>>>>>> before RAM start is enough for MMIO space.
+>>>>>> Likely in the common case. Board designers aren't constrained by this,
+>>>>>> though (aiui). Whereas you set in stone a single, fixed layout.
+>>>>>>
+>>>>>> Arm maintainers - since a similar fixed layout is used there iirc,
+>>>>>> could you chime in here, please?
+>>>>>>
+>>>>>>> Answering your question it will be an issue or it will also use some
+>>>>>>> space before banks, no?
+>>>>>> I fear I don't understand what you're trying to tell me.
+>>>>> I meant that there is also some space between banks and pretty big which
+>>>>> could be used for MMIO which could be used for non-64-bit BARs.
+>>>> I don't follow: Bank 0 extends to 4G. There's no space above it, below
+>>>> bank 1, which could be use for non-64-bit BARs.
 >>>
->>> Hmm, is it really the control domain only which wants to be scheduled initially?
->>> I would think that at least the hardware domain and probably a Xenstore domain
->>> would want to be included, too.
+>>> So we have two banks:
+>>> bank[0] -> [0x80000000, 0x100000000)
+>>> bank[1] -> [0x0200000000, 10000000000)
 >>>
->>> In the end it might even be that other domains created via dom0less would want
->>> to be able to run initially. They could be part of a mandatory infrastructure.
->>> Why would they need to be created at boot if they are NOT important?
+>>> So i think we have some space between them [0x100000000, 0x0200000000)
+>>> -> 4gb to be used for non-64-bit BARs.
 >>
->> This part is easy to answer: Because in a dom0less setup you simply may have
->> no toolstack at all. (At which point there may also be nothing to set a
->> schedule, yes.)
+>> But a non-64-bit BAR need to be assigned an address below 0x100000000?
 > 
-> This is a known limitation. In a dom0less/hyperlaunch scenario, as future work,
-> I would like to see the ability to configure the ARINC653 schedule in device
-> tree, which would likely extend the existing boot time cpu pool work.
+> Right, I had in mind that RV32 uses for guest Sv32x4 which could 
+> translate 34-bit GPA into 34-bit MPA and automatically applied that to 
+> 32-bit BAR...
 > 
->>> The question is whether the arinc653 scheduler is really meant for such setups.
->>> OTOH just modifying the test to:
->>>
->>>      if ( system_state < SYS_STATE_active &&
->>>           unit->domain->domain_id < DOMID_FIRST_RESERVED )
->>>
->>> seems to be fine for catching all those cases.
->>>
->>> With or without this modification:
->>>
->>> Reviewed-by: Juergen Gross <jgross@suse.com>
->>
->> Thanks, yet I'll have to leave to the maintainers to decide which form it
->> should ultimately take. One remark: A restartable control domain wouldn't
->> pass that conditional. Granted that's looking far into the future.
-> 
-> It may not be desirable to schedule domUs until the control domain has had a say
-> in the matter, considering that the default schedule is unlikely to contain the
-> desired minor frame runtimes. It's less clear whether to include hardware and
-> xenstore domains in the default schedule, though I'm leaning toward only
-> including the domain with ability to invoke XEN_SYSCTL_SCHEDOP_putinfo for now
-> (i.e. the control domain).
-> 
-> Hm, the suggested 'system_state < SYS_STATE_active' check is possibly a good
-> addition. This reinforces that the default schedule's purpose is merely to get a
-> system booting until a user-provided schedule can be installed. Without this
-> check, restarting the control domain could result in new entries being added
-> while old entries remain, possibly ending up with duplicates and/or exhausting
-> the schedule. However, the restarted domain would need to retain its uuid if it
-> expects to be scheduled after restart.
-> 
-> Lastly, we may consider restricting the default schedule to Pool-0, and
-> eventually we may want a mechanism to disable the default schedule altogether
-> (e.g. when boot time cpupools are in use), but I don't think it's necessary to
-> conflate those with the current patch.
+> I can keep first 4gb for MMIO purpose and start bank[0] at 4gb as 34 MPA 
+> address space is more then enough to cover reserved 2gb of bank[0] after 
+> 4gb.
 
-So what does all of this mean for the patch here? Should I switch to Jürgen's
-suggestion? Should I merely add the system_state check, but otherwise keep as
-is? Or should I not change anything?
+Yet having no memory below 4G won't work for guests wanting to run in bare
+mode? Don't guests even start up in bare mode (and hence 32-bit ones need
+to have some of their memory below 4G in all cases)?
 
 Jan
 
