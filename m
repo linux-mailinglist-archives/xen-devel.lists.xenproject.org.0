@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KICNGj7y1GkjywcAu9opvQ
+	id WC52Eof91GnOzQcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 14:02:06 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 14:50:15 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 177C53AE148
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 14:02:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1274956.1560923 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE5193AEA5A
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 14:50:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1274972.1560932 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wA57Y-0007yq-Pv; Tue, 07 Apr 2026 12:01:28 +0000
+	id 1wA5ro-0005L7-6N; Tue, 07 Apr 2026 12:49:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1274956.1560923; Tue, 07 Apr 2026 12:01:28 +0000
+Received: by outflank-mailman (output) from mailman id 1274972.1560932; Tue, 07 Apr 2026 12:49:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wA57Y-0007x0-NG; Tue, 07 Apr 2026 12:01:28 +0000
-Received: by outflank-mailman (input) for mailman id 1274956;
- Tue, 07 Apr 2026 12:01:27 +0000
+	id 1wA5ro-0005JT-3q; Tue, 07 Apr 2026 12:49:16 +0000
+Received: by outflank-mailman (input) for mailman id 1274972;
+ Tue, 07 Apr 2026 12:49:14 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <marmarek@invisiblethingslab.com>) id 1wA57X-0007wu-8b
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 12:01:27 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <bounce-md_30504962.69d4fd46.v1-4ef5e6487b0943b7995d36e71b58647b@bounce.vates.tech>)
+ id 1wA5rm-0005JN-Jg
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 12:49:14 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wA57W-002MDO-K5
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 14:01:26 +0200
-Received: from [10.42.69.12] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d4f212-5cb7-0a2a0a5109dd-0a2a450c90bc-28
- for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 14:01:26 +0200
-Received: from [103.168.172.147] (helo=fout-a4-smtp.messagingengine.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d4f214-f40c-0a2a450c0019-67a8ac938ad1-3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 14:01:24 +0200
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfout.phl.internal (Postfix) with ESMTP id E0F16EC00B5;
- Tue,  7 Apr 2026 08:01:23 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-05.internal (MEProxy); Tue, 07 Apr 2026 08:01:23 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 7 Apr 2026 08:01:22 -0400 (EDT)
+ id 1wA5rk-00C3ho-KC
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 14:49:12 +0200
+Received: from [10.42.69.3] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <bounce-md_30504962.69d4fd46.v1-4ef5e6487b0943b7995d36e71b58647b@bounce.vates.tech>)
+ id 69d4fd47-e002-0a2a0a5209dd-0a2a4503e956-6
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 14:49:12 +0200
+Received: from [198.2.180.46] (helo=mail180-46.suw31.mandrillapp.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from
+ <bounce-md_30504962.69d4fd46.v1-4ef5e6487b0943b7995d36e71b58647b@bounce.vates.tech>)
+ id 69d4fd47-02b3-0a2a45030019-c602b42e66fe-3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 14:49:12 +0200
+Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail180-46.suw31.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fqmGt6QjVz8XS3Fp
+ for <xen-devel@lists.xenproject.org>; Tue,  7 Apr 2026 12:49:10 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 4ef5e6487b0943b7995d36e71b58647b; Tue, 07 Apr 2026 12:49:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,279 +56,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fm2 header.d=invisiblethingslab.com header.i="@invisiblethingslab.com" header.h="Cc:Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=fm2 header.d=messagingengine.com header.i="@messagingengine.com" header.h="Cc:Content-Type:Date:Feedback-ID:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To:X-ME-Proxy:X-ME-Sender"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1775563283;
-	 x=1775649683; bh=z5aLCYLbZ8fU3DExyhdRa3/7HUN/hueZnJV+G8fOiAk=; b=
-	ZmuaKoqwSVmpcprE+UiBNIBttTiTSyc9ThC3T4N+ziBjSNoez2Zvehw/MJoC/5qJ
-	XyaeZTe1aYKgP4pXS8jn/jV6nnJx6BShvoEE1zshmm5R7JRD8jZvqLZd+Q575EE7
-	kuHZakmMDqIBqTwxE7b81WeTkI/irCUzTFc2TfjRPIZAiO+rdqHGSSzMUnigFEx5
-	4HIEP5JwMhUJpuOhbUq10SRnInt6RKuIHtAtVOucR57z8L1Tavp3aE6k8BLhIv+L
-	BamhXDRkmU6SLsF0T8ItNKj4FvM7ZKK5pQu0p8KBeWIAjgn/ZwiZaxkCpokhmUHL
-	zArOSij9x5He2e/T8J2Tzw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1775563283; x=1775649683; bh=z5aLCYLbZ8fU3DExyhdRa3/7HUN/hueZnJV
-	+G8fOiAk=; b=qb+03fIukE6OW9cxM27tSmx36a6LZOHSdE011leX+w81sYkUh66
-	0KijykIEyCyZF9NPfJVQVWbyrdrqzQVsvxGkT9nU9mimdihT+Kpkn7KhshNzbG33
-	FDvTFoWCuJD8PxpMZCFS17jYcYmiZ3ZbdR9p9zGtxDvt3c0rLkzLav0CJv5CBndb
-	yLYEid9SOK6sPPuq/Agad3RmdHAU8GFViLqs0l70SG6S/yvvZ7EIZKRFNlIGj/lW
-	ZBfbe6c7UZQIgCE+AcZD5JyJu00xOSP+cUbupKqUKiHHpVbGEB4854WSQFKxXru8
-	jmRMyojoEsReoHbRPuECwGYiLqpwPAUiJRg==
-X-ME-Sender: <xms:E_LUaQPH0rnbH4ZFkBAuqYRKPx5kfCoAFVK7JzSK3NkP7zuZUEvIMw>
-    <xme:E_LUad8ufvGyfl0M3Dv2Qp7NxC6awOO454Pt6SDIcVmYchYIxpMDT6tBBBU2OADjA
-    neroBIOufgq0R8AVhsQFv9Ea6dDTsA2sLOMsbHUkNlQe2pW6g>
-X-ME-Received: <xmr:E_LUacRcVDYXI7ehfo2zYZh-_EptgLFKGoHy-KVPwWQZQ1X0aY_szao90fBCmM6LQTqswZrom0xlUQoqwMzBNbq3s5AnXULAWIY>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddvtdehlecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtdorredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeehledvvddu
-    vedvleeggedvvdetleethfehveefffetgfekiedtfeeiudejffeugeenucffohhmrghinh
-    epshgrnhguphhilhgvrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
-    pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomhdpnhgspghrtghpthhtohepgedpmhhouggvpehsmhhtphhouhhtpdhrtghp
-    thhtohepjhgsvghulhhitghhsehsuhhsvgdrtghomhdprhgtphhtthhopeigvghnqdguvg
-    hvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopehjghhr
-    ohhsshesshhushgvrdgtohhmpdhrtghpthhtoheprhhoghgvrhdrphgruhestghithhrih
-    igrdgtohhm
-X-ME-Proxy: <xmx:E_LUaXmlE0NHt9H48LRM4OLgDBqb9xa6M0LCxS_o9-1N53J7KQ86GA>
-    <xmx:E_LUaURg1VxJCXr1fcOB92DAV33FUHq_XLFPQzDKxb6Q_MEtT8GydQ>
-    <xmx:E_LUadNinUA9zU7Mha86ERqy0JLPdzFCFwjkYkWs8WriVzGYFTkg_w>
-    <xmx:E_LUaVW5O4YrGjnO-trHPU6gBH5cBSU0mhDISDMD00l6r6gt72_cDw>
-    <xmx:E_LUaWs7bCkLdTGdSMb6Ey_ei76Tn2qaZcGLcaVMVcE61O1B6CW6PGgb>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 7 Apr 2026 14:01:20 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
- 4.17 -> 4.19 ?
-Message-ID: <adTyEazLcZEpWuvy@mail-itl>
-References: <acQzzlXNDxNq885V@mail-itl>
- <29775afa-e17b-4c44-a2a8-4ef4bc7cdf0f@suse.com>
- <acUqOL232lp-Lw1v@mail-itl>
- <cbed767b-4ac4-4989-8778-43ff321ae977@suse.com>
- <acVWX8vkhZiFfonP@mail-itl>
- <88c65ec7-b7f7-4d8b-a453-d707440b43cb@suse.com>
- <acZ8ez4dmQay1JSw@mail-itl>
- <ac5l-HgbDRcVkiWb@mail-itl>
- <ac_Gu2lm4Jnoz7WN@mail-itl>
- <b6e53859-70fd-49b0-a7f0-eb53386349df@suse.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mte1 header.d=mandrillapp.com header.i="@mandrillapp.com" header.h="From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"; dkim=pass header.s=mte1 header.d=vates.tech header.i="teddy.astie@vates.tech" header.h="From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1775566150; x=1775836150;
+	bh=2dO8KJZbjBKVZqh2x7EcvVUJFpqgCoHPe/hpAMGoaRQ=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=Mok9MVCWhAyudV2MGq9djdrWXkJHc6Vp/TvePs66UzimFGwvA9mqqF95Dk+RqxqeV
+	 4lZajoBSfBgjpEGYI+A4KjabPDVZnXo7JlH/l+G7X/2P9Q3N60du/B2I4pxw+Z9TeD
+	 siobFgZcMdi8Y0Dooh2/QGJb9GnNgp2KbmmYzTRKbonmZP89deiB7udFvCPcgNZbJ9
+	 d0qkpjGBMs6+fYKpmMx7VhX0n6E7n7wGg7wwRvduF4LQGBJVfdr0emDitjYUtKo4Cl
+	 4YlTv0uPAOOyzhzB0/40QYWv1kUTJkTNFzVVFzuLYQ1vvHK9xU6sTDnq1eiFYv5jqW
+	 aBCzeu8ptP6rw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1775566150; x=1775826650; i=teddy.astie@vates.tech;
+	bh=2dO8KJZbjBKVZqh2x7EcvVUJFpqgCoHPe/hpAMGoaRQ=;
+	h=From:Subject:To:Cc:Message-Id:Feedback-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:CC:Date:Subject:From;
+	b=XBhl/6GqAkL8d+rCqjrRRK3sBt6sW2T0Uhx1QbOr1A6z9bKKZo5Zbe+BUHswkfpRK
+	 e8hBzCPj7JE6iWCidEmhHWpWsJ+qu9+IvxgbPxW9PvrszZe6lSnFY7PohrscItGvCD
+	 diGOr/yAjnUphg/cRwBE3NLxECbDqbGG1Io8g5JQrzjtfnX0Uzb0XRvloqT7FmhzIQ
+	 rKkWeH6MxsJ+hU1IMvNpr5MioNhcduWgfnGHWdfpLgVrtQSWidQuYmGHO0uIwt/y0Z
+	 ssvfg409UVdwvYd1bOMMWiNcOUtodxHS35F8NYgfE44aezZ7UAi8S58Ew/qsDXxzak
+	 z5aWWbGnd3prA==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?[PATCH]=20MAINTAINERS:=20Add=20myself=20as=20x86=20reviewer?=
+X-Mailer: git-send-email 2.52.0
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1775566148852
+To: xen-devel@lists.xenproject.org
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Jan Beulich" <jbeulich@suse.com>, "Julien Grall" <julien@xen.org>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Stefano Stabellini" <sstabellini@kernel.org>
+Message-Id: <20260407124840.80174-2-teddy.astie@vates.tech>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.4ef5e6487b0943b7995d36e71b58647b?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260407:md
+Date: Tue, 07 Apr 2026 12:49:10 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="bQ5tYmjyiuSDb3TB"
-Content-Disposition: inline
-In-Reply-To: <b6e53859-70fd-49b0-a7f0-eb53386349df@suse.com>
-X-purgate-ID: tlsNG-d25034/1775563285-FDD53A3D-8C6BA6C1/0/0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-33051d/1775566152-CB92AC9A-193E5811/0/0
 X-purgate-type: clean
-X-purgate-size: 5634
-X-Spamd-Result: default: False [-1.78 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	SUBJECT_ENDS_QUESTION(1.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+X-purgate-size: 1383
+X-Spamd-Result: default: False [1.01 / 15.00];
+	SUBJ_EXCESS_QP(1.20)[];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm2,messagingengine.com:s=fm2];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	R_DKIM_ALLOW(-0.20)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	ARC_NA(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RSPAMD_URIBL_FAIL(0.00)[messagingengine.com:query timed out,invisiblethingslab.com:query timed out];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	HAS_ATTACHMENT(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,suse.com:email,vates.tech:dkim,vates.tech:mid,vates.tech:email,vates.tech:url];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: 177C53AE148
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: CE5193AEA5A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+I already started reviewing patches, but would like to
+be more active in that area.
 
---bQ5tYmjyiuSDb3TB
-Content-Type: multipart/mixed; protected-headers=v1;
-	boundary="JAoCyMYCO6UJ7qb2"
-Content-Disposition: inline
-Date: Tue, 7 Apr 2026 14:01:20 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	=?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Subject: Re: Slow (higher scheduling latency?) system after S3 - regression
- 4.17 -> 4.19 ?
-
-
---JAoCyMYCO6UJ7qb2
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Apr 07, 2026 at 08:14:42AM +0200, Jan Beulich wrote:
-> On 03.04.2026 15:55, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Thu, Apr 02, 2026 at 03:02:15PM +0200, Marek Marczykowski-G=C3=B3rec=
-ki wrote:
-> >> On Fri, Mar 27, 2026 at 01:47:55PM +0100, Marek Marczykowski-G=C3=B3re=
-cki wrote:
-> >>> Some further observation, this time regarding timers:
-> >>
-> >> In the meantime Roger suggested it might be about C-states. So, I just
-> >> tried booting with max_cstate=3D0. I got this:
-> >=20
-> > We had a design session on this issue, and managed to find (thanks Roge=
-r!)
-> > that adding:
-> >=20
-> >     tsc_mode=3D'always_emulate'
-> >=20
-> > to the domU config fixes the issue. Now, the question is how to fix it
-> > properly...
->=20
-> Seeing also the remarks on Matrix, what we will hence need to figure is w=
-hat
-> TSC parameters (of the system and/or the VM) change across suspend. As per
-> Matrix everything looked at so far was apparently stable.
-
-I added some more logging (based on=20
-https://sandpile.org/x86/msr.htm | grep TSC) - see attached debug patch.
-The output before and after S3:
-
-    =3D=3D> msr-before.txt <=3D=3D
-    (XEN) [  118.910886] MSR 00000010: 000000cd6d18d6c1
-    (XEN) [  118.911110] MSR 0000003b: 0000000000000000
-    (XEN) [  118.911331] MSR c0000103: 0000000000000000
-    (XEN) [  118.911559] Fixup #GP[0000]: ffff82d04029ad8d [arch/x86/cpu/in=
-tel.c#debug_tsc+0x76/0x84] -> ffff82d04029ad83
-    (XEN) [  118.912029] MSR 000006e0: 0000000000000000
-    (XEN) [  118.912253] MSR 000000e7: 000000064cf8ec5e
-    (XEN) [  118.912473] MSR 000000e8: 000000065d09c019
-    (XEN) [  118.912687] MSR 0000064e: 000000052ec83116
-
-
-    =3D=3D> msr-after.txt <=3D=3D
-    (XEN) [  146.396099] MSR 00000010: 00000012fac68ccd
-    (XEN) [  146.396329] MSR 0000003b: 0000000000000000
-    (XEN) [  146.396553] MSR c0000103: 0000000000000000
-    (XEN) [  146.396777] Fixup #GP[0000]: ffff82d04029ad8d [arch/x86/cpu/in=
-tel.c#debug_tsc+0x76/0x84] -> ffff82d04029ad83
-    (XEN) [  146.397248] MSR 000006e0: 0000000000000000
-    (XEN) [  146.397470] MSR 000000e7: 00000001e41a578a
-    (XEN) [  146.397690] MSR 000000e8: 000000017dc5b211
-    (XEN) [  146.397909] MSR 0000064e: 000000014eddbe8f
-
-Nothing interesting here...
-
-What other values would make sense to compare?
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---JAoCyMYCO6UJ7qb2
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: attachment; filename=0001-DEBUG-TSC.patch
-Content-Transfer-Encoding: quoted-printable
-
-=46rom 2d1bd9c15e605136c7817fe824a7c429cbfb137d Mon Sep 17 00:00:00 2001
-=46rom: =3D?UTF-8?q?Marek=3D20Marczykowski-G=3DC3=3DB3recki?=3D
- <marmarek@invisiblethingslab.com>
-Date: Tue, 7 Apr 2026 13:55:41 +0200
-Subject: [PATCH] DEBUG TSC
-
+Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 ---
- xen/arch/x86/cpu/intel.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ MAINTAINERS | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
-index 51a3d1c4b5f3..846c6a704a3f 100644
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -4,6 +4,7 @@
- #include <xen/sched.h>
- #include <xen/smp.h>
- #include <xen/string.h>
-+#include <xen/keyhandler.h>
-=20
- #include <asm/apic.h>
- #include <asm/i387.h>
-@@ -675,3 +676,30 @@ void __init intel_init_arat(void)
-     if ( opt_arat && cpu_has_arat )
-         setup_force_cpu_cap(X86_FEATURE_XEN_ARAT);
- }
-+
-+static void cf_check debug_tsc(unsigned char key)
-+{
-+    uint64_t val;
-+    int msr_idx[] =3D { 0x10,         // TSC
-+                      0x3b,         // TSC_ADJUST
-+                      0xc0000103,   // TSC_AUX
-+                      0xc0000104,   // TSC_RATIO
-+                      0x06e0,       // TSC_DEADLINE
-+                      0xe7,         // MPERF
-+                      0xe8,         // APERF
-+                      0x64e,        // PPERF
-+                      0 };
-+
-+    for ( int i =3D 0; msr_idx[i]; i++ )
-+    {
-+        if ( !rdmsr_safe(msr_idx[i], &val) )
-+            printk("MSR %08x: %016lx\n", msr_idx[i], val);
-+    }
-+}
-+
-+static int __init cf_check register_debug_tsc(void)
-+{
-+    register_keyhandler('1', debug_tsc, "Extra TSC debug", false);
-+    return 0;
-+}
-+__initcall(register_debug_tsc);
---=20
-2.53.0
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 1ac61da59a..77f72e52f4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -225,6 +225,7 @@ M:=09Jan Beulich <jbeulich@suse.com>
+ M:=09Andrew Cooper <andrew.cooper3@citrix.com>
+ M:=09Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+ R:=09Jason Andryuk <jason.andryuk@amd.com>
++R:=09Teddy Astie <teddy.astie@vates.tech>
+ S:=09Supported
+ F:=09xen/drivers/passthrough/amd/
+ 
+@@ -233,6 +234,7 @@ M:=09Jan Beulich <jbeulich@suse.com>
+ M:=09Andrew Cooper <andrew.cooper3@citrix.com>
+ M:=09Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+ R:=09Jason Andryuk <jason.andryuk@amd.com>
++R:=09Teddy Astie <teddy.astie@vates.tech>
+ S:=09Supported
+ F:=09xen/arch/x86/cpu/vpmu_amd.c
+ F:=09xen/arch/x86/hvm/svm/
+@@ -613,6 +615,7 @@ X86 ARCHITECTURE
+ M:=09Jan Beulich <jbeulich@suse.com>
+ M:=09Andrew Cooper <andrew.cooper3@citrix.com>
+ M:=09Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
++R:=09Teddy Astie <teddy.astie@vates.tech>
+ S:=09Supported
+ L:=09xen-devel@lists.xenproject.org
+ F:=09xen/arch/x86/
+-- 
+2.52.0
 
 
---JAoCyMYCO6UJ7qb2--
 
---bQ5tYmjyiuSDb3TB
-Content-Type: application/pgp-signature; name=signature.asc
+--
+Teddy Astie | Vates XCP-ng Developer
 
------BEGIN PGP SIGNATURE-----
+XCP-ng & Xen Orchestra - Vates solutions
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmnU8hAACgkQ24/THMrX
-1ywuIAgAm1QhozTGwws97jc5c+BB2Y8ViruL769uzkNd24Hr1BZJBtDsOSlVwQWW
-Oz25zIA47k2toJD+veU4KYTNgWUW/OACkiQMW/0F2ozYIRXqBSYmwDOip+jFQaMo
-LoOh+G6KUKmLLsjbdrrPMr+rB1kl8Udl/Qcdct69/GOp/iEQFIS91suQjN2VlSiJ
-ojNyhyTpPWuIwUrs/83f3MPz1jr+JMHN476L6fyhftMf5SayguMtDDHRIQlnzK4w
-5r44nVFvHT914TomqGePOgoINLGSkPgVbAcr7gnbzFlJAkfASQNvwU14MimmGyFn
-ZKhKNw0bfgdBhix6X/HR9GxFfaUkZg==
-=sP3B
------END PGP SIGNATURE-----
+web: https://vates.tech
 
---bQ5tYmjyiuSDb3TB--
+
 
