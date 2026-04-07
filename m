@@ -2,48 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cH82AkfW1GnuxwcAu9opvQ
+	id CM1wHqfW1GnuxwcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 12:02:47 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 12:04:23 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29E8D3AC79F
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 12:02:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1274748.1560771 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 148583AC7C5
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 12:04:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1274788.1560788 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wA3GQ-00005R-FH; Tue, 07 Apr 2026 10:02:30 +0000
+	id 1wA3I7-0001H1-6d; Tue, 07 Apr 2026 10:04:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1274748.1560771; Tue, 07 Apr 2026 10:02:30 +0000
+Received: by outflank-mailman (output) from mailman id 1274788.1560788; Tue, 07 Apr 2026 10:04:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wA3GQ-0008Tj-CK; Tue, 07 Apr 2026 10:02:30 +0000
-Received: by outflank-mailman (input) for mailman id 1274748;
- Tue, 07 Apr 2026 10:02:29 +0000
+	id 1wA3I7-0001E6-3M; Tue, 07 Apr 2026 10:04:15 +0000
+Received: by outflank-mailman (input) for mailman id 1274788;
+ Tue, 07 Apr 2026 10:04:13 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <marmarek@invisiblethingslab.com>) id 1wA3GO-0008Fa-Qi
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 10:02:29 +0000
+ (envelope-from <andrew.cooper@citrix.com>) id 1wA3I5-0001DK-OD
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 10:04:13 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wA3GN-001uYO-TJ
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 12:02:28 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wA3I5-001ACJ-3f
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 12:04:13 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d4d62c-2eae-0a2a0a5409dd-0a2a45049c22-14
- for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 12:02:27 +0200
-Received: from [103.168.172.150] (helo=fout-a7-smtp.messagingengine.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d4d632-bb33-0a2a45040019-67a8ac96d855-3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 12:02:27 +0200
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfout.phl.internal (Postfix) with ESMTP id 1F0FCEC013B;
- Tue,  7 Apr 2026 06:02:26 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-04.internal (MEProxy); Tue, 07 Apr 2026 06:02:26 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 7 Apr 2026 06:02:25 -0400 (EDT)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 69d4d697-2eae-0a2a0a5409dd-0a2a4505d2a0-34
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 12:04:13 +0200
+Received: from [52.101.48.15]
+ (helo=MW6PR02CU001.outbound.protection.outlook.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 69d4d69a-3760-0a2a45050019-3465300f749a-3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 12:04:12 +0200
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by PH7PR03MB7133.namprd03.prod.outlook.com (2603:10b6:510:2b6::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Tue, 7 Apr
+ 2026 10:04:03 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9769.018; Tue, 7 Apr 2026
+ 10:04:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,324 +58,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fm2 header.d=invisiblethingslab.com header.i="@invisiblethingslab.com" header.h="Cc:Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=fm2 header.d=messagingengine.com header.i="@messagingengine.com" header.h="Cc:Content-Type:Date:Feedback-ID:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To:X-ME-Proxy:X-ME-Sender"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1775556145;
-	 x=1775642545; bh=/hkEB4QDit0+/ygo+/HcMq1/SLyf2WzUJ0g2G5J/pc8=; b=
-	GeZqvi5Oej9sMuOtkHgPmVUjgsjOY3FQdT1GybSWnhJPX+ja9nVDzFUH5NGWjhDX
-	7D/uLpICiOc68nT1uCjMOMf/auSfpyzcz1Lop9A3/0+9pGa7S4r4Ypj0YeDG6or8
-	Rf1i7mBfaOLE7sNWUH1TqCih7kw8Wyk8tf3k7dyTd93PAvVBFYKj2s3FPCXT4Ogw
-	Ft8I7KlUtSkjlAjFlKCecwCrHRvlIGUIJEcp7gFEpykTWRnUnw3gxPl1zG7e2RWv
-	jfMS120/mngvOjcWRcFO3aGyl7MUOeqVkxC7zveFghpMElPj4NTXCh1N86kTFjHB
-	ka67bBvsp8JoHi2qfNsxWA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1775556145; x=1775642545; bh=/hkEB4QDit0+/ygo+/HcMq1/SLyf2WzUJ0g
-	2G5J/pc8=; b=qj4yrdHvRQ7axxDpSNTacDNouV9h1yX+H1iStHaKdlfUxEfkXMo
-	7KGzpnJl5BNrxqdZkEOdw7YS/hIonHLBWr5CieHvH95FT9/UTfcNtoCkU9PIHSu8
-	uuOOzxxbC30RWpVYeiAkhG52h2F+wkGGic34DlhijOogaDIVylN+1P223bYN9v+T
-	JB668MemquzcfAwH0UPZvmzZRqig72/mBl1N3LrEcaxD8SEqHzNenQctqZGEgohf
-	rJhd6VvK7vpbefGReyqJtyt7i41Ww33S/MbDN8Nf1dlOg+xAtuhu3v+NHtuOu7mk
-	vO/idebr40NZbpNOZQXdyIo4GXY4Eoxv6qg==
-X-ME-Sender: <xms:MdbUaQtLkbFPtAO2VNzD9folD1eHQmjgkxLPjmE3ho6VnQbgsptSZA>
-    <xme:MdbUaTd1ALUBlN-OPP02cDRsbngvST6bAAy39EAX7-iFpuVOPj6ez-ByPhtMCX_ls
-    AwmQwYOtSwQlCwc9S_d_YaWTJhUfbKGCb2sEejaJkESczMj>
-X-ME-Received: <xmr:MdbUaZZIfm_0fi_UyRiyuwmTNvXzK_0T250JzUuaXCmOWvidM4cK2xhruK-HgvT4Jy7-dZ_Fv69_H2_zr0F25I2QcHsK_Pqf0FQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddvtdefhecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudelteef
-    vefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhushhtvg
-    hrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhn
-    vhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopedvpdhmoh
-    guvgepshhmthhpohhuthdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhm
-    pdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrd
-    horhhg
-X-ME-Proxy: <xmx:MdbUaeX0HRSRH_6w8AdL4x_whzmpDIN_orWI9sW1_8jCYn5opiG8Gg>
-    <xmx:MdbUaTiBqb0nLpf8UMqVFQvTg8BgmR35SWeQH4em6bs6FSPapj5d0w>
-    <xmx:MdbUaUVAfFhKRfU0-8XxTCvH_PjvAgpB8eiO9aDSVUcmx8pdux-mdQ>
-    <xmx:MdbUaSMO1j-77ZdhOYSIuEP8c4KAMz_VSaYdUDr834w8yTTGpLbgjw>
-    <xmx:MdbUafATiguZ2iH6nXyAkSXoURRW15UA2ImfCEOnk4gbzkdmqhmYDe1_>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 7 Apr 2026 12:02:23 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: IOMMU faults after S3
-Message-ID: <adTWL3mKyz8kxOgq@mail-itl>
-References: <ac2nibFfvGm_7elv@mail-itl>
- <933a3e95-33d2-4e20-a4d5-2d8b20c2da7f@suse.com>
- <ac4kCq87SQSc6ddV@mail-itl>
- <aa6910f1-365a-4534-b229-9730b3aede02@suse.com>
- <ac44SVW1cPhKYFKU@mail-itl>
- <2caff339-4ce9-42ea-9b78-afeac42b6f0f@suse.com>
- <ac6Bg21hMLBRDNdm@mail-itl>
- <92e0151b-3fb1-4108-9788-f0fbac43512b@suse.com>
- <ac72dp3yEHikJzw2@mail-itl>
- <47b140b2-596b-47db-9c0c-43672f445036@suse.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fJi44973kh7rni6tp+NpNZJmWkx0Vxw+LMLUqDdnrB1rAmPT6oVmjO+Vy4T3rvn90NA5ZoiimTORLXJgbdrJpvAJZxXH4dnBqel9QQZkLaF5/gSxvan0KK4Hr/jfjadrU1V7CcagDmfrFJ4/mO6QqmeEPI+M+/SVQpFNxOKAm2gUQhsusLY/3OYCfDC7a0R6Z/tomi84kWdwdF93pXAxLYi/1wXmzjUH7teZwVifS5OKAAJsq5rsXMTkQDYUp7oK8+zonazUokUD8DabOCGnOroqlMldVO9c/g8f/xF8EYtucl4Jsdgnc2pYeAEDDgSANQDr0YdoaK/1cME1Nwb4vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z7T8hHk1Lbv1tOM0HJV8Q4BYS1ZDiC5/oa/yiFSRvxk=;
+ b=FiqWJ+O1pvcgrsFU7wI90VLC2VyOeSn9MyWEBZUGquQRsxgdXTAlI6CWuBLgAA+VypjXcK6DvD6DXoaj4jcy6h3WBaaESU8sjCeDxVPSh/w+PlSNxOrA5bJWidr+IhyW7jZVTIFFd03sWvhC78KmyOUZ795QysKKKZsSurdhnatA/EMCDuICVbF7g66YrJDjB/Uk6ArCit0/PA5LJtQi3C3z5hmG+0Wgnp/WdAwh6EXQCQjbD7eq+5bIryS9CErC9GFeuQAK6g2tHjjwvZEMsDyUDofC81q2TFDhCip+LEMFh0ltRWyj9klXiLhiGkwyezt0806IWczzQmgQjnNGVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z7T8hHk1Lbv1tOM0HJV8Q4BYS1ZDiC5/oa/yiFSRvxk=;
+ b=RSr0DYKq4bTXSDR1ohKhxyzZO5p7Ts7mvlJTw692fN36QHUrXYHEshmhSSksCchNpPBXnef18wsP2k/uwPN2T5cJVNwLwp1KUmmaedYOg32Vehd31AQughtXY59EMV08tBe42zo3WryZaHnNG+IisOBsSDAoYKAsxoEVHHKjfMM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <89973687-51e2-4ea7-bb8a-091d3b811942@citrix.com>
+Date: Tue, 7 Apr 2026 11:03:59 +0100
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Kamil Frankowicz <kamil.frankowicz@cert.pl>
+Subject: Re: [PATCH 5/5] video/vesa: harden font height parsing
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <63284ab7-8e38-4448-a789-1b9c23c4d95c@suse.com>
+ <5e8b4faa-5540-4406-8706-d546e3d2c46b@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <5e8b4faa-5540-4406-8706-d546e3d2c46b@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO2P265CA0495.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13a::20) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="OHzTrA9J+n9/U7Mb"
-Content-Disposition: inline
-In-Reply-To: <47b140b2-596b-47db-9c0c-43672f445036@suse.com>
-X-purgate-ID: tlsNG-ebf023/1775556147-3052B51B-079D0E49/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|PH7PR03MB7133:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1013cccc-ef2b-415f-fbf6-08de948cff72
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	tCtvYOLfI8osyxc9YRo7ikcT+8C1/K5GdWcBHti3y3NpPuQckLhhNmQ3gKHsGiHyhARCtnF7lWpO67Ljt46nW9XnVyrZzrzjZ8NrDRNuNJ5OljBcKU3IskOkZnftLcP8tOMqQ7Drx8h8d1Vlt1/wWld3r6xgQQSngwXX8Bixum2R7tnHdKqkOCbdjHNVUuY9w2GDIWpHEXDJkU8SMhUmQFz2JGqY2RMMn+iQoB0xzSLY9G2SfetxjpmddTBQ0J1SX53aY3BrMv6lz2eoxOAoridpsfJUmMziBfZYQXFZiBtxkWwaVnTAzU/1ygebIN/XnER3pF6BdLKl6mAuhDIrr/Dk8PeY6YrPLPS6v0ZQVPER5+PJClc2RdOR5Ujh+KK3zB1N2dinDVVeH2zq3u6wOv0enUtBlTpc+zzfmIB15UREl+TIazeodlb6kANdxbiVMN7n7YGWLrKLHIZuGaY0is9Bg6Z2mtG6USmaL/tHJcJNTDtw75lrYVP03e4cRSlqjBD7wPRDH5v1Z4z5f5rNxfDG9+iNZqvRecujLZYJsg4O2hlQ5aS+BcqEvex72dMv/WdtjiNkVV7lTtLnfNZudWMjEvLAxdeA6gOLWErYKYCXAmD6G0E2QLzlv4YNcJ8Fi9LXOUcekmKT/biL2MQoTByHJOeN1fuverJxv5me7AuUSb16t/AgMqwfk1rAoWVQMxhKom13JAQPU+OHJoRKjM6JZVn/NwOPvF1Vgp1KNbc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eVRUTDFhRTd4M1BrTTFnYXZxZDZ2YUlqREZQa2R2dmREMlFmTVBXMFZiRlBT?=
+ =?utf-8?B?c212bWxBK0NFT29uZzR5VXNFdWdtSWZSeVBDc2IyQllpbjFWNGFMd3JEaWgz?=
+ =?utf-8?B?b0thUXFqbG4vQ05ZTGhnVFZkVHZ0NjdLRjVJZmg5ZWJLbTlUTjJYMzFFT1dw?=
+ =?utf-8?B?TGZWb2hpWU5lVUgyM1JNbGwwNWxGampCN1RMRjc2OVZRNkJOUEZqYmROVnNJ?=
+ =?utf-8?B?NEcxRWU4eUJZT0w1UEtSTTVNL1JJSzhVMnJKeU5oU3Q1WWVYbEEwWXN2cm9v?=
+ =?utf-8?B?czNmSlFZTFh4TjFkbjRPWFZkb0U3anV2SkRtOThMbTkzTTZZWDREQ00ydmpR?=
+ =?utf-8?B?ODUwK1IvRXRabHBYVFlqSGd6Z0lieGJZbWU2dURTSnk0Q2c4MkF4dDBNVFdI?=
+ =?utf-8?B?SUJWQUF5V1kyK3Z2RzVWSUh1cWIySUswRkdHdXAvTVdZSGM4bDlIa2lLb2lX?=
+ =?utf-8?B?TDJuc0V6S3hlMEFjNjRicmxIS2RCanl3YVZGMXRwTm40dktqTGp6eFIybGlh?=
+ =?utf-8?B?NWVYYlNoYllCM3RxOTAvSmFjWVNRMWxqUXp0eS9qb2Vic1ZPdkErKzVPeVdq?=
+ =?utf-8?B?ZVNlRkZlbGlpTkNWcFFrcG9LTGNDTTExc2o0dlZqL2cvWFRsT3A4Rlh3cnk2?=
+ =?utf-8?B?eWlIb0FkOEprRTZuRW95UXB2bVZJN01nbkNTVGpLZS9SN3BSK1NlV0t0VlhP?=
+ =?utf-8?B?bDlEQ2FKdXZuNzlXYlIvRmRpMUhHdHc4bWkrMFRqYXZIZ0wrU0tSblg4bzNk?=
+ =?utf-8?B?SlluNXQwSXIzR0NGRmNsQkw1N3dwa1hwT2Y4QjNBNDJlWnp2QmlZRjN0ejFq?=
+ =?utf-8?B?bDE4Y3BvODh4MnhTYjkyMFR5VTJBSGpCdWVydUFTemtQeVdyNlFjeHBaWTIv?=
+ =?utf-8?B?WHp0alcwWCtOOEd0Q0ZTVG9WK0tJRURETkl5VGs4NHJweHFPZXRkRVBCdzI2?=
+ =?utf-8?B?VXlmS21sRXBtdU0yZ0tOVzZidjJ5K2w3ajY1SkN6a05EcVp6YUlNVG9PcUJh?=
+ =?utf-8?B?bm00STF0aGpjQUR1M0cvOUVmZzh6Y0JUVWJ1U2xBY2IxclZqY2Y2anZYNEo0?=
+ =?utf-8?B?ZUpMM0ZJMWNxWkdabEp5eW9ON0xRbnczWTlVUmN4dXU2UkJRcEtDRXMwNTFY?=
+ =?utf-8?B?by9HdDA3bTRkSXAzc0VoR0dVR01nQTBQUDRValJjWHViZ0NvSXVGMUxNSXdk?=
+ =?utf-8?B?aWR6dVdRbVB0UEgvR1ZaNnpGb2VMSUJpTmNwb2h4T2ZLUEN1RU5CeERyRTRC?=
+ =?utf-8?B?Zm9ha2pFZXU0TFlzbEgwSG9zSURXRzJyNHY1YSttMGl4aW4veHZWY1ZQdDZq?=
+ =?utf-8?B?c1gxRjNvK2V2bGZqUTJvQ2ZnMjBzYmpHenpwSHp0NWU4OWFvenI0Qnd6a0px?=
+ =?utf-8?B?ZG5PVkJ0R0dQN01RbXZJZTQzbUl2SFRDV1JxL1R4RFphVmNSWnBaZHduaEJP?=
+ =?utf-8?B?Tk1zbHNkajdmWllJb3owR0d4bmVzVS93ZlltanFlSk9UcnRYMkNUT3hROE5q?=
+ =?utf-8?B?MFk1UXJQMFEyL0xIQXh0UzFXYTdQVjREczBtclNtWDRVRy9GdlA2QW9XN00r?=
+ =?utf-8?B?a2pxYlRkMGZZbU9abzVLaE9iK0ZjREtFSW14ZnA1TEc1blZUd2cwSUxFdEpB?=
+ =?utf-8?B?dmZGQTMxejJrNkhKWU15MU1qRFhoRDV1MEZWK0x4cVNoQTBMYjBJODRTdEt2?=
+ =?utf-8?B?a0lkYnpka1ZZbzZXbGxVZU81RHJLZi9SaHRhcnRwOENvbjJIZ0w5eWswWE5W?=
+ =?utf-8?B?RHBoWThrM0ExS1ZuZVRsd0Q0V2FzbXdMaSs3TE1paXN3TUZZaWl5b1JST1Ja?=
+ =?utf-8?B?VmVPakFUeHR5RGlKSG9CbHVMbzhPbjk5aGRhTTZWSVRFKzhQWmRZU296MHpv?=
+ =?utf-8?B?UjY2Y1lsaU81cUNRV2V5Sk9MSkZxV3FhUlhpeVN6NmtGVEFZT1UwOHI4aFAw?=
+ =?utf-8?B?SnJoVEVFM2Z3aW9hbXJmaGF5SUpjbFljdm0zclRBTHhkWXpZdHhNSGNScEpN?=
+ =?utf-8?B?aTdLZStDVTR1Um0xMGo4RjYxN1hicGwvM05iYXhoY2xFdk5oU1BoMTZuaHpy?=
+ =?utf-8?B?TlAwM1AzZUZzeUxqbWdQMWtpeFQ0NFNKYXkvTmNOcU1hR1Jwc0lDUTVXYURL?=
+ =?utf-8?B?eno2Y3FqSXJiZ3pZUUI5NGp0a2J5elkxUHF2SU1iWmxxOGc4dGU3b2ExNUlT?=
+ =?utf-8?B?WGFuZFlYTXU1RUhsN2w4czBia3dpZVFzelpid0dZYk9ta1l3ekxtSHJCVXdm?=
+ =?utf-8?B?UC93QWR0WjdGU0Y4VjJrQW4rWWd6d0ExRHJHRkdXR0NEc1BaUDBxQVVNYmV4?=
+ =?utf-8?B?U3Y1QUh3ejdWZnZUSGVhWitBU0JZL2Zkb1MyeS9MaDdvT1VwejZxZFdueFJs?=
+ =?utf-8?Q?YA58Rr+urvn7RJ2Q=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1013cccc-ef2b-415f-fbf6-08de948cff72
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 10:04:03.6022
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GyzO77qihcbYjCo5U8IZnQ7BWouqLgYW1VGnFSaSxO6/u7u2hRmW6nLhHH0vR1VImelJFI4nPBQHwIFFKgfnBP92ZkBHLJ/ArLQoIiRXG24=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB7133
+X-purgate-ID: tlsNG-c201ff/1775556253-3372A96F-449B13E3/0/0
 X-purgate-type: clean
-X-purgate-size: 9550
-X-Spamd-Result: default: False [-2.23 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	R_MIXED_CHARSET(0.56)[subject];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm2,messagingengine.com:s=fm2];
+X-purgate-size: 399
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:kamil.frankowicz@cert.pl,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	RCPT_COUNT_TWO(0.00)[2];
-	TO_DN_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,messagingengine.com:dkim,invisiblethingslab.com:dkim];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,citrix.com:dkim,citrix.com:email,citrix.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: 29E8D3AC79F
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 148583AC7C5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+On 24/03/2026 4:39 pm, Jan Beulich wrote:
+> We should not prematurely increment the pointer, to avoid inadvertently
+> skipping the NUL terminator.
+>
+> Fixes: 6d9199bd0f22 ("x86-64: enable hypervisor output on VESA frame buffer")
+> Reported-by: Kamil Frankowicz <kamil.frankowicz@cert.pl>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---OHzTrA9J+n9/U7Mb
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 7 Apr 2026 12:02:23 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: IOMMU faults after S3
-
-On Tue, Apr 07, 2026 at 08:29:48AM +0200, Jan Beulich wrote:
-> On 03.04.2026 01:06, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Thu, Apr 02, 2026 at 04:53:31PM +0200, Jan Beulich wrote:
-> >> On 02.04.2026 16:47, Marek Marczykowski-G=C3=B3recki wrote:
-> >>> On Thu, Apr 02, 2026 at 12:48:14PM +0200, Jan Beulich wrote:
-> >>>> On 02.04.2026 11:35, Marek Marczykowski-G=C3=B3recki wrote:
-> >>>>> On Thu, Apr 02, 2026 at 10:39:41AM +0200, Jan Beulich wrote:
-> >>>>>> On 02.04.2026 10:08, Marek Marczykowski-G=C3=B3recki wrote:
-> >>>>>>> The xl dmesg output (from MTL this time):
-> >>>>>>>
-> >>>>>>>     (XEN) [  123.477511] Entering ACPI S3 state.
-> >>>>>>>     (XEN) [18446743903.571842] _disable_pit_irq:2649: using_pit: =
-0, cpu_has_apic: 1
-> >>>>>>>     (XEN) [18446743903.571856] _disable_pit_irq:2659: cpuidle_usi=
-ng_deep_cstate: 1, boot_cpu_has(X86_FEATURE_XEN_ARAT): 0
-> >>>>>
-> >>>>>> Hmm, but what you didn't log is whether __hpet_setup_msi_irq() act=
-ually
-> >>>>>> succeeded everywhere. (And if it did, also logging HPET_Tn_ROUTE()=
- values
-> >>>>>> might be a good idea, if only to double check.)
-> >>>>>
-> >>>>> Updated output:
-> >>>>>
-> >>>>>     (XEN) [18446743899.720395] _disable_pit_irq:2649: using_pit: 0,=
- cpu_has_apic: 1
-> >>>>>     (XEN) [18446743899.720409] _disable_pit_irq:2659: cpuidle_using=
-_deep_cstate: 1, boot_cpu_has(X86_FEATURE_XEN_ARAT): 0
-> >>>>>     (XEN) [18446743899.720420] _disable_pit_irq:2662: init: 0
-> >>>>>     (XEN) [18446743899.720431] hpet_broadcast_resume:663: hpet_even=
-ts: ffff83046bc1f080
-> >>>>>     (XEN) [18446743899.720579] hpet_broadcast_resume:674: num_hpets=
-_used: 8
-> >>>>>     (XEN) [18446743899.720587] hpet_broadcast_resume:692: cfg: 0x1
-> >>>>>     (XEN) [18446743899.720599] hpet_broadcast_resume:697: i:0, hpet=
-_events[i].msi.irq: 122, hpet_events[i].flags: 0
-> >>>>>     (XEN) [18446743899.720612] hpet_msi_write:283: iommu_intremap: =
-2 (iommu_intremap_off: 0), HPET_Tn_ROUTE(ch->idx): 0x110
-> >>>>>     (XEN) [18446743899.720638] hpet_msi_write:287: iommu_update_ire=
-_from_msi rc: 0
-> >>>>
-> >>>> So it succeeds, and the low half of HPET_Tn_ROUTE also looks plausib=
-le. The high
-> >>>> half is, however, the address that the low half value is written to.=
- It's hard
-> >>>> to imagine that it would be zero when the low half isn't, but it is =
-about the
-> >>>> last thing I can think of which could explain observed behavior. (Ye=
-t then, all
-> >>>> of this is pretty meaningless; see below.)
-> >>>>
-> >>>>> And the current debug diff attached.
-> >>>>
-> >>>> Hmm, you log HPET_Tn_ROUTE _before_ our update. That's not very usef=
-ul. You want
-> >>>> to move that part of logging to the bottom of hpet_msi_write(), or m=
-aybe to
-> >>>> where you also log the per-channel cfg value in hpet_broadcast_resum=
-e() (thus
-> >>>> making the logging overall less verbose).
-> >>>
-> >>> This test is with the updated patch (attached) + your extra
-> >>> calculate_host_policy() call and "no-arat" on cmdline:
-> >>
-> >> And IOMMU faults still occurring as before, I expect.
-> >>
-> >> Sadly you now log the low halves of HPET_Tn_ROUTE twice, while you don=
-'t log
-> >> the high halves at all.
-> >=20
-> > I was missing hpet_read32 there...
-> >=20
-> > Updated:
-> > (XEN) [  116.921573] Entering ACPI S3 state.
-> > (XEN) [18446743895.088893] _disable_pit_irq:2649: using_pit: 0, cpu_has=
-_apic: 1
-> > (XEN) [18446743895.088907] _disable_pit_irq:2659: cpuidle_using_deep_cs=
-tate: 1, boot_cpu_has(X86_FEATURE_XEN_ARAT): 0
-> > (XEN) [18446743895.088918] _disable_pit_irq:2662: init: 0
-> > (XEN) [18446743895.088928] hpet_broadcast_resume:662: hpet_events: ffff=
-83046bc1f080
-> > (XEN) [18446743895.089072] hpet_broadcast_resume:673: num_hpets_used: 8
-> > (XEN) [18446743895.089081] hpet_broadcast_resume:691: cfg: 0x1
-> > (XEN) [18446743895.089092] hpet_broadcast_resume:696: i:0, hpet_events[=
-i].msi.irq: 122, hpet_events[i].flags: 0
-> > (XEN) [18446743895.089122] hpet_msi_write:286: iommu_update_ire_from_ms=
-i rc: 0
-> > (XEN) [18446743895.089132] hpet_broadcast_resume:700: i:0, __hpet_setup=
-_msi_irq ret: 0
-> > (XEN) [18446743895.089168] hpet_broadcast_resume:710: i:0, cfg: 0xc134,=
- hpet_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROU=
-TE(hpet_events[i].idx) + 4): 0xf18
->=20
-> Okay, this would appear to clarify that the address really isn't correct.=
- Yet I'm
-> confused now by the low half values: In your earlier log there was
->=20
-> hpet_broadcast_resume:710: i:0, cfg: 0xc134, HPET_Tn_ROUTE(hpet_events[i]=
-=2Eidx): 0x110
-
-My earlier logging included literal HPET_Tn_ROUTE() macro output, not
-hpet_read32() of it...
-
-> and alike, i.e. clearly a non-zero value. Now all low halves are zero. I'=
-ll try
-> to figure how the logged values here could result, but consistent data (o=
-r an
-> explantation for the apparent inconsistency) would help.
->=20
-> Jan
->=20
-> > (XEN) [18446743895.089180] hpet_broadcast_resume:696: i:1, hpet_events[=
-i].msi.irq: 123, hpet_events[i].flags: 0
-> > (XEN) [18446743895.089203] hpet_msi_write:286: iommu_update_ire_from_ms=
-i rc: 0
-> > (XEN) [18446743895.089213] hpet_broadcast_resume:700: i:1, __hpet_setup=
-_msi_irq ret: 0
-> > (XEN) [18446743895.089242] hpet_broadcast_resume:710: i:1, cfg: 0xc104,=
- hpet_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROU=
-TE(hpet_events[i].idx) + 4): 0xf38
-> > (XEN) [18446743895.089254] hpet_broadcast_resume:696: i:2, hpet_events[=
-i].msi.irq: 124, hpet_events[i].flags: 0
-> > (XEN) [18446743895.089278] hpet_msi_write:286: iommu_update_ire_from_ms=
-i rc: 0
-> > (XEN) [18446743895.089288] hpet_broadcast_resume:700: i:2, __hpet_setup=
-_msi_irq ret: 0
-> > (XEN) [18446743895.089316] hpet_broadcast_resume:710: i:2, cfg: 0xc104,=
- hpet_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROU=
-TE(hpet_events[i].idx) + 4): 0xf58
-> > (XEN) [18446743895.089327] hpet_broadcast_resume:696: i:3, hpet_events[=
-i].msi.irq: 125, hpet_events[i].flags: 0
-> > (XEN) [18446743895.089350] hpet_msi_write:286: iommu_update_ire_from_ms=
-i rc: 0
-> > (XEN) [18446743895.089361] hpet_broadcast_resume:700: i:3, __hpet_setup=
-_msi_irq ret: 0
-> > (XEN) [18446743895.089390] hpet_broadcast_resume:710: i:3, cfg: 0xc104,=
- hpet_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROU=
-TE(hpet_events[i].idx) + 4): 0xf78
-> > (XEN) [18446743895.089401] hpet_broadcast_resume:696: i:4, hpet_events[=
-i].msi.irq: 126, hpet_events[i].flags: 0
-> > (XEN) [18446743895.089425] hpet_msi_write:286: iommu_update_ire_from_ms=
-i rc: 0
-> > (XEN) [18446743895.089436] hpet_broadcast_resume:700: i:4, __hpet_setup=
-_msi_irq ret: 0
-> > (XEN) [18446743895.089465] hpet_broadcast_resume:710: i:4, cfg: 0xc104,=
- hpet_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROU=
-TE(hpet_events[i].idx) + 4): 0xf98
-> > (XEN) [18446743895.089476] hpet_broadcast_resume:696: i:5, hpet_events[=
-i].msi.irq: 127, hpet_events[i].flags: 0
-> > (XEN) [18446743895.089499] hpet_msi_write:286: iommu_update_ire_from_ms=
-i rc: 0
-> > (XEN) [18446743895.089509] hpet_broadcast_resume:700: i:5, __hpet_setup=
-_msi_irq ret: 0
-> > (XEN) [18446743895.089540] hpet_broadcast_resume:710: i:5, cfg: 0xc104,=
- hpet_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROU=
-TE(hpet_events[i].idx) + 4): 0xfb8
-> > (XEN) [18446743895.089551] hpet_broadcast_resume:696: i:6, hpet_events[=
-i].msi.irq: 128, hpet_events[i].flags: 0
-> > (XEN) [18446743895.089574] hpet_msi_write:286: iommu_update_ire_from_ms=
-i rc: 0
-> > (XEN) [18446743895.089584] hpet_broadcast_resume:700: i:6, __hpet_setup=
-_msi_irq ret: 0
-> > (XEN) [18446743895.089622] hpet_broadcast_resume:710: i:6, cfg: 0xc104,=
- hpet_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROU=
-TE(hpet_events[i].idx) + 4): 0xfd8
-> > (XEN) [18446743895.089633] hpet_broadcast_resume:696: i:7, hpet_events[=
-i].msi.irq: 129, hpet_events[i].flags: 0
-> > (XEN) [18446743895.089655] hpet_msi_write:286: iommu_update_ire_from_ms=
-i rc: 0
-> > (XEN) [18446743895.089665] hpet_broadcast_resume:700: i:7, __hpet_setup=
-_msi_irq ret: 0
-> > (XEN) [18446743895.089702] hpet_broadcast_resume:710: i:7, cfg: 0xc104,=
- hpet_read32(HPET_Tn_ROUTE(hpet_events[i].idx)): 0, hpet_read32(HPET_Tn_ROU=
-TE(hpet_events[i].idx) + 4): 0xff8
-> >=20
-> >=20
-> >=20
-> >=20
->=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---OHzTrA9J+n9/U7Mb
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmnU1i8ACgkQ24/THMrX
-1yxryQf/RzYcIxmcNUqvxw9i8WJ4/+g66FzP7xLQLHpt577jA3wSTbEeb2wuEQ5H
-Q+y2nDehCTiHOpUcHWbkqE7HK/BnSSgxGaEgoJhxRAo41YnKSh5kRnK/ShhXs3/K
-P2uhIFXcfhSK51XGj+jbsfjdCpF9iaikhUJzB1/1+uSJEpVItNvdZb2zaqDmz4Pk
-dpxgrToB7jzKsYTyIJM5eSBECE7FzyCupNGvK0RgQoHwKMI9GWBPp9a54jJiI8Wk
-zF/cyY/LOg/fXIMYlAql0SSmVDkuitA/cD5vV/VHEXB/KwUG41FRZa95k2OuvXvT
-d8AtuahE53dL/LaiSiwtYVQh2Dc/6Q==
-=GM4u
------END PGP SIGNATURE-----
-
---OHzTrA9J+n9/U7Mb--
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
