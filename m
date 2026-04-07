@@ -2,44 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UASvODLW1GnuxwcAu9opvQ
+	id aJfDLVfV1GnuxwcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 12:02:26 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 11:58:47 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5ADE63AC774
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 12:02:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1274742.1560753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EA1B3AC685
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 11:58:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1274617.1560708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wA3GA-0007x0-RU; Tue, 07 Apr 2026 10:02:14 +0000
+	id 1wA3Ch-00046j-HP; Tue, 07 Apr 2026 09:58:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1274742.1560753; Tue, 07 Apr 2026 10:02:14 +0000
+Received: by outflank-mailman (output) from mailman id 1274617.1560708; Tue, 07 Apr 2026 09:58:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wA3GA-0007ue-Oa; Tue, 07 Apr 2026 10:02:14 +0000
-Received: by outflank-mailman (input) for mailman id 1274742;
- Tue, 07 Apr 2026 10:02:14 +0000
+	id 1wA3Ch-00044E-Ct; Tue, 07 Apr 2026 09:58:39 +0000
+Received: by outflank-mailman (input) for mailman id 1274617;
+ Tue, 07 Apr 2026 09:58:38 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <bernhard.kaindl@citrix.com>) id 1wA3G9-0007uW-Sc
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 10:02:14 +0000
+ (envelope-from <Mykyta_Poturai@epam.com>) id 1wA3Cg-00043W-HU
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 09:58:38 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wA3G9-001uQb-8T
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 12:02:13 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wA3Cf-001tW6-TE
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 11:58:37 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <bernhard.kaindl@citrix.com>)
- id 69d4d61f-2eae-0a2a0a5409dd-0a2a450cba62-46
- for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 12:02:13 +0200
-Received: from [160.101.131.9] (helo=na1pdmzitismtp02.tibco.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <bernhard.kaindl@citrix.com>)
- id 69d4d624-f40c-0a2a450c0019-a0658309a622-3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 12:02:12 +0200
-Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id A2FC0818BA72;
- Tue,  7 Apr 2026 06:01:21 -0400 (EDT)
+ (envelope-from <Mykyta_Poturai@epam.com>)
+ id 69d4d542-bab6-0a2a0a5309dd-0a2a450b9d14-38
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 11:58:37 +0200
+Received: from [52.101.66.82]
+ (helo=DUZPR83CU001.outbound.protection.outlook.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <Mykyta_Poturai@epam.com>)
+ id 69d4d54d-bca8-0a2a450b0019-34654252e045-3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 11:58:37 +0200
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ (2603:10a6:102:30d::12) by PA4PR03MB8294.eurprd03.prod.outlook.com
+ (2603:10a6:102:273::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Tue, 7 Apr
+ 2026 09:58:35 +0000
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::b8c6:f37a:987a:beb]) by PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::b8c6:f37a:987a:beb%5]) with mapi id 15.20.9769.016; Tue, 7 Apr 2026
+ 09:58:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,763 +58,251 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; none
-From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Marcus Granado <marcus.granado@citrix.com>,
-	Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Subject: [PATCH 5/5] xen/mm: Introduce Claim Sets for multiple NUMA nodes
-Date: Tue,  7 Apr 2026 10:54:30 +0100
-Message-Id: <4af33fea53f1956155cca7d5ea74c0802e6ae4d8.1775505670.git.bernhard.kaindl@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1775505670.git.bernhard.kaindl@citrix.com>
-References: <cover.1775505670.git.bernhard.kaindl@citrix.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u9wFUJ23GOx0MtbgJ8hY5zZ5mch4YD2hhaxnxdRkKHti1SOZHmzq/SPCKIRnKou5fn+/nfSrtVJx52Io4K6M4MvRgtKsdhR3ZcQAd66LcxQPvjIaGvqOfKS1N36UpYB3nwvNzWF6Y7dIjrf8avwYmDOJiLWbzShXTKLFSpFsbJy48zS4zme1KohqOoj0/XReWk1T5lpbpGafywghxJg/QcybUR2OZ6OohuiGxG86XVhetXob1yX2dsvHPAh1lbGrwAm/z1FbqCAp8Eja2V8XSx4n0COUupuljwUPdLtg6LK5GWh7KhzrsIzgIcLpP4lPuApOU6ILmrY6dV4joRJufA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DM5ctd74HSf9n6McPIthpWnwvO71M4XGIm8bZHpDQj0=;
+ b=Bf0U0tlL0JLRZfk7m8XKZkq89WpW3wno+jKf/m4Pa3rjAZ3eahFMoIWLKQMGxfmMWKxgN6vh5SKNW9GiypjKktX3RGjrjmJx4G2BdKIrq7S13gq0t9LsXttba4aN9wEhq47sAxg18hhOE5I2Nf59iNS7/rtJD2keiVzqNGDeerJyxO6MQizRkEKiSJxaDxQZf+xCNskjY7Js+BltauNFGHhREBKBqXSQa8xxYaKebgj/6mJuQM/4XeRloBX2rlboCVdYX1brlRuWpSQzYzu0O8gpxRiVPJ0h2wpVtyv6Loh4ENtLb8851qBnedd3+x5R0tt1wnB4GMt/a+v4aBPciw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DM5ctd74HSf9n6McPIthpWnwvO71M4XGIm8bZHpDQj0=;
+ b=oIRCEEgXpYvr0vOBRYIIhDsd3t/m5CMZPKyG0l3R7ILTLdt0sOli71y3l9GfphHaeQ3Bh9bFAX7rbohKoIb/JHH+nMy9saNlGBMVIzh/5SAyos1pUcKp0SsrjdtmGsIut7nJsSBsKIN38LS5oJ+sy6nc9D9ePx3uThUhcgi/pZ+1JN3OpothNJqTa3kAPPnewnWANDhzmn42sra7Kfa8RxZwsdmmYgL72qqulfFogSQ4VgR6cPgLzZL+a6ULcslnUpZ0ImyFtqxt/2gemuJd1/m8uDqxHRez26z8oFDuM5SPHlLyZNS8Lg2YfcAlE9deRABd7OMHfG3hH/L+8S6EeQ==
+From: Mykyta Poturai <Mykyta_Poturai@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Rahul Singh <rahul.singh@arm.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Michal
+ Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v1] xen/arm: smmuv3: Add support for removing devices
+Thread-Topic: [PATCH v1] xen/arm: smmuv3: Add support for removing devices
+Thread-Index: AQHcxnUZYHa+CmL3S0yWL3bconIhZw==
+Date: Tue, 7 Apr 2026 09:58:34 +0000
+Message-ID:
+ <a59c2da0d4c72deb42950e9a8e3982fbdee60668.1775555766.git.mykyta_poturai@epam.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|PA4PR03MB8294:EE_
+x-ms-office365-filtering-correlation-id: 55a5a121-8d89-4dc3-5dc3-08de948c3b97
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|376014|38070700021|18002099003|56012099003;
+x-microsoft-antispam-message-info:
+ RdoUFYMNg057i7PFlk175tjAyVEyYWO3+21tggZNwouTrWcW74NA3SkjljkzJZL1N6N9/iAjVNvO12sIB9fzfO2/9j54+bS4+99mblPccnRaz4ksaUlSteFZKClsIXP9/sXTEA80aBSMicQ6E7SFrSg2g91m0VML++myBueVfmFYHkl3yu9vV6Np4Frhmx3d1EeDgV4cX4tRlGruk26SOiosCSYWv8J/TLI5emKTvO2LUJ0Y+tWV0NBIzDewfZRGpt8vusx0oQaZ2AriV1Rq1/Z5cxO9X4Wa+r1K0bFjbCCKxniPri4I2ZmxU+lX9oMuTu1m+Qp1o9Rg24pwkdmA8//+YdaHndgZugFgLOHAsIUtlronixCocIkoH7CXmPBs1PkIvISI36Na0lKkeav60i7u7+usd8+dub9E13qI+qO3bnWkcgMzRc2g/8rUYc/ytRXhPiRyGU/E3UGIHGHHOH3oM+eqedPt2g0pYnb6vEdiMrYI0mfNDZD5vgyDV1BJnmjElL1Gbru25rZJw1YjzWNWiq5L6QVEsdBHcwd5H7ehxi7/yLxPRfj3Qt1lJgSrcWZgOywPksYiq9kGQ8rEnfBMv88H7Ii7fN8T6bNJ/sIlRNiY9osf8VNUIlQdJSYyFrhDBv3pYgAJF7Qvf4PzWrZIMt407Gx9LCUBGkSna44wDKFiDknXOag1UYZlrtydYxlfZu3UFpUFXYnRnvgxgryQ+zdrTWDvQBkDYONya6HvIYyo5k++tOkw9cXynXdo
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(18002099003)(56012099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?cO9Jox+5hfuJzsZWHWuSyyl9kqFLHDP+OikNDSFtvTd5/IhHGhlmLcL6Fl?=
+ =?iso-8859-1?Q?bTUez5HCZMzcShPAb4+ZVIu24W9VwX4Z78D9EvggvHPEglLmGGOta4kA+W?=
+ =?iso-8859-1?Q?rxVmGWKP+7B5SBXeVZYKMscZkHrYc8HDqAejhBPJlHUqOiDtpDeJwnhncv?=
+ =?iso-8859-1?Q?GeHMtjsdfN4GK2tiVeuaIu2B+uJxvXCejSR+z59LnD880HFpr8FZhU1J5H?=
+ =?iso-8859-1?Q?XptXkNW4MBSMKRq5QVx+URmSyOsizqsanYIBPMV5m9amf0fiR1a0jcMbJh?=
+ =?iso-8859-1?Q?a2GeKmvhhPWVVELZqHCxEhn1/tnjGIscaCY7UFifOlaJFDT1gXl+OTBNbv?=
+ =?iso-8859-1?Q?XO5X3ui6sgAs4+2Z0HE2xKGV3QkbhnlrGEP+gJAfEU+4tVMnXDfyj3HTbf?=
+ =?iso-8859-1?Q?hTah2268GYcOTvDp3eginadTtPNRiJ/7RgW+g3q6L6tSalALoQZJ79nviu?=
+ =?iso-8859-1?Q?DlKZfz+CI6TP44DReO86UJI+NNxnQrBOgojyyJgd9ei4QvfmxNleKq+2MP?=
+ =?iso-8859-1?Q?KSIoHIkIHG7d/QQ8yZbZ5fquHEi/yJpSgw5lf+Fyz9PM/YGEoz+mDX7VMh?=
+ =?iso-8859-1?Q?lcgP1MWHSPIL+MrE7H0ZSlVqys3CC0sOGeCeCaR9U5AUCybQwGaBvppVaY?=
+ =?iso-8859-1?Q?C4lpDWWqanS8uiarKM8whe0p56UmoRxFK0ggZCCjMtChlyqU4DnZYHF0ic?=
+ =?iso-8859-1?Q?fUQer/hNc+rx/AMlROj+hbMTbuUkDyEmhWw9O8Lge9TjPreSPeKk2pIj9z?=
+ =?iso-8859-1?Q?kj8R05pA1DXyRDa7FZV3papVDprdak0gZeUd3ye48J4AHtaMx4calKaPiD?=
+ =?iso-8859-1?Q?RCtXPCz/AC2oLBRR0z7UFgh2Rizthi8L5Nqkd52ps4gUBlMfoa6cDDODvv?=
+ =?iso-8859-1?Q?t+aj8FW+oiMrcGgYTJqm4uVn6X3Zfv9ci7aJyT9iI/yliFF5YzzOw0sd4Q?=
+ =?iso-8859-1?Q?6tz8aPD4RhfL7UdNqoV2BS6AbKLSiaeBGPp5SItgo3okjQ9LmAUNJsXvAG?=
+ =?iso-8859-1?Q?eLsQtOKPQm11cME1U7aNJEQpnicSNJWaEeDpK2e2KA8WoMNY8P9hNvcK+a?=
+ =?iso-8859-1?Q?I0n1QxJ96N1i8ouzcCCgYeH8qd9rRBdbzs44/EqDFj9aq6lZukQc3PahTK?=
+ =?iso-8859-1?Q?pbMXPa2Rc15gGa1PTs1nOz3p1fLOhbiOXFwhTLg/b+2VA4+3e1XIRIHuCC?=
+ =?iso-8859-1?Q?ik6wJQLruig7hoQU8psm2aN0Q08BV3buC2Hvs8PtqF4vmUmVwmHpud+GW9?=
+ =?iso-8859-1?Q?H7lIjR8bYvFH1n5tvM7J6LW0IkWK4di1Jy7jKyWPnbZuAPiJ1z7k6FxgC9?=
+ =?iso-8859-1?Q?J5K6nu3e2DAwZBc0cw7IUqpkz3f0CT0Iiv+/EAISj1FXDWO1Rwwuz6XPnv?=
+ =?iso-8859-1?Q?Xm+i6lOpYVhltEZEmk/yd9fPWCvZKyU0oJ6WHXDVqs7GH5GZ0oMQmPJFqP?=
+ =?iso-8859-1?Q?DNyQdvBRJ63RqLZv5SJMI240XYsaEI47tBwRbH8ulW/q95zWrFHI4z316J?=
+ =?iso-8859-1?Q?txUoz63fsJ2FiYcsWI2xBXKkzwLVRS8Ex02068nVlDLlz4zuJAD8moZOqy?=
+ =?iso-8859-1?Q?Fba+dKrMR6GDRhP7GaA6VJm33RE/pDF/wCceaSZB9Qsn5vmx7rlBMj4+a4?=
+ =?iso-8859-1?Q?wI4irlcf0T+BXJWTDAHJE5Sf+w3JeJZwtkA6w59K0JJRo6IgQcjeiX7kav?=
+ =?iso-8859-1?Q?RAUNLVMV5pTp3SDLAlyk+uYubmpaXDSexApdLEgHri9RsO56/uPyf3aIvw?=
+ =?iso-8859-1?Q?r8n5/TjEDZntdSfvvup8XhC7rJ8JUZ+IKHNB8YTuTP426B7fBi6/IUuaSy?=
+ =?iso-8859-1?Q?VoxhkUqoosF1WmFuijP6p64kLfqkdBM=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d25034/1775556133-83348A3D-325C9D5B/0/0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55a5a121-8d89-4dc3-5dc3-08de948c3b97
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Apr 2026 09:58:34.8990
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: +mcOphYUUJ9SPMeZ2aIjglOzRUXo3USqQaOBmAVZQPGXO/eEM8fCIMDX9TAfYIKU71FJyxiggvGvebgS7J9RSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB8294
+X-purgate-ID: tlsNG-42698a/1775555917-EF5432A1-602F276A/0/0
 X-purgate-type: clean
-X-purgate-size: 28557
-X-Spamd-Result: default: False [2.51 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
+X-purgate-size: 3372
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,m:marcus.granado@citrix.com,m:alejandro.vallejo@cloud.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	RCPT_COUNT_TWELVE(0.00)[13];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,patchew.org:url];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:bertrand.marquis@arm.com,m:rahul.singh@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[epam.com:+];
+	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.904];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCVD_COUNT_SEVEN(0.00)[9];
-	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	R_DKIM_NA(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email,citrix.com:mid,suse.com:email,bernhardk-xen-review.readthedocs.io:url,xenproject.org:url]
-X-Rspamd-Queue-Id: 5ADE63AC774
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 3EA1B3AC685
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This patch extends Xen's memory claim handling to support claim sets
-spanning multiple NUMA nodes.
+Allow for removing devices from SMMUv3. arm_smmu_deassign_dev handles
+most of the work by disabling ATS and zeroing STEs. Additionally, unset
+the dt_device_is_protected flag and free no longer needed smmu_master.
 
-Earlier review raised the concern that claims would need to evolve from a
-single claim into a multi-node model. Roger Pau Monné described the core
-requirement well:
+Tested on QEMU with SRIOV series[1] by repeatedly enabling/disabling
+VFs.
 
-  >  Ideally, we would need to introduce a new hypercall that allows
-  >  making claims from multiple nodes in a single locked region,
-  >  as to ensure success or failure in an atomic way.
+[1]: https://patchew.org/Xen/cover.1772806036.git.mykyta._5Fpoturai@epam.co=
+m/
 
-      -- Roger Pau Monné
-
-This patch implements that model.
-
-A claim set can contain multiple node-specific claims and an optional
-global claim for memory that may come from any NUMA node. The new domctl
-installs the full claim set atomically, and the allocator is updated so
-that claim checks and claim consumption follow the new semantics.
-
-This patch adds:
-
-1. Atomic installation of multi-node claim sets with a domctl.
-2. Allocation-time claim checks.
-3. Claim retirement on successful allocation using claims.
-4. Retention of the legacy claim interface without functional change.
-
-Suggested-by: Jan Beulich <jbeulich@suse.com>
-Suggested-by: Marcus Granado <marcus.granado@citrix.com>
-Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-
+Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 ---
-The design document submitted ahead of this series may help with review.
- It explains the background, design rationale, and implementation details.
+ xen/drivers/passthrough/arm/smmu-v3.c | 59 +++++++++++++++++++++++++++
+ xen/include/xen/device_tree.h         |  5 +++
+ 2 files changed, 64 insertions(+)
 
-Rendered version:
-https://bernhardk-xen-review.readthedocs.io/node-claims-v5/designs/claims/
-
-Posted version:
-https://lists.xenproject.org/archives/html/xen-devel/2026-04/msg00108.html
-
-Many thanks to everyone who contributed to the earlier work and review,
-especially Alejandro Vallejo, Jan Beulich, Andrew Cooper, Roger Pau
-Monné, Marcus Granado, and Edwin Török.
-
-Many thanks to everyone who contributed to the previous work, reviews,
-and implementation of this feature.
-
-Thanks,
-
-  Bernhard
----
- tools/include/xenctrl.h             |   4 +
- tools/libs/ctrl/xc_domain.c         |  38 ++++
- xen/common/domctl.c                 |  54 ++++++
- xen/common/page_alloc.c             | 279 +++++++++++++++++++++++++++-
- xen/include/public/domctl.h         |  32 ++++
- xen/include/public/memory.h         |   9 +
- xen/include/xen/mm.h                |   3 +
- xen/include/xen/sched.h             |   6 +
- xen/xsm/flask/hooks.c               |   1 +
- xen/xsm/flask/policy/access_vectors |   1 +
- 10 files changed, 422 insertions(+), 5 deletions(-)
-
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index d5dbf69c8968..a0a9f2143b32 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2659,6 +2659,10 @@ int xc_domain_set_llc_colors(xc_interface *xch, uint32_t domid,
-                              const uint32_t *llc_colors,
-                              uint32_t num_llc_colors);
- 
-+int xc_domain_claim_memory(xc_interface *xch, uint32_t domid,
-+                           uint32_t nr_claims,
-+                           memory_claim_t *claims);
-+
- #if defined(__arm__) || defined(__aarch64__)
- int xc_dt_overlay(xc_interface *xch, void *overlay_fdt,
-                   uint32_t overlay_fdt_size, uint8_t overlay_op);
-diff --git a/tools/libs/ctrl/xc_domain.c b/tools/libs/ctrl/xc_domain.c
-index 01c0669c8863..32cd91187d44 100644
---- a/tools/libs/ctrl/xc_domain.c
-+++ b/tools/libs/ctrl/xc_domain.c
-@@ -1070,6 +1070,44 @@ int xc_domain_remove_from_physmap(xc_interface *xch,
-     return xc_memory_op(xch, XENMEM_remove_from_physmap, &xrfp, sizeof(xrfp));
- }
- 
-+/* Claim the guest memory for a domain before starting the domain build */
-+int xc_domain_claim_memory(xc_interface *xch,
-+                           uint32_t domid,
-+                           uint32_t nr_claims,
-+                           memory_claim_t *claims)
+diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthroug=
+h/arm/smmu-v3.c
+index bf153227db..b5b834a7b7 100644
+--- a/xen/drivers/passthrough/arm/smmu-v3.c
++++ b/xen/drivers/passthrough/arm/smmu-v3.c
+@@ -1493,6 +1493,64 @@ static int arm_smmu_assign_dev(struct domain *d, u8 =
+devfn, struct device *dev,
+ static int arm_smmu_deassign_dev(struct domain *d, uint8_t devfn,
+ 				 struct device *dev);
+=20
++static int arm_smmu_remove_device(u8 devfn, struct device *dev)
 +{
-+    struct xen_domctl domctl = {};
-+    DECLARE_HYPERCALL_BOUNCE(claims, sizeof(*claims) * nr_claims,
-+                             XC_HYPERCALL_BUFFER_BOUNCE_IN);
-+    int ret;
++	int ret =3D 0;
++	struct arm_smmu_master *master;
++	struct iommu_fwspec *fwspec;
 +
-+    if ( xc_hypercall_bounce_pre(xch, claims) )
-+        return -1;
++	fwspec =3D dev_iommu_fwspec_get(dev);
++	if ( !fwspec )
++		return -ENODEV;
 +
-+    domctl.cmd = XEN_DOMCTL_claim_memory;
-+    domctl.domain = domid;
-+    domctl.u.claim_memory.nr_claims = nr_claims;
-+    set_xen_guest_handle(domctl.u.claim_memory.claims, claims);
++	master =3D dev_iommu_priv_get(dev);
++	if ( !master )
++		return -ENODEV;
 +
-+    ret = do_domctl(xch, &domctl);
++#ifdef CONFIG_HAS_PCI
++	if ( dev_is_pci(dev) )
++	{
++		struct pci_dev *pdev =3D dev_to_pci(dev);
 +
-+    xc_hypercall_bounce_post(xch, claims);
++		if ( pdev->domain )
++		{
++			ret =3D arm_smmu_deassign_dev(pdev->domain, devfn, dev);
++			if ( ret )
++				printk(XENLOG_WARNING "Failed to deassign device %pp from SMMU\n",
++					&pdev->sbdf);
++		}
++	}
++#endif
 +
-+    return ret;
++	if ( !dev_is_pci(dev) )
++	{
++		if ( !dt_device_is_protected(dev_to_dt(dev)) )
++		{
++			dev_err(dev, "Not added to SMMUv3\n");
++			ret =3D -ENODEV;
++			goto out_free;
++		}
++
++		if ( master->domain && master->domain->d )
++		{
++			ret =3D arm_smmu_deassign_dev(master->domain->d, 0, dev);
++			if ( ret )
++				dev_warn(dev, "Failed to deassign device from SMMU\n");
++		}
++		dt_device_unset_protected(dev_to_dt(dev));
++	}
++
++	arm_smmu_disable_pasid(master);
++
++	dev_info(dev, "Removed master device (SMMUv3 %s StreamIds %u)\n",
++		 dev_name(fwspec->iommu_dev), fwspec->num_ids);
++
++out_free:
++	xfree(master);
++	dev_iommu_priv_set(dev, NULL);
++	return ret;
 +}
 +
-+/*
-+ * Legacy API for claiming pages, replaced by xc_domain_claim_memory()
-+ *
-+ * Note: This hypercall is deprecated by xc_domain_claim_memory()
-+ * which provides the same claim semantics described above, and thus can be
-+ * used as drop-in replacement and is extended for NUMA-node-specific claims.
-+ * This hypercall should not be used by new code.
-+ *
-+ * See the following documentation pages for more information:
-+ * docs/guest-guide/dom/DOMCTL_claim_memory.rst
-+ * docs/guest-guide/mem/XENMEM_claim_pages.rst
-+ */
- int xc_domain_claim_pages(xc_interface *xch,
-                                uint32_t domid,
-                                unsigned long nr_pages)
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index 2cc5a4ff32fd..16d239c75bde 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -51,6 +51,51 @@ static int xenctl_bitmap_to_nodemask(nodemask_t *nodemask,
-                                    MAX_NUMNODES);
- }
- 
-+/* Claim memory for a domain (or if a claim exists, release the claim) */
-+static int claim_memory(struct domain *d,
-+    const struct xen_domctl_claim_memory *uinfo)
-+{
-+    memory_claim_t *claims;
-+    int rc = -EFAULT;
-+
-+    /* alloc_color_heap_page() does not handle claims, reject LLC coloring. */
-+    if ( llc_coloring_enabled )
-+        return -EOPNOTSUPP;
-+
-+    if ( !uinfo->nr_claims || uinfo->pad )
-+        return -EINVAL;
-+
-+    /* Only calls for the supported number of nodes + a global claim can pass */
-+    if ( uinfo->nr_claims > MAX_NUMNODES + 1 )
-+        return -E2BIG;
-+
-+    /*
-+     * Under domctl_lock, domain_kill() sets d->is_dying and retires claims.
-+     * If it set, this is in the past and we should reject the claim request.
-+     */
-+    if ( d->is_dying )
-+        return -ESRCH;
-+
-+    claims = xmalloc_array(memory_claim_t, uinfo->nr_claims);
-+    if ( claims == NULL )
-+        return -ENOMEM;
-+
-+    if ( copy_from_guest(claims, uinfo->claims, uinfo->nr_claims) )
-+        goto out;
-+
-+    rc = -EINVAL; /* Default error code for invalid claim args */
-+    if ( claims[0].target == XEN_DOMCTL_CLAIM_MEMORY_LEGACY &&
-+         uinfo->nr_claims == 1 )
-+        /* Implement installing a legacy claim for backwards compatibility */
-+        rc = domain_set_outstanding_pages(d, claims[0].pages);
-+    else
-+        /* domain_install_claim_set() performs validation of the claim set */
-+        rc = domain_install_claim_set(d, uinfo->nr_claims, claims);
-+ out:
-+    xfree(claims);
-+    return rc;
-+}
-+
- void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info)
+ static int arm_smmu_add_device(u8 devfn, struct device *dev)
  {
-     struct vcpu *v;
-@@ -865,6 +910,15 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-             copyback = true;
-         break;
- 
-+    case XEN_DOMCTL_claim_memory:
-+        /* Use the same XSM hook as XENMEM_claim_pages */
-+        ret = xsm_claim_pages(XSM_PRIV, d);
-+        if ( ret )
-+            break;
-+
-+        ret = claim_memory(d, &op->u.claim_memory);
-+        break;
-+
-     default:
-         ret = arch_do_domctl(op, d, u_domctl);
-         break;
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index a4d71f844889..2b32b1aa8fba 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -502,6 +502,9 @@ static long node_avail_pages[MAX_NUMNODES];
- static DEFINE_SPINLOCK(heap_lock);
- static long outstanding_claims; /* total outstanding claims by all domains */
- 
-+/* Sum of the outstanding claims of all domains on that node. */
-+static long node_outstanding_claims[MAX_NUMNODES];
-+
- static unsigned long avail_heap_pages(
-     unsigned int zone_lo, unsigned int zone_hi, unsigned int node)
- {
-@@ -549,6 +552,164 @@ static unsigned long claims_retire_global(struct domain *d,
-     return retired;
- }
- 
-+/* Release outstanding claims on a specific node */
-+static unsigned long claims_retire_node(struct domain *d, nodeid_t node,
-+                                        unsigned long release)
-+{
-+    unsigned long consumed = 0;
-+
-+    ASSERT(spin_is_locked(&heap_lock));
-+
-+    /* If the allocation was larger than the claims, do not release beyond it */
-+    if ( d->claims[node] ) /* Release the claims for this node */
-+    {
-+        /* Use min_t for clarity to make the comparison type explicit */
-+        consumed = min_t(unsigned long, release, d->claims[node]);
-+        d->claims[node] -= consumed;
-+
-+        ASSERT(consumed <= outstanding_claims);
-+        outstanding_claims -= consumed;
-+
-+        ASSERT(consumed <= node_outstanding_claims[node]);
-+        node_outstanding_claims[node] -= consumed;
-+
-+        ASSERT(consumed <= d->node_claims);
-+        d->node_claims -= consumed;
-+    }
-+    return consumed;
-+}
-+
-+/* Release all outstanding claims on all online nodes */
-+static void claims_retire_nodes(struct domain *d)
-+{
-+    nodeid_t node;
-+
-+    for_each_online_node ( node )
-+    {
-+        claims_retire_node(d, node, d->claims[node]);
-+    }
-+    ASSERT(d->node_claims == 0);
-+}
-+
-+/* Validate a claim set and install it if valid. */
-+int domain_install_claim_set(struct domain *d, unsigned int nr_claims,
-+                             memory_claim_t *claim_set)
-+{
-+    nodemask_t nodes;
-+    uint32_t target;
-+    uint64_t pages, tot_pages, max_pages, node_requests = 0, global_request = 0;
-+    bool global_target_seen = false;
-+    int ret = -EINVAL;
-+
-+    nrspin_lock(&d->page_alloc_lock);
-+    spin_lock(&heap_lock);
-+
-+    /*
-+     * Phase 1: Check and process the individual claim entries.
-+     * Result: Extracted global claims and the sum of the node-local claims.
-+     */
-+    nodes_clear(nodes);
-+    for ( int i = 0; i < nr_claims; i++ )
-+    {
-+        target = claim_set[i].target;
-+        pages = claim_set[i].pages;
-+        if ( claim_set[i].pad ) /* Check before handling global claims */
-+            goto out;
-+
-+        if ( target == XEN_DOMCTL_CLAIM_MEMORY_GLOBAL )
-+        {
-+            if ( global_target_seen ) /* Only one global target allowed */
-+                goto out;
-+
-+            global_request = pages; /* Will be checked with the total claims */
-+            global_target_seen = true;
-+            continue;
-+        }
-+
-+        if ( target >= MAX_NUMNODES || !node_online(target) )
-+        {
-+            ret = -ENOENT; /* Node not valid or not online */
-+            goto out;
-+        }
-+        if ( nodemask_test(target, &nodes) || /* Duplicate node in claim set */
-+             /* Check for overflow before we add the pages to node_requests */
-+             pages > ((typeof(d->node_claims))-1) - node_requests )
-+            goto out;
-+        node_set(target, nodes);
-+
-+        ASSERT(node_outstanding_claims[target] >= 0 &&
-+               node_avail_pages[target] >= node_outstanding_claims[target]);
-+        if ( pages > (uint64_t)(node_avail_pages[target] -
-+                                node_outstanding_claims[target]) +
-+                         d->claims[target] ) /* current claim deduction */
-+        {
-+            ret = -ENOMEM; /* Claim exceeds available memory on node */
-+            goto out;
-+        }
-+        node_requests += pages; /* Will be checked with the total claims */
-+    }
-+
-+    max_pages = d->max_pages;
-+    tot_pages = domain_tot_pages(d);
-+    /*
-+     * Check that the total of claims and current pages fits in d->max_pages.
-+     * Subtract sequentially from max_pages instead of adding the claims:
-+     * each subtraction is safe because the prior comparison guarantees
-+     * the subtrahend doesn't exceed the remaining budget. This avoids
-+     * overflow regardless of the type widths of the claims and max_pages,
-+     * as long as the claims are non-negative (which they are, as unsigned)
-+     * and max_pages is not negative, which we check as well here.
-+     */
-+    if ( global_request > max_pages ||
-+         node_requests > max_pages - global_request ||
-+         tot_pages > max_pages - global_request - node_requests )
-+        goto out; /* claims + domain_tot_pages exceeds max_pages: EINVAL */
-+
-+    /*
-+     * Check that replacing the domain's current claims with the new claim set
-+     * fits within the system-wide unclaimed memory.
-+     *
-+     * The right-hand side subtracts all outstanding claims from the total
-+     * available memory, then adds this domain's current claims back because
-+     * phase 3 retires them before installing the replacement claims.
-+     */
-+    ASSERT(outstanding_claims >= 0 && total_avail_pages >= outstanding_claims);
-+    if ( global_request + node_requests >
-+         (uint64_t)(total_avail_pages - outstanding_claims) + d->global_claims +
-+         d->node_claims )
-+    {
-+        ret = -ENOMEM;
-+        goto out; /* Total claim exceeds available unclaimed memory: ENOMEM */
-+    }
-+
-+    /* Phase 3: Recall the domain's current claims */
-+    claims_retire_global(d, d->global_claims);
-+    claims_retire_nodes(d);
-+
-+    /* Phase 4: Install claim set: Global claims and overall node claims */
-+    outstanding_claims += global_request + node_requests;
-+    d->global_claims = global_request;
-+    d->node_claims = node_requests;
-+
-+    /* Phase 5: Install the individual node claims */
-+    for ( int i = 0; i < nr_claims; i++ )
-+    {
-+        target = claim_set[i].target;
-+        pages = claim_set[i].pages;
-+        if ( target >= MAX_NUMNODES ) /* Skip non-node claim targets */
-+            continue;
-+
-+        /* Install the node claim and update the node's total claims claims. */
-+        d->claims[target] = pages;
-+        node_outstanding_claims[target] += pages;
-+    }
-+    ret = 0;
-+out:
-+    spin_unlock(&heap_lock);
-+    nrspin_unlock(&d->page_alloc_lock);
-+    return ret;
-+}
-+
- int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
- {
-     int ret = -ENOMEM;
-@@ -565,6 +726,7 @@ int domain_set_outstanding_pages(struct domain *d, unsigned long pages)
-     /* pages==0 means "unset" the claim. */
-     if ( pages == 0 )
-     {
-+        claims_retire_nodes(d);
-         claims_retire_global(d, d->global_claims);
-         ret = 0;
-         goto out;
-@@ -608,6 +770,87 @@ out:
-     return ret;
- }
- 
-+/*
-+ * Retire the claims to cover a successful allocation.
-+ *
-+ * The claims for an allocation are retired in order of specificity:
-+ *
-+ * 1.) Firstly, the claim for the node the allocation was from (if any),
-+ * 2.) Secondly, followed by global claims as a fallback (if any), and
-+ * 3.) Finally, other remaining node claims from other nodes (if any).
-+ *
-+ * This order ensures that the most specific claims are retired first,
-+ * and that the global claim is only used as a fallback if the node-specific
-+ * claim is insufficient to cover the allocation or non-existant in case
-+ * the domain doesn't have a claim on the alloc_node. This preserves the
-+ * intent of the claims system to allow domains to reserve memory on
-+ * specific nodes and only use global claims as a fallback when necessary.
-+ *
-+ * Finally, if the domain doesn't have sufficient claims on the alloc_node
-+ * and the global fallback claim doesn't cover the remains of the allocation,
-+ * but as the domain still has other claims, retire the remaining portion
-+ * of the allocation from those claims.
-+ *
-+ * This final step ensures that the domain's total claims (global + node
-+ * claims) are always retired to cover the allocation, which in turn
-+ * prevents domain_tot_pages(d) + d->global_claims + d->node_claims
-+ * from exceeding the domain's d->max_pages limit.
-+ *
-+ * If this final step was not taken, then it would be possible for a domain to
-+ * block off more than its share of system memory as defined by d->max_pages.
-+ *
-+ * Note: We can't reliably check d->max_pages here, at least not under the
-+ * d->page_alloc_lock as taking it here would violate the locking order,
-+ * but we can ensure that the domain's claims are always retired to cover
-+ * the allocation, which is sufficient to preserve the intent of d->max_pages
-+ * cap the domain's memory usage and claims to d->max_pages. While we could
-+ * add checking it without lock as a best effort check, a domain builder is
-+ * not supposed to claim memory on one set of nodes and then allocate from
-+ * another set of nodes, so it would not be meaningful to add such a check,
-+ * and the final check covers our bases to handle such misbehaviour anyway.
-+ */
-+static void claims_retire_allocation(struct domain *d,
-+                                     unsigned long allocated_pages,
-+                                     nodeid_t alloc_node)
-+{
-+    unsigned long pages_to_retire = allocated_pages;
-+
-+    ASSERT(spin_is_locked(&heap_lock));
-+
-+    /* 1.) Retire the allocation from the alloc_node's claim insofar possible */
-+    if ( d->claims[alloc_node] )
-+    {
-+        pages_to_retire -= claims_retire_node(d, alloc_node, pages_to_retire);
-+        if ( pages_to_retire == 0 )
-+            return; /* The allocation is fully consumed by alloc_node claim */
-+    }
-+
-+    /* 2.) Retire remains of the allocation from the global / fallback claims */
-+    pages_to_retire -= claims_retire_global(d, pages_to_retire);
-+
-+    if ( pages_to_retire == 0 || !d->node_claims )
-+        return; /* Allocation fully consumed or the domain has no claims left */
-+
-+    /*
-+     * 3.) Finally, if the domain doesn't have sufficient claims on alloc_node
-+     * and the global fallback claim didn't cover the remains of the allocation,
-+     * consume the remaining portion of the allocation from the domain's other
-+     * node claims. See the function comment for the details behind this step.
-+     */
-+    pages_to_retire = min(pages_to_retire, d->node_claims + 0UL);
-+    if ( pages_to_retire )
-+    {
-+        nodeid_t node;
-+
-+        for_each_online_node ( node )
-+        {
-+            pages_to_retire -= claims_retire_node(d, node, pages_to_retire);
-+            if ( pages_to_retire == 0 )
-+                break;
-+        }
-+    }
-+}
-+
- #ifdef CONFIG_SYSCTL
- void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages)
- {
-@@ -893,7 +1136,7 @@ static bool claims_permit_request(const struct domain *d,
-                                   unsigned long avail_pages,
-                                   unsigned long competing_claims,
-                                   unsigned int memflags,
--                                  unsigned long requested_pages)
-+                                  unsigned long requested_pages, nodeid_t node)
- {
-     unsigned long unclaimed_pages, applicable_claims;
- 
-@@ -918,7 +1161,25 @@ static bool claims_permit_request(const struct domain *d,
-      * Allow the request to proceed when combination of unclaimed pages and the
-      * claims held by the domain cover the shortfall for the requested_pages.
-      */
--    return requested_pages <= unclaimed_pages + d->global_claims;
-+    if ( node == NUMA_NO_NODE )
-+        /*
-+         * We are checking global claims: For the global claims check,
-+         * we apply the domain's global claims and node claims: The domain
-+         * can use any of its claims to allow the global check to proceed.
-+         *
-+         * get_free_buddy() will repeat this check using a node which
-+         * will check if either the node has enough unclaimed pages
-+         * or the domain enough claims for the node (see below).
-+         */
-+        applicable_claims = d->node_claims + d->global_claims;
-+    else
-+        /*
-+         * We are checking node-specific claims: For the node-specific claims
-+         * check, we may only apply the domain's claim on that specific node.
-+         */
-+        applicable_claims = d->claims[node];
-+
-+    return requested_pages <= unclaimed_pages + applicable_claims;
- }
- 
- static struct page_info *get_free_buddy(unsigned int zone_lo,
-@@ -970,9 +1231,15 @@ static struct page_info *get_free_buddy(unsigned int zone_lo,
-      */
-     for ( ; ; )
-     {
-+        /* Ensure the target node and the claims permit this allocation */
-+        if ( !claims_permit_request(d, node_avail_pages[node],
-+                                    node_outstanding_claims[node], memflags,
-+                                    1UL << order, node) )
-+            goto try_next_node;
-+
-         zone = zone_hi;
-         do {
--            /* Check if target node can support the allocation. */
-+            /* Check if this target zone on node can support the allocation. */
-             if ( !avail[node] || (avail[node][zone] < (1UL << order)) )
-                 continue;
- 
-@@ -999,6 +1266,8 @@ static struct page_info *get_free_buddy(unsigned int zone_lo,
-             }
-         } while ( zone-- > zone_lo ); /* careful: unsigned zone may wrap */
- 
-+    try_next_node:
-+        /* If MEMF_exact_node was passed, we may not skip to a different node */
-         if ( (memflags & MEMF_exact_node) && req_node != NUMA_NO_NODE )
-             return NULL;
- 
-@@ -1116,7 +1385,7 @@ static struct page_info *alloc_heap_pages(
-     total_avail_pages -= request;
-     ASSERT(total_avail_pages >= 0);
- 
--    if ( d && d->global_claims && !(memflags & MEMF_no_refcount) )
-+    if ( d && !(memflags & MEMF_no_refcount) )
-     {
-         /*
-          * Adjust claims in the same locked region where total_avail_pages is
-@@ -1131,7 +1400,7 @@ static struct page_info *alloc_heap_pages(
-          * the domain being destroyed before creation is finished.  Losing part
-          * of the claim makes no difference.
-          */
--        claims_retire_global(d, request);
-+        claims_retire_allocation(d, request, node);
-     }
- 
-     check_low_mem_virq();
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 8f6708c0a7cd..a4f08248e6ee 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -1276,6 +1276,36 @@ struct xen_domctl_get_domain_state {
-     uint64_t unique_id;      /* Unique domain identifier. */
+ 	int i, ret;
+@@ -2867,6 +2925,7 @@ static const struct iommu_ops arm_smmu_iommu_ops =3D =
+{
+ 	.unmap_page		=3D arm_iommu_unmap_page,
+ 	.dt_xlate		=3D arm_smmu_dt_xlate,
+ 	.add_device		=3D arm_smmu_add_device,
++	.remove_device		=3D arm_smmu_remove_device,
  };
- 
-+struct xen_memory_claim {
-+    uint64_aligned_t pages; /* Number of pages to claim */
-+    uint32_t target; /* Node and/or claim type like legacy or a global claim */
-+    uint32_t pad;    /* Explicit padding: Reserved, initialize to 0 on input */
-+};
-+typedef struct xen_memory_claim memory_claim_t;
-+DEFINE_XEN_GUEST_HANDLE(memory_claim_t);
+=20
+ static __init int arm_smmu_dt_init(struct dt_device_node *dev,
+diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+index 06d7643622..1f9608cdcd 100644
+--- a/xen/include/xen/device_tree.h
++++ b/xen/include/xen/device_tree.h
+@@ -305,6 +305,11 @@ static inline void dt_device_set_protected(struct dt_d=
+evice_node *device)
+     device->is_protected =3D true;
+ }
+=20
++static inline void dt_device_unset_protected(struct dt_device_node *device=
+)
++{
++    device->is_protected =3D false;
++}
 +
-+/* Special claim targets for the target field of memory_claim_t */
-+#define XEN_DOMCTL_CLAIM_MEMORY_LEGACY 0x40000000U /* No node, legacy claim */
-+#define XEN_DOMCTL_CLAIM_MEMORY_GLOBAL 0x80000000U /* No node, global claim */
-+
-+/*
-+ * XEN_DOMCTL_claim_memory
-+ *
-+ * Claim memory for a guest domain. It sets aside an amount of memory
-+ * (it is not pre-allocated) for the purpose of satisfying future memory
-+ * allocation requests for building the guest's physical address space.
-+ * Memory can be claimed on a set of nodes, or globally (without node
-+ * affinity), or with legacy behavior. The set of claims is a claim set. See
-+ * docs/guest-guide/dom/DOMCTL_claim_memory.rsti and docs/designs/claims/.
-+ */
-+struct xen_domctl_claim_memory {
-+    /* IN: Array of struct xen_memory_claim */
-+    XEN_GUEST_HANDLE_64(memory_claim_t) claims;
-+    /* IN: Number of claims in the claims array handle. */
-+    uint32_t nr_claims;
-+    uint32_t pad;  /* Explicit padding: Reserved, initialize to 0 on input */
-+};
-+
- struct xen_domctl {
- /* Stable domctl ops: interface_version is required to be 0.  */
-     uint32_t cmd;
-@@ -1368,6 +1398,7 @@ struct xen_domctl {
- #define XEN_DOMCTL_gsi_permission                88
- #define XEN_DOMCTL_set_llc_colors                89
- #define XEN_DOMCTL_get_domain_state              90 /* stable interface */
-+#define XEN_DOMCTL_claim_memory                  91
- #define XEN_DOMCTL_gdbsx_guestmemio            1000
- #define XEN_DOMCTL_gdbsx_pausevcpu             1001
- #define XEN_DOMCTL_gdbsx_unpausevcpu           1002
-@@ -1436,6 +1467,7 @@ struct xen_domctl {
- #endif
-         struct xen_domctl_set_llc_colors    set_llc_colors;
-         struct xen_domctl_get_domain_state  get_domain_state;
-+        struct xen_domctl_claim_memory      claim_memory;
-         uint8_t                             pad[128];
-     } u;
- };
-diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
-index bd9fc37b5297..ccec095f8660 100644
---- a/xen/include/public/memory.h
-+++ b/xen/include/public/memory.h
-@@ -569,6 +569,15 @@ DEFINE_XEN_GUEST_HANDLE(xen_mem_sharing_op_t);
-  * for 10, only 7 additional pages are claimed.
-  *
-  * Caller must be privileged or the hypercall fails.
-+ *
-+ * Note: This hypercall is deprecated by XEN_DOMCTL_claim_memory
-+ * which provides the same claim semantics described above, and thus can be
-+ * used as drop-in replacement and is extended for NUMA-node-specific claims.
-+ * This hypercall should not be used by new code.
-+ *
-+ * See the following documentation pages for more information:
-+ * docs/guest-guide/dom/DOMCTL_claim_memory.rst
-+ * docs/guest-guide/mem/XENMEM_claim_pages.rst
-  */
- #define XENMEM_claim_pages                  24
- 
-diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-index b80bec00c124..b2d6a6f266ba 100644
---- a/xen/include/xen/mm.h
-+++ b/xen/include/xen/mm.h
-@@ -69,6 +69,7 @@
- #include <xen/list.h>
- #include <xen/spinlock.h>
- #include <xen/perfc.h>
-+#include <public/domctl.h>
- #include <public/memory.h>
- 
- struct page_info;
-@@ -131,6 +132,8 @@ int populate_pt_range(unsigned long virt, unsigned long nr_mfns);
- /* Claim handling */
- unsigned long __must_check domain_adjust_tot_pages(struct domain *d,
-     long pages);
-+int domain_install_claim_set(struct domain *d, unsigned int nr_claims,
-+                             memory_claim_t *claims);
- int domain_set_outstanding_pages(struct domain *d, unsigned long pages);
- void get_outstanding_claims(uint64_t *free_pages, uint64_t *outstanding_pages);
- 
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 2995c99aa34a..d31f4546e3b0 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -417,6 +417,12 @@ struct domain
-     /* All claims are protected by the heap_lock */
-     unsigned int     global_claims;     /* Global Host-level claims */
-     unsigned int     node_claims;       /* Sum of the Node-specific claims */
-+    /*
-+     * struct domain is allocated in a dedicated page with more than enough
-+     * spare capacity. It's efficient to use that page to store the
-+     * per-node claims in it instead allocating a separate array for it.
-+     */
-+    unsigned int     claims[MAX_NUMNODES]; /* Array of per-NUMA-node claims */
- 
-     unsigned int     max_pages;         /* maximum value for domain_tot_pages() */
-     unsigned int     extra_pages;       /* pages not included in domain_tot_pages() */
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index b250b2706535..adfcf081a33c 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -651,6 +651,7 @@ static int cf_check flask_domctl(struct domain *d, unsigned int cmd,
- 
-     /* These have individual XSM hooks (common/domctl.c) */
-     case XEN_DOMCTL_getdomaininfo:
-+    case XEN_DOMCTL_claim_memory:
-     case XEN_DOMCTL_scheduler_op:
-     case XEN_DOMCTL_irq_permission:
-     case XEN_DOMCTL_iomem_permission:
-diff --git a/xen/xsm/flask/policy/access_vectors b/xen/xsm/flask/policy/access_vectors
-index ce907d50a45e..77db6f4cb38e 100644
---- a/xen/xsm/flask/policy/access_vectors
-+++ b/xen/xsm/flask/policy/access_vectors
-@@ -218,6 +218,7 @@ class domain2
- # XEN_DOMCTL_scheduler_op with XEN_DOMCTL_SCHEDOP_putinfo
-     setscheduler
- # XENMEM_claim_pages
-+# XEN_DOMCTL_claim_memory
-     setclaim
- # XEN_DOMCTL_cacheflush
-     cacheflush
--- 
-2.39.5
-
+ static inline bool dt_device_is_protected(const struct dt_device_node *dev=
+ice)
+ {
+     return device->is_protected;
+--=20
+2.51.2
 
