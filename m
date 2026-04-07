@@ -2,51 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AI+LEv7h1GnbyQcAu9opvQ
+	id CPOCE1fq1GkjywcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 12:52:46 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 13:28:23 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 922823AD448
-	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 12:52:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1274904.1560879 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A509E3ADAE0
+	for <lists+xen-devel@lfdr.de>; Tue, 07 Apr 2026 13:28:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1274916.1560887 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wA42t-00053f-Sm; Tue, 07 Apr 2026 10:52:35 +0000
+	id 1wA4ad-00019J-E0; Tue, 07 Apr 2026 11:27:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1274904.1560879; Tue, 07 Apr 2026 10:52:35 +0000
+Received: by outflank-mailman (output) from mailman id 1274916.1560887; Tue, 07 Apr 2026 11:27:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wA42t-00052E-Oc; Tue, 07 Apr 2026 10:52:35 +0000
-Received: by outflank-mailman (input) for mailman id 1274904;
- Tue, 07 Apr 2026 10:52:34 +0000
+	id 1wA4ad-00017y-BG; Tue, 07 Apr 2026 11:27:27 +0000
+Received: by outflank-mailman (input) for mailman id 1274916;
+ Tue, 07 Apr 2026 11:27:25 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper@citrix.com>) id 1wA42s-000526-O4
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 10:52:34 +0000
+ (envelope-from <Stewart.Hildebrand@amd.com>) id 1wA4ab-00017e-Oo
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 11:27:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wA42s-001KgA-3o
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 12:52:34 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wA4ab-00FxYz-4B
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2026 13:27:25 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper@citrix.com>)
- id 69d4e1e0-bab6-0a2a0a5309dd-0a2a4504ca0e-48
- for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 12:52:34 +0200
-Received: from [52.101.53.38]
- (helo=BL0PR03CU003.outbound.protection.outlook.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <andrew.cooper@citrix.com>)
- id 69d4e13c-bb33-0a2a45040019-346535262dcf-3
- for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 12:49:33 +0200
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by DM6PR03MB5210.namprd03.prod.outlook.com (2603:10b6:5:246::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Tue, 7 Apr
- 2026 10:49:31 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9769.018; Tue, 7 Apr 2026
- 10:49:30 +0000
+ (envelope-from <Stewart.Hildebrand@amd.com>)
+ id 69d4ea0f-bab6-0a2a0a5309dd-0a2a4502a196-18
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 13:27:24 +0200
+Received: from [52.101.85.26]
+ (helo=BYAPR05CU005.outbound.protection.outlook.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <Stewart.Hildebrand@amd.com>)
+ id 69d4ea1a-42fa-0a2a45020019-3465551ad76b-3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2026 13:27:24 +0200
+Received: from BN9PR03CA0941.namprd03.prod.outlook.com (2603:10b6:408:108::16)
+ by CH3PR12MB9454.namprd12.prod.outlook.com (2603:10b6:610:1c7::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.21; Tue, 7 Apr
+ 2026 11:27:16 +0000
+Received: from BN1PEPF0000468D.namprd05.prod.outlook.com
+ (2603:10b6:408:108:cafe::c1) by BN9PR03CA0941.outlook.office365.com
+ (2603:10b6:408:108::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.27 via Frontend Transport; Tue,
+ 7 Apr 2026 11:27:16 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF0000468D.mail.protection.outlook.com (10.167.243.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Tue, 7 Apr 2026 11:27:16 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 7 Apr
+ 2026 06:27:15 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 7 Apr
+ 2026 06:27:15 -0500
+Received: from [172.18.74.250] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 7 Apr 2026 06:27:14 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,201 +74,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zRYiNjid0QOkqhhbO+oI5qzAStROVUw0aV7ubXE4m7i0Q0HB92S98aggEjDmxXla1xA3lRFQGjWjPT9pnQo2pGgaIny5u2Sjdyb3gIt3McHnOfLj4ey+Xj8/wwQNlr49Qdvn4FpwMhmFhwpvS+eAr4ymlXXkkCtqXjhuqB+Ru/QKnC/gsv62p78MB53Kn8qj20hxzUBWj+uv5u2Ld2I8GrRSJlieKolFgGJT8K+A1Vbud8Mcw7NZjZSTHdk1N4a9a6Fa8z9TmLfr03wudPpQ2RWnY7+ydFdNTkzBnHbs2ttBkeRWaHiNW814+jh5xCDaf9NLDyOHHgX3rNZOOj/7HA==
+ b=dekDUFsnxRjJ9pN4Mu+LW4fMGaU2qHixsrR+4HXVuwEC2Js8LffbmVhjDRze9h6kgxVP+AZPY/1VDdKWbsgM6AUuUkaObD4ZVVuHSC36B01N5Ax3eYqy4obYR5Zg/QoPq3CSc9UZTqyuEJKHuplL3dYErp2p+PPJZ2hqvSHlNIgYsblxnLOByOjrRc99X2qvfR9q1LKosvHTK6k1r3D7Vne5SRShfrL6qNtNDESSTp3o8qaxPm0K1YuTVcMc6AeVt6YzyScPaWC6z8VfeHGqABekOjvbjH1N46R3yWPYvMJZrzxS8uxaOd7UWZW+gcsBgsNprNtWYe9cafVKBkU5lg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=biOqghbDfwMe3yFuMk5+Lryn4VJSb1aKAF7P5vXXWkw=;
- b=agAfJCfx109AEkCV4LVHYt9GhshwDUFR/3tjCPvYuadbufeSGWafTUiMB0J8GG0DuE6dNvuHsfE6NwETCypppsao5nG39gWwnARxEk5Z6+qUbGmH0ByqY6y2ICuhUU/y4bBWB5vdWbU6uYKIcnfsEq3mRQYP/gUDIhhQG2R5bNqeRnzJtWFf+YRcRLUiKBRKxVAE+NLNf8q76UtPhcWwCJG9Q0AnAxrI2eZaf9OZNNHr+6LEhGw6c3MRHgq4ZG+Fwooi/hjx6sM5Sk+FWBAor0yvAiQykEzQpAUJf19jb/yKXmUwADGVmshMaVVgycsCw56gqOMLmFiimPNXyoUvDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ bh=YfsFG8/SjaYpBSB12NCcvkBPt3OK1vfCpzahKSH4t90=;
+ b=YCn6zgmAZ1AWcGDYSBkiLrugU4DLUyEB2j5LPwg0NUW9X2e/+nccEIzy2ognbVMq9D636P45HazClVtHlnjCX9uXQpHDPWKWmU9WkmTtwr0Ura1uqgRdiZkbVJhWvNQViSup8qj42WsZXMaIdgVDoZ9bY6wZsOrIIoKuNU+IurEnYhRGQSie7QAAp6zg/lJdJ4jetOViMCfKI08YmZuMpjTqU+KCtUR9YrS34+GQJ8GaaLLoCjJe9Vqr0wi9ZpFHjy14bXtcLAuHZ33advgTURWAbAnqrNNT6PGZvtr9WuK3rQl+nOHmcCvCXTsvtk4Wj5Aqe3QO33mL+HSij6z1vw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=biOqghbDfwMe3yFuMk5+Lryn4VJSb1aKAF7P5vXXWkw=;
- b=v2/OhrvXDPPsB0/yNad9BpnxC+DtOaDOwHrFJqzPIEKrbZPrLNmLN/ls33XMDSblEnrBC4MGqPuQzY/yBI9PBa1vd6vz/z5zi8JCefFZ3DiXlhrheKaFSwnMECZnhAxREULFFnkwpIofeF30ZA+ospMwzep66VsEPIj/DqBrnJs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <3ea7af3e-811e-44ba-8f4f-d46acbd9d71b@citrix.com>
-Date: Tue, 7 Apr 2026 11:49:26 +0100
-User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Kamil Frankowicz <kamil.frankowicz@cert.pl>
-Subject: Re: [PATCH 2/5] llc-coloring: improve checking while parsing
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <63284ab7-8e38-4448-a789-1b9c23c4d95c@suse.com>
- <97d6ba6c-4ffe-4e1b-814a-d51a0bcf363e@suse.com>
- <884db6ba-19c3-4073-b1e4-631d286ec5d2@citrix.com>
- <44abc205-c7b4-4aff-992f-25ddcadd38ec@suse.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <44abc205-c7b4-4aff-992f-25ddcadd38ec@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0401.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:189::10) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
+ bh=YfsFG8/SjaYpBSB12NCcvkBPt3OK1vfCpzahKSH4t90=;
+ b=Acl8SLo2xG/dkwfkpYtLjh+5sxyRT+wvNZI/EghRpJhz+2/ytG2siS101uu5ZQ6iOEBHEfXBxVu4vqt2Fa6foMn9Gip7Dkj6rdPF1TPaxbdQxC9DsDX1a0HSyW1AsQyywvlgrDZ2pH6o6Fumi9pr+gii6g7DArN+m/Wg9hHQ0Dc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <7ea3a5d8-f9ff-4296-9b3e-07b9ba184e6f@amd.com>
+Date: Tue, 7 Apr 2026 07:27:16 -0400
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] arinc653: don't assume Dom0 is the control domain
+To: Jan Beulich <jbeulich@suse.com>
+CC: Nathan Studer <nathan.studer@dornerworks.com>, Stewart Hildebrand
+	<stewart@stew.dk>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+	<jgross@suse.com>
+References: <89d17a24-0a1f-4f3f-ac2f-f3701a8d78dd@suse.com>
+ <4a4c011e-9666-4416-be1b-33d1dcad5afe@suse.com>
+ <73e51afc-ae7c-4d08-9054-75dab660bf42@suse.com>
+ <ca934061-f3e2-4511-bdad-465c4f2d0de1@suse.com>
+ <fa04f9e1-bc9e-4b34-84f4-dc7ca8999eb3@amd.com>
+ <4dfd48a9-37c1-4f28-87f3-19646a339b08@suse.com>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <4dfd48a9-37c1-4f28-87f3-19646a339b08@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: stewart.hildebrand@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DM6PR03MB5210:EE_
-X-MS-Office365-Filtering-Correlation-Id: e7238f26-1b97-4635-8569-08de9493590e
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468D:EE_|CH3PR12MB9454:EE_
+X-MS-Office365-Filtering-Correlation-Id: f53c86a0-05db-409c-32a7-08de94989f48
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|56012099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|376014|36860700016|30052699003|82310400026|1800799024|56012099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	5lUbxJS6Yqtmgyt6VoDm81jRQga8rvqH4JgPDnSBk+TPyt+DFOUn0fq9TA+7CbW+5f0shVnI0IHE00+5GYa2kgbIPIykkSs4qyeabwad2u2GYLvm+qQByKCVx8E1LN87wGFkH++q3QEEl6XUQYQcEy39hwsSVQ0fIiqMqeNuBWlaG7ZPCwcwPhtPDD7VVf5QtUbYRZGK99f8vn4V7kP0x7RraD78MXN7XEX1+rLHWw2RNcoFUF4irqtCmKHnqJ3t/BqESdfh7oQTOk2HNohZOHC7QXMjbGoyfZpKti7GXZlUJ/5fPBuHfJTXjlzTJLTthYMV1gWX3bOkw+WAHCOUAH7293TKM9BPil4hAPXNPLejgDNSp/b3jyKBg5TqJE6cqLRxLSnYSMREdjVIZUuCeB+UQkIH8H7OxXbz7Z/J+rbjkYc9ytaGmqLBEhrJCMTDoMyd2CuAAz/3pE/an7/oxCyemUpKtNWKG33hgXzHFolt/5xqWEjLUq7vrwy98s+fFIxfMS6Lx2t6WqdvPnNGgd3bp0rFa8ArWuAApKl094RB8jWF3CJC86NhiqreRYcxDk2RiC+lCihNoxuT7ijCVOisMSB+Nb6haZch81fQd2Ue1CI8vkrrT43soLPOfOzd4VJX5lWo5Fdqkwb7pl6mY7U+/ggz1mabu4A13M6Zt5tVsV/dR6fI1zXcD91/XCaatCLvtdv6BIHgRjryfN9Zhq5+HTsAL9mh3PM67ZRo86A=
+	ZKJd0ICmmE0fTBFwkP2Y3icRB+CeJsVJOvXT/uTL+x+KStmv71Wl5dUZxP5K2A3pCMaRu0aztT0UrOgWQd29HLafGm1v6npyTCG7BPC2k2Q9yLK3Yl5QUh59CE9+wpQRLMVNdUXs8JaQ6v4QkqTl/zvKs91+jAc4U9lYkgLu3tCMFTf8xH2QdIGrs/zFWDQ+YzGsB2G6UMtGmvbDJviXiZxvbfHcwRqPL4O5CfA71/ldYIGQmQM03eZh5bkn1oAbayaiX9Pnq2BQ3iYjmsOKzzeD59r5Y36MaBTdwpDTgQB0dPIy3nDja4l49NtSdra0ZAtwThy8oXybjeUDUx1rxa+y1YqiTPvHVXppTSpCQFyYcVdmxlDQ7kyXEOb9si11w5WZyFd/TXOSNOkBSt8v5K9U+gylsI/6JKP0YlIP9vmWzSU70huw4R11+zAtjIgHd5BaUKGF/5tXwpRElLV9X6ZnUTnEogoduxOoSuSPCoNJh/HpQF6RYLTX/l3xTcaCtmxqnjtvuhRamcxb3yZaS+MeWxEiXLcqoUKKRd7+wsjLxls24Wi9CuGd5A/+FqBtjHymzGQCryao5Oqx5hU7SRvr3C88FhgFrQ7UHiEBHSyPOEG6llOn3VJVzzXAS3eCZ/ddhaaABN5wCSojGy4ogv96QoqdSG+UuSYnmjMBREqa39T7I6UZUn+5VaJMs3F+rJ0QOcCVZECKyc0kSHhX4dNuWrzHY0nMUovPeu+DLo3F4Y4qtdaL/wOpSM8CfqLPwtg3F1FJyJ0l9nuaHH8vFA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(30052699003)(82310400026)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SDd4NGkxZ2ZQSW50ZkoxYTRyNHRQakNvaXY2ZzMyTS81amVVV2JZUERWdUI1?=
- =?utf-8?B?UUQwZUp2N1V6MjlsMWZwQVBJY0ZpczdEYlFvU0phbEdWQ25qODUzdVVTQnRt?=
- =?utf-8?B?aXlnaXorbytoWDJIdVhFVVhmUFJhM0J3eEdZWkpJelU3OVljZXZ4cVpibWdL?=
- =?utf-8?B?THlMaWVUZk1wOUJxbk45bHFoL09GME1qVHppYzZrMGlFV2tyN0JNUjBsRC9l?=
- =?utf-8?B?dnJmT2ZRWWZuOUJkaUlUQWhSVTkyY3Z6RkN3U2dFT2lRRjd3Rmg4TXA5VnFu?=
- =?utf-8?B?dzFXU0xkMkVLYlZVOEFaN00vTnVXUWlwUzFaeEpjaGtGVzBLdStUR1h6MHht?=
- =?utf-8?B?Y0hJMkZTVmovQm1WV0hoRTBtOSt0TTVMMGNFZXA3QStVQVdmRmZIWGNUTVIz?=
- =?utf-8?B?cjQ3b0M4b2UvN055Z2srZ0NKbGdzeFFZS0U5QlBwRHZ4QVNxREJ6MnlIaFJH?=
- =?utf-8?B?Vk93OG9NZ2tsUXpMVi9raEpiSzJYdXZwbWNaNnBicjl4bFd2bkpUTFR6UTVP?=
- =?utf-8?B?NUhJTk85cUdHYXhTMDVSRnhnd0VXNlhvS0pxSTM0TVhQaVYzWlVVVGlYVDJN?=
- =?utf-8?B?RGZmMDN3YVgyaWd6YVJvU1hsOGk2OFh4WUFFQlFWL2JSK2Q4MTI3cHBIdTk5?=
- =?utf-8?B?TU5qeVl3M1Z5SGMvdU1mRVV5VWxiOHM2dktrUXVDdGZFSThKWVIrSnVLclIx?=
- =?utf-8?B?Mk94b1c5N0prcUJINWJRNVFvV1ZLV0hHNHhOOG00QXloajNVUmNaZjg3aUo4?=
- =?utf-8?B?MmxQekZGRTQ5bklGZTB0UmVZaDcxVWRMaUs0aXJNVGxYeEhPWW9lS096STRr?=
- =?utf-8?B?Wm9ZZ2txNlZlM0UwclAxY3RIUCtuUWlNQU5PWXREdW5tbi81RnpmME5UaVE0?=
- =?utf-8?B?MERhZ2tDSUU1Wjg4OXYyVFIxQzZRa1JhM2VrcXdVQ3RGdU1RUCsyeDZFYVZX?=
- =?utf-8?B?clcyQnZ2R1RacXNydHByWWVONTcwZDRCaEpvMGNKQjFPd3AyZUZGRVo4SjFO?=
- =?utf-8?B?UzlkSDdVRW1sYUFHUzg0UXE2dW1xQVpZMTN5WXVQSjlNNlVSSmxVOHUvMjV2?=
- =?utf-8?B?OWJETi9waDF6RnBrMHlFb09jeEhuZ1ZxNW1zK0NXbzh1UmF0Z2ZCOEdRYzkv?=
- =?utf-8?B?UFdoU0NIZzRCQW1pSmxFZ0JaSm42ai8zYXEwNGN5bGNCYVp2NHN5S1JCU2Nj?=
- =?utf-8?B?eHUreEhtWW9UZ2NzUlFKWTlWR1YzdWxLV1pjZU8yRzJic0ROVjdSU1doOGhO?=
- =?utf-8?B?NXlFcTFoYjV3K0RXT04xTUc4a1NzUjRpSmJsRkRzRzgxbDNCUExtbzFtU2tq?=
- =?utf-8?B?Y3Y0dGt1MXlZYzNJbmVMZE9wMERXTmZIaWl6aHh2Rlp2ZDAwNEtBRjNpNzN4?=
- =?utf-8?B?U0xlSG9lb0FlSHhuQ2drTVFVak9PWmUzUml0NVBqMVVlZHZGYjZmZC84bzJ1?=
- =?utf-8?B?RGNIeWhhSk95OVJLWUwzdFZRc0U5QmFJNnNhTStDNXVFSUF3d1kycnNjVXMr?=
- =?utf-8?B?VmVuNFJoTlNuMFE4YXczZkcrZGpWTUpPOUZ0UmtXRHVJR0lyaEtvZG1lckww?=
- =?utf-8?B?VG5hUWRsazFFM0tBQUxueERDZlgyVEE4aERJZjFGTTRkSEZBR09vRERZbmN3?=
- =?utf-8?B?SXJtRDkzcDFLbXBXMXBCekxsZGZsT3BvSEdwaXM4bjZzMGNmZ3FZdm1yZ1dQ?=
- =?utf-8?B?SGhhY3NlUWhZOUxyTjJ0c2JQRDZSajBtS1F1UzN4ZkNRZ01QbCs5dytDYndB?=
- =?utf-8?B?UXA2dFA5czh2SHZTMWdJa1JXaWRXN2NMMHUzS1RwczFkaWFlcjZHd2RIa01x?=
- =?utf-8?B?YStobUdpV1ZFR2ZJTFBqQm5JakZOdGVES0JYeGdsZlRVd3RIZGlhY2dnVng1?=
- =?utf-8?B?ODRLQ0paZFVYVkFPbWtMd1ZjOGJXcXEzTkk4bitQa08xdjdobW1rU3ZmSzF5?=
- =?utf-8?B?dDd5VTdxUW9RemRoUytldWVpRUJTV3dsWEthbVdQZWh2ZlJidUw4YytjK3U5?=
- =?utf-8?B?MVpaOXdxNnhRU2x2THZnMkhJN0R6UTFURVBVNzNsYTJjWE9kS2R5V00rTjNR?=
- =?utf-8?B?dEt1M3BsQTVsblRZc0o4WXM5S0J5clZMZ0xDK1BxcGl0RkFWSUcrSVVkdGxQ?=
- =?utf-8?B?c1hqN0ZENE1uYjlESXErQjV4ditIVkxMMTJjVUk0Q3lva1BjN2NCcTg4c24y?=
- =?utf-8?B?ZUY1WllVY1MwQU0yZzA3SzZ5ZmIyNkxmaWVSMC9Qekg4NGJ5cEw3TzBrb2ZN?=
- =?utf-8?B?TmdRMEMvYUlKWXZXaDdIQzAxc0hXeWtNUDl6eDl5MStXelRxTzdHc1U0b0Zy?=
- =?utf-8?B?ckpoT25vSVlpWWdKVGVjVEZpL1pwcURpUDNHRFlsODNxU0ZmMXBjUU9CMVNn?=
- =?utf-8?Q?seHoUJn59PUVXUTo=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e7238f26-1b97-4635-8569-08de9493590e
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 10:49:30.9132
+	tETvIO5kuCuTVuletiykbkKwrx8IHcOi+8qcPmxqdIr06yzFITnHvyODfS5FDGIw9c7+q1cyAZsM8T/hKcu2nv+A3B6kY5OWGNKXy8gwO/A9wnIOskV92k4lFHxkq7Xkc2UaOwYmc6XnQecBDlrMQRzrZg/E7ApQPSeauCrAxYUIGhMD/jfkA6j0yMDSj4pfsgDLmkLWhrhCdT7DS8wEpelu9jj8145P2sHEpagJUhlAQ+PgF1z34xNibN3KVHTCTS7scKk7rFrnGYFh1WlkKFfcC3LjTpl3z5m49+E7G7CDei2rKAAOQCfouBBR3teSIpzsQE2akk0Aon0tIw1Q8O6wi9yvLTuC4qgPIAD7ET2iPQVEgUJ8hkBh54SNREhNekCvTSVvi0bOkJFcK0+72b4fEOOmdJB6mcDrW5CWHUXxMG8Wz0H6X4DyB/TKRIcM
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2026 11:27:16.1041
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TZPox64RM/IXdNyrvYgHDKQm+kbn0csb49T3i++emHbRM5/IQEXfxEpPINE4+x+tIfTE4ExXltmlIxeN1+pYO6T5+xytp2rNwohhCfEMa14=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5210
-X-purgate-ID: tlsNG-ebf023/1775558973-B212551B-0EA94B3C/37/8702371926-1425033
-X-purgate-type: bulk
-X-purgate-size: 2342
+X-MS-Exchange-CrossTenant-Network-Message-Id: f53c86a0-05db-409c-32a7-08de94989f48
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF0000468D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9454
+X-purgate-ID: tlsNG-720697/1775561244-AD53CCD1-50166499/0/0
+X-purgate-type: clean
+X-purgate-size: 4815
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:nathan.studer@dornerworks.com,m:stewart@stew.dk,m:xen-devel@lists.xenproject.org,m:jgross@suse.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:kamil.frankowicz@cert.pl,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,citrix.com:email,citrix.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,cert.pl:email,suse.com:email];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[amd.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 922823AD448
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	TAGGED_RCPT(0.00)[xen-devel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,amd.com:dkim,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: A509E3ADAE0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 07/04/2026 11:37 am, Jan Beulich wrote:
-> On 07.04.2026 12:30, Andrew Cooper wrote:
->> On 24/03/2026 4:37 pm, Jan Beulich wrote:
->>> We can easily avoid the risk of wrapping UINT_MAX <-> 0 by applying a
->>> check against the compile-time-constant maximum number of colors.
+On 4/7/26 02:18, Jan Beulich wrote:
+> On 03.04.2026 10:47, Stewart Hildebrand wrote:
+>> On 4/1/26 09:03, Jan Beulich wrote:
+>>> On 01.04.2026 14:57, Jürgen Groß wrote:
+>>>> On 01.04.26 14:29, Jan Beulich wrote:
+>>>>> Leaving aside highly disaggregated environments, the control domain is
+>>>>> what will invoke XEN_SYSCTL_SCHEDOP_putinfo. Its vCPU-s therefore need to
+>>>>> be able to run unconditionally, not those of the domain with ID 0 (which
+>>>>> may not exist at all).
+>>>>>
+>>>>> Fixes: 9f0c658baedc ("arinc: add cpu-pool support to scheduler")
+>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>> ---
+>>>>> There being no "else" to the if(), what about other control domain vCPU-s?
+>>>>
+>>>> I guess this is a stale leftover. Doesn't matter for committing anyway.
+>>>>
+>>>>> ---
+>>>>> v3: Don't mistakenly include the idle domain.
+>>>>> v2: New.
+>>>>>
+>>>>> --- a/xen/common/sched/arinc653.c
+>>>>> +++ b/xen/common/sched/arinc653.c
+>>>>> @@ -411,10 +411,10 @@ a653sched_alloc_udata(const struct sched
+>>>>>       spin_lock_irqsave(&sched_priv->lock, flags);
+>>>>>   
+>>>>>       /*
+>>>>> -     * Add every one of dom0's units to the schedule, as long as there are
+>>>>> -     * slots available.
+>>>>> +     * Add every one of the control domain's units to the schedule, as long as
+>>>>> +     * there are slots available.
+>>>>>        */
+>>>>> -    if ( unit->domain->domain_id == 0 )
+>>>>> +    if ( is_control_domain(unit->domain) && !is_idle_domain(unit->domain) )
+>>>>>       {
+>>>>>           entry = sched_priv->num_schedule_entries;
+>>>>>   
+>>>>
+>>>> Hmm, is it really the control domain only which wants to be scheduled initially?
+>>>> I would think that at least the hardware domain and probably a Xenstore domain
+>>>> would want to be included, too.
+>>>>
+>>>> In the end it might even be that other domains created via dom0less would want
+>>>> to be able to run initially. They could be part of a mandatory infrastructure.
+>>>> Why would they need to be created at boot if they are NOT important?
 >>>
->>> Additionally the overflow checks suffered from an off-by-1, as the parsed
->>> ranges are inclusive (e.g. end == start being possible, requiring 1 array
->>> slot, while availability of 0 slots was checked in that case).
->>>
->>> Fixes: 6cdea3444eaf ("xen/arm: add Dom0 cache coloring support")
->>> Reported-by: Kamil Frankowicz <kamil.frankowicz@cert.pl>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> --- a/xen/common/llc-coloring.c
->>> +++ b/xen/common/llc-coloring.c
->>> @@ -76,8 +76,9 @@ static int __init parse_color_config(con
->>>          else                /* Single value */
->>>              end = start;
->>>  
->>> -        if ( start > end || (end - start) > (UINT_MAX - *num_colors) ||
->>> -             (*num_colors + (end - start)) >= max_num_colors )
->>> +        if ( end >= NR_LLC_COLORS || start > end ||
->>> +             (end - start) >= (UINT_MAX - *num_colors) ||
->>> +             (*num_colors + (end - start + 1)) >= max_num_colors )
->>>              return -EINVAL;
->>>  
->>>          /* Colors are range checked in check_colors() */
->>>
->> I think this is correct, so Acked-by: Andrew Cooper
->> <andrew.cooper3@citrix.com>
-> Thanks.
->
->> However, the parsing logic is also ridiculous.  Most of the complexity
->> comes because of parsing a bitmap but storing it longhand in an array of
->> unsigned ints.
+>>> This part is easy to answer: Because in a dom0less setup you simply may have
+>>> no toolstack at all. (At which point there may also be nothing to set a
+>>> schedule, yes.)
 >>
->> Instead, the global variables default_colors, dom0_colors and xen_colors
->> should be bitmaps sized by NR_LLC_COLORS, and d->llc_colours should be a
->> bitmap sized by xen_num_colors (which itself is bound by NR_LLC_COLORS).
+>> This is a known limitation. In a dom0less/hyperlaunch scenario, as future work,
+>> I would like to see the ability to configure the ARINC653 schedule in device
+>> tree, which would likely extend the existing boot time cpu pool work.
 >>
->> With the default of 32 colours, this would involve no memory allocation
->> at all, even on 32bit builds of Xen.
-> It's pretty space inefficient, yes, but the parsing wouldn't become simpler
-> when using bitmaps, would it?
+>>>> The question is whether the arinc653 scheduler is really meant for such setups.
+>>>> OTOH just modifying the test to:
+>>>>
+>>>>      if ( system_state < SYS_STATE_active &&
+>>>>           unit->domain->domain_id < DOMID_FIRST_RESERVED )
+>>>>
+>>>> seems to be fine for catching all those cases.
+>>>>
+>>>> With or without this modification:
+>>>>
+>>>> Reviewed-by: Juergen Gross <jgross@suse.com>
+>>>
+>>> Thanks, yet I'll have to leave to the maintainers to decide which form it
+>>> should ultimately take. One remark: A restartable control domain wouldn't
+>>> pass that conditional. Granted that's looking far into the future.
+>>
+>> It may not be desirable to schedule domUs until the control domain has had a say
+>> in the matter, considering that the default schedule is unlikely to contain the
+>> desired minor frame runtimes. It's less clear whether to include hardware and
+>> xenstore domains in the default schedule, though I'm leaning toward only
+>> including the domain with ability to invoke XEN_SYSCTL_SCHEDOP_putinfo for now
+>> (i.e. the control domain).
+>>
+>> Hm, the suggested 'system_state < SYS_STATE_active' check is possibly a good
+>> addition. This reinforces that the default schedule's purpose is merely to get a
+>> system booting until a user-provided schedule can be installed. Without this
+>> check, restarting the control domain could result in new entries being added
+>> while old entries remain, possibly ending up with duplicates and/or exhausting
+>> the schedule. However, the restarted domain would need to retain its uuid if it
+>> expects to be scheduled after restart.
+>>
+>> Lastly, we may consider restricting the default schedule to Pool-0, and
+>> eventually we may want a mechanism to disable the default schedule altogether
+>> (e.g. when boot time cpupools are in use), but I don't think it's necessary to
+>> conflate those with the current patch.
+> 
+> So what does all of this mean for the patch here? Should I switch to Jürgen's
+> suggestion? Should I merely add the system_state check, but otherwise keep as
+> is? Or should I not change anything?
 
-Yes it would.
-
-The current logic has opencoded bitmap helpers, and removing *num_colors
-simplifies all the boundary conditions (you simply don't need a cursor
-when collecting into a real bitmap.)
-
-~Andrew
+I think the patch is good as is, but I just want to give it a few more days to
+give Nate or others a chance to chime in. I'll follow up next week if there's no
+further discussion.
 
