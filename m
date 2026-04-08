@@ -2,48 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WC0aEJnE1mlDIAgAu9opvQ
+	id 6PWcAtzn1mmXJggAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 23:11:53 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 01:42:20 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7148B3C3FAA
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 23:11:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1276576.1561968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D2FA3C4D46
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 01:42:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1276606.1561977 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAaBB-00063C-9s; Wed, 08 Apr 2026 21:11:17 +0000
+	id 1wAcWF-0000k7-Kp; Wed, 08 Apr 2026 23:41:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1276576.1561968; Wed, 08 Apr 2026 21:11:17 +0000
+Received: by outflank-mailman (output) from mailman id 1276606.1561977; Wed, 08 Apr 2026 23:41:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAaBB-00060A-6l; Wed, 08 Apr 2026 21:11:17 +0000
-Received: by outflank-mailman (input) for mailman id 1276576;
- Wed, 08 Apr 2026 21:11:15 +0000
+	id 1wAcWF-0000hS-Hn; Wed, 08 Apr 2026 23:41:11 +0000
+Received: by outflank-mailman (input) for mailman id 1276606;
+ Wed, 08 Apr 2026 23:41:10 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <marmarek@invisiblethingslab.com>) id 1wAaB9-000604-Au
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 21:11:15 +0000
+ (envelope-from <dmukhin@ford.com>) id 1wAcWC-0000hK-Uq
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 23:41:10 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAaB7-00BFEo-R7
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 23:11:14 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wAcWB-006f8p-Lq
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 01:41:07 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d6c45c-bab6-0a2a0a5309dd-0a2a4509c51c-28
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 23:11:13 +0200
-Received: from [202.12.124.148] (helo=fout-b5-smtp.messagingengine.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d6c470-bf79-0a2a45090019-ca0c7c948d75-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 23:11:13 +0200
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
- by mailfout.stl.internal (Postfix) with ESMTP id 81A201D00286;
- Wed,  8 Apr 2026 17:11:11 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-08.internal (MEProxy); Wed, 08 Apr 2026 17:11:11 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 8 Apr 2026 17:11:09 -0400 (EDT)
+ (envelope-from <dmukhin@ford.com>)
+ id 69d6e766-5cb7-0a2a0a5109dd-0a2a4502d386-6
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 01:41:07 +0200
+Received: from [148.163.146.23] (helo=mx0a-00498f03.pphosted.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <dmukhin@ford.com>)
+ id 69d6e791-42fa-0a2a45020019-94a392173d3a-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 01:41:07 +0200
+Received: from pps.filterd (m0367123.ppops.net [127.0.0.1])
+ by mx0a-00498f03.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 638LtnUG1629759
+ for <xen-devel@lists.xenproject.org>; Wed, 8 Apr 2026 23:41:05 GMT
+Received: from dm1pr04cu001.outbound.protection.outlook.com
+ (mail-centralusazon11010064.outbound.protection.outlook.com [52.101.61.64])
+ by mx0a-00498f03.pphosted.com (PPS) with ESMTPS id 4ddyc78g8p-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 23:41:04 +0000 (GMT)
+Received: from MN2PR18CA0023.namprd18.prod.outlook.com (2603:10b6:208:23c::28)
+ by SA6PR16MB6588.namprd16.prod.outlook.com (2603:10b6:806:415::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.20; Wed, 8 Apr
+ 2026 23:40:59 +0000
+Received: from BL02EPF00029928.namprd02.prod.outlook.com
+ (2603:10b6:208:23c:cafe::58) by MN2PR18CA0023.outlook.office365.com
+ (2603:10b6:208:23c::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.37 via Frontend Transport; Wed,
+ 8 Apr 2026 23:40:50 +0000
+Received: from mx0b-00498f04.pphosted.com (148.163.138.245) by
+ BL02EPF00029928.mail.protection.outlook.com (10.167.249.53) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.17
+ via Frontend Transport; Wed, 8 Apr 2026 23:40:58 +0000
+Received: from pps.filterd (m0373461.ppops.net [127.0.0.1])
+ by mx0b-00498f04.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 638JxUch777966
+ for <xen-devel@lists.xenproject.org>; Wed, 8 Apr 2026 19:40:57 -0400
+Received: from smtp-us.ser.proofpoint.com (pmta-use.ser.proofpoint.com
+ [3.215.31.156])
+ by mx0b-00498f04.pphosted.com (PPS) with ESMTPS id 4dcmrqjwtj-4
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 19:40:57 -0400 (EDT)
+Received: from localhost ([19.12.76.221]) by cmsmtp with ESMTPSA
+ id AcVzwVEAeUZxsAcW0wIGfL; Wed, 08 Apr 2026 23:40:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,493 +82,352 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fm2 header.d=invisiblethingslab.com header.i="@invisiblethingslab.com" header.h="Cc:Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=fm2 header.d=messagingengine.com header.i="@messagingengine.com" header.h="Cc:Content-Type:Date:Feedback-ID:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To:X-ME-Proxy:X-ME-Sender"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=ppford header.d=ford.com header.i="@ford.com" header.h="Cc:Content-Transfer-Encoding:Content-Type:Date:From:Message-ID:MIME-Version:Subject:To"; dkim=pass header.s=selector2-azureford-onmicrosoft-com header.d=azureford.onmicrosoft.com header.i="@azureford.onmicrosoft.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"; dkim=pass header.s=ppserprodsaar header.d=saarlouis.ford.com header.i="@saarlouis.ford.com" header.h="Cc:Content-Transfer-Encoding:Date:From:Message-ID:MIME-Version:Subject:To"; dkim=pass header.s=ppfserpocford header.d=ford.com header.i="@ford.com" header.h="Cc:Content-Transfer-Encoding:Date:From:Message-ID:MIME-Version:Subject:To"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ford.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=ppford; bh=RQ/j706FzHcohf7qfylReK/Vk
+	W8/+qooP0yijNDcb9w=; b=gcRoDdh4fpXYeaTgY8GhvjgHbJovy2eR6lZsjLpw3
+	yAw0bXWbn1AayCdhw+A/iyirkmIktVHRnZsnuwVAqNggK+QMOyKkq4lFnu4BD3P0
+	3uEIjx3Ys42noywJ2WR6k9IK5TXpi7vp2azNHIcSuPJjKTxQfUHgx9OSqB8Jcqsi
+	AaX4Vbt9tLoSBxQA5ChjusdUi2XW0P3w5rMcVG03k5EFsZSw7PPr6DBOndw0Vhyw
+	8z/h2hBqTC7sDln/BZ22As4Fpb/3WRbocF4obFJW+aaQn+mC4k/mKxY7tfsHmslR
+	EQ1i2UfqSWeAWp4NpOTQWeZX4UwwUrTj9PSEARqU0+lzg==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OT/qMrS2wAzELh3OHuwt7Ggx719Fc13nG9kJJzEh/Sv7Ukt7sbd5utoedF2oE5wOxGn3kMSjW7MITLrb/cXXyEW1Gkm+VPSHRiu8AHEm5SjD3NVEQicVFp/DMDepxZHyOoLibqMyXI5lweqmeddddttfxoysXSoP+wpQY59k6FgRa4oRBOooMSP9JfDVpA8BmT1VlqDwFnwoBp4yai2yKYHk4J2q+4V88tcCE0/WspgCWNSJD1mf3HuG+m23asgMqSBy/F2B59RT1AVidEtcyCsmg+przKs9ddotd4BAj4zlRpTnrVNtfOwiWaU41Qx4OWa+FlHU1sL/MAbrGm8xpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RQ/j706FzHcohf7qfylReK/VkW8/+qooP0yijNDcb9w=;
+ b=iiSqdAHivRoghNXRubUHUYPyMWGtmVUoIRTBxOWyX2w0TPVwMryTqMIfmcNXJjpyqrz5z67SXcPmmnx42Sy85m+NSN11P0dAEdKF7Xpvb8fvxrmH97ghaU9owCzlGiel1YVcffLFju/a3BecskhyKRKy0/1ED3I8c+dWv9iZUwlBRMuClyIy6CqutQYVJL2P2+XRjw9cUhZj7puXbPq2hn4kGomwCXorHfenI9BVbaohnnpEQhW/rIFQasXRoGsZIGEgyZwDRECDh7NC7x7FKlVJEwZsEcw3nu4Kvc/svGsTKXrHiOY40a3LYSJpw1Tvdc4pH0mx1blKvn9iByYYQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 148.163.138.245) smtp.rcpttodomain=lists.xenproject.org
+ smtp.mailfrom=ford.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=ford.com; dkim=pass (signature was verified)
+ header.d=saarlouis.ford.com; dkim=pass (signature was verified)
+ header.d=ford.com; arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=azureford.onmicrosoft.com; s=selector2-azureford-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RQ/j706FzHcohf7qfylReK/VkW8/+qooP0yijNDcb9w=;
+ b=fsQNzp+Eguf0h0+k9tLBEY46n/a4y4H0pdJZFosaM0aZpvHZeirO2TbvsgN69bWXYJ4GH3GGVd/sttYI9eqvC8Do5RBO3nm6UKLMUZusotRLE3L1Z+uw5yJcr44yjHYetzzREbo48W+UmRNMgmQZL0oq3PxuQPsFLSgCehXzsG4=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 148.163.138.245)
+ smtp.mailfrom=ford.com; dkim=pass (signature was verified)
+ header.d=saarlouis.ford.com;dkim=pass (signature was verified)
+ header.d=ford.com;dmarc=pass action=none header.from=ford.com;
+Received-SPF: Pass (protection.outlook.com: domain of ford.com designates
+ 148.163.138.245 as permitted sender) receiver=protection.outlook.com;
+ client-ip=148.163.138.245; helo=mx0b-00498f04.pphosted.com; pr=C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1775682671;
-	 x=1775769071; bh=kchf87mE9OXpEq2RDcjs4o5CRJjnCtkZ2UY0sqB8J2U=; b=
-	og7oqgEf4E0OOGdxl2ze9nRfqllg/kVEhEOXuUkB3mpHn1TFoGiIgJgCInp694cH
-	qQnKz9ow8udj9RrJf10/P6Xd/UKGhaHWLPNKnhihC79p2sKzxli91G+qgIRfINaN
-	rSq6GvZ/slAaJDWYKOWth9eA7AqPbqZZnafkuNpCoVrVMrKA5cjdeat4HcTuckJT
-	Xs4WPOsKz7vP6KnNTkWI3YDynG9QGVF8ZRU0s7mxxBQ3IlKJVkkJzrKbwhXEFhf8
-	IEe50A/T4vkMnx0WRj3lc+tl4JBh771Sp20t/tMZM3SvNXPczsy3GHt4lkLhBpwd
-	V/rbmUMqKC+9RUJfp+N0LQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1775682671; x=1775769071; bh=kchf87mE9OXpEq2RDcjs4o5CRJjnCtkZ2UY
-	0sqB8J2U=; b=rHZrZ3UcV3zUvuUcISOSxifMtkqQfF/7m57ZLYlCktje6p26dfF
-	ufmkTGYUqulTVDeZz230gTyv0EMyu4gjrj3A2FS5bM/X+J9uEhxwYPhVk25sqRPj
-	97Kynoj9DT04nuq80T4vI7nKCvGrr2qJxCeyt1dilVBtymFFSCSNY/4DI7RRrIIU
-	Da3GlkreWiZT3t6i4S5rJEd2KEpud4kS9egUHFssQEXfsIbnfpTfOMHkA7XDGBqw
-	/jyT4VFmM0CFju6Z/KTatfcecCrKPqMP0Z4iw4x619jsj2veUW9SlqYlBwN1RHbR
-	I7rzds0+x9IqRpcDgHF/jvVbMb/PRBecItw==
-X-ME-Sender: <xms:bsTWaR1KKJc-OS2XVNqB5xjX8oTbi7IRXSpD-jI3eV6LFzppI5cHsA>
-    <xme:bsTWae-CpiKAOWrSKhxCjPLlrgvyaTCjZXaUhwpaStspLYHcls4im284jSSRqTsXf
-    cFJDjyC6Vqvg4BtOg6rUi7TNIIoN3vfVP-pCsqfiWjjEqAl>
-X-ME-Received: <xmr:bsTWaaMM7_OnM583DUgCqGLLH-5Tq3h_lz2cf3NoaLMvPrQDJs5tZ2lTYslWxcvtzCwMINl9oXmav_B5fwiwsrkuHILfLZIYKuM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddvgeeivdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinh
-    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgkedutdffteethfeiueehffek
-    ueffledvffdutdetteeltdevkeefkeelheejgfenucevlhhushhtvghrufhiiigvpedtne
-    curfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvght
-    hhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeehpdhmohguvgepshhmthhpoh
-    huthdprhgtphhtthhopehjsggvuhhlihgthhesshhushgvrdgtohhmpdhrtghpthhtohep
-    gigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpth
-    htoheprghnughrvgifrdgtohhophgvrhefsegtihhtrhhigidrtghomhdprhgtphhtthho
-    pehrohhgvghrrdhprghusegtihhtrhhigidrtghomhdprhgtphhtthhopehtvgguugihrd
-    grshhtihgvsehvrghtvghsrdhtvggthh
-X-ME-Proxy: <xmx:bsTWaaf9Byhys9_9v7hzOk6tbrp0GIrMZK-6mbEFd01tU5TDfli5CQ>
-    <xmx:bsTWaRXHVBZxqeBvsJTcNE-RDPnvf5m6tN368kVTlVS5eRFNaxemFg>
-    <xmx:bsTWaaj7TW76UQBHPslzFU4YUDBRIzcR_BBO399Cr_iRVgpDgGiQlA>
-    <xmx:bsTWaY9eZgzBYCOdAEgKY1zf6HsfYkKBI4ANtxQU-3nTTBQx0LOIdw>
-    <xmx:b8TWaVEMxSxSRB1KzOqqwoTKFK9HePvZZXPlx4aTiVx_CCi3EO0Q85T9>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 8 Apr 2026 23:11:07 +0200
-From: Marek Marczykowski <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>
-Subject: Re: [PATCH] x86/cpuidle: split the max_cstate variable
-Message-ID: <adbEawEpv8KA5ofI@mail-itl>
-References: <4b89f640-046a-49c1-95f1-947d98135e5b@suse.com>
+	saarlouis.ford.com; h=cc:content-transfer-encoding:date:from
+	:message-id:mime-version:subject:to; s=ppserprodsaar; bh=RQ/j706
+	FzHcohf7qfylReK/VkW8/+qooP0yijNDcb9w=; b=kSerk4+WD9x4SdxbZTOKg9l
+	ZtwQ8gyseBrkFe1ANZeOYRc81OodKAtt92MjMcLEMFhYI+er7usSF753t/fwARqP
+	pNOu6YxvO5L5io2BCYZ1zJ8HkAYSm6gU6440SMclyoCsps5+wGcrmqdTKxaZfTm6
+	hMcxirOs/XTtkunk9m37k+RO6uW8EUPROyY/5qUXENeS6AS+ww+06DMwtcq6MsSd
+	wOao8B/Z5YB+TB4P16ZTig6Mxw6c5rTp/Z0eaoQKtYQePZ3oFbKhuzdppYwzdcLq
+	tMuzmZYmekseKFc3gSV+DgV9gDwzc3VXZTXl9v2GlqrLZgXE6cgCzRNWXUJMvFw=
+	=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ford.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=ppfserpocford; bh=RQ/j706FzHcohf7qfylReK/VkW8/+qo
+	oP0yijNDcb9w=; b=ZWQ+b+8aHBTP1eOzrp5NC/t5+xQU17QV6dd33m2DVF/SCm5
+	tuMzJoUfmwYDSiM/O7IRAow06rgr5eSUDaIa7dXYrwQ4rjz0S15VxHMb2F+0J5Np
+	G4IouAaC/RywuO14gCsx5uDKbuUV5+fdsfsrsWfSnKNNlJNOCRMeIVvvcdHCBIm5
+	yZTa5LD6eqOeQIvfawaehioufZ4pqA7ZfU57JqQAK54P1FHN6rNb1ip3w8P/N9J2
+	75ZwZzEo8V7pKaTi6f6Av54Q54iF6za8I+ExRViJkl8VmOc1JQTe5/89zGUx4hXi
+	es9Vp79BPRZKkSboRiB3X+GANTrdcZP7ciY9XkQ==
+X-Mailer: SER-76bead168636dc6ed1c9e51ce4dea80dbdd4163750742b614a4d871e565792b7
+X-Cloudmark-MID: AcVzwVEAeUZxsAcW0wIGfL
+X-Proofpoint-CID: eb09f7eb-2dc2-34ab-a188-7b293c1db1fe
+From: dmukhin@ford.com
+To: xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech, jbeulich@suse.com,
+        julien@xen.org, michal.orzel@amd.com, roger.pau@citrix.com,
+        sstabellini@kernel.org, dmukhin@ford.com
+Subject: [PATCH v7] xen/domain: introduce DOMID_ANY
+Date: Wed,  8 Apr 2026 16:40:46 -0700
+Message-ID: <20260408234046.1314021-1-dmukhin@ford.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="QESya23L83tZWxwF"
-Content-Disposition: inline
-In-Reply-To: <4b89f640-046a-49c1-95f1-947d98135e5b@suse.com>
-X-purgate-ID: tlsNG-bad1c0/1775682673-57543152-C54B51C6/0/0
+Content-Transfer-Encoding: 8bit
+PSER-M365-App: SER-APP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-08_06,2026-04-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ adultscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
+ definitions=main-2604080219
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF00029928:EE_|SA6PR16MB6588:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 2dbb223f-628e-4b2e-11e4-08de95c848e3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|376014|82310400026|13003099007|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	Q4kpmnRPMvqjYK7+URhHYdDIqJCv543mm14VqY4onvcnS2+gbU9io05F7ZbLH3IULCXmbgOz4NUNIo29MaFO6au25g0XnxvLTWtjYs7D/kgUTu4Qlpp4fD7cgE75XaS7uXKtEJSv9MwtEx/ZJsnkYJd8gOXw+0m42RJ3NtZdELjZmjnVldVgJKamo6QGFPFhr5tVNWIVfkTFUr5macuG/JP4PnFSn3u+7M4V2VnCyrDM2llesaISnJubfZ1zKi88PzGHzAxcQClUFE47lvwh89u+XpDKVGTgrsjQQB5aqb/tU5tvnryD8AVNQwtCiSw9YqjoZoK+F+Dri7pYXDWrr6U9Xr7bvUnzFfb1noZEPFrQBWmt8lH9jNPl8AhCGHfmlosv4RbD8lv2H/sEEG2R/aWteToGcuz1N2qqdVpYd9VXUESDHqaWFfTEueAKxo5wdIXpOfKz1JvYa0a4g7cMdWm/JL6iPt46s5TwEjhEruUobXsNtsT7BfRxfhZ22hRbk8NQ/dnc1NtzF4mXFv6ZmEB+EPSrQS4dFBbP5KO8C1MOAY6+djqQJH7ncQ5c6JWApeOXF+sC3kipJUAuQtB94orksRGgVUO+KGqbFLEdKcYmXc8Q9cEGEFnTkEiv4M7rVWvToqry/4mIVhq6yulhxTAoBVpn9VJbh3JzKoTQZY7RznzPfzDXOSM8lIwBv5jctEkKXAkh5dZlqkzjdW5GwDkHad1a9PB6JYlr2uSCTrM=
+X-Forefront-Antispam-Report:
+	CIP:148.163.138.245;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mx0b-00498f04.pphosted.com;PTR:mx0b-00498f04.pphosted.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(13003099007)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	NFVeN63SNt9Ki3Zr+Epdze6Lqf0zuxtt3FSqQYYyru2s38xkOvbwjjliOX195Gp9itJwOap8nMZ9d4W0KJ3KicxvtrfhF/w+H80MTaSBCEXra5XqEaOc1gdd2NKBNM+67h9o75QTJE5cNmNgxp9Kd8eRQaLaZag05e6EcT8o+0eMdtSRQzPuAv8Wsfk+hENJgAQTXMQzQro95uHowgtieh4NI9foNmf2y51CeK7tsiGd16nnJw2EjHiTQmhdiTadaDVnDdgvHDFVnMWncZi1qK5AOu1wH7dGlvbQjfZvynpztegYUFyAHYS5iZ7eC5pOMOJSYuVM1rZKXXYkMemC2GXLfXpmKiuOdyU6d/rE/2Mb+In01AfARDr/lL9OzPBFefDbrguj+aJdvs1SGpTAQA+rZSw5dFYhupUQ3teA/cX519wtCYGTTmfaKDBMHfBk
+X-Exchange-RoutingPolicyChecked:
+	uApO38a98059SlNOVT93f0fcgcgbZANlLeQocQuRDix72p/S1ZetGxSojbYhaThM+/dV7HcTV3xyVkBfYzRX9BHN/5/jWHibstfBRi+oxkrKlAiWAZGrYcEvf9epbusuFFUdLw4erykn64CoVEjHIXUZsqL9earlJX0lJPmbYKhNwOWTgUayDczr7icndlPxNuHnB1oqe2Xx5cplAfjtJVIf0hdlYJHm2ngwR+QiMUn45Aigh3gXGvX0EzPdp8RfWuSyepqni01ZPvDm5Gt7fsAo9Qary1PR3XQwCRmtDyICOCAfN0Ihi72Mo1WKeFwNa4tEHCIhKWjCZdrAwivxjA==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	yI+RdjJbfuhkg9iFKJrULmgawfnWWVG8B+hjiIRfcqZyrLVuTGr/cz9UKOJaUaKFM2WlB3yRa3lIZ/o5na1mns0XBx4IoEf2VT2CyzHX0reZPWsAaKYKBjTtJepz3pyNskUJNAflHgDGaq/k9KMjJJ/yv2WG/LS3v2I2fvErlUN1zZAtHwkJH8PbkKtjjRpEmFphgZRd1e+AOoAzxAM3Q+N9LU7Dy8jwn04KtrHDygWOuNYSYStP0U72073NI8iyyP/hppOsRepW0zhGKIWd3bmGlYN0jbRtrcd07ZTNBqOjhP+TSfTB66fmfwOVFyIJQ7NsSI4vgPW1FlcHlH0HMKrmZgIoSviWp7tAzCSoZxz7hBZgTPGVIWu7OLaZB/dE6TJ915fH5qeWbu5PrLSf2WSYj2dOWBQsQIWLqHZi67Gsab8M/86wFL50bjOb9NlG08kc0iRcoCXAz5BTaqYGye3rFmUJ9nSt1y88rq9Mkc93PCBdSqMdyAs83myuy0s8rsYty4MGHDZaQkjJdXdlA+FWfiQX3ubEg5FwmhWUJqO6+APY8AKyL4FEBBZUYRCTONPh1l+MrTvhZsZQx32apU5CSi9aKhgDmKKz0yImlYkMKnaS2EMR6HAtYxdYZCsHshlY8EcrPTLhpdcyweKkng==
+X-OriginatorOrg: ford.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 23:40:58.1147
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2dbb223f-628e-4b2e-11e4-08de95c848e3
+X-MS-Exchange-CrossTenant-Id: c990bb7a-51f4-439b-bd36-9c07fb1041c0
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=c990bb7a-51f4-439b-bd36-9c07fb1041c0;Ip=[148.163.138.245];Helo=[mx0b-00498f04.pphosted.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF00029928.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR16MB6588
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA4MDIxOSBTYWx0ZWRfX/2uPI++nX5mR
+ uiczdAqVc81pHD0AHlP9tNeH521g48pdDEPbzQIoqKn1K/BJu0zO34XwbLqYxbJYf5tHl3YIuZE
+ KWu7k5y7hf+WTFtJHDsQk5yyhYwmtTULbHW1p4KsCUYEEErQFbXFZvHrKw19YwQJqiGcGbx7YrL
+ Xky4bVADAEWa/afA2hiag/JkPBPUEt0vtEpUgd2wcJJEC2L3ANw8yT/ne/UgwK10VYbwzy6nObl
+ F+zMcwy6XekYrUAXnURxyjWCLyF1SSggCj9mO6aeBV3bfZQc+E5Zde9TwSdidRmb8GQJai9s5Xq
+ 7J5IdQbdfRWnzcgPWLV2NeVM2s8r81PZpQzNOa/rorY4R52EvSyKVJad+qyTuYCLbPO6sQAUN8I
+ 5B6k/76/D5kMzzwnDULf1NtK0vq4X0i6brAUHlyMozoAl5O8WeShpV2romFqtO5BPvumHbVBqGV
+ KISqQfLm+GN77fnIx/w==
+X-Proofpoint-GUID: OYkpjBt_wUx-X9StGkMFdKFCBjneb8ML
+X-Proofpoint-ORIG-GUID: OYkpjBt_wUx-X9StGkMFdKFCBjneb8ML
+X-Authority-Analysis: v=2.4 cv=Ida3n2qa c=1 sm=1 tr=0 ts=69d6e790 cx=c_pps
+ a=0b+utHCzfji0ILmZHHcyhA==:117 a=b7IhknPlfT0FN1EembXvig==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=A5OVakUREuEA:10 a=3PXLN80vpJUA:10
+ a=6NUGLSImWEsA:10 a=w9pew1qAHqMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=P_n1zlmtWsCQbjROFjcg:22 a=N9_n2FxmZfwfyRXvS9-E:22 a=VwQbUJbxAAAA:8
+ a=cbNQJ9GKAAAA:8 a=p0WdMEafAAAA:8 a=UP8sGbTbwCjyvoZiEfAA:9
+ a=G69WFyCBNqGPyalROSdv:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-08_06,2026-04-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ adultscore=0 impostorscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
+ spamscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604010000 definitions=main-2604080219
+X-purgate-ID: tlsNG-720697/1775691667-AF323CD1-E8B5013A/0/0
 X-purgate-type: clean
-X-purgate-size: 14966
-X-Spamd-Result: default: False [-2.78 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+X-purgate-size: 7152
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[ford.com,reject];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[ford.com:s=ppford,azureford.onmicrosoft.com:s=selector2-azureford-onmicrosoft-com,saarlouis.ford.com:s=ppserprodsaar,ford.com:s=ppfserpocford];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm2,messagingengine.com:s=fm2];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,invisiblethingslab.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dmukhin@ford.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dmukhin@ford.com,s:lists@lfdr.de];
+	FUZZY_RATELIMITED(0.00)[rspamd.com];
 	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[dmukhin@ford.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[ford.com:+,azureford.onmicrosoft.com:+,saarlouis.ford.com:+];
+	FROM_NO_DN(0.00)[];
+	TO_DN_NONE(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCVD_COUNT_TWELVE(0.00)[16];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: 7148B3C3FAA
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,ford.com:dkim,ford.com:email,ford.com:mid,saarlouis.ford.com:dkim]
+X-Rspamd-Queue-Id: 4D2FA3C4D46
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+From: Denis Mukhin <dmukhin@ford.com> 
 
---QESya23L83tZWxwF
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 8 Apr 2026 23:11:07 +0200
-From: Marek Marczykowski <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>
-Subject: Re: [PATCH] x86/cpuidle: split the max_cstate variable
+Add a new symbol DOMID_ANY to improve the readability of the code.
 
-On Wed, Apr 08, 2026 at 01:34:43PM +0200, Jan Beulich wrote:
-> The admin can control the upper bound wanted not only via command line
-> option, but also via XEN_SYSCTL_pm_op_set_max_cstate. While decisions how
-> to set up the system are okay this way as long as we deem the command line
-> option a strict upper bound, what to do during S3 resume should not be
-> based on that potentially varying value. Decisions there need to use
-> solely the strict upper bound we may have enforced ourselves (or which was
-> forced onto us via command line option).
->=20
-> Rather than altering pit_broadcast_is_available(), drop the function
-> altogether. It's pretty odd for acpi/cpu_idle.c to call into time.c, just
-> for that to call into acpi/cpu_idle.c again.
->=20
-> Fixes: 8d24303023ec ("x86: don't write_tsc() non-zero values on CPUs upda=
-ting only the lower 32 bits")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Update all relevant domid_alloc() call sites and harden the domid_alloc()
+input value check.
 
-What should be observable effect, in absence of max_cstate option and
-"xenpm set-max-cstate" calls? The "slow after S3" issue still happens. I
-tested this on top of the two other patches:
-- [PATCH] x86/HPET: channel handling in hpet_broadcast_resume()
-- [PATCH] x86/cpu-policy: set up host policy earlier
+Also, fix problem with passing invalid domain IDs in
+XEN_DOMCTL_createdomain: turns out libxl__domain_make() (toolstack)
+uses 0xffff as domain ID.
 
+Amends: 2d5065060710 ("xen/domain: unify domain ID allocation")
+Signed-off-by: Denis Mukhin <dmukhin@ford.com>
+---
+Changes since v6:
+- fixed libxl_domid_valid_guest() check in libxl_create.c
+- Link to v6: https://lore.kernel.org/xen-devel/20260307025451.3148078-2-dmukhin@ford.com/
+- CI: https://gitlab.com/xen-project/people/dmukhin/xen/-/pipelines/2438790748
+---
+ tools/libs/light/libxl_create.c         |  4 +++-
+ tools/tests/domid/harness.h             |  1 +
+ tools/tests/domid/test-domid.c          | 12 ++++++------
+ xen/common/device-tree/dom0less-build.c |  2 +-
+ xen/common/domctl.c                     |  3 +--
+ xen/common/domid.c                      |  5 ++++-
+ xen/include/public/xen.h                |  7 +++++++
+ 7 files changed, 23 insertions(+), 11 deletions(-)
 
-> ---
-> cpuidle_disable_deep_cstate(), when called from handle_rtc_once(), is
-> still somewhat of a problem: Boot time and resume time runs of
-> _disable_pit_irq() may still behave differently because of that.
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+index bfc9149096a3..6fd62d140389 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -681,8 +681,10 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+                     continue;
+ 
+                 local_domid = v;
++            } else if (libxl_domid_valid_guest(info->domid)) {
++                local_domid = info->domid;
+             } else {
+-                local_domid = info->domid; /* May not be valid */
++                local_domid = DOMID_ANY;
+             }
+ 
+             ret = xc_domain_create(ctx->xch, &local_domid, &create);
+diff --git a/tools/tests/domid/harness.h b/tools/tests/domid/harness.h
+index 17eb22a9a854..65da0d075a2b 100644
+--- a/tools/tests/domid/harness.h
++++ b/tools/tests/domid/harness.h
+@@ -41,6 +41,7 @@ extern unsigned long find_next_zero_bit(const unsigned long *addr,
+ 
+ #define DOMID_FIRST_RESERVED            (100)
+ #define DOMID_INVALID                   (101)
++#define DOMID_ANY                       (102)
+ 
+ #endif /* _TEST_HARNESS_ */
+ 
+diff --git a/tools/tests/domid/test-domid.c b/tools/tests/domid/test-domid.c
+index 5915c4699a5c..71cc4e7fd86d 100644
+--- a/tools/tests/domid/test-domid.c
++++ b/tools/tests/domid/test-domid.c
+@@ -41,20 +41,20 @@ int main(int argc, char **argv)
+         domid_free(expected);
+ 
+     /*
+-     * Test that that two consecutive calls of domid_alloc(DOMID_INVALID)
++     * Test that that two consecutive calls of domid_alloc(DOMID_ANY)
+      * will never return the same ID.
+      * NB: ID#0 is reserved and shall not be allocated by
+-     * domid_alloc(DOMID_INVALID).
++     * domid_alloc(DOMID_ANY).
+      */
+     for ( expected = 1; expected < DOMID_FIRST_RESERVED; expected++ )
+     {
+-        allocated = domid_alloc(DOMID_INVALID);
++        allocated = domid_alloc(DOMID_ANY);
+         verify(allocated == expected,
+                "TEST 3: expected %u allocated %u\n", expected, allocated);
+     }
+     for ( expected = 1; expected < DOMID_FIRST_RESERVED; expected++ )
+     {
+-        allocated = domid_alloc(DOMID_INVALID);
++        allocated = domid_alloc(DOMID_ANY);
+         verify(allocated == DOMID_INVALID,
+                "TEST 4: expected %u allocated %u\n", DOMID_INVALID, allocated);
+     }
+@@ -64,7 +64,7 @@ int main(int argc, char **argv)
+         domid_free(expected);
+     for ( expected = 1; expected < DOMID_FIRST_RESERVED / 2; expected++ )
+     {
+-        allocated = domid_alloc(DOMID_INVALID);
++        allocated = domid_alloc(DOMID_ANY);
+         verify(allocated == expected,
+                "TEST 5: expected %u allocated %u\n", expected, allocated);
+     }
+@@ -72,7 +72,7 @@ int main(int argc, char **argv)
+     /* Re-allocate last ID from [1..DOMID_FIRST_RESERVED - 1]. */
+     expected = DOMID_FIRST_RESERVED - 1;
+     domid_free(DOMID_FIRST_RESERVED - 1);
+-    allocated = domid_alloc(DOMID_INVALID);
++    allocated = domid_alloc(DOMID_ANY);
+     verify(allocated == expected,
+            "TEST 6: expected %u allocated %u\n", expected, allocated);
+ 
+diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+index 840d14419da2..3c18dae5e625 100644
+--- a/xen/common/device-tree/dom0less-build.c
++++ b/xen/common/device-tree/dom0less-build.c
+@@ -852,7 +852,7 @@ void __init create_domUs(void)
+         if ( (max_init_domid + 1) >= DOMID_FIRST_RESERVED )
+             panic("No more domain IDs available\n");
+ 
+-        domid = domid_alloc(DOMID_INVALID);
++        domid = domid_alloc(DOMID_ANY);
+         if ( domid == DOMID_INVALID )
+             panic("Error allocating ID for domain %s\n", dt_node_name(node));
+ 
+diff --git a/xen/common/domctl.c b/xen/common/domctl.c
+index 93738931c575..b969f5ada6cc 100644
+--- a/xen/common/domctl.c
++++ b/xen/common/domctl.c
+@@ -409,8 +409,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+ 
+     case XEN_DOMCTL_createdomain:
+     {
+-        /* NB: ID#0 is reserved, find the first suitable ID instead. */
+-        domid_t domid = domid_alloc(op->domain ?: DOMID_INVALID);
++        domid_t domid = domid_alloc(op->domain);
+ 
+         if ( domid == DOMID_INVALID )
+         {
+diff --git a/xen/common/domid.c b/xen/common/domid.c
+index 2387ddb08300..b0258e477c1a 100644
+--- a/xen/common/domid.c
++++ b/xen/common/domid.c
+@@ -19,7 +19,7 @@ static DECLARE_BITMAP(domid_bitmap, DOMID_FIRST_RESERVED);
+  * @param domid Domain ID hint:
+  * - If an explicit domain ID is provided, verify its availability and use it
+  *   if ID is not used;
+- * - If DOMID_INVALID is provided, search [1..DOMID_FIRST_RESERVED-1] range,
++ * - If DOMID_ANY is provided, search [1..DOMID_FIRST_RESERVED-1] range,
+  *   starting from the last used ID. Implementation guarantees that two
+  *   consecutive calls will never return the same ID. ID#0 is reserved for
+  *   the first boot domain (currently, dom0) and excluded from the allocation
+@@ -31,6 +31,9 @@ domid_t domid_alloc(domid_t domid)
+ {
+     static domid_t domid_last;
+ 
++    if ( domid >= DOMID_FIRST_RESERVED && domid != DOMID_ANY )
++        return DOMID_INVALID;
++
+     spin_lock(&domid_lock);
+ 
+     /* Exact match. */
+diff --git a/xen/include/public/xen.h b/xen/include/public/xen.h
+index b12fd10e6315..f35a6f21f063 100644
+--- a/xen/include/public/xen.h
++++ b/xen/include/public/xen.h
+@@ -608,6 +608,13 @@ DEFINE_XEN_GUEST_HANDLE(mmuext_op_t);
+ /* DOMID_INVALID is used to identify pages with unknown owner. */
+ #define DOMID_INVALID        xen_mk_uint(0x7FF4)
+ 
++/*
++ * DOMID_ANY is used to signal no specific domain ID requested.
++ * Handler should pick a valid ID, or handle it as a broadcast value
++ * depending on the context.
++ */
++#define DOMID_ANY            xen_mk_uint(0x7FF5)
++
+ /* Idle domain. */
+ #define DOMID_IDLE           xen_mk_uint(0x7FFF)
+ 
+-- 
+2.53.0
 
-In the above test, both on boot and resume I got:
-(XEN) [    9.916522] _disable_pit_irq:2649: using_pit: 0, cpu_has_apic: 1
-(XEN) [    9.921198] _disable_pit_irq:2659: cpuidle_usable_deep_cstate: 1, =
-boot_cpu_has(X86_FEATURE_XEN_ARAT): 1
-
-
-> If we wanted the sysctl to possibly move the maximum C-state beyond what
-> was given on the command line, things would get yet more complicated, as
-> we'd then need to re-configure the driver that's in use.
->=20
-> I wonder how useful the ACPI_STATE_C<n> #define-s really are. Plain 1 is
-> used in e.g. probe_c3_errata(), and the plain 7 doesn't even have a
-> respective constant (nor would that be suitable, as that's not really an
-> ACPI state).
->=20
-> --- a/xen/arch/x86/acpi/cpu_idle.c
-> +++ b/xen/arch/x86/acpi/cpu_idle.c
-> @@ -119,7 +119,7 @@ bool lapic_timer_init(void)
->          lapic_timer_off =3D hpet_broadcast_enter;
->          lapic_timer_on =3D hpet_broadcast_exit;
->      }
-> -    else if ( pit_broadcast_is_available() )
-> +    else if ( cpuidle_usable_deep_cstate() )
->      {
->          lapic_timer_off =3D pit_broadcast_enter;
->          lapic_timer_on =3D pit_broadcast_exit;
-> @@ -131,12 +131,15 @@ bool lapic_timer_init(void)
->  }
-> =20
->  void (*__read_mostly pm_idle_save)(void);
-> -unsigned int max_cstate __read_mostly =3D UINT_MAX;
-> +
-> +unsigned int max_usable_cstate __read_mostly =3D UINT_MAX;
-> +unsigned int max_allowed_cstate __read_mostly =3D UINT_MAX;
->  unsigned int max_csubstate __read_mostly =3D UINT_MAX;
-> =20
->  static int __init cf_check parse_cstate(const char *s)
->  {
-> -    max_cstate =3D simple_strtoul(s, &s, 0);
-> +    max_allowed_cstate =3D simple_strtoul(s, &s, 0);
-> +    max_usable_cstate =3D max_allowed_cstate;
->      if ( *s =3D=3D ',' )
->          max_csubstate =3D simple_strtoul(s + 1, NULL, 0);
->      return 0;
-> @@ -413,10 +416,11 @@ static void cf_check dump_cx(unsigned ch
->      unsigned int cpu;
-> =20
->      printk("'%c' pressed -> printing ACPI Cx structures\n", key);
-> -    if ( max_cstate < UINT_MAX )
-> +    if ( max_cstate() < UINT_MAX )
->      {
-> -        printk("max state: C%u\n", max_cstate);
-> -        if ( max_csubstate < UINT_MAX )
-> +        printk("max state: C%u\n", max_cstate());
-> +        if ( max_allowed_cstate <=3D max_usable_cstate &&
-> +             max_csubstate < UINT_MAX )
->              printk("max sub-state: %u\n", max_csubstate);
->          else
->              printk("max sub-state: unlimited\n");
-> @@ -690,18 +694,18 @@ static void cf_check acpi_processor_idle
->      u32 exp =3D 0, pred =3D 0;
->      u32 irq_traced[4] =3D { 0 };
-> =20
-> -    if ( max_cstate > 0 && power &&
-> +    if ( max_cstate() > 0 && power &&
->           (next_state =3D cpuidle_current_governor->select(power)) > 0 )
->      {
->          unsigned int max_state =3D sched_has_urgent_vcpu() ? ACPI_STATE_=
-C1
-> -                                                         : max_cstate;
-> +                                                         : max_cstate();
-> =20
->          do {
->              cx =3D &power->states[next_state];
->          } while ( (cx->type > max_state ||
->                     cx->entry_method =3D=3D ACPI_CSTATE_EM_NONE ||
->                     (cx->entry_method =3D=3D ACPI_CSTATE_EM_FFH &&
-> -                    cx->type =3D=3D max_cstate &&
-> +                    cx->type =3D=3D max_allowed_cstate &&
->                      (cx->address & MWAIT_SUBSTATE_MASK) > max_csubstate)=
-) &&
->                    --next_state );
->          if ( next_state )
-> @@ -1448,7 +1452,7 @@ static void amd_cpuidle_init(struct acpi
-> =20
->      for ( i =3D 0; i < nr; ++i )
->      {
-> -        if ( cx[i].type > max_cstate )
-> +        if ( cx[i].type > max_cstate() )
->              break;
->          power->states[i + 1] =3D cx[i];
->          power->states[i + 1].idx =3D i + 1;
-> @@ -1611,21 +1615,22 @@ int pmstat_reset_cx_stat(unsigned int cp
-> =20
->  void cpuidle_disable_deep_cstate(void)
->  {
-> -    if ( max_cstate > ACPI_STATE_C1 )
-> +    if ( max_usable_cstate > ACPI_STATE_C1 )
->      {
->          if ( local_apic_timer_c2_ok )
-> -            max_cstate =3D ACPI_STATE_C2;
-> +            max_usable_cstate =3D ACPI_STATE_C2;
->          else
-> -            max_cstate =3D ACPI_STATE_C1;
-> +            max_usable_cstate =3D ACPI_STATE_C1;
->      }
-> =20
->      hpet_disable_legacy_broadcast();
->  }
-> =20
-> -bool cpuidle_using_deep_cstate(void)
-> +bool cpuidle_usable_deep_cstate(void)
->  {
-> -    return xen_cpuidle && max_cstate > (local_apic_timer_c2_ok ? ACPI_ST=
-ATE_C2
-> -                                                               : ACPI_ST=
-ATE_C1);
-> +    return xen_cpuidle &&
-> +           max_usable_cstate > (local_apic_timer_c2_ok ? ACPI_STATE_C2
-> +                                                       : ACPI_STATE_C1);
->  }
-> =20
->  static int cf_check cpu_callback(
-> --- a/xen/arch/x86/cpu/intel.c
-> +++ b/xen/arch/x86/cpu/intel.c
-> @@ -384,12 +384,12 @@ static void probe_c3_errata(const struct
->      };
-> =20
->      /* Serialized by the AP bringup code. */
-> -    if ( max_cstate > 1 && (c->apicid & (c->x86_num_siblings - 1)) &&
-> +    if ( max_usable_cstate > 1 && (c->apicid & (c->x86_num_siblings - 1)=
-) &&
->           x86_match_cpu(models) )
->      {
->          printk(XENLOG_WARNING
->  	       "Disabling C-states C3 and C6 due to CPU errata\n");
-> -        max_cstate =3D 1;
-> +        max_usable_cstate =3D 1;
->      }
->  }
-> =20
-> --- a/xen/arch/x86/cpu/mwait-idle.c
-> +++ b/xen/arch/x86/cpu/mwait-idle.c
-> @@ -1045,15 +1045,16 @@ static void cf_check mwait_idle(void)
->  	u64 before, after;
->  	u32 exp =3D 0, pred =3D 0, irq_traced[4] =3D { 0 };
-> =20
-> -	if (max_cstate > 0 && power &&
-> +	if (max_cstate() > 0 && power &&
->  	    (next_state =3D cpuidle_current_governor->select(power)) > 0) {
->  		unsigned int max_state =3D sched_has_urgent_vcpu() ? ACPI_STATE_C1
-> -								 : max_cstate;
-> +								 : max_cstate();
-> =20
->  		do {
->  			cx =3D &power->states[next_state];
-> -		} while ((cx->type > max_state || (cx->type =3D=3D max_cstate &&
-> -			  MWAIT_HINT2SUBSTATE(cx->address) > max_csubstate)) &&
-> +		} while ((cx->type > max_state ||
-> +                          (cx->type =3D=3D max_allowed_cstate &&
-> +			   MWAIT_HINT2SUBSTATE(cx->address) > max_csubstate)) &&
->  			 --next_state);
->  		if (!next_state)
->  			cx =3D NULL;
-> @@ -1458,7 +1459,7 @@ static void __init sklh_idle_state_table
->  	u64 msr;
-> =20
->  	/* if PC10 disabled via cmdline max_cstate=3D7 or shallower */
-> -	if (max_cstate <=3D 7)
-> +	if (max_cstate() <=3D 7)
->  		return;
-> =20
->  	/* if PC10 not present in CPUID.MWAIT.EDX */
-> @@ -1623,7 +1624,7 @@ static int __init mwait_idle_probe(void)
->  	    !mwait_substates)
->  		return -ENODEV;
-> =20
-> -	if (!max_cstate || !opt_mwait_idle) {
-> +	if (!max_cstate() || !opt_mwait_idle) {
->  		pr_debug(PREFIX "disabled\n");
->  		return -EPERM;
->  	}
-> @@ -1714,8 +1715,8 @@ static int cf_check mwait_idle_cpu_init(
->  		hint =3D flg2MWAIT(cpuidle_state_table[cstate].flags);
->  		state =3D MWAIT_HINT2CSTATE(hint) + 1;
-> =20
-> -		if (state > max_cstate) {
-> -			printk(PREFIX "max C-state %u reached\n", max_cstate);
-> +		if (state > max_cstate()) {
-> +			printk(PREFIX "max C-state %u reached\n", max_cstate());
->  			break;
->  		}
-> =20
-> --- a/xen/arch/x86/include/asm/time.h
-> +++ b/xen/arch/x86/include/asm/time.h
-> @@ -31,7 +31,6 @@ int cpu_frequency_change(u64 freq);
-> =20
->  void cf_check pit_broadcast_enter(void);
->  void cf_check pit_broadcast_exit(void);
-> -int pit_broadcast_is_available(void);
-> =20
->  uint64_t cf_check acpi_pm_tick_to_ns(uint64_t ticks);
-> =20
-> --- a/xen/arch/x86/time.c
-> +++ b/xen/arch/x86/time.c
-> @@ -517,7 +517,7 @@ static int64_t __init cf_check init_hpet
->      bool disable_hpet =3D false;
-> =20
->      if ( hpet_address && strcmp(opt_clocksource, pts->id) &&
-> -         cpuidle_using_deep_cstate() )
-> +         cpuidle_usable_deep_cstate() )
->      {
->          if ( pci_conf_read16(PCI_SBDF(0, 0, 0x1f, 0),
->                               PCI_VENDOR_ID) =3D=3D PCI_VENDOR_ID_INTEL )
-> @@ -2655,7 +2655,7 @@ static int _disable_pit_irq(bool init)
->       * XXX dom0 may rely on RTC interrupt delivery, so only enable
->       * hpet_broadcast if FSB mode available or if force_hpet_broadcast.
->       */
-> -    if ( cpuidle_using_deep_cstate() && !boot_cpu_has(X86_FEATURE_XEN_AR=
-AT) )
-> +    if ( cpuidle_usable_deep_cstate() && !boot_cpu_has(X86_FEATURE_XEN_A=
-RAT) )
->      {
->          init ? hpet_broadcast_init() : hpet_broadcast_resume();
->          if ( !hpet_broadcast_is_available() )
-> @@ -2707,11 +2707,6 @@ void cf_check pit_broadcast_exit(void)
->          reprogram_timer(this_cpu(timer_deadline));
->  }
-> =20
-> -int pit_broadcast_is_available(void)
-> -{
-> -    return cpuidle_using_deep_cstate();
-> -}
-> -
->  void send_timer_event(struct vcpu *v)
->  {
->      send_guest_vcpu_virq(v, VIRQ_TIMER);
-> @@ -2999,7 +2994,7 @@ static void cf_check dump_softtsc(unsign
->      else if ( boot_cpu_has(X86_FEATURE_CONSTANT_TSC ) )
->      {
->          printk("TSC has constant rate, ");
-> -        if ( max_cstate <=3D ACPI_STATE_C2 && tsc_max_warp =3D=3D 0 )
-> +        if ( max_usable_cstate <=3D ACPI_STATE_C2 && tsc_max_warp =3D=3D=
- 0 )
->              printk("no deep Cstates, passed warp test, deemed reliable, =
-");
->          else
->              printk("deep Cstates possible, so not reliable, ");
-> --- a/xen/include/xen/acpi.h
-> +++ b/xen/include/xen/acpi.h
-> @@ -142,30 +142,33 @@ int acpi_gsi_to_irq (u32 gsi, unsigned i
-> =20
->  #ifdef	CONFIG_ACPI_CSTATE
->  /*
-> - * max_cstate sets the highest legal C-state.
-> - * max_cstate =3D 0: C0 okay, but not C1
-> - * max_cstate =3D 1: C1 okay, but not C2
-> - * max_cstate =3D 2: C2 okay, but not C3 etc.
-> -
-> - * max_csubstate sets the highest legal C-state sub-state. Only applies =
-to the
-> - * highest legal C-state.
-> - * max_cstate =3D 1, max_csubstate =3D 0 =3D=3D> C0, C1 okay, but not C1E
-> - * max_cstate =3D 1, max_csubstate =3D 1 =3D=3D> C0, C1 and C1E okay, bu=
-t not C2
-> - * max_cstate =3D 2, max_csubstate =3D 0 =3D=3D> C0, C1, C1E, C2 okay, b=
-ut not C3
-> - * max_cstate =3D 2, max_csubstate =3D 1 =3D=3D> C0, C1, C1E, C2 okay, b=
-ut not C3
-> + * max_{allowed,usable}_cstate sets the highest allowed / usable C-state=
-, where
-> + * "allowed" is command line / sysctl based.
-> + * max_*_cstate =3D 0: C0 okay, but not C1
-> + * max_*_cstate =3D 1: C1 okay, but not C2
-> + * max_*_cstate =3D 2: C2 okay, but not C3 etc.
-> + *
-> + * max_csubstate sets the highest allowed C-state sub-state. Only applie=
-s to
-> + * the highest allowed C-state.
-> + * max_allowed_cstate =3D 1, max_csubstate =3D 0 =3D=3D> C0, C1 okay, bu=
-t not C1E
-> + * max_allowed_cstate =3D 1, max_csubstate =3D 1 =3D=3D> C0, C1 and C1E =
-okay, but not C2
-> + * max_allowed_cstate =3D 2, max_csubstate =3D 0 =3D=3D> C0, C1, C1E, C2=
- okay, but not C3
-> + * max_allowed_cstate =3D 2, max_csubstate =3D 1 =3D=3D> C0, C1, C1E, C2=
- okay, but not C3
->   */
-> =20
-> -extern unsigned int max_cstate;
-> +extern unsigned int max_usable_cstate;
-> +extern unsigned int max_allowed_cstate;
->  extern unsigned int max_csubstate;
-> =20
-> +#define max_cstate() min(max_usable_cstate, max_allowed_cstate)
-> +
->  static inline unsigned int acpi_get_cstate_limit(void)
->  {
-> -	return max_cstate;
-> +	return max_allowed_cstate;
->  }
->  static inline void acpi_set_cstate_limit(unsigned int new_limit)
->  {
-> -	max_cstate =3D new_limit;
-> -	return;
-> +	max_allowed_cstate =3D new_limit;
->  }
-> =20
->  static inline unsigned int acpi_get_csubstate_limit(void)
-> --- a/xen/include/xen/cpuidle.h
-> +++ b/xen/include/xen/cpuidle.h
-> @@ -89,7 +89,7 @@ struct cpuidle_governor
->  extern int8_t xen_cpuidle;
->  extern struct cpuidle_governor *cpuidle_current_governor;
-> =20
-> -bool cpuidle_using_deep_cstate(void);
-> +bool cpuidle_usable_deep_cstate(void);
->  void cpuidle_disable_deep_cstate(void);
-> =20
->  #define CPUIDLE_DRIVER_STATE_START  1
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---QESya23L83tZWxwF
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmnWxGsACgkQ24/THMrX
-1yyduAf/WsNYO6OcTfuk9TEpSOc9H1MgPkYS1TY3m5ZyQc60KwjvMlnUkFwlR2j8
-hxKT/1htjFHuvBcY0efO5TSM9kbnfqZC+wjqc1L7D1UNVZJs7NJDQWtYp0UeBBGx
-9TBE+s97exUrcQttVqLi8mhTHoDZV/CoUauU3ZNvUsV7s0QMAojxCQObLz+uEecm
-5T8CtHL70esiVx/I1d8t0du+dW78xwOPV3UHZdtI7fVZxySiBinZ3qEb3dThonym
-Qkf+8O+aFe4OFnlLZCBamt2a4CpZMWq5Mpnu5bsk7Xmh2jNY5IbDE1dbEa8SuX6C
-p6s+g01iokPL+jEWWflQveku2IHTtA==
-=Kngx
------END PGP SIGNATURE-----
-
---QESya23L83tZWxwF--
 
