@@ -2,51 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kHqsAgd51mm9FggAu9opvQ
+	id 76KfBFd+1mmQFwgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 17:49:27 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 18:12:07 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FB913BE7B2
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 17:49:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1276308.1561829 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 632FE3BEB74
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 18:12:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1276322.1561838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAV9S-0004dj-8P; Wed, 08 Apr 2026 15:49:10 +0000
+	id 1wAVV9-0001Gb-3q; Wed, 08 Apr 2026 16:11:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1276308.1561829; Wed, 08 Apr 2026 15:49:10 +0000
+Received: by outflank-mailman (output) from mailman id 1276322.1561838; Wed, 08 Apr 2026 16:11:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAV9S-0004bz-4i; Wed, 08 Apr 2026 15:49:10 +0000
-Received: by outflank-mailman (input) for mailman id 1276308;
- Wed, 08 Apr 2026 15:49:08 +0000
+	id 1wAVV9-0001EQ-0Y; Wed, 08 Apr 2026 16:11:35 +0000
+Received: by outflank-mailman (input) for mailman id 1276322;
+ Wed, 08 Apr 2026 16:11:33 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ross.lagerwall@citrix.com>) id 1wAV9Q-0004br-Ho
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 15:49:08 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wAVV7-0001EK-Lz
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 16:11:33 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAV9P-002VBE-PQ
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 17:49:07 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wAVV7-00AdaD-15
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 18:11:33 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <ross.lagerwall@citrix.com>)
- id 69d678f3-2eae-0a2a0a5409dd-0a2a4501eb08-2
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 17:49:07 +0200
-Received: from [40.107.208.43]
- (helo=PH0PR06CU001.outbound.protection.outlook.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <ross.lagerwall@citrix.com>)
- id 69d678f1-6fc9-0a2a45010019-286bd02b8f13-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 17:49:07 +0200
-Received: from CH8PR03MB8274.namprd03.prod.outlook.com (2603:10b6:610:2ba::5)
- by BY5PR03MB5220.namprd03.prod.outlook.com (2603:10b6:a03:22b::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Wed, 8 Apr
- 2026 15:49:03 +0000
-Received: from CH8PR03MB8274.namprd03.prod.outlook.com
- ([fe80::ebe2:32c1:d2be:a096]) by CH8PR03MB8274.namprd03.prod.outlook.com
- ([fe80::ebe2:32c1:d2be:a096%7]) with mapi id 15.20.9769.018; Wed, 8 Apr 2026
- 15:49:03 +0000
+ (envelope-from <jbeulich@suse.com>)
+ id 69d67e2a-bab6-0a2a0a5309dd-0a2a45049de6-18
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 18:11:32 +0200
+Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <jbeulich@suse.com>)
+ id 69d67e34-bb33-0a2a45040019-d1558035cc22-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 18:11:32 +0200
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-488971db0fdso49225e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 09:11:32 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488cd22c77csm2072995e9.12.2026.04.08.09.11.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Apr 2026 09:11:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,172 +56,290 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AXNe0meH2L8M08dQ1SkHDuXWo4ui8yHYbS22SCJtxw8wmEbFl3MRvCIju7cGu9u6cU/i0liudGumLpEnjOR4B5QozrB/VQ/C7ROqERiebLSYY/VDz3ON0IVe48S7lt76PVROnCQ4PR7IppFEmtwge27OMpxuVLJDMKHmAKdeSXWneIypnXsqEXusW5cGKoGejVdU1xwAgLATl9wFvpaDp4fIE+9szFmARxmSbAhu52YI8XV4uqatQVzKA2YdwJRR7iSzbU5iT1i5HgW19IhD3G2m9/L7v7pEbVVdhHZCJS+X8U5KglXYzi0fDgrDLZao9ocN+NgoI3t7px9aEbfoCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ifIojBZRiaopT06TQJuudILChDEvA/PjmNK3dFnlbfE=;
- b=DB1TZuegpAYvkQ2tjNuE/rRQiqgmWgw+Juc58VcIb7CpP5uyDNqsZAeYq9PzLN9rbItuRnLdI65wXdxl946OJKNNhkmXEeHUQa/6UKGFBbgNU9zT16ryfPuPS9BVnNms2V8gUfwL5n3MuSpRr/Je9sQot35ha6oKkYr9VCo6ZZPaWpdXklgdHNwciuNaeaEXd3CrhwObhssbtv6uYHsmixjPBglCONPvNjlarUxJjVv3V2J/JBkBOpq0N8D+opHdIq9U4BWdKsdsV/hSqb/jMUkm1wyzVFRTtoniaHbuYnV5OugjRa+NsfHVdrpi0wpkufMU6d5PuQUHJuQG1vaR7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ifIojBZRiaopT06TQJuudILChDEvA/PjmNK3dFnlbfE=;
- b=EhyR3VzhBM0tdrrWbWLx2EG5t50hPqOf+J7kJzxWmDtrNZZgVVmk1p+T2oQkU8YdIGR+1LlwWq7GW4/x0jrMN/hKoFGZub3ppgvw92v/gXLj5xFtIBPYgIiE04SFgTAx3hf2kDrA2FvDx8N4ZsK0q0+3Xz/ygMwo3u3k6+p5xWw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <ed2006d0-1f5f-45ea-a8d8-bd9c064fe048@citrix.com>
-Date: Wed, 8 Apr 2026 16:48:47 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] x86/hap: Wait for remote CPUs during TLB flush
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20260401163521.3603665-1-ross.lagerwall@citrix.com>
- <20260401163521.3603665-2-ross.lagerwall@citrix.com>
- <b985f554-0338-4426-8981-0613f112f166@suse.com>
-Content-Language: en-US
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-In-Reply-To: <b985f554-0338-4426-8981-0613f112f166@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LNXP265CA0085.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:76::25) To CH8PR03MB8274.namprd03.prod.outlook.com
- (2603:10b6:610:2ba::5)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1775664692; x=1776269492; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=P1G0f3IMv1NB+YAotfeV75ZWWWD/EYwL8HU7VrQCfPA=;
+        b=M+SRBEGbMlWDterKl8o41D0htnO345fwGCqpz7W2rxyRpqspkDRgcHp6AM7TEacyXH
+         xA74vVR3wOKdxPTxTz9YLsf9LJq368D3VhHLY8t5jCwlJZZwAssU7IIVqRClJ52bFxYl
+         gt1EeFvxN8QiH2nXbxAGGoeldABzWJa8eAbuwtCwHal3EsHRdF65EQeEFwGPrUaxbb+e
+         vOKPLrJWgYky4yBFFnxc+nx6DhPY5HSYIEy1tf11v0YokihgPJ+cMSa9qpm+VSAtKeal
+         xGSOk79G5cot3S+WzOhojU+MvL5iQzA1oSlxuwvt6ObHim69KWHL63ZWnFyu8h2URZAe
+         AobQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775664692; x=1776269492;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=P1G0f3IMv1NB+YAotfeV75ZWWWD/EYwL8HU7VrQCfPA=;
+        b=ATfPEbX/LPyq0sjRIsR92pBBApAM2ECD/0yVzQSbvND0t9BvwUGAzKsbNr1rRT8eE1
+         Pji//k6skH0WfJmx8niqKEvGcVe8mMdGKnKlhwfdVMgnoVemLKe7w4rHDlALLTKIIcQB
+         TZQPCVfyxlCOAJPuf2mIfbIR0SQSX3RHM06RprFZfA2ZuaNLlEQ5GMS1w2He3FTvXfca
+         7eEE5mgkmdIF5NQ+Efugn+I6/ryEY+VlZnFn3o8q2rXz7iGjzvIAhRz5VwtPkeM7mcDa
+         r8M6xbv/CDlzZLiZlurmbCwrUUF9pdXfdNf3uC5Y/vdkdCz7T6Bmt8yHxV2aa/Pgebh5
+         wqtA==
+X-Forwarded-Encrypted: i=1; AJvYcCUpwUlB37Yb+QuNUB0+7kNcfaIaQelQ1hyh2/cGLtLEVYoywl0d6h0E3TcnZYGhhhfWKLvkMGyTOrs=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwNtNCap4dU/3zufgYqbvLjY9bTsZY1+ELT07BpzUK8j7BwkO0W
+	Mieg3sjx/oPL23nzCXjgfGvObv1ubeqYrAYOqCYt2J8ODXrfegxnzJfErbTTIvinMg==
+X-Gm-Gg: AeBDies6w7alz5+KGaATM9E7K6yQHqFNehXpIeQc7fnol/HdUL/BLMUTElwQMyjSN1s
+	dB1745E5EurrP4YsA74lHDSdwGJTWh4vHmDz+Dp6IAfDKLF0nSMlusOAg4NabxNAKM9yHWElpy2
+	hjPLqDfYPH2PrPBCSVUTb12StuE1HcjvQ0o+05bcdsgvU+MGKJJ5qfRIyjRkLCFvlMi5tj8wg7G
+	QyT9mBqMgMaagw6PuR3MAdD3Nmme+yHpsMD086gpzieFuC3l/ckOPltbQZg05AHeESxyV4KF9cx
+	AN5j6cKvSGv815l0e+N3iCtURposG2Kd93FSkQJ0PT1RpkfrNMQYUnH6apwljhy1lmZP8MxYXbe
+	0ocBotyMzSDXIK3v5TOuyw+mgb0swOAThSbdMdvpGrhzHhELdHqY0QHHvvrOF2nBAjUamrlQQOc
+	dAyTkfQFg2gE21h1xEoRkp2Xw+bg3BBE0q5QaOy7QbOgQhQYuP5FuQUS68TuBPqoIY6lUA0FwVh
+	A+XJPVriP8mha4=
+X-Received: by 2002:a05:600c:548d:b0:485:3423:727d with SMTP id 5b1f17b1804b1-488cd068ce8mr3762285e9.26.1775664692269;
+        Wed, 08 Apr 2026 09:11:32 -0700 (PDT)
+Message-ID: <c7ea5ab4-ee7e-4843-8c32-c205a50ab9e2@suse.com>
+Date: Wed, 8 Apr 2026 18:11:30 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|BY5PR03MB5220:EE_
-X-MS-Office365-Filtering-Correlation-Id: e44d8523-396c-4236-90fa-08de95865b95
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	awZhiatb4hJS9M/zBJ8mQF2pzgBPaLPk1+zJR8j+36vzFjrFd04E/LT8NWJqEduNE0i5o5oOEemlojib6P0DuOfmkN7zId0h8n9w3mU3rfTJuCMjOoj7DooqndBIzHHU2R8Dyf/7L+5oLrengr3NRCVUaTmqlkKox6LucYz6cvp4ct6apfX6t/eidlllEiZSY+LRXgD74Egj+OP1knFsdgXRRwsKmdLSEqNDyyZxTTtVl7y0yB2KxPQBJl9KVNfmQGTiGd4Ar1/VqU42Ii7+DC8iTA2RE1RxvRz5DjMgJpTi4iiLe9z7nWg1i8EKxgZn2TzeWSHlnd8LDL2jYctskRJwLLj56fo8GLakOYHS4TloYYI+8AxGwA5o6hhY6W7JB4AM4UNoTb5nZDYsDB6v0OFDtBVaoj8oT+uquXEcYLKjlRWTVAvwQmGb+ybjHF0Grm0O3rGPJpXP6u0TrbHXISgkdY6fVIUJpfhDMd+nWKlEn8Db6sp5oBIcUDYCyD7uxEt2VMLOyND8ubpc+0n5aaCIbqOOY8/7S5UCa1UepRRlQdlspfplwfP0acqY+CF9yKWxW83Uz8VhvW9VPUfY7tHI+ndRfR/vxizcasSc7sSdmfNeV/7gHI89P4qVuPvhBhUPCo4RtZSOYsoIEsn4hYzwOT28H3gece+aIIoI3CNvK9UlBvn/pTR+8HOD0gVhXfqI6YxFCkeQQh9kSoVq4jUczF+kaQEtgollCx7XnKw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eWVzZTM1enpocnFsQkFBN1ZyTzVxZkFoTFpqK3NCK0hEZW9UTkZhNjFwM1Qr?=
- =?utf-8?B?YUFhVDg1T3lOWVFVT0Z2NnNyczZBU3JSVmFqcERaaFY5NUJ4bUcxdnFwc3px?=
- =?utf-8?B?OWdpQlBMMFRVa0RlTmpsdzF3RDd3ZkdGaGNQZ1FqV29aTVJTNkZNOEJoOVhw?=
- =?utf-8?B?Z1A0aUpJZWlVS2pXOFZnV0hMSzM1L0h0Q3piOFdEUVArSUVrdzhYTnNOSXRN?=
- =?utf-8?B?TkZudVFMY3ZyTURQUmplMHdObzV1eTY3TDgwLzNQREMyRXFTWU1uT1orRm5w?=
- =?utf-8?B?cFZsNnBFQVVCN202ckVFNnVSMnVvalJTOUFQdGJNZ0J0bWg0Y05wckhBTDlR?=
- =?utf-8?B?T1phSUZMQ0RJZ0xUeklDZUNtS1U5eEFkek5BTWVGazNCdXVwSmQ1c1JDbS9B?=
- =?utf-8?B?eHZ0dkdwQi9CNjJJbmhoZGJKeXVERnVodE5oWDhycjRzdEh2R0JKeld2NElY?=
- =?utf-8?B?Tm9wdFpBTis1TDhiTElVSC9lQnh0aTNmMXRpaDhqOVE2Rkw2VWJuN3FvZVdN?=
- =?utf-8?B?RUVkLy9USGdleno0Z0Q4cFhlNEFWdnlnRmU3ZzRHZXRObDNHaVF2dk5XY1Nl?=
- =?utf-8?B?a0hqbWpmOGMraXoxRG50UVk0NUYvakw3ZW5pdTBFYzk2MWtsaE5zaWRkMUZT?=
- =?utf-8?B?aDFVUGFUNFhhRlZjbG5NNmRmUU9LUUYrYW1HRFpmLzdQYmkvaEJlaTBlL1NK?=
- =?utf-8?B?NEtPamhyYU12Qjk2bmY3OVlNSjh4YWdCMkVieGhvaW5iMjlFTFBOVUZQNXB6?=
- =?utf-8?B?ZzRyWlVFcGlpYzJTTHYrdUdxNXZHN0RIZDY2UFJPK3B3STBYSGU4c0dpRklQ?=
- =?utf-8?B?WjIrQWJ4TVg2ZHNNL1liUmxoLzIxcXBaTW4vcUtVMHhjUWtPc3k2ODlQWmw2?=
- =?utf-8?B?aDYzcUJPL1VZdWRYbEtuZ2dzZTllckd5dnlpSmd3WVJSbjdSM1JqWFluZjNF?=
- =?utf-8?B?S1MyRExJU2pMbGg2N2xmWmsxVkFXa0FvcGR1eEtidUVBSGh5WVVyK3lMLy9C?=
- =?utf-8?B?YTJ2UWNkMTltY2Znc3MyY3ZzQ0lOaDkrNEc3Wm9WaENYWmNwbDFKMDErSC9m?=
- =?utf-8?B?NG1vMDYvcGVSVmFXQlY1U3NJY1IxTGZCbjBKVzYxbVFTYmtGTXYxeDJpMXpx?=
- =?utf-8?B?Z0xyWG5wRFVRRThPVXdyTUlUamNlZG5KbHJ0UnpQM0dhVUozZUNjYzArd0FY?=
- =?utf-8?B?TVc4TlJmUWRMZlczek5VbThLS2hwRjZvYjZ5TDdram5XdUk2YVd0Z3VWSnN2?=
- =?utf-8?B?S1RJYXdPZU5CZEhFa2k1Mm5OVWRPRWRnMjd6ZnQ5K0IyZTFmSnZCTFMzSy9C?=
- =?utf-8?B?M2QzMjlyYVdRN1JTUVo0bmhFaHYvNEdVbkc3cDdhMVIvNDFjeC8vU1VUZE9x?=
- =?utf-8?B?WlVWbUt0WktjWnoxUFczM2ZLR09QUU1iaHozOHdxd05qVFBpc2Y4blV2ckZa?=
- =?utf-8?B?UXJXVk0rUklyeDVnUVFPUEs0R2pudTQzcjBPUnIvWFo3UElKaVpvT0hDVDZr?=
- =?utf-8?B?cjBKMkVWZlRkV3JMM0sxM28vUEsvdEVqVUk1QzdPMmVkdHdvRTZMUEpBaFZl?=
- =?utf-8?B?SmlDYitvbGlkSXdIdU1KdjMxdnN5enhOU0t2bTBheU9NQzlKWGd1RDZURzJS?=
- =?utf-8?B?cTRqZlRUTFpjdUlqQlhxNmQ3WUp4Nm8za3Axb3VFNWJUaVNab0lYV1FuSjlz?=
- =?utf-8?B?QnB4eDVLdTg5TkxnQlh1OGlhTjZ5d0IyaFFaL3dId2JEam8rZzFhYXVta1hk?=
- =?utf-8?B?QTNFR0JBNE8rc2ZhNk0vVEYzUXZxRER5TERmcDdPUXp2T1E2cmthZDhQcFkv?=
- =?utf-8?B?NVhqM1MxdHRIYlpRSndtbXF3cmk5bjFUTVNMTTlGaEt2RG9iWXZmdzNTM3di?=
- =?utf-8?B?QkQ1NVNVZEc5d1NESXFUd3JBYVpPdk1kZWh5SWk1N1B3SmpTU1pMbDdPU01I?=
- =?utf-8?B?ZlBvekxBZ0tOV3kzMzJDT051Kzh0T3ZqVU5yOWtjY1dzUWVQMFVyWHNSQnN5?=
- =?utf-8?B?ZjFJdXdEdWk3aXd3aThsc2kwWWJGNVFrbVZWT2hUc1FSV1lBdTZVaFI5QzNB?=
- =?utf-8?B?NVNpUG1kMCtsQkpjUk9uR3NKMlo3YjNFaTkwUDJqUjFBczdOaDBhWXVRWkEx?=
- =?utf-8?B?eTMvRE43c0t3RFE4d1N6cm1XNHFIeXR6SjNTNi9nTFBQblMwYXhzbHN4TjFU?=
- =?utf-8?B?d1hLZ3cvaktmNVQwSWp1TS9SMGY2dGt5ZExZUnJucnk4TmZWeDkrOGtucGxL?=
- =?utf-8?B?QmJzRk9pakhkaGp4QnU0Y3ZhUVlTZjlsamlrUlJnWUowbTlnRlFZdmZ3djI0?=
- =?utf-8?B?dE9EYTJNd1ZLTFVvZXpVRjBOQjdnZ09xS3pyYmdEbi8yaS9jY094c3BkNWZj?=
- =?utf-8?Q?HYNF8SCzONFcjgXA=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e44d8523-396c-4236-90fa-08de95865b95
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8274.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 15:49:02.9557
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: orq/BvzzpvVdxL5StY7GTJuHw8OIIoODR5IQLhg13irAgIlG6I9BPZFMyOHrdD+DoBQA1GrmyR+UBX8+R3R3kYwzQRqcmm9KA0TyIF3STz4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5220
-X-purgate-ID: tlsNG-d62444/1775663347-14EE3185-EA0A2A97/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/3] xen/smp: Rewrite on_selected_cpus() to be lockless
+To: Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260401163521.3603665-1-ross.lagerwall@citrix.com>
+ <20260401163521.3603665-3-ross.lagerwall@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260401163521.3603665-3-ross.lagerwall@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-ebf023/1775664692-B2B3851B-B2D308B2/0/0
 X-purgate-type: clean
-X-purgate-size: 1236
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+X-purgate-size: 4574
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:mid];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS(0.00)[m:ross.lagerwall@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 6FB913BE7B2
+X-Rspamd-Queue-Id: 632FE3BEB74
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 4/8/26 4:21 PM, Jan Beulich wrote:
-> On 01.04.2026 18:35, Ross Lagerwall wrote:
->> A future change to on_selected_cpus() will change the semantics of the
->> wait parameter so that it doesn't wait for remote CPUs to "check in" if
->> wait == 0. Adjust the call here to retain the existing behaviour so it
->> continues to wait for the remote CPUs to VMExit.
-> 
-> Doesn't this go too far though? IOW wouldn't we better make the "wait"
-> parameter a tristate then?
+On 01.04.2026 18:35, Ross Lagerwall wrote:
+> --- a/xen/common/smp.c
+> +++ b/xen/common/smp.c
+> @@ -24,13 +24,15 @@
+>  /*
+>   * Structure and data for smp_call_function()/on_selected_cpus().
+>   */
+> -static DEFINE_SPINLOCK(call_lock);
+> -static struct call_data_struct {
+> +struct call_data_struct {
+>      void (*func) (void *info);
+>      void *info;
+>      int wait;
+> -    cpumask_t selected;
+> -} call_data;
+> +    cpumask_t selected __cacheline_aligned;
+> +};
+> +
+> +DEFINE_PER_CPU(struct call_data_struct, call_data);
+> +static cpumask_t tasks;
 
- From what I can see, the current wait == 0 behaviour only exists as a
-limitation of the implementation: The local CPU needs to wait for all
-the remote CPUs to have read "func" and "info" before dropping the lock
-to avoid a race condition.
+Only first pass feedback for now (I still need to go over all of this more
+thoroughly).
 
-With that limitation removed, I don't see a valid reason to maintain
-this beahviour as an option, though I could be convinced otherwise.
+Having cpumask_t variables anywhere (not just on the stack, where they're
+particularly problematic) isn't very nice. Can this become cpumask_var_t?
+(We really also need to deal with the one in smp_call_function(), for
+example.)
 
-> 
-> As to the semantic change, peeking at patch 2 I don't see you discussing
-> the safety of doing so for the several other callers that also pass 0
-> right now.
-> 
+> @@ -50,55 +52,84 @@ void on_selected_cpus(
+>      void *info,
+>      int wait)
+>  {
+> +    struct call_data_struct *data;
+> +    unsigned int cpu = smp_processor_id();
+> +
+>      ASSERT(local_irq_is_enabled());
+>      ASSERT(cpumask_subset(selected, &cpu_online_map));
+>  
+> -    spin_lock(&call_lock);
+> +    if ( cpumask_empty(selected) )
+> +        return;
+> +
+> +    data = &this_cpu(call_data);
+>  
+> -    cpumask_copy(&call_data.selected, selected);
+> +    if ( !data->wait )
+> +    {
+> +        /* Wait for any previous async call to complete */
+> +        while ( !cpumask_empty(&data->selected) )
+> +            cpu_relax();
+> +
+> +        cpumask_clear_cpu(cpu, &tasks);
 
-I did audit the other callers (including via smp_call_function() and
-on_each_cpu()) and I believe they are all fine as is.
-I can update the commit message to say something along these lines.
+Since you set this bit again almost immediately, the above can only be to
+make sure that ...
 
-Ross
+> +    }
+>  
+> -    if ( cpumask_empty(&call_data.selected) )
+> -        goto out;
+> +    data->func = func;
+> +    data->info = info;
+> +    data->wait = wait;
+
+... these updates and ...
+
+> -    call_data.func = func;
+> -    call_data.info = info;
+> -    call_data.wait = wait;
+> +    smp_wmb();
+>  
+> -    smp_send_call_function_mask(&call_data.selected);
+> +    cpumask_copy(&data->selected, selected);
+
+... and this copying happen with the bit clear. Don't you need another
+barrier then, though (between cpumask_clear_cpu() and the writes)?
+
+Further isn't the barrier you add coming too early? While the bit in
+tasks is clear, nobody's going to look at ->selected. Doesn't the
+barrier need to live here, to isolate from ...
+
+> -    while ( !cpumask_empty(&call_data.selected) )
+> -        cpu_relax();
+> +    cpumask_set_cpu(cpu, &tasks);
+
+... this?
+
+> -out:
+> -    spin_unlock(&call_lock);
+> +    smp_send_call_function_mask(&data->selected);
+> +
+> +    if ( wait )
+> +    {
+> +        while ( !cpumask_empty(&data->selected) )
+> +            cpu_relax();
+> +
+> +        cpumask_clear_cpu(cpu, &tasks);
+> +    }
+>  }
+>  
+>  void smp_call_function_interrupt(void)
+>  {
+> -    void (*func)(void *info) = call_data.func;
+> -    void *info = call_data.info;
+>      unsigned int cpu = smp_processor_id();
+> -
+> -    if ( !cpumask_test_cpu(cpu, &call_data.selected) )
+> -        return;
+> +    unsigned int i;
+> +    struct call_data_struct *data;
+> +    void (*func)(void *info);
+> +    void *info;
+
+Please move into the loop's scope whatever can be moved there.
+
+>      irq_enter();
+>  
+> -    if ( unlikely(!func) )
+> -    {
+> -        cpumask_clear_cpu(cpu, &call_data.selected);
+> -    }
+> -    else if ( call_data.wait )
+> -    {
+> -        (*func)(info);
+> -        smp_mb();
+> -        cpumask_clear_cpu(cpu, &call_data.selected);
+> -    }
+> -    else
+> +    for_each_cpu ( i, &tasks )
+>      {
+> -        smp_mb();
+> -        cpumask_clear_cpu(cpu, &call_data.selected);
+> -        (*func)(info);
+> +        data = &per_cpu(call_data, i);
+> +
+> +        if ( !cpumask_test_cpu(cpu, &data->selected) )
+> +            continue;
+> +
+> +        smp_rmb();
+
+This barrier looks as if it also needs to move (up).
+
+Jan
+
+> +        func = data->func;
+> +        info = data->info;
+> +
+> +        if ( unlikely(!func) )
+> +        {
+> +            cpumask_clear_cpu(cpu, &data->selected);
+> +        }
+> +        else if ( data->wait )
+> +        {
+> +            (*func)(info);
+> +            smp_mb();
+> +            cpumask_clear_cpu(cpu, &data->selected);
+> +        }
+> +        else
+> +        {
+> +            smp_mb();
+> +            cpumask_clear_cpu(cpu, &data->selected);
+> +            (*func)(info);
+> +        }
+>      }
+>  
+>      irq_exit();
+
 
