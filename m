@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +NW7JeJS1mm8DQgAu9opvQ
+	id cN89E+1T1mm8DQgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 15:06:42 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 15:11:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8A583BC8EA
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 15:06:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1276054.1561676 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF2773BC9CD
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 15:11:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1276098.1561702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wASbg-0006CU-Hx; Wed, 08 Apr 2026 13:06:08 +0000
+	id 1wASgK-0000e0-J8; Wed, 08 Apr 2026 13:10:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1276054.1561676; Wed, 08 Apr 2026 13:06:08 +0000
+Received: by outflank-mailman (output) from mailman id 1276098.1561702; Wed, 08 Apr 2026 13:10:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wASbg-0006AE-FI; Wed, 08 Apr 2026 13:06:08 +0000
-Received: by outflank-mailman (input) for mailman id 1276054;
- Wed, 08 Apr 2026 13:06:06 +0000
+	id 1wASgK-0000ax-Fj; Wed, 08 Apr 2026 13:10:56 +0000
+Received: by outflank-mailman (input) for mailman id 1276098;
+ Wed, 08 Apr 2026 13:10:55 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wASbe-0006A8-Jj
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 13:06:06 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wASgJ-0000ak-HB
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 13:10:55 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wASbd-0022Ft-L4
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 15:06:05 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wASgI-005LQL-TP
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 15:10:54 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69d652b4-2eae-0a2a0a5409dd-0a2a45089810-40
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 15:06:05 +0200
-Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69d653c9-bab6-0a2a0a5309dd-0a2a4505adcc-34
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 15:10:54 +0200
+Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69d652bc-fab6-0a2a45080019-d1558035e9db-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 15:06:05 +0200
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-488a29e6110so43851465e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 06:06:05 -0700 (PDT)
+ id 69d653de-3760-0a2a45050019-d155802db8a5-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 15:10:54 +0200
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-488a88aeec9so50971605e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 06:10:54 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488a3d6944bsm354821005e9.11.2026.04.08.06.06.03
+ ffacd0b85a97d-43d1e4d282esm58133102f8f.18.2026.04.08.06.10.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Apr 2026 06:06:03 -0700 (PDT)
+ Wed, 08 Apr 2026 06:10:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,62 +56,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Content-Language:Cc:To:Subject:From:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775653564; x=1776258364; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OnD147fsXayD4z4+xk5Eo9TO2Q3YPYXOTJ17GarW4qE=;
-        b=T4nkiMr4dvn67/pbp7IBryxC/ZO1egg3v52w1FMlf6QCMoAOjKSlxY+61YSzK0iT75
-         TEYy60XgtXKgHvKYnPeOrPzrfUmQ1XxEDpCSxRgnfebMXU9xRg3/v5a0+cgeW1dnZMnA
-         /xUXkunpgocSHaBc0NiKtRLLDpTYpHLabmnlIO80Om7tEpiMbNPx2FR08UTTyDn3lsY2
-         ne9bv6q5ehukWjcdrVtdvSvimDgzabCuC6yMws7RRZlPpK7eEbxgVMPhBydNGzMniOXs
-         48WZkpzoHw6aI4bQeKVkTM/7z6XW4bgSQPSkfMx9OjqSEQos7tE5SK2QJZDcqODEORy+
-         S74A==
+        d=suse.com; s=google; t=1775653854; x=1776258654; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=/EqXdAz4Z1r0fJ2IUFEFv5ntaUz0uYkqQDuLdrMcrSo=;
+        b=JL7J3StYdYbIZakCkXbksjnuCN5Do61v+51QhURC23iW6R6Smz4tk0LM/TNG+DULmb
+         m1DmfMCR3Czydd0bRW/XD8JcYkCglMZJ5iBI972yU0x2le/Au+ezE/Isozyw00Vu0hu7
+         sOQT46GZmU9zorPiqf8pSkL/ewcZ+nFTNbP+3KjD8nxVN1GBJSec0T8N0uoESqC+6pUg
+         HVeaWtY/9qfpIeWDN5F8LILr+7zyM5k5NP1qCkKoqMOfRC622yISfe4tlb5kRgGmFXk7
+         SV1XtrKW7KTqxomiHfh1XQJhBz4+m4cj3I+SICV4wpuUPN0So5IXLDrYavh1oy4CJZsn
+         ZTSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775653564; x=1776258364;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OnD147fsXayD4z4+xk5Eo9TO2Q3YPYXOTJ17GarW4qE=;
-        b=iHUfPEpNK9xhn2AsYzE7HgdJ3aGbVojeJA9/ySNtecTojzdW14hXpQH9udwGAUExg5
-         2Tx9ZyaVusQ8h7ZZIKA7UE4cMLbaPe5eMC/QLyfs6WLaQsK12XCjPwgzFBM+jaiIL8Ld
-         C6MIBcPUnrZG6TRIdoqFaCA9h6tbqba7Dan/a0N36r9wD98cWgB/d9v+esSmUsLpWUbg
-         DWEiFzwXzVkmtknhLanPxI9QV9gvT+vC614xIEJxJ6F1f1WVhkEhxUOSGl0hQn7HLOom
-         0v2K4paOKd2+HGawIzlRk3m7F9xcXaNjXTUjYUQnS7awgQ6P17sjb0w8wmeyI0H4dqGE
-         jErQ==
-X-Forwarded-Encrypted: i=1; AJvYcCW3OJWQhEsVWFAB1CUNiQbIrhRqI564an8UoZlbeNY2Tw9rbXwnhbmRuV1rMNMv1BmjNONoLuxMgjg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx+gzLJMbCJu0ZIx33+BhDf1Oo45UXWVSemp7ZQAPQaE6RhalzF
-	PVAd2bJHRLheKg27e5vaPRDeg6YezxJ49awpOInJr+3UhA9sJF8kWrUONwyr8y9bkg==
-X-Gm-Gg: AeBDieuHB6Rw6f4x8bNyev2+hz2oC/xr3d2gjRKwjWJLyGJlh9mWtq+44e+eo0mdbKA
-	/6D9uKJnyxnFN7z8Q4/CPhswgEJdI3L11vqrZhTIZW/k7jZCduvwOjYNZlTaOYu9Tjr3tCogXS4
-	1AiRhCyHkESHAjg4eaDTBOF3IyI3IipbFyUmVPk+Of3aucH51Y/Y6zQskTA46yCpcjpff6wv0D1
-	vEzUN4ErgGgT2booxfF8VGvIJKbgTczKJPfnCjaSENlDk29yZBqfJjSOTf9iSdC7qefdL26vUxE
-	aYgjLg+fIU4lksMQnn/c9eFh8OV+BC8gJbV4bzxjl3VZfUlbEsjLx6CYaGKKYTYMl3aLl1Hx3Xb
-	gpye9Slze2S/mF3p5JkVLWWankmqHpwempfUvn8UAg5fsGub6dizKPyvoS1jPlPCrhkTOofnwfy
-	CKrLk+9OWT2cC7f69A/79x8THGVkQKkaeDfjcxpCJCfjoGEzGRDeJ+XkQ2Euw4LVMuA0zLLbmzZ
-	Dmyf8tw/tyQ+Is=
-X-Received: by 2002:a05:600d:1b:b0:488:b8bc:6a32 with SMTP id 5b1f17b1804b1-488b8bc6cc9mr100600785e9.23.1775653564412;
-        Wed, 08 Apr 2026 06:06:04 -0700 (PDT)
-Message-ID: <d53d2b06-56d7-43bc-bb20-4df7b7bc3ca5@suse.com>
-Date: Wed, 8 Apr 2026 15:06:02 +0200
+        d=1e100.net; s=20251104; t=1775653854; x=1776258654;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=/EqXdAz4Z1r0fJ2IUFEFv5ntaUz0uYkqQDuLdrMcrSo=;
+        b=M8FEP12JS6ovDdah5bkYZHk2jP4beC86RgmFsF/y3Vz9IbPYh6JulZQwXTDNQbfs0I
+         5Sl4/nffvHRqvCoAsQC9e1s3QxMy9ff8VoNZSkhVOQOFglnyp9hMXfRESnZQpBUaZb4M
+         r6hKHVNYLc5MQDosFkyBrXTwxWcNg96gwaD8rjoedWicc2KKvWPkWZa8/a1m7LzLZ0i4
+         2WeIj1Yrsle3Ctn1Ue25SGibc63Wfsy8NpJLF2CnEjoWrksGh5ZzSgyzD0++j8azlehP
+         3tz1+iBkYnhdoZZRlmib7eORQmDupU3alrHUICJkvn6DbzNosKtmANI/im6XhSWR3Suv
+         MenQ==
+X-Gm-Message-State: AOJu0Yy4nPU0iJyvlk7zyiJnEOZRsmi11f79lKJZFERGNO7hPFECt5ih
+	fhj4wBEnpBPYJ5mXLY7evINIpzaZZsaDPfMYK6F5XkRXnTOLqMdDf0xq/BQfnxqcHA==
+X-Gm-Gg: AeBDieu92FE/GCoO0LRyRYMOTvSveini+/0MD3M+0EJboxUcu7yIA/AFpK4CsD4oY48
+	F3UU0jNiDKhrIPXfrQOzvHHACOaE8Ndf3HsywhXnb6qFIb8QlvqXwL/Bghxxm4z4ooItuTbMspA
+	wISA40ZA71Xw8MjAdE0Odv06XZfqD4PABxyUcVrmmrmiYHUlhPtfY2X6Iu/eaIhFL9KQ2SC+uMR
+	aUoVm2JWxlnZiAgCjrjOFomh+U8e/ajpbkOhINbbP/e4pATgebUAxhwJcsAJYtMBGBrqmJOfus6
+	Fao78rm91Xzlb7ffhN9QGgJ8saAxARaApY1czVXjHF5La2F0PS91COnf5afyjgAjBHE9uhycCEJ
+	P3nfwIaz+bQ0SP8H/PJ6AXH4byrgOI6/xtfUm63zfajBIO5YjS0f2vlMWrhCGIvggAc+PwrJf7a
+	uGMHIUJjYN0HrxPonK8yRUGWKPI3vEGAAOKloritzW2eLldjr2UFJlmfPCs07ZIsSTddl/3TPTx
+	Kvmj6UXqn54sKeXlu6va0ujDA==
+X-Received: by 2002:a05:600c:4593:b0:485:33ad:3c9f with SMTP id 5b1f17b1804b1-488997de1c6mr325627405e9.25.1775653854286;
+        Wed, 08 Apr 2026 06:10:54 -0700 (PDT)
+Message-ID: <13f9a1c9-5722-44cc-b044-6bdbc7e845a9@suse.com>
+Date: Wed, 8 Apr 2026 15:10:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/domain: make shutdown state explicit
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Tim Deegan <tim@xen.org>,
- Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <gwd@xenproject.org>, xen-devel@lists.xenproject.org
-References: <e9c45be41bb36ca341dad57196c753fbe82d1526.1774998397.git.mykola_kvach@epam.com>
-Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
+Subject: Xen 4.21.1 released
+To: xen-announce@lists.xenproject.org
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -135,141 +125,58 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e9c45be41bb36ca341dad57196c753fbe82d1526.1774998397.git.mykola_kvach@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c1860d/1775653565-7654F497-8EF1F296/0/0
+X-purgate-ID: tlsNG-c201ff/1775653854-2233C96F-1AF07233/0/0
 X-purgate-type: clean
-X-purgate-size: 3942
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-purgate-size: 449
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:mykola_kvach@epam.com,m:paul@xen.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:tim@xen.org,m:dfaggioli@suse.com,m:jgross@suse.com,m:gwd@xenproject.org,m:xen-devel@lists.xenproject.org,m:xakepamatop@gmail.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:xen-announce@lists.xenproject.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,xenproject.org:url];
+	RCPT_COUNT_TWO(0.00)[2];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: D8A583BC8EA
+X-Rspamd-Queue-Id: EF2773BC9CD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 01.04.2026 08:41, Mykola Kvach wrote:
-> From: Mykola Kvach <mykola_kvach@epam.com>
-> 
-> The shutdown flow currently overloads is_shutting_down and
-> is_shut_down to represent multiple phases of the shutdown lifecycle.
-> Some users treat is_shutting_down narrowly as "shutdown still needs to
-> be driven to completion", while others rely on it more broadly as
-> "the domain is no longer in its normal running state".
-> 
-> Make the lifecycle explicit by introducing enum
-> domain_shutdown_state and helper predicates whose names match their
-> semantics: domain_shutting_down() for the transient phase,
-> domain_shutdown_completed() for the final state, and
-> domain_in_shutdown_state() for checks that need the union of both.
-> 
-> The conversion is intentionally not mechanical. The old flags were not
-> mutually exclusive: once a domain became fully shut down,
-> is_shutting_down remained set. As a result, sites that previously
-> used the absence of is_shutting_down to exclude both the transient and
-> completed states now use domain_in_shutdown_state(), sites that care
-> specifically about the final state use domain_shutdown_completed(),
-> and only paths that still have work to do before shutdown finalization
-> use domain_shutting_down().
+All,
 
-In how far is the distinction between domain_shutting_down() and
-domain_in_shutdown_state() really necessary? What you describe above
-still leaves me pretty clueless as to almost(?) all of the uses of the
-latter (where I think the former could be used just as well). Many
-paths simply can't be taken anymore for a fully shut down domain, so
-the distinction between the two is moot there.
+we're pleased to announce the release of another bug fixing Xen version. (A
+little late, sorry.)
 
-I'm also concerned of the name domain_in_shutdown_state() itself. To
-me this is far closer to domain_shutdown_completed() than to the union
-of both states. See how e.g. x86 CPUs can be "in shutdown state", i.e.
-not responding to anything but a reset or init signal.
+Xen 4.21.1 is available from its git repository
+http://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=refs/heads/stable-4.21
+(tag RELEASE-4.21.1) or from the XenProject download page
+https://xenproject.org/resources/downloads/.
 
-IOW an entirely mechanical replacement might in fact be easier to look
-at. And in the one rare case where the distinction might indeed be
-relevant, "domain_shutting_down() || domain_shutdown_completed()" could
-be used.
+We recommend all users of the 4.21 stable series to update to this first
+point release.
 
-> @@ -1423,9 +1423,12 @@ int domain_shutdown(struct domain *d, u8 reason)
->      return 0;
->  }
->  
-> -void domain_resume(struct domain *d)
-> +int domain_resume(struct domain *d)
->  {
->      struct vcpu *v;
-> +    enum domain_shutdown_state shutdown_state;
-> +    unsigned int shutdown_code;
-> +    int rc = 0;
->  
->      /*
->       * Some code paths assume that shutdown status does not get reset under
-> @@ -1435,10 +1438,18 @@ void domain_resume(struct domain *d)
->  
->      spin_lock(&d->shutdown_lock);
->  
-> -    d->is_shutting_down = d->is_shut_down = 0;
-> +    shutdown_state = d->shutdown_state;
-> +    shutdown_code = d->shutdown_code;
-> +
-> +    if ( !domain_shutdown_completed(d) )
-> +    {
-> +        rc = -EINVAL;
-> +        goto out_unlock;
-> +    }
-
-I can't help the impression that you're mixing two things here - adjustment
-to how shutdown state is tracked, and enforcement of completed shutdown
-right here. This separate change likely would better be split out, and then
-come with a description saying not only what is being changed, but also why,
-and why the change is correct for both call sites.
-
-> @@ -1448,9 +1459,17 @@ void domain_resume(struct domain *d)
->          v->paused_for_shutdown = 0;
->      }
->  
-> + out_unlock:
->      spin_unlock(&d->shutdown_lock);
->  
->      domain_unpause(d);
-> +
-> +    if ( rc )
-> +        dprintk(XENLOG_WARNING,
-> +                "%pd: Invalid domain state for resume: shutdown_state=%u, shutdown_code=%u\n",
-> +                d, shutdown_state, shutdown_code);
-
-The shutdown code doesn't affect whether the function would fail. The extra
-variable just to log it anyway is therefore a little irritating. Is there
-any reason to this that I'm overlooking?
-
-Jan
+Regards, Jan
 
