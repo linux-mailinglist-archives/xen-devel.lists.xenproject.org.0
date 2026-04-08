@@ -2,51 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8CqGGEBI1mkFCwgAu9opvQ
+	id C2QELJhI1mkFDQgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:21:20 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:22:48 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFA723BBEA8
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:21:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1275942.1561597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A1E63BBF11
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:22:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1275949.1561607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wARu9-0004Bh-JP; Wed, 08 Apr 2026 12:21:09 +0000
+	id 1wARvX-0004f2-W9; Wed, 08 Apr 2026 12:22:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1275942.1561597; Wed, 08 Apr 2026 12:21:09 +0000
+Received: by outflank-mailman (output) from mailman id 1275949.1561607; Wed, 08 Apr 2026 12:22:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wARu9-00049U-GV; Wed, 08 Apr 2026 12:21:09 +0000
-Received: by outflank-mailman (input) for mailman id 1275942;
- Wed, 08 Apr 2026 12:21:08 +0000
+	id 1wARvX-0004c1-Sp; Wed, 08 Apr 2026 12:22:35 +0000
+Received: by outflank-mailman (input) for mailman id 1275949;
+ Wed, 08 Apr 2026 12:22:34 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Mykyta_Poturai@epam.com>) id 1wARu8-00049O-00
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 12:21:08 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wARvW-0004bv-Hv
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 12:22:34 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wARu7-007lZR-C7
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 14:21:07 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wARvV-008ck7-GF
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 14:22:33 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Mykyta_Poturai@epam.com>)
- id 69d64832-e002-0a2a0a5209dd-0a2a450be216-6
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:21:07 +0200
-Received: from [52.101.84.101]
- (helo=DB3PR0202CU003.outbound.protection.outlook.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <Mykyta_Poturai@epam.com>)
- id 69d64832-bca8-0a2a450b0019-34655465c2f5-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:21:07 +0200
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- (2603:10a6:102:30d::12) by DB9PR03MB7691.eurprd03.prod.outlook.com
- (2603:10a6:10:2c7::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.41; Wed, 8 Apr
- 2026 12:21:04 +0000
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::b8c6:f37a:987a:beb]) by PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::b8c6:f37a:987a:beb%5]) with mapi id 15.20.9769.016; Wed, 8 Apr 2026
- 12:21:04 +0000
+ (envelope-from <jbeulich@suse.com>)
+ id 69d64879-2eae-0a2a0a5409dd-0a2a450ab392-28
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:22:33 +0200
+Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <jbeulich@suse.com>)
+ id 69d64889-ee98-0a2a450a0019-d155802ead89-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:22:33 +0200
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-488a041eae5so32881585e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 05:22:33 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488a952a03asm306545885e9.0.2026.04.08.05.22.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 08 Apr 2026 05:22:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,180 +56,347 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=otrIIgmav8Z+OnqSmKw0+XsOrCFgfeJ2bmAUq3cQhvP+Wvi5ypzAGrfwG7bAnvWEkf18pOR/L8bqftVBZdmMdXhmy7089X4bPhjIZAECZKrUMNtkXm+BPTgKUCVZKUqTh52EPkwHN0j5xlCyAn0bQ14LEHJ/LkZciqPedqxfABUvVPFqo8P3+xuNxBvD/O9gcbslRyP0F7ZoZ5u+BPTG+4Qg397O+B9rkXZksyWSIGOVzq+PgpmQ92SaAHPklZWCu6bhQXQ6pAOo5VP6NRLg/o5odtrz/5RwlB+ZTNUjF4yey3B3fuctB6jBQmLKpPpkM+Treusl7inw2Oq8ihoy3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6ycUemd65Zi6yMgxClzlDFk4gfLidocGUJuNo4LCHZY=;
- b=QKKQ2jozvKvtg0qLweLLE8dxOWB8cOrDc+Y3Iv/j334jj0sI8UKKNxUcHWUT7H9yMAIVOhhSc1AiMdtEewByMB5ZPFI74wvBUdkGX5zYMS9S8ymm7hEYRjtgako70r8VTXlV2E7MOTMaI1odNOlPb4zAUDxMo29YoMKv/5aWuuzBqdqkQnk/MQTcFYLbwK/3L2r0/ArXClIolu41ovG0/osBtEwZ9oGm6pBvbKzA7/hafG2zWsThNz/zeqqNhObKMx7Af8vXIqlYHy0pjZglqK0bIwCSTMigqqWwPbNwFbmBef9n/182dETnuPcgS8wQuS9fQjA31JlIwLZVnOPh6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6ycUemd65Zi6yMgxClzlDFk4gfLidocGUJuNo4LCHZY=;
- b=cGAGSKnNu6Ps44uK+qEck/6WD8IX9APr9sI3aper29eoDfd4SzKNhbMERmz429gXmeFQso4wCKiGDvyXUj5OzjDttZbZtrMqs/Q+b2i0EydmJeAOHXHmCnsXJqILISTG01y7+KxG97GGeo74c9HlCroNszZRDdFKe/riMm4PWzQU6t0brCaYUMf7pP5BN4BKP1tm+AnN9EIbBwQJf+SrPcm17YTpmxFCkRFX7rzcPwYiIlY8B9iwx71bV86/IARF94EJmn/bBUB4lPWJYJHEuiSl2JC/0oxPicXChL7OnrsDYKKpzFaez6o+TWk6PLP0CuD8vctNczP6+QHjlLriDg==
-From: Mykyta Poturai <Mykyta_Poturai@epam.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, Julien
- Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v7 3/6] Kconfig: Make cpu hotplug configurable
-Thread-Topic: [PATCH v7 3/6] Kconfig: Make cpu hotplug configurable
-Thread-Index: AQHcwDy29LsBHsG5wEG6AuodBSMA4bXG/lkAgA4lgoA=
-Date: Wed, 8 Apr 2026 12:21:04 +0000
-Message-ID: <00a42bdd-8d9b-4828-b789-8d6163c0314c@epam.com>
-References: <cover.1774871881.git.mykyta_poturai@epam.com>
- <f3c523ef5b94e930902016d69b440032c9e6c3bd.1774871881.git.mykyta_poturai@epam.com>
- <e37330f7-96ca-41a9-81b1-14d7f3947dd6@suse.com>
-In-Reply-To: <e37330f7-96ca-41a9-81b1-14d7f3947dd6@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|DB9PR03MB7691:EE_
-x-ms-office365-filtering-correlation-id: b14affa4-959f-417b-d08f-08de95694df7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|366016|1800799024|22082099003|18002099003|56012099003|38070700021;
-x-microsoft-antispam-message-info:
- AO8hzjFc6HePs6O2qxXnNLHMh3X/mvvCwnBFqJElrSamNhc1eZOiKDiRgcNGkFBBoKTlicEuozkTBs7p4MhiUHe9ltEA8OLRsViTYQM9ZytTXjO2mZYQb/HT11zgIt8d4G2oCzWCPjPMTS96+RxH6JobYkv4UZ+Pr3LJD75OGiL7GfjjLiid0zBCu7hzgnqsQrk2D3t51xzox4ByYVs06VClHXSOpwsra0y6YcP73YU1d3FqF4UtXBZLW94nl81dyFbt3gubWwUnjV9g/J8FGlUYlrYytC+5InRxA8xGTADWoiRAFSltCz0z1CU8LD+v4/pEEMWWhG63For8cOBdDxnDeqrTrZObNNng5KBC6pzVqlESEayJx5ju0KjdKiTtuOY04YWXrk6XUsGsyXHEnN4u1QX4QZRhoNCCWLRAfq6nNVVjRznovoeTmhBRLJq1Wax3KneVPNpzu4402zYtO2DYSeh9H/gAraxXwAIVDzusfdbKU7KzGCNZMTxF/aGsYT+pqGc0xGr6B6ZRGbCP5itR9qDT2UwZEGiB+YriK060hm0kLUDkFj3e89pxTBg3SFNpWdYR+UXiGY+PHfoL8zhUV8H9yd0f7UpWWyKSVcWibeo93oh2FbaornX9yUGiVTh5o39X/lh8eAlhDY55bLCijoiowmmzxdF3qPUqZvyNVYR9lv0bQoLqmcpekicls/Za5EUrdrjpSzJj2CuXAwOJ5TYHjnF0lnjBeOCFsi5EipsPIeyjTRqSXoBp7z/bemfNWL+OkO8IdA5rAufIwDr8Yd6beyzMsfA3iqXUVfc=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?d0k3MkpERDBLcDBiM1VVVkZHRTR6eTFuQVRMN29QV0VBaEhFTFBHeFFuNlBG?=
- =?utf-8?B?K0pPaTREMmhRdnVXbkxQeVZ4eVhQTFdFYzVhNTFmaWJOTGUxZHovd0ZyYXVa?=
- =?utf-8?B?Z1Y5N3NyM1VBcThMTUcyV0IxZUcwSlN1a29Sdkd3LzhWRzFLSmkyQXQ3dSta?=
- =?utf-8?B?MFV4SzI5UWx5MXY2R1NMQVBaOFNLK0NUb3l5ZDJ4RzhCMzYrakdDTmtCUzQ4?=
- =?utf-8?B?a0dNQm1QTWJLU2ZWY0hLVEdqQkJNaFU2SVNSVTM4dVgwandEUVpld1pNWm94?=
- =?utf-8?B?OUovRlRIdnpiT3ZycGNKdFdFTi9wa25mMlgrbjRqdkZmNW85d0E2SlVxeVIv?=
- =?utf-8?B?QktTT3NUQ1EwSzhaazJNUURjc2ZFNnljaE5zcVJUZXZaVFlKNnFjdzYrZmpP?=
- =?utf-8?B?YXU1SEhZdEVGTW8rbFdYUmJ2MkVkV0l1QXJGUys0elVtVjNiRTJhZjNPVXNn?=
- =?utf-8?B?a3VxcHMvRUxTSStwZWNkWUQyUjZhYkwvV0ZTc3g5VTlTVFRMTzVSdCt5enlq?=
- =?utf-8?B?RU01dHd2Sjk3eDJDVDVSd3FNdGFjank2Z0s2L0xBd0l0Z0srOFNtZGZmN3VE?=
- =?utf-8?B?ZkNlWVhPQW1PRW9VVTVTWTJUUGN2S0tmemgyQkhONXkrSFBZaUNjNDNSRXpT?=
- =?utf-8?B?NnZ2aU1kZ0Z1MUtiS2hMN28yMUwzR1EyajJZOTM1T2VHK2loRzJ6VE1RMmp0?=
- =?utf-8?B?N0tMME1Eb0FwVUZHM003Q1JHMk5UbW5EWjZBUUpYLzZmT2svZHJiMHZHcVV4?=
- =?utf-8?B?N2NEbnlpL0hrZEI4QXZuT2tXU0MvbHBNRmh4SVhwUUV2eE96a3R6L0F6S092?=
- =?utf-8?B?UVpJWm5rNDMzMENOZ1llT1M4bXBWL2pENWxKU3NDcTJlOFo1SUZrVW9LSnNL?=
- =?utf-8?B?UkdEbVVTb1FhWVZlNnZiZis0aG45MTg3MkR5NXdOKzU3Z1lJbk1CRVVFTU5k?=
- =?utf-8?B?UlhqamVnWEdNS1NEYjZFWUpacGNQRkZRUVZOcnM1RGMwWDE5S2V2ZWpwY3Rs?=
- =?utf-8?B?VjlVbUJmR2VybVB3cjFURmhmUUVtdFNaMmVQam85aEtpSEZoM2dSeEFab3o4?=
- =?utf-8?B?RzgrQndqTFhER0MzYTVITUZQT1Q3RE4zN2RHSzdzZUxEbkNSMFl3M3Fsd0xz?=
- =?utf-8?B?T1M2R3hqNDc4ZFJkUVRMMCtGZjhsUEkwL1hneitvUlh3T01oSW0rd1pwdVRS?=
- =?utf-8?B?R0pzYlpwVjRCV0xVRE5wbEpLUlF5WHoyN05pRXVGSnBPMHo5ZXA3K0dDc29V?=
- =?utf-8?B?d1RIMDVEYkxoc1BjaXNTYlNYUytqYUJxQ2xKYi92UUhFYXhHL3FQb2d1VG9B?=
- =?utf-8?B?eGREZGpyRmhjdGdqUDY3ME9wd0IwZ1hqOS8rK1BTd0NSK0p0c0dzajNUZ1Mx?=
- =?utf-8?B?dkJNTU1DUEhtMUl6NXhrN0l6dDg1by92OEVoOHpMUUhHYnkyeU5rdmc2c0VS?=
- =?utf-8?B?QktaejNNZmVsOXZwdGliQUorZDNEaUVya1lXbXRueEJ2dWlzSmo0b1p0bGJE?=
- =?utf-8?B?UTIxSDNQTko3VGRWZGpmTW9QaHpjT2U5SXhiVEVYTjEwTFI2T0VUUWxHR0lD?=
- =?utf-8?B?VXhmdzlEbXQzNFJtaUMvdmx0RGw3QWtrRm9lYnhCRkxvUVlOdU1GeUtqUnh1?=
- =?utf-8?B?NS9uTG9BK0EwbFhSL2JFR2VBQy82NDlMSlh0NWxTbEUzNkhCZ05xckUxSjNZ?=
- =?utf-8?B?VVdqeTRKVmZwcTZkUEQ5dml2VnRVM1NaeHZrMld5amJEVDU4dW9Cc2xkTmdl?=
- =?utf-8?B?YjU1TVhscklBaDJlUHhsQmFKOFdsTko4czhMbHV3L0ZQOEpFdStjOWZ0WnRV?=
- =?utf-8?B?NEhKOG41TVJBZGtWbFVTMFRINzRRK3M3K1ZZd0NnRHdRMEM3WHUva1J4L1ZF?=
- =?utf-8?B?bjlWZ1RLVHpZSGJONVg0TkxKN1JNWFpaWTU4YnRFVE9oekwwZmR6R3FoeGxv?=
- =?utf-8?B?cXBvajhCZldSTGgrYjhIUTFOWFA2MzRaZWVMZEtPa3J4c2owZmoya2lGUkk2?=
- =?utf-8?B?MVNoY3VCd1RiTjRyOVJ3U016dzJNVm1yaFBCZ2FuOThkWDhmOGtmNlZYM3Jo?=
- =?utf-8?B?aHh0OGNDVzRpUEFFNzVtZUVTWWExbUtRS1h1bXNKQXRtNW50RVVLR3lZMWM4?=
- =?utf-8?B?d1dDU2x6d0xYeUlid2t6VW1NMkE5dDNkaDQyZXJETU9RSUJvdXhpdUR2cjVi?=
- =?utf-8?B?ME9iazA4eWdEUStQVllYeEhNYXJwbG1FT0ZRUDk4LzZGcjlJSW9JUGdEMEw3?=
- =?utf-8?B?S2dpYkR1ZWowcHFIdWFCTmNBMksxdTZuTlROS1BqN1dteGNZeHl3dTZBU0JY?=
- =?utf-8?B?aXRHRHBndnV2K0tpR1YraFBTUGxyKzQ0Q1dYQ01OODdUWDhiRUlPQllsYlBu?=
- =?utf-8?Q?XAyZljcCGCbZK/MA=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <2011F7FF645A5B419B72B0067B288B90@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1775650953; x=1776255753; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=VKAaggtmontqKYJrxM1/7VOgp7GYQIjiE3kyRKWFHUo=;
+        b=IWQO+QGn+b/IPP5ChoSKSodFtg/++sQUfe00LdJe/uErJUf2uNSYJw9PV1K+nSkN2F
+         Su+/MARSy+OOuY8IC3pVNq7WMULZTnlIHzApQ+Yz9iyFB9SgLZSmRGQYVxiNxlqp6NzM
+         k1GoH1yenIiXy1HpaoOmiZIB1zkM34vKq5EaKPl0aKHJ9udqicWO+xFl4DSvgN+Inwui
+         q/SE3BndR1WM7nP6jNEKT4ClxW5ndFq3K50qlTuz98FgvVRXQEAbyPsD9EGZf+MR+Giz
+         KWiKsjvEw8NlRFn+Da7ZgCFsLnkzkm4qtfFoUS97x35irM8LIij9QfmjAPwmNz2todY3
+         fFtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775650953; x=1776255753;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VKAaggtmontqKYJrxM1/7VOgp7GYQIjiE3kyRKWFHUo=;
+        b=lo6xk5nQZ84T5l5iCPMNnMlAgRV8Ay83usHOr1HeufD3L4D1F/4xhOEeYDAHoC4AB5
+         ANYnhj1jFe3DMiMCXJwbHMcRIXtiFWdjPyHGYG4Bpwx1VpTf4jZU1AYIrIbxvkMJEK1V
+         Q6FvpkRN4cKqY+2WyOFwZ8QueCrB+Qw67ADeBDMziI09Z+TD7gVIXTirif5GgIDbBCMa
+         8gu/A3I1300vYmCBv7CftBxSZZSOLFQVUVArQ+SiVDqGLDq3+YPIJxNpw9gkoJDVAdi9
+         YwlydVMcaIhDJgj0phEqNH3rdVnFXa2FTMWjvIH3xqJzzEVzC6no9pwr2+IpjNtmzFSZ
+         gs+Q==
+X-Gm-Message-State: AOJu0Yz0cqNQway1JV0pGaIbqIzz152j2dqIS7qL8mU2+T7RruB3bKwm
+	00Wn54XcqIQ9d2NRW2ozr7lLGPa9nGHSC4lVpiycaIVlHW/Vf0DJ/gu6SajYmfqMf+RJjvpGihR
+	ZI9Lt8w==
+X-Gm-Gg: AeBDietWlk9cQqDMZFBXNMwbj3jCDpZA8sewWkQDMV2UdOYyPFSs7eTvi1PCUqnFL+g
+	mf12awkGmBGlhiFO/ZDlK3qp46LMgQR2O1Nx0ZqHdMboiGUEq3Eht+liG4lJZpuZtp4d/czu/gT
+	+cuLz4IgDMVYOVlVqTuvAnRAAxDujZuR7K9PNSozToOPF7aovLgDPdQC8RJi1BAD1VIvxMUNQ2c
+	smIrutaBd78LY9vmEKjycVzZ0L283Z7gXzcGdsa0cprrkPvQSAbHsbWcLUBOx8iPsWemisWNpM/
+	CDMXkH1OxBHjNoDdnBODEpLF9byToXKpKdzcS5+8yPAvBlPu5iZ9DeuPsffSajvaLZJCfYJimn9
+	J5odBsRqiHNDDkVw1Jy5kKg+8svwsrokJ3Fdr9jTw31FtAkFJ1qDv2nsvGq9CSNUhd34QJMTq/d
+	/fKWOlP9nGtrcGJs+vFyoGi5Rvz9Y8NTpYS85V32NnFZgnPHmYOUohBQqb7yfoss+ib9Lt17+3W
+	r7+xQ8yw4rE3K0=
+X-Received: by 2002:a05:600c:1d1c:b0:488:936a:6220 with SMTP id 5b1f17b1804b1-488997d0012mr278324835e9.21.1775650952724;
+        Wed, 08 Apr 2026 05:22:32 -0700 (PDT)
+Message-ID: <de873764-c803-4f56-b88a-936cb948c382@suse.com>
+Date: Wed, 8 Apr 2026 14:22:31 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b14affa4-959f-417b-d08f-08de95694df7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Apr 2026 12:21:04.5290
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UEYCtGFM0is1cuq2Lip8x3vnqx4CT6ZhJsYL7TrXqrryWnjhMAacTB4FtMpb+1v6Ad2/yG3xDJgKZxzD8b59cA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7691
-X-purgate-ID: tlsNG-42698a/1775650867-F4FC82A1-77D53ED9/0/0
+User-Agent: Mozilla Thunderbird
+Subject: [PATCH v2 1/3] x86: record SSP at non-guest entry points
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>
+References: <f064c3af-c22a-40e0-a268-ee37e34297a3@suse.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <f064c3af-c22a-40e0-a268-ee37e34297a3@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-4011c0/1775650953-0F9440B1-E8CC9AC6/0/0
 X-purgate-type: clean
-X-purgate-size: 2300
-X-Spamd-Result: default: False [-1.09 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
+X-purgate-size: 6855
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[epam.com:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: BFA723BBEA8
+X-Rspamd-Queue-Id: 0A1E63BBF11
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-T24gMy8zMC8yNiAxNToxOSwgSmFuIEJldWxpY2ggd3JvdGU6DQo+IE9uIDMwLjAzLjIwMjYgMTM6
-NTksIE15a3l0YSBQb3R1cmFpIHdyb3RlOg0KPj4gRm9yIHRoZSBwdXJwb3NlcyBvZiBjZXJ0aWZp
-Y2F0aW9uLCB3ZSB3YW50IGFzIGxpdHRsZSBjb2RlIGFzIHBvc3NpYmxlIHRvDQo+PiBiZSB1bmNv
-bmRpdGlvbmFsbHkgY29tcGlsZWQgaW4uIE1ha2UgQ1BVIGhvdHBsdWcgYW5kIFNNVCBvcGVyYXRp
-b25zDQo+PiBjb25maWd1cmFibGUgdG8gZWFzZSB0aGUgcHJvY2Vzcy4gVGhpcyB3aWxsIGFsc28g
-aGVscCB3aXRoIGludHJvZHVjaW5nDQo+PiBDUFUgaG90cGx1ZyBvbiBBcm0sIHdoZXJlIGl0IG5l
-ZWRzIHRvIGJlIGNvbmZpZ3VyYWJsZS4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBNeWt5dGEgUG90
-dXJhaSA8bXlreXRhX3BvdHVyYWlAZXBhbS5jb20+DQo+IA0KPiBMb29rcyBsYXJnZWx5IG9rYXkg
-ZnJvbSBhIHRlY2huaWNhbCBwb3Y7IG9uZSBuaXQgYW5kIG9uZSAocmVwZWF0ZWQpIHJlbWFyaw0K
-PiBiZWxvdy4NCj4gDQo+PiAtLS0gYS94ZW4vYXJjaC94ODYvc3lzY3RsLmMNCj4+ICsrKyBiL3hl
-bi9hcmNoL3g4Ni9zeXNjdGwuYw0KPj4gQEAgLTUzLDYgKzUzLDExIEBAIHN0YXRpYyBsb25nIGNm
-X2NoZWNrIHNtdF91cF9kb3duX2hlbHBlcih2b2lkICpkYXRhKQ0KPj4gICAgICAgdW5zaWduZWQg
-aW50IGNwdSwgc2libGluZ19tYXNrID0gYm9vdF9jcHVfZGF0YS54ODZfbnVtX3NpYmxpbmdzIC0g
-MTsNCj4+ICAgICAgIGludCByZXQgPSAwOw0KPj4gICANCj4+ICsgICAgaWYgKCAhSVNfRU5BQkxF
-RChDT05GSUdfQ1BVX0hPVFBMVUcpICkNCj4+ICsgICAgew0KPj4gKyAgICAgICAgQVNTRVJUX1VO
-UkVBQ0hBQkxFKCk7DQo+PiArICAgICAgICByZXR1cm4gLUVPUE5PVFNVUFA7DQo+PiArICAgIH0N
-Cj4+ICAgICAgIG9wdF9zbXQgPSB1cDsNCj4gDQo+IEFub3RoZXIgYmxhbmsgbGluZSBhYm92ZSB0
-aGlzIG9uZSBwZXJoYXBzPw0KPiANCj4+IC0tLSBhL3hlbi9jb21tb24vS2NvbmZpZw0KPj4gKysr
-IGIveGVuL2NvbW1vbi9LY29uZmlnDQo+PiBAQCAtNjM3LDYgKzYzNywxNCBAQCBjb25maWcgU1lT
-VEVNX1NVU1BFTkQNCj4+ICAgDQo+PiAgIAkgIElmIHVuc3VyZSwgc2F5IE4uDQo+PiAgIA0KPj4g
-K2NvbmZpZyBDUFVfSE9UUExVRw0KPj4gKwlib29sICJDUFUgb25saW5lL29mZmxpbmUgc3VwcG9y
-dCINCj4+ICsJZGVwZW5kcyBvbiBYODYNCj4+ICsJZGVmYXVsdCB5DQo+PiArCWhlbHANCj4+ICsJ
-ICBFbmFibGUgc3VwcG9ydCBmb3IgYnJpbmdpbmcgQ1BVcyBvbmxpbmUgYW5kIG9mZmxpbmUgYXQg
-cnVudGltZS4gT24NCj4+ICsJICBYODYgdGhpcyBpcyByZXF1aXJlZCBmb3IgZGlzYWJsaW5nIFNN
-VC4NCj4gDQo+IFRoZSBuYW1lIG9mIHRoaXMgb3B0aW9uIG1heSBuZWVkIGlucHV0IGZyb20gb3Ro
-ZXJzOyBJJ20gbm90IHF1aXRlIGNvbnZpbmNlZA0KPiB0aGF0IHRoaXMgaXMgYSBnb29kIG5hbWUs
-IGFzIHRoZXJlJ3Mgbm8gdHJ1ZSAiaG90LXBsdWdnaW5nIiBpbnZvbHZlZCBoZXJlLg0KPiBJT1cg
-SSBmZWFyIHRoZSBwcmVzZW50IG5hbWUgaXMgbWlzbGVhZGluZy4NCj4gDQo+IEphbg0KDQpNeSBm
-aXJzdCBpZGVhIHdhcyAiQ09ORklHX1JVTlRJTUVfQ1BVX0NPTlRST0wiIEkgY2FuIHN3aXRjaCBi
-YWNrIHRvIGl0Lg0KDQotLSANCk15a3l0YQ==
+We will want to use that value for call trace generation, and likely
+also to eliminate the somewhat fragile shadow stack searching done in
+fixup_exception_return(). For those purposes, guest-only entry points do
+not need to record that value.
+
+To keep the saving code simple, record our own SSP that corresponds to
+an exception frame, pointing to the top of the shadow stack counterpart
+of what the CPU has saved on the regular stack. Consuming code can then
+work its way from there.
+
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+For PUSH_AND_CLEAR_GPRS and POP_GPRS, putting the new field right next to
+the error code isn't entirely nice; putting it ahead of %r15 would entail
+other changes, though. An option may be to not make SSP handling part of
+the macros in the first place. Thoughts?
+
+For POP_GPRS, does it really matter that it doesn't alter EFLAGS? Neither
+of the two currene uses relies on it, and without that requirement we
+could use ADD in place of LEA. (Of course there are also POP-based ways of
+getting rid of the SSP slot.)
+---
+v2: Add comment ahead of SAVE_ALL. Add comma between its parameters.
+    Re-base.
+
+--- a/xen/arch/x86/hvm/svm/entry.S
++++ b/xen/arch/x86/hvm/svm/entry.S
+@@ -103,7 +103,7 @@ __UNLIKELY_END(nsvm_hap)
+ 
+         vmrun
+ 
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         GET_CURRENT(bx)
+ 
+--- a/xen/arch/x86/hvm/vmx/entry.S
++++ b/xen/arch/x86/hvm/vmx/entry.S
+@@ -22,7 +22,7 @@
+ #include <asm/page.h>
+ 
+ FUNC(vmx_asm_vmexit_handler)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         mov  %cr2,%rax
+         GET_CURRENT(bx)
+@@ -171,7 +171,7 @@ UNLIKELY_END(realmode)
+ 
+ .Lvmx_vmentry_fail:
+         sti
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         /*
+          * SPEC_CTRL_ENTRY notes
+--- a/xen/arch/x86/include/asm/asm_defns.h
++++ b/xen/arch/x86/include/asm/asm_defns.h
+@@ -219,7 +219,11 @@ static always_inline void stac(void)
+ #endif
+ 
+ #ifdef __ASSEMBLER__
+-.macro SAVE_ALL compat=0
++/*
++ * Use sites may override ssp to 0. It should never be overridden to 1.
++ * NB: compat=1 implies ssp=0.
++ */
++.macro SAVE_ALL compat=0, ssp=IS_ENABLED(CONFIG_XEN_SHSTK)
+         addq  $-(UREGS_error_code-UREGS_r15), %rsp
+         cld
+         movq  %rdi,UREGS_rdi(%rsp)
+@@ -233,6 +237,9 @@ static always_inline void stac(void)
+         movq  %rax,UREGS_rax(%rsp)
+         xor   %eax, %eax
+ .if !\compat
++.if \ssp
++        rdsspq %rcx
++.endif
+         movq  %r8,UREGS_r8(%rsp)
+         movq  %r9,UREGS_r9(%rsp)
+         movq  %r10,UREGS_r10(%rsp)
+@@ -262,6 +269,9 @@ static always_inline void stac(void)
+         xor   %r13d, %r13d
+         xor   %r14d, %r14d
+         xor   %r15d, %r15d
++#ifdef CONFIG_XEN_SHSTK
++        mov   %rcx, UREGS_entry_ssp(%rsp)
++#endif
+ .endm
+ 
+ #define LOAD_ONE_REG(reg, compat) \
+@@ -313,9 +323,14 @@ static always_inline void stac(void)
+ .endm
+ 
+ /*
+- * Push and clear GPRs
++ * Push and clear GPRs.
++ *
++ * Use sites may override ssp to 0. It should never be overridden to 1.
+  */
+-.macro PUSH_AND_CLEAR_GPRS
++.macro PUSH_AND_CLEAR_GPRS ssp=IS_ENABLED(CONFIG_XEN_SHSTK)
++#ifdef CONFIG_XEN_SHSTK
++        push  $0
++#endif
+         push  %rdi
+         xor   %edi, %edi
+         push  %rsi
+@@ -326,6 +341,9 @@ static always_inline void stac(void)
+         xor   %ecx, %ecx
+         push  %rax
+         xor   %eax, %eax
++ .if \ssp
++        rdsspq %rcx
++ .endif
+         push  %r8
+         xor   %r8d, %r8d
+         push  %r9
+@@ -352,6 +370,9 @@ static always_inline void stac(void)
+         xor   %r14d, %r14d
+         push  %r15
+         xor   %r15d, %r15d
++ .if \ssp
++        mov   %rcx, UREGS_entry_ssp(%rsp)
++ .endif
+ .endm
+ 
+ /*
+@@ -373,6 +394,9 @@ static always_inline void stac(void)
+         pop   %rdx
+         pop   %rsi
+         pop   %rdi
++#ifdef CONFIG_XEN_SHSTK
++        lea   8(%rsp), %rsp
++#endif
+ .endm
+ 
+ #ifdef CONFIG_PV32
+--- a/xen/arch/x86/include/asm/cpu-user-regs.h
++++ b/xen/arch/x86/include/asm/cpu-user-regs.h
+@@ -27,6 +27,15 @@ struct cpu_user_regs
+     union { uint64_t rsi;    uint32_t esi;    uint16_t si;    uint8_t sil;  };
+     union { uint64_t rdi;    uint32_t edi;    uint16_t di;    uint8_t dil;  };
+ 
++#ifdef CONFIG_XEN_SHSTK
++    /*
++     * This points _at_ the corresponding shadow stack frame; it is _not_ the
++     * outer context's SSP.  That, if the outer context has CET-SS enabled,
++     * is stored in the top slot of the pointed to shadow stack frame.
++     */
++    uint64_t entry_ssp;
++#endif
++
+     /*
+      * During IDT delivery for exceptions with an error code, hardware pushes
+      * to this point.  Entry_vector is filled in by software.
+--- a/xen/arch/x86/x86_64/asm-offsets.c
++++ b/xen/arch/x86/x86_64/asm-offsets.c
+@@ -53,6 +53,9 @@ void __dummy__(void)
+     OFFSET(UREGS_eflags, struct cpu_user_regs, rflags);
+     OFFSET(UREGS_rsp, struct cpu_user_regs, rsp);
+     OFFSET(UREGS_ss, struct cpu_user_regs, ss);
++#ifdef CONFIG_XEN_SHSTK
++    OFFSET(UREGS_entry_ssp, struct cpu_user_regs, entry_ssp);
++#endif
+     DEFINE(UREGS_kernel_sizeof, sizeof(struct cpu_user_regs));
+     BLANK();
+ 
+--- a/xen/arch/x86/x86_64/entry.S
++++ b/xen/arch/x86/x86_64/entry.S
+@@ -275,7 +275,7 @@ FUNC(lstar_enter)
+         pushq $0
+         BUILD_BUG_ON(TRAP_syscall & 0xff)
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         GET_STACK_END(14)
+ 
+@@ -315,7 +315,7 @@ FUNC(cstar_enter)
+         pushq $0
+         BUILD_BUG_ON(TRAP_syscall & 0xff)
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         GET_STACK_END(14)
+ 
+@@ -359,7 +359,7 @@ LABEL(sysenter_eflags_saved, 0)
+         pushq $0
+         BUILD_BUG_ON(TRAP_syscall & 0xff)
+         movb  $TRAP_syscall >> 8, EFRAME_entry_vector + 1(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         GET_STACK_END(14)
+ 
+@@ -415,7 +415,7 @@ FUNC(entry_int80)
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         pushq $0
+         movb  $0x80, EFRAME_entry_vector(%rsp)
+-        SAVE_ALL
++        SAVE_ALL ssp=0
+ 
+         GET_STACK_END(14)
+ 
+--- a/xen/arch/x86/x86_64/entry-fred.S
++++ b/xen/arch/x86/x86_64/entry-fred.S
+@@ -10,7 +10,7 @@
+         /* The Ring3 entry point is required to be 4k aligned. */
+ 
+ FUNC(entry_FRED_R3, 4096)
+-        PUSH_AND_CLEAR_GPRS
++        PUSH_AND_CLEAR_GPRS ssp=0
+ 
+         mov     %rsp, %rdi
+         call    entry_from_pv
+@@ -38,7 +38,7 @@ LABEL(eretu, 0)
+ END(eretu_exit_to_guest)
+ 
+ FUNC(eretu_error_dom_crash)
+-        PUSH_AND_CLEAR_GPRS
++        PUSH_AND_CLEAR_GPRS ssp=0
+         sti
+         call    asm_domain_crash_synchronous  /* Does not return */
+ END(eretu_error_dom_crash)
+
 
