@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wFrZEChG1mkFCwgAu9opvQ
+	id mBZ8FihI1mkFCwgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:12:24 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:20:56 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91FAD3BBD2F
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:12:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1275905.1561579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B258D3BBE8A
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:20:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1275934.1561589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wARlQ-0001iZ-In; Wed, 08 Apr 2026 12:12:08 +0000
+	id 1wARta-0003kN-Bx; Wed, 08 Apr 2026 12:20:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1275905.1561579; Wed, 08 Apr 2026 12:12:08 +0000
+Received: by outflank-mailman (output) from mailman id 1275934.1561589; Wed, 08 Apr 2026 12:20:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wARlQ-0001fr-GF; Wed, 08 Apr 2026 12:12:08 +0000
-Received: by outflank-mailman (input) for mailman id 1275905;
- Wed, 08 Apr 2026 12:12:06 +0000
+	id 1wARta-0003hL-92; Wed, 08 Apr 2026 12:20:34 +0000
+Received: by outflank-mailman (input) for mailman id 1275934;
+ Wed, 08 Apr 2026 12:20:32 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wARlO-0001fd-G9
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 12:12:06 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wARtY-0003hE-Mj
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 12:20:32 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wARlN-0059zL-SN
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 14:12:05 +0200
+ id 1wARtY-007lJO-2f
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 14:20:32 +0200
 Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69d6460a-bab6-0a2a0a5309dd-0a2a4509cb86-36
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:12:05 +0200
-Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
+ id 69d64802-e002-0a2a0a5209dd-0a2a450996ca-14
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:20:31 +0200
+Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
  by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69d64615-bf79-0a2a45090019-d155802fdcce-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:12:05 +0200
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-488ba6366a7so27390915e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 05:12:05 -0700 (PDT)
+ id 69d6480f-bf79-0a2a45090019-d155802bc0eb-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:20:31 +0200
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-488a9033b2cso40694015e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 05:20:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488c55d1347sm26922435e9.4.2026.04.08.05.12.04
+ 5b1f17b1804b1-488940e075esm522840555e9.9.2026.04.08.05.20.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Apr 2026 05:12:04 -0700 (PDT)
+ Wed, 08 Apr 2026 05:20:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,55 +56,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Subject:From:Cc:To:Content-Language:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Content-Language:Cc:To:Subject:From:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775650325; x=1776255125; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=HCmUHnX4lfLVvQXrlBVVBQ6jAhvuU7BVpCLwZlOIldo=;
-        b=PiPFxAmJ4nWAkdaVdhwKo3Rtp/mJoYc3lE/michp2yekHOHSw81fHk9fNou0CbcJjR
-         eEgsi/pvETw2D1E2g1qqsv1qFibsqlg3/vZjnn61q2ReIsMYft9S8/Qo3tj+gd+bc4Sr
-         hSQXZMvt1lfoolejDJZU6Mxgw/y4QWpknWZ1Jl3SFX0bZM869QZBSFcYZBz7vydsLPt+
-         Pe/FG4hrN1wIrIUux3mrToPzmh4Zx2XACKa+/dYvHaorRM2M71jKWRaeqjbWaVfrZHrg
-         f0ssmYZi6ya89D/VLFw9d8E7pFaoUj4YIFgxQou31Y0EZv6O8fp2wIAVplu5nSDHot++
-         Z7VA==
+        d=suse.com; s=google; t=1775650831; x=1776255631; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ROGfcSkCOBNr5guYff8l0SKnfdADg27J+462m1SOZPA=;
+        b=RoSwoF6lxH5h3vM66cjjP4haYx55obFo7v1XALxMqUBpQ45ubyA0UkB6+ar6bkIPXO
+         PISPTArtJ8xChf8ELkMsNEYuUrKQJ+Z7vkJ+myoCsicMKFAOrqMxuR93Fi2C63fSxoWY
+         ZrtivG4wqqylV1wzONcx6tFVomUA+cTXu1InApuiZU7PNK2Y63hDdLnGRCN6hML6tN39
+         ODmHUkROP8l2YgyJR0DDmAT0NcwuqEU0YgoVlmxH6gxIiiHkbfiskmBmmNDrRpB3Gwuc
+         4fKMwrkeIj5N+meJZljnHemBIHPOEH2YEQVLi2PvYRmobDrPQRaqNtuDzJxL1Vt5DJkT
+         QsLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775650325; x=1776255125;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+        d=1e100.net; s=20251104; t=1775650831; x=1776255631;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HCmUHnX4lfLVvQXrlBVVBQ6jAhvuU7BVpCLwZlOIldo=;
-        b=DTn+4FTP822uYrKV31AiWy59s9aRXacgOQMRd5M4PYlb5WHXepPm4utQ8/99j69yh3
-         t6Pmf9gWh+D1ycrRrlNN5McZznqWygPPwCpU5cy0GLUyFczpyLMgfSN1Ha322VKCh+8a
-         7oajstHIjsU6YDueXTVlmaWBOyVip2roGIYQQqDT+qA3fKBN2doA2chrmDKP0hLkNxOs
-         koW6+8XPJKWVIb3/XK4Y6pIhmeXOnGARv9rckfd4Sa2FeFXpwRl2PjA/7LOVLWUgsu+4
-         f8RB5/m7FVdIRcqvEjIGmx1wioghTyvoY7/MEZWdPQ1IGhOp1DaBVsPA/mOMrer4/QGB
-         VWmg==
-X-Gm-Message-State: AOJu0YzIM2h1NqhJnSFrp13xCOFX2L+aLD1XfO0dbChegIt7exAKOic6
-	nUQyZV5TGevm91whETZ1hsgoF4mHsIq4bINCTG6AGcDIjGHMQHJkhQlTCAy5U1HTtUfQATOpTgc
-	fU0a1PQ==
-X-Gm-Gg: AeBDieu35CezkAgLKbCzlohEBX2+l6nRUTrUt6bXnUlhxXLNN76d/DkLHCGs8ZCba27
-	AZvKRXyJOaTCGrrZ7Q85F6/jgezDFVAYVteQsZ4KunpXO2bRIJXc+2SiVqGpxi7hpo6uqJgDUpB
-	g3jbRTGNYbnxG6MJ7lhoicH2K3/iuCtKFib6SWym42XZtgUHyA7HqUq7ve4CYmmThQzeENB67P0
-	mU2IBm5+noaLL4XQEEMJfN9b4M0iheg5wInejKopn51lagKR4h3HmSLefZzojOa7hi9DbvtFLZu
-	07uR2nH6mo5EAP1VF5VFjaxRWBL3bI4RPb4crgXppdIMD2VOeGAlK6UMuKnAl3Ogt5SoiFVZSP7
-	8S4oFp9HE0gq+TVIUu2gky0sfePOI+RzlNyWKpvLigffoVUc6JJf2WgsdZGdEuNxIsZc5jkYc4E
-	2YJZflGJX3bpuzIRRLFzNrefhkm+qSGv2bjxnHcz/1Gs7woyBVXLCozd9HKGKh8gKyByH8gG3mI
-	WCtvsz+lAJoTUs=
-X-Received: by 2002:a05:600c:1553:b0:488:acbc:b2e with SMTP id 5b1f17b1804b1-488acbc0ca8mr173907175e9.17.1775650324898;
-        Wed, 08 Apr 2026 05:12:04 -0700 (PDT)
-Message-ID: <deb26054-ec00-483c-bc18-1edc1b4599b3@suse.com>
-Date: Wed, 8 Apr 2026 14:12:03 +0200
+        bh=ROGfcSkCOBNr5guYff8l0SKnfdADg27J+462m1SOZPA=;
+        b=f9vtcyHbxDVGpb4U3BJLPrJOAIfYjPjkWJSzVXxj0sRg1yjDm6/Rayp6gmdWIEjj/j
+         WnMea8GjzVzz1l4VefNpLnMC6rP+PKRou46YCsVKfyzx+hJ+KHEgdkbu1Y2UfUJm9Ga7
+         FM/sZJ54l5f3ZN7olFfLnDlhc2/KmB1qphkyo8OU2AbLSGLkgwsmxs5y/rE7rMKtvcCz
+         eDD7DDRqvlTELsSTpm2BhvSmm+h2wZvfMla10hZhtI26S+HNzlsYm69ae9r0pB9h7+rk
+         fj3Ep4FHPG9Y5PuQtMifJECOuFba5Z8nBtc3obfUz7KF8GqzP9l7sh0/eb0G4pQ6xQNX
+         VmbA==
+X-Gm-Message-State: AOJu0YzI0mK8rfEXfygi3fy0MujKfq33hqL2F38bYWzaYFtSUxxKfkyj
+	jB9z4H+V4fY/FLkptZFJb7rqkrAL89Zc4hpk4KnvbxU2AHPrsCpbQ6Q+aaOAEsgyOk5nfUrj/H4
+	KETDoXQ==
+X-Gm-Gg: AeBDieuJNiKo6B72hsiDSjBsZgCvC+kD3ls+2XN7/DzNn/sp1DVpQToZWKtHsdilZTi
+	GbBBOOW/M8DaDSP86gxNcrVkgt0SSjB5d2y1JJymvYqf4Glk+YA1EzaoPyvrZkW7gs4kaj7zd/T
+	Cx2LNm7jd4RdkJilVMnLJur5MiP9CNLwCAuBK34L7MagF+6Ym2QtLjiMmNf31RBz8bKzotqDw04
+	AZMOiR9gc+CgtO/6JZoFeGeXLx825PmpOOcLGhlVLiiuvWJvDSNU+cFkGpjfeSDZWomJ26Lnj3c
+	WkmCTgfcZdwlfSaETkI1HUAOzecbR8Z5mL2yhbcF13e7KWVqE6l9bouWOjgLeAUHIg83Bzj8D5E
+	SacBPrrOhENJY0f+n2Xwyp1TkvxixRVamt9JpdhqdZ+rfxLpJ1TkPcXX8rnFVGBVGjkYzhylxPF
+	YrM76rwBSBtIDIjsFN9DFLxu56KeG74JaRC8egTfWPcSNdPuQIARc3Lat2i7Rj6KzdipjFsfCCx
+	3473AxkapNHBRI=
+X-Received: by 2002:a05:600c:3b23:b0:485:17a7:b9c7 with SMTP id 5b1f17b1804b1-488996ecd50mr271620495e9.10.1775650831367;
+        Wed, 08 Apr 2026 05:20:31 -0700 (PDT)
+Message-ID: <f064c3af-c22a-40e0-a268-ee37e34297a3@suse.com>
+Date: Wed, 8 Apr 2026 14:20:29 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v10] x86: use / "support" UDB
+Subject: [PATCH v2 0/3] x86: CET-SS related adjustments
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -130,9 +129,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-bad1c0/1775650325-2ED4F152-29B1A2FA/0/0
+X-purgate-ID: tlsNG-bad1c0/1775650831-5455B152-8FE8D687/0/0
 X-purgate-type: clean
-X-purgate-size: 2238
+X-purgate-size: 409
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -143,8 +142,8 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:wl@xen.org,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
@@ -165,77 +164,21 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 91FAD3BBD2F
+X-Rspamd-Queue-Id: B258D3BBE8A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-With opcode D6h now firmly reserved as another #UD-raising one in 64-bit
-mode, use that instead of the two-byte UD2 for bug frame marking.
+One might think of this as follow-on to XSA-451, but that's not quite
+the right order of events.
 
-While there also make a minor adjustment to the emulator.
+There are a few open aspects; see individual patches.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-One of the table entries in stub_selftest() uses UD1, yet in not quite
-an appropriate way: The 0x90 following it (presumably meant to be a NOP)
-really is a ModR/M byte, requiring a displacement to follow. Wouldn't we
-better adjust that (e.g. using 0xcc instead)?
----
-v10: Shrink the actual emulator change to just a comment adjustment.
-     Extend .byte directive commentary.
-v9: New.
+v2, besides addressing small issues, is mainly a re-base over FRED
+work finally having gone in.
 
---- a/xen/arch/x86/include/asm/bug.h
-+++ b/xen/arch/x86/include/asm/bug.h
-@@ -21,7 +21,7 @@
- 
- #ifndef __ASSEMBLER__
- 
--#define BUG_INSTR       "ud2"
-+#define BUG_INSTR       ".byte 0xd6" /* UDB, requiring gas 2.46 */
- #define BUG_ASM_CONST   "c"
- 
- #else  /* !__ASSEMBLER__ */
-@@ -37,7 +37,7 @@
-         .error "Invalid BUGFRAME index"
-     .endif
- 
--    .L\@ud: ud2a
-+    .L\@ud: .byte 0xd6 /* UDB, requiring gas 2.46 */
- 
-     .pushsection .rodata.str1, "aMS", @progbits, 1
-          .L\@s1: .asciz "\file_str"
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1338,7 +1338,7 @@ void asmlinkage do_trap(struct cpu_user_
- 
- void asmlinkage do_invalid_op(struct cpu_user_regs *regs)
- {
--    u8 bug_insn[2];
-+    uint8_t bug_insn;
-     const void *eip = (const void *)regs->rip;
-     int id;
- 
-@@ -1350,8 +1350,8 @@ void asmlinkage do_invalid_op(struct cpu
-     }
- 
-     if ( !is_active_kernel_text(regs->rip) ||
--         copy_from_unsafe(bug_insn, eip, sizeof(bug_insn)) ||
--         memcmp(bug_insn, "\xf\xb", sizeof(bug_insn)) )
-+         copy_from_unsafe(&bug_insn, eip, sizeof(bug_insn)) ||
-+         bug_insn != 0xd6 /* UDB */ )
-         goto die;
- 
-     id = do_bug_frame(regs, regs->rip);
---- a/xen/arch/x86/x86_emulate/decode.c
-+++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -651,7 +651,7 @@ decode_onebyte(struct x86_emulate_state
-     case 0xce: /* into */
-     case 0xd4: /* aam */
-     case 0xd5: /* aad */
--    case 0xd6: /* salc */
-+    case 0xd6: /* salc / udb */
-         s->not_64bit = true;
-         break;
- 
+1: record SSP at non-guest entry points
+2: traps: use entry_ssp in fixup_exception_return()
+3: prefer shadow stack for producing call traces
+
+Jan
 
