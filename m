@@ -2,49 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QG0OOjqP1mmEGQgAu9opvQ
+	id IFC2LuSR1mmiGQgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 19:24:10 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 19:35:32 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 357BF3BF779
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 19:24:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1276428.1561917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FDE73BFA77
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 19:35:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1276459.1561926 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAWdE-00062R-Tc; Wed, 08 Apr 2026 17:24:00 +0000
+	id 1wAWnq-0000IN-Pu; Wed, 08 Apr 2026 17:34:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1276428.1561917; Wed, 08 Apr 2026 17:24:00 +0000
+Received: by outflank-mailman (output) from mailman id 1276459.1561926; Wed, 08 Apr 2026 17:34:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAWdE-00060V-PC; Wed, 08 Apr 2026 17:24:00 +0000
-Received: by outflank-mailman (input) for mailman id 1276428;
- Wed, 08 Apr 2026 17:23:58 +0000
+	id 1wAWnq-0000GR-N0; Wed, 08 Apr 2026 17:34:58 +0000
+Received: by outflank-mailman (input) for mailman id 1276459;
+ Wed, 08 Apr 2026 17:34:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <bounce-md_30504962.69d68f2c.v1-44c5db41318c4e0bbf8ffde4898d605a@bounce.vates.tech>)
- id 1wAWdC-0005x3-MH
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 17:23:58 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <andrew.cooper@citrix.com>) id 1wAWnp-0000GJ-QP
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 17:34:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAWdC-006jn2-2J
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 19:23:58 +0200
-Received: from [10.42.69.2] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <bounce-md_30504962.69d68f2c.v1-44c5db41318c4e0bbf8ffde4898d605a@bounce.vates.tech>)
- id 69d68ef4-bab6-0a2a0a5309dd-0a2a450295d8-36
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 19:23:58 +0200
-Received: from [198.2.180.46] (helo=mail180-46.suw31.mandrillapp.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from
- <bounce-md_30504962.69d68f2c.v1-44c5db41318c4e0bbf8ffde4898d605a@bounce.vates.tech>)
- id 69d68f2c-42fa-0a2a45020019-c602b42e8a13-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 19:23:57 +0200
-Received: from pmta11.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail180-46.suw31.mandrillapp.com (Mailchimp) with ESMTP id
- 4frVKS4FH1z8XVRg6
- for <xen-devel@lists.xenproject.org>; Wed,  8 Apr 2026 17:23:56 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 44c5db41318c4e0bbf8ffde4898d605a; Wed, 08 Apr 2026 17:23:56 +0000
+ id 1wAWnn-006Wgq-Kg
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 19:34:57 +0200
+Received: from [10.42.69.7] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 69d691a2-5cb7-0a2a0a5109dd-0a2a4507b0a6-32
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 19:34:57 +0200
+Received: from [52.101.56.50]
+ (helo=BN1PR04CU002.outbound.protection.outlook.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 69d691bf-ba2d-0a2a45070019-34653832128f-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 19:34:56 +0200
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by SJ0PR03MB6567.namprd03.prod.outlook.com (2603:10b6:a03:388::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.28; Wed, 8 Apr
+ 2026 17:34:53 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9769.018; Wed, 8 Apr 2026
+ 17:34:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,156 +58,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mte1 header.d=mandrillapp.com header.i="@mandrillapp.com" header.h="From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"; dkim=pass header.s=mte1 header.d=vates.tech header.i="thierry.escande@vates.tech" header.h="From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1775669036; x=1775939036;
-	bh=dBdXC8CLXllaOOaQAKE2xMRBGZ2MJ8SlC6WJCLiAOQE=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=XZE8gBvZWloVMYtiIeoTj1MB1z6InRyjNsL2DMJxfQRMPuuCpyqz143vvpTWY91Bi
-	 xAtAmo4X/sHLd1s7AlbC9Ql2fi953LVhxYBMml7mX+6r2fxmaefOBHhePvqxOVu4T5
-	 sLXYq4DrG/nILAIIbYJktfJ54KrpZqfrfyVFUhUt2aO84WeXM9aUftNjUDBn2F/2Qn
-	 R1z6XY5M2yqWY3vSlT2DLT3JOdH4WN4E+Zt6QTCbbkSsz5yPynpMXnksq+Ol73g6eo
-	 RzMy1CE4FTfjp2hKndFY0susW3UA6BkhuBKzh2dPmOOZHguRdKJmLRDkoOkzVGQYHx
-	 PriXoRjz3xZYA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1775669036; x=1775929536; i=thierry.escande@vates.tech;
-	bh=dBdXC8CLXllaOOaQAKE2xMRBGZ2MJ8SlC6WJCLiAOQE=;
-	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=DmDbwGmEh+MUtKjHP/VlSdzvF3WAEBEt5upyEfz+cf6/WHGl1NssmE0vipkbKPRa8
-	 dV/aEB5yxOUCKsALo2XV9oVv7EudzTlLXupraI4y1PGenEAgKAKMSx7ayEvi7v5g9q
-	 pg/L3HRoaR6t5S7xJJiZaI5qALgRiLhydi7Yt2D8kqVDrR6iICUaY60RyrfJO/6AaI
-	 x94LoA4fwXRGNVFarWNgvGgQPe1pBvl1LKJzdQJNw45bKEUFi2TcMT1s3qpBHAJRlz
-	 QIrSxwYh7IAsL3bZSHWbYtgMvwjwm/c1HizkJov1j2dQlMWy/vY3qnpnD/Y8yqykYn
-	 0GxFEwSZ0ewxg==
-From: "Thierry Escande" <thierry.escande@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH=203/3]=20docs:=20provide=20description=20for=20pci=20hotplug=20option?=
-X-Mailer: git-send-email 2.53.0
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1775669035607
-To: xen-devel@lists.xenproject.org
-Cc: "Thierry Escande" <thierry.escande@vates.tech>, "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>, "=?utf-8?Q?Daniel=20P=20.=20Berrang=C3=A9?=" <berrange@redhat.com>, "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>
-Message-Id: <20260408172320.539750-4-thierry.escande@vates.tech>
-In-Reply-To: <20260408172320.539750-1-thierry.escande@vates.tech>
-References: <20260408172320.539750-1-thierry.escande@vates.tech>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.44c5db41318c4e0bbf8ffde4898d605a?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260408:md
-Date: Wed, 08 Apr 2026 17:23:56 +0000
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZXuO7gq2ZiEUpwDOWe4P640XjCyuFNE07m+hX8sI8E/q7CXwzeAlPoAz3bJqosC2kVNQgC3bb5mXbYK+iF+W9Fw1kN4q9TNrwFAPYcKAbkepaC8VFhQJLS1uldZrrR6CrvLxNIoyxMC2Aw7Js28rPfKNOUUNxBwXJ+sTY58tAWo4WI1FQnBHhBH7kgdsKFWqGd0XD+ZuapI5Q6DKkNzxaSmGQHFq+A7uYw5ob23+6eC3TGErOenuD9SI4WCMz/fqB+CkFW3grOqxws+n/6gSAHM2SnA+d/7ue5BKnlzSdG8M59xrApSsQgqB5Eq9sEKI4uFZMqKttb4tXWkFi9YMHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=n/5++fakmtAqPuvXEf/y5YLO0oNpqBA5ait8Co9rnzg=;
+ b=FBAP7N3rZD81sIzQrRGUtP5ahFqJQM52cIqQUjCvFJHIas/bzBcsoTArH+fSMDM1zxQatpE5EWh0jFMaRtoK6iiDdoccsmT/f9o5Gnudq7/VotkszuDm7su8XH/toMgipUAzGEVWnxVXG+ebF9KVRJBWluKqfBblbL9tyoOuAYW2yci+r9qIBkVsaP5a7HkrTQJ61/9QKMqwT90DY7/dWnW/wjSB4623xyOcUWKxHzFteGP2nUTwiyj6omQ0vb6niN8XLsS943zava5JPUbmbufId8BlF63jXB7gcHFl6pmm8psnqWOyVleeIPGNpk+mrfg+slLsjGDpVNh/XU6Tiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=n/5++fakmtAqPuvXEf/y5YLO0oNpqBA5ait8Co9rnzg=;
+ b=MIRD1BmMxyBJEI5O3MJgcJpLXIfpXoLncXa6W5h16IPSyAjF08IchLdJs9S/v8SpNHFuaXwxtj1AtzXy06DKlMhA3A9x9grK/XhaWSMrXFTySnlwKDw2A/vfeRz82CBsWD9pDJ4BkJzVw0NeGLtj5gEPH7l+HUg+JNpNTpzusVI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <9b9586d2-c18d-47b5-bce0-4c9a4570bcfd@citrix.com>
+Date: Wed, 8 Apr 2026 18:34:48 +0100
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>
+Subject: Re: [PATCH v2 2/3] x86/traps: use entry_ssp in
+ fixup_exception_return()
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <f064c3af-c22a-40e0-a268-ee37e34297a3@suse.com>
+ <79c90706-0530-4b72-9b43-f003dfe87291@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <79c90706-0530-4b72-9b43-f003dfe87291@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO3P265CA0011.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:bb::16) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-720697/1775669037-AF122CD1-A241C7AF/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SJ0PR03MB6567:EE_
+X-MS-Office365-Filtering-Correlation-Id: c16b5718-97e0-4725-3f52-08de95952462
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	NTZr4F6w2V/UIXEB7gtV6X2gs4aBX+AqHkD+YB4gHLn2xb5SwPexgcray1mMUXKXmxxw3fq8XhDM0BaQ2jmZipENiv8mH59GFMm9E014Wmq77UoCRwhXND1TqtKvYZoG4vc/OhHFKRnZ9AMOhPvPbPnZJq+cfY+mbFmiHwHh0XImZ/+VqVQ4Z2hBw73guH1o/HBdFqN8CE+SJxm8NcAC9VgOc3M+7moiuF/mKdiA71xH+dxZjP4/MQHzc5Wu7UkMkWuQzHPpRCl26qxFMXTYXkOoPxGeIwnMkh3iK0jvy/5wktQ4wACPag0GJIJR0JXqHtIcCRBk8Z4ACdafcj5KKZQv9msQuXTGXZWQ7jbtpAJUmdA8u5t8Vtcdt3YeEM5gXTeZZ8heOJse/Ncc7IBUcvhuET80mkQsWDijO05s30lSBupm++U9aqR1zPMNSGBpl4+l5fwfzNIwIa/E732aBi7x02PtR51m/Ms7VPOdqMTgNQ5U48SdywoW+/z5CDSWm709dASg7jarTCjXIcNMpiZmONuSli9Mzk4TXQ1BzNQTjLSZjfPYsWaMB4oR1ebuw6r0nspB7J5+EAOXTSTIKMhyM4uwjY46sVzrFrY4JhDNf6j60wdtqGwYe545SzsN5g6fjYIcWlWX4YI6Z2L4dTN0Rhjalv+KHr1zG3aCTgXdhNj1BEzmoH3Xc7Y0eugkoN9qbF4oyXEuwsKrEVNXOUjbGzdUivxRzaz1Zft1wJE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Z2ZvdlNCSWdHbUZrQ2dTWmZhMnZkcHdMajQwSFdheVNXZ3ZGajMyRjQwYUtR?=
+ =?utf-8?B?MnJxRklBM21ncnRPVXVZV2R0UDdkSnBvREs4dXVVNllSOXFDaWJzWWNudFZY?=
+ =?utf-8?B?L3cxS0s0UHRpVWJjT0NxaVkxYmdmVmVJUmducmFGRjJVbGlNaGlsbDBUYkNq?=
+ =?utf-8?B?OTU5Y3pMam5YK0phUGdBM3ppSXZ3ZFBVNGhLK1VRRWdwVTFzT3NTWUl4Tyt4?=
+ =?utf-8?B?dHZncEJSV21CQXlnTHFCNi9WU0dZd2dpcm9pU2Eyek41Vk1NVE1QR25BQnBS?=
+ =?utf-8?B?aTdHaEFSYUUvcjg1YTRXT2xTM2lVaGdzVGJ1dmg5RGEvYncwZ0xNa2pVUzVK?=
+ =?utf-8?B?THB5ZmNHZkwzRGtZTHdKbktmSkRMVzFPc1RscjhSNUQyZWpaYkVoTXIwTTVF?=
+ =?utf-8?B?bXZ0TUhicmdFTnFUeUZHczJITVBuaVBEcUJYRkpISjAybFdhYjdCUmNvVzNV?=
+ =?utf-8?B?ZkZkUFZmUmhaTnpBWkFIc3JLSFNsL080cnBCZ3NpNUZDK0h0d3k0M2V4c2NC?=
+ =?utf-8?B?bHhJN0JQNHlzeHd6anlacEkzRjcvcHNZRG9CSkdWa3VSazdzZnNac2JHaWtU?=
+ =?utf-8?B?THBJRzZxQ0RkWVVvUmpTMDdFUmlYUE1MWHg3SEc5MUVQZEdyc1hiWVA4RWY2?=
+ =?utf-8?B?dERTSlAxUWRjeTdkYXRFUVNuemVkcjUxbldlUWQvbWZvL0t5a1ZMMkZQZWsy?=
+ =?utf-8?B?cUZtWi9jQTVzYm5kL0ZXaGxUNjUxSFpiUVgwOWJna3U2VEJLRkZ1RVJNdU9t?=
+ =?utf-8?B?RXZsa3ptTmgyVFhJeGtVcEVUaE41R21YL3lNTHNPQ2FNRlBHcHNyTWZLc1RP?=
+ =?utf-8?B?VFB6aGNNYjQxeGlhNGNNVng1Tmh0OWRmYlU4b3RrUCtwMGR5SEpPVitFeENl?=
+ =?utf-8?B?ZlBHVVg2dCtJSlhCUVo0Tk85MHBNWEw5K3hUeHdNT3F1U0RDRVM3Y0hBUmRD?=
+ =?utf-8?B?ZTRuMXZkK1RKV2diZ1Z2UC8wM1A3amFwMVRkNXRNeHExWkNic1c2Kzg2Mm0v?=
+ =?utf-8?B?Ymdpb2FXVHh2MHNicHdrSUR4cjBKM2d4VFYrczZyT2VBM3cxQkNtQXZWY0VG?=
+ =?utf-8?B?S0hBb0xqMEFHWEQrb1lMZGFzQytlRm1sU1J1a3oxZU1iNlpwRUJGdUplL09E?=
+ =?utf-8?B?ZmE1Z1VPRzhUUC9QYVRvdWxhZWxCWVNzeVhWT1Y2akI2VmZKaFR3bC9vT2JZ?=
+ =?utf-8?B?V1IxRUtVRHVZL2FPTGNaM2pZbUJkYVJaR2xhcFlEYzRMNTFjUUt1OW1Wencw?=
+ =?utf-8?B?RGs2WjIybDFBUFFNaENoc2owQTJNZkVkTG1aWXN5aFRFVWJ2ay9zZGZKN3N5?=
+ =?utf-8?B?L2czMEdNcVpvZXd6MHV0MFgzdlJqQkFnT2xBZ3Z2dnBjdnhvdHVjS2g0aUx1?=
+ =?utf-8?B?eGs0VktiZHRtWURKSUhkWkdzS3FSSEcxbGs1YWR3NFk5YXdhWkI0bzFOcDQ0?=
+ =?utf-8?B?eE5yc0o0QmhJb3ZLbFU4a0k1S3RyUkNEUG5RN2h2M2FpcWRyWkU4aTRzYldY?=
+ =?utf-8?B?eVl6RUtGTTZuK25SNXFSSHlhVDRsMjE1YkNEYlcwc3F5c21HbVZaa0RoRnhz?=
+ =?utf-8?B?bXRScG5KRXFTcVhSOU9QWjNKalBGSGhzLzFlYTNIZUgzRTRMVksrWDRUNngw?=
+ =?utf-8?B?YXRsZk1NWGVnUFJackhqNUp2aEsrckdyQzBpVXJuOW5UOWlDYmRVVmdlN3g4?=
+ =?utf-8?B?UllDNS9JTmd5N2NNeE0vVFJocjJSbk1KMGpGeFdGMjhjcFBJclhwSWlZdnpx?=
+ =?utf-8?B?dHB1d1BKakZHT20wcXUyMVJXTE5jN2ZaeFlOUG0ybm5CUVBhT0ROZEpJRGYz?=
+ =?utf-8?B?NXZycElsUEtiZ3NLUmc5VzIyVU9sUlA0dzFpNGdlWkZ2WXRDdEJwY2FwWFdJ?=
+ =?utf-8?B?MDZmMmo5NWpocXpmSDRTSGMwWVNVN1M5aXlIVG1MN2FDekJRaXMrNG1ybElZ?=
+ =?utf-8?B?V3h5Mzg1c3c2ZnNpOXY4cTYwdzBzNWJRQkpjc3VEeG5zYzJtTkVEMU51LzZY?=
+ =?utf-8?B?ajNpV2lJWlExckY2TE9pVlFodUdGRkNPaURmUlIwdTdXcTU0M3U5ZW9VMnBF?=
+ =?utf-8?B?amErYWR5cmlaTmZIN2cwQTZkbFZkS1ZkWFNSUHBqSmZwK25CRHhnYXVReDNG?=
+ =?utf-8?B?TkUzYzVXak41K01oSCs4SnRlSGlmZ0FRQXRLZTdoemZLU0YwZ1VlS05Qcy9r?=
+ =?utf-8?B?KzEvSGI2R0UxenV6WGN1RURFdmxYQ0tVNXplWDU2L2NXZDBMU0UyRlhXTVdu?=
+ =?utf-8?B?UXBZTE1ZUjk3QzRpR2o0QmpNK1lFREtHODk1K01rRTROV0lsOGVTM1NPb21U?=
+ =?utf-8?B?QXJvMWF5RUs4eEloclVVa3Y4OFFBSUxZQmtvRXV4YTNBWnZ1cnBnUlhvYUFK?=
+ =?utf-8?Q?5eRzvGaZAcaT6W2g=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c16b5718-97e0-4725-3f52-08de95952462
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 17:34:52.7024
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QGtqp9OwirZhUczLuigAHEfl8InYOQtmkuAkUXvLWpmL6a6y3/h0nVANoWe/pj+5rWS0l044UwgtJD1FZbbbYHd7yzyhWSJs/LOGfqCgeCw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6567
+X-purgate-ID: tlsNG-ef75cf/1775669697-8AB4841E-8F97FA01/0/0
 X-purgate-type: clean
-X-purgate-size: 1877
-X-Spamd-Result: default: False [4.51 / 15.00];
-	URIBL_GREY(2.50)[mandrillapp.com:dkim];
-	SUBJ_EXCESS_QP(1.20)[];
-	MID_CONTAINS_FROM(1.00)[];
+X-purgate-size: 1721
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
-	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:thierry.escande@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:berrange@redhat.com,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mandrillapp.com:dkim];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	NEURAL_SPAM(0.00)[0.907];
+	RCPT_COUNT_FIVE(0.00)[5];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 357BF3BF779
+X-Rspamd-Queue-Id: 1FDE73BFA77
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This patch adds description for the 'hotplug' PCI option, allowing
-devices to be attached to the guest using the legacy QMP hotplug
-mechanism or by passing them to the Qemu command line using '-device'.
+On 08/04/2026 1:23 pm, Jan Beulich wrote:
+> With the value recorded on entry there's no need anymore to go hunt for
+> the respective exception frame on the shadow stack. By deriving "ptr"
+> from that field (without any offset), it then ends up pointin one slot
 
-Signed-off-by: Thierry Escande <thierry.escande@vates.tech>
----
- docs/man/xl-pci-configuration.5.pod | 17 +++++++++++++++++
- docs/man/xl.cfg.5.pod.in            |  6 ++++++
- 2 files changed, 23 insertions(+)
+pointing
 
-diff --git a/docs/man/xl-pci-configuration.5.pod b/docs/man/xl-pci-configuration.5.pod
-index 0691f06ad3..8b664173cb 100644
---- a/docs/man/xl-pci-configuration.5.pod
-+++ b/docs/man/xl-pci-configuration.5.pod
-@@ -166,6 +166,23 @@ dom0 without confirmation.  Please use with care.
- 
- =back
- 
-+=item B<hotplug>=I<BOOLEAN>
-+
-+=over 4
-+
-+=item Description
-+
-+Tells L<xl(1)> to use QMP hotplug mechanism to attach assignable device to
-+the guest, or to pass it via Qemu command line using
-+'B<-device xen-pci-passthrough,...>'. The default is to use the legacy QMP
-+mechanism.
-+
-+=item Default Value
-+
-+1
-+
-+=back
-+
- =item B<power_mgmt>=I<BOOLEAN>
- 
- =over 4
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 3aac0bc4fb..181aaffa0f 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -1230,6 +1230,12 @@ B<(HVM only)> Changes the default value of B<power_mgmt> for all PCI
- devices passed through to this VM. See B<power_mgmt>
- above.
- 
-+=item B<pci_hotplug=BOOLEAN>
-+
-+B<(HVM only)> Changes the default value of B<hotplug> for all PCI
-+devices passed through to this VM. See L<xl-pci-configuration(5)> for
-+more details.
-+
- =item B<gfx_passthru=BOOLEAN|"STRING">
- 
- Enable graphics device PCI passthrough. This option makes an assigned
--- 
-2.53.0
+> --- a/xen/arch/x86/traps.c
+> +++ b/xen/arch/x86/traps.c
+> @@ -1187,26 +1174,28 @@ void asmlinkage noreturn do_unhandled_tr
+>  static void fixup_exception_return(struct cpu_user_regs *regs,
+>                                     unsigned long fixup, unsigned long stub_ra)
+>  {
+> -    if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
+> +#ifdef CONFIG_XEN_SHSTK
+>      {
+> -        unsigned long ssp, *ptr, *base;
+> +        unsigned long ssp = rdssp();
+>  
+> -        if ( (ssp = rdssp()) == SSP_NO_SHSTK )
+> -            goto shstk_done;
+> +        if ( ssp != SSP_NO_SHSTK )
+> +        {
+> +            unsigned long *ptr = _p(regs->entry_ssp);
+> +            unsigned long primary_shstk =
+> +                (ssp & ~(STACK_SIZE - 1)) +
+> +                (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8;
+>  
+> -        ptr = _p(ssp);
+> -        base = _p(get_shstk_bottom(ssp));
+> +            BUG_ON((regs->entry_ssp ^ primary_shstk) >> PAGE_SHIFT);
 
+This BUG() isn't correct.
 
+We can be in a fixup while in an IST handler, at which point SSP does
+not point to the primary shstk.  e.g. wrmsr_safe() in #MC.
 
---
-Thierry Escande | Vates XCP-ng Developer
+If you're looking to at least roughly bound it, check that it's any
+where in the stack range.  The WRSS below will #PF if SSP isn't
+referring to a shadow stack.
 
-XCP-ng & Xen Orchestra - Vates solutions
+Alternatively, add an is_shstk_page() predicate which checks for
+get_stack_page() == 5,0 which are the two shstk frames in the block of 8.
 
-web: https://vates.tech
-
+~Andrew
 
