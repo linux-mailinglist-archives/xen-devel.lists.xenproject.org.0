@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OG+hNIZL1ml8DQgAu9opvQ
+	id iLvuJ4lQ1mm8DQgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:35:18 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:56:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40DBA3BC2EA
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:35:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1275992.1561643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 026893BC759
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:56:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1276006.1561652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAS7S-0008KL-OL; Wed, 08 Apr 2026 12:34:54 +0000
+	id 1wASRe-0003GY-Af; Wed, 08 Apr 2026 12:55:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1275992.1561643; Wed, 08 Apr 2026 12:34:54 +0000
+Received: by outflank-mailman (output) from mailman id 1276006.1561652; Wed, 08 Apr 2026 12:55:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAS7S-0008Hw-Le; Wed, 08 Apr 2026 12:34:54 +0000
-Received: by outflank-mailman (input) for mailman id 1275992;
- Wed, 08 Apr 2026 12:34:54 +0000
+	id 1wASRe-0003F7-7d; Wed, 08 Apr 2026 12:55:46 +0000
+Received: by outflank-mailman (input) for mailman id 1276006;
+ Wed, 08 Apr 2026 12:55:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wAS7R-0008Hq-Tp
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 12:34:54 +0000
+ (envelope-from <freddy77@gmail.com>) id 1wASRd-0003Et-2V
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 12:55:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAS7Q-008eTB-RK
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 14:34:52 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wASRa-007rbZ-TL
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 14:55:42 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69d64b5d-bab6-0a2a0a5309dd-0a2a4509a234-40
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:34:52 +0200
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <jbeulich@suse.com>)
- id 69d64b6c-bf79-0a2a45090019-d1558031edb8-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:34:52 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-488afb0427eso36378955e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 05:34:52 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4887e80a63esm822552095e9.3.2026.04.08.05.34.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Apr 2026 05:34:51 -0700 (PDT)
+ (envelope-from <freddy77@gmail.com>)
+ id 69d65044-5cb7-0a2a0a5109dd-0a2a450c9820-18
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:55:42 +0200
+Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <freddy77@gmail.com>)
+ id 69d6504e-f40c-0a2a450c0019-d1558032b12d-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:55:42 +0200
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4888375f735so58779715e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 05:55:42 -0700 (PDT)
+Received: from localhost.localdomain (5.116.208.46.dyn.plus.net.
+ [46.208.116.5]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488c5dd63d6sm18454195e9.34.2026.04.08.05.55.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Apr 2026 05:55:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,234 +56,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775651692; x=1776256492; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=NEezGgfFw/VX5nvvqf1R4nIVKN7YvXPBoYZPwxQfE+g=;
-        b=c0tJhkMOZ12d/ddfx+h0qRb7p821quBinVbVY1FDofu8LpsYJmIQzs1ovLUOPzvob2
-         i1Quv55JYKT/KOzZ4ukX15Tl9007NkwYNJ5e0ArSjssO4hZ57+SCkXuAKFK1qeSUhfpC
-         PmfXLQfnZZRqo/LyHlRG6wnR3tpUW2ca8be/ouXbJZ8ukKucKqqMZLONJWEK8PPEs83l
-         dDRYlmvNJX7UpvCZVgyMJW2uRBIVMBXQnzThx8ov4uD9AGSsMegxooN4Rk9NWkCXv6V8
-         S4nN8zwiOTfjs/Nr1r4Zio0jvpw6Vcm/0qpKbZRdV0n2OWDonGqn2UJeRp3o6w06seo/
-         tU4w==
+        d=gmail.com; s=20251104; t=1775652942; x=1776257742; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=QkqBrdaNrBJCy0crOvcxBRylV9zvc66c7xFOX+Za0sU=;
+        b=NO+jrD6k7TzPeOjkfyHN5tEkgy9B323se6GKpXqhl3dL0wChl2hUvDXg3QK9oT1XhO
+         0VlMLm1sd6u5Am9K958ux41cx6w1n+3tHj/igGMGLByFXHt2feCds/PSZpAqL4f+/dLn
+         PVKo7aCc9vqhGjNHWZlnqpKgexYgtoPLTo6xRWO2euQ405WapxQi9VOOmv8tWaqgfPmI
+         BHVJGjFWsoKOY/BaYzlql3lVMblbf7rbRyfhgu3W8nlCrfWQOLXFTMgn2GyI34ElVC8o
+         jkGPqmqwpr80TkBEJzy//YmyANYLzeP3VVvZ856tCWgNC3opAPP4fhSXJZHjIWjQ2dTJ
+         XuzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775651692; x=1776256492;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1775652942; x=1776257742;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NEezGgfFw/VX5nvvqf1R4nIVKN7YvXPBoYZPwxQfE+g=;
-        b=A/Ad7ri4+OaY1y/woDZWOhmKIv+0S+k94lGgLqQc6fKfRG4GCM0fxi5NFTKUPvK60k
-         gvB0aaWGhP6sZMR2ENfLCKHMEYzxy+PLX8dg+1Xe2DeXmixtIM5rOlJ2tRka0q3FMY4O
-         fX7Oy731g+zqbCMS3f0yFWuczeDsCK/CFInXDDFezpNyO0m3V6xnzyLQ9RfqgeMDtDEJ
-         1ERBKMDb1Hu8Hl3WG5q92AtAXbdpggxBaWZOuEP1ga7DmKR4ENogyhVH9pfk2yCAzTRm
-         XwIjlq8aqRjbTc0A+AW7UkncfOzSXeYQPlCSbv4WFmdoqTxzrFCu2p35SIp0U//SIjab
-         je8A==
-X-Forwarded-Encrypted: i=1; AJvYcCUAcgsWp5nA9hOqIRYtX/IdiKEeHdgSPA084pufUB6U+NiZ3swvk6MVfyleLAptG2nQz82nE+2AWEU=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YymPFK2X22cNKWmSxrBa6/aM8kALaJr5OkVjpGftv1zpTC72wZI
-	7TXOqFcgPmP/kyBB/WChpqywdOK80kuz2B4ulyDOeBSz/rsLLQUKJP+g12bf4wG+SA==
-X-Gm-Gg: AeBDiet11qbdv42gXDhzXoAulaLwZSplqlzQtvOuzKgTr6lItwKjgxSog7JMVhESczN
-	u8erqYKThQnsHVr0KSgdU1gQPV73C35keXQUxaqCaXMT9xugflRTqosirXBBnAQTTWLDJtuhULL
-	KWvsvl1NmW//tqefpoSdyVFJFWlqI9fRDNwJyNR0rzsHnzyfaIqVTKlqDqhCoSYP5Lkj7CvwPHh
-	M7mLr//JFe+1hUUtUL2y4r+uIZRN005KvB4Poj8OsIG9N4g3Ka4vF57QM2bjny7rpNwdxzdYPHH
-	jtaZjJzYqBpq0uYRL0ypgib4BhBKh9D96kCtQY95gHjWoy4oxqFLlf00EcLawWZzrK3wsA9DzwY
-	+vJbIyXdZbCwqnk6NsAhu9lzdIWVzFOreh+2W9rymUAb7NQ3nwrhJF3ej2QxdWdeyrcxlIiJQEp
-	LLfcnMjQ+tVGGEoSjX5SxcYPdN7S3p9VGJ9DKbi6kRE6TCfsr5vmewcAtHtTtf303y9+csyrFIr
-	KjoNcE4LJohBS4=
-X-Received: by 2002:a05:600c:4689:b0:488:be21:54ae with SMTP id 5b1f17b1804b1-488be21569bmr98992405e9.0.1775651692055;
-        Wed, 08 Apr 2026 05:34:52 -0700 (PDT)
-Message-ID: <a9b21308-18f6-41ab-9ba6-1c2874cee86b@suse.com>
-Date: Wed, 8 Apr 2026 14:34:50 +0200
+        bh=QkqBrdaNrBJCy0crOvcxBRylV9zvc66c7xFOX+Za0sU=;
+        b=sq732y/KapxgOBbe+vEWxcbsWtpPwoSr8klMkwwSiDQWrP5R5sWMRSEJl1Xkhtcczm
+         JXF3wGsErZ3zC+557LbLa8pdaZlIiscSxVfoMklMza+9dfctjgCaI9PkAdWEIK5JK3/T
+         ODpxmR3JwUMjx8JUGwygz+A11yB8pdL9ze6ZDsK2rmxS1up9FQFxPZk5R0LwTevkuEFu
+         ZOeA+FygnHSkLwWv6nnBtP4H3fkaPiYMyMWBepAdStfkTRcp/Lo2jBPJbmSEVvHSRNYQ
+         003fwcApvYs+A9rzU3t5gJ++/hsn4vIuyIIXxZ9bdTtidXi1krVwRFrECbCbGHpR493p
+         Gp+w==
+X-Gm-Message-State: AOJu0YxZhY0+Yy22f09v1jGFufNd9DbM0weSw3lsH+CxyGb6jxpIBOlW
+	tOqhnNZlqrRTzT/3RzmWwCF4cxpcuUjHgNsk6RHUQio4mFCLsEbsQ/FAYcGPhw==
+X-Gm-Gg: AeBDiet4gbT6sizMcd83Cb2Etu/Z6I0vuA335poYwaHwrrZRDxySSgJYqwGt89SIoiL
+	9hzCobTrCCnopRxgOJNqJyvv3LuBgvMTF3tkTy+q71AtIEfJKacZ0tucB/iErHMYYfnhpFMFyf6
+	8h787cDlq1alQuc6lcwHxKMiogbZ1uh1jZht2E/wqJs6Qdk20GLbpTEFNZ+pdg/3O4IaAGD1P/M
+	yiGULcr/KJi3yGWPyCNwgCnZ5iA4PAELOVb/6s01PLyAx8AkUCUcIeqfktCjx9HnKXRNbAlniWW
+	pfLCb2jmoNCbo1J7A3qMpROvPAVQKsZN51LkRfniprUEpAqCqp9OEibVpaFGrJLzvwZutPJXCh1
+	DAr/m8MygLEBfywb+JSaO7mJqFttqc8DjOR7LavuDcsGA162JjK43EBcumV3Qi80Vk+PvN6fRCy
+	QQWPcNBifEiZcJeGplmDhM/6SdGv6HEz6lRwJ7jsN90GRWy/vbszLw2eCMEvZRXBiolQ==
+X-Received: by 2002:a05:600c:1c21:b0:488:b87b:3052 with SMTP id 5b1f17b1804b1-488b87b3508mr123638805e9.29.1775652941866;
+        Wed, 08 Apr 2026 05:55:41 -0700 (PDT)
+From: Frediano Ziglio <freddy77@gmail.com>
+X-Google-Original-From: Frediano Ziglio <frediano.ziglio@cloud.com>
+To: xen-devel@lists.xenproject.org
+Cc: Frediano Ziglio <frediano.ziglio@cloud.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v3] xen/x86: Check supported features even for PVH dom0
+Date: Wed,  8 Apr 2026 13:55:14 +0100
+Message-ID: <20260408125521.104660-1-frediano.ziglio@cloud.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10] xenpm: Add get-core-temp subcommand
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- Community Manager <community.manager@xenproject.org>,
- Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <22bcde2914c0303b2c594485542af19d2952e782.1775570823.git.teddy.astie@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <22bcde2914c0303b2c594485542af19d2952e782.1775570823.git.teddy.astie@vates.tech>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-bad1c0/1775651692-2F34C152-F5F2749C/0/0
+X-purgate-ID: tlsNG-d25034/1775652942-FD358A3D-04C6BDE1/0/0
 X-purgate-type: clean
-X-purgate-size: 3605
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-purgate-size: 3569
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:community.manager@xenproject.org,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:frediano.ziglio@cloud.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,xenproject.org,vates.tech,lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid,keepachangelog.com:url];
+	FORWARDED(0.00)[mailman];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	NEURAL_HAM(-0.00)[-0.992];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 40DBA3BC2EA
+X-Rspamd-Queue-Id: 026893BC759
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 07.04.2026 16:10, Teddy Astie wrote:
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -16,6 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->       mitigate (by rate-limiting) the system wide impact of an HVM guest
->       misusing atomic instructions.
->     - Support for CPIO microcode in discrete multiboot modules.
-> +   - Introduce get-core-temp to xenpm to query CPU temperatures on Intel
-> +     platforms.
+The supported features ELF notes was tested only if the dom0 was
+PV. Factor out a function to check ELF notes and reuse it even
+for PVH.
 
-Would you mind inserting "command" or "option" before "to xenpm"?
+Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+--
+Changes since v1:
+- fix typo in title;
+- fix minor formatting issue;
+- use is_hardware_domain instead of checking is_pv_shim;
+- reduce indentation returning earlier;
+- return error instead of jumping to cleanup code.
 
-> @@ -1354,6 +1358,121 @@ void enable_turbo_mode(int argc, char *argv[])
->                  errno, strerror(errno));
->  }
->  
-> +static int fetch_dts_temp(xc_interface *xch, uint32_t cpu, bool package, int *temp)
-> +{
-> +    xc_resource_entry_t entries[] = {
-> +        { .idx = package ? MSR_PACKAGE_THERM_STATUS : MSR_IA32_THERM_STATUS },
-> +        { .idx = MSR_TEMPERATURE_TARGET },
-> +    };
-> +    struct xc_resource_op ops = {
-> +        .cpu = cpu,
-> +        .entries = entries,
-> +        .nr_entries = ARRAY_SIZE(entries),
-> +    };
-> +    int tjmax;
-> +
-> +    int ret = xc_resource_op(xch, 1, &ops);
-> +
-> +    switch ( ret )
-> +    {
-> +    case 0:
-> +        /* This CPU isn't online or can't query this MSR */
-> +        errno = ENODATA;
-> +        return -1;
-> +
-> +    case 1:
-> +    {
-> +        /*
-> +         * The CPU doesn't support MSR_TEMPERATURE_TARGET, we assume it's 100
-> +         * which is correct aside a few selected Atom CPUs. Check Linux
-> +         * kernel's coretemp.c for more information.
-> +         */
-> +        static bool has_reported_once = false;
-> +
-> +        if ( !has_reported_once )
-> +        {
-> +            fprintf(stderr, "MSR_TEMPERATURE_TARGET is not supported, assume "
-> +                            "tjmax = 100, readings may be incorrect.\n");
-> +            has_reported_once = true;
-> +        }
-> +
-> +        tjmax = 100;
-> +        break;
-> +    }
-> +
-> +    case 2:
-> +        tjmax = (entries[1].val >> 16) & 0xff;
-> +        break;
-> +
-> +    default:
-> +        if ( ret > 0 )
-> +        {
-> +            fprintf(stderr, "Got unexpected xc_resource_op return value: %d", ret);
-> +            errno = EINVAL;
-> +        }
-> +        return -1;
-> +    }
-> +
-> +    *temp = tjmax - ((entries[0].val >> 16) & 0xff);
-> +    return 0;
-> +}
-> +
-> +static void get_core_temp(int argc, char *argv[])
-> +{
-> +    int temp = -1, cpu = -1;
+Changes since v2:
+- rename dom0_check_parms to initdom_check_parms;
+- move call to initdom_check_parms in PVH code earlier;
+- make "struct domain" constant.
+---
+ xen/arch/x86/dom0_build.c             | 14 ++++++++++++++
+ xen/arch/x86/hvm/dom0_build.c         |  3 +++
+ xen/arch/x86/include/asm/dom0_build.h |  2 ++
+ xen/arch/x86/pv/dom0_build.c          | 10 ++--------
+ 4 files changed, 21 insertions(+), 8 deletions(-)
 
-cpu's initializer is needed, but why would temp need one? You rely on ...
+diff --git a/xen/arch/x86/dom0_build.c b/xen/arch/x86/dom0_build.c
+index 864dd9e53e..56eba8f59a 100644
+--- a/xen/arch/x86/dom0_build.c
++++ b/xen/arch/x86/dom0_build.c
+@@ -320,6 +320,20 @@ unsigned long __init dom0_paging_pages(const struct domain *d,
+     return DIV_ROUND_UP(memkb, 1024) << (20 - PAGE_SHIFT);
+ }
+ 
++int __init initdom_check_parms(
++    const struct domain *d, const struct elf_dom_parms *parms)
++{
++    if ( parms->elf_notes[XEN_ELFNOTE_SUPPORTED_FEATURES].type == XEN_ENT_NONE )
++        return 0;
++
++    if ( is_hardware_domain(d) && !test_bit(XENFEAT_dom0, parms->f_supported) )
++    {
++        printk("Kernel does not support Dom0 operation\n");
++        return -EINVAL;
++    }
++
++    return 0;
++}
+ 
+ /*
+  * If allocation isn't specified, reserve 1/16th of available memory for
+diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+index d69a83b089..aa06cdb2f7 100644
+--- a/xen/arch/x86/hvm/dom0_build.c
++++ b/xen/arch/x86/hvm/dom0_build.c
+@@ -692,6 +692,9 @@ static int __init pvh_load_kernel(
+         return -EINVAL;
+     }
+ 
++    if ( (rc = initdom_check_parms(d, &parms)) != 0 )
++        return rc;
++
+     /* Copy the OS image and free temporary buffer. */
+     elf.dest_base = (void *)(parms.virt_kstart - parms.virt_base);
+     elf.dest_size = parms.virt_kend - parms.virt_kstart;
+diff --git a/xen/arch/x86/include/asm/dom0_build.h b/xen/arch/x86/include/asm/dom0_build.h
+index ff021c24af..1332f18cc6 100644
+--- a/xen/arch/x86/include/asm/dom0_build.h
++++ b/xen/arch/x86/include/asm/dom0_build.h
+@@ -8,6 +8,8 @@
+ 
+ extern unsigned int dom0_memflags;
+ 
++int initdom_check_parms(const struct domain *d,
++                        const struct elf_dom_parms *parms);
+ unsigned long dom0_compute_nr_pages(struct domain *d,
+                                     struct elf_dom_parms *parms,
+                                     unsigned long initrd_len);
+diff --git a/xen/arch/x86/pv/dom0_build.c b/xen/arch/x86/pv/dom0_build.c
+index 075a3646c2..12d8ba744a 100644
+--- a/xen/arch/x86/pv/dom0_build.c
++++ b/xen/arch/x86/pv/dom0_build.c
+@@ -494,14 +494,8 @@ static int __init dom0_construct(const struct boot_domain *bd)
+         return -EINVAL;
+     }
+ 
+-    if ( parms.elf_notes[XEN_ELFNOTE_SUPPORTED_FEATURES].type != XEN_ENT_NONE )
+-    {
+-        if ( !pv_shim && !test_bit(XENFEAT_dom0, parms.f_supported) )
+-        {
+-            printk("Kernel does not support Dom0 operation\n");
+-            return -EINVAL;
+-        }
+-    }
++    if ( (rc = initdom_check_parms(d, &parms)) != 0 )
++        return rc;
+ 
+     nr_pages = dom0_compute_nr_pages(d, &parms, initrd_len);
+ 
+-- 
+2.43.0
 
-> +    unsigned int socket;
-> +    bool has_data = false;
-> +
-> +    if ( argc > 0 )
-> +        parse_cpuid(argv[0], &cpu);
-> +
-> +    if ( cpu != -1 )
-> +    {
-> +        if ( fetch_dts_temp(xc_handle, cpu, false, &temp) )
-> +        {
-> +            fprintf(stderr, "Unable to fetch temperature (%d - %s)\n",
-> +                    errno, strerror(errno));
-> +            exit(EXIT_FAILURE);
-> +        }
-> +        else
-> +            printf("CPU%d: %d°C\n", cpu, temp);
-> +        return;
-> +    }
-> +
-> +    /* Per socket measurement */
-> +    for ( socket = 0, cpu = 0; cpu < max_cpu_nr;
-> +          socket++, cpu += physinfo.cores_per_socket * physinfo.threads_per_core )
-> +    {
-> +        if ( fetch_dts_temp(xc_handle, cpu, true, &temp) )
-
-... fetch_dts_temp() to always update it in the success case anyway, both here and
-in the other loop further down.
-
-Other than this (happy to adjust while committing, provided you agree):
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Jan
 
