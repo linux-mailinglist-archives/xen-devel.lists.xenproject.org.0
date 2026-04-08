@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QAArEoVe1mkfEwgAu9opvQ
+	id aJOzFIFe1mmNEggAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 15:56:21 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 15:56:17 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F03403BD407
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 15:56:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1276214.1561775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D853D3BD3E8
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 15:56:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1276215.1561784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wATNn-0001xx-Dq; Wed, 08 Apr 2026 13:55:51 +0000
+	id 1wATNp-0002Cq-Ky; Wed, 08 Apr 2026 13:55:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1276214.1561775; Wed, 08 Apr 2026 13:55:51 +0000
+Received: by outflank-mailman (output) from mailman id 1276215.1561784; Wed, 08 Apr 2026 13:55:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wATNn-0001w1-AV; Wed, 08 Apr 2026 13:55:51 +0000
-Received: by outflank-mailman (input) for mailman id 1276214;
- Wed, 08 Apr 2026 13:55:50 +0000
+	id 1wATNp-0002AI-HW; Wed, 08 Apr 2026 13:55:53 +0000
+Received: by outflank-mailman (input) for mailman id 1276215;
+ Wed, 08 Apr 2026 13:55:51 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <luca.fancellu@arm.com>) id 1wATNl-0001ij-So
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 13:55:50 +0000
+ (envelope-from <luca.fancellu@arm.com>) id 1wATNn-0001w4-C5
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 13:55:51 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wATNl-0081Hn-8N
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 15:55:49 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wATNm-00AFz6-OB
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 15:55:50 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <luca.fancellu@arm.com>)
- id 69d65e64-2eae-0a2a0a5409dd-0a2a4505be88-10
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 15:55:49 +0200
+ id 69d65e54-e002-0a2a0a5209dd-0a2a4502d0da-48
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 15:55:50 +0200
 Received: from [217.140.110.172] (helo=foss.arm.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTP (eXpurgate 4.56.0)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTP (eXpurgate 4.56.0)
  (envelope-from <luca.fancellu@arm.com>)
- id 69d65e64-3760-0a2a45050019-d98c6eacd16c-1
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 15:55:48 +0200
+ id 69d65e65-42fa-0a2a45020019-d98c6eacbcc8-1
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 15:55:50 +0200
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 440191E32;
- Wed,  8 Apr 2026 06:55:42 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AE14A2D95;
+ Wed,  8 Apr 2026 06:55:43 -0700 (PDT)
 Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DC7F63F641;
- Wed,  8 Apr 2026 06:55:46 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 538EB3F641;
+ Wed,  8 Apr 2026 06:55:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,11 +56,11 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=foss header.d=arm.com header.i="@arm.com" header.h="From:To:Cc:Subject:Date:In-Reply-To:References"
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1775656548; bh=v5LF9EBgnpQL3pb+wunpmzDERz+oj+KrD99jf6QSUyw=;
+	t=1775656549; bh=MZfKdfd+Fjj1nByHopUcpOrzmuP31AXPE7A1SX/KVCM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KlPwKuHMTA3nm6OSjAxLvuR9Qvyu1Bs4h2BMjvm8xbW1beM0vu/VITGIND60fgeBW
-	 Njl8aP1nGuhPfHde+wdmASMyeVPa9v8wipSdgR03K1GwRVbGtI3wyc3xCZEXSW8fql
-	 Oolf4ht585ZHaQ5pcKahZyOpaA7fnLGXe+fzUsGM=
+	b=Kece+ckOVuHEDt+c/9tCpgkrxKngvpG1tEBgmcyidiwZ3p1OHEQHQUAHP7pPUU3A2
+	 gxKcYy1aY2+wxvShLu/vmmgvoENvxwEt87duuVzn1GeC6DZWaByS+0awZahbr9/+V4
+	 50lnYBTq18dbPms5Uro++lahgvoc/jiRQBeU3zHM=
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Harry Ramsey <harry.ramsey@arm.com>,
@@ -69,17 +69,17 @@ Cc: Harry Ramsey <harry.ramsey@arm.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3 2/3] arm/mpu: Introduce `v8r_el1_msa` device tree property for domains
-Date: Wed,  8 Apr 2026 14:55:30 +0100
-Message-Id: <20260408135531.1744388-3-luca.fancellu@arm.com>
+Subject: [PATCH v3 3/3] arm/mpu: Implement p2m tables
+Date: Wed,  8 Apr 2026 14:55:31 +0100
+Message-Id: <20260408135531.1744388-4-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260408135531.1744388-1-luca.fancellu@arm.com>
 References: <20260408135531.1744388-1-luca.fancellu@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c201ff/1775656549-38BE896F-DE5C9B4A/0/0
+X-purgate-ID: tlsNG-720697/1775656550-ACB37CD1-35573629/0/0
 X-purgate-type: clean
-X-purgate-size: 6467
+X-purgate-size: 5725
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
@@ -112,207 +112,199 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: F03403BD407
+X-Rspamd-Queue-Id: D853D3BD3E8
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Harry Ramsey <harry.ramsey@arm.com>
 
-Add a new device tree property `v8r_el1_msa` to select the MSA (memory
-system architecture) at EL1 i.e. MPU(default) or MMU.
+Implement `p2m_alloc_table`, `p2m_init` and `p2m_final_teardown` for MPU
+systems.
 
 Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 ---
 v3:
-- Improve commit message and device tree property description
-- Remove macro protection
-- Remove unused function is_mpu_domain
-- Code formatting
+- Check for alloc_xenheap_pages allocation
+- Clear additional page allocated for ARM64
+- Add check for INVALID_VCPU_ID
+- Remove unnecessary function generate_vsctlr
+- Code formatting fixes
 ---
- docs/misc/arm/device-tree/booting.txt | 12 ++++++++++++
- xen/arch/arm/dom0less-build.c         | 24 ++++++++++++++++++++++++
- xen/arch/arm/domain.c                 |  4 ++++
- xen/arch/arm/include/asm/domain.h     |  7 +++++++
- xen/arch/arm/include/asm/mpu.h        |  5 +++++
- xen/arch/arm/mpu/arm32/mm.c           |  5 +++++
- xen/arch/arm/mpu/arm64/mm.c           |  5 +++++
- xen/include/public/arch-arm.h         |  2 ++
- 8 files changed, 64 insertions(+)
+ xen/arch/arm/include/asm/arm32/mpu.h |  2 +
+ xen/arch/arm/include/asm/arm64/mpu.h |  2 +
+ xen/arch/arm/include/asm/mpu/p2m.h   | 12 +++++
+ xen/arch/arm/include/asm/p2m.h       |  5 ++
+ xen/arch/arm/mpu/p2m.c               | 78 ++++++++++++++++++++++++++--
+ 5 files changed, 96 insertions(+), 3 deletions(-)
 
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index 977b4286082f..b1a329c0e8d9 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -322,6 +322,18 @@ with the following properties:
-     Should be used together with scmi-smc-passthrough Xen command line
-     option.
+diff --git a/xen/arch/arm/include/asm/arm32/mpu.h b/xen/arch/arm/include/asm/arm32/mpu.h
+index 2cf0f8cbacae..d565230f84ee 100644
+--- a/xen/arch/arm/include/asm/arm32/mpu.h
++++ b/xen/arch/arm/include/asm/arm32/mpu.h
+@@ -11,6 +11,8 @@
+  */
+ #define MPU_REGION_RES0       0x0
  
-+- v8r_el1_msa
++#define VSCTLR_VMID_SHIFT     16
 +
-+    A string property specifying whether, on Armv8-R systems, a domain
-+    should use PMSAv8 (MPU) at EL1 or VMSAv8 (MMU) at EL1.
+ /* Hypervisor Protection Region Base Address Register */
+ typedef union {
+     struct {
+diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
+index 4f694190a8a3..8b86a03fee44 100644
+--- a/xen/arch/arm/include/asm/arm64/mpu.h
++++ b/xen/arch/arm/include/asm/arm64/mpu.h
+@@ -7,6 +7,8 @@
+ 
+ #define MPU_REGION_RES0        (0xFFFFULL << 48)
+ 
++#define VSCTLR_VMID_SHIFT      48
 +
-+    - "mmu"
-+    Enables VMSAv8 at EL1. This requires hardware support and is only
-+    optionally available on AArch64.
+ /* Protection Region Base Address Register */
+ typedef union {
+     struct __packed {
+diff --git a/xen/arch/arm/include/asm/mpu/p2m.h b/xen/arch/arm/include/asm/mpu/p2m.h
+index e46d9e757a1d..39fc0c944916 100644
+--- a/xen/arch/arm/include/asm/mpu/p2m.h
++++ b/xen/arch/arm/include/asm/mpu/p2m.h
+@@ -3,8 +3,20 @@
+ #ifndef __ARM_MPU_P2M_H__
+ #define __ARM_MPU_P2M_H__
+ 
++#include <xen/bitops.h>
++#include <xen/macros.h>
++#include <xen/page-size.h>
 +
-+    - "mpu"
-+    Enables PMSAv8 at EL1. (Default)
-+
- Under the "xen,domain" compatible node, one or more sub-nodes are present
- for the DomU kernel and ramdisk.
- 
-diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
-index 4181c105389a..456dc553bb23 100644
---- a/xen/arch/arm/dom0less-build.c
-+++ b/xen/arch/arm/dom0less-build.c
-@@ -24,6 +24,7 @@
- #include <asm/domain_build.h>
- #include <asm/firmware/sci.h>
- #include <asm/grant_table.h>
-+#include <asm/mpu.h>
- #include <asm/setup.h>
- 
- #ifdef CONFIG_VGICV2
-@@ -315,6 +316,7 @@ int __init arch_parse_dom0less_node(struct dt_device_node *node,
-     struct xen_domctl_createdomain *d_cfg = &bd->create_cfg;
-     unsigned int flags = bd->create_flags;
-     uint32_t val;
-+    const char *v8r_el1_msa;
- 
-     d_cfg->arch.gic_version = XEN_DOMCTL_CONFIG_GIC_NATIVE;
-     d_cfg->flags |= XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap;
-@@ -322,6 +324,28 @@ int __init arch_parse_dom0less_node(struct dt_device_node *node,
-     if ( domu_dt_sci_parse(node, d_cfg) )
-         panic("Error getting SCI configuration\n");
- 
-+    if (!dt_property_read_string(node, "v8r_el1_msa", &v8r_el1_msa))
-+    {
-+#ifdef CONFIG_MPU
-+        if ( !strcmp(v8r_el1_msa, "mmu") )
-+        {
-+            if ( !has_v8r_vmsa_support() )
-+                panic("Platform does not support VMSA at EL1 (v8r_el1_msa)\n");
-+            d_cfg->arch.v8r_el1_msa = MPU_EL1_VMSA;
-+        }
-+        else if ( !strcmp(v8r_el1_msa, "mpu") )
-+        {
-+            d_cfg->arch.v8r_el1_msa = MPU_EL1_PMSA;
-+            if ( !(flags & CDF_staticmem) || !(flags & CDF_directmap) )
-+                panic("PMSA is not valid for domain without static allocation and direct map (v8r_el1_msa)\n");
-+        }
-+        else
-+            panic("Invalid device tree option for v8r_el1_msa\n");
-+#else
-+        panic("'v8r_el1_msa' property found, but CONFIG_MPU not selected\n");
-+#endif
-+    }
-+
-     if ( !dt_property_read_u32(node, "nr_spis", &d_cfg->arch.nr_spis) )
-     {
-         int vpl011_virq = GUEST_VPL011_SPI;
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 26380a807cad..c044293acd39 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -725,6 +725,10 @@ int arch_domain_create(struct domain *d,
-     if ( (rc = sci_domain_init(d, config)) != 0 )
-         goto fail;
- 
-+#ifdef CONFIG_MPU
-+    d->arch.v8r_el1_msa = config->arch.v8r_el1_msa;
-+#endif
-+
-     return 0;
- 
- fail:
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-index ffe5d0d9f0a6..fd0a83046893 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -30,6 +30,9 @@ enum domain_type {
- #define is_64bit_domain(d) (0)
- #endif
- 
-+#define MPU_EL1_PMSA 0
-+#define MPU_EL1_VMSA 1
-+
- /*
-  * Is the domain using the host memory layout?
-  *
-@@ -128,6 +131,10 @@ struct arch_domain
- #endif
- 
-     struct resume_info resume_ctx;
-+
-+#ifdef CONFIG_MPU
-+    uint8_t v8r_el1_msa;
-+#endif
- }  __cacheline_aligned;
- 
- struct arch_vcpu
-diff --git a/xen/arch/arm/include/asm/mpu.h b/xen/arch/arm/include/asm/mpu.h
-index 72fa5b00b861..8a8c01086206 100644
---- a/xen/arch/arm/include/asm/mpu.h
-+++ b/xen/arch/arm/include/asm/mpu.h
-@@ -27,6 +27,11 @@
- 
- #ifndef __ASSEMBLER__
+ struct p2m_domain;
  
 +/*
-+ * Utility function to determine if an Armv8-R processor supports VMSA.
++ * The architecture allows at most 255 EL2 MPU memory regions. The size of the
++ * MPU structure entry (pr_t) is 32 Bytes on AArch64 (requiring two 4KB pages)
++ * and 16 bytes on AArch32 (requiring one 4KB page).
 + */
-+bool has_v8r_vmsa_support(void);
++#define P2M_ROOT_PAGES DIV_ROUND_UP(255 * sizeof(pr_t), PAGE_SIZE)
++#define P2M_ROOT_ORDER get_count_order(P2M_ROOT_PAGES)
 +
- /*
-  * Set base address of MPU protection region.
-  *
-diff --git a/xen/arch/arm/mpu/arm32/mm.c b/xen/arch/arm/mpu/arm32/mm.c
-index a4673c351141..5eaeb3400e6c 100644
---- a/xen/arch/arm/mpu/arm32/mm.c
-+++ b/xen/arch/arm/mpu/arm32/mm.c
-@@ -38,6 +38,11 @@
-         break;                                            \
-     }
+ static inline void p2m_clear_root_pages(struct p2m_domain *p2m) {}
  
-+bool has_v8r_vmsa_support(void)
+ static inline void p2m_tlb_flush_sync(struct p2m_domain *p2m) {}
+diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+index 010ce8c9ebbd..ed1b6dd40f40 100644
+--- a/xen/arch/arm/include/asm/p2m.h
++++ b/xen/arch/arm/include/asm/p2m.h
+@@ -48,8 +48,13 @@ struct p2m_domain {
+     /* Current VMID in use */
+     uint16_t vmid;
+ 
++#ifdef CONFIG_MMU
+     /* Current Translation Table Base Register for the p2m */
+     uint64_t vttbr;
++#else
++    /* Current Virtualization System Control Register for the p2m */
++    register_t vsctlr;
++#endif
+ 
+     /* Highest guest frame that's ever been mapped in the p2m */
+     gfn_t max_mapped_gfn;
+diff --git a/xen/arch/arm/mpu/p2m.c b/xen/arch/arm/mpu/p2m.c
+index f7fb58ab6aa8..ec8f630acd90 100644
+--- a/xen/arch/arm/mpu/p2m.c
++++ b/xen/arch/arm/mpu/p2m.c
+@@ -28,10 +28,69 @@ void p2m_dump_info(struct domain *d)
+     BUG_ON("unimplemented");
+ }
+ 
++static int p2m_alloc_table(struct domain *d)
 +{
-+    return false;
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++    void *table = alloc_xenheap_pages(P2M_ROOT_ORDER, 0);
++
++    if ( !table )
++    {
++        printk(XENLOG_G_ERR "%pd: p2m: unable to allocate P2M MPU mapping table\n",
++               d);
++        return -ENOMEM;
++    }
++
++    p2m->root = virt_to_page(table);
++
++    for (int i = 0; i < P2M_ROOT_PAGES; i++)
++        clear_page(page_to_virt(p2m->root + i));
++
++    return 0;
 +}
 +
- /*
-  * Armv8-R supports direct access and indirect access to the MPU regions through
-  * registers:
-diff --git a/xen/arch/arm/mpu/arm64/mm.c b/xen/arch/arm/mpu/arm64/mm.c
-index ed643cad4073..b07e729a7d05 100644
---- a/xen/arch/arm/mpu/arm64/mm.c
-+++ b/xen/arch/arm/mpu/arm64/mm.c
-@@ -32,6 +32,11 @@
-         break;                                                  \
-     }
- 
-+bool has_v8r_vmsa_support(void)
-+{
-+    return system_cpuinfo.mm64.msa_frac == MM64_MSA_FRAC_VMSA_SUPPORT;
-+}
+ int p2m_init(struct domain *d)
+ {
+-    BUG_ON("unimplemented");
+-    return -EINVAL;
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++    int rc = 0;
++    unsigned int cpu;
 +
- /*
-  * Armv8-R supports direct access and indirect access to the MPU regions through
-  * registers:
-diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index cd563cf70684..23df2f24cb09 100644
---- a/xen/include/public/arch-arm.h
-+++ b/xen/include/public/arch-arm.h
-@@ -355,6 +355,8 @@ struct xen_arch_domainconfig {
-     uint32_t clock_frequency;
-     /* IN */
-     uint8_t arm_sci_type;
-+    /* IN */
-+    uint8_t v8r_el1_msa;
- };
- #endif /* __XEN__ || __XEN_TOOLS__ */
++    rwlock_init(&p2m->lock);
++
++    p2m->vmid = INVALID_VMID;
++    p2m->max_mapped_gfn = _gfn(0);
++    p2m->lowest_mapped_gfn = _gfn(ULONG_MAX);
++
++    p2m->default_access = p2m_access_rwx;
++    /* mem_access is NOT supported in MPU system. */
++    p2m->mem_access_enabled = false;
++
++    /* Ensure that the type chosen is large enough for MAX_VIRT_CPUS. */
++    BUILD_BUG_ON((1 << (sizeof(p2m->last_vcpu_ran[0]) * 8)) < MAX_VIRT_CPUS);
++    BUILD_BUG_ON((1 << (sizeof(p2m->last_vcpu_ran[0]) * 8)) < INVALID_VCPU_ID);
++
++    for_each_possible_cpu(cpu)
++        p2m->last_vcpu_ran[cpu] = INVALID_VCPU_ID;
++
++    /*
++     * "Trivial" initialization is now complete. Set the backpointer so that
++     * p2m_teardown() and related functions know to do something.
++     */
++    p2m->domain = d;
++
++    rc = p2m_alloc_vmid(d);
++    if ( rc )
++        return rc;
++
++    p2m->vsctlr = ((register_t)p2m->vmid << VSCTLR_VMID_SHIFT);
++
++    rc = p2m_alloc_table(d);
++    if ( rc )
++    {
++        p2m_free_vmid(d);
++        return rc;
++    }
++
++    return 0;
+ }
  
+ void p2m_save_state(struct vcpu *p)
+@@ -46,7 +105,20 @@ void p2m_restore_state(struct vcpu *n)
+ 
+ void p2m_final_teardown(struct domain *d)
+ {
+-    BUG_ON("unimplemented");
++    struct p2m_domain *p2m = p2m_get_hostp2m(d);
++
++    /* p2m not actually initialized */
++    if ( !p2m->domain )
++        return;
++
++    if ( p2m->root )
++        free_xenheap_pages(page_to_virt(p2m->root), P2M_ROOT_ORDER);
++
++    p2m->root = NULL;
++
++    p2m_free_vmid(d);
++
++    p2m->domain = NULL;
+ }
+ 
+ bool p2m_resolve_translation_fault(struct domain *d, gfn_t gfn)
 -- 
 2.34.1
 
