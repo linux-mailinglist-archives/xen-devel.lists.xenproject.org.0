@@ -2,49 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oDVMFbw71mlZBwgAu9opvQ
+	id kAayIEE91mlZBwgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 13:27:56 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 13:34:25 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B36703BB394
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 13:27:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1275749.1561492 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B72EE3BB521
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 13:34:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1275780.1561500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAR4G-0006Y3-JC; Wed, 08 Apr 2026 11:27:32 +0000
+	id 1wARAf-0008Vm-Bi; Wed, 08 Apr 2026 11:34:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1275749.1561492; Wed, 08 Apr 2026 11:27:32 +0000
+Received: by outflank-mailman (output) from mailman id 1275780.1561500; Wed, 08 Apr 2026 11:34:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAR4G-0006W7-GU; Wed, 08 Apr 2026 11:27:32 +0000
-Received: by outflank-mailman (input) for mailman id 1275749;
- Wed, 08 Apr 2026 11:27:31 +0000
+	id 1wARAf-0008Ta-8v; Wed, 08 Apr 2026 11:34:09 +0000
+Received: by outflank-mailman (input) for mailman id 1275780;
+ Wed, 08 Apr 2026 11:34:07 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wAR4F-0006Vz-6b
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 11:27:31 +0000
+ (envelope-from <andrew.cooper@citrix.com>) id 1wARAd-0008TU-Mt
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 11:34:07 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAR4E-005guk-Io
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 13:27:30 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wARAc-008Ss2-Su
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 13:34:06 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69d63b91-bab6-0a2a0a5309dd-0a2a450ca434-46
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 13:27:30 +0200
-Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <jbeulich@suse.com>)
- id 69d63b2a-f40c-0a2a450c0019-d155dd36d1e1-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 13:25:30 +0200
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-43cfde3c3f3so5923938f8f.3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 04:25:30 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e2a6f08sm60438329f8f.6.2026.04.08.04.25.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Apr 2026 04:25:29 -0700 (PDT)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 69d63d2d-bab6-0a2a0a5309dd-0a2a4503cd2c-4
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 13:34:06 +0200
+Received: from [40.93.194.35]
+ (helo=SN4PR0501CU005.outbound.protection.outlook.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 69d63d2d-02b3-0a2a45030019-285dc223db98-4
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 13:34:06 +0200
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by BLAPR03MB5634.namprd03.prod.outlook.com (2603:10b6:208:285::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.23; Wed, 8 Apr
+ 2026 11:34:03 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9769.018; Wed, 8 Apr 2026
+ 11:34:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,198 +58,312 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775647530; x=1776252330; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=SBdtrVKnRDnuCZ5SKaN1WgYqxSH99iwR1eEH7wK1pxI=;
-        b=Z1OI6+u6uuUIecuDuxiuNmmcNxUw3H6AAh3IBNFjrbItn4nSScgG0ZhYPr9xkrp6EL
-         2jIH9DW6RUonMGAlCvkHHnuiSiMqOYvyYdiK5+/KmaA/WrYVKUFVuJRAa5FeXvavfKFk
-         FUQzd2SYTvpo3qhJxWPqQTwC2eJj1MoXdx4zhln0LBdxVR4VYcGWd+MzSsoEhO32SqzJ
-         Pz+ovfnK9ChYXXi+wFldEFxwl4PVeOdala0RNLdhYMREr33dpCfzPNK8x734gvaKOOSF
-         GIpwHvGfsi5olblYDBkzYQR+fRPhjJ8Dlv93XMW+uMsZ4tIFf7v3IzfSA09uAm6Sr/G8
-         CDMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775647530; x=1776252330;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=SBdtrVKnRDnuCZ5SKaN1WgYqxSH99iwR1eEH7wK1pxI=;
-        b=rxOORMA2ndl9VhxKy43jVQpsrbPIfzRdfsTMB3iCOAnjS4xnIvYQB6DlmA4BRLlsAv
-         5jnvfq6kKk/S4YFzHRBC9IKxr654Vdpwl8aKUyRZmC1n3ZxPJSKHQOhQL12FbpkQUW56
-         6qc0EcdHquXpJizqPSR5DsQ488BhW70OsVb/+qxP1dmHm4OntgztwsMevohKgs5pESK+
-         hRkGvzioYnjdggWV8Tvi807mYiCcOcVYBh854zY28XqZQqsCp4kVy8+A0/rCS4jd3pjd
-         FJziqvGj9YbklGXJgshfNcRX4j99xU1kdgCNIrdxEKB8SjHRes2/PBrGIQWK0vDeNsGf
-         PKmQ==
-X-Forwarded-Encrypted: i=1; AJvYcCXHXgwBWYfAqCoSURY7kCJ8OI6L9Zip2xWIsZEGNXNDBJtxqdX4cL/pc24dpiP4m4YDzO4QE0tJ+/g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxOD97a9gRFb5E4xcDtTUZHh8RPPoTRVBXT98GDo1JGLQ32n3ih
-	KyIcjwmWM/+dHH2+dsa0T9/WUjz2BUHSWYeic6Vai2auBqXzcRWNcoLcE7swQbgSFg==
-X-Gm-Gg: AeBDievdQEU6RMGxw3+7sQE1SGsi2th3tavwphQJTnuOS5VG2+rwk4uxskc9svG9IVm
-	WwgLZ8FrEcgqOhiJGuQfQy+JbqVLzqNIe6QoUEf3cMd0GNgYWu1cNk8o0wAEDqE7zNaFUTo+Mn2
-	UYqq8gA8/aW4p4WlHWfUIeTwoTALefiWEavQxUdEZrGWmUtcMl1+V1qxs1HpRqgTgNhqUFFq6mL
-	Y8Vv5LUjtWqDoZw+U+3MuEpEB9fekT0taGlOaEknV7UebzNytpU9edoZxGghSUZEVEq4c6jIK93
-	1+Z6JHS8cHyWoCf/0Qk6GTCu3e1daXfEIU1HbcoGPwQH1VFPCS9MneDk8ez2vQKo0A/1K1JDLvr
-	PER2JhbQb+UalfW9aY7u6op4+RClNS6VM2Un8RqMbWK/qQnE5RMPTe2NftrzE/qfRiK9iba9c7b
-	7IdxP+zq3YqWxdoD68JPexNHcHwo8eE6iSDz7laACANyBn5zT9KvlsxbHx6B+ZEnoKMcJSf0jVV
-	QdPXpnoHXZU/7U=
-X-Received: by 2002:a5d:5f85:0:b0:43c:f7f6:6016 with SMTP id ffacd0b85a97d-43d292daa51mr30310863f8f.32.1775647529378;
-        Wed, 08 Apr 2026 04:25:29 -0700 (PDT)
-Message-ID: <2830de65-c037-439b-a9ff-bfe6d9cce212@suse.com>
-Date: Wed, 8 Apr 2026 13:25:28 +0200
-MIME-Version: 1.0
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JUVQDh+x+x7lq0K1LUyvkI9BN/CFMeVjzmIyvmpX9D+DtB82pAo3be2nhAL5Zf0KuHJmAebiNnC5ukNbJ9citnXd44mnUFeSN8FNcj2A+BtkOuSZiWSFbulZoOArvjb0tJIzLYD36Mu74N1Zj2aPXLtYC6ZwchElRmDeXkW1l119jOnnf9pOZ51nukIOcfP0qJFsp3LQwY2LOa36fZ4KgwRuL3DMlQ1nE9AvxVQ0tEYkalwyD+Zlg0Is1o7JvGK7qXQNmAv5MBMCFmqvRxsonRUX5EyzaHq7Df7K23AKMyLMzmQy8fFzRj+CTph9kNgG1QDH0W677kCcLT8t0xu8ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hDRpph66zub1viTKCSzkRUJG06bJCnyd+BNdnuHGBwM=;
+ b=xrkk+XyPEzgyzpxI01wNw0FKuaWPNu3XwFS1GXwOSx1SyhvMkCq6OHjOBA7NbsciNPkVTw1LQXuNC6ljyXa38o8zyR4/k60pQ5OKEoYeloceXjV4AvcOu6l7mhd9t318anSlIbnnrlul1PCaW0SV6+3UMdAyELPwXDNkbyy75ZA+7bvsDnvdF41c81AUhw9tbIL/aQa3UFoTgtBf2E10Q0Ps4gJoOq3lC8aMBEc7W/+aKao35fAsSCC/LGqkE+PXoD3QiGMH2Iyr+gf+G3r0Ge+8OqGY9EIbC1NNDvR3sv0Yqsk2g+n7PoN4pwuQ0BPGFhNrHg2KuhA4n1qFpbFSIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hDRpph66zub1viTKCSzkRUJG06bJCnyd+BNdnuHGBwM=;
+ b=hzlUfxCViE+iy3ReOSuSGWKWvqu4G4GdUuwGQrTH9A0UlCjqKdwwNDALdO385zXGwzB/yaU6rweB3to7S7DZAzbGlvYP4MPyAqnYGs/ZEVO2Yy7I+ppRSrdXQvYHFtlVFNwfwyuB84CT0o8BjOxJdqHQD1Z7UXxftYqeIDejNkk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <9b9dd025-fd4d-4fa1-abb4-ad10c86f839e@citrix.com>
+Date: Wed, 8 Apr 2026 12:34:00 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] xen/riscv: allow Xen to use SSTC while hiding it
- from guests
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1774863161.git.oleksii.kurochko@gmail.com>
- <ff0e2e7332d5b887d00ad10caf01952f90f5da5c.1774863161.git.oleksii.kurochko@gmail.com>
- <df6fb4f1-b420-4b5f-90e1-dea9069311bf@suse.com>
- <e69e8de7-dbcc-4839-bff6-866c3fa50ea2@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e69e8de7-dbcc-4839-bff6-866c3fa50ea2@gmail.com>
+ Teddy Astie <teddy.astie@vates.tech>
+Subject: Re: [PATCH v10] x86emul: support LKGS
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <a902e1bb-d51e-4889-a4af-505fd19e63d0@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <a902e1bb-d51e-4889-a4af-505fd19e63d0@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d25034/1775647530-FDD53A3D-800E6822/0/0
+X-ClientProxiedBy: LO4P265CA0089.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2bc::6) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|BLAPR03MB5634:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb563a51-ebb2-4557-3b18-08de9562bc58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	BVHnnS4x8H1sJufaAQ9vqhO8jzEIJlWbFtuyIedCYnwngmQ8hErkH8VfbaGjeHSrqKOWUJ+pSEeg+uhYIHMrqLwx7/patk/glCr3NI/K88aFSrRxd7+Ls0ZYldrMYb5M3sTfdtcYNV3GyOk/27P+JsYuwac19hmgHMJsZKDrPhijkDNctpUr/F4nCtxPE0JRHETrO+1uBCo0Z8sEqVwGrVUzvf2YwxVC3T3K2qQeQv1ExvEokJVTX6TNB0ARQ3bTBhn6x6SGuslGVLGPZGGSVReiBGj0/k30DlLP/vsPsd3YRsfAOHNw+rWQb2p4M1CI8A/oHB9PTWgy7TANP6HWs+DouaZJo+TBQBkC+E6F4SaNr4U1j0jwnMk5dtRjT8QUVz84cH9fAJisuA9BDns25uYTY72jva0tHnmZOMXHNtejuIvOROMAw46mhgrM5BWto7vJlGOzb0jwRYLvsIBeCqFbgTyOuGfp2/pvBd1DBbfuH1M5sMvW6NrxUDaGkj1UbEqCSMnk8v0PwL1vmajMCkUYNuMfqvwYX6sYweDyQNWvn0zzAYPkNtxLcsmB0YOgVe0ZVztUAlUX1bPUkFirlCi992ktxnECgBkGL1uLKg66hqMeGoZuJW0IXAxCg5WyZ4iSKwVEyj8qAfsQz58FdIhC3/UKUZhDopj4cZdllIzQKVRBx56+cWoyhv234joJ6Gw/I6OFbl+YjBqbWRParh+NSGQgBjQTBIhV3x+e98U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SnpGMlN2L05nMHdFVWNMdWgxVXBXN2Q4ZWxFR251QjhxRm42YmxuMUxNcmdy?=
+ =?utf-8?B?R0FOSkk5bG1XWEllWUlWN3l3RlN6ZnZEUXdYK2FjSUU3R2RxZWJvYnE4bU45?=
+ =?utf-8?B?Zk40cmY0ZWtYckViU20vbHFMRjFUcy9YaW5UUVp4SWwyQlFPMFFKZWNwOWJO?=
+ =?utf-8?B?WTlxbzJKMmV3K0ZqSllwUEM5a2h0TDhnWHlYQjFJMUZlcFM4d1FKV3RzRmlH?=
+ =?utf-8?B?cll0YUlOanhWVU5xeFVXZUQzVHdUWllpNUI1ZldsbjJNbGhiaFVHK1R1SUpP?=
+ =?utf-8?B?SXRSbHd6Y1dtOWlVZXp3M3MzQWZpQTk4T1BrZURPclZWTldaWkE1TUhmZlpz?=
+ =?utf-8?B?Rm5JYVkwazF0T2F0T3JtSVRGeDZhMFRMQ2tuOWZVbkdCSVIzd3djbE1XclNv?=
+ =?utf-8?B?c21XSnQ0Z3M0dFd5RUNNUHNwamdEbE52RkMwdG5obmROZTh4MFNpeUlCQU9O?=
+ =?utf-8?B?TmwvdjQ4YkdTRkVYelRFaUtEVDJTYTNrTWtVT2p0ZVNGdXdLOElWdG5EajlS?=
+ =?utf-8?B?RWo0WWZUTVhIem14WGJEekxDZTc1VUFlOFN1R1pFdjBkZjQ5ai9nenNZaGYx?=
+ =?utf-8?B?M2VSYnVNUlU3NVZRQXNybE5sWENjNHhhcG5XdjdTNU4rWEY2ZXp4T2FvVVhT?=
+ =?utf-8?B?dzRjV05iZXg0RlhQZjk0d2lRNFN2OWxobi9yWFpoTFhkOGVlZlg0L2xFVFNv?=
+ =?utf-8?B?dkQ5aWxia1krMkU1a2h2dGRKU1VTa0VaWjRxVnpXZklWZVFiWXd3aXNLV1RO?=
+ =?utf-8?B?a1FjeENqSmNQd1ZwU3VOTU1MdUlCSVJYY3J4M0xJTjFsUGkyc3pBdXdCa3Yx?=
+ =?utf-8?B?WURGbjVpL3dpdFFLVnRmbnIreDZDTysxL2J3RnJhWXZKd04xd01zSGJhNCs2?=
+ =?utf-8?B?ZUFsTndqYk8xL1V4ekxOclZFbGtNamJTVmdicTlJQXVSTWRqNUZpQUVzekkz?=
+ =?utf-8?B?MG8rZmdNMnhTV3g4RGpNb3ZiczV3S3RGS2V1c0U1Z3U1aE50bE5ORjh2SWt5?=
+ =?utf-8?B?ODJyMFMzd1l6YzRqblVlOUZqemVLZEt3N1MwUHZ0cUgvMkFrR3lsd1Bjdk9j?=
+ =?utf-8?B?V3RsL1lwanVLbSt2LzlRaFEyUWJTYjhCc2Q3MFNYN0NDdzF1aVJuYkd6TzlM?=
+ =?utf-8?B?UXdZTkx3ckNWQnlLUkdDY3ZQRlpnaVhBQnIraFEwSHp2bkJCbXRpWUVUWVdv?=
+ =?utf-8?B?RkhNL0xnM3QvUFBHRHM2Q3FlZ21vekVMV3I0U0s4ZmJaTnljbVcvZGJTbitU?=
+ =?utf-8?B?VFhmdWYvWnBldkZiMG9JdFhOSlV4ZWUrTHJsaWZOdmZQazJzUE5GZTBTcjFG?=
+ =?utf-8?B?QTBraHk3dWtER3VyS21NNW0vTDFrV2Q1RE94ZHFpSUIzOVprTmV6R1N5V09S?=
+ =?utf-8?B?OWdJcDhNU3hkOGU0ZHU1QjVxU0RhMDRPNXJiakdRZDcvbEovak5zL2dZc1VY?=
+ =?utf-8?B?WGl3bmNRNGxXMFVTMGlheFFXV1FoYXh1bTk3ZFUvVjhZeE5DVjRXeUZsZnEv?=
+ =?utf-8?B?WEpsUCtvMi9ram5NNkZXakdFV2R6dHFVN2J6Y3dmRUw4dmI2dmdkMWdXbGJr?=
+ =?utf-8?B?NmhQR2RnTW9zb3piOFlMOER2T1dibGR6eGZncGF4RVgxQysxb0F4UFljb1Rr?=
+ =?utf-8?B?Y3JRdUJIMHhpdTFFV2xwNUJ4Q05rS3lVNTJTY1AzcllCUzJQanJxZEtmbHhQ?=
+ =?utf-8?B?R0pBSEM2NThpT0tPQXI3WGNWeHJwWU50MmwyYTExK0VrWktxcmxkcEw3aUtQ?=
+ =?utf-8?B?OGNvajkzYnhkRWJpWmpOeGFVaU1JYkIyMDVUK3I5bWxlYXVzekJwOGYzOUFs?=
+ =?utf-8?B?K1pLbVRXeWhGd2xRUmdTd0IvWU0zeXJ4M2JhM2pKMkZCaURIbkZyVzQvNUxC?=
+ =?utf-8?B?ZWNKd1dycXIvcnpFVHFQcDBibEpSWU1LL1Nxd3g5S3M1OGt5OFJVWmFzSEFi?=
+ =?utf-8?B?VnQybDFKTURtU2hJL2R5TVFoY2VUWmF6K1hNWFdOWUdLb2x5WlFsbUVSdk0v?=
+ =?utf-8?B?Qi9mU1M5bFZkOG1DYWpWcjBXOGpzbGJudlJjc2didmlpQkhuQTlUaUFwcU5C?=
+ =?utf-8?B?TytibUZZYWxHckRSOFllVkd0eTN5NWo0VE5ReTdFM2U0VEk5akRPSG1MejZi?=
+ =?utf-8?B?RjFkZnU1MHRROVU0L1krS1pJVmpVK3JVUmlWU1A2RGpZeHVpSXBqVVZGemZw?=
+ =?utf-8?B?dFp4KzVCM2ZDc2Yrd1Zra29qYjR1UzlFWmpvTzZTa0FmMHRrekRnenFJVUg0?=
+ =?utf-8?B?V1JGVkdoUEpORWRxRGQ2OTdGQWNUMmRYbmoyQytQZ08vaGIxOUhwVytjSzVV?=
+ =?utf-8?B?WHBPbmxYdlB6bExVazhWQXBjNy96RFpJWTBRYVpHYUVOMHBPSXNQczY4OVFn?=
+ =?utf-8?Q?QFae6mGYKeX0j/dI=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb563a51-ebb2-4557-3b18-08de9562bc58
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2026 11:34:03.3195
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2AO7vDKYxzoHLEde2OnU++8jggkrMDeEWFOYR6XxuXY+1pdIM3b8UUoUiSBkkvodzvYydfAR3wryhwnDs0Vt4aHCwp7dMhK9pZ8ERwt1v7I=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5634
+X-purgate-ID: tlsNG-33051d/1775648046-CAB23C9A-B5E99887/0/0
 X-purgate-type: clean
-X-purgate-size: 2574
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-purgate-size: 6620
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.998];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,citrix.com:dkim,citrix.com:mid];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: B36703BB394
+X-Rspamd-Queue-Id: B72EE3BB521
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 08.04.2026 12:58, Oleksii Kurochko wrote:
-> On 4/2/26 8:41 AM, Jan Beulich wrote:
->> On 31.03.2026 21:04, Oleksii Kurochko wrote:
->>> @@ -61,20 +73,7 @@ int reprogram_timer(s_time_t timeout)
->>>       if ( deadline <= now )
->>>           return 0;
->>>   
->>> -    /*
->>> -     * TODO: When the SSTC extension is supported, it would be preferable to
->>> -     *       use the supervisor timer registers directly here for better
->>> -     *       performance, since an SBI call and mode switch would no longer
->>> -     *       be required.
->>> -     *
->>> -     *       This would also reduce reliance on a specific SBI implementation.
->>> -     *       For example, it is not ideal to panic() if sbi_set_timer() returns
->>> -     *       a non-zero value. Currently it can return 0 or -ENOSUPP, and
->>> -     *       without SSTC we still need an implementation because only the
->>> -     *       M-mode timer is available, and it can only be programmed in
->>> -     *       M-mode.
->>> -     */
->>> -    if ( (rc = sbi_set_timer(deadline)) )
->>> +    if ( (rc = set_xen_timer(deadline)) )
->>>           panic("%s: timer wasn't set because: %d\n", __func__, rc);
->>>   
->>>       /* Enable timer interrupt */
->>> @@ -85,10 +84,17 @@ int reprogram_timer(s_time_t timeout)
->>>   
->>>   void __init preinit_xen_time(void)
->>>   {
->>> +    unsigned long tmp;
->>> +
->>>       if ( acpi_disabled )
->>>           preinit_dt_xen_time();
->>>       else
->>>           panic("%s: ACPI isn't supported\n", __func__);
->>>   
->>>       boot_clock_cycles = get_cycles();
->>> +
->>> +    if ( csr_read_safe(CSR_STIMECMP, &tmp) )
->>> +        set_xen_timer = sstc_set_xen_timer;
->>> +    else
->>> +        set_xen_timer = sbi_set_timer;
->>>   }
->>
->> Doesn't all of this together eliminate the need for sbi_set_timer as a
->> separate global variable?
-> There's still a need for that SBI-level dispatch. However, sbi_set_timer 
-> doesn't need to be a global variable (exported from sbi.h). Since the 
-> only external user after this patch is the time.c, sbi_set_timer could 
-> be refactored into a plain static internal pointer with a non-static 
-> wrapper function:
-> 
-> // sbi.c — keep dispatch internal
-> static int (* __ro_after_init sbi_set_timer_fn)(uint64_t) = 
-> sbi_set_timer_v01;
-> 
-> int cf_check sbi_set_timer(uint64_t stime_value)
-> {
->      return sbi_set_timer_fn(stime_value);
-> }
-> 
-> Do you mean this?
+On 08/04/2026 11:22 am, Jan Beulich wrote:
+> Provide support for this insn, which is a prereq to FRED. CPUID-wise,
+> while its and FRED's enumerators were already introduced, their dependency
+> still needs adding.
+>
+> While adding a testcase, also add a SWAPGS one. In order to not affect
+> the behavior of pre-existing tests, install write_{segment,msr} hooks
+> only transiently.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> For PV save_segments() would need adjustment,
 
-No. Why is it that we'd still need both set_xen_timer and sbi_set_timer
-as distinct variables?
+Not really.  CPL3 must never have a way of modifying GS_KERN, hence ...
 
-Jan
+> but the insn being restricted to ring 0 means PV guests can't use it anyway
+
+... the CPL0 restriction.
+
+Arguably I should have had this in one of the FRED patches:
+
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index 1151997758c6..3364e774ada7 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -1952,7 +1952,7 @@ static void load_segments(struct vcpu *n)
+  * changes to bases can also be made with the WR{FS,GS}BASE instructions, when
+  * enabled.
+  *
+- * Guests however cannot use SWAPGS, so there is no mechanism to modify the
++ * Guests cannot use SWAPGS or LKGS, so there is no mechanism to modify the
+  * inactive GS base behind Xen's back.  Therefore, Xen's copy of the inactive
+  * GS base is still accurate, and doesn't need reading back from hardware.
+  *
+
+
+but I don't think it's appropriate to merge into this patch.
+
+> (unless we wanted to emulate it as another privileged insn).
+
+We already have "LKGS" in hypercall form.  It's spelt
+SEGBASE_GS_USER_SEL and has existed for 20 years or so.
+
+I don't see any reason to extend emul_priv_op().
+
+>
+> I've also dropped the test harness read_segment() change. It generally
+> would be correct to have, but isn't needed anymore with neither SWAPGS
+> nor LKGS handling using the hook.
+
+Dropping read_segment() makes your patch depend on Teddy's, now that
+test_x86_emulator is blocking in CI.
+
+This matters for backports.  I expect I'll be backporting guest support
+in not-too-long.
+
+> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+> @@ -2899,8 +2899,37 @@ x86_emulate(
+>                  break;
+>              }
+>              break;
+> -        default:
+> -            generate_exception_if(true, X86_EXC_UD);
+> +
+> +        case 6: /* lkgs */
+> +            generate_exception_if((modrm_reg & 1) || vex.pfx != vex_f2,
+> +                                  X86_EXC_UD);
+> +            generate_exception_if(!mode_64bit() || !mode_ring0(), X86_EXC_UD);
+> +            vcpu_must_have(lkgs);
+> +            fail_if(!ops->read_msr || !ops->write_segment || !ops->write_msr);
+> +            if ( (rc = ops->read_msr(MSR_SHADOW_GS_BASE, &msr_val,
+> +                                     ctxt)) != X86EMUL_OKAY ||
+> +                 (rc = ops->read_msr(MSR_GS_BASE, &sreg.base,
+> +                                         ctxt)) != X86EMUL_OKAY )
+> +                goto done;
+> +            dst.orig_val = sreg.base; /* Preserve full GS Base. */
+
+"Preserve current GS Base."
+
+> +            if ( (rc = protmode_load_seg(x86_seg_gs, src.val, false, &sreg,
+> +                                         ctxt, ops)) != X86EMUL_OKAY )
+> +                goto done;
+> +            /* Write (32-bit) base into SHADOW_GS. */
+
+"Write new base into SHADOW_GS.  Zero extended from GDT/LDT."
+
+> +            if ( (rc = ops->write_msr(MSR_SHADOW_GS_BASE, sreg.base,
+> +                                      ctxt, false)) != X86EMUL_OKAY ||
+> +                 (sreg.base = dst.orig_val, /* Reinstate full GS Base. */
+
+"Reinstate original GS base."
+
+> +                  (rc = ops->write_segment(x86_seg_gs, &sreg,
+> +                                           ctxt)) != X86EMUL_OKAY) )
+> +            {
+> +                /*
+> +                 * In real hardware, access to the registers cannot fail.  It
+> +                 * is an error in Xen if the writes fail.
+> +                 */
+> +                ASSERT_UNREACHABLE();
+> +                x86_emul_reset_event(ctxt);
+> +                generate_exception(X86_EXC_DF, 0);
+> +            }
+>              break;
+>          }
+>          break;
+
+This patch needs one more hunk:
+
+diff --git a/xen/arch/x86/cpu-policy.c b/xen/arch/x86/cpu-policy.c
+index 5273fe0ae435..9d8195e2ae56 100644
+--- a/xen/arch/x86/cpu-policy.c
++++ b/xen/arch/x86/cpu-policy.c
+@@ -765,14 +765,25 @@ static void __init calculate_hvm_max_policy(void)
+      */
+     __set_bit(X86_FEATURE_NO_LMSL, fs);
+ 
+-    /*
+-     * On AMD, PV guests are entirely unable to use SYSENTER as Xen runs in
+-     * long mode (and init_amd() has cleared it out of host
+capabilities), but
+-     * HVM guests are able if running in protected mode.
+-     */
+-    if ( (boot_cpu_data.vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) &&
+-         raw_cpu_policy.basic.sep )
+-        __set_bit(X86_FEATURE_SEP, fs);
++    if ( boot_cpu_data.vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
++    {
++        /*
++         * On AMD, PV guests are unable to use SYSENTER as Xen runs in long
++         * mode (and init_amd() has cleared it out of host
+capabilities), but
++         * HVM guests are able if running in protected mode.
++         */
++        if ( raw_cpu_policy.basic.sep )
++            __set_bit(X86_FEATURE_SEP, fs);
++
++        /*
++         * NullSelectorClearsBase is really a "hardware doesn't have
+this bug
++         * any more" bit.  All FRED-capable hardware has NSCB
+properties, so
++         * disallow a configuration which suggest/causes behaviour the
+OS isn't
++         * expecting.
++         */
++        if ( !test_bit(X86_FEATURE_NSCB, fs) )
++            __clear_bit(X86_FEATURE_LKGS, fs);
++    }
+ 
+     /*
+      * VIRT_SSBD is exposed in the default policy as a result of
+
+
+because otherwise a CPU Policy could hide NCSB and LKGS would be have
+correctly when executed normally but malfunction in the emulator.
+
+This hunk is in lieu of having vendor-dependent deep-deps calculations,
+although it would need duplicating in userspace too.
+
+Because this is only a link between an AMD-only feature and a common
+feature, I think I can express it by only having a per-vendor
+deep_features bitmap and keeping a shared deep_deps matrix.
+
+Perhaps I should prototype that instead, but it would become another
+dependency for this patch.
+
+~Andrew
 
