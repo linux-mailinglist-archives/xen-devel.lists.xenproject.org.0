@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MLKTDL9I1mkFCwgAu9opvQ
+	id AONSLuFI1mkFDQgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:23:27 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:24:01 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B04873BBF3E
-	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:23:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1275955.1561616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21C9A3BBF4D
+	for <lists+xen-devel@lfdr.de>; Wed, 08 Apr 2026 14:24:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1275962.1561624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wARwB-00057z-8q; Wed, 08 Apr 2026 12:23:15 +0000
+	id 1wARwj-0005br-Fy; Wed, 08 Apr 2026 12:23:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1275955.1561616; Wed, 08 Apr 2026 12:23:15 +0000
+Received: by outflank-mailman (output) from mailman id 1275962.1561624; Wed, 08 Apr 2026 12:23:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wARwB-00056U-4p; Wed, 08 Apr 2026 12:23:15 +0000
-Received: by outflank-mailman (input) for mailman id 1275955;
- Wed, 08 Apr 2026 12:23:13 +0000
+	id 1wARwj-0005ZF-CZ; Wed, 08 Apr 2026 12:23:49 +0000
+Received: by outflank-mailman (input) for mailman id 1275962;
+ Wed, 08 Apr 2026 12:23:48 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wARw9-00054e-Mc
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 12:23:13 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wARwi-0005Z3-5n
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 12:23:48 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wARw9-001tBn-2b
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 14:23:13 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wARwf-005bLj-WE
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2026 14:23:47 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69d648a0-bab6-0a2a0a5309dd-0a2a450bada0-44
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:23:12 +0200
-Received: from [209.85.221.50] (helo=mail-wr1-f50.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69d648d1-e002-0a2a0a5209dd-0a2a4503c760-6
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:23:47 +0200
+Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69d648b0-bca8-0a2a450b0019-d155dd32c59d-3
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:23:12 +0200
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-43d572f7437so124452f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 05:23:12 -0700 (PDT)
+ id 69d648d3-02b3-0a2a45030019-d155802ad825-3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 14:23:47 +0200
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4887fd35e60so40745305e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 05:23:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e4e56fesm55610941f8f.27.2026.04.08.05.23.11
+ 5b1f17b1804b1-488c5db3676sm25434955e9.5.2026.04.08.05.23.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Apr 2026 05:23:12 -0700 (PDT)
+ Wed, 08 Apr 2026 05:23:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,48 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775650992; x=1776255792; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775651027; x=1776255827; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TZdRtcCtuhtN8vbXovqjZa6WKbRVlKT1bRPS4NdGyTY=;
-        b=SBRk7/rBqVmg1JCT8ca5KXzgm2N27AmEZRDYEzNsdb1/KANGWh3R6599aGfc9CFGba
-         H9XDMlQEWiRdCDIgwUt+OolHMF98seGjHwmVh5i1Er/M0/OYuKpUy3e+BllqRBzJGaNS
-         zt49/cn97JicTBxkh2nz+plwIFDGzZVyOxzE3Zx/UhxjtHG3Va3L4GUc1jAQppi5skkO
-         CtgE+NM22t2XXyRqrowd7m7+zYGe3F8f4UVlGWwZIFoy/1x1sF35zlrbGogwj1cjeul2
-         Bu3YCgpDCizzAw3dBOZgx2IdcgWFnxgrV9Onkfqb/lWklQ3laqA+ucA8P0YcVmBejYKx
-         ODpg==
+        bh=kQhxBolergp3DNGfOBRBD3Fsmiz2HJwK7X3GkKtsJpg=;
+        b=LOMqIU3HydqSxB4qL/KZS4M4kXRelxEGYWeWD9VPzGKCkOSjpueQOYvZ0nY/yT1Cfm
+         29L2NEKYoBwpcZ3Sj4sGzIGzZTlP/wC04+91R6qWXpVLrUAk12w3OMXyQRHRNwQjG+Wa
+         CkzTvYOCUiCZuVcvnR2hU7N/ut1uHKISIKCNwIRvH0o/4yR+3Itf64A5j0Cg6lBtsP8o
+         MOSnlFRiwn2Pt9du2RaBZOdyptCNi3nLw6siig0/UTMNW83W4XStyVZmUQfaNC30wC/p
+         tWL0ZuDKM47iaNAiIhuZgtl6hblHnICAxKd34AdHq/NSihpK9j3h7lSFs1KOAjm0P25+
+         KhLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775650992; x=1776255792;
+        d=1e100.net; s=20251104; t=1775651027; x=1776255827;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TZdRtcCtuhtN8vbXovqjZa6WKbRVlKT1bRPS4NdGyTY=;
-        b=WmB3UhDl8pn3iJ6TL/SfFWLUgQFmJFXpZDUmQCR59Yuf1g06mcdikpscvrRKHrBpNS
-         1shLVD8uxr/OvOLUhrAG9TNj2/4dC5029ztC5eWnk9xnU8xZLGHazGdjBpVgOsSaXhMP
-         q+ilhE7PuCYrCAa8iuV4SRZYCFr2kRG6C4FAB6qVRIhTX93BpCxRYyC41/EJhVWnQEN1
-         lxzrGpo5b4PBJ6uytKCKLpsGo1/yHGuS3i9gWZRBJ8hvfm+XG2o90OgwphQ25r4R9FK1
-         2FZiiJ8zIdeKyZ6H9Z9ghALbRKxyLcVofrc1+OxzRI9b7yYMz9yG8sbjzmazybbmiMkt
-         IxrQ==
-X-Gm-Message-State: AOJu0YwrIEDBD+STTkse73pTGe/2bxtS0fD0bh5aPfNdCkSiF7/mcbZJ
-	6MpBLH5dniwi6t0zrLWvCB/XdEgDc6Nm7dBxFqRQLCdGD659WF89s96S34p9xNka8uwsHPQk43H
-	1ahzsdw==
-X-Gm-Gg: AeBDiettZSvhE70GklXl98eEZegA3fsptVEpCqnl1e9Eq/hOzuJNieOVTFBCtXSr45n
-	2Ck2So7HsHSqWJyghALd0sqkVVU2anwHtMGA6L10QtmGowv/EVbPo0n00xzViNdHYUqu21x2JiI
-	QWwYENbXLd0U1oEsH2OJoBRX+mYh6t1ga5oxI41XQ9ZYoURSRCUCqqPdZeqezLzuOP67p8TuKip
-	W+Oma1rS+i77XMNuJ/Fjml4rUNnUgTR+DdyzV4Uhp9bttC3vlkFr98oFcs+8VzQsUPypvxPAQPL
-	u+8UmJwjYtj7SAJz4WdpmP/oHHXqaA+IrmILjoypqK/E4lPtWdUydDykkX0Q9EKDAqqZh/mSrKK
-	rAY+LuNDCfgo7yGMdVZj1Sq+jYwoFCoCY0VUa3nr7zWVr/NJlldoTHvhMrkUP09G6lHccerF7Ko
-	gC5A4Eh1JbDM2fNw1v0dhpSoFPzGM91WMgLsTPBLKkqeDcbjeMJsyIIsrDS7g4kGaKXX1zzM9xz
-	kI4Bg3JEfvEWaB/sszF/crQ1Q==
-X-Received: by 2002:a5d:64e4:0:b0:43b:8fa4:194d with SMTP id ffacd0b85a97d-43d292855famr29512917f8f.6.1775650992265;
-        Wed, 08 Apr 2026 05:23:12 -0700 (PDT)
-Message-ID: <79c90706-0530-4b72-9b43-f003dfe87291@suse.com>
-Date: Wed, 8 Apr 2026 14:23:11 +0200
+        bh=kQhxBolergp3DNGfOBRBD3Fsmiz2HJwK7X3GkKtsJpg=;
+        b=YDQchz/TxSZnx4Nyt7QbbRnvEV9jc3PBaX18JzSfRqoDMN2br26Q9IDTi/gOSjqpJc
+         y6jKSu0iiH9oswefZhdL9bIquLqFq2HDcbgn/g2WNKTZIeje1aOfYbYHCCTRywpmtTLI
+         1fZM5Pz49rkA8dNHUUuwkVXqK3AX0WMmc/SDTxEtK1t7e7Tx+bqKIJiPl4mtBI2h0ZWD
+         BUmYToX+6I07xJMtVmYqww4QxQ5geo6uxgrVVh1nCUHYwPjJArlByV9ZVphaZmXEmM/F
+         sZWfLKi2Jt0KzESY4EpEz7LH+6bcPQtyZ3u1kd609TmKnnJBXOU44vFTBAV9ZE9A/wdf
+         X1lw==
+X-Gm-Message-State: AOJu0YzfWSk0IW9gyx3qUb0LfQVl57JZSDiE910jhU/HxIjZtGOuMo96
+	oz1l/uEi37g/FeGaxwu+iR9HJMngGd5D5vHLPCUVhuNGPrtPXc6tRujebU1Bdks+BakxHCAvqYm
+	BQRVWbg==
+X-Gm-Gg: AeBDiesOH3gKIZcFyQ9QPs4RZOt/MKKheJMv/k/ZeRMDP4q3/rh7malz6pmzu3fo+Mk
+	E+wMFWVEwuPY0QJRtAq8z0kpT6B712rAJugNPxSmZ73JxtXB4pD1KVClbT1zRB9/XHOSLALREEc
+	5LA1QURS1t7T4+wSysYa0E6j+oS9LcytSi2SxZmlIIqXokt/rBLjTdcrROG9bJC2MVYt/gBzvJi
+	/dzjsIHu5M0epKyvby/LRvJ/ZE0nR6hQw455ldedi1/MQFFbDFTeWIMfjUdZlR+Fh6YL8wDqltz
+	jVrJVvGpxExi/tpEJlMtU76rw5b9238g9Ye20YUo/SQ+F03Ejn9O+7aPWx//kIldsgxJQkF562n
+	HWexbsdhISooa5N4TM0Vl+OMHtxkSkmv9jtyG8xA+3UxXHeVxvdSJllWrpBtZs0xyZvXxl/2p5d
+	P/7/klBXdyZ8GRObYEE+J53Lagmhab4RrYYj45D4Oxkal6ikQLz2Hv/qcs/a6Az/PfFFlliNLjS
+	Sm+wnTfWWhNOmo=
+X-Received: by 2002:a05:600c:a409:b0:488:c085:22ad with SMTP id 5b1f17b1804b1-488c08523afmr71259885e9.29.1775651026784;
+        Wed, 08 Apr 2026 05:23:46 -0700 (PDT)
+Message-ID: <4bcc73db-38da-446e-b277-cf94c49002a1@suse.com>
+Date: Wed, 8 Apr 2026 14:23:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 2/3] x86/traps: use entry_ssp in fixup_exception_return()
+Subject: [PATCH v2 3/3] x86: prefer shadow stack for producing call traces
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -133,9 +133,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <f064c3af-c22a-40e0-a268-ee37e34297a3@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1775650992-EE54B2A1-38389B42/0/0
+X-purgate-ID: tlsNG-33051d/1775651027-43301C9A-490F1BA4/0/0
 X-purgate-type: clean
-X-purgate-size: 5807
+X-purgate-size: 3337
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -168,159 +168,110 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: B04873BBF3E
+X-Rspamd-Queue-Id: 21C9A3BBF4D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-With the value recorded on entry there's no need anymore to go hunt for
-the respective exception frame on the shadow stack. By deriving "ptr"
-from that field (without any offset), it then ends up pointin one slot
-lower than before. Therefore all array indexes need incrementing, nicely
-doing away with all the negative ones.
+Shadow stacks contain little more than return addresses, and they in
+particular allow precise call traces also without FRAME_POINTER.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Indentation of the prior inner (but not innermost) if()'s body is
-deliberately left untouched, to aid review. It'll be adjusted in a
-separate follow-on patch.
+While the 'E' for exception frames is probably okay, I'm not overly
+happy with the 'C' (for CET). I would have preferred 'S' (for shadow),
+but we use that character already.
+
+As an alternative to suppressing output for the top level exception
+frame, adding the new code ahead of the 'R' output line (and then also
+ahead of the stack top read) could be considered.
+
+Perhaps having a printk() for the PV entry case is meaningless, for
+- no frame being pushed when entered from CPL=3 (64-bit PV),
+- no entry possible from CPL<3 (32-bit PV disabled when CET is active)?
+In which case the comment probably should just be "Bogus." and the code
+merely be "break;".
+
+Quite likely a number of other uses of is_active_kernel_text() also want
+amending with in_stub().
 ---
 v2: IS_ENABLED() -> #ifdef. Re-base.
 
 --- a/xen/arch/x86/traps.c
 +++ b/xen/arch/x86/traps.c
-@@ -690,19 +690,6 @@ unsigned long get_stack_trace_bottom(uns
+@@ -48,6 +48,7 @@
+ #include <asm/shared.h>
+ #include <asm/shstk.h>
+ #include <asm/smp.h>
++#include <asm/stubs.h>
+ #include <asm/system.h>
+ #include <asm/traps.h>
+ #include <asm/uaccess.h>
+@@ -705,6 +706,13 @@ unsigned long get_stack_dump_bottom(unsi
      }
  }
  
--static unsigned long get_shstk_bottom(unsigned long sp)
--{
--    /* SAF-11-safe */
--    switch ( get_stack_page(sp) )
--    {
--#ifdef CONFIG_XEN_SHSTK
--    case 0:  return ROUNDUP(sp, IST_SHSTK_SIZE) - sizeof(unsigned long);
--    case 5:  return ROUNDUP(sp, PAGE_SIZE)      - sizeof(unsigned long);
--#endif
--    default: return sp - sizeof(unsigned long);
--    }
--}
--
- unsigned long get_stack_dump_bottom(unsigned long sp)
- {
-     switch ( get_stack_page(sp) )
-@@ -1187,26 +1174,28 @@ void asmlinkage noreturn do_unhandled_tr
- static void fixup_exception_return(struct cpu_user_regs *regs,
-                                    unsigned long fixup, unsigned long stub_ra)
- {
--    if ( IS_ENABLED(CONFIG_XEN_SHSTK) )
 +#ifdef CONFIG_XEN_SHSTK
-     {
--        unsigned long ssp, *ptr, *base;
-+        unsigned long ssp = rdssp();
++static bool in_stub(unsigned long addr)
++{
++    return !((this_cpu(stubs.addr) ^ addr) >> STUB_BUF_SHIFT);
++}
++#endif
++
+ #if !defined(CONFIG_FRAME_POINTER)
  
--        if ( (ssp = rdssp()) == SSP_NO_SHSTK )
--            goto shstk_done;
-+        if ( ssp != SSP_NO_SHSTK )
+ /*
+@@ -797,6 +805,52 @@ static void show_trace(const struct cpu_
+          !is_active_kernel_text(tos) )
+         printk("   [<%p>] R %pS\n", _p(regs->rip), _p(regs->rip));
+ 
++#ifdef CONFIG_XEN_SHSTK
++    if ( rdssp() != SSP_NO_SHSTK )
++    {
++        const unsigned long *ptr = _p(regs->entry_ssp);
++        unsigned int n;
++
++        for ( n = 0; (unsigned long)ptr & (PAGE_SIZE - sizeof(*ptr)); ++n )
 +        {
-+            unsigned long *ptr = _p(regs->entry_ssp);
-+            unsigned long primary_shstk =
-+                (ssp & ~(STACK_SIZE - 1)) +
-+                (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8;
- 
--        ptr = _p(ssp);
--        base = _p(get_shstk_bottom(ssp));
-+            BUG_ON((regs->entry_ssp ^ primary_shstk) >> PAGE_SHIFT);
- 
--        for ( ; ptr < base; ++ptr )
--        {
-             /*
--             * Search for %rip.  The shstk currently looks like this:
-+             * The shstk currently looks like this:
-              *
-              *   tok  [Supervisor token, == &tok | BUSY, only with FRED inactive]
-              *   ...  [Pointed to by SSP for most exceptions, empty in IST cases]
-              *   %cs  [== regs->cs]
-              *   %rip [== regs->rip]
--             *   SSP  [Likely points to 3 slots higher, above %cs]
-+             *   SSP  [Pointed to by entry_ssp; Likely points to 3 slots
-+             *         higher, above %cs]
-              *   ...  [call tree to this function, likely 2/3 slots]
-              *
-              * and we want to overwrite %rip with fixup.  There are two
-@@ -1219,13 +1208,10 @@ static void fixup_exception_return(struc
-              *
-              * Check for both regs->rip and regs->cs matching.
-              */
--            if ( ptr[0] == regs->rip && ptr[1] == regs->cs )
--            {
--                unsigned long primary_shstk =
--                    (ssp & ~(STACK_SIZE - 1)) +
--                    (PRIMARY_SHSTK_SLOT + 1) * PAGE_SIZE - 8;
-+            BUG_ON(ptr[1] != regs->rip || ptr[2] != regs->cs);
- 
--                wrss(fixup, ptr);
++            unsigned long val = *ptr;
++
++            if ( is_active_kernel_text(val) || in_stub(val) )
 +            {
-+                wrss(fixup, &ptr[1]);
- 
-                 if ( !stub_ra )
-                     goto shstk_done;
-@@ -1242,7 +1228,7 @@ static void fixup_exception_return(struc
-                  * - if we're on an IST stack, we need to increment the
-                  *   original SSP.
-                  */
--                BUG_ON((ptr[-1] ^ primary_shstk) >> PAGE_SHIFT);
-+                BUG_ON((ptr[0] ^ primary_shstk) >> PAGE_SHIFT);
- 
-                 if ( (ssp ^ primary_shstk) >> PAGE_SHIFT )
-                 {
-@@ -1251,39 +1237,30 @@ static void fixup_exception_return(struc
-                      * addresses actually match.  Then increment the interrupted
-                      * context's SSP.
-                      */
--                    BUG_ON(stub_ra != *(unsigned long*)ptr[-1]);
--                    wrss(ptr[-1] + 8, &ptr[-1]);
-+                    BUG_ON(stub_ra != *(unsigned long*)ptr[0]);
-+                    wrss(ptr[0] + 8, &ptr[0]);
-                     goto shstk_done;
-                 }
- 
-                 /* Make sure the two return addresses actually match. */
--                BUG_ON(stub_ra != ptr[2]);
-+                BUG_ON(stub_ra != ptr[3]);
- 
-                 /* Move exception frame, updating SSP there. */
--                wrss(ptr[1], &ptr[2]); /* %cs */
--                wrss(ptr[0], &ptr[1]); /* %rip */
--                wrss(ptr[-1] + 8, &ptr[0]); /* SSP */
-+                wrss(ptr[2], &ptr[3]); /* %cs */
-+                wrss(ptr[1], &ptr[2]); /* %rip */
-+                wrss(ptr[0] + 8, &ptr[1]); /* SSP */
- 
-                 /* Move all newer entries. */
--                while ( --ptr != _p(ssp) )
--                    wrss(ptr[-1], &ptr[0]);
-+                while ( ptr-- != _p(ssp) )
-+                    wrss(ptr[0], &ptr[1]);
- 
-                 /* Finally account for our own stack having shifted up. */
-                 asm volatile ( "incsspd %0" :: "r" (2) );
--
--                goto shstk_done;
-             }
-         }
--
--        /*
--         * We failed to locate and fix up the shadow IRET frame.  This could
--         * be due to shadow stack corruption, or bad logic above.  We cannot
--         * continue executing the interrupted context.
--         */
--        BUG();
--
-     }
-  shstk_done:
++                /* Normal return address entry.  */
++                printk("   [<%p>] C %pS\n", _p(val), _p(val));
++                ++ptr;
++            }
++            else if ( !((val ^ *ptr) >> (PAGE_SHIFT + STACK_ORDER)) )
++            {
++                if ( val & (sizeof(val) - 1) )
++                {
++                    /* Most likely a supervisor token. */
++                    break;
++                }
++
++                /*
++                 * Ought to be a hypervisor interruption frame.  But don't
++                 * (re)log the current frame's %rip.
++                 */
++                if ( n || ptr[1] != regs->rip )
++                    printk("   [<%p>] E %pS\n", _p(ptr[1]), _p(ptr[1]));
++                ptr = _p(val);
++            }
++            else
++            {
++                /* Ought to be a PV guest hypercall/interruption frame.  */
++                printk("   %04lx:[<%p>] E\n", ptr[2], _p(ptr[1]));
++                ptr = 0;
++            }
++        }
++
++        /* Fall back to legacy stack trace if nothing was logged at all. */
++        if ( n )
++            return;
++    }
 +#endif /* CONFIG_XEN_SHSTK */
- 
-     /* Fixup the regular stack. */
-     regs->rip = fixup;
++
+     if ( fault )
+     {
+         printk("   [Fault on access]\n");
 
 
