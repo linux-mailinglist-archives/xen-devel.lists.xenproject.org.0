@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id APYvG5dN12lpMQgAu9opvQ
+	id OKsaNHJR12kFMggAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 08:56:23 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 09:12:50 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C29EF3C6C3F
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 08:56:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1276690.1562022 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4535C3C6DC9
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 09:12:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1276700.1562031 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAjIU-0000sP-KO; Thu, 09 Apr 2026 06:55:26 +0000
+	id 1wAjYz-000408-0T; Thu, 09 Apr 2026 07:12:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1276690.1562022; Thu, 09 Apr 2026 06:55:26 +0000
+Received: by outflank-mailman (output) from mailman id 1276700.1562031; Thu, 09 Apr 2026 07:12:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAjIU-0000qd-Hi; Thu, 09 Apr 2026 06:55:26 +0000
-Received: by outflank-mailman (input) for mailman id 1276690;
- Thu, 09 Apr 2026 06:55:24 +0000
+	id 1wAjYy-0003xs-TJ; Thu, 09 Apr 2026 07:12:28 +0000
+Received: by outflank-mailman (input) for mailman id 1276700;
+ Thu, 09 Apr 2026 07:12:27 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wAjIS-0000qX-Kv
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 06:55:24 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wAjYx-0003xm-9I
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 07:12:27 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAjIR-000Op8-Dg
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 08:55:23 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wAjYw-00A75x-Es
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 09:12:26 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69d74d51-bab6-0a2a0a5309dd-0a2a4505b5cc-40
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 08:55:23 +0200
-Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69d75149-5cb7-0a2a0a5109dd-0a2a4506d83c-42
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 09:12:26 +0200
+Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69d74d5a-3760-0a2a45050019-d155802ced3f-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 08:55:22 +0200
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-488afb0427eso7179375e9.1
- for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2026 23:55:22 -0700 (PDT)
+ id 69d7515a-0df0-0a2a45060019-d1558031e9e7-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 09:12:26 +0200
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-488a29e6110so5373175e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 00:12:26 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488cfa75ae2sm55728395e9.14.2026.04.08.23.55.21
+ 5b1f17b1804b1-488cf8612cfsm32956715e9.0.2026.04.09.00.12.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Apr 2026 23:55:22 -0700 (PDT)
+ Thu, 09 Apr 2026 00:12:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,57 +58,53 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775717722; x=1776322522; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775718745; x=1776323545; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=77RYlQihBFJrEyN2OYCeqoLNl5MjmqFfyuopBe97xrw=;
-        b=dyDNVqxQUj//RRSkpoe8KWAcufL3FZ+moX5wPLXqOMcAHICPxBzTwFnPQ4AvvKF2GL
-         DhXc2D/dgWVzb0sCrcw4GApvUNHaCRAW1S5s24gMVdC+l1L3C5lKDNU1aM7+mdH3Bu0x
-         mzdqxiZ3/yhQcgxMy5gsg+oqVSWV5uxVQJDEKJyeWGhQQTK2PqmQkrBakGNIyzad2Grh
-         3zJL1UnXJh2Zoi1JOah6PJNmxoqHHTg8RBNTUal5vtJ0JNwVck7OWRhLLgYkYhiS67ZL
-         Ray89+KZShqnW7Ylu2f1VDQEDz5xlDzGKv6YhwHKAcsua71YyXtZZIh1aurNrBKcYxAh
-         C15A==
+        bh=VhUWl2dnV5JSOc1PRiMyO91K9EFCCdr8WsNDrEOtGno=;
+        b=Ru7v6aHONQjmUeX/h/l3A3YZPrrhWHBKhIPiYcxPz8/uA2wayMYy/N6xgwQwstWJ0F
+         oD8SvspMwJrqdRiyg9a2N9mx3ddER8FQkSgPAriM09SOui9hoxwVWmXtf4ddCKmDsWlN
+         lPu/Ka5ljzxvJDCSAj4G1a3uuzVEDBj2NjLvEjKGXsBw0o9f2f/uVFMt2RnswoSQFK6T
+         bp1AZxaZ6hjQ+LjDal/TmHPGnaX6bRyRz9loMT3cxB74JxAkZVxQU9vcw5GcvgoVYnxJ
+         8qA6GYWRYN7Rs+ursSkeJpEOFMXJySTDaOr7a1v5ZkIuhoowNCBi5i5XyJBeb9gLpFGN
+         oIew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775717722; x=1776322522;
+        d=1e100.net; s=20251104; t=1775718745; x=1776323545;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=77RYlQihBFJrEyN2OYCeqoLNl5MjmqFfyuopBe97xrw=;
-        b=XzZJmFrS7wy2qBsFfde6hzGQmbOULTH41T3cumITYUUpRJVAft3VD//80bR1/Q5BvB
-         q76h/U5a7DdNKqouJV5zYIS3E2hVUCdts61x33p8GH0L93UlApvMmNRbw6OdTwey4X6h
-         6W91alDi3brlTaD4vCESKCVuaW0wheMcrLB64Nuibv5TErlvs0le9l/MBBYEOa/HuAPX
-         Eto9hVXtuGgxdyRYoiokpCy50MxI7r1FRECO1emGUrwjVJJjWBUN+tYDUF/eeCTH5hZU
-         rkSb+oFo6tnYZ08HDppQGBbuKVzW406JkD18OJ1k9eKw0v7GLC9K+3R3z/X0JXglOXMF
-         xoVQ==
-X-Forwarded-Encrypted: i=1; AJvYcCWJ/l0B0IG90i5jfOhdMPt3uTDv+aOSf2/CM7ynKr9f2YGC39xp5x1CsCRLzRlt/cyZU5m5tExUnCc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy65PfZyjPrdJpsSw8+WCSRPsJ9G7XqL3Xv/ogFkP+4MxS/a2Zc
-	KP8JEG9WRhH+p8qrEQO++1WV9ASGPGMWrwC5JUd0vR1BWVPf5MLMFJ2c4K9gxCWd45dOIwq1gig
-	Htos97A==
-X-Gm-Gg: AeBDiesaS3Z6PjToSAsrQrpG+NkLEAktS3gpLt/Jmmb3eU2PDWfcnTPQLzdvqDjPicu
-	7IvG53IdST+W/cXPudyOgdD9eYFDPJi662xsGmcZU1Ssp6g65nbFOfaCyCoML0kahh8cwmRvp8a
-	XEvi34jKqP209Qdvpi69WIYGaGS+HX/SGh0Dc8yUU5HzOkDm0oe/KjEfZJY2CzasnxdW5HE1bSr
-	EHSwcmLsrPeVv3qqZ3v/o55H2Qfen6MWr4IfUy9jy5zS5MWgV/2duG5bbwuTDHcyUF5igBxKGA0
-	1eFxtASPzKdBd2bP5UOVnVw9oUsxkE8QNdSvwHogbkqHmbwhLHF6WKoxbdfRhPRID1IGhmO1d4x
-	a/qGr04aEOChGXjRi9m9APTz8kKRHZzuQuwWrlcCB/eaixqac7C/q7H4HK6iOdOSxv2tiN3rpK+
-	gwEHK693oRr1C+r77iyffXl6mwtreYpOpAi6qqKMp/6PS9k/MP5B0KoNALbxCvIwR2O6WOdeaXk
-	rq4/6OgYL7p2No=
-X-Received: by 2002:a05:600c:83cd:b0:488:bd79:94d8 with SMTP id 5b1f17b1804b1-488bd7997demr146932165e9.18.1775717722408;
-        Wed, 08 Apr 2026 23:55:22 -0700 (PDT)
-Message-ID: <996efc8a-7380-4231-b19f-fde19eee58ac@suse.com>
-Date: Thu, 9 Apr 2026 08:55:20 +0200
+        bh=VhUWl2dnV5JSOc1PRiMyO91K9EFCCdr8WsNDrEOtGno=;
+        b=d1R5YaIewP0seUWVEIrMJLD5gpQyp70WqZqOQbNXr8gbGYG/j8S7Glv9aN/Na9+4m7
+         e0XeOu1zl0oN03HTVXAARhIP0Rga30Tg8QWVpSCeJNdHkEdY0XTgOF8CPFYnjIIpV2U3
+         Sz5+prB72PDl1wxnoJmQT+qX/4aOfVW7Zjxe2gNHTv1nSURluQGW0HsNHSB4OTSTqMit
+         zEnkfaN4BNcRqTJr8xFw15DSBJ34a8NHv6sq0KppmuxJWMt8tf4DHiUeGIYX+OgbLYju
+         th4chIK8dV/gHr/ioH2LZTPEamwD1Y09H6+cPL0Tl3ty5Pl8XVsYQHh0FSwgbwyNX/7S
+         iyCQ==
+X-Forwarded-Encrypted: i=1; AJvYcCXGuziVDLXi00lO+lZ4ccUGmSTHWJY18YnM71VP6Awox1tdh0gU4WkRxBtJeibWGnVP8Gpbelnadu0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyl7eFQw00UZuBDffzxjbjIbXc7O9Jjf0ChqnAMgjPBOP/dxK/v
+	XkIcBBdK0neqb3gAYYHpxVLpzWc3ysb0H3sQGHdQ3oVUZLyW/scqQC4B0WyOn20M1g==
+X-Gm-Gg: AeBDiev01i2khG/p8fO8DwRbBGZlGNmKAp1uDJcp2y+DYbrHDxfFgFDobW1QN75wMjt
+	sRWjL3FZyy6W2q5pLPC3XhkurBH77R8YyDatAzf1yOEWH0ujQuZLoJGZaDebCeAIIG4YxOAXpfA
+	bUqUYfl+1wuumjl9h9mLsJ30gjxvulspcuwht4X+ytIjRhEqQhnZxaGIqKlNczKNR8P5RXL2KmJ
+	w9aUk11uFaC6+jb8zf4zIMjy2rDGMw5LAk1pbvc+onJKyFfuUo8QyZO87vEe8wWbdL2J8KGONcV
+	6Oib7PmEL2rkDzqjumFNPERKDBQoHemu4zFYy3UWhjy8qrI59o48k+VnGcBvuqwVQPO1QyL+5vq
+	EqyZr7tcGVSrCbfSdNDiL3U8NfYnl23XmUROw+g6hM/A34CxbnIpHuXM5B0dXaF4pnmx40KM7ZV
+	X6caFFl7jPi/q/esxJDLjBJkPbjWgLuBSkggRV/yxdZ9smDTsniYOL74r4m9l2Ftr5XeXVb6iq7
+	7Cp9KVCKyYM72Q=
+X-Received: by 2002:a05:600c:138f:b0:47e:e076:c7a5 with SMTP id 5b1f17b1804b1-4889970e3c4mr327842795e9.11.1775718745513;
+        Thu, 09 Apr 2026 00:12:25 -0700 (PDT)
+Message-ID: <6904ffa4-acc1-48ba-bc98-2fecf288d926@suse.com>
+Date: Thu, 9 Apr 2026 09:12:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] x86/hap: Wait for remote CPUs during TLB flush
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <20260401163521.3603665-1-ross.lagerwall@citrix.com>
- <20260401163521.3603665-2-ross.lagerwall@citrix.com>
- <b985f554-0338-4426-8981-0613f112f166@suse.com>
- <ed2006d0-1f5f-45ea-a8d8-bd9c064fe048@citrix.com>
+Subject: Re: [PATCH] x86/gen-cpuid: Split deep_features by vendor
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260408163549.135245-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,29 +130,29 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ed2006d0-1f5f-45ea-a8d8-bd9c064fe048@citrix.com>
+In-Reply-To: <20260408163549.135245-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c201ff/1775717723-22D2796F-486EB4F9/0/0
+X-purgate-ID: tlsNG-16d1c6/1775718746-AFD3C3D8-DAB543DA/0/0
 X-purgate-type: clean
-X-purgate-size: 1178
+X-purgate-size: 3391
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:ross.lagerwall@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -171,33 +167,85 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: C29EF3C6C3F
+X-Rspamd-Queue-Id: 4535C3C6DC9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 08.04.2026 17:48, Ross Lagerwall wrote:
-> On 4/8/26 4:21 PM, Jan Beulich wrote:
->> On 01.04.2026 18:35, Ross Lagerwall wrote:
->>> A future change to on_selected_cpus() will change the semantics of the
->>> wait parameter so that it doesn't wait for remote CPUs to "check in" if
->>> wait == 0. Adjust the call here to retain the existing behaviour so it
->>> continues to wait for the remote CPUs to VMExit.
->>
->> Doesn't this go too far though? IOW wouldn't we better make the "wait"
->> parameter a tristate then?
+On 08.04.2026 18:35, Andrew Cooper wrote:
+> AMD CPUs need LKGS depend on NSCB, but this dependency cannot be unconditional
+> as it will break FRED on Intel CPUs which don't need to enumerate the absence
+> of a bug.
 > 
->  From what I can see, the current wait == 0 behaviour only exists as a
-> limitation of the implementation: The local CPU needs to wait for all
-> the remote CPUs to have read "func" and "info" before dropping the lock
-> to avoid a race condition.
+> The deep dependecy logic is formed of two parts; a deep_features bitmap
+> indicating which features have dependencies, and deep_deps; the mapping of
+> feature to dependent features.  Given that NSCB is an unconnected root of a
+> dependency, we can have the row in deep_deps and conditionally exclude it the
+> deep_features level.
 > 
-> With that limitation removed, I don't see a valid reason to maintain
-> this beahviour as an option, though I could be convinced otherwise.
+> Rename INIT_DEEP_FEATURES to INIT_ALL_DEEP_FEATURES and add AMD and INTEL
+> forms too.  In both xc_cpuid_apply_policy() and sanitise_featureset(), choose
+> the appropriate {amd,intel}_deep_features based on vendor.
+> 
+> Introduce the NSCB <-> LKGS dependency and exclude the NSCB row from
+> intel_deep_features.
 
-Well, the specific case here is where that behavior is wanted. Rather than
-penalizing that case (by using "wait until complete"), I'm asking to retain
-prior behavior ("wait until 'checked in'"). Even if (for now) only for this
-one case.
+This reads as if there was a bi-directional dependency.
+
+> --- a/tools/libs/guest/xg_cpuid_x86.c
+> +++ b/tools/libs/guest/xg_cpuid_x86.c
+> @@ -650,9 +650,12 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid, bool restore,
+>  
+>      if ( featureset )
+>      {
+> +        static const uint32_t amd_deep_features[] =  INIT_AMD_DEEP_FEATURES;
+> +        static const uint32_t intel_deep_features[] =  INIT_INTEL_DEEP_FEATURES;
+
+Nit: One blank too many each (after '=').
+
+> @@ -158,11 +159,21 @@ static void zero_leaves(struct cpuid_leaf *l,
+>  
+>  static void sanitise_featureset(uint32_t *fs)
+>  {
+> +    const uint32_t *deep_features;
+>      /* bitmap_for_each() uses unsigned longs.  Extend with zeroes. */
+>      uint32_t disabled_features[
+>          ROUNDUP(FSCAPINTS, sizeof(unsigned long)/sizeof(uint32_t))] = {};
+>      unsigned int i;
+>  
+> +    /*
+> +     * At the time of writing, amd_deep_features contains one extra dependency
+> +     * over intel for a "hardware no longer has this bug" bit.
+> +     */
+> +    if ( boot_cpu_data.vendor & (X86_VENDOR_AMD|X86_VENDOR_HYGON) )
+> +        deep_features = amd_deep_features;
+> +    else
+> +        deep_features = intel_deep_features;
+
+Aren't there going to be other somewhat similar features which may want
+marking like this (no matter whether right away they have a dependency)?
+Deferring the special-casing until a dependency appears is only risking
+to forget to add them.
+
+> --- a/xen/tools/gen-cpuid.py
+> +++ b/xen/tools/gen-cpuid.py
+> @@ -344,6 +344,12 @@ def crunch_numbers(state):
+>          # The ARCH_CAPS CPUID bit enumerates the availability of the whole register.
+>          ARCH_CAPS: feat_range(RDCL_NO, RDCL_NO + 63),
+>  
+> +        # AMD-only special case.  NullSelectorClearsBase is really a "hardware
+> +        # doesn't have this bug any more" bit.  All FRED-capable hardware has
+> +        # NSCB properties, so disallow configurations which would cause LGKS
+> +        # to behave unexpectedly.
+> +        NSCB: [LKGS],
+
+Along the lines of my reply to your review comments on my LKGS patch, why
+is LKGS different from other selector loads? Don't we rather need to
+disallow (perhaps not physically, but verbally) the suppressing of NSCB?
+And then also for a few other "features", as per above? FDP_EXCP_ONLY and
+NO_FPU_SEL clearly would be of that kind, and (for possible dependencies)
+AMD doesn't know of them.
+
+Also, nit: "LKGS" (in the comment).
 
 Jan
 
