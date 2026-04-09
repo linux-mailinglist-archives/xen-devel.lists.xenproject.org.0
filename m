@@ -2,43 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SFeXLUO212lURwgAu9opvQ
+	id mGdyC3e412l0SAgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 16:22:59 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 16:32:23 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 286343CBF37
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 16:22:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1277577.1562737 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 962803CC0E6
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 16:32:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1277589.1562746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAqGz-0004MN-9G; Thu, 09 Apr 2026 14:22:21 +0000
+	id 1wAqQU-0006fl-8n; Thu, 09 Apr 2026 14:32:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1277577.1562737; Thu, 09 Apr 2026 14:22:21 +0000
+Received: by outflank-mailman (output) from mailman id 1277589.1562746; Thu, 09 Apr 2026 14:32:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAqGz-0004JN-6R; Thu, 09 Apr 2026 14:22:21 +0000
-Received: by outflank-mailman (input) for mailman id 1277577;
- Thu, 09 Apr 2026 14:22:19 +0000
+	id 1wAqQU-0006dE-69; Thu, 09 Apr 2026 14:32:10 +0000
+Received: by outflank-mailman (input) for mailman id 1277589;
+ Thu, 09 Apr 2026 14:32:09 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dpsmith@apertussolutions.com>) id 1wAqGx-0004JH-GO
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 14:22:19 +0000
+ (envelope-from <Michal.Orzel@amd.com>) id 1wAqQT-0006d8-4B
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 14:32:09 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAqGw-00227Y-SQ
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 16:22:18 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wAqQS-00E6rf-Fs
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 16:32:08 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <dpsmith@apertussolutions.com>)
- id 69d7b60d-5cb7-0a2a0a5109dd-0a2a4502abf2-36
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 16:22:18 +0200
-Received: from [136.143.188.51] (helo=sender4-of-o51.zoho.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <dpsmith@apertussolutions.com>)
- id 69d7b619-42fa-0a2a45020019-888fbc33526d-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 16:22:18 +0200
-Received: by mx.zohomail.com with SMTPS id 177574452402699.36308080543574;
- Thu, 9 Apr 2026 07:22:04 -0700 (PDT)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69d7b85b-5cb7-0a2a0a5109dd-0a2a450b9280-42
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 16:32:08 +0200
+Received: from [52.101.193.48]
+ (helo=CH1PR05CU001.outbound.protection.outlook.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69d7b866-bca8-0a2a450b0019-3465c13094a3-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 16:32:07 +0200
+Received: from SA1P222CA0120.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:3c5::16)
+ by PH7PR12MB5927.namprd12.prod.outlook.com (2603:10b6:510:1da::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Thu, 9 Apr
+ 2026 14:32:02 +0000
+Received: from SA2PEPF00003AE4.namprd02.prod.outlook.com
+ (2603:10b6:806:3c5:cafe::5d) by SA1P222CA0120.outlook.office365.com
+ (2603:10b6:806:3c5::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.40 via Frontend Transport; Thu,
+ 9 Apr 2026 14:32:03 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00003AE4.mail.protection.outlook.com (10.167.248.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Thu, 9 Apr 2026 14:32:02 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 9 Apr
+ 2026 09:32:02 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 9 Apr
+ 2026 07:31:59 -0700
+Received: from [10.252.147.171] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 9 Apr 2026 09:31:58 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,200 +74,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=zoho header.d=apertussolutions.com header.i="dpsmith@apertussolutions.com" header.h="Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding"
-ARC-Seal: i=1; a=rsa-sha256; t=1775744526; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=BfBSWefW1BhNediGuKRcHVfzOjDXKP7RxuS3imV/ZdAoUttTXSm+MwLL97bnDvBXC44cNyzlSuqEMJpGM8Hzbos2F8tsDe1BQUlGerPaq+qrSKD+FHlUlqZSLaoKcEGzVsDkmh2lJT9MITx05kuwbKvyeHVO3G4AXv8xe6rPN3Y=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1775744526; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=imeMNDLn99b+xNdVIDfzn74PuiUbdT5o5oCsPuPIrz4=; 
-	b=EzJka3odHO0oCAm+WHEhXLhP1h++cHUJxUQ13beB1Ymq0uu4AFeZWQ3qvNMRj1k5CnWSkap/+zsGqEsvhgTFHuOEw5P42ZXU8Fotxt7FdCAdgzqSLBF3tcdAJDF15kcqGGIGIwLoviBYqCccmObHsYRVZ0pFISc31WYACYkMF3Y=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775744526;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=imeMNDLn99b+xNdVIDfzn74PuiUbdT5o5oCsPuPIrz4=;
-	b=Zlo119EeLYAZ9n/6kS+Auk28WE8X9OCjU+iz6sDCJp5Ar+UWC8L9CDwM9mN//F64
-	3rNtmMxh3KJ3PLOvCEFVmC81cvelrOieFDa/59jdDhZMmjIHfka6SNYHe1RZmdEhiEq
-	0LZjdnsE1b5+6Nvc/w0FEfRcAm95EIgnhsNmvq3M=
-Message-ID: <2df92603-ab5e-4990-8a6a-e7a56d952243@apertussolutions.com>
-Date: Thu, 9 Apr 2026 10:22:02 -0400
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VoaTDaHmcM92dZpdk/ecgbOPijyaVDbHT2AGA4gkJWsQ5BUiJfpq0Uz4aJM05HMIqIdTSEXc2Y7tVRfDxkbDDQBx1Q+RdqBQYY0GdODLhFLDZTSKW/nyFVv0XIJQqHM/PRALqAXdd9FZs29u7GvSj2MnWXbLo+BYPL4AXVijmJ12vS5Iomn+u9CMm6cev7LeabTMFPGaaFTp/YfRpSM+dXEP+qaso4L8yp5mrrEmruSGpzMbuDdmyIj6HVj3AzB451anUS5rej/7aHN1YsBv7oyGS7Pon+2ZARCHoplmQSfLrhyiTGCCQvRDb5zQuGl0yz3JRcnrhShqUBEBXgzCIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WVT6ms/4/5B1430m35U1YpiaxU3qA1qtSjiP14nFtLw=;
+ b=KdGCz/C9w1oR2CtnuTD3uCN4E6i1uXiqWJyuNYHjxmgV4ZRCkz7U2vYYIr73+g/wZ7/56ceMbUWbrW0D1Vrx9XdRIZIfLJn6v78DfYwIb+U2dSPnd35yrBteoqKb6HBD/aN9Td4VspYkzjeXuKXQ3lSqitV+Z28CgxBngRdiXonRqY4xttAx0mGxZQEaIhqHWmJBZNFL3V+qJuR61oV16rvAb4Xovjb0ZklRJ8s0JV1cRcBTzhF50w7VzTRsTBFWjRR7U9koqKNkv6nzpZ8P1fHGzyQkyz13z4IaHUzwYxBxLUqZOc7dyOZBBjFISeOsKFKoqsWBUKrtLeE3msvyPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WVT6ms/4/5B1430m35U1YpiaxU3qA1qtSjiP14nFtLw=;
+ b=e9iUgk+vkVxifKOlO4GAk2ddLHLjsVK9u1PxQpdRiqx4Rh9DzfbMMYG3VOPLJ97OcH05py1JnK0mRQyaJbodAxArYd6T8/e8TIvjG8/blEHPscSTJ2YM4w2gcpnzie1dU4Uv8qwe87mEtZWzy5cealUwVz9Fs/ZEfR2iol1Ng6M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <685f565a-ca8f-4a76-8b66-6f09614d1ee5@amd.com>
+Date: Thu, 9 Apr 2026 16:31:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/efi: Reduce ifdefary in efi_exit_boot()
+Subject: Re: [PATCH v2 1/4] xen/drivers/char: fix SCIF IRQ registration
+ failure propagation
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>
+References: <cover.1775742562.git.oleksii_moisieiev@epam.com>
+ <276f353ec36258dc545bef581389e60a162988b6.1775742562.git.oleksii_moisieiev@epam.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20260409103805.176240-1-andrew.cooper3@citrix.com>
- <65b04675-abbf-413e-abe7-6cd463913fdd@suse.com>
- <04b9c465-4940-4a16-8abc-9c3440ab7337@citrix.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <04b9c465-4940-4a16-8abc-9c3440ab7337@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <276f353ec36258dc545bef581389e60a162988b6.1775742562.git.oleksii_moisieiev@epam.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
-X-purgate-ID: tlsNG-720697/1775744538-AF52CCD1-5D14FBB5/0/0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE4:EE_|PH7PR12MB5927:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a120a0c-3da7-40ce-bde9-08de9644c42d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	1tbSHkTc056lED1qJ9KOxM9Ki1Gmwk+2xzOK+xSR884zQy34T/+t+/EaBRjTO0mpMCdh0HzvnuSNYfszFbGSBvpi3tmxvjcg7y1cQKoZvqoBvezmNi0BNZzqIhYs2u1ov+sL2kn+RSjqqDUd149C4wovzWs1lb+sox8xKUQaXTuK89PHFDqJ6Fy8j/RhQHwuR/6ITlBZFU5j7NpRXSGj8GoY9/7nIV0nX7zZ3FES54SQ/uNLsjjk4pQld/gR1WwyxCF4z9V17VzfLDJRoh1GZ2MiTLDcwmsTPwVXk9HGtIPfurz0webgI9Vwscd0i9aDpvIbbciEdxyYHCLadU5zChzZcl7tEvvCiPPWWSm9FejnE39oy4kKcSkAVlMHUZKDhIPd9+saLGktr+qU6xqUK7aQCHHsgyl2pfC+875esxUxa1zrcrGx7xLzePRPPat5blrV70ExbD4G/O+Yw7szt2p6FY1X3hjiFhf1Bf1/v9GomuaUBHnvwnLOsrvo0Klms31emD8G3laCh9P4C3FpdbipJcr22EGj4f+wOYCqymaPTCq1Cmb+onfPxa4vCAxnIHOjzG5Gc0/n2GFJ7cqT91ba1Q5YUADBiqjOd2wHURKL3aRr9egwLGgoRXPdimEBVZDx2q6aY7RNE1Zg2pyGYAaCK6SfVjsIIEthRS/bS0HG+8vmu6Gwyg7Agb85pzzw3lLtSc4REgsgKK4VUHdczDt2GTHH1jJU+LfKJvZVsGtaHG5bRwo2g7R4CEgcE5JBBxmusyBLVAP6ud8YnJz5bg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Xl6p+XHCk/WR/vGnVU5MF/4RiRnVFbQgsvgCOm9wtx1Ovp+Yf6EfrLnEnWUizepRf5p96SAZbUt8SY8U+56rmSoq7QMWQhpy7BuOU5sVpRMagI7149qJqtAfq/jAYIiGgzGPqlGRNaDfqgkbIRDkLNROq+v0S3bHf8bKBa2C2Sm3Dajpp8TFGWy3aON2llN35QKJKgolRm0lil3+BdsKex1+F5dz6YuPLv7Lc30xPI/l18Yv/8iuAjqigjPipiElSgnBe4mHEMAkarWc5LcjUhZpv1YtpOcvEK4KoY+wAfL0e+IIJmO9OozHELLHaSmfx8aaxaqiVGj/ojGFuWQkROPkNj/LQklkgi97n8430G0kGNpeHiKmRYGVomjvZYc5MtBGO3vz+NJLJcHN7ShieBQaK78oKg8IxJ8vdZaWuFD2+iaIjZB5HnTlvY9w5IFc
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 14:32:02.6061
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a120a0c-3da7-40ce-bde9-08de9644c42d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003AE4.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5927
+X-purgate-ID: tlsNG-42698a/1775745127-EF9412A1-32AA93AE/0/0
 X-purgate-type: clean
-X-purgate-size: 3956
-X-Spamd-Result: default: False [-1.69 / 15.00];
-	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
+X-purgate-size: 1504
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:Oleksii_Moisieiev@epam.com,m:xen-devel@lists.xenproject.org,m:bertrand.marquis@arm.com,m:julien@xen.org,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DMARC_NA(0.00)[apertussolutions.com];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[apertussolutions.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[amd.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 286343CBF37
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	TAGGED_RCPT(0.00)[xen-devel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email]
+X-Rspamd-Queue-Id: 962803CC0E6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 4/9/26 07:11, Andrew Cooper wrote:
-> On 09/04/2026 12:01 pm, Jan Beulich wrote:
->> On 09.04.2026 12:38, Andrew Cooper wrote:
->>> Use IS_ENABLED() rather than #ifdef to give the compiler visibility into the
->>> block, which in turn removes the #ifdef from the varaible block.
->> Just to mention, if it was just / mainly ...
->>
->>> --- a/xen/common/efi/boot.c
->>> +++ b/xen/common/efi/boot.c
->>> @@ -1335,9 +1335,7 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *Syste
->>>       EFI_STATUS status;
->>>       UINTN info_size = 0, map_key;
->>>       bool retry;
->>> -#ifdef CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP
->>>       unsigned int i;
->>> -#endif
->> ... this to be got rid of, we could as well use ...
->>
->>> @@ -1371,31 +1369,32 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *Syste
->>>       if ( EFI_ERROR(status) )
->>>           PrintErrMesg(L"Cannot exit boot services", status);
->>>   
->>> -#ifdef CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP
->>> -    for ( i = 0; i < efi_memmap_size; i += efi_mdesc_size )
->>      for ( unsigned int i = 0; i < efi_memmap_size; i += efi_mdesc_size )
->>
->> now. But yes, the typo aspect you mention can be avoided altogether by what
->> you change things to.
-> 
-> I originally had this change in the patch, but it interferes with diff
-> showing (just) an indentation change.
-> 
-> I'm not fussed either way.
-> 
->>
->>> +    if ( IS_ENABLED(CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP) )
->>>       {
->>> -        EFI_MEMORY_DESCRIPTOR *desc = efi_memmap + i;
->>> +        for ( i = 0; i < efi_memmap_size; i += efi_mdesc_size )
->>> +        {
->>> +            EFI_MEMORY_DESCRIPTOR *desc = efi_memmap + i;
->>>   
->>> -        /*
->>> -         * Runtime services regions are always mapped here.
->>> -         * Attributes may be adjusted in efi_init_memory().
->>> -         */
->>> -        if ( (desc->Attribute & EFI_MEMORY_RUNTIME) ||
->>> -             desc->Type == EfiRuntimeServicesCode ||
->>> -             desc->Type == EfiRuntimeServicesData )
->>> -            desc->VirtualStart = desc->PhysicalStart;
->>> -        else
->>> -            desc->VirtualStart = INVALID_VIRTUAL_ADDRESS;
->>> -    }
->>> -    status = efi_rs->SetVirtualAddressMap(efi_memmap_size, efi_mdesc_size,
->>> -                                          mdesc_ver, efi_memmap);
->>> -    if ( status != EFI_SUCCESS )
->>> -    {
->>> -        printk(XENLOG_ERR "EFI: SetVirtualAddressMap() failed (%#lx), disabling runtime services\n",
->>> -               status);
->>> -        __clear_bit(EFI_RS, &efi_flags);
->>> +            /*
->>> +             * Runtime services regions are always mapped here.
->>> +             * Attributes may be adjusted in efi_init_memory().
->>> +             */
->>> +            if ( (desc->Attribute & EFI_MEMORY_RUNTIME) ||
->>> +                 desc->Type == EfiRuntimeServicesCode ||
->>> +                 desc->Type == EfiRuntimeServicesData )
->>> +                desc->VirtualStart = desc->PhysicalStart;
->>> +            else
->>> +                desc->VirtualStart = INVALID_VIRTUAL_ADDRESS;
->>> +        }
->>> +        status = efi_rs->SetVirtualAddressMap(efi_memmap_size, efi_mdesc_size,
->>> +                                              mdesc_ver, efi_memmap);
->>> +        if ( status != EFI_SUCCESS )
->>> +        {
->>> +            printk(XENLOG_ERR "EFI: SetVirtualAddressMap() failed (%#lx), disabling runtime services\n",
->>> +                   status);
->> Could I talk you into switching to
->>
->>              printk(XENLOG_ERR
->>                     "EFI: SetVirtualAddressMap() failed (%#lx), disabling runtime services\n",
->>                     status);
->>
->> to make the line at least a little less long?
-> 
-> Ok, but I'm not going to resend just for that.
-> 
-> ~Andrew
 
-I'm good with fix up on commit.
 
-Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+On 09/04/2026 15:50, Oleksii Moisieiev wrote:
+> In scif_uart_init_postirq(), when setup_irq() returns an error the
+> failure was only logged via dprintk() and execution continued,
+> unconditionally writing TIE|RIE|REIE into the Serial Control Register
+> (SCSCR). This armed all three hardware interrupt lines (TX FIFO empty,
+> RX data ready, receive error) with no handler registered to service
+> them. On platforms where the GIC receives these asserted lines, the
+> result is either repeated spurious-interrupt warnings or an unhandled
+> interrupt fault.
+> 
+> The fix adds an early return inside the error branch. The
+> interrupt-enable write to SCSCR is skipped entirely when no handler is
+> registered.
+> 
+> SCIF TX continues to operate correctly after this change. The Xen
+> serial framework never calls serial_async_transmit() for SCIF, so
+> port->txbuf is always NULL. This causes __serial_putc() to take the
+> synchronous finite-capacity path, which polls the SCFSR_TDFE hardware
+> flag directly and does not depend on the interrupt mechanism. RX
+> wouldn't work if irq wasn't registered.
+> 
+> As a secondary clean-up, the hardware error-flag clearing sequence is
+> moved to before the setup_irq() call so that error bits accumulated
+> since init_preirq() are cleared unconditionally, regardless of whether
+> IRQ registration succeeds.
+> 
+> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+
+~Michal
+
 
