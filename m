@@ -2,67 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2O0uEBiQ12kaPwgAu9opvQ
+	id WHJYI5GQ12kaPwgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 13:40:08 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 13:42:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD4063C9BBC
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 13:40:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1277091.1562381 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0364C3C9C05
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 13:42:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1277120.1562390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAnjn-0000Lq-V8; Thu, 09 Apr 2026 11:39:55 +0000
+	id 1wAnll-0002X8-C7; Thu, 09 Apr 2026 11:41:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1277091.1562381; Thu, 09 Apr 2026 11:39:55 +0000
+Received: by outflank-mailman (output) from mailman id 1277120.1562390; Thu, 09 Apr 2026 11:41:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAnjn-0000Im-Ok; Thu, 09 Apr 2026 11:39:55 +0000
-Received: by outflank-mailman (input) for mailman id 1277091;
- Thu, 09 Apr 2026 11:39:53 +0000
+	id 1wAnll-0002V5-9Y; Thu, 09 Apr 2026 11:41:57 +0000
+Received: by outflank-mailman (input) for mailman id 1277120;
+ Thu, 09 Apr 2026 11:41:56 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Michal.Orzel@amd.com>) id 1wAnjl-0000Ft-KV
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 11:39:53 +0000
+ (envelope-from <andrew.cooper3@citrix.com>) id 1wAnlk-0002Uz-BA
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 11:41:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAnjj-0091Qm-El
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 13:39:53 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wAnlj-009MBk-NJ
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 13:41:55 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69d78ff4-e002-0a2a0a5209dd-0a2a450a96b4-44
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 13:39:52 +0200
-Received: from [52.101.61.26]
- (helo=DM1PR04CU001.outbound.protection.outlook.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69d79007-ee98-0a2a450a0019-34653d1a837b-4
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 13:39:52 +0200
-Received: from PH5P220CA0006.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:34a::7)
- by SJ2PR12MB8882.namprd12.prod.outlook.com (2603:10b6:a03:537::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.42; Thu, 9 Apr
- 2026 11:39:44 +0000
-Received: from MW1PEPF00016160.namprd21.prod.outlook.com
- (2603:10b6:510:34a:cafe::aa) by PH5P220CA0006.outlook.office365.com
- (2603:10b6:510:34a::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.40 via Frontend Transport; Thu,
- 9 Apr 2026 11:40:07 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MW1PEPF00016160.mail.protection.outlook.com (10.167.249.91) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9818.0 via Frontend Transport; Thu, 9 Apr 2026 11:39:44 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 9 Apr
- 2026 06:39:43 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 9 Apr
- 2026 06:39:42 -0500
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Thu, 9 Apr 2026 06:39:41 -0500
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 69d79081-5cb7-0a2a0a5109dd-0a2a450bedb8-6
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 13:41:55 +0200
+Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 69d79083-bca8-0a2a450b0019-d155802ee0f7-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 13:41:55 +0200
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-488b0e1b870so11428695e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 04:41:55 -0700 (PDT)
+Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
+ [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488cd1b2799sm71467005e9.6.2026.04.09.04.41.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Apr 2026 04:41:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,133 +56,256 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WZ1LeZMOk93Y3rQa4B4LhPloBl7Dcs4+DHsiVuSiin8RmYghBal60/DpwJb3ISHpDn4rT4g8AIVDLKRLNV56zz5tXmWZDhuKN3Lf5iAA4SNoExvni3LAI1Yrncw8XIdUXbXxLRREnLcSEdqu2WPTqokQtVmW9t1k2mXPZm1u4UJpZ/4aPzy/SXSXqtkyJeuYqG5R6tccvPEJY8bMu0qPchRVib19mWmeMyBqCu6YMfwyROAfv1AUiHetANV/C1GlJU+lYcG+p28owcu8bqPHYLjQrEVzkeLSwsfGNrQgWCM/pY5BKzQUjIpUI9CTVS3LA47wAlCYiXrtWQfrN1oFAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3sbiLpiolSgNF7o8RKtIPkDTBElPtkFOamtiYxQtoEA=;
- b=xi6kFBIViEf9/JAYl/cWJisyvBvgCT4/3pJYSjJsJxAVsy26Hdj/hx9CPFDU53dC9N7LONtkrhaMHTNLONtRA1AXK1Z2gCMKSLSyLkdwoW80gXVLs4JSKe1kzyl1SOjGFubN1cTuh0BEbNtYJnJIpoYpPcJjfgPyLWzXbRjjP3UFASVndqClez8olt02+9QTFHOfKFfmd5dsCLlND2QukJ6z5xNZGMTRsEjMVVlab5QwpygGTLFlFIqj3kmfq+bzajPO23tXb16pmkrV3zmWOtAOdTQvrhXHQOQSnVP+jSXNptR4Bebo3N3Z4iSS3gLS53SRZErdNz+4XM5qBbrUjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3sbiLpiolSgNF7o8RKtIPkDTBElPtkFOamtiYxQtoEA=;
- b=KZ3BHmBREJD/AzdyFs+ik3oq+nDYQDvCpMCTmJRIOgaMoZHryCteSt8cWJVUPyET61ZsRH956dgKDY54lrwTnN+pFKZXtP5/HqToXY0a1AGyOtNHtyMCa9XZVZRxnNEG4cPF/etXqvZrvsysHs8ClwZaK5hLifK9wBuHGWQqIKo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 3/3] xen/arm: gic-v3: Use vsize instead of csize for virtual CPU interface
-Date: Thu, 9 Apr 2026 13:39:34 +0200
-Message-ID: <20260409113934.197619-4-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260409113934.197619-1-michal.orzel@amd.com>
-References: <20260409113934.197619-1-michal.orzel@amd.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=citrix.com header.i="@citrix.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1775734915; x=1776339715; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=9KaDm/yMBIrw6CzspjElk4N8efh36OMRuJoJnnqxtrc=;
+        b=YEGNt9fgH4RdkQ8uji4Uebdtd+IS5hS4yLGTRNeuQXcqBMoZPosom6lCiXRO5+mniM
+         0IMCLmW3kO/whA5FR3rirIJCN9Utu1Ycze2XeaFvlPf1uVXBlXY0OgmS/lDLJ9/BxzsH
+         pA2eNaSOyjdapx6CfPRZx0hxOVfIEdIHmB06s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775734915; x=1776339715;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9KaDm/yMBIrw6CzspjElk4N8efh36OMRuJoJnnqxtrc=;
+        b=nImdkvNJq1nIGHOMQn4v5agMcnTw7URgGjzCeKVJyppzJmL5ep6ivOZVFpDD4l6WrD
+         bxAr52qqzFBqtsr3UhjWNVTBG0pNcDJZWY6v61ODa2rQXoL+gvdw9LPPhlWtLL+1LXqV
+         jmJ3pnFoFcgVEl+sB3lPGeLQnhj8rhFR9BEhWzRDCe5Ll7TdNOfokj7NIqHtjmC7hkfc
+         fuCaac9RnLjPdSdHLLAMNV9eHjBelTmBl4ILmyRjCJ1h0mfU6Gki3xidgw7NltYNfICN
+         CoIzXe98PSiJPNUx+b0k5EVWrQj/0C/TQv1tq052N3rKyDKI+plVVzocUGrQDsi4+eAi
+         MlsA==
+X-Gm-Message-State: AOJu0Yz/EQbsSW0VpxGOJeUl1bwQPhAFfOJTYWWOMHwNfSFJJkDMl2CF
+	T3OVF7GUxQG3yPHILSiSTDRUh3aIvrhEHtQRcTBP1bkQiGpLjnnH0rYdmjAR9j0FVobVDWvAaxG
+	//nV1
+X-Gm-Gg: AeBDiesW+i9/a3zFdwrC/apnFLkx+K856aVjf7ETH2NWkg7TEelR3C7NCE79Kzrbfaa
+	RQNvlgSvbNNFtM9ZK5Xh4vzTRWjLG9+3mwN3+4AaFOEHR5f1cPY1teTZaJfnVmdmZ/mjCeJ92tX
+	jiSr3oQTDs35wSJhetXmDHZxE/nemjiQ0NlCXY4fGYlv9Nxy4Mj9+H92P6Nqy3XRBjNFM7Lfvpk
+	DwAQj8VvrZyHjyzENOPMVz8ngAlWW+JQoEtrxTeUJAdeeZvc+8kVauQsrsBJmOF8GNrEo/X0Ka2
+	41udaDOpG3k2NT/2QoiWxW9ReDg6jGlag+EpRCbHOib1EnTDXO6bOLtSsK5Vmv3lBdJZZDdlalq
+	1wu/KYxchSZLBB5IrAoeWCxplJfKtw1wUmK8R/s+01hBs1GPvjHvavj1snISUC1HcjF3SGgrLOU
+	E2jIvk2DzaM21nIiXFXqFjREtH1zMYiltstmb4GOPsFK7TMRZqr8WjW5h8mQIB1oAKHP/4jJAmC
+	PQnyIKgdFM7s1g=
+X-Received: by 2002:a05:600c:3546:b0:487:5c0:671f with SMTP id 5b1f17b1804b1-488996e8774mr351215065e9.9.1775734913619;
+        Thu, 09 Apr 2026 04:41:53 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Teddy Astie <teddy.astie@vates.tech>
+Subject: [PATCH v2] x86: Avoid using .byte for instructions where safe to do so
+Date: Thu,  9 Apr 2026 12:41:51 +0100
+Message-Id: <20260409114151.179408-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF00016160:EE_|SJ2PR12MB8882:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad4b818d-e5c2-4db3-f187-08de962cb212
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	avtAXAK4ccOJ+7RfRIIZEgixOY20gUovA/CgrbzsRsQu6gDJfupLfSw+eH5xIBdFW25e9yFZyiJ8bPfNdasVd6ZzNZiRNYPPQwXzTSdajXcdSO70Gp/z5aWF8HMUuUjw4B6HV/LnOjASva3zoJg/M5fOG2uSZv2KKU5cNhtxcl/Z/PcKYNQVEWFST5ayCG/i+M/7Y1tPwGDJBxAdwgpYk0qn+B0wQaS/5XkZC3tOgzVMKikp2Dp67Uc3RHWJm8Lb5tKM8MQJWc5gfrPQznd1W20ypuRwkAe8ZFxr++WdaG9NINdLyhx4kbRjQCB582uPWypsD1gX+R325fiJZWBssTfnPkLa62PklcQExtCceTgNUIodXqc/SWFDmcaVPbbDxj6YrA16t+knaBuw37qZnX/7+zyu9/6rYtBzxvbMxTYhtu0Qkc0s8uFKV9y4s7VvK05bTI0fe9T2ON4DPfts+6I59LT18bGzhpB7upLDNzrHFRd/w8AzHbcf9uDy994MDM3WXXFfXhnJV8rKPniNvB4d4f34QzB6S+YRneLpmzo9Ye00O2uMRrKstwe8SEr4mPDNda48V8ngLxUY1oxLV4+FUtkmddK/o/4kPfXlJZ0c6YQ9vmFtWiwIDXH87p00KARaFuUKZNePrzMv1yhgQ0ixDt6oGwEXeBrf1olg0MUDZdLGF8bP8hY44qpgFVXZhqYu2KkbcbE9mwkH6hkcVB/QpuRK6EKXYY9DeZXW0BZWygxLMB8SWwY6F/oHC/8VBMlXqOw4jUaPO4PY/XZFVw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	JEkyIN2Ik+czf9icSAkIKZ+lWHg6fbBYt1t2Ftf+ZfHbl2HKuGDcLmQJCRBDWppSx+ekhp7pf4JkXzQmNh2kcZD1g09LzKkUj+lIXsGTGfhf9JiyOO6cfE7Hhs4VJF8QUilBvloqPorWiVQ9l9vsryObfSqY33IKphFdDOTp2hwPEASmrmqZ0v+RPEhzIYwIUp5CGzuaWBZU2XwgSiTPn1MTSN+SMl3b4W1TFW+jsgf3MG/A6l/qk7T+69IO8ccCTJ2w5x3wp0XP5kW6rh/NDxV/IB683CNL34ECCoVEfnUvHKQhECbQ0oZEWC/56xVQEiyfQGvHHZ8mUqTUymVd9Vzp4nJvJwiFF/eqriftMoiPUi/fjo93W8/UU/7jSx8vl06qqupnbln6gDXSRObG006pDIj8rCA6vy9XaRmCQPLaoIHYwkJsV6XH4xKNpG4B
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2026 11:39:44.2175
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad4b818d-e5c2-4db3-f187-08de962cb212
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW1PEPF00016160.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8882
-X-purgate-ID: tlsNG-4011c0/1775734792-C50180B1-4F21F8EC/0/0
+X-purgate-ID: tlsNG-42698a/1775734915-F61C72A1-54C6BD06/0/0
 X-purgate-type: clean
-X-purgate-size: 907
-X-Spamd-Result: default: False [-0.69 / 15.00];
+X-purgate-size: 7378
+X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_ALL(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:email,citrix.com:mid];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[14];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_FIVE(0.00)[6];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:email,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: AD4063C9BBC
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 0364C3C9C05
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-gicv3_iomem_deny_access() incorrectly uses csize (physical CPU
-interface size) instead of vsize (virtual CPU interface size) when
-calculating the number of pages to deny for the virtual CPU interface
-region at vbase.
+The new toolchain baseline knows XGETBV, VPXOR and VPOR.
 
-Fixes: 8300b3377e ("arm/gic: Add a new callback to deny Dom0 access to GIC regions")
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+For the other cases using .byte, annotate the toolchain minima.
+
+No functional change.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
- xen/arch/arm/gic-v3.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Teddy Astie <teddy.astie@vates.tech>
 
-diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-index b3e104ea4ad0..5641ee870f23 100644
---- a/xen/arch/arm/gic-v3.c
-+++ b/xen/arch/arm/gic-v3.c
-@@ -1631,7 +1631,7 @@ static int gicv3_iomem_deny_access(struct domain *d)
-     if ( vbase != INVALID_PADDR )
-     {
-         mfn = vbase >> PAGE_SHIFT;
--        nr = PFN_UP(csize);
-+        nr = PFN_UP(vsize);
-         return iomem_deny_access(d, mfn, mfn + nr - 1);
-     }
+v2
+ * CLZERO, {WR,RD}PKRU can't be named yet.
+
+Pull out of previous series as it's somewhat unrelated.  The XSAVE cleanup has
+other prerequiesites before it can move away from .byte.
+---
+ xen/arch/x86/arch.mk                   |  4 +++
+ xen/arch/x86/include/asm/asm-defns.h   |  1 +
+ xen/arch/x86/include/asm/msr.h         |  2 ++
+ xen/arch/x86/include/asm/prot-key.h    |  4 +--
+ xen/arch/x86/include/asm/xstate.h      |  3 +--
+ xen/arch/x86/x86_emulate/0f01.c        |  2 +-
+ xen/arch/x86/x86_emulate/x86_emulate.c | 34 ++++++++++++--------------
+ 7 files changed, 27 insertions(+), 23 deletions(-)
+
+diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
+index 0b42e6312fac..cd0602a79aaf 100644
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -17,7 +17,11 @@ CFLAGS-$(CONFIG_CC_IS_GCC) += -malign-data=abi
+ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+ $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
+ $(call as-option-add,CFLAGS,CC,".equ \"x\"$(comma)1",-DHAVE_AS_QUOTED_SYM)
++
++# Binutils >= 2.31, Clang >= 7
+ $(call as-option-add,CFLAGS,CC,"movdiri %rax$(comma)(%rax)",-DHAVE_AS_MOVDIR)
++
++# Binutils >= 2.33, Clang >= 9
+ $(call as-option-add,CFLAGS,CC,"enqcmd (%rax)$(comma)%rax",-DHAVE_AS_ENQCMD)
  
+ # Check to see whether the assembler supports the .nop directive.
+diff --git a/xen/arch/x86/include/asm/asm-defns.h b/xen/arch/x86/include/asm/asm-defns.h
+index 239dc3af096c..dc9b3ce272fd 100644
+--- a/xen/arch/x86/include/asm/asm-defns.h
++++ b/xen/arch/x86/include/asm/asm-defns.h
+@@ -1,5 +1,6 @@
+ #include <asm/page-bits.h>
+ 
++/* binutils >= 2.26 or Clang >= 3.8 */
+ .macro clzero
+     .byte 0x0f, 0x01, 0xfc
+ .endm
+diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
+index 941a7612f4ba..1377d156f4e1 100644
+--- a/xen/arch/x86/include/asm/msr.h
++++ b/xen/arch/x86/include/asm/msr.h
+@@ -63,6 +63,8 @@ static inline void wrmsrns(uint32_t msr, uint64_t val)
+     /*
+      * WRMSR is 2 bytes.  WRMSRNS is 3 bytes.  Pad WRMSR with a redundant CS
+      * prefix to avoid a trailing NOP.
++     *
++     * Binutils >= 2.40, Clang >= 16
+      */
+     alternative_input(".byte 0x2e; wrmsr",
+                       ".byte 0x0f,0x01,0xc6", X86_FEATURE_WRMSRNS,
+diff --git a/xen/arch/x86/include/asm/prot-key.h b/xen/arch/x86/include/asm/prot-key.h
+index 8fb15b5c32e9..e8550e0c9203 100644
+--- a/xen/arch/x86/include/asm/prot-key.h
++++ b/xen/arch/x86/include/asm/prot-key.h
+@@ -19,7 +19,7 @@ static inline uint32_t rdpkru(void)
+ {
+     uint32_t pkru;
+ 
+-    asm volatile ( ".byte 0x0f,0x01,0xee"
++    asm volatile ( ".byte 0x0f,0x01,0xee" /* binutils >= 2.26 or Clang >= 3.8 */
+                    : "=a" (pkru) : "c" (0) : "dx" );
+ 
+     return pkru;
+@@ -27,7 +27,7 @@ static inline uint32_t rdpkru(void)
+ 
+ static inline void wrpkru(uint32_t pkru)
+ {
+-    asm volatile ( ".byte 0x0f,0x01,0xef"
++    asm volatile ( ".byte 0x0f,0x01,0xef" /* binutils >= 2.26 or Clang >= 3.8 */
+                    :: "a" (pkru), "d" (0), "c" (0) );
+ }
+ 
+diff --git a/xen/arch/x86/include/asm/xstate.h b/xen/arch/x86/include/asm/xstate.h
+index c96d75e38b25..0519379edb57 100644
+--- a/xen/arch/x86/include/asm/xstate.h
++++ b/xen/arch/x86/include/asm/xstate.h
+@@ -118,8 +118,7 @@ static inline uint64_t xgetbv(unsigned int index)
+     uint32_t lo, hi;
+ 
+     ASSERT(index); /* get_xcr0() should be used instead. */
+-    asm volatile ( ".byte 0x0f,0x01,0xd0" /* xgetbv */
+-                   : "=a" (lo), "=d" (hi) : "c" (index) );
++    asm volatile ( "xgetbv" : "=a" (lo), "=d" (hi) : "c" (index) );
+ 
+     return lo | ((uint64_t)hi << 32);
+ }
+diff --git a/xen/arch/x86/x86_emulate/0f01.c b/xen/arch/x86/x86_emulate/0f01.c
+index 4d36c7d289a5..87d338f0c74a 100644
+--- a/xen/arch/x86/x86_emulate/0f01.c
++++ b/xen/arch/x86/x86_emulate/0f01.c
+@@ -122,7 +122,7 @@ int x86emul_0f01(struct x86_emulate_state *s,
+         {
+         case vex_none: /* serialize */
+             host_and_vcpu_must_have(serialize);
+-            asm volatile ( ".byte 0x0f, 0x01, 0xe8" );
++            asm volatile ( ".byte 0x0f, 0x01, 0xe8" ); /* Binutils >= 2.34, Clang >= 11 */
+             break;
+         case vex_f2: /* xsusldtrk */
+             vcpu_must_have(tsxldtrk);
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
+index 11d145e17723..e58735ee9590 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -4748,27 +4748,25 @@ x86_emulate(
+                  */
+                 if ( vex.l )
+                 {
+-                    /* vpxor %xmmN, %xmmN, %xmmN */
+-                    asm volatile ( ".byte 0xc5,0xf9,0xef,0xc0" );
+-                    asm volatile ( ".byte 0xc5,0xf1,0xef,0xc9" );
+-                    asm volatile ( ".byte 0xc5,0xe9,0xef,0xd2" );
+-                    asm volatile ( ".byte 0xc5,0xe1,0xef,0xdb" );
+-                    asm volatile ( ".byte 0xc5,0xd9,0xef,0xe4" );
+-                    asm volatile ( ".byte 0xc5,0xd1,0xef,0xed" );
+-                    asm volatile ( ".byte 0xc5,0xc9,0xef,0xf6" );
+-                    asm volatile ( ".byte 0xc5,0xc1,0xef,0xff" );
++                    asm volatile ( "vpxor %xmm0, %xmm0, %xmm0" );
++                    asm volatile ( "vpxor %xmm1, %xmm1, %xmm1" );
++                    asm volatile ( "vpxor %xmm2, %xmm2, %xmm2" );
++                    asm volatile ( "vpxor %xmm3, %xmm3, %xmm3" );
++                    asm volatile ( "vpxor %xmm4, %xmm4, %xmm4" );
++                    asm volatile ( "vpxor %xmm5, %xmm5, %xmm5" );
++                    asm volatile ( "vpxor %xmm6, %xmm6, %xmm6" );
++                    asm volatile ( "vpxor %xmm7, %xmm7, %xmm7" );
+                 }
+                 else
+                 {
+-                    /* vpor %xmmN, %xmmN, %xmmN */
+-                    asm volatile ( ".byte 0xc5,0xf9,0xeb,0xc0" );
+-                    asm volatile ( ".byte 0xc5,0xf1,0xeb,0xc9" );
+-                    asm volatile ( ".byte 0xc5,0xe9,0xeb,0xd2" );
+-                    asm volatile ( ".byte 0xc5,0xe1,0xeb,0xdb" );
+-                    asm volatile ( ".byte 0xc5,0xd9,0xeb,0xe4" );
+-                    asm volatile ( ".byte 0xc5,0xd1,0xeb,0xed" );
+-                    asm volatile ( ".byte 0xc5,0xc9,0xeb,0xf6" );
+-                    asm volatile ( ".byte 0xc5,0xc1,0xeb,0xff" );
++                    asm volatile ( "vpor %xmm0, %xmm0, %xmm0" );
++                    asm volatile ( "vpor %xmm1, %xmm1, %xmm1" );
++                    asm volatile ( "vpor %xmm2, %xmm2, %xmm2" );
++                    asm volatile ( "vpor %xmm3, %xmm3, %xmm3" );
++                    asm volatile ( "vpor %xmm4, %xmm4, %xmm4" );
++                    asm volatile ( "vpor %xmm5, %xmm5, %xmm5" );
++                    asm volatile ( "vpor %xmm6, %xmm6, %xmm6" );
++                    asm volatile ( "vpor %xmm7, %xmm7, %xmm7" );
+                 }
+ 
+                 ASSERT(!state->simd_size);
 -- 
-2.43.0
+2.39.5
 
 
