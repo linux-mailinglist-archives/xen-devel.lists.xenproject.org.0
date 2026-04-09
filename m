@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oE+PF7nA12mdSQgAu9opvQ
+	id gN1qHsjA12mdSQgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 17:07:37 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 17:07:52 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEF963CC681
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 17:07:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1277775.1562899 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CBE33CC691
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 17:07:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1277784.1562908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAqyY-0003mC-10; Thu, 09 Apr 2026 15:07:22 +0000
+	id 1wAqyt-0004BN-8b; Thu, 09 Apr 2026 15:07:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1277775.1562899; Thu, 09 Apr 2026 15:07:22 +0000
+Received: by outflank-mailman (output) from mailman id 1277784.1562908; Thu, 09 Apr 2026 15:07:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAqyX-0003jL-UJ; Thu, 09 Apr 2026 15:07:21 +0000
-Received: by outflank-mailman (input) for mailman id 1277775;
- Thu, 09 Apr 2026 15:07:20 +0000
+	id 1wAqyt-000491-5H; Thu, 09 Apr 2026 15:07:43 +0000
+Received: by outflank-mailman (input) for mailman id 1277784;
+ Thu, 09 Apr 2026 15:07:41 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wAqyW-0003j1-9b
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 15:07:20 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wAqyr-00048P-EY
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 15:07:41 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAqyV-009ESt-LU
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 17:07:19 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wAqyq-005w2d-Qn
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 17:07:40 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69d7c09d-2eae-0a2a0a5409dd-0a2a450be822-22
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 17:07:19 +0200
-Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69d7c0b9-5cb7-0a2a0a5109dd-0a2a4507d08a-6
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 17:07:40 +0200
+Received: from [209.85.221.52] (helo=mail-wr1-f52.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69d7c0a7-bca8-0a2a450b0019-d155802ccdea-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 17:07:19 +0200
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-48896199cbaso10420395e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 08:07:19 -0700 (PDT)
+ id 69d7c0bc-ba2d-0a2a45070019-d155dd34b417-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 17:07:40 +0200
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-43cf5ad500fso834828f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 08:07:40 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d5e969bbfsm5385153f8f.1.2026.04.09.08.07.18
+ ffacd0b85a97d-43d473b8c1esm28326326f8f.12.2026.04.09.08.07.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Apr 2026 08:07:18 -0700 (PDT)
+ Thu, 09 Apr 2026 08:07:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,48 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775747239; x=1776352039; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775747260; x=1776352060; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=l87bP4aeMOmuqw6HhcNJLT6j8J427sYJ+y3dnbAKu68=;
-        b=TCTebfC3HFk+p8KPuAJMp0XCe4MRfF7FoZrhZz9H+Gx3N4RoTiKB8qYvYgjdoQTj5J
-         T7XJzJnpfL+E/cs8/rd9gDulc9synSJ+QKBkg8xAtlCrgBg7A/K69wumyQMcUZ+I8dND
-         8P1HIz3Wt3hvsEUaCWwNLoXUDTX6cjE5gdN6G1wz5hBnriqnD9V2hmPXX9zT4PFl3Wmm
-         WNL3vXGbOswjD/UbXLbZj7bfbBPueICN/qamSXg1MB79UOUdFOktuvoUlZXLoEh/iRp3
-         i0mHLzkEFs3CeA2Rt3A8cSeGxjiiZa3DFZF+rAC4wlfSsBHu7Tdh/gTKDz9qYrXVYXl8
-         a55A==
+        bh=kqkwKq4/c4zisfsQksvtWDIfvwwA5snoHjlKEQpljBA=;
+        b=cTo6ZLuxDx1ak8GOUcmWGaPx7ih/W5ukfqr1A4xNGvBCXJ4pnyJkK7NSJfS+RsQFfm
+         PlVwd5lLsr0/VjhmKVm1zIeETMhWkDbcSZtK1HD5tbf/9qHXUNiHGEt8Rx33xyfZ6rmm
+         PZuxYnyHixdhM8j/Ri556JGlRzRBto0tYPF6Djknz+yGdR5xJeSY4Pc9pcb+uvUp8FeE
+         E01DNEW27Pw/akYJvLLmX97a4DXJEsy167hS3fAU/1Ne2gh5zn4JB/V0u0ymqXIsY40r
+         2wbHcBOXzEEsCM+PJuK33ePU0jg05ms2U7jwpAD7Z/W39XG7OiogRSJUijn/QPTXv5T2
+         x0ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775747239; x=1776352039;
+        d=1e100.net; s=20251104; t=1775747260; x=1776352060;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=l87bP4aeMOmuqw6HhcNJLT6j8J427sYJ+y3dnbAKu68=;
-        b=eu6TbxlB0Qrrx++n6jvzXmiHagugegYGsmEcw06WHmh0FVuTjefvLS0hYlhkfrQ9Uo
-         SOwMiPrzDDI43kXti2I0qTZCyYGdjxltVdemudHnqJ8qvNzfc6DYHNKqXWFr3R+6pUHJ
-         BbW5AW/is92aXNgSKW7zpI5T13UiG+cZrH6PPmPtHvOOtzq1TluyKMUIxNVnpr390fjg
-         hR8s1x/oc9TxOsM6Ha+Mm99StCSCBiK1G2IWyyUYu/V2tNpfCWKlLPBdEusPhibpceqp
-         LysJUNA/DMDS2c8SLoiTWMUFyz2FLIJz+bAIeEkVRNuFkLBqtLk4iGChDJf4Y0z/h8k2
-         qntA==
-X-Gm-Message-State: AOJu0YyKqYN0ieaU12nVjz3Ol1E3xSbrhqpLB2r1jvEvEcN74kpzfx+N
-	6+vre8/MhQff9mnGo2H+tgSyBdiIuN/ZpVKXt1UI8fgg9hW1gXv5DAPaH2zS95JspOdURzPxxjr
-	SxisA8Q==
-X-Gm-Gg: AeBDieu+sWp+IkHxlSv2EsUtWDtW+9RNZeTSHh0FqwMfrgcR9clafdNvvveq06R25cw
-	pNL0WHtMZ6doFxgDx43ef2CHaAd9ivmAg595osShKVhReC4hUMcehnjAxheTofg3mUfcB4pB31F
-	Kj8iFLqXbHesIGJmEDrgRzUMVScfbl/z7Po7hpGO1AK/IvRr53bVIvRN1iqPvQvofqFQIrE+w98
-	F/6XP7wGtcV0rHzBo0Q0zNPU3EXC0/NOsQDovm7dTXSWA7gSWuOH9dCB0ppx1lmoV9IeJl9E/fI
-	b1aKuc4W3eWJHBAxQE1PoncYoYJ4oUnRv+2VCDaLwd8cgRwsbiwzf/05fM4Fly+qr7Z14weLWfU
-	hJJDBfaUhpgMUN+f0kcQasoaZ5gejaLRZYnXFdkvXfGjv+JkS1Ll+XH9Mfszb7fKyli3Fbh5LoF
-	o7uxitoYSgozq7q+o8MDr+saROwwkcaDxVivsirl/nAaxPvVznBcTebQwEjz8QbOLwTzUcnl39u
-	fpF95SPTwY5XJE=
-X-Received: by 2002:a05:600c:c083:b0:488:ba5f:984f with SMTP id 5b1f17b1804b1-488ccf8cdacmr40497895e9.6.1775747238915;
-        Thu, 09 Apr 2026 08:07:18 -0700 (PDT)
-Message-ID: <4aa12415-2135-4e1c-b5a0-dcc4b01f71fc@suse.com>
-Date: Thu, 9 Apr 2026 17:07:17 +0200
+        bh=kqkwKq4/c4zisfsQksvtWDIfvwwA5snoHjlKEQpljBA=;
+        b=pdnjOb6bMzxzEdNDw9q+jWgwS4scKLK9m/06vZ6jz1cSAGeOuSOYahlNjGP2567iga
+         BMywi9qpqOoicJgN/UtvsFWHjDTKsxhumcqZusasDMjBUdZnXw466AyUUfjPKHlfK6HH
+         juDpJwhipy1qapueQCViCV90ZYb6zzcjOkkE179dw2uKXSycyQiARRHkf5GkRgupl2ZO
+         E+uBlvuiH/tboptrDFfQov091uHftI+lMt+Wxtvrq/qGT7NSU2l3cCzJhcSqeAIONzD2
+         h7TUrYDBXJSHyLyRfqUv1QTrpQ3zTEo03pDdRbptOM+OE7MMedy/TVx0CCt7PXFPU0tH
+         ORZg==
+X-Gm-Message-State: AOJu0YxlD5Vn0OH5lvfdxRKAxPJoMj420/hKIvSmcKrhzkhzlKjWsxnj
+	r1EH3v5mRPvYscN2B4bKrn6fiNoqom7x351JoN+QwxEfT8bGNOntHWzvmoYIQlCSiYm9RpIv6qU
+	Apjm2nA==
+X-Gm-Gg: AeBDies4FgEozA371QfXxPb/b0Qk7RcG+gtLQtJSmiF5DHBUDaUY2lK6IF6CcBKhHJ0
+	SHpjjc6daigJ7hKOJQpA80kYSBk4sGTJVD1wHhLahyVEoWI1KfKKfTzfpyT/n2oR08FYv8Gvk3g
+	rPpV1BIcBD7uUK14ngm5CdsXauTZV6beBWqrQbY2pLYZnCiOrLIotUCC96wke3V3EFtv4CfQubf
+	f266F5Dd+f3TeG1Zm52b1/DZQGZuXy7pRVxlpt/1+yEie1ZbNrmB9YnvGvT/dfvxQskwjS4UScl
+	roLzL7MJxiT65B3odcmK8zgDV9Lz9+7CijUUtoXvCGlpIGczLMHGzAHIFW2kZZnB6wwmcoZX5eU
+	UeNp+qD/E8PJEySQ6YAjiwoyy88tV+mr5leMx49QHE1s5FtAnA9gfPBfJfFnvtT9aSKPvC6NZ8Z
+	CCR93C1xfj8o/feaTKRzG6r46ex2jhLtJx+MWLfUA16n+I6EbVlsTpAsUmjee1aJWZS5HnxH2wm
+	dnRgL572j+c5m0=
+X-Received: by 2002:a05:6000:2409:b0:43b:5b25:67f8 with SMTP id ffacd0b85a97d-43d292a92e4mr38893540f8f.20.1775747260064;
+        Thu, 09 Apr 2026 08:07:40 -0700 (PDT)
+Message-ID: <f9a23108-caa0-456c-9e0b-f14dcb79c5fb@suse.com>
+Date: Thu, 9 Apr 2026 17:07:38 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v4 10/16] x86emul: support AVX10.2 partial copy insns
+Subject: [PATCH v4 11/16] x86emul: support AVX10.2 media insns
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -133,9 +133,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <1e2ff012-b07a-43be-9ba6-290b38d3c97c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1775747239-F5DC12A1-5140499A/0/0
+X-purgate-ID: tlsNG-ef75cf/1775747260-8B94141E-E5DE21AF/0/0
 X-purgate-type: clean
-X-purgate-size: 6364
+X-purgate-size: 7336
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -147,7 +147,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -168,149 +168,144 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: DEF963CC681
+X-Rspamd-Queue-Id: 0CBE33CC691
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Extend existing VMOV{Q,W} logic accordingly.
+These are all very similar to various existing insns.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
 SDE: -dmr / -future
 ---
-v4: Series re-ordering adjustments.
+In evex-disp8.c, should we separately have avx10_v1_aux_all[]? If so, all
+the convert insns would also need moving/copying there.
+---
+v4: Series re-ordering adjustments. Update to spec version 6.
 v3: New.
 
 --- a/tools/tests/x86_emulator/evex-disp8.c
 +++ b/tools/tests/x86_emulator/evex-disp8.c
-@@ -729,6 +729,13 @@ static const struct test avx10_2_all[] =
+@@ -725,6 +725,20 @@ static const struct test avx10_2_all[] =
+     INSN(comisbf16,        66, map5, 2f,    el, bf16, el),
+     INSN_SFP(comx,               0f, 2f),
+     INSN(comxsh,           f3, map5, 2f,    el, fp16, el),
++    INSN(dpphps,             , 0f38, 52,    vl,    d, vl),
++    INSN(mpsadbw,          f3, 0f3a, 42,    vl, d_nb, vl),
++    INSN(pdpbssd,          f2, 0f38, 50,    vl,    d, vl),
++    INSN(pdpbssds,         f2, 0f38, 51,    vl,    d, vl),
++    INSN(pdpbsud,          f3, 0f38, 50,    vl,    d, vl),
++    INSN(pdpbsuds,         f3, 0f38, 51,    vl,    d, vl),
++    INSN(pdpbuud,            , 0f38, 50,    vl,    d, vl),
++    INSN(pdpbuuds,           , 0f38, 51,    vl,    d, vl),
++    INSN(pdpwsud,          f3, 0f38, d2,    vl,    d, vl),
++    INSN(pdpwsuds,         f3, 0f38, d3,    vl,    d, vl),
++    INSN(pdpwusd,          66, 0f38, d2,    vl,    d, vl),
++    INSN(pdpwusds,         66, 0f38, d3,    vl,    d, vl),
++    INSN(pdpwuud,            , 0f38, d2,    vl,    d, vl),
++    INSN(pdpwuuds,           , 0f38, d3,    vl,    d, vl),
+     INSN_SFP(ucomx,              0f, 2e),
      INSN(ucomxsh,          f3, map5, 2e,    el, fp16, el),
  };
- 
-+static const struct test avx10_2_128[] = {
-+    INSN(movd, f3,   0f, 7e, el,    d, el),
-+    INSN(movd, 66,   0f, d6, el,    d, el),
-+    INSN(movw, f3, map5, 6e, el, fp16, el),
-+    INSN(movw, f3, map5, 7e, el, fp16, el),
-+};
-+
- static const struct test movrs_all[] = {
-     INSN(movrsb, f2, map5, 6f, vl,    b, vl),
-     INSN(movrsd, f3, map5, 6f, vl, d_nb, vl),
-@@ -1165,4 +1172,5 @@ void evex_disp8_test(void *instr, struct
-     }
- 
-     run(cpu_has_avx10_2, avx10_2, all);
-+    run(cpu_has_avx10_2, avx10_2, 128);
- }
 --- a/tools/tests/x86_emulator/predicates.c
 +++ b/tools/tests/x86_emulator/predicates.c
-@@ -1782,7 +1782,7 @@ static const struct evex {
-     { { 0x7b }, 2, T, R, pfx_f3, Wn, LIG }, /* vcvtusi2ss */
-     { { 0x7b }, 2, T, R, pfx_f2, Wn, LIG }, /* vcvtusi2sd */
-     { { 0x7e }, 2, T, W, pfx_66, Wn, L0 }, /* vmov{d,q} */
--    { { 0x7e }, 2, T, R, pfx_f3, W1, L0 }, /* vmovq */
-+    { { 0x7e }, 2, T, R, pfx_f3, Wn, L0 }, /* vmov{d,q} */
-     { { 0x7f }, 2, T, W, pfx_66, Wn, Ln }, /* vmovdqa{32,64} */
-     { { 0x7f }, 2, T, W, pfx_f3, Wn, Ln }, /* vmovdqu{32,64} */
-     { { 0x7f }, 2, T, W, pfx_f2, Wn, Ln }, /* vmovdqu{8,16} */
-@@ -1799,7 +1799,7 @@ static const struct evex {
-     { { 0xd3 }, 2, T, R, pfx_66, W1, Ln }, /* vpsrlq */
-     { { 0xd4 }, 2, T, R, pfx_66, W1, Ln }, /* vpaddq */
-     { { 0xd5 }, 2, T, R, pfx_66, WIG, Ln }, /* vpmullw */
--    { { 0xd6 }, 2, T, W, pfx_66, W1, L0 }, /* vmovq */
-+    { { 0xd6 }, 2, T, W, pfx_66, Wn, L0 }, /* vmov{d,q} */
-     { { 0xd8 }, 2, T, R, pfx_66, WIG, Ln }, /* vpsubusb */
-     { { 0xd9 }, 2, T, R, pfx_66, WIG, Ln }, /* vpsubusw */
-     { { 0xda }, 2, T, R, pfx_66, WIG, Ln }, /* vpminub */
-@@ -2133,6 +2133,7 @@ static const struct evex {
-     { { 0x5f }, 2, T, R, pfx_no, W0, Ln }, /* vmaxph */
-     { { 0x5f }, 2, T, R, pfx_f3, W0, LIG }, /* vmaxsh */
-     { { 0x6e }, 2, T, R, pfx_66, WIG, L0 }, /* vmovw */
-+    { { 0x6e }, 2, T, R, pfx_f3, W0, L0 }, /* vmovw */
-     { { 0x6f }, 2, T, R, pfx_f3, Wn, Ln }, /* vmovrs{d,q} */
-     { { 0x6f }, 2, T, R, pfx_f2, Wn, Ln }, /* vmovrs{b,w} */
-     { { 0x78 }, 2, T, R, pfx_no, W0, Ln }, /* vcvttph2udq */
-@@ -2153,6 +2154,7 @@ static const struct evex {
-     { { 0x7d }, 2, T, R, pfx_f3, W0, Ln }, /* vcvtw2ph */
-     { { 0x7d }, 2, T, R, pfx_f2, W0, Ln }, /* vcvtuwph */
-     { { 0x7e }, 2, T, W, pfx_66, WIG, L0 }, /* vmovw */
-+    { { 0x7e }, 2, T, W, pfx_f3, W0, L0 }, /* vmovw */
- }, evex_map6[] = {
-     { { 0x13 }, 2, T, R, pfx_66, W0, Ln }, /* vcvtph2psx */
-     { { 0x13 }, 2, T, R, pfx_no, W0, LIG }, /* vcvtsh2ss */
+@@ -1927,8 +1927,15 @@ static const struct evex {
+     { { 0x4d }, 2, T, R, pfx_66, Wn, LIG }, /* vrcp14s{s,d} */
+     { { 0x4e }, 2, T, R, pfx_66, Wn, Ln }, /* vrsqrt14p{s,d} */
+     { { 0x4f }, 2, T, R, pfx_66, Wn, LIG }, /* vrsqrt14s{s,d} */
++    { { 0x50 }, 2, T, R, pfx_no, W0, Ln }, /* vpdpbuud */
+     { { 0x50 }, 2, T, R, pfx_66, W0, Ln }, /* vpdpbusd */
++    { { 0x50 }, 2, T, R, pfx_f3, W0, Ln }, /* vpdpbsud */
++    { { 0x50 }, 2, T, R, pfx_f2, W0, Ln }, /* vpdpbssd */
++    { { 0x51 }, 2, T, R, pfx_no, W0, Ln }, /* vpdpbuuds */
+     { { 0x51 }, 2, T, R, pfx_66, W0, Ln }, /* vpdpbusds */
++    { { 0x51 }, 2, T, R, pfx_f3, W0, Ln }, /* vpdpbsuds */
++    { { 0x51 }, 2, T, R, pfx_f2, W0, Ln }, /* vpdpbssds */
++    { { 0x52 }, 2, T, R, pfx_no, W0, Ln }, /* vdpphps */
+     { { 0x52 }, 2, T, R, pfx_66, W0, Ln }, /* vpdpwssd */
+     { { 0x52 }, 2, T, R, pfx_f3, W0, Ln }, /* vdpbf16ps */
+     { { 0x52 }, 2, T, R, pfx_f2, W0, L2 }, /* vp4dpwssd */
+@@ -2029,6 +2036,12 @@ static const struct evex {
+     { { 0xcc }, 2, T, R, pfx_66, Wn, L2 }, /* vrsqrt28p{s,d} */
+     { { 0xcd }, 2, T, R, pfx_66, Wn, LIG }, /* vrsqrt28s{s,d} */
+     { { 0xcf }, 2, T, R, pfx_66, W0, Ln }, /* vgf2p8mulb */
++    { { 0xd2 }, 2, T, R, pfx_no, W0, Ln }, /* vpdpwuud */
++    { { 0xd2 }, 2, T, R, pfx_66, W0, Ln }, /* vpdpwusd */
++    { { 0xd2 }, 2, T, R, pfx_f3, W0, Ln }, /* vpdpwsud */
++    { { 0xd3 }, 2, T, R, pfx_no, W0, Ln }, /* vpdpwuuds */
++    { { 0xd3 }, 2, T, R, pfx_66, W0, Ln }, /* vpdpwusds */
++    { { 0xd3 }, 2, T, R, pfx_f3, W0, Ln }, /* vpdpwsuds */
+     { { 0xda }, 2, T, R, pfx_f3, W0, Ln }, /* vsm4key4 */
+     { { 0xda }, 2, T, R, pfx_f2, W0, Ln }, /* vsm4rnds4 */
+     { { 0xdc }, 2, T, R, pfx_66, WIG, Ln }, /* vaesenc */
+@@ -2075,6 +2088,7 @@ static const struct evex {
+     { { 0x3e }, 3, T, R, pfx_66, Wn, Ln }, /* vpcmpu{b,w} */
+     { { 0x3f }, 3, T, R, pfx_66, Wn, Ln }, /* vpcmp{b,w} */
+     { { 0x42 }, 3, T, R, pfx_66, W0, Ln }, /* vdbpsadbw */
++    { { 0x42 }, 3, T, R, pfx_f3, W0, Ln }, /* vmpsadbw */
+     { { 0x43 }, 3, T, R, pfx_66, Wn, L1|L2 }, /* vshufi{32x4,64x2} */
+     { { 0x44 }, 3, T, R, pfx_66, WIG, Ln }, /* vpclmulqdq */
+     { { 0x50 }, 3, T, R, pfx_66, Wn, Ln }, /* vrangep{s,d} */
 --- a/xen/arch/x86/x86_emulate/decode.c
 +++ b/xen/arch/x86/x86_emulate/decode.c
-@@ -293,7 +293,7 @@ static const struct twobyte_table {
-     [0xd0] = { DstImplicit|SrcMem|ModRM, simd_other },
-     [0xd1 ... 0xd3] = { DstImplicit|SrcMem|ModRM, simd_128, 4 },
-     [0xd4 ... 0xd5] = { DstImplicit|SrcMem|ModRM, simd_packed_int, d8s_vl },
--    [0xd6] = { DstMem|SrcImplicit|ModRM|Mov, simd_other, 3 },
-+    [0xd6] = { DstMem|SrcImplicit|ModRM|Mov, simd_other, d8s_dq },
-     [0xd7] = { DstReg|SrcImplicit|ModRM|Mov },
-     [0xd8 ... 0xdf] = { DstImplicit|SrcMem|ModRM, simd_packed_int, d8s_vl },
-     [0xe0] = { DstImplicit|SrcMem|ModRM, simd_packed_int, d8s_vl },
-@@ -803,7 +803,7 @@ decode_twobyte(struct x86_emulate_state
-         if ( s->vex.pfx == vex_f3 ) /* movq xmm/m64,xmm */
-         {
-     case X86EMUL_OPC_VEX_F3(0, 0x7e): /* vmovq xmm/m64,xmm */
--    case X86EMUL_OPC_EVEX_F3(0, 0x7e): /* vmovq xmm/m64,xmm */
-+    case X86EMUL_OPC_EVEX_F3(0, 0x7e): /* vmov{d,q} xmm/mem,xmm */
-             s->desc = DstImplicit | SrcMem | TwoOp;
-             s->simd_size = simd_other;
-             /* Avoid the s->desc clobbering of TwoOp below. */
-@@ -1416,7 +1416,7 @@ int x86emul_decode(struct x86_emulate_st
-                 break;
- 
-             case 0x7e: /* vmovq xmm/m64,xmm needs special casing */
--                if ( disp8scale == 2 && s->evex.pfx == vex_f3 )
-+                if ( disp8scale == 2 && s->evex.pfx == vex_f3 && s->evex.w )
-                     disp8scale = 3;
-                 break;
- 
-@@ -1525,13 +1525,13 @@ int x86emul_decode(struct x86_emulate_st
-                     s->fp16 = true;
-                 break;
- 
--            case 0x6e: /* vmovw r/m16, xmm */
-+            case 0x6e: /* vmovw r/x/m16, xmm */
-                 d = (d & ~SrcMask) | SrcMem16;
-                 /* fall through */
--            case 0x7e: /* vmovw xmm, r/m16 */
-+            case 0x7e: /* vmovw xmm, r/x/m16 */
-+                s->fp16 = true;
-                 if ( s->evex.pfx == vex_66 )
--                    s->fp16 = true;
--                s->simd_size = simd_none;
-+                    s->simd_size = simd_none;
-                 break;
- 
-             case 0x78: case 0x79: /* vcvt{,t}ph2u{d,q}q, vcvt{,t}sh2usi */
+@@ -434,8 +434,8 @@ static const struct ext0f38_table {
+     [0xcb] = { .simd_size = simd_other, .d8s = d8s_vl },
+     [0xcc ... 0xcd] = { .simd_size = simd_other, .two_op = 1, .d8s = d8s_vl },
+     [0xcf] = { .simd_size = simd_packed_int, .d8s = d8s_vl },
+-    [0xd2] = { .simd_size = simd_other },
+-    [0xd3] = { .simd_size = simd_other },
++    [0xd2] = { .simd_size = simd_other, .d8s = d8s_vl },
++    [0xd3] = { .simd_size = simd_other, .d8s = d8s_vl },
+     [0xd6] = { .simd_size = simd_other, .d8s = d8s_vl },
+     [0xd7] = { .simd_size = simd_scalar_vexw, .d8s = d8s_dq },
+     [0xda] = { .simd_size = simd_other, .d8s = d8s_vl },
 --- a/xen/arch/x86/x86_emulate/x86_emulate.c
 +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -4938,13 +4938,17 @@ x86_emulate(
-         op_bytes = 8;
-         goto simd_0f_int;
- 
--    case X86EMUL_OPC_EVEX_F3(0x0f, 0x7e): /* vmovq xmm/m64,xmm */
--    case X86EMUL_OPC_EVEX_66(0x0f, 0xd6): /* vmovq xmm,xmm/m64 */
--        generate_exception_if(evex.lr || !evex.w || evex.opmsk || evex.brs,
--                              X86_EXC_UD);
--        visa_check(f);
-+    case X86EMUL_OPC_EVEX_F3(0x0f, 0x7e): /* vmov{d,q} xmm/mem,xmm */
-+    case X86EMUL_OPC_EVEX_66(0x0f, 0xd6): /* vmov{d,q} xmm,xmm/mem */
-+    case X86EMUL_OPC_EVEX_F3(5, 0x6e): /* vmovw xmm/m16,xmm */
-+    case X86EMUL_OPC_EVEX_F3(5, 0x7e): /* vmovw xmm,xmm/m16 */
-+        generate_exception_if(evex.lr || evex.opmsk || evex.brs, X86_EXC_UD);
-+        if ( evex.w )
-+            visa_check(f);
-+        else
-+            vcpu_must_have(avx10, 2);
-         d |= TwoOp;
--        op_bytes = 8;
-+        op_bytes = 2 << (!state->fp16 + evex.w);
+@@ -6169,6 +6169,30 @@ x86_emulate(
+         avx512_vlen_check(true);
          goto simd_zmm;
  
- #endif /* !X86EMUL_NO_SIMD */
++    case X86EMUL_OPC_EVEX   (0x0f38, 0x50): /* vpdpbuud [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX_F3(0x0f38, 0x50): /* vpdpbsud [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX_F2(0x0f38, 0x50): /* vpdpbssd [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX   (0x0f38, 0x51): /* vpdpbuuds [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX_F3(0x0f38, 0x51): /* vpdpbsuds [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX_F2(0x0f38, 0x51): /* vpdpbssds [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX   (0x0f38, 0xd2): /* vpdpwuud [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX_66(0x0f38, 0xd2): /* vpdpwusd [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX_F3(0x0f38, 0xd2): /* vpdpwsud [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX   (0x0f38, 0xd3): /* vpdpwuuds [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX_66(0x0f38, 0xd3): /* vpdpwusds [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX_F3(0x0f38, 0xd3): /* vpdpwsuds [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++        generate_exception_if(evex.w, X86_EXC_UD);
++        if ( !cp->avx10.avx10_v1_aux )
++            vcpu_must_have(avx10, 2);
++        op_bytes = 16 << evex.lr;
++        goto avx512f_no_sae;
++
++    case X86EMUL_OPC_EVEX   (0x0f38, 0x52): /* vdpphps [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++        generate_exception_if(evex.w, X86_EXC_UD);
++        vcpu_must_have(avx10, 2);
++        op_bytes = 16 << evex.lr;
++        goto avx512f_no_sae;
++
+     case X86EMUL_OPC_EVEX_66(0x0f38, 0x8f): /* vpshufbitqmb [xyz]mm/mem,[xyz]mm,k{k} */
+         generate_exception_if(evex.w || !evex.r || !evex.R || evex.z, X86_EXC_UD);
+         /* fall through */
+@@ -7635,6 +7659,14 @@ x86_emulate(
+         visa_check(bw);
+         goto opmask_shift_imm;
+ 
++    case X86EMUL_OPC_EVEX_F3(0x0f3a, 0x42): /* vmpsadbw $imm8,[xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++        generate_exception_if(evex.w || evex.brs, X86_EXC_UD);
++        vcpu_must_have(avx10, 2);
++        avx512_vlen_check(false);
++        op_bytes = 16 << evex.lr;
++        fault_suppression = false;
++        goto simd_imm8_zmm;
++
+     case X86EMUL_OPC_66(0x0f3a, 0x44):     /* pclmulqdq $imm8,xmm/m128,xmm */
+     case X86EMUL_OPC_VEX_66(0x0f3a, 0x44): /* vpclmulqdq $imm8,{x,y}mm/mem,{x,y}mm,{x,y}mm */
+         host_and_vcpu_must_have(pclmulqdq);
 
 
