@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aIXGLRbA12mdSQgAu9opvQ
+	id KEkjBy/A12mdSQgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 17:04:54 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 17:05:19 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46BF93CC5EC
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 17:04:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1277722.1562854 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F1703CC5F5
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 17:05:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1277730.1562864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAqvw-00015u-GH; Thu, 09 Apr 2026 15:04:40 +0000
+	id 1wAqwO-0001dc-Q8; Thu, 09 Apr 2026 15:05:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1277722.1562854; Thu, 09 Apr 2026 15:04:40 +0000
+Received: by outflank-mailman (output) from mailman id 1277730.1562864; Thu, 09 Apr 2026 15:05:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAqvw-00013O-DA; Thu, 09 Apr 2026 15:04:40 +0000
-Received: by outflank-mailman (input) for mailman id 1277722;
- Thu, 09 Apr 2026 15:04:39 +0000
+	id 1wAqwO-0001ag-LT; Thu, 09 Apr 2026 15:05:08 +0000
+Received: by outflank-mailman (input) for mailman id 1277730;
+ Thu, 09 Apr 2026 15:05:07 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wAqvv-000132-Im
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 15:04:39 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wAqwN-0001aR-GZ
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 15:05:07 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAqvu-0029M9-Un
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 17:04:38 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wAqwM-00EC7x-SZ
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 17:05:06 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69d7bff1-e002-0a2a0a5209dd-0a2a4502e448-36
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 17:04:38 +0200
-Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69d7c018-5cb7-0a2a0a5109dd-0a2a450cae3a-42
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 17:05:06 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69d7c006-42fa-0a2a45020019-d1558035dc3b-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 17:04:38 +0200
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-488ba6366a7so12122215e9.0
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 08:04:38 -0700 (PDT)
+ id 69d7c022-f40c-0a2a450c0019-d1558030d92c-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 17:05:06 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4852b81c73aso9552155e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 08:05:06 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488cd1999c6sm43003585e9.4.2026.04.09.08.04.37
+ 5b1f17b1804b1-488d534584esm3476535e9.13.2026.04.09.08.05.05
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Apr 2026 08:04:37 -0700 (PDT)
+ Thu, 09 Apr 2026 08:05:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,48 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775747078; x=1776351878; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775747106; x=1776351906; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=sk4QjbaA4C4zd++R6vZvuA+gGTh5nm2Now1s0GL3ozA=;
-        b=aJ6HX6AuAae1cCPG0swNqB/DHFdcrs863dFr0KkGqK751JWRuo1QkjE+niVAHcVxQu
-         G1HPLGkkNFKOTmPWlLjw6f9eaXe/gqYZ1vIwE/2zDAtYKU6Xm+rmZEkcZkbyk9vTVLDR
-         UOfFW9bNyGy6gswj+JZmiJdke3FcAyNxGjrZIhC+KSa/MTaYugpid7/xID9LeeE6/lgG
-         ajzQgCfTqaLkAp66KxzbUvQALWfbTJrUmbTI8nq12WYcOoc+6SOxudbv8UAgWjb3vXgb
-         AjXXGN3ON4FvcK4eerP4fo2uOQjU3Lakcr7Cev8r3OCuyeCcYJHuA1pMy/pdpKACk3Lt
-         0kpw==
+        bh=fy810O/JIrpMqa9PSa5WVZ8ULg9qI+umlI0cfV5YuUE=;
+        b=cVm8L3DyeZ2me3tw0Vh69A0w3a/wJADvqsrBc9sQvqp5DlLqJb/gcckyHx8T6NRuoB
+         H9fbRu69pglxQZA5QU1+RAf8rm1HZxPnlZYpF4G/pb3mXtJe1PM0q4wNaHZgraLc9OA/
+         g+9bRft5s5gFLMWKPHniU+8LErL+Vuq5xUQo9Dj5u+qgTLqJEfEuGIDULSdauBp4u1fF
+         6oBah6ZC3zY2UI/2TjWuu7/XSFzUhCRn9IwxjNSD7LEyFY3AuI9WsAMb0x7MAO0zSs3F
+         Ct2sgW7KbcTNZ2BYpTPYMFJ/+kLbRMUGruxoRvMv8w8PwS1wRvwEOQwEopagzdgdSqM5
+         UAgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775747078; x=1776351878;
+        d=1e100.net; s=20251104; t=1775747106; x=1776351906;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sk4QjbaA4C4zd++R6vZvuA+gGTh5nm2Now1s0GL3ozA=;
-        b=i/QDoQXPomkiU+YmVD0GV3sCWp0b07SyC19eQ9Vwhe7bKTeTm6/+3PW9I/vtjG5xSb
-         XWLLJr/Gm4CEl8UGw87BysoHXRCno/1ebi7MZYrchs9EqvKLRVUSGcnKawn5NGAbAiBT
-         cvJHY7dluJgXyeC55eN1OFBcfLDC9siNlIqjWMT8bOw9cGrjjXPo++/8ASbaCqSj3Vme
-         OOA7Bx+sA2Jv4gYWinA7XUusQyUXsjlEGuYDyKuzvIlur2Jc04UAgg0z80y05UXHGvz6
-         ifjK92Ae2faxiWwRWO528ZxunvwbRv+nqVlE7o8/2b4r3i4wMBUS9SRBgBGFKIGHEGSG
-         Si3Q==
-X-Gm-Message-State: AOJu0Yxb6icKyFS5Rsb2sE9ur21jMzatsama+iXw0ZIgEeyq8Igi3vYy
-	kL8vKKlitMHP34hvybL1qAxZf8SYtMQt/F7bIWeayfpnoC1sxdkCpLIgIOC7id4Di6BGWptoP70
-	ZBnF1jw==
-X-Gm-Gg: AeBDietD6GeZZB4TlE7GnjFEPSSmptusMy5NzU3KSIuUGthNoqiAfwzbcfouE6KoikP
-	sNwhrY/IOxauk55LEJGpI7WXLSg7jM2+jgdeAR/zQeSa1Q1yPNd4IPioMjNe1etztWXe1KA1tqu
-	xyT8rwFHJfs1faScamuzDqhP2jK0uVamvTmQjq1gBnmm8ZM9/LGPz2+tbjtqgthFs2ZAUox2dHZ
-	yyOJTnrzQyoq4w6a+DNMbMmuIsOjPJsmHuOgwfcPyDi/dJAaiWmJscRANHetYsTjpkwGE5/qMkA
-	sv5u7vaHPup9t5tqPyEYaywjacnlL34xCev+itnRSynaVGYzWSNlTRm5Mn5/mYWKXSD/qbsINrr
-	83ifY9D6Zlcy3P1qHh1QO4xVkGpLTDUEsR559mRcgun6T7DbXUmRYVrgUKWLI060fF/JBEkP5Pv
-	7XAnoxDkDSGpHQnyVoyQfJRU15IHkSYI++dgW8sOBEo5fDQSHKM7aOfFFChEpcatNhKjY9bFFoU
-	JSAafMmEGwRktE=
-X-Received: by 2002:a05:600c:1381:b0:487:1108:48af with SMTP id 5b1f17b1804b1-488996a351bmr359902395e9.4.1775747078262;
-        Thu, 09 Apr 2026 08:04:38 -0700 (PDT)
-Message-ID: <36d9ab74-a7e0-4ec3-ae3e-4c9cae6982e5@suse.com>
-Date: Thu, 9 Apr 2026 17:04:36 +0200
+        bh=fy810O/JIrpMqa9PSa5WVZ8ULg9qI+umlI0cfV5YuUE=;
+        b=H6yDqUwkn2wpGlyFE32e+UbNlIbidiTw6T6oi9HDy8rhSF5lR49LidfqN8KgAemYdC
+         B62Dgu1nYQ1R/iKW/qoLTBJhIBLJ3u8JcXglhjAWXgPEyTWcvEhSNX1p8zoIKYVpFL0X
+         CH/vPvYjGzOpzdY+qO6Td6Jn2O6Pi+e+y6wcaqPFutLDJfkflJLOAeyV2/uE6BfssDk7
+         jo1b4iGqNzCjr83ePfJDTrABhn7/yJUDhYhYnW4BLijQep288R1i6APez00TFimyHlEg
+         JO8ePf/q77U6pwC3MEn9qfx6gVmLpSOlajHP5e2NcBrRb8CEEKYQJtvOgYmT97wX+rtK
+         7Tqw==
+X-Gm-Message-State: AOJu0YwqKyplU/1xtcGl2jhupz8zH6MEs8IPu8t/AAcTSH+OsSdjMJ2I
+	0eAgl9NjsMhZtUcuSHptG6kaYo7M7W4jV13gYXEAuG0pmm08gIVC6NoH1mFsrUI0LJehK1sZaGy
+	hh9cb2g==
+X-Gm-Gg: AeBDievfgkRPZyYq1U2qt8TKOUUTmI0zH7j00QBQuVeAj4RfqjDvDXGV5mo5zzG3RG3
+	plElCl9VeiutDQZHN5iJ89/BfGdQm6ixPc3OPwKduyKQS/ftEj6JDLal9P6X0poewk2ljFFCppO
+	uoFpbRwMikL67c2OrzYSPocvqtJKmg9TscGdEjGOgwCwdLJiNdJuRRSG7/vrxgNB0Rksej0nZXS
+	iPH18vEgUZLWEf0wA19sxz7gE+WyH+cY1+ypLtxH/744UjAJxNsF4eMWUTU1e2QPGxF2uHMmB6T
+	QOh+JkQ+DOmqkMWRI75DezSBf7Sm1sWSrbn+4qCsslkz0iiVGL1BG/I2SqvxWuR7j6dhXYbVvUH
+	1OCV1P2gXzs3/xuGNrpNManVJGaIjlzjHxVkjKh5YtHzQnGLaWeROJcEs+d5O3nDd05nCIY2Mad
+	WNvL7WVAHHM9ys/dfti6xXDP2HOtFsqPB3dAKLrRs/Zso5az04HHh5aajzd/J3U05LwkR6FJOJS
+	FkZelygTcSgFxg=
+X-Received: by 2002:a05:600c:c083:b0:487:243f:dc3e with SMTP id 5b1f17b1804b1-488ccf3e9abmr39429425e9.6.1775747106035;
+        Thu, 09 Apr 2026 08:05:06 -0700 (PDT)
+Message-ID: <34db5d46-87cf-4449-900e-5b9e6965a52b@suse.com>
+Date: Thu, 9 Apr 2026 17:05:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v4 05/16] x86emul/test: drop cpu_has_avx512vl
+Subject: [PATCH v4 06/16] x86emul: AVX10.1 testing
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -133,9 +133,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <1e2ff012-b07a-43be-9ba6-290b38d3c97c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-720697/1775747078-ADB3FCD1-543089F8/0/0
+X-purgate-ID: tlsNG-d25034/1775747106-FE151A3D-94C8CACE/0/0
 X-purgate-type: clean
-X-purgate-size: 2885
+X-purgate-size: 11728
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -147,7 +147,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid,testcase.mk:url];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -168,87 +168,344 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 46BF93CC5EC
+X-Rspamd-Queue-Id: 7F1703CC5F5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-AVX512VL not being a standalone feature anyway, but always needing
-to be combined with some other AVX512*, replace uses of
-cpu_has_avx512vl by just the feature bit check.
+Re-use respective AVX512 tests, by suitably adjusting the predicate
+functions. This leaves test names ("Testing ... NN-bit code sequence")
+somewhat misleading, but I think we can live with that.
+
+Note that the AVX512{BW,DQ} opmask tests cannot be run as-is for the
+AVX10/256 case, as they include 512-bit vector <-> opmask insn tests.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: Re-base over dropping of Xeon Phi support.
+SDE: -gnr / -gnr256
+---
+TBD: The testcase.mk change was for AVX10.1/256. It may, however, be
+     worthwhile to keep it.
+
+TBD: May want to have separate AVX10 test blobs built, utilizing all of
+     the implied AVX512 sub-features.
+
+The AVX512{BW,DQ} opmask tests could of course be cloned (i.e. rebuilt
+another time with -mavx512vl passed) accordingly, but the coverage gain
+would be pretty marginal.
+---
+v4: Drop use of vsz<N> fields. Series re-ordering adjustments. Drop stale
+    Phi leftovers. Re-base.
+v2: Drop SDE 9.27.0 workaround. Re-base over dropping of Xeon Phi
+    support.
 
 --- a/tools/tests/x86_emulator/evex-disp8.c
 +++ b/tools/tests/x86_emulator/evex-disp8.c
-@@ -1025,7 +1025,8 @@ static void test_group(const struct test
-     {
+@@ -1026,7 +1026,7 @@ static void test_group(const struct test
          for ( j = 0; j < nr_vl; ++j )
          {
--            if ( vl[0] == VL_512 && vl[j] != VL_512 && !cpu_has_avx512vl )
-+            if ( vl[0] == VL_512 && vl[j] != VL_512 &&
-+                 !cpu_policy.feat.avx512vl )
+             if ( vl[0] == VL_512 && vl[j] != VL_512 &&
+-                 !cpu_policy.feat.avx512vl )
++                 !cpu_policy.feat.avx512vl && !cpu_policy.feat.avx10 )
                  continue;
  
              switch ( tests[i].esz )
+@@ -1077,6 +1077,24 @@ static void test_group(const struct test
+     }
+ }
+ 
++/* AVX512 (sub)features implied by AVX10. */
++#define avx10_has_avx512f             cpu_has_avx10
++#define avx10_has_avx512bw            cpu_has_avx10
++#define avx10_has_avx512cd            cpu_has_avx10
++#define avx10_has_avx512dq            cpu_has_avx10
++#define avx10_has_avx512_bf16         cpu_has_avx10
++#define avx10_has_avx512_bitalg       cpu_has_avx10
++#define avx10_has_avx512_fp16         cpu_has_avx10
++#define avx10_has_avx512_ifma         cpu_has_avx10
++#define avx10_has_avx512_vbmi         cpu_has_avx10
++#define avx10_has_avx512_vbmi2        cpu_has_avx10
++#define avx10_has_avx512_vnni         cpu_has_avx10
++#define avx10_has_avx512_vpopcntdq    cpu_has_avx10
++
++/* AVX512 sub-feature(s) /not/ implied by AVX10. */
++#define avx10_has_avx512_vp2intersect false
++#define avx10_has_avx512_bmm          false
++
+ void evex_disp8_test(void *instr, struct x86_emulate_ctxt *ctxt,
+                      const struct x86_emulate_ops *ops)
+ {
+@@ -1094,7 +1112,7 @@ void evex_disp8_test(void *instr, struct
+     } \
+ } while ( false )
+ 
+-#define RUN(feat, vl) run(cpu_has_ ## feat, feat, vl)
++#define RUN(feat, vl) run(cpu_has_ ## feat || avx10_has_ ## feat, feat, vl)
+ 
+     RUN(avx512f, all);
+     RUN(avx512f, 128);
+@@ -1120,11 +1138,15 @@ void evex_disp8_test(void *instr, struct
+     RUN(avx512_bmm, all);
+     RUN(avx512_bmm, no128);
+ 
+-    if ( cpu_has_avx512f )
++#undef RUN
++
++    if ( cpu_has_avx512f || cpu_has_avx10 )
+     {
++#define RUN(feat, vl) run(cpu_has_ ## feat, feat, vl)
+         RUN(gfni, all);
+         RUN(vaes, all);
+         RUN(vpclmulqdq, all);
++#undef RUN
+     }
+ 
+     if ( cpu_has_avx10 )
+--- a/tools/tests/x86_emulator/testcase.mk
++++ b/tools/tests/x86_emulator/testcase.mk
+@@ -7,6 +7,22 @@ $(call cc-options-add,CFLAGS,CC,$(EMBEDD
+ CFLAGS += -ffreestanding -nostdinc -I$(XEN_ROOT)/tools/firmware/include
+ CFLAGS += -fno-stack-protector -g0 $($(TESTCASE)-cflags)
+ 
++ifneq ($(filter -mavx512%,$($(TESTCASE)-cflags)),)
++
++cflags-vsz64 :=
++cflags-vsz32 := -mprefer-vector-width=256
++cflags-vsz16 := -mprefer-vector-width=128
++# Scalar tests don't set VEC_SIZE (and VEC_MAX is used by S/G ones only)
++cflags-vsz   := -mprefer-vector-width=128
++
++ifneq ($(filter -DVEC_SIZE=%,$($(TESTCASE)-cflags)),)
++CFLAGS += $(cflags-vsz$(patsubst -DVEC_SIZE=%,%,$(filter -DVEC_SIZE=%,$($(TESTCASE)-cflags))))
++else
++CFLAGS += $(cflags-vsz$(patsubst -DVEC_MAX=%,%,$(filter -DVEC_MAX=%,$($(TESTCASE)-cflags))))
++endif
++
++endif
++
+ LDFLAGS_DIRECT += $(shell { $(LD) -v --warn-rwx-segments; } >/dev/null 2>&1 && echo --no-warn-rwx-segments)
+ 
+ .PHONY: all
 --- a/tools/tests/x86_emulator/test_x86_emulator.c
 +++ b/tools/tests/x86_emulator/test_x86_emulator.c
-@@ -131,7 +131,7 @@ static bool simd_check_avx512f(void)
+@@ -124,52 +124,56 @@ static bool simd_check_avx_pclmul(void)
+ 
+ static bool simd_check_avx512f(void)
+ {
+-    return cpu_has_avx512f;
++    return cpu_has_avx512f || cpu_has_avx10;
+ }
+ #define simd_check_avx512f_opmask simd_check_avx512f
+ #define simd_check_avx512f_sg simd_check_avx512f
  
  static bool simd_check_avx512f_vl(void)
  {
--    return cpu_has_avx512f && cpu_has_avx512vl;
-+    return cpu_has_avx512f && cpu_policy.feat.avx512vl;
+-    return cpu_has_avx512f && cpu_policy.feat.avx512vl;
++    return (cpu_has_avx512f && cpu_policy.feat.avx512vl) ||
++           cpu_has_avx10;
  }
  #define simd_check_avx512vl_sg simd_check_avx512f_vl
  
-@@ -143,7 +143,7 @@ static bool simd_check_avx512dq(void)
+ static bool simd_check_avx512dq(void)
+ {
+-    return cpu_has_avx512dq;
++    return cpu_has_avx512dq || cpu_has_avx10;
+ }
+ #define simd_check_avx512dq_opmask simd_check_avx512dq
  
  static bool simd_check_avx512dq_vl(void)
  {
--    return cpu_has_avx512dq && cpu_has_avx512vl;
-+    return cpu_has_avx512dq && cpu_policy.feat.avx512vl;
+-    return cpu_has_avx512dq && cpu_policy.feat.avx512vl;
++    return (cpu_has_avx512dq && cpu_policy.feat.avx512vl) ||
++           cpu_has_avx10;
  }
  
  static bool simd_check_avx512bw(void)
-@@ -154,7 +154,7 @@ static bool simd_check_avx512bw(void)
+ {
+-    return cpu_has_avx512bw;
++    return cpu_has_avx512bw || cpu_has_avx10;
+ }
+ #define simd_check_avx512bw_opmask simd_check_avx512bw
  
  static bool simd_check_avx512bw_vl(void)
  {
--    return cpu_has_avx512bw && cpu_has_avx512vl;
-+    return cpu_has_avx512bw && cpu_policy.feat.avx512vl;
+-    return cpu_has_avx512bw && cpu_policy.feat.avx512vl;
++    return (cpu_has_avx512bw && cpu_policy.feat.avx512vl) ||
++           cpu_has_avx10;
  }
  
  static bool simd_check_avx512vbmi(void)
-@@ -164,7 +164,7 @@ static bool simd_check_avx512vbmi(void)
+ {
+-    return cpu_has_avx512_vbmi;
++    return cpu_has_avx512_vbmi || cpu_has_avx10;
+ }
  
  static bool simd_check_avx512vbmi_vl(void)
  {
--    return cpu_has_avx512_vbmi && cpu_has_avx512vl;
-+    return cpu_has_avx512_vbmi && cpu_policy.feat.avx512vl;
+-    return cpu_has_avx512_vbmi && cpu_policy.feat.avx512vl;
++    return (cpu_has_avx512_vbmi && cpu_policy.feat.avx512vl) ||
++           cpu_has_avx10;
  }
  
  static bool simd_check_avx512vbmi2(void)
-@@ -260,7 +260,7 @@ static bool simd_check_avx512fp16(void)
+ {
+-    return cpu_has_avx512_vbmi2;
++    return cpu_has_avx512_vbmi2 || cpu_has_avx10;
+ }
+ 
+ static bool simd_check_sse4_sha(void)
+@@ -250,17 +254,18 @@ static bool simd_check_avx512bw_gf_vl(vo
+ 
+ static bool simd_check_avx512vnni(void)
+ {
+-    return cpu_has_avx512_vnni;
++    return cpu_has_avx512_vnni || cpu_has_avx10;
+ }
+ 
+ static bool simd_check_avx512fp16(void)
+ {
+-    return cpu_has_avx512_fp16;
++    return cpu_has_avx512_fp16 || cpu_has_avx10;
+ }
  
  static bool simd_check_avx512fp16_vl(void)
  {
--    return cpu_has_avx512_fp16 && cpu_has_avx512vl;
-+    return cpu_has_avx512_fp16 && cpu_policy.feat.avx512vl;
+-    return cpu_has_avx512_fp16 && cpu_policy.feat.avx512vl;
++    return (cpu_has_avx512_fp16 && cpu_policy.feat.avx512vl) ||
++           cpu_has_avx10;
  }
  
  static void simd_set_regs(struct cpu_user_regs *regs)
---- a/tools/tests/x86_emulator/x86-emulate.h
-+++ b/tools/tests/x86_emulator/x86-emulate.h
-@@ -179,8 +179,6 @@ void wrpkru(unsigned int val);
- #define cpu_has_sha                  cpu_policy.feat.sha
- #define cpu_has_avx512bw            (cpu_policy.feat.avx512bw && \
-                                      xcr0_mask(0xe6))
--#define cpu_has_avx512vl            (cpu_policy.feat.avx512vl && \
--                                     xcr0_mask(0xe6))
- #define cpu_has_avx512_vbmi         (cpu_policy.feat.avx512_vbmi && \
-                                      xcr0_mask(0xe6))
- #define cpu_has_avx512_vbmi2        (cpu_policy.feat.avx512_vbmi2 && \
+@@ -3238,11 +3243,22 @@ int main(int argc, char **argv)
+         rc = x86_emulate(&ctxt, &emulops);
+         if ( rc != X86EMUL_OKAY || !check_eip(evex_vmovq_from_mem) )
+             goto fail;
+-        asm ( "vmovq %1, %%xmm1\n\t"
+-              "vpcmpeqq %%zmm0, %%zmm1, %%k0\n"
+-              "kmovw %%k0, %0" : "=r" (rc) : "m" (res[8]) );
+-        if ( rc != 0xff )
+-            goto fail;
++        if ( simd_check_avx512f() )
++        {
++            asm ( "vmovq %1, %%xmm1\n\t"
++                  "vpcmpeqq %%zmm0, %%zmm1, %%k0\n"
++                  "kmovw %%k0, %0" : "=r" (rc) : "m" (res[8]) );
++            if ( rc != 0x00ff )
++                goto fail;
++        }
++        else
++        {
++            asm ( "vmovq %1, %%xmm1\n\t"
++                  "vpcmpeqq %%xmm0, %%xmm1, %%k0\n"
++                  "kmovb %%k0, %0" : "=r" (rc) : "m" (res[8]) );
++            if ( rc != 0x03 )
++                goto fail;
++        }
+         printf("okay\n");
+     }
+     else
+@@ -3820,11 +3836,22 @@ int main(int argc, char **argv)
+         rc = x86_emulate(&ctxt, &emulops);
+         if ( rc != X86EMUL_OKAY || !check_eip(evex_vmovd_from_mem) )
+             goto fail;
+-        asm ( "vmovd %1, %%xmm0\n\t"
+-              "vpcmpeqd %%zmm4, %%zmm0, %%k0\n\t"
+-              "kmovw %%k0, %0" : "=r" (rc) : "m" (res[8]) );
+-        if ( rc != 0xffff )
+-            goto fail;
++        if ( simd_check_avx512f() )
++        {
++            asm ( "vmovd %1, %%xmm0\n\t"
++                  "vpcmpeqd %%zmm4, %%zmm0, %%k0\n\t"
++                  "kmovw %%k0, %0" : "=r" (rc) : "m" (res[8]) );
++            if ( rc != 0xffff )
++                goto fail;
++        }
++        else
++        {
++            asm ( "vmovd %1, %%xmm0\n\t"
++                  "vpcmpeqd %%xmm4, %%xmm0, %%k0\n\t"
++                  "kmovb %%k0, %0" : "=r" (rc) : "m" (res[8]) );
++            if ( rc != 0x0f )
++                goto fail;
++        }
+         printf("okay\n");
+     }
+     else
+@@ -4037,11 +4064,22 @@ int main(int argc, char **argv)
+         rc = x86_emulate(&ctxt, &emulops);
+         if ( (rc != X86EMUL_OKAY) || !check_eip(evex_vmovd_from_reg) )
+             goto fail;
+-        asm ( "vmovd %1, %%xmm0\n\t"
+-              "vpcmpeqd %%zmm1, %%zmm0, %%k0\n\t"
+-              "kmovw %%k0, %0" : "=r" (rc) : "m" (res[8]) );
+-        if ( rc != 0xffff )
+-            goto fail;
++        if ( simd_check_avx512f() )
++        {
++            asm ( "vmovd %1, %%xmm0\n\t"
++                  "vpcmpeqd %%zmm1, %%zmm0, %%k0\n\t"
++                  "kmovw %%k0, %0" : "=r" (rc) : "m" (res[8]) );
++            if ( rc != 0xffff )
++                goto fail;
++        }
++        else
++        {
++            asm ( "vmovd %1, %%xmm0\n\t"
++                  "vpcmpeqd %%xmm1, %%xmm0, %%k0\n\t"
++                  "kmovb %%k0, %0" : "=r" (rc) : "m" (res[8]) );
++            if ( rc != 0x0f )
++                goto fail;
++        }
+         printf("okay\n");
+     }
+     else
+@@ -5524,14 +5562,28 @@ int main(int argc, char **argv)
+         rc = x86_emulate(&ctxt, &emulops);
+         if ( (rc != X86EMUL_OKAY) || !check_eip(vmovsh_from_mem) )
+             goto fail;
+-        asm volatile ( "kmovw     %2, %%k1\n\t"
+-                       "vmovdqu16 %1, %%zmm4%{%%k1%}%{z%}\n\t"
+-                       "vpcmpeqw  %%zmm4, %%zmm5, %%k0\n\t"
+-                       "kmovw     %%k0, %0"
+-                       : "=g" (rc)
+-                       : "m" (res[2]), "r" (1) );
+-        if ( rc != 0xffff )
+-            goto fail;
++        if ( simd_check_avx512fp16() )
++        {
++            asm volatile ( "kmovw     %2, %%k1\n\t"
++                           "vmovdqu16 %1, %%zmm4%{%%k1%}%{z%}\n\t"
++                           "vpcmpeqw  %%zmm4, %%zmm5, %%k0\n\t"
++                           "kmovw     %%k0, %0"
++                           : "=g" (rc)
++                           : "m" (res[2]), "r" (1) );
++            if ( rc != 0xffff )
++                goto fail;
++        }
++        else
++        {
++            asm volatile ( "kmovb     %2, %%k1\n\t"
++                           "vmovdqu16 %1, %%xmm4%{%%k1%}%{z%}\n\t"
++                           "vpcmpeqw  %%xmm4, %%xmm5, %%k0\n\t"
++                           "kmovb     %%k0, %0"
++                           : "=g" (rc)
++                           : "m" (res[2]), "r" (1) );
++            if ( rc != 0xff )
++                goto fail;
++        }
+         printf("okay\n");
+ 
+         printf("%-40s", "Testing vmovsh %xmm4,2(%eax){%k3}...");
+--- a/tools/tests/x86_emulator/x86-emulate.c
++++ b/tools/tests/x86_emulator/x86-emulate.c
+@@ -244,7 +244,7 @@ int emul_test_get_fpu(
+             break;
+     case X86EMUL_FPU_opmask:
+     case X86EMUL_FPU_zmm:
+-        if ( cpu_has_avx512f )
++        if ( cpu_has_avx512f || cpu_has_avx10 )
+             break;
+     default:
+         return X86EMUL_UNHANDLEABLE;
 
 
