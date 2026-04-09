@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UAHeEbN812mXOggAu9opvQ
+	id mK/5MSaA12kLPAgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 12:17:23 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 12:32:06 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D1223C915C
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 12:17:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1276940.1562255 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C98F3C92D2
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 12:32:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1276957.1562263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAmRO-0007F3-0z; Thu, 09 Apr 2026 10:16:50 +0000
+	id 1wAmfL-0001xe-64; Thu, 09 Apr 2026 10:31:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1276940.1562255; Thu, 09 Apr 2026 10:16:50 +0000
+Received: by outflank-mailman (output) from mailman id 1276957.1562263; Thu, 09 Apr 2026 10:31:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAmRN-0007DH-Ud; Thu, 09 Apr 2026 10:16:49 +0000
-Received: by outflank-mailman (input) for mailman id 1276940;
- Thu, 09 Apr 2026 10:16:48 +0000
+	id 1wAmfL-0001vW-3U; Thu, 09 Apr 2026 10:31:15 +0000
+Received: by outflank-mailman (input) for mailman id 1276957;
+ Thu, 09 Apr 2026 10:31:14 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <marmarek@invisiblethingslab.com>) id 1wAmRL-0007DB-Pp
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 10:16:48 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wAmfJ-0001vQ-V0
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 10:31:14 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAmRK-00BmoY-BZ
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 12:16:46 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wAmfF-008nNS-VZ
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 12:31:11 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d77c7f-5cb7-0a2a0a5109dd-0a2a4504bdde-12
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 12:16:46 +0200
-Received: from [103.168.172.144] (helo=fout-a1-smtp.messagingengine.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d77c8d-bb33-0a2a45040019-67a8ac90c9cb-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 12:16:46 +0200
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfout.phl.internal (Postfix) with ESMTP id D13A9EC006A;
- Thu,  9 Apr 2026 06:16:44 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Thu, 09 Apr 2026 06:16:44 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 9 Apr 2026 06:16:43 -0400 (EDT)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69d77fe8-2eae-0a2a0a5409dd-0a2a450be74e-20
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 12:31:11 +0200
+Received: from [209.85.128.51] (helo=mail-wm1-f51.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69d77fef-bca8-0a2a450b0019-d1558033b594-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 12:31:11 +0200
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-488b150559bso5652205e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 03:31:11 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
+ [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488cd19ea83sm99855615e9.1.2026.04.09.03.31.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Apr 2026 03:31:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,185 +55,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fm2 header.d=invisiblethingslab.com header.i="@invisiblethingslab.com" header.h="Cc:Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=fm2 header.d=messagingengine.com header.i="@messagingengine.com" header.h="Cc:Content-Type:Date:Feedback-ID:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To:X-ME-Proxy:X-ME-Sender"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1775729804;
-	 x=1775816204; bh=LvFJD7kaqB4yI+OTi31V6yKJ10VSs1gSZn5u+SUryTQ=; b=
-	rl5OzLSS5w4UZv+7Ww20Vqw5t8IcB+AdlzU+Wcjch5jtNOvW/s6hXXOKtSiRVDdd
-	IV1b9vSAQzgVA5bJQZkD/6PeKtpIfC2UpwFNdQ5uEgBDu9xEYhJvB0BipGlXsUij
-	Tzy16P/vmTCIKvSXDBAVhcxeTzrDtkfsUZJOXm20qZKBdKd82el6ImWv73K9Xczi
-	sFEQj4T4OyGLeFQAR8//+eZVkCO7CQzZXT0m3qQrBDLtifk85TzzqXhgB2t6Bsoc
-	9julA26ZGGmm4BP+/0dX4WwNGui8DxbdmlWd7+tOsqpLSYobe2EHc9pHQqkkRKTq
-	ysnW9TlrYFVhNr6aWwkj8Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1775729804; x=1775816204; bh=LvFJD7kaqB4yI+OTi31V6yKJ10VSs1gSZn5
-	u+SUryTQ=; b=GlBrI2+ocf2b/CKy50jLzkIRhVeBZRdnQvwdjORItnXfVavxz7O
-	9/NtzpbohP0ZpVWFjV8qn+J8YmzwD2DzSKWFtfxuGQFG6q8IsSu+BXs8sMX3oAqv
-	Oj04quvasiPWYZX4SpFFfDfc0vohR0nVY8BrFgYgApsMK7gDhN2D374U0pid0v+N
-	T8tAoDhXTunvlpnwhQYZnJEy2QYmyyT/8tIFqn7kt+aSTKWihNj74KCtajwyYLH4
-	blBVjbDoUtg1DJTxHXYkxTFnk5g6Mt5L6xKIAvJji7VreVtuhVSFi/7fOyQD+vnc
-	nkhWnBG03k4Zkd361XywH3lF5ZcFZFPX2DA==
-X-ME-Sender: <xms:jHzXadI1ror2yE9t56689iO507sAb_6Kl-ps8RTvB3X8uZXNiW4HZQ>
-    <xme:jHzXaQB9TGWXdI0maFzkZi9FkGAZJfzwY3RdMaDhKlWncZM3xfjw3oremjgLGtaus
-    IsdKs6OLlySN1tv_KEFesyDNnyyX4xmkyLfs_ZLVRkqqeM5Mg>
-X-ME-Received: <xmr:jHzXaeDL8bi0ZLSHsd0dEz-ReENd-AE3RDkZ08Tenn6Ew6eh0UnaqLM_sJEcHFla8KgOGf4yBpogBV_0zXIwG-OL7y9bpozU9tg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddviedvvdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeevueejteeg
-    leelteduueevhfetgfffjeevtddvgfeiveehteehleegueelvdejveenucffohhmrghinh
-    epghhithhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
-    rghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsg
-    drtghomhdpnhgspghrtghpthhtohephedpmhhouggvpehsmhhtphhouhhtpdhrtghpthht
-    ohepthhhihgvrhhrhidrvghstggrnhguvgesvhgrthgvshdrthgvtghhpdhrtghpthhtoh
-    epgigvnhdquggvvhgvlheslhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghp
-    thhtoheprghnthhhohhnhidrphgvrhgrrhgusehvrghtvghsrdhtvggthhdprhgtphhtth
-    hopehjghhrohhsshesshhushgvrdgtohhmpdhrtghpthhtohepsggvrhhrrghnghgvsehr
-    vgguhhgrthdrtghomh
-X-ME-Proxy: <xmx:jHzXaaA4QLRj0eGW3T_r9zMwqS2NwgFZEmQqBPCDa3jF8ZSWOqKSEw>
-    <xmx:jHzXaRqZzZpkyCEWzxjV67UTVToEgNyz9FMIHx1GfWDqTJDtXVXdJA>
-    <xmx:jHzXacnlC1Vxecp5W2JnWR5ARa4TmZT-rsFnesSGvjmOc0Og16lQOw>
-    <xmx:jHzXaZy0CGCp174TLGQ_WmB29wUXqkqDrZUy3PambhM0eRO4OQ3faw>
-    <xmx:jHzXaREeqdAhrbvDooMeeZM_688dXdvWxtgM2Axcljegll2JfYvvJmUH>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 9 Apr 2026 12:16:41 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Thierry Escande <thierry.escande@vates.tech>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>,
-	Daniel P =?utf-8?B?LiBCZXJyYW5nw6k=?= <berrange@redhat.com>
-Subject: Re: [RFC PATCH 0/3] xl: Allow PCI devices to be passthrough'd via
- Qemu command line
-Message-ID: <add8iXLvyWlYkrpM@mail-itl>
-References: <20260408172320.539750-1-thierry.escande@vates.tech>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1775730671; x=1776335471; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=0B0hVhkoZ9SWr6kKvUmCz63+jV3t69Lxeyta4aoUIqU=;
+        b=kKwAawPCf4lcKcH5eHApj1UWFCyZoQWvFtXeAomJJHmupcYfQrritlLzoEK0Y4f0Ls
+         +ysRuG8UMB15RmMO8Kyv25uMDEvWj2I/snk+jq70gZrwgdT9aXG1xHOuPYnA4RaaMN70
+         h0s67qmcfBAEtvIKX6tuqYe+/pu3OL0forbfQxG4p6IVw7mtoNv8Ebdfe4kgikRZiik7
+         W25eaj/fPIC9Plbjb/d0WwgrYNcs21SPgUd0xMGDY5MCk0zlbaJNoRjiTUoIIbdKEpfL
+         BnH38015EiZGgHI5nXcokrpyRJZtLLV5tQYGp3rzG3lggDSSChke+x/Z/0P4Nyxiq465
+         I9ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1775730671; x=1776335471;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0B0hVhkoZ9SWr6kKvUmCz63+jV3t69Lxeyta4aoUIqU=;
+        b=QBfiAzNwSgZiC04CQBmTquUC7xvG18FeGTTgN79Zq9S7hgcXfPg0ksn3TsALsJYBAN
+         YQqjNEUhvhM0q8p3BmLJKi21bsrUZ+mtCeibUDuz5zlY/o/1gmHtV5FWUJjUh+aT41c9
+         qGTC7frp2wkm627F7AWWenrjkwnk/dxU9NuJ+43czRGswkBa66N09Mzfpc/c+69mje9r
+         PUyBYm8lvkMkZdVuhku4QYlfSQiSQdgscRsPhY+kEHYjcMCZto3yFmsFcB+ThFKyMkuO
+         h+7l0a5r6kK5zee8+cOaj4xDyxdiINz3Fdv8jATdXng6RsF/fU+mVeluxCMMspXY+erL
+         e9AA==
+X-Forwarded-Encrypted: i=1; AJvYcCVciGzF4UnDHCtHI068DwP696vsKozSPEvNwKJsHyv9uXqD/JW8g8TyfYOcPAC5l2uvMZinLcOcNEc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz4l/zn5CQOLKQRKA0/VU124TsBGYHav7Bhg62nHuEVF5rwd66o
+	5kLYNW5Tau6Ij94OxCmUOZQa4mAeoO9+u3qNUjza1WziEbMannbR+zhG
+X-Gm-Gg: AeBDies1+CNPpuGJtBnFGeGOiWoMn+soCuygbpzPBwUEZVlFJ4nELI4909IqJpNahE9
+	+JgQnzo2DLVS6EeMP8EICun+sh2tjWcgqpS0fJ+TzQQqILvq6L1nsEmV+dgKfCn154XHIobQlhY
+	SrU0M1shWJ3jVV3fS9CeasuyIcs+RrWPPfZ0uMf6IW9HgRCL3PuSJxsENlRHeSBDhi++Th0p/CI
+	FZJ9RxNo4fXJ3sK/wjgZoe+FGeBD8zjGsW400N3sepTYty87xs5p05LownDty6/f9wuuhsVUNAV
+	VsfFNCCcey+WzRsC5CCcVjnDCVGqvvUZ7i0dvQXJheeLy6ZZGtyEMq3WNNsfr/o8ZOExpwFglmX
+	N+JkXr6ymp1XjcxG5Su4MhMcJagDJ9Wnr03n9B5MEjJFEyU8dAE/nUGIfZsUuCUKj1OkzNNojeP
+	pS7wwPBK96KCXEpm5dFB8mGQixmJWYPo5hi2moNZOBnPJyorHwgrLWkKlpwEjZGelfQ5KhQ5nrC
+	rfdW1BnVbxijw==
+X-Received: by 2002:a05:600c:5292:b0:485:2ce2:4c87 with SMTP id 5b1f17b1804b1-488996cd77cmr364338815e9.4.1775730670672;
+        Thu, 09 Apr 2026 03:31:10 -0700 (PDT)
+Message-ID: <3b3325ea-b811-4ab2-b1ba-9808a5a4b7c5@gmail.com>
+Date: Thu, 9 Apr 2026 12:31:09 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="FadDhAgw7qA4OlbR"
-Content-Disposition: inline
-In-Reply-To: <20260408172320.539750-1-thierry.escande@vates.tech>
-X-purgate-ID: tlsNG-ebf023/1775729806-B273A51B-FEEC0ED7/0/0
-X-purgate-type: clean
-X-purgate-size: 3168
-X-Spamd-Result: default: False [-2.78 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 01/27] xen/riscv: Implement ARCH_PAGING_MEMPOOL
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
+ <887d914aa0ddb1884c19c9567d4633ecaf810066.1773157782.git.oleksii.kurochko@gmail.com>
+ <7340581a-51a3-43b2-b180-c2de37bda4b1@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <7340581a-51a3-43b2-b180-c2de37bda4b1@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-42698a/1775730671-F4DC92A1-7322B07A/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 4103
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm2,messagingengine.com:s=fm2];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,m:berrange@redhat.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,gitlab.com:url];
-	MISSING_XM_UA(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.999];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: 8D1223C915C
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 3C98F3C92D2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---FadDhAgw7qA4OlbR
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 9 Apr 2026 12:16:41 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Thierry Escande <thierry.escande@vates.tech>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>,
-	Daniel P =?utf-8?B?LiBCZXJyYW5nw6k=?= <berrange@redhat.com>
-Subject: Re: [RFC PATCH 0/3] xl: Allow PCI devices to be passthrough'd via
- Qemu command line
 
-On Wed, Apr 08, 2026 at 05:23:39PM +0000, Thierry Escande wrote:
-> This series adds support for a new 'hotplug' option for PCI devices to be
-> passthrough'd to guests.
->=20
-> The current mechanism for device passthrough uses QMP device_add command
-> to hot-plug PCI devices to the guest Qemu instance. This is an issue for
-> guests running on Q35 chipset (preliminary support posted at [1]) since t=
-he
-> Q35 PCI root bus does not support hotplug. Devices could be hotplugged to
-> a secondary PCI bus but Xen only support 1 PCI bus for now.
->=20
-> The 'hotplug' option allows to control how devices are attached to the
-> guest, either by using the legacy QMP mechanism (this is the default) or =
-by
-> passing it directly to the Qemu command line using xen-pci-passthrough
-> device.
->=20
-> Example usage in cfg file:
->  pci =3D [ "00:03.0,seize=3D1,hotplug=3D0" ]
->=20
-> Since Qemu -device option accepts parameters in json format, this
-> patchset adds a new internal function libxl__device_pci_get_qmp_json() th=
-at
-> generates the device json object used for both QMP hotplug and command li=
-ne
-> passing.
-> Also, the function libxl_pci_assignable() is made available from libxl.h
-> for access in libxl_dm.c. I don't know if it's ok to make it public or if
-> it should stay private. Maybe it should be renamed as
-> libxl_device_pci_assignable() to match the other PCI device APIs.
->=20
-> This has been successfully tested on Xen 4.22-dev and Qemu 10.0 running
-> Debian VMs in both Bios and UEFI mode with a passthrough'd nvme disk.
-> Disabling the hotplug mechanism might be made mandatory for Q35 machines
-> later, once Q35 support is merged upstream.
+On 3/11/26 9:18 AM, Jan Beulich wrote:
+> On 10.03.2026 18:08, Oleksii Kurochko wrote:
+>> The p2m_freelist is used to allocate pages for the P2M, but to initialize
+>> this list, domain_p2m_set_allocation() might be called.
+>> This function is invoked in construct_domU() within the common Dom0less
+>> code, and providing an implementation of domain_p2m_set_allocation() when
+>> CONFIG_ARCH_PAGING_MEMPOOL=y is appropriate for RISC-V.
+> 
+> With this wording it is odd to see ...
+> 
+>> --- a/xen/arch/riscv/Kconfig
+>> +++ b/xen/arch/riscv/Kconfig
+>> @@ -1,5 +1,6 @@
+>>   config RISCV
+>>   	def_bool y
+>> +	select ARCH_PAGING_MEMPOOL
+> 
+> ... this. You really want to settle on whether it is selected unconditionally
+> or not. Also for the code below, where ...
+> 
+>> --- a/xen/arch/riscv/Makefile
+>> +++ b/xen/arch/riscv/Makefile
+>> @@ -10,7 +10,7 @@ obj-y += irq.o
+>>   obj-y += kernel.o
+>>   obj-y += mm.o
+>>   obj-y += p2m.o
+>> -obj-y += paging.o
+>> +obj-$(CONFIG_ARCH_PAGING_MEMPOOL) += paging.o
+>>   obj-y += pt.o
+>>   obj-$(CONFIG_RISCV_64) += riscv64/
+>>   obj-y += sbi.o
+> 
+> ... this change and any #ifdef-ary further down aren't needed unless the
+> select became conditional. (Plus with the change above things likely wouldn't
+> even build if ARCH_PAGING_MEMPOOL could be off under certain conditions.)
 
-Generally I like the approach, and it looks sensible on the first look.
-But CI says it fails to build:
-https://gitlab.com/xen-project/people/marmarek/xen/-/pipelines/2439831766
+I missed if ARCH_PAGING_MEMPOOL=n then p2m.c, at least, will fail to 
+compile so much more things would be needed to be #ifdef-ed.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Just for simplicity then I will set CONFIG_ARCH_PAGING_MEMPOOL=y 
+unconditionally and drop all the #ifdef-s related to this config I've 
+added in this patch.
 
---FadDhAgw7qA4OlbR
-Content-Type: application/pgp-signature; name=signature.asc
+> 
+>> --- a/xen/arch/riscv/p2m.c
+>> +++ b/xen/arch/riscv/p2m.c
+>> @@ -1568,3 +1568,34 @@ struct page_info *get_page_from_gfn(struct domain *d, unsigned long gfn,
+>>   
+>>       return page;
+>>   }
+>> +
+>> +#ifdef CONFIG_ARCH_PAGING_MEMPOOL
+>> +
+>> +int arch_set_paging_mempool_size(struct domain *d, uint64_t size)
+>> +{
+>> +    unsigned long pages = PFN_DOWN(size);
+>> +    bool preempted = false;
+>> +    int rc;
+>> +
+>> +    if ( (size & ~PAGE_MASK) || /* Non page-sized request? */
+>> +         pages != PFN_DOWN(size) ) /* 32-bit overflow? */
+>> +        return -EINVAL;
+> 
+> Can't this be had with just
+> 
+>      if ( ((paddr_t)pages << PAGE_SHIFT) != size )
+>          return -EINVAL;
+> 
+> (and perhaps utilizing pfn_to_paddr(), even if it's not a PFN we're dealing
+> with here)?
 
------BEGIN PGP SIGNATURE-----
+It makes sense, I will apply that for RISC-V.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmnXfIkACgkQ24/THMrX
-1yzVtggAko25WLiGketDYodE72dV9YuvzZw0tInQPk3pi2jOkPQqOHb5kfKDaWP6
-oH54OtYXWeFKIs6nWcbimJOEdQjIJGo/S/ZXxLUIDodxWnqQYTakG/II3fFBpcUB
-cS0SwE/eCyrmGJ44++XfYuVvoqHH2aAOsWpDGnO4Yra0wb4c9vf/MCHr11wJO4Ic
-PSY9Vpf5rmFGXKLCiKEZqSd/Qe3EMo+LJPXk3pmelZaa58KOWh1m+dU6iz34rl/u
-3iAeSUFNi3ThazMLvQ9XznZsUZB2GlwBQ3p60CdYpF7VCIYXSYuGpJpM+xTl2+mm
-SYQCXFr9xQBvaLM5Z0Xwzo2jOTbh9Q==
-=hZBM
------END PGP SIGNATURE-----
+Then for Arm and x86 could be done the same, I can send a separate patch 
+for them.
 
---FadDhAgw7qA4OlbR--
+> 
+>> +    spin_lock(&d->arch.paging.lock);
+>> +    rc = p2m_set_allocation(d, pages, &preempted);
+>> +    spin_unlock(&d->arch.paging.lock);
+>> +
+>> +    ASSERT(preempted == (rc == -ERESTART));
+> 
+> This actually suggests that (once again) Arm code perhaps shouldn't have been
+> copied verbatim: There shouldn't be a need for the "preempted" state to be
+> returned back in two distinct ways.
+
+Agree.
+
+The preempted argument of p2m_set_allocation() could be switched to a 
+plain 'bool could_preempt', preemption would then be signaled solely via 
+return -ERESTART, and the caller would just check rc, so no local bool 
+preempted in this function and no ASSERT.
+
+I'm also thinking that the preempted argument could be dropped entirely, 
+as it seems to exist only to conditionally enable the 
+general_preempt_check() call inside the function. It is skipped only 
+during domain_p2m_set_allocation(), which won't be a significant penalty 
+if general_preempt_check() is called every time. All other callers pass 
+a non-NULL preempted, so general_preempt_check() would always be 
+executed regardless.
+
+> 
+>> +    return rc;
+>> +}
+>> +
+>> +/* Return the size of the pool, in bytes. */
+>> +int arch_get_paging_mempool_size(struct domain *d, uint64_t *size)
+>> +{
+>> +    *size = (uint64_t)ACCESS_ONCE(d->arch.paging.total_pages) << PAGE_SHIFT;
+> 
+> As per above, maybe use pfn_to_paddr()?
+
+Yes, it could be used to be in sync with a code above.
+
+Thanks.
+
+~ Oleksii
+
 
