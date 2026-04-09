@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mK/5MSaA12kLPAgAu9opvQ
+	id v09bBaWB12knPAgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 12:32:06 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 12:38:29 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C98F3C92D2
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 12:32:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1276957.1562263 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73CC93C9385
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 12:38:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1276970.1562272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAmfL-0001xe-64; Thu, 09 Apr 2026 10:31:15 +0000
+	id 1wAmm2-0002m5-TY; Thu, 09 Apr 2026 10:38:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1276957.1562263; Thu, 09 Apr 2026 10:31:15 +0000
+Received: by outflank-mailman (output) from mailman id 1276970.1562272; Thu, 09 Apr 2026 10:38:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAmfL-0001vW-3U; Thu, 09 Apr 2026 10:31:15 +0000
-Received: by outflank-mailman (input) for mailman id 1276957;
- Thu, 09 Apr 2026 10:31:14 +0000
+	id 1wAmm2-0002kN-Qt; Thu, 09 Apr 2026 10:38:10 +0000
+Received: by outflank-mailman (input) for mailman id 1276970;
+ Thu, 09 Apr 2026 10:38:09 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wAmfJ-0001vQ-V0
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 10:31:14 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <andrew.cooper3@citrix.com>) id 1wAmm1-0002jk-9c
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 10:38:09 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAmfF-008nNS-VZ
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 12:31:11 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wAmm0-0057LG-Lp
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 12:38:08 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69d77fe8-2eae-0a2a0a5409dd-0a2a450be74e-20
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 12:31:11 +0200
-Received: from [209.85.128.51] (helo=mail-wm1-f51.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69d77fef-bca8-0a2a450b0019-d1558033b594-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 12:31:11 +0200
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-488b150559bso5652205e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 03:31:11 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
- [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488cd19ea83sm99855615e9.1.2026.04.09.03.31.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Apr 2026 03:31:10 -0700 (PDT)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 69d78180-bab6-0a2a0a5309dd-0a2a4507a80c-48
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 12:38:08 +0200
+Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 69d78190-ba2d-0a2a45070019-d155802acc77-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 12:38:08 +0200
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-488971db0fdso7337415e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 03:38:08 -0700 (PDT)
+Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
+ [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488cf9e8ab4sm51656205e9.4.2026.04.09.03.38.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Apr 2026 03:38:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,227 +56,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=citrix.com header.i="@citrix.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775730671; x=1776335471; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=0B0hVhkoZ9SWr6kKvUmCz63+jV3t69Lxeyta4aoUIqU=;
-        b=kKwAawPCf4lcKcH5eHApj1UWFCyZoQWvFtXeAomJJHmupcYfQrritlLzoEK0Y4f0Ls
-         +ysRuG8UMB15RmMO8Kyv25uMDEvWj2I/snk+jq70gZrwgdT9aXG1xHOuPYnA4RaaMN70
-         h0s67qmcfBAEtvIKX6tuqYe+/pu3OL0forbfQxG4p6IVw7mtoNv8Ebdfe4kgikRZiik7
-         W25eaj/fPIC9Plbjb/d0WwgrYNcs21SPgUd0xMGDY5MCk0zlbaJNoRjiTUoIIbdKEpfL
-         BnH38015EiZGgHI5nXcokrpyRJZtLLV5tQYGp3rzG3lggDSSChke+x/Z/0P4Nyxiq465
-         I9ZA==
+        d=citrix.com; s=google; t=1775731088; x=1776335888; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=BWtbECe/XUd0HxH1vJMgRw9c9RVMkiBpDggLMjIbDLg=;
+        b=VLYyF5UNwtvWDqs5VZanTAvIx3VA/bnkDdNMoU4tfIOnWqxywcyjTfI4aVy10pm/Q7
+         GcKJDdx6EI7rjFRKuNbxE6usd6EzFJnaJBbSLJ+frmDZwhOp/rw4xpoXLafygd82CJvu
+         wNUnrh7tOMf/b8bfYuokqQWet4DQGxFw7G3lA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775730671; x=1776335471;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0B0hVhkoZ9SWr6kKvUmCz63+jV3t69Lxeyta4aoUIqU=;
-        b=QBfiAzNwSgZiC04CQBmTquUC7xvG18FeGTTgN79Zq9S7hgcXfPg0ksn3TsALsJYBAN
-         YQqjNEUhvhM0q8p3BmLJKi21bsrUZ+mtCeibUDuz5zlY/o/1gmHtV5FWUJjUh+aT41c9
-         qGTC7frp2wkm627F7AWWenrjkwnk/dxU9NuJ+43czRGswkBa66N09Mzfpc/c+69mje9r
-         PUyBYm8lvkMkZdVuhku4QYlfSQiSQdgscRsPhY+kEHYjcMCZto3yFmsFcB+ThFKyMkuO
-         h+7l0a5r6kK5zee8+cOaj4xDyxdiINz3Fdv8jATdXng6RsF/fU+mVeluxCMMspXY+erL
-         e9AA==
-X-Forwarded-Encrypted: i=1; AJvYcCVciGzF4UnDHCtHI068DwP696vsKozSPEvNwKJsHyv9uXqD/JW8g8TyfYOcPAC5l2uvMZinLcOcNEc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz4l/zn5CQOLKQRKA0/VU124TsBGYHav7Bhg62nHuEVF5rwd66o
-	5kLYNW5Tau6Ij94OxCmUOZQa4mAeoO9+u3qNUjza1WziEbMannbR+zhG
-X-Gm-Gg: AeBDies1+CNPpuGJtBnFGeGOiWoMn+soCuygbpzPBwUEZVlFJ4nELI4909IqJpNahE9
-	+JgQnzo2DLVS6EeMP8EICun+sh2tjWcgqpS0fJ+TzQQqILvq6L1nsEmV+dgKfCn154XHIobQlhY
-	SrU0M1shWJ3jVV3fS9CeasuyIcs+RrWPPfZ0uMf6IW9HgRCL3PuSJxsENlRHeSBDhi++Th0p/CI
-	FZJ9RxNo4fXJ3sK/wjgZoe+FGeBD8zjGsW400N3sepTYty87xs5p05LownDty6/f9wuuhsVUNAV
-	VsfFNCCcey+WzRsC5CCcVjnDCVGqvvUZ7i0dvQXJheeLy6ZZGtyEMq3WNNsfr/o8ZOExpwFglmX
-	N+JkXr6ymp1XjcxG5Su4MhMcJagDJ9Wnr03n9B5MEjJFEyU8dAE/nUGIfZsUuCUKj1OkzNNojeP
-	pS7wwPBK96KCXEpm5dFB8mGQixmJWYPo5hi2moNZOBnPJyorHwgrLWkKlpwEjZGelfQ5KhQ5nrC
-	rfdW1BnVbxijw==
-X-Received: by 2002:a05:600c:5292:b0:485:2ce2:4c87 with SMTP id 5b1f17b1804b1-488996cd77cmr364338815e9.4.1775730670672;
-        Thu, 09 Apr 2026 03:31:10 -0700 (PDT)
-Message-ID: <3b3325ea-b811-4ab2-b1ba-9808a5a4b7c5@gmail.com>
-Date: Thu, 9 Apr 2026 12:31:09 +0200
+        d=1e100.net; s=20251104; t=1775731088; x=1776335888;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BWtbECe/XUd0HxH1vJMgRw9c9RVMkiBpDggLMjIbDLg=;
+        b=PrbMOe7RvIUCaXg3qumPKttRWBGU2vMOFV3s+jJ54Z+oI3YSFuPs9oQi1lg7XUQ3lQ
+         pLZTxqcwIrwVrQY0L3l2ruby2TjGIiU6DvdLmiA+/JqFLrK8M61rtq/PImPL34SQyYz4
+         S5UK0t8+xW2CxxFg0CJzcPI/mLD0m9IpSqnIbXK7vFb2J997fwqATBpr6q2B3HsFG3dD
+         WMEpScNW0Mos7v9N1IOmULUHhs83YRyPTRtI6ZbKL+FH+RoWs6IWsw4KFb9xBP35x8/W
+         L1y2cq1lpOFlmegkS6va6GkC7bNx8nDDP/uPCdujx3RMv1vyf1rC3T+Kmw7JQHOZpzwA
+         zXKA==
+X-Gm-Message-State: AOJu0YyozXk/kb3fGQceAX+XNnAKpajKGQhKfo2OLYMciuqwkZSoQPAn
+	0CuqwIOqce0KXZ4gUv9wZ4hdPZFneVAomBZQM4dwuuHbDhwByCEvIrSY97HbMF0vDOfqKcMTZek
+	TzUZD4evnTw==
+X-Gm-Gg: AeBDievV+ZWbhcWdBuEiMdMQuXthuO1oHtSRPnz+YzhV/8dEp+S/VcQKki9Ig9ep+QJ
+	snnpskQzBAiuNwAehMswZqHHyx6yYfrTSW9flK7JOi+epGM2MGyQNdbZbm0IMHrUpe9rStmF+sn
+	dOZfPY6Mm76dxCcleWzft6GSvwGGdwx7io1fl4MuzgL7Zsn1xd577Iura3czluxV0QsXp8XdZ6y
+	lun2dDwWr+ddyMUhp3vV2dxd8tHFyaGW5Ms6fYOihxKHfll9x5WeuoEBZGa54TB6jpT/13dzIVU
+	0DLgpLJ2OPJm4ADNGUMd6nmzrPCFtpmnXjCIpmUQvmWJ03phsmhuDrypewFcFtLnaBM0N760Z+K
+	TqBZGUjqbl2iTKdTtjVAx07umioFyAZm7byTkDXwpygRWtzITWs2fJN2y8XHb1KRj5eOZGhHGwr
+	sTrD1XIPFDHFULAL2AdB5lILZauM71tyQQmZDUNoVcaTqGEjv9D+p50wNjYqOfWgnRKDScTGVZV
+	1P8rZFT2pkEZkk=
+X-Received: by 2002:a05:600c:548d:b0:485:3423:727d with SMTP id 5b1f17b1804b1-488cd068ce8mr37261955e9.26.1775731087507;
+        Thu, 09 Apr 2026 03:38:07 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH] xen/efi: Reduce ifdefary in efi_exit_boot()
+Date: Thu,  9 Apr 2026 11:38:05 +0100
+Message-Id: <20260409103805.176240-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 01/27] xen/riscv: Implement ARCH_PAGING_MEMPOOL
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <887d914aa0ddb1884c19c9567d4633ecaf810066.1773157782.git.oleksii.kurochko@gmail.com>
- <7340581a-51a3-43b2-b180-c2de37bda4b1@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <7340581a-51a3-43b2-b180-c2de37bda4b1@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1775730671-F4DC92A1-7322B07A/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 4103
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-ef75cf/1775731088-8955341E-7A655351/0/0
+X-purgate-type: clean
+X-purgate-size: 3596
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	TO_DN_ALL(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:marmarek@invisiblethingslab.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,invisiblethingslab.com:email,citrix.com:dkim,citrix.com:email,citrix.com:mid];
+	RCPT_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.999];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 3C98F3C92D2
+X-Rspamd-Queue-Id: 73CC93C9385
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+Use IS_ENABLED() rather than #ifdef to give the compiler visibility into the
+block, which in turn removes the #ifdef from the varaible block.
 
+No functional change.
 
-On 3/11/26 9:18 AM, Jan Beulich wrote:
-> On 10.03.2026 18:08, Oleksii Kurochko wrote:
->> The p2m_freelist is used to allocate pages for the P2M, but to initialize
->> this list, domain_p2m_set_allocation() might be called.
->> This function is invoked in construct_domU() within the common Dom0less
->> code, and providing an implementation of domain_p2m_set_allocation() when
->> CONFIG_ARCH_PAGING_MEMPOOL=y is appropriate for RISC-V.
-> 
-> With this wording it is odd to see ...
-> 
->> --- a/xen/arch/riscv/Kconfig
->> +++ b/xen/arch/riscv/Kconfig
->> @@ -1,5 +1,6 @@
->>   config RISCV
->>   	def_bool y
->> +	select ARCH_PAGING_MEMPOOL
-> 
-> ... this. You really want to settle on whether it is selected unconditionally
-> or not. Also for the code below, where ...
-> 
->> --- a/xen/arch/riscv/Makefile
->> +++ b/xen/arch/riscv/Makefile
->> @@ -10,7 +10,7 @@ obj-y += irq.o
->>   obj-y += kernel.o
->>   obj-y += mm.o
->>   obj-y += p2m.o
->> -obj-y += paging.o
->> +obj-$(CONFIG_ARCH_PAGING_MEMPOOL) += paging.o
->>   obj-y += pt.o
->>   obj-$(CONFIG_RISCV_64) += riscv64/
->>   obj-y += sbi.o
-> 
-> ... this change and any #ifdef-ary further down aren't needed unless the
-> select became conditional. (Plus with the change above things likely wouldn't
-> even build if ARCH_PAGING_MEMPOOL could be off under certain conditions.)
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+CC: Daniel P. Smith <dpsmith@apertussolutions.com>
 
-I missed if ARCH_PAGING_MEMPOOL=n then p2m.c, at least, will fail to 
-compile so much more things would be needed to be #ifdef-ed.
+Best viewed with git show --ignore-all-space
 
-Just for simplicity then I will set CONFIG_ARCH_PAGING_MEMPOOL=y 
-unconditionally and drop all the #ifdef-s related to this config I've 
-added in this patch.
+XenServer has been carrying a patch with a typo in this block for a long time,
+going entirely unnoticed.
+---
+ xen/common/efi/boot.c | 47 +++++++++++++++++++++----------------------
+ 1 file changed, 23 insertions(+), 24 deletions(-)
 
-> 
->> --- a/xen/arch/riscv/p2m.c
->> +++ b/xen/arch/riscv/p2m.c
->> @@ -1568,3 +1568,34 @@ struct page_info *get_page_from_gfn(struct domain *d, unsigned long gfn,
->>   
->>       return page;
->>   }
->> +
->> +#ifdef CONFIG_ARCH_PAGING_MEMPOOL
->> +
->> +int arch_set_paging_mempool_size(struct domain *d, uint64_t size)
->> +{
->> +    unsigned long pages = PFN_DOWN(size);
->> +    bool preempted = false;
->> +    int rc;
->> +
->> +    if ( (size & ~PAGE_MASK) || /* Non page-sized request? */
->> +         pages != PFN_DOWN(size) ) /* 32-bit overflow? */
->> +        return -EINVAL;
-> 
-> Can't this be had with just
-> 
->      if ( ((paddr_t)pages << PAGE_SHIFT) != size )
->          return -EINVAL;
-> 
-> (and perhaps utilizing pfn_to_paddr(), even if it's not a PFN we're dealing
-> with here)?
-
-It makes sense, I will apply that for RISC-V.
-
-Then for Arm and x86 could be done the same, I can send a separate patch 
-for them.
-
-> 
->> +    spin_lock(&d->arch.paging.lock);
->> +    rc = p2m_set_allocation(d, pages, &preempted);
->> +    spin_unlock(&d->arch.paging.lock);
->> +
->> +    ASSERT(preempted == (rc == -ERESTART));
-> 
-> This actually suggests that (once again) Arm code perhaps shouldn't have been
-> copied verbatim: There shouldn't be a need for the "preempted" state to be
-> returned back in two distinct ways.
-
-Agree.
-
-The preempted argument of p2m_set_allocation() could be switched to a 
-plain 'bool could_preempt', preemption would then be signaled solely via 
-return -ERESTART, and the caller would just check rc, so no local bool 
-preempted in this function and no ASSERT.
-
-I'm also thinking that the preempted argument could be dropped entirely, 
-as it seems to exist only to conditionally enable the 
-general_preempt_check() call inside the function. It is skipped only 
-during domain_p2m_set_allocation(), which won't be a significant penalty 
-if general_preempt_check() is called every time. All other callers pass 
-a non-NULL preempted, so general_preempt_check() would always be 
-executed regardless.
-
-> 
->> +    return rc;
->> +}
->> +
->> +/* Return the size of the pool, in bytes. */
->> +int arch_get_paging_mempool_size(struct domain *d, uint64_t *size)
->> +{
->> +    *size = (uint64_t)ACCESS_ONCE(d->arch.paging.total_pages) << PAGE_SHIFT;
-> 
-> As per above, maybe use pfn_to_paddr()?
-
-Yes, it could be used to be in sync with a code above.
-
-Thanks.
-
-~ Oleksii
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 0ddc7bfd1277..7445f88902cd 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -1335,9 +1335,7 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *Syste
+     EFI_STATUS status;
+     UINTN info_size = 0, map_key;
+     bool retry;
+-#ifdef CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP
+     unsigned int i;
+-#endif
+ 
+     efi_bs->GetMemoryMap(&info_size, NULL, &map_key,
+                          &efi_mdesc_size, &mdesc_ver);
+@@ -1371,31 +1369,32 @@ static void __init efi_exit_boot(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *Syste
+     if ( EFI_ERROR(status) )
+         PrintErrMesg(L"Cannot exit boot services", status);
+ 
+-#ifdef CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP
+-    for ( i = 0; i < efi_memmap_size; i += efi_mdesc_size )
++    if ( IS_ENABLED(CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP) )
+     {
+-        EFI_MEMORY_DESCRIPTOR *desc = efi_memmap + i;
++        for ( i = 0; i < efi_memmap_size; i += efi_mdesc_size )
++        {
++            EFI_MEMORY_DESCRIPTOR *desc = efi_memmap + i;
+ 
+-        /*
+-         * Runtime services regions are always mapped here.
+-         * Attributes may be adjusted in efi_init_memory().
+-         */
+-        if ( (desc->Attribute & EFI_MEMORY_RUNTIME) ||
+-             desc->Type == EfiRuntimeServicesCode ||
+-             desc->Type == EfiRuntimeServicesData )
+-            desc->VirtualStart = desc->PhysicalStart;
+-        else
+-            desc->VirtualStart = INVALID_VIRTUAL_ADDRESS;
+-    }
+-    status = efi_rs->SetVirtualAddressMap(efi_memmap_size, efi_mdesc_size,
+-                                          mdesc_ver, efi_memmap);
+-    if ( status != EFI_SUCCESS )
+-    {
+-        printk(XENLOG_ERR "EFI: SetVirtualAddressMap() failed (%#lx), disabling runtime services\n",
+-               status);
+-        __clear_bit(EFI_RS, &efi_flags);
++            /*
++             * Runtime services regions are always mapped here.
++             * Attributes may be adjusted in efi_init_memory().
++             */
++            if ( (desc->Attribute & EFI_MEMORY_RUNTIME) ||
++                 desc->Type == EfiRuntimeServicesCode ||
++                 desc->Type == EfiRuntimeServicesData )
++                desc->VirtualStart = desc->PhysicalStart;
++            else
++                desc->VirtualStart = INVALID_VIRTUAL_ADDRESS;
++        }
++        status = efi_rs->SetVirtualAddressMap(efi_memmap_size, efi_mdesc_size,
++                                              mdesc_ver, efi_memmap);
++        if ( status != EFI_SUCCESS )
++        {
++            printk(XENLOG_ERR "EFI: SetVirtualAddressMap() failed (%#lx), disabling runtime services\n",
++                   status);
++            __clear_bit(EFI_RS, &efi_flags);
++        }
+     }
+-#endif
+ 
+     /* Adjust pointers into EFI. */
+     efi_ct = (const void *)efi_ct + DIRECTMAP_VIRT_START;
+-- 
+2.39.5
 
 
