@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WHJYI5GQ12kaPwgAu9opvQ
+	id gDltKcqR12k2PwgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 13:42:09 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 13:47:22 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0364C3C9C05
-	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 13:42:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1277120.1562390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 189AD3C9D70
+	for <lists+xen-devel@lfdr.de>; Thu, 09 Apr 2026 13:47:22 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1277138.1562399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAnll-0002X8-C7; Thu, 09 Apr 2026 11:41:57 +0000
+	id 1wAnqi-0003Q5-U6; Thu, 09 Apr 2026 11:47:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1277120.1562390; Thu, 09 Apr 2026 11:41:57 +0000
+Received: by outflank-mailman (output) from mailman id 1277138.1562399; Thu, 09 Apr 2026 11:47:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wAnll-0002V5-9Y; Thu, 09 Apr 2026 11:41:57 +0000
-Received: by outflank-mailman (input) for mailman id 1277120;
- Thu, 09 Apr 2026 11:41:56 +0000
+	id 1wAnqi-0003Ne-Qk; Thu, 09 Apr 2026 11:47:04 +0000
+Received: by outflank-mailman (input) for mailman id 1277138;
+ Thu, 09 Apr 2026 11:47:03 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper3@citrix.com>) id 1wAnlk-0002Uz-BA
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 11:41:56 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wAnqh-0003NY-Aw
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 11:47:03 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wAnlj-009MBk-NJ
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 13:41:55 +0200
+ id 1wAnqf-0093Tl-4l
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2026 13:47:02 +0200
 Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 69d79081-5cb7-0a2a0a5109dd-0a2a450bedb8-6
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 13:41:55 +0200
-Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
+ (envelope-from <jbeulich@suse.com>)
+ id 69d791a8-bab6-0a2a0a5309dd-0a2a450b83b0-28
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 13:47:02 +0200
+Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
  by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 69d79083-bca8-0a2a450b0019-d155802ee0f7-3
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 13:41:55 +0200
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-488b0e1b870so11428695e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 04:41:55 -0700 (PDT)
-Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
- [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488cd1b2799sm71467005e9.6.2026.04.09.04.41.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Apr 2026 04:41:53 -0700 (PDT)
+ (envelope-from <jbeulich@suse.com>)
+ id 69d791b6-bca8-0a2a450b0019-d155dd36d85b-3
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 13:47:02 +0200
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-43cfce3a195so480039f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 04:47:02 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43d1e4d2971sm66014178f8f.22.2026.04.09.04.47.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Apr 2026 04:47:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,256 +56,289 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=citrix.com header.i="@citrix.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1775734915; x=1776339715; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=9KaDm/yMBIrw6CzspjElk4N8efh36OMRuJoJnnqxtrc=;
-        b=YEGNt9fgH4RdkQ8uji4Uebdtd+IS5hS4yLGTRNeuQXcqBMoZPosom6lCiXRO5+mniM
-         0IMCLmW3kO/whA5FR3rirIJCN9Utu1Ycze2XeaFvlPf1uVXBlXY0OgmS/lDLJ9/BxzsH
-         pA2eNaSOyjdapx6CfPRZx0hxOVfIEdIHmB06s=
+        d=suse.com; s=google; t=1775735222; x=1776340022; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=9UQNUiqMM0UOFM4a1BtaZDXuAXWKKjh0UmiRRYcOEZc=;
+        b=FOx27flRsZQ5mv0j5cT4mtys/l+9lH0vUVMBeTi8Nzp44HC2ktaF5UoTuLlIvLD7cw
+         Z1SVq9pViwVhyc8bixMTNSNzffOxE1zo9lIlxDXQS29P91UkAMmDhXA9oHH0Ag4pGCVA
+         mklCc5GG9/vVDP+GLDIw49nf4BuiM0wd5ZwJYwdK6fu6kpyPXqmX80NdEGDGtAaQZQcd
+         SJAfpOHPbK4s4KhDAt2Bqk0ss+E4s8130US88/R6lxIZwpvhttDEAP7h/uiS1FOAA1Ai
+         CsfRQKrL4UdAHNwQ2nJTuxsIa+5jlL7vPmB9fO2oiVfnNFoOVUrXxBgJ5S2wv4drxitN
+         b8fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775734915; x=1776339715;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1775735222; x=1776340022;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=9KaDm/yMBIrw6CzspjElk4N8efh36OMRuJoJnnqxtrc=;
-        b=nImdkvNJq1nIGHOMQn4v5agMcnTw7URgGjzCeKVJyppzJmL5ep6ivOZVFpDD4l6WrD
-         bxAr52qqzFBqtsr3UhjWNVTBG0pNcDJZWY6v61ODa2rQXoL+gvdw9LPPhlWtLL+1LXqV
-         jmJ3pnFoFcgVEl+sB3lPGeLQnhj8rhFR9BEhWzRDCe5Ll7TdNOfokj7NIqHtjmC7hkfc
-         fuCaac9RnLjPdSdHLLAMNV9eHjBelTmBl4ILmyRjCJ1h0mfU6Gki3xidgw7NltYNfICN
-         CoIzXe98PSiJPNUx+b0k5EVWrQj/0C/TQv1tq052N3rKyDKI+plVVzocUGrQDsi4+eAi
-         MlsA==
-X-Gm-Message-State: AOJu0Yz/EQbsSW0VpxGOJeUl1bwQPhAFfOJTYWWOMHwNfSFJJkDMl2CF
-	T3OVF7GUxQG3yPHILSiSTDRUh3aIvrhEHtQRcTBP1bkQiGpLjnnH0rYdmjAR9j0FVobVDWvAaxG
-	//nV1
-X-Gm-Gg: AeBDiesW+i9/a3zFdwrC/apnFLkx+K856aVjf7ETH2NWkg7TEelR3C7NCE79Kzrbfaa
-	RQNvlgSvbNNFtM9ZK5Xh4vzTRWjLG9+3mwN3+4AaFOEHR5f1cPY1teTZaJfnVmdmZ/mjCeJ92tX
-	jiSr3oQTDs35wSJhetXmDHZxE/nemjiQ0NlCXY4fGYlv9Nxy4Mj9+H92P6Nqy3XRBjNFM7Lfvpk
-	DwAQj8VvrZyHjyzENOPMVz8ngAlWW+JQoEtrxTeUJAdeeZvc+8kVauQsrsBJmOF8GNrEo/X0Ka2
-	41udaDOpG3k2NT/2QoiWxW9ReDg6jGlag+EpRCbHOib1EnTDXO6bOLtSsK5Vmv3lBdJZZDdlalq
-	1wu/KYxchSZLBB5IrAoeWCxplJfKtw1wUmK8R/s+01hBs1GPvjHvavj1snISUC1HcjF3SGgrLOU
-	E2jIvk2DzaM21nIiXFXqFjREtH1zMYiltstmb4GOPsFK7TMRZqr8WjW5h8mQIB1oAKHP/4jJAmC
-	PQnyIKgdFM7s1g=
-X-Received: by 2002:a05:600c:3546:b0:487:5c0:671f with SMTP id 5b1f17b1804b1-488996e8774mr351215065e9.9.1775734913619;
-        Thu, 09 Apr 2026 04:41:53 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>
-Subject: [PATCH v2] x86: Avoid using .byte for instructions where safe to do so
-Date: Thu,  9 Apr 2026 12:41:51 +0100
-Message-Id: <20260409114151.179408-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+        bh=9UQNUiqMM0UOFM4a1BtaZDXuAXWKKjh0UmiRRYcOEZc=;
+        b=YSHM+lV/CtmYup/rdzONLq8ybtUN7BC1WX6WoEOHCIvsyjr9jw84VSL95Nq7AAE/dc
+         Hw8qzF9Y7Ekz0dEt3Rt4bJe0aHyDy19MQp3pbT85Xyp9TAP4jSHhp3l0r8L9fJuENijT
+         RUXjR83K/o6d07vqNIJRzTtWMRsLlospIMJpbXom8cbgXBcQBHwE9qckubJOWGI0Z0CX
+         Dt0pH79e8YYiQSxdCEu1rF+socWFhhd9LD3ALZoqZgPOH/7q/ssYTxqa6dn5kWxGNk5w
+         q+ENGYhJv7llmsJOYwmbdSD3tinVbEZlMXkbXuprclOgMg+zGsGli8E5Osjj9VTrbq/F
+         WRtA==
+X-Forwarded-Encrypted: i=1; AJvYcCWo+Hm+FEwDuAnJEa1IzvR6QbCZM//VqWb4Of2zmJACjpvgXEL/aYB5vJtATkP9ksXJD+A8lwHQCmY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwHLL4MAzMCZhu+oVyAvb8exPEE3uGLK0mHy6bfBqeQsoI7TPcx
+	zGrUGxMyb+oa9FfSBws7R3tcFyARxjrTMq0uh01qDAVQ7xVLC8RfzuE8Wi8iXegCUQ==
+X-Gm-Gg: AeBDievHTrC4U/m47RsjWG/MIsNYhHI7WaL1H072et0FXCrmfmSJkCjgJltSWPWgMGr
+	oypb4ZsOjg9a9SAdoxXdwkxXduk6f8LlHQg+0uC51DpzRmwLu/3wk7SdxbJK5alblcvu8fuzwZT
+	iJMrjnRBVd3LwQfC+6Z64SdvhIghEx9y2GgOFVyifQWYMaIHGFudJDMnHQKsuwBepQIHpJ0ccKP
+	J008YJbSwiY1K8eGrcDHStCdlgQb8KfYeNCKK38XHH4ip7PumJXvj5pQ6bpcWYj7uuEhIz7f4zo
+	4sqe5+sePyihQDLK6DsgJFNVpQDFEB2RlCoLscXbfQo3ok9BkrpFZxTQiAkeGUgO+rHKBWTKQvQ
+	HmILUmaQ6D087KUDawrTuVkq1jlwspIdHdPlHCfiy5m3lk16+X8eP4t6ynHEVqsSkksE3m59U6i
+	F0KWd1rRV+M7e0HR273YV+3VMBYmycOuAaJyRlLVLUUeTd3XtEcl6/aTpn2W4rXnt1ww1Gmg9yT
+	WjzkTsjzRNW6XI=
+X-Received: by 2002:a05:6000:22c7:b0:43b:8f30:39bb with SMTP id ffacd0b85a97d-43d5a18be29mr4283669f8f.24.1775735221729;
+        Thu, 09 Apr 2026 04:47:01 -0700 (PDT)
+Message-ID: <97a6f4cb-d938-404d-89c8-cb44e974817c@suse.com>
+Date: Thu, 9 Apr 2026 13:46:59 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/3] xen/smp: Rewrite on_selected_cpus() to be lockless
+To: Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20260401163521.3603665-1-ross.lagerwall@citrix.com>
+ <20260401163521.3603665-3-ross.lagerwall@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260401163521.3603665-3-ross.lagerwall@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1775734915-F61C72A1-54C6BD06/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-42698a/1775735222-1734C2A1-D05DD6E1/0/0
 X-purgate-type: clean
-X-purgate-size: 7378
-X-Spamd-Result: default: False [-0.19 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
+X-purgate-size: 5209
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,call_data.info:url];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:ross.lagerwall@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:email,citrix.com:mid];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 0364C3C9C05
+X-Rspamd-Queue-Id: 189AD3C9D70
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The new toolchain baseline knows XGETBV, VPXOR and VPOR.
+On 01.04.2026 18:35, Ross Lagerwall wrote:
+> --- a/xen/common/smp.c
+> +++ b/xen/common/smp.c
+> @@ -24,13 +24,15 @@
+>  /*
+>   * Structure and data for smp_call_function()/on_selected_cpus().
+>   */
+> -static DEFINE_SPINLOCK(call_lock);
+> -static struct call_data_struct {
+> +struct call_data_struct {
+>      void (*func) (void *info);
+>      void *info;
+>      int wait;
+> -    cpumask_t selected;
+> -} call_data;
+> +    cpumask_t selected __cacheline_aligned;
 
-For the other cases using .byte, annotate the toolchain minima.
+The adding of the alignment attribute isn't strictly required here, is it?
+Can it, with its own justification, be split out?
 
-No functional change.
+However, wrt what I said in the first reply, putting a full cpumask_t in
+per-CPU data is even a little worse than having one as a global. Imo this
+also wants to become cpumask_var_t. Then the attribute wouldn't be quite
+applicable anymore anyway.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Teddy Astie <teddy.astie@vates.tech>
+> @@ -50,55 +52,84 @@ void on_selected_cpus(
+>      void *info,
+>      int wait)
+>  {
+> +    struct call_data_struct *data;
+> +    unsigned int cpu = smp_processor_id();
+> +
+>      ASSERT(local_irq_is_enabled());
+>      ASSERT(cpumask_subset(selected, &cpu_online_map));
+>  
+> -    spin_lock(&call_lock);
+> +    if ( cpumask_empty(selected) )
+> +        return;
+> +
+> +    data = &this_cpu(call_data);
+>  
+> -    cpumask_copy(&call_data.selected, selected);
+> +    if ( !data->wait )
+> +    {
+> +        /* Wait for any previous async call to complete */
+> +        while ( !cpumask_empty(&data->selected) )
+> +            cpu_relax();
+> +
+> +        cpumask_clear_cpu(cpu, &tasks);
 
-v2
- * CLZERO, {WR,RD}PKRU can't be named yet.
+In the description you say "Track which CPUs are currently running
+on_selected_cpus()", yet as per this the bit can remain set after the
+function was left. Which isn't just an issue of describing things
+correctly; there's also a performance concern: The IPI handler(s) will
+need to carry out more work than necessary. That's not a lot of work (only
+the subsequent cpumask_test_cpu() there), but also not nothing.
 
-Pull out of previous series as it's somewhat unrelated.  The XSAVE cleanup has
-other prerequiesites before it can move away from .byte.
----
- xen/arch/x86/arch.mk                   |  4 +++
- xen/arch/x86/include/asm/asm-defns.h   |  1 +
- xen/arch/x86/include/asm/msr.h         |  2 ++
- xen/arch/x86/include/asm/prot-key.h    |  4 +--
- xen/arch/x86/include/asm/xstate.h      |  3 +--
- xen/arch/x86/x86_emulate/0f01.c        |  2 +-
- xen/arch/x86/x86_emulate/x86_emulate.c | 34 ++++++++++++--------------
- 7 files changed, 27 insertions(+), 23 deletions(-)
+I also think another barrier is needed above here: We may only clear the
+bit in tasks when the empty ->selected is globally visible. More generally,
+since the bit in tasks is what everything derives from, barriers are
+apparently needed around all of its updating / accessing. Which also meant
+that ...
 
-diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
-index 0b42e6312fac..cd0602a79aaf 100644
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -17,7 +17,11 @@ CFLAGS-$(CONFIG_CC_IS_GCC) += -malign-data=abi
- $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
- $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
- $(call as-option-add,CFLAGS,CC,".equ \"x\"$(comma)1",-DHAVE_AS_QUOTED_SYM)
-+
-+# Binutils >= 2.31, Clang >= 7
- $(call as-option-add,CFLAGS,CC,"movdiri %rax$(comma)(%rax)",-DHAVE_AS_MOVDIR)
-+
-+# Binutils >= 2.33, Clang >= 9
- $(call as-option-add,CFLAGS,CC,"enqcmd (%rax)$(comma)%rax",-DHAVE_AS_ENQCMD)
- 
- # Check to see whether the assembler supports the .nop directive.
-diff --git a/xen/arch/x86/include/asm/asm-defns.h b/xen/arch/x86/include/asm/asm-defns.h
-index 239dc3af096c..dc9b3ce272fd 100644
---- a/xen/arch/x86/include/asm/asm-defns.h
-+++ b/xen/arch/x86/include/asm/asm-defns.h
-@@ -1,5 +1,6 @@
- #include <asm/page-bits.h>
- 
-+/* binutils >= 2.26 or Clang >= 3.8 */
- .macro clzero
-     .byte 0x0f, 0x01, 0xfc
- .endm
-diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
-index 941a7612f4ba..1377d156f4e1 100644
---- a/xen/arch/x86/include/asm/msr.h
-+++ b/xen/arch/x86/include/asm/msr.h
-@@ -63,6 +63,8 @@ static inline void wrmsrns(uint32_t msr, uint64_t val)
-     /*
-      * WRMSR is 2 bytes.  WRMSRNS is 3 bytes.  Pad WRMSR with a redundant CS
-      * prefix to avoid a trailing NOP.
-+     *
-+     * Binutils >= 2.40, Clang >= 16
-      */
-     alternative_input(".byte 0x2e; wrmsr",
-                       ".byte 0x0f,0x01,0xc6", X86_FEATURE_WRMSRNS,
-diff --git a/xen/arch/x86/include/asm/prot-key.h b/xen/arch/x86/include/asm/prot-key.h
-index 8fb15b5c32e9..e8550e0c9203 100644
---- a/xen/arch/x86/include/asm/prot-key.h
-+++ b/xen/arch/x86/include/asm/prot-key.h
-@@ -19,7 +19,7 @@ static inline uint32_t rdpkru(void)
- {
-     uint32_t pkru;
- 
--    asm volatile ( ".byte 0x0f,0x01,0xee"
-+    asm volatile ( ".byte 0x0f,0x01,0xee" /* binutils >= 2.26 or Clang >= 3.8 */
-                    : "=a" (pkru) : "c" (0) : "dx" );
- 
-     return pkru;
-@@ -27,7 +27,7 @@ static inline uint32_t rdpkru(void)
- 
- static inline void wrpkru(uint32_t pkru)
- {
--    asm volatile ( ".byte 0x0f,0x01,0xef"
-+    asm volatile ( ".byte 0x0f,0x01,0xef" /* binutils >= 2.26 or Clang >= 3.8 */
-                    :: "a" (pkru), "d" (0), "c" (0) );
- }
- 
-diff --git a/xen/arch/x86/include/asm/xstate.h b/xen/arch/x86/include/asm/xstate.h
-index c96d75e38b25..0519379edb57 100644
---- a/xen/arch/x86/include/asm/xstate.h
-+++ b/xen/arch/x86/include/asm/xstate.h
-@@ -118,8 +118,7 @@ static inline uint64_t xgetbv(unsigned int index)
-     uint32_t lo, hi;
- 
-     ASSERT(index); /* get_xcr0() should be used instead. */
--    asm volatile ( ".byte 0x0f,0x01,0xd0" /* xgetbv */
--                   : "=a" (lo), "=d" (hi) : "c" (index) );
-+    asm volatile ( "xgetbv" : "=a" (lo), "=d" (hi) : "c" (index) );
- 
-     return lo | ((uint64_t)hi << 32);
- }
-diff --git a/xen/arch/x86/x86_emulate/0f01.c b/xen/arch/x86/x86_emulate/0f01.c
-index 4d36c7d289a5..87d338f0c74a 100644
---- a/xen/arch/x86/x86_emulate/0f01.c
-+++ b/xen/arch/x86/x86_emulate/0f01.c
-@@ -122,7 +122,7 @@ int x86emul_0f01(struct x86_emulate_state *s,
-         {
-         case vex_none: /* serialize */
-             host_and_vcpu_must_have(serialize);
--            asm volatile ( ".byte 0x0f, 0x01, 0xe8" );
-+            asm volatile ( ".byte 0x0f, 0x01, 0xe8" ); /* Binutils >= 2.34, Clang >= 11 */
-             break;
-         case vex_f2: /* xsusldtrk */
-             vcpu_must_have(tsxldtrk);
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
-index 11d145e17723..e58735ee9590 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -4748,27 +4748,25 @@ x86_emulate(
-                  */
-                 if ( vex.l )
-                 {
--                    /* vpxor %xmmN, %xmmN, %xmmN */
--                    asm volatile ( ".byte 0xc5,0xf9,0xef,0xc0" );
--                    asm volatile ( ".byte 0xc5,0xf1,0xef,0xc9" );
--                    asm volatile ( ".byte 0xc5,0xe9,0xef,0xd2" );
--                    asm volatile ( ".byte 0xc5,0xe1,0xef,0xdb" );
--                    asm volatile ( ".byte 0xc5,0xd9,0xef,0xe4" );
--                    asm volatile ( ".byte 0xc5,0xd1,0xef,0xed" );
--                    asm volatile ( ".byte 0xc5,0xc9,0xef,0xf6" );
--                    asm volatile ( ".byte 0xc5,0xc1,0xef,0xff" );
-+                    asm volatile ( "vpxor %xmm0, %xmm0, %xmm0" );
-+                    asm volatile ( "vpxor %xmm1, %xmm1, %xmm1" );
-+                    asm volatile ( "vpxor %xmm2, %xmm2, %xmm2" );
-+                    asm volatile ( "vpxor %xmm3, %xmm3, %xmm3" );
-+                    asm volatile ( "vpxor %xmm4, %xmm4, %xmm4" );
-+                    asm volatile ( "vpxor %xmm5, %xmm5, %xmm5" );
-+                    asm volatile ( "vpxor %xmm6, %xmm6, %xmm6" );
-+                    asm volatile ( "vpxor %xmm7, %xmm7, %xmm7" );
-                 }
-                 else
-                 {
--                    /* vpor %xmmN, %xmmN, %xmmN */
--                    asm volatile ( ".byte 0xc5,0xf9,0xeb,0xc0" );
--                    asm volatile ( ".byte 0xc5,0xf1,0xeb,0xc9" );
--                    asm volatile ( ".byte 0xc5,0xe9,0xeb,0xd2" );
--                    asm volatile ( ".byte 0xc5,0xe1,0xeb,0xdb" );
--                    asm volatile ( ".byte 0xc5,0xd9,0xeb,0xe4" );
--                    asm volatile ( ".byte 0xc5,0xd1,0xeb,0xed" );
--                    asm volatile ( ".byte 0xc5,0xc9,0xeb,0xf6" );
--                    asm volatile ( ".byte 0xc5,0xc1,0xeb,0xff" );
-+                    asm volatile ( "vpor %xmm0, %xmm0, %xmm0" );
-+                    asm volatile ( "vpor %xmm1, %xmm1, %xmm1" );
-+                    asm volatile ( "vpor %xmm2, %xmm2, %xmm2" );
-+                    asm volatile ( "vpor %xmm3, %xmm3, %xmm3" );
-+                    asm volatile ( "vpor %xmm4, %xmm4, %xmm4" );
-+                    asm volatile ( "vpor %xmm5, %xmm5, %xmm5" );
-+                    asm volatile ( "vpor %xmm6, %xmm6, %xmm6" );
-+                    asm volatile ( "vpor %xmm7, %xmm7, %xmm7" );
-                 }
- 
-                 ASSERT(!state->simd_size);
--- 
-2.39.5
+> +    }
+>  
+> -    if ( cpumask_empty(&call_data.selected) )
+> -        goto out;
+> +    data->func = func;
+> +    data->info = info;
+> +    data->wait = wait;
+>  
+> -    call_data.func = func;
+> -    call_data.info = info;
+> -    call_data.wait = wait;
+> +    smp_wmb();
 
+... besides (as already indicated) this barrier needing to move ...
+
+> -    smp_send_call_function_mask(&call_data.selected);
+> +    cpumask_copy(&data->selected, selected);
+
+... here, I think that another one is going to be needed ...
+
+> -    while ( !cpumask_empty(&call_data.selected) )
+> -        cpu_relax();
+> +    cpumask_set_cpu(cpu, &tasks);
+
+... here, such that ...
+
+> -out:
+> -    spin_unlock(&call_lock);
+> +    smp_send_call_function_mask(&data->selected);
+
+... upon receipt of the IPI the target sees the up-to-date value.
+
+> +    if ( wait )
+> +    {
+> +        while ( !cpumask_empty(&data->selected) )
+> +            cpu_relax();
+> +
+> +        cpumask_clear_cpu(cpu, &tasks);
+> +    }
+>  }
+>  
+>  void smp_call_function_interrupt(void)
+>  {
+> -    void (*func)(void *info) = call_data.func;
+> -    void *info = call_data.info;
+>      unsigned int cpu = smp_processor_id();
+> -
+> -    if ( !cpumask_test_cpu(cpu, &call_data.selected) )
+> -        return;
+> +    unsigned int i;
+> +    struct call_data_struct *data;
+> +    void (*func)(void *info);
+> +    void *info;
+>  
+>      irq_enter();
+>  
+> -    if ( unlikely(!func) )
+> -    {
+> -        cpumask_clear_cpu(cpu, &call_data.selected);
+> -    }
+> -    else if ( call_data.wait )
+> -    {
+> -        (*func)(info);
+> -        smp_mb();
+> -        cpumask_clear_cpu(cpu, &call_data.selected);
+> -    }
+> -    else
+> +    for_each_cpu ( i, &tasks )
+>      {
+> -        smp_mb();
+> -        cpumask_clear_cpu(cpu, &call_data.selected);
+> -        (*func)(info);
+> +        data = &per_cpu(call_data, i);
+> +
+> +        if ( !cpumask_test_cpu(cpu, &data->selected) )
+> +            continue;
+> +
+> +        smp_rmb();
+> +        func = data->func;
+> +        info = data->info;
+> +
+> +        if ( unlikely(!func) )
+> +        {
+> +            cpumask_clear_cpu(cpu, &data->selected);
+> +        }
+> +        else if ( data->wait )
+> +        {
+> +            (*func)(info);
+> +            smp_mb();
+> +            cpumask_clear_cpu(cpu, &data->selected);
+> +        }
+> +        else
+> +        {
+> +            smp_mb();
+> +            cpumask_clear_cpu(cpu, &data->selected);
+> +            (*func)(info);
+
+I understand you only re-indent this code, but I'm struggling with the
+purpose of the barrier here. With the smp_rmb() above there are no reads
+to isolate (data->func and data->info can't change while the bit in
+data->selected is still set). And there are no earlier writes at all,
+unless anything done outside of the interrupt handler would matter.
+
+Jan
 
