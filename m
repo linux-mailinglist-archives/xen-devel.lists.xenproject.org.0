@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KHy8NcWr2GlPgwgAu9opvQ
+	id gM1hGRay2Gk8hAgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 09:50:29 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 10:17:26 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D1D53D3977
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 09:50:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1278423.1563268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA4593D3E39
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 10:17:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1278451.1563278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB6cr-0006kR-DT; Fri, 10 Apr 2026 07:50:01 +0000
+	id 1wB72Q-0002oV-QY; Fri, 10 Apr 2026 08:16:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1278423.1563268; Fri, 10 Apr 2026 07:50:01 +0000
+Received: by outflank-mailman (output) from mailman id 1278451.1563278; Fri, 10 Apr 2026 08:16:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB6cr-0006i9-AW; Fri, 10 Apr 2026 07:50:01 +0000
-Received: by outflank-mailman (input) for mailman id 1278423;
- Fri, 10 Apr 2026 07:49:59 +0000
+	id 1wB72Q-0002mn-Np; Fri, 10 Apr 2026 08:16:26 +0000
+Received: by outflank-mailman (input) for mailman id 1278451;
+ Fri, 10 Apr 2026 08:16:25 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wB6cp-0006i1-Nf
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 07:49:59 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <bounce-md_30504962.69d8b1d6.v1-5a7d847fa67b46e4afbeb5fbdefc1df7@bounce.vates.tech>)
+ id 1wB72P-0002mR-8q
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 08:16:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wB6co-00EiYD-Ig
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 09:49:58 +0200
-Received: from [10.42.69.11] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69d8ab9e-2eae-0a2a0a5409dd-0a2a450b909e-38
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 09:49:58 +0200
-Received: from [209.85.208.42] (helo=mail-ed1-f42.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69d8aba6-bca8-0a2a450b0019-d155d02ac8a0-3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 09:49:58 +0200
-Received: by mail-ed1-f42.google.com with SMTP id
- 4fb4d7f45d1cf-66bf6aa4858so3072959a12.2
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 00:49:58 -0700 (PDT)
-Received: from EPUAKYIW02F7.. ([45.12.25.238])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-67070815a42sm368027a12.20.2026.04.10.00.49.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Apr 2026 00:49:56 -0700 (PDT)
+ id 1wB72O-00EoTW-Ky
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 10:16:24 +0200
+Received: from [10.42.69.2] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <bounce-md_30504962.69d8b1d6.v1-5a7d847fa67b46e4afbeb5fbdefc1df7@bounce.vates.tech>)
+ id 69d8b1cc-e002-0a2a0a5209dd-0a2a4502d3be-44
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 10:16:24 +0200
+Received: from [198.2.187.14] (helo=mail187-14.suw11.mandrillapp.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from
+ <bounce-md_30504962.69d8b1d6.v1-5a7d847fa67b46e4afbeb5fbdefc1df7@bounce.vates.tech>)
+ id 69d8b1d7-42fa-0a2a45020019-c602bb0e96fa-3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 10:16:24 +0200
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-14.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fsV4l0BDGz8XS3yB
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 08:16:23 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ 5a7d847fa67b46e4afbeb5fbdefc1df7; Fri, 10 Apr 2026 08:16:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,130 +56,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775807397; x=1776412197; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=n+EXbWGUDwbEcBGBEf2DzWW8z16Qu56Rn+KZMcPNwyI=;
-        b=L2S/5qN+luWgJ5ftZP6IJLLa6JMib7VpP8cIUhlJA0nEGDtqEVc6BrAvE2Ti6VcHno
-         Qeyuv4CXzy5xJeQ6i2YSjYDj+e8wcin/OkceeH/NThHOXRPbrBiGW09BCutvXrN3Z6Af
-         V6l8VPuku3xj3ESIKZXRFNl/LRxihWthqyZ827sme++zwmGs0YHIzK7m9E5BeK7vr9ev
-         yjO4krgc6nNMuG95CucDhOGtnv0EsgYkLB19jM9yt38ZZi4dZ0H9L/qH6pCZsQ4PLLzC
-         YNqeu5O8k2wQbmZWa5Ba4554uM8Tniv2/M3vWboxh3fZJQmT/7u95dDDS61h5pBDsw+t
-         9jUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775807397; x=1776412197;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=n+EXbWGUDwbEcBGBEf2DzWW8z16Qu56Rn+KZMcPNwyI=;
-        b=BanY7LcTFpvB4hprsFsoyaKtTRWAJ6WsN0aE+ZPWd37Tjzk5ZmHcxf5MCk3bvxkpH7
-         YbqKXrOV9/8sfQpcgxKioAZd0j1QMmTXMhThmd+iM7EKqbI3Zv5EtJ1+fyblAll+oCmn
-         69S6EZ0cTPPegyOYX5tmP9isod4Z3RVMgO9clfsRtjxTgSQzLagV/k2ZiXsQtJorujJw
-         52Nf9RJiVr7mVY3qMi3Bceto0dYBjhH247LeaXHpILJND3T76Gqu3lXDy0kRuSvn1tn6
-         iGOuUuk/FaTOXy4+35JaEcx7Mrmkd6igcUP4BR11xxOVIzbkrEyspj3kr8ORKil44Hl+
-         DY9A==
-X-Gm-Message-State: AOJu0YyD79osz1REe7HR8VxXVwF8Yj/w2EmvcJ6y5sDgC5NmouzBAwNk
-	cDdSUJ/9sa8vdqGEpl9Y6OY2ACgP7BZepKXjZpbGPWm4zpGuWYsWzEV2Qq3dn02t
-X-Gm-Gg: AeBDietXhRCUWxuaYhSe2oVDT72Sfpny8+c+PT3U+/qfCVwk1JLtPyp0SYnbToClgtw
-	9zkjzM6+6CcmRBE0pvKX0vdawQF4sss/Bg8+YfC2u4sXuTWOAd8uSUbKsM5t7D2uTK2wkR+9ZYb
-	L3GA0wSVJE6TciYZmpuyhpocdX+Yf3zmpcmE9GBVoY5sWoR3tz56RwdtHgsGC7EAI0E1K6d9qnr
-	E57yfnBuk7mPvodSijSqCxKJFi6x/DZN+/TLE9kmWRMAU6YXm2oTmzGvHv1VsY8jjmxnP+UolNm
-	zNuoflufLa+G19kc6bcMfbWC5TXWhGTBWULm+b8K9PcLo8oSWcyTJ1OYpNMCfxe59Yj9PGq6kBV
-	aPVIdSrwhrSKq+XuIS4PQkAV0u1kJokCAJ9orAI/BJvJrueWqxzs2eBfbjzVJDXD2iRZF8dPPKq
-	2nJb2aTZLq7lzF3HHpmxaqg5EJZUA=
-X-Received: by 2002:a05:6402:24d0:b0:66e:8ca6:e79f with SMTP id 4fb4d7f45d1cf-6707a854df2mr723439a12.13.1775807397222;
-        Fri, 10 Apr 2026 00:49:57 -0700 (PDT)
-From: Mykola Kvach <xakep.amatop@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH] xen/arm: gic-v3: disable Group 1 before CPU power-down
-Date: Fri, 10 Apr 2026 10:47:45 +0300
-Message-ID: <1952e52fd60fdd762862e74dbd522fcd7c65284a.1775804338.git.mykola_kvach@epam.com>
-X-Mailer: git-send-email 2.43.0
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mte1 header.d=mandrillapp.com header.i="@mandrillapp.com" header.h="From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"; dkim=pass header.s=mte1 header.d=vates.tech header.i="thierry.escande@vates.tech" header.h="From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1775808983; x=1776078983;
+	bh=ONfxNDiXYC98hlXu/atW+mLoY8BTnDa/ULY8H6DvHW0=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=VOv7EPHi8MaWZkoFyDFlMhlUABQGxvolujowi0c2XmN+BcZjr+kdj83+vyYhW2J8/
+	 A0jg8JceNyvTDrhtuOlz/LG4scLt/uk6eJO/MjoKWIeeyyp86tSbAaCzUsI2K2lzNw
+	 XEiu7Gf/4HUGRlj+w6pFK1ImapK5n3w6N2kRN//0Kz/1DmlKfK0dRPbSbJkiUyRwXG
+	 4gAXb4p+HUKz8Ih8a+IrWoIpXZ2OYsS4DW/prnas6+VgmAnyOdV4XCypefGxArwff1
+	 7SdYUI+pNrC87FYV5Iufkbuhmx3ZXXJ9TuZ5K3h1pLJ3t8Rrd3d0KISBSwsPXG6Ihl
+	 k1dQLshfpM56g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1775808983; x=1776069483; i=thierry.escande@vates.tech;
+	bh=ONfxNDiXYC98hlXu/atW+mLoY8BTnDa/ULY8H6DvHW0=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=OTErO7Cv8b/R/QK1XJPs3PPPX4Rnl6L+1ngLhVZWNuVDFm7nBsnEjSYrqtT57A84W
+	 mPvQBcYVcEh1EvGHRmussML2YQCTdbmsVA5hlW2y8EvTdhvbIJSzToXJdUNFJcH7Ak
+	 a/ZYjwXGeJhJR+FNcQkGlzTgpdJwahP92IDjHssCFmjOomzXrREmotz3Es5HAtK5Y6
+	 vvxyv9KGmsZChRIDRd5TpA7irxIqSApengCu3fQLQqPpzyQDKtcVSdCXWsejOO7d4I
+	 /MV1ONsBkR8oy/k9tmpI+y4D5HWRHYSFM2FIWza3/Tu482VMjIKREBnuCUmP4wPwQx
+	 bKDn9plJEzWKg==
+From: "Thierry Escande" <thierry.escande@vates.tech>
+Subject: =?utf-8?Q?Re:=20[RFC=20PATCH=20v2=200/3]=20xl:=20Allow=20PCI=20devices=20to=20be=20passthrough'd=20via=20Qemu=20command=20line?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1775808981974
+Message-Id: <a0625b73-f5f2-4526-891a-60efad726cd2@vates.tech>
+To: "=?utf-8?Q?Marek=20Marczykowski-G=C3=B3recki?=" <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, "Anthony PERARD" <anthony.perard@vates.tech>, "Juergen Gross" <jgross@suse.com>, "=?utf-8?Q?Daniel=20P.=20Berrang=C3=A9?=" <berrange@redhat.com>
+References: <20260409162000.1102680-1-thierry.escande@vates.tech> <adhKlLvMB6PCRhwQ@mail-itl>
+In-Reply-To: <adhKlLvMB6PCRhwQ@mail-itl>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.5a7d847fa67b46e4afbeb5fbdefc1df7?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260410:md
+Date: Fri, 10 Apr 2026 08:16:22 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1775807398-F63C62A1-978ACB81/0/0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-720697/1775808984-AE33BCD1-C5EB6E18/0/0
 X-purgate-type: clean
-X-purgate-size: 1278
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-purgate-size: 2310
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TAGGED_FROM(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,m:berrange@redhat.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,gitlab.com:url,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	RCPT_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.979];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 7D1D53D3977
+X-Rspamd-Queue-Id: CA4593D3E39
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-From: Mykola Kvach <mykola_kvach@epam.com>
 
-gicv3_cpu_disable() currently writes 0 to ICC_CTLR_EL1. Unlike
-GICC_CTLR in the GICv2 path, ICC_CTLR_EL1 does not enable or disable
-physical Group 1 interrupt signalling, so this write only clears
-EOImode.
 
-The GICv3 power management rules require the physical group enables in
-the CPU interface to be cleared before the redistributor is driven into
-ProcessorSleep, otherwise behaviour is UNPREDICTABLE. Xen only enables
-Group 1 interrupts on this path, so disable the interface by clearing
-ICC_IGRPEN1_EL1 instead.
+On 4/10/26 02:55, Marek Marczykowski-G=C3=B3recki wrote:
+> On Thu, Apr 09, 2026 at 04:20:57PM +0000, Thierry Escande wrote:
+>> This series adds support for a new 'hotplug' option for PCI devices to b=
+e
+>> passthrough'd to guests.
+>>
+>> The current mechanism for device passthrough uses QMP device_add command
+>> to hot-plug PCI devices to the guest Qemu instance. This is an issue for
+>> guests running on Q35 chipset (preliminary support posted at [1]) since =
+the
+>> Q35 PCI root bus does not support hotplug. Devices could be hotplugged t=
+o
+>> a secondary PCI bus but Xen only support 1 PCI bus for now.
+>>
+>> The 'hotplug' option allows to control how devices are attached to the
+>> guest, either by using the legacy QMP mechanism (this is the default) or=
+ by
+>> passing it directly to the Qemu command line using xen-pci-passthrough
+>> device.
+>>
+>> Example usage in cfg file:
+>>  pci =3D [ "00:03.0,seize=3D1,hotplug=3D0" ]
+>>
+>> Since Qemu -device option accepts parameters in json format, this
+>> patchset adds a new internal function libxl__device_pci_get_qmp_json() t=
+hat
+>> generates the device json object used for both QMP hotplug and command l=
+ine
+>> passing.
+>> Also, the function libxl_pci_assignable() is made available from libxl.h
+>> for access in libxl_dm.c. I don't know if it's ok to make it public or i=
+f
+>> it should stay private. Maybe it should be renamed as
+>> libxl_device_pci_assignable() to match the other PCI device APIs.
+>>
+>> This has been successfully tested on Xen 4.22-dev and Qemu 10.0 running
+>> Debian VMs in both Bios and UEFI mode with a passthrough'd nvme disk.
+>> Disabling the hotplug mechanism might be made mandatory for Q35 machines
+>> later, once Q35 support is merged upstream.
+>>
+>> [1] https://lore.kernel.org/xen-devel/20260313163455.790692-1-thierry.es=
+cande@vates.tech/
+> 
+> I don't see relevant device option added to the QEMU cmdline:
+> https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/13860278916
+> 
+My bad. The code that adds the -device option is not in the correct code
+block. (bad copy/paste at some point I guess...). v3 on its way.
 
-This appears to be a copy of the GICv2 pattern where the enable control
-lives in CTLR, but for GICv3 the enable moved to ICC_IGRPEN1_EL1.
+Regards,
+Thierry
 
-Fixes: bc183a0235e ("xen/arm: Add support for GIC v3")
-Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
----
- xen/arch/arm/gic-v3.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-index bc07f97c16..4f0852be2f 100644
---- a/xen/arch/arm/gic-v3.c
-+++ b/xen/arch/arm/gic-v3.c
-@@ -1028,7 +1028,7 @@ static int gicv3_cpu_init(void)
- 
- static void gicv3_cpu_disable(void)
- {
--    WRITE_SYSREG(0, ICC_CTLR_EL1);
-+    WRITE_SYSREG(0, ICC_IGRPEN1_EL1);
-     isb();
- }
- 
--- 
-2.43.0
+--
+Thierry Escande | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
 
 
