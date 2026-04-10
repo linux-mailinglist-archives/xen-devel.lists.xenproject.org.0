@@ -2,44 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YGp5IIDY2GnHjAgAu9opvQ
+	id wF3tF8rc2GnHjAgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 13:01:20 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 13:19:38 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E85243D5EE3
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 13:01:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1278758.1563510 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4C4C3D611B
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 13:19:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1278773.1563519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB9bn-0002XQ-P5; Fri, 10 Apr 2026 11:01:07 +0000
+	id 1wB9tG-0004b9-61; Fri, 10 Apr 2026 11:19:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1278758.1563510; Fri, 10 Apr 2026 11:01:07 +0000
+Received: by outflank-mailman (output) from mailman id 1278773.1563519; Fri, 10 Apr 2026 11:19:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB9bn-0002Vj-M7; Fri, 10 Apr 2026 11:01:07 +0000
-Received: by outflank-mailman (input) for mailman id 1278758;
- Fri, 10 Apr 2026 11:01:06 +0000
+	id 1wB9tG-0004YO-2a; Fri, 10 Apr 2026 11:19:10 +0000
+Received: by outflank-mailman (input) for mailman id 1278773;
+ Fri, 10 Apr 2026 11:19:08 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wB9bm-0002Vd-N2
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 11:01:06 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wB9tE-0004YI-7s
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 11:19:08 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wB9bm-008Z9e-2o
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 13:01:06 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wB9tD-00FQAC-KJ
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 13:19:07 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69d8d86f-2eae-0a2a0a5409dd-0a2a45088328-14
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 13:01:06 +0200
-Received: from [209.85.208.178] (helo=mail-lj1-f178.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69d8d871-fab6-0a2a45080019-d155d0b2b4c8-3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 13:01:06 +0200
-Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-38a01c80c34so14463321fa.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 04:01:05 -0700 (PDT)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69d8dca2-5cb7-0a2a0a5109dd-0a2a4504de42-10
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 13:19:07 +0200
+Received: from [209.85.208.42] (helo=mail-ed1-f42.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69d8dcab-bb33-0a2a45040019-d155d02ac84f-3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 13:19:07 +0200
+Received: by mail-ed1-f42.google.com with SMTP id
+ 4fb4d7f45d1cf-66bf6aa4858so3409052a12.2
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 04:19:07 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
+ [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-670703f1104sm526646a12.7.2026.04.10.04.19.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 10 Apr 2026 04:19:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,175 +55,239 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-ARC-Seal: i=1; a=rsa-sha256; t=1775818865; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ETk4P9Cu8A7OjaM+1y5/p5tz4phqTZPRnB/sZ/U/ZbUA1+9HBctPkbcRFsvJ2+Z7iS
-         l8AnuNcO5QBDx3vS/Oy7LxHfW0ucjbahIx/kUYy1+FFE4l94iOIY/zGctswGy4H+zJaa
-         UdVI/VUTuXgVmk7VEgrpsD9lzBxKKynpXfSRU4iuW0yTf4gkucFtJiAKt+yQBKn8I3Zp
-         MPsygFwfEO5YmzQtdkttQDpsG9FNJi8OUKs38NJEQGvwkxFLIN7NrvRLfa4EsW00ljB5
-         N+6D49+BN/3LcaivLmh4I6q6SD14MEw3rgjTdxE0GPeKYs7w22juniOib2I8QwhncXcQ
-         rc0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VYleH/6bNS3B7Eb36TZNMHcXFfh57t+k1jDvOHBcA/Y=;
-        fh=8fc33Cv1q2KnWLt7grJfC+5AasR3NZBdZsvhe/UQtIM=;
-        b=MQ01DX4m+Kjw+82fm2gyZ6s1SXj4nA7NLe5+yX+El2MPxtq3x8Sagb1b8WT1sM8qdj
-         Vkw/OLztqhBAOO3Xz2tYRF5kKNq+0NuD5G6DFHVZN24XGNLrE7IsJMTHfyCgVYM3agtj
-         mokByVxMfpZD1kmX4Se4V42qK0D0XVJ1hWN8QsWCuYl4yHDmiqPfHz1ltGB5VlI1/oBf
-         lAPy9rlkePEUGrtT2XazJHIi/JUNIzw2uxktvTCTf4iM1NKcUqOzxcsDMgCTqoZf61lQ
-         MwBVVpWpyOYnjZzpRokA0t8RXrarxN07LB0ODGuDYLiYCUupiPMGKgEujvQ+HDiIS0ey
-         yPdQ==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1775818865; x=1776423665; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=VYleH/6bNS3B7Eb36TZNMHcXFfh57t+k1jDvOHBcA/Y=;
-        b=cD/uoPLdWg3qHi46aJxGZYmQiigIvxlmQ6L7M2WP4hNWd+WVjvngXW9W7Jg2lxmK/H
-         NfVW2oT8ppRGyACy3s1I33Fd/frLm/TEuCzFDbJanRE1anNoGMtmi7tsYmDF+9b5O4Bo
-         R4thmo+ltbTZaMLzj3B+rLxjyEGibDH4OM/FB1EoPNAzIC5GXVko1EgHDGMau5VZrj+w
-         oJibaBtM1jT/JpJ0CBb5jBtYTmeZ9/wHxHQbUt/67Wk7l5YNz/OTJmqmlBrEa/H0qOsu
-         dF2Wh7K5X90P6akCGP5vT5pluY1LrLW7cz4GeSfdhA5eUVnnln2N3eKpZHChRSQNwRJE
-         0n5g==
+        d=gmail.com; s=20251104; t=1775819947; x=1776424747; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=M6HXw2j7EFq6emaE5cqcwzAmgBAIXk70U16icM1P35o=;
+        b=KKaBzheXEdIVGxLznLRO+TziKv1ggDPJNf6oWU8ne0jVWGt65xyza9uB0gwLP6czZK
+         oqUjyg66g8QIB0uvTzBbGIlfqlz/lRNYGPBr3uNb+O2jcJww6hVbISpRUGGKx6igz1nX
+         ONFehADS1PqBDfVSea2YuTY50mnZQcMaG0k1dOG+6tN5EkE8jJWqzSFKrGjPh9EEGHuN
+         GTJB/3QkGpZiTX37suN9GHyZVgqDeTrRaCa88+S6tLw69uA7TDtJfR8kuf/9xDXe2z3p
+         0LNXZK1JETGa8a/zVmyPKml6+C28/sNMF1mMSrIeGO9LbSa5OVTu+T8N7PV3b90hGRAG
+         yxTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775818865; x=1776423665;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=VYleH/6bNS3B7Eb36TZNMHcXFfh57t+k1jDvOHBcA/Y=;
-        b=jGelZl5T+1573wNFR3hLTnJt7Sg4ijOqBXEPfcbQGlLnWa/iGCT+KHSNni7k4ypEBA
-         +FwCwWNpBWq/4IqnK7Cc/0iEZQvBOTuiBdtFIP7MjF8b9h4M2rNfNNk+QT8/XEVnVzaq
-         8LeMUAO52+N6Lq25r8ZFL5+3HLTO10N2c3yHa/ovyRsopHji8PwzwsvvX+uMXkPKP7W+
-         Dy6JiFDCw8NG4sSKLY5QPRmbilKHQEUmGh8pyCgIHlYX8N0DPOgwIaeQ+buBoDjLTE0J
-         +73ElW6N1D/OC/XFQErL/+tPzw0JhdSaFfjDDuvu3Lxc0p4q8eR11qoAu4B+Hw/Q9s7m
-         iYzg==
-X-Forwarded-Encrypted: i=1; AJvYcCXjeceSSbyNdtDj1hDIesCFh0PNDJZUNbDwo0qC43c2jnYo/DNTt08Lg4hy40Mts1IVwY4n8YkGVnA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yyg3d1/dA1x58rRrM8t8glVI5jUBn2Cu/aYXM8nsOIyBIaY8PUX
-	odBj4ewUXSBcLPmOj/rABLrxWm724crpBcEX42TKihxgEBLwfH4yzKLgqo9aNkvjyTM1Axl0KOJ
-	QNAcoON8Wz9jc2mkpjpduLMpj1CbUlL8=
-X-Gm-Gg: AeBDievxXEaIy1JDwuuaDapm6cr5u58ZRvWwl7mvupBjbvQab5IYQdeLK7q77LKROcf
-	r9UOGHT+TWKpFlVLJTfKpDmrBzG7Tyv0OrHDDy1iU6z3zKqT/W1txEIkqZy4OraWHyvPswIEKPA
-	+Itnsboxxoh6kLLHOkdigCBD3DRbTsBY3KHPt4f3YPDVQQzIoIPU9hGcijxp9lnkpbspXGh3DHv
-	Vt6Ww4Pe9AgxWy3JCXjqMugIZQ4Zy03a4KCLraN/kshJpUbGUl8UzLQyevD8Tbjk0Rezkm37Ikn
-	v/tt7g==
-X-Received: by 2002:a05:651c:503:b0:38c:374f:420d with SMTP id
- 38308e7fff4ca-38e4bbf4306mr7718891fa.2.1775818864548; Fri, 10 Apr 2026
- 04:01:04 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1775819947; x=1776424747;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=M6HXw2j7EFq6emaE5cqcwzAmgBAIXk70U16icM1P35o=;
+        b=fx8SnChmmeKHCffKsByKMuC97T3XUQrEHhiwXp/3w0ExoB2ZuGDWTlu/GSKo54Zrov
+         6x12p2mHDMP7VnSoy3z9gVF0HmyQqWemDJ5Jpl+oEO2eKRYBmlJ8w7M1SQulE/ilcSLf
+         3H8+koJ84zgayMH6niVgjid9FyJG9MKon/aLK/FW+bumYOET9lZXjsYeLU8ooKgs+n4c
+         skxkbjkkFV93J8b2opTRo/Fc0EFdcl7Og8wmX4yuIXlLlxYbgX0AlshkN+PpJSntogN3
+         PV4VqGKQ1B8rGRM6/s8T/Y1p9Qr9oj2Qe5P8tPDkGXDlPehpaf7ssOa75Xtmnb3Xv5QR
+         0G1A==
+X-Forwarded-Encrypted: i=1; AJvYcCWrZkOdZG0TAMhSnSyZDgeuG+OXqkeYB6YN6xnPEIaHJnSuK0JRn9uPYVzDyBeseJNOftVfALa0R04=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzxJTDpDTO0fnIMhve5MpvEscLinj1xzPAW6UyNSjLp3qdOxrYK
+	fbXPFk7s0IFinXo6y7n00Ir2Riq8lV7ET/NzQKyKzYN/PQif5zy0PMD0
+X-Gm-Gg: AeBDieuue1WLaMt42tLb2eQQ9f8BUTpwL+l/7FJ/Lx6FCLvEBjlQNuMncmgdWHFX6/i
+	wlNFExdyogZr3tgtGJwxiiiN5bw/zW0a9ns1krYBohX6jh0ul9YRVJbZpOmC3ZV3SXQPMyfOlHf
+	dY2w65AhpKZMuUwSrpEkWnilEkjMi36yvQxPf5wxL/LuCUpBELpxXo/1b8U/7nWbrquCFMEktJe
+	lonNHlcuCjFuGu9L/IK9S3wuMEZB/ibGZHbEejQbTi22QwCcl2u6V6UGtVZVDOSQi/4Lhm6wONt
+	HmWCqxalUSwbMNmP9J2vYuU492/nQF0PDoBFNYW0DiKKBBwJR0thCjwWVNX5SMIEMuvY5//TJCa
+	j5heiEJZFT3WY2RQthKZM2sK7r2mi0PiE5adclA7Rl+RR/+ZvooO6WpF7IbfCqgaAmjSrvNUqtj
+	93JmJ50lRJ/g+TucDTIeSGk8+wtblS4gVf3dz+hXEy6EDZHk+km0HyfCbi6eqz1UhjbWLWL/+LJ
+	bJntKt45BcqdQ==
+X-Received: by 2002:a05:6402:3051:10b0:670:8b30:a6cc with SMTP id 4fb4d7f45d1cf-6708b30a7c1mr910437a12.26.1775819946601;
+        Fri, 10 Apr 2026 04:19:06 -0700 (PDT)
+Message-ID: <147735e4-cd03-4efa-8981-3f29e15d5e6b@gmail.com>
+Date: Fri, 10 Apr 2026 13:19:03 +0200
 MIME-Version: 1.0
-References: <dba15db692025c75f8bd3a2c5dab2654eaa4e896.1775801199.git.mykola_kvach@epam.com>
- <0c68ca5e-51d3-42ee-aa27-301ffafefc5f@suse.com> <CAGeoDV_S=hQwKyc1aa-X_NZbB2n+QzxUfXpNDcvFehPi8h3adA@mail.gmail.com>
- <1546f5c9-e270-465d-aa0b-4c4c0ec87c8a@suse.com>
-In-Reply-To: <1546f5c9-e270-465d-aa0b-4c4c0ec87c8a@suse.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Fri, 10 Apr 2026 14:00:52 +0300
-X-Gm-Features: AQROBzAKTKxMpShjUBMlXhoA5Zo2soLNnoZXW038yMahzFVpBODqR0SvXpxsQwQ
-Message-ID: <CAGeoDV8jUo7mamPbuDPMRrouG85aEAm4PNoOwoXZPeEe+Fmdrw@mail.gmail.com>
-Subject: Re: [PATCH] arm/its: Decode BASER cacheability field before comparing
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 06/27] xen/riscv: implement make_cpus_node()
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Mykyta Poturai <mykyta_poturai@epam.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-c1860d/1775818866-76B4C497-A20A4A98/0/0
-X-purgate-type: clean
-X-purgate-size: 1769
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
+ <fd64b8526a23e9d7775b9b48c5a933b0673c4fba.1773157782.git.oleksii.kurochko@gmail.com>
+ <7505a281-b481-4f3a-a7df-d8c234f28279@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <7505a281-b481-4f3a-a7df-d8c234f28279@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-ebf023/1775819947-3353351B-0EDDE945/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 4313
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid,suse.com:email];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:mykyta_poturai@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:url];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: E85243D5EE3
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: B4C4C3D611B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Fri, Apr 10, 2026 at 1:45=E2=80=AFPM Jan Beulich <jbeulich@suse.com> wro=
-te:
->
-> On 10.04.2026 09:08, Mykola Kvach wrote:
-> > On Fri, Apr 10, 2026 at 9:40=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >> On 10.04.2026 08:09, Mykola Kvach wrote:
-> >>> --- a/xen/arch/arm/gic-v3-its.c
-> >>> +++ b/xen/arch/arm/gic-v3-its.c
-> >>> @@ -496,7 +496,8 @@ retry:
-> >>>          }
-> >>>          attr =3D regc & BASER_ATTR_MASK;
-> >>>      }
-> >>> -    if ( (regc & GITS_BASER_INNER_CACHEABILITY_MASK) <=3D GIC_BASER_=
-CACHE_nC )
-> >>> +    if ( ((regc & GITS_BASER_INNER_CACHEABILITY_MASK) >>
-> >>> +          GITS_BASER_INNER_CACHEABILITY_SHIFT) <=3D GIC_BASER_CACHE_=
-nC )
-> >>
-> >> Are you aware of MASK_EXTR()? This is one of the cases that we have it=
- for.
-> >> Really all *_SHIFT constants should be purged, as they can be calculat=
-ed
-> >> from their *_MASK counterparts (leveraging MASK_{EXTR,INSR}() to keep =
-the
-> >> code readable).
-> >
-> > I wasn't aware of this macro, thanks. I will take a look.
-> >
-> >> Further, doesn't gicv3_lpi_set_proptable() have the same issue with
-> >> GICR_PROPBASER_INNER_CACHEABILITY_MASK?
-> >
-> > Fortunately, GIC_BASER_NonShareable is equal to zero, so the condition
-> > there is not affected.
->
-> I fear I don't follow. In
->
->     if ( (reg & GICR_PROPBASER_INNER_CACHEABILITY_MASK) <=3D GIC_BASER_CA=
-CHE_nC )
->
-> where does GIC_BASER_NonShareable come into play?
-
-Sorry, I missed that part of your comment; clearly, I haven't had enough
-coffee yet.
-
-You are right: gicv3_lpi_set_proptable() has the exact same issue and
-needs fixing too. Thanks for catching that.
-
-It is interesting that we did not hit this during GICv4 testing.
 
 
-Best regards,
-Mykola
+On 4/1/26 4:11 PM, Jan Beulich wrote:
+> On 10.03.2026 18:08, Oleksii Kurochko wrote:
+>> --- a/xen/arch/riscv/Makefile
+>> +++ b/xen/arch/riscv/Makefile
+>> @@ -1,6 +1,7 @@
+>>   obj-y += aplic.o
+>>   obj-y += cpufeature.o
+>>   obj-y += domain.o
+>> +obj-y += domain-build.o
+>>   obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+>>   obj-y += entry.o
+>>   obj-y += guestcopy.o
+> 
+> Doesn't this belong in patch 02? And then domain-build.init.o?
 
->
-> Jan
+Yes, it should be part of patch 02. Made a mistake during splitting.
+
+> 
+>> --- a/xen/arch/riscv/domain-build.c
+>> +++ b/xen/arch/riscv/domain-build.c
+>> @@ -3,8 +3,10 @@
+>>   #include <xen/fdt-domain-build.h>
+>>   #include <xen/fdt-kernel.h>
+>>   #include <xen/init.h>
+>> +#include <xen/libfdt/libfdt.h>
+>>   #include <xen/sched.h>
+>>   
+>> +#include <asm/cpufeature.h>
+>>   #include <asm/current.h>
+>>   #include <asm/guest_access.h>
+>>   
+>> @@ -44,3 +46,109 @@ int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
+>>   
+>>       return 0;
+>>   }
+>> +
+>> +int __init make_cpus_node(const struct domain *d, void *fdt)
+>> +{
+>> +    int res;
+>> +    const struct dt_device_node *cpus = dt_find_node_by_path("/cpus");
+>> +    unsigned int cpu;
+>> +    u32 timebase_frequency;
+> 
+> uint32_t please.
+> 
+>> +    bool frequency_valid;
+>> +    uint32_t *next_phandle = &((struct domain *)d)->arch.next_phandle;
+> 
+> No casting away of const, please.
+> 
+>> +    dt_dprintk("Create cpus node\n");
+>> +
+>> +    if ( !cpus )
+>> +    {
+>> +        dprintk(XENLOG_ERR, "Missing /cpus node in the device tree?\n");
+>> +        return -ENOENT;
+>> +    }
+>> +
+>> +    frequency_valid = dt_property_read_u32(cpus, "timebase-frequency",
+>> +                                           &timebase_frequency);
+>> +
+>> +    res = fdt_begin_node(fdt, "cpus");
+>> +    if ( res )
+>> +        return res;
+>> +
+>> +    res = fdt_property_cell(fdt, "#address-cells", 1);
+>> +    if ( res )
+>> +        return res;
+>> +
+>> +    res = fdt_property_cell(fdt, "#size-cells", 0);
+>> +    if ( res )
+>> +        return res;
+>> +
+>> +    if ( frequency_valid )
+>> +        res = fdt_property_cell(fdt, "timebase-frequency", timebase_frequency);
+> 
+> Handing through a property directly makes me wonder how that's going to
+> fit with migration. I understand migration may not even be a mid-term
+> goal, but still.
+
+Do you mean if I will set timebase-frequency = X for guest cpu node and 
+then this guest will migrate to h/w where timebase-frequency is Y, so we 
+will have unsynced timebase-frequency?
+
+Migration between hosts with differing timebase-frequency would require 
+either (a) restricting migration pools to frequency-matched hosts (for 
+example, KVM checks if timebase-frequency isn't different here:
+https://elixir.bootlin.com/linux/v6.19.11/source/arch/riscv/kvm/vcpu_timer.c#L200), 
+or (b) trap-and-emulate of time CSR reads to scale the virtual timer.
+
+I think so as unlike ARM (which has CNTFRQ_EL0 writable by EL2, letting 
+the hypervisor normalize the frequency it presents), RISC-V has no 
+hypervisor-controlled frequency register. The guest reads 
+timebase-frequency from DT exactly once and trusts it forever. There's 
+no in-guest mechanism to update it post-boot. (at least, I don't see now 
+how to do that based on the spec)
+
+
+> 
+>> +    for ( cpu = 0; cpu < d->max_vcpus; cpu++ )
+>> +    {
+>> +        char buf[64];
+>> +        uint32_t reg = cpu_to_fdt32(cpu);
+>> +
+>> +        snprintf(buf, sizeof(buf), "cpu@%u", cpu);
+>> +        res = fdt_begin_node(fdt, buf);
+>> +        if ( res )
+>> +            return res;
+>> +
+>> +        res = fdt_property(fdt, "reg", &reg, sizeof(reg));
+>> +        if ( res )
+>> +            return res;
+>> +
+>> +        res = fdt_property_string(fdt, "status", "okay");
+>> +        if ( res )
+>> +            return res;
+>> +
+>> +        res = fdt_property_string(fdt, "compatible", "riscv");
+>> +        if ( res )
+>> +            return res;
+>> +
+>> +        BUILD_BUG_ON((sizeof("riscv,") + sizeof_field(struct gstage_mode_desc, name) + 1) >= sizeof(buf));
+> 
+> Nit: Overlong line. Also, why +1? The name field has to include a nul, or
+> else ...
+Agree, +1 looks wrong here.
+
+Thanks.
+
+~ Oleksii
+
 
