@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GNxiIVCZ2GkgfggAu9opvQ
+	id cHpDO12b2GkgfggAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 08:31:44 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 08:40:29 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E89BE3D2C9C
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 08:31:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1278354.1563214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5673A3D2DC3
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 08:40:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1278363.1563224 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB5Or-0003XS-MQ; Fri, 10 Apr 2026 06:31:29 +0000
+	id 1wB5XG-0005GZ-F1; Fri, 10 Apr 2026 06:40:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1278354.1563214; Fri, 10 Apr 2026 06:31:29 +0000
+Received: by outflank-mailman (output) from mailman id 1278363.1563224; Fri, 10 Apr 2026 06:40:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB5Or-0003VJ-Jd; Fri, 10 Apr 2026 06:31:29 +0000
-Received: by outflank-mailman (input) for mailman id 1278354;
- Fri, 10 Apr 2026 06:31:27 +0000
+	id 1wB5XG-0005Ey-C8; Fri, 10 Apr 2026 06:40:10 +0000
+Received: by outflank-mailman (input) for mailman id 1278363;
+ Fri, 10 Apr 2026 06:40:09 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wB5Op-0003VC-QR
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 06:31:27 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wB5XF-0005Es-3U
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 06:40:09 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wB5Op-00FvLG-6E
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 08:31:27 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wB5XD-00Ay3M-VX
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 08:40:07 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69d89934-e002-0a2a0a5209dd-0a2a4505966a-34
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 08:31:27 +0200
-Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69d89b3f-2eae-0a2a0a5409dd-0a2a4503cf82-30
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 08:40:07 +0200
+Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69d8993e-3760-0a2a45050019-d155dd36a55e-3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 08:31:26 +0200
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-43cf5fbacc9so758244f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 23:31:26 -0700 (PDT)
+ id 69d89b47-02b3-0a2a45030019-d155dd2ca8be-3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 08:40:07 +0200
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-43b949bf4easo961306f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 23:40:07 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d63e468c5sm5186563f8f.20.2026.04.09.23.31.25
+ ffacd0b85a97d-43d63e5d85fsm4346745f8f.36.2026.04.09.23.40.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Apr 2026 23:31:26 -0700 (PDT)
+ Thu, 09 Apr 2026 23:40:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,58 +56,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Cc:Content-Language:References:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775802686; x=1776407486; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=H0v2WHt5PyLazizb4U48RF5LhoVjKyY9CzIVeQskboo=;
-        b=Xi27ESfsjnNqzTDOO3fwAQfrN4EJbF9ovasuKIT+DZQA67p/5KR+oFnlMQf0mKPICc
-         ZjCe+PKJCmkV9RXSE56dfZdtzlGjFisxxgZKpG6EskbT9/N9QF9AUCDSvLCOl5pwiZ0r
-         /QUVwyVG+sge0RBeHc4oY/4Vv6IayAyBHZk4rb34jPmZWV0jWluOpJpBNv5EtgcXjGgJ
-         DVTUrex/NXLYLjIrcZRdRzu8KyZHT1HZSIH8hyQ7v9PI0kyBymdXrD12Di0RLWTbN3rv
-         HL/EBR4jZKDJmKn6SPRAO2j1WgMYHEQG4I4MJz0fDXst1krKmtjFE0fwb46jKIJI1ugp
-         q3pA==
+        d=suse.com; s=google; t=1775803207; x=1776408007; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=e/IPyXzqdpbTutGWDnypeB9UGv93dbAo3m2Ajd7h1s4=;
+        b=Uh+rjmN7s2CA/WCB7YA/fglFuSrXegAVc0n6TaInuSioiaNUB1Noca9EyFpis4g8la
+         0q6fdCLpgVa4XluR1ZcIvFlZ6VYYfX/RHWuT6IzFSQFBEzldH0aE00fvRLx+3Y2sPpln
+         M3FYfjo3/i8OfNa75dI32V2Zm052vCVLVmnFw8eGJ7STsjwjBlC2fYd8l105VRkLLRtF
+         N152HdvAM5szKob0Tmxia6x62XoCxQH73KLmsk3Jf/GLdOKxFFunZV1q4+guR3oh4QHz
+         K8yQo18oirA2vHEiYFtXLRlhb1zTwrR0xUZBSeLOgO4nh4qz5Hr6q0pqkJZklBi44SZK
+         8JyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775802686; x=1776407486;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1775803207; x=1776408007;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=H0v2WHt5PyLazizb4U48RF5LhoVjKyY9CzIVeQskboo=;
-        b=rpkUpH9pNwsin6Ppkl25LwZPEtL2dq5vTbugicD8heM/RIgXNQziy4D7ybflqvxdLD
-         ONCHU0cljqnxXRF6QmDa6V/Aq21AeoPDR30rn347UjuU8Qyf1gi/oOVyTLS2od8f+x6X
-         OyoDDmXd+PpbXWmMazGzE0+vDZQZT1TwOFJKQXfEdG0lKeMIMl7ox83H6CzUlv3NeCsq
-         ssO3bjWfOnIrFED9/EBRmkeoAFjui9iNYMjM3k18xUeftPovCsnMXv/T/oidHgY/gKCQ
-         TCP5A+jPD4VoSx7q5U4QINDjOkAVScz0ELjwJk6Kv1mqo1dzgI52zmvCPJgQrdf64rOX
-         jLhQ==
-X-Gm-Message-State: AOJu0YxA67zXH7sHGXfZtGDF4vxSVuJutS/I60GUBjsi1ej2GJZxN5/e
-	cA+KEXDmRUG3M7/O1ukW1Apl8CQj3i9Vg0fTYpMJ01+ZT334mVc+8WT8CvHztuOpuwxwGruLWMA
-	tdrjg/Q==
-X-Gm-Gg: AeBDieujx9axsQlDlZ/PBWXi72WB3dvdyQsy21UFY6drvPVPcRXRZ5OleT+UWWOAN+D
-	0dvSUc1FrEzyEzwdcLzXTOeOBIZBERXMWOQtwHKZ7S68R/8XiCGsf1v0zSankjTSocmPnnTf3Ca
-	i9akJgIGj+wzrNZ0GkUdV/EZteyCKxv0lZKLZuKNLBd/gKDGfmGRKLIgMTWQQV5X6Tmvk+pue0u
-	q+uhpKL4T35hR16RQOn9Pn6ghBExXdT+nNpWtmA5rL9Y4tlxF0S/GPxQQ3IcHtA0SWFLhHjwaPX
-	/vI5VPoP6dDUQ9/EvjOQdlg2kcHCiY3TGAbqYzSt/aHQ395HXZy8hzfh4H5Rbx+XUY0ChSO5RTO
-	IzdVCrNdhbK9Fe2MPqTlNDS1I0evlKRudxEwXR78/UrZreYdBn+iqlf3NwtImeSu2ZojK6OtzJ6
-	PC5RpuhYag3E6Ue4WNePxv3wpBPJK4Es27WVDVD6+bX+75Ja/bBb5nFdw+YEIRgIcPXckykdTn6
-	lRl+Bct5Tjal7U=
-X-Received: by 2002:a5d:5d03:0:b0:437:7719:ca82 with SMTP id ffacd0b85a97d-43d6491fef7mr2212740f8f.3.1775802686287;
-        Thu, 09 Apr 2026 23:31:26 -0700 (PDT)
-Message-ID: <c4961231-7882-49d8-8c68-c014ca0a5e4f@suse.com>
-Date: Fri, 10 Apr 2026 08:31:24 +0200
+        bh=e/IPyXzqdpbTutGWDnypeB9UGv93dbAo3m2Ajd7h1s4=;
+        b=QDvCgFkTQWOUmEfVRH5VEYwPtzSuOILAKH9jOmhPeYxjKYnr8derKFNkX50RQqLQLn
+         UnMm40v0PuHTGJ/IRuJc5l/MvVjVMKyLNPoHKF6HBw6g0RC7obLjrj3vq+j0BeY6UBSV
+         MTTIRkIgDI0oGlFLQz4S8VT42VANWORSUPUiQspF6OoyFoP5ghHpduQWqb+ScXTdE53G
+         1nFe5Wznr7J2O6TS0TgL1vxmFpVCpcqZAZqoCA/mKwl+YIkNCQ5nNSKUDrsPqhUV1lQ8
+         yavfe1jY7rGPs/3REbVwwn7XMxgdFiHGo0uu8KyPhS9CWHaFw8csS6qyvIFjvkhHl5c2
+         nw4g==
+X-Forwarded-Encrypted: i=1; AJvYcCXMepbMZQuCcS3bGqOuEJvv6Lbie/x0a4DNoRTwBOrAElj/DeeT1DA3W1TECn7HHss29mDh5uoLY8w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxhcEftIZvbe/8bFjmce7h3EsYxjPQTG8yPRtLARx9GVhwgaKq7
+	CH6W4XDQIDWouIT82T92QBHUpN756Z5/+WXP+2yi+9ukLvgOHtY8JaTfVvGWYftt5w==
+X-Gm-Gg: AeBDiesrK4N9siLfSabPT+EAiKKCUJPqDonxb/XxUlnajqjpLVGuNI7/UGPMGYxj++k
+	Mgjusbvm/WIqMjh4fZdewU9YxeVn4vWWYN3Z0lNWnZtqB5rE/Kr2ypueRxdzNdrDgekDlSKNH1U
+	1pafYji7Ezz2CrqphVDx86GFeL7hxetuRYFJdsz5vy/5iycOiTDA/xzI1Kpl8/RQLqP1jF7Kpox
+	F8gFcS9SDiIY8ySTH+YJUKhBWXCxamA2iUkGWmRAdbfxmS0C48NIzNMFeaRfJ/sKxnOnP+Zp3cF
+	TSLQnEVward/yGaU1jB6GvgVY/9ht0v8uzAz/DwDaFYpXR7A2qAPbYbB9JAHUn//QArwKhOdwVq
+	qPE0e8IV+jEtVv8Ri7VZYKi1sBrxzvQiVVLb0uOWcXsM+5rkZnSHI+8V5P/rnmM2R5mTFHNf/o1
+	/vtCqto5FwEWWFCW+ANDUZ4SUA3L1v2mGJVG9DHnKrnVjz/x6unNP4vgrLaGBTJ2KYUagXCi/+w
+	rcpVZpmSMkiKlA=
+X-Received: by 2002:a05:6000:410e:b0:43b:8add:e469 with SMTP id ffacd0b85a97d-43d595cd702mr5340198f8f.22.1775803207291;
+        Thu, 09 Apr 2026 23:40:07 -0700 (PDT)
+Message-ID: <0c68ca5e-51d3-42ee-aa27-301ffafefc5f@suse.com>
+Date: Fri, 10 Apr 2026 08:40:04 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] Potential double-free in Xen dt-overlay attach/remove error
- path
-To: xen-devel@lists.xenproject.org
-References: <CANrF8CHA1XacwRzNcw3zt0goEV-7in_=vtEYhLxSjwaV62jrTw@mail.gmail.com>
-Content-Language: en-US
-Cc: Gyujeong Jin <wlsrbwjd7232@gmail.com>,
+Subject: Re: [PATCH] arm/its: Decode BASER cacheability field before comparing
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Mykyta Poturai <mykyta_poturai@epam.com>, xen-devel@lists.xenproject.org
+References: <dba15db692025c75f8bd3a2c5dab2654eaa4e896.1775801199.git.mykola_kvach@epam.com>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -132,120 +133,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <CANrF8CHA1XacwRzNcw3zt0goEV-7in_=vtEYhLxSjwaV62jrTw@mail.gmail.com>
+In-Reply-To: <dba15db692025c75f8bd3a2c5dab2654eaa4e896.1775801199.git.mykola_kvach@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c201ff/1775802686-2292196F-70851A81/0/0
+X-purgate-ID: tlsNG-33051d/1775803207-C9D3CC9A-C665EEE1/0/0
 X-purgate-type: clean
-X-purgate-size: 2610
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-purgate-size: 790
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:wlsrbwjd7232@gmail.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:mykyta_poturai@epam.com,m:xen-devel@lists.xenproject.org,m:xakepamatop@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,xen.org,arm.com,amd.com];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: E89BE3D2C9C
+X-Rspamd-Queue-Id: 5673A3D2DC3
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 09.04.2026 23:28, Gyujeong Jin wrote:
-> Hello Team, I was advised to report this issue in this way because
-> dt-overlay is currently experimental and not security supported.
-> 
-> I would like to report a potential memory safety issue in Xen related to
-> the Device Tree overlay handling logic.
-> ------------------------------
-> Problem Description
-> 
-> A double-free / use-after-free condition may occur in the dt-overlay
-> handling path when an overlay attachment fails and the same overlay is
-> later removed.
-> 
-> The issue arises because rangeset objects are freed on the failure path of
-> handle_attach_overlay_nodes(), but the corresponding pointers are not
-> cleared. Subsequently, handle_remove_overlay_nodes() may operate on these
-> stale pointers, leading to a second free.
-> Affected Component
-> 
->    - Xen ARM
->    - Device Tree overlay subsystem
->    - File: xen/common/device-tree/dt-overlay.c
-> 
-> Relevant functions:
-> 
->    - handle_attach_overlay_nodes()
->    - handle_remove_overlay_nodes()
-> 
-> Impact
-> 
-> This issue may lead to:
-> 
->    - Double-free of rangeset structures
->    - Use-after-free when accessing stale pointers
->    - Potential hypervisor crash (DoS)
->    - Possible memory corruption depending on allocator behavior
-> 
-> Given that this occurs in the hypervisor context, the impact could extend
-> beyond a simple crash under certain conditions.
-> Root Cause
-> 
-> The issue originates from inconsistent memory management between the attach
-> failure path and the remove path.
-> 
-> In handle_attach_overlay_nodes(), the failure path frees rangeset objects:
-> 
-> static long handle_attach_overlay_nodes(...)
-> {
->     ...
-> 
->     if ( entry )
->     {
->         rangeset_destroy(entry->irq_ranges);
->         rangeset_destroy(entry->iomem_ranges);
->     }
-> 
->     return rc;
-> }
-> 
-> However, the corresponding pointers (entry->irq_ranges and
-> entry->iomem_ranges) are not set to NULL afterward, leaving dangling
-> pointers in the entry structure.
+On 10.04.2026 08:09, Mykola Kvach wrote:
+> --- a/xen/arch/arm/gic-v3-its.c
+> +++ b/xen/arch/arm/gic-v3-its.c
+> @@ -496,7 +496,8 @@ retry:
+>          }
+>          attr = regc & BASER_ATTR_MASK;
+>      }
+> -    if ( (regc & GITS_BASER_INNER_CACHEABILITY_MASK) <= GIC_BASER_CACHE_nC )
+> +    if ( ((regc & GITS_BASER_INNER_CACHEABILITY_MASK) >>
+> +          GITS_BASER_INNER_CACHEABILITY_SHIFT) <= GIC_BASER_CACHE_nC )
 
-Further to this, am I overlooking any check preventing an already created
-pair of rangesets to be replaced by new ones, leaking the original pair?
+Are you aware of MASK_EXTR()? This is one of the cases that we have it for.
+Really all *_SHIFT constants should be purged, as they can be calculated
+from their *_MASK counterparts (leveraging MASK_{EXTR,INSR}() to keep the
+code readable).
 
-And then there's a Misra issue as well: dt_overlay_domctl() has unreachable
-code. Anything other than XEN_DOMCTL_DT_OVERLAY_ATTACH is excluded at the
-top, so the "else" body near the bottom is unreachable. (This in turn makes
-me wonder: How come there's no "detach"?) Yet then, that's probably pretty
-meaningless, as there look to be other issues (Misra and general robustness
-ones) as well.
+Further, doesn't gicv3_lpi_set_proptable() have the same issue with
+GICR_PROPBASER_INNER_CACHEABILITY_MASK?
 
 Jan
 
