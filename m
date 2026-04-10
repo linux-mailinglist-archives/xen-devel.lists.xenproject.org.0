@@ -2,48 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uBJZLLxK2Gm0bAgAu9opvQ
+	id C/izMKhS2Gl4bwgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 02:56:28 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 03:30:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDB993D0F06
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 02:56:27 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1278241.1563160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D45A3D119F
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 03:30:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1278256.1563169 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB0A9-00041q-MD; Fri, 10 Apr 2026 00:55:57 +0000
+	id 1wB0gU-0007ZT-5p; Fri, 10 Apr 2026 01:29:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1278241.1563160; Fri, 10 Apr 2026 00:55:57 +0000
+Received: by outflank-mailman (output) from mailman id 1278256.1563169; Fri, 10 Apr 2026 01:29:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB0A9-000401-Ix; Fri, 10 Apr 2026 00:55:57 +0000
-Received: by outflank-mailman (input) for mailman id 1278241;
- Fri, 10 Apr 2026 00:55:55 +0000
+	id 1wB0gU-0007Xr-1f; Fri, 10 Apr 2026 01:29:22 +0000
+Received: by outflank-mailman (input) for mailman id 1278256;
+ Fri, 10 Apr 2026 01:29:20 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <marmarek@invisiblethingslab.com>) id 1wB0A7-0003zv-D3
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 00:55:55 +0000
+ (envelope-from <Stewart.Hildebrand@amd.com>) id 1wB0gS-0007XS-F0
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 01:29:20 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wB0A5-0072Z5-Vu
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 02:55:54 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wB0gR-0075l4-6B
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 03:29:19 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d84a94-bab6-0a2a0a5309dd-0a2a450bd66c-2
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 02:55:53 +0200
-Received: from [103.168.172.148] (helo=fout-a5-smtp.messagingengine.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <marmarek@invisiblethingslab.com>)
- id 69d84a98-bca8-0a2a450b0019-67a8ac9483c1-3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 02:55:53 +0200
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfout.phl.internal (Postfix) with ESMTP id D4F12EC010A;
- Thu,  9 Apr 2026 20:55:51 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Thu, 09 Apr 2026 20:55:51 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 9 Apr 2026 20:55:50 -0400 (EDT)
+ (envelope-from <Stewart.Hildebrand@amd.com>)
+ id 69d851fc-5cb7-0a2a0a5109dd-0a2a450692dc-28
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 03:29:18 +0200
+Received: from [52.101.62.56]
+ (helo=DM5PR21CU001.outbound.protection.outlook.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <Stewart.Hildebrand@amd.com>)
+ id 69d8526d-0df0-0a2a45060019-34653e3876c8-3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 03:29:18 +0200
+Received: from SA0PR11CA0046.namprd11.prod.outlook.com (2603:10b6:806:d0::21)
+ by PH7PR12MB6587.namprd12.prod.outlook.com (2603:10b6:510:211::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.18; Fri, 10 Apr
+ 2026 01:29:13 +0000
+Received: from SA2PEPF0000150A.namprd04.prod.outlook.com
+ (2603:10b6:806:d0:cafe::79) by SA0PR11CA0046.outlook.office365.com
+ (2603:10b6:806:d0::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.41 via Frontend Transport; Fri,
+ 10 Apr 2026 01:29:13 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF0000150A.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Fri, 10 Apr 2026 01:29:12 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 9 Apr
+ 2026 20:29:12 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 9 Apr
+ 2026 20:29:12 -0500
+Received: from [172.18.74.250] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 9 Apr 2026 20:29:11 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,186 +74,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fm2 header.d=invisiblethingslab.com header.i="@invisiblethingslab.com" header.h="Cc:Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=fm2 header.d=messagingengine.com header.i="@messagingengine.com" header.h="Cc:Content-Type:Date:Feedback-ID:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To:X-ME-Proxy:X-ME-Sender"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1775782551;
-	 x=1775868951; bh=b87heE5fmUBkJe8ZsnevojmlzceS4TdE1O/6Hxi/swI=; b=
-	FyO+kM1Pxg511InjiwLSQi/yX9ezzs6xNeA70udBExbB90am/jWd8r6CI0eFxnzF
-	bPsrGpTZN76/weNHpIBmdb+4fSoZxpqkE83TkahOpGWbK/U2lLyL81D5Vq0YqVy0
-	l9gVbcFAQqY0ehGs62NnBmdVMz+ujhBwsqBNmUsAjJZ1W4CgWxWYoQQItTuDv4K1
-	qja3xmDG8PNxq+bmZPdyRYksrPE03mGweK0EdAa4Stvo3dhspIVwdVGTP8+eKZZj
-	68LeVD725W2qZc0EvLMUN5I2zb0qM8Hw7+JnALjNoeaQL22rxXOD1o+6zdhH4qvJ
-	K3ec35R9IPyLZ2oUaEr4rw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1775782551; x=1775868951; bh=b87heE5fmUBkJe8ZsnevojmlzceS4TdE1O/
-	6Hxi/swI=; b=ro+5f0veQnIGOfHaAhkvetqn2l5TfGo0GePutMmJ0RVFe5zvRf7
-	Ghf/v1zm5t/W7KGYfjjGH+jZRYwgAZ5kL9hPacMsxGUZFI/yQsZKKqr6Y7jZT6y9
-	1JMMjiVXDU0bdaGy/MYqjbqnVjiZ0rcW6YeBt319dAFd1FMbchUb1iHLV/IcG4eI
-	YqmBVm+N4Gw/MfWlSYgOpqa37XA7stZ4k4dbnSFatR4hDlan5+r2GHsqz+LgnbON
-	EAhfKoDb6E1Tqf0pi69QMef2AFjqJK3DNFj26/svFC0C3CRViSU4EyT/DINboLxP
-	MNFrlyiYlWbvWhYOLI/0U0nXBwpjN6ltpCw==
-X-ME-Sender: <xms:l0rYaffAoELOq7t2sIIms9mHC-qlYQwSU3XMyCfx9bxMlXXxY3rOiA>
-    <xme:l0rYacH5sPyGLSfmS7Ngz3TO2o-73ROB2eYey5J3vDdBuRNNNAsKelaUHiGsjVdFe
-    y_wJJcTa137IILSwimCALe76gQW0PTByhQS0aGJR63VuJ9QmQ>
-X-ME-Received: <xmr:l0rYaQ1QvNbRvwZ_jPCEFP3DpsnRhp2leav3dICTD97sgMCkxulfCYuHhSndg-NPXGwqVPxGdCy6Qo1TgM3SKykk_8xg9lggKPg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgddvkedttdcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
-    ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
-    hrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghkucfo
-    rghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvhhish
-    hisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeelhfefudel
-    jeelgefhieeuudeiffehvdeuudfgfffhueekudeihfetvedvudehueenucffohhmrghinh
-    epkhgvrhhnvghlrdhorhhgpdhgihhtlhgrsgdrtghomhenucevlhhushhtvghrufhiiigv
-    pedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisg
-    hlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtthhopeehpdhmohguvgepshhm
-    thhpohhuthdprhgtphhtthhopehthhhivghrrhihrdgvshgtrghnuggvsehvrghtvghsrd
-    htvggthhdprhgtphhtthhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhj
-    vggtthdrohhrghdprhgtphhtthhopegrnhhthhhonhihrdhpvghrrghrugesvhgrthgvsh
-    drthgvtghhpdhrtghpthhtohepjhhgrhhoshhssehsuhhsvgdrtghomhdprhgtphhtthho
-    pegsvghrrhgrnhhgvgesrhgvughhrghtrdgtohhm
-X-ME-Proxy: <xmx:l0rYacnttjWs_rcHvMOTR7OxT3sVqksAf4lxJqnMwZpIEcyMib87AQ>
-    <xmx:l0rYaY-R5_B4lwNfkGPDpZIuRrKn45Beu6Q7_HSVSjmGHjVV4qyCWw>
-    <xmx:l0rYaZrNL9XXtlKXCjk0NvWP3iaJNGUmAJogjO3b3BE2FM685q3MEQ>
-    <xmx:l0rYaZkuRCSmgUM2Phm5PSUNLBLCM-h8bEyZFNeR-5KlAf59kLYmNA>
-    <xmx:l0rYaYIbwiEggfomRHbA4y6xbM07-G8N1j8z8QnUSMs1swnCrRDIulwg>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 10 Apr 2026 02:55:46 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Thierry Escande <thierry.escande@vates.tech>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>,
-	Daniel P =?utf-8?B?LiBCZXJyYW5nw6k=?= <berrange@redhat.com>
-Subject: Re: [RFC PATCH v2 0/3] xl: Allow PCI devices to be passthrough'd via
- Qemu command line
-Message-ID: <adhKlLvMB6PCRhwQ@mail-itl>
-References: <20260409162000.1102680-1-thierry.escande@vates.tech>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kNdilBASwPDpbrJ3VCwijnbakOUkwxM0DfSgwIr+lLDbyFaZ2uwNGzn20O8u5Qc7YQR1WcWuLvUg9OiNcAhBhRiJiSW0pxGMw/WddfEZQUx8m4nNj+H6NyVHSAaqbqbydven9oaG8pK5SMKqtWxVrb/iMDKXKbfJkbMJtYsmz5bI+VtbTsuTUrNQxYKOJRUSDzcQ7RdmiR2oByZahbHTEvwABMnUwKWFiOnCt/TJ7BzE+ttZu5JfilA2thdEVQazUfJvARWGkjT55C5+EBvPonAFL4ZKC1vqbl0P+gfOfmmEUOGb2atEuRGjy44gBxjrW2T7XoelJLqWPCHBrH+bSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O0bsIzui3PGykH5KUbAbBQrHCdLJrm/BZtqbBEc7Y18=;
+ b=bROVlgGwh2XqbYHivaHVyuNU6WMmKmQaEvX31EhB9XZOr2+K/B73y77llm1XqOtI9dTBu+UviyBRtQ+kJYhDrVVUY0YDzqXSukmx0iUtlYVjKaFxXLSW56b1QPbxZjqMht9kKx9Ff4LgmMxa4fCiVqALO9TAinj1BqWzx+ZNCTh2+yGcZndPhEeYLS016le3Q9d/1kxCFxIfhl6YMrgF6KTUQA0OsUs8KC6RG1TVuHyyYLGzCVqkiJMefUuUCSRminogzmYhNKnS7Nv5gE2cdj79zH3zl43YCJaZxG/aoa8/OID/w0/BuygynVfHyxkyCPVtidpd7lt+H+M9OzTA7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O0bsIzui3PGykH5KUbAbBQrHCdLJrm/BZtqbBEc7Y18=;
+ b=kN3BL5nksMlTXmHuoO759eFLuBYyWMqZMf8+tV7q5MKQwZFUG1P1PXS/UER9OBLHdD/NpeLW+VHRsYiCIX7ikdiqxHEdvM90/m0G+OUu+LEUlEbaojSkpp5IHrBIOjB9PJPXnfL8OS/0Z6BEiKPjjyl4K5vbtaSyXtlv20x8q0A=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <5f543029-64bc-42af-8fce-31d911800c67@amd.com>
+Date: Thu, 9 Apr 2026 21:29:10 -0400
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="s166KNew1RMNit10"
-Content-Disposition: inline
-In-Reply-To: <20260409162000.1102680-1-thierry.escande@vates.tech>
-X-purgate-ID: tlsNG-42698a/1775782553-EE9492A1-F40B480D/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/APIC: handle overflow in TMICT calculation
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Teddy Astie
+	<teddy.astie@vates.tech>
+References: <2fa2fb41-cb62-4a1b-84cf-822b2f97bc2b@suse.com>
+Content-Language: en-US
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+In-Reply-To: <2fa2fb41-cb62-4a1b-84cf-822b2f97bc2b@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF0000150A:EE_|PH7PR12MB6587:EE_
+X-MS-Office365-Filtering-Correlation-Id: aca8fb2e-46fb-40ae-4776-08de96a0926f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	xXCET1mCsdlOgF9Yka1B/FuAQKqhtvbaVqM3cE2fX/jb1DCeGsb0Twyen0X6+hGDV/3+vni3o5tGUL0hHHnBa4Z9yWRlh73yt4qde3LjRtJkRexO/x3ejKB0ZQSIAa72SZENhQ+9i6B8nORfkyrA59R0pYbPoma9NmKtahh5s//lLW9DhwlYCulPfTunLSUNmwZM2ZrCUkszBEyHGTZHpSdHW2tj2CFEJ6T/DzgVh/Mt0r/PMC1ESnN6boMb/P7G2OkP6gPLF+P7CUrCETrTGPHbYRbFZe6xVErBHbXzmcU1u39PYD+c3QE+TMmLzqpQLRC6qB8fMBdHsAYosfyxKEJLCWzV4aTzuJWlyYXSPPNdnDvsJDvj1u5xMV7IaaGMBkRI1p2s23EeLSyfB+56ey9kpiEXMrmkGKZJOoboEapKE6CmlalRH/kl63IHdpOH0Yt0KTrz1mEqwluJPyJSToihSXvRUdC54OpYqd7s+g++FpjIKYb4xLMLGmgW1+FFU+KgXrPsKutEg/Kf7+ISwUz6B4TZpWZFhX8NXPY5YmOTDUTdOXrMrR5DtNrA5+7GuU8+9FCAtZxmg7OhlbuU0eU05Dn3y7rg7k4jIUoDGCd+MeGqxV87eMA5Pjy45ULyE6Wui+JVR/GQUt4WmiFGWUfSM9C1M1WL9vMIbItlP+yxHVhZjKuAOWjektd3mnHj+vBJYJF5VE0psrsnnnvjWEp+LWYKdfMzgKYXSVigpGMK7FiguINfFcTSYPx7EL1I4Z0FOhG40YnSIRThdU2isw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	b8oZYnfzHGnomhZ0mmgS407KCXgpP+cmayM8tJUcGXUiDJ0uCBldda0JSO56Tty15TEMtXa0t1/jfSYPY8snpmlRYSfUkNW58oxUD6TdA9hbWrt9HjF6zWsVEF9V6QUc0a2Vqh4upgkg7aiDYturzd3mT4atEnGyNwXgfIBeSoqPJqwucrR8ahU98Uc86u0halFqpBPH8+LSk55diYGVtGhAIXtw/SSvF79W5MlulBsij9nQpUo/IU2fNJyH+nRI3epwntAZdlS9R5oXyHr3roo+BK7M3jPQRGj1QeVTMmFGXJ2TeL00yxP6EMVNMLqMgIPcXxu/CN/LT859wm+mHgMqb8qK6XJQ5Q+GqPHsdKfXUjRnea5UHjUaXO7u5oC7AuKGL/fkohufjCeDJ2SXkql6UAZlAMSgg6eCmu1pfk1h80HD881jZV2d5jXXQV2g
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2026 01:29:12.8258
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aca8fb2e-46fb-40ae-4776-08de96a0926f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF0000150A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6587
+X-purgate-ID: tlsNG-16d1c6/1775784558-5C7213D8-3B2AF377/0/0
 X-purgate-type: clean
-X-purgate-size: 3228
-X-Spamd-Result: default: False [-2.78 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MID_RHS_NOT_FQDN(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+X-purgate-size: 981
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm2,messagingengine.com:s=fm2];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,m:berrange@redhat.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	MISSING_XM_UA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[amd.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: CDB993D0F06
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[stewart.hildebrand@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5]
+X-Rspamd-Queue-Id: 1D45A3D119F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+On 4/9/26 05:21, Jan Beulich wrote:
+> With an expiry value on the order of 20 hours, and with a bus scale value
 
---s166KNew1RMNit10
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 10 Apr 2026 02:55:46 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Thierry Escande <thierry.escande@vates.tech>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>,
-	Daniel P =?utf-8?B?LiBCZXJyYW5nw6k=?= <berrange@redhat.com>
-Subject: Re: [RFC PATCH v2 0/3] xl: Allow PCI devices to be passthrough'd via
- Qemu command line
+If I did my math correctly, I believe 10 hours is sufficient to trigger signed
+multiplication overflow. 20 hours would result in unsigned multiplication
+overflow.
 
-On Thu, Apr 09, 2026 at 04:20:57PM +0000, Thierry Escande wrote:
-> This series adds support for a new 'hotplug' option for PCI devices to be
-> passthrough'd to guests.
->=20
-> The current mechanism for device passthrough uses QMP device_add command
-> to hot-plug PCI devices to the guest Qemu instance. This is an issue for
-> guests running on Q35 chipset (preliminary support posted at [1]) since t=
-he
-> Q35 PCI root bus does not support hotplug. Devices could be hotplugged to
-> a secondary PCI bus but Xen only support 1 PCI bus for now.
->=20
-> The 'hotplug' option allows to control how devices are attached to the
-> guest, either by using the legacy QMP mechanism (this is the default) or =
-by
-> passing it directly to the Qemu command line using xen-pci-passthrough
-> device.
->=20
-> Example usage in cfg file:
->  pci =3D [ "00:03.0,seize=3D1,hotplug=3D0" ]
->=20
-> Since Qemu -device option accepts parameters in json format, this
-> patchset adds a new internal function libxl__device_pci_get_qmp_json() th=
-at
-> generates the device json object used for both QMP hotplug and command li=
-ne
-> passing.
-> Also, the function libxl_pci_assignable() is made available from libxl.h
-> for access in libxl_dm.c. I don't know if it's ok to make it public or if
-> it should stay private. Maybe it should be renamed as
-> libxl_device_pci_assignable() to match the other PCI device APIs.
->=20
-> This has been successfully tested on Xen 4.22-dev and Qemu 10.0 running
-> Debian VMs in both Bios and UEFI mode with a passthrough'd nvme disk.
-> Disabling the hotplug mechanism might be made mandatory for Q35 machines
-> later, once Q35 support is merged upstream.
->=20
-> [1] https://lore.kernel.org/xen-devel/20260313163455.790692-1-thierry.esc=
-ande@vates.tech/
+> of 256k (as supplied by qemu), the (signed) multiplication will be UB. As
+> we've checked that the value is positive, we mean unsigned multiplication
+> anyway. Yet let's play safe against even larger expiry and bus scale
+> values, leveraging the compiler builtin that there is for this purpose.
+> 
+> While there also drop the stray cast from the actual TMICT write.
+> 
+> Fixes: 9062553a0dc1 ("added time and accurate timer support")
+> Fixes: b95beb185810 ("x86: Clean up APIC local timer handling")
+> Reported-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-I don't see relevant device option added to the QEMU cmdline:
-https://gitlab.com/xen-project/people/marmarek/xen/-/jobs/13860278916
+Tested-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---s166KNew1RMNit10
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmnYSpQACgkQ24/THMrX
-1ywp+QgAlIu4U3xOIqcswI+Xglm1Big6NccmeqdmX5sknwC6JK5AGVuMWieGBhOb
-F+QW+jBngPMi8adN3+wHcxUsha4hm5xV8ji9WtioMe4HuMa9erDQ9Sm6vdTUH1lD
-SQBx6IN0mmFk7/sArRWaFfRlhdGmNp6MadA6pzNMsX6v2ZFK9Lc6tm4m/KyKlqcl
-vVNS+9fn6B0Fj4aH3RGv+arpOX3dOI5xW1J7tT1HUoG2hFAcye2QxhGDXlLBzcWe
-BcnRzktEaItarlKxleiohgACVC/NN3q9boiq0LsWvmb0IaviZfrumQ8WzOVqH2hK
-JYhanOTSAD+RooNtVOsekmRKhnRSlQ==
-=02cg
------END PGP SIGNATURE-----
-
---s166KNew1RMNit10--
+Thanks!
 
