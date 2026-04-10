@@ -2,51 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MOmFMyHC2Gk4hwgAu9opvQ
+	id +K2HE0fC2Gk4hwgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 11:25:53 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 11:26:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A58E3D4B5F
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 11:25:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1278549.1563341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95A803D4B8C
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 11:26:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1278558.1563350 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB87V-0006IS-8e; Fri, 10 Apr 2026 09:25:45 +0000
+	id 1wB880-0006k7-Fr; Fri, 10 Apr 2026 09:26:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1278549.1563341; Fri, 10 Apr 2026 09:25:45 +0000
+Received: by outflank-mailman (output) from mailman id 1278558.1563350; Fri, 10 Apr 2026 09:26:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB87V-0006G8-5Q; Fri, 10 Apr 2026 09:25:45 +0000
-Received: by outflank-mailman (input) for mailman id 1278549;
- Fri, 10 Apr 2026 09:25:43 +0000
+	id 1wB880-0006ho-D9; Fri, 10 Apr 2026 09:26:16 +0000
+Received: by outflank-mailman (input) for mailman id 1278558;
+ Fri, 10 Apr 2026 09:26:15 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jgross@suse.com>) id 1wB87S-0006Fw-UR
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 09:25:43 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <bounce-md_30504962.69d8c234.v1-e8385e73c0454e59839060e1a48cc0ce@bounce.vates.tech>)
+ id 1wB87z-0006gP-2s
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 09:26:15 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wB87S-004RNF-AL
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 11:25:42 +0200
-Received: from [10.42.69.8] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jgross@suse.com>)
- id 69d8c20e-bab6-0a2a0a5309dd-0a2a450897e8-22
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 11:25:42 +0200
-Received: from [209.85.218.54] (helo=mail-ej1-f54.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <jgross@suse.com>)
- id 69d8c216-fab6-0a2a45080019-d155da36c558-3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 11:25:42 +0200
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-b9d6c8871c7so177355866b.1
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 02:25:42 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
- (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
- [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9d6e7c8a4fsm61318866b.54.2026.04.10.02.25.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Apr 2026 02:25:41 -0700 (PDT)
+ id 1wB87y-00GWQO-Ej
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 11:26:14 +0200
+Received: from [10.42.69.4] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <bounce-md_30504962.69d8c234.v1-e8385e73c0454e59839060e1a48cc0ce@bounce.vates.tech>)
+ id 69d8c227-bab6-0a2a0a5309dd-0a2a4504e760-34
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 11:26:14 +0200
+Received: from [198.2.187.14] (helo=mail187-14.suw11.mandrillapp.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from
+ <bounce-md_30504962.69d8c234.v1-e8385e73c0454e59839060e1a48cc0ce@bounce.vates.tech>)
+ id 69d8c235-bb33-0a2a45040019-c602bb0ebde0-3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 11:26:14 +0200
+Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
+ by mail187-14.suw11.mandrillapp.com (Mailchimp) with ESMTP id
+ 4fsWdJ5V3kz8XS6n3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 09:26:12 +0000 (GMT)
+Received: from [37.26.189.201] by mandrillapp.com id
+ e8385e73c0454e59839060e1a48cc0ce; Fri, 10 Apr 2026 09:26:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,246 +56,502 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="In-Reply-To:Autocrypt:From:Content-Language:References:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775813142; x=1776417942; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=EUHK9ERWT2PABdE3T9P90L/Hy3+nYOVqiI1pT5huYr8=;
-        b=D7LWLP2WACVJcRzgmqmfM8J6YYz8bpdRg+T/jXCwjmUQ0/idDLeGkKBM11fZS31AIx
-         xOE/VW7oz2XQLeGTYhGpexGO13XCsV9Rh5Ut6vkW52a+RCA/jgoLqmgzxYvb4mN71fjt
-         rN9/qhyIRboFdQbgieuo5TaxC1OoSvBgP+02YrBkho9TOC0basqXs6rt2zBwgh0Ch1f4
-         DUhLOKO30lQlU7nSiK2btSUctl5aQ9fjv6GIWG0s9Pb+Nv2UU7Lqv4hKSLNu4uLGzYoB
-         NftqHRhuBb4SRdc1NbQ2iPeVAWen5XcHjMW5HsNn99dbpEhdYylcf2cCNHNXRUtU3Anc
-         5Wxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775813142; x=1776417942;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EUHK9ERWT2PABdE3T9P90L/Hy3+nYOVqiI1pT5huYr8=;
-        b=EJ68NN3gkdEeO3i4rGSzJLr/G5WQYtcpXbU33DCxxxrGKzrj9iORKiyhFDuRhguu0l
-         Ugw6IBourIH5OPt+9runqyG3E/tR8+YlOrkaTRH/TaCc2rE65JZPpAtDw17qvytGaz1/
-         2Rr70BA1pKGtWltFD99M7cbVs/K4v1fZ4X3AZvH/+behMzEMCzCuICuDN0gSzRBp88fJ
-         vuPa3pFT1Sy+rBKHakei7/DmB3D5iP5HQmaHzwVHEwrcnpg8bkYU39peuWZDMm+paJkB
-         O8I/1yHm5+8Wd8q60MZYBVpCbauByxIqPy6hLof1N3Yp2CTIXwooR1+k6NaoBjs5wJl3
-         ezFA==
-X-Forwarded-Encrypted: i=1; AJvYcCXbNNTlc3Q3E/tM9nhkxRNJwtHs5KS7aasyJC1y7KTtK0wMeyPhZzZrV42420ZkgNunL8MtXmQYK5w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyCzH53/yaUAuPKttZquii0XcbB2ZSpAYWBWOPA7zJsZq46qy88
-	jd2hy52k09elPRO/HfY/nmoK+n8vnVckOnw1iJFPNvlOMuV73+hy/h8EW3CvBn/ICOhXVxN2DFB
-	hG9Vxxcc=
-X-Gm-Gg: AeBDieuBKPw/hnpf2/jH3h8dXxbJ1ZDa6z0XBg6/aHi8ZZO/r3th73DSIeaej4mdaME
-	OXkRoFsgtygU4azdYB1WHfPwqg6knmlWmuLv7PmN02yyK4dxcQl7IZm3Rttstxnv638b2Iid/wb
-	VYpDFnB3CbS+WT5kGfxXYNzS9yujBLIVTtrdPOoreneKfSF+JXtKhC0TxUfSfv6gO/YE8LjxOza
-	RKGL+4JMVj4h5+Xl3ZP8VCZ7JhyCSnZxeVvvzr/B6aRgTcizh4yRdnCLA0Y9t8EFMjCwxJuuqWA
-	GMbzbhsnqGkjornum9C6pJqktyArefjuE4lziJUGLN7qYYvY1XJLA4+eh7xUPD2lyADGTOqIMq7
-	YwQ7SQicL04jgi3MCmVYGqqswuaGWrvgPuWIDfBNFFXfsTUM4d5N4C3zbLOoWODqV4XWpBwy/Qn
-	9NR6g8oM5PtLTr6hxOpoDqgaqSfbGDTjAYDKqJ3mfnIDQcm0DnyeahplBuwvwZnR6WrA3n1BjQv
-	DAioFN7b3LwUxZgsQwgKioRt/NNh0kNmWNZmXhQ8erUhpa1gBMUCw==
-X-Received: by 2002:a17:907:a4b:b0:b99:7462:3c57 with SMTP id a640c23a62f3a-b9d7248408cmr154529666b.14.1775813141415;
-        Fri, 10 Apr 2026 02:25:41 -0700 (PDT)
-Message-ID: <e4560dce-a95b-405b-b637-b75ec15497d7@suse.com>
-Date: Fri, 10 Apr 2026 11:25:40 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mte1 header.d=mandrillapp.com header.i="@mandrillapp.com" header.h="From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"; dkim=pass header.s=mte1 header.d=vates.tech header.i="teddy.astie@vates.tech" header.h="From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
+	s=mte1; t=1775813172; x=1776083172;
+	bh=MN57+wFD3YMSu+hnCyiMaTNNIg+kDpL+iSz3lyloMgY=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=XrES4pPDXzksgmBdmieUdtHN8sQsbJj5U/zSq7eNeArp9prDarQjFYnRGzfRPi5Kc
+	 8hS6TyjTUTOVal2D6ZJhxrK7WK03TgTavVq1kKBvjfD/opN6tffBmIWqHfh52N0n3B
+	 yFzIgkCxyMmaRIRU0oKiqi0gElQaZ0dctbaM3iyH3CICyn7LEAl7aINqeIp1GwdVYe
+	 QcR7IqwIY1EFw9m99RzeSnvXvCo4DEzCgSxUWQKJVfVduq+nUKtEyF3hc2XtVHL2bb
+	 kWuiNVfWAsRu0LvxD/kiAfB3BJESZKIEgWeJhAN6+v9v96tk9tkSQvvpTUiv7gDNfN
+	 mVqWZ4iVNQFFg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
+	t=1775813172; x=1776073672; i=teddy.astie@vates.tech;
+	bh=MN57+wFD3YMSu+hnCyiMaTNNIg+kDpL+iSz3lyloMgY=;
+	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
+	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
+	 Subject:From;
+	b=t0OteAOWCBimQDuo67L8ZJdOdmYFdhqYVKAD83HzR053udULN6UB1jtUbiw7rjZaN
+	 7lbbew+67tzLXULPJvZshon0yjVxQCnLkUv2D5w8Bk7urQI6KZ0zjE9s0FX8Uv3slL
+	 trB+sHMRUOocs7wtJOZtu7QZSIQ0BnNaQYfT1Ln7cY0Mmv6H8q7P5H54EcwmwW15FU
+	 yoVS11ozG6M0U40PRWZir0wzITeKB8MAuMTNQDWd2v51ykHqoJmydso69zLwiL7V/W
+	 LFOq5CtqaLElKEbsvVVAh+0r3NCEx7YV1UIKM6KXdmv11f5QBsRkcNXdrHTajF8rlw
+	 3caNT0vJmQYSQ==
+From: "Teddy Astie" <teddy.astie@vates.tech>
+Subject: =?utf-8?Q?Re:=20[PATCH=20v4=2000.9/16]=20x86/CPUID:=20enable=20AVX10=20leaf?=
+X-Bm-Disclaimer: Yes
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1775813171619
+Message-Id: <029ab247-b8a1-4961-80ab-5b13e5c7aa77@vates.tech>
+To: "Jan Beulich" <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+Cc: "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
+References: <1e2ff012-b07a-43be-9ba6-290b38d3c97c@suse.com> <bdf60f69-6d1f-4332-9575-671d475c542e@suse.com>
+In-Reply-To: <bdf60f69-6d1f-4332-9575-671d475c542e@suse.com>
+X-Native-Encoded: 1
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.e8385e73c0454e59839060e1a48cc0ce?=
+X-Mandrill-User: md_30504962
+Feedback-ID: 30504962:30504962.20260410:md
+Date: Fri, 10 Apr 2026 09:26:12 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] hypfs: remove unreachable statement in the
- 'hypfs_get_entry_rel()'
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <341811ced2943fb79d0235c27781c564c7bdaf02.1775749146.git.dmytro_prokopchuk1@epam.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <341811ced2943fb79d0235c27781c564c7bdaf02.1775749146.git.dmytro_prokopchuk1@epam.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------U4sdEceuh3JojFJ0MTcwOkSx"
-X-purgate-ID: tlsNG-c1860d/1775813142-F674E497-C5A0D6C6/0/0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-ebf023/1775813174-B0B2851B-190ED84D/0/0
 X-purgate-type: clean
-X-purgate-size: 6740
-X-Spamd-Result: default: False [-1.25 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	R_MIXED_CHARSET(0.83)[subject];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-purgate-size: 15738
+X-Spamd-Result: default: False [3.51 / 15.00];
+	URIBL_GREY(2.50)[mandrillapp.com:dkim];
+	SUBJ_EXCESS_QP(1.20)[];
 	MAILLIST(-0.18)[generic];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
+	BAD_REP_POLICIES(0.10)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	FORGED_RECIPIENTS(0.00)[m:dmytro_prokopchuk1@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mandrillapp.com:dkim,suse.com:email];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	HAS_ATTACHMENT(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.927];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_THREE(0.00)[4];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 2A58E3D4B5F
+X-Rspamd-Queue-Id: 95A803D4B8C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------U4sdEceuh3JojFJ0MTcwOkSx
-Content-Type: multipart/mixed; boundary="------------xlY21cHbPB44Bz9083xxDk0N";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <e4560dce-a95b-405b-b637-b75ec15497d7@suse.com>
-Subject: Re: [PATCH] hypfs: remove unreachable statement in the
- 'hypfs_get_entry_rel()'
-References: <341811ced2943fb79d0235c27781c564c7bdaf02.1775749146.git.dmytro_prokopchuk1@epam.com>
-In-Reply-To: <341811ced2943fb79d0235c27781c564c7bdaf02.1775749146.git.dmytro_prokopchuk1@epam.com>
+Le 09/04/2026 =C3=A0 17:18, Jan Beulich a =C3=A9crit=C2=A0:
+> This requires bumping the number of basic leaves we support. Apart from
+> this the logic is modeled as closely as possible after that of leaf 7
+> handling.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> The gen-cpuid.py adjustment is merely the minimum needed. It's not
+> really clear to me whether someone turning off e.g. AVX512BW might then
+> also validly expect AVX10 to be turned off.
+> 
 
---------------xlY21cHbPB44Bz9083xxDk0N
-Content-Type: multipart/mixed; boundary="------------g1D5yj02SAeTsyFXJAmO900y"
+AFAIUI, AVX512BW is a dependency of AVX10, as AVX10 implies that the 
+former is available.
 
---------------g1D5yj02SAeTsyFXJAmO900y
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> Do we want to synthesize AVX10 in the (max?) policies when all necessary
+> AVX512* features are available, thus allowing migration from an AVX10
+> host to a suitable non-AVX10 one?
+> 
 
-T24gMDkuMDQuMjYgMTc6NTUsIERteXRybyBQcm9rb3BjaHVrMSB3cm90ZToNCj4gVGhlIHN0
-YXRlbWVudCAncmV0dXJuIEVSUl9QVFIoLUVOT0VOVCk7JyBvbiB0aGUgZmluYWwgbGluZSBv
-ZiB0aGUgZnVuY3Rpb24NCj4gJ2h5cGZzX2dldF9lbnRyeV9yZWwoKScgaXMgdW5yZWFjaGFi
-bGUgYmVjYXVzZSB0aGUgbG9naWMgd2l0aGluIHRoZSBpbmZpbml0ZQ0KPiBsb29wICdmb3Ig
-KDs7KScgcHJvdmlkZXMgYWxsIHBvc3NpYmxlIGV4aXQgcGF0aHMgZm9yIHRoZSBmdW5jdGlv
-bi4gU28gdGhlcmUNCj4gaXMgbm8gZXhlY3V0aW9uIHBhdGggdG8gZXhpdCB0aGUgbG9vcCBh
-bmQgcmVhY2ggdGhlIGZpbmFsIHRoYXQgc3RhdGVtZW50Lg0KPiANCj4gUmVtb3ZlIHRoYXQg
-c3RhdGVtZW50LiBUaGlzIGFsc28gZml4ZXMgTUlTUkEgQyBSdWxlIDIuMSB3aGljaCBzdGF0
-ZXM6DQo+ICJBIHByb2plY3Qgc2hhbGwgbm90IGNvbnRhaW4gdW5yZWFjaGFibGUgY29kZSIu
-DQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBEbXl0cm8gUHJva29wY2h1ayA8ZG15dHJvX3Byb2tv
-cGNodWsxQGVwYW0uY29tPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3Nz
-QHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
---------------g1D5yj02SAeTsyFXJAmO900y
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+I guess we want, there is not really a reason to not allow it.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Some software may check for AVX10 only, and not check for individual 
+AVX512 bits.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+> The prior vsz<N> bits are now defined as reserved-at-1: No idea yet how
+> to represent this properly.
+> 
+> How a toolstack side equivalent (if any) of the init_dom0_cpuid_policy()
+> change would look like is entirely unclear to me. How much should we
+> take from the max policy, and how much should we permit/require the user
+> to specify (and how would the latter look like)?
+> 
+> While, as per a comment next to the call site of
+> recalculate_cpuid_policy(), recalculate_*() are supposed to go away when
+> x86_cpu_policies_are_compatible() is complete, some of the checking done
+> in recalculate_misc() really wouldn't below there. We'd need another "is
+> self-consistent" checking function.
+> ---
+> v4: Drop all traces of AVX10/256. Add max_subleaf check to
+>      x86_cpu_policies_are_compatible(). Add/adjust vsz<N> checks in
+>      recalculate_misc(). In the max policies, synthesize AVX512* when
+>      AVX10 is available.
+> v3: Re-base.
+> v2: Add logic to init_dom0_cpuid_policy(). Drop vsz128 field. Re-base.
+> 
+> --- a/xen/arch/x86/cpu-policy.c
+> +++ b/xen/arch/x86/cpu-policy.c
+> @@ -211,7 +211,7 @@ static void recalculate_xstate(struct cp
+>       if ( p->feat.mpx )
+>           xstates |=3D X86_XCR0_BNDREGS | X86_XCR0_BNDCSR;
+>   
+> -    if ( p->feat.avx512f )
+> +    if ( p->feat.avx512f || p->feat.avx10 )
 
---------------g1D5yj02SAeTsyFXJAmO900y--
+In principle, the avx10 check is redundant as avx512f must be set if 
+avx10 is set.
 
---------------xlY21cHbPB44Bz9083xxDk0N--
+>           xstates |=3D X86_XCR0_OPMASK | X86_XCR0_ZMM | X86_XCR0_HI_ZMM;
+>   
+>       if ( p->feat.pku )
+> @@ -272,6 +272,18 @@ static void recalculate_misc(struct cpu_
+>   
+>       p->basic.raw[0xc] =3D EMPTY_LEAF;
+>   
+> +    zero_leaves(p->basic.raw, 0xe, 0x23);
+> +
+> +    p->avx10.raw[0].b &=3D 0x000700ff;
+> +    p->avx10.raw[0].c =3D 0;
+> +    p->avx10.raw[0].d =3D 0;
+> +    if ( !p->feat.avx10 || !p->avx10.version ||
+> +         !p->avx10.vsz512 || !p->avx10.vsz256 || !p->avx10.vsz128 )
+> +    {
+> +        p->feat.avx10 =3D false;
+> +        memset(p->avx10.raw, 0, sizeof(p->avx10.raw));
+> +    }
+> +
+>       p->extd.e1d &=3D ~CPUID_COMMON_1D_FEATURES;
+>   
+>       /* Most of Power/RAS hidden from guests. */
+> @@ -400,6 +412,7 @@ static void __init guest_common_max_leav
+>   {
+>       p->basic.max_leaf       =3D ARRAY_SIZE(p->basic.raw) - 1;
+>       p->feat.max_subleaf     =3D ARRAY_SIZE(p->feat.raw) - 1;
+> +    p->avx10.max_subleaf    =3D ARRAY_SIZE(p->avx10.raw) - 1;
+>       p->extd.max_leaf        =3D 0x80000000U + ARRAY_SIZE(p->extd.raw) -=
+ 1;
+>   }
+>   
+> @@ -408,6 +421,7 @@ static void __init guest_common_default_
+>   {
+>       p->basic.max_leaf       =3D host_cpu_policy.basic.max_leaf;
+>       p->feat.max_subleaf     =3D host_cpu_policy.feat.max_subleaf;
+> +    p->avx10.max_subleaf    =3D host_cpu_policy.avx10.max_subleaf;
+>       p->extd.max_leaf        =3D host_cpu_policy.extd.max_leaf;
+>   }
+>   
+> @@ -503,6 +517,28 @@ static void __init guest_common_max_feat
+>        * function correctly when migrated here, even if ERMS isn't availa=
+ble.
+>        */
+>       __set_bit(X86_FEATURE_ERMS, fs);
+> +
+> +    /*
+> +     * AVX10 is merely a re-declaration of a combination of AVX512 featu=
+res.
+> +     * Synthesize the latter from the former, when available.  Doing it =
+the
+> +     * other way around would also require synthesizing the AVX10 CPUID =
+leaf.
+> +     */
+> +    if ( test_bit(X86_FEATURE_AVX10, fs) )
+> +    {
+> +        __set_bit(X86_FEATURE_AVX512F, fs);
+> +        __set_bit(X86_FEATURE_AVX512VL, fs);
+> +        __set_bit(X86_FEATURE_AVX512BW, fs);
+> +        __set_bit(X86_FEATURE_AVX512DQ, fs);
+> +        __set_bit(X86_FEATURE_AVX512_BF16, fs);
+> +        __set_bit(X86_FEATURE_AVX512_FP16, fs);
+> +        __set_bit(X86_FEATURE_AVX512CD, fs);
+> +        __set_bit(X86_FEATURE_AVX512_BITALG, fs);
+> +        __set_bit(X86_FEATURE_AVX512_IFMA, fs);
+> +        __set_bit(X86_FEATURE_AVX512_VBMI, fs);
+> +        __set_bit(X86_FEATURE_AVX512_VBMI2, fs);
+> +        __set_bit(X86_FEATURE_AVX512_VNNI, fs);
+> +        __set_bit(X86_FEATURE_AVX512_VPOPCNTDQ, fs);
+> +    }
+>   }
+>   
+>   static void __init guest_common_default_feature_adjustments(uint32_t *f=
+s)
+> @@ -966,6 +1002,7 @@ void recalculate_cpuid_policy(struct dom
+>   
+>       p->basic.max_leaf   =3D min(p->basic.max_leaf,   max->basic.max_lea=
+f);
+>       p->feat.max_subleaf =3D min(p->feat.max_subleaf, max->feat.max_subl=
+eaf);
+> +    p->avx10.max_subleaf =3D min(p->avx10.max_subleaf, max->avx10.max_su=
+bleaf);
+>       p->extd.max_leaf    =3D 0x80000000U | min(p->extd.max_leaf & 0xffff=
+,
+>                                               ((p->x86_vendor & (X86_VEND=
+OR_AMD |
+>                                                                  X86_VEND=
+OR_HYGON))
+> @@ -1012,6 +1049,8 @@ void recalculate_cpuid_policy(struct dom
+>   
+>       if ( p->basic.max_leaf < XSTATE_CPUID )
+>           __clear_bit(X86_FEATURE_XSAVE, fs);
+> +    if ( p->basic.max_leaf < 0x24 )
+> +        __clear_bit(X86_FEATURE_AVX10, fs);
+>   
+>       sanitise_featureset(fs);
+>   
+> @@ -1081,9 +1120,18 @@ void __init init_dom0_cpuid_policy(struc
+>       /* Apply dom0-cpuid=3D command line settings, if provided. */
+>       if ( dom0_cpuid_cmdline )
+>       {
+> +        const struct cpu_policy *max =3D is_pv_domain(d)
+> +            ? (IS_ENABLED(CONFIG_PV)  ?  &pv_max_cpu_policy : NULL)
+> +            : (IS_ENABLED(CONFIG_HVM) ? &hvm_max_cpu_policy : NULL);
+>           uint32_t fs[FSCAPINTS];
+>           unsigned int i;
+>   
+> +        if ( !max )
+> +        {
+> +            ASSERT_UNREACHABLE();
+> +            return;
+> +        }
+> +
+>           x86_cpu_policy_to_featureset(p, fs);
+>   
+>           for ( i =3D 0; i < ARRAY_SIZE(fs); ++i )
+> @@ -1093,6 +1141,13 @@ void __init init_dom0_cpuid_policy(struc
+>           }
+>   
+>           x86_cpu_featureset_to_policy(fs, p);
+> +
+> +        /*
+> +         * Default-off features with their own leaves need those leaves
+> +         * re-populated from the max policy.
+> +         */
+> +        if ( p->feat.avx10 )
+> +            p->avx10 =3D max->avx10;
+>       }
+>   
+>       /*
+> @@ -1125,6 +1180,8 @@ static void __init __maybe_unused build_
+>                    sizeof(raw_cpu_policy.feat.raw));
+>       BUILD_BUG_ON(sizeof(raw_cpu_policy.xstate) !=3D
+>                    sizeof(raw_cpu_policy.xstate.raw));
+> +    BUILD_BUG_ON(sizeof(raw_cpu_policy.avx10) !=3D
+> +                 sizeof(raw_cpu_policy.avx10.raw));
+>       BUILD_BUG_ON(sizeof(raw_cpu_policy.extd) !=3D
+>                    sizeof(raw_cpu_policy.extd.raw));
+>   }
+> --- a/xen/arch/x86/cpuid.c
+> +++ b/xen/arch/x86/cpuid.c
+> @@ -226,6 +226,15 @@ void guest_cpuid(const struct vcpu *v, u
+>               *res =3D array_access_nospec(p->xstate.raw, subleaf);
+>               break;
+>   
+> +        case 0x24:
+> +            ASSERT(p->avx10.max_subleaf < ARRAY_SIZE(p->avx10.raw));
+> +            if ( subleaf > min_t(uint32_t, p->avx10.max_subleaf,
+> +                                 ARRAY_SIZE(p->avx10.raw) - 1) )
+> +                return;
+> +
+> +            *res =3D array_access_nospec(p->avx10.raw, subleaf);
+> +            break;
+> +
+>           default:
+>               *res =3D array_access_nospec(p->basic.raw, leaf);
+>               break;
+> --- a/xen/arch/x86/lib/cpu-policy/copy-to-buffer.c
+> +++ b/xen/arch/x86/lib/cpu-policy/copy-to-buffer.c
+> @@ -123,6 +123,13 @@ int x86_cpuid_copy_to_buffer(const struc
+>               break;
+>           }
+>   
+> +        case 0x24:
+> +            for ( subleaf =3D 0;
+> +                  subleaf <=3D MIN(p->avx10.max_subleaf,
+> +                                 ARRAY_SIZE(p->avx10.raw) - 1); ++sublea=
+f )
+> +                COPY_LEAF(leaf, subleaf, &p->avx10.raw[subleaf]);
+> +            break;
+> +
+>           default:
+>               COPY_LEAF(leaf, XEN_CPUID_NO_SUBLEAF, &p->basic.raw[leaf]);
+>               break;
+> --- a/xen/arch/x86/lib/cpu-policy/copy-from-buffer.c
+> +++ b/xen/arch/x86/lib/cpu-policy/copy-from-buffer.c
+> @@ -108,6 +108,13 @@ int x86_cpuid_copy_from_buffer(struct cp
+>                   array_access_nospec(p->xstate.raw, data.subleaf) =3D l;
+>                   break;
+>   
+> +            case 0x24:
+> +                if ( data.subleaf >=3D ARRAY_SIZE(p->avx10.raw) )
+> +                    goto out_of_range;
+> +
+> +                array_access_nospec(p->avx10.raw, data.subleaf) =3D l;
+> +                break;
+> +
+>               default:
+>                   if ( data.subleaf !=3D XEN_CPUID_NO_SUBLEAF )
+>                       goto out_of_range;
+> --- a/xen/arch/x86/lib/cpu-policy/cpuid.c
+> +++ b/xen/arch/x86/lib/cpu-policy/cpuid.c
+> @@ -125,6 +125,7 @@ void x86_cpu_policy_fill_native(struct c
+>           switch ( i )
+>           {
+>           case 0x4: case 0x7: case 0xb: case 0xd:
+> +        case 0x24:
+>               /* Multi-invocation leaves.  Deferred. */
+>               continue;
+>           }
+> @@ -218,6 +219,15 @@ void x86_cpu_policy_fill_native(struct c
+>           }
+>       }
+>   
+> +    if ( p->basic.max_leaf >=3D 0x24 )
+> +    {
+> +        cpuid_count_leaf(0x24, 0, &p->avx10.raw[0]);
+> +
+> +        for ( i =3D 1; i <=3D MIN(p->avx10.max_subleaf,
+> +                              ARRAY_SIZE(p->avx10.raw) - 1); ++i )
+> +            cpuid_count_leaf(0x24, i, &p->avx10.raw[i]);
 
---------------U4sdEceuh3JojFJ0MTcwOkSx
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+Do we need to split the 0 iteration out ? I guess we can just start from 
+i =3D 0 instead.
 
------BEGIN PGP SIGNATURE-----
+> +    }
+> +
+>       /* Extended leaves. */
+>       cpuid_leaf(0x80000000U, &p->extd.raw[0]);
+>       for ( i =3D 1; i <=3D MIN(p->extd.max_leaf & 0xffffU,
+> @@ -287,6 +297,9 @@ void x86_cpu_policy_clear_out_of_range_l
+>                       ARRAY_SIZE(p->xstate.raw) - 1);
+>       }
+>   
+> +    if ( p->basic.max_leaf < 0x24 )
+> +        memset(p->avx10.raw, 0, sizeof(p->avx10.raw));
+> +
+>       zero_leaves(p->extd.raw,
+>                   ((p->extd.max_leaf >> 16) =3D=3D 0x8000
+>                    ? (p->extd.max_leaf & 0xffff) + 1 : 0),
+> @@ -299,6 +312,8 @@ void __init x86_cpu_policy_bound_max_lea
+>           min_t(uint32_t, p->basic.max_leaf, ARRAY_SIZE(p->basic.raw) - 1=
+);
+>       p->feat.max_subleaf =3D
+>           min_t(uint32_t, p->feat.max_subleaf, ARRAY_SIZE(p->feat.raw) - =
+1);
+> +    p->avx10.max_subleaf =3D
+> +        min_t(uint32_t, p->avx10.max_subleaf, ARRAY_SIZE(p->avx10.raw) -=
+ 1);
+>       p->extd.max_leaf =3D 0x80000000U | min_t(uint32_t, p->extd.max_leaf=
+ & 0xffff,
+>                                              ARRAY_SIZE(p->extd.raw) - 1)=
+;
+>   }
+> @@ -326,6 +341,8 @@ void x86_cpu_policy_shrink_max_leaves(st
+>        */
+>       p->basic.raw[0xd] =3D p->xstate.raw[0];
+>   
+> +    p->basic.raw[0x24] =3D p->avx10.raw[0];
+> +
+>       for ( i =3D p->basic.max_leaf; i; --i )
+>           if ( p->basic.raw[i].a | p->basic.raw[i].b |
+>                p->basic.raw[i].c | p->basic.raw[i].d )
+> --- a/xen/arch/x86/lib/cpu-policy/policy.c
+> +++ b/xen/arch/x86/lib/cpu-policy/policy.c
+> @@ -24,6 +24,10 @@ int x86_cpu_policies_are_compatible(cons
+>       if ( guest->feat.max_subleaf > host->feat.max_subleaf )
+>           FAIL_CPUID(7, 0);
+>   
+> +    if ( guest->avx10.version > host->avx10.version ||
+> +         guest->avx10.max_subleaf > host->avx10.max_subleaf )
+> +        FAIL_CPUID(0x24, 0);
+> +
+>       if ( guest->extd.max_leaf > host->extd.max_leaf )
+>           FAIL_CPUID(0x80000000U, NA);
+>   
+> --- a/xen/include/public/arch-x86/cpufeatureset.h
+> +++ b/xen/include/public/arch-x86/cpufeatureset.h
+> @@ -366,6 +366,7 @@ XEN_CPUFEATURE(PREFETCHI,          15*32
+>   XEN_CPUFEATURE(USER_MSR,           15*32+15) /*s  U{RD,WR}MSR Instructi=
+ons */
+>   XEN_CPUFEATURE(UIRET_UIF,          15*32+17) /*   UIRET updates UIF */
+>   XEN_CPUFEATURE(CET_SSS,            15*32+18) /*   CET Supervisor Shadow=
+ Stacks safe to use */
+> +XEN_CPUFEATURE(AVX10,              15*32+19) /*   AVX10 Converged Vector=
+ ISA */
+>   XEN_CPUFEATURE(SLSM,               15*32+24) /*   Static Lockstep Mode =
+*/
+>   
+>   /* Intel-defined CPU features, MSR_ARCH_CAPS 0x10a.eax, word 16 */
+> --- a/xen/include/xen/lib/x86/cpu-policy.h
+> +++ b/xen/include/xen/lib/x86/cpu-policy.h
+> @@ -59,11 +59,12 @@ unsigned int x86_cpuid_lookup_vendor(uin
+>    */
+>   const char *x86_cpuid_vendor_to_str(unsigned int vendor);
+>   
+> -#define CPUID_GUEST_NR_BASIC      (0xdu + 1)
+> +#define CPUID_GUEST_NR_BASIC      (0x24u + 1)
+>   #define CPUID_GUEST_NR_CACHE      (5u + 1)
+>   #define CPUID_GUEST_NR_FEAT       (2u + 1)
+>   #define CPUID_GUEST_NR_TOPO       (1u + 1)
+>   #define CPUID_GUEST_NR_XSTATE     (62u + 1)
+> +#define CPUID_GUEST_NR_AVX10      (0u + 1)
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmnYwhQFAwAAAAAACgkQsN6d1ii/Ey8z
-HAf+NhzYRx94dG9zbgM1XpN1rDftOKb58I7HKBIiOdU6DjkWRYqqAKo3wDOR8mY2bh1KuEEnqrSj
-kRuofJlSXq/y6qaa/Hy3EC67OBZNS8YpZSYvLN/c4gwex0hKOj3PQ358MZAHYrYnjdVQwj1e/vVZ
-9drk8L79r1Y5Ju3hOsaaxnmuQrZ7Ke2ldfiRMhczdlwuiG0w468ZolJCemU2JVde8fUBMp+qbTDp
-uvxIbtxZHQ2WUBKKKp5TBle93PibGPID9Mb3kzvTDDdDDFQjedJ5nx0D8rfjzxJVflZTWEUrgBEj
-KbsGpIlM01JVSGhlhHVcH25enJE3Eq2lyUymf7FXeQ==
-=9KXw
------END PGP SIGNATURE-----
+Intel specification now defines AVX10.2 which has a additional leaf 
+(even though the whole leaf is currently marked as "reserved").
 
---------------U4sdEceuh3JojFJ0MTcwOkSx--
+>   #define CPUID_GUEST_NR_EXTD_INTEL (0x8u + 1)
+>   #define CPUID_GUEST_NR_EXTD_AMD   (0x21u + 1)
+>   #define CPUID_GUEST_NR_EXTD       MAX(CPUID_GUEST_NR_EXTD_INTEL, \
+> @@ -264,6 +265,19 @@ struct cpu_policy
+>           } comp[CPUID_GUEST_NR_XSTATE];
+>       } xstate;
+>   
+> +    /* Structured AVX10 information leaf: 0x000000024[xx] */
+> +    union {
+> +        struct cpuid_leaf raw[CPUID_GUEST_NR_AVX10];
+> +        struct {
+> +            /* Subleaf 0. */
+> +            uint32_t max_subleaf;
+> +            uint32_t version:8, :8;
+> +            bool vsz128:1, vsz256:1, vsz512:1;
+> +            uint32_t :13;
+> +            uint32_t /* c */:32, /* d */:32;
+> +        };
+> +    } avx10;
+> +
+>       /* Extended leaves: 0x800000xx */
+>       union {
+>           struct cpuid_leaf raw[CPUID_GUEST_NR_EXTD];
+> --- a/xen/tools/gen-cpuid.py
+> +++ b/xen/tools/gen-cpuid.py
+> @@ -294,7 +294,7 @@ def crunch_numbers(state):
+>           # enabled.  Certain later extensions, acting on 256-bit vectors=
+ of
+>           # integers, better depend on AVX2 than AVX.
+>           AVX2: [AVX512F, VAES, VPCLMULQDQ, AVX_VNNI, AVX_IFMA, AVX_VNNI_=
+INT8,
+> -               AVX_VNNI_INT16, SHA512, SM4],
+> +               AVX_VNNI_INT16, SHA512, SM4, AVX10],
+>   
+
+I think we can instead make AVX10 a dependency on AVX512. Especially since
+
+ > Any processor that enumerates support for Intel AVX10 will also 
+enumerate support for Intel AVX, Intel AVX2, and Intel AVX-512 (see 
+Table 16-2).
+
+with AVX-512 depending on AVX2.
+
+>           # AVX512F is taken to mean hardware support for 512bit register=
+s
+>           # (which in practice depends on the EVEX prefix to encode) as w=
+ell
+> 
+> 
+
+
+
+--
+Teddy Astie | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vates.tech
+
+
 
