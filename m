@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cHpDO12b2GkgfggAu9opvQ
+	id 8CifBqCf2GnegAgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 08:40:29 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 08:58:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5673A3D2DC3
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 08:40:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1278363.1563224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F4B03D300B
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2026 08:58:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1278371.1563232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB5XG-0005GZ-F1; Fri, 10 Apr 2026 06:40:10 +0000
+	id 1wB5oH-00074G-QM; Fri, 10 Apr 2026 06:57:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1278363.1563224; Fri, 10 Apr 2026 06:40:10 +0000
+Received: by outflank-mailman (output) from mailman id 1278371.1563232; Fri, 10 Apr 2026 06:57:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wB5XG-0005Ey-C8; Fri, 10 Apr 2026 06:40:10 +0000
-Received: by outflank-mailman (input) for mailman id 1278363;
- Fri, 10 Apr 2026 06:40:09 +0000
+	id 1wB5oH-00072N-Nr; Fri, 10 Apr 2026 06:57:45 +0000
+Received: by outflank-mailman (input) for mailman id 1278371;
+ Fri, 10 Apr 2026 06:57:43 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wB5XF-0005Es-3U
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 06:40:09 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wB5oF-00072H-Dl
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 06:57:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wB5XD-00Ay3M-VX
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 08:40:07 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wB5oE-007iaH-2z
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2026 08:57:42 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69d89b3f-2eae-0a2a0a5409dd-0a2a4503cf82-30
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 08:40:07 +0200
-Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69d89f5c-2eae-0a2a0a5409dd-0a2a450bbb04-46
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 08:57:41 +0200
+Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <jbeulich@suse.com>)
- id 69d89b47-02b3-0a2a45030019-d155dd2ca8be-3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 08:40:07 +0200
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-43b949bf4easo961306f8f.0
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 23:40:07 -0700 (PDT)
+ id 69d89f65-bca8-0a2a450b0019-d1558034cd63-3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2026 08:57:41 +0200
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-48896199cbaso17642605e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2026 23:57:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d63e5d85fsm4346745f8f.36.2026.04.09.23.40.06
+ ffacd0b85a97d-43d63deb904sm5559337f8f.9.2026.04.09.23.57.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Apr 2026 23:40:06 -0700 (PDT)
+ Thu, 09 Apr 2026 23:57:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,56 +58,60 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1775803207; x=1776408007; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1775804261; x=1776409061; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=e/IPyXzqdpbTutGWDnypeB9UGv93dbAo3m2Ajd7h1s4=;
-        b=Uh+rjmN7s2CA/WCB7YA/fglFuSrXegAVc0n6TaInuSioiaNUB1Noca9EyFpis4g8la
-         0q6fdCLpgVa4XluR1ZcIvFlZ6VYYfX/RHWuT6IzFSQFBEzldH0aE00fvRLx+3Y2sPpln
-         M3FYfjo3/i8OfNa75dI32V2Zm052vCVLVmnFw8eGJ7STsjwjBlC2fYd8l105VRkLLRtF
-         N152HdvAM5szKob0Tmxia6x62XoCxQH73KLmsk3Jf/GLdOKxFFunZV1q4+guR3oh4QHz
-         K8yQo18oirA2vHEiYFtXLRlhb1zTwrR0xUZBSeLOgO4nh4qz5Hr6q0pqkJZklBi44SZK
-         8JyQ==
+        bh=f1uZRKE0vMOsIRtnx7CSz/HSJXcNTmDwzx0blnuaCuA=;
+        b=dODGtxWc5tvevES785vqt660wSDJh4pm19H/Us/Rc/9FBGIAZF0mgz9sDDOlYuYvym
+         ei5CsTooh0c8kTyjfRmmH4GXoZwt9rrXwfgohNgXGMOfFqQbWOFvtCifsQvj10uceC52
+         Ip7SZDdRaoSxW54icSEVkLcF2fpTLrFcrobYepdz/YP7Mq8OBJk/V0IAaikqJrFTaeFC
+         XVU6yXVr93ndqZ71b3ypUaFgwTrhIvFLQx/yhTrameHCu3dDAcs5ITWFCC+g9s84+ulV
+         7Ao6f9qyZXbEp7ot+kOT0eTb97A/MenJqk0BwzO1XxrftG6P4WckB+Fu3UuSFiEif9ns
+         iU5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1775803207; x=1776408007;
+        d=1e100.net; s=20251104; t=1775804261; x=1776409061;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=e/IPyXzqdpbTutGWDnypeB9UGv93dbAo3m2Ajd7h1s4=;
-        b=QDvCgFkTQWOUmEfVRH5VEYwPtzSuOILAKH9jOmhPeYxjKYnr8derKFNkX50RQqLQLn
-         UnMm40v0PuHTGJ/IRuJc5l/MvVjVMKyLNPoHKF6HBw6g0RC7obLjrj3vq+j0BeY6UBSV
-         MTTIRkIgDI0oGlFLQz4S8VT42VANWORSUPUiQspF6OoyFoP5ghHpduQWqb+ScXTdE53G
-         1nFe5Wznr7J2O6TS0TgL1vxmFpVCpcqZAZqoCA/mKwl+YIkNCQ5nNSKUDrsPqhUV1lQ8
-         yavfe1jY7rGPs/3REbVwwn7XMxgdFiHGo0uu8KyPhS9CWHaFw8csS6qyvIFjvkhHl5c2
-         nw4g==
-X-Forwarded-Encrypted: i=1; AJvYcCXMepbMZQuCcS3bGqOuEJvv6Lbie/x0a4DNoRTwBOrAElj/DeeT1DA3W1TECn7HHss29mDh5uoLY8w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxhcEftIZvbe/8bFjmce7h3EsYxjPQTG8yPRtLARx9GVhwgaKq7
-	CH6W4XDQIDWouIT82T92QBHUpN756Z5/+WXP+2yi+9ukLvgOHtY8JaTfVvGWYftt5w==
-X-Gm-Gg: AeBDiesrK4N9siLfSabPT+EAiKKCUJPqDonxb/XxUlnajqjpLVGuNI7/UGPMGYxj++k
-	Mgjusbvm/WIqMjh4fZdewU9YxeVn4vWWYN3Z0lNWnZtqB5rE/Kr2ypueRxdzNdrDgekDlSKNH1U
-	1pafYji7Ezz2CrqphVDx86GFeL7hxetuRYFJdsz5vy/5iycOiTDA/xzI1Kpl8/RQLqP1jF7Kpox
-	F8gFcS9SDiIY8ySTH+YJUKhBWXCxamA2iUkGWmRAdbfxmS0C48NIzNMFeaRfJ/sKxnOnP+Zp3cF
-	TSLQnEVward/yGaU1jB6GvgVY/9ht0v8uzAz/DwDaFYpXR7A2qAPbYbB9JAHUn//QArwKhOdwVq
-	qPE0e8IV+jEtVv8Ri7VZYKi1sBrxzvQiVVLb0uOWcXsM+5rkZnSHI+8V5P/rnmM2R5mTFHNf/o1
-	/vtCqto5FwEWWFCW+ANDUZ4SUA3L1v2mGJVG9DHnKrnVjz/x6unNP4vgrLaGBTJ2KYUagXCi/+w
-	rcpVZpmSMkiKlA=
-X-Received: by 2002:a05:6000:410e:b0:43b:8add:e469 with SMTP id ffacd0b85a97d-43d595cd702mr5340198f8f.22.1775803207291;
-        Thu, 09 Apr 2026 23:40:07 -0700 (PDT)
-Message-ID: <0c68ca5e-51d3-42ee-aa27-301ffafefc5f@suse.com>
-Date: Fri, 10 Apr 2026 08:40:04 +0200
+        bh=f1uZRKE0vMOsIRtnx7CSz/HSJXcNTmDwzx0blnuaCuA=;
+        b=Bvqm05MvXMCAo5ij5iG/Rl0j6gHkjgTdaw+7omcT6ombw/RbeobIKFNCxiPm9S2Ke4
+         W7EGiVoVEbNYKHoSUy8bqZ7WQYqFUN0SZLHTSxHA2s5v1lqa1OZT1LnVfAsz0WPScz1j
+         l5uIBWAty42O3PEbgu7YxLyrDmCCjjyh2u5faG/Af9GZnX8NnTXmbkLgl3XySN77nwC3
+         5NjgK/uI92NePlxHzV5R6+5KgVnSGU6q0Mt93ezm9SeiM2a5BUFESKF1mHpcgUqxWK7g
+         /jKwKOX4PscHuCi8VGBqnwUbTw6W4TkwPGNuwdburH/AINso0/eMiIih8rS7ZXrdhw7z
+         Qonw==
+X-Gm-Message-State: AOJu0Yx5dbxdwf3u4dEmvOHsdU2DUHFd4P5CEo5peQHDIMi/IrHp1018
+	ZppqMpRgh50Pwfm5icWWAWYrWjHKepQWJ/2uPUGtrWycxykJA3yaNEelqSD9G+PP2Q==
+X-Gm-Gg: AeBDies203R/qI/nkwCRGxReiiaUOtdWmubbgQvm+Mp/1br9vVEjIxlPHTgLrwF8TGh
+	Uo9CBYJvRCBoVy9xo08Lmxbs4m1PCKk/FGNumQCgrgomr2z3LXwHpS7wVqOQDteu5W0LPQW6SwK
+	+K4oPxYIiP8hkrVX/W31j/1Cjvpk1K8w2sQOSTdtjHB4RKyNKAqzwyWAMmHypS4fVIc1lRzyxyy
+	t4vZP3ZfTAc472DSPFWDIg3mEqfMoAn8ssRLB0/MiMeyL/rMrslS4ksVfnBNSYrABi1RoS/o6W+
+	Nko2jZCav3AIJCWma+nK6ZSC5KbylJRyuGC9Wf6Y1q2QBBBrvD5hjkQHkCXtSys10904E0QN7WT
+	iVZyKeGdNh7X2yKeZP6OziPzK+lRIcEeCGIviFnYLKKBB/spnc52WzkUJowTMnmAc6jXl/vYXC6
+	g0crmnYaKg47GhaVpsZKVJD+mVv3Esm7v6zbDaJK2DlnjWJBGBPQ9Silkwvg22pG1Nq4bqq/J4y
+	HMdQ09X1OC5DoU=
+X-Received: by 2002:a05:600c:5299:b0:487:1fb4:7e1 with SMTP id 5b1f17b1804b1-488d6875f3emr21072235e9.22.1775804261298;
+        Thu, 09 Apr 2026 23:57:41 -0700 (PDT)
+Message-ID: <f9874489-5692-4735-8db4-d320142af9f7@suse.com>
+Date: Fri, 10 Apr 2026 08:57:39 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm/its: Decode BASER cacheability field before comparing
-To: Mykola Kvach <xakep.amatop@gmail.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Mykyta Poturai <mykyta_poturai@epam.com>, xen-devel@lists.xenproject.org
-References: <dba15db692025c75f8bd3a2c5dab2654eaa4e896.1775801199.git.mykola_kvach@epam.com>
+Subject: Re: [PATCH 2/3] xen/common: llc-coloring: Fix off-by-one in
+ parse_color_config()
+To: Luca Fancellu <Luca.Fancellu@arm.com>, Michal Orzel <michal.orzel@amd.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20260409113934.197619-1-michal.orzel@amd.com>
+ <20260409113934.197619-3-michal.orzel@amd.com>
+ <EEF7C308-F25C-46BA-9663-BA789B49429C@arm.com>
+ <db87a55a-5bd2-44ab-8814-1ffec91d1b40@suse.com>
+ <9A42538E-AB13-488E-9AEF-39CD7E8D3131@arm.com>
+ <6093D2A3-1823-4587-BB81-4593AD060D71@arm.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,67 +137,110 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <dba15db692025c75f8bd3a2c5dab2654eaa4e896.1775801199.git.mykola_kvach@epam.com>
+In-Reply-To: <6093D2A3-1823-4587-BB81-4593AD060D71@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1775803207-C9D3CC9A-C665EEE1/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-42698a/1775804261-EFF462A1-6FB5FD03/0/0
 X-purgate-type: clean
-X-purgate-size: 790
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-purgate-size: 2537
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:mykyta_poturai@epam.com,m:xen-devel@lists.xenproject.org,m:xakepamatop@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:email,suse.com:mid];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 5673A3D2DC3
+X-Rspamd-Queue-Id: 7F4B03D300B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 10.04.2026 08:09, Mykola Kvach wrote:
-> --- a/xen/arch/arm/gic-v3-its.c
-> +++ b/xen/arch/arm/gic-v3-its.c
-> @@ -496,7 +496,8 @@ retry:
->          }
->          attr = regc & BASER_ATTR_MASK;
->      }
-> -    if ( (regc & GITS_BASER_INNER_CACHEABILITY_MASK) <= GIC_BASER_CACHE_nC )
-> +    if ( ((regc & GITS_BASER_INNER_CACHEABILITY_MASK) >>
-> +          GITS_BASER_INNER_CACHEABILITY_SHIFT) <= GIC_BASER_CACHE_nC )
+On 09.04.2026 15:34, Luca Fancellu wrote:
+>> On 9 Apr 2026, at 13:52, Luca Fancellu <Luca.Fancellu@arm.com> wrote:
+>>> On 9 Apr 2026, at 13:48, Jan Beulich <jbeulich@suse.com> wrote:
+>>> On 09.04.2026 14:22, Luca Fancellu wrote:
+>>>>> On 9 Apr 2026, at 12:39, Michal Orzel <michal.orzel@amd.com> wrote:
+>>>>>
+>>>>> The check uses >= to compare the total number of colors against
+>>>>> max_num_colors (which is ARRAY_SIZE of the colors array).  This
+>>>>> incorrectly rejects input that would exactly fill the array.
+>>>>>
+>>>>> For example, with NR_LLC_COLORS=16, specifying 1 color for Xen and 15
+>>>>> for dom0 would fail.
+>>>>>
+>>>>> Change >= to > so that exactly filling the array is permitted.
+>>>>>
+>>>>> Fixes: 95ef5ddf8a ("xen/arm: add Dom0 cache coloring support")
+>>>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>>>> ---
+>>>>
+>>>> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+>>>
+>>> Did you see Andrew's reply? If that earlier (recent) commit was wrong, I
+>>> think a 2nd Fixes: tag may be needed here. For now I can't help the
+>>> impression though that there might have been a re-basing mistake, where
+>>> that re-base may have wanted to result in this patch dissolving into
+>>> nothing. Yet of course I'm all ears to learn otherwise.
+>>
+>> Oh, no I didn’t see that! Thanks for pointing that out, I will have a closer look.
+> 
+> 
+> I had a closer look, I feel that the patch is ok and commit cba8a584de171c8c4510709c2edc9f1cf86b21ab
+> was missing this corner case.
 
-Are you aware of MASK_EXTR()? This is one of the cases that we have it for.
-Really all *_SHIFT constants should be purged, as they can be calculated
-from their *_MASK counterparts (leveraging MASK_{EXTR,INSR}() to keep the
-code readable).
+If anything, that part of the change there was outright wrong (and hence, as
+said, a 2nd Fixes: tag [actually, see below, simply another one] is needed).
+With overflow excluded,
 
-Further, doesn't gicv3_lpi_set_proptable() have the same issue with
-GICR_PROPBASER_INNER_CACHEABILITY_MASK?
+    (*num_colors + (end - start + 1)) > max_num_colors
+
+is the same as
+
+   (*num_colors + (end - start)) >= max_num_colors
+
+i.e. the state before that change, isn't it?
+
+And yes, now that I look again I think I agree that I screwed up there. Yet
+then the (imo) better fix would be to undo that change, rather than switching
+from >= to > . That's one less calculation overall. Michal?
 
 Jan
+
+> Let’s say max_num_colors = 8 (array capacity), *num_colors = 4 so we stored already 4 entries and the
+> next parsed range gives start = 4, end = 7: 
+> 
+> (*num_colors + (end - start + 1)) >= max_num_colors will compute as
+> (4 + (7 - 4 + 1)) >= 8 which will be
+> 8 >= 8 that will be true and the input will be rejected, instead of being a valid entry.
+> 
+> Did I miss anything?
+> 
+> Cheers,
+> Luca
+> 
+
 
