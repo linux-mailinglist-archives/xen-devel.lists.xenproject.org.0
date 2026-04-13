@@ -2,65 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IBypAdgA3Wk3YwkAu9opvQ
+	id kAsOFdUA3Wk3YwkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Apr 2026 16:42:32 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Apr 2026 16:42:29 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 937B23ED69D
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Apr 2026 16:42:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1281211.1564234 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF15C3ED696
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Apr 2026 16:42:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1281209.1564224 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCIUW-0000Sj-6q; Mon, 13 Apr 2026 14:42:20 +0000
+	id 1wCIUN-0000BQ-UZ; Mon, 13 Apr 2026 14:42:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1281211.1564234; Mon, 13 Apr 2026 14:42:20 +0000
+Received: by outflank-mailman (output) from mailman id 1281209.1564224; Mon, 13 Apr 2026 14:42:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCIUW-0000QK-3N; Mon, 13 Apr 2026 14:42:20 +0000
-Received: by outflank-mailman (input) for mailman id 1281211;
- Mon, 13 Apr 2026 14:42:18 +0000
+	id 1wCIUN-00008n-Rk; Mon, 13 Apr 2026 14:42:11 +0000
+Received: by outflank-mailman (input) for mailman id 1281209;
+ Mon, 13 Apr 2026 14:42:09 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Luca.Fancellu@arm.com>) id 1wCIUU-0000Po-On
- for xen-devel@lists.xenproject.org; Mon, 13 Apr 2026 14:42:18 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wCIUL-00008f-Oh
+ for xen-devel@lists.xenproject.org; Mon, 13 Apr 2026 14:42:09 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wCIUU-007xxE-44
- for xen-devel@lists.xenproject.org; Mon, 13 Apr 2026 16:42:18 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wCIUL-007xxU-0x
+ for xen-devel@lists.xenproject.org; Mon, 13 Apr 2026 16:42:09 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Luca.Fancellu@arm.com>)
- id 69dd00c3-2eae-0a2a0a5409dd-0a2a4506af1c-16
- for <xen-devel@lists.xenproject.org>; Mon, 13 Apr 2026 16:42:17 +0200
-Received: from [40.107.130.60]
- (helo=MRWPR03CU001.outbound.protection.outlook.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <Luca.Fancellu@arm.com>)
- id 69dd00c9-0df0-0a2a45060019-286b823c2dd2-3
- for <xen-devel@lists.xenproject.org>; Mon, 13 Apr 2026 16:42:17 +0200
-Received: from DUZPR01CA0006.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:3c3::13) by DB9PR08MB7536.eurprd08.prod.outlook.com
- (2603:10a6:10:304::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Mon, 13 Apr
- 2026 14:42:15 +0000
-Received: from DU2PEPF00028D09.eurprd03.prod.outlook.com
- (2603:10a6:10:3c3:cafe::8b) by DUZPR01CA0006.outlook.office365.com
- (2603:10a6:10:3c3::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Mon,
- 13 Apr 2026 14:42:15 +0000
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- DU2PEPF00028D09.mail.protection.outlook.com (10.167.242.169) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.17
- via Frontend Transport; Mon, 13 Apr 2026 14:42:15 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com (2603:10a6:10:2d7::16)
- by PA4PR08MB6142.eurprd08.prod.outlook.com (2603:10a6:102:ee::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Mon, 13 Apr
- 2026 14:41:13 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::5d34:206f:373:a323]) by DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::5d34:206f:373:a323%6]) with mapi id 15.20.9769.046; Mon, 13 Apr 2026
- 14:41:13 +0000
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69dd00b7-e002-0a2a0a5209dd-0a2a4503ab10-36
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Apr 2026 16:42:09 +0200
+Received: from [209.85.221.49] (helo=mail-wr1-f49.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69dd00c0-02b3-0a2a45030019-d155dd31ad4b-3
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Apr 2026 16:42:08 +0200
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-43cfd832155so3053691f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Apr 2026 07:42:08 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
+ [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43d63e4f16bsm32154771f8f.26.2026.04.13.07.42.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Apr 2026 07:42:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,170 +55,466 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=jKJayHNtNkMzj04pay72zX2n/AZzuwPOCpmXEQTpB0nQL3KgrLq8pkrD9WTS8akst3j/XMGNYtrCvDo/Vd5cHVznXNBFA7NGiKIWDLYp6taCQfJYZHVr4ai6vFaMahUzmH8c0Y+G1mrsHRCSZEWd6x4gDha3FFiX1U+RfFSNBHOUadP4dAuOxP7qD7tRaIkue6lewWsIOQJivMyeGi+cAwic3qazK+Ro4i+D2Vx4GCd3qOvs3iCdVogKq7pqCos/Cec4SpQ/mM33/9kI1WzhDVzWov5R9ZCDln7Z2WiQ6RI0WATnitIIrnwAONH6k+sKE+pSmiPzCrxxj9mnFvAgWA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MtPTZHVQFJOOxgS79tzBM52TNf/PIT4q/fs5VXC4URQ=;
- b=xrz/PXXgPbodSS3nGzv/oOR5PF8BTNkhlTWLjhid06svTF6Y/MyPa8JmqubfnRZXFEwziLiAGDMHjWGm2af71M9JpUvMnSqfZNp4eHE5Ukwf5qZPkefmJungKEIUWwRw5qQ9BkzHeMWdXhvu0T3Kx7ABr+AqaKb3QxNNGaZf8fRo5T2vJcz6oKyF3n1e3LZONaXSTuhHsW8vjc3cEdCXv0KnYyQKdRu7m+9AOpuPNMj50krjQ9GRU13xJ8q+ckHmuHV6secAPGerDBUA5hipTuAsmthFJUxuziFijJ+XuW76lXhE81dzENGh2oIWpdSgiKtifPy3ixywOeoqBedgQw==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=epam.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MtPTZHVQFJOOxgS79tzBM52TNf/PIT4q/fs5VXC4URQ=;
- b=Ad4bdztB+6RSMUiB5G5RSF0BCmoeh4mF13oR89PpLrEO1NZFapR8CGBBRIIU0/IFL7DcCcwwlbaky1x7vyXSEX0VtbRosX4JhllOIBl7wOzMz/BSLesxIOFh6tzq+1cxTFE3DypABHrLDbiPckZQ+cXO8CNBSiOdCzTRNxPRtv0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VZSUgcp6lqR5nBUD3uoluVJJpWGRKHvT9WGBsbTQAdTooiYqgerR+8b01AobpzM+oBYjgpHC4z+jnmJITtvaI0dg6EEWKlogRoIawDlGEwRqI8Ok5J95HECXMde8UfLWKxbGDDkJ3h/grRriFm1Ewft2reIVspDey+NC3v7vXobEnvKOo4ZulH1FqsXqSzPtWkJTO/vbDfmsCdUf0Yrj8kJ5s+djiXinegxUU+3GsgWQIDuy8pwegyEegW/4HWV3XVigWGDDEkR1HCWx5Tit9knxGe8zlZX5aZuzv+8Em1875V19PQOADGsVPE+oCLNftwAL2rn4cuTSk/hLzMiKoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MtPTZHVQFJOOxgS79tzBM52TNf/PIT4q/fs5VXC4URQ=;
- b=oM8DBLMH0UcHk0UBfHHawUlYwMAnoZZs/ODEqVUNCHZA9gRpJ1lW0rquZmqhBLaIHG3CcWt5HyL8meAQuR1A1Rq+J/9vnLyBPsLyPxK2RM9gWWZinJ4XLuRJyNt2bldLNJnaeFTTNDXV/GIdeNXz7JPOvnV9kXx1nl9kVNIypQxpJJ2BkucYA+C7n8uYn63IlDriY2gWZbQ2iU18QkftPfU1y7GZAYcERLtn+Ixn7CrNfXwBsM2JAA2Ca41sslg+trVvFlikOvXMmo2A3wRuE4+4PQIcd5/iC5wEPQiSMWX5uV7332NAFyYoKX5pwmpvlUaFU/Zupu5WegHYoKhP8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MtPTZHVQFJOOxgS79tzBM52TNf/PIT4q/fs5VXC4URQ=;
- b=Ad4bdztB+6RSMUiB5G5RSF0BCmoeh4mF13oR89PpLrEO1NZFapR8CGBBRIIU0/IFL7DcCcwwlbaky1x7vyXSEX0VtbRosX4JhllOIBl7wOzMz/BSLesxIOFh6tzq+1cxTFE3DypABHrLDbiPckZQ+cXO8CNBSiOdCzTRNxPRtv0=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Milan Djokic <milan_djokic@epam.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Rahul
- Singh <Rahul.Singh@arm.com>, Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v3 19/23] libxl/arm: vIOMMU: Modify the partial device
- tree for iommus
-Thread-Topic: [PATCH v3 19/23] libxl/arm: vIOMMU: Modify the partial device
- tree for iommus
-Thread-Index: AQHcy1OBPTTxiIivxUiCAbiXnDP/YQ==
-Date: Mon, 13 Apr 2026 14:41:13 +0000
-Message-ID: <451B2915-2A12-435D-A3E4-7450ACA0DD64@arm.com>
-References: <cover.1774918270.git.milan_djokic@epam.com>
- <801f1c90347d66ce4427b9c5986809a781d94081.1774918270.git.milan_djokic@epam.com>
-In-Reply-To:
- <801f1c90347d66ce4427b9c5986809a781d94081.1774918270.git.milan_djokic@epam.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.700.81.1.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DU2PR08MB7272:EE_|PA4PR08MB6142:EE_|DU2PEPF00028D09:EE_|DB9PR08MB7536:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27418ce0-b937-43ab-8a2a-08de996adb28
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|366016|1800799024|376014|38070700021|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info-Original:
- 6nMypYdApnWlGI4WohlXvocRwNxIlJ7vQ93S29PdkqsAf6FjMy9i37523SvXUklNyrJWkW8h8wfA7AIIpr06N8fozWD2B7BMEC0CsDvA8iI0Ru5mYJf3Xr8waHULBc1LcgF5d5ULr/QXvGZHOpCxKeI/u2vT3lPvNVEXQPOrX7kr1IhoFjlSZXmK75w+D1Le18Tv6fHMH/5Y/vwKe2YACbIDeCYG3VFdWFp4CF8svvlfAiXYbX55xLsuMqjLPnK6URBfMXLVK/+H0CsuK6dwFj97qtd7JmWG5hS7J96Db1w7D2ezlTZDJ51B7TUjk/8FhHq1Y6JK5/4qS3JnvTZ6XcQdvEi9IPLZ3nfqqReXbbUNC1Vgex1tH8wKz77PF9MKGKMgLShKSSyZ8W3ZMVyA6K+EfeZDCdPxyKsA/96wPLiaNfJTCES8w7zE5H8EMN1nu5/ZDorTDVWqRtMqvY1LQLD1WGUXK+FBE4pdFN/YfJYyFqTTXePpmyMt3Fy9qrJ/sOszkpv/z0FEUyv+W/tpoUBvYBbCzR3XnJzhqXV/vCNdYFHSJWLLAvyGAC7m8pviYEcodfbl8qlHWJUznJmZrQCw4PDH3MiAo3Gyg3isok6b2fEvaFRUoy0U6i/D7iVbo/PkTRvyLtNm9wQGiavtagKW/feOw7TtAy9ilgaBEF7lT94xejpu4BKPzBFOO0MNu30OqSU9fprgx9hCs0TH77wiFm4ogVDHyR/qPk1kMrjs33tudmbSQZdp6UHfjg4yxVbykbHwzj6AqhR6btAcNr5WK04W5ideXFsxWW2Hj7Q=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7272.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <28B7ABE7D069014E82B1BE9123E0F6C3@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:Content-Language:References:Cc:To:Subject:From:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776091328; x=1776696128; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=UWQxix9XwXVkNsiA1TuF2NjYBhksRbXlSi5koezn3RU=;
+        b=OzB6k2www+iZsWBTDKg80WSwH5GLpU9HTKHPA5xdwE6cQNqII1lyt12NZQcYKkpk+t
+         CLbB53aVzd4QGOIAFD49NLHws2CQROVZG/KIdYCBcbqqroZ/5Nzc6yUarOhAeGP6OaOP
+         dZWchkiGYrFWQE5ESI3b+v1fIiMjGNHu+VNwOQKlcFYV2SyvqY3lW0JIK216w63cwaYE
+         Rj/svC84A+tC05vgSjxp3W0xRYrne3+aPtarm0OirmcrYom+Vdk52ildx89ICpXJzeIY
+         4kcAmd2n2JcwkrUGltkLA/2zEt9cYiYAUFFpmRU4n94CBxNCec3kDVla7Sz1QbyE/5R9
+         +NYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776091328; x=1776696128;
+        h=content-transfer-encoding:in-reply-to:content-language:references
+         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UWQxix9XwXVkNsiA1TuF2NjYBhksRbXlSi5koezn3RU=;
+        b=s+v/6kVCtteXmPXdb7fIde3diCXWxOV1actbP5BUxnXP2TfzsUIImdNrtJlcji0HS7
+         lKXOZJmuoOKn/+2/lknbmS+FU6UIeCC+1SzYBZx5RycKSGb6b/j7tDZ1vq9aQ8xtd3I4
+         crI9euPrGAJshZbrJhjcjWieQz2NOPo8/+89YbLncgAfJgnLAG9LxQJribbq7WyqsSkw
+         uyMOCLWvv6djlf0mWyhL7Ni4MFPdzvtooYfC9u0mE54sJ0U+DcuR/5kyt0FEeOXCIxZF
+         1YMGgh0FfYkk8lJvbiye2daJunoelIw3zMKc9YczVha99Wl+4gn7RX+xzglXOqdmvuGU
+         rjrQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9Zfe09FfOohgdEDJJHUDRlUZfpPHY/vZqDE9y/6bZlonVHocdyFfnqoGkuwJ2lhRj8dJ+5Y9oTvvI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxpiGiVEc9QyvurU7em5d/zJomW2jCLpK/zy7dnE26ma3akXmWA
+	9sL7d3UmcZiGKZfdWinWz7017a5cpC4hwve3SqH1+6DGd3WylGcugEPN
+X-Gm-Gg: AeBDies1gc2Rin6Dd/3Zav6HkD3SkOfXzKU00h/RCaskoPM37JPtQjFPfviayhYnbiI
+	eioMgwsBQvR6olaSxBzwKNwBS61EUp83zhKgESxp3rv17rDoCJib2SLYOyEJ4Wpjwe8tNnQ03Qp
+	JpJb1uKuqDcVgOdSG0DuDf3syyquMPbr3zAniJOTu43HPOC2WvX18UQe+NnS9ocQVbkvUTBDkUQ
+	LsBZ6s8ab+ecS3TN7iIUO34DX7E+2i0M6bTxy9P1LRMir3sN64jfskGRUnTgzmLGEa03MXwXsFP
+	DTjJVW4wqkPZvbG3WDcjL7NRt4RS9cRNM3LYonT0Xu0YB+Nl9yZsS5h1rf+87FAym0TrDc5Z1BV
+	Z76IQf0FWM99inJ0VMNmiwRm/5jdj8uc8A5xDDtH4rvPpduVf2gd1Z4yGd3FHourpxLE8IW00nh
+	w6MUfJAbwjOIBcqOdO5HsdxFnURifyEi5Gv+msFQ/tmxYfvFZEAI3dhfHxbU7SSY3zL4xnabo7T
+	FY=
+X-Received: by 2002:a5d:4b92:0:b0:43d:7ea8:62e6 with SMTP id ffacd0b85a97d-43d7ea86390mr134899f8f.46.1776091328040;
+        Mon, 13 Apr 2026 07:42:08 -0700 (PDT)
+Message-ID: <4b977410-8d24-41c3-9c83-7d95637ddea3@gmail.com>
+Date: Mon, 13 Apr 2026 16:42:06 +0200
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
- C4bzQGx90OfQ5Xi1o9/4ITeoK0WTr055ZLZZOL7bBZLD2znAx8XqDWKCbh/MJBeD8KQdVTnuyCA88TVqdQameehcJ9fk8p7pFua34DHasNlFbjJ79oX/QRnAIsUPb2ykvvjyA0V0mkVBNZs2PCWtPubCWv4hkmU27ObYt+PXdDJiusJmA4vaqaB+A73Ag9dFi+ZMZUme5GE0uBDNQSH2hYk0bRMn/VLVR1b5Hu5snz0aVDFdy8iwFAP17amuJC2yLX5WVJX4j/PMWUCSZIgd46Gnm4tLIykuhQ/y0Lqme1lOS6PER2li2n2GXroQ3H94KMKS2c8SHanOueNGi6ybqQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6142
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DU2PEPF00028D09.eurprd03.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	f822d434-1526-4383-ccef-08de996ab60f
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|35042699022|36860700016|14060799003|376014|82310400026|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	ENFsH1sFwBvH5/3iX5fnTS8EMqRShC2vG8T40lNtSPUmhD9Tw38hEpppU+bFmy/gS7R3tjY6RgMQyUSPq3r/OWzBUNBsUayRkSX7Ym2kcN135sxGiWiCVHShFxMLDNLmovs/DXxqmXzm0ZumY1z0LILIb0dK44Ykden2rLUl0mq1qGpkFFxvz7ORZyg01Pk749v1/99JZHZK56DTrMLgBSd13laTQPxHO6HItm6pHLFmjwOulfZirrFb5UuIza0S99kvrKGWYXLAC0B2MllEnBcSVbrZFTEwmFPKiNPv4gkZzV/rsUA5WGQm3P3rRbdl/oJVITsVTp62E6d2WH2VruDFjsCMzdzyBd7nFI1FCpp+P7YBV12NbEIOQznmUJ1KBpke9HZ5cZwETpwPFQtCxHehOQp7XP70q9ElfGcxneYMzgy8SgontKTaSsVcG7ChgPKb/K0arqIRjv0LReUKv9mOF2cnQvtxfSvb07hd7DRkNklmeJSAsMQqFEkZFOScdfLMl3QixjYzVRm5XkPkzfub0ixW3cLTWvr8yHyMk5qR2bXSErnkSX6Wb+vRbaeKs6HuVQrTN8jWKlSsH/g8OS7/rSPe7i9S3Kwr3sEQQIqubcJAu/vl6jTew0jGUEhIw8SlUUdXb39CYbM7DlfGtd7gT64hKZCI3+k/krEbGccHok8gZjBhXF5SVUIH5Qulw208VUknOSCqGarp9xt6np3VaZLsPj7vaMt6fpLoOpNDC+7gDiSZWbisyZg8kbndKShTwEYU6D2heA3HRMFilQ==
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(36860700016)(14060799003)(376014)(82310400026)(1800799024)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	LxdozWUekax1OH07VuZzGCcZhsKAMntzajkXFWaHSaIibLZRlhCyUqZQnL9Nw84Cva0YELLx4RdTpp5AhJh8sgZrQiwdx6rToLkt9jAvlCFnbvqnxteIREYOK4Daq+kUDkRhLl1knljHGEGN8gBZo+nSLz/ZQ9n82RSRQsS3NIiWPvWZEuHP1ARtrfnrZLzQf+gQ/yGXGGhtyY9s5n2ETjd4R5oovPtzuWHzwqe3alUsdS5YLQw2vClCCeHX5o6lf81mk6RNGn4xpzRyiNhiD7QrM1l1bHMZ4Z92eViOYljpwtLWxfhav3GVvtbENLIgX9W0sgWaLzuElovUiPdMKCp1SzohX7AsIWLg+hEOOovTFQ7rEIb1QpKSoNW7B4SLZVvXK11SAFqNs526NUkds9adzn6MBzyRcUyLHWjZxCI1tyOsWHTF1VEg6R6vE7DR
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2026 14:42:15.4532
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27418ce0-b937-43ab-8a2a-08de996adb28
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D09.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7536
-X-purgate-ID: tlsNG-16d1c6/1776091337-AD92A3D8-E73AD811/0/0
-X-purgate-type: clean
-X-purgate-size: 513
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=2];
-	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[arm.com:s=selector1];
+User-Agent: Mozilla Thunderbird
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v1 13/27] xen/riscv: add basic VGEIN management for AIA
+ guests
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
+ <f358325514c91c540e0edf992ca51414a1964fe0.1773157782.git.oleksii.kurochko@gmail.com>
+ <09fed304-685c-46a9-9159-72baa1721224@suse.com>
+Content-Language: en-US
+In-Reply-To: <09fed304-685c-46a9-9159-72baa1721224@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-33051d/1776091328-4251AC9A-0314A617/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 11852
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:milan_djokic@epam.com,m:xen-devel@lists.xenproject.org,m:Rahul.Singh@arm.com,m:anthony.perard@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[13];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[arm.com:+];
 	NEURAL_HAM(-0.00)[-0.999];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:dkim,arm.com:email,arm.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email]
-X-Rspamd-Queue-Id: 937B23ED69D
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: AF15C3ED696
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Milan,
 
-> On 31 Mar 2026, at 02:52, Milan Djokic <milan_djokic@epam.com> wrote:
->=20
-> From: Rahul Singh <rahul.singh@arm.com>
->=20
-> To configure IOMMU in guest for passthrough devices, user will need to
-> copy the unmodified "iommus" property from host device tree to partial
-> device tree. To enable the dom0 linux kernel to confiure the IOMMU
 
-Typo s/confiure/configure/
+On 4/2/26 12:03 PM, Jan Beulich wrote:
+> On 10.03.2026 18:08, Oleksii Kurochko wrote:
+>> AIA provides a hardware-accelerated mechanism for delivering external
+>> interrupts to domains via "guest interrupt files" located in IMSIC.
+>> A single physical hart can implement multiple such files (up to GEILEN),
+>> allowing several virtual harts to receive interrupts directly from hardware
+> 
+> Isn't use of such an optimization coming prematurely? Shouldn't this series
+> focus on getting basic functionality in place?
 
-The rest looks ok to me
+At the moment, we don't support only APLIC for guest interrupts as it 
+will require trap-and-emulation approach, so just from the start it was 
+decided to go with APLIC+IMSIC (IMSIC here as it only one interrupt 
+controller which exist and support VGEIN stuff at the momemnt) approach 
+and then when it will be needed back to only the case when APLIC is 
+supported.
 
-with that addressed:
+Maybe, it was better to introduce in patch series where a lauching of 
+domain actually happens.
 
-Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+Considering that you've already made a review, I prefer then to have 
+this patch part of this patch series.
 
-Cheers,
-Luca
+> 
+>> --- a/xen/arch/riscv/aia.c
+>> +++ b/xen/arch/riscv/aia.c
+>> @@ -1,11 +1,24 @@
+>>   /* SPDX-License-Identifier: GPL-2.0-only */
+>>   
+>> +#include <xen/bitmap.h>
+>>   #include <xen/errno.h>
+>>   #include <xen/init.h>
+>>   #include <xen/sections.h>
+>> +#include <xen/sched.h>
+>> +#include <xen/spinlock.h>
+>>   #include <xen/types.h>
+>> +#include <xen/xvmalloc.h>
+>>   
+>> +#include <asm/aia.h>
+>>   #include <asm/cpufeature.h>
+>> +#include <asm/csr.h>
+>> +#include <asm/current.h>
+>> +
+>> +/*
+>> + * Bitmap for each physical cpus to detect which VS (guest)
+>> + * interrupt file id was used.
+>> + */
+>> +DEFINE_PER_CPU(struct vgein_bmp, vgein_bmp);
+> 
+> Why can this not be static? All management looks to be in this same file.
 
+It could be, it couldn't be before when I have vgein/hgei interrupt 
+handler in traps but after I decided to move it to aia.c, it looks like 
+it is fine to make it static.
+
+> 
+>> @@ -14,12 +27,109 @@ bool aia_available(void)
+>>       return is_aia_available;
+>>   }
+>>   
+>> +int __init vgein_init(unsigned int cpu)
+> 
+> If this needs invoking once per CPU being brought up, it can't be __init.
+
+Yes, it is going to be called inside the secondary CPU bring-up function.
+
+__init sections are removed much later, after all CPUs are brought up, 
+so it looks like that at the moment when secondary CPUs are being 
+brought up, __init still exists and can be called.
+
+> 
+> Also - static?
+
+It isn't static because it will be called inside the secondary CPU 
+bring-up function.
+
+> 
+>> +{
+>> +    struct vgein_bmp *vgein = &per_cpu(vgein_bmp, cpu);
+>> +
+>> +    csr_write(CSR_HGEIE, -1UL);
+>> +    vgein->geilen = flsl(csr_read(CSR_HGEIE));
+>> +    csr_write(CSR_HGEIE, 0);
+>> +    if ( vgein->geilen )
+>> +        vgein->geilen--;
+> 
+> I don't understand this. The "len" in "geilen" stands for "length", I suppose,
+> i.e. the number of bits. Hmm, the spec itself is inconsistent: "The number of
+> bits implemented in hgeip and hgeie for guest external interrupts is UNSPECIFIED
+> and may be zero. This number is known as GEILEN." This may or may not include
+> bit 0 (which is implemented, but r/o zero). Then saying "Hence, if GEILEN is
+> nonzero, bits GEILEN:1 shall be writable in ..." suggests 0 isn't included, but
+> that's not unambiguous.
+
+But they explicitly wrote that: The least-significant bits are 
+implemented first, apart from bit 0. So bit 0 is explicitly excluded.
+
+> 
+> Anyway, may I suggest
+> 
+>      vgein->geilen = flsl(csr_read(CSR_HGEIE) >> 1);
+> 
+> instead?
+
+It would be really better.
+
+> 
+>> +    BUG_ON(!vgein->geilen);
+> 
+> You can return (an error, but see the respective remark on the earlier patch),
+> no need to crash the system. That return may want to come after the printk()
+> below, though.
+> 
+>> +    printk("cpu%d.geilen=%d\n", cpu, vgein->geilen);
+> 
+> As before - %u please with unsigned int.
+> 
+>> +    if ( !vgein->bmp )
+> 
+> Why would this check be needed?
+> 
+>> +    {
+>> +        vgein->bmp = xvzalloc_array(unsigned long, BITS_TO_LONGS(vgein->geilen));
+> 
+> With the determination above, isn't BITS_TO_LONGS(vgein->geilen) ==
+> BITS_PER_LONG in all cases? Surely you don't mean to runtime-allocate
+> space for a single unsigned long? So I wonder is the dimension used
+> is wrong.
+
+Hm, I can't remember why I did so. You are right there is no any sense 
+to allocate a single unsinged long in runtime...
+
+> 
+> If it isn't, dynamically allocating the owners array may be more
+> useful, as (on RV64) occupies a fixed 512 bytes right now.
+
+Agree, it make sense it will be much less memory if to allocate like:
+     vgein->owners = xvzalloc_array(struct vcpu *, vgein->geilen);
+     if ( !vgein->owners )
+         return -ENOMEM;
+
+as maximum value of vgein->geilen is 63.
+
+> 
+>> +        if ( !vgein->bmp )
+>> +            return -ENOMEM;
+>> +    }
+>> +
+>> +    spin_lock_init(&vgein->lock);
+>> +
+>> +    return 0;
+>> +}
+>> +
+>>   int __init aia_init(void)
+>>   {
+>> +    int rc = 0;
+>> +
+>>       if ( !riscv_isa_extension_available(NULL, RISCV_ISA_EXT_ssaia) )
+>>           return -ENODEV;
+>>   
+>> +    if ( (rc = vgein_init(0)) )
+>> +        return rc;
+>> +
+>>       is_aia_available = true;
+> 
+> Ah, this answers a question of mine on the earlier patch: This boolean
+> indicates more than just the extension being available. But why does
+> the description there not simply say so? How am I as a reviewer supposed
+> to know?
+
+I relised that it is worse to mention that only when saw your reply in 
+the earlier patch, I will update the commit message for convience.
+
+> 
+>> -    return 0;
+>> +    return rc;
+>> +}
+>> +
+>> +unsigned int vgein_assign(struct vcpu *v)
+>> +{
+>> +    unsigned int vgein_id;
+>> +
+> 
+> Seemingly undue blank line.
+> 
+>> +    struct vgein_bmp *vgein_bmp = &per_cpu(vgein_bmp, v->processor);
+>> +    unsigned long *bmp = vgein_bmp->bmp;
+>> +    unsigned long flags;
+>> +
+>> +    spin_lock_irqsave(&vgein_bmp->lock, flags);
+>> +    vgein_id = bitmap_weight(bmp, vgein_bmp->geilen);
+> 
+> How can the ID to use be the number of bits which are set? This only works
+> if all set bits are contiguous at the bottom.
+
+Oh, it is really wrong. find_first_zero_bit() should be instead or
+vgein_id = find_next_zero_bit(bmp, vgein_bmp->geilen + 1, 1);
+
+> 
+>> +    /*
+>> +     * All vCPU guest interrupt files are used and we don't support a case
+>> +     * when number of vCPU on 1 pCPU is bigger then geilen.
+>> +     */
+> 
+> This wants checking in vgein_init() then. CPUs (beyond the boot one)
+> violating this should not be brought online.
+
+It'll be nice. But we can't know how many vCPUs will be ran on pCPU when 
+vgein_init() is executed.
+
+> 
+>> +    ASSERT(vgein_id < vgein_bmp->geilen);
+> 
+> What if not bit is available? By asserting, you assume the caller will not
+> call here when no ID is available.
+
+It is just a temporary ASSERT() (as we don't support software guest 
+interrupt files) because in general it is fine if there is no bit 
+available, it will just mean that that no physical hardware guest 
+interrupt file is assigned to the virtual hart, and software-based 
+emulation (a "software file") must be used to handle guest external 
+interrupts.
+
+Will it be better to return 0 now here and just don't create a vCPU
+on ...
+
+  Yet there is no caller of this function,
+> so how can one verify whether this assertion is appropriate?
+
+... the caller side when an assignment is expected to be happen?
+
+
+> 
+>> +    bitmap_set(bmp, vgein_id, 1);
+> 
+> __set_bit()?
+
+I thought that it will be fine to use for bmp, bitmap_* functions(). 
+__set_bit is what is called inside bitmap_set().
+
+
+> 
+>> +    spin_unlock_irqrestore(&vgein_bmp->lock, flags);
+>> +
+>> +    /*
+>> +     * The vgein_id shouldn't be zero, as it will indicate that no guest
+>> +     * external interrupt source is selected for VS-level external interrupts
+>> +     * according to RISC-V priviliged spec:
+>> +     *   8.2.1 Hypervisor Status Register (hstatus) in RISC-V priviliged spec:
+> 
+> Please avoid section numbers in such references. The section of this name
+> in the version I'm looking at is 21.2.1.
+> 
+>> +     *   The VGEIN (Virtual Guest External Interrupt Number) field selects
+>> +     *   a guest external interrupt source for VS-level external interrupts.
+>> +     *   VGEIN is a WLRL field that must be able to hold values between zero
+>> +     *   and the maximum guest external interrupt number (known as GEILEN),
+>> +     *   inclusive.
+>> +     *   When VGEIN=0, no guest external interrupt source is selected for
+>> +     *   VS-level external interrupts.
+>> +     */
+>> +    vgein_id++;
+> 
+> Related to my comment regarding GEILEN, this shouldn't be necessary. Keep
+> bits in their natural positions, and simply avoid using bit 0 (either by
+> setting it during init and then never clearing it, or by starting the
+> scan for clear bits at bit 1).
+> 
+>> +#ifdef VGEIN_DEBUG
+>> +    printk("%s: %pv: vgein_id(%u), xen_cpu%d_bmp=%#lx\n",
+>> +           __func__, v, vgein_id, v->processor, *bmp);
+>> +#endif
+>> +
+>> +    vcpu_guest_cpu_user_regs(v)->hstatus &= ~HSTATUS_VGEIN;
+>> +    vcpu_guest_cpu_user_regs(v)->hstatus |=
+>> +        MASK_INSR(vgein_id, HSTATUS_VGEIN);
+> 
+> When is this function going to be invoked? (As before, not knowing this is
+> one of the problems with introducing functions with no callers.)
+
+vgein_assign() function is going to be invoked during the call of 
+arch_vcpu_create().
+
+I also thought to make vgein_assign() just work with vgein_id and just 
+return vgein_id and fill v->hstatus on the caller side. It looks a 
+little bit cleaner from some point of view.
+It is still need to return vgein_id as it is needed for IMSIC's guest 
+interrupt file address calculation.
+
+> 
+>> +    return vgein_id;
+>> +}
+>> +
+>> +void vgein_release(struct vcpu *v, unsigned int vgen_id)
+>> +{
+>> +    unsigned long flags;
+>> +
+> 
+> Another seemingly stray blank line.
+> 
+>> +    struct vgein_bmp *vgein_bmp = &per_cpu(vgein_bmp, v->processor);
+>> +
+>> +    spin_lock_irqsave(&vgein_bmp->lock, flags);
+>> +    bitmap_clear(vgein_bmp->bmp, vgen_id - 1, 1);
+> 
+> __clear_bit()?
+> 
+
+The same as with bitmap_set() as ->bmp is bitmap I expect that 
+bitmap_*() functions should be used. But just to avoid extra if() inside 
+bitmap_clear(), I will use __clear_bit().
+
+>> +    spin_unlock_irqrestore(&vgein_bmp->lock, flags);
+>> +
+>> +#ifdef VGEIN_DEBUG
+>> +    printk("%s: vgein_id(%u), xen_cpu%d_bmp=%#lx\n",
+>> +           __func__, vgen_id, v->processor, *vgein_bmp->bmp);
+> 
+> I can't spot a difference from the message in vgein_assign(). How is one
+> to distinguish the two in a log?
+
+By function name which is the first argument (__func__).
+
+> 
+>> --- a/xen/arch/riscv/include/asm/aia.h
+>> +++ b/xen/arch/riscv/include/asm/aia.h
+>> @@ -3,8 +3,26 @@
+>>   #ifndef ASM__RISCV__AIA_H
+>>   #define ASM__RISCV__AIA_H
+>>   
+>> +#include <xen/percpu.h>
+>> +#include <xen/spinlock.h>
+>> +
+>> +struct vcpu;
+>> +
+>> +struct vgein_bmp {
+> 
+> What does the _bmp suffix indicate here? There's ...
+> 
+>> +    unsigned long *bmp;
+> 
+> ... a bitmap field, yes, but ...
+> 
+>> +    spinlock_t lock;
+>> +    struct vcpu *owners[BITS_PER_LONG];
+>> +    unsigned int geilen;
+>> +};
+> 
+> ... the structure as a whole has quite a bit more.
+
+Agree, there is no any sense for _bmp. It would be better to use _ctrl.
+
+Also, I will move this struct to aia.c. Then it also make sense to 
+rename vgein_vmp variable just to vgein.
+
+Thanks.
+
+~ Oleksii
 
