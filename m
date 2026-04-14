@@ -2,65 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oBqKAQJJ3mkzqAkAu9opvQ
+	id OAF/Gl1f3mn+CQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 16:02:42 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 17:38:05 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11F633FAD69
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 16:02:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1281998.1564706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A893D3FBFC5
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 17:38:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1282015.1564715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCeKm-00017T-On; Tue, 14 Apr 2026 14:01:44 +0000
+	id 1wCfO7-0000FU-IO; Tue, 14 Apr 2026 15:09:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1281998.1564706; Tue, 14 Apr 2026 14:01:44 +0000
+Received: by outflank-mailman (output) from mailman id 1282015.1564715; Tue, 14 Apr 2026 15:09:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCeKm-000153-LA; Tue, 14 Apr 2026 14:01:44 +0000
-Received: by outflank-mailman (input) for mailman id 1281998;
- Tue, 14 Apr 2026 14:01:43 +0000
+	id 1wCfO7-0000Dn-EY; Tue, 14 Apr 2026 15:09:15 +0000
+Received: by outflank-mailman (input) for mailman id 1282015;
+ Tue, 14 Apr 2026 15:09:14 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Luca.Fancellu@arm.com>) id 1wCeKk-00014x-SB
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 14:01:43 +0000
+ (envelope-from <Michal.Orzel@amd.com>) id 1wCfO5-0000Dh-OH
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 15:09:14 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wCeKk-006AC3-8x
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 16:01:42 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wCfO5-009Jqk-4G
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 17:09:13 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Luca.Fancellu@arm.com>)
- id 69de48c5-e002-0a2a0a5209dd-0a2a4502e28c-0
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 16:01:41 +0200
-Received: from [52.101.66.68]
- (helo=DUZPR83CU001.outbound.protection.outlook.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <Luca.Fancellu@arm.com>)
- id 69de48c5-42fa-0a2a45020019-34654244a55d-4
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 16:01:41 +0200
-Received: from CWLP123CA0190.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:19c::10)
- by VI0PR08MB11432.eurprd08.prod.outlook.com (2603:10a6:800:301::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
- 2026 14:01:36 +0000
-Received: from AM4PEPF00027A66.eurprd04.prod.outlook.com
- (2603:10a6:400:19c:cafe::e1) by CWLP123CA0190.outlook.office365.com
- (2603:10a6:400:19c::10) with Microsoft SMTP Server (version=TLS1_3,
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69de5890-2eae-0a2a0a5409dd-0a2a4501a0b6-16
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 17:09:12 +0200
+Received: from [40.93.201.13]
+ (helo=CY3PR05CU001.outbound.protection.outlook.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69de5897-c1f2-0a2a45010019-285dc90d7eea-3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 17:09:12 +0200
+Received: from CY8PR11CA0037.namprd11.prod.outlook.com (2603:10b6:930:4a::29)
+ by MW3PR12MB4474.namprd12.prod.outlook.com (2603:10b6:303:2e::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Tue, 14 Apr
+ 2026 15:09:06 +0000
+Received: from CY4PEPF0000FCC3.namprd03.prod.outlook.com
+ (2603:10b6:930:4a:cafe::3) by CY8PR11CA0037.outlook.office365.com
+ (2603:10b6:930:4a::29) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Tue,
- 14 Apr 2026 14:01:36 +0000
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM4PEPF00027A66.mail.protection.outlook.com (10.167.16.91) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.17
- via Frontend Transport; Tue, 14 Apr 2026 14:01:36 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com (2603:10a6:10:2d7::16)
- by PAVPR08MB9185.eurprd08.prod.outlook.com (2603:10a6:102:30d::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
- 2026 14:00:33 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::5d34:206f:373:a323]) by DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::5d34:206f:373:a323%6]) with mapi id 15.20.9769.046; Tue, 14 Apr 2026
- 14:00:33 +0000
+ 14 Apr 2026 15:09:06 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000FCC3.mail.protection.outlook.com (10.167.242.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Tue, 14 Apr 2026 15:09:05 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 14 Apr
+ 2026 10:09:05 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 14 Apr
+ 2026 08:09:05 -0700
+Received: from [10.71.194.215] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 14 Apr 2026 10:09:04 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,381 +74,438 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=sERpPIsvjS70YwPBDDruA0xoNJE7/O+OV1Ed7NLjtrcl2tK1jLoeRpwHWiEWEElULf+AlOlgsoAnE6AvFa3GWZY18He383C/NNZYiBNgmPiZMAttFvA6bfWTI2OFM2N9gzIO1cyYgTYoOjxyKvQawEHORN4qlv22HE4JOYV8aI5oVc5S6UKhMDl/NTqH9iZibaxP3yrRTv0MUlWvMXAJScJPb9JR3PGR19cNW+flkLc0Xzsa3ATFq72zr/Q9/FNAZZHF5Yr3Jvwme+hRgsUXekv+oP8m9Ag8F50H8GzXLdWX8mvkJ5j0GZyw0tSLQyoeM8mot/sg1Edn4k14jAT2wQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e/4wpittnPMP+IMBMpKGM7HFyqEM2qlCacWZP4+2o9c=;
- b=g0S1N3UoedM/2U+ucINbtuQwPN9JpEWq5sZba1ii8mLC2i6927QjWp90wW8NUQsMk4THZolhUMNtxcAshAafok/rODsv3NY50wZkmUdA1bbcDm+tA2bCX6m+8zkL7maJdiHCd210Kw3jqqs63fic3Z/65fsCY40HKN4Tc4qQ5D8ydCcqKftwvsyTH3wLsp0v2lCIivl4NNNKJdozp0jjf4/56q7yhNPuwMH62RugJRb9lc+vf2W1Q7Y/dDQuw5/Ed0dFKX5Qpv2GoTRrg2XISAIvzsymtjX5WijlKKF2UmpTpjEanLICEdhiOv6ntVpUNniGUgjPU0imXmohEimbuA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=amd.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e/4wpittnPMP+IMBMpKGM7HFyqEM2qlCacWZP4+2o9c=;
- b=e2avLYTY5M22waajNS/e2QQkodS74hZHCHeKoVqsQ2n+NnEUvf8ancWRbmUUVr/8IgZw0iyWLDi2lj1h+uId5X8axmGuQN44CKi9kiKfMJ3JU48pW3iiKHTjhtFIKdlF0EwmlTF2rwC7PVLI6JOT99npkFIioYT8c3uZBu2oBGQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YMbnOSiJiY1JByKzj9Gxnc/elnpZBW8pDo2h/VNrPXL3Z5MS9pm73X06vDIZX6EEnC1ag9tDq9RdcaY/z5KgAdxHe+WmW57W263YbQ0HjL0BCm7Ig6zW+wJ3L7VdLF5BQAw8heHJ2JME2TD+5/UmQvlMl2BXp3P8Fo/wH73yomLSRL/KVSKbs/aZhR2yv8NrtUEJno7P2tS0GWA3rIeWxwsgXK23Y2aH+UdU64BL2Xu2uFKQsIWNCNqJz5dPE0m6xenUG17AR+CKXKZcQVRD1PrwqWk/xGLO5XkU9SQI2z7irfM18noeBquI4gBlwPFLGUA+tgiFkWCdZcbGA+MA6A==
+ b=eSBa7Ye7ZBFcKKiB6jh26xvEZiIenchoGWuAfY94p7QcKoVTQYNAa3/e3MEEgypn39IGX9ul7dW2YS1Jv0OG4d35B+ioua370gwAa416kRGy7ZPCcsd8Fz0cx1nynl80aOUZnHj/D2cuWKjM+tcVvP+dokxDAzy4MQawnXMKO5kc4yILqILUCaMBqXQHwVkaiVbLCBbAFf4F/Jcv8VzpqSfhhQFVk6S/4PptSneSbeqeC3DK8k+0rG2065bd5L3eE1eEc09WyhmmLm6KXBVMorTrnR3EgiSK0eNYDLsFKquALapDLE4r2/BiVvr+oWFxau5rFmjQlSImNF9hhPrRTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e/4wpittnPMP+IMBMpKGM7HFyqEM2qlCacWZP4+2o9c=;
- b=brZDQ5ZqVLtgcRmWBsG/sjzMZwq/l/YaNwQrlk7QYqoFyatt0939RmInYbh5H1Gad4uRd78GawK0SRAYvepJpB8vj+5LYBGDowwVLSgmdpf9DCAp30oWYeE7rfWLgtfW4NFtMCzVfMHAjrmVJd6tdrP1eXANBetWuLN9k/WoJJgK/dpC3I9eXmoLlcQKPgqnMMD214xIs+Mzczrru0bb7GAj1YGqIFbNKb82GejUOzs9h0rpfLLS4gq/Kwp6YNQiTm46heTg2cjvAgiOv2qzkhum2GrlMHpjLEcIa0UUwwfulDZa7wYWzHzgfkyrfh5EfjGwcdw5vAziCSS2vxGTsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ bh=GPnLa69NK5YQDa5XdNtqbH6KdIGMfRh498olWKYQckE=;
+ b=QYW3ito3ZuxQVpG4nUQRBAtsB1ReoqcFQO2eCnInSa7bB5CmV79z37o6ygEtxdQAw1qjosbNJsVT8lEHN51KxqxN1W0MUnjwaYZzeIqcTwR1kYnCrTPoDAokYqIFMetgCT6NEFAquW/EEkw3pg9PXtkscKh3hYbLOI4+eHLNATXjW8h2THjb2VgyOf2DNitWbFHqiR34kjAVLguPHJgyeeqH1LjevUGss9qxbPaifpEkajMBuiVRCOqRBD5K7QOhs4o4PpF5MRoDJRqd4rV9vDW+tV/wFSlLoMAUTiVhc+EeL7S6rh6pAtml7mQhU8j1Dpv/Q0Qy/j8oAiRXobsufQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e/4wpittnPMP+IMBMpKGM7HFyqEM2qlCacWZP4+2o9c=;
- b=e2avLYTY5M22waajNS/e2QQkodS74hZHCHeKoVqsQ2n+NnEUvf8ancWRbmUUVr/8IgZw0iyWLDi2lj1h+uId5X8axmGuQN44CKi9kiKfMJ3JU48pW3iiKHTjhtFIKdlF0EwmlTF2rwC7PVLI6JOT99npkFIioYT8c3uZBu2oBGQ=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Michal Orzel <michal.orzel@amd.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
- Marquis <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Mark Rutland <Mark.Rutland@arm.com>
+ bh=GPnLa69NK5YQDa5XdNtqbH6KdIGMfRh498olWKYQckE=;
+ b=TvGUJHjFwSDwBHCSiA4ErT+BbIVmkh9MjunIzDW5xkqO7k/3X7kzfpWJOqTIVAz3tBanfR/QyWldSp1anoyKg3giJKPwEPLu3vGJCcN+TATUvodfU981/iAuMnSTU0cuIes7CvxBaIXmgKGIuJW9mL+mimkLaJtywqMIN0n2hDw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <df9e3f30-6130-42ba-b90c-749a2f195074@amd.com>
+Date: Tue, 14 Apr 2026 17:09:03 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] xen/arm64: flushtlb: Optimize
  ARM64_WORKAROUND_REPEAT_TLBI
-Thread-Topic: [PATCH] xen/arm64: flushtlb: Optimize
- ARM64_WORKAROUND_REPEAT_TLBI
-Thread-Index: AQHcy+Zsv818FERxykqUrZrX/7GOFLXeli0A
-Date: Tue, 14 Apr 2026 14:00:32 +0000
-Message-ID: <5098DD0F-9FA9-469B-BAAA-2CA0C1382FA0@arm.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"Stefano Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	"Bertrand Marquis" <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Mark Rutland <Mark.Rutland@arm.com>
 References: <20260414081124.48741-1-michal.orzel@amd.com>
-In-Reply-To: <20260414081124.48741-1-michal.orzel@amd.com>
-Accept-Language: en-GB, en-US
+ <5098DD0F-9FA9-469B-BAAA-2CA0C1382FA0@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.700.81.1.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DU2PR08MB7272:EE_|PAVPR08MB9185:EE_|AM4PEPF00027A66:EE_|VI0PR08MB11432:EE_
-X-MS-Office365-Filtering-Correlation-Id: 86d2f5fe-322d-4d5b-f695-08de9a2e57b9
-x-checkrecipientrouted: true
-nodisclaimer: true
+In-Reply-To: <5098DD0F-9FA9-469B-BAAA-2CA0C1382FA0@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC3:EE_|MW3PR12MB4474:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3274379-0224-4e0b-968f-08de9a37c57b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|366016|376014|38070700021|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info-Original:
- ljwnV+OXguAx/VIdeYGG3ewEoihRzuq2QnbsWtoKZTV05EiJtgX0MizVKCMHW5JL1KSwcx4auj91YYI432u/+BXL0fRb0togdKbIgugR33NSBF5X3Iapkt4XM6k9aIzhNazxFVWMYqOUV6u6R33JPMro06htz78xp2IWLBm1O+rGMtZX7ZSYSuOVdrurfFb2TbzduYl2vZ7s8T2MWEXFzdhm3b0QeZndpdwPDnkSiQkbeyTqKr4dd9QR+9uBm1UVbU+ka7HU+VHQHJEDtMbvcJjLwghvqX8iwVpGDAvykVI2PZGzezbB8EQeUwyn3d6bP1jkEovFl0uKu+W64wEpCzqDSnDoVwVc3KkTl5Y7P9zaLUyzVSaad1bXXkW9uIgVr8ggl9xZ0Nyj7jrTqoEBmh+0UsHmFvb2op9kMHeD9EW4cme+rt201BQgS22HqPRQoVj7D49d4zPV7pU7DDUJp8R4kXG2Z1yoC16gafXySPcfSm5WpnmTVOQfb2GNtI9IykXX2cGF8RVodmXOadnLzq5rwFsLdmOycTFHaTDth01xmROjTnr+olqdUf/5ocJUsswbQPpXrCOrJAyFk7xGpYHpEawK++wAFR9/6UfT/g2kcCiGL9dqYAU/IM9jAuyWSUcrQe7JPNI0L0h4lpSc2LpOzGJ2kFyv2SBxH/b+WLNxcZiBBtHrjEDjtgt9ppMOmd2OvrxkR/NfhmsSmiV9cpTnXCgeGvqmp7o9d6PmUbJ+S60ASAEkgASYjIZeX6ZpmAv530zWLXIfY0+AR2LtNHUDAa7CrREF9xo+PeNFX9k=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7272.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <B83097778CEFAC469B0802511B7BDB3E@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
- T7tvkjsMV5c0ezP7liZRwlwwCnV/0DRbRnLLSkzaOKgpwh4RCVsdCLQN/8JhKC05RWMy7MOkteabOXPpWiu5b/Zl0PEt02o9oggDu/p2Rvq83uHoHOhLttKOla+/kavDzxoUh63PD5LC7oZ4oOf0cef5b1e0FyDtPY8pNvHwc9NM1OtnEc9MXfUvZY6bOf6F8i1vAs/3jmyXskQXDVmI+sdCnjn7Pe20SqX/wxBSQ86MuKDoO9TN74VdJFS8gmX61DzHFL6tOShjC2uhOJ6QBZ+cBPMlXGVoau8mStSel/cdWoUd6gmjUfSDPyXT6p9UFFFC7imb4Lm0G8tJT9hbmA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9185
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM4PEPF00027A66.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	3569d87b-cd57-4d10-08cf-08de9a2e31f3
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|14060799003|1800799024|35042699022|82310400026|18002099003|56012099003|22082099003;
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|22082099003|18002099003|56012099003|18096099003;
 X-Microsoft-Antispam-Message-Info:
-	wofQTS2n3td6ST4WskbaJXEiHhaFdkDrlcfeq/7F6IbPaXigVjFM4twgalQFrqbpWIAmwIQ7ZIRO6Y9xonHa4m/xhqsnx013iK/68Oo7XgxymAYX62owEC4dTkma7kXQLhgeseo1PxtZ4/XifwX3tgafKeogC42nQ1Dxg1UK1PzvRNKDa6OGVvR9BRXLTw/oN9TFvwHsyzQ76cgT9F8KseXA3Wg4/yZEbVNo/9llRaoXcWieRAhChua6WDq8R/maMc89WRfcd8kBq8mmRtM5eckKQ1C/5h1L9SbH6733m0s9o8Lgpdj1oXGpoHJdXa7eTs+V/YvRDh3fDK54ohiIlayg4MgcGHTBET5p675I3gGmbI1A4DJf5RmzoBE1vKaL3oSwdhodCF0xWvYlxQvlworeXaG51l4WLpX80Oa2UUAAs3EL3vyuOi0TVKzcCKO/nSmb47FA7/hWxc57l0eq/C2gbHkrvEqRwH9yLLxaRL5v/AylkrvNWeBpbH8MPALUCc0FNUTioduywotZcR/Eslw3FKPg4LfYelAKfGsOfsRx7zuJJnFd0G/TRw57GjLhCy3ArxhR2h9aCqrkDNhdT92A/WDCzLN1DYGGm6pZ+eF3iX6zglBhTzVqMp8KDLAAHs1R8cKu4KH8kzrh07vnFUUDYSl1yxb8OaiKz5XJRdT1/QB+84SFQQESJwFPdTp7zJi389vb2o02thMovJXS2Qm8UyEbSAamVfWu053i+1ZmY6HW6DaOVw4tWWi+Fgoz8fEeda1NQskWdL1rCp/r8g==
+	9dsfwOpcakas2/KZ/RN084Jlqlk2JK1YJsvxdWfCSs76fylVVOZpIhddh+z/KC1sHvhMEjhrtY9vj5q/7uiQ/9O3FRGAwiaTn5tvuD4CIU6Ta+YTJN42oUjUptoscBc4U7vEliRTxSGum3OgqUwVf7x2mUi8VIbQ4cvqs2gAqEPHB7emndawtBqYswbaWUVtgGJgvBTiR2+4K1ArF6C42PE6WWhFHYB7j0epso0yNwKDTkPPzxfVAAmb7GjMPaGOV3tfCC4Z+7PFlgCIP1cuPVRap4d9w4E9uq19Qzcs2LLjWWCT+XOiqtORVoWNw+DIAMIcIbtDsVhN08YL6qQZQfawGIeym6FO5TGsbjFzIUPcBwZrYB1fvqV7Pl+4jRGbv4E2k/MVhsnmmQ1NkEBdBzXJg/0ncL+6d0qPnLsD3YlUASciEEa4B9fmrINkDV0TzgGWVTZvpMFMdLeV+qkrNZqb5hmrhbLV/NmshavYNdllEDXYnOm0adVUPbA8CjYw3GP8Hr1jTO/xhguIEo1VZRECiD4PKIuHWCP2aK5r/zFjOQR9N17Yf0rS+sobyqz9Rfc5Wx5KT+4RK92B57dGPaDGTVd2dLA4Qt1zJ584y2YtJpdfl11LyviLYZLxmhP1enTbACKOwctz8JRu4zPaMgNlEbFMlZDYDtYbrwKLQsbitGJwwO18GYiPRbgXXxjtppz+K+U2Rijhlj+IMOwf7MQhvbSf7HmjKZAERZ4q/zCSj3WRM7hTzGukMqPF+PLHTfpmJnytGfwFdFlbgXUNJO4XQWFVj9vUdIfA1xqqlhw=
 X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(14060799003)(1800799024)(35042699022)(82310400026)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(22082099003)(18002099003)(56012099003)(18096099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	1Qvxl2zx61bJk4xjGl7GAjsJujQ0Kz2w1qo5AYT8jauuGzf6R+Y2dFTJlYsIRaYeQ4cf/Enl2BYjnKy9lJXynBcQ46itvneO1PURplZh+jUS7D0vHafkMFItCSaIrCdz/M/u/PKDT1143Wfd8wMYrmNOcYDYWc20FizdqslJx4DMUto9Gdm+J6ohnga8tVBrCQhCod/jbtFrLxrhJKDS3R6LUzZieekWkd+8Z2k2EgKGa7vc9QQOCHX0jsn0mjDhpdeJwNZs+mkEfHhj7xn8RkzemyH22PP46FhuDB3ok10W3UEX+x19GpyK2y0WdbUlPjv5OjVrPoEpyvR8I8cY89I8xuBdEDru2CVKpA+wfLiSDUosngCLZd7RH3BN1EJMoBEpWjNzXe8sP641I05oRvriaEqqaf78isWKL0p4KGu7O8atrXwYlcz3IaxiLy2T
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 14:01:36.3005
+	tOstmmu6fGaep4AqO0vOXrVCJwjtgVUuvBfuQyHIh2PqRyaRb+0mcZ0i3KIWjFkzZBF6u6VQtd3Cd2NkhuKJA/+ej3yzVnGiDSzO//CydM7zhR9aCEmXkbGrrXIV3vPHlJBhI+ps0Akpiw6/IIr8t0TcoIoo5AaLoN52OfEVBTiwA9xVV5vorPVMtAqHT66UTKZQ67xtSTGj8DozHaJPZ+Q2zw8KJtmev58eNIytWLMMDbekjdkbKIfE4YwLWnCQ+Sx/huO9TbS2flDZbavINinM1cPqZA2bWPJ7X7aoWO3ytReqRFZTUnTRyHGBjulzRnlcC7VaIpbQwPDtOSF6BSfjEcyKPp0AVcCy39Gho+11TSq4jNdy8cjL6joNKfOclDW51OqH9ZUBvI0l0+71RTSpbCmgE2m2b5q1ON8PQfm+Pr2WtEljYTCpV2496CxO
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 15:09:05.9423
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 86d2f5fe-322d-4d5b-f695-08de9a2e57b9
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3274379-0224-4e0b-968f-08de9a37c57b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM4PEPF00027A66.eurprd04.prod.outlook.com
+	CY4PEPF0000FCC3.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB11432
-X-purgate-ID: tlsNG-720697/1776175301-4792ECD1-C92A8D0A/0/0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4474
+X-purgate-ID: tlsNG-d62444/1776179352-B727DFF4-01CA152A/0/0
 X-purgate-type: clean
-X-purgate-size: 18076
-X-Spamd-Result: default: False [-2.08 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=2];
-	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
+X-purgate-size: 13844
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[arm.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:Mark.Rutland@arm.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:Mark.Rutland@arm.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[arm.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[13];
+	RCVD_COUNT_TWELVE(0.00)[14];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCPT_COUNT_SEVEN(0.00)[7];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:dkim,arm.com:email,arm.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: 11F633FAD69
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:email,amd.com:dkim,amd.com:mid]
+X-Rspamd-Queue-Id: A893D3FBFC5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-SGkgTWljaGFsLA0KDQo+IE9uIDE0IEFwciAyMDI2LCBhdCAwOToxMSwgTWljaGFsIE9yemVsIDxt
-aWNoYWwub3J6ZWxAYW1kLmNvbT4gd3JvdGU6DQo+IA0KPiBUaGUgQVJNNjRfV09SS0FST1VORF9S
-RVBFQVRfVExCSSB3b3JrYXJvdW5kIGlzIHVzZWQgdG8gbWl0aWdhdGUgc2V2ZXJhbA0KPiBlcnJh
-dGEgd2hlcmUgYnJvYWRjYXN0IFRMQkk7RFNCIHNlcXVlbmNlcyBkb24ndCBwcm92aWRlIGFsbCB0
-aGUNCj4gYXJjaGl0ZWN0dXJhbGx5IHJlcXVpcmVkIHN5bmNocm9uaXphdGlvbi4gVGhlIHdvcmth
-cm91bmQgcGVyZm9ybXMgbW9yZQ0KPiB3b3JrIHRoYW4gbmVjZXNzYXJ5LCBhbmQgY2FuIGhhdmUg
-c2lnbmlmaWNhbnQgb3ZlcmhlYWQuIFRoaXMgcGF0Y2gNCj4gb3B0aW1pemVzIHRoZSB3b3JrYXJv
-dW5kLCBhcyBleHBsYWluZWQgYmVsb3cuDQo+IA0KPiAxLiBBbGwgcmVsZXZhbnQgZXJyYXRhIG9u
-bHkgYWZmZWN0IHRoZSBvcmRlcmluZyBhbmQvb3IgY29tcGxldGlvbiBvZg0KPiAgIG1lbW9yeSBh
-Y2Nlc3NlcyB3aGljaCBoYXZlIGJlZW4gdHJhbnNsYXRlZCBieSBhbiBpbnZhbGlkYXRlZCBUTEIN
-Cj4gICBlbnRyeS4gVGhlIGFjdHVhbCBpbnZhbGlkYXRpb24gb2YgVExCIGVudHJpZXMgaXMgdW5h
-ZmZlY3RlZC4NCj4gDQo+IDIuIFRoZSBleGlzdGluZyB3b3JrYXJvdW5kIGlzIGFwcGxpZWQgdG8g
-Ym90aCBicm9hZGNhc3QgYW5kIGxvY2FsIFRMQg0KPiAgIGludmFsaWRhdGlvbiwgd2hlcmVhcyBm
-b3IgYWxsIHJlbGV2YW50IGVycmF0YSBpdCBpcyBvbmx5IG5lY2Vzc2FyeSB0bw0KPiAgIGFwcGx5
-IGEgd29ya2Fyb3VuZCBmb3IgYnJvYWRjYXN0IGludmFsaWRhdGlvbi4NCj4gDQo+IDMuIFRoZSBl
-eGlzdGluZyB3b3JrYXJvdW5kIHJlcGxhY2VzIGV2ZXJ5IFRMQkkgd2l0aCBhIFRMQkk7RFNCO1RM
-QkkNCj4gICBzZXF1ZW5jZSwgd2hlcmVhcyBmb3IgYWxsIHJlbGV2YW50IGVycmF0YSBpdCBpcyBv
-bmx5IG5lY2Vzc2FyeSB0bw0KPiAgIGV4ZWN1dGUgYSBzaW5nbGUgYWRkaXRpb25hbCBUTEJJO0RT
-QiBzZXF1ZW5jZSBhZnRlciBhbnkgbnVtYmVyIG9mDQo+ICAgVExCSXMgYXJlIGNvbXBsZXRlZCBi
-eSBhIERTQi4NCj4gDQo+ICAgRm9yIGV4YW1wbGUsIGZvciBhIHNlcXVlbmNlIG9mIGJhdGNoZWQg
-VExCSXM6DQo+IA0KPiAgICAgICBUTEJJIDxvcDE+WywgPGFyZzE+XQ0KPiAgICAgICBUTEJJIDxv
-cDI+WywgPGFyZzI+XQ0KPiAgICAgICBUTEJJIDxvcDM+WywgPGFyZzM+XQ0KPiAgICAgICBEU0Ig
-SVNIDQo+IA0KPiAgIC4uLiB0aGUgZXhpc3Rpbmcgd29ya2Fyb3VuZCB3aWxsIGV4cGFuZCB0aGlz
-IHRvOg0KPiANCj4gICAgICAgVExCSSA8b3AxPlssIDxhcmcxPl0NCj4gICAgICAgRFNCIElTSCAg
-ICAgICAgICAgICAgICAgIC8vIGFkZGl0aW9uYWwNCj4gICAgICAgVExCSSA8b3AxPlssIDxhcmcx
-Pl0gICAgIC8vIGFkZGl0aW9uYWwNCj4gICAgICAgVExCSSA8b3AyPlssIDxhcmcyPl0NCj4gICAg
-ICAgRFNCIElTSCAgICAgICAgICAgICAgICAgIC8vIGFkZGl0aW9uYWwNCj4gICAgICAgVExCSSA8
-b3AyPlssIDxhcmcyPl0gICAgIC8vIGFkZGl0aW9uYWwNCj4gICAgICAgVExCSSA8b3AzPlssIDxh
-cmczPl0NCj4gICAgICAgRFNCIElTSCAgICAgICAgICAgICAgICAgIC8vIGFkZGl0aW9uYWwNCj4g
-ICAgICAgVExCSSA8b3AzPlssIDxhcmczPl0gICAgIC8vIGFkZGl0aW9uYWwNCj4gICAgICAgRFNC
-IElTSA0KPiANCj4gICAuLi4gd2hlcmVhcyBpdCBpcyBzdWZmaWNpZW50IHRvIGhhdmU6DQo+IA0K
-PiAgICAgICBUTEJJIDxvcDE+WywgPGFyZzE+XQ0KPiAgICAgICBUTEJJIDxvcDI+WywgPGFyZzI+
-XQ0KPiAgICAgICBUTEJJIDxvcDM+WywgPGFyZzM+XQ0KPiAgICAgICBEU0IgSVNIDQo+ICAgICAg
-IFRMQkkgPG9wWD5bLCA8YXJnWD5dICAgICAvLyBhZGRpdGlvbmFsDQo+ICAgICAgIERTQiBJU0gg
-ICAgICAgICAgICAgICAgICAvLyBhZGRpdGlvbmFsDQo+IA0KPiAgIFVzaW5nIGEgc2luZ2xlIGFk
-ZGl0aW9uYWwgVEJMSSBhbmQgRFNCIGF0IHRoZSBlbmQgb2YgdGhlIHNlcXVlbmNlIGNhbg0KDQpO
-SVQ6IFR5cG8gcy9UQkxJL1RMQkkNCg0KPiAgIGhhdmUgc2lnbmlmaWNhbnRseSBsb3dlciBvdmVy
-aGVhZCBhcyBlYWNoIERTQiB3aGljaCBjb21wbGV0ZXMgYSBUTEJJDQo+ICAgbXVzdCBzeW5jaHJv
-bml6ZSB3aXRoIG90aGVyIFBFcyBpbiB0aGUgc3lzdGVtLCB3aXRoIHBvdGVudGlhbA0KPiAgIHBl
-cmZvcm1hbmNlIGVmZmVjdHMgYm90aCBsb2NhbGx5IGFuZCBzeXN0ZW0td2lkZS4NCj4gDQo+IDQu
-IFRoZSBleGlzdGluZyB3b3JrYXJvdW5kIHJlcGVhdHMgZWFjaCBzcGVjaWZpYyBUTEJJIG9wZXJh
-dGlvbiwgd2hlcmVhcw0KPiAgIGZvciBhbGwgcmVsZXZhbnQgZXJyYXRhIGl0IGlzIHN1ZmZpY2ll
-bnQgZm9yIHRoZSBhZGRpdGlvbmFsIFRMQkkgdG8NCj4gICB1c2UgKmFueSogb3BlcmF0aW9uIHdo
-aWNoIHdpbGwgYmUgYnJvYWRjYXN0LCByZWdhcmRsZXNzIG9mIHdoaWNoDQo+ICAgdHJhbnNsYXRp
-b24gcmVnaW1lIG9yIHN0YWdlIG9mIHRyYW5zbGF0aW9uIHRoZSBvcGVyYXRpb24gYXBwbGllcyB0
-by4NCj4gDQo+ICAgRm9yIGV4YW1wbGUsIGZvciBhIHNpbmdsZSBUTEJJOg0KPiANCj4gICAgICAg
-VExCSSBBTExFMklTDQo+ICAgICAgIERTQiBJU0gNCj4gDQo+ICAgLi4uIHRoZSBleGlzdGluZyB3
-b3JrYXJvdW5kIHdpbGwgZXhwYW5kIHRoaXMgdG86DQo+IA0KPiAgICAgICBUTEJJIEFMTEUySVMN
-Cj4gICAgICAgRFNCIElTSA0KPiAgICAgICBUTEJJIEFMTEUySVMgICAgICAgICAgICAgLy8gYWRk
-aXRpb25hbA0KPiAgICAgICBEU0IgSVNIICAgICAgICAgICAgICAgICAgLy8gYWRkaXRpb25hbA0K
-PiANCj4gICAuLi4gd2hlcmVhcyBpdCBpcyBzdWZmaWNpZW50IHRvIGhhdmU6DQo+IA0KPiAgICAg
-ICBUTEJJIEFMTEUySVMNCj4gICAgICAgRFNCIElTSA0KPiAgICAgICBUTEJJIFZBTEUxSVMsIFha
-UiAgICAgICAgLy8gYWRkaXRpb25hbA0KPiAgICAgICBEU0IgSVNIICAgICAgICAgICAgICAgICAg
-Ly8gYWRkaXRpb25hbA0KPiANCj4gICBBcyB0aGUgYWRkaXRpb25hbCBUTEJJIGRvZXNuJ3QgaGF2
-ZSB0byBtYXRjaCBhIHNwZWNpZmljIGVhcmxpZXIgVExCSSwNCj4gICB0aGUgYWRkaXRpb25hbCBU
-TEJJIGNhbiBiZSBpbXBsZW1lbnRlZCBpbiBzZXBhcmF0ZSBjb2RlLCB3aXRoIG5vDQo+ICAgbWVt
-b3J5IG9mIHRoZSBlYXJsaWVyIFRMQklzLiBUaGUgYWRkaXRpb25hbCBUTEJJIGNhbiBhbHNvIHVz
-ZSBhDQo+ICAgY2hlYXBlciBUTEJJIG9wZXJhdGlvbi4NCj4gDQo+IDUuIFRoZSBleGlzdGluZyB3
-b3JrYXJvdW5kIGlzIGFwcGxpZWQgdG8gYm90aCBTdGFnZS0xIGFuZCBTdGFnZS0yIFRMQg0KPiAg
-IGludmFsaWRhdGlvbiwgd2hlcmVhcyBmb3IgYWxsIHJlbGV2YW50IGVycmF0YSBpdCBpcyBvbmx5
-IG5lY2Vzc2FyeSB0bw0KPiAgIGFwcGx5IGEgd29ya2Fyb3VuZCBmb3IgU3RhZ2UtMSBpbnZhbGlk
-YXRpb24uDQo+IA0KPiAgIEFyY2hpdGVjdHVyYWxseSwgVExCSSBvcGVyYXRpb25zIHdoaWNoIGlu
-dmFsaWRhdGUgb25seSBTdGFnZS0yDQo+ICAgaW5mb3JtYXRpb24gKGUuZy4gSVBBUzJFMUlTKSBh
-cmUgbm90IHJlcXVpcmVkIHRvIGludmFsaWRhdGUgVExCDQo+ICAgZW50cmllcyB3aGljaCBjb21i
-aW5lIGluZm9ybWF0aW9uIGZyb20gU3RhZ2UtMSBhbmQgU3RhZ2UtMg0KPiAgIHRyYW5zbGF0aW9u
-IHRhYmxlIGVudHJpZXMsIGFuZCBjb25zZXF1ZW50bHkgbWF5IG5vdCBjb21wbGV0ZSBtZW1vcnkN
-Cj4gICBhY2Nlc3NlcyB0cmFuc2xhdGVkIGJ5IHRob3NlIGNvbWJpbmVkIGVudHJpZXMuIEluIHRo
-ZXNlIGNhc2VzLA0KPiAgIGNvbXBsZXRpb24gb2YgbWVtb3J5IGFjY2Vzc2VzIGlzIG9ubHkgZ3Vh
-cmFudGVlZCBhZnRlciBzdWJzZXF1ZW50DQo+ICAgaW52YWxpZGF0aW9uIG9mIFN0YWdlLTEgaW5m
-b3JtYXRpb24gKGUuZy4gVk1BTExFMUlTKS4NCj4gDQo+IFJld29yayB0aGUgd29ya2Fyb3VuZCBs
-b2dpYyBhcyBmb2xsb3dzOg0KPiAtIGFkZCBUTEJfSEVMUEVSX0xPQ0FMKCkgdG8gYmUgdXNlZCBm
-b3IgbG9jYWwgVExCIG9wcyB3aXRob3V0IGENCj4gICB3b3JrYXJvdW5kLA0KPiAtIG1vZGlmeSBU
-TEJfSEVMUEVSKCkgd29ya2Fyb3VuZCB0byB1c2UgdGxiaSB2YWxlMmlzLCB4enIgYXMgYSBzZWNv
-bmQNCj4gICBUTEIsDQoNClRMQkkgPw0KDQo+IC0gZHJvcCBUTEJfSEVMUEVSX1ZBKCkuIEl0J3Mg
-dXNlZCBvbmx5IGJ5IF9fZmx1c2hfeGVuX3RsYl9vbmVfbG9jYWwNCj4gICB3aGljaCBpcyBsb2Nh
-bCBhbmQgZG9lcyBub3QgbmVlZCB3b3JrYXJvdW5kIGFuZCBieQ0KPiAgIF9fZmx1c2hfeGVuX3Rs
-Yl9vbmUuIEluIHRoZSBsYXR0ZXIgY2FzZSwgc2luY2UgaXQncyB1c2VkIGluIGEgbG9vcCwNCj4g
-ICB3ZSBkb24ndCBuZWVkIGEgd29ya2Fyb3VuZCBpbiB0aGUgbWlkZGxlLiBBZGQgX190bGJfcmVw
-ZWF0X3N5bmMgd2l0aA0KPiAgIGEgd29ya2Fyb3VuZCB0byBiZSB1c2VkIGF0IHRoZSBlbmQgYWZ0
-ZXIgRFNCIGFuZCBiZWZvcmUgZmluYWwgSVNCLA0KPiAtIFRMQkkgVkFMRTJJUyBwYXNzaW5nIFha
-UiBpcyB1c2VkIGFzIGFuIGFkZGl0aW9uYWwgVExCSS4gV2hpbGUgdGhlcmUgaXMNCj4gICBhbiBp
-ZGVudGl0eSBtYXBwaW5nIHRoZXJlLCBpdCdzIHVzZWQgdmVyeSByYXJlbHkuIFRoZSBwZXJmb3Jt
-YW5jZQ0KPiAgIGltcGFjdCBpcyB0aGVyZWZvcmUgbmVnbGlnaWJsZS4gSWYgdGhpbmdzIGNoYW5n
-ZSBpbiB0aGUgZnV0dXJlLCB3ZQ0KPiAgIGNhbiByZXZpc2l0IHRoZSBkZWNpc2lvbi4NCj4gDQo+
-IFNpZ25lZC1vZmYtYnk6IE1pY2hhbCBPcnplbCA8bWljaGFsLm9yemVsQGFtZC5jb20+DQo+IC0t
-LQ0KPiBMaW51eCBjb3VudGVycGFydCAoYWxyZWFkeSBtZXJnZWQpOg0KPiBodHRwczovL2xvcmUu
-a2VybmVsLm9yZy9saW51eC1hcm0ta2VybmVsLzIwMjYwMjE4MTY0MzQ4LjIwMjI4MzEtMS1tYXJr
-LnJ1dGxhbmRAYXJtLmNvbS8NCj4gLS0tDQo+IHhlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9hcm0z
-Mi9mbHVzaHRsYi5oIHwgICAzICsNCj4geGVuL2FyY2gvYXJtL2luY2x1ZGUvYXNtL2FybTY0L2Zs
-dXNodGxiLmggfCAxMDggKysrKysrKysrKysrKystLS0tLS0tLQ0KPiB4ZW4vYXJjaC9hcm0vaW5j
-bHVkZS9hc20vZmx1c2h0bGIuaCAgICAgICB8ICAgMSArDQo+IDMgZmlsZXMgY2hhbmdlZCwgNzEg
-aW5zZXJ0aW9ucygrKSwgNDEgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEveGVuL2Fy
-Y2gvYXJtL2luY2x1ZGUvYXNtL2FybTMyL2ZsdXNodGxiLmggYi94ZW4vYXJjaC9hcm0vaW5jbHVk
-ZS9hc20vYXJtMzIvZmx1c2h0bGIuaA0KPiBpbmRleCA2MWMyNWEzMTg5OTguLjU0ODNiZTA4ZmJi
-ZSAxMDA2NDQNCj4gLS0tIGEveGVuL2FyY2gvYXJtL2luY2x1ZGUvYXNtL2FybTMyL2ZsdXNodGxi
-LmgNCj4gKysrIGIveGVuL2FyY2gvYXJtL2luY2x1ZGUvYXNtL2FybTMyL2ZsdXNodGxiLmgNCj4g
-QEAgLTU3LDYgKzU3LDkgQEAgc3RhdGljIGlubGluZSB2b2lkIF9fZmx1c2hfeGVuX3RsYl9vbmUo
-dmFkZHJfdCB2YSkNCj4gICAgIGFzbSB2b2xhdGlsZShTVE9SRV9DUDMyKDAsIFRMQklNVkFISVMp
-IDogOiAiciIgKHZhKSA6ICJtZW1vcnkiKTsNCj4gfQ0KPiANCj4gKy8qIE9ubHkgZm9yIEFSTTY0
-X1dPUktBUk9VTkRfUkVQRUFUX1RMQkkgKi8NCj4gK3N0YXRpYyBpbmxpbmUgdm9pZCBfX3RsYl9y
-ZXBlYXRfc3luYyh2b2lkKSB7fQ0KPiArDQo+ICNlbmRpZiAvKiBfX0FTTV9BUk1fQVJNMzJfRkxV
-U0hUTEJfSF9fICovDQo+IC8qDQo+ICAqIExvY2FsIHZhcmlhYmxlczoNCj4gZGlmZiAtLWdpdCBh
-L3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9hcm02NC9mbHVzaHRsYi5oIGIveGVuL2FyY2gvYXJt
-L2luY2x1ZGUvYXNtL2FybTY0L2ZsdXNodGxiLmgNCj4gaW5kZXggM2I5OWMxMWI1MGQxLi4xNjA2
-YjI2YmYyOGEgMTAwNjQ0DQo+IC0tLSBhL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9hcm02NC9m
-bHVzaHRsYi5oDQo+ICsrKyBiL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9hcm02NC9mbHVzaHRs
-Yi5oDQo+IEBAIC0xMiw5ICsxMiwxNCBAQA0KPiAgKiBBUk02NF9XT1JLQVJPVU5EX1JFUEVBVF9U
-TEJJOg0KPiAgKiBNb2RpZmljYXRpb24gb2YgdGhlIHRyYW5zbGF0aW9uIHRhYmxlIGZvciBhIHZp
-cnR1YWwgYWRkcmVzcyBtaWdodCBsZWFkIHRvDQo+ICAqIHJlYWQtYWZ0ZXItcmVhZCBvcmRlcmlu
-ZyB2aW9sYXRpb24uDQo+IC0gKiBUaGUgd29ya2Fyb3VuZCByZXBlYXRzIFRMQkkrRFNCIElTSCBv
-cGVyYXRpb24gZm9yIGFsbCB0aGUgVExCIGZsdXNoDQo+IC0gKiBvcGVyYXRpb25zLiBXaGlsZSB0
-aGlzIGlzIHN0cmljdGx5IG5vdCBuZWNlc3NhcnksIHdlIGRvbid0IHdhbnQgdG8NCj4gLSAqIHRh
-a2UgYW55IHJpc2suDQo+ICsgKiBUaGUgd29ya2Fyb3VuZCByZXBlYXRzIFRMQkkrRFNCIElTSCBv
-cGVyYXRpb24gZm9yIGJyb2FkY2FzdCBUTEIgZmx1c2gNCj4gKyAqIG9wZXJhdGlvbnMuIFRoZSB3
-b3JrYXJvdW5kIGlzIG5vdCBuZWVkZWQgZm9yIGxvY2FsIG9wZXJhdGlvbnMuDQo+ICsgKg0KPiAr
-ICogSXQgaXMgc3VmZmljaWVudCBmb3IgdGhlIGFkZGl0aW9uYWwgVExCSSB0byB1c2UgKmFueSog
-b3BlcmF0aW9uIHdoaWNoIHdpbGwNCj4gKyAqIGJlIGJyb2FkY2FzdCwgcmVnYXJkbGVzcyBvZiB3
-aGljaCB0cmFuc2xhdGlvbiByZWdpbWUgb3Igc3RhZ2Ugb2YgdHJhbnNsYXRpb24NCj4gKyAqIHRo
-ZSBvcGVyYXRpb24gYXBwbGllcyB0by4gVExCSSBWQUxFMklTIGlzIHVzZWQgcGFzc2luZyBYWlIu
-IFdoaWxlIHRoZXJlIGlzDQo+ICsgKiBhbiBpZGVudGl0eSBtYXBwaW5nIHRoZXJlLCBpdCdzIG9u
-bHkgdXNlZCBkdXJpbmcgc3VzcGVuZC9yZXN1bWUsIENQVSBvbi9vZmYsDQo+ICsgKiBzbyB0aGUg
-aW1wYWN0IChwZXJmb3JtYW5jZSBpZiBhbnkpIGlzIG5lZ2xpZ2libGUuDQo+ICAqDQo+ICAqIEZv
-ciBYZW4gcGFnZS10YWJsZXMgdGhlIElTQiB3aWxsIGRpc2NhcmQgYW55IGluc3RydWN0aW9ucyBm
-ZXRjaGVkDQo+ICAqIGZyb20gdGhlIG9sZCBtYXBwaW5ncy4NCj4gQEAgLTI2LDY5ICszMSw5MCBA
-QA0KPiAgKiBOb3RlIHRoYXQgZm9yIGxvY2FsIFRMQiBmbHVzaCwgdXNpbmcgbm9uLXNoYXJlYWJs
-ZSAobnNoKSBpcyBzdWZmaWNpZW50DQo+ICAqIChzZWUgRDUtNDkyOSBpbiBBUk0gRERJIDA0ODdI
-LmEpLiBBbHRob3VnaCwgdGhlIG1lbW9yeSBiYXJyaWVyIGluDQo+ICAqIGZvciB0aGUgd29ya2Fy
-b3VuZCBpcyBsZWZ0IGFzIGlubmVyLXNoYXJlYWJsZSB0byBtYXRjaCB3aXRoIExpbnV4DQo+IC0g
-KiB2Ni4xLXJjOC4NCj4gKyAqIHY2LjE5Lg0KPiAgKi8NCj4gLSNkZWZpbmUgVExCX0hFTFBFUihu
-YW1lLCB0bGJvcCwgc2gpICAgICAgICAgICAgICBcDQo+ICsjZGVmaW5lIFRMQl9IRUxQRVJfTE9D
-QUwobmFtZSwgdGxib3ApICAgICAgICAgICAgXA0KPiBzdGF0aWMgaW5saW5lIHZvaWQgbmFtZSh2
-b2lkKSAgICAgICAgICAgICAgICAgICAgXA0KPiB7ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgXA0KPiAgICAgYXNtX2lubGluZSB2b2xhdGlsZSAoICAgICAg
-ICAgICAgICAgICAgICAgICAgXA0KPiAtICAgICAgICAiZHNiICAiICAjIHNoICAic3Q7IiAgICAg
-ICAgICAgICAgICAgICAgIFwNCj4gKyAgICAgICAgImRzYiAgbnNoc3Q7IiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBcDQo+ICAgICAgICAgInRsYmkgIiAgIyB0bGJvcCAgIjsiICAgICAgICAg
-ICAgICAgICAgICBcDQo+IC0gICAgICAgIEFMVEVSTkFUSVZFKCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgXA0KPiAtICAgICAgICAgICAgIm5vcDsgbm9wOyIsICAgICAgICAgICAgICAgICAg
-ICAgICAgIFwNCj4gLSAgICAgICAgICAgICJkc2IgIGlzaDsiICAgICAgICAgICAgICAgICAgICAg
-ICAgICBcDQo+IC0gICAgICAgICAgICAidGxiaSAiICAjIHRsYm9wICAiOyIsICAgICAgICAgICAg
-ICAgXA0KPiAtICAgICAgICAgICAgQVJNNjRfV09SS0FST1VORF9SRVBFQVRfVExCSSwgICAgICAg
-IFwNCj4gLSAgICAgICAgICAgIENPTkZJR19BUk02NF9XT1JLQVJPVU5EX1JFUEVBVF9UTEJJKSBc
-DQo+IC0gICAgICAgICJkc2IgICIgICMgc2ggICI7IiAgICAgICAgICAgICAgICAgICAgICAgXA0K
-PiArICAgICAgICAiZHNiICBuc2g7IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCj4g
-ICAgICAgICAiaXNiOyIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCj4gICAg
-ICAgICA6IDogOiAibWVtb3J5Iik7ICAgICAgICAgICAgICAgICAgICAgICAgIFwNCj4gfQ0KPiAN
-Cj4gLS8qDQo+IC0gKiBGTHVzaCBUTEIgYnkgVkEuIFRoaXMgd2lsbCBsaWtlbHkgYmUgdXNlZCBp
-biBhIGxvb3AsIHNvIHRoZSBjYWxsZXINCj4gLSAqIGlzIHJlc3BvbnNpYmxlIHRvIHVzZSB0aGUg
-YXBwcm9wcmlhdGUgbWVtb3J5IGJhcnJpZXJzIGJlZm9yZS9hZnRlcg0KPiAtICogdGhlIHNlcXVl
-bmNlLg0KPiAtICoNCj4gLSAqIFNlZSBhYm92ZSBhYm91dCB0aGUgQVJNNjRfV09SS0FST1VORF9S
-RVBFQVRfVExCSSBzZXF1ZW5jZS4NCj4gLSAqLw0KPiAtI2RlZmluZSBUTEJfSEVMUEVSX1ZBKG5h
-bWUsIHRsYm9wKSAgICAgICAgICAgICAgIFwNCj4gLXN0YXRpYyBpbmxpbmUgdm9pZCBuYW1lKHZh
-ZGRyX3QgdmEpICAgICAgICAgICAgICBcDQo+IC17ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgXA0KPiAtICAgIGFzbV9pbmxpbmUgdm9sYXRpbGUgKCAgICAg
-ICAgICAgICAgICAgICAgICAgIFwNCj4gLSAgICAgICAgInRsYmkgIiAgIyB0bGJvcCAgIiwgJTA7
-IiAgICAgICAgICAgICAgICBcDQo+IC0gICAgICAgIEFMVEVSTkFUSVZFKCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgXA0KPiAtICAgICAgICAgICAgIm5vcDsgbm9wOyIsICAgICAgICAgICAg
-ICAgICAgICAgICAgIFwNCj4gLSAgICAgICAgICAgICJkc2IgIGlzaDsiICAgICAgICAgICAgICAg
-ICAgICAgICAgICBcDQo+IC0gICAgICAgICAgICAidGxiaSAiICAjIHRsYm9wICAiLCAlMDsiLCAg
-ICAgICAgICAgXA0KPiAtICAgICAgICAgICAgQVJNNjRfV09SS0FST1VORF9SRVBFQVRfVExCSSwg
-ICAgICAgIFwNCj4gLSAgICAgICAgICAgIENPTkZJR19BUk02NF9XT1JLQVJPVU5EX1JFUEVBVF9U
-TEJJKSBcDQo+IC0gICAgICAgIDogOiAiciIgKHZhID4+IFBBR0VfU0hJRlQpIDogIm1lbW9yeSIp
-OyAgXA0KPiArI2RlZmluZSBUTEJfSEVMUEVSKG5hbWUsIHRsYm9wKSAgICAgICAgICAgICAgICAg
-ICAgICAgXA0KPiArc3RhdGljIGlubGluZSB2b2lkIG5hbWUodm9pZCkgICAgICAgICAgICAgICAg
-ICAgICAgICAgXA0KPiAreyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgXA0KPiArICAgIGFzbV9pbmxpbmUgdm9sYXRpbGUgKCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAiZHNiICBpc2hzdDsiICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAidGxiaSAiICAjIHRsYm9wICAiOyIgICAg
-ICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICBBTFRFUk5BVElWRSggICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAgICAgIm5vcDsgbm9wOyIsICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAgICAgImRzYiAgaXNoOyIg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAgICAgInRsYmkgdmFs
-ZTJpcywgeHpyOyIsICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAgICAgQVJNNjRf
-V09SS0FST1VORF9SRVBFQVRfVExCSSwgICAgICAgICAgICAgXA0KPiArICAgICAgICAgICAgQ09O
-RklHX0FSTTY0X1dPUktBUk9VTkRfUkVQRUFUX1RMQkkpICAgICAgXA0KPiArICAgICAgICAiZHNi
-ICBpc2g7IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAi
-aXNiOyIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAg
-ICA6IDogOiAibWVtb3J5Iik7IFwNCj4gfQ0KPiANCj4gLyogRmx1c2ggbG9jYWwgVExCcywgY3Vy
-cmVudCBWTUlEIG9ubHkuICovDQo+IC1UTEJfSEVMUEVSKGZsdXNoX2d1ZXN0X3RsYl9sb2NhbCwg
-dm1hbGxzMTJlMSwgbnNoKQ0KPiArVExCX0hFTFBFUl9MT0NBTChmbHVzaF9ndWVzdF90bGJfbG9j
-YWwsIHZtYWxsczEyZTEpDQo+IA0KPiAvKiBGbHVzaCBpbm5lcnNoYXJlYWJsZSBUTEJzLCBjdXJy
-ZW50IFZNSUQgb25seSAqLw0KPiAtVExCX0hFTFBFUihmbHVzaF9ndWVzdF90bGIsIHZtYWxsczEy
-ZTFpcywgaXNoKQ0KPiArVExCX0hFTFBFUihmbHVzaF9ndWVzdF90bGIsIHZtYWxsczEyZTFpcykN
-Cj4gDQo+IC8qIEZsdXNoIGxvY2FsIFRMQnMsIGFsbCBWTUlEcywgbm9uLWh5cGVydmlzb3IgbW9k
-ZSAqLw0KPiAtVExCX0hFTFBFUihmbHVzaF9hbGxfZ3Vlc3RzX3RsYl9sb2NhbCwgYWxsZTEsIG5z
-aCkNCj4gK1RMQl9IRUxQRVJfTE9DQUwoZmx1c2hfYWxsX2d1ZXN0c190bGJfbG9jYWwsIGFsbGUx
-KQ0KPiANCj4gLyogRmx1c2ggaW5uZXJzaGFyZWFibGUgVExCcywgYWxsIFZNSURzLCBub24taHlw
-ZXJ2aXNvciBtb2RlICovDQo+IC1UTEJfSEVMUEVSKGZsdXNoX2FsbF9ndWVzdHNfdGxiLCBhbGxl
-MWlzLCBpc2gpDQo+ICtUTEJfSEVMUEVSKGZsdXNoX2FsbF9ndWVzdHNfdGxiLCBhbGxlMWlzKQ0K
-PiANCj4gLyogRmx1c2ggYWxsIGh5cGVydmlzb3IgbWFwcGluZ3MgZnJvbSB0aGUgVExCIG9mIHRo
-ZSBsb2NhbCBwcm9jZXNzb3IuICovDQo+IC1UTEJfSEVMUEVSKGZsdXNoX3hlbl90bGJfbG9jYWws
-IGFsbGUyLCBuc2gpDQo+ICtUTEJfSEVMUEVSX0xPQ0FMKGZsdXNoX3hlbl90bGJfbG9jYWwsIGFs
-bGUyKQ0KPiArDQo+ICsjdW5kZWYgVExCX0hFTFBFUl9MT0NBTA0KPiArI3VuZGVmIFRMQl9IRUxQ
-RVINCj4gKw0KPiArLyoNCj4gKyAqIEZMdXNoIFRMQiBieSBWQS4gVGhpcyB3aWxsIGxpa2VseSBi
-ZSB1c2VkIGluIGEgbG9vcCwgc28gdGhlIGNhbGxlcg0KPiArICogaXMgcmVzcG9uc2libGUgdG8g
-dXNlIHRoZSBhcHByb3ByaWF0ZSBtZW1vcnkgYmFycmllcnMgYmVmb3JlL2FmdGVyDQo+ICsgKiB0
-aGUgc2VxdWVuY2UuDQo+ICsgKi8NCj4gDQo+IC8qIEZsdXNoIFRMQiBvZiBsb2NhbCBwcm9jZXNz
-b3IgZm9yIGFkZHJlc3MgdmEuICovDQo+IC1UTEJfSEVMUEVSX1ZBKF9fZmx1c2hfeGVuX3RsYl9v
-bmVfbG9jYWwsIHZhZTIpDQo+ICtzdGF0aWMgaW5saW5lIHZvaWQgX19mbHVzaF94ZW5fdGxiX29u
-ZV9sb2NhbCh2YWRkcl90IHZhKQ0KPiArew0KPiArICAgIGFzbV9pbmxpbmUgdm9sYXRpbGUgKA0K
-PiArICAgICAgICAidGxiaSB2YWUyLCAlMCIgOiA6ICJyIiAodmEgPj4gUEFHRV9TSElGVCkgOiAi
-bWVtb3J5Iik7DQo+ICt9DQo+IA0KPiAvKiBGbHVzaCBUTEIgb2YgYWxsIHByb2Nlc3NvcnMgaW4g
-dGhlIGlubmVyLXNoYXJlYWJsZSBkb21haW4gZm9yIGFkZHJlc3MgdmEuICovDQo+IC1UTEJfSEVM
-UEVSX1ZBKF9fZmx1c2hfeGVuX3RsYl9vbmUsIHZhZTJpcykNCj4gK3N0YXRpYyBpbmxpbmUgdm9p
-ZCBfX2ZsdXNoX3hlbl90bGJfb25lKHZhZGRyX3QgdmEpDQo+ICt7DQo+ICsgICAgYXNtX2lubGlu
-ZSB2b2xhdGlsZSAoDQo+ICsgICAgICAgICJ0bGJpIHZhZTJpcywgJTAiIDogOiAiciIgKHZhID4+
-IFBBR0VfU0hJRlQpIDogIm1lbW9yeSIpOw0KPiArfQ0KPiANCj4gLSN1bmRlZiBUTEJfSEVMUEVS
-DQo+IC0jdW5kZWYgVExCX0hFTFBFUl9WQQ0KPiArLyoNCj4gKyAqIEFSTTY0X1dPUktBUk9VTkRf
-UkVQRUFUX1RMQkk6DQo+ICsgKiBGb3IgYWxsIHJlbGV2YW50IGVycmF0YXMgaXQgaXMgb25seSBu
-ZWNlc3NhcnkgdG8gZXhlY3V0ZSBhIHNpbmdsZQ0KPiArICogYWRkaXRpb25hbCBUTEJJO0RTQiBz
-ZXF1ZW5jZSBhZnRlciBhbnkgbnVtYmVyIG9mIFRMQklzIGFyZSBjb21wbGV0ZWQgYnkgRFNCLg0K
-PiArICovDQo+ICtzdGF0aWMgaW5saW5lIHZvaWQgX190bGJfcmVwZWF0X3N5bmModm9pZCkNCj4g
-K3sNCj4gKyAgICBhc21faW5saW5lIHZvbGF0aWxlICgNCj4gKyAgICAgICAgQUxURVJOQVRJVkUo
-DQo+ICsgICAgICAgICAgICAibm9wOyBub3A7IiwNCj4gKyAgICAgICAgICAgICJ0bGJpIHZhbGUy
-aXMsIHh6cjsiDQo+ICsgICAgICAgICAgICAiZHNiICBpc2g7IiwNCj4gKyAgICAgICAgICAgIEFS
-TTY0X1dPUktBUk9VTkRfUkVQRUFUX1RMQkksDQo+ICsgICAgICAgICAgICBDT05GSUdfQVJNNjRf
-V09SS0FST1VORF9SRVBFQVRfVExCSSkNCj4gKyAgICAgICAgOiA6IDogIm1lbW9yeSIpOw0KPiAr
-fQ0KPiANCj4gI2VuZGlmIC8qIF9fQVNNX0FSTV9BUk02NF9GTFVTSFRMQl9IX18gKi8NCj4gLyoN
-Cj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9mbHVzaHRsYi5oIGIveGVu
-L2FyY2gvYXJtL2luY2x1ZGUvYXNtL2ZsdXNodGxiLmgNCj4gaW5kZXggZTQ1ZmI2ZDk3YjAyLi5j
-MjkyYzNjMDBkMjkgMTAwNjQ0DQo+IC0tLSBhL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9mbHVz
-aHRsYi5oDQo+ICsrKyBiL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9mbHVzaHRsYi5oDQo+IEBA
-IC02NSw2ICs2NSw3IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBmbHVzaF94ZW5fdGxiX3JhbmdlX3Zh
-KHZhZGRyX3QgdmEsDQo+ICAgICAgICAgdmEgKz0gUEFHRV9TSVpFOw0KPiAgICAgfQ0KPiAgICAg
-ZHNiKGlzaCk7IC8qIEVuc3VyZSB0aGUgVExCIGludmFsaWRhdGlvbiBoYXMgY29tcGxldGVkICov
-DQo+ICsgICAgX190bGJfcmVwZWF0X3N5bmMoKTsNCg0KTW9yZSBhIHF1ZXN0aW9uIGhlcmUgcmF0
-aGVyIHRoYW4gYSBjb21tZW50LCBzaGFsbCB3ZSBoYXZlIGEgY29tbWVudCBvbiB0b3ANCm9mIHRo
-aXMgc3RhdGluZyB0aGF0IGl04oCZcyBkZWxpYmVyYXRlIHRvIGhhdmUgaXQgYmVmb3JlIHRoZSBp
-c2I/DQpPciBkZXZlbG9wZXIgc2hvdWxkIGluZmVyIGl0IGZyb20gdGhlIGNvZGUgYW5kIGZyb20g
-Z2l0IGJsYW1lPw0KDQo+ICAgICBpc2IoKTsNCj4gfQ0KPiANCj4gLS0gDQo+IDIuNDMuMA0KPiAN
-Cj4gDQoNCldpdGggdGhlc2UgZml4ZWQ6DQoNClJldmlld2VkLWJ5OiBMdWNhIEZhbmNlbGx1IDxs
-dWNhLmZhbmNlbGx1QGFybS5jb20+DQoNCkNoZWVycywNCkx1Y2ENCg0K
+
+
+On 14/04/2026 16:00, Luca Fancellu wrote:
+> Hi Michal,
+> 
+>> On 14 Apr 2026, at 09:11, Michal Orzel <michal.orzel@amd.com> wrote:
+>>
+>> The ARM64_WORKAROUND_REPEAT_TLBI workaround is used to mitigate several
+>> errata where broadcast TLBI;DSB sequences don't provide all the
+>> architecturally required synchronization. The workaround performs more
+>> work than necessary, and can have significant overhead. This patch
+>> optimizes the workaround, as explained below.
+>>
+>> 1. All relevant errata only affect the ordering and/or completion of
+>>   memory accesses which have been translated by an invalidated TLB
+>>   entry. The actual invalidation of TLB entries is unaffected.
+>>
+>> 2. The existing workaround is applied to both broadcast and local TLB
+>>   invalidation, whereas for all relevant errata it is only necessary to
+>>   apply a workaround for broadcast invalidation.
+>>
+>> 3. The existing workaround replaces every TLBI with a TLBI;DSB;TLBI
+>>   sequence, whereas for all relevant errata it is only necessary to
+>>   execute a single additional TLBI;DSB sequence after any number of
+>>   TLBIs are completed by a DSB.
+>>
+>>   For example, for a sequence of batched TLBIs:
+>>
+>>       TLBI <op1>[, <arg1>]
+>>       TLBI <op2>[, <arg2>]
+>>       TLBI <op3>[, <arg3>]
+>>       DSB ISH
+>>
+>>   ... the existing workaround will expand this to:
+>>
+>>       TLBI <op1>[, <arg1>]
+>>       DSB ISH                  // additional
+>>       TLBI <op1>[, <arg1>]     // additional
+>>       TLBI <op2>[, <arg2>]
+>>       DSB ISH                  // additional
+>>       TLBI <op2>[, <arg2>]     // additional
+>>       TLBI <op3>[, <arg3>]
+>>       DSB ISH                  // additional
+>>       TLBI <op3>[, <arg3>]     // additional
+>>       DSB ISH
+>>
+>>   ... whereas it is sufficient to have:
+>>
+>>       TLBI <op1>[, <arg1>]
+>>       TLBI <op2>[, <arg2>]
+>>       TLBI <op3>[, <arg3>]
+>>       DSB ISH
+>>       TLBI <opX>[, <argX>]     // additional
+>>       DSB ISH                  // additional
+>>
+>>   Using a single additional TBLI and DSB at the end of the sequence can
+> 
+> NIT: Typo s/TBLI/TLBI
+> 
+>>   have significantly lower overhead as each DSB which completes a TLBI
+>>   must synchronize with other PEs in the system, with potential
+>>   performance effects both locally and system-wide.
+>>
+>> 4. The existing workaround repeats each specific TLBI operation, whereas
+>>   for all relevant errata it is sufficient for the additional TLBI to
+>>   use *any* operation which will be broadcast, regardless of which
+>>   translation regime or stage of translation the operation applies to.
+>>
+>>   For example, for a single TLBI:
+>>
+>>       TLBI ALLE2IS
+>>       DSB ISH
+>>
+>>   ... the existing workaround will expand this to:
+>>
+>>       TLBI ALLE2IS
+>>       DSB ISH
+>>       TLBI ALLE2IS             // additional
+>>       DSB ISH                  // additional
+>>
+>>   ... whereas it is sufficient to have:
+>>
+>>       TLBI ALLE2IS
+>>       DSB ISH
+>>       TLBI VALE1IS, XZR        // additional
+>>       DSB ISH                  // additional
+>>
+>>   As the additional TLBI doesn't have to match a specific earlier TLBI,
+>>   the additional TLBI can be implemented in separate code, with no
+>>   memory of the earlier TLBIs. The additional TLBI can also use a
+>>   cheaper TLBI operation.
+>>
+>> 5. The existing workaround is applied to both Stage-1 and Stage-2 TLB
+>>   invalidation, whereas for all relevant errata it is only necessary to
+>>   apply a workaround for Stage-1 invalidation.
+>>
+>>   Architecturally, TLBI operations which invalidate only Stage-2
+>>   information (e.g. IPAS2E1IS) are not required to invalidate TLB
+>>   entries which combine information from Stage-1 and Stage-2
+>>   translation table entries, and consequently may not complete memory
+>>   accesses translated by those combined entries. In these cases,
+>>   completion of memory accesses is only guaranteed after subsequent
+>>   invalidation of Stage-1 information (e.g. VMALLE1IS).
+>>
+>> Rework the workaround logic as follows:
+>> - add TLB_HELPER_LOCAL() to be used for local TLB ops without a
+>>   workaround,
+>> - modify TLB_HELPER() workaround to use tlbi vale2is, xzr as a second
+>>   TLB,
+> 
+> TLBI ?
+> 
+>> - drop TLB_HELPER_VA(). It's used only by __flush_xen_tlb_one_local
+>>   which is local and does not need workaround and by
+>>   __flush_xen_tlb_one. In the latter case, since it's used in a loop,
+>>   we don't need a workaround in the middle. Add __tlb_repeat_sync with
+>>   a workaround to be used at the end after DSB and before final ISB,
+>> - TLBI VALE2IS passing XZR is used as an additional TLBI. While there is
+>>   an identity mapping there, it's used very rarely. The performance
+>>   impact is therefore negligible. If things change in the future, we
+>>   can revisit the decision.
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>> ---
+>> Linux counterpart (already merged):
+>> https://lore.kernel.org/linux-arm-kernel/20260218164348.2022831-1-mark.rutland@arm.com/
+>> ---
+>> xen/arch/arm/include/asm/arm32/flushtlb.h |   3 +
+>> xen/arch/arm/include/asm/arm64/flushtlb.h | 108 ++++++++++++++--------
+>> xen/arch/arm/include/asm/flushtlb.h       |   1 +
+>> 3 files changed, 71 insertions(+), 41 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/include/asm/arm32/flushtlb.h b/xen/arch/arm/include/asm/arm32/flushtlb.h
+>> index 61c25a318998..5483be08fbbe 100644
+>> --- a/xen/arch/arm/include/asm/arm32/flushtlb.h
+>> +++ b/xen/arch/arm/include/asm/arm32/flushtlb.h
+>> @@ -57,6 +57,9 @@ static inline void __flush_xen_tlb_one(vaddr_t va)
+>>     asm volatile(STORE_CP32(0, TLBIMVAHIS) : : "r" (va) : "memory");
+>> }
+>>
+>> +/* Only for ARM64_WORKAROUND_REPEAT_TLBI */
+>> +static inline void __tlb_repeat_sync(void) {}
+>> +
+>> #endif /* __ASM_ARM_ARM32_FLUSHTLB_H__ */
+>> /*
+>>  * Local variables:
+>> diff --git a/xen/arch/arm/include/asm/arm64/flushtlb.h b/xen/arch/arm/include/asm/arm64/flushtlb.h
+>> index 3b99c11b50d1..1606b26bf28a 100644
+>> --- a/xen/arch/arm/include/asm/arm64/flushtlb.h
+>> +++ b/xen/arch/arm/include/asm/arm64/flushtlb.h
+>> @@ -12,9 +12,14 @@
+>>  * ARM64_WORKAROUND_REPEAT_TLBI:
+>>  * Modification of the translation table for a virtual address might lead to
+>>  * read-after-read ordering violation.
+>> - * The workaround repeats TLBI+DSB ISH operation for all the TLB flush
+>> - * operations. While this is strictly not necessary, we don't want to
+>> - * take any risk.
+>> + * The workaround repeats TLBI+DSB ISH operation for broadcast TLB flush
+>> + * operations. The workaround is not needed for local operations.
+>> + *
+>> + * It is sufficient for the additional TLBI to use *any* operation which will
+>> + * be broadcast, regardless of which translation regime or stage of translation
+>> + * the operation applies to. TLBI VALE2IS is used passing XZR. While there is
+>> + * an identity mapping there, it's only used during suspend/resume, CPU on/off,
+>> + * so the impact (performance if any) is negligible.
+>>  *
+>>  * For Xen page-tables the ISB will discard any instructions fetched
+>>  * from the old mappings.
+>> @@ -26,69 +31,90 @@
+>>  * Note that for local TLB flush, using non-shareable (nsh) is sufficient
+>>  * (see D5-4929 in ARM DDI 0487H.a). Although, the memory barrier in
+>>  * for the workaround is left as inner-shareable to match with Linux
+>> - * v6.1-rc8.
+>> + * v6.19.
+>>  */
+>> -#define TLB_HELPER(name, tlbop, sh)              \
+>> +#define TLB_HELPER_LOCAL(name, tlbop)            \
+>> static inline void name(void)                    \
+>> {                                                \
+>>     asm_inline volatile (                        \
+>> -        "dsb  "  # sh  "st;"                     \
+>> +        "dsb  nshst;"                            \
+>>         "tlbi "  # tlbop  ";"                    \
+>> -        ALTERNATIVE(                             \
+>> -            "nop; nop;",                         \
+>> -            "dsb  ish;"                          \
+>> -            "tlbi "  # tlbop  ";",               \
+>> -            ARM64_WORKAROUND_REPEAT_TLBI,        \
+>> -            CONFIG_ARM64_WORKAROUND_REPEAT_TLBI) \
+>> -        "dsb  "  # sh  ";"                       \
+>> +        "dsb  nsh;"                              \
+>>         "isb;"                                   \
+>>         : : : "memory");                         \
+>> }
+>>
+>> -/*
+>> - * FLush TLB by VA. This will likely be used in a loop, so the caller
+>> - * is responsible to use the appropriate memory barriers before/after
+>> - * the sequence.
+>> - *
+>> - * See above about the ARM64_WORKAROUND_REPEAT_TLBI sequence.
+>> - */
+>> -#define TLB_HELPER_VA(name, tlbop)               \
+>> -static inline void name(vaddr_t va)              \
+>> -{                                                \
+>> -    asm_inline volatile (                        \
+>> -        "tlbi "  # tlbop  ", %0;"                \
+>> -        ALTERNATIVE(                             \
+>> -            "nop; nop;",                         \
+>> -            "dsb  ish;"                          \
+>> -            "tlbi "  # tlbop  ", %0;",           \
+>> -            ARM64_WORKAROUND_REPEAT_TLBI,        \
+>> -            CONFIG_ARM64_WORKAROUND_REPEAT_TLBI) \
+>> -        : : "r" (va >> PAGE_SHIFT) : "memory");  \
+>> +#define TLB_HELPER(name, tlbop)                       \
+>> +static inline void name(void)                         \
+>> +{                                                     \
+>> +    asm_inline volatile (                             \
+>> +        "dsb  ishst;"                                 \
+>> +        "tlbi "  # tlbop  ";"                         \
+>> +        ALTERNATIVE(                                  \
+>> +            "nop; nop;",                              \
+>> +            "dsb  ish;"                               \
+>> +            "tlbi vale2is, xzr;",                     \
+>> +            ARM64_WORKAROUND_REPEAT_TLBI,             \
+>> +            CONFIG_ARM64_WORKAROUND_REPEAT_TLBI)      \
+>> +        "dsb  ish;"                                   \
+>> +        "isb;"                                        \
+>> +        : : : "memory"); \
+>> }
+>>
+>> /* Flush local TLBs, current VMID only. */
+>> -TLB_HELPER(flush_guest_tlb_local, vmalls12e1, nsh)
+>> +TLB_HELPER_LOCAL(flush_guest_tlb_local, vmalls12e1)
+>>
+>> /* Flush innershareable TLBs, current VMID only */
+>> -TLB_HELPER(flush_guest_tlb, vmalls12e1is, ish)
+>> +TLB_HELPER(flush_guest_tlb, vmalls12e1is)
+>>
+>> /* Flush local TLBs, all VMIDs, non-hypervisor mode */
+>> -TLB_HELPER(flush_all_guests_tlb_local, alle1, nsh)
+>> +TLB_HELPER_LOCAL(flush_all_guests_tlb_local, alle1)
+>>
+>> /* Flush innershareable TLBs, all VMIDs, non-hypervisor mode */
+>> -TLB_HELPER(flush_all_guests_tlb, alle1is, ish)
+>> +TLB_HELPER(flush_all_guests_tlb, alle1is)
+>>
+>> /* Flush all hypervisor mappings from the TLB of the local processor. */
+>> -TLB_HELPER(flush_xen_tlb_local, alle2, nsh)
+>> +TLB_HELPER_LOCAL(flush_xen_tlb_local, alle2)
+>> +
+>> +#undef TLB_HELPER_LOCAL
+>> +#undef TLB_HELPER
+>> +
+>> +/*
+>> + * FLush TLB by VA. This will likely be used in a loop, so the caller
+>> + * is responsible to use the appropriate memory barriers before/after
+>> + * the sequence.
+>> + */
+>>
+>> /* Flush TLB of local processor for address va. */
+>> -TLB_HELPER_VA(__flush_xen_tlb_one_local, vae2)
+>> +static inline void __flush_xen_tlb_one_local(vaddr_t va)
+>> +{
+>> +    asm_inline volatile (
+>> +        "tlbi vae2, %0" : : "r" (va >> PAGE_SHIFT) : "memory");
+>> +}
+>>
+>> /* Flush TLB of all processors in the inner-shareable domain for address va. */
+>> -TLB_HELPER_VA(__flush_xen_tlb_one, vae2is)
+>> +static inline void __flush_xen_tlb_one(vaddr_t va)
+>> +{
+>> +    asm_inline volatile (
+>> +        "tlbi vae2is, %0" : : "r" (va >> PAGE_SHIFT) : "memory");
+>> +}
+>>
+>> -#undef TLB_HELPER
+>> -#undef TLB_HELPER_VA
+>> +/*
+>> + * ARM64_WORKAROUND_REPEAT_TLBI:
+>> + * For all relevant erratas it is only necessary to execute a single
+>> + * additional TLBI;DSB sequence after any number of TLBIs are completed by DSB.
+>> + */
+>> +static inline void __tlb_repeat_sync(void)
+>> +{
+>> +    asm_inline volatile (
+>> +        ALTERNATIVE(
+>> +            "nop; nop;",
+>> +            "tlbi vale2is, xzr;"
+>> +            "dsb  ish;",
+>> +            ARM64_WORKAROUND_REPEAT_TLBI,
+>> +            CONFIG_ARM64_WORKAROUND_REPEAT_TLBI)
+>> +        : : : "memory");
+>> +}
+>>
+>> #endif /* __ASM_ARM_ARM64_FLUSHTLB_H__ */
+>> /*
+>> diff --git a/xen/arch/arm/include/asm/flushtlb.h b/xen/arch/arm/include/asm/flushtlb.h
+>> index e45fb6d97b02..c292c3c00d29 100644
+>> --- a/xen/arch/arm/include/asm/flushtlb.h
+>> +++ b/xen/arch/arm/include/asm/flushtlb.h
+>> @@ -65,6 +65,7 @@ static inline void flush_xen_tlb_range_va(vaddr_t va,
+>>         va += PAGE_SIZE;
+>>     }
+>>     dsb(ish); /* Ensure the TLB invalidation has completed */
+>> +    __tlb_repeat_sync();
+> 
+> More a question here rather than a comment, shall we have a comment on top
+> of this stating that it’s deliberate to have it before the isb?
+> Or developer should infer it from the code and from git blame?
+I think the explanation in flushtlb.h and commit msg should be enough. To
+understand it fully, you still need to read the complete message to get a full
+picture, so I don't think that adding a commit with one sentence improves the
+situation.
+
+> 
+>>     isb();
+>> }
+>>
+>> -- 
+>> 2.43.0
+>>
+>>
+> 
+> With these fixed:
+The NITs can be fixed on commit provided no other remarks from other
+maintainers, specifically @Julien.
+
+~Michal
+
 
