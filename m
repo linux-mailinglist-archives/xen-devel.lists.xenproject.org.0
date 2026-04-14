@@ -2,37 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4DzeJ5ui3mkeGwAAu9opvQ
+	id YF6UBwX33WlolgkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 22:24:59 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 10:12:53 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E8B93FE574
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 22:24:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1282092.1564805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 569273F6FEC
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 10:12:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1281457.1564346 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCkJY-0006hG-GB; Tue, 14 Apr 2026 20:24:52 +0000
+	id 1wCYsB-00019u-BG; Tue, 14 Apr 2026 08:11:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1282092.1564805; Tue, 14 Apr 2026 20:24:52 +0000
+Received: by outflank-mailman (output) from mailman id 1281457.1564346; Tue, 14 Apr 2026 08:11:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCkJY-0006eQ-CE; Tue, 14 Apr 2026 20:24:52 +0000
-Received: by outflank-mailman (input) for mailman id 1282092;
- Tue, 14 Apr 2026 20:24:50 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1wCYsB-00017A-80; Tue, 14 Apr 2026 08:11:51 +0000
+Received: by outflank-mailman (input) for mailman id 1281457;
+ Tue, 14 Apr 2026 08:11:49 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1wCkJW-0006Xg-RI
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 20:24:50 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1wCkJW-001nTv-1X;
- Tue, 14 Apr 2026 20:24:50 +0000
-Received: from [2a02:8012:3a1:0:6452:fdce:8dbd:9a39]
- by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1wCkJW-0036wi-16;
- Tue, 14 Apr 2026 20:24:50 +0000
+ (envelope-from <Michal.Orzel@amd.com>) id 1wCYs9-000174-Fc
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 08:11:49 +0000
+Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
+ id 1wCYs8-005quB-3j
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 10:11:48 +0200
+Received: from [10.42.69.8] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69ddf6b8-bab6-0a2a0a5309dd-0a2a4508d414-32
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 10:11:47 +0200
+Received: from [52.101.43.0]
+ (helo=SJ2PR03CU001.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69ddf6c1-fab6-0a2a45080019-34652b0012ee-4
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 10:11:47 +0200
+Received: from MN2PR20CA0038.namprd20.prod.outlook.com (2603:10b6:208:235::7)
+ by SJ5PPFD5E8DE351.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::9a4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
+ 2026 08:11:40 +0000
+Received: from BL6PEPF00022574.namprd02.prod.outlook.com
+ (2603:10b6:208:235:cafe::9a) by MN2PR20CA0038.outlook.office365.com
+ (2603:10b6:208:235::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Tue,
+ 14 Apr 2026 08:11:39 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF00022574.mail.protection.outlook.com (10.167.249.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Tue, 14 Apr 2026 08:11:39 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 14 Apr
+ 2026 03:11:39 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 14 Apr
+ 2026 03:11:38 -0500
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17
+ via Frontend Transport; Tue, 14 Apr 2026 03:11:37 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,535 +74,404 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=QFBLfe5i/9JqZBRgUFAj7nWhiJfRTY56kNhSbwiwTQk=; b=0S9RfB0x6qrJPSFDae9jphUcrr
-	nyjl6xNGf4BS8hZvn7h05Fc1npFScMmKPEJLlg7f+PJdnIN45iYenX5xFcJbo/VaEFimam6Du+hPc
-	Zq8clk9jv2X3Otb/auFuSMV6psCOjfTd6Nw6t7MPo4JZH65g6UBN/wKN5zq3wjeTYuVo=;
-Message-ID: <6d1806aa-b009-407a-9a7a-476f9f4deb70@xen.org>
-Date: Tue, 14 Apr 2026 17:10:37 +0900
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DUCwW21L9PPlcsfIks9yEoRta1EIouMTQKA4p/5Q1VbdlXcYPpadYyaQutXtXlKJTalB15lvYWK8iUk91cQBrItCircLp00P68jChPwlLr9SH90jqMnHpR9pAU98SwNpb4ivKEP/ZVPe/51ZU8eourBhGJNrLOLtsQNZuK7/5Gx5iWvJ3fRPmS63hty/zFLmV/Ksn3KsUqMyC4Vuk5UOgM79MX/XDBdnGw442G32wQa8ycRjDEtK8r3Fu/npczzuc2ZHQbcEN9krQRQaHWvjo+aJPOXHfLUdlMPXC6UM8Aj/uKMa70niypZFw3R+kfcyMW4RXt4YyrimS7FSCe2YOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PP1KyGMUPJvF5Q1ukT7V82w/Lm2EsCmlDdLEROtkou0=;
+ b=HeE7Zb9PYVVoqHQHWP96r4oMc4+0pUJZgFH74GWbQ8/trEOGo/qiYz7wG4t+biDYdWwWx+sEV4m4RyxjP0wZsXv87+Tm8olYQ9hYq9SkKBHFIPLphquslOP9GM9umIa2LJ7SPRTDDz2JaGcZ9k4hGnDkbufcKgQ3Qv6/HsEw4c4svFs3FtSiPWee+6nRSZ6h35y7rnOzo97VU5hhGR7nppBwfYhGu3W68bif1pINo5Q5+jiw0jD5dIYJIROo9Jaln/oK6p2PxD3lKGsCJny41hO9MnluADpvH1F3NIFhaeufrtVUQVuAI7Y+P95IYlTCAAfnG8bAXqzD+p7FrmVunw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PP1KyGMUPJvF5Q1ukT7V82w/Lm2EsCmlDdLEROtkou0=;
+ b=y2U0zr0J50Uocv8mpPe5kNBlqvPlxcsgAWJq+JcUT5ias7Rv1OSMA1Msr7KK9pdNNV2vgz8VoMOTfXNINFPL1JCspWIlvP+GU6LuI8nBLe+ZHq6hwRGp/rTLTYpRt/ra+Z/m3qD6iDC89NA6JMm1hcCjazHJqGqeFChMZxHY5tw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	<Mark.Rutland@arm.com>
+Subject: [PATCH] xen/arm64: flushtlb: Optimize ARM64_WORKAROUND_REPEAT_TLBI
+Date: Tue, 14 Apr 2026 10:11:24 +0200
+Message-ID: <20260414081124.48741-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/23] xen/arm: vsmmuv3: Add support for registers
- emulation
-Content-Language: en-GB
-To: Milan Djokic <milan_djokic@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Rahul Singh <rahul.singh@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1774918270.git.milan_djokic@epam.com>
- <25adb33c4be3932c2d946cf7757c933eb042476c.1774918270.git.milan_djokic@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <25adb33c4be3932c2d946cf7757c933eb042476c.1774918270.git.milan_djokic@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB03.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022574:EE_|SJ5PPFD5E8DE351:EE_
+X-MS-Office365-Filtering-Correlation-Id: 182f4983-c2c1-467b-24c8-08de99fd74bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|36860700016|82310400026|13003099007|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Vb0imuJC/sTDyw+CSlUnl7zUUfRn36atApgSsOxsRIDdCP/4iPUh2Ms2RmWCAym0Xd6r3GwI3I+ky90sJY/vqu74LcHVnsJUA9lofhoDnkvy3H8JAO0dKfnf4jyR2ZevuED8axlOvB7ARIclBKuORGUMdOND8c5uUkKx9auNNdCfYfvxtpXa+yGoGZngo0+vD6p4kd+LPGxEznPEN0N80Q7V+pHATWbv1jfZgkIRLps4gExp/k7j2uXD3spP0nhHMW2QBrVRh1J/yX4lTrZxD3pwzIb+YqoWZzrlzeh6+9PNFiZhheTTl+QH5CLi25oh/eKI85LARvY97yDIRrpfh2Apgefi8GKwX+VByCVmx8oIyOaKI83Y1cgGC7wsrJH2Zmli+g1e4F1gZCgTyKcYIKyKlAWno7S++YD0vBfo6/L/YL5/IlEkROLyiMWydBA6YzifrAOubuCuWrA+7gh6+uwAKui1Gqk9OdCpYXB9rR8KE8eRAtUrmyi6nGfkxmhRMfEAT3q2phSiyHMn4vIYbKyyeVQOZ3bi83uxLWu76YN7RD3Zv5n99AewG74gNsmVrzjsliZBm4DY/h9zik6EuHpbEdJSyjkLp1YhYuFSTb/qBRE+RWon8UPaoXAcwmFyazrUFYaUtoRbwxRbExcw5zGuBcsoHFF2KH5EnFUdB8v1mGjTL9Rjx1H1LKsJIrE8o812jWKVoAnfsSTqwq0IDWPdyibouJKITC+t047zJPgS6sTyYmBYy6BZ44rkSJCZZMIjy+iaMnG49H1IJjXrzA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(13003099007)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	o1kFbWFtiK3xeI1aUlgDvbUumLAYh/h+ajwt3ii+FpIdIjWjilwDpqSyIP1L3m78pyCoF3HMhgh//Ak1pjkfwXODCQ03lLr8iDjBvLhyxz8HU/uXbJkqa4rHzpbh7VjSyaMXh5uRQ4+4WtwjiXTkD+yQAT+EbfAm+8/1yvmYxdEqlfGDP3PAghehknGaAiNqro9dsHxuTRvqmWIYbuktXW3aTiDzsLW4ZEctdaNCyEmrxN/frMIRyujyfP8/E4xIXZ83QA21mhSkg5FajU1ScBOTryrXg9NehFw+qKddKXHs11TTMxuW6opoAhGqUNfR09tOOk2ZSNBRv99PlQLeF9XSqqO92JR7GaKApxey21snfhhE53AmSV8dv+PhrBv6uKGBRW5pbukIhoAUkQgFcswa+dXTU42Tqn52QaFoCH9MHUWYUk03YT61eqKnb1uG
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 08:11:39.7012
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 182f4983-c2c1-467b-24c8-08de99fd74bc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00022574.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFD5E8DE351
+X-purgate-ID: tlsNG-c1860d/1776154307-F6151497-20639DC2/0/0
+X-purgate-type: clean
+X-purgate-size: 12302
 X-Spamd-Result: default: False [-0.69 / 15.00];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[xen.org:s=20200302mail];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_MISSING_CHARSET(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,xen.org:dkim,xen.org:mid];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:milan_djokic@epam.com,m:xen-devel@lists.xenproject.org,m:rahul.singh@arm.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	DMARC_NA(0.00)[xen.org];
-	FORGED_SENDER(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[xen.org:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:Mark.Rutland@arm.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_HAM(-0.00)[-0.998];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	DKIM_TRACE(0.00)[amd.com:+];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 5E8B93FE574
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:email,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: 569273F6FEC
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Milan,
+The ARM64_WORKAROUND_REPEAT_TLBI workaround is used to mitigate several
+errata where broadcast TLBI;DSB sequences don't provide all the
+architecturally required synchronization. The workaround performs more
+work than necessary, and can have significant overhead. This patch
+optimizes the workaround, as explained below.
 
-On 31/03/2026 10:52, Milan Djokic wrote:
-> From: Rahul Singh <rahul.singh@arm.com>
-> 
-> Add initial support for various emulated registers for virtual SMMUv3
-> for guests and also add support for virtual cmdq and eventq.
-> 
-> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
-> Signed-off-by: Milan Djokic <milan_djokic@epam.com>
-> ---
->   xen/drivers/passthrough/arm/smmu-v3.h  |   6 +
->   xen/drivers/passthrough/arm/vsmmu-v3.c | 286 +++++++++++++++++++++++++
->   2 files changed, 292 insertions(+)
-> 
-> diff --git a/xen/drivers/passthrough/arm/smmu-v3.h b/xen/drivers/passthrough/arm/smmu-v3.h
-> index 3fb13b7e21..fab4fd5a26 100644
-> --- a/xen/drivers/passthrough/arm/smmu-v3.h
-> +++ b/xen/drivers/passthrough/arm/smmu-v3.h
-> @@ -60,6 +60,12 @@
->   #define IDR5_VAX			GENMASK(11, 10)
->   #define IDR5_VAX_52_BIT			1
->   
-> +#define ARM_SMMU_IIDR			0x18
-> +#define IIDR_PRODUCTID			GENMASK(31, 20)
-> +#define IIDR_VARIANT			GENMASK(19, 16)
-> +#define IIDR_REVISION			GENMASK(15, 12)
-> +#define IIDR_IMPLEMENTER		GENMASK(11, 0)
-> +
->   #define ARM_SMMU_CR0			0x20
->   #define CR0_ATSCHK			(1 << 4)
->   #define CR0_CMDQEN			(1 << 3)
-> diff --git a/xen/drivers/passthrough/arm/vsmmu-v3.c b/xen/drivers/passthrough/arm/vsmmu-v3.c
-> index e36f200ba5..3ae1e62a50 100644
-> --- a/xen/drivers/passthrough/arm/vsmmu-v3.c
-> +++ b/xen/drivers/passthrough/arm/vsmmu-v3.c
-> @@ -3,25 +3,307 @@
->   #include <xen/param.h>
->   #include <xen/sched.h>
->   #include <asm/mmio.h>
-> +#include <asm/vgic-emul.h>
+1. All relevant errata only affect the ordering and/or completion of
+   memory accesses which have been translated by an invalidated TLB
+   entry. The actual invalidation of TLB entries is unaffected.
 
-vgic-emul.h is intended to only be used in the vGIC code. I am fine if 
-you want to use it in vsmmu-v3.c but it needs to be renamed. Maybe to 
-vdev-emul.h.
+2. The existing workaround is applied to both broadcast and local TLB
+   invalidation, whereas for all relevant errata it is only necessary to
+   apply a workaround for broadcast invalidation.
 
->   #include <asm/viommu.h>
-> +#include <asm/vreg.h>
-> +
-> +#include "smmu-v3.h"
-> +
-> +/* Register Definition */
-> +#define ARM_SMMU_IDR2       0x8
-> +#define ARM_SMMU_IDR3       0xc
-> +#define ARM_SMMU_IDR4       0x10
-> +#define IDR0_TERM_MODEL     (1 << 26)
-> +#define IDR3_RIL            (1 << 10)
-> +#define CR0_RESERVED        0xFFFFFC20
+3. The existing workaround replaces every TLBI with a TLBI;DSB;TLBI
+   sequence, whereas for all relevant errata it is only necessary to
+   execute a single additional TLBI;DSB sequence after any number of
+   TLBIs are completed by a DSB.
 
-AFAIU, this is covering all the bits defined by the SMMU spec. But some 
-of them are optional. Does this mean we will expose those optional features?
+   For example, for a sequence of batched TLBIs:
 
-> +#define SMMU_IDR1_SIDSIZE   16
-> +#define SMMU_CMDQS          19
+       TLBI <op1>[, <arg1>]
+       TLBI <op2>[, <arg2>]
+       TLBI <op3>[, <arg3>]
+       DSB ISH
 
-Can you add some details how you decided the size of the command and ...
+   ... the existing workaround will expand this to:
 
-> +#define SMMU_EVTQS          19
+       TLBI <op1>[, <arg1>]
+       DSB ISH                  // additional
+       TLBI <op1>[, <arg1>]     // additional
+       TLBI <op2>[, <arg2>]
+       DSB ISH                  // additional
+       TLBI <op2>[, <arg2>]     // additional
+       TLBI <op3>[, <arg3>]
+       DSB ISH                  // additional
+       TLBI <op3>[, <arg3>]     // additional
+       DSB ISH
 
-... even queues?
+   ... whereas it is sufficient to have:
 
-> +#define DWORDS_BYTES        8
-> +#define ARM_SMMU_IIDR_VAL   0x12
+       TLBI <op1>[, <arg1>]
+       TLBI <op2>[, <arg2>]
+       TLBI <op3>[, <arg3>]
+       DSB ISH
+       TLBI <opX>[, <argX>]     // additional
+       DSB ISH                  // additional
 
-I am not sure which implementer this is referring to. But how do you 
-plan to handle errata? Are we sure they can always be handled by Xen?
+   Using a single additional TBLI and DSB at the end of the sequence can
+   have significantly lower overhead as each DSB which completes a TLBI
+   must synchronize with other PEs in the system, with potential
+   performance effects both locally and system-wide.
 
->   
->   /* Struct to hold the vIOMMU ops and vIOMMU type */
->   extern const struct viommu_desc __read_mostly *cur_viommu;
->   
-> +/* virtual smmu queue */
-> +struct arm_vsmmu_queue {
-> +    uint64_t    q_base; /* base register */
-> +    uint32_t    prod;
-> +    uint32_t    cons;
-> +    uint8_t     ent_size;
-> +    uint8_t     max_n_shift;
-> +};
-> +
->   struct virt_smmu {
->       struct      domain *d;
->       struct      list_head viommu_list;
-> +    uint8_t     sid_split;
-> +    uint32_t    features;
-> +    uint32_t    cr[3];
-> +    uint32_t    cr0ack;
-> +    uint32_t    gerror;
-> +    uint32_t    gerrorn;
-> +    uint32_t    strtab_base_cfg;
-> +    uint64_t    strtab_base;
-> +    uint32_t    irq_ctrl;
-> +    uint64_t    gerror_irq_cfg0;
-> +    uint64_t    evtq_irq_cfg0;
-> +    struct      arm_vsmmu_queue evtq, cmdq;
->   };
->   
->   static int vsmmuv3_mmio_write(struct vcpu *v, mmio_info_t *info,
->                                 register_t r, void *priv)
->   {
-> +    struct virt_smmu *smmu = priv;
-> +    uint64_t reg;
-> +    uint32_t reg32;
+4. The existing workaround repeats each specific TLBI operation, whereas
+   for all relevant errata it is sufficient for the additional TLBI to
+   use *any* operation which will be broadcast, regardless of which
+   translation regime or stage of translation the operation applies to.
 
-Looking at this helper and the read one, I am bit surprised there is no 
-lock taken nor we check the access size.  Can you explain why?
+   For example, for a single TLBI:
 
-For instance, we should not allow 64-bit access on 32-bit register. The 
-rest of the size (8-bit and 16-bit) is IMP DEFINED so it may be easier 
-just not allow them.
+       TLBI ALLE2IS
+       DSB ISH
 
-> +
-> +    switch ( info->gpa & 0xffff )
-> +    {
-> +    case VREG32(ARM_SMMU_CR0):
- > +        reg32 = smmu->cr[0];> +        vreg_reg32_update(&reg32, r, 
-info);
-> +        smmu->cr[0] = reg32;
-> +        smmu->cr0ack = reg32 & ~CR0_RESERVED;
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CR1):
-> +        reg32 = smmu->cr[1];
-> +        vreg_reg32_update(&reg32, r, info);
-> +        smmu->cr[1] = reg32;
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CR2):
-> +        reg32 = smmu->cr[2];
-> +        vreg_reg32_update(&reg32, r, info);
-> +        smmu->cr[2] = reg32;
-> +        break;
-> +
-> +    case VREG64(ARM_SMMU_STRTAB_BASE):
+   ... the existing workaround will expand this to:
 
-Looking at the SMMU spec (6.3.24 in ARM IHI 0070 H.a), the behavior of 
-writing to the register is constrained unpredictable before SMMUv3.2, 
-but after it should be ignored if SMMU_CR0.SMMUEN == 1.
+       TLBI ALLE2IS
+       DSB ISH
+       TLBI ALLE2IS             // additional
+       DSB ISH                  // additional
 
-So this implementation would not be valid for SMMUv3.2 and later. For 
-convenience it would be best to just ignore the write (which is also 
-valid for SMMUv3.1 and ealier).
+   ... whereas it is sufficient to have:
 
-> +        reg = smmu->strtab_base;
-> +        vreg_reg64_update(&reg, r, info);
-> +        smmu->strtab_base = reg;
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_STRTAB_BASE_CFG):
+       TLBI ALLE2IS
+       DSB ISH
+       TLBI VALE1IS, XZR        // additional
+       DSB ISH                  // additional
 
-Similar to above, there are some conditions when this field can be 
-written (see 6.3.25).
+   As the additional TLBI doesn't have to match a specific earlier TLBI,
+   the additional TLBI can be implemented in separate code, with no
+   memory of the earlier TLBIs. The additional TLBI can also use a
+   cheaper TLBI operation.
 
-> +        reg32 = smmu->strtab_base_cfg;
-> +        vreg_reg32_update(&reg32, r, info);
-> +        smmu->strtab_base_cfg = reg32;
-> +
-> +        smmu->sid_split = FIELD_GET(STRTAB_BASE_CFG_SPLIT, reg32);
+5. The existing workaround is applied to both Stage-1 and Stage-2 TLB
+   invalidation, whereas for all relevant errata it is only necessary to
+   apply a workaround for Stage-1 invalidation.
 
-The information for sid_split is already stored in 
-``smmu->strtab_base_cfg``. So why do we need to store it differently?
+   Architecturally, TLBI operations which invalidate only Stage-2
+   information (e.g. IPAS2E1IS) are not required to invalidate TLB
+   entries which combine information from Stage-1 and Stage-2
+   translation table entries, and consequently may not complete memory
+   accesses translated by those combined entries. In these cases,
+   completion of memory accesses is only guaranteed after subsequent
+   invalidation of Stage-1 information (e.g. VMALLE1IS).
 
-> +        smmu->features |= STRTAB_BASE_CFG_FMT_2LVL;
+Rework the workaround logic as follows:
+ - add TLB_HELPER_LOCAL() to be used for local TLB ops without a
+   workaround,
+ - modify TLB_HELPER() workaround to use tlbi vale2is, xzr as a second
+   TLB,
+ - drop TLB_HELPER_VA(). It's used only by __flush_xen_tlb_one_local
+   which is local and does not need workaround and by
+   __flush_xen_tlb_one. In the latter case, since it's used in a loop,
+   we don't need a workaround in the middle. Add __tlb_repeat_sync with
+   a workaround to be used at the end after DSB and before final ISB,
+ - TLBI VALE2IS passing XZR is used as an additional TLBI. While there is
+   an identity mapping there, it's used very rarely. The performance
+   impact is therefore negligible. If things change in the future, we
+   can revisit the decision.
 
-I haven't checked the rest of the code yet. But from the name, I would 
-assume it indicates whether 2-level stream table is supported. From my 
-understanding of the specification, this is selectable by the guest OS. 
-So why is this unconditionally set?
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+Linux counterpart (already merged):
+https://lore.kernel.org/linux-arm-kernel/20260218164348.2022831-1-mark.rutland@arm.com/
+---
+ xen/arch/arm/include/asm/arm32/flushtlb.h |   3 +
+ xen/arch/arm/include/asm/arm64/flushtlb.h | 108 ++++++++++++++--------
+ xen/arch/arm/include/asm/flushtlb.h       |   1 +
+ 3 files changed, 71 insertions(+), 41 deletions(-)
 
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CMDQ_BASE):
-
-Similar to above, there are some condition when this field is RO.
-
-> +        reg = smmu->cmdq.q_base;
-> +        vreg_reg64_update(&reg, r, info);
-> +        smmu->cmdq.q_base = reg;
-> +        smmu->cmdq.max_n_shift = FIELD_GET(Q_BASE_LOG2SIZE, smmu->cmdq.q_base);
-> +        if ( smmu->cmdq.max_n_shift > SMMU_CMDQS )
-> +            smmu->cmdq.max_n_shift = SMMU_CMDQS;
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CMDQ_PROD):
-> +        reg32 = smmu->cmdq.prod;
-> +        vreg_reg32_update(&reg32, r, info);
-> +        smmu->cmdq.prod = reg32;
-
-AFAIU, this implementation is not yet complete. If so, it would be good 
-to mark it as such with a comment of BUG_ON("Not yet implemented"). Same 
-for everywhere in this file and the rest of the series.
-
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CMDQ_CONS):
-> +        reg32 = smmu->cmdq.cons;
-> +        vreg_reg32_update(&reg32, r, info);
-> +        smmu->cmdq.cons = reg32;
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_EVTQ_BASE):
-> +        reg = smmu->evtq.q_base;
-> +        vreg_reg64_update(&reg, r, info);
-> +        smmu->evtq.q_base = reg;
-> +        smmu->evtq.max_n_shift = FIELD_GET(Q_BASE_LOG2SIZE, smmu->evtq.q_base);
-> +        if ( smmu->cmdq.max_n_shift > SMMU_EVTQS )
-> +            smmu->cmdq.max_n_shift = SMMU_EVTQS;
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_EVTQ_PROD):
-> +        reg32 = smmu->evtq.prod;
-> +        vreg_reg32_update(&reg32, r, info);
-> +        smmu->evtq.prod = reg32;
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_EVTQ_CONS):
-> +        reg32 = smmu->evtq.cons;
-> +        vreg_reg32_update(&reg32, r, info);
-> +        smmu->evtq.cons = reg32;
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_IRQ_CTRL):
-> +        reg32 = smmu->irq_ctrl;
-> +        vreg_reg32_update(&reg32, r, info);
-> +        smmu->irq_ctrl = reg32;
-> +        break;
-> +
-> +    case VREG64(ARM_SMMU_GERROR_IRQ_CFG0):
-> +        reg = smmu->gerror_irq_cfg0;
-> +        vreg_reg64_update(&reg, r, info);
-> +        smmu->gerror_irq_cfg0 = reg;
-> +        break;
-> +
-> +    case VREG64(ARM_SMMU_EVTQ_IRQ_CFG0):
-> +        reg = smmu->evtq_irq_cfg0;
-> +        vreg_reg64_update(&reg, r, info);
-> +        smmu->evtq_irq_cfg0 = reg;
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_GERRORN):
-> +        reg = smmu->gerrorn;
-> +        vreg_reg64_update(&reg, r, info);
-> +        smmu->gerrorn = reg;
-> +        break;
-> +
-> +    default:
-> +        printk(XENLOG_G_ERR
-> +               "%pv: vSMMUv3: unhandled write r%d offset %"PRIpaddr"\n",
-
-NIT: The vIOMMU is per-domain so it is sufficient to print "%pd".
-
-> +               v, info->dabt.reg, (unsigned long)info->gpa & 0xffff);
-> +        return IO_ABORT;
-
-Per section 6 of the SMMU:
-
-"
-For all pages except Page 1, undefined register locations are RES0. For 
-Page 1, access to undefined/Reserved
-register locations is CONSTRAINED UNPREDICTABLE and an implementation 
-has one of the following behaviors:
-[...]
-"
-
-Here you seem to implement page0 so the default case should be write 
-ignore and therefore IO_HANDLED should be returned. BTW, you don't seem 
-to handle page1. Is this going to be handled later on?
-
-> +    }
-> +
->       return IO_HANDLED;
->   }
->   
->   static int vsmmuv3_mmio_read(struct vcpu *v, mmio_info_t *info,
->                                register_t *r, void *priv)
->   {
-> +    struct virt_smmu *smmu = priv;
-> +    uint64_t reg;
-> +
-> +    switch ( info->gpa & 0xffff )
-> +    {
-> +    case VREG32(ARM_SMMU_IDR0):
-> +        reg  = FIELD_PREP(IDR0_S1P, 1) | FIELD_PREP(IDR0_TTF, 2) |
-
-As the page-table will be used by the HW, shouldn't TTF reflect what the 
-HW supports? This would allow the vIOMMU to work for 32-bit domains.
-
-> +            FIELD_PREP(IDR0_COHACC, 0) | FIELD_PREP(IDR0_ASID16, 1) |
-
-Here you set COHACC to 0 which means the guest OS will have to clean the 
-cache every time. This is safe everywhere, but it will have an impact on 
-performance. I am not asking to allow COHACC when the HW supports it, 
-but I think a TODO would be worth.
-
-For ASID16, shouldn't the value be based on the HW?
-
-As an aside, I guess we don't allow BTM because we only expose a single 
-vSMMU?
-
-> +            FIELD_PREP(IDR0_TTENDIAN, 0) | FIELD_PREP(IDR0_STALL_MODEL, 1) |
-
-For TTENDIAN, it is the same as above.
-
-For STALL_MODEL, I think 1 is ok.
-
-> +            FIELD_PREP(IDR0_ST_LVL, 1) | FIELD_PREP(IDR0_TERM_MODEL, 1);
-
-Overall, it feels the value set in IDR0 and IDR1 (below) needs some comment.
-
-> +        *r = vreg_reg32_extract(reg, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_IDR1):
-> +        reg  = FIELD_PREP(IDR1_SIDSIZE, SMMU_IDR1_SIDSIZE) |
-> +            FIELD_PREP(IDR1_CMDQS, SMMU_CMDQS) |
-> +            FIELD_PREP(IDR1_EVTQS, SMMU_EVTQS);
-> +        *r = vreg_reg32_extract(reg, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_IDR2):
-> +        goto read_reserved;
-> +
-> +    case VREG32(ARM_SMMU_IDR3):
-> +        reg  = FIELD_PREP(IDR3_RIL, 0);
-
-I am not sure why we explicitely need to set RIL but not the other fields?
-
- > +        *r = vreg_reg32_extract(reg, info);> +        break;
-> +
-> +    case VREG32(ARM_SMMU_IDR4):
-> +        goto read_impl_defined;
-> +
-> +    case VREG32(ARM_SMMU_IDR5):
-> +        reg  = FIELD_PREP(IDR5_GRAN4K, 1) | FIELD_PREP(IDR5_GRAN16K, 1) |
-> +            FIELD_PREP(IDR5_GRAN64K, 1) | FIELD_PREP(IDR5_OAS, IDR5_OAS_48_BIT);
-
-Similar to the other fields in IDR0, isn't this based on what the HW 
-supports?	
-
-> +        *r = vreg_reg32_extract(reg, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_IIDR):
-> +        *r = vreg_reg32_extract(ARM_SMMU_IIDR_VAL, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CR0):
-> +        *r = vreg_reg32_extract(smmu->cr[0], info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CR0ACK):
-> +        *r = vreg_reg32_extract(smmu->cr0ack, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CR1):
-> +        *r = vreg_reg32_extract(smmu->cr[1], info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CR2):
-> +        *r = vreg_reg32_extract(smmu->cr[2], info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_STRTAB_BASE):
-> +        *r = vreg_reg64_extract(smmu->strtab_base, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_STRTAB_BASE_CFG):
-> +        *r = vreg_reg32_extract(smmu->strtab_base_cfg, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CMDQ_BASE):
-> +        *r = vreg_reg64_extract(smmu->cmdq.q_base, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CMDQ_PROD):
-> +        *r = vreg_reg32_extract(smmu->cmdq.prod, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_CMDQ_CONS):
-> +        *r = vreg_reg32_extract(smmu->cmdq.cons, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_EVTQ_BASE):
-> +        *r = vreg_reg64_extract(smmu->evtq.q_base, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_EVTQ_PROD):
-> +        *r = vreg_reg32_extract(smmu->evtq.prod, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_EVTQ_CONS):
-> +        *r = vreg_reg32_extract(smmu->evtq.cons, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_IRQ_CTRL):
-> +    case VREG32(ARM_SMMU_IRQ_CTRLACK):
-> +        *r = vreg_reg32_extract(smmu->irq_ctrl, info);
-> +        break;
-> +
-> +    case VREG64(ARM_SMMU_GERROR_IRQ_CFG0):
-> +        *r = vreg_reg64_extract(smmu->gerror_irq_cfg0, info);
-> +        break;
-> +
-> +    case VREG64(ARM_SMMU_EVTQ_IRQ_CFG0):
-> +        *r = vreg_reg64_extract(smmu->evtq_irq_cfg0, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_GERROR):
-> +        *r = vreg_reg64_extract(smmu->gerror, info);
-> +        break;
-> +
-> +    case VREG32(ARM_SMMU_GERRORN):
-> +        *r = vreg_reg64_extract(smmu->gerrorn, info);
-> +        break;
-> +
-> +    default:
-> +        printk(XENLOG_G_ERR
-> +               "%pv: vSMMUv3: unhandled read r%d offset %"PRIpaddr"\n",
-> +               v, info->dabt.reg, (unsigned long)info->gpa & 0xffff);
-> +        return IO_ABORT;
-> +    }
-> +
-> +    return IO_HANDLED;
-> +
-> + read_impl_defined:
-> +    printk(XENLOG_G_DEBUG
-> +           "%pv: vSMMUv3: RAZ on implementation defined register offset %"PRIpaddr"\n",
-> +           v, info->gpa & 0xffff);
-> +    *r = 0;
-> +    return IO_HANDLED;
-> +
-> + read_reserved:
-> +    printk(XENLOG_G_DEBUG
-> +           "%pv: vSMMUv3: RAZ on reserved register offset %"PRIpaddr"\n",
-> +           v, info->gpa & 0xffff);
-> +    *r = 0;
->       return IO_HANDLED;
->   }
->   
-> @@ -39,6 +321,10 @@ static int vsmmuv3_init_single(struct domain *d, paddr_t addr, paddr_t size)
->           return -ENOMEM;
->   
->       smmu->d = d;
-> +    smmu->cmdq.q_base = FIELD_PREP(Q_BASE_LOG2SIZE, SMMU_CMDQS);
-> +    smmu->cmdq.ent_size = CMDQ_ENT_DWORDS * DWORDS_BYTES;
-> +    smmu->evtq.q_base = FIELD_PREP(Q_BASE_LOG2SIZE, SMMU_EVTQS);
-> +    smmu->evtq.ent_size = EVTQ_ENT_DWORDS * DWORDS_BYTES;
-
-I understand why we initialize ent_size. But I am not sure to understand 
-why we need to initialize q_base. Can you clarify?
-
->   
->       register_mmio_handler(d, &vsmmuv3_mmio_handler, addr, size, smmu);
->   
-
-Cheers,
-
+diff --git a/xen/arch/arm/include/asm/arm32/flushtlb.h b/xen/arch/arm/include/asm/arm32/flushtlb.h
+index 61c25a318998..5483be08fbbe 100644
+--- a/xen/arch/arm/include/asm/arm32/flushtlb.h
++++ b/xen/arch/arm/include/asm/arm32/flushtlb.h
+@@ -57,6 +57,9 @@ static inline void __flush_xen_tlb_one(vaddr_t va)
+     asm volatile(STORE_CP32(0, TLBIMVAHIS) : : "r" (va) : "memory");
+ }
+ 
++/* Only for ARM64_WORKAROUND_REPEAT_TLBI */
++static inline void __tlb_repeat_sync(void) {}
++
+ #endif /* __ASM_ARM_ARM32_FLUSHTLB_H__ */
+ /*
+  * Local variables:
+diff --git a/xen/arch/arm/include/asm/arm64/flushtlb.h b/xen/arch/arm/include/asm/arm64/flushtlb.h
+index 3b99c11b50d1..1606b26bf28a 100644
+--- a/xen/arch/arm/include/asm/arm64/flushtlb.h
++++ b/xen/arch/arm/include/asm/arm64/flushtlb.h
+@@ -12,9 +12,14 @@
+  * ARM64_WORKAROUND_REPEAT_TLBI:
+  * Modification of the translation table for a virtual address might lead to
+  * read-after-read ordering violation.
+- * The workaround repeats TLBI+DSB ISH operation for all the TLB flush
+- * operations. While this is strictly not necessary, we don't want to
+- * take any risk.
++ * The workaround repeats TLBI+DSB ISH operation for broadcast TLB flush
++ * operations. The workaround is not needed for local operations.
++ *
++ * It is sufficient for the additional TLBI to use *any* operation which will
++ * be broadcast, regardless of which translation regime or stage of translation
++ * the operation applies to. TLBI VALE2IS is used passing XZR. While there is
++ * an identity mapping there, it's only used during suspend/resume, CPU on/off,
++ * so the impact (performance if any) is negligible.
+  *
+  * For Xen page-tables the ISB will discard any instructions fetched
+  * from the old mappings.
+@@ -26,69 +31,90 @@
+  * Note that for local TLB flush, using non-shareable (nsh) is sufficient
+  * (see D5-4929 in ARM DDI 0487H.a). Although, the memory barrier in
+  * for the workaround is left as inner-shareable to match with Linux
+- * v6.1-rc8.
++ * v6.19.
+  */
+-#define TLB_HELPER(name, tlbop, sh)              \
++#define TLB_HELPER_LOCAL(name, tlbop)            \
+ static inline void name(void)                    \
+ {                                                \
+     asm_inline volatile (                        \
+-        "dsb  "  # sh  "st;"                     \
++        "dsb  nshst;"                            \
+         "tlbi "  # tlbop  ";"                    \
+-        ALTERNATIVE(                             \
+-            "nop; nop;",                         \
+-            "dsb  ish;"                          \
+-            "tlbi "  # tlbop  ";",               \
+-            ARM64_WORKAROUND_REPEAT_TLBI,        \
+-            CONFIG_ARM64_WORKAROUND_REPEAT_TLBI) \
+-        "dsb  "  # sh  ";"                       \
++        "dsb  nsh;"                              \
+         "isb;"                                   \
+         : : : "memory");                         \
+ }
+ 
+-/*
+- * FLush TLB by VA. This will likely be used in a loop, so the caller
+- * is responsible to use the appropriate memory barriers before/after
+- * the sequence.
+- *
+- * See above about the ARM64_WORKAROUND_REPEAT_TLBI sequence.
+- */
+-#define TLB_HELPER_VA(name, tlbop)               \
+-static inline void name(vaddr_t va)              \
+-{                                                \
+-    asm_inline volatile (                        \
+-        "tlbi "  # tlbop  ", %0;"                \
+-        ALTERNATIVE(                             \
+-            "nop; nop;",                         \
+-            "dsb  ish;"                          \
+-            "tlbi "  # tlbop  ", %0;",           \
+-            ARM64_WORKAROUND_REPEAT_TLBI,        \
+-            CONFIG_ARM64_WORKAROUND_REPEAT_TLBI) \
+-        : : "r" (va >> PAGE_SHIFT) : "memory");  \
++#define TLB_HELPER(name, tlbop)                       \
++static inline void name(void)                         \
++{                                                     \
++    asm_inline volatile (                             \
++        "dsb  ishst;"                                 \
++        "tlbi "  # tlbop  ";"                         \
++        ALTERNATIVE(                                  \
++            "nop; nop;",                              \
++            "dsb  ish;"                               \
++            "tlbi vale2is, xzr;",                     \
++            ARM64_WORKAROUND_REPEAT_TLBI,             \
++            CONFIG_ARM64_WORKAROUND_REPEAT_TLBI)      \
++        "dsb  ish;"                                   \
++        "isb;"                                        \
++        : : : "memory"); \
+ }
+ 
+ /* Flush local TLBs, current VMID only. */
+-TLB_HELPER(flush_guest_tlb_local, vmalls12e1, nsh)
++TLB_HELPER_LOCAL(flush_guest_tlb_local, vmalls12e1)
+ 
+ /* Flush innershareable TLBs, current VMID only */
+-TLB_HELPER(flush_guest_tlb, vmalls12e1is, ish)
++TLB_HELPER(flush_guest_tlb, vmalls12e1is)
+ 
+ /* Flush local TLBs, all VMIDs, non-hypervisor mode */
+-TLB_HELPER(flush_all_guests_tlb_local, alle1, nsh)
++TLB_HELPER_LOCAL(flush_all_guests_tlb_local, alle1)
+ 
+ /* Flush innershareable TLBs, all VMIDs, non-hypervisor mode */
+-TLB_HELPER(flush_all_guests_tlb, alle1is, ish)
++TLB_HELPER(flush_all_guests_tlb, alle1is)
+ 
+ /* Flush all hypervisor mappings from the TLB of the local processor. */
+-TLB_HELPER(flush_xen_tlb_local, alle2, nsh)
++TLB_HELPER_LOCAL(flush_xen_tlb_local, alle2)
++
++#undef TLB_HELPER_LOCAL
++#undef TLB_HELPER
++
++/*
++ * FLush TLB by VA. This will likely be used in a loop, so the caller
++ * is responsible to use the appropriate memory barriers before/after
++ * the sequence.
++ */
+ 
+ /* Flush TLB of local processor for address va. */
+-TLB_HELPER_VA(__flush_xen_tlb_one_local, vae2)
++static inline void __flush_xen_tlb_one_local(vaddr_t va)
++{
++    asm_inline volatile (
++        "tlbi vae2, %0" : : "r" (va >> PAGE_SHIFT) : "memory");
++}
+ 
+ /* Flush TLB of all processors in the inner-shareable domain for address va. */
+-TLB_HELPER_VA(__flush_xen_tlb_one, vae2is)
++static inline void __flush_xen_tlb_one(vaddr_t va)
++{
++    asm_inline volatile (
++        "tlbi vae2is, %0" : : "r" (va >> PAGE_SHIFT) : "memory");
++}
+ 
+-#undef TLB_HELPER
+-#undef TLB_HELPER_VA
++/*
++ * ARM64_WORKAROUND_REPEAT_TLBI:
++ * For all relevant erratas it is only necessary to execute a single
++ * additional TLBI;DSB sequence after any number of TLBIs are completed by DSB.
++ */
++static inline void __tlb_repeat_sync(void)
++{
++    asm_inline volatile (
++        ALTERNATIVE(
++            "nop; nop;",
++            "tlbi vale2is, xzr;"
++            "dsb  ish;",
++            ARM64_WORKAROUND_REPEAT_TLBI,
++            CONFIG_ARM64_WORKAROUND_REPEAT_TLBI)
++        : : : "memory");
++}
+ 
+ #endif /* __ASM_ARM_ARM64_FLUSHTLB_H__ */
+ /*
+diff --git a/xen/arch/arm/include/asm/flushtlb.h b/xen/arch/arm/include/asm/flushtlb.h
+index e45fb6d97b02..c292c3c00d29 100644
+--- a/xen/arch/arm/include/asm/flushtlb.h
++++ b/xen/arch/arm/include/asm/flushtlb.h
+@@ -65,6 +65,7 @@ static inline void flush_xen_tlb_range_va(vaddr_t va,
+         va += PAGE_SIZE;
+     }
+     dsb(ish); /* Ensure the TLB invalidation has completed */
++    __tlb_repeat_sync();
+     isb();
+ }
+ 
 -- 
-Julien Grall
+2.43.0
 
 
