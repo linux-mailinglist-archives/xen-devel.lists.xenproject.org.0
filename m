@@ -2,44 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AMoZEqFB3mlvpwkAu9opvQ
+	id oBqKAQJJ3mkzqAkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 15:31:13 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 16:02:42 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91B203FA87A
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 15:31:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1281928.1564697 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11F633FAD69
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 16:02:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1281998.1564706 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCdqu-0005KI-CD; Tue, 14 Apr 2026 13:30:52 +0000
+	id 1wCeKm-00017T-On; Tue, 14 Apr 2026 14:01:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1281928.1564697; Tue, 14 Apr 2026 13:30:52 +0000
+Received: by outflank-mailman (output) from mailman id 1281998.1564706; Tue, 14 Apr 2026 14:01:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCdqu-0005IA-9A; Tue, 14 Apr 2026 13:30:52 +0000
-Received: by outflank-mailman (input) for mailman id 1281928;
- Tue, 14 Apr 2026 13:30:51 +0000
+	id 1wCeKm-000153-LA; Tue, 14 Apr 2026 14:01:44 +0000
+Received: by outflank-mailman (input) for mailman id 1281998;
+ Tue, 14 Apr 2026 14:01:43 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <bernhard.kaindl@citrix.com>) id 1wCdqt-0005I1-9X
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 13:30:51 +0000
+ (envelope-from <Luca.Fancellu@arm.com>) id 1wCeKk-00014x-SB
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 14:01:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wCdqs-008zP9-MI
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 15:30:50 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wCeKk-006AC3-8x
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 16:01:42 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <bernhard.kaindl@citrix.com>)
- id 69de4188-5cb7-0a2a0a5109dd-0a2a450be768-16
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 15:30:50 +0200
-Received: from [160.101.131.9] (helo=na1pdmzitismtp02.tibco.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <bernhard.kaindl@citrix.com>)
- id 69de4189-bca8-0a2a450b0019-a0658309e2d0-3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 15:30:50 +0200
-Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id 3DCE981A473F;
- Tue, 14 Apr 2026 09:29:56 -0400 (EDT)
+ (envelope-from <Luca.Fancellu@arm.com>)
+ id 69de48c5-e002-0a2a0a5209dd-0a2a4502e28c-0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 16:01:41 +0200
+Received: from [52.101.66.68]
+ (helo=DUZPR83CU001.outbound.protection.outlook.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <Luca.Fancellu@arm.com>)
+ id 69de48c5-42fa-0a2a45020019-34654244a55d-4
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 16:01:41 +0200
+Received: from CWLP123CA0190.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:19c::10)
+ by VI0PR08MB11432.eurprd08.prod.outlook.com (2603:10a6:800:301::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
+ 2026 14:01:36 +0000
+Received: from AM4PEPF00027A66.eurprd04.prod.outlook.com
+ (2603:10a6:400:19c:cafe::e1) by CWLP123CA0190.outlook.office365.com
+ (2603:10a6:400:19c::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.48 via Frontend Transport; Tue,
+ 14 Apr 2026 14:01:36 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AM4PEPF00027A66.mail.protection.outlook.com (10.167.16.91) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.17
+ via Frontend Transport; Tue, 14 Apr 2026 14:01:36 +0000
+Received: from DU2PR08MB7272.eurprd08.prod.outlook.com (2603:10a6:10:2d7::16)
+ by PAVPR08MB9185.eurprd08.prod.outlook.com (2603:10a6:102:30d::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
+ 2026 14:00:33 +0000
+Received: from DU2PR08MB7272.eurprd08.prod.outlook.com
+ ([fe80::5d34:206f:373:a323]) by DU2PR08MB7272.eurprd08.prod.outlook.com
+ ([fe80::5d34:206f:373:a323%6]) with mapi id 15.20.9769.046; Tue, 14 Apr 2026
+ 14:00:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,2170 +72,381 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; none
-From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v6 7/7] tools/tests/mem-claim: Add a test suite for the memory claim API
-Date: Tue, 14 Apr 2026 14:22:51 +0100
-Message-Id: <8604d18c252ce142c2f341e2b0016936d159dd7e.1776172526.git.bernhard.kaindl@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1776172526.git.bernhard.kaindl@citrix.com>
-References: <cover.1776172526.git.bernhard.kaindl@citrix.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=sERpPIsvjS70YwPBDDruA0xoNJE7/O+OV1Ed7NLjtrcl2tK1jLoeRpwHWiEWEElULf+AlOlgsoAnE6AvFa3GWZY18He383C/NNZYiBNgmPiZMAttFvA6bfWTI2OFM2N9gzIO1cyYgTYoOjxyKvQawEHORN4qlv22HE4JOYV8aI5oVc5S6UKhMDl/NTqH9iZibaxP3yrRTv0MUlWvMXAJScJPb9JR3PGR19cNW+flkLc0Xzsa3ATFq72zr/Q9/FNAZZHF5Yr3Jvwme+hRgsUXekv+oP8m9Ag8F50H8GzXLdWX8mvkJ5j0GZyw0tSLQyoeM8mot/sg1Edn4k14jAT2wQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e/4wpittnPMP+IMBMpKGM7HFyqEM2qlCacWZP4+2o9c=;
+ b=g0S1N3UoedM/2U+ucINbtuQwPN9JpEWq5sZba1ii8mLC2i6927QjWp90wW8NUQsMk4THZolhUMNtxcAshAafok/rODsv3NY50wZkmUdA1bbcDm+tA2bCX6m+8zkL7maJdiHCd210Kw3jqqs63fic3Z/65fsCY40HKN4Tc4qQ5D8ydCcqKftwvsyTH3wLsp0v2lCIivl4NNNKJdozp0jjf4/56q7yhNPuwMH62RugJRb9lc+vf2W1Q7Y/dDQuw5/Ed0dFKX5Qpv2GoTRrg2XISAIvzsymtjX5WijlKKF2UmpTpjEanLICEdhiOv6ntVpUNniGUgjPU0imXmohEimbuA==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=amd.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e/4wpittnPMP+IMBMpKGM7HFyqEM2qlCacWZP4+2o9c=;
+ b=e2avLYTY5M22waajNS/e2QQkodS74hZHCHeKoVqsQ2n+NnEUvf8ancWRbmUUVr/8IgZw0iyWLDi2lj1h+uId5X8axmGuQN44CKi9kiKfMJ3JU48pW3iiKHTjhtFIKdlF0EwmlTF2rwC7PVLI6JOT99npkFIioYT8c3uZBu2oBGQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YMbnOSiJiY1JByKzj9Gxnc/elnpZBW8pDo2h/VNrPXL3Z5MS9pm73X06vDIZX6EEnC1ag9tDq9RdcaY/z5KgAdxHe+WmW57W263YbQ0HjL0BCm7Ig6zW+wJ3L7VdLF5BQAw8heHJ2JME2TD+5/UmQvlMl2BXp3P8Fo/wH73yomLSRL/KVSKbs/aZhR2yv8NrtUEJno7P2tS0GWA3rIeWxwsgXK23Y2aH+UdU64BL2Xu2uFKQsIWNCNqJz5dPE0m6xenUG17AR+CKXKZcQVRD1PrwqWk/xGLO5XkU9SQI2z7irfM18noeBquI4gBlwPFLGUA+tgiFkWCdZcbGA+MA6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e/4wpittnPMP+IMBMpKGM7HFyqEM2qlCacWZP4+2o9c=;
+ b=brZDQ5ZqVLtgcRmWBsG/sjzMZwq/l/YaNwQrlk7QYqoFyatt0939RmInYbh5H1Gad4uRd78GawK0SRAYvepJpB8vj+5LYBGDowwVLSgmdpf9DCAp30oWYeE7rfWLgtfW4NFtMCzVfMHAjrmVJd6tdrP1eXANBetWuLN9k/WoJJgK/dpC3I9eXmoLlcQKPgqnMMD214xIs+Mzczrru0bb7GAj1YGqIFbNKb82GejUOzs9h0rpfLLS4gq/Kwp6YNQiTm46heTg2cjvAgiOv2qzkhum2GrlMHpjLEcIa0UUwwfulDZa7wYWzHzgfkyrfh5EfjGwcdw5vAziCSS2vxGTsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e/4wpittnPMP+IMBMpKGM7HFyqEM2qlCacWZP4+2o9c=;
+ b=e2avLYTY5M22waajNS/e2QQkodS74hZHCHeKoVqsQ2n+NnEUvf8ancWRbmUUVr/8IgZw0iyWLDi2lj1h+uId5X8axmGuQN44CKi9kiKfMJ3JU48pW3iiKHTjhtFIKdlF0EwmlTF2rwC7PVLI6JOT99npkFIioYT8c3uZBu2oBGQ=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Michal Orzel <michal.orzel@amd.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Mark Rutland <Mark.Rutland@arm.com>
+Subject: Re: [PATCH] xen/arm64: flushtlb: Optimize
+ ARM64_WORKAROUND_REPEAT_TLBI
+Thread-Topic: [PATCH] xen/arm64: flushtlb: Optimize
+ ARM64_WORKAROUND_REPEAT_TLBI
+Thread-Index: AQHcy+Zsv818FERxykqUrZrX/7GOFLXeli0A
+Date: Tue, 14 Apr 2026 14:00:32 +0000
+Message-ID: <5098DD0F-9FA9-469B-BAAA-2CA0C1382FA0@arm.com>
+References: <20260414081124.48741-1-michal.orzel@amd.com>
+In-Reply-To: <20260414081124.48741-1-michal.orzel@amd.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.700.81.1.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DU2PR08MB7272:EE_|PAVPR08MB9185:EE_|AM4PEPF00027A66:EE_|VI0PR08MB11432:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86d2f5fe-322d-4d5b-f695-08de9a2e57b9
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|366016|376014|38070700021|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ ljwnV+OXguAx/VIdeYGG3ewEoihRzuq2QnbsWtoKZTV05EiJtgX0MizVKCMHW5JL1KSwcx4auj91YYI432u/+BXL0fRb0togdKbIgugR33NSBF5X3Iapkt4XM6k9aIzhNazxFVWMYqOUV6u6R33JPMro06htz78xp2IWLBm1O+rGMtZX7ZSYSuOVdrurfFb2TbzduYl2vZ7s8T2MWEXFzdhm3b0QeZndpdwPDnkSiQkbeyTqKr4dd9QR+9uBm1UVbU+ka7HU+VHQHJEDtMbvcJjLwghvqX8iwVpGDAvykVI2PZGzezbB8EQeUwyn3d6bP1jkEovFl0uKu+W64wEpCzqDSnDoVwVc3KkTl5Y7P9zaLUyzVSaad1bXXkW9uIgVr8ggl9xZ0Nyj7jrTqoEBmh+0UsHmFvb2op9kMHeD9EW4cme+rt201BQgS22HqPRQoVj7D49d4zPV7pU7DDUJp8R4kXG2Z1yoC16gafXySPcfSm5WpnmTVOQfb2GNtI9IykXX2cGF8RVodmXOadnLzq5rwFsLdmOycTFHaTDth01xmROjTnr+olqdUf/5ocJUsswbQPpXrCOrJAyFk7xGpYHpEawK++wAFR9/6UfT/g2kcCiGL9dqYAU/IM9jAuyWSUcrQe7JPNI0L0h4lpSc2LpOzGJ2kFyv2SBxH/b+WLNxcZiBBtHrjEDjtgt9ppMOmd2OvrxkR/NfhmsSmiV9cpTnXCgeGvqmp7o9d6PmUbJ+S60ASAEkgASYjIZeX6ZpmAv530zWLXIfY0+AR2LtNHUDAa7CrREF9xo+PeNFX9k=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7272.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <B83097778CEFAC469B0802511B7BDB3E@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1776173450-EF14D101-31FB0BB1/0/0
+X-Exchange-RoutingPolicyChecked:
+ T7tvkjsMV5c0ezP7liZRwlwwCnV/0DRbRnLLSkzaOKgpwh4RCVsdCLQN/8JhKC05RWMy7MOkteabOXPpWiu5b/Zl0PEt02o9oggDu/p2Rvq83uHoHOhLttKOla+/kavDzxoUh63PD5LC7oZ4oOf0cef5b1e0FyDtPY8pNvHwc9NM1OtnEc9MXfUvZY6bOf6F8i1vAs/3jmyXskQXDVmI+sdCnjn7Pe20SqX/wxBSQ86MuKDoO9TN74VdJFS8gmX61DzHFL6tOShjC2uhOJ6QBZ+cBPMlXGVoau8mStSel/cdWoUd6gmjUfSDPyXT6p9UFFFC7imb4Lm0G8tJT9hbmA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9185
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM4PEPF00027A66.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	3569d87b-cd57-4d10-08cf-08de9a2e31f3
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|14060799003|1800799024|35042699022|82310400026|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	wofQTS2n3td6ST4WskbaJXEiHhaFdkDrlcfeq/7F6IbPaXigVjFM4twgalQFrqbpWIAmwIQ7ZIRO6Y9xonHa4m/xhqsnx013iK/68Oo7XgxymAYX62owEC4dTkma7kXQLhgeseo1PxtZ4/XifwX3tgafKeogC42nQ1Dxg1UK1PzvRNKDa6OGVvR9BRXLTw/oN9TFvwHsyzQ76cgT9F8KseXA3Wg4/yZEbVNo/9llRaoXcWieRAhChua6WDq8R/maMc89WRfcd8kBq8mmRtM5eckKQ1C/5h1L9SbH6733m0s9o8Lgpdj1oXGpoHJdXa7eTs+V/YvRDh3fDK54ohiIlayg4MgcGHTBET5p675I3gGmbI1A4DJf5RmzoBE1vKaL3oSwdhodCF0xWvYlxQvlworeXaG51l4WLpX80Oa2UUAAs3EL3vyuOi0TVKzcCKO/nSmb47FA7/hWxc57l0eq/C2gbHkrvEqRwH9yLLxaRL5v/AylkrvNWeBpbH8MPALUCc0FNUTioduywotZcR/Eslw3FKPg4LfYelAKfGsOfsRx7zuJJnFd0G/TRw57GjLhCy3ArxhR2h9aCqrkDNhdT92A/WDCzLN1DYGGm6pZ+eF3iX6zglBhTzVqMp8KDLAAHs1R8cKu4KH8kzrh07vnFUUDYSl1yxb8OaiKz5XJRdT1/QB+84SFQQESJwFPdTp7zJi389vb2o02thMovJXS2Qm8UyEbSAamVfWu053i+1ZmY6HW6DaOVw4tWWi+Fgoz8fEeda1NQskWdL1rCp/r8g==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(14060799003)(1800799024)(35042699022)(82310400026)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	1Qvxl2zx61bJk4xjGl7GAjsJujQ0Kz2w1qo5AYT8jauuGzf6R+Y2dFTJlYsIRaYeQ4cf/Enl2BYjnKy9lJXynBcQ46itvneO1PURplZh+jUS7D0vHafkMFItCSaIrCdz/M/u/PKDT1143Wfd8wMYrmNOcYDYWc20FizdqslJx4DMUto9Gdm+J6ohnga8tVBrCQhCod/jbtFrLxrhJKDS3R6LUzZieekWkd+8Z2k2EgKGa7vc9QQOCHX0jsn0mjDhpdeJwNZs+mkEfHhj7xn8RkzemyH22PP46FhuDB3ok10W3UEX+x19GpyK2y0WdbUlPjv5OjVrPoEpyvR8I8cY89I8xuBdEDru2CVKpA+wfLiSDUosngCLZd7RH3BN1EJMoBEpWjNzXe8sP641I05oRvriaEqqaf78isWKL0p4KGu7O8atrXwYlcz3IaxiLy2T
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2026 14:01:36.3005
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86d2f5fe-322d-4d5b-f695-08de9a2e57b9
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM4PEPF00027A66.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR08MB11432
+X-purgate-ID: tlsNG-720697/1776175301-4792ECD1-C92A8D0A/0/0
 X-purgate-type: clean
-X-purgate-size: 78485
-X-Spamd-Result: default: False [3.01 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-purgate-size: 18076
+X-Spamd-Result: default: False [-2.08 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[arm.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:Mark.Rutland@arm.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	RCPT_COUNT_THREE(0.00)[3];
+	DKIM_TRACE(0.00)[arm.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	RCVD_COUNT_SEVEN(0.00)[9];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email,citrix.com:mid,claim.target:url];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.898];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	R_DKIM_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[13];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_SENDER_FORWARDING(0.00)[]
-X-Rspamd-Queue-Id: 91B203FA87A
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:dkim,arm.com:email,arm.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: 11F633FAD69
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Add a comprehensive test suite for the xc_domain_claim_memory() API
-that covers argument validation and the protection semantics of
-memory claims across domains and NUMA nodes.
-
-The suite verifies claim behaviour both globally and per-node, and
-checks how claims interact with allocations and replacement semantics.
-
-Key checks include:
-
-- Argument validation and correct errno handling for invalid inputs.
-- NUMA-aware claim sets, covering node-specific and global targets.
-- Replacement semantics after allocations (global and node-scoped).
-- Inter-domain protection and claim movement across NUMA nodes.
-
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
----
- tools/tests/mem-claim/.gitignore          |   1 +
- tools/tests/mem-claim/Makefile            |  17 +-
- tools/tests/mem-claim/accounting-1.h      | 401 +++++++++
- tools/tests/mem-claim/input-phase1.h      | 171 ++++
- tools/tests/mem-claim/input-phase2.h      |  91 ++
- tools/tests/mem-claim/libtestclaims.c     | 995 ++++++++++++++++++++++
- tools/tests/mem-claim/libtestclaims.h     | 202 +++++
- tools/tests/mem-claim/test-claim-memory.c | 129 +++
- 8 files changed, 2000 insertions(+), 7 deletions(-)
- create mode 100644 tools/tests/mem-claim/accounting-1.h
- create mode 100644 tools/tests/mem-claim/input-phase1.h
- create mode 100644 tools/tests/mem-claim/input-phase2.h
- create mode 100644 tools/tests/mem-claim/libtestclaims.c
- create mode 100644 tools/tests/mem-claim/libtestclaims.h
- create mode 100644 tools/tests/mem-claim/test-claim-memory.c
-
-diff --git a/tools/tests/mem-claim/.gitignore b/tools/tests/mem-claim/.gitignore
-index cfcee00b819b..08365576b22b 100644
---- a/tools/tests/mem-claim/.gitignore
-+++ b/tools/tests/mem-claim/.gitignore
-@@ -1 +1,2 @@
- test-mem-claim
-+test-claim-memory
-diff --git a/tools/tests/mem-claim/Makefile b/tools/tests/mem-claim/Makefile
-index 76ba3e3c8bef..77decd4b0d05 100644
---- a/tools/tests/mem-claim/Makefile
-+++ b/tools/tests/mem-claim/Makefile
-@@ -1,14 +1,16 @@
- XEN_ROOT = $(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
- 
--TARGET := test-mem-claim
-+TARGETS := test-mem-claim test-claim-memory
-+
-+LIB_OBJ := libtestclaims.o
- 
- .PHONY: all
--all: $(TARGET)
-+all: $(TARGETS)
- 
- .PHONY: clean
- clean:
--	$(RM) -- *.o $(TARGET) $(DEPS_RM)
-+	$(RM) -- *.o $(TARGETS) $(DEPS_RM)
- 
- .PHONY: distclean
- distclean: clean
-@@ -17,11 +19,11 @@ distclean: clean
- .PHONY: install
- install: all
- 	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC)/tests
--	$(INSTALL_PROG) $(TARGET) $(DESTDIR)$(LIBEXEC)/tests
-+	$(INSTALL_PROG) $(TARGETS) $(DESTDIR)$(LIBEXEC)/tests
- 
- .PHONY: uninstall
- uninstall:
--	$(RM) -- $(DESTDIR)$(LIBEXEC)/tests/$(TARGET)
-+	$(RM) -- $(patsubst %,$(DESTDIR)$(LIBEXEC)/tests/%,$(TARGETS))
- 
- CFLAGS += $(CFLAGS_xeninclude)
- CFLAGS += $(CFLAGS_libxenctrl)
-@@ -32,7 +34,8 @@ LDFLAGS += $(APPEND_LDFLAGS)
- 
- %.o: Makefile
- 
--$(TARGET): test-mem-claim.o
--	$(CC) -o $@ $< $(LDFLAGS)
-+
-+$(TARGETS): %: %.o $(LIB_OBJ)
-+	$(CC) -o $@ $^ $(LDFLAGS)
- 
- -include $(DEPS_INCLUDE)
-diff --git a/tools/tests/mem-claim/accounting-1.h b/tools/tests/mem-claim/accounting-1.h
-new file mode 100644
-index 000000000000..70bae2215702
---- /dev/null
-+++ b/tools/tests/mem-claim/accounting-1.h
-@@ -0,0 +1,401 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * claim-memory-allocations.h - Test claiming memory and claims protection
-+ * with NUMA-aware claim sets.
-+ *
-+ * Check claiming memory and allocation against claims with NUMA-aware
-+ * claim sets, including:
-+ *
-+ * - Claiming all or nearly all free memory on a node or globally and
-+ *   verifying  the claim is reflected in physinfo and that memory can
-+ *   be allocated against the claim.
-+ * - Exercise xc_domain_claim_memory() with different valid claim sets.
-+ * - Exercise xc_domain_claim_pages() and verify that claims are reflected
-+ *   in the outstanding pages in Xen.
-+ */
-+#include "libtestclaims.h"
-+
-+/*
-+ * A1-1: basic single-node claim is tracked in outstanding pages and released
-+ * when the domain is destroyed.
-+ *
-+ * Smoke test: claims half the primary node's free pages, verifies they
-+ * appear in physinfo.outstanding_pages, then returns.  The fixture destroys
-+ * the domain, which releases the claim, and verifies outstanding pages returns
-+ * to the pre-test baseline.
-+ *
-+ * Skipped when NUMA is disabled (num_nodes == 1 and no per-node free pages) or
-+ * when there are fewer than 2 free pages available on the primary node.
-+ */
-+static int test_basic_node_claim(struct test_ctx *ctx)
-+{
-+    uint64_t pre_existing_claims, free_pages;
-+    memory_claim_t claim;
-+
-+    /* Get the free memory on the test node */
-+    ctx->target1 = ctx->env->primary_node;
-+    lib_get_node_free_pages(ctx, ctx->target1, &free_pages, NULL);
-+
-+    if ( free_pages < 2 )
-+        return lib_fail(
-+            ctx, "need >= 2 free pages on node %" PRIu64 ", got %" PRIu64,
-+            ctx->target1, free_pages);
-+
-+    /*
-+     * Leave one page of slack between the claim and the free pages
-+     * so claim does not fail due to a small concurrent allocation.
-+     */
-+    ctx->alloc_pages = free_pages - 1;
-+    snprintf(ctx->result->params, sizeof(ctx->result->params),
-+             "node=%" PRIu64 " claim_pages=%" PRIu64 " free_pages=%" PRIu64,
-+             ctx->target1, ctx->alloc_pages, free_pages);
-+
-+    /*
-+     * Capture the baseline after domain creation (domain creation doesn't
-+     * change outstanding pages, so this equals the fixture's baseline).
-+     */
-+    rc = lib_get_total_claims(ctx, &pre_existing_claims);
-+    if ( rc )
-+        return rc;
-+
-+    claim = (memory_claim_t){.pages = ctx->alloc_pages, .target = ctx->target1};
-+    rc = lib_claim_memory(ctx, ctx->dom_1, 1, &claim, "set basic node claim");
-+    if ( rc )
-+        return rc;
-+
-+    return lib_check_claim(
-+        ctx, pre_existing_claims, ctx->alloc_pages,
-+        "check node claim is reflected in outstanding pages");
-+
-+    /* Domain teardown releases claim; fixture verifies baseline is restored. */
-+}
-+
-+/*
-+ * A1-2: global claim is replaced atomically after an allocation.
-+ *
-+ * Sets an initial global claim, allocates one extent (consuming part of it),
-+ * then sets a smaller replacement claim and verifies the outstanding count
-+ * reflects the new absolute target.
-+ */
-+static int test_global_replace_after_alloc(struct test_ctx *ctx)
-+{
-+    unsigned long free_pages;
-+    unsigned long initial_pages;
-+
-+    /* Get the global free memory for sizing the initial claim */
-+    lib_get_global_free_pages(ctx, &free_pages);
-+
-+    if ( free_pages < 2 )
-+        return lib_fail(ctx, "need >= 2 free pages global, got %" PRIu64,
-+                        free_pages);
-+
-+    /*
-+     * This test needs two valid claim targets: an initial larger claim
-+     * and a smaller replacement target after consuming one claimed page.
-+     */
-+    initial_pages    = free_pages;
-+    ctx->alloc_pages = free_pages / 2;
-+
-+    snprintf(ctx->result->params, sizeof(ctx->result->params),
-+             "alloc_pages=%" PRIu64 " initial=%" PRIu64 " "
-+             "replacement=%" PRIu64 " global_free=%" PRIu64,
-+             ctx->alloc_pages, initial_pages, ctx->alloc_pages, free_pages);
-+
-+    rc = lib_claim_memory(ctx, ctx->dom_1, 1, /* one claim */
-+                          &(memory_claim_t){
-+                              .pages  = initial_pages,
-+                              .target = XEN_DOMCTL_CLAIM_MEMORY_GLOBAL,
-+                          },
-+                          "set initial global replacement claim");
-+    if ( rc )
-+        return rc;
-+
-+    lib_set_step(ctx, "Allocate one extent to consume part of claim");
-+    rc = lib_populate_success(ctx, (lib_populate_args_t){
-+                                  .domid      = ctx->dom_1,
-+                                  .nr_extents = 1,
-+                              });
-+    if ( rc )
-+        return rc;
-+
-+    rc = lib_claim_memory(ctx, ctx->dom_1, 1, /* one claim */
-+                          &(memory_claim_t){
-+                              .pages  = ctx->alloc_pages,
-+                              .target = XEN_DOMCTL_CLAIM_MEMORY_GLOBAL,
-+                          },
-+                          "replace global claim with a new absolute target");
-+    if ( rc )
-+        return rc;
-+
-+    return lib_release_all_claims(ctx, ctx->dom_1);
-+}
-+
-+/*
-+ * A1-3: node-specific claim is replaced atomically after an allocation.
-+ *
-+ * Same as C-1 but scoped to the primary NUMA node:
-+ * Sets an initial node claim, allocates one extent (consuming part of it),
-+ * then sets a smaller replacement claim and verifies the outstanding count
-+ * reflects the new absolute target.
-+ */
-+static int test_node_replace_after_alloc(struct test_ctx *ctx)
-+{
-+    uint64_t free_pages, initial_pages;
-+
-+    /* Node used for claim sizing, claiming and allocation */
-+    ctx->target1 = ctx->env->primary_node;
-+
-+    /* Get the free memory on the test node for sizing the initial claim */
-+    lib_get_node_free_pages(ctx, ctx->target1, &free_pages, NULL);
-+    if ( free_pages < 2 )
-+        return lib_skip_test(
-+            ctx, "need >= 2 pages on node %" PRIu64 ", got %" PRIu64,
-+            ctx->target1, free_pages);
-+    /*
-+     * This test needs two valid claim targets: an initial larger claim
-+     * and a smaller replacement target after consuming one claimed page.
-+     *
-+     * Leave one page of slack between the claim and the free pages
-+     * so claim does not fail due to a small concurrent allocation.
-+     */
-+    initial_pages    = free_pages - 1;
-+    ctx->alloc_pages = free_pages / 2;
-+
-+    /* Logging of test parameters */
-+    snprintf(ctx->result->params, sizeof(ctx->result->params),
-+             "node=%" PRIu64 " init=%" PRIu64 " replacement=%" PRIu64
-+             " free=%" PRIu64,
-+             ctx->target1, initial_pages, ctx->alloc_pages, free_pages);
-+
-+    /* Create the claim with initial_pages */
-+    rc = lib_claim_memory(ctx, ctx->dom_1, 1, /* one claim */
-+                          &(memory_claim_t){
-+                              .pages  = initial_pages,
-+                              .target = ctx->target1,
-+                          },
-+                          "set initial node-specific replacement claim");
-+    if ( rc )
-+        return rc;
-+
-+    lib_set_step(ctx, "Allocate one extent to consume part of claim");
-+    rc =
-+        lib_populate_success(ctx, (lib_populate_args_t){
-+                                 .domid      = ctx->dom_1,
-+                                 .nr_extents = 1,
-+                                 .flags = XENMEMF_exact_node(ctx->target1),
-+                             });
-+    if ( rc )
-+        return rc;
-+
-+    /* Update the claim with ctx->alloc_pages */
-+    rc = lib_claim_memory(ctx, ctx->dom_1, 1, /* one claim */
-+                          &(memory_claim_t){
-+                              .pages  = ctx->alloc_pages,
-+                              .target = ctx->target1,
-+                          },
-+                          "replace node claim with a new absolute target");
-+    if ( rc )
-+        return rc;
-+
-+    return lib_release_all_claims(ctx, ctx->dom_1);
-+}
-+
-+/*
-+ * A1-4: legacy xc_domain_claim_pages() global claim is tracked in outstanding
-+ * pages, reduced by an allocation, and released when the domain is destroyed.
-+ */
-+static int test_legacy_global_claim(struct test_ctx *ctx)
-+{
-+    uint64_t pre_existing_claims, free_pages;
-+
-+    /* Get the global free memory for sizing the claim */
-+    lib_get_global_free_pages(ctx, &free_pages);
-+
-+    ctx->alloc_pages = free_pages / 2;
-+    snprintf(ctx->result->params, sizeof(ctx->result->params), "claim=%" PRIu64,
-+             ctx->alloc_pages);
-+
-+    rc = lib_get_total_claims(ctx, &pre_existing_claims);
-+    if ( rc )
-+        return rc;
-+
-+    rc = lib_claim_pages_legacy(ctx, ctx->dom_1, ctx->alloc_pages,
-+                                "set legacy global claim");
-+    if ( rc )
-+        return rc;
-+
-+    rc = lib_check_claim(ctx, pre_existing_claims, ctx->alloc_pages,
-+                         "claim is added the outstanding pages");
-+    if ( rc )
-+        return rc;
-+
-+    lib_set_step(ctx, "allocate extents to redeem a part of claim");
-+    rc = lib_populate_success(ctx, (lib_populate_args_t){
-+                                  .domid      = ctx->dom_1,
-+                                  .nr_extents = 10,
-+                              });
-+    if ( rc )
-+        return rc;
-+
-+    return lib_check_claim(
-+        ctx, pre_existing_claims, ctx->alloc_pages - 10,
-+        "allocated against claim, outstanding pages reduced");
-+    /* Teardown releases the claim; fixture verifies baseline is restored. */
-+}
-+
-+/*
-+ * A1-5: Test blocking allocation with claims and claim movement between nodes.
-+ *
-+ * This test performs a sequence of claims and allocations to verify that claims
-+ * block allocations on the claimed node, that moving a claim to another node
-+ * allows allocation on the original node, and that the new node is now blocked
-+ * by the claim until it is released.
-+ *
-+ * To achieve this, the test creates a helper domain used for allocation
-+ * attempts, then:
-+ *
-+ * Claims most free pages on the primary node, verifies allocation is blocked,
-+ * then moves the claim to the secondary node, verifies the original allocation
-+ * can now succeed on the primary node.
-+ *
-+ * It then verifies allocation is now blocked on the secondary node,
-+ * releases the claim, and verifies the allocation can now succeed on the
-+ * secondary node as well.
-+ *
-+ * Requires at least two online NUMA nodes.
-+ */
-+static int test_move_claim_between_nodes(struct test_ctx *ctx)
-+{
-+    uint64_t free_src, free_dst, spare_pages = 10;
-+
-+    if ( !ctx->env->have_secondary_node )
-+        return lib_skip_test(ctx, "Requires at least two online NUMA nodes.");
-+
-+    ctx->target1 = ctx->env->primary_node;
-+    ctx->target2 = ctx->env->secondary_node;
-+
-+    lib_get_node_free_pages(ctx, ctx->target1, &free_src, NULL);
-+    lib_get_node_free_pages(ctx, ctx->target2, &free_dst, NULL);
-+
-+    if ( free_src < spare_pages + 1 || free_dst < spare_pages + 1 )
-+        return lib_fail(ctx, "Need more pages, got %" PRIu64 "/%" PRIu64 ".",
-+                        free_src, free_dst);
-+
-+    lib_set_step(ctx, "Claim most memory on source node.");
-+    rc = lib_claim_all_on_node(ctx, ctx->dom_1, ctx->target1, spare_pages);
-+    if ( rc )
-+        return rc;
-+
-+    lib_set_step(ctx, "The claim blocks the allocation on the source node.");
-+    rc =
-+        lib_populate_failure(ctx, (lib_populate_args_t){
-+                                 .domid      = ctx->dom_2,
-+                                 .nr_extents = spare_pages * 2,
-+                                 .flags = XENMEMF_exact_node(ctx->target1),
-+                             });
-+    if ( rc )
-+        return rc;
-+
-+    lib_set_step(ctx, "Move the claim to most memory on the destination node.");
-+    rc = lib_claim_all_on_node(ctx, ctx->dom_1, ctx->target2, spare_pages);
-+    if ( rc )
-+        return rc;
-+
-+    lib_set_step(ctx, "Moved claim no longer blocks allocs on source node.");
-+    rc =
-+        lib_populate_success(ctx, (lib_populate_args_t){
-+                                 .domid      = ctx->dom_2,
-+                                 .start      = spare_pages * 2,
-+                                 .nr_extents = spare_pages * 2,
-+                                 .flags = XENMEMF_exact_node(ctx->target1),
-+                             });
-+    if ( rc )
-+        return rc;
-+
-+    lib_set_step(ctx, "Moved claim now blocks allocs on destination node.");
-+    rc =
-+        lib_populate_failure(ctx, (lib_populate_args_t){
-+                                 .domid      = ctx->dom_2,
-+                                 .nr_extents = spare_pages * 2,
-+                                 .flags = XENMEMF_exact_node(ctx->target2),
-+                             });
-+    if ( rc )
-+        return rc;
-+
-+    rc = lib_release_all_claims(ctx, ctx->dom_1);
-+    if ( rc )
-+        return rc;
-+
-+    lib_set_step(ctx, "Claim released, allocs on destination node succeed.");
-+    rc =
-+        lib_populate_success(ctx, (lib_populate_args_t){
-+                                 .domid      = ctx->dom_2,
-+                                 .start      = spare_pages * 2,
-+                                 .nr_extents = spare_pages * 2,
-+                                 .flags = XENMEMF_exact_node(ctx->target2),
-+                             });
-+    if ( rc )
-+        return rc;
-+
-+    return lib_release_all_claims(ctx, ctx->dom_1);
-+}
-+
-+/*
-+ * A1-6: Check that a calling xc_domain_claim_pages(claim_pages = 0)
-+ * resets the claims to the baseline.
-+ */
-+static int test_zero_claim_resets_claim(struct test_ctx *ctx)
-+{
-+    uint64_t pre_existing_claims;
-+
-+    rc = lib_get_total_claims(ctx, &pre_existing_claims);
-+    if ( rc )
-+        return rc;
-+
-+    /* Make a claim first to move outstanding away from the baseline. */
-+    rc = lib_claim_pages_legacy(ctx, ctx->dom_1, 8,
-+                                "zero claim to reset outstanding to baseline");
-+    if ( rc )
-+        return rc;
-+
-+    /* Now set a zero claim to reset outstanding back to the baseline. */
-+    rc = lib_claim_pages_legacy(ctx, ctx->dom_1, 0,
-+                                "zero claim to reset outstanding to baseline");
-+    if ( rc )
-+        return rc;
-+
-+    return lib_check_claim(ctx, pre_existing_claims, 0,
-+                           "check zero claim resets outstanding to baseline");
-+}
-+
-+/*
-+ * A1-7: Check that a calling xc_domain_claim_memory(claim_pages = 0)
-+ * resets the claims to the baseline.
-+ */
-+static int test_zero_claim_memory_resets(struct test_ctx *ctx)
-+{
-+    uint64_t pre_existing_claims;
-+
-+    rc = lib_get_total_claims(ctx, &pre_existing_claims);
-+    if ( rc )
-+        return rc;
-+
-+    /* Make a claim first to move outstanding away from the baseline. */
-+    rc = lib_claim_memory(
-+        ctx, ctx->dom_1, 1,
-+        &(memory_claim_t){.pages = 8, .target = ctx->env->primary_node},
-+        "make a claim to move outstanding away from baseline");
-+    if ( rc )
-+        return rc;
-+
-+    /* Now set a zero claim to reset outstanding back to the baseline. */
-+    rc = lib_claim_memory(
-+        ctx, ctx->dom_1, 1,
-+        &(memory_claim_t){.pages = 0, .target = XEN_DOMCTL_CLAIM_MEMORY_GLOBAL},
-+        "set a zero claim to reset outstanding to baseline");
-+    if ( rc )
-+        return rc;
-+
-+    return lib_check_claim(ctx, pre_existing_claims, 0,
-+                           "check zero claim resets outstanding to baseline");
-+}
-diff --git a/tools/tests/mem-claim/input-phase1.h b/tools/tests/mem-claim/input-phase1.h
-new file mode 100644
-index 000000000000..5a97bb5eeb20
---- /dev/null
-+++ b/tools/tests/mem-claim/input-phase1.h
-@@ -0,0 +1,171 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * input-phase1.h - Test Phase 1 argument validation for memory claims,
-+ * including invalid claim parameters and claiming more pages than are free.
-+ *
-+ * I1-1 - I1-9: invalid claims are rejected with appropriate error codes.
-+ *
-+ * This file contains test cases to validate argument handling when dealing
-+ * with NUMA-aware claim sets.
-+ *
-+ * Tests various invalid claim parameters (non-present node, too many claims,
-+ * node id above UINT8_MAX, pages above INT32_MAX, non-zero pad, zero claim
-+ * count, null claims pointer with non-zero count, and non-null claims pointer
-+ * with zero count) and verify they are rejected with the expected error code.
-+ */
-+#include "libtestclaims.h"
-+
-+static int test_reject_non_present_node(struct test_ctx *ctx)
-+{
-+    memory_claim_t claim = {
-+        .pages = 1, .target = ctx->env->num_nodes, /* Out-of-range node id */
-+    };
-+
-+    ctx->target1 = ctx->env->primary_node;
-+    snprintf(ctx->result->params, sizeof(ctx->result->params),
-+             "node=%u num_nodes=%u", claim.target, ctx->env->num_nodes);
-+
-+    return lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_1, 1, &claim, ENOENT,
-+        "reject claim on a non-present NUMA node");
-+}
-+
-+static int test_reject_too_many_claims(struct test_ctx *ctx)
-+{
-+    const uint32_t nr_claims = 0x100; /* Xen does not support such nr_claims */
-+    memory_claim_t claims[nr_claims];
-+
-+    ctx->target1 = ctx->env->primary_node;
-+    for ( uint32_t i = 0; i < nr_claims; i++ )
-+        claims[i] = ((memory_claim_t){
-+                         .pages  = 1,
-+                         .target = ctx->env->primary_node,
-+                     });
-+
-+    snprintf(ctx->result->params, sizeof(ctx->result->params), "nr_claims=%u",
-+             nr_claims);
-+
-+    return lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_1, nr_claims, claims, E2BIG,
-+        "reject claim list larger than the supported maximum");
-+}
-+
-+static int test_reject_node_gt_uint8_max(struct test_ctx *ctx)
-+{
-+    memory_claim_t claim = {
-+        .pages  = 1,
-+        .target = UINT8_MAX + 1U,
-+    };
-+
-+    ctx->target1 = ctx->env->primary_node;
-+    snprintf(ctx->result->params, sizeof(ctx->result->params), "node=%u",
-+             claim.target);
-+
-+    return lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_1, 1, &claim, ENOENT,
-+        "reject claim with node id above UINT8_MAX");
-+}
-+
-+static int test_reject_pages_gt_int32_max(struct test_ctx *ctx)
-+{
-+    memory_claim_t claim = {
-+        .pages  = INT32_MAX + 1UL,
-+        .target = ctx->env->primary_node,
-+    };
-+
-+    ctx->target1 = ctx->env->primary_node;
-+    snprintf(ctx->result->params, sizeof(ctx->result->params),
-+             "pages=%" PRIu64 " node=%u", claim.pages, claim.target);
-+
-+    return lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_1, 1, &claim, ENOMEM,
-+        "reject claim with pages larger than INT32_MAX");
-+}
-+
-+static int test_reject_nonzero_pad(struct test_ctx *ctx)
-+{
-+    memory_claim_t claim = {
-+        .pages  = 1,
-+        .target = ctx->env->primary_node,
-+        .pad    = 1,
-+    };
-+
-+    ctx->target1 = ctx->env->primary_node;
-+    snprintf(ctx->result->params, sizeof(ctx->result->params), "node=%u pad=%u",
-+             claim.target, claim.pad);
-+
-+    return lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_1, 1, &claim, EINVAL,
-+        "reject claim with non-zero padding");
-+}
-+
-+static int test_reject_zero_claim_count(struct test_ctx *ctx)
-+{
-+    snprintf(ctx->result->params, sizeof(ctx->result->params), "nr_claims=0");
-+
-+    return lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_1, 0, NULL, EINVAL,
-+        "reject xc_domain_claim_memory() with nr_claims == 0");
-+}
-+
-+static int test_null_claims_nonzero_count(struct test_ctx *ctx)
-+{
-+    snprintf(ctx->result->params, sizeof(ctx->result->params),
-+             "nr_claims=1 claims=NULL");
-+
-+    return lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_1, 1, NULL, EFAULT,
-+        "reject xc_domain_claim_memory() with claims=NULL and nr_claims == 1");
-+}
-+
-+static int test_zero_count_valid_pointer(struct test_ctx *ctx)
-+{
-+    memory_claim_t claim = {
-+        .pages  = 1,
-+        .target = ctx->env->primary_node,
-+    };
-+
-+    snprintf(ctx->result->params, sizeof(ctx->result->params),
-+             "nr_claims=0 claims=valid node=%u", claim.target);
-+
-+    return lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_1, 0, &claim, EINVAL,
-+        "reject xc_domain_claim_memory() with !nr_claims but a claims pointer");
-+}
-+
-+/*
-+ * I1-9: Check both xc_domain_claim_pages() and xc_domain_claim_memory()
-+ * with pages > free pages fail with ENOMEM.
-+ */
-+static int test_claim_pages_gt_free_enomem(struct test_ctx *ctx)
-+{
-+    uint64_t free_pages;
-+
-+    /* Get the global free memory for sizing the claim */
-+    lib_get_global_free_pages(ctx, &free_pages);
-+    ctx->alloc_pages = free_pages + 1;
-+
-+    snprintf(ctx->result->params, sizeof(ctx->result->params),
-+             "claim=%" PRIu64 " global=%" PRIu64, ctx->alloc_pages, free_pages);
-+
-+    rc = lib_claim_pages_legacy_failure(
-+        ctx, ctx->dom_1, ctx->alloc_pages, ENOMEM,
-+        "reject xc_domain_claim_pages() with pages > global free page");
-+    if ( rc )
-+        return rc;
-+
-+    rc = lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_1, 1,
-+        &(memory_claim_t){.pages  = ctx->alloc_pages,
-+                          .target = XEN_DOMCTL_CLAIM_MEMORY_GLOBAL},
-+        ENOMEM, "reject claim_memory() with pages > global free pages");
-+
-+    /* Get the free pages on the primary node and fail to claim more than it */
-+    lib_get_node_free_pages(ctx, ctx->env->primary_node, &free_pages, NULL);
-+    rc = lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_1, 1,
-+        &(memory_claim_t){.pages  = free_pages + 1,
-+                          .target = ctx->env->primary_node},
-+        ENOMEM, "reject claim_memory() with pages > node free pages");
-+    return rc;
-+}
-diff --git a/tools/tests/mem-claim/input-phase2.h b/tools/tests/mem-claim/input-phase2.h
-new file mode 100644
-index 000000000000..d57a7e8a37c0
---- /dev/null
-+++ b/tools/tests/mem-claim/input-phase2.h
-@@ -0,0 +1,91 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * input-phase2.h - Test argument validation for memory claims
-+ *
-+ * This file contains test cases to validate argument handling when dealing
-+ * with NUMA-aware claim sets.
-+ */
-+#include "libtestclaims.h"
-+
-+static int d2_claim_expect_enomem_global(struct test_ctx *ctx, uint64_t claims)
-+{
-+    rc = lib_claim_pages_legacy_failure(
-+        ctx, ctx->dom_2, claims, ENOMEM,
-+        "expect ENOMEM for xc_domain_claim_pages() with claims > spare page");
-+    if ( rc )
-+        return rc;
-+
-+    return lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_2, 1,
-+        /* Request more than the spare to ensure failure */
-+        &(memory_claim_t){.pages  = claims,
-+                          .target = XEN_DOMCTL_CLAIM_MEMORY_GLOBAL},
-+        ENOMEM, "expect ENOMEM for claim_memory() with claims > spare pages");
-+}
-+
-+static int d2_claim_expect_enomem_node(struct test_ctx *ctx, uint64_t claims)
-+{
-+    return lib_expect_claim_memory_failure(
-+        ctx, ctx->dom_2, 1,
-+        /* Request more than the spare to ensure failure */
-+        &(memory_claim_t){.pages = claims, .target = ctx->target1}, ENOMEM,
-+        "expect ENOMEM for claim_memory() with claims > spare pages");
-+}
-+
-+/*
-+ * I2-1
-+ *
-+ * Create a legacy global claim for d1 using claim_pages and assert that
-+ * claim calls for d2 that exceed the unclaimed memory fail with ENOMEM.
-+ */
-+static int test_claim_pages_causes_enomem(struct test_ctx *ctx)
-+{
-+    uint64_t free_pages;
-+
-+    /* Get the global free memory for sizing the claim */
-+    lib_get_global_free_pages(ctx, &free_pages);
-+    ctx->alloc_pages = free_pages - SPARE_PAGES;
-+
-+    snprintf(ctx->result->params, sizeof(ctx->result->params),
-+             "claim=%" PRIu64 " global=%" PRIu64, ctx->alloc_pages, free_pages);
-+
-+    rc = lib_claim_pages_legacy(
-+        ctx, ctx->dom_1, ctx->alloc_pages,
-+        "dom_1: claim nearly all global memory with claim_pages");
-+    if ( rc )
-+        return rc;
-+
-+    rc = d2_claim_expect_enomem_global(ctx, SPARE_PAGES * 2);
-+    if ( !rc )
-+        rc = d2_claim_expect_enomem_node(ctx, SPARE_PAGES * 2);
-+    return rc;
-+}
-+
-+/*
-+ * I2-2
-+ *
-+ * Create a global claim for d1 using claim_memory and assert that
-+ * claim calls for d2 that exceed the unclaimed memory fail with ENOMEM.
-+ */
-+static int test_claim_memory_causes_enomem(struct test_ctx *ctx)
-+{
-+    if ( lib_claim_all_on_host(ctx, ctx->dom_1, SPARE_PAGES) )
-+        return -1;
-+    rc = d2_claim_expect_enomem_global(ctx, SPARE_PAGES * 2);
-+    if ( !rc )
-+        rc = d2_claim_expect_enomem_node(ctx, SPARE_PAGES * 2);
-+    return rc;
-+}
-+
-+/*
-+ * I2-3
-+ *
-+ * Create a primary-node claim for d1 using claim_memory and assert that
-+ * claim calls for d2 that exceed the unclaimed memory fail with ENOMEM.
-+ */
-+static int test_claim_prima_causes_enomem(struct test_ctx *ctx)
-+{
-+    if ( lib_claim_all_on_node(ctx, ctx->dom_1, ctx->target1, SPARE_PAGES) )
-+        return -1;
-+    return d2_claim_expect_enomem_node(ctx, SPARE_PAGES * 2);
-+}
-diff --git a/tools/tests/mem-claim/libtestclaims.c b/tools/tests/mem-claim/libtestclaims.c
-new file mode 100644
-index 000000000000..c4c1a63e1856
---- /dev/null
-+++ b/tools/tests/mem-claim/libtestclaims.c
-@@ -0,0 +1,995 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Functional system test framework for testing memory claims in Xen.
-+ *
-+ * See test-claim-memory.c for details on a test suite using this framework
-+ * and the verifications it is designed to perform on behalf of a test suite.
-+ *
-+ * Besides providing the test suite with functionality to validate the
-+ * effects of memory claims on the system, such as querying memory state,
-+ * creating and destroying test domains, performing claim operations and
-+ * populating memory, it also provides a consistent way to manage test
-+ * state and record failures with detailed messages that include the
-+ * current step, test parameters, and a snapshot of relevant memory
-+ * state to aid in diagnosing issues when a test fails.
-+ *
-+ * It also provides the framework to select test cases, run them, and
-+ * restore the system to a clean state after tests by destroying test
-+ * domains to release populated memory and claims, even if a test fails
-+ * partway through.
-+ *
-+ * The functions cover:
-+ *
-+ * - Managing the test_ctx structure which holds the test environment,
-+ *   configuration, and results.
-+ *
-+ * - Providing helper functions to:
-+ *   - Create and destroy domains for testing, which are needed to make claims
-+ *   - Query the system's memory state in terms of free pages and outstanding
-+ *     claims, which are used for sizing claims and verifying their effects.
-+ *   - Perform claim operations and check their effects on the system.
-+ *   - Populate memory to test the blocking effects of claims.
-+ *   - Record failures with detailed messages that include the current step,
-+ *     test parameters, and a snapshot of relevant memory state.
-+ *
-+ * - Cleanup the test environment by destroying domains after tests, ensuring
-+ *   that claims are released and the system is left in a clean state even
-+ *   if a test fails partway through.
-+ *
-+ * - Providing a consistent way to skip tests when preconditions are not met,
-+ *   such as insufficient free memory or lack of multiple NUMA nodes.
-+ *
-+ * - Ensuring that all interactions with Xen are checked for errors, and that
-+ *   any failures are reported with detailed diagnostics.
-+ *
-+ * - Test cases should use the provided helper functions to perform all
-+ *   operations that interact with Xen or manage test state to ensure
-+ *   consistent failure reporting and cleanup.
-+ */
-+#include <err.h>
-+#include <errno.h>
-+#include <getopt.h>
-+#include <inttypes.h>
-+#include <stdarg.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <time.h>
-+
-+#include <xen-tools/common-macros.h>
-+
-+#include "libtestclaims.h"
-+
-+int rc;
-+static int step;
-+static const struct option long_options[] = {
-+    {"help",    no_argument,       NULL, 'h'},
-+    {"list",    no_argument,       NULL, 'l'},
-+    {"test",    required_argument, NULL, 't'},
-+    {"verbose", no_argument,       NULL, 'v'},
-+    {NULL,      0,                 NULL, 0  },
-+};
-+
-+/* --- diagnostics helpers --- */
-+
-+/* Append formatted text to a buffer, ensuring it is always null-terminated. */
-+void lib_appendf(char *buf, size_t size, const char *fmt, ...)
-+{
-+    va_list ap;
-+    size_t used = strlen(buf);
-+
-+    if ( used >= size )
-+        return;
-+
-+    va_start(ap, fmt);
-+    vsnprintf(buf + used, size - used, fmt, ap);
-+    va_end(ap);
-+}
-+
-+/* Print debug information if verbose mode is enabled. */
-+void lib_debugf(struct test_ctx *ctx, const char *fmt, ...)
-+{
-+    va_list ap;
-+
-+    if ( !ctx->cfg->verbose )
-+        return;
-+
-+    fputs("      debug: ", stdout);
-+
-+    va_start(ap, fmt);
-+    vprintf(fmt, ap);
-+    va_end(ap);
-+
-+    fputc('\n', stdout);
-+}
-+
-+/*
-+ * Set the current test step description, which is included in failure reports.
-+ * If verbose mode is enabled, also print the step to stdout.
-+ */
-+void lib_set_step(struct test_ctx *ctx, const char *fmt, ...)
-+{
-+    va_list ap;
-+
-+    va_start(ap, fmt);
-+    vsnprintf(ctx->step, sizeof(ctx->step), fmt, ap);
-+    va_end(ap);
-+
-+    if ( ctx->cfg->verbose )
-+        printf("      step %d: %s\n", ++step, ctx->step);
-+}
-+
-+/*
-+ * Record a test failure with a formatted message and errno, and include the
-+ * current step, test parameters, and a snapshot of relevant memory state in
-+ * the details.
-+ */
-+static void append_snapshot(struct test_ctx *ctx)
-+{
-+    xc_physinfo_t physinfo;
-+    unsigned int nodes[2] = {ctx->target1, ctx->target2};
-+
-+    xc_physinfo(ctx->env->xch, &physinfo);
-+    ctx_appendf(ctx,
-+                "\n    snapshot: free_pages=%" PRIu64
-+                ", outstanding_pages=%" PRIu64,
-+                physinfo.free_pages, physinfo.outstanding_pages);
-+
-+    /* Include their free/total pages at the time of failure in the snapshot. */
-+    for ( size_t i = 0; i < ARRAY_SIZE(nodes); i++ )
-+    {
-+        unsigned long free_pages, total_pages;
-+        unsigned int node = nodes[i];
-+
-+        if ( node == INVALID_NODE )
-+            continue;
-+        if ( i == 1 && node == nodes[0] )
-+            continue;
-+
-+        lib_get_node_free_pages(ctx, node, &free_pages, &total_pages);
-+        ctx_appendf(ctx, "\n    snapshot: node%u free=%lu total=%lu", node,
-+                    free_pages, total_pages);
-+    }
-+}
-+
-+/*
-+ * Record a test failure with a formatted message and the given errno.
-+ *
-+ * Include the current step, test parameters, and a snapshot of relevant
-+ * memory state in the details.
-+ */
-+int lib_fail_with_errno(struct test_ctx *ctx, int errnum, const char *fmt, ...)
-+{
-+    va_list ap;
-+
-+    ctx->result->status     = TEST_FAILED;
-+    ctx->result->details[0] = '\0';
-+
-+    ctx_appendf(ctx, "step=%s", ctx->step[0] ? ctx->step : "(not set)");
-+    ctx_appendf(ctx, "\n    dom_1=%u dom_2=%u target1=%s target2=%s",
-+                ctx->dom_1, ctx->dom_2,
-+                ctx->target1 == INVALID_NODE ? "n/a" : "set",
-+                ctx->target2 == INVALID_NODE ? "n/a" : "set");
-+
-+    if ( ctx->target1 != INVALID_NODE )
-+        ctx_appendf(ctx, " (%" PRIu64 ")", ctx->target1);
-+    if ( ctx->target2 != INVALID_NODE )
-+        ctx_appendf(ctx, " (%" PRIu64 ")", ctx->target2);
-+
-+    ctx_appendf(ctx, "\n    alloc_pages=%lu", ctx->alloc_pages);
-+
-+    ctx_appendf(ctx, "\n    cause: ");
-+    va_start(ap, fmt);
-+    vsnprintf(ctx->result->details + strlen(ctx->result->details),
-+              sizeof(ctx->result->details) - strlen(ctx->result->details), fmt,
-+              ap);
-+    va_end(ap);
-+
-+    if ( errnum )
-+        ctx_appendf(ctx, "\n    errno=%d (%s)", errnum, strerror(errnum));
-+
-+    append_snapshot(ctx);
-+    return -1;
-+}
-+
-+/*
-+ * Record a test failure with a formatted message and the current errno.
-+ *
-+ * Calls lib_fail_with_errno() to do the actual recording, passing the current
-+ * errno.
-+ */
-+int lib_fail(struct test_ctx *ctx, const char *fmt, ...)
-+{
-+    va_list ap;
-+    int saved_errno = errno;
-+    char message[1024];
-+
-+    va_start(ap, fmt);
-+    vsnprintf(message, sizeof(message), fmt, ap);
-+    va_end(ap);
-+
-+    return lib_fail_with_errno(ctx, saved_errno, "%s", message);
-+}
-+
-+/*
-+ * Record that a test was skipped with a formatted message.
-+ *
-+ * Include the message in the details to explain why the test was skipped.
-+ */
-+int lib_skip_test(struct test_ctx *ctx, const char *fmt, ...)
-+{
-+    va_list ap;
-+
-+    ctx->result->status     = TEST_SKIPPED;
-+    ctx->result->details[0] = '\0';
-+
-+    va_start(ap, fmt);
-+    vsnprintf(ctx->result->details, sizeof(ctx->result->details), fmt, ap);
-+    va_end(ap);
-+
-+    return 1;
-+}
-+
-+/* --- memory-state queries --- */
-+
-+/* Get the number of free and total pages for a specific NUMA node. */
-+int lib_get_node_free_pages(struct test_ctx *ctx, unsigned int node,
-+                            uint64_t *free_pages, uint64_t *total_pages)
-+{
-+    struct test_env *env = ctx->env;
-+
-+    if ( node >= env->num_nodes ) /* Check node validity */
-+        return lib_fail(ctx, "Invalid node %u/%u", node, env->num_nodes);
-+
-+    if ( xc_numainfo(env->xch, &env->num_nodes, env->meminfo, NULL) )
-+        return lib_fail(ctx, "xc_numainfo failed to get node memory info");
-+
-+    *free_pages = env->meminfo[node].memfree / XC_PAGE_SIZE;
-+    if ( total_pages )
-+        *total_pages = env->meminfo[node].memsize / XC_PAGE_SIZE;
-+    return 0;
-+}
-+
-+/* Get the total number of free pages available across all nodes. */
-+int lib_get_global_free_pages(struct test_ctx *ctx, uint64_t *free_pages)
-+{
-+    struct test_env *env = ctx->env;
-+    uint64_t free_bytes;
-+
-+    if ( xc_availheap(env->xch, 0, 0, -1, &free_bytes) )
-+        return lib_fail(ctx, "xc_availheap failed to get global pages");
-+
-+    *free_pages = free_bytes / XC_PAGE_SIZE;
-+    return 0;
-+}
-+
-+/* Get the current number of outstanding pages. */
-+int lib_get_total_claims(struct test_ctx *ctx,
-+                         uint64_t        *outstanding_pages_global)
-+{
-+    xc_physinfo_t physinfo;
-+
-+    if ( xc_physinfo(ctx->env->xch, &physinfo) )
-+        return lib_fail(ctx, "xc_physinfo failed to get outstanding pages");
-+    *outstanding_pages_global = physinfo.outstanding_pages;
-+    return 0;
-+}
-+
-+/* --- claim check operations --- */
-+
-+/* Check the current outstanding pages against the expected value. */
-+int lib_check_claim(struct test_ctx *ctx, uint64_t baseline_outstanding,
-+                    uint64_t expected_delta, const char *reason)
-+{
-+    xc_physinfo_t physinfo;
-+    uint64_t expected = baseline_outstanding + expected_delta;
-+
-+    lib_set_step(ctx, "%s", reason);
-+    if ( xc_physinfo(ctx->env->xch, &physinfo) )
-+        return lib_fail(ctx, "xc_physinfo failed to get outstanding pages");
-+
-+    if ( physinfo.outstanding_pages != expected )
-+        return lib_fail_with_errno(
-+            ctx, 0, "expected outstanding_pages=%" PRIu64 ", got %" PRIu64,
-+            expected, physinfo.outstanding_pages);
-+    return 0;
-+}
-+
-+/* --- domain lifecycle --- */
-+
-+/*
-+ * Create a domain with the specified configuration and label.
-+ * Record a failure if the creation or maxmem setting fails.
-+ *
-+ * On success, the new domain ID is stored in *domid.
-+ */
-+int lib_create_domain(struct test_ctx *ctx, uint32_t *domid, const char *label)
-+{
-+    struct xen_domctl_createdomain create = ctx->env->create_template;
-+
-+    lib_set_step(ctx, "create %s domain", label);
-+    *domid = DOMID_INVALID;
-+    if ( xc_domain_create(ctx->env->xch, domid, &create) )
-+        return lib_fail(ctx, "xc_domain_create(%s) failed", label);
-+
-+    lib_set_step(ctx, "set maxmem for %s domain", label);
-+    if ( xc_domain_setmaxmem(ctx->env->xch, *domid, -1) )
-+    {
-+        lib_destroy_domain(ctx, domid, label);
-+        return lib_fail(ctx, "xc_domain_setmaxmem(%s) failed", label);
-+    }
-+
-+    return 0;
-+}
-+
-+/*
-+ * Destroy the specified domain, if it is valid.
-+ * Add the destroy step with the given label to the current test description.
-+ * Record a failure if the destroy operation fails.
-+ *
-+ * This should be called during test cleanup to ensure domains are destroyed
-+ * and claims are released even if a test fails partway through.
-+ */
-+int lib_destroy_domain(struct test_ctx *ctx, uint32_t *domid, const char *label)
-+{
-+    if ( *domid == DOMID_INVALID )
-+        return 0;
-+
-+    lib_set_step(ctx, "destroy %s domain", label);
-+    rc     = xc_domain_destroy(ctx->env->xch, *domid);
-+    *domid = DOMID_INVALID;
-+    if ( rc )
-+    {
-+        if ( ctx->result->status == TEST_FAILED )
-+        {
-+            ctx_appendf(ctx,
-+                        "\n    cleanup: xc_domain_destroy(%s) failed: %d (%s)",
-+                        label, errno, strerror(errno));
-+            return -1;
-+        }
-+
-+        return lib_fail(ctx, "xc_domain_destroy(%s) failed", label);
-+    }
-+
-+    return 0;
-+}
-+
-+/* --- claim operations --- */
-+
-+/*
-+ * Attempt to claim memory with the specified parameters.
-+ * Record the failure if the claim operation fails.
-+ */
-+int lib_claim_memory(struct test_ctx *ctx, uint32_t domid, uint32_t nr_claims,
-+                     memory_claim_t *claims, const char *reason)
-+{
-+    lib_set_step(ctx, "%s", reason);
-+    rc = xc_domain_claim_memory(ctx->env->xch, domid, nr_claims, claims);
-+    if ( rc )
-+    {
-+        uint64_t outstanding_pages, node_free, total_pages;
-+
-+        lib_get_node_free_pages(ctx, ctx->target1, &node_free, &total_pages);
-+        lib_get_total_claims(ctx, &outstanding_pages);
-+
-+        return lib_fail(ctx,
-+                        "xc_domain_claim_memory failed: node=%" PRIu64
-+                        "\n    total_outstanding: %" PRIu64
-+                        "\n          total_pages: %" PRIu64
-+                        "\n      node free_pages: %" PRIu64,
-+                        ctx->target1, outstanding_pages, total_pages,
-+                        node_free);
-+    }
-+    return rc;
-+}
-+
-+/*
-+ * Attempt to claim memory with the specified parameters, expecting it to fail
-+ * with the specified errno. Record a failure if it does not fail as expected.
-+ */
-+int lib_expect_claim_memory_failure(struct test_ctx *ctx, uint32_t domid,
-+                                    uint32_t nr_claims, memory_claim_t *claims,
-+                                    int expected_errno, const char *reason)
-+{
-+    lib_set_step(ctx, "%s", reason);
-+    rc = xc_domain_claim_memory(ctx->env->xch, domid, nr_claims, claims);
-+    if ( rc == -1 && errno == expected_errno )
-+        return 0;
-+
-+    return lib_fail_with_errno(ctx, errno,
-+                               "expected xc_domain_claim_memory() to fail with "
-+                               "errno=%d (%s), got rc=%d",
-+                               expected_errno, strerror(expected_errno), rc);
-+}
-+
-+/*
-+ * Release all claims for the specified domain by setting a global claim with
-+ * zero pages. Record the failure if the claim release operation fails.
-+ */
-+int lib_release_all_claims(struct test_ctx *ctx, uint32_t domid)
-+{
-+    memory_claim_t claim = {
-+        .pages  = 0,
-+        .target = XEN_DOMCTL_CLAIM_MEMORY_GLOBAL,
-+    };
-+
-+    lib_set_step(ctx, "release all claims with global zero claim");
-+    rc = xc_domain_claim_memory(ctx->env->xch, domid, 1, &claim);
-+    if ( rc )
-+        return lib_fail(ctx, "xc_domain_claim_memory(..., global=0) failed");
-+    return 0;
-+}
-+
-+/*
-+ * Claim all available memory on the host except for a specified number
-+ * of pages to spare. Record the failure if the claim operation fails.
-+ */
-+int lib_claim_all_on_host(struct test_ctx *ctx, uint32_t domid,
-+                          unsigned int spare)
-+{
-+    unsigned long free_pages;
-+    unsigned long claim_pages = 0;
-+
-+    lib_set_step(ctx, "claim all except %u pages on host", spare);
-+    lib_get_global_free_pages(ctx, &free_pages);
-+    if ( free_pages <= spare )
-+        return lib_fail(ctx, "Not enough free pages @ host, spare=%u, free=%lu",
-+                        spare, free_pages);
-+
-+    claim_pages += free_pages - spare;
-+    snprintf(ctx->result->params, sizeof(ctx->result->params),
-+             "claim all pages except %u pages on host claim=%lu free=%lu",
-+             spare, claim_pages, free_pages);
-+    return lib_claim_memory(
-+        ctx, domid, 1,
-+        &(memory_claim_t){.pages  = claim_pages,
-+                          .target = XEN_DOMCTL_CLAIM_MEMORY_GLOBAL},
-+        ctx->result->params);
-+}
-+
-+/*
-+ * Claim all available memory on the specified node except for a specified
-+ * number of pages to spare. Record the failure if the claim operation fails.
-+ *
-+ * This is used to set up a claim that exhausts the free memory on a specific
-+ * node, which is needed to test the behavior of claims that target specific
-+ * nodes and the global claim accounting that tracks them. The spare pages are
-+ * needed to ensure that the claim can be successfully installed and leave some
-+ * free pages on the node leave a little breathing room for other allocations
-+ * and not cause the test to fail because of a minor fluctuation in free memory
-+ * that causes unexpected differences in the expected vs actual page counts.
-+ *
-+ * This function also checks that the delta of global outstanding claims before
-+ * and after the claim matches the expected delta based on the number of pages
-+ * claimed, accounting for any existing claims the domain had before making the
-+ * claim, since these existing claims are already part of the global outstanding
-+ * claims, so we need to account for them in the expected delta when we check
-+ * the global delta after the claim.
-+ *
-+ * It also checks that the domain's outstanding claims after the claim matches
-+ * the number of pages claimed, ensuring that the claim was correctly installed.
-+ */
-+int lib_claim_all_on_node(struct test_ctx *ctx, uint32_t domid,
-+                          unsigned int node, unsigned int spare)
-+{
-+    uint64_t global_before, global_after, free_pages, claim_pages = 0;
-+    uint64_t dom_claims_before;
-+    xc_domaininfo_t info;
-+
-+    lib_set_step(ctx, "claim all except %u pages on node %u", spare, node);
-+    lib_get_node_free_pages(ctx, node, &free_pages, NULL);
-+    if ( free_pages <= spare )
-+        return lib_fail(ctx, "Not enough pages @ node %u, spare=%u, free=%lu",
-+                        node, spare, free_pages);
-+
-+    claim_pages += free_pages - spare;
-+    snprintf(ctx->result->params, sizeof(ctx->result->params),
-+             "claim all pages except %u pages on node %u claim=%lu free=%lu",
-+             spare, node, claim_pages, free_pages);
-+
-+    /*
-+     * Get the domain's outstanding claims before making the claim to check the
-+     * delta after the claim: If the domain had existing claims, these claims
-+     * are already part of the global outstanding claims, so we need to account
-+     * for them when we check the global delta after the claim to ensure it
-+     * matches the expected delta.
-+     */
-+    if ( xc_domain_getinfo_single(ctx->env->xch, domid, &info) )
-+        return lib_fail(ctx, "xc_domain_getinfo failed to get domain claims");
-+    dom_claims_before = info.outstanding_pages;
-+
-+    /*
-+     * Get the global outstanding claims before making the claim to check the
-+     * delta after the claim.
-+     */
-+    lib_get_total_claims(ctx, &global_before);
-+    rc = lib_claim_memory(
-+        ctx, domid, 1, &(memory_claim_t){.pages = claim_pages, .target = node},
-+        ctx->result->params);
-+    if ( rc )
-+        return rc;
-+    lib_get_total_claims(ctx, &global_after);
-+
-+    if ( xc_domain_getinfo_single(ctx->env->xch, domid, &info) )
-+        return lib_fail(ctx, "xc_domain_getinfo failed to get domain claims");
-+
-+    if ( info.outstanding_pages != claim_pages )
-+        return lib_fail(ctx, "unexpected claims installation: exp=%lu, got=%lu",
-+                        claim_pages, info.outstanding_pages);
-+
-+    if ( global_after - global_before != claim_pages - dom_claims_before )
-+        return lib_fail(ctx, "unexp. global delta @ node %u: exp=%lu, got=%lu",
-+                        node, claim_pages, global_before - global_after);
-+    return 0;
-+}
-+
-+/*
-+ * Attempt to claim memory with the legacy xc_domain_claim_pages() API.
-+ * Record the failure if the claim operation fails.
-+ */
-+int lib_claim_pages_legacy(struct test_ctx *ctx, uint32_t domid,
-+                           unsigned long nr_pages, const char *reason)
-+{
-+    lib_set_step(ctx, "%s", reason);
-+    rc = xc_domain_claim_pages(ctx->env->xch, domid, nr_pages);
-+    if ( rc )
-+        return lib_fail(ctx, "xc_domain_claim_pages(%lu) failed", nr_pages);
-+    return 0;
-+}
-+
-+/*
-+ * Attempt to claim memory with the legacy xc_domain_claim_pages() API.
-+ * Expect it to fail with the specified errno.
-+ * Record a failure on success or if it fails with an unexpected errno.
-+ */
-+int lib_claim_pages_legacy_failure(struct test_ctx *ctx, uint32_t domid,
-+                                   unsigned long request, int expected_errno,
-+                                   const char *reason)
-+{
-+    uint64_t outstanding_claims, free_pages;
-+
-+    /*
-+     * Sanity check: Check that there are not enough free pages for installing
-+     * the claim, as this is the only condition under which the claim install
-+     * is expected to fail with ENOMEM. If this fails, the previous actions
-+     * of the test did not properly set up the expected conditions for the
-+     * claim to fail, so we record this as the cause of failure.
-+     */
-+    lib_get_total_claims(ctx, &outstanding_claims);
-+    lib_get_global_free_pages(ctx, &free_pages);
-+    if ( request < free_pages - outstanding_claims )
-+        return lib_fail(ctx,
-+                        "too many unclaimed pages to expect ENOMEM: "
-+                        "request=%lu, free=%" PRIu64 " - claims=%" PRIu64
-+                        "=%" PRIu64,
-+                        request, free_pages, outstanding_claims,
-+                        free_pages - outstanding_claims);
-+    lib_set_step(ctx, "%s", reason);
-+    rc = xc_domain_claim_pages(ctx->env->xch, domid, request);
-+    if ( rc == -1 && errno == expected_errno )
-+        return 0;
-+
-+    return lib_fail_with_errno(ctx, errno,
-+                               "expected xc_domain_claim_pages() to fail "
-+                               "with errno=%d(%s), got rc=%d",
-+                               expected_errno, strerror(expected_errno), rc);
-+}
-+
-+/* --- physmap population --- */
-+
-+/*
-+ * Private helper function to populate extents at the specified GPFN
-+ * with the xc_domain_populate_physmap() API, and return the result code.
-+ *
-+ * Tests may use its callers lib_populate_success() or lib_populate_failure()
-+ * which record the failure the actual result did not match the expectation.
-+ */
-+static int lib_populate_physmap(struct test_ctx *ctx, lib_populate_args_t args)
-+{
-+    xen_pfn_t *frames;
-+
-+    frames = calloc(args.nr_extents, sizeof(*frames));
-+    if ( !frames )
-+        return lib_fail(ctx, "calloc(%lu) failed", args.nr_extents);
-+
-+    for ( unsigned long i = 0; i < args.nr_extents; i++ )
-+        frames[i] = args.start + i;
-+
-+    errno = 0;
-+    rc    = xc_domain_populate_physmap_exact(ctx->env->xch, args.domid,
-+                                             args.nr_extents, args.order,
-+                                             args.flags, frames);
-+    free(frames);
-+    return rc;
-+}
-+
-+/*
-+ * Populate extents at the specified GPFN with checking if it
-+ * succeeded. Record the failure with diagnostics if it did not.
-+ */
-+int lib_populate_success(struct test_ctx *ctx, lib_populate_args_t args)
-+{
-+    rc = lib_populate_physmap(ctx, args);
-+    if ( rc )
-+        return lib_fail(ctx, "expected populate to succeed for node %u",
-+                        XENMEMF_get_node(args.flags));
-+    return 0;
-+}
-+
-+/*
-+ * Attempt to populate extents at the specified GPFN with checking if it
-+ * failed. Record a failure with diagnostics if it did not fail as expected.
-+ */
-+int lib_populate_failure(struct test_ctx *ctx, lib_populate_args_t args)
-+{
-+    rc = lib_populate_physmap(ctx, args);
-+    if ( rc == 0 )
-+        return lib_fail_with_errno(
-+            ctx, 0, "expected exact-node populate to fail for node %u",
-+            XENMEMF_get_node(args.flags));
-+    return 0;
-+}
-+
-+/* --- test runner --- */
-+
-+static double timespec_diff_ms(const struct timespec *start,
-+                               const struct timespec *end)
-+{
-+    double sec  = (double)(end->tv_sec - start->tv_sec);
-+    double nsec = (double)(end->tv_nsec - start->tv_nsec);
-+
-+    return sec * 1000.0 + nsec / 1e6;
-+}
-+
-+static void usage(FILE *stream, const char *prog)
-+{
-+    fprintf(stream,
-+            "Usage: %s [OPTIONS]\n\n"
-+            "Options:\n"
-+            "  -l, --list         List available test IDs and exit\n"
-+            "  -t, --test ID      Run only the specified test ID (repeatable)\n"
-+            "  -v, --verbose      Print per-step progress\n"
-+            "  -h, --help         Show this help text\n",
-+            prog);
-+}
-+
-+int lib_print_available_tests(const struct test_case *cases, size_t num_cases)
-+{
-+    puts("Available tests:");
-+    for ( size_t i = 0; i < num_cases; i++ )
-+        printf("  %s  %s\n", cases[i].id, cases[i].name);
-+    return 0;
-+}
-+
-+/*
-+ * Parse command-line arguments to configure the test run.
-+ * It populates the runtime_config struct with the parsed configuration,
-+ * including test IDs and the verbose flag.
-+ *
-+ * It supports filtering tests by test ID and enabling verbose output.
-+ * If --list is specified, prints available tests and exits.
-+ * By default, all tests will be run with concise output.
-+ * If cfg.list_only is set, the caller should exit after this function returns.
-+ *
-+ * Returns 0 on success, or 1 on failure (invalid arguments)
-+ */
-+int lib_parse_args(int argc, char *argv[], struct runtime_config *cfg)
-+{
-+    int opt;
-+
-+    while ( (opt = getopt_long(argc, argv, "hlt:v", long_options, NULL)) != -1 )
-+    {
-+        switch ( opt )
-+        {
-+        case 'h':
-+            usage(stdout, argv[0]);
-+        case 'l':
-+            cfg->list_only = true;
-+            break;
-+
-+        case 't':
-+            if ( cfg->nr_selected_ids >= ARRAY_SIZE(cfg->selected_ids) )
-+                errx(1, "too many --test selectors (max %zu)",
-+                     ARRAY_SIZE(cfg->selected_ids));
-+            cfg->selected_ids[cfg->nr_selected_ids++] = optarg;
-+            break;
-+
-+        case 'v':
-+            cfg->verbose = true;
-+            break;
-+
-+        default:
-+            usage(stderr, argv[0]);
-+            return 1;
-+        }
-+    }
-+
-+    if ( cfg->list_only )
-+        return 0;
-+
-+    printf("========= testcase program: %s ==========\n", argv[0]);
-+    if ( cfg->nr_selected_ids )
-+    {
-+        printf("Selected %zu test(s):\n", cfg->nr_selected_ids);
-+        for ( size_t i = 0; i < cfg->nr_selected_ids; i++ )
-+            printf("  %s\n", cfg->selected_ids[i]);
-+    }
-+    return 0;
-+}
-+
-+/*
-+ * Run a single test case, capturing results and ensuring cleanup.
-+ *
-+ * Outstanding claims are tracked baseline_outstanding are are checked
-+ * to be reset to the baseline at the end of the test, ensuring that all
-+ * claims are released after each test case.
-+ *
-+ * Returns 0 on success, or -1 on failure with result details populated.
-+ */
-+int lib_run_one_test(struct test_env *env, const struct runtime_config *cfg,
-+                     const struct test_case *test, struct test_result *result)
-+{
-+    struct test_ctx ctx = {
-+        .env         = env,
-+        .cfg         = cfg,
-+        .result      = result,
-+        .dom_1       = DOMID_INVALID,
-+        .dom_2       = DOMID_INVALID,
-+        .target1     = env->primary_node,
-+        .target2     = INVALID_NODE,
-+        .alloc_pages = 0,
-+        .step        = "",
-+    };
-+    uint64_t baseline_outstanding;
-+    struct timespec start, end;
-+
-+    if ( env->num_nodes >= 2 )
-+        ctx.target2 = env->secondary_node;
-+
-+    result->test        = test;
-+    result->status      = TEST_PASSED;
-+    result->params[0]   = '\0';
-+    result->details[0]  = '\0';
-+    result->duration_ms = 0.0;
-+
-+    /*
-+     * Fixture: capture baseline, create the primary domain, run the test
-+     * body, then always destroy any remaining test domains and verify
-+     * outstanding pages returned to baseline.
-+     */
-+    rc = lib_get_total_claims(&ctx, &baseline_outstanding);
-+    if ( rc )
-+        goto out;
-+
-+    rc = lib_create_domain(&ctx, &ctx.dom_1, "primary");
-+    if ( rc )
-+        goto out;
-+
-+    rc = lib_create_domain(&ctx, &ctx.dom_2, "secondary");
-+    if ( rc )
-+        goto out;
-+
-+    clock_gettime(CLOCK_MONOTONIC, &start);
-+
-+    errno = 0;
-+    rc    = test->test(&ctx); /* Run the test body */
-+
-+    clock_gettime(CLOCK_MONOTONIC, &end);
-+    result->duration_ms = timespec_diff_ms(&start, &end);
-+
-+    if ( rc > 0 && result->status == TEST_SKIPPED )
-+        rc = 0;
-+
-+out:
-+    /* Cleanup test domains without affecting the return code if rc != 0 */
-+    if ( lib_destroy_domain(&ctx, &ctx.dom_2, "helper") && !rc )
-+        rc = -1;
-+
-+    if ( lib_destroy_domain(&ctx, &ctx.dom_1, "primary") && !rc )
-+        rc = -1;
-+
-+    if ( !rc &&
-+         lib_check_claim(&ctx, baseline_outstanding, 0,
-+                         "check cleanup restored baseline claimed pages") )
-+        rc = -1;
-+
-+    if ( rc < 0 )
-+        result->status = TEST_FAILED;
-+
-+    return rc;
-+}
-+
-+/*
-+ * Run all test cases, filtering based on the runtime configuration, and print
-+ * results to stdout. Each test case is run with lib_run_one_test() which
-+ * captures detailed diagnostics on failure.
-+ */
-+void lib_run_tests(struct test_env *env, char *argv0,
-+                   const struct runtime_config *cfg,
-+                   const struct test_case      *test_cases,
-+                   unsigned int num_test_cases, struct test_result *results)
-+{
-+    for ( size_t i = 0; i < num_test_cases; i++ )
-+    {
-+        struct test_result *result = &results[i];
-+
-+        if ( !test_is_selected(cfg, &test_cases[i]) )
-+            continue;
-+
-+        lib_run_one_test(env, cfg, &test_cases[i], result);
-+
-+        /* Print a summary: test, result, including parameters and duration. */
-+        printf("%s::%s [%s] %s (%.2f ms)\n", argv0, result->test->id,
-+               result->params[0] ? result->params : "default",
-+               status_name(result->status), result->duration_ms);
-+
-+        if ( result->status == TEST_FAILED || result->status == TEST_SKIPPED )
-+            printf("    %s\n", result->details);
-+    }
-+}
-+
-+/*
-+ * Print a concise summary of test results, including counts of passed, failed,
-+ * and skipped tests, and details for any failures or skips.
-+ */
-+int lib_summary(const struct test_result *results, unsigned int num_results)
-+{
-+    unsigned int passed = 0, failed = 0, skipped = 0;
-+
-+    puts("================== short test summary info =================");
-+    for ( size_t i = 0; i < num_results; i++ )
-+    {
-+        if ( !results[i].test )
-+            continue;
-+
-+        printf("%s %s %s\n", status_name(results[i].status),
-+               results[i].test->id, results[i].test->name);
-+
-+        switch ( results[i].status )
-+        {
-+        case TEST_PASSED:
-+            passed++;
-+            break;
-+        case TEST_FAILED:
-+            failed++;
-+            printf("    %s\n", results[i].details);
-+            break;
-+        case TEST_SKIPPED:
-+            skipped++;
-+            printf("    %s\n", results[i].details);
-+            break;
-+        }
-+    }
-+    printf("============ %u passed, %u failed, %u skipped ============\n",
-+           passed, failed, skipped);
-+    return failed;
-+}
-+
-+/* Update the create_template structure based on the host's capabilities */
-+static void fixup_create_template(struct xen_domctl_createdomain *create,
-+                                  const xc_physinfo_t            *physinfo)
-+{
-+#if defined(__x86_64__) || defined(__i386__)
-+    if ( !(physinfo->capabilities & XEN_SYSCTL_PHYSCAP_hap) )
-+        create->flags &= ~XEN_DOMCTL_CDF_hap;
-+
-+    if ( !(physinfo->capabilities &
-+           (XEN_SYSCTL_PHYSCAP_hap | XEN_SYSCTL_PHYSCAP_shadow)) ||
-+         !(physinfo->capabilities & XEN_SYSCTL_PHYSCAP_hvm) )
-+    {
-+        create->flags &= ~XEN_DOMCTL_CDF_hvm;
-+        create->arch.emulation_flags = 0;
-+    }
-+#else
-+    (void)physinfo;
-+#endif
-+}
-+
-+/*
-+ * Initialise the test environment by opening the Xen control interface,
-+ * querying the number of NUMA nodes, and populating memory information.
-+ * Returns 0 on success, or -1 on failure with errno set.
-+ */
-+int lib_initialise_test_env(struct test_env *env)
-+{
-+    xc_physinfo_t physinfo;
-+
-+    env->xch = xc_interface_open(NULL, NULL, 0);
-+    if ( !env->xch )
-+        err(1, "xc_interface_open");
-+
-+    /*
-+     * Get the number of nodes to allocate xc_meminfo_t structures for.
-+     * If NUMA is disabled, this will return one node, so we can still
-+     * run tests that don't require > 1 NUMA node on non-NUMA hosts.
-+     */
-+    xc_numainfo(env->xch, &env->num_nodes, NULL, NULL);
-+
-+    /* Allocate memory for xc_meminfo_t structures */
-+    env->meminfo = calloc(env->num_nodes, sizeof(*env->meminfo));
-+    if ( !env->meminfo )
-+        err(1, "calloc");
-+
-+    /* Populate meminfo structures with current data */
-+    xc_numainfo(env->xch, &env->num_nodes, env->meminfo, NULL);
-+    xc_physinfo(env->xch, &physinfo);
-+
-+    /* Initialise the create_template structure */
-+    env->create_template = (struct xen_domctl_createdomain){
-+        .flags            = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
-+        .max_vcpus        = 1,
-+        .max_grant_frames = 1,
-+        .grant_opts       = XEN_DOMCTL_GRANT_version(1),
-+#if defined(__x86_64__) || defined(__i386__)
-+        .arch = { .emulation_flags = XEN_X86_EMU_LAPIC, },
-+#endif
-+    };
-+    /* Update the create_template structure based on the host's capabilities */
-+    fixup_create_template(&env->create_template, &physinfo);
-+
-+    env->primary_node        = 0;
-+    env->secondary_node      = 0;
-+    env->have_secondary_node = false;
-+
-+    /*
-+     * Pick the node with the most free memory as the primary node, and if
-+     * there's a second node, pick the one with the next most free memory as
-+     * the secondary.
-+     */
-+    for ( unsigned int i = 1; i < env->num_nodes; i++ )
-+    {
-+        if ( env->meminfo[i].memfree > env->meminfo[env->primary_node].memfree )
-+        {
-+            env->secondary_node      = env->primary_node;
-+            env->primary_node        = i;
-+            env->have_secondary_node = true;
-+        }
-+        else if ( !env->have_secondary_node ||
-+                  env->meminfo[i].memfree >
-+                  env->meminfo[env->secondary_node].memfree )
-+        {
-+            env->secondary_node      = i;
-+            env->have_secondary_node = true;
-+        }
-+    }
-+
-+    if ( env->num_nodes < 2 )
-+        env->have_secondary_node = false;
-+    else if ( env->secondary_node == env->primary_node )
-+    {
-+        for ( unsigned int i = 0; i < env->num_nodes; i++ )
-+        {
-+            if ( i != env->primary_node )
-+            {
-+                env->secondary_node      = i;
-+                env->have_secondary_node = true;
-+                break;
-+            }
-+        }
-+    }
-+
-+    return 0;
-+}
-+
-+/* Free allocated memory and close the Xen control interface */
-+void lib_release_test_env(struct test_env *env)
-+{
-+    free(env->meminfo);
-+    env->meminfo = NULL;
-+
-+    if ( env->xch )
-+    {
-+        xc_interface_close(env->xch);
-+        env->xch = NULL;
-+    }
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/tools/tests/mem-claim/libtestclaims.h b/tools/tests/mem-claim/libtestclaims.h
-new file mode 100644
-index 000000000000..66aa6bc2da10
---- /dev/null
-+++ b/tools/tests/mem-claim/libtestclaims.h
-@@ -0,0 +1,202 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Header file for the functional system test framework
-+ * testing for memory claims in the Xen hypervisor.
-+ *
-+ * This header declares the interface for the test framework implemented
-+ * in libtestclaims.c.
-+ *
-+ * It includes the definitions of the test environment, test context, and
-+ * helper functions for performing memory claim operations, querying memory
-+ * state, managing test domains, and recording test results.
-+ */
-+#ifndef _LIBTEST_MEM_CLAIMS_
-+#define _LIBTEST_MEM_CLAIMS_
-+
-+#include <limits.h>
-+#include <stdbool.h>
-+#include <stdint.h>
-+#include <stdlib.h>
-+
-+#include <xenctrl.h>
-+
-+#define MAX_SELECTED_TESTS 32
-+#define INVALID_NODE       UINT_MAX
-+#define SPARE_PAGES        200
-+
-+struct test_env {
-+    xc_interface                  *xch;
-+    struct xen_domctl_createdomain create_template;
-+    unsigned int                   num_nodes;
-+    unsigned int                   primary_node;
-+    unsigned int                   secondary_node;
-+    bool                           have_secondary_node;
-+    xc_meminfo_t                  *meminfo;
-+};
-+
-+struct runtime_config {
-+    const char *selected_ids[MAX_SELECTED_TESTS];
-+    size_t      nr_selected_ids;
-+    bool        list_only;
-+    bool        verbose;
-+};
-+
-+enum test_status {
-+    TEST_PASSED,
-+    TEST_FAILED,
-+    TEST_SKIPPED,
-+};
-+
-+struct test_case;
-+
-+struct test_result {
-+    const struct test_case *test;
-+    enum test_status        status;
-+    char                    params[256];
-+    char                    details[4096];
-+    double                  duration_ms;
-+};
-+
-+struct test_ctx {
-+    struct test_env             *env;
-+    const struct runtime_config *cfg;
-+    struct test_result          *result;
-+    uint32_t                     dom_1;
-+    uint32_t                     dom_2;
-+    uint64_t                     target1;
-+    uint64_t                     target2;
-+    uint64_t                     alloc_pages;
-+    char                         step[160];
-+};
-+
-+struct lib_populate_physmap_args {
-+    uint32_t      domid;
-+    xen_pfn_t     start;
-+    unsigned long nr_extents;
-+    unsigned int  order;
-+    unsigned int  flags;
-+};
-+typedef struct lib_populate_physmap_args lib_populate_args_t;
-+
-+/*
-+ * test_fn_t: the test body.  Called after the fixture has created
-+ * ctx->domid and captured a baseline outstanding-pages count.  Tests needing
-+ * extra domains should create and destroy them explicitly.
-+ * Returns 0 on pass, -1 on fail, 1 on skip.
-+ */
-+typedef int (*test_fn_t)(struct test_ctx *ctx);
-+
-+struct test_case {
-+    const char *id;
-+    const char *name;
-+    test_fn_t   test;
-+};
-+
-+/* --- diagnostics helpers --- */
-+void lib_appendf(char *buf, size_t size, const char *fmt, ...)
-+__attribute__((format(printf, 3, 4)));
-+
-+/* Append a formatted string to ctx->result->details. */
-+#define ctx_appendf(ctx, ...)                                               \
-+        lib_appendf((ctx)->result->details, sizeof((ctx)->result->details), \
-+                    __VA_ARGS__)
-+void lib_debugf(struct test_ctx *ctx, const char *fmt, ...)
-+__attribute__((format(printf, 2, 3)));
-+void lib_set_step(struct test_ctx *ctx, const char *fmt, ...)
-+__attribute__((format(printf, 2, 3)));
-+int lib_fail_with_errno(struct test_ctx *ctx, int errnum, const char *fmt, ...)
-+__attribute__((format(printf, 3, 4)));
-+int lib_fail(struct test_ctx *ctx, const char *fmt, ...)
-+__attribute__((format(printf, 2, 3)));
-+int lib_skip_test(struct test_ctx *ctx, const char *fmt, ...)
-+__attribute__((format(printf, 2, 3)));
-+
-+/* --- memory-state queries --- */
-+int lib_get_node_free_pages(struct test_ctx *ctx, unsigned int node,
-+                            unsigned long *free_pages,
-+                            unsigned long *total_pages);
-+int lib_get_global_free_pages(struct test_ctx *ctx, unsigned long *free_pages);
-+int lib_get_total_claims(struct test_ctx *ctx,
-+                         uint64_t        *outstanding_pages_global);
-+int lib_check_claim(struct test_ctx *ctx, uint64_t baseline_outstanding,
-+                    uint64_t expected_delta, const char *reason);
-+
-+/* --- domain lifecycle --- */
-+int lib_create_domain(struct test_ctx *ctx, uint32_t *domid, const char *label);
-+int lib_destroy_domain(struct test_ctx *ctx, uint32_t *domid,
-+                       const char *label);
-+
-+/* --- claim operations --- */
-+int lib_claim_memory(struct test_ctx *ctx, uint32_t domid, uint32_t nr_claims,
-+                     memory_claim_t *claims, const char *reason);
-+int lib_expect_claim_memory_failure(struct test_ctx *ctx, uint32_t domid,
-+                                    uint32_t nr_claims, memory_claim_t *claims,
-+                                    int expected_errno, const char *reason);
-+int lib_release_all_claims(struct test_ctx *ctx, uint32_t domid);
-+int lib_claim_pages_legacy(struct test_ctx *ctx, uint32_t domid,
-+                           unsigned long nr_pages, const char *reason);
-+int lib_claim_pages_legacy_failure(struct test_ctx *ctx, uint32_t domid,
-+                                   unsigned long nr_pages, int expected_errno,
-+                                   const char *reason);
-+int lib_claim_all_on_host(struct test_ctx *ctx, uint32_t domid,
-+                          unsigned int spare);
-+int lib_claim_all_on_node(struct test_ctx *ctx, uint32_t domid, uint32_t node,
-+                          uint32_t spare);
-+
-+/* --- physmap --- */
-+int lib_populate_success(struct test_ctx *ctx, lib_populate_args_t args);
-+int lib_populate_failure(struct test_ctx *ctx, lib_populate_args_t args);
-+
-+/* --- test runner --- */
-+int  lib_print_available_tests(const struct test_case *cases, size_t num_cases);
-+int  lib_parse_args(int argc, char *argv[], struct runtime_config *cfg);
-+int  lib_run_one_test(struct test_env *env, const struct runtime_config *cfg,
-+                      const struct test_case *test, struct test_result *result);
-+void lib_run_tests(struct test_env *env, char *argv0,
-+                   const struct runtime_config *cfg,
-+                   const struct test_case      *test_cases,
-+                   unsigned int num_test_cases, struct test_result *results);
-+int  lib_summary(const struct test_result *results, unsigned int num_results);
-+int  lib_initialise_test_env(struct test_env *env);
-+void lib_release_test_env(struct test_env *env);
-+unsigned long lib_default_alloc_pages(unsigned long free_pages);
-+
-+extern int rc;
-+
-+static inline const char *status_name(enum test_status status)
-+{
-+    switch ( status )
-+    {
-+    case TEST_PASSED:
-+        return "PASSED";
-+    case TEST_FAILED:
-+        return "FAILED";
-+    case TEST_SKIPPED:
-+        return "SKIPPED";
-+    }
-+    return "UNKNOWN";
-+}
-+
-+static inline bool test_is_selected(const struct runtime_config *cfg,
-+                                    const struct test_case      *test)
-+{
-+    if ( !cfg->nr_selected_ids )
-+        return true;
-+
-+    for ( size_t i = 0; i < cfg->nr_selected_ids; i++ )
-+        if ( !strcmp(cfg->selected_ids[i], test->id) )
-+            return true;
-+    return false;
-+}
-+
-+#endif /* _LIBTEST_MEM_CLAIMS_ */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/tools/tests/mem-claim/test-claim-memory.c b/tools/tests/mem-claim/test-claim-memory.c
-new file mode 100644
-index 000000000000..4ea94515ed22
---- /dev/null
-+++ b/tools/tests/mem-claim/test-claim-memory.c
-@@ -0,0 +1,129 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Functional system test suite for testing memory claims in Xen.
-+ *
-+ * It is designed to test the xc_domain_claim_memory() API and
-+ * to reconfirm the xc_domain_claim_pages() API and interacts
-+ * with the running Xen hypervisor in Dom0 using libxenctrl.
-+ *
-+ * The verifications performed by the test cases include:
-+ *
-+ * - Validating that claims can be successfully made with valid parameters
-+ *   and that they have the expected effects on the system's memory state,
-+ *   such as increasing the number of outstanding claimed pages.
-+ *
-+ * - Validating that invalid claim attempts are rejected with the expected
-+ *   error codes, such as EINVAL for invalid parameters or ENOMEM when
-+ *   claiming more pages than are free.
-+ *
-+ * - Validating the effects of memory claims on the system, such as blocking
-+ *   effects when claiming more pages than are free or left unclaimed by
-+ *   other domains, and the guarantees provided by claims such as reserved
-+ *   claimed pages not being allocated to other domains.
-+ *
-+ * For the need to perform these verifications, the test cases interact
-+ * with the Xen hypervisor to query the system's memory state, create and
-+ * destroy test domains, perform claim operations, and populate memory to
-+ * test the blocking effects of claims.
-+ *
-+ * As the act of testing the blocking effects of claims involves allocating
-+ * memory from the system, other operations that interact with the system's
-+ * memory state should be avoided or kept to a minimum during the test run
-+ * to avoid interference with the test results.
-+ *
-+ * During these interactions, the test cases record successes and failures
-+ * with detailed messages that include the current step, test parameters,
-+ * and a snapshot of relevant memory state to aid in diagnosing issues
-+ * when a test fails.
-+ *
-+ * The test suite also ensures that domains are destroyed after tests to
-+ * clean up claims and leave the system in a clean state, even if a test
-+ * fails partway through.
-+ *
-+ * Some test cases that require multiple NUMA nodes can be skipped if the
-+ * system does not have a 2nd NUMA node, allowing the test suite to be run
-+ * on single-node systems as well.
-+ *
-+ * It is designed to run on a quiet system as it stakes claims on the system's
-+ * memory and verifies their effects, by allocating against the running system
-+ * Xen hypervisor in Dom0 using libxenctrl.
-+ */
-+#include <err.h>
-+#include <errno.h>
-+#include <limits.h>
-+#include <stdio.h>
-+#include <inttypes.h>
-+#include <stdlib.h>
-+#include <string.h>
-+
-+#include <xen-tools/common-macros.h>
-+
-+#include "libtestclaims.h"
-+#include "accounting-1.h"
-+#include "input-phase1.h"
-+#include "input-phase2.h"
-+
-+/* Short helper to declare test cases more concisely. */
-+#define CASE(ID, NAME, FN)                           \
-+        {                                            \
-+            .id = (ID), .name = (NAME), .test = (FN) \
-+        }
-+
-+/*
-+ * List of test cases.  lib_run_tests() iterates over this list to run tests.
-+ *
-+ * Tests are identified by their id (e.g. "A1-1") and have a descriptive name
-+ * and a function pointer to the test implementation.
-+ */
-+static const struct test_case cases[] = {
-+    CASE("A1-1", "basic_node_claim", test_basic_node_claim),
-+    CASE("A1-2", "global_replace_after_alloc", test_global_replace_after_alloc),
-+    CASE("A1-3", "node_replace_after_alloc", test_node_replace_after_alloc),
-+    CASE("A1-4", "legacy_global_claim", test_legacy_global_claim),
-+    CASE("A1-5", "move_claim_between_nodes", test_move_claim_between_nodes),
-+    CASE("A1-6", "zero_claim_resets_claim", test_zero_claim_resets_claim),
-+    CASE("A1-7", "zero_claim_memory_reset", test_zero_claim_memory_resets),
-+    CASE("I1-1", "reject_non_present_node", test_reject_non_present_node),
-+    CASE("I1-2", "reject_too_many_claims", test_reject_too_many_claims),
-+    CASE("I1-3", "reject_node_gt_uint8_max", test_reject_node_gt_uint8_max),
-+    CASE("I1-4", "reject_pages_gt_int32_max", test_reject_pages_gt_int32_max),
-+    CASE("I1-5", "reject_nonzero_pad", test_reject_nonzero_pad),
-+    CASE("I1-6", "reject_zero_claim_count", test_reject_zero_claim_count),
-+    CASE("I1-7", "null_claims_nonzero_count", test_null_claims_nonzero_count),
-+    CASE("I1-8", "zero_count_with_pointer", test_zero_count_valid_pointer),
-+    CASE("I1-9", "claim_pages_gt_free_enomem", test_claim_pages_gt_free_enomem),
-+    CASE("I2-1", "claim_pages_causes_enomem", test_claim_pages_causes_enomem),
-+    CASE("I2-2", "claim_memory_causes_enomem", test_claim_memory_causes_enomem),
-+    CASE("I2-3", "claim_prima_causes_enomem", test_claim_prima_causes_enomem),
-+};
-+
-+/* Test entry point */
-+int main(int argc, char **argv)
-+{
-+    struct test_result results[ARRAY_SIZE(cases)] = {};
-+    struct runtime_config cfg = {};
-+    struct test_env env = {};
-+    int retval;
-+
-+    retval = lib_parse_args(argc, argv, &cfg);
-+    if ( cfg.list_only )
-+        return lib_print_available_tests(cases, ARRAY_SIZE(cases));
-+    if ( !retval )
-+    {
-+        lib_initialise_test_env(&env);
-+        lib_run_tests(&env, argv[0], &cfg, cases, ARRAY_SIZE(cases), results);
-+        retval = lib_summary(results, ARRAY_SIZE(results));
-+        lib_release_test_env(&env);
-+    }
-+    return retval ? EXIT_FAILURE : EXIT_SUCCESS;
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
--- 
-2.39.5
-
+SGkgTWljaGFsLA0KDQo+IE9uIDE0IEFwciAyMDI2LCBhdCAwOToxMSwgTWljaGFsIE9yemVsIDxt
+aWNoYWwub3J6ZWxAYW1kLmNvbT4gd3JvdGU6DQo+IA0KPiBUaGUgQVJNNjRfV09SS0FST1VORF9S
+RVBFQVRfVExCSSB3b3JrYXJvdW5kIGlzIHVzZWQgdG8gbWl0aWdhdGUgc2V2ZXJhbA0KPiBlcnJh
+dGEgd2hlcmUgYnJvYWRjYXN0IFRMQkk7RFNCIHNlcXVlbmNlcyBkb24ndCBwcm92aWRlIGFsbCB0
+aGUNCj4gYXJjaGl0ZWN0dXJhbGx5IHJlcXVpcmVkIHN5bmNocm9uaXphdGlvbi4gVGhlIHdvcmth
+cm91bmQgcGVyZm9ybXMgbW9yZQ0KPiB3b3JrIHRoYW4gbmVjZXNzYXJ5LCBhbmQgY2FuIGhhdmUg
+c2lnbmlmaWNhbnQgb3ZlcmhlYWQuIFRoaXMgcGF0Y2gNCj4gb3B0aW1pemVzIHRoZSB3b3JrYXJv
+dW5kLCBhcyBleHBsYWluZWQgYmVsb3cuDQo+IA0KPiAxLiBBbGwgcmVsZXZhbnQgZXJyYXRhIG9u
+bHkgYWZmZWN0IHRoZSBvcmRlcmluZyBhbmQvb3IgY29tcGxldGlvbiBvZg0KPiAgIG1lbW9yeSBh
+Y2Nlc3NlcyB3aGljaCBoYXZlIGJlZW4gdHJhbnNsYXRlZCBieSBhbiBpbnZhbGlkYXRlZCBUTEIN
+Cj4gICBlbnRyeS4gVGhlIGFjdHVhbCBpbnZhbGlkYXRpb24gb2YgVExCIGVudHJpZXMgaXMgdW5h
+ZmZlY3RlZC4NCj4gDQo+IDIuIFRoZSBleGlzdGluZyB3b3JrYXJvdW5kIGlzIGFwcGxpZWQgdG8g
+Ym90aCBicm9hZGNhc3QgYW5kIGxvY2FsIFRMQg0KPiAgIGludmFsaWRhdGlvbiwgd2hlcmVhcyBm
+b3IgYWxsIHJlbGV2YW50IGVycmF0YSBpdCBpcyBvbmx5IG5lY2Vzc2FyeSB0bw0KPiAgIGFwcGx5
+IGEgd29ya2Fyb3VuZCBmb3IgYnJvYWRjYXN0IGludmFsaWRhdGlvbi4NCj4gDQo+IDMuIFRoZSBl
+eGlzdGluZyB3b3JrYXJvdW5kIHJlcGxhY2VzIGV2ZXJ5IFRMQkkgd2l0aCBhIFRMQkk7RFNCO1RM
+QkkNCj4gICBzZXF1ZW5jZSwgd2hlcmVhcyBmb3IgYWxsIHJlbGV2YW50IGVycmF0YSBpdCBpcyBv
+bmx5IG5lY2Vzc2FyeSB0bw0KPiAgIGV4ZWN1dGUgYSBzaW5nbGUgYWRkaXRpb25hbCBUTEJJO0RT
+QiBzZXF1ZW5jZSBhZnRlciBhbnkgbnVtYmVyIG9mDQo+ICAgVExCSXMgYXJlIGNvbXBsZXRlZCBi
+eSBhIERTQi4NCj4gDQo+ICAgRm9yIGV4YW1wbGUsIGZvciBhIHNlcXVlbmNlIG9mIGJhdGNoZWQg
+VExCSXM6DQo+IA0KPiAgICAgICBUTEJJIDxvcDE+WywgPGFyZzE+XQ0KPiAgICAgICBUTEJJIDxv
+cDI+WywgPGFyZzI+XQ0KPiAgICAgICBUTEJJIDxvcDM+WywgPGFyZzM+XQ0KPiAgICAgICBEU0Ig
+SVNIDQo+IA0KPiAgIC4uLiB0aGUgZXhpc3Rpbmcgd29ya2Fyb3VuZCB3aWxsIGV4cGFuZCB0aGlz
+IHRvOg0KPiANCj4gICAgICAgVExCSSA8b3AxPlssIDxhcmcxPl0NCj4gICAgICAgRFNCIElTSCAg
+ICAgICAgICAgICAgICAgIC8vIGFkZGl0aW9uYWwNCj4gICAgICAgVExCSSA8b3AxPlssIDxhcmcx
+Pl0gICAgIC8vIGFkZGl0aW9uYWwNCj4gICAgICAgVExCSSA8b3AyPlssIDxhcmcyPl0NCj4gICAg
+ICAgRFNCIElTSCAgICAgICAgICAgICAgICAgIC8vIGFkZGl0aW9uYWwNCj4gICAgICAgVExCSSA8
+b3AyPlssIDxhcmcyPl0gICAgIC8vIGFkZGl0aW9uYWwNCj4gICAgICAgVExCSSA8b3AzPlssIDxh
+cmczPl0NCj4gICAgICAgRFNCIElTSCAgICAgICAgICAgICAgICAgIC8vIGFkZGl0aW9uYWwNCj4g
+ICAgICAgVExCSSA8b3AzPlssIDxhcmczPl0gICAgIC8vIGFkZGl0aW9uYWwNCj4gICAgICAgRFNC
+IElTSA0KPiANCj4gICAuLi4gd2hlcmVhcyBpdCBpcyBzdWZmaWNpZW50IHRvIGhhdmU6DQo+IA0K
+PiAgICAgICBUTEJJIDxvcDE+WywgPGFyZzE+XQ0KPiAgICAgICBUTEJJIDxvcDI+WywgPGFyZzI+
+XQ0KPiAgICAgICBUTEJJIDxvcDM+WywgPGFyZzM+XQ0KPiAgICAgICBEU0IgSVNIDQo+ICAgICAg
+IFRMQkkgPG9wWD5bLCA8YXJnWD5dICAgICAvLyBhZGRpdGlvbmFsDQo+ICAgICAgIERTQiBJU0gg
+ICAgICAgICAgICAgICAgICAvLyBhZGRpdGlvbmFsDQo+IA0KPiAgIFVzaW5nIGEgc2luZ2xlIGFk
+ZGl0aW9uYWwgVEJMSSBhbmQgRFNCIGF0IHRoZSBlbmQgb2YgdGhlIHNlcXVlbmNlIGNhbg0KDQpO
+SVQ6IFR5cG8gcy9UQkxJL1RMQkkNCg0KPiAgIGhhdmUgc2lnbmlmaWNhbnRseSBsb3dlciBvdmVy
+aGVhZCBhcyBlYWNoIERTQiB3aGljaCBjb21wbGV0ZXMgYSBUTEJJDQo+ICAgbXVzdCBzeW5jaHJv
+bml6ZSB3aXRoIG90aGVyIFBFcyBpbiB0aGUgc3lzdGVtLCB3aXRoIHBvdGVudGlhbA0KPiAgIHBl
+cmZvcm1hbmNlIGVmZmVjdHMgYm90aCBsb2NhbGx5IGFuZCBzeXN0ZW0td2lkZS4NCj4gDQo+IDQu
+IFRoZSBleGlzdGluZyB3b3JrYXJvdW5kIHJlcGVhdHMgZWFjaCBzcGVjaWZpYyBUTEJJIG9wZXJh
+dGlvbiwgd2hlcmVhcw0KPiAgIGZvciBhbGwgcmVsZXZhbnQgZXJyYXRhIGl0IGlzIHN1ZmZpY2ll
+bnQgZm9yIHRoZSBhZGRpdGlvbmFsIFRMQkkgdG8NCj4gICB1c2UgKmFueSogb3BlcmF0aW9uIHdo
+aWNoIHdpbGwgYmUgYnJvYWRjYXN0LCByZWdhcmRsZXNzIG9mIHdoaWNoDQo+ICAgdHJhbnNsYXRp
+b24gcmVnaW1lIG9yIHN0YWdlIG9mIHRyYW5zbGF0aW9uIHRoZSBvcGVyYXRpb24gYXBwbGllcyB0
+by4NCj4gDQo+ICAgRm9yIGV4YW1wbGUsIGZvciBhIHNpbmdsZSBUTEJJOg0KPiANCj4gICAgICAg
+VExCSSBBTExFMklTDQo+ICAgICAgIERTQiBJU0gNCj4gDQo+ICAgLi4uIHRoZSBleGlzdGluZyB3
+b3JrYXJvdW5kIHdpbGwgZXhwYW5kIHRoaXMgdG86DQo+IA0KPiAgICAgICBUTEJJIEFMTEUySVMN
+Cj4gICAgICAgRFNCIElTSA0KPiAgICAgICBUTEJJIEFMTEUySVMgICAgICAgICAgICAgLy8gYWRk
+aXRpb25hbA0KPiAgICAgICBEU0IgSVNIICAgICAgICAgICAgICAgICAgLy8gYWRkaXRpb25hbA0K
+PiANCj4gICAuLi4gd2hlcmVhcyBpdCBpcyBzdWZmaWNpZW50IHRvIGhhdmU6DQo+IA0KPiAgICAg
+ICBUTEJJIEFMTEUySVMNCj4gICAgICAgRFNCIElTSA0KPiAgICAgICBUTEJJIFZBTEUxSVMsIFha
+UiAgICAgICAgLy8gYWRkaXRpb25hbA0KPiAgICAgICBEU0IgSVNIICAgICAgICAgICAgICAgICAg
+Ly8gYWRkaXRpb25hbA0KPiANCj4gICBBcyB0aGUgYWRkaXRpb25hbCBUTEJJIGRvZXNuJ3QgaGF2
+ZSB0byBtYXRjaCBhIHNwZWNpZmljIGVhcmxpZXIgVExCSSwNCj4gICB0aGUgYWRkaXRpb25hbCBU
+TEJJIGNhbiBiZSBpbXBsZW1lbnRlZCBpbiBzZXBhcmF0ZSBjb2RlLCB3aXRoIG5vDQo+ICAgbWVt
+b3J5IG9mIHRoZSBlYXJsaWVyIFRMQklzLiBUaGUgYWRkaXRpb25hbCBUTEJJIGNhbiBhbHNvIHVz
+ZSBhDQo+ICAgY2hlYXBlciBUTEJJIG9wZXJhdGlvbi4NCj4gDQo+IDUuIFRoZSBleGlzdGluZyB3
+b3JrYXJvdW5kIGlzIGFwcGxpZWQgdG8gYm90aCBTdGFnZS0xIGFuZCBTdGFnZS0yIFRMQg0KPiAg
+IGludmFsaWRhdGlvbiwgd2hlcmVhcyBmb3IgYWxsIHJlbGV2YW50IGVycmF0YSBpdCBpcyBvbmx5
+IG5lY2Vzc2FyeSB0bw0KPiAgIGFwcGx5IGEgd29ya2Fyb3VuZCBmb3IgU3RhZ2UtMSBpbnZhbGlk
+YXRpb24uDQo+IA0KPiAgIEFyY2hpdGVjdHVyYWxseSwgVExCSSBvcGVyYXRpb25zIHdoaWNoIGlu
+dmFsaWRhdGUgb25seSBTdGFnZS0yDQo+ICAgaW5mb3JtYXRpb24gKGUuZy4gSVBBUzJFMUlTKSBh
+cmUgbm90IHJlcXVpcmVkIHRvIGludmFsaWRhdGUgVExCDQo+ICAgZW50cmllcyB3aGljaCBjb21i
+aW5lIGluZm9ybWF0aW9uIGZyb20gU3RhZ2UtMSBhbmQgU3RhZ2UtMg0KPiAgIHRyYW5zbGF0aW9u
+IHRhYmxlIGVudHJpZXMsIGFuZCBjb25zZXF1ZW50bHkgbWF5IG5vdCBjb21wbGV0ZSBtZW1vcnkN
+Cj4gICBhY2Nlc3NlcyB0cmFuc2xhdGVkIGJ5IHRob3NlIGNvbWJpbmVkIGVudHJpZXMuIEluIHRo
+ZXNlIGNhc2VzLA0KPiAgIGNvbXBsZXRpb24gb2YgbWVtb3J5IGFjY2Vzc2VzIGlzIG9ubHkgZ3Vh
+cmFudGVlZCBhZnRlciBzdWJzZXF1ZW50DQo+ICAgaW52YWxpZGF0aW9uIG9mIFN0YWdlLTEgaW5m
+b3JtYXRpb24gKGUuZy4gVk1BTExFMUlTKS4NCj4gDQo+IFJld29yayB0aGUgd29ya2Fyb3VuZCBs
+b2dpYyBhcyBmb2xsb3dzOg0KPiAtIGFkZCBUTEJfSEVMUEVSX0xPQ0FMKCkgdG8gYmUgdXNlZCBm
+b3IgbG9jYWwgVExCIG9wcyB3aXRob3V0IGENCj4gICB3b3JrYXJvdW5kLA0KPiAtIG1vZGlmeSBU
+TEJfSEVMUEVSKCkgd29ya2Fyb3VuZCB0byB1c2UgdGxiaSB2YWxlMmlzLCB4enIgYXMgYSBzZWNv
+bmQNCj4gICBUTEIsDQoNClRMQkkgPw0KDQo+IC0gZHJvcCBUTEJfSEVMUEVSX1ZBKCkuIEl0J3Mg
+dXNlZCBvbmx5IGJ5IF9fZmx1c2hfeGVuX3RsYl9vbmVfbG9jYWwNCj4gICB3aGljaCBpcyBsb2Nh
+bCBhbmQgZG9lcyBub3QgbmVlZCB3b3JrYXJvdW5kIGFuZCBieQ0KPiAgIF9fZmx1c2hfeGVuX3Rs
+Yl9vbmUuIEluIHRoZSBsYXR0ZXIgY2FzZSwgc2luY2UgaXQncyB1c2VkIGluIGEgbG9vcCwNCj4g
+ICB3ZSBkb24ndCBuZWVkIGEgd29ya2Fyb3VuZCBpbiB0aGUgbWlkZGxlLiBBZGQgX190bGJfcmVw
+ZWF0X3N5bmMgd2l0aA0KPiAgIGEgd29ya2Fyb3VuZCB0byBiZSB1c2VkIGF0IHRoZSBlbmQgYWZ0
+ZXIgRFNCIGFuZCBiZWZvcmUgZmluYWwgSVNCLA0KPiAtIFRMQkkgVkFMRTJJUyBwYXNzaW5nIFha
+UiBpcyB1c2VkIGFzIGFuIGFkZGl0aW9uYWwgVExCSS4gV2hpbGUgdGhlcmUgaXMNCj4gICBhbiBp
+ZGVudGl0eSBtYXBwaW5nIHRoZXJlLCBpdCdzIHVzZWQgdmVyeSByYXJlbHkuIFRoZSBwZXJmb3Jt
+YW5jZQ0KPiAgIGltcGFjdCBpcyB0aGVyZWZvcmUgbmVnbGlnaWJsZS4gSWYgdGhpbmdzIGNoYW5n
+ZSBpbiB0aGUgZnV0dXJlLCB3ZQ0KPiAgIGNhbiByZXZpc2l0IHRoZSBkZWNpc2lvbi4NCj4gDQo+
+IFNpZ25lZC1vZmYtYnk6IE1pY2hhbCBPcnplbCA8bWljaGFsLm9yemVsQGFtZC5jb20+DQo+IC0t
+LQ0KPiBMaW51eCBjb3VudGVycGFydCAoYWxyZWFkeSBtZXJnZWQpOg0KPiBodHRwczovL2xvcmUu
+a2VybmVsLm9yZy9saW51eC1hcm0ta2VybmVsLzIwMjYwMjE4MTY0MzQ4LjIwMjI4MzEtMS1tYXJr
+LnJ1dGxhbmRAYXJtLmNvbS8NCj4gLS0tDQo+IHhlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9hcm0z
+Mi9mbHVzaHRsYi5oIHwgICAzICsNCj4geGVuL2FyY2gvYXJtL2luY2x1ZGUvYXNtL2FybTY0L2Zs
+dXNodGxiLmggfCAxMDggKysrKysrKysrKysrKystLS0tLS0tLQ0KPiB4ZW4vYXJjaC9hcm0vaW5j
+bHVkZS9hc20vZmx1c2h0bGIuaCAgICAgICB8ICAgMSArDQo+IDMgZmlsZXMgY2hhbmdlZCwgNzEg
+aW5zZXJ0aW9ucygrKSwgNDEgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEveGVuL2Fy
+Y2gvYXJtL2luY2x1ZGUvYXNtL2FybTMyL2ZsdXNodGxiLmggYi94ZW4vYXJjaC9hcm0vaW5jbHVk
+ZS9hc20vYXJtMzIvZmx1c2h0bGIuaA0KPiBpbmRleCA2MWMyNWEzMTg5OTguLjU0ODNiZTA4ZmJi
+ZSAxMDA2NDQNCj4gLS0tIGEveGVuL2FyY2gvYXJtL2luY2x1ZGUvYXNtL2FybTMyL2ZsdXNodGxi
+LmgNCj4gKysrIGIveGVuL2FyY2gvYXJtL2luY2x1ZGUvYXNtL2FybTMyL2ZsdXNodGxiLmgNCj4g
+QEAgLTU3LDYgKzU3LDkgQEAgc3RhdGljIGlubGluZSB2b2lkIF9fZmx1c2hfeGVuX3RsYl9vbmUo
+dmFkZHJfdCB2YSkNCj4gICAgIGFzbSB2b2xhdGlsZShTVE9SRV9DUDMyKDAsIFRMQklNVkFISVMp
+IDogOiAiciIgKHZhKSA6ICJtZW1vcnkiKTsNCj4gfQ0KPiANCj4gKy8qIE9ubHkgZm9yIEFSTTY0
+X1dPUktBUk9VTkRfUkVQRUFUX1RMQkkgKi8NCj4gK3N0YXRpYyBpbmxpbmUgdm9pZCBfX3RsYl9y
+ZXBlYXRfc3luYyh2b2lkKSB7fQ0KPiArDQo+ICNlbmRpZiAvKiBfX0FTTV9BUk1fQVJNMzJfRkxV
+U0hUTEJfSF9fICovDQo+IC8qDQo+ICAqIExvY2FsIHZhcmlhYmxlczoNCj4gZGlmZiAtLWdpdCBh
+L3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9hcm02NC9mbHVzaHRsYi5oIGIveGVuL2FyY2gvYXJt
+L2luY2x1ZGUvYXNtL2FybTY0L2ZsdXNodGxiLmgNCj4gaW5kZXggM2I5OWMxMWI1MGQxLi4xNjA2
+YjI2YmYyOGEgMTAwNjQ0DQo+IC0tLSBhL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9hcm02NC9m
+bHVzaHRsYi5oDQo+ICsrKyBiL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9hcm02NC9mbHVzaHRs
+Yi5oDQo+IEBAIC0xMiw5ICsxMiwxNCBAQA0KPiAgKiBBUk02NF9XT1JLQVJPVU5EX1JFUEVBVF9U
+TEJJOg0KPiAgKiBNb2RpZmljYXRpb24gb2YgdGhlIHRyYW5zbGF0aW9uIHRhYmxlIGZvciBhIHZp
+cnR1YWwgYWRkcmVzcyBtaWdodCBsZWFkIHRvDQo+ICAqIHJlYWQtYWZ0ZXItcmVhZCBvcmRlcmlu
+ZyB2aW9sYXRpb24uDQo+IC0gKiBUaGUgd29ya2Fyb3VuZCByZXBlYXRzIFRMQkkrRFNCIElTSCBv
+cGVyYXRpb24gZm9yIGFsbCB0aGUgVExCIGZsdXNoDQo+IC0gKiBvcGVyYXRpb25zLiBXaGlsZSB0
+aGlzIGlzIHN0cmljdGx5IG5vdCBuZWNlc3NhcnksIHdlIGRvbid0IHdhbnQgdG8NCj4gLSAqIHRh
+a2UgYW55IHJpc2suDQo+ICsgKiBUaGUgd29ya2Fyb3VuZCByZXBlYXRzIFRMQkkrRFNCIElTSCBv
+cGVyYXRpb24gZm9yIGJyb2FkY2FzdCBUTEIgZmx1c2gNCj4gKyAqIG9wZXJhdGlvbnMuIFRoZSB3
+b3JrYXJvdW5kIGlzIG5vdCBuZWVkZWQgZm9yIGxvY2FsIG9wZXJhdGlvbnMuDQo+ICsgKg0KPiAr
+ICogSXQgaXMgc3VmZmljaWVudCBmb3IgdGhlIGFkZGl0aW9uYWwgVExCSSB0byB1c2UgKmFueSog
+b3BlcmF0aW9uIHdoaWNoIHdpbGwNCj4gKyAqIGJlIGJyb2FkY2FzdCwgcmVnYXJkbGVzcyBvZiB3
+aGljaCB0cmFuc2xhdGlvbiByZWdpbWUgb3Igc3RhZ2Ugb2YgdHJhbnNsYXRpb24NCj4gKyAqIHRo
+ZSBvcGVyYXRpb24gYXBwbGllcyB0by4gVExCSSBWQUxFMklTIGlzIHVzZWQgcGFzc2luZyBYWlIu
+IFdoaWxlIHRoZXJlIGlzDQo+ICsgKiBhbiBpZGVudGl0eSBtYXBwaW5nIHRoZXJlLCBpdCdzIG9u
+bHkgdXNlZCBkdXJpbmcgc3VzcGVuZC9yZXN1bWUsIENQVSBvbi9vZmYsDQo+ICsgKiBzbyB0aGUg
+aW1wYWN0IChwZXJmb3JtYW5jZSBpZiBhbnkpIGlzIG5lZ2xpZ2libGUuDQo+ICAqDQo+ICAqIEZv
+ciBYZW4gcGFnZS10YWJsZXMgdGhlIElTQiB3aWxsIGRpc2NhcmQgYW55IGluc3RydWN0aW9ucyBm
+ZXRjaGVkDQo+ICAqIGZyb20gdGhlIG9sZCBtYXBwaW5ncy4NCj4gQEAgLTI2LDY5ICszMSw5MCBA
+QA0KPiAgKiBOb3RlIHRoYXQgZm9yIGxvY2FsIFRMQiBmbHVzaCwgdXNpbmcgbm9uLXNoYXJlYWJs
+ZSAobnNoKSBpcyBzdWZmaWNpZW50DQo+ICAqIChzZWUgRDUtNDkyOSBpbiBBUk0gRERJIDA0ODdI
+LmEpLiBBbHRob3VnaCwgdGhlIG1lbW9yeSBiYXJyaWVyIGluDQo+ICAqIGZvciB0aGUgd29ya2Fy
+b3VuZCBpcyBsZWZ0IGFzIGlubmVyLXNoYXJlYWJsZSB0byBtYXRjaCB3aXRoIExpbnV4DQo+IC0g
+KiB2Ni4xLXJjOC4NCj4gKyAqIHY2LjE5Lg0KPiAgKi8NCj4gLSNkZWZpbmUgVExCX0hFTFBFUihu
+YW1lLCB0bGJvcCwgc2gpICAgICAgICAgICAgICBcDQo+ICsjZGVmaW5lIFRMQl9IRUxQRVJfTE9D
+QUwobmFtZSwgdGxib3ApICAgICAgICAgICAgXA0KPiBzdGF0aWMgaW5saW5lIHZvaWQgbmFtZSh2
+b2lkKSAgICAgICAgICAgICAgICAgICAgXA0KPiB7ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgXA0KPiAgICAgYXNtX2lubGluZSB2b2xhdGlsZSAoICAgICAg
+ICAgICAgICAgICAgICAgICAgXA0KPiAtICAgICAgICAiZHNiICAiICAjIHNoICAic3Q7IiAgICAg
+ICAgICAgICAgICAgICAgIFwNCj4gKyAgICAgICAgImRzYiAgbnNoc3Q7IiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBcDQo+ICAgICAgICAgInRsYmkgIiAgIyB0bGJvcCAgIjsiICAgICAgICAg
+ICAgICAgICAgICBcDQo+IC0gICAgICAgIEFMVEVSTkFUSVZFKCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgXA0KPiAtICAgICAgICAgICAgIm5vcDsgbm9wOyIsICAgICAgICAgICAgICAgICAg
+ICAgICAgIFwNCj4gLSAgICAgICAgICAgICJkc2IgIGlzaDsiICAgICAgICAgICAgICAgICAgICAg
+ICAgICBcDQo+IC0gICAgICAgICAgICAidGxiaSAiICAjIHRsYm9wICAiOyIsICAgICAgICAgICAg
+ICAgXA0KPiAtICAgICAgICAgICAgQVJNNjRfV09SS0FST1VORF9SRVBFQVRfVExCSSwgICAgICAg
+IFwNCj4gLSAgICAgICAgICAgIENPTkZJR19BUk02NF9XT1JLQVJPVU5EX1JFUEVBVF9UTEJJKSBc
+DQo+IC0gICAgICAgICJkc2IgICIgICMgc2ggICI7IiAgICAgICAgICAgICAgICAgICAgICAgXA0K
+PiArICAgICAgICAiZHNiICBuc2g7IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCj4g
+ICAgICAgICAiaXNiOyIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCj4gICAg
+ICAgICA6IDogOiAibWVtb3J5Iik7ICAgICAgICAgICAgICAgICAgICAgICAgIFwNCj4gfQ0KPiAN
+Cj4gLS8qDQo+IC0gKiBGTHVzaCBUTEIgYnkgVkEuIFRoaXMgd2lsbCBsaWtlbHkgYmUgdXNlZCBp
+biBhIGxvb3AsIHNvIHRoZSBjYWxsZXINCj4gLSAqIGlzIHJlc3BvbnNpYmxlIHRvIHVzZSB0aGUg
+YXBwcm9wcmlhdGUgbWVtb3J5IGJhcnJpZXJzIGJlZm9yZS9hZnRlcg0KPiAtICogdGhlIHNlcXVl
+bmNlLg0KPiAtICoNCj4gLSAqIFNlZSBhYm92ZSBhYm91dCB0aGUgQVJNNjRfV09SS0FST1VORF9S
+RVBFQVRfVExCSSBzZXF1ZW5jZS4NCj4gLSAqLw0KPiAtI2RlZmluZSBUTEJfSEVMUEVSX1ZBKG5h
+bWUsIHRsYm9wKSAgICAgICAgICAgICAgIFwNCj4gLXN0YXRpYyBpbmxpbmUgdm9pZCBuYW1lKHZh
+ZGRyX3QgdmEpICAgICAgICAgICAgICBcDQo+IC17ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgXA0KPiAtICAgIGFzbV9pbmxpbmUgdm9sYXRpbGUgKCAgICAg
+ICAgICAgICAgICAgICAgICAgIFwNCj4gLSAgICAgICAgInRsYmkgIiAgIyB0bGJvcCAgIiwgJTA7
+IiAgICAgICAgICAgICAgICBcDQo+IC0gICAgICAgIEFMVEVSTkFUSVZFKCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgXA0KPiAtICAgICAgICAgICAgIm5vcDsgbm9wOyIsICAgICAgICAgICAg
+ICAgICAgICAgICAgIFwNCj4gLSAgICAgICAgICAgICJkc2IgIGlzaDsiICAgICAgICAgICAgICAg
+ICAgICAgICAgICBcDQo+IC0gICAgICAgICAgICAidGxiaSAiICAjIHRsYm9wICAiLCAlMDsiLCAg
+ICAgICAgICAgXA0KPiAtICAgICAgICAgICAgQVJNNjRfV09SS0FST1VORF9SRVBFQVRfVExCSSwg
+ICAgICAgIFwNCj4gLSAgICAgICAgICAgIENPTkZJR19BUk02NF9XT1JLQVJPVU5EX1JFUEVBVF9U
+TEJJKSBcDQo+IC0gICAgICAgIDogOiAiciIgKHZhID4+IFBBR0VfU0hJRlQpIDogIm1lbW9yeSIp
+OyAgXA0KPiArI2RlZmluZSBUTEJfSEVMUEVSKG5hbWUsIHRsYm9wKSAgICAgICAgICAgICAgICAg
+ICAgICAgXA0KPiArc3RhdGljIGlubGluZSB2b2lkIG5hbWUodm9pZCkgICAgICAgICAgICAgICAg
+ICAgICAgICAgXA0KPiAreyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgXA0KPiArICAgIGFzbV9pbmxpbmUgdm9sYXRpbGUgKCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAiZHNiICBpc2hzdDsiICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAidGxiaSAiICAjIHRsYm9wICAiOyIgICAg
+ICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICBBTFRFUk5BVElWRSggICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAgICAgIm5vcDsgbm9wOyIsICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAgICAgImRzYiAgaXNoOyIg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAgICAgInRsYmkgdmFs
+ZTJpcywgeHpyOyIsICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAgICAgQVJNNjRf
+V09SS0FST1VORF9SRVBFQVRfVExCSSwgICAgICAgICAgICAgXA0KPiArICAgICAgICAgICAgQ09O
+RklHX0FSTTY0X1dPUktBUk9VTkRfUkVQRUFUX1RMQkkpICAgICAgXA0KPiArICAgICAgICAiZHNi
+ICBpc2g7IiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAgICAi
+aXNiOyIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXA0KPiArICAgICAg
+ICA6IDogOiAibWVtb3J5Iik7IFwNCj4gfQ0KPiANCj4gLyogRmx1c2ggbG9jYWwgVExCcywgY3Vy
+cmVudCBWTUlEIG9ubHkuICovDQo+IC1UTEJfSEVMUEVSKGZsdXNoX2d1ZXN0X3RsYl9sb2NhbCwg
+dm1hbGxzMTJlMSwgbnNoKQ0KPiArVExCX0hFTFBFUl9MT0NBTChmbHVzaF9ndWVzdF90bGJfbG9j
+YWwsIHZtYWxsczEyZTEpDQo+IA0KPiAvKiBGbHVzaCBpbm5lcnNoYXJlYWJsZSBUTEJzLCBjdXJy
+ZW50IFZNSUQgb25seSAqLw0KPiAtVExCX0hFTFBFUihmbHVzaF9ndWVzdF90bGIsIHZtYWxsczEy
+ZTFpcywgaXNoKQ0KPiArVExCX0hFTFBFUihmbHVzaF9ndWVzdF90bGIsIHZtYWxsczEyZTFpcykN
+Cj4gDQo+IC8qIEZsdXNoIGxvY2FsIFRMQnMsIGFsbCBWTUlEcywgbm9uLWh5cGVydmlzb3IgbW9k
+ZSAqLw0KPiAtVExCX0hFTFBFUihmbHVzaF9hbGxfZ3Vlc3RzX3RsYl9sb2NhbCwgYWxsZTEsIG5z
+aCkNCj4gK1RMQl9IRUxQRVJfTE9DQUwoZmx1c2hfYWxsX2d1ZXN0c190bGJfbG9jYWwsIGFsbGUx
+KQ0KPiANCj4gLyogRmx1c2ggaW5uZXJzaGFyZWFibGUgVExCcywgYWxsIFZNSURzLCBub24taHlw
+ZXJ2aXNvciBtb2RlICovDQo+IC1UTEJfSEVMUEVSKGZsdXNoX2FsbF9ndWVzdHNfdGxiLCBhbGxl
+MWlzLCBpc2gpDQo+ICtUTEJfSEVMUEVSKGZsdXNoX2FsbF9ndWVzdHNfdGxiLCBhbGxlMWlzKQ0K
+PiANCj4gLyogRmx1c2ggYWxsIGh5cGVydmlzb3IgbWFwcGluZ3MgZnJvbSB0aGUgVExCIG9mIHRo
+ZSBsb2NhbCBwcm9jZXNzb3IuICovDQo+IC1UTEJfSEVMUEVSKGZsdXNoX3hlbl90bGJfbG9jYWws
+IGFsbGUyLCBuc2gpDQo+ICtUTEJfSEVMUEVSX0xPQ0FMKGZsdXNoX3hlbl90bGJfbG9jYWwsIGFs
+bGUyKQ0KPiArDQo+ICsjdW5kZWYgVExCX0hFTFBFUl9MT0NBTA0KPiArI3VuZGVmIFRMQl9IRUxQ
+RVINCj4gKw0KPiArLyoNCj4gKyAqIEZMdXNoIFRMQiBieSBWQS4gVGhpcyB3aWxsIGxpa2VseSBi
+ZSB1c2VkIGluIGEgbG9vcCwgc28gdGhlIGNhbGxlcg0KPiArICogaXMgcmVzcG9uc2libGUgdG8g
+dXNlIHRoZSBhcHByb3ByaWF0ZSBtZW1vcnkgYmFycmllcnMgYmVmb3JlL2FmdGVyDQo+ICsgKiB0
+aGUgc2VxdWVuY2UuDQo+ICsgKi8NCj4gDQo+IC8qIEZsdXNoIFRMQiBvZiBsb2NhbCBwcm9jZXNz
+b3IgZm9yIGFkZHJlc3MgdmEuICovDQo+IC1UTEJfSEVMUEVSX1ZBKF9fZmx1c2hfeGVuX3RsYl9v
+bmVfbG9jYWwsIHZhZTIpDQo+ICtzdGF0aWMgaW5saW5lIHZvaWQgX19mbHVzaF94ZW5fdGxiX29u
+ZV9sb2NhbCh2YWRkcl90IHZhKQ0KPiArew0KPiArICAgIGFzbV9pbmxpbmUgdm9sYXRpbGUgKA0K
+PiArICAgICAgICAidGxiaSB2YWUyLCAlMCIgOiA6ICJyIiAodmEgPj4gUEFHRV9TSElGVCkgOiAi
+bWVtb3J5Iik7DQo+ICt9DQo+IA0KPiAvKiBGbHVzaCBUTEIgb2YgYWxsIHByb2Nlc3NvcnMgaW4g
+dGhlIGlubmVyLXNoYXJlYWJsZSBkb21haW4gZm9yIGFkZHJlc3MgdmEuICovDQo+IC1UTEJfSEVM
+UEVSX1ZBKF9fZmx1c2hfeGVuX3RsYl9vbmUsIHZhZTJpcykNCj4gK3N0YXRpYyBpbmxpbmUgdm9p
+ZCBfX2ZsdXNoX3hlbl90bGJfb25lKHZhZGRyX3QgdmEpDQo+ICt7DQo+ICsgICAgYXNtX2lubGlu
+ZSB2b2xhdGlsZSAoDQo+ICsgICAgICAgICJ0bGJpIHZhZTJpcywgJTAiIDogOiAiciIgKHZhID4+
+IFBBR0VfU0hJRlQpIDogIm1lbW9yeSIpOw0KPiArfQ0KPiANCj4gLSN1bmRlZiBUTEJfSEVMUEVS
+DQo+IC0jdW5kZWYgVExCX0hFTFBFUl9WQQ0KPiArLyoNCj4gKyAqIEFSTTY0X1dPUktBUk9VTkRf
+UkVQRUFUX1RMQkk6DQo+ICsgKiBGb3IgYWxsIHJlbGV2YW50IGVycmF0YXMgaXQgaXMgb25seSBu
+ZWNlc3NhcnkgdG8gZXhlY3V0ZSBhIHNpbmdsZQ0KPiArICogYWRkaXRpb25hbCBUTEJJO0RTQiBz
+ZXF1ZW5jZSBhZnRlciBhbnkgbnVtYmVyIG9mIFRMQklzIGFyZSBjb21wbGV0ZWQgYnkgRFNCLg0K
+PiArICovDQo+ICtzdGF0aWMgaW5saW5lIHZvaWQgX190bGJfcmVwZWF0X3N5bmModm9pZCkNCj4g
+K3sNCj4gKyAgICBhc21faW5saW5lIHZvbGF0aWxlICgNCj4gKyAgICAgICAgQUxURVJOQVRJVkUo
+DQo+ICsgICAgICAgICAgICAibm9wOyBub3A7IiwNCj4gKyAgICAgICAgICAgICJ0bGJpIHZhbGUy
+aXMsIHh6cjsiDQo+ICsgICAgICAgICAgICAiZHNiICBpc2g7IiwNCj4gKyAgICAgICAgICAgIEFS
+TTY0X1dPUktBUk9VTkRfUkVQRUFUX1RMQkksDQo+ICsgICAgICAgICAgICBDT05GSUdfQVJNNjRf
+V09SS0FST1VORF9SRVBFQVRfVExCSSkNCj4gKyAgICAgICAgOiA6IDogIm1lbW9yeSIpOw0KPiAr
+fQ0KPiANCj4gI2VuZGlmIC8qIF9fQVNNX0FSTV9BUk02NF9GTFVTSFRMQl9IX18gKi8NCj4gLyoN
+Cj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9mbHVzaHRsYi5oIGIveGVu
+L2FyY2gvYXJtL2luY2x1ZGUvYXNtL2ZsdXNodGxiLmgNCj4gaW5kZXggZTQ1ZmI2ZDk3YjAyLi5j
+MjkyYzNjMDBkMjkgMTAwNjQ0DQo+IC0tLSBhL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9mbHVz
+aHRsYi5oDQo+ICsrKyBiL3hlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9mbHVzaHRsYi5oDQo+IEBA
+IC02NSw2ICs2NSw3IEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBmbHVzaF94ZW5fdGxiX3JhbmdlX3Zh
+KHZhZGRyX3QgdmEsDQo+ICAgICAgICAgdmEgKz0gUEFHRV9TSVpFOw0KPiAgICAgfQ0KPiAgICAg
+ZHNiKGlzaCk7IC8qIEVuc3VyZSB0aGUgVExCIGludmFsaWRhdGlvbiBoYXMgY29tcGxldGVkICov
+DQo+ICsgICAgX190bGJfcmVwZWF0X3N5bmMoKTsNCg0KTW9yZSBhIHF1ZXN0aW9uIGhlcmUgcmF0
+aGVyIHRoYW4gYSBjb21tZW50LCBzaGFsbCB3ZSBoYXZlIGEgY29tbWVudCBvbiB0b3ANCm9mIHRo
+aXMgc3RhdGluZyB0aGF0IGl04oCZcyBkZWxpYmVyYXRlIHRvIGhhdmUgaXQgYmVmb3JlIHRoZSBp
+c2I/DQpPciBkZXZlbG9wZXIgc2hvdWxkIGluZmVyIGl0IGZyb20gdGhlIGNvZGUgYW5kIGZyb20g
+Z2l0IGJsYW1lPw0KDQo+ICAgICBpc2IoKTsNCj4gfQ0KPiANCj4gLS0gDQo+IDIuNDMuMA0KPiAN
+Cj4gDQoNCldpdGggdGhlc2UgZml4ZWQ6DQoNClJldmlld2VkLWJ5OiBMdWNhIEZhbmNlbGx1IDxs
+dWNhLmZhbmNlbGx1QGFybS5jb20+DQoNCkNoZWVycywNCkx1Y2ENCg0K
 
