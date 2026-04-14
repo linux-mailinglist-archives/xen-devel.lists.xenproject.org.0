@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mJXVFQc+3mn6pgkAu9opvQ
+	id iEyZGZg+3mlJpwkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 15:15:51 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 15:18:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A97463FA62A
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 15:15:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1281749.1564625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED4F83FA653
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 15:18:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1281759.1564634 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCdbq-0007GM-Eu; Tue, 14 Apr 2026 13:15:18 +0000
+	id 1wCdeV-0007yM-U8; Tue, 14 Apr 2026 13:18:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1281749.1564625; Tue, 14 Apr 2026 13:15:18 +0000
+Received: by outflank-mailman (output) from mailman id 1281759.1564634; Tue, 14 Apr 2026 13:18:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCdbq-0007Ek-BG; Tue, 14 Apr 2026 13:15:18 +0000
-Received: by outflank-mailman (input) for mailman id 1281749;
- Tue, 14 Apr 2026 13:15:17 +0000
+	id 1wCdeV-0007vL-RH; Tue, 14 Apr 2026 13:18:03 +0000
+Received: by outflank-mailman (input) for mailman id 1281759;
+ Tue, 14 Apr 2026 13:18:02 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Mykyta_Poturai@epam.com>) id 1wCdbp-0007Ed-6H
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 13:15:17 +0000
+ (envelope-from <bernhard.kaindl@citrix.com>) id 1wCdeU-0007vD-2t
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 13:18:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wCdbo-00Gb5n-Ir
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 15:15:16 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wCdeT-002nHw-G0
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 15:18:01 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Mykyta_Poturai@epam.com>)
- id 69de3ddb-2eae-0a2a0a5409dd-0a2a4506e278-34
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 15:15:16 +0200
-Received: from [52.101.66.131]
- (helo=DUZPR83CU001.outbound.protection.outlook.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <Mykyta_Poturai@epam.com>)
- id 69de3de3-0df0-0a2a45060019-34654283cf67-4
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 15:15:16 +0200
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- (2603:10a6:102:30d::12) by PA6PR03MB10362.eurprd03.prod.outlook.com
- (2603:10a6:102:3c9::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.48; Tue, 14 Apr
- 2026 13:15:12 +0000
-Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::b8c6:f37a:987a:beb]) by PAVPR03MB10102.eurprd03.prod.outlook.com
- ([fe80::b8c6:f37a:987a:beb%5]) with mapi id 15.20.9769.046; Tue, 14 Apr 2026
- 13:15:12 +0000
+ (envelope-from <bernhard.kaindl@citrix.com>)
+ id 69de3e7f-2eae-0a2a0a5409dd-0a2a4501d8ee-44
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 15:18:01 +0200
+Received: from [160.101.131.8] (helo=na1pdmzitismtp01.tibco.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <bernhard.kaindl@citrix.com>)
+ id 69de3e88-c1f2-0a2a45010019-a0658308bf0e-3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 15:18:01 +0200
+Received: from debian.eng.citrite.net (unknown [10.113.40.46])
+ by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id 23A26423F9C3;
+ Tue, 14 Apr 2026 09:17:17 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,311 +51,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vMfjnYpvUVNWaqzDn+esEaZ/6/0h1NcteXl2Vwal8EDmMO33ROBUwz0sKSgJLBfXxQeUtCCCtbE86c3F1Upl9Eg+JxZTMIimIYZnf4ZqO64mVGcywEE8/QSREXQ/5RxlefxJr/na621LBQ1RUu6bAHjI86xWh2qx4xz+zG/iK0xpGYZdp+3nWnm6kI3AgJFSwbr+DmXo/tk+urZnclVGhVk87S1wpB4TTNQEjCoak1OPoEVsUwmSpRj8UFgmOK3nVsl0fNOjJqNGScojpbO/3w4ZL4I4Vevvdq48R638jv2BuI06fD2fb1PGBgT4lONTxofuKBwfPX72ZF479d3slA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Qs5eBLnzDjr4kf7mQODZBSZ6PkjvoPt+M64D6wbMWaQ=;
- b=eBVYh5g78PkLIzSbVvfB5uLkvEcv+RNCUl0SaXXeTyYfSLrMgcWArU7GhuRtFxwady4u0cQBFoaRwPqKSvJEN10TUTCoreHVKIyrVe+LoB2silH51ZdsPGUM79DHxbziPV3O3T0UzyY187KjJhPjE4QsRlgj58+kaBFo6c3XF/TGKDj/QIqGZwA/haOkq9IMDc62xF+Ux9a0AsL8e8+Il3lhL6A1fsxu8CpqRKzd3s8kz7wzKrMD2Xf0nMvwGyHdiEYDSpKfC4EibfuQNCAww40V6R9FPTaAgBFpyKyjmMQgGlmCm1MmuCWFhJprxcleA9l8Bt1xtlvK5PNl1ay9Yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qs5eBLnzDjr4kf7mQODZBSZ6PkjvoPt+M64D6wbMWaQ=;
- b=QTrq3iH1BqPikEoAyTeqxDTXVmEiJqeYh1MBlB/M896WFeDc38HAXXIU+SDhkAjAAvwFhUrbuh018e/GNDPa0ZDz4Bxo69jXXMiMDdt7yeJN8aHC0Tzf4XplPMlFBxdOEdUl2egLnMDnzCZc1PTShilUpfu5Fq7rq53ORjUGPBJnlsyLws6x+PH8RLNF8UxR3L/Y6tXCsv4TYTyoAHld/Of5o8p/2ZrOn60W4JnN5mWMpA3JwLcxrGqx6bYOQyBonvD78ctqXEUCBDTvtJcXYedz8TGxJiMUkuVQS6dcJ2/OrTnXYTs9Kx6fCRpKfCY/yUUsfFrKu6aYXrlBB6demg==
-From: Mykyta Poturai <Mykyta_Poturai@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Mykyta Poturai <Mykyta_Poturai@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Rahul Singh <rahul.singh@arm.com>
-Subject: [PATCH v2] xen/arm: smmuv3: Add support for removing devices
-Thread-Topic: [PATCH v2] xen/arm: smmuv3: Add support for removing devices
-Thread-Index: AQHczBC6OGp5DbFlyEyismnWkcVdqA==
-Date: Tue, 14 Apr 2026 13:15:12 +0000
-Message-ID:
- <da128e8fb41add9efc30860612786cd62f21addc.1776168699.git.mykyta_poturai@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|PA6PR03MB10362:EE_
-x-ms-office365-filtering-correlation-id: 4a07abd4-df28-4f4a-e4d1-08de9a27dc8a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|366016|38070700021|56012099003|18002099003;
-x-microsoft-antispam-message-info:
- umcfbcw1gcLsBz+TdKy3wkLRv3itsO2VL9V3xiHgdDCMDICFGZnZm+CO60gg9xCsEoVMZJZJN4yJpORJ4EZjTocJSe/WVRYCD9uvhpBL41SkamurJCjH18i9kTeCt1o7cTl1wZ/1guFATLpRXTc/vOrKQD0quufhGlb9YRz5g4T0PCgTUdcMQvIpJveivyIoC4PaqFBFGo5XM6xLik3GSwIbee1bg3BHNi5uJNNq5GU9zBE7R7N3+JYv1C5Z26SZQcq5MV8sH7TmdFNtrIDntnBNAFL4h6Aw6DbT5glVIN6clEwE27hoqs5PJVXbosBDkiL9+6+3ZalJ4Dj2UQu8QC521mzP8Nlhszx87Vddn19/jwaBJBSK5U5/zPSihNSb5CNzWtAmdEiDJNTRHfkVXXAf706FhRm7ysVpBnlVeeQj7lTFUYK0dwZYTmWPjUdNQc/hPW507jd0plj3QVj0cna92cP6Gj9pfRyw5OZh0MZPIHvHPe5YowkVrVqi+qjHJQcKGhcFiyBXzcOZttOY0+oJJcsx6G2EpFgb6zMA+tXsrU66z+GhPMaKOygj+u4AK1uf3hc+l78skQSfEmZxb7Gkn5KML3lTMau3c1BnO1BejmN9Eo0scY0gq03ezn43NS60pFElD+xwL+Hue0pPpfRmEvZ17yLAeTavpsaowaQFZqTLj8QLAp5gbdFxJjPwOI4vCZ53KxNyVf/i3UJCaqpjMJwdndW65P7Bb53x/mYbZfTisd/LTeEvJBwNhCil
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(56012099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?80zq/OCZlxv/ePzuZmEuZCGmlZ+opf27uwzMo4tLkFOJvy2SabCYY/Uq/h?=
- =?iso-8859-1?Q?wG+6F5HgeqtSRys+8wzIyT2HfJYRwwFRtwY2fjFT0RsKyu2Ynuw8AJz+a+?=
- =?iso-8859-1?Q?Jex5m+XwPisj35EDeb+ak6x99ci0qgH2Dlts4VFOx7/Sf755PJNc5w98ig?=
- =?iso-8859-1?Q?M+pcqVolPunKeRc4xTEzFVrelqgESpE+OAeVLb0sXRNJL0tfL2FqyC3PYM?=
- =?iso-8859-1?Q?ddcrJGbKhTruRFEVhQVgpHnzqjKxbYrLtUkpdiRyjBG49wN51MOPhDpDpD?=
- =?iso-8859-1?Q?8v4WaBeRvFhtVGdRTzNtP9uknhmntbE+gkwWO5pE1prToKKyFgelTR4vhx?=
- =?iso-8859-1?Q?F/Kq5ru3rsav7hBtyv7GLaMYMvWlLXFQmF0NMx6WcIgxLu+8Qrv/oxViKW?=
- =?iso-8859-1?Q?wLU6PcX5LNbYOPHJhmIcIdV9NAZ4H0zAc+sDrk1npWFI1f8hbpxvAW2EyR?=
- =?iso-8859-1?Q?/US1u7eCtRQxlAzSyBkP2HUJ7U84BwJteNIidjMEF3Z8K9iNdBIW6vKLLG?=
- =?iso-8859-1?Q?EhUG89eS9namRRA6JkIe/5rw1oE2dkJ8QDyqL1FKZNbD6LoOEv33zbcZ4G?=
- =?iso-8859-1?Q?sAe+rzZQRzPBGEtYBkjPHYPuYF32VzzMsvw8DWH31vuRm4HlxNI/cnniDq?=
- =?iso-8859-1?Q?U1NdP0dTvPW55GtgwDuNfV4bwAmz2wCckBZe8Kw5/1H3AC14lhd3ucNji7?=
- =?iso-8859-1?Q?GqzQKoehqbZd8CsaHIcansIh2ZUPUDsCnoGSbhVvoWJWiZLJX7kc5Q/E5S?=
- =?iso-8859-1?Q?+9+YWzZUWtxVSwqmMLfjQJN1K05hnOiSyDAQZatqaLqV+UMG46CIKe7O8q?=
- =?iso-8859-1?Q?WYLxB7/VTr28vmWBDTn2CmTpRCfva41sDVDo8Z4gEUvMP3XWJZ91YONvXb?=
- =?iso-8859-1?Q?6Dueeug+0H0OlHA4PVnQRMimXoT0quL4l8LJ0aMEp3txZ5wJIxfut5hhY6?=
- =?iso-8859-1?Q?CQ08x0Xwr+G3WOHA6C6iJxNXzmB2hvgtNr6JTFsw2jODm2djy3uJUTeqT9?=
- =?iso-8859-1?Q?9fbfPfbsQVQUZlKpTy7BxjclaBhhnMz9gZzL/xmRJZISJ4Ag5KLHPL33DP?=
- =?iso-8859-1?Q?CHEeM5H7rF+fm/yj6DZo6FEOUl/QPuiZWzt3mjAhmYgLUgpQQh+PYdclue?=
- =?iso-8859-1?Q?ydbOfUhHfNG/L9F0JVqg2Q1nSQsFP+a+PzZjSOBXAUJLTppEwvoVHWyfaz?=
- =?iso-8859-1?Q?KQU/eMtqBOpYG/kP9kmyQ2SJUnK0rQ9Icoy2rgHKHEr6PxGSFymHIJR23t?=
- =?iso-8859-1?Q?dyMa1Tz1c+aR4di6y+NsOZP5NRMWoGyPsJ6qLCcvhHJLBF55/wOUwL1/E4?=
- =?iso-8859-1?Q?3Buc2fnpd3GXoKhD+2ZVCVYKmUjfxv55hPN9d722tsyU3gveaLafimLIjl?=
- =?iso-8859-1?Q?f973YeMdcLwrki5c6qDbtu1eQNyxyj97vQqBF2WZWHd+lkWjeKDuCSVOGO?=
- =?iso-8859-1?Q?hZ6vJLNQ1G3YL3Hd1V1yPYlIYvHBFq7TD9fP6DjIOui4YDE0cr1m4CXluy?=
- =?iso-8859-1?Q?kZ3fD7YFVEsnuCAdvf4O1fwZT2fwW0xAylnCWQ4kgRXHGhrjQrTCPlUp1Y?=
- =?iso-8859-1?Q?fahyo1EvzCL0pHq297dGMF/Aua1fITEnlk8j63whye63dYUEHiLTofQr/d?=
- =?iso-8859-1?Q?EjbSXwqEMgHpFgMei9gr2XY5VReKqQ4r+FyJbLs/FITl4+/pHLq/KG3aJR?=
- =?iso-8859-1?Q?u9XUJdDdEgwYJymmJ9asdbP60y5vqssESDym7do4e0SxpkiSCH/bJBSc3S?=
- =?iso-8859-1?Q?Gzg44ZA1cY1OgNn3gBgMHETqaVZtIBO7qaIEkb7QFtp/6T9PL7dTNbq6SW?=
- =?iso-8859-1?Q?v6OTYlEDmyY8lLoXehr9gYhc2HCG11U=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Authentication-Results: eu.smtp.expurgate.cloud; none
+From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Juergen Gross <jgross@suse.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>
+Subject: [PATCH v6 0/7] xen/mm: Introduce NUMA-aware claim sets for domains
+Date: Tue, 14 Apr 2026 14:15:57 +0100
+Message-Id: <cover.1776172526.git.bernhard.kaindl@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a07abd4-df28-4f4a-e4d1-08de9a27dc8a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2026 13:15:12.7335
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zKgu/Bf8Zy2kOPQi/ipex+d2mKen255zwhysMC0MNXo4pEWc8A9uYXhPeiGIuHhJl8yihGjW9i8swKu/hQjHhA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA6PR03MB10362
-X-purgate-ID: tlsNG-16d1c6/1776172516-6484B3D8-2F745132/0/0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-d62444/1776172681-BFE7BFF4-F7A99ACD/0/0
 X-purgate-type: clean
-X-purgate-size: 5618
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+X-purgate-size: 5785
+X-Spamd-Result: default: False [2.51 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
 	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Mykyta_Poturai@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:rahul.singh@arm.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[epam.com:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:jgross@suse.com,m:dpsmith@apertussolutions.com,m:christian.lindig@citrix.com,m:dave@recoil.org,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-0.997];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCVD_COUNT_SEVEN(0.00)[9];
+	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	R_DKIM_NA(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: A97463FA62A
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:mid]
+X-Rspamd-Queue-Id: ED4F83FA653
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Allow for removing devices from SMMUv3. arm_smmu_deassign_dev handles
-most of the work by disabling ATS and zeroing STEs. Additionally, unset
-the dt_device_is_protected flag and free no longer needed smmu_master.
+Hi all,
 
-Rework dt_device_set_protected to accept a boolean parameter, update
-callsites.
+This series extends Xen's memory claim handling to support claim sets
+spanning multiple NUMA nodes.
 
-Tested on QEMU with SRIOV series[1] by repeatedly enabling/disabling
-VFs.
+Earlier review raised the concern that claims would need to evolve from a
+single claim into a multi-node model. Roger Pau Monné described the core
+requirement well:
 
-[1]: https://patchew.org/Xen/cover.1772806036.git.mykyta._5Fpoturai@epam.co=
-m/
+  >  Ideally, we would need to introduce a new hypercall that allows
+  >  making claims from multiple nodes in a single locked region,
+  >  as to ensure success or failure in an atomic way.
 
-Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
----
-V1-V2:
-* check for phantom functions
-* simplify pci/dt device split
-* improve error handling
-* don't try to free master for unprotected devices
-* rework dt_device_set_protected
----
- xen/drivers/passthrough/arm/ipmmu-vmsa.c |  2 +-
- xen/drivers/passthrough/arm/smmu-v3.c    | 57 +++++++++++++++++++++++-
- xen/drivers/passthrough/arm/smmu.c       |  4 +-
- xen/include/xen/device_tree.h            |  5 ++-
- 4 files changed, 62 insertions(+), 6 deletions(-)
+      -- Roger Pau Monné
 
-diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/passthr=
-ough/arm/ipmmu-vmsa.c
-index fa9ab9cb13..0648f9b407 100644
---- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-+++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-@@ -1367,7 +1367,7 @@ static int ipmmu_add_device(u8 devfn, struct device *=
-dev)
-         }
-=20
-         /* Let Xen know that the master device is protected by an IOMMU. *=
-/
--        dt_device_set_protected(dev_to_dt(dev));
-+        dt_device_set_protected(dev_to_dt(dev), true);
-     }
- #ifdef CONFIG_HAS_PCI
-     if ( dev_is_pci(dev) )
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthroug=
-h/arm/smmu-v3.c
-index bf153227db..8e080cd7d0 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.c
-+++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -1493,6 +1493,60 @@ static int arm_smmu_assign_dev(struct domain *d, u8 =
-devfn, struct device *dev,
- static int arm_smmu_deassign_dev(struct domain *d, uint8_t devfn,
- 				 struct device *dev);
-=20
-+static int arm_smmu_remove_device(u8 devfn, struct device *dev)
-+{
-+	struct arm_smmu_master *master;
-+	struct iommu_fwspec *fwspec;
-+	struct domain *d =3D NULL;
-+
-+	fwspec =3D dev_iommu_fwspec_get(dev);
-+	if ( !fwspec )
-+		return -ENODEV;
-+
-+	master =3D dev_iommu_priv_get(dev);
-+	if ( !master )
-+		return -ENODEV;
-+
-+	if ( IS_ENABLED(CONFIG_HAS_PCI) && dev_is_pci(dev) )
-+	{
-+		struct pci_dev *pdev =3D dev_to_pci(dev);
-+
-+		/* Ignore calls for phantom functions */
-+		if ( devfn !=3D pdev->devfn )
-+			return 0;
-+
-+		d =3D pdev->domain;
-+	}
-+	else
-+	{
-+		if ( !dt_device_is_protected(dev_to_dt(dev)) )
-+		{
-+			dev_err(dev, "Not added to SMMUv3\n");
-+			return -ENODEV;
-+		}
-+
-+		dt_device_set_protected(dev_to_dt(dev), false);
-+		if ( master->domain && master->domain->d )
-+			d =3D master->domain->d;
-+	}
-+
-+	if ( d )
-+	{
-+		int ret =3D arm_smmu_deassign_dev(d, devfn, dev);
-+		/* This should never fail because we already checked the domain */
-+		ASSERT(!ret);
-+	}
-+
-+	arm_smmu_disable_pasid(master);
-+
-+	dev_info(dev, "Removed master device (SMMUv3 %s StreamIds %u)\n",
-+		 dev_name(fwspec->iommu_dev), fwspec->num_ids);
-+
-+	xfree(master);
-+	dev_iommu_priv_set(dev, NULL);
-+	return 0;
-+}
-+
- static int arm_smmu_add_device(u8 devfn, struct device *dev)
- {
- 	int i, ret;
-@@ -1571,7 +1625,7 @@ static int arm_smmu_add_device(u8 devfn, struct devic=
-e *dev)
- 		}
-=20
- 		/* Let Xen know that the master device is protected by an IOMMU. */
--		dt_device_set_protected(dev_to_dt(dev));
-+		dt_device_set_protected(dev_to_dt(dev), true);
- 	}
-=20
- 	dev_info(dev, "Added master device (SMMUv3 %s StreamIds %u)\n",
-@@ -2867,6 +2921,7 @@ static const struct iommu_ops arm_smmu_iommu_ops =3D =
-{
- 	.unmap_page		=3D arm_iommu_unmap_page,
- 	.dt_xlate		=3D arm_smmu_dt_xlate,
- 	.add_device		=3D arm_smmu_add_device,
-+	.remove_device		=3D arm_smmu_remove_device,
- };
-=20
- static __init int arm_smmu_dt_init(struct dt_device_node *dev,
-diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/a=
-rm/smmu.c
-index d63c901551..4d2f71f152 100644
---- a/xen/drivers/passthrough/arm/smmu.c
-+++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -825,7 +825,7 @@ static int arm_smmu_dt_add_device_legacy(struct arm_smm=
-u_device *smmu,
- 	if ( !dev_is_pci(dev) )
- 	{
- 		/* Xen: Let Xen know that the device is protected by an SMMU */
--		dt_device_set_protected(dev_node);
-+		dt_device_set_protected(dev_node, true);
- 	}
-=20
- 	for (i =3D 0; i < fwspec->num_ids; ++i) {
-@@ -862,7 +862,7 @@ static int arm_smmu_dt_remove_device_legacy(struct arm_=
-smmu_device *smmu,
-=20
- 	if ( !dev_is_pci(dev) )
- 		/* Protected by dt_host_lock and dtdevs_lock as caller holds these locks=
-. */
--		dev_node->is_protected =3D false;
-+		dt_device_set_protected(dev_node, false);
-=20
- 	kfree(master);
- 	return 0;
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index 06d7643622..76ae1e674a 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -300,9 +300,10 @@ static inline domid_t dt_device_used_by(const struct d=
-t_device_node *device)
-     return device->used_by;
- }
-=20
--static inline void dt_device_set_protected(struct dt_device_node *device)
-+static inline void dt_device_set_protected(struct dt_device_node *device,
-+                                           bool protected)
- {
--    device->is_protected =3D true;
-+    device->is_protected =3D protected;
- }
-=20
- static inline bool dt_device_is_protected(const struct dt_device_node *dev=
-ice)
---=20
-2.51.2
+This submission implements that model, and its design and code have been
+validated through the following methods:
+
+1. A suite of host-side integration tests (to be posted shortly), which
+   can be executed on the build host (e.g., on a developer machine) like
+   the PDX tests by Roger Pau Monné (make -C tools/tests/pdx run), as
+   well as the domid and rangeset tests.
+
+2. A comprehensive functional system test suite (with nineteen test
+   cases), included in this v6 submission. These tests are run using
+   automated deployment across various machine types and generations
+   in our labs.
+
+3. A set of high-level functional integration tests and performance
+   tests, executed as part of end-to-end product deployment validation.
+
+4. Validation in a customer's standardised application performance lab
+   to confirm their performance expectations. (This testing was done on
+   predecessor code sharing the same design, with the main difference
+   being that only single-node claims were supported in the previous
+   code base.)
+
+The series has been reworked substantially in response to v4 review.
+Because of that, it is likely best reviewed as a fresh series rather
+than incrementally.
+
+Patch summary:
+
+1. xen/mm: Refactor deducting claims to prepare for functional changes
+2. xen/mm: Claims check: Allow free pages to cover a shortfall of claims
+3. xen/mm: Optimise getting free page counts per NUMA node
+4. xen/mm: Split d->outstanding_pages to global_claims & node_claims
+5. xen/mm: Introduce Claim Sets for multiple NUMA nodes
+6. tools/ocaml/libs/xc: Add OCaml bindings for NUMA-aware claims
+7. tools/tests/mem-claim: Add a test suite for the memory claim API
+
+The v2 design document submitted ahead of this series may also help with
+review. It explains the background, design rationale, and implementation
+details.
+
+Rendered version:
+https://bernhard-xen.readthedocs.io/en/claim-sets-v2-design/designs/claims
+
+Many thanks to everyone who contributed to the earlier work and review,
+especially Alejandro Vallejo, Jan Beulich, Andrew Cooper, Roger Pau
+Monné, Marcus Granado, and Edwin Török.
+
+Changes since v5:
+-----------------
+
+- No functional changes for the sum of all commits.
+  (Adding a new function argument was moved to the commit that needs it.)
+
+- Added a comprehensive test suite for the new hypercall using the
+  libxenctrl wrapper xc_domain_claim_memory(), based on the test in
+  tools/tests/mem-claim/test-mem-claim.c for the existing hypercall
+  API by Andrew Cooper.
+
+- Improved the function names to follow standard naming recommendations.
+  The added functions are renamed as follows:
+
+  * claims_retire_allocation() -> redeem_claims_for_allocation()
+    - Use "redeem" because it is part of an exchange of claims for memory.
+
+  * claims_retire_global()     -> deduct_global_claims()
+  * claims_retire_nodes()      -> deduct_node_claims()
+    - These perform the act of reducing the amount of global/node claims.
+
+  * claims_retire_node()       -> cancel_all_node_claims()
+    - Cancel all node claims when needed when the claims are terminated.
+
+  * The comments and the design document v2 have been updated accordingly.
+
+Thanks,
+
+  Bernhard
+
+Bernhard Kaindl (7):
+  xen/mm: Refactor claim deduction for later functional changes
+  xen/mm: Allow free pages to cover a claims shortfall
+  xen/mm: Optimise getting free page counts per NUMA node
+  xen/mm: Split outstanding claims into global and node totals
+  xen/mm: Introduce NUMA-aware memory claim sets
+  tools/ocaml/libs/xc: Add an OCaml binding for NUMA-aware claims
+  tools/tests/mem-claim: Add a test suite for the memory claim API
+
+ tools/include/xenctrl.h                   |   4 +
+ tools/libs/ctrl/xc_domain.c               |  38 +
+ tools/ocaml/libs/xc/xenctrl.ml            |  11 +
+ tools/ocaml/libs/xc/xenctrl.mli           |  11 +
+ tools/ocaml/libs/xc/xenctrl_stubs.c       |  47 +
+ tools/tests/mem-claim/.gitignore          |   1 +
+ tools/tests/mem-claim/Makefile            |  17 +-
+ tools/tests/mem-claim/accounting-1.h      | 401 +++++++++
+ tools/tests/mem-claim/input-phase1.h      | 171 ++++
+ tools/tests/mem-claim/input-phase2.h      |  91 ++
+ tools/tests/mem-claim/libtestclaims.c     | 995 ++++++++++++++++++++++
+ tools/tests/mem-claim/libtestclaims.h     | 202 +++++
+ tools/tests/mem-claim/test-claim-memory.c | 129 +++
+ xen/common/domctl.c                       |  56 +-
+ xen/common/page_alloc.c                   | 374 +++++++-
+ xen/include/public/domctl.h               |  32 +
+ xen/include/public/memory.h               |   9 +
+ xen/include/xen/mm.h                      |   3 +
+ xen/include/xen/sched.h                   |  13 +-
+ xen/xsm/flask/hooks.c                     |   1 +
+ xen/xsm/flask/policy/access_vectors       |   1 +
+ 21 files changed, 2573 insertions(+), 34 deletions(-)
+ create mode 100644 tools/tests/mem-claim/accounting-1.h
+ create mode 100644 tools/tests/mem-claim/input-phase1.h
+ create mode 100644 tools/tests/mem-claim/input-phase2.h
+ create mode 100644 tools/tests/mem-claim/libtestclaims.c
+ create mode 100644 tools/tests/mem-claim/libtestclaims.h
+ create mode 100644 tools/tests/mem-claim/test-claim-memory.c
+
+-- 
+2.39.5
+
 
