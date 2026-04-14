@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8EutG1tA3mlvpwkAu9opvQ
+	id wG37MJlA3mlvpwkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 15:25:47 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 15:26:49 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21B0C3FA764
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 15:25:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1281806.1564652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77E873FA7AE
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 15:26:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1281823.1564660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCdlm-0001a3-RA; Tue, 14 Apr 2026 13:25:34 +0000
+	id 1wCdmn-00025R-3O; Tue, 14 Apr 2026 13:26:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1281806.1564652; Tue, 14 Apr 2026 13:25:34 +0000
+Received: by outflank-mailman (output) from mailman id 1281823.1564660; Tue, 14 Apr 2026 13:26:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCdlm-0001Y1-Nd; Tue, 14 Apr 2026 13:25:34 +0000
-Received: by outflank-mailman (input) for mailman id 1281806;
- Tue, 14 Apr 2026 13:25:33 +0000
+	id 1wCdmn-00023z-0N; Tue, 14 Apr 2026 13:26:37 +0000
+Received: by outflank-mailman (input) for mailman id 1281823;
+ Tue, 14 Apr 2026 13:26:35 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <bernhard.kaindl@citrix.com>) id 1wCdll-0001Xp-Rp
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 13:25:33 +0000
+ (envelope-from <bernhard.kaindl@citrix.com>) id 1wCdml-00023r-K7
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 13:26:35 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wCdll-00GLNf-8O
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 15:25:33 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wCdmk-00GLlP-Ve
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 15:26:35 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 69de403c-2eae-0a2a0a5409dd-0a2a450bb360-46
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 15:25:33 +0200
-Received: from [160.101.131.9] (helo=na1pdmzitismtp02.tibco.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ id 69de407e-bab6-0a2a0a5309dd-0a2a4506d774-42
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 15:26:34 +0200
+Received: from [160.101.131.8] (helo=na1pdmzitismtp01.tibco.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 69de404a-bca8-0a2a450b0019-a0658309e5ae-3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 15:25:32 +0200
+ id 69de4089-0df0-0a2a45060019-a06583088930-3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 15:26:34 +0200
 Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id D35F181A5671;
- Tue, 14 Apr 2026 09:24:36 -0400 (EDT)
+ by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id 9FBB6424A7AA;
+ Tue, 14 Apr 2026 09:25:50 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,18 +61,19 @@ Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v6 2/7] xen/mm: Allow free pages to cover a claims shortfall
-Date: Tue, 14 Apr 2026 14:22:46 +0100
-Message-Id: <5d1e06a0fcaee4520bf79d58199e447194f84fe8.1776172526.git.bernhard.kaindl@citrix.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Alejandro Vallejo <alejandro.vallejo@cloud.com>
+Subject: [PATCH v6 3/7] xen/mm: Optimise getting free page counts per NUMA node
+Date: Tue, 14 Apr 2026 14:22:47 +0100
+Message-Id: <a205d6fbffca96889e63f3359e8d86eba3fd667d.1776172526.git.bernhard.kaindl@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1776172526.git.bernhard.kaindl@citrix.com>
 References: <cover.1776172526.git.bernhard.kaindl@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1776173133-ED9512A1-8F1A5C29/0/0
+X-purgate-ID: tlsNG-16d1c6/1776173194-5DB2B3D8-A3F06007/0/0
 X-purgate-type: clean
-X-purgate-size: 3086
+X-purgate-size: 3131
 X-Spamd-Result: default: False [3.01 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
 	MID_CONTAINS_FROM(1.00)[];
@@ -81,7 +82,7 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:alejandro.vallejo@cloud.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
@@ -95,96 +96,108 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[9];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email,citrix.com:mid,suse.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,citrix.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.917];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	NEURAL_HAM(-0.00)[-0.912];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	R_DKIM_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel]
-X-Rspamd-Queue-Id: 21B0C3FA764
+X-Rspamd-Queue-Id: 77E873FA7AE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Allow an allocation to proceed when free, unclaimed memory can cover a
-claims shortfall.
+From: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 
-In preparation for NUMA-aware claims, refactor this check into a
-reusable helper so the same logic can be applied to NUMA nodes.
+Introduce per-node free page counters to improve the efficiency of
+avail_node_heap_pages():
 
-Suggested-by: Jan Beulich <jbeulich@suse.com>
+- It no longer needs to iterate over all zones in a node.
+
+- It is used by the numainfo hypercall and the debug key 'u' to display
+  NUMA information in the printk buffer.
+
+- It will also be needed by node-specific claims to determine the
+  number of free pages in a node in the hot path of get_free_buddy()
+  without looping over all zones.
+
+No functional change.
+
+Signed-off-by: Alejandro Vallejo <alejandro.vallejo@cloud.com>
 Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 
 ---
 
-Changes since v4: Extracted into a dedicated patch and merged the
-formerly separate functions into one, as suggested by Jan Beulich.
+Applied Jan's review:
+https://lists.xenproject.org/archives/html/xen-devel/2026-03/msg00144.html
 
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+Changes:
+- Removed accessor macro
+- Abandoned conversion to unsigned long
 ---
- xen/common/page_alloc.c | 41 ++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 38 insertions(+), 3 deletions(-)
+ xen/common/page_alloc.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 80577aa4d50c..a67839413319 100644
+index a67839413319..28c424072d25 100644
 --- a/xen/common/page_alloc.c
 +++ b/xen/common/page_alloc.c
-@@ -868,6 +868,42 @@ static void check_and_stop_scrub(struct page_info *head)
-     }
- }
+@@ -485,7 +485,20 @@ static unsigned long node_need_scrub[MAX_NUMNODES];
+ 
+ static unsigned long *avail[MAX_NUMNODES];
+ static long total_avail_pages;
++/*
++ * Sum of the free pages in all zones of that node.
++ * Provided via sysctl by NUMA node placement decisions of domain builders and
++ * for monitoring. It is also logged with debug-key 'u' for NUMA debugging.
++ */
++static long node_avail_pages[MAX_NUMNODES];
  
 +/*
-+ * Allow the request when unclaimed pages suffice, or when a refcounted
-+ * domain's outstanding claims cover the shortfall.
++ * The global heap lock, protecting access to the heap and related structures.
++ * It protects the heap and claims of the buddy allocator and d->*claims.
++ * The locking order is: d->page_alloc_lock (optional) -> heap_lock
++ * - Numerous external callers holding d->page_alloc_lock call functions
++ *   taking the heap_lock. Note: Violating it would cause an ABBA deadlock.
 + */
-+static bool claims_permit_request(const struct domain *d,
-+                                  unsigned long avail_pages,
-+                                  unsigned long competing_claims,
-+                                  unsigned int memflags,
-+                                  unsigned long requested_pages)
-+{
-+    unsigned long unclaimed_pages;
-+
-+    ASSERT(spin_is_locked(&heap_lock));
-+    ASSERT(avail_pages >= competing_claims);
-+
-+    /* Start from the free pages not already claimed by other domains. */
-+    unclaimed_pages = avail_pages - competing_claims;
-+
-+    /* Allow the request to proceed when unclaimed pages suffice. */
-+    if ( requested_pages <= unclaimed_pages )
-+        return true;
-+
-+    /*
-+     * If unclaimed pages are insufficient, only a refcounted domain allocation
-+     * may use claims to cover the shortfall.
-+     */
-+    if ( !d || (memflags & MEMF_no_refcount) )
-+        return false;
-+
-+    /*
-+     * Allow the request to proceed when combination of unclaimed pages and the
-+     * claims held by the domain cover the shortfall for the requested_pages.
-+     */
-+    return requested_pages <= unclaimed_pages + d->outstanding_pages;
-+}
-+
- static struct page_info *get_free_buddy(unsigned int zone_lo,
-                                         unsigned int zone_hi,
-                                         unsigned int order, unsigned int memflags,
-@@ -1012,9 +1048,8 @@ static struct page_info *alloc_heap_pages(
-      * Claimed memory is considered unavailable unless the request
-      * is made by a domain with sufficient unclaimed pages.
-      */
--    if ( (outstanding_claims + request > total_avail_pages) &&
--          ((memflags & MEMF_no_refcount) ||
--           !d || d->outstanding_pages < request) )
-+    if ( !claims_permit_request(d, total_avail_pages, outstanding_claims,
-+                                memflags, request) )
-     {
-         spin_unlock(&heap_lock);
-         return NULL;
+ static DEFINE_SPINLOCK(heap_lock);
+ static long outstanding_claims; /* total outstanding claims by all domains */
+ 
+@@ -1092,6 +1105,8 @@ static struct page_info *alloc_heap_pages(
+         }
+     }
+ 
++    ASSERT(node_avail_pages[node] >= request);
++    node_avail_pages[node] -= request;
+     ASSERT(avail[node][zone] >= request);
+     avail[node][zone] -= request;
+     total_avail_pages -= request;
+@@ -1282,6 +1297,7 @@ static int reserve_offlined_page(struct page_info *head)
+         if ( !page_state_is(cur_head, offlined) )
+             continue;
+ 
++        node_avail_pages[node]--;
+         avail[node][zone]--;
+         total_avail_pages--;
+         ASSERT(total_avail_pages >= 0);
+@@ -1606,6 +1622,7 @@ static void free_heap_pages(
+         }
+     }
+ 
++    node_avail_pages[node] += 1 << order;
+     avail[node][zone] += 1 << order;
+     total_avail_pages += 1 << order;
+     if ( need_scrub )
+@@ -2873,7 +2890,7 @@ unsigned long avail_domheap_pages_region(
+ 
+ unsigned long avail_node_heap_pages(unsigned int nodeid)
+ {
+-    return avail_heap_pages(MEMZONE_XEN, NR_ZONES -1, nodeid);
++    return node_avail_pages[nodeid];
+ }
+ 
+ 
 -- 
 2.39.5
 
