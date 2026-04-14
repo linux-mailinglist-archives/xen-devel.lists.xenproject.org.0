@@ -2,49 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WM05N8km3mk7oQkAu9opvQ
+	id 4KLxITIo3mmSoQkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 13:36:41 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 13:42:42 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DEC63F96AE
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 13:36:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1281642.1564489 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3A6E3F9815
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2026 13:42:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1281653.1564498 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCc4C-00077R-2w; Tue, 14 Apr 2026 11:36:28 +0000
+	id 1wCc9r-0000R1-OJ; Tue, 14 Apr 2026 11:42:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1281642.1564489; Tue, 14 Apr 2026 11:36:28 +0000
+Received: by outflank-mailman (output) from mailman id 1281653.1564498; Tue, 14 Apr 2026 11:42:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wCc4B-000758-UD; Tue, 14 Apr 2026 11:36:27 +0000
-Received: by outflank-mailman (input) for mailman id 1281642;
- Tue, 14 Apr 2026 11:36:26 +0000
+	id 1wCc9r-0000OB-Lb; Tue, 14 Apr 2026 11:42:19 +0000
+Received: by outflank-mailman (input) for mailman id 1281653;
+ Tue, 14 Apr 2026 11:42:18 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <bounce-md_30504962.69de26b7.v1-257b21c4df744c0ea0670254c1d0c766@bounce.vates.tech>)
- id 1wCc49-000752-VE
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 11:36:26 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wCc9q-0000O5-Pb
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 11:42:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wCc49-00FyEd-3o
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 13:36:25 +0200
-Received: from [10.42.69.3] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <bounce-md_30504962.69de26b7.v1-257b21c4df744c0ea0670254c1d0c766@bounce.vates.tech>)
- id 69de26b6-e002-0a2a0a5209dd-0a2a4503befa-8
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 13:36:24 +0200
-Received: from [198.2.187.14] (helo=mail187-14.suw11.mandrillapp.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from
- <bounce-md_30504962.69de26b7.v1-257b21c4df744c0ea0670254c1d0c766@bounce.vates.tech>)
- id 69de26b7-02b3-0a2a45030019-c602bb0e877a-3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 13:36:24 +0200
-Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
- by mail187-14.suw11.mandrillapp.com (Mailchimp) with ESMTP id
- 4fw2Kg2Sm9z8XRvxX
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 11:36:23 +0000 (GMT)
-Received: from [37.26.189.201] by mandrillapp.com id
- 257b21c4df744c0ea0670254c1d0c766; Tue, 14 Apr 2026 11:36:23 +0000
+ id 1wCc9q-00AwR9-1m
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2026 13:42:18 +0200
+Received: from [10.42.69.12] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69de280f-5cb7-0a2a0a5109dd-0a2a450ce60a-24
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 13:42:17 +0200
+Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69de2819-f40c-0a2a450c0019-d155802bec47-3
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 13:42:17 +0200
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-488aa77a06eso91071905e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2026 04:42:17 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
+ [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488d5cf2e70sm202909035e9.0.2026.04.14.04.42.15
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Apr 2026 04:42:16 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,171 +55,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mte1 header.d=mandrillapp.com header.i="@mandrillapp.com" header.h="From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"; dkim=pass header.s=mte1 header.d=vates.tech header.i="ngoc-tu.dinh@vates.tech" header.h="From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1776166583; x=1776436583;
-	bh=xwnl3M2COGDDo2p9tYSk8w95SfMZZ/DdHUWNhVXJjFc=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=HKsOlKKvb9wvqin1rprD45U5jl0KnNmIsKH/+9RcQ0H9A1wS51aW92nbqjdG+FIua
-	 DFMKU9Cp5r9lE1Qj2/SXWDxlVdTYkgdHuXMF9Z6DlWc/k7xBiaqXV/YacVM2U+6PVL
-	 /4PolylLG5T3PUAydL8v1czpUVphXb2lrbKu7A6A0BnKPtZbKJXcuaBKl6hBCloMlt
-	 4JQBvPJlc9Khnx0JhcIbsQgk1mbz2uBIYuoz9xJS8GqSZXqQwZOibKtlh5962OLkS7
-	 Psr1sWXGv7NHVk/Bk91xLk/pEqOc3/fw4CRkWm2b7scpmZIbDOlL/e1n043FfZML5h
-	 79GApbmmUgYYg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1776166583; x=1776427083; i=ngoc-tu.dinh@vates.tech;
-	bh=xwnl3M2COGDDo2p9tYSk8w95SfMZZ/DdHUWNhVXJjFc=;
-	h=From:Subject:Message-Id:To:Cc:References:In-Reply-To:Feedback-ID:
-	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
-	 Subject:From;
-	b=mNAGXJrYoNmLRKoPA0DE0SP9PrP70Z6cr04lQrBXUW2E1UszXpBWokEfK7I9552YP
-	 wKDLJtk2Wfo3zKWlyDPmVAytcVjLpptFB72N3et9DQsYvSBGGOUaGh+C93iPurml6n
-	 Ddn6To9pmNXoL5jWW7QUmTnuT4E+C/KclpXPZnbJ7fhcrX94IpuxTTGiSAysQzAKa6
-	 6kIyTIutb6DWjS7SHoSZfBVv27Jd21OHLdJ6SgsmAv3Mz3+n8eJ1qQRnaZd/3NdMEJ
-	 K7pp/jeMFuU9DqTwi44QMiUu4E1DN3zt7ilfHIujPoP+Wv8Hi6lMG7hAO6pwGerYKk
-	 FiY8BREJKMgsQ==
-From: "Tu Dinh" <ngoc-tu.dinh@vates.tech>
-Subject: =?utf-8?Q?Re:=20[PATCH=202/2]=20xen/cpu:=20round=20up=20cpu=5Fkhz=20calculations?=
-X-Bm-Disclaimer: Yes
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1776166581512
-Message-Id: <d647f18c-c91b-4507-ac1a-149e50d14062@vates.tech>
-To: "Roger Pau Monne" <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: "Stefano Stabellini" <sstabellini@kernel.org>, "Julien Grall" <julien@xen.org>, "Bertrand Marquis" <bertrand.marquis@arm.com>, "Michal Orzel" <michal.orzel@amd.com>, "Volodymyr Babchuk" <Volodymyr_Babchuk@epam.com>, "Alistair Francis" <alistair.francis@wdc.com>, "Connor Davis" <connojdavis@gmail.com>, "Oleksii Kurochko" <oleksii.kurochko@gmail.com>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "Teddy Astie" <teddy.astie@vates.tech>
-References: <20260414103327.7420-1-roger.pau@citrix.com> <20260414103327.7420-3-roger.pau@citrix.com>
-In-Reply-To: <20260414103327.7420-3-roger.pau@citrix.com>
-X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.257b21c4df744c0ea0670254c1d0c766?=
-X-Mandrill-User: md_30504962
-Feedback-ID: 30504962:30504962.20260414:md
-Date: Tue, 14 Apr 2026 11:36:23 +0000
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776166937; x=1776771737; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=JUP8Sn5b+QdkF//PtXNqcRDDdQzwJmQqArPusk2Q4ZA=;
+        b=PanHo9F0BGgQJfnpk654MGXvA4++6jYeWN1Ia9KUsvL1mGfBqfsIGIa6H+FWnJsD/s
+         QuaSvx7CmrW5xurD0InU8S4Ba1ZM6rPqGCVNR/DwcQAACs/Cs7vafK6cD/9A4ILcMEWS
+         bOiZ+sEPzmNaWK/6ykjeLu6of5FhsDdkY7SXy4beReQKkgLM4ntxFSBMYmp+gLvZcxtF
+         M8MARLSoPqunwp7pA6lp14MMb5rvjdNHivO29Vm5zb+dJtd7MVQRlsKvKXL/qo5Qm7Fs
+         p/laOrIbU3TjJ7FaejPfya6Qfki0IWew6WAYDWXprUcNigqv11nP86UtqNCZqxPiSfFD
+         3efg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776166937; x=1776771737;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=JUP8Sn5b+QdkF//PtXNqcRDDdQzwJmQqArPusk2Q4ZA=;
+        b=qXgbIZPj6EfdZ9cM5t0qbCZiNGmZ9cEUhFE8YL4D0cp+iREFwQy0K81cjgPwLu9z9N
+         3E6WIMVeVH0JFz9dU0InB8iMottG4RZvpgwKkxWMBF9xwYfPLsdPkY0iZ3sg0lE66Lfi
+         ZlSl2JmQSnGZ3naOnC7GO5k9j2fkr19IY2d0R8Ozzw1Jh3/qDnlRi67mW0LF8ueHqxW0
+         FtvuGRxNcIfepBtUguIOlfXp6SEzjYFP0qK4gp7U5uyQCchLljzvOvvfkY0rFzEaHV+c
+         /V5iCHTEe9LwQZ4ETWJXSEm7zXLBbcul+yImNA+a85JAdz8z5mbxMVDY/rlbaGa+xFMs
+         05ZQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9mtDG3OnYZC52lZF6yhSUSf3PfIHsppg2FdooXly3DoWzCF0IjlX842WoP2mzkQg4wT20s44gsAK8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywfu2iwb1L/sjTf3x0ChFm0t6+Uav/A+TjC5eV4Icq7rvbJxE6N
+	sOvIv3VE/Nin7sul+XLd0OWNw538N4RGeP0tG+OZxXQqP5LmAHl9v8pN
+X-Gm-Gg: AeBDievqsE85wwuFqcFfgrOSElp6JTmk3ZGIeqk6A83dwkbyCrgmpQ2oicqGtGlpYfj
+	+r5425AwsrfOhIkp3w09uULJpEl5uGZwiYQ31djvObBL3z1YnGLBZT8vDz67tXJwolJuZDMgtLh
+	9YtQK3qSRe3qLVbId87PLgRLL1oZdHEn+DJiJB0rE0AIDiOUiJjp/jFyQtwdu1MT2AOXKFPgNcL
+	QDo5AsCZ1+zK4in2za38O+MMbckHVh6gSoTVwKu4lkazaNZBKsYAmvR/UKDhIUoH6/Sc3QNk247
+	fsw2lmkk9S32rZZ+9UWL9wM3vRLQ/MFM1MWyR/ElYUSLYZVMHUbobuXcv3elYpdVoSB8+6e48Kv
+	ay9oyQBviCDxM1OtIpkw6Ch+apcTjY+pnQETsH0bkPCL8zcGm01AEw8n+O+bC+kzYhuJuj7g6IT
+	pwuEx31Xh5GXczrDu1HiAmh/lXuvxcZIYoeXPKiZ/YlaugTiEXFEL4Cy94AVUoDkTG3EJl4DbWx
+	9Xt5+oNd3rb5A==
+X-Received: by 2002:a05:600c:4f83:b0:488:7ff5:2c67 with SMTP id 5b1f17b1804b1-488d67f0aa2mr211771925e9.12.1776166936568;
+        Tue, 14 Apr 2026 04:42:16 -0700 (PDT)
+Message-ID: <42b01875-e992-414a-84a7-3bc4e4aa16ef@gmail.com>
+Date: Tue, 14 Apr 2026 13:42:14 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-33051d/1776166584-40369C9A-690E3EA6/0/0
-X-purgate-type: clean
-X-purgate-size: 2660
-X-Spamd-Result: default: False [5.01 / 15.00];
-	URIBL_GREY(2.50)[mandrillapp.com:dkim];
-	SUSPICIOUS_RECIPS(1.50)[];
-	SUBJ_EXCESS_QP(1.20)[];
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 17/27] xen/riscv: add missing APLIC register offsets,
+ masks to asm/aplic.h.
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
+ <2097fefb49fca36f641ddd7d7fb31e796a03619e.1773157782.git.oleksii.kurochko@gmail.com>
+ <072c0f21-a223-46dd-8ea2-f3591c2fd547@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <072c0f21-a223-46dd-8ea2-f3591c2fd547@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-d25034/1776166937-83B44A3D-E7882E6A/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 2544
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
-	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,citrix.com:email];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	GREYLIST(0.00)[pass,meta];
-	FREEMAIL_CC(0.00)[kernel.org,xen.org,arm.com,amd.com,epam.com,wdc.com,gmail.com,suse.com,citrix.com,vates.tech];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:oleksii.kurochko@gmail.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[ngoc-tu.dinh@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
-	NEURAL_SPAM(0.00)[0.446];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[ngoc-tu.dinh@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 4DEC63F96AE
+X-Rspamd-Queue-Id: F3A6E3F9815
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 14/04/2026 12:36, Roger Pau Monne wrote:
-> All arches truncate the cpu_khz without taking into account the less
-> significant digits.  Instead use DIV_ROUND_UP() when scaling from Hz to k=
-Hz
-> to get as more accurate kHz value.
+
+
+On 4/2/26 2:51 PM, Jan Beulich wrote:
+> On 10.03.2026 18:08, Oleksii Kurochko wrote:
+>> These definitions are required for correct decoding of APLIC MMIO
+>> accesses and target configuration, and will be used by both the
+>> physical and virtual APLIC implementations.
+>>
+>> No functional change is intended by this patch; it only centralises
+>> hardware definitions that were previously missing.
+>>
+>> Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
+>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > 
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-
-Couldn't DIV_ROUND be used here instead for a round-to-closest?
-
-> ---
-> While the possibly more accurate value is nice, I'm not sure it's actuall=
-y
-> fixing any functional bug, and hence the lack of "Fixes:" tag.
-> ---
->   xen/arch/arm/time.c   | 4 ++--
->   xen/arch/riscv/time.c | 2 +-
->   xen/arch/x86/time.c   | 2 +-
->   3 files changed, 4 insertions(+), 4 deletions(-)
+> I can commit this as is (with my ack added), but I'd like you to consider
+> again my remark elsewhere as to ...
 > 
-> diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-> index a12912a106a0..9e0c485c77db 100644
-> --- a/xen/arch/arm/time.c
-> +++ b/xen/arch/arm/time.c
-> @@ -118,7 +118,7 @@ static void __init preinit_dt_xen_time(void)
->       res =3D dt_property_read_u32(timer, "clock-frequency", &rate);
->       if ( res )
->       {
-> -        cpu_khz =3D rate / 1000;
-> +        cpu_khz =3D DIV_ROUND_UP(rate, 1000);
->           validate_timer_frequency();
->           timer_dt_clock_frequency =3D rate;
->       }
-> @@ -136,7 +136,7 @@ void __init preinit_xen_time(void)
->   
->       if ( !cpu_khz )
->       {
-> -        cpu_khz =3D (READ_SYSREG(CNTFRQ_EL0) & CNTFRQ_MASK) / 1000;
-> +        cpu_khz =3D DIV_ROUND_UP(READ_SYSREG(CNTFRQ_EL0) & CNTFRQ_MASK, =
-1000);
->           validate_timer_frequency();
->       }
->   
-> diff --git a/xen/arch/riscv/time.c b/xen/arch/riscv/time.c
-> index 7efa76fdbcb1..faca7b70e13a 100644
-> --- a/xen/arch/riscv/time.c
-> +++ b/xen/arch/riscv/time.c
-> @@ -40,7 +40,7 @@ static void __init preinit_dt_xen_time(void)
->       if ( !dt_property_read_u32(timer, "timebase-frequency", &rate) )
->           panic("Unable to find clock frequency\n");
->   
-> -    cpu_khz =3D rate / 1000;
-> +    cpu_khz =3D DIV_ROUND_UP(rate, 1000);
->   }
->   
->   int reprogram_timer(s_time_t timeout)
-> diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
-> index 244277c0a921..b84414f00d05 100644
-> --- a/xen/arch/x86/time.c
-> +++ b/xen/arch/x86/time.c
-> @@ -2642,7 +2642,7 @@ void __init early_time_init(void)
->       set_time_scale(&t->tsc_scale, tmp);
->       t->stamp.local_tsc =3D boot_tsc_stamp;
->   
-> -    cpu_khz =3D tmp / 1000;
-> +    cpu_khz =3D DIV_ROUND_UP(tmp, 1000);
->       printk("Detected %lu.%03lu MHz processor.\n",
->              cpu_khz / 1000, cpu_khz % 1000);
->   
+>> --- a/xen/arch/riscv/include/asm/aplic.h
+>> +++ b/xen/arch/riscv/include/asm/aplic.h
+>> @@ -17,6 +17,11 @@
+>>   
+>>   #define APLIC_NUM_REGS 32
+>>   
+>> +#define APLIC_REG_OFFSET_MASK   0x3FFF
+>> +#define APLIC_TARGET_IPRIO_MASK 0xFF
+>> +#define APLIC_TARGET_GUEST_IDX_SHIFT 12
+>> +#define APLIC_TARGET_EIID_MASK  0x7FF
+>> +
+>>   #define APLIC_DOMAINCFG_IE      BIT(8, U)
+>>   #define APLIC_DOMAINCFG_DM      BIT(2, U)
+>>   
+>> @@ -27,6 +32,36 @@
+>>   #define APLIC_SOURCECFG_SM_LEVEL_HIGH   0x6
+>>   #define APLIC_SOURCECFG_SM_LEVEL_LOW    0x7
+>>   
+>> +#define APLIC_DOMAINCFG         0x0000
+>> +#define APLIC_SOURCECFG_BASE    0x0004
+>> +#define APLIC_SOURCECFG_LAST    0x0FFC
+>> +
+>> +#define APLIC_SMSICFGADDR       0x1BC8
+>> +#define APLIC_SMSICFGADDRH      0x1BCC
+>> +
+>> +#define APLIC_SETIP_BASE        0x1C00
+>> +#define APLIC_SETIP_LAST        0x1C7C
+>> +#define APLIC_SETIPNUM          0x1CDC
+>> +
+>> +#define APLIC_CLRIP_BASE        0x1D00
+>> +#define APLIC_CLRIP_LAST        0x1D7C
+>> +#define APLIC_CLRIPNUM          0x1DDC
+>> +
+>> +#define APLIC_SETIE_BASE        0x1E00
+>> +#define APLIC_SETIE_LAST        0x1E7C
+>> +#define APLIC_SETIENUM          0x1EDC
+>> +
+>> +#define APLIC_CLRIE_BASE        0x1F00
+>> +#define APLIC_CLRIE_LAST        0x1F7C
+>> +#define APLIC_CLRIENUM          0x1FDC
+>> +
+>> +#define APLIC_SETIPNUM_LE       0x2000
+>> +
+>> +#define APLIC_GENMSI            0x3000
+>> +
+>> +#define APLIC_TARGET_BASE       0x3004
+>> +#define APLIC_TARGET_LAST       0x3FFC
+> 
+> ... the case of hex digits vs the need to have L (and hence U) suffixes in
+> upper case for Misra's sake. Those suffixes are easier to spot as such when
+> the hex digits use lower case. Then even for un-suffixed numbers lower case
+> is preferable imo, for overall consistency.
 
+I will switch to lower case.
 
-
---
-Ngoc Tu Dinh | Vates XCP-ng Developer
-
-XCP-ng & Xen Orchestra - Vates solutions
-
-web: https://vates.tech
-
-
+~ Oleksii
 
