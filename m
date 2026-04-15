@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mLvZNnaT32kjWQAAu9opvQ
+	id +Aa2NnCT32n5WAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2026 15:32:38 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2026 15:32:32 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB728404D18
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2026 15:32:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1282447.1565023 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4817E404D0A
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2026 15:32:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1282448.1565033 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wD0Lp-00005h-J4; Wed, 15 Apr 2026 13:32:17 +0000
+	id 1wD0Lr-0000Iv-QM; Wed, 15 Apr 2026 13:32:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1282447.1565023; Wed, 15 Apr 2026 13:32:17 +0000
+Received: by outflank-mailman (output) from mailman id 1282448.1565033; Wed, 15 Apr 2026 13:32:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wD0Lp-0008UH-GE; Wed, 15 Apr 2026 13:32:17 +0000
-Received: by outflank-mailman (input) for mailman id 1282447;
- Wed, 15 Apr 2026 13:32:16 +0000
+	id 1wD0Lr-0000Gc-NU; Wed, 15 Apr 2026 13:32:19 +0000
+Received: by outflank-mailman (input) for mailman id 1282448;
+ Wed, 15 Apr 2026 13:32:18 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <bounce-md_30504962.69df935e.v1-1a795d0610064f5681462d6652086e28@bounce.vates.tech>)
- id 1wD0Lo-0008UB-Mh
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2026 13:32:16 +0000
+ <bounce-md_30504962.69df9360.v1-2f204a884a51440aa20c387e5f905bb7@bounce.vates.tech>)
+ id 1wD0Lq-0000GL-Or
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2026 13:32:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wD0Lo-00Ad2n-35
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2026 15:32:16 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wD0Lq-00DDma-1o
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2026 15:32:18 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <bounce-md_30504962.69df935e.v1-1a795d0610064f5681462d6652086e28@bounce.vates.tech>)
- id 69df9358-2eae-0a2a0a5409dd-0a2a450cbe98-26
- for <xen-devel@lists.xenproject.org>; Wed, 15 Apr 2026 15:32:16 +0200
+ <bounce-md_30504962.69df9360.v1-2f204a884a51440aa20c387e5f905bb7@bounce.vates.tech>)
+ id 69df9357-e002-0a2a0a5209dd-0a2a4501b888-48
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Apr 2026 15:32:18 +0200
 Received: from [198.2.187.14] (helo=mail187-14.suw11.mandrillapp.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <bounce-md_30504962.69df935e.v1-1a795d0610064f5681462d6652086e28@bounce.vates.tech>)
- id 69df935e-f40c-0a2a450c0019-c602bb0e1bb3-3
- for <xen-devel@lists.xenproject.org>; Wed, 15 Apr 2026 15:32:15 +0200
+ <bounce-md_30504962.69df9360.v1-2f204a884a51440aa20c387e5f905bb7@bounce.vates.tech>)
+ id 69df9360-c1f2-0a2a45010019-c602bb0eba87-3
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Apr 2026 15:32:17 +0200
 Received: from pmta09.mandrill.prod.suw01.rsglab.com (localhost [127.0.0.1])
  by mail187-14.suw11.mandrillapp.com (Mailchimp) with ESMTP id
- 4fwhrt474bz8XSCwc
- for <xen-devel@lists.xenproject.org>; Wed, 15 Apr 2026 13:32:14 +0000 (GMT)
+ 4fwhrw3phtz8XSHSC
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Apr 2026 13:32:16 +0000 (GMT)
 Received: from [37.26.189.201] by mandrillapp.com id
- 1a795d0610064f5681462d6652086e28; Wed, 15 Apr 2026 13:32:14 +0000
+ 2f204a884a51440aa20c387e5f905bb7; Wed, 15 Apr 2026 13:32:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,130 +58,190 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mte1 header.d=mandrillapp.com header.i="@mandrillapp.com" header.h="From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"; dkim=pass header.s=mte1 header.d=vates.tech header.i="teddy.astie@vates.tech" header.h="From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:Date:MIME-Version:Content-Type:Content-Transfer-Encoding"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandrillapp.com;
-	s=mte1; t=1776259934; x=1776529934;
-	bh=3eORvMGgdV2JgrkelULgZntYhi01D/h/hCD6psmBUzQ=;
+	s=mte1; t=1776259936; x=1776529936;
+	bh=V1xNEuLkT/UoGYapzOaT2ccLIg+S5oeSeb8h+8Yriq0=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=15Gve7/aVyAjshyU9xqF45HVlaLk1cz2WuA1ckl8tNQwsy90JF/oFEeCrjj0xw276
-	 R+XcfCczNFmqTM8hr8IBzKxkXui5UbNwCXO+NdoSiu70KgoMZjbZDEusRsVJrm8wdB
-	 y/WGMjtAt2ZZ+o6oKt5xXHzhH0DbfbEggDD53sG20tR/+g1u3MMx15bcF8Gw0W88M8
-	 4+AqL8+JdBeynymMfBd8N3O20FongqlicGGCdv1aEsB1FX/bqj9bQkYwWGwYtnPqXE
-	 D/K5lsLZeFPFiDa5I6PvyCnV8gtvkHaeSgip9Rrkga3DFngA9FqHgUiua4S8Sio+m1
-	 Jd0lhbd7Hl5Iw==
+	b=WXZh8Dzd8Jh/HUh0lgwEq2jolZ+EXZZ7ZvGjDjnMle6r3u7Zrw44uVMOCQml9LTay
+	 j3+E734Z/i7cr7aEbZu8QrOq75ZZ8u27s9OPQi3lttmksmCcKgdh/C0zwEOAF3R/x8
+	 EcFhVuDLe7KZS4l+suQkXOJH6FQ5BeY4cjehcHjwQECprEnySKOKoxby4G0hKGFiCI
+	 acGELDQbHM4RFVy1tnccCtM6YIUJXzdrqdJMLZ5TsSck9YqL49VyeJamgPAFEvYpMt
+	 WP0dIuE7bT0d+WSPb+fC4ArvJ6eql1bA0F1y13iZgxDHw2mMUK6wpC92Bh7oXsjcIM
+	 LqVKnwMiAY6Mw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech; s=mte1;
-	t=1776259934; x=1776520434; i=teddy.astie@vates.tech;
-	bh=3eORvMGgdV2JgrkelULgZntYhi01D/h/hCD6psmBUzQ=;
+	t=1776259936; x=1776520436; i=teddy.astie@vates.tech;
+	bh=V1xNEuLkT/UoGYapzOaT2ccLIg+S5oeSeb8h+8Yriq0=;
 	h=From:Subject:To:Cc:Message-Id:In-Reply-To:References:Feedback-ID:
 	 Date:MIME-Version:Content-Type:Content-Transfer-Encoding:CC:Date:
 	 Subject:From;
-	b=aewLOIUc21gakTYdJKuHjfeDFOm3ibWen26ACcWO78RBFuXCYlAaocdFPenc56U8T
-	 UsMH9fXjPDtKuvSiPrvyzmlXCpgsRi81mAu7lPxPl+Tp88Sg08b4Y4KpqR/Ukrvtav
-	 JrxaNgimXczfB6bbpaajTnMUSs7DT96FcG+TEorDqKye7Qk2b2IrlkgVJodVhdL6rS
-	 KlNux50R7fFsQhZ7BSDY7c0ai9tDLP+2ph7uTykQ0savGllAhYoDsRiSu/HjQQfMF/
-	 BhY7X3BQN3Ez8sI8ov30Xdz/896wzIqVbwLDEtqLGlaIKX3Bmdx6C7jf67Qh0oE/2O
-	 4Us0B80lMQMLw==
+	b=QqmXDzKPu0zPeEW63cqKXrsHH/05zS9IyAZVmh4ynlQ6NM3HoYbDH7vKPhF2b2hO6
+	 JbAUd+ssbjHpS4jvZ/kGHPnhzeEqmuYLRZV/EjofnYLBwFXgUbQlhaBjTruq5mu4Zz
+	 BaX4mk+Uqlg5OmcorAOMDhndUvYIpKeg9HyKrUgDbA5UDr1YKJUandjrSuayg2SILl
+	 KQu6g0R7buUUn92ddGU3a/luHF2d+YmAqbd8csK/b5AqoMjMqxA3Eemi1zjKoN/WgE
+	 M+JTHsWMg0L4ESL+tSBQ9cUyl73F4HzvrJBoyuc+VQ7XSkAeGjrGcChoQR/RkMM5e3
+	 4GlwhHOp9Bbww==
 From: "Teddy Astie" <teddy.astie@vates.tech>
-Subject: =?utf-8?Q?[RFC=20PATCH=201/7]=20vmx:=20Introduce=20vcpu=20single=20context=20VPID=20invalidation?=
+Subject: =?utf-8?Q?[RFC=20PATCH=202/7]=20common:=20Track=20latest=20pCPU=20that=20ran=20the=20vCPU?=
 X-Mailer: git-send-email 2.52.0
 X-Bm-Disclaimer: Yes
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1776259933722
+X-Bm-Transport-Timestamp: 1776259935319
 To: xen-devel@lists.xenproject.org
-Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>
-Message-Id: <50c96e2306538eb7cd28ddfcb21163c628fae0a4.1776259594.git.teddy.astie@vates.tech>
+Cc: "Teddy Astie" <teddy.astie@vates.tech>, "Jan Beulich" <jbeulich@suse.com>, "Andrew Cooper" <andrew.cooper3@citrix.com>, "=?utf-8?Q?Roger=20Pau=20Monn=C3=A9?=" <roger.pau@citrix.com>, "Jason Andryuk" <jason.andryuk@amd.com>, "Anthony PERARD" <anthony.perard@vates.tech>, "Michal Orzel" <michal.orzel@amd.com>, "Julien Grall" <julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>
+Message-Id: <f127344e083d224d2203b83c701375ca15e6368b.1776259594.git.teddy.astie@vates.tech>
 In-Reply-To: <cover.1776259594.git.teddy.astie@vates.tech>
 References: <cover.1776259594.git.teddy.astie@vates.tech>
 X-Native-Encoded: 1
-X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.1a795d0610064f5681462d6652086e28?=
+X-Report-Abuse: =?UTF-8?Q?Please=20forward=20a=20copy=20of=20this=20message,=20including=20all=20headers,=20to=20abuse@mandrill.com.=20You=20can=20also=20report=20abuse=20here:=20https://mandrillapp.com/contact/abuse=3Fid=3D30504962.2f204a884a51440aa20c387e5f905bb7?=
 X-Mandrill-User: md_30504962
 Feedback-ID: 30504962:30504962.20260415:md
-Date: Wed, 15 Apr 2026 13:32:14 +0000
+Date: Wed, 15 Apr 2026 13:32:16 +0000
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d25034/1776259936-FF547A3D-0EE0BC28/0/0
+X-purgate-ID: tlsNG-d62444/1776259938-B5E6BFF4-9814C635/0/0
 X-purgate-type: clean
-X-purgate-size: 1506
+X-purgate-size: 3524
 X-Spamd-Result: default: False [4.51 / 15.00];
 	URIBL_GREY(2.50)[mandrillapp.com:dkim];
 	SUBJ_EXCESS_QP(1.20)[];
 	MID_CONTAINS_FROM(1.00)[];
 	MAILLIST(-0.18)[generic];
-	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
+	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,vates.tech:mid,vates.tech:email,vates.tech:dkim,vates.tech:url,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	R_DKIM_ALLOW(0.00)[mandrillapp.com:s=mte1,vates.tech:s=mte1];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mandrillapp.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,vates.tech:mid,vates.tech:email,vates.tech:dkim,vates.tech:url];
-	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
-	RCPT_COUNT_FIVE(0.00)[5];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DMARC_POLICY_ALLOW(0.00)[vates.tech,none];
-	NEURAL_HAM(-0.00)[-0.909];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[mandrillapp.com:+,vates.tech:+];
+	NEURAL_HAM(-0.00)[-0.938];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: CB728404D18
+X-Rspamd-Queue-Id: 4817E404D0A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Introduce vpid_sync_vcpu_context to do a single-context invalidation
-on the vpid attached to the vcpu as a alternative to per-gva and all-context
-invlidations.
+Track on which pCPU each vCPU of a domain ran. This will
+be used to know whether a TLB flush is required or not
+when the vCPU is migrated on another pCPU.
 
 Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 ---
- xen/arch/x86/include/asm/hvm/vmx/vmx.h | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+I wonder if there is a way to move 
 
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-index da04752e17..3524cb3536 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-@@ -452,6 +452,27 @@ static inline void ept_sync_all(void)
+    curr->domain->latest_vcpu[cpu] = curr->vcpu_id
+
+into a (at least more) common code ?
+
+ xen/arch/x86/hvm/svm/svm.c | 3 +++
+ xen/arch/x86/hvm/vmx/vmx.c | 3 +++
+ xen/common/domain.c        | 8 ++++++++
+ xen/include/xen/sched.h    | 4 ++++
+ 4 files changed, 18 insertions(+)
+
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index ced6166847..58e927ae04 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -967,6 +967,7 @@ void asmlinkage svm_vmenter_helper(void)
+     const struct cpu_user_regs *regs = guest_cpu_user_regs();
+     struct vcpu *curr = current;
+     struct vmcb_struct *vmcb = curr->arch.hvm.svm.vmcb;
++    unsigned int cpu = smp_processor_id();
  
- void ept_sync_domain(struct p2m_domain *p2m);
+     ASSERT(hvmemul_cache_disabled(curr));
  
-+static inline void vpid_sync_vcpu_context(const struct vcpu *v)
-+{
-+    int type = INVVPID_SINGLE_CONTEXT;
+@@ -977,6 +978,8 @@ void asmlinkage svm_vmenter_helper(void)
+ 
+     svm_sync_vmcb(curr, vmcb_needs_vmsave);
+ 
++    curr->domain->latest_vcpu[cpu] = curr->vcpu_id;
 +
-+    /*
-+     * If single context invalidation is not supported, we escalate to
-+     * use all context invalidation.
-+     */
-+    if ( likely(cpu_has_vmx_vpid_invvpid_single_context) )
-+        goto execute_invvpid;
+     vmcb->rax = regs->rax;
+     vmcb->rip = regs->rip;
+     vmcb->rsp = regs->rsp;
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 269ca56433..ec0a790336 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -4934,6 +4934,7 @@ bool asmlinkage vmx_vmenter_helper(const struct cpu_user_regs *regs)
+     u32 new_asid, old_asid;
+     struct hvm_vcpu_asid *p_asid;
+     bool need_flush;
++    unsigned int cpu = smp_processor_id();
+ 
+     ASSERT(hvmemul_cache_disabled(curr));
+ 
+@@ -4977,6 +4978,8 @@ bool asmlinkage vmx_vmenter_helper(const struct cpu_user_regs *regs)
+     if ( unlikely(need_flush) )
+         vpid_sync_all();
+ 
++    currd->latest_vcpu[cpu] = curr->vcpu_id;
 +
-+    /*
-+     * If single context invalidation is not supported, we escalate to
-+     * use all context invalidation.
-+     */
-+    type = INVVPID_ALL_CONTEXT;
+     if ( paging_mode_hap(curr->domain) )
+     {
+         struct ept_data *ept = &p2m_get_hostp2m(currd)->ept;
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index bb9e210c28..7867166411 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -758,6 +758,7 @@ static void _domain_destroy(struct domain *d)
+     rangeset_domain_destroy(d);
+ 
+     free_cpumask_var(d->dirty_cpumask);
++    xfree(d->latest_vcpu);
+ 
+     xsm_free_security_domain(d);
+ 
+@@ -992,6 +993,13 @@ struct domain *domain_create(domid_t domid,
+     if ( !zalloc_cpumask_var(&d->dirty_cpumask) )
+         goto fail;
+ 
++    err = -ENOMEM;
++    d->latest_vcpu = xmalloc_array(int, nr_cpu_ids);
++    if ( !d->latest_vcpu )
++        goto fail;
++    for (unsigned int i = 0; i < nr_cpu_ids; i++)
++        d->latest_vcpu[i] = -1;
 +
-+execute_invvpid:
-+    __invvpid(type, v->arch.hvm.n1asid.asid, 0);
-+}
+     rangeset_domain_initialise(d);
+ 
+     if ( is_idle_domain(d) )
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 212c7d765c..4b8ae21b51 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -567,6 +567,10 @@ struct domain
+     /* Bitmask of CPUs which are holding onto this domain's state. */
+     cpumask_var_t    dirty_cpumask;
+ 
++    /* Mapping of the latest vCPU that ran on a specific CPU
++     * (-1 if the vCPU hasn't ran yet) */
++    int *latest_vcpu;
 +
- static inline void vpid_sync_vcpu_gva(struct vcpu *v, unsigned long gva)
- {
-     int type = INVVPID_INDIVIDUAL_ADDR;
+     struct arch_domain arch;
+ 
+     void *ssid; /* sHype security subject identifier */
 -- 
 2.52.0
 
