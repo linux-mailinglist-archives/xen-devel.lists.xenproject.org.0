@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oAiqEXDU4Gk5mgAAu9opvQ
+	id sAktGavW4GmwmgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:22:08 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:31:39 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A964D40E007
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:22:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1283311.1565581 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B806140E3A6
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:31:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1283323.1565596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDLj5-0005hY-Kz; Thu, 16 Apr 2026 12:21:43 +0000
+	id 1wDLsF-0007YQ-US; Thu, 16 Apr 2026 12:31:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1283311.1565581; Thu, 16 Apr 2026 12:21:43 +0000
+Received: by outflank-mailman (output) from mailman id 1283323.1565596; Thu, 16 Apr 2026 12:31:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDLj5-0005eU-Hb; Thu, 16 Apr 2026 12:21:43 +0000
-Received: by outflank-mailman (input) for mailman id 1283311;
- Thu, 16 Apr 2026 12:21:41 +0000
+	id 1wDLsF-0007Ua-Qq; Thu, 16 Apr 2026 12:31:11 +0000
+Received: by outflank-mailman (input) for mailman id 1283323;
+ Thu, 16 Apr 2026 12:31:10 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wDLj3-0005eO-KE
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 12:21:41 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wDLsE-0007O5-OP
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 12:31:10 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wDLj3-00Dsfg-16
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 14:21:41 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wDLsE-00DuOX-5C
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 14:31:10 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e0d43e-bab6-0a2a0a5309dd-0a2a450bdada-36
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:21:40 +0200
-Received: from [209.85.221.53] (helo=mail-wr1-f53.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e0d67d-bab6-0a2a0a5309dd-0a2a450ac818-40
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:31:10 +0200
+Received: from [209.85.218.47] (helo=mail-ej1-f47.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e0d454-212f-0a2a450b0019-d155dd35b54a-3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:21:40 +0200
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-43d73352cf2so4078066f8f.1
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 05:21:40 -0700 (PDT)
+ id 69e0d68d-56b3-0a2a450a0019-d155da2fe486-3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:31:10 +0200
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-b8d7f22d405so1296842066b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 05:31:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43ead3d5f11sm14373744f8f.18.2026.04.16.05.21.39
+ ffacd0b85a97d-43ead3d5ea9sm13575920f8f.21.2026.04.16.05.31.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Apr 2026 05:21:39 -0700 (PDT)
+ Thu, 16 Apr 2026 05:31:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,49 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776342100; x=1776946900; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1776342669; x=1776947469; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Jzka/KTnQChT2mJEPOM+6py4Rbv17O9g9qM1K9yBQXA=;
-        b=E3LPcAKhSTTGFg//wiAGh//XJGcvzu821PvcYVtRMWpwPVjcSWtpW1H3vUavnL7GCf
-         Pn/FQl1nTnX20gbCI1Sf7n6pJgEBAtG3TSfD0fbftVUrV+7SsUmPtOMbIM+JbPsXcRHu
-         eiSBy4AWm2Tzuw/YTFZ5XQ8maDTFNxuFLbA7i6vW3TVQ/peoabtUoZPDKu/hg+CGbmVM
-         0IXU23j4DBNSEttVdCOPEeQvGq1qKeJxdWrpUHCTpyndPAdoVhE5noSz7MiUFhuTstBP
-         xvlFO+QDXiWRHO05L07yYwIo/TtbF3RLnrNJSmp6SUpiamk4/bbjwbv8DMuC2DhyPEl7
-         6dig==
+        bh=+z7mr5PegBjzPJmf+gMBWEs27uwRwfeQjYjaEd1CrDc=;
+        b=ckZbMshm5n3OtYDlqqtFAzInedn3+6fULq5DOI4HicyKilvil6ak/cr0D2LokYCQ43
+         jbccL1hLwcHJG12v0MMSWe0OrccLSMSvF8xEtUZeQEL6PbCxNtY1VaK2SHA8mmvs4Vh9
+         NSwLuWRRL5K57nj2LqpBF3i95p2VBdG9i0EmzwqycyiwAVOumwNPmvQ+74I77cS2fTEu
+         bNpS7nhILNXbEANfLhAmJbJs6ND3CuwENCdSw4aKjwCCmK/7VbQQaiKKXeauB48wAZXB
+         iTEofTGn/Vsx7KVnlhZa9lESYpRPi9UVOqItkvTFuEY+4A3L2ceNekA9/2yBQklI/v/f
+         tpxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776342100; x=1776946900;
+        d=1e100.net; s=20251104; t=1776342669; x=1776947469;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Jzka/KTnQChT2mJEPOM+6py4Rbv17O9g9qM1K9yBQXA=;
-        b=Ia4KhPCTXoSESAVfRFip++jrigjMtqUWtiyMjljTfs6Si/ocol969XR+8OSuv9ebmK
-         D2kutZR7TM/VKGlqFHgilWEF27el7vMdutnOAsi/H1zXZ4AlwNdaM1Io+zlPoQJJllVX
-         3p0+Cn8TAwisi8Czxm1/p2Md3t4uS7hwG2LDGnfzvBOVodlw/yeXUn7phZ/VLQp2Polt
-         Y02TbttllUJflR72zHnwtLObrjj64WMCWqIDVu7vFQkgzIpLQAF6/lsGZSQ7Pp+Hg7xP
-         5FsGjBW3uDSMWLrNvdfXjRHOr7TXCnn0k6czNSHuo+49J+1DAy+PBY/xuz+z9Bz4Sluq
-         wFyQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/PbaTR4zVEVQFnB+gzth/nDCJusWaXRS2FmrIUUZdX+08iY635Z3tkZXpcUjB/dl3mMvEYlcs9Oxk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyXTrgx7C1rQGePsoxxuLZ/NGMvxkOHrbO/uTL+0jQqFBNAcCLq
-	2YXOljENdK5iyER2Leg+KUxXHiL5b+LcWkaEpydWn3ISirnHJXBL6fZvhYEvjODtJA==
-X-Gm-Gg: AeBDievXY8i8KFkKhNsVg/VMYme2tEQlsWsfLyIlOQN8H/SlZudr9SQFW/4k1Y1kqXT
-	KyAP3n4kltjb9YknEhE33kN54h8dIuIjMHs67oZG4PGt6sBCCflwSUbZo4JuJNbskoNLE9uo459
-	vWm6iGm76ZNdfaKjHx+f/xbb/HAONNYg4yi60d42mnd8OlyYKbfsimFhzeZD1SYL27TrU+s5t8D
-	/QvX8xfikRW6RF4EWVov2/vM80upz4fqrJ19nEdy+pUx/6tv2bQKN0D12lKYh69T7MGtBO/vkHV
-	aXXBquf4b077TIHm0yhSLs4dWNWkhbDBae9VTDyEsLG9obMyeBZSuBjqqQaYXOjAYcia7tIkfMM
-	RrnbP9gR4PYqR8ZTKIsBk5UFxUN+aPqJDctO55SpM1W6lxDqznB0YHVUouAVghg6SGGJiS4GaG0
-	hA8hyDqmA/LmQObcQNFZUMcg8GaEvxdWgO1c0QMmsntL0tAy0PGp5jgOtlzHXCVftKe/HjZ3xRA
-	A5UcB21RNXKM8SrDKtG5QNgUg==
-X-Received: by 2002:a05:6000:18a8:b0:43d:71b:204b with SMTP id ffacd0b85a97d-43d642cd3a0mr37033996f8f.39.1776342100111;
-        Thu, 16 Apr 2026 05:21:40 -0700 (PDT)
-Message-ID: <314c064b-88eb-497a-9022-2013125d63a9@suse.com>
-Date: Thu, 16 Apr 2026 14:21:42 +0200
+        bh=+z7mr5PegBjzPJmf+gMBWEs27uwRwfeQjYjaEd1CrDc=;
+        b=MQ12pNHkf4KM+H1b8KSQYarShserIRalHjCTqP1BTtsPPwYhRQwAnhqmszzsgM7+ES
+         O8CdFh2tnamsVoFiynbf+ZKrtzhT36C+h071dQFgu+75xeQn45Jtjsm6lHTWu6XJJCER
+         rHZxC9mnhVQoEQD1q73ng84rhdGUawSqDm1aeYE657aJPO94ANT2RUAHU9OLf6wh74qr
+         //xan9RFuaVFYYyqNXFJQ23h4O28241gcvO2n39Xi1J++ggjyBH24vGVcUVWEaYpo8l5
+         y16JNfIRsIl/Ghi5yWRP0v3mLKWKD9wNN+fbIbz0Jp1N0Iz9ZkcPc85ZeMLK3rtj5r/N
+         Yhsw==
+X-Forwarded-Encrypted: i=1; AFNElJ9oyYaN8iGJI626/WmWy6wTW0SMAJJzC+RP6WhQj9JdUKDZ+UdOLiDrlOA5yJZaiB/3luspyIotqGc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx16KbZ+b+HUd0PIGIkJOX4cKydRZ3pXfz15UBy6tYonR9dFO2I
+	jVxrY85HxmfKC+L8cuR/5ivUG+Flh9XP4ZFBw9ub8kCsmo/l1Q0b5jQy313WxgQ+Qw==
+X-Gm-Gg: AeBDiesvkwFmNe6LgMUBxrXY0xAknop5Obk/S0P9tB9lFdz/pCuraxsGOx6qFHSW7Df
+	05a2ljAobVcuG7LxjehJWctTXlYk2n2oPmswnN/rKcLO9MJQbf/5ICFXmGcvPPpZXOczSq5dzQr
+	nc7tGWExLCDny0wlftv5neJT07EMnK1I50Vh20La5WF4AmBMAq7G9kKXfhFH4K0nFZQUATWoeH5
+	Qcz11ALwOct07VHV2AL4NGy+UAfqRYWyHEi4Yh3EH5Yp7yp7YAyV7d8XDITDFX8U+Io+Ttw8bV1
+	WRXLRWJEZoFg43WFNmfvY1r91dpYn9m4Pjd2CcvdhxGfaqqS1T7aMRlDM1PQI/bY7Y0dYnczc9j
+	R1dBPMd8ZLg94LUztWdoxQsjU9EFurORxDb/bnVHVO8uVr+6zPUfREgmZzK5zwUO0i2Nwy3jknq
+	Dv0bM96fQS1dtvQuPAuEk/x4erPtatIiheLLeo5mpnLgGV4FBOAE7KHv5znbiC8cjkss/RhlP6/
+	7rtLEd4CgQYpgCs7W64sgQXLQ==
+X-Received: by 2002:a17:907:3e88:b0:b97:c684:57db with SMTP id a640c23a62f3a-b9d72792a5dmr1567254566b.12.1776342668917;
+        Thu, 16 Apr 2026 05:31:08 -0700 (PDT)
+Message-ID: <bd50afd3-6399-4c6b-b05d-d86ee4b8643e@suse.com>
+Date: Thu, 16 Apr 2026 14:31:10 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 13/27] xen/riscv: add basic VGEIN management for AIA
- guests
+Subject: Re: [PATCH v1 14/27] xen/riscv: introduce per-vCPU IMSIC state
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -111,9 +110,9 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <f358325514c91c540e0edf992ca51414a1964fe0.1773157782.git.oleksii.kurochko@gmail.com>
- <09fed304-685c-46a9-9159-72baa1721224@suse.com>
- <4b977410-8d24-41c3-9c83-7d95637ddea3@gmail.com>
+ <8196fa8f000e384af697a44cb3d50ece966e82a7.1773157782.git.oleksii.kurochko@gmail.com>
+ <1f5e262d-da1f-49a2-8e89-87fb714e51bf@suse.com>
+ <2f555a8b-d058-41ca-80f8-ce3dc08edfbe@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -139,12 +138,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <4b977410-8d24-41c3-9c83-7d95637ddea3@gmail.com>
+In-Reply-To: <2f555a8b-d058-41ca-80f8-ce3dc08edfbe@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1776342100-07175F3B-2B6E47E3/0/0
+X-purgate-ID: tlsNG-4011c0/1776342670-45B6F8B7-D94EC8C3/0/0
 X-purgate-type: clean
-X-purgate-size: 5759
+X-purgate-size: 3751
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -167,7 +166,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.996];
+	NEURAL_HAM(-0.00)[-0.997];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -179,148 +178,102 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: A964D40E007
+X-Rspamd-Queue-Id: B806140E3A6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 13.04.2026 16:42, Oleksii Kurochko wrote:
-> On 4/2/26 12:03 PM, Jan Beulich wrote:
+On 14.04.2026 11:22, Oleksii Kurochko wrote:
+> On 4/2/26 1:31 PM, Jan Beulich wrote:
 >> On 10.03.2026 18:08, Oleksii Kurochko wrote:
->>> AIA provides a hardware-accelerated mechanism for delivering external
->>> interrupts to domains via "guest interrupt files" located in IMSIC.
->>> A single physical hart can implement multiple such files (up to GEILEN),
->>> allowing several virtual harts to receive interrupts directly from hardware
+>>> Each vCPU interacting with the IMSIC requires state to track the
+>>> associated guest interrupt file and its backing context.
+>>>
+>>> Introduce a per-vCPU structure to hold IMSIC-related state, including
+>>> the guest interrupt file identifier and the CPU providing the backing
+>>> VS-file. Access to the guest file identifier is protected by a lock.
+>>>
+>>> Initialize this structure during vCPU setup and store it in arch_vcpu.
+>>> The initial state marks the VS-file as software-backed until it becomes
+>>> associated with a physical CPU.
+>>>
+>>> Add helpers to retrieve and update the guest interrupt file identifier.
 >>
->> Isn't use of such an optimization coming prematurely? Shouldn't this series
->> focus on getting basic functionality in place?
+>> Yet again a functions with no callers.
 > 
-> At the moment, we don't support only APLIC for guest interrupts as it 
-> will require trap-and-emulation approach, so just from the start it was 
-> decided to go with APLIC+IMSIC (IMSIC here as it only one interrupt 
-> controller which exist and support VGEIN stuff at the momemnt) approach 
-> and then when it will be needed back to only the case when APLIC is 
-> supported.
-> 
-> Maybe, it was better to introduce in patch series where a lauching of 
-> domain actually happens.
-> 
-> Considering that you've already made a review, I prefer then to have 
-> this patch part of this patch series.
+> They will be called in follow-up patches.
 
-That's okay, but then please take my remark as an indication that once
-again the patch description makes implications on what the reader knows
-(without it being written down anywhere I'm aware of).
+In which case please provide some minimal information on the intended use.
 
->>> @@ -14,12 +27,109 @@ bool aia_available(void)
->>>       return is_aia_available;
+>>> --- a/xen/arch/riscv/imsic.c
+>>> +++ b/xen/arch/riscv/imsic.c
+>>> @@ -59,6 +59,29 @@ do {                            \
+>>>       csr_clear(CSR_SIREG, v);    \
+>>>   } while (0)
+>>>   
+>>> +unsigned int vcpu_guest_file_id(const struct vcpu *v)
+>>> +{
+>>> +    struct imsic_state *imsic_state = v->arch.imsic_state;
+>>> +    unsigned long flags;
+>>> +    unsigned int vsfile_id;
+>>> +
+>>> +    read_lock_irqsave(&imsic_state->vsfile_lock, flags);
+>>> +    vsfile_id = imsic_state->guest_file_id;
+>>> +    read_unlock_irqrestore(&imsic_state->vsfile_lock, flags);
+>>
+>> What purpose does this locking have? Already ...
+>>
+>>> +    return vsfile_id;
+>>
+>> ... here the value can be stale, if indeed there is a chance of races.
+>> Did you perhaps mean to use ACCESS_ONCE() here and where the value is
+>> set?
+> 
+> ACCESS_ONCE() isn't guarantee only compiler re-ordering (as basically it 
+> is just volatile-related stuff inisde the macros)?
+> 
+> Generally, I think that that guest_file_id is needed to be updated only 
+> during migration of vCPU from one pCPU to another and I expect that 
+> during this migration vCPU isn't active, so no one will want to read 
+> imsic_state->guest_file_id. But on the other hand, there is:
+>    bool imsic_has_interrupt(const struct vcpu *vcpu)
+>    {
+>    ...
+>      /*
+>       * The IMSIC SW-file directly injects interrupt via hvip so
+>       * only check for interrupt when IMSIC VS-file is being used.
+>       */
+> 
+>      read_lock_irqsave(&imsic_state->vsfile_lock, flags);
+>      if ( imsic_state->vsfile_pcpu != NR_CPUS )
+>          ret = !!(csr_read(CSR_HGEIP) & BIT(imsic_state->guest_file_id, 
+> UL));
+>      read_unlock_irqrestore(&imsic_state->vsfile_lock, flags);
+>    ...
+>    }
+> which I think could be called in parallel with with migration, so then 
+> still lock are needed.
+
+None of this addresses my pointing out that the returned value will be
+stale by the point the caller gets to look at it. Which in turn raises
+said question about the use of a lock. If you read
+imsic_state->guest_file_id atomically (i.e. excluding tearing of reads),
+the value seen / used will be stale as with the lock in use. Unless of
+course there's yet another aspect hidden somewhere in what is not being
+explained.
+
+>>> @@ -315,6 +338,25 @@ static int imsic_parse_node(const struct dt_device_node *node,
+>>>       return 0;
 >>>   }
 >>>   
->>> +int __init vgein_init(unsigned int cpu)
+>>> +int __init vcpu_imsic_init(struct vcpu *v)
 >>
->> If this needs invoking once per CPU being brought up, it can't be __init.
+>> __init for a function involved in setting up a vCPU?
 > 
-> Yes, it is going to be called inside the secondary CPU bring-up function.
-> 
-> __init sections are removed much later, after all CPUs are brought up, 
-> so it looks like that at the moment when secondary CPUs are being 
-> brought up, __init still exists and can be called.
+> Yes, it will be used during creationg of a vCPU.
 
-No. And I said so before. See XEN_SYSCTL_cpu_hotplug (and ignore it having
-"hotplug" in the name, but merely consider that you can take CPUs offline
-at runtime, and later bring them online again).
-
->> Also - static?
-> 
-> It isn't static because it will be called inside the secondary CPU 
-> bring-up function.
-
-As it doesn't need calling from the outside for the boot CPU, it's not
-obvious why it would need calling from the outside for secondary ones.
-
->>> +{
->>> +    struct vgein_bmp *vgein = &per_cpu(vgein_bmp, cpu);
->>> +
->>> +    csr_write(CSR_HGEIE, -1UL);
->>> +    vgein->geilen = flsl(csr_read(CSR_HGEIE));
->>> +    csr_write(CSR_HGEIE, 0);
->>> +    if ( vgein->geilen )
->>> +        vgein->geilen--;
->>
->> I don't understand this. The "len" in "geilen" stands for "length", I suppose,
->> i.e. the number of bits. Hmm, the spec itself is inconsistent: "The number of
->> bits implemented in hgeip and hgeie for guest external interrupts is UNSPECIFIED
->> and may be zero. This number is known as GEILEN." This may or may not include
->> bit 0 (which is implemented, but r/o zero). Then saying "Hence, if GEILEN is
->> nonzero, bits GEILEN:1 shall be writable in ..." suggests 0 isn't included, but
->> that's not unambiguous.
-> 
-> But they explicitly wrote that: The least-significant bits are 
-> implemented first, apart from bit 0. So bit 0 is explicitly excluded.
-
-Fine, but not including it in anything named *LEN feels - as said - ambiguous.
-
->>> +    /*
->>> +     * All vCPU guest interrupt files are used and we don't support a case
->>> +     * when number of vCPU on 1 pCPU is bigger then geilen.
->>> +     */
->>
->> This wants checking in vgein_init() then. CPUs (beyond the boot one)
->> violating this should not be brought online.
-> 
-> It'll be nice. But we can't know how many vCPUs will be ran on pCPU when 
-> vgein_init() is executed.
-
-I don't understand: How does it matter how many vCPU-s will exist later on
-(and will run wherever)?
-
->>> +    ASSERT(vgein_id < vgein_bmp->geilen);
->>
->> What if not bit is available? By asserting, you assume the caller will not
->> call here when no ID is available.
-> 
-> It is just a temporary ASSERT() (as we don't support software guest 
-> interrupt files) because in general it is fine if there is no bit 
-> available, it will just mean that that no physical hardware guest 
-> interrupt file is assigned to the virtual hart, and software-based 
-> emulation (a "software file") must be used to handle guest external 
-> interrupts.
-> 
-> Will it be better to return 0 now here and just don't create a vCPU
-> on ...
-> 
->   Yet there is no caller of this function,
->> so how can one verify whether this assertion is appropriate?
-> 
-> ... the caller side when an assignment is expected to be happen?
-
-Yes, you want to return errors for cases you can't handle. You wan to
-assert on internal state only, not on anything controlled by a caller
-outside of the hypervisor.
-
->>> +    bitmap_set(bmp, vgein_id, 1);
->>
->> __set_bit()?
-> 
-> I thought that it will be fine to use for bmp, bitmap_* functions(). 
-> __set_bit is what is called inside bitmap_set().
-
-Sure, but why make things look complicated? We use __set_bit() and
-friends all over the place on bitmaps. bitmap_*() exist for the less
-trivial cases.
-
->>> +    spin_unlock_irqrestore(&vgein_bmp->lock, flags);
->>> +
->>> +#ifdef VGEIN_DEBUG
->>> +    printk("%s: vgein_id(%u), xen_cpu%d_bmp=%#lx\n",
->>> +           __func__, vgen_id, v->processor, *vgein_bmp->bmp);
->>
->> I can't spot a difference from the message in vgein_assign(). How is one
->> to distinguish the two in a log?
-> 
-> By function name which is the first argument (__func__).
-
-My general take is that in gprintk() use of __func__ may be okay, but
-hardly anywhere else.
+And vCPU-s can be created post-boot, can't they? (Outside of dom0less
+of course, but imo you really don't want to tie each and every function
+to dom0less being the primary goal right now.)
 
 Jan
 
