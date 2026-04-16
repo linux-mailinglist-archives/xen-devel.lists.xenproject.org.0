@@ -2,50 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qGf5ABIf4GkPcwAAu9opvQ
+	id gDZBJkNX4GnyfAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 01:28:18 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 05:28:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E673408EFA
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 01:28:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1282922.1565282 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31A6F409F6B
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 05:28:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1282958.1565290 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wD9e9-0003bq-Ll; Wed, 15 Apr 2026 23:27:49 +0000
+	id 1wDDNO-00080a-BR; Thu, 16 Apr 2026 03:26:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1282922.1565282; Wed, 15 Apr 2026 23:27:49 +0000
+Received: by outflank-mailman (output) from mailman id 1282958.1565290; Thu, 16 Apr 2026 03:26:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wD9e9-0003ZN-IH; Wed, 15 Apr 2026 23:27:49 +0000
-Received: by outflank-mailman (input) for mailman id 1282922;
- Wed, 15 Apr 2026 23:27:48 +0000
+	id 1wDDNO-0007xa-4e; Thu, 16 Apr 2026 03:26:46 +0000
+Received: by outflank-mailman (input) for mailman id 1282958;
+ Thu, 16 Apr 2026 03:26:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <demiobenour@gmail.com>) id 1wD9e8-0003ZH-Jw
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2026 23:27:48 +0000
+ (envelope-from <vijayanand.jitta@oss.qualcomm.com>)
+ id 1wDDNM-0007xU-RT
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 03:26:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wD9e8-003kVm-0n
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 01:27:48 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wDDNL-00Gn7I-GX
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 05:26:43 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <demiobenour@gmail.com>)
- id 69e01ef3-2eae-0a2a0a5409dd-0a2a45059de4-2
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 01:27:47 +0200
-Received: from [74.125.224.47] (helo=mail-yx1-f47.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <demiobenour@gmail.com>)
- id 69e01ef2-3760-0a2a45050019-4a7de02fe84c-3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 01:27:47 +0200
-Received: by mail-yx1-f47.google.com with SMTP id
- 956f58d0204a3-64d5a7926cfso7078547d50.2
- for <xen-devel@lists.xenproject.org>; Wed, 15 Apr 2026 16:27:47 -0700 (PDT)
-Received: from [10.138.34.110]
- (h96-60-57-129.cncrtn.broadband.dynamic.tds.net. [96.60.57.129])
+ (envelope-from <vijayanand.jitta@oss.qualcomm.com>)
+ id 69e056d0-e002-0a2a0a5209dd-0a2a4501af84-22
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 05:26:43 +0200
+Received: from [205.220.168.131] (helo=mx0a-0031df01.pphosted.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <vijayanand.jitta@oss.qualcomm.com>)
+ id 69e056f1-c1f2-0a2a45010019-cddca88395ca-3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 05:26:42 +0200
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 63G0UTZQ2834981
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 03:26:40 GMT
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4djcsvj3fr-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 03:26:40 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-82f2478c37bso6176814b3a.3
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Apr 2026 20:26:40 -0700 (PDT)
+Received: from [10.219.57.109] ([202.46.23.19])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-652e4508655sm1421019d50.7.2026.04.15.16.27.44
+ d2e1a72fcca58-82f6707b6b8sm4265094b3a.22.2026.04.15.20.26.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Apr 2026 16:27:44 -0700 (PDT)
+ Wed, 15 Apr 2026 20:26:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,377 +66,482 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Autocrypt:Subject:From:Cc:To:Content-Language:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=qcppdkim1 header.d=qualcomm.com header.i="@qualcomm.com" header.h="Cc:Content-Transfer-Encoding:Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=google header.d=oss.qualcomm.com header.i="@oss.qualcomm.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vDK6pAlGwxYE897uZGp1sSM8FaPwo0OHKjiLMvDJlSM=; b=SWY9Qd3WKivoaF5z
+	JCNUWFn6lHYDHyOuTykCB5IdRbNsUrvJXHcbkMpoXZzEFaGmmiVh4/iNs5m2m3/d
+	1ctBxyEGpnQhAu31duNagl7MvxO6Dphq86jgT8s1bddtRVBYt5aiZvC0Q06xHb4f
+	pJ5mQ251/oFa31hOjocFi81oL7nTanhTsaxGMhiRvRj3+79HdoaaaOzK6DQpIlj8
+	DMKRTns25lEdApCluihx1mohx8vnRlScMBm04DII0VQ2demD5TuPnhQ0Qu4l9aQk
+	+r4A6uDr4avQHRyxxypoO1lgUgcJ9ZoXxMNexwA1OoF0Yg1Uo5d1Y4vVKNY0rEpu
+	3CT5jQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776295666; x=1776900466; darn=lists.xenproject.org;
-        h=autocrypt:subject:from:cc:to:content-language:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=imz3KCjPXDAeJK06QDpjVtxLVaZQKFSQV7ZyOqZpsjU=;
-        b=AAl/I0LUNX6ipMZWFkNu4BCEejOaNWZytZ75Ax8RAwQotKStJbmiXNyJZ0yu1czAcp
-         cBU2UJQBxLeyoYuiYI8XZX090Y0ggB0kiPh06hsYW9toGshWWqX+1VPXraqtq60CIIyT
-         Oh4o+zZoMbCcBFm7T2AE8gKDvj13A8FxLDVCFsih1F9ZDAxVCQacef8/dTfLO5pxmDei
-         U+u2DKEjgWEkASQjoZmqgvC5JKb7IEAQa9J3SKghBSTCc9aS7A0HY4aJP61snMAyTfYa
-         9qcgPEvwo7sXSRV0l1GKb2aGyld/CElncfsqvl92eLA24sSuAz1foX7ZwNGRDfXxLsYL
-         5LtQ==
+        d=oss.qualcomm.com; s=google; t=1776310000; x=1776914800; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vDK6pAlGwxYE897uZGp1sSM8FaPwo0OHKjiLMvDJlSM=;
+        b=hwFvBdHvLdqB6TUnyx1q8nwzoCCm/VUE4GicCwVwSIValWezyP30/w3rvnrlOwzKtB
+         NbhCD8RLQCL7TJiJnr2TzV+6bQ8BW2RoPZjLZOlmplmew6hXiU1n3G70FtX6URX2RjXj
+         gSByxuybyuk/fPFtBsa2zgfstVnyCxo3Ht/OgFxgSdDP8vqB+1Ud1K3z0MT5N1GjPBkP
+         giItmh5xSvNu62+f3Jyk6da5BQFfJjiNyEy+OfvrarML9uhT8X6WDTO00ksARdd5iKNy
+         rkhsHS/+0QaNBnnCl8in/8UdKFtGbVIaUbky2wx3+9ywLT7xX5BeO71MN38TCqNHZ+c6
+         4mKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776295666; x=1776900466;
-        h=autocrypt:subject:from:cc:to:content-language:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=imz3KCjPXDAeJK06QDpjVtxLVaZQKFSQV7ZyOqZpsjU=;
-        b=rkEmUi+QlJpKpX//YVHBBxEPUFOXvIqjvsL75p+vTOCP97eII/qAS6Kla5ihFYt7L0
-         pK8ziINeWT/qmqKt6Z2osTQRpzwPG3BcAR96pB831LcjYAk1uKoteFNkZBJWwi9BcAGF
-         mvnsJFzpdhLum4vevRO47Pp36rCtQtc/F/g8rB+MmbxjLNdRRL34ihjLxci++GWi18ma
-         q4pDsJbGlpcKtGQW79Boq2CR37UhGhuhFdoYcxGysrHOBFdvH0D2aTt01SGv0G1b8E22
-         QbleqnJcfc8lXjiwJJwMFzY8878MtVES1QnaH2RlZxTBRH+NvVms6FdNzvVdXIxJPCAO
-         zqOA==
-X-Forwarded-Encrypted: i=1; AFNElJ8i8dAZFU1+2GBSlceMnYhHRwL/RKIzOsY0RUyMzuyxWTDx1iuHTMASK8QglNnDamB4mfnsRZbUhP4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyCSF6MuE21yzUFU6z4oowHT8eLjxZrqOs4PiSjmwqfx5Hq9i7n
-	nWhI4dOxOFb+yvgY01YK2nQj4hymxI0hy5hvgRLX1D0IEihiWSLYcCqF
-X-Gm-Gg: AeBDiev+YrRbcfH3BVri7bHNZSDyTOxuw4Q3s5o0uBsQQeRYz5g7NaZcgJqlT/r8CJF
-	nzX6PXiWE2/DSw3voAg3AqnvJXhyyf/VtBlC6HZaSBdS7ckdEz1gEKqRbDm3rACFUlirRArkaBc
-	umJ8OXqfsvQsNvfAvAIqa65Wz3p3i7nNaKEnn2jB+e5giuCvOCJoG+IPRy5lTQrgRgivoQk7cES
-	18p7AghNUaP2n1zXZ8YS4qc84+lY0JMwSkSboHBo4nYVVSc3lU50dpS5nSTmGL4dmyRbODbYLwW
-	qlB6oW1ULUo3jGx0VYaUADqxBjwIy9cahtrS4cm/9nfYsRv5OWC9hz3bkupfLtgj5BDrb+91/pZ
-	Jxn4NPNgDOoxV3pnyfp9yqcLy/hkAw1DPbcpT48MMdNmo8PL1wPf+cux/hbbwc6dZnhgjSxbgRT
-	i8/vyUadOIA2kgRo0ntw6hn2SPzmuIV2irJXrzzqQopMDmzx7HyBq3kQDAK74rx7Me8qi9MyZAG
-	3NjJtzW81hAWs+/S3vGOaF2Tm7e4NPeljAFtsPUMR0X+p4=
-X-Received: by 2002:a05:690e:1241:b0:651:b13e:f9ef with SMTP id 956f58d0204a3-651b13f1902mr17149939d50.14.1776295665843;
-        Wed, 15 Apr 2026 16:27:45 -0700 (PDT)
-Message-ID: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
-Date: Wed, 15 Apr 2026 19:27:40 -0400
+        d=1e100.net; s=20251104; t=1776310000; x=1776914800;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vDK6pAlGwxYE897uZGp1sSM8FaPwo0OHKjiLMvDJlSM=;
+        b=FR3RjQd9CeiHbJzQ/t3AGyHsOj9lTdOTwexUaZWSojcRoJZAhG9ExiN2GRdRST4eye
+         +wpplwtFXdQXDm6fFu+JnPaEbl+s8GpRMZVHD3i5Mi07FaTFxEkN2l4yvTWiX5gW2lK3
+         fNE+cmffP02yFigwsH5216UuyRrY88irl+QZN1EoFjM8vcj4WA2wKOWYQBeqJD05MBfy
+         7KpqUID2wxo00N5lK4T+v8viyanXBKrzC+Cual6+IBQUa33vSs1bfNIQm9AnnPxiJKjP
+         otSUnb8NDjNPX84hmWDMV8H9G7kyw8X6hcfFbsXzgzUBpB7p3VN0wxiZ2MLtsLD38Ig6
+         kd1g==
+X-Forwarded-Encrypted: i=1; AFNElJ/ScQ1+c+V9448J8kSS+1Qz4zFd25KjBVt5t0U/A/OPZXpMY8f4zaTZuCnqcTENfAavTlDqxLXhTv8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyMJkuxHebQarb0SDNXpc8GeClIArWxoPQA19ri91J/jiT4Kolb
+	Hy0iY5ZuQtRK3Cg08OhVUxvjHAfyHiegUnrs9Nm0Q+qs0C32nzzPjqIhqFLtkhVsgSJ4ziss32T
+	qXyVGAIl0kqzYS8eryK0X5A1wKaahD/JxbU4VU7YRqDFAD8cLk1bPLKOkO1vnpkp/sCHZQg==
+X-Gm-Gg: AeBDietEzj6JIhQ+GuKX1kHt/PsSgY5oUsTePgC9jUxYzmq9wsgFny9OU5eX6SUihj+
+	aRthhPg+WI4bwQszG6rTV53T6NqK9cLMDa/fdKfpQ7Uig40u3lTmZr+JqwJz+C1SIOQV49N2UMv
+	vvX9h39etUmX4hMWYAsvKFkHd4Cy0mDJeu338dunlLO71/Duk6o9xSR3oGNRLpP0yQ4fjzwevkG
+	2uEWHv8gpt6bYNBij4K4URvbfqHKp7drfRnjR42+JgDnSalFabbqEsp8oQ8Qxq6Uk2iz5W/hA1j
+	WXMO5iFc62D0zkaFOiN06kstBj4BEeo2X0iOYBaX9Jgud50K/jFPqTcZlMI7Xtv/vJ+C2eZ1UH1
+	Gy4oh8w9J4vWK+OFkOiVamOTlLxqnED0Ivd4hDpL4vpqQ6QgrfAVUjzxd
+X-Received: by 2002:a05:6a00:3924:b0:82c:77cd:50e8 with SMTP id d2e1a72fcca58-82f0c30f593mr23470678b3a.27.1776309999733;
+        Wed, 15 Apr 2026 20:26:39 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3924:b0:82c:77cd:50e8 with SMTP id d2e1a72fcca58-82f0c30f593mr23470629b3a.27.1776309999089;
+        Wed, 15 Apr 2026 20:26:39 -0700 (PDT)
+Message-ID: <555b2695-1feb-482b-aec2-d6f3f2b2ef0e@oss.qualcomm.com>
+Date: Thu, 16 Apr 2026 08:56:24 +0530
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 3/3] of: Respect #{iommu,msi}-cells in maps
+To: Nipun Gupta <nipun.gupta@amd.com>,
+        Nikhil Agarwal
+ <nikhil.agarwal@amd.com>,
+        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Thomas Gleixner <tglx@kernel.org>,
+        Saravana Kannan <saravanak@kernel.org>,
+        Richard Zhu <hongxing.zhu@nxp.com>,
+        Lucas Stach <l.stach@pengutronix.de>,
+        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Bjorn Helgaas
+ <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-pci@vger.kernel.org, imx@lists.linux.dev,
+        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
+        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
+References: <20260408-parse_iommu_cells-v13-0-fa921e92661b@oss.qualcomm.com>
+ <20260408-parse_iommu_cells-v13-3-fa921e92661b@oss.qualcomm.com>
 Content-Language: en-US
-To: dri-devel@lists.freedesktop.org,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
- linux-media@vger.kernel.org
-Cc: Val Packett <val@invisiblethingslab.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Suwit Semal <sumit.semwal@linaro.org>
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Subject: Pinned, non-revocable mappings of VRAM: will bad things happen?
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------JwJpbZ3mHpzXPLUp0B7FWWj5"
-X-purgate-ID: tlsNG-c201ff/1776295667-38BE896F-450ED4F7/0/0
+From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+In-Reply-To: <20260408-parse_iommu_cells-v13-3-fa921e92661b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 6O7hIPU-KsNlEwkCnCKDetfjLj9HUHBU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDE2MDAyOSBTYWx0ZWRfX1dbmOrPr6IHL
+ xhT7bbt8Wy+vx7CLhftFT6xSqiHtwqsfjL/h0paqvJKvmXWH1Wi6B5YBNpgFaCXVt6vMQjW1JXI
+ IQqLSZk3H/LbAoN0/6/DWMkCOnGYQQkCBLruWOuLdaYME+J6o/d5lMTQR66TEUn3eXKCjiTVXdl
+ SVG/xjmg3oep92fjSmQUJicqTiPLfqaxYopRB6Z23deV+WTpVgW9vn6B6uwGJclsFg4ZzQ7E/eF
+ YGjpWGRJJOxxiI6UBZbJ7kICbFbqodrAz5zz4SmUlOIF2UFZdTRelaFc7xjjKEQhGev9xDeUnRV
+ PW1VtPMvvC3BYiEaA9KJjognlqxoia2s/Fyej9n5411MFQz/hoD1/quWPEk9SsOcPO9lvcZ6Nmc
+ 4TmdrbhOfxSlNiDcrK9/ua7kUACo0ss0k5Cgd9nF31pJ3+1rF3M+73BLUsOzc12z3DA+j+zxWv2
+ gJL5ZRcn1mcaVmWhsqg==
+X-Authority-Analysis: v=2.4 cv=Iby3n2qa c=1 sm=1 tr=0 ts=69e056f0 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=OsyBWCJeBE2wmg0BnjgA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: 6O7hIPU-KsNlEwkCnCKDetfjLj9HUHBU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-04-16_01,2026-04-13_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 priorityscore=1501 suspectscore=0 phishscore=0
+ bulkscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2604070000 definitions=main-2604160029
+X-purgate-ID: tlsNG-d62444/1776310003-B6C7CFF4-926DCFCE/0/0
 X-purgate-type: clean
-X-purgate-size: 13809
-X-Spamd-Result: default: False [-2.18 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	SUBJECT_ENDS_QUESTION(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+X-purgate-size: 12762
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	MAILLIST(-0.18)[generic];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER(0.00)[demiobenour@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	ASN_FAIL(0.00)[120.175.237.192.asn.rspamd.com:server fail];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dri-devel@lists.freedesktop.org,m:xen-devel@lists.xenproject.org,m:linux-media@vger.kernel.org,m:val@invisiblethingslab.com,m:christian.koenig@amd.com,m:sumit.semwal@linaro.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	RCPT_COUNT_TWELVE(0.00)[38];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:maz@kernel.org,m:lpieralisi@kernel.org,m:tglx@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:linux-arm-msm@vger.kernel.org,m:charan.kalla@oss.qualcomm.com,m:cono
+ r@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[amd.com,8bytes.org,kernel.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com,oss.qualcomm.com];
+	FORGED_SENDER(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[demiobenour@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	RCVD_COUNT_TWELVE(0.00)[12];
+	FROM_NEQ_ENVFROM(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_FIVE(0.00)[6];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 3E673408EFA
+	NEURAL_HAM(-0.00)[-0.999];
+	TAGGED_RCPT(0.00)[xen-devel,dt];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,oss.qualcomm.com:dkim,oss.qualcomm.com:mid]
+X-Rspamd-Queue-Id: 31A6F409F6B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------JwJpbZ3mHpzXPLUp0B7FWWj5
-Content-Type: multipart/mixed; boundary="------------j4Zxq0OS2K7J4oc5TzDSXxST";
- protected-headers="v1"
-Message-ID: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
-Date: Wed, 15 Apr 2026 19:27:40 -0400
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: dri-devel@lists.freedesktop.org,
- Xen developer discussion <xen-devel@lists.xenproject.org>,
- linux-media@vger.kernel.org
-Cc: Val Packett <val@invisiblethingslab.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Suwit Semal <sumit.semwal@linaro.org>
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Subject: Pinned, non-revocable mappings of VRAM: will bad things happen?
-Autocrypt: addr=demiobenour@gmail.com; keydata=
- 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
- +MYSfkEjBz0E8CLOcAw7JIwAaeBT
 
---------------j4Zxq0OS2K7J4oc5TzDSXxST
-Content-Type: multipart/mixed; boundary="------------Ta5juJgfI0DZ27VwkVPMBljQ"
 
---------------Ta5juJgfI0DZ27VwkVPMBljQ
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On 4/8/2026 3:33 PM, Vijayanand Jitta wrote:
+> From: Robin Murphy <robin.murphy@arm.com>
+> 
+> So far our parsing of {iommu,msi}-map properties has always blindly
+> assumed that the output specifiers will always have exactly 1 cell.
+> This typically does happen to be the case, but is not actually enforced
+> (and the PCI msi-map binding even explicitly states support for 0 or 1
+> cells) - as a result we've now ended up with dodgy DTs out in the field
+> which depend on this behaviour to map a 1-cell specifier for a 2-cell
+> provider, despite that being bogus per the bindings themselves.
+> 
+> Since there is some potential use in being able to map at least single
+> input IDs to multi-cell output specifiers (and properly support 0-cell
+> outputs as well), add support for properly parsing and using the target
+> nodes' #cells values, albeit with the unfortunate complication of still
+> having to work around expectations of the old behaviour too.
+> 
+> Since there are multi-cell output specifiers, the callers of of_map_id()
+> may need to get the exact cell output value for further processing.
+> Update of_map_id() to set args_count in the output to reflect the actual
+> number of output specifier cells.
+> 
+> Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+> Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
+> Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+> ---
+>  drivers/of/base.c  | 157 +++++++++++++++++++++++++++++++++++++++++------------
+>  include/linux/of.h |   6 +-
+>  2 files changed, 125 insertions(+), 38 deletions(-)
+> 
+> diff --git a/drivers/of/base.c b/drivers/of/base.c
+> index b3d002015192..2554e4f1a181 100644
+> --- a/drivers/of/base.c
+> +++ b/drivers/of/base.c
+> @@ -2096,18 +2096,48 @@ int of_find_last_cache_level(unsigned int cpu)
+>  	return cache_level;
+>  }
+>  
+> +/*
+> + * Some DTs have an iommu-map targeting a 2-cell IOMMU node while
+> + * specifying only 1 cell. Fortunately they all consist of value '1'
+> + * as the 2nd cell entry with the same target, so check for that pattern.
+> + *
+> + * Example:
+> + *	IOMMU node:
+> + *		#iommu-cells = <2>;
+> + *
+> + *	Device node:
+> + *		iommu-map = <0x0000 &smmu 0x0000 0x1>,
+> + *			    <0x0100 &smmu 0x0100 0x1>;
+> + */
+> +static bool of_check_bad_map(const __be32 *map, int len)
+> +{
+> +	__be32 phandle = map[1];
+> +
+> +	if (len % 4)
+> +		return false;
+> +	for (int i = 0; i < len; i += 4) {
+> +		if (map[i + 1] != phandle || map[i + 3] != cpu_to_be32(1))
+> +			return false;
+> +	}
+> +	return true;
+> +}
+> +
+>  /**
+>   * of_map_id - Translate an ID through a downstream mapping.
+>   * @np: root complex device node.
+>   * @id: device ID to map.
+>   * @map_name: property name of the map to use.
+> + * @cells_name: property name of target specifier cells.
+>   * @map_mask_name: optional property name of the mask to use.
+>   * @filter_np: optional device node to filter matches by, or NULL to match any.
+>   *	If non-NULL, only map entries targeting this node will be matched.
+>   * @arg: pointer to a &struct of_phandle_args for the result. On success,
+> - *	@arg->args[0] will contain the translated ID. If a map entry was
+> - *	matched, @arg->np will be set to the target node with a reference
+> - *	held that the caller must release with of_node_put().
+> + *	@arg->args_count will be set to the number of output specifier cells
+> + *	as defined by @cells_name in the target node, and
+> + *	@arg->args[0..args_count-1] will contain the translated output
+> + *	specifier values. If a map entry was matched, @arg->np will be set
+> + *	to the target node with a reference held that the caller must release
+> + *	with of_node_put().
+>   *
+>   * Given a device ID, look up the appropriate implementation-defined
+>   * platform ID and/or the target device which receives transactions on that
+> @@ -2116,17 +2146,19 @@ int of_find_last_cache_level(unsigned int cpu)
+>   * Return: 0 on success or a standard error code on failure.
+>   */
+>  int of_map_id(const struct device_node *np, u32 id,
+> -	       const char *map_name, const char *map_mask_name,
+> +	       const char *map_name, const char *cells_name,
+> +	       const char *map_mask_name,
+>  	       const struct device_node *filter_np, struct of_phandle_args *arg)
+>  {
+>  	u32 map_mask, masked_id;
+> -	int map_len;
+> +	int map_bytes, map_len, offset = 0;
+> +	bool bad_map = false;
+>  	const __be32 *map = NULL;
+>  
+>  	if (!np || !map_name || !arg)
+>  		return -EINVAL;
+>  
+> -	map = of_get_property(np, map_name, &map_len);
+> +	map = of_get_property(np, map_name, &map_bytes);
+>  	if (!map) {
+>  		if (filter_np)
+>  			return -ENODEV;
+> @@ -2136,11 +2168,9 @@ int of_map_id(const struct device_node *np, u32 id,
+>  		return 0;
+>  	}
+>  
+> -	if (!map_len || map_len % (4 * sizeof(*map))) {
+> -		pr_err("%pOF: Error: Bad %s length: %d\n", np,
+> -			map_name, map_len);
+> -		return -EINVAL;
+> -	}
+> +	if (map_bytes % sizeof(*map))
+> +		goto err_map_len;
+> +	map_len = map_bytes / sizeof(*map);
+>  
+>  	/* The default is to select all bits. */
+>  	map_mask = 0xffffffff;
+> @@ -2153,39 +2183,84 @@ int of_map_id(const struct device_node *np, u32 id,
+>  		of_property_read_u32(np, map_mask_name, &map_mask);
+>  
+>  	masked_id = map_mask & id;
+> -	for ( ; map_len > 0; map_len -= 4 * sizeof(*map), map += 4) {
+> +
+> +	while (offset < map_len) {
+>  		struct device_node *phandle_node;
+> -		u32 id_base = be32_to_cpup(map + 0);
+> -		u32 phandle = be32_to_cpup(map + 1);
+> -		u32 out_base = be32_to_cpup(map + 2);
+> -		u32 id_len = be32_to_cpup(map + 3);
+> +		u32 id_base, phandle, id_len, id_off, cells = 0;
+> +		const __be32 *out_base;
+> +
+> +		if (map_len - offset < 2)
+> +			goto err_map_len;
+> +
+> +		id_base = be32_to_cpup(map + offset);
+>  
+>  		if (id_base & ~map_mask) {
+> -			pr_err("%pOF: Invalid %s translation - %s-mask (0x%x) ignores id-base (0x%x)\n",
+> -				np, map_name, map_name,
+> -				map_mask, id_base);
+> +			pr_err("%pOF: Invalid %s translation - %s (0x%x) ignores id-base (0x%x)\n",
+> +			       np, map_name, map_mask_name, map_mask, id_base);
+>  			return -EFAULT;
+>  		}
+>  
+> -		if (masked_id < id_base || masked_id >= id_base + id_len)
+> -			continue;
+> -
+> +		phandle = be32_to_cpup(map + offset + 1);
+>  		phandle_node = of_find_node_by_phandle(phandle);
+>  		if (!phandle_node)
+>  			return -ENODEV;
+>  
+> +		if (bad_map) {
+> +			cells = 1;
+> +		} else if (of_property_read_u32(phandle_node, cells_name, &cells)) {
+> +			pr_err("%pOF: missing %s property\n", phandle_node, cells_name);
+> +			of_node_put(phandle_node);
+> +			return -EINVAL;
+> +		}
+> +
+> +		if (map_len - offset < 3 + cells) {
+> +			of_node_put(phandle_node);
+> +			goto err_map_len;
+> +		}
+> +
+> +		if (offset == 0 && cells == 2) {
+> +			bad_map = of_check_bad_map(map, map_len);
+> +			if (bad_map) {
+> +				pr_warn_once("%pOF: %s mismatches target %s, assuming extra cell of 0\n",
+> +					     np, map_name, cells_name);
+> +				cells = 1;
+> +			}
+> +		}
+> +
+> +		out_base = map + offset + 2;
+> +		offset += 3 + cells;
+> +
+> +		id_len = be32_to_cpup(map + offset - 1);
+> +		if (id_len > 1 && cells > 1) {
+> +			/*
+> +			 * With 1 output cell we reasonably assume its value
+> +			 * has a linear relationship to the input; with more,
+> +			 * we'd need help from the provider to know what to do.
+> +			 */
+> +			pr_err("%pOF: Unsupported %s - cannot handle %d-ID range with %d-cell output specifier\n",
+> +			       np, map_name, id_len, cells);
+> +			of_node_put(phandle_node);
+> +			return -EINVAL;
+> +		}
+> +		id_off = masked_id - id_base;
+> +		if (masked_id < id_base || id_off >= id_len) {
+> +			of_node_put(phandle_node);
+> +			continue;
+> +		}
+> +
+>  		if (filter_np && filter_np != phandle_node) {
+>  			of_node_put(phandle_node);
+>  			continue;
+>  		}
+>  
+>  		arg->np = phandle_node;
+> -		arg->args[0] = masked_id - id_base + out_base;
+> -		arg->args_count = 1;
+> +		for (int i = 0; i < cells; i++)
+> +			arg->args[i] = id_off + be32_to_cpu(out_base[i]);
+> +		arg->args_count = cells;
+>  
+>  		pr_debug("%pOF: %s, using mask %08x, id-base: %08x, out-base: %08x, length: %08x, id: %08x -> %08x\n",
+> -			np, map_name, map_mask, id_base, out_base,
+> -			id_len, id, masked_id - id_base + out_base);
+> +			np, map_name, map_mask, id_base, be32_to_cpup(out_base),
+> +			id_len, id, id_off + be32_to_cpup(out_base));
+>  		return 0;
+>  	}
+>  
+> @@ -2196,6 +2271,10 @@ int of_map_id(const struct device_node *np, u32 id,
+>  	arg->args[0] = id;
+>  	arg->args_count = 1;
+>  	return 0;
+> +
+> +err_map_len:
+> +	pr_err("%pOF: Error: Bad %s length: %d\n", np, map_name, map_bytes);
+> +	return -EINVAL;
+>  }
+>  EXPORT_SYMBOL_GPL(of_map_id);
+>  
+> @@ -2205,18 +2284,21 @@ EXPORT_SYMBOL_GPL(of_map_id);
+>   * @id: Requester ID of the device (e.g. PCI RID/BDF or a platform
+>   *      stream/device ID) used as the lookup key in the iommu-map table.
+>   * @arg: pointer to a &struct of_phandle_args for the result. On success,
+> - *	@arg->args[0] contains the translated ID. If a map entry was matched,
+> - *	@arg->np holds a reference to the target node that the caller must
+> - *	release with of_node_put().
+> + *	@arg->args_count will be set to the number of output specifier cells
+> + *	and @arg->args[0..args_count-1] will contain the translated output
+> + *	specifier values. If a map entry was matched, @arg->np holds a
+> + *	reference to the target node that the caller must release with
+> + *	of_node_put().
+>   *
+> - * Convenience wrapper around of_map_id() using "iommu-map" and "iommu-map-mask".
+> + * Convenience wrapper around of_map_id() using "iommu-map", "#iommu-cells",
+> + * and "iommu-map-mask".
+>   *
+>   * Return: 0 on success or a standard error code on failure.
+>   */
+>  int of_map_iommu_id(const struct device_node *np, u32 id,
+>  		    struct of_phandle_args *arg)
+>  {
+> -	return of_map_id(np, id, "iommu-map", "iommu-map-mask", NULL, arg);
+> +	return of_map_id(np, id, "iommu-map", "#iommu-cells", "iommu-map-mask", NULL, arg);
+>  }
+>  EXPORT_SYMBOL_GPL(of_map_iommu_id);
+>  
+> @@ -2229,17 +2311,20 @@ EXPORT_SYMBOL_GPL(of_map_iommu_id);
+>   *	to match any. If non-NULL, only map entries targeting this node will
+>   *	be matched.
+>   * @arg: pointer to a &struct of_phandle_args for the result. On success,
+> - *	@arg->args[0] contains the translated ID. If a map entry was matched,
+> - *	@arg->np holds a reference to the target node that the caller must
+> - *	release with of_node_put().
+> + *	@arg->args_count will be set to the number of output specifier cells
+> + *	and @arg->args[0..args_count-1] will contain the translated output
+> + *	specifier values. If a map entry was matched, @arg->np holds a
+> + *	reference to the target node that the caller must release with
+> + *	of_node_put().
+>   *
+> - * Convenience wrapper around of_map_id() using "msi-map" and "msi-map-mask".
+> + * Convenience wrapper around of_map_id() using "msi-map", "#msi-cells",
+> + * and "msi-map-mask".
+>   *
+>   * Return: 0 on success or a standard error code on failure.
+>   */
+>  int of_map_msi_id(const struct device_node *np, u32 id,
+>  		  const struct device_node *filter_np, struct of_phandle_args *arg)
+>  {
+> -	return of_map_id(np, id, "msi-map", "msi-map-mask", filter_np, arg);
+> +	return of_map_id(np, id, "msi-map", "#msi-cells", "msi-map-mask", filter_np, arg);
+>  }
+>  EXPORT_SYMBOL_GPL(of_map_msi_id);
+> diff --git a/include/linux/of.h b/include/linux/of.h
+> index 8548cd9eb4f1..51ac8539f2c3 100644
+> --- a/include/linux/of.h
+> +++ b/include/linux/of.h
+> @@ -462,7 +462,8 @@ const char *of_prop_next_string(const struct property *prop, const char *cur);
+>  bool of_console_check(const struct device_node *dn, char *name, int index);
+>  
+>  int of_map_id(const struct device_node *np, u32 id,
+> -	       const char *map_name, const char *map_mask_name,
+> +	       const char *map_name, const char *cells_name,
+> +	       const char *map_mask_name,
+>  	       const struct device_node *filter_np, struct of_phandle_args *arg);
+>  
+>  int of_map_iommu_id(const struct device_node *np, u32 id,
+> @@ -934,7 +935,8 @@ static inline void of_property_clear_flag(struct property *p, unsigned long flag
+>  }
+>  
+>  static inline int of_map_id(const struct device_node *np, u32 id,
+> -			     const char *map_name, const char *map_mask_name,
+> +			     const char *map_name, const char *cells_name,
+> +			     const char *map_mask_name,
+>  			     const struct device_node *filter_np,
+>  			     struct of_phandle_args *arg)
+>  {
+> 
 
-Is it safe to assume that if a dmabuf exporter cannot handle
-non-revocable, pinned importers, it will fail the import?  Or is
-using dma_buf_pin() unsafe if one does not know the exporter?
+Gentle ping.
 
-For context, Xen grant tables do not support revocation.  One can ask
-the guest to unmap the grants, but if the guest doesn't obey the only
-recourse is to ungracefully kill it.  They also do not support page
-faults, so the pages must be pinned.  Right now, grant tables don't
-support PCI BAR mappings, but that's fixable.
-
-How badly is this going to break with dGPU VRAM, if at all?  I know
-that AMDGPU has a fallback when the BAR isn't mappable.  What about
-other drivers?  Supporting page faults the way KVM does is going to
-be extremely hard, so pinned mappings and DMA transfers are vastly
-preferable.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-
---------------Ta5juJgfI0DZ27VwkVPMBljQ
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsFNBFp+A0oBEADffj6anl9/BHhUSxGTICeVl2tob7hPDdhHNgPR4C8xlYt5q49y
-B+l2nipdaq+4Gk6FZfqC825TKl7eRpUjMriwle4r3R0ydSIGcy4M6eb0IcxmuPYf
-bWpr/si88QKgyGSVZ7GeNW1UnzTdhYHuFlk8dBSmB1fzhEYEk0RcJqg4AKoq6/3/
-UorR+FaSuVwT7rqzGrTlscnTDlPWgRzrQ3jssesI7sZLm82E3pJSgaUoCdCOlL7M
-MPCJwI8JpPlBedRpe9tfVyfu3euTPLPxwcV3L/cfWPGSL4PofBtB8NUU6QwYiQ9H
-zx4xOyn67zW73/G0Q2vPPRst8LBDqlxLjbtx/WLR6h3nBc3eyuZ+q62HS1pJ5EvU
-T1vjyJ1ySrqtUXWQ4XlZyoEFUfpJxJoN0A9HCxmHGVckzTRl5FMWo8TCniHynNXs
-BtDQbabt7aNEOaAJdE7to0AH3T/Bvwzcp0ZJtBk0EM6YeMLtotUut7h2Bkg1b//r
-6bTBswMBXVJ5H44Qf0+eKeUg7whSC9qpYOzzrm7+0r9F5u3qF8ZTx55TJc2g656C
-9a1P1MYVysLvkLvS4H+crmxA/i08Tc1h+x9RRvqba4lSzZ6/Tmt60DPM5Sc4R0nS
-m9BBff0Nm0bSNRS8InXdO1Aq3362QKX2NOwcL5YaStwODNyZUqF7izjK4QARAQAB
-zTxEZW1pIE9iZW5vdXIgKElUTCBFbWFpbCBLZXkpIDxhdGhlbmFAaW52aXNpYmxl
-dGhpbmdzbGFiLmNvbT7CwY4EEwEIADgWIQR2h02fEza6IlkHHHGyiLVf/5wiwQUC
-X6YJvQIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCyiLVf/5wiwWRhD/0Y
-R+YYC5Kduv/2LBgQJIygMsFiRHbR4+tWXuTFqgrxxFSlMktZ6gQrQCWe38WnOXkB
-oY6n/5lSJdfnuGd2UagZ/9dkaGMUkqt+5WshLFly4BnP7pSsWReKgMP7etRTwn3S
-zk1OwFx2lzY1EnnconPLfPBc6rWG2moA6l0WX+3WNR1B1ndqpl2hPSjT2jUCBWDV
-rGOUSX7r5f1WgtBeNYnEXPBCUUM51pFGESmfHIXQrqFDA7nBNiIVFDJTmQzuEqIy
-Jl67pKNgooij5mKzRhFKHfjLRAH4mmWZlB9UjDStAfFBAoDFHwd1HL5VQCNQdqEc
-/9lZDApqWuCPadZN+pGouqLysesIYsNxUhJ7dtWOWHl0vs7/3qkWmWun/2uOJMQh
-ra2u8nA9g91FbOobWqjrDd6x3ZJoGQf4zLqjmn/P514gb697788e573WN/MpQ5XI
-Fl7aM2d6/GJiq6LC9T2gSUW4rbPBiqOCeiUx7Kd/sVm41p9TOA7fEG4bYddCfDsN
-xaQJH6VRK3NOuBUGeL+iQEVF5Xs6Yp+U+jwvv2M5Lel3EqAYo5xXTx4ls0xaxDCu
-fudcAh8CMMqx3fguSb7Mi31WlnZpk0fDuWQVNKyDP7lYpwc4nCCGNKCj622ZSocH
-AcQmX28L8pJdLYacv9pU3jPy4fHcQYvmTavTqowGnM08RGVtaSBNYXJpZSBPYmVu
-b3VyIChsb3ZlciBvZiBjb2RpbmcpIDxkZW1pb2Jlbm91ckBnbWFpbC5jb20+wsF4
-BBMBAgAiBQJafgNKAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRCyiLVf
-/5wiwYa/EACv8a2+MMou9cSCNoZBQaU+fTmyzft9hUE+0d5W2UY1RY3OsjFIzm9R
-/4SVccfsqOYLEo+S0vQMIIIqFEq3FCpXXwPzyimotps05VA8U3Bd7yseojFygOgK
-sAMOAee2RCaDDOnoJue01dfZMzzHPO/TVdp3OvnpWipfv5G1Xg96rwbhMLE3tg6N
-xwAHa31Bv4/Xq8CJOoIWvx6fcmZQpz01/lSvsYn0KrfEbTKkuUf0vM9JrCTCP2oz
-VNN5BYzqaq2M4r+jmSyeXLim922VOWqGkUEQ85BSEemqrRS06IU6NtEMsF8EWt/b
-hWjk/9GDKTcnpdJHTrMxTspExBiNrvpI2t+YPU5B/dJJAUxvmhFrbSIbdB8umBZs
-I3AMYrEmpAbh5x7jEjoskUC7uN3o9vpg1oCLS2ePDLtAtyBtbHnkA4xGD7ar8mem
-xpH9lY/i+sC6CyyIUWcUDnnagKyJP0m9ks0GLsTeOCA0bft2XA6rD6aaCnMUsndT
-ctrab42CV5XypjmC4U1rPJ8JQJUh1/3P48/8sMH+3krxpJ06KNWNFaUbaMTGiltZ
-7x9DngklSYrX0T+2G4kVXNmjaljwkoLahwLla2gUWwBSyofXdqyhQdwZsp01KXNQ
-UCyT/Pg+aDcm/E7OMV3d4lf7g/CSxiX2GSEe6BlhSz+Lmd7ZJ3g32M1ARGVtaSBN
-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
-EtJuZYM5blWncBOJCoWMnBEcTEo/viU3GgcVRw=3D=3D
-=3Dx94R
------END PGP PUBLIC KEY BLOCK-----
-
---------------Ta5juJgfI0DZ27VwkVPMBljQ--
-
---------------j4Zxq0OS2K7J4oc5TzDSXxST--
-
---------------JwJpbZ3mHpzXPLUp0B7FWWj5
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEopQtqVJW1aeuo9/sszaHOrMp8lMFAmngHuwACgkQszaHOrMp
-8lMq/xAAl7LvTNF/As4bGkigmyuztUzS5e82d9OaCZa5LM1YS1RcDHaLfwMWR8h7
-wj+azaiTFj9OSiMVYukrQlcYMGMMnsYauY/zA6OT0tK1p28+lZyDzxzAYEWRYcn8
-xu0avQQ69wERounuPdnRPs2cdiGJj9atMz1OrUkXeVsBnJy73j1TrFUei9WL/pMv
-bX3xmQTZIhb4PXlO/0PaXQOrSZrCGM+NzHpzh7XEcq1nSCrbDSIhuTHm8p+ei5De
-B9xXfTMS7cqJKoEFKdj8IoVM3ppCR9oN8/yqtddWei8tnDnoGuTEUSQiEXyJ7BjK
-4O0XaBcWkf9xRCjUSG5w8m/h6YLFcoFl2tfDnpN4OE8F/DV3KqJ49gwE9WjXPQBC
-GG/6K63JPFeqyDdzVuAHRAS0kTuOQVYNAjYjmuM97aSiFFUo/tlDvhlScvSIje2i
-T4yNow7wychqJ6U/iN3l3yHyyZU0VZbZcdmDyqj0YIjgm2Ct+In64trZoRttXHZ/
-mFGpV7+XNvC+bjGSfR3JNu8oICXDsoBuC2YA+XpSn6ZRKGpsw6GRAOOVo5JJFUzQ
-1CwPDnILsc4wAGm3EZRxaJ60xp0X+hNRdd35q3Y3spwhusKFeFIJsWjseO4zvElT
-GMwoNdV0UlWlTIY1ma+sqCMr2/gXTU3VeQ+9iTXs2R9bspNlXpw=
-=4U/Z
------END PGP SIGNATURE-----
-
---------------JwJpbZ3mHpzXPLUp0B7FWWj5--
+Thanks,
+Vijay
 
