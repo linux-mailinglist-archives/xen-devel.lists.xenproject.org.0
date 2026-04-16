@@ -2,49 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6CTROl7Z4GlymgAAu9opvQ
+	id gADHJmfb4Gk/mwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:43:10 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:51:51 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 439C440E57B
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:43:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1283353.1565608 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CA8840E626
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:51:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1283369.1565617 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDM3O-0001Sl-UG; Thu, 16 Apr 2026 12:42:42 +0000
+	id 1wDMC0-0003HY-P0; Thu, 16 Apr 2026 12:51:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1283353.1565608; Thu, 16 Apr 2026 12:42:42 +0000
+Received: by outflank-mailman (output) from mailman id 1283369.1565617; Thu, 16 Apr 2026 12:51:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDM3O-0001Pi-RG; Thu, 16 Apr 2026 12:42:42 +0000
-Received: by outflank-mailman (input) for mailman id 1283353;
- Thu, 16 Apr 2026 12:42:41 +0000
+	id 1wDMC0-0003El-L5; Thu, 16 Apr 2026 12:51:36 +0000
+Received: by outflank-mailman (input) for mailman id 1283369;
+ Thu, 16 Apr 2026 12:51:35 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wDM3M-0001Pc-Vi
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 12:42:41 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wDMBy-0003Ef-QE
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 12:51:34 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wDM3L-0010mU-Sq
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 14:42:39 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wDMBw-00E95X-L2
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 14:51:34 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e0d930-bab6-0a2a0a5309dd-0a2a450ae2d8-38
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:42:39 +0200
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e0d93f-56b3-0a2a450a0019-d1558031b1f4-3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:42:39 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4888375f735so79319245e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 05:42:39 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488f5818d70sm85572595e9.4.2026.04.16.05.42.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Apr 2026 05:42:38 -0700 (PDT)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69e0db4a-e002-0a2a0a5209dd-0a2a4507a988-44
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:51:34 +0200
+Received: from [209.85.208.54] (helo=mail-ed1-f54.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69e0db55-229c-0a2a45070019-d155d036d155-3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:51:34 +0200
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-671ae79e617so5532583a12.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 05:51:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,283 +51,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1776343893; cv=none;
+        d=google.com; s=arc-20240605;
+        b=eKZ1q8EHPRm3Cc8RXay4BVUCGkGYBtSawVd1xz9STYMlQFnU5//hEvZwC3VPw9BB2W
+         dErJh64bJmIfm3K3QsfevMjia+zuerxpEl/18PDDwzahCWWL82Kd4jMH+vn45Nc1pdkb
+         ILN9TAtzxQhWjb3Wg5jQ+rq5X35E0GCcqnKCIunUHzHwEszXZra9eRruj5RFpeSJQEVO
+         9QNO6JAgWgvIGqr4l42rayM3GpK8HJvqfPdumW3P31tUlgbhrpVGxhbowzYbJPJSzpSC
+         Jdntrj1uoDseHTrCBO9E15X0i/rWBK6I5O5wRoyRd+/O006NiKb5IlZkDHUum4p6/ia0
+         1PCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uWWJ9mP4NDk9cmYvS5SgrgvtiEhcfJ12dbTuCvEl8X0=;
+        fh=BxAOn7jMslPpxCh+ZwJ42wvijNvg8M+sVi4YM41sbzk=;
+        b=hybbjYEtvg66sgGIGilQxPJcBElmsl1ddcxhlZ/djyOxqzUgl3jmsQx57HHcLvpuiJ
+         m0okqjwDGGkEYx77Ez7pNp9MoinbmW6t4/0vHfSIvSWCh5iI+BidX2yt00plHXqrmkqD
+         Q6S5A+pnu1jfXEOSiEQp9dyW5LeXtjUpULxGgesNwUs3y6Ie14MkipDN8u/ExCzc/I9v
+         mfB/x0VvrjLidjYWp4Crb2qkQGq+dBHbcKcwCmUmBq+yp0AEnuXeAoWOjJUcSH2xO/SO
+         Kd6S5QwtGD9XdXS134ZD2+QXlocwNlu95UK6NkzAz3w2bKt0ZI1I98eCMnbfH3G5TuUG
+         AJlQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776343359; x=1776948159; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=USu/+LOPn8sXbq7XMENtWJaw1hDBemDmdviQ/wN4M3g=;
-        b=TQCNYStRnk/UEppDapTmP5zO3a2axXYAQH6iUffsHAMNLyUbKwSHnsDNPWN/fD+809
-         F8XyYEPF6lOvcYycOn8uAADBcDmpBFBnEa3sasfU2zAmyAYmWtiA01Qpwf7OL33V23m8
-         +h+ohwPdgN9Twxe/xDCZRZ6Y+jGiJkZw6TAN/L4aXWfCuJACTIo3wearh2mRf7qcvcb8
-         qQpdATQ21x9jXqoxzXam356IWVObLfLZ5YilSgsjuwMiLJF/PxaKkYg2N3fJxw4P0HWR
-         NsQekpUWmL8Zq0eAoRRT94CLgzLzC7PLpCRz4R04ACXoT7BO2d2leAh6kIknv1UmZuqd
-         BmHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776343359; x=1776948159;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1776343893; x=1776948693; darn=lists.xenproject.org;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=USu/+LOPn8sXbq7XMENtWJaw1hDBemDmdviQ/wN4M3g=;
-        b=N9YiAXCXS1vBXrQZOkNiiUpQWFQR8UAqfCP5hnTNPP8Sb5qo+6+BZrkLFbOPfxhIhB
-         rkaH/fQfqnLBOltGl95LiFvwu+mCyEsbo8IPTx7ya+LmKJCcN2FaAkNJCDdcwyUFI8jX
-         h8WokPgRM8iI4yEPEfZ+lo1063tJzl8Qcz+1/btndoi55MkoTjTbUcJuBHekvCt6VqSl
-         r5VwR3CJrU4xfaH11x66NIMDeUC+NyJiZXBZTJCISXq30E67YBImjZF5FxQ91aaR2iVD
-         nXnftiu5Y+9gyqDbMwBB4e/UmeFo6+WQW3UP8/2JLG765Tw2VUa87mfw4Ze3zQxieN+f
-         QUUQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/JYQhHyUAzX71dgH+HTI/ayknytofUfngz40W58aHNwn109YKB0rB71mAHFulzJE8pBj64SGSXi/I=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyOlRKijVpqNoUNbzfdNr0zjjXdxAk/mvC+9irgb4sgpf255c7h
-	z4lBgzMrUeThdcM3POm+rrU57+DzUxPUzCifBmBsPC6NuVVvDzgV34Xw3BzU9HLpfw==
-X-Gm-Gg: AeBDietcszea2Xjs+Zyedc/O7shig5uF8uqPrK4D771KtXfHhAZoyh0j/thf6E+UGEA
-	orEhEdT00CUvJySJ/tp+EOm2ZdW4PZeG4c7DGa7/F52bonJz3nDbg+WEkTUMCEpljwBzKMv3kFR
-	1aafFmnRNb6jO2p1NjVzBTyGMNyTqP2z+hE+UjcLetik6xfUAsGWt4vMPtncJkXHiBpwLfRUqPd
-	+dbTvRmEPWjhwNgie/imUSPPTAs6tlLpHIcJE7qCra/w9PymdZZHoMCBdaIxX7NC1YUtcvSnv2m
-	CnlS2RRFHOejF+xdaY4zYJogeCts188VNUabJZq83gkiL3shzWrwmSVkECh/IsmgC97Z4uI2TQn
-	DPHzCILPcMxY0lGkr3sAp6JL1o+owgD+2sD3KetESb0/QzaLoXM+5LBXgSF87Kan6+4onOE71JR
-	SJQhBduDyD/xoyfBmDDe2EJYA0SiZav67Vh+FxJcKMScMPSLbiCVSuPIKBqkbNKX1+KRdHy8JnL
-	3tz1uFukcpKaUKjHOijdc0gtZhonBXiqZdg
-X-Received: by 2002:a05:600c:c08e:b0:480:3ad0:93bf with SMTP id 5b1f17b1804b1-488d6864d41mr250459315e9.24.1776343358940;
-        Thu, 16 Apr 2026 05:42:38 -0700 (PDT)
-Message-ID: <da07da74-220a-4dbb-84fc-2e7aeb6b19df@suse.com>
-Date: Thu, 16 Apr 2026 14:42:41 +0200
+        bh=uWWJ9mP4NDk9cmYvS5SgrgvtiEhcfJ12dbTuCvEl8X0=;
+        b=OdWHYW00cyXXeWa0ca74tlQmnSHKEn6x1Q1uZcUwI1xOc0jHEb5UkU24JCZbVx7nkY
+         I3HbdV0xfQZnq8PJb95Fdn1b5DHopsmZd5lGlDcqoVXmfU+x3OZFSKgPdbMY7QfZdKoF
+         CXUfVrcSDOo1xKCGQfcHDMS/AmtGI1JRY75B50jAvhnEtSssBFu0bOdKpP3nFMgF+G+M
+         cmAAtFssYfqp/ZtsJZdbo3Dhv+lq12CTEhfLTQ/HfAwJbaQPI64xmMc75WUvR3pO42N8
+         1JbRbdL+lteDDr9veyVTs6wYei95nO3A84Vm+0RcUtA7Kf+6KTq2gGDjnyIB4w2BZnFB
+         zUPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776343893; x=1776948693;
+        h=content-transfer-encoding:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=uWWJ9mP4NDk9cmYvS5SgrgvtiEhcfJ12dbTuCvEl8X0=;
+        b=Ns2hFNJMPFyJBCuWaLPo9X7KyypL9iFCZNmn1ZgErUU5aDjAStflkVleQZTBneK5CO
+         4hqNZcz3gRPS9hU0bnV+iJVcj+lkQeDCuSQbDf/BE1buPDDYJEZPS8VEgp3G/1nDCKHE
+         HzynGkUYRuQHh5R/inNHwV8gPz0y4X2LYcp+StwgNF0KGh4z7ocpao/HG5fo8KSLHyDG
+         T50zghCQ0r5zVG6NIJbyfwksCYcEez6H0wcbgIeCYUizTI8eIPkosPywNInQyDbQboLJ
+         usJ3DsZBL3CQ0FsyNncrq/XPqito4XM5LhLRKm7Guq5KRb3ZhAERm9pehjUuALk6z3pF
+         iTUQ==
+X-Gm-Message-State: AOJu0Yx4FwB8iju2KLqLyntJrmsD5IrsF8V7cVm6CzjwKNsYj4U1nAT6
+	Yi0HAIcvWL/IX5DYymLl2QAK+KVsmNoz0xVgT0v0i9FNDue1d/5Rc3l1iT8gaYAKnejeE/bGGj2
+	9wGdBVGDkSi2QLgUJu34cweLvc4iAivbJAHC0
+X-Gm-Gg: AeBDiesvEC3+tI72qqb0eOwOnnaWMEmv/YhkXfiJ28XvaCcmtzX8bG6Uk4F+8QPGFTg
+	mrhaSCpv22AV+4H2XzjqoQzIutBc+JD8aWCNXAigYOZplvDGraRx4qxKDBKYSPcsHi/fd/HF8jg
+	SgU6ssVaUwAWdc/unzc9Mg5RvMvIeayidts6afxecIV389vTKr0T5366GNHb5Rmj+4yaZU4zUI2
+	9V3OUMVr6So4BxPPF9TAvKIpOknrWPXxymhBdumzshuiXT7Ldp7p94j0909iD8pPGrnhti6MRAk
+	YhqJvGcva+n4KXX+Vw==
+X-Received: by 2002:a17:907:848:b0:b9d:1670:6794 with SMTP id
+ a640c23a62f3a-b9d729bc9d5mr1332158166b.35.1776343892565; Thu, 16 Apr 2026
+ 05:51:32 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 15/27] xen/riscv: add very early virtual APLIC (vAPLIC)
- initialization support
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <e8bcf5618a19fb44d4391410f2f67ffd98a96647.1773157782.git.oleksii.kurochko@gmail.com>
- <44cb3124-8972-4a0c-b785-64f2022f178b@suse.com>
- <a324161d-f8b4-47fe-b5ac-52df6060e45b@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a324161d-f8b4-47fe-b5ac-52df6060e45b@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1776343359-445648B7-8D279A63/0/0
+References: <cover.1775125380.git.mykola_kvach@epam.com>
+In-Reply-To: <cover.1775125380.git.mykola_kvach@epam.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Thu, 16 Apr 2026 15:51:19 +0300
+X-Gm-Features: AQROBzCXb_sn7BntMTwyQVG-72fbLmBAK4nVwRUIbr_john-FM3-bB9YxeaMzNo
+Message-ID: <CAGeoDV-FXvFvrH5sWb=dO9rWrj6H2SA_cWEDB6d+fo9OkiukHg@mail.gmail.com>
+Subject: PING: Re: [PATCH v8 00/13] Add initial Xen Suspend-to-RAM support on ARM64
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-ef75cf/1776343894-2BF7EC48-1967113E/0/0
 X-purgate-type: clean
-X-purgate-size: 4284
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-purgate-size: 5859
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
+	RCPT_COUNT_ONE(0.00)[1];
+	TAGGED_FROM(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.996];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	NEURAL_HAM(-0.00)[-0.997];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 439C440E57B
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 0CA8840E626
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 14.04.2026 12:27, Oleksii Kurochko wrote:
-> On 4/2/26 1:58 PM, Jan Beulich wrote:
->> On 10.03.2026 18:08, Oleksii Kurochko wrote:
->>> @@ -47,6 +48,19 @@ struct intc_hw_operations {
->>>                               const struct dt_device_node *intc);
->>>   };
->>> +
->>> +struct vintc {
->>> +    const struct intc_info *info;
->>
->> Isn't this referencing a physical INTC's structure? Why would the virtual
->> one's properties have to match that of the physical one?
-> 
-> It is because of how vAPLIC emulation load and store is working.
+Hi all,
 
-Thank you very much. This fully explains things, the more that of course
-emulation of loads and stores comes earlier in this series. Oleksii,
-really, please.
+A gentle ping on this series. It's been a couple of weeks since v8 was post=
+ed.
 
->>> +struct vaplic {
->>> +    struct vintc base;
->>
->> How does "base" fit with the type of the field?
-> 
-> The field name base is a idiom for embedding a "base class" struct as 
-> the first member, enabling a form of inheritance.
-> 
-> Any suggestion how to rename it better?
+Please let me know if there are any further comments or if anything else is
+needed from my side to move this forward.
 
-vintc?
+Thanks!
 
->>> --- /dev/null
->>> +++ b/xen/arch/riscv/vaplic.c
->>> @@ -0,0 +1,74 @@
->>> +/* SPDX-License-Identifier: MIT */
->>> +/*
->>> + * xen/arch/riscv/vaplic.c
->>> + *
->>> + * Virtual RISC-V Advanced Platform-Level Interrupt Controller support
->>> + *
->>> + * Copyright (c) Microchip.
->>> + * Copyright (c) Vates
->>> + */
->>> +
->>> +#include <xen/errno.h>
->>> +#include <xen/sched.h>
->>> +#include <xen/xvmalloc.h>
->>> +
->>> +#include <asm/aia.h>
->>> +#include <asm/imsic.h>
->>> +#include <asm/intc.h>
->>> +#include <asm/vaplic.h>
->>> +
->>> +#include "aplic-priv.h"
->>> +
->>> +static int __init cf_check vcpu_vaplic_init(struct vcpu *v)
->>> +{
->>> +    int rc = 0;
->>> +
->>> +    rc = vcpu_imsic_init(v);
->>> +    if ( rc )
->>> +        return rc;
->>> +
->>> +    imsic_set_guest_file_id(v, vgein_assign(v));
->>
->> And vgein_assign() can't fail? (Rhetorical question - of course it can. That
->> function shouldn't assert that it can fine a valid ID.)
-> 
-> Technically it can't fail (except some bug of course), this function 
-> should in general return 0 (when there aren't left h/w IDs)
+Best regards,
+Mykola
 
-Which is "failure".
-
-> or something > 0 (when there are some h/w IDs).
-
-Which is "success".
-
-> ASSERT() inside it was added only 
-> because of ...
-> 
->> But then - aren't you limiting the number of vCPU-s a host can handle by the
->> number vgein IDs?
-> 
-> ... At the moment, I am limiting because S/W interrutps guest files 
-> (IDs) aren't supported.
-
-As before - return error codes when errors occur.
-
->>> +static struct vintc * __init vaplic_alloc(void)
->>> +{
->>> +    struct vaplic *v = NULL;
->>
->> Onve again - why the initializer? In fact, ...
->>
->>> +    v = xvzalloc(struct vaplic);
->>
->> ... this could be the initializer.
-> 
-> Sure, I will use it as initializer.
-> 
->>
->>> +    if ( !v )
->>> +        return NULL;
->>> +
->>> +    return &v->base;
->>> +}
->>
->> If you returned and ...
->>
->>> +int __init domain_vaplic_init(struct domain *d)
->>> +{
->>> +    int ret = 0;
->>> +
->>> +    d->arch.vintc = vaplic_alloc();
->>
->> ... stored struct vaplic *, the slightly odd to_vaplic() macro wouldn't
->> be needed.
-> 
-> vaplic_alloc() return struct vintc *,
-
-Which is what I'm putting under question. Why would a function of this name
-return anything else than struct vaplic *?
-
-> which is then used by to_vaplic() 
-> to get struct vaplic *.
-
-And which is what I'm saying can be avoided.
-
->>> +    if ( !d->arch.vintc )
->>> +    {
->>> +        ret = -ENOMEM;
->>> +        goto fail;
->>
->> Nit: goto when simply return could be used.
->>
->>> +    }
->>> +
->>> +    d->arch.vintc->ops = &vaplic_ops;
->>
->> Are other kinds of ops structures going to appear? If not, why the extra
->> indirection?
-> 
-> At the moment, no I don't see any other kinds of ops struct. It was just 
-> convenient way to group them and then easier to initialize them - just 
-> one assignment instead of addinng a separate line in domain_vaplic_init().
-
-Maybe I wasn't as clear as I should have been: Why the indirection when it
-doesn't abstract anything? I.e. why the "ops" field in the first place,
-when everyone could access the global (until such time that abstraction
-becomes necessary)?
-
-Jan
+On Thu, Apr 2, 2026 at 1:47=E2=80=AFPM Mykola Kvach <xakep.amatop@gmail.com=
+> wrote:
+>
+> From: Mykola Kvach <mykola_kvach@epam.com>
+>
+> This is part 2 of version 8 of the ARM Xen system suspend/resume patch
+> series, based on earlier work by Mirela Simonovic and Mykyta Poturai.
+>
+> The first part is in mainline.
+>
+> NOTE: Most of the code is guarded by CONFIG_SYSTEM_SUSPEND, which can
+> currently only be selected when UNSUPPORTED is set, and thus the
+> functionality is neither enabled by default nor even built.
+>
+> This version is ported to Xen master and includes extensive improvements
+> based on reviewer feedback. The patch series restructures code to improve
+> robustness, maintainability, and implements system Suspend-to-RAM support
+> on ARM64 hardware/control domains.
+>
+> Key updates in this series:
+>  - Introduced architecture-specific suspend/resume infrastructure
+>  - Integrated GICv2/GICv3 suspend and resume, including memory-backed con=
+text
+>    save/restore with error handling
+>  - Added time and IRQ suspend/resume hooks, ensuring correct timer/interr=
+upt
+>    state across suspend cycles
+>  - Implemented proper PSCI SYSTEM_SUSPEND invocation and version checks
+>  - Improved state management and recovery in error cases during suspend/r=
+esume
+>  - Added support for IPMMU-VMSA/SMMUv3 context save/restore
+>  - Added support for GICv3 eSPI registers context save/restore
+>  - Added support for ITS registers context save/restore
+> ---
+>
+> TODOs:
+>  - Enable "xl suspend" support on ARM
+>  - Add suspend/resume CI test for ARM (QEMU if feasible)
+>  - PCI suspend ?
+> ---
+>
+> Detailed changelogs can be found in each patch.
+>
+> Changes in v8:
+> - Rebased to latest master and refreshed the series accordingly.
+> - Added a new GICv3 patch to tolerate retained redistributor LPI state
+>   across CPU_OFF/CPU_ON.
+> - GICv2 suspend now disables the CPU interface and distributor before
+>   saving state.
+> - GICv3 suspend/resume fixes the redistributor base used for LPI state.
+> - ITS and SMMUv3 suspend/resume paths were tightened, with safer
+>   restore/rollback handling and stricter fatal-error handling.
+> - System suspend now checks that all domains are already in
+>   SHUTDOWN_suspend before proceeding, and renames the hardware-domain
+>   suspend capability/helper for clearer semantics.
+> - Fixed alignment/cleanup issues in the low-level suspend/resume code.
+>
+> Changes in v7:
+> - Timer helper renamed/clarified; virtual/hyper/phys handling documented.
+> - GICv2 uses one context block; restore saved CTLR; panic on alloc failur=
+e.
+> - GICv3/eSPI/ITS always suspend/resume; restore LPI/eSPI; rdist timeout.
+> - IPMMU suspend context allocated before PCI setup.
+> - System suspend: control domain drives host suspend.
+> - Dropped v6 IRQ descriptor restore patches; use setup_irq and re-registe=
+r
+>   local IRQs on resume instead.
+>
+> For earlier changelogs, please refer to the previous cover letters.
+>
+> Mirela Simonovic (6):
+>   xen/arm: Add suspend and resume timer helpers
+>   xen/arm: gic-v2: Implement GIC suspend/resume functions
+>   xen/arm: Resume memory management on Xen resume
+>   xen/arm: Save/restore context on suspend/resume
+>   xen/arm: Implement PSCI SYSTEM_SUSPEND call (host interface)
+>   xen/arm: Add support for system suspend triggered by hardware domain
+>
+> Mykola Kvach (6):
+>   xen/arm: gic-v3: tolerate retained redistributor LPI state across
+>     CPU_OFF
+>   xen/arm: gic-v3: Implement GICv3 suspend/resume functions
+>   xen/arm: gic-v3: add ITS suspend/resume support
+>   xen/arm: tee: keep init_tee_secondary() for hotplug and resume
+>   xen/arm: ffa: fix notification SRI across CPU hotplug/suspend
+>   arm/smmu-v3: add suspend/resume handlers
+>
+> Oleksandr Tyshchenko (1):
+>   iommu/ipmmu-vmsa: Implement suspend/resume callbacks
+>
+>  xen/arch/arm/Kconfig                     |   2 +
+>  xen/arch/arm/Makefile                    |   1 +
+>  xen/arch/arm/arm64/head.S                | 112 ++++++++
+>  xen/arch/arm/gic-v2.c                    | 132 +++++++++
+>  xen/arch/arm/gic-v3-its.c                | 126 +++++++-
+>  xen/arch/arm/gic-v3-lpi.c                |  80 +++++-
+>  xen/arch/arm/gic-v3.c                    | 349 ++++++++++++++++++++++-
+>  xen/arch/arm/gic.c                       |  29 ++
+>  xen/arch/arm/include/asm/gic.h           |  12 +
+>  xen/arch/arm/include/asm/gic_v3_defs.h   |   1 +
+>  xen/arch/arm/include/asm/gic_v3_its.h    |  24 ++
+>  xen/arch/arm/include/asm/mm.h            |   2 +
+>  xen/arch/arm/include/asm/psci.h          |   1 +
+>  xen/arch/arm/include/asm/suspend.h       |  31 ++
+>  xen/arch/arm/include/asm/time.h          |   5 +
+>  xen/arch/arm/mmu/smpboot.c               |   2 +-
+>  xen/arch/arm/psci.c                      |  23 +-
+>  xen/arch/arm/suspend.c                   | 195 +++++++++++++
+>  xen/arch/arm/tee/ffa_notif.c             |  63 +++-
+>  xen/arch/arm/tee/tee.c                   |   2 +-
+>  xen/arch/arm/time.c                      |  44 ++-
+>  xen/arch/arm/vpsci.c                     |  12 +-
+>  xen/common/Kconfig                       |   3 +
+>  xen/common/domain.c                      |   7 +-
+>  xen/drivers/passthrough/arm/ipmmu-vmsa.c | 305 +++++++++++++++++++-
+>  xen/drivers/passthrough/arm/smmu-v3.c    | 172 ++++++++---
+>  xen/drivers/passthrough/arm/smmu.c       |  10 +
+>  xen/include/xen/list.h                   |  14 +
+>  28 files changed, 1670 insertions(+), 89 deletions(-)
+>  create mode 100644 xen/arch/arm/suspend.c
+>
+> --
+> 2.43.0
 
