@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iCRFNnjb4Gk/mwAAu9opvQ
+	id SDbpAZPb4Gk/mwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:52:08 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:52:35 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 691A240E64A
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:52:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1283377.1565635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82B5040E652
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:52:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1283395.1565643 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDMCN-0003wZ-AV; Thu, 16 Apr 2026 12:51:59 +0000
+	id 1wDMCo-0004gh-Hj; Thu, 16 Apr 2026 12:52:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1283377.1565635; Thu, 16 Apr 2026 12:51:59 +0000
+Received: by outflank-mailman (output) from mailman id 1283395.1565643; Thu, 16 Apr 2026 12:52:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDMCN-0003uJ-7a; Thu, 16 Apr 2026 12:51:59 +0000
-Received: by outflank-mailman (input) for mailman id 1283377;
- Thu, 16 Apr 2026 12:51:58 +0000
+	id 1wDMCo-0004dp-Eg; Thu, 16 Apr 2026 12:52:26 +0000
+Received: by outflank-mailman (input) for mailman id 1283395;
+ Thu, 16 Apr 2026 12:52:25 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wDMCL-0003sK-SZ
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 12:51:58 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wDMCn-0004dR-3x
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 12:52:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wDMCL-00GoSe-9V
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 14:51:57 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wDMCm-00DzLI-H3
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 14:52:24 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69e0db60-5cb7-0a2a0a5109dd-0a2a4501e7e4-28
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:51:57 +0200
-Received: from [52.101.57.10]
- (helo=BN8PR05CU002.outbound.protection.outlook.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69e0db6b-c1f2-0a2a45010019-3465390a0fed-3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:51:56 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by SJ0PR03MB6549.namprd03.prod.outlook.com (2603:10b6:a03:386::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Thu, 16 Apr
- 2026 12:51:53 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9818.017; Thu, 16 Apr 2026
- 12:51:53 +0000
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69e0db77-bab6-0a2a0a5309dd-0a2a4503d362-46
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:52:24 +0200
+Received: from [209.85.218.52] (helo=mail-ej1-f52.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69e0db88-672d-0a2a45030019-d155da34ecc3-3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:52:24 +0200
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-ba36357195bso36984866b.0
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 05:52:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,218 +51,254 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U+FW5CKMJijW+WuotcCmEUrnlZQrEn2kQXaulZ4AVYqRu+Y1/Vhmy5emmb85iR2Cix8L75OxiPveTaBhEYQnIclbyd3kpaWQJva8VA4IIggDDKSOT9/mH4zy6/xXWtw6020EDfsl2Sy4JjWXeEzTuL7a780mCjJ5dJ/9myRPAxQxbRckPYfqMtAZ9TD33LMbjY1JM+/FoH+r3/6ze5jnypR+meQ+vs5zxLet4mzxziWcOi6ftumTqxAD8eUqaLYbb1KkOy0+JWdfuCwCFmcr//aqW/obronEIDu3NgMq4iO6d4ZcKl1a3Aas05F/I1HlJe3oeE/0eEwF9zwgi0ujUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yvK8tzfFPUqL8DxuGW02odaYKvZIuwiT17LQHLD9LUM=;
- b=CAp9+C8TixUjLLMaTUD9MM4vKCkhD8gHhTn/EaUczc3rgAVWPE8Qe75mT7t8d6ZjXnL7D/FmrHvPJ/3PtV0/ZXZN9Jl3o3mX57XOJc9s9xpaJJKY6Hu3aec0oFPa9K3a1zvuXzyivnuZV/KUckTwvQRXBk5Y3MljIh0ms7RQrgACBrZNVkQGECxPTgB1/DvF23H3MrYOpsnyXKi41BwHg+jpw5m/61Du1rCtA4zSIia90TxBpJUsoATZfTf7v7O8LBoIJ5b4TQbBEcvXgD6Dc/3V7obMizrAGuOUEuT/N/zxfoMaT42Kmzw0kRyE6ToB+J8OQRXukNtR++svA8Y3mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yvK8tzfFPUqL8DxuGW02odaYKvZIuwiT17LQHLD9LUM=;
- b=hKbnDuUKDVa7anjapp+Fi00qxVNw3vANACGG8uZVsVuNBa2bBFaRlcCCjnBoWE0WLwIgFmvUUhfT1ml4K7oopGoY+YTyiGiaoeugcitwrmI6FI9AQrlX+gC3xH8cUruaTOwXe/3Ok3lVsXDbNEWBXTdivkwhhb9ZLNLov2l5iFc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 16 Apr 2026 14:51:49 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 1/2] x86/time: use native TSC scaling factors when TSC is
- not scaled
-Message-ID: <aeDbZZA-asNJ3Gci@macbook.local>
-References: <20260414103327.7420-1-roger.pau@citrix.com>
- <20260414103327.7420-2-roger.pau@citrix.com>
- <f424bf3a-0113-4c66-b165-8dae82817f24@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <f424bf3a-0113-4c66-b165-8dae82817f24@suse.com>
-X-ClientProxiedBy: MR1P264CA0094.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:3f::27) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1776343943; cv=none;
+        d=google.com; s=arc-20240605;
+        b=UGGQ2R3idi9zBB+6LF/xl4FdYg1krC3JzjE0y4CoHTrso6WPr/pIcoFdS9fB5X7E9R
+         AWi8CDPWaZkyprK47cJplQUNjD6tCpgkhUmqfa5ELbeGVF0TSQJdrEXw7GttTcj6sdAL
+         LJoXVQVpzcGM973JEIkwI/Gk3Hxht94DtwJElVt0LKbuFAIoBqB25QEDwh9aGbFr2aIa
+         e0NBRKj9QqDfbMidmpn6YbEKANNH5fH6U2X1vduJMupk3+D4hv67SNlSlyC0OhcTBo9r
+         hn4zfUG1pQfA89lh4faIspe1UNJX6hRDrYVo2KjvF5dBv9pRah1km4twUHoSJqkk1DQT
+         mf2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uWWJ9mP4NDk9cmYvS5SgrgvtiEhcfJ12dbTuCvEl8X0=;
+        fh=dZ9oml7XyeCtxAH+8uRnDuAOsN3Lv1FdXWdZkBigAWY=;
+        b=QOREVp+EL19glrBFJR0RsaIubStSa8+S1uZui1nw4+syGdl98eJz1GqDWBi32bfrme
+         olIuYUNXEIPdbm6W1wFusq4+ehoJ7TVPpyvOK55A2043sekEgx2SaUNH/Rtf3i/fqHNv
+         jvyT7iOCpT+skmEpNQdk18/YJQvs+3Vl8Sex4St+v4eEINPSym7DcQZc9yUbQ+zNGLjB
+         VC2zA5/RJYYH0HZneaymYYHUFAV2xf8Twbll8tLv4PazrUmMhPjtNITKB3iUWZP/LumQ
+         Tl74sthq8/YBpJcSnyjMGRbZDErmSTxWsCjPFmnF8iY+NnVqY8OtBHyljI0ttv9PQKBK
+         /3rg==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776343943; x=1776948743; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uWWJ9mP4NDk9cmYvS5SgrgvtiEhcfJ12dbTuCvEl8X0=;
+        b=NDohTHnLJr+ILyY+26VrQsugWJkmQyT5VmGKpclksopG2t3pt9AMiEiBT2V8yUbWhx
+         xrekRJD3Uz5KvLoXFBIFa0jseNpUMLO3bx9ihlvu0B7r9104rc1jlOsBdWhQGWiNLxhK
+         k2Iv+bHCteU0jbV0qO8bPlYRuCZnGVMxipuwRmEl7yjpuUH9HV5tJtJSbdzotqwwTr6x
+         Ds/DMFxIpAmME6gMX307HVoDQy/2V6S/rppzzmiUZecPwi1QC7ju1LsEvztXQn/1RSDn
+         iHefTlOQu83uMhVq40kzN2nEWQqIYkaUws5uP4Aj3SjrRg5Gx61M5Zi6oHlyLLP58eg4
+         +k1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776343943; x=1776948743;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=uWWJ9mP4NDk9cmYvS5SgrgvtiEhcfJ12dbTuCvEl8X0=;
+        b=gheKULU/9KczvaiNQygFD8OWNA/WRzn7XucnmIQHCnzHf2wWUGi9yCnO8XkZTNpSGF
+         5J8Fvbd9DCexOrvyqHwEs4MPUY8nF12gApg4b4gcdQLZLk7I/kUk7S7P80vyr+sTu3mN
+         S6Ow1QzTkAMt3wvCkqQYg+Ts98i0ea+YCzYs1Usz7Lpmd3LdNNeqZjDFMKEb4ebVVH06
+         Cvgzu3l6B8hkw+vG9pQJsp6d4QTlgK58Op5hCC1zt0Jbf+j1s+xe8qBK6Snag3mwOTWz
+         0cvw/ASYNnLNdfFwqml7DfDFZpM99Mh0RZjryAGkRFC4z4LWZiIdX2z8m8kOViYiIX/Z
+         Z08A==
+X-Gm-Message-State: AOJu0Yyo7T5YoSrUH167xdOzPYdUk5NShxFApNUw08zkf22WwBdLN+0P
+	lwCh5yPDy2Lpatgu3dy/olMwgE7u6VZ9zZKVT8RYRlfKxGpBjdoiBmHn4U3OK3EK8j6EG+aEKA0
+	ewX6v7X+iZBkIAAdiO+1L2jw+NDfjWruYVH32AvI=
+X-Gm-Gg: AeBDievqI3rL7STiAbMMUtAYRFxxmw9Ycys0zi9UoghP0ootnHcTpaIgKMaBXKuo9BD
+	fxXvjaXE3GAlJVEvdvT5jwJhIP/uq5xFNYkTqzGES5xRxr0RAJKzdH+mJKtyo50sCAmDtwIhO9l
+	BQQwL4YRZFJZvkzYEuZUK30E2OaeGw1TQjHzLTd6YQvKmB/S3Cuuxl+TzhetbUBz4hmG1T6Apwu
+	UrRqZLDQyGXCBFhClkcAYKuokpiuZNz11CaRdxv/POtYdMYzamnJgAwMzKtG7Pzcr2QcvHDw66v
+	w8didqYhd2/xR5osdQ==
+X-Received: by 2002:a17:907:8b98:b0:b87:d09c:1825 with SMTP id
+ a640c23a62f3a-b9d72792c0cmr1375263566b.13.1776343942861; Thu, 16 Apr 2026
+ 05:52:22 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SJ0PR03MB6549:EE_
-X-MS-Office365-Filtering-Correlation-Id: 602c10c2-4486-4e08-6386-08de9bb6ef2d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	TU2RsExEQegfbdcd2nyrmN+78M4dQ3pl2FMFtuI4DaoY+URSlQHeAsMfa7JBZVA98T/M4QcqYY9IyVDdeqnSqfsTrbjoNAkVqIi0ejHOWS7atffqx47svtQqP9H+OhBHVJX3ZsCySU6ia6PvES/yG9vsiCjeyj7WI4aJFQgX1zh0SvDPAZZyTHGqsBDH8UymyXBi8gr9FQXMysdhgC4oUX4hT37U5F9W5YYQBQX4NM3pgJTAHbP33ZlTWhXHc++RUC3T9f4tUvGK068nsitFHP37lhwmWrlxcid6xe5HjMguEEeMF1+Onijb4KJbL73bU5Q37IgltSCc9jMl0BtHSnbgOIqaKf+JInr456sIRIPsSyohtpV8ushaAG7oKgKnuEIJwmzl3ozXPvg0Oqs8gkqjnoBFP9bWou/MB03k8NAklYqDpeqZdbtHQEW6I31EmHccLPuAncMptibB8EUVmMweyEKEP/ZFfdgnvzDQqWv/L7Vha6EE4/OPdzSQeYcAAvMRC1qU9LHmI7SLLWe2ac4AvCvvPtW0Ky6zDUA+kSzAHZaQG+0UxkEIJKHDa7jdtTCestlIpungYbl09O50Azs9+CNBkoi6Gmm9blXhBSVzSke+YoK8xIQOHhKO1hjq3UD73U70XcQF2gDA3vvvguehk/4gr8Wi8jP/PlVVy+KXSwjcXXPFq15bQ/qSx3QVjigR5IrGX1tKkPRAvIBpMWLxPmKjRywTdgWn04dr5sU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cGxrYzk2Tjh5Q3NEallXcmUvRGZtUThDeDlkZllKUlRDUHpUZG9GQ1VjOG9Q?=
- =?utf-8?B?bzMxNjFBa2NseXZ0Wld4Z0NwMExsU05iUDVoY2p5QWUyT0hBc3ZuMDc1ZTZL?=
- =?utf-8?B?dXlhYllJUVlGVHhiWjVlR2RpaDkrZGErb2c0bUE2VWNpTVZ1M3YySjZtRVNB?=
- =?utf-8?B?bkwrTWQ3aGZvRGVDWURMdmx4OWhLZzRmcTNXQ3NuWEErUmhlZGljK3NudVlW?=
- =?utf-8?B?dytncUhRS0Z4b0hpOTY1NFZEaVdJZjdaTlgxZS9ZN1Zxa2V5cE1IUXNyMUgz?=
- =?utf-8?B?UHd5K1pCanRxQ09hQXFLYy9leG5wNDY3OTgvYWhqaUZXSVBsU2QxbHpQS2t5?=
- =?utf-8?B?MUQzTExoREs0eFUrL3FCSHdiRVByK2h6cTE1elVyTjVsR0V3clV4VXNLeUQ1?=
- =?utf-8?B?L3hHQ3p6USswU1FHYWs4VS9GZHE5RTE3Z1FUWnhVZk1SUnVMUHhVWXdLcmhI?=
- =?utf-8?B?emtWWlo4S2JaMVVuZG5UY2NsZVU3enFlUHJPNm0rVGgwYW5uOGgxOUpvaDNU?=
- =?utf-8?B?VkJGRGlGM0t2VFhLUTBNdXVrVXJnZXRSaGgyS2hqOUx3ay9nMjhYK3ZWSVpX?=
- =?utf-8?B?VDZoU0JWOWVJdkozQUpRNGN4SUtKVEJLT0tVeGFESG9FdCtMakJaYXpVOXhB?=
- =?utf-8?B?VjQ2dWxVQjQwcEFOUHh2cmxoNElsK0dzTHdLZm1lWWdZck8yREFYRGx6a05i?=
- =?utf-8?B?S2lSeDNDVGJ2bk1KWGZ2VmlVL2J1d2pjNlhLb1FXZ1U5RXYzcnUvdis5cVI3?=
- =?utf-8?B?SlJEbmxTMjg5a2tKSjErSHQxK0pBWUdPWExVSEUvTFpQOVpHdHJyR1VOdlpY?=
- =?utf-8?B?ZUJiSlpTVHFTU2dvTTUyVGtnMHRDSzZlTC9CWTgybjdKaG5KTGsyVFd1UWV3?=
- =?utf-8?B?MG50VUhzbzBFL3c2SUgyanBhVi9yS2NoL3VGRUdST2wvVmJMQW83b1dMRmhh?=
- =?utf-8?B?Z2NqTEVaUjR3Qis0ZUdpd0c0eWFwem9hcWVMTmxJNjd6SFlGeU51ZXRacEZ5?=
- =?utf-8?B?MGc2YWg1aU4rMDc4YktjYXY1ckllbkhCa0JvWXA0b0V2TmZjRjlxY3cvbloz?=
- =?utf-8?B?V2V5aC8xQk0rbU84bmhzY2ZRbFpoZElFeC9uVW80akh0N2UrNkwzaGpUeEVr?=
- =?utf-8?B?dTR4YUoya2xVdDRwblNHL2RreFlGajYzcXlOWGwzVFFPcm5Fc3NCQTVzNitW?=
- =?utf-8?B?d0lqNEIwNWREdk4wSCtCaWxWRklZalQyVkJyNWtiVFp2RUFlOHE4VC9lcTUv?=
- =?utf-8?B?UENBOGxEbHI3VzZZRWlpRDhVRUE4ZHltLzNscXI4VGJoUEtzbWxqQjFETm4w?=
- =?utf-8?B?T2dUVGRvaTJBQ0Jwd09sczRyaFRGWSt4dFVZMzd0TU9yU0JDVStXaThHZnJV?=
- =?utf-8?B?SWZOVVlLWENOcEdsUithNnN4ek5JaDdzaXh6Q3Buc0tEUEliTnZTM1dFdUxj?=
- =?utf-8?B?UURqQkZQMXlyV041SENUc1phZExhMHdmN28yVER5WEVud2QxOWJDb09NeGtm?=
- =?utf-8?B?KzRkRVkrRExTU2ZYTWhyZWlsRjZHWElzbEtrMEVGUzBQU0RjSE5qL0ZFU2Iz?=
- =?utf-8?B?WmRxb3FNQmJmYTZLalViNTF1OVMxQTJTaDJlRi8yZFFqKzJodjE5M3BhZlpH?=
- =?utf-8?B?d2lXRjlSZXFDZlVLaHI5SWZlK24wSW9aMWdWYTZOSlY2RDJjTWNEa3pQM282?=
- =?utf-8?B?aCtvTTlnRUFzTEhiUDZjcVBsVUcwa043UWdEejh3Z1czZTl4Q09KSVlFZmNi?=
- =?utf-8?B?WXlJaU95Rm9tTkpJdHA3NnFYQWVPQVArL1I2RGVHbEFsMzdoeVBpRXhuYUxo?=
- =?utf-8?B?dURqU1JNMlRJWkdqNXpuYWxQNUlnWkNEVklMdUJrZzFSQVV4T2cvMHdrNEtr?=
- =?utf-8?B?RnJUa0ZLWWJtM1FVWkhTTXhGcnpxNVBnakFDeThzSkd6anQ3Y3NSSmFLcVZh?=
- =?utf-8?B?ekJ0L3VnZzZyeTBDWGpZaUNlZzMvMzRBZW9uUVZJVTZrSWNKMWdHNXdrcnYv?=
- =?utf-8?B?UkdTd3RwSmpOcDhqQVk0WWQ0SkViOXVLcHErV0dvZkZPYVYxSnRwajBHZ0V6?=
- =?utf-8?B?eGVUazFBUDdXbFVzaXJLRkdjb0lQRHlmL0FTcHFsdndOalJKcG9GZk1nSzFk?=
- =?utf-8?B?b2szS1Rpelg1aWVaQVZQSEpVamY3MlhkMzhTdHdINUc4ajdyVFE4YW1vZits?=
- =?utf-8?B?ejBHQ054eTNqM1EwbVhpV1NrZU5KdHhYRHpqd1BDMnJrci9UdWxoMWYvdzJW?=
- =?utf-8?B?bk1pdTI4RlBMUjhDeW11aDdCTm12TWgrVXBzTWt6ek5BWkRqVVBXbGIrVC9p?=
- =?utf-8?B?NjdDRjZPY2k4SGNMM0lFVHpXa0YybEErZFdjS0sweEVBS0o0YlptZz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 602c10c2-4486-4e08-6386-08de9bb6ef2d
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 12:51:53.4754
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Tkxd5fF05kZvqVhF/N6Uj3iTlrLsIIGSncZ6+bVHuSwdljnSz2zTj+jDzfWdESooTlg+Ov9T02vbm0eWidw+Fg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6549
-X-purgate-ID: tlsNG-d62444/1776343917-BC812FF4-809E1DA8/0/0
+References: <cover.1775125380.git.mykola_kvach@epam.com>
+In-Reply-To: <cover.1775125380.git.mykola_kvach@epam.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Thu, 16 Apr 2026 15:52:10 +0300
+X-Gm-Features: AQROBzDkRt956UJ9HFqIUZus6pPyZV4x_qUHalERlz9C-lnc7Gr6C1oaVR71_7I
+Message-ID: <CAGeoDV9NqdcVLBJ7vj8v1HUhfVoyrAssVXTP_sA5=ebXzS7Z0w@mail.gmail.com>
+Subject: PING: Re: [PATCH v8 00/13] Add initial Xen Suspend-to-RAM support on ARM64
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Jens Wiklander <jens.wiklander@linaro.org>, Rahul Singh <rahul.singh@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-33051d/1776343944-48FD6938-1C72C8A1/0/0
 X-purgate-type: clean
-X-purgate-size: 3367
+X-purgate-size: 5859
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:email];
-	RCPT_COUNT_THREE(0.00)[4];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:jens.wiklander@linaro.org,m:rahul.singh@arm.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TAGGED_FROM(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid,epam.com:email];
 	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 691A240E64A
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 82B5040E652
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, Apr 16, 2026 at 01:28:11PM +0200, Jan Beulich wrote:
-> On 14.04.2026 12:33, Roger Pau Monne wrote:
-> > When running HVM guest in native TSC mode avoid using the recalculated vTSC
-> > scaling factors based on the cpu_khz value.  Using the kHz based frequency
-> > leads to the TSC scaling values possibly not being the same as the ones
-> > used by the per CPU cpu_time->tsc_scale field, which introduces skew
-> > between the guest and Xen's calculations of the system time.
-> > 
-> > On a 2gHz system, where the frequency is possibly detected as 1999999999Hz
-> > (note this is a worse-case scenario), the cpu_khz variable will be set to
-> > 1999999kHz, and hence 999Hz cycles will be not accounted for per second.
-> > Over a second (the time synchronization period), this leads to a skew of:
-> > 
-> > cycles * 1 / (Hz freq) = 999 / 1999999999 = 499,5ns
-> > 
-> > So far this has gone unnoticed because the time synchronization rendezvous
-> > forces the update of the tsc_timestamp and system_time fields in the vCPU
-> > time info area, and hence the skew only accumulates up to the rendezvous
-> > period.  Attempting to remove the rendezvous causes the skew to grow
-> > unbounded.
-> > 
-> > Fix by using the native TSC scaling values (as used by Xen) when the guest
-> > TSC is not scaled.
-> > 
-> > Fixes: eab8a90be723 ("x86/time: scale host TSC in pvclock properly")
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > I'm worried about the usage of cpu_khz beyond simple printing it for
-> > informational purposes.  Overall I think it would be safer to store the
-> > frequency in Hz, as to avoid losing the least significant digits.
-> > 
-> > In any case, that's a different change.
-> 
-> I'm not quite sure - improving accuracy is of course a good thing, but will
-> we ever be able to do any such calculations error free, when already the
-> detected frequency isn't exactly precise?
-> 
-> > --- a/xen/arch/x86/time.c
-> > +++ b/xen/arch/x86/time.c
-> > @@ -1710,17 +1710,25 @@ static void collect_time_info(const struct vcpu *v,
-> >      else
-> >      {
-> >          if ( is_hvm_domain(d) && hvm_tsc_scaling_supported )
-> > -        {
-> >              tsc_stamp            = hvm_scale_tsc(d, t->stamp.local_tsc);
-> 
-> This is a potentially imprecise calculation. How likely is it that its result
-> will indeed ...
-> 
-> > -            u->tsc_to_system_mul = d->arch.vtsc_to_ns.mul_frac;
-> > -            u->tsc_shift         = d->arch.vtsc_to_ns.shift;
-> > -        }
-> >          else
-> > -        {
-> >              tsc_stamp            = t->stamp.local_tsc;
-> > +
-> > +        /*
-> > +         * HVM guests using the native TSC ratio should use the same per-CPU
-> > +         * scaling factors as Xen.  This ensures time keeping is always in sync
-> > +         * between Xen and the guest.
-> > +         */
-> > +        if ( tsc_stamp == t->stamp.local_tsc )
-> 
-> ... exactly match t->stamp.local_tsc? Don't we possibly need a (small) error
-> margin? (In which case of course the next question would be: How to establish
-> such a margin?)
+Hi all,
 
-hvm_scale_tsc() has:
+A gentle ping on this series. It's been a couple of weeks since v8 was post=
+ed.
 
-    if ( ratio == hvm_default_tsc_scaling_ratio )
-        return tsc;
+Please let me know if there are any further comments or if anything else is
+needed from my side to move this forward.
 
-So when using no scaling the input value is the output value, and
-hence tsc_stamp will match exactly t->stamp.local_tsc.
+Thanks!
 
-Thanks, Roger.
+Best regards,
+Mykola
+
+On Thu, Apr 2, 2026 at 1:47=E2=80=AFPM Mykola Kvach <xakep.amatop@gmail.com=
+> wrote:
+>
+> From: Mykola Kvach <mykola_kvach@epam.com>
+>
+> This is part 2 of version 8 of the ARM Xen system suspend/resume patch
+> series, based on earlier work by Mirela Simonovic and Mykyta Poturai.
+>
+> The first part is in mainline.
+>
+> NOTE: Most of the code is guarded by CONFIG_SYSTEM_SUSPEND, which can
+> currently only be selected when UNSUPPORTED is set, and thus the
+> functionality is neither enabled by default nor even built.
+>
+> This version is ported to Xen master and includes extensive improvements
+> based on reviewer feedback. The patch series restructures code to improve
+> robustness, maintainability, and implements system Suspend-to-RAM support
+> on ARM64 hardware/control domains.
+>
+> Key updates in this series:
+>  - Introduced architecture-specific suspend/resume infrastructure
+>  - Integrated GICv2/GICv3 suspend and resume, including memory-backed con=
+text
+>    save/restore with error handling
+>  - Added time and IRQ suspend/resume hooks, ensuring correct timer/interr=
+upt
+>    state across suspend cycles
+>  - Implemented proper PSCI SYSTEM_SUSPEND invocation and version checks
+>  - Improved state management and recovery in error cases during suspend/r=
+esume
+>  - Added support for IPMMU-VMSA/SMMUv3 context save/restore
+>  - Added support for GICv3 eSPI registers context save/restore
+>  - Added support for ITS registers context save/restore
+> ---
+>
+> TODOs:
+>  - Enable "xl suspend" support on ARM
+>  - Add suspend/resume CI test for ARM (QEMU if feasible)
+>  - PCI suspend ?
+> ---
+>
+> Detailed changelogs can be found in each patch.
+>
+> Changes in v8:
+> - Rebased to latest master and refreshed the series accordingly.
+> - Added a new GICv3 patch to tolerate retained redistributor LPI state
+>   across CPU_OFF/CPU_ON.
+> - GICv2 suspend now disables the CPU interface and distributor before
+>   saving state.
+> - GICv3 suspend/resume fixes the redistributor base used for LPI state.
+> - ITS and SMMUv3 suspend/resume paths were tightened, with safer
+>   restore/rollback handling and stricter fatal-error handling.
+> - System suspend now checks that all domains are already in
+>   SHUTDOWN_suspend before proceeding, and renames the hardware-domain
+>   suspend capability/helper for clearer semantics.
+> - Fixed alignment/cleanup issues in the low-level suspend/resume code.
+>
+> Changes in v7:
+> - Timer helper renamed/clarified; virtual/hyper/phys handling documented.
+> - GICv2 uses one context block; restore saved CTLR; panic on alloc failur=
+e.
+> - GICv3/eSPI/ITS always suspend/resume; restore LPI/eSPI; rdist timeout.
+> - IPMMU suspend context allocated before PCI setup.
+> - System suspend: control domain drives host suspend.
+> - Dropped v6 IRQ descriptor restore patches; use setup_irq and re-registe=
+r
+>   local IRQs on resume instead.
+>
+> For earlier changelogs, please refer to the previous cover letters.
+>
+> Mirela Simonovic (6):
+>   xen/arm: Add suspend and resume timer helpers
+>   xen/arm: gic-v2: Implement GIC suspend/resume functions
+>   xen/arm: Resume memory management on Xen resume
+>   xen/arm: Save/restore context on suspend/resume
+>   xen/arm: Implement PSCI SYSTEM_SUSPEND call (host interface)
+>   xen/arm: Add support for system suspend triggered by hardware domain
+>
+> Mykola Kvach (6):
+>   xen/arm: gic-v3: tolerate retained redistributor LPI state across
+>     CPU_OFF
+>   xen/arm: gic-v3: Implement GICv3 suspend/resume functions
+>   xen/arm: gic-v3: add ITS suspend/resume support
+>   xen/arm: tee: keep init_tee_secondary() for hotplug and resume
+>   xen/arm: ffa: fix notification SRI across CPU hotplug/suspend
+>   arm/smmu-v3: add suspend/resume handlers
+>
+> Oleksandr Tyshchenko (1):
+>   iommu/ipmmu-vmsa: Implement suspend/resume callbacks
+>
+>  xen/arch/arm/Kconfig                     |   2 +
+>  xen/arch/arm/Makefile                    |   1 +
+>  xen/arch/arm/arm64/head.S                | 112 ++++++++
+>  xen/arch/arm/gic-v2.c                    | 132 +++++++++
+>  xen/arch/arm/gic-v3-its.c                | 126 +++++++-
+>  xen/arch/arm/gic-v3-lpi.c                |  80 +++++-
+>  xen/arch/arm/gic-v3.c                    | 349 ++++++++++++++++++++++-
+>  xen/arch/arm/gic.c                       |  29 ++
+>  xen/arch/arm/include/asm/gic.h           |  12 +
+>  xen/arch/arm/include/asm/gic_v3_defs.h   |   1 +
+>  xen/arch/arm/include/asm/gic_v3_its.h    |  24 ++
+>  xen/arch/arm/include/asm/mm.h            |   2 +
+>  xen/arch/arm/include/asm/psci.h          |   1 +
+>  xen/arch/arm/include/asm/suspend.h       |  31 ++
+>  xen/arch/arm/include/asm/time.h          |   5 +
+>  xen/arch/arm/mmu/smpboot.c               |   2 +-
+>  xen/arch/arm/psci.c                      |  23 +-
+>  xen/arch/arm/suspend.c                   | 195 +++++++++++++
+>  xen/arch/arm/tee/ffa_notif.c             |  63 +++-
+>  xen/arch/arm/tee/tee.c                   |   2 +-
+>  xen/arch/arm/time.c                      |  44 ++-
+>  xen/arch/arm/vpsci.c                     |  12 +-
+>  xen/common/Kconfig                       |   3 +
+>  xen/common/domain.c                      |   7 +-
+>  xen/drivers/passthrough/arm/ipmmu-vmsa.c | 305 +++++++++++++++++++-
+>  xen/drivers/passthrough/arm/smmu-v3.c    | 172 ++++++++---
+>  xen/drivers/passthrough/arm/smmu.c       |  10 +
+>  xen/include/xen/list.h                   |  14 +
+>  28 files changed, 1670 insertions(+), 89 deletions(-)
+>  create mode 100644 xen/arch/arm/suspend.c
+>
+> --
+> 2.43.0
 
