@@ -2,49 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YB2WBYaG4GlPjAAAu9opvQ
+	id KH3BB/KQ4GmsjwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 08:49:42 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 09:34:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE7E340AC76
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 08:49:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1282993.1565309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9988F40B137
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 09:34:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1283007.1565318 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDGXa-0008Av-OA; Thu, 16 Apr 2026 06:49:30 +0000
+	id 1wDHED-0006Ht-QH; Thu, 16 Apr 2026 07:33:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1282993.1565309; Thu, 16 Apr 2026 06:49:30 +0000
+Received: by outflank-mailman (output) from mailman id 1283007.1565318; Thu, 16 Apr 2026 07:33:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDGXa-00088X-LO; Thu, 16 Apr 2026 06:49:30 +0000
-Received: by outflank-mailman (input) for mailman id 1282993;
- Thu, 16 Apr 2026 06:49:28 +0000
+	id 1wDHED-0006GG-Mw; Thu, 16 Apr 2026 07:33:33 +0000
+Received: by outflank-mailman (input) for mailman id 1283007;
+ Thu, 16 Apr 2026 07:33:31 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wDGXY-00088P-H7
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 06:49:28 +0000
+ (envelope-from <Michal.Orzel@amd.com>) id 1wDHEB-0006GA-HL
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 07:33:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wDGXX-004fPu-U6
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 08:49:27 +0200
+ id 1wDHE9-00Bzbm-Ek
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 09:33:29 +0200
 Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e08661-2eae-0a2a0a5409dd-0a2a450ce5f2-44
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 08:49:27 +0200
-Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69e090be-e002-0a2a0a5209dd-0a2a450c8770-30
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 09:33:29 +0200
+Received: from [40.107.209.41]
+ (helo=PH8PR06CU001.outbound.protection.outlook.com)
  by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.0)
- (envelope-from <jbeulich@suse.com>)
- id 69e08677-f40c-0a2a450c0019-d155802dd93b-3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 08:49:27 +0200
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-4852b81c73aso70600565e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 15 Apr 2026 23:49:27 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488f5818d70sm48262825e9.4.2026.04.15.23.49.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 15 Apr 2026 23:49:26 -0700 (PDT)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69e090c7-f40c-0a2a450c0019-286bd129d959-3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 09:33:28 +0200
+Received: from SJ0PR13CA0006.namprd13.prod.outlook.com (2603:10b6:a03:2c0::11)
+ by DS0PR12MB8295.namprd12.prod.outlook.com (2603:10b6:8:f6::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Thu, 16 Apr
+ 2026 07:33:23 +0000
+Received: from BY1PEPF0001AE1B.namprd04.prod.outlook.com
+ (2603:10b6:a03:2c0:cafe::63) by SJ0PR13CA0006.outlook.office365.com
+ (2603:10b6:a03:2c0::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.49 via Frontend Transport; Thu,
+ 16 Apr 2026 07:33:23 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE1B.mail.protection.outlook.com (10.167.242.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9769.17 via Frontend Transport; Thu, 16 Apr 2026 07:33:23 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 16 Apr
+ 2026 02:33:22 -0500
+Received: from [10.252.147.171] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 16 Apr 2026 02:33:21 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,203 +70,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776322167; x=1776926967; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=dO5dep/7LW5nwzf5LpZvfuD8LTzYgo0Fq8G+WRGNV9o=;
-        b=AWxwUOvOSuKrCaxxWsMB5LK84PKmky4Xu22MzKFxJi/gjtLjV7VbNOHZZ8y7AQromb
-         k0PFjGHw0dFCXGiMivitZZleO68kxsLH7Bv7hnyG/Zx+Q3YDHcjFA69jR0WboPH2hKe4
-         NkY38AGEwOG8nvz2SoZZkN4IdcFGzzXQRzMVVTfvd0QGQUn5dPBCxcuLb71+83gjKhk9
-         pgkZBid1DdL0mkMoLvjY5kTiCh+zoJYdGDjLWguWbu0jju9/dIfC18eEcr+bxObqY4K7
-         mO5PBdgbmRCEamS46KtXQDt5ghcGxYjavQloKaLaQ/InLZFWphROY7aqJG5rWM1iImav
-         6seQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776322167; x=1776926967;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dO5dep/7LW5nwzf5LpZvfuD8LTzYgo0Fq8G+WRGNV9o=;
-        b=byp9mUVrB3dRUPRmjEKONKM9tzPDSueqhEb0d73dXCJFQMRQYgiNNZV91UgaU0z+Ij
-         ERlUpzCDqYio0xjPk9VYkMwe/oGN/9ZhmwWJzwIBUtZk5CkbPwEOn9cKACK3cRjTuCWA
-         BxrIqZOY+5E5TdeBqul1hVi8UZsu0a3ZFHOc0c18Wq8XMWRR7LoWOE/M2nKLqydC8Gp9
-         Xm9jzQC/TJfYyLB8snk4Xy4ss2PKaR9wRrcY3HX+XIpRoF2q0l2ciGnPN295hIQ70MB0
-         1OUanKZeuFOPzLug+jKDzWjyC6eA1QWeAxnfsZdZf+GRxuQV0jYpKheIbt3F447fH5Ar
-         rWrQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9p6AUByhwB+kGHi9iDG76Lx8uazA3BJWatW7GljNjx8nbxko0fAg+ucn4UUhA/2MjPT3Eyy4NiQvw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywf5gS9cYoyFp/8GSGiG1QdJNFasa2p43b8DQe1mze+mKFQDMft
-	g1K94OSXyW+odZH45oSIsfTe3TMV/PZmYGzkax9IcyBx10ainrAM+eWA7dPOylXKJg==
-X-Gm-Gg: AeBDies2EglShCGtGCKREU7JjBFceMPb/GsINnp/M3KxWJhezQwgssh5140UDwBgEkH
-	6cX4lG289+OXqr/4iTqVXbESuGcjN0fdDD7bJ5st32OGALsg4k6crQEijhotrvCQOvqOBh2Unod
-	rdiqtfOHw/OHbsYj1rKMa3XFxEgXdeLQOPhiDovIpEb1YmHe1wJ7hGIAcZO01bvSfjK4BOESAcB
-	oKaKSDWD9C8S5MU4HXVBsMfhkmhCyOTvPb6GJ8D798eIOVnIJ5NGXu3O2TsmpZHNjCdN648Fzuu
-	lf6PDgRJIkMQ3UVQPIDHRZsthBercZZiBySDJHcSpAfDVPm69uvRBp5s/3uxagDusQbiu5HK4El
-	Umo+AZryb0GncC3feCcjOaKN5D4W+yXr/oswgfmMXiu9rp6VzovZehIzkC6GLRaasiw2LwGkBop
-	7MSw0r6CHCs6YDRNAVOphnaDpah9c7pyU6WQhSf1nsUI+O0JZ+96i9txBiMCMgTpvleeMUPmOfk
-	R0tns3jcAKgOI9n2OFcNoYZHg==
-X-Received: by 2002:a05:600c:3b29:b0:486:fbf6:abd4 with SMTP id 5b1f17b1804b1-488d67d24cbmr316921605e9.9.1776322167196;
-        Wed, 15 Apr 2026 23:49:27 -0700 (PDT)
-Message-ID: <28900826-5a96-4bf0-8d5b-11fd1be8386a@suse.com>
-Date: Thu, 16 Apr 2026 08:49:30 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=k+OwDvswQJ02CQ1kYV+tfGQCael/3eI4UrAx74FifOatTA/NSlOIsWiTxCFp65WW+8WuzKSEprumvIzJGq2LzP3mhsWPxm3eT8QcVbJZOT9I/D+KzxI5bE7NclsIqwBnOBr4Lfcox3elj5R9JkIkU52GvIWRdJyBREN0ckT4bYoxQgTIKEMBRs7VQTj1O26X+DPNIDEIABcxaATPaTXmhT6GEvX1WY27JyvYMufuzvEZXuzX26hjvCHGhwEW9jF6rJnoy55E7xnlKZZTcGwdw3EDctKvkaS4RfiOZcc3A+LINWCz9w2SHGRdP78emaw5Jr87embtgVJKb+Ns7/Bqjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Rjz6lH4DBIsBQmGmwW1Sb4aKSYK3QlElRjNYFM4WV4s=;
+ b=Zt8k0pTLlFZz8ekSdM2aJAl981bVuYDUmQHqDOM+yvl4WTHCSKOPvZoP0dSnIyc5BCMRTydamjIKvflFxSCdmNaaanoEuqk93z/mjXWPl/tYCyYMeiwDa/QYF6UzuZug8LK6QTABtlpW9OT9qHrGuSvEIg5DgrUMBhAkvX1VVTpuvTJrKzmiDLNlAJJtlwDSH1+Vel0MVqlOIDLLD11m/AdIngf/vQ7wep0xjzs+qh5woc8tL7oqW0SrusUoZC64gj9aq47ZTINWGXUxM34C9WU2zsR9IWfqqqY1c2Cjc5atsko9nRdQiPRDTXpjqFpgX4D+9dJTfZskU6M+VWlc3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Rjz6lH4DBIsBQmGmwW1Sb4aKSYK3QlElRjNYFM4WV4s=;
+ b=p9PaRl/icFX+x3vsnMq1BR/Sr8jyjxfCL8De18g82sTlIsoaOEd2OsUtvNG/WIdqpmsM5qVnEG6deMro2z1kWkG8SyiSJuUBRiVQAbFk+XzWl4ejoNb8J8oz0X2gev5/971TdVBSFyrJBD1A9XvVsnLdATWYURgqLxIvGSjOZzg=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <1ab0c888-e890-490e-adad-938222f31a62@amd.com>
+Date: Thu, 16 Apr 2026 09:33:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 5/6] tools: Allow building xen-hptool without
- CONFIG_MIGRATE
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1774871881.git.mykyta_poturai@epam.com>
- <73db845e6617130966a565cdca6274db4cb46428.1774871881.git.mykyta_poturai@epam.com>
- <58cfab3b-7cf2-4e38-9968-1248e665f985@suse.com>
- <f4a1cfa1-f3ea-4fa0-bffd-1f6346e07d39@epam.com>
+Subject: Re: [PATCH 5/6] xen/dt-overlay: support phandle-based targeting in
+ overlay_get_nodes_info
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <Bertrand.Marquis@arm.com>
+References: <20260415113700.107915-1-michal.orzel@amd.com>
+ <20260415113700.107915-6-michal.orzel@amd.com>
+ <519E2133-12B9-4E51-A7A5-FDBADF82159E@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f4a1cfa1-f3ea-4fa0-bffd-1f6346e07d39@epam.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <519E2133-12B9-4E51-A7A5-FDBADF82159E@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d25034/1776322167-8274EA3D-3973FB81/0/0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1B:EE_|DS0PR12MB8295:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4190388a-c2b8-4a1e-1eb1-08de9b8a70d0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	mFVp1ILR11HMTH8C5IBcCZ7sX6HmwafW/jsYErRrsxdl5r+KTC8rQhjAr2mYEycMKdxbmYAtj4B6cHgJ5FpX7r90rE7ZEZ9mOupZ7m22nGC15BKyGLjlk1Hj18MIiEq8k8qd1ttIF/MPhfb5+U7LSiKpY96YDGFI9YofPWlL4ygA+uffliPv6+zt+1epO5LRll6teEDZr43wiOKNyI7vr+qRNF9H3eCpF8UltmtgQFIgTkEsqbq9H6lJzsiPAsMrxS+MdxMwv3ZtetbA09PkjXsRxC827tUz+g/4h4Fe0cbYKy+aT5p/scN4gUKQLsdMC8i/omb7Sfe+/ofKPZlRp7MQJ9eVKp1tEtd1qhEQIzret4sGKauwMQQAVOqw9ymMcTrhMRNuaxNhP+imemC+RU/yvDYdDrzKeyEbC7pnNcmM0Ct8mLfeXDfQ4V7smTlUG1iIOdcuI2653RU6mriRooNh1gozj300sT2gxy46PTyPTmlFQInZWmZHCD6ahRb5foAPZHabX15XSUcE99WABIAvNJz/78HiAiF4IIFcB1btlN+TU84aWJCjrK6cqvpJ+A5ecx7AOudzRw64TK4TgRrhRwgUxqheO0SZlUvPNs/PdLqjmVEzxu9w3mQfA3FKNSE3ImZJmAgalmGGmlf0twE4Tx/Y4SvEnOurTgnstDI3rC5noxbfKGGKd74G+uZARBAtr0x2KTXjlXKDBwvda2qJfZaUCC+TVxRyGTI0YlqsXfnP+euxJD8IK2/b4k4RYYwZkbsp6I489ps7n7qP9Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	fytqQGQRQIUwAaucP0Y+Qwm3iJbZCM848GD13rubk9pKasYvDnuEgqCPtincLSz9lm3Fb/Y9qIIENVZpZUGEwv0iFADfVLr6VUKX7td2nzzhIAWVDVIyPWNnzmujOBKfZ9gh2YZM6GUn4JeyDw+0KCnMY55PcDKosvswomVNkLwRZv8YrD8Rofx9qlPn4dfoS47BTOdZCe8KFAJNetgdlRSydXRZtZzybsClghvFoG5vkqqkxAUXtOjQp8hOn4KRknxYYtczVqS/900FC42WNATmS8gdrOU6hnDoEUPyNe4F5KMpHqqHcp1tIoR4wegHpi08weShiDwM85pDx/x6DjumP7qvsgQ5Mi0GidpKx9CcEhyrDMZwvKPKc9KfcisghPi4/RGtpVfjiVzOKXKXR7vK+PYO3+JBllqkj0k6FoudO1A5Lds9xULymg8l9+0B
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 07:33:23.2323
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4190388a-c2b8-4a1e-1eb1-08de9b8a70d0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE1B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8295
+X-purgate-ID: tlsNG-d25034/1776324809-FF149A3D-B64F0B10/0/0
 X-purgate-type: clean
-X-purgate-size: 2619
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-purgate-size: 4122
+X-Spamd-Result: default: False [-2.18 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	ASN_FAIL(0.00)[120.175.237.192.asn.rspamd.com:server fail];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
+	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:anthony.perard@vates.tech,m:jgross@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCPT_COUNT_THREE(0.00)[4];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[13];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: CE7E340AC76
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:dkim,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+X-Rspamd-Queue-Id: 9988F40B137
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 15.04.2026 16:51, Mykyta Poturai wrote:
-> On 3/30/26 15:32, Jan Beulich wrote:
->> On 30.03.2026 13:59, Mykyta Poturai wrote:
->>> With CPU hotplug sysctls implemented on Arm it becomes useful to have a
->>> tool for calling them.
->>>
->>> According to the commit history it seems that putting hptool under
->>> config MIGRATE was a measure to fix IA64 build. As IA64 is no longer
->>> supported it can now be brought back. So build it unconditionally.
->>>
->>> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
->>> ---
->>> v6->v7:
->>> * no changes
->>>
->>> v5->v6:
->>> * don't change order in Makefile
->>>
->>> v4->v5:
->>> * make hptool always build
->>>
->>> v3->v4:
->>> * no changes
->>>
->>> v2->v3:
->>> * no changes
->>>
->>> v1->v2:
->>> * switch to configure from legacy config
->>> ---
->>>   tools/libs/guest/Makefile.common | 2 +-
->>>   tools/misc/Makefile              | 2 +-
->>>   2 files changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/tools/libs/guest/Makefile.common b/tools/libs/guest/Makefile.common
->>> index b928a4a246..03dfcee7fa 100644
->>> --- a/tools/libs/guest/Makefile.common
->>> +++ b/tools/libs/guest/Makefile.common
->>> @@ -7,6 +7,7 @@ OBJS-y += xg_private.o
->>>   OBJS-y += xg_domain.o
->>>   OBJS-y += xg_suspend.o
->>>   OBJS-y += xg_resume.o
->>> +OBJS-y += xg_offline_page.o
->>>   ifeq ($(CONFIG_MIGRATE),y)
->>>   OBJS-y += xg_sr_common.o
->>>   OBJS-$(CONFIG_X86) += xg_sr_common_x86.o
->>> @@ -17,7 +18,6 @@ OBJS-$(CONFIG_X86) += xg_sr_save_x86_pv.o
->>>   OBJS-$(CONFIG_X86) += xg_sr_save_x86_hvm.o
->>>   OBJS-y += xg_sr_restore.o
->>>   OBJS-y += xg_sr_save.o
->>> -OBJS-y += xg_offline_page.o
->>>   else
->>>   OBJS-y += xg_nomigrate.o
->>>   endif
+
+
+On 15/04/2026 17:36, Luca Fancellu wrote:
+> Hi Michal,
+> 
+>> On 15 Apr 2026, at 12:36, Michal Orzel <michal.orzel@amd.com> wrote:
 >>
->> This looks wrong to me. There are x86-specifics in that file, which shouldn't
->> be built on Arm. And the name of the file also doesn't indicate any relation
->> to CPU management.
+>> overlay_get_nodes_info() is called before fdt_overlay_apply() to extract
+>> target paths from the overlay. This fails for overlays using phandle-based
+>> targeting (target = <&label>) because DTC compiles these as unresolved
+>> fixups (target = <0xffffffff>), causing fdt_overlay_target_offset() to
+>> return -FDT_ERR_BADPHANDLE. Prior to this change users were forced to
+>> manually modify the dtbo (even for hwdom) to switch from target to
+>> target-phandle by manually inspecting also the host DTB.
+>>
+>> Introduce overlay_get_target_path() which directly handles the two
+>> targeting cases that occur before fixup resolution:
+>> - target-path: the string property is returned directly.
+>> - target = <&label>: the label is found in the overlay's __fixups__
+>>   node, then resolved to a path via the base DTB's __symbols__ node.
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>> ---
+>> xen/common/device-tree/dt-overlay.c | 65 ++++++++++++++++++++++++++---
+>> 1 file changed, 59 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/xen/common/device-tree/dt-overlay.c b/xen/common/device-tree/dt-overlay.c
+>> index d3d4669718ac..a0dee7edb7e5 100644
+>> --- a/xen/common/device-tree/dt-overlay.c
+>> +++ b/xen/common/device-tree/dt-overlay.c
+>> @@ -286,6 +286,63 @@ static unsigned int overlay_node_count(const void *overlay_fdt)
+>>     return num_overlay_nodes;
+>> }
+>>
+>> +/*
+>> + * Resolve the target path for an overlay fragment.
+>> + *
+>> + * This is called before fdt_overlay_apply(), so phandle-based targets
+>> + * (target = <&label>) are still unresolved (compiled as 0xffffffff by DTC).
+>> + * Handle the two cases that actually occur:
+>> + *  - target-path property: the path string is used directly,
+>> + *  - target = <&label>: the label is looked up in the overlay's __fixups__
+>> + *    node, then resolved to a path via the base DTB's __symbols__ node.
+>> + *
+>> + * Returns a pointer into the FDT on success, NULL on failure.
+>> + */
+>> +static const char *overlay_get_target_path(const void *fdt, const void *fdto,
+>> +                                           int fragment)
+>> +{
+>> +    const char *path, *fragment_name;
+>> +    int fixups_off, symbols_off, property;
+>> +    int fragment_name_len;
+>> +
+>> +    /* Try target-path first (string-based targeting) */
+>> +    path = fdt_getprop(fdto, fragment, "target-path", NULL);
+>> +    if ( path )
+>> +        return path;
+>> +
+>> +    /* Phandle-based target: resolve via __fixups__ and __symbols__ */
+>> +    fixups_off = fdt_path_offset(fdto, "/__fixups__");
+>> +    if ( fixups_off < 0 )
+>> +        return NULL;
+>> +
+>> +    symbols_off = fdt_path_offset(fdt, "/__symbols__");
+>> +    if ( symbols_off < 0 )
+>> +        return NULL;
+>> +
+>> +    fragment_name = fdt_get_name(fdto, fragment, &fragment_name_len);
+>> +    if ( !fragment_name )
+>> +        return NULL;
+>> +
+>> +    fdt_for_each_property_offset(property, fdto, fixups_off)
+>> +    {
+>> +        const char *val, *label, *p;
+>> +        int val_len;
+>> +
+>> +        val = fdt_getprop_by_offset(fdto, property, &label, &val_len);
+>> +        if ( !val )
+>> +            continue;
+>> +
+>> +        /* Match entries of the form "/<fragment_name>:target:0" */
+>> +        for ( p = val; p < (val + val_len); p += (strlen(p) + 1) )
 > 
-> xen-hptool requires xg_offline_page as it has both CPU and memory 
-> hotplug commands. Without building xg_offline_page it fails with
+> what guarantees us that p will be null terminated, if a malformed overlay
+> is passed this strlen can read past the string, we can use strnlen having as
+> upper bound a counter=val_len? decreasing counter each iteration.
 > 
-> xen-hptool: symbol lookup error: xen-hptool: undefined symbol: 
-> xc_mark_page_offline, version libxenguest_4.22.0
-> 
-> when trying to do memory ops.
-> 
-> Is it an acceptable behavior?
+> Or do you think it can never happen?
+In theory it can happen, in practice this is something not usually taken into
+account. But we can surely stay on the defensive side and do a single check
+right after fdt_getprop_by_offset to catch not-NUL terminated stringlist:
+if ( !val || !val_len || val[val_len - 1] != '\0' )
 
-I don't think so, no. The tool wouldn't, aiui, load at all then if built with
-"bindnow" enabled.
+In case of no other remarks, I'd do that on commit.
 
-> If so I guess we can build xg_offline page only on x86.
+~Michal
 
-We still need to, imo. But the tool still needs to be usable no matter how
-specifically it is built. It should avoid referencing xg_offline_page.c
-functions when built for non-x86.
-
-Jan
 
