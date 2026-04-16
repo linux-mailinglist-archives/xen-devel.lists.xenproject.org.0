@@ -2,49 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6AbqDXPb4Gk/mwAAu9opvQ
+	id iCRFNnjb4Gk/mwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:52:03 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:52:08 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B35BB40E63C
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:52:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1283373.1565626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 691A240E64A
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:52:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1283377.1565635 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDMCD-0003ZV-4F; Thu, 16 Apr 2026 12:51:49 +0000
+	id 1wDMCN-0003wZ-AV; Thu, 16 Apr 2026 12:51:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1283373.1565626; Thu, 16 Apr 2026 12:51:49 +0000
+Received: by outflank-mailman (output) from mailman id 1283377.1565635; Thu, 16 Apr 2026 12:51:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDMCD-0003Wc-0T; Thu, 16 Apr 2026 12:51:49 +0000
-Received: by outflank-mailman (input) for mailman id 1283373;
- Thu, 16 Apr 2026 12:51:47 +0000
+	id 1wDMCN-0003uJ-7a; Thu, 16 Apr 2026 12:51:59 +0000
+Received: by outflank-mailman (input) for mailman id 1283377;
+ Thu, 16 Apr 2026 12:51:58 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wDMCB-0003Vt-3T
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 12:51:47 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wDMCL-0003sK-SZ
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 12:51:58 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wDMCA-00GoP7-FO
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 14:51:46 +0200
+ id 1wDMCL-00GoSe-9V
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 14:51:57 +0200
 Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e0db60-5cb7-0a2a0a5109dd-0a2a4501e7e4-10
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:51:46 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
+ (envelope-from <roger.pau@citrix.com>)
+ id 69e0db60-5cb7-0a2a0a5109dd-0a2a4501e7e4-28
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:51:57 +0200
+Received: from [52.101.57.10]
+ (helo=BN8PR05CU002.outbound.protection.outlook.com)
  by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e0db62-c1f2-0a2a45010019-d1558032c88f-3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:51:46 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-48897fd88ebso80670755e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 05:51:46 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43ead3e00b3sm12535087f8f.27.2026.04.16.05.51.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Apr 2026 05:51:45 -0700 (PDT)
+ (envelope-from <roger.pau@citrix.com>)
+ id 69e0db6b-c1f2-0a2a45010019-3465390a0fed-3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:51:56 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by SJ0PR03MB6549.namprd03.prod.outlook.com (2603:10b6:a03:386::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Thu, 16 Apr
+ 2026 12:51:53 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9818.017; Thu, 16 Apr 2026
+ 12:51:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,319 +58,218 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776343906; x=1776948706; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Te7eclu3Vfc7uQiDT3eQyqbf+4nTfGvhFkekv7OZ1BI=;
-        b=LgnRlycflwh1N/wHGL/o7O36zN+tu2DzTnvrvJebzPkSMEkFunnsUsEgdt3xbAAg1f
-         IXk/qQeoeFoJ9RPzEzdQ3WuWvRouS13x2CRNXQSchNjeFnwtM6LqvL3dBVSOPq6JfRM+
-         TVhJRwQr0l3lk58Hkkv13COO2bwBLe2ZEQoeAYSxX+lY3+rD7S9X1wwKZHNgzjZKUTT6
-         rnVoOomPS5+oBQUm34we4x761nZgL4WYuHj/xZIcDRapOs1MyS8CnTIqUaWBJOYwkxGi
-         wfY+9n5YQGrdsiS2UcF791Rwdi9N9Tz/+hPnYR2fpFKZ6iVC8eHasdmJL/m/HaBAQPcV
-         VvPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776343906; x=1776948706;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Te7eclu3Vfc7uQiDT3eQyqbf+4nTfGvhFkekv7OZ1BI=;
-        b=lc1HMAHc6dt2jwoJx5rDjZ/K2RE7Bv6itC7tbWqdfBQoRmMndx4scaAUIaDu8cDDUd
-         bQ4OVDO4EwfopXE/Lq+p9uMxLpK9Z1dkttQSPMSuVJ5vvWJnplsoUzw04UDHVXcC9Uu9
-         IdmxEVI6wbjIQGA3PCUdCUE0hElVPX8q04bN2/xCw9FGig8bN+PVmuCU8nNJlPDshqfo
-         BeG8vGbQrdAkFkjSBvcjNu+r1V3XtTjS9vo7ZAiFwxsT6TFoEHP8cEyMVsJl2SPk1CH7
-         Uxv8lgrVQAOxZVpKXk523yqCGfgkQsXRbXrgUyx9TDD6ALlk9CnQ4cTSPD2Q6ZjDPZ26
-         Y8yQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9+5iJhmj2AzqPiG8hCeGmQ/vVKSvATaASJNlkZfK5cTU4FI33vHs/dXNYklbGcGxFY6PVqOcwVjwA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyolscPReM1LskjPHbSSK4bMlhtKh3WVpxZIFDRIMWl9UIPu17F
-	SFhAym6ydamTqCBFguPtU4x6TIl9T28oWMtn3i8nOkmyeZb7vCPzd+jaOIjzT1N/JLp0+cYWBJB
-	cNqxNTQ==
-X-Gm-Gg: AeBDiesoCzQoi393Tg/E+ZJSdp7+oAugSsWX12QjDY7iRxwEMxtFGdMe6MnbfPltFAD
-	qvt3ZBOpYBh1kf4ff88NUJBLE2nMZ/ILSb0pHTDYG9DuNqWrEXwgXBxTjhnEJY4QeG6qG0IlfaN
-	8Up0Mimh4jn4AkgnTg7GXwKoby4qZCnmgMf3YIpD+PSpuL98I5d12kBUH56asGA6Nj/Q1Z93TPO
-	FkMNIqSuPrGFmBxJ7OZ/DZeFCkAx+BrB1oLvgcUT8Fyh+WDr1nVWtsbZYsfu05jbI49fbUTjZlS
-	EsK2SbyOHX22jJC86S9M0jqAh3qGnqL6m7XJZUWzzKFIU4dB14fxe/lyRyK9hBmcVK+MvUo+fJa
-	ZtfoLZzcWic8LzMinJjMhvMQcAOHHUsZP2GY5DYMc4941XErhSABMA8zSk5KqvJWn7yLs0QgmIP
-	ATk/ieg8HGa3BbkVEWKhYPMCz6pRMADCTWtGnPWmUhw+RpnNeR8yXGsVGFMy8/l3eA18ER+qWoh
-	9fK4Uj2lY/jcC7ydKOvf3pfxNrj4HOr+MEm
-X-Received: by 2002:a05:600c:64c4:b0:486:fbd1:9dc0 with SMTP id 5b1f17b1804b1-488d68c2c56mr319036285e9.22.1776343905675;
-        Thu, 16 Apr 2026 05:51:45 -0700 (PDT)
-Message-ID: <a7a4e8c9-d053-4ca7-ac9c-f43ddccf9151@suse.com>
-Date: Thu, 16 Apr 2026 14:51:48 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U+FW5CKMJijW+WuotcCmEUrnlZQrEn2kQXaulZ4AVYqRu+Y1/Vhmy5emmb85iR2Cix8L75OxiPveTaBhEYQnIclbyd3kpaWQJva8VA4IIggDDKSOT9/mH4zy6/xXWtw6020EDfsl2Sy4JjWXeEzTuL7a780mCjJ5dJ/9myRPAxQxbRckPYfqMtAZ9TD33LMbjY1JM+/FoH+r3/6ze5jnypR+meQ+vs5zxLet4mzxziWcOi6ftumTqxAD8eUqaLYbb1KkOy0+JWdfuCwCFmcr//aqW/obronEIDu3NgMq4iO6d4ZcKl1a3Aas05F/I1HlJe3oeE/0eEwF9zwgi0ujUA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yvK8tzfFPUqL8DxuGW02odaYKvZIuwiT17LQHLD9LUM=;
+ b=CAp9+C8TixUjLLMaTUD9MM4vKCkhD8gHhTn/EaUczc3rgAVWPE8Qe75mT7t8d6ZjXnL7D/FmrHvPJ/3PtV0/ZXZN9Jl3o3mX57XOJc9s9xpaJJKY6Hu3aec0oFPa9K3a1zvuXzyivnuZV/KUckTwvQRXBk5Y3MljIh0ms7RQrgACBrZNVkQGECxPTgB1/DvF23H3MrYOpsnyXKi41BwHg+jpw5m/61Du1rCtA4zSIia90TxBpJUsoATZfTf7v7O8LBoIJ5b4TQbBEcvXgD6Dc/3V7obMizrAGuOUEuT/N/zxfoMaT42Kmzw0kRyE6ToB+J8OQRXukNtR++svA8Y3mg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yvK8tzfFPUqL8DxuGW02odaYKvZIuwiT17LQHLD9LUM=;
+ b=hKbnDuUKDVa7anjapp+Fi00qxVNw3vANACGG8uZVsVuNBa2bBFaRlcCCjnBoWE0WLwIgFmvUUhfT1ml4K7oopGoY+YTyiGiaoeugcitwrmI6FI9AQrlX+gC3xH8cUruaTOwXe/3Ok3lVsXDbNEWBXTdivkwhhb9ZLNLov2l5iFc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Thu, 16 Apr 2026 14:51:49 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Teddy Astie <teddy.astie@vates.tech>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 1/2] x86/time: use native TSC scaling factors when TSC is
+ not scaled
+Message-ID: <aeDbZZA-asNJ3Gci@macbook.local>
+References: <20260414103327.7420-1-roger.pau@citrix.com>
+ <20260414103327.7420-2-roger.pau@citrix.com>
+ <f424bf3a-0113-4c66-b165-8dae82817f24@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f424bf3a-0113-4c66-b165-8dae82817f24@suse.com>
+X-ClientProxiedBy: MR1P264CA0094.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:3f::27) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 16/27] xen/riscv: implement IRQ mapping for device
- passthrough
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <10654a6c38fa929b5fdf6f214badfe4f60fe78d4.1773157782.git.oleksii.kurochko@gmail.com>
- <8a8a2afd-6f53-4f45-b8c8-fb34a6fbb970@suse.com>
- <f099b925-0ea9-43a7-b760-f70f343a4d7c@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f099b925-0ea9-43a7-b760-f70f343a4d7c@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1776343906-BDE6BFF4-7F7E20B3/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SJ0PR03MB6549:EE_
+X-MS-Office365-Filtering-Correlation-Id: 602c10c2-4486-4e08-6386-08de9bb6ef2d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	TU2RsExEQegfbdcd2nyrmN+78M4dQ3pl2FMFtuI4DaoY+URSlQHeAsMfa7JBZVA98T/M4QcqYY9IyVDdeqnSqfsTrbjoNAkVqIi0ejHOWS7atffqx47svtQqP9H+OhBHVJX3ZsCySU6ia6PvES/yG9vsiCjeyj7WI4aJFQgX1zh0SvDPAZZyTHGqsBDH8UymyXBi8gr9FQXMysdhgC4oUX4hT37U5F9W5YYQBQX4NM3pgJTAHbP33ZlTWhXHc++RUC3T9f4tUvGK068nsitFHP37lhwmWrlxcid6xe5HjMguEEeMF1+Onijb4KJbL73bU5Q37IgltSCc9jMl0BtHSnbgOIqaKf+JInr456sIRIPsSyohtpV8ushaAG7oKgKnuEIJwmzl3ozXPvg0Oqs8gkqjnoBFP9bWou/MB03k8NAklYqDpeqZdbtHQEW6I31EmHccLPuAncMptibB8EUVmMweyEKEP/ZFfdgnvzDQqWv/L7Vha6EE4/OPdzSQeYcAAvMRC1qU9LHmI7SLLWe2ac4AvCvvPtW0Ky6zDUA+kSzAHZaQG+0UxkEIJKHDa7jdtTCestlIpungYbl09O50Azs9+CNBkoi6Gmm9blXhBSVzSke+YoK8xIQOHhKO1hjq3UD73U70XcQF2gDA3vvvguehk/4gr8Wi8jP/PlVVy+KXSwjcXXPFq15bQ/qSx3QVjigR5IrGX1tKkPRAvIBpMWLxPmKjRywTdgWn04dr5sU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cGxrYzk2Tjh5Q3NEallXcmUvRGZtUThDeDlkZllKUlRDUHpUZG9GQ1VjOG9Q?=
+ =?utf-8?B?bzMxNjFBa2NseXZ0Wld4Z0NwMExsU05iUDVoY2p5QWUyT0hBc3ZuMDc1ZTZL?=
+ =?utf-8?B?dXlhYllJUVlGVHhiWjVlR2RpaDkrZGErb2c0bUE2VWNpTVZ1M3YySjZtRVNB?=
+ =?utf-8?B?bkwrTWQ3aGZvRGVDWURMdmx4OWhLZzRmcTNXQ3NuWEErUmhlZGljK3NudVlW?=
+ =?utf-8?B?dytncUhRS0Z4b0hpOTY1NFZEaVdJZjdaTlgxZS9ZN1Zxa2V5cE1IUXNyMUgz?=
+ =?utf-8?B?UHd5K1pCanRxQ09hQXFLYy9leG5wNDY3OTgvYWhqaUZXSVBsU2QxbHpQS2t5?=
+ =?utf-8?B?MUQzTExoREs0eFUrL3FCSHdiRVByK2h6cTE1elVyTjVsR0V3clV4VXNLeUQ1?=
+ =?utf-8?B?L3hHQ3p6USswU1FHYWs4VS9GZHE5RTE3Z1FUWnhVZk1SUnVMUHhVWXdLcmhI?=
+ =?utf-8?B?emtWWlo4S2JaMVVuZG5UY2NsZVU3enFlUHJPNm0rVGgwYW5uOGgxOUpvaDNU?=
+ =?utf-8?B?VkJGRGlGM0t2VFhLUTBNdXVrVXJnZXRSaGgyS2hqOUx3ay9nMjhYK3ZWSVpX?=
+ =?utf-8?B?VDZoU0JWOWVJdkozQUpRNGN4SUtKVEJLT0tVeGFESG9FdCtMakJaYXpVOXhB?=
+ =?utf-8?B?VjQ2dWxVQjQwcEFOUHh2cmxoNElsK0dzTHdLZm1lWWdZck8yREFYRGx6a05i?=
+ =?utf-8?B?S2lSeDNDVGJ2bk1KWGZ2VmlVL2J1d2pjNlhLb1FXZ1U5RXYzcnUvdis5cVI3?=
+ =?utf-8?B?SlJEbmxTMjg5a2tKSjErSHQxK0pBWUdPWExVSEUvTFpQOVpHdHJyR1VOdlpY?=
+ =?utf-8?B?ZUJiSlpTVHFTU2dvTTUyVGtnMHRDSzZlTC9CWTgybjdKaG5KTGsyVFd1UWV3?=
+ =?utf-8?B?MG50VUhzbzBFL3c2SUgyanBhVi9yS2NoL3VGRUdST2wvVmJMQW83b1dMRmhh?=
+ =?utf-8?B?Z2NqTEVaUjR3Qis0ZUdpd0c0eWFwem9hcWVMTmxJNjd6SFlGeU51ZXRacEZ5?=
+ =?utf-8?B?MGc2YWg1aU4rMDc4YktjYXY1ckllbkhCa0JvWXA0b0V2TmZjRjlxY3cvbloz?=
+ =?utf-8?B?V2V5aC8xQk0rbU84bmhzY2ZRbFpoZElFeC9uVW80akh0N2UrNkwzaGpUeEVr?=
+ =?utf-8?B?dTR4YUoya2xVdDRwblNHL2RreFlGajYzcXlOWGwzVFFPcm5Fc3NCQTVzNitW?=
+ =?utf-8?B?d0lqNEIwNWREdk4wSCtCaWxWRklZalQyVkJyNWtiVFp2RUFlOHE4VC9lcTUv?=
+ =?utf-8?B?UENBOGxEbHI3VzZZRWlpRDhVRUE4ZHltLzNscXI4VGJoUEtzbWxqQjFETm4w?=
+ =?utf-8?B?T2dUVGRvaTJBQ0Jwd09sczRyaFRGWSt4dFVZMzd0TU9yU0JDVStXaThHZnJV?=
+ =?utf-8?B?SWZOVVlLWENOcEdsUithNnN4ek5JaDdzaXh6Q3Buc0tEUEliTnZTM1dFdUxj?=
+ =?utf-8?B?UURqQkZQMXlyV041SENUc1phZExhMHdmN28yVER5WEVud2QxOWJDb09NeGtm?=
+ =?utf-8?B?KzRkRVkrRExTU2ZYTWhyZWlsRjZHWElzbEtrMEVGUzBQU0RjSE5qL0ZFU2Iz?=
+ =?utf-8?B?WmRxb3FNQmJmYTZLalViNTF1OVMxQTJTaDJlRi8yZFFqKzJodjE5M3BhZlpH?=
+ =?utf-8?B?d2lXRjlSZXFDZlVLaHI5SWZlK24wSW9aMWdWYTZOSlY2RDJjTWNEa3pQM282?=
+ =?utf-8?B?aCtvTTlnRUFzTEhiUDZjcVBsVUcwa043UWdEejh3Z1czZTl4Q09KSVlFZmNi?=
+ =?utf-8?B?WXlJaU95Rm9tTkpJdHA3NnFYQWVPQVArL1I2RGVHbEFsMzdoeVBpRXhuYUxo?=
+ =?utf-8?B?dURqU1JNMlRJWkdqNXpuYWxQNUlnWkNEVklMdUJrZzFSQVV4T2cvMHdrNEtr?=
+ =?utf-8?B?RnJUa0ZLWWJtM1FVWkhTTXhGcnpxNVBnakFDeThzSkd6anQ3Y3NSSmFLcVZh?=
+ =?utf-8?B?ekJ0L3VnZzZyeTBDWGpZaUNlZzMvMzRBZW9uUVZJVTZrSWNKMWdHNXdrcnYv?=
+ =?utf-8?B?UkdTd3RwSmpOcDhqQVk0WWQ0SkViOXVLcHErV0dvZkZPYVYxSnRwajBHZ0V6?=
+ =?utf-8?B?eGVUazFBUDdXbFVzaXJLRkdjb0lQRHlmL0FTcHFsdndOalJKcG9GZk1nSzFk?=
+ =?utf-8?B?b2szS1Rpelg1aWVaQVZQSEpVamY3MlhkMzhTdHdINUc4ajdyVFE4YW1vZits?=
+ =?utf-8?B?ejBHQ054eTNqM1EwbVhpV1NrZU5KdHhYRHpqd1BDMnJrci9UdWxoMWYvdzJW?=
+ =?utf-8?B?bk1pdTI4RlBMUjhDeW11aDdCTm12TWgrVXBzTWt6ek5BWkRqVVBXbGIrVC9p?=
+ =?utf-8?B?NjdDRjZPY2k4SGNMM0lFVHpXa0YybEErZFdjS0sweEVBS0o0YlptZz09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 602c10c2-4486-4e08-6386-08de9bb6ef2d
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2026 12:51:53.4754
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Tkxd5fF05kZvqVhF/N6Uj3iTlrLsIIGSncZ6+bVHuSwdljnSz2zTj+jDzfWdESooTlg+Ov9T02vbm0eWidw+Fg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6549
+X-purgate-ID: tlsNG-d62444/1776343917-BC812FF4-809E1DA8/0/0
 X-purgate-type: clean
-X-purgate-size: 6916
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-purgate-size: 3367
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:dkim,citrix.com:email];
+	RCPT_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.998];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: B35BB40E63C
+X-Rspamd-Queue-Id: 691A240E64A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 14.04.2026 13:29, Oleksii Kurochko wrote:
-> On 4/2/26 2:22 PM, Jan Beulich wrote:
->> On 10.03.2026 18:08, Oleksii Kurochko wrote:
->>> --- a/xen/arch/riscv/include/asm/setup.h
->>> +++ b/xen/arch/riscv/include/asm/setup.h
->>> @@ -5,6 +5,10 @@
->>>   
->>>   #include <xen/types.h>
->>>   
->>> +struct domain;
->>> +struct dt_device_node;
->>> +struct rangeset;
->>> +
->>>   #define max_init_domid (0)
->>>   
->>>   void setup_mm(void);
->>> @@ -13,6 +17,19 @@ void copy_from_paddr(void *dst, paddr_t paddr, unsigned long len);
->>>   
->>>   void init_csr_masks(void);
->>>   
->>> +/* TODO: move somewhere to common header? */
->>
->> Counter question: Why ...
->>
->>> +/*
->>> + * Retrieves the interrupts configuration from a device tree node and maps
->>> + * those interrupts to the target domain.
->>> + *
->>> + * Returns:
->>> + *   < 0 error
->>> + *   0   success
->>> + */
->>> +int map_device_irqs_to_domain(struct domain *d, struct dt_device_node *dev,
->>> +                              bool need_mapping,
->>> +                              struct rangeset *irq_ranges);
->>
->> ... is this not an inline function, when ...
->>
->>> --- a/xen/arch/riscv/intc.c
->>> +++ b/xen/arch/riscv/intc.c
->>> @@ -79,3 +79,11 @@ int __init intc_make_domu_dt_node(const struct kernel_info *kinfo)
->>>   
->>>       return -ENOSYS;
->>>   }
->>> +
->>> +int map_device_irqs_to_domain(struct domain *d, struct dt_device_node *dev,
->>> +                              bool need_mapping,
->>> +                              struct rangeset *irq_ranges)
->>> +{
->>> +    return d->arch.vintc->ops->map_device_irqs_to_domain(d, dev, need_mapping,
->>> +                                                         irq_ranges);
->>> +}
->>
->> ... it's merely a wrapper around an indirect function call? And then the
->> function isn't used anywhere anyway.
+On Thu, Apr 16, 2026 at 01:28:11PM +0200, Jan Beulich wrote:
+> On 14.04.2026 12:33, Roger Pau Monne wrote:
+> > When running HVM guest in native TSC mode avoid using the recalculated vTSC
+> > scaling factors based on the cpu_khz value.  Using the kHz based frequency
+> > leads to the TSC scaling values possibly not being the same as the ones
+> > used by the per CPU cpu_time->tsc_scale field, which introduces skew
+> > between the guest and Xen's calculations of the system time.
+> > 
+> > On a 2gHz system, where the frequency is possibly detected as 1999999999Hz
+> > (note this is a worse-case scenario), the cpu_khz variable will be set to
+> > 1999999kHz, and hence 999Hz cycles will be not accounted for per second.
+> > Over a second (the time synchronization period), this leads to a skew of:
+> > 
+> > cycles * 1 / (Hz freq) = 999 / 1999999999 = 499,5ns
+> > 
+> > So far this has gone unnoticed because the time synchronization rendezvous
+> > forces the update of the tsc_timestamp and system_time fields in the vCPU
+> > time info area, and hence the skew only accumulates up to the rendezvous
+> > period.  Attempting to remove the rendezvous causes the skew to grow
+> > unbounded.
+> > 
+> > Fix by using the native TSC scaling values (as used by Xen) when the guest
+> > TSC is not scaled.
+> > 
+> > Fixes: eab8a90be723 ("x86/time: scale host TSC in pvclock properly")
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > I'm worried about the usage of cpu_khz beyond simple printing it for
+> > informational purposes.  Overall I think it would be safer to store the
+> > frequency in Hz, as to avoid losing the least significant digits.
+> > 
+> > In any case, that's a different change.
 > 
-> It is used by dom0less common code and it is a wrapper because Arm has 
-> different implementation and Arm doesn't have 
-> map_device_irqs_to_domain() in its virtual interrupt controller operations.
-
-But the question wasn't why this is a wrapper, but why this wrapper isn't an
-inline function.
-
->>> +int vaplic_map_device_irqs_to_domain(struct domain *d,
->>> +                                     struct dt_device_node *dev,
->>> +                                     bool need_mapping,
->>> +                                     struct rangeset *irq_ranges)
->>> +{
->>> +    unsigned int i, nirq;
->>> +    int res, irq;
->>> +    struct dt_raw_irq rirq;
->>> +    uint32_t *auth_irq_bmp = d->arch.vintc->private;
->>> +    unsigned int reg_num;
->>> +
->>> +    nirq = dt_number_of_irq(dev);
->>> +
->>> +    /* Give permission and map IRQs */
->>> +    for ( i = 0; i < nirq; i++ )
->>> +    {
->>> +        res = dt_device_get_raw_irq(dev, i, &rirq);
->>> +        if ( res )
->>> +        {
->>> +            printk(XENLOG_ERR "Unable to retrieve irq %u for %s\n",
->>> +                   i, dt_node_full_name(dev));
->>> +            return res;
->>> +        }
->>> +
->>> +        /*
->>> +         * Don't map IRQ that have no physical meaning
->>> +         * ie: IRQ whose controller is not APLIC/IMSIC/PLIC.
->>> +         */
->>> +        if ( rirq.controller != dt_interrupt_controller )
->>> +        {
->>> +            dt_dprintk("irq %u not connected to primary controller."
->>> +                       "Connected to %s\n", i,
->>> +                       dt_node_full_name(rirq.controller));
->>> +            continue;
->>> +        }
->>> +
->>> +        irq = platform_get_irq(dev, i);
->>> +        if ( irq < 0 )
->>> +        {
->>> +            printk("Unable to get irq %u for %s\n", i, dt_node_full_name(dev));
->>> +            return irq;
->>> +        }
->>> +
->>> +        res = irq_permit_access(d, irq);
->>> +        if ( res )
->>> +        {
->>> +            printk(XENLOG_ERR "Unable to permit to %pd access to IRQ %u\n", d,
->>> +                   irq);
->>
->> This time the other way around: %d please with plain int. (Again at least
->> once further down.)
->>
->>> +            return res;
->>> +        }
->>> +
->>> +        reg_num = irq / APLIC_NUM_REGS;
->>> +
->>> +        if ( is_irq_shared_among_domains(d, irq) )
->>> +        {
->>> +            printk("%s: Shared IRQ isn't supported\n", __func__);
->>> +            return -EINVAL;
->>> +        }
->>> +
->>> +        auth_irq_bmp[reg_num] |= BIT(irq % APLIC_NUM_REGS, U);
->>
->> ... all of this leaves me with the impression that IRQ numbering isn't really
->> virtualized. IRQs are merely split into groups, one group per domain (and
->> maybe some unused). How are you going to fit in truly virtual IRQs?
+> I'm not quite sure - improving accuracy is of course a good thing, but will
+> we ever be able to do any such calculations error free, when already the
+> detected frequency isn't exactly precise?
 > 
-> What do you mean by truly virtual IRQs?
-
-Ones where no aspects are represented by any piece of hardware.
-
-> I can't totally agree that the current approach isn't use virtual IRQs, 
-> yes, they are 1:1 mapped but on the other side Xen is responsible to 
-> give an IRQ number for guest's device and Xen is responsible that guest 
-> isn't trying to reach IRQ which not belongs to it.
-
-In a non-virtualized environment I expect IRQs are going to be "sparse"
-(i.e. with perhaps large blocks of items used elsewhere). If you had
-proper translation of IRQ numbers, the same could be true for your
-guests.
-
->>> +        dt_dprintk("  - IRQ: %u\n", irq);
->>> +
->>> +        if ( irq_ranges )
->>> +        {
->>> +            res = rangeset_add_singleton(irq_ranges, irq);
->>> +            if ( res )
->>> +                return res;
->>> +        }
->>
->> What is irq_ranges?
+> > --- a/xen/arch/x86/time.c
+> > +++ b/xen/arch/x86/time.c
+> > @@ -1710,17 +1710,25 @@ static void collect_time_info(const struct vcpu *v,
+> >      else
+> >      {
+> >          if ( is_hvm_domain(d) && hvm_tsc_scaling_supported )
+> > -        {
+> >              tsc_stamp            = hvm_scale_tsc(d, t->stamp.local_tsc);
 > 
-> IIUC based on Arm code irq_ranges is an optional output accumulator, the 
-> caller allocates and passes it in when it needs to track which IRQs were 
-> mapped (overlay use case), or passes NULL when that tracking is not needed.
+> This is a potentially imprecise calculation. How likely is it that its result
+> will indeed ...
 > 
-> I added here as map_device_irqs_to_domain() is called from the common 
-> code and so maybe one day someone will decide to pass irq_ranges to this 
-> functions. At the moment, for RISC-V it is the only one user of 
-> map_device_irqs_to_domain() and it passes NULL.
-
-Simply assert then that it's NULL?
-
->>> @@ -34,6 +142,7 @@ static int __init cf_check vcpu_vaplic_init(struct vcpu *v)
->>>   
->>>   static const struct vintc_ops vaplic_ops = {
->>>       .vcpu_init = vcpu_vaplic_init,
->>> +    .map_device_irqs_to_domain = vaplic_map_device_irqs_to_domain,
->>>   };
->>
->> What about the inverse function, needed for domain cleanup?
+> > -            u->tsc_to_system_mul = d->arch.vtsc_to_ns.mul_frac;
+> > -            u->tsc_shift         = d->arch.vtsc_to_ns.shift;
+> > -        }
+> >          else
+> > -        {
+> >              tsc_stamp            = t->stamp.local_tsc;
+> > +
+> > +        /*
+> > +         * HVM guests using the native TSC ratio should use the same per-CPU
+> > +         * scaling factors as Xen.  This ensures time keeping is always in sync
+> > +         * between Xen and the guest.
+> > +         */
+> > +        if ( tsc_stamp == t->stamp.local_tsc )
 > 
-> I planned to add it when it will be really needed. At the momemnt, I 
-> don't have such use cases.
+> ... exactly match t->stamp.local_tsc? Don't we possibly need a (small) error
+> margin? (In which case of course the next question would be: How to establish
+> such a margin?)
 
-I.e. if any domain needs re-starting, the entire system needs rebooting?
-Recall that "dom0less" is slightly misleading a name, as it only allows
-there to not be a Dom0. One can be there, and hence re-starting a crashed
-domain ought to be possible. For that, you need to correctly clean up
-after the crashed one.
+hvm_scale_tsc() has:
 
-Jan
+    if ( ratio == hvm_default_tsc_scaling_ratio )
+        return tsc;
+
+So when using no scaling the input value is the output value, and
+hence tsc_stamp will match exactly t->stamp.local_tsc.
+
+Thanks, Roger.
 
