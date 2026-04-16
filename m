@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cMp/E7vc4Gk/mwAAu9opvQ
+	id oByVDcTd4Gm9mwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:57:31 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 15:01:56 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A952C40E6B3
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 14:57:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1283415.1565652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4ABE40E712
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 15:01:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1283428.1565662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDMHS-0005Qk-5B; Thu, 16 Apr 2026 12:57:14 +0000
+	id 1wDMLW-0007Ku-KI; Thu, 16 Apr 2026 13:01:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1283415.1565652; Thu, 16 Apr 2026 12:57:14 +0000
+Received: by outflank-mailman (output) from mailman id 1283428.1565662; Thu, 16 Apr 2026 13:01:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDMHS-0005OW-2G; Thu, 16 Apr 2026 12:57:14 +0000
-Received: by outflank-mailman (input) for mailman id 1283415;
- Thu, 16 Apr 2026 12:57:12 +0000
+	id 1wDMLW-0007JS-HP; Thu, 16 Apr 2026 13:01:26 +0000
+Received: by outflank-mailman (input) for mailman id 1283428;
+ Thu, 16 Apr 2026 13:01:24 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wDMHQ-0005OQ-IX
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 12:57:12 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wDMLU-0007JM-MP
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 13:01:24 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wDMHP-00629T-VT
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 14:57:11 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wDMLU-00GVtf-33
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 15:01:24 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e0dc9e-2eae-0a2a0a5409dd-0a2a4501d44e-34
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:57:11 +0200
-Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e0dda3-2eae-0a2a0a5409dd-0a2a4503e926-6
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 15:01:23 +0200
+Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e0dca7-c1f2-0a2a45010019-d1558034d58b-3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 14:57:11 +0200
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-488ba840146so78836505e9.1
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 05:57:11 -0700 (PDT)
+ id 69e0dda3-672d-0a2a45030019-d155802dc16e-3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 15:01:23 +0200
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4838c15e3cbso75329655e9.3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 06:01:23 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43ead3d5eb4sm13802027f8f.20.2026.04.16.05.57.10
+ ffacd0b85a97d-43ead35bf1esm14139499f8f.16.2026.04.16.06.01.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Apr 2026 05:57:10 -0700 (PDT)
+ Thu, 16 Apr 2026 06:01:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,56 +58,61 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776344231; x=1776949031; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1776344483; x=1776949283; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=TDo7cuQygxrsMfzbryWP7R/0NuH1eJzyHF47V5ZWVwo=;
-        b=Su7p7JnbLM9c6LIawrrHoGKLqlzjVEgiktOBMClvjdzzHehcyNbk2zTM4jSE+cSfke
-         anQZJ3rwhiLSs2k98TbV3PQOrsLUvgAg6lhRAmBRNAVPIe44eLv8ipZ4lbXafQ0lEh+J
-         UL+8K4Vf3xPbfS1WMpZ8XlHi6cw25S2oGcLmhMx5Q1Vs+S9oLQ7bpkDsHo9lnVaW26XA
-         bOF9ssyStX5Y7VvYerDT+JvZmhvzT73BIeP7CE73mMJnTZzCDhRr00qKT1GatD5HGw6q
-         7x1UzZFm5OgpzlW3DabXAa0y9dMF1LptyRkmWZAMiIlOoPiN67MytBkx5qi43WLzoDtd
-         m4Hw==
+        bh=65ANu0MURn8ab4e3Y3mOo2/bz288YqetAYIt4UinN/s=;
+        b=cJuvlNrBMOWUIxTdUMjLjX92Dclj5mDz3HW0oSSF6L8Mng7tLjrSVc6PiEDioKfmvI
+         Pqv/ec/hT9Zgikw1fZ0quR0zGZaVoN7jsVq2mncZRpE3CYvvuHlOV4+bA92rbk60Qgoj
+         8oOum0C5FwbC4X7gn/f52NZFPFNgK5Ogy/zl7O7fq58uLMwe5de1LJJJBAeYTg2gtr1I
+         9ieiftRVZ6v741ivSh32Xt4IWAu7z8VtUFT1hAHRRhz289qMMF+zdFCkHwi0DVp8aYnp
+         EMHd/G8OlVXwV8nwnYudjrVW/wz8Q4lLvBQZDqJjwNv+sSuZJx362LFkmRcYlEqUkPHq
+         wmQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776344231; x=1776949031;
+        d=1e100.net; s=20251104; t=1776344483; x=1776949283;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=TDo7cuQygxrsMfzbryWP7R/0NuH1eJzyHF47V5ZWVwo=;
-        b=eOA1Akj59LTSuA2yodoWOkqfNr9mSszdFJBO2NKqTskvMI/MKUhDGvnWBt5gdSRrg4
-         Z1/7DRNT80x9hoAUjTywLqfzUlFY20fX5aTxHhcbYDcApWFLo5KfFSqMuQZJsRnd57MT
-         kuSR+931UFr5Lifius3/2xoUf3VZ8Dcne+efX3Aadjj4N2upTLSchQ4WBCktJMkmZiWU
-         XBuzENDhUMFf9IlGdyNp6Pt744gpK+SWBn5fJyT7+3kZwd5uIFu4q2ik+rV/ojVo8nEe
-         i4cavAgsaXB4qC/lJ61kptC2r6Hb68Idwnhz/FqA8uco1ouYiIebnfZPosU7wWXOHxGN
-         k8iw==
-X-Forwarded-Encrypted: i=1; AFNElJ9REXZlOk7EIaw6rOMG2rBf/eyKJy9aUt3G6Py8nDcgnyyCUNXS5uX6CHCPzhH31MAq617LHhzLtho=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzvpfyfoeweHdO8NaPPl9j5dJcBKd7w8ZX0QygUrm9Wgui+lMmP
-	ERFgI5ZAr1Dql5+HOmbTj9tQRFMSGG4s+FtsH6oqF7i/SnvC32uMtZgigPzxUD3M7w==
-X-Gm-Gg: AeBDies8l8Qa+Qi6GhkXkQm50PieJK+2JafhXk9pjHTkbsVrKA8fTY/YpHpmpCQd4gH
-	n4UejvO92QwtJfR1lh9EoHAvowmwA4236sJdKV+tmi4UnqOSESeKF70lJVJVNoOLga9PPA81P4D
-	kAk9zK4jf9YT3wfKfL9XMAiichoIqAlPj7qGrVsT4kYWdo23alc5aY38jRlRHJR/mAei7RiqI7b
-	l9qGuWoe6kethUDDIVkhnu9gwOhx09MwC/mja7Jik6Rn0zwez4Yn5u8Pra0BhEHgWfAlvn7f+1d
-	OL1ZzvLPXM4ZeQ3QFpBmoAU1bOKHdx6yXUdorb17LUnju7vkjtwCsCFPMgMgVqcFkXFsiWMC5RE
-	ASYGr86WF+jLBE4jStfLrwBleeOI0baQsgBu7JhRHRuragsItcvWtSKvw0d5ILNQB3tHyn55o1H
-	fZTY+MJViezyqWq0Qh/0foYw2OjTGC4zhTPeFEcWIPt9S3m5oLIbOqsjwmT4mR6yvAgNYfkMtcj
-	BKeM1kK7U+yk1cpjRfNIYUWOQ==
-X-Received: by 2002:a05:600c:350c:b0:488:9661:2570 with SMTP id 5b1f17b1804b1-488d67ce8c2mr354093825e9.8.1776344231125;
-        Thu, 16 Apr 2026 05:57:11 -0700 (PDT)
-Message-ID: <9efe1ae9-8064-4793-90c9-2e16c64f75bd@suse.com>
-Date: Thu, 16 Apr 2026 14:57:14 +0200
+        bh=65ANu0MURn8ab4e3Y3mOo2/bz288YqetAYIt4UinN/s=;
+        b=ma8RY1MKpycQEhAUB8Mt6h4wQdI1PzNKRsv/YGHFNQa4UYALtSubUD8BfjLaNjO32N
+         chjZDo6hJXPS8NS8m8kGcTbI2zxhqvVLDlhrV74EPRVw1wtXqK9lmyld5btGlC1BLk6S
+         NJ51ViVGjyC4Alnq+REkBWQcs0uUmEyqX/OyPp4mTZFFbPKmLN2nAn0jiRgHvyaPwtlN
+         CGQgcPpuVjv/oqlnF/1UOQF3EcJtB1nuzxxrfBYx9IzbazZtBWgvQa4169Fd6UCG0Ion
+         Z2P1gkaAWvYRVQnCDQRsvGVwc+pjgVSfOaOOGqk71wvBg9xD6/Av/C6sD9r/FbeEr0cg
+         Rcbw==
+X-Forwarded-Encrypted: i=1; AFNElJ/r3G5L3OOQ55drqaPwqVgqAgh+rw8sVSxFCyFnbZlAbMW0/qxLW42C6EdBhDomNWwRd7KEFU1/1uU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzM9dXTCfQfBVDYjNgOhRQ4um8158TOQ0nvNOyab8eKRy1Dk8g0
+	To8oh9sfYb5rWo150OWkqORtgdlPSFAEebInGN0qArm4JdErTDOKqIcw7vQMjCtccA==
+X-Gm-Gg: AeBDieuoLPH9dfsfR42TBmnb0BoH9cdAoiKw49juutmkHxNrM15nIT3KTxLReCNHh/e
+	lX9j+JhZxo46uy5Lb8qK/cEU+DvogeId5CDrddqXz7SAmI1IoX+LzBSNFUMZZXN2g7h/hUMkMwF
+	/3r/wBYks0grRoz++8bLwX+OR1LEBXIlhd+kOUj0AtPLh9VINKB7suBsDR076CoXTjuf5po2FO7
+	EyvcS0pGa8Qz7buk8rnuJWphIL7mIywKZozp4+iM6SnjufEGNJoqqyiuzcZL9lohZIPTbCm5Vk2
+	c41uPehrgI2EJloRM2iJahYPgHfm/0lTfRDKQcljQvTy8LIqBFIY//HWp5vjMTa7Kk4ConLJMWd
+	9spQENIuoCB2ubWuWiZtKnmtSCnxfvb6l42VI17nxo5CsoyZWNndwwX+KryxTkJ/Icd/ChlJA42
+	Oneb0OVEpi/C9Ifw/106RYA0T/RyR+hbgOy06dL3atLidOk64/bK0QoehHK5k6zMleW8u294kXR
+	lIL0D6cq/QNTSfA0zKBHEcLAsyez9Qr/z7X
+X-Received: by 2002:a05:6000:4203:b0:43d:9bb5:bd97 with SMTP id ffacd0b85a97d-43d9bb5bfa7mr18130856f8f.8.1776344483104;
+        Thu, 16 Apr 2026 06:01:23 -0700 (PDT)
+Message-ID: <e70e141b-fe40-41f2-9101-e65758e7f7b6@suse.com>
+Date: Thu, 16 Apr 2026 15:01:25 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/time: use native TSC scaling factors when TSC is
- not scaled
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-References: <20260414103327.7420-1-roger.pau@citrix.com>
- <20260414103327.7420-2-roger.pau@citrix.com>
- <f424bf3a-0113-4c66-b165-8dae82817f24@suse.com>
- <aeDbZZA-asNJ3Gci@macbook.local>
+Subject: Re: [PATCH v1 18/27] xen/riscv: add vaplic access check
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
+ <0fc9adf790d4f981e8117bd9759c7e64bb11e439.1773157782.git.oleksii.kurochko@gmail.com>
+ <0519fb8a-48e3-4f36-8d6c-a966080ffb55@suse.com>
+ <f0503bd6-3ea3-42da-9211-02836addc176@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,128 +138,97 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aeDbZZA-asNJ3Gci@macbook.local>
+In-Reply-To: <f0503bd6-3ea3-42da-9211-02836addc176@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d62444/1776344231-BD66FFF4-307BC43C/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-33051d/1776344483-A0975938-154E628A/0/0
 X-purgate-type: clean
-X-purgate-size: 3685
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-purgate-size: 1901
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RSPAMD_URIBL_FAIL(0.00)[suse.com:query timed out];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.996];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: A952C40E6B3
+X-Rspamd-Queue-Id: D4ABE40E712
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 16.04.2026 14:51, Roger Pau Monné wrote:
-> On Thu, Apr 16, 2026 at 01:28:11PM +0200, Jan Beulich wrote:
->> On 14.04.2026 12:33, Roger Pau Monne wrote:
->>> When running HVM guest in native TSC mode avoid using the recalculated vTSC
->>> scaling factors based on the cpu_khz value.  Using the kHz based frequency
->>> leads to the TSC scaling values possibly not being the same as the ones
->>> used by the per CPU cpu_time->tsc_scale field, which introduces skew
->>> between the guest and Xen's calculations of the system time.
->>>
->>> On a 2gHz system, where the frequency is possibly detected as 1999999999Hz
->>> (note this is a worse-case scenario), the cpu_khz variable will be set to
->>> 1999999kHz, and hence 999Hz cycles will be not accounted for per second.
->>> Over a second (the time synchronization period), this leads to a skew of:
->>>
->>> cycles * 1 / (Hz freq) = 999 / 1999999999 = 499,5ns
->>>
->>> So far this has gone unnoticed because the time synchronization rendezvous
->>> forces the update of the tsc_timestamp and system_time fields in the vCPU
->>> time info area, and hence the skew only accumulates up to the rendezvous
->>> period.  Attempting to remove the rendezvous causes the skew to grow
->>> unbounded.
->>>
->>> Fix by using the native TSC scaling values (as used by Xen) when the guest
->>> TSC is not scaled.
->>>
->>> Fixes: eab8a90be723 ("x86/time: scale host TSC in pvclock properly")
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>> I'm worried about the usage of cpu_khz beyond simple printing it for
->>> informational purposes.  Overall I think it would be safer to store the
->>> frequency in Hz, as to avoid losing the least significant digits.
->>>
->>> In any case, that's a different change.
+On 14.04.2026 13:45, Oleksii Kurochko wrote:
+> On 4/2/26 3:10 PM, Jan Beulich wrote:
+>> On 10.03.2026 18:08, Oleksii Kurochko wrote:
+>>> --- a/xen/arch/riscv/aplic.c
+>>> +++ b/xen/arch/riscv/aplic.c
+>>> @@ -38,6 +38,7 @@ static struct aplic_priv aplic = {
+>>>   
+>>>   static struct intc_info __ro_after_init aplic_info = {
+>>>       .hw_version = INTC_APLIC,
+>>> +    .private = &aplic,
 >>
->> I'm not quite sure - improving accuracy is of course a good thing, but will
->> we ever be able to do any such calculations error free, when already the
->> detected frequency isn't exactly precise?
+>> Isn't this the host instance again? How can you ...
 >>
->>> --- a/xen/arch/x86/time.c
->>> +++ b/xen/arch/x86/time.c
->>> @@ -1710,17 +1710,25 @@ static void collect_time_info(const struct vcpu *v,
->>>      else
->>>      {
->>>          if ( is_hvm_domain(d) && hvm_tsc_scaling_supported )
->>> -        {
->>>              tsc_stamp            = hvm_scale_tsc(d, t->stamp.local_tsc);
->>
->> This is a potentially imprecise calculation. How likely is it that its result
->> will indeed ...
->>
->>> -            u->tsc_to_system_mul = d->arch.vtsc_to_ns.mul_frac;
->>> -            u->tsc_shift         = d->arch.vtsc_to_ns.shift;
->>> -        }
->>>          else
->>> -        {
->>>              tsc_stamp            = t->stamp.local_tsc;
+>>> --- a/xen/arch/riscv/vaplic.c
+>>> +++ b/xen/arch/riscv/vaplic.c
+>>> @@ -127,6 +127,20 @@ int vaplic_map_device_irqs_to_domain(struct domain *d,
+>>>       return 0;
+>>>   }
+>>>   
+>>> +static int cf_check vaplic_is_access(const struct vcpu *vcpu,
+>>> +                                     const unsigned long addr)
+>>> +{
+>>> +    const struct vaplic *vaplic = to_vaplic(vcpu->domain->arch.vintc);
+>>> +    const struct aplic_priv *priv = vaplic->base.info->private;
+>>> +    const paddr_t paddr_end = priv->paddr_start + priv->size;
 >>> +
->>> +        /*
->>> +         * HVM guests using the native TSC ratio should use the same per-CPU
->>> +         * scaling factors as Xen.  This ensures time keeping is always in sync
->>> +         * between Xen and the guest.
->>> +         */
->>> +        if ( tsc_stamp == t->stamp.local_tsc )
+>>> +    /* check if it is an APLIC access */
+>>> +    if ( priv->paddr_start <= addr && addr < paddr_end )
 >>
->> ... exactly match t->stamp.local_tsc? Don't we possibly need a (small) error
->> margin? (In which case of course the next question would be: How to establish
->> such a margin?)
+>> ... use that here? Or asked differently, again: Where's the virtualization,
+>> i.e. the abstraction away from host properties?
 > 
-> hvm_scale_tsc() has:
+> With the current use case it was easier to choose such approach then 
+> provide the full abstraction.
 > 
->     if ( ratio == hvm_default_tsc_scaling_ratio )
->         return tsc;
+>> Furthermore, is it really sufficient to check just the starting address of
+>> an access? Shouldn't the last byte accessed also fall into the range in
+>> question?
 > 
-> So when using no scaling the input value is the output value, and
-> hence tsc_stamp will match exactly t->stamp.local_tsc.
+> I think that it is okay, my understanding is that *paddr_end technically 
+> is another range.
 
-Ouch. I did look at the function, but managed to have all my attention drawn
-to the asm() there. I'm sorry for the noise. As it's strictly an improvement:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-The other, earlier remark remains applicable, though.
+Of course it is. But a multi-byte access crossing the paddr_end boundary
+isn't purely an APLIC one. You can reject such for simplicity, but I'm
+unconvinced that you can claim you will be able to correctly handle it
+without proper merging.
 
 Jan
 
