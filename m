@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4KdYKe3h4GlhnAAAu9opvQ
+	id gKJGN0zi4GlhnAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 15:19:41 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 15:21:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB2F040EAC9
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 15:19:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1283457.1565679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E25C40EB2D
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 15:21:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1283467.1565689 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDMcu-0001nJ-CU; Thu, 16 Apr 2026 13:19:24 +0000
+	id 1wDMeW-0003GO-Ls; Thu, 16 Apr 2026 13:21:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1283457.1565679; Thu, 16 Apr 2026 13:19:24 +0000
+Received: by outflank-mailman (output) from mailman id 1283467.1565689; Thu, 16 Apr 2026 13:21:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDMcu-0001lT-9c; Thu, 16 Apr 2026 13:19:24 +0000
-Received: by outflank-mailman (input) for mailman id 1283457;
- Thu, 16 Apr 2026 13:19:23 +0000
+	id 1wDMeW-0003EA-Ix; Thu, 16 Apr 2026 13:21:04 +0000
+Received: by outflank-mailman (input) for mailman id 1283467;
+ Thu, 16 Apr 2026 13:21:03 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wDMct-0001lN-Cb
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 13:19:23 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wDMeV-0003E4-GV
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 13:21:03 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wDMcs-00GuqK-Lg
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 15:19:22 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wDMeU-00DMYA-TC
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 15:21:02 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e0e1d0-5cb7-0a2a0a5109dd-0a2a4503929e-30
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 15:19:22 +0200
-Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e0e237-5cb7-0a2a0a5109dd-0a2a450b88c6-34
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 15:21:02 +0200
+Received: from [209.85.221.45] (helo=mail-wr1-f45.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e0e1da-672d-0a2a45030019-d155dd2eb99d-3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 15:19:22 +0200
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-43d7605ec91so4105872f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 06:19:22 -0700 (PDT)
+ id 69e0e23e-212f-0a2a450b0019-d155dd2dc05b-3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 15:21:02 +0200
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-43d7badbd7dso2246106f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 06:21:02 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43ead33d65asm13631868f8f.4.2026.04.16.06.19.21
+ ffacd0b85a97d-43ead3d5fe1sm13738643f8f.22.2026.04.16.06.21.01
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Apr 2026 06:19:21 -0700 (PDT)
+ Thu, 16 Apr 2026 06:21:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,62 +58,56 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776345562; x=1776950362; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1776345662; x=1776950462; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IxcODoIkQA3TUCT0RAhFK0C7/Zce95cYCusS/fgNfBU=;
-        b=Rp9qztql+AzFwMD8fbQrBv+T2Cde0qsuBVxRGAEtWMWfR3rwQc0JhQgPsaETXiShZK
-         gqevnGYoTIbXSCrwdPlK8rpYfSpV9zPmzIbe5NYKZ2i2KuZ5kSPhcLDtXq/eA+GMh0Eh
-         52/IDJQx24UkCOivLmXVLK2qnD3TCv5Dl9b4+9j0kEMXwqgVnvfU+pXLK6koBJe5nwcl
-         P7u7Ru9D77hgVw0JTOx4RSgvrctsy4RGXYomXAs66uuOGU6jx1iFLocopSgxgT/1s4zk
-         qNiqJOSk0NPJySdGGRnLUyNv4qYVv84UOI4iYxa7d/87TAF64G11mCFPg7FS+dUl3L2b
-         iovw==
+        bh=38I4je6p1nKTDmZWOKPmUPcjOJSmN3fHIloZh5xQ0bM=;
+        b=d1M/EzcHPlGMEXV8voe+nCoMNEzHk2aGm3uC9qBeoOChHQ3paq3ugSzoa/zGC0hmZg
+         7TDWldBZ4y4U86HMW7ysa0CCmsqJDJMLGUM4HHKYi9KcsYkkgdCFZTEcOYkCwT2rlK+H
+         NOUiShsCUmK42HA9iij0w+OT20CoFrcr8ltc23bPxiIdURTauIkKrmKpVIptelTAK+/s
+         sLMqvUW8TEasjIa7U0RCPNE6eaK+MJ6fcPg7/CUdNx3pqjbVuP7jixfdqey0NOZiDdEp
+         JhzZJqVQ8fViJt8wRUgaA3CgGYrpkdt4YuUDJqOPOtuFNgInI8ImjiRXFzlUvC6bIdbH
+         s0nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776345562; x=1776950362;
+        d=1e100.net; s=20251104; t=1776345662; x=1776950462;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IxcODoIkQA3TUCT0RAhFK0C7/Zce95cYCusS/fgNfBU=;
-        b=LzC1X0EoNP9u28kDPrTqHSnNxGdAN/Lkv71ehf62jqvROibHum2ggcA3HE3diB//sr
-         d00i2hsgF966Cvw1lB7585ZC7CWnqStSvZMuDKApRMVNtizpkOMe1Oxl33xmkOlU11Ee
-         EFud7x80X5rATWMRkDNYs/R0dTAJjzxc7SqUEUIEeYua7KneR6eDGALgsmsvDfbiZCKq
-         lvWjZ8YGxXQjmipqed4rbmfJvyDR5CuyCtTMah2dC/UFtM1sjQJlMvCQ/TgwZqVFt8is
-         sgaCj5Hbxb4mDeD83IjisfEKVmn058GGla4lq+W8dIhrfDQ/bhjAa90cuPNz8tzZrmFS
-         UjSQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9FUwpBvIvLzBKcfCr3RVz8ovojRhOayXkbHEtjIIAQUscS8g18AqrWxLZ9fkrxqTYfxckpmK/H83E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzLFdtpuSAGysJlDB56PbnWXN3utvrS4IB0W6sXZLt3YgxLk3lS
-	52/hVv1NZ+PBiNfQUY/b84g6GWWMyv/8fvKVP1nEPRajc+FTCPhAoWC4vIPLPgyHzg==
-X-Gm-Gg: AeBDievnS0dFlWVqc/8SB5Ml0zPTcFXCIbKBJ5QNUFo5uJtJwkPIhASOOmmnzr2COPd
-	e2aitZk64fNVoJuVc6iB56ovy1H/FZSxOYqcB1iwrl4G3LbpTXd1mQ6X0CKxOcNYWC4i4rIbeVF
-	IDV7N/68HVNoPwNsrCe/XVBhiVVfo8Q3StdnEmDTX44xPUOyovT2mXKPsK6kkE7Y2f18pHBltxi
-	Zdwsb1z9M34FMeVTh/rc2f6mnjAlg4/DD50ERKjlXpTfPZ8WDph9Iz6AKh9ZeBTKgTefgGzqOS5
-	Jj5G7PBwnzJEL1Q3L3u0ZyjNkY802S5REqwhOGXZqKb8rK65gZV3gA8eqrlYLCUQXKOxkQg9nuP
-	Ieh+eLZA4UIgBK5Pz0Y2VuuhljCYMWTdHrmMgOAy6MpP2qy6nTjuKsRSkBriuNY++BjPs+Ez7Eo
-	sjJjDl7CD/u4PPGPfYjiN1Y3qrFcfRXoKRuErf3//NxTF6bMlEkZ3qSK4w+Vdjyp4ctBfU+DFvI
-	CH+reqQmutsxbFOs9vEmzhjqQ==
-X-Received: by 2002:a5d:5d12:0:b0:439:ae2a:755e with SMTP id ffacd0b85a97d-43d642c4f2dmr41210582f8f.23.1776345561738;
-        Thu, 16 Apr 2026 06:19:21 -0700 (PDT)
-Message-ID: <910f0720-1e83-4b0d-a1bd-09799d6f8264@suse.com>
-Date: Thu, 16 Apr 2026 15:19:24 +0200
+        bh=38I4je6p1nKTDmZWOKPmUPcjOJSmN3fHIloZh5xQ0bM=;
+        b=jZzyHxKBPzda2qfPmYAEw/Tv+EGUhyZaRO3OgXs/++91ib+8E7v6J8+A6YJ2HWQTQU
+         3SLafBdMjweM7Qz1OSAGtP7ZnuJLrhGviImTGm6mIaUb2L7ul1hFP42WRS/rojdrYEb+
+         0Zp8PjADq87Bn7k8/hkxhXfNfpZfruSJl4YXAo5zV9lPSO1IvqmDbOIO9a98nFecrGBG
+         4LO2fPRWM8jAITJTtq1inPWsDi29/yvZ7oEtUYf/Qtf5tn+SiQ9bdGv0TrDCCaL/L/em
+         VWyTRqfj6T20LGXY+Om8kvpqHP/lq/8lBUuMpTN/P1OTj8eXnSjgrtgtjheEQVDHUBJi
+         5qyQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9jHDXsYMs2bAoJ3xwYKxD4226OdjMACcC5Ji1HdxjROcQDW/+OcmrFmSRdD3YeoyYz6f2ChBNrzhg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxVt8iX7YrFZcfwodLmtjablPI/S6114cIR86aYrBoyXBDiotmh
+	KFL4/xzPfuhrh5mWUoF3fBHYBE83RPrUmNg15NK92OqMfphPvzDlStnmW9AGbv5jbQ==
+X-Gm-Gg: AeBDievmNXbRUCFKR59hWurx5ItEgASkQCZ7nmNMrvu9L8WxFLoThB6/lMIZww/nbN8
+	Ubs0xmIjQbdVXa3zsgUs4ofgnegHqu7VUdMJu/V8v3p7C5/qIG+UhyIhwX8p+Nx8lMVa6OdzN4e
+	VkMoQn2RvsePzmPWM+pH/JOsWWfI1ys7Fw5yaTwdWCSSLLr4lK3v3g3+UxgxKdyFViZeFPIhvCr
+	XGGpK7w/KsoRf5g7BxVbtchge+lRHWtxFUk9wPMaT+xQaYgu6J2rLukeuhw+XlWkr6gYy1/oRIW
+	u0PSHyXW0TB7QvXqUMqxpEUBAkcyk++YGgWr3To8bonXbZ6H6Q7SKnLOcTEIUaPlri+eIl7k5+L
+	alr1gldgZR1bss+I7stpXjrWy94EtExGhTwA4lml1xyTBaIlEHPmuT+zsiTEVHGAMN5byT2oS/K
+	R6Pt05sCNYBzfUVkmrE3BWq1huW5kU6uYJCS2DUBb45tsb+M3OLWHnKq43KgD9SsLrkQZEuzoiq
+	e6ogs6iIDXQrPeclqSzyUIFVg==
+X-Received: by 2002:a5d:5d83:0:b0:43d:1c4a:37c with SMTP id ffacd0b85a97d-43d64254fb0mr35706576f8f.4.1776345662152;
+        Thu, 16 Apr 2026 06:21:02 -0700 (PDT)
+Message-ID: <2d8e0307-6885-4be7-b95c-23d5d2ba7b2c@suse.com>
+Date: Thu, 16 Apr 2026 15:21:05 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 19/27] xen/riscv: emulate guest writes to virtual APLIC
- MMIO
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <e29eace5006929e61da347814b9759896d179e28.1773157782.git.oleksii.kurochko@gmail.com>
- <2bff40f5-2eef-4e72-8191-b3442607e0e4@suse.com>
- <76ea5954-89cd-47a4-872a-239bbc08b785@gmail.com>
+Subject: Re: [PATCH 1/2] x86/time: use native TSC scaling factors when TSC is
+ not scaled
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+References: <20260414103327.7420-1-roger.pau@citrix.com>
+ <20260414103327.7420-2-roger.pau@citrix.com>
+ <f424bf3a-0113-4c66-b165-8dae82817f24@suse.com>
+ <aeDgg2gB09-G2FQD@macbook.local>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -139,288 +133,100 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <76ea5954-89cd-47a4-872a-239bbc08b785@gmail.com>
+In-Reply-To: <aeDgg2gB09-G2FQD@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1776345562-28D73938-A21EBDAF/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-42698a/1776345662-7DB68F3B-71A57B2E/0/0
 X-purgate-type: clean
-X-purgate-size: 8861
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-purgate-size: 2679
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid,citrix.com:email];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.999];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: DB2F040EAC9
+X-Rspamd-Queue-Id: 4E25C40EB2D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 14.04.2026 18:04, Oleksii Kurochko wrote:
-> On 4/2/26 4:18 PM, Jan Beulich wrote:
->> On 10.03.2026 18:08, Oleksii Kurochko wrote:
->>> @@ -127,6 +137,164 @@ int vaplic_map_device_irqs_to_domain(struct domain *d,
->>>       return 0;
->>>   }
->>>   
->>> +static void vaplic_dm_update_target(const unsigned long hart_id, uint32_t *iprio)
->>> +{
->>> +    *iprio &= APLIC_TARGET_IPRIO_MASK;
->>> +    *iprio |= (hart_id << APLIC_TARGET_HART_IDX_SHIFT);
->>> +}
->>> +
->>> +static void vaplic_update_target(const struct imsic_config *imsic,
->>> +                                 const int guest_id,
->>> +                                 const unsigned long hart_id, uint32_t *value)
->>> +{
->>> +    unsigned long group_index;
->>> +    unsigned int hhxw = imsic->group_index_bits;
->>> +    unsigned int lhxw = imsic->hart_index_bits;
->>> +    unsigned int hhxs = imsic->group_index_shift - IMSIC_MMIO_PAGE_SHIFT * 2;
->>> +    unsigned long base_ppn = imsic->msi[hart_id].base_addr >> IMSIC_MMIO_PAGE_SHIFT;
->>> +
->>> +    group_index = (base_ppn >> (hhxs + 12)) & (BIT(hhxw, UL) - 1);
+On 16.04.2026 15:13, Roger Pau Monné wrote:
+> On Thu, Apr 16, 2026 at 01:28:11PM +0200, Jan Beulich wrote:
+>> On 14.04.2026 12:33, Roger Pau Monne wrote:
+>>> When running HVM guest in native TSC mode avoid using the recalculated vTSC
+>>> scaling factors based on the cpu_khz value.  Using the kHz based frequency
+>>> leads to the TSC scaling values possibly not being the same as the ones
+>>> used by the per CPU cpu_time->tsc_scale field, which introduces skew
+>>> between the guest and Xen's calculations of the system time.
+>>>
+>>> On a 2gHz system, where the frequency is possibly detected as 1999999999Hz
+>>> (note this is a worse-case scenario), the cpu_khz variable will be set to
+>>> 1999999kHz, and hence 999Hz cycles will be not accounted for per second.
+>>> Over a second (the time synchronization period), this leads to a skew of:
+>>>
+>>> cycles * 1 / (Hz freq) = 999 / 1999999999 = 499,5ns
+>>>
+>>> So far this has gone unnoticed because the time synchronization rendezvous
+>>> forces the update of the tsc_timestamp and system_time fields in the vCPU
+>>> time info area, and hence the skew only accumulates up to the rendezvous
+>>> period.  Attempting to remove the rendezvous causes the skew to grow
+>>> unbounded.
+>>>
+>>> Fix by using the native TSC scaling values (as used by Xen) when the guest
+>>> TSC is not scaled.
+>>>
+>>> Fixes: eab8a90be723 ("x86/time: scale host TSC in pvclock properly")
+>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>> ---
+>>> I'm worried about the usage of cpu_khz beyond simple printing it for
+>>> informational purposes.  Overall I think it would be safer to store the
+>>> frequency in Hz, as to avoid losing the least significant digits.
+>>>
+>>> In any case, that's a different change.
 >>
->> And there's no constant available to make this literal 12 more descriptive?
+>> I'm not quite sure - improving accuracy is of course a good thing, but will
+>> we ever be able to do any such calculations error free, when already the
+>> detected frequency isn't exactly precise?
 > 
-> As it was used in aplic_set_irq_affinity() - IMSIC_MMIO_PAGE_SHIFT could 
-> be used here.
+> I think getting them fully accurate is not strictly required.  The
+> specific issue here was that the guest was supposedly running with the
+> native TSC frequency, but the vCPU time info scaling factors where
+> (slightly) different from the ones using natively by Xen, hence resulting in a
+> time skew.
 > 
->>
->>> +    *value &= APLIC_TARGET_EIID_MASK;
->>> +    *value |= guest_id << APLIC_TARGET_GUEST_IDX_SHIFT;
->>> +    *value |= hart_id << APLIC_TARGET_HART_IDX_SHIFT;
->>> +    *value |= group_index << (lhxw + APLIC_TARGET_HART_IDX_SHIFT) ;
->>> +}
->>
->> Both functions returning void right now, why would they need to return their
->> result via indirection?
-> 
-> No specific reason. Do you think it would be better just to return value 
-> instead? I am okay to rework that.
+> When the guest runs with a different TSC frequency Xen already
+> accounts for it properly, and hence there's no skew.
 
-Rule of thumb is: Use return value in preference to indirection when the
-returned value isn't needed for some other purpose.
+As "properly" isn't "accurate", I expect there'll still be some skew.
 
->>> +#define CALC_REG_VALUE(base) \
->>> +{ \
->>> +    uint32_t index; \
->>> +    uint32_t tmp_val; \
->>
->> Combine these two, or have the variables have initializers?
->>
->>> +    index = regval_to_irqn(offset - base); \
->>
->> There's no "offset" declared or passed into here, nor ...
->>
->>> +    tmp_val = APLIC_REG_GET(priv->regs, aplic_addr) & ~auth_irq_bmp[index]; \
->>
->> ... "priv", nor ...
->>
->>> +    value &= auth_irq_bmp[index]; \
->>> +    value |= tmp_val; \
->>
->> ... "value". It may remain like this, but then it wants putting inside the
->> sole function that uses it, and be #undef-ed at the end of the function.
->>
->>> +}
->>
->> Please wrap in do/while(0), for use sites to be required to have semicolons
->> (and hence look like normal statements). Or make it a statement expression
->> properly returning the calculated value.
-> 
-> I will put the following inside the function + undef at the end:
-> 
-> #define CALC_REG_VALUE(base) do {                               \ 
->                                    \
+> However, as noted in the next patch, I don't really see the benefit of
+> storing the frequency in kHz instead of using plain Hz.
 
-Nit: Why this extra line?
-
->>> +static int cf_check vaplic_emulate_store(const struct vcpu *vcpu,
->>> +                                         unsigned long addr, uint32_t value)
->>> +{
->>> +    struct vaplic *vaplic = to_vaplic(vcpu->domain->arch.vintc);
->>> +    struct aplic_priv *priv = vaplic->base.info->private;
->>> +    uint32_t offset = addr & APLIC_REG_OFFSET_MASK;
->>
->> See ./CODING_STYLE as to uses of fixed-width types.
->>
->>> +    unsigned long aplic_addr = addr - priv->paddr_start;
->>> +    const uint32_t *auth_irq_bmp = vcpu->domain->arch.vintc->private;
->>> +
->>> +    switch ( offset )
->>> +    {
->>> +    case APLIC_SETIP_BASE ... APLIC_SETIP_LAST:
->>
->> And (taking this just as example) any misaligned accesses falling in this range
->> are fine?
-> 
-> Do you mean something like 0x1C02 instead of 0x1C00 or 0x1C04?
-
-Yes.
-
->>> +        /*
->>> +         * As sourcecfg register starts from 1:
->>> +         *   0x0000 domaincfg
->>> +         *   0x0004 sourcecfg[1]
->>> +         *   0x0008 sourcecfg[2]
->>> +         *    ...
->>> +         *   0x0FFC sourcecfg[1023]
->>> +         * It is necessary to calculate an interrupt number by substracting
->>
->> Nit: subtracting
->>
->>> +         * of APLIC_DOMAINCFG instead of APLIC_SOURCECFG_BASE.
->>> +         */
->>> +        if ( !AUTH_IRQ_BIT(regval_to_irqn(offset - APLIC_DOMAINCFG)) )
->>> +            /* interrupt not enabled, ignore it */
->>
->> Throughout the series: Please adhere to ./CODING_STYLE.
->>
->>> +            return 0;
->>> +
->>> +        break;
->>
->> And any value is okay to write?
-> 
-> No, it should be in a range 
-> [APLIC_SOURCECFG_SM_INACTIVE,APLIC_SOURCECFG_SM_LEVEL_LOW].
-> 
-> I will add the check before break:
->          if ( value > APLIC_SOURCECFG_SM_LEVEL_LOW )
->          {
->              gdprintk(XENLOG_WARNING,
->                       "value(%u) is incorrect for sourcecfg register\n", 
-> value);
->              value = APLIC_SOURCECFG_SM_INACTIVE;
->          }
-
-And why would writing APLIC_SOURCECFG_SM_INACTIVE be any better, when
-that's not what the guest wanted? Simply ignore such writes, unless the
-spec mandates specific behavior for out-of-range avlues?
-
->>> +    case APLIC_TARGET_BASE ... APLIC_TARGET_LAST:
->>> +        struct vcpu *target_vcpu = NULL;
->>> +
->>> +        /*
->>> +         * Look at vaplic_emulate_load() for explanation why
->>> +         * APLIC_GENMSI is substracted.
->>> +         */
->>
->> There's no vaplic_emulate_load() - how can I go look there?
-> 
-> It is introduced in the next patch.
-
-As before - it should be possible to review patch series strictly
-sequentially. Further, what if this patch gets committed, and the other
-gets delayed by several months?
-
->>> +        if ( !AUTH_IRQ_BIT(regval_to_irqn(offset - APLIC_GENMSI)) )
->>> +            /* interrupt not enabled, ignore it */
->>> +            return 0;
->>> +
->>> +        for ( int i = 0; i < vcpu->domain->max_vcpus; i++ )
->>
->> unsigned int
->>
->>> +        {
->>> +            struct vcpu *v = vcpu->domain->vcpu[i];
->>> +
->>> +            if ( v->vcpu_id == (value >> APLIC_TARGET_HART_IDX_SHIFT) )
->>> +            {
->>> +                target_vcpu = v;
->>> +                break;
->>> +            }
->>> +        }
->>> +
->>> +        ASSERT(target_vcpu);
->>
->> What guarantees the pointer to be non-NULL? The incoming value can be
->> arbitrary, afaict.
-> 
-> I didn't understand your point. It is just checking that target_vcpu has 
-> been found. If after for() loop the value of target_vcpu is still NULL 
-> then something wrong in Xen.
-
-If that's true, then the assertion is fine to have. I can't help the
-impression though that a guest could pick a value such that you can't
-possibly find the target vCPU. Asserting on guest controlled input is
-not okay, as was said several times before.
-
->>> +        if ( !(vaplic->regs.domaincfg & APLIC_DOMAINCFG_DM) )
->>> +        {
->>> +            vaplic_dm_update_target(cpuid_to_hartid(target_vcpu->processor),
->>> +                                    &value);
->>> +        }
->>> +        else
->>> +            vaplic_update_target(priv->imsic_cfg,
->>> +                                 vcpu_guest_file_id(target_vcpu),
->>> +                                 cpuid_to_hartid(target_vcpu->processor),
->>> +                                 &value);
->>
->> I'm struggling with the naming here: When DM is clear, a function with "dm"
->> in the name is called.
-> 
-> it means direct (delivery) mode. Maybe it is better to put dm at the end 
-> of the function name? Or it is just better to change it to something else?
-
-Without a better understanding of what is wanted, all I can say is that
-calling something with "dm" in its name when the condition says it's not
-"dm" is confusing.
-
->>> +    default:
->>> +        panic("%s: unsupported register offset: %#x\n", __func__, offset);
->>
->> Crashing the host for the guest doing something odd? It's odd that the function
->> only ever returns 0 anyway - it could simply return an error here (if the
->> itention is to not ignore such writes).
-> 
-> But maybe it is a legal offset and we really want to support it?
-
-Still not a reason to crash the entire host?
-
-> Even if I will return just error then a caller site will want to do 
-> something with this error -> for example, kill domain or panic() again. 
-> Maybe panic is to much and just domain should be crashed here:
-> 
-> default:
->      gdprintk(XENLOG_WARNING,
->               "Unhandled APLIC write at offset %#x (value %#x)\n",
->               offset, value);
->      domain_crash(vcpu->domain);
->      return 0;
-> ?
-
-This would already be better. You shouldn't use gdprintk() with
-domain_crash() though. Please take a look at domain_crash()'s
-definition - you'll then see what to do, I suppose.
+That would reduce the error, yes.
 
 Jan
 
