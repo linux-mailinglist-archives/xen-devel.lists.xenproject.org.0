@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gKJGN0zi4GlhnAAAu9opvQ
+	id QG85F8bi4GlhnAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 15:21:16 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 15:23:18 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E25C40EB2D
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 15:21:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1283467.1565689 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C191140EBF2
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2026 15:23:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1283476.1565698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDMeW-0003GO-Ls; Thu, 16 Apr 2026 13:21:04 +0000
+	id 1wDMgS-0003oD-27; Thu, 16 Apr 2026 13:23:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1283467.1565689; Thu, 16 Apr 2026 13:21:04 +0000
+Received: by outflank-mailman (output) from mailman id 1283476.1565698; Thu, 16 Apr 2026 13:23:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDMeW-0003EA-Ix; Thu, 16 Apr 2026 13:21:04 +0000
-Received: by outflank-mailman (input) for mailman id 1283467;
- Thu, 16 Apr 2026 13:21:03 +0000
+	id 1wDMgR-0003la-Ut; Thu, 16 Apr 2026 13:23:03 +0000
+Received: by outflank-mailman (input) for mailman id 1283476;
+ Thu, 16 Apr 2026 13:23:02 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wDMeV-0003E4-GV
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 13:21:03 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wDMgQ-0003lU-EY
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 13:23:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wDMeU-00DMYA-TC
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 15:21:02 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wDMgP-0068ym-RH
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2026 15:23:01 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e0e237-5cb7-0a2a0a5109dd-0a2a450b88c6-34
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 15:21:02 +0200
-Received: from [209.85.221.45] (helo=mail-wr1-f45.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e0e2b4-e002-0a2a0a5209dd-0a2a4504c3f2-4
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 15:23:01 +0200
+Received: from [209.85.221.47] (helo=mail-wr1-f47.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e0e23e-212f-0a2a450b0019-d155dd2dc05b-3
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 15:21:02 +0200
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-43d7badbd7dso2246106f8f.2
- for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 06:21:02 -0700 (PDT)
+ id 69e0e2b5-1dec-0a2a45040019-d155dd2fc855-3
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 15:23:01 +0200
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-43d77f6092eso3197659f8f.2
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Apr 2026 06:23:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43ead3d5fe1sm13738643f8f.22.2026.04.16.06.21.01
+ ffacd0b85a97d-43ead401ca0sm11926954f8f.36.2026.04.16.06.23.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 16 Apr 2026 06:21:01 -0700 (PDT)
+ Thu, 16 Apr 2026 06:23:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,56 +58,62 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776345662; x=1776950462; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1776345781; x=1776950581; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=38I4je6p1nKTDmZWOKPmUPcjOJSmN3fHIloZh5xQ0bM=;
-        b=d1M/EzcHPlGMEXV8voe+nCoMNEzHk2aGm3uC9qBeoOChHQ3paq3ugSzoa/zGC0hmZg
-         7TDWldBZ4y4U86HMW7ysa0CCmsqJDJMLGUM4HHKYi9KcsYkkgdCFZTEcOYkCwT2rlK+H
-         NOUiShsCUmK42HA9iij0w+OT20CoFrcr8ltc23bPxiIdURTauIkKrmKpVIptelTAK+/s
-         sLMqvUW8TEasjIa7U0RCPNE6eaK+MJ6fcPg7/CUdNx3pqjbVuP7jixfdqey0NOZiDdEp
-         JhzZJqVQ8fViJt8wRUgaA3CgGYrpkdt4YuUDJqOPOtuFNgInI8ImjiRXFzlUvC6bIdbH
-         s0nw==
+        bh=6pf3671NTwEiOWiYjLsnWF/6efG9p8gClwjWZsuq4Qo=;
+        b=UgPjwFc3p+ot4PSAsUo346TFuuKkjoBus3b6/TpfQrDfKBgRy0Nxiv62mYb0NI+dlG
+         Kle0Tw+D2s2N5MAThjZc6e+13a2NlLu8yDxDla4HPIgr9TXOFEIcQdey00GBdh/k5osi
+         Mz5o2H8JSFAeGvEDr9AgSjRgGImZrXQ5dE/ydLg0OjqDHJ8GiD2PBuHDl1s7auoOkYvL
+         CdhyP+PEpDr8HMe2Ar7Uh/W+FbbivUlwnjIrfq4ktBLKJmU5ohEsQp4JLnJAVJ74dPt+
+         RuXhveBsaIhatbB1H7+k2Z6GMTwCLGKEh5LjVmouwLDh+gfJKNGwjIgRsQOCDkT1IGUP
+         9oDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776345662; x=1776950462;
+        d=1e100.net; s=20251104; t=1776345781; x=1776950581;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=38I4je6p1nKTDmZWOKPmUPcjOJSmN3fHIloZh5xQ0bM=;
-        b=jZzyHxKBPzda2qfPmYAEw/Tv+EGUhyZaRO3OgXs/++91ib+8E7v6J8+A6YJ2HWQTQU
-         3SLafBdMjweM7Qz1OSAGtP7ZnuJLrhGviImTGm6mIaUb2L7ul1hFP42WRS/rojdrYEb+
-         0Zp8PjADq87Bn7k8/hkxhXfNfpZfruSJl4YXAo5zV9lPSO1IvqmDbOIO9a98nFecrGBG
-         4LO2fPRWM8jAITJTtq1inPWsDi29/yvZ7oEtUYf/Qtf5tn+SiQ9bdGv0TrDCCaL/L/em
-         VWyTRqfj6T20LGXY+Om8kvpqHP/lq/8lBUuMpTN/P1OTj8eXnSjgrtgtjheEQVDHUBJi
-         5qyQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9jHDXsYMs2bAoJ3xwYKxD4226OdjMACcC5Ji1HdxjROcQDW/+OcmrFmSRdD3YeoyYz6f2ChBNrzhg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxVt8iX7YrFZcfwodLmtjablPI/S6114cIR86aYrBoyXBDiotmh
-	KFL4/xzPfuhrh5mWUoF3fBHYBE83RPrUmNg15NK92OqMfphPvzDlStnmW9AGbv5jbQ==
-X-Gm-Gg: AeBDievmNXbRUCFKR59hWurx5ItEgASkQCZ7nmNMrvu9L8WxFLoThB6/lMIZww/nbN8
-	Ubs0xmIjQbdVXa3zsgUs4ofgnegHqu7VUdMJu/V8v3p7C5/qIG+UhyIhwX8p+Nx8lMVa6OdzN4e
-	VkMoQn2RvsePzmPWM+pH/JOsWWfI1ys7Fw5yaTwdWCSSLLr4lK3v3g3+UxgxKdyFViZeFPIhvCr
-	XGGpK7w/KsoRf5g7BxVbtchge+lRHWtxFUk9wPMaT+xQaYgu6J2rLukeuhw+XlWkr6gYy1/oRIW
-	u0PSHyXW0TB7QvXqUMqxpEUBAkcyk++YGgWr3To8bonXbZ6H6Q7SKnLOcTEIUaPlri+eIl7k5+L
-	alr1gldgZR1bss+I7stpXjrWy94EtExGhTwA4lml1xyTBaIlEHPmuT+zsiTEVHGAMN5byT2oS/K
-	R6Pt05sCNYBzfUVkmrE3BWq1huW5kU6uYJCS2DUBb45tsb+M3OLWHnKq43KgD9SsLrkQZEuzoiq
-	e6ogs6iIDXQrPeclqSzyUIFVg==
-X-Received: by 2002:a5d:5d83:0:b0:43d:1c4a:37c with SMTP id ffacd0b85a97d-43d64254fb0mr35706576f8f.4.1776345662152;
-        Thu, 16 Apr 2026 06:21:02 -0700 (PDT)
-Message-ID: <2d8e0307-6885-4be7-b95c-23d5d2ba7b2c@suse.com>
-Date: Thu, 16 Apr 2026 15:21:05 +0200
+        bh=6pf3671NTwEiOWiYjLsnWF/6efG9p8gClwjWZsuq4Qo=;
+        b=ZAsfGI0UmCT27zWvH68cShiqbjNf2ecUE9njUHihpVK/GLd27Thyr+ou3QGqPHD83R
+         hWK4Xs5H1rW88NN8u5obQuU+YvO4aCN8XHGQBuHsXyp8knvgPQ/yT78VVhBmNGqas2c/
+         nBeCVN7wC9GDbWxqLEBAEBltjt+83rc38f+sYpIeQEtU3XWVs45DabU1y8fE7HHyg4/I
+         mf8c/nROoRKZovQfPB+jcWsD/0YkugvRxngpGcYuui79kEmQ+yf6BAW075l/14MRLEh8
+         9ShvmYhzJyvcsm7//yCu+fWERYi1xCldMDXEC/ClG3LHXgx1gGErCB7zu1USMdEt4Bgs
+         4BJw==
+X-Forwarded-Encrypted: i=1; AFNElJ8391NNsVu5VNO6L7xVx0Jyup1xkF5gDkr23xZ3pYXk6QlT25m7gNkTeye3Tv5hdbF4C1pBDLl6E9Q=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzV5entDxPq+ilzqtBoUpocNNO6F5u2uiTmWCULb1jxKlKGslTh
+	BSKekzqFHEgSoBpWzivElZuwC16oZKmMmCwaZWiUeuSdTclvVacfl/NAMpt+nfpyWg==
+X-Gm-Gg: AeBDiesRfpPC23rCZTTVAg2XpP4YieRzsGwmHPBrqjEYbHwA0ItUS5Q9AVFKEeaa3wo
+	hFziIf1KxXSTLVukgqnrmP51ovxDMEETI9Ur7GyJR28z/xNWXCOcJ75rjqDmQdVCjBT3pF4yQ7s
+	ObRKfaRqYNfipeMBcUADHRjlw0gLTCl9p1+zkEGiWw4hGyKgcylO/7kfSkauo9tcDAUlNBgwORd
+	wDl5Ojon+7DNE6qxQJO27Hks9M6FqKMCU0XVbK/aFmRy/gfWm/ZbCcYJLGl8lQfor/VsF5JtQbP
+	iNHZrxmOO8RDgxKurGUApxFRzkK37Vs9nsIb0qJ3vyWi5Thv3j4YTA13dX5hY2x8GkJX61U2pzA
+	KP/5hdmYVZNKZG2UCy7EC0XH5YK85d85FqoGN1VduAVUoNqB0s4tXEBA6Bo1+QWMSsdKCWc6CYK
+	RastEnYXIp184MCZ8inW5JRV2zmdoVBPsYYWVr9pW2vwVkR09LWCTTfNeC9NVFutGY4TSj2VUFs
+	q81JrgXy2r49OlW23r1t9ry2A==
+X-Received: by 2002:a05:6000:1ac5:b0:43c:fa96:d939 with SMTP id ffacd0b85a97d-43d6429c737mr39995638f8f.22.1776345781157;
+        Thu, 16 Apr 2026 06:23:01 -0700 (PDT)
+Message-ID: <db7a0b75-d854-43ed-a345-243603a3631a@suse.com>
+Date: Thu, 16 Apr 2026 15:23:03 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] x86/time: use native TSC scaling factors when TSC is
- not scaled
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
-References: <20260414103327.7420-1-roger.pau@citrix.com>
- <20260414103327.7420-2-roger.pau@citrix.com>
- <f424bf3a-0113-4c66-b165-8dae82817f24@suse.com>
- <aeDgg2gB09-G2FQD@macbook.local>
+Subject: Re: [PATCH v1 21/27] xen/riscv: introduce (de)initialization helpers
+ for vINTC
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
+ <61311834fef7cf8a736a8fa972b6461bbfd46e6d.1773157782.git.oleksii.kurochko@gmail.com>
+ <cf20ebc8-ff58-456d-a7f6-c844cb427306@suse.com>
+ <6f4b3a0b-8c13-4c54-afa1-2893aa967254@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,100 +139,70 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aeDgg2gB09-G2FQD@macbook.local>
+In-Reply-To: <6f4b3a0b-8c13-4c54-afa1-2893aa967254@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1776345662-7DB68F3B-71A57B2E/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-ebf023/1776345781-291763FF-7BF149C4/0/0
 X-purgate-type: clean
-X-purgate-size: 2679
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-purgate-size: 872
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid,citrix.com:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.998];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 4E25C40EB2D
+X-Rspamd-Queue-Id: C191140EBF2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 16.04.2026 15:13, Roger Pau Monné wrote:
-> On Thu, Apr 16, 2026 at 01:28:11PM +0200, Jan Beulich wrote:
->> On 14.04.2026 12:33, Roger Pau Monne wrote:
->>> When running HVM guest in native TSC mode avoid using the recalculated vTSC
->>> scaling factors based on the cpu_khz value.  Using the kHz based frequency
->>> leads to the TSC scaling values possibly not being the same as the ones
->>> used by the per CPU cpu_time->tsc_scale field, which introduces skew
->>> between the guest and Xen's calculations of the system time.
->>>
->>> On a 2gHz system, where the frequency is possibly detected as 1999999999Hz
->>> (note this is a worse-case scenario), the cpu_khz variable will be set to
->>> 1999999kHz, and hence 999Hz cycles will be not accounted for per second.
->>> Over a second (the time synchronization period), this leads to a skew of:
->>>
->>> cycles * 1 / (Hz freq) = 999 / 1999999999 = 499,5ns
->>>
->>> So far this has gone unnoticed because the time synchronization rendezvous
->>> forces the update of the tsc_timestamp and system_time fields in the vCPU
->>> time info area, and hence the skew only accumulates up to the rendezvous
->>> period.  Attempting to remove the rendezvous causes the skew to grow
->>> unbounded.
->>>
->>> Fix by using the native TSC scaling values (as used by Xen) when the guest
->>> TSC is not scaled.
->>>
->>> Fixes: eab8a90be723 ("x86/time: scale host TSC in pvclock properly")
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>> I'm worried about the usage of cpu_khz beyond simple printing it for
->>> informational purposes.  Overall I think it would be safer to store the
->>> frequency in Hz, as to avoid losing the least significant digits.
->>>
->>> In any case, that's a different change.
+On 15.04.2026 09:50, Oleksii Kurochko wrote:
+> On 4/2/26 4:58 PM, Jan Beulich wrote:
+>> On 10.03.2026 18:08, Oleksii Kurochko wrote:
+>>> @@ -87,3 +88,42 @@ int map_device_irqs_to_domain(struct domain *d, struct dt_device_node *dev,
+>>>       return d->arch.vintc->ops->map_device_irqs_to_domain(d, dev, need_mapping,
+>>>                                                            irq_ranges);
+>>>   }
+>>> +
+>>> +int __init domain_vintc_init(struct domain *d)
 >>
->> I'm not quite sure - improving accuracy is of course a good thing, but will
->> we ever be able to do any such calculations error free, when already the
->> detected frequency isn't exactly precise?
+>> The __init here and below is questionable again.
 > 
-> I think getting them fully accurate is not strictly required.  The
-> specific issue here was that the guest was supposedly running with the
-> native TSC frequency, but the vCPU time info scaling factors where
-> (slightly) different from the ones using natively by Xen, hence resulting in a
-> time skew.
+> This function is called during construction domain only, what happen 
+> when __init section exists. So it is okay to have __init here.
 > 
-> When the guest runs with a different TSC frequency Xen already
-> accounts for it properly, and hence there's no skew.
+> Any use cases where it isn't true?
 
-As "properly" isn't "accurate", I expect there'll still be some skew.
-
-> However, as noted in the next patch, I don't really see the benefit of
-> storing the frequency in kHz instead of using plain Hz.
-
-That would reduce the error, yes.
+See my earlier reply. Imo it is wrong for you to tailor the code to 
+dom0less-only operation, with no domains ever created (or destroyed)
+at runtime.
 
 Jan
 
