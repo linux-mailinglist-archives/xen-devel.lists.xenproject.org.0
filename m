@@ -2,67 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cHz9FTMv4ml22gAAu9opvQ
+	id KJSzIdk04mm13QAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2026 15:01:39 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2026 15:25:45 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A72FF41B699
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2026 15:01:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1284247.1566081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EC0541B989
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2026 15:25:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1284265.1566094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDioC-0007ZV-OG; Fri, 17 Apr 2026 13:00:32 +0000
+	id 1wDjCB-0001wW-M8; Fri, 17 Apr 2026 13:25:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1284247.1566081; Fri, 17 Apr 2026 13:00:32 +0000
+Received: by outflank-mailman (output) from mailman id 1284265.1566094; Fri, 17 Apr 2026 13:25:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDioC-0007Wz-Kl; Fri, 17 Apr 2026 13:00:32 +0000
-Received: by outflank-mailman (input) for mailman id 1284247;
- Fri, 17 Apr 2026 13:00:31 +0000
+	id 1wDjCB-0001v4-Iq; Fri, 17 Apr 2026 13:25:19 +0000
+Received: by outflank-mailman (input) for mailman id 1284265;
+ Fri, 17 Apr 2026 13:25:18 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Michal.Orzel@amd.com>) id 1wDioA-0007Wt-Tu
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2026 13:00:31 +0000
+ (envelope-from <ross.lagerwall@citrix.com>) id 1wDjCA-0001uy-JQ
+ for xen-devel@lists.xenproject.org; Fri, 17 Apr 2026 13:25:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wDioA-0004OW-Ag
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2026 15:00:30 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wDjCA-002ngC-07
+ for xen-devel@lists.xenproject.org; Fri, 17 Apr 2026 15:25:18 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69e22ee9-5cb7-0a2a0a5109dd-0a2a4506bafe-30
- for <xen-devel@lists.xenproject.org>; Fri, 17 Apr 2026 15:00:29 +0200
-Received: from [40.93.194.22]
- (helo=SN4PR0501CU005.outbound.protection.outlook.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69e22eec-7371-0a2a45060019-285dc21612f9-3
- for <xen-devel@lists.xenproject.org>; Fri, 17 Apr 2026 15:00:29 +0200
-Received: from BN9PR03CA0565.namprd03.prod.outlook.com (2603:10b6:408:138::30)
- by SA3PR12MB7859.namprd12.prod.outlook.com (2603:10b6:806:305::7)
+ (envelope-from <ross.lagerwall@citrix.com>)
+ id 69e234bc-2eae-0a2a0a5409dd-0a2a4504ab28-4
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Apr 2026 15:25:17 +0200
+Received: from [52.101.201.56]
+ (helo=PH7PR06CU001.outbound.protection.outlook.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <ross.lagerwall@citrix.com>)
+ id 69e234bc-1dec-0a2a45040019-3465c9387359-3
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Apr 2026 15:25:17 +0200
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com (2603:10b6:610:2ba::5)
+ by SJ2PR03MB7401.namprd03.prod.outlook.com (2603:10b6:a03:55b::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
- 2026 13:00:22 +0000
-Received: from BN1PEPF00004684.namprd03.prod.outlook.com
- (2603:10b6:408:138:cafe::eb) by BN9PR03CA0565.outlook.office365.com
- (2603:10b6:408:138::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9769.52 via Frontend Transport; Fri,
- 17 Apr 2026 13:00:22 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00004684.mail.protection.outlook.com (10.167.243.90) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9769.17 via Frontend Transport; Fri, 17 Apr 2026 13:00:22 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 17 Apr
- 2026 08:00:22 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 17 Apr
- 2026 08:00:21 -0500
-Received: from [10.252.147.171] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 17 Apr 2026 08:00:20 -0500
+ 2026 13:25:13 +0000
+Received: from CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096]) by CH8PR03MB8274.namprd03.prod.outlook.com
+ ([fe80::ebe2:32c1:d2be:a096%7]) with mapi id 15.20.9818.023; Fri, 17 Apr 2026
+ 13:25:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,364 +58,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u/QTFZurobU2adsVIwHsPfdltGUrv3Lw1Uua0Wn7DypL3DHWrzqcfvrC9VJ7E2qArhJQoKXHRA0bk/3oBWnpQH54aWO98qH1Z4BaYvdhvQFX4DsuJZUdeDpU3z8UbWntvRC3i5Ca8x58F39ERTAMOcgH3Fe5V0X3mxFrIu2eXkqMZOzN+ZkIlHZg5RnnMv7UIPzMzA9BN6D2odlU0kqNZIJm1cRSWTESMSoOntL2b4uhJ7+/uo3U4HBA8PXrPDbED6jnWwfjFt9qbH0vTcbdW8f3Nx1ERZBralRd/UsbESkFFXBD82vrJjF2apV0JHM4oSEhCunKQ9tFIUNWTRZVrQ==
+ b=lJe6oDeOnpDPjnnpT2XBRS8JIa8J/Y63CBKWCe6jpCNjKJk+J6img6PZQ8aHoJPswSX3o+Y5RPhc/+pNv4oQ9/Nji8bnNXnrli2BT4gh3TMsszZQZ2i8Kuz1D/95rjjnXsonGbSwawNX/1ZUBP3p4rlXR3bVILZloOc4B51JlD8WFHabbP3sPe7a7T0cUOAag86BYPOnLTuZf7Bom3KwWpPO7ojxn3SIGXGtRSObjYIaelNr2S4M/45evDCFMmF+1Oc+58m/nBrw82lEvqOWBccLBM5uYBoqI3j6BuzH9a/Dk8eZ0xRWaMu5d272iW3Tt0yyZR3Ep4fD/7lFiNkntQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vGBCUoFvBoLY1l8zK2g1yAcOw/qCn1Vfog7D6mHfJGc=;
- b=Y+DHJhlB+xvTfpCuwx7iP/LcmycmBuV1lKwOYs5AHzjvppfZr9BaavgHrlsbvyCkWkbzFT4ST8moByaZhpruYdmsw/6tIAqsOxYvLu3SpwbIV586/rgnOdPM94dVycSoZ+oJXnoFiYXI/e2E4Mdf/R17ZmnjzoWIMVAtrifgExRAQR+xw8KJkB8xTOF1aanlkzMTYZnzCpGrGsDQimTHRMXiV6Pc0F/YwFOUtNHKav5MQ/21BJvKtF22yegtYgeKNPZFQkSufSxlw4YRCPMws8qAh7KuxrD69zucwy6KVmV+I/JvoeDNuzPQRmyKuNCfyAEbppE4Sq7CZlhR0rNZ3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=FZwTqLwYgsPiQT5hyq8qk8hP1MeT0nr7EqwOqBnQKM4=;
+ b=Z0uugDK/GoIU8RLTcQTMwYV+VWl2Q48wUQDjUSiehVlaepnpsWrziPj95PtYV9+zTiYJoG9DbIK02PImQO4AVOHt4iK64JHBZOpwM56+njHFnuWQIeaaeGmtklD4T2NGVlfbA9tfGPvWQFMLTUfGULrvZX7o+jhuiWynRCM/1NOdsx1VEeAqBGFb4xQgqD7fDCE0Bwiii7xq1hY9yMJYb4cEfGh3sJhADn+5vrtk6TMtBNH+2MoGTuC+Rdwr0qXv2sQWn7343ii3eAfCX0YOtJxr/OvlX6L6wbrnm6RtQpc2PGDdVUkYTpOthOezkLRrRGNp8aQbGSqe0veBTEpRdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vGBCUoFvBoLY1l8zK2g1yAcOw/qCn1Vfog7D6mHfJGc=;
- b=Vm8zYNlgldPgjoEXg+KClQYt3Ami/nANNmlP453vxxgRqz1huIZxpGeW4CxjcwSHjEXBILAD4N7kbrnQISXJRrB3VJi3+mgl1MK50lk2lmyYT84QcCZdjLUiLnU3ibVBgWb7frAeMJ7Vx5GBkHn8KCb+30H/er4RuiElY5qLyKU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <10ef543f-ec21-47ae-aeb2-f569f8d48e27@amd.com>
-Date: Fri, 17 Apr 2026 15:00:19 +0200
-MIME-Version: 1.0
+ bh=FZwTqLwYgsPiQT5hyq8qk8hP1MeT0nr7EqwOqBnQKM4=;
+ b=ejCkL0uOLN1cg3Smc1j0MJH+QUXL3RrWacaAtL1Im1Z9JETtQ99PXggazYZ1czb8mU20bNUlGwfq1hL4I4zvkwjRadsfRRMsHzV1hteIzYZLmCw2qgQQney2xSCmBP7D8KOrxi9PdsSYSmwI0CrNg87SCiiKnswoUfKkoLb5SKM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <e12a3f73-6121-4152-8f54-5bed0f36d087@citrix.com>
+Date: Fri, 17 Apr 2026 14:25:08 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: skip holes in physical address space when
- setting up frametable
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"Stefano Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
-	"Bertrand Marquis" <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-References: <20260417091124.39552-1-michal.orzel@amd.com>
- <DB4CBEA0-B901-466E-80AE-483FE00A1282@arm.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: Re: [PATCH] x86/mkelf32: Actually pad load segment to 2 MiB boundary
+To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Teddy Astie <teddy.astie@vates.tech>
+References: <20260417105425.1184232-1-ross.lagerwall@citrix.com>
+ <a6b71c55-fce7-4995-b38b-83133d702bd5@citrix.com>
 Content-Language: en-US
-In-Reply-To: <DB4CBEA0-B901-466E-80AE-483FE00A1282@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+In-Reply-To: <a6b71c55-fce7-4995-b38b-83133d702bd5@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0164.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18a::7) To CH8PR03MB8274.namprd03.prod.outlook.com
+ (2603:10b6:610:2ba::5)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004684:EE_|SA3PR12MB7859:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0ba5cc8-05a6-4f5e-af4d-08de9c8148f3
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|SJ2PR03MB7401:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70d9150d-caeb-4a60-d694-08de9c84c1eb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|18096099003|18002099003|22082099003|56012099003;
+	BCL:0;ARA:13230040|366016|376014|1800799024|56012099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	Q3QC4sYB1shys1ji2SStLTIAPOA99ayClXvZmeZv+zZl79AGk+Wp/J8mUXNqXt00pOoofIwdBWHgKq/Oxwea5lwpDypqkLuV0YnklJry0q3EI+qbYRS7pbYXVPneHUMvIpLRarRcmvLeD6w3eYxbPNFfRPXpiRr6TsWOp6ifGKYXCB1Nx1EfGCfYAP6WvtlgdpSng2lQ+CUNoH8H1b9tMFtj/HF9lwLWaAZ3m+Rz5wmgCd2uAOOCyKvBBI+XLr/NnjmdHBp+XtXMfDqNubMc3kTroDc7ISlwG3eeclRVVMynzBR5w9WJ63qjBDFky/DfgU0oMuRt9yued+d5RqGy7GMxjbaJYjBgnNVhbf4ikf8FyR/0WvhnzyoFteXvAxtqoyv4II6ro+ElqQMwoGHKgx8BV88R31qGXlTRmlIO6fb2r/4I8v5VsLIXO/isMvOqq0Q39Yg5HNlzeO2HLGICa6lV5w1tzpFKSM2VATo/kigA8u123U5U1TZNAbdBDZhKfl19goPV1VzD489gr3ZQekzCRMfxg0aZceQ9wd1NmoXhrFmET74rIQOcuX4WW8ZmFEJSrKsBsCHEJVhV6BBp2iuAJoy74JHaNzUXX1DT2+7YFPYQVTS9wogBqg3u1zORctVNBrDKBPvSS1eUmfGn2dHR9GFRtDzRFa2iKepgfT/vv5/VN/pqAMhHbHG1VWsF9SgNg1ce8N2UEo+soFmVJemFzN7X/4EbPoKQrqeyNMy2ylfAoX1tzFCiiPDD3giaGHGo2y1YoUEN4+JWhlaULQ==
+	l4yfbwj20h/X4FhVHbohF292j95Dk/5Rgge55Y5Egj+NQ754IrL1bAjvG3aDHySRVOvijjytktw6xdX0+1rgBk/ufFVCTfoP7aDBhsp8mxgCwN0xcfdxZSc50MbjdxZY0NksPYKTcNTOoDCi0UcM8joAo0h22yB65ehyuB9zdxavuaYIom7tssRvMfaw1/ja9bbPc4SRDvmcf3ah1wUYaTBcM4NiR1Wgs/yOkFiVNf+r3kvJSHLPCyO+s9/w2O2RiuLVfe7Xxry8rAtjJvuykzmmrVfYK3aKZvADHZW39i5xTpD8bD5IVdgbImb8Lu173YYYYgZfPFapbbksY/J59XR7mY6DDAnNPib4nXh+TulLH01uPbkCnJOeaGZGx601GuOslFf+FoYpv3Pw6OZhz47yLGNyyRCWfCKJVI9ZgXAusjemHn/AT28N9GhAhDWu6d4bPwmRtgwIjMfWlLUv7p23FqU1no8wStZi2cPoQX1I5fxBe0mo1+sAFGtUrLHR66R+y5/Z+kvn0b4Awo0dT4UR4SyMuzBXb6gMq+CIZINmLnUQIM7h6eBOPYlOJQF6Qx8gXQusWq/GArC/E6h2czUIcwYPtaZ370ACxh5RjTZPAOpM3av2KEmbwqm26wB+0PMgyRIbgNbV8E59+V1BggEhVkc9f1kpgpy7DQeBE6W7CC/qr1lSgpJk+rWklpYH8KiicuDCYOzJHaaBwZ8KuMy51PERChjDs2n873sPEto=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(18096099003)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	5Q1fkmpiTnC2OAcVts4qa7+3EC553sFxD++5VROxj4it8HNZro1+uZRB9gPsLcaAYiIdcD3fqv4dKXLSwwZbOEZCmKHIdRtZl6wSYAmk1NVa6+KIt2OLoQg08FjYeRnr2IoU6l3i8Ln0mYchdO6FkUJ3gE6GLlHKQsyB6HOU9xpfpOzId2jxvuKQIPNvYrAgaUUMTo7AA0SC930mXUKV2nxeGNU2UrkS6bT0ggv5W2wuzeLmIPUPyUkcp//i6bNQyhsyyZBL8HGgSvOSINhBBntQEuYQ1A1iqVzocC+OW56033yIPnALDaN67iZbMej+hlPx7ALeCQtNEbzgQoxsnSqx8B7Qkq0HIH/yrlOyxmrefrQjqqJMTJyP8yf77a+UNqYjzYean3WVaaIq+7F3/8qr3HklAAr285HLJFlVKet94esCzSQM8nguVKpjGBWh
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 13:00:22.1435
+	=?utf-8?B?c2N1VjZSMjlqT0lQYkhoazFlUDVrT1htZURvM2svaUdUQUNWcXJHL3JWbVMv?=
+ =?utf-8?B?V0FpMGdIN3hHbVB5T3pGSm5jSnMyQmpxbkF0bFNKNWFSK0pkWHZzRlZBQWY5?=
+ =?utf-8?B?VFN0S3laenZ3QUdJTDBxNDJRWWdMQk1VVUxzWEM2K2JZOXdLZUNMYllYZmlm?=
+ =?utf-8?B?MnJBcmd3a2tkcXVKaGVGWlZQeTBtNEtCWTcvYU9DRlh6Q1VRdkJPbXBHbkpC?=
+ =?utf-8?B?di9acVJXbXdRWkN6Z0YydnpKMGhmUlorUUE1QzJHbU1rbm9YK0I1NmNPNmtU?=
+ =?utf-8?B?N1ViUC9IY2JLTERCSzJIUnZtVFk2cWg3MVM4OGNLR1IzSitqK0x4ZjRXSWJM?=
+ =?utf-8?B?TTZSeERZY2o2K0lpMzNDUzk3ekVTYjJjdEJCUUJncnlCY1ZsSEh5VVVkaXF6?=
+ =?utf-8?B?d1l2QzVtOURpVFpRMzhkdGZCR04vQ1VxczJFL1lETTg2ZjFUWHBYTmdaS09G?=
+ =?utf-8?B?N2dBd0Zubmc3azBxYTZmRzZUWFFRbWdkTm5ZbUkxUytxak5hR2RNWURTNTEr?=
+ =?utf-8?B?ZkRlY0FFR1Q4bklteTlZOG03SjFRRDlMSzc5RTAwWVVQaXpnVFE2YUQyZEJF?=
+ =?utf-8?B?QW5GVzluZWYzOXM4c3FhektZaTJnbklwYitkbVcvaFhSbUwwTzBLeE43TGFK?=
+ =?utf-8?B?bFlNb09wL1RvSmZ4cUpJY2dKVUU3RmtNaWVhdDY2ZCtiRW5PWEQ0WVVzbm5Y?=
+ =?utf-8?B?MUtGbGoyczB0bm5qUDBpTVdXRnZ4SllLWnFVeEE0RUxoU0xoTjk1MG5DdWta?=
+ =?utf-8?B?NG5NUlZnQnV3Y1hmb1hSeGZORFlDN1pVN1F3U3ZDeXFiSFBqTHVpcmZkSzdO?=
+ =?utf-8?B?ZklLR1RqcDZOQm80ZDQrNUVSQW40dlN2ZkNvOWJ3SmZldmZ2V3p3bi82TGlq?=
+ =?utf-8?B?Q0NqbnVHV20wZGFtSEhseTNaYUhKak5zV3hjeGovYkN5Z2NDekJiK1oyMElL?=
+ =?utf-8?B?Q2xOV3BTa0hoQlMzMlowMmFpVE4wbElpMndTdWd1N1MzaU1XanhDOWdkOWh4?=
+ =?utf-8?B?NER4cWVNM2RPai9oNVZuUmpsTW54V1h6QXZhcGdYbDZ6YUF0WThtTVdvQUVR?=
+ =?utf-8?B?OVFmU3BnQ2g1dktYYlQ4RHdHYzdHdDErcUd1Z3FFVFFXNkF0VmFmaXV3Y1Rj?=
+ =?utf-8?B?cWNDelhuM1RET091ak4vKzA2d0pSZ3RvVXBUR0Q5N3dNYnBYRis5bTI1ZjA1?=
+ =?utf-8?B?c2N4cEZKVHJkOHQ1MW5MR2tyVkJ1RDcxdWQ2SmxJdXBlTHgzTGhGS05qdkFl?=
+ =?utf-8?B?T1o2OXJjRVZiN1BINWwyNy9vUVlyRFFlbnJ0U0V5ejZ6RWNXZ0JJSkVkdGhk?=
+ =?utf-8?B?ZUdzYm13V21ZalRwWGN6UnZ2VVg0dDBIbmNVY28yNXdEVlNLUnQ0VHRtUVZX?=
+ =?utf-8?B?cVFITUdmUXZ0cTJ2L2hiTHU5aE9mZlN1aTU0N2VVNUR2TWtMZDhGTmkxSjhH?=
+ =?utf-8?B?Rzk3anFuVjBrL0R3UFFiTE9QRmRQR3d4RU1DU05NcENuMUMya0FkaG80Ym53?=
+ =?utf-8?B?eDNRU25WcVJ5Q0FsQks0UFhtK0hrSUNDQUtwT1RlNm9ib2FYVzI0T0xOK3V0?=
+ =?utf-8?B?RVFzRCt3bzg1YldZNjRhQ2tKZHNBWG11V1VYRVd4bi93eDFFOVFtclVzb1JP?=
+ =?utf-8?B?ZHdSTzJHYjJkT3g5UlVyWXlDRUhQemY1SzNvWTFhbGFzRTJDcFFCeHNPSXlm?=
+ =?utf-8?B?SVJiRXZYOFZub0M4VUZuaCs1SkdPcG1DYURXTTQwckdBajNwYkVJWTcyVXNp?=
+ =?utf-8?B?bW1KdEE4NWhiSHZNMFY4Nk5qZmcvU1p0NWVZeDhHZ3N2YWNhalVIRDlVMnQy?=
+ =?utf-8?B?YmY2Y08zeEZvRkdKQncyelJ4VzZXRG4vQmRRK1Rxa3Nielc1UWIzQnBzSHNR?=
+ =?utf-8?B?a0pKeEtjNWZTRkZTSG1EMVdtUlVNaUZXVStncWorTXIrRldLM1RjcFNLVGRS?=
+ =?utf-8?B?V0dpaWpTcUV2Vk85dGhKSnVYTjE4SGNXbXZwYXZRb09oTjdGSTlEdW1sRlZ4?=
+ =?utf-8?B?UW93Sys1YzllQXRZc1dTL0x6dzFONHJ0TmFWeVhLNG5sOHNJM0JlYkRweEZH?=
+ =?utf-8?B?endYMnV6TFBwRVpTNFh6M1JYT05UNVVvUkRsUFphcXYyUGlwTExLQzhZeWRa?=
+ =?utf-8?B?cWtyVlMxTVJ6Z0R3SCs4M01ra2lMRHNBMjRuS1J0L1pGbW1CNDYzdjVUM0V6?=
+ =?utf-8?B?WVUvZlFTeVBWSG80UHpud2FDZWtIcjFzUytvQnBzSjN3RW9nNnBjeTB5ak1s?=
+ =?utf-8?B?L2xNc0E3a2ZTSVBTaTdaSUFnZ09Ga2QvTG9tOGVlM0RHcEhyQzVTdWFOTWJV?=
+ =?utf-8?B?aEdPNzN1VUROR3ltWjdxV2xibUErTVZhdDN2TVowazBScWxYZkx1REREQmJ3?=
+ =?utf-8?Q?ddt9j2N555h+Bja8=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70d9150d-caeb-4a60-d694-08de9c84c1eb
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8274.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 13:25:13.8036
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0ba5cc8-05a6-4f5e-af4d-08de9c8148f3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004684.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7859
-X-purgate-ID: tlsNG-16d1c6/1776430829-90E7CD75-ABF76D70/0/0
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SsLo+oYI2V6Fjj1kcQNasNYPubplLiI1nOAwoSq714zul8AYuDwojrSOWyr4yz680FtltnvzKVLwyMc+BP1Bv0NPfQ5imYoQl0+0PQnXifI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR03MB7401
+X-purgate-ID: tlsNG-ebf023/1776432317-3144B3FF-3846FB6C/0/0
 X-purgate-type: clean
-X-purgate-size: 11206
+X-purgate-size: 1942
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_SENDER(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[14];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[amd.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:dkim,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: A72FF41B699
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 1EC0541B989
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-
-
-On 17/04/2026 13:55, Luca Fancellu wrote:
-> HI Michal,
+On 4/17/26 12:03 PM, Andrew Cooper wrote:
+> On 17/04/2026 11:54 am, Ross Lagerwall wrote:
+>> Fix the code which tries to pad the load segment to 2 MiB but only pads
+>> it to a 1 MiB boundary.
+>>
+>> This manifested itself as a page fault while scrubbing RAM during boot.
+>> Xen failed to mark its location as reserved in the E820 because the last
+>> 2 MiB superpage overlapped a reserved region which meant the memory was
+>> given to the allocator despite being RO.
 > 
->> On 17 Apr 2026, at 10:11, Michal Orzel <michal.orzel@amd.com> wrote:
->>
->> Refactor setup_frametable_mappings() into init_frametable(), modeled
->> after x86's implementation. Instead of mapping one contiguous frametable
->> covering ram_start to ram_end (including holes), iterate the
->> pdx_group_valid bitmap to allocate and map frametable memory only for
->> valid PDX groups, skipping gaps in the physical address space. At the
->> moment we don't really take into account pdx_group_valid bitmap.
->>
->> This reduces memory consumption on systems with sparse RAM layouts by
->> not allocating frametable entries for non-existent memory regions.
->>
->> A file-local pdx_to_page() override is needed because the generic macro
->> in xen/include/xen/pdx.h does not account for ARM's non-zero
->> frametable_base_pdx.
->>
->> Update the MPU implementation to match the new init_frametable()
->> signature. Since MPU has no virtual address translation (ma == va),
->> hole-skipping is not possible and the frametable remains a single
->> contiguous allocation.
->>
->> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->> ---
->> We've been using this approach at AMD for a while now. Without this we would not
->> be able to boot some of our boards that have huge holes in the PA space, so I
->> consider this patch a great improvement.
->>
->> Two things to consider as a follow-up in the future:
->> - change generic pdx_to_page, page_to_pdx to take into account offset that
->>   on x86 is zero but on other arches it is not. The page list code is
->>   for now unaffected because the offset cancels out,
->> - use the same on RISCV.
->> ---
->> xen/arch/arm/arm32/mmu/mm.c   |  3 +-
->> xen/arch/arm/include/asm/mm.h |  4 +-
->> xen/arch/arm/mm.c             |  2 +-
->> xen/arch/arm/mmu/mm.c         | 77 ++++++++++++++++++++++++-----------
->> xen/arch/arm/mpu/mm.c         | 23 ++++++-----
->> 5 files changed, 70 insertions(+), 39 deletions(-)
->>
->> diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
->> index 5e4766ddcf65..0b595baa11b3 100644
->> --- a/xen/arch/arm/arm32/mmu/mm.c
->> +++ b/xen/arch/arm/arm32/mmu/mm.c
->> @@ -178,8 +178,7 @@ void __init setup_mm(void)
->>
->>     setup_directmap_mappings(mfn_x(directmap_mfn_start), xenheap_pages);
->>
->> -    /* Frame table covers all of RAM region, including holes */
->> -    setup_frametable_mappings(ram_start, ram_end);
->> +    init_frametable(ram_start);
->>
->>     /*
->>      * The allocators may need to use map_domain_page() (such as for
->> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
->> index 72a692862420..2eb8465aa904 100644
->> --- a/xen/arch/arm/include/asm/mm.h
->> +++ b/xen/arch/arm/include/asm/mm.h
->> @@ -196,8 +196,8 @@ extern void *early_fdt_map(paddr_t fdt_paddr);
->> extern void remove_early_mappings(void);
->> /* Prepare the memory subystem to bring-up the given secondary CPU */
->> extern int prepare_secondary_mm(int cpu);
->> -/* Map a frame table to cover physical addresses ps through pe */
->> -extern void setup_frametable_mappings(paddr_t ps, paddr_t pe);
->> +/* Map a frame table */
+> Do you have the relevant snippet of the E820?
 > 
-> NIT: Would /* Initialize the frame table */ fit better the new helper description?
+> AIUI, you're saying that Xen was placed immediately below an E820
+> reserved region (a valid layout at 1M alignment), where said region was
+> inside the 2M-aligned boundary that Xen was expecting.
 > 
->> +void init_frametable(paddr_t ram_start);
->> /* Helper function to setup memory management */
->> void setup_mm_helper(void);
->> /* map a physical range in virtual memory */
->> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
->> index 6df8b616e464..e6b651956927 100644
->> --- a/xen/arch/arm/mm.c
->> +++ b/xen/arch/arm/mm.c
->> @@ -62,7 +62,7 @@ void __init setup_mm(void)
->>
->>     setup_mm_helper();
->>
->> -    setup_frametable_mappings(ram_start, ram_end);
->> +    init_frametable(ram_start);
->>
->>     init_staticmem_pages();
->>     init_sharedmem_pages();
->> diff --git a/xen/arch/arm/mmu/mm.c b/xen/arch/arm/mmu/mm.c
->> index 6604f3bf4e6a..4b4da349c16c 100644
->> --- a/xen/arch/arm/mmu/mm.c
->> +++ b/xen/arch/arm/mmu/mm.c
->> @@ -8,16 +8,37 @@
->> #include <xen/pdx.h>
->> #include <xen/string.h>
->>
->> -/* Map a frame table to cover physical addresses ps through pe */
->> -void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
->> +#undef pdx_to_page
->> +#define pdx_to_page(pdx) gcc11_wrap(frame_table + ((pdx) - frametable_base_pdx))
->> +
->> +static void __init
->> +init_frametable_chunk(unsigned long pdx_s, unsigned long pdx_e)
->> {
->> -    unsigned long nr_pdxs = mfn_to_pdx(mfn_add(maddr_to_mfn(pe), -1)) -
->> -                            mfn_to_pdx(maddr_to_mfn(ps)) + 1;
->> -    unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
->> -    mfn_t base_mfn;
->> -    const unsigned long mapping_size = frametable_size < MB(32) ? MB(2)
->> -                                                                : MB(32);
->> +    unsigned long nr_pdxs = pdx_e - pdx_s;
->> +    unsigned long chunk_size = nr_pdxs * sizeof(struct page_info);
->> +    const unsigned long mapping_size = chunk_size < MB(32) ? MB(2) : MB(32);
->> +    unsigned long virt;
->>     int rc;
->> +    mfn_t base_mfn;
->> +
->> +    /* Round up to 2M or 32M boundary, as appropriate. */
->> +    chunk_size = ROUNDUP(chunk_size, mapping_size);
->> +    base_mfn = alloc_boot_pages(chunk_size >> PAGE_SHIFT, 32 << (20 - 12));
->> +
->> +    virt = (unsigned long)pdx_to_page(pdx_s);
->> +    rc = map_pages_to_xen(virt, base_mfn, chunk_size >> PAGE_SHIFT,
->> +                          PAGE_HYPERVISOR_RW | _PAGE_BLOCK);
->> +    if ( rc )
->> +        panic("Unable to setup the frametable mappings\n");
->> +
->> +    memset(pdx_to_page(pdx_s), 0, nr_pdxs * sizeof(struct page_info));
->> +    memset(pdx_to_page(pdx_e), -1,
->> +           chunk_size - nr_pdxs * sizeof(struct page_info));
->> +}
->> +
->> +void __init init_frametable(paddr_t ram_start)
->> +{
->> +    unsigned int sidx, nidx, max_idx;
->>
->>     /*
->>      * The size of paddr_t should be sufficient for the complete range of
->> @@ -26,24 +47,34 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
->>     BUILD_BUG_ON((sizeof(paddr_t) * BITS_PER_BYTE) < PADDR_BITS);
->>     BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
->>
->> -    if ( frametable_size > FRAMETABLE_SIZE )
->> -        panic("The frametable cannot cover the physical region %#"PRIpaddr" - %#"PRIpaddr"\n",
->> -              ps, pe);
->> +    max_idx = DIV_ROUND_UP(max_pdx, PDX_GROUP_COUNT);
->> +    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ram_start));
->>
->> -    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ps));
->> -    /* Round up to 2M or 32M boundary, as appropriate. */
->> -    frametable_size = ROUNDUP(frametable_size, mapping_size);
->> -    base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 32<<(20-12));
->> +    /*
->> +     * pdx_to_page(pdx_s) in init_frametable_chunk must be page-aligned
->> +     * for map_pages_to_xen(). Aligning to PDX_GROUP_COUNT guarantees this
->> +     * because PDX_GROUP_COUNT * sizeof(page_info) is always a multiple of
->> +     * PAGE_SIZE by construction.
->> +     */
->> +    frametable_base_pdx = ROUNDDOWN(frametable_base_pdx, PDX_GROUP_COUNT);
-> 
-> We are now rounding down frametable_base_pdx which before this patch it was the start of the ram,
-> but in xen/xen/arch/arm/include/asm/mm.h, mfn_valid(mfn) is using frametable_base_pdx to check for
-> mfn validity, this means that we could pass an mfn before the start of the ram and if __mfn_valid is happy,
-> we are getting a regression.
-> 
-> Can this happen or am I missing something?
-mfn_valid() can indeed return true for an MFN below ram_start that falls
-in the same PDX group, but this is safe. init_frametable_chunk() maps
-and zeroes the frametable for that range, so mfn_to_page() won't fault.
-The zeroed page_info has count_info == 0 and no owner, so any get_page()
-call on it will fail — the page is effectively inert.
-
-~Michal
-
-> 
->>
->> -    rc = map_pages_to_xen(FRAMETABLE_VIRT_START, base_mfn,
->> -                          frametable_size >> PAGE_SHIFT,
->> -                          PAGE_HYPERVISOR_RW | _PAGE_BLOCK);
->> -    if ( rc )
->> -        panic("Unable to setup the frametable mappings.\n");
->> +    if ( (max_pdx - frametable_base_pdx) > FRAMETABLE_NR )
->> +        panic("Frametable too small\n");
->> +
->> +    for ( sidx = (frametable_base_pdx / PDX_GROUP_COUNT); ; sidx = nidx )
->> +    {
->> +        unsigned int eidx;
->> +
->> +        eidx = find_next_zero_bit(pdx_group_valid, max_idx, sidx);
->> +        nidx = find_next_bit(pdx_group_valid, max_idx, eidx);
->> +
->> +        if ( nidx >= max_idx )
->> +            break;
->> +
->> +        init_frametable_chunk(sidx * PDX_GROUP_COUNT, eidx * PDX_GROUP_COUNT);
->> +    }
->>
->> -    memset(&frame_table[0], 0, nr_pdxs * sizeof(struct page_info));
->> -    memset(&frame_table[nr_pdxs], -1,
->> -           frametable_size - (nr_pdxs * sizeof(struct page_info)));
->> +    init_frametable_chunk(sidx * PDX_GROUP_COUNT, max_pdx);
->> }
->>
->> /*
->> diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
->> index aff88bd3a9c1..9c568831c128 100644
->> --- a/xen/arch/arm/mpu/mm.c
->> +++ b/xen/arch/arm/mpu/mm.c
->> @@ -186,16 +186,15 @@ static int is_mm_attr_match(pr_t *region, unsigned int attributes)
->>     return 0;
->> }
->>
->> -/* Map a frame table to cover physical addresses ps through pe */
->> -void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
->> +/*
->> + * Allocate a contiguous frame table covering ram_start through max_pdx.
->> + * Unlike the MMU version, MPU cannot skip holes because there is no virtual
->> + * address translation (ma == va).
->> + */
->> +void __init init_frametable(paddr_t ram_start)
->> {
->> +    unsigned long nr_pdxs, frametable_size;
->>     mfn_t base_mfn;
->> -    paddr_t aligned_ps = ROUNDUP(ps, PAGE_SIZE);
->> -    paddr_t aligned_pe = ROUNDDOWN(pe, PAGE_SIZE);
->> -
->> -    unsigned long nr_pdxs = mfn_to_pdx(mfn_add(maddr_to_mfn(aligned_pe), -1)) -
->> -                            mfn_to_pdx(maddr_to_mfn(aligned_ps)) + 1;
->> -    unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
->>
->>     /*
->>      * The size of paddr_t should be sufficient for the complete range of
->> @@ -204,11 +203,13 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
->>     BUILD_BUG_ON((sizeof(paddr_t) * BITS_PER_BYTE) < PADDR_BITS);
->>     BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
->>
->> +    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ram_start));
->> +    nr_pdxs = max_pdx - frametable_base_pdx;
->> +    frametable_size = nr_pdxs * sizeof(struct page_info);
->> +
->>     if ( frametable_size > FRAMETABLE_SIZE )
->> -        panic("The frametable cannot cover the physical region %#"PRIpaddr" - %#"PRIpaddr"\n",
->> -              ps, pe);
->> +        panic("Frametable too small\n");
->>
->> -    frametable_base_pdx = paddr_to_pdx(aligned_ps);
->>     frametable_size = ROUNDUP(frametable_size, PAGE_SIZE);
->>
->>     base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 1);
->> -- 
->> 2.43.0
->>
+> But I don't quite follow what happened next.  Where does read-only-ness
+> come into it?
 > 
 
+Relevant E820:
+
+(XEN) [00000063469ff02c]  [000000003f2df000, 000000003f31efff] (ACPI NVS)
+(XEN) [00000063519dc9f2]  [000000003f31f000, 000000004cfebfff] (usable)
+(XEN) [000000635c504aff]  [000000004cfec000, 000000004d07bfff] (ACPI data)
+(XEN) [00000063677372dc]  [000000004d07c000, 000000004d09bfff] (ACPI NVS)
+
+With a load size of 0x900000 (padded to a 1 MiB boundary), Xen was placed at
+4c600000-4cefffff.
+
+In __start_xen(), there is a call...
+
+reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
+
+... which tries to reserve the region 4c600000-4cffffff (size 0x1000000),
+padded to a 2 MiB boundary since it is using superpages.
+
+reserve_e820_ram() doesn't reserve anything because the request doesn't fall
+within a single RAM region. Therefore, the pages get treated as normal RAM and
+will get scrubbed later. However, __start_xen() also calls
+modify_xen_mappings() to mark all of .text and .rodata as RO in the direct map
+so when it actually tries to scrub it it gets a page fault instead (which is I
+suppose slightly better than just zeroing Xen's .text).
+
+Ross
 
