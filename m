@@ -2,51 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eOYQJ51f4mlM5QAAu9opvQ
+	id EMsOB79n4mmT5gAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2026 18:28:13 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2026 19:02:55 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBD8241D1DA
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2026 18:28:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1284554.1566269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78CA041D686
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2026 19:02:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1284580.1566285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDm2u-0000L6-Ql; Fri, 17 Apr 2026 16:27:56 +0000
+	id 1wDmaE-0005Po-Mk; Fri, 17 Apr 2026 17:02:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1284554.1566269; Fri, 17 Apr 2026 16:27:56 +0000
+Received: by outflank-mailman (output) from mailman id 1284580.1566285; Fri, 17 Apr 2026 17:02:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wDm2u-0000Iw-Nm; Fri, 17 Apr 2026 16:27:56 +0000
-Received: by outflank-mailman (input) for mailman id 1284554;
- Fri, 17 Apr 2026 16:27:55 +0000
+	id 1wDmaE-0005Ne-FH; Fri, 17 Apr 2026 17:02:22 +0000
+Received: by outflank-mailman (input) for mailman id 1284580;
+ Fri, 17 Apr 2026 17:02:20 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ross.lagerwall@citrix.com>) id 1wDm2t-0000Iq-A7
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2026 16:27:55 +0000
+ (envelope-from <andrewcoop@xenbits.xen.org>)
+ id 1wDmaC-0005Jz-9o; Fri, 17 Apr 2026 17:02:20 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wDm2s-00ABQP-JM
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2026 18:27:54 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wDmaB-000jIW-MX; Fri, 17 Apr 2026 19:02:19 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <ross.lagerwall@citrix.com>)
- id 69e25f8a-e002-0a2a0a5209dd-0a2a4503900c-0
- for <xen-devel@lists.xenproject.org>; Fri, 17 Apr 2026 18:27:54 +0200
-Received: from [40.107.209.10]
- (helo=PH8PR06CU001.outbound.protection.outlook.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <ross.lagerwall@citrix.com>)
- id 69e25f88-672d-0a2a45030019-286bd10af93a-3
- for <xen-devel@lists.xenproject.org>; Fri, 17 Apr 2026 18:27:54 +0200
-Received: from CH8PR03MB8274.namprd03.prod.outlook.com (2603:10b6:610:2ba::5)
- by LV4PR03MB8281.namprd03.prod.outlook.com (2603:10b6:408:2dc::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.25; Fri, 17 Apr
- 2026 16:27:51 +0000
-Received: from CH8PR03MB8274.namprd03.prod.outlook.com
- ([fe80::ebe2:32c1:d2be:a096]) by CH8PR03MB8274.namprd03.prod.outlook.com
- ([fe80::ebe2:32c1:d2be:a096%7]) with mapi id 15.20.9818.023; Fri, 17 Apr 2026
- 16:27:51 +0000
+ (envelope-from <andrewcoop@xenbits.xen.org>)
+ id 69e2678f-bab6-0a2a0a5309dd-0a2a4509cc8a-30
+ for <multiple-recipients>; Fri, 17 Apr 2026 19:02:19 +0200
+Received: from [104.130.215.37] (helo=mail.xenproject.org)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <andrewcoop@xenbits.xen.org>)
+ id 69e2679a-2497-0a2a45090019-6882d725c690-3
+ for <multiple-recipients>; Fri, 17 Apr 2026 19:02:19 +0200
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1wDma4-006TOt-20;
+ Fri, 17 Apr 2026 17:02:12 +0000
+Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.96)
+ (envelope-from <andrewcoop@xenbits.xen.org>) id 1wDma4-007har-1n;
+ Fri, 17 Apr 2026 17:02:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,234 +54,391 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XwffeYE4MaMbHKnEgNrLcSUd0tjLHmkhgc7phfPReejsK/zGzc7SWxvhKFmt+SVlhE0hc9j9LydTuLeuoHk5JEiWiQBu8STt27FvcjBeCvOJ/IfrIBD9OOrKYDTgO7/4SCiHPbswzWZHBHX9WtTnKK/qZin7TzlWmWhk76b+TgFhHfYkrCMqDSuRIm2V1FrWZD00VDfO1XJC1E5VjBKW6owfFUgvrVscJL/ydXPGtaPAl9w5E9qy8f1e9d73D+V/zOP7rOqtvdayHeWooF5vsN7mXo31g2XzGsbtAQcTmfouYg+r4HnxbEIltNNyNaCrFzS3P29KHgAy1d/s9BSBww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CtLvE4RacGmVpg8gOvDV8JUO4ULJRNtAd5z6yJb/2p0=;
- b=vT1I7RrpBY6G1W6TzPvoO1SeMEm7ELpW3UphUDtHo2Jnwb+/RYotk8nUbTgDZXs6OuLZO9k2sFQ86BBfVL4r2RM7mvRTRTUC1ethoLwRHS7YbR8KbQCxVPmGlwkrkJuvCF6KsPvvcbl+nheb1JMhtf461xaJEOEOeC5M5syXWQ/FSKtbsErD4ig9wkiFSK+dQJSy69zGQeh8e7vRQG90pR538ovNFMXxdhhACd3VRR41Gucl8bZIVj0vxUfBntjxjl2JoSfmDwsAASw14LUykIV3nR22uNEPbc/SvsJVpFOF2X0HoRqEHeibdYRI061z/G/Y4S5cf1JlDuU1lpcYRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CtLvE4RacGmVpg8gOvDV8JUO4ULJRNtAd5z6yJb/2p0=;
- b=fZ/cBloBanlYNb/cgzYe2u/sjmFw+reMDWjijvW87EQ5J0tEVj7TfuusJDyLMUbDTVXOHoW2twJzsFi4LNAyaJg3242zOC6AjAlUpi9kzJigwKmu9vYEFaqL1EWTdObX+RkMWABjowWYusCnkIS60XO0QDEHG1JAWcR4vsMD6xU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <85625a6f-8d04-4863-8f74-461c9a85464f@citrix.com>
-Date: Fri, 17 Apr 2026 17:27:46 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/boot: Force error checking for reserve_e820_ram()
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Teddy Astie <teddy.astie@vates.tech>
-References: <20260417160828.526063-1-andrew.cooper3@citrix.com>
-Content-Language: en-US
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-In-Reply-To: <20260417160828.526063-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO3P265CA0005.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:bb::10) To CH8PR03MB8274.namprd03.prod.outlook.com
- (2603:10b6:610:2ba::5)
+Authentication-Results: eu.smtp.expurgate.cloud; none
+Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
+Content-Transfer-Encoding: binary
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|LV4PR03MB8281:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10e83167-2c25-4468-2580-08de9c9e44eb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ayEo75/jVyZBlXyAXk0XV5YIrY+5JOTAKkYFQ1aWyNlUByHKTqtZYKhIzG2mez8xz6lvS8p5DYuxGs1khi2i+sXmdYlZeEbaP7Y+sQozsrRhKuHGooqvKHVf3FmQVOb3rdX7RaoB3uitxroDKXhb5ra4bI0PZXQABompPj+fJSPbv9ZH2wUMQwIhtPI5RtnBVSVzfr4AmVHZWDAvOl6AdyMQIPMCzuht84NhQlzwKd9Ntr7QNH37kL523rOGcSd1i8zssvK+/JBoyI9H+8V/M0UXM2r9C2VfY9E4kBONRjB8/PIupb1HTNQoLZ1hCNLs2iVsRH5EVi7SP6trjjWFXkUp4ANqRzjbo7ISbK133UcumpkvdWDhQS36SwFXAtC5FA41XNAU2oJ1FDm7Vx/dLDPKv4jgtEzR7Iw2jVsydKNMZzn7dZOnlcL8U2lpQwAzHly2DhWtDncvmYtb+rImYHBCz5xo6VoqiUS3lIFEHwBbQzWSKYTWrtIO2BN49hXJjgBSURGGPvMAc/1J2PdN5oVHJs5mtfgTcyA6rjAHKw6aUXOdsyNRo1KPkoRhiA1tOt9aBczHWI02w4a7Y9Xdh1k4rCqx5x+4uBoc+NXTNZJQIq8WGg/LeYlB+9XDo80pOCCmsu4M0RfF807z0RkubAp8hnG5PcS9S8Wcmwd+4NVx3EtWS+C1pR8jPd27nZ6huOB19YgwzAJZKyErx8ArwE6U58qOdFihkPqbfhvr8bw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bHYwNFk2b2hYMTZ4U3NsWjZQeTc5U3AwRWVTeWN1QmRDT3FsTXNtWFJ5VExh?=
- =?utf-8?B?QkdNRG5uREh6SmJ2QytiQTlpV203Q1paMkU5WWpqK3lKRWt3VDk1aTM2L0xS?=
- =?utf-8?B?d1djbHZaenRtaWRZMUJxb0VHMDBEdTAzRWlnTWxHWVJWV2RtdGZ2SFcyVDZC?=
- =?utf-8?B?L3JaSHRmRm4xVldwYnI1VEhudXNXRTY2SzQzNFM4YzZTa0pXYjdxUUhucGFP?=
- =?utf-8?B?ZVZPNnBiTDV1aFpLVzJ4NUdsTmhmUkxIZUNOT1hpeURPdnFTbk5rN253eUwx?=
- =?utf-8?B?M0NhblMzUW9GMHRTaDBRbm9XbFA5YVh2S0t5K0ZmTDQ5bC9XY003RDNIbWZJ?=
- =?utf-8?B?K3NFVHVmcHJKSHJaVUZnT1Z2S1JsQlN5V1RaeXkxaWNZanZPNG5LRG15YmpS?=
- =?utf-8?B?ckpjWEZDSHRsbnZDOGJJZytxMzI4ZzluMUxsbFJ0UHFlYWJuQzFDSVhUck1p?=
- =?utf-8?B?N1ZNYldMT3FOMXp0QmZiTW53bkwrR2k1NUhCcGY5SGZXc3IwSWpVRjFIMGtT?=
- =?utf-8?B?c2sxeFdYa0dxMmxmKzBldCs3ZHN6eUxGZ2xwNERENFZRY3NjNWRhdXo1WTdF?=
- =?utf-8?B?OWl1bzh1Y280MUhadkVmak1KY3ZXT3hDaFBhdWhBSjkyRzhFWUVqanRkeWZi?=
- =?utf-8?B?ckxsL0hMNE5hT2M0L2VJNndoWkJNbENvdmwrUkFHUHFIOGhwbkJsdUhvU09t?=
- =?utf-8?B?TVJuUUwyTXZLZUJ0SVFqaHJ1THZrZXZTM21FOVpTWlZudHNBNktsbW45Y1NL?=
- =?utf-8?B?N2k0UTM2blh5RmxCUy9MeHBUVzR1RU1kWitVaDN5cG1WMXdnK3hhMjZUUUZt?=
- =?utf-8?B?RWdtbFJoci84MUFySjM0TDBOYXNIWjJKaGlwVkJ6dndRd01TNERkbWd2eDA4?=
- =?utf-8?B?OTg4NDBRNXFRUmJUZ1VoZHcySzFvMk54YXNlRnppSzd5Y1AramNlTFRMSVNZ?=
- =?utf-8?B?eXJnQzhWSDd0VzZXYldWd1BBV0h5UWtFaDVWcUdNQm8zWDR3aFk5M0I5V3Rs?=
- =?utf-8?B?REsvV3FodkZSd1p0SzJrUDNyVU13emhnUjlqT0E5QVVhMXg2anJLOGZlS2Jy?=
- =?utf-8?B?U2I0R2pRNEQwWjZUclpDVklFZWwxSkxRT2RlMnpCK3lSV3EvU2RkbnJpU1Bv?=
- =?utf-8?B?YUplWmQ4Rzd6Q3hFYkZPTU5lbWNOWW1JK3BqQVF0NHNWOW5rMWs2ZytYWm10?=
- =?utf-8?B?b1YrZzFzZzJXSjBjdStZWXNQV2NsZVlxSmxyMm5NSE9yeTdKRGhBenpPZ1Za?=
- =?utf-8?B?UWZWM3ZiYS9jQ3FURCtTY3ZPVG5sOXVuSXE3UnNhbHFmd2UyanNMTkpuVDli?=
- =?utf-8?B?KzFOekRuY21pa09yaC9tVkNYM0VFcHdGellFcGV1bm0wZkNKaWxDb2dmYmdh?=
- =?utf-8?B?UmJCRkI3b211NlRCeXdnN3c5VjR1V0VsdGhaRVVNL2FHdmNEN3pDR2ZTWVll?=
- =?utf-8?B?Qy9rREdQZlk2R2tkTmtCRmJ1UGdlU0UyMXNadFg2a1o2U1RCLythWm5xejZ6?=
- =?utf-8?B?Q0QxNEw4RlhBdEVwenBwY292aHlVaG0zY01xb1hqbTBrTXcxWGVGMlJNV25O?=
- =?utf-8?B?YkRGS2tkd2pPdVgxS1o2RUR4czVMSjJSWnNYYU9RRHROdGd4YkZYaXV1SHh0?=
- =?utf-8?B?MUpuVHM5eERZRVR6dXYremtHMERvVEFIRUxBaE5KeHlwNFBmcnFMRWhWRFlZ?=
- =?utf-8?B?amVQNERUTXJyVFJGdWxibzN2a1VsNUpsTFJ5SWZyVG5qc2hLSmZ6MU8xY3N5?=
- =?utf-8?B?WDFrWHZGcjQrK3FINlVncmx0bnpWQmpmckRqelMvVCtudTMxNjNKU2lLdlRw?=
- =?utf-8?B?bXg1YlJ4REZaS3JjMjV6dFhjb1lFakhjVWJ3UWpXQ0RrblVScW15ZlFkNitC?=
- =?utf-8?B?cVhFcWNZd2lsRUFUQytndE1XTjQ5UHBZMzhxcjdoZUhMSGIwYXBDcDJpMjhG?=
- =?utf-8?B?NFlQY2NmQ1U1RGw4dVJXWksrekZ4ZGpZdTZmKzFtS1g2cFc4YzJTeGF3Ui9W?=
- =?utf-8?B?dHU3MXBQZkM1bk51c09GaUVGTDB0cmlXaEVqY1haRGw0T0J4R1RZTk1ibFEw?=
- =?utf-8?B?UGpSYVhBWkVqYm0zYkhraEJINDN0eWZYVDRGcGVDNi93aWJxbEltdHd0ZUpy?=
- =?utf-8?B?NjcvbzZQN2orSHVWRHN3dWNiV1hHWkVRdFNGbWlLZy9pdEwyQ1ZNS3htbjZP?=
- =?utf-8?B?U2phNW9CQjZNV2EwTDJTbzhqd0FZQ2piZGJpZmtoT0dtZjJJQjQ4R0p2OFkr?=
- =?utf-8?B?eU9aMWdKUTVWNG9OZmpWeUpwV3ZnVEk3TzdLMXpCZ3A0VGt3NUZhalMwalJL?=
- =?utf-8?B?SDVXQzh2MHNheHBLSXRRYmZSYWgxOEUyT2JVU2ErNVhScTRhck9UeEt0bXYz?=
- =?utf-8?Q?JY9JF+yoCg+MnRg4=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10e83167-2c25-4468-2580-08de9c9e44eb
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8274.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2026 16:27:50.9981
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bFZOrA8S9A8Z9nkIL3gCbk3Cesfb4y7UnvAt3+A0/e5LouvHwO+Ofx4Ts1kPGvOSjqfQQP+Ot817Vmj/kQNGJdrmGbrVGLgiXtFlLA84UHI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV4PR03MB8281
-X-purgate-ID: tlsNG-33051d/1776443274-2B56F938-9F749A29/0/0
+X-Mailer: MIME-tools 5.510 (Entity 5.510)
+To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
+ xen-users@lists.xen.org, oss-security@lists.openwall.com
+From: Xen.org security team <security@xen.org>
+CC: Xen.org security team <security-team-members@xen.org>
+Subject: Xen Security Advisory 488 v1 - x86: Floating Point Divider State
+ Sampling
+Message-Id: <E1wDma4-007har-1n@xenbits.xenproject.org>
+Date: Fri, 17 Apr 2026 17:02:12 +0000
+X-purgate-ID: tlsNG-bad1c0/1776445339-93979A53-BBDDC461/0/0
 X-purgate-type: clean
-X-purgate-size: 4086
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-purgate-size: 17345
+X-Spamd-Result: default: False [-0.49 / 15.00];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,citrix.com:dkim,citrix.com:mid,suse.com:email];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:url,xenproject.org:url];
+	DMARC_NA(0.00)[xen.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-announce@lists.xen.org,m:xen-devel@lists.xen.org,m:xen-users@lists.xen.org,m:oss-security@lists.openwall.com,m:security-team-members@xen.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[security@xen.org,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+,1:+,2:~,3:~,4:~,5:~];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[security@xen.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
+	HAS_ATTACHMENT(0.00)[];
+	NEURAL_HAM(-0.00)[-0.974];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	R_DKIM_NA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: CBD8241D1DA
+X-Rspamd-Queue-Id: 78CA041D686
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 4/17/26 5:08 PM, Andrew Cooper wrote:
-> Failing to mark Xen as Reserved in the E820 is catastrophic; RAM regions get
-> handed to the physical memory allocator for general use.  Similarly, failure
-> to mark the boot modules as reserved is not going to result in a working
-> system.
-> 
-> Mark reserve_e820_ram() as __must_check, and panic() on failure.  To avoid
-> opencoding the range in every caller, print a general failure message in
-> reserve_e820_ram().
-> 
-> Reported-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Teddy Astie <teddy.astie@vates.tech>
-> 
-> Slightly RFC; only compile tested so far.
-> 
-> There's no obvious fixes tag.  This has been many variations of broken since
-> forever.
-> ---
->   xen/arch/x86/e820.c             |  8 +++++++-
->   xen/arch/x86/include/asm/e820.h |  2 +-
->   xen/arch/x86/setup.c            | 11 +++++++----
->   3 files changed, 15 insertions(+), 6 deletions(-)
-> 
-> diff --git a/xen/arch/x86/e820.c b/xen/arch/x86/e820.c
-> index 872208ab3722..f09a01f0c50a 100644
-> --- a/xen/arch/x86/e820.c
-> +++ b/xen/arch/x86/e820.c
-> @@ -670,7 +670,13 @@ int __init e820_change_range_type(
->   /* Set E820_RAM area (@s,@e) as RESERVED in specified e820 map. */
->   int __init reserve_e820_ram(struct e820map *map, uint64_t s, uint64_t e)
->   {
-> -    return e820_change_range_type(map, s, e, E820_RAM, E820_RESERVED);
-> +    int res = e820_change_range_type(map, s, e, E820_RAM, E820_RESERVED);
-> +
-> +    if ( !res )
-> +        printk("Failed to convert E820 RAM %"PRIx64"-%"PRIx64" to RESERVED\n",
-> +               s, e);
-> +
-> +    return res;
->   }
->   
->   unsigned long __init init_e820(const char *str, struct e820map *raw)
-> diff --git a/xen/arch/x86/include/asm/e820.h b/xen/arch/x86/include/asm/e820.h
-> index 8e7644f8870b..a86d60ce3e77 100644
-> --- a/xen/arch/x86/include/asm/e820.h
-> +++ b/xen/arch/x86/include/asm/e820.h
-> @@ -25,7 +25,7 @@ struct e820map {
->   
->   extern int sanitize_e820_map(struct e820entry *biosmap, unsigned int *pnr_map);
->   extern int e820_all_mapped(u64 start, u64 end, unsigned type);
-> -extern int reserve_e820_ram(struct e820map *map, uint64_t s, uint64_t e);
-> +extern int __must_check reserve_e820_ram(struct e820map *map, uint64_t s, uint64_t e);
->   extern int e820_change_range_type(
->       struct e820map *map, uint64_t s, uint64_t e,
->       uint32_t orig_type, uint32_t new_type);
-> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-> index d041cbd5f6f1..9c1f1eafa0d7 100644
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1639,7 +1639,8 @@ void asmlinkage __init noreturn __start_xen(void)
->       {
->           uint64_t s = bi->mods[i].start, l = bi->mods[i].size;
->   
-> -        reserve_e820_ram(&boot_e820, s, s + PAGE_ALIGN(l));
-> +        if ( !reserve_e820_ram(&boot_e820, s, s + PAGE_ALIGN(l)) )
-> +            panic("Failed to reserve boot module %u in E820\n", i);
->       }
->   
->       if ( !xen_phys_start )
-> @@ -1652,11 +1653,13 @@ void asmlinkage __init noreturn __start_xen(void)
->       /* This needs to remain in sync with remove_xen_ranges(). */
->       if ( efi_boot_mem_unused(&eb_start, &eb_end) )
->       {
-> -        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(eb_start));
-> -        reserve_e820_ram(&boot_e820, __pa(eb_end), __pa(__2M_rwdata_end));
-> +        if ( !reserve_e820_ram(&boot_e820, __pa(_stext), __pa(eb_start)) ||
-> +             !reserve_e820_ram(&boot_e820, __pa(eb_end), __pa(__2M_rwdata_end)) )
-> +            panic("Failed to reserve Xen in E820\n");
->       }
->       else
-> -        reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end));
-> +        if ( reserve_e820_ram(&boot_e820, __pa(_stext), __pa(__2M_rwdata_end)) )
-> +            panic("Failed to reserve Xen in E820\n");
->   
+--=separator
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
 
-This condition is inverted.
-Otherwise this looks like a sensible change.
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
 
-Ross
+                    Xen Security Advisory XSA-488
+
+              x86: Floating Point Divider State Sampling
+
+ISSUE DESCRIPTION
+=================
+
+Researchers from the CISPA Helmholtz Center for Information Security have
+discovered Floating Point Divider State Sampling.  It is detailed in a paper
+titled "TREVEX: A Black-Box Detection Framework For Data-Flow Transient
+Execution Vulnerabilities"
+
+For more information, see:
+  https://www.amd.com/en/resources/product-security/bulletin/amd-sb-7053.html
+  https://roots.ec/blog/fpdss/
+
+IMPACT
+======
+
+An attacker might be able to infer data belonging to other contexts,
+including data belonging to other guests.
+
+VULNERABLE SYSTEMS
+==================
+
+Systems running all versions of Xen are affected.
+
+Only AMD Fam17h CPUs (Zen1 microarchitecture) are believed to be
+vulnerable.  Other AMD CPUs and CPUs from other manufacturers are not
+known to be affected.
+
+MITIGATION
+==========
+
+There are no mitigations.
+
+RESOLUTION
+==========
+
+Applying the appropriate attached patch resolves this issue.
+
+Note that patches for released versions are generally prepared to
+apply to the stable branches, and may not apply cleanly to the most
+recent release tarball.  Downstreams are encouraged to update to the
+tip of the stable branch before applying these patches.
+
+xsa488.patch           xen-unstable - Xen 4.21.x
+xsa488-4.20.patch      Xen 4.20.x - Xen 4.19.x
+xsa488-4.18.patch      Xen 4.18.x
+xsa488-4.17.patch      Xen 4.17.x
+
+$ sha256sum xsa488*
+3dde61413eb75cb65fbd20b58165f673f9f4610804ec532ff0bf3c3f469454c1  xsa488.patch
+7822abb0ed5a5f8e2b8697db41d46e030fd69bf8ca8cb965022484b287d9ea26  xsa488-4.17.patch
+6668f9d1433863522b8554dc324f57efcfcf3e00c9261c0ee5c2db17f63bccd6  xsa488-4.18.patch
+275c35d05951c4583056904869183972b9699549f0ec59f946faa92d5cef4b21  xsa488-4.20.patch
+$
+
+DEPLOYMENT DURING EMBARGO
+=========================
+
+Deployment of the patches and/or mitigations described above (or
+others which are substantially similar) is permitted during the
+embargo, even on public-facing systems with untrusted guest users and
+administrators.
+
+But: Distribution of updated software is prohibited (except to other
+members of the predisclosure list).
+
+Predisclosure list members who wish to deploy significantly different
+patches and/or mitigations, please contact the Xen Project Security
+Team.
+
+
+(Note: this during-embargo deployment notice is retained in
+post-embargo publicly released Xen Project advisories, even though it
+is then no longer applicable.  This is to enable the community to have
+oversight of the Xen Project Security Team's decisionmaking.)
+
+For more information about permissible uses of embargoed information,
+consult the Xen Project community's agreed Security Policy:
+  http://www.xenproject.org/security-policy.html
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmnhBsUMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZR90IAJ4bu4Ig/J4NOiTOPysLApkrzjyqrrDFqVvsUJe7
+UDyll64Yuj4ljj25nDewGDG14EgdMJwqsWqM9gKl07eTzKnOxzzlsymyvX8BxiMt
+F7hlcsc2WW96jE2FMNpNUjoBTORQ6u+rYsG1J7Kv85PdM4KHivrXzXRswTQlGWBU
+d3VFnyQYE6jIGNGz1WXgA0/CxkdkTUAC0iN0NB6PSlurfkGCDqJEE3/LrTGWUEhI
+T30jEc4cCjfukI4YtrCiecCKtSUvzdiRZ+5ZLYrzOYePBOmGOXrxlFfHt4zE6mK0
+J9IzVS5BJJVhXjQWZyoZdDgFKMlk6rTQy73hWyPNFyBUiY4=
+=xsxg
+-----END PGP SIGNATURE-----
+
+--=separator
+Content-Type: application/octet-stream; name="xsa488.patch"
+Content-Disposition: attachment; filename="xsa488.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNv
+bT4KU3ViamVjdDogeDg2L2FtZDogTWl0aWdhdGUgQU1ELVNOLTcwNTMgLyBG
+UC1EU1MKClRoaXMgaXMgWFNBLTQ4OCAvIENWRS0yMDI1LTU0NTA1CgpTaWdu
+ZWQtb2ZmLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRy
+aXguY29tPgpSZXZpZXdlZC1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIu
+cGF1QGNpdHJpeC5jb20+CgpkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2Nw
+dS9hbWQuYyBiL3hlbi9hcmNoL3g4Ni9jcHUvYW1kLmMKaW5kZXggNDViNTVi
+N2E4Y2Y5Li43MTI3MzRhNmU3MjMgMTAwNjQ0Ci0tLSBhL3hlbi9hcmNoL3g4
+Ni9jcHUvYW1kLmMKKysrIGIveGVuL2FyY2gveDg2L2NwdS9hbWQuYwpAQCAt
+OTQ3LDYgKzk0Nyw0MiBAQCB2b2lkIGFtZF9pbml0X2RlX2NmZyhjb25zdCBz
+dHJ1Y3QgY3B1aW5mb194ODYgKmMpCiAgICAgd3Jtc3IoTVNSX0FNRDY0X0RF
+X0NGRywgdmFsIHwgbmV3KTsKIH0KIAorc3RhdGljIHZvaWQgYW1kX2luaXRf
+ZnBfY2ZnKGNvbnN0IHN0cnVjdCBjcHVpbmZvX3g4NiAqYykKK3sKKyAgICB1
+aW50NjRfdCB2YWwsIG5ldyA9IDA7CisKKyAgICAvKiBJZiB2aXJ0dWFsaXNl
+ZCwgd2Ugd29uJ3QgaGF2ZSBtdXRhYmxlIGFjY2VzcyBldmVuIGlmIHdlIGNh
+biByZWFkIGl0LiAqLworICAgIGlmICggY3B1X2hhc19oeXBlcnZpc29yICkK
+KyAgICAgICAgcmV0dXJuOworCisgICAgLyoKKyAgICAgKiBPbiBaZW4xLCBt
+aXRpZ2F0ZSBTQi03MDUzIC8gRlAtRFNTIEZsb2F0aW5nIFBvaW50IERpdmlk
+ZXIgU3RhdGUKKyAgICAgKiBTYW1wbGluZyBieSBzZXR0aW5nIGJpdCA5IGFz
+IGluc3RydWN0ZWQuCisgICAgICovCisgICAgaWYgKCBjLT5mYW1pbHkgPT0g
+MHgxNyAmJiBpc196ZW4xX3VhcmNoKCkgKQorICAgICAgICBuZXcgfD0gMSA8
+PCA5OworCisgICAgLyoKKyAgICAgKiBBdm9pZCByZWFkaW5nIEZQX0NGRyBp
+ZiB3ZSBkb24ndCBpbnRlbmQgdG8gY2hhbmdlIGFueXRoaW5nLiAgVGhlCisg
+ICAgICogcmVnaXN0ZXIgZG9lc24ndCBleGlzdCBvbiBhbGwgZmFtaWxpZXMu
+CisgICAgICovCisgICAgaWYgKCAhbmV3ICkKKyAgICAgICAgcmV0dXJuOwor
+CisgICAgdmFsID0gcmRtc3IoTVNSX0FNRDY0X0ZQX0NGRyk7CisKKyAgICBp
+ZiAoICh2YWwgJiBuZXcpID09IG5ldyApCisgICAgICAgIHJldHVybjsKKwor
+ICAgIC8qCisgICAgICogRlBfQ0ZHIGlzIGEgQ29yZS1zY29wZWQgTVNSLCBh
+bmQgdGhpcyB3cml0ZSBpcyByYWN5LiAgSG93ZXZlciwgYm90aAorICAgICAq
+IHRocmVhZHMgY2FsY3VsYXRlIHRoZSBuZXcgdmFsdWUgZnJvbSBzdGF0ZSB3
+aGljaCBleHBlY3RlZCB0byBiZQorICAgICAqIGNvbnNpc3RlbnQgYWNyb3Nz
+IENQVXMgYW5kIHVucmVsYXRlZCB0byB0aGUgb2xkIHZhbHVlLCBzbyB0aGUg
+cmVzdWx0CisgICAgICogc2hvdWxkIGJlIGNvbnNpc3RlbnQuCisgICAgICov
+CisgICAgd3Jtc3IoTVNSX0FNRDY0X0ZQX0NGRywgdmFsIHwgbmV3KTsKK30K
+Kwogdm9pZCBfX2luaXQgYW1kX2luaXRfbGZlbmNlX2Rpc3BhdGNoKHZvaWQp
+CiB7CiAgICAgc3RydWN0IGNwdWluZm9feDg2ICpjID0gJmJvb3RfY3B1X2Rh
+dGE7CkBAIC0xMDE5LDYgKzEwNTUsNyBAQCBzdGF0aWMgdm9pZCBjZl9jaGVj
+ayBpbml0X2FtZChzdHJ1Y3QgY3B1aW5mb194ODYgKmMpCiAJdWludDY0X3Qg
+dmFsdWU7CiAKIAlhbWRfaW5pdF9kZV9jZmcoYyk7CisJYW1kX2luaXRfZnBf
+Y2ZnKGMpOwogCiAJaWYgKGMgPT0gJmJvb3RfY3B1X2RhdGEpCiAJCWFtZF9p
+bml0X2xmZW5jZV9kaXNwYXRjaCgpOyAvKiBOZWVkcyBhbWRfaW5pdF9kZV9j
+ZmcoKSAqLwpkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2luY2x1ZGUvYXNt
+L21zci1pbmRleC5oIGIveGVuL2FyY2gveDg2L2luY2x1ZGUvYXNtL21zci1p
+bmRleC5oCmluZGV4IGI5MmEyNzg2MTFjYi4uYWQxYzZjOTdmOGY3IDEwMDY0
+NAotLS0gYS94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vbXNyLWluZGV4LmgK
+KysrIGIveGVuL2FyY2gveDg2L2luY2x1ZGUvYXNtL21zci1pbmRleC5oCkBA
+IC00MzEsNiArNDMxLDcgQEAKICNkZWZpbmUgTVNSX0FNRDY0X0xTX0NGRwkJ
+MHhjMDAxMTAyMFUKICNkZWZpbmUgTVNSX0FNRDY0X0lDX0NGRwkJMHhjMDAx
+MTAyMVUKICNkZWZpbmUgTVNSX0FNRDY0X0RDX0NGRwkJMHhjMDAxMTAyMlUK
+KyNkZWZpbmUgTVNSX0FNRDY0X0ZQX0NGRwkJMHhjMDAxMTAyOFUKICNkZWZp
+bmUgTVNSX0FNRDY0X0RFX0NGRwkJMHhjMDAxMTAyOVUKICNkZWZpbmUgQU1E
+NjRfREVfQ0ZHX0xGRU5DRV9TRVJJQUxJU0UJKF9BQygxLCBVTEwpIDw8IDEp
+CiAjZGVmaW5lIE1TUl9BTUQ2NF9FWF9DRkcJCTB4YzAwMTEwMmNVCg==
+
+--=separator
+Content-Type: application/octet-stream; name="xsa488-4.17.patch"
+Content-Disposition: attachment; filename="xsa488-4.17.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNv
+bT4KU3ViamVjdDogeDg2L2FtZDogTWl0aWdhdGUgQU1ELVNOLTcwNTMgLyBG
+UC1EU1MKClRoaXMgaXMgWFNBLTQ4OCAvIENWRS0yMDI1LTU0NTA1CgpTaWdu
+ZWQtb2ZmLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRy
+aXguY29tPgpSZXZpZXdlZC1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIu
+cGF1QGNpdHJpeC5jb20+CgpkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2Nw
+dS9hbWQuYyBiL3hlbi9hcmNoL3g4Ni9jcHUvYW1kLmMKaW5kZXggMjgzODcy
+NWJhYjk4Li4zMzEyZDg5NmRkOTAgMTAwNjQ0Ci0tLSBhL3hlbi9hcmNoL3g4
+Ni9jcHUvYW1kLmMKKysrIGIveGVuL2FyY2gveDg2L2NwdS9hbWQuYwpAQCAt
+OTgyLDYgKzk4Miw0MiBAQCBzdGF0aWMgdm9pZCBjZl9jaGVjayBmYW0xN19k
+aXNhYmxlX2M2KHZvaWQgKmFyZykKIAl3cm1zcmwoTVNSX0FNRF9DU1RBVEVf
+Q0ZHLCB2YWwgJiBtYXNrKTsKIH0KIAorc3RhdGljIHZvaWQgYW1kX2luaXRf
+ZnBfY2ZnKGNvbnN0IHN0cnVjdCBjcHVpbmZvX3g4NiAqYykKK3sKKyAgICB1
+aW50NjRfdCB2YWwsIG5ldyA9IDA7CisKKyAgICAvKiBJZiB2aXJ0dWFsaXNl
+ZCwgd2Ugd29uJ3QgaGF2ZSBtdXRhYmxlIGFjY2VzcyBldmVuIGlmIHdlIGNh
+biByZWFkIGl0LiAqLworICAgIGlmICggY3B1X2hhc19oeXBlcnZpc29yICkK
+KyAgICAgICAgcmV0dXJuOworCisgICAgLyoKKyAgICAgKiBPbiBaZW4xLCBt
+aXRpZ2F0ZSBTQi03MDUzIC8gRlAtRFNTIEZsb2F0aW5nIFBvaW50IERpdmlk
+ZXIgU3RhdGUKKyAgICAgKiBTYW1wbGluZyBieSBzZXR0aW5nIGJpdCA5IGFz
+IGluc3RydWN0ZWQuCisgICAgICovCisgICAgaWYgKCBjLT54ODYgPT0gMHgx
+NyAmJiBpc196ZW4xX3VhcmNoKCkgKQorICAgICAgICBuZXcgfD0gMSA8PCA5
+OworCisgICAgLyoKKyAgICAgKiBBdm9pZCByZWFkaW5nIEZQX0NGRyBpZiB3
+ZSBkb24ndCBpbnRlbmQgdG8gY2hhbmdlIGFueXRoaW5nLiAgVGhlCisgICAg
+ICogcmVnaXN0ZXIgZG9lc24ndCBleGlzdCBvbiBhbGwgZmFtaWxpZXMuCisg
+ICAgICovCisgICAgaWYgKCAhbmV3ICkKKyAgICAgICAgcmV0dXJuOworCisg
+ICAgcmRtc3JsKE1TUl9BTUQ2NF9GUF9DRkcsIHZhbCk7CisKKyAgICBpZiAo
+ICh2YWwgJiBuZXcpID09IG5ldyApCisgICAgICAgIHJldHVybjsKKworICAg
+IC8qCisgICAgICogRlBfQ0ZHIGlzIGEgQ29yZS1zY29wZWQgTVNSLCBhbmQg
+dGhpcyB3cml0ZSBpcyByYWN5LiAgSG93ZXZlciwgYm90aAorICAgICAqIHRo
+cmVhZHMgY2FsY3VsYXRlIHRoZSBuZXcgdmFsdWUgZnJvbSBzdGF0ZSB3aGlj
+aCBleHBlY3RlZCB0byBiZQorICAgICAqIGNvbnNpc3RlbnQgYWNyb3NzIENQ
+VXMgYW5kIHVucmVsYXRlZCB0byB0aGUgb2xkIHZhbHVlLCBzbyB0aGUgcmVz
+dWx0CisgICAgICogc2hvdWxkIGJlIGNvbnNpc3RlbnQuCisgICAgICovCisg
+ICAgd3Jtc3JsKE1TUl9BTUQ2NF9GUF9DRkcsIHZhbCB8IG5ldyk7Cit9CisK
+IHN0YXRpYyB2b2lkIGFtZF9jaGVja19lcnJhdHVtXzE0ODUodm9pZCkKIHsK
+IAl1aW50NjRfdCB2YWwsIGNoaWNrZW5iaXQgPSAoMSA8PCA1KTsKQEAgLTEw
+MDksNiArMTA0NSw4IEBAIHN0YXRpYyB2b2lkIGNmX2NoZWNrIGluaXRfYW1k
+KHN0cnVjdCBjcHVpbmZvX3g4NiAqYykKIAogCXVuc2lnbmVkIGxvbmcgbG9u
+ZyB2YWx1ZTsKIAorCWFtZF9pbml0X2ZwX2NmZyhjKTsKKwogCS8qIERpc2Fi
+bGUgVExCIGZsdXNoIGZpbHRlciBieSBzZXR0aW5nIEhXQ1IuRkZESVMgb24g
+SzgKIAkgKiBiaXQgNiBvZiBtc3IgQzAwMV8wMDE1CiAJICoKZGlmZiAtLWdp
+dCBhL3hlbi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9tc3ItaW5kZXguaCBiL3hl
+bi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9tc3ItaW5kZXguaAppbmRleCA1MjEw
+NzkxOTFhZjcuLmJlZDBhYjdiMjEzYyAxMDA2NDQKLS0tIGEveGVuL2FyY2gv
+eDg2L2luY2x1ZGUvYXNtL21zci1pbmRleC5oCisrKyBiL3hlbi9hcmNoL3g4
+Ni9pbmNsdWRlL2FzbS9tc3ItaW5kZXguaApAQCAtMzg2LDYgKzM4Niw3IEBA
+CiAjZGVmaW5lIE1TUl9BTUQ2NF9MU19DRkcJCTB4YzAwMTEwMjAKICNkZWZp
+bmUgTVNSX0FNRDY0X0lDX0NGRwkJMHhjMDAxMTAyMQogI2RlZmluZSBNU1Jf
+QU1ENjRfRENfQ0ZHCQkweGMwMDExMDIyCisjZGVmaW5lIE1TUl9BTUQ2NF9G
+UF9DRkcJCTB4YzAwMTEwMjgKICNkZWZpbmUgTVNSX0FNRDY0X0RFX0NGRwkJ
+MHhjMDAxMTAyOQogI2RlZmluZSBBTUQ2NF9ERV9DRkdfTEZFTkNFX1NFUklB
+TElTRQkoX0FDKDEsIFVMTCkgPDwgMSkKICNkZWZpbmUgTVNSX0FNRDY0X0VY
+X0NGRwkJMHhjMDAxMTAyYwo=
+
+--=separator
+Content-Type: application/octet-stream; name="xsa488-4.18.patch"
+Content-Disposition: attachment; filename="xsa488-4.18.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNv
+bT4KU3ViamVjdDogeDg2L2FtZDogTWl0aWdhdGUgQU1ELVNOLTcwNTMgLyBG
+UC1EU1MKClRoaXMgaXMgWFNBLTQ4OCAvIENWRS0yMDI1LTU0NTA1CgpTaWdu
+ZWQtb2ZmLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRy
+aXguY29tPgpSZXZpZXdlZC1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIu
+cGF1QGNpdHJpeC5jb20+CgpkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2Nw
+dS9hbWQuYyBiL3hlbi9hcmNoL3g4Ni9jcHUvYW1kLmMKaW5kZXggYzQ0ODk5
+N2JlNTUxLi40M2NkM2FlOWJhNGQgMTAwNjQ0Ci0tLSBhL3hlbi9hcmNoL3g4
+Ni9jcHUvYW1kLmMKKysrIGIveGVuL2FyY2gveDg2L2NwdS9hbWQuYwpAQCAt
+MTAwOSw2ICsxMDA5LDQyIEBAIHN0YXRpYyB2b2lkIGNmX2NoZWNrIGZhbTE3
+X2Rpc2FibGVfYzYodm9pZCAqYXJnKQogCXdybXNybChNU1JfQU1EX0NTVEFU
+RV9DRkcsIHZhbCAmIG1hc2spOwogfQogCitzdGF0aWMgdm9pZCBhbWRfaW5p
+dF9mcF9jZmcoY29uc3Qgc3RydWN0IGNwdWluZm9feDg2ICpjKQoreworICAg
+IHVpbnQ2NF90IHZhbCwgbmV3ID0gMDsKKworICAgIC8qIElmIHZpcnR1YWxp
+c2VkLCB3ZSB3b24ndCBoYXZlIG11dGFibGUgYWNjZXNzIGV2ZW4gaWYgd2Ug
+Y2FuIHJlYWQgaXQuICovCisgICAgaWYgKCBjcHVfaGFzX2h5cGVydmlzb3Ig
+KQorICAgICAgICByZXR1cm47CisKKyAgICAvKgorICAgICAqIE9uIFplbjEs
+IG1pdGlnYXRlIFNCLTcwNTMgLyBGUC1EU1MgRmxvYXRpbmcgUG9pbnQgRGl2
+aWRlciBTdGF0ZQorICAgICAqIFNhbXBsaW5nIGJ5IHNldHRpbmcgYml0IDkg
+YXMgaW5zdHJ1Y3RlZC4KKyAgICAgKi8KKyAgICBpZiAoIGMtPng4NiA9PSAw
+eDE3ICYmIGlzX3plbjFfdWFyY2goKSApCisgICAgICAgIG5ldyB8PSAxIDw8
+IDk7CisKKyAgICAvKgorICAgICAqIEF2b2lkIHJlYWRpbmcgRlBfQ0ZHIGlm
+IHdlIGRvbid0IGludGVuZCB0byBjaGFuZ2UgYW55dGhpbmcuICBUaGUKKyAg
+ICAgKiByZWdpc3RlciBkb2Vzbid0IGV4aXN0IG9uIGFsbCBmYW1pbGllcy4K
+KyAgICAgKi8KKyAgICBpZiAoICFuZXcgKQorICAgICAgICByZXR1cm47CisK
+KyAgICByZG1zcmwoTVNSX0FNRDY0X0ZQX0NGRywgdmFsKTsKKworICAgIGlm
+ICggKHZhbCAmIG5ldykgPT0gbmV3ICkKKyAgICAgICAgcmV0dXJuOworCisg
+ICAgLyoKKyAgICAgKiBGUF9DRkcgaXMgYSBDb3JlLXNjb3BlZCBNU1IsIGFu
+ZCB0aGlzIHdyaXRlIGlzIHJhY3kuICBIb3dldmVyLCBib3RoCisgICAgICog
+dGhyZWFkcyBjYWxjdWxhdGUgdGhlIG5ldyB2YWx1ZSBmcm9tIHN0YXRlIHdo
+aWNoIGV4cGVjdGVkIHRvIGJlCisgICAgICogY29uc2lzdGVudCBhY3Jvc3Mg
+Q1BVcyBhbmQgdW5yZWxhdGVkIHRvIHRoZSBvbGQgdmFsdWUsIHNvIHRoZSBy
+ZXN1bHQKKyAgICAgKiBzaG91bGQgYmUgY29uc2lzdGVudC4KKyAgICAgKi8K
+KyAgICB3cm1zcmwoTVNSX0FNRDY0X0ZQX0NGRywgdmFsIHwgbmV3KTsKK30K
+Kwogc3RhdGljIHZvaWQgYW1kX2NoZWNrX2JwX2NmZyh2b2lkKQogewogCXVp
+bnQ2NF90IHZhbCwgbmV3ID0gMDsKQEAgLTEwNTMsNiArMTA4OSw4IEBAIHN0
+YXRpYyB2b2lkIGNmX2NoZWNrIGluaXRfYW1kKHN0cnVjdCBjcHVpbmZvX3g4
+NiAqYykKIAogCXVuc2lnbmVkIGxvbmcgbG9uZyB2YWx1ZTsKIAorCWFtZF9p
+bml0X2ZwX2NmZyhjKTsKKwogCS8qIERpc2FibGUgVExCIGZsdXNoIGZpbHRl
+ciBieSBzZXR0aW5nIEhXQ1IuRkZESVMgb24gSzgKIAkgKiBiaXQgNiBvZiBt
+c3IgQzAwMV8wMDE1CiAJICoKZGlmZiAtLWdpdCBhL3hlbi9hcmNoL3g4Ni9p
+bmNsdWRlL2FzbS9tc3ItaW5kZXguaCBiL3hlbi9hcmNoL3g4Ni9pbmNsdWRl
+L2FzbS9tc3ItaW5kZXguaAppbmRleCBjOWY5ODBjZDU3N2YuLjUxNmVlMjZk
+NzA3OSAxMDA2NDQKLS0tIGEveGVuL2FyY2gveDg2L2luY2x1ZGUvYXNtL21z
+ci1pbmRleC5oCisrKyBiL3hlbi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9tc3It
+aW5kZXguaApAQCAtNDExLDYgKzQxMSw3IEBACiAjZGVmaW5lIE1TUl9BTUQ2
+NF9MU19DRkcJCTB4YzAwMTEwMjAKICNkZWZpbmUgTVNSX0FNRDY0X0lDX0NG
+RwkJMHhjMDAxMTAyMQogI2RlZmluZSBNU1JfQU1ENjRfRENfQ0ZHCQkweGMw
+MDExMDIyCisjZGVmaW5lIE1TUl9BTUQ2NF9GUF9DRkcJCTB4YzAwMTEwMjgK
+ICNkZWZpbmUgTVNSX0FNRDY0X0RFX0NGRwkJMHhjMDAxMTAyOQogI2RlZmlu
+ZSBBTUQ2NF9ERV9DRkdfTEZFTkNFX1NFUklBTElTRQkoX0FDKDEsIFVMTCkg
+PDwgMSkKICNkZWZpbmUgTVNSX0FNRDY0X0VYX0NGRwkJMHhjMDAxMTAyYwo=
+
+--=separator
+Content-Type: application/octet-stream; name="xsa488-4.20.patch"
+Content-Disposition: attachment; filename="xsa488-4.20.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNv
+bT4KU3ViamVjdDogeDg2L2FtZDogTWl0aWdhdGUgQU1ELVNOLTcwNTMgLyBG
+UC1EU1MKClRoaXMgaXMgWFNBLTQ4OCAvIENWRS0yMDI1LTU0NTA1CgpTaWdu
+ZWQtb2ZmLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRy
+aXguY29tPgpSZXZpZXdlZC1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIu
+cGF1QGNpdHJpeC5jb20+CgpkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2Nw
+dS9hbWQuYyBiL3hlbi9hcmNoL3g4Ni9jcHUvYW1kLmMKaW5kZXggZDUwNjlh
+N2VjMThlLi40Mzg4M2UwNGRiYjkgMTAwNjQ0Ci0tLSBhL3hlbi9hcmNoL3g4
+Ni9jcHUvYW1kLmMKKysrIGIveGVuL2FyY2gveDg2L2NwdS9hbWQuYwpAQCAt
+OTgyLDYgKzk4Miw0MiBAQCB2b2lkIGFtZF9pbml0X2RlX2NmZyhjb25zdCBz
+dHJ1Y3QgY3B1aW5mb194ODYgKmMpCiAgICAgd3Jtc3JsKE1TUl9BTUQ2NF9E
+RV9DRkcsIHZhbCB8IG5ldyk7CiB9CiAKK3N0YXRpYyB2b2lkIGFtZF9pbml0
+X2ZwX2NmZyhjb25zdCBzdHJ1Y3QgY3B1aW5mb194ODYgKmMpCit7CisgICAg
+dWludDY0X3QgdmFsLCBuZXcgPSAwOworCisgICAgLyogSWYgdmlydHVhbGlz
+ZWQsIHdlIHdvbid0IGhhdmUgbXV0YWJsZSBhY2Nlc3MgZXZlbiBpZiB3ZSBj
+YW4gcmVhZCBpdC4gKi8KKyAgICBpZiAoIGNwdV9oYXNfaHlwZXJ2aXNvciAp
+CisgICAgICAgIHJldHVybjsKKworICAgIC8qCisgICAgICogT24gWmVuMSwg
+bWl0aWdhdGUgU0ItNzA1MyAvIEZQLURTUyBGbG9hdGluZyBQb2ludCBEaXZp
+ZGVyIFN0YXRlCisgICAgICogU2FtcGxpbmcgYnkgc2V0dGluZyBiaXQgOSBh
+cyBpbnN0cnVjdGVkLgorICAgICAqLworICAgIGlmICggYy0+eDg2ID09IDB4
+MTcgJiYgaXNfemVuMV91YXJjaCgpICkKKyAgICAgICAgbmV3IHw9IDEgPDwg
+OTsKKworICAgIC8qCisgICAgICogQXZvaWQgcmVhZGluZyBGUF9DRkcgaWYg
+d2UgZG9uJ3QgaW50ZW5kIHRvIGNoYW5nZSBhbnl0aGluZy4gIFRoZQorICAg
+ICAqIHJlZ2lzdGVyIGRvZXNuJ3QgZXhpc3Qgb24gYWxsIGZhbWlsaWVzLgor
+ICAgICAqLworICAgIGlmICggIW5ldyApCisgICAgICAgIHJldHVybjsKKwor
+ICAgIHJkbXNybChNU1JfQU1ENjRfRlBfQ0ZHLCB2YWwpOworCisgICAgaWYg
+KCAodmFsICYgbmV3KSA9PSBuZXcgKQorICAgICAgICByZXR1cm47CisKKyAg
+ICAvKgorICAgICAqIEZQX0NGRyBpcyBhIENvcmUtc2NvcGVkIE1TUiwgYW5k
+IHRoaXMgd3JpdGUgaXMgcmFjeS4gIEhvd2V2ZXIsIGJvdGgKKyAgICAgKiB0
+aHJlYWRzIGNhbGN1bGF0ZSB0aGUgbmV3IHZhbHVlIGZyb20gc3RhdGUgd2hp
+Y2ggZXhwZWN0ZWQgdG8gYmUKKyAgICAgKiBjb25zaXN0ZW50IGFjcm9zcyBD
+UFVzIGFuZCB1bnJlbGF0ZWQgdG8gdGhlIG9sZCB2YWx1ZSwgc28gdGhlIHJl
+c3VsdAorICAgICAqIHNob3VsZCBiZSBjb25zaXN0ZW50LgorICAgICAqLwor
+ICAgIHdybXNybChNU1JfQU1ENjRfRlBfQ0ZHLCB2YWwgfCBuZXcpOworfQor
+CiB2b2lkIF9faW5pdCBhbWRfaW5pdF9sZmVuY2VfZGlzcGF0Y2godm9pZCkK
+IHsKICAgICBzdHJ1Y3QgY3B1aW5mb194ODYgKmMgPSAmYm9vdF9jcHVfZGF0
+YTsKQEAgLTEwNTUsNiArMTA5MSw3IEBAIHN0YXRpYyB2b2lkIGNmX2NoZWNr
+IGluaXRfYW1kKHN0cnVjdCBjcHVpbmZvX3g4NiAqYykKIAl1bnNpZ25lZCBs
+b25nIGxvbmcgdmFsdWU7CiAKIAlhbWRfaW5pdF9kZV9jZmcoYyk7CisJYW1k
+X2luaXRfZnBfY2ZnKGMpOwogCiAJaWYgKGMgPT0gJmJvb3RfY3B1X2RhdGEp
+CiAJCWFtZF9pbml0X2xmZW5jZV9kaXNwYXRjaCgpOyAvKiBOZWVkcyBhbWRf
+aW5pdF9kZV9jZmcoKSAqLwpkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2lu
+Y2x1ZGUvYXNtL21zci1pbmRleC5oIGIveGVuL2FyY2gveDg2L2luY2x1ZGUv
+YXNtL21zci1pbmRleC5oCmluZGV4IDZmMmMzMTQ3ZTM0My4uNzBlNWYwOWEy
+ZGU0IDEwMDY0NAotLS0gYS94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vbXNy
+LWluZGV4LmgKKysrIGIveGVuL2FyY2gveDg2L2luY2x1ZGUvYXNtL21zci1p
+bmRleC5oCkBAIC00MTEsNiArNDExLDcgQEAKICNkZWZpbmUgTVNSX0FNRDY0
+X0xTX0NGRwkJMHhjMDAxMTAyMFUKICNkZWZpbmUgTVNSX0FNRDY0X0lDX0NG
+RwkJMHhjMDAxMTAyMVUKICNkZWZpbmUgTVNSX0FNRDY0X0RDX0NGRwkJMHhj
+MDAxMTAyMlUKKyNkZWZpbmUgTVNSX0FNRDY0X0ZQX0NGRwkJMHhjMDAxMTAy
+OFUKICNkZWZpbmUgTVNSX0FNRDY0X0RFX0NGRwkJMHhjMDAxMTAyOVUKICNk
+ZWZpbmUgQU1ENjRfREVfQ0ZHX0xGRU5DRV9TRVJJQUxJU0UJKF9BQygxLCBV
+TEwpIDw8IDEpCiAjZGVmaW5lIE1TUl9BTUQ2NF9FWF9DRkcJCTB4YzAwMTEw
+MmNVCg==
+
+--=separator--
 
