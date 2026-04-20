@@ -2,47 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YHaWBnY35mkmtgEAu9opvQ
+	id kFneBaU55ml6tgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 16:25:58 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 16:35:17 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0BB142D085
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 16:25:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1286099.1567270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78A9842D368
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 16:35:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1286170.1567278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEpZL-0006Ei-VH; Mon, 20 Apr 2026 14:25:47 +0000
+	id 1wEpiB-00026T-KY; Mon, 20 Apr 2026 14:34:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1286099.1567270; Mon, 20 Apr 2026 14:25:47 +0000
+Received: by outflank-mailman (output) from mailman id 1286170.1567278; Mon, 20 Apr 2026 14:34:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEpZL-0006CB-Nu; Mon, 20 Apr 2026 14:25:47 +0000
-Received: by outflank-mailman (input) for mailman id 1286099;
- Mon, 20 Apr 2026 14:25:45 +0000
+	id 1wEpiB-000253-Hp; Mon, 20 Apr 2026 14:34:55 +0000
+Received: by outflank-mailman (input) for mailman id 1286170;
+ Mon, 20 Apr 2026 14:34:54 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <luca.fancellu@arm.com>) id 1wEpZJ-0005ik-Ko
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 14:25:45 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wEpiA-00024x-Ft
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 14:34:54 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEpZJ-00BFc6-0S
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 16:25:45 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wEpi9-000SbR-Dr
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 16:34:53 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <luca.fancellu@arm.com>)
- id 69e63765-2eae-0a2a0a5409dd-0a2a450bd768-6
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:25:44 +0200
-Received: from [217.140.110.172] (helo=foss.arm.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTP (eXpurgate 4.56.1)
- (envelope-from <luca.fancellu@arm.com>)
- id 69e63768-212f-0a2a450b0019-d98c6eac8d8e-1
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:25:44 +0200
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 201F516F2;
- Mon, 20 Apr 2026 07:25:38 -0700 (PDT)
-Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D29A03F7B4;
- Mon, 20 Apr 2026 07:25:42 -0700 (PDT)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69e63987-bab6-0a2a0a5309dd-0a2a450ccf6c-20
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:34:53 +0200
+Received: from [209.85.208.170] (helo=mail-lj1-f170.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69e6398d-62f1-0a2a450c0019-d155d0aac876-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:34:53 +0200
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-38e936caafeso31291361fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 07:34:53 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
+ [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-38ecb6f0b4csm24136611fa.25.2026.04.20.07.34.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Apr 2026 07:34:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,278 +55,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=foss header.d=arm.com header.i="@arm.com" header.h="From:To:Cc:Subject:Date:In-Reply-To:References"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1776695143; bh=DZDq1tuHld+v7+buygc/it5ATvErstw+AN1u/SO6z5U=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cql5dYQz5MqXn40DAJLyQby//2LqjdikrSawBIJejgCAbGxmXoVzAGseR2UGeHvbm
-	 gOtdH0DPaOpL14OXm1RP8KkKqSOHumxoIkkiYgzykkflW4Uzrj5x+AWc/OP7I1HTLB
-	 IVlR7QhPN849+MJ1RVjZ+lbPaK7UdkKLaE78rBgo=
-From: Luca Fancellu <luca.fancellu@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 8/8] arm/mpu: Save/restore VTCR_EL2 on vCPU context switch
-Date: Mon, 20 Apr 2026 15:25:24 +0100
-Message-Id: <20260420142524.1804073-9-luca.fancellu@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260420142524.1804073-1-luca.fancellu@arm.com>
-References: <20260420142524.1804073-1-luca.fancellu@arm.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776695692; x=1777300492; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=yGerrtdiKfKE1Lf1Wj24fpjgZCYfn5lyPyZwqwWoSbU=;
+        b=K6VI0/UixtQlQhdvIUxe7fECVVMw/6fSv6JaA5SaOQSD2buXStoVE6J0J1+nJbTVB1
+         Jvb8jDSc2CfDXymYkc88GfUDRv2Z8iHekIDUhy1MMOuNnQq1nwkODNN4XtYRij+vJLMR
+         GXPh6FEUCAuQ98gnwEU/PO6HUXmJ34NDYuRklbYoZRgaIJkEVIhT/5hmIudw58d+qCE9
+         RzFpcuaLnQNsdby6UFh2cDhgyraoaHdr7Lit+PRy3NXyVqnYToSBfuUxO4vEVPQxPQ40
+         miQHGJff7LtgemjdOa3rmvR/j9NevJ/Sw9obLyNP8nKOl0hDHtyR39rXtayqBHjpDRfM
+         PV8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776695692; x=1777300492;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yGerrtdiKfKE1Lf1Wj24fpjgZCYfn5lyPyZwqwWoSbU=;
+        b=NmlwThb5ahXg+GhDG6280M4qMMlytfMeg04kZ02JbZWNiJlvmvYFQOrjlZ8mHLsthY
+         yKOQwUZZ9Z1Yo2wBhmR2BU+AHMHROFv1LKp0X7WCH3eLJlwANc1VNVnjIEljs6FcmsgH
+         zdtomniElGW2xEMCNbOKNi3Gx7pMGcPOw0Mm2Tbox0cUgwnGicIIGVRTbM4YjIa7VPht
+         6xLE9GR0/tyILKWzMCfs41xbLq2LKt9S8VCpUvm2ndtj6Loibcpb5Y6aGTsnoPX5LYju
+         06plsfSbOSm8+N0vJ4YPRxJhZz31/Hs0InHH3BP3i6yo1An8Qv5sNfCsq6CZRXV5JhpG
+         h+qA==
+X-Forwarded-Encrypted: i=1; AFNElJ8NUWbBQLkrvPGLhG0M0jdjAfokwIlsrQrECPQMYOSskwazOC1T0wY629IGuqHvj0Z3U4LRiy5Qh+8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxFPSI2CVrIAErn6d/jcO+zilLy5/my5pKmIY0rHwvVqtbqafY+
+	dtwU4W4G+DUJofRXgfN2Mx4CUXhQN15tds/DIPJa9LDrIm2DTxacFRGU
+X-Gm-Gg: AeBDievy3NZFbdcl79Ll6oTTUSElcpA439fNB1hAxVdmvEG9P0LW2rVCRio1eHETgIv
+	SNpVPtUgDhTFlyMmMEM3IisjR1Ew4Vg7jZQPle9O8kwA/bT3C65E0x0J7i5/k72ctIDZJ0KPjf/
+	dyToQprVb4t71rwuIjhhIlFnt4dFx/pGjBPd6BTmC8uKhVobWjgdxlhujEJ6jZ2o6+Ijv9ht5zM
+	g8pM5h0Ax1z7XXOTWFJepoc+JtTvmLDELbbzIwZfEtu0VJ171JaXts3vowIPfNIeObWzwqN13Tc
+	2oFhCwbGNlLDARFuy43z+836r9ta2KvFnbAkxTrgSnTW+mGkOkYrZJRHq15ElCIvLUT65hZQQCe
+	ZKKW5yMOB8VncPXMYD35XB44BQ1LuW2JWpE/axKIROMvxrnAST83IZGJw80TaP4hvYACOw8CFW7
+	dcWQGyu2tuIaZjVOxcufME6JGDcYpRIm2XrAmxornVUou7E5jgTitKZvhDtFPsA4+MKSbJGEUo9
+	PBr3KXb95WhgA==
+X-Received: by 2002:a05:651c:b27:b0:38e:ac6:a50f with SMTP id 38308e7fff4ca-38ec7830e46mr46683641fa.10.1776695692202;
+        Mon, 20 Apr 2026 07:34:52 -0700 (PDT)
+Message-ID: <7c059a67-3f3f-4633-aebb-939aa9ac7955@gmail.com>
+Date: Mon, 20 Apr 2026 16:34:50 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 16/27] xen/riscv: implement IRQ mapping for device
+ passthrough
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
+ <10654a6c38fa929b5fdf6f214badfe4f60fe78d4.1773157782.git.oleksii.kurochko@gmail.com>
+ <8a8a2afd-6f53-4f45-b8c8-fb34a6fbb970@suse.com>
+ <f099b925-0ea9-43a7-b760-f70f343a4d7c@gmail.com>
+ <a7a4e8c9-d053-4ca7-ac9c-f43ddccf9151@suse.com>
+ <00fa439d-0327-4c0c-960d-a810820a6e83@gmail.com>
+ <09a260ca-5a98-461d-9f57-d298a483d3d6@suse.com>
+Content-Language: en-US
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <09a260ca-5a98-461d-9f57-d298a483d3d6@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1776695144-05969F3B-B9F5DBF5/0/0
-X-purgate-type: clean
-X-purgate-size: 6845
-X-Spamd-Result: default: False [0.31 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
-	R_DKIM_ALLOW(-0.20)[arm.com:s=foss];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-purgate-ID: tlsNG-d25034/1776695693-6F370CF5-EC2E2962/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 5993
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[luca.fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,arm.com:dkim,arm.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FROM_NEQ_ENVFROM(0.00)[luca.fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[arm.com:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.979];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: A0BB142D085
+X-Rspamd-Queue-Id: 78A9842D368
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On AArch64 MPU systems, the VTCR register contains the MSA bit that determines
-if the guest is using MPU or MMU at EL1, which is required to be
-saved/restored on vCPU context switch.
 
-On AArch64 MPU systems the VTCR_EL2 register configuration will be saved
-during setup_virt_paging and will be placed in a new member of
-'struct arch_vcpu' named vtcr_el2, to be retrieved by context switch.
 
-AArch32 MPU systems and MMU systems don't need to save/restore this
-register because they don't have any MSA bit and related functionality,
-so for these architecture a stub is provided.
+On 4/20/26 3:45 PM, Jan Beulich wrote:
+> On 20.04.2026 13:39, Oleksii Kurochko wrote:
+>> On 4/16/26 2:51 PM, Jan Beulich wrote:
+>>> On 14.04.2026 13:29, Oleksii Kurochko wrote:
+>>>> On 4/2/26 2:22 PM, Jan Beulich wrote:
+>>>>> On 10.03.2026 18:08, Oleksii Kurochko wrote:
+>>>>>> +int vaplic_map_device_irqs_to_domain(struct domain *d,
+>>>>>> +                                     struct dt_device_node *dev,
+>>>>>> +                                     bool need_mapping,
+>>>>>> +                                     struct rangeset *irq_ranges)
+>>>>>> +{
+>>>>>> +    unsigned int i, nirq;
+>>>>>> +    int res, irq;
+>>>>>> +    struct dt_raw_irq rirq;
+>>>>>> +    uint32_t *auth_irq_bmp = d->arch.vintc->private;
+>>>>>> +    unsigned int reg_num;
+>>>>>> +
+>>>>>> +    nirq = dt_number_of_irq(dev);
+>>>>>> +
+>>>>>> +    /* Give permission and map IRQs */
+>>>>>> +    for ( i = 0; i < nirq; i++ )
+>>>>>> +    {
+>>>>>> +        res = dt_device_get_raw_irq(dev, i, &rirq);
+>>>>>> +        if ( res )
+>>>>>> +        {
+>>>>>> +            printk(XENLOG_ERR "Unable to retrieve irq %u for %s\n",
+>>>>>> +                   i, dt_node_full_name(dev));
+>>>>>> +            return res;
+>>>>>> +        }
+>>>>>> +
+>>>>>> +        /*
+>>>>>> +         * Don't map IRQ that have no physical meaning
+>>>>>> +         * ie: IRQ whose controller is not APLIC/IMSIC/PLIC.
+>>>>>> +         */
+>>>>>> +        if ( rirq.controller != dt_interrupt_controller )
+>>>>>> +        {
+>>>>>> +            dt_dprintk("irq %u not connected to primary controller."
+>>>>>> +                       "Connected to %s\n", i,
+>>>>>> +                       dt_node_full_name(rirq.controller));
+>>>>>> +            continue;
+>>>>>> +        }
+>>>>>> +
+>>>>>> +        irq = platform_get_irq(dev, i);
+>>>>>> +        if ( irq < 0 )
+>>>>>> +        {
+>>>>>> +            printk("Unable to get irq %u for %s\n", i, dt_node_full_name(dev));
+>>>>>> +            return irq;
+>>>>>> +        }
+>>>>>> +
+>>>>>> +        res = irq_permit_access(d, irq);
+>>>>>> +        if ( res )
+>>>>>> +        {
+>>>>>> +            printk(XENLOG_ERR "Unable to permit to %pd access to IRQ %u\n", d,
+>>>>>> +                   irq);
+>>>>> This time the other way around: %d please with plain int. (Again at least
+>>>>> once further down.)
+>>>>>
+>>>>>> +            return res;
+>>>>>> +        }
+>>>>>> +
+>>>>>> +        reg_num = irq / APLIC_NUM_REGS;
+>>>>>> +
+>>>>>> +        if ( is_irq_shared_among_domains(d, irq) )
+>>>>>> +        {
+>>>>>> +            printk("%s: Shared IRQ isn't supported\n", __func__);
+>>>>>> +            return -EINVAL;
+>>>>>> +        }
+>>>>>> +
+>>>>>> +        auth_irq_bmp[reg_num] |= BIT(irq % APLIC_NUM_REGS, U);
+>>>>> ... all of this leaves me with the impression that IRQ numbering isn't really
+>>>>> virtualized. IRQs are merely split into groups, one group per domain (and
+>>>>> maybe some unused). How are you going to fit in truly virtual IRQs?
+>>>> What do you mean by truly virtual IRQs?
+>>> Ones where no aspects are represented by any piece of hardware.
+>>>
+>>>> I can't totally agree that the current approach isn't use virtual IRQs,
+>>>> yes, they are 1:1 mapped but on the other side Xen is responsible to
+>>>> give an IRQ number for guest's device and Xen is responsible that guest
+>>>> isn't trying to reach IRQ which not belongs to it.
+>>> In a non-virtualized environment I expect IRQs are going to be "sparse"
+>>> (i.e. with perhaps large blocks of items used elsewhere). If you had
+>>> proper translation of IRQ numbers, the same could be true for your
+>>> guests.
+>> Partial FDT, which is used to tell which device be passthroughed to
+>> guest, is using physical IRQ number (which I am just considering for
+>> simplicity to be 1:1 mapped to virtual IRQ number). So if we have the
+>> following configuration:
+>>     Physical (bare-metal) IRQ layout is sparse:
+>>       IRQ 5  → UART -> domU0
+>>       IRQ 23 → Ethernet -> domU1
+>>       IRQ 47 → PCIe -> domU0
+>>       IRQ 100 → Storage -> domU1
+>> (gaps everywhere, driven by hardware wiring)
+>>
+>> For such configuration we will have for each domain auth_irq_bmp[] which
+>> contains:
+>>    IRQ 5 and IRQ47 for domU0
+>> and
+>>    IRQ 23 and IRQ 100 for domU1
+>>
+>> And here vIRQ5 = pIRQ5, vIRQ47 = pIRQ47 and so on. auth_irq_bmp just
+>> transform xIRQ number to bit position which it will have in real APLIC
+>> register. Just as an example, lets take vIRQ5 and vIRQ47.
+>>
+>> As reading or writing register setie[k] reads or potentially modifies
+>> the enable bits for interrupt sources k × 32 through k × 32 + 31. For an
+>> implemented interrupt source i within that range, the enable bit for
+>> source i corresponds with register bit (i mod 32).
+>> So for:
+>>    - vIRQ5 == pIRQ5 we have to set bit 5 in setie[0]
+>>    - vIRQ47 == pIRQ47 we have to set bit 15 in setie[1]
+>>
+>> Probably it was not the best idea to declare auth_irq_bmp as it will
+>> look in h/w and maybe just 'bool auth_irq_bmp[1024]' would be more clearer.
+>>
+>> So irqs number are still stay "sparsed" in guest.
+> Well, twice (or more) as sparse in the example you give, compared to the
+> host.
 
-Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
----
- xen/arch/arm/arm64/mpu/p2m.c                | 15 +++++++++++++++
- xen/arch/arm/domain.c                       |  2 ++
- xen/arch/arm/include/asm/domain.h           |  5 +++++
- xen/arch/arm/include/asm/mmu/domain-build.h |  2 ++
- xen/arch/arm/include/asm/mpu/domain-build.h |  6 ++++++
- xen/arch/arm/include/asm/mpu/p2m.h          | 10 ++++++++++
- xen/arch/arm/mpu/domain-build.c             | 17 +++++++++++++++++
- xen/arch/arm/mpu/p2m.c                      |  4 ++++
- 8 files changed, 61 insertions(+)
+Just to be sure that I fully understand your concern here.
 
-diff --git a/xen/arch/arm/arm64/mpu/p2m.c b/xen/arch/arm/arm64/mpu/p2m.c
-index a1ec9fcd6195..350cbd7ae94c 100644
---- a/xen/arch/arm/arm64/mpu/p2m.c
-+++ b/xen/arch/arm/arm64/mpu/p2m.c
-@@ -3,8 +3,12 @@
- #include <xen/bug.h>
- #include <xen/init.h>
- #include <xen/lib.h>
-+#include <xen/sched.h>
- #include <asm/p2m.h>
- 
-+/* VTCR_EL2 value to be configured for the boot CPU. */
-+register_t __read_mostly vtcr;
-+
- void __init setup_virt_paging(void)
- {
-     register_t vtcr_el2 = READ_SYSREG(VTCR_EL2);
-@@ -58,6 +62,7 @@ void __init setup_virt_paging(void)
-     else
-         vtcr_el2 &= ~VTCR_VS;
- 
-+    vtcr = vtcr_el2;
-     WRITE_SYSREG(vtcr_el2, VTCR_EL2);
- 
-     p2m_vmid_allocator_init();
-@@ -89,6 +94,16 @@ void __init setup_virt_paging(void)
-     panic("Hardware with no PMSAv8-64 support in any translation regime\n");
- }
- 
-+void p2m_save_vtcr(struct vcpu *p)
-+{
-+    p->arch.vtcr_el2 = READ_SYSREG(VTCR_EL2);
-+}
-+
-+void p2m_restore_vtcr(struct vcpu *n)
-+{
-+    WRITE_SYSREG(n->arch.vtcr_el2, VTCR_EL2);
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 221b1f8a7f9d..e928301d7cb0 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -538,6 +538,8 @@ int arch_vcpu_create(struct vcpu *v)
-     if ( get_ssbd_state() == ARM_SSBD_RUNTIME )
-         v->arch.cpu_info->flags |= CPUINFO_WORKAROUND_2_FLAG;
- 
-+    arch_set_vtcr_msa(v);
-+
-     if ( is_mpu_domain(v->domain) )
-         allocate_el1_mpu_regions(v);
- 
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-index 44c304ef8aa9..3ab004518427 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -203,6 +203,11 @@ struct arch_vcpu
-     uint32_t cpacr;
- 
- #ifdef CONFIG_MPU
-+#ifdef CONFIG_ARM_64
-+    /* Virtualization Translation Control Register */
-+    uint64_t vtcr_el2;
-+#endif
-+
-     /* EL1 MPU memory regions */
-     pr_t *mpu_regions;
- #endif
-diff --git a/xen/arch/arm/include/asm/mmu/domain-build.h b/xen/arch/arm/include/asm/mmu/domain-build.h
-index 3e0d9a6a2a08..0919c0097da9 100644
---- a/xen/arch/arm/include/asm/mmu/domain-build.h
-+++ b/xen/arch/arm/include/asm/mmu/domain-build.h
-@@ -34,6 +34,8 @@ int arch_set_v8r_el1_msa(struct domain *d,
-     return 0;
- }
- 
-+static inline void arch_set_vtcr_msa(struct vcpu *v) {}
-+
- #endif /* __ARM_MMU_DOMAIN_BUILD_H__ */
- 
- /*
-diff --git a/xen/arch/arm/include/asm/mpu/domain-build.h b/xen/arch/arm/include/asm/mpu/domain-build.h
-index 463cd85b5b7e..8d3a743219ce 100644
---- a/xen/arch/arm/include/asm/mpu/domain-build.h
-+++ b/xen/arch/arm/include/asm/mpu/domain-build.h
-@@ -15,6 +15,12 @@ int arch_set_v8r_el1_msa(struct domain *d,
-                          const struct xen_domctl_createdomain *config,
-                          unsigned int flags);
- 
-+#ifdef CONFIG_ARM_64
-+void arch_set_vtcr_msa(struct vcpu *v);
-+#else
-+static inline void arch_set_vtcr_msa(struct vcpu *v) {}
-+#endif
-+
- #endif /* __ARM_MPU_DOMAIN_BUILD_H__ */
- 
- /*
-diff --git a/xen/arch/arm/include/asm/mpu/p2m.h b/xen/arch/arm/include/asm/mpu/p2m.h
-index d0ec8a77a15a..1628148ba578 100644
---- a/xen/arch/arm/include/asm/mpu/p2m.h
-+++ b/xen/arch/arm/include/asm/mpu/p2m.h
-@@ -9,6 +9,8 @@
- 
- struct p2m_domain;
- 
-+extern register_t vtcr;
-+
- /*
-  * The architecture allows at most 255 EL2 MPU memory regions. The size of the
-  * MPU structure entry (pr_t) is 32 Bytes on AArch64 (requiring two 4KB pages)
-@@ -36,6 +38,14 @@ static inline bool region_is_p2m_valid(pr_t *pr)
-     return (pr->p2m_type != p2m_invalid);
- }
- 
-+#ifdef CONFIG_ARM_64
-+void p2m_save_vtcr(struct vcpu *p);
-+void p2m_restore_vtcr(struct vcpu *n);
-+#else
-+static inline void p2m_save_vtcr(struct vcpu *p) {}
-+static inline void p2m_restore_vtcr(struct vcpu *n) {}
-+#endif
-+
- #endif /* __ARM_MPU_P2M_H__ */
- 
- /*
-diff --git a/xen/arch/arm/mpu/domain-build.c b/xen/arch/arm/mpu/domain-build.c
-index 1bdd0ffedebb..19e504f7149e 100644
---- a/xen/arch/arm/mpu/domain-build.c
-+++ b/xen/arch/arm/mpu/domain-build.c
-@@ -8,6 +8,7 @@
- #include <xen/sched.h>
- #include <asm/mpu.h>
- #include <asm/mpu/domain-build.h>
-+#include <asm/mpu/p2m.h>
- #include <public/arch-arm.h>
- #include <public/domctl.h>
- 
-@@ -66,6 +67,22 @@ int arch_set_v8r_el1_msa(struct domain *d,
-     return 0;
- }
- 
-+#ifdef CONFIG_ARM_64
-+void arch_set_vtcr_msa(struct vcpu *v)
-+{
-+    /*
-+     * When ID_AA64MMFR0_EL1.MSA_frac is 0b0010 (MM64_MSA_FRAC_VMSA_SUPPORT),
-+     * then VTCR_EL2.MSA determines the memory system architecture enabled
-+     * at stage 1 of the Secure EL1&0 translation regime.
-+     */
-+    v->arch.vtcr_el2 = vtcr;
-+    if ( is_mpu_domain(v->domain) )
-+        v->arch.vtcr_el2 &= ~VTCR_MSA;
-+    else
-+        v->arch.vtcr_el2 |= VTCR_MSA;
-+}
-+#endif
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/arm/mpu/p2m.c b/xen/arch/arm/mpu/p2m.c
-index 06c92a3ef41b..b41abd8f2d37 100644
---- a/xen/arch/arm/mpu/p2m.c
-+++ b/xen/arch/arm/mpu/p2m.c
-@@ -357,6 +357,8 @@ void p2m_save_state(struct vcpu *p)
- 
-     p->arch.sctlr = READ_SYSREG(SCTLR_EL1);
- 
-+    p2m_save_vtcr(p);
-+
-     if ( p2m_xenmpu_update(p2m, false) )
-         panic("Failed to offline P2M MPU memory mapping\n");
- }
-@@ -369,6 +371,8 @@ void p2m_restore_state(struct vcpu *n)
-     WRITE_SYSREG(n->arch.sctlr, SCTLR_EL1);
-     WRITE_SYSREG(n->arch.hcr_el2, HCR_EL2);
- 
-+    p2m_restore_vtcr(n);
-+
-     WRITE_SYSREG(p2m->vsctlr, VSCTLR_EL2);
-     if ( p2m_xenmpu_update(p2m, true) )
-         panic("Failed to online P2M MPU memory mapping\n");
--- 
-2.34.1
+The difference between xIRQ5 and xIRQ47 is 42 bits (if for 1 irq we are 
+using 1 bit) which leads to that we have somewhere allocated 48 bit 
+bitmap where only two bits will be set, all others will be zero.
+Instead it would be better to have to do mapping: pIRQ5 -> vIRQ1, pIRQ47 
+->vIRQ2, right?
+If yes, won't we still store somewhere this mapping? it seems like 
+having 'unsigned int auth_irq_bmp[1024]' is a good option where index 
+will be vIRQ number and 'unsigned int' will be pIRQ number. But at the 
+moment I think that we could go with 1:1 IRQ number mapping and then 
+have 'bool auth_irq_bmp[1024]' will be more then enough and will safe 
+some memory.
+
+~ Oleksii
 
 
