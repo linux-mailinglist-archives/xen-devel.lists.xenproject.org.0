@@ -2,66 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2LakK/zV5WnWoQEAu9opvQ
+	id cKeGOVnb5WnNogEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 09:30:04 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 09:52:57 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F030F427C1F
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 09:30:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1285428.1566463 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F2E5427E90
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 09:52:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1285442.1566472 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEj4q-0005aR-PC; Mon, 20 Apr 2026 07:29:52 +0000
+	id 1wEjQm-0000zn-K5; Mon, 20 Apr 2026 07:52:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1285428.1566463; Mon, 20 Apr 2026 07:29:52 +0000
+Received: by outflank-mailman (output) from mailman id 1285442.1566472; Mon, 20 Apr 2026 07:52:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEj4q-0005YD-MJ; Mon, 20 Apr 2026 07:29:52 +0000
-Received: by outflank-mailman (input) for mailman id 1285428;
- Mon, 20 Apr 2026 07:29:51 +0000
+	id 1wEjQm-0000y7-HO; Mon, 20 Apr 2026 07:52:32 +0000
+Received: by outflank-mailman (input) for mailman id 1285442;
+ Mon, 20 Apr 2026 07:52:31 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wEj4p-0005Y7-Pc
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 07:29:51 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wEjQl-0000y1-EJ
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 07:52:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEj4o-00GP9O-Rp
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 09:29:50 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wEjQk-002hnS-Ns
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 09:52:30 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69e5d5ee-2eae-0a2a0a5409dd-0a2a450ac0c2-0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 09:29:50 +0200
-Received: from [40.93.201.60]
- (helo=CY3PR05CU001.outbound.protection.outlook.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69e5d5ed-56b3-0a2a450a0019-285dc93ce221-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 09:29:50 +0200
-Received: from BN9PR03CA0118.namprd03.prod.outlook.com (2603:10b6:408:fd::33)
- by DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.15; Mon, 20 Apr 2026 07:29:44 +0000
-Received: from BN1PEPF00006001.namprd05.prod.outlook.com
- (2603:10b6:408:fd:cafe::d9) by BN9PR03CA0118.outlook.office365.com
- (2603:10b6:408:fd::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Mon,
- 20 Apr 2026 07:29:44 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00006001.mail.protection.outlook.com (10.167.243.233) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9791.48 via Frontend Transport; Mon, 20 Apr 2026 07:29:44 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 20 Apr
- 2026 02:29:44 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 20 Apr
- 2026 02:29:43 -0500
-Received: from [10.71.194.215] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 20 Apr 2026 02:29:42 -0500
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69e5db3e-5cb7-0a2a0a5109dd-0a2a45038604-0
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 09:52:30 +0200
+Received: from [209.85.208.175] (helo=mail-lj1-f175.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69e5db3e-672d-0a2a45030019-d155d0afa877-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 09:52:30 +0200
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-38dd9f0fdc6so39349401fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 00:52:30 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
+ [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a4187e7ca0sm2768205e87.65.2026.04.20.00.52.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Apr 2026 00:52:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -73,153 +55,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E56Vt33SnUFM8KCgyHA1/0pLTE4a3SPRaGataScMOTUsY2CFUK7NTXr6LV2t3nInXhLPNdKf87XUQNbFyg3g5y4Is2RMBYbHd2vaU+3N9eRcOjRXhjcDN1Yde51mfbW8ZrraMZjZTZJjPE7b4ewpt5bOPogR+O6BTHtheUBfvkNNYviG9Pwz85DTDSkdZUT/y1OKyQuClGUCCGZUfHz2ZZRwdJd35SjhXWQiXuuDml688a/8qCnGrOAoGbzzA+8R6c+uErxQ0gxjM+PS+DgyVDmoe/hJIlMghy48kdbUCpay/dByS8JNwd6HQ2ayvlAs39mx7RQA/2n34PJ0f1yXEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oEGRxzNeGZqB8YZt0n2/T7bjh3hrYyF/Nm/QHv0KEOE=;
- b=d5MKmtiWslx23YHFZPwapGYdcGmT2ijkGvpjRO9vbcRVaJ7H93dOzvVMvk8OK5Q/PzsmSm6tezBuKiZzuhC+l7NLs9TI3r8COBdOkdB+Tcyfv5TsOoADRyNIJ7s+/92ufZPExIER5heYnk35qFCQJg3vw4XYNiciILnVzcDoXSy3SllYCeJcx49iQ2XkoflZqJKahigQ4YJ+aTbNtC6rwzJchNC/lxtqqw/pNkHzVmAoRyBefkHq3tKlCdL6HY+FtCfxt69NqmldrQ2ju6vAeAc6UQVIAYHV/akUcCC626Kvfi/cDrTxKtIbpbBimDnxS0Jl6F5MHGS93M+uWnnaeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oEGRxzNeGZqB8YZt0n2/T7bjh3hrYyF/Nm/QHv0KEOE=;
- b=vCw4nFK+j4L4XpPYZ+qIOmrrfat51uPdwH1PqJ4clqfPbdgv3eUG6889RaaV2UrKhLALeBzdV4ks7RTnDpIo/fMiuYsFY/7YZbvFh48FclmETvID/WL5BD/fKDLyw/GHgKLx/3dJQFiloRJ3xdT+tqo0rKRJdxytP6yr9OZaSEA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <b97cbb48-5bd9-4887-bb1e-24b7f001e5a5@amd.com>
-Date: Mon, 20 Apr 2026 09:29:41 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1776671550; x=1777276350; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=TZ3eAnmcgaN5QC6piSgGEAj99CsjVfekQR5lOPQICjA=;
+        b=i+Lm+tsyahg6V9w9Q1327V3Y+MKA7VYX5/PRrpFglNHbBS0H0dKblc8wucmHPeiIz9
+         wUuEuJoIBqQQChyhE5CPWxrL4K641teSyp8kKnRSipDH6TdCqZjJOiJCETHpgZK4N0yO
+         jCcthvqrpj7sbZDLwo2xxDX8qhahvTvv0sp8IcV/KNYr990CBiv8VUhZjTD6qhdTwQf2
+         JjWJUNl2ttdv/71obQ3sI3oYHbiFjuiKYKMduOeL3KlkI6dM3wq92HZ6D53XY7UnbYXf
+         hyXB/HHPoLFJcVCVevCrO1zxi2GLHVSNBp4M+RGV3O9nWn2rdpITOU36fDxW1aFs7iAx
+         d34Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776671550; x=1777276350;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=TZ3eAnmcgaN5QC6piSgGEAj99CsjVfekQR5lOPQICjA=;
+        b=aDDXOiaYtz/aueiguS/SPNm9JqOafHc4uCqmc3J1nXdUAPD+50kvCEHNChkYjlpmr5
+         dKE4Fo9YG4ohXOI8oTws5VtI+PFoMi8+Onq8I5w7IE3xAqmlqoAzneS+1K3ee6fgN82d
+         Ery2S0N/vP1PXFiLvA0dVOktVMp59xUgOWTufKO0ijx5BQvsMWpk9/h5FOD4wxKhNI25
+         sB5QsfMF6TQ3jBST0LmqI5riO7scw49iWtJKobJpHN5kOwVOkjpHQ90HFs/N99R95axL
+         DUGhmr7wFoEiZoLYerd9j8xaMiREVw1MKzeORdG6lEeetQg+8O8qzH6k7olHgr+aKjwS
+         byQQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8z8FhXvYvC5ul26Ts2D3NvkouEMTsgf7GqZfc8ktr3LTgylNrc1XqmSMr49zNaplGeYBeJUk+EimA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YykkM7XkqqEDyg2E/JFcjp45Y5ZN+pyu1VzCUb+HpDWEtAYYYZO
+	NhSNQLMcju5/8h4pnXKXx8KVNXL+Rm37I6RtLILVqu5DwYbU0P0IojMF
+X-Gm-Gg: AeBDievc2HDhEMc+vXzMu6XD+5iVRIK4z2ypcR6C0noMt00/K0g6rwEKRRB34NyngpC
+	998joZTOfCXIGnAf+QHSiLmYBgdDMrV9KVOaK4kc/XAo+Q0gZ+UstJu72dlbPaT9GKWN3wp7FAg
+	xjoavdLt/bIztLySXR1aPfLDt7f4IBO+gKp0OTfO2WB1Hol8cK7ZxLLC3358DxI61DwdTqLQi2t
+	tVeHNIcixJuf/+RKSb9IdFcQxrxi/OgxBHQ+g8DKSt7J5Ji9mT736iQE+9c9b7mc+CLZyghu6zP
+	u1bvqow8YltPKJVZyttUa+MXEOp+8uysp42Fb4ZsTAWoTPx7oFV1jrS4JyKdwVxgrn8XQccAMIc
+	2BoSCJT1WOH5Gz21WuQUSg0TG9tGrQBVmAfIrNK+1Y58c6k+heZF3G+ulf1V0RLTTJ7AsFVNLkO
+	NXvbx4hvcU1TqcTil+VigZb7zsRoTE/KPB1L6AleLfLQ3vzRWSaBXn31YJ2UtuY33RGnS5LYCpj
+	+Lubbh+DldH7g==
+X-Received: by 2002:a05:6512:3095:b0:5a3:4692:61ce with SMTP id 2adb3069b0e04-5a41716dad3mr3796433e87.1.1776671549287;
+        Mon, 20 Apr 2026 00:52:29 -0700 (PDT)
+Message-ID: <b00858a5-c989-482a-bce0-af82eca17e31@gmail.com>
+Date: Mon, 20 Apr 2026 09:52:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] xen/dom0less: pass kernel_info struct instead of
- fdt to make_cpus_node()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
- Beulich" <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-References: <cover.1776340422.git.oleksii.kurochko@gmail.com>
- <a897d880738f5b3be2d6fc5ec2b6cab1fd8b9dc4.1776340422.git.oleksii.kurochko@gmail.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: Re: [PATCH v1 13/27] xen/riscv: add basic VGEIN management for AIA
+ guests
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Romain Caritey <Romain.Caritey@microchip.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
+ <f358325514c91c540e0edf992ca51414a1964fe0.1773157782.git.oleksii.kurochko@gmail.com>
+ <09fed304-685c-46a9-9159-72baa1721224@suse.com>
+ <4b977410-8d24-41c3-9c83-7d95637ddea3@gmail.com>
+ <314c064b-88eb-497a-9022-2013125d63a9@suse.com>
+ <a0fe3904-7fb9-474c-9a97-6aca2c2dc50b@gmail.com>
+ <718fe598-884c-4723-938f-7f783445771f@suse.com>
 Content-Language: en-US
-In-Reply-To: <a897d880738f5b3be2d6fc5ec2b6cab1fd8b9dc4.1776340422.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <718fe598-884c-4723-938f-7f783445771f@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00006001:EE_|DM3PR12MB9416:EE_
-X-MS-Office365-Filtering-Correlation-Id: 24bc89bd-01e6-4bb4-36a6-08de9eae97f4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|7416014|376014|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	2q9Hggy6ssTC/4mDNkNtcsAHSxCDEJ0U5gjOSA9ic6v3SfqRhrEr6L4eq5aEPvt6PUjvJYq+UnPlWHCKvaKJ+bvSp43n7ldQ1UEu0wawssquB2J2wKH5lJ5Z1sU5k0aTxa3DxsRonFfyJXMIyhKTm/3avGiUfKjABPZ3weK4t9F3Ybprgs5EpyC5roNZlCyqXS1A3CJBZsWX7o90FVCkTUN2Ehuh5tDr7+1GGxD0EuaVmPpVAi+ddTzFGubwH/Kw721YIlEd++KGZBnSR3Y7RIBv4/rM0GK1P8kVYIu5ovul9NZ/1y8jZk4udUwBpT63vTHh+V7arvYlNzqDRLt+cI/yyldA3+7N3rOGqVjmkG8wNXKkntELDdRtl+/BOWE/93bk1KveVofg1M9xH2j+Rz5Or4Yq3uXqvEiIPKquL/PlKDsrvAL2y2scA2XlsC0iKJX8JRWSiGvlWg8x7JfZMgduxU4Am+rj6UukBgCst/2C5wcMNW3Bm1vpqHmH0cQP1Nr/TDctu416FpCd18MYFZBpCWes+geXLH++sitJavApIqYFNoskPAkq/jprYLyQZ195odptZFPcNhYo8Sj7JwxrZlJPTp1SEqWrKOAt6NmiL/dsYFwypzD8CUlyddckkdgTs1isOJA5hkbGeBfcxBoZUNx/IALQH6NKNIF5WeDlFJR3jNiQplP0TblRxat7qKctXxpfkA8dvpvxCnTzfwV7CtAL38ZoM4KPT1TXtADnZDbmSEh3fx5Tni+6ssiHkrEXk+lURRiZF7dDToWavQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(7416014)(376014)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	PBO32GGPdqKiYc16vhuXRMRCkIl0R2LTqnCjG7yvd4tf/ZZkWBHJXTMqyxD4JKKyr41y1qlSXeL9AycDStMgoGU8Kp0fNWSlKh8wNQDy0ISR5Ojqpwcgld++TK9y2RtxzAOad/cuPhbOlE+naaojlEqfe4eZFyA9EnCznywU8b1wilOmDioi50alr9DgbIQ8LTLD2i/YnwO5Xu2j80q7nSSQApROpL0ojdMlbjrfVdsn43aWqiulxkw8pBIRQCrM98jI2UJFGBZRMl0c6Yj52iojGNw3fdqac+bRIfw7JwCAbUW1u0egcuK7S1PyY5op9dxSj4NJFqkknp0RLy0oxjWGj/WJCejXyFaOE1V+QJoA4yMA64dr9nCfLVJudy80AjgLsGI1kLikU7X3w3lmtu+IV4baqldCwU4YOMgifzybOFlI9HE7m4PXS2iwW1tN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 07:29:44.3658
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24bc89bd-01e6-4bb4-36a6-08de9eae97f4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00006001.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9416
-X-purgate-ID: tlsNG-4011c0/1776670190-4596E8B7-C1DE077D/10/73395122804
+X-purgate-ID: tlsNG-33051d/1776671550-2957F938-0BCC316F/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 1455
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-purgate-size: 5831
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[14];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:dkim,amd.com:mid]
-X-Rspamd-Queue-Id: F030F427C1F
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 5F2E5427E90
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
 
-On 16/04/2026 16:20, Oleksii Kurochko wrote:
-> There are two reasons of this change:
-> 1. Align prototype with what other make_*_node() are passed.
-> 2. A follow-up RISC-V patch will call get_next_free_phandle() inside
->    make_cpus_node(), requiring mutable access to kinfo->free_phandle.
+On 4/17/26 4:07 PM, Jan Beulich wrote:
+> On 17.04.2026 13:34, Oleksii Kurochko wrote:
+>> On 4/16/26 2:21 PM, Jan Beulich wrote:
+>>> On 13.04.2026 16:42, Oleksii Kurochko wrote:
+>>>> On 4/2/26 12:03 PM, Jan Beulich wrote:
+>>>>> On 10.03.2026 18:08, Oleksii Kurochko wrote:
+>>>>>> @@ -14,12 +27,109 @@ bool aia_available(void)
+>>>>>>         return is_aia_available;
+>>>>>>     }
+>>>>>>     
+>>>>>> +int __init vgein_init(unsigned int cpu)
+>>>>>
+>>>>> If this needs invoking once per CPU being brought up, it can't be __init.
+>>>>
+>>>> Yes, it is going to be called inside the secondary CPU bring-up function.
+>>>>
+>>>> __init sections are removed much later, after all CPUs are brought up,
+>>>> so it looks like that at the moment when secondary CPUs are being
+>>>> brought up, __init still exists and can be called.
+>>>
+>>> No. And I said so before. See XEN_SYSCTL_cpu_hotplug (and ignore it having
+>>> "hotplug" in the name, but merely consider that you can take CPUs offline
+>>> at runtime, and later bring them online again).
+>>
+>> Thanks, now it makes sense to drop __init.
+>>
+>>>>> Also - static?
+>>>>
+>>>> It isn't static because it will be called inside the secondary CPU
+>>>> bring-up function.
+>>>
+>>> As it doesn't need calling from the outside for the boot CPU, it's not
+>>> obvious why it would need calling from the outside for secondary ones.
+>>
+>> I think I am confused here by what do you mean by "calling from the
+>> outside".
 > 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
->  xen/arch/arm/domain_build.c             | 5 +++--
->  xen/common/device-tree/dom0less-build.c | 2 +-
->  xen/include/xen/fdt-domain-build.h      | 2 +-
->  3 files changed, 5 insertions(+), 4 deletions(-)
+> As in "from another translation unit".
 > 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 60a7cbf915a5..6740da3d324b 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1164,7 +1164,7 @@ int __init make_psci_node(void *fdt)
->      return res;
->  }
->  
-> -int __init make_cpus_node(const struct domain *d, void *fdt)
-> +int __init make_cpus_node(const struct domain *d, struct kernel_info *kinfo)
->  {
->      int res;
->      const struct dt_device_node *cpus = dt_find_node_by_path("/cpus");
-> @@ -1178,6 +1178,7 @@ int __init make_cpus_node(const struct domain *d, void *fdt)
->      /* Keep the compiler happy with -Og */
->      bool clock_valid = false;
->      uint64_t mpidr_aff;
-> +    void *fdt = kinfo;
-You're assigning kinfo to fdt pointer which is a bug.
-Instead, you should do:
-void *fdt = kinfo->fdt
+>> It should be called during boot or secondary CPU initialization (if AIA
+>> is used), right?
+>> Then considering that VGEIN-related stuff is connected to AIA then
+>> vgein_init() is expected to live in aia.c and considering that it wants
+>> to be called by secondary CPU boot code it can't be static.
+> 
+> Putting my question differently: Why is there a difference here between
+> boot CPU and secondary CPUs. My (general) expectation would be that either
+> the function wants calling from outside of aia.c in all cases, or it could
+> be static (now and later).
 
-~Michal
+Generally, if update prototype of aia_init() to receive cpuid argument 
+then it will be enough to make vgein_init() static and then all others 
+will call aia_init(). The only reason why I tried to have vgein_init() 
+non-static is that in the case of secondary CPU there is no need to call 
+second time anything (at least, now) from aia_init() or re-init 
+is_aia_usable variable.
+
+But I can agree that probably it would be better to make vgein_init() 
+static now and then use aia_init() everywhere it is needed just for the 
+case that if something new will be added what should be called for boot 
+and secondary CPU won't be missed to call properly. And I think it is 
+fine just re-init is_aia_usable without any additional synchronization.
+As an option I could check at the start if is_aia_usable is initialized 
+by checking if it is true and if it is then just call vgein_init() for 
+that cpuid.
+Would it be better?
+
+> 
+>>>>>> +{
+>>>>>> +    struct vgein_bmp *vgein = &per_cpu(vgein_bmp, cpu);
+>>>>>> +
+>>>>>> +    csr_write(CSR_HGEIE, -1UL);
+>>>>>> +    vgein->geilen = flsl(csr_read(CSR_HGEIE));
+>>>>>> +    csr_write(CSR_HGEIE, 0);
+>>>>>> +    if ( vgein->geilen )
+>>>>>> +        vgein->geilen--;
+>>>>>
+>>>>> I don't understand this. The "len" in "geilen" stands for "length", I suppose,
+>>>>> i.e. the number of bits. Hmm, the spec itself is inconsistent: "The number of
+>>>>> bits implemented in hgeip and hgeie for guest external interrupts is UNSPECIFIED
+>>>>> and may be zero. This number is known as GEILEN." This may or may not include
+>>>>> bit 0 (which is implemented, but r/o zero). Then saying "Hence, if GEILEN is
+>>>>> nonzero, bits GEILEN:1 shall be writable in ..." suggests 0 isn't included, but
+>>>>> that's not unambiguous.
+>>>>
+>>>> But they explicitly wrote that: The least-significant bits are
+>>>> implemented first, apart from bit 0. So bit 0 is explicitly excluded.
+>>>
+>>> Fine, but not including it in anything named *LEN feels - as said - ambiguous.
+>>
+>> Agree, it is. I just tried to follow the spec naming here. But I am okay
+>> to rename it to max_gein, for example.
+> 
+> Perhaps better stick to spec naming, but consider adding a clarifying comment.
+
+I will add then above geilen field in vgein_bmp struct the comment:
+  The least-significant bits are implemented first, apart from bit 0
+
+> 
+>>>>>> +    /*
+>>>>>> +     * All vCPU guest interrupt files are used and we don't support a case
+>>>>>> +     * when number of vCPU on 1 pCPU is bigger then geilen.
+>>>>>> +     */
+>>>>>
+>>>>> This wants checking in vgein_init() then. CPUs (beyond the boot one)
+>>>>> violating this should not be brought online.
+>>>>
+>>>> It'll be nice. But we can't know how many vCPUs will be ran on pCPU when
+>>>> vgein_init() is executed.
+>>>
+>>> I don't understand: How does it matter how many vCPU-s will exist later on
+>>> (and will run wherever)?
+>>
+>> IIUC, you want to check what is mentioned in the comment in vcpu_init().
+>> The comment says that it is checking that number of vCPU on one pCPU
+>> isn't bigger then geilen. To check that we have to know an amount of
+>> vCPU potentially will be ran on pCPU.
+> 
+> Well, not quite. I don't understand at all why the number of vCPU-s in
+> a system would be limited by any pCPU property. I don't think we have
+> any such constraint on x86, for example.
+
+Then I will just drop this comment and correspondent ASSERT() and just 
+return vgein_id in the case when there is no available h/w VGEINs to 
+mark that h/w should use s/w guest interrupt files:
+
+     if ( vgein_id > vgein->geilen )
+         vgein_id = 0;
+     else
+         __set_bit(vgein_id, bmp);
+
+~ Oleksii
+
 
 
