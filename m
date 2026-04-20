@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cKeGOVnb5WnNogEAu9opvQ
+	id sCibLFPc5WnNogEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 09:52:57 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 09:57:07 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F2E5427E90
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 09:52:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1285442.1566472 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23590427ED2
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 09:57:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1285453.1566482 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEjQm-0000zn-K5; Mon, 20 Apr 2026 07:52:32 +0000
+	id 1wEjV4-0001W6-4L; Mon, 20 Apr 2026 07:56:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1285442.1566472; Mon, 20 Apr 2026 07:52:32 +0000
+Received: by outflank-mailman (output) from mailman id 1285453.1566482; Mon, 20 Apr 2026 07:56:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEjQm-0000y7-HO; Mon, 20 Apr 2026 07:52:32 +0000
-Received: by outflank-mailman (input) for mailman id 1285442;
- Mon, 20 Apr 2026 07:52:31 +0000
+	id 1wEjV4-0001Ue-15; Mon, 20 Apr 2026 07:56:58 +0000
+Received: by outflank-mailman (input) for mailman id 1285453;
+ Mon, 20 Apr 2026 07:56:56 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wEjQl-0000y1-EJ
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 07:52:31 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1wEjV2-0001UY-6g
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 07:56:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEjQk-002hnS-Ns
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 09:52:30 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wEjV1-00GVMR-J5
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 09:56:55 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69e5db3e-5cb7-0a2a0a5109dd-0a2a45038604-0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 09:52:30 +0200
-Received: from [209.85.208.175] (helo=mail-lj1-f175.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69e5db3e-672d-0a2a45030019-d155d0afa877-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 09:52:30 +0200
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-38dd9f0fdc6so39349401fa.0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 00:52:30 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
- [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4187e7ca0sm2768205e87.65.2026.04.20.00.52.28
+ (envelope-from <jbeulich@suse.com>)
+ id 69e5dc2f-e002-0a2a0a5209dd-0a2a450b9c36-46
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 09:56:55 +0200
+Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 69e5dc47-212f-0a2a450b0019-d155802ad96b-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 09:56:55 +0200
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4852b81c73aso23034965e9.3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 00:56:55 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488fc14a61asm249323485e9.15.2026.04.20.00.56.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Apr 2026 00:52:28 -0700 (PDT)
+ Mon, 20 Apr 2026 00:56:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,52 +56,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776671550; x=1777276350; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=TZ3eAnmcgaN5QC6piSgGEAj99CsjVfekQR5lOPQICjA=;
-        b=i+Lm+tsyahg6V9w9Q1327V3Y+MKA7VYX5/PRrpFglNHbBS0H0dKblc8wucmHPeiIz9
-         wUuEuJoIBqQQChyhE5CPWxrL4K641teSyp8kKnRSipDH6TdCqZjJOiJCETHpgZK4N0yO
-         jCcthvqrpj7sbZDLwo2xxDX8qhahvTvv0sp8IcV/KNYr990CBiv8VUhZjTD6qhdTwQf2
-         JjWJUNl2ttdv/71obQ3sI3oYHbiFjuiKYKMduOeL3KlkI6dM3wq92HZ6D53XY7UnbYXf
-         hyXB/HHPoLFJcVCVevCrO1zxi2GLHVSNBp4M+RGV3O9nWn2rdpITOU36fDxW1aFs7iAx
-         d34Q==
+        d=suse.com; s=google; t=1776671815; x=1777276615; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=t+goIEjmfAfsZC41olSoOfXjLRzesyfBIZZI2N84MUc=;
+        b=GvoJqwoP8ZW7OO78tEGN7eI+S/2F8Ai9XtmLWSWmiKR9qoBn+Nd0a/xKrVfHjazKGn
+         pDeXuAIPwrGiz8LmsSVxTruXg8iqNbpwFiiHBEm/UhyhU63uU34/XDbiedE4TFPVYnuB
+         n5lqgE+4WfecoTq3V4hvfCTCzDTzRTtxiJsM6FWqDscJ6xGm2HoNHdVOi3tVdBfTPmAM
+         eh8jDTYPjGk5F4T4L4yAkjuPrf2fheXhNIWKZ14CXQymWqmP+xAQz94PMP7CvIzC2wvv
+         y6Ha6ow4sEUtQtZQy4z1ZO4fRhjZ7EtQk9EA84jMLe7D/wdSPxH+zUFLOB4+g6jK60G0
+         f2xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776671550; x=1777276350;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TZ3eAnmcgaN5QC6piSgGEAj99CsjVfekQR5lOPQICjA=;
-        b=aDDXOiaYtz/aueiguS/SPNm9JqOafHc4uCqmc3J1nXdUAPD+50kvCEHNChkYjlpmr5
-         dKE4Fo9YG4ohXOI8oTws5VtI+PFoMi8+Onq8I5w7IE3xAqmlqoAzneS+1K3ee6fgN82d
-         Ery2S0N/vP1PXFiLvA0dVOktVMp59xUgOWTufKO0ijx5BQvsMWpk9/h5FOD4wxKhNI25
-         sB5QsfMF6TQ3jBST0LmqI5riO7scw49iWtJKobJpHN5kOwVOkjpHQ90HFs/N99R95axL
-         DUGhmr7wFoEiZoLYerd9j8xaMiREVw1MKzeORdG6lEeetQg+8O8qzH6k7olHgr+aKjwS
-         byQQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8z8FhXvYvC5ul26Ts2D3NvkouEMTsgf7GqZfc8ktr3LTgylNrc1XqmSMr49zNaplGeYBeJUk+EimA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YykkM7XkqqEDyg2E/JFcjp45Y5ZN+pyu1VzCUb+HpDWEtAYYYZO
-	NhSNQLMcju5/8h4pnXKXx8KVNXL+Rm37I6RtLILVqu5DwYbU0P0IojMF
-X-Gm-Gg: AeBDievc2HDhEMc+vXzMu6XD+5iVRIK4z2ypcR6C0noMt00/K0g6rwEKRRB34NyngpC
-	998joZTOfCXIGnAf+QHSiLmYBgdDMrV9KVOaK4kc/XAo+Q0gZ+UstJu72dlbPaT9GKWN3wp7FAg
-	xjoavdLt/bIztLySXR1aPfLDt7f4IBO+gKp0OTfO2WB1Hol8cK7ZxLLC3358DxI61DwdTqLQi2t
-	tVeHNIcixJuf/+RKSb9IdFcQxrxi/OgxBHQ+g8DKSt7J5Ji9mT736iQE+9c9b7mc+CLZyghu6zP
-	u1bvqow8YltPKJVZyttUa+MXEOp+8uysp42Fb4ZsTAWoTPx7oFV1jrS4JyKdwVxgrn8XQccAMIc
-	2BoSCJT1WOH5Gz21WuQUSg0TG9tGrQBVmAfIrNK+1Y58c6k+heZF3G+ulf1V0RLTTJ7AsFVNLkO
-	NXvbx4hvcU1TqcTil+VigZb7zsRoTE/KPB1L6AleLfLQ3vzRWSaBXn31YJ2UtuY33RGnS5LYCpj
-	+Lubbh+DldH7g==
-X-Received: by 2002:a05:6512:3095:b0:5a3:4692:61ce with SMTP id 2adb3069b0e04-5a41716dad3mr3796433e87.1.1776671549287;
-        Mon, 20 Apr 2026 00:52:29 -0700 (PDT)
-Message-ID: <b00858a5-c989-482a-bce0-af82eca17e31@gmail.com>
-Date: Mon, 20 Apr 2026 09:52:27 +0200
+        d=1e100.net; s=20251104; t=1776671815; x=1777276615;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=t+goIEjmfAfsZC41olSoOfXjLRzesyfBIZZI2N84MUc=;
+        b=QSEr+1gW1DJ7YB9AthKXVMUMfoC8XMxkGepZC6JyJ5+dckVMBGWBR4OmKehPSiBDXG
+         0AsCrcwFhMxiTn+yVbaHBtYAKtnJ5hXT1MxgEgE4rsdMINArK/5/3uBhD7kmQ79jKkA9
+         hfGDAEfwtGwk5GnshKoI6f+5mJR2MkqoVNTo/grKirO65waKhJQ/36i6Z4XAaSBW84Wk
+         uuipl+CI1kVaxR3AA49L2kM9INFOQhp1Naz69JQwORQEfF2DAVWbJdmttRzCuJ5hecsL
+         t5cCrW4tyXsn+wY+9B7/kprBIrV28J1GahBlXA8es9Zv54dkCOSpMdSbHT2qKEMO7+tm
+         N9HA==
+X-Forwarded-Encrypted: i=1; AFNElJ/dTg64utHjFcv9V3lbN0JziChG6kN/xXCH5TppuLAl+G5fVUzqG+LM9mhNtTg4jg4EVuEDhCXuSGQ=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxTpalmD6fH9SuzAttyBv8xiK2C68H6DFa9FcZoFOK0GmcgtP4F
+	++3cVx37pC8ye8Ib+hi1rOgKAUM5PAMhVVxtnlxpg0U+Rp4f3FeohNKkm8NPcK74qQ==
+X-Gm-Gg: AeBDietLSIxbuisvXHVH6fAWJ61Pfwi+et0MdfEwTljtD6aQf6kxk8IChqiGMMoWKfA
+	7MHPyl0TWcHmqm6li4h+dU7vrJ2I1V1eaQvAurHNlnBKzYT37WHCDah/XrJpsm+NR4PmoeTJGtn
+	uICtdoq3QC8mbBHeYQf73o6r0/4oPqisaSAmXv07GC+FAZWZZjYvnyDXgJjNwe7suJFT7bktJkA
+	hQ1xMVXz/ozuqjskhMAYdF4RBAMcp3OYAuF1urXodxx3+hwpDsCX7um/MHTpdZswzEEx1/PxlYm
+	vxTgI2fiDX5e8FjheovLdeowmgbTXw1kc4cGF1R6fh7pbDz/o6uY/x2dxr8Q7dIIVpyxMPjFM9i
+	vD9qpOmnSPKYAKWVCrj+F9ZyiVVLweA0r3YvX4kWzLuDmI/EyrXou2cOig0vDPTiHltPoAxxRY7
+	vry93fyDm0c5gsSN9CXKhdoMxVBQmz9dbqk3rRsu2ohNOUTNtVu3jlLCo2WZa6lOV8qWRd5Yq3P
+	zdpkrz/CCXEIz1TMoanpEWmlw==
+X-Received: by 2002:a05:600c:4707:b0:488:bfc3:efc with SMTP id 5b1f17b1804b1-488fb6e8eb5mr174782245e9.0.1776671814787;
+        Mon, 20 Apr 2026 00:56:54 -0700 (PDT)
+Message-ID: <405b5653-4df9-4ee0-b6e2-ba7c4a5efbba@suse.com>
+Date: Mon, 20 Apr 2026 09:56:56 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 13/27] xen/riscv: add basic VGEIN management for AIA
+Subject: Re: [PATCH v4] xen/riscv: allow Xen to use SSTC while hiding it from
  guests
-To: Jan Beulich <jbeulich@suse.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
  Connor Davis <connojdavis@gmail.com>,
@@ -109,48 +110,65 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <f358325514c91c540e0edf992ca51414a1964fe0.1773157782.git.oleksii.kurochko@gmail.com>
- <09fed304-685c-46a9-9159-72baa1721224@suse.com>
- <4b977410-8d24-41c3-9c83-7d95637ddea3@gmail.com>
- <314c064b-88eb-497a-9022-2013125d63a9@suse.com>
- <a0fe3904-7fb9-474c-9a97-6aca2c2dc50b@gmail.com>
- <718fe598-884c-4723-938f-7f783445771f@suse.com>
+References: <5285075f24cd2a2c5566b2a7724198d34aab51c5.1776354739.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <718fe598-884c-4723-938f-7f783445771f@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <5285075f24cd2a2c5566b2a7724198d34aab51c5.1776354739.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1776671550-2957F938-0BCC316F/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 5831
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-purgate-ID: tlsNG-42698a/1776671815-252B9F3B-5157A77A/0/0
+X-purgate-type: clean
+X-purgate-size: 2022
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
@@ -158,144 +176,61 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 5F2E5427E90
+X-Rspamd-Queue-Id: 23590427ED2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+On 17.04.2026 09:24, Oleksii Kurochko wrote:
+> --- a/xen/arch/riscv/include/asm/csr.h
+> +++ b/xen/arch/riscv/include/asm/csr.h
+> @@ -32,6 +32,20 @@
+>                             : "memory" );                        \
+>  })
+>  
+> +#ifdef CONFIG_RISCV_32
+> +# define __csr_write32h(csr, val) csr_write(csr ## H, (val) >> 32)
+> +#else
+> +# define __csr_write32h(csr, val) ((void)(csr), (void)(val))
 
+In order to be able to spot issues in 64-bit builds, how about
 
-On 4/17/26 4:07 PM, Jan Beulich wrote:
-> On 17.04.2026 13:34, Oleksii Kurochko wrote:
->> On 4/16/26 2:21 PM, Jan Beulich wrote:
->>> On 13.04.2026 16:42, Oleksii Kurochko wrote:
->>>> On 4/2/26 12:03 PM, Jan Beulich wrote:
->>>>> On 10.03.2026 18:08, Oleksii Kurochko wrote:
->>>>>> @@ -14,12 +27,109 @@ bool aia_available(void)
->>>>>>         return is_aia_available;
->>>>>>     }
->>>>>>     
->>>>>> +int __init vgein_init(unsigned int cpu)
->>>>>
->>>>> If this needs invoking once per CPU being brought up, it can't be __init.
->>>>
->>>> Yes, it is going to be called inside the secondary CPU bring-up function.
->>>>
->>>> __init sections are removed much later, after all CPUs are brought up,
->>>> so it looks like that at the moment when secondary CPUs are being
->>>> brought up, __init still exists and can be called.
->>>
->>> No. And I said so before. See XEN_SYSCTL_cpu_hotplug (and ignore it having
->>> "hotplug" in the name, but merely consider that you can take CPUs offline
->>> at runtime, and later bring them online again).
->>
->> Thanks, now it makes sense to drop __init.
->>
->>>>> Also - static?
->>>>
->>>> It isn't static because it will be called inside the secondary CPU
->>>> bring-up function.
->>>
->>> As it doesn't need calling from the outside for the boot CPU, it's not
->>> obvious why it would need calling from the outside for secondary ones.
->>
->> I think I am confused here by what do you mean by "calling from the
->> outside".
-> 
-> As in "from another translation unit".
-> 
->> It should be called during boot or secondary CPU initialization (if AIA
->> is used), right?
->> Then considering that VGEIN-related stuff is connected to AIA then
->> vgein_init() is expected to live in aia.c and considering that it wants
->> to be called by secondary CPU boot code it can't be static.
-> 
-> Putting my question differently: Why is there a difference here between
-> boot CPU and secondary CPUs. My (general) expectation would be that either
-> the function wants calling from outside of aia.c in all cases, or it could
-> be static (now and later).
+# define __csr_write32h(csr, val) ((void)csr ## H, (void)(val))
 
-Generally, if update prototype of aia_init() to receive cpuid argument 
-then it will be enough to make vgein_init() static and then all others 
-will call aia_init(). The only reason why I tried to have vgein_init() 
-non-static is that in the case of secondary CPU there is no need to call 
-second time anything (at least, now) from aia_init() or re-init 
-is_aia_usable variable.
+?
 
-But I can agree that probably it would be better to make vgein_init() 
-static now and then use aia_init() everywhere it is needed just for the 
-case that if something new will be added what should be called for boot 
-and secondary CPU won't be missed to call properly. And I think it is 
-fine just re-init is_aia_usable without any additional synchronization.
-As an option I could check at the start if is_aia_usable is initialized 
-by checking if it is true and if it is then just call vgein_init() for 
-that cpuid.
-Would it be better?
+Apart from this, no matter that it was Andrew to suggest this, I'd like to
+(once again) point out that identifiers starting with two underscores are
+reserved. I don't see why a single underscore wouldn't do here. Or
+alternatively csr__write32h().
 
-> 
->>>>>> +{
->>>>>> +    struct vgein_bmp *vgein = &per_cpu(vgein_bmp, cpu);
->>>>>> +
->>>>>> +    csr_write(CSR_HGEIE, -1UL);
->>>>>> +    vgein->geilen = flsl(csr_read(CSR_HGEIE));
->>>>>> +    csr_write(CSR_HGEIE, 0);
->>>>>> +    if ( vgein->geilen )
->>>>>> +        vgein->geilen--;
->>>>>
->>>>> I don't understand this. The "len" in "geilen" stands for "length", I suppose,
->>>>> i.e. the number of bits. Hmm, the spec itself is inconsistent: "The number of
->>>>> bits implemented in hgeip and hgeie for guest external interrupts is UNSPECIFIED
->>>>> and may be zero. This number is known as GEILEN." This may or may not include
->>>>> bit 0 (which is implemented, but r/o zero). Then saying "Hence, if GEILEN is
->>>>> nonzero, bits GEILEN:1 shall be writable in ..." suggests 0 isn't included, but
->>>>> that's not unambiguous.
->>>>
->>>> But they explicitly wrote that: The least-significant bits are
->>>> implemented first, apart from bit 0. So bit 0 is explicitly excluded.
->>>
->>> Fine, but not including it in anything named *LEN feels - as said - ambiguous.
->>
->> Agree, it is. I just tried to follow the spec naming here. But I am okay
->> to rename it to max_gein, for example.
-> 
-> Perhaps better stick to spec naming, but consider adding a clarifying comment.
+> @@ -279,8 +299,6 @@ static int cf_check sbi_set_timer_v01(uint64_t stime_value)
+>      return sbi_err_map_xen_errno(ret.error);
+>  }
+>  
+> -int (* __ro_after_init sbi_set_timer)(uint64_t stime_value) = sbi_set_timer_v01;
+> -
+>  int sbi_remote_sfence_vma(const cpumask_t *cpu_mask, vaddr_t start,
+>                            size_t size)
+>  {
+> @@ -360,10 +378,9 @@ int __init sbi_init(void)
+>          }
+>  
+>          if ( sbi_probe_extension(SBI_EXT_TIME) > 0 )
+> -        {
+> -            sbi_set_timer = sbi_set_timer_v02;
+> -            dprintk(XENLOG_INFO, "SBI v0.2 TIME extension detected\n");
+> -        }
+> +            set_xen_timer = sbi_set_timer_v02;
+> +        else
+> +            set_xen_timer = sbi_set_timer_v01;
+>      }
 
-I will add then above geilen field in vgein_bmp struct the comment:
-  The least-significant bits are implemented first, apart from bit 0
+Sadly this isn't quite equivalent to sbi_set_timer having had an initializer.
+I would have wanted to suggest to use a constructor function, but we call
+init_constructors() even later than do_initcalls() on both Arm and x86 (we
+don't call the latter at all on RISC-V so far). Might it be necessary to
+introduce sbi_early_init(), called very early during boot? Else how do you
+guarantee no accidental use of the variable before it is first set?
 
-> 
->>>>>> +    /*
->>>>>> +     * All vCPU guest interrupt files are used and we don't support a case
->>>>>> +     * when number of vCPU on 1 pCPU is bigger then geilen.
->>>>>> +     */
->>>>>
->>>>> This wants checking in vgein_init() then. CPUs (beyond the boot one)
->>>>> violating this should not be brought online.
->>>>
->>>> It'll be nice. But we can't know how many vCPUs will be ran on pCPU when
->>>> vgein_init() is executed.
->>>
->>> I don't understand: How does it matter how many vCPU-s will exist later on
->>> (and will run wherever)?
->>
->> IIUC, you want to check what is mentioned in the comment in vcpu_init().
->> The comment says that it is checking that number of vCPU on one pCPU
->> isn't bigger then geilen. To check that we have to know an amount of
->> vCPU potentially will be ran on pCPU.
-> 
-> Well, not quite. I don't understand at all why the number of vCPU-s in
-> a system would be limited by any pCPU property. I don't think we have
-> any such constraint on x86, for example.
-
-Then I will just drop this comment and correspondent ASSERT() and just 
-return vgein_id in the case when there is no available h/w VGEINs to 
-mark that h/w should use s/w guest interrupt files:
-
-     if ( vgein_id > vgein->geilen )
-         vgein_id = 0;
-     else
-         __set_bit(vgein_id, bmp);
-
-~ Oleksii
-
-
+Jan
 
