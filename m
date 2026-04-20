@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sMcaCdwT5mnRrAEAu9opvQ
+	id GBACDUIW5mnCrQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 13:54:04 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 14:04:18 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6381942A499
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 13:54:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1285720.1566902 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 972E242A66E
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 14:04:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1285734.1566912 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEnBr-0007EX-Fi; Mon, 20 Apr 2026 11:53:23 +0000
+	id 1wEnM4-0000bz-HZ; Mon, 20 Apr 2026 12:03:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1285720.1566902; Mon, 20 Apr 2026 11:53:23 +0000
+Received: by outflank-mailman (output) from mailman id 1285734.1566912; Mon, 20 Apr 2026 12:03:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEnBr-0007Bz-Co; Mon, 20 Apr 2026 11:53:23 +0000
-Received: by outflank-mailman (input) for mailman id 1285720;
- Mon, 20 Apr 2026 11:53:22 +0000
+	id 1wEnM4-0000ZO-Ee; Mon, 20 Apr 2026 12:03:56 +0000
+Received: by outflank-mailman (input) for mailman id 1285734;
+ Mon, 20 Apr 2026 12:03:55 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wEnBq-0007Br-Ps
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 11:53:22 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1wEnM3-0000ZI-Ev
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 12:03:55 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEnBp-00D9Ea-N3
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 13:53:21 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wEnM2-008GoQ-7I
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 14:03:54 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69e613a8-5cb7-0a2a0a5109dd-0a2a450ab26a-8
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 13:53:21 +0200
-Received: from [209.85.167.45] (helo=mail-lf1-f45.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69e613b1-56b3-0a2a450a0019-d155a72da9b0-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 13:53:21 +0200
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-5a413f83226so3500098e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 04:53:21 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
- [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4187e1131sm2966774e87.42.2026.04.20.04.53.19
+ (envelope-from <jbeulich@suse.com>)
+ id 69e61623-2eae-0a2a0a5409dd-0a2a4501d6f4-18
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 14:03:54 +0200
+Received: from [209.85.221.45] (helo=mail-wr1-f45.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 69e61629-c1f2-0a2a45010019-d155dd2dad8e-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 14:03:53 +0200
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-43cfd832155so2132498f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 05:03:53 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43fe4cc0d51sm28244813f8f.10.2026.04.20.05.03.52
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Apr 2026 04:53:20 -0700 (PDT)
+ Mon, 20 Apr 2026 05:03:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,51 +56,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776686001; x=1777290801; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=F6H3LGVDr8D8S8rCAGyuzjagZqrXLNiPcD99pdHmT1M=;
-        b=LFsYp6bCrZjmVuGal3FVIrpfv59fgFAg9TUOz9N3W+GCGJkaQj0oqRztoLGA38VYs9
-         ugkaFS3QRLmhjuOkXgJfRA8l2NkMVCYuCNaqXTTebzjW5TMPk4/FtPc0BIlPZddZAISH
-         ywAmcEVcGVyY7AQRubtctwPdpeUwZxne0SGvCShgWS8F2mJ3pOL9YXcF9ImIZSOc29zl
-         1SwYyDfku4eiFjNpNWjAdK/f1pxKK/Y/Nfdbn9Q1ryCZ92Fifx0rk1eYX7pEgSRRU341
-         vgs5CgktuFGV6SrLqN0jqQqxACv75AHT3+OpRlrXtkYc/XWI53ce7upLNEkLcAVucIWf
-         e4Dw==
+        d=suse.com; s=google; t=1776686633; x=1777291433; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=FHQyH0ChRMEy7TyYaNhEhuy9y8erwRbfu73qi33Badc=;
+        b=g9vIvkcSo+7OOdrNhFnVV3EpjWKKL+giycoUdkRmsllTYJ45HsNzt0GBVNDl70MYhX
+         wdkKUITe6v3VoPvgeHtDBKp7lv7GuctcI6BszrsGebtH+WxQBlDZ3+QheI0HbkInkuD1
+         YIwqfidh+aKXe5r7XTrNRxr/a5iFQBHuwJ9u0FvuDYAGH5QFMIY8Qnp3BxmNzldR6vyQ
+         ru7RrijphACQOw0kZwY2O+ve7r/vpGFrEjVZA4kR41xA3UsShO6isVlmKblQuNJINY/P
+         bJ7lh0i2gYIspXAuBt6b1/Un3AWUSF4s8BB1nY0wKjFVvmMFrjoGWaiATIxfXqS7Ayb5
+         SHSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776686001; x=1777290801;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=F6H3LGVDr8D8S8rCAGyuzjagZqrXLNiPcD99pdHmT1M=;
-        b=HzbyeeojogUwC5Lu5zjJ1ZjEpvMh8GYgaO7LErfSW47yiSVD4O+fyd0Pb8DXT/8M9M
-         YnDs415whKoZRqAQGntSSA4Cn58z+sC9mLa61VzB1ksozD/sMiJDpMGsldBvj55psFtP
-         JfncfT6UVAe+Uh9Mc5qP50oXbhVFOZOHbjd2NiXFNigftdRKPiecf2OQ5+z6cPvfOeEj
-         H6LzonWJ6QseTJIwwLxo8AgwmIRbDo6tfMfQ7W8xyHgp70Nu+HyZnLOQCrY1cDfT7gW0
-         QJ1UJIfLP+qbfzvS2j8AASMAycIeWND3nJBz3rpuzsCEq568eSxDJe0m50nFh20h/Iv9
-         rvDQ==
-X-Forwarded-Encrypted: i=1; AFNElJ94lNX2t+/AjV7R778CxSWQRA7MlyQe3NpPLJWsoc6PQGwAu1W1+bz+fXJ6KQnZ0Pyu9LB2piWOqm8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwYTJuw//0GOk0BvfB9Qw35ZvpDAcWQOxMEcIIH6WP4nKq/sOcG
-	Hd2LuhQTrebRv/Xy+PP75LrOLIRJm7oa8DNgnJ8IPI0V12vdRcEafsd7
-X-Gm-Gg: AeBDiethsPFX6/mD2Oj7VhUGgG01Xd6tOvkZwX7ytj5QSo5tBSBNdc7xIlUTFgmgjaD
-	8y7xuAnANpEL3FU6ldXEgteVeTPchFwb8RjfqY5vkSUDQ1mmqf5vuQYNl2OGH99CQzR0lVr8Wk5
-	BNxdfI7/H3iGcx/qXAaUZ/HMxbAkFfP0fR6TDOjGW2XGv9WsqmN8DnqsepVUdNyLfX/q00vcWq1
-	y31BEIkImuL4uz8PaO/0gEMuojJ/Gn1yxNVhjhyoxiH9BsHGC/T+1maw/98m/BJxLknzf/uIbNy
-	Wst3Q4VHpV9+bu7ykWYSZHb9TdYAAHh1y6CXoubBYAcD2o909upEaR3XmvXqqavGJoiZFvavTKr
-	5xHAvPVlBETO0WtB2YVyhJ7wyvVMMG3Y+hNcOrIb2oecpj0KTtY7fCxrySdz3GNOJUECyMsqdTa
-	16SuE/4ZscJ1mscIBGqM7I9dzE4EoVyzNR757oKmzpl+U1rhu5328ASya0ON6/PzpHG1QVMrDfv
-	WkHJkV85Bvj5w==
-X-Received: by 2002:a05:6512:1113:b0:5a3:ff:cf83 with SMTP id 2adb3069b0e04-5a41717478fmr3367428e87.7.1776686000498;
-        Mon, 20 Apr 2026 04:53:20 -0700 (PDT)
-Message-ID: <d08317b4-b5a7-4d14-8e63-a2b0111c65c3@gmail.com>
-Date: Mon, 20 Apr 2026 13:53:19 +0200
+        d=1e100.net; s=20251104; t=1776686633; x=1777291433;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FHQyH0ChRMEy7TyYaNhEhuy9y8erwRbfu73qi33Badc=;
+        b=N/fhNLLc1Ezo6dTn0Cya1aHEPOmLrc/3qlHV5bHCldDOnfeUtIEedr1VkWdkln0Ip0
+         C/9SyGhd724B5EC3zKFd3GZATUiKyfMzt8vjoh4OrdxB5dak8cQ88jahznSEIGIGa023
+         io6jiQxKVvXk/P5fOwLyHxwHhEPQ8QFfm6qCtToTcCR/3Iqfd75lJrruV+c4ubMQqp+h
+         hSlEWqnSwRpFCoHTH+DYowJkCCpbXdgObqCuaFT4iTZH1uHHHn2h4No1XiEFyGFdUPcl
+         B9/gs+lEYB+1s8HqM+althwgIKBtPT2E4aaCNP6wLJ6x67PJiOa+3+JQvhqxXDMH8Xa8
+         taEg==
+X-Forwarded-Encrypted: i=1; AFNElJ+CyRd9+efOtYIVSmthCz04Vi2gw8lDhpvE7ZW9ro51K1iaWYkVgkCNayV7V8XRWV2aOWoVYd2jf7M=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyvpXdcUp3nt7mb0DbipeRuTPD8O2sPQJVii/8S8oGgjcBoND7O
+	ADk2tpzbWSUaoDxqO+L09GhEF1VSrkf9aq3Uu+3LKKJFQ4gaH68M9O6wohWKazCACg==
+X-Gm-Gg: AeBDietWUXQXRg7bOIqp5KdqW9YO1/IZZz3Z7oqwE6dOI7kMgwpppQQskrCDdnTPNnA
+	9oew6+rNCZIlZSvwtqOBYThkJRajZU/I/OlTFGbssFNFH4Da7dVaGTze5WQzge8uyFD3rHvQ3zb
+	ofH6RpjksXJ3xm+S86J7GXbCfaekzluGhYJRh0VHWXgF5hp06Wjw6B/8agLHW7aJ89SQ5QZzmxl
+	p2WZKjKR+MM7Fz930cuQkN/O+IYHR5enuE3OtGnfpYuZyYg4h6VtSgWxKOAEn1nlGjwShosQuD8
+	YdWE0A+Wo6QvSETvxhLl/+kT+bQ0wMTN3VDHpIf8fDqnepPF+ckTGw3j9+TnQDWLMmGyZxLUolR
+	X+nysIvo0AdoEw/NLoqOIYJbkrw6Xd7pEYXd9mFiW3QXqe5JqSL+2MZ2mQ09kC1W2OwbzcYiDBk
+	3JQ5dApmCVeWNBKrs9MMPB5J386zfDjofOBx9omH0UzWjOsmp2pmBPZDhdRYHxt4gFHqy965lqJ
+	AGygFfxSDlaq7fK1+/kOn1LcQ==
+X-Received: by 2002:a05:6000:2389:b0:43d:7ea8:62e6 with SMTP id ffacd0b85a97d-43fe3e12691mr22200467f8f.46.1776686633264;
+        Mon, 20 Apr 2026 05:03:53 -0700 (PDT)
+Message-ID: <a19a535d-dc48-4aa4-97e4-429491bc3feb@suse.com>
+Date: Mon, 20 Apr 2026 14:03:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v1 18/27] xen/riscv: add vaplic access check
-To: Jan Beulich <jbeulich@suse.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
  Connor Davis <connojdavis@gmail.com>,
@@ -113,41 +114,65 @@ References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
  <0519fb8a-48e3-4f36-8d6c-a966080ffb55@suse.com>
  <f0503bd6-3ea3-42da-9211-02836addc176@gmail.com>
  <e70e141b-fe40-41f2-9101-e65758e7f7b6@suse.com>
+ <d08317b4-b5a7-4d14-8e63-a2b0111c65c3@gmail.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <e70e141b-fe40-41f2-9101-e65758e7f7b6@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <d08317b4-b5a7-4d14-8e63-a2b0111c65c3@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1776686001-CE5748B7-93F3E1E2/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 3099
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+X-purgate-ID: tlsNG-d62444/1776686633-B7A79FF4-04704912/0/0
+X-purgate-type: clean
+X-purgate-size: 3328
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[d000000:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
@@ -155,87 +180,90 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 6381942A499
+X-Rspamd-Queue-Id: 972E242A66E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-
-
-On 4/16/26 3:01 PM, Jan Beulich wrote:
-> On 14.04.2026 13:45, Oleksii Kurochko wrote:
->> On 4/2/26 3:10 PM, Jan Beulich wrote:
->>> On 10.03.2026 18:08, Oleksii Kurochko wrote:
->>>> --- a/xen/arch/riscv/aplic.c
->>>> +++ b/xen/arch/riscv/aplic.c
->>>> @@ -38,6 +38,7 @@ static struct aplic_priv aplic = {
->>>>    
->>>>    static struct intc_info __ro_after_init aplic_info = {
->>>>        .hw_version = INTC_APLIC,
->>>> +    .private = &aplic,
->>>
->>> Isn't this the host instance again? How can you ...
->>>
->>>> --- a/xen/arch/riscv/vaplic.c
->>>> +++ b/xen/arch/riscv/vaplic.c
->>>> @@ -127,6 +127,20 @@ int vaplic_map_device_irqs_to_domain(struct domain *d,
->>>>        return 0;
->>>>    }
->>>>    
->>>> +static int cf_check vaplic_is_access(const struct vcpu *vcpu,
->>>> +                                     const unsigned long addr)
->>>> +{
->>>> +    const struct vaplic *vaplic = to_vaplic(vcpu->domain->arch.vintc);
->>>> +    const struct aplic_priv *priv = vaplic->base.info->private;
->>>> +    const paddr_t paddr_end = priv->paddr_start + priv->size;
->>>> +
->>>> +    /* check if it is an APLIC access */
->>>> +    if ( priv->paddr_start <= addr && addr < paddr_end )
->>>
->>> ... use that here? Or asked differently, again: Where's the virtualization,
->>> i.e. the abstraction away from host properties?
->>
->> With the current use case it was easier to choose such approach then
->> provide the full abstraction.
->>
->>> Furthermore, is it really sufficient to check just the starting address of
->>> an access? Shouldn't the last byte accessed also fall into the range in
->>> question?
->>
->> I think that it is okay, my understanding is that *paddr_end technically
->> is another range.
+On 20.04.2026 13:53, Oleksii Kurochko wrote:
 > 
-> Of course it is. But a multi-byte access crossing the paddr_end boundary
-> isn't purely an APLIC one. You can reject such for simplicity, but I'm
-> unconvinced that you can claim you will be able to correctly handle it
-> without proper merging.
+> 
+> On 4/16/26 3:01 PM, Jan Beulich wrote:
+>> On 14.04.2026 13:45, Oleksii Kurochko wrote:
+>>> On 4/2/26 3:10 PM, Jan Beulich wrote:
+>>>> On 10.03.2026 18:08, Oleksii Kurochko wrote:
+>>>>> --- a/xen/arch/riscv/aplic.c
+>>>>> +++ b/xen/arch/riscv/aplic.c
+>>>>> @@ -38,6 +38,7 @@ static struct aplic_priv aplic = {
+>>>>>    
+>>>>>    static struct intc_info __ro_after_init aplic_info = {
+>>>>>        .hw_version = INTC_APLIC,
+>>>>> +    .private = &aplic,
+>>>>
+>>>> Isn't this the host instance again? How can you ...
+>>>>
+>>>>> --- a/xen/arch/riscv/vaplic.c
+>>>>> +++ b/xen/arch/riscv/vaplic.c
+>>>>> @@ -127,6 +127,20 @@ int vaplic_map_device_irqs_to_domain(struct domain *d,
+>>>>>        return 0;
+>>>>>    }
+>>>>>    
+>>>>> +static int cf_check vaplic_is_access(const struct vcpu *vcpu,
+>>>>> +                                     const unsigned long addr)
+>>>>> +{
+>>>>> +    const struct vaplic *vaplic = to_vaplic(vcpu->domain->arch.vintc);
+>>>>> +    const struct aplic_priv *priv = vaplic->base.info->private;
+>>>>> +    const paddr_t paddr_end = priv->paddr_start + priv->size;
+>>>>> +
+>>>>> +    /* check if it is an APLIC access */
+>>>>> +    if ( priv->paddr_start <= addr && addr < paddr_end )
+>>>>
+>>>> ... use that here? Or asked differently, again: Where's the virtualization,
+>>>> i.e. the abstraction away from host properties?
+>>>
+>>> With the current use case it was easier to choose such approach then
+>>> provide the full abstraction.
+>>>
+>>>> Furthermore, is it really sufficient to check just the starting address of
+>>>> an access? Shouldn't the last byte accessed also fall into the range in
+>>>> question?
+>>>
+>>> I think that it is okay, my understanding is that *paddr_end technically
+>>> is another range.
+>>
+>> Of course it is. But a multi-byte access crossing the paddr_end boundary
+>> isn't purely an APLIC one. You can reject such for simplicity, but I'm
+>> unconvinced that you can claim you will be able to correctly handle it
+>> without proper merging.
+> 
+> Lets say guest has the following description of vAPLIC in its DTB:
+>   aplic@d000000 {
+>     phandle = <0x06>;
+>     riscv,num-sources = <0x60>;
+>     reg = <0x00 0xd000000 0x00 0x8000>;
+>     ...
+>   }
+> What means vAPLIC's MMIO range is [0xd000000, 0xD007FFF]. If some is 
+> trying to access 0xd008000 it is not an MMIO address which belongs to 
+> vAPLIC so vaplic_is_access() should return 0.
+> 
+> IIUC, you concern is that if someone will try to access 0xD007FFF which 
+> from this function point of view is legal. I think it is okay to return 
+> here 1 what tells that this address is from our vAPLIC range as it will 
+> be rejected that on vaplic_emulate_{load,store}() side as addr (more 
+> accurate offset got from addr) should be properly aligned:
+>      const unsigned int offset = addr & APLIC_REG_OFFSET_MASK;
+>      ...
+>      if ( offset & 3 )
+>      {
+>          gdprintk(XENLOG_WARNING, "Misaligned APLIC access at offset %#x\n",
+>                   offset);
+>          return -EINVAL;
+>      }
+> 
+> Is it okay? Actually I think we could add ( addr & 3 ) check in 
+> vaplic_is_access() function too...
 
-Lets say guest has the following description of vAPLIC in its DTB:
-  aplic@d000000 {
-    phandle = <0x06>;
-    riscv,num-sources = <0x60>;
-    reg = <0x00 0xd000000 0x00 0x8000>;
-    ...
-  }
-What means vAPLIC's MMIO range is [0xd000000, 0xD007FFF]. If some is 
-trying to access 0xd008000 it is not an MMIO address which belongs to 
-vAPLIC so vaplic_is_access() should return 0.
+Perhaps best. The load/store functions could then simply assert that property.
 
-IIUC, you concern is that if someone will try to access 0xD007FFF which 
-from this function point of view is legal. I think it is okay to return 
-here 1 what tells that this address is from our vAPLIC range as it will 
-be rejected that on vaplic_emulate_{load,store}() side as addr (more 
-accurate offset got from addr) should be properly aligned:
-     const unsigned int offset = addr & APLIC_REG_OFFSET_MASK;
-     ...
-     if ( offset & 3 )
-     {
-         gdprintk(XENLOG_WARNING, "Misaligned APLIC access at offset %#x\n",
-                  offset);
-         return -EINVAL;
-     }
-
-Is it okay? Actually I think we could add ( addr & 3 ) check in 
-vaplic_is_access() function too...
-
-~ Oleksii
+Jan
 
