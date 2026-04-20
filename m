@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KGB5OhTk5WkupAEAu9opvQ
+	id UMgUACzl5WlkpAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 10:30:12 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 10:34:52 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CF79428251
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 10:30:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1285509.1566518 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61F3442834B
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 10:34:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1285521.1566526 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEk0c-0007rN-7t; Mon, 20 Apr 2026 08:29:34 +0000
+	id 1wEk5U-000148-Qn; Mon, 20 Apr 2026 08:34:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1285509.1566518; Mon, 20 Apr 2026 08:29:34 +0000
+Received: by outflank-mailman (output) from mailman id 1285521.1566526; Mon, 20 Apr 2026 08:34:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEk0c-0007oO-4X; Mon, 20 Apr 2026 08:29:34 +0000
-Received: by outflank-mailman (input) for mailman id 1285509;
- Mon, 20 Apr 2026 08:29:32 +0000
+	id 1wEk5U-00011x-OF; Mon, 20 Apr 2026 08:34:36 +0000
+Received: by outflank-mailman (input) for mailman id 1285521;
+ Mon, 20 Apr 2026 08:34:35 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wEk0a-0007oI-N4
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 08:29:32 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wEk5T-00011r-CS
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 08:34:35 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEk0Z-00CLEI-LQ
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 10:29:31 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wEk5S-00CMgu-L5
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 10:34:34 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e5e3df-bab6-0a2a0a5309dd-0a2a4509bd9e-34
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 10:29:31 +0200
-Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e5e518-2eae-0a2a0a5409dd-0a2a45019586-8
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 10:34:34 +0200
+Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e5e3eb-2497-0a2a45090019-d1558030d4fa-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 10:29:31 +0200
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4852a9c6309so23586705e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 01:29:31 -0700 (PDT)
+ id 69e5e51a-c1f2-0a2a45010019-d1558032cd3f-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 10:34:34 +0200
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-48896199cbaso29369925e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 01:34:34 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488fc1c01cfsm279130295e9.10.2026.04.20.01.29.29
+ 5b1f17b1804b1-488fc0f82bbsm439133405e9.3.2026.04.20.01.34.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Apr 2026 01:29:29 -0700 (PDT)
+ Mon, 20 Apr 2026 01:34:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,63 +58,55 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776673771; x=1777278571; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1776674074; x=1777278874; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QWTXAfMVrrFKv6Z3Kx/OO9RQJRVpKh/l9TdFSZILbWc=;
-        b=SYruRo2OZ7H56s0zoWBDNlbAE80Xtq7H4FIOyS15EBJA1sL1+myZSEpdODM3joFATB
-         l7RnZJC2g0SiqDazILbZ3a2/piENm+sWLE9Y3bP4h8dSVPrJ5hwuJj7lpFkRc+sX1fOn
-         eTKmhGveEkKFeSsbk7vqZ+JYI6UUP5pdCEc8xJoJnzR0i3e2dC7Wy7iGud3uZ+mguZug
-         cFHm3TMtDozEirqtlECOy3H1AZ+U/NauTY+O76PYcQ2MBnvqBwcF9KhA4FXHEjVdDyvo
-         TK0nIGUiGNP+gXg3rBhiOdrFn4fCZRstfGTVqhdkoM0DDQTLvZ0B5SGPWj35+ELX5mtt
-         R0nw==
+        bh=xFJ3uqps6uq7tfvbkd5g4KC06QaWSPLaScIgAffoNoI=;
+        b=SXDuHkoohGhvwCuLf2+Ak36BMHRqh9I/B1Hl0jCaw0Gw17N9NVH6vVGNDkzjSK+zSi
+         G4l2U8kuSqFsJHsqL9l059tbT8ndP9aXEG8w7D3rADNiMwxvBLXNGtnvbxquplEvi2Rw
+         Zgpib77BZbnQp2j0KJcAjtmrnS5fINlnStEL+aVWiMxzOGQuUuG/DJEx6oNMm38nVKtK
+         AROiMu1EPUPcD0wqCBGwiILNIJg+I7rIZgT5qgjng2t+QOdeyBJcFiFtVYFjEUiS72nk
+         hMevH4qGdzDfHzz6AbadJo38DS4LikSAWiLi0AP4VAJ7TyyxrmIM/ElWtHIiOItF1Ege
+         5TDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776673771; x=1777278571;
+        d=1e100.net; s=20251104; t=1776674074; x=1777278874;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QWTXAfMVrrFKv6Z3Kx/OO9RQJRVpKh/l9TdFSZILbWc=;
-        b=mfw/qO7Ycgst6TRk7lB4xUvQyEJtrJTa2hlg6NThdtCqyjV2B7Jx+SO3onZTr4XxvR
-         w+7VTW6ZfOvNqRQWnYe/ROahspKcoISzc6lpAH0NaaDMURT59Ivw4KCMMJRCK5VONxwF
-         vOd/cHp+aYRYSQ+Ya994zK07fGVJnjKZGtZQAtcV4n7AyiyWdf7SFhw6xpBkcWgnV82v
-         e6+jmERdNiPUWOBlg3Ra8fEtIg0XqrKYbTXb9gbWi7X5g1+LC1KWfYMrxLDGKCsZY5LI
-         KoA74UXz+1jF3mkHEegN1k3ak8lTnuRm4YXSLqXeO2+uFV+jPlVlso6bviaGajBc09gp
-         OSmA==
-X-Forwarded-Encrypted: i=1; AFNElJ9LrtqhFomrDmdRklglqn7AlKWFxY97OEsmbP8gR4ob2pFAA5Uf+ibyFQBceMZy7IqhQKQ741KtSEI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzXZIcb5HOVr0xJSVYwSwoVUqOecNsv2/BkblDR4TnVni5L14S4
-	G098rbGVR4nJTER0YS+4hvAa/H3AGxo+67QPFnKCHngFSFslPNhMaaNpdJHMcy17mA==
-X-Gm-Gg: AeBDievEIDjXVYXG4XPx+YQIfa2kc19i4cp149xuaT2by/1Xz+F7hu5cgqu+fmD/BUY
-	udEjCtOuPrFk27pQb0VjDI+BLOH/31JY3e4WIg9bdLW48va3DoIVC5uY2e60DRUIz4RwbprzUKy
-	hIr5QCoCDliYWfEuCOdgckaFIKp0bs5RCA5SBsRUBvRKCPV+KcbpCdsUJgmsiUSIqLZzf1oEKqT
-	WZvFCNZjbdiVgo2INo7CEZ6rJvoqefvAZ9jAOPvGrGAb3uNXgV4nWMCiZQ49RdMtoo6Vsl761ai
-	SuSCvQjrbtcjDkD97VSlWNC/AcUd1KGvFCAoVRSo9OdJv5EeThhA2Hsa9/Z8z44mY08p6QpzTgy
-	WbKszSC6OEGGQ4Q8QhdNLCkYW2yx0o3F4x1GGiamBsx01Rzl2ZVnJngpswUze3rRlr2mDQKflqz
-	8AbSN7TLMl0D0fUub0NOGejilMPh6mFlnbc1YmVydLzdC83fL8xHN9/1bwONlRSSfnQDSr0ECyg
-	Phlda5bh9lTZvOwttmYWgtbvA==
-X-Received: by 2002:a05:600c:4707:b0:488:bfc3:efc with SMTP id 5b1f17b1804b1-488fb6e8eb5mr176572895e9.0.1776673769942;
-        Mon, 20 Apr 2026 01:29:29 -0700 (PDT)
-Message-ID: <f4022635-ffd6-40c0-a537-9bc9dc4e0f2b@suse.com>
-Date: Mon, 20 Apr 2026 10:29:31 +0200
+        bh=xFJ3uqps6uq7tfvbkd5g4KC06QaWSPLaScIgAffoNoI=;
+        b=AF2AQmA+P/CG+GBVQhM5q37ySjDdHQMaln8Y6voZ0tAw5Cekhmi7T1dITR4pduttBc
+         BlLvn6cqgaRroKZY5yz6GxFHYXTwVlY7gGBnEUjFWbxUKxuIgiD8Wlb7LbUbne29JWTr
+         VESWAMVZt2xjohycxjOOcjjLQvfg88EOdL1sIJMsBq0XNC+QbWgSdDCSTmt5SC3B6rmr
+         K5VUWQICY1fpO73+yoD/8Z9kAlAmW9IfgodTM/7MTWhBflb4VRLgH+KOPSiCZCLaTneR
+         8yF4RC6VaLKPusDa7EkvZqhXzjIRLfKJTcYu+1wjc+P2BD9reqqDQ9H7MlxQIkiwHzfu
+         QS9A==
+X-Forwarded-Encrypted: i=1; AFNElJ/qeA99wh52e6hPg8Oj3nGucQqtQXaVEG/TySK2jcpc1HHp2I54nyeUQyiPw3IwSOLCo5QUlwUUCsk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzS/Z8zsUieg8WOpOhZdBudZFReqACSefUeg7GDI5JKAKdv41Um
+	cC3T08a+GBm1o1OH9Rhy2PLG9v5wOwXxlKc6tr+U1r6dMBzD6S9iYx4BjpZTaIIyuMtOxzs+Ypt
+	/PZtjgQ==
+X-Gm-Gg: AeBDievy3EccG/oWRR8WhV/ceG7WTQsM275MxO45DBP9aXDZZ9bkByO2AJt+uNLLDhf
+	2kQOwQyOmxCO7CiXjWIdJy5wwg3XXhufBeLPM6wcQiZLfoXJ1wqniJOKRZlpCwO3av79jBLYq9I
+	lTaY9yfCS4E/ktY9SxKpKyQbsTB6wJUZcH0bYkk0cDBoMymDeRxkWWn6q7yQNRNHUXIiqFnVB9L
+	eodyyd622wLkz3bWEQZji9azGrnz9G8Rxe/aB/OJinfsKjtsNOr8TsFX+ovF6/LUacGXBfs+xl4
+	ZaG+VrYbIP7bmgmU/s7Hc+dAue7AlTDVac+CRWcR8LlVTPHP9DHiR2KZROJ3mJjlRPIsng6Rr15
+	jsB7AWyRN0/dw5CDJYc7X7tymUhmJX+qKbYy4SuOoHd8DKB0nK2Q2SZ20tEHTIf6CpQctfxNwLM
+	9PGct3J6NkVHgnGj+5VB6hc7ON3fiv+3zEerkBsT/MDeszd3C3+aTFZtw65KJqKogeax5z6ZF3u
+	FWi5pktsPVA+i6iyr99a87ypw==
+X-Received: by 2002:a05:600c:a416:b0:488:e7e4:8425 with SMTP id 5b1f17b1804b1-488fb787674mr141488105e9.23.1776674073920;
+        Mon, 20 Apr 2026 01:34:33 -0700 (PDT)
+Message-ID: <4d58f375-b422-4c2c-8416-1eba3725a776@suse.com>
+Date: Mon, 20 Apr 2026 10:34:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 14/27] xen/riscv: introduce per-vCPU IMSIC state
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [PATCH] x86/boot: Force error checking for reserve_e820_ram()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <8196fa8f000e384af697a44cb3d50ece966e82a7.1773157782.git.oleksii.kurochko@gmail.com>
- <1f5e262d-da1f-49a2-8e89-87fb714e51bf@suse.com>
- <2f555a8b-d058-41ca-80f8-ce3dc08edfbe@gmail.com>
- <bd50afd3-6399-4c6b-b05d-d86ee4b8643e@suse.com>
- <9bee01f5-8275-4d8e-b217-1b2d2f8fa2e8@gmail.com>
+ Teddy Astie <teddy.astie@vates.tech>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260417160828.526063-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -140,133 +132,60 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9bee01f5-8275-4d8e-b217-1b2d2f8fa2e8@gmail.com>
+In-Reply-To: <20260417160828.526063-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-bad1c0/1776673771-49AB6A53-A2047AD8/0/0
+X-purgate-ID: tlsNG-d62444/1776674074-BDC64FF4-DDF4E661/0/0
 X-purgate-type: clean
-X-purgate-size: 3587
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-purgate-size: 634
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:ross.lagerwall@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 5CF79428251
+X-Rspamd-Queue-Id: 61F3442834B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 17.04.2026 15:47, Oleksii Kurochko wrote:
-> On 4/16/26 2:31 PM, Jan Beulich wrote:
->> On 14.04.2026 11:22, Oleksii Kurochko wrote:
->>> On 4/2/26 1:31 PM, Jan Beulich wrote:
->>>> On 10.03.2026 18:08, Oleksii Kurochko wrote:
->>>>> --- a/xen/arch/riscv/imsic.c
->>>>> +++ b/xen/arch/riscv/imsic.c
->>>>> @@ -59,6 +59,29 @@ do {                            \
->>>>>        csr_clear(CSR_SIREG, v);    \
->>>>>    } while (0)
->>>>>    
->>>>> +unsigned int vcpu_guest_file_id(const struct vcpu *v)
->>>>> +{
->>>>> +    struct imsic_state *imsic_state = v->arch.imsic_state;
->>>>> +    unsigned long flags;
->>>>> +    unsigned int vsfile_id;
->>>>> +
->>>>> +    read_lock_irqsave(&imsic_state->vsfile_lock, flags);
->>>>> +    vsfile_id = imsic_state->guest_file_id;
->>>>> +    read_unlock_irqrestore(&imsic_state->vsfile_lock, flags);
->>>>
->>>> What purpose does this locking have? Already ...
->>>>
->>>>> +    return vsfile_id;
->>>>
->>>> ... here the value can be stale, if indeed there is a chance of races.
->>>> Did you perhaps mean to use ACCESS_ONCE() here and where the value is
->>>> set?
->>>
->>> ACCESS_ONCE() isn't guarantee only compiler re-ordering (as basically it
->>> is just volatile-related stuff inisde the macros)?
->>>
->>> Generally, I think that that guest_file_id is needed to be updated only
->>> during migration of vCPU from one pCPU to another and I expect that
->>> during this migration vCPU isn't active, so no one will want to read
->>> imsic_state->guest_file_id. But on the other hand, there is:
->>>     bool imsic_has_interrupt(const struct vcpu *vcpu)
->>>     {
->>>     ...
->>>       /*
->>>        * The IMSIC SW-file directly injects interrupt via hvip so
->>>        * only check for interrupt when IMSIC VS-file is being used.
->>>        */
->>>
->>>       read_lock_irqsave(&imsic_state->vsfile_lock, flags);
->>>       if ( imsic_state->vsfile_pcpu != NR_CPUS )
->>>           ret = !!(csr_read(CSR_HGEIP) & BIT(imsic_state->guest_file_id,
->>> UL));
->>>       read_unlock_irqrestore(&imsic_state->vsfile_lock, flags);
->>>     ...
->>>     }
->>> which I think could be called in parallel with with migration, so then
->>> still lock are needed.
->>
->> None of this addresses my pointing out that the returned value will be
->> stale by the point the caller gets to look at it.
-> 
-> Yes, I agree that lock in vcpu_guest_file_id() is useless and it should 
-> be on the caller side and used for the whole IMSIC state access. But ...
-> 
->> Which in turn raises
->> said question about the use of a lock. If you read
->> imsic_state->guest_file_id atomically (i.e. excluding tearing of reads),
->> the value seen / used will be stale as with the lock in use. Unless of
->> course there's yet another aspect hidden somewhere in what is not being
->> explained.
-> 
-> ... I am not sure that I get this part.
-> 
-> If I am somewhere in migration code where I took write lock to update 
-> imsic state (and of course ->guest_file_id as part of it) then if 
-> someone else in parallel calls imsic_has_interrupt() then it won't enter 
-> critical section where ->guest_file_id is trying to be read so no stale 
-> ->guest_file_id will be read.
+On 17.04.2026 18:08, Andrew Cooper wrote:
+> --- a/xen/arch/x86/include/asm/e820.h
+> +++ b/xen/arch/x86/include/asm/e820.h
+> @@ -25,7 +25,7 @@ struct e820map {
+>  
+>  extern int sanitize_e820_map(struct e820entry *biosmap, unsigned int *pnr_map);
+>  extern int e820_all_mapped(u64 start, u64 end, unsigned type);
+> -extern int reserve_e820_ram(struct e820map *map, uint64_t s, uint64_t e);
+> +extern int __must_check reserve_e820_ram(struct e820map *map, uint64_t s, uint64_t e);
 
-Well, hence why I said "Unless of course there's yet another aspect hidden
-somewhere in what is not being explained." If I don't know the full
-picture, I can't very well judge whether a lock is needed, or whether ...
-
-> Then does it make sense to use ACCESS_ONCE() during read and write of
-> ->guest_file_id in such use cases?
-
-... ACCESS_ONCE() would be enough.
+Nit: This line has grown too long now. With this and the adjustments Ross
+has asked for:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Jan
 
