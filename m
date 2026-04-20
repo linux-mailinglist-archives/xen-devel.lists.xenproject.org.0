@@ -2,48 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eXLlB5AQ5mlrrAEAu9opvQ
+	id ECxrMDER5mlrrAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 13:40:00 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 13:42:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D877429FC2
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 13:39:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1285679.1566797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3068342A001
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 13:42:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1285690.1566806 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEmyG-0003Fv-6Z; Mon, 20 Apr 2026 11:39:20 +0000
+	id 1wEn1L-0004p4-Mh; Mon, 20 Apr 2026 11:42:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1285679.1566797; Mon, 20 Apr 2026 11:39:20 +0000
+Received: by outflank-mailman (output) from mailman id 1285690.1566806; Mon, 20 Apr 2026 11:42:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEmyG-0003DN-3E; Mon, 20 Apr 2026 11:39:20 +0000
-Received: by outflank-mailman (input) for mailman id 1285679;
- Mon, 20 Apr 2026 11:39:18 +0000
+	id 1wEn1L-0004mV-Jv; Mon, 20 Apr 2026 11:42:31 +0000
+Received: by outflank-mailman (input) for mailman id 1285690;
+ Mon, 20 Apr 2026 11:42:30 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wEmyD-0003DH-SE
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 11:39:18 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <Luca.Fancellu@arm.com>) id 1wEn1K-0004mP-Iw
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 11:42:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEmyC-008Anl-PA
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 13:39:16 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wEn1J-00AhSH-Vm
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 13:42:30 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69e61064-5cb7-0a2a0a5109dd-0a2a4504a77e-0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 13:39:16 +0200
-Received: from [209.85.167.42] (helo=mail-lf1-f42.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69e61064-1dec-0a2a45040019-d155a72aec71-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 13:39:16 +0200
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5a3d1561e38so2480556e87.0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 04:39:16 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
- [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a41abceab0sm2582324e87.61.2026.04.20.04.39.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Apr 2026 04:39:15 -0700 (PDT)
+ (envelope-from <Luca.Fancellu@arm.com>)
+ id 69e6111b-bab6-0a2a0a5309dd-0a2a4501eaa0-20
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 13:42:29 +0200
+Received: from [52.101.84.58]
+ (helo=DB3PR0202CU003.outbound.protection.outlook.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Luca.Fancellu@arm.com>)
+ id 69e61124-c1f2-0a2a45010019-3465543a8d08-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 13:42:28 +0200
+Received: from DU2PR04CA0191.eurprd04.prod.outlook.com (2603:10a6:10:28d::16)
+ by PR3PR08MB5820.eurprd08.prod.outlook.com (2603:10a6:102:90::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.32; Mon, 20 Apr
+ 2026 11:42:25 +0000
+Received: from DB1PEPF000509E4.eurprd03.prod.outlook.com
+ (2603:10a6:10:28d:cafe::a4) by DU2PR04CA0191.outlook.office365.com
+ (2603:10a6:10:28d::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Mon,
+ 20 Apr 2026 11:42:25 +0000
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB1PEPF000509E4.mail.protection.outlook.com (10.167.242.54) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48
+ via Frontend Transport; Mon, 20 Apr 2026 11:42:25 +0000
+Received: from DU2PR08MB7272.eurprd08.prod.outlook.com (2603:10a6:10:2d7::16)
+ by DU0PR08MB9847.eurprd08.prod.outlook.com (2603:10a6:10:444::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.32; Mon, 20 Apr
+ 2026 11:41:21 +0000
+Received: from DU2PR08MB7272.eurprd08.prod.outlook.com
+ ([fe80::5d34:206f:373:a323]) by DU2PR08MB7272.eurprd08.prod.outlook.com
+ ([fe80::5d34:206f:373:a323%6]) with mapi id 15.20.9818.032; Mon, 20 Apr 2026
+ 11:41:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,354 +72,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776685156; x=1777289956; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=C7WH5RB37VbaOAQsw1+nhyAoELWOLdDaJV5kjaGDq/s=;
-        b=PaF/nUVqmovTlPcHW82rHfF8YF3/ODVF4EVIbgJQPQe8wYj4oEYVaYF92Gg7GHguis
-         MKD1RkX/o963JLuUDzAhGkXBuBfMBYS9CozVmr39DxmVqioNeD1YFDGwVFP3FZ4ki0ui
-         44tfZVskRVysOjkYWr2eZDSJImb3C+5Mg11vXLpMDEj6NjWmZmiAC6e+oknzkEPEy1vl
-         QgnrEE1Qe5228Erj43zLdL0ZMTaRjX1mHjnaBK5kP6CHC8G5LAWkePR8Kd5CtQ7ZDkT1
-         ScHXO1ucTqG9uZyw2GhicKLfB85+MEZq5sBVkuTH0WWIACZ41pRPJ6aaAOfRb9cbMBj2
-         7LNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776685156; x=1777289956;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=C7WH5RB37VbaOAQsw1+nhyAoELWOLdDaJV5kjaGDq/s=;
-        b=Bjoi7Qjc7NI1LywP2bkpdEZJlZJ3TJQFdKa5FtpWpxebY7cdQe6XbayO/RujOevJbZ
-         UyJYNnAf7GwEggNBl3eLY2IFA1LpzMIZRvUc5tTZGg84OzH/cyZgyGB38qpw24tRQydk
-         BQktnhgAm169LcoOx5KMnHYIOTqApeRiDTLYgcsoZNZ9uICcQwSbv4MUjygK5ptafhMI
-         pUM8XQQWFOmeO/oLNbj/gU/hRImEyRj6nfSN6Beq06RNOroY33e1OO/Ndymng9KmczrE
-         ncDWeKYp608oFn82jq/SPKE9oltZSLEheTZTVYnvoj6IpFQEPOZgCDfd0sRpTtCyQThR
-         djMw==
-X-Forwarded-Encrypted: i=1; AFNElJ+xs0uJ4EuWSSPzjpZbGkiSRSw1gr9Cu5ynfBsNTd08aXPw6MgHzhC9wXCfciGOVgj1LPiWX3v9pTs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YynHa/MSN+jzs9y63jBFN45hxijmBvXMTJELS9w0YmPk+DiQ11e
-	SXTilMQ4QzoMe4DpXePdr2p3mX3P6h6HAA3zCELXXxm0cIyxfdMaXsyf
-X-Gm-Gg: AeBDietkX2j37JGYsbgJTxSLtDBESl8WbvuuZxGr+SJj/eDa6ySxJ4jR5hsfUuwwD4D
-	8R1b7Z2KT9peH9yy4fI6H3Jqxltz+cC6583VFMS7B9idejzWLtW+rm1tRk76pNNejJeS/wdx+35
-	MPi7AKmJDzxhqPJqejXrihRzjiltcRn9oGsfwOZ1VhywnnBT78peaeiBUa3xvVvkySAAx6pSiB7
-	wLNZXo3JipmkgOdI4YRCDTl0DH7dYM9aUupaPWEaT6EpSZUEG7Xb8tP7RFcEVwQWIGpCfw0+Hsv
-	Ksact+C7vuyM3mv5astQ3Gw2/rQZ5yG+UTA7ulwguOYNH8vw0NF2BLFRbYxdg6ZK5XtKFYvDo6E
-	cS+2AQlWvd35yunn+QGgubyIWuiOBwePJsiuzAB7xCoUk6bV+LBjOt+vYpdtSt5bpzhy4SE+aBq
-	/PgZ7f+m0kvMu0PfExRri87qSkQ9yfRAR4ZLCcU3SGSm8od0GkPEx3aZ/qDDhgxpQgMQ390qUWU
-	psBNdcgcUmSbQ==
-X-Received: by 2002:a05:6512:ace:b0:5a2:c914:8af7 with SMTP id 2adb3069b0e04-5a4172bb914mr3998047e87.5.1776685155446;
-        Mon, 20 Apr 2026 04:39:15 -0700 (PDT)
-Message-ID: <00fa439d-0327-4c0c-960d-a810820a6e83@gmail.com>
-Date: Mon, 20 Apr 2026 13:39:13 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 16/27] xen/riscv: implement IRQ mapping for device
- passthrough
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <10654a6c38fa929b5fdf6f214badfe4f60fe78d4.1773157782.git.oleksii.kurochko@gmail.com>
- <8a8a2afd-6f53-4f45-b8c8-fb34a6fbb970@suse.com>
- <f099b925-0ea9-43a7-b760-f70f343a4d7c@gmail.com>
- <a7a4e8c9-d053-4ca7-ac9c-f43ddccf9151@suse.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=y0WCZwIjDzOJCvLPW8GoXR9fIbSi7eyqGNEbIdS9en6CdyHQIGbh1UQMO94U+MEl2C5+IdbLbLD3gdKY+aI7c/MA/9oCr8mLiP+Lwx8j1HzTEeOIP6nI2nqPOzUdUxQwGcsPfxXChlEvyGrKZyujIW6wPk/D+aJFGx94SCFrAh5BuoPefplaHwSaa4V36tQH61O3NK1wlzUFOAq8jgUWLgaFeZko9kNDJSpzeaC5FnDpnQImexoYcIS6bEwLDfqKpcaZMP0k/5Aat5XCfa4bjpSLeiAEYJbuoZJqUm11Yx4azl5hIQ6reVShlhva+ItcZUohktfRZFHpZlA6Uj61aQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GivgOMtdmsOupdEf24L90Bwdbr214++lde9BKw9Fngs=;
+ b=MOZmQhb3RmJep4wACttOXrf6i88lf1mw9dcvIGYjwCdWGks8+doH3TSZwvoJidJq44MhfE19UptHuxQgeFL8JWgNZIGdrVWfRor6wlIxwMn+lAS/Dac0bAM9bd7hp2H5OpBH0HOrBWN7fuZ3TKfLYtk1C/ig1lKj/T+N7XAyfwbSXHTTWBBoh729vQGXSmItwlMWuQo92FBjT/ranei0vsmqRfCD8BPG0ecO/w6ygTTF80dWiVlZIXb/pe4Jntr/kg2OmduY6de3iyHqn2ldFGv79DoLcu0Fei0ARdrHl3izCRJQx++ksp/jKO7x4DxfGotagl5aPFMQRQH9bT1c8g==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=gmail.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GivgOMtdmsOupdEf24L90Bwdbr214++lde9BKw9Fngs=;
+ b=Ojqw1LWieqy58xuspFmR2OJhm/2q8/t5r10j9+hdTWd/1Q9s5xrTOpCV+CrUKEp1rQKTmojwjtXFU5rhq/+lZeDVUcB/dJEKykjy8P8u9vcLF3xKRWHwtDFrWp1CPgmYt++sm/XwdutV2+U2fCChUyplhDSkDKZa4xolANLO/2k=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YVuQwUkipVfHPn4PXeVqZBGOOR24c+IuHMkYlYzti6Us6gOQFNr8xi3JOq4s30anz1jGZu6QRaVhvLP7GSTMtI6z1zjPq0OJAkvnwcIJdNsB1Ky3TTL41eaDxdEgnUGR9W3Ja8FtZXHhG7arJZ6g2Wmj1Oxfpm/1qZHqXV4c87dcgH64FKtcvL9Ku93awpD47G4iZCasSJV40Ow8VzTLwjt6QpH1GZurXehAE/51f9szbmKDNmncb2mH5YI7GxsjeQ7W5UuadhPKQEw4Q89scs12KZflTrTDTqnu0Q1USKMuHmmys0ORnPljt0/M3OpcoKiAAhr97Btcx8dzwcKBlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GivgOMtdmsOupdEf24L90Bwdbr214++lde9BKw9Fngs=;
+ b=mTNzHrAm7F3ak6t8iLDCtL6KoiM/dzXiJCva11hgui3zEU2Hk7r8gehemviJcmJRQa/cGraa38sCCc/vt0meESz31QvdlZ4dzTaij1W6BWbVrA9B/fXgyReBJoKwT3ohB0i8IW95M14yiEpbsIa6matdAVl1ztjjuacaex4dkP3KZCJedhfaeIl7MpN80AKzXAUFyDK5bbyh69WvPu/9MYe0MFHIHieAjEBn2e+HoLgMxVQUZSbUUX5yY5vLIsM0rQr2IYGuaWbl1tig9Yl2EFeWvIloX0B1+lcuT1nrtlJUFJvkFhcaxEtb+KQ+KK59Edzy+g7ST14XBS8PLzFmSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GivgOMtdmsOupdEf24L90Bwdbr214++lde9BKw9Fngs=;
+ b=Ojqw1LWieqy58xuspFmR2OJhm/2q8/t5r10j9+hdTWd/1Q9s5xrTOpCV+CrUKEp1rQKTmojwjtXFU5rhq/+lZeDVUcB/dJEKykjy8P8u9vcLF3xKRWHwtDFrWp1CPgmYt++sm/XwdutV2+U2fCChUyplhDSkDKZa4xolANLO/2k=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Mykola Kvach <xakep.amatop@gmail.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola
+ Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: gic-v2: disable interrupt bypass on CPU shutdown
+Thread-Topic: [PATCH] xen/arm: gic-v2: disable interrupt bypass on CPU
+ shutdown
+Thread-Index: AQHcyM3ZwfiMQ0fViEyMjacB3wgBCLXn43iA
+Date: Mon, 20 Apr 2026 11:41:21 +0000
+Message-ID: <1E7985CB-EE4C-4769-B23C-EDEF2E75EF08@arm.com>
+References:
+ <459cf46204e86ed3a2ffd79ae649b1a2051f5204.1775812563.git.mykola_kvach@epam.com>
+In-Reply-To:
+ <459cf46204e86ed3a2ffd79ae649b1a2051f5204.1775812563.git.mykola_kvach@epam.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <a7a4e8c9-d053-4ca7-ac9c-f43ddccf9151@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ebf023/1776685156-30C473FF-7E1304AF/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 9356
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3826.700.81.1.6)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	DU2PR08MB7272:EE_|DU0PR08MB9847:EE_|DB1PEPF000509E4:EE_|PR3PR08MB5820:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8e58886c-1b13-420e-a8ad-08de9ed1e47f
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|376014|1800799024|38070700021|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original:
+ D4EK043H8NsbFOn8IHr5ln9hdhX4Fgd5xpRrXfBXmrd6oJemj6P4pxGqi9lyNOR7jrI17p14PlVzi3RfADfIU9I/KYgBljcnPSfzK6jDtYTikgFYrsn5LEtebQLiN0I/gw9SqQLfZH9js+mK0yuRlwRTh/7atR6vtN7ECtnrL6deCZPEdkj+89bx/QscA8NSXaQG1C94qwU+VKo8S1p3Q0h0gisFZM6TqvTXhi/dJU9C4/xquihnfdfM4vSWBYb9wKFSvqgGrwBrDPL9iDICRglNC0ClVNdiNKiymxGp7G1PA7yZair99B03pM6Bs4WIdG0TlGwQb0vrplRjUE2uy+jTd0E0B7hYThH1wLqbckQC6Fs+I0aJ6PPeVi2opj8P7dvr89ZsGg8aSlbnV8z9nlPDhH7fCSFRIDjlJFrlrgDsa5WFhwR4t2TqogR60unQsfKbRU0uTJpTmB6S+Vq5C3aAAu4KNFON5pY1GTahOK//kC/MnSpZWpN6GIDWf/gJc/2ChWdH0oUWB0rwZoPRr3hRkDOZ0REBPTNyufWed6ZHM2rnLZqxdVulWXjceuPSX4Q7oGHxSKQX3tBlYyTHS91UVvgV1m8SqWltAkfB+aYzyX2fhb0+cJoPasQSBGrkg8Tp1q0l1ZjyqngCqWo9vuCAEViHJLPfQEgc5mekLmE7haCUh/l7tAEu5Vms87OcRs4cpdqTTnXNn3OexnT1bKsT2vDltdJe8wv9HxjRiF0PmFbOw4gjrm6RAVDmqX7wToMJoaIQpJBXn+pOiEJAKbKQsN3pdHEOXUV0BKteoWA=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7272.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <4EF891A8CA7AAE4F9F08AE4EEFA530EB@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked:
+ uu/44UGnvrO6mZ/xyPB8uRjQQj09s5O1ljb5/FncsJBEj6VY4FK0WmvVfg6KpyyO1zM+p1f/SYfxPt8jjygDsaFeLfQWKgA+lu60yOt41yYXrFCd3Jvsy8YPl9fPsBXdFFrKT4d1lJPWWwI5ETyKlc+RbrtDaNHV5bgKKWWaVg7W1Z2j5P3QINhLmqHRbQ9MwQ1ZyvIIPB1z6SXdgmU7WBX2C7oootJrUBWRpNP8kFq/ubMIHFefXXOrzN8J/2ngTL14gbEhcTCHI/qIF57Raj9t0UK8j6WJ/P7W347hFj++ggkAM17/tUsrOU5WTioWCq9TxdCzrlREbIYdHUHZeg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB9847
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB1PEPF000509E4.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	33d8b3d9-6db3-43de-ff66-08de9ed1be6d
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|14060799003|35042699022|82310400026|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	kYwQmP24E5+zHZLCwK+RHdecQgWmXHp82PWThB24aCRHdxXpM25jxFqzifmIZQiOJSSIYupPKdI+R/a0/IByjcT0YCZF2NEe/yHLurxXXoeVBqm7h2e2UXUNsD3j9atMFmYOL7/HMSyQlBLkcb99KsxAu3qHjUCX83v/eoFpMz4NRvnYq/W0iAUzV69oYblU2HMg5cLDesW2Uh91cH0B4NztJE1DbmLHHSMir5vZZafZqyJ8S0SJgiDR0GcPvQj/jFLW5O1I36sFI0J/8m6WM424O4lwZEiB96Kd2vegVuCwC3ABx55lNcyQYXKeSJYBh3fXHVxdmEu7CEFiAybh5FgIevVp1a6O7lBdBHMFAgyzOe5OeFgO546XZwHKeJoThKJjHY0WZX8jVONmwkMT/T2F3VAyxiCw3lRrHKRfvKKPPDaOa2mbXocHgVn0TwIyrgXJGxuVu7y83ePgJgB4A4quIUf3HQCxLWB6lmOI4oioTAWlw9tsmTWscoF9iW4OQqSJjWgc11RGylNs6a4uCN2pMN3blnnOKjIHocjeSgnpKCzVdPqziPLY0+2jQyCpzQr/Rnf+6Hj6R4RtEiPw6cPv8GoYziybCXiFWpWDzD0e31l/tc1/z4+XHxy2uGJLHsCAiAMNZ0MFsYXf55I2L73+4mF0Ex1YcFQyqwY6uuRK91TOEC6pg0om/YEXiYzSGwUejFKt2arEZrxkim93G6AH7ar3813GVhC+HKRRVs4pUvCGhBuHEjihSjtp+fQ49EK1qWr+wOxZQhK9lhVYzw==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(14060799003)(35042699022)(82310400026)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	aDP/8KXiK6xoPbSBCmUXBY1HcKCiWJTbA0b7kJeItmMG8PWKO/oXltgLD/Cm0yqdedatLHYGgkzij3SSzdmzrLhJSKtDsbZACl/BEcAB4poxPKDfNgEceR7oeDNgIdtAlrog2UK4S1oEfFFu2oF4X0Hya/9Pr/2i/JvngnvNuOn87qiBl3MVmK+oAmxmOft8lUejH7Sgdru1rc+znsZzL4/4qJ5+YbR1m8ao7fEXYlWXvL+/bsUBarzOzHzn1OLT9utpQZEFPANydvG13qZBOlVO/Bvs9vb6PSAm3GRgJVMVxNy95Oi8EeOEQi8I754EQN4R26ZuziVtGpym09QIndbwkD7VfA8g/AOo9WxvkbNM5Bnr9TzhGX4e+bEBq9FE81XuZiODvYSmc7X/jck4guZ1UoP78fqvJa/HwsceFr/4KXNJbOFSstbcF8Vfjhwf
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 11:42:25.0950
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e58886c-1b13-420e-a8ad-08de9ed1e47f
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509E4.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5820
+X-purgate-ID: tlsNG-d62444/1776685349-B5A69FF4-924316F3/0/0
+X-purgate-type: clean
+X-purgate-size: 1916
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=2];
+	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
+	R_DKIM_ALLOW(-0.20)[arm.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
+	URIBL_MULTI_FAIL(0.00)[arm.com:server fail,epam.com:server fail,lists.xenproject.org:server fail];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xakepamatop@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORWARDED(0.00)[mailman];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[13];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[arm.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 6D877429FC2
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:dkim,arm.com:mid,epam.com:email]
+X-Rspamd-Queue-Id: 3068342A001
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+Hi Mykola,
 
+> On 10 Apr 2026, at 10:36, Mykola Kvach <xakep.amatop@gmail.com> wrote:
+>=20
+> From: Mykola Kvach <mykola_kvach@epam.com>
+>=20
+> The GICv2 CPU shutdown path currently writes 0 to GICC_CTLR.
+>=20
+> Per IHI0048B.b section 2.3.1, clearing IRQBypDisGrp{0,1} and
+> FIQBypDisGrp{0,1} selects bypass rather than deasserted interrupt
+> outputs when the CPU interface stops driving them. Tables 2-2 and 2-3
+> show that a zeroed GICC_CTLR can fall back to the legacy IRQ/FIQ inputs
+> instead of fully disabling the interface.
+>=20
+> Fix this by reading GICC_CTLR, setting the bypass-disable bits, and
+> clearing both group-enable bits before writing the value back. Keep the
+> existing GICC_CTL_ENABLE definition for the init path and use a separate
+> mask for the shutdown-side group-enable handling.
+>=20
+> Section 2.3.2 also states that wakeup event signals remain available
+> even when both GIC interrupt signaling and interrupt bypass are
+> disabled, so disabling bypass does not break the power-management use
+> case, i.e. suspend modes.
+>=20
+> Fixes: 5e40a1b4351e ("arm: SMP CPU shutdown")
+> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> ---
+> xen/arch/arm/gic-v2.c          |  7 ++++++-
+> xen/arch/arm/include/asm/gic.h | 21 +++++++++++++++++++--
+> 2 files changed, 25 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+> index b23e72a3d0..22aa25bad0 100644
+> --- a/xen/arch/arm/gic-v2.c
+> +++ b/xen/arch/arm/gic-v2.c
+> @@ -408,7 +408,12 @@ static void gicv2_cpu_init(void)
+>=20
+> static void gicv2_cpu_disable(void)
+> {
+> -    writel_gicc(0x0, GICC_CTLR);
+> +    uint32_t ctlr =3D readl_gicc(GICC_CTLR);
+> +
+> +    ctlr |=3D GICC_CTL_BYP_DIS_MASK;
 
-On 4/16/26 2:51 PM, Jan Beulich wrote:
-> On 14.04.2026 13:29, Oleksii Kurochko wrote:
->> On 4/2/26 2:22 PM, Jan Beulich wrote:
->>> On 10.03.2026 18:08, Oleksii Kurochko wrote:
->>>> --- a/xen/arch/riscv/include/asm/setup.h
->>>> +++ b/xen/arch/riscv/include/asm/setup.h
->>>> @@ -5,6 +5,10 @@
->>>>    
->>>>    #include <xen/types.h>
->>>>    
->>>> +struct domain;
->>>> +struct dt_device_node;
->>>> +struct rangeset;
->>>> +
->>>>    #define max_init_domid (0)
->>>>    
->>>>    void setup_mm(void);
->>>> @@ -13,6 +17,19 @@ void copy_from_paddr(void *dst, paddr_t paddr, unsigned long len);
->>>>    
->>>>    void init_csr_masks(void);
->>>>    
->>>> +/* TODO: move somewhere to common header? */
->>>
->>> Counter question: Why ...
->>>
->>>> +/*
->>>> + * Retrieves the interrupts configuration from a device tree node and maps
->>>> + * those interrupts to the target domain.
->>>> + *
->>>> + * Returns:
->>>> + *   < 0 error
->>>> + *   0   success
->>>> + */
->>>> +int map_device_irqs_to_domain(struct domain *d, struct dt_device_node *dev,
->>>> +                              bool need_mapping,
->>>> +                              struct rangeset *irq_ranges);
->>>
->>> ... is this not an inline function, when ...
->>>
->>>> --- a/xen/arch/riscv/intc.c
->>>> +++ b/xen/arch/riscv/intc.c
->>>> @@ -79,3 +79,11 @@ int __init intc_make_domu_dt_node(const struct kernel_info *kinfo)
->>>>    
->>>>        return -ENOSYS;
->>>>    }
->>>> +
->>>> +int map_device_irqs_to_domain(struct domain *d, struct dt_device_node *dev,
->>>> +                              bool need_mapping,
->>>> +                              struct rangeset *irq_ranges)
->>>> +{
->>>> +    return d->arch.vintc->ops->map_device_irqs_to_domain(d, dev, need_mapping,
->>>> +                                                         irq_ranges);
->>>> +}
->>>
->>> ... it's merely a wrapper around an indirect function call? And then the
->>> function isn't used anywhere anyway.
->>
->> It is used by dom0less common code and it is a wrapper because Arm has
->> different implementation and Arm doesn't have
->> map_device_irqs_to_domain() in its virtual interrupt controller operations.
-> 
-> But the question wasn't why this is a wrapper, but why this wrapper isn't an
-> inline function.
+If the GIC v2 implementation includes the Security Extensions, the bit 7-8
+are reserved, but now we are unconditionally writing on them.
 
-Got you, it could be really inline.
-
-> 
->>>> +int vaplic_map_device_irqs_to_domain(struct domain *d,
->>>> +                                     struct dt_device_node *dev,
->>>> +                                     bool need_mapping,
->>>> +                                     struct rangeset *irq_ranges)
->>>> +{
->>>> +    unsigned int i, nirq;
->>>> +    int res, irq;
->>>> +    struct dt_raw_irq rirq;
->>>> +    uint32_t *auth_irq_bmp = d->arch.vintc->private;
->>>> +    unsigned int reg_num;
->>>> +
->>>> +    nirq = dt_number_of_irq(dev);
->>>> +
->>>> +    /* Give permission and map IRQs */
->>>> +    for ( i = 0; i < nirq; i++ )
->>>> +    {
->>>> +        res = dt_device_get_raw_irq(dev, i, &rirq);
->>>> +        if ( res )
->>>> +        {
->>>> +            printk(XENLOG_ERR "Unable to retrieve irq %u for %s\n",
->>>> +                   i, dt_node_full_name(dev));
->>>> +            return res;
->>>> +        }
->>>> +
->>>> +        /*
->>>> +         * Don't map IRQ that have no physical meaning
->>>> +         * ie: IRQ whose controller is not APLIC/IMSIC/PLIC.
->>>> +         */
->>>> +        if ( rirq.controller != dt_interrupt_controller )
->>>> +        {
->>>> +            dt_dprintk("irq %u not connected to primary controller."
->>>> +                       "Connected to %s\n", i,
->>>> +                       dt_node_full_name(rirq.controller));
->>>> +            continue;
->>>> +        }
->>>> +
->>>> +        irq = platform_get_irq(dev, i);
->>>> +        if ( irq < 0 )
->>>> +        {
->>>> +            printk("Unable to get irq %u for %s\n", i, dt_node_full_name(dev));
->>>> +            return irq;
->>>> +        }
->>>> +
->>>> +        res = irq_permit_access(d, irq);
->>>> +        if ( res )
->>>> +        {
->>>> +            printk(XENLOG_ERR "Unable to permit to %pd access to IRQ %u\n", d,
->>>> +                   irq);
->>>
->>> This time the other way around: %d please with plain int. (Again at least
->>> once further down.)
->>>
->>>> +            return res;
->>>> +        }
->>>> +
->>>> +        reg_num = irq / APLIC_NUM_REGS;
->>>> +
->>>> +        if ( is_irq_shared_among_domains(d, irq) )
->>>> +        {
->>>> +            printk("%s: Shared IRQ isn't supported\n", __func__);
->>>> +            return -EINVAL;
->>>> +        }
->>>> +
->>>> +        auth_irq_bmp[reg_num] |= BIT(irq % APLIC_NUM_REGS, U);
->>>
->>> ... all of this leaves me with the impression that IRQ numbering isn't really
->>> virtualized. IRQs are merely split into groups, one group per domain (and
->>> maybe some unused). How are you going to fit in truly virtual IRQs?
->>
->> What do you mean by truly virtual IRQs?
-> 
-> Ones where no aspects are represented by any piece of hardware.
-> 
->> I can't totally agree that the current approach isn't use virtual IRQs,
->> yes, they are 1:1 mapped but on the other side Xen is responsible to
->> give an IRQ number for guest's device and Xen is responsible that guest
->> isn't trying to reach IRQ which not belongs to it.
-> 
-> In a non-virtualized environment I expect IRQs are going to be "sparse"
-> (i.e. with perhaps large blocks of items used elsewhere). If you had
-> proper translation of IRQ numbers, the same could be true for your
-> guests.
-
-Partial FDT, which is used to tell which device be passthroughed to 
-guest, is using physical IRQ number (which I am just considering for 
-simplicity to be 1:1 mapped to virtual IRQ number). So if we have the 
-following configuration:
-   Physical (bare-metal) IRQ layout is sparse:
-     IRQ 5  → UART -> domU0
-     IRQ 23 → Ethernet -> domU1
-     IRQ 47 → PCIe -> domU0
-     IRQ 100 → Storage -> domU1
-(gaps everywhere, driven by hardware wiring)
-
-For such configuration we will have for each domain auth_irq_bmp[] which 
-contains:
-  IRQ 5 and IRQ47 for domU0
-and
-  IRQ 23 and IRQ 100 for domU1
-
-And here vIRQ5 = pIRQ5, vIRQ47 = pIRQ47 and so on. auth_irq_bmp just 
-transform xIRQ number to bit position which it will have in real APLIC 
-register. Just as an example, lets take vIRQ5 and vIRQ47.
-
-As reading or writing register setie[k] reads or potentially modifies 
-the enable bits for interrupt sources k × 32 through k × 32 + 31. For an 
-implemented interrupt source i within that range, the enable bit for 
-source i corresponds with register bit (i mod 32).
-So for:
-  - vIRQ5 == pIRQ5 we have to set bit 5 in setie[0]
-  - vIRQ47 == pIRQ47 we have to set bit 15 in setie[1]
-
-Probably it was not the best idea to declare auth_irq_bmp as it will 
-look in h/w and maybe just 'bool auth_irq_bmp[1024]' would be more clearer.
-
-So irqs number are still stay "sparsed" in guest.
-
-> 
->>>> +        dt_dprintk("  - IRQ: %u\n", irq);
->>>> +
->>>> +        if ( irq_ranges )
->>>> +        {
->>>> +            res = rangeset_add_singleton(irq_ranges, irq);
->>>> +            if ( res )
->>>> +                return res;
->>>> +        }
->>>
->>> What is irq_ranges?
->>
->> IIUC based on Arm code irq_ranges is an optional output accumulator, the
->> caller allocates and passes it in when it needs to track which IRQs were
->> mapped (overlay use case), or passes NULL when that tracking is not needed.
->>
->> I added here as map_device_irqs_to_domain() is called from the common
->> code and so maybe one day someone will decide to pass irq_ranges to this
->> functions. At the moment, for RISC-V it is the only one user of
->> map_device_irqs_to_domain() and it passes NULL.
-> 
-> Simply assert then that it's NULL?
-
-Won't BUG_ON() be better here as it BUG_ON() macros is always defined 
-and doesn't matter if release or debug build are used.
-
-Or maybe you meant:
-  if ( irq_ranges )
-      assert_failed("irq_ranges arg isn't supported\n");
-
-> 
->>>> @@ -34,6 +142,7 @@ static int __init cf_check vcpu_vaplic_init(struct vcpu *v)
->>>>    
->>>>    static const struct vintc_ops vaplic_ops = {
->>>>        .vcpu_init = vcpu_vaplic_init,
->>>> +    .map_device_irqs_to_domain = vaplic_map_device_irqs_to_domain,
->>>>    };
->>>
->>> What about the inverse function, needed for domain cleanup?
->>
->> I planned to add it when it will be really needed. At the momemnt, I
->> don't have such use cases.
-> 
-> I.e. if any domain needs re-starting, the entire system needs rebooting?
-> Recall that "dom0less" is slightly misleading a name, as it only allows
-> there to not be a Dom0. One can be there, and hence re-starting a crashed
-> domain ought to be possible. For that, you need to correctly clean up
-> after the crashed one.
-
-I haven't investigated yet what will be code path to do a reboot or 
-re-start crashed domain but based on an implementation of 
-vaplic_map_device_irqs_to_domain() as nothing is allocated there and 
-filling of auth_irq_bmp[] is happening there which will stay the same 
-after reboot if it is just re-used or it will be allocated new one if 
-crashed domain will just recreate this domain from scratch. So it seems 
-like it is enough to have only map_device_irqs_to_domain().
-
-~ Oleksii
+Cheers,
+Luca
 
 
