@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gLKXMO5J5mnSuAEAu9opvQ
+	id IFpXBoNK5mnSuQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 17:44:46 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 17:47:15 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E26B42E85B
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 17:44:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1286294.1567391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F71042E949
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 17:47:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1286304.1567399 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEqne-0001In-B1; Mon, 20 Apr 2026 15:44:38 +0000
+	id 1wEqpv-0001pY-MB; Mon, 20 Apr 2026 15:46:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1286294.1567391; Mon, 20 Apr 2026 15:44:38 +0000
+Received: by outflank-mailman (output) from mailman id 1286304.1567399; Mon, 20 Apr 2026 15:46:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEqne-0001GD-7p; Mon, 20 Apr 2026 15:44:38 +0000
-Received: by outflank-mailman (input) for mailman id 1286294;
- Mon, 20 Apr 2026 15:44:36 +0000
+	id 1wEqpv-0001n5-Jc; Mon, 20 Apr 2026 15:46:59 +0000
+Received: by outflank-mailman (input) for mailman id 1286304;
+ Mon, 20 Apr 2026 15:46:58 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wEqnc-0001G0-6v
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 15:44:36 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wEqpu-0001mz-J8
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 15:46:58 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEqnb-004NqN-Jn
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 17:44:35 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wEqpt-0092gc-Le
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 17:46:57 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e649e3-2eae-0a2a0a5409dd-0a2a4502c78e-2
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 17:44:35 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e64a68-5cb7-0a2a0a5109dd-0a2a45079ae8-16
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 17:46:57 +0200
+Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e649e3-af86-0a2a45020019-d1558032a8eb-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 17:44:35 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4890d945eb4so10042645e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 08:44:35 -0700 (PDT)
+ id 69e64a71-229c-0a2a45070019-d1558031bcfe-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 17:46:57 +0200
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4896c22fcbaso7689745e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 08:46:57 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488fb75ab25sm93713115e9.11.2026.04.20.08.44.32
+ 5b1f17b1804b1-488ffc558f2sm170314415e9.1.2026.04.20.08.46.56
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Apr 2026 08:44:33 -0700 (PDT)
+ Mon, 20 Apr 2026 08:46:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,61 +57,59 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776699875; x=1777304675; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1776700017; x=1777304817; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=/leg5zPIHXcYJT9pnVBCSrFES28ADZ8CQyyvDb61MzA=;
-        b=HaUTGeNzkIMyzTu4M0dOH6mR99k+QVvh3AiOGZ4pc4CmIUZEakz8ABLxbiRdJN687R
-         2KSqNoyF5y/ZUgwWkixnOb2DyVRo/Ysz8o8F/6V8woJrRu3PBCQp6c1ZitFhZm3XaGwS
-         ujxXjyaQBybh2VtCsSvovLHU7smYjEw3y5WvL8xyBZC3mwf/8REZM2BDOGBqStf8Izbz
-         KVpuW7EMP4iBI6klLAB2YJl5vKLyfq8EDtS2RNIVhkBHvQJ1o8MJ1xHB6mZCL82mN63A
-         jhkmD1KZrzBfYZ8+B/Cs8KSv6Pob0ydBwLhkzA2jXJ3pCGrGu1lIYh+v8R8vfhvRvNGj
-         VZ1Q==
+        bh=Z+DK9r27z8FkDNPpAXB5qEP7dssxbh520W9qiu1OJko=;
+        b=PoCEBd7Ylot4wh8xOnsoka5P51QgRUEOShUgvcOo66KICwcZPcv2K644pt8aWXzFTx
+         fVkSImpc9oXGNVD/KZBX5iC4FFFhzN18EgGufl46MO3apZAFss3mCUFethnnW76lBhuA
+         7cq8Vjb/4r1b5/P61fOjtqtE0a4hCsR4Xr5W6teY5qAbh6Z/3pO/qJzOggARd0VQF7SW
+         sNPLnqyuUvbSrVoQOp8cw2HUtqdzOU7cOxBpDaQq3AdAWZ63U8B/4K0J2r5Z3l4ixIYI
+         bgVZ4pv4g8yD/x7gw8eVccjehk2oi0VKL8W77TCOJ4J38dOHfZH5nbS8KqpRT9vyb3XE
+         Rjbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776699875; x=1777304675;
+        d=1e100.net; s=20251104; t=1776700017; x=1777304817;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=/leg5zPIHXcYJT9pnVBCSrFES28ADZ8CQyyvDb61MzA=;
-        b=DfTrrUs1OwrH+WrwxqVnLCKpC48cCPvVec2WFBIWVFcFPUsBqDHo5X/o7bNm+1+alh
-         2KlNxUvST+nqpCHEZMzlwE4wb2lPMX66WuupQWGFMAIww3OKWl8bgZam3jiHrhOiLJHL
-         g+N117YWz0duJzLzfdArXkoR36vYo2gj4pTHm6kj9aqRLEHpSm8swTgAxEVt8j+Y0XWL
-         Tb5l9geWWScPKXHGYJifNVWi31T2DZiroUnCjx4x8+CTb1XjMCu3NxFp50f9q2dXdNZ8
-         ugzwnea6QqMyZalwuZpKnVG3k4soU7KthjcsogYBZqi2zp77q7nK/AFXVKjyy/JaHWfn
-         SCNw==
-X-Forwarded-Encrypted: i=1; AFNElJ9pA+EROlEMLMYp13VMuXUR17vK0jf//G9HoyjuADweTnXCqMjZp+5DSO9FOwb7ndC+DvViwfCik0c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxRgyYLneF6IJm0FoGvaZ3/1z7QLhp2FdQs+WdwrsmCmG2Tz+NA
-	b3KQYKChCNQATuPUOsbbjmIr3sDhF257ZL00NmUoSuaDtDkzrrsQ6CaBe9zybTKMMBTcsi0NK1H
-	seZtsbg==
-X-Gm-Gg: AeBDiesUloYcFEQL+fd/xuznNFnjfZ8AfYEDlS9V4KM/mxIdP/2Wan7NnLIMRovWgkI
-	dY32+W2HF5Uf440UeTMh9s4O2zO0S5TnivHWgEECE6lFv9bQWV8Lu/OvXwNeFXTKHE19/cafSeh
-	NuXAJvp2aeX7bL2NuCHkzWs6TyoieChoMaUZT5PfCRrQ0Pgu6s/aoKTHZoVSY0/5ydWADRLGgv4
-	a+9lNgbbFnV4cIq//UDMdM75nDd0ohFL4GyPcaHo5IRnL6P1zig+h0VtR6jzf4/Wz0QmD75yuaq
-	vaC91YxewGUDO1kypMi3+CslS7rs4maTqTjAPdbk49lYhdaDc7WSxoNiqM+nVWRZrgyA33kJLm8
-	GmCGVEv3E0SiCxvYdmo+Ekwo1CetVzWFDmGW7zfIX1cH91sfNSo6fzbwhyZmeVDxo+G1f/0KhSj
-	7SsaZWzxOk9F/NafTEsyXSJ7D5s8K5Fyng7o365R/MkEYyIEZnl98BEMqEg2v5QvZgkDBtq6PUr
-	RBXRav7aS/JZL9VW/KehIOh+g==
-X-Received: by 2002:a05:600c:c167:b0:485:3428:774c with SMTP id 5b1f17b1804b1-488fb889336mr190069235e9.4.1776699874874;
-        Mon, 20 Apr 2026 08:44:34 -0700 (PDT)
-Message-ID: <d942bf90-6f8d-4389-90e6-a486ac510e1b@suse.com>
-Date: Mon, 20 Apr 2026 17:44:34 +0200
+        bh=Z+DK9r27z8FkDNPpAXB5qEP7dssxbh520W9qiu1OJko=;
+        b=IUHNsSBiaB7dNNJhRUEmhqEVBCoqag8P6oHiBfrHwTU+NEVOXCWpGsjZ5N0g4XHO9h
+         R2/nKcDo1ExmsZWH24dLkLxIwD5SKiQFh+KpEiKa0o9UC2qPWyn/obZjufPxwTrGpECF
+         erN4ngULg0bscsNz6XMQJ85qqT75afeqH++DJF4Wjr00ogrLCLDr2X7xCR0ErQlmnAq3
+         japeGiGjLTKUoAPJjUKJtxbowtHw/QKEADm89RlDlQ3wE/KEuPH4iuLOJ01G1RsIS3fZ
+         +4/CEkkkNynXOySCxUcBTwV949qx7J3qWL1vwA5+JMousomZxO52llZ84qxeT5Z3WE47
+         YsWg==
+X-Forwarded-Encrypted: i=1; AFNElJ/7ur+FKU8xZDzFutPkMDaUHIQ0MTLUGw+PMIDOYzjbN7T1qWjn8qBk7D250c5WFothviPUS/ZZE0w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywys5sSDOusfaS7cOcjQudthPaxw9Cpc6cq6xMU/E3/E0zMngRd
+	9crGU129R8X/HK3y4PpDu6elJyNNbWP5SuKRGqjUZgbfcu2zXlBT2OyiSWszlbxnqw==
+X-Gm-Gg: AeBDietqoI7oaRPjqmdqFFJzKBLiZwKUheEcqPVmOwfWwSDzPcT1jREPKwrfqgqaDGJ
+	o4xLYYMDVF7vMpLQE7AuB+yWMmQkhAuKto0PkU1a10T/wQz2avQe0JxOTGqBm0YOLzsLUw0nQya
+	DhrDLuK4Hkw4IwcO/BgcXKNhNqttmDSABe+30LXZUay5cLYFdMr/KyGP0NHl90B5aRnGcegxXDi
+	w16SlSmwJi7oqQR52Z6n+irM5XeG2FvVHAxyZkeDz2KIcLfP5tuVB1YO4dP+UnDFzSp7Us6iqtR
+	GnW+O/PzsMXDX4cRwKguXUZGr/pEllWCDo22sDn03Twkb5QujFVG94UFzZe/M7KHp9nSn3ApGjZ
+	FETzB3FUeoDd0Iiuec3WGYvG1wuo7Db6B5W4QYsgE/ub+INndg8bdWYhpGKIChQwZipTbBUlRVm
+	14vFzuIIoMKT5Y0lZ5pm61pPKrv/jcwUySTTsJ/hreQE6b3/ebj95S2txkyW8iW6JF52vVT1ASH
+	qelePo03s09tom8qBC3jt5gxQ==
+X-Received: by 2002:a05:600d:8449:b0:485:445a:87d1 with SMTP id 5b1f17b1804b1-488fb74a66cmr174513515e9.8.1776700016965;
+        Mon, 20 Apr 2026 08:46:56 -0700 (PDT)
+Message-ID: <f166ad21-08c6-41fd-8c27-e43f87a5f249@suse.com>
+Date: Mon, 20 Apr 2026 17:46:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/12] xen: fix len type for guest copy functions
+Subject: Re: [PATCH v3 03/12] xen/riscv: implement copy_to_guest_phys()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1775836193.git.oleksii.kurochko@gmail.com>
- <9154aea41a11bc0ba95ad15c217db79d029dd119.1775836193.git.oleksii.kurochko@gmail.com>
+ <265d9fe7c0ff46c1c969156c889e133593d57fff.1775836193.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -137,70 +135,144 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9154aea41a11bc0ba95ad15c217db79d029dd119.1775836193.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <265d9fe7c0ff46c1c969156c889e133593d57fff.1775836193.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-720697/1776699875-886D4161-9CCD578C/10/73395122804
+X-purgate-ID: tlsNG-ef75cf/1776700017-AF57BC48-A4402F70/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 1044
+X-purgate-size: 2918
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 0E26B42E85B
+X-Rspamd-Queue-Id: 4F71042E949
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 10.04.2026 17:54, Oleksii Kurochko wrote:
-> Widen the len argument of copy_to_guest_phys_flush_dcache() and the
-> copy_to_guest_phys_cb typedef from unsigned int to unsigned long, as
-> the function can be used to copy large blobs such as the initrd which
-> may exceed 4GB. Update the internal copy_guest() len argument to
-> unsigned long accordingly.
+> Introduce copy_to_guest_phys() for RISC-V, based on the Arm implementation.
 > 
-> Change the type for local variable size in copy_guest() to avoid
-> compilation error because of type mismatch.
+> Add a generic copy_guest() helper for copying to and from guest physical
+> (and potentially virtual addresses in the future), and implement
+> translate_get_page() to translate a guest physical address into a struct
+> page_info via the domain p2m.
 > 
-> raw_* wrappers above copy_guest() keep returning unsigned long to
-> avoid type narrowing; it is not an issue for raw_*'s len argument
-> to remain 'unsigned int' since the assignment to copy_guest()'s wider
-> unsigned long parameter is safe and there is no raw_* users who
-> are using a value bigger than what can fit into 'unsigned int'.
+> Compared to the Arm code:
+> - Drop COPY_flush_dcache(), as no such use cases exist on RISC-V.
+> - Do not implement the linear mapping case, which is currently unused.
+> - Use PAGE_OFFSET() to initialize the local offset variable in copy_guest().
 > 
-> Reported-by: Jan Beulich <jbeulich@suse.com>
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Actually: You say "fix" in the subject. How about sorting out a correct
-Fixes: tag then?
+Acked-by: Jan Beulich <jbeulich@suse.com>
+with ...
+
+> --- /dev/null
+> +++ b/xen/arch/riscv/guestcopy.c
+> @@ -0,0 +1,116 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +
+> +#include <xen/domain_page.h>
+> +#include <xen/page-size.h>
+> +#include <xen/sched.h>
+> +#include <xen/string.h>
+> +
+> +#include <asm/guest_access.h>
+> +
+> +#define COPY_from_guest     0U
+> +#define COPY_to_guest       BIT(0, U)
+> +#define COPY_gpa            0U
+> +#define COPY_gva            BIT(1, U)
+> +
+> +typedef union
+> +{
+> +    struct
+> +    {
+> +        struct vcpu *v;
+> +    } gva;
+> +
+> +    struct
+> +    {
+> +        struct domain *d;
+> +    } gpa;
+> +} copy_info_t;
+> +
+> +#define GVA_INFO(vcpu) ((copy_info_t) { .gva = { vcpu } })
+> +#define GPA_INFO(domain) ((copy_info_t) { .gpa = { domain } })
+> +
+> +static struct page_info *translate_get_page(copy_info_t info, uint64_t addr,
+> +                                            bool gva, bool write)
+> +{
+> +    p2m_type_t p2mt;
+> +    struct page_info *page;
+> +
+> +    /*
+> +     * Not implemented yet.
+> +     *
+> +     * If gva == true, the operation will likely require a struct vcpu
+> +     * rather than just a struct domain. For this reason copy_info_t is
+> +     * already passed here instead of only struct domain.
+> +     */
+> +    BUG_ON(gva);
+> +
+> +    page = get_page_from_gfn(info.gpa.d, paddr_to_pfn(addr), &p2mt, P2M_ALLOC);
+> +
+> +    if ( !page )
+> +        return NULL;
+> +
+> +    if ( write ? p2mt != p2m_ram_rw : !p2m_is_ram(p2mt) )
+> +    {
+> +        put_page(page);
+> +        return NULL;
+> +    }
+> +
+> +    return page;
+> +}
+> +
+> +static unsigned long copy_guest(void *buf, uint64_t addr, unsigned long len,
+> +                                copy_info_t info, unsigned int flags)
+> +{
+> +    unsigned int offset = PAGE_OFFSET(addr);
+> +
+> +    BUILD_BUG_ON((sizeof(addr)) < sizeof(vaddr_t));
+> +    BUILD_BUG_ON((sizeof(addr)) < sizeof(paddr_t));
+> +
+> +    while ( len )
+> +    {
+> +        void *p;
+> +        unsigned long size = min_t(unsigned long, len, PAGE_SIZE - offset);
+
+... this adjusted to whatever the final shape is going to be on Arm.
 
 Jan
 
