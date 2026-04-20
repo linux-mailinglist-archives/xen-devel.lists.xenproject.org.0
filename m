@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IKerI6xJ5mnSuAEAu9opvQ
+	id gLKXMO5J5mnSuAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 17:43:40 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 17:44:46 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E215242E816
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 17:43:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1286273.1567378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E26B42E85B
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 17:44:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1286294.1567391 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEqmR-0000TH-SW; Mon, 20 Apr 2026 15:43:23 +0000
+	id 1wEqne-0001In-B1; Mon, 20 Apr 2026 15:44:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1286273.1567378; Mon, 20 Apr 2026 15:43:23 +0000
+Received: by outflank-mailman (output) from mailman id 1286294.1567391; Mon, 20 Apr 2026 15:44:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEqmR-0000Qw-OM; Mon, 20 Apr 2026 15:43:23 +0000
-Received: by outflank-mailman (input) for mailman id 1286273;
- Mon, 20 Apr 2026 15:43:22 +0000
+	id 1wEqne-0001GD-7p; Mon, 20 Apr 2026 15:44:38 +0000
+Received: by outflank-mailman (input) for mailman id 1286294;
+ Mon, 20 Apr 2026 15:44:36 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wEqmP-0000Q2-VJ
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 15:43:22 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wEqnc-0001G0-6v
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 15:44:36 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEqmP-00BTxY-Bq
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 17:43:21 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wEqnb-004NqN-Jn
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 17:44:35 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e64985-bab6-0a2a0a5309dd-0a2a450191e4-24
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 17:43:21 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e649e3-2eae-0a2a0a5409dd-0a2a4502c78e-2
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 17:44:35 +0200
+Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e64999-c1f2-0a2a45010019-d155802bb5d9-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 17:43:21 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-488b150559bso24874805e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 08:43:21 -0700 (PDT)
+ id 69e649e3-af86-0a2a45020019-d1558032a8eb-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 17:44:35 +0200
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4890d945eb4so10042645e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 08:44:35 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a52583fe7sm29335045e9.13.2026.04.20.08.43.19
+ 5b1f17b1804b1-488fb75ab25sm93713115e9.11.2026.04.20.08.44.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Apr 2026 08:43:20 -0700 (PDT)
+ Mon, 20 Apr 2026 08:44:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,45 +57,46 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776699801; x=1777304601; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1776699875; x=1777304675; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=yengZ7hhRPyDJ8cmzPowC1Z+H6tZSiWNJjKoi8LZG1I=;
-        b=XTrdSlPs8JFcwiokCyT7zxCQuuaBj3Xg9rIZo84ZAvC4Q/bCQZ3DA2PoiC3IqC5nGa
-         5+/tO2fDQDWALte4dY+nXW7aZwmWZW2FgGbLiDxr7FKPB2w/aVZXCFtPmPJUHsLaw52M
-         C5SEqHSNOjaOx8f5i/huwmhzH6ucHGZnHr9GbTdtrzxzMw3OCCijFGRg9AIdlqJtCzXU
-         Xlu/0z666PZRaDPnvghdJ5vwaCP5Wj4BOnp0yP1KroKC8lgAeliCm5OJk7TDop+uObaj
-         nBuIhWzzI9StlzhCbu3zskHNCu6jt43ADI3MLXJ+opNmiV/ZnpnUxCbgFmA9AE1pRo2F
-         eyhA==
+        bh=/leg5zPIHXcYJT9pnVBCSrFES28ADZ8CQyyvDb61MzA=;
+        b=HaUTGeNzkIMyzTu4M0dOH6mR99k+QVvh3AiOGZ4pc4CmIUZEakz8ABLxbiRdJN687R
+         2KSqNoyF5y/ZUgwWkixnOb2DyVRo/Ysz8o8F/6V8woJrRu3PBCQp6c1ZitFhZm3XaGwS
+         ujxXjyaQBybh2VtCsSvovLHU7smYjEw3y5WvL8xyBZC3mwf/8REZM2BDOGBqStf8Izbz
+         KVpuW7EMP4iBI6klLAB2YJl5vKLyfq8EDtS2RNIVhkBHvQJ1o8MJ1xHB6mZCL82mN63A
+         jhkmD1KZrzBfYZ8+B/Cs8KSv6Pob0ydBwLhkzA2jXJ3pCGrGu1lIYh+v8R8vfhvRvNGj
+         VZ1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776699801; x=1777304601;
+        d=1e100.net; s=20251104; t=1776699875; x=1777304675;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=yengZ7hhRPyDJ8cmzPowC1Z+H6tZSiWNJjKoi8LZG1I=;
-        b=TDxqczz6nCX3KDiQoIpPAp6SF5SLXN2E1OjNfqjrb2rRrAFYsCeh5pIqZ68K4E+ZUq
-         quaEntDs3UXJRRCx9Fk/tcOGqiJQYPA1hCGYiwtOgFTBD+1BkrRJyt1Y9pVdGUXm8rxB
-         JMylDyTRCHsqO2KmlFAP31/8Pnar2T9laZ3dTZj18X0/qmBR118ImKhHbFNRlnuugrFG
-         u6HXrgvaxn8cukCpCHbCUy/se4N+FguteY/E030eSMxSQcrhJkfjzxK/8ku3pyteW7Zd
-         QTOWHPyIwpF24WGYjEPp+YxwZ+G+wfZzUld2+1AUJJIeFC6il4nMLFxu8lGr64S1rOpi
-         GuOw==
-X-Forwarded-Encrypted: i=1; AFNElJ9kksNjO5QmdxI3P7bHIMAcsMDh0rszn+EY1IhqJ7/PyGyRXZSkPGAjOTf/0R6uoHhk27ninz59dW4=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwydrKQ34tZSiVuUHCjbN6E6M9IKJn+1CO+wM4mhQfgK73uSAHd
-	o+ryuSAQ9MGB554hgd6tvl3Qv1Yfngwt5Um6tYAsvxnEaVEYuv670zisnc96Q6n5Gg==
-X-Gm-Gg: AeBDievFadRT44gPHlrFbFWjKau/+SuyYZq32MOp8JVL76L12UFkS2nhIp+5BmtKUX9
-	Agqp1GkHuLd/VoW7eYmHUnvKCMDHKVd9YdPNvpL43azbcS0e0SdbvJlephcncrvMwHkebQSPhun
-	LRvNNBJ5LKiawW1VePC7DQwj36iZSh3k0z4o0yyfq7ZRVh6Qzn585GWrZZ0Jbaxcg0P4DyZ3QTe
-	B1l6TndqbYaT4yiTwLSV4NMzrEECxG9RUAGQDIhC3htbRDLL1JXZh2BcuyGn2ka0qlO04Hd9WUp
-	iyle6nplRzKd5VHEt84XAxHQbn2MXrlaENIXmWlF6NcHYN21cnIG4YXs/5HNagY4S515tTQODYB
-	gdEODHQAUeoLTnAWr+YR9E9+LgF/EGAUmr8uWeXkPeJaCPKykY8zHStfs1eNBpNrtygS0lP/oNE
-	ki5Er8/HJbvSI6MgEKgFQ3tjYJHPLvMZzGrWD8qH49cp+CpRsBvXhfsFKEbKy884+kpqYV7bxkD
-	n7Ph1Wl9QEzVrZzwp9Aa+Saag==
-X-Received: by 2002:a05:600c:348b:b0:489:5022:39a4 with SMTP id 5b1f17b1804b1-4895040c025mr43975565e9.9.1776699800496;
-        Mon, 20 Apr 2026 08:43:20 -0700 (PDT)
-Message-ID: <82c7f0f8-4ea7-449b-ac7c-2a044f83028c@suse.com>
-Date: Mon, 20 Apr 2026 17:43:21 +0200
+        bh=/leg5zPIHXcYJT9pnVBCSrFES28ADZ8CQyyvDb61MzA=;
+        b=DfTrrUs1OwrH+WrwxqVnLCKpC48cCPvVec2WFBIWVFcFPUsBqDHo5X/o7bNm+1+alh
+         2KlNxUvST+nqpCHEZMzlwE4wb2lPMX66WuupQWGFMAIww3OKWl8bgZam3jiHrhOiLJHL
+         g+N117YWz0duJzLzfdArXkoR36vYo2gj4pTHm6kj9aqRLEHpSm8swTgAxEVt8j+Y0XWL
+         Tb5l9geWWScPKXHGYJifNVWi31T2DZiroUnCjx4x8+CTb1XjMCu3NxFp50f9q2dXdNZ8
+         ugzwnea6QqMyZalwuZpKnVG3k4soU7KthjcsogYBZqi2zp77q7nK/AFXVKjyy/JaHWfn
+         SCNw==
+X-Forwarded-Encrypted: i=1; AFNElJ9pA+EROlEMLMYp13VMuXUR17vK0jf//G9HoyjuADweTnXCqMjZp+5DSO9FOwb7ndC+DvViwfCik0c=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxRgyYLneF6IJm0FoGvaZ3/1z7QLhp2FdQs+WdwrsmCmG2Tz+NA
+	b3KQYKChCNQATuPUOsbbjmIr3sDhF257ZL00NmUoSuaDtDkzrrsQ6CaBe9zybTKMMBTcsi0NK1H
+	seZtsbg==
+X-Gm-Gg: AeBDiesUloYcFEQL+fd/xuznNFnjfZ8AfYEDlS9V4KM/mxIdP/2Wan7NnLIMRovWgkI
+	dY32+W2HF5Uf440UeTMh9s4O2zO0S5TnivHWgEECE6lFv9bQWV8Lu/OvXwNeFXTKHE19/cafSeh
+	NuXAJvp2aeX7bL2NuCHkzWs6TyoieChoMaUZT5PfCRrQ0Pgu6s/aoKTHZoVSY0/5ydWADRLGgv4
+	a+9lNgbbFnV4cIq//UDMdM75nDd0ohFL4GyPcaHo5IRnL6P1zig+h0VtR6jzf4/Wz0QmD75yuaq
+	vaC91YxewGUDO1kypMi3+CslS7rs4maTqTjAPdbk49lYhdaDc7WSxoNiqM+nVWRZrgyA33kJLm8
+	GmCGVEv3E0SiCxvYdmo+Ekwo1CetVzWFDmGW7zfIX1cH91sfNSo6fzbwhyZmeVDxo+G1f/0KhSj
+	7SsaZWzxOk9F/NafTEsyXSJ7D5s8K5Fyng7o365R/MkEYyIEZnl98BEMqEg2v5QvZgkDBtq6PUr
+	RBXRav7aS/JZL9VW/KehIOh+g==
+X-Received: by 2002:a05:600c:c167:b0:485:3428:774c with SMTP id 5b1f17b1804b1-488fb889336mr190069235e9.4.1776699874874;
+        Mon, 20 Apr 2026 08:44:34 -0700 (PDT)
+Message-ID: <d942bf90-6f8d-4389-90e6-a486ac510e1b@suse.com>
+Date: Mon, 20 Apr 2026 17:44:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 02/12] xen: fix len type for guest copy functions
@@ -139,9 +140,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <9154aea41a11bc0ba95ad15c217db79d029dd119.1775836193.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1776699801-BC617FF4-BD82409F/10/73395122804
+X-purgate-ID: tlsNG-720697/1776699875-886D4161-9CCD578C/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 2241
+X-purgate-size: 1044
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -175,7 +176,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: E215242E816
+X-Rspamd-Queue-Id: 0E26B42E85B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -198,33 +199,8 @@ On 10.04.2026 17:54, Oleksii Kurochko wrote:
 > Reported-by: Jan Beulich <jbeulich@suse.com>
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-With two suggestions: For one, the patch subject prefix may want to be (or
-include) "arm:", to draw Arm maintainers' attention. And then ...
-
-> --- a/xen/arch/arm/guestcopy.c
-> +++ b/xen/arch/arm/guestcopy.c
-> @@ -53,7 +53,7 @@ static struct page_info *translate_get_page(copy_info_t info, uint64_t addr,
->      return page;
->  }
->  
-> -static unsigned long copy_guest(void *buf, uint64_t addr, unsigned int len,
-> +static unsigned long copy_guest(void *buf, uint64_t addr, unsigned long len,
->                                  copy_info_t info, unsigned int flags)
->  {
->      /* XXX needs to handle faults */
-> @@ -65,7 +65,7 @@ static unsigned long copy_guest(void *buf, uint64_t addr, unsigned int len,
->      while ( len )
->      {
->          void *p;
-> -        unsigned int size = min(len, (unsigned int)PAGE_SIZE - offset);
-> +        unsigned long size = min_t(unsigned long, len, PAGE_SIZE - offset);
-
-... I think we'd be better off avoiding min_t() whenever possible, i.e.
-when min() can sensibly be used (preferably, unlike originally here, also
-without a cast). PAGE_SIZE being of type long, "PAGE_SIZE + 0UL - offset"
-would look to be an option. Yet of course Arm maintainers may dislike
-that form ...
+Actually: You say "fix" in the subject. How about sorting out a correct
+Fixes: tag then?
 
 Jan
 
