@@ -2,63 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iKmlChXm5WlkpAEAu9opvQ
+	id 0GrSOLno5WndpAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 10:38:45 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 10:50:01 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CF52428426
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 10:38:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1285529.1566536 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 472C342873F
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 10:50:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1285539.1566545 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEk9C-0001mY-A5; Mon, 20 Apr 2026 08:38:26 +0000
+	id 1wEkK9-0003XS-6s; Mon, 20 Apr 2026 08:49:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1285529.1566536; Mon, 20 Apr 2026 08:38:26 +0000
+Received: by outflank-mailman (output) from mailman id 1285539.1566545; Mon, 20 Apr 2026 08:49:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEk9C-0001ja-6l; Mon, 20 Apr 2026 08:38:26 +0000
-Received: by outflank-mailman (input) for mailman id 1285529;
- Mon, 20 Apr 2026 08:38:24 +0000
+	id 1wEkK9-0003VG-3M; Mon, 20 Apr 2026 08:49:45 +0000
+Received: by outflank-mailman (input) for mailman id 1285539;
+ Mon, 20 Apr 2026 08:49:43 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Michal.Orzel@amd.com>) id 1wEk9A-0001jU-Fz
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 08:38:24 +0000
+ (envelope-from <Christian.Koenig@amd.com>) id 1wEkK7-0003VA-Cj
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 08:49:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEk99-00CO6y-SM
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 10:38:23 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wEkK5-00H5QS-9t
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 10:49:41 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69e5e5ff-5cb7-0a2a0a5109dd-0a2a450cd236-0
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 10:38:23 +0200
-Received: from [52.101.62.3]
- (helo=DM5PR21CU001.outbound.protection.outlook.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69e5e5fd-62f1-0a2a450c0019-34653e032ae4-4
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 10:38:23 +0200
-Received: from BL1PR13CA0061.namprd13.prod.outlook.com (2603:10b6:208:2b8::6)
- by MW4PR12MB7264.namprd12.prod.outlook.com (2603:10b6:303:22e::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Mon, 20 Apr
- 2026 08:38:18 +0000
-Received: from BL02EPF00021F6A.namprd02.prod.outlook.com
- (2603:10b6:208:2b8:cafe::88) by BL1PR13CA0061.outlook.office365.com
- (2603:10b6:208:2b8::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Mon,
- 20 Apr 2026 08:38:18 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL02EPF00021F6A.mail.protection.outlook.com (10.167.249.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9791.48 via Frontend Transport; Mon, 20 Apr 2026 08:38:18 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 20 Apr
- 2026 03:38:17 -0500
-Received: from [10.71.194.215] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 20 Apr 2026 03:38:16 -0500
+ (envelope-from <Christian.Koenig@amd.com>)
+ id 69e5e896-e002-0a2a0a5209dd-0a2a450584b2-44
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 10:49:40 +0200
+Received: from [52.101.43.20]
+ (helo=SJ2PR03CU001.outbound.protection.outlook.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Christian.Koenig@amd.com>)
+ id 69e5e8a2-aaa8-0a2a45050019-34652b14676e-4
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 10:49:40 +0200
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by CH1PPF6D0742E7B.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::613) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.8; Mon, 20 Apr
+ 2026 08:49:34 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68%5]) with mapi id 15.20.9846.014; Mon, 20 Apr 2026
+ 08:49:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,72 +60,113 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RDiRExe6KOIVQPzeiPjuVqZaMqjMZaSx4BquvTp07X5tD3PA8A5nZHbow0Y2vz7ttpDCRTEaTY9dfnizRgnEyXgvrC6YuqldkAOUN2BS8BZK32bwqbrHIr7cXnnp8+Qj+3K+KquPtTwHC9lRmdr1RYogaUhq6GEZPzdf6oSnpJumE1K8q4olj7TbTXF//YwLfmuB0hQwdRm9Nd8zW0UXcbLsyvQXNZDVDEfvIVPepaRSLj9zTzyILrPbRqtKt+v3X/INXKDqpAuNEk8+05RNbm/0ReDgbO2LaPf38c7HaqblCtU7itjH8g6FJaYAuKf5Xm/7ZXFwEkiNDklASOZQ5Q==
+ b=Jh46c+snIxoX4nH777OfacfINYs2xznCoEmG0piKlnrcFvUC/GIjEdAMvBiZ0I3IfqbA2rdmCozR+gDtG7nwtU7xoMN4tvC6UQViNa2l8HsuTh58S4RRXpZ6PgtL2s5+h322+9y967+9lfGyquJg7i/gHcJrHZbaZMSVkur6ipsWwOZ08ltPP6apEGXwHY2EYrZ6nwwZsJCuI5DLggjUTqskh+huBgjvjDD53sB9dOazGE4s3fyFWLGNbrlSBeeUUC38WXp0sHrZCSXLSe4l27OFeKklmiO9PJkpUPYoGPh28GShXP14UG20TEBKGaJvptfqbilbGprlP5lrYC5M9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WTfvdDCuCL1Q5XMGpRUHxrM/YnMeI6OVKCctNVHcjf8=;
- b=FVbiN0ODmeHdY2PMMHOuqQZy7XMQVorCZwHSMhYBKdWY9mNIfRPeb2iTPdegZB6MQcHsyRRpVSf1QMesnhV7wqcNIKJkXLKtqAqhe79dMh3PQ0uUcTVhb30dAJlWHCJH18Bj3Np8IDeui8woNmsZ8vWHbIhL4q+epcdq/eGFUHJWrrI/1HP6yBVREe9ppB/GM4Fqq6KBo1PLUTrsVR1kVfHk18VcKod9vx1AYNLnkhVU7bFPIii2Jd4RsSZDWL4hK7R5ixGN3uACuQDmzU10lNMdtSGJIUoyrTlV0rINR7QbXaZm8Zrlen6yCfBEvarQiYE0XD61Euk9rkvneU2BdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=zsDrcaNrUkCXNMufmLhSGq4a1iTV4V5vsYmPV2fsJR8=;
+ b=oGLQD/7sBNo4UBN0tTrM1QHAcUetvekOTmbcKStsATy9XwmXA0sXCgD5ayE4Apom4xFOImwIXLeUR8bzDqFyMcjvLJnKVLBOvyaBCbMaDA1kHiHsCDgODFYzre16AOWbAqMD+sSVBlpZOZcts3UZn0+QQ53btO7VGhZ1OjXWvdfvIg7uYAMV+FLmQwyXbbJ9+OGnzZTDFULF8ofCs6WDickLVmvUth+8B31NOK0UKmyiVFJAP8Fm5Na6tqi8sgwc2YF85w6Nx1l/wN9PO2ki0t0wTnUhFS9Oqeh8AkeMG9YQuSYt4n4wyn0yfH1mIQ20g5RdJbW4Rv/8Voocxqbdpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WTfvdDCuCL1Q5XMGpRUHxrM/YnMeI6OVKCctNVHcjf8=;
- b=rBbTa7S2a9vYAmp5WCmv7mus/SS0kGxhuZryjxaeObyf40j16ju/18DkwtdhjbPm6t+7z0WisI8y7JOZPWcKTs1r9tA7hSWrq7J2hdzWUeGrW1rtftFTVt3W1YP1C7KnyORqEnScPjPgI2oUQ/RDkaAYc7CKfb/ypTxp6o+1VTU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <c30e0162-aea4-41fe-a077-cb7c6e6b4d33@amd.com>
-Date: Mon, 20 Apr 2026 10:38:11 +0200
-MIME-Version: 1.0
+ bh=zsDrcaNrUkCXNMufmLhSGq4a1iTV4V5vsYmPV2fsJR8=;
+ b=t4FdsTlWK6acs+uLIEv84DvBMpmRRPGGYpIyb2q7tIm2VPWzcr/QbgLbbNEwjFfbi1DdI95N4vvc07OKXvEvZRxnOXBcxq4TekxDNjhZsm2cS0vvc81VULsvB9KKTD7KCaSbMQ+2Qa+YyINI4LGu+k2dMM0fCKOavvM9pr4o3/g=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <8fe8b78b-5294-4319-af92-a4fb00527417@amd.com>
+Date: Mon, 20 Apr 2026 10:49:19 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/arm: gic-v2: disable interrupt bypass on CPU shutdown
-To: Mykola Kvach <xakep.amatop@gmail.com>, <xen-devel@lists.xenproject.org>
-CC: Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <459cf46204e86ed3a2ffd79ae649b1a2051f5204.1775812563.git.mykola_kvach@epam.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+Subject: Re: Pinned, non-revocable mappings of VRAM: will bad things happen?
+To: Demi Marie Obenour <demiobenour@gmail.com>,
+ dri-devel@lists.freedesktop.org,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ linux-media@vger.kernel.org
+Cc: Val Packett <val@invisiblethingslab.com>,
+ Suwit Semal <sumit.semwal@linaro.org>
+References: <a06133f7-3093-4733-9786-bc46c1453e06@gmail.com>
+ <b8d04414-18b5-40f7-9ea2-88b30ff5bea0@amd.com>
+ <c7865b27-6bf1-4df1-9520-c9ef6b3ef368@gmail.com>
+ <4751cf03-d3c1-4d5d-af8e-39ad7c8ffb84@amd.com>
+ <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
 Content-Language: en-US
-In-Reply-To: <459cf46204e86ed3a2ffd79ae649b1a2051f5204.1775812563.git.mykola_kvach@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <7472bfcf-8c22-4ac7-b903-a883cdb8f1c6@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN0PR02CA0016.namprd02.prod.outlook.com
+ (2603:10b6:208:530::14) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|MW4PR12MB7264:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1beb2688-3f32-4537-3918-08de9eb82be0
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|CH1PPF6D0742E7B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98689cc9-59bd-445d-e193-08de9eb9be74
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|1800799024|82310400026|56012099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	U7+4oM2FxHntrTOTJUu9FSyeS0rWeGhfay1SMOFUpYJC3HgUhlSwV2BX4bRybnLClu6LSCV5Lo2pJp4QDgrS0xJo6lkXc1KZ6+L0QiAYwdUXORlCuJOM2i6B6sX/XRqwR2TEEIXNiUMYUzZxmfZOul0Ocjv84PDDLO6pDj5Z4WIJ3piIUn6DCewUcZ+gOq3PPoeIMcRn20xT55J/3d24gaymZ9s42F5pSWSfa47oxJlrRw+QeOpzPdYIgJRQRsdvpJoonZqPXPhwaKxR2L4XKC8jDR/vCXL+QZ4IZWKXVeG+/xiZ9FFE8DIM710CVVgpJE+IV4OgQKGHNZbaocFeYl6NvehVA/QkJ8grIn4+MLNnOTtUC/P+1vYM4rvVFyY/pWqWLc2IixSLmVj7y7Yh36CjmXjdCZh5G2sw5ywVhPTrS+xdy8zMcKMjxZzgsJ44Cm/tt8qp1XWHH5q5h7Rhj4Cj9ggWLNQOJx5duMa+qwd2C0hfVz1IdI8BS252BQ8dtHar2edYNrEWTKMHpCFZ8RF/xcFEPW+v3eN/0na92LqhKCATulnRT2X/+aBhWowBmAy43VCWsn4saFf1QtbsHukVwWSi2qH1PoH0mmjMlGjxcD9qQiHUzHhtaM0MzV84xop4pKU67GWEEAPHz+1RbT2oX6xBn1QKbDyEXfVqpzfipxrIEtxoqQ30vv5D5v+2CtHbxgH9+0MdrrOISEqpRglznkMgd+EjAYPgkjjIDBAtYF/GseYZFEvE6AJWohYj5a5oV/g2ayPIom8kmETbLQ==
+	+XAwL9tin4y75mfpeY78I1nRzW8iBdYspBxw9Pxhl8JrFjDKFS13+gUHoMi8CVYheJxcu53js2XRK0sOlhRywmo7TGlEOs7J8QGlMz26a1djMb4yhD8IF0fe6fipq7edwi0E0aYHzdJF4JYuvB0Y13kY/WREKNXX9kckXNrskc1wAlEyLthOwVwVzkH6bIeyv+H3EbCesHyovZEGiWsz2WBn0rVEzZaiqneiVEpfVKHcfxRe5vkYg+JsDriwypqkshYJysMr/M82x0KDlORYc701byk/wNYESFsEr4jFybig4UH7NunZ+4Kkvs+0TUjhRlxDt/Ek05ad1eMY+aPtdNCQa9rVf6Truq8E0PrYA2aFim4XIAHO3YVdv2M6SQ8vz0bdvb3Ulq4lUSr2J914VzDdTbLc/6tR+8PHiRx/wAxmP9F0nlzNJcgeWBdv+mm/tL/OZ4CgSbhdB2+aTCjWy5xm6YUzeYkN4i7c9ySqE1uHZgENDN/rjhLc6QUeIi4r02u5oRDyZWxpMw1PPo3zaF19kau0oKDkvB5k+c73+4dClsb628YMU2EdQ65ZTOLUgR/Fe9ZHsYrcCSor2OwabGvmkP8uLgeFyWbeVCDEok+xGydMQr2SKgADo7Ef95iH26DArplVb5cUMa+qf1uJy8m8IFwQ7AdInyj/Npj912LiktYqKNmKpUXNGlvo8p+c31GADPkU0G9t7uZs/58D9eClrZswlBi3hlR7f9ydv3s=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB5673.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	90ZKEa/NJh+CM33XnE66POzD1uha+Qhq+LPvOfn7cu/q7erccb1VYmCEm6EAD/Bu7RWGaVZ+1ggPb8rI6rMc/YaI5yfYLQR0ItZnhpybkYn3EXTBD6upaeWJtW5CWrPC3FLUB1tW4wCYDULpIk1scCRLirW3HmoNxMN8HrQ++HJsJd2JkFclPBtdyLYLD7q9O0goDivJ6vVp+3zbFTxcKLt9jBD5wyvSioK5UI3z2WmRDX0wCtXeafT7i/g87upwR7Dou2LV02VE/9sy7vS5HD0v8GiqPwt0ujWTRZ//+ykkZKnIC3Dy4/ZE4Dw4ofjLLBWlwMNHJtNnOxiZoNUVa2LkLu+i+qmYA1qPXF6V70m5jn7XGErZdgc7XenZVGgyNPtlo/Na5NuGWXs42LHxPTWH8eF2vLs2CmU8SkTYr58wuDbjVM2sYLVr6ghjehRn
+	=?utf-8?B?bWlvSFpLUmNpZGhWb0lZSWg2ZEN5VXBITDZUa3hTRTE4WllTdzJWTFM1NVRY?=
+ =?utf-8?B?cmE3UXRRNDFpdFBUbUY1QkE3QUJUWmxaSnJDaU9HaEVMYmN5MTQ5YnFTK1VL?=
+ =?utf-8?B?RnNITlFFdEU2SkNsbG5FUHA3Ukd1eDVHdDJDN2NNTU5Wa3B2RWp3NE9jcVND?=
+ =?utf-8?B?RElCcnpGNkZ6U3ZnZkFXR3pKaVcweERTbEFQUzRNMjN3NElUNU16YVdPbWdP?=
+ =?utf-8?B?and6K1FjbmdRdGFtemk4L2dCRkl6OGxaUWl2SGdTcVBySC9nSVJCTSt6c0JD?=
+ =?utf-8?B?UEpOeTRGbVFoVU1WSmxpeDVET1RGQ2FpR2xjK2g3SlFDNWJZSjZadGJ1ZWZt?=
+ =?utf-8?B?M3htM3NmQk9mQWlYemtJVW1zNVpiVWVqYzVVU0VpRXVlQjZpU1NkMEgzM2Zi?=
+ =?utf-8?B?YUxJK2p4NWRzUzRFMVVMMDAxamlHSmtWdXF3NmZJV3dLZmhjMGYrU0F3Yytp?=
+ =?utf-8?B?REFISmMrazBIbUFHSkJ3QkV0UVd2a3IxR28wNFFmUXJHODRRV2JTMWxWNjhS?=
+ =?utf-8?B?c2dTbCtMZXNqcjV0VzhzbWNKMVNSbFB1WjI5Z3orbjROTVFLTTZVNVUxMUo5?=
+ =?utf-8?B?OFAyUjUzdEI5ZjBRUllDTllYWkxZSC9ud3FCRXptT0FuR0o1aWtOa1ZlbFF0?=
+ =?utf-8?B?WTV4VDRheE03QkNESWRRWHBOS2pQQTN0emlxYUdxL1VHTy9EVmh6bGpKcmFW?=
+ =?utf-8?B?VTNYYTFMMWo0bG1LMngvMi9GdU53UW5WVWNHSjZVUWowR2M1MU5saVRwSlBF?=
+ =?utf-8?B?ekxkQU0wOXBaekNNdm1EaytZNW1qWUx1UWl3V2NRcTFEUGpyQXk5dXA0dmdE?=
+ =?utf-8?B?cE5lMldNV0VQUmJ2S2h4dmZDdnA1QmdtL2h1anRUSGxnZFBKZEdvdHE0OEt0?=
+ =?utf-8?B?cHBPZUorVkUyamsvcFgzWUROZXRzMVJYNE8zYWM2a3d2NzhxR0I1RGo0WUN5?=
+ =?utf-8?B?Q1RNSnl1emxLOUtCcktNTktnSWRwOWxwL3ZTZjBXMkZwNkovSjM4SDRKZGdn?=
+ =?utf-8?B?bm05dm1ueTAvSklKSEd5QUE4WTArdis4M1JhcXpZNXhHSTF2TVdHcjBTQzYz?=
+ =?utf-8?B?ZnJDd0xDZDJMVWdkcWpEaG81ekdEbk1La0xJTDhCYStEZmVwamtLVEZyZzR3?=
+ =?utf-8?B?R00rUlZPTmJNZU1UeWlsQmxUUWl3S2lYL2gveGdaZGd6cVB2WkpRUUhQT0Vw?=
+ =?utf-8?B?emNvUTFUZStDa0lrUExOeDJqSEg0Ylg5YlhZWTVEMGxkUlhpUCtsNHp0azV0?=
+ =?utf-8?B?SjhTekVya1JxM2JGaTNyakliUFJiZFlDbERIWXJIRkJncWQzZTZSZktrQ2c2?=
+ =?utf-8?B?RFlNdFRTejlwQS9hY1QwMGxjME1IbHRoZ2RURmtlendiMER0K2V5TUhwRGto?=
+ =?utf-8?B?RjJqN080czlHV2FScVp2T0Nxb2cyVXZCSU4rVHR0bmF4TldqVzgzemQvcVUv?=
+ =?utf-8?B?bXlNRU8wS202YnhQRE1jSFpjNklLdFlXZVJtbElUZVJUSW1yK1NDcklJMEcw?=
+ =?utf-8?B?cjFoc3A4Y0I4bGdzNVVHVU11WmQzOTVXbmNkVEtWdWFvRzBpR1QwRmsrd0Va?=
+ =?utf-8?B?bitlQVJXRFBrRGVUZ0hBQU1hSU12cU01dUtaWjVVaVQzem9GK1JTRFVsb1Ri?=
+ =?utf-8?B?MVoxY0Z1enFtYjlPSFRwTWJKbHlGaHJWU0RKclk3b1Z3UENRQlVLWFdzUzVN?=
+ =?utf-8?B?bDlvRlFtcGdhVEFBT0N0aWVGaDVheFAvbDgvWllYekVXcGU5WHFBMXg4Vm14?=
+ =?utf-8?B?YUtvbXY0UzhpWE5RNTkxSWk5TmVvckZZR2dDdi9MSUUzQ2NPUkh3RmFMNlhh?=
+ =?utf-8?B?RGQyeEVPR1NFNTV1ZXhvcWFOK3hWOXdkLzZDYlZuYXVCcEtaRHlhdlVETUVJ?=
+ =?utf-8?B?Ty8rNXVYNWRyNFo4aSt4WGgveWxVVEc3TFczUjdLaWF4bDZ3RHUrekpRZFFK?=
+ =?utf-8?B?SnBoWTZ1aVRSTXp4Umc5VHoyTjRtZGpQd282VXM1REFsVklZTS9uRnAzRHNa?=
+ =?utf-8?B?UTVURUlpaDlMR3JobkYxUjZVRkNNZXVUTmJEYURTdmhIamJ4ajBYRmRoYUd3?=
+ =?utf-8?B?YXFmNjR0QjJwSGhsUnRONktHRzFVbHd3SzAyTVQ2TFNsRFhqS01uRENGSm01?=
+ =?utf-8?B?S3dxOEFSckh2YjJXRXhtUnptVlVKOUY5aE1HYXprWGt1TXYzVE90enBRcGU0?=
+ =?utf-8?B?U3ovYmNVRlNGaDlTUDFpK1pvWG5QVDdqT1J0OWdDVGRwVTJ1dURnZ09mREJG?=
+ =?utf-8?B?MGdQTkFRalpTZW9UTDZKYUpPb1hnQ0p5UG5hblFrZHkxRlBGTU90WEhTVzY3?=
+ =?utf-8?Q?37HLKVtdCnOfqq24jU?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 08:38:18.0118
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98689cc9-59bd-445d-e193-08de9eb9be74
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2026 08:49:33.8690
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1beb2688-3f32-4537-3918-08de9eb82be0
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F6A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7264
-X-purgate-ID: tlsNG-d25034/1776674303-6D161CF5-3CC8634D/0/0
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: L4AOF/wSRw0kWpgFsMG7PMglELLckluyinfWDWX3HxcHZmptE+iGzvQbn09MZPy9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF6D0742E7B
+X-purgate-ID: tlsNG-c201ff/1776674980-E99A5443-07E0206A/0/0
 X-purgate-type: clean
-X-purgate-size: 1429
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-purgate-size: 3532
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	SUBJECT_ENDS_QUESTION(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
@@ -145,64 +174,100 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:xakepamatop@gmail.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS(0.00)[m:demiobenour@gmail.com,m:dri-devel@lists.freedesktop.org,m:xen-devel@lists.xenproject.org,m:linux-media@vger.kernel.org,m:val@invisiblethingslab.com,m:sumit.semwal@linaro.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[christian.koenig@amd.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[13];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FREEMAIL_TO(0.00)[gmail.com,lists.freedesktop.org,lists.xenproject.org,vger.kernel.org];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:mid];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:dkim,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email]
-X-Rspamd-Queue-Id: 8CF52428426
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[christian.koenig@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 472C342873F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hmm, this landed in my junk folder.
+On 4/17/26 21:35, Demi Marie Obenour wrote:
+> On 4/17/26 03:53, Christian König wrote:
+>> On 4/16/26 18:13, Demi Marie Obenour wrote:
+>>> On 4/16/26 05:57, Christian König wrote:
+...
+>>> Unless I am
+>>> mistaken, client workloads are highly non-uniform: a single game or
+>>> compute job might well use more VRAM than every other program on the
+>>> system combined.
+>>
+>> Yeah, perfectly correct.
+>>
+>>> Are these workloads impossible to make work well with pinning?
+>>
+>> No, as long as you don't know the workload beforehand, e.g. when you define the limit.
+>>
+>> I mean that's why basically everybody avoids pinning and assigning fixed amounts of resources.
+>>
+>> Even if you can make it work technically pinning usually results in a rather bad end user experience.
+>>
+>> Regards,
+>> Christian.
+> 
+> Do drivers and programs assume that they can access VRAM from the CPU?
 
-On 10/04/2026 11:36, Mykola Kvach wrote:
-> From: Mykola Kvach <mykola_kvach@epam.com>
-> 
-> The GICv2 CPU shutdown path currently writes 0 to GICC_CTLR.
-> 
-> Per IHI0048B.b section 2.3.1, clearing IRQBypDisGrp{0,1} and
-> FIQBypDisGrp{0,1} selects bypass rather than deasserted interrupt
-> outputs when the CPU interface stops driving them. Tables 2-2 and 2-3
-> show that a zeroed GICC_CTLR can fall back to the legacy IRQ/FIQ inputs
-> instead of fully disabling the interface.
-> 
-> Fix this by reading GICC_CTLR, setting the bypass-disable bits, and
-> clearing both group-enable bits before writing the value back. Keep the
-> existing GICC_CTL_ENABLE definition for the init path and use a separate
-> mask for the shutdown-side group-enable handling.
-IIUC we don't need to worry about not setting the bypass-disable bits in cpu
-init (we only set group 0 and EOI) because they are relevant only when the bit 0
-is disabled i.e. the path this patch changes?
+Yes, and that is actually really important for performance.
 
-> 
-> Section 2.3.2 also states that wakeup event signals remain available
-> even when both GIC interrupt signaling and interrupt bypass are
-> disabled, so disabling bypass does not break the power-management use
-> case, i.e. suspend modes.
-> 
-> Fixes: 5e40a1b4351e ("arm: SMP CPU shutdown")
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+That's why Alex and I came up with the idea of using the resize able BAR feature to access all of VRAM on modern GPUs.
 
-~Michal
+There are a couple of hacks which have been implemented over the years for exotic platforms were MMIO/VRAM access was problematic. For example on a page fault you use a GPU DMA engine to copy the VRAM buffer into system memory, make the CPU memory access and then copy it back again on demand at the next command submission.
 
+But all of those hacks are basically just prove of concepts and result in completely unusable performance.
+
+> Are any of the following reasonable options?
+> 
+> 1. Change the guest kernel to only map (and thus pin) a small subset
+>    of VRAM at any given time.  If unmapped VRAM is accessed the guest
+>    traps the page fault, evicts an old VRAM mapping, and creates a
+>    new one.
+
+Yeah, that could potentially work.
+
+This is basically what we do on the host kernel driver when we can't resize the BAR for some reason. In that use case VRAM buffers are shuffled in and out of the CPU accessible window of VRAM on demand.
+
+> 2. Pretend that resizable BAR is not enabled, so the guest doesn't
+>    think it can map much of VRAM at once.  If resizable BAR is enabled
+>    on the host, it might be possible to split the large BAR mapping
+>    in a lot of ways.
+
+That won't work. The userspace parts of the driver stack don't care how large the BAR to access VRAM with the CPU is.
+
+The expectation is that the kernel driver makes thing CPU accessible as needed in the page fault handler.
+
+It is still a good idea for your solution #1 to give the amount of "pin-able" VRAM to the userspace stack as CPU visible VRAM limit so that test cases and applications try to lower their usage of VRAM, e.g. use system memory bounce buffers when possible.
+
+> Or does Xen really need to allow the host to handle guest page faults?
+> That adds a huge amount of complexity to trusted and security-critical
+> parts of the system, so it really is a last resort.  Putting the
+> complexity in to the guest virtio-GPU driver is vastly preferable if
+> it can be made to work well.
+
+Well the nested page fault handling KVM offers has proven to be extremely useful. So when XEN can't do this it is clearly lacking an important feature.
+
+But I have one question: When XEN has a problem handling faults from the guest on the host then how does that work for system memory mappings?
+
+There is really no difference between VRAM and system memory in the handling for the GPU driver stack.
+
+Regards,
+Christian.
 
