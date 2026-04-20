@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4BmHM9Y25mkmtgEAu9opvQ
+	id +C31INc25mkmtgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 16:23:18 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 16:23:19 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D3C442CF7F
+	by mail.lfdr.de (Postfix) with ESMTPS id F34E742CF86
 	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 16:23:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1286045.1567161 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1286046.1567170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEpWU-00029n-Ry; Mon, 20 Apr 2026 14:22:50 +0000
+	id 1wEpWW-0002Mk-1d; Mon, 20 Apr 2026 14:22:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1286045.1567161; Mon, 20 Apr 2026 14:22:50 +0000
+Received: by outflank-mailman (output) from mailman id 1286046.1567170; Mon, 20 Apr 2026 14:22:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEpWU-00027I-P4; Mon, 20 Apr 2026 14:22:50 +0000
-Received: by outflank-mailman (input) for mailman id 1286045;
- Mon, 20 Apr 2026 14:22:49 +0000
+	id 1wEpWV-0002KI-Uz; Mon, 20 Apr 2026 14:22:51 +0000
+Received: by outflank-mailman (input) for mailman id 1286046;
+ Mon, 20 Apr 2026 14:22:50 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <luca.fancellu@arm.com>) id 1wEpWT-000273-28
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 14:22:49 +0000
+ (envelope-from <luca.fancellu@arm.com>) id 1wEpWU-000279-BE
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 14:22:50 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEpWS-007nwH-BQ
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 16:22:48 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wEpWT-00BEkZ-O9
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 16:22:49 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <luca.fancellu@arm.com>)
- id 69e636a9-5cb7-0a2a0a5109dd-0a2a4503ade2-42
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:22:48 +0200
+ id 69e636b7-2eae-0a2a0a5409dd-0a2a4508c8cc-8
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:22:49 +0200
 Received: from [217.140.110.172] (helo=foss.arm.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTP (eXpurgate 4.56.1)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTP (eXpurgate 4.56.1)
  (envelope-from <luca.fancellu@arm.com>)
- id 69e636b7-672d-0a2a45030019-d98c6eacb866-1
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:22:47 +0200
+ id 69e636b8-63b5-0a2a45080019-d98c6eacb7ce-1
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:22:49 +0200
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3FED51516;
- Mon, 20 Apr 2026 07:22:41 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DDC8916F2;
+ Mon, 20 Apr 2026 07:22:42 -0700 (PDT)
 Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 71F023F7B4;
- Mon, 20 Apr 2026 07:22:45 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 195AE3F7B4;
+ Mon, 20 Apr 2026 07:22:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,114 +54,287 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=foss header.d=arm.com header.i="@arm.com" header.h="From:To:Cc:Subject:Date"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=foss header.d=arm.com header.i="@arm.com" header.h="From:To:Cc:Subject:Date:In-Reply-To:References"
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1776694966; bh=uEiDQ0S/JRioWm+0hL1oiuLwlrOvukDwyNsY0rQwBYU=;
-	h=From:To:Cc:Subject:Date:From;
-	b=RBeHS28SayxivulRAXgeGaN2phri66YlWOlzJzxr548TvJOXY6beXc8qTibRzPuJS
-	 K39hakzurB8mK3AVy0PxuPKQDKzVbf2FR1g7AiH8RmMBFff1bjIgcwytQE8zIZMLNZ
-	 NqSY/ppo3SYR969pRrBCN5fXLSXlGKgoSpGpneg0=
+	t=1776694968; bh=qYmTbaJ+SsNtBEDJGVlBV6iD643KjLqETko4igFDlkY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=AHi1STTNBpVKXfpv079dXbuoiWoVd8MqQlYxAzKxc3yXlPOdOgL0bBhpEDROFCA7g
+	 Um92Yg56HabhO1ka3LIKtPEWWz4oJELcwCNPjzr4NFgXX5WYX5FtDf7ZZ+KVRUd+dn
+	 tdnq/F12nPXai/UNox5EUWwbYyUIoSsqHS8tPnIY=
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Penny Zheng <Penny.Zheng@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	"Oleksii Kurochko" <oleksii.kurochko@gmail.com>
-Subject: [PATCH v4 0/3] Fifth MPU Series
-Date: Mon, 20 Apr 2026 15:22:21 +0100
-Message-Id: <20260420142224.1802911-1-luca.fancellu@arm.com>
+	Penny Zheng <penny.zheng@arm.com>,
+	Wei Chen <wei.chen@arm.com>,
+	Hari Limaye <hari.limaye@arm.com>,
+	Harry Ramsey <harry.ramsey@arm.com>
+Subject: [PATCH v4 1/3] arm/mpu: implement setup_virt_paging for MPU systems
+Date: Mon, 20 Apr 2026 15:22:22 +0100
+Message-Id: <20260420142224.1802911-2-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260420142224.1802911-1-luca.fancellu@arm.com>
+References: <20260420142224.1802911-1-luca.fancellu@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1776694968-2AF62938-73E8B252/0/0
+X-purgate-ID: tlsNG-c1860d/1776694969-C0965DB1-E750CBF4/0/0
 X-purgate-type: clean
-X-purgate-size: 2019
-X-Spamd-Result: default: False [1.81 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-purgate-size: 7646
+X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
 	R_DKIM_ALLOW(-0.20)[arm.com:s=foss];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,vates.tech,suse.com,gmail.com];
-	FORGED_SENDER(0.00)[luca.fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:dkim,arm.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[luca.fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Penny.Zheng@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:penny.zheng@arm.com,m:wei.chen@arm.com,m:hari.limaye@arm.com,m:harry.ramsey@arm.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[luca.fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[arm.com:+];
-	NEURAL_HAM(-0.00)[-0.802];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email,arm.com:dkim,arm.com:mid,vstcr_el2.sc:url];
+	FROM_NEQ_ENVFROM(0.00)[luca.fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.890];
 	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 7D3C442CF7F
+X-Rspamd-Queue-Id: F34E742CF86
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This series continues to further the ongoing work to introduce support
-for MPU systems in Xen.
+From: Penny Zheng <Penny.Zheng@arm.com>
 
-The patches in this series aim to implement MPU specific p2m functions.
+Implement setup_virt_paging for AArch64 MPU systems, taking care of
+stage 2 address translation regime, IPA bits, supported VMID length
+configuration and VTCR_EL2/VSTCR_EL2 register programming.
 
-This serie is based on staging 99912d346009fda1e7fb1510c9501fbab17e92a0.
+Implement also the Armv8-R specific changes to ID_AA64MMFR0_EL1,
+related to the supported memory system architecture (PMSA/VMSA)
+and check that when MPU is built, the underlying HW is compatible
+with PMSA. By default MPU at EL2 and EL1 is required.
 
-Harry Ramsey (2):
-  arm/mpu: Introduce `v8r_el1_msa` device tree property for domains
-  arm/mpu: Implement p2m tables
+Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+Signed-off-by: Wei Chen <wei.chen@arm.com>
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+Signed-off-by: Hari Limaye <hari.limaye@arm.com>
+Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
+---
+v4:
+- Fixed typo in the comments
+- Fixed typo in the commit title and message
+- moved p2m_vmid_allocator_init() after write of
+  VTCR_EL2
+- Fixed printf format specifier %d -> %u
+v3:
+- Refactor unused code to more relevant commits.
+- Add P2M print information
+- Formatting issues
+- Update commit message
+v2:
+- Separate commit into multiple commits
+---
+ xen/arch/arm/arm64/mpu/p2m.c             | 80 +++++++++++++++++++++++-
+ xen/arch/arm/include/asm/arm64/sysregs.h |  4 ++
+ xen/arch/arm/include/asm/cpufeature.h    | 13 +++-
+ xen/arch/arm/include/asm/processor.h     |  8 +++
+ 4 files changed, 101 insertions(+), 4 deletions(-)
 
-Penny Zheng (1):
-  arm/mpu: implement setup_virt_paging for MPU systems
-
- docs/misc/arm/device-tree/booting.txt       | 14 ++++
- xen/arch/arm/arm64/mpu/p2m.c                | 80 ++++++++++++++++++++-
- xen/arch/arm/dom0less-build.c               |  3 +
- xen/arch/arm/domain.c                       |  4 ++
- xen/arch/arm/include/asm/arm32/mpu.h        |  2 +
- xen/arch/arm/include/asm/arm64/mpu.h        |  2 +
- xen/arch/arm/include/asm/arm64/sysregs.h    |  4 ++
- xen/arch/arm/include/asm/cpufeature.h       | 13 +++-
- xen/arch/arm/include/asm/domain.h           |  4 ++
- xen/arch/arm/include/asm/domain_build.h     |  8 +++
- xen/arch/arm/include/asm/mmu/domain-build.h | 46 ++++++++++++
- xen/arch/arm/include/asm/mpu.h              |  5 ++
- xen/arch/arm/include/asm/mpu/domain-build.h | 27 +++++++
- xen/arch/arm/include/asm/mpu/p2m.h          | 12 ++++
- xen/arch/arm/include/asm/p2m.h              |  5 ++
- xen/arch/arm/include/asm/processor.h        |  8 +++
- xen/arch/arm/mpu/Makefile                   |  1 +
- xen/arch/arm/mpu/arm32/mm.c                 |  5 ++
- xen/arch/arm/mpu/arm64/mm.c                 |  5 ++
- xen/arch/arm/mpu/domain-build.c             | 76 ++++++++++++++++++++
- xen/arch/arm/mpu/p2m.c                      | 78 +++++++++++++++++++-
- xen/include/public/arch-arm.h               |  7 ++
- xen/include/public/domctl.h                 |  4 +-
- 23 files changed, 404 insertions(+), 9 deletions(-)
- create mode 100644 xen/arch/arm/include/asm/mmu/domain-build.h
- create mode 100644 xen/arch/arm/include/asm/mpu/domain-build.h
- create mode 100644 xen/arch/arm/mpu/domain-build.c
-
+diff --git a/xen/arch/arm/arm64/mpu/p2m.c b/xen/arch/arm/arm64/mpu/p2m.c
+index b6d8b2777b58..a39a1fc38946 100644
+--- a/xen/arch/arm/arm64/mpu/p2m.c
++++ b/xen/arch/arm/arm64/mpu/p2m.c
+@@ -2,11 +2,89 @@
+ 
+ #include <xen/bug.h>
+ #include <xen/init.h>
++#include <xen/lib.h>
+ #include <asm/p2m.h>
+ 
+ void __init setup_virt_paging(void)
+ {
+-    BUG_ON("unimplemented");
++    register_t vtcr_el2 = READ_SYSREG(VTCR_EL2);
++    register_t vstcr_el2 = READ_SYSREG(VSTCR_EL2);
++
++    /* PA size */
++    const unsigned int pa_range_info[] = {32, 36, 40, 42, 44, 48, 52, 0,
++                                          /* Invalid */};
++
++    /*
++     * Restrict "p2m_ipa_bits" if needed. As P2M table is always configured
++     * with IPA bits == PA bits, compare against PA size.
++     */
++    if ( pa_range_info[system_cpuinfo.mm64.pa_range] < p2m_ipa_bits )
++        p2m_ipa_bits = pa_range_info[system_cpuinfo.mm64.pa_range];
++
++    /*
++     * The MSA and MSA_frac fields in the ID_AA64MMFR0_EL1 register identify the
++     * memory system configurations supported. In Armv8-R AArch64, the
++     * only permitted value for ID_AA64MMFR0_EL1.MSA is 0b1111.
++     */
++    if ( system_cpuinfo.mm64.msa != MM64_MSA_PMSA_SUPPORT )
++        goto fault;
++
++    /* Permitted values for ID_AA64MMFR0_EL1.MSA_frac are 0b0001 and 0b0010. */
++    if ( (system_cpuinfo.mm64.msa_frac != MM64_MSA_FRAC_PMSA_SUPPORT) &&
++         (system_cpuinfo.mm64.msa_frac != MM64_MSA_FRAC_VMSA_SUPPORT) )
++        goto fault;
++
++    /* Stage 1 EL1&0 translation regime uses PMSAv8 by default */
++    vtcr_el2 &= ~VTCR_MSA;
++
++    /*
++     * Clear VTCR_EL2.NSA bit to configure non-secure stage 2 translation output
++     * address space to access the Secure PA space as Armv8-R only implements
++     * secure state.
++     */
++    vtcr_el2 &= ~VTCR_NSA;
++
++    /*
++     * cpuinfo sanitization makes sure we support 16-bits VMID only if all cores
++     * are supporting it.
++     *
++     * Set the VS bit only if 16 bit VMID is supported.
++     */
++    if ( system_cpuinfo.mm64.vmid_bits == MM64_VMID_16_BITS_SUPPORT )
++    {
++        vtcr_el2 |= VTCR_VS;
++        max_vmid = MAX_VMID_16_BIT;
++    }
++    else
++        vtcr_el2 &= ~VTCR_VS;
++
++    WRITE_SYSREG(vtcr_el2, VTCR_EL2);
++
++    p2m_vmid_allocator_init();
++
++    /*
++     * VSTCR_EL2.SA defines secure stage 2 translation output address space.
++     * To make sure that all stage 2 translations for the Secure PA space access
++     * the Secure PA space, we keep SA bit as 0.
++     *
++     * VSTCR_EL2.SC is NS check enable bit. To make sure that Stage 2 NS
++     * configuration is checked against stage 1 NS configuration in EL1&0
++     * translation regime for the given address, and generates a fault if they
++     * are different, we set SC bit 1.
++     */
++    vstcr_el2 &= ~VSTCR_EL2_SA;
++    vstcr_el2 |= VSTCR_EL2_SC;
++    WRITE_SYSREG(vstcr_el2, VSTCR_EL2);
++
++    printk("P2M: %u-bit IPA with %u-bit PA and %u-bit VMID\n",
++           p2m_ipa_bits,
++           pa_range_info[system_cpuinfo.mm64.pa_range],
++           ( MAX_VMID == MAX_VMID_16_BIT ) ? 16 : 8);
++
++    return;
++
++ fault:
++    panic("Hardware with no PMSAv8-64 support in any translation regime\n");
+ }
+ 
+ /*
+diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
+index 19d409d3eb5a..f3c11d871e86 100644
+--- a/xen/arch/arm/include/asm/arm64/sysregs.h
++++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+@@ -462,6 +462,10 @@
+ #define ZCR_ELx_LEN_SIZE             9
+ #define ZCR_ELx_LEN_MASK             0x1ff
+ 
++/* Virtualization Secure Translation Control Register */
++#define VSTCR_EL2_SA                 (_AC(0x1,U) << 30)
++#define VSTCR_EL2_SC                 (_AC(0x1,U) << 20)
++
+ #ifdef CONFIG_MPU
+ /*
+  * The Armv8-R AArch64 architecture always executes code in Secure
+diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
+index 13353c8e1ad1..bf902a397068 100644
+--- a/xen/arch/arm/include/asm/cpufeature.h
++++ b/xen/arch/arm/include/asm/cpufeature.h
+@@ -248,6 +248,12 @@ struct cpuinfo_arm {
+             unsigned long tgranule_16K:4;
+             unsigned long tgranule_64K:4;
+             unsigned long tgranule_4K:4;
++#ifdef CONFIG_MPU
++            unsigned long __res0:16;
++            unsigned long msa:4;
++            unsigned long msa_frac:4;
++            unsigned long __res1:8;
++#else
+             unsigned long tgranule_16k_2:4;
+             unsigned long tgranule_64k_2:4;
+             unsigned long tgranule_4k_2:4;
+@@ -255,6 +261,7 @@ struct cpuinfo_arm {
+             unsigned long __res0:8;
+             unsigned long fgt:4;
+             unsigned long ecv:4;
++#endif
+ 
+             /* MMFR1 */
+             unsigned long hafdbs:4;
+@@ -267,13 +274,13 @@ struct cpuinfo_arm {
+             unsigned long xnx:4;
+             unsigned long twed:4;
+             unsigned long ets:4;
+-            unsigned long __res1:4;
++            unsigned long __res2:4;
+             unsigned long afp:4;
+-            unsigned long __res2:12;
++            unsigned long __res3:12;
+             unsigned long ecbhb:4;
+ 
+             /* MMFR2 */
+-            unsigned long __res3:64;
++            unsigned long __res4:64;
+         };
+     } mm64;
+ 
+diff --git a/xen/arch/arm/include/asm/processor.h b/xen/arch/arm/include/asm/processor.h
+index 1a48c9ff3b39..895d7cd50244 100644
+--- a/xen/arch/arm/include/asm/processor.h
++++ b/xen/arch/arm/include/asm/processor.h
+@@ -403,6 +403,9 @@
+ 
+ #define VTCR_RES1       (_AC(1,UL)<<31)
+ 
++#define VTCR_MSA        (_AC(0x1,UL)<<31)
++#define VTCR_NSA        (_AC(0x1,UL)<<30)
++
+ /* HCPTR Hyp. Coprocessor Trap Register */
+ #define HCPTR_TAM       ((_AC(1,U)<<30))
+ #define HCPTR_TTA       ((_AC(1,U)<<20))        /* Trap trace registers */
+@@ -464,6 +467,11 @@
+ #define MM64_VMID_16_BITS_SUPPORT   0x2
+ #endif
+ 
++#define MM64_MSA_PMSA_SUPPORT       0xf
++#define MM64_MSA_FRAC_NONE_SUPPORT  0x0
++#define MM64_MSA_FRAC_PMSA_SUPPORT  0x1
++#define MM64_MSA_FRAC_VMSA_SUPPORT  0x2
++
+ #ifndef __ASSEMBLER__
+ 
+ extern register_t __cpu_logical_map[];
 -- 
 2.34.1
 
