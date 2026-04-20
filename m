@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MEC3Hiwu5mliswEAu9opvQ
+	id uHDxF8wv5mliswEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:46:20 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:53:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFE1442C3E1
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:46:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1285978.1567108 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3DC742C620
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:53:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1285989.1567117 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEowr-0002RD-UM; Mon, 20 Apr 2026 13:46:01 +0000
+	id 1wEp3W-0004A9-Mt; Mon, 20 Apr 2026 13:52:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1285978.1567108; Mon, 20 Apr 2026 13:46:01 +0000
+Received: by outflank-mailman (output) from mailman id 1285989.1567117; Mon, 20 Apr 2026 13:52:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEowr-0002OA-RM; Mon, 20 Apr 2026 13:46:01 +0000
-Received: by outflank-mailman (input) for mailman id 1285978;
- Mon, 20 Apr 2026 13:46:00 +0000
+	id 1wEp3W-000484-JU; Mon, 20 Apr 2026 13:52:54 +0000
+Received: by outflank-mailman (input) for mailman id 1285989;
+ Mon, 20 Apr 2026 13:52:52 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wEowq-0002O4-2B
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 13:46:00 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wEp3U-00047y-Mo
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 13:52:52 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEowp-00DaBs-FH
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 15:45:59 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wEp3U-008gkT-00
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 15:52:52 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e62e14-e002-0a2a0a5209dd-0a2a450a98be-6
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:45:59 +0200
-Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e62fa6-5cb7-0a2a0a5109dd-0a2a450889e8-48
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:52:51 +0200
+Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e62e17-56b3-0a2a450a0019-d1558034cdc3-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:45:59 +0200
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-48896199cbaso32569025e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 06:45:59 -0700 (PDT)
+ id 69e62fb3-63b5-0a2a45080019-d155802db42a-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:52:51 +0200
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-488af96f6b2so39946735e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 06:52:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488ffc5e3f4sm125633015e9.2.2026.04.20.06.45.57
+ 5b1f17b1804b1-488ffad20f2sm108961675e9.0.2026.04.20.06.52.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Apr 2026 06:45:58 -0700 (PDT)
+ Mon, 20 Apr 2026 06:52:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,64 +58,54 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776692759; x=1777297559; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1776693171; x=1777297971; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZTTnzvyU8PLfPdh75XRcNkDGJ3pyY3Z7kiTT8cTCans=;
-        b=EPLuBcJPi+TArttzY/oVpRmRzSXLZ2WmoaCoBwy0La8o0m3pchIX4zhTdjvon1FBuI
-         1gJZKGEFUmjljxdh5m49X/8mpqb+6AbV/8Gsc2J7bzdl/G3aAj7tDSIQbdUfr/I2OGvN
-         xWdugUg4qi0fGCxq66bqWlbjxG0iqOXfjVhbwTqa2tr2Z6YAbly/oEhag8PDb4tErW07
-         tLSloTxIV/nr6SjLvfbt8rSB5WpGZeszEjvMew6P5RPkB+FDRbOzrRPPN3e/JQM7JPtK
-         KJOJAYr02mgs7LF1TvvSr+Gt/wqu3HSPVuUJ7MEqzwCKEfDgSzzCHsuFppyr/LHw5Rei
-         iYkg==
+        bh=yG3hxO9BPXWbU5J2ydmObugAefwJYm3R6/DkISkqRYw=;
+        b=L7vbsvjgCqWPeQF/TT1xD5e+WawzlpS6KIonG9xQYxKY2cIP9EyZXqbv3BRRjmxalh
+         TNfQQZnNGUxpG8EQrEal8omdUtO7T/uWwhb6XQlHfsfQ0f8KdV9U1rPF45BvBKI8nUTJ
+         5Q0Pxx2RZowpyyLx6HwqpGKPEYiIlRrypxXBjuJ7V41VKpFHn8sW8XOoforWXUm8ke7a
+         ravIsw7aM5151uEUbDmjRmKo+SStMfSbxyN08pV243WZ8b/LsFQo4X7kz2jRNOeNZwNj
+         iQP0OG5kbFStZ5w6f1AKn6I5D5w3ZpoRNl8jmr08rqGdAvDilqcXm1W2i+L2UjyhTUbC
+         hRog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776692759; x=1777297559;
+        d=1e100.net; s=20251104; t=1776693171; x=1777297971;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZTTnzvyU8PLfPdh75XRcNkDGJ3pyY3Z7kiTT8cTCans=;
-        b=kfwvkgd0a5OBN8DP3zs56TLQNi/RBDzwd1Ury2A/nh49i8EOeMokPGoLblb1BqkzsH
-         giDWALIPB8EDfuGMeGU4scVro5JSQmgVlTaYrGucxW088wq72DB/bhN555RR6G2o70yy
-         f0MVgxLAiTEV730BurZyiEkXFVWHN77aQcGOcEJhee2TslGk+SIeE3J9CiDOyJYyHWVL
-         NcfsAHrOq9W9n2L7wVAEyXCNN+KI61R0C/fLdCJhjKp9QM5Aroo4kP/9Xn6aOkMuGcyM
-         oqKKdGzmq5gt3FC/jqOsGo2hLYGvVdap7vvngo6YUlmhpjuZg1i3xL5UutZFxcEw2s9C
-         AJVQ==
-X-Forwarded-Encrypted: i=1; AFNElJ85prQxoHyuV7z62LToWM/7s3WUi2Ayf647CR6YA6JLvv6DGv6pi7xoxc1XsuTd/UXoqqrdudYnK60=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyrKEGtHjVZufQgzZ9Jh4xX3gu1+MvVJ8Weik/eHxfT4REOjRRc
-	4IGrGCFcnhGS2Py8Ht4R2QMzfNlLaoZRMk12KNkd2Ptm884QdXPOhdJ9Acctz6TU2Q==
-X-Gm-Gg: AeBDievqKnMKYWNiWLDNgW64vIJncth9Ti2t/0/fYxOse0ZZ/PVuyJbwQVP4FZDZwvM
-	QaR2+9tZ5blRyOek+9gh+TBB9KPmeN9gjRzcRTf3Ve8gXi2vgzFtn7bOSTm/OqJ+yGyA8wB3vSa
-	pZg9ZC5Ek5+zr5drvoPoOsyxNB6SRTxuA0ru3bLeYFxUaxOoAzCBXOtQgCgljpqAxgxnJeDDJZ8
-	4/DnY5VvHGuoTnja00Rv8h5xBizPXZgT3Xqvht7YSQHoVYRRFr6io0vq5u0g219R4F/ubEr5h50
-	QChgwh3URFwQ1V4hf4PNIUy/zVXgW0tVurvqinj4FoAYJfMZhoC7LHw+ALe26Nz7Rdjf0XGKRMk
-	19f3tt0eMWotagWqa7SJS+IXCSb4wRwYTWtMlBfALUUONYpzsh6d6os1hOo98YCqkDbrg8ONVBt
-	UALzZM/xAo16YXrWy6JfYmyTO2YMTv4OezTtgm3YfSMGYUIlZW1+G1NLM+Ve9CPrfdiAEb6JMAo
-	RKuw8To/4yGFTi4ZwyMlU/7xw==
-X-Received: by 2002:a05:600c:899:b0:489:1a63:509c with SMTP id 5b1f17b1804b1-4891a635125mr43161795e9.0.1776692758631;
-        Mon, 20 Apr 2026 06:45:58 -0700 (PDT)
-Message-ID: <09a260ca-5a98-461d-9f57-d298a483d3d6@suse.com>
-Date: Mon, 20 Apr 2026 15:45:59 +0200
+        bh=yG3hxO9BPXWbU5J2ydmObugAefwJYm3R6/DkISkqRYw=;
+        b=T3Uuj+i1tSHH8HXIXljEhWLEozfEqgMn/tB1wgGylv/dIBX+Bk3nwuqkZ0Vyv0pR8l
+         ocE47uustRdPRHQ0tgRyJkeMTK4TbvAORHQoEZMfA1Px3mBtaYJNfggXYlt+QTAjOeRc
+         wMlVsE8hxIvVXWmZgOMjXNUH/GPHAFImFFUSiMey2FrXSgriOyK+lI8smMy/6Fd4PNSj
+         tTwUTnLPF6cmNHLmUSrSn65UfgKd1NTqW0ArQPnxMpNaopAvrYRdKXxiKYQnGGJO+T68
+         cRjcpOPcqiG9bItJru7jMhvB5mIVDFFL0a4Qp36lXPkSehJwiZlsPr4cmCL/I1rTK4f5
+         OOeg==
+X-Forwarded-Encrypted: i=1; AFNElJ+SyETDBS5a9x9eTfEpz+BZ5me9g6oWOpkHbxR5X7k9QItQsE8noO7Tpq1YIO+qTiiSYA/UvQZU/QA=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw6YsgGjUFDEysJ0FKAqgs90IRYXL+TCqovFHCzGycGQUiFnwzw
+	5wBUkQOGR4AJLbLNW3KfT3No+dhBjlFrYctWfLh6/KA7rcp6rRUzHN4kjwO2NHcWlg==
+X-Gm-Gg: AeBDiet5TvtfakbwZrlVhlirp+ZPxmhOgRe+JlxgHaxYhvOyHTNaJHM1fMoA0CMCt3X
+	d6x7Js2Chy6IeCvQxpVP+xGz2bEX1ci1lJ/7YP3yInxabnCJ5ykhcDpEsE2oZUYaZW+KuvIIzvZ
+	Da866MYXHGVxcMrGm1ZXg+QXLBDf6MNG60qOHoe19gi77KAS3BenWRAF4rD00WN6YZUEp/Xq1tZ
+	nQnWBy7258LDByby/ZuzzpBQbQ/vWucS5WVwHQg8dtdB+T3eC0S5PzRYWiFZKu7fQOM6yorussK
+	Lxfzu/eDhhHvWdVaLdQ6bX/GQK8EZqCgZEwKuoB0UjbE0WhDDAjzvzaq9KAbNkm17iiWQKiJMCR
+	zFaKLY8n2JVFNQ96yPuS5tD0v9R9DL8Vs8jMv261kFT+a+9/AoHFK3wg9owbUYJOUH03l3A1SeV
+	kptlVpHrtTgDHULRSufYxuf/t01ICsm15s+o09a/KpFIonMm7loRLXsrzcpqIdTuOmSl+MnrrQU
+	gF2V53tpkCOIrctmtONlnTDPg==
+X-Received: by 2002:a05:600c:4818:b0:489:1c5f:3a9e with SMTP id 5b1f17b1804b1-4891c5f3cc1mr34688065e9.13.1776693171238;
+        Mon, 20 Apr 2026 06:52:51 -0700 (PDT)
+Message-ID: <ec24d32d-9378-4a07-b84d-aaebfd46f517@suse.com>
+Date: Mon, 20 Apr 2026 15:52:52 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 16/27] xen/riscv: implement IRQ mapping for device
- passthrough
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [RFC PATCH 2/2] vtd: Replace macros with bitfield
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1773157782.git.oleksii.kurochko@gmail.com>
- <10654a6c38fa929b5fdf6f214badfe4f60fe78d4.1773157782.git.oleksii.kurochko@gmail.com>
- <8a8a2afd-6f53-4f45-b8c8-fb34a6fbb970@suse.com>
- <f099b925-0ea9-43a7-b760-f70f343a4d7c@gmail.com>
- <a7a4e8c9-d053-4ca7-ac9c-f43ddccf9151@suse.com>
- <00fa439d-0327-4c0c-960d-a810820a6e83@gmail.com>
+ xen-devel@lists.xenproject.org
+References: <815edfd0db90859a4ce270d833d9d721ff66e31c.1775814143.git.teddy.astie@vates.tech>
+ <3182da144d0cb998c9ae897b55285b7e408cd972.1775814143.git.teddy.astie@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -141,208 +131,98 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <00fa439d-0327-4c0c-960d-a810820a6e83@gmail.com>
+In-Reply-To: <3182da144d0cb998c9ae897b55285b7e408cd972.1775814143.git.teddy.astie@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-4011c0/1776692759-80A7F8B7-0493567D/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-c1860d/1776693171-39D6BDB1-B820A29F/0/0
 X-purgate-type: clean
-X-purgate-size: 6380
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-purgate-size: 2260
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: DFE1442C3E1
+X-Rspamd-Queue-Id: C3DC742C620
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 20.04.2026 13:39, Oleksii Kurochko wrote:
-> On 4/16/26 2:51 PM, Jan Beulich wrote:
->> On 14.04.2026 13:29, Oleksii Kurochko wrote:
->>> On 4/2/26 2:22 PM, Jan Beulich wrote:
->>>> On 10.03.2026 18:08, Oleksii Kurochko wrote:
->>>>> +int vaplic_map_device_irqs_to_domain(struct domain *d,
->>>>> +                                     struct dt_device_node *dev,
->>>>> +                                     bool need_mapping,
->>>>> +                                     struct rangeset *irq_ranges)
->>>>> +{
->>>>> +    unsigned int i, nirq;
->>>>> +    int res, irq;
->>>>> +    struct dt_raw_irq rirq;
->>>>> +    uint32_t *auth_irq_bmp = d->arch.vintc->private;
->>>>> +    unsigned int reg_num;
->>>>> +
->>>>> +    nirq = dt_number_of_irq(dev);
->>>>> +
->>>>> +    /* Give permission and map IRQs */
->>>>> +    for ( i = 0; i < nirq; i++ )
->>>>> +    {
->>>>> +        res = dt_device_get_raw_irq(dev, i, &rirq);
->>>>> +        if ( res )
->>>>> +        {
->>>>> +            printk(XENLOG_ERR "Unable to retrieve irq %u for %s\n",
->>>>> +                   i, dt_node_full_name(dev));
->>>>> +            return res;
->>>>> +        }
->>>>> +
->>>>> +        /*
->>>>> +         * Don't map IRQ that have no physical meaning
->>>>> +         * ie: IRQ whose controller is not APLIC/IMSIC/PLIC.
->>>>> +         */
->>>>> +        if ( rirq.controller != dt_interrupt_controller )
->>>>> +        {
->>>>> +            dt_dprintk("irq %u not connected to primary controller."
->>>>> +                       "Connected to %s\n", i,
->>>>> +                       dt_node_full_name(rirq.controller));
->>>>> +            continue;
->>>>> +        }
->>>>> +
->>>>> +        irq = platform_get_irq(dev, i);
->>>>> +        if ( irq < 0 )
->>>>> +        {
->>>>> +            printk("Unable to get irq %u for %s\n", i, dt_node_full_name(dev));
->>>>> +            return irq;
->>>>> +        }
->>>>> +
->>>>> +        res = irq_permit_access(d, irq);
->>>>> +        if ( res )
->>>>> +        {
->>>>> +            printk(XENLOG_ERR "Unable to permit to %pd access to IRQ %u\n", d,
->>>>> +                   irq);
->>>>
->>>> This time the other way around: %d please with plain int. (Again at least
->>>> once further down.)
->>>>
->>>>> +            return res;
->>>>> +        }
->>>>> +
->>>>> +        reg_num = irq / APLIC_NUM_REGS;
->>>>> +
->>>>> +        if ( is_irq_shared_among_domains(d, irq) )
->>>>> +        {
->>>>> +            printk("%s: Shared IRQ isn't supported\n", __func__);
->>>>> +            return -EINVAL;
->>>>> +        }
->>>>> +
->>>>> +        auth_irq_bmp[reg_num] |= BIT(irq % APLIC_NUM_REGS, U);
->>>>
->>>> ... all of this leaves me with the impression that IRQ numbering isn't really
->>>> virtualized. IRQs are merely split into groups, one group per domain (and
->>>> maybe some unused). How are you going to fit in truly virtual IRQs?
->>>
->>> What do you mean by truly virtual IRQs?
->>
->> Ones where no aspects are represented by any piece of hardware.
->>
->>> I can't totally agree that the current approach isn't use virtual IRQs,
->>> yes, they are 1:1 mapped but on the other side Xen is responsible to
->>> give an IRQ number for guest's device and Xen is responsible that guest
->>> isn't trying to reach IRQ which not belongs to it.
->>
->> In a non-virtualized environment I expect IRQs are going to be "sparse"
->> (i.e. with perhaps large blocks of items used elsewhere). If you had
->> proper translation of IRQ numbers, the same could be true for your
->> guests.
+On 10.04.2026 12:09, Teddy Astie wrote:
+> Replace macros with bitfield to allow simplyfing the code and be
+> less error prone when manipulating PTEs.
 > 
-> Partial FDT, which is used to tell which device be passthroughed to 
-> guest, is using physical IRQ number (which I am just considering for 
-> simplicity to be 1:1 mapped to virtual IRQ number). So if we have the 
-> following configuration:
->    Physical (bare-metal) IRQ layout is sparse:
->      IRQ 5  → UART -> domU0
->      IRQ 23 → Ethernet -> domU1
->      IRQ 47 → PCIe -> domU0
->      IRQ 100 → Storage -> domU1
-> (gaps everywhere, driven by hardware wiring)
+> It also has the effect of directly exposing the mfn in the pte struct
+> instead of derivating it from the raw pte value using dma_pte_addr().
 > 
-> For such configuration we will have for each domain auth_irq_bmp[] which 
-> contains:
->   IRQ 5 and IRQ47 for domU0
-> and
->   IRQ 23 and IRQ 100 for domU1
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+> ---
+> It allows nicer constructs like
 > 
-> And here vIRQ5 = pIRQ5, vIRQ47 = pIRQ47 and so on. auth_irq_bmp just 
-> transform xIRQ number to bit position which it will have in real APLIC 
-> register. Just as an example, lets take vIRQ5 and vIRQ47.
+>   new.snp = iommu_snoop;
 > 
-> As reading or writing register setie[k] reads or potentially modifies 
-> the enable bits for interrupt sources k × 32 through k × 32 + 31. For an 
-> implemented interrupt source i within that range, the enable bit for 
-> source i corresponds with register bit (i mod 32).
-> So for:
->   - vIRQ5 == pIRQ5 we have to set bit 5 in setie[0]
->   - vIRQ47 == pIRQ47 we have to set bit 15 in setie[1]
+> instead of
 > 
-> Probably it was not the best idea to declare auth_irq_bmp as it will 
-> look in h/w and maybe just 'bool auth_irq_bmp[1024]' would be more clearer.
+>   if ( iommu_snoop )
+>     dma_set_pte_snp(new);
 > 
-> So irqs number are still stay "sparsed" in guest.
+> A lot of simplifications could be done afterward when switching the
+> logic from maddrs to mfns i.e remove many maddr-mfn conversions.
 
-Well, twice (or more) as sparse in the example you give, compared to the
-host.
+There's no real open question here, so it's not quite clear why this is
+marked RFC. We did do the same on the AMD side a while back, at least
+partly (I don't think we got all of it converted yet), so doing the
+conversion here surely is a good thing. The slightly larger ...
 
->>>>> +        dt_dprintk("  - IRQ: %u\n", irq);
->>>>> +
->>>>> +        if ( irq_ranges )
->>>>> +        {
->>>>> +            res = rangeset_add_singleton(irq_ranges, irq);
->>>>> +            if ( res )
->>>>> +                return res;
->>>>> +        }
->>>>
->>>> What is irq_ranges?
->>>
->>> IIUC based on Arm code irq_ranges is an optional output accumulator, the
->>> caller allocates and passes it in when it needs to track which IRQs were
->>> mapped (overlay use case), or passes NULL when that tracking is not needed.
->>>
->>> I added here as map_device_irqs_to_domain() is called from the common
->>> code and so maybe one day someone will decide to pass irq_ranges to this
->>> functions. At the moment, for RISC-V it is the only one user of
->>> map_device_irqs_to_domain() and it passes NULL.
->>
->> Simply assert then that it's NULL?
+> bloat-o-meter (along with the previous change)
 > 
-> Won't BUG_ON() be better here as it BUG_ON() macros is always defined 
-> and doesn't matter if release or debug build are used.
+> add/remove: 0/0 grow/shrink: 7/3 up/down: 227/-45 (182)
+> Function                                     old     new   delta
+> addr_to_dma_page_maddr                       949    1058    +109
+> vtd_dump_page_table_level                    197     233     +36
+> fill_qpt                                    1151    1178     +27
+> print_vtd_entries                            486     504     +18
+> domain_context_mapping_one                  2098    2114     +16
+> intel_iommu_map_page                         909     921     +12
+> intel_iommu_unmap_page                       731     740      +9
+> intel_iommu_lookup_page                      185     176      -9
+> queue_free_pt                                442     425     -17
+> vtd_dump_page_table_level.cold                86      67     -19
+> Total: Before=18446744073715636162, After=18446744073715636344, chg +0.00%
 
-Depends on the context, really.
+... code size shouldn't be much of a concern, albeit you may want to at
+least mention the (presumed) reason for some of the bigger increases,
+after comparing the generated code.
 
-> Or maybe you meant:
->   if ( irq_ranges )
->       assert_failed("irq_ranges arg isn't supported\n");
+(As an aside, the two values after Total: look entirely bogus.)
 
-Definitely not. assert_failed() shouldn't be called directly, as I had
-told you on at least one earlier occasion.
+> I guess using mfns 'everywhere' would improve the bloat-o-meter picture.
+
+It's not quite clear to me what you mean here.
 
 Jan
 
