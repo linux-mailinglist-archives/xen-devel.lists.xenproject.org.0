@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GIF0JEAp5mnesgEAu9opvQ
+	id UF8nH1sp5mnesgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:25:20 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:25:47 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A57842BAA7
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:25:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1285852.1567071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1E6842BADF
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:25:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1285886.1567080 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEocc-00067J-Ky; Mon, 20 Apr 2026 13:25:06 +0000
+	id 1wEod6-0006qa-V2; Mon, 20 Apr 2026 13:25:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1285852.1567071; Mon, 20 Apr 2026 13:25:06 +0000
+Received: by outflank-mailman (output) from mailman id 1285886.1567080; Mon, 20 Apr 2026 13:25:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEocc-00064o-HA; Mon, 20 Apr 2026 13:25:06 +0000
-Received: by outflank-mailman (input) for mailman id 1285852;
- Mon, 20 Apr 2026 13:25:05 +0000
+	id 1wEod6-0006o9-SM; Mon, 20 Apr 2026 13:25:36 +0000
+Received: by outflank-mailman (input) for mailman id 1285886;
+ Mon, 20 Apr 2026 13:25:35 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <bernhard.kaindl@citrix.com>) id 1wEocb-00064F-Eh
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 13:25:05 +0000
+ (envelope-from <bernhard.kaindl@citrix.com>) id 1wEod5-0006lc-En
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 13:25:35 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEocZ-008Kfe-A0
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 15:25:04 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wEod4-008bFS-Ro
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 15:25:34 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 69e62930-5cb7-0a2a0a5109dd-0a2a450cc1ba-2
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:25:04 +0200
-Received: from [160.101.131.9] (helo=na1pdmzitismtp02.tibco.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e6294d-bab6-0a2a0a5309dd-0a2a4505d5e6-2
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:25:34 +0200
+Received: from [160.101.131.8] (helo=na1pdmzitismtp01.tibco.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 69e6292f-62f1-0a2a450c0019-a0658309874a-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:25:04 +0200
+ id 69e6294d-aaa8-0a2a45050019-a06583088c08-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:25:34 +0200
 Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id 7C0E68185110;
- Mon, 20 Apr 2026 09:24:07 -0400 (EDT)
+ by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id 87EFF420DB75;
+ Mon, 20 Apr 2026 09:24:48 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,17 +56,17 @@ From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v2 2/4] tools/tests/alloc: Add integration test suite to for NUMA memory claims
-Date: Mon, 20 Apr 2026 14:19:42 +0100
-Message-Id: <079417bb90481b5212b8c7081d0e32f90d0df127.1776690702.git.bernhard.kaindl@citrix.com>
+Subject: [PATCH v2 3/4] tools/tests/alloc: Add tests for offlining with claims present
+Date: Mon, 20 Apr 2026 14:19:43 +0100
+Message-Id: <fd6d35c7997bf87c6a30d0a319f96327b4805d06.1776690702.git.bernhard.kaindl@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1776690702.git.bernhard.kaindl@citrix.com>
 References: <cover.1776690702.git.bernhard.kaindl@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d25034/1776691504-F5E0ECF5-7EBEBB8D/0/0
+X-purgate-ID: tlsNG-c201ff/1776691534-E256B443-EEB0D6C7/0/0
 X-purgate-type: clean
-X-purgate-size: 12487
+X-purgate-size: 3590
 X-Spamd-Result: default: False [3.01 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
 	MID_CONTAINS_FROM(1.00)[];
@@ -87,7 +87,7 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	RCPT_COUNT_THREE(0.00)[3];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.589];
+	NEURAL_HAM(-0.00)[-0.628];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[9];
 	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
@@ -96,106 +96,93 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[]
-X-Rspamd-Queue-Id: 1A57842BAA7
+X-Rspamd-Queue-Id: E1E6842BADF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Test claims behaviour of the page allocator with global claims using
-domain_set_outstanding_pages() and the new API and test multi-node claims.
+Add an integration test for offlining pages with outstanding claims.
+The test offlines two pages, with the second offline operation
+recalling one claim to prevent over-claiming beyond the available
+memory. Due to missing checks in the offlining code, there are
+expected failures which will be fixed in a test-driven manner.
+
+Run this test with both global claims and node-local claims.
 
 Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 ---
- tools/tests/alloc/test-claims-basic.c       | 108 ++++++++++++
- tools/tests/alloc/test-claims-numa-redeem.c | 172 ++++++++++++++++++++
- 2 files changed, 280 insertions(+)
- create mode 100644 tools/tests/alloc/test-claims-basic.c
- create mode 100644 tools/tests/alloc/test-claims-numa-redeem.c
+ tools/tests/alloc/test-offlining-claims.c | 75 +++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
+ create mode 100644 tools/tests/alloc/test-offlining-claims.c
 
-diff --git a/tools/tests/alloc/test-claims-basic.c b/tools/tests/alloc/test-claims-basic.c
+diff --git a/tools/tests/alloc/test-offlining-claims.c b/tools/tests/alloc/test-offlining-claims.c
 new file mode 100644
-index 000000000000..ef02ca449023
+index 000000000000..a0580af82ef5
 --- /dev/null
-+++ b/tools/tests/alloc/test-claims-basic.c
-@@ -0,0 +1,108 @@
++++ b/tools/tests/alloc/test-offlining-claims.c
+@@ -0,0 +1,75 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (C) 2026 Cloud Software Group
 + */
 +#include "libtest-page-alloc.h"
 +
-+int test_set_global_claims(struct domain *d, unsigned long pages)
++static void test_offlining_with_global_claims(int mfn)
 +{
-+    memory_claim_t claim_set[] = {
-+        {.target = XEN_DOMCTL_CLAIM_MEMORY_GLOBAL, .pages = pages},
++    struct page_info *page = test_pages + mfn;
++    uint32_t status = 0;
++    memory_claim_t claims[1] = {
++        {.pages = 3, .target = XEN_DOMCTL_CLAIM_MEMORY_GLOBAL}
 +    };
 +
-+    return domain_install_claim_set(d, ARRAY_SIZE(claim_set), claim_set);
++    test_page_list_add_buddy(page, order2); /* Add a buddy with 4 free pages*/
++    ASSERT(domain_install_claim_set(dom1, ARRAY_SIZE(claims), claims) == 0);
++
++    offline_page(mfn + 3, 0, &status); /* Offline the 1st page */
++    ASSERT(status & PG_OFFLINE_OFFLINED);
++    CHECK(TOTAL_CLAIMS == 3, "Still 3 claims before offlining the 2nd page");
++
++    offline_page(mfn + 1, 0, &status); /* Offline the 2nd page */
++    ASSERT(status & PG_OFFLINE_OFFLINED);
++
++    CHECK(FREE_PAGES == 2, "Expect 2 free pages after offlining two pages");
++    EXPECTED_TO_FAIL_BEGIN();
++    CHECK(TOTAL_CLAIMS == 2, "Expect 2 claims after offlining two pages");
++    EXPECTED_TO_FAIL_END(1);
 +}
-+typedef int (*set_global_claims)(struct domain *d, unsigned long pages);
 +
-+set_global_claims install_global_claims = test_set_global_claims;
-+
-+static void test_alloc_domheap_redeems_claims(int start_mfn)
-+{
-+    int ret;
-+    struct page_info *pages = test_pages + start_mfn, *pg;
-+
-+    test_page_list_add_buddy(pages, order2);
-+    ASSERT(!test_set_global_claims(dom1, 3));
-+    ASSERT(alloc_domheap_pages(dom1, order1, 0) == pages + 2);
-+    ASSERT(alloc_domheap_pages(dom1, order0, 0) == pages + 1);
-+    CHECK(TOTAL_CLAIMS == 0, "Expect all claims consumed after allocations");
-+    CHECK(FREE_PAGES == 1, "Expect one free page after allocations");
-+
-+    ASSERT(!test_set_global_claims(dom2, FREE_PAGES));
-+
-+    /* Claim more than dom1 already has fails with ENOMEM (claimed by dom2) */
-+    ret = test_set_global_claims(dom1, domain_tot_pages(dom1) + 1);
-+    CHECK(ret == -ENOMEM, "dom 1 claim +1 fails due to insufficient pages");
-+
-+    /* Claim more than dom1's d->max_pages fails with EINVAL */
-+    ret = test_set_global_claims(dom1, dom1->max_pages + 1);
-+    CHECK(ret == -EINVAL, "dom 1 claim fails due to exceeding max_pages");
-+
-+    /* Attempt to allocate an order-0 page with a foreign claim present */
-+    pg = alloc_domheap_pages(dom1, order0, 0);
-+    CHECK(pg == NULL, "dom 1 allocation fails because of domain 2's claim");
-+    CHECK(TOTAL_CLAIMS == 1, "Expect domain 2's claim to be still present");
-+    CHECK(FREE_PAGES == 1, "Expect one free page after failed alloc");
-+}
 +
 +/*
-+ * Test that memory claims are consumed correctly during allocations.
++ * Claim 3 of 4 pages on node0, offline two pages, and the 2nd offline should
++ * recall one claim to prevent over-claiming beyond the available memory.
++ *
++ * As part of offline_page(), reserve_offlined_page() should recall the
++ * needed claims to not exceed the number of pages that are are remaining.
 + */
-+static void test_cancel_claims(int start_mfn)
++static void test_offlining_with_node_claims(int mfn)
 +{
-+    struct page_info *page = test_pages + start_mfn;
-+    unsigned long claims;
++    struct page_info *page = test_pages + mfn;
++    uint32_t status = 0;
++    memory_claim_t claims[1] = { {.pages = 3, .target = node0} };
 +
-+    /* Create a buddy of order 2 (4 pages) and add it to the heap. */
 +    test_page_list_add_buddy(page, order2);
-+    claims = FREE_PAGES / 2;
++    ASSERT(domain_install_claim_set(dom1, ARRAY_SIZE(claims), claims) == 0);
 +
-+    /* Claim half of the free pages for dom1 */
-+    ASSERT(test_set_global_claims(dom1, claims) == 0);
-+    ASSERT(TOTAL_CLAIMS == claims);
++    ASSERT(offline_page(mfn + 3, 0, &status) == 0);
++    ASSERT(status & PG_OFFLINE_OFFLINED);
++    CHECK(TOTAL_CLAIMS == 3, "Still 3 claims before offlining the 2nd page");
 +
-+    /* Act + Assert 2: Claim all free pages for dom2, should fail */
-+    ASSERT(test_set_global_claims(dom2, FREE_PAGES) == -ENOMEM);
-+    ASSERT(TOTAL_CLAIMS == claims);
++    ASSERT(offline_page(mfn + 1, 0, &status) == 0);
++    ASSERT(status & PG_OFFLINE_OFFLINED);
 +
-+    /* Act + Assert 1: Cancel all claims for dom1 */
-+    ASSERT(test_set_global_claims(dom1, 0) == 0);
-+    ASSERT(TOTAL_CLAIMS == 0);
-+
-+    /* Act + Assert 2: Claim all free pages for dom2, should work */
-+    ASSERT(test_set_global_claims(dom2, FREE_PAGES) == 0);
-+    ASSERT(TOTAL_CLAIMS == FREE_PAGES);
++    CHECK(FREE_PAGES == 2, "Expect 2 free pages after offlining two pages");
++    EXPECTED_TO_FAIL_BEGIN();
++    CHECK(TOTAL_CLAIMS == 2, "Expect 2 claims after offlining two pages");
++    EXPECTED_TO_FAIL_END(1);
 +}
 +
 +int main(int argc, char *argv[])
 +{
-+    const char *topic = "Test global claims with old and new interfaces";
++    const char *topic = "Test offlining with memory claims";
 +    const char *program_name = parse_args(argc, argv, topic);
 +
 +    if ( !program_name )
@@ -203,206 +190,11 @@ index 000000000000..ef02ca449023
 +
 +    init_page_alloc_tests();
 +
-+    RUN_TESTCASE(TCCL, test_cancel_claims, 4);
++    RUN_TESTCASE(OWGC, test_offlining_with_global_claims, 4);
++    RUN_TESTCASE(OWNC, test_offlining_with_node_claims, 4);
 +
-+    /* Confirm the baseline of using domain_set_outstanding_pages() */
-+    install_global_claims = domain_set_outstanding_pages;
-+    RUN_TESTCASE(ADCL, test_alloc_domheap_redeems_claims, 4);
-+
-+    /* Repeat the same test case using test_set_global_claims() */
-+    install_global_claims = test_set_global_claims;
-+    RUN_TESTCASE(ADCG, test_alloc_domheap_redeems_claims, 4);
-+
-+    testcase_print_summary(program_name);
-+    return 0;
++    return testcase_print_summary(program_name);
 +}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/tools/tests/alloc/test-claims-numa-redeem.c b/tools/tests/alloc/test-claims-numa-redeem.c
-new file mode 100644
-index 000000000000..aaa1a5b6af5c
---- /dev/null
-+++ b/tools/tests/alloc/test-claims-numa-redeem.c
-@@ -0,0 +1,172 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Integration tests for redeeming NUMA memory claim set as implemented
-+ * in xen/common/page_alloc.c's redeem_claims_for_allocation() and
-+ * related functions.
-+ *
-+ * redeem_claims_for_allocation() is exercised indirectly through
-+ * alloc_domheap_pages() which is the primary interface for allocating
-+ * pages from a domain's heap.
-+ *
-+ * By means of domain_install_claim_set(), a claim set with global and
-+ * per-NUMA-node claims is installed for a dummy domain, and then
-+ * allocations with NUMA node affinity are performed to verify that the
-+ * appropriate claims are redeemed (same-node first, global fallback next,
-+ * then other nodes to not exceed page limits). The test also verifies that
-+ * aggregate counters are updated correctly after each allocation.
-+ *
-+ * The test verifies that when a domain has a claim set installed with
-+ * global and per-NUMA-node claims, allocations that specify NUMA node
-+ * affinity will redeem the appropriate claims (same-node first, global
-+ * fallback claim next, then other nodes to not exceed page limits).
-+ * It also verifies that the aggregate claim counters are updated
-+ * correctly after each allocation.
-+ *
-+ * Copyright (C) 2026 Cloud Software Group
-+ */
-+
-+#define CONFIG_NUMA   1
-+#define CONFIG_SYSCTL 1
-+#include "libtest-page-alloc.h"
-+
-+/*
-+ * Test redeeming NUMA memory claims in exchange for allocations,
-+ * and the redeemed claims are correctly reflected in the domain's
-+ * claim state and the aggregate claim counters.
-+ */
-+static void test_claims_numa_install(int start_mfn)
-+{
-+    int zone, ret;
-+    struct page_info *pages = test_pages + start_mfn, *allocated;
-+
-+    /*
-+     * PREPARE
-+     */
-+
-+    /*
-+     * Node 1's pages start at the pfn set by init_numa_node_data():
-+     * node_data[node1].node_start_pfn = start_mfn + 8 (8 MFNs per node with
-+     * memnode_shift=3). The order-2 buddy (4 pages) placed there satisfies
-+     * the 2-page node1 claim and provides enough total pages for the
-+     * 2 global + 2 node0 + 2 node1 = 6-page claim set (2 + 4 = 6 total).
-+     */
-+    struct page_info *pages_node1 =
-+        test_pages + node_data[node1].node_start_pfn;
-+
-+    /* Create an order-1 buddy (2 pages) for node 0 and add it to the heap. */
-+    zone = test_page_list_add_buddy(pages, order1);
-+
-+    /* Create an order-2 buddy (4 pages) for node 1 and add it to the heap. */
-+    test_page_list_add_buddy(pages_node1, order2);
-+
-+    /* Install a claim set with global + per-NUMA-node claims. */
-+    memory_claim_t claim_set[] = {
-+        {.target = XEN_DOMCTL_CLAIM_MEMORY_GLOBAL, .pages = 2},
-+        {.target = node0,                          .pages = 2},
-+        {.target = node1,                          .pages = 2},
-+    };
-+    ret = domain_install_claim_set(dom1, ARRAY_SIZE(claim_set), claim_set);
-+    CHECK(ret == 0, "domain_install_claim_set should succeed: %d", ret);
-+
-+    /* Assert dom1's claims */
-+    CHECK(TOTAL_CLAIMS == 6, "Expect 6 total claims after installation");
-+    CHECK(DOM_GLOBAL_CLAIMS(dom1) == 2,
-+          "Expect dom1 having 2 global claims after installation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node0) == 2,
-+          "Expect dom1 having 2 claims for node0 after installation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node1) == 2,
-+          "Expect dom1 having 2 claims for node1 after installation");
-+
-+    /* Allocate an order-0 page from node 0 for the dummy domain. */
-+    allocated = alloc_domheap_pages(dom1, order0, MEMF_node(node0));
-+    CHECK(allocated != NULL, "alloc_domheap_pages should succeed");
-+
-+    /* Verify the state of the aggregate counters after allocation. */
-+    CHECK(TOTAL_CLAIMS == 5, "Expect 5 total claims left after allocation");
-+    CHECK(FREE_PAGES == 5, "Expect 5 free pages left after allocation");
-+
-+    /* Assert dom1's claims after the allocation from node0 */
-+    CHECK(DOM_GLOBAL_CLAIMS(dom1) == 2,
-+          "Expect dom1 still having 2 global claims after allocation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node0) == 1,
-+          "Expect dom1 having 1 claim for node0 after allocation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node1) == 2,
-+          "Expect dom1 still having 2 claims for node1 after allocation");
-+
-+    /* Allocate an order-0 page from node 1 for the dummy domain. */
-+    allocated = alloc_domheap_pages(dom1, order0, MEMF_node(node1));
-+    CHECK(allocated != NULL, "order-0 alloc from node1");
-+
-+    /* Assert dom1's claims after the allocation from node1 */
-+    CHECK(DOM_GLOBAL_CLAIMS(dom1) == 2,
-+          "Expect dom1 still having 2 global claims after allocation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node0) == 1,
-+          "Expect dom1 having 1 claim for node0 after allocation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node1) == 1,
-+          "Expect dom1 having 1 claim for node1 after allocation");
-+
-+    /* Allocate an order-1 page from node 1 for the dummy domain. */
-+    allocated = alloc_domheap_pages(dom1, order1, MEMF_node(node1));
-+    CHECK(allocated != NULL, "order-1 alloc from node1");
-+
-+    /* Assert dom1's claims after the allocation from node1 */
-+    CHECK(DOM_GLOBAL_CLAIMS(dom1) == 1,
-+          "Expect dom1 having redeemed one global claim after allocation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node0) == 1,
-+          "Expect dom1 having 1 claim for node0 after allocation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node1) == 0,
-+          "Expect dom1 having 0 claims for node1 after allocation");
-+
-+    /* Allocate an order-0 page from node 1 for the dummy domain. */
-+    allocated = alloc_domheap_pages(dom1, order0, MEMF_node(node1));
-+    CHECK(allocated != NULL, "order-0 alloc from node1");
-+
-+    /* Assert dom1's claims after the allocation from node1 */
-+    CHECK(DOM_GLOBAL_CLAIMS(dom1) == 0,
-+          "Expect dom1 having redeemed one global claim after allocation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node0) == 1,
-+          "Expect dom1 having 1 claim for node0 after allocation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node1) == 0,
-+          "Expect dom1 having 0 claims for node1 after allocation");
-+
-+    /* Allocate an order-0 page from node 1 for the dummy domain. */
-+    allocated = alloc_domheap_pages(dom1, order0, MEMF_node(node1));
-+    CHECK(allocated != NULL, "order-0 alloc from node1");
-+
-+    /* Assert dom1's claims after the allocation from node1 */
-+    CHECK(DOM_GLOBAL_CLAIMS(dom1) == 0,
-+          "Expect dom1 having redeemed one global claim after allocation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node0) == 0,
-+          "Expect dom1 having 0 claims for node0 after allocation");
-+    CHECK(DOM_NODE_CLAIMS(dom1, node1) == 0,
-+          "Expect dom1 having 0 claims for node1 after allocation");
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+    const char *topic = "Test legacy claims with allocation from the heap";
-+    const char *program_name = parse_args(argc, argv, topic);
-+
-+    if ( !program_name )
-+        return EXIT_FAILURE;
-+
-+    init_page_alloc_tests();
-+    /*
-+     * Use test_set_global_claims() which is a wrapper around
-+     * domain_install_claim_set() to check ensure consistent
-+     * behavior with domain_set_outstanding_pages().
-+     */
-+    RUN_TESTCASE(CNI0, test_claims_numa_install, 0);
-+
-+    testcase_print_summary(program_name);
-+    return 0;
-+}
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
 -- 
 2.39.5
 
