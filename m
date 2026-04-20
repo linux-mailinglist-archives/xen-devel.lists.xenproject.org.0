@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UF8nH1sp5mnesgEAu9opvQ
+	id UO1YBYQp5mkDswEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:25:47 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:26:28 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1E6842BADF
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:25:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1285886.1567080 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D619D42BB98
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 15:26:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1285909.1567090 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEod6-0006qa-V2; Mon, 20 Apr 2026 13:25:36 +0000
+	id 1wEodo-0007OW-70; Mon, 20 Apr 2026 13:26:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1285886.1567080; Mon, 20 Apr 2026 13:25:36 +0000
+Received: by outflank-mailman (output) from mailman id 1285909.1567090; Mon, 20 Apr 2026 13:26:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEod6-0006o9-SM; Mon, 20 Apr 2026 13:25:36 +0000
-Received: by outflank-mailman (input) for mailman id 1285886;
- Mon, 20 Apr 2026 13:25:35 +0000
+	id 1wEodo-0007MS-3y; Mon, 20 Apr 2026 13:26:20 +0000
+Received: by outflank-mailman (input) for mailman id 1285909;
+ Mon, 20 Apr 2026 13:26:18 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <bernhard.kaindl@citrix.com>) id 1wEod5-0006lc-En
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 13:25:35 +0000
+ (envelope-from <bernhard.kaindl@citrix.com>) id 1wEodm-0007M4-LO
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 13:26:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEod4-008bFS-Ro
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 15:25:34 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wEodm-00B2Mn-29
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 15:26:18 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 69e6294d-bab6-0a2a0a5309dd-0a2a4505d5e6-2
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:25:34 +0200
+ id 69e62968-e002-0a2a0a5209dd-0a2a4506b792-36
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:26:18 +0200
 Received: from [160.101.131.8] (helo=na1pdmzitismtp01.tibco.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 69e6294d-aaa8-0a2a45050019-a06583088c08-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:25:34 +0200
+ id 69e62977-7371-0a2a45060019-a0658308d85c-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 15:26:16 +0200
 Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id 87EFF420DB75;
- Mon, 20 Apr 2026 09:24:48 -0400 (EDT)
+ by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id DFFED420DE01;
+ Mon, 20 Apr 2026 09:25:29 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,18 +55,24 @@ Authentication-Results: eu.smtp.expurgate.cloud; none
 From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v2 3/4] tools/tests/alloc: Add tests for offlining with claims present
-Date: Mon, 20 Apr 2026 14:19:43 +0100
-Message-Id: <fd6d35c7997bf87c6a30d0a319f96327b4805d06.1776690702.git.bernhard.kaindl@citrix.com>
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 4/4] xen/mm: Recall claims when offlining pages if needed
+Date: Mon, 20 Apr 2026 14:19:44 +0100
+Message-Id: <ebc02ab7b6fe81946ccf5833a44d57fb4a3239a4.1776690702.git.bernhard.kaindl@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1776690702.git.bernhard.kaindl@citrix.com>
 References: <cover.1776690702.git.bernhard.kaindl@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c201ff/1776691534-E256B443-EEB0D6C7/0/0
+X-purgate-ID: tlsNG-16d1c6/1776691576-51361D75-B170C3DC/0/0
 X-purgate-type: clean
-X-purgate-size: 3590
+X-purgate-size: 3980
 X-Spamd-Result: default: False [3.01 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
 	MID_CONTAINS_FROM(1.00)[];
@@ -75,126 +81,133 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_THREE(0.00)[3];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.628];
+	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.503];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[9];
-	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	R_DKIM_NA(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[]
-X-Rspamd-Queue-Id: E1E6842BADF
+	TAGGED_RCPT(0.00)[xen-devel]
+X-Rspamd-Queue-Id: D619D42BB98
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Add an integration test for offlining pages with outstanding claims.
-The test offlines two pages, with the second offline operation
-recalling one claim to prevent over-claiming beyond the available
-memory. Due to missing checks in the offlining code, there are
-expected failures which will be fixed in a test-driven manner.
+Fix a bug where offlining pages could cause an unsigned underflow
+in total_avail_pages - outstanding_claims, leading to incorrect
+claim behavior.
 
-Run this test with both global claims and node-local claims.
+This issue arises when outstanding claims are close to the total
+available pages. It occurse when domain_set_outstanding_claims()
+and domain_install_claim_set effectively do this:
+
+ unsigned long avail_pages = total_avail_pages - outstanding_claims;
+
+When this unsigned subtraction underflows, staking claims can succeed
+even when there is insufficient unclaimed memory for the new claim.
+This leads to a state where claims always succeed, regardless of
+actual memory availability.
+
+To prevent this, recall claims when offlining pages if needed to maintain
+equilibrium between `total_avail_pages` and outstanding claims for global
+and for per-NUMA-node claims.
 
 Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 ---
- tools/tests/alloc/test-offlining-claims.c | 75 +++++++++++++++++++++++
- 1 file changed, 75 insertions(+)
- create mode 100644 tools/tests/alloc/test-offlining-claims.c
+ tools/tests/alloc/test-offlining-claims.c |  4 ---
+ xen/common/page_alloc.c                   | 42 +++++++++++++++++++++++
+ 2 files changed, 42 insertions(+), 4 deletions(-)
 
 diff --git a/tools/tests/alloc/test-offlining-claims.c b/tools/tests/alloc/test-offlining-claims.c
-new file mode 100644
-index 000000000000..a0580af82ef5
---- /dev/null
+index a0580af82ef5..69a3e8f82e6b 100644
+--- a/tools/tests/alloc/test-offlining-claims.c
 +++ b/tools/tests/alloc/test-offlining-claims.c
-@@ -0,0 +1,75 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2026 Cloud Software Group
-+ */
-+#include "libtest-page-alloc.h"
+@@ -23,9 +23,7 @@ static void test_offlining_with_global_claims(int mfn)
+     ASSERT(status & PG_OFFLINE_OFFLINED);
+ 
+     CHECK(FREE_PAGES == 2, "Expect 2 free pages after offlining two pages");
+-    EXPECTED_TO_FAIL_BEGIN();
+     CHECK(TOTAL_CLAIMS == 2, "Expect 2 claims after offlining two pages");
+-    EXPECTED_TO_FAIL_END(1);
+ }
+ 
+ 
+@@ -53,9 +51,7 @@ static void test_offlining_with_node_claims(int mfn)
+     ASSERT(status & PG_OFFLINE_OFFLINED);
+ 
+     CHECK(FREE_PAGES == 2, "Expect 2 free pages after offlining two pages");
+-    EXPECTED_TO_FAIL_BEGIN();
+     CHECK(TOTAL_CLAIMS == 2, "Expect 2 claims after offlining two pages");
+-    EXPECTED_TO_FAIL_END(1);
+ }
+ 
+ int main(int argc, char *argv[])
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 6101bd6be9a9..adedf6fae590 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -1575,6 +1575,48 @@ static int reserve_offlined_page(struct page_info *head)
+         count++;
+     }
+ 
++    if ( count )
++    {
++        long recall_pages;
++        struct domain *d;
 +
-+static void test_offlining_with_global_claims(int mfn)
-+{
-+    struct page_info *page = test_pages + mfn;
-+    uint32_t status = 0;
-+    memory_claim_t claims[1] = {
-+        {.pages = 3, .target = XEN_DOMCTL_CLAIM_MEMORY_GLOBAL}
-+    };
++        /* Ensure that claims on the node are in line with its free memory. */
++        recall_pages = node_outstanding_claims[node] - node_avail_pages[node];
++        if ( recall_pages > 0 )
++            /*
++             * node_avail_pages slipped below node_outstanding_claims.
++             * We need to recall claimed pages until the amount of claimed
++             * memory is in line with the amount of available memory again.
++             */
++            for_each_domain ( d )
++            {
++                if ( d->claims[node] )
++                {
++                    recall_pages -= deduct_node_claims(d, node, recall_pages);
++                    if ( recall_pages <= 0 )
++                        break;
++                }
++            }
 +
-+    test_page_list_add_buddy(page, order2); /* Add a buddy with 4 free pages*/
-+    ASSERT(domain_install_claim_set(dom1, ARRAY_SIZE(claims), claims) == 0);
++        /* Ensure that outstanding claims are in line with available memory. */
++        recall_pages = outstanding_claims - total_avail_pages;
++        if ( recall_pages > 0 )
++            /*
++             * total_avail_pages slipped below outstanding_claims.
++             * We need to recall claimed pages until the amount of claimed
++             * memory is in line with the amount of available memory again.
++             */
++            for_each_domain ( d )
++            {
++                if ( d->global_claims )
++                {
++                    recall_pages -= deduct_global_claims(d, recall_pages);
++                    if ( recall_pages <= 0 )
++                        break;
++                }
++            }
++    }
 +
-+    offline_page(mfn + 3, 0, &status); /* Offline the 1st page */
-+    ASSERT(status & PG_OFFLINE_OFFLINED);
-+    CHECK(TOTAL_CLAIMS == 3, "Still 3 claims before offlining the 2nd page");
-+
-+    offline_page(mfn + 1, 0, &status); /* Offline the 2nd page */
-+    ASSERT(status & PG_OFFLINE_OFFLINED);
-+
-+    CHECK(FREE_PAGES == 2, "Expect 2 free pages after offlining two pages");
-+    EXPECTED_TO_FAIL_BEGIN();
-+    CHECK(TOTAL_CLAIMS == 2, "Expect 2 claims after offlining two pages");
-+    EXPECTED_TO_FAIL_END(1);
-+}
-+
-+
-+/*
-+ * Claim 3 of 4 pages on node0, offline two pages, and the 2nd offline should
-+ * recall one claim to prevent over-claiming beyond the available memory.
-+ *
-+ * As part of offline_page(), reserve_offlined_page() should recall the
-+ * needed claims to not exceed the number of pages that are are remaining.
-+ */
-+static void test_offlining_with_node_claims(int mfn)
-+{
-+    struct page_info *page = test_pages + mfn;
-+    uint32_t status = 0;
-+    memory_claim_t claims[1] = { {.pages = 3, .target = node0} };
-+
-+    test_page_list_add_buddy(page, order2);
-+    ASSERT(domain_install_claim_set(dom1, ARRAY_SIZE(claims), claims) == 0);
-+
-+    ASSERT(offline_page(mfn + 3, 0, &status) == 0);
-+    ASSERT(status & PG_OFFLINE_OFFLINED);
-+    CHECK(TOTAL_CLAIMS == 3, "Still 3 claims before offlining the 2nd page");
-+
-+    ASSERT(offline_page(mfn + 1, 0, &status) == 0);
-+    ASSERT(status & PG_OFFLINE_OFFLINED);
-+
-+    CHECK(FREE_PAGES == 2, "Expect 2 free pages after offlining two pages");
-+    EXPECTED_TO_FAIL_BEGIN();
-+    CHECK(TOTAL_CLAIMS == 2, "Expect 2 claims after offlining two pages");
-+    EXPECTED_TO_FAIL_END(1);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+    const char *topic = "Test offlining with memory claims";
-+    const char *program_name = parse_args(argc, argv, topic);
-+
-+    if ( !program_name )
-+        return EXIT_FAILURE;
-+
-+    init_page_alloc_tests();
-+
-+    RUN_TESTCASE(OWGC, test_offlining_with_global_claims, 4);
-+    RUN_TESTCASE(OWNC, test_offlining_with_node_claims, 4);
-+
-+    return testcase_print_summary(program_name);
-+}
+     return count;
+ }
+ 
 -- 
 2.39.5
 
