@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EILVFeeL5mmryAEAu9opvQ
+	id SDMiA+SL5mlOyAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 22:26:15 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 22:26:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E326433B6C
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 22:26:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1286518.1567725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1711433AD0
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 22:26:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1286520.1567731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEvBr-0000zR-20; Mon, 20 Apr 2026 20:25:55 +0000
+	id 1wEvBs-0001Lp-BY; Mon, 20 Apr 2026 20:25:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1286518.1567725; Mon, 20 Apr 2026 20:25:54 +0000
+Received: by outflank-mailman (output) from mailman id 1286520.1567731; Mon, 20 Apr 2026 20:25:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEvBo-0000cG-M1; Mon, 20 Apr 2026 20:25:52 +0000
-Received: by outflank-mailman (input) for mailman id 1286518;
- Mon, 20 Apr 2026 19:57:32 +0000
+	id 1wEvBq-0000y1-Jf; Mon, 20 Apr 2026 20:25:54 +0000
+Received: by outflank-mailman (input) for mailman id 1286520;
+ Mon, 20 Apr 2026 20:06:09 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Rose.Spangler@purelymail.com>) id 1wEukO-0006fo-UJ
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 19:57:32 +0000
+ (envelope-from <Rose.Spangler@purelymail.com>) id 1wEusj-0007oA-P2
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 20:06:09 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEukO-009ZPW-7Y
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 21:57:32 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wEuse-009HKD-PE
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 22:06:06 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <Rose.Spangler@purelymail.com>)
- id 69e68517-2eae-0a2a0a5409dd-0a2a4502a0c0-20
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 21:57:32 +0200
+ id 69e686da-5cb7-0a2a0a5109dd-0a2a4505af3a-48
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 22:06:06 +0200
 Received: from [34.202.193.197] (helo=sendmail.purelymail.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <Rose.Spangler@purelymail.com>)
- id 69e6852b-af86-0a2a45020019-22cac1c5b4b8-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 21:57:32 +0200
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -626512684; 
+ id 69e6872d-aaa8-0a2a45050019-22cac1c5d822-3
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 22:06:06 +0200
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 894788268; 
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Mon, 20 Apr 2026 19:57:30 +0000 (UTC)
+ Mon, 20 Apr 2026 20:06:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,30 +52,31 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=purelymail1 header.d=purelymail.com header.i="@purelymail.com" header.h="Feedback-ID:Received:From:To:Subject:Date"
-DKIM-Signature: a=rsa-sha256; b=M9/4NdUWyqAtK8Fit69+Bnm9xMy1eY3nSbgT1azTD34Nz6w9xYF1aHLdFQfZ35Xu6weINH+m1la/vntFnvLJcfXocQNybKobxFyF6xus6MhPtDGS5KopeCrw6BcU0Vq105SxVwd36ICTf8PFVS+R5BzWLqaMYwW8D5BUzkLb9Ewq09RQTYHVP2LefJ5r3NsTj0mwShz4Qk+wUMpeC3VZ5e7OIQLM1LB0xkl+6BOHI1kY/CEMscuwPMwHQXcutRR70LTANhn3XfXywS1KaIbvm/BKzIcF71QosB1YS9TKHzQtkw8o10LLenTAzMM2+GzYV85orU4oRzxXiBGPuXgTnw==; s=purelymail1; d=purelymail.com; v=1; bh=Bo0/+fpXPbC761YoL2O6hN3iZ/zaUJH+bSYJFMyq0KU=; h=Feedback-ID:Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=c6Uo50C3us1qXsCWidSWfDOGOxihcFAWL2GAjzQ3mgcmdXFMu/mRs8jfHz0jMmN5HAqUSz9USKAqpKqAVJeSz0YTClxj/Li28FsH3Cojha6EWVTuvRIFCm8WgIbjnsj1NsSmBKqUgPwHmq+ykNUHP9TIMq7tGc5n2eID7bpEiHWKBkQEoy7Mr2S5J5NFxouspxF++aMgCkgVDVgL2gnphoqd7y+ESKz7ew60In54QNupWFplE06re304wNpqkxYEhmBUeslwVxeWJ82NXoZ2XBO6j/DjMVgS7vlqwXbT1nuSaDj7sWK6PmDE9DwBmwhJC6vmz0oFm6S0BUZ+ld4rUA==; s=purelymail1; d=purelymail.com; v=1; bh=vaO/7eskJABAM8GcpLXrSRGVxvX12VbJzyiOSdPRPvg=; h=Feedback-ID:Received:From:To:Subject:Date;
 Feedback-ID: 685805:22403:null:purelymail
 X-Pm-Original-To: xen-devel@lists.xenproject.org
 From: Rose.Spangler@purelymail.com
 To: xen-devel@lists.xenproject.org
 Cc: Rose Spangler <Rose.Spangler@elektrobit.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Teddy Astie <teddy.astie@vates.tech>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [RFC PATCH v6 27/43] arm/altp2m: Add support for altp2m_{get,set}_altp2m
-Date: Mon, 20 Apr 2026 15:57:10 -0400
-Message-Id: <20260420195726.207764-1-Rose.Spangler@purelymail.com>
+Subject: [RFC PATCH v6 28/43] altp2m: Move altp2m_vcpu_{initialise,destroy} to common code
+Date: Mon, 20 Apr 2026 16:05:42 -0400
+Message-Id: <20260420200557.207930-1-Rose.Spangler@purelymail.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 Content-Type: text/plain; charset=UTF-8
-X-purgate-ID: tlsNG-720697/1776715052-88EC8161-383666E4/0/0
+X-purgate-ID: tlsNG-c201ff/1776715566-E336C443-30DAC370/0/0
 X-purgate-type: clean
-X-purgate-size: 1886
+X-purgate-size: 4770
 X-Spamd-Result: default: False [3.51 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[purelymail.com : SPF not aligned (relaxed),reject];
 	R_DKIM_REJECT(1.00)[purelymail.com:s=purelymail1];
@@ -86,7 +87,7 @@ X-Spamd-Result: default: False [3.51 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Rose.Spangler@elektrobit.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Rose.Spangler@elektrobit.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[Rose.Spangler@purelymail.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	ARC_NA(0.00)[];
@@ -96,84 +97,189 @@ X-Spamd-Result: default: False [3.51 / 15.00];
 	FROM_NO_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.891];
+	NEURAL_HAM(-0.00)[-0.873];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[Rose.Spangler@purelymail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 4E326433B6C
+X-Rspamd-Queue-Id: B1711433AD0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Rose Spangler <Rose.Spangler@elektrobit.com>
 
-This commit adds support for altp2m_get_altp2m and altp2m_set_altp2m on
-ARM. The x86-specific VCPU accesses have been replaced with the
-architecture independent functions altp2m_vcpu_idx and altp2m_set_vcpu_idx.
+This commit moves the altp2m_vcpu_initialise and altp2m_vcpu_destroy
+functions to common code. This makes it possible to use them in the common
+implementation of HVMOP_altp2m_set_domain_state.
 
-This is commit 4/4 of the altp2m_{get,set}_altp2m phase.
+This commit contains only code movement, and no change in functionality is
+intended.
+
+This is commit 1/2 of the altp2m_vcpu_{initialise,destroy} phase.
 
 Signed-off-by: Rose Spangler <Rose.Spangler@elektrobit.com>
 ---
 v6: Introduced this patch.
 ---
- xen/include/xen/altp2m.h | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ xen/arch/x86/include/asm/altp2m.h |  6 -----
+ xen/arch/x86/mm/altp2m.c          | 41 -------------------------------
+ xen/common/altp2m.c               | 41 +++++++++++++++++++++++++++++++
+ xen/include/xen/altp2m.h          |  6 +++++
+ 4 files changed, 47 insertions(+), 47 deletions(-)
 
+diff --git a/xen/arch/x86/include/asm/altp2m.h b/xen/arch/x86/include/asm/a=
+ltp2m.h
+index b3d348386a00..43dd5d2acd9c 100644
+--- a/xen/arch/x86/include/asm/altp2m.h
++++ b/xen/arch/x86/include/asm/altp2m.h
+@@ -105,10 +105,6 @@ int altp2m_get_effective_entry(struct p2m_domain *ap2m=
+, gfn_t gfn, mfn_t *mfn,
+                                p2m_type_t *t, p2m_access_t *a,
+                                bool prepopulate);
+=20
+-/* Alternate p2m VCPU */
+-void altp2m_vcpu_initialise(struct vcpu *v);
+-void altp2m_vcpu_destroy(struct vcpu *v);
+-
+ int altp2m_vcpu_enable_ve(struct vcpu *v, gfn_t gfn);
+ void altp2m_vcpu_disable_ve(struct vcpu *v);
+=20
+@@ -151,8 +147,6 @@ static inline int _altp2m_get_effective_entry(struct p2=
+m_domain *ap2m,
+=20
+ /* Only declaration is needed. DCE will optimise it out when linking. */
+ uint16_t altp2m_vcpu_idx(const struct vcpu *v);
+-void altp2m_vcpu_initialise(struct vcpu *v);
+-void altp2m_vcpu_destroy(struct vcpu *v);
+ int altp2m_vcpu_enable_ve(struct vcpu *v, gfn_t gfn);
+ void altp2m_vcpu_disable_ve(struct vcpu *v);
+=20
+diff --git a/xen/arch/x86/mm/altp2m.c b/xen/arch/x86/mm/altp2m.c
+index 46374373848d..0542e3ef9196 100644
+--- a/xen/arch/x86/mm/altp2m.c
++++ b/xen/arch/x86/mm/altp2m.c
+@@ -14,47 +14,6 @@
+ #include "mm-locks.h"
+ #include "p2m.h"
+=20
+-void
+-altp2m_vcpu_initialise(struct vcpu *v)
+-{
+-    if ( !v->domain->nr_altp2m )
+-        return;
+-
+-    if ( v !=3D current )
+-        vcpu_pause(v);
+-
+-    vcpu_altp2m(v).p2midx =3D 0;
+-    atomic_inc(&altp2m_get_altp2m(v)->active_vcpus);
+-
+-    altp2m_vcpu_update_p2m(v);
+-
+-    if ( v !=3D current )
+-        vcpu_unpause(v);
+-}
+-
+-void
+-altp2m_vcpu_destroy(struct vcpu *v)
+-{
+-    struct p2m_domain *p2m;
+-
+-    if ( !v->domain->nr_altp2m )
+-        return;
+-
+-    if ( v !=3D current )
+-        vcpu_pause(v);
+-
+-    if ( (p2m =3D altp2m_get_altp2m(v)) )
+-        atomic_dec(&p2m->active_vcpus);
+-
+-    altp2m_vcpu_disable_ve(v);
+-
+-    vcpu_altp2m(v).p2midx =3D INVALID_ALTP2M;
+-    altp2m_vcpu_update_p2m(v);
+-
+-    if ( v !=3D current )
+-        vcpu_unpause(v);
+-}
+-
+ int altp2m_vcpu_enable_ve(struct vcpu *v, gfn_t gfn)
+ {
+     struct domain *d =3D v->domain;
+diff --git a/xen/common/altp2m.c b/xen/common/altp2m.c
+index a731ad7cdab8..e699b64678d8 100644
+--- a/xen/common/altp2m.c
++++ b/xen/common/altp2m.c
+@@ -59,6 +59,47 @@ void altp2m_teardown(struct domain *d)
+     XVFREE(d->altp2m_p2m);
+ }
+=20
++#ifdef CONFIG_X86
++void altp2m_vcpu_initialise(struct vcpu *v)
++{
++    if ( !v->domain->nr_altp2m )
++        return;
++
++    if ( v !=3D current )
++        vcpu_pause(v);
++
++    vcpu_altp2m(v).p2midx =3D 0;
++    atomic_inc(&altp2m_get_altp2m(v)->active_vcpus);
++
++    altp2m_vcpu_update_p2m(v);
++
++    if ( v !=3D current )
++        vcpu_unpause(v);
++}
++
++void altp2m_vcpu_destroy(struct vcpu *v)
++{
++    struct p2m_domain *p2m;
++
++    if ( !v->domain->nr_altp2m )
++        return;
++
++    if ( v !=3D current )
++        vcpu_pause(v);
++
++    if ( (p2m =3D altp2m_get_altp2m(v)) )
++        atomic_dec(&p2m->active_vcpus);
++
++    altp2m_vcpu_disable_ve(v);
++
++    vcpu_altp2m(v).p2midx =3D INVALID_ALTP2M;
++    altp2m_vcpu_update_p2m(v);
++
++    if ( v !=3D current )
++        vcpu_unpause(v);
++}
++#endif
++
+ /*
+  * altp2m operations are envisioned as being used in several different
+  * modes:
 diff --git a/xen/include/xen/altp2m.h b/xen/include/xen/altp2m.h
-index 58e74be6deb0..f5a4d0e60562 100644
+index f5a4d0e60562..7defe6126563 100644
 --- a/xen/include/xen/altp2m.h
 +++ b/xen/include/xen/altp2m.h
-@@ -8,6 +8,7 @@
+@@ -24,6 +24,12 @@ int altp2m_init(struct domain *d);
+ /* Free altp2m views */
+ void altp2m_teardown(struct domain *d);
 =20
- #include <public/hvm/hvm_op.h>
++#ifdef CONFIG_X86
++/* Alternate p2m VCPU */
++void altp2m_vcpu_initialise(struct vcpu *v);
++void altp2m_vcpu_destroy(struct vcpu *v);
++#endif
++
+ #ifdef CONFIG_ALTP2M
 =20
-+#include <asm/altp2m.h>
- #include <asm/p2m.h>
-=20
- #define INVALID_ALTP2M  0xffff
-@@ -31,11 +32,10 @@ static inline bool altp2m_active(const struct domain *d=
-)
-     return d->altp2m_active;
- }
-=20
--#ifdef CONFIG_X86
- /* get current alternate p2m table */
- static inline struct p2m_domain *altp2m_get_altp2m(struct vcpu *v)
- {
--    unsigned int index =3D vcpu_altp2m(v).p2midx;
-+    unsigned int index =3D altp2m_vcpu_idx(v);
-=20
-     if ( index =3D=3D INVALID_ALTP2M )
-         return NULL;
-@@ -52,19 +52,18 @@ static inline bool altp2m_set_altp2m(struct vcpu *v, un=
-signed int idx)
-=20
-     BUG_ON(idx >=3D v->domain->nr_altp2m);
-=20
--    if ( idx =3D=3D vcpu_altp2m(v).p2midx )
-+    if ( idx =3D=3D altp2m_vcpu_idx(v) )
-         return false;
-=20
-     orig =3D altp2m_get_altp2m(v);
-     BUG_ON(!orig);
-     atomic_dec(&orig->active_vcpus);
-=20
--    vcpu_altp2m(v).p2midx =3D idx;
-+    altp2m_set_vcpu_idx(v, idx);
-     atomic_inc(&v->domain->altp2m_p2m[idx]->active_vcpus);
-=20
-     return true;
- }
--#endif
-=20
- int do_altp2m_op(XEN_GUEST_HANDLE_PARAM(void) arg);
-=20
+ /* Alternate p2m HVM on/off per domain */
 --=20
 2.34.1
 
