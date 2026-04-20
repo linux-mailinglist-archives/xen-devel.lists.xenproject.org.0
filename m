@@ -2,48 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qGfVBoc15mkGtgEAu9opvQ
+	id 4BmHM9Y25mkmtgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 16:17:43 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 16:23:18 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 843D142CDB5
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 16:17:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1286033.1567153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D3C442CF7F
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2026 16:23:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1286045.1567161 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEpRF-0000OA-7b; Mon, 20 Apr 2026 14:17:25 +0000
+	id 1wEpWU-00029n-Ry; Mon, 20 Apr 2026 14:22:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1286033.1567153; Mon, 20 Apr 2026 14:17:25 +0000
+Received: by outflank-mailman (output) from mailman id 1286045.1567161; Mon, 20 Apr 2026 14:22:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wEpRF-0000MR-4K; Mon, 20 Apr 2026 14:17:25 +0000
-Received: by outflank-mailman (input) for mailman id 1286033;
- Mon, 20 Apr 2026 14:17:24 +0000
+	id 1wEpWU-00027I-P4; Mon, 20 Apr 2026 14:22:50 +0000
+Received: by outflank-mailman (input) for mailman id 1286045;
+ Mon, 20 Apr 2026 14:22:49 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wEpRE-0000ML-32
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 14:17:24 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <luca.fancellu@arm.com>) id 1wEpWT-000273-28
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 14:22:49 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wEpRC-0047OK-FE
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 16:17:22 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wEpWS-007nwH-BQ
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2026 16:22:48 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e6355a-bab6-0a2a0a5309dd-0a2a450aa6c4-32
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:17:22 +0200
-Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e63572-56b3-0a2a450a0019-d1558030a5e7-3
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:17:22 +0200
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-48a3e9862f0so4131355e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 07:17:22 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43fe4e4d112sm33017573f8f.29.2026.04.20.07.17.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 20 Apr 2026 07:17:21 -0700 (PDT)
+ (envelope-from <luca.fancellu@arm.com>)
+ id 69e636a9-5cb7-0a2a0a5109dd-0a2a4503ade2-42
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:22:48 +0200
+Received: from [217.140.110.172] (helo=foss.arm.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTP (eXpurgate 4.56.1)
+ (envelope-from <luca.fancellu@arm.com>)
+ id 69e636b7-672d-0a2a45030019-d98c6eacb866-1
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2026 16:22:47 +0200
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3FED51516;
+ Mon, 20 Apr 2026 07:22:41 -0700 (PDT)
+Received: from e125770.cambridge.arm.com (e125770.arm.com [10.1.199.43])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 71F023F7B4;
+ Mon, 20 Apr 2026 07:22:45 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,176 +54,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776694642; x=1777299442; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=wg5SNyawniDLyLPrqcYAyIPgt3DlZagpj1lREfaB3qw=;
-        b=FI+pb3otTrtWMiFcUDR730IpcXvDtiTcZ0rdY2pZCFKr0+44e6Ep9whF4ZOLxX0mmx
-         cqGSAzbXytwAatQ9L9EE8vXwLnwr67q45mLijyLpIq3fPSUzv0quQ0NC501R0znjHc8D
-         YE/PQThlAnbs5fEX/SsOCn40j6T3fsbsYEOxgQGSTbHeQJWOGPfEu/bIJ1bQOr6MPgZp
-         SQNXOUGa0MYYZ4hM8N76+K5jbVz5T/OZ8kNrnBlsPG1zsBVkjw2AeLib4g2q2foYb0Ez
-         ronuhSeHHzOLfNfsDuIqSXpT7VEcqjV1swF9XfAAo9vRxtn3kmj+5fcUPODkhEUcrKCA
-         ONkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776694642; x=1777299442;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wg5SNyawniDLyLPrqcYAyIPgt3DlZagpj1lREfaB3qw=;
-        b=I5F+RKDzVpgVtsnr2wODQma7h8PWBg+BFHrpGR9cm/9XZ/GOxgRoiwtV/rlpOvSaIf
-         f6QYMtvJnTuGeiWipJ1kM6ez0szEZfWuA9I0+HNX4qqtw7rcYtPLbX8ffuYHcn5sR7WQ
-         pklaspygFYcY1jbko6LT8YNSbMC/Xtv52ZsD75KaIlUxsh3lXVgBajZJzknBh8Hu2X13
-         GjEiy1UpwK4hwMYvuJ+Nfm8GX7gRmmC3pnmvPPRunHFhQj4Ol082l1gpnkT/w9hAa1NV
-         Dz6uxeTeZ4YpZeCSNmNmrrQtctf6rtSGe02nkJIEE+KkYpRfPdda9Ccd4F3IeaZVUD6J
-         PFwA==
-X-Forwarded-Encrypted: i=1; AFNElJ9m2h9DV1p+hv7hr+9djf3ecw6tqwJD5ZKDB8T5gQ4+AIxTNBFk5vFukD+FUDLfVATO9BNWPnMK6Uw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyRyrQiyiYs+UFupYcS9sWjeqpTrpm+0JkN53Shy8QlTerE3zIy
-	hnWhrHSp2WDsMnz9i4HnJY40MRLW3lbg/TFbh0a1xkygIUvkCSCoDYU+MmqAMHcWKg==
-X-Gm-Gg: AeBDietZUP4fGY/ptM58q9E66AWR6+QadqJ1MCc5DsXkFe/Bca5mEHmiguZ38XE0yhN
-	wyA+Gk5rlIyU3u2L64Mu/7PcdOrjBzTouxjFwPME+eEYHrVpJdt7nZGJoli5Kbzsl4tqH90Nke2
-	n/SAw71jolWY/PA6o67Y3DOEFPePtEqQfwyRY2yypEpq/YaBMkCnYzjA0FEwFZwJ9GCq8cNtiYI
-	3cL9eh+Nyrissr/m2nv7owrHnJ+886/JAAu1RRn4zkwC1uaDxM6sWngEdZUrTlTY2UHhReuQIUg
-	ueBGzcNQEgJzkCaAbbg6x2JaYGKHq9VI94VUw4LH0SOflQOnBgyUxsCKhWbxPQG/lDG1bYPxbBQ
-	By9lc5ARsBWM45WZr9wBUf9JDJIEjA/Wz/u/yCiLzeKjWbySikAj43oQAhUUUa9A7Tu9w9gdpHF
-	sLoQzVztq9H3yVtrz5iuqRNYLRcWj6eajDW1LD5f2rK4nhldw9oN9wQYglRdOGRZO/3dSi/AJ3d
-	S7pekb1CIBWCatrTHQEVKinEg==
-X-Received: by 2002:a05:600c:8b6b:b0:485:3c2e:60d5 with SMTP id 5b1f17b1804b1-488fb8859ddmr185446655e9.2.1776694641669;
-        Mon, 20 Apr 2026 07:17:21 -0700 (PDT)
-Message-ID: <a065f80f-0de5-4bfc-974c-31727dfa91ea@suse.com>
-Date: Mon, 20 Apr 2026 16:17:22 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=foss header.d=arm.com header.i="@arm.com" header.h="From:To:Cc:Subject:Date"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1776694966; bh=uEiDQ0S/JRioWm+0hL1oiuLwlrOvukDwyNsY0rQwBYU=;
+	h=From:To:Cc:Subject:Date:From;
+	b=RBeHS28SayxivulRAXgeGaN2phri66YlWOlzJzxr548TvJOXY6beXc8qTibRzPuJS
+	 K39hakzurB8mK3AVy0PxuPKQDKzVbf2FR1g7AiH8RmMBFff1bjIgcwytQE8zIZMLNZ
+	 NqSY/ppo3SYR969pRrBCN5fXLSXlGKgoSpGpneg0=
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	"Oleksii Kurochko" <oleksii.kurochko@gmail.com>
+Subject: [PATCH v4 0/3] Fifth MPU Series
+Date: Mon, 20 Apr 2026 15:22:21 +0100
+Message-Id: <20260420142224.1802911-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/12] xen/riscv: implement get_page_from_gfn()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1775836193.git.oleksii.kurochko@gmail.com>
- <e32db25650546146594635821441494ee86648e9.1775836193.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e32db25650546146594635821441494ee86648e9.1775836193.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1776694642-465748B7-649D5572/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 2066
-X-Spamd-Result: default: False [0.31 / 15.00];
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-33051d/1776694968-2AF62938-73E8B252/0/0
+X-purgate-type: clean
+X-purgate-size: 2019
+X-Spamd-Result: default: False [1.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
+	R_DKIM_ALLOW(-0.20)[arm.com:s=foss];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,vates.tech,suse.com,gmail.com];
+	FORGED_SENDER(0.00)[luca.fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:dkim,arm.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FROM_NEQ_ENVFROM(0.00)[luca.fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[arm.com:+];
+	NEURAL_HAM(-0.00)[-0.802];
 	RCPT_COUNT_SEVEN(0.00)[11];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 843D142CDB5
+X-Rspamd-Queue-Id: 7D3C442CF7F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 10.04.2026 17:54, Oleksii Kurochko wrote:
-> The function is implemented out-of-line rather than as a static inline,
-> to avoid header ordering issues where struct domain is incomplete when
-> asm/p2m.h is included, leading to build failures:
->   In file included from ./arch/riscv/include/asm/domain.h:10,
->                    from ./include/xen/domain.h:16,
->                    from ./include/xen/sched.h:11,
->                    from ./include/xen/event.h:12,
->                    from common/cpu.c:3:
->   ./arch/riscv/include/asm/p2m.h: In function 'get_page_from_gfn':
->   ./arch/riscv/include/asm/p2m.h:50:33: error: invalid use of undefined type 'struct domain'
->      50 | #define p2m_get_hostp2m(d) (&(d)->arch.p2m)
->         |                                 ^~
->   ./arch/riscv/include/asm/p2m.h:180:38: note: in expansion of macro 'p2m_get_hostp2m'
->     180 |         return p2m_get_page_from_gfn(p2m_get_hostp2m(d), _gfn(gfn), t);
->         |                                      ^~~~~~~~~~~~~~~
->   make[2]: *** [Rules.mk:253: common/cpu.o] Error 1
->   make[1]: *** [build.mk:72: common] Error 2
->   make: *** [Makefile:623: xen] Error 2
+This series continues to further the ongoing work to introduce support
+for MPU systems in Xen.
 
-I still think this can and preferably would be sorted, but for now this is
-good enough.
+The patches in this series aim to implement MPU specific p2m functions.
 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+This serie is based on staging 99912d346009fda1e7fb1510c9501fbab17e92a0.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
-with a comment adjustment:
+Harry Ramsey (2):
+  arm/mpu: Introduce `v8r_el1_msa` device tree property for domains
+  arm/mpu: Implement p2m tables
 
-> --- a/xen/arch/riscv/p2m.c
-> +++ b/xen/arch/riscv/p2m.c
-> @@ -1534,3 +1534,16 @@ void p2m_handle_vmenter(void)
->       * won't be reused until need_flush is set to true.
->       */
->  }
-> +
-> +struct page_info *get_page_from_gfn(struct domain *d, unsigned long gfn,
-> +                                    p2m_type_t *t, p2m_query_t q)
-> +{
-> +    /*
-> +     * system domains are domains which doesn't have p2m translation tables,
-> +     * so they can't use p2m_get_page_from_gfn() and extra care should be
-> +     * done for them.
-> +     */
+Penny Zheng (1):
+  arm/mpu: implement setup_virt_paging for MPU systems
 
-This violates style and has two grammar issues. I'll take care of this
-when committing.
+ docs/misc/arm/device-tree/booting.txt       | 14 ++++
+ xen/arch/arm/arm64/mpu/p2m.c                | 80 ++++++++++++++++++++-
+ xen/arch/arm/dom0less-build.c               |  3 +
+ xen/arch/arm/domain.c                       |  4 ++
+ xen/arch/arm/include/asm/arm32/mpu.h        |  2 +
+ xen/arch/arm/include/asm/arm64/mpu.h        |  2 +
+ xen/arch/arm/include/asm/arm64/sysregs.h    |  4 ++
+ xen/arch/arm/include/asm/cpufeature.h       | 13 +++-
+ xen/arch/arm/include/asm/domain.h           |  4 ++
+ xen/arch/arm/include/asm/domain_build.h     |  8 +++
+ xen/arch/arm/include/asm/mmu/domain-build.h | 46 ++++++++++++
+ xen/arch/arm/include/asm/mpu.h              |  5 ++
+ xen/arch/arm/include/asm/mpu/domain-build.h | 27 +++++++
+ xen/arch/arm/include/asm/mpu/p2m.h          | 12 ++++
+ xen/arch/arm/include/asm/p2m.h              |  5 ++
+ xen/arch/arm/include/asm/processor.h        |  8 +++
+ xen/arch/arm/mpu/Makefile                   |  1 +
+ xen/arch/arm/mpu/arm32/mm.c                 |  5 ++
+ xen/arch/arm/mpu/arm64/mm.c                 |  5 ++
+ xen/arch/arm/mpu/domain-build.c             | 76 ++++++++++++++++++++
+ xen/arch/arm/mpu/p2m.c                      | 78 +++++++++++++++++++-
+ xen/include/public/arch-arm.h               |  7 ++
+ xen/include/public/domctl.h                 |  4 +-
+ 23 files changed, 404 insertions(+), 9 deletions(-)
+ create mode 100644 xen/arch/arm/include/asm/mmu/domain-build.h
+ create mode 100644 xen/arch/arm/include/asm/mpu/domain-build.h
+ create mode 100644 xen/arch/arm/mpu/domain-build.c
 
-Jan
+-- 
+2.34.1
+
 
