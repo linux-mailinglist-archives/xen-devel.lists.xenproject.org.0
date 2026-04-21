@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yHV/JGo152mg5QEAu9opvQ
+	id UIgoNvY152mg5QEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 10:29:30 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 10:31:50 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 043F8438285
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 10:29:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1288579.1568837 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BB7F4382EE
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 10:31:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1288589.1568847 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wF6Td-0002Mq-Pj; Tue, 21 Apr 2026 08:29:01 +0000
+	id 1wF6WC-0003rJ-6u; Tue, 21 Apr 2026 08:31:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1288579.1568837; Tue, 21 Apr 2026 08:29:01 +0000
+Received: by outflank-mailman (output) from mailman id 1288589.1568847; Tue, 21 Apr 2026 08:31:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wF6Td-0002KY-Mx; Tue, 21 Apr 2026 08:29:01 +0000
-Received: by outflank-mailman (input) for mailman id 1288579;
- Tue, 21 Apr 2026 08:29:00 +0000
+	id 1wF6WC-0003oZ-3D; Tue, 21 Apr 2026 08:31:40 +0000
+Received: by outflank-mailman (input) for mailman id 1288589;
+ Tue, 21 Apr 2026 08:31:38 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wF6Tc-0002KS-KW
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 08:29:00 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wF6WA-0003oS-74
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 08:31:38 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wF6Tc-00AC0U-1G
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 10:29:00 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wF6W9-00DgwI-K0
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 10:31:37 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e73545-2eae-0a2a0a5409dd-0a2a4501d61c-18
- for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 10:28:59 +0200
-Received: from [209.85.221.47] (helo=mail-wr1-f47.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e735e0-e002-0a2a0a5209dd-0a2a45049682-24
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 10:31:37 +0200
+Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e7354b-c1f2-0a2a45010019-d155dd2fd113-3
- for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 10:28:59 +0200
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-43cfde3c3f3so4218328f8f.3
- for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 01:28:59 -0700 (PDT)
+ id 69e735e9-1dec-0a2a45040019-d1558036dde7-3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 10:31:37 +0200
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4891b0786beso17332595e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 01:31:37 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4412150a092sm321039f8f.23.2026.04.21.01.28.58
+ ffacd0b85a97d-4412150a092sm340796f8f.23.2026.04.21.01.31.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Apr 2026 01:28:58 -0700 (PDT)
+ Tue, 21 Apr 2026 01:31:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,56 +58,60 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776760139; x=1777364939; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1776760297; x=1777365097; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=85i4+D4XuG2N74nELiTnewZVfDe3DHqAOGZqYhoI43o=;
-        b=CB7x8yb9XBcu5JhrcNGbhMW/EAdsl89IjUiAHgj6pwgdIV+1kTltQJjWnoXbVSfSw3
-         qm2rs+ahV+UoP7ECFl1sV/sd61QlRoIl/YBgLc7pwe7sf48mGbJP/xGis95bHIwSRtFZ
-         weq68Yrdm1AWE/AaMl7cl28uFlia5i3l39SIAXPGO/DEKAy40IuSiS3ABo7JSpHpyMYj
-         xUiD4+2l3GjG7xIG21/vKF2p71y3zBKIJ1FTDGSqFrQoHWDOvhAgQ1d+ZdMR06TYunsg
-         UshlO4IYMqr43pt9M/oPr5z8oKo4iIHX8+97xeZJHxrFl9KHjoxo7T3Isc6KK0blyc0x
-         GPSw==
+        bh=ejUCKJBJuIVKOh3AShHgtlyYlNQiSlVxp2XulL+yZxM=;
+        b=TRKqmXt1pcpo0bRNOlYLk96AKvj+mVMQp0iKmonyRnGl/CTtPdfjwexKrgRFgcQKET
+         hU/tlYrD3ZJykfOOxMQWBmkAeFqFH4wFYtNxyziTUzveqDvcE77ynypEe7258mQE/Ey4
+         wRltMu05zwQ4FsfSLXhBagQgB7ryvfkqQoOvG3nfMrlxN+AFfSnf36cidt5Yybhbzv5g
+         iXxnSvruQcMu29j/y/9AVPcPQHlx+if/xXwweC24GtFKWh6sx/lNcxUV5co1/Ipy2zZd
+         k4sJt+HAiXofldCEeU0iW2AxvCUNsw3+66YFmwyjLGLcoNyxQitpXz/pHFDqYTi6792s
+         niYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776760139; x=1777364939;
+        d=1e100.net; s=20251104; t=1776760297; x=1777365097;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=85i4+D4XuG2N74nELiTnewZVfDe3DHqAOGZqYhoI43o=;
-        b=BvfXEpntO22u/R5nipzDAAPHHBcYJ9gtladX6PR/VHkWDVe78VEGhkJ5Ij382SZ6aO
-         FtXhttwpusygo6meTKkwl2dIJZZElUHigXuy8snxADvDIP87eG5KMRxE+Cdb+oftWrnF
-         By9RZOB1K2SLoKb34TMGufzHQfSEDQafoFcbaGB8r4efB4EbEcP35ztK53DZKaSPzv3D
-         6MC2qATxs6m4kXwYzjkERbIcRWhGTF/gW6/Lb1vPbMg7TMS1xXrMkrNenrYBr3Kw9Qpk
-         +oxnHkcNrWi7Jih/rjy2iiSYGquyf3rpmt8YKEP6aLSPxKyfKvjks+1ojIC11hpoqsDE
-         BGVA==
-X-Forwarded-Encrypted: i=1; AFNElJ//8OXRhzb+pEUTEV/hGmNX69XLqN9s9pW1YOIaIzvZCd9WawwNqcpbzR8OAYH7QvC+xHrq3JyTJog=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yze6sLIFv1gnwTH9fEtReKH3Sd/CCBk+Hk9/yxrIRr3vSKhS9nX
-	WyY3bnZv326VF64BWuzmbxSTceMm/jilmHnVPQW/ANbqHWXYVD3k06lPpJRs7vvGww==
-X-Gm-Gg: AeBDievu4l8iRWdn5l/G5DWlBxh8K3zkqHVJNGop4IDxw1R2yKmsGg7Z1cXtc1ieuFL
-	tVJ9emC8mTWMe3cnSshE+JPxJ/GqMPJtrgykG7VoUdSrmXVJFFf5jtJ632IHrJVxo3wktsuSchj
-	McS3YWPYMVJBJIYEjKz5BbNAYdcMLmdKuhYRavdjr2cFaF87/l5H6OADUf50jN3DEMilP+eQM+Y
-	tqJuq9Wrh7YewQDnWahimlofSoFdjknwHe9seNuUJVEB4jF5OvmY1M5wMw/eIeipdYfxR8SwOrU
-	Z8NRW78POayPDarmagkQXugs9fVk3VirAMhlh6dKMWz6XQoHAfneFmov/RaUl69f31JDji9ZvuI
-	IqXUoopQ/rJFlolo1SDqIpsRJAQ56qHhDJDLvG/zZeIKfL4fAAibukczbaEp/lnZ9F/zlIi4Y0z
-	XmuOsT4BXLnbQYLbVOndetgFjkbZw8kziSMppp1IlKHui+Yuaq7vXAGz9FoHnUVm5FqPeig49oF
-	QMyA/1Qoy6jW0csCCtl+Frl/w==
-X-Received: by 2002:a05:6000:230c:b0:43d:303f:f358 with SMTP id ffacd0b85a97d-43fe3dc5981mr27376756f8f.2.1776760139178;
-        Tue, 21 Apr 2026 01:28:59 -0700 (PDT)
-Message-ID: <cb1b4892-7a7f-4ed9-bb73-d43d72db99c8@suse.com>
-Date: Tue, 21 Apr 2026 10:28:58 +0200
+        bh=ejUCKJBJuIVKOh3AShHgtlyYlNQiSlVxp2XulL+yZxM=;
+        b=SZfi27+5G8Yj5eaFxVRy5XEWj2BNoDHrL+Ek7Gc+f2s5X0RV/5ceBla8XsYHQeIzBu
+         EMXxSxKbTavGBm8bAqiwTXomGTkZIW/8hkOZpgNcca99iy9spEeo68K8m8ze3HUV6bYd
+         EdyYYdUZCZwVtZTp7zwTr7YqWJWhkBAjZFDZJWyFlgvdxXxAB1ipxt/mibmyuA+b+E5E
+         QzyQTl5AP4NKtBsqaXu8ZNs0aAt9r3GKC9bX3Sa6g2MrZ57Uyq7LwhJE3dUPDZZj/Obw
+         MVOWncEwk0ZOAO77S72UxkPAyvpsscwFI9ZV5KRQOzrtDVOMh6Z6vW5krV9+FDXJ7IXi
+         RcMg==
+X-Forwarded-Encrypted: i=1; AFNElJ9ERg9sl9WOT0tdMNla06zbbq40duTsl1LY5Ivb9G1gMnSsHN9sWpNykgQfbm52pfuW6PMHrvFsuAI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yxr3ijTLSPxfSASbKGWaXWKaOF0dXvbEsA3Z6vZfyCZ3JLsG+Js
+	/yzTEkackJYAqDubvRZkzMck9wiIPqmTv788PWAscoiMUyxrys+2lgP0Ub56dQsh7Q==
+X-Gm-Gg: AeBDietevXxy6m2R0o5eZLK/B/W60SzEalz+0JELb6wn0g8zhhKpVqyg+MA1jHTvEfT
+	O3Oz6PsLu7EIARBH1GZ7dihwLsxW2DygvUiJQ3Lr9KA8I81k91nCVb2lY4yACogshpgYFYrQwG1
+	RhD/PdQ8Cqwbckj+BjmRTrNPeRNP7XqKsv4HKgOJcf1qJZ7qOA5tyJYPNeQC5SpWrshDSrnh3AF
+	EaQ8Z51dU9Icgxi9lyT0+/5jyCRZC4VxbFx+6n5wSsIpmDpO1gVQhnv3OC16zF+Iikv6CuKuE5E
+	rJJJ8iZXvg5vhw6Ln34X5MR7OFZSZMe7upeDqnyNWjQGJIYuBoAyn61FhxrFs2hzM7+zd9SpTHb
+	rUB7WbsDAkeIMox9PRCGWPTTvICFJOChCWBHCP4uP/9ccWxzy3Ufeney13ISlT0ggoWMntRuy1s
+	t3txra+9+g7+CfAOhw4+MBAuuhgf5C2K+vq9MaxbiCYBXsKvpXEE/tJ3Idq1tVPhEqc91gqDfLm
+	i5kT6FSNqgdHbP4k96Tq1OudosZJB0EKwMr
+X-Received: by 2002:a05:6000:40de:b0:441:1ca1:6404 with SMTP id ffacd0b85a97d-4411ca1642cmr5284888f8f.18.1776760296724;
+        Tue, 21 Apr 2026 01:31:36 -0700 (PDT)
+Message-ID: <2a2275ce-3c84-4db8-b4d5-79c4cd6c9e8b@suse.com>
+Date: Tue, 21 Apr 2026 10:31:35 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/2] plat/rcar: Add region id support for PCI
+Subject: Re: [RFC PATCH 1/2] pci: Allow platforms to modify BAR adresses
 To: Mykyta Poturai <Mykyta_Poturai@epam.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
  <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Stewart Hildebrand <stewart.hildebrand@amd.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <cover.1776756291.git.mykyta_poturai@epam.com>
- <ad5caa92e36b0e0f104a14b46396037505080f4f.1776756291.git.mykyta_poturai@epam.com>
+ <a0f623792497ab92cfb64c50bd17d28138e10b99.1776756291.git.mykyta_poturai@epam.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -133,32 +137,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <ad5caa92e36b0e0f104a14b46396037505080f4f.1776756291.git.mykyta_poturai@epam.com>
+In-Reply-To: <a0f623792497ab92cfb64c50bd17d28138e10b99.1776756291.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1776760139-BE460FF4-6463BE8B/0/0
+X-purgate-ID: tlsNG-ebf023/1776760297-2B1663FF-D4C9B6CA/0/0
 X-purgate-type: clean
-X-purgate-size: 478
+X-purgate-size: 2264
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:stewart.hildebrand@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -169,21 +173,65 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 043F8438285
+X-Rspamd-Queue-Id: 4BB7F4382EE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 21.04.2026 09:57, Mykyta Poturai wrote:
-> With Region ID enabled, all CPU memory accesses need to have rgid bits
-> set in the physical address. This creates a problem for PCI BAR
-> accesses, as it would require all BARs to be 64bit.
+> This patch is a preparatory work for adding Region ID support on Renesas
+> R-Car series boards. Add new host bridge op "fixup_bar" that allows
+> platforms to modify BAR addresses before they are mapped.
+> 
+> Because x86 don't have support for PCI Host Bridge drivers, add another
+> level of indirection in form of platform_pci_fixup_bar() function, that
+> will call host bridge op on ARM and do nothing on x86.
+> 
+> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> ---
+>  xen/arch/arm/include/asm/pci.h  |  3 +++
+>  xen/arch/arm/include/asm/vpci.h |  9 +++++++++
+>  xen/arch/arm/vpci.c             | 12 ++++++++++++
+>  xen/arch/x86/include/asm/vpci.h |  6 ++++++
+>  xen/drivers/vpci/header.c       |  2 ++
+>  5 files changed, 32 insertions(+)
+> 
+> diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
+> index 7c3211823f..398a4eb746 100644
+> --- a/xen/arch/arm/include/asm/pci.h
+> +++ b/xen/arch/arm/include/asm/pci.h
+> @@ -80,6 +80,9 @@ struct pci_ops {
+>      void (*init_bus_range)(struct dt_device_node *dev,
+>                             struct pci_host_bridge *bridge,
+>                             struct pci_config_window *cfg);
+> +    void (*fixup_bar)(struct pci_host_bridge *bridge,
+> +                      unsigned int bar_num,
+> +                      paddr_t *addr);
 
-I don't understand this. CPU accesses of addresses read / derived from
-BARs can be massaged in any way the OS likes. That doesn't require the
-BARs to be 64-bit. Are you trying to arrange for RGID to be transparent
-to guests?
+I'm not an Arm maintainer, but if such a hook - used only when a certain
+CONFIG_* is active, as per patch 2 - was introduced in common or x86 code,
+I'd ask for the hook to also be conditional. Doing so avoids accidental use
+without ...
+
+> --- a/xen/arch/arm/vpci.c
+> +++ b/xen/arch/arm/vpci.c
+> @@ -189,6 +189,18 @@ unsigned int domain_vpci_get_num_mmio_handlers(struct domain *d)
+>      return 1;
+>  }
+>  
+> +void platform_pci_fixup_bar(const struct pci_dev *pdev,
+> +                                          unsigned int bar_num,
+> +                                          paddr_t *addr)
+> +{
+> +    struct pci_host_bridge *bridge = pci_find_host_bridge(pdev->sbdf.seg, pdev->sbdf.bus);
+> +
+> +    if ( bridge->ops->fixup_bar )
+> +    {
+> +        bridge->ops->fixup_bar(bridge, bar_num, addr);
+> +    }
+
+... such a conditional around it.
 
 Jan
 
