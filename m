@@ -2,57 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mNt1Kncq52mo4wEAu9opvQ
+	id hmU1GHkq52nx4wEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 09:42:47 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 09:42:49 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F6A4437C6D
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 09:42:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1288418.1568694 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C94CB437C85
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 09:42:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1288420.1568703 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wF5kP-0002uq-Ad; Tue, 21 Apr 2026 07:42:17 +0000
+	id 1wF5kV-000391-LS; Tue, 21 Apr 2026 07:42:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1288418.1568694; Tue, 21 Apr 2026 07:42:17 +0000
+Received: by outflank-mailman (output) from mailman id 1288420.1568703; Tue, 21 Apr 2026 07:42:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wF5kP-0002rk-76; Tue, 21 Apr 2026 07:42:17 +0000
-Received: by outflank-mailman (input) for mailman id 1288418;
- Tue, 21 Apr 2026 07:42:15 +0000
+	id 1wF5kV-000377-Hf; Tue, 21 Apr 2026 07:42:23 +0000
+Received: by outflank-mailman (input) for mailman id 1288420;
+ Tue, 21 Apr 2026 07:42:22 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jgross@suse.com>) id 1wF5kN-0002qs-OV
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 07:42:15 +0000
+ (envelope-from <jgross@suse.com>) id 1wF5kU-00036B-DG
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 07:42:22 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wF5kN-00G0Vt-4x
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 09:42:15 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wF5kR-00Aiof-Fk
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 09:42:21 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jgross@suse.com>)
- id 69e72a54-5cb7-0a2a0a5109dd-0a2a4505d38e-18
- for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 09:42:15 +0200
-Received: from [195.135.223.130] (helo=smtp-out1.suse.de)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e72a55-2eae-0a2a0a5409dd-0a2a4502a498-32
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 09:42:20 +0200
+Received: from [195.135.223.131] (helo=smtp-out2.suse.de)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jgross@suse.com>)
- id 69e72a56-aaa8-0a2a45050019-c387df82dd06-3
- for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 09:42:14 +0200
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ id 69e72a5c-af86-0a2a45020019-c387df83c1e6-3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 09:42:20 +0200
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CD6526A7F5;
- Tue, 21 Apr 2026 07:42:13 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 59AF35BCE1;
+ Tue, 21 Apr 2026 07:42:19 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 91752593AF;
- Tue, 21 Apr 2026 07:42:13 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1B2A7593AF;
+ Tue, 21 Apr 2026 07:42:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id CTnhIVUq52n0NQAAD6G6ig
- (envelope-from <jgross@suse.com>); Tue, 21 Apr 2026 07:42:13 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 53KPBVsq52n9NQAAD6G6ig
+ (envelope-from <jgross@suse.com>); Tue, 21 Apr 2026 07:42:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,23 +63,27 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=susede1 header.d=suse.com header.i="@suse.com" header.h="From:Date:Message-ID:To:Cc:MIME-Version:Content-Transfer-Encoding"; dkim=pass header.s=susede1 header.d=suse.com header.i="@suse.com" header.h="From:Date:Message-ID:To:Cc:MIME-Version:Content-Transfer-Encoding"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=susede1 header.d=suse.com header.i="@suse.com" header.h="From:Date:Message-ID:To:Cc:MIME-Version:Content-Transfer-Encoding:In-Reply-To:References"; dkim=pass header.s=susede1 header.d=suse.com header.i="@suse.com" header.h="From:Date:Message-ID:To:Cc:MIME-Version:Content-Transfer-Encoding:In-Reply-To:References"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1776757334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=GiCl29ziqUuQLuJlMeZlJuHJz+kWks534SS9M1I17Ug=;
-	b=Hz1QnGSfVZNt1eIuMY9LSbhvALsPzAAEqb24kuFoEf7N8HdzwPp01dHX1f4LTSxhhEphZn
-	k8GJLiT/7Fq8IVvl8oQbdlC17I7L26lhf0edYr111rNhpvwwmEaCyyApWt3N7s1NK9lgAw
-	10uVggoGl6l9Gei2zIU2HzEJijFqUNw=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=Q3MqWZsL
+	t=1776757340; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ReIly1atvh5rbm6DWS8EB7RxMnUs54f1iHdpQVFl9VA=;
+	b=IFWssi8NDTX1FX3vbVE7W0gyiQmMrE0DPQaWlgYJLSoTyNvF9Q8GrWE5K7KLX1Hiu/zyNl
+	RPhXtKLGMt8bc23G5M0gJaPmXMNjlIQynNxIGFQToS0XnPUlBMU7mg7clvvwD+Iyhib0h7
+	Upqb4LsW3JHhH6Cwzs4WjOgKtjkHqZY=
+Authentication-Results: smtp-out2.suse.de;
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1776757333; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=GiCl29ziqUuQLuJlMeZlJuHJz+kWks534SS9M1I17Ug=;
-	b=Q3MqWZsLsRb7dca3DyjcT7VPodi5wfSDUExbq4IX06CKABSf5G+xrLnivGlyjqVk0osqKt
-	ecmPtLsQwsVk02f/NLIxoysdU+DloaA7bZJjvbTOOMNQAqkTqNwcfjcP7wKDq1hX9QV4JQ
-	2VMYMAL+VXNk7O8WTJRbl0uq+zYp3x0=
+	t=1776757339; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ReIly1atvh5rbm6DWS8EB7RxMnUs54f1iHdpQVFl9VA=;
+	b=sNJz12Ks7Ia8ZjR5xXJWOPjYBd7aqAtUctmXudA44EQj5AveCbAzLXwER1TQBKv5dmu5Dm
+	wH7rRKVB2RxfLWbwobfY0XHGPGpHhFg9gBZRM0ogEIs1no0zRZVkroU9VqhNGoM7RcAcMm
+	vBhjpl0qwvG0NmXvgizRbwzjfYO5Hqw=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -90,19 +93,22 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 0/9] tools/xenstored: add support for watch depth feature
-Date: Tue, 21 Apr 2026 09:42:02 +0200
-Message-ID: <20260421074211.308473-1-jgross@suse.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jason Andryuk <jason.andryuk@amd.com>
+Subject: [PATCH v2 1/9] tools/xenstored: allow domU to get own features
+Date: Tue, 21 Apr 2026 09:42:03 +0200
+Message-ID: <20260421074211.308473-2-jgross@suse.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260421074211.308473-1-jgross@suse.com>
+References: <20260421074211.308473-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -3.01
+X-Spam-Score: -2.80
 X-Spam-Level: 
-X-purgate-ID: tlsNG-c201ff/1776757334-2BD67443-C6CE8F72/0/0
+X-Spam-Flag: NO
+X-purgate-ID: tlsNG-720697/1776757340-81772161-E6BDC29E/0/0
 X-purgate-type: clean
-X-purgate-size: 2338
+X-purgate-size: 3357
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	R_MISSING_CHARSET(0.50)[];
@@ -117,82 +123,116 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:jason.andryuk@amd.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:email,suse.com:email,suse.com:dkim,suse.com:mid];
 	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.985];
+	NEURAL_HAM(-0.00)[-0.989];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: 5F6A4437C6D
+X-Rspamd-Queue-Id: C94CB437C85
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-In order to reduce excessive number of watch events the watch depth
-feature has been defined, allowing the user to limit the number of
-node levels below the watched node to cause events.
+Expand the XS_GET_FEATURE command to allow an unprivileged domain to
+read its own available features. While this information is available
+via the related field in the shared page used for communication with
+Xenstore, user land components of the domU would need special support
+in the related kernel driver to obtain that data. With supporting the
+XS_GET_FEATURE for that purpose, only an up to date libxenstore is
+needed.
 
-This series is implementing this feature for xenstored (including the
-PV and PVH stubdom variants).
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+---
+ docs/misc/xenstore.txt   |  9 +++++----
+ tools/xenstored/core.c   |  3 +--
+ tools/xenstored/domain.c | 16 +++++++++++-----
+ 3 files changed, 17 insertions(+), 11 deletions(-)
 
-Possible users are:
-
-- xl/libxl: use domid information for the special @introduceDomain and
-  @releaseDomain watches, which will be available when using depth = 1
-
-- xenconsoled, like xl/libxl
-
-- any PV-device backends watching directories for added devices (no
-  watch events when any device specific node is modified)
-
-- any PV-device frontend and backend watching the "state" node of the
-  other side, in case the other side plays dirty games by building
-  large sub-trees beneath the "state" node
-
-Changes in V2:
-- some minor stale changes reverted
-- last patch covered by the series now, man page updated
-
-Juergen Gross (9):
-  tools/xenstored: allow domU to get own features
-  docs: clarify Xenstore watch depth feature
-  tools/libs/store: add support to use watches with a depth parameter
-  tools/xenstored: add depth information to watches
-  tools/xenstored: add depth handling to XS_WATCH
-  tools/xenstored: replace the fire_watches() exact parameter
-  tools/xenstored: expand special watch handling with depth feature
-  tools/xenstored: make XENSTORE_SERVER_FEATURE_WATCHDEPTH available
-  tools/xs-clients: support depth with xenstore-watch
-
- docs/man/xenstore-watch.1.pod      |   9 ++
- docs/man/xl.cfg.5.pod.in           |   6 ++
- docs/misc/xenstore.txt             |  14 ++-
- tools/include/xenstore.h           |  16 +++
- tools/libs/store/libxenstore.map   |   2 +
- tools/libs/store/xs.c              | 102 +++++++++++++++---
- tools/xenstored/core.c             |  15 ++-
- tools/xenstored/domain.c           |  61 ++++++++---
- tools/xenstored/domain.h           |   2 +
- tools/xenstored/lu.c               |   3 +
- tools/xenstored/transaction.c      |  14 +--
- tools/xenstored/transaction.h      |   4 +-
- tools/xenstored/watch.c            | 161 ++++++++++++++++++++---------
- tools/xenstored/watch.h            |  10 +-
- tools/xs-clients/xenstore_client.c |  19 +++-
- xen/include/public/io/xs_wire.h    |   2 +
- 16 files changed, 343 insertions(+), 97 deletions(-)
-
+diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
+index 4eccbc2f7f..8a2c19d116 100644
+--- a/docs/misc/xenstore.txt
++++ b/docs/misc/xenstore.txt
+@@ -427,13 +427,14 @@ SET_FEATURE		<domid>|<value>|
+ 	to set a bit for a feature not being supported by the running
+ 	Xenstore will be denied. Providing no <domid> with the
+ 	GET_FEATURE command will return the features which are supported
+-	by Xenstore.
++	by Xenstore for the domain issuing the command.
+ 
+ 	SET_FEATURE for a domain will be rejected after the INTRODUCE
+-	command for this domain has been sent to xenstored.
++	command for this domain has been sent to xenstored. This has the
++	effect that dom0 will always have all supported features enabled.
+ 
+-	xenstored prevents the use of GET_FEATURE and SET_FEATURE other
+-	than by dom0.
++	xenstored prevents the use of GET_FEATURE with a domid specified
++	and SET_FEATURE other than by dom0.
+ 
+ GET_QUOTA		[[<domid>|]<quota>|]	<value>|
+ SET_QUOTA		[<domid>|]<quota>|<value>|
+diff --git a/tools/xenstored/core.c b/tools/xenstored/core.c
+index 34cb266e8a..93244d0ac4 100644
+--- a/tools/xenstored/core.c
++++ b/tools/xenstored/core.c
+@@ -2031,8 +2031,7 @@ static struct {
+ 	    { "SET_TARGET",    do_set_target,   XS_FLAG_PRIV },
+ 	[XS_RESET_WATCHES]     = { "RESET_WATCHES",     do_reset_watches },
+ 	[XS_DIRECTORY_PART]    = { "DIRECTORY_PART",    send_directory_part },
+-	[XS_GET_FEATURE]       =
+-	    { "GET_FEATURE",   do_get_feature,  XS_FLAG_PRIV },
++	[XS_GET_FEATURE]       = { "GET_FEATURE",       do_get_feature },
+ 	[XS_SET_FEATURE]       =
+ 	    { "SET_FEATURE",   do_set_feature,  XS_FLAG_PRIV },
+ 	[XS_GET_QUOTA]         =
+diff --git a/tools/xenstored/domain.c b/tools/xenstored/domain.c
+index 1684f6dee7..b0b339f569 100644
+--- a/tools/xenstored/domain.c
++++ b/tools/xenstored/domain.c
+@@ -1323,10 +1323,17 @@ int do_get_feature(const void *ctx, struct connection *conn,
+ 	char *result;
+ 
+ 	n_args = get_strings(in, vec, ARRAY_SIZE(vec));
+-	if (n_args > 1)
+-		return EINVAL;
+ 
+-	if (n_args == 1) {
++	if (!n_args) {
++		features = conn->domain ? conn->domain->features
++					: XENSTORE_FEATURES;
++	} else {
++		if (domain_is_unprivileged(conn))
++			return EACCES;
++
++		if (n_args > 1)
++			return EINVAL;
++
+ 		domid = parse_domid(vec[0]);
+ 		if (errno)
+ 			return errno;
+@@ -1334,8 +1341,7 @@ int do_get_feature(const void *ctx, struct connection *conn,
+ 		if (!domain)
+ 			return ENOENT;
+ 		features = domain->features;
+-	} else
+-		features = XENSTORE_FEATURES;
++	}
+ 
+ 	result = talloc_asprintf(ctx, "%u", features);
+ 	if (!result)
 -- 
 2.53.0
 
