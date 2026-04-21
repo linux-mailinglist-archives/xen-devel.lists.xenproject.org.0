@@ -2,49 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UHaKO5co52mI4wEAu9opvQ
+	id iGriDHkp52mo4wEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 09:34:47 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 09:38:33 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C3D9437A8B
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 09:34:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1288402.1568675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94D2C437B5A
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 09:38:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1288409.1568685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wF5cy-0000HX-Cc; Tue, 21 Apr 2026 07:34:36 +0000
+	id 1wF5ga-0001Nn-RY; Tue, 21 Apr 2026 07:38:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1288402.1568675; Tue, 21 Apr 2026 07:34:36 +0000
+Received: by outflank-mailman (output) from mailman id 1288409.1568685; Tue, 21 Apr 2026 07:38:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wF5cy-0000Ew-9f; Tue, 21 Apr 2026 07:34:36 +0000
-Received: by outflank-mailman (input) for mailman id 1288402;
- Tue, 21 Apr 2026 07:34:35 +0000
+	id 1wF5ga-0001L7-Ng; Tue, 21 Apr 2026 07:38:20 +0000
+Received: by outflank-mailman (input) for mailman id 1288409;
+ Tue, 21 Apr 2026 07:38:19 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wF5cw-0000Eq-VU
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 07:34:35 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wF5gZ-0001Ki-3j
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 07:38:19 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wF5cw-00FyXS-C1
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 09:34:34 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wF5gY-00DTgD-DA
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 09:38:18 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e72881-bab6-0a2a0a5309dd-0a2a450b9d60-38
- for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 09:34:34 +0200
-Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e72962-bab6-0a2a0a5309dd-0a2a4507d766-42
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 09:38:18 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e72889-212f-0a2a450b0019-d155802ac858-3
- for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 09:34:34 +0200
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4891e5b9c1fso16983445e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 00:34:34 -0700 (PDT)
+ id 69e7296a-229c-0a2a45070019-d1558030e9a8-3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 09:38:18 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4891d7164ddso11466695e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 00:38:18 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4890009e759sm274514365e9.6.2026.04.21.00.34.32
+ 5b1f17b1804b1-48a5549f582sm13191255e9.33.2026.04.21.00.38.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Apr 2026 00:34:33 -0700 (PDT)
+ Tue, 21 Apr 2026 00:38:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,54 +57,57 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776756873; x=1777361673; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1776757098; x=1777361898; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=Gf1n57p6tPYWLEbgVNH/z/KLvsxhxbyMFKXGuN9mwCE=;
-        b=FQg5SJ2oVmQLGc969dHZ6pbeQq3wQr3K/dDpds5Ou5BDECn+/fsAtVnehmyqsKv+y6
-         pBANiPZKV7v+iXOc/a1AKuNpHL34sO6Ew7Y5MdO8ApOItRgR7dIVrghp5al9kExEAPFu
-         NMyoJLPm4+OUNg+hZDRW2AKt59sdCIz+O1s/KXA392l08Bhz0M9YVx/eQXngaXmOFMOa
-         oLrAqLOXF2s/4MUTQ+VAk95GwIXQgJRBMlZBsD+X2BZL26RhrK57KwsDseaUHayHyPxJ
-         quMDKPZHojvkEv04e8CV80bL+9SiEtDKqcgLZDziVh6KjmTY/0WpRgXBazfVN3JZj0B8
-         z+5Q==
+        bh=phBOziqZXh9EE62pJxbxmY03bAYvLJS7cJGH0nUQJLI=;
+        b=KP558vMNMqYpHpjsm7uW6eBnutLcrxTLLIFX64m2ht+KyAcEyvzMFKz42hZQuCUcxr
+         W0UE1EhONjsfZXK/LPdUI8pqTjVh9mzeRHs717oGjupwEt99yYYpvk5L4Px4J6VWX1wa
+         zglciKQIjXeUJdz5kiTPVpGLn93hVwRPHmVlBXqAkeHDsfKjPvuN7Bmjy5A4YUoXCS+r
+         dPku6OFBsopKV+4Q1QFXhTVNDsDLCn9/bKWHJiJuejipXgta2zOGSODCCnFZjMAvTDGb
+         lrN2g4bMvATwQUIbYbP6cSITIzBLLdOUDMTl5MiRjpqwj7XeAsyg/m0i3dBfi4GJ3SAt
+         sf2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776756873; x=1777361673;
+        d=1e100.net; s=20251104; t=1776757098; x=1777361898;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Gf1n57p6tPYWLEbgVNH/z/KLvsxhxbyMFKXGuN9mwCE=;
-        b=ZtTqmdCAPI66+WD1AXSdqcYq7IkQE/2P4vVy1Sf6c8VDd9nASLMquJv4WaFHudqUW4
-         FJWWDEctpYl+YuhgsOwXQxfK8r/z3YBbHWB/CUbQrBF+A50QkpWsXHP3t1ZOqSPF1iQ/
-         TBXXoKTj1qz3dKsqMrXaZT4uxDT7uofRvlOSVQumBLIXkchOU3RGD/u/ZQx81nN1urtF
-         XH7ZH13IJ2OotNQ5sbhFnJWixcsuS0yOXwvJK2hlUwBlTwWr6W5n26JKE4A2z+b1gttW
-         DJx3jjogU3No4QkpB4S/dIAdWLNSqluotKy5Oj0x4KyBoNn3F2yB8kxNO2axXnR2gWG3
-         KcnA==
-X-Gm-Message-State: AOJu0YxgrWGPkxci/KhzIXFHOQidH4HdiMVGpdJqJu8p4FK5ro3MAzak
-	qvB6nsxfpQ1O8vYF7vZF0/eF0pd/KE2iywBwNFk1lw0KYAMFESDQuPuibxwBGeqPdA==
-X-Gm-Gg: AeBDievHrVb72X5wdzcM3oPXfCDDbtddlvlk/BH44DZYlIaS79hrzjeCRAcmysjlpYj
-	+mGcoJBYlmd/OwBk1ZKhvE51MrmxsYH5iCmMGYkAIk9b/qU3B75QwdP2drkK1xEVSgCmfMpoUzP
-	XdXvcDNfev8/xEn2iwaHC1/iygIV+R77YNsayqU8nhfd5mYiR6Oun6ZJM+GaxHz5rALLw5R4SAE
-	5uuHcieBVrGZGebzVZ8sSBwIq3cuspHf+L+jkEfaUCjRChUNXKyoyz+nf9nbCO0ciE5RAcqMZNc
-	4U2WLLhzn9FCfe+sqoe4aWFAyLLxSPECkbeKWdFuQyQRjoccAcxrYccewacHpw1IiM29Byt+6zl
-	/amV4cYdM6iTJZUrdoJNgUTNl+XRBxCbnRaMOvuMQ0RvZtKb551GZlLKMyg06BUO4howX66iqNk
-	RlBwLKso6SzQpGQdQQVrsksmxIZDycp4bUh0LYoD4aKFHjwTWItbK66wz3i5TUTgH5N4+bVRsvo
-	kereoSu3MOP6I6k5c8H1ahYIg==
-X-Received: by 2002:a05:600c:3546:b0:48a:5546:61a1 with SMTP id 5b1f17b1804b1-48a554663d4mr27267625e9.15.1776756873390;
-        Tue, 21 Apr 2026 00:34:33 -0700 (PDT)
-Message-ID: <18030a33-5280-4c15-ae72-159ba2a25018@suse.com>
-Date: Tue, 21 Apr 2026 09:34:32 +0200
+        bh=phBOziqZXh9EE62pJxbxmY03bAYvLJS7cJGH0nUQJLI=;
+        b=VMi6l5fxXfzcGmb+Dp+ZSoK09+yIaMuvmBNigaDlPVZpxEMfDjd9iICyAETIq7fw12
+         QwKRgO8u18rm5pWW5hhu5e1eKEqZLWiWgMz24Z2LVJLwVAnEb20neEKlAPgMMxTTrrku
+         pRmCAFSJvFFE7Oy/zSvHD+zMQdU3TptXTEMK57/QeezevK5jE96zu4qEtJ57Uw0tQL12
+         OZzAPpTHZnsy6mF9tDK8ta93UxTIuG+pa2lCrbx4pWCw12ShfRqnf49m8IKjg0DEAcUz
+         pUpdh6OTMdaqOQQEIi9F3rAQryfSXSxD87dQlb2P3MDVTkE8IzgC9RwJcgGxyzi+k7aZ
+         1gkQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8gG/NhJkxvCXb57v0bVj5QmTmPgojrXpHOkA27SyjzeRooCsKx9KYyLI7ZEK4FRvaCiTv+ews8FbI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyyy94CICSLjPyvmMtGd7dXe/mYSu7QkWgcpPuQD+U8TF4/o+mP
+	qKjpD1KG6f0wePNzD2bv98Z1q079SX3KGxmFNIUcFoLI4/f3lVqtTiy3WXjXcO9J9A==
+X-Gm-Gg: AeBDieu22csILXdd0XSVdmB8u4masy5troHqhP2iD/Oa/KL0PwdibireYd0SqEgRtID
+	cGa6+le7J8jbuZ1NtJBNhXgxriLAU8tJd5Dy/JMzCIWXCCrdv6OywFANI/3xdtWZeQD7zIsGSGR
+	xEbLRCPddZ/LRohgWq5Gp9rhp04OUE9YXoNwF4nJR1y2UuvtyZq23+qvwRSkmI09G/yDgrpJ/hC
+	MKjmOge53RDm1LmdmAoAmSJSocl21eE7QV1EfMj5Eq0mih7qu2HMaFh/dbBNhyjAWJtCs4at7sI
+	Lw+GvrgmKrOl6+VoBvjLg14ACQhH/nl5ogqzP3ZnaU/aVIBmoCsNE/rtavdb+xPXTGM0aNZV5wp
+	nZaahUf1wGa0m1sA2z3872kRtfNq2fDuhDFCBblkXjfHNT++PdLlFVWnvFRuzAobbjOMPoyCs6N
+	wAhAyfnLTiTwu7khTKYwpSNF9EdJK0aI16kyLI7PdRHYutQ1FIzTOjaRourAE9qLGNgcITEtaP6
+	pFGLOD70rdYk55vcOXzucLjWw==
+X-Received: by 2002:a05:600c:a30b:b0:487:2671:fb8f with SMTP id 5b1f17b1804b1-488fb74dfe5mr165197925e9.8.1776757097708;
+        Tue, 21 Apr 2026 00:38:17 -0700 (PDT)
+Message-ID: <2c8c5cb9-c5bf-4e79-a390-33b75c5c3423@suse.com>
+Date: Tue, 21 Apr 2026 09:38:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/cpuidle: split the max_cstate variable
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v4 03/16] x86emul: support AVX10.1
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Teddy Astie <teddy.astie@vates.tech>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>
-References: <4b89f640-046a-49c1-95f1-947d98135e5b@suse.com>
- <aeZQ3FcNl_EsPTdE@macbook.local>
+ Community Manager <community.manager@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <1e2ff012-b07a-43be-9ba6-290b38d3c97c@suse.com>
+ <e23fa09d-b189-4c76-a22a-42df9fb9f9ef@suse.com>
+ <a682a6fb-83cb-4240-a5c5-ce39e999394b@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,207 +133,114 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aeZQ3FcNl_EsPTdE@macbook.local>
+In-Reply-To: <a682a6fb-83cb-4240-a5c5-ce39e999394b@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1776756874-246B7F3B-CFC83654/0/0
-X-purgate-type: clean
-X-purgate-size: 6729
-X-Spamd-Result: default: False [-1.19 / 15.00];
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-ef75cf/1776757098-AE971C48-7A8C7A27/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 2863
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORWARDED(0.00)[mailman];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:community.manager@xenproject.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	NEURAL_HAM(-0.00)[-0.999];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 5C3D9437A8B
+X-Rspamd-Queue-Id: 94D2C437B5A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 20.04.2026 18:14, Roger Pau Monné wrote:
-> On Wed, Apr 08, 2026 at 01:34:43PM +0200, Jan Beulich wrote:
->> @@ -690,18 +694,18 @@ static void cf_check acpi_processor_idle
->>      u32 exp = 0, pred = 0;
->>      u32 irq_traced[4] = { 0 };
->>  
->> -    if ( max_cstate > 0 && power &&
->> +    if ( max_cstate() > 0 && power &&
->>           (next_state = cpuidle_current_governor->select(power)) > 0 )
->>      {
->>          unsigned int max_state = sched_has_urgent_vcpu() ? ACPI_STATE_C1
->> -                                                         : max_cstate;
->> +                                                         : max_cstate();
->>  
->>          do {
->>              cx = &power->states[next_state];
->>          } while ( (cx->type > max_state ||
->>                     cx->entry_method == ACPI_CSTATE_EM_NONE ||
->>                     (cx->entry_method == ACPI_CSTATE_EM_FFH &&
->> -                    cx->type == max_cstate &&
->> +                    cx->type == max_allowed_cstate &&
+On 21.04.2026 09:32, Oleksii Kurochko wrote:
 > 
-> I'm afraid I'm missing why this uses max_allowed_cstate instead of
-> max_state.
-
-max_allowed_cstate is what needs using along with ...
-
->>                      (cx->address & MWAIT_SUBSTATE_MASK) > max_csubstate)) &&
-
-... max_csubstate, as both are driven by the "max_cstate=" command line
-option. Renaming max_csubstate to max_allowed_csubstate would be an
-option, but would incure yet more churn.
-
->> --- a/xen/arch/x86/cpu/mwait-idle.c
->> +++ b/xen/arch/x86/cpu/mwait-idle.c
->> @@ -1045,15 +1045,16 @@ static void cf_check mwait_idle(void)
->>  	u64 before, after;
->>  	u32 exp = 0, pred = 0, irq_traced[4] = { 0 };
->>  
->> -	if (max_cstate > 0 && power &&
->> +	if (max_cstate() > 0 && power &&
->>  	    (next_state = cpuidle_current_governor->select(power)) > 0) {
->>  		unsigned int max_state = sched_has_urgent_vcpu() ? ACPI_STATE_C1
->> -								 : max_cstate;
->> +								 : max_cstate();
->>  
->>  		do {
->>  			cx = &power->states[next_state];
->> -		} while ((cx->type > max_state || (cx->type == max_cstate &&
->> -			  MWAIT_HINT2SUBSTATE(cx->address) > max_csubstate)) &&
->> +		} while ((cx->type > max_state ||
->> +                          (cx->type == max_allowed_cstate &&
 > 
-> Indentation is weird for the above line IMO, you should use hard 3
-> tabs plus spaces afterwards, like the surrounding indentation?
-
-Ouch, indeed.
-
->> +			   MWAIT_HINT2SUBSTATE(cx->address) > max_csubstate)) &&
->>  			 --next_state);
->>  		if (!next_state)
->>  			cx = NULL;
+> On 4/9/26 5:03 PM, Jan Beulich wrote:
+>> This requires relaxing various pre-existing AVX512* checks, as AVX10.1
+>> covers all AVX512* except PF, ER, 4FMAPS, 4VNNIW (support for all of
+>> which was removed meanwhile anyway), and VP2INTERSECT. At the same time
+>> all vector widths are always supported.
+>>
+>> Note that visa_check(), replacing host_and_vcpu_must_have() uses, checks
+>> only the guest capability: We wouldn't expose AVX512* (nor AVX10)
+>> without the hardware supporting it. Similarly in avx512_vlen_check() the
+>> original host_and_vcpu_must_have() is reduced just vcpu_must_have().
+>> This also simplifies (resulting) code in the test and fuzzing harnesses,
+>> as there the XCR0 checks that are part of cpu_has_avx512* are only
+>> needed in local code, not in the emulator itself (where respective
+>> checking occurs elsewhere anyway, utilizing emul_test_read_xcr()).
+>>
+>> While in most cases the changes to x86_emulate() are entirely
+>> mechanical, for opmask insns earlier unconditional AVX512F checks are
+>> converted into "else" clauses to existing if/else-if ones.
+>>
+>> To be certain that no uses remain, also drop respective cpu_has_avx512*
+>> (except in the test harness) and vcpu_has_avx512*().
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Probably avx512_vlen_check() should have the avx512_ prefix dropped, now
+>> that it also covers AVX10. But if so that wants to be either a prereq or
+>> a follow-on patch.
+>>
+>> visa_check() won't cover AVX10.2 and higher, but probably we will want
+>> independent checking logic for that anyway.
+>>
+>> Spec version 2 still leaves unclear what the xstate components are which
+>> would need enabling for AVX10/256. x86emul_get_fpu() is therefore
+>> untouched for now.
+>>
+>> Since it'll be reducing code size, we may want to further convert
+>> host_and_vcpu_must_have() to just vcpu_must_have() where appropriate
+>> (should be [almost?] everywhere).
+>> ---
+>> v4: Switch to using fallthrough pseudo-keyword. Drop new _vlen_check()
+>>      helper again. Re-base.
+>> v3: Add ChangeLog entry.
+>> v2: Drop use of vsz128 field. Re-base, in particular over dropping of
+>>      Xeon Phi support.
+>>
+>> --- a/CHANGELOG.md
+>> +++ b/CHANGELOG.md
+>> @@ -16,6 +16,7 @@ The format is based on [Keep a Changelog
+>>        mitigate (by rate-limiting) the system wide impact of an HVM guest
+>>        misusing atomic instructions.
+>>      - Support for CPIO microcode in discrete multiboot modules.
+>> +   - Support for AVX10.1. (Experimental)
 > 
-> Seeing max_cstate() is used in multiple places here, you might want to
-> introduce a local max_cstate variable?
+> Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>.
 
-Except that Misra doesn't like such naming, and any other name would feel
-odd to use.
+Thanks.
 
->> --- a/xen/include/xen/acpi.h
->> +++ b/xen/include/xen/acpi.h
->> @@ -142,30 +142,33 @@ int acpi_gsi_to_irq (u32 gsi, unsigned i
->>  
->>  #ifdef	CONFIG_ACPI_CSTATE
->>  /*
->> - * max_cstate sets the highest legal C-state.
->> - * max_cstate = 0: C0 okay, but not C1
->> - * max_cstate = 1: C1 okay, but not C2
->> - * max_cstate = 2: C2 okay, but not C3 etc.
->> -
->> - * max_csubstate sets the highest legal C-state sub-state. Only applies to the
->> - * highest legal C-state.
->> - * max_cstate = 1, max_csubstate = 0 ==> C0, C1 okay, but not C1E
->> - * max_cstate = 1, max_csubstate = 1 ==> C0, C1 and C1E okay, but not C2
->> - * max_cstate = 2, max_csubstate = 0 ==> C0, C1, C1E, C2 okay, but not C3
->> - * max_cstate = 2, max_csubstate = 1 ==> C0, C1, C1E, C2 okay, but not C3
->> + * max_{allowed,usable}_cstate sets the highest allowed / usable C-state, where
->> + * "allowed" is command line / sysctl based.
-> 
-> Hm, this is a bit misleading, because max_usable_cstate is also
-> command line based (plus system errata).  What about:
-> 
-> "max_{allowed,usable}_cstate sets the highest allowed / usable C-state.
-> max_usable_cstate can only be set from the command line, while
-> max_allowed_cstate can be set from both command line and systcl."
+> What should be done else to have not experimental support of AVX10.1?
 
-Well. While I think I get your point, what I'm trying to get across is that
-max_usable_cstate is internally controlled (bounded by command line setting
-of max_allowed_cstate, but possibly forced lower than that internally). So
-maybe
-
-"max_{allowed,usable}_cstate sets the highest allowed / usable C-state.
- max_usable_cstate, while affected by the command line, is internally driven,
- whereas max_allowed_cstate can be set from both command line and systcl."
-
-?
-
->> + * max_*_cstate = 0: C0 okay, but not C1
->> + * max_*_cstate = 1: C1 okay, but not C2
->> + * max_*_cstate = 2: C2 okay, but not C3 etc.
->> + *
->> + * max_csubstate sets the highest allowed C-state sub-state. Only applies to
->> + * the highest allowed C-state.
->> + * max_allowed_cstate = 1, max_csubstate = 0 ==> C0, C1 okay, but not C1E
->> + * max_allowed_cstate = 1, max_csubstate = 1 ==> C0, C1 and C1E okay, but not C2
->> + * max_allowed_cstate = 2, max_csubstate = 0 ==> C0, C1, C1E, C2 okay, but not C3
->> + * max_allowed_cstate = 2, max_csubstate = 1 ==> C0, C1, C1E, C2 okay, but not C3
->>   */
->>  
->> -extern unsigned int max_cstate;
->> +extern unsigned int max_usable_cstate;
->> +extern unsigned int max_allowed_cstate;
->>  extern unsigned int max_csubstate;
->>  
->> +#define max_cstate() min(max_usable_cstate, max_allowed_cstate)
-> 
-> I would be tempted to drop the ending parenthesis so that you don't
-> need to adjust callers, but that's likely misleading, as then it would
-> need to be uppercase MAX_CSTATE.
-
-I deliberately want to have the parentheses, to make sure all uses of
-max_cstate (without the parentheses) have been covered (by converting in
-whatever appropriate way). Which extends to possible backports. In a
-subsequent, not to be backported commit we could drop them again if so
-desired.
-
->>  static inline unsigned int acpi_get_cstate_limit(void)
->>  {
->> -	return max_cstate;
->> +	return max_allowed_cstate;
->>  }
->>  static inline void acpi_set_cstate_limit(unsigned int new_limit)
->>  {
->> -	max_cstate = new_limit;
->> -	return;
->> +	max_allowed_cstate = new_limit;
-> 
-> Do we want to check the new limit doesn't exceed max_usable_cstate and
-> return -ERANGE or similar on failure?
-> 
-> After this change it's a bit weird to silently ignore invalid values
-> IMO.
-
-I disagree. Those values may be valid, just not usable (i.e. they are
-still a valid upper bound, but we'd never go as high up). If people wanted
-to use the same settings across their fleet, undue (and confusing) errors
-might result on some of their systems if we did as you suggest. Plus we
-have always accepted arbitrarily large (and hence entirely meaningless)
-values anyway.
+Someone to actually try it out on real hardware. All my testing was with
+Intel's SDE.
 
 Jan
 
