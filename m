@@ -2,49 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AHi7HNdL52lW6QEAu9opvQ
+	id aF/aCCRP52lW6QEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 12:05:11 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 12:19:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D27F4394E7
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 12:05:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1288772.1569016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 701FF4396C6
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2026 12:19:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1288781.1569025 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wF7y7-0001zT-Ev; Tue, 21 Apr 2026 10:04:35 +0000
+	id 1wF8C2-00048d-MA; Tue, 21 Apr 2026 10:18:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1288772.1569016; Tue, 21 Apr 2026 10:04:35 +0000
+Received: by outflank-mailman (output) from mailman id 1288781.1569025; Tue, 21 Apr 2026 10:18:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wF7y7-0001wf-B5; Tue, 21 Apr 2026 10:04:35 +0000
-Received: by outflank-mailman (input) for mailman id 1288772;
- Tue, 21 Apr 2026 10:04:34 +0000
+	id 1wF8C2-00045d-JB; Tue, 21 Apr 2026 10:18:58 +0000
+Received: by outflank-mailman (input) for mailman id 1288781;
+ Tue, 21 Apr 2026 10:18:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wF7y5-0001wZ-Uv
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 10:04:34 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wF8C1-00045V-19
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 10:18:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wF7y3-00BIYo-Q3
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 12:04:33 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wF8Bz-00E6S9-S2
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2026 12:18:55 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e74bae-bab6-0a2a0a5309dd-0a2a4505a636-28
- for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 12:04:33 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e74bb0-aaa8-0a2a45050019-d155802bc490-3
- for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 12:04:32 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-48a563e4ef7so4127265e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 03:04:32 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43fe4e4d5b1sm40009102f8f.30.2026.04.21.03.04.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Apr 2026 03:04:31 -0700 (PDT)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69e74f08-e002-0a2a0a5209dd-0a2a4506a582-26
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 12:18:55 +0200
+Received: from [209.85.167.44] (helo=mail-lf1-f44.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69e74f0f-7371-0a2a45060019-d155a72ca5f1-3
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 12:18:55 +0200
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-5a415fd6bceso4495468e87.1
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2026 03:18:55 -0700 (PDT)
+Received: from fedora (user-109-243-69-121.play-internet.pl. [109.243.69.121])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a4187e12e0sm3564564e87.51.2026.04.21.03.18.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Apr 2026 03:18:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,175 +55,481 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776765872; x=1777370672; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=5gwkCcKzoBTxo7EO2L7igVFkM+tIMxSSN1DkJy9Dl2k=;
-        b=V7B8dlJ26zZZLDw18HxY3e+xAAAPcfe1zIB6OU5NQdfv1WwqghmvzT/jLZr7jxjccL
-         PCm8x1Dp7MRDrzwkY4RVIvzfxOPKteBvJbnPEciJjOoQYUC6SQdU3oaowU8B1Y5URxQI
-         UCDoPt0cKkjMDI3/8bPolTUz3bfYNhIyifuDFNArTjzxfwsT3Vi2Vd4gBmrWvZQlUzCu
-         JYXI5y8gwW4/A38mZhw7pJ7f8Jwg+6Aymm9p7hBn7pLlgT/D2yZd+8OnshBfyUug9rlk
-         wsFmozxg+AKhqZY2vanWUhy0Ym/MCdiwZSZjRGjWtBKFAwmi0TbYKBydvKfzaqOUsHPk
-         FC2w==
+        d=gmail.com; s=20251104; t=1776766735; x=1777371535; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=U1jc54BGtToaT12LTQTuzf+wdJ5L1Gzc0Hnuk+KSU3E=;
+        b=fD+JmlI+AXOUVNf51VrV8JbEdfz+fH+yGUX4vdMTEPKBjG7Q7ztMl8JnSPW2gfbfjP
+         VxrNLYj12kYkadFwnad3MIhFypIgNstlSxtU4Ddk1sWclDuKfOsoCcmv3KXChj4OXxuL
+         j1KHMF6RRBagAlHDt/kORLIBq449X0YVs/sVcyk3F5fji5F1cLbPHyW2ChW8NrPAZsby
+         PgZkBmmIqF0kYXLeR5FTIWf0siwt0cpi5fiZnj/N6JcfCnkD19k7c2D0N3UJUKikqvMr
+         e0jde7AmqdkGNzx2zLus9bCPUlHmc026yFSmFpPNSMU8g3ddmZPp3Zo0ScBjiNnhbjVl
+         Rx4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776765872; x=1777370672;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1776766735; x=1777371535;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5gwkCcKzoBTxo7EO2L7igVFkM+tIMxSSN1DkJy9Dl2k=;
-        b=m53MMQ9MKRd1WXhy0tUIOhujzJ4vVzeOHCFyTBYjgzbDwVBCr+9g4nQsqa9ex7pGCr
-         6CP/R790DSSLMzOOlUbodzMVeJ/7vrP32EyFMdX5hF2xOe6fLC8c1BulrL7CRrYWf/c4
-         +Qpu/iU8sj9m9Sw3BiCW72VhcEqapcxU5YJxjxmKIDuQlfwM/tZYbJOGf10qWXCKjQTT
-         oDqFPjDOwOyneddZAwY/TbqMY9BBraJCepBKAAYEoWpi06eGmrJLGwvXxlK9lPPunCfd
-         C/IA2WSk0iN8z9TIuYzkpMHXkR3uZm+C7cp5BeLFcYexL/Z2PdGb4TElY3EjqMxShtaf
-         7JTA==
-X-Forwarded-Encrypted: i=1; AFNElJ9Y+XNe09V3gw3pGrYxOgyhrqzS+0gYIZTkLOS6uAYa3sjboNVbC7wPAejbAfPzw2L04PAVSo1fPUw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yxk5EzAUl6obmqfUXcYL/t41iHVszAUPUErRemaR2yEv114Q1wo
-	uLdOFDdnPj0vNOu97xKQ9u423b4T6fqgyvuxaM+40UNI3UJTUlovDPcTLvoq19Zllg==
-X-Gm-Gg: AeBDies1FO9Wqwr4C/JzFq17rKXIB4dEIQJm0q75QXb68c8YadcSkF1ycb29M3QFreR
-	+oor4iwwlXiq0LNrKfCmxA1ZGmIwgdJkbfcmkjGunO+gc8r+uIlv1aiNVXYl5LiHS3Km+U40Biz
-	jFMxTZlenJlQgkskI1wINp6nqugI540Zbk9Ev03N79RrDzKA46c5xvqpQ1zq7FmBwVPsFzbGUNM
-	TOiOd9PhyEt6bLiwJ1lTlnaKLhrm5JwD5bHcmsBM8hCJQyFh5JyemIsKWVVU20WmmpbN7IrEpxI
-	Uob2owq7TbhkmAh0BP6URZ9q0GKSPdR9U5fRFJdWfrOJsGY9f1JVXRDhF4XSW9nV2in7w9xtjmt
-	9WfvpZJm/rK7HiVNaZeB/QDULG32jZ55R7BH5eDv3EInE4kyCuh0ep0/avnFzrEOq8asCZmOH+S
-	/gMLXGeuUBYzmAe1BYfB4/TFRQ60KFaw8uqWV9o1Xc8qY69Ayfz83+72SRU3WfmI/2FsrV5EdRc
-	QiWf8eI0198qL4IIHFY+8rvjQ==
-X-Received: by 2002:a05:600c:5254:b0:488:8bdd:cfcc with SMTP id 5b1f17b1804b1-488fb6e62a8mr267017505e9.0.1776765871963;
-        Tue, 21 Apr 2026 03:04:31 -0700 (PDT)
-Message-ID: <16cd27e6-8b29-409e-a431-055df43a5b01@suse.com>
-Date: Tue, 21 Apr 2026 12:04:30 +0200
+        bh=U1jc54BGtToaT12LTQTuzf+wdJ5L1Gzc0Hnuk+KSU3E=;
+        b=COwKmjNZOo95DZuGwa3MuOgH9MwDrK04SIWHhibv/bQ1YxaQhASL3c2e1MjYAlbceK
+         9X+DVY3T+xQdCSsm+QTBAqYIAKlOzNuBXWStorJucTaHox+NaeABBGjl0SmqqrfKueje
+         Hq0K4LxdAAzxCwRMJc7A7T0Jb5elemHDJJgIDOzD0V5ZMQdShbQkPoNAgZuCDWaTkVzp
+         2nI4HdG8xBEolrRHMWKLQCT+mvbrX3AQJFlTzshnVxQJXhhCH7HBgdmQt+7QLOkkNTFF
+         GK5gNABz9DzFF7jlFReLixdlbTyPMcYYnNG7/w8hCYtZrVxGzayXRkCpbk96z7/n2SIq
+         zXCA==
+X-Gm-Message-State: AOJu0YzYDagfQDHqCu4B1N3dd5OMXutl8NnElIjBqnFszLt5qha7WYfg
+	eB9JZhTJmbLlJ8UwXhgPSVtboJUtTVy0daGiOOaoko5q2vzzxGXoAd0CuynvvQ==
+X-Gm-Gg: AeBDiesV0IafGx+/ij/To3gHOqequx9F3xC+ux8l8AVlgVyZRYsbpvhd2R4fz3DdFgu
+	7mR9G989Nnubc2mLhKmz5a6i/c+UNKHgHhhhMOOOD4q/KH+1QB59z8kBK2M5DOODyvB91g4RGw4
+	IryNLvXvvOWpbRGjj5cMjk6gm/9IxlXnz5ur+3xXeTwitj5w+8WneBnuy0ke37cveQElxA9ciJ5
+	mzd/oDzkt/RmfIs6xWuUlAFKhMc7j2f9Y9k+XNfq7EyFWt/iJ5ZuJT+jnHSZZeFRUBOC5xUMnaV
+	Qnv6rmMSLrV41+rqNICwGe4wRg/0ipMwhoZ+eaBON/NXkFkwun0Nefe6T6NrzBF+FKsJrI3yzev
+	zeiL4slY33ibEv6pXU+9mtgQQBki53LYjTxKNoAevg/sjurhRB56ertBUo5ANK/UlpkcMJTqGSL
+	FqvMczTM0OBWAVeuCoBCnxMy8srEHlOl4Jjd2fsveMIZ+ywd2poPCrgbQYf9hpnH/d3FoAKWmVz
+	e1o
+X-Received: by 2002:a05:6512:138c:b0:5a4:6f3:e0a with SMTP id 2adb3069b0e04-5a417174ccamr5585750e87.8.1776766734014;
+        Tue, 21 Apr 2026 03:18:54 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Romain Caritey <Romain.Caritey@microchip.com>
+Subject: [PATCH v5] xen/riscv: allow Xen to use SSTC while hiding it from guests
+Date: Tue, 21 Apr 2026 12:18:45 +0200
+Message-ID: <2d5892447d6b6ad72962b8bbcb7c4d865b9e9989.1776765651.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xvmalloc: adjust XVFREE() ordering
-From: Jan Beulich <jbeulich@suse.com>
-To: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Michal Orzel <michal.orzel@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <29c2a896-59b4-4804-ade4-362f65ffadfc@suse.com>
-Content-Language: en-US
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <29c2a896-59b4-4804-ade4-362f65ffadfc@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c201ff/1776765872-E1DDB443-7DD972EB/0/0
-X-purgate-type: clean
-X-purgate-size: 2358
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-16d1c6/1776766735-90670D75-4D5EE2F0/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 13991
+X-Spamd-Result: default: False [0.81 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:julien@xen.org,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Romain.Caritey@microchip.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	FORWARDED(0.00)[mailman];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,wdc.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org,microchip.com];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	NEURAL_HAM(-0.00)[-0.957];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 4D27F4394E7
+X-Rspamd-Queue-Id: 701FF4396C6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 16.04.2026 16:32, Jan Beulich wrote:
-> What c4f427ec879e ("xen: Swap order of actions in the FREE*() macros") did
-> should have been done right away when XVFREE() was introduced.
-> 
-> Amends: 9102fcd9579f ("mm: introduce xvmalloc() et al and use for grant table allocations")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+OpenSBI currently does not advertise the SSTC extension via the device
+tree, so if SSTC support is detected by Xen the riscv_isa bitmap is updated
+manually. Furthermore, removing the "sstc" string from riscv,isa is not
+a reliable way to disable SSTC, because OpenSBI probes support by
+attempting to access CSR_STIMECMP.
 
-On Arm64, and only for alpine-3.18-gcc-debug-arm64-boot-cpupools, this
-reproducibly causes:
+Introduce a runtime probe in Xen to determine whether SSTC is available.
+The probe attempts to read CSR_STIMECMP using csr_read_safe(). If the
+access succeeds, SSTC is considered available; if a trap occurs, it is
+treated as unsupported.
 
-diff -u  ./.xen-syms.1.o.sym  ./.xen-syms.2.o.sym
---- ./.xen-syms.1.o.sym
-+++ ./.xen-syms.2.o.sym
-@@ -7,11 +7,11 @@
- 0000000000000000 l    d  .bss	0000000000000000 .bss
- 0000000000000000 l    d  .rodata	0000000000000000 .rodata
- 0000000000000000 l    d  .note.GNU-stack	0000000000000000 .note.GNU-stack
--0000000000000000 g     O .rodata	0000000000004dd8 .hidden symbols_addresses
--0000000000004dd8 g     O .rodata	0000000000000004 .hidden symbols_num_addrs
--0000000000004ddc g     O .rodata	0000000000007721 .hidden symbols_names
--000000000000c500 g     O .rodata	0000000000000028 .hidden symbols_markers
--000000000000c528 g     O .rodata	00000000000003b5 .hidden symbols_token_table
--000000000000c8de g     O .rodata	0000000000000200 .hidden symbols_token_index
-+0000000000000000 g     O .rodata	0000000000004de8 .hidden symbols_addresses
-+0000000000004de8 g     O .rodata	0000000000000004 .hidden symbols_num_addrs
-+0000000000004dec g     O .rodata	0000000000007749 .hidden symbols_names
-+000000000000c538 g     O .rodata	0000000000000028 .hidden symbols_markers
-+000000000000c560 g     O .rodata	00000000000003b5 .hidden symbols_token_table
-+000000000000c916 g     O .rodata	0000000000000200 .hidden symbols_token_index
+When SSTC is detected, Xen may use it internally to program timers.
+However, the extension is not exposed to guests because the required
+context switch handling for the SSTC CSRs is not yet implemented.
 
-There are only two uses of XVFREE() in code that is built for Arm. I'll
-see if I can repro locally with the exact same .config, but I fear my
-chances are slim.
+Note: clearing RISCV_ISA_EXT_sstc from the DTS riscv,isa property is
+deferred to a follow-up patch. Also, the corresponding HENVCFG bit is
+not set so guests fall back to the SBI timer interface. Timer requests
+are then handled by Xen via the usual SBI interception path.
 
-It feels wrong to push the patch nevertheless, but it also feels wrong to
-have to keep it out.
+Introduce set_xen_timer() to abstract how the timer is programmed,
+either via the SSTC extension or an SBI call.
 
-Jan
+Drop sbi_set_timer() as it is more than enough to have only introduced
+set_xen_timer().
 
-> --- a/xen/include/xen/xvmalloc.h
-> +++ b/xen/include/xen/xvmalloc.h
-> @@ -71,8 +71,9 @@ void *_xvrealloc(void *va, size_t size,
->  
->  /* Free an allocation, and zero the pointer to it. */
->  #define XVFREE(p) do { \
-> -    xvfree(p);         \
-> +    void *_ptr_ = (p); \
->      (p) = NULL;        \
-> +    xvfree(_ptr_);     \
->  } while ( false )
->  
->  static inline void *_xvmalloc_array(
+Drop "SBI v0.2 TIME extension detected" message to avoid confusion
+which set timer function is really used.
+
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+----
+Changes in v5:
+ - Update defintion of csr_write64() to avoid compilation issue.
+----
+Changes in v4:
+ - Introduce csr_write64() and __csr_write32h().
+ - Sort numericaly definitions of CSR_VSTIMECMP{H}.
+---
+Changes in v3:
+ - Reword print message when SSTC extension is detected.
+ - s/__clear_bit/__set_bit() for the case when SSTC is detected in
+   riscv_fill_hwcap().
+   Update also the comment above __set_bit().
+ - Drop BUG_ON()s in vtimer.c.
+ - s/printk/dprintk for the message: SSTC detected...
+ - Drop sbi_set_timer global variable, it is enough just to have set_xen_timer.
+ - As we set bit in riscv_isa bitmap there is no need to use csr_read_safe(CSR_STIMECMP) second time.
+ - Move init of CSR_VSTIMECMP in preinit_xen_time as it looks more correct place.
+ - Update the commit message.
+---
+Changes in v2:
+ - Minor style fixes.
+ - Drop from vcpu_csr_init() setting of SSTC bit in HENVCFG register. Add it
+   back when SSTC for guests will be available.
+ - Add static to set_xen_timer function pointer.
+ - Refactor sstc_set_xen_timer().
+ - s/csr_allowed_read/csr_read_safe()
+---
+ xen/arch/riscv/cpufeature.c                 | 18 +++++++++
+ xen/arch/riscv/include/asm/cpufeature.h     |  1 +
+ xen/arch/riscv/include/asm/csr.h            | 15 ++++++++
+ xen/arch/riscv/include/asm/riscv_encoding.h |  2 +
+ xen/arch/riscv/include/asm/sbi.h            | 18 ---------
+ xen/arch/riscv/include/asm/time.h           |  3 ++
+ xen/arch/riscv/sbi.c                        | 29 +++++++++++---
+ xen/arch/riscv/time.c                       | 42 +++++++++++++--------
+ xen/arch/riscv/vtimer.c                     |  1 +
+ 9 files changed, 90 insertions(+), 39 deletions(-)
+
+diff --git a/xen/arch/riscv/cpufeature.c b/xen/arch/riscv/cpufeature.c
+index 03e27b037be0..92235fdfd5ab 100644
+--- a/xen/arch/riscv/cpufeature.c
++++ b/xen/arch/riscv/cpufeature.c
+@@ -17,6 +17,7 @@
+ #include <xen/sections.h>
+ 
+ #include <asm/cpufeature.h>
++#include <asm/csr.h>
+ 
+ #ifdef CONFIG_ACPI
+ # error "cpufeature.c functions should be updated to support ACPI"
+@@ -139,6 +140,7 @@ const struct riscv_isa_ext_data __initconst riscv_isa_ext[] = {
+     RISCV_ISA_EXT_DATA(smaia),
+     RISCV_ISA_EXT_DATA(smstateen),
+     RISCV_ISA_EXT_DATA(ssaia),
++    RISCV_ISA_EXT_DATA(sstc),
+     RISCV_ISA_EXT_DATA(svade),
+     RISCV_ISA_EXT_DATA(svpbmt),
+ };
+@@ -483,6 +485,7 @@ void __init riscv_fill_hwcap(void)
+     unsigned int i;
+     const size_t req_extns_amount = ARRAY_SIZE(required_extensions);
+     bool all_extns_available = true;
++    unsigned long tmp;
+ 
+     riscv_fill_hwcap_from_isa_string();
+ 
+@@ -495,6 +498,21 @@ void __init riscv_fill_hwcap(void)
+         panic("HW capabilities parsing failed: %s\n", failure_msg);
+     }
+ 
++    if ( csr_read_safe(CSR_STIMECMP, &tmp) )
++    {
++        dprintk(XENLOG_DEBUG,
++                "SSTC detected; supported for Xen use, but not for guests\n");
++
++        /*
++         * As there is no any guarantee that SSTC will be added to riscv,isa
++         * property by OpenSBI(it doesn't add it now) or whatever ran before
++         * Xen, it is needed to set this bit manually.
++         *
++         * Guest isolation is maintained by not setting ENVCFG_STCE in henvcfg.
++         */
++        __set_bit(RISCV_ISA_EXT_sstc, riscv_isa);
++    }
++
+     for ( i = 0; i < req_extns_amount; i++ )
+     {
+         const struct riscv_isa_ext_data ext = required_extensions[i];
+diff --git a/xen/arch/riscv/include/asm/cpufeature.h b/xen/arch/riscv/include/asm/cpufeature.h
+index ef02a3e26d2c..0c48d57a03bb 100644
+--- a/xen/arch/riscv/include/asm/cpufeature.h
++++ b/xen/arch/riscv/include/asm/cpufeature.h
+@@ -38,6 +38,7 @@ enum riscv_isa_ext_id {
+     RISCV_ISA_EXT_smaia,
+     RISCV_ISA_EXT_smstateen,
+     RISCV_ISA_EXT_ssaia,
++    RISCV_ISA_EXT_sstc,
+     RISCV_ISA_EXT_svade,
+     RISCV_ISA_EXT_svpbmt,
+     RISCV_ISA_EXT_MAX
+diff --git a/xen/arch/riscv/include/asm/csr.h b/xen/arch/riscv/include/asm/csr.h
+index 27d4b7942f6b..888d6a2a86d6 100644
+--- a/xen/arch/riscv/include/asm/csr.h
++++ b/xen/arch/riscv/include/asm/csr.h
+@@ -32,6 +32,21 @@
+                            : "memory" );                        \
+ })
+ 
++#ifdef CONFIG_RISCV_32
++#define csr_write64(csr, val)       \
++({                                  \
++    uint64_t v_ = (val);            \
++    csr_write(csr, v_);             \
++    csr_write(csr ## H, v_ >> 32);  \
++})
++#else
++#define csr_write64(csr, val)       \
++({                                  \
++    csr_write(csr, val);            \
++    (void)csr ## H;                 \
++})
++#endif
++
+ #define csr_swap(csr, val)                                      \
+ ({                                                              \
+     unsigned long __v = (unsigned long)(val);                   \
+diff --git a/xen/arch/riscv/include/asm/riscv_encoding.h b/xen/arch/riscv/include/asm/riscv_encoding.h
+index dd15731a86fa..03e186bcdb8c 100644
+--- a/xen/arch/riscv/include/asm/riscv_encoding.h
++++ b/xen/arch/riscv/include/asm/riscv_encoding.h
+@@ -395,6 +395,8 @@
+ #define CSR_VSCAUSE			0x242
+ #define CSR_VSTVAL			0x243
+ #define CSR_VSIP			0x244
++#define CSR_VSTIMECMP		0x24d
++#define CSR_VSTIMECMPH		0x25d
+ #define CSR_VSATP			0x280
+ 
+ /* Virtual Interrupts and Interrupt Priorities (H-extension with AIA) */
+diff --git a/xen/arch/riscv/include/asm/sbi.h b/xen/arch/riscv/include/asm/sbi.h
+index ed7af200288f..1952868e963c 100644
+--- a/xen/arch/riscv/include/asm/sbi.h
++++ b/xen/arch/riscv/include/asm/sbi.h
+@@ -13,7 +13,6 @@
+ #define ASM__RISCV__SBI_H
+ 
+ #include <xen/cpumask.h>
+-#include <xen/sections.h>
+ 
+ /* SBI-defined implementation ID */
+ #define SBI_XEN_IMPID 7
+@@ -139,23 +138,6 @@ int sbi_remote_hfence_gvma(const cpumask_t *cpu_mask, vaddr_t start,
+ int sbi_remote_hfence_gvma_vmid(const cpumask_t *cpu_mask, vaddr_t start,
+                                 size_t size, unsigned long vmid);
+ 
+-/*
+- * Programs the clock for next event at (or after) stime_value. stime_value is
+- * in absolute time. This function must clear the pending timer interrupt bit
+- * as well.
+- *
+- * If the supervisor wishes to clear the timer interrupt without scheduling the
+- * next timer event, it can either request a timer interrupt infinitely far
+- * into the future (i.e., (uint64_t)-1), or it can instead mask the timer
+- * interrupt by clearing sie.STIE CSR bit.
+- *
+- * The stime_value parameter represents absolute time measured in ticks.
+- *
+- * This SBI call returns 0 upon success or an implementation specific negative
+- * error code.
+- */
+-extern int (* __ro_after_init sbi_set_timer)(uint64_t stime_value);
+-
+ /*
+  * Initialize SBI library
+  *
+diff --git a/xen/arch/riscv/include/asm/time.h b/xen/arch/riscv/include/asm/time.h
+index be3875b9984e..4d68900151a7 100644
+--- a/xen/arch/riscv/include/asm/time.h
++++ b/xen/arch/riscv/include/asm/time.h
+@@ -4,6 +4,7 @@
+ 
+ #include <xen/bug.h>
+ #include <xen/muldiv64.h>
++#include <xen/sections.h>
+ 
+ #include <asm/csr.h>
+ 
+@@ -26,6 +27,8 @@ static inline cycles_t get_cycles(void)
+ 
+ void preinit_xen_time(void);
+ 
++extern int (* __ro_after_init set_xen_timer)(uint64_t deadline);
++
+ #endif /* ASM__RISCV__TIME_H */
+ 
+ /*
+diff --git a/xen/arch/riscv/sbi.c b/xen/arch/riscv/sbi.c
+index b4a7ae6940c1..3576e26033a5 100644
+--- a/xen/arch/riscv/sbi.c
++++ b/xen/arch/riscv/sbi.c
+@@ -22,6 +22,7 @@
+ 
+ #include <asm/processor.h>
+ #include <asm/sbi.h>
++#include <asm/time.h>
+ 
+ static unsigned long __ro_after_init sbi_spec_version = SBI_SPEC_VERSION_DEFAULT;
+ 
+@@ -249,6 +250,21 @@ static int (* __ro_after_init sbi_rfence)(unsigned long fid,
+                                           unsigned long arg4,
+                                           unsigned long arg5);
+ 
++/*
++ * Programs the clock for next event at (or after) stime_value. stime_value is
++ * in absolute time. This function must clear the pending timer interrupt bit
++ * as well.
++ *
++ * If the supervisor wishes to clear the timer interrupt without scheduling the
++ * next timer event, it can either request a timer interrupt infinitely far
++ * into the future (i.e., (uint64_t)-1), or it can instead mask the timer
++ * interrupt by clearing sie.STIE CSR bit.
++ *
++ * The stime_value parameter represents absolute time measured in ticks.
++ *
++ * This SBI call returns 0 upon success or an implementation specific negative
++ * error code.
++ */
+ static int cf_check sbi_set_timer_v02(uint64_t stime_value)
+ {
+     struct sbiret ret;
+@@ -264,6 +280,10 @@ static int cf_check sbi_set_timer_v02(uint64_t stime_value)
+     return sbi_err_map_xen_errno(ret.error);
+ }
+ 
++/*
++ * Legacy SBI v0.1 SET_TIMER; functionally equivalent to sbi_set_timer_v02
++ * from Xen's perspective.
++ */
+ static int cf_check sbi_set_timer_v01(uint64_t stime_value)
+ {
+     struct sbiret ret;
+@@ -279,8 +299,6 @@ static int cf_check sbi_set_timer_v01(uint64_t stime_value)
+     return sbi_err_map_xen_errno(ret.error);
+ }
+ 
+-int (* __ro_after_init sbi_set_timer)(uint64_t stime_value) = sbi_set_timer_v01;
+-
+ int sbi_remote_sfence_vma(const cpumask_t *cpu_mask, vaddr_t start,
+                           size_t size)
+ {
+@@ -360,10 +378,9 @@ int __init sbi_init(void)
+         }
+ 
+         if ( sbi_probe_extension(SBI_EXT_TIME) > 0 )
+-        {
+-            sbi_set_timer = sbi_set_timer_v02;
+-            dprintk(XENLOG_INFO, "SBI v0.2 TIME extension detected\n");
+-        }
++            set_xen_timer = sbi_set_timer_v02;
++        else
++            set_xen_timer = sbi_set_timer_v01;
+     }
+     else
+         panic("Ooops. SBI spec version 0.1 detected. Need to add support");
+diff --git a/xen/arch/riscv/time.c b/xen/arch/riscv/time.c
+index 698ab49d1292..8769709e5227 100644
+--- a/xen/arch/riscv/time.c
++++ b/xen/arch/riscv/time.c
+@@ -7,12 +7,21 @@
+ #include <xen/time.h>
+ #include <xen/types.h>
+ 
++#include <asm/cpufeature.h>
+ #include <asm/csr.h>
+-#include <asm/sbi.h>
+ 
+ unsigned long __ro_after_init cpu_khz; /* CPU clock frequency in kHz. */
+ uint64_t __ro_after_init boot_clock_cycles;
+ 
++static int cf_check sstc_set_xen_timer(uint64_t deadline)
++{
++    csr_write64(CSR_STIMECMP, deadline);
++
++    return 0;
++}
++
++int (* __ro_after_init set_xen_timer)(uint64_t deadline);
++
+ s_time_t get_s_time(void)
+ {
+     uint64_t ticks = get_cycles() - boot_clock_cycles;
+@@ -61,20 +70,7 @@ int reprogram_timer(s_time_t timeout)
+     if ( deadline <= now )
+         return 0;
+ 
+-    /*
+-     * TODO: When the SSTC extension is supported, it would be preferable to
+-     *       use the supervisor timer registers directly here for better
+-     *       performance, since an SBI call and mode switch would no longer
+-     *       be required.
+-     *
+-     *       This would also reduce reliance on a specific SBI implementation.
+-     *       For example, it is not ideal to panic() if sbi_set_timer() returns
+-     *       a non-zero value. Currently it can return 0 or -ENOSUPP, and
+-     *       without SSTC we still need an implementation because only the
+-     *       M-mode timer is available, and it can only be programmed in
+-     *       M-mode.
+-     */
+-    if ( (rc = sbi_set_timer(deadline)) )
++    if ( (rc = set_xen_timer(deadline)) )
+         panic("%s: timer wasn't set because: %d\n", __func__, rc);
+ 
+     /* Enable timer interrupt */
+@@ -91,4 +87,20 @@ void __init preinit_xen_time(void)
+         panic("%s: ACPI isn't supported\n", __func__);
+ 
+     boot_clock_cycles = get_cycles();
++
++    /* set_xen_timer must have been set by sbi_init() already */
++    ASSERT(set_xen_timer);
++
++    if ( riscv_isa_extension_available(NULL, RISCV_ISA_EXT_sstc) )
++    {
++        set_xen_timer = sstc_set_xen_timer;
++
++        /*
++         * A VS-timer interrupt becomes pending whenever the value of
++         * (time + htimedelta) is greater than or equal to vstimecmp CSR.
++         * Thereby to avoid spurious VS-timer irqs set vstimecmp CSR to
++         * ULONG_MAX.
++         */
++        csr_write64(CSR_STIMECMP, ULONG_MAX);
++    }
+ }
+diff --git a/xen/arch/riscv/vtimer.c b/xen/arch/riscv/vtimer.c
+index afd8a53a7387..d5a8dfcb2edb 100644
+--- a/xen/arch/riscv/vtimer.c
++++ b/xen/arch/riscv/vtimer.c
+@@ -4,6 +4,7 @@
+ #include <xen/sched.h>
+ #include <xen/timer.h>
+ 
++#include <asm/cpufeature.h>
+ #include <asm/vtimer.h>
+ 
+ static void vtimer_expired(void *data)
+-- 
+2.53.0
 
 
