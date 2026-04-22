@@ -2,49 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ID2IEM116GmVKgIAu9opvQ
+	id AAKCDVqB6GkILAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 09:16:29 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 10:05:46 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A69BA442DAB
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 09:16:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1289923.1569601 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66DB544339C
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 10:05:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1289948.1569610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFRoX-0004zz-2u; Wed, 22 Apr 2026 07:16:01 +0000
+	id 1wFSZj-0006H7-TD; Wed, 22 Apr 2026 08:04:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1289923.1569601; Wed, 22 Apr 2026 07:16:01 +0000
+Received: by outflank-mailman (output) from mailman id 1289948.1569610; Wed, 22 Apr 2026 08:04:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFRoX-0004wz-0H; Wed, 22 Apr 2026 07:16:01 +0000
-Received: by outflank-mailman (input) for mailman id 1289923;
- Wed, 22 Apr 2026 07:16:00 +0000
+	id 1wFSZj-0006Ea-Os; Wed, 22 Apr 2026 08:04:47 +0000
+Received: by outflank-mailman (input) for mailman id 1289948;
+ Wed, 22 Apr 2026 08:04:46 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wFRoW-0004wt-4e
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 07:16:00 +0000
+ (envelope-from <jens.wiklander@linaro.org>) id 1wFSZi-0006EU-2B
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 08:04:46 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFRoV-00Ecjq-HS
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 09:15:59 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wFSZh-00A4dO-AF
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 10:04:45 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e875af-e002-0a2a0a5209dd-0a2a4507b1c8-2
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 09:15:59 +0200
-Received: from [209.85.221.52] (helo=mail-wr1-f52.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e875af-229c-0a2a45070019-d155dd34a976-3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 09:15:59 +0200
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-43d75312379so3776815f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 00:15:59 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43fe4e3a79esm45683595f8f.17.2026.04.22.00.15.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Apr 2026 00:15:58 -0700 (PDT)
+ (envelope-from <jens.wiklander@linaro.org>)
+ id 69e88118-e002-0a2a0a5209dd-0a2a45019744-22
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 10:04:45 +0200
+Received: from [209.85.161.54] (helo=mail-oo1-f54.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jens.wiklander@linaro.org>)
+ id 69e8811b-c1f2-0a2a45010019-d155a136b9de-3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 10:04:44 +0200
+Received: by mail-oo1-f54.google.com with SMTP id
+ 006d021491bc7-69485d0e4beso1132538eaf.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 01:04:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,165 +51,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=linaro.org header.i="@linaro.org" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1776845083; cv=none;
+        d=google.com; s=arc-20240605;
+        b=QeFhT7zu+TQ8SpWPQ2j2vkq5+wXfz3+w4ct/+k1jTFUW06cG+4ic0tPC+92S/AQmZU
+         uapKZrdfVobxabZVHCZ/sFwxM5PevrYCMRp0dQWRiBSFmyxpOr2u15V8gsAnS/ZkYOAn
+         tuugwVJPiXkjfHstxws7oI8BZhfZyyneJHVIMRH9bznJNASTpXBtAGoVoGelYgNsxEd8
+         ho3e+3j+IATpjpVU0ip5E7gSbuuC0aNIuUc1YbZyV+bNIQGOrMTdN+4edD5q2eknY78J
+         Rs2bJPSc6GX3ZqQ9l+RbHk8hlqf7V85DwFQaXWyciZ6Ofsc5nBePitXyaZ1t+Ufap96N
+         TRNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4rKad+UxzUkxCopKUoZk2Ve1GRQCNyIIC91C5R5IU0E=;
+        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
+        b=RtGFfiaf70Eey0klBuoJxeZBvIHzAD0u6097Rp4AEfY4ABeqKJbdfFGdfBBpr68tYQ
+         W/mJeaHqKylpOn0bXuq+fR7sg5td5YxHo8k2oCIKcgd/NEP3drWAmHiHwVy1vgfQ8qon
+         JpE8YlSI3WCGEf6/8xrOD/imQwoENXpYrG6QE4NqPkLJC4SUaOxCIHl9c2ZGG075Wqv0
+         MZg5+VZCy4DKSyaoEK3KkHWDcIH2u2EY5d79KwHCkoNurdcHF4g56PigwZJKTY62AJ9b
+         EhNvtIwlkcXLQtXFI5lQOeWiy8YGi5WJC8c362igNL8SqcN3HjSDGvOYOqIw1cvaPBj3
+         7sHQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776842159; x=1777446959; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=N+9FqO6TkJwggBfMP1KZWhMRhDsZxtXZKwRr3GgLsbc=;
-        b=YnbD121XE66IJvB5U/3oqdQtc1ErnRml78NwEVcMz3oL9wvsdCNpt8q7GxWyKVd+AG
-         QdZGifNlnmlydyvoWCLvO0ovQ8Olwb3gO0JZ8W2wJKkuYaL30l9P2Sv6xkjNpsMa9mkn
-         1Tx5P5gRbTSGChHfnpy6HqylR11dHrfFojCuPM/97IWpxuRWCp0s2Qjje9ji2m5Wlrmi
-         lob7d3GI0nECt/zyEqUkmDkWXHAIYo0WMrhDXISBhyTXLZMzvLFKQXiJn9qUan69mF2l
-         kLst1eicS/w2cKhBvZECF6RMWFRwx7a+19TX1vM1CWqMgBylVMBzKn6BpYAREJkhj3dL
-         ALng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776842159; x=1777446959;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1776845083; x=1777449883; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=N+9FqO6TkJwggBfMP1KZWhMRhDsZxtXZKwRr3GgLsbc=;
-        b=G0rRrJUcgc5Y/mEV6EkHG5MYC969mo6ZOaTKPMcc7OJVBcTE0vqR+WRITLt4QmJReg
-         fWcvucITbtI/a7PNgSmnVGrwi2cJzf1vrG+nnOYiW9n50HpX7NIjD0qZS4V68HSDPxQf
-         cHWCTMr2apyxlt7yMsH2/+6OGe3eIULmHCUn5bphw+3fZ/1VVdiCJ42Z7e6kB197/sC4
-         JqNgmOFl3chxtlWudOJS7BlX6YnEuy/zQcGVcLndfdpej5Btyw/D8rfRUKlF7J9aNdzL
-         HsYCNiBRrYMYTWrebWl9RNble7XCILNZHSwwbydEYtombrtHoGAUwssmZj52mw7aq7Ec
-         wYig==
-X-Forwarded-Encrypted: i=1; AFNElJ/9Y4sJPlNokTuSwot4wDB0PQBptIYNYOJxnlnd6eNMCeXXx6qAvCHTz8EZfxc39H1L0JsKh1D4ig0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyaBcOD4/iAZtxgNVHCi9C2Zy1tRCmrFErOSmY0k0qYiTSX3uFq
-	iTHMXvqfBW5dxLOLi9mkX+Kq+KRjry/kMAPh/q2IVuyP62Of9DetA364IHolPt2WYXFW2LUg69E
-	O6lMy8Q==
-X-Gm-Gg: AeBDies8A4yD/JaIymz+WZlHRegV4IgTiBK0FVJnkIxj/OuJ8HyaN2zhGxVaQYAwD9c
-	Mj6FFO22fTxnNDAdOtXrjeSqZehLC6IzJ7WcGZ7o407f1mWa1ZTJtfngT+saq0cNFc9SHsVakY6
-	V68osLX7Yafm5kbyyIhL5xMj88WZ70lXuZ5kAwbZak1qe9lv8BZIoCyNtBJk2JY7IASlDdcxNz0
-	iRz80CvLt/MSW3+3sVmd2U6fY+6CcNv3Gs+KW9H4/HYPA3v5A6nmSe6d269ufiya5subEZhzi31
-	i6r/i/FAhAcgk6tKJ9+f8TpgZY7cjIFo3/zEjM8Qmwaswvnyg54HZqbw7sTsIbR9lFAJ3Q5ERvB
-	rJ2sNFh55dblNsDIMQV+oCuZdWKHIq5lqoRjhyYeEiwRkfYBFPx1SCAplqcNQ0LtaSi/biamglV
-	nvyU6pFHipu/+O4OswLDjzi4x/JgpMDu7r2KHU7mszL0aKJh25xrbNjy0e/xT2GNi1h8kll0B8T
-	CkDiq2wBvv6vBkXjKxqln/rSUffb09Jy34V
-X-Received: by 2002:a05:6000:290c:b0:43d:772d:2b61 with SMTP id ffacd0b85a97d-43fe4073831mr31046438f8f.15.1776842158618;
-        Wed, 22 Apr 2026 00:15:58 -0700 (PDT)
-Message-ID: <bb1d52a4-c344-4653-b10f-0781c2900cb0@suse.com>
-Date: Wed, 22 Apr 2026 09:15:56 +0200
+        bh=4rKad+UxzUkxCopKUoZk2Ve1GRQCNyIIC91C5R5IU0E=;
+        b=GirINLjg3ND9wQ4LYfS8hixUuEHeHbzvpW2akstVAj4w7WYb+1czViwg6zu7SCbrWw
+         egnckGX2N8cqLmb8xHsypRDh+dnuaW6K4IjTym8P7tZoVQ7olHFuC83eY+9LMFI07xtm
+         lWVBO7vXiyoIpqAyC5WU+691BX+GVEj9elSW+6mEZD25aATAuAGCo0weGHxNDWBnXdeY
+         pk7uVLjezB3cq+OXuNuBRB8Foh+p7hHN//9xoqmNkxAq/0CacvLPBwDewzDbuPzpOKV3
+         iw+uFVVu82fHboeGuHMG+s87KLKclmpA72FSBrLEeH+h7KK3kAnnFfYTLRXWra3iz+EV
+         8e5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776845083; x=1777449883;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=4rKad+UxzUkxCopKUoZk2Ve1GRQCNyIIC91C5R5IU0E=;
+        b=lfjrttmi4kKAbrPDjN5ndbQUfbumMZJVPZVTU6IGGmw4KTb82S7oPOI4bWEn3jsKp7
+         VL5Vf5CUyN91PXJuS+/rIiScuCW0zT4VmJ0lIHvfmzjCok6OmSYEW215lEojJWNpQqAI
+         VJ4Lx/PyVWbMKfHBTTXLlmqiQ1YDS4bls1m0MFCx/7O21uAVOIceC9oV80s6v3qBDGr2
+         Eb0+lHZn8prnNiLD4eMbcrMYAQM5eqn9IfQuJEsubNwN+y42bGt9Iyu7fYKWIzlywscV
+         Pr/9zYEZZ5vnxRuPBhT+WR5wYdlrrUhE/T2KS5upPBy00K9XJRW5yLhkvcNFIHxmhDJe
+         gvbw==
+X-Gm-Message-State: AOJu0Ywkz0RePUWkLMbs/tYkqA0icqYbyGPraL4XNuEFP2ilwvt46Zjh
+	FbqnkwovCl0FIKYPgaNHxCQePXF7vLRKnk6UgZKXO6yChdoWch7SyQxvWb/6QLWkvhjW/c+9zwC
+	nK4lWXMZnmlntw5Y25qBRnc6134sEK4B5rBYA/bkKwQ==
+X-Gm-Gg: AeBDiev6x64eaDrQDzTHAHSN70wrUcpz6UVh6Rjgg4sYn/v38t2wEZd+/JYykJ5V4Zo
+	u/EHJ9YltLBQRRhoqF4AqKQ+7CNzqf4f+KcE9xAa3KQiRwU1seJTMhkOgwi8DeOWO3G6XA3ajB6
+	Xih+AuIBlwC6AzHwoESOQzlLkmqhP545QwCxnrlpUgIsAFtXTUwZOiu6WXCCNrM/5CQtmobA1pw
+	41ASt0xEXO/Yi56BPOdXNjKEvrxTSD+0O3zgVt1y10thjJklEzJbVyuEDcl7H/yoAkO3NXU1gKE
+	6ex6wkj32RKBaVbLDU69PnTnyT+GZKAP89hTbWe032N5JulUVziRJElS9QE=
+X-Received: by 2002:a05:6820:4704:b0:683:70eb:2676 with SMTP id
+ 006d021491bc7-69462e21612mr8082241eaf.5.1776845083075; Wed, 22 Apr 2026
+ 01:04:43 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/xenpm: fix FreeBSD build
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>, xen-devel@lists.xenproject.org
-References: <20260421153224.36368-1-roger.pau@citrix.com>
- <2204fbae-be5b-4f56-ad2a-cd5692db81cb@suse.com>
- <aeedB31aEBJb2Pa8@macbook.local>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <aeedB31aEBJb2Pa8@macbook.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1776842159-23D7FC48-71BAA9DA/0/0
+References: <cover.1776266307.git.bertrand.marquis@arm.com> <a755456257eff6e4c5bd042ce4b0edff8f6630c1.1776266307.git.bertrand.marquis@arm.com>
+In-Reply-To: <a755456257eff6e4c5bd042ce4b0edff8f6630c1.1776266307.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 22 Apr 2026 10:04:31 +0200
+X-Gm-Features: AQROBzC7bB4FQig0mzTxUpS0in5VDMjc43F87Gjf8I43gViVqd5-DG2514z0Syo
+Message-ID: <CAHUa44FwLG1GZwLX4E1v-73=H2RLv=whpDV5cJ3h6oqHyGOqvw@mail.gmail.com>
+Subject: Re: [PATCH 1/6] xen/arm: ffa: Fix NPI injection when vcpu0 is offline
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-d62444/1776845085-B5468FF4-383709DD/0/0
 X-purgate-type: clean
-X-purgate-size: 1536
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-purgate-size: 3712
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:dkim,linaro.org:email,mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: A69BA442DAB
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 66DB544339C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 21.04.2026 17:51, Roger Pau Monné wrote:
-> On Tue, Apr 21, 2026 at 05:35:57PM +0200, Jan Beulich wrote:
->> On 21.04.2026 17:32, Roger Pau Monne wrote:
->>> --- a/tools/misc/xenpm.c
->>> +++ b/tools/misc/xenpm.c
->>> @@ -1377,7 +1377,7 @@ static int fetch_dts_temp(xc_interface *xch, uint32_t cpu, bool package, int *te
->>>      {
->>>      case 0:
->>>          /* This CPU isn't online or can't query this MSR */
->>> -        errno = ENODATA;
->>> +        errno = ENODEV;
->>>          return -1;
->>
->> "No such device", however, isn't quite what we want to convey here. If no
->> better error code can be found that's available on FreeBSD and Linux, I'm
->> inclined to suggest that we stick to ENODATA where available.
-> 
-> Seems like a lot of complexity, for very limited usefulness.
+Hi Bertrand,
 
-What's complex about
+On Fri, Apr 17, 2026 at 3:41=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> RX-buffer-full notifications currently inject the notification pending
+> interrupt through vcpu0 only. Secure notification delivery already walks
+> the domain's online vCPUs, but the RX-buffer-full path does not. When
+> vcpu0 is offline, the notification remains pending and the guest never
+> receives it.
+>
+> Extract the common notification injection path and reuse it from
+> ffa_raise_rx_buffer_full(). The shared helper delivers the global
+> notification to the first online vCPU and keeps the existing ratelimited
+> debug message when none are online.
+>
+> Functional impact: RX-buffer-full notifications are delivered even when
+> vcpu0 is offline.
+>
+> Fixes: 3935c705688e ("xen/arm: ffa: Add buffer full notification support"=
+)
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+>  xen/arch/arm/tee/ffa_notif.c | 45 ++++++++++++++++++++----------------
+>  1 file changed, 25 insertions(+), 20 deletions(-)
 
-#ifndef ENODATA
-# define ENODATA ENODEV
-#endif
+Looks good:
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
 
-(perhaps with a brief comment)?
+Cheers,
+Jens
 
->  The only
-> usage of errno is to be printed in the error message, and for the
-> purposes of this function ENODEV is already unique in the function, as
-> ENODATA was.
-
-Right, but "No data available" is more precise than "No such device".
-
-> FWIW, I think ENODEV is not that far fetched: the CPU being offline
-> or the MSR not being present seems like what you would convey by using
-> ENODEV.
-
-Yes, there is a connection. Hence I'm not outright opposed, yet I think
-we can do better.
-
-Formally Anthony is the maintainer of the file, so in a case like this
-one maybe he ought to have the final say?
-
-Jan
+>
+> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
+> index 186e72641237..07bc5cb3a430 100644
+> --- a/xen/arch/arm/tee/ffa_notif.c
+> +++ b/xen/arch/arm/tee/ffa_notif.c
+> @@ -19,6 +19,29 @@
+>  static bool __ro_after_init fw_notif_enabled;
+>  static unsigned int __ro_after_init notif_sri_irq;
+>
+> +static void inject_notif_pending(struct domain *d)
+> +{
+> +    struct vcpu *v;
+> +
+> +    /*
+> +     * Since we're only delivering global notification, always
+> +     * deliver to the first online vCPU. It doesn't matter
+> +     * which we chose, as long as it's available.
+> +     */
+> +    for_each_vcpu(d, v)
+> +    {
+> +        if ( is_vcpu_online(v) )
+> +        {
+> +            vgic_inject_irq(d, v, GUEST_FFA_NOTIF_PEND_INTR_ID, true);
+> +            return;
+> +        }
+> +    }
+> +
+> +    if ( printk_ratelimit() )
+> +        printk(XENLOG_G_DEBUG "%pd: ffa: can't inject NPI, all vCPUs off=
+line\n",
+> +               d);
+> +}
+> +
+>  int32_t ffa_handle_notification_bind(struct cpu_user_regs *regs)
+>  {
+>      struct domain *d =3D current->domain;
+> @@ -190,7 +213,7 @@ void ffa_raise_rx_buffer_full(struct domain *d)
+>
+>      ACCESS_ONCE(ctx->notif.buff_full_pending) =3D true;
+>      if ( !test_and_set_bool(ctx->notif.vm_pending) )
+> -        vgic_inject_irq(d, d->vcpu[0], GUEST_FFA_NOTIF_PEND_INTR_ID, tru=
+e);
+> +        inject_notif_pending(d);
+>  }
+>  #endif
+>
+> @@ -238,7 +261,6 @@ static void notif_vm_pend_intr(uint16_t vm_id)
+>  {
+>      struct ffa_ctx *ctx;
+>      struct domain *d;
+> -    struct vcpu *v;
+>
+>      /*
+>       * vm_id =3D=3D 0 means a notifications pending for Xen itself, but
+> @@ -277,24 +299,7 @@ static void notif_vm_pend_intr(uint16_t vm_id)
+>       * it.
+>       */
+>      ACCESS_ONCE(ctx->notif.secure_pending) =3D true;
+> -
+> -    /*
+> -     * Since we're only delivering global notification, always
+> -     * deliver to the first online vCPU. It doesn't matter
+> -     * which we chose, as long as it's available.
+> -     */
+> -    for_each_vcpu(d, v)
+> -    {
+> -        if ( is_vcpu_online(v) )
+> -        {
+> -            vgic_inject_irq(d, v, GUEST_FFA_NOTIF_PEND_INTR_ID,
+> -                            true);
+> -            break;
+> -        }
+> -    }
+> -    if ( !v && printk_ratelimit() )
+> -        printk(XENLOG_G_DEBUG "%pd: ffa: can't inject NPI, all vCPUs off=
+line\n",
+> -               d);
+> +    inject_notif_pending(d);
+>
+>  out_unlock:
+>      rcu_unlock_domain(d);
+> --
+> 2.53.0
+>
 
