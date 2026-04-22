@@ -2,66 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id LnvKGVi16Gl8PAIAu9opvQ
+	id GCM2KlG26GmgPAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:47:36 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:51:45 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC5F6445906
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:47:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1290390.1569990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19817445963
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:51:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1290399.1570004 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFW3C-0002UZ-4K; Wed, 22 Apr 2026 11:47:26 +0000
+	id 1wFW77-0004gC-KW; Wed, 22 Apr 2026 11:51:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1290390.1569990; Wed, 22 Apr 2026 11:47:26 +0000
+Received: by outflank-mailman (output) from mailman id 1290399.1570004; Wed, 22 Apr 2026 11:51:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFW3C-0002RY-0R; Wed, 22 Apr 2026 11:47:26 +0000
-Received: by outflank-mailman (input) for mailman id 1290390;
- Wed, 22 Apr 2026 11:47:24 +0000
+	id 1wFW77-0004dM-Hb; Wed, 22 Apr 2026 11:51:29 +0000
+Received: by outflank-mailman (input) for mailman id 1290399;
+ Wed, 22 Apr 2026 11:51:27 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wFW3A-0002RP-DT
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 11:47:24 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1wFW75-0004dG-IR
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 11:51:27 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFW39-0072p0-CI
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 13:47:23 +0200
+ id 1wFW74-007LX8-VN
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 13:51:26 +0200
 Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69e8b549-2eae-0a2a0a5409dd-0a2a4501a632-18
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:47:23 +0200
-Received: from [40.93.198.11]
- (helo=CY7PR03CU001.outbound.protection.outlook.com)
+ (envelope-from <jbeulich@suse.com>)
+ id 69e8b63e-bab6-0a2a0a5309dd-0a2a45019628-0
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:51:26 +0200
+Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
  by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69e8b548-c1f2-0a2a45010019-285dc60b2dd2-4
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:47:22 +0200
-Received: from BL1P221CA0029.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::25)
- by LV0PR12MB999070.namprd12.prod.outlook.com (2603:10b6:408:32a::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.15; Wed, 22 Apr
- 2026 11:47:18 +0000
-Received: from BL02EPF0001A106.namprd05.prod.outlook.com
- (2603:10b6:208:2c5:cafe::4c) by BL1P221CA0029.outlook.office365.com
- (2603:10b6:208:2c5::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Wed,
- 22 Apr 2026 11:47:18 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL02EPF0001A106.mail.protection.outlook.com (10.167.241.139) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Wed, 22 Apr 2026 11:47:18 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
- 2026 06:47:17 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
- 2026 06:47:16 -0500
-Received: from [10.71.194.215] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 22 Apr 2026 06:46:59 -0500
+ (envelope-from <jbeulich@suse.com>)
+ id 69e8b63e-c1f2-0a2a45010019-d1558031e5c5-3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:51:26 +0200
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-48334ee0aeaso55412125e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 04:51:26 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-488fc1c773fsm499178525e9.12.2026.04.22.04.51.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Apr 2026 04:51:25 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -73,125 +56,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YHEaMe+afAPcBU0bHlYIm+HKkgFL7io7FK7jwjovGmbrqD1NSCHHlXbzK1xIRMabXV81ZhhJw9nAq6OaBv+AHnRf8OAkg9h7Sv3yF0CkqpBraRb7Rvt2dYf+JhIBOC+sLse4AqGo8CqIWtutWCIWd4vRNqQe0ISjUsTluWv0nZdFXC0rUXweVExXOWYLRT6KaS2o53hcVfsHIERvx2mlarwcAE6Bu4dN0bGywN1Go2K/OGx6JiHYUNJ7Ys90lkXfmJkUJjz8xuXZ1VuxlKgcIvthkJyICitOW38AZLcEL/IiTwSB12L2nyqm9vDTvsoKgijcOezkbWnI43Y90zgWEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6KPNaKAHkGK41G1lb5YPQ7/mCKPBwAtQ3GmXqW0Zwcc=;
- b=C/ElT6Bdg8Psk3GozyJyPd3r6+7JikAUKwKuTywIoe67GjVuq65Ins/ifJY8ufer2R13t3Q4IPdAIUzUL2iCqPI6CTM9h48fKJYnlinpJwLaO0GMP0fEzciGrzq3PBwrWoGi6P49bnH+95FWINCsKPbh7w3EclK8Jk/QlE2cdVTFZpxNKu8e5N00uMFw7pb38huTpVOtpPlm/0SK/rEg6cV6TlxKGwTjsmlcZmk2owYrRmfsW2vwc+JjPqPDGJ2+IKEazO3cl8NfSE+0xESqOY9vFDmSzVTF8C07CjM7BqpSc2twZXi926MZAVy/pFniW54Wubk+RBEe9/uWUEtJVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6KPNaKAHkGK41G1lb5YPQ7/mCKPBwAtQ3GmXqW0Zwcc=;
- b=F+Vnwqc4tigVlnZdw/VQyzsijDmFzRtlpVzfsPqDPGl4nwZMECqO0f47aGprV2qhPj9dXvVVKBiSzA0BlxlNPY7CrJM+d4qbQE1WtBCci5dY7wvPBQiI9StISMBQXq4tv0ZGUjDUdGPVM5YnucjhWBhaBqAoKAJH1/87TC0fv08=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <a4f8660d-fd77-46af-85c1-db2be27429a8@amd.com>
-Date: Wed, 22 Apr 2026 13:46:51 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Subject:From:Cc:To:Content-Language:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1776858686; x=1777463486; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=LcPZJ0EX4CLd90I+zIvaHrXZTmlFhTQJEkz1RmDvJwA=;
+        b=AP7fjmqPaUS7Rz1UZgzjDA+/7pE4qkLPg7hfkJ+Rii4O/juAHFcGSFFN7Cv5hxN4mQ
+         JlydiHnXtKWllH9uF3+8YmDAam/xZ7EX49U2OZ1ho4/Y7nYUp+SlhtsbikgxuuHOY2jM
+         Hx0C6SS1wiftxTRoisZKBiFNCtO4x3/aeifdq9tuz+fgFe9s4si8ct+OuMB18mMep+Rl
+         mdz2hwTDr6L75t5Nd6yMX+9/v1bWwlEptvj8Km7D5woF1/O3noH9o0v/klbdyhigmJeb
+         CBrJfD/S5dzzQe8qGmfjf3zlyDcA4tOJSMTCzYz+XbcFTSUimMPzG5fofKqiml+hg+rC
+         mbgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776858686; x=1777463486;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=LcPZJ0EX4CLd90I+zIvaHrXZTmlFhTQJEkz1RmDvJwA=;
+        b=LeXiTwOEMLx8GrGuavH1u4hihImSbye+Bn2l8cOqNfpRVnQPe4OBH4+vPWbt5C0n+S
+         jS1ljFMvNxw8hnjQDHJcQAMDgVR/BkeX1tQEqPOuaLSXCLPHytHMw81/IQGwI9mR9awE
+         /zwAClTg9hZ3A3itVCvRlIXtp8zTz31oSTZ63GUrppiM04rq0dg5n3/Ooy7zNBykDWRX
+         bRNtBbUAdU56kddY+jO06ETwYVE/flcjANDxEsWSyp3XBWoZ6s0t+mLecqi1ILE6+5i/
+         QfLNyjeZfXG6MOyk4I8LdC5hM0S8Jz6eXL9933/3UUfGzZtcqfRX2H03TGEyGc/vXcBV
+         D6sA==
+X-Gm-Message-State: AOJu0YyLZKUtvjh4RyKr3dl3s8wKWeS/+JqP3YSNyqPVx3Iwf0gnrnYC
+	PtYgtPOs7QGB3PQVwCTh1aZMwvamvV/QXUsyy3geMhlpA5wpqFFdLUUpYbyDi2QWjqA0OupOLwu
+	k3OIHFQ==
+X-Gm-Gg: AeBDietmEk6Yfzbr7Qd0rRoVLrvk8eSC2YKt0p0gzI3CdGmTB0IlLPMSoJPspNXsni/
+	9T45Imumk6j87+y0jKMBrb9rsnw97UZkGwb/XwqoZCEY4r0DA/b7H33wNJrYOSDLLvKTXM3XT3x
+	PMJRe5c4e/dNKLIIB9w2GUSzbllx6lqrRvfuBjqblbu2gyNC76O4USRCVZS4CEp6+b6kpu2xfXA
+	zrAKW22S9GEwep8SyG3HHIAODzQVN5zje5ls7+05hNeLzX9b4wI2Z4z+mhYEL6s7xc/WIgiHw2K
+	ukoevZ7JHpUT7Q0yPglWpNlAPZQ+JqGo4H8L3aHvr32rLgtbSCb/5j1dLG89Wx/aFXxlEdmhwnW
+	/ML4Fv2ULLTpV5m056oDMBJl4EyHt+NV0tCN4VwxRmp0lyerqnGYGnWbaJ6Z6ontso6miKBtJYU
+	iyfyxgzj7ri1IzQ9lFazZfpEXmflmYzdwRiHI3A/hfWXOjyDARrxRs6WuoFHUEdjdir1uJ7IsKV
+	S8lpOxEMHgmzKadbXDJ+o9JwQ==
+X-Received: by 2002:a05:600c:46cb:b0:488:ac01:72de with SMTP id 5b1f17b1804b1-488fb7451e4mr315545115e9.5.1776858686144;
+        Wed, 22 Apr 2026 04:51:26 -0700 (PDT)
+Message-ID: <bf990673-83c3-44c3-a76a-3b0c36108ec5@suse.com>
+Date: Wed, 22 Apr 2026 13:51:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] xen/dom0less: pass kernel_info struct instead of
- fdt to make_cpus_node()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
- Beulich" <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
-	<roger.pau@citrix.com>
-References: <cover.1776780944.git.oleksii.kurochko@gmail.com>
- <2617586205ec7b07a302fcb8dd9dd39f3eb2c5ed.1776780944.git.oleksii.kurochko@gmail.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-In-Reply-To: <2617586205ec7b07a302fcb8dd9dd39f3eb2c5ed.1776780944.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>,
+ Bernhard Kaindl <bernhard.kaindl@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] EFI: adjust cfg file buffer freeing
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A106:EE_|LV0PR12MB999070:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5c07f73-50af-4478-aff8-08dea064e800
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|7416014|82310400026|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	3d2b9XXod1XtwWYlOedlO1+Qn6yePBS0NIj1ymAbsuXoGJAKNijkJDEj1ajDC8H2OsZ94Mz59EtsgIeTiw3M/zlgq9zfmpxxEb+XGkS9zQ1KxWgiVm7n9XOnmymeqTFTDbeyTLJAhcz2GE05zkMSktjvq9kkxvRV7Dm8JQU+m683+cUfpimwvK0O+bpZx/kSwXHpdRn9ERl11wGua4XoA/02zbEi7JJwZ3KDeVF0nV1dEVXgsuKmwwJvI6R5W+URD75RCb6qQcKVM/1Zpqbr5FQq0CzEwm7JZSTEHw4i4g8FKQHCKkQXuQiIHBIh4ABmUq6ZunJFYtmV9nW+hduL8P4BIcMjbcCU4ABjRWblljqxva2fmHm8/RLf14SGUMQ7Bz5eTeedDRFTVc2gCnAN1g6CGcGDS+3yG7NMsX5pjAhpMNSvGThgf6jNRwNz8/F9ReoGxR6oVokpbxaKudmlZvrclmbRT5J1dGuc30Pz1MPWXgT0F8ly8XOgEuyEW62CBovJfc6vsX7glWJ6YYn1mxEJ0khRKPr82KAW03EwQHsfGoI5V3s5mXp96zwcSXzZS3qqANdnByRSlDurk9gXRSOr8JqiENq+dTcbZjz48QYL+kfzU7VP7AVHEEWDQ3U//p0MmQTfRfodRtxh5NGjrX47gitbdUCX0uvZKlTkCDNfdOYNEwlx7oFinxsPpF8nokWZz72w7qw7opsk217vKw86QcFDvSMb1Fz1yvf1+ZrWN6T4+XAWoECj34dEbgJMqNXi1TEyBLzzkY9oQaOK1w==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(82310400026)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	4byrWqZdr+vjTnAH95hbjQnJvvS6muMBDSHY0cvj3P1YMNpCw+gAO/noHCY4Nbs/GNderUyCoQmR0OGVEsxoDrkd5g9XMMOLpulNDDsahRIiSc+SlgsNeHbmriot6Oo8l1EBmoSf8/9NdvdxtZtFh6J+6Q7o1mG5A/nP5GuDkZ+jsW+A411kzhUJ/V4FDeNIeEhi8JQEQ6L0z3kj/fQu+y6lvqTmBC9Fg4ENQnh6ThE5gHRayx4pm29087fR0jDH9Nctc1VpklNrzwUV6nJTn+yGACpy2LJC+f+P/uTS/RGVA2TMyqxwNnboi6wyLP9lJ483DKqGWRy+Zy3RlIm4ixS250QjLCf45TwWIKy/FZHOiFhSwSAXEtJaGjbyAbwdK53HUJGrrunILXpYkqmQvyq+8zzOGH3fN7C3wDa95dYelJgzyX3oHg3gHGC8zuZa
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 11:47:18.2273
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5c07f73-50af-4478-aff8-08dea064e800
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0001A106.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB999070
-X-purgate-ID: tlsNG-d62444/1776858443-B7C74FF4-341877B3/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 431
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-purgate-ID: tlsNG-d62444/1776858686-BF87AFF4-9F281D5D/0/0
+X-purgate-type: clean
+X-purgate-size: 2423
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[14];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:marmarek@invisiblethingslab.com,m:dpsmith@apertussolutions.com,m:bernhard.kaindl@citrix.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,xen.org:url];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.997];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns]
-X-Rspamd-Queue-Id: BC5F6445906
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 19817445963
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+The boot services FreePages() needs passing the size. Since we allocated
+one more byte to put a trailing nul there, we also need to bump the size
+passed there. Make a small helper function to centralize this.
 
+Note that there's no permanent memory leak because of the oversight: The
+allocation is done using EfiLoaderData, and all memory of that type is
+later reclaimed anyway.
 
-On 22/04/2026 11:44, Oleksii Kurochko wrote:
-> There are two reasons of this change:
-> 1. Align prototype with what other make_*_node() are passed.
-> 2. A follow-up RISC-V patch will call get_next_free_phandle() inside
->    make_cpus_node(), requiring mutable access to kinfo->free_phandle.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Fixes: df75f77092c1 ("EFI: avoid OOB config file reads")
+Reported-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+This is an alternative proposal to
+https://lists.xen.org/archives/html/xen-devel/2026-04/msg01044.html.
 
-~Michal
-
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -778,6 +778,16 @@ static void __init efi_relocate_esrt(EFI
+  */
+ #include "efi-boot.h"
+ 
++static void __init free_cfg(void)
++{
++    if ( !cfg.need_to_free )
++        return;
++
++    /* One extra byte was allocated to put a nul character there. */
++    efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size + 1));
++    cfg.need_to_free = false;
++}
++
+ void __init noreturn blexit(const CHAR16 *str)
+ {
+     if ( str )
+@@ -787,8 +797,7 @@ void __init noreturn blexit(const CHAR16
+     if ( !efi_bs )
+         efi_arch_halt();
+ 
+-    if ( cfg.need_to_free )
+-        efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
++    free_cfg();
+     if ( kernel.need_to_free )
+         efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
+     if ( ramdisk.need_to_free )
+@@ -1557,11 +1566,7 @@ void EFIAPI __init noreturn efi_start(EF
+             name.s = get_value(&cfg, "global", "chain");
+             if ( !name.s )
+                 break;
+-            if ( cfg.need_to_free )
+-            {
+-                efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+-                cfg.need_to_free = false;
+-            }
++            free_cfg();
+             if ( !read_file(dir_handle, s2w(&name), &cfg, NULL) )
+             {
+                 PrintStr(L"Chained configuration file '");
+@@ -1631,11 +1636,7 @@ void EFIAPI __init noreturn efi_start(EF
+ 
+         efi_arch_cfg_file_late(loaded_image, dir_handle, section.s);
+ 
+-        if ( cfg.need_to_free )
+-        {
+-            efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+-            cfg.need_to_free = false;
+-        }
++        free_cfg();
+ 
+         if ( dir_handle )
+             dir_handle->Close(dir_handle);
 
