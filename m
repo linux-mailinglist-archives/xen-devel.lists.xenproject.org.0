@@ -2,67 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6KHjN82y6GmIOwIAu9opvQ
+	id qGAqO9qy6GmIOwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:36:45 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:36:58 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DEA3445791
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:36:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1290332.1569945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C5B8445799
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:36:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1290335.1569955 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFVsi-0006Td-Uw; Wed, 22 Apr 2026 11:36:36 +0000
+	id 1wFVsw-0006nc-B5; Wed, 22 Apr 2026 11:36:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1290332.1569945; Wed, 22 Apr 2026 11:36:36 +0000
+Received: by outflank-mailman (output) from mailman id 1290335.1569955; Wed, 22 Apr 2026 11:36:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFVsi-0006RU-SE; Wed, 22 Apr 2026 11:36:36 +0000
-Received: by outflank-mailman (input) for mailman id 1290332;
- Wed, 22 Apr 2026 11:36:35 +0000
+	id 1wFVsw-0006l4-7k; Wed, 22 Apr 2026 11:36:50 +0000
+Received: by outflank-mailman (input) for mailman id 1290335;
+ Wed, 22 Apr 2026 11:36:48 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Michal.Orzel@amd.com>) id 1wFVsh-0006RM-JF
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 11:36:35 +0000
+ (envelope-from <jens.wiklander@linaro.org>) id 1wFVsu-0006kP-Kv
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 11:36:48 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFVsf-00F6II-EV
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 13:36:35 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wFVss-00F6KO-Fa
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 13:36:48 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69e8b2ba-5cb7-0a2a0a5109dd-0a2a4503ab06-38
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:36:34 +0200
-Received: from [40.93.194.2]
- (helo=SN4PR0501CU005.outbound.protection.outlook.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69e8b2c1-672d-0a2a45030019-285dc2028aa8-3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:36:34 +0200
-Received: from BL0PR02CA0048.namprd02.prod.outlook.com (2603:10b6:207:3d::25)
- by SJ2PR12MB9116.namprd12.prod.outlook.com (2603:10b6:a03:557::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.16; Wed, 22 Apr
- 2026 11:36:27 +0000
-Received: from BL6PEPF00020E5F.namprd04.prod.outlook.com
- (2603:10b6:207:3d:cafe::4e) by BL0PR02CA0048.outlook.office365.com
- (2603:10b6:207:3d::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Wed,
- 22 Apr 2026 11:36:26 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF00020E5F.mail.protection.outlook.com (10.167.249.20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Wed, 22 Apr 2026 11:36:25 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
- 2026 06:36:25 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
- 2026 06:36:25 -0500
-Received: from [10.71.194.215] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 22 Apr 2026 06:36:17 -0500
+ (envelope-from <jens.wiklander@linaro.org>)
+ id 69e8b2ce-2eae-0a2a0a5409dd-0a2a450ce240-6
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:36:47 +0200
+Received: from [209.85.210.50] (helo=mail-ot1-f50.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jens.wiklander@linaro.org>)
+ id 69e8b2ce-62f1-0a2a450c0019-d155d232f121-3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:36:47 +0200
+Received: by mail-ot1-f50.google.com with SMTP id
+ 46e09a7af769-7dbec19732eso4647757a34.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 04:36:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,184 +51,282 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fZAU6ujdx7WePrTZnw0XAwgM4EwGyBAq8h4eGyAYGaOGOMVcUutASuAHdQyH8MLjVrS99wj2I0dg+T/fZ5BLEcFWI4/lL7EMZuAJrashEkuK7KrbzUOSA/G8sQPnCXKYmVKJseUdQpE1QwrQn6WfFb+Co6Y5EtA0HtHWhaI5nzjdSifWF4PVRDkRuY7RPahyzEn2/2CduPLmEg0caK88ddpnM5ITp+eps5HLiTYBfz+n1FNbae8s6p2PXuYAJ4TDU/lrw4tqeYqQssc6iYxZ9x0L19k7l4ASBiY20zotLGFqruBLMnPQvubrlB3gvy67fkQf/LlsELR8KvCcPsicKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YtZknnB3j+p6kCpU06Y2tA1kcaZqJJozcwn/O4Q4q+E=;
- b=UZ18axeAOE7oYBceYrVYS6vumZrcST9XYpn+3mCjJLkb6LpYDv8m3WcRPMD9q8czO9M4+gCOo7aq0GVLhhjV/v1EQ9ZepFAGk3dwdatcoB09m2iiDA1be1OXvjfsG3xkovp5ldq4SzmbC18OkncDveFk5Tsg/NSRyM+W7NNg1xBUkmVEmxAKGLNXy2JUu+xM16rOI/xH0UCZTom5o3BvRK1z10oG/Sv/4W+nccKCcbVGZdhqixi9KV3JY4JVhT9a0lsYcNOOJkI/BGYQfKZaqfe0OCkZja7wS85Tk6s0/aShbV2KurzE1GYgNsY2OnSoKTWeYdMS9VEkdMg6i80ztA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=epam.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YtZknnB3j+p6kCpU06Y2tA1kcaZqJJozcwn/O4Q4q+E=;
- b=JE3KFdRpe0Va+Ni0bRC6honaHysKzmJRG5ONRikxb7WHZgyn5KYp3U6/+f7GzF/MtXMJh82/KOh4gLt8Uzl4fytCPXf6sHbs/XSohFVS/Y8OPKxXeyzHg/9TUpvOywuGRKQwcLr/yUiu0D8w0UfrqWJb8HCCiJiUa3IoUPmxAp8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <c6f48ecd-df34-46fb-9ec2-31adc9a13db1@amd.com>
-Date: Wed, 22 Apr 2026 13:36:16 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=linaro.org header.i="@linaro.org" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1776857806; cv=none;
+        d=google.com; s=arc-20240605;
+        b=JHM5It/r+JWKfEdVOy1eKP10aX4P0qKO+SogNW84yOzg2wAk6AtgCJzpQImpsboQgm
+         W0iiGiQkDztS5qXsxcqOJRnvffBQtolsZw0VCTXHSAhb65LPUlLpyZcsLqoFvf1T+Icq
+         3LvRDMF+UQIVmUU35L9K/iJ2e5RtWUvWvMo2iyE/XTPe+EU0rWajKvuVp8HAETG5066K
+         LI4sr9LUQatC4CBFMKc2p+kvGKAONVUjIVhFUf1aTa9i/5F35L1gj9UMZn5q2SWIRXsM
+         B/KgXUkhbxtDOYW/JmJ2sihBXATc0/MDxMHf0KB7STor1VboMeJ+V65THsI8erqxKMUb
+         CfQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=jEZNxUnk2Oq7Xdr2TCQhDKMYigTcFQmDeD+SVScAU64=;
+        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
+        b=TB1+fQpe3P0SZZDy8Fp99deSnZWr0EDHtSnhM9ADV4meqS1TRoqLKxkjSLkPOWJt7E
+         JcstwWikIWYuMN9bpiExilI7U1nrjAnaBOvtuEStonhai744ymYMGfnthK5KZbq93ZIT
+         d+Mk/xhpBN8WCASGN/mjKc/GSnDj6OdHT0tOpK+yZb1jmWPX6a7TuHlr2QL8e57xqulP
+         eaSN2bYPWhjRxp3AWU/rA6wX6oxxLEghHTbctmbSLuY6qNsXSHbrXsBhnXbA1WIp79Zu
+         JmA7kYq5H8EEEJn9Kk86iB3SRvOdDWluTy1R2GmHqicnd9Jezmcnm/pmlF1Xlv4ifPvz
+         IYcQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1776857806; x=1777462606; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jEZNxUnk2Oq7Xdr2TCQhDKMYigTcFQmDeD+SVScAU64=;
+        b=Vk5fCOzu/M9GZHdP/uBF+3FjHFlnBHHTw7K96XuSWOujpyDhQUyfs02wdz9DJY+zx4
+         VKbc/y1dojPgkgvIzokRNo/TovYa3oALm9OpkhUCeKYmwOeTbKqT1+RhRrTC73aqThUq
+         MJpa1x0zMrLyA0f+piDDHTL2khbpjr7Zy76rtC3gYYzrFC3Wk1WEyV3+YB+lOXGnO4FA
+         ssYHeCWw9oxsybzMf49NiaGzmgyfTpLjF4UFUcZELlWnkkKlC5g5z/REURFZsxAFwaz8
+         DxbPwrGFIyEgcy52I5OYF0HMDXPV3NiHZ28TkbZVKuS839w6uGIrWBg0OW22PtVyd4ET
+         fNqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776857806; x=1777462606;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=jEZNxUnk2Oq7Xdr2TCQhDKMYigTcFQmDeD+SVScAU64=;
+        b=fKTh8U/IKR6ftDxTerMkF8eWilKRVK4NVpBqDRpbbpS7fpU1jy53Lm/p+mN5PMIII9
+         CMFvk+tgf66jd90xA+i7rsZvKEqwYxwQeCPMhScVC6sP8i7XPxI5lMJ8pdOmqhlbFeSp
+         IBawbSz2SbE4aBJlWDFyVRlGwvFw4z6I0u4SiMV0kKcu5BYuj6PO/QaLajczNpxnZjut
+         S7XDxdFmothDNE8Hg1j7LMBmxMt0Nvzv+E/1JZVSq1FAsgKPUiGNKYI3xYXWsWO7mA0Y
+         njIRLvDe69cV9YEJRBUzM+uX3TTTtXTA5UvTRVBMrFraN0NQip7Rxq7GJFuguDqBO8na
+         tYkQ==
+X-Gm-Message-State: AOJu0YwVj//ZVl2j7TicIbYo7jf4B+tBSCcukZPh4RErjgIMpjDRP4H8
+	dxrC2hMu+qVCgLOik8/1978Hxryc+MsPdkiUgTo7QeBfQq/VcpuwQCVU5zC4MF5InrCdy7d44QU
+	MMU6RWw21ffUo1tE0h2OrDiiUtcbt7oiLq4lAGTEjfA==
+X-Gm-Gg: AeBDiev4LPtYvbpgX6caWUvHG2nWzzb8TL3QQoCG62SzKxudOwi9RcvDI/JJBg1sa0D
+	VFl025Uhgbj5lJNQ6wPf8ctr5xJrqWREs/Wjh/VJ6/JyQ3vW6c5PduwDzZ4xw4CyI5GAJxvnPzF
+	2PUbicO6Jjjhumbjx1zqTK6j+x7PqdX9GGdZx5eWQ094Ul04IGBLHY83bnWmcESl1zfxmoCph6j
+	wuOLaMVnBPrMtq+EnNy2JA9n8LS0OBJSX52uqnWxQbUcPa3eDb4AiJQjU8/xA7acxwECWEwirGp
+	G9D+XTGvOKTNYEQJkMC87/G7U3A6eK4ulnT5f3DBfyQ4rTzTl36HE56qKxk=
+X-Received: by 2002:a05:6820:2002:b0:694:9a8a:2ce with SMTP id
+ 006d021491bc7-6949a8a0f5amr3057210eaf.8.1776857806031; Wed, 22 Apr 2026
+ 04:36:46 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] xen/drivers/char: fix SCIF IRQ registration
- failure propagation
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Volodymyr
- Babchuk" <Volodymyr_Babchuk@epam.com>
-References: <cover.1776850201.git.oleksii_moisieiev@epam.com>
- <519488a3f63d3bb6af9a6fb794b85e9960710b23.1776850201.git.oleksii_moisieiev@epam.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
-Content-Language: en-US
-In-Reply-To: <519488a3f63d3bb6af9a6fb794b85e9960710b23.1776850201.git.oleksii_moisieiev@epam.com>
+References: <cover.1776266307.git.bertrand.marquis@arm.com> <1036add9199c6304eb649854024c74dd0f0192cc.1776266307.git.bertrand.marquis@arm.com>
+In-Reply-To: <1036add9199c6304eb649854024c74dd0f0192cc.1776266307.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 22 Apr 2026 13:36:34 +0200
+X-Gm-Features: AQROBzAOXCNcY7bb7hC9K-lRPBfgdi3ML2NV-noLI-5or5WRnEjH5_DjKHBVsdk
+Message-ID: <CAHUa44FdbLqNRVzjy6Y3qMp5ez9PS-3tY_VjMJMXHRs+=AKVKg@mail.gmail.com>
+Subject: Re: [PATCH 3/6] xen/arm: ffa: Tighten notification parameter validation
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E5F:EE_|SJ2PR12MB9116:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2e47876f-1a7d-4f8c-6c12-08dea063632d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700016|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	zS4sf/XiNRP9aB6eQ5Sl9W+hZhQMhWCkbYS8v3DwSIWHdvQgU5+enQCVngSPR671O8DJFYaaQ2plcC8xM9tdrJ+7kWttbX6ikrDLfPXbgEGNEc99nXcsi7PcOhSSxbdK8gHl1eUlerq++X8jL+wHJaVlC/bR9jimhgef4rbiZ28X38jU1anQq8j1MnitXPY3FIULHNlJAm3VCFeAC3FJm6Qxl1+OBUKDXBrQTBYix3pO3V0xacWivLqKicvlfD0RKW/dYELFLOh3L595Zq/SwChk4nSpfYK7UtYC9n+HeXhzL7kpnoXQkAI1S4f2F0dfIxUOWgBLxwj4FYcAJnDBOYqX9MqeURd6or7f8U88GBXIC5y/TU74DNfLchYnceZsw2Xhcx9cPosnCCVl/2G72FhVh3nC+cJy7vAgImCSmq+gpYMup5QJuGaZNhauMxn8QCHQNXWOjRSf5FTMuKPHOewYJO/h7KlTvfaNLdRANx7ef2d4DE5AO4K2o4qGu0O4LDleiqXxKkRY/mNb166dPhvRtp15eue0Y+HmsO4nFYtpVoHQX3ACjqooGhwIDWcgyzH28K+EQCYKrHUiQFk0jlZcqVCEWbHGES+hmWXis0gd1KlA/RVouGkFivB13S2cqoLyNlTq5TJ3adA4weOG+ipDJQd1u5GPd/bZO6sUZ0e9yaJ+UqfJpL+Ve0wr5EuvB60394naLhzlvHYrDL3O2a9SXyPq/FtbdZJfrjw7hKLy8IaZQUkyiFHCLzFJBpLdFH8rFXngCDL/K7DUWszp7g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	R3Z6fM0n1XGPDtJbsur+sVkuh9siU2QWDJXYKFOB/zugbRPtVV3u5WQeweXex0aIkNtb75jATxqL/DW3oMCUReCaAw+feZ4F6+xXhV3ObDXh68qQ/IoXRkenvRYpUkwcnTlUQRYEeU0r30LoW3WEk+WaYMtrJqHEUYeXMdneHZB0W+9Xcd23Dyh5Pf9te6K20gUKexrO5CsTbcjmXCLaT8ykeFMW/Ni9wL6R+/g+00VgkELzDEwZgs3qi/q4YuyXrX8xsKICKtEmfXityqBiFsXFpHFvbcZfVv+/6KaKLSUuVXQ6pv6lli0Wb9VgClCIjmmnp6vRGOG2T5er031tyJO/A+4rdnwZImcNUnRJMDZbLdSIWk0cLtyGwTo8lOzEAYB2Ww69+VX6Nsce48iByX8jWjUAPekhOLHmXQoTz3b1Er7h493PMo6k79HkDQ9T
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 11:36:25.8873
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2e47876f-1a7d-4f8c-6c12-08dea063632d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00020E5F.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9116
-X-purgate-ID: tlsNG-33051d/1776857794-A1B7C938-E11713F6/0/0
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-d25034/1776857807-6DF6ACF5-CAA67ECE/0/0
 X-purgate-type: clean
-X-purgate-size: 3274
+X-purgate-size: 6539
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:Oleksii_Moisieiev@epam.com,m:xen-devel@lists.xenproject.org,m:bertrand.marquis@arm.com,m:julien@xen.org,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:dkim,linaro.org:email,mail.gmail.com:mid,arm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[14];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[amd.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	MISSING_XM_UA(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:dkim,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email]
-X-Rspamd-Queue-Id: 4DEA3445791
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 7C5B8445799
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+Hi Bertand,
 
-
-On 22/04/2026 11:33, Oleksii Moisieiev wrote:
-> In scif_uart_init_postirq(), when setup_irq() returns an error the
-> failure was only logged via dprintk() and execution continued,
-> unconditionally writing TIE|RIE|REIE into the Serial Control Register
-> (SCSCR). This armed all three hardware interrupt lines (TX FIFO empty,
-> RX data ready, receive error) with no handler registered to service
-> them. On platforms where the GIC receives these asserted lines, the
-> result is either repeated spurious-interrupt warnings or an unhandled
-> interrupt fault.
-> 
-> The fix adds an early return inside the error branch. The
-> interrupt-enable write to SCSCR is skipped entirely when no handler is
-> registered.
-> 
-> SCIF TX continues to operate correctly after this change. The Xen
-> serial framework never calls serial_async_transmit() for SCIF, so
-> port->txbuf is always NULL. This causes __serial_putc() to take the
-> synchronous finite-capacity path, which polls the SCFSR_TDFE hardware
-> flag directly and does not depend on the interrupt mechanism. RX
-> wouldn't work if irq wasn't registered.
-> 
-> As a secondary clean-up, the hardware error-flag clearing sequence is
-> moved to before the setup_irq() call so that error bits accumulated
-> since init_preirq() are cleared unconditionally, regardless of whether
-> IRQ registration succeeds.
-> 
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+On Fri, Apr 17, 2026 at 3:41=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> The notification handlers still validate overlapping subsets of their
+> inputs. BIND, UNBIND, and SET each decode caller and destination IDs
+> locally, GET still accepts a non-zero receiver vCPU ID and reserved flag
+> bits, and SET still accepts non-zero NS-virtual flags. BIND also treats
+> unsupported non-zero flag encodings as a supported-feature failure
+> instead of as malformed input.
+>
+> Add ffa_notif_parse_params() and use it to centralize the common
+> caller/destination and non-zero bitmap checks for BIND, UNBIND, and SET.
+> Also reject malformed GET and SET requests locally before touching
+> cached state or forwarding anything to the SPMC. Keep BIND limited to
+> global notifications and reject unsupported non-zero flag encodings with
+> INVALID_PARAMETERS.
+>
+> - add a shared parameter parser for notification caller/destination
+>   validation
+> - wire BIND and UNBIND through the shared parser and reject unsupported
+>   bind flag encodings with INVALID_PARAMETERS
+> - reject non-zero receiver vCPU and reserved flag bits in
+>   FFA_NOTIFICATION_GET
+> - reject non-zero flags in the NS-virtual FFA_NOTIFICATION_SET path
+>
+> Functional impact: malformed notification requests are rejected
+> consistently earlier in the mediator.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
-> 
-> (no changes since v2)
-> 
-> Changes in v2:
-> - Extend fix to pl011, cadence-uart and exynos4210
-> - fix typo in patch 1 description
-> 
->  xen/drivers/char/scif-uart.c | 16 ++++++++++++----
->  1 file changed, 12 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/drivers/char/scif-uart.c b/xen/drivers/char/scif-uart.c
-> index 888821a3b8..673a2d3800 100644
-> --- a/xen/drivers/char/scif-uart.c
-> +++ b/xen/drivers/char/scif-uart.c
-> @@ -187,16 +187,24 @@ static void __init scif_uart_init_postirq(struct serial_port *port)
->      uart->irqaction.name    = "scif_uart";
->      uart->irqaction.dev_id  = port;
->  
-> -    if ( (rc = setup_irq(uart->irq, 0, &uart->irqaction)) != 0 )
-> -        dprintk(XENLOG_ERR, "Failed to allocated scif_uart IRQ %d\n",
-> -                uart->irq);
-> -
->      /* Clear all errors */
->      if ( scif_readw(uart, params->status_reg) & params->error_mask )
->          scif_writew(uart, params->status_reg, ~params->error_mask);
->      if ( scif_readw(uart, params->overrun_reg) & params->overrun_mask )
->          scif_writew(uart, params->overrun_reg, ~params->overrun_mask);
->  
-> +    if ( (rc = setup_irq(uart->irq, 0, &uart->irqaction)) != 0 )
+>  xen/arch/arm/tee/ffa_notif.c | 61 +++++++++++++++++++++++++++++-------
+>  1 file changed, 50 insertions(+), 11 deletions(-)
+>
+> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
+> index d15119409a25..491db3b04df5 100644
+> --- a/xen/arch/arm/tee/ffa_notif.c
+> +++ b/xen/arch/arm/tee/ffa_notif.c
+> @@ -42,21 +42,40 @@ static void inject_notif_pending(struct domain *d)
+>                 d);
+>  }
+>
+> +static int32_t ffa_notif_parse_params(uint16_t dom_id, uint16_t caller_i=
+d,
+> +                                      uint16_t dest_id, uint32_t bitmap_=
+lo,
+> +                                      uint32_t bitmap_hi)
+
+Nit: I would have picked ffa_notif_validate_params() or
+ffa_notif_check_params(), but that might be more a matter of taste.
+Anyway, looks good:
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+
+Cheers,
+Jens
+
+> +{
+> +    if ( caller_id !=3D dom_id || dest_id =3D=3D dom_id || !dest_id )
+> +        return FFA_RET_INVALID_PARAMETERS;
+> +
+> +    if ( !bitmap_lo && !bitmap_hi )
+> +        return FFA_RET_INVALID_PARAMETERS;
+> +
+> +    return FFA_RET_OK;
+> +}
+> +
+>  int32_t ffa_handle_notification_bind(struct cpu_user_regs *regs)
+>  {
+>      struct domain *d =3D current->domain;
+> +    struct ffa_ctx *ctx =3D d->arch.tee;
+> +    int32_t ret;
+>      uint32_t src_dst =3D get_user_reg(regs, 1);
+>      uint32_t flags =3D get_user_reg(regs, 2);
+>      uint32_t bitmap_lo =3D get_user_reg(regs, 3);
+>      uint32_t bitmap_hi =3D get_user_reg(regs, 4);
+> +    uint16_t caller_id =3D src_dst & GENMASK(15, 0);
+> +    uint16_t dest_id =3D src_dst >> 16;
+>
+> -    if ( (src_dst & GENMASK(15, 0)) !=3D ffa_get_vm_id(d) )
+> +    if ( flags )    /* Only global notifications are supported */
+>          return FFA_RET_INVALID_PARAMETERS;
+>
+> -    if ( flags )    /* Only global notifications are supported */
+> -        return FFA_RET_DENIED;
+> +    ret =3D ffa_notif_parse_params(ctx->ffa_id, caller_id, dest_id, bitm=
+ap_lo,
+> +                                 bitmap_hi);
+> +    if ( ret )
+> +        return ret;
+>
+> -    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
+> +    if ( FFA_ID_IS_SECURE(dest_id) && fw_notif_enabled )
+>          return ffa_simple_call(FFA_NOTIFICATION_BIND, src_dst, flags,
+>                                 bitmap_lo, bitmap_hi);
+>
+> @@ -66,16 +85,22 @@ int32_t ffa_handle_notification_bind(struct cpu_user_=
+regs *regs)
+>  int32_t ffa_handle_notification_unbind(struct cpu_user_regs *regs)
+>  {
+>      struct domain *d =3D current->domain;
+> +    struct ffa_ctx *ctx =3D d->arch.tee;
+> +    int32_t ret;
+>      uint32_t src_dst =3D get_user_reg(regs, 1);
+>      uint32_t bitmap_lo =3D get_user_reg(regs, 3);
+>      uint32_t bitmap_hi =3D get_user_reg(regs, 4);
+> +    uint16_t caller_id =3D src_dst & GENMASK(15, 0);
+> +    uint16_t dest_id =3D src_dst >> 16;
+>
+> -    if ( (src_dst & GENMASK(15, 0)) !=3D ffa_get_vm_id(d) )
+> -        return FFA_RET_INVALID_PARAMETERS;
+> +    ret =3D ffa_notif_parse_params(ctx->ffa_id, caller_id, dest_id, bitm=
+ap_lo,
+> +                                 bitmap_hi);
+> +    if ( ret )
+> +        return ret;
+>
+> -    if ( FFA_ID_IS_SECURE(src_dst >> 16) && fw_notif_enabled )
+> -        return  ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bit=
+map_lo,
+> -                                bitmap_hi);
+> +    if ( FFA_ID_IS_SECURE(dest_id) && fw_notif_enabled )
+> +        return ffa_simple_call(FFA_NOTIFICATION_UNBIND, src_dst, 0, bitm=
+ap_lo,
+> +                               bitmap_hi);
+>
+>      return FFA_RET_NOT_SUPPORTED;
+>  }
+> @@ -142,6 +167,12 @@ void ffa_handle_notification_get(struct cpu_user_reg=
+s *regs)
+>          return;
+>      }
+>
+> +    if ( recv >> 16 || (flags & GENMASK(31, 4)) )
 > +    {
-> +        dprintk(XENLOG_ERR, "Failed to allocated scif_uart IRQ %d\n",
-> +                uart->irq);
-> +        /*
-> +         * If the IRQ handler could not be installed (setup_irq failed),
-> +         * do not enable TX/RX or error interrupts. Serial transmit will
-> +         * fall back to polling mode.
-> +         */
-As mentioned before, why do these comments differ depending on the patch. I
-would suggest to just add:
-/* Don't enable interrupts if irq handler was not set. Fall back to polling */
-
-Other than that:
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-
-~Michal
-
+> +        ffa_set_regs_error(regs, FFA_RET_INVALID_PARAMETERS);
+> +        return;
+> +    }
+> +
+>      if ( fw_notif_enabled && (flags & ( FFA_NOTIF_FLAG_BITMAP_SP |
+>                                          FFA_NOTIF_FLAG_BITMAP_SPM )) )
+>      {
+> @@ -204,11 +235,19 @@ int32_t ffa_handle_notification_set(struct cpu_user=
+_regs *regs)
+>      uint32_t flags =3D get_user_reg(regs, 2);
+>      uint32_t bitmap_lo =3D get_user_reg(regs, 3);
+>      uint32_t bitmap_hi =3D get_user_reg(regs, 4);
+> +    uint16_t caller_id =3D src_dst >> 16;
+> +    uint16_t dest_id =3D src_dst & GENMASK(15, 0);
+> +    int32_t ret;
+> +
+> +    ret =3D ffa_notif_parse_params(ffa_get_vm_id(d), caller_id, dest_id,
+> +                                 bitmap_lo, bitmap_hi);
+> +    if ( ret )
+> +        return ret;
+>
+> -    if ( (src_dst >> 16) !=3D ffa_get_vm_id(d) )
+> +    if ( flags )
+>          return FFA_RET_INVALID_PARAMETERS;
+>
+> -    if ( FFA_ID_IS_SECURE(src_dst & GENMASK(15, 0)) && fw_notif_enabled =
+)
+> +    if ( FFA_ID_IS_SECURE(dest_id) && fw_notif_enabled )
+>          return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bit=
+map_lo,
+>                                 bitmap_hi);
+>
+> --
+> 2.53.0
+>
 
