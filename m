@@ -2,49 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kH3YBSfA6GmEPwIAu9opvQ
+	id yE2rAjTD6Gm9PwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 14:33:43 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 14:46:44 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A270445FDC
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 14:33:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1290464.1570048 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6072F446228
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 14:46:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1290478.1570058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFWlT-0005vJ-K3; Wed, 22 Apr 2026 12:33:11 +0000
+	id 1wFWxo-00086R-LU; Wed, 22 Apr 2026 12:45:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1290464.1570048; Wed, 22 Apr 2026 12:33:11 +0000
+Received: by outflank-mailman (output) from mailman id 1290478.1570058; Wed, 22 Apr 2026 12:45:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFWlT-0005tH-HI; Wed, 22 Apr 2026 12:33:11 +0000
-Received: by outflank-mailman (input) for mailman id 1290464;
- Wed, 22 Apr 2026 12:33:09 +0000
+	id 1wFWxo-00084N-Hw; Wed, 22 Apr 2026 12:45:56 +0000
+Received: by outflank-mailman (input) for mailman id 1290478;
+ Wed, 22 Apr 2026 12:45:54 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wFWlR-0005t8-Ir
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 12:33:09 +0000
+ (envelope-from <jens.wiklander@linaro.org>) id 1wFWxm-00084H-Jy
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 12:45:54 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFWlQ-00B3a9-LA
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 14:33:08 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wFWxm-000QLW-0F
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 14:45:54 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e8bff8-bab6-0a2a0a5309dd-0a2a45039e06-32
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 14:33:08 +0200
-Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 69e8c004-672d-0a2a45030019-d155802cace9-3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 14:33:08 +0200
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-488a14c31eeso42416665e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 05:33:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-488fc14a61asm413757565e9.15.2026.04.22.05.33.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Apr 2026 05:33:07 -0700 (PDT)
+ (envelope-from <jens.wiklander@linaro.org>)
+ id 69e8c2fc-2eae-0a2a0a5409dd-0a2a4506be72-16
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 14:45:53 +0200
+Received: from [209.85.167.169] (helo=mail-oi1-f169.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jens.wiklander@linaro.org>)
+ id 69e8c300-7371-0a2a45060019-d155a7a9dcd8-3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 14:45:53 +0200
+Received: by mail-oi1-f169.google.com with SMTP id
+ 5614622812f47-45f053b7b90so3041437b6e.0
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 05:45:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,185 +51,325 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=linaro.org header.i="@linaro.org" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1776861952; cv=none;
+        d=google.com; s=arc-20240605;
+        b=NSGI9wXZQyV/ehWnkogX+Vy1mYxmujhLgEo59yyyjdvYratZyi4A22I9hWK4fhUi/D
+         tnW/TIm/4Ow34wz1X5LW5DsbX0mvoatUFkaAMR6JMhJezyNWidSRNtdhJWPFc/NE69CP
+         pQ232u9b4bZbxfy3lTyEhhbUXhBUFvAUWmmLuEWre6myGA4e2k2X46TwcROnmK8pZAsL
+         JA6dWFmJ6ILq/pEQnLhVzloF18HALnAFoUmPw3wFy3eHPcMvJzEFy4ThSvAa9/p/Gq/e
+         2z+oNi2fD38UrnbB80lC5KLntnvimfQFFbYPugdNmxvol9w49y9IMxnUDhKe0/wms6WT
+         TKKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6CRmPzKF3K9QyQEexRPq5aH4kw0kNjI7Ou5yzweCuOQ=;
+        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
+        b=JC/eCnUC9/BJKRUe7f4s4L0P0MruAYr2wPKCAWY56wQaV5yIONpaaZtOmKobv1DTwc
+         ine+aOcL7hEFj7vbxyWl63aafKRlbk0OYRD7tf5hSdJdgWumZz5sphBDLX9MygGLsTKD
+         78iFvA89Iq0V/qmxVsfA6wtjVUoAFqe/pk7PNVweNQMDwH+Y52RTE4VgkbSEpY5SVv9j
+         dCGB9nCVagloz+Z/6UaZS1xqQJdCb9adSP+GKjAf0lRCF6sGHTNkeZGNcJeiN3dxoHg0
+         jI73Aw39PM8EUtcWdNW2K3Ppjtff9PidW+kl6kp7HXBiM77VR2JfES6Q63tlYDE4Y5rC
+         x18Q==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776861188; x=1777465988; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=UMY5gm1Nj4tlgzffEyXZ3vdWRk8gGg5mqTSMtNw0cCQ=;
-        b=b79K/nDa5DG5bcOAJ8PFLw2+WdqVg6z+82SltxP0UvfHrpZN+xvmunf9xYJ+pw6QTh
-         fj0iXLVApiUZp+zHL+IBi3QIKxF4yePQ8ZQbIh/VBzng42qD0PEQUlKKwhTEshHb0a/Z
-         CeyptANj23a28hs1ACUnz67GUr4Enl67FlJ1xy8UPCBQpnB9wPCT94fF8qa0zH7R5h1Y
-         rETm7V6Q6cguo6C1i9pxcMA6k/5t/rtC9B7WGi0KYA1izgMy00OrHIe/8OXYvhbO5MM+
-         gDMYPmRKGAQStXKl/D+vyCzGWBhe6AJSYQEGZWBtoKJGuZGnhuFYerZLtICm/tCcyvNw
-         XokQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776861188; x=1777465988;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1776861952; x=1777466752; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UMY5gm1Nj4tlgzffEyXZ3vdWRk8gGg5mqTSMtNw0cCQ=;
-        b=k2oLbYl1yFODsAhmyoRCeAqjDkU5UJ+kB4FRTT/yjfmoj3McCc8ONUSf5LqtqcaIhV
-         +oo9CnocGhP1qVmG+euFg4iplioUfyb15UxJ2UnaOIZd5J1SxIT/MBKpRcGB3EB/Sy0Q
-         zBtCXbw4ADf7Mk0/hwyX7K3p29C8vkiJReM6mKSYOI0WYwpj5IyXewdG3lKNdpxW+9SI
-         g7y6hE+snANvppjTIfX4V2JA+VTz2pFeMs5DKHJHDyvFwInDwz16La9bKX6eA3XX26uh
-         Sx/HJ8rSObvecRXEZiR8EmEVASOlOidc6bu5G6jLT97L/Qfnsh+GFpRzQQEQ7ciakdGR
-         tFVA==
-X-Forwarded-Encrypted: i=1; AFNElJ+E+IlNFvj73OZ7oZtu1Lkcg3FsJhSCjhFrkzI9acd8xAv+NwnVOYGCZ9wzjbr0Af7jGnbMOyERWYw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy4ot6Jx9jVuHk/LFsdclUdJ/EOxxS+U4YsBevSwZni16NIr+m0
-	SSs2aiQaKl6lewgLZq65mtJ2pnJLeGMEKHo8FGWmAoZocIELIFgxUsxki5/ZxWfh5A==
-X-Gm-Gg: AeBDieu+hdkTlmGXWYdl9TR+u3Jp1IO2axqRbsbHL/WlWGvfRusSA6IpIqSRyCzCNIB
-	XyoN0+i5GXPwqjSWz3QL7mA2zJv1nLVgRf0Kzn9nDbBA4xJYNpr3veHhCnAITW/paky+sfrXatM
-	F6eEi4v7cIwa5aeHyjuz3a1dWzl0BlHuDQH7Tlc2rOkWstXexgqd6egDGq2xye1xjF7mKkBlomr
-	l5HqkNq5aXSKDakUS22hUoFvT8ipLUcZyykIrMlfEeprs8NPWu/tqQvvINDe9z0bWDa1PyKrVBy
-	ipEQW82Dp4nFxFcYq3eVOUky1lA9reoqRLXQe/UjBu8nHZQOTZAQvjJ3wXYhokDNljXjhWwQJNj
-	TLTRbtrCyAgIqZ0RmBBdp9k7u08cXqawRm/xaj+g2bpOjh+VLG2lMejr8apJ9KUPEnsjh1VtfEr
-	Smg8esgot8jUGs/Aw9AgRiwQbFQOZl3IHrh6CVeY7kIqi+bpBPsxnf6gaXPvRTK9SrEekbfygi+
-	V+3Mbh+lsFIPkreGVjoQETAUg==
-X-Received: by 2002:a05:600c:c177:b0:486:fb0b:ad79 with SMTP id 5b1f17b1804b1-488fb78129emr290350715e9.20.1776861187802;
-        Wed, 22 Apr 2026 05:33:07 -0700 (PDT)
-Message-ID: <081743b1-e57b-4e06-9cc9-20f1ee01afe9@suse.com>
-Date: Wed, 22 Apr 2026 14:33:06 +0200
+        bh=6CRmPzKF3K9QyQEexRPq5aH4kw0kNjI7Ou5yzweCuOQ=;
+        b=PVR/DeO4koFAbE/PpI2JIPvtGGWJ64lwL+wLbcdQ+ZSCRcZBW7ohK+n+I6hWby3rAY
+         u8biEbx/rcQAD4WU+V8wYsyxEydThu7efD1S1y/vqmnP6JD7UUu5ODm5CYfRKPIm4iy7
+         x+w7CTEPOd6IC6KVfZ8kLQ/8Ne1Rn+37NtN7RWpgGsdgfYNqK5mOmGg3qJI0EukWRcRH
+         18ruigsNCC7BGVCjyBq3ucXISE44y8mVvWoINloehG0EJw4OieZ0Aa4krs4EZLdRUT2K
+         O01Q3CxQYIVgboVK+xLdx+xe5r3DT8T8eTpwl0wKQfGzpTj9/GQur0fQaKljabnGE2nN
+         6X+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776861952; x=1777466752;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=6CRmPzKF3K9QyQEexRPq5aH4kw0kNjI7Ou5yzweCuOQ=;
+        b=Bl2iVSsKaIr38aiDobkTa/i9XBYgluETRMWFIjHr5jHeccgpvPBwY7sO6dgWRnJ+SL
+         Y1UQ+rzD8yEO0yY8HtDrvVYH3zhHp8XTXojMRMKJjAjI6PIAXQVUgBzeI5d9QnY+I2On
+         0X8gk4w5z+O4diy9IeiqWEwzjgAlmDynY6lF4lE2zNTAuu30JPfUJjej2VnSqjQ0t9n2
+         rVGG0VFuNd2rUwjOg+gDtbjMcDBcFQlghLPekZVgMrgQxW5YFxemht8ZQsaf7weu7gw1
+         ZI5kjPRIIbNXGK9UCCwh12OlFs/3ePxC/UxZ30P9oUQqB9ZOpHevbkSJppIrcV7smoO5
+         i5Lw==
+X-Gm-Message-State: AOJu0YyJfkF57xxYZhI7U6xAyMwwgTsOz7fK6wlMlIi2BBcPMarv7oId
+	TKo8OWH9dhPD+3d2FQAK8+wRLCHJeb0D4lk0oBv2v3/DfuQz8Y/i5jWF/iP6N0s02jy4lRqhr5r
+	GRJacqH61nQdBPbfRBnnmPu3z2J2MSkQtnMMxk42PYQ==
+X-Gm-Gg: AeBDiesfcpRIer0Z8QrUNfrXArIuLsJ2Qg8GoPn+i2G8+4YxeTJeGpzMObWgsW09hfP
+	gbGZwo1cj1Rdp7zIuI17Jgvzxgl581se5KolMR3ULX2S34/7cnE8GRBo5XKdp236hLIrexgJXKW
+	gzRVOWUeUTQOTNA61AW3W4Hvl44WTKLKDVghgaIy2jXKx1N9vYWbM1NezNbYUvT09bIWRw4AIb/
+	Rzs+YRV1j6YZ1bJY09UG2Jj12LccniCJoiEEKBjcQ3WKs3gB/LO0C0IR5872zZage2bYWSnN1dL
+	io9uymdqn5Mcl1mbU7mVFP5KTYayrxXoJZ4W9LJ3FrmGgp17KiAg3Ck1SR8=
+X-Received: by 2002:a4a:e905:0:b0:694:6d72:9fd0 with SMTP id
+ 006d021491bc7-6946d72a2f8mr10755778eaf.16.1776861951969; Wed, 22 Apr 2026
+ 05:45:51 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/7] xen/mm: Allow free pages to cover a claims
- shortfall
-To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1776172526.git.bernhard.kaindl@citrix.com>
- <5d1e06a0fcaee4520bf79d58199e447194f84fe8.1776172526.git.bernhard.kaindl@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <5d1e06a0fcaee4520bf79d58199e447194f84fe8.1776172526.git.bernhard.kaindl@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1776861188-2AD63938-3B0C9AC6/0/0
+References: <cover.1776266307.git.bertrand.marquis@arm.com> <5b9ce4a4a3927ce2287ec4db7f864174f53b8f17.1776266307.git.bertrand.marquis@arm.com>
+In-Reply-To: <5b9ce4a4a3927ce2287ec4db7f864174f53b8f17.1776266307.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 22 Apr 2026 14:45:40 +0200
+X-Gm-Features: AQROBzCGOIBzjZ3Xfz9x00948t7ArGxeMrG9x-UdM514xcfd3fZvVtFJbdnI6yE
+Message-ID: <CAHUa44FnKKpZOZ_oVKXZdaznmAcPC5Y3iF2MJ_o2o3i5M1+mFw@mail.gmail.com>
+Subject: Re: [PATCH 4/6] xen/arm: ffa: Preserve secure notification state when
+ polling SPMC
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-16d1c6/1776861953-51F6BD75-2D8E3FA1/0/0
 X-purgate-type: clean
-X-purgate-size: 2360
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-purgate-size: 7755
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,linaro.org:dkim,mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:+];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 2A270445FDC
+	NEURAL_HAM(-0.00)[-0.999];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 6072F446228
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 14.04.2026 15:22, Bernhard Kaindl wrote:
-> Allow an allocation to proceed when free, unclaimed memory can cover a
-> claims shortfall.
-> 
-> In preparation for NUMA-aware claims, refactor this check into a
-> reusable helper so the same logic can be applied to NUMA nodes.
-> 
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-> 
+Hi Bertrand,
+
+On Fri, Apr 17, 2026 at 3:41=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Secure pending state is latched when the SPMC raises the schedule
+> receiver interrupt, but Xen currently clears that latch too aggressively.
+> Guest FFA_NOTIFICATION_INFO_GET consumes secure_pending even though it
+> only reports pending state, and secure FFA_NOTIFICATION_GET only clears
+> the latch when both SP and SPM bitmaps are requested together. This can
+> drop a pending indication before the receiver retrieves secure
+> notifications, or keep INFO_GET reporting stale secure pending state
+> after a successful GET.
+>
+> Keep secure_pending as a latched indication until secure notifications
+> are actually retrieved. Guest FFA_NOTIFICATION_INFO_GET now reports the
+> latched state without clearing it, while a successful secure
+> FFA_NOTIFICATION_GET clears the latch regardless of which secure bitmap
+> flags were requested. Also protect secure_pending with notif_lock,
+> serialize SPMC INFO_GET polling behind notif_info_lock, and preserve the
+> caller-visible INFO_GET success width.
+>
+> Functional impact: guest INFO_GET preserves the secure pending
+> indication until secure notifications are retrieved, and successful
+> secure GET clears the guest-visible pending latch.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
-> 
-> Changes since v4: Extracted into a dedicated patch and merged the
-> formerly separate functions into one, as suggested by Jan Beulich.
-
-I did ask for the splitting out, no question. I can't find anything towards
-the functional change though in my v4 replies, and with that being the main
-aspect here I think Suggested-by: would credit me for something I didn't do
-or say.
-
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -868,6 +868,42 @@ static void check_and_stop_scrub(struct page_info *head)
+>  xen/arch/arm/tee/ffa_notif.c | 54 +++++++++++++++++++++++-------------
+>  1 file changed, 35 insertions(+), 19 deletions(-)
+>
+> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
+> index 491db3b04df5..fff00ca2baec 100644
+> --- a/xen/arch/arm/tee/ffa_notif.c
+> +++ b/xen/arch/arm/tee/ffa_notif.c
+> @@ -18,6 +18,7 @@
+>
+>  static bool __ro_after_init fw_notif_enabled;
+>  static unsigned int __ro_after_init notif_sri_irq;
+> +static DEFINE_SPINLOCK(notif_info_lock);
+>
+>  static void inject_notif_pending(struct domain *d)
+>  {
+> @@ -109,6 +110,7 @@ void ffa_handle_notification_info_get(struct cpu_user=
+_regs *regs)
+>  {
+>      struct domain *d =3D current->domain;
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+> +    uint32_t fid =3D get_user_reg(regs, 0);
+>      bool notif_pending;
+>
+>      if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
+> @@ -117,7 +119,10 @@ void ffa_handle_notification_info_get(struct cpu_use=
+r_regs *regs)
+>          return;
 >      }
+>
+> -    notif_pending =3D test_and_clear_bool(ctx->notif.secure_pending);
+> +    spin_lock(&ctx->notif.notif_lock);
+> +    notif_pending =3D ctx->notif.secure_pending;
+> +    spin_unlock(&ctx->notif.notif_lock);
+> +
+>      if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+>      {
+>          notif_pending |=3D test_and_clear_bool(ctx->notif.vm_pending);
+> @@ -131,7 +136,9 @@ void ffa_handle_notification_info_get(struct cpu_user=
+_regs *regs)
+>      if ( notif_pending )
+>      {
+>          /* A pending global notification for the guest */
+> -        ffa_set_regs(regs, FFA_SUCCESS_64, 0,
+> +        ffa_set_regs(regs,
+> +                     smccc_is_conv_64(fid) ? FFA_SUCCESS_64 : FFA_SUCCES=
+S_32,
+> +                     0,
+>                       1U << FFA_NOTIF_INFO_GET_ID_COUNT_SHIFT, ffa_get_vm=
+_id(d),
+>                       0, 0, 0, 0);
+>      }
+> @@ -154,6 +161,8 @@ void ffa_handle_notification_get(struct cpu_user_regs=
+ *regs)
+>      uint32_t w5 =3D 0;
+>      uint32_t w6 =3D 0;
+>      uint32_t w7 =3D 0;
+> +    uint32_t secure_flags =3D flags & ( FFA_NOTIF_FLAG_BITMAP_SP |
+> +                                      FFA_NOTIF_FLAG_BITMAP_SPM );
+>
+>      if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
+>      {
+> @@ -173,27 +182,16 @@ void ffa_handle_notification_get(struct cpu_user_re=
+gs *regs)
+>          return;
+>      }
+>
+> -    if ( fw_notif_enabled && (flags & ( FFA_NOTIF_FLAG_BITMAP_SP |
+> -                                        FFA_NOTIF_FLAG_BITMAP_SPM )) )
+> +    if ( fw_notif_enabled && secure_flags )
+>      {
+>          struct arm_smccc_1_2_regs arg =3D {
+>              .a0 =3D FFA_NOTIFICATION_GET,
+>              .a1 =3D recv,
+> -            .a2 =3D flags & ( FFA_NOTIF_FLAG_BITMAP_SP |
+> -                            FFA_NOTIF_FLAG_BITMAP_SPM ),
+> +            .a2 =3D secure_flags,
+>          };
+>          struct arm_smccc_1_2_regs resp;
+>          int32_t e;
+>
+> -        /*
+> -         * Clear secure pending if both FFA_NOTIF_FLAG_BITMAP_SP and
+> -         * FFA_NOTIF_FLAG_BITMAP_SPM are set since secure world can't ha=
+ve
+> -         * any more pending notifications.
+> -         */
+> -        if ( ( flags  & FFA_NOTIF_FLAG_BITMAP_SP ) &&
+> -             ( flags & FFA_NOTIF_FLAG_BITMAP_SPM ) )
+> -            ACCESS_ONCE(ctx->notif.secure_pending) =3D false;
+> -
+>          arm_smccc_1_2_smc(&arg, &resp);
+>          e =3D ffa_get_ret_code(&resp);
+>          if ( e )
+> @@ -210,6 +208,10 @@ void ffa_handle_notification_get(struct cpu_user_reg=
+s *regs)
+>
+>          if ( flags & FFA_NOTIF_FLAG_BITMAP_SPM )
+>              w6 =3D resp.a6;
+> +
+> +        spin_lock(&ctx->notif.notif_lock);
+> +        ctx->notif.secure_pending =3D false;
+> +        spin_unlock(&ctx->notif.notif_lock);
+>      }
+>
+>      if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+> @@ -354,7 +356,10 @@ static void notif_vm_pend_intr(uint16_t vm_id)
+>       * guarantees that the data structure isn't freed while we're access=
+ing
+>       * it.
+>       */
+> -    ACCESS_ONCE(ctx->notif.secure_pending) =3D true;
+> +    spin_lock(&ctx->notif.notif_lock);
+> +    ctx->notif.secure_pending =3D true;
+> +    spin_unlock(&ctx->notif.notif_lock);
+> +
+>      inject_notif_pending(d);
+>
+>  out_unlock:
+> @@ -373,11 +378,18 @@ static void notif_sri_action(void *unused)
+>      unsigned int n;
+>      int32_t res;
+>
+> -    do {
+> +    if ( !fw_notif_enabled )
+> +        return;
+
+Can this ever happen? Am I missing something?
+
+Cheers,
+Jens
+
+> +
+> +    spin_lock(&notif_info_lock);
+> +
+> +    do
+> +    {
+>          arm_smccc_1_2_smc(&arg, &resp);
+>          res =3D ffa_get_ret_code(&resp);
+>          if ( res )
+>          {
+> +            spin_unlock(&notif_info_lock);
+>              if ( res !=3D FFA_RET_NO_DATA && printk_ratelimit() )
+>                  printk(XENLOG_WARNING
+>                         "ffa: notification info get failed: error %d\n", =
+res);
+> @@ -391,7 +403,7 @@ static void notif_sri_action(void *unused)
+>          id_pos =3D 0;
+>          for ( n =3D 0; n < list_count; n++ )
+>          {
+> -            unsigned int count =3D ((ids_count >> 2 * n) & 0x3) + 1;
+> +            unsigned int count =3D ((ids_count >> (2 * n)) & 0x3) + 1;
+>              uint16_t vm_id =3D get_id_from_resp(&resp, id_pos);
+>
+>              notif_vm_pend_intr(vm_id);
+> @@ -399,7 +411,9 @@ static void notif_sri_action(void *unused)
+>              id_pos +=3D count;
+>          }
+>
+> -    } while (resp.a2 & FFA_NOTIF_INFO_GET_MORE_FLAG);
+> +    } while ( resp.a2 & FFA_NOTIF_INFO_GET_MORE_FLAG );
+> +
+> +    spin_unlock(&notif_info_lock);
 >  }
->  
-> +/*
-> + * Allow the request when unclaimed pages suffice, or when a refcounted
-> + * domain's outstanding claims cover the shortfall.
-
-Nit: It's not the domain which is refcounted here (the refcounting there is
-something entirely different), but the allocation.
-
-> + */
-> +static bool claims_permit_request(const struct domain *d,
-> +                                  unsigned long avail_pages,
-> +                                  unsigned long competing_claims,
-> +                                  unsigned int memflags,
-> +                                  unsigned long requested_pages)
-
-I think it is good practice to have the main input parameter(s) first.
-That would be "requested_pages" here plus perhaps "memflags". The rest is
-auxiliary data to perform the needed calculation.
-
-May I further suggest to drop _pages everywhere?
-
-I'm further not happy about "competing" in the parameter name: This
-includes claims for this very domain as well, and if there's no other
-claim then there's nothing "competing" at all.
-
-> +{
-> +    unsigned long unclaimed_pages;
-> +
-> +    ASSERT(spin_is_locked(&heap_lock));
-> +    ASSERT(avail_pages >= competing_claims);
-> +
-> +    /* Start from the free pages not already claimed by other domains. */
-> +    unclaimed_pages = avail_pages - competing_claims;
-
-This could easily be the initializer of the variable.
-
-Jan
+>
+>  static DECLARE_TASKLET(notif_sri_tasklet, notif_sri_action, NULL);
+> @@ -486,6 +500,7 @@ int ffa_notif_domain_init(struct domain *d)
+>      int32_t res;
+>
+>      spin_lock_init(&ctx->notif.notif_lock);
+> +    ctx->notif.secure_pending =3D false;
+>      ctx->notif.hyp_pending =3D 0;
+>
+>      if ( fw_notif_enabled )
+> @@ -503,6 +518,7 @@ void ffa_notif_domain_destroy(struct domain *d)
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+>
+>      spin_lock(&ctx->notif.notif_lock);
+> +    ctx->notif.secure_pending =3D false;
+>      ctx->notif.hyp_pending =3D 0;
+>      spin_unlock(&ctx->notif.notif_lock);
+>
+> --
+> 2.53.0
+>
 
