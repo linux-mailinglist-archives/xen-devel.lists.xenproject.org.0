@@ -2,44 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KMdxNT+W6GmsNAIAu9opvQ
+	id KCQ2MgOe6GlNNQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 11:34:55 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 12:08:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 221574440E6
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 11:34:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1290125.1569811 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39FFA4446E6
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 12:08:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1290138.1569820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFTyl-0003Ow-Ey; Wed, 22 Apr 2026 09:34:43 +0000
+	id 1wFU8I-0005gY-Ak; Wed, 22 Apr 2026 09:44:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1290125.1569811; Wed, 22 Apr 2026 09:34:43 +0000
+Received: by outflank-mailman (output) from mailman id 1290138.1569820; Wed, 22 Apr 2026 09:44:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFTyl-0003Me-Bc; Wed, 22 Apr 2026 09:34:43 +0000
-Received: by outflank-mailman (input) for mailman id 1290125;
- Wed, 22 Apr 2026 09:34:41 +0000
+	id 1wFU8I-0005eI-7Z; Wed, 22 Apr 2026 09:44:34 +0000
+Received: by outflank-mailman (input) for mailman id 1290138;
+ Wed, 22 Apr 2026 09:44:32 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jens.wiklander@linaro.org>) id 1wFTyj-0003MV-Ox
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 09:34:41 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wFU8G-0005e6-Bz
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 09:44:32 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFTyh-00Em4Z-K1
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 11:34:41 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wFU8F-00E7y7-Ox
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 11:44:31 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jens.wiklander@linaro.org>)
- id 69e89625-2eae-0a2a0a5409dd-0a2a4502a7d6-22
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 11:34:41 +0200
-Received: from [209.85.167.182] (helo=mail-oi1-f182.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jens.wiklander@linaro.org>)
- id 69e8962f-af86-0a2a45020019-d155a7b6d980-3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 11:34:40 +0200
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-479d9b155deso1025502b6e.3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 02:34:40 -0700 (PDT)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69e89879-5cb7-0a2a0a5109dd-0a2a4503bf1a-32
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 11:44:31 +0200
+Received: from [209.85.208.174] (helo=mail-lj1-f174.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 69e8987f-672d-0a2a45030019-d155d0aef1cd-3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 11:44:31 +0200
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-38be5e86918so60322231fa.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 02:44:31 -0700 (PDT)
+Received: from fedora (user-109-243-69-121.play-internet.pl. [109.243.69.121])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5a41cc7f832sm3494193e87.28.2026.04.22.02.44.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Apr 2026 02:44:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,282 +55,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=linaro.org header.i="@linaro.org" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-ARC-Seal: i=1; a=rsa-sha256; t=1776850479; cv=none;
-        d=google.com; s=arc-20240605;
-        b=NltxZV6Kyu05P/ejc5gB3yFbLwlQcGYflgtcqodM3cLry+VB+WobdQU3bh6FikaHMH
-         P9976gtnigY09zWId8KzcuwklLeFZBSwFLh0nk1DqkbH43s7OI1an3KdlZOXtQHyxPTg
-         W8qPftT4VylPXcqFpeQfKYb10TsoPWU4BY1L8qxnVmOyg48/fdEs7IH3T/XUp/zU0gik
-         Q9uDhQMtdIyuQE0/Aw57LxLsFUHpKFjD5uROqy/7GYIm34TV7TkqSMRuO/kSEfB8UpO+
-         hauGLk3xsATL5lOoqNVvoq5eWJccc2gdtLmt3IVmoIvNwhhwL3mM3oNe0X3v0gJO3p7Z
-         Ngpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IjGNLzZoVRcnaqKTCMBdzdnt+nQoxCffNoAezlXriWA=;
-        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
-        b=XIAndFaDmQZnTMfrlp0TKQhG0KCU/wtNX35Mm8jCbwpfKQDSbGwtlGC0ocr2cD9ni3
-         xKHoH/wNkisE3sAw+7xf1xKR4i1dXFsWB/ccVkFUmLGVGdkuD2UG3JplhZRWIfbRYApR
-         MroCYx18APy+4j3sRP9o0J5iEb0p1T3BiJ2jbv+kJTrs7KGzuBMOjTtV/+nUJCdboV1G
-         sH050Hj3Cv3QiWPgz3zftlnER379uiYZtBJfcEwMIhnffFBxWY5r1A5ps+JlQHIPkH0X
-         xmGgZtauqL0kDZfWkDpRAiKsHHY2geKwJ+UMLX3ikR4+PDC/pU5kORp23gna/n4Pus9g
-         pyXA==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1776850479; x=1777455279; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IjGNLzZoVRcnaqKTCMBdzdnt+nQoxCffNoAezlXriWA=;
-        b=pALyDpJJxCFMyT5X+OgCx/0hpeZK3ORPubfMu3ljCG79F+x2etGPcsELPp+NPtlDSM
-         A7PU9SfzxIhqu9iFXavpWA7WCEAlmluxCZ41cAz1HCYxBiyzcv7rWgR0jOz7v2grgAQm
-         H4EWEevpEeXJ1+8E00XQ/aE6E5dMsOZFO1JGIK341wupEmqbMNnyOIUxMCBGeWMUaUTm
-         FsCRNOhpdbF7bNErdFlgaqdn4TLZDLVViiZrZt1+Uxh/cX58XtaXgYezFfesGRLTJ+cW
-         E3kpIs2Y8oDBqmHe+0hmwyu+TRXHDoRBgN8+VvKrNagmGB1a+eF5fi+Fai2U/bWW/paP
-         zJ3Q==
+        d=gmail.com; s=20251104; t=1776851070; x=1777455870; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=59nOSJ/eSpPdRp/1SigW9kXTuYhnBN61vpESbRh4HAI=;
+        b=Tw10reV76rQJnSXc8ck+jIiTDAWjO8K/dNe2JcEDb8s+V2V3hFtA1XMjs2ygvHyZ2a
+         3BkSf+42IJ8+SD6Zu835ciUQVq1zOpeUAMawr88scXBRR/ZVFjNpRNPPWD9e0vJYcn3m
+         FHkR15rCZVS3PL/yyDzoV0WNaS5sYXA5ZTAyvPbyZvdQ3KaEtZtJrz/7lcaMHRO2WeiK
+         b14GFVJ7kcu7M5glF98QKMJG3UalkWlZ0PYP5MI4u6YnP+oBfgyDYC5OARYajI7SUGwD
+         Wwu9dxGyJQaEYoMV8S6mMtmiY47E6NqN7hlKsSXCdky2ZNBnAmngXHAOIfCjOubGzq6k
+         AJkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776850479; x=1777455279;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=IjGNLzZoVRcnaqKTCMBdzdnt+nQoxCffNoAezlXriWA=;
-        b=Hkr8sJlfVXP04rhYOibwDU5bJShxZehnOH4S9C2zpaUey36cW6pUDIfbQpLZIhpTpM
-         kQs88sJ2NBb5f2+TkA1WlSBbdyRxMyGHWD+3mMxsd6mhBqr1YYBkvyQoZVldMBWAYb4z
-         9ou400ZoWTRljEHTsu/XlvjrrcPrZLwH0J6xq6ozn9l7rWP5N4U/tuVRMDAUVa1o9scN
-         r/nY2gtuQhQ+4ULOzYy476Nk9UcuuO7Te6TCSFFtBzuUhY2g2LLtYaKvNKmK94z/fWw0
-         wpIRRnlCaePfGXp7JNXIFiPGn8NwY4jhz7y2L7oQUkynDC0cgZDFeZB5mqB5B9pTp0fc
-         mDhA==
-X-Gm-Message-State: AOJu0YyxHURTa8lAKuzLmFuqwgdWFjs6SNpNqskFQ9QDaFqsTGdBshhO
-	y16xCxyz7QD17979J0Wun/BlFwWhLAAvWEZ/3WXz21KYAQ6t2kvmLy1Eys16UdVSink0eIQ6HEc
-	3M1R0HjniGYHobdwpE4YBYj5uT5a/ewiKVMmkrtYWGHEYu1TOiT25SVBb7g==
-X-Gm-Gg: AeBDiesGv8SRusDkIxuABqlbnMH8WApWy5cB0SBL8g7XvsumYLMFzvLKFbSWoh43L8v
-	VNFMXG88vptxnMtEsIUwh8aZL3rCy8kpRo/f68SahbDlmOa2qBj/hROkp9GGSNR7dnEBHlQHHl4
-	4EvRSFonjf9AjpqV6VlcY9myvq4Qtl4LglHShZIUSQPTb2N1lGjIaLaWn+3IT+h07zlhqsiEg2j
-	qf0gVO3zt+oD9qxsdm+2qn+pOxNUbLz2qofo3wcwAtKED8J1/bZJar3hLWj+mRNwmPlXrnvfQkg
-	DEdMKiayN3oa5nsMVXY9MU0gBXtWpwkfEBxO3R8r7QkK2OGL
-X-Received: by 2002:a05:6820:c2cc:10b0:689:dfc8:5e3c with SMTP id
- 006d021491bc7-69462e21091mr7845143eaf.3.1776850479020; Wed, 22 Apr 2026
- 02:34:39 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1776851070; x=1777455870;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=59nOSJ/eSpPdRp/1SigW9kXTuYhnBN61vpESbRh4HAI=;
+        b=BbEVYnRfHKeiKK2I87jXBv20IuRVNLXBg4pD9Ew3HXSHTadB2OxfNBrTJG/0ySWBXH
+         qM0g0hEHKwpCvgg+ZXoL6BNGL9PqlJmMjTVjEOsr4TR2dz6CBoafKu2a0T6+mjQNJoDD
+         KVhssOTVGab2GdBz9BJpzRq7S/bxDD02pKMu7sGUUquEdv1JCNhKhgYaGrJyrVhAHNUp
+         lXmsz75qe1wfIoWCSONUinL0Jskyg68/iwtLXOfZfbBaZlegsTDCJqbyb0JDnB5xvpt7
+         DrLmpwpgB0mt+kYWaab4/QmLvlHczF6udw3rStnF1LJCP/xTPCpwWA9esfiqBo2lERnY
+         VrVw==
+X-Gm-Message-State: AOJu0YxNXRjmL1AXYnk1ZjpNXQU9x5Isf+ovTq65DYCAyfX3JAlkTy0v
+	0XxBOQSmoaeI7gXTGtWs6DeJY4YsEDYxXqif4eKcMxz6iqJ2o989/ltGSspMLQ==
+X-Gm-Gg: AeBDievNW/lyBqRUXWcpWBgTayvVW5fqdyd1VoyJ4/CImMGswwKdTDpUCv+XyX+fy1G
+	4vynSTaf7GKsOTzErOdfUagANsO7urr4rr/2W88ho87S97aK+INwyfkcCllwPZkZtyDGOIgkEhX
+	MEDeekqvUe+3Z+cZYBomRuIMngpIQ5a02gKHsdiOVzq3hsWkQxBdeBBuKz0I5PuIs71LHAVIAWR
+	KJYjwB+8FQWTHzBpGBezeHmDQGCVqZiKP4v5DFiTNNdriLI0TM9+minl9sH+YSbYLDnDg2ZW0Jd
+	haTig58KMcwA0RoyUNxkgNb2Z5TFhGEOwCeFrbgsZxyP2xW0a8PwRLWQVODgfdYlwUCB3KyFEHp
+	Il5fFQfS3gSIAIiBg5zPOvtiJbq4kJDG8L3ZpANXuD9D8a9U/RyRFf9HsznDYaJ7csCGafeRh9W
+	Muy75kyA/vEXlpuUer8qsAV2VYHf/Gty8LLUjz1qn8fkoxekB/eeDxlRNpDepqlCmi/rhmhKy3A
+	kj/
+X-Received: by 2002:a05:6512:3090:b0:5a4:10b5:624c with SMTP id 2adb3069b0e04-5a4172f63f6mr6945395e87.23.1776851070148;
+        Wed, 22 Apr 2026 02:44:30 -0700 (PDT)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2 0/3]  dom0less: various updates
+Date: Wed, 22 Apr 2026 11:44:16 +0200
+Message-ID: <cover.1776780944.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <cover.1776266307.git.bertrand.marquis@arm.com> <7053b8c14bbe50cc855dad0a82cde2bb10153d2b.1776266307.git.bertrand.marquis@arm.com>
-In-Reply-To: <7053b8c14bbe50cc855dad0a82cde2bb10153d2b.1776266307.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Wed, 22 Apr 2026 11:34:27 +0200
-X-Gm-Features: AQROBzCz5_jC5njY6PS3Hdagxogu3g53p99f8Avu2f8VjavqSIrjuDcbIdWOC9k
-Message-ID: <CAHUa44HaFjLf9CcSJMDD5O-R24_Kq_7zabw2Op2X=P1gj+85Sw@mail.gmail.com>
-Subject: Re: [PATCH 2/6] xen/arm: ffa: Track hypervisor notifications in a bitmap
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-720697/1776850481-83961161-D049620E/0/0
-X-purgate-type: clean
-X-purgate-size: 5630
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-33051d/1776851071-489A9938-D04BA2F6/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 3897
+X-Spamd-Result: default: False [5.32 / 15.00];
+	SEM_URIBL(3.50)[0.0.0.0:email];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_MISSING_CHARSET(0.50)[];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	BAD_REP_POLICIES(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:dkim,mail.gmail.com:mid];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	R_DKIM_ALLOW(0.00)[gmail.com:s=20251104];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:Volodymyr_Babchuk@epam.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[gmail.com,kernel.org,xen.org,arm.com,amd.com,citrix.com,vates.tech,suse.com,epam.com];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[linaro.org:+];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	DMARC_POLICY_ALLOW(0.00)[gmail.com,none];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[1.171.63.0:email,gitlab.com:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,d000000:email,0.0.0.0:email];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 221574440E6
+	NEURAL_SPAM(0.00)[1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org:c];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 39FFA4446E6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Bertrand,
+This patch series introduces a new field to track not-yet-used phandles as there
+are some use cases where RISC-V needs to know which phandle number could
+be used for generating a device tree node.
 
-On Fri, Apr 17, 2026 at 3:41=E2=80=AFPM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> Hypervisor notifications are currently tracked with a dedicated
-> buff_full_pending boolean. That state only represents a single HYP
-> notification bit and keeps HYP bitmap handling tied to single-purpose
-> bookkeeping.
->
-> Replace the boolean with a hypervisor notification bitmap protected by
-> notif_lock. INFO_GET reports pending when the bitmap is non-zero, GET
-> returns and clears the HYP bitmap under the lock, and RX-buffer-full
-> sets FFA_NOTIF_RX_BUFFER_FULL in the bitmap instead of updating
-> separate state.
->
-> Initialize and clear the bitmap during domain lifecycle handling, and
-> use ctx->ffa_id for bitmap create and destroy so the notification state
-> stays tied to the cached FF-A endpoint ID.
->
-> No functional changes.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
->  xen/arch/arm/tee/ffa_notif.c   | 46 ++++++++++++++++++++++++++--------
->  xen/arch/arm/tee/ffa_private.h |  9 +++++--
->  2 files changed, 43 insertions(+), 12 deletions(-)
->
-> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-> index 07bc5cb3a430..d15119409a25 100644
-> --- a/xen/arch/arm/tee/ffa_notif.c
-> +++ b/xen/arch/arm/tee/ffa_notif.c
-> @@ -94,8 +94,15 @@ void ffa_handle_notification_info_get(struct cpu_user_=
-regs *regs)
->
->      notif_pending =3D test_and_clear_bool(ctx->notif.secure_pending);
->      if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> +    {
->          notif_pending |=3D test_and_clear_bool(ctx->notif.vm_pending);
->
-> +        spin_lock(&ctx->notif.notif_lock);
-> +        if ( ctx->notif.hyp_pending )
-> +            notif_pending =3D true;
-> +        spin_unlock(&ctx->notif.notif_lock);
+For example, on the RISC-V side in make_cpus_node() [1] it is necessary to know
+which phandle number is unused to use it for device tree node generation.
 
-Isn't this a functional change? Before this patch, we didn't consider
-ctx->notif.buff_full_pending here. Am I missing something?
+Here is an example of generated guest DTB:
+    cpus {
+    ...
+      cpu@0 {
+    ...
+        interrupt-controller {
+          compatible = "riscv,cpu-intc";
+          #interrupt-cells = <0x1>;
+          interrupt-controller;
+          phandle = <0xfdea>;
+        };
+      };
+    };
 
-> +    }
-> +
->      if ( notif_pending )
->      {
->          /* A pending global notification for the guest */
-> @@ -174,12 +181,17 @@ void ffa_handle_notification_get(struct cpu_user_re=
-gs *regs)
->              w6 =3D resp.a6;
->      }
->
-> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) &&
-> -          flags & FFA_NOTIF_FLAG_BITMAP_HYP &&
-> -          test_and_clear_bool(ctx->notif.buff_full_pending) )
-> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
->      {
-> -        ACCESS_ONCE(ctx->notif.vm_pending) =3D false;
-> -        w7 =3D FFA_NOTIF_RX_BUFFER_FULL;
-> +        spin_lock(&ctx->notif.notif_lock);
-> +
-> +        if ( (flags & FFA_NOTIF_FLAG_BITMAP_HYP) && ctx->notif.hyp_pendi=
-ng )
-> +        {
-> +            w7 =3D ctx->notif.hyp_pending;
-> +            ctx->notif.hyp_pending =3D 0;
-> +        }
-> +
-> +        spin_unlock(&ctx->notif.notif_lock);
->      }
->
->      ffa_set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, w4, w5, w6, w7);
-> @@ -207,12 +219,17 @@ int32_t ffa_handle_notification_set(struct cpu_user=
-_regs *regs)
->  void ffa_raise_rx_buffer_full(struct domain *d)
->  {
->      struct ffa_ctx *ctx =3D d->arch.tee;
-> +    uint32_t prev_bitmap;
->
->      if ( !ctx )
->          return;
->
-> -    ACCESS_ONCE(ctx->notif.buff_full_pending) =3D true;
-> -    if ( !test_and_set_bool(ctx->notif.vm_pending) )
-> +    spin_lock(&ctx->notif.notif_lock);
-> +    prev_bitmap =3D ctx->notif.hyp_pending;
-> +    ctx->notif.hyp_pending |=3D FFA_NOTIF_RX_BUFFER_FULL;
-> +    spin_unlock(&ctx->notif.notif_lock);
-> +
-> +    if ( !(prev_bitmap & FFA_NOTIF_RX_BUFFER_FULL) )
+    /soc/imsics@28000000 {
 
-Do we need to check for FFA_NOTIF_RX_BUFFER_FULL? Isn't !prev_bitmap
-more accurate, if any other bit would ever be used in the bitmap?
+      interrupts-extended = <0xfdea 0x9 >;
 
-Cheers,
-Jens
+      phandle = <0xfdeb>;
+    };
 
->          inject_notif_pending(d);
->  }
->  #endif
-> @@ -426,12 +443,15 @@ void ffa_notif_init(void)
->
->  int ffa_notif_domain_init(struct domain *d)
->  {
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
->      int32_t res;
->
-> +    spin_lock_init(&ctx->notif.notif_lock);
-> +    ctx->notif.hyp_pending =3D 0;
-> +
->      if ( fw_notif_enabled )
->      {
-> -
-> -        res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_=
-vcpus);
-> +        res =3D ffa_notification_bitmap_create(ctx->ffa_id, d->max_vcpus=
-);
->          if ( res )
->              return -ENOMEM;
->      }
-> @@ -441,10 +461,16 @@ int ffa_notif_domain_init(struct domain *d)
->
->  void ffa_notif_domain_destroy(struct domain *d)
->  {
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
-> +
-> +    spin_lock(&ctx->notif.notif_lock);
-> +    ctx->notif.hyp_pending =3D 0;
-> +    spin_unlock(&ctx->notif.notif_lock);
-> +
->      /*
->       * Call bitmap_destroy even if bitmap create failed as the SPMC will
->       * return a DENIED error that we will ignore.
->       */
->      if ( fw_notif_enabled )
-> -        ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
-> +        ffa_notification_bitmap_destroy(ctx->ffa_id);
->  }
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index c291f32b56ff..5693772481ed 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -340,9 +340,14 @@ struct ffa_ctx_notif {
->      bool vm_pending;
->
->      /*
-> -     * True if domain has buffer full notification pending
-> +     * Lock protecting the hypervisor-managed notification state.
->       */
-> -    bool buff_full_pending;
-> +    spinlock_t notif_lock;
-> +
-> +    /*
-> +     * Bitmap of pending hypervisor notifications (for HYP bitmap querie=
-s).
-> +     */
-> +    uint32_t hyp_pending;
->  };
->
->  struct ffa_ctx {
-> --
-> 2.53.0
->
+    /soc/aplic@d000000 {
+    ...
+      msi-parent = <0xfdeb>;
+      phandle = <0x1>;
+    };
+
+Note that phandles for imsic and riscv,cpu-intc are generated in this example
+not by get_next_free_phandle(), that is why they have such big numbers.
+
+For non-RISC-V people, APLIC is an interrupt controller (something like GIC in
+Arm), IMSIC is an interrupt controller that provides MSI and connects to
+each CPU.
+
+So (based on the DTS above) for APLIC, kinfo->phandle_intc is reused, which
+will also be re-used for the device node's interrupt property. For all others, I
+just introduced GUEST_PHANDLE_LAST [2] and used it for generation [3]. But I expect
+that it could be useful for other architectures too so I just moved it to common
+and re-use pfdt to understand what the maximum used phandle is.
+
+[1] https://www.kernel.org/doc/Documentation/devicetree/bindings/interrupt-controller/riscv%2Ccpu-intc.txt
+[2] https://lore.kernel.org/xen-devel/ccd6d21b224b478c88ca5f2fdd2d1dd507671510.1773157782.git.oleksii.kurochko@gmail.com/
+[3] https://lore.kernel.org/xen-devel/fd64b8526a23e9d7775b9b48c5a933b0673c4fba.1773157782.git.oleksii.kurochko@gmail.com/
+           *************************************
+
+Another thing introduced in this patch series is moving domain type to common
+code as several architectures (ARM and RISC-V for now) use them and it
+looks pretty architecture-independent. Also, is_64bit_domain() is used by
+dom0less common code, so I found it useful also to move is_{32,64}bit_domain
+macros to common code.
+
+           *************************************
+
+And the last thing is changing the prototype of make_cpus_node() to be aligned
+with other make_*_node() and since RISC-V will need access to the free_phandle field
+(even if it will be moved to kinfo->arch.free_phandle) and for the reason that
+this ->free_phandle is updated in make_*_node(), the kinfo argument is passed as
+non-const.
+
+CI: https://gitlab.com/xen-project/people/olkur/xen/-/pipelines/2468475835
+
+---
+Changes in v2:
+ - Address the comments from ML.
+---
+
+Oleksii Kurochko (3):
+  xen/dom0less: introduce next_phandle in struct kernel_info
+  xen/dom0less: pass kernel_info struct instead of fdt to
+    make_cpus_node()
+  xen: introduce CONFIG_HAS_DOMAIN_TYPE
+
+ xen/arch/arm/Kconfig                    |  1 +
+ xen/arch/arm/arm64/domctl.c             |  4 +--
+ xen/arch/arm/dom0less-build.c           | 14 --------
+ xen/arch/arm/domain_build.c             | 17 +++++----
+ xen/arch/arm/include/asm/domain.h       | 12 -------
+ xen/arch/arm/include/asm/kernel.h       |  4 ---
+ xen/arch/arm/kernel.c                   | 16 ++++-----
+ xen/common/Kconfig                      |  3 ++
+ xen/common/device-tree/dom0less-build.c | 46 ++++++++++++++++++-------
+ xen/include/xen/dom0less-build.h        |  2 --
+ xen/include/xen/domain.h                | 13 +++++++
+ xen/include/xen/fdt-domain-build.h      | 17 ++++++++-
+ xen/include/xen/fdt-kernel.h            |  8 +++++
+ xen/include/xen/sched.h                 |  4 +++
+ 14 files changed, 96 insertions(+), 65 deletions(-)
+
+-- 
+2.53.0
+
 
