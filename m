@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QBZVO0+76GkHPgIAu9opvQ
+	id kH3YBSfA6GmEPwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 14:13:03 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 14:33:43 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F382445C02
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 14:13:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1290445.1570040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A270445FDC
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 14:33:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1290464.1570048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFWRi-0001z3-30; Wed, 22 Apr 2026 12:12:46 +0000
+	id 1wFWlT-0005vJ-K3; Wed, 22 Apr 2026 12:33:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1290445.1570040; Wed, 22 Apr 2026 12:12:46 +0000
+Received: by outflank-mailman (output) from mailman id 1290464.1570048; Wed, 22 Apr 2026 12:33:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFWRi-0001wp-01; Wed, 22 Apr 2026 12:12:46 +0000
-Received: by outflank-mailman (input) for mailman id 1290445;
- Wed, 22 Apr 2026 12:12:44 +0000
+	id 1wFWlT-0005tH-HI; Wed, 22 Apr 2026 12:33:11 +0000
+Received: by outflank-mailman (input) for mailman id 1290464;
+ Wed, 22 Apr 2026 12:33:09 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wFWRg-0001wj-AQ
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 12:12:44 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wFWlR-0005t8-Ir
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 12:33:09 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFWRf-000T04-K3
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 14:12:43 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wFWlQ-00B3a9-LA
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 14:33:08 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e8bb35-e002-0a2a0a5209dd-0a2a450ae5da-26
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 14:12:43 +0200
-Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e8bff8-bab6-0a2a0a5309dd-0a2a45039e06-32
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 14:33:08 +0200
+Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69e8ba87-56b3-0a2a450a0019-d155dd2eac0f-3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 14:09:43 +0200
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-43d70b3e159so2711879f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 05:09:43 -0700 (PDT)
+ id 69e8c004-672d-0a2a45030019-d155802cace9-3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 14:33:08 +0200
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-488a14c31eeso42416665e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 05:33:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43fe4cb1176sm46753609f8f.3.2026.04.22.05.09.42
+ 5b1f17b1804b1-488fc14a61asm413757565e9.15.2026.04.22.05.33.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Apr 2026 05:09:42 -0700 (PDT)
+ Wed, 22 Apr 2026 05:33:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,55 +58,57 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1776859783; x=1777464583; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1776861188; x=1777465988; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1T+yJ5lV7gcGcLpzVGqXyOjFPnFt4xhCOY5pVEHRXFM=;
-        b=FjkjnFxEfvYg0uN46l8TzKOUfwk1ovWADFIfJhxO1JHbSp9ZeDylYWqXLWBsw7fbxN
-         04VlfdUXaonQpABC0eLDshVV6AN0Zl19i8a5FvqG+gScd5dih50+o4yHEsBE2gkI0mqK
-         qQaTxjEXMy14DZU3LJRqB4HbWweYOA1YGOdCRHIHZj7IPIKJfa+EbHc5hTcyA2YLuhXn
-         FJZJghzMNc+K/koRR9uZuqvb91QyRb011zylcusRkK673+515Q3TRrhImzGmDP4ud+6d
-         W5XVPJNeWFWznHRx2uLOofcjmZN2ZKEYYcme1gsu8r3M9wKXZdnqamw2LRdpHc2007z/
-         Btcw==
+        bh=UMY5gm1Nj4tlgzffEyXZ3vdWRk8gGg5mqTSMtNw0cCQ=;
+        b=b79K/nDa5DG5bcOAJ8PFLw2+WdqVg6z+82SltxP0UvfHrpZN+xvmunf9xYJ+pw6QTh
+         fj0iXLVApiUZp+zHL+IBi3QIKxF4yePQ8ZQbIh/VBzng42qD0PEQUlKKwhTEshHb0a/Z
+         CeyptANj23a28hs1ACUnz67GUr4Enl67FlJ1xy8UPCBQpnB9wPCT94fF8qa0zH7R5h1Y
+         rETm7V6Q6cguo6C1i9pxcMA6k/5t/rtC9B7WGi0KYA1izgMy00OrHIe/8OXYvhbO5MM+
+         gDMYPmRKGAQStXKl/D+vyCzGWBhe6AJSYQEGZWBtoKJGuZGnhuFYerZLtICm/tCcyvNw
+         XokQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776859783; x=1777464583;
+        d=1e100.net; s=20251104; t=1776861188; x=1777465988;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1T+yJ5lV7gcGcLpzVGqXyOjFPnFt4xhCOY5pVEHRXFM=;
-        b=Xgdu0SQKf6tydfBfhKekSTvOG07haZzPppwO/0oJgRZd9YYH8BmHal6NaoZ89rfsFV
-         P/JIBBNyqwiVmbT1TnacqbxlbmOoFerTFf1c7XRe2KLWPr12eytjNhTF1ZIUskTcEHOR
-         uVsDbdXjvlDBXzZFdFYuh7svuq3g7NI/HZGWUTLMIuf1GLtL60Vyxpi3gnhdzixQH7sc
-         b2J++gyiK4LIkBj2LuJM72u15j/qetoPXkfLpjnkVeEbIwV/1UXt+T/eans9sbExbSqD
-         x7xQ58jHo4KYPe/J9uDZHpXVlZDZksN+q8Fy53AmrPjVAfizbOkwsULa7Ma0UbVP+hL6
-         kt2Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+DiakJFTcoPrrB4YWa+z1N1qDQBf5d1BAEdHWzVPfQPS4bRg5JcO3d/fbRkGDE7/lGlmyTw01TS4o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyLFUzDZW+Qo/mSYwVDVOhKHGjp8qNH4xyeqg9CNJlK+I6IVv27
-	z0VwuvALyko3FR5diRlOeCtnyjBapPVXIpvNOnbkgPuSl7En8gzkpySUwTWMAkGKdA==
-X-Gm-Gg: AeBDietDlUjwsMIDSzyRStJgkj8LQYkO4dHYfcokMq1lKhXofaJjVFkbw/sAtfO+9ll
-	dbpKOYGeqegRJOE0PqKgrRYXIb4/90T2ozrl0nJxgDf7g5yhFEnE1H9D+2lErLhD0cI+WtxHZJ2
-	9kKn7eXPlO+o+gfDY9zvqg6clZmbkHlhrLH0bBruHRa1s1JaLl4TsnzMVDe4TRXBiVlKDOUWmPQ
-	l8V7zfISIb7Y6u2wLeV6HW+W9QCROpoUH0tn7wmw0JXlwKgXUHDdNS94mUfJNsgEWJ1AKRsrAMb
-	OdOnwG5oDBI7nqJaFXC1I+hr6gxM4QAOy8cfP80u0GQ4wJaRCTatcEBYLi4s0li9dPVcMJJCIpF
-	NIOhkyFkuSlWmVzdmsn5ND/6XqvE419yku8yNtc8BNbatdhxlivKPHXl7rMLlWJfcCOhKHITUjE
-	LDAkj74HqBnJyU11ojebRQLuK6KNm/fnZG5iVAiJCLt+fAwrHJjGdMNnPpXoBSC1S2M8gEtFX5L
-	o3ntr+Y+IurjObYjsrN9rKAoQ==
-X-Received: by 2002:a5d:6751:0:b0:43e:a69b:d805 with SMTP id ffacd0b85a97d-43fe3dfbd18mr22034167f8f.27.1776859782577;
-        Wed, 22 Apr 2026 05:09:42 -0700 (PDT)
-Message-ID: <f91fae0b-7d3b-4ca6-a5ed-72de50daee9c@suse.com>
-Date: Wed, 22 Apr 2026 14:09:41 +0200
+        bh=UMY5gm1Nj4tlgzffEyXZ3vdWRk8gGg5mqTSMtNw0cCQ=;
+        b=k2oLbYl1yFODsAhmyoRCeAqjDkU5UJ+kB4FRTT/yjfmoj3McCc8ONUSf5LqtqcaIhV
+         +oo9CnocGhP1qVmG+euFg4iplioUfyb15UxJ2UnaOIZd5J1SxIT/MBKpRcGB3EB/Sy0Q
+         zBtCXbw4ADf7Mk0/hwyX7K3p29C8vkiJReM6mKSYOI0WYwpj5IyXewdG3lKNdpxW+9SI
+         g7y6hE+snANvppjTIfX4V2JA+VTz2pFeMs5DKHJHDyvFwInDwz16La9bKX6eA3XX26uh
+         Sx/HJ8rSObvecRXEZiR8EmEVASOlOidc6bu5G6jLT97L/Qfnsh+GFpRzQQEQ7ciakdGR
+         tFVA==
+X-Forwarded-Encrypted: i=1; AFNElJ+E+IlNFvj73OZ7oZtu1Lkcg3FsJhSCjhFrkzI9acd8xAv+NwnVOYGCZ9wzjbr0Af7jGnbMOyERWYw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy4ot6Jx9jVuHk/LFsdclUdJ/EOxxS+U4YsBevSwZni16NIr+m0
+	SSs2aiQaKl6lewgLZq65mtJ2pnJLeGMEKHo8FGWmAoZocIELIFgxUsxki5/ZxWfh5A==
+X-Gm-Gg: AeBDieu+hdkTlmGXWYdl9TR+u3Jp1IO2axqRbsbHL/WlWGvfRusSA6IpIqSRyCzCNIB
+	XyoN0+i5GXPwqjSWz3QL7mA2zJv1nLVgRf0Kzn9nDbBA4xJYNpr3veHhCnAITW/paky+sfrXatM
+	F6eEi4v7cIwa5aeHyjuz3a1dWzl0BlHuDQH7Tlc2rOkWstXexgqd6egDGq2xye1xjF7mKkBlomr
+	l5HqkNq5aXSKDakUS22hUoFvT8ipLUcZyykIrMlfEeprs8NPWu/tqQvvINDe9z0bWDa1PyKrVBy
+	ipEQW82Dp4nFxFcYq3eVOUky1lA9reoqRLXQe/UjBu8nHZQOTZAQvjJ3wXYhokDNljXjhWwQJNj
+	TLTRbtrCyAgIqZ0RmBBdp9k7u08cXqawRm/xaj+g2bpOjh+VLG2lMejr8apJ9KUPEnsjh1VtfEr
+	Smg8esgot8jUGs/Aw9AgRiwQbFQOZl3IHrh6CVeY7kIqi+bpBPsxnf6gaXPvRTK9SrEekbfygi+
+	V+3Mbh+lsFIPkreGVjoQETAUg==
+X-Received: by 2002:a05:600c:c177:b0:486:fb0b:ad79 with SMTP id 5b1f17b1804b1-488fb78129emr290350715e9.20.1776861187802;
+        Wed, 22 Apr 2026 05:33:07 -0700 (PDT)
+Message-ID: <081743b1-e57b-4e06-9cc9-20f1ee01afe9@suse.com>
+Date: Wed, 22 Apr 2026 14:33:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] EFI: adjust cfg file buffer freeing
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Marek Marczykowski <marmarek@invisiblethingslab.com>,
- Daniel Smith <dpsmith@apertussolutions.com>,
- Bernhard Kaindl <bernhard.kaindl@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <bf990673-83c3-44c3-a76a-3b0c36108ec5@suse.com>
- <77234acb-4539-4efe-9c30-03cb7a389912@citrix.com>
+Subject: Re: [PATCH v6 2/7] xen/mm: Allow free pages to cover a claims
+ shortfall
+To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1776172526.git.bernhard.kaindl@citrix.com>
+ <5d1e06a0fcaee4520bf79d58199e447194f84fe8.1776172526.git.bernhard.kaindl@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,12 +134,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <77234acb-4539-4efe-9c30-03cb7a389912@citrix.com>
+In-Reply-To: <5d1e06a0fcaee4520bf79d58199e447194f84fe8.1776172526.git.bernhard.kaindl@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1776859783-CE9768B7-8B7D92DB/13/0
+X-purgate-ID: tlsNG-33051d/1776861188-2AD63938-3B0C9AC6/0/0
 X-purgate-type: clean
-X-purgate-size: 1419
+X-purgate-size: 2360
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -145,69 +147,94 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:marmarek@invisiblethingslab.com,m:dpsmith@apertussolutions.com,m:bernhard.kaindl@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid,xen.org:url];
-	FORWARDED(0.00)[mailman];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.998];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 5F382445C02
+X-Rspamd-Queue-Id: 2A270445FDC
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 22.04.2026 13:59, Andrew Cooper wrote:
-> On 22/04/2026 12:51 pm, Jan Beulich wrote:
->> The boot services FreePages() needs passing the size. Since we allocated
->> one more byte to put a trailing nul there, we also need to bump the size
->> passed there. Make a small helper function to centralize this.
->>
->> Note that there's no permanent memory leak because of the oversight: The
->> allocation is done using EfiLoaderData, and all memory of that type is
->> later reclaimed anyway.
+On 14.04.2026 15:22, Bernhard Kaindl wrote:
+> Allow an allocation to proceed when free, unclaimed memory can cover a
+> claims shortfall.
 > 
-> This depends on -mapbs at a minimum.
-
-But that's affecting only EfiBootServices{Code,Data}, isn't it?
-
->> Fixes: df75f77092c1 ("EFI: avoid OOB config file reads")
->> Reported-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> This is an alternative proposal to
->> https://lists.xen.org/archives/html/xen-devel/2026-04/msg01044.html.
+> In preparation for NUMA-aware claims, refactor this check into a
+> reusable helper so the same logic can be applied to NUMA nodes.
 > 
-> One thing this patch does not do is fix the boundary passed to
-> efi_arch_flush_dcache_area().
-
-Deliberately so, and I commented to this effect in reply to Bernhard's
-patch. I do think ...
-
-> I find it hard to believe that cache maintenance is actually needed, but
-> given it is present in the code currently it needs to stay correct.
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 > 
-> Or, if it's not needed, it should be dropped in a separate patch.
+> ---
+> 
+> Changes since v4: Extracted into a dedicated patch and merged the
+> formerly separate functions into one, as suggested by Jan Beulich.
 
-... this is the way to go, but it'll need input from Arm folks (as
-requested there).
+I did ask for the splitting out, no question. I can't find anything towards
+the functional change though in my v4 replies, and with that being the main
+aspect here I think Suggested-by: would credit me for something I didn't do
+or say.
+
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -868,6 +868,42 @@ static void check_and_stop_scrub(struct page_info *head)
+>      }
+>  }
+>  
+> +/*
+> + * Allow the request when unclaimed pages suffice, or when a refcounted
+> + * domain's outstanding claims cover the shortfall.
+
+Nit: It's not the domain which is refcounted here (the refcounting there is
+something entirely different), but the allocation.
+
+> + */
+> +static bool claims_permit_request(const struct domain *d,
+> +                                  unsigned long avail_pages,
+> +                                  unsigned long competing_claims,
+> +                                  unsigned int memflags,
+> +                                  unsigned long requested_pages)
+
+I think it is good practice to have the main input parameter(s) first.
+That would be "requested_pages" here plus perhaps "memflags". The rest is
+auxiliary data to perform the needed calculation.
+
+May I further suggest to drop _pages everywhere?
+
+I'm further not happy about "competing" in the parameter name: This
+includes claims for this very domain as well, and if there's no other
+claim then there's nothing "competing" at all.
+
+> +{
+> +    unsigned long unclaimed_pages;
+> +
+> +    ASSERT(spin_is_locked(&heap_lock));
+> +    ASSERT(avail_pages >= competing_claims);
+> +
+> +    /* Start from the free pages not already claimed by other domains. */
+> +    unclaimed_pages = avail_pages - competing_claims;
+
+This could easily be the initializer of the variable.
 
 Jan
 
