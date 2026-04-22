@@ -2,49 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kJGXMvUk6WmMUwIAu9opvQ
+	id 2PflDX266WlqiwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 21:43:49 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 08:21:49 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3238344A454
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 21:43:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1291076.1570396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7659244D929
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 08:21:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1291095.1570460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFdSz-0003uY-RO; Wed, 22 Apr 2026 19:42:33 +0000
+	id 1wFnRI-0004JJ-L6; Thu, 23 Apr 2026 06:21:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1291076.1570396; Wed, 22 Apr 2026 19:42:33 +0000
+Received: by outflank-mailman (output) from mailman id 1291095.1570460; Thu, 23 Apr 2026 06:21:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFdSz-0003t6-Ob; Wed, 22 Apr 2026 19:42:33 +0000
-Received: by outflank-mailman (input) for mailman id 1291076;
- Wed, 22 Apr 2026 19:42:32 +0000
+	id 1wFnRI-0004F0-Ge; Thu, 23 Apr 2026 06:21:28 +0000
+Received: by outflank-mailman (input) for mailman id 1291095;
+ Wed, 22 Apr 2026 20:08:36 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <olekstysh@gmail.com>) id 1wFdSy-0003t0-S2
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 19:42:32 +0000
+ (envelope-from <mfo@igalia.com>) id 1wFdsA-0007sT-Sp
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 20:08:36 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFdSx-008fMw-R0
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 21:42:31 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wFdsA-008j3F-61
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 22:08:34 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <olekstysh@gmail.com>)
- id 69e9245c-2eae-0a2a0a5409dd-0a2a450ce53e-32
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 21:42:31 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <olekstysh@gmail.com>)
- id 69e924a7-62f1-0a2a450c0019-d155802bb91b-3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 21:42:31 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-48374014a77so76527205e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 12:42:31 -0700 (PDT)
-Received: from [192.168.0.112] ([91.123.151.42])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4891df9e50asm209401935e9.0.2026.04.22.12.42.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 22 Apr 2026 12:42:30 -0700 (PDT)
+ (envelope-from <mfo@igalia.com>)
+ id 69e92ab5-2eae-0a2a0a5409dd-0a2a4503e434-14
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 22:08:34 +0200
+Received: from [213.97.179.56] (helo=fanzine2.igalia.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <mfo@igalia.com>)
+ id 69e92abf-672d-0a2a45030019-d561b3388958-3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 22:08:32 +0200
+Received: from 186-249-145-131.shared.desktop.com.br ([186.249.145.131]
+ helo=[192.168.1.66]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wFdrj-000QN6-Os; Wed, 22 Apr 2026 22:08:07 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,182 +52,212 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776886951; x=1777491751; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=DdOI7i9//vMAJ++YhZ6iQpMcPC2SjZ3th+2CW8i/nvU=;
-        b=S1ia/3ZzXuBXlr/DH2PdU4SC7LbITSuKyGzwfeJgaz2EunDewIQL0CU+9fb46jxd5z
-         f2mBgCD2rNttrTn4Ay73QDL947lq59f60dLHwH3Jml7T7PxZCZEXH9KAEqhDUS17pQXo
-         0Q0Abm2TCpnuw4CFuv9gQcoS8gPEXAq9amhqWGMULazhyzfAmTx6vQBnSjgVM78Q3mNK
-         G/IQ9woSc16yGtx4lQr5Ufpgk0wDclMl6I5JjuONIu1G4Jnyk+as2tlWMfO5GFUC9+Dj
-         YbD09udR9gIutiGHM21K8HLov0ngnvOMShEDWnKOAa25mv5ls/lUr5/jLtmDfTn24xb7
-         vCLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776886951; x=1777491751;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=DdOI7i9//vMAJ++YhZ6iQpMcPC2SjZ3th+2CW8i/nvU=;
-        b=D4RfTCokDZhgu6+JgbQGDB+t3IdgewhO8Ftr75uWkGJmgFjGgTWXErj51TfA8yPtNz
-         ipzxuSELjWxaoTEXZWUIwsWDCCK3OG9KC9x/HXD1AvFk3+3tsuXSWCq8QYci++HFyLZx
-         niOaEIio/txGfy0p/sXMJSYn4fX5C3ZKBxVWZxNRrTNo9/+mwq8Mbg6tWistTBBmXsLz
-         kbEfLkuGpMuHN6vpz9McV2Dh8zFLujtaOMXJ3BfkuJX5VWm468DjpeB6l1L6jFro43B3
-         NM4WxUa/huLRE1SMwd5ap/8DvbPnLFcJSrpITzFyfNeUBkRMN+Edhg12LF+r7UOJiDf6
-         VLTQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9Eie3KbMM9PPEzHLt2QIF8PPepD3m0QQcHpvKZb/qEcsqYS+zzH8kqGbayDovxaA43HS9oNR7PE/U=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yy75YMQTTfaNuTnLWKR4a8HcV43pimEY6vKcpexFkrU/Y/ka+C4
-	Ukg70slsiCJgBXYxG2wQWcKeWOiyo+1O6GxT1siBsbxXAKQGSL5uJDQb
-X-Gm-Gg: AeBDiesYtV1JPG3ORsiuzB8EQz0niWccp8KOCpSMMCLhabWIiOhds+n42WDnwamliOz
-	WU0HJawy9k7PIq8bCEJYzKv3Utzrexks3HVJoblwrWZY5tmS1bt9IzQSC2z5oK2lk5ucCE51j+C
-	UAjInn686zRHmadlIx8g8FcrBiz/goQH1l94FoEjFUiVOHp+ZKWoP01/bzeFJbvWIx0ObydSwub
-	LPmffxieGCMSeljthDl1MgFxrzZa/pnowuV7aQrc1+TUQbIpGPVyfWRwJ1nRkSrAYloCNfCdAMe
-	cjYXTCEangCaTwF4K5ZXMYlJr6J3LkhTpUP6J15Edruq1b52FbPorQEUTdWj8uyoRElJKXiGijZ
-	2OewUejDvc3omegpCPDXr+f3oEe9Wp7TAdCssLidvlbEhrru7+WBWnVlmgJ+rogrl9DWQ8JuI1V
-	3d+vBaDjwV1hGJSx5led2uB+JFcw62fgbrM3PhEon/49O2zEg=
-X-Received: by 2002:a05:600c:8483:b0:488:7ff6:1f75 with SMTP id 5b1f17b1804b1-488fb782d91mr357959195e9.21.1776886951015;
-        Wed, 22 Apr 2026 12:42:31 -0700 (PDT)
-Message-ID: <5357f1a2-8585-4e39-adec-962b365c176f@gmail.com>
-Date: Wed, 22 Apr 2026 22:42:28 +0300
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20170329 header.d=igalia.com header.i="@igalia.com" header.h="Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:Date:Subject:From"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=fOcKShGpyamYd19c2wC1bpR06ZCKPaumZuCXRyi0A2k=; b=WCjRkL064rCYl0/d/6M6kNKAwK
+	qbbjwO6GJiq1i+9WUkZ4U5PPwSVlVII+oSEVdi0oixTOxG15dArpwdMl4PWTAfLGuJAv2h6aUnjYg
+	Qo928sjxfInUKrtFZ4k61psYYigIJuJD+Rb1YTE9F88lwX0geRJTlWe5BAbigLh6zs79CIpmriXki
+	/cll629FxBfJ40wBfx4tQBGG5hDsepJxIZYEkDXUUNfvp6IZD/45rEE5A3jmegFFn1vlbkmLHRnj1
+	o8tYO4CHVtspI2ssvKbEZPf/bO7FX7vQkwPLWxKd7DwFfGHr01ONcqSHvJHYR4Qz5dDWlTSq4yx6z
+	ccoLukYg==;
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+Subject: [PATCH 0/3] x86/pvh: fix unbootable VMs again (PVH + KASAN)
+Date: Wed, 22 Apr 2026 17:07:44 -0300
+Message-Id: <20260422-pvh-kasan-inline-v1-0-7e6194344c92@igalia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] xen/drivers/char/cadence-uart: fix IRQ
- registration failure propagation
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall
- <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1776850201.git.oleksii_moisieiev@epam.com>
- <fc65ea2c9dcc7c3bc632c8c1a9f14eeb5de6d9b9.1776850201.git.oleksii_moisieiev@epam.com>
-Content-Language: en-US
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <fc65ea2c9dcc7c3bc632c8c1a9f14eeb5de6d9b9.1776850201.git.oleksii_moisieiev@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d25034/1776886951-6D56FCF5-86CEAA84/0/0
+X-B4-Tracking: v=1; b=H4sIAJAq6WkC/x3MMQqAMAxA0atIZgMaxIJXEYeoqQYllhaKIN7d4
+ viG/x9IElUSDNUDUbImvaygrStYdrZNUNdioIb6piPCkHc8OLGh2qkm2IvnxTnfzuSgZCGK1/t
+ fjtP7frOSTJRiAAAA
+X-Change-ID: 20260422-pvh-kasan-inline-6efac77f1b27
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Juergen Gross <jgross@suse.com>, Alexey Dobriyan <adobriyan@gmail.com>, 
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: kernel-dev@igalia.com, linux-kernel@vger.kernel.org, 
+ xen-devel@lists.xenproject.org, Mauricio Faria de Oliveira <mfo@igalia.com>
+X-Mailer: b4 0.14.2
+X-purgate-ID: tlsNG-33051d/1776888513-A3161938-613DC583/0/0
 X-purgate-type: clean
-X-purgate-size: 3035
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-purgate-size: 5364
+X-Spamd-Result: default: False [0.61 / 15.00];
+	R_DKIM_REJECT(1.00)[igalia.com:s=20170329];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[igalia.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:Oleksii_Moisieiev@epam.com,m:xen-devel@lists.xenproject.org,m:bertrand.marquis@arm.com,m:julien@xen.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:adobriyan@gmail.com,m:boris.ostrovsky@oracle.com,m:kernel-dev@igalia.com,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mfo@igalia.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[kernel.org,redhat.com,alien8.de,linux.intel.com,zytor.com,suse.com,gmail.com,oracle.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,entry:email];
 	ARC_NA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FORGED_SENDER(0.00)[mfo@igalia.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER(0.00)[olekstysh@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[igalia.com:-];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[olekstysh@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[mfo@igalia.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.852];
 	TAGGED_RCPT(0.00)[xen-devel];
-	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 3238344A454
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 7659244D929
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+The issue of unbootable VMs with CONFIG_PVH due to CONFIG_KASAN is back.
 
+Booting directly from vmlinux (instead of bzImage) now fails with gcc-14/15
+(but works with gcc-12/13) if CONFIG_KASAN_GENERIC is set, on Ubuntu 25.10.
 
-On 4/22/26 12:33, Oleksii Moisieiev wrote:
+The PVH code is required/supposed not to hit the KASAN memory access check
+in the kernel entry point as KASAN has not yet been setup, or an exception
+is hit and the boot fails.
 
-Hello Oleksii
+This was previously described and addressed with __builtin_mem{cmp,set}():
+- commit 661362e3dcab ("xen, pvh: fix unbootable VMs (PVH + KASAN - AMD_MEM_ENCRYPT)")
+- commit 416a33c9afce ("x86/cpu: fix unbootable VMs by inlining memcmp() in hypervisor_cpuid_base()")
+- commit fbe5a6dfe492 ("xen, pvh: fix unbootable VMs by inlining memset() in xen_prepare_pvh()")
 
-> In cuart_init_postirq(), two code paths could reach the
-> interrupt-enable write to IER without a handler being registered:
-> 
-> - When no valid IRQ number was provided (uart->irq <= 0), the original
->    positive-condition guard (if uart->irq > 0) skipped the irqaction
->    setup but still fell through to the IER write, enabling the receive
->    data interrupt with no handler installed.
-> 
-> - When setup_irq() returned an error, only an error message was
->    printed and execution continued to the IER write, arming the
->    receive hardware interrupt line with no handler to service it. On
->    platforms where the GIC receives this asserted line, the result is
->    either repeated spurious-interrupt warnings or an unhandled
->    interrupt fault.
-> 
-> Restructure cuart_init_postirq() to use early returns in both error
-> paths.
-> 
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> ---
-> 
-> Changes in v3:
-> - clear pending error interrupts before setup_irq call for cadence uart
-> - change uart->irq <= 0 to uart->irq == 0 since irq is unsigned
+However, even with __builtin the compiler may decide to use the out of line
+function instead of the inline implementation. So, that does not really fix
+the issue unconditionally, as it's being seen (details below).
 
-Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-with NIT (could probably be fixed on commit) ...
+In order to address this, it's required to switch to inline implementations
+that do not depend on the compiler.
 
-> 
->   xen/drivers/char/cadence-uart.c | 22 ++++++++++++++--------
->   1 file changed, 14 insertions(+), 8 deletions(-)
-> 
-> diff --git a/xen/drivers/char/cadence-uart.c b/xen/drivers/char/cadence-uart.c
-> index b2f379833f..8961d39de1 100644
-> --- a/xen/drivers/char/cadence-uart.c
-> +++ b/xen/drivers/char/cadence-uart.c
-> @@ -72,19 +72,25 @@ static void __init cuart_init_postirq(struct serial_port *port)
->       struct cuart *uart = port->uart;
->       int rc;
->   
-> -    if ( uart->irq > 0 )
-> -    {
-> -        uart->irqaction.handler = cuart_interrupt;
-> -        uart->irqaction.name    = "cadence-uart";
-> -        uart->irqaction.dev_id  = port;
-> -        if ( (rc = setup_irq(uart->irq, 0, &uart->irqaction)) != 0 )
-> -            printk("ERROR: Failed to allocate cadence-uart IRQ %d\n", uart->irq);
-> -    }
-> +    /* Don't unmask interrupts if no valid irq was provided */
-> +    if ( uart->irq == 0 )
-> +        return;
-> +
-> +    uart->irqaction.handler = cuart_interrupt;
-> +    uart->irqaction.name    = "cadence-uart";
-> +    uart->irqaction.dev_id  = port;
->   
->       /* Clear pending error interrupts */
->       cuart_write(uart, R_UART_RTRIG, 1);
->       cuart_write(uart, R_UART_CISR, ~0);
->   
-> +    if ( (rc = setup_irq(uart->irq, 0, &uart->irqaction)) != 0 )
-> +    {
-> +        printk("ERROR: Failed to allocate cadence-uart IRQ %d\n", uart->irq);
+There's such a memset in <asm/string.h> and memcmp in 'boot/string.c', now
+exposed in <asm/string.h> too. Use them instead of builtins in PVH entry.
 
-    ... the format specifier should be %u instead of %d since the value 
-is unsigned.
+Testing:
 
-> +        /* Do not unmask interrupts if irq handler wasn't set */
-> +        return;
-> +    }
-> +
->       /* Unmask interrupts */
->       cuart_write(uart, R_UART_IDR, ~0);
->       cuart_write(uart, R_UART_IER, UART_SR_INTR_RTRIG);
+- Booting from vmlinux (fixed) and bzImage (still works) using
+  allnoconfig + CONFIG_PVH + CONFIG_KASAN with gcc-12/13/14/15.
+
+- Building allyesconfig (check for issues with <asm/string.h>).
+
+Details/Debugging:
+
+- Only CONFIG_PVH (works):
+
+  make allnoconfig
+  ./scripts/config \
+    -e 64BIT -e HYPERVISOR_GUEST -e PVH \
+    -e SERIAL_8250 -e SERIAL_8250_CONSOLE
+  make olddefconfig
+  make -j$(nproc) vmlinux
+
+  qemu-system-x86_64 \
+    -accel kvm -nodefaults -nographic -serial stdio \
+    -kernel vmlinux -append 'console=ttyS0'
+  ...
+  SeaBIOS (version ...)
+  Booting from ROM...
+  Linux version ...
+  ...
+  <Ctrl-C>
+
+- With CONFIG_KASAN (fails)
+  
+  ./scripts/config -e KASAN
+  make olddefconfig
+  make -j$(nproc) vmlinux
+
+  qemu-system-x86_64 \
+    -accel kvm -nodefaults -nographic -serial stdio \
+    -kernel vmlinux -append 'console=ttyS0'
+  ...
+  SeaBIOS (version ...)
+  Booting from ROM...
+  <QEMU reboot loop, flashing the text above>
+
+- Debugging:
+
+  Enable debug info and rebuild.
+
+  QEMU: enable and wait for GDB, stop rebooting, remain running.
+
+  qemu-system-x86_64 \
+    -s -S -no-reboot -no-shutdown \
+    <other options>
+
+  gdb vmlinux
+  (gdb) target remote localhost:1234
+  ...
+  (gdb) c
+  ...
+  Thread 2 received signal SIGQUIT, Quit.
+  ...
+  (gdb) info threads
+    Id   Target Id                    Frame
+    1    Thread 1.1 (CPU#0 [running]) bytes_is_nonzero (
+      start=0xfffffbfff031eebe <error: Cannot access memory at address 0xfffffbfff031eebe>, size=1)
+      at .../linux/mm/kasan/generic.c:98
+  * 2    Thread 1.2 (CPU#1 [halted ]) 0x00000000000fd0a9 in ?? ()
+  ...
+  (gdb) thr 1
+  ...
+  (gdb) bt
+  #0  bytes_is_nonzero (start=0xfffffbfff031eebe <error: Cannot access memory at address 0xfffffbfff031eebe>, size=1)
+      at .../linux/mm/kasan/generic.c:98
+  #1  memory_is_nonzero (start=0xfffffbfff031eebe, end=0xfffffbfff031eebf) at .../linux/mm/kasan/generic.c:115
+  #2  memory_is_poisoned_n (addr=0xffffffff818f75f0, size=8) at .../linux/mm/kasan/generic.c:140
+  #3  memory_is_poisoned (addr=0xffffffff818f75f0, size=8) at .../linux/mm/kasan/generic.c:172
+  #4  check_region_inline (addr=0xffffffff818f75f0, size=8, write=false, ret_ip=18446744071585002062)
+      at .../linux/mm/kasan/generic.c:191
+  #5  kasan_check_range (addr=addr@entry=0xffffffff818f75f0, size=size@entry=8, write=write@entry=false,
+      ret_ip=18446744071585002062) at .../linux/mm/kasan/generic.c:200
+  #6  0xffffffff813eb283 in __asan_loadN (addr=addr@entry=0xffffffff818f75f0, size=size@entry=8)
+      at .../linux/mm/kasan/generic.c:278
+  #7  0xffffffff815df24e in memcmp (cs=cs@entry=0xffffffff818f75f0, ct=ct@entry=0x1be2fe4, count=<optimized out>,
+      count@entry=12) at .../linux/lib/string.c:683
+  #8  0xffffffff81ba2323 in cpuid_base_hypervisor (sig=0xffffffff818f75f0 "XenVMMXenVMM", leaves=2)
+      at .../linux/arch/x86/include/asm/cpuid/api.h:206
+  #9  xen_cpuid_base () at .../linux/arch/x86/include/asm/xen/hypervisor.h:46
+  #10 xen_prepare_pvh () at .../linux/arch/x86/platform/pvh/enlighten.c:119
+  #11 0x0000000001ba2588 in ?? ()
+  #12 0x0000000000000000 in ?? ()
+  (gdb)
+
+  Frames #7-#8 show the non-builtin memcmp() (lib/string.c) was called
+  even with __builtin_memcmp() being used in cpuid_base_hypervisor().
+
+Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+---
+Mauricio Faria de Oliveira (3):
+      x86/asm, x86/boot: Expose inline memcmp
+      x86/cpuid: fix unbootable VMs by really inlining memcmp() in hypervisor_cpuid_base()
+      x86/pvh: fix unbootable VMs by really inlining memset() in xen_prepare_pvh()
+
+ arch/x86/boot/string.c            |  6 ++----
+ arch/x86/include/asm/cpuid/api.h  |  2 +-
+ arch/x86/include/asm/string.h     | 11 +++++++++++
+ arch/x86/platform/pvh/enlighten.c |  3 ++-
+ 4 files changed, 16 insertions(+), 6 deletions(-)
+---
+base-commit: 6596a02b207886e9e00bb0161c7fd59fea53c081
+change-id: 20260422-pvh-kasan-inline-6efac77f1b27
+
+Best regards,
+-- 
+Mauricio Faria de Oliveira <mfo@igalia.com>
 
 
