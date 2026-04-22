@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eI4HJPCV6GmENAIAu9opvQ
+	id KMdxNT+W6GmsNAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 11:33:36 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 11:34:55 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DB6244408E
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 11:33:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1290084.1569790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 221574440E6
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 11:34:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1290125.1569811 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFTxP-0001KS-RU; Wed, 22 Apr 2026 09:33:19 +0000
+	id 1wFTyl-0003Ow-Ey; Wed, 22 Apr 2026 09:34:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1290084.1569790; Wed, 22 Apr 2026 09:33:19 +0000
+Received: by outflank-mailman (output) from mailman id 1290125.1569811; Wed, 22 Apr 2026 09:34:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFTxP-0001Cm-KP; Wed, 22 Apr 2026 09:33:19 +0000
-Received: by outflank-mailman (input) for mailman id 1290084;
- Wed, 22 Apr 2026 09:33:17 +0000
+	id 1wFTyl-0003Me-Bc; Wed, 22 Apr 2026 09:34:43 +0000
+Received: by outflank-mailman (input) for mailman id 1290125;
+ Wed, 22 Apr 2026 09:34:41 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Oleksii_Moisieiev@epam.com>) id 1wFTxN-0000r0-0y
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 09:33:17 +0000
+ (envelope-from <jens.wiklander@linaro.org>) id 1wFTyj-0003MV-Ox
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 09:34:41 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFTxM-00HYU2-Dn
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 11:33:16 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wFTyh-00Em4Z-K1
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 11:34:41 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Oleksii_Moisieiev@epam.com>)
- id 69e895d9-5cb7-0a2a0a5109dd-0a2a450abbdc-22
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 11:33:16 +0200
-Received: from [52.101.72.72]
- (helo=AM0PR02CU008.outbound.protection.outlook.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Oleksii_Moisieiev@epam.com>)
- id 69e895db-56b3-0a2a450a0019-346548484ad9-7
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 11:33:16 +0200
-Received: from DU5PR03MB10263.eurprd03.prod.outlook.com (2603:10a6:10:519::5)
- by AM9PR03MB7710.eurprd03.prod.outlook.com (2603:10a6:20b:41f::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.19; Wed, 22 Apr
- 2026 09:33:15 +0000
-Received: from DU5PR03MB10263.eurprd03.prod.outlook.com
- ([fe80::8c9e:b301:61c0:3908]) by DU5PR03MB10263.eurprd03.prod.outlook.com
- ([fe80::8c9e:b301:61c0:3908%5]) with mapi id 15.20.9846.016; Wed, 22 Apr 2026
- 09:33:15 +0000
+ (envelope-from <jens.wiklander@linaro.org>)
+ id 69e89625-2eae-0a2a0a5409dd-0a2a4502a7d6-22
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 11:34:41 +0200
+Received: from [209.85.167.182] (helo=mail-oi1-f182.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jens.wiklander@linaro.org>)
+ id 69e8962f-af86-0a2a45020019-d155a7b6d980-3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 11:34:40 +0200
+Received: by mail-oi1-f182.google.com with SMTP id
+ 5614622812f47-479d9b155deso1025502b6e.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 02:34:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,183 +51,282 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rDk0OVqKEV2XzJ8TjXkuBQn6iKAkuNQwhx2wlRxIDH72B6P6w/rpgGHa+5MaJ0Apg9EgzM0osMvRoBXC5YsopDK4nq96ykKDibNcArzppbbNBBgaGXc6/P4H3sbWMOdKVHKSsrFyXMzLTacprgyxm0tsmNcRRAOdhyuppSx0AZ+MnXuKkbUKNVQ1UwqH0mDQCKxI2Vlh9ESm8cShANXG2frckxfAsVglFGgDHDiF2OZKAE4dbdyYtFpaYWt/GvZyb9MwG5nFsZ1hSpqYhz4ML2bbcXzBWUyqPQyNoamFXk9XddKMWbwZhHVDRXcaSvJYbTc/TcQ35zuidOYfclRbzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sua2lHyPv7A2Nh5zyXGRUWTpGAlugF2OyFrgHX3AWNk=;
- b=ZA4BkVc+0/c7uurY0Q4b1JqrKWCnadDCOU0NCEfZ8eSlOZ3DBMWuQ0c+ZmVpyDCeldOQSFk04BgEafGv6RFfRjCn/9daa0kT6ifrZS2MMtLrxe2TT/9eOuerNyVqUz4c76K8DWcB+O9VRk97pUZxQ3iBGAt2Qakp1Q7mqfmOyI9KceucIRSjqpnZviWY+ANRKV9ZabxFa1I2QJ31cwO5qX8r/hRoXUxqVS+zySJO/HStamu3yN0fNXV0Amyg1O5nfbQeIqo52TW+Ua93UYheyAJnhtgw2DBW4GRWA3hoxmxbSwGypel6UFvpm0pde2Jhz5kE46vpnqERMYigD9/1xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sua2lHyPv7A2Nh5zyXGRUWTpGAlugF2OyFrgHX3AWNk=;
- b=POxJHVEWZHi1reuW7uIDqKDFYt8W2FodhYcsxXqU2CjtPTFIUu0W/VdcXFykH6S7VOmrw/FYMgn/ZkR5szXhIq7prmvEXqIPUN9Ss0h0axxyR7E95/0qobApl3HLTStFwVnGAlLBkH1pL/iZNh69qmoexEiHQrPb7PwgFjsPsARiBPsr4BuokJpxpY3z+/5H8ROu9bBpDs2UgQ2dYVlJUt9EgOGwJpz+mJ6tRQ53zAAbDfVa+aEv2XbHv3lFwZvUwE+9XOSKubYw8DetaSixMlsnArV4j1lmfrc+2GzbXDJ2N6mME0QNJg0eUSCu1Oqa7I6uJRkYTJZfhq09fAfTXw==
-From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall
-	<julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Subject: [PATCH v3 4/4] xen/drivers/char: fix exynos4210 IRQ registration
- failure propagation
-Thread-Topic: [PATCH v3 4/4] xen/drivers/char: fix exynos4210 IRQ registration
- failure propagation
-Thread-Index: AQHc0jsL+9q0JLBsskmBWrh+PQuj8g==
-Date: Wed, 22 Apr 2026 09:33:14 +0000
-Message-ID:
- <e15f6ef27470724fd987f0c5d248315abb1d2c55.1776850201.git.oleksii_moisieiev@epam.com>
-References: <cover.1776850201.git.oleksii_moisieiev@epam.com>
-In-Reply-To: <cover.1776850201.git.oleksii_moisieiev@epam.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DU5PR03MB10263:EE_|AM9PR03MB7710:EE_
-x-ms-office365-filtering-correlation-id: 1bcbeea7-831e-4d47-c909-08dea0522dd6
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|366016|38070700021|56012099003|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- de6vCvQ10fYkyHkdmnzvkwqy35JQAzD/I3UWPdYX32TJm1ExLejcqcQq+kqj+GPyliKAsCRrTcrWnaOKRSDqFUbXDASFlffQbMfEi8p0MXykruJaKipZLjznyQtBI9TwriLHt2ckPN10sim0EeVbMpMOLoXnf2CpgqPY+ffaaFxZmDc910UqpMGanTvmYEDTw0LfqkRFoCZCmQ+9/8zHw3A6jrgxzWslfEif8BSO6dwSmNWRM1Y7XXZRgzDARmdl5n9/hCm/HSN/eWnmYJg+e577cZYYwKP6jBwgj5tHj77O6urTTBvPh0QsGS1XPtyxXYwONo2c/zL9LuBOc6060dL9SrhAV80/y8rlOCKVVFflqvYY4k53GNDdAjoBQAOXBmMnSCn5W8RZh81Is6+GyfaxGbvxtXf+z9fg4KXqL6EYXGmZfYFcCzKV0ZMya8aIDnStvVONw2JBdAI//TY6d8piGQJrRh1SEHARpqvJvP1/EPDHZLZLA28Qp2bog7q3Unc5ORxuaDB01BbwgCaYJb6iqkgd2BrMm3enSMilnSkHJf55osoDpDtQ03YeVbW9vBAt/Lm6vynd2XsCeDDXH85lAUjfyWTNsHp1iV45cIjmQzVrxMBwzqCWRZZOWX7I9oG+Q75kgQi8q3LtUCZpDULWSRVyhQRvdkqrOvbQaExou7o7rAE53KuTN92BUBO/P04iwAue/xpydlOCPRbBegXKScSkaY+DVJO1TltIr8u/lCSEle0HxqKx04cRBilBVwk1r3EiORBqnHwBJ4n8Bd9hWdCc7m1IHVSiV3/zl0k=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU5PR03MB10263.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?GLgMjNWzlL3W5zZngGfXzUeDEI0zB64PTI6Oj5s26Ax9Hq8K0GG6LHZcEX?=
- =?iso-8859-1?Q?rOZEq3Xqy4rJjHUKWACeT2UK2ph2c3UcNd8Tw7Fo7dpUlC1NsL30Zer9Xf?=
- =?iso-8859-1?Q?YKkp/sspz+Oz7Ca4eAL8ttEgIJCI0pBbR5cIUkpLkl5AIPQY4FS0fI4jZ5?=
- =?iso-8859-1?Q?dTbllJodhFCoKd3tHbJU0iFtlXMNvmFYv0Ky5S4K+zLku1OHcAyIkBeGj/?=
- =?iso-8859-1?Q?XjlDkLYE9HKMHuuGOx9r0byF4Wd1dYORVjQGhlQfP78GntMNzv6a4suyiL?=
- =?iso-8859-1?Q?gXmCTLFDUIGusVeGceclH7R9zdfbWAFVUM2DyTUUz8YX+4edR7vitw7JoK?=
- =?iso-8859-1?Q?10vdehb/T77r/hmvC40cw7vqTrCZX3zhlu9XOllAQfeav16YEbWR3VA0LY?=
- =?iso-8859-1?Q?JnKHnNjn1EyU1UPFxockX1g2tfGUSmArbn/dUDewLwS0LVGCNUs0pk32P2?=
- =?iso-8859-1?Q?9puXeY6pMf1lxviKNwfPYrWM/o59iPeTeyLhQacUrVC4ahdsBd3vzrTnly?=
- =?iso-8859-1?Q?eUCVXJPUWgipAMv12aeGvkzBsnflkQXGpXsWxVnllL4Qbgfxl85ta8N5Tj?=
- =?iso-8859-1?Q?14gnIQvzbzVwFNVlg0Y6dzyQpP7tCvWPO/Adh/P/hWSj+796BYQHzts2of?=
- =?iso-8859-1?Q?QQEZ1NvoyirQYXQuwWPxfs7yE83oRnmiaCMZUtjWaUdpd2zFHXYe4Ox80+?=
- =?iso-8859-1?Q?4SCn8fRhTwhoOqa9kyucWcFgooIRBXjyISk/1UagGqo/YwK8HLsrhOFikr?=
- =?iso-8859-1?Q?jZdEr+mVeWlLvx6Y4LbxdWQsZMdJN0uLMU+rz+zOIVpFZ4zXJjc3lvI+hX?=
- =?iso-8859-1?Q?yq4dIcCWDKNhtYzzmRlomQKu5W6pDLM/UQ4qCDLHKxt4grk2fMMYHGsHRp?=
- =?iso-8859-1?Q?9snBZbb5KTWENW/yY7NGUKaBxdv1zHIIQaPAOaJhDIQkdavhATzSwTz7f+?=
- =?iso-8859-1?Q?wdkvZTPkdlwrNJ1V8wcwsCltP4A/Q5TSuM7V2+F3uoWiaQLJ5bLKd7HzZ1?=
- =?iso-8859-1?Q?mQv8jh3B7peA43sBcxc5LoILvHETdD01XZWtQZ4ChOUKZkoqwncyozuHBu?=
- =?iso-8859-1?Q?LkZWp0Kv6KdoE0oTUSpO/W9WUpvuvQT1Jbi9ZNfrZVDtclqFXgjFDeMlPi?=
- =?iso-8859-1?Q?gt0711Lv+cvCWnjjpv4RfQ6e2vHiuAXAYJI3vJ5C/jMFHtZOSowhwYSwoN?=
- =?iso-8859-1?Q?3Sncu/w8u5dpCWqhp8JSxO1ttCndwkaiQzCRqYCMplXQbZJp/eJ3oW7sLW?=
- =?iso-8859-1?Q?PfAVxGM1/yg3wFIRkp8kEB5/xadNKEQw9DB7PQ2fjKO3r0Spzi6mUBIFmW?=
- =?iso-8859-1?Q?xBEYM4/GH1ctlZskWWIuVTCjuZ4aF/o0YeUfoYPD/j2JDMrAsJVfGhoVS8?=
- =?iso-8859-1?Q?Rn5OtfT6ydl+B7slXrtCNfqHnkAvvdeW03EEKFhpFq2baMkswunJlzTHtz?=
- =?iso-8859-1?Q?hRMLmdx7R+Af1ogQ1y6wVSSExH4Rl9fUUkhAYaX1U+MjWLKT/aL94+2Fk1?=
- =?iso-8859-1?Q?PNNHngZ6sgeQFJkYsZzDI9vnWaEcamM/9MfTMOdBkG5ITm5mxXgbo5JDju?=
- =?iso-8859-1?Q?OPTOQsqMzXfmiKi3p7lWZiuAIRxPjPQtt/cEsiPYNKuw0ztJ0mofpferyU?=
- =?iso-8859-1?Q?OSf6EJwCN4vgs8mFnsUwb3Vloxja+oiA2wwAqwXPPR+B5/sq2Iopof3tue?=
- =?iso-8859-1?Q?8lk62Zqf/1OmyzORWjGQz83Qz6jEOt5X5s+z7Au/MhiUF6+CIZKajGPmZx?=
- =?iso-8859-1?Q?Bpx3o/wDm35Thk/iceXfEXFGdY8y319MZLKF3kOfvl0Rc1LTQGfw09ztH+?=
- =?iso-8859-1?Q?3/OyDrdBTL/oHfEsCCjrZehwSZjh7fw=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=linaro.org header.i="@linaro.org" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1776850479; cv=none;
+        d=google.com; s=arc-20240605;
+        b=NltxZV6Kyu05P/ejc5gB3yFbLwlQcGYflgtcqodM3cLry+VB+WobdQU3bh6FikaHMH
+         P9976gtnigY09zWId8KzcuwklLeFZBSwFLh0nk1DqkbH43s7OI1an3KdlZOXtQHyxPTg
+         W8qPftT4VylPXcqFpeQfKYb10TsoPWU4BY1L8qxnVmOyg48/fdEs7IH3T/XUp/zU0gik
+         Q9uDhQMtdIyuQE0/Aw57LxLsFUHpKFjD5uROqy/7GYIm34TV7TkqSMRuO/kSEfB8UpO+
+         hauGLk3xsATL5lOoqNVvoq5eWJccc2gdtLmt3IVmoIvNwhhwL3mM3oNe0X3v0gJO3p7Z
+         Ngpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IjGNLzZoVRcnaqKTCMBdzdnt+nQoxCffNoAezlXriWA=;
+        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
+        b=XIAndFaDmQZnTMfrlp0TKQhG0KCU/wtNX35Mm8jCbwpfKQDSbGwtlGC0ocr2cD9ni3
+         xKHoH/wNkisE3sAw+7xf1xKR4i1dXFsWB/ccVkFUmLGVGdkuD2UG3JplhZRWIfbRYApR
+         MroCYx18APy+4j3sRP9o0J5iEb0p1T3BiJ2jbv+kJTrs7KGzuBMOjTtV/+nUJCdboV1G
+         sH050Hj3Cv3QiWPgz3zftlnER379uiYZtBJfcEwMIhnffFBxWY5r1A5ps+JlQHIPkH0X
+         xmGgZtauqL0kDZfWkDpRAiKsHHY2geKwJ+UMLX3ikR4+PDC/pU5kORp23gna/n4Pus9g
+         pyXA==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1776850479; x=1777455279; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IjGNLzZoVRcnaqKTCMBdzdnt+nQoxCffNoAezlXriWA=;
+        b=pALyDpJJxCFMyT5X+OgCx/0hpeZK3ORPubfMu3ljCG79F+x2etGPcsELPp+NPtlDSM
+         A7PU9SfzxIhqu9iFXavpWA7WCEAlmluxCZ41cAz1HCYxBiyzcv7rWgR0jOz7v2grgAQm
+         H4EWEevpEeXJ1+8E00XQ/aE6E5dMsOZFO1JGIK341wupEmqbMNnyOIUxMCBGeWMUaUTm
+         FsCRNOhpdbF7bNErdFlgaqdn4TLZDLVViiZrZt1+Uxh/cX58XtaXgYezFfesGRLTJ+cW
+         E3kpIs2Y8oDBqmHe+0hmwyu+TRXHDoRBgN8+VvKrNagmGB1a+eF5fi+Fai2U/bWW/paP
+         zJ3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1776850479; x=1777455279;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=IjGNLzZoVRcnaqKTCMBdzdnt+nQoxCffNoAezlXriWA=;
+        b=Hkr8sJlfVXP04rhYOibwDU5bJShxZehnOH4S9C2zpaUey36cW6pUDIfbQpLZIhpTpM
+         kQs88sJ2NBb5f2+TkA1WlSBbdyRxMyGHWD+3mMxsd6mhBqr1YYBkvyQoZVldMBWAYb4z
+         9ou400ZoWTRljEHTsu/XlvjrrcPrZLwH0J6xq6ozn9l7rWP5N4U/tuVRMDAUVa1o9scN
+         r/nY2gtuQhQ+4ULOzYy476Nk9UcuuO7Te6TCSFFtBzuUhY2g2LLtYaKvNKmK94z/fWw0
+         wpIRRnlCaePfGXp7JNXIFiPGn8NwY4jhz7y2L7oQUkynDC0cgZDFeZB5mqB5B9pTp0fc
+         mDhA==
+X-Gm-Message-State: AOJu0YyxHURTa8lAKuzLmFuqwgdWFjs6SNpNqskFQ9QDaFqsTGdBshhO
+	y16xCxyz7QD17979J0Wun/BlFwWhLAAvWEZ/3WXz21KYAQ6t2kvmLy1Eys16UdVSink0eIQ6HEc
+	3M1R0HjniGYHobdwpE4YBYj5uT5a/ewiKVMmkrtYWGHEYu1TOiT25SVBb7g==
+X-Gm-Gg: AeBDiesGv8SRusDkIxuABqlbnMH8WApWy5cB0SBL8g7XvsumYLMFzvLKFbSWoh43L8v
+	VNFMXG88vptxnMtEsIUwh8aZL3rCy8kpRo/f68SahbDlmOa2qBj/hROkp9GGSNR7dnEBHlQHHl4
+	4EvRSFonjf9AjpqV6VlcY9myvq4Qtl4LglHShZIUSQPTb2N1lGjIaLaWn+3IT+h07zlhqsiEg2j
+	qf0gVO3zt+oD9qxsdm+2qn+pOxNUbLz2qofo3wcwAtKED8J1/bZJar3hLWj+mRNwmPlXrnvfQkg
+	DEdMKiayN3oa5nsMVXY9MU0gBXtWpwkfEBxO3R8r7QkK2OGL
+X-Received: by 2002:a05:6820:c2cc:10b0:689:dfc8:5e3c with SMTP id
+ 006d021491bc7-69462e21091mr7845143eaf.3.1776850479020; Wed, 22 Apr 2026
+ 02:34:39 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU5PR03MB10263.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bcbeea7-831e-4d47-c909-08dea0522dd6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Apr 2026 09:33:14.9617
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SBCvcigsaohM8T65ZEV56R3NvDn/wOKJdpsTXihQCyeVlKOPlU/UhkeJFDZETaygCcXZ48MAGQ8wNYjfleKQbzbQoTWWY1hOQTbp440QFUc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7710
-X-purgate-ID: tlsNG-4011c0/1776850396-473738B7-89EAAD5C/0/0
+References: <cover.1776266307.git.bertrand.marquis@arm.com> <7053b8c14bbe50cc855dad0a82cde2bb10153d2b.1776266307.git.bertrand.marquis@arm.com>
+In-Reply-To: <7053b8c14bbe50cc855dad0a82cde2bb10153d2b.1776266307.git.bertrand.marquis@arm.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Date: Wed, 22 Apr 2026 11:34:27 +0200
+X-Gm-Features: AQROBzCz5_jC5njY6PS3Hdagxogu3g53p99f8Avu2f8VjavqSIrjuDcbIdWOC9k
+Message-ID: <CAHUa44HaFjLf9CcSJMDD5O-R24_Kq_7zabw2Op2X=P1gj+85Sw@mail.gmail.com>
+Subject: Re: [PATCH 2/6] xen/arm: ffa: Track hypervisor notifications in a bitmap
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-720697/1776850481-83961161-D049620E/0/0
 X-purgate-type: clean
-X-purgate-size: 1655
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
+X-purgate-size: 5630
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:dkim,mail.gmail.com:mid];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[Oleksii_Moisieiev@epam.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bertrand.marquis@arm.com,m:julien@xen.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,m:Oleksii_Moisieiev@epam.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[epam.com:+];
+	DKIM_TRACE(0.00)[linaro.org:+];
 	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[Oleksii_Moisieiev@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 3DB6244408E
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 221574440E6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-In exynos4210_uart_init_postirq(), when setup_irq() returns an error
-the failure was only logged via dprintk() and execution continued,
-unconditionally clearing UINTM and setting UMCON_INT_EN. This enabled
-receive and transmit interrupt lines with no handler registered. On
-platforms where the GIC receives these asserted lines, the result is
-either repeated spurious-interrupt warnings or an unhandled interrupt
-fault.
+Hi Bertrand,
 
-Add an early return in the setup_irq() error branch so that the
-interrupt-enable writes to UINTM and UMCON are skipped when IRQ
-registration fails.
+On Fri, Apr 17, 2026 at 3:41=E2=80=AFPM Bertrand Marquis
+<bertrand.marquis@arm.com> wrote:
+>
+> Hypervisor notifications are currently tracked with a dedicated
+> buff_full_pending boolean. That state only represents a single HYP
+> notification bit and keeps HYP bitmap handling tied to single-purpose
+> bookkeeping.
+>
+> Replace the boolean with a hypervisor notification bitmap protected by
+> notif_lock. INFO_GET reports pending when the bitmap is non-zero, GET
+> returns and clears the HYP bitmap under the lock, and RX-buffer-full
+> sets FFA_NOTIF_RX_BUFFER_FULL in the bitmap instead of updating
+> separate state.
+>
+> Initialize and clear the bitmap during domain lifecycle handling, and
+> use ctx->ffa_id for bitmap create and destroy so the notification state
+> stays tied to the cached FF-A endpoint ID.
+>
+> No functional changes.
+>
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+>  xen/arch/arm/tee/ffa_notif.c   | 46 ++++++++++++++++++++++++++--------
+>  xen/arch/arm/tee/ffa_private.h |  9 +++++--
+>  2 files changed, 43 insertions(+), 12 deletions(-)
+>
+> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
+> index 07bc5cb3a430..d15119409a25 100644
+> --- a/xen/arch/arm/tee/ffa_notif.c
+> +++ b/xen/arch/arm/tee/ffa_notif.c
+> @@ -94,8 +94,15 @@ void ffa_handle_notification_info_get(struct cpu_user_=
+regs *regs)
+>
+>      notif_pending =3D test_and_clear_bool(ctx->notif.secure_pending);
+>      if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+> +    {
+>          notif_pending |=3D test_and_clear_bool(ctx->notif.vm_pending);
+>
+> +        spin_lock(&ctx->notif.notif_lock);
+> +        if ( ctx->notif.hyp_pending )
+> +            notif_pending =3D true;
+> +        spin_unlock(&ctx->notif.notif_lock);
 
-Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
----
+Isn't this a functional change? Before this patch, we didn't consider
+ctx->notif.buff_full_pending here. Am I missing something?
 
-Changes in v3:
-- skip clearing pending interrupts if setup_irq was failed because
-according to the 13.4.1.13 of the RM: it must be cleared after
-cleaning interrupt pending in INTC.
+> +    }
+> +
+>      if ( notif_pending )
+>      {
+>          /* A pending global notification for the guest */
+> @@ -174,12 +181,17 @@ void ffa_handle_notification_get(struct cpu_user_re=
+gs *regs)
+>              w6 =3D resp.a6;
+>      }
+>
+> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) &&
+> -          flags & FFA_NOTIF_FLAG_BITMAP_HYP &&
+> -          test_and_clear_bool(ctx->notif.buff_full_pending) )
+> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+>      {
+> -        ACCESS_ONCE(ctx->notif.vm_pending) =3D false;
+> -        w7 =3D FFA_NOTIF_RX_BUFFER_FULL;
+> +        spin_lock(&ctx->notif.notif_lock);
+> +
+> +        if ( (flags & FFA_NOTIF_FLAG_BITMAP_HYP) && ctx->notif.hyp_pendi=
+ng )
+> +        {
+> +            w7 =3D ctx->notif.hyp_pending;
+> +            ctx->notif.hyp_pending =3D 0;
+> +        }
+> +
+> +        spin_unlock(&ctx->notif.notif_lock);
+>      }
+>
+>      ffa_set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, w4, w5, w6, w7);
+> @@ -207,12 +219,17 @@ int32_t ffa_handle_notification_set(struct cpu_user=
+_regs *regs)
+>  void ffa_raise_rx_buffer_full(struct domain *d)
+>  {
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+> +    uint32_t prev_bitmap;
+>
+>      if ( !ctx )
+>          return;
+>
+> -    ACCESS_ONCE(ctx->notif.buff_full_pending) =3D true;
+> -    if ( !test_and_set_bool(ctx->notif.vm_pending) )
+> +    spin_lock(&ctx->notif.notif_lock);
+> +    prev_bitmap =3D ctx->notif.hyp_pending;
+> +    ctx->notif.hyp_pending |=3D FFA_NOTIF_RX_BUFFER_FULL;
+> +    spin_unlock(&ctx->notif.notif_lock);
+> +
+> +    if ( !(prev_bitmap & FFA_NOTIF_RX_BUFFER_FULL) )
 
- xen/drivers/char/exynos4210-uart.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Do we need to check for FFA_NOTIF_RX_BUFFER_FULL? Isn't !prev_bitmap
+more accurate, if any other bit would ever be used in the bitmap?
 
-diff --git a/xen/drivers/char/exynos4210-uart.c b/xen/drivers/char/exynos42=
-10-uart.c
-index 58901df554..2e5860ea2b 100644
---- a/xen/drivers/char/exynos4210-uart.c
-+++ b/xen/drivers/char/exynos4210-uart.c
-@@ -199,8 +199,12 @@ static void __init exynos4210_uart_init_postirq(struct=
- serial_port *port)
-     uart->irqaction.dev_id  =3D port;
-=20
-     if ( (rc =3D setup_irq(uart->irq, 0, &uart->irqaction)) !=3D 0 )
-+    {
-         dprintk(XENLOG_ERR, "Failed to allocated exynos4210_uart IRQ %d\n"=
-,
-                 uart->irq);
-+        /* Don't enable interrupts if irq setup was failed */
-+        return;
-+    }
-=20
-     /* Unmask interrupts */
-     exynos4210_write(uart, UINTM, ~UINTM_ALLI);
---=20
-2.43.0
+Cheers,
+Jens
+
+>          inject_notif_pending(d);
+>  }
+>  #endif
+> @@ -426,12 +443,15 @@ void ffa_notif_init(void)
+>
+>  int ffa_notif_domain_init(struct domain *d)
+>  {
+> +    struct ffa_ctx *ctx =3D d->arch.tee;
+>      int32_t res;
+>
+> +    spin_lock_init(&ctx->notif.notif_lock);
+> +    ctx->notif.hyp_pending =3D 0;
+> +
+>      if ( fw_notif_enabled )
+>      {
+> -
+> -        res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_=
+vcpus);
+> +        res =3D ffa_notification_bitmap_create(ctx->ffa_id, d->max_vcpus=
+);
+>          if ( res )
+>              return -ENOMEM;
+>      }
+> @@ -441,10 +461,16 @@ int ffa_notif_domain_init(struct domain *d)
+>
+>  void ffa_notif_domain_destroy(struct domain *d)
+>  {
+> +    struct ffa_ctx *ctx =3D d->arch.tee;
+> +
+> +    spin_lock(&ctx->notif.notif_lock);
+> +    ctx->notif.hyp_pending =3D 0;
+> +    spin_unlock(&ctx->notif.notif_lock);
+> +
+>      /*
+>       * Call bitmap_destroy even if bitmap create failed as the SPMC will
+>       * return a DENIED error that we will ignore.
+>       */
+>      if ( fw_notif_enabled )
+> -        ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
+> +        ffa_notification_bitmap_destroy(ctx->ffa_id);
+>  }
+> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
+e.h
+> index c291f32b56ff..5693772481ed 100644
+> --- a/xen/arch/arm/tee/ffa_private.h
+> +++ b/xen/arch/arm/tee/ffa_private.h
+> @@ -340,9 +340,14 @@ struct ffa_ctx_notif {
+>      bool vm_pending;
+>
+>      /*
+> -     * True if domain has buffer full notification pending
+> +     * Lock protecting the hypervisor-managed notification state.
+>       */
+> -    bool buff_full_pending;
+> +    spinlock_t notif_lock;
+> +
+> +    /*
+> +     * Bitmap of pending hypervisor notifications (for HYP bitmap querie=
+s).
+> +     */
+> +    uint32_t hyp_pending;
+>  };
+>
+>  struct ffa_ctx {
+> --
+> 2.53.0
+>
 
