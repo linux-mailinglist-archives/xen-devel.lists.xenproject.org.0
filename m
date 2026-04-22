@@ -2,51 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EFIxCFWz6GmIOwIAu9opvQ
+	id AICtLFO06GmIOwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:39:01 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:43:15 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BAD244583D
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:39:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1290354.1569964 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02F024458A7
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2026 13:43:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1290368.1569973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFVum-0008F5-M5; Wed, 22 Apr 2026 11:38:44 +0000
+	id 1wFVyt-0001Ny-A3; Wed, 22 Apr 2026 11:42:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1290354.1569964; Wed, 22 Apr 2026 11:38:44 +0000
+Received: by outflank-mailman (output) from mailman id 1290368.1569973; Wed, 22 Apr 2026 11:42:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFVum-0008C1-JH; Wed, 22 Apr 2026 11:38:44 +0000
-Received: by outflank-mailman (input) for mailman id 1290354;
- Wed, 22 Apr 2026 11:38:42 +0000
+	id 1wFVyt-0001LK-7K; Wed, 22 Apr 2026 11:42:59 +0000
+Received: by outflank-mailman (input) for mailman id 1290368;
+ Wed, 22 Apr 2026 11:42:58 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wFVuk-0008Bs-8J
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 11:38:42 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wFVys-0001LE-FF
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 11:42:58 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFVui-00F6tt-3R
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 13:38:41 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wFVyr-0071tJ-S5
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2026 13:42:57 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69e8b33f-e002-0a2a0a5209dd-0a2a4505df3e-10
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:38:41 +0200
-Received: from [52.101.61.54]
- (helo=DM1PR04CU001.outbound.protection.outlook.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69e8b33f-aaa8-0a2a45050019-34653d362499-3
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:38:41 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by CY1PR03MB8148.namprd03.prod.outlook.com (2603:10b6:930:105::19)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69e8b43e-5cb7-0a2a0a5109dd-0a2a4501cfbe-6
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:42:57 +0200
+Received: from [40.93.195.59]
+ (helo=SN4PR2101CU001.outbound.protection.outlook.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69e8b43f-c1f2-0a2a45010019-285dc33bb79c-4
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 13:42:57 +0200
+Received: from PH8PR02CA0016.namprd02.prod.outlook.com (2603:10b6:510:2d0::25)
+ by MW6PR12MB8950.namprd12.prod.outlook.com (2603:10b6:303:24a::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.20; Wed, 22 Apr
- 2026 11:38:37 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9846.016; Wed, 22 Apr 2026
- 11:38:37 +0000
+ 2026 11:42:52 +0000
+Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
+ (2603:10b6:510:2d0:cafe::72) by PH8PR02CA0016.outlook.office365.com
+ (2603:10b6:510:2d0::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9791.48 via Frontend Transport; Wed,
+ 22 Apr 2026 11:42:50 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9846.18 via Frontend Transport; Wed, 22 Apr 2026 11:42:49 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
+ 2026 06:42:49 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 22 Apr
+ 2026 04:42:40 -0700
+Received: from [10.71.194.215] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 22 Apr 2026 06:42:21 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,728 +73,300 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jlvc1dipUSw14Rck/s6sIfmOiv+yl8wNJxaYSksvvtM9prQalDYiI62HCFAF5XdNsqeVNX/obOMWqRwENib5QpbNckxtWTnwsS/Fpf6dby3wRPeERJtoS+LhMj/PynuOoZoD+cmBk8A0iDxtb4LNyDOrJQltC2Lp60V6orTpYVKL1aU1XrJ5yXfBoK9vJ6gwKY1rkWN/6UOI5VcxhVZ1cb8JkJYgfCiuTtO71FC0yA9XlGQhkS68M8HkqG6U3oYcr7Y6MIpVpY/a28tNyRJAOwccT40nYNofPz2zTSx3xM3mwXpbD5FD3sG9R4ueRNrMY4lPH55MnavFc30nJZ1h8Q==
+ b=lF0O8gMa8DID+fTgMBvI+g0D3D2COPpUeJx7U20+MwGrzyoZuXl91O3hfZ168Fd1k2x+nuVimlAKwuQ//wiG3+3ADaFJUXds0IEqFMCNYI5mKlI+zBQLeYKNv0SG2WhQ++OrLzgwUHTHuu5b31Tyi5DfVKj/wQLxsRLVCZgfiQiDIH5OMSwq48seb9DgCXeJNJ7LCaWloC1KJOMT6EiFphQCw4S6ZTbwH8uO6IFBu4hg+B3PrYIkiigbP1j7inGHf8zMy3RrqWRxkk+EbiVA9575sG5a3HWXIHMPG4NXp+xUdUjqH9rDn42OX5BY50eNtWPF/iTjmqB9HTR+t4Zp0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7PdaqyKxYbueegbEhherWhj+6VgJE9+E5z6YUh+hXGU=;
- b=XZdOjeDrNQdzia7DETfPu0fG6b+SfloBJXxbFeyLigftbq35c4OiSK/Npexz4sZFtByLXtE5+nOH7Ic4vaxK7yVF6biaXIfJEx64mA187lK58YQPVxXs7Z7R/IsRU2jxAllg93RGxKF9TcGaqTpilnvZj5mfVx5whBtmDnOJNJ88nld3OXb7pKD2p7ImqAIwGLNcEw1f/Wb1amjmG92z3x2MKMK7b2TUdYZBLhyIRtuoHeif8rdYxV5KrGnJRovGWa+vkbvkgiV9nG4kkk7lgI8jNZyuVkI7W1scQ2SbOLyBCt4tenFTTISjmhTuqfJEMWUJlAIomG3r7yDwPcN7fg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ bh=hZw/CmPc1QOD6ePZ9wEN5SKcOWeF5ECPU5BRMNQFpfQ=;
+ b=T/D606EZ+5x09Lh7trEN5rw3tKd1D0SeKC38CLIPYzfb7lPKfSahG0Bq5HEFGG3TCmMCKP21vdKNTkZZaKpLqcBGu3/RXSpgAmGVk4EiZzTyPsqmoikbYyNU7RZoj7oB/xkxSh8+VY3lMDyE0lqYRY7MJeFFWFM+WT+CEu5KmxdcpiSac5NoTc8KSqUvs4BW+2FaU6abEGnVtN8l207zGlBVmx7ME9YzM0mpsd50aku4AwAVQ/NEIQJHm6HRPN737zY91yzjcShO7+ggV1nvrjX9aiZueVGUKgHrhK/x0cUJnq1ty6drtWtrYnNwkErAOJoR49/zCUYSt+HyG2xt3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7PdaqyKxYbueegbEhherWhj+6VgJE9+E5z6YUh+hXGU=;
- b=dy43aJyY0mnC8LUiNTJydv1p2e/k7BoGS78fUcjf+54aBEcy97En9JA/CN73uRE610XHGiQWkrRy+SA3Sv/0yHu18K3THb3Z4awznp3Npym1JHQ0cTIeNnlA3ugT/NEx7/RrO3CF5J3p5ULiuEnfI7YHYCrsNl9JammOBlkfYVg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 22 Apr 2026 13:38:33 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v3 4/7] vpci: allow queueing of mapping operations
-Message-ID: <aeizOTxvSXlLKGHX@macbook.local>
-References: <cover.1775742115.git.mykyta_poturai@epam.com>
- <97e3323363ab442ccb21a00d5ed0488b6672870a.1775742115.git.mykyta_poturai@epam.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <97e3323363ab442ccb21a00d5ed0488b6672870a.1775742115.git.mykyta_poturai@epam.com>
-X-ClientProxiedBy: MA4P292CA0013.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2d::11) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+ bh=hZw/CmPc1QOD6ePZ9wEN5SKcOWeF5ECPU5BRMNQFpfQ=;
+ b=MdZCZNXN/FNaJXoAPEArEP7DTHU5CwdxdC8EIxzurAB9UZZ4X9wYZ9LO/QRyuys5I4ksdcAX9nnqW+eeRFeRFOweayEgDeOh50cTVjAWjYdpU4eQCThW7pDwJfalvIJg/rWRSlqMIS/EXXixY395n7taRwb+59IdF52hvuQfGOU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <6c02e12a-e091-4416-980b-5a7a24ba71d8@amd.com>
+Date: Wed, 22 Apr 2026 13:42:18 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] xen/dom0less: introduce next_phandle in struct
+ kernel_info
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
+ Beulich" <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>
+References: <cover.1776780944.git.oleksii.kurochko@gmail.com>
+ <4a9d79a9ef2bf25e904c9f49ddef7d5a3f3a4ac2.1776780944.git.oleksii.kurochko@gmail.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <4a9d79a9ef2bf25e904c9f49ddef7d5a3f3a4ac2.1776780944.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CY1PR03MB8148:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ca57e98-e3bd-461b-81cc-08dea063b126
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|MW6PR12MB8950:EE_
+X-MS-Office365-Filtering-Correlation-Id: 447daf32-85ea-4dde-70ff-08dea06447f2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|18002099003|22082099003|56012099003;
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|13003099007|56012099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	L6jCo6dxWaXbFN9EefCN6y9WpelRvxeE0xHh5vMiCHp+izEBbUu2pdtLwN03qMOJLj3PRbsnDSq5cCpZ+/y+Ichuq2x/K3cbzh7McMOkIjv5oEb/GsFjrMw9zhQtvwXbK7prNI7/z+EjB4o9/BDa2vMLidNVA4L5vpZudIr0DgE5TQigX+NIQhZ8ahkkTOZ3kEccHJJfLpQAEq5RqlXrBkl+BppjbRzemigdb8A9vKzpVe4xLdEUYrehuUpBFCEnLJoc7nV6plMTHyN/+iEfuQzNaV84IWX4Ii5WiwWVkr7iwfkEiOmKwFDuzPx5Nu5Ghb29CyLb5i0zYH8J90/+HC7mO+c6CijQ1Wkz/pEh3C9Lc2xOaP2f2EHn4sGQHOuTv3ESgB06C+IhGNYHeMN42nrc2eCg3uZdAr92rQdEYUJJ2s7HLB1qRQuXv/vws/0hslfRqugFF/krbebJfB4I1mMB7uFuJ3/VawdcHXBqRcOZ/rLETCD3OWOMMy9VCNC5D6U3kuqRheOtPfgsP8GmV3MvhVjBKyTeyi8aCRMNA/syQPvKJGCavrZIFY/14unz73VN29Rz0TVvP2uJeIlvYEuiDRTd7Ygs+Ac6lxJ7b+lQ9Puqub1Z96Jp6N3WxXBIkfBpOspJO7SH9xKJlr/mmYunk5vyGVQJgqk+w9ZdZA/Rx3jli5JvD1YgVnGV1w13
+	ecDK+eY72jJKfPPpwOve1ttCfCqN9eFB45YV2gbB5DXQTKyiWwo1mPqUJJfma9xFSUNECTy7EeLRJyNUMnJqkllGXavc2EB5khU7hybSUbow4ER/L0ouz/j8O19t4zNGboK+EIbdeF7r8BwGMkxGHiV3zVSDFryP2E1D55zRh0JajB1NKG1zfMAdRkaOYW0atIKwos5WmcUTC6dIM6WWmV58/Z37VG0oQrcd/PzXy1lK9UOm0iosJFZ2RQNUmQzqe7OfjlhfRHb+GZ/B6nLl0SbEH+w250BgVktSRIaoRvwMULatui7UsVq165grMKV3CAgB0FPs2OmhpR0XVgNavGyq4eB35SJJ6R5tWsFPhmQ6DAgpuRBiUEdq8a8gVx8nYykIWz6DdlTnyqgaRa5skae/M4z9lF6O/mUuovsohQ2YQ502WnTvk+JjbnsvHaSa4NirW6+HU9i/9PzWQzgOA5/vdVLKR+NY6YM4NjfupWdsIuh25eYqPkUiwroq+9ccukPuxmPTp7nXQbMq5frXQIipg0tqQp+h5hMh7r42j+dXLntCY+GBkKtd2tYBAhcve+SFdM4uH3OKcLEa7U0Y4DMhJoVTPHoQHCIqZ7onIG7DqET52e38GDG2HOw/O9beQGwvtHEDOBbLD4KiVScJXwRrl5RPrTuHuGTdn81l+tIQbumUPrqsUp2PxZq6oSsz+vNptZcwT+YfPMMXFTKBh7N7E9ymGLf+djf/lnHfLzNvJzxas89XwmRhIP/+zdkVbx/CW/WJvbEdX0dFh2xYhg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(13003099007)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NWxJODVKQWJacHdCdkNzQ29qL1BQSjRZcXJTdEhSUHA0cjJTdldSa1hYd0xl?=
- =?utf-8?B?bXhKN0JTYllNM1NuZmc4YUh1b0xuR1VKZkJJdDgzdHcwNlRWWFJzSm9acUdF?=
- =?utf-8?B?QU5DSzBzRkJKbkQwQ0xVM1lhZGhNdVorRkFHdi9nZjFKWTFDQldwU0pESDFq?=
- =?utf-8?B?QnN3NjhTcWJaNXJCRVJ1UkxrenA1Nm4rTklIZUhPU0hGbnMzQVlrU3czdVNn?=
- =?utf-8?B?dzRVTjd0L3EwVnQ1M29YaFl2cktmYk1zc0xWSEEySE9nV1NsZUVFSzN2VXhl?=
- =?utf-8?B?d01YbXYwcUgxRGw4S0JpWS9vQ3owSTFoMy9CS09peVZFdXNaQVVEMVlnYUdz?=
- =?utf-8?B?VHNWZTBJMkhmdkJBVnhLZnN6Z3pVSUh3ekRpWkFGMmhmTDF1YVc3cWdqTmxJ?=
- =?utf-8?B?VlU0YTlHWlROK3kxS1dJWWZ5bDZxTkFHMEhEL01vU3krU0JsY2ZVNTVxQUVM?=
- =?utf-8?B?RDlTNUZEZTdMV2swdUFRRHl0cm5LcDNzVUNEamovK2FvWmR2cWI3K0FxaVdz?=
- =?utf-8?B?bmREQStUcEpTdTU5MEpHUFpCZGFWQXY0MnRGYUdudDhHc3dyTUFBRmd3REkx?=
- =?utf-8?B?d2V2dnNBZysvbVA4cGNFdFV4eVljdnA1dkxlUlUrTlNTQnJkci9CcW9NQ09r?=
- =?utf-8?B?YVNSVWwxSWNwa2tSa2xsMnY4SXZzZ0JXTVlORGhBUUxpV1U2czJYTVhOU1Vz?=
- =?utf-8?B?S216SFd3M1R6eTZCLzExZER0NkhackM2UWtXaW1mTVVSeWNFOGNWMnZKdWhN?=
- =?utf-8?B?eC9qZllkRHdMSXo0YTBxQXB6ZWIrTDFmU2xscThvcndRMTd2QlJJdjdRb3pX?=
- =?utf-8?B?bHlKRWhLVk92UFRya245WHFSbTBMdEgyVTM3aTk5SjV5SWhlZng3ZXAwOUhD?=
- =?utf-8?B?UGFkYVVUamdtaDdoUDkrQnowRnFRMG5hd0tLdmJYVUFBcGFDMmhlQU56RHpn?=
- =?utf-8?B?UXRiVFNlcG5SZEFoTWpZVlhTUUNob0diWXVUUlZvSzIwR01mU1l5UlhVM0lM?=
- =?utf-8?B?ODBWSURBRmRhZHYralJob3JmaXR5SmdJdnZjVUttYnNiRk1EbktiaTVuM0pE?=
- =?utf-8?B?dnNyYitKYjQweDhFZ3JlcUI4WDlVRGFzaWloU1MxVnBIcE9sejh1Ylh5d2Zk?=
- =?utf-8?B?cklsRHptamZjREoybHNiZWhIVXBsVXlNN3J5TnIzZU5HcnE5Yjd1T1JPOTZB?=
- =?utf-8?B?MS9xb3BheWtQZ2MycGpYT3NnTGxsYlFMc21OMVBXaTlCOTA4c0I3V1hFYSsw?=
- =?utf-8?B?dElGRW0yeGVGbXJTRUQ4aDRuelh0OWNsNktxeEZobERVZ3Mzb0hLZktENng1?=
- =?utf-8?B?R2c1Q3o4RmVYblh4eEN5aXBWaWN4M0RtRU1ESGIzQjRyUU1DWnpTUTU2S0l5?=
- =?utf-8?B?NXZQK2xLL2hEV2wzYXR3VUFmUXhHeWp1cTh3RzNYVUFPY2Q0RHUxQ2dHMzZL?=
- =?utf-8?B?RktIbG5pa29kNmg1QzVibVhINnRQUjlXNmdBYktHR05jVGJrSzNEYjJaVnFq?=
- =?utf-8?B?SEEwa1JSbktEeE1PNnpoM2VvQ3RBSUFEVi9zUmM5bkppRStxRHFRbkpBUkpW?=
- =?utf-8?B?eUFtMElqTmt5VExZUVhYUTV4UmM5YkkwMEluTTRuRkd4b1FPeWpjYjI3VlBO?=
- =?utf-8?B?UXdZYnN2YVBlZzcvQkZ5TUZkWHhTUlAxZU4yZGZyNjRjQjRya1hjT1pIeVU3?=
- =?utf-8?B?djhrb0V3MW1FeWFlQmlIMkZFZyt6b0lVTTV0MUVwZHc2RDlyWjFuS3hhMExy?=
- =?utf-8?B?RnNuMkdudk9VNjdsU05ILzVBWVVnd08wbzdkRk5LTWRueWFaQnA0bGpTZGVS?=
- =?utf-8?B?NzhHNVBST3FIaEhCcUNURm94dHBpUEMvTXlXVG93RmlEd21ockx3NGNBVGZO?=
- =?utf-8?B?WEVKQ1RKZWY2YjFzYUZKU3RxNnpnV1Qzd1czc1FJNlhUOXNuUEl0cDAvS3BV?=
- =?utf-8?B?MUNpZERUQ3FWdzVVUnlFYlQ2MTU1d0xCeGtIM0hJYy9RaUJDLzVaaW8zcVNt?=
- =?utf-8?B?S1NMN1BpRGs4WkRPK280TTcwVHVwRTFxT0dHUEVhcHdWbXFxeDlva0RHWllD?=
- =?utf-8?B?SHdzcGlkT1QxVitxNnZTSlpDLzNNcHFuT0crOHpKTVFGZGZmZjhuSmwrdDlU?=
- =?utf-8?B?di9SZXR5RkNGNVMrUnprbEJ6T1UydGMwNjZlbjNHbDM2emF6dVNLZjhzQVZS?=
- =?utf-8?B?TkpNaTYxalA2NEZyUkVZZHFENDdVWWNqaFlYTzR2MWFXQUk2dVVqUUE2RkJh?=
- =?utf-8?B?SGs0UmFiSU8xaWxwUGNBdGdGbzZHUkcybDZYS3RLRDQrNWpETVZmS2NncllS?=
- =?utf-8?B?aGFSV1VpUjNRRUN4QTBXczJZZTQzemgrTzNIa2Z6QkJ3M0h0ZUs5UT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ca57e98-e3bd-461b-81cc-08dea063b126
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 11:38:36.9226
+	kSBXeR025ufhbY7/pzFham5FQbdaT2vzOnvVIj/9fJ5HU1pHdiWPdeAA4MnW5T0aa2Oaj2YvqisQ1TzYk5vwFWn8aDj592fl6elmjGyHXq/Lw66nPF89HNST5L7ATxS9Nl7OUAPsrPvHMILVUvMw5aD0712A5WcQKFdqdxZ6m5QFfdVSZPL7Hb2Sjztcf0dXR7ip8HcCurDeKxJucZHOL/8rT1HuHTd5kFYOoCvk/V4i5XS8+bFcsdhqT5fTFErVkfhLjbwX8REFJMpXKB0b69Y1aHIR1W2EBl6oTkVMHC+jFsQYoApaAlGobvrBvpMpu17QCRcKBgnas4aLEYh0vLDVhsbdoWN3A70tkmqpH0NnIXvK4RPMw9EEYtBDOn1aS6kLLBuZuCeuniFztnXiiMAqbLkkI/5S5RbhVzNK/qmeB0QqzYtcE6Kd9DO0AUn3
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2026 11:42:49.6558
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AWkzxUsEUSPccQaAsceBAySJoBUV3hRYhpL9ZCR6RwWRhK+zt8Cs4meg/20pfZ0TY27nGywCnErTn2BJPEVB8A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR03MB8148
-X-purgate-ID: tlsNG-c201ff/1776857921-E09AD443-E3C232EE/0/0
-X-purgate-type: clean
-X-purgate-size: 20943
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-MS-Exchange-CrossTenant-Network-Message-Id: 447daf32-85ea-4dde-70ff-08dea06447f2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE37.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8950
+X-purgate-ID: tlsNG-d62444/1776858177-B5E6BFF4-2E385CF7/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 6758
+X-Spamd-Result: default: False [4.81 / 15.00];
+	SEM_URIBL(3.50)[0.0.0.0:email];
+	SUSPICIOUS_RECIPS(1.50)[];
 	MAILLIST(-0.18)[generic];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,macbook.local:mid,citrix.com:dkim];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:xen-devel@lists.xenproject.org,m:stewart.hildebrand@amd.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	R_DKIM_ALLOW(0.00)[amd.com:s=selector1];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
+	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
+	DMARC_POLICY_ALLOW(0.00)[amd.com,quarantine];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.980];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
+	NEURAL_SPAM(0.00)[0.998];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	DBL_PROHIBIT(0.00)[1.171.63.0:email];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	ARC_ALLOW(0.00)[microsoft.com:s=arcselector10001:i=1];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 4BAD244583D
+	R_SPF_ALLOW(0.00)[+a:lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[0.0.0.0:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,d000000:email]
+X-Rspamd-Queue-Id: 02F024458A7
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, Apr 09, 2026 at 02:01:33PM +0000, Mykyta Poturai wrote:
-> From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+
+
+On 22/04/2026 11:44, Oleksii Kurochko wrote:
+> There are cases where it is necessary to know the next available phandle
+> number in order to generate phandles for guest device nodes.
 > 
-> Introduce vPCI BAR mapping task queue. Store information needed to
-> map/unmap BARs in struct vpci_map_task. Allow queueing of BAR map/unmap
-> operations in a list, thus making it possible to perform multiple p2m
-> operations associated with single PCI device.
-
-I would replace "single PCI device" with "single PCI config space
-register access", it's more specific.
-
-> This is preparatory work for further changes that need to perform
-> multiple unmap/map operations before returning to guest.
+> When a partial FDT (pfdt) is provided, special care is needed during
+> initialization of next_phandle, as the pfdt may already contain a dummy
+> interrupt controller node with a phandle assigned to it. next_phandle
+> must therefore be initialized to one past the highest phandle already
+> present in the pfdt, to avoid collisions.
 > 
-> At the moment, only a single operation will be queued. However, when
-> multiple operations are queued, there is a check in modify_bars() to
-> skip BARs already in the requested state that will no longer be
-> accurate. Remove this check in preparation of upcoming changes.
+> Since next_phandle may be needed for the very first guest node generated,
+> domain_handle_dtb_boot_module() is moved earlier in prepare_dtb_domU().
+> The new call site also aligns better with the existing comment stating
+> that domain_handle_dtb_boot_module() must be called before the rest of
+> the device tree is generated.
 > 
-> Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-> Message-ID: <20260406191203.97662-3-stewart.hildebrand@amd.com>
-
-I think you also need to add your SoB if you add it to your series.
-
+> Introduce alloc_phandle() to ensure that phandles allocated for guest
+> nodes do not overlap the Xen-reserved phandle range.  This helper will
+> be used by subsequent patches (by RISC-V at the moment).
+> 
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > ---
-> v2->v3:
-> * new patch in this series, borrowed from [1]
+> Here is an example of generated guest DTB:
+>     cpus {
+>     ...
+>       cpu@0 {
+>     ...
+>         interrupt-controller {
+>           compatible = "riscv,cpu-intc";
+>           #interrupt-cells = <0x1>;
+>           interrupt-controller;
+>           phandle = <0xfdea>;
+>         };
+>       };
+>     };
 > 
-> [1]: https://patchew.org/Xen/20260406191203.97662-1-stewart.hildebrand@amd.com/20260406191203.97662-3-stewart.hildebrand@amd.com/
+>     /soc/imsics@28000000 {
+> 
+>       interrupts-extended = <0xfdea 0x9 >;
+> 
+>       phandle = <0xfdeb>;
+>     };
+> 
+>     /soc/aplic@d000000 {
+>     ...
+>       msi-parent = <0xfdeb>;
+>       phandle = <0x1>;
+>     };
+> 
+> Note that phandle is generated in this example not by get_next_free_phandle().
+> 
+> For non RISC-V people, APLIC is an interrupt controller (something like GIC in
+> Arm), IMSIC it is interrupt controller which provides MSI and connects to
+> each CPU.
+> 
+> [1] https://www.kernel.org/doc/Documentation/devicetree/bindings/interrupt-controller/riscv%2Ccpu-intc.txt
 > ---
->  xen/common/domain.c        |   5 +-
->  xen/drivers/vpci/header.c  | 227 ++++++++++++++++++++++++++-----------
->  xen/drivers/vpci/vpci.c    |  28 +----
->  xen/include/xen/rangeset.h |   7 --
->  xen/include/xen/vpci.h     |  21 ++--
->  5 files changed, 179 insertions(+), 109 deletions(-)
+> Changes in v2:
+>  - s/free_phandle/next_phandle.
+>  - s/get_next_free_phandle/alloc_phandle.
+> ---
+>  xen/common/device-tree/dom0less-build.c | 44 ++++++++++++++++++-------
+>  xen/include/xen/fdt-domain-build.h      |  6 ++++
+>  xen/include/xen/fdt-kernel.h            |  3 ++
+>  3 files changed, 41 insertions(+), 12 deletions(-)
 > 
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index 5ef7db8f09..b1931be987 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -455,8 +455,6 @@ static int vcpu_teardown(struct vcpu *v)
->   */
->  static void vcpu_destroy(struct vcpu *v)
->  {
-> -    vpci_vcpu_destroy(v);
-> -
->      free_vcpu_struct(v);
->  }
+> diff --git a/xen/common/device-tree/dom0less-build.c b/xen/common/device-tree/dom0less-build.c
+> index 840d14419da2..ca3ac84a3ef3 100644
+> --- a/xen/common/device-tree/dom0less-build.c
+> +++ b/xen/common/device-tree/dom0less-build.c
+> @@ -389,6 +389,24 @@ static int __init domain_handle_dtb_boot_module(struct domain *d,
+>      if ( res < 0 )
+>          goto out;
 >  
-> @@ -514,8 +512,7 @@ struct vcpu *vcpu_create(struct domain *d, unsigned int vcpu_id)
->      if ( arch_vcpu_create(v) != 0 )
->          goto fail_sched;
+> +    /*
+> +     * Find the highest phandle in the partial FDT so next_phandle starts
+> +     * above it, avoiding collisions with pfdt's own phandle assignments.
+> +     */
+> +    res = fdt_generate_phandle(pfdt, &kinfo->next_phandle);
+> +    if ( res )
+> +    {
+> +        res = (res == -FDT_ERR_NOPHANDLES) ? -EOVERFLOW : -EINVAL;
+> +        goto out;
+> +    }
+> +
+> +    if ( kinfo->next_phandle >= GUEST_PHANDLE_GIC )
+> +    {
+> +        dprintk(XENLOG_ERR, "Phandle allocation overlaps Xen reserved range\n");
+> +        res = -EOVERFLOW;
+> +        goto out;
+> +    }
+> +
+>      for ( node_next = fdt_first_subnode(pfdt, 0);
+>            node_next > 0;
+>            node_next = fdt_next_subnode(pfdt, node_next) )
+> @@ -459,6 +477,8 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>      BUILD_BUG_ON(DOMU_DTB_SIZE > SZ_2M);
 >  
-> -    if ( vpci_vcpu_init(v) )
-> -        goto fail_sched;
-> +    vpci_vcpu_init(v);
+>      kinfo->phandle_intc = GUEST_PHANDLE_GIC;
+> +    kinfo->next_phandle = 1;
+> +    BUILD_BUG_ON(GUEST_PHANDLE_GIC == 1);
+I'm not sure that we need this. It does not seem to be useful. If you want to
+keep it though, I think you want to compare to next_phandle, not opencoding it's
+initial value.
+
 >  
->      d->vcpu[vcpu_id] = v;
->      if ( vcpu_id != 0 )
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index 5bfb541b6a..451cdd3a6f 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -23,6 +23,7 @@
->  #include <xen/lib.h>
->  #include <xen/sched.h>
->  #include <xen/softirq.h>
-> +#include <xen/xvmalloc.h>
+>  #ifdef CONFIG_GRANT_TABLE
+>      kinfo->gnttab_start = GUEST_GNTTAB_BASE;
+> @@ -499,6 +519,18 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>      if ( ret )
+>          goto err;
 >  
->  #include <xsm/xsm.h>
+> +    /*
+> +     * domain_handle_dtb_boot_module() must be called before the rest of the
+> +     * device tree is generated because it sets phandle_intc and next_phandle,
+> +     * which subsequent node generation depends on.
+> +     */
+> +    if ( kinfo->dtb )
+> +    {
+> +        ret = domain_handle_dtb_boot_module(d, kinfo);
+> +        if ( ret )
+> +            goto err;
+> +    }
+> +
+>      ret = make_chosen_node(kinfo);
+>      if ( ret )
+>          goto err;
+> @@ -516,18 +548,6 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
+>      if ( ret )
+>          goto err;
 >  
-> @@ -35,7 +36,7 @@
->  
->  struct map_data {
->      struct domain *d;
-> -    const struct vpci_bar *bar;
-> +    const struct vpci_bar_map *bar;
->      bool map;
->  };
->  
-> @@ -174,32 +175,20 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
->          ASSERT_UNREACHABLE();
->  }
->  
-> -bool vpci_process_pending(struct vcpu *v)
-> +static int vpci_process_map_task(const struct pci_dev *pdev,
-> +                                 struct vpci_map_task *task)
->  {
-> -    const struct pci_dev *pdev = v->vpci.pdev;
-> -    struct vpci_header *header = NULL;
->      unsigned int i;
->  
-> -    if ( !pdev )
-> -        return false;
-> -
-> -    read_lock(&v->domain->pci_lock);
-> -
-> -    if ( !pdev->vpci || (v->domain != pdev->domain) )
+> -    /*
+> -     * domain_handle_dtb_boot_module has to be called before the rest of
+> -     * the device tree is generated because it depends on the value of
+> -     * the field phandle_intc.
+> -     */
+> -    if ( kinfo->dtb )
 > -    {
-> -        v->vpci.pdev = NULL;
-> -        read_unlock(&v->domain->pci_lock);
-> -        return false;
-> -    }
-> +    ASSERT(rw_is_locked(&pdev->domain->pci_lock));
->  
-> -    header = &pdev->vpci->header;
-> -    for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
-> +    for ( i = 0; i < ARRAY_SIZE(task->bars); i++ )
->      {
-> -        struct vpci_bar *bar = &header->bars[i];
-> -        struct rangeset *mem = v->vpci.mem[i];
-> +        struct vpci_bar_map *bar = &task->bars[i];
-> +        struct rangeset *mem = bar->mem;
->          struct map_data data = {
-> -            .d = v->domain,
-> -            .map = v->vpci.cmd & PCI_COMMAND_MEMORY,
-> +            .d = pdev->domain,
-> +            .map = task->cmd & PCI_COMMAND_MEMORY,
->              .bar = bar,
->          };
->          int rc;
-> @@ -210,58 +199,116 @@ bool vpci_process_pending(struct vcpu *v)
->          rc = rangeset_consume_ranges(mem, map_range, &data);
->  
->          if ( rc == -ERESTART )
-> -        {
-> -            read_unlock(&v->domain->pci_lock);
-> -            return true;
-> -        }
-> +            return rc;
->  
->          if ( rc )
->          {
->              spin_lock(&pdev->vpci->lock);
->              /* Disable memory decoding unconditionally on failure. */
-> -            modify_decoding(pdev, v->vpci.cmd & ~PCI_COMMAND_MEMORY,
-> -                            false);
-> +            modify_decoding(pdev, task->cmd & ~PCI_COMMAND_MEMORY, false);
->              spin_unlock(&pdev->vpci->lock);
->  
-> -            /* Clean all the rangesets */
-> -            for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
-> -                if ( !rangeset_is_empty(v->vpci.mem[i]) )
-> -                     rangeset_purge(v->vpci.mem[i]);
-> +            if ( !is_hardware_domain(pdev->domain) )
-> +                domain_crash(pdev->domain);
-> +
-> +            return rc;
-> +        }
-> +    }
-> +
-> +    spin_lock(&pdev->vpci->lock);
-> +    modify_decoding(pdev, task->cmd, task->rom_only);
-> +    spin_unlock(&pdev->vpci->lock);
-> +
-> +    return 0;
-> +}
-> +
-> +static void destroy_map_task(struct vpci_map_task *task)
-> +{
-> +    unsigned int i;
-> +
-> +    if ( !task )
-> +    {
-> +        ASSERT_UNREACHABLE();
-> +        return;
-> +    }
-> +
-> +    for ( i = 0; i < ARRAY_SIZE(task->bars); i++ )
-> +        rangeset_destroy(task->bars[i].mem);
-> +
-> +    xvfree(task);
-> +}
-> +
-> +static void clear_map_queue(struct vcpu *v)
-> +{
-> +    struct vpci_map_task *task;
-> +
-> +    while ( (task = list_first_entry_or_null(&v->vpci.task_queue,
-> +                                             struct vpci_map_task,
-> +                                             next)) != NULL )
-> +    {
-> +        list_del(&task->next);
-> +        destroy_map_task(task);
-> +    }
-> +}
-> +
-> +bool vpci_process_pending(struct vcpu *v)
-> +{
-> +    const struct pci_dev *pdev = v->vpci.pdev;
-> +    struct vpci_map_task *task;
->  
-> -            v->vpci.pdev = NULL;
-> +    if ( !pdev )
-> +        return false;
->  
-> +    read_lock(&v->domain->pci_lock);
-> +
-> +    if ( !pdev->vpci || (v->domain != pdev->domain) )
-> +    {
-> +        clear_map_queue(v);
-> +        v->vpci.pdev = NULL;
-> +        read_unlock(&v->domain->pci_lock);
-> +        return false;
-> +    }
-> +
-> +    while ( (task = list_first_entry_or_null(&v->vpci.task_queue,
-> +                                             struct vpci_map_task,
-> +                                             next)) != NULL )
-> +    {
-> +        int rc = vpci_process_map_task(pdev, task);
-> +
-> +        if ( rc == -ERESTART )
-> +        {
->              read_unlock(&v->domain->pci_lock);
-> +            return true;
-> +        }
->  
-> -            if ( !is_hardware_domain(v->domain) )
-> -                domain_crash(v->domain);
-> +        list_del(&task->next);
-> +        destroy_map_task(task);
->  
-> -            return false;
-> +        if ( rc )
-> +        {
-> +            clear_map_queue(v);
-> +            break;
->          }
->      }
->      v->vpci.pdev = NULL;
->  
-> -    spin_lock(&pdev->vpci->lock);
-> -    modify_decoding(pdev, v->vpci.cmd, v->vpci.rom_only);
-> -    spin_unlock(&pdev->vpci->lock);
-> -
->      read_unlock(&v->domain->pci_lock);
->  
->      return false;
->  }
->  
->  static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
-> -                            uint16_t cmd)
-> +                            struct vpci_map_task *task)
->  {
-> -    struct vpci_header *header = &pdev->vpci->header;
->      int rc = 0;
->      unsigned int i;
->  
->      ASSERT(rw_is_write_locked(&d->pci_lock));
->  
-> -    for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
-> +    for ( i = 0; i < ARRAY_SIZE(task->bars); i++ )
->      {
-> -        struct vpci_bar *bar = &header->bars[i];
-> -        struct rangeset *mem = current->vpci.mem[i];
-> +        struct vpci_bar_map *bar = &task->bars[i];
-> +        struct rangeset *mem = bar->mem;
->          struct map_data data = { .d = d, .map = true, .bar = bar };
->  
->          if ( rangeset_is_empty(mem) )
-> @@ -281,15 +328,52 @@ static int __init apply_map(struct domain *d, const struct pci_dev *pdev,
->          }
->      }
->      if ( !rc )
-> -        modify_decoding(pdev, cmd, false);
-> +        modify_decoding(pdev, task->cmd, false);
->  
->      return rc;
->  }
->  
-> -static void defer_map(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
-> +static struct vpci_map_task *alloc_map_task(const struct pci_dev *pdev,
-> +                                            uint16_t cmd, bool rom_only)
-> +{
-> +    struct vpci_map_task *task;
-> +    unsigned int i;
-> +
-> +    task = xvzalloc(struct vpci_map_task);
-> +
-> +    if ( !task )
-> +        return NULL;
-> +
-> +    for ( i = 0; i < ARRAY_SIZE(task->bars); i++ )
-> +    {
-> +        if ( !MAPPABLE_BAR(&pdev->vpci->header.bars[i]) )
-> +            continue;
-> +
-> +        task->bars[i].mem = rangeset_new(pdev->domain, NULL,
-> +                                         RANGESETF_no_print);
-> +
-> +        if ( !task->bars[i].mem )
-> +        {
-> +            destroy_map_task(task);
-> +            return NULL;
-> +        }
-> +
-> +        task->bars[i].addr = pdev->vpci->header.bars[i].addr;
-> +        task->bars[i].guest_addr = pdev->vpci->header.bars[i].guest_addr;
-> +    }
-> +
-> +    task->cmd = cmd;
-> +    task->rom_only = rom_only;
-> +
-> +    return task;
-> +}
-> +
-> +static void defer_map(const struct pci_dev *pdev, struct vpci_map_task *task)
->  {
->      struct vcpu *curr = current;
->  
-> +    ASSERT(!curr->vpci.pdev || curr->vpci.pdev == pdev);
-> +
->      /*
->       * FIXME: when deferring the {un}map the state of the device should not
->       * be trusted. For example the enable bit is toggled after the device
-> @@ -297,8 +381,8 @@ static void defer_map(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->       * started for the same device if the domain is not well-behaved.
->       */
->      curr->vpci.pdev = pdev;
-> -    curr->vpci.cmd = cmd;
-> -    curr->vpci.rom_only = rom_only;
-> +    list_add_tail(&task->next, &curr->vpci.task_queue);
-> +
->      /*
->       * Raise a scheduler softirq in order to prevent the guest from resuming
->       * execution with pending mapping operations, to trigger the invocation
-> @@ -313,11 +397,17 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->      struct pci_dev *tmp;
->      const struct domain *d;
->      const struct vpci_msix *msix = pdev->vpci->msix;
-> +    struct vpci_map_task *task;
->      unsigned int i, j;
->      int rc;
->  
->      ASSERT(rw_is_write_locked(&pdev->domain->pci_lock));
->  
-> +    task = alloc_map_task(pdev, cmd, rom_only);
-> +
-> +    if ( !task )
-> +        return -ENOMEM;
-> +
->      /*
->       * Create a rangeset per BAR that represents the current device memory
->       * region and compare it against all the currently active BAR memory
-> @@ -333,19 +423,18 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->      for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
->      {
->          struct vpci_bar *bar = &header->bars[i];
-> -        struct rangeset *mem = current->vpci.mem[i];
-> +        struct rangeset *mem = task->bars[i].mem;
->          unsigned long start = PFN_DOWN(bar->addr);
->          unsigned long end = PFN_DOWN(bar->addr + bar->size - 1);
->          unsigned long start_guest = PFN_DOWN(bar->guest_addr);
->          unsigned long end_guest = PFN_DOWN(bar->guest_addr + bar->size - 1);
->  
-> -        ASSERT(mem);
-> +        if ( !mem )
-> +            continue;
->  
->          if ( !MAPPABLE_BAR(bar) ||
->               (rom_only ? bar->type != VPCI_BAR_ROM
-> -                       : (bar->type == VPCI_BAR_ROM && !header->rom_enabled)) ||
-> -             /* Skip BARs already in the requested state. */
-> -             bar->enabled == !!(cmd & PCI_COMMAND_MEMORY) )
-> +                       : (bar->type == VPCI_BAR_ROM && !header->rom_enabled)) )
->              continue;
->  
->          if ( !pci_check_bar(pdev, _mfn(start), _mfn(end)) )
-> @@ -368,7 +457,8 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->              gprintk(XENLOG_G_WARNING,
->                      "%pp: can't map BAR%u - offset mismatch: %#lx vs %#lx\n",
->                      &pdev->sbdf, i, bar->guest_addr, bar->addr);
-> -            return -EINVAL;
-> +            rc = -EINVAL;
-> +            goto fail;
->          }
->  
->          rc = rangeset_add_range(mem, start_guest, end_guest);
-> @@ -376,13 +466,13 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->          {
->              printk(XENLOG_G_WARNING "Failed to add [%lx, %lx]: %d\n",
->                     start_guest, end_guest, rc);
-> -            return rc;
-> +            goto fail;
->          }
->  
->          /* Check for overlap with the already setup BAR ranges. */
->          for ( j = 0; j < i; j++ )
->          {
-> -            struct rangeset *prev_mem = current->vpci.mem[j];
-> +            struct rangeset *prev_mem = task->bars[j].mem;
->  
->              if ( rangeset_is_empty(prev_mem) )
->                  continue;
-> @@ -393,7 +483,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->                  gprintk(XENLOG_WARNING,
->                         "%pp: failed to remove overlapping range [%lx, %lx]: %d\n",
->                          &pdev->sbdf, start_guest, end_guest, rc);
-> -                return rc;
-> +                goto fail;
->              }
->          }
->  
-> @@ -403,7 +493,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->              gprintk(XENLOG_WARNING,
->                      "%pp: failed to sanitize BAR#%u memory: %d\n",
->                      &pdev->sbdf, i, rc);
-> -            return rc;
-> +            goto fail;
->          }
->      }
->  
-> @@ -414,9 +504,9 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->          unsigned long end = PFN_DOWN(vmsix_table_addr(pdev->vpci, i) +
->                                       vmsix_table_size(pdev->vpci, i) - 1);
->  
-> -        for ( j = 0; j < ARRAY_SIZE(current->vpci.mem); j++ )
-> +        for ( j = 0; j < ARRAY_SIZE(task->bars); j++ )
->          {
-> -            struct rangeset *mem = current->vpci.mem[j];
-> +            struct rangeset *mem = task->bars[j].mem;
->  
->              if ( rangeset_is_empty(mem) )
->                  continue;
-> @@ -427,7 +517,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->                  gprintk(XENLOG_WARNING,
->                         "%pp: failed to remove MSIX table [%lx, %lx]: %d\n",
->                          &pdev->sbdf, start, end, rc);
-> -                return rc;
-> +                goto fail;
->              }
->          }
->      }
-> @@ -471,7 +561,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->                  for ( j = 0; j < ARRAY_SIZE(header->bars); j++)
->                  {
->                      const struct vpci_bar *bar = &header->bars[j];
-> -                    struct rangeset *mem = current->vpci.mem[j];
-> +                    struct rangeset *mem = task->bars[j].mem;
->  
->                      if ( !rangeset_overlaps_range(mem, start, end) ||
->                           /*
-> @@ -490,7 +580,7 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->                          gprintk(XENLOG_WARNING,
->                                  "%pp: failed to remove [%lx, %lx]: %d\n",
->                                  &pdev->sbdf, start, end, rc);
-> -                        return rc;
-> +                        goto fail;
->                      }
->                  }
->              }
-> @@ -513,12 +603,19 @@ int vpci_modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->           * will always be to establish mappings and process all the BARs.
->           */
->          ASSERT((cmd & PCI_COMMAND_MEMORY) && !rom_only);
-> -        return apply_map(pdev->domain, pdev, cmd);
-> +        rc = apply_map(pdev->domain, pdev, task);
-> +        destroy_map_task(task);
-> +        return rc;
->      }
->  
-> -    defer_map(pdev, cmd, rom_only);
-> +    defer_map(pdev, task);
->  
->      return 0;
-> +
-> + fail:
-> +    destroy_map_task(task);
-> +
-> +    return rc;
->  }
->  
->  static void cf_check cmd_write(
-> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> index d069ca6d9c..ce9fb5b357 100644
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -24,33 +24,9 @@
->  
->  #ifdef __XEN__
->  
-> -void vpci_vcpu_destroy(struct vcpu *v)
-> +void vpci_vcpu_init(struct vcpu *v)
->  {
-> -    if ( !has_vpci(v->domain) && !is_idle_domain(v->domain) )
-> -        return;
-> -
-> -    for ( unsigned int i = 0; i < ARRAY_SIZE(v->vpci.mem); i++ )
-> -        RANGESET_DESTROY(v->vpci.mem[i]);
-> -}
-> -
-> -int vpci_vcpu_init(struct vcpu *v)
-> -{
-> -    unsigned int i;
-> -
-> -    if ( !has_vpci(v->domain) && !is_idle_domain(v->domain) )
-> -        return 0;
-> -
-> -    for ( i = 0; i < ARRAY_SIZE(v->vpci.mem); i++ )
-> -    {
-> -        char str[32];
-> -
-> -        snprintf(str, sizeof(str), "%pv:BAR%u", v, i);
-> -        v->vpci.mem[i] = rangeset_new(v->domain, str, RANGESETF_no_print);
-> -        if ( !v->vpci.mem[i] )
-> -            return -ENOMEM;
+> -        ret = domain_handle_dtb_boot_module(d, kinfo);
+> -        if ( ret )
+> -            goto err;
 > -    }
 > -
-> -    return 0;
-> +    INIT_LIST_HEAD(&v->vpci.task_queue);
->  }
+>      ret = make_intc_domU_node(kinfo);
+>      if ( ret )
+>          goto err;
+> diff --git a/xen/include/xen/fdt-domain-build.h b/xen/include/xen/fdt-domain-build.h
+> index 1d9e77df0eb3..a604f3983fe6 100644
+> --- a/xen/include/xen/fdt-domain-build.h
+> +++ b/xen/include/xen/fdt-domain-build.h
+> @@ -63,6 +63,12 @@ int find_unallocated_memory(const struct kernel_info *kinfo,
+>                                        unsigned long e_gfn,
+>                                        void *data));
 >  
->  #ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-> diff --git a/xen/include/xen/rangeset.h b/xen/include/xen/rangeset.h
-> index f01e00ec92..817505badf 100644
-> --- a/xen/include/xen/rangeset.h
-> +++ b/xen/include/xen/rangeset.h
-> @@ -40,13 +40,6 @@ struct rangeset *rangeset_new(
->  void rangeset_destroy(
->      struct rangeset *r);
+> +/* Return 0 (invalid phandle) if the Xen-reserved range has been reached */
+> +static inline uint32_t alloc_phandle(struct kernel_info *kinfo)
+> +{
+> +    return kinfo->next_phandle >= GUEST_PHANDLE_GIC ? 0 : kinfo->next_phandle++;
+> +}
+> +
+>  #endif /* __XEN_FDT_DOMAIN_BUILD_H__ */
 >  
-> -/* Destroy a rangeset, and zero the pointer to it. */
-> -#define RANGESET_DESTROY(r)  \
-> -    ({                       \
-> -        rangeset_destroy(r); \
-> -        (r) = NULL;          \
-> -    })
-
-You introduce this in the previous patch, and removing it in the next
-patch?  Please try to avoid such spurious usage, it's not good to
-waste effort reviewing newly introduced code that's to be removed by
-a patch in the same series.
-
-Unless very special cases, we usually recommend submitters to attempt
-to make sure code introduced in a patch series is consistent, so that
-we don't end up in a situation like this where you are removing a lot
-of code that was introduced by the previous patch.
-
-You likely want to split the changes slightly differently here, maybe
-the previous patch should introduce the non-functional changes, like
-the change to use mem instead of bar->mem or similar, and one patch
-that introduces the usage of the linked-list task queue.
-
-> -
 >  /*
->   * Set a limit on the number of ranges that may exist in set @r.
->   * NOTE: This must be called while @r is empty.
-> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-> index b55bacbe6e..e34f7abe6d 100644
-> --- a/xen/include/xen/vpci.h
-> +++ b/xen/include/xen/vpci.h
-> @@ -19,8 +19,7 @@
->   */
->  #define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
+> diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
+> index aa977a50f4fc..438adfe3855b 100644
+> --- a/xen/include/xen/fdt-kernel.h
+> +++ b/xen/include/xen/fdt-kernel.h
+> @@ -44,6 +44,9 @@ struct kernel_info {
+>      /* Interrupt controller phandle */
+>      uint32_t phandle_intc;
 >  
-> -void vpci_vcpu_destroy(struct vcpu *v);
-> -int vpci_vcpu_init(struct vcpu *v);
-> +void vpci_vcpu_init(struct vcpu *v);
->  
->  /* Assign vPCI to device by adding handlers. */
->  int __must_check vpci_assign_device(struct pci_dev *pdev);
-> @@ -155,14 +154,23 @@ struct vpci {
->  };
->  
->  #ifdef __XEN__
-> -struct vpci_vcpu {
-> +struct vpci_map_task {
->      /* Per-vcpu structure to store state while {un}mapping of PCI BARs. */
-> -    const struct pci_dev *pdev;
-> -    struct rangeset *mem[ARRAY_SIZE(((struct vpci_header *)NULL)->bars)];
-> +    struct list_head next;
-> +    struct vpci_bar_map {
-> +        uint64_t addr;
-> +        uint64_t guest_addr;
-> +        struct rangeset *mem;
-> +    } bars[ARRAY_SIZE(((struct vpci_header *)NULL)->bars)];
+> +    /* Next free phandle available for assigning to guest device nodes */
+I would mention not to use this value directly but rather obtain from
+alloc_phandle. This value should only really be used by alloc_phandle.
 
-I'm a bit puzzled (possibly missing something), but why are you
-keeping this vpci_bar_map array here?  AFAICT map tasks are allocated
-on-demand after this change (by using {alloc,destroy}_map_task()).
+~Michal
 
-Thanks, Roger.
+> +    uint32_t next_phandle;
+> +
+>      /* loader to use for this kernel */
+>      void (*load)(struct kernel_info *info);
+>  
+
 
