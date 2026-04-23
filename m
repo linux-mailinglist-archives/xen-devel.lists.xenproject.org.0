@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ODkRD81E6mkhxgIAu9opvQ
+	id gNS8G91E6mkhxgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 18:11:57 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 18:12:13 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5843454B7F
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 18:11:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1292401.1570890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1134B454BA2
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 18:12:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1292413.1570909 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFweb-0000k4-1P; Thu, 23 Apr 2026 16:11:49 +0000
+	id 1wFwem-0001Xp-IU; Thu, 23 Apr 2026 16:12:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1292401.1570890; Thu, 23 Apr 2026 16:11:48 +0000
+Received: by outflank-mailman (output) from mailman id 1292413.1570909; Thu, 23 Apr 2026 16:12:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFwea-0000gS-Sf; Thu, 23 Apr 2026 16:11:48 +0000
-Received: by outflank-mailman (input) for mailman id 1292401;
- Thu, 23 Apr 2026 16:11:46 +0000
+	id 1wFwem-0001VW-Ea; Thu, 23 Apr 2026 16:12:00 +0000
+Received: by outflank-mailman (input) for mailman id 1292413;
+ Thu, 23 Apr 2026 16:11:59 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Oleksii_Moisieiev@epam.com>) id 1wFweY-0000D9-KD
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 16:11:46 +0000
+ (envelope-from <Oleksii_Moisieiev@epam.com>) id 1wFwel-0001Sy-2A
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 16:11:59 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFweY-004X3T-11
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 18:11:46 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wFwek-004X8B-Et
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 18:11:58 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <Oleksii_Moisieiev@epam.com>)
- id 69ea44be-5cb7-0a2a0a5109dd-0a2a450bafd8-14
- for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 18:11:46 +0200
-Received: from [40.107.159.119]
- (helo=OSPPR02CU001.outbound.protection.outlook.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69ea44cd-5cb7-0a2a0a5109dd-0a2a4503b4ba-2
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 18:11:58 +0200
+Received: from [52.101.65.82]
+ (helo=DU2PR03CU002.outbound.protection.outlook.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <Oleksii_Moisieiev@epam.com>)
- id 69ea44bf-212f-0a2a450b0019-286b9f772e5a-5
- for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 18:11:45 +0200
+ id 69ea44ce-672d-0a2a45030019-346541523953-3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 18:11:58 +0200
 Received: from DU5PR03MB10263.eurprd03.prod.outlook.com (2603:10a6:10:519::5)
  by PA4PR03MB6752.eurprd03.prod.outlook.com (2603:10a6:102:ea::24)
  with Microsoft SMTP Server (version=TLS1_2,
@@ -60,33 +60,34 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G2H4HdNfquR99Q4SsTiDtuUd725CnHJ1llXPeZCujd68wb0SvIijOD5Pjphsp5HuPQbjPpB/rI7a3yYDI69IAJmEOclGOuyhh18vz0jE0JZqPePFeef0OpCIyCwNFGVTwB6CGHa+mQw9FgrdMev4REAUYhyTbrzf6Gr/Rl6ORD51iIdvNx7IX0ritqkJlRDudiNsNWurjzdcwdVetEGsrvf7pkQBHvNHRVutcO0a6IIk4blu6Ks1VdknHm2IEYDmACya6rbl+GTimmJSqZxUHHGnjuqn5s0Y8oZ+4otWEC9X0koNBUMblrMZ3RBZ+Vkreyh3VGoRJDdMgaeVRLpL2Q==
+ b=WaMhlaGHLVRqRK1rmuiHLsU9FNN1BH3/EuraybNZrfFcbaJpltYvLQTBLiDagZxwZIxVmondjR1FVlPozOI51QTByf/GKmH3kGqvpss+xlyiZZCEBLwe0e+agJACjL+ucoxZgJUrQSahuBz8hrGE3tgISYWhOO0sIyv+eHjtIxQHIcECdj08WMxivIph/pJj7mt6tAySViP6x5BEAxHG7A39P98iFZvSUHx3QsHkqfII3TdfEmOciuTUJfUw1FjTvkMMYJBvaM+iHszULuIerYoxjKozg+NeZYXdYVYJHWnCpsi/7XUlci4U/dlplHGcfmwOomAY6Ui+WpA6TN/FEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hwLaTMy1vY8qP6h9+hcCU5LH4m+dOUrZTarK3BrxX1w=;
- b=LFXCSpFePUD/ohX6jZZQ8SRt6YF6nece0+GBpghLi3QFnOVTXYPaGWWihxtwg5fmF/j6IJFz1e0N19izTMKFTXUNBcwSRoT54CduZ5RBbrPmGmO7AsQvklt2oWJojb68Y7ygq01GOiqdOxzt7Q/HMd+YZ77tiMd9nYMg5+bTPOEC/tZBY4r9ht7lEEB0CoybhkhNJulNX5VdcckRoGRVliRjCmCN5IgtLZtWzgHpLSDxNfYF1KKz2Uq9YTXiDAEsTyg6dTAIlAzAcmAnEmm6tXokA4aCgnKoJEeHpCXp2KBwGzGpL53fgTLSPhT36bAl2IP4O0TEZUF56DuIjn+ImA==
+ bh=mvr5mzI9zMbvHinWk6X4HXPCOg0zLvukpXSOGKW0FUg=;
+ b=Cc3gTOxEaYjW9SdUCK5XJp5HlhokNH3rY5hLUHI3btX9UBu7VUV2hkQ7H/Gk3vhITz0o0rVbDVHYmEYZVTnSTz+lbj2DagJlRza2+pZVHIBxjTz6Tgr8rwbh3GyKDTKSs64Bq6eM32EBTiqCXn3w7338m4XzY1EUzwzUqpk9KzNFq7Edyl/zudEkM1Zk/qoImhHILtG/jDddTuT/rPnwAB84TOZJwnPuXMrDWqu6I07P8PpgkT89uIFIAISfGZx6YjkEw6tgk4YkZaRvmWk7TGWNinHKH9M3DnpPq4X3zEh+aNbROFX/0kQHnw6xjSTNhuaQM6m3ZNghPzn4Dw6HvA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hwLaTMy1vY8qP6h9+hcCU5LH4m+dOUrZTarK3BrxX1w=;
- b=M2hiLI07lsdQ6DeREGtirNKT4/3FwVaOSCFgtesrJCrAqbImotKbNvnEffZetXhYM05TnHYILBXWPkPnTrbxmaPL1FaECaOs/+bg5YCHXvv+/kXMtUh7fC75uQ1tY/DUmw69f0MwI2OyAMmVgdSNaFfcjkBW3J+FIkZtM8enKiTuz1GIAO3MUM2EWTpKepPRy3qixItiEwGD0UujljqiwcIKBB/33uda1rHDrTGPiDf1CHZZRhrZTfxh/SiBOC1wr29mOFmj7YVZy2c3vZAhHdRCoyXF4jzfcUerLHiLXkc1CDdL6cWVXuJIrH5IpYDk/81Jx7tFp02P41+1ESqTKA==
+ bh=mvr5mzI9zMbvHinWk6X4HXPCOg0zLvukpXSOGKW0FUg=;
+ b=frBAt8e3Y9CReptWl6YW0626v9tI5naQkpsSZmVdhKssjCkJffsiT5r15zBxUM4XeSzJ+jjuJv5UDrN6qAOQwXc51XJ9nmwaH/AWO10lfQenrJZfgBZfjUQElW/TOmOy+d56Yjf0zCc0H9UeigKJhJiDKNsFSXplPYR3/McNS0iXQSe3Nc5F7woC3jTK0cmyJg0yJ0a375povNVljP5zTY39zMk+cqkbfcUlMPUBSSHz9CpUtZA2cGXUS9DzZ0AR+/RYgCu5FQfgtLH8tO/DM02OIgeBNY6hzq+6lG66tYR/dKDXF5Pqpoyi4XZx8b4tvPLy+RirQYv7VjlcVMSLXA==
 From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall
 	<julien@xen.org>, Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Subject: [PATCH v4 2/4] xen/drivers/char/pl011: fix IRQ registration failure
- propagation
-Thread-Topic: [PATCH v4 2/4] xen/drivers/char/pl011: fix IRQ registration
+	Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>, Oleksandr Tyshchenko
+	<Oleksandr_Tyshchenko@epam.com>
+Subject: [PATCH v4 3/4] xen/drivers/char/cadence-uart: fix IRQ registration
  failure propagation
-Thread-Index: AQHc0zvfp867h1iE6UiP0oRgFR3PCw==
-Date: Thu, 23 Apr 2026 16:11:41 +0000
+Thread-Topic: [PATCH v4 3/4] xen/drivers/char/cadence-uart: fix IRQ
+ registration failure propagation
+Thread-Index: AQHc0zvfVnWwKQ/dg0SioeeuT3c8CA==
+Date: Thu, 23 Apr 2026 16:11:42 +0000
 Message-ID:
- <7a3d7e4b73ca1c144ce7687b8494f2a0eb862383.1776960679.git.oleksii_moisieiev@epam.com>
+ <da5af37c01b39495aac11da15325236904c77a5c.1776960679.git.oleksii_moisieiev@epam.com>
 References: <cover.1776960679.git.oleksii_moisieiev@epam.com>
 In-Reply-To: <cover.1776960679.git.oleksii_moisieiev@epam.com>
 Accept-Language: en-US
@@ -97,65 +98,65 @@ authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=epam.com;
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: DU5PR03MB10263:EE_|PA4PR03MB6752:EE_
-x-ms-office365-filtering-correlation-id: 11a4c04b-3f44-4545-e675-08dea15301f1
+x-ms-office365-filtering-correlation-id: 301c4b89-c713-4158-644d-08dea153021b
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
  BCL:0;ARA:13230040|1800799024|366016|376014|18002099003|38070700021|56012099003|22082099003;
 x-microsoft-antispam-message-info:
- 3AMt3qtGqnJsT4Zepe+VBbSAIKYQyfJorTiAkOfCeyEMD/xavRgWF5i3gRipIxHMq/axl6Js7xQrL7jQhGSCdLqen6hJNjYUUw9Kly+LSj8BZ8voOF6SChnay1kmtpSx/pbV4H3mC/fbC+2l8Th9BZJMQRaQ13mnxm7gONX6VTU6BGNEUgr93YT69oWQUlJIylxJDuH4cEC6yYX8MMmh0dGNYKyLEDImOmDVjVY1ZOgpAshcPsozE8sHPy9dE0V4q4jA5OWR0CW0SAOtBvx0CAcHgRm7LyyK6PVwfYuH/KdH/ANTTKfPvwVmoSlkaFnL0wq4dIH7EiiQPC5ZmoT1+TvBpePNnxP1m3S2XPJJOORV15s3lWEhQPIaxwS599rXkT/ZVhm8Stum60RcevABsPAum/8U/+p4ipgM1v6WUbHjh7raoNolIVojyE+ZZ1zV4UxVlpdxWguHmlXJwrnZDbdCOk9IPa0ojnSfuhw+kOJEMZqyLSSXka8a8TdNcjysmUPUKjrNIbnGeF/gD7EVBlWUsPsPLRgYmb3K8KuLgxcjGMs8ge9meQu24YSm73bm/Gjf0PrJlsDM+xq91PlGFN92uOdEIdzs4azDk/yNRTX64YVUnj/gXkr7VmSbiOl/OSoPcOzZ4GfRpsOEH6gBX3o5EOKfx0o7ddTZfy9DNWQAD7xEBZfioZU8GnjO1ZcnrDM+azxejSx9bC1vSJ0PNu1zZL9ddyXvSERyKFpgenU6DjS9RsohU3SvBXc9xsGGtiGfujC0BoPj6JcXCCQuRUiryvQghqm+tusgmdEFmZc=
+ LQgckP5heoKs5Qw65LsHv1hFeOuexpPHetEvmGDCO2I4FefVSw7J9Z6186lXtToldrf5OPTqNYAugtoRGwXDq/ibFHvn28AcmDX3ozol0QwJdV0olwRBfOK6iaDAJ4blJD+/mky6QkqXPGxVpP2N8uL4Ugsqd2JqS6uyIeD1SLBsScfVGMZxb35qrWy8SbNByFPSK4toWpfXl3HxumrTVwilawXanCCUYc5IpYnUOE96v3AqKly5J+v3+iAYVoOrHXq7Qj45oazpRFvLXv+IIQLPeUh2/+omzpdBeyib9Ya43zmK4ZxP8ylLUGBXSdyi6ZyJ7Dj46RgNYvCcbqCm72ndcrtgUV3NRNFz9d5C94pzauhlO5JoINTZnQvyMzbDXvS8HA/PvWhWK4T3P+AoE5LOgSvNsjJ1IXUzFhux/TytIVvT/62dPNP6cFMgLo9SyQLR6T2ez+QlXBJFg9jPCX1/MdxIpUJPhMi67HbD7AX2ALhQF7uHwodTY4uT1SZJZ/bKICye0qncD9NDODvm7xE3imnADFqyy4lggpsv3yjKHBaxr6M1EpAaIpZwUy/CjAn7bCfMwOn7uh9qEwUTxoofvA7szFfnP622a8Xe79jXq9t5LoRbfaCMlmNtV+O66O8q4w87jLTZ+9EagDedJy3FO1GuNLuf3M6eRcyInV89JQW+9mjcwbBh+zVIMRlIdTeC5ySsOVT8PucMjSh+rKMkGi2YP4BOB6r+ZhF6MHCYR5koHtWTmjS1Zh5CEvgDzfuIorI/KzYyXRR9QYhGtUFHFmE6FVCQiCVvxTmKmBI=
 x-forefront-antispam-report:
  CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU5PR03MB10263.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(38070700021)(56012099003)(22082099003);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?ddY3dRJUE/dYBmHlsOmZ0JDfSmMAitK4EEpH/qEeyPm02B//bJIzWd6G/g?=
- =?iso-8859-1?Q?3uu0d7ODr7wUeGO8KgJj9wu1eNDs631rxEgkyio360B9PdIoBnBnVANylx?=
- =?iso-8859-1?Q?MsTx2GwCM/RsYlZRNWUhDebZ9lSZewii6PVaT5xw5IHKKAthHHPRrcApxN?=
- =?iso-8859-1?Q?sHrLv19JKc6zalmcfewqstQARFRHt7ALpl6zBkjSIbZp8uIPiA+0c5IZfZ?=
- =?iso-8859-1?Q?u9T3lysZ96WyR27+qGSownAb4E8aQgC8ZITs7cKwbhqiCtY7xKuIlRU/15?=
- =?iso-8859-1?Q?H2wSuIjeuZXknmmwzkkzl1fuk+daEq9rVULlI9UtLmXSTkCx8rJbFMAYCd?=
- =?iso-8859-1?Q?Ir349MaKHVg6R2WVgr8stSLIDMEJCBFYoN1PeyqM6HXMVa5085Q4S/rDrk?=
- =?iso-8859-1?Q?Mc5X98+6UBTJ+Xy2QvKG8VSYyeMbHIBsqGddIBQ+pNn5BCO5qakTNKhEMJ?=
- =?iso-8859-1?Q?yVy/QxjivO27cnn27PgGHbDELpLAH2O5G23FkVLBLvBH0vw5BotJk5XJoG?=
- =?iso-8859-1?Q?EXB4ZGUiTWo1aCUXvz76zoJAOehLNlYLxE06pNkG00X3ZgPrh80Gl2sFQ9?=
- =?iso-8859-1?Q?IwDKhUOkwDWdjw57In/j+N4igUH3Rug836rucX1wqngen+iKJcNHiUkams?=
- =?iso-8859-1?Q?IHu3DxrwGdGH1OdyrhB5LZDUtNVZJsL2E6zYiWMfARFkK/Ts54eA/9xhpG?=
- =?iso-8859-1?Q?y8BvwedQJQ/vXhR1F0Hp+kvHPd+4DWki0IErXJKdZlNHICKiMcmagnBE5z?=
- =?iso-8859-1?Q?qOLv84yKJm7R3PEnUhgh7pcpMcpcLqWrUU2AiXqmpC9KjWJOYBid1IbNSi?=
- =?iso-8859-1?Q?w2iOnrfLdQAVBSby3So4Be9PAe/GyEJ45UqlxQ7inLqafpkaH9j+c9EaW/?=
- =?iso-8859-1?Q?BnNLoZkxXYlqKalA/gduBZlVMcxzJcr4R9HwNLqO/pnOjnEVH83bKg/69W?=
- =?iso-8859-1?Q?H8Yi0t7u0Px1MZpqCKvO/zSX3c8My+gC4aQ8Dlo320S17LBJVKBPcRxj/7?=
- =?iso-8859-1?Q?AhpFn0eNZG6gapgS8vdfixgKMeayrmtD8wV2rYLkyIohlUY33i1DiXMcpM?=
- =?iso-8859-1?Q?Dx6txytlNttf0lzS4TXbTVpdS+hZXX64S7fj3s8+lWQBdKQq5RST/oIya9?=
- =?iso-8859-1?Q?YTH7VAZR0j/JQ/12sGn6gjPjF1ivZqMBSaAe6s+1G2Bs6KFmwNECLs9qKk?=
- =?iso-8859-1?Q?ICWLO/vzJEu1+5FEo8kQHzJjP6bnooYgExLC43U5m9Fysz3G25UazA8XHr?=
- =?iso-8859-1?Q?SUqg5gj+pOfo6UXCqnzFjIXFWQOqIkR5+xRtS1jv7EpU8eONSHtD/5e5si?=
- =?iso-8859-1?Q?PndvrBgJMNudDqac3K9ZQLevXD9nZ4zmT9ZCzLW6d4MEwbOdMAQy0rQvaC?=
- =?iso-8859-1?Q?bm8n4qlv5/XJaKHg0vn5QX2orVtJk6msdbUenu2Fza2qXlJdUtm4RLn0vx?=
- =?iso-8859-1?Q?A56D+XqUJIuyZOMJHEiVpdgFMulMP2Wk92fI8Q6zbUPkbDr/Jo34x116cP?=
- =?iso-8859-1?Q?ACqf5oPVYXQ9ArV1mMinojvuax1o+vF0RlrS5p+bND49hjA5wiUfWCN3kw?=
- =?iso-8859-1?Q?YYvmNOZuZwtNUfzvUOSSXflLZHsI6+ppe4yacuqjDRAUVWzCA08SLGHvgn?=
- =?iso-8859-1?Q?QvWUncP82peKM/J4HvnBRAjZD6vmSoUhFOG8KXMYvoUp/MMXqyKU5lniH0?=
- =?iso-8859-1?Q?DlPq6n0FNIM+gQmoXYWP8WxJTuFmkJuEGDrUb6DKAyBFe3l5NVIrICEvsm?=
- =?iso-8859-1?Q?j+sX2u6BjUEF0UNaEIUBOakdf4bI4zA3WmLrO3MWQ63FPB0XK0dvrD7TMS?=
- =?iso-8859-1?Q?lbVOTQ9vrh6ccT9BMDXiHMlxrSfeF3k=3D?=
+ =?iso-8859-1?Q?jvKcKlgrBDhh6UEv87etZNSRXnk1JIb7/qPPBw6RUNw+EaZMOycCyA8Kdm?=
+ =?iso-8859-1?Q?bXFNEWXUKxWBM1viFi4mpyVmlW3CBjhh96i6IqB2Nm1hk97TlNI5T+QuL1?=
+ =?iso-8859-1?Q?5KBAR3jeFvZt7nDiit3JZpnsLOiCyRsNTZCGcO49AokGIa+yrKVh7Y2We7?=
+ =?iso-8859-1?Q?AghLRUCT+2NtXqYjoXRJnM8g49blCTKj4GFZAhTzvtWfVkC8eIUdDEYzpP?=
+ =?iso-8859-1?Q?ab5KJR/YyRcRIuuLa28/ufrSGZRKOyOACboi8I9zGxY2dGcaoQTzqDpREH?=
+ =?iso-8859-1?Q?H2brTfA6ZAmPXmcy2I/AS/Cy6kqCKq0o1zWI1ZmJF6L9nIitU9R29Cqrvi?=
+ =?iso-8859-1?Q?DDxBkXz3B8ZyrUtHyJXOzeSGbt45Z4aRhQZmq98SOk07OiVgwXTMuLcIfd?=
+ =?iso-8859-1?Q?a4z3Rzx2VMNxWTukWH5mtAO111BhWt6xrn4zbjveolEIHmSAJL+/XS0Pkr?=
+ =?iso-8859-1?Q?PftojvC+4ocyvcZR27cUb7Gxf5pY2EfjmedxC4k5BCGpFef84d2JcuqCkA?=
+ =?iso-8859-1?Q?D/BhbN20xIX5N8Fk7o1MlUAwFcS6gsJpOqsBT+U0vUtdAkEQC1BvwOQnDO?=
+ =?iso-8859-1?Q?IerYn8HAKyEZVT4GVyIWxqAQgp/cX9ul7Hd2/pZ0NPHzJBRIM2Vy6u/nfq?=
+ =?iso-8859-1?Q?zGQcuYVUAx76V1nZJgGZPOuK/vPLoIgAVcxLqVWD3xBMDZGX72ANzHHPbM?=
+ =?iso-8859-1?Q?wNyMgcY/Pb9GubodAxqssZoZMWal6yuOSLPMVLHhLRq2oczX5WfzKxarYa?=
+ =?iso-8859-1?Q?Yu5115eVzgT6J8wXJ3Qp4+jF8B38rGdnoswNHZzxIon9SFitvk7YLqpGjZ?=
+ =?iso-8859-1?Q?UrQAEIB50n7pFrwRXRetXz2/jd3FFZPBbwYIgIYojz7wZDemOk9WTAZUt9?=
+ =?iso-8859-1?Q?dCVDvaS52ubOuuomkCtAd2CEGF8fYyOlBCmGC2fIyJGO/XSrhKaAYOA5yP?=
+ =?iso-8859-1?Q?nQw/gjaDXLxosu2DeMkShaEMCXXngfaXakKgUbIh5UTazn8jb3cVmwriT3?=
+ =?iso-8859-1?Q?CA6juof1yO9DATvYWXj2C1umeeV+R8iSFtabC5ow1DFffFvRB9l/oryyAS?=
+ =?iso-8859-1?Q?sEbGHNjelsZWdzw131bwk9XfLYrDbHBNqxrh5dD2BAy3JOvodisvHHjgRR?=
+ =?iso-8859-1?Q?/1aM5xhpjdXsak4gpbRye4WNIdT1d3SyNUf66OMbjoUFe8RCB7BTCjlqsW?=
+ =?iso-8859-1?Q?KoG+j9Bk7aauEoCXuLv9AnxZd1i9eyde6AETiZXWJGTQVJrkA1rXPwVXFs?=
+ =?iso-8859-1?Q?Z2r8d5+teCPNaFizdzJQTg8kp/ws8loLBbvzK0BBFUX1kfOrnnFMIeWM94?=
+ =?iso-8859-1?Q?Lmr5ERu/CpFqYo6YXGEwUiLTQ6YExKL40wnb9/Z32KF3zw4MPt9prgt+Hr?=
+ =?iso-8859-1?Q?E92XtKunJk4yG9rq5myMHi6MlDhKIz29jjOjHkiPl9tYh3oXoL43cVtKha?=
+ =?iso-8859-1?Q?p6Ak5nSTz2yYZlhSOoPV+WK4qImCdn6nlSpVhoJQHjzlHGj36CcUfhUosn?=
+ =?iso-8859-1?Q?F8NRB+7zw1eHQztlJlKNIqB0wwfMAn1V9m6Sidx851FeWjpLBrfF1Fsoza?=
+ =?iso-8859-1?Q?dO72bwoYI46tQlXLH9+xm7iKaOGgfh/LI311gDfbnATyjFRDHZ1/EaHPmR?=
+ =?iso-8859-1?Q?GBzciLJF+mz6TOsF7AeGw3u7DKZ7xb3wYp7lrlTzCgVCYXMVhGyi45yg+F?=
+ =?iso-8859-1?Q?mIBvoq5s4qlTfyBCUEqCQ2MbF/Z8TeoMGj+wQ+qcX4+au7XlSM8MXrdzt1?=
+ =?iso-8859-1?Q?FxqC1LVyJjZDNHoXKusr8bcZepMoAnOkWsYmR3OC9GxIh5fMZj6Fa8+Kp4?=
+ =?iso-8859-1?Q?QrTZoiWoztncMyCdYjRAiJQ2O7eRAM8=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DU5PR03MB10263.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11a4c04b-3f44-4545-e675-08dea15301f1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Apr 2026 16:11:41.9102
+X-MS-Exchange-CrossTenant-Network-Message-Id: 301c4b89-c713-4158-644d-08dea153021b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Apr 2026 16:11:42.2002
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nCHoJKpAKYqVftbJFQxwpMTkEuXvJhev6mUPG/T3PGTR2AWmuw0EJ/RnR/0+Q2MRR1rA+KBe09hvEGluLcpIo9fCWb+AkVx6B9DKOpc3hMQ=
+X-MS-Exchange-CrossTenant-userprincipalname: PmwOBkVQ0B4+RR4dLsLU9a71VTZJNIakFLnZvuJUm6jjeiMqxmrBmbQzMDpdwXLAxdopvH7KJlUJOSS5bcs6uQtlm8SonX8a9hdIqp/yCPg=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB6752
-X-purgate-ID: tlsNG-42698a/1776960705-05165F3B-ED63BCAD/0/0
+X-purgate-ID: tlsNG-33051d/1776960718-2B161938-A244AA8A/0/0
 X-purgate-type: clean
-X-purgate-size: 2815
+X-purgate-size: 2817
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	MID_CONTAINS_FROM(1.00)[];
@@ -165,13 +166,13 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email,epam.com:dkim,epam.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,epam.com:dkim,epam.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[Oleksii_Moisieiev@epam.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bertrand.marquis@arm.com,m:julien@xen.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,m:Oleksii_Moisieiev@epam.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bertrand.marquis@arm.com,m:julien@xen.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:Volodymyr_Babchuk@epam.com,m:Oleksii_Moisieiev@epam.com,m:Oleksandr_Tyshchenko@epam.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[epam.com:+];
@@ -183,88 +184,90 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: E5843454B7F
+X-Rspamd-Queue-Id: 1134B454BA2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-In pl011_init_postirq(), two code paths could reach the
-interrupt-unmask write to IMSC without a handler being registered:
+In cuart_init_postirq(), two code paths could reach the
+interrupt-enable write to IER without a handler being registered:
 
 - When no valid IRQ number was provided (uart->irq <=3D 0), the original
   positive-condition guard (if uart->irq > 0) skipped the irqaction
-  setup but still fell through to the IMSC write, unmasking
-  RTI|OEI|BEI|PEI|FEI|TXI|RXI with no handler installed.
+  setup but still fell through to the IER write, enabling the receive
+  data interrupt with no handler installed.
 
 - When setup_irq() returned an error, only an error message was
-  printed and execution continued to the IMSC write, arming all
-  hardware interrupt lines with no handler to service them. On
-  platforms where the GIC receives these asserted lines, the result
-  is either repeated spurious-interrupt warnings or an unhandled
+  printed and execution continued to the IER write, arming the
+  receive hardware interrupt line with no handler to service it. On
+  platforms where the GIC receives this asserted line, the result is
+  either repeated spurious-interrupt warnings or an unhandled
   interrupt fault.
 
-Restructure pl011_init_postirq() to use early returns: return
-immediately when no valid IRQ is provided, and return after logging
-the error when setup_irq() fails. The interrupt-enable write to IMSC
-is only reached when IRQ registration succeeds.
+Restructure cuart_init_postirq() to use early returns in both error
+paths.
 
 Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 ---
 
 Changes in v4:
-- fix uart->irq <=3D 0 to uart->irq =3D=3D 0 since it's unsigned
-- update %d to %u in printk since irq is unsigned
-- add r-b
+- fix %d to %u since irq is unsigned in cadence uart
+- add R-b
 
 Changes in v3:
-- clear pending error interrupts before setup_irq for pl011
+- clear pending error interrupts before setup_irq call for cadence uart
+- change uart->irq <=3D 0 to uart->irq =3D=3D 0 since irq is unsigned
 
- xen/drivers/char/pl011.c | 22 ++++++++++++++--------
+ xen/drivers/char/cadence-uart.c | 22 ++++++++++++++--------
  1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/xen/drivers/char/pl011.c b/xen/drivers/char/pl011.c
-index 5f9913367d..a336241033 100644
---- a/xen/drivers/char/pl011.c
-+++ b/xen/drivers/char/pl011.c
-@@ -150,18 +150,24 @@ static void __init pl011_init_postirq(struct serial_p=
-ort *port)
-     struct pl011 *uart =3D port->uart;
+diff --git a/xen/drivers/char/cadence-uart.c b/xen/drivers/char/cadence-uar=
+t.c
+index b2f379833f..0f1c3dd461 100644
+--- a/xen/drivers/char/cadence-uart.c
++++ b/xen/drivers/char/cadence-uart.c
+@@ -72,19 +72,25 @@ static void __init cuart_init_postirq(struct serial_por=
+t *port)
+     struct cuart *uart =3D port->uart;
      int rc;
 =20
 -    if ( uart->irq > 0 )
 -    {
--        uart->irqaction.handler =3D pl011_interrupt;
--        uart->irqaction.name    =3D "pl011";
+-        uart->irqaction.handler =3D cuart_interrupt;
+-        uart->irqaction.name    =3D "cadence-uart";
 -        uart->irqaction.dev_id  =3D port;
 -        if ( (rc =3D setup_irq(uart->irq, 0, &uart->irqaction)) !=3D 0 )
--            printk("ERROR: Failed to allocate pl011 IRQ %d\n", uart->irq);
+-            printk("ERROR: Failed to allocate cadence-uart IRQ %d\n", uart=
+->irq);
 -    }
 +    /* Don't unmask interrupts if no valid irq was provided */
 +    if ( uart->irq =3D=3D 0 )
 +        return;
 +
-+    uart->irqaction.handler =3D pl011_interrupt;
-+    uart->irqaction.name    =3D "pl011";
++    uart->irqaction.handler =3D cuart_interrupt;
++    uart->irqaction.name    =3D "cadence-uart";
 +    uart->irqaction.dev_id  =3D port;
 =20
      /* Clear pending error interrupts */
-     pl011_write(uart, ICR, OEI|BEI|PEI|FEI);
+     cuart_write(uart, R_UART_RTRIG, 1);
+     cuart_write(uart, R_UART_CISR, ~0);
 =20
 +    if ( (rc =3D setup_irq(uart->irq, 0, &uart->irqaction)) !=3D 0 )
 +    {
-+        printk("ERROR: Failed to allocate pl011 IRQ %u\n", uart->irq);
++        printk("ERROR: Failed to allocate cadence-uart IRQ %u\n", uart->ir=
+q);
 +        /* Do not unmask interrupts if irq handler wasn't set */
 +        return;
 +    }
 +
      /* Unmask interrupts */
-     pl011_write(uart, IMSC, RTI|OEI|BEI|PEI|FEI|TXI|RXI);
- }
+     cuart_write(uart, R_UART_IDR, ~0);
+     cuart_write(uart, R_UART_IER, UART_SR_INTR_RTRIG);
 --=20
 2.43.0
 
