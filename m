@@ -2,54 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4CknC49c6mksygIAu9opvQ
+	id iCd3OLdt6mlBzQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 19:53:19 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 21:06:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DB31455C7B
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 19:53:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1292523.1570950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 403B745663D
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 21:06:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1292580.1570959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFyDs-0002ad-Nz; Thu, 23 Apr 2026 17:52:20 +0000
+	id 1wFzMZ-0005pN-Qo; Thu, 23 Apr 2026 19:05:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1292523.1570950; Thu, 23 Apr 2026 17:52:20 +0000
+Received: by outflank-mailman (output) from mailman id 1292580.1570959; Thu, 23 Apr 2026 19:05:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFyDs-0002YE-LJ; Thu, 23 Apr 2026 17:52:20 +0000
-Received: by outflank-mailman (input) for mailman id 1292523;
- Thu, 23 Apr 2026 17:52:18 +0000
+	id 1wFzMZ-0005mc-NK; Thu, 23 Apr 2026 19:05:23 +0000
+Received: by outflank-mailman (input) for mailman id 1292580;
+ Thu, 23 Apr 2026 19:05:21 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19dbb7885c7000f373@swg.vates.tech>)
- id 1wFyDq-0002Y8-1J
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 17:52:18 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <roger.pau@citrix.com>) id 1wFzMX-0005mV-8b
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 19:05:21 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFyDn-0026Y1-SU
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 19:52:17 +0200
-Received: from [10.42.69.4] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19dbb7885c7000f373@swg.vates.tech>)
- id 69ea5c1f-5cb7-0a2a0a5109dd-0a2a4504c55c-36
- for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 19:52:16 +0200
-Received: from [185.255.28.34] (helo=prod-mta-13.swg-srv.net)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19dbb7885c7000f373@swg.vates.tech>)
- id 69ea5c4f-1dec-0a2a45040019-b9ff1c22b0b3-3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 19:52:16 +0200
-Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
- (Authenticated sender:
- 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19dbb7885c7000f373.003 for <xen-devel@lists.xenproject.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Thu, 23 Apr 2026 17:52:11 +0000
-Received: from [192.168.1.200] (lfbn-mon-1-1130-120.w90-48.abo.wanadoo.fr
- [90.48.233.120]) (Authenticated sender: thierry.escande)
- by mail2.vates.fr (Postfix) with ESMTPSA id 5D9BC86AED;
- Thu, 23 Apr 2026 19:52:10 +0200 (CEST)
+ id 1wFzMW-002tny-FV
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 21:05:20 +0200
+Received: from [10.42.69.6] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 69ea6d53-5cb7-0a2a0a5109dd-0a2a4506d3c8-34
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 21:05:20 +0200
+Received: from [40.107.201.66]
+ (helo=CH4PR04CU002.outbound.protection.outlook.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 69ea6d6e-7371-0a2a45060019-286bc942a7d3-3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 21:05:20 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by CH4PR03MB7724.namprd03.prod.outlook.com (2603:10b6:610:244::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.21; Thu, 23 Apr
+ 2026 19:05:16 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9846.019; Thu, 23 Apr 2026
+ 19:05:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,211 +58,201 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=vates.tech header.i="@vates.tech" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:In-Reply-To:References:Feedback-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=svyh7iABzxNWCIFS+Y8B4puT50eckbDbd1zj5xN4dF4=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=LwB4qYqTBBllwaefrBVZqywImaNvR1duENNhbyE8McNl1gsBG3CUCU061ClChwBf3d0IqQcAh
- u4AWR6waK2fN5ACx/ArOFfxKqsm+WP5TCrdMHqA3Rdlac2DFBrf8nTKdvlyCvZSQ0KlFf34GZCF
- 5mOd1E9Thr3VotCH/VkHXnprHZ/0qPDzgcf10ZoIKokumiIzjtv5TTqFWNpdoz5t2vxdsSbCbcK
- +kUAHvLlDfuCkvSblLltUSSGNa/odRBrXjZuHITT8LPwvN+MGOAvyj3z0Jtn4PEf+mSg4aEeOkp
- Cu+Kukrga1YYDStxk/Q0Uo5Wyv+KHG5nvPiPDhLFjvPA==
-X-Zone-Loop: 32f2c00c9b7d3cf44e56917fcd66f2df1a35843bb680
-x-campaign-type: default
-x-transaction-id: bf7e314c-f043-4937-a57c-e22cac454199
-x-swg-uid: 01-2e9171f1-d310-4d4e-abe9-06a1025971dc
-X-Mailer: Sweego
-Message-ID:
- <1776966731.8631fc262581453bbf619ec5b2062170.19dbb7885c7000f373@vates.tech>
-x-swg-bid: 1776966731.8631fc262581453bbf619ec5b2062170.19dbb7885c7000f373
-Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
-x-campaign-id: default
-x-client-id: 8631fc262581453bbf619ec5b2062170
-X-Originating-IP: [37.26.189.201]
-Date: Thu, 23 Apr 2026 19:52:09 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D/lqSSAD1xhAl+wcPEE2LSIyfroVauP8Bny0zSEvtHkzd/Lm0MbzC29lnv0qw/oZDVTFssrXWZ7WOhN2wUgr0RGgqk2zUx8doAmY3GZe5nAeuy5RJdHbO+mqvB0wBbBtXUFuyNw0SzPhBM/tbTVqjc0rSStox/XFiFfOndPKKcw/z2tU21HwqYjx4w5LAjg1V4dj/IaeqRz6WqevKd4u+CC4PT+F+wK9FVxsSopTM8hTnhVmPVSxLTALuVD4DJTot8QEreDrG8iQhCfEKonwpTzQtoEBp5eiU29AzVkHWg/YW3S0UC6oh5M+DDoARBUZRv3xz5ldGnGkDkOny8iOLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TT4SKwuDeacSLN/BvcsFT0MhedM6/CopzU9IpsvlNhU=;
+ b=XUjUCpT4ct2aRuTFZU7xb3jS7H8wsufv9Co5mixYYzyObF8XZQfWMpLIAhuMg6iJpVWlVnApowUJR0KYVgrw7KXjDQ2i/Z1fFzOcUnzoghr9QxMx3Q2ezxdJPjobWSkB5GaRl3s6cULjQoCfcyp4NUzgLj3UKozD6WjpiYnWEgHRo6QbP0hif40eZOKBIZs3VxN5JomMvZujXXPPkTdW1krL9nI/B27w9IlsJxsTJ0ikWq0nkt/PG3VtW+qHuae8P7JuXmaDOOFFL/45q4xZZ/7UvMvzW2ClqNFL3YYhRFqNWFGIaefDQnWDEY+/sJ2dlrOFW7InByq3tD127e7zPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TT4SKwuDeacSLN/BvcsFT0MhedM6/CopzU9IpsvlNhU=;
+ b=kpb4gUKqF6XOUlw6PKM7geWVa+HLPcOhsEJtim9jWbH12hHfaTpFRR34I3WKZmW3WXXpLfCSiTQ+EK0/GRUT0S22O6zF2UHv3BHo06WxGkje1SgJrAJZJuAcCxtG5S1Ek6ppKSoPuAhtB6livF2pFwiIakvgqm9kfa9xynZ82v0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] automation/gitlab: introduce macOS build jobs
+Date: Thu, 23 Apr 2026 21:04:59 +0200
+Message-ID: <20260423190459.93299-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.53.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MR1P264CA0137.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:51::21) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v4 0/6] xl: Allow PCI devices to be passthrough'd via
- Qemu command line
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, =?UTF-8?Q?Daniel_P_=2E_Berrang=C3=A9?=
- <berrange@redhat.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-References: <1776955586.8631fc262581453bbf619ec5b2062170.19dbace7684000f373@vates.tech>
- <317cac0b-854f-433b-8242-d498cdba6d63@gmail.com>
-Content-Language: en-US
-From: Thierry Escande <thierry.escande@vates.tech>
-In-Reply-To: <317cac0b-854f-433b-8242-d498cdba6d63@gmail.com>
-X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.27a4.39131a8643359abe.19dbb788311.650115a9ec2631f4=-"
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1776966730513
-X-purgate-ID: tlsNG-ebf023/1776966736-4B3673FF-38DAFA4B/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CH4PR03MB7724:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae05a6a8-8971-4ce7-41d2-08dea16b40c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	nhWViy3buhAySxvO/3TYrS/36Bv5ViWmZXCugIMw54QIwHkSk1mZTtnP0uGuNS1+3tIn/WY9Tfe0UIoWHYumLpGx5OkRTNa/RY/nW+pkqtGg6y+Sgkxiop8gYvDp/zH06QZLX5vev0kKvW36SndVfIEMa0IZFiiCmxTIGD5Gl/enZnOPFoGALOyiSX7+f/e4YU5m0m5z49NR6JcB+bnN2wrPBkHlBJyIR7QEnPTNdh9kcLVB96Z4lYD1Hd9TPX7f4ijhqGWZWP5bsiT+c/TvxgDSv1edgt9N5Gz+6SRkAZxHCBnP/m5iBXi8OxoyClz3MRMaHDXs7FkgJUXVf/ichO/70okl4vZe9SAfWbB6Fq0QMtH2dMuAlT0kLM6dK0hKGqS/ubnllKtEz5cvG8ji4lDuveUbMA/2Ad6Cdca4N+iHU3Nloi69FEOzaA3qjJCbhfTuCb8bRn4EJevo8hbjC/QGp08sLppQBKTBlEZ8VXChp14tZkMElH2U1EAuQ2W8IywI4+2AJDULXGgM5UcQwtFI1fbacGQEN7EA8mYoU2woo51gcEKm0hmAAP33Hb8AVgcOVqt7ieA5sT1GTPGpOdcr3/oXEVwsdjBFR+wuOmrP8dSQbXDCwi+Uzzp8jiawsF7l2gpvzJ0vjMH9GNp0oj+MOPnt1xHX9LqRODETtE9zEQcHqgB01XVbDiwkLJ7/JuilSc8zo8rbvksSwuJ3Bw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MmFDUzZjdkx3aEsyODhyVnk4ZkRtalR4L1poYjZRYXJSQVE3SjZvZHpqZnZB?=
+ =?utf-8?B?cUQ5R3l0bGVuTTIzNkFxTjNxV0pDVUN5OVNVajhoZUFlRitrSjA4TDVPYWwz?=
+ =?utf-8?B?b0FmcWQzTVA3N3JtcERQSGFXVkp2d3pwL3czb3p1Sk1CT2wzdEdQWjJ0VHJ6?=
+ =?utf-8?B?ZGkwZ0ptNStxQVZVVUVxN1ZxNHdRTjVKSW5IR280YjdzWkNYZVlQNUpTVDBL?=
+ =?utf-8?B?NGQxZTYxK3hIRGMrQmtFcE1JVmdENUVDRVBtK1AzWC83aGJib3ovWmN6V3Bx?=
+ =?utf-8?B?QzdrczFQWFBuVGJJbFRiSTlPU1U1ZXRzTFJEVkRjNHQyMDNhWTQydTFJMk9k?=
+ =?utf-8?B?amdOY2xUbHVHTndvVGFHUk02dWhod3NRMkhuNGVUM3BZMGN2cDZia0pHUlJv?=
+ =?utf-8?B?bWFaRDNRNFlvajRkbExxMGR2cHNkZDE2b3lUaG02U0hlSjkrcERQR1I3U3pS?=
+ =?utf-8?B?R052ckRQRytJRG8vZHc3c0hUSkkwanlZYTdqMVNOcU9BTy9MSGhQWHVycEc0?=
+ =?utf-8?B?MG10VDNyTStGMUc2M21YdUJSZ3VQMjRVV2JjVmF0N0NLdi9XQkFXaFdhNHRh?=
+ =?utf-8?B?L2E4YU5VVWtJejlHNCtyUFZFRDFTa0xOQmJmWUJaTnY5eENTV0ZQMk83anly?=
+ =?utf-8?B?Ykc0akhrR3NRYTNYUEx5STFXRXpEWFVEcytwcFJablo3QnJxS0hRalVlSkly?=
+ =?utf-8?B?Rm5HazI0WlBrMElGekM3SGpQWWVvUitnUVQvbWJNc2JOdWVNWU9LbHJ2U2ta?=
+ =?utf-8?B?ZGVoUStvL0dRR3VHQnNnVnZ5TGsrV0gvTXBzVHhNNGFrendacThNN1JsRmo0?=
+ =?utf-8?B?bFNEWTU3WW9YNEMwY01YWFdXZnhxLytoNUEwRjhJTlQ3SlVSNzBweTdXY1c1?=
+ =?utf-8?B?eDFJdmU4ZTRFRlB2czgzYkxTMEdCUVd6RUtlRDBvVnFSQjhyUm5nRHFPa0Nm?=
+ =?utf-8?B?cWIzWlo4L2kxTmVHMkJ4d0lQZnlCQzQydFhJL3lxbmpCZlVidS9LVU5ZYm1O?=
+ =?utf-8?B?Y1ZHNUU5cllOdDFJTloyVWlYUGorNXdhVXFPU0MycWJ1ZDRDaDlKZFh1MC9t?=
+ =?utf-8?B?R0tNU3RKaGxmYkR2Z0t1cnZETk1iaW1BRnZmTlJaa2hvNzU5ZC8yVEtHWnJk?=
+ =?utf-8?B?QXl0aTR6Mk9ZdWovYkUyQ0xDekRjdjJEZDNaTlRjaDhXUEpjZWIyeVBZKy9j?=
+ =?utf-8?B?Z2g3bTl0a21qcTZkemVvSTgrdnN0QnFjYnZicEg3aUNxWEJYcXo5K29sdVpP?=
+ =?utf-8?B?RWpXVmNNRnI3S1c0MjNwdEN6S2FCVDhGYTBQd3RZMkN3MHlFUVZpekFJU2lj?=
+ =?utf-8?B?TU9PNXBhOC9IdjRUck1RRmVPcVJxTDFNaFQ2ZTc4cU0yMmZwUHBHRE8vOTRo?=
+ =?utf-8?B?UFBram0vWThhVE1HcU5rZ2dNV2hjbzJhdG00OTlFNmU2bERxeVNSb0k0QWhX?=
+ =?utf-8?B?QzJBdkNkVyt5QlNDRm13Nk5USkRaRGV3elNVQWlaZVFaVEpMRm5iV2NZbkdj?=
+ =?utf-8?B?STRKdGtTTCs0TWxUVCtNVzNQWG1abGE1SDRpeUI0MXhjaUZjVVlUZXZGUUVp?=
+ =?utf-8?B?WTRwVDc4Q2dTRWFZcXVYZytpWGo1RXBwMlNVb0xlTk5pYkNKcFozTUtBYU1L?=
+ =?utf-8?B?REhsU3NBNkhzd09ZUkNETW9RM3oxeG03NE1ZT1BJMm4wa1BOVGNld293dWhl?=
+ =?utf-8?B?dVhYQ29uMEdQdU1FM2FIdGcyRmJCdnhtanlBbEVxZjNEZS9YWUx0OXpDVjBt?=
+ =?utf-8?B?aDhid0pMZFkzWjBoVmJyZW4yMjZ5WjRyeVZWd20vN0l2TDNrbGo4UklGN1Qv?=
+ =?utf-8?B?bS9UWGt1eHlNMGJZcjdkN2FWYmxCbDZLdXAyRk5VNU5KOVdWQzlLbmN3Uks5?=
+ =?utf-8?B?aFZ6bzJOZG5OaTJvRnRwbkVScmxkZ1N3dmd0UDMyWHdPQm1lNTR2RkRDYVpT?=
+ =?utf-8?B?VnNBZGZFNWpuK3ZkRUoyRlVuYkNqOTk4d1pRT1hZVlhtOGIzNEVxbEpucVcx?=
+ =?utf-8?B?Ny90TnkzVWpjVjNYWkNSQmJQOWdMRFNhd3VXREFtckJCaFRHL3lTaWVFODha?=
+ =?utf-8?B?MlJTTWMzZXE2d0NUeXUwS0FHT2ZEckR5c1Z6dUpzM3NRQW5hcFZwcTd5UmU0?=
+ =?utf-8?B?c0lXOCtLVWxzZHBMcUc2YVV1bjZMUk44czhobVNnMEpXL09hL0tGY1UwaFB4?=
+ =?utf-8?B?K2dwd3JPRktPaU1pSDUxVStaVkFYRjRLeFh6RWJqbzBCSXFSK3pkZlVUc3Nn?=
+ =?utf-8?B?WTZTWDBDWDRNUnE2QjBWaG5SMEhHd2FtaXpWSVJDMDljN3FPOTRyQUJNQ3JK?=
+ =?utf-8?B?MlVKN3FrRGpsdDAveU8wQXhheXlVeHJ6RHFxV01vdnhPT0M5eDROdz09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae05a6a8-8971-4ce7-41d2-08dea16b40c9
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Apr 2026 19:05:15.6467
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CHK72Xi6WxXDbx+Cx+Lh/96GvOPe3j7muERVgpriPfEv1b/f4NjnI75vKQuMvuujypPnAOU2tJExPVNjo9jvDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR03MB7724
+X-purgate-ID: tlsNG-16d1c6/1776971120-51D6AD75-B9379BC7/0/0
 X-purgate-type: clean
-X-purgate-size: 4499
-X-Spamd-Result: default: False [2.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	URI_COUNT_ODD(1.00)[3];
-	MIME_MA_MISSING_HTML(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+X-purgate-size: 1962
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,m:berrange@redhat.com,m:marmarek@invisiblethingslab.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+,1:+];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:mid,vates.tech:email,vates.tech:dkim,vates.tech:url,lists.xenproject.org:helo,lists.xenproject.org:rdns,changelog.md:url];
-	RCPT_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	HAS_XOIP(0.00)[];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bertrand.marquis@arm.com,m:roger.pau@citrix.com,m:cardoe@cardoe.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[thierry.escande@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FORGED_MUA_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DKIM_TRACE(0.00)[vates.tech:+];
-	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 4DB31455C7B
+X-Rspamd-Queue-Id: 403B745663D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
----=Part.27a4.39131a8643359abe.19dbb788311.650115a9ec2631f4=-
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+With the imminent decommission of CirrusCI we will lose the limited macOS
+build testing done there.  Introduce two Gitlab macOS build jobs that
+reproduce the ones present on CirrusCI.
 
+According to the "Community programs" Gitlab documentation [0] we get
+50,000 compute minutes per month.  The arm64 job takes ~1m 15s, and the
+x86_64 one ~2m.  I think it's likely enough given the amount of minutes we
+have available.  We might need to reconsider if we add more tasks that
+consume compute minutes.
 
+[0] https://docs.gitlab.com/subscriptions/community_programs/#gitlab-for-open-source
 
-On 4/23/26 17:20, Oleksii Kurochko wrote:
->=20
-> On 4/23/26 4:46 PM, Thierry Escande wrote:
->> This series adds new 'hotplug' option for PCI device passthrough=2E
->>
->> The current mechanism for device passthrough uses QMP device_add comman=
-d
->> to hot-plug PCI devices to the guest Qemu instance=2E This is an issue =
-for
->> guests running on Q35 chipset (preliminary support posted at [1])
->> since the
->> Q35 PCI root bus does not support hotplug=2E Devices could be hotplugge=
-d to
->> a secondary PCI bus but Xen only support 1 PCI bus for now=2E
->>
->> The 'hotplug' option allows to control how devices are attached to the
->> guest, either by using the legacy QMP mechanism (this is the default)
->> or by
->> passing them directly to the Qemu command line using xen-pci-passthroug=
-h
->> device=2E
->>
->> Example usage in cfg file:
->> =C2=A0 pci =3D [ "00:03=2E0,seize=3D1,hotplug=3D0" ]
->>
->> Since Qemu -device option accepts parameters in json format, this
->> patchset adds a new internal function
->> libxl__device_pci_get_qapi_json() that
->> generates the device json object used for both QMP hotplug and command
->> line
->> passing=2E
->>
->> Also, to handle the assignable PCI device list, the function
->> libxl_pci_assignable() is renamed as libxl_device_pci_assignable() and =
-is
->> made available from libxl=2Eh for access in libxl_dm=2Ec=2E 2 other
->> functions are
->> also exported internally: libxl__pciback_dev_is_assigned() and
->> libxl__device_pci_assignable_add()=2E
->>
->> This has been successfully tested on Xen 4=2E22-dev and Qemu 10=2E0 run=
-ning
->> Debian VMs in both Bios and UEFI mode with a passthrough'd nvme disk=2E
->> Disabling the hotplug mechanism might be made mandatory for Q35 machine=
-s
->> later, once Q35 support is merged upstream=2E
->>
->> [1] https://lore=2Ekernel=2Eorg/xen-devel/20260313163455=2E790692-1-
->> thierry=2Eescande@vates=2Etech/
->>
->> Changes in v2:
->> =C2=A0 - Add support for YAJL json parser
->>
->> Changes in v3:
->> =C2=A0 - Move code block of device command line parameters creation
->> =C2=A0 - Better handling of pci device assignation
->>
->> Changes in v4:
->> =C2=A0 - Split the refactoring parts of the 2nd patch
->> =C2=A0 - Extend libxl__json_object_to_json() and use it to generate the
->> qapi json
->> =C2=A0=C2=A0=C2=A0 string
->>
->> Thierry Escande (6):
->> =C2=A0=C2=A0 xl: Add an hotplug option for PCI device passthrough
->> =C2=A0=C2=A0 libxl: Refactor some PCI device handling functions
->> =C2=A0=C2=A0 libxl: Add libxl__device_pci_get_qapi_json() internal API
->> =C2=A0=C2=A0 libxl: Extend libxl__json_object_to_json() prototype
->> =C2=A0=C2=A0 libxl: Allow PCI device passthrough using -device Qemu com=
-mand line
->> =C2=A0=C2=A0 docs: provide description for pci hotplug option
->>
->> =C2=A0 docs/man/xl-pci-configuration=2E5=2Epod | 17 +++++++++
->> =C2=A0 docs/man/xl=2Ecfg=2E5=2Epod=2Ein=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 +++
->> =C2=A0 tools/include/libxl=2Eh=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
->> =C2=A0 tools/libs/light/libxl_dm=2Ec=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 33 +++++++++++++++++
->> =C2=A0 tools/libs/light/libxl_internal=2Eh=C2=A0=C2=A0 | 12 +++++-
->> =C2=A0 tools/libs/light/libxl_json=2Ec=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 | 11 +++++-
->> =C2=A0 tools/libs/light/libxl_pci=2Ec=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 | 57 ++++++++++++++++++++---------
->> =C2=A0 tools/libs/light/libxl_types=2Eidl=C2=A0=C2=A0=C2=A0 |=C2=A0 1 +
->> =C2=A0 tools/libs/util/libxlu_pci=2Ec=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 2 +
->> =C2=A0 tools/xl/xl_parse=2Ec=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 +++
->> =C2=A0 10 files changed, 123 insertions(+), 22 deletions(-)
->>
->=20
-> I think we also want to add an item to CHANGELOG=2Emd that it is possibl=
-e
-> to passthrough PCI device via QEMU command line=2E
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Example jobs at:
 
-Sure, will do=2E
+https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/14064832403
+https://gitlab.com/xen-project/hardware/xen-staging/-/jobs/14064832402
+---
+ automation/gitlab-ci/build.yaml | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-Thanks,
-Thierry
-
-> Thanks=2E
->=20
-> ~ Oleksii
-
-
-
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index eff96beaa5c3..463ed2f96d86 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -815,3 +815,33 @@ debian-13-riscv64-gcc-randconfig:
+     KBUILD_DEFCONFIG: tiny64_defconfig
+     RANDCONFIG: y
+     <<: *riscv-fixed-randconfig
++
++# macOS build jobs
++.macos-26:
++  <<: *build
++  tags:
++    - saas-macos-medium-m1
++  image: macos-26-xcode-26
++  variables:
++    HOMEBREW_NO_AUTO_UPDATE: 1
++    HOSTCC: clang
++    HYPERVISOR_ONLY: y
++    <<: *gcc
++  script:
++    - brew install ${CROSS_COMPILE}gcc ${CROSS_COMPILE}binutils
++    - alias nproc="sysctl -n hw.ncpu"
++    - ./automation/scripts/build 2>&1 | tee build.log
++
++macos-26-x86_64:
++  extends:
++    - .macos-26
++  variables:
++    XEN_TARGET_ARCH: x86_64
++    CROSS_COMPILE: x86_64-elf-
++
++macos-26-arm64:
++  extends:
++    - .macos-26
++  variables:
++    XEN_TARGET_ARCH: arm64
++    CROSS_COMPILE: aarch64-elf-
 -- 
-Thierry Escande | Vates XCP-ng Developer
+2.53.0
 
-XCP-ng & Xen Orchestra - Vat=
-es solutions
-
-web: https://vates=2Etech
----=Part.27a4.39131a8643359abe.19dbb788311.650115a9ec2631f4=---
 
