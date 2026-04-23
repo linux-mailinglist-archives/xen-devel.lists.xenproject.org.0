@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gJYyEZCq6WkxgwIAu9opvQ
+	id 4H3pEja26WkJiAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 07:13:52 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 08:03:34 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A06CC44D329
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 07:13:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1291549.1570431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F7C844D66D
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2026 08:03:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1291561.1570441 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFmNX-0006GC-5o; Thu, 23 Apr 2026 05:13:31 +0000
+	id 1wFn8v-0000C9-JG; Thu, 23 Apr 2026 06:02:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1291549.1570431; Thu, 23 Apr 2026 05:13:31 +0000
+Received: by outflank-mailman (output) from mailman id 1291561.1570441; Thu, 23 Apr 2026 06:02:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wFmNX-0006Dx-38; Thu, 23 Apr 2026 05:13:31 +0000
-Received: by outflank-mailman (input) for mailman id 1291549;
- Thu, 23 Apr 2026 05:13:30 +0000
+	id 1wFn8v-0000Ag-FP; Thu, 23 Apr 2026 06:02:29 +0000
+Received: by outflank-mailman (input) for mailman id 1291561;
+ Thu, 23 Apr 2026 06:02:28 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wFmNW-0006Dr-5k
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 05:13:30 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wFn8t-0000Aa-OE
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 06:02:27 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wFmNV-00D8ch-1k
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 07:13:29 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wFn8t-00DGoq-1E
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2026 08:02:27 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <xakep.amatop@gmail.com>)
- id 69e9aa5b-bab6-0a2a0a5309dd-0a2a4504a378-20
- for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 07:13:28 +0200
-Received: from [209.85.208.175] (helo=mail-lj1-f175.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69e9b5ef-bab6-0a2a0a5309dd-0a2a45078fe8-14
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 08:02:26 +0200
+Received: from [209.85.167.41] (helo=mail-lf1-f41.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <xakep.amatop@gmail.com>)
- id 69e9aa78-1dec-0a2a45040019-d155d0afddfd-3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 07:13:28 +0200
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-38df1889fb9so60214751fa.1
- for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 22:13:28 -0700 (PDT)
+ id 69e9b5f2-229c-0a2a45070019-d155a729dc46-3
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 08:02:26 +0200
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5a3fcb2c718so5292779e87.0
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2026 23:02:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,325 +52,233 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-ARC-Seal: i=1; a=rsa-sha256; t=1776921208; cv=none;
+ARC-Seal: i=1; a=rsa-sha256; t=1776924146; cv=none;
         d=google.com; s=arc-20240605;
-        b=V34aY9Tt7nIkJ6dz42cy6j7ERhmwrDwzLSOT2mZzMymc9j6vXNEPK19771WGsA7og2
-         a3ItGu2sIq0sS1C+pWBrQRRsIJlQ7p/BzSer5K6YD6NQ4zl4GfeOzqfZDU2rVFT5o1Cs
-         hnQxGBOArAaJQdmUMiL9JcLq1qJ8QsJnNVQ1LyZ+ptWyS1CJYF4mWqxqSiSdaqrJYYFg
-         DvpnpYPQNdCYGkrSNrfqfpDWIJKFD0S5wxJdqOEbOsIFoTY5b99a31X0r9jWsR4t1rsP
-         /szdT3p4BTfUtJZp2PpObz36Y+2vpwrCI/68XFMTxFe1SZcmYuhDAn3+44xq7N+ZHSD0
-         J7Jw==
+        b=hMjEb9weXROHPQM+rmOR0GGi+G+PlD/iR4jEFGYoStG39xChCalN0g7aSzGnGex836
+         Bvi9Mf7gVK1MKh/pwPBu71pTHj1x0ISWQWptMi89Wabt+JIk7bBNiQ/qOoaOVcFi/vYc
+         janWTv+nTRLGCxJnh7M1tEw+yWnou/FItNG4dVPQFy6C932mS2sl0S0ANZVkjF6YHncq
+         ySDgiIprtf/O4wAJ0NWTnO1zNI5Y2Bs8y3vvLfXjs/k3xDw3E+RQvxhvwkFf0Md2We4C
+         OgzmQzzPT7DR2qRu2aP0Bbe8ks2rgkGpOX5s6ZIbOOYv1XRAl5EpepEar0kmLkRhPDnT
+         D9lw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=KCcfFoHP27cOrCoeHgAVx9tKLrioXkp942qiP418YI8=;
-        fh=eMY2E6GaL/ZbzNsFM96x8qs39WPSLTuppOzw4R8QM3w=;
-        b=Me66Q8NIzhB2atZ5+fMMEje5vQBdTqCNe6JKYU6mWmX84dpOAG2zPrwpGe5KpweKkf
-         m5SDs0739abPYIJRo/qNA/O9OQWDPHSCYWbS4wZO4nB6yVAiv8H2RS6Ov3kFHWiB26Ag
-         PHOLrkoyxc931PfwpHeM2XXxk6UjsH1t32JzgB4eOlBEIzTg+pMYRuue4X7PgGjcNZr5
-         QM0FsIxnPFtZA2mCw+n6C85gI3X+1T2kFmTUy57C1jqiehu0JI8M6GaPP2gfCkYxJDpD
-         PmcOW6TGUQd91BkGoBGtaSHbZ/LsCu5RjNqK8/yml0A5ugPAUBa1IKhx793UQWHmZXdM
-         0YYw==;
+        bh=nl7cIH8Ft8KrXNepYu/GHtaIZIBfWGZDLBrbsxutfCw=;
+        fh=lnG/EjedhIb/IfplijZjNTuDmIWktIpSdwgeAb6fZ6k=;
+        b=jbpoR02C0gU/a8MID/XbWgmKf2vUNWApjWe5n/BomRt6QsEOWWRxjCRGlkFPLk3xE+
+         OEhaliE0CWOzHKB6U4qXlB7zMbN6X9bTnVzK9aYj7dEC4kX09o/o41hnhKg4ZhPoJG9m
+         quYEtYWm7Vk7Q0otzCeipcvLCOCYRIYyE94+YI7QZAWrCEsr+9s3hQ+g7f9KN7l7fDXv
+         mYELhnIRIpFnjGOqJi5zfYFy1YHK7KTnxIOc2pceLhfPsBZ/uLxV7rEVEHTw9azYK49V
+         r50FIdzdpSMo+BUHnvGOMM8K1C1IBJM8MMwVQ3LLfLA0Cc1end7ezNz0+6DzMEE1Q5ZZ
+         Vi2w==;
         darn=lists.xenproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1776921208; x=1777526008; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1776924146; x=1777528946; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KCcfFoHP27cOrCoeHgAVx9tKLrioXkp942qiP418YI8=;
-        b=I18R+8tpj2Gdnv9RE1DvY2nXuceqZjLccm3zsTfKWqf8b+cLoK06CtyE9+k1eXQClx
-         MrFZVM2JeIAF8O9TlRU2cHC9xhSXJDk9ST8lpAJdtk0oZgfNf2kP+pcxyKxIk632xgzx
-         DGzxLH3q7pguJ4Na193DC6P3Dwb/pl7/ebBK0lgvI7HRktriF419LW/4lRTfuHfia2PV
-         F9Qqy5oH9uBy6f0NN9wk+fAjqsz+hQds0spY7RLG0FqSylSCgbYilfNZVYY8Pet5o1te
-         MfaLWseF1oLNKUZeaMQhM/TpPo3nd/7ZZlJWzrSLKXv4me8dpqIeh/btTC8L9BC3duzh
-         37ZQ==
+        bh=nl7cIH8Ft8KrXNepYu/GHtaIZIBfWGZDLBrbsxutfCw=;
+        b=WAnyPxb7FAMCXfYq/weamzwH9wchPYYZrd277UK8QVgh/I5AE2fwnMJmPvRiYpxq89
+         vTz73QJHVu70FdUc5m9sAjv/WWgCKy2fVfAA4WsNdstcVoYImIi9FIQGq6vVbgkgAJ8e
+         vjIqqtKjBr8+XiqwFjam/+PURZjWuw/b7ChyRGwkbh1W/G8K1zUBV26X/XWHh53EOzDe
+         DQub5y6niMYbI0Wdy52/qt3JRgGMJW/99KFoOgvKMaZwSknSvRfUeEeqS5U7zIDBGucA
+         JWRBOJGdfqeByljyPd9+3b/XCG4eP7mdqrvs4omegZIA8foHK8RZYcI3WqNz7t4gLruC
+         k6yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1776921208; x=1777526008;
+        d=1e100.net; s=20251104; t=1776924146; x=1777528946;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=KCcfFoHP27cOrCoeHgAVx9tKLrioXkp942qiP418YI8=;
-        b=OsqSMYSOCI08ddfrVTm+IpCMAouvv3fof13x2X57Pgevg7ecpJoz69HO3/Xchf0JLE
-         M229Dvi1SANe9z6wMinXb0eIBLFiW+UqHRezZG6QXiIAd4m7ok/h+g6sq/4A6MUP0BhT
-         n1oHwK6MSaeUgtnWhPRW7MKBz/zM+GE4Nbys5q7qJOs8FOPobug6+2tXu5mbxK4VFqOX
-         Z+3xyZ9o26ImagIRekCB/LJs4F8dxhwE9WYeBCyv0lmZzDpE4O8wBs3c3W2Owq6mKr5s
-         nQK0rEnacIav9dQsx/e6Il0STsMzO6b7dQK92S2/YV34ZubVJ/y5FgsmxKCTLqfSRByF
-         6xCg==
-X-Forwarded-Encrypted: i=1; AFNElJ9mTDOb802c2CMpVLh/mUsiC4sPtAO+Rwe+0P0i35lIG0LySahPbpqKZvMt10WRSFxDBQV9KMlGxGs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxIUxzZRaquX2DUCffkJfhpx6c8RSp7C7j9FGSoMKhhv0osUqD4
-	ptpgB7kzcMUBxMdGM8YJHDO8HLQuNo8NHihw0pSt7+wXCHniELdm3Zqrd9gZd2bkMAAnFN7CC9g
-	vxLcn0Rv/VL6/PVonMjAawFnt+TE/tJc=
-X-Gm-Gg: AeBDievISmzEDg1IoJ0F8szDAiDFkCZPY+74sEBJqL/QERWkaZKoT7OHF594TPeZGmF
-	feTlBKjFpcBWAsxN49H8cKXPXmX0q8w0yLoF4zlNRnniN6h2uL9eYyo1rEzyTBBQlaKlW34nGw+
-	muuthy72Yw8issRvTdC2fXwaBaUteSILQOqSc/8bHaIiNTe4QQpYkZku7Jj+VRPFlkHyzWm3Zhp
-	X5xwWSOLgMYjMQQ8td5b9z1yecR90pqqWtSXhruqEqNsMJvBgLIQHSU4R+sKUMfFYh0PAqvE7WC
-	HxCI9/CvArEUvD/5
-X-Received: by 2002:a05:651c:41d7:b0:38e:84d3:f2c9 with SMTP id
- 38308e7fff4ca-38ec77f5dd2mr73866311fa.7.1776921207633; Wed, 22 Apr 2026
- 22:13:27 -0700 (PDT)
+        bh=nl7cIH8Ft8KrXNepYu/GHtaIZIBfWGZDLBrbsxutfCw=;
+        b=CbuF4UzjvRE2r/7e1y/cm+KaEXY/28frOBeGEt0KTbiCjuixl/EzW8VrbrDzi1ult3
+         LT9wgkJUgynuxmD2xnLRHDLi+X6sVJ6uuDvA6yxbtMe+AWEQqtgZTObX+ISuT/Ep3GvE
+         jDLnFvX55/fjiahrkjHusoE3MQwT8PlF2qGxhBG7YHMJvSbpzzEhPP++xOPYPaApgw42
+         +W9iPfSvOzNRWMfcreXV6i+mLRozPdKhOqj2wBpXYO7nOlSTkw2GTXPWFoaNK8AAqYBQ
+         he8EDDRR+X6lM3dQ1r9wT3il9v3WFMEsL0CoAtUeZE2jhoYVTGtuu/5YgaGL4tzQiVdF
+         v8vg==
+X-Gm-Message-State: AOJu0YxP1yXPW3IYN5oKCDnsZyvOcdNMmPiv8iMQNQ/uPFsMBgNXKxgK
+	Pro0VHIvJjgvkO4emotExBe5p1eqAhJTAeszJ3KjSq8SkmzUxFog3IiJGX6+7GzMgd8plP7ql5Q
+	VPCgP/O5kq6xOIjjqlIyoh7eiYHJ9LMU=
+X-Gm-Gg: AeBDiet44kLLl4iECRuVJrlpd3QGnqB9hUbir9+ZwE0l1U5DwQGJvDnWYt9/5hK26qB
+	NMrOWOO+evRBXAbrkU0hwQujFHvA5HkhYFyczQpTLx5o3uadJ9RpV04hijk9pRY8QU1mn1A/Ygf
+	ziZNhOmouEr4VDCx4lsyJrAHcEbAQhSvNGc/NmqvjyRd54U7cOFntA8ynnP1LFk8jdW7fMU0fVe
+	WLCIB4sVQv6eyIg+gqkBbofB2qSEfYlpuI/nsZisFm2/ZN0nGTjcEpKQhdFmvEpXICD7gmteB82
+	0cyLmznjSgvFH/Rh
+X-Received: by 2002:a05:6512:1189:b0:5a2:b59a:5e99 with SMTP id
+ 2adb3069b0e04-5a4172e7bdemr8494688e87.22.1776924145838; Wed, 22 Apr 2026
+ 23:02:25 -0700 (PDT)
 MIME-Version: 1.0
-References: <e1d18d55557ebe232fd62174f186b1cf228e48e5.1774981189.git.mykola_kvach@epam.com>
- <dc5550d7-5a2d-4ca1-85de-5a17c24aeac4@suse.com> <CAGeoDV-ffZsOW+Cu0-oPA1obBOv_1nWU8_PAdaqaoy6=YUHGig@mail.gmail.com>
- <5b16e00e-9a4d-4a18-8a5e-dde10b42a043@suse.com> <CAGeoDV_Cdpa6beFemKaVcCguwmo95x0g0rsRYbS1x5dAUxFPLQ@mail.gmail.com>
- <5fb9b5ee-ee71-49ec-b545-62c8ec27fc15@suse.com> <CAGeoDV-HCKUXZ-CZBASLik=xkR02w-n=5+HVsYGwfDf4zD-3zA@mail.gmail.com>
- <425cdc68-5e25-4e01-b5d9-6469e2d08abb@suse.com> <DDF9A244-22CB-416E-A855-D85FECE0A3C2@arm.com>
-In-Reply-To: <DDF9A244-22CB-416E-A855-D85FECE0A3C2@arm.com>
+References: <7c20230fcd388ebe398ce19a21a1cd3c2c73d5fa.1775839987.git.mykola_kvach@epam.com>
+ <9cd3e2f1-1b6f-4946-86c2-ff72f34ba138@amd.com>
+In-Reply-To: <9cd3e2f1-1b6f-4946-86c2-ff72f34ba138@amd.com>
 From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Thu, 23 Apr 2026 08:13:15 +0300
-X-Gm-Features: AQROBzDLgaf4ettKLUBXexSNAAtxl3rUW9JKJ58G8GEbqkXZa-IOfnnF7Sg4TzQ
-Message-ID: <CAGeoDV_0r8_-dB33G5U81+Q1yncgzgLgMF5Ar_rmVt5h8-rgZQ@mail.gmail.com>
-Subject: Re: [PATCH v3] xen/arm: vpsci: ignore upper 32 bits for SMC32 PSCI arguments
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Mykola Kvach <mykola_kvach@epam.com>, 
+Date: Thu, 23 Apr 2026 09:02:14 +0300
+X-Gm-Features: AQROBzCNmduihI4PEKZsBSneyCVeFzRWeRZvzdf9Oyv5svjzLUrGsGIoBl9eQsg
+Message-ID: <CAGeoDV_79OHToZi3+woaGaMGqZZsQq32neEamxVNQ6RdMp502w@mail.gmail.com>
+Subject: Re: [PATCH v2] arm/gicv3: Decode cacheability fields before comparing
+To: "Orzel, Michal" <michal.orzel@amd.com>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
 	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Mykyta Poturai <mykyta_poturai@epam.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-ebf023/1776921208-2BD6C3FF-85B1205F/0/0
+X-purgate-ID: tlsNG-ef75cf/1776924146-2B979C48-5202E71C/0/0
 X-purgate-type: clean
-X-purgate-size: 7695
+X-purgate-size: 4396
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email,suse.com:email,mail.gmail.com:mid,epam.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,amd.com:email];
 	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:mykyta_poturai@epam.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:jbeulich@suse.com,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[gmail.com:+];
-	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	MAILSPIKE_FAIL(0.00)[192.237.175.120:query timed out];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: A06CC44D329
+X-Rspamd-Queue-Id: 9F7C844D66D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Bertrand,
+Hi Michal,
 
-On Wed, Apr 15, 2026 at 3:31=E2=80=AFPM Bertrand Marquis
-<Bertrand.Marquis@arm.com> wrote:
->
-> Hi Jan and Mykola,
->
-> > On 1 Apr 2026, at 14:24, Jan Beulich <jbeulich@suse.com> wrote:
-> >
-> > On 01.04.2026 11:51, Mykola Kvach wrote:
-> >> On Wed, Apr 1, 2026 at 12:22=E2=80=AFPM Jan Beulich <jbeulich@suse.com=
-> wrote:
-> >>> On 01.04.2026 10:49, Mykola Kvach wrote:
-> >>>> On Wed, Apr 1, 2026 at 11:14=E2=80=AFAM Jan Beulich <jbeulich@suse.c=
-om> wrote:
-> >>>>> On 01.04.2026 09:13, Mykola Kvach wrote:
-> >>>>>> On Wed, Apr 1, 2026 at 9:29=E2=80=AFAM Jan Beulich <jbeulich@suse.=
-com> wrote:
-> >>>>>>> On 31.03.2026 20:31, Mykola Kvach wrote:
-> >>>>>>>> From: Mykola Kvach <mykola_kvach@epam.com>
-> >>>>>>>>
-> >>>>>>>> SMCCC DEN0028G, section 3.1, states that for AArch64 SMC/HVC cal=
-ls
-> >>>>>>>> using Wn, only the least significant 32 bits are significant and=
- the
-> >>>>>>>> upper 32 bits must be ignored by the implementation.
-> >>>>>>>>
-> >>>>>>>> So for SMC32 PSCI calls, Xen must not treat non-zero upper bits =
-in the
-> >>>>>>>> argument registers as an error. Instead, they should be discarde=
-d when
-> >>>>>>>> decoding the arguments.
-> >>>>>>>>
-> >>>>>>>> Arm ARM DDI 0487J.a (D1-5406) also notes that the upper 32 bits =
-may be
-> >>>>>>>> implementation defined when entering from AArch32. Xen zeros the=
-m on
-> >>>>>>>> entry, but that guarantee is only relevant for 32-bit domains.
-> >>>>>>>>
-> >>>>>>>> Update PSCI v0.2+ CPU_ON, CPU_SUSPEND, AFFINITY_INFO and SYSTEM_=
-SUSPEND
-> >>>>>>>> to read SMC32 arguments via PSCI_ARG32(), while keeping the SMC6=
-4
-> >>>>>>>> handling unchanged.
-> >>>>>>>>
-> >>>>>>>> No functional change is intended for PSCI 0.1.
-> >>>>>>>>
-> >>>>>>>> Suggested-by: Julien Grall <julien@xen.org>
-> >>>>>>>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> >>>>>>>> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> >>>>>>>
-> >>>>>>> I thought I might as well include this in my next commit sweep, b=
-ut isn't
-> >>>>>>> this R-b being invalidated by ...
-> >>>>>>>
-> >>>>>>>> ---
-> >>>>>>>> v3:
-> >>>>>>>> - use PSCI_ARG_CONV for SYSTEM_SUSPEND
-> >>>>>>>
-> >>>>>>> ... this change. That's ...
-> >>>>>>>
-> >>>>>>>> @@ -422,14 +427,8 @@ bool do_vpsci_0_2_call(struct cpu_user_regs=
- *regs, uint32_t fid)
-> >>>>>>>>     case PSCI_1_0_FN32_SYSTEM_SUSPEND:
-> >>>>>>>>     case PSCI_1_0_FN64_SYSTEM_SUSPEND:
-> >>>>>>>>     {
-> >>>>>>>> -        register_t epoint =3D PSCI_ARG(regs, 1);
-> >>>>>>>> -        register_t cid =3D PSCI_ARG(regs, 2);
-> >>>>>>>> -
-> >>>>>>>> -        if ( fid =3D=3D PSCI_1_0_FN32_SYSTEM_SUSPEND )
-> >>>>>>>> -        {
-> >>>>>>>> -            epoint &=3D GENMASK(31, 0);
-> >>>>>>>> -            cid &=3D GENMASK(31, 0);
-> >>>>>>>> -        }
-> >>>>>>>> +        register_t epoint =3D PSCI_ARG_CONV(regs, 1, is_conv_64=
-);
-> >>>>>>>> +        register_t cid =3D PSCI_ARG_CONV(regs, 2, is_conv_64);
-> >>>>>>>>
-> >>>>>>>>         perfc_incr(vpsci_system_suspend);
-> >>>>>>>>         PSCI_SET_RESULT(regs, do_psci_1_0_system_suspend(epoint,=
- cid));
-> >>>>>>>
-> >>>>>>> ... this hunk aiui, which is far from merely cosmetic imo. While
-> >>>>>>
-> >>>>>> Nobody said that the change had to be purely cosmetic in order to =
-keep
-> >>>>>> the tag. I understood it differently from the official Xen
-> >>>>>> documentation pages.
-> >>>>>>
-> >>>>>>> behavior looks to remain the same for PSCI_1_0_FN32_SYSTEM_SUSPEN=
-D, it
-> >>>>>>
-> >>>>>> Exactly. If the changes are not substantial, I do not see a reason=
- to
-> >>>>>> drop the tag ...
-> >>>>>>
-> >>>>>>> clearly changes for PSCI_1_0_FN64_SYSTEM_SUSPEND. That may be int=
-ended
-> >>>>>>> and for the better, but the change clearly wasn't reviewed by Ber=
-trand,
-> >>>>>>> nor - when offering the R-b - did he ask for this extra change.
-> >>>>>>
-> >>>>>> ... and this is also how I understood the Xen patch submission
-> >>>>>> guidelines [1], which say:
-> >>>>>>
-> >>>>>> "Note that if there are several revisions of a patch, you ought to
-> >>>>>> copy tags that have accumulated during the review. For example, if
-> >>>>>> person A and person B added a Reviewed-by: tag to v1 of your patch=
-,
-> >>>>>> include it into v2 of your patch. If you make substantial changes
-> >>>>>> after certain tags were already applied, you will want to consider
-> >>>>>> which ones are no longer applicable (and may require re-providing)=
-."
-> >>>>>>
-> >>>>>> So my understanding was that tags should normally be kept across
-> >>>>>> revisions, unless the changes are substantial enough to make them =
-no
-> >>>>>> longer applicable.
-> >>>>>
-> >>>>> Maybe our understanding of "substantial" differs. To me that's anyt=
-hing
-> >>>>> changing functionality. Style adjustments, typo corrections, and al=
-ike
-> >>>>> generally aren't substantial (albeit even then there may be excepti=
-ons).
-> >>>>
-> >>>> Thanks for clarifying what you consider substantial.
-> >>>>
-> >>>> Even under that interpretation, I do not see a functionality change
-> >>>> here. "Refactoring" seems like the more accurate term in this case:
-> >>>> the internal form changes, but the intended external behavior does
-> >>>> not.
-> >>>>
-> >>>> It may be that we are using "functional change" in slightly differen=
-t
-> >>>> senses here.
-> >>>>
-> >>>> For v3, the switch to PSCI_ARG_CONV() in SYSTEM_SUSPEND was meant to
-> >>>> make this case consistent with the helper-based argument decoding us=
-ed
-> >>>> elsewhere, not to change behavior.
-> >>>>
-> >>>> In particular, I do not see a functional change for
-> >>>> PSCI_1_0_FN64_SYSTEM_SUSPEND: v2 used PSCI_ARG(regs, 1/2), and in v3
-> >>>> PSCI_ARG_CONV(regs, 1/2, is_conv_64) should resolve to the same thin=
-g
-> >>>> when is_conv_64 is true.
-> >>>
-> >>> Isn't the whole point of the patch to alter behavior when is_conv_64 =
-is
-> >>> false? For that case PSCI_1_0_FN64_SYSTEM_SUSPEND behavior looks to
-> >>> change in v3, when it didn't in v2. Whereas for
-> >>> PSCI_1_0_FN32_SYSTEM_SUSPEND the v3 change indeed only eliminates ope=
-n-
-> >>> coding, which one may or may not regard as "substantial".
-> >>
-> >> I think the point I was trying to make is slightly narrower: in this
-> >> code path, is_conv_64 is derived directly from fid via
-> >> smccc_is_conv_64(fid) before the switch (fid).
-> >>
-> >> So for PSCI_1_0_FN64_SYSTEM_SUSPEND, I do not see how
-> >> is_conv_64 =3D=3D false could arise here: if we are in the FN64 case,
-> >> the function ID already encodes the 64-bit convention.
-> >>
-> >> Conversely, if is_conv_64 is false here, then this cannot be the
-> >> FN64 case.
-> >
-> > Ah, I see. To figure that out, I would have had to do a proper review. =
-I
-> > was after committing only, which ought to be an entirely mechanical ste=
-p.
-> >
-> >> On that basis, I do not see a behavioral change for the FN64
-> >> SYSTEM_SUSPEND case in v3.
-> >
-> > I agree (now). I'm still not going to pick up that patch, but rather
-> > leave it to the Arm maintainers. While not as clear cut as it first
-> > seemed to me, I still consider it within the grey area.
->
-> Sorry for the delay, this felt through in my filters as it was reviewed-b=
-y already.
->
-> I am ok with the changes done which make sense (mask is now done
-> directly).
->
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+Thank you for the review.
 
-Thank you for taking another look.
+On Mon, Apr 13, 2026 at 12:28=E2=80=AFPM Orzel, Michal <michal.orzel@amd.co=
+m> wrote:
+>
+>
+>
+> On 10/04/2026 19:34, Mykola Kvach wrote:
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > GITS_BASER_INNER_CACHEABILITY_MASK and
+> > GICR_PROPBASER_INNER_CACHEABILITY_MASK are shifted masks. Comparing the
+> > masked but unshifted values against GIC_BASER_CACHE_nC, which is an
+> > unshifted enum value, leads to incorrect detection of non-cacheable
+> > GITS_CBASER command queue, GITS_BASER tables, and GICR_PROPBASER
+> > mappings.
+> >
+> > Use MASK_EXTR() to decode these cacheability fields before comparing
+> > against GIC_BASER_CACHE_nC, so the backing memory is flushed when
+> > required.
+> >
+> > Fixes: 8ed8d21373be ("ARM: GICv3 ITS: map ITS command buffer")
+> > Fixes: 05238012b86d ("ARM: GICv3 ITS: allocate device and collection ta=
+ble")
+> > Fixes: c9b939863c89 ("ARM: GICv3: allocate LPI pending and property tab=
+le")
+> > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> > Changes in v2:
+> > - use MASK_EXTR() instead of open-coding the BASER field shift
+> > - fix the analogous PROPBASER cacheability comparison in
+> >   gicv3_lpi_set_proptable()
+> > - fix the CBASER command queue cacheability check as well
+> > ---
+> >  xen/arch/arm/gic-v3-its.c | 6 ++++--
+> >  xen/arch/arm/gic-v3-lpi.c | 3 ++-
+> >  2 files changed, 6 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
+> > index 9ba068c46f..e87465d2ff 100644
+> > --- a/xen/arch/arm/gic-v3-its.c
+> > +++ b/xen/arch/arm/gic-v3-its.c
+> > @@ -424,7 +424,8 @@ static void *its_map_cbaser(struct host_its *its)
+> >       * If the command queue memory is mapped as uncached, we need to f=
+lush
+> >       * it on every access.
+> >       */
+> > -    if ( !(reg & GITS_BASER_INNER_CACHEABILITY_MASK) )
+> You don't seem to mention this change. This one does not compare to
+> GIC_BASER_CACHE_nC and checks against 0, which means we are on the safe s=
+ide. If
+> you still want to change it, then you should also look few lines above wh=
+ere we
+> have:
+> if ( (reg & GITS_BASER_SHAREABILITY_MASK) =3D=3D 0 )
+>
+> > +    if ( MASK_EXTR(reg, GITS_BASER_INNER_CACHEABILITY_MASK) <=3D
+> > +         GIC_BASER_CACHE_nC )
+> This is a functional change. Previously we where comparing against 0 and =
+now you
+> compare against <=3D 1
 
-With your Reviewed-by in place, and since I do not expect any further
-changes from my side, I believe this patch should now be ready for the
-Arm maintainers to pick up.
+You are right, the CBASER hunk is not fixing the same shifted-mask
+comparison bug as the BASER/PROPBASER hunks.
+
+My intention was to also handle InnerCache =3D=3D 0b001, which is Normal
+Inner Non-cacheable, so the command queue should need flushing in that
+case as well. I agree this is a separate functional change.
+
+I will drop the CBASER hunk from this patch to keep it focused on the
+BASER/PROPBASER shifted-mask fix. I will send the CBASER change
+separately with a dedicated explanation.
 
 Best regards,
 Mykola
 
 >
-> Cheers
-> Bertrand
+> ~Michal
 >
+> >      {
+> >          its->flags |=3D HOST_ITS_FLUSH_CMD_QUEUE;
+> >          printk(XENLOG_WARNING "using non-cacheable ITS command queue\n=
+");
+> > @@ -496,7 +497,8 @@ retry:
+> >          }
+> >          attr =3D regc & BASER_ATTR_MASK;
+> >      }
+> > -    if ( (regc & GITS_BASER_INNER_CACHEABILITY_MASK) <=3D GIC_BASER_CA=
+CHE_nC )
+> > +    if ( MASK_EXTR(regc, GITS_BASER_INNER_CACHEABILITY_MASK) <=3D
+> > +         GIC_BASER_CACHE_nC )
+> >          clean_and_invalidate_dcache_va_range(buffer, table_size);
 > >
-> > Jan
->
+> >      /* If the host accepted our page size, we are done. */
+> > diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
+> > index de5052e5cf..9ee338edc2 100644
+> > --- a/xen/arch/arm/gic-v3-lpi.c
+> > +++ b/xen/arch/arm/gic-v3-lpi.c
+> > @@ -351,7 +351,8 @@ static int gicv3_lpi_set_proptable(void __iomem * r=
+dist_base)
+> >      }
+> >
+> >      /* Remember that we have to flush the property table if non-cachea=
+ble. */
+> > -    if ( (reg & GICR_PROPBASER_INNER_CACHEABILITY_MASK) <=3D GIC_BASER=
+_CACHE_nC )
+> > +    if ( MASK_EXTR(reg, GICR_PROPBASER_INNER_CACHEABILITY_MASK) <=3D
+> > +         GIC_BASER_CACHE_nC )
+> >      {
+> >          lpi_data.flags |=3D LPI_PROPTABLE_NEEDS_FLUSHING;
+> >          /* Update the redistributors knowledge about the attributes. *=
+/
 >
 
