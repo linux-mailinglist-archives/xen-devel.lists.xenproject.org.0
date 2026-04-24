@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id II+2DYt/62lLNgAAu9opvQ
+	id fX5LCqOC62kONwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 16:34:51 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 16:48:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DD85460439
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 16:34:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1293667.1571241 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 702104605AC
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 16:48:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1293693.1571249 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wGHbp-000622-5D; Fri, 24 Apr 2026 14:34:21 +0000
+	id 1wGHoR-0007vF-9Z; Fri, 24 Apr 2026 14:47:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1293667.1571241; Fri, 24 Apr 2026 14:34:21 +0000
+Received: by outflank-mailman (output) from mailman id 1293693.1571249; Fri, 24 Apr 2026 14:47:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wGHbp-0005z0-2N; Fri, 24 Apr 2026 14:34:21 +0000
-Received: by outflank-mailman (input) for mailman id 1293667;
- Fri, 24 Apr 2026 14:34:19 +0000
+	id 1wGHoR-0007sD-6U; Fri, 24 Apr 2026 14:47:23 +0000
+Received: by outflank-mailman (input) for mailman id 1293693;
+ Fri, 24 Apr 2026 14:47:21 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wGHbn-0005yu-70
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 14:34:19 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wGHoP-0007s4-NW
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 14:47:21 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wGHbl-005Civ-2H
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 16:34:18 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wGHoP-004qJY-4W
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 16:47:21 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <roger.pau@citrix.com>)
- id 69eb7f5c-e002-0a2a0a5209dd-0a2a450cdea8-12
- for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 16:34:18 +0200
-Received: from [40.93.198.62]
- (helo=CY7PR03CU001.outbound.protection.outlook.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69eb826d-bab6-0a2a0a5309dd-0a2a45089c92-24
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 16:47:21 +0200
+Received: from [52.101.48.61]
+ (helo=MW6PR02CU001.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <roger.pau@citrix.com>)
- id 69eb7f68-62f1-0a2a450c0019-285dc63e379b-4
- for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 16:34:18 +0200
+ id 69eb8277-63b5-0a2a45080019-3465303d7bb0-3
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 16:47:20 +0200
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by SJ0PR03MB6581.namprd03.prod.outlook.com (2603:10b6:a03:393::12)
+ by CH8PR03MB8250.namprd03.prod.outlook.com (2603:10b6:610:2c3::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 14:34:13 +0000
+ 2026 14:47:17 +0000
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
- 14:34:10 +0000
+ 14:47:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,106 +60,106 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M8wQXJLccYafABNEraAMkCHT388USbpCNzLxcKNAACmxVGBbByCrr3cmG3p7Hzu293KkYUO6yQ3kewyjiqY/LMc32tHIT8ZpVD5KSU8XWNbAdXGxVsvIK8UGn3rATVM2owqMFHuZju5Ap4zG+ko2SK0ohLFuIkmBhBuBynuq+TZ5/DP6SdA7R4r2ns9mpb5lHF89/02LUjlPKfYbTJGY+MCR+USTNEO3hXnPehKXS8Zf7T+iE/poG0XxWQPL8WFbbGVZ5dzJlamoyJBRdm720nv27uSYCtJJfYU/Sh6XK0xCCW5beIykqRBnZWMD1HOmaEKAABlfIw6UN7kP6bXRdQ==
+ b=RXeFGuLIkKh5gGAhaLfIrw1rDIPmfYI/fBiBF8lPo3c3zqG9+A15kqfw6HDCZCXCc1nbT/Gu6uPQziglP/3jAG9Cm/w4d4JwGBIvDXhd9FVw+idPk8WdbgjS3vVLLNlqQEpEkE6p85PbZ8Ws6lXmh2mprte2cCc/zYWXCkhTcWQRN8RiRTQjnkfz+GatP1EajHPQ/69JtNXH5ssJ6ta/3wF7IJnlO2xrMC3tId3CFSYSDadmivyzMnPaiyl45stIe/S2HvsICQHi1iQn06btM48cc+TKUNpeLp8CmvIkLj3hFJdcqxv5wpGZEb964jyCjj4YuT/M76eEIjvntMdQtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gIkADVF/UMmjEt2yNFcwUJFEVG0YBO+Enjx1llxOZO4=;
- b=TiHFiyTS6gTAo/J8ickQMCPd5NZf3ToWoaeH5aP6Tt6aaVqU1vdDaRiFrw3eji6WREBjCcWvO+5RBv04W2qjz/tOcAOt1lIvylJUr+VHDCK6NRgaYCZ3keoj0G5O8dAo4vg8uvSyEbfNLIL6lgfoAse5leRBmOutp8l4GtXwq/yuXg+rYRGzV2KM1aS7DaqO5mTpsRS9vp40BwycFdh16wyHJ7d4nT/cakfU2ttxckhDaEAqqvjgygCSZd40mderAzCys4iguScEIYo8jpwILAIDfm22rfimxFgHLlAbgx75kWDW4pKsdQ7UiWTzuTzCSaMAKVSahRcXVMUnyoCv9Q==
+ bh=LHgAepcKVtIJaI5trQ41l5NK3mEZnXyvkGxPIhCy9IY=;
+ b=Wj7q/I1MnP9azHGHFEPrMF51gGHT1Q01esFF+wWOV0B6ryfWMUyoFy2FIUBMBasTSJZTzQpbVHRZX5eNcrVzfCZfp5+WfBVasuRUNc6w1ybkAKdw3/rxfDhChTMQryEYhyjZVJC0Djrvuo3WW2YljXehlg/kLZwis2Z6imo55RGlJfHF0aE2es9ZMU2WsueowZER50lgMJDQIgRnl5lBYwKPmNkH6YrWMXC6kN9mU9ww5dP5U/Osfqt+ryoIwr5Yjq1tsHK1ro+HEst1SBVfA+ow6meX5cgjm7GZ7vhoirHew37bZulOHfZ2t0KqFuDvazW+19kLRrj0kPq6HTzVzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gIkADVF/UMmjEt2yNFcwUJFEVG0YBO+Enjx1llxOZO4=;
- b=N/J/jPfWazwM1mjaEyixw9543vO9o5db+RQOOGlleivgVYmb6BZkFeRvdNe8IvCBGgi84uzVVXPNwamminHzLOoXPNti0AgpGSjYSpsMdflITiPIXhBSXow6s9OJ838FGrHS4Y+x1iFcCGr+ldWmdjwNtq4hKN5GkIV+l1zfhvE=
+ bh=LHgAepcKVtIJaI5trQ41l5NK3mEZnXyvkGxPIhCy9IY=;
+ b=nW5nmQ4PRLIYfwbg03E/KrEvhXFP5XhNZk57NbKpa1dQLap1S9vhQ3OgwC8zjsH2kPZExDD6aY17fDiQYaaiV+SL+jrx7jm1VRqqh/AwWQXGq4lPvuKvkmPPAwY0ZAIBaGmz7g0fOGMqgM0yTfberEjbJS5aAldXYboAoh7j0eY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Fri, 24 Apr 2026 16:34:07 +0200
+Date: Fri, 24 Apr 2026 16:47:13 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH 1/9] x86/mwait-idle: arrange for BSP MSR adjustments
- during S3 resume
-Message-ID: <aet_X0c504QvcqGT@macbook.local>
+Subject: Re: [PATCH 2/9] x86/mwait-idle: clean up BYT/CHT auto demotion
+ disable
+Message-ID: <aeuCcSSBJ4H9UwOB@macbook.local>
 References: <7b7a677e-a5b9-42c8-beec-3c506b4eac52@suse.com>
- <e5e03239-1d4e-4ab2-8f16-83d280f23b24@suse.com>
+ <b906c3d5-5256-4ddf-9186-b52d8280e2ec@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <e5e03239-1d4e-4ab2-8f16-83d280f23b24@suse.com>
-X-ClientProxiedBy: MA3P292CA0002.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2c::17) To CH7PR03MB7860.namprd03.prod.outlook.com
+In-Reply-To: <b906c3d5-5256-4ddf-9186-b52d8280e2ec@suse.com>
+X-ClientProxiedBy: MR1P264CA0168.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:55::16) To CH7PR03MB7860.namprd03.prod.outlook.com
  (2603:10b6:610:24e::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SJ0PR03MB6581:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e077f1e-3204-4a91-5187-08dea20e8c99
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CH8PR03MB8250:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2545ee10-9cbb-453b-39c3-08dea2106164
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|56012099003|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	XHsK+ICLioq+0eYnq/P1bjA6E1xrKHA0QpQSARDOuRXcYOGKuFz6QJCHRSheZ94MwSpo05tTbA9CYqx//e9fz6Y7z0LGFA4iUfK9jVl8gQ6Ql5PzM3roHSBARFuMcUZkJisDoC7Eo/U+LQWhmC7t6R+qxxvFFW9fo2HIpm5GgkDUvPWhotz682LWaJU9wqidurHckcO/I7tDDgMShROpR4K8HFCjrOSP/+ZndRHtpuPAv/jLj4mmEIRDSV8AIMbujZMS0o33xDxHJn+BmwvU7+LObxd/Mopwd/S8j4I2krSbPbF/VMd4xaBvxHEO/EqQ+OnoHZz3xC4WlDZVpDIbDFpOqet3ncgu4ErhSo9OEBQFdICg/HkIJwHRhILN5/k4xLb9fyV1ybK4YhE7yOssigQF/EU5dXTx4TE1Cceq9BfigY66Y8w9sxiA/oP52IQR+Wksb4CE9DUNOrLh2S9zIndFPGUxJAQzx1sm64T0MJiRptt9E5G46ArHlizb7kBILUZabpM5Hbe8rduTi3xcdkLmDZJkbSag+oklMa6HbezYHmxh5IIogeTOs2Hqd0p/WkveF8w0sYTKWwsbPwmZhLvOWKrcmdqymp9skc9gHxl/MjEeQwKkqXYZpj4CAyQbQg6CSZyOYFfEaESjzOWCnUHktiizNyiw9OHbA3q9EM1c0m2nceTVwnLONgEWgcjkthS7wmvHzFxMQ2EQnBLVxDJm7uDK/Bnokm+WxfMh0CY=
+	CnDF6AegGuWmI+pqTbc3InMwknNIxkScs1puqhr5srawger1zOO2tAcjHKlmSPhryFUiknGGpouA9iJ4A8AajSiw9dqtPJMx4vDVghSjP1UUkflPN2YYHcbB+OKKUJeE03jRK0DPmNvTcYhHDGKPgFQbz/zmwF2+eii/d4/ZRfzYz19YpoeAa3Tp4roRqQxIeJ8B5isrcFPSpxmXLx0Vz/4+6qUX67NTupQwoq1ZHUgNQPESxfoekheHha2l6NXjAI1JjkbukUxuE8IWc5MvUcRAYdBBLWYErlhO/hxg1XZ3KdAMZl1tAcmy4Ph3CPT9jP98iwUEs66RNWXqhNlJ9cewxhEXo5suYiJYoG2Ld/lI6ha/rTLPHypBccbQsSzapypzHXmTC9imjdw3L1CuDbk8C70CNqmLOlf3UIZKRJj7d/v+6TGu8+sHR2K7bn79sYFebRjTxhm633N6EAfgmEq+sBlitT4OulsWW4yFRe439qKfZEcoT+nntOxIRKBacVQKvFBJuJChN+QYcseLpkAAQIv5agcCsTmeSC649GpNuXOmU6VfsOSTrJfam40eQBRTSFYcc6J4KhfNuG+caPbfO9YUTCGGuAA+r0wOsRbP6F+LExaKHu4G64DqGSf+OuvAd40TsJ8KQVmyf0bKTWKTPahKql8Ibh6VP9q2ek2gTPu1yCUqI3C0U5ldciWePPFY8ZePHqph1gck+GwXrT0SBuJwweffJRr5WEXZpbk=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WGFmN25jbHYreHNEdnBSM2tqa2VnTENYdHlLTHVFbnZmUjVnREhIdC9sRVZX?=
- =?utf-8?B?YnExeUtOdGlvOEdBdENib08vWVdwL2p6OGU1UHN3R0hpVTVWK3YwSE9lbGVx?=
- =?utf-8?B?eUhYVUtGRE5ZaUFkRHpsZHN1d1BzeVp6T2F5aUhFOFZlQ29FRVhjWnhwZWtH?=
- =?utf-8?B?UHN2N3ltYjRXMDlqS2wxRitSaTFqNUhleE0xa3VjczZRYkFZYUtYbVM0MXNz?=
- =?utf-8?B?dHQ5Sm1rcGgzenVuWTNnODB0SWlYR0huckdCc0JxeU9UK1RUNy9xVVM2azZ1?=
- =?utf-8?B?dVRSQkpzR0NaWVFYc0JLSWlkbndleTQzYnhoRG5lNktKZ2U4MXg1TFpEL1N3?=
- =?utf-8?B?c2tWZ0ZqeU5MUTFuZXlIbU9OU0hWYWVTR0ppMXc3WVd6bHNRZG9KZnRoWVYv?=
- =?utf-8?B?bFY3R0E4dUM2UnNlOVJuZktERTlnYlhNMEZTUllGMG4ydFZMQnBVazVCTHls?=
- =?utf-8?B?UUx3UWVyeS9uTzRwcmJUbVVJWjRpdkdTUHg1YjVFcWRBUFg2K3ZQc283akJZ?=
- =?utf-8?B?UW1lVmdBRFViRkIrWG5VUElYUnYyUjFRU2FodkY5VUF5U3FaZkRPM25qN3BT?=
- =?utf-8?B?MWFlVnJGTUFMdEJkRXluYm45d1NPS1hQOHFidGRpbjQ0ZldNWHdXVkV6QXdH?=
- =?utf-8?B?SEhyaVJCdXkrRkNTZUpuNXdpcEYvM0wvOGtOc0VaMXo1SmViQ2NXellHb2R1?=
- =?utf-8?B?ZnZiRUJZMlN0Qm9NNmNnR1JWRmZkU1FjOW5QcmtDVjA5Z1VLU2VNOURpcVJ6?=
- =?utf-8?B?U2g5ZVkyeVlWSDBEVEp1dGdvZU16TFRMUFBFTS9vZWl4ZWUyRlgyS0dXM0hk?=
- =?utf-8?B?aVB3RFdueS81aTYxM2pQVVRYTmxXR2FGdy9ZTXQyQTNDMzI5aEZGcklmcHo4?=
- =?utf-8?B?WWNmVDBjUnhNNng5TWtjeUpoYldKQjdJdmY4SGlhU1RrREdPR2tRS0tzc0ZG?=
- =?utf-8?B?ZC9oOHZpSmthd0JuSk52UzVrY3o0ZHluMDVMOUs4M0hQV1pZV2FkVFNrQnhl?=
- =?utf-8?B?eWN5bWZuSFpqdlpOMnYwclhQTkROL3l2VDA4S2FBejkzNnpFa0MyZWY1Mm9X?=
- =?utf-8?B?RHdieGF4bnVDbU9QSk5vSW9SZ29YTUFJTnZYeEpyU0hyc0JwbHhJM2ZoenNG?=
- =?utf-8?B?R2NKdmZ3Q3EwQThSY3dPS0dCVnNCQXJSODNPejlOZWhzTFg3U1ZNUmhSMEY0?=
- =?utf-8?B?eWhUMjJKKzZ6b0lLdG41L3h2RE9WeHBBY1lyQ3pJZWRDTy9MOUVPSmQ0ZFZY?=
- =?utf-8?B?Y3pHUEFmaDBCUkl1dkk3QjFuS3RzeU1sZ2RVeFRzZmpkVFovLzZiMm5FYll3?=
- =?utf-8?B?Z2g1a05aUUhOSEcrNW00S1ZTMzl3VVhBdjRpa1NtTDZlTnFYbkRnWmJkUy9V?=
- =?utf-8?B?SjFuWUcrS205c0FvWXJzUHhnT2IvOWZMVmxtcTJpZkh3bVhhNlYzWE9MY0Vo?=
- =?utf-8?B?RUdnYk5uU05GcTMwVDRmY3d0YnZTak8vRUswMk1seDl3dGxQNkNSbjB3ZFpV?=
- =?utf-8?B?T2dFMTZ0LzNjV2xKRFAyQ2IxYUo4V05ZelFuOGpGUVlRZkFYdVlIZ2huVWE5?=
- =?utf-8?B?dmpQK0QwOE53ZmozR0F5cGVML2crYW1uQzhteHppZHlJc0tsRTZFSjc2Vk9M?=
- =?utf-8?B?VFdTeXlPY3Buc0JsOHo4dVBlSWxsYkkvYnZJZHdaRXdQQmtnSC9SQURPUEdh?=
- =?utf-8?B?VlYwM1ZVcHphN29zN25zYk9FYnM5Z042Q1dyeUl1SkUxeTloTHRVNGJlZGxX?=
- =?utf-8?B?V1RiazJFemJrSHJuNnZtcFpEUlFibEZ2MXRrenFsOG5QOEJSbkI0eVI4SEVh?=
- =?utf-8?B?cGU0b3BhL1M4YTdTV1pPanhRSERBa0M5a0hZK3FyVzJjc2g5WFRHeHN4a3gy?=
- =?utf-8?B?bDhlbUdMNm9wUjJuS1BqcjIwNVpNS01wMUQxcFF5MzlyK3FtRGhsVnhvaFBW?=
- =?utf-8?B?V201bnY1emd2aElBNmdoekJxVlROM2JHR3VpTkxyTlRyRHNLbE9xK1JkNVVP?=
- =?utf-8?B?WjNyWlVLQURzTDVoTWJteFE3MkkyRG1LQWMxaW1aUGJWbjJLVHVtcCtSbk54?=
- =?utf-8?B?WWdUOVBkNG5UWHBaa3VPUlo3SG9TNTVuQVVLVm9LZlZPaGEzejlVd09HVDJ4?=
- =?utf-8?B?UUtWWnQvUEFkQkkybTRGT2FJT2JVbG1XQ0g1VnJzaEJwbkd0d3ZvVEloY1Z0?=
- =?utf-8?B?eDdkaWdCaGFtSzdnTVZFYXp3Ky9JbWw5RHIvUHlzRlIzdkFlZkFBQWVFWWE2?=
- =?utf-8?B?MEpYTVFIeWxMeTlpMXBQRXdaZk92dkxLdWZUUXN2MFpNNU5vbk9WVEl1RkFt?=
- =?utf-8?B?SlZ3T1NoK3hNQlVCUFFXSHpXWHhEbFJta1grcFl2WGdQV2l4M3dVdz09?=
+	=?utf-8?B?NzBhT0tTVDQwR0F5cXkzdlltNk1wSnN2SE9IOXFlQ3Z1cHEwN0pjRmM3d0xX?=
+ =?utf-8?B?RVg0UFlycU5EbHNQWDh1YWFXV3FoRlBBRUN5eXJmWWMrakMxcTlDZ3lvdkt3?=
+ =?utf-8?B?ekRHbWd3SUVodjdSNW5HaWRnSGV3TUhtN3NodFNPMmlNSlFIZnFnSSs1bHJP?=
+ =?utf-8?B?WU5MbCtBd05hQ0JKT1VxNEt4Vk1NMTRCeGNRSUM2R3pzZHl4VnBtTFVuNStw?=
+ =?utf-8?B?MEtpZk81cnpyTi9nUkExUDY5L1hCU1dZUWNSS0ZlWkFVelVhUHVuSUhEMUxo?=
+ =?utf-8?B?NXZTYXdJUnVzM01DN01nMnF2YzZCM2g2c3RoZnFBSEZXa3ZvSnh2K3ZGeWlZ?=
+ =?utf-8?B?TU9ka1NySzV1REREbURkUUR1YWxHWEp2a0JldlBVVzhVNzQreUlkaHNzdFpw?=
+ =?utf-8?B?Y0VURlhINkdRQXFBKzIzYnJOUlRBYUtKQVZoQ2ZGZHVpb3h2REJ5SXBtbHd5?=
+ =?utf-8?B?M3FJL1ZBaUxZcDBYQW1wbHRmeVNLakJTdFkvNUtNZnQyODVhcUhuYm9ZSW81?=
+ =?utf-8?B?MGRTZ1RMU0FPZGtRZHlQL0hmenZSN3EvdW1pU0lJSXFBS1p6RFNqK054OVpj?=
+ =?utf-8?B?RFVlcXg2MHdDZ1NMamJ0ZkxmWHY3bzFRNjRReHRrcStSc1djR2JTdUhvNE5G?=
+ =?utf-8?B?U0JJNWk0aGN3TUZmSWJWVnV1ODJiOWlKTFExc3h4V2dzV0RNUTZ1QjVZNkZ6?=
+ =?utf-8?B?ZVFKT0RXd1Z0bEtmcExmUjVROGl0Y0E1clE0RkFWS1ROWUFrOHhWQm9rWm00?=
+ =?utf-8?B?MWZzM2F4NEhqZ3BMemloRkcwNUt6aVRyRUoyTit6UU9RL1ZJSldicTM4OWVx?=
+ =?utf-8?B?YlNBelZSOWE1TXA1K0VEV3FPSXo1cHg0bFh2V3hSYU42ME94bGZ1cWJhcGJT?=
+ =?utf-8?B?RlNhQW1ZRllzeDNyUUdXanpiM2t0Y0lPZC9jOW50dXNZRCsvMi94dUliZldh?=
+ =?utf-8?B?bWJwaUlUWFh5U3g2TVdpS1ZNY20rdzBlU0U2cGVLaWdXTVpEWkZxVGZvaGVF?=
+ =?utf-8?B?YlhRNnMxWlMzTGJudnFSRzJpcXJ1bERhcTRzTzhKaHBrZWQ4WHhhdDlNU05U?=
+ =?utf-8?B?eUhhMUVKYmtHOXJlRHhIK0t3ckVYRTErbldVWHppQ0daUE5TT2VhZFBhaEFt?=
+ =?utf-8?B?OVIyZlQzZkVSemp2aW5JZUhwM0w5V01sbExHd0VwanJrTHR1dzNCYWg1SWF0?=
+ =?utf-8?B?cC9SdWhUS2dEMC9lRDZWYUh6cE1Sem5QOWxJdjRsajNlaGlEUitVR3VVQ2Zp?=
+ =?utf-8?B?WGhmVy9aY0tuSkUvQjZ0VXhjdk1PREZsd1J4OEpzOG0yUlR6WGZRUVgrVkVx?=
+ =?utf-8?B?a0p3TFcwZkZsN2U0cTc1WkJybUhBdzFHZ05lWVN4cmxSVUJCa2hQZFpJV0hD?=
+ =?utf-8?B?MSs3bUFyUkhJaENqdDh4L3ljS1dCdHVGeWN3SENlRkUzcGVCaEEyMm41TXha?=
+ =?utf-8?B?ZFYxRnpiRlVJRnh4MXltUllycWRuTXR6M01ySGxlZDUvRER0L05pSEd6eXAv?=
+ =?utf-8?B?cGNmd01ieDI0TDlmckVyWHh2WTYvZDVjazJ3T2hXQWk1K0pCZVVGcjZsb0tz?=
+ =?utf-8?B?cWRnZVdrN3lNTmdBVDZqc24wbXN3eHRDM3ZZdzF2cEovNzNEL2k3K3lsK2VJ?=
+ =?utf-8?B?RXNwY2pWYWRNWnA4cXA1dVVZU2liUW9UV3pEWDM1UVo1RVpWT2d5dS9DUU9v?=
+ =?utf-8?B?S0QrQ3YrQUR0WFdSdFppZjNySFhTeCtDSE1Tc25STkZ2UmJ6MnhjRTNsc3N3?=
+ =?utf-8?B?RVdVb1ZWNUFPWkFRQUNZMUJPZ0xteVFwa1JNMkd0WEJ6UnFkLy8wcEY5WS9l?=
+ =?utf-8?B?L25qZ21QVk1mMXFoUVFUL0lWVTZHVkVIYjZ4aFNHNGk3OG00NDR0T0Fzd2hZ?=
+ =?utf-8?B?K0pZOTBoQzNzU0xKLzBSUUtSd1FaVENsdzRPblAzSEtDbzZVbzcwc3RFNTRx?=
+ =?utf-8?B?RjRuZjhMS25ONGRObCtqejR5a3lBc29ZV0tEOE9MTGp6VitTSlM1dm5sVXFj?=
+ =?utf-8?B?cTZjY2pBeGRwNlhVQUJOM0lndjc5a0lac0lqK3ZYZDZESXJqRWx5eDJTVlVJ?=
+ =?utf-8?B?bTVFOHc0UGdjL1ZuY1RoSlh6cjZLQjAzYzVRa09JSW53alVwYXhGK3JqcWJO?=
+ =?utf-8?B?ZU15TFQ0eUhpZFRKMU9yWVBNWG9YbFZ2U3MyYlM4R2ltT01qRHFXcmVjelBp?=
+ =?utf-8?B?MW5Fa3dCamdzcWpXM25jbEV4Y3p0ZU0zTy9DRVhyTjFKMWkrODlCY25JUzQw?=
+ =?utf-8?B?RG1ENzhkZ2dhbmk3VjBvKzJDZytRb2VraWhNc3ZqUGh3WFFmcVNsUlMyUzJ4?=
+ =?utf-8?B?L2xhQ2xacGZnYXVYeHNRamU3N3BJWktHMENadENyd0VPZXR5MkxqZz09?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e077f1e-3204-4a91-5187-08dea20e8c99
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2545ee10-9cbb-453b-39c3-08dea2106164
 X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 14:34:10.7670
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 14:47:17.2804
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Wtus9C3d9rgETED7vfrLKSksWy8KLJPP7UaU2D1hurSEreB2i2VjX2TJg33c3/7OHo4f+d3YAAzLe4h4ujTnlw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6581
-X-purgate-ID: tlsNG-d25034/1777041258-F5C0FCF5-DD4314ED/0/0
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9dkyC92ECiwYsuEom8jOg09bhp71mLA5AbSarJJC3ltoVIi1gF6FF3AaxgTjLVu1RZC/loeFS7zxhOVRDVvZbg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR03MB8250
+X-purgate-ID: tlsNG-c1860d/1777042041-C156FDB1-0BF72D7D/0/0
 X-purgate-type: clean
-X-purgate-size: 2779
-X-Rspamd-Queue-Id: 8DD85460439
+X-purgate-size: 3684
+X-Rspamd-Queue-Id: 702104605AC
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
@@ -179,7 +179,7 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,macbook.local:mid,citrix.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,macbook.local:mid];
 	MISSING_XM_UA(0.00)[];
 	RCPT_COUNT_THREE(0.00)[3];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -194,87 +194,104 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-On Thu, Mar 12, 2026 at 05:54:30PM +0100, Jan Beulich wrote:
-> mwait_idle_cpu_init() is only called for APs, yet MSR writes will
-> typically need re-doing post-S3 even for the BSP. When multiple cores /
-> threads are present (and to come back online) in a package, for package
-> scope MSRs this may be covered by APs doing the writes, but we can't rely
-> on that.
+On Thu, Mar 12, 2026 at 05:54:56PM +0100, Jan Beulich wrote:
+> Bay Trail (BYT) and Cherry Trail (CHT) platforms have a very specific way
+> of disabling auto-demotion via specific MSR bits. Clean up the code so that
+> BYT/CHT-specifics do not show up in the common 'struct idle_cpu' data
+> structure.
+> 
+> Remove the 'byt_auto_demotion_disable_flag' flag from 'struct idle_cpu',
+> because a better coding pattern is to avoid very case-specific fields like
+> 'bool byt_auto_demotion_disable_flag' in a common data structure, which is
+> used for all platforms, not only BYT/CHT. The code is just more readable
+> when common data structures contain only commonly used fields.
+> 
+> Instead, match BYT/CHT in the 'intel_idle_init_cstates_icpu()' function,
+> and introduce a small helper to take care of BYT/CHT auto-demotion. This
+> is consistent with how platform-specific things are done for other
+> platforms.
+> 
+> No intended functional changes.
+> 
+> Inspired by (and description largely taken from) Linux'es c93d13b661a6
+> ("intel_idle: clean up BYT/CHT auto demotion disable").
 > 
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> --- a/xen/arch/x86/acpi/power.c
-> +++ b/xen/arch/x86/acpi/power.c
-> @@ -28,6 +28,7 @@
->  #include <asm/io_apic.h>
->  #include <asm/irq.h>
->  #include <asm/microcode.h>
-> +#include <asm/mwait.h>
->  #include <asm/prot-key.h>
->  #include <asm/spec_ctrl.h>
->  #include <asm/tboot.h>
-> @@ -299,6 +300,7 @@ static int enter_state(u32 state)
->      acpi_sleep_post(state);
->      if ( hvm_cpu_up() )
->          BUG();
-> +    mwait_idle_resume();
->      cpufreq_add_cpu(0);
->  
->   enable_cpu:
 > --- a/xen/arch/x86/cpu/mwait-idle.c
 > +++ b/xen/arch/x86/cpu/mwait-idle.c
-> @@ -1680,6 +1680,28 @@ static int __init mwait_idle_probe(void)
+> @@ -104,7 +104,6 @@ struct idle_cpu {
+>  	 * Indicate which enable bits to clear here.
+>  	 */
+>  	unsigned long auto_demotion_disable_flags;
+> -	bool byt_auto_demotion_disable_flag;
+>  	enum c1e_promotion c1e_promotion;
+>  };
+>  
+> @@ -1144,7 +1143,7 @@ static void cf_check auto_demotion_disab
+>  	wrmsrl(MSR_PKG_CST_CONFIG_CONTROL, msr_bits);
+>  }
+>  
+> -static void cf_check byt_auto_demotion_disable(void *dummy)
+> +static void byt_cht_auto_demotion_disable(void)
+>  {
+>  	wrmsrl(MSR_CC6_DEMOTION_POLICY_CONFIG, 0);
+>  	wrmsrl(MSR_MC6_DEMOTION_POLICY_CONFIG, 0);
+> @@ -1195,13 +1194,11 @@ static const struct idle_cpu idle_cpu_sn
+>  static const struct idle_cpu idle_cpu_byt = {
+>  	.state_table = byt_cstates,
+>  	.c1e_promotion = C1E_PROMOTION_DISABLE,
+> -	.byt_auto_demotion_disable_flag = true,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_cht = {
+>  	.state_table = cht_cstates,
+>  	.c1e_promotion = C1E_PROMOTION_DISABLE,
+> -	.byt_auto_demotion_disable_flag = true,
+>  };
+>  
+>  static const struct idle_cpu idle_cpu_ivb = {
+> @@ -1680,14 +1677,11 @@ static int __init mwait_idle_probe(void)
 >  	return 0;
 >  }
 >  
-> +static void mwait_idle_cpu_tweak(unsigned int cpu)
-> +{
-> +	if (icpu->auto_demotion_disable_flags)
-> +		on_selected_cpus(cpumask_of(cpu), auto_demotion_disable, NULL, 1);
-> +
-> +	if (icpu->byt_auto_demotion_disable_flag)
-> +		on_selected_cpus(cpumask_of(cpu), byt_auto_demotion_disable, NULL, 1);
-> +
-> +	switch (icpu->c1e_promotion) {
-> +	case C1E_PROMOTION_DISABLE:
-> +		on_selected_cpus(cpumask_of(cpu), c1e_promotion_disable, NULL, 1);
-> +		break;
-> +
-> +	case C1E_PROMOTION_ENABLE:
-> +		on_selected_cpus(cpumask_of(cpu), c1e_promotion_enable, NULL, 1);
-> +		break;
-> +
-> +	case C1E_PROMOTION_PRESERVE:
-> +		break;
-> +	}
-> +}
-> +
->  static int cf_check mwait_idle_cpu_init(
->      struct notifier_block *nfb, unsigned long action, void *hcpu)
+> -static void mwait_idle_cpu_tweak(unsigned int cpu)
+> +static void mwait_idle_cpu_tweak(unsigned int cpu, bool bsp)
 >  {
-> @@ -1762,24 +1784,7 @@ static int cf_check mwait_idle_cpu_init(
->  		dev->count++;
->  	}
+>  	if (icpu->auto_demotion_disable_flags)
+>  		on_selected_cpus(cpumask_of(cpu), auto_demotion_disable, NULL, 1);
 >  
-> -	if (icpu->auto_demotion_disable_flags)
-> -		on_selected_cpus(cpumask_of(cpu), auto_demotion_disable, NULL, 1);
-> -
 > -	if (icpu->byt_auto_demotion_disable_flag)
 > -		on_selected_cpus(cpumask_of(cpu), byt_auto_demotion_disable, NULL, 1);
 > -
-> -	switch (icpu->c1e_promotion) {
-> -	case C1E_PROMOTION_DISABLE:
-> -		on_selected_cpus(cpumask_of(cpu), c1e_promotion_disable, NULL, 1);
-> -		break;
-> -
-> -	case C1E_PROMOTION_ENABLE:
-> -		on_selected_cpus(cpumask_of(cpu), c1e_promotion_enable, NULL, 1);
-> -		break;
+>  	switch (icpu->c1e_promotion) {
+>  	case C1E_PROMOTION_DISABLE:
+>  		on_selected_cpus(cpumask_of(cpu), c1e_promotion_disable, NULL, 1);
+> @@ -1700,12 +1694,24 @@ static void mwait_idle_cpu_tweak(unsigne
+>  	case C1E_PROMOTION_PRESERVE:
+>  		break;
+>  	}
+> +
+> +	/* Pkg-scope MSRs on 1-socket-only systems need writing only once. */
+> +	if (!bsp)
+> +		return;
+> +
+> +	switch (boot_cpu_data.vfm) {
+> +	case INTEL_ATOM_SILVERMONT:
+> +	case INTEL_ATOM_AIRMONT:
+> +		byt_cht_auto_demotion_disable();
+> +		break;
+> +	}
+>  }
+>  
+>  static int cf_check mwait_idle_cpu_init(
+>      struct notifier_block *nfb, unsigned long action, void *hcpu)
+>  {
+>  	unsigned int cpu = (unsigned long)hcpu, cstate;
+> +	static bool first;
 
-I'm possibly missing some context here, but why do we use
-on_selected_cpus and the CPU_ONLINE hook?  Won't it be easier to use
-CPU_STARTING and avoid the use of on_selected_cpus(), as CPU_STARTING
-runs in the context of the CPU being onlined.
+I think you want to init first = true here, so that after the first
+call to mwait_idle_cpu_tweak() it gets set to false for future calls?
 
 Thanks, Roger.
 
