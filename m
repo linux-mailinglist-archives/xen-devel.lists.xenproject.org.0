@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gOwQN8ww62lfJwAAu9opvQ
+	id iMcEJK4y62lfJwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 10:58:52 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 11:06:54 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BFFE45BCB6
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 10:58:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1293316.1571112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E06445BDFA
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 11:06:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1293323.1571121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wGCMp-0002jo-Uo; Fri, 24 Apr 2026 08:58:31 +0000
+	id 1wGCUA-0004oC-LM; Fri, 24 Apr 2026 09:06:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1293316.1571112; Fri, 24 Apr 2026 08:58:31 +0000
+Received: by outflank-mailman (output) from mailman id 1293323.1571121; Fri, 24 Apr 2026 09:06:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wGCMp-0002i3-Rb; Fri, 24 Apr 2026 08:58:31 +0000
-Received: by outflank-mailman (input) for mailman id 1293316;
- Fri, 24 Apr 2026 08:58:30 +0000
+	id 1wGCUA-0004mb-IQ; Fri, 24 Apr 2026 09:06:06 +0000
+Received: by outflank-mailman (input) for mailman id 1293323;
+ Fri, 24 Apr 2026 09:06:04 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wGCMo-0002hx-Ga
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 08:58:30 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wGCU8-0004m3-PF
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 09:06:04 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wGCMn-00E6Ip-TS
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 10:58:29 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wGCU6-00E81O-Oj
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 11:06:02 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <roger.pau@citrix.com>)
- id 69eb30b4-bab6-0a2a0a5309dd-0a2a4501e8b2-6
- for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 10:58:29 +0200
-Received: from [52.101.62.21]
- (helo=DM5PR21CU001.outbound.protection.outlook.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69eb3272-e002-0a2a0a5209dd-0a2a4508da4a-22
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 11:06:02 +0200
+Received: from [40.93.201.46]
+ (helo=CY3PR05CU001.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <roger.pau@citrix.com>)
- id 69eb30b4-c1f2-0a2a45010019-34653e1542b9-3
- for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 10:58:29 +0200
+ id 69eb3278-63b5-0a2a45080019-285dc92e9a93-3
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 11:06:01 +0200
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by MN2PR03MB5280.namprd03.prod.outlook.com (2603:10b6:208:19e::17)
+ by MN6PR03MB7647.namprd03.prod.outlook.com (2603:10b6:208:4fa::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
- 2026 08:58:25 +0000
+ 2026 09:05:59 +0000
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
- 08:58:25 +0000
+ 09:05:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,261 +60,237 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mbeiUwyO1E4oQZDP6OqEQ/7ja59QuHZhBdziKRemxq8UCdxJ8FIz6vQwSx2yWZbqMzH7vDLD5ZhTcHA0VKJGQDW4uYOKjQwHgUcTRfW1r+r/9jul/Uy5QD3QSraF3uyzTvNzD4drodLXqEJyDzB7mP7YeZ0x8oUkv3yCZdZOjl11HI2MZ7psU9vnnuD4feZaZgEtkaV2tKNO4Xkl1Deht2nzirLZulMXQlBEcvbpIgxoD5A75cry/01k1BlsKCl3PWu+Qu7F30X7PwdVEzan2lDhu96w56/tz4o0MtRL0FF1t+fK/jB4zZxQ4Z1GThhFMOoXNoOXxuM3YID8i/aBqg==
+ b=KQ3L1jZ+PDTBouejRM/TChBS/XbKWhneAzw1g0o+SCXvIa4pBG0lOF2vYd6GAFBRhPF1WiMr+UdXeFBvdlIZ+hhLW9D+pAA+Ie+2UWGS/pGIJ6YZc+H8Xe84wgAuiye2QGDd9rLixmb2kDPhL2Gm5Dmfh1AulbYNvT+H5XWxvR6lQlwBPYgxyTStTxqX+Kza2Gc74THW8V+m3VhU0wB9/UjzbMm2IbEM9g6prEj4+SmeCFGgcg3AHrUF04k2nGU6opdXHRvRUjELfDHt/WbeV7Nq4URzBocOiM7MGERXPGjZRLUM9TKoaspGq9ZqqkFs0uL2mrurqCWgvPTq0GByQg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q30Qn+m5GPX6SjHc9+OHy2BFyepqWpqFl8i0NVVPmiM=;
- b=JxSbvqO43Fj2+gVUMRDgq9si4X0njwLnuUCx0xJeY9aKPLvkEUM/yugX5FSWtWewW4p4/KEhE3XiZoRB5T4Zi1ll6nrFYiCQ7hmCN3trVHmRDuU/bc8K8jYZUlSkfjrqQwG1wGZa5Q6hjTKvUUxGk+eMLj11FtJEvLj/XXSALPlMs2iihD6o577oOgvEgs44muIHmvnGG71cMH7t034cAocMUxIyMFWG11Q647wsQiTjRYs/ubMhOz3Srb7QQzuIR3u6gKP9zD6vWFrGWLOkA3jZWBRxu+O97EfPRAUIOM91qIy+0jnsbsD86QmdJGrouVcYACmA2itqDGmwa2fdfg==
+ bh=Ji1YEMzP233OD0vlz33sSjZWh80qoEbi1o+wqj7pvJA=;
+ b=KBgbyHsT7OHyrWrt8jJPL+Y7MDhJOFQJJOoIGQxU9Yoq6CtuyVO/a/2rSmJyY188BleD4hE4R+YbbI6LE3pTkIxsj3RAW48G+zarbDqlDE5fyp8xl1UNtUKrj1gi4Sk6lXqBBufo6/oas4OrFSnxiOPHeUElvRUgx1Bhj+uc2+is/LctmBkMAAOAHg6CZNEEs0DgZ0nTEGrnhietpsRRS3C2DFNcbq9x8/FJFQLXdGJg9smtgVL3BZQ7Vunrp7jdv9nkA32XZ9KTCjJlmOWqzc82H7+ZCzMoV8hD0C/i/3QOuTlGWtg2jbaB4kk8NJKmi4zigPblntGAccC9mzhZbA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q30Qn+m5GPX6SjHc9+OHy2BFyepqWpqFl8i0NVVPmiM=;
- b=ore26eyFukOfXoGtcgFQ7igxqEGW+sDE/jZR2x1cGOqNki8HVRmP3ayOeV/G0yIS9VgHYTnAs9nlk/Ra4H9PBDnB1kMqXJXQ95eN3i1OthNtQ3RTIbrfBfF3srY8nLEmuYcpxIYUDtLm56YQ/XFD5lFjgjSg/uGCOryJV97D/ds=
+ bh=Ji1YEMzP233OD0vlz33sSjZWh80qoEbi1o+wqj7pvJA=;
+ b=m3RnXTq3EzreXGUKYr7dr5bIc9ROICPZIze5Wmk/PgDDlHc6t6JU67EPgBAL4lZWUKfXCsyiODHyGCQFB3jOWldkUiCfi0wW1OLpR7lNnK5Vd2ldVftdTROMsRyCuOXSp5oU7/sKEkts6E8gPlsW4rJO99ck9ti6Q/ETli6AreU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Fri, 24 Apr 2026 10:58:21 +0200
+Date: Fri, 24 Apr 2026 11:05:56 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Mykyta Poturai <Mykyta_Poturai@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: xen-devel@lists.xenproject.org,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>,
-	Stewart Hildebrand <stewart.hildebrand@amd.com>
-Subject: Re: [RFC PATCH 1/2] pci: Allow platforms to modify BAR adresses
-Message-ID: <aeswrXLdbdK1wPMf@macbook.local>
-References: <cover.1776756291.git.mykyta_poturai@epam.com>
- <a0f623792497ab92cfb64c50bd17d28138e10b99.1776756291.git.mykyta_poturai@epam.com>
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] x86/amd: Drop allow_unsafe parameter, tune down XSA-9
+ mitigations
+Message-ID: <aesydCALj_BSxJ1-@macbook.local>
+References: <1776877188.8631fc262581453bbf619ec5b2062170.19db6223737000f373@vates.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <a0f623792497ab92cfb64c50bd17d28138e10b99.1776756291.git.mykyta_poturai@epam.com>
-X-ClientProxiedBy: MR1P264CA0099.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:50::22) To CH7PR03MB7860.namprd03.prod.outlook.com
+In-Reply-To: <1776877188.8631fc262581453bbf619ec5b2062170.19db6223737000f373@vates.tech>
+X-ClientProxiedBy: MA2P292CA0002.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:1::18) To CH7PR03MB7860.namprd03.prod.outlook.com
  (2603:10b6:610:24e::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|MN2PR03MB5280:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3525ed14-65e5-4c7b-9c61-08dea1dfa501
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|MN6PR03MB7647:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ba3fe08-1783-4140-f101-08dea1e0b363
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|18002099003|22082099003|56012099003;
+	BCL:0;ARA:13230040|366016|376014|1800799024|18002099003|22082099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	GpP6JrR01MUFE/jZ0pIMYyBVbtwDv3tkj111vgmd1v6QxP4fpVKlDiBXoqkqRbI54whoHpcBMhDO3XHaIoN/IHEEzCCq/yj7tDYXCucYcGKXupEs3AOT7rg93hYhYJM9sCr/rweEA5ECrJ0JVnyCMwhACA0ZT8Yuvb8xt/b4NLYxN9lCJnrXOKFsxBsbBBU5VGXyI0nbxreoNtvkOi8czE3xTyRAjczqzf55t/sxSacZ4GlLS08U6SjoI/6s4TTxzXN756lKg/cHIUW9PzaLEozo9o5MTsa454KV3gk9feXgIluewXu+D0+7JFehquia1jczYKRjTXIMz3ua3KeUAU+s7zqCVJzyaJbY5ptPpA+jMMA/jDIN6sNi/D5s8zAoTUCwtw6qDEoTALtnA+pwk90bAF7tG/Y2ZaO2O1/zSFbTtyl4oS2Pab0c9HzFyaC2DGLLnkvBNDmDLEnruBtnyWt2MEAYrPYZyZOuL1oI0IF0trm4rp2rVVME/NZE9S0LDhp9fDyJEbPusX4FIEZrvb3r98qoIbaLiN3tiHkGa/BXsh+V/+UFER7eN446dJO6Wdh5WV2Xwp8a6xZFjgdjRSMRgirKp5hbEsj72/B3WekhAaKskujSz4+WxYUiYcGkkO8J86Z8yhuxDAxrGB0+F7W+AxMG6fwfm3RxPBkDInle9IQKfxVJkm8sArEIfmkbOtaqsDWzIiG6njkCXlyxvV9IRqORXy5XmYMpfIZPjgU=
+	uuZq+v5YGZG3AqLxb526Nnw5yVPdF8CX87mzEqx1OoTXGbekd3E/Jz/ZWqLTZ/OsgXdS/evQj/aYXBTyBgwPXMm9gvMqcJ6sJzNePMYMYgzikkXbKlsoga6SuMmqNOthpeyjuoU0/ccud8QNjwwYzk7Nkr9cMFmsn3c0DR7abFc8J2Zb2dgCDFyEXv/uAnuio2laIiFfhQfHK1xTwO5/ibSLkhAkHLHBO5fxRe2NV27FdSv03hkW37eswsIplwVFpNRODqZmd6xcLM0AQSmF/fWUfARJO5cqZ3UMdNM7qTWfrz8EEnfb6UoE0FCYaCyOvwD5d2bjeHN1BKSOYHdkjocvuzS+nDB1llxY7OrpG9hMQ/PwwSJHxtzy4eGFCcZsXQIKFc9O+PYtzWSWoHWzxG+Z2XsMF922JDeYNNOgzvTV+DSI+uiJx6x6mC+u7JhyDEzycjzRweoU6P6B8daJ8H1cESL91Hywks2EfavjuNtKz36rZbz2/y1KCSMERIrMJorxVde7J8vPL8U5MeEozeQm2rj5yKFSfpzotXCqlIGZJfv2dHT7jIonqUhU2FWxKNsdA+jqhcBABKSV8nKBNn3flM2hXuNS6bYVlsM5NZtgyRtM/B8iNb3ZD/x1LbKh1y/rZGZDsoUQt2IdSEnOmY7YClv1KR1bWhSemiKP/NvOP7VcHwFqvjBb6rHt3uayt3DSzQnQA07VHCtC84nldJUbjQIERB2pYxF/NMcxd14=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Yi93MWE2NmtRemEyWEU2UWtnVzdLU1J4RWxCTms5VXY0Lzhmc3NTeWc4TCs4?=
- =?utf-8?B?L1JCQjNTTUFDZXIrVitSRmlOTmY3WmVQZ0ZrV3dyaXBLZzJNaW05bjZVN1lz?=
- =?utf-8?B?S0tuTGJJUnhUbWdmTFRzNG9DcldaaC9Rbm5ad1RlUmhTZVkrTUdGRktzSURx?=
- =?utf-8?B?N1M1USttVG41d2taaDBLSzkrSktpS212eGhsZ1hTOVR3emh0Q004bDVEcmw3?=
- =?utf-8?B?WDIxZUlmK3pXa3UxUjl0LzhqMFhMSS9PRS94YzVpZHFONVJVWTFaWFR4TlRO?=
- =?utf-8?B?dTVrVjFmUlhMbVFuVmN2OE5qT1l3WldGUi9seHU4Zk5XK3BpSmtaQzIvS05j?=
- =?utf-8?B?NFhBeDhxa1VzbUdBcTkxWFFQL0c2cThXclRwRGpvcWhJWTZlbGp6K2xiaG8w?=
- =?utf-8?B?Slk1ZXl1K2tmQUdINyt4Qk9DMzErMWt6NWxkS1dQbGtqU3JwWGI3Q3hZdFI2?=
- =?utf-8?B?Z2pCYzZvbnZLQVlrcWFpb2tJbTBSMmxwY2NWWmRYWkNsb2xKVVdkUk4yalR2?=
- =?utf-8?B?WDIvV2piVGVDM29sdG1zZFhLcjRVa0V0WFZVVjNmQll3ZXM3ZmVTK2RZUGVT?=
- =?utf-8?B?WXpTcEFOT1NsQW9YUmcvQ0t4Nnp5MmtjK3k4QTBRK0toU2hVR0svSHVSZnVj?=
- =?utf-8?B?ZlZKdjB4bDRkejAzZlhvRklQS2gvRlc4d2pyK3JZV0ZZTlF4R3hkbEVySitV?=
- =?utf-8?B?Q2tNaGpqTkRpaVBqdm53Vnd0NjRzeHlTZnRDOHpuUktCOCt1Y0lYanZldUp5?=
- =?utf-8?B?dGw5NGpYZlBUZFhVVWx1RUpkdHV3TlU5UmZQQTVnSHlYbkYvb2tCSUxEeVR0?=
- =?utf-8?B?UDh2T2lPTDJERGpQMlJQYjVpcVNabVVJdERZR0pBeFFTMm04dG5Cdm1Qakcz?=
- =?utf-8?B?ZkF3bkhFK1l5ZXJFV3pMY3ZrQkpQNjZFcHlITU54dHV6MTE1L2NxK1lqL3dm?=
- =?utf-8?B?OWVzNEthTWU0RmNXQkJaL3FjSnVUaW1VZHlwb05rMnFqUkhCMGo2S2xjZEMr?=
- =?utf-8?B?YVFEa0hOdXNCVGN5cVhDRGREVVR6S3NkNkJlemRsRmdiRlZwS3FvS1ZPL1B1?=
- =?utf-8?B?QzBJUDNxclJIcDF3UEhXZXNvYk9GM1d6K1B4SG1OUG04SVBBNjNaUzJ6aW03?=
- =?utf-8?B?cnNJZDBsNjZXWFI0NFR1S0UzSXc5cksvTHJKclUycDA4Wi9VRUo4RWxqZ0Fa?=
- =?utf-8?B?QTYzdXQ0MGh4ZS9BUGZPaVo2Q0JpeDdkQ1NLWmpGU0lqdGVqOGNNaS8yUnFY?=
- =?utf-8?B?aEZKSUd1My9PNXJnTk1VcmQxSkpWU0c0WVRrOEFNMGExZ0hKZXVXSHdwU2d1?=
- =?utf-8?B?Tkd6YnE4Vng1YUwyM1RPZ0tPMTRGQ1VsL1Z5T3hUOEtxZDl4Yk9UZWJ3TWVC?=
- =?utf-8?B?SnJUVVh5SzltNXcvbDZ0WUdRMGo0aUJOVEZrTnFVcnYxV2pORmhHOTl2emtu?=
- =?utf-8?B?Vzh6Mm15MzVNZ2w3Z2xTVXpiUmtOeWkrcDBFSFpKMWh4VUw2aW9tdnRUb1h6?=
- =?utf-8?B?L3hJekJSNFNzWGdXTEloMnhxS3pGVlJnWTU1SzZMU2xMNXVCR2N5SEJyRlVn?=
- =?utf-8?B?QlhvQjJBV3RXdmdvMmM2M1hjSzRGbHcyTjBKdzhHK0VsQ1NwcTRxN3pLSGF2?=
- =?utf-8?B?Y1dacTVuQWNUM0J1VU9mUVJ2TUxyVnRpQTlkQmViTFhlT0h5WDV6dkJwVXZJ?=
- =?utf-8?B?dnBDa294N2Urcnl5N3VOQm9Ec3cyQVIxMHNEMXpJQmRKaHRyLzU4MnJUYjE0?=
- =?utf-8?B?VlVwYVkrcEdPMHNuR1RuUU1QdTVLcllWZGJ0NWR1QUlkWkV0UTFERXA5aTNR?=
- =?utf-8?B?SWtjcjBuU2RGQ1FqNEsvck9Wamo5bnJydjVkYTVpeFJMNTQreVpHRG9GR3k5?=
- =?utf-8?B?Q0V5dkx6NG54RmwvWnA0NEkwSkRya3FQeEJWdWZiL0NrYjY5akN1U0ZyYTBt?=
- =?utf-8?B?THJ4S2JDWWJDOXVMaGswMWY3eXJxZC9YVmt1UERuUXZrNFgvaXhnVzVBcGRz?=
- =?utf-8?B?SExaMlArRmc1YTBVR3NOajYyUCtiVDFJcG03VUdwRlFQMU9EWUdsMkpVTUti?=
- =?utf-8?B?Y050d1lTR2RUMEtrejBkYjFSc1JkVWFZaWRKUmxpZFVxOGlabFo0aityTTBK?=
- =?utf-8?B?SS9rUXEwcjFjSFBnckgwYTR1QjRoaEd4YWROZGtRUjdDZWF4MFFnWVVOcWZ1?=
- =?utf-8?B?K0hQWTg3dDdMc3Vjc0xzUTJQWktaYVh5cTNWaW5FeEhPVXdRWU45aCtGLyt6?=
- =?utf-8?B?ZmlObXE2amhzYXdTUUxiT0ZGUisrNnJsMVhRUGd5ZTFRSitIRzJ0Z3E0YzVa?=
- =?utf-8?B?QjFQVzFMVnJBdHpMSm5zWVFjeFFLZ2wwQ2kwc014RmUyNWFUU2plUT09?=
+	=?utf-8?B?blFjSko4NnZPSDY1MUF1dWVlMmcxS25ZQ3R3WGlkRUZTSGtIYU0wMklnbmJ1?=
+ =?utf-8?B?Wm4yZFlac3FxNTZWcHhtQ2ZJZzBXMWxHenp1VForM1pycXdEUVgzK1ZCak0r?=
+ =?utf-8?B?cWhWSFErZjl5ZnVpeGxhUmdySURqZ2c1NEppOFZRaWM0QkpVRURKNFVnd1Vv?=
+ =?utf-8?B?dFFSYW1XbDlnaWRjQzkweDhmZ2NzanFEMGZ3NTlMajhKcm9iVU1OMUhkeTVD?=
+ =?utf-8?B?c2lHaXdjSG1SUW81YmwrZ0FXNXFEKy9MY3ZLaEQ4QkJzc2hyZFQ0dFdwZmhz?=
+ =?utf-8?B?bktva0pHZ2F1NzRtV0lOMFMzOFhEenVZNXpqd3RyVGVzamVJaGxrbGR4WXRB?=
+ =?utf-8?B?L1ZScnAzWG9FaEowaUl3QURXbXVsaTlHeUJXWGFDQTN0bVZkZ3pKR3B2aXZS?=
+ =?utf-8?B?WW96RXQ1Q1Z0Q0pZSGhUVitKU3NTV1VLdWlSMXNGcVRGT2dXdmpBL0dZQkgz?=
+ =?utf-8?B?bEYxaVlCUUFrQzFtYm1EOEh3dThEV2dnb01ZeEU0VnNsTVE5WnhKRXdXZEZ2?=
+ =?utf-8?B?UGxzZ1RMdXNaY0Z0dHRUWUNScEk1RFN5RFdSV1h3VUdIdVRPMFdvZytSYXBI?=
+ =?utf-8?B?VEV2Umo2RC9LczExYVB5TlZoZEZocjRkZnZJKzhFNHJXaFVpQm9qSGhhRzh2?=
+ =?utf-8?B?QkpLQmRxdTdiMFAwOGR3dnI2dEwvYktidVluUjZBWENXVlphbkVwdzBrcDE1?=
+ =?utf-8?B?WHJRTmRHRGxwV2QvNXREL1BpTndIY3IyTXJmUHVoMU1kM1VFMDl6Y09sRmd3?=
+ =?utf-8?B?bnJKbG9CRFBqaDFtMFdabFliUkVncExUWDk1K29qVXkxSVZLYkh6dVIrT2Fw?=
+ =?utf-8?B?ZExpTm1IUHFRTjcwNnhiMU5zKzUyQ1h1OEx3WmNzR1paeWtCYmhXRU5jaWJn?=
+ =?utf-8?B?WHlhc1VxcU9EMlZaTTREdWpqNVdQN2Y4Q29UVmloM25yNnRCL1RMVHJGZytl?=
+ =?utf-8?B?V0lUTFQxUXFkSWhjaUZJdW5kc21iQml4Sm5VUml3bVJBNHA1OHRvN3RzZzY5?=
+ =?utf-8?B?MkhuQ0RBdGZoajI0bWZTQWo2UUpvd2F4UmkxN25kY2lQV3hheGROUEVIbWRo?=
+ =?utf-8?B?blFvUEp1dmd3RnNHWHRHd2p1SlF4WStKSGN5emNnd0RVd3l1SWZXaThRdmtN?=
+ =?utf-8?B?dnp3NkdIVUpQVGllMDdFQXN4MmNUZGR0UEl4SWVDRHdwT0ducDdCSU5GUGd4?=
+ =?utf-8?B?N2JOazIzN3RZYmY3QVhqZ0U2cktJaU1qRHczMlBja1E1cXZwT2MzcWs2SWJj?=
+ =?utf-8?B?UzY2RXYzM01LVUVNV3RvbTVjTjcrR20ycFhDblZHN2dDUEtHcXN4a1pqMWF5?=
+ =?utf-8?B?RFI3blZWWEk2ZDRYZVZmOXVMTUxQNUZRcW5aR3c2bHhpS0w4NWswQkNsQi9R?=
+ =?utf-8?B?QnN5WW5CcjJNZmNYajJaRnZvNFpvSGlVVnpjVnUydHdvaHVIK2xCTm9SUEJp?=
+ =?utf-8?B?WHVzc3RPM1V0OGMrRDZQellqbGluUnNwSUdVcDJwT3dDRkxGNTBDamx0bXpo?=
+ =?utf-8?B?RDBmYTZyQkYwRG1ibWRtOVBDcVdUNWEzWWNaVG5MY0Fkb0pTa3pkSk1jREF1?=
+ =?utf-8?B?YzBaQm5YSWpNV3F0NVZpKzA0ZmxLRW5ZUlpmNm9VZXNvaFkvMGhJNStHQ05L?=
+ =?utf-8?B?TS9RUXVvamFUR0JySjlQUnpHelJDcENvcG9PNHk5KzNjL1BMTlJLQXdOYks0?=
+ =?utf-8?B?elRmOEFJdVozZTdGMzducUh0d3RabnNUdFlidnF1aEFVNHQ5ZnZFcnc0WGdh?=
+ =?utf-8?B?czZQUWY0NWNvQy94WFZzaVVuWDVES1cwOXBYdFUzc0xFRVVxZmxYMXg0ZmxF?=
+ =?utf-8?B?N09YMG8xMEp2OVJ0d01zVUtVamw4ZEFrR2xDMHJvbndsNnREZFZ1bzg5RTVz?=
+ =?utf-8?B?STI1Yk9ES29qSFFSUVdIcnhBS2tWNkdhcVNoalZCZ1ByRFd0YnozTU1zcnVD?=
+ =?utf-8?B?Vm5XUm8zMVh4dlBacWlsSy8rbkEwaTk0L09XSk1qRUtyekttMEk2ZWhEVm85?=
+ =?utf-8?B?VkZVek9qSXdVdTUyeGc3VHhPZEJLZFhaWUdzQzRoRkNJRXgzQTVjcE9qRWdW?=
+ =?utf-8?B?cVN0MWJ0SkJRelk4a29nTENhSi9jWmlLckdoN3VmQVRxeFlMOWRpYnZmeUV3?=
+ =?utf-8?B?U0wrVC9QTnhtS0RmMTg5SUIvMnNsMzR3MXJrNmpDZWpIdXZvcEcvSmFzMmh3?=
+ =?utf-8?B?OEtwSDNmajBDd0lMVkwwSkk4YmxwWEl4QmFMOTgrOWNXTkFmeHFlK0l3U2gz?=
+ =?utf-8?B?NGZ5R051MFVzOCttc0h3L3FjYklhT2lMbjBJSXdJSWUzTGJ4d3RpTzVxeVBv?=
+ =?utf-8?B?VUJIY2VxOEN1RWpNbm1NamNVbjcxZkQwM3NIT0dUYXRTVGpvWEdXZz09?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3525ed14-65e5-4c7b-9c61-08dea1dfa501
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ba3fe08-1783-4140-f101-08dea1e0b363
 X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 08:58:25.3186
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2026 09:05:58.9316
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LPlc/IYa//Vi+1VBzbtmDIMISdw9NsHNnwwRvH+urV9KiuBJVTIhEEZCwUeMH0NV5KAaKXuSJHhtVLaBOqUByA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5280
-X-purgate-ID: tlsNG-d62444/1777021109-BD06EFF4-0B236057/0/0
+X-MS-Exchange-CrossTenant-UserPrincipalName: Iofnkgo5rSNCDxvbPrfl1MV4uKApIrZg5E9jRJmANuz17Lo2m42d12pOmnNiscu+7P0YHARIq+teaxWQScDSvQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR03MB7647
+X-purgate-ID: tlsNG-c1860d/1777021562-39360DB1-B27C5065/0/0
 X-purgate-type: clean
-X-purgate-size: 4464
-X-Rspamd-Queue-Id: 4BFFE45BCB6
+X-purgate-size: 3907
+X-Rspamd-Queue-Id: 5E06445BDFA
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,macbook.local:mid,citrix.com:dkim,epam.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Mykyta_Poturai@epam.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:stewart.hildebrand@amd.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[citrix.com:+];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-On Tue, Apr 21, 2026 at 07:57:14AM +0000, Mykyta Poturai wrote:
-> This patch is a preparatory work for adding Region ID support on Renesas
-> R-Car series boards. Add new host bridge op "fixup_bar" that allows
-> platforms to modify BAR addresses before they are mapped.
+On Wed, Apr 22, 2026 at 06:58:06PM +0200, Teddy Astie wrote:
+> XSA-9 mitigations prevents Xen from properly running if a affected CPU
+> is detected. While the vulnerability has no mitigations (aside not running
+> 64-bits PV guests), it's only outcome is a DoS.
 > 
-> Because x86 don't have support for PCI Host Bridge drivers, add another
-> level of indirection in form of platform_pci_fixup_bar() function, that
-> will call host bridge op on ARM and do nothing on x86.
+> There is no real point in preventing Xen from working here and it would
+> be preferable to just log the vulnerability to the user so it can act
+> appropriately.
 > 
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> Also reword the errata message regarding that it only affects PV64 guests.
+> 
+> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
 > ---
->  xen/arch/arm/include/asm/pci.h  |  3 +++
->  xen/arch/arm/include/asm/vpci.h |  9 +++++++++
->  xen/arch/arm/vpci.c             | 12 ++++++++++++
->  xen/arch/x86/include/asm/vpci.h |  6 ++++++
->  xen/drivers/vpci/header.c       |  2 ++
->  5 files changed, 32 insertions(+)
+> It's hard to tell whether or not we would want to drop allow_unsafe, but
+> currently, Xen is allowed to boot with XSA-304 mitigations disabled
+> (intentionnaly) which has a similar outcome than this one.
 > 
-> diff --git a/xen/arch/arm/include/asm/pci.h b/xen/arch/arm/include/asm/pci.h
-> index 7c3211823f..398a4eb746 100644
-> --- a/xen/arch/arm/include/asm/pci.h
-> +++ b/xen/arch/arm/include/asm/pci.h
-> @@ -80,6 +80,9 @@ struct pci_ops {
->      void (*init_bus_range)(struct dt_device_node *dev,
->                             struct pci_host_bridge *bridge,
->                             struct pci_config_window *cfg);
-> +    void (*fixup_bar)(struct pci_host_bridge *bridge,
-> +                      unsigned int bar_num,
-> +                      paddr_t *addr);
->  };
+> From a user standpoint, preventing the system to boot or starting guests is
+> too extreme and would be in practice seen as a bug, even if it's justified
+> policy which can be overriden.
+> 
+>  docs/misc/xen-command-line.pandoc | 12 ------------
+>  xen/arch/x86/cpu/amd.c            | 21 +++++----------------
+>  xen/arch/x86/domain.c             | 14 --------------
+>  xen/arch/x86/include/asm/amd.h    |  2 --
+>  4 files changed, 5 insertions(+), 44 deletions(-)
+> 
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index 6c77129732..04d206f919 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -133,18 +133,6 @@ resume.
+>  `s3_mode` instructs Xen to set up the boot time (option `vga=`) video
+>  mode during S3 resume.
 >  
->  /*
-> diff --git a/xen/arch/arm/include/asm/vpci.h b/xen/arch/arm/include/asm/vpci.h
-> index 0cc6f5a105..f5c817a51c 100644
-> --- a/xen/arch/arm/include/asm/vpci.h
-> +++ b/xen/arch/arm/include/asm/vpci.h
-> @@ -16,6 +16,10 @@ struct vpci_arch_msix_entry {
+> -### allow_unsafe (x86)
+> -> `= <boolean>`
+> -
+> -> Default: `false`
+> -
+> -Force boot on potentially unsafe systems. By default Xen will refuse
+> -to boot on systems with the following errata:
+> -
+> -* AMD Erratum 121. Processors with this erratum are subject to a guest
+> -  triggerable Denial of Service. Override only if you trust all of
+> -  your PV guests.
+> -
+>  ### altp2m (Intel)
+>  > `= <boolean>`
 >  
->  int domain_vpci_init(struct domain *d);
->  unsigned int domain_vpci_get_num_mmio_handlers(struct domain *d);
-> +
-> +void platform_pci_fixup_bar(const struct pci_dev *pdev, unsigned int bar_num,
-> +                            paddr_t *addr);
-> +
->  #else
->  static inline int domain_vpci_init(struct domain *d)
->  {
-> @@ -26,6 +30,11 @@ static inline unsigned int domain_vpci_get_num_mmio_handlers(struct domain *d)
->  {
->      return 0;
->  }
-> +
-> +static inline void platform_pci_fixup_bar(const struct pci_dev *pdev,
-> +                                          unsigned int bar_num,
-> +                                          paddr_t *addr)
-> +{}
->  #endif /* CONFIG_HAS_VPCI */
+> diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+> index 712734a6e7..f1f4a25754 100644
+> --- a/xen/arch/x86/cpu/amd.c
+> +++ b/xen/arch/x86/cpu/amd.c
+> @@ -20,10 +20,6 @@
 >  
->  #endif /* ARM_VPCI_H */
-> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
-> index d41aa383a8..ec6efec22e 100644
-> --- a/xen/arch/arm/vpci.c
-> +++ b/xen/arch/arm/vpci.c
-> @@ -189,6 +189,18 @@ unsigned int domain_vpci_get_num_mmio_handlers(struct domain *d)
->      return 1;
->  }
+>  #include "cpu.h"
 >  
-> +void platform_pci_fixup_bar(const struct pci_dev *pdev,
-> +                                          unsigned int bar_num,
-> +                                          paddr_t *addr)
-> +{
-> +    struct pci_host_bridge *bridge = pci_find_host_bridge(pdev->sbdf.seg, pdev->sbdf.bus);
-> +
-> +    if ( bridge->ops->fixup_bar )
-> +    {
-> +        bridge->ops->fixup_bar(bridge, bar_num, addr);
-> +    }
-> +}
-> +
->  /*
->   * Local variables:
->   * mode: C
-> diff --git a/xen/arch/x86/include/asm/vpci.h b/xen/arch/x86/include/asm/vpci.h
-> index c501ff1709..a05b70abbf 100644
-> --- a/xen/arch/x86/include/asm/vpci.h
-> +++ b/xen/arch/x86/include/asm/vpci.h
-> @@ -16,6 +16,12 @@ struct vpci_arch_msix_entry {
->      int pirq;
->  };
+> -/* 1 = allow, 0 = don't allow guest creation, -1 = don't allow boot */
+> -int8_t __read_mostly opt_allow_unsafe;
+> -boolean_param("allow_unsafe", opt_allow_unsafe);
+> -
+>  /* Signal whether the ACPI C1E quirk is required. */
+>  bool __read_mostly amd_acpi_c1e_quirk;
+>  bool __ro_after_init amd_legacy_ssbd;
+> @@ -1205,19 +1201,12 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
+>  	if (c->family == 0x10)
+>  		__clear_bit(X86_FEATURE_MONITOR, c->x86_capability);
 >  
-> +/* X86 does not require PCI BAR modifications */
-> +static inline void platform_pci_fixup_bar(const struct pci_dev *pdev,
-> +                                          unsigned int bar_num,
-> +                                          paddr_t *addr)
-> +{}
-> +
->  #endif /* X86_VPCI_H */
->  
->  /*
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index a760d8c32f..d89e43354c 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -882,6 +882,8 @@ int vpci_init_header(struct pci_dev *pdev)
->          bars[i].size = size;
->          bars[i].prefetchable = val & PCI_BASE_ADDRESS_MEM_PREFETCH;
->  
-> +        platform_pci_fixup_bar(pdev, i, &bars[i].addr);
+> -	if (!cpu_has_amd_erratum(c, AMD_ERRATUM_121))
+> -		opt_allow_unsafe = 1;
+> -	else if (opt_allow_unsafe < 0)
+> -		panic("Xen will not boot on this CPU for security reasons"
+> -		      "Pass \"allow_unsafe\" if you're trusting all your"
+> -		      " (PV) guest kernels.\n");
+> -	else if (!opt_allow_unsafe && c == &boot_cpu_data)
+> +	if (cpu_has_amd_erratum(c, AMD_ERRATUM_121))
+> +	{
+>  		printk(KERN_WARNING
+> -		       "*** Xen will not allow creation of DomU-s on"
+> -		       " this CPU for security reasons. ***\n"
+> -		       KERN_WARNING
+> -		       "*** Pass \"allow_unsafe\" if you're trusting"
+> -		       " all your (PV) guest kernels. ***\n");
+> +			   "*** This CPU is affected with erratum 121"
+> +			   " 64-bits PV guests are able to cause a DoS (XSA-9) ***\n");
 
-You do this for vpci_init_header(), but don't you also need to do it
-for bar_write(), in case dom0 decides to relocate the BAR?
+We try to avoid splitting log messages, so that people can grep easily
+for them.
 
-Also - I would assume that both the firmware and dom0 are aware of
-this limitation, and hence wonder why you need this fixup in Xen?
+I would also add a add_taint(TAINT_MACHINE_INSECURE); here.
+
+I wonder however if an update of the advisory would also be needed, as
+we are modifying the applied fix, and hence the text in the advisory
+no longer matches the code in Xen.
 
 Thanks, Roger.
 
