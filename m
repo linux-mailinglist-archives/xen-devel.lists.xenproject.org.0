@@ -2,59 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aBOLOn4G62kFHgAAu9opvQ
+	id SIutGgYP62kGIAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 07:58:22 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 08:34:46 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 887EC45A1B4
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 07:58:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1293128.1571040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C209245A46B
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2026 08:34:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1293166.1571049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wG9YA-00076d-F1; Fri, 24 Apr 2026 05:58:02 +0000
+	id 1wGA7I-0000CX-3n; Fri, 24 Apr 2026 06:34:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1293128.1571040; Fri, 24 Apr 2026 05:58:02 +0000
+Received: by outflank-mailman (output) from mailman id 1293166.1571049; Fri, 24 Apr 2026 06:34:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wG9YA-00073V-Br; Fri, 24 Apr 2026 05:58:02 +0000
-Received: by outflank-mailman (input) for mailman id 1293128;
- Fri, 24 Apr 2026 05:58:00 +0000
+	id 1wGA7I-0000Aa-0d; Fri, 24 Apr 2026 06:34:20 +0000
+Received: by outflank-mailman (input) for mailman id 1293166;
+ Fri, 24 Apr 2026 06:34:18 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <vijayanand.jitta@oss.qualcomm.com>)
- id 1wG9Y8-00072N-FT
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 05:58:00 +0000
+ (envelope-from <Mykyta_Poturai@epam.com>) id 1wGA7G-0000AT-J5
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 06:34:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wG9Y7-00GqJX-SY
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 07:57:59 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wGA7F-009RdE-Qb
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2026 08:34:17 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <vijayanand.jitta@oss.qualcomm.com>)
- id 69eb065b-5cb7-0a2a0a5109dd-0a2a4501c5d4-34
- for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 07:57:59 +0200
-Received: from [205.220.180.131] (helo=mx0b-0031df01.pphosted.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <vijayanand.jitta@oss.qualcomm.com>)
- id 69eb0666-c1f2-0a2a45010019-cddcb483eab0-3
- for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 07:57:59 +0200
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63O4cpN1009844
- for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 05:57:58 GMT
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dqk17brmh-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 05:57:57 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-354490889b6so11279993a91.3
- for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2026 22:57:57 -0700 (PDT)
-Received: from hu-vjitta-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c79770512afsm17288101a12.31.2026.04.23.22.57.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 22:57:55 -0700 (PDT)
+ (envelope-from <Mykyta_Poturai@epam.com>)
+ id 69eb0ee1-e002-0a2a0a5209dd-0a2a4503a61a-22
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 08:34:17 +0200
+Received: from [52.101.66.137]
+ (helo=DUZPR83CU001.outbound.protection.outlook.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Mykyta_Poturai@epam.com>)
+ id 69eb0ee9-672d-0a2a45030019-3465428966b3-3
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2026 08:34:17 +0200
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ (2603:10a6:102:30d::12) by FRWPR03MB11125.eurprd03.prod.outlook.com
+ (2603:10a6:d10:1a4::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.22; Fri, 24 Apr
+ 2026 06:34:15 +0000
+Received: from PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::b8c6:f37a:987a:beb]) by PAVPR03MB10102.eurprd03.prod.outlook.com
+ ([fe80::b8c6:f37a:987a:beb%5]) with mapi id 15.20.9846.021; Fri, 24 Apr 2026
+ 06:34:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -66,479 +58,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=qcppdkim1 header.d=qualcomm.com header.i="@qualcomm.com" header.h="Cc:Content-Transfer-Encoding:Content-Type:Date:From:In-Reply-To:Message-Id:MIME-Version:References:Subject:To"; dkim=pass header.s=google header.d=oss.qualcomm.com header.i="@oss.qualcomm.com" header.h="Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:MIME-Version:Subject:Date:From"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fOXXFN9mhZ7JxzI+hTQo1c6CYH+05MRwTlhFigPlnEI=; b=n55RZJ6Jw4rv8neg
-	xJrqVkFw8uPXRCYWQMWIJ0f5DE4gyZ9SLrHuyvkgYDVvsJjDL9y8WneA2vOalYB6
-	VujLJ/jW7MUMvjOcKLMZ9ZxDBR6Ix2aHSF0xtQZeYssCZRolHc6RqF6AhhFXzCq8
-	FwKb4clhZXNP08kPn+vJKI9IUa80R51Rd1feVlnDzigW2AFnXM6ryhBkkEXe8PZ8
-	4L1gQnJBZEi2ppa4qCFrL+OI51556Lb/5fEIM6NfYQN+Jx/ZnhrYxHDj2W/e2BeK
-	sRpWETO/Kxp0WvttNunwhkNH2QrY/Cosf9BgE8TSrd7HS7uK9M55Zl93ztMnLqkY
-	9/tNGA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1777010276; x=1777615076; darn=lists.xenproject.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fOXXFN9mhZ7JxzI+hTQo1c6CYH+05MRwTlhFigPlnEI=;
-        b=RLd5KbQRfbLXcvbbaAiFArxOfU6l9CT9drJFsGuGaNtDm96lEHvQA4BiBXbhpd1f1V
-         NqGGXTy75HorpD9nk3oXhQ7gnC8Ja2BJF66F7amJyd5LSg3Eq4TfH9bu0MwzUBS3AB+y
-         LQXFIw531c8kwVudPy6EwNAD5PPtbqEMWpTaVOigLFPLgfCVKHGdbgoQxLC5YrBDMhRU
-         Z9YyZDdPLqcSSnak1Yv3mTbo3qVPszS4KMtjXYQ/YPXUAIvzd3mdII43iFsQkeRiPPVk
-         z8/zLMd+Ctmq8UyB+niGf2x54LBNIzLXmFGNf1c7CqXZHgzXRP65iEc/lO02Q2Mxnh6P
-         RrWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777010276; x=1777615076;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=fOXXFN9mhZ7JxzI+hTQo1c6CYH+05MRwTlhFigPlnEI=;
-        b=BHLmJKsrcLJWAcpNQk1zpMLPPpkS2U898GrHHJzRH5+Bn2CteZRkwe+mBHLY0xgFMX
-         gBhXy+j/1fYMhv6bfcpCIsEOWToMvjezbry1Fak3A9su6J3Grj7mlVUVotl3FUSpOzhg
-         KOkFwwvj4sY6ldZnVwvsJW4dfLjacIK3JN75kgC77a4D+FNZCy0JNqRDpqnZutut67xv
-         6FHNA7UrV18PNu35AHDij/Z+1rlGz/2fwn2Apo3VrAkItjKxTIgm8XkLR9aXSs6RoD/G
-         gbjLb6uxP+JrKHfsCMz9741N3Gtyw3+pxRPA0GNh0xVI2kNOKHpifKNSx6x8H2+5yuc6
-         YoLA==
-X-Forwarded-Encrypted: i=1; AFNElJ9XYNs49YruRDJmwckGQWum776NW14KAqP7WiMMOFhjptvFAAqHrn4PPsvvjzDV6KQL6Doxfe+yxHQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw7RT+nGsbO7yf5DTV0mIRfztZuI3nBdR5LURwXhqtUPpPQbwTb
-	Iliotkclv50ihPTvx0+ZyUXclWF8LeOwJ8F46Rmw3YpH+/m2o8LyVVPfYjmTHDC6Xt26Xe56LTh
-	jcAwE2K2AMkgHPZ/SO2/ACRqNZb10LMFAkqwR6gV11bDSnTmTWxj+qhWVSRHpaSn3c1qVaA==
-X-Gm-Gg: AeBDiev7F4ThFvZ6xmCjitjA4O0M18PWYkfnQlQ1xc3gzbCUNtdm/MccSIukQYktnmT
-	AzGGixCDPhy/KpxuBVt8x7rbHbfZbsmqguDuCQcn+HNTw8w4z6bmI29Kt5OuveZhwT2QdKAuE33
-	oa8Alcld1J2g0q79fFtqQY00W0t7HcZs64yuuaNg0gZrmrgzVa35EO5RV6x0VQonggN85vo1JIh
-	3Mr/KRhq1aupMkRe3AZQsLiEzJ3aRRhYUYElWQrcBkvkZVinMzdPFd89Z9au3oriQNWlKoeDRni
-	BSsua7mFHym4mGiXh5ww8FZQdguwWAUmQUJglAFB+eMk3B68QmoeUSH3WDOTFv21CQ+5e3BIdEg
-	4vJU7pqWQyi65ZrDFq9LRloWNpeUl6mGcPs4rivlnmWvC3Hq3vC+HFKnYJbuyRoOii8A=
-X-Received: by 2002:a05:6300:6cd0:10b0:398:8766:4d0a with SMTP id adf61e73a8af0-3a08d7342b0mr21009096637.19.1777010276426;
-        Thu, 23 Apr 2026 22:57:56 -0700 (PDT)
-X-Received: by 2002:a05:6300:6cd0:10b0:398:8766:4d0a with SMTP id adf61e73a8af0-3a08d7342b0mr21009075637.19.1777010275875;
-        Thu, 23 Apr 2026 22:57:55 -0700 (PDT)
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Date: Fri, 24 Apr 2026 11:26:10 +0530
-Subject: [PATCH v14 3/3] of: Respect #{iommu,msi}-cells in maps
-MIME-Version: 1.0
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wa07ll9TbS7ycXJUpGoyjXpliSwE7Q+lx3TLNtn2tqcv0e9woYZVNJu8DIv0lEzQFSLuT15Ytgf48rtFOTMh6YOY6p+Rym5bODOWxKLbWOvK8S4g97/PY2wfBAUPzJwmJ4LPijwTodQui8HnU/jh/2A0vkqtkZqh99U1jrGHYaogOQ54K0g4pIF0/LnfKFoRrXMDXpyYfFUOgcGFC1N/cshghnspDR477rVpl+n8kT9UMZp9mxSrlFJ9feBEfb/emQxhW+6TWvvlxkBzilsN0mevJR1BmyUA+PBxndth8EgI2RI3oU8o4sd9ezNDT9pfHP0Wwmc62QoR4nSqdfNM/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9dufs4c+GYFiXOiY1rG+JCyLPqXHtv2LGRSLu4XNZ5Y=;
+ b=lYvzFkdlv2BZftdvxXd08IYTprcsDJKqTEe4Ee2gqetOj1gF4/XvJifFy5Wk6dpKnXDqvu95UA6jmfwOSVZ3JmEnY886kdPVPSRHe77QYiEWp2Lgt/X0ua8Ii/8urrPjLMNRR19ihkxjhpCDWLcukeaMrHbfxNH+OLjTDsuroowlbNdMkDd4Yndfdv59QCU0pwbWLWVyeXVqt74cvFfx1CUEQsHEpF2wDahBCQfB6kQgLAaLcm/Z4wXrM8E52kAhPtKCw/DeVm+y8fbIyXg82p1ATx+kzYdbFVY1gi5ROrFn83D3WYTiy6Ez8DIqOp8f+12Slj6coToHzWfx/enLhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9dufs4c+GYFiXOiY1rG+JCyLPqXHtv2LGRSLu4XNZ5Y=;
+ b=A+KPXky++/MrNEN3zokhwejfwAocrEcYzeEB40CPc8zt/VG2qQq3v6GbIL9maH7UFirc/2GDQw1hgzNx9J3sGvm0TxwuDp3PbZ6BRgsWEjCCjiUvbSC1VI2tchZBNhhVqIG/Xe8MuUmIElCnVwosh/uIGzP1ZiZA5Ncad34PsnUgztZygpEHxR09vKLP73co2mYRkaz3hGdCQyeYXebKDdQtyxMdcrB/sbZUiwTasvXM4E+t+1ss1MZSrV4KP3jkvxS6jGINl4Shg3ODvO0pODp/4HwPbtPVvd1TBDBuhgmhAGAG8PxqJCiWY3NWMwHqaEaU2+nIjWdl0twGBbr4Ow==
+From: Mykyta Poturai <Mykyta_Poturai@epam.com>
+To: Jan Beulich <jbeulich@suse.com>, Stewart Hildebrand
+	<stewart.hildebrand@amd.com>
+CC: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3 6/7] vpci: add SR-IOV support for DomUs
+Thread-Topic: [PATCH v3 6/7] vpci: add SR-IOV support for DomUs
+Thread-Index: AQHcyClgJVtVkM11YECyJKBoUo8yu7XprXKAgAQq9wA=
+Date: Fri, 24 Apr 2026 06:34:15 +0000
+Message-ID: <285c7a48-f8e0-423d-9630-f4844e74fd0f@epam.com>
+References: <cover.1775742115.git.mykyta_poturai@epam.com>
+ <1aaf1a087ca0003d943d43c55500b3ab84195cf5.1775742115.git.mykyta_poturai@epam.com>
+ <c8e664fd-59f8-482d-ad48-99ff59842682@suse.com>
+In-Reply-To: <c8e664fd-59f8-482d-ad48-99ff59842682@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAVPR03MB10102:EE_|FRWPR03MB11125:EE_
+x-ms-office365-filtering-correlation-id: 8541aa67-f031-46e4-1984-08dea1cb8160
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|1800799024|56012099003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ DmMUxYUxDoDzVW77vm7tx2PoPY/1gSqveZeLsjZVpdxxy6owy3k9LWlI/vvrwUIoNePwqgKgwdtdUiR9qEoH53CFo5GIcOSBT5hDWHqpDGQ4oY3cbETpvCu4K3cCpCZFspCLibs+1HXCrq43gTp//IIxRmCwP4B7jjsMq4OAGj510Cugk8gPKrDasBfHiroBKGshtMMxvFEnpcLMK2rt1jNFB1zheG6bVRuxj0E5WoB3PIpQ0e7kO68z02NsVMxBPwJImYHWl8duhqKj8Sagq2UWgzfWkpJmk/VlLwl8o73dDZejFlZbiB7ynkZKa5/jHz/Id/Rb7SNd5vW8GT6Lmk4pX2T4AoMvHzUN8VJ2flptkIEIbkBGRDYzfOJ5orqkTKSCZjwjBgkLJ0LwJ47gU8eHf72Aa+935+Ik+yGIZlUz8s2sEV6i25pkkw5q0otW2ZIb2xr+EIV3ty2NhrddH9STOCCIkkhpZaPKvXLs3q06weTTPY+cdR35H/RAT1vk80JpioGWN7jreh3SU6943mRJsiBqvZcXDOZnxH8TesQoLDFMTyFaGeBUArt0DGjgmY3Gt6gZYCUfBnNL70oHcth6xMvvuATFpvEJIMzGsMsSYyHlqs93A2sPobf+ANYk4fEChl5zCLALBfKk7cIowWV1zQsdNFOtnMAv55ZpSfQ3k5ddUsBOC+GgZMsjmSBA8JzMsB07+sKDpD7DV6bqsPHYARp5bhOnpq9OKg3avjlsd478//fMVC+pKaDLKhE5CBsxOpw7pcmltZIoU33ZgQGtamDbJKFHx3ar+cShV5M=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAVPR03MB10102.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?NURpUm9nTHFYQ3JqWEpMalBibkFYVEhkUjVQQ213dCtkd0xzSVZscVVLVk8w?=
+ =?utf-8?B?WitwL3RwMTFCVVVjbVZKTm1kV1lXY1lCYXVpVUVRSWZpeFB6ei90OUtaeWZ3?=
+ =?utf-8?B?ZnJUaHN3dHFUT0haOWFqdGk4bHRJSkI5eFMzR1MzUGIwaGZTNnE1cGRPLzY5?=
+ =?utf-8?B?Mk94N21xenFocjBabWsvMnVlSGRobFRZRC9HN3pVTFpKT2pBKzNGT2dVeVpN?=
+ =?utf-8?B?aldQbHd5ZkMwMnhITGV5Rm9UV0JnZ1JBeENQbDNSbno5R3A0NFJ0QXlDZllj?=
+ =?utf-8?B?VThaTjVveWF5bUptcUpCU1FLS1ZEZy9FMG41czRweXdJNFdKMDY0UTc0MDN3?=
+ =?utf-8?B?dEY0R05veFcrc2tUcmJKUFJ0TGxidnZScHdCVjR3U1V0UllPYjRYa0U5VjFj?=
+ =?utf-8?B?YmtjNmFRTisvNjIyWUpONmRUZnZVMVNHbVdFcm4yTW9NUHJ5R1dhQStuRytZ?=
+ =?utf-8?B?L25LRDMwbTNOKzF4TkUzSE5Ec2R1WFlwd0wvRDZkU1NncnA2OWIzVEtYekJR?=
+ =?utf-8?B?NnpGOG1lVXc4YzZURU5ud0lHMS9CM1JuL1ZWWEttWnRiTFZpTVRGWmhhVnEx?=
+ =?utf-8?B?REtsVENlSDVJdDUzcmUyazdXT1ZSVmRvenJERGpDalREY3BPZDNoMkRWTW12?=
+ =?utf-8?B?TVdyS0hBZ2h3R3pxZTRPUlRsa3NYbUZHRHU3ZGFZZDlaSWRkaDkwYnRLQTA3?=
+ =?utf-8?B?NjNJMVR6d2dFb0t5UTBQRy9DMWtCTENhNUZBMWdhbExhcTJvZ1QrTmRWTksw?=
+ =?utf-8?B?elYzNi9lQy8rdTBVNlMzMGp0bWxpMFoxRzRtdkwzdG9lS1lpLzdQc2tkQ0pC?=
+ =?utf-8?B?R0VuZTVYMXVwUkdCeFVMaDhIeXBtOWxlVnJKOFlxSnQ5MDdnTmJWTFp1NUNL?=
+ =?utf-8?B?SmVZZXM3MGIxZGxtcGlkOUFybVcvV0NhYmE4bWM2SG9XUDBEbEZ0YmRpdFNj?=
+ =?utf-8?B?d0Q1OVlOUFVLZTJ6RlQ5TnhvcEV0ZjJBK2oybndaL29ubXZlME1YaXNyblFa?=
+ =?utf-8?B?OEpOQ0pJaEdVL2EweHp0dFN1TWthQi82ZmgzcUtHYy9sVjZEcnA5U1NBUDZj?=
+ =?utf-8?B?bU1Hbms5TDZ1VVZrY3FtU2Y2QldlTXFIMnlmaFM0elBuL0JwL0pXK0l4Qmpt?=
+ =?utf-8?B?YXV0YzhyTVRrbXp5eWlZT0lQRG1UbHJCSi8rSTk3SmY4WjVESmFWR2ZpWldP?=
+ =?utf-8?B?OGZYUW8zY3huUzNpQWRLNEpTbVp6MWVJVnByYzhaZkNEZmR6VWt2TUhEVnE5?=
+ =?utf-8?B?R01Wb05CT1FoMjZ5OTNybE1TelB6dHFlc2I5U05tM3lvMDhidTN0bGxmQnY3?=
+ =?utf-8?B?blNjTG5GSlMxMlhWQy9ydTVjOVdneVVPTWR3c0g4TG15SlMrYzA4aVpNRjFY?=
+ =?utf-8?B?MkNpVHQ0T3g3eHBkaWxkTG1lbUtRSGxIZmpBMUo5V2RlL1Y1MURkZzJ0RUtY?=
+ =?utf-8?B?OEoxUW5VK21yYTlxTi9IR2gwN3JaQUgwQ1k3MmF6MkRBRE9zYmxURzFkY2p3?=
+ =?utf-8?B?SjBSbThvTkJ3K2ZZd21YUyt0SjZ0SXJUMU5BTUtvNldMK3hnMGlRNCtNQ3VW?=
+ =?utf-8?B?bnlMR2ROdmlsWFVXR1RxWGsrZlltYW0yY3NDTEpEYWh2MFJBNWJTZXFPVzdp?=
+ =?utf-8?B?bzN1bWd6dTgvYkhaV0VnN1V2L0xaT203Sm5meFI5c1R4SUpLbnF5czMvdTdV?=
+ =?utf-8?B?U0FGbEUyTVpOTXlRUGc4WjRLSlBrejBhTTlOUm1JZWptbGR0eU9SSHBnQm9q?=
+ =?utf-8?B?RndnaEZtSlc4eWNwTTJGZ29QZTBxd1p2MVgzWlhBdWFPK3dMYkd1b3ZUdmZx?=
+ =?utf-8?B?cjZFc1E4eEI2eXArN2p2RWxaS1hzOERmMlpFT080VXBIUEorVXBlcXZUbEZz?=
+ =?utf-8?B?T05RaWR6b2lNZ2FoZ2Y2VUVET3JKOHdVV1ZYZktHL0hvanYveWpBNGlwcHln?=
+ =?utf-8?B?Z0tXbGRYd0JRT1hMZjliZGxXa2QxaDY0UStVWDZXUmF6T1R3Z3VuWnl6WkJO?=
+ =?utf-8?B?ZnhFekZiYjBjSU1IbGpVVDdPWEE4WHF2aFdIMlZaV3ptNERXM3VsbjVobmN2?=
+ =?utf-8?B?bVZPMlEwUUt1b2hMdE9iSVZPOHJock4yUUlUTVVldmNqcUtBcW8vcjdYZGRN?=
+ =?utf-8?B?cG5OQ3E5Y2V2WTZuRno0czlYTVd3LzNCWjVtQlRoRWFWMlBHV1pBdHRwU1pK?=
+ =?utf-8?B?SmNZSENscnVWTGR4UFkzZVBuaUVpTzlOZitSY2JTcWJzZmx5L0Y5NWlucUhR?=
+ =?utf-8?B?RW5qWTlmWnFLeHBKQndub3R0Z1MyMVF1YXNxamIyZXk1dS9oaGx1SkM2QVJG?=
+ =?utf-8?B?TVRONDBJRVVWeFpzWTByR2JZSDhZMFgrNm5jRUlycFp5QTFodk5UWjJ2SVdE?=
+ =?utf-8?Q?BpfhfJtwdUVtCiEo=3D?=
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260424-parse_iommu_cells-v14-3-fd02f11b6c38@oss.qualcomm.com>
-References: <20260424-parse_iommu_cells-v14-0-fd02f11b6c38@oss.qualcomm.com>
-In-Reply-To: <20260424-parse_iommu_cells-v14-0-fd02f11b6c38@oss.qualcomm.com>
-To: Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-pci@vger.kernel.org, imx@lists.linux.dev,
-        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
-        Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1777010232; l=12022;
- i=vijayanand.jitta@oss.qualcomm.com; s=20260301; h=from:subject:message-id;
- bh=d1eDTLSvaaoV8Pjb6ssN/wlaFmWHAsxlhBaIWB039ns=;
- b=dvjmg1JeV+d2IiPPXLnSyPZS2iXakbo7vH25RJpgfxHMtQvlf6E20k//Y7tUylU/KmB5QpkoN
- p1JKaTx7QpWAoc1ISIZabpuZvStHNGLlT1s7gu6I+nkJ5BwVTldmp0L
-X-Developer-Key: i=vijayanand.jitta@oss.qualcomm.com; a=ed25519;
- pk=Lpi7Cs3wHe8KZtqvyci7FTOLzsKpEHKGCaPNZw+1zRI=
-X-Proofpoint-GUID: iL-gqe1_gBkvMTKICQLWEwwBbSmZwDC2
-X-Authority-Analysis: v=2.4 cv=R98z39RX c=1 sm=1 tr=0 ts=69eb0665 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=klF1l1D6msg2vEcBgDUA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDI0MDA1MSBTYWx0ZWRfXy/EtbWHp8D1F
- +wDk4M+AUOwl4m1pbY6jRRPVMktClbE8fUT8SljxzIMgzYtayIMUs8rgRuGdECKIArbn18qabJh
- cVw1jNvHFBKRIKWuhu1zunMaTBPLExE5RmmOXlzL2YRTqeYGque3eL0VM/7NK7cSn43w7LULHyM
- KYTYYGwydr0PVVEqyd7q85MfUYcQ5IOHv3iLE1u2bhAd2zp8JgPuRECyhDPj/vBwGTL8AjZxJOd
- LijEHpg/avShopc0Kip5U2gU+IdmpFqe8VJPjfM/DhUmpz8/IgZrGLt/y6NnL30+yV9VUyG/8Yk
- ruHI+u20KNJ6bPSn03UoyjoZ2+8Ngpz8klZJPFIcsi4E2rWwh8orPs9NK4S+FtMijqEPNIMkV1W
- Gc9AbcGqUwOD79Zv4dNpfnQdRVhIyf1CdbUeGvlrS5UNZNnFIjXQZ3r6fjYbvUKwa3i+CPXZnKH
- D8FYaU0akfdkG1mFNrg==
-X-Proofpoint-ORIG-GUID: iL-gqe1_gBkvMTKICQLWEwwBbSmZwDC2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-23_03,2026-04-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- malwarescore=0 impostorscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604240051
-X-purgate-ID: tlsNG-d62444/1777010279-BD468FF4-86E1E1B9/0/0
+Content-ID: <747FB941024C104A9866E6C1A05D8CB4@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAVPR03MB10102.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8541aa67-f031-46e4-1984-08dea1cb8160
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Apr 2026 06:34:15.3737
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jiah1r/vsxAQn7IWUNVeSaWUZoGZqCPd1txwSEMkL8fhCqJtQkg8TZOg5zjLwANlfCpVeyjgN9MoKBfpdS3a/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: FRWPR03MB11125
+X-purgate-ID: tlsNG-33051d/1777012457-A3B6C938-07E73283/0/0
 X-purgate-type: clean
-X-purgate-size: 12069
-X-Rspamd-Queue-Id: 887EC45A1B4
+X-purgate-size: 1418
+X-Rspamd-Queue-Id: C209245A46B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-1.09 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:maz@kernel.org,m:lpieralisi@kernel.org,m:tglx@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:krzk+dt@kernel.org,m:prakash.gupta@oss.qualcomm.com,m:vikash.garodia@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:linux-arm-msm@vger.kernel.org,m:vijayanand.jitta@oss.qualcomm.com,m:
- charan.kalla@oss.qualcomm.com,m:conor@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[39];
-	FREEMAIL_TO(0.00)[amd.com,8bytes.org,kernel.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com,oss.qualcomm.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:stewart.hildebrand@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
-	FROM_NEQ_ENVFROM(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email,epam.com:dkim,epam.com:mid];
+	RCPT_COUNT_THREE(0.00)[4];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[Mykyta_Poturai@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[epam.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel,dt];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:dkim,qualcomm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,oss.qualcomm.com:dkim,oss.qualcomm.com:mid,arm.com:email]
+	MISSING_XM_UA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
 
-From: Robin Murphy <robin.murphy@arm.com>
-
-So far our parsing of {iommu,msi}-map properties has always blindly
-assumed that the output specifiers will always have exactly 1 cell.
-This typically does happen to be the case, but is not actually enforced
-(and the PCI msi-map binding even explicitly states support for 0 or 1
-cells) - as a result we've now ended up with dodgy DTs out in the field
-which depend on this behaviour to map a 1-cell specifier for a 2-cell
-provider, despite that being bogus per the bindings themselves.
-
-Since there is some potential use in being able to map at least single
-input IDs to multi-cell output specifiers (and properly support 0-cell
-outputs as well), add support for properly parsing and using the target
-nodes' #cells values, albeit with the unfortunate complication of still
-having to work around expectations of the old behaviour too.
-
-Since there are multi-cell output specifiers, the callers of of_map_id()
-may need to get the exact cell output value for further processing.
-Update of_map_id() to set args_count in the output to reflect the actual
-number of output specifier cells.
-
-Signed-off-by: Robin Murphy <robin.murphy@arm.com>
-Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
----
- drivers/of/base.c  | 157 +++++++++++++++++++++++++++++++++++++++++------------
- include/linux/of.h |   6 +-
- 2 files changed, 125 insertions(+), 38 deletions(-)
-
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index b3d002015192..2554e4f1a181 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -2096,18 +2096,48 @@ int of_find_last_cache_level(unsigned int cpu)
- 	return cache_level;
- }
- 
-+/*
-+ * Some DTs have an iommu-map targeting a 2-cell IOMMU node while
-+ * specifying only 1 cell. Fortunately they all consist of value '1'
-+ * as the 2nd cell entry with the same target, so check for that pattern.
-+ *
-+ * Example:
-+ *	IOMMU node:
-+ *		#iommu-cells = <2>;
-+ *
-+ *	Device node:
-+ *		iommu-map = <0x0000 &smmu 0x0000 0x1>,
-+ *			    <0x0100 &smmu 0x0100 0x1>;
-+ */
-+static bool of_check_bad_map(const __be32 *map, int len)
-+{
-+	__be32 phandle = map[1];
-+
-+	if (len % 4)
-+		return false;
-+	for (int i = 0; i < len; i += 4) {
-+		if (map[i + 1] != phandle || map[i + 3] != cpu_to_be32(1))
-+			return false;
-+	}
-+	return true;
-+}
-+
- /**
-  * of_map_id - Translate an ID through a downstream mapping.
-  * @np: root complex device node.
-  * @id: device ID to map.
-  * @map_name: property name of the map to use.
-+ * @cells_name: property name of target specifier cells.
-  * @map_mask_name: optional property name of the mask to use.
-  * @filter_np: optional device node to filter matches by, or NULL to match any.
-  *	If non-NULL, only map entries targeting this node will be matched.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] will contain the translated ID. If a map entry was
-- *	matched, @arg->np will be set to the target node with a reference
-- *	held that the caller must release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	as defined by @cells_name in the target node, and
-+ *	@arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np will be set
-+ *	to the target node with a reference held that the caller must release
-+ *	with of_node_put().
-  *
-  * Given a device ID, look up the appropriate implementation-defined
-  * platform ID and/or the target device which receives transactions on that
-@@ -2116,17 +2146,19 @@ int of_find_last_cache_level(unsigned int cpu)
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_id(const struct device_node *np, u32 id,
--	       const char *map_name, const char *map_mask_name,
-+	       const char *map_name, const char *cells_name,
-+	       const char *map_mask_name,
- 	       const struct device_node *filter_np, struct of_phandle_args *arg)
- {
- 	u32 map_mask, masked_id;
--	int map_len;
-+	int map_bytes, map_len, offset = 0;
-+	bool bad_map = false;
- 	const __be32 *map = NULL;
- 
- 	if (!np || !map_name || !arg)
- 		return -EINVAL;
- 
--	map = of_get_property(np, map_name, &map_len);
-+	map = of_get_property(np, map_name, &map_bytes);
- 	if (!map) {
- 		if (filter_np)
- 			return -ENODEV;
-@@ -2136,11 +2168,9 @@ int of_map_id(const struct device_node *np, u32 id,
- 		return 0;
- 	}
- 
--	if (!map_len || map_len % (4 * sizeof(*map))) {
--		pr_err("%pOF: Error: Bad %s length: %d\n", np,
--			map_name, map_len);
--		return -EINVAL;
--	}
-+	if (map_bytes % sizeof(*map))
-+		goto err_map_len;
-+	map_len = map_bytes / sizeof(*map);
- 
- 	/* The default is to select all bits. */
- 	map_mask = 0xffffffff;
-@@ -2153,39 +2183,84 @@ int of_map_id(const struct device_node *np, u32 id,
- 		of_property_read_u32(np, map_mask_name, &map_mask);
- 
- 	masked_id = map_mask & id;
--	for ( ; map_len > 0; map_len -= 4 * sizeof(*map), map += 4) {
-+
-+	while (offset < map_len) {
- 		struct device_node *phandle_node;
--		u32 id_base = be32_to_cpup(map + 0);
--		u32 phandle = be32_to_cpup(map + 1);
--		u32 out_base = be32_to_cpup(map + 2);
--		u32 id_len = be32_to_cpup(map + 3);
-+		u32 id_base, phandle, id_len, id_off, cells = 0;
-+		const __be32 *out_base;
-+
-+		if (map_len - offset < 2)
-+			goto err_map_len;
-+
-+		id_base = be32_to_cpup(map + offset);
- 
- 		if (id_base & ~map_mask) {
--			pr_err("%pOF: Invalid %s translation - %s-mask (0x%x) ignores id-base (0x%x)\n",
--				np, map_name, map_name,
--				map_mask, id_base);
-+			pr_err("%pOF: Invalid %s translation - %s (0x%x) ignores id-base (0x%x)\n",
-+			       np, map_name, map_mask_name, map_mask, id_base);
- 			return -EFAULT;
- 		}
- 
--		if (masked_id < id_base || masked_id >= id_base + id_len)
--			continue;
--
-+		phandle = be32_to_cpup(map + offset + 1);
- 		phandle_node = of_find_node_by_phandle(phandle);
- 		if (!phandle_node)
- 			return -ENODEV;
- 
-+		if (bad_map) {
-+			cells = 1;
-+		} else if (of_property_read_u32(phandle_node, cells_name, &cells)) {
-+			pr_err("%pOF: missing %s property\n", phandle_node, cells_name);
-+			of_node_put(phandle_node);
-+			return -EINVAL;
-+		}
-+
-+		if (map_len - offset < 3 + cells) {
-+			of_node_put(phandle_node);
-+			goto err_map_len;
-+		}
-+
-+		if (offset == 0 && cells == 2) {
-+			bad_map = of_check_bad_map(map, map_len);
-+			if (bad_map) {
-+				pr_warn_once("%pOF: %s mismatches target %s, assuming extra cell of 0\n",
-+					     np, map_name, cells_name);
-+				cells = 1;
-+			}
-+		}
-+
-+		out_base = map + offset + 2;
-+		offset += 3 + cells;
-+
-+		id_len = be32_to_cpup(map + offset - 1);
-+		if (id_len > 1 && cells > 1) {
-+			/*
-+			 * With 1 output cell we reasonably assume its value
-+			 * has a linear relationship to the input; with more,
-+			 * we'd need help from the provider to know what to do.
-+			 */
-+			pr_err("%pOF: Unsupported %s - cannot handle %d-ID range with %d-cell output specifier\n",
-+			       np, map_name, id_len, cells);
-+			of_node_put(phandle_node);
-+			return -EINVAL;
-+		}
-+		id_off = masked_id - id_base;
-+		if (masked_id < id_base || id_off >= id_len) {
-+			of_node_put(phandle_node);
-+			continue;
-+		}
-+
- 		if (filter_np && filter_np != phandle_node) {
- 			of_node_put(phandle_node);
- 			continue;
- 		}
- 
- 		arg->np = phandle_node;
--		arg->args[0] = masked_id - id_base + out_base;
--		arg->args_count = 1;
-+		for (int i = 0; i < cells; i++)
-+			arg->args[i] = id_off + be32_to_cpu(out_base[i]);
-+		arg->args_count = cells;
- 
- 		pr_debug("%pOF: %s, using mask %08x, id-base: %08x, out-base: %08x, length: %08x, id: %08x -> %08x\n",
--			np, map_name, map_mask, id_base, out_base,
--			id_len, id, masked_id - id_base + out_base);
-+			np, map_name, map_mask, id_base, be32_to_cpup(out_base),
-+			id_len, id, id_off + be32_to_cpup(out_base));
- 		return 0;
- 	}
- 
-@@ -2196,6 +2271,10 @@ int of_map_id(const struct device_node *np, u32 id,
- 	arg->args[0] = id;
- 	arg->args_count = 1;
- 	return 0;
-+
-+err_map_len:
-+	pr_err("%pOF: Error: Bad %s length: %d\n", np, map_name, map_bytes);
-+	return -EINVAL;
- }
- EXPORT_SYMBOL_GPL(of_map_id);
- 
-@@ -2205,18 +2284,21 @@ EXPORT_SYMBOL_GPL(of_map_id);
-  * @id: Requester ID of the device (e.g. PCI RID/BDF or a platform
-  *      stream/device ID) used as the lookup key in the iommu-map table.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] contains the translated ID. If a map entry was matched,
-- *	@arg->np holds a reference to the target node that the caller must
-- *	release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	and @arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np holds a
-+ *	reference to the target node that the caller must release with
-+ *	of_node_put().
-  *
-- * Convenience wrapper around of_map_id() using "iommu-map" and "iommu-map-mask".
-+ * Convenience wrapper around of_map_id() using "iommu-map", "#iommu-cells",
-+ * and "iommu-map-mask".
-  *
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_iommu_id(const struct device_node *np, u32 id,
- 		    struct of_phandle_args *arg)
- {
--	return of_map_id(np, id, "iommu-map", "iommu-map-mask", NULL, arg);
-+	return of_map_id(np, id, "iommu-map", "#iommu-cells", "iommu-map-mask", NULL, arg);
- }
- EXPORT_SYMBOL_GPL(of_map_iommu_id);
- 
-@@ -2229,17 +2311,20 @@ EXPORT_SYMBOL_GPL(of_map_iommu_id);
-  *	to match any. If non-NULL, only map entries targeting this node will
-  *	be matched.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] contains the translated ID. If a map entry was matched,
-- *	@arg->np holds a reference to the target node that the caller must
-- *	release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	and @arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np holds a
-+ *	reference to the target node that the caller must release with
-+ *	of_node_put().
-  *
-- * Convenience wrapper around of_map_id() using "msi-map" and "msi-map-mask".
-+ * Convenience wrapper around of_map_id() using "msi-map", "#msi-cells",
-+ * and "msi-map-mask".
-  *
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_msi_id(const struct device_node *np, u32 id,
- 		  const struct device_node *filter_np, struct of_phandle_args *arg)
- {
--	return of_map_id(np, id, "msi-map", "msi-map-mask", filter_np, arg);
-+	return of_map_id(np, id, "msi-map", "#msi-cells", "msi-map-mask", filter_np, arg);
- }
- EXPORT_SYMBOL_GPL(of_map_msi_id);
-diff --git a/include/linux/of.h b/include/linux/of.h
-index 8548cd9eb4f1..51ac8539f2c3 100644
---- a/include/linux/of.h
-+++ b/include/linux/of.h
-@@ -462,7 +462,8 @@ const char *of_prop_next_string(const struct property *prop, const char *cur);
- bool of_console_check(const struct device_node *dn, char *name, int index);
- 
- int of_map_id(const struct device_node *np, u32 id,
--	       const char *map_name, const char *map_mask_name,
-+	       const char *map_name, const char *cells_name,
-+	       const char *map_mask_name,
- 	       const struct device_node *filter_np, struct of_phandle_args *arg);
- 
- int of_map_iommu_id(const struct device_node *np, u32 id,
-@@ -934,7 +935,8 @@ static inline void of_property_clear_flag(struct property *p, unsigned long flag
- }
- 
- static inline int of_map_id(const struct device_node *np, u32 id,
--			     const char *map_name, const char *map_mask_name,
-+			     const char *map_name, const char *cells_name,
-+			     const char *map_mask_name,
- 			     const struct device_node *filter_np,
- 			     struct of_phandle_args *arg)
- {
-
--- 
-2.34.1
-
+T24gNC8yMS8yNiAxNzo1NSwgSmFuIEJldWxpY2ggd3JvdGU6DQo+IE9uIDA5LjA0LjIwMjYgMTY6
+MDEsIE15a3l0YSBQb3R1cmFpIHdyb3RlOg0KPj4gRnJvbTogU3Rld2FydCBIaWxkZWJyYW5kIDxz
+dGV3YXJ0LmhpbGRlYnJhbmRAYW1kLmNvbT4NCj4+DQo+PiBFbXVsYXRlIGd1ZXN0IEJBUiByZWdp
+c3RlciB2YWx1ZXMgYmFzZWQgb24gUEYgQkFSIHZhbHVlcyBmb3IgVkZzLg0KPj4gVGhpcyBhbGxv
+d3MgY3JlYXRpbmcgYSBndWVzdCB2aWV3IG9mIHRoZSBub3JtYWwgQkFSIHJlZ2lzdGVycyBhbmQg
+ZW11bGF0ZXMNCj4+IHRoZSBzaXplIGFuZCBwcm9wZXJ0aWVzIGFzIGl0IGlzIGRvbmUgZHVyaW5n
+IFBDSSBkZXZpY2UgZW51bWVyYXRpb24gYnkNCj4+IHRoZSBndWVzdC4NCj4+DQo+PiBFeHBvc2Ug
+VklEL0RJRCBhbmQgY2xhc3MvcmV2aXNpb24gdG8gdGhlIGd1ZXN0Lg0KPj4NCj4+IE5vdGUsIHRo
+YXQgVkZzIFJPTSBCQVIgaXMgcmVhZC1vbmx5IGFuZCBpcyBhbGwgemVyb3MsIGJ1dCBWRiBtYXkg
+cHJvdmlkZQ0KPj4gYWNjZXNzIHRvIHRoZSBQRnMgUk9NIHZpYSBlbXVsYXRpb24gYW5kIGlzIG5v
+dCBpbXBsZW1lbnRlZC4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBTdGV3YXJ0IEhpbGRlYnJhbmQg
+PHN0ZXdhcnQuaGlsZGVicmFuZEBhbWQuY29tPg0KPj4gU2lnbmVkLW9mZi1ieTogTXlreXRhIFBv
+dHVyYWkgPG15a3l0YV9wb3R1cmFpQGVwYW0uY29tPg0KPiANCj4gU28gdGhpcyBjaGFuZ2UgaXMg
+bWVyZWx5IHRvIGF2b2lkIGhhdmluZyB5ZXQgYW5vdGhlciBnYXAgb24gdGhlIHJvYWQgdG8NCj4g
+RG9tVSBzdXBwb3J0IGluIHZQQ0k/IEkuZS4gdGhlcmUncyBubyBjbGFpbSBvciBleHBlY3RhdGlv
+biB0aGF0IFZGcw0KPiBjb3VsZCBub3cgYmUgdXNlZCBpbiBEb21VLXM/DQo+IA0KPiBKYW4NCg0K
+WWVzLCBhbGwgb2YgbXkgRG9tVSB0ZXN0cyB3ZXJlIGRvbmUgd2l0aCBleHRyYSBwYXRjaGVzIGZv
+ciBEb21VIFZQQ0kgDQpzdXBwb3J0IHRoYXQgYXJlIG5vdCB1cHN0cmVhbWVkIHlldC4NCg0KLS0g
+DQpNeWt5dGE=
 
