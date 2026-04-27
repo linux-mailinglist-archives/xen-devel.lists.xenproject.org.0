@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yMG0IIKa72kUDQEAu9opvQ
+	id gOo1I5Ca72npDAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 19:18:58 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 19:19:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16949477279
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 19:18:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1295169.1571867 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3637E4772EA
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 19:19:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1295177.1571875 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHPbd-0001Ln-Ms; Mon, 27 Apr 2026 17:18:49 +0000
+	id 1wHPbr-0001uO-Tq; Mon, 27 Apr 2026 17:19:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1295169.1571867; Mon, 27 Apr 2026 17:18:49 +0000
+Received: by outflank-mailman (output) from mailman id 1295177.1571875; Mon, 27 Apr 2026 17:19:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHPbd-0001KE-J7; Mon, 27 Apr 2026 17:18:49 +0000
-Received: by outflank-mailman (input) for mailman id 1295169;
- Mon, 27 Apr 2026 17:18:48 +0000
+	id 1wHPbr-0001rK-R4; Mon, 27 Apr 2026 17:19:03 +0000
+Received: by outflank-mailman (input) for mailman id 1295177;
+ Mon, 27 Apr 2026 17:19:02 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <chleroy@kernel.org>) id 1wHPbc-0001Jb-DX
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 17:18:48 +0000
+ (envelope-from <chleroy@kernel.org>) id 1wHPbq-0001qE-3d
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 17:19:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wHPbb-00GS5q-Qd
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 19:18:47 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wHPbn-00Dj5E-Uz
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 19:19:01 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <chleroy@kernel.org>)
- id 69ef9a6a-5cb7-0a2a0a5109dd-0a2a450adc26-26
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 19:18:47 +0200
+ id 69ef9a73-e002-0a2a0a5209dd-0a2a450baea2-16
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 19:19:01 +0200
 Received: from [172.234.252.31] (helo=sea.source.kernel.org)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <chleroy@kernel.org>)
- id 69ef9a76-56b3-0a2a450a0019-aceafc1f9b1a-3
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 19:18:47 +0200
+ id 69ef9a83-212f-0a2a450b0019-aceafc1f93f0-3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 19:19:01 +0200
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E16F243CD6;
- Mon, 27 Apr 2026 17:18:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5390FC2BCB4;
- Mon, 27 Apr 2026 17:18:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9368940C54;
+ Mon, 27 Apr 2026 17:18:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59C90C2BCB4;
+ Mon, 27 Apr 2026 17:18:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,15 +55,15 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="From:To:Cc:Subject:Date:In-Reply-To:References"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777310325;
-	bh=x+yz+Ptlr8yUKihbRCrYsj2OzN4+HDHdWj3mTkeeywo=;
+	s=k20201202; t=1777310339;
+	bh=VVuQn2YnZFi2JH9uh9hmEqXb1BpygsXabSyFGnhBvmI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YS9v5orti9jIm2coPKy7cH4iQCLjTYOH2T4kGrmAKw1lk2UpD8UcWDut4XHtMo5CX
-	 290KHU3PNOVzMmnTKEL1o/OfzgOnzBVsJnbuGicRbc3HqjVsrjLo1DZ4Ncwz6tafWZ
-	 SG8/hG1Ct8pUgSHrDrW4chwaJ34uCldA2tlOQo4bI8M4kMxsW5bP0OLNOAC7BeTwPk
-	 Mil/pgBJA2/iCGWwmbEh5WNZZrQ4Md/gtqmnREocwFdhobkWjiqhIB30lRO/GV15k3
-	 DZOePxOSt4vdcYmGqKSVWX7R1FegGyxqEmqkjMUEcFWkKzHsBpXNo8/6bbP3EGANbq
-	 KZwGUUWEURiLg==
+	b=kdO2kRaqrKnrRzE/uOUoSc+QuIvBLF9bEcfUYb9jTJLWJk0AT883/0gLUkpYyvhxW
+	 JwKLSaa6O8znPG+ygzo4nQLM8J0f65SbAuU342P7t8CFNHOEuyufyC86uU6TKB6BuB
+	 gSew3oyOMPJ8ALphDrpzU/JPmVzf88NlkSTCpSsq0dGpC1oXnkppqU6so9I0ayHunG
+	 vmD6szQq9NnauXryTPXCD0GLKF95gnwZ47owOPgIM468cdafyYqaGorVn/T0ZUPF41
+	 utCUjd396YBehKkYMEmrRy4GP6QkmxuYFD7L2LBro+x9SzGKxh5BvzwrXlX1jpWNJG
+	 /RZq8/R9DjgcA==
 From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
 To: Yury Norov <ynorov@nvidia.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
@@ -114,20 +114,20 @@ Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
 	linux-parisc@vger.kernel.org,
 	linux-sh@vger.kernel.org,
 	linux-arch@vger.kernel.org
-Subject: [RFC PATCH v1 6/9] uaccess: Change copy_{to/from}_user to return -EFAULT
-Date: Mon, 27 Apr 2026 19:13:47 +0200
-Message-ID: <1a55107abe15dd78450888e2b5327c3a56af29b7.1777306795.git.chleroy@kernel.org>
+Subject: [RFC PATCH v1 7/9] x86: Add unsafe_copy_from_user()
+Date: Mon, 27 Apr 2026 19:13:48 +0200
+Message-ID: <0ee46bb228d97163fbdc14f2a7c52b93d8bc34ce.1777306795.git.chleroy@kernel.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1777306795.git.chleroy@kernel.org>
 References: <cover.1777306795.git.chleroy@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2416; i=chleroy@kernel.org; h=from:subject:message-id; bh=x+yz+Ptlr8yUKihbRCrYsj2OzN4+HDHdWj3mTkeeywo=; b=owGbwMvMwCV2d0KB2p7V54MZT6slMWS+nxkjryH88LzkjscmK202zhcwuOPhcJTlidTVNdtCP 9vs/VPG2lHKwiDGxSArpshy/D/3rhldX1Lzp+7Sh5nDygQyhIGLUwAm0nCN4b9/yT75hpDtr4zk 9XPfORmtVO2p/XH+8bFg730PPNfMvn6dkWHDjsJSC09Vr9bDobdrxTgfMm1ckveKR+Rkud3skLM HLXgA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2390; i=chleroy@kernel.org; h=from:subject:message-id; bh=VVuQn2YnZFi2JH9uh9hmEqXb1BpygsXabSyFGnhBvmI=; b=owGbwMvMwCV2d0KB2p7V54MZT6slMWS+nxljeGSBfXj99HCNy2WTVFXXC9z/Hmi+//aE1/MbC +50nw1Q6ChlYRDjYpAVU2Q5/p9714yuL6n5U3fpw8xhZQIZwsDFKQAT2djH8D+e3yYgNP/F6xtd z9QNXjIccVycwR574E38S3tWp2uq95Yy/M9xKJ2hYJCUJV9391rVwmlfl7x6GzD19bqwZeyVdgF fZ3MAAA==
 X-Developer-Key: i=chleroy@kernel.org; a=openpgp; fpr=10FFE6F8B390DE17ACC2632368A92FEB01B8DD78
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-4011c0/1777310327-CEB778B7-CD0BDB58/0/0
+X-purgate-ID: tlsNG-42698a/1777310341-7FB78F3B-73370ACE/0/0
 X-purgate-type: clean
-X-purgate-size: 2418
-X-Rspamd-Queue-Id: 16949477279
+X-purgate-size: 2392
+X-Rspamd-Queue-Id: 3637E4772EA
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.81 / 15.00];
@@ -166,71 +166,62 @@ X-Spamd-Result: default: False [1.81 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-Now that copy_{to/from}_user_partial() are used by callers which expect
-partial copy with number of not copied bytes as return value, change
-copy_{to/from}_user() to return an int, and return -EFAULT when the
-copy is not complete.
+At the time being, x86 and arm64 are missing unsafe_copy_from_user().
+
+Add it.
 
 Signed-off-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 ---
- include/linux/uaccess.h | 28 ++++++++++++++++++++++++----
- 1 file changed, 24 insertions(+), 4 deletions(-)
+ arch/x86/include/asm/uaccess.h | 29 ++++++++++++++++++++++++-----
+ 1 file changed, 24 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/uaccess.h b/include/linux/uaccess.h
-index 2d37173782b3..33b7d0f5f808 100644
---- a/include/linux/uaccess.h
-+++ b/include/linux/uaccess.h
-@@ -211,7 +211,7 @@ extern __must_check unsigned long
- _copy_to_user(void __user *, const void *, unsigned long);
- 
- static __always_inline unsigned long __must_check
--copy_from_user(void *to, const void __user *from, unsigned long n)
-+copy_from_user_common(void *to, const void __user *from, unsigned long n, bool partial)
- {
- 	if (!check_copy_size(to, n, false))
- 		return n;
-@@ -221,10 +221,20 @@ copy_from_user(void *to, const void __user *from, unsigned long n)
- 		return _inline_copy_from_user(to, from, n);
- }
- 
--#define copy_from_user_partial copy_from_user
-+static __always_inline unsigned long __must_check
-+copy_from_user_partial(void *to, const void __user *from, unsigned long n)
-+{
-+	return copy_from_user_common(to, from, n, true);
-+}
+diff --git a/arch/x86/include/asm/uaccess.h b/arch/x86/include/asm/uaccess.h
+index 3a0dd3c2b233..10c458ffa399 100644
+--- a/arch/x86/include/asm/uaccess.h
++++ b/arch/x86/include/asm/uaccess.h
+@@ -598,7 +598,7 @@ _label:									\
+  * We want the unsafe accessors to always be inlined and use
+  * the error labels - thus the macro games.
+  */
+-#define unsafe_copy_loop(dst, src, len, type, label)				\
++#define unsafe_put_loop(dst, src, len, type, label)				\
+ 	while (len >= sizeof(type)) {						\
+ 		unsafe_put_user(*(type *)(src),(type __user *)(dst),label);	\
+ 		dst += sizeof(type);						\
+@@ -611,10 +611,29 @@ do {									\
+ 	char __user *__ucu_dst = (_dst);				\
+ 	const char *__ucu_src = (_src);					\
+ 	size_t __ucu_len = (_len);					\
+-	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u64, label);	\
+-	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u32, label);	\
+-	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u16, label);	\
+-	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u8, label);	\
++	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u64, label);	\
++	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u32, label);	\
++	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u16, label);	\
++	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u8, label);	\
++} while (0)
 +
-+static __always_inline int __must_check
-+copy_from_user(void *to, const void __user *from, unsigned long n)
-+{
-+	return copy_from_user_common(to, from, n, false) ? -EFAULT : 0;
-+}
- 
- static __always_inline unsigned long __must_check
--copy_to_user(void __user *to, const void *from, unsigned long n)
-+copy_to_user_common(void __user *to, const void *from, unsigned long n, bool partial)
- {
- 	if (!check_copy_size(from, n, true))
- 		return n;
-@@ -235,7 +245,17 @@ copy_to_user(void __user *to, const void *from, unsigned long n)
- 		return _inline_copy_to_user(to, from, n);
- }
- 
--#define copy_to_user_partial copy_to_user
-+static __always_inline unsigned long __must_check
-+copy_to_user_partial(void __user *to, const void *from, unsigned long n)
-+{
-+	return copy_to_user_common(to, from, n, true);
-+}
++#define unsafe_get_loop(dst, src, len, type, label)				\
++	while (len >= sizeof(type)) {						\
++		unsafe_get_user(*(type __user *)(src),(type *)(dst),label);	\
++		dst += sizeof(type);						\
++		src += sizeof(type);						\
++		len -= sizeof(type);						\
++	}
 +
-+static __always_inline int __must_check
-+copy_to_user(void __user *to, const void *from, unsigned long n)
-+{
-+	return copy_to_user_common(to, from, n, false) ? -EFAULT : 0;
-+}
++#define unsafe_copy_from_user(_dst,_src,_len,label)			\
++do {									\
++	char *__ucu_dst = (_dst);					\
++	const char __user *__ucu_src = (_src);				\
++	size_t __ucu_len = (_len);					\
++	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u64, label);	\
++	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u32, label);	\
++	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u16, label);	\
++	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u8, label);	\
+ } while (0)
  
- #ifndef copy_mc_to_kernel
- /*
+ #ifdef CONFIG_CC_HAS_ASM_GOTO_OUTPUT
 -- 
 2.49.0
 
