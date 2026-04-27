@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +La4FZGw72lyDwEAu9opvQ
+	id uBIkIGmp72kCDwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 20:53:05 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 20:22:33 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B4A6478E05
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 20:53:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1295216.1571917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D924D47878C
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 20:22:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1295218.1571903 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHR4V-0001tf-EF; Mon, 27 Apr 2026 18:52:43 +0000
+	id 1wHQaG-0005cF-Uj; Mon, 27 Apr 2026 18:21:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1295216.1571917; Mon, 27 Apr 2026 18:52:43 +0000
+Received: by outflank-mailman (output) from mailman id 1295218.1571903; Mon, 27 Apr 2026 18:21:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHR4V-0001or-9H; Mon, 27 Apr 2026 18:52:43 +0000
-Received: by outflank-mailman (input) for mailman id 1295216;
- Mon, 27 Apr 2026 18:07:31 +0000
+	id 1wHQaG-0005Zh-RO; Mon, 27 Apr 2026 18:21:28 +0000
+Received: by outflank-mailman (input) for mailman id 1295218;
+ Mon, 27 Apr 2026 18:21:28 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <34aXvaQkKCUIepmgiv2lpksskpi.gsq1ir-hizippmwxw.1irtvsnigx.svk@flex--aliceryhl.bounces.google.com>)
- id 1wHQMl-0002nM-D0
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 18:07:31 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <chleroy@kernel.org>) id 1wHQaG-0005Zb-1i
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 18:21:28 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wHQMk-002GxW-MF
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 20:07:30 +0200
+ id 1wHQaE-00DKp2-OU
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 20:21:26 +0200
 Received: from [10.42.69.9] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <34aXvaQkKCUIepmgiv2lpksskpi.gsq1ir-hizippmwxw.1irtvsnigx.svk@flex--aliceryhl.bounces.google.com>)
- id 69efa5ca-e002-0a2a0a5209dd-0a2a4509ed56-28
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 20:07:30 +0200
-Received: from [209.85.221.73] (helo=mail-wr1-f73.google.com)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <chleroy@kernel.org>)
+ id 69efa912-2eae-0a2a0a5409dd-0a2a4509a59e-40
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 20:21:26 +0200
+Received: from [172.234.252.31] (helo=sea.source.kernel.org)
  by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from
- <34aXvaQkKCUIepmgiv2lpksskpi.gsq1ir-hizippmwxw.1irtvsnigx.svk@flex--aliceryhl.bounces.google.com>)
- id 69efa5e2-2497-0a2a45090019-d155dd49a51e-3
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 20:07:30 +0200
-Received: by mail-wr1-f73.google.com with SMTP id
- ffacd0b85a97d-43d780757eeso6990924f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 11:07:30 -0700 (PDT)
+ (envelope-from <chleroy@kernel.org>)
+ id 69efa924-2497-0a2a45090019-aceafc1fc93a-3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 20:21:26 +0200
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 46E9540246;
+ Mon, 27 Apr 2026 18:20:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CCCFC2BCB5;
+ Mon, 27 Apr 2026 18:20:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,135 +53,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=google.com header.i="@google.com" header.h="Cc:To:From:Subject:Message-ID:References:Mime-Version:In-Reply-To:Date"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1777313250; x=1777918050; darn=lists.xenproject.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=HxkgeF4LNZGOlYkWj+Rbzgew6yzkspsu2lszfChr6II=;
-        b=DOJZE4ctVpYAiQRmiqUjE6WW11G1fzlbUXXMmyl0mSxviR6bNlMX92qY/L4t4C93LB
-         56MZm5l2WOEyBGBY1H0yIDrzm7qydRYJrstl6O5Z5iToSD1XZhhv2ZkZ5qb2ace08MlM
-         O/tNIFB+427z9yYp1y2dLUvKU71EiCiDQgv7y8HEUPc1cRcGjkGO6qN3syrjMgZe+Z+k
-         JOB4yq7O/T/jNcNXzi5WFw69mO0eQTmlR1pLnCx0gz+e2nOHprXEozdIs/3JtJJI/tGx
-         Sb5v/dqO8yQ3Ao8QoLKwwgHnL4BZt2gnHABMJjQbRcZ1VV+G6vJIwFrFu0W5e2+yt/QP
-         sbWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777313250; x=1777918050;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HxkgeF4LNZGOlYkWj+Rbzgew6yzkspsu2lszfChr6II=;
-        b=oaTvjxvWxwrWzFha2mfTNzzoADmN3/RWeWTwkbp0BngjsSWxDPIvseSBQlBigwyXdQ
-         gKA1+1FFnxjb6JLZ7Ttvl2EYylVG5ytvWoIpuVb9vOJ4np8PJMfgkdKjGspaUJ6feNXm
-         sxMN5roZaCple7nii93/u6lccAd7Rj0Oi7eI2CeyTLok2dAop7t8hk3/yuI7oMvWVQsS
-         Z64QjqbTTNGRBLZwH3pQ7Y/VedGTPoFIzq9U7EG/YEUTjcmTh4gJAIrMn4MxrpH3dU4o
-         O5+4HoUadiwrqboBGyb61FJHcN4cN5zObxLH9dNBLAaFxNeOuCPgbZ5uNyBTUGeouwYK
-         E3hQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/SNMSGVWiiGQ5grUhDaNd5WhiMt0oLwsio/0YKH8Wp8TW2y1STwMLlR+IGvwZ+mxKSuPWSijpVWRE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywi9uZ4eR68CwNxyyO5JtYX5N39VNopBiOt2Rz8J0GYWvkgLdGT
-	vSAeshMgIs2a7a1CbVzRS/3OL6bRxP3dpLjMXMmiaz88H1QqM+mNQaXnTk8rHFOawedIGOBbJbI
-	w5wnD17QMkEroy77Vfg==
-X-Received: from wrmd3.prod.google.com ([2002:adf:e883:0:b0:43d:7940:a11b])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:41c7:b0:43d:799c:b2cb with SMTP id ffacd0b85a97d-44636a393e7mr256856f8f.24.1777313249648;
- Mon, 27 Apr 2026 11:07:29 -0700 (PDT)
-Date: Mon, 27 Apr 2026 18:07:28 +0000
-In-Reply-To: <289b424e243ba2c4139ea04009cf8b9c448a87ff.1777306795.git.chleroy@kernel.org>
-Mime-Version: 1.0
-References: <cover.1777306795.git.chleroy@kernel.org> <289b424e243ba2c4139ea04009cf8b9c448a87ff.1777306795.git.chleroy@kernel.org>
-Message-ID: <ae-l4FGDPLwBuDXM@google.com>
-Subject: Re: [RFC PATCH v1 5/9] uaccess: Switch to copy_{to/from}_user_partial()
- when relevant
-From: Alice Ryhl <aliceryhl@google.com>
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: Yury Norov <ynorov@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, David Laight <david.laight.linux@gmail.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-snps-arc@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
-	sparclinux@vger.kernel.org, linux-um@lists.infradead.org, 
-	dmaengine@vger.kernel.org, linux-efi@vger.kernel.org, 
-	linux-fsi@lists.ozlabs.org, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
-	linux-wpan@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, linux-spi@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-serial@vger.kernel.org, linux-usb@vger.kernel.org, 
-	xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org, 
-	ocfs2-devel@lists.linux.dev, bpf@vger.kernel.org, kasan-dev@googlegroups.com, 
-	linux-mm@kvack.org, linux-x25@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-sound@vger.kernel.org, sound-open-firmware@alsa-project.org, 
-	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org, 
-	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org, 
-	linux-sh@vger.kernel.org, linux-arch@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-X-purgate-ID: tlsNG-bad1c0/1777313250-414B1A53-90F3E03D/0/0
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="Date:Subject:To:Cc:References:From:In-Reply-To"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1777314053;
+	bh=fSfdZ5/fBIJBn92+lTQ8RknrFiSruKk4Zm5FPbyuhQI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=J2scZpbKenpOejPaCkxdr8Fr6c4RornKyxLjF0dKFYhSlw+matCdj3SDWlLeqEo9E
+	 a373XI9Iold2YwxLkAFI1OVkbxbR9JLgxu/comiCZJeBJjQK8IiPFbF3a0OQIu5zFJ
+	 z32D8XDVz5Fo00XfpR09lc3WO+fPx7ont3FOA+TL4jxGM7w1J5Z2cHWcv2Vi05coRU
+	 6lIPjD/Eh4XtMiOh4PUlJfQ+hbcnF50oIaF0Y5is14Jb9Uy7pNbq6e4WVWxwPn3QZF
+	 F5175xYuXBtUSK+HvgeuPZTDTXog5e6524IUP62vgqpWl/U/vR5Pqvo+DbOYeGkne+
+	 cSOzK+yVIhXWw==
+Message-ID: <63a4d0f6-0eb3-48cd-9f98-bf7b223b2606@kernel.org>
+Date: Mon, 27 Apr 2026 20:20:38 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v1 7/9] x86: Add unsafe_copy_from_user()
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ David Laight <david.laight.linux@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-alpha@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-snps-arc@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
+ dmaengine@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-fsi@lists.ozlabs.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
+ ocfs2-devel@lists.linux.dev, bpf@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org, linux-x25@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-sound@vger.kernel.org,
+ sound-open-firmware@alsa-project.org, linux-csky@vger.kernel.org,
+ linux-hexagon@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-arch@vger.kernel.org
+References: <cover.1777306795.git.chleroy@kernel.org>
+ <0ee46bb228d97163fbdc14f2a7c52b93d8bc34ce.1777306795.git.chleroy@kernel.org>
+ <ae-j2_QirCySZD02@yury>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <ae-j2_QirCySZD02@yury>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-bad1c0/1777314086-408AFA53-AF96D79F/0/0
 X-purgate-type: clean
-X-purgate-size: 871
-X-Rspamd-Queue-Id: 4B4A6478E05
+X-purgate-size: 3340
+X-Rspamd-Queue-Id: D924D47878C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.81 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[google.com,reject];
-	MV_CASE(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[google.com:s=20251104];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[nvidia.com,linux-foundation.org,gmail.com,linutronix.de,vger.kernel.org,lists.infradead.org,lists.ozlabs.org,lists.freedesktop.org,lists.linux.dev,lists.xenproject.org,googlegroups.com,kvack.org,alsa-project.org,lists.linux-m68k.org];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_SENDER(0.00)[aliceryhl@google.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[49];
-	FORGED_RECIPIENTS(0.00)[m:chleroy@kernel.org,m:ynorov@nvidia.com,m:akpm@linux-foundation.org,m:torvalds@linux-foundation.org,m:david.laight.linux@gmail.com,m:tglx@linutronix.de,m:linux-alpha@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-snps-arc@lists.infradead.org,m:linux-arm-kernel@lists.infradead.org,m:linux-mips@vger.kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:kvm@vger.kernel.org,m:linux-riscv@lists.infradead.org,m:linux-s390@vger.kernel.org,m:sparclinux@vger.kernel.org,m:linux-um@lists.infradead.org,m:dmaengine@vger.kernel.org,m:linux-efi@vger.kernel.org,m:linux-fsi@lists.ozlabs.org,m:amd-gfx@lists.freedesktop.org,m:dri-devel@lists.freedesktop.org,m:intel-gfx@lists.freedesktop.org,m:linux-wpan@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:linux-spi@vger.kernel.org,m:linux-media@vger.kernel.org,m:linux-staging@lists.linux.dev,m:linux-serial@vger.kernel.org,m:linux-usb@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-fsdevel@vger.ke
- rnel.org,m:ocfs2-devel@lists.linux.dev,m:bpf@vger.kernel.org,m:kasan-dev@googlegroups.com,m:linux-mm@kvack.org,m:linux-x25@vger.kernel.org,m:rust-for-linux@vger.kernel.org,m:linux-sound@vger.kernel.org,m:sound-open-firmware@alsa-project.org,m:linux-csky@vger.kernel.org,m:linux-hexagon@vger.kernel.org,m:loongarch@lists.linux.dev,m:linux-m68k@lists.linux-m68k.org,m:linux-openrisc@vger.kernel.org,m:linux-parisc@vger.kernel.org,m:linux-sh@vger.kernel.org,m:linux-arch@vger.kernel.org,m:davidlaightlinux@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:ynorov@nvidia.com,m:akpm@linux-foundation.org,m:torvalds@linux-foundation.org,m:david.laight.linux@gmail.com,m:tglx@linutronix.de,m:linux-alpha@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-snps-arc@lists.infradead.org,m:linux-arm-kernel@lists.infradead.org,m:linux-mips@vger.kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:kvm@vger.kernel.org,m:linux-riscv@lists.infradead.org,m:linux-s390@vger.kernel.org,m:sparclinux@vger.kernel.org,m:linux-um@lists.infradead.org,m:dmaengine@vger.kernel.org,m:linux-efi@vger.kernel.org,m:linux-fsi@lists.ozlabs.org,m:amd-gfx@lists.freedesktop.org,m:dri-devel@lists.freedesktop.org,m:intel-gfx@lists.freedesktop.org,m:linux-wpan@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:linux-spi@vger.kernel.org,m:linux-media@vger.kernel.org,m:linux-staging@lists.linux.dev,m:linux-serial@vger.kernel.org,m:linux-usb@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-fsdevel@vger.kernel.org,m:ocfs2-deve
+ l@lists.linux.dev,m:bpf@vger.kernel.org,m:kasan-dev@googlegroups.com,m:linux-mm@kvack.org,m:linux-x25@vger.kernel.org,m:rust-for-linux@vger.kernel.org,m:linux-sound@vger.kernel.org,m:sound-open-firmware@alsa-project.org,m:linux-csky@vger.kernel.org,m:linux-hexagon@vger.kernel.org,m:loongarch@lists.linux.dev,m:linux-m68k@lists.linux-m68k.org,m:linux-openrisc@vger.kernel.org,m:linux-parisc@vger.kernel.org,m:linux-sh@vger.kernel.org,m:linux-arch@vger.kernel.org,m:davidlaightlinux@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[chleroy@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[48];
+	FREEMAIL_CC(0.00)[linux-foundation.org,gmail.com,linutronix.de,vger.kernel.org,lists.infradead.org,lists.ozlabs.org,lists.freedesktop.org,lists.linux.dev,lists.xenproject.org,googlegroups.com,kvack.org,alsa-project.org,lists.linux-m68k.org];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[google.com:+];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[aliceryhl@google.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[chleroy@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCVD_COUNT_SEVEN(0.00)[10]
 
-On Mon, Apr 27, 2026 at 07:13:46PM +0200, Christophe Leroy (CS GROUP) wrote:
-> diff --git a/rust/helpers/uaccess.c b/rust/helpers/uaccess.c
-> index 01de4fbbcc84..710e07cd60ae 100644
-> --- a/rust/helpers/uaccess.c
-> +++ b/rust/helpers/uaccess.c
-> @@ -5,13 +5,13 @@
->  __rust_helper unsigned long
->  rust_helper_copy_from_user(void *to, const void __user *from, unsigned long n)
->  {
-> -	return copy_from_user(to, from, n);
-> +	return copy_from_user_partial(to, from, n);
->  }
->  
->  __rust_helper unsigned long
->  rust_helper_copy_to_user(void __user *to, const void *from, unsigned long n)
->  {
-> -	return copy_to_user(to, from, n);
-> +	return copy_to_user_partial(to, from, n);
->  }
 
-No Rust code uses the return value for anything other than comparing it
-with zero, so you can keep these as copy_[from|to]_user() without
-issues.
 
-Thanks, Alice
+Le 27/04/2026 à 19:58, Yury Norov a écrit :
+> On Mon, Apr 27, 2026 at 07:13:48PM +0200, Christophe Leroy (CS GROUP) wrote:
+>> At the time being, x86 and arm64 are missing unsafe_copy_from_user().
+> 
+> No, they don't. They (should) rely on a generic implementation from
+> linux/uaccess.h, like every other arch, except for  PPC and RISCV.
+> 
+> But they #define arch_unsafe_get_user, and the unsafe_copy_from_user()
+> becomes undefined conditionally on that.
+> 
+> So please, fix that bug instead of introducing another arch flavor.
+> We'd always choose generic version, unless there's strong evidence
+> that arch one is better.
+
+But they both implement the exact same unsafe_copy_to_user(). What is 
+the difference here ?
+
+Should that function become generic too ?
+
+Christophe
+
+> 
+> 
+> Thanks,
+> Yury
+>   
+>> Add it.
+>>
+>> Signed-off-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+>> ---
+>>   arch/x86/include/asm/uaccess.h | 29 ++++++++++++++++++++++++-----
+>>   1 file changed, 24 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/arch/x86/include/asm/uaccess.h b/arch/x86/include/asm/uaccess.h
+>> index 3a0dd3c2b233..10c458ffa399 100644
+>> --- a/arch/x86/include/asm/uaccess.h
+>> +++ b/arch/x86/include/asm/uaccess.h
+>> @@ -598,7 +598,7 @@ _label:									\
+>>    * We want the unsafe accessors to always be inlined and use
+>>    * the error labels - thus the macro games.
+>>    */
+>> -#define unsafe_copy_loop(dst, src, len, type, label)				\
+>> +#define unsafe_put_loop(dst, src, len, type, label)				\
+>>   	while (len >= sizeof(type)) {						\
+>>   		unsafe_put_user(*(type *)(src),(type __user *)(dst),label);	\
+>>   		dst += sizeof(type);						\
+>> @@ -611,10 +611,29 @@ do {									\
+>>   	char __user *__ucu_dst = (_dst);				\
+>>   	const char *__ucu_src = (_src);					\
+>>   	size_t __ucu_len = (_len);					\
+>> -	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u64, label);	\
+>> -	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u32, label);	\
+>> -	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u16, label);	\
+>> -	unsafe_copy_loop(__ucu_dst, __ucu_src, __ucu_len, u8, label);	\
+>> +	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u64, label);	\
+>> +	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u32, label);	\
+>> +	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u16, label);	\
+>> +	unsafe_put_loop(__ucu_dst, __ucu_src, __ucu_len, u8, label);	\
+>> +} while (0)
+>> +
+>> +#define unsafe_get_loop(dst, src, len, type, label)				\
+>> +	while (len >= sizeof(type)) {						\
+>> +		unsafe_get_user(*(type __user *)(src),(type *)(dst),label);	\
+>> +		dst += sizeof(type);						\
+>> +		src += sizeof(type);						\
+>> +		len -= sizeof(type);						\
+>> +	}
+>> +
+>> +#define unsafe_copy_from_user(_dst,_src,_len,label)			\
+>> +do {									\
+>> +	char *__ucu_dst = (_dst);					\
+>> +	const char __user *__ucu_src = (_src);				\
+>> +	size_t __ucu_len = (_len);					\
+>> +	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u64, label);	\
+>> +	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u32, label);	\
+>> +	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u16, label);	\
+>> +	unsafe_get_loop(__ucu_dst, __ucu_src, __ucu_len, u8, label);	\
+>>   } while (0)
+>>   
+>>   #ifdef CONFIG_CC_HAS_ASM_GOTO_OUTPUT
+>> -- 
+>> 2.49.0
+>>
+
 
