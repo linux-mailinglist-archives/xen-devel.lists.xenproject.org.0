@@ -2,48 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OIxmAs9k72kIBAEAu9opvQ
+	id 4H2ONtJq72nEBAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 15:29:51 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 15:55:30 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A04904736AC
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 15:29:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1294870.1571577 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9033F473D34
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 15:55:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1294881.1571588 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHM1Q-0004TI-Iy; Mon, 27 Apr 2026 13:29:12 +0000
+	id 1wHMQA-00005h-Ho; Mon, 27 Apr 2026 13:54:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1294870.1571577; Mon, 27 Apr 2026 13:29:12 +0000
+Received: by outflank-mailman (output) from mailman id 1294881.1571588; Mon, 27 Apr 2026 13:54:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHM1Q-0004QZ-G9; Mon, 27 Apr 2026 13:29:12 +0000
-Received: by outflank-mailman (input) for mailman id 1294870;
- Mon, 27 Apr 2026 13:29:11 +0000
+	id 1wHMQA-0008VO-De; Mon, 27 Apr 2026 13:54:46 +0000
+Received: by outflank-mailman (input) for mailman id 1294881;
+ Mon, 27 Apr 2026 13:54:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wHM1P-0004QT-IY
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 13:29:11 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19dcf387bbd000f373@swg.vates.tech>)
+ id 1wHMQ9-0008VH-8B
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 13:54:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wHM1O-005ZsU-F4
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 15:29:10 +0200
+ id 1wHMQ8-00G6M2-JF
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 15:54:44 +0200
 Received: from [10.42.69.10] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69ef649c-bab6-0a2a0a5309dd-0a2a450ac220-20
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 15:29:10 +0200
-Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19dcf387bbd000f373@swg.vates.tech>)
+ id 69ef6a97-5cb7-0a2a0a5109dd-0a2a450a90a8-44
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 15:54:44 +0200
+Received: from [185.255.28.34] (helo=prod-mta-13.swg-srv.net)
  by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69ef64a6-56b3-0a2a450a0019-d1558030ed48-3
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 15:29:10 +0200
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4891e86fabeso112233755e9.1
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 06:29:10 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
- [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4891c08faffsm1047785565e9.1.2026.04.27.06.29.08
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Apr 2026 06:29:09 -0700 (PDT)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19dcf387bbd000f373@swg.vates.tech>)
+ id 69ef6aa4-56b3-0a2a450a0019-b9ff1c22a053-3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 15:54:44 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19dcf387bbd000f373.007 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Mon, 27 Apr 2026 13:54:38 +0000
+Received: from julian.home (lfbn-lyo-1-414-55.w2-7.abo.wanadoo.fr [2.7.24.55])
+ (Authenticated sender: julian.vetter@vates.tech)
+ by mail2.vates.fr (Postfix) with ESMTPSA id E2539865DE;
+ Mon, 27 Apr 2026 15:54:37 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,134 +61,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777296550; x=1777901350; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=mkGfo+UOjoxYzBSBmwgThgrWn/HwaxyASSA7oHIl8rs=;
-        b=RJ/rS489KtqS+N+8oate2pHwOZjPsUoPkYor9xbIzWgMkpHcg9HUARCf6wZfYM2XHR
-         64lj3rAERv8XXWOLLGePa2a5EzTafHI6lSy01AgFaivXtrm6AxKQajnXkEgP2knvwScF
-         i1rNm0So4ZWI93eaCn4Hie7ZHfaIcaJ2Pgt6RrNqv1WV9A3SPcZteiBYfLctV0t425Vz
-         XiLWE3CBSwqehVRZ/UDExCbXNX+w2L801OA8tsSJx4zWnpV00j+DALEt8vu/DGIAwzts
-         9Yo5h9SxdnwEweXv1T7u1Qxxv9/a1s+9wV1WgAMrRPMzHJfrSKAy3twEpP8m09sjj7cT
-         2enw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777296550; x=1777901350;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mkGfo+UOjoxYzBSBmwgThgrWn/HwaxyASSA7oHIl8rs=;
-        b=g5iIOrDvOTx3Fy5jksLvjHFvdqxg8DBVDnSaTpTxgq0cIltPe11iQhl2ICAdeqA88a
-         F4Bs7f/V2vw5onvDsoIW7tUZFL552TxFafFp3IPFRaYQO+QNiy7g4aLtpdiaFVxWyxH5
-         PaI2mXRZdfRgtFxepnAyLUmBrESkbuAQck5JF/bDGYDJ9niEAlYt4Vco7SD+LMqIa7aJ
-         ZbMVIwEddxtasyMdGvq6p0jD8Rk+z0X53IOOD94+vbrUftL7FpD2aA/Med0co6448sbs
-         +ItpqYdY4uhYZTqgGXQn2f+GctTjpyelf5wxRv+sFiVde/j8UasYN8VKoxleyqDRyvDE
-         Z9Cw==
-X-Forwarded-Encrypted: i=1; AFNElJ/hBHWEPqXmUs9mrg60pImgnWGznTg09w3v6R0xhSz2nvmo8rNpXaM/zMkFu5efmuSoTkzeemTjNfg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzJGp8MYhZS7cc660aRXOAwbdyIIgEe2uJN9xwAnWcgfJWcMVbq
-	oX1P2gTbSOOIYQ+U107+M8KJMDWq1prHq07GLsy5jpaLQnzLoJ/mZP+o
-X-Gm-Gg: AeBDiesjJ+hYCOra/APdkschVlGR/H9wg3NRJj/YFNzra+YmRGx5ICqux3fp9EUqXUM
-	G//HC7Rw9A08zMdNMl9eHXkje809f3lhbinEyB4hpmUvPuIzchtkJJH8pFcRyh7/WYdRK5b1g41
-	A0NlN6HVGDeYmJf/nMTdXcMkuhDKg3R9+SQxDn/DaifQInMQN25307brZdryCQ9VBof8/pa+xbz
-	L8Km+97FA34T0fzjxhaD9okbjKfYVxW6etvUFO182zhvzU2X4qvYOmfUBH4pO+mEJPmG3CYCN7T
-	iPZlNcjyOtiVI9jpMyYG0ffiwK60x4p0SQIF/11nx8wvK8ZQbRHcHYl22027Z1o0X4L/GqfQyMI
-	n+VKISvaiUZ2AD9pN6+Z7zXC4F5QvKMWW9Vrx0KNHDatlKGqBfAOXjZMCnHlIbzXogNWEGA+G4+
-	YDfvhXJTRR/QDri70TAq5S7UddtgOaJazSAih0tq7ojTgzmb4VZGBeB3HREsN8w+EuBMJLJoxIb
-	G5dE4y8GhC11w==
-X-Received: by 2002:a05:600c:621a:b0:48a:592c:e642 with SMTP id 5b1f17b1804b1-48a592ce867mr349520855e9.18.1777296549386;
-        Mon, 27 Apr 2026 06:29:09 -0700 (PDT)
-Message-ID: <9a897425-f41d-4d9d-8108-5930f5e12185@gmail.com>
-Date: Mon, 27 Apr 2026 15:29:08 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=vates.tech header.i="@vates.tech" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:Feedback-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=0Ab05w3Cc3n+I13wVZW7ebdwmBh1B9H+TUWiPdGq5RY=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:feedback-id;
+ b=hUZJV/UxG/DXY7Q8EauK9ziJ/o9/vaV6aUCIfgtk68BL0l3v6s2/G1pEdAuXVPRdvdxJB159Z
+ A6J+WWvEfq5RZ36PbaC1wVuiVi/IhFh1r4LaRc2nCZYdY0ctugGRkRiuaMpV2cloOG+H49gu8Gj
+ 65qzISNWtIegMzUBEAl9NoUTfwSo583o5GPGpGKWlCwJWrbI9sVg/6rknwDeYu5y/1GrSymbdej
+ lOgSRKAH3RDrVKlVBt5EVayww+OC+O0Rj9DUYVtVPuxC0SdOuEjBtjNCztQ531SfVtbJSJsACd3
+ IsR0z/WBrJl6hQ4a7ymOxZV0wNMgxFdeLFeppj3e63lw==
+X-Zone-Loop: 56a54a6456f57479f343e5543d2972b35cf9f7d82bab
+x-campaign-type: default
+x-transaction-id: 1c3fc14c-551e-4a61-9226-e3a507f66146
+x-swg-uid: 01-e1e72c33-c0fb-4343-b56d-cab55ec8025f
+X-Mailer: Sweego
+Message-ID:
+ <1777298078.8631fc262581453bbf619ec5b2062170.19dcf387bbd000f373@vates.tech>
+x-swg-bid: 1777298078.8631fc262581453bbf619ec5b2062170.19dcf387bbd000f373
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+From: Julian Vetter <julian.vetter@vates.tech>
+To: xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+	Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Teddy Astie <teddy.astie@vates.tech>,
+	Julian Vetter <julian.vetter@vates.tech>
+Subject: [PATCH v4 0/9] x86/hvm: Add Extended MSI destination ID support
+Date: Mon, 27 Apr 2026 15:53:57 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] xen: introduce CONFIG_HAS_DOMAIN_TYPE
-To: "Orzel, Michal" <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <cover.1776957840.git.oleksii.kurochko@gmail.com>
- <fa2e255e53fe3aef2075ba8457be5fd4ba9156d1.1776957840.git.oleksii.kurochko@gmail.com>
- <71ae72eb-3424-4d41-afb7-9f1462e84aaf@amd.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <71ae72eb-3424-4d41-afb7-9f1462e84aaf@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1777296550-46D708B7-D66F5448/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 1032
-X-Rspamd-Queue-Id: A04904736AC
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.2972.abfc823cf368011e.19dcf3879c2.a24ad5d5067271c8=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1777298078147
+X-purgate-ID: tlsNG-4011c0/1777298084-80A7F8B7-40F03E11/0/0
+X-purgate-type: clean
+X-purgate-size: 4541
+X-Rspamd-Queue-Id: 9033F473D34
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [0.82 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	URI_COUNT_ODD(1.00)[1];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	XM_UA_NO_VERSION(0.01)[];
+	MIME_TRACE(0.00)[0:+,1:+];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TAGGED_FROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:teddy.astie@vates.tech,m:julian.vetter@vates.tech,s:lists@lfdr.de];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_SENDER(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:mid,vates.tech:email,vates.tech:dkim,vates.tech:url];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[julian.vetter@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
+	HAS_XOIP(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
+---=Part.2972.abfc823cf368011e.19dcf3879c2.a24ad5d5067271c8=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Thank you very much Roger and Jan for your feedback! I have addressed
+your feedback, see below=2E For me there is only one question, I'm not
+sure if this is what you had in mind Roger when you wrote:
+"Retrofitting the new interface into the old one seems weird=2E  I would
+do it the other way around - implement the old bind domctl on top of
+an interface that's more suited for the new DM op=2E"
+It requires some preparatory work=2E But I tried to make the
+restructunring diffs as easy to review as possible by splitting the
+refactoring into mutliple steps=2E
+
+Signed-off-by: Julian Vetter <julian=2Evetter@vates=2Etech>
+---
+Changes in v4:
+- Replaced the v3 approach of extending the XEN_DOMCTL_bind_pt_irq
+  gflags ABI (XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK / VMSI_X86_FULL_DEST)
+  with raw MSI addr + data storage throughout=2E pt_irq_bind_msi() now
+  accepts the raw address + data values and decodes the destination
+  internally=2E No public domctl ABI changes
+- As suggested by Roger, replaced XEN_DMOP_enable_ext_dest_id (v3 patch
+  6, a separate call before domain start) with a flags byte from the
+  existing pad[3] field of XEN_DMOP_create_ioreq_server=2E The new
+  XEN_DMOP_IOREQ_SERVER_EXT_DEST_ID flag lets each server signal support
+  at registration time and allows the feature to be levelled across all
+  servers before arch_domain_creation_finished()
+- Redirect xc_domain_{update,unbind}_msi_irq() in libxenctrl to use the
+  new DM ops, and reject PT_IRQ_TYPE_MSI in
+  XEN_DOMCTL_{bind,unbind}_pt_irq (as suggested by Jan)
+- Add three preparatory no-functional-change commits (patches 2-4) that
+  wrap the restart block in braces, extract pt_irq_dpci_setup(), and
+  extract the PT_IRQ_TYPE_MSI case body into pt_irq_bind_msi(), making
+  the interface change in patch 5 reviewable as a clean diff
+- Rework ioapic_check() to validate named fields (base_address, APIC ID
+  width, ioregsel range) instead of rejecting any non-zero reserved
+  bits, which would have falsely rejected RTEs carrying extended
+  destination IDs
+---
+Julian Vetter (9):
+  x86/vioapic: Add ioapic_check() to validate IO-APIC state before
+    restore
+  x86/passthrough: Wrap pt_irq_create_bind() restart block in braces
+  x86/passthrough: Extract pt_irq_dpci_setup() from pt_irq_create_bind()
+  x86/passthrough: Extract PT_IRQ_TYPE_MSI body into pt_irq_bind_msi()
+  x86/passthrough: Introduce pt_irq_bind_msi() as canonical MSI bind
+    path
+  x86/hvm: Support extended destination IDs in virtual MSI and IO-APIC
+  x86/dmop: Add XEN_DMOP_{bind,unbind}_pt_msi_irq DM ops
+  hvm/ioreq: Negotiate extended destination ID support per ioreq server
+  x86/cpuid: Advertise XEN_HVM_CPUID_EXT_DEST_ID when device model opts
+    in
+
+ tools/include/xendevicemodel=2Eh          |  34 +-
+ tools/libs/ctrl/xc_devicemodel_compat=2Ec |   2 +-
+ tools/libs/ctrl/xc_domain=2Ec             |  52 ++--
+ tools/libs/devicemodel/core=2Ec           |  41 ++-
+ xen/arch/arm/ioreq=2Ec                    |   5 +
+ xen/arch/x86/cpuid=2Ec                    |  13 +
+ xen/arch/x86/domain=2Ec                   |  10 +
+ xen/arch/x86/domctl=2Ec                   |  10 +-
+ xen/arch/x86/hvm/dm=2Ec                   |  68 ++++
+ xen/arch/x86/hvm/ioreq=2Ec                |  37 +++
+ xen/arch/x86/hvm/irq=2Ec                  |   9 +-
+ xen/arch/x86/hvm/vioapic=2Ec              |  50 ++-
+ xen/arch/x86/hvm/vmsi=2Ec                 |  54 +---
+ xen/arch/x86/include/asm/hvm/domain=2Eh   |   9 +
+ xen/arch/x86/include/asm/hvm/hvm=2Eh      |   4 +-
+ xen/arch/x86/include/asm/hvm/irq=2Eh      |   4 +-
+ xen/arch/x86/include/asm/hvm/vioapic=2Eh  |  12 +
+ xen/arch/x86/include/asm/msi=2Eh          |  18 +-
+ xen/common/ioreq=2Ec                      |  13 +-
+ xen/drivers/passthrough/x86/hvm=2Ec       | 396 ++++++++++++++----------
+ xen/include/public/arch-x86/hvm/save=2Eh  |  21 +-
+ xen/include/public/hvm/dm_op=2Eh          |  53 +++-
+ xen/include/xen/iommu=2Eh                 |   3 +
+ xen/include/xen/ioreq=2Eh                 |  27 ++
+ xen/include/xlat=2Elst                    |   2 +
+ 25 files changed, 703 insertions(+), 244 deletions(-)
+
+--=20
+2=2E53=2E0
 
 
-On 4/27/26 11:21 AM, Orzel, Michal wrote:
-> 
-> 
-> On 24-Apr-26 3:36 PM, Oleksii Kurochko wrote:
->> As domain type is part of common code now there is no any reason
-> NIT: remove "any" after "no"
-> 
->> to have architecture-specific set_domain_type() functions so
->> it is dropped.
->>
->> Change the guard around access of kinfo->type to CONFIG_HAS_DOMAIN_TYPE
->> for consistency. Also, drop and add some parentheses to be aligned
->> with the similar if() below.
->>
->> x86 with CONFIG_64BIT=y shouldn't use is_{32,64}bit_domain() as
->> x86 doesn't have support of CONFIG_HAS_DOMAIN_TYPE. Since x86_32 Xen no
->> longer builds, the fallback is currently only relevant for arm32.
->>
->> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> You don't seem to remove enum domain_type type from struct arch_domain which is
-> now unused. With that removed:
 
-Oh, right. I dropped it only from struct kernel_info. I will drop it.
+-- 
+Julian Vetter | Vates Hypervisor & Kernel Developer
 
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+XCP-ng & Xen Orch=
+estra - Vates solutions
 
-Thanks.
-
-~ Oleksii
+web: https://vates=2Etech
+---=Part.2972.abfc823cf368011e.19dcf3879c2.a24ad5d5067271c8=---
 
