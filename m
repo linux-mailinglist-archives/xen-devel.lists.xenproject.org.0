@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8Ja8DFGa72kbDQEAu9opvQ
+	id wJndGGaa72kUDQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 19:18:09 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 19:18:30 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC0F6477114
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 19:18:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1295148.1571839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CBBD4771A9
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2026 19:18:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1295154.1571849 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHPap-0008GT-M6; Mon, 27 Apr 2026 17:17:59 +0000
+	id 1wHPbB-0000Wg-Te; Mon, 27 Apr 2026 17:18:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1295148.1571839; Mon, 27 Apr 2026 17:17:59 +0000
+Received: by outflank-mailman (output) from mailman id 1295154.1571849; Mon, 27 Apr 2026 17:18:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHPap-0008Fb-Is; Mon, 27 Apr 2026 17:17:59 +0000
-Received: by outflank-mailman (input) for mailman id 1295148;
- Mon, 27 Apr 2026 17:17:57 +0000
+	id 1wHPbB-0000Te-QV; Mon, 27 Apr 2026 17:18:21 +0000
+Received: by outflank-mailman (input) for mailman id 1295154;
+ Mon, 27 Apr 2026 17:18:20 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <chleroy@kernel.org>) id 1wHPan-0008E3-U1
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 17:17:57 +0000
+ (envelope-from <chleroy@kernel.org>) id 1wHPbA-0000QZ-7S
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 17:18:20 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wHPan-00DDcu-Al
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 19:17:57 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wHPb8-00Dj0u-2c
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2026 19:18:19 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <chleroy@kernel.org>)
- id 69ef9a40-bab6-0a2a0a5309dd-0a2a4502df54-14
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 19:17:57 +0200
-Received: from [172.105.4.254] (helo=tor.source.kernel.org)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69ef9a53-e002-0a2a0a5209dd-0a2a45099bd4-10
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 19:18:19 +0200
+Received: from [172.234.252.31] (helo=sea.source.kernel.org)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <chleroy@kernel.org>)
- id 69ef9a44-af86-0a2a45020019-ac6904fe96d8-3
- for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 19:17:57 +0200
+ id 69ef9a59-2497-0a2a45090019-aceafc1fe118-3
+ for <xen-devel@lists.xenproject.org>; Mon, 27 Apr 2026 19:18:19 +0200
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D6C426024D;
- Mon, 27 Apr 2026 17:17:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B91DC2BCB9;
- Mon, 27 Apr 2026 17:17:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8B93C440C2;
+ Mon, 27 Apr 2026 17:18:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C06C2BCF4;
+ Mon, 27 Apr 2026 17:17:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,15 +55,15 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="From:To:Cc:Subject:Date:In-Reply-To:References"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1777310275;
-	bh=W5kkD2qOaf9p6y+JEmiY6YQ2keZoelr0Bif5djAA9uo=;
+	s=k20201202; t=1777310297;
+	bh=G/2eQ9TI5TAejE5IgsfdvVcfACCawPpecEdM1VXM32k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=dWIdgH61f3FZjJK5/4M8qA2Z3PdTv2PxzuZWcauBhk9DdVxbBkauIdrH8T66hguCp
-	 RKByLYUodinjcBlbYhttuH2LGK1CACi5Chox46drqrLCValqYMs6iS6hvWfa8xjP86
-	 SRX8mzMn7HjzzZ5PMWVnIWvrJFLR/iyEIDn4Oi2BFSrDeboqSnIrX7WfhL6Ub+tY2g
-	 I0hH+wNzy6c//f0TkDzcuax+fX8WXY8rTh4FJ51XM25PFd/tzjClOdpIOdXk4NjGqA
-	 oBIlgUIOAdKFgg5RvdKRR4Lqk1Q+lbng1I1sXXDqtORIX/zFE6g7Yv8vrz97KbzGDV
-	 XrdmpG3tF9W3Q==
+	b=JDwlcHynPBKJgZEQOCWtilxNz5OJTbEC9ImCjJuQT3RnOoZjD4+90hMORF2q1smV0
+	 ZZwStmTz2ZWfCFTglmd/E7DTmKQiqUkyq6DoW4QkOcmP8LtfpYhN9V4ZMaLV1xjKUX
+	 qf/gxqJdT3gAPMXuYRhHcRDH0KM3YGUgvPXpdKncm5DePPHjb0VOG6buq4s8MreRM+
+	 EZo8pRxSQAzQ5kujjD1AkNCv3dgeUm7ZrfC1oOr8cnbPHFYMiYdejiO8B5iigWhrca
+	 1OgKQbcauQ7QAB8qeF6Zf8CM71cpuIXWBUm7GSS+m87r+rFbtJTWOdD0Mn8qIs0Vfn
+	 3JDYXNLvVgu3g==
 From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
 To: Yury Norov <ynorov@nvidia.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
@@ -114,20 +114,20 @@ Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
 	linux-parisc@vger.kernel.org,
 	linux-sh@vger.kernel.org,
 	linux-arch@vger.kernel.org
-Subject: [RFC PATCH v1 3/9] x86/umip: Be stricter in fixup_umip_exception()
-Date: Mon, 27 Apr 2026 19:13:44 +0200
-Message-ID: <9e8e43d4f81d8f8b6f68311f1c6f859d718d36e4.1777306795.git.chleroy@kernel.org>
+Subject: [RFC PATCH v1 4/9] uaccess: Introduce copy_{to/from}_user_partial()
+Date: Mon, 27 Apr 2026 19:13:45 +0200
+Message-ID: <c73b90236f2810edd47c84edd2a8d8e8e0c816da.1777306795.git.chleroy@kernel.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <cover.1777306795.git.chleroy@kernel.org>
 References: <cover.1777306795.git.chleroy@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1000; i=chleroy@kernel.org; h=from:subject:message-id; bh=W5kkD2qOaf9p6y+JEmiY6YQ2keZoelr0Bif5djAA9uo=; b=owGbwMvMwCV2d0KB2p7V54MZT6slMWS+nxnda1Jdur5TX+RgO1P4hHufdruHR358Lz3BYPORx G8pRRuZOkpZGMS4GGTFFFmO/+feNaPrS2r+1F36MHNYmUCGMHBxCsBE9kkxMjTtX+zW2RH44ELN UZ/TjtH3Kj+Uzdh01e2y7qEZTgrchx8y/E9kjcpJ3dj/tNZwXUT0XHGmyS9k3dX75mj427u7JaY VMwMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1585; i=chleroy@kernel.org; h=from:subject:message-id; bh=G/2eQ9TI5TAejE5IgsfdvVcfACCawPpecEdM1VXM32k=; b=owGbwMvMwCV2d0KB2p7V54MZT6slMWS+nxmjMKmwhcOl/KmCyQK3t3e2vTXauaOc++38fue5J 1/fnLd3d0cpC4MYF4OsmCLL8f/cu2Z0fUnNn7pLH2YOKxPIEAYuTgGYyD5HRoZnIqUtqi/uzJzx /elrrqTduXsuSM05kFXcMu1CQyFnzPFOhv/RJewtZeu89EsObX+ieXizf2Xo8RNCJwMOumbxCC5 Mr+EBAA==
 X-Developer-Key: i=chleroy@kernel.org; a=openpgp; fpr=10FFE6F8B390DE17ACC2632368A92FEB01B8DD78
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-720697/1777310277-896CC161-549AF82A/0/0
+X-purgate-ID: tlsNG-bad1c0/1777310299-490B3A53-41D4CE8E/0/0
 X-purgate-type: clean
-X-purgate-size: 1002
-X-Rspamd-Queue-Id: EC0F6477114
+X-purgate-size: 1587
+X-Rspamd-Queue-Id: 2CBBD4771A9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.81 / 15.00];
@@ -166,35 +166,48 @@ X-Spamd-Result: default: False [1.81 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-fixup_umip_exception() calls copy_to_user() and checks whether
-the returned value is strictly positive.
+Today there are approximately 3000 calls for copy_to_user() and
+3000 calls to copy_from_user().
 
-A subsequent patch will change the return of copy_to_user() to
-return -EFAULT in case of error.
+The majority of callers of copy_{to/from}_user() don't care about the
+return value, they only check whether it is 0 or not, and when it is
+not 0 they handle it as a -EACCES.
 
-Change the test to checking that the result is not 0.
+In order to allow better optimisation of copy_{to/from}_user() when
+the size of the copy is known at build time, create new fonctions
+named copy_{to/from}_user_partial() to be used by the few callers
+that are interested in partial copies and need to now how many
+bytes remain at the end of the copy.
 
-At the time being copy_to_user() return an unsigned value so
-'strictly positive' is the same as 'not 0'.
+For the time being it is just the same as copy_{to/from}_user().
 
 Signed-off-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
 ---
- arch/x86/kernel/umip.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/uaccess.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/x86/kernel/umip.c b/arch/x86/kernel/umip.c
-index 3ce99cbcf187..dfff28ea1dea 100644
---- a/arch/x86/kernel/umip.c
-+++ b/arch/x86/kernel/umip.c
-@@ -409,7 +409,7 @@ bool fixup_umip_exception(struct pt_regs *regs)
- 			return false;
+diff --git a/include/linux/uaccess.h b/include/linux/uaccess.h
+index bd1201c81d94..2d37173782b3 100644
+--- a/include/linux/uaccess.h
++++ b/include/linux/uaccess.h
+@@ -221,6 +221,8 @@ copy_from_user(void *to, const void __user *from, unsigned long n)
+ 		return _inline_copy_from_user(to, from, n);
+ }
  
- 		nr_copied = copy_to_user(uaddr, dummy_data, dummy_data_size);
--		if (nr_copied  > 0) {
-+		if (nr_copied) {
- 			/*
- 			 * If copy fails, send a signal and tell caller that
- 			 * fault was fixed up.
++#define copy_from_user_partial copy_from_user
++
+ static __always_inline unsigned long __must_check
+ copy_to_user(void __user *to, const void *from, unsigned long n)
+ {
+@@ -233,6 +235,8 @@ copy_to_user(void __user *to, const void *from, unsigned long n)
+ 		return _inline_copy_to_user(to, from, n);
+ }
+ 
++#define copy_to_user_partial copy_to_user
++
+ #ifndef copy_mc_to_kernel
+ /*
+  * Without arch opt-in this generic copy_mc_to_kernel() will not handle
 -- 
 2.49.0
 
