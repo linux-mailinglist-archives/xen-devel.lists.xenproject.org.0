@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QI/TNFmJ8GloUgEAu9opvQ
+	id 4EFAG2CJ8GloUgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 12:18:01 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 12:18:08 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C2BF48273C
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 12:18:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1295532.1572198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB2A948275A
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 12:18:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1295543.1572207 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHfUw-0001IM-PM; Tue, 28 Apr 2026 10:16:58 +0000
+	id 1wHfVv-00020v-6j; Tue, 28 Apr 2026 10:17:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1295532.1572198; Tue, 28 Apr 2026 10:16:58 +0000
+Received: by outflank-mailman (output) from mailman id 1295543.1572207; Tue, 28 Apr 2026 10:17:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHfUw-0001GH-Lt; Tue, 28 Apr 2026 10:16:58 +0000
-Received: by outflank-mailman (input) for mailman id 1295532;
- Tue, 28 Apr 2026 10:16:57 +0000
+	id 1wHfVv-0001zR-3r; Tue, 28 Apr 2026 10:17:59 +0000
+Received: by outflank-mailman (input) for mailman id 1295543;
+ Tue, 28 Apr 2026 10:17:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <milan_djokic@epam.com>) id 1wHfUv-0001GB-H5
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 10:16:57 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wHfVt-0001zJ-JT
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 10:17:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wHfUu-00H9CO-DA
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 12:16:56 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wHfVs-007jcM-UH
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 12:17:57 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <milan_djokic@epam.com>)
- id 69f08911-e002-0a2a0a5209dd-0a2a45019c94-46
- for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 12:16:56 +0200
-Received: from [52.101.69.84]
- (helo=AM0PR83CU005.outbound.protection.outlook.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <milan_djokic@epam.com>)
- id 69f08918-c1f2-0a2a45010019-34654554361e-3
- for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 12:16:56 +0200
-Received: from AS2PR03MB9587.eurprd03.prod.outlook.com (2603:10a6:20b:595::7)
- by PAVPR03MB9775.eurprd03.prod.outlook.com (2603:10a6:102:312::21)
- with Microsoft SMTP Server (version=TLS1_2,
+ (envelope-from <roger.pau@citrix.com>)
+ id 69f08950-bab6-0a2a0a5309dd-0a2a4508bf32-36
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 12:17:56 +0200
+Received: from [52.101.52.71]
+ (helo=BL2PR02CU003.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 69f08953-63b5-0a2a45080019-34653447da2e-3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 12:17:56 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by DS7PR03MB8315.namprd03.prod.outlook.com (2603:10b6:8:260::15) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Tue, 28 Apr
- 2026 10:16:54 +0000
-Received: from AS2PR03MB9587.eurprd03.prod.outlook.com
- ([fe80::daa7:3b97:acb3:67d5]) by AS2PR03MB9587.eurprd03.prod.outlook.com
- ([fe80::daa7:3b97:acb3:67d5%6]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
- 10:16:54 +0000
+ 2026 10:17:53 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
+ 10:17:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,304 +58,404 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uX1vJ/ggqv5NSilCVnxHdYcNo9R0u18MRzmxc0Tk6qceyTd7P+UC7+sZIUBWtCuR5e/7H9c4itc6DNbdAthaMtt/QO3l+eQ16cFPQtwJMx1+gxDnmmBn80eyg9r0DJxGQ9gSwmkBraDhOc4OqL5ezi7A/CO/UKiVPdPckWeqj9SGgyRTorUgET3+fLg/Q8vVM30LodncJKccViSJ6qQq4wJCEpEDoVZTkX1Emgh+gnl4hsJ7E3nmfRE9Z8xjkIFhqZZ2WkMXYjdOcIfTEEQBpBN09jLYtVDHOgljwF38lGTJT4URJWmMRacLJrkPpbEUpdWwR9nys+q9rmxeAFjhBg==
+ b=IF5r59Rsmm3luN2VYc2ZN6PLRTiSWsrdYilY1csJ1E1aD7QH6AFt1EIShB9X18XCQNnMZCxCX5a6XufQ+crBea6Dt0clLPxMmCTi0fTN/8PvNzunDVEtcF6jFri4j1RYTfEpupzdiuq5fpIzUSs/BI3X/nWOCfE/KZ9FhEb+PJUqDpCEouCEm+OyB148QET2q3NdpVrfRikfCmTi+3B1yeO433jG/9IUzyTG6hdkI9OhvnHnuTNM1UNka1UWw+soNIpsRn0sR47JR8EaqV8DM/M5Zp9la2BjEVhj+ImXWMprDCV2qILbyCL/w3R9bEH4huDQI2vxy+/zmLkFnzPFCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MR88q9lKDQ7Q9yXY52ZjehqGtLnr6o/5uutGZwt7RpI=;
- b=HDDUPOSAihBeu8aFNTIK8BVjzVteymSu59GHk4dFtDzkmlYZLiSOlV2gf7v+diqDqwsc5MNYeeaPQMG+QrczjuOWa2M9Zc7tNgIlP0RxcaMPRknq2XEi9abap9TF66cEi5uUTQmRV1ydrTT8zSwkxueKdVcliOSrKCl47UeB5LZ/d2opPhFQ6oQIwtKT3bTVFQPPJHYVcT1LIrUOWy/uibyk1ea/WC7Vs0gHmNQE0Lardn7l8sWeiIVBs8Qupbc/oHyW538mkG02nUUpJNmagFJQv0DRX6LZmmqbLPPv3qM8AdVD9zPbVFJbT6vyFJqRR2r+RB8A5fe079Qf0HDIxQ==
+ bh=A2keiiZXZR6XgddVozHX6JewiqIcgqX7frg5KBnaVE4=;
+ b=B3l0gjCUP2exIxgvo9sYNOliu3e5R9DvVldmXENc94B6gDqp0V0IoLveXXM4s3WljJPBvX7YREuqIj5h/k44Ez9/2X6thZbhY9posxjuHHmYfESev8ESYiEkY2xlJZo6HWFW2plOjVj9+kJykc6QtCZ353F71Az81DiGkzy/oIV+ELHfdVCiGBXBEdk77OfkMahM8ixvSuXiLhTxMQtyuf1nwtIiV4rxjQx6ah1TOCYTEgK1+9lzqeeInC6vdWldx5VYiRKOlXzHho/PQOFyQOcgQ+quOtilpPUerdido6bkjqyb8S3RFriw+ch9WtZVPZKumlyCqVOYIQKXoiDtQw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MR88q9lKDQ7Q9yXY52ZjehqGtLnr6o/5uutGZwt7RpI=;
- b=cYThDGqSwE0+2ZYYNANFXZwQNPmlE1MR+sLRdN/7WzLv9ooE4VVt0jKLbao03d/gatn8PxkntU9ZWbXj+drinj0moxe68vsMznxCoNm3+KJD+6f72/o3jTlYGkhjT/QUyFEUogaEr82hJnEd+4AouuLXtj81iSKGJLpmOrjX4R1WmltOYJQEwB4bXnKEbPc9Aqst0Ym7eDBc+HFQt1SJapLlDhPWogM99+/c83WdrpNBkErwdUswLXGCV7xwthsUhkeAxc3twKj/Pog/kzfsqHFBU4yxxzSUWrXuOqDprFN4VCDYH4fQmNla1dHouKA21avR6FdLK4X3zfAqYkUoPg==
+ bh=A2keiiZXZR6XgddVozHX6JewiqIcgqX7frg5KBnaVE4=;
+ b=D/pxg9p3aXaK0WFO6wBkdrGpuFhrfcvU8Oc9RBTi24zN53O6wzlBseINM8XGUVXkAwrf532SbxAvjyLThJ4lcv6yzdOmTh5nrR3gf5fuyfRztB9ZLPcu6NlFtwEcCrwTewBx8BbOKX0XukNqnO9UJlXg63HbEJmi/y37Y8bJq80=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <4c96c478-aeb5-443c-a6ca-f23caf7d5430@epam.com>
-Date: Tue, 28 Apr 2026 12:16:52 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/23] xen/arm: smmuv3: Add support for stage-1 and
- nested stage translation
-To: Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Rahul Singh <rahul.singh@arm.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1774305918.git.milan_djokic@epam.com>
- <cb8a2cb5df50128f4c49d34a7ab8faa4e73f83c6.1774305918.git.milan_djokic@epam.com>
- <56a7c116-4ecb-4dfc-a7dd-774d53041fe9@xen.org>
- <87a04781-5765-43b6-8b21-cb993609bd91@epam.com>
- <cd2c76a2-7a13-4bbf-9c29-5dcf3ae06fc0@xen.org>
-Content-Language: en-US
-From: Milan Djokic <milan_djokic@epam.com>
-In-Reply-To: <cd2c76a2-7a13-4bbf-9c29-5dcf3ae06fc0@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: VI6PEPF00000234.AUTP296.PROD.OUTLOOK.COM
- (2603:10a6:808:1::8f0) To AS2PR03MB9587.eurprd03.prod.outlook.com
- (2603:10a6:20b:595::7)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 28 Apr 2026 12:17:49 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Thierry Escande <thierry.escande@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Alexey Gerasimenko <x1917x@gmail.com>
+Subject: Re: [PATCH 02/17] libacpi: new DSDT ACPI table for Q35
+Message-ID: <afCJTdlBPPyWEejk@macbook.local>
+References: <20260313163455.790692-1-thierry.escande@vates.tech>
+ <20260313163455.790692-3-thierry.escande@vates.tech>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260313163455.790692-3-thierry.escande@vates.tech>
+X-ClientProxiedBy: MR1P264CA0083.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:3f::23) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS2PR03MB9587:EE_|PAVPR03MB9775:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e1208b6-0265-4fb9-3226-08dea50f456a
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|DS7PR03MB8315:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a483f4f-2f8c-4c9f-da7e-08dea50f688a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|18002099003|56012099003|22082099003;
+	BCL:0;ARA:13230040|366016|376014|1800799024|18002099003|56012099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	/bKQ3CdZRMJi6zxUJDFW7VtaRWWD29+BsJUSNyBXT0S4poJiQrtCrgUc3HtSaViaZZeW2ZCYbJ0tarmgh0NA8h8EUkn3QPz8DJ4JCUKwP8sWZ99Z87B4bwWzHdXNB/k5TxXeM7CBe/JCA3JNI2C5sFy6JVBCY3MeY1eEPS8c/LnY0vuu1pWorpaw0Tl9pq+5vPjn+f2QBHFkPwoLbUH3h9nThp73bGD5lXYdXXhEXpzLfnIDWkrj4+C908nivsjR4CoOF+VAviMVEnVPgAEGtj2aA76GpMJ1rfmaJ1NSkunnn3xwJKpWUSrCBJ8e5GUx//YZMiNEnKtoYwwW1lyghj9ER7vq0KP3knzhUKQmh5v7tv+7s5cwGbvNACbFdgNfzP1WuHpqih9b9pBXgkntOUcI01mGcM8gavu4irsqWlKGXff3VdDYA16im9zckQbDFJ/15S+GRp23AijvrkpYRWMJqa2DAqmnVK9zta/O68YnpoAJCPHdwXc/1wjkVZXbsU2ZhYhFswxfSGJH0/3BMOJ0OwdEwSzAWZAWCXelTFd74C9QllKwNfQgej56l6gNKkkgw2TViYywwaMfManXXEj6HSd83eheKpRBZtlo8akYdtvwP7Xpv6yTxE9aePmkv7ZDKdnhdGTvhSYBeZQ/ciAvHB6evmXhri+WiFnMLZOf6gBCjvHQvK+yFIbIEtIIhmRDZRUsOOVSIOsdyXQSLmBywezCDJxhO5KKelNdr5E=
+	Mf1XHalhUrLW1wZocx77acowppAgzAYbHkJaVolG8ne+EBSace7x33PgAJl8hy8rGH1FI1INxPXtWJ1Xk8IJv4RfL9G4zVEcWde8iVeA6oJBwGUe4QhUJStELJLHgchp928d2WEKB5y9+sDHMU8NN0VdKQSKS/bdithTI5CFm3EMrrLfV77/9txfTkZXpxOBipVNqVOBM6ESFL+A1fja1phyzW1oDEQurqObnuNpXMNP44SDD+Vb6qxfOpG3cRkaxn2pMVXWBG1FV2C/9IhLeAsI6TG++3O0/Dk4KwuHVw+2m+E3mEsmRjcIIbYAjUBsRWKV/bKlX7c3tPOtIdf1PUA6Sah3vqs8vFpuUQVm1x1mwZVtex2rnS94UuUkl+UFIi5pv53q1Jt6oSchPi7rjDRWNawoTuqqIu/MhPUXi/qXa1UlNhGDu26BJJNo+OIY/edxrBEaJGluTdCpWx1yqSMRrOPFMi5XbnPqrwLkP14RaEO02VNjP58JccJkbNhtS4VmtM5RwpDbZpXj8SNiPqtug9kC6stHR3H4LFgiKJn5z0wPWIb8vE65MZD1DgAV4XoQuLLR13fSZR56lfxqFhM0kv46S4r60aaQiA2ixq+9VtwPl9byHDA6Di/7eX1ZegFvFrp2fGK4RHqyFenbubo0AYPhOBvMWgk2HfDaR6N65AE8t7K16yd3Ndz2mg7AlXqIVPpDBUSjg/0pKvxMnIQRqtZzHVO87+EyG+HFJRA=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS2PR03MB9587.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SVJXcGdRZTlxU2Y3NTNzVEhhYTE1dnM3dGxheEhTVG1LMTVLNTB4VzdKMVBN?=
- =?utf-8?B?TGVxOEpFYll5dk1LTU4vTlpQYk1jQi9wVnpTWDl6MmJCYmhXTytuZ0xNU0dq?=
- =?utf-8?B?cGVOT0lPT2RWMjJpVlY4c0lacUJGTkZiaU9ZeXZ6U2NsYkM3bnNsUzRCVmFE?=
- =?utf-8?B?WEh0Qlp6ZEVJcjc1RjBzQjFUZ3hRSUhsTVhiSkRmaWN2VFJNUG1DTnQwclNY?=
- =?utf-8?B?U2tHc0RmWlZxMUpKZ0FFa2M1UnFaekFoR05hY21TL2ErQXZ5UXFjeTNNSXZE?=
- =?utf-8?B?S2VuQmZVRXlpQmkvaWdEd0tZZHJXMHpjbnZ3M1ZmT1AyVmQzTGdnV2FrS0g2?=
- =?utf-8?B?dkhBbEhRTENGYStJNVN2cWNUcGUzWEhXNWZna1pBNzZrZWlWQkM1SFZUaXdx?=
- =?utf-8?B?MU5MSmhxeW9jTFdjVVZncFZmVFdDVVo0S013WlZ0WXdwT1Q0K3QzQnlOSUM5?=
- =?utf-8?B?Q3NsUmszUzhsbDN1Nm1QNDJFWERycSsrQ1p3QmNzeFNObDBRTVRocTNjNk9u?=
- =?utf-8?B?YTltNDNZWU9JRTNJMjMxbFRnTFBVZUs0ZjJtZjJHTGR4V2V2WWp5S1p5VGx0?=
- =?utf-8?B?VzYxeENBQXpFeVRjd0p2Y3J0UU1xQVZPRHBGYnAvaFlmUkdjVzVZOU03UmZM?=
- =?utf-8?B?bnJiWlY1SjlkUVZJT1BJVFhYVGdWT0NxUlNxcUUrMnE2OUk1QUtiaGQwSFlC?=
- =?utf-8?B?Z2hKamtvb0hmeWpJd3JZbndFcHFKWmxBV25EN24yNVByUU5vRW9SK1VZd1Zh?=
- =?utf-8?B?UUEwc2pObTM4bFNmTE94YTlWTThocmUyQ3FPWTdsU0E4ZloyWnF6VXN3TnpD?=
- =?utf-8?B?YjFjSGxaaHFhd2V3Q1hSM2U0Y1JiWisvL1pMdWZkTVh4ZjRIZ0ppYjcreENP?=
- =?utf-8?B?YzBSNU9FWjR3SWhTUmRRMkJ0d0N0d3VNek1jSnRuNG10elQ4VzdLc2VmdHda?=
- =?utf-8?B?a05acTI4a3doNUY5SEJjSGI1ZXgxc0hRSEwwNmh4OU90QWJ5TUJqK3FkV3ZO?=
- =?utf-8?B?amxyMG5WZTRRNEVtVWh0ZUVzMnVmeHRnMGdzcm55R0g5VVo1eEp4biswNjZW?=
- =?utf-8?B?NVBaVnByeEVyY3dGUzU3TXEvUS9yaFRaN3NtbnI0SVhIR1VGbnhrNm9jRy9t?=
- =?utf-8?B?NzJTaXpzUDMyZlBrS284TmU4SmZjcFJYVGt4N2MyNWRPRjYzekMveU42Tklj?=
- =?utf-8?B?QWRuZ09GWFhQeFhxUWVSMU1JYVRkK1UyNSt4UFRpWUFIQ2hnOCtxN2lCUlp0?=
- =?utf-8?B?QzFNay83Um8vY0lPbWszUXJHa2E2SnhjSWJneHRrZ2Q0dmZPeXJTWEtncWFG?=
- =?utf-8?B?MVJQK1pCTnpvMGd1Z3RKakJFYktDaHl1b3pmb3hZMkQ5Q2tTZU82OU5iY3c2?=
- =?utf-8?B?bndkNkZad2pUK1hJc0tScENoY29DZTVMT2hrUk5IaE00dThjZ0dMMnJHUVFW?=
- =?utf-8?B?Z2hBZWNxOUcrZkFCc0EzNi9iZVhwc2w0MmNOaXo0K00vU1N2aDhvUUFkcGRH?=
- =?utf-8?B?a0VlOXRGczljNVgzTkdua28xc2llbVNXYkZhYTBoTStOc1BOa2lHZTVFM0cx?=
- =?utf-8?B?RlA2aSthTU1yS3lIQ2xCVndkbFVKZk9SaG4zZEQ4a2tzQzViQTg5RkJBWVNV?=
- =?utf-8?B?U0ZoTWQ1eGw3NC9HT3oxeFFNS0pBTUwxRW55YVVBZkF0REhzODVKMmo2OTNh?=
- =?utf-8?B?M2tLclVWYjF3c3lDMk85bFc2TVBEOFpTL0xiNG1RMjdLRVpJdDljY01TTC9y?=
- =?utf-8?B?VE1sTDZMc3hlUXl2M3FUcmxmSXRrUHgwT0ZDYjg4NlpReXpTZ2QxTzdiRllL?=
- =?utf-8?B?amIrZjI0dmx2Mm9ETTA4T0JuV0RCZ0gzdlBRZENJMGZDUUhTVUZTWFl4eFpH?=
- =?utf-8?B?Vi9yTU15cmdDaEllRmJPNU9mRDNQTnQyVlgwWERQd0RUVS9jakpRSHNCOUZM?=
- =?utf-8?B?TnhUQTl2STh1T3lBSVBCSmJNTVY5VVZpUWU5NzRoL3pGV2t4UHFvVnRHK3Q3?=
- =?utf-8?B?cUdwWjZjYmRPWjVVNDBBSUZCR2ZuNWU5cUlvY1BZZW9xc094YUJjenQ1bkpi?=
- =?utf-8?B?T0tBLzU3eTdSQ3pyRFdhd0xrNU9oZ3FJTUhPbG1zdjR1QjMya2dEMno5MVV5?=
- =?utf-8?B?YkxUMXFQbHVSWVcwR3F5QVQ1WUNmc1VDYU1OT3p4ZlVJSFlFVDhJb09tNllN?=
- =?utf-8?B?YkVQZ2hpeC9VVkVOelJVbXE5bFJmWHhUVlNvRjNGQWVSSnlhUWFJVzhjZElG?=
- =?utf-8?B?ODNlT3VFbGFVUlh3ZTVNZFpvUzVlc25CUGg1cmlvb0N0Y01rcVN6b1A5Szhu?=
- =?utf-8?B?T1FTanlGZE0ra0lhTjZhMFVvN29pblUwOUc1bDV3cXBTTjdZWDQ3QT09?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e1208b6-0265-4fb9-3226-08dea50f456a
-X-MS-Exchange-CrossTenant-AuthSource: AS2PR03MB9587.eurprd03.prod.outlook.com
+	=?utf-8?B?bGJrTERGa2xxbG1uNDgwSWFrVzZQUHhCS0RnSCtVMm11NUlXUnFTbDE1QUwv?=
+ =?utf-8?B?Vnhnd1pWMkVvQ0l5ei9OVm1ZZGJ4b3daZ3dYZkVNYndYMmI3MUpSdWZoLy8y?=
+ =?utf-8?B?MmZmYVpobXllWG9UMnRKbm5vRFI2cEZSbE54VDZJWFE4eHRPV1V4dDRFaWRh?=
+ =?utf-8?B?THZ0OC9paVlwaWNpQU5teW9jLzVyL2V3ZFhCT3pWbGVhbm1EMmVOajJuLzFm?=
+ =?utf-8?B?WFlZcm4vK2dkYXdPYkhOM09WZFZvOGlxTFRHZDRSbEJPcVJMdHdBQUpMSzlx?=
+ =?utf-8?B?enZRU2tKQnhFT3RwdVNZVlplNGxPZzlwaW84ME1uWFIvMmtBK21pY3ZyNlpa?=
+ =?utf-8?B?eWxMdVB0b0xVeWx4VllSTGxpenQ3Y21LOWtIbGJMYUlHalUrS3dRSzhlYUx2?=
+ =?utf-8?B?VjY2NlQrU1o2SVRvaDFHbXIrdld0QjRRbERORk83MlE2WWw3ejhxV2RkUElv?=
+ =?utf-8?B?RzNmNDlWWGNXYWpacHNyV3ZOVjNhb3BoUExqT0pmY3J1SzJJdkNXTVZUbHpj?=
+ =?utf-8?B?K2o0bUVNL0cranEraWkrQVBsS0twdFh0QVNWY2FaR3YzWDZ3dHhQRVVuMFNx?=
+ =?utf-8?B?RXFvNThvQys2b3VRd0dYUFUzQjN3bzhDbFV3bEVMWHNQQkpDRko2VVd5YU13?=
+ =?utf-8?B?MFZyS0JVQTVmN3hsMXdVeUxPNUx5OEIzQlZpamdxamowUENoazRONzNNRk1M?=
+ =?utf-8?B?REZwcnhvZlY1c1JueDJ2WjlKZGE2eS9rMUVveENCaWtpWGlzTzNsa2drMEla?=
+ =?utf-8?B?WEtGU1JQenMweW0vdDNia3EyL0ZiM0JleVRibmVkT3gveGtEZkhheFg0dW9w?=
+ =?utf-8?B?anBtdklMc1RyYWVwNFJPNHgzZFlZbkI4eFlBNTNzaFpKSlJQSVJVUW5YYmto?=
+ =?utf-8?B?RFFvdC80Q3BtNWR1eWE0RVcwWkFLR3RpdXFtc1Y5SHcvRGNFbEFtSzRlUVdE?=
+ =?utf-8?B?a09YbHdFdnVaV2Z5VEtxbHhSUFJnOEhhbzBDSEJYTDh6blVrcDBoOFNHakdl?=
+ =?utf-8?B?YmNkeXVBUlRLNDhuV0l1ZDNhdnMyK2lpVjF3d3d1ZmJWd05rRXk1QzV3T1Ju?=
+ =?utf-8?B?ZWxLLzJtNmhLeERCd0lCUllJQ25WUVFwVVFDSklpRHlTME85YWJGaGlBM3R2?=
+ =?utf-8?B?WVhVRVgvb2VPdGZlcmFCeWF0L2VTMkk3aWJBb004am9aak5taFZaWjkwVjR2?=
+ =?utf-8?B?akJuWXdLS3lNZ3RCN2NIN05FUitsVGs4T2RTdytBcWV0a1dTbnR3WWNkVzZ5?=
+ =?utf-8?B?aHVXVmFPOFMyS3ZjMlc3d1NQSCt5RkR4UUoyVlVTejZVcnY2QXdmMUJLWkFz?=
+ =?utf-8?B?YzBuYXlQaVhaZEpHNER0RXhBVm5Jb3dnNi9hN0pTa3dCWE1Kbld1bHY2bTRF?=
+ =?utf-8?B?akUyTndzd3FCVFlsbld1RmVrbDRPMEhtZll4eDVrTGRNbW03YVk3NG9xeTFj?=
+ =?utf-8?B?cmJsU1puRGd4YksrUE9GYmZSK043T0N1VFhlUGlaY0dkUlRLOHdhLy9WSTBl?=
+ =?utf-8?B?VUZHaFljRGVIOVovVXFDRWdnVlZaT1lhZFVjVmtJZHZ4WGxnemsxZ3lPQkd3?=
+ =?utf-8?B?Z2VmMVJRMkJsU2oyZGowbVY4R1dTRzdmS1BHRHBUMFJqeFdlTDZyNGVac1JG?=
+ =?utf-8?B?S3M5c2NuSGV6WFFCUnlrOGNRaGdBOWgwcnhhdnVtUVBVTXpQT0w2dG1pOUpD?=
+ =?utf-8?B?THZCRU1zai91VEZjRDlOUGZMNEJsMTg4K3BheGV3bEdDendwVDZDMHJkSDI1?=
+ =?utf-8?B?QnFpUnRBOHdnektIWk1WOXNFTTNTZjJUZENWSWwzeDRHYjFKRC94U1VMTUha?=
+ =?utf-8?B?ZEZQd2Y3ZDNBVS9xOFRlbEJqb3AzcjV5SGlXQ2YvdWliek9yVE5DMi9hUnVV?=
+ =?utf-8?B?SStaRU15K01lT1oydWVNbFpBaWxtNS9hYUkyRDBqbWdFOVMzUHBsRXJNVUlv?=
+ =?utf-8?B?MU9IUjZOZU50RGFFcGQ3M1I4WGJjcG84eVc0MENKVWhIRFBUUnVoT2hreTFv?=
+ =?utf-8?B?WlF5RHhpbVNVYWplb3ZxRXBvS2piNzk3aGFROFhYcWM1UXFXeVpuUEQ4MGsx?=
+ =?utf-8?B?ZWY4VXZ0Q1FEWlQxZERvZkpxQi9XNGFEU2RHUGNEeEtENWI3ZDA5bjBmZW1M?=
+ =?utf-8?B?SnBQeEJxSFVIMnZVY3VqTGlPd3QxWi96enVtVFdNcmo0bjU4NUVoa3pIbitR?=
+ =?utf-8?B?Wk1YWVk4NGxmajU1M29GNkxFWnA0akFZU2h0bG94R0EyMlNoeVAwdUNHN2dl?=
+ =?utf-8?B?MGtzSVVDa01FRUJXYThHYWhGSmsxcDlPOE5lVG1xYkdzSDVUNWR3djh0NFAy?=
+ =?utf-8?B?MXpwcnl0aEhCYlZ3WmV1VlBEZnhmWVJlUWJnbWhNa1VTQWhTQXBZQT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a483f4f-2f8c-4c9f-da7e-08dea50f688a
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 10:16:54.3294
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 10:17:53.2177
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jETIJDAkWkETJQrmjnsPlnJkrtUDLm0OKm6OJGH4hBnv8AiFfXOo8TuL5RoBCRWJXq2nIFbp2Cz2ol+MmTSGDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR03MB9775
-X-purgate-ID: tlsNG-d62444/1777371416-BC410FF4-3327D90A/0/0
+X-MS-Exchange-CrossTenant-UserPrincipalName: ni3aRAECXgfrTv2sVHmuNaKFnnphLzdFY4868GmlTuZDv1+eZRTvn+UMqPtVnfP6iTTA7qrSSqU7BRuZ9L/VtQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB8315
+X-purgate-ID: tlsNG-c1860d/1777371476-C80D7DB1-7E6A6735/0/0
 X-purgate-type: clean
-X-purgate-size: 6526
-X-Rspamd-Queue-Id: 1C2BF48273C
+X-purgate-size: 9416
+X-Rspamd-Queue-Id: BB2A948275A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:julien@xen.org,m:xen-devel@lists.xenproject.org,m:rahul.singh@arm.com,m:bertrand.marquis@arm.com,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[milan_djokic@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:x1917x@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[epam.com:+];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,suse.com,citrix.com,vates.tech,gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,macbook.local:mid,vates.tech:email,roms.inc:url];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,epam.com:email,epam.com:dkim,epam.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[milan_djokic@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.997];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	NEURAL_HAM(-0.00)[-0.916];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-Hi Julien,
+On Fri, Mar 13, 2026 at 04:35:01PM +0000, Thierry Escande wrote:
+> This patch adds the DSDT table for Q35 (new tools/libacpi/dsdt_q35.asl
+> file). It only contains the specific Q35 parts that differ from i440).
+> At the moment, these are:
+> 
+> - BDF location of LPC Controller
+> - Minor changes related to FDC detection
+> - Addition of _OSC method to inform OSPM about PCIe features supported
+> 
+> As we are still using 4 PCI router links and their corresponding
+> device/register addresses are same (offset 0x60), no need to change PCI
+> routing descriptions.
+> 
+> Note that '15cpu' ACPI tables are only applicable to qemu-traditional
+> (which have no support for Q35), so we need to use 'anycpu' version only.
 
-On 4/21/26 10:43, Julien Grall wrote:
-> Hi Milan,
-> 
-> On 19/04/2026 18:34, Milan Djokic wrote:
->> Hi Julien,
->>
->> On 4/14/26 04:17, Julien Grall wrote:
->>> Hi Milan,
->>>
->>> On 24/03/2026 07:51, Milan Djokic wrote:
->>>> From: Rahul Singh <rahul.singh@arm.com>
->>>>
->>>> Xen SMMUv3 driver only supports stage-2 translation. Add support for
->>>> Stage-1 translation that is required to support nested stage
->>>> translation.
->>>>
->>>> In true nested mode, both s1_cfg and s2_cfg will coexist.
->>>> Let's remove the union. When nested stage translation is setup, both
->>>> s1_cfg and s2_cfg are valid.
->>>>
->>>> We introduce a new smmu_domain abort field that will be set
->>>> upon guest stage-1 configuration passing. If no guest stage-1
->>>> config has been attached, it is ignored when writing the STE.
->>>>
->>>> arm_smmu_write_strtab_ent() is modified to write both stage
->>>> fields in the STE and deal with the abort field.
->>>>
->>>> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
->>>> Signed-off-by: Milan Djokic <milan_djokic@epam.com>
->>>> ---
->>>>     xen/drivers/passthrough/arm/smmu-v3.c | 93 ++++++++++++++++++++++
->>>> +----
->>>>     xen/drivers/passthrough/arm/smmu-v3.h |  9 +++
->>>>     2 files changed, 91 insertions(+), 11 deletions(-)
->>>>
->>>> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/
->>>> passthrough/arm/smmu-v3.c
->>>> index 73cc4ef08f..f9c6837919 100644
->>>> --- a/xen/drivers/passthrough/arm/smmu-v3.c
->>>> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
->>>> @@ -683,8 +683,10 @@ static void arm_smmu_write_strtab_ent(struct
->>>> arm_smmu_master *master, u32 sid,
->>>>          * 3. Update Config, sync
->>>>          */
->>>>         u64 val = le64_to_cpu(dst[0]);
->>>> -    bool ste_live = false;
->>>> +    bool s1_live = false, s2_live = false, ste_live = false;
->>>> +    bool abort, translate = false;
->>>>         struct arm_smmu_device *smmu = NULL;
->>>> +    struct arm_smmu_s1_cfg *s1_cfg = NULL;
->>>>         struct arm_smmu_s2_cfg *s2_cfg = NULL;
->>>>         struct arm_smmu_domain *smmu_domain = NULL;
->>>>         struct arm_smmu_cmdq_ent prefetch_cmd = {
->>>> @@ -699,30 +701,54 @@ static void arm_smmu_write_strtab_ent(struct
->>>> arm_smmu_master *master, u32 sid,
->>>>             smmu = master->smmu;
->>>>         }
->>>> -    if (smmu_domain)
->>>> -        s2_cfg = &smmu_domain->s2_cfg;
->>>> +    if (smmu_domain) {
->>>> +        switch (smmu_domain->stage) {
->>>> +        case ARM_SMMU_DOMAIN_NESTED:
->>>> +            s1_cfg = &smmu_domain->s1_cfg;
->>>> +            fallthrough;
->>>> +        case ARM_SMMU_DOMAIN_S2:
->>>> +            s2_cfg = &smmu_domain->s2_cfg;
->>>> +            break;
->>>> +        default:
->>>> +            break;
->>>> +        }
->>>> +        translate = !!s1_cfg || !!s2_cfg;
->>>
->>> NIT: translate is a bool. So do you actually need the !!?
->>>
->>
->> No, !! is not necessary here, will fix this.
->>
->>>> +    }
->>>>         if (val & STRTAB_STE_0_V) {
->>>>             switch (FIELD_GET(STRTAB_STE_0_CFG, val)) {
->>>>             case STRTAB_STE_0_CFG_BYPASS:
->>>>                 break;
->>>> +        case STRTAB_STE_0_CFG_S1_TRANS:
->>>> +            s1_live = true;
->>>> +            break;
->>>>             case STRTAB_STE_0_CFG_S2_TRANS:
->>>> -            ste_live = true;
->>>> +            s2_live = true;
->>>> +            break;
->>>> +        case STRTAB_STE_0_CFG_NESTED:
->>>> +            s1_live = true;
->>>> +            s2_live = true;
->>>>                 break;
->>>>             case STRTAB_STE_0_CFG_ABORT:
->>>> -            BUG_ON(!disable_bypass);
->>>
->>> I am not sure I understand why this was removed. Can you clarify?
->>>
->>
->> Yes. With the stage-1 support, abort is controlled per guest smmu
->> configuration, so abort state is valid and not controlled by the global
->> disable_bypass, but with per-config smmu_domain->abort field instead.
-> 
-> Are we ok to allow the guest to control the bit? For instance, what does
-> it mean if the guest decide to that no abort is necessary but the region
-> is not mapped in stage-2?
-> 
+Is the above statement fully accurate?  It seems like 15cpu tables are
+used with rombios, so the dependency is not on qemu-trad, but rather
+rombios?
 
-If the guest disables abort and translation is enabled, accesses to 
-regions not mapped in stage-2 will still generate stage-2 translation 
-faults. This won’t result in bypass.
-In nested mode, both stage-1 and stage-2 are programmed, so stage-2 is 
-always active. However, missing or invalid stage-2 mappings can still 
-occur, and in such cases generating a stage-2 fault is the expected 
-behavior, and would typically indicate either an invalid access from the 
-guest or a missing stage-2 mapping.
+If it's truly only dependent on qemu-trad then we should remove those,
+as we have removed qemu-trad.
 
+> 
+> Signed-off-by: Alexey Gerasimenko <x1917x@gmail.com>
 
-> [...]
-> 
->>
->> The original idea was to also allow stage-1-only support. But I'm not
->> sure if stage-1-only usecase is useful or even valid for Xen.. I will
->> update the patch series with the missing parts for stage-1-only support,
->> pointed out by Luca, but the question remains if this is needed at all.
->> If not, I can revert to original state where stage-2 was always required.
-> 
-> By "stage-1 only" support, do you mean Xen would use the stage-1 in
-> replacement of the stage-2? Or do you mean the guest will use the
-> stage-1 page-table and there will be no isolation from Xen?
-> 
-> If the former, then I believe the page tables don't have the exact same
-> format. Today, the page-tables are shared between the CPU and IOMMU, so
-> this would need to be duplicated. For now, I am not sure this is worth
-> to do.
-> 
-> If the latter, this would require the guest to be directly mapped (i.e.
-> IPA == PA) but it would also open a big hole. So I would want to
-> understand the exact use case first.
-> 
+If the first SoB if from Alexey, the From: should also match.
 
-The latter. In this case, the guest would configure stage-1 while 
-stage-2 translation is not used, so there is no additional isolation 
-enforced by Xen. This would only be intended for specific usecases with 
-trusted domains. But yes, this opens a significant hole if used with 
-untrusted guests. If there is no strong usecase, we could restrict the 
-implementation to always require stage-2.
-
-> Cheers,
+> Signed-off-by: Thierry Escande <thierry.escande@vates.tech>
+> ---
+>  tools/firmware/hvmloader/Makefile |   2 +-
+>  tools/libacpi/Makefile            |   2 +-
+>  tools/libacpi/dsdt.asl            |   3 +
+>  tools/libacpi/dsdt_q35.asl        | 130 ++++++++++++++++++++++++++++++
+>  4 files changed, 135 insertions(+), 2 deletions(-)
+>  create mode 100644 tools/libacpi/dsdt_q35.asl
 > 
+> diff --git a/tools/firmware/hvmloader/Makefile b/tools/firmware/hvmloader/Makefile
+> index bdc33a877f..99f045efaa 100644
+> --- a/tools/firmware/hvmloader/Makefile
+> +++ b/tools/firmware/hvmloader/Makefile
+> @@ -78,7 +78,7 @@ rombios.o: roms.inc
+>  smbios.o: CFLAGS += -D__SMBIOS_DATE__="\"$(SMBIOS_REL_DATE)\""
+>  
+>  ACPI_PATH = ../../libacpi
+> -DSDT_FILES += dsdt_i440_anycpu_qemu_xen.c
+> +DSDT_FILES += dsdt_i440_anycpu_qemu_xen.c dsdt_q35_anycpu_qemu_xen.c
+>  ACPI_OBJS = $(patsubst %.c,%.o,$(DSDT_FILES)) build.o static_tables.o
+>  $(ACPI_OBJS): CFLAGS += -iquote . -DLIBACPI_STDUTILS=\"$(CURDIR)/util.h\"
+>  CFLAGS += -I$(ACPI_PATH)
+> diff --git a/tools/libacpi/Makefile b/tools/libacpi/Makefile
+> index d3d4bc9543..e6c4a3fd8b 100644
+> --- a/tools/libacpi/Makefile
+> +++ b/tools/libacpi/Makefile
+> @@ -11,7 +11,7 @@ endif
+>  
+>  MK_DSDT = $(ACPI_BUILD_DIR)/mk_dsdt
+>  
+> -C_SRC-$(CONFIG_X86) = dsdt_anycpu.c dsdt_15cpu.c dsdt_i440_anycpu_qemu_xen.c dsdt_pvh.c
+> +C_SRC-$(CONFIG_X86) = dsdt_anycpu.c dsdt_15cpu.c dsdt_i440_anycpu_qemu_xen.c dsdt_q35_anycpu_qemu_xen.c dsdt_pvh.c
+>  C_SRC-$(CONFIG_ARM_64) = dsdt_anycpu_arm.c
+>  DSDT_FILES ?= $(C_SRC-y)
+>  C_SRC = $(addprefix $(ACPI_BUILD_DIR)/, $(DSDT_FILES))
+> diff --git a/tools/libacpi/dsdt.asl b/tools/libacpi/dsdt.asl
+> index 130826fdcc..dc764881c9 100644
+> --- a/tools/libacpi/dsdt.asl
+> +++ b/tools/libacpi/dsdt.asl
+> @@ -201,6 +201,9 @@
+>                  #ifdef MACHINE_TYPE_I440
+>                      Name (_ADR, 0x00010000) /* device 1, fn 0 */
+>                  #endif
+> +                #ifdef MACHINE_TYPE_Q35
+> +                    Name (_ADR, 0x001f0000) /* device 31, fn 0 */
+> +                #endif
 
-Best regards,
-Milan
+You possibly want to do:
 
+#ifdef ...
+#elif defined(...)
+#else
+#error ...
+#endif
+
+But seeing the difference is only for the address, why not do:
+
+#define ISA_DEV_SBDF 0x00010000
+...
+Name (_ADR, ISA_DEV_SBDF)
+...
+
+And avoid the ifdef mess?
+
+>  
+>                  OperationRegion(PIRQ, PCI_Config, 0x60, 0x4)
+>                  Scope(\) {
+> diff --git a/tools/libacpi/dsdt_q35.asl b/tools/libacpi/dsdt_q35.asl
+> new file mode 100644
+> index 0000000000..7cefe63506
+> --- /dev/null
+> +++ b/tools/libacpi/dsdt_q35.asl
+> @@ -0,0 +1,130 @@
+> +/* SPDX-License-Identifier: LGPL-2.1-only */
+> +/******************************************************************************
+> + * DSDT for Xen with Qemu device model (for Q35 machine)
+> + */
+> +
+> +DefinitionBlock ("DSDT.aml", "DSDT", 2, "Xen", "HVM", 0)
+> +{
+> +    #define MACHINE_TYPE_Q35
+> +
+> +    #include "dsdt.asl"
+> +
+> +    Scope (\_SB.PCI0)
+> +    {
+> +       /* _OSC, modified from ASL sample in ACPI spec */
+> +       Name (SUPP, 0) /* PCI _OSC Support Field value */
+> +       Name (CTRL, 0) /* PCI _OSC Control Field value */
+> +       Method (_OSC, 4) {
+> +           /* Create DWORD-addressable fields from the Capabilities Buffer */
+> +           CreateDWordField (Arg3, 0, CDW1)
+> +
+> +           /* Switch by UUID.
+> +            * Only PCI Host Bridge Device capabilities UUID used for now
+
+Comment style, in Xen we use:
+
+/*
+ * Switch by UIID.
+ * Only PCI Host Bridge Device capabilities UUID used for now.
+ */
+
+The opening and closing lines are standalone.  Also missing a full
+stop on the last line.  The rest of the comments below also need
+adjusting.
+
+> +            */
+> +           If (LEqual (Arg0, ToUUID ("33DB4D5B-1FF7-401C-9657-7441C03DD766"))) {
+> +               /* Create DWORD-addressable fields from the Capabilities Buffer */
+> +               CreateDWordField (Arg3, 4, CDW2)
+> +               CreateDWordField (Arg3, 8, CDW3)
+> +
+> +               /* Save Capabilities DWORD2 & 3 */
+> +               Store (CDW2, SUPP)
+> +               Store (CDW3, CTRL)
+> +
+> +               /* Validate Revision DWORD */
+> +               If (LNotEqual (Arg1, One)) {
+> +                   /* Unknown revision */
+> +                   /* Support and Control DWORDs will be returned anyway */
+> +                   Or (CDW1, 0x08, CDW1)
+> +               }
+> +
+> +               /* Control field bits are:
+> +                * bit 0    PCI Express Native Hot Plug control
+> +                * bit 1    SHPC Native Hot Plug control
+> +                * bit 2    PCI Express Native Power Management Events control
+> +                * bit 3    PCI Express Advanced Error Reporting control
+> +                * bit 4    PCI Express Capability Structure control
+> +                */
+> +
+> +               /* Always allow native PME, AER (no dependencies)
+> +                * Never allow SHPC (no SHPC controller in this system)
+> +                * Do not allow PCIe Capability Structure control for now
+> +                * Also, ACPI hotplug is used for now instead of PCIe
+> +                * Native Hot Plug
+> +                */
+> +               And (CTRL, 0x0C, CTRL)
+> +
+> +               If (LNotEqual (CDW3, CTRL)) {
+> +                   /* Some of Capabilities bits were masked */
+> +                   Or (CDW1, 0x10, CDW1)
+> +               }
+> +               /* Update DWORD3 in the buffer */
+> +               Store (CTRL, CDW3)
+
+This looks equal to the QEMU code FWIW.
+
+> +           } Else {
+> +               Or (CDW1, 4, CDW1) /* Unrecognized UUID */
+> +           }
+> +           Return (Arg3)
+> +       }
+> +       /* end of _OSC */
+> +    }
+> +
+> +    /****************************************************************
+> +     * LPC ISA bridge
+> +     ****************************************************************/
+
+I would use a normal one-line comment here: /* LPCI ISA Bridge */
+
+Has any of this been picked up from the QEMU asl files?  Asking
+because the above comment looks to be verbatim copied from the QEMU
+file, and we then need to carry their copyright notice, which is not
+done in this patch.
+
+> +
+> +    Scope (\_SB.PCI0.ISA)
+
+AFAICT this is adding more content to the ISA device already defined
+in dsdt.asl?
+
+> +    {
+> +        /*
+> +         LPC ISA bridge
+> +
+> +         PCI Interrupt Routing Register 2 (PIRQE..PIRQH) cannot be
+> +         used because of existing Xen IRQ limitations (4 PCI links
+> +         only)
+> +        */
+
+Right, and PIRQA..PIRQD is already defined in the generic dsdt.asl.
+Might be worth mentioning, otherwise the block looks incomplete.
+
+> +
+> +        /* LPC_I/O: I/O Decode Ranges Register */
+> +        OperationRegion (LPCD, PCI_Config, 0x80, 0x2)
+> +        Field (LPCD, AnyAcc, NoLock, Preserve) {
+> +            COMA,   3,
+> +                ,   1,
+> +            COMB,   3,
+> +
+> +            Offset(0x01),
+> +            LPTD,   2,
+> +                ,   2,
+> +            FDCD,   2
+> +        }
+> +
+> +        /* LPC_EN: LPC I/F Enables Register */
+> +        OperationRegion(LPCE, PCI_Config, 0x82, 0x2)
+> +        Field(LPCE, AnyAcc, NoLock, Preserve) {
+> +            CAEN,   1,
+> +            CBEN,   1,
+> +            LPEN,   1,
+> +            FDEN,   1
+> +        }
+> +
+> +        Device (FDC0)
+> +        {
+> +            Name (_HID, EisaId ("PNP0700"))
+> +            Method (_STA, 0, NotSerialized)
+> +            {
+> +                Store (FDEN, Local0)
+> +                If (LEqual (Local0, 0)) {
+> +                    Return (0x00)
+> +                } Else {
+> +                    Return (0x0F)
+> +                }
+> +           }
+> +
+> +           Name (_CRS, ResourceTemplate ()
+> +           {
+> +               IO (Decode16, 0x03F2, 0x03F2, 0x00, 0x04)
+> +               IO (Decode16, 0x03F7, 0x03F7, 0x00, 0x01)
+> +               IRQNoFlags () {6}
+> +               DMA (Compatibility, NotBusMaster, Transfer8) {2}
+> +           })
+> +        }
+> +    }
+
+This seem to match the blocks in QEMU, so it's likely fine.
+
+Thanks, Roger.
 
