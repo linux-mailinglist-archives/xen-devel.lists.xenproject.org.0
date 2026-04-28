@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EIOjBWzF8GloYQEAu9opvQ
+	id YykoFGvF8GkqYgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 16:34:20 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 16:34:19 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB3A34870BF
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 16:34:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1296333.1572786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61B064870B2
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 16:34:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1296336.1572799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHjVd-0006Gn-RV; Tue, 28 Apr 2026 14:33:57 +0000
+	id 1wHjVg-0006gh-4a; Tue, 28 Apr 2026 14:34:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1296333.1572786; Tue, 28 Apr 2026 14:33:57 +0000
+Received: by outflank-mailman (output) from mailman id 1296336.1572799; Tue, 28 Apr 2026 14:34:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHjVd-0006Bs-Ls; Tue, 28 Apr 2026 14:33:57 +0000
-Received: by outflank-mailman (input) for mailman id 1296333;
- Tue, 28 Apr 2026 14:33:56 +0000
+	id 1wHjVf-0006dm-Vy; Tue, 28 Apr 2026 14:33:59 +0000
+Received: by outflank-mailman (input) for mailman id 1296336;
+ Tue, 28 Apr 2026 14:33:58 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wHjVc-00062i-NF
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 14:33:56 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wHjVe-0006KX-3x
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 14:33:58 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wHjVc-008e9B-3B
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 16:33:56 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wHjVd-008e9B-Fy
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 16:33:57 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 69f0c540-e002-0a2a0a5209dd-0a2a4503cd3a-32
- for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 16:33:56 +0200
-Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69f0c549-e002-0a2a0a5209dd-0a2a450ab9ca-34
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 16:33:57 +0200
+Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 69f0c553-672d-0a2a45030019-d155802fe05a-3
- for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 16:33:56 +0200
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-488b0e1b870so196654425e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 07:33:56 -0700 (PDT)
+ id 69f0c555-56b3-0a2a450a0019-d155802ed89e-3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 16:33:57 +0200
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4891c00e7aeso88343765e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 07:33:57 -0700 (PDT)
 Received: from fedora (user-109-243-69-121.play-internet.pl. [109.243.69.121])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a774b6300sm19302145e9.16.2026.04.28.07.33.54
+ 5b1f17b1804b1-48a774b6300sm19302145e9.16.2026.04.28.07.33.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2026 07:33:54 -0700 (PDT)
+ Tue, 28 Apr 2026 07:33:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,63 +57,66 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777386835; x=1777991635; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1777386837; x=1777991637; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iWmwHX2hyXMUT5t3JOczqjWzu0Tj+8NV1iDRnEin18E=;
-        b=GAvp8BV4rpJIMW8uFSCIcbBHCkIP181mmOj1vfpaCNUETOTjab9daycXe232LaQ+2X
-         vYNfuKDx0ksQjqzWrnNXle5qiV1+BYPxsrj1UA95arrQPITZfABEZqpwRJ0CFoBUH1Zx
-         QLV2kg3wjRN99rLzMsXQbugeOwoOjn4c4s772jW+U4wGt/rLcrwTtF8XB7QqCAfxX1S/
-         5V4t39/aDRkvZPtvjhdqsWKTubl9LpQLrUUV6hv77PoVF/jvv8p0OfqxiawP1KNUNF59
-         UpUiAik63lt+T3N/DANobRcxcm5rk64NqaurYHs0ZClls6GvQKfL11E+TLPlAKmAavkp
-         c3qw==
+        bh=0p2rPrjn5OibxQ2M64WVzW16uHfFGsN8U9iQfuox9F0=;
+        b=q6v3sotR/hyBodh/pDMvS1DuMVm/Yd1KxIgFhrgnKNAUp6sbkHGym9vcp/6uQxtwqm
+         /eBPFrmyVJdrxFedaxIEQMdWr8lKOyCtkGrhyYehP/eZnxO3HPg6tjEJ4JgmmRck5U6E
+         hK7pd660ayqk+nBfC0OCL6WvitbBlRWC/2pgr5qB9Z160LjDSIFpGrKjFoSV3mFGZkY3
+         5xn2+77UrS29iBW0zs+4ag/JwY8aSrPs6skzJwrAnwVlreyNAWkU4PrxAGlfEFS8dVlh
+         xddDTE4SN3n4xxRj1M5Typ70MlNPlQbvzupZvABhDKZKp+k1SN6RgTy4sQzv3IP0vYlK
+         noxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777386835; x=1777991635;
+        d=1e100.net; s=20251104; t=1777386837; x=1777991637;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=iWmwHX2hyXMUT5t3JOczqjWzu0Tj+8NV1iDRnEin18E=;
-        b=Fl+hTJO2r/N0lIk235iqwUdGLLjuxQ6vU2jdqPTqBut7Siod3L5f0Ekx8CrZF1QqhV
-         3nhKft9MroBJJpMxLq2hZLzBWU2KD61+GDvojBT6INmamC0rqeD0/l0m2w7FpznMaXpK
-         FhiBZ2uC6QbiaINoSSOF1YNICRKipZHq2GReFmdFhPR7Dn7JRu6TBe2ScUQPQFBFgiIV
-         k6HnnJOarjSAUC2zhmKjYOVK40YPQdHFNToOs15VGA02af35zeGTJkyrjUPEGt27JBzi
-         vgeHCMT7QzCvTalP6eMs7w2s+THhLNE15O6r0w2cic13gEbbpX4FdPO51etT6575lKgB
-         Jqxg==
-X-Gm-Message-State: AOJu0YwetycEwz0qpUHtkAyP/5G5i8JQ4aB9dt1KSAS5eTUMtQ1uKtT4
-	iWejCPEyZyb0xEV6ERe2IrZVCyZZ76qyFu2oaw3AwK5a/wr7cr6qvu4g9sIkow==
-X-Gm-Gg: AeBDieuZrhpPrmyM5mdEBiy5MqZIUsosM5jbgxIfMQebP4/0BO1TtrBS/2NEcIczOwA
-	LJW8YVLGoL6efRWjNGWwKFL2RXIgIhPzohQkPBpUgbkiMl/4rsESbTfn9fiLTU32VAx7ppx5biI
-	0lYGTLvCnboudG/cMT4KwH6UeJa1K2Ouqxycu8/mDegVDtvuv5jcAvMvit9sgHaE22r+Oady15K
-	BG9NIWFL29dBImJrXt9TLe03PDjePlofhswyx/8l1AtMkUpN5Jf5yF40wghkbIlZ/c9VJFaegKI
-	tDVTuUj95YiKG48mNHZ0eD1UsUJt5PhqHUFi9ZeS3PNrOgRE5y+jRucL/1K3FJzxreOstmA9pdo
-	RMyoX08x54L81VeHIkK3qzS7p3h6t/vIlKa6BdjIFvuDd3ZK0XYhJxlZPiiBWx/Xt2OAN3/Fhfb
-	IkxYAi3lRR++FICw9wmKcoQTcMwlIyeNbDdqBvS+Jhs6V/vh5gc7dEgVmbRu6dRSjvpWHIWUJS8
-	geA
-X-Received: by 2002:a05:600c:1d0a:b0:488:f453:b976 with SMTP id 5b1f17b1804b1-48a77b2051fmr57589655e9.27.1777386835182;
-        Tue, 28 Apr 2026 07:33:55 -0700 (PDT)
+        bh=0p2rPrjn5OibxQ2M64WVzW16uHfFGsN8U9iQfuox9F0=;
+        b=HzjMas+ZwCR7enQcfC4acpo1yjxUFCkaJ35uca6yzWuw3gMDSKAGNAdUn7PpqBrP9X
+         OVXGC+EnYY7TGEK89CU/oofMcoG3HOUp+9OpkNoR8T5r1/cbEnYkAfe2z9iaC0L66q5s
+         kzsSkTpmVwoV0FnRB8qyumLItaw085F0CwWk90uA3QBi0mOPIV/yxHgI8Ipno7qjLXU7
+         DMaOk2/jLKD8ZvzkoLBFfefnj237dQyBNalwITlyUaECAUQXyL9BW2uTWXbFgMdB77N2
+         Gpp+tQF5CJIV7dEl6eWfQLmLbpQW8+YlRIe+1b+jO1K6wv6NqvFoYq1WCOcK6euFJbA8
+         TwMA==
+X-Gm-Message-State: AOJu0Yza4gdwr/Vy9SfBF7JjaeeNvu+bYvercHhPCJ2KkIUVK8Zfd8Ph
+	qdyOGqttnjL8MOeJzP7AJbRJ0OoUr0JA5Kij0pQpGtN9cqECBlG8f3GTxYAPPg==
+X-Gm-Gg: AeBDieu2kHbF6Y+3HwMGqNuz16+z4F5238/FsaKIUXKscf45bj+I6clpMQLNlHud3uk
+	xzXwp62/Pww/iP65vvK9hcHHo08oX/r1ZvGaYLdkJIeGgH/IpmGHdIHAKWCSq0W03HTkL9g2hZ4
+	AqG4Ocw7MQU2ntbI3Eaic7R0QsS4Us2gx/pDX3qMoDDh4EpqmHlnJItRpRCx3/NJR/3HBH+bV51
+	/PGNYuaUZw4XH73M6987kLRhxw9Rwn74G6j7D3fXnq32y1pFysFdJw6yHBOC7J9iBET6P/NNvJ5
+	gvdvVBhecS9mIenBN/pJZe1HUV2INzcN1lQZP6tLfLm6H+AYqrsnqzUvDb1xwn2DpQzwJH7Bgl9
+	e+tM/EleJV68U8Qd/cKjeVJSgVF0374gml4BFyg2D0pJRsNY4MM2nwhvnWYe/PB/2NVNDAvtWUN
+	I3zn1aiO4AmnBxXQh7+QYAOh/BBm9+Axk3ysR49mY44LwvTQCoyqU79CYcPT/xPXLtYOh7rXxe3
+	389
+X-Received: by 2002:a05:600c:1c20:b0:489:1aed:1658 with SMTP id 5b1f17b1804b1-48a77b241admr55613805e9.23.1777386836472;
+        Tue, 28 Apr 2026 07:33:56 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v4 05/11] xen: rename p2m_ipa_bits to p2m_gpa_bits
-Date: Tue, 28 Apr 2026 16:33:34 +0200
-Message-ID: <fcf48e61d270fd4665f14f43095b3659e528b376.1777303844.git.oleksii.kurochko@gmail.com>
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v4 06/11] xen/riscv: implement copy_to_guest_phys()
+Date: Tue, 28 Apr 2026 16:33:35 +0200
+Message-ID: <a3845dccd5667299cbc0535e0056972e56dff942.1777303844.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1777303844.git.oleksii.kurochko@gmail.com>
 References: <cover.1777303844.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1777386836-2957F938-F463B9D7/10/73395122804
+X-purgate-ID: tlsNG-4011c0/1777386837-467758B7-47A8CE3E/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 1769
-X-Rspamd-Queue-Id: CB3A34870BF
+X-purgate-size: 6519
+X-Rspamd-Queue-Id: 61B064870B2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.81 / 15.00];
@@ -129,82 +132,234 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:oleksii.kurochko@gmail.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:jbeulich@suse.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:Romain.Caritey@microchip.com,m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	FORWARDED(0.00)[mailman];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,gmail.com,kernel.org,xen.org,arm.com,amd.com,epam.com,suse.com];
+	FREEMAIL_CC(0.00)[microchip.com,gmail.com,wdc.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org];
 	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[gmail.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_SPAM(0.00)[0.209];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_SPAM(0.00)[0.563];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-The IPA terminology is Arm-specific, so rename p2m_ipa_bits to
-p2m_gpa_bits to use architecture-neutral naming in
-xen/common/device-tree/ code.
+Introduce copy_to_guest_phys() for RISC-V, based on the Arm implementation.
 
-No functional changes.
+Add a generic copy_guest() helper for copying to and from guest physical
+(and potentially virtual addresses in the future), and implement
+translate_get_page() to translate a guest physical address into a struct
+page_info via the domain p2m.
 
-Reported-by: Jan Beulich <jbeulich@suse.com>
+Compared to the Arm code:
+- Drop COPY_flush_dcache(), as no such use cases exist on RISC-V.
+- Do not implement the linear mapping case, which is currently unused.
+- Use PAGE_OFFSET() to initialize the local offset variable in copy_guest().
+
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in v4:
- - Nothing changed only rebase.
+ - Avoid using of min_t. (sync with Arm)
+ - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
 ---
 Changes in v3:
- - Introduce #define p2m_gpa_bits p2m_ipa_bits for Arm instead of
-   renaming of p2m_ipa_bits to p2m_gpa_bits to keep Arm part of
-   changes clearer and keep using Arm-specific terminolgy inside
-   Arm code.
+ - s/if (page == NULL)/if ( !page ).
+ - Drop " - offset" for unmap_domain_page() inside copy_guest() function.
+   unmap_domain_page() is expected to mask (or something similar) the page
+   offset bits.
+ - Change some types for functions as copy_to_guest_phys_cb function pointer
+   prototype was changed too in the prev. commit.
 ---
 Changes in v2:
- - New patch.
+ - Use BIT() instead of open-coding.
+ - Rename COPY_ipa to COPY_gpa.
+ - Rename COPY_linear to COPY_gva.
+ - Use  BUG_ON(linear) instead if (lineer) + BUG_ON.
+ - Rename arg liner to gva for translate_get_page().
+ - Update translate_get_page() to properly handling write argument.
+ - Return unsigned int for copy_guest() and copy_to_guest_phys() as
+   len function parameter is only 'unsigned int'.
+ - Reformat function arguments for alignment
 ---
 ---
- xen/arch/arm/include/asm/p2m.h        | 2 ++
- xen/common/device-tree/domain-build.c | 2 +-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ xen/arch/riscv/Makefile                   |   1 +
+ xen/arch/riscv/guestcopy.c                | 116 ++++++++++++++++++++++
+ xen/arch/riscv/include/asm/guest_access.h |   7 ++
+ 3 files changed, 124 insertions(+)
+ create mode 100644 xen/arch/riscv/guestcopy.c
 
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index 010ce8c9ebbd..7957dbd96e57 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -14,6 +14,8 @@
- /* Holds the bit size of IPAs in p2m tables.  */
- extern unsigned int p2m_ipa_bits;
- 
-+#define p2m_gpa_bits p2m_ipa_bits
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index 04f02ad89cba..cfc3fdf7d208 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -4,6 +4,7 @@ obj-y += domain.o
+ obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+ obj-y += entry.o
+ obj-y += extable.o
++obj-y += guestcopy.o
+ obj-y += imsic.o
+ obj-y += intc.o
+ obj-y += irq.o
+diff --git a/xen/arch/riscv/guestcopy.c b/xen/arch/riscv/guestcopy.c
+new file mode 100644
+index 000000000000..8a89212e0bea
+--- /dev/null
++++ b/xen/arch/riscv/guestcopy.c
+@@ -0,0 +1,116 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +
- #define MAX_VMID_8_BIT  (1UL << 8)
- #define MAX_VMID_16_BIT (1UL << 16)
++#include <xen/domain_page.h>
++#include <xen/page-size.h>
++#include <xen/sched.h>
++#include <xen/string.h>
++
++#include <asm/guest_access.h>
++
++#define COPY_from_guest     0U
++#define COPY_to_guest       BIT(0, U)
++#define COPY_gpa            0U
++#define COPY_gva            BIT(1, U)
++
++typedef union
++{
++    struct
++    {
++        struct vcpu *v;
++    } gva;
++
++    struct
++    {
++        struct domain *d;
++    } gpa;
++} copy_info_t;
++
++#define GVA_INFO(vcpu) ((copy_info_t) { .gva = { vcpu } })
++#define GPA_INFO(domain) ((copy_info_t) { .gpa = { domain } })
++
++static struct page_info *translate_get_page(copy_info_t info, uint64_t addr,
++                                            bool gva, bool write)
++{
++    p2m_type_t p2mt;
++    struct page_info *page;
++
++    /*
++     * Not implemented yet.
++     *
++     * If gva == true, the operation will likely require a struct vcpu
++     * rather than just a struct domain. For this reason copy_info_t is
++     * already passed here instead of only struct domain.
++     */
++    BUG_ON(gva);
++
++    page = get_page_from_gfn(info.gpa.d, paddr_to_pfn(addr), &p2mt, P2M_ALLOC);
++
++    if ( !page )
++        return NULL;
++
++    if ( write ? p2mt != p2m_ram_rw : !p2m_is_ram(p2mt) )
++    {
++        put_page(page);
++        return NULL;
++    }
++
++    return page;
++}
++
++static unsigned long copy_guest(void *buf, uint64_t addr, unsigned long len,
++                                copy_info_t info, unsigned int flags)
++{
++    unsigned int offset = PAGE_OFFSET(addr);
++
++    BUILD_BUG_ON((sizeof(addr)) < sizeof(vaddr_t));
++    BUILD_BUG_ON((sizeof(addr)) < sizeof(paddr_t));
++
++    while ( len )
++    {
++        void *p;
++        unsigned long size = min(len, PAGE_SIZE + 0UL - offset);
++        struct page_info *page;
++
++        page = translate_get_page(info, addr, flags & COPY_gva,
++                                  flags & COPY_to_guest);
++        if ( !page )
++            return len;
++
++        p = __map_domain_page(page);
++        p += offset;
++        if ( flags & COPY_to_guest )
++        {
++            /*
++             * buf will be NULL when the caller request to zero the
++             * guest memory.
++             */
++            if ( buf )
++                memcpy(p, buf, size);
++            else
++                memset(p, 0, size);
++        }
++        else
++            memcpy(buf, p, size);
++
++        unmap_domain_page(p);
++        put_page(page);
++        len -= size;
++        buf += size;
++        addr += size;
++
++        /*
++         * After the first iteration, guest virtual address is correctly
++         * aligned to PAGE_SIZE.
++         */
++        offset = 0;
++    }
++
++    return 0;
++}
++
++unsigned long copy_to_guest_phys(struct domain *d, paddr_t gpa, void *buf,
++                                 unsigned long len)
++{
++    return copy_guest(buf, gpa, len, GPA_INFO(d),
++                      COPY_to_guest | COPY_gpa);
++}
+diff --git a/xen/arch/riscv/include/asm/guest_access.h b/xen/arch/riscv/include/asm/guest_access.h
+index 7cd51fbbdead..8d679319ded0 100644
+--- a/xen/arch/riscv/include/asm/guest_access.h
++++ b/xen/arch/riscv/include/asm/guest_access.h
+@@ -2,6 +2,10 @@
+ #ifndef ASM__RISCV__GUEST_ACCESS_H
+ #define ASM__RISCV__GUEST_ACCESS_H
  
-diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
-index 6949203dacdc..2a760b007b57 100644
---- a/xen/common/device-tree/domain-build.c
-+++ b/xen/common/device-tree/domain-build.c
-@@ -221,7 +221,7 @@ int __init find_unallocated_memory(const struct kernel_info *kinfo,
-     }
++#include <xen/types.h>
++
++struct domain;
++
+ unsigned long raw_copy_to_guest(void *to, const void *from, unsigned len);
+ unsigned long raw_copy_from_guest(void *to, const void *from, unsigned len);
+ unsigned long raw_clear_guest(void *to, unsigned int len);
+@@ -18,6 +22,9 @@ unsigned long raw_clear_guest(void *to, unsigned int len);
+ #define guest_handle_okay(hnd, nr) (1)
+ #define guest_handle_subrange_okay(hnd, first, last) (1)
  
-     start = 0;
--    end = (1ULL << p2m_ipa_bits) - 1;
-+    end = (1ULL << p2m_gpa_bits) - 1;
-     res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
-                                  cb, free_regions);
-     if ( res )
++unsigned long copy_to_guest_phys(struct domain *d, paddr_t gpa, void *buf,
++                                 unsigned long len);
++
+ #endif /* ASM__RISCV__GUEST_ACCESS_H */
+ /*
+  * Local variables:
 -- 
 2.53.0
 
