@@ -2,51 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qA6ROpa98Gl0YAEAu9opvQ
+	id 2Mj1Hc298Gl0YAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 16:00:54 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 16:01:49 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A333648675A
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 16:00:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1296275.1572700 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B075648678F
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Apr 2026 16:01:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1296284.1572709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHiys-0006fe-2B; Tue, 28 Apr 2026 14:00:06 +0000
+	id 1wHj0I-0007Fh-Af; Tue, 28 Apr 2026 14:01:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1296275.1572700; Tue, 28 Apr 2026 14:00:06 +0000
+Received: by outflank-mailman (output) from mailman id 1296284.1572709; Tue, 28 Apr 2026 14:01:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wHiyr-0006cw-VE; Tue, 28 Apr 2026 14:00:05 +0000
-Received: by outflank-mailman (input) for mailman id 1296275;
- Tue, 28 Apr 2026 14:00:05 +0000
+	id 1wHj0I-0007Do-7v; Tue, 28 Apr 2026 14:01:34 +0000
+Received: by outflank-mailman (input) for mailman id 1296284;
+ Tue, 28 Apr 2026 14:01:33 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wHiyr-0006UO-3F
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 14:00:05 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19dd4650f2c000f373@swg.vates.tech>)
+ id 1wHj0G-0007Di-VX
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 14:01:33 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wHiyq-002Ens-BI
- for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 16:00:04 +0200
-Received: from [10.42.69.4] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69f0bd63-5cb7-0a2a0a5109dd-0a2a4504b86a-8
- for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 16:00:04 +0200
-Received: from [40.107.208.30]
- (helo=PH0PR06CU001.outbound.protection.outlook.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69f0bd62-1dec-0a2a45040019-286bd01e296c-3
- for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 16:00:03 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by DM6PR03MB5180.namprd03.prod.outlook.com (2603:10b6:5:1::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.16; Tue, 28 Apr 2026 14:00:00 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9846.025; Tue, 28 Apr 2026
- 14:00:00 +0000
+ id 1wHj0G-002FCk-BY
+ for xen-devel@lists.xenproject.org; Tue, 28 Apr 2026 16:01:32 +0200
+Received: from [10.42.69.3] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19dd4650f2c000f373@swg.vates.tech>)
+ id 69f0bdac-2eae-0a2a0a5409dd-0a2a4503a360-40
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 16:01:32 +0200
+Received: from [185.255.28.34] (helo=prod-mta-13.swg-srv.net)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19dd4650f2c000f373@swg.vates.tech>)
+ id 69f0bdbc-672d-0a2a45030019-b9ff1c22ab5d-3
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Apr 2026 16:01:32 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19dd4650f2c000f373.007 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Tue, 28 Apr 2026 14:01:26 +0000
+Received: from [192.168.1.18] (88-175-170-134.subs.proxad.net [88.175.170.134])
+ (Authenticated sender: teddy.astie)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 9D0DE8632D;
+ Tue, 28 Apr 2026 16:01:23 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,302 +61,490 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ip3vmUL41EVVNaGVd+4pDOFpjV/Y7UnIPClLwJgMwjlT1/DU+Xh1mEPbJL/DWhOtSPXAgw4o2V/bgI2NjmowU8ZsSKtRYVjB7rbE+ElswyxC1lV+GzuK/gROEe7xgykM/5pkOCs7LJhK83D3H4nCxCAy/U3934lkw8AJnUbK6lD3ffPzrVcZgZnW2pvrNY/Z1+PpulXC2UKERyXDFN76YyqFVtvLTAvyfM4l3F7NwummgXg+VrUpEiVemFiOeuAgJE1u5SXX0tWBEDHcesTb9lkyh2yQj5Z9lqZt9aNANYjEXh5AWsZd2/QKAaaZFo3XmUmzyuBTtkexw5WTEfkA3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yy23ZR/MjJDF6E8+0IWgqjyXXvxMd4ce0oxSHXlLcsU=;
- b=I5jCrKV5wBSyvnv5ki3Qn1nV+0tNZXN3I8xhxeBKUDr4/iHIYQzw8M4a8y8MmPzgIQx75kubJVYbYeVE38ssucUklKcUOBvfcs/G48AHn8keB4TY/xOFr9WyY8O0mx5OL15qcWr1rWn3SN8FuwAiIRj0Cht0fPBCrpJiF11EQ0d6ysrAYucT0qfDeZutq+rB/7e/Hx6fyry8ek1ayoD5Fx+7OL2jkRN4SHorDKUg1+KLWrSnIZEwBekq/oB34BspuTr+Z26UaLg2MOpdA9KtKZkwxrPE8B8zcSfJSmyHfClksooEWTeqe9T+77bJfDvZ8LHDAkBclkEQ+DDyGUb/WQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yy23ZR/MjJDF6E8+0IWgqjyXXvxMd4ce0oxSHXlLcsU=;
- b=W6fY7KPSvq9foEaC5JsE0+Kb3cAZDJmNXThl6O+K+5xm2CEvlDzr54Jd7yRITtegvzW3c5la8nBjBw8kzXiGSmkIKoV21xHeg5eKmj3FwWUPijUE1BfVek+SdCDJRsFWkpz0BgCobqvzIk0g+vzZUEPDEyrje2P1tKzITbrEjOg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 28 Apr 2026 15:59:56 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Thierry Escande <thierry.escande@vates.tech>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH 09/17] xev/hvm: Add HVMOP_get|set_ecam_space hypercalls
-Message-ID: <afC9XAtGOkug0qFB@macbook.local>
-References: <20260313163455.790692-1-thierry.escande@vates.tech>
- <20260313163455.790692-10-thierry.escande@vates.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260313163455.790692-10-thierry.escande@vates.tech>
-X-ClientProxiedBy: MA3P292CA0018.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:47::19) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=vates.tech header.i="@vates.tech" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:In-Reply-To:References:Feedback-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=Ge8VGVcz3F+F04cXtFUFi3xWtqCV+GSEWHSHeIeQDEE=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=F26OBvrf1QCrdsqpkmys9Wi8JgadVxsUnLCbhFyaG18tWVEgPCm77yazQQVELQqJc3WCRD5Po
+ 8UWfZEs3G6fSTqeUMLOBfG0Qlgr2eL2Xkos2VNvZ782rKQumPa+CkBGsY/J9wpjjNSOBY378p41
+ fenSHcv5DmpycH6mxuiPqM1nw9P4QDY/gXbiVdGlRnSL4nhJuorCQ6Yqa+hx6sUYzkn8nHEjUzv
+ QGsb/dNJRZNEgAlPcyNlWwZdLrd1Tf/9Xj/Pa074tl6g0IGtVKb1ww1OFb+VpUnEBj2TTFSrplP
+ c9yW0UNHr/6fsNs20R9vClM9xKCvdDwo+Bbp+IpwQipg==
+X-Zone-Loop: 7498aa3db807c0daac240a4f993392f4fc55817a0e5d
+x-campaign-type: default
+x-transaction-id: 3894dfa1-d272-4ed6-bf22-966a174d2d94
+x-swg-uid: 01-912ad003-8ff3-424c-a4a9-5df252209416
+X-Mailer: Sweego
+Message-ID:
+ <1777384886.8631fc262581453bbf619ec5b2062170.19dd4650f2c000f373@vates.tech>
+x-swg-bid: 1777384886.8631fc262581453bbf619ec5b2062170.19dd4650f2c000f373
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Tue, 28 Apr 2026 16:01:23 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|DM6PR03MB5180:EE_
-X-MS-Office365-Filtering-Correlation-Id: 740c588c-b6ed-4ddd-b1f8-08dea52e7002
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	blnrrtcf+qovnNwgiN6KPPUKVl5ydFpUtksCyVjGrF/aCm9rkhjZgviwgTuV7uW1egXlPTEoTMxYnWtbFLB5r/CXmfydcYUpQJWtPKttkAbZfZWCZ4AU+2yVJkq1aNOEV/CDnZMwWqyL4HjcYNAVKMmWaHP0FHyoS/XJY2R/1Tm6iak2xJvAossErOPiPJSJJJsHWDJQQG12myarHM5eCK3MGRyhOVMpvWIAQRe0hq3uls/VpeQA+cyJOtDNzRWKVau5htgx6LCXH/YFV7EczsaBrCw5sK94ZCSiyxHlOefRzkLgaNea3NyDSdwndKmQna2CZxm6ek41o8NivUMfO9oURWOpw7WIN9kGiDAuZYSPxwTSHmfzgCVm4STMFJ9alfgMDeg2FYwZSTh5bE2tRwr5LexLURG8Hq9Ij8lQDGy+rUVp1ghiT+Xt0IQ87LLfjBgRHLDkDXEryitHGGiDpfQi+fmI6MOajmfOxf/DMxAHnW28jzqqmI7dWCGGhMXF2mG+xkyZLwN857jMKeDG7vOdsPpLhXo+LjzutzGGipihK9G0nWrW1aPZiNshf7fiYq4IUyJSjGfDruAsuSb/33uDKJAvDmOChG/wjmIRHtTCVAPqpL0UuH5geu7sArQ92q8o9yNB8HnnOH6BCM8BbiKy9hhbzSfTA433xWfTFqBmnB/P6pBokEhiiafS2gTLxolCcYYhkBPBc0xKxeYoWBK9fWjTNme0o5OjKrMvjts=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N2g4bjA2TS9ldWxTSnI1TlNjdllieEFwYlFsODB6ZFhnNGNJL3dJUkYvaXVl?=
- =?utf-8?B?NlE3ME9iTWdGZ3FVUTRMczNkUkRHenZadTZ3V0hCd0d6b0owSkxNbkkyYTZH?=
- =?utf-8?B?QmFxdGlSMWtTa2NFWEtoNm9DM3RCVFEzMTFqNFVyL2Y4Vk8rMjQ0YzNVNXBK?=
- =?utf-8?B?SnVFbWthRFR1ZzlSNVRPSTRPMEpNaHk1QlBIWW83N2tENWs3RXlTdUNhQ2lL?=
- =?utf-8?B?Y2xZQnBMQWU1TmREWW9Sb2hWZTJWRmNMY0oycGRqY2VoWnVIU050OGtSQlBi?=
- =?utf-8?B?bXRkT1lTczA4dUJPTHZCeFA2V1E4VDh5bC85RVZvMVpiY04rTEJXNFU2Qkxa?=
- =?utf-8?B?Vng0TVo1eFJNWWVaMXo2bW5pQUNUTjN2VkNBbzA1RFIvQWJxdEpxL3ErQll6?=
- =?utf-8?B?dE4yV3owaGZCaldqSGdBRWZpSmZhV2FUR2RJRFlCNFRSQmRGWlp5KzMxMnVt?=
- =?utf-8?B?aHU4bEpmRXM2WFN0ZDR2ZVBINGQvSzZ5bE1OeG9kWW03Wm84UFk0R3FQRGFF?=
- =?utf-8?B?T1F4OWZ2OTRJN0pFVC81VWhFZ3hkcDBxOEtJQ0VoWnFuM0EvcjRBN2FzRUhw?=
- =?utf-8?B?ZEhlbXJ3OXQ3Q203ZGxmT1RxZ2VsK2xMcnRCajZveTZOenpuRVAyc1F1R1ZN?=
- =?utf-8?B?anpWdXFPTE1ZeDhha1crbGVZM1V6eWUzMVVhTTVHQ25nUTZ4dEFwaFZXNjJM?=
- =?utf-8?B?THA3L0FtalhZNlRIRmZtVzZuSTRHQThaZTFZTmpuWm9LY3BVTElvOWtsSG9U?=
- =?utf-8?B?RTFVQ0pWQzBibEFXZW5rS1pvWGJ0NWx2UzFHRjVRYjNoTUhZMG5vSm1aRFRq?=
- =?utf-8?B?OFJjNXFNbHhzNlduV0YyaTJCTXd4Uyt5U3M3SnlpeUIyYVVsdG5XeDVOZUJr?=
- =?utf-8?B?NW1xMlc3TFpaYjEvU3BGS2o4cWFnWlhxb05UcUgvN25xejNodmJLZ1Z2a2ov?=
- =?utf-8?B?eE1JeWVweXNVdEtWZWRjZmN3ckhMa1ZpWDJ4aHNDMmc4aWFlNmhMUTNSRUxK?=
- =?utf-8?B?K0hqOTBJQ0lUQXdFRzZoMlNROUlJZmVHaCsyWXNjSTkyMzkzOTdsNm51RkRn?=
- =?utf-8?B?UWVDK0dFSk1aNEJNNE83SDFuR3hXK1p2N0pnRTVKL3NzcnlHcFJCcEE5UUFm?=
- =?utf-8?B?aEFCNTNHazJsaVZZMThTR2hlOHYwc1BwNE1zajZhaUdNbHRsRE5lVyt2SDhY?=
- =?utf-8?B?YXdTS2UwRUdJN3hYSUJIakNORk9ZeDhiZFFDZC9OU1Fubmd5REhPcmNHNWFp?=
- =?utf-8?B?OEtzTkFuZ3RMMDNlZlUxRytlL1Bvci9IVkkrV21pSFFiemlIMnpPNXBMYTRD?=
- =?utf-8?B?Qy9OTW4rZlVvakRCTEtoS29MbFA3dTU4NzVsY1NLQ3dSQTZmbk9DUWJaeVJq?=
- =?utf-8?B?MWNmR1NjMTVOUDRQOXFYMFFPTGQwV0pUM3ZwanFlZkczWWZWc21XcjVXNHZh?=
- =?utf-8?B?cytBMjhhcUgrQzBpSzJHdWpQY2VYTVFBcURoYldhUXJDYWI4MEI1aHdxRGxN?=
- =?utf-8?B?YTA5VmZlVFFjeVNHTTJPUWxBcVJWSStxbnAxRzhIMGY3RndZR2cycjB1V3lx?=
- =?utf-8?B?aGVrbnltYlZkbHJqUWx1a1hIUENWVzBLZmd2enByZDB0K3lELzVTZGp6cHhT?=
- =?utf-8?B?VE1aWHNMVzhDd1ZUK21vK2lUdEdveWFwTnpzN0gzRDFOdHhjOW90TCs4ZGFO?=
- =?utf-8?B?L2pmNzR0dGZ0UzZiZEc1YkpTbTQwN1o1QzNidW5UR0xVRWtSSk1CQ3lLbFVE?=
- =?utf-8?B?TEo3Z2xEWUU2SDZ6K2VlWS9iMUtWZnpXREJleit0ZTVhRXdwRkRQQi84cmsx?=
- =?utf-8?B?WjAyMVlSNm9NRnkxdjJpWGlHS3hubml5MzJvcmhCdnVFYUY4L1MwWEJxc3lF?=
- =?utf-8?B?eHpRbEt6Qlg0N2MwTEdScGRWSUhETDVrdkYrcW05NGltU0NkY3B6MEZHT1ll?=
- =?utf-8?B?YXY0NERzT0liS0NNOFhYY3h2Nzh3SGVOZ2E3WGhvYmlxYkdTMm5MUmhyclJG?=
- =?utf-8?B?RDhRUGkwaUR3Ujl1aEEvY2FVMVFJcUNtYU5acTIxa21tLzEzTmsrQWp1bktT?=
- =?utf-8?B?RGt1SHBtZE1WZTFTcHZnQXNxN0liL1lQU21mRXJ3bGVRWHU4UjBYR1J6YzlW?=
- =?utf-8?B?OHFPTC9JbHNYdk1ieE0xVzc0UVhsZDRoOWpnNldnUzQwa0ROeUJTY2FGdStn?=
- =?utf-8?B?RHMxRERkaEthaFhLditNb2huQk1GTXBXYmlVNU9Fdm84VUJFdENjTDBnVDF4?=
- =?utf-8?B?YWxpMzA1dG8xS1owc3o0WkoxQ3ZJQTI5VG1CaERWNjRuN2czRlF1UHAvdVRE?=
- =?utf-8?B?VEpycVVXbGJ4eEkzeEhxZHI0ejk1TUpUVzVvbGtzVDJyRDdjSmdJUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 740c588c-b6ed-4ddd-b1f8-08dea52e7002
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2026 14:00:00.2611
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NhXgSLzldpQNniTQU5vMHWObnjC/mqri65MD+UHh/+rwXD041vAPL1JY7yTTqAhsB6fFftNaDU7Oc5K0RCp+Zg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5180
-X-purgate-ID: tlsNG-ebf023/1777384804-300413FF-6D9BC56D/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/9] x86/passthrough: Extract PT_IRQ_TYPE_MSI body into
+ pt_irq_bind_msi()
+To: Julian Vetter <julian.vetter@vates.tech>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@vates.tech>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20260427135406.1281424-1-julian.vetter@vates.tech>
+ <1777298079.8631fc262581453bbf619ec5b2062170.19dcf3880b0000f373@vates.tech>
+Content-Language: en-US
+From: Teddy Astie <teddy.astie@vates.tech>
+In-Reply-To: <1777298079.8631fc262581453bbf619ec5b2062170.19dcf3880b0000f373@vates.tech>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.b5.57efd0fc27062d4d.19dd465068f.43f3625d62435cc9=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1777384883856
+X-purgate-ID: tlsNG-33051d/1777384892-28975938-554CAABD/0/0
 X-purgate-type: clean
-X-purgate-size: 5314
-X-Rspamd-Queue-Id: A333648675A
+X-purgate-size: 14899
+X-Rspamd-Queue-Id: B075648678F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.18 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [0.81 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	URI_COUNT_ODD(1.00)[1];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_SEVEN(0.00)[10];
+	FORGED_MUA_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:julian.vetter@vates.tech,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+];
+	ARC_NA(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
+	HAS_XOIP(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-0.971];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.998];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim]
+	RCVD_COUNT_SEVEN(0.00)[10]
 
-On Fri, Mar 13, 2026 at 04:35:03PM +0000, Thierry Escande wrote:
-> This patch adds 2 HVMOP hypercalls, HVMOP_get|set_ecam_space, used to
-> set and get the base address and size of the PCIe ECAM space as
-> configured by hvmloader.
-> 
-> Signed-off-by: Thierry Escande <thierry.escande@vates.tech>
+---=Part.b5.57efd0fc27062d4d.19dd465068f.43f3625d62435cc9=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Le 27/04/2026 =C3=A0 15:57, Julian Vetter a =C3=A9crit=C2=A0:
+> No functional change: move the PT_IRQ_TYPE_MSI case of pt_irq_create_bin=
+d()
+> into a new static helper pt_irq_bind_msi() taking the same gvec/gflags/g=
+table
+> parameters=2E Restructure pt_irq_create_bind() so the MSI case delegates=
+ to the
+> helper and pt_irq_dpci_setup() is called inside each case rather than sh=
+ared=2E
+>=20
+> Signed-off-by: Julian Vetter <julian=2Evetter@vates=2Etech>
 > ---
->  xen/arch/x86/hvm/hvm.c            | 52 +++++++++++++++++++++++++++++++
->  xen/arch/x86/include/asm/domain.h |  4 +++
->  xen/include/public/hvm/hvm_op.h   | 11 +++++++
->  3 files changed, 67 insertions(+)
-> 
-> diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
-> index 4d37a93c57..a46dfa955d 100644
-> --- a/xen/arch/x86/hvm/hvm.c
-> +++ b/xen/arch/x86/hvm/hvm.c
-> @@ -5195,6 +5195,58 @@ long do_hvm_op(unsigned long op, XEN_GUEST_HANDLE_PARAM(void) arg)
->          rc = current->hcall_compat ? compat_altp2m_op(arg) : do_altp2m_op(arg);
->          break;
->  
-> +    case HVMOP_set_ecam_space: {
-> +        xen_hvm_ecam_space_t ecam;
-> +        struct domain *d;
-> +
-> +        if ( copy_from_guest( &ecam, guest_handle_cast(arg, xen_hvm_ecam_space_t), 1 ) )
-                                ^ extra space, here and at the
-                                  closing parenthesis.
+> Changes in v4:
+> - New patch
+> - Split out as a preparatory no-functional-change step so that the
+>    interface change in patch 5 (switching pt_irq_bind_msi() from gvec +
+>    gflags to raw MSI addr + data) shows as a clean diff against an
+>    already-extracted helper, rather than being tangled with the 'case
+>    PT_IRQ_TYPE_MSI' code
+> ---
+>   xen/drivers/passthrough/x86/hvm=2Ec | 255 ++++++++++++++++------------=
+--
+>   1 file changed, 140 insertions(+), 115 deletions(-)
+>=20
+> diff --git a/xen/drivers/passthrough/x86/hvm=2Ec b/xen/drivers/passthrou=
+gh/x86/hvm=2Ec
+> index 19463c3406=2E=2Eeff1e8a79e 100644
+> --- a/xen/drivers/passthrough/x86/hvm=2Ec
+> +++ b/xen/drivers/passthrough/x86/hvm=2Ec
+> @@ -290,161 +290,186 @@ static int pt_irq_dpci_setup(struct domain *d, u=
+nsigned int pirq,
+>       } while ( true );
+>   }
+>  =20
+> -int pt_irq_create_bind(
+> -    struct domain *d, const struct xen_domctl_bind_pt_irq *pt_irq_bind)
+> +static int pt_irq_bind_msi(struct domain *d, uint32_t machine_irq,
+> +                            uint8_t gvec, uint32_t gflags, uint64_t gta=
+ble,
+> +                            bool unmasked)
+>   {
+>       struct hvm_irq_dpci *hvm_irq_dpci;
+>       struct hvm_pirq_dpci *pirq_dpci;
+>       struct pirq *info;
+> -    int rc, pirq =3D pt_irq_bind->machine_irq;
+> +    uint8_t dest, delivery_mode;
+> +    bool dest_mode;
+> +    int dest_vcpu_id, rc;
+> +    const struct vcpu *vcpu;
+>  =20
+> -    if ( pirq < 0 || pirq >=3D d->nr_pirqs )
+> +    if ( machine_irq >=3D (unsigned int)d->nr_pirqs )
 
-Line length is also past the 80 character limit, same below in
-HVMOP_get_ecam_space.
+is that (unsigned int) cast required ?
 
-> +            return -EFAULT;
-
-This operation (and the matching get variant) needs an XSM check.
-
-> +
-> +        d = rcu_lock_domain_by_any_id(ecam.domid);
-> +        if ( d == NULL )
-> +            return -ESRCH;
-> +
-> +        if ( d->arch.ecam_addr ) {
-
-Coding style, opening braces should be on a new line.
-
-> +            rcu_unlock_domain(d);
-> +            return -EFAULT;
-
-This would better return -EBUSY
-
-> +        }
-
-You also need to check the padding fields are 0.
-
-> +
-> +        if ( (ecam.size >> 28) || (!ecam.addr) ) {
-                                     ^ the parenthesis here are
-                                     unneeded.
-
-> +            rcu_unlock_domain(d);
-> +            return -EINVAL;
-> +        }
-> +
-> +        d->arch.ecam_addr = ecam.addr;
-> +        d->arch.ecam_size = ecam.size;
-
-I'm a bit worried about a domain being able to set it's own ECAM hole,
-assessing all the side-effects of this might be complex.
-
-Won't the code here better check the region passed in the hypercall is
-indeed not mapped in the p2m, so that trapping of ECAM accesses works
-as expected?
-
-Also, how does the ECAM hole get setup on native?  I assume there are
-some magic registers in the PCI config space of a platform device that
-the firmware uses to position the ECAM space?
-
-Are those trapped by QEMU, in which case won't it be better to do it
-the native way (iow: with the config space registers), and let QEMU
-forward it to Xen?  It would then be QEMU the one to call
-HVMOP_set_ecam_space (or whatever hypercall we end up using).
-
-> +
-> +        rcu_unlock_domain(d);
-> +        break;
+>           return -EINVAL;
+>  =20
+> -    rc =3D pt_irq_dpci_setup(d, pirq, &hvm_irq_dpci, &pirq_dpci, &info)=
+;
+> +    rc =3D pt_irq_dpci_setup(d, machine_irq, &hvm_irq_dpci, &pirq_dpci,=
+ &info);
+>       if ( rc )
+>           return rc;
+>  =20
+> -    switch ( pt_irq_bind->irq_type )
+> +    if ( !(pirq_dpci->flags & HVM_IRQ_DPCI_MAPPED) )
+>       {
+> -    case PT_IRQ_TYPE_MSI:
+> -    {
+> -        uint8_t dest, delivery_mode;
+> -        bool dest_mode;
+> -        int dest_vcpu_id;
+> -        const struct vcpu *vcpu;
+> -        uint32_t gflags =3D pt_irq_bind->u=2Emsi=2Egflags &
+> -                          ~XEN_DOMCTL_VMSI_X86_UNMASKED;
+> -
+> -        if ( !(pirq_dpci->flags & HVM_IRQ_DPCI_MAPPED) )
+> +        pirq_dpci->flags =3D HVM_IRQ_DPCI_MAPPED | HVM_IRQ_DPCI_MACH_MS=
+I |
+> +                           HVM_IRQ_DPCI_GUEST_MSI;
+> +        pirq_dpci->gmsi=2Egvec =3D gvec;
+> +        pirq_dpci->gmsi=2Egflags =3D gflags;
+> +        /*
+> +         * 'pt_irq_bind_msi' can be called after 'pt_irq_destroy_bind'=
+=2E
+> +         * The 'pirq_cleanup_check' which would free the structure is o=
+nly
+> +         * called if the event channel for the PIRQ is active=2E Howeve=
+r
+> +         * OS-es that use event channels usually bind PIRQs to eventds
+> +         * and unbind them before calling 'pt_irq_destroy_bind' - with =
+the
+> +         * result that we re-use the 'dpci' structure=2E This can be
+> +         * reproduced with unloading and loading the driver for a devic=
+e=2E
+> +         *
+> +         * As such on every 'pt_irq_bind_msi' call we MUST set it=2E
+> +         */
+> +        pirq_dpci->dom =3D d;
+> +        /* bind after hvm_irq_dpci is setup to avoid race with irq hand=
+ler */
+> +        rc =3D pirq_guest_bind(d->vcpu[0], info, 0);
+> +        if ( rc =3D=3D 0 && gtable )
+>           {
+> -            pirq_dpci->flags =3D HVM_IRQ_DPCI_MAPPED | HVM_IRQ_DPCI_MAC=
+H_MSI |
+> -                               HVM_IRQ_DPCI_GUEST_MSI;
+> -            pirq_dpci->gmsi=2Egvec =3D pt_irq_bind->u=2Emsi=2Egvec;
+> -            pirq_dpci->gmsi=2Egflags =3D gflags;
+> -            /*
+> -             * 'pt_irq_create_bind' can be called after 'pt_irq_destroy=
+_bind'=2E
+> -             * The 'pirq_cleanup_check' which would free the structure =
+is only
+> -             * called if the event channel for the PIRQ is active=2E Ho=
+wever
+> -             * OS-es that use event channels usually bind PIRQs to even=
+tds
+> -             * and unbind them before calling 'pt_irq_destroy_bind' - w=
+ith the
+> -             * result that we re-use the 'dpci' structure=2E This can b=
+e
+> -             * reproduced with unloading and loading the driver for a d=
+evice=2E
+> -             *
+> -             * As such on every 'pt_irq_create_bind' call we MUST set i=
+t=2E
+> -             */
+> -            pirq_dpci->dom =3D d;
+> -            /* bind after hvm_irq_dpci is setup to avoid race with irq =
+handler*/
+> -            rc =3D pirq_guest_bind(d->vcpu[0], info, 0);
+> -            if ( rc =3D=3D 0 && pt_irq_bind->u=2Emsi=2Egtable )
+> -            {
+> -                rc =3D msixtbl_pt_register(d, info, pt_irq_bind->u=2Ems=
+i=2Egtable);
+> -                if ( unlikely(rc) )
+> -                {
+> -                    pirq_guest_unbind(d, info);
+> -                    /*
+> -                     * Between 'pirq_guest_bind' and before 'pirq_guest=
+_unbind'
+> -                     * an interrupt can be scheduled=2E No more of them=
+ are going
+> -                     * to be scheduled but we must deal with the one th=
+at may be
+> -                     * in the queue=2E
+> -                     */
+> -                    pt_pirq_softirq_reset(pirq_dpci);
+> -                }
+> -            }
+> +            rc =3D msixtbl_pt_register(d, info, gtable);
+>               if ( unlikely(rc) )
+>               {
+> -                pirq_dpci->gmsi=2Egflags =3D 0;
+> -                pirq_dpci->gmsi=2Egvec =3D 0;
+> -                pirq_dpci->dom =3D NULL;
+> -                pirq_dpci->flags =3D 0;
+> -                if ( !info->evtchn )
+> -                    pirq_cleanup_check(info, d);
+> -                write_unlock(&d->event_lock);
+> -                return rc;
+> +                pirq_guest_unbind(d, info);
+> +                /*
+> +                 * Between 'pirq_guest_bind' and before 'pirq_guest_unb=
+ind'
+> +                 * an interrupt can be scheduled=2E No more of them are=
+ going
+> +                 * to be scheduled but we must deal with the one that m=
+ay be
+> +                 * in the queue=2E
+> +                 */
+> +                pt_pirq_softirq_reset(pirq_dpci);
+>               }
+>           }
+> -        else
+> +        if ( unlikely(rc) )
+>           {
+> -            uint32_t mask =3D HVM_IRQ_DPCI_MACH_MSI | HVM_IRQ_DPCI_GUES=
+T_MSI;
+> -
+> -            if ( (pirq_dpci->flags & mask) !=3D mask )
+> -            {
+> -                write_unlock(&d->event_lock);
+> -                return -EBUSY;
+> -            }
+> -
+> -            /* If pirq is already mapped as vmsi, update guest data/add=
+r=2E */
+> -            if ( pirq_dpci->gmsi=2Egvec !=3D pt_irq_bind->u=2Emsi=2Egve=
+c ||
+> -                 pirq_dpci->gmsi=2Egflags !=3D gflags )
+> -            {
+> -                /* Directly clear pending EOIs before enabling new MSI =
+info=2E */
+> -                pirq_guest_eoi(info);
+> -
+> -                pirq_dpci->gmsi=2Egvec =3D pt_irq_bind->u=2Emsi=2Egvec;
+> -                pirq_dpci->gmsi=2Egflags =3D gflags;
+> -            }
+> +            pirq_dpci->gmsi=2Egflags =3D 0;
+> +            pirq_dpci->gmsi=2Egvec =3D 0;
+> +            pirq_dpci->dom =3D NULL;
+> +            pirq_dpci->flags =3D 0;
+> +            if ( !info->evtchn )
+> +                pirq_cleanup_check(info, d);
+> +            write_unlock(&d->event_lock);
+> +            return rc;
+>           }
+> -        /* Calculate dest_vcpu_id for MSI-type pirq migration=2E */
+> -        dest =3D MASK_EXTR(pirq_dpci->gmsi=2Egflags,
+> -                         XEN_DOMCTL_VMSI_X86_DEST_ID_MASK);
+> -        dest_mode =3D pirq_dpci->gmsi=2Egflags & XEN_DOMCTL_VMSI_X86_DM=
+_MASK;
+> -        delivery_mode =3D MASK_EXTR(pirq_dpci->gmsi=2Egflags,
+> -                                  XEN_DOMCTL_VMSI_X86_DELIV_MASK);
+> -
+> -        dest_vcpu_id =3D hvm_girq_dest_2_vcpu_id(d, dest, dest_mode);
+> -        pirq_dpci->gmsi=2Edest_vcpu_id =3D dest_vcpu_id;
+> -        write_unlock(&d->event_lock);
 > +    }
-> +
-> +    case HVMOP_get_ecam_space: {
-> +        xen_hvm_ecam_space_t ecam;
-> +        struct domain *d;
-> +
-> +        if ( copy_from_guest( &ecam, guest_handle_cast(arg, xen_hvm_ecam_space_t), 1 ) )
-> +            return -EFAULT;
-> +
-> +        d = rcu_lock_domain_by_any_id(ecam.domid);
-> +        if ( d == NULL )
-> +            return -ESRCH;
-> +
-> +        if ( ! d->arch.ecam_addr || ! d->arch.ecam_size ) {
-> +            rcu_unlock_domain(d);
-> +            return -EINVAL;
-> +        }
-> +
-> +        ecam.addr = d->arch.ecam_addr;
-> +        ecam.size = d->arch.ecam_size;
-> +        rc = __copy_to_guest(arg, &ecam, 1) ? -EFAULT : 0;
-> +
-> +        rcu_unlock_domain(d);
-> +        break;
+> +    else
+> +    {
+> +        uint32_t mask =3D HVM_IRQ_DPCI_MACH_MSI | HVM_IRQ_DPCI_GUEST_MS=
+I;
+>  =20
+> -        pirq_dpci->gmsi=2Eposted =3D false;
+> -        vcpu =3D (dest_vcpu_id >=3D 0) ? d->vcpu[dest_vcpu_id] : NULL;
+> -        if ( iommu_intpost )
+> +        if ( (pirq_dpci->flags & mask) !=3D mask )
+>           {
+> -            if ( delivery_mode =3D=3D dest_LowestPrio )
+> -                vcpu =3D vector_hashing_dest(d, dest, dest_mode,
+> -                                           pirq_dpci->gmsi=2Egvec);
+> -            if ( vcpu )
+> -                pirq_dpci->gmsi=2Eposted =3D true;
+> +            write_unlock(&d->event_lock);
+> +            return -EBUSY;
+>           }
+> -        if ( vcpu && is_iommu_enabled(d) )
+> -            hvm_migrate_pirq(pirq_dpci, vcpu);
+>  =20
+> -        /* Use interrupt posting if it is supported=2E */
+> -        if ( iommu_intpost )
+> +        /* If pirq is already mapped as vmsi, update guest data/addr=2E=
+ */
+> +        if ( pirq_dpci->gmsi=2Egvec !=3D gvec || pirq_dpci->gmsi=2Egfla=
+gs !=3D gflags )
+>           {
+> -            rc =3D hvm_pi_update_irte(vcpu, info, pirq_dpci->gmsi=2Egve=
+c);
+> +            /* Directly clear pending EOIs before enabling new MSI info=
+=2E */
+> +            pirq_guest_eoi(info);
+>  =20
+> -            if ( rc )
+> -            {
+> -                pt_irq_destroy_bind(d, pt_irq_bind);
+> -                return rc;
+> -            }
+> +            pirq_dpci->gmsi=2Egvec =3D gvec;
+> +            pirq_dpci->gmsi=2Egflags =3D gflags;
+>           }
 > +    }
+> +    /* Calculate dest_vcpu_id for MSI-type pirq migration=2E */
+> +    dest =3D MASK_EXTR(pirq_dpci->gmsi=2Egflags, XEN_DOMCTL_VMSI_X86_DE=
+ST_ID_MASK);
+> +    dest_mode =3D pirq_dpci->gmsi=2Egflags & XEN_DOMCTL_VMSI_X86_DM_MAS=
+K;
+> +    delivery_mode =3D MASK_EXTR(pirq_dpci->gmsi=2Egflags,
+> +                               XEN_DOMCTL_VMSI_X86_DELIV_MASK);
 > +
->      default:
->          rc = -ENOSYS;
->          break;
-> diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-> index ad7f6adb2c..24ec33fc4d 100644
-> --- a/xen/arch/x86/include/asm/domain.h
-> +++ b/xen/arch/x86/include/asm/domain.h
-> @@ -476,6 +476,10 @@ struct arch_domain
->  
->      /* Emulated devices enabled bitmap. */
->      uint32_t emulation_flags;
+> +    dest_vcpu_id =3D hvm_girq_dest_2_vcpu_id(d, dest, dest_mode);
+> +    pirq_dpci->gmsi=2Edest_vcpu_id =3D dest_vcpu_id;
+> +    write_unlock(&d->event_lock);
+>  =20
+> -        if ( pt_irq_bind->u=2Emsi=2Egflags & XEN_DOMCTL_VMSI_X86_UNMASK=
+ED )
+> +    pirq_dpci->gmsi=2Eposted =3D false;
+> +    vcpu =3D (dest_vcpu_id >=3D 0) ? d->vcpu[dest_vcpu_id] : NULL;
+> +    if ( iommu_intpost )
+> +    {
+> +        if ( delivery_mode =3D=3D dest_LowestPrio )
+> +            vcpu =3D vector_hashing_dest(d, dest, dest_mode,
+> +                                       pirq_dpci->gmsi=2Egvec);
+> +        if ( vcpu )
+> +            pirq_dpci->gmsi=2Eposted =3D true;
+> +    }
+> +    if ( vcpu && is_iommu_enabled(d) )
+> +        hvm_migrate_pirq(pirq_dpci, vcpu);
 > +
-> +    /* PCI ECAM space emulation */
-> +    uint64_t ecam_addr;
-> +    uint32_t ecam_size;
+> +    /* Use interrupt posting if it is supported=2E */
+> +    if ( iommu_intpost )
+> +    {
+> +        struct xen_domctl_bind_pt_irq bind =3D {
+> +            =2Emachine_irq =3D machine_irq,
+> +            =2Eirq_type =3D PT_IRQ_TYPE_MSI,
+> +        };
+> +
+> +        rc =3D hvm_pi_update_irte(vcpu, info, pirq_dpci->gmsi=2Egvec);
+> +        if ( rc )
+>           {
+> -            unsigned long flags;
+> -            struct irq_desc *desc =3D pirq_spin_lock_irq_desc(info, &fl=
+ags);
+> +            pt_irq_destroy_bind(d, &bind);
+> +            return rc;
+> +        }
+> +    }
+>  =20
+> -            if ( !desc )
+> -            {
+> -                pt_irq_destroy_bind(d, pt_irq_bind);
+> -                return -EINVAL;
+> -            }
+> +    if ( unmasked )
+> +    {
+> +        struct xen_domctl_bind_pt_irq bind =3D {
+> +            =2Emachine_irq =3D machine_irq,
+> +            =2Eirq_type =3D PT_IRQ_TYPE_MSI,
+> +        };
+> +        unsigned long flags;
+> +        struct irq_desc *desc =3D pirq_spin_lock_irq_desc(info, &flags)=
+;
+>  =20
+> -            guest_mask_msi_irq(desc, false);
+> -            spin_unlock_irqrestore(&desc->lock, flags);
+> +        if ( !desc )
+> +        {
+> +            pt_irq_destroy_bind(d, &bind);
+> +            return -EINVAL;
+>           }
+>  =20
+> -        break;
+> +        guest_mask_msi_irq(desc, false);
+> +        spin_unlock_irqrestore(&desc->lock, flags);
+>       }
+>  =20
+> +    return 0;
+> +}
+> +
+> +int pt_irq_create_bind(
+> +    struct domain *d, const struct xen_domctl_bind_pt_irq *pt_irq_bind)
+> +{
+> +    int rc, pirq =3D pt_irq_bind->machine_irq;
+> +
+> +    if ( pirq < 0 || pirq >=3D d->nr_pirqs )
+> +        return -EINVAL;
+> +
+> +    switch ( pt_irq_bind->irq_type )
+> +    {
+> +    case PT_IRQ_TYPE_MSI:
+> +        return pt_irq_bind_msi(d, pirq,
+> +                               pt_irq_bind->u=2Emsi=2Egvec,
+> +                               pt_irq_bind->u=2Emsi=2Egflags &
+> +                                   ~XEN_DOMCTL_VMSI_X86_UNMASKED,
+> +                               pt_irq_bind->u=2Emsi=2Egtable,
+> +                               !!(pt_irq_bind->u=2Emsi=2Egflags &
+> +                                  XEN_DOMCTL_VMSI_X86_UNMASKED));
+> +
+>       case PT_IRQ_TYPE_PCI:
+>       case PT_IRQ_TYPE_MSI_TRANSLATE:
+>       {
+> +        struct hvm_irq_dpci *hvm_irq_dpci;
+> +        struct hvm_pirq_dpci *pirq_dpci;
+> +        struct pirq *info;
+>           struct dev_intx_gsi_link *digl =3D NULL;
+>           struct hvm_girq_dpci_mapping *girq =3D NULL;
+>           unsigned int guest_gsi;
+>  =20
+> +        rc =3D pt_irq_dpci_setup(d, pirq, &hvm_irq_dpci, &pirq_dpci, &i=
+nfo);
+> +        if ( rc )
+> +            return rc;
+> +
+>           /*
+>            * Mapping GSIs for the hardware domain is different than doin=
+g it for
+>            * an unpriviledged guest, the hardware domain is only allowed=
+ t
+Aside that, the rest looks good to me=2E
 
-This fields would better be in hvm_domain struct, and there you
-already have the mmcfg_regions list, which we should aim to use for
-the q35 introduced ECAM region.
+with or without the cast change :
+Reviewed-by: Teddy Astie <teddy=2Eastie@vates=2Etech>
 
->  } __cacheline_aligned;
->  
->  #ifdef CONFIG_HVM
-> diff --git a/xen/include/public/hvm/hvm_op.h b/xen/include/public/hvm/hvm_op.h
-> index e22adf0319..c84febc37c 100644
-> --- a/xen/include/public/hvm/hvm_op.h
-> +++ b/xen/include/public/hvm/hvm_op.h
-> @@ -166,6 +166,17 @@ struct xen_hvm_get_mem_type {
->  typedef struct xen_hvm_get_mem_type xen_hvm_get_mem_type_t;
->  DEFINE_XEN_GUEST_HANDLE(xen_hvm_get_mem_type_t);
->  
-> +#define HVMOP_set_ecam_space    16
-> +#define HVMOP_get_ecam_space    17
-> +struct xen_hvm_ecam_space {
-> +    domid_t  domid;
-> +    uint16_t pad[3]; /* align next field on 8-byte boundary */
-> +    uint64_t addr;
-> +    uint32_t size;
+Teddy
 
-There's also a trailing uint32_t padding here on 64bit builds I think?
 
-FWIW, you could do:
+-- 
+Teddy Astie | Vates XCP-ng Developer
 
-    domid_t  domid;
-    uint16_t pad;
-    uint32_t size
-    uint64_t addr;
+XCP-ng & Xen Orchestra - Vates s=
+olutions
 
-As that would reduce the padding in the struct?
-
-Thanks, Roger.
+web: https://vates=2Etech
+---=Part.b5.57efd0fc27062d4d.19dd465068f.43f3625d62435cc9=---
 
