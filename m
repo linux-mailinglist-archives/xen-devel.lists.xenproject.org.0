@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2Ca4AkjE8WkbkQEAu9opvQ
+	id OE6aAqbP8WlrkgEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2026 10:41:44 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2026 11:30:14 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68D65491484
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2026 10:41:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1297112.1573248 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23F1E491EC2
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Apr 2026 11:30:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1297125.1573257 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wI0TP-0006kh-Rr; Wed, 29 Apr 2026 08:40:47 +0000
+	id 1wI1Eh-0004bS-AJ; Wed, 29 Apr 2026 09:29:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1297112.1573248; Wed, 29 Apr 2026 08:40:47 +0000
+Received: by outflank-mailman (output) from mailman id 1297125.1573257; Wed, 29 Apr 2026 09:29:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wI0TP-0006iC-OP; Wed, 29 Apr 2026 08:40:47 +0000
-Received: by outflank-mailman (input) for mailman id 1297112;
- Wed, 29 Apr 2026 08:40:45 +0000
+	id 1wI1Eh-0004Z0-6f; Wed, 29 Apr 2026 09:29:39 +0000
+Received: by outflank-mailman (input) for mailman id 1297125;
+ Wed, 29 Apr 2026 09:29:38 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jgross@suse.com>) id 1wI0TN-0006i4-E3
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2026 08:40:45 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wI1Eg-0004WF-DW
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2026 09:29:38 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wI0TL-001t9P-76
- for xen-devel@lists.xenproject.org; Wed, 29 Apr 2026 10:40:44 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wI1Ef-003E22-PI
+ for xen-devel@lists.xenproject.org; Wed, 29 Apr 2026 11:29:37 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jgross@suse.com>)
- id 69f1c40b-5cb7-0a2a0a5109dd-0a2a450584fa-12
- for <xen-devel@lists.xenproject.org>; Wed, 29 Apr 2026 10:40:44 +0200
-Received: from [209.85.218.47] (helo=mail-ej1-f47.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jgross@suse.com>)
- id 69f1c40c-aaa8-0a2a45050019-d155da2fb992-3
- for <xen-devel@lists.xenproject.org>; Wed, 29 Apr 2026 10:40:44 +0200
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-b936331786dso1613067566b.3
- for <xen-devel@lists.xenproject.org>; Wed, 29 Apr 2026 01:40:44 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
- (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
- [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bb98630e647sm60991266b.60.2026.04.29.01.40.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Apr 2026 01:40:43 -0700 (PDT)
+ (envelope-from <roger.pau@citrix.com>)
+ id 69f1cf7b-2eae-0a2a0a5409dd-0a2a4501dafe-18
+ for <xen-devel@lists.xenproject.org>; Wed, 29 Apr 2026 11:29:37 +0200
+Received: from [52.101.193.4]
+ (helo=CH1PR05CU001.outbound.protection.outlook.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 69f1cf80-c1f2-0a2a45010019-3465c1048871-3
+ for <xen-devel@lists.xenproject.org>; Wed, 29 Apr 2026 11:29:37 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by MW5PR03MB6929.namprd03.prod.outlook.com (2603:10b6:303:1c6::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Wed, 29 Apr
+ 2026 09:29:32 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9870.020; Wed, 29 Apr 2026
+ 09:29:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,248 +58,289 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="In-Reply-To:Autocrypt:From:Content-Language:References:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1777452044; x=1778056844; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=29dthCTPW2xreJ9mkRqkrCEgXbzH1gJvWirU2wdTC+I=;
-        b=YoxjIKMJXguwNz9hbPCu57SRGlaje9RvAlJm+TCQWlHNpvFKK/G/M4qDoT514eg6u+
-         uq63VwodoTG17Mbr/Tvfs2EXpTCjFasHvpBvDNLedAxP9/1gsmTqnd4iE0RZB3/TT/sJ
-         NVBxjS2eTgDdgzZ1TF0hQuYiiipKDjlVIA5Q8ZZoXM3aqTyl1UXakAsSXY/iQ7EMXQAE
-         JW5D7TUOPe3Za1y4k65GsSuISLGY2gGJQPJ6+Axf4dRjKOb42oXaRwguQ4aynhTtXaOX
-         L3SzLqBYYIHOEdLmeW7q3Fl9DtJAu7U2dIfwBT92JSm2oJWLxrRHunebWgr6fX8mQUYg
-         9+KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777452044; x=1778056844;
-        h=in-reply-to:autocrypt:from:content-language:references:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=29dthCTPW2xreJ9mkRqkrCEgXbzH1gJvWirU2wdTC+I=;
-        b=RXh+lITLSZ+G7DmAn0QWafq8zumGWTL6PKltAovKtkWSkWzJbl+WLr5DALJ7gaqkFS
-         y++k+j1A5souwHoyuypOx9shqTnArzRF+3OSWktebuIdsn2iRwHF7MDpprRin0GISd2F
-         o3vmx97893MuudIkqhMB1ApM0Hjjq3uCcok/cZZkVd6o88OeUSznnYd26MWtntR7uH9T
-         Ccl7OZj9y0zYO8bYz65izZS73aEarX9oadF+yoH7RHODN182rF360VpHcM/vAx8S/qA5
-         GpkSFxjtuyAwNkUDZ2gGfapmYBNbgtBb6xJ/PhpKnWUnK/Pmsk0/4+t28iHR2bqYixEA
-         MwEQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9udNFmXGEofGiX7fiPhiBpBwRPI6qYrOltVd2WOInsMzCbueHZWPhoUn12T2C3KPv96LXOq885vxI=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwsV6JYB6Nt42iNQy85HaxVNol5EAll0Eha6wJcSmTHFcZkHh7+
-	lj7SWrMYZa+ablJD1fruYFqA9Dt1fyTXh4jc1+xPrx+drPn0sjVdD5Pj8fJpO4enbPw=
-X-Gm-Gg: AeBDietz/EfuQ6p6fSQ0ORacVb5Q4TTgkUqxcQfCUHcz5MyN4iT7tPKNbQygrF+gnNP
-	d4CC7TzLMriVdNt3jkKE1QxorpyU5XvgZgiuc0C2a1d9zIX0/5TKGRXjPqS8zDGEREEV9j1fnYL
-	W2Gy+QhWiNyQalbQwSJ/g+fKsOC8ec5qC9HnsuNJwMvDv9hgqLHAVeTMr7dbw+tEQsPoaHUH9PI
-	Ln6SPqVxztmndT5erKPH+HWJ5MeiiSAPRxLac9DS1gEunUUYBAsS0wTNMY4TLEAcG5YieBeEig+
-	2xARLuqZBpijD6oddYZlxtLpaHakH+kVbdl2cZTLq4k+/U/xAXHiLDDNO9NVOFan+B6BrxgCvPa
-	0wzVLhRXeWWCwQOISlegYpktkyENnk9VFC/uRUbD7t9fR9Fv1d5frNxzUccFlCZODNnW8chHY3X
-	PGuQWPcZIZBA9K6aBWuK8+GgON8qFhI3L2mQ3pmjU5sni1/OESOJN9DDSw4ru/9krjbnigN1mz3
-	sCSaLj5OG8UW5pVzjdFSta+wUxzrQt21tyDnxPgvR6qpx+1hd0QWUh8ouAE17RH
-X-Received: by 2002:a17:907:c405:b0:ba9:559:10c8 with SMTP id a640c23a62f3a-bb804538dbcmr417241166b.41.1777452043918;
-        Wed, 29 Apr 2026 01:40:43 -0700 (PDT)
-Message-ID: <d547efe9-390c-476b-8b07-708bc871e29d@suse.com>
-Date: Wed, 29 Apr 2026 10:40:43 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Pp/Fq87Ej7pZmj9EhF9TwVsyz7IG/fUl9SoRMy/MF8QFekkIpoNAhiyIIhlT5xhxcsysbINip2AhYvMpDYRoGpUg3u530ZsDwKNssRsFSEiiXS8tVPTwvZ8xDXwbmtMhx9ktw+S1PXWQZTFslVh9x269XOEN3yaFG57tUa522JppMh58HTrkVkBaytEL8T/y5N7yH/aTuFFluH9J5tyZdl2+XmFr8DWmAK4TyW7T/f7xqGzXKH1W/QqyJAP3ZVw8EMPuBC7nVPg7wIARd5AX14i2jKmOyu5AwJyWgBHX1qR+LlnMuWlW1MmJiF36SeiTS4jv5BdV3v+O3WLxYAFovw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MbB1E5VlT1DEVQMNTA5bsGnSuAnodCL0j0hXVGI5LAY=;
+ b=g7px2A5qhcw400x57Z7BBdgYX6kOKF0gNyGJYpbFrIVZ+nvsQ+h5z8D9xYRp2dLAD46MPM84yEvkrNlYnTo49axIJuqd3kxJaZ9RKwFVSTkDTEc8t3yfnWJcNCUwEnzBSJ5elFRZMe0cXH8EEC700liXF+517Pm8rzVTReu6bfVaPKuAH9mSfVJIQA0CiGEg5nwNzXKsmxZS7R8TyLOCqAT5TnLoOUPwNGuEkoCs/gmMTjf41LmT6vLYxEb8+LJuM7L08OG024OHcTjtCrPrOjCC9Z0Hbwvtl/jSxG8+97761n8zulom+Fr5KihMeXnNkigRmZWtA6jVPB651NP7Tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MbB1E5VlT1DEVQMNTA5bsGnSuAnodCL0j0hXVGI5LAY=;
+ b=KJ24xJqqWkLGDvnYhxK2UTr5W+B5J7Uz/U+4R7hJTcBvvajPxFS0z/EeCZCeX+c+YgvvehDdZVdrPyhSccK1M3v4Umg5K2AyV6qvvDwtph//zJCpBRzpLhjLmBeqHk4zL+1kC4IArFD8A/uM7jBSICnuDyRYSkTIZE8fGFZ4Y40=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Wed, 29 Apr 2026 11:29:27 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Thierry Escande <thierry.escande@vates.tech>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Alexey Gerasimenko <x1917x@gmail.com>
+Subject: Re: [PATCH 11/17] hvmloader: allocate MMCONFIG area in the MMIO hole
+Message-ID: <afHPdxc72FDGnQoq@macbook.local>
+References: <20260313163455.790692-1-thierry.escande@vates.tech>
+ <20260313163455.790692-12-thierry.escande@vates.tech>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260313163455.790692-12-thierry.escande@vates.tech>
+X-ClientProxiedBy: MR1P264CA0164.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:55::15) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] hypfs: add ASSERT_UNREACHABLE() in
- hypfs_get_entry_rel()
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <6db49190e85a30c0129f251ce718d50923baba8d.1777387070.git.dmytro_prokopchuk1@epam.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <6db49190e85a30c0129f251ce718d50923baba8d.1777387070.git.dmytro_prokopchuk1@epam.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------iM0GorC37dwJVTjsBlL1aZTN"
-X-purgate-ID: tlsNG-c201ff/1777452044-2A76A443-511561CC/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|MW5PR03MB6929:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70d3410e-ced2-4087-79cf-08dea5d1d19c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	WyiMrbKV2b7kmriJgHinSaUfGyjEjvahq0T6wi6+9eSKfviHxycyzyrgsXW7kFjsiemGZSEH5kyabWwbh1YB+GYRqhvC6DhvcNxCJyO+WXFBxdG9aXgLATifWuV+/GGtGPdf7MuDCQzpR0s0HqHks9JgmqPjL0mDjTqI+jwoKIjxAhaVxbqkeiW2qZzNKFH0MYUHfX3m3GZF3IG0zk1+UudjwjrrFpNRs3xapllbbG6H+tjapGYhoETdVHmaFk11askkt1069Xuh+l/beXjttw9dYcoecIEP1OJmZrBAvgLu5Vx6x2pEXE2GDpVRA7ju9OAqIhFdr8UF7LEqRJtX8hP87nM9PPU8v3fUMVv24LKjbHcmCRZgsPAQX0Daqu9TjthdAc5g6Gb4cRK8xK6o65N3rFBT9CkqmjFOsH4KPlLa5nKqJwPIXqq/Xh2wdLTDHiWK39veiVqeUHb8An0hYq/cPaCSBMakbX5N62OyiCG/+rHCBJ2Rw9mjnAdM+Vacpv/a7IqNMCXraXBCZjwOlbN/43LmVGdtaX6igCdo1hCoUwr5A8yI4HwyN/A4b3MzhALXQ4UjHs06yGcU8jMrf7XA44E5vH11OfGt+FhwImbyygy0dH2pRlW4HaWk5SJxkpffZ9xd4dEBmpNP/2UdKFb2rAIwCu8+ZtvEmo5Cso4pPbFG2UPkPfmcUccSOkYhkWnIM/ruZnqg1krWzJlWrUbuQRB8zPLxJRYp/x4k+/8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Qm02c1FabFBickVWN1NwMVM4SmNDVEYrdk45Y0tuUnBORFNGb3VMRUhYZXhz?=
+ =?utf-8?B?OTFINTFUejVBOVE3Z0E5d2VsMERMTjE1VXphQTgxUVB0VWlCVWpnb2FtSVR2?=
+ =?utf-8?B?bjlmZHpUVjh0ZGFua0ZQMlVBUXV6cWRhRlRkdmZ5ekFtemNsRGNIalNJWUx1?=
+ =?utf-8?B?ZnQ3bi9vcS9ITTk3YitVS3ErTG8xeGRoN0hHTlhscjBxQnB4bkNvVDFsRmxF?=
+ =?utf-8?B?Q3VXMzA3ZEdPUE50UXcrK2lKWlhITFM1ZmFSNG01bTNWVEVwWW11eU95K3hl?=
+ =?utf-8?B?VWZpWEdMYlNWTWNESE5NRzM2M1BHZ3Uzb1UraU1pS3oydzRhZVlLd1ZzSnZw?=
+ =?utf-8?B?dlVNMThCakkwYmFzNGdDNTM3RncxNTIyWndlWVFaN09wUDIzQWRRanlCT2pS?=
+ =?utf-8?B?Z3lZaitxTW9Bcm5aTGh4YVo2Q3R6RnFaT1RSWUF1ZUNveHQzZkdUblY4bWZx?=
+ =?utf-8?B?bG5OcGcwdVN6Ky9JOGJMb2ZUQzc3aW0yZ1VqWG5UQ0NnWjNHRTdhQ0hBeUxm?=
+ =?utf-8?B?S3pxYUp6aHhvblM5SGRKa1RFeEcxdWY0dzBMRjBVSU1uVyttRjRCRzRDamdH?=
+ =?utf-8?B?RXdLWkNHMzJRM3JxNWhJRDhHbjNISVZkTXB2NnhTM0JWWlRuNVZTT1BpS1dQ?=
+ =?utf-8?B?bWZDTUxMM2xxMStHOHlkelVxdGRQTENBQ3IxY3F6c09NR2UvcHZ4Z012cE1l?=
+ =?utf-8?B?N1VUV09XTjFENEhMT2RQUFJZdUF1WmRwZVE3N0plOXJ4NytFczVRVnpRWDlT?=
+ =?utf-8?B?dm9RaXlmWWdhSUw5VTQzNXBtZHJlRW5FR2RQb2RBbHVqTjRSd1pZaCtRc2Vt?=
+ =?utf-8?B?TWExSC9wdWtqMUtPcWdkdVg0dUZxR3NaNjh2UWtuTk9CbDg5bWo3RFdBKzFp?=
+ =?utf-8?B?c29RZ01XQTcrK0ZhejRxQW5UWkxyOG8vMUJLVDJ0Qy9ZR3V1dStUVE45VEd5?=
+ =?utf-8?B?dlBYQVNKU1pvbUFBT3hjSGtNZ0UvSWVtTXluU3NOWDYyQVVYV2szVFRjL3Fz?=
+ =?utf-8?B?QXVwRE9qdW42NjFYem1JVWt1NCtId2twU295QkcvZnNJYTVJenlDTDE0dE8y?=
+ =?utf-8?B?UGNQaUNWOHNjUWtWN1I5K2d4Ym8ySllycVhHYWdlSWp2azU1WHlFaE9RZ2Rz?=
+ =?utf-8?B?elF6aFQ2Q1BnTDgwLzUzK0pXemhzZWNGdGtFckhWU0VQaGFFY2ZYZERINllY?=
+ =?utf-8?B?QnZFL2VPWWM3NFZzYVpUY0wrS1kyK3dJemhPZitpRFVYSEU4QjIzaWo1VW5V?=
+ =?utf-8?B?TUVaSXNGNlE0WDZ3MnB5WE5KeG4xdkdGWUQ4UEowcWNmRTdPWnZCU0hCOHdz?=
+ =?utf-8?B?dWxQcS9PbkJ1VnFnSEY0eEhIbFpDckFINTVVcS9OelJYbFozZTJuRCs3WHhm?=
+ =?utf-8?B?blQ2QjIvb2NhbU41ZkROaTVJaTBpQ0lTY3dFTFJlaTh0ZCtkYjNWazVQQ1lh?=
+ =?utf-8?B?bHp4L3NCYm90Qzcyc1IrNW1LSTY5amxZU1dMOHhWdDU5VlNvUEVQWkgzZlgx?=
+ =?utf-8?B?MHhwVVM5RC85RmJiY21KWlZVczN5ZUp5aWRlYjV5NEtabUpoT2FwRXF2NWlC?=
+ =?utf-8?B?b3V6MUhod0RORWtlYlRPb0U5d05IOFZXQ0tzY2VDU2ZWUTBMUy9wZkdhL1Vt?=
+ =?utf-8?B?bXRKL3RlUVk3NU9od0xWMGg1QzBCUGxqbWkrbWZ6Q0Vkdmx5Q3dXZ0ovNis2?=
+ =?utf-8?B?U01jU3djWCtKRXk4b2VmQnVMU1ZMUlBwY3N6VUxkdlNwZkpPQWp6U3hqK09i?=
+ =?utf-8?B?UW1ad1NXRkl5cGJzY1Brd3Fxak9PWkJiSTVkbWRJR0xoamkxL1F5VVJBRGdt?=
+ =?utf-8?B?blJ1Z0ZxdHIrWU90WEFnWUlNZUdjWVZiaXZjVU5ZLzVvcXZSemg2a3IwbVRs?=
+ =?utf-8?B?Unk3c3lyZGRXc0tPZ2p0amt5WlVjUm5XeCtYdHhtaWduUDF2SzRTWEdMTmda?=
+ =?utf-8?B?OEg1bnJmUkxiOW5OMFNkbWM1Z0ErY3J3em1ZN2IrbUMzd2d4OWxWT0FOYXFz?=
+ =?utf-8?B?eDhndGRtLzc4QXMrakJ2SDlnNUtCWjV1MXBHZUJpZzJlZEw1Sm1QQjRqeHgv?=
+ =?utf-8?B?ZHpsaWk1anEzcWJZU1N4ZWNmYjI2WFQ0V013Z2pmL0o4OVRydEN2ODBwa2Zq?=
+ =?utf-8?B?dkNwTXRsdWpOMmU1Y1R0K0IxTGdRMDBBVW5ycHhpdXFRSFJLQTlrRkFTVTgy?=
+ =?utf-8?B?M09GV2tUd2tWTG5MZDd4UTQzTXdSZnFJaWVZbFgvWms0MlI0S3dEUVJyRm5n?=
+ =?utf-8?B?WVkyd0NRc2E1dTF6NlhUL1R4M1VOUE9kQ05aSTRqcUlseXVtd21kWXVNekNk?=
+ =?utf-8?B?N1pScEt2SExpVWpoUTlQbHNLNFYxOUdrcDhHS2c5VW5vcWNCL1FBQT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70d3410e-ced2-4087-79cf-08dea5d1d19c
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2026 09:29:31.9408
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eJPowdq/2DaQJBOr/oZ7yTLrUloEo3BriGMjcbQDZXRjlohfsD+nQPP+oG97hDgOTSflAyk10AcxcE/pzQAbqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR03MB6929
+X-purgate-ID: tlsNG-d62444/1777454977-B6E63FF4-4337F7E2/0/0
 X-purgate-type: clean
-X-purgate-size: 6959
-X-Rspamd-Queue-Id: 68D65491484
+X-purgate-size: 5794
+X-Rspamd-Queue-Id: 23F1E491EC2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.18 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	R_MIXED_CHARSET(0.91)[subject];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	FORGED_RECIPIENTS(0.00)[m:dmytro_prokopchuk1@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:x1917x@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	HAS_ATTACHMENT(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,suse.com,citrix.com,vates.tech,gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[macbook.local:mid];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	NEURAL_HAM(-0.00)[-0.988];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------iM0GorC37dwJVTjsBlL1aZTN
-Content-Type: multipart/mixed; boundary="------------S92fFCUTK84VdaznDevhSF07";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <d547efe9-390c-476b-8b07-708bc871e29d@suse.com>
-Subject: Re: [PATCH v2] hypfs: add ASSERT_UNREACHABLE() in
- hypfs_get_entry_rel()
-References: <6db49190e85a30c0129f251ce718d50923baba8d.1777387070.git.dmytro_prokopchuk1@epam.com>
-In-Reply-To: <6db49190e85a30c0129f251ce718d50923baba8d.1777387070.git.dmytro_prokopchuk1@epam.com>
+On Fri, Mar 13, 2026 at 04:35:04PM +0000, Thierry Escande wrote:
+> The actual MMCONFIG size depends on the number of PCI buses available
+> which should be covered by ECAM. Possible options are 64MB, 128MB and
+> 256MB.
 
---------------S92fFCUTK84VdaznDevhSF07
-Content-Type: multipart/mixed; boundary="------------lex6e05wcKSpgNlU70xRNhtN"
+Are such values inherited from the real q35 impleemntation?
 
---------------lex6e05wcKSpgNlU70xRNhtN
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+AFAICT the ACPI MCFG spec notes:
 
-T24gMjguMDQuMjYgMjA6MTksIERteXRybyBQcm9rb3BjaHVrMSB3cm90ZToNCj4gVGhlIHN0
-YXRlbWVudCAncmV0dXJuIEVSUl9QVFIoLUVOT0VOVCk7JyBvbiB0aGUgZmluYWwgbGluZSBv
-ZiB0aGUNCj4gZnVuY3Rpb24gJ2h5cGZzX2dldF9lbnRyeV9yZWwoKScgaXMgdW5yZWFjaGFi
-bGUgYmVjYXVzZSB0aGUgbG9naWMgd2l0aGluDQo+IHRoZSBpbmZpbml0ZSBsb29wICdmb3Ig
-KDs7KScgcHJvdmlkZXMgYWxsIHBvc3NpYmxlIGV4aXQgcGF0aHMgZm9yIHRoZQ0KPiBmdW5j
-dGlvbi4gU28gdGhlcmUgaXMgbm8gZXhlY3V0aW9uIHBhdGggdG8gZXhpdCB0aGUgbG9vcCBh
-bmQgcmVhY2ggdGhlDQo+IGZpbmFsIHRoYXQgc3RhdGVtZW50Lg0KPiANCj4gVGhpcyB1bnJl
-YWNoYWJsZSBjb2RlIHZpb2xhdGVzIE1JU1JBIEMgUnVsZSAyLjEgd2hpY2ggc3RhdGVzOiAi
-QSBwcm9qZWN0DQo+IHNoYWxsIG5vdCBjb250YWluIHVucmVhY2hhYmxlIGNvZGUiLg0KPiAN
-Cj4gVG8gZml4IHRoYXQgYW5kIHBvdGVudGlhbCBjb21waWxlcnMgImNvbnRyb2wgcmVhY2hl
-cyBlbmQgb2Ygbm9uLXZvaWQNCj4gZnVuY3Rpb24iIHdhcm5pbmcsIG1hcmsgdGhlIGNvZGUg
-cGF0aCBhcyB1bnJlYWNoYWJsZSB1c2luZyBtYWNybw0KPiAnQVNTRVJUX1VOUkVBQ0hBQkxF
-KCknLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogRG15dHJvIFByb2tvcGNodWsgPGRteXRyb19w
-cm9rb3BjaHVrMUBlcGFtLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpn
-cm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQo=
---------------lex6e05wcKSpgNlU70xRNhtN
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+"The size of the memory mapped configuration region is indicated by
+the start and end bus number fields in the Memory mapped Enhanced
+configuration space base address allocation structure as shown in
+Table 4-3. 0-255 is the range of allowed bus numbers supported for a
+given PCI Segment Group."
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+So it's in principle possible to specify a MCFG that covers a single
+bus, and then it would have a size of 256 * 4K = 1M.  Which avoids
+wasting 63M of MMIO space in the low MMIO hole that's already fairly
+tight on space.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Is this limitation possibly inherited from the way the ECAM region
+position and size must be notified to the chipset?
 
---------------lex6e05wcKSpgNlU70xRNhtN--
+And further seeing the code below - I found the answer myself, it's
+because the chipset only supports negotiation those ECAM sizes.  We
+could possibly expose a smaller region in MCFG, but doesn't seem like
+a good move.
 
---------------S92fFCUTK84VdaznDevhSF07--
+> As Xen is limited to the bus 0 currently, the lowest possible
+> setting is used (64MB), defined via PCI_MAX_MCFG_BUSES in
+> hvmloader/config.h. When multiple PCI buses support for Xen will be
+> implemented, PCI_MAX_MCFG_BUSES may be replaced by a calculation of the
+> number of buses according to PCI devices enumeration.
+> 
+> The MMCONFIG entry is inserted into bars array in the same manner like
+> for any other BARs. In this case, the devfn field will point to MCH PCI
+> device and bar_reg will contain PCIEXBAR register offset. It will be
+> assigned a slot in the MMIO hole later in a very same way like for plain
+> PCI BARs, with respect to its size and alignment. At this point, the
+> actual base address and size of the ECAM space are passed to Xen using
+> the HVMOP_set_ecam_space hypercall.
+> 
+> Signed-off-by: Alexey Gerasimenko <x1917x@gmail.com>
+> Signed-off-by: Thierry Escande <thierry.escande@vates.tech>
+> ---
+>  tools/firmware/hvmloader/config.h   |  4 +++
+>  tools/firmware/hvmloader/pci.c      | 55 +++++++++++++++++++++++++++++
+>  tools/firmware/hvmloader/pci_regs.h |  7 ++++
+>  3 files changed, 66 insertions(+)
+> 
+> diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmloader/config.h
+> index baaed91c7f..aa3158bca5 100644
+> --- a/tools/firmware/hvmloader/config.h
+> +++ b/tools/firmware/hvmloader/config.h
+> @@ -55,6 +55,10 @@ extern uint32_t *cpu_to_apicid;
+>  #define PCI_ISA_DEVFN       0x08    /* dev 1, fn 0 */
+>  #define PCI_ISA_IRQ_MASK    0x0c20U /* ISA IRQs 5,10,11 are PCI connected */
+>  #define PCI_ICH9_LPC_DEVFN  0xf8    /* dev 31, fn 0 */
+> +#define PCI_MCH_DEVFN       0       /* bus 0, dev 0, func 0 */
+> +
+> +/* possible values are: 64, 128, 256 */
+> +#define PCI_MAX_MCFG_BUSES  64
+>  
+>  #define ACPI_TIS_HDR_ADDRESS 0xFED40F00UL
+>  
+> diff --git a/tools/firmware/hvmloader/pci.c b/tools/firmware/hvmloader/pci.c
+> index 6e6720adae..54c23ffdd8 100644
+> --- a/tools/firmware/hvmloader/pci.c
+> +++ b/tools/firmware/hvmloader/pci.c
+> @@ -413,6 +413,58 @@ void pci_setup(void)
+>          pci_devfn_decode_type[devfn] |= PCI_COMMAND_MASTER;
+>      }
+>  
+> +    /*
+> +     *  Calculate MMCONFIG area size and squeeze it into the bars array
+> +     *  for assigning a slot in the MMIO hole
+> +     */
+> +    if ( is_running_on_q35 )
+> +    {
+> +        /* disable PCIEXBAR decoding for now */
+> +        pci_writel(PCI_MCH_DEVFN, PCI_MCH_PCIEXBAR, 0);
+> +        pci_writel(PCI_MCH_DEVFN, PCI_MCH_PCIEXBAR + 4, 0);
+> +
+> +        switch ( PCI_MAX_MCFG_BUSES )
+> +        {
+> +        case 64:
+> +            bar_data = PCIEXBAR_64_BUSES | PCIEXBAR_ENABLE;
+> +            bar_sz = MB(64);
+> +            break;
+> +
+> +        case 128:
+> +            bar_data = PCIEXBAR_128_BUSES | PCIEXBAR_ENABLE;
+> +            bar_sz = MB(128);
+> +            break;
+> +
+> +        case 256:
+> +            bar_data = PCIEXBAR_256_BUSES | PCIEXBAR_ENABLE;
+> +            bar_sz = MB(256);
+> +            break;
+> +
+> +        default:
+> +            /* unsupported number of buses specified */
+> +            BUG();
+> +        }
+> +
+> +        addr_mask = ~(bar_sz - 1);
+> +
+> +        for ( i = 0; i < nr_bars; i++ )
+> +            if ( bars[i].bar_sz < bar_sz )
+> +                break;
+> +
+> +        if ( i != nr_bars )
+> +            memmove(&bars[i+1], &bars[i], (nr_bars-i) * sizeof(*bars));
+> +
+> +        bars[i].is_mem    = 1;
+> +        bars[i].devfn     = PCI_MCH_DEVFN;
+> +        bars[i].bar_reg   = PCI_MCH_PCIEXBAR;
+> +        bars[i].bar_sz    = bar_sz;
+> +        bars[i].addr_mask = addr_mask;
+> +        bars[i].bar_data  = bar_data;
+> +
+> +        mmio_total += bar_sz;
+> +        nr_bars++;
+> +    }
 
---------------iM0GorC37dwJVTjsBlL1aZTN
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+I think it might be best if the ECAM fake BAR is the first element in
+the bars array, so we ensure it's the first item to consume memory
+from the low MMIO hole.  Not sure how that will work with the current
+sorting of the resources based on their size, but it's imperative for
+hvmloader to attempt to position ECAM ahead of the other device
+resources IMO.
 
------BEGIN PGP SIGNATURE-----
+> +
+>      if ( mmio_hole_size )
+>      {
+>          uint64_t max_ram_below_4g = GB(4) - mmio_hole_size;
+> @@ -592,6 +644,9 @@ void pci_setup(void)
+>              }
+>          }
+>  
+> +        if ( bar_reg == PCI_MCH_PCIEXBAR )
+> +            hvm_set_ecam_space(base, bar_sz);
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmnxxAsFAwAAAAAACgkQsN6d1ii/Ey8d
-PAf+M7ekPeE3nDwhIUq9f5ydO3R+4IAIS9yx2cqNqX54IujFR6kaM4KffEyaWMD/3ihlf/VGdkoo
-PCODj5YZp6Yl0F3ddSxeOXK2/9wvuBE7h7MJs54n6gwhzwgzpDWr/wFj5WUF5GGP/lOXReoDJhsF
-Y0mOSAIgO/C1kpz1yz6B4GIZpjp7BeJ5IUPiXYfPGRGXECc3WQdDFQBlIJH92KVVwglmJ3Esuj3Q
-UXvybfqgNcKsmBBfm55KQf7Rgu9njOMoxFdEbUtxk+dg0iGtxT2GX2b92e/PaIHCIqsZ67hzu6Rd
-uwPtptXiFmfF8fiBtZnglL5q911Awg98Q08PvTYaPg==
-=4SLN
------END PGP SIGNATURE-----
+As noted in a previous patch, it would be better if it's QEMU (as part
+of handling the PCI_MCH_PCIEXBAR writes) that notifies Xen of the ECAM
+window placement.
 
---------------iM0GorC37dwJVTjsBlL1aZTN--
+Thanks, Roger.
 
