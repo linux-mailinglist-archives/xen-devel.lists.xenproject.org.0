@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MNobEWbU8mmyugEAu9opvQ
+	id AF3HOvjU8mnIugEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 06:02:46 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 06:05:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99DFC49D22D
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 06:02:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1297908.1573579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B39D49D27A
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 06:05:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1297915.1573589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wIIaj-0001zh-EO; Thu, 30 Apr 2026 04:01:33 +0000
+	id 1wIIe4-0002WT-Ox; Thu, 30 Apr 2026 04:05:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1297908.1573579; Thu, 30 Apr 2026 04:01:33 +0000
+Received: by outflank-mailman (output) from mailman id 1297915.1573589; Thu, 30 Apr 2026 04:05:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wIIaj-0001wk-73; Thu, 30 Apr 2026 04:01:33 +0000
-Received: by outflank-mailman (input) for mailman id 1297908;
- Thu, 30 Apr 2026 04:01:31 +0000
+	id 1wIIe4-0002Tk-Le; Thu, 30 Apr 2026 04:05:00 +0000
+Received: by outflank-mailman (input) for mailman id 1297915;
+ Thu, 30 Apr 2026 04:05:00 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <val@invisiblethingslab.com>) id 1wIIah-0001we-Ns
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2026 04:01:31 +0000
+ (envelope-from <val@invisiblethingslab.com>) id 1wIIe3-0002Te-Re
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2026 04:04:59 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wIIag-007PkR-LM
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2026 06:01:30 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wIIe3-00DvrP-7N
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2026 06:04:59 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <val@invisiblethingslab.com>)
- id 69f2d40c-5cb7-0a2a0a5109dd-0a2a4507c7ee-42
- for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 06:01:30 +0200
-Received: from [103.168.172.149] (helo=fout-a6-smtp.messagingengine.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69f2d4d5-5cb7-0a2a0a5109dd-0a2a4509b194-26
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 06:04:59 +0200
+Received: from [103.168.172.147] (helo=fout-a4-smtp.messagingengine.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <val@invisiblethingslab.com>)
- id 69f2d419-229c-0a2a45070019-67a8ac9580f9-3
- for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 06:01:30 +0200
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailfout.phl.internal (Postfix) with ESMTP id 12B8FEC0047;
- Thu, 30 Apr 2026 00:01:29 -0400 (EDT)
+ id 69f2d4ea-2497-0a2a45090019-67a8ac93b503-3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 06:04:59 +0200
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfout.phl.internal (Postfix) with ESMTP id 0B7BFEC007C;
+ Thu, 30 Apr 2026 00:04:58 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-04.internal (MEProxy); Thu, 30 Apr 2026 00:01:29 -0400
+ by phl-compute-05.internal (MEProxy); Thu, 30 Apr 2026 00:04:58 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 30 Apr 2026 00:01:25 -0400 (EDT)
+ 30 Apr 2026 00:04:55 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,61 +60,60 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1777521689; x=1777608089; bh=2ylbdgSEO3
-	g7pTjq5Ngy4PvXfav/Y4wiIhm1YRccQLc=; b=m+rIUvnRjz9/8XoBRi1na6YL0m
-	qtCPtZbQTvHnQiqB9jSXUAA6TwJjlOJoLdVvPYtEIusCCjyA6t4lBfi1O8NEM66A
-	GZR30GH9ZetjhaPGYmY93MGqBUMeeNvezCjsuF5nsWiVt7EVDnCKamRQ3Nv2Jubf
-	EqOGPGVH2tDZFdY9aq/X3Ljso7OAdhH0LQeDGjWGFA74kmOrd8l0e1eOMbnoV7FS
-	kC4+NLoH/LnesKHXQSdGsoM2I1tjl/Dw3VFZKFEC2eJ+3Egts+B6vEjrOThm9Zga
-	NvDPTK9d1lRDwFjU8+uVGJN4YUnJjUxk3JU/AB2XIWCuRI1Ft5jUAFkOFBWg==
+	:subject:to:to; s=fm2; t=1777521898; x=1777608298; bh=iL9Jih/Ibg
+	bma67bqFqcCfMBsbo2+Snn9M19XNZspzs=; b=JyCWiLaEgzIHYgINBaGye7XqFD
+	OYZ7C1lh8SiRT5+BRculK1vq6aO1YS966FiE0Vj554g1+kdcyjpeHxBvmxAl+CgA
+	WM2Z54FDy3bfTVXAXNEATkm9wiMj5sOuce8FBZ6l9LbqHg2UQXzw1nB0dEDSkLGx
+	F+Qhg0ss+IPYuaw35dKmfy3H26kH2o79O9nTRs/Kqq+dyZDYb+qcE09FO5QxsGZP
+	ss11EITd4UU3/1epImcHEl0Y1iTi1rYNsezxGLJFuzQQUyuMZJfp0nEEpzEYMsCh
+	J26tT8N9ZubB3EXMHojLQ7SOFfcEAWMnFFhERjmvpPEMb05gxiVClFKdZGiA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1777521689; x=
-	1777608089; bh=2ylbdgSEO3g7pTjq5Ngy4PvXfav/Y4wiIhm1YRccQLc=; b=Q
-	pLe9WRYowph1Kl4KLVOS5KSidJSLOTifNzNH/SP7law4UKeAIA+pmlUITiD32ot+
-	jZYGLNVxwkO9br9gYnvnLafM60jLXm7OoPRHUosPcLlfsmnEmt+P3ywLDbMAtexQ
-	KPCyXdSyrx7Kw7Xx+0ZJwO3MeoqCQI1abABbz1Z6c1c8rvOkEyk+Crk/815sgBfY
-	vp4H+LZ0lJy26/nXVf73/iRFxZpqHjV8tgJOcMl+dy/E87rw+S3KVaRv+d6wyoua
-	tESPlHtQCQHVIiIjPjvB9DLkhP1eUM57U6kWE8J4JK87ru0uin9u6n+1OpvHFA9f
-	UENUGHSwFjHky+B/RctIQ==
-X-ME-Sender: <xms:GNTyabX8PBPDfqwgBJY7ZPBDWRtlqfyzR1VU_l90N9jo6MNVknCAxw>
-    <xme:GNTyabxHUKsyUArbro6Ihy9eXSDlLk1eeZ-7kYpfqkLECGeMCHyFvACmfHz0Dhmst
-    7wWPMzqWb56I2GvsV8Um7bq2wgzt0otN8z96JHbjb1thfebfHg>
-X-ME-Received: <xmr:GNTyaS81bMRlVmF02nYmg-sjCwKsTA64eyvXUqWaZhLEnfOLHlFlcM2A8P6YJCu5LA>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1777521898; x=
+	1777608298; bh=iL9Jih/Ibgbma67bqFqcCfMBsbo2+Snn9M19XNZspzs=; b=O
+	aD/azlC6c6H+mOtUakvf+EJmEZdD0ueW08mGxLkGEKn7iZqtKmWPxJBqEo/J8FBR
+	lnESHM7xVB3IdWiaERcKmzrZ+aAwW8fT8DBYaYt2Www1gXE4vfopqQ3pp3EiKqoO
+	+XGE6NtYyirL4wsrxnUMLn/E0JHGWpDqFAeRGtHlP5NsF+62/tuaLUAU9V5MiNFz
+	P2+cbP9gIQY0C6eupKNVV0Vk9kLk0FUJTxH/X12AsHo/KGTGrPUDOFqujp/TsJtS
+	UMDssK7f7YEmaVgts/rsL+PTLLEZTVK/O+/krfP8aXCaIVVKgJ0zuFmyoj1dc8wb
+	6/pR4+XrPnTKfbJ79mDqA==
+X-ME-Sender: <xms:6dTyaRiisW2jVl819D-fkqKk140bCT8pr7be5W4dPF6e-t-lfdbT7g>
+    <xme:6dTyaVtW3hOA5uvDpw9roBf34aPhMs1_5iNwkAY9iFvHK9GQ6jBC45CQShhNt2k-i
+    WhCNrTvdKakt0kiD7lrjPQG5nIfTAIkSeuODIB2ZcZEVX1s6g>
+X-ME-Received: <xmr:6dTyacsMnR-RohTB2z3Igyxpab0NlxM3D5DKIiqnu12ky8Xts097ooIjIoUS1XtcYQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdekieefudcutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
     ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
     hrpefkffggfgfuvfevfhfhjggtgfesthekredttddvjeenucfhrhhomhepgggrlhcurfgr
     tghkvghtthcuoehvrghlsehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
-    cuggftrfgrthhtvghrnhepjeehkeffhedvffeffffflefgfeejudejiefhtdeijeeuteei
-    teejtdettdeuleevnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpghhithhhuhgsrd
-    gtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhep
-    vhgrlhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggprhgtphhtth
-    hopedutddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepthgvugguhidrrghsthhi
-    vgesvhgrthgvshdrthgvtghhpdhrtghpthhtohepmhhsthesrhgvughhrghtrdgtohhmpd
-    hrtghpthhtohepjhgrshhofigrnhhgsehrvgguhhgrthdrtghomhdprhgtphhtthhopeig
-    uhgrnhiihhhuoheslhhinhhugidrrghlihgsrggsrgdrtghomhdprhgtphhtthhopegvph
-    gvrhgviihmrgesrhgvughhrghtrdgtohhmpdhrtghpthhtohepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdprhgtphhtthhopehvihhrvghshh
-    drkhhumhgrrheslhhinhgrrhhordhorhhgpdhrtghpthhtohepgigvnhdquggvvhgvlhes
-    lhhishhtshdrgigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheplhhinhhugidqkh
-    gvrhhnvghlsehvghgvrhdrkhgvrhhnvghlrdhorhhg
-X-ME-Proxy: <xmx:GNTyaQ9lpwWEvk7D3W8FOh-v8UFvy9LxD077RmK18-iGsxLBpoBz4A>
-    <xmx:GNTyaRXFM_C8bISyB3i7LdjfauPLV9X3t-nWnjGRYfaWm68YS0Qwmg>
-    <xmx:GNTyadeaXKWt2qxuCLhWVSLndggsuCTkf0mnZSRjDKLk7NNMj3f5jQ>
-    <xmx:GNTyaaYyiptX3NkomcuJsJ32POBzihjItVqHl3XfHHuPE-wTrpR3KA>
-    <xmx:GdTyaR_elsMaFCiS5kLMPtw1pVuxe2GZrjMOk0JwWSMBarSfnRE4KbXO>
+    cuggftrfgrthhtvghrnhepjeduffejgeduleeklefhvedttdeuvdeuueeuhfevgfevjefg
+    leevvdduhfdugfefnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+    hfrhhomhepvhgrlhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhnsggp
+    rhgtphhtthhopedutddpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepjhhgrhhosh
+    hssehsuhhsvgdrtghomhdprhgtphhtthhopehmshhtsehrvgguhhgrthdrtghomhdprhgt
+    phhtthhopehjrghsohifrghnghesrhgvughhrghtrdgtohhmpdhrtghpthhtohepgihurg
+    hniihhuhhosehlihhnuhigrdgrlhhisggrsggrrdgtohhmpdhrtghpthhtohepvghpvghr
+    vgiimhgrsehrvgguhhgrthdrtghomhdprhgtphhtthhopehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmpdhrtghpthhtohepvhhirhgvshhhrdhk
+    uhhmrghrsehlihhnrghrohdrohhrghdprhgtphhtthhopeigvghnqdguvghvvghlsehlih
+    hsthhsrdigvghnphhrohhjvggtthdrohhrghdprhgtphhtthhopehlihhnuhigqdhkvghr
+    nhgvlhesvhhgvghrrdhkvghrnhgvlhdrohhrgh
+X-ME-Proxy: <xmx:6dTyaSEYz1t3xvR8pfIguk8nQAhJj9YwTJMG3VDlnZ6v-kZcPIOT1w>
+    <xmx:6dTyafO-K_qJOvef6JXVdpErpTtjay32BBTthQqX6yykEuILUDbAVQ>
+    <xmx:6dTyaZK6_WOlkR-odxM6SH-y-9suq1J9e3MUp5GD-TsCGEfa14r8Kw>
+    <xmx:6dTyaQ8HceBUcNi0PgnrIBqro1h3kDFB16VxRVsdBSTGRsSPdXMD2Q>
+    <xmx:6tTyaQMbUIhLHFG1eCcCNe3bLz0fu_5aAi40MhVcvesPHVvR_GlJSV87>
 Feedback-ID: i001e48d0:Fastmail
-Message-ID: <fd6493ac-9d3e-475a-a844-6e53b0472820@invisiblethingslab.com>
-Date: Thu, 30 Apr 2026 01:01:22 -0300
+Message-ID: <98f95a70-7a28-463d-9bfe-203f6f740c21@invisiblethingslab.com>
+Date: Thu, 30 Apr 2026 01:04:54 -0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [RFC PATCH] virtio-mmio: add xenbus probing
-To: Teddy Astie <teddy.astie@vates.tech>, "Michael S. Tsirkin"
- <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
  Xuan Zhuo <xuanzhuo@linux.alibaba.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
  <eperezma@redhat.com>
 Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
@@ -122,7 +121,7 @@ Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
  xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
  virtualization@lists.linux.dev
 References: <20260429141339.74472-1-val@invisiblethingslab.com>
- <1777473712.8631fc262581453bbf619ec5b2062170.19dd9b07146000f373@vates.tech>
+ <67632532-8421-4a10-a961-f7c4f05b177b@suse.com>
 Content-Language: en-US
 From: Val Packett <val@invisiblethingslab.com>
 Autocrypt: addr=val@invisiblethingslab.com; keydata=
@@ -138,126 +137,115 @@ Autocrypt: addr=val@invisiblethingslab.com; keydata=
  aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
  /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
  UDOwAqdfvuF3w8QMPw==
-In-Reply-To: <1777473712.8631fc262581453bbf619ec5b2062170.19dd9b07146000f373@vates.tech>
+In-Reply-To: <67632532-8421-4a10-a961-f7c4f05b177b@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1777521690-2BD7FC48-0F9579A8/0/0
+X-purgate-ID: tlsNG-bad1c0/1777521899-41D6FA53-810D5A9F/0/0
 X-purgate-type: clean
-X-purgate-size: 3318
-X-Rspamd-Queue-Id: 99DFC49D22D
+X-purgate-size: 2704
+X-Rspamd-Queue-Id: 5B39D49D27A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
 	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm2,messagingengine.com:s=fm2];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,invisiblethingslab.com:dkim,invisiblethingslab.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:eperezma@redhat.com,m:marmarek@invisiblethingslab.com,m:viresh.kumar@linaro.org,m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,m:virtualization@lists.linux.dev,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:eperezma@redhat.com,m:marmarek@invisiblethingslab.com,m:viresh.kumar@linaro.org,m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,m:virtualization@lists.linux.dev,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[val@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
 	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[val@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.997];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.998];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[val@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[11]
 
 
-On 4/29/26 11:41 AM, Teddy Astie wrote:
-> Hello,
+On 4/29/26 12:35 PM, Jürgen Groß wrote:
+> Some minor details from the Xen side of things:
 >
-> Le 29/04/2026 à 16:18, Val Packett a écrit :
->> […]
+> On 29.04.26 15:52, Val Packett wrote:
+>> The experimental virtio-mmio support for Xen was initially developed
+>> on aarch64, so device trees were used to configure the mmio devices,
+>> with arbitrary vGIC interrupts used by the hypervisor. On x86_64
+>> however, the only reasonable way to interrupt the guest is over Xen
+>> event channels, which can only be acquired by children of xenbus,
+>
+> More exact: interdomain event channels need to be connected to a xenbus
+> device. But you are needing those, so for your use case the above 
+> statement
+> is correct.
+>
+>> the virtual bus driven by Xen's configuration database, XenStore.
+>> It is also a more convenient and "Xen-ish" way to provision devices.
+>>
+>> Implement a xenbus client for virtio-mmio which negotiates an
+>> event channel and provides it as a platform IRQ to the
+>> virtio-mmio driver.
+>>
+>>
+>> Signed-off-by: Val Packett <val@invisiblethingslab.com>
+>> ---
+>>
+>> Hi,
 >>
 >> I've been working on porting virtio-mmio support from Arm to x86_64,
 >> with the goal of running vhost-user-gpu to power Wayland/GPU integration
 >> for Qubes OS. (I'm aware of various proposals for alternative virtio
 >> transports but virtio-mmio seems to be the only one that *is* upstream
->> already and just Works..) Setting up virtio-mmio through xenbus, initially
->> motivated just by event channels being the only real way to get interrupts
+>> already and just Works..) Setting up virtio-mmio through xenbus, 
+>> initially
+>> motivated just by event channels being the only real way to get 
+>> interrupts
 >> working on HVM, turned out to generally be quite pleasant and nice :)
-> Is it HVM specific, or can we also make it work for PVH (we can actually
-> attach a ioreq server to PVH guests) ?
-
-Sorry, typo, I did mean PVH of course!
-
-I've been testing this with PVH guests + PV dom0, with my PV alloc_ioreq 
-fix:
-https://lore.kernel.org/all/20251126062124.117425-1-val@invisiblethingslab.com/ 
-
-
-(Time to resend that one as a non-RFC I guess…)
-
-HVM actually does have legacy ISA interrupts (which are often used with 
-virtio-mmio on KVM), funnily enough, and I've tried firing those from a 
-DMOP but that silly thing didn't work properly.
-
+>>
 >> I'd like to get some early feedback for this patch, particularly
 >> the general stuff:
 >>
 >> * is this whole thing acceptable in general?
 >> * should it be extracted into a different file?
 >> * (from the Xen side) any input on the xenstore keys, what goes where?
->> * anything else to keep in mind?
+>
+> You should add some documentation in the Xen source tree regarding the
+> Xenstore keys (see docs/misc/xenstore-paths.pandoc there).
+Ack, thanks!
+>> […]
 >>
->> It does seem simple enough, so hopefully this can be done?
->>
->> The corresponding userspace-side WIP is available at:
->> https://github.com/QubesOS/xen-vhost-frontend
->>
->> And the required DMOP for firing the evtchn events will be sent
->> to xen-devel shortly as well.
-> Could that be done through evtchn_send (or its userland counterpart) ?
-
-Actually, yes… The use of DMOPs is only dictated by the current Linux 
-privcmd.c code (the irqfds created by the kernel react to events by 
-executing HYPERVISOR_dm_op with a stored operation), we can avoid the 
-need to modify Xen by simply expanding the privcmd driver to make 
-"evtchn fds". Sounds good, will do.
-
+>> +again:
+>> +    err = xenbus_transaction_start(&xbt);
+>
+> No need to use a Xenstore transaction here. The written node(s) are
+> regarded to be valid only after calling xenbus_switch_state() to set
+> the frontend state to XenbusStateInitialised.
+Oh, I assumed transactions were required for writing from the kernel to 
+work at all…
 >> [..]
 >>
->> diff --git a/drivers/virtio/Kconfig b/drivers/virtio/Kconfig
->> index ce5bc0d9ea28..56bc2b10526b 100644
->> --- a/drivers/virtio/Kconfig
->> +++ b/drivers/virtio/Kconfig
->> @@ -171,6 +171,13 @@ config VIRTIO_MMIO_CMDLINE_DEVICES
->>    
->>    	 If unsure, say 'N'.
->>    
->> +config VIRTIO_MMIO_XENBUS
->> +	bool "Memory mapped virtio devices parameter parsing"
-> that text seems to miss the xenbus aspect
-Yep, didn't change that yet, ack
->> [..]
-> In some way, we're defining a new "PV driver" which is a virtio-mmio
-> one, I guess we can eventually specific some form of protocol that
-> backend/frontend would need to follow ?
+>> +static const struct xenbus_device_id virtio_mmio_xen_ids[] = {
+>> +    { "virtio" },
+>
+> Please use "virtio-mmio" here, as I could imagine "virtio-pci" 
+> devices, too. 
 
-Right, Jürgen mentioned documenting the keys in the xenstore-paths doc.. 
-would the entire "protocol" (keys + state transition logic) fit into that?
-
-The keys are currently derived from the initial Arm prototype which 
-wasn't actually using xenbus properly (the guest driver was configured 
-by a device tree node, but the ioreq server used xenstore keys, without 
-properly transitioning between states).
+Ack. Would actually also distinguish it from the initial Arm 
+proof-of-concept version…
 
 
 Thanks,
