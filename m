@@ -2,67 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cCYdGq9Q82lnzQEAu9opvQ
+	id gBj0CYBd82lT1wEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 14:53:03 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 15:47:44 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9CF34A2EC6
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 14:53:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1298145.1573686 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80A3C4A3A69
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 15:47:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1298195.1573698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wIQri-0001hA-7C; Thu, 30 Apr 2026 12:51:38 +0000
+	id 1wIRjY-000208-4i; Thu, 30 Apr 2026 13:47:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1298145.1573686; Thu, 30 Apr 2026 12:51:38 +0000
+Received: by outflank-mailman (output) from mailman id 1298195.1573698; Thu, 30 Apr 2026 13:47:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wIQri-0001bw-2b; Thu, 30 Apr 2026 12:51:38 +0000
-Received: by outflank-mailman (input) for mailman id 1298145;
- Thu, 30 Apr 2026 12:51:34 +0000
+	id 1wIRjY-0001yW-0z; Thu, 30 Apr 2026 13:47:16 +0000
+Received: by outflank-mailman (input) for mailman id 1298195;
+ Thu, 30 Apr 2026 13:47:14 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Michal.Orzel@amd.com>) id 1wIQre-0001YE-I1
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2026 12:51:34 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ddea4b728000f373@swg.vates.tech>)
+ id 1wIRjW-0001xf-Cq
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2026 13:47:14 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wIQrd-005gLh-UH
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2026 14:51:33 +0200
+ id 1wIRjV-0086Dx-Ag
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2026 15:47:13 +0200
 Received: from [10.42.69.12] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69f35053-2eae-0a2a0a5409dd-0a2a450cab80-20
- for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 14:51:33 +0200
-Received: from [52.101.193.11]
- (helo=CH1PR05CU001.outbound.protection.outlook.com)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ddea4b728000f373@swg.vates.tech>)
+ id 69f35d5f-bab6-0a2a0a5309dd-0a2a450c923c-6
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 15:47:13 +0200
+Received: from [185.255.28.34] (helo=prod-mta-13.swg-srv.net)
  by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 69f35054-62f1-0a2a450c0019-3465c10bc5ad-3
- for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 14:51:33 +0200
-Received: from CY5PR22CA0049.namprd22.prod.outlook.com (2603:10b6:930:1d::14)
- by DS5PPF23E22D637.namprd12.prod.outlook.com (2603:10b6:f:fc00::647)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Thu, 30 Apr
- 2026 12:51:24 +0000
-Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
- (2603:10b6:930:1d:cafe::c) by CY5PR22CA0049.outlook.office365.com
- (2603:10b6:930:1d::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.30 via Frontend Transport; Thu,
- 30 Apr 2026 12:51:24 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.17) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9846.18 via Frontend Transport; Thu, 30 Apr 2026 12:51:24 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 30 Apr
- 2026 07:51:23 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 30 Apr
- 2026 07:51:23 -0500
-Received: from APPOL-18KY0J4.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via
- Frontend Transport; Thu, 30 Apr 2026 07:51:22 -0500
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19ddea4b728000f373@swg.vates.tech>)
+ id 69f35d60-62f1-0a2a450c0019-b9ff1c22903b-3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 15:47:13 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19ddea4b728000f373.006 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Thu, 30 Apr 2026 13:47:09 +0000
+Received: from [192.168.1.18] (88-175-170-134.subs.proxad.net [88.175.170.134])
+ (Authenticated sender: teddy.astie)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 37FC98282B;
+ Thu, 30 Apr 2026 15:47:09 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,344 +61,242 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YmZ3YWT6HzmIvFVts9fiNj70Lm6bZCvaCx9/wFDi0b3O3AntwXGG4cHneWAcItzW/9l+cisjSiQHgHXPsKII3m/8GeuMWBqE3mHxNaiUi0CnEYbsnMIrD6+Q9Ict18MG+hgcDqEFYMl5XrPWk/yyRB/7lPbj9I5ve7XofYQbLdEJCEXMzbzdm6MOFVI9FMzzmR4brYtiIGjjl3fPXfu0+BZKs8OoacaFCAD1w3Hs7eRBfWgo7LZg6KHQ91tTtomsB7yT0zebAx574UkFlOhwFDps56+oBE6YSMY/zL+dZmHe7cFyc3iJSXUsrcR8clI8ysJvYuY7OcKrnkdmaK9tcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zcbHI0zv2A6jo2sS47YYIVvT0gsxIj1LAE92tpjwNP0=;
- b=BujcZjhjKTevsaUa2SV4HDseb/kzfXKZ3bhl2w7RS/71amq+uq3a136iKXh4WWCkc60SnoXbGnXDwZwZcQW2Ew0VJ1sRR8ebZGRVQpQzOJWtFjAJZUUR/WrvqSXok9W6XZ35gF4zjWnB52TNAJFzYH2hPOJ5JdqrH2nqt8px1pzagVQUMc7jBD+I7OX4PniHSyxXy55UoroQzPtjLUvw6aDmlq7L5iriZIqRMs8uPz2FwWpDk2thhqf6Nulgi9ztdHCkAZ7AVJx95DY28p5N4880/3yZxXNZOHO1toGS5Ezez0IGU3W2qUubR+urALu+3nBcW/+Al1ASZtWaFuPYUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zcbHI0zv2A6jo2sS47YYIVvT0gsxIj1LAE92tpjwNP0=;
- b=4MhZ3O0/ahbGe0PtErpbzwB2MrZFUGl6G/NRlwNyPZgRoYCYJQXWf6Zd70b0zzsVnr/LEwzk5O636UdR74ScX3DYQ3JHFn0C2obmCQJlb3ASxthhMSO7aTYxfxn8nuFU2lLU7TwuCYJyZqZXSSKEB753FgnUSBmIaNLZjT8RUuk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 2/2] xen/arm: skip holes in physical address space when setting up frametable
-Date: Thu, 30 Apr 2026 14:51:03 +0200
-Message-ID: <20260430125103.401811-3-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260430125103.401811-1-michal.orzel@amd.com>
-References: <20260430125103.401811-1-michal.orzel@amd.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=vates.tech header.i="@vates.tech" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:In-Reply-To:References:Feedback-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=fYrT/JODRVd7P7ffSLbDeb9ahiLPYVUa3o+fs8IKnJ0=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=ea9HkZtzsoxbUv4oZa72f8GsKZo3sqTD6D+NMaZ+4AeRqPhQ9ADo9/61tcYZu1wENo2HvqiLA
+ 8dA/Ya0Qj1X62O4hw3ARFLee5dZhRg0GWglQw4R+R49iw6ZBy/iXVv+PzQqXd4g8u1eYc7arT9C
+ bpJhFuP49ajIprHK7h9W21HWvS2tQ5fZ/LXEGDcuzlUceMezOOzQEX+8j7am96W7IkPGm05uYwt
+ osdseIZU+y4YT8smrNUczMUIiqgnRLMTrmVEoLxtSU62EHN3Wia6e52P9L75uYnVv39GU/ko/vS
+ +jHrGiBBBiu3oZlIJRtdoaMVdOvXQq1U2fcS2K8b5NKA==
+X-Zone-Loop: d092762f139a051628d393a2881818492a25c28669a2
+x-campaign-type: default
+x-transaction-id: d7f841e6-baf7-4657-a8e4-caa108e7b7f8
+x-swg-uid: 01-9b82dfce-6446-4419-a192-ad90733d7ca8
+X-Mailer: Sweego
+Message-ID:
+ <1777556830.8631fc262581453bbf619ec5b2062170.19ddea4b728000f373@vates.tech>
+x-swg-bid: 1777556830.8631fc262581453bbf619ec5b2062170.19ddea4b728000f373
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Thu, 30 Apr 2026 15:47:08 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|DS5PPF23E22D637:EE_
-X-MS-Office365-Filtering-Correlation-Id: bde2a835-c25d-402c-bbe9-08dea6b72fd1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	cM31aXSWWhzVuT3q9bs3ZAH9jzM2GuN4l3/Cjc2emCjR5n9nKlAEwLTEgDyhUbujSEQvZRfjfpI6HFsm1XxDD2iniUKtYwRmQPiu5xHVKQVtYSazkLpOOBLWBtGTusCGiyxrHWPRY1A7i/4sLNwT8XUiz8M0kDR5Gx2rr7sxE0aZM+BQ9tS4pP5doP5Z+KrKqYgNPrAVkBqLCgG79MRTDMHcebV9Yl2zLoa4km6RoXwwUhFj4W6BGu3f1IIkknAge3CKZvHjhk7bEXcbSiBcHuCghObvqw65iRMg4A+VfjwHa9devl22IzRaaEfpwAInk7f8PEAEO4n3ko2MQDcPYgw8/t/TglanWMsY7PSAzFGRBbbI5D1xbEuO782KodlI5Ne+oka83u+t1FQfwR3+Rnb6t+iBBsHmk1b3vLf3sgp+e23j/wlfwjtlco622kcIIdLh/CeL4Fw4bW7oE1qtck3IaykDD6ZV4mqXJLAVeruS+FrF3vLLNMTzt2D1jGiBL9xZIJ3ak4Pgrvg1KVkvvb5hqk7yRBNvKQA5YW3CaOJclytp1piJ3X32xzMmhW8jXNa1rOgaVmiuLTXmIP/hu/42Gg3I/DM7Uu53zXRIYEGeK5HYuwhJUxWksLhiMFkrQAOIlBJPQRPCwkgrEZFJhXs5MfFbLZEYEWXejBfyvIH1loyuWxQbwFlJLtvdFkUcej2cL6VvCuyT3XJ7DtsajQCEIWnWxAYToSBvP9j8oNYBYFs4Ll6CnnO/qrYVaU3v6ixm3+vzXNMiIGEdtdkKmw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	3xnPnRcNv+ncophZaaD9E57UXC7Nh2oAQNQCA5dsHiUk7abr8DJtnbe/Tyij3EkKvHUKZbryFR8wFEV6j0oW2g+Oca5DPsUBXBiDqZGvGesGQWsPZEYJlTmAUzcnOScwh6spyXPlJ77SkVbB11yntHQhGl9/NjSuEwLUdOt5CibiiIZkWUkr/4ZiAxDgZq3Lk8KHKH5Q/U8+3/eApmJP6Kd8RAgMTA4XvvYxJdB1+THUgqqBhmtvwORYgKNTbNPunqWpk+A+R780uksPf/a4Ki36/Fl8oOtzKp+Wx9TZ/6nfHHKL0/vFL8Z5WovSnhfgYL9q8QNZAQWkcUJfi3xyeoNSDTbuh4Gryv4ETG0Ia8zMXDk4jubeBTORspsZ+PmCvuKtX2mwuSduzXD75ZcALaiCD9jpzrdTGAEcIi73+dnvhCoZla2stcIhnY+pRzvL
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 12:51:24.3586
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bde2a835-c25d-402c-bbe9-08dea6b72fd1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE3F.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF23E22D637
-X-purgate-ID: tlsNG-d25034/1777553493-6C965CF5-70E86224/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] virtio-mmio: add xenbus probing
+To: Val Packett <val@invisiblethingslab.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?=
+ <eperezma@redhat.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Viresh Kumar <viresh.kumar@linaro.org>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux.dev
+References: <20260429141339.74472-1-val@invisiblethingslab.com>
+ <1777473712.8631fc262581453bbf619ec5b2062170.19dd9b07146000f373@vates.tech>
+ <fd6493ac-9d3e-475a-a844-6e53b0472820@invisiblethingslab.com>
+ <1777536698.8631fc262581453bbf619ec5b2062170.19ddd7187da000f373@vates.tech>
+ <74953b6a-d195-4a12-800d-af324ff35b29@invisiblethingslab.com>
+Content-Language: en-US
+From: Teddy Astie <teddy.astie@vates.tech>
+In-Reply-To: <74953b6a-d195-4a12-800d-af324ff35b29@invisiblethingslab.com>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.392.3352229d598ec846.19ddea4b4d9.80e67b5e2fed426=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1777556829402
+X-purgate-ID: tlsNG-d25034/1777556833-F5A00CF5-E32DBE9F/0/0
 X-purgate-type: clean
-X-purgate-size: 10032
-X-Rspamd-Queue-Id: A9CF34A2EC6
+X-purgate-size: 5804
+X-Rspamd-Queue-Id: 80A3C4A3A69
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+X-Spamd-Result: default: False [0.81 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	URI_COUNT_ODD(1.00)[5];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_MUA_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:val@invisiblethingslab.com,m:mst@redhat.com,m:jasowang@redhat.com,m:xuanzhuo@linux.alibaba.com,m:eperezma@redhat.com,m:marmarek@invisiblethingslab.com,m:viresh.kumar@linaro.org,m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,m:virtualization@lists.linux.dev,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[14];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_FIVE(0.00)[6];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:dkim,amd.com:mid]
+	RCVD_COUNT_SEVEN(0.00)[10]
 
-Refactor setup_frametable_mappings() into init_frametable(), modeled
-after x86's implementation. Instead of mapping one contiguous frametable
-covering ram_start to ram_end (including holes), iterate the
-pdx_group_valid bitmap to allocate and map frametable memory only for
-valid PDX groups, skipping gaps in the physical address space. At the
-moment we don't really take into account pdx_group_valid bitmap.
+---=Part.392.3352229d598ec846.19ddea4b4d9.80e67b5e2fed426=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-This reduces memory consumption on systems with sparse RAM layouts by
-not allocating frametable entries for non-existent memory regions.
+Le 30/04/2026 =C3=A0 10:51, Val Packett a =C3=A9crit=C2=A0:
+>=20
+> On 4/30/26 5:11 AM, Teddy Astie wrote:
+>> Le 30/04/2026 =C3=A0 06:06, Val Packett a =C3=A9crit=C2=A0:
+>>> On 4/29/26 11:41 AM, Teddy Astie wrote:
+>>>> Hello,
+>>>>
+>>>> Le 29/04/2026 =C3=A0 16:18, Val Packett a =C3=A9crit=C2=A0:
+>>>>> [=E2=80=A6]
+>>>>>
+>>>>> I've been working on porting virtio-mmio support from Arm to x86_64,
+>>>>> with the goal of running vhost-user-gpu to power Wayland/GPU=20
+>>>>> integration
+>>>>> for Qubes OS=2E (I'm aware of various proposals for alternative virt=
+io
+>>>>> transports but virtio-mmio seems to be the only one that *is* upstre=
+am
+>>>>> already and just Works=2E=2E) Setting up virtio-mmio through xenbus,
+>>>>> initially
+>>>>> motivated just by event channels being the only real way to get
+>>>>> interrupts
+>>>>> working on HVM, turned out to generally be quite pleasant and nice :=
+)
+>>>> Is it HVM specific, or can we also make it work for PVH (we can=20
+>>>> actually
+>>>> attach a ioreq server to PVH guests) ?
+>>> Sorry, typo, I did mean PVH of course!
+>>>
+>>> I've been testing this with PVH guests + PV dom0, with my PV alloc_ior=
+eq
+>>> fix:
+>>> https://lore=2Ekernel=2Eorg/all/20251126062124=2E117425-1-
+>>> val@invisiblethingslab=2Ecom/
+>>>
+>>> (Time to resend that one as a non-RFC I guess=E2=80=A6)
+>>>
+>>> HVM actually does have legacy ISA interrupts (which are often used wit=
+h
+>>> virtio-mmio on KVM), funnily enough, and I've tried firing those from =
+a
+>>> DMOP but that silly thing didn't work properly=2E
+>>>
+>>>>> I'd like to get some early feedback for this patch, particularly
+>>>>> the general stuff:
+>>>>>
+>>>>> * is this whole thing acceptable in general?
+>>>>> * should it be extracted into a different file?
+>>>>> * (from the Xen side) any input on the xenstore keys, what goes wher=
+e?
+>>>>> * anything else to keep in mind?
+>>>>>
+>>>>> It does seem simple enough, so hopefully this can be done?
+>>>>>
+>>>>> The corresponding userspace-side WIP is available at:
+>>>>> https://github=2Ecom/QubesOS/xen-vhost-frontend
+>>>>>
+>>>>> And the required DMOP for firing the evtchn events will be sent
+>>>>> to xen-devel shortly as well=2E
+>>>> Could that be done through evtchn_send (or its userland counterpart) =
+?
+>>> Actually, yes=E2=80=A6 The use of DMOPs is only dictated by the curren=
+t Linux
+>>> privcmd=2Ec code (the irqfds created by the kernel react to events by
+>>> executing HYPERVISOR_dm_op with a stored operation), we can avoid the
+>>> need to modify Xen by simply expanding the privcmd driver to make
+>>> "evtchn fds"=2E Sounds good, will do=2E
+>>>
+>> Given that the event channel used by device models is exposed through
+>> ioreq=2Evp_eport ("evtchn for notifications to/from device model")=2E I
+>> don't think you need to expand the privcmd interface, and you should be
+>> able to do this instead :
+>>
+>> open /dev/xen/evtchn
+>> perform IOCTL_EVTCHN_BIND_INTERDOMAIN (for each guest vCPU)
+>> =C2=A0=C2=A0=C2=A0 with remote_domain=3Dguest_domid, remote_port=3Diore=
+q=2Evp_eport
+>>
+>> Then interact with the event channel through IOCTL_EVTCHN_NOTIFY (with
+>> local port given by IOCTL_EVTCHN_BIND_INTERDOMAIN) and read/write on th=
+e
+>> file descriptor=2E
+>=20
+> So the reason there's currently an ioctl to bind an eventfd to fire a=20
+> stored DMOP is that the whole idea is to (efficiently!) support generic,=
+=20
+> hypervisor-neutral device server implementations via the vhost-user=20
+> protocol=2E
+>=20
+> Now of course, the current implementation isn't *entirely* hypervisor-=
+=20
+> neutral as e=2Eg=2E the vm-memory Rust crate (inside of the "neutral" vh=
+ost-=20
+> user device servers) does need to be built with the `xen` feature=2E But=
+=20
+> still, that's how it works=2E What can be made generic is generic=2E
+>=20
+> xen-vhost-frontend, which is the thing that integrates these with Xen,=
+=20
+> actually used to handle the interrupts in userspace[1] by firing the=20
+> DMOP itself (which is where I could "just replace that with=20
+> IOCTL_EVTCHN_NOTIFY") but that was offloaded to the kernel with the=20
+> introduction of IOCTL_PRIVCMD_IRQFD[2], similarly to KVM_IRQFD=2E
+>=20
 
-The chunk allocator rounds chunk_size up to PAGE_SIZE only, rather than
-to a larger mapping granularity, to avoid overshooting past chunk
-boundaries into subsequent gaps or valid regions. This rounding has no
-impact for in-loop chunks given that chunk size is multiple of 14MB on
-Arm64 and 2MB on Arm32. The rounding matters only for the last out-of-loop
-chunk. Physical allocations use 32MB alignment so that map_pages_to_xen()
-can use the contiguous bit for larger TLB entries where virtual alignment
-also permits.
+I think what would be preferable for your usecase would be to have a way=
+=20
+to bind a event channel with a eventfd object, which should be a=20
+primitive that lives in the evtchn device=2E
 
-Update the MPU implementation to match the new init_frametable()
-signature. Since MPU has no virtual address translation (ma == va),
-hole-skipping is not possible and the frametable remains a single
-contiguous allocation.
+The current interface kinda assume that you're looking to emulate a=20
+completely emulated virtio device with no Xen specifics, it looks like=20
+it's not exactly what you're implementing=2E
 
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
-Changes in v2:
- - fix overshoot problem with 32MB rounding
----
- xen/arch/arm/arm32/mmu/mm.c   |  3 +-
- xen/arch/arm/include/asm/mm.h |  4 +-
- xen/arch/arm/mm.c             |  2 +-
- xen/arch/arm/mmu/mm.c         | 89 ++++++++++++++++++++++++++---------
- xen/arch/arm/mpu/mm.c         | 23 ++++-----
- 5 files changed, 82 insertions(+), 39 deletions(-)
+As you actually plan to switch to using event channels for notifying the=
+=20
+guest, I think it would be preferable to do the same the other way=20
+(event channels to notify the host) so you only have event channels to=20
+worry about here=2E
 
-diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
-index 5e4766ddcf65..0b595baa11b3 100644
---- a/xen/arch/arm/arm32/mmu/mm.c
-+++ b/xen/arch/arm/arm32/mmu/mm.c
-@@ -178,8 +178,7 @@ void __init setup_mm(void)
- 
-     setup_directmap_mappings(mfn_x(directmap_mfn_start), xenheap_pages);
- 
--    /* Frame table covers all of RAM region, including holes */
--    setup_frametable_mappings(ram_start, ram_end);
-+    init_frametable(ram_start);
- 
-     /*
-      * The allocators may need to use map_domain_page() (such as for
-diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-index 8180b1e12baf..2616a1305d58 100644
---- a/xen/arch/arm/include/asm/mm.h
-+++ b/xen/arch/arm/include/asm/mm.h
-@@ -191,8 +191,8 @@ extern void *early_fdt_map(paddr_t fdt_paddr);
- extern void remove_early_mappings(void);
- /* Prepare the memory subystem to bring-up the given secondary CPU */
- extern int prepare_secondary_mm(int cpu);
--/* Map a frame table to cover physical addresses ps through pe */
--extern void setup_frametable_mappings(paddr_t ps, paddr_t pe);
-+/* Map a frame table */
-+void init_frametable(paddr_t ram_start);
- /* Helper function to setup memory management */
- void setup_mm_helper(void);
- /* map a physical range in virtual memory */
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index faef0efb327c..7297cca01551 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -63,7 +63,7 @@ void __init setup_mm(void)
- 
-     setup_mm_helper();
- 
--    setup_frametable_mappings(ram_start, ram_end);
-+    init_frametable(ram_start);
- 
-     init_staticmem_pages();
-     init_sharedmem_pages();
-diff --git a/xen/arch/arm/mmu/mm.c b/xen/arch/arm/mmu/mm.c
-index 6604f3bf4e6a..dfc888c8ee0e 100644
---- a/xen/arch/arm/mmu/mm.c
-+++ b/xen/arch/arm/mmu/mm.c
-@@ -6,18 +6,45 @@
- #include <xen/mm.h>
- #include <xen/mm-frame.h>
- #include <xen/pdx.h>
-+#include <xen/sizes.h>
- #include <xen/string.h>
- 
--/* Map a frame table to cover physical addresses ps through pe */
--void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
-+static void __init init_frametable_chunk(unsigned long pdx_s,
-+                                         unsigned long pdx_e)
- {
--    unsigned long nr_pdxs = mfn_to_pdx(mfn_add(maddr_to_mfn(pe), -1)) -
--                            mfn_to_pdx(maddr_to_mfn(ps)) + 1;
--    unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
--    mfn_t base_mfn;
--    const unsigned long mapping_size = frametable_size < MB(32) ? MB(2)
--                                                                : MB(32);
-+    unsigned long nr_pdxs = pdx_e - pdx_s;
-+    unsigned long chunk_size = nr_pdxs * sizeof(struct page_info);
-+    unsigned long virt;
-     int rc;
-+    mfn_t base_mfn;
-+
-+    /*
-+     * In-loop chunks span whole PDX groups, which are always page-size
-+     * aligned. The last chunk ending at max_pdx may not be, so round up.
-+     */
-+    chunk_size = ROUNDUP(chunk_size, PAGE_SIZE);
-+
-+    /*
-+     * Align the allocation to the contiguous mapping size so that
-+     * map_pages_to_xen() can use the contiguous bit.
-+     */
-+    base_mfn = alloc_boot_pages(chunk_size >> PAGE_SHIFT,
-+                                MB(32) >> PAGE_SHIFT);
-+
-+    virt = (unsigned long)pdx_to_page(pdx_s);
-+    rc = map_pages_to_xen(virt, base_mfn, chunk_size >> PAGE_SHIFT,
-+                          PAGE_HYPERVISOR_RW | _PAGE_BLOCK);
-+    if ( rc )
-+        panic("Unable to setup the frametable mappings\n");
-+
-+    memset(pdx_to_page(pdx_s), 0, nr_pdxs * sizeof(struct page_info));
-+    memset(pdx_to_page(pdx_e), -1,
-+           chunk_size - nr_pdxs * sizeof(struct page_info));
-+}
-+
-+void __init init_frametable(paddr_t ram_start)
-+{
-+    unsigned int sidx, nidx, max_idx;
- 
-     /*
-      * The size of paddr_t should be sufficient for the complete range of
-@@ -26,24 +53,40 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
-     BUILD_BUG_ON((sizeof(paddr_t) * BITS_PER_BYTE) < PADDR_BITS);
-     BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
- 
--    if ( frametable_size > FRAMETABLE_SIZE )
--        panic("The frametable cannot cover the physical region %#"PRIpaddr" - %#"PRIpaddr"\n",
--              ps, pe);
-+    /* init_frametable_chunk() allocation alignment assumes 4KB granule */
-+    BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
- 
--    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ps));
--    /* Round up to 2M or 32M boundary, as appropriate. */
--    frametable_size = ROUNDUP(frametable_size, mapping_size);
--    base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 32<<(20-12));
-+    /* In-loop chunks must produce page-aligned frametable regions */
-+    BUILD_BUG_ON((PDX_GROUP_COUNT * sizeof(struct page_info)) % PAGE_SIZE);
- 
--    rc = map_pages_to_xen(FRAMETABLE_VIRT_START, base_mfn,
--                          frametable_size >> PAGE_SHIFT,
--                          PAGE_HYPERVISOR_RW | _PAGE_BLOCK);
--    if ( rc )
--        panic("Unable to setup the frametable mappings.\n");
-+    max_idx = DIV_ROUND_UP(max_pdx, PDX_GROUP_COUNT);
-+    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ram_start));
-+
-+    /*
-+     * pdx_to_page(pdx_s) in init_frametable_chunk must be page-aligned
-+     * for map_pages_to_xen(). Aligning to PDX_GROUP_COUNT guarantees this
-+     * because PDX_GROUP_COUNT * sizeof(page_info) is always a multiple of
-+     * PAGE_SIZE by construction.
-+     */
-+    frametable_base_pdx = ROUNDDOWN(frametable_base_pdx, PDX_GROUP_COUNT);
-+
-+    if ( (max_pdx - frametable_base_pdx) > FRAMETABLE_NR )
-+        panic("Frametable too small\n");
-+
-+    for ( sidx = (frametable_base_pdx / PDX_GROUP_COUNT); ; sidx = nidx )
-+    {
-+        unsigned int eidx;
-+
-+        eidx = find_next_zero_bit(pdx_group_valid, max_idx, sidx);
-+        nidx = find_next_bit(pdx_group_valid, max_idx, eidx);
-+
-+        if ( nidx >= max_idx )
-+            break;
-+
-+        init_frametable_chunk(sidx * PDX_GROUP_COUNT, eidx * PDX_GROUP_COUNT);
-+    }
- 
--    memset(&frame_table[0], 0, nr_pdxs * sizeof(struct page_info));
--    memset(&frame_table[nr_pdxs], -1,
--           frametable_size - (nr_pdxs * sizeof(struct page_info)));
-+    init_frametable_chunk(sidx * PDX_GROUP_COUNT, max_pdx);
- }
- 
- /*
-diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
-index aff88bd3a9c1..9c568831c128 100644
---- a/xen/arch/arm/mpu/mm.c
-+++ b/xen/arch/arm/mpu/mm.c
-@@ -186,16 +186,15 @@ static int is_mm_attr_match(pr_t *region, unsigned int attributes)
-     return 0;
- }
- 
--/* Map a frame table to cover physical addresses ps through pe */
--void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
-+/*
-+ * Allocate a contiguous frame table covering ram_start through max_pdx.
-+ * Unlike the MMU version, MPU cannot skip holes because there is no virtual
-+ * address translation (ma == va).
-+ */
-+void __init init_frametable(paddr_t ram_start)
- {
-+    unsigned long nr_pdxs, frametable_size;
-     mfn_t base_mfn;
--    paddr_t aligned_ps = ROUNDUP(ps, PAGE_SIZE);
--    paddr_t aligned_pe = ROUNDDOWN(pe, PAGE_SIZE);
--
--    unsigned long nr_pdxs = mfn_to_pdx(mfn_add(maddr_to_mfn(aligned_pe), -1)) -
--                            mfn_to_pdx(maddr_to_mfn(aligned_ps)) + 1;
--    unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
- 
-     /*
-      * The size of paddr_t should be sufficient for the complete range of
-@@ -204,11 +203,13 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
-     BUILD_BUG_ON((sizeof(paddr_t) * BITS_PER_BYTE) < PADDR_BITS);
-     BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
- 
-+    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ram_start));
-+    nr_pdxs = max_pdx - frametable_base_pdx;
-+    frametable_size = nr_pdxs * sizeof(struct page_info);
-+
-     if ( frametable_size > FRAMETABLE_SIZE )
--        panic("The frametable cannot cover the physical region %#"PRIpaddr" - %#"PRIpaddr"\n",
--              ps, pe);
-+        panic("Frametable too small\n");
- 
--    frametable_base_pdx = paddr_to_pdx(aligned_ps);
-     frametable_size = ROUNDUP(frametable_size, PAGE_SIZE);
- 
-     base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 1);
+> Switching back to handling the eventfd in userspace would be a literal=
+=20
+> deoptimization :)
+> > While throwing away the whole generic layer to do a fully integrated
+> use-case-specific thing sounds more difficult/tedious than this, and not=
+=20
+> necessarily desirable in general=2E
+>=20
+> [1]: https://github=2Ecom/vireshk/xen-vhost-frontend/=20
+> commit/06d59035f8a387c0f600931d09dfaa27b80ede7f
+> [2]: https://git=2Ekernel=2Eorg/pub/scm/linux/kernel/git/next/linux-=20
+> next=2Egit/commit/?id=3Df8941e6c4c712948663ec5d7bbb546f1a0f4e3f6
+>=20
+> ~val
+>=20
+>=20
+
+
+
 -- 
-2.43.0
+Teddy Astie | Vates XCP-ng Developer
 
+XCP-ng & Xen Orchestra - Vates s=
+olutions
+
+web: https://vates=2Etech
+---=Part.392.3352229d598ec846.19ddea4b4d9.80e67b5e2fed426=---
 
