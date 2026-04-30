@@ -2,67 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qNNQLqBW82mLzgEAu9opvQ
+	id cCYdGq9Q82lnzQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 15:18:24 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 14:53:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBB104A3509
-	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 15:18:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1298144.1573681 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9CF34A2EC6
+	for <lists+xen-devel@lfdr.de>; Thu, 30 Apr 2026 14:53:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1298145.1573686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wIQrh-0001bu-TZ; Thu, 30 Apr 2026 12:51:37 +0000
+	id 1wIQri-0001hA-7C; Thu, 30 Apr 2026 12:51:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1298144.1573681; Thu, 30 Apr 2026 12:51:37 +0000
-Received: from [127.0.0.1] (helo=lists.xenproject.org)
+Received: by outflank-mailman (output) from mailman id 1298145.1573686; Thu, 30 Apr 2026 12:51:38 +0000
+Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wIQrh-0001Yn-QA; Thu, 30 Apr 2026 12:51:37 +0000
-Received: by outflank-mailman (input) for mailman id 1298144;
+	id 1wIQri-0001bw-2b; Thu, 30 Apr 2026 12:51:38 +0000
+Received: by outflank-mailman (input) for mailman id 1298145;
  Thu, 30 Apr 2026 12:51:34 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Michal.Orzel@amd.com>) id 1wIQre-0001YD-GY
+ (envelope-from <Michal.Orzel@amd.com>) id 1wIQre-0001YE-I1
  for xen-devel@lists.xenproject.org; Thu, 30 Apr 2026 12:51:34 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wIQra-005gLh-RX
- for xen-devel@lists.xenproject.org; Thu, 30 Apr 2026 14:51:30 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wIQrd-005gLh-UH
+ for xen-devel@lists.xenproject.org; Thu, 30 Apr 2026 14:51:33 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <Michal.Orzel@amd.com>)
- id 69f35049-2eae-0a2a0a5409dd-0a2a4502d1f0-26
- for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 14:51:30 +0200
-Received: from [40.107.200.65]
- (helo=CH5PR02CU005.outbound.protection.outlook.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69f35053-2eae-0a2a0a5409dd-0a2a450cab80-20
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 14:51:33 +0200
+Received: from [52.101.193.11]
+ (helo=CH1PR05CU001.outbound.protection.outlook.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <Michal.Orzel@amd.com>)
- id 69f35050-af86-0a2a45020019-286bc8413f95-3
- for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 14:51:29 +0200
-Received: from BN9P221CA0020.NAMP221.PROD.OUTLOOK.COM (2603:10b6:408:10a::32)
- by IA1PR12MB7663.namprd12.prod.outlook.com (2603:10b6:208:424::18)
+ id 69f35054-62f1-0a2a450c0019-3465c10bc5ad-3
+ for <xen-devel@lists.xenproject.org>; Thu, 30 Apr 2026 14:51:33 +0200
+Received: from CY5PR22CA0049.namprd22.prod.outlook.com (2603:10b6:930:1d::14)
+ by DS5PPF23E22D637.namprd12.prod.outlook.com (2603:10b6:f:fc00::647)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.20; Thu, 30 Apr
- 2026 12:51:23 +0000
-Received: from BN1PEPF00004685.namprd03.prod.outlook.com
- (2603:10b6:408:10a:cafe::f5) by BN9P221CA0020.outlook.office365.com
- (2603:10b6:408:10a::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.21 via Frontend Transport; Thu,
- 30 Apr 2026 12:51:22 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004685.mail.protection.outlook.com (10.167.243.86) with Microsoft
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Thu, 30 Apr
+ 2026 12:51:24 +0000
+Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
+ (2603:10b6:930:1d:cafe::c) by CY5PR22CA0049.outlook.office365.com
+ (2603:10b6:930:1d::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9846.30 via Frontend Transport; Thu,
+ 30 Apr 2026 12:51:24 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9870.22 via Frontend Transport; Thu, 30 Apr 2026 12:51:22 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9846.18 via Frontend Transport; Thu, 30 Apr 2026 12:51:24 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 30 Apr
- 2026 07:51:22 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 07:51:23 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 30 Apr
- 2026 05:51:22 -0700
+ 2026 07:51:23 -0500
 Received: from APPOL-18KY0J4.xilinx.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via
- Frontend Transport; Thu, 30 Apr 2026 07:51:20 -0500
+ Frontend Transport; Thu, 30 Apr 2026 07:51:22 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -76,38 +76,34 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bvaBVywlwhfPpI88zUPtEDCNhtZxj7qTDOsozYydv2P+bONz2xwjZfWwdLk2EoGew7V6oK/4lxtZdQxQ4Dp0eAFDujBa68UhdaBsS1yvsY7kz5nr4RuHP5eKwOLIFriKizeV7x5tYos0VJ4SCBr3fls+1LSOjk1yuUVmRXtssBO+dvVUzLzsK4CCJHmsYRKqc/cDB/icnNMmnZUe7C85zFyJW27IhoScL9QBRt5/iKivfqS4KaXsm+FCXqLtPL9vHUye32MgkhMvc0QM9ZykTCBivt4TZgqBAGw6et7i6roUFdFoFZVN6t2Qjn1prsQbbfyPnIFS6p24M7gH2I3L+g==
+ b=YmZ3YWT6HzmIvFVts9fiNj70Lm6bZCvaCx9/wFDi0b3O3AntwXGG4cHneWAcItzW/9l+cisjSiQHgHXPsKII3m/8GeuMWBqE3mHxNaiUi0CnEYbsnMIrD6+Q9Ict18MG+hgcDqEFYMl5XrPWk/yyRB/7lPbj9I5ve7XofYQbLdEJCEXMzbzdm6MOFVI9FMzzmR4brYtiIGjjl3fPXfu0+BZKs8OoacaFCAD1w3Hs7eRBfWgo7LZg6KHQ91tTtomsB7yT0zebAx574UkFlOhwFDps56+oBE6YSMY/zL+dZmHe7cFyc3iJSXUsrcR8clI8ysJvYuY7OcKrnkdmaK9tcg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2YCO5UKjNJP5UOoj3rYV3rGfJdTy+pPmVxC0pvAcvis=;
- b=bKDKuRGVwq9uZTJgwk/ZfUpFj5dFhmUbnHAS7gckEag9RsBYijr+dDh+8jJgH6sZvHMZfcvMBkHkY/HJEaDGaHx0rgzsuBgdASNCiaP1uiUsi6FDFfeUbs7jjJWBoNxV7FFPhPeqKt8KHxdfxUDHC0Ar2K+iZeUO0WRKAh5qTEYzEZ3Pi+NSGUI/mBP8b1WCXD1hrbJkNvvihp5hTkPI8YFzIX/PgEO0Db60k2G9DB3zLnnRrXeDVx35FV25tz+VXjztHK3SlrICmGH16TjdfqgFqDHbAOCI8ZNluyrutRejJ3tMGWEBFYgC3EslZs/n95o/2/4UrnnWZlE9mw3B9g==
+ bh=zcbHI0zv2A6jo2sS47YYIVvT0gsxIj1LAE92tpjwNP0=;
+ b=BujcZjhjKTevsaUa2SV4HDseb/kzfXKZ3bhl2w7RS/71amq+uq3a136iKXh4WWCkc60SnoXbGnXDwZwZcQW2Ew0VJ1sRR8ebZGRVQpQzOJWtFjAJZUUR/WrvqSXok9W6XZ35gF4zjWnB52TNAJFzYH2hPOJ5JdqrH2nqt8px1pzagVQUMc7jBD+I7OX4PniHSyxXy55UoroQzPtjLUvw6aDmlq7L5iriZIqRMs8uPz2FwWpDk2thhqf6Nulgi9ztdHCkAZ7AVJx95DY28p5N4880/3yZxXNZOHO1toGS5Ezez0IGU3W2qUubR+urALu+3nBcW/+Al1ASZtWaFuPYUw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2YCO5UKjNJP5UOoj3rYV3rGfJdTy+pPmVxC0pvAcvis=;
- b=eg5rD+vYVLyPGiBS+nW3sPaenqzzs2MRkqczmGLLt8GHNxSopP6sBP4xRJVMlgBcM5BQAnmUDJMwIT5eMXtISBeXjG6ThHJtjsYQ1A65DYjaZkyTdeXeG6ToEkb6seYOxoErbVMuzUHGD1e7gViMGvytNg7LdF1jSTflznikQvA=
+ bh=zcbHI0zv2A6jo2sS47YYIVvT0gsxIj1LAE92tpjwNP0=;
+ b=4MhZ3O0/ahbGe0PtErpbzwB2MrZFUGl6G/NRlwNyPZgRoYCYJQXWf6Zd70b0zzsVnr/LEwzk5O636UdR74ScX3DYQ3JHFn0C2obmCQJlb3ASxthhMSO7aTYxfxn8nuFU2lLU7TwuCYJyZqZXSSKEB753FgnUSBmIaNLZjT8RUuk=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 From: Michal Orzel <michal.orzel@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
-	<anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Timothy Pearson
-	<tpearson@raptorengineering.com>, Teddy Astie <teddy.astie@vates.tech>
-Subject: [PATCH v2 1/2] xen/pdx: account for frametable_base_pdx in generic pdx_to_page/page_to_pdx
-Date: Thu, 30 Apr 2026 14:51:02 +0200
-Message-ID: <20260430125103.401811-2-michal.orzel@amd.com>
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v2 2/2] xen/arm: skip holes in physical address space when setting up frametable
+Date: Thu, 30 Apr 2026 14:51:03 +0200
+Message-ID: <20260430125103.401811-3-michal.orzel@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260430125103.401811-1-michal.orzel@amd.com>
 References: <20260430125103.401811-1-michal.orzel@amd.com>
@@ -116,34 +112,34 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004685:EE_|IA1PR12MB7663:EE_
-X-MS-Office365-Filtering-Correlation-Id: d4c39c95-59b2-40c3-3ee6-08dea6b72ec9
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|DS5PPF23E22D637:EE_
+X-MS-Office365-Filtering-Correlation-Id: bde2a835-c25d-402c-bbe9-08dea6b72fd1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|7416014|376014|22082099003|18002099003|56012099003;
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|22082099003|18002099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	Ppu52g47T4U52UtUyCsQSCLmp/cPAgIejx/hD3De8OcV+z0llRquhPqCZMC83m2y/WzokENn0PlsPM2t+VFqqbvflLyXn4rOSZ3ypVXBjIvDC6JNJ4UpwO7+nymZjXqOkqSI+IfnQrnnG3NE9o3u7HXFeYyMv2xWMUFCSo2mqlSrJTSKqk2o5blNjdYpYuHEbCK4yzbHe9JwsdeBP5nT+mbi8YgSYc26KgtCIgjpdivgxWf7An7H+4J7EpYEQFZrGW87Yy8c7PLDNOgCWBTK8nSQ4TMApAxCJenoBaWbVyOK0nj256DEPlCAyRZ1M6yh1NctEpN+ZP7GHuP27Ljww+kn8Bzv4OiDkoqr7FRryrJO6Nquu6IbC88025klSnIVTxOT1scjMQ4xyiEukN9kr6MXVIvzhyqY559HB74SuQ/3qP8cgGmVQMaMEDcsoxQ1h995GcxHFg04KOI972B4GMnNHA6apUmB7bTFtDqncU5dmXSgMfTEgS8N6dB+FA3chVHpoWnk/X1KqnNkFkTq92Q5RhWaz6NIx3+cavh2CP1JM3fMr3ncyIbR0I1e5yH/3btLOe9GsLehvZHI5i8UdQRsczCi1BWRSMeMHOBLwpRAb6gWVDpzup4A09AZK50y2poqfSjTne61qPuWlZDXY3r6JEVeKS1K6OAsCeZHS1mBhnbptk5ggJVJfR1EJfqMtAeHpP1XwCReNXxwIaahIzMctjvuLO+jAxGrE8Gb3twjiNcp6zf+4uh7GYiG6uWnPz+OVgesPtTS2+Qj0N2S7g==
+	cM31aXSWWhzVuT3q9bs3ZAH9jzM2GuN4l3/Cjc2emCjR5n9nKlAEwLTEgDyhUbujSEQvZRfjfpI6HFsm1XxDD2iniUKtYwRmQPiu5xHVKQVtYSazkLpOOBLWBtGTusCGiyxrHWPRY1A7i/4sLNwT8XUiz8M0kDR5Gx2rr7sxE0aZM+BQ9tS4pP5doP5Z+KrKqYgNPrAVkBqLCgG79MRTDMHcebV9Yl2zLoa4km6RoXwwUhFj4W6BGu3f1IIkknAge3CKZvHjhk7bEXcbSiBcHuCghObvqw65iRMg4A+VfjwHa9devl22IzRaaEfpwAInk7f8PEAEO4n3ko2MQDcPYgw8/t/TglanWMsY7PSAzFGRBbbI5D1xbEuO782KodlI5Ne+oka83u+t1FQfwR3+Rnb6t+iBBsHmk1b3vLf3sgp+e23j/wlfwjtlco622kcIIdLh/CeL4Fw4bW7oE1qtck3IaykDD6ZV4mqXJLAVeruS+FrF3vLLNMTzt2D1jGiBL9xZIJ3ak4Pgrvg1KVkvvb5hqk7yRBNvKQA5YW3CaOJclytp1piJ3X32xzMmhW8jXNa1rOgaVmiuLTXmIP/hu/42Gg3I/DM7Uu53zXRIYEGeK5HYuwhJUxWksLhiMFkrQAOIlBJPQRPCwkgrEZFJhXs5MfFbLZEYEWXejBfyvIH1loyuWxQbwFlJLtvdFkUcej2cL6VvCuyT3XJ7DtsajQCEIWnWxAYToSBvP9j8oNYBYFs4Ll6CnnO/qrYVaU3v6ixm3+vzXNMiIGEdtdkKmw==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(7416014)(376014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	9KK/JxHke4udpLXmUFB4bhTAtPqsoJmFoFTIGwkRwnE5ARcEPXTKwWp14914me/d33m1OtZen1aTREMnFLVBhh4MZZAc1rizClm6oiEeteZ1nGlHl9DE2SsdiDnthi0VlL2Rl9DB33BZJsqNxW5tJP3Y3QMZjsog3UuvASjy0A4Njpl58Kw0rCA/JVEfUwq0hG1bmqDTZIMA4hDRL8Q5B3ZdRgbf5k2TQwJTuWbLAWz/y63Nx6kYWxxwR8kMFoHkFexloibo7++imFVBzZy0TQv60QgQM5IeBGbjv8XuiE0UL+qy0SxRZQAY3u3ahjRCLpJGdpcyDvwnRwQ9jnI0ZnrmwAYbF3Q8/6sbJG14DQ6rMTP41Fq3o8alfVCns7v+2Umk9zMjukWPM9EZXxU90VOi4JVs4I7etlOTVN+I01Ak5PKap7Cbmyv0FxHip/e4
+	3xnPnRcNv+ncophZaaD9E57UXC7Nh2oAQNQCA5dsHiUk7abr8DJtnbe/Tyij3EkKvHUKZbryFR8wFEV6j0oW2g+Oca5DPsUBXBiDqZGvGesGQWsPZEYJlTmAUzcnOScwh6spyXPlJ77SkVbB11yntHQhGl9/NjSuEwLUdOt5CibiiIZkWUkr/4ZiAxDgZq3Lk8KHKH5Q/U8+3/eApmJP6Kd8RAgMTA4XvvYxJdB1+THUgqqBhmtvwORYgKNTbNPunqWpk+A+R780uksPf/a4Ki36/Fl8oOtzKp+Wx9TZ/6nfHHKL0/vFL8Z5WovSnhfgYL9q8QNZAQWkcUJfi3xyeoNSDTbuh4Gryv4ETG0Ia8zMXDk4jubeBTORspsZ+PmCvuKtX2mwuSduzXD75ZcALaiCD9jpzrdTGAEcIi73+dnvhCoZla2stcIhnY+pRzvL
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 12:51:22.6925
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2026 12:51:24.3586
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4c39c95-59b2-40c3-3ee6-08dea6b72ec9
+X-MS-Exchange-CrossTenant-Network-Message-Id: bde2a835-c25d-402c-bbe9-08dea6b72fd1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004685.namprd03.prod.outlook.com
+	CY4PEPF0000EE3F.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7663
-X-purgate-ID: tlsNG-720697/1777553489-B2969161-826374CE/0/0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF23E22D637
+X-purgate-ID: tlsNG-d25034/1777553493-6C965CF5-70E86224/0/0
 X-purgate-type: clean
-X-purgate-size: 7403
-X-Rspamd-Queue-Id: EBB104A3509
+X-purgate-size: 10032
+X-Rspamd-Queue-Id: A9CF34A2EC6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.69 / 15.00];
@@ -156,246 +152,265 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:tpearson@raptorengineering.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[14];
+	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
 	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[amd.com:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_FIVE(0.00)[6];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FROM_HAS_DN(0.00)[]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:dkim,amd.com:mid]
 
-The generic pdx_to_page() and page_to_pdx() macros in xen/pdx.h assume
-the frame table starts at PDX 0, which is only true on x86. ARM
-uses a non-zero frametable_base_pdx to offset into the frame table (PPC also
-defines it).
+Refactor setup_frametable_mappings() into init_frametable(), modeled
+after x86's implementation. Instead of mapping one contiguous frametable
+covering ram_start to ram_end (including holes), iterate the
+pdx_group_valid bitmap to allocate and map frametable memory only for
+valid PDX groups, skipping gaps in the physical address space. At the
+moment we don't really take into account pdx_group_valid bitmap.
 
-Fix the generic macros to subtract/add frametable_base_pdx, defaulting
-to 0 when the arch does not define it. This makes the generic macros
-correct for all architectures, even though they are only used on x86
-today.
+This reduces memory consumption on systems with sparse RAM layouts by
+not allocating frametable entries for non-existent memory regions.
 
-While at it, consolidate the arch-specific PDX definitions
-(frametable_base_pdx and PDX_GROUP_SHIFT) from the arch mm.h headers
-into new asm/pdx.h headers for ARM and PPC. The asm/pdx.h is included
-earlier in xen/pdx.h via __has_include, making these definitions available
-before they are needed.
+The chunk allocator rounds chunk_size up to PAGE_SIZE only, rather than
+to a larger mapping granularity, to avoid overshooting past chunk
+boundaries into subsequent gaps or valid regions. This rounding has no
+impact for in-loop chunks given that chunk size is multiple of 14MB on
+Arm64 and 2MB on Arm32. The rounding matters only for the last out-of-loop
+chunk. Physical allocations use 32MB alignment so that map_pages_to_xen()
+can use the contiguous bit for larger TLB entries where virtual alignment
+also permits.
 
-Also decouple the __has_include(<asm/pdx.h>) check from the PFN-to-PDX
-translation override mechanism. Previously, the existence of asm/pdx.h
-was taken to mean the arch provides custom pdx_to_pfn / pfn_to_pdx
-implementations. This conflation would prevent ARM and PPC from having
-asm/pdx.h (for frametable_base_pdx) without also being forced to define
-the translation helpers. Replace the __has_include gate with an explicit
-ARCH_DEFINES_PDX_XLATE sentinel that only x86 defines.
-
-No functional change.
+Update the MPU implementation to match the new init_frametable()
+signature. Since MPU has no virtual address translation (ma == va),
+hole-skipping is not possible and the frametable remains a single
+contiguous allocation.
 
 Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 ---
 Changes in v2:
- - new patch
+ - fix overshoot problem with 32MB rounding
 ---
- xen/arch/arm/include/asm/mm.h  |  5 -----
- xen/arch/arm/include/asm/pdx.h | 21 +++++++++++++++++++++
- xen/arch/arm/mm.c              |  1 +
- xen/arch/ppc/include/asm/mm.h  |  5 -----
- xen/arch/ppc/include/asm/pdx.h | 12 ++++++++++++
- xen/arch/ppc/mm-radix.c        |  1 +
- xen/arch/x86/include/asm/pdx.h |  6 ++++++
- xen/include/xen/pdx.h          | 17 ++++++++++++-----
- 8 files changed, 53 insertions(+), 15 deletions(-)
- create mode 100644 xen/arch/arm/include/asm/pdx.h
- create mode 100644 xen/arch/ppc/include/asm/pdx.h
+ xen/arch/arm/arm32/mmu/mm.c   |  3 +-
+ xen/arch/arm/include/asm/mm.h |  4 +-
+ xen/arch/arm/mm.c             |  2 +-
+ xen/arch/arm/mmu/mm.c         | 89 ++++++++++++++++++++++++++---------
+ xen/arch/arm/mpu/mm.c         | 23 ++++-----
+ 5 files changed, 82 insertions(+), 39 deletions(-)
 
+diff --git a/xen/arch/arm/arm32/mmu/mm.c b/xen/arch/arm/arm32/mmu/mm.c
+index 5e4766ddcf65..0b595baa11b3 100644
+--- a/xen/arch/arm/arm32/mmu/mm.c
++++ b/xen/arch/arm/arm32/mmu/mm.c
+@@ -178,8 +178,7 @@ void __init setup_mm(void)
+ 
+     setup_directmap_mappings(mfn_x(directmap_mfn_start), xenheap_pages);
+ 
+-    /* Frame table covers all of RAM region, including holes */
+-    setup_frametable_mappings(ram_start, ram_end);
++    init_frametable(ram_start);
+ 
+     /*
+      * The allocators may need to use map_domain_page() (such as for
 diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-index 72a692862420..8180b1e12baf 100644
+index 8180b1e12baf..2616a1305d58 100644
 --- a/xen/arch/arm/include/asm/mm.h
 +++ b/xen/arch/arm/include/asm/mm.h
-@@ -181,11 +181,6 @@ struct page_info
- 
- #define maddr_get_owner(ma)   (page_get_owner(maddr_to_page((ma))))
- 
--/* PDX of the first page in the frame table. */
--extern unsigned long frametable_base_pdx;
--
--#define PDX_GROUP_SHIFT SECOND_SHIFT
--
- /* Boot-time pagetable setup */
- extern void setup_pagetables(void);
- /* Check that the mapping flag has no W and X together */
-diff --git a/xen/arch/arm/include/asm/pdx.h b/xen/arch/arm/include/asm/pdx.h
-new file mode 100644
-index 000000000000..651df4b210dc
---- /dev/null
-+++ b/xen/arch/arm/include/asm/pdx.h
-@@ -0,0 +1,21 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef ARM_PDX_H
-+#define ARM_PDX_H
-+
-+#include <asm/lpae.h>
-+
-+#define PDX_GROUP_SHIFT SECOND_SHIFT
-+
-+#define ARCH_HAS_FRAMETABLE_BASE_PDX
-+extern unsigned long frametable_base_pdx;
-+
-+#endif /* ARM_PDX_H */
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+@@ -191,8 +191,8 @@ extern void *early_fdt_map(paddr_t fdt_paddr);
+ extern void remove_early_mappings(void);
+ /* Prepare the memory subystem to bring-up the given secondary CPU */
+ extern int prepare_secondary_mm(int cpu);
+-/* Map a frame table to cover physical addresses ps through pe */
+-extern void setup_frametable_mappings(paddr_t ps, paddr_t pe);
++/* Map a frame table */
++void init_frametable(paddr_t ram_start);
+ /* Helper function to setup memory management */
+ void setup_mm_helper(void);
+ /* map a physical range in virtual memory */
 diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index 6eddbcf912ee..faef0efb327c 100644
+index faef0efb327c..7297cca01551 100644
 --- a/xen/arch/arm/mm.c
 +++ b/xen/arch/arm/mm.c
-@@ -16,6 +16,7 @@
- #include <xen/static-shmem.h>
- #include <xen/vmap.h>
+@@ -63,7 +63,7 @@ void __init setup_mm(void)
  
-+#include <asm/pdx.h>
- #include <asm/setup.h>
+     setup_mm_helper();
  
- #include <xsm/xsm.h>
-diff --git a/xen/arch/ppc/include/asm/mm.h b/xen/arch/ppc/include/asm/mm.h
-index 402d06bdaa9f..d55393ff2aa4 100644
---- a/xen/arch/ppc/include/asm/mm.h
-+++ b/xen/arch/ppc/include/asm/mm.h
-@@ -163,9 +163,6 @@ struct page_info
- #define FRAMETABLE_VIRT_START  (XEN_VIRT_START + GB(32))
- #define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
+-    setup_frametable_mappings(ram_start, ram_end);
++    init_frametable(ram_start);
  
--/* PDX of the first page in the frame table. */
--extern unsigned long frametable_base_pdx;
--
- /* Convert between machine frame numbers and page-info structures. */
- #define mfn_to_page(mfn)                                            \
-     (frame_table + (mfn_to_pdx(mfn) - frametable_base_pdx))
-@@ -220,8 +217,6 @@ static inline void put_page_and_type(struct page_info *page)
- #define set_gpfn_from_mfn(mfn, pfn) BUG_ON("unimplemented")
- #define mfn_to_gfn(d, mfn) ({ BUG_ON("unimplemented"); _gfn(0); })
+     init_staticmem_pages();
+     init_sharedmem_pages();
+diff --git a/xen/arch/arm/mmu/mm.c b/xen/arch/arm/mmu/mm.c
+index 6604f3bf4e6a..dfc888c8ee0e 100644
+--- a/xen/arch/arm/mmu/mm.c
++++ b/xen/arch/arm/mmu/mm.c
+@@ -6,18 +6,45 @@
+ #include <xen/mm.h>
+ #include <xen/mm-frame.h>
+ #include <xen/pdx.h>
++#include <xen/sizes.h>
+ #include <xen/string.h>
  
--#define PDX_GROUP_SHIFT XEN_PT_SHIFT_LVL_3
--
- static inline unsigned long domain_get_maximum_gpfn(struct domain *d)
+-/* Map a frame table to cover physical addresses ps through pe */
+-void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
++static void __init init_frametable_chunk(unsigned long pdx_s,
++                                         unsigned long pdx_e)
  {
-     BUG_ON("unimplemented");
-diff --git a/xen/arch/ppc/include/asm/pdx.h b/xen/arch/ppc/include/asm/pdx.h
-new file mode 100644
-index 000000000000..4290c7bc9c36
---- /dev/null
-+++ b/xen/arch/ppc/include/asm/pdx.h
-@@ -0,0 +1,12 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef PPC_PDX_H
-+#define PPC_PDX_H
+-    unsigned long nr_pdxs = mfn_to_pdx(mfn_add(maddr_to_mfn(pe), -1)) -
+-                            mfn_to_pdx(maddr_to_mfn(ps)) + 1;
+-    unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
+-    mfn_t base_mfn;
+-    const unsigned long mapping_size = frametable_size < MB(32) ? MB(2)
+-                                                                : MB(32);
++    unsigned long nr_pdxs = pdx_e - pdx_s;
++    unsigned long chunk_size = nr_pdxs * sizeof(struct page_info);
++    unsigned long virt;
+     int rc;
++    mfn_t base_mfn;
 +
-+#include <asm/page.h>
++    /*
++     * In-loop chunks span whole PDX groups, which are always page-size
++     * aligned. The last chunk ending at max_pdx may not be, so round up.
++     */
++    chunk_size = ROUNDUP(chunk_size, PAGE_SIZE);
 +
-+#define PDX_GROUP_SHIFT XEN_PT_SHIFT_LVL_3
++    /*
++     * Align the allocation to the contiguous mapping size so that
++     * map_pages_to_xen() can use the contiguous bit.
++     */
++    base_mfn = alloc_boot_pages(chunk_size >> PAGE_SHIFT,
++                                MB(32) >> PAGE_SHIFT);
 +
-+#define ARCH_HAS_FRAMETABLE_BASE_PDX
-+extern unsigned long frametable_base_pdx;
++    virt = (unsigned long)pdx_to_page(pdx_s);
++    rc = map_pages_to_xen(virt, base_mfn, chunk_size >> PAGE_SHIFT,
++                          PAGE_HYPERVISOR_RW | _PAGE_BLOCK);
++    if ( rc )
++        panic("Unable to setup the frametable mappings\n");
 +
-+#endif /* PPC_PDX_H */
-diff --git a/xen/arch/ppc/mm-radix.c b/xen/arch/ppc/mm-radix.c
-index d5385ec9dd4b..2eddd86822e0 100644
---- a/xen/arch/ppc/mm-radix.c
-+++ b/xen/arch/ppc/mm-radix.c
-@@ -10,6 +10,7 @@
++    memset(pdx_to_page(pdx_s), 0, nr_pdxs * sizeof(struct page_info));
++    memset(pdx_to_page(pdx_e), -1,
++           chunk_size - nr_pdxs * sizeof(struct page_info));
++}
++
++void __init init_frametable(paddr_t ram_start)
++{
++    unsigned int sidx, nidx, max_idx;
  
- #include <asm/early_printk.h>
- #include <asm/page.h>
-+#include <asm/pdx.h>
- #include <asm/processor.h>
- #include <asm/regs.h>
- #include <asm/msr.h>
-diff --git a/xen/arch/x86/include/asm/pdx.h b/xen/arch/x86/include/asm/pdx.h
-index 6be7e1185eb1..5e660be17e39 100644
---- a/xen/arch/x86/include/asm/pdx.h
-+++ b/xen/arch/x86/include/asm/pdx.h
-@@ -3,8 +3,12 @@
- #ifndef X86_PDX_H
- #define X86_PDX_H
+     /*
+      * The size of paddr_t should be sufficient for the complete range of
+@@ -26,24 +53,40 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+     BUILD_BUG_ON((sizeof(paddr_t) * BITS_PER_BYTE) < PADDR_BITS);
+     BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
  
-+#ifndef CONFIG_PDX_NONE
-+
- #include <asm/alternative.h>
+-    if ( frametable_size > FRAMETABLE_SIZE )
+-        panic("The frametable cannot cover the physical region %#"PRIpaddr" - %#"PRIpaddr"\n",
+-              ps, pe);
++    /* init_frametable_chunk() allocation alignment assumes 4KB granule */
++    BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
  
-+#define ARCH_DEFINES_PDX_XLATE
+-    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ps));
+-    /* Round up to 2M or 32M boundary, as appropriate. */
+-    frametable_size = ROUNDUP(frametable_size, mapping_size);
+-    base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 32<<(20-12));
++    /* In-loop chunks must produce page-aligned frametable regions */
++    BUILD_BUG_ON((PDX_GROUP_COUNT * sizeof(struct page_info)) % PAGE_SIZE);
+ 
+-    rc = map_pages_to_xen(FRAMETABLE_VIRT_START, base_mfn,
+-                          frametable_size >> PAGE_SHIFT,
+-                          PAGE_HYPERVISOR_RW | _PAGE_BLOCK);
+-    if ( rc )
+-        panic("Unable to setup the frametable mappings.\n");
++    max_idx = DIV_ROUND_UP(max_pdx, PDX_GROUP_COUNT);
++    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ram_start));
 +
++    /*
++     * pdx_to_page(pdx_s) in init_frametable_chunk must be page-aligned
++     * for map_pages_to_xen(). Aligning to PDX_GROUP_COUNT guarantees this
++     * because PDX_GROUP_COUNT * sizeof(page_info) is always a multiple of
++     * PAGE_SIZE by construction.
++     */
++    frametable_base_pdx = ROUNDDOWN(frametable_base_pdx, PDX_GROUP_COUNT);
++
++    if ( (max_pdx - frametable_base_pdx) > FRAMETABLE_NR )
++        panic("Frametable too small\n");
++
++    for ( sidx = (frametable_base_pdx / PDX_GROUP_COUNT); ; sidx = nidx )
++    {
++        unsigned int eidx;
++
++        eidx = find_next_zero_bit(pdx_group_valid, max_idx, sidx);
++        nidx = find_next_bit(pdx_group_valid, max_idx, eidx);
++
++        if ( nidx >= max_idx )
++            break;
++
++        init_frametable_chunk(sidx * PDX_GROUP_COUNT, eidx * PDX_GROUP_COUNT);
++    }
+ 
+-    memset(&frame_table[0], 0, nr_pdxs * sizeof(struct page_info));
+-    memset(&frame_table[nr_pdxs], -1,
+-           frametable_size - (nr_pdxs * sizeof(struct page_info)));
++    init_frametable_chunk(sidx * PDX_GROUP_COUNT, max_pdx);
+ }
+ 
  /*
-  * Introduce a macro to avoid repeating the same asm goto block in each helper.
-  * Note the macro is strictly tied to the code in the helpers.
-@@ -59,6 +63,8 @@ static inline paddr_t directmapoff_to_maddr(unsigned long offset)
+diff --git a/xen/arch/arm/mpu/mm.c b/xen/arch/arm/mpu/mm.c
+index aff88bd3a9c1..9c568831c128 100644
+--- a/xen/arch/arm/mpu/mm.c
++++ b/xen/arch/arm/mpu/mm.c
+@@ -186,16 +186,15 @@ static int is_mm_attr_match(pr_t *region, unsigned int attributes)
+     return 0;
+ }
  
- #undef PDX_ASM_GOTO_SKIP
+-/* Map a frame table to cover physical addresses ps through pe */
+-void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
++/*
++ * Allocate a contiguous frame table covering ram_start through max_pdx.
++ * Unlike the MMU version, MPU cannot skip holes because there is no virtual
++ * address translation (ma == va).
++ */
++void __init init_frametable(paddr_t ram_start)
+ {
++    unsigned long nr_pdxs, frametable_size;
+     mfn_t base_mfn;
+-    paddr_t aligned_ps = ROUNDUP(ps, PAGE_SIZE);
+-    paddr_t aligned_pe = ROUNDDOWN(pe, PAGE_SIZE);
+-
+-    unsigned long nr_pdxs = mfn_to_pdx(mfn_add(maddr_to_mfn(aligned_pe), -1)) -
+-                            mfn_to_pdx(maddr_to_mfn(aligned_ps)) + 1;
+-    unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
  
-+#endif /* !CONFIG_PDX_NONE */
+     /*
+      * The size of paddr_t should be sufficient for the complete range of
+@@ -204,11 +203,13 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+     BUILD_BUG_ON((sizeof(paddr_t) * BITS_PER_BYTE) < PADDR_BITS);
+     BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
+ 
++    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ram_start));
++    nr_pdxs = max_pdx - frametable_base_pdx;
++    frametable_size = nr_pdxs * sizeof(struct page_info);
 +
- #endif /* X86_PDX_H */
+     if ( frametable_size > FRAMETABLE_SIZE )
+-        panic("The frametable cannot cover the physical region %#"PRIpaddr" - %#"PRIpaddr"\n",
+-              ps, pe);
++        panic("Frametable too small\n");
  
- /*
-diff --git a/xen/include/xen/pdx.h b/xen/include/xen/pdx.h
-index 856fc3e8a0e6..59c257651953 100644
---- a/xen/include/xen/pdx.h
-+++ b/xen/include/xen/pdx.h
-@@ -132,8 +132,9 @@ void set_pdx_range(unsigned long smfn, unsigned long emfn);
-  */
- bool __mfn_valid(unsigned long mfn);
+-    frametable_base_pdx = paddr_to_pdx(aligned_ps);
+     frametable_size = ROUNDUP(frametable_size, PAGE_SIZE);
  
--#define page_to_pdx(pg)  ((pg) - frame_table)
--#define pdx_to_page(pdx) gcc11_wrap(frame_table + (pdx))
-+#define page_to_pdx(pg) \
-+    ((unsigned long)((pg) - frame_table) + frametable_base_pdx)
-+#define pdx_to_page(pdx) gcc11_wrap(frame_table + ((pdx) - frametable_base_pdx))
- 
- #define mfn_to_pdx(mfn) pfn_to_pdx(mfn_x(mfn))
- #define pdx_to_mfn(pdx) _mfn(pdx_to_pfn(pdx))
-@@ -244,6 +245,14 @@ static inline paddr_t directmapoff_to_maddr_xlate(unsigned long offset)
- 
- #endif /* CONFIG_PDX_OFFSET_COMPRESSION */
- 
-+#if __has_include(<asm/pdx.h>)
-+# include <asm/pdx.h>
-+#endif
-+
-+#ifndef ARCH_HAS_FRAMETABLE_BASE_PDX
-+#define frametable_base_pdx 0
-+#endif
-+
- #ifdef CONFIG_PDX_NONE
- 
- /* Without PDX compression we can skip some computations */
-@@ -283,9 +292,7 @@ static inline void pfn_pdx_compression_reset(void)
-  *
-  * Do not use _xlate suffixed functions, always use the non _xlate variants.
-  */
--#if __has_include(<asm/pdx.h>)
--# include <asm/pdx.h>
--#else
-+#ifndef ARCH_DEFINES_PDX_XLATE
- # define pdx_to_pfn pdx_to_pfn_xlate
- # define pfn_to_pdx pfn_to_pdx_xlate
- # define maddr_to_directmapoff maddr_to_directmapoff_xlate
+     base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 1);
 -- 
 2.43.0
 
