@@ -2,44 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WL95CsUx+GlBrQIAu9opvQ
+	id UPbzH54y+Gl1rQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 07:42:29 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 07:46:06 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 831CA4B89C7
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 07:42:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1299484.1574020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E03324B8AA9
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 07:46:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1299491.1574029 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJm4R-00022n-VN; Mon, 04 May 2026 05:42:19 +0000
+	id 1wJm7k-0002ZJ-D8; Mon, 04 May 2026 05:45:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1299484.1574020; Mon, 04 May 2026 05:42:19 +0000
+Received: by outflank-mailman (output) from mailman id 1299491.1574029; Mon, 04 May 2026 05:45:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJm4R-00020G-S7; Mon, 04 May 2026 05:42:19 +0000
-Received: by outflank-mailman (input) for mailman id 1299484;
- Mon, 04 May 2026 05:42:18 +0000
+	id 1wJm7k-0002XN-9i; Mon, 04 May 2026 05:45:44 +0000
+Received: by outflank-mailman (input) for mailman id 1299491;
+ Mon, 04 May 2026 05:45:43 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wJm4Q-000208-Ab
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 05:42:18 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wJm7j-0002XH-1f
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 05:45:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wJm4P-008Zbp-Mq
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 07:42:17 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wJm7g-00G3qu-No
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 07:45:42 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69f831b3-5cb7-0a2a0a5109dd-0a2a4502a092-16
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 07:42:17 +0200
-Received: from [209.85.208.181] (helo=mail-lj1-f181.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69f831b9-af86-0a2a45020019-d155d0b5f13d-3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 07:42:17 +0200
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-38be5e86918so46007351fa.3
- for <xen-devel@lists.xenproject.org>; Sun, 03 May 2026 22:42:17 -0700 (PDT)
+ (envelope-from <jbeulich@suse.com>)
+ id 69f8326b-e002-0a2a0a5209dd-0a2a450787fe-36
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 07:45:42 +0200
+Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 69f83285-229c-0a2a45070019-d155802cc04b-3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 07:45:42 +0200
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-488a9033b2cso31630585e9.2
+ for <xen-devel@lists.xenproject.org>; Sun, 03 May 2026 22:45:41 -0700 (PDT)
+Received: from ?IPV6:2003:ca:b72b:870a:8d83:125f:d0c4:4383?
+ (p200300cab72b870a8d83125fd0c44383.dip0.t-ipconnect.de.
+ [2003:ca:b72b:870a:8d83:125f:d0c4:4383])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48a8feb0cbfsm102663265e9.2.2026.05.03.22.45.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 03 May 2026 22:45:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,362 +58,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-ARC-Seal: i=1; a=rsa-sha256; t=1777873337; cv=none;
-        d=google.com; s=arc-20240605;
-        b=NSJRtmcVucXmUo77Fj2FJ6jfbnuXynPNG/3SD6x5plcnuj3gT+8lXM2+oridY7HvkQ
-         N83ZMvFege4aB9KAleDbL6oEVa8ShPC/lnQsbbuXKkG6AMlQcqWHVnTvBs/6yJm5vh7w
-         b5Bw+x5xpe8g07eA71a3ArNTkyu5LrpOpXs50Gl0E403IAx5zXvqerrjweCbc5N9AqBc
-         OT8Vkn99ywo3jZz2rIq+jNLeuKNQ4ZAGQbvNNoOUNVVcC7p+w0xY3f7oYI8ApVEtcHnI
-         SKjRlTDtBDcOAWw/3wN2DnaGll4s5u9PPlWA2fKCtq44oKJbvR2fSwAKCNu00oX/eczI
-         cGsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4Ql+HNFX+IDACIwSmBhpGWBF5IWTFNIkIC+9GIsGyqs=;
-        fh=EIGH5a1h9+gxzNGHDCq59FJvzGr+rE6xe+v8ON7OIfQ=;
-        b=V3hidyR1y1blqpTA4VE+BW5RdY8kCDN7581I4oTOvZHwFwwAkSi+3Hsg1uNN65zBaA
-         EBRbD1FMJ92SIUDHV8Pw+jB7Jv0cZJ71YkI90IFoKNk3YjCymrDcXiaujGZKDmrI4rLq
-         El4uwqjhQAg87p+LcuXFba8w/3kXr4ErTs1yK2Og/D/73G4PT+jheRb95qMdPyX1EqNL
-         hdtEPA8G39wL1Nt0aTe53u86x+ApFTPyOoKCehunxXDPItdG3eyyAHJMkaVdLcUbsdC7
-         K2xkxizo5AcmaEFDHIxxrxkHVUBXhN6lw0JdjEgbyrddhTOP2fpKxbZJv4f3IcmtTERq
-         713g==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777873337; x=1778478137; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4Ql+HNFX+IDACIwSmBhpGWBF5IWTFNIkIC+9GIsGyqs=;
-        b=mXlmMsaUNoacaC5N3r/w85QStV4ARdBzyb74d9wvm2IHraVULpJEKq8jOzsUTJkFMS
-         W5gzBNlhSZHwcuP6bp8iMcZLFW/CetaAvYm1b+67+oMVZmdPuRjUQB0kukb/sbctZNAG
-         952OXsmezOCthClNUxZLmqPbkNXzwo3SLq3qZI9ECSjNllY9fOh+91Xd7JJcxHaipFow
-         YHew9S/2BAq+F9C9MImYB3h117jmFxI1OP5dFPikZYJA9YivDivXBcdOlos7A55k056/
-         fLP/LTK9JrjSzEN0HzTbBZW5pDqjQ5Tgtd/FntrTZczGr1IUWgFE9PQYrMFEHmlQs9K5
-         s/oA==
+        d=suse.com; s=google; t=1777873541; x=1778478341; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=I5jaxdTlW6GXQMnEt7sFJoGWFKaarJ+FNjRxLD7lDfU=;
+        b=OJrdwGH/dZqt/U3KojZSAuQXh//G9UWKiX/lvplhPPPkrpm/i/f43E8EIAYfB5d7Mi
+         CugHONOjgPi3Oc1+eFdd3gVP8KyNrk2bmr5UNM3DiKAE4AjKqVjdf5tuCT4uoKg0Txcc
+         oRrRTiPaUICfaKWD8BY8K5RQGW7xeIbotvnwKr+o+qqRsDWCsKhxDBgQn7qMgaUlx/2a
+         iWJGRIoy/3zof+mSW0OZEyI2QFryUjq5bDXGaUkQpgwqCI1AjQiq5mTNFa0GWAyEG69j
+         EVs4iWFADbzuZgELrOXzOPHfZXuLCrTZ5HgEtx40tp+6doJUulma/Hjps8njzqiCw0/x
+         9bmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777873337; x=1778478137;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=4Ql+HNFX+IDACIwSmBhpGWBF5IWTFNIkIC+9GIsGyqs=;
-        b=ZiIgYwWpPeLC85i03iEUJfazCsl10GNaEyIZeZCo7lVhqpDRff03OXpUcAHyq0tlI4
-         Oc4mE0yx5RfgIjU/lmTHiaKGXaPWhYrTqpaldtQ307FRFAhzP017i/XT7ttBFZ0iD+Lc
-         VKcdWXgVYftRSqp9A1Dr5uYFdJj014sbykXFQFjX6kaPyQUZcshepsnQX7Vf0m++baWI
-         I1tGR7dZ+C/EG+4fe1694MCqHXYFV+2uI4WhEbtTTEFjAHnpTaO2pra8eJTTbqt/KkXK
-         6Cfq4rvqohfAbt+BZzH426aMMlG7bfTEgV311hDHGjOLpuSV1MLXLf6fCgDt7B6AAsJE
-         uMVA==
-X-Forwarded-Encrypted: i=1; AFNElJ9N0E4VcAyaVoSdH0UJLfqA033l3/er1LFumulToMGKz/aNFYAbJnDECLIprP9jxk1Zxo4jgA1wtnM=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwXC6UuLXj0wMWuEmNRbO2zG5orQRizm3ZaRGsPW/YjUv7l6wgo
-	rZxHvt+uyY2f7eLpUcMoAesirZwqJftuNPmvHltDCD+/wBNZxmJHbTEDAPZ/cKA/DWnsUyBD1n6
-	yew1kyWoF0ltDa1l2f0ZS4R+gjoTKBkw=
-X-Gm-Gg: AeBDiet7GAiaAHtZpxhV/IwrYfwb7E2Xnt0LhX4va4RQXCqnzDK/hXMZMcPjIieFLbq
-	zF3pXH1ZuH2HUehWapmgwTpeITGeo74G1S98KaDkw1q1TPOTPSL79ZHcADUUlCgEw57HXW7vxkF
-	bnbrm1HdXVZA+MM74QWvctJBMDH9o7N+q9ywrYjFAn0K0X8CHwQLMi0F/9nW+/Rf5Gb8RZkoCq8
-	zWGHw/QHWcGZ/wE7YwWdSRaWxxk2TQKvEZlG4dOttskEiULjfts6yfFLXqd9+AT7zQgLD2HIO5N
-	NlXAqPNzqjYIAKPu
-X-Received: by 2002:a2e:bcc7:0:b0:38c:c36b:8221 with SMTP id
- 38308e7fff4ca-3937823d9c4mr25437281fa.0.1777873336511; Sun, 03 May 2026
- 22:42:16 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1777873541; x=1778478341;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=I5jaxdTlW6GXQMnEt7sFJoGWFKaarJ+FNjRxLD7lDfU=;
+        b=mEVxfkeIiaJOHstI7WdQbuXskWLCq59RNW5BRyg/gAZMpYP1+1dnCLEqAEU1Lynszw
+         iYYh/nFT7qorSZBBLiVvH96VEHPt7y/hqii1ruKFM4REZfJ8pQMYytCzF9NUiYgxPy2S
+         TEXrnYrJjpEskL8+/TwBQ//RhINyhfrg/M88f87aurWkPS+C/0bV+Sd6a5ZNG7jK1AWL
+         cNufBEmxxRJXpHPBlnHth0Dl0qrXTzcWgMvAY1Kj6qNQkcpc4mzBIRybVxHFcxHi90m+
+         zHzcljTK0B/UlMn38TRA/KtuamNgq83Jlw4ROMTOfzinvDX9WahPHXN4aM6JM6nevIqa
+         3Y6g==
+X-Forwarded-Encrypted: i=1; AFNElJ/QTHM4Ogv9JuU8xCvL8dMSbBIhU7y5fFCaLZqvwJ0G2dvrRrPXbmTcdHvd4IK4p2k+N+IX8khcavk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxZPzX+z+XxIn5NqRksiVRgehmILNneFcoTU0EdoRu5CD5rghea
+	AiK4ui6TwbFaMz8LPe175S0pBovpgLCNej/YHYjMhn6dr3yg05eGRqiT31md9YL4wA==
+X-Gm-Gg: AeBDievSIdP+bFT/SS5rLq0+cCQC6uGWOWmp9TK/bey2K6eqeZwVaQ6ToT0DQX5DT+o
+	vgAL5z2fRvpmal65DA2OGESluBb0lgzgucqgnzN8XWm3ojvmbMkr2gE87ox8EokJlFhgAXtgV8g
+	pImJI+9NJ9+UgwhVWT+T1OLCHDgJ0piCm2bEnpQP2DvQOmL3sNMPSzIJ+NJDTWnXFP/EkEeI0B6
+	KjB+TWa5nnWCMvM6kAPWavSVO/5TrT4oo3dh5obY7pqWkSETvwa8dyfc6EH149JhsCLTX1v+xdX
+	6m8oQ3+dVuLB6NDyZ/Xh8+s/C4tPY1kj1I1y7GG0Yn4VPKA72LDopOksqQ0DafP+4Ng9T3jY151
+	Zx+9mNICmMdgF9QB3emr1mlgrLB5JaHOhW/Et2rrQxplTl30kYUc82yDO6snclvDOKqFMJrCiBn
+	VH1hHKzDhd4Vt2FR/alKizI7MDKI7Kq/+FV+OLZQHbuxmEvMk1oXhbBxidUrfWCMBQIh8YckTyI
+	qiMC7pYacq3+TrXVOA5EYev+TUgp5I1/CNiWe635lGr0xUUFs5gOG+tH7E7xcuKzpJc+G4=
+X-Received: by 2002:a05:600c:33a2:b0:48a:5342:36b5 with SMTP id 5b1f17b1804b1-48d0640ec5emr32780275e9.21.1777873541529;
+        Sun, 03 May 2026 22:45:41 -0700 (PDT)
+Message-ID: <ef24286f-cdef-4b73-9121-d05ee05798e4@suse.com>
+Date: Mon, 4 May 2026 07:45:40 +0200
 MIME-Version: 1.0
-References: <cover.1774431310.git.mykola_kvach@epam.com> <5b68fa0a8403ea60db3047f6505876bc03a41f3f.1774431310.git.mykola_kvach@epam.com>
- <87bjgcvul6.fsf@epam.com> <CAGeoDV87irnVf8k+Z2L6=k41p87N9O6DpLCFdkMwErzDpXB9KA@mail.gmail.com>
- <20eaa31d-a105-440e-9add-968fc9786180@gmail.com>
-In-Reply-To: <20eaa31d-a105-440e-9add-968fc9786180@gmail.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Mon, 4 May 2026 08:42:05 +0300
-X-Gm-Features: AVHnY4LxpGmCNxUVBBFWVnmhQTmaKrIGVIqNzprrjOoi1MwdIOk9eBgmUwzsiAc
-Message-ID: <CAGeoDV9r7-nXrOhZx3KB1jASFXv9cCaPXiu29KrMpediATgqnw@mail.gmail.com>
-Subject: Re: [PATCH 1/4] xen/arm: its: collect quirk flags and honor dma-noncoherent
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <Mykola_Kvach@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-720697/1777873337-AB961161-11339ADA/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/boot: Disable interrupts when establishing SSP
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20260501191028.1250225-1-andrew.cooper3@citrix.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <20260501191028.1250225-1-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-ef75cf/1777873542-1625DC48-8DE29D46/0/0
 X-purgate-type: clean
-X-purgate-size: 8439
-X-Rspamd-Queue-Id: 831CA4B89C7
+X-purgate-size: 3177
+X-Rspamd-Queue-Id: E03324B8AA9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:olekstysh@gmail.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,m:Mykola_Kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TAGGED_FROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid,epam.com:email];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCVD_COUNT_SEVEN(0.00)[10]
 
-Hi Oleksandr,
+On 01.05.2026 21:10, Andrew Cooper wrote:
+> Gitlab CI reported a crash on boot on Alder Lake hardware.  The bug is years
+> old, making it an incredibly rare occurance:
+> 
+>   (XEN) *** DOUBLE FAULT ***
+>   (XEN) ----[ Xen-4.22-unstable  x86_64  debug=y ubsan=y  Not tainted ]----
+>   (XEN) CPU:    0
+>   (XEN) RIP:    e008:[<ffff82d04077bbc4>] arch/x86/setup.c#reinit_bsp_stack+0xfa/0x160
+>   (XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor
+>   (XEN) rax: 0000000000000007   rbx: ffff83049a4b0000   rcx: 00000000000006a2
+>   (XEN) rdx: 0000000000000000   rsi: 0000000000000000   rdi: 0000000000000000
+>   (XEN) rbp: ffff83049a4b7f00   rsp: ffff83049a4b7ef8   r8:  ffff830497e47000
+>   (XEN) r9:  00000000ffffffff   r10: 00000000900c2121   r11: 000000009a392956
+>   (XEN) r12: ffff830497e47000   r13: ffff830497e49f40   r14: 0000000000000000
+>   (XEN) r15: ffff82d0407dad10   cr0: 0000000080050033   cr4: 0000000000f526e0
+>   (XEN) cr3: 0000000043c16000   cr2: fffffffffffffffc
+>   (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
+>   (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+>   (XEN) Xen code around <ffff82d04077bbc4> (arch/x86/setup.c#reinit_bsp_stack+0xfa/0x160):
+>   (XEN)  00 b9 a2 06 00 00 0f 30 <80> 3d 71 26 f1 ff 00 74 3e 48 8d 93 f8 5f 00 00
+>   (XEN) Valid stack range: ffff83049a4b6000-ffff83049a4b8000, sp=ffff83049a4b7ef8, tss.rsp0=ffff83049a4b7fb0
+>   (XEN) No stack overflow detected. Skipping stack trace.
+>   (XEN)
+>   (XEN) ****************************************
+>   (XEN) Panic on CPU 0:
+>   (XEN) DOUBLE FAULT -- system shutdown
+>   (XEN) ****************************************
+> 
+> This is on the instruction boundary after enabling CET (writing MSR_S_CET) and
+> prior to establishing SSP.  Despite identifying this as a critical window
+> where any fault was deadly (the CPU tries to push a shadow stack frame at 0,
+> hence the CR2 value wrapping around to the top of the address space), I
+> clearly forgot that this meant interrupts too, which are enabled.
+> 
+> Along with regular interrupts, NMIs are a problem.  Unlike other cases needing
+> NMI safety, we can't use a self NMI and callback, as the stack needs to be
+> empty at the point of enabling Shadow Stacks.
+> 
+> Disable interrupts, and turn off the watchdog if it's configured.
+> 
+> Note that watchdog_{en,dis}able() do not work here.  They cause the watchdog
+> NMI to be ignored; they do not inhibit the generation of NMIs.
+> 
+> Fixes: b60ab42db2f0 ("x86/shstk: Activate Supervisor Shadow Stacks")
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Thank you for the review.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+preferably ...
 
-On Tue, Apr 28, 2026 at 9:42=E2=80=AFPM Oleksandr Tyshchenko
-<olekstysh@gmail.com> wrote:
->
->
->
-> On 3/25/26 17:47, Mykola Kvach wrote:
-> > Hi Volodymyr,
->
-> Hello Mykola and Volodymyr
->
->
-> >
-> > Thank you for the review.
-> >
-> > On Wed, Mar 25, 2026 at 4:42=E2=80=AFPM Volodymyr Babchuk
-> > <Volodymyr_Babchuk@epam.com> wrote:
-> >>
-> >> Hi Mykola,
-> >>
-> >> Mykola Kvach <xakep.amatop@gmail.com> writes:
-> >>
-> >>> From: Mykola Kvach <mykola_kvach@epam.com>
-> >>>
-> >>> Replace the per-quirk init callback with declarative flags in
-> >>> struct its_quirk, and introduce gicv3_its_collect_quirks() to gather
-> >>> the effective workaround flags from both the IIDR-matched quirk entry
-> >>> and the "dma-noncoherent" device-tree property.
-> >>>
-> >>> This lets non-coherent platforms force non-cacheable ITS table
-> >>> attributes even when no IIDR quirk entry matches.
-> >>>
-> >>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> >>> ---
-> >>>   xen/arch/arm/gic-v3-its.c | 70 ++++++++++++++++++++++++------------=
----
-> >>>   1 file changed, 43 insertions(+), 27 deletions(-)
-> >>>
-> >>> diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
-> >>> index 9ba068c46f..00524b43a3 100644
-> >>> --- a/xen/arch/arm/gic-v3-its.c
-> >>> +++ b/xen/arch/arm/gic-v3-its.c
-> >>> @@ -57,71 +57,87 @@ struct its_device {
-> >>>    */
-> >>>   struct its_quirk {
-> >>>       const char *desc;
-> >>> -    bool (*init)(struct host_its *hw_its);
-> >>>       uint32_t iidr;
-> >>>       uint32_t mask;
-> >>> +    uint32_t flags;
-> >>>   };
-> >>>
-> >>>   static uint32_t __ro_after_init its_quirk_flags;
-> >>>
-> >>> -static bool gicv3_its_enable_quirk_gen4(struct host_its *hw_its)
-> >>> -{
-> >>> -    its_quirk_flags |=3D HOST_ITS_WORKAROUND_NC_NS |
-> >>> -        HOST_ITS_WORKAROUND_32BIT_ADDR;
-> >>> -
-> >>> -    return true;
-> >>> -}
-> >>> -
-> >>>   static const struct its_quirk its_quirks[] =3D {
-> >>>       {
-> >>> -        .desc        =3D "R-Car Gen4",
-> >>> -        .iidr        =3D 0x0201743b,
-> >>> -        .mask        =3D 0xffffffffU,
-> >>> -        .init        =3D gicv3_its_enable_quirk_gen4,
-> >>> +        .desc  =3D "R-Car Gen4",
-> >>> +        .iidr  =3D 0x0201743b,
-> >>> +        .mask  =3D 0xffffffffU,
-> >>> +        .flags =3D HOST_ITS_WORKAROUND_NC_NS |
-> >>> +                 HOST_ITS_WORKAROUND_32BIT_ADDR,
-> >>>       },
-> >>>       {
-> >>>           /* Sentinel. */
-> >>>       }
-> >>>   };
-> >>>
-> >>> -static struct its_quirk* gicv3_its_find_quirk(uint32_t iidr)
-> >>> +static const struct its_quirk *gicv3_its_find_quirk(uint32_t iidr)
-> >>>   {
-> >>> -    const struct its_quirk *quirks =3D its_quirks;
-> >>> +    const struct its_quirk *quirk =3D its_quirks;
-> >>>
-> >>> -    for ( ; quirks->desc; quirks++ )
-> >>> +    for ( ; quirk->desc; quirk++ )
-> >>>       {
-> >>> -        if ( quirks->iidr =3D=3D (quirks->mask & iidr) )
-> >>> -            return (struct its_quirk *)quirks;
-> >>> +        if ( quirk->iidr !=3D (quirk->mask & iidr) )
-> >>> +            continue;
-> >>> +
-> >>> +        return quirk;
-> >>>       }
-> >>>
-> >>>       return NULL;
-> >>>   }
-> >>>
-> >>> -static void gicv3_its_enable_quirks(struct host_its *hw_its)
-> >>> +static uint32_t gicv3_its_collect_quirks(const struct host_its *hw_i=
-ts,
-> >>> +                                         const struct its_quirk **ma=
-tched_quirk)
-> >>>   {
-> >>> +    const struct its_quirk *quirk;
-> >>> +    uint32_t flags =3D 0;
-> >>>       uint32_t iidr =3D readl_relaxed(hw_its->its_base + GITS_IIDR);
-> >>> -    const struct its_quirk *quirk =3D gicv3_its_find_quirk(iidr);
-> >>>
-> >>> -    if ( quirk && quirk->init(hw_its) )
-> >>> +    quirk =3D gicv3_its_find_quirk(iidr);
-> >>> +    if ( quirk )
-> >>> +        flags |=3D quirk->flags;
-> >>> +
-> >>> +    if ( hw_its->dt_node &&
-> >>> +         dt_property_read_bool(hw_its->dt_node, "dma-noncoherent") )
-> >>> +        flags |=3D HOST_ITS_WORKAROUND_NC_NS;
-> >>> +
-> >>> +    if ( matched_quirk )
-> >>> +        *matched_quirk =3D quirk;
-> >>> +
-> >>> +    return flags;
-> >>> +}
-> >>> +
-> >>> +static void gicv3_its_enable_quirks(struct host_its *hw_its)
-> >>> +{
-> >>> +    const struct its_quirk *quirk;
-> >>> +
-> >>> +    its_quirk_flags =3D gicv3_its_collect_quirks(hw_its, &quirk);
-> >>> +
-> >>> +    if ( quirk )
-> >>>           printk("GICv3: enabling workaround for ITS: %s\n", quirk->d=
-esc);
-> >>>   }
-> >>>
-> >>>   static void gicv3_its_validate_quirks(void)
-> >>>   {
-> >>> -    const struct its_quirk *quirk =3D NULL, *prev =3D NULL;
-> >>> +    uint32_t quirks, prev_quirks;
-> >>>       const struct host_its *hw_its;
-> >>>
-> >>>       if ( list_empty(&host_its_list) )
-> >>>           return;
-> >>>
-> >>>       hw_its =3D list_first_entry(&host_its_list, struct host_its, en=
-try);
-> >>> -    prev =3D gicv3_its_find_quirk(readl_relaxed(hw_its->its_base + G=
-ITS_IIDR));
-> >>> +    prev_quirks =3D gicv3_its_collect_quirks(hw_its, NULL);
-> >>>
-> >>> -    list_for_each_entry(hw_its, &host_its_list, entry)
-> >>> +    list_for_each_entry_continue(hw_its, &host_its_list, entry)
-> >>>       {
-> >>> -        quirk =3D gicv3_its_find_quirk(readl_relaxed(hw_its->its_bas=
-e + GITS_IIDR));
-> >>> -        BUG_ON(quirk !=3D prev);
-> >>> -        prev =3D quirk;
-> >>> +        quirks =3D gicv3_its_collect_quirks(hw_its, NULL);
-> >>> +        BUG_ON(quirks !=3D prev_quirks);
-> >>
-> >> I know it was in the previous version, but as you are already touching
-> >> this... This is not Xen BUG(). This is a platform problem. So you need
-> >> to panic here. Something like
-> >>
-> >>   if (quirks !=3D prev_quirks)
-> >>          panic("Different ITS instances has different quirks")
-> >
-> > Ack.
-> >
-> >
->
-> I agree that a quirk mismatch is a platform problem. Yes, the current
-> design uses global flags, making it unable to handle mixed quirks,
-> leading to the failure on mismatch.
->
-> Please note, I am not saying a panic() is wrong here and I am not
-> requesting any changes here; I was just wondering why this is handled
-> differently than the SMMUv3 driver. I am just thinking out loud.
->
-> SMMUv3 driver handles feature mismatches by gracefully degrading. When
-> it finds an SMMU device that does not support ARM_SMMU_FEAT_COHERENCY,
-> it disables that feature for the entire platform (so the P2M code has to
-> clean the cache when updating ptes). It does not panic. How the ITS and
-> SMMUv3 drivers are different in that regard? Why could not we apply the
-> same "worst-case" logic here?
-> For example:
-> - if any ITS device requires non-cacheable memory, then all ITS memory
-> allocations should use non-cacheable memory.
-> - if any ITS device requires 32-bit addresses, then all ITS memory
-> allocations should be constrained to 32-bits.
->
-> This would be consistent with the SMMU precedent and would allow the
-> system to boot and function correctly, but with the performance
-> characteristics of the worst ITS device in the system.
->
-> Or I really missed something?
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -908,6 +908,19 @@ static void __init noreturn reinit_bsp_stack(void)
+>  
+>      if ( cpu_has_xen_shstk )
+>      {
+> +        bool watchdog = (nmi_watchdog == NMI_LOCAL_APIC);
+> +
+> +        /*
+> +         * Between enabling CET and establishing SSP, any fault or interrupt
+> +         * is fatal.  We must arrange for none to happen.
 
-Yes, I think this makes sense.
+... with a note regarding #MC added here.
 
-The current series still treats the ITS workaround state as global.
-Patch 4 only moves the quirk setup earlier, before the LPI tables are
-allocated. However, the effective flags are still taken from a single
-ITS instance, and the validation logic still requires all ITS instances
-to report the same flag set.
-
-For the currently supported quirks this is probably too strict. Both
-HOST_ITS_WORKAROUND_NC_NS and HOST_ITS_WORKAROUND_32BIT_ADDR are
-conservative restrictions on memory attributes/allocation. Using
-non-cacheable attributes for all ITS-related allocations, or constraining
-them to 32-bit addresses, should also be safe for ITS instances that do
-not require these restrictions.
-
-So I agree that the SMMUv3-style worst-case policy is a better fit here.
-I will rework this in v2 so that Xen aggregates the effective flags from
-all host ITS instances instead of requiring exact equality.
-
-I will also document that this aggregation is only valid for conservative
-workaround flags. A future non-composable quirk should either remain
-per-ITS or get explicit validation logic.
-
-Thanks for pointing out the SMMUv3 precedent.
-
-Best regards,
-Mykola
-
->
->
->
->
->
->
->
->
->
->
->
-> [snip]
+Jan
 
