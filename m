@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gJ9zOqR2+GlavgIAu9opvQ
+	id yIKAIPt2+GlavgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 12:36:20 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 12:37:47 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 478604BBD25
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 12:36:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1299655.1574207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDCBB4BBD53
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 12:37:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1299665.1574216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJqe5-0005Lq-6M; Mon, 04 May 2026 10:35:25 +0000
+	id 1wJqgB-0005zN-KB; Mon, 04 May 2026 10:37:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1299655.1574207; Mon, 04 May 2026 10:35:25 +0000
+Received: by outflank-mailman (output) from mailman id 1299665.1574216; Mon, 04 May 2026 10:37:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJqe5-0005KM-31; Mon, 04 May 2026 10:35:25 +0000
-Received: by outflank-mailman (input) for mailman id 1299655;
- Mon, 04 May 2026 10:35:23 +0000
+	id 1wJqgB-0005wm-HM; Mon, 04 May 2026 10:37:35 +0000
+Received: by outflank-mailman (input) for mailman id 1299665;
+ Mon, 04 May 2026 10:37:34 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wJqe3-0005KG-O7
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 10:35:23 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wJqgA-0005we-79
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 10:37:34 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wJqe3-00FhK1-3w
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 12:35:23 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wJqg9-001yJ3-JF
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 12:37:33 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69f87661-2eae-0a2a0a5409dd-0a2a4504b17c-16
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 12:35:22 +0200
-Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69f876ed-bab6-0a2a0a5309dd-0a2a450ba2aa-0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 12:37:33 +0200
+Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69f8766a-1dec-0a2a45040019-d155802ee9e5-3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 12:35:22 +0200
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4891d7164ddso19443815e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 03:35:22 -0700 (PDT)
+ id 69f876ed-212f-0a2a450b0019-d155802acc05-3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 12:37:33 +0200
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-48984d29fe3so58396125e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 03:37:33 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-44a981ded99sm25482246f8f.18.2026.05.04.03.35.20
+ 5b1f17b1804b1-48a824f9f0dsm304990745e9.15.2026.05.04.03.37.32
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 May 2026 03:35:20 -0700 (PDT)
+ Mon, 04 May 2026 03:37:32 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,57 +58,56 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1777890922; x=1778495722; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1777891053; x=1778495853; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=iFeFbHt16mOzgiyoIATFoHaNCn8YVz4jgJIMEFh5n9I=;
-        b=Cnv4eYPyIqDMv0I1x+7XrNdpHszRJunfwQADj12wx462scHQ1TR9gq+wOtFfOPqkRW
-         OjktzpqlPtZVFKQGIVaRSXTJeAU/Dy2BMpgLWCNjtEbKfC6USROvpyML097q+kIaYQmo
-         JH19blUzn7z/j9ESN3NfUCqtrdj6rvqHb0BkboPxnAdE9pATj5EBEqpk56S6uCDTOI5v
-         EIAeynTylBXh2Z5MC8EUYSLFLdspugjlVzZ3oJim6ve3XWEwTXnumxhgwSJtc4fLubYW
-         pXrpbiwEBws/bNseVY779MDlC0MhtXX/DHKW8PBdDlq+eRQBAd3wWkiKK/1n96yLGGkl
-         mhag==
+        bh=jFBFUxRRnx2d7iC3ohvdmBuZ958Fk6ZgZe3pZ58w8n0=;
+        b=CoxgN7ncoahAlSzH/ZAIoNEcgt0WpTXu20kjauPZXpWrcOvi2tDuYM5Aq8wikLL11l
+         MuODMOohrbOkHquI0L/QWBiub75PsnMDxiSkHcGpAPQWgknWjspPh9Wv8MSAaznX/7Xl
+         a7V4ebEVqRb15vw5xf7xH1OwwqTHddLFRoF4SWLB/4IK7dSjvBSVRJgg8ruZqwq2ddxp
+         MjrB/ksAer1aQ6gDslHyJMGlXd+dqpSldFb7gQMSUE5/HKuZb8Bo+1ZLC8iJx3Hvk8Us
+         O+lTbzh1TMpiQVAzBnV4eAJSHyWgzwvm1bSCbyYi0GRM8D/US0lfCctxi6fyVzEMarng
+         I6eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777890922; x=1778495722;
+        d=1e100.net; s=20251104; t=1777891053; x=1778495853;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=iFeFbHt16mOzgiyoIATFoHaNCn8YVz4jgJIMEFh5n9I=;
-        b=oenGEmGHi7bO+KAlXkD5EQyNl8DTTlgU83Bwdy6a10pYM5JTMrWh+xRw08qzepwFQZ
-         0qAgzV/lnK7Xh6a+zcVv7C8OnRE0oJ837EjWzgHiIss+ZV7vfA8BoKYF/boGSoKb5XWE
-         bfGdF16D2PTPOWk9Fz3XBdSyRcUZ9ADKHBt0rgEA5lmoL0s2U3yUW56oS0VqVMMkwFy8
-         4ItVK1hL8hqEFtyo9AU98ygcLz58DNIxAYnUMfRHdqSwKwZ8Xrkd8iQun2nx/bwL+ZSh
-         lbrlH3A7cACUxE+tlbOteshLPEMzYFMJUhwacsKRBBSWrdyKbEGGZTCCiPUSnlfuDgWs
-         jG/g==
-X-Forwarded-Encrypted: i=1; AFNElJ+w9QDrreI9SvaXHQ9zJ9hpx4gXRK58LX5ZHuoWBjvvUVq0RcUKdAtcSMLADzL9MU3Gfm4MAzdRc4g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyErWVHUHMda76r57OR52Ezd/D5Ak8uwPqC7mWzHFBSxC6xOvjf
-	HyhQ983+GYMGwGJWZ2JrJ2JfSHc9CqbwKGieF8TFzwhR3AZQ3Zfowx2C+HVvo5LDjQ==
-X-Gm-Gg: AeBDieuayANFJ2TkEo3Vf7h/+UHiu1iRQwMBnz5SIkM/HSeBiYcTLHYyyfoHG1tFM7Z
-	U3brjRSYUoomw8jT2QEU2BMyOqWpJppi3pW1ZsEjFgoDqVRwhQY6aCa4rY48loGXMEaQQyvO4vm
-	rEDnK51c5oQAe9weHJRVOttaC8SbQwnOr9j3hghhG92pqIDmhB88YZ+fXLWwYU/7Y7f6mD7cDce
-	Eo3WZkM/zOUoA5JzE1CN+skUOopG7CRqKPvMmgx67SeL7l1oMB7XbFZNSb3+CgFdYlwkDL7UH2T
-	01DFv0xHrMXK8cPhl6s/cDpZq6z9XJ1mlGcXDMtNVCctH9ipo8YOItZyPEQZK9AotVIZTZDbO03
-	0isnXJd4ouKD3kaNfxf72WFm86nNhIJIPs6xx3SgKmzS9sOo2eXa/oO47LSyRzZ+jRjHF93KzC0
-	uGxcbiY98NrTO9ej9aHYM4N9wsouWm0/o69NDtzajSppkdMLYP6ZSPxLoEaEtHMMFN7jfVfNzc8
-	Nj9gQVNgAf2Rd/OaCuqProIeq4hw1P3ZvGe
-X-Received: by 2002:a05:600c:1386:b0:488:ac01:72de with SMTP id 5b1f17b1804b1-48a988716c5mr143453095e9.5.1777890921037;
-        Mon, 04 May 2026 03:35:21 -0700 (PDT)
-Message-ID: <085c1968-6863-4948-b1e1-7b0bad2bc1ec@suse.com>
-Date: Mon, 4 May 2026 12:35:30 +0200
+        bh=jFBFUxRRnx2d7iC3ohvdmBuZ958Fk6ZgZe3pZ58w8n0=;
+        b=e2otKE2eRL+rATgfdYfrmqs3HZToX94ossVvHLLSteKpFtNHOa6d3rYwZvRtPxIkOQ
+         sr4LoVlgF8gJ97uKVNn7rDO91X8By/zcxiomaRTJy2vZPhWn9Ngcd1YFyLZh661cG1z1
+         0hL8xSYLt7cSrA6Kgn6ImjG55vzLDYoe9bUZLUtOwncvEajWLc97pCr9kEkbrNImBYSE
+         /o8DF4QfNyyXc9m5b1A2+9SlN2pGvLIfOJdAsOm3i7/kvRcwaaYSW/aQUsWsRHHoHD6g
+         LB94wx5n2UZtJ2s0DMJH9Kg0Jbt8v8JvhJL/lWrNZQzCek4mf/ykCTEH3/2x4Kn9ve6A
+         hAYg==
+X-Forwarded-Encrypted: i=1; AFNElJ8eiXi7gywoFzdSeRoqhCVdBnSO8P5ZxuYG/Ly0WUV7J96n46ra+qQdqmTlL3nt8qTt4/1AdfjzRiw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YylAO3AYzedHZQaKeWsjW59EAWulhsY0RRCvy4Sl7/XWIvRiKHk
+	rY80wBMmh5Qr/PMIOyFKTJx+/B1E313VbJhQrZIeapScRReat2ltRm2jH6k+SFhL4g==
+X-Gm-Gg: AeBDieuv4S5vwG6cBe6ir3n/KBK3QvrwGWIQAS1AR1og6QYpK0FUm2UM1Upu2sOAu4L
+	UcG4oQalMEdRc9Av6vRt4PSdnlR5wclnjEQXEaRAky3G9NyB1wQSXKdXd8yBQXuQ54DaVNhUFdL
+	Z0MWvUPa7zXY6teUEtDV+ZxvkFtDO9KrAceKG3ogl0DpUA4nOSp7/3IhK+QMBJMdB70S3iPvZPe
+	wNfcZ8riOi+WdJ8hWkqUD+9rDxS9TO/g8CeMkeHW6n3PYQQWi8mJcEUsp6Qge91KPqhTC7KjNnV
+	FNLIvFHCVWlrP2X4e0+QcdnpkqZxndKQ5j26TmxJ6amYQrpD9NSoNOYaUsBojgHxXBz+5R8wfU5
+	auYFQzEBujAsXdZ5qzSAhj02kfp8W/qJwofm/ZKE1tqveflK0db/YTjR+0pZATcBK36eWjGiMPo
+	K31oG4Pg8jW0aSoyj0DAKx37D2LrmINqODKoAKpaSAimQSk2mMQfYdvfrTYcfhYeRQNmXkkAk7G
+	wjEBnbQJbL4gW5Syre2uyeLaA==
+X-Received: by 2002:a05:600c:4445:b0:488:9ed3:1492 with SMTP id 5b1f17b1804b1-48a986360b6mr148808015e9.10.1777891053002;
+        Mon, 04 May 2026 03:37:33 -0700 (PDT)
+Message-ID: <fda8cb13-4ac6-4575-aba5-b2fcc3b4e1f9@suse.com>
+Date: Mon, 4 May 2026 12:37:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] x86/amd: Drop allow_unsafe parameter, tune down XSA-9
  mitigations
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <1776877188.8631fc262581453bbf619ec5b2062170.19db6223737000f373@vates.tech>
- <60c94a2c-a414-4ba5-b22e-54beae3c25f3@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,28 +133,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <60c94a2c-a414-4ba5-b22e-54beae3c25f3@citrix.com>
+In-Reply-To: <1776877188.8631fc262581453bbf619ec5b2062170.19db6223737000f373@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ebf023/1777890922-28B733FF-6534CF25/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-42698a/1777891053-7ED77F3B-DB7FA3D0/0/0
 X-purgate-type: clean
-X-purgate-size: 1987
-X-Rspamd-Queue-Id: 478604BBD25
+X-purgate-size: 1244
+X-Rspamd-Queue-Id: DDCBB4BBD53
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,vates.tech:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
@@ -175,48 +174,36 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-On 24.04.2026 11:18, Andrew Cooper wrote:
-> On 22/04/2026 5:58 pm, Teddy Astie wrote:
->> XSA-9 mitigations prevents Xen from properly running if a affected CPU
->> is detected. While the vulnerability has no mitigations (aside not running
->> 64-bits PV guests), it's only outcome is a DoS.
->>
->> There is no real point in preventing Xen from working here and it would
->> be preferable to just log the vulnerability to the user so it can act
->> appropriately.
->>
->> Also reword the errata message regarding that it only affects PV64 guests.
->>
->> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
->> ---
->> It's hard to tell whether or not we would want to drop allow_unsafe, but
->> currently, Xen is allowed to boot with XSA-304 mitigations disabled
->> (intentionnaly) which has a similar outcome than this one.
->>
->> From a user standpoint, preventing the system to boot or starting guests is
->> too extreme and would be in practice seen as a bug, even if it's justified
->> policy which can be overriden.
-> 
-> There is a lot of history here, including for why the panic() is
-> actually completely unreachable.
+On 22.04.2026 18:58, Teddy Astie wrote:
+> @@ -1205,19 +1201,12 @@ static void cf_check init_amd(struct cpuinfo_x86 *c)
+>  	if (c->family == 0x10)
+>  		__clear_bit(X86_FEATURE_MONITOR, c->x86_capability);
+>  
+> -	if (!cpu_has_amd_erratum(c, AMD_ERRATUM_121))
+> -		opt_allow_unsafe = 1;
+> -	else if (opt_allow_unsafe < 0)
+> -		panic("Xen will not boot on this CPU for security reasons"
+> -		      "Pass \"allow_unsafe\" if you're trusting all your"
+> -		      " (PV) guest kernels.\n");
+> -	else if (!opt_allow_unsafe && c == &boot_cpu_data)
+> +	if (cpu_has_amd_erratum(c, AMD_ERRATUM_121))
+> +	{
 
-Deliberately so, as described in 0c7a69665110: The change done allows for
-a trivial 1-line change restoring prior default behavior (in distros which
-may want this).
+Nit: Misplaced brace (it's Linux style here). But really I don't see why
+braces are added in the first place.
 
-> I actually have a very similar patch, from almost certainly more than a
-> decade ago.  The difference is that now I'm a maintainer and in a better
-> position to say that this logic really shouldn't have been taken;
-> certainly not in this form.
-> 
-> Perhaps an easier justification is that there have been issues like AMD
-> erratum #121 prior (e.g. Pentium LOCK CMPXCHG) and post (Zen1 has a
-> related errata, can't remember it off the top of my head) that went
-> unaddressed.
+>  		printk(KERN_WARNING
+> -		       "*** Xen will not allow creation of DomU-s on"
+> -		       " this CPU for security reasons. ***\n"
+> -		       KERN_WARNING
+> -		       "*** Pass \"allow_unsafe\" if you're trusting"
+> -		       " all your (PV) guest kernels. ***\n");
+> +			   "*** This CPU is affected with erratum 121"
+> +			   " 64-bits PV guests are able to cause a DoS (XSA-9) ***\n");
 
-I agree it would be better if we were consistent in treatment of errata
-(somewhat) similar in effect. I'm less sure which direction we should go
-in order to achieve consistency.
+Why the change in indentation?
+
+There's also punctuation missing between both parts of the log message.
 
 Jan
 
