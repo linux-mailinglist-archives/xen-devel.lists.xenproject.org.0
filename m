@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wMSMDA6V+GkKwwIAu9opvQ
+	id sM5VOguV+GnnwgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:06 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEA9D4BD289
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1299772.1574352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F5254BD251
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1299773.1574361 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJsgJ-0002W8-Mg; Mon, 04 May 2026 12:45:51 +0000
+	id 1wJsgL-0002m5-WB; Mon, 04 May 2026 12:45:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1299772.1574352; Mon, 04 May 2026 12:45:51 +0000
+Received: by outflank-mailman (output) from mailman id 1299773.1574361; Mon, 04 May 2026 12:45:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJsgJ-0002SE-JR; Mon, 04 May 2026 12:45:51 +0000
-Received: by outflank-mailman (input) for mailman id 1299772;
- Mon, 04 May 2026 12:45:50 +0000
+	id 1wJsgL-0002jN-SW; Mon, 04 May 2026 12:45:53 +0000
+Received: by outflank-mailman (input) for mailman id 1299773;
+ Mon, 04 May 2026 12:45:52 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <marmarek@invisiblethingslab.com>) id 1wJsgI-0002EG-Hb
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 12:45:50 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1wJsgK-0002a2-4S
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 12:45:52 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wJsgH-002Q9j-Qw
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 14:45:49 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wJsgJ-002Q9j-GW
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 14:45:51 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <marmarek@invisiblethingslab.com>)
- id 69f894f4-2eae-0a2a0a5409dd-0a2a4505bc9c-42
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:45:49 +0200
+ id 69f894eb-2eae-0a2a0a5409dd-0a2a450c8f4e-46
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:45:51 +0200
 Received: from [202.12.124.146] (helo=fout-b3-smtp.messagingengine.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <marmarek@invisiblethingslab.com>)
- id 69f894fc-aaa8-0a2a45050019-ca0c7c92c031-3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:45:49 +0200
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
- by mailfout.stl.internal (Postfix) with ESMTP id 597721D000D3;
- Mon,  4 May 2026 08:45:48 -0400 (EDT)
+ id 69f894fe-62f1-0a2a450c0019-ca0c7c928a8f-3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:45:51 +0200
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfout.stl.internal (Postfix) with ESMTP id 08D161D000DB;
+ Mon,  4 May 2026 08:45:50 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-07.internal (MEProxy); Mon, 04 May 2026 08:45:48 -0400
+ by phl-compute-06.internal (MEProxy); Mon, 04 May 2026 08:45:50 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 4 May 2026 08:45:46 -0400 (EDT)
+ 4 May 2026 08:45:48 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,50 +60,50 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1777898748; x=1777985148; bh=RrCBw/kdRl
-	dmMfpbhnl07n1mcjH5lkh9QXsoy56IYxc=; b=mtzpJuHRxo9VqbwOLCFwY0yqR3
-	o9K/AcG2SAks6VfoE82h2Jg1BvyShyXGIJ/li+Cih9vVp2qhbvkKks5fnrDWEe60
-	1O0i+u6H+PQYeS4Dml3k9XgrWcR33o87GYb05KqQLOAGWDKQv68yj7IoxGCMaNC2
-	PCL9Lo5ug161JKu0Wcb2/vt4GoT0HNlGv18SkBjxx6JcutCVB4sOrmpFDJusdMCa
-	idVO2y3qTN0+dHw2R8tuN97oSFWSkJkb7us8GBeZUb29dHDFOEw90ksKx8FT13wL
-	SdjSGOUyRmoDV991W+IRF2p7Vrc4iqnOrhoJQfUIANrpK/Vst38oQzMloDFQ==
+	:subject:to:to; s=fm2; t=1777898749; x=1777985149; bh=aH/QFTCDK+
+	4uref1LKMXrUhKJWfLK5QJxoF2YksRrqE=; b=CiMazIxvPelcygMfosrox7rgIq
+	DcAYVDjavFKbHOxToo5XMNf3dBBx8J95HdnmwQWuDUsrz2QMf4Q4+PnPr75rpB38
+	a6JsRsueuN+Ta5am4q4C+6zFGJWCOsh/1eeeP6RubesR9AaxJ91XHS8ho2ZxCljO
+	yn2CrOr0YaWyc5yRmZ3zJecnFT7vNNkYo3/cEDM2qG2VyLhFkn7VQ6NiQQ5h755o
+	XnYFAVYDDCG5KKlv3SXug+BC12rPyo15w1ys4/9nqeUqGs3OEXYPQZoCjr17v/mi
+	w0GkRRNmG5Pk23LNvUcBTZ2Thsq/k0vqKcWObCHIE2Buy26zADHl1sCOPMbQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777898748; x=
-	1777985148; bh=RrCBw/kdRldmMfpbhnl07n1mcjH5lkh9QXsoy56IYxc=; b=D
-	igvE7G9Unsk4XHhbE7oDpV0jKsyBJke/uwLJdkbRtaUW2MUKeUTaJfmwqGCPdw9c
-	sY4IDuhwRh5JDb1fK4WqS7RQp44lF9o7Wv17bQt0S0jOUmH0QeebiuOsK+5ZAbPq
-	fJo5SHqCo13PVUk5LzPnI1LyPZ1lBN+GgxVyIC8EdKR4bTx5Ty5NZxBh1NCccovQ
-	AKH+qiy3d/lfwPiOG555onH4PvjMnAs4lLZWnj11tfP7+TsmmhE2vRaFp2VyZik0
-	tKDZSBt0gBHbZUkMSE3r2oejtLb8qr9YTeLUkNcQ6oDhfv32q0paf8CS8UJEMl+n
-	kuecYYKkxAHzRGFRq+7lg==
-X-ME-Sender: <xms:-5T4aVmFcu1THMbD7HKPmuDCYAStxPut1bHAqvZsfI-fP5X6umYrXw>
-    <xme:-5T4aXujyTQFuBNub8McL82rLzr-EtJLOB675ilyopzvi7mgzf4dMHHb1eyq8FxWc
-    Dq99qihqgjX_W-BZu2iJVQhxzIetdt_9jO6vA4okMVaN7TcwS8>
-X-ME-Received: <xmr:-5T4aT-wMaVRLzDwHQmCFjCIYEonrATKdkOXHTzb9UoUN0Oht6r15YYPXedVVWC6tvjEs6jhXAoULS5LdZI6F3j0wHzOl6nNc-9CwtEwV54>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelkeekkecutefuodetggdotefrod
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777898749; x=
+	1777985149; bh=aH/QFTCDK+4uref1LKMXrUhKJWfLK5QJxoF2YksRrqE=; b=F
+	K23RcqzWHjTbdfVzKZAkcqOn0xG0LO9vFYJEY2boGPlSWF5I4wfsLjHyCk0arbrH
+	sgG0pDUagp4e65krWwMZ3c/eS79RIlDGXPIGBH7j2JnD/E/xYNp6aHDNYwhAqoDN
+	nRkAIgKf5bZPEGXd1nfkS6nHY1sInCsiU7ZgtLP6NPM+dyOAssydntaCEftFPO2z
+	uBFRe5619433bGnyhNkGQpHQvH7NQUbtgc3es7Bou5tjzHEFi1fiUsubXCW6K32a
+	pP6DUKRyOPEba+XBm8CilX4/RDBumzA8Wi1kvGwqapH9i4ByZaO+V5+dkR2mscxO
+	H2X3x9kuIetOqpeua+ASw==
+X-ME-Sender: <xms:_ZT4aflTe_qt7ODm9aNOePwUJmcjyn9hHXq8KcnfIuDhQjKNWfXelg>
+    <xme:_ZT4aeUJk26AX5DmfbYiIv0WMtKz0J--8G56fWyDa5RXYtq8qOW7eJRrDhCLPHxnW
+    tmwTKxIuISSCRcu1PtF0DdBws43Ne9rBK81nh_tSBy4S1uNxA>
+X-ME-Received: <xmr:_ZT4acEePGoco8l3yrwGzvG-4wnEHd3abcMsh1LlkY5t_7GyT2nKRNP0yLwAKPcWs0CT2zpoQorUoGcyPQSFaKM4nyhLVnXgBkRGIuol30U>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelkeekjecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
     ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
     hrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomhepofgrrhgvkhcu
     ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepffeitdeg
-    veffteelvdeghffhvefghfefkeelheeujeejgedvvdfgffejuedtvdelnecuffhomhgrih
-    hnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
-    mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
-    gsrdgtohhmpdhnsggprhgtphhtthhopeehpdhmohguvgepshhmthhpohhuthdprhgtphht
-    thhopeigvghnqdguvghvvghlsehlihhsthhsrdigvghnphhrohhjvggtthdrohhrghdprh
-    gtphhtthhopegrnhgurhgvfidrtghoohhpvghrfeestghithhrihigrdgtohhmpdhrtghp
-    thhtohepshhsthgrsggvlhhlihhniheskhgvrhhnvghlrdhorhhgpdhrtghpthhtoheprh
-    hoghgvrhdrphgruhestghithhrihigrdgtohhmpdhrtghpthhtohepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:-5T4aRPPNZwjeQ5kkp5VgoxqV7axjZ7BGj5RDTXAlXF9RCZlD3SjhA>
-    <xmx:-5T4aRH6jW_jeF7mJ3MYr39gu2zBrV1WlzhhLRnj73pphUGfPZHaXQ>
-    <xmx:-5T4afQYx1chyXUsLtg1zJXeX4HpqevBrjZRmJddA4wJdTxGbh4-Og>
-    <xmx:-5T4aesfWi_czuu2JBDctsi0orw5pKk-1ijcXSAreFWtIvyJwUwR-A>
-    <xmx:_JT4aQjQjbCA2zB2uaqp2FYTgsOuO-aX1Ah3O1UUH1R7_qecxUdznq5w>
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfeuudeh
+    gfdvfeehhedujeehfeduveeugefhkefhheelgeevudetueeiudfggfffnecuvehluhhsth
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohephedpmh
+    houggvpehsmhhtphhouhhtpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdr
+    gigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrh
+    efsegtihhtrhhigidrtghomhdprhgtphhtthhopehsshhtrggsvghllhhinhhisehkvghr
+    nhgvlhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
+    dprhgtphhtthhopehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggs
+    rdgtohhm
+X-ME-Proxy: <xmx:_ZT4aSc7PCxDFSFEx_zHhpRO0WTpxgwoe3XwSSjJ-R_BJdV3aS3jPw>
+    <xmx:_ZT4aVKTulDPz58jyfYZb2Lw-CgSNVSs0Qrlw7Ta29B2rxccEXKZXQ>
+    <xmx:_ZT4afGtnUFKz6MJJqd4WyyVVGiCEjQtbX9FukV3-FpcC-bM-ORXvQ>
+    <xmx:_ZT4aQDXBup1kgkmgIsbT_qeCIAmjxJtC01rN51gqeaHL6Hcr86tXg>
+    <xmx:_ZT4adi15_KzkTQfFbS4p9je70vxi3s3FZA_-RTeiRcv58G43yCBRqUG>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -111,19 +111,19 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v4 04/13] Enable CONFIG_USB_RTL8152 in kernel for hw12 runner
-Date: Mon,  4 May 2026 14:35:43 +0200
-Message-ID: <e2c1ff1c83ea1fa58af486aa6e90073b7c74c788.1777898148.git-series.marmarek@invisiblethingslab.com>
+Subject: [PATCH v4 05/13] Include git in the ARM64 build container too
+Date: Mon,  4 May 2026 14:35:44 +0200
+Message-ID: <7ddce46d356128e4aa3b27a8c82da83a6317898b.1777898148.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.30e6171ddf1c6a72eadf4af0a77c892d4f18d811.1777898148.git-series.marmarek@invisiblethingslab.com>
 References: <cover.30e6171ddf1c6a72eadf4af0a77c892d4f18d811.1777898148.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c201ff/1777898749-E3563443-53F9635C/0/0
+X-purgate-ID: tlsNG-d25034/1777898751-6CF62CF5-4C0A0A05/0/0
 X-purgate-type: clean
-X-purgate-size: 808
-X-Rspamd-Queue-Id: CEA9D4BD289
+X-purgate-size: 761
+X-Rspamd-Queue-Id: 3F5254BD251
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.19 / 15.00];
@@ -143,7 +143,7 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email,invisiblethingslab.com:email,invisiblethingslab.com:dkim,invisiblethingslab.com:mid,messagingengine.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,invisiblethingslab.com:email,invisiblethingslab.com:dkim,invisiblethingslab.com:mid,messagingengine.com:dkim,citrix.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -158,29 +158,27 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[11]
 
-It uses this USB network interface.
+It will be used for fetching some Linux versions.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
-This was posted before at https://lore.kernel.org/xen-devel/20250411203336.585215-1-marmarek@invisiblethingslab.com/
----
- scripts/build-linux.sh | 1 +
+ images/alpine/3.18-arm64-build.dockerfile | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/scripts/build-linux.sh b/scripts/build-linux.sh
-index 441b872..cf0e744 100755
---- a/scripts/build-linux.sh
-+++ b/scripts/build-linux.sh
-@@ -32,6 +32,7 @@ case $UNAME in
-             | grep 'XEN' \
-             | grep '=m' \
-             | sed 's/=m/=y/g' >> .config
-+        ./scripts/config --enable USB_RTL8152
-         ;;
+diff --git a/images/alpine/3.18-arm64-build.dockerfile b/images/alpine/3.18-arm64-build.dockerfile
+index 25a8dbd..38464c9 100644
+--- a/images/alpine/3.18-arm64-build.dockerfile
++++ b/images/alpine/3.18-arm64-build.dockerfile
+@@ -14,6 +14,7 @@ RUN <<EOF
+       DEPS=(# Base environment
+             build-base
+             curl
++            git
  
-     aarch64)
+             # Linux build deps
+             bison
 -- 
 git-series 0.9.1
 
