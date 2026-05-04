@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KBesN9On+Gl+xgIAu9opvQ
+	id MOL7I/Kr+GnHxgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 16:06:11 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 16:23:46 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CB604BE83A
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 16:06:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1299955.1574514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00FC84BF461
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 16:23:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1299966.1574524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJtvY-0000PK-Af; Mon, 04 May 2026 14:05:40 +0000
+	id 1wJuCk-0003NE-NQ; Mon, 04 May 2026 14:23:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1299955.1574514; Mon, 04 May 2026 14:05:40 +0000
+Received: by outflank-mailman (output) from mailman id 1299966.1574524; Mon, 04 May 2026 14:23:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJtvY-0000Nt-7w; Mon, 04 May 2026 14:05:40 +0000
-Received: by outflank-mailman (input) for mailman id 1299955;
- Mon, 04 May 2026 14:05:38 +0000
+	id 1wJuCk-0003LB-KL; Mon, 04 May 2026 14:23:26 +0000
+Received: by outflank-mailman (input) for mailman id 1299966;
+ Mon, 04 May 2026 14:23:25 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wJtvW-0000Nl-Du
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 14:05:38 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wJuCj-0003L5-9m
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 14:23:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wJtvV-00D8JZ-B1
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 16:05:37 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wJuCi-00GTJl-FK
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 16:23:24 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69f8a7a1-bab6-0a2a0a5309dd-0a2a4508c4a0-38
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 16:05:37 +0200
+ id 69f8abd6-2eae-0a2a0a5409dd-0a2a4503b8cc-20
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 16:23:24 +0200
 Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69f8a7b1-63b5-0a2a45080019-d155802ee452-3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 16:05:37 +0200
+ id 69f8abdc-672d-0a2a45030019-d155802eac0c-3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 16:23:24 +0200
 Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-488ad135063so37708655e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 07:05:37 -0700 (PDT)
+ 5b1f17b1804b1-488a14c31eeso30583025e9.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 07:23:24 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-44a981defb3sm35237598f8f.20.2026.05.04.07.05.35
+ 5b1f17b1804b1-48a8eb75fc1sm286878635e9.7.2026.05.04.07.23.23
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 May 2026 07:05:36 -0700 (PDT)
+ Mon, 04 May 2026 07:23:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,48 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1777903537; x=1778508337; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1777904604; x=1778509404; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=c4m3MIC0nMI1OHNqDpdo5HlaLrVVNbzjQ00s9cmcKZk=;
-        b=YiJWndg3cjoj1Pg/Ikvjc6geoSQSr3kQVwxBxluPxrkY7L6G1+M5LxiEgyxTNE/4ZR
-         jp79FbKuyLzZchtqQp9M5YsF6T8EcXUaTEa7lE+Gb7GheQsE/r61TQDAOhHRnh6z+tu/
-         CvhcJa5Ype1MNd+XCCC6l6uTR22/7BvembZhHt6fhILi/eLJ6gkJKBMGvi+MnaSQqXRr
-         hssnRzKN32wVdVNE4h5zHMxeWd6XcJoqHdCjLf+JYYWb11lZEH3asSMyKmAhkgDuNnf5
-         hSNed893XaCd6NcFTs0sGWtefzrO3fmlGCIpFS8e0SGNI+V6N1fN7osRlx2Nw9v14WHC
-         OvyA==
+        bh=u3m/qInxC49xlMZSE9dc97iQE9ZpWisKeFNR3YNzlUo=;
+        b=GQynzwNovqeGY1cLCwGizidS1LWOJhgLmlsOieeJjTpwpA3BJqjJaw97zUNg71ZCSB
+         zvEuv1SqEErVVfKe52ITxQSb2JJuVMcSRqGnmJmRajit3WDc8BdD0tDwSyBFRvFiOhvh
+         1DSqnd8z3Oq0s9K9x4U3DatZEoKgYPCSD7XU74PHpzYoaP4JERNxC18lV0Jcb2IpNtql
+         uOle6nsN0l6p7X5+3Ws7zDrrJiAGBX7QksYCihwMWQHkPqG2mdRSIVhZJwBoEn0Qw1mr
+         Lu2E63O8d3RZSKUlsmAKq0CY8WABdZiBT9cq746blxTT/XiroT1urdHuaAom/qP1s8tA
+         tSXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777903537; x=1778508337;
+        d=1e100.net; s=20251104; t=1777904604; x=1778509404;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=c4m3MIC0nMI1OHNqDpdo5HlaLrVVNbzjQ00s9cmcKZk=;
-        b=oUQ3NUQCFbzhI8P51wDBORXITfg/hl5hcjx+1YQo1bXxQHIP5n8wMSEA8ibxVT1JKv
-         Nn3AzjycUrkDSWNzdGNGHPaKc/9B9h0HdnDM48nCGiuPF7qWdVKc40mEWXYKLwxbI9Z/
-         tV+0R4IWUzlrY5wjOVrj303AIdG2NIDDNjUzClOqgpvsvlggJPAejsC5ySV8AX0rH9Kn
-         ebvhs6tu9ex3cHV/m8rrrIkQiby0BEb6Eg5qDxrm7efeBPLVuzwGmK8u22VLD1HDHZP9
-         KHbi//bVAbl7RLFkoCHPRw0/ZJZsPJK7101u9gScjKCyGQsyZmBmfw0IkyJHQRyx4RfP
-         4hWw==
-X-Forwarded-Encrypted: i=1; AFNElJ9WOT3ObpjnyX5vHQ1XrOTH+zfR6+OM6cuBgljboTEyZZKxPMblm5vx3J+/cGgkmJK5Oeg9T1IAipo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YysNRkEKyl4N2a+aEQynFJayTfbk9+G3r70RgqUtQpMpVrmfCx1
-	5TK4/ilAxEh5oSoWVtA4szETNpbKiLbLJ2Og+gKjLA359SIo8hSX5JiOR7jiGvBfpg==
-X-Gm-Gg: AeBDietw4DDLUDuw7HYZb5114LWOLZtgcuFygqPWWjJSTg5hz4OuFzhjeCdjhw4fcpt
-	8fwAZuiIk7jqdLkTP9Qu6vLiC5A47A7ZiRZ2horMUnRWKAZUaeBXaEYElI5Fx5UVSYNFanGdlmg
-	7U3MTwTb/kkjIoLI/1RXwA+pZTOorKBBtOL20VaKuo3EUWlOaSOI7zOKWaw9XI7ZxzKEldEL//G
-	hyW5i9MdlBPqaKGGuvgs8d5h73FgcKxCg30dvsytGou4EfnEHD87AWabmfp8ni4v6WpEGOwdKlZ
-	tFeaqL/iyoPf0rUfJLCr7U2UV3yZS7ssDrSg1JkvdoEiXwuF4c/Yw/6QxlEQqs/9WOvfMLlVbea
-	lKns6uRbpyt/HZZIYr4eyR19pOaJA9oH9TlwEfOVAwETkkxcXAS69BfUCzEjjOnyqBJEbBfw7NZ
-	bx8ARPI6qEcM//iQO8BQ5eN2+qrYi9VBwpLmjV6rKo2ovkreKyvTufqfLN22ixeUCR4BlOZpa6A
-	tRqLlX4HkQKcU6yv1ANW1loxw==
-X-Received: by 2002:a05:600c:628c:b0:489:1ba8:5bf0 with SMTP id 5b1f17b1804b1-48a988be16emr171857205e9.21.1777903536543;
-        Mon, 04 May 2026 07:05:36 -0700 (PDT)
-Message-ID: <f61ddc8f-88a6-4f61-a470-c9c82b8b9b52@suse.com>
-Date: Mon, 4 May 2026 16:05:45 +0200
+        bh=u3m/qInxC49xlMZSE9dc97iQE9ZpWisKeFNR3YNzlUo=;
+        b=dN6XfAwqvbogjrgC+DfLKYdcBnEkBxjAjfKQkSU3ndTGnAAuFKW9FYhIdmA+rxOtc+
+         CaqBgvMnLvkrkOlpFY/u4iSEROtn63PxKjUxPn33iA39O7HEvN8ZkFGFVOWAORLRSZqs
+         Fph7UrnNdSVJn6kw7Qnbh5OAUA7Bu2b8rfmd6QvMsCtd3yYGtkPn0EHPU5JrIMQFnjeX
+         oV935luxv0uACoDaxxnSD186bwdaMHPqFffp5gbB+3Y4qC38nXA/R3oIpjo8qdP7hk/D
+         DP29ii1SHPfng5fLJAKJzODTXSAV8fAQLfCHeY17yJfeg/IvGblijdfrbJ0p6Uxuxufx
+         tKxw==
+X-Forwarded-Encrypted: i=1; AFNElJ9bDZIn//pC0VI0Y42F6CSK9YZKHrHOTBG2u80u6j0i8f35hRVZXv7uU3+WIhPOBTApIGrqah1FcPI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxHVYjzh2lIsC1tH7sNJqUPer29BToe3fD4Dq3o5atjRpBl3rRN
+	Afw6E2Mj5j2i3co2d8ICafoOWE19mTp+jkDEQaRe4M/EUpt9mVzqNcq3YfL4fuuncA==
+X-Gm-Gg: AeBDietHGItGTl99v9Wf0J9Ytb6CIO+/H9Wh1O1Q8yXhX6WFwLLPdJqsmDXyjE5YgCd
+	II1K+QwbnwHuJzvo7bfZlz8jsZwfaRkI0hIEHzNZ2IQr1TizyytLWFgN83CTkrFfcbXnmG4lN2l
+	68Y1+M4r10yhiTZ86yBuuXHyxpxPVzM1wsYx75PkcFLPVk6diib9kIPS4MxOQIglaAuptzzy7Zr
+	a0Ry+qyz9IepKpjnMsNO5pJffBXYSviGXt7nMhdJRu+MjwD1X37li/U+WSZCuOlNzbKv0Pv1IOz
+	ilZJs55m8xJuotZsrhKjBikQ4XvEZOGjhKciI8+eY4+liy1cTFviSnxadi7T7l69/XfdUv9v+Gc
+	7mD5QIpmSLPQHw2zZu6wiIaYoDDt4nbM84BGHzi6wEzTInhCHaI9+d4FGMjPgMSQhCXhPWSJQt3
+	frlJPAPIhZm3s0HJBHM+m1EvHAHliV/Itlqks9aFh680B64Yy+YRzgAi9A1ZQHB25IuHh4voFV7
+	5AzH0xnz4CqDAA8oAegy1f75g==
+X-Received: by 2002:a05:600c:8903:b0:489:e696:8362 with SMTP id 5b1f17b1804b1-48a98894fe0mr109634555e9.13.1777904603806;
+        Mon, 04 May 2026 07:23:23 -0700 (PDT)
+Message-ID: <aec349c3-ae88-4b8c-940e-6d3fd9c115f8@suse.com>
+Date: Mon, 4 May 2026 16:23:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/11] xen/riscv: add Linux kernel loading support
+Subject: Re: [PATCH v4 08/11] xen/riscv: rework G-stage mode handling
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -110,7 +110,7 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1777303844.git.oleksii.kurochko@gmail.com>
- <af89f0b696c5a1ae477dc0903a9a99b84df26f7a.1777303844.git.oleksii.kurochko@gmail.com>
+ <865ed71ece75e850cdcb47ce9157a668a46a4c4d.1777303844.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,13 +136,13 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <af89f0b696c5a1ae477dc0903a9a99b84df26f7a.1777303844.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <865ed71ece75e850cdcb47ce9157a668a46a4c4d.1777303844.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c1860d/1777903537-C2975DB1-C3FDBB87/0/0
+X-purgate-ID: tlsNG-33051d/1777904604-A1F7A938-A8522B78/0/0
 X-purgate-type: clean
-X-purgate-size: 7653
-X-Rspamd-Queue-Id: 3CB604BE83A
+X-purgate-size: 6013
+X-Rspamd-Queue-Id: 00FC84BF461
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
@@ -163,7 +163,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
@@ -182,204 +182,186 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 
 On 28.04.2026 16:33, Oleksii Kurochko wrote:
 > --- /dev/null
-> +++ b/xen/arch/riscv/kernel.c
-> @@ -0,0 +1,242 @@
+> +++ b/xen/arch/riscv/dom0less-build.c
+> @@ -0,0 +1,70 @@
 > +/* SPDX-License-Identifier: GPL-2.0-only */
 > +
-> +#include <xen/bug.h>
-> +#include <xen/compiler.h>
-> +#include <xen/errno.h>
-> +#include <xen/fdt-kernel.h>
-> +#include <xen/guest_access.h>
+> +#include <xen/bootfdt.h>
+> +#include <xen/device_tree.h>
 > +#include <xen/init.h>
-> +#include <xen/libfdt/libfdt.h>
-> +#include <xen/mm.h>
-> +#include <xen/types.h>
-> +#include <xen/vmap.h>
 > +
-> +#include <asm/setup.h>
+> +#include <asm/p2m.h>
 > +
-> +#define IMAGE64_MAGIC_V2 0x05435352 /* Magic number 2, le, "RSC\x05" */
-> +
-> +static void __init place_modules(struct kernel_info *info, paddr_t kernbase,
-> +                                 paddr_t kernend)
+> +int __init arch_parse_dom0less_node(struct dt_device_node *node,
+> +                                    struct boot_domain *bd)
 > +{
-> +    const struct boot_module *mod = info->bd.initrd;
-> +    const struct membanks *banks = kernel_info_get_mem_const(info);
-> +    const paddr_t initrd_len = ROUNDUP(mod ? mod->size : 0,
-> +                                       KERNEL_LOAD_ADDR_ALIGNMENT);
-> +    const paddr_t dtb_len = ROUNDUP(fdt_totalsize(info->fdt),
-> +                                    KERNEL_LOAD_ADDR_ALIGNMENT);
-
-Why would modules need to be this strongly aligned?
-
-> +    const paddr_t modsize = initrd_len + dtb_len;
-> +    unsigned int bi = banks->nr_banks;
+> +    const char *mmu_type;
+> +    unsigned long bits;
+> +    const char *end;
 > +
-> +    BUG_ON(modsize < initrd_len);
-
-Where's the earlier check that allows this to be BUG_ON()?
-
-> +    /*
-> +     * Place modules as high in RAM as possible, scanning banks from
-> +     * last to first so that the end of the last bank is preferred.
-> +     */
-> +    while ( bi-- > 0 )
+> +    if ( dt_property_read_string(node, "mmu-type", &mmu_type) )
 > +    {
-> +        const struct membank *bank = &banks->bank[bi];
-> +        const paddr_t bank_end = bank->start + bank->size;
-> +        paddr_t modbase;
+> +        dprintk(XENLOG_WARNING, "mmu-type property is missing in guest domain "
+> +                "node. %s will be used as fallback\n", max_gstage_mode->name);
 > +
-> +        if ( modsize > bank->size )
-> +            continue;
+> +        bits = P2M_GFN_LEVEL_SHIFT(max_gstage_mode->paging_levels + 1);
 > +
-> +        modbase = ROUNDDOWN(bank_end - modsize, KERNEL_LOAD_ADDR_ALIGNMENT);
-
-Same question here.
-
-> +        if ( modbase < bank->start )
-> +            continue;
+> +        goto out;
+> +    }
 > +
-> +        /*
-> +         * If modules would overlap the kernel, try placing them below it.
-> +         */
-
-With how kernel_image_place() works, and with the heavy alignment applied
-above, is this even possible to succeed? Oh, wait, yes - for the not-
-position-independent case.
-
-> +        if ( (modbase < ROUNDUP(kernend, KERNEL_LOAD_ADDR_ALIGNMENT)) &&
-> +             (modbase + modsize > kernbase) )
-> +        {
-> +            modbase = ROUNDDOWN(kernbase - modsize, KERNEL_LOAD_ADDR_ALIGNMENT);
-
-What prevents this subtraction from underflowing?
-
-> +static paddr_t __init kernel_image_place(struct kernel_info *info)
-> +{
-> +    paddr_t load_addr = INVALID_PADDR;
-> +    uint64_t image_size = info->image.image_size ?: info->image.len;
-> +    const struct membanks *banks = kernel_info_get_mem_const(info);
-> +    unsigned int nr_banks = banks->nr_banks;
-> +    unsigned int bi;
-> +
-> +    dprintk(XENLOG_DEBUG, "nr_banks(%u)\n", nr_banks);
-
-Did you mean to drop this before submitting?
-
-> +    /*
-> +     * At the moment, RISC-V's Linux kernel should be always position
-> +     * independent based on "Per-MMU execution" of boot.rst:
-> +     *   https://docs.kernel.org/arch/riscv/boot.html#pre-mmu-execution
-> +     *
-> +     * But just for the case when RISC-V's Linux kernel isn't position
-> +     * independent it is needed to take load address from
-> +     * info->image.start.
-> +     *
-> +     * If `start` is zero, the Image is position independent.
-> +     */
-> +    if ( likely(!info->image.start) )
+> +    if ( !strcasecmp(mmu_type, "riscv,none") )
 > +    {
-> +        for ( bi = 0; bi != nr_banks; bi++ )
-> +        {
-> +            const struct membank *bank = &banks->bank[bi];
-> +            paddr_t bank_start = bank->start;
-> +            /*
-> +             * According to boot.rst kernel load address should be properly
-> +             * aligned:
-> +             *   https://docs.kernel.org/arch/riscv/boot.html#kernel-location
-> +             *
-> +             * As Image in this case is PIC we can ignore
-> +             * info->image.text_offset.
-> +             */
-> +            paddr_t aligned_start = ROUNDUP(bank_start, KERNEL_LOAD_ADDR_ALIGNMENT);
-> +            paddr_t bank_end = bank_start + bank->size;
-> +            paddr_t bank_size;
+> +        dprintk(XENLOG_ERR, "Bare mode isn't supported by Xen\n");
 > +
-> +            if ( aligned_start > bank_end )
-> +                continue;
+> +        return -EOPNOTSUPP;
+> +    }
 > +
-> +            bank_size = bank_end - aligned_start;
+> +    if ( strncasecmp(mmu_type, "riscv,sv", 8) )
+> +    {
+> +        dprintk(XENLOG_ERR, "mmu-type value \"%s\" is incorrect\n", mmu_type);
 > +
-> +            dprintk(XENLOG_DEBUG, "bank[%u].start=%"PRIpaddr"\n", bi, bank->start);
-
-And this one? (I also find it puzzling that ->start would be of (primary) interest
-here, when ...
-
-> +            if ( image_size <= bank_size )
-
-... bank_size is what's relevant.
-
-> +/* Check if the image is a 64-bit Image */
-> +static int __init kernel_image64_probe(struct kernel_info *info,
-> +                                       paddr_t addr, paddr_t size)
-> +{
-> +    /* https://www.kernel.org/doc/Documentation/riscv/boot-image-header.rst */
-> +    struct {
-> +        uint32_t code0;         /* Executable code */
-> +        uint32_t code1;         /* Executable code */
-> +        uint64_t text_offset;   /* Image load offset, little endian */
-> +        uint64_t image_size;    /* Effective Image size, little endian */
-> +        uint64_t flags;         /* kernel flags, little endian */
-> +        uint32_t version;       /* Version of this header */
-> +        uint32_t res1;          /* Reserved */
-> +        uint64_t res2;          /* Reserved */
-> +        uint64_t magic;         /* Deprecated: Magic number, little endian, "RISCV" */
-> +        uint32_t magic2;        /* Magic number 2, little endian, "RSC\x05" */
-> +        uint32_t res3;          /* Reserved for PE COFF offset */
-> +    } image;
-> +    uint64_t effective_size;
-> +
-> +    if ( size < sizeof(image) )
 > +        return -EINVAL;
+> +    }
 > +
-> +    copy_from_paddr(&image, addr, sizeof(image));
+> +    bits = simple_strtoul(mmu_type + 8, &end, 10);
+> +    if ( (*end != '\0') || (end == mmu_type + 8) )
+> +    {
+> +        dprintk(XENLOG_ERR, "mmu-type value \"%s\" is incorrect\n", mmu_type);
 > +
-> +    /* Magic v1 is deprecated and may be removed.  Only use v2 */
-> +    if ( le32_to_cpu(image.magic2) != IMAGE64_MAGIC_V2 )
 > +        return -EINVAL;
+> +    }
 > +
-> +    effective_size = le64_to_cpu(image.image_size);
+> + out:
+> +    if ( bits > (UINT8_MAX - P2M_ROOT_EXTRA_BITS) )
+> +    {
+> +        dprintk(XENLOG_ERR, "gstage addr bits value overflows uint8\n");
 > +
-> +    if ( effective_size && size > effective_size )
 > +        return -EINVAL;
+> +    }
+> +    /*
+> +     * The correct value of bits will be checked in p2m_init() by call of
+> +     * find_gstage_mode_by_bits().
+> +     *
+> +     * As mmu-type property contains one of string:
+> +     *  - riscv,sv32
+> +     *  - riscv,sv39
+> +     *  - riscv,sv48
+> +     *  - riscv,sv57
 
-Is the rhs of the && the wrong way round? If effective_size > size,
-aren't you in trouble? Question of course is what "effective" really
-means. Yet in any event it seems dubious to me that effective_size <
-size would really be a problem. IOW this will want commenting upon
-if the check is to stay.
+Or about any other riscv,sv<N> with N up to somewhere around 250. I see
+that ...
 
-Actually ...
+> +     * it is needed to add '+P2M_ROOT_EXTRA_BITS' as for G-stage mode GPAs
+> +     * are extended by P2M_ROOT_EXTRA_BITS.
+> +     */
+> +    bd->create_cfg.arch.gstage_addr_bits = bits + P2M_ROOT_EXTRA_BITS;
 
-> +    info->image.kernel_addr = addr;
-> +    /* Actual size in the binary file */
-> +    info->image.len = size;
-> +    /* Total memory the kernel occupies at runtime */
-> +    info->image.image_size = effective_size;
+... the value calculated here is later checked for validity, so it's
+really only the comment which may want clarifying a little.
 
-... this looks to suggest something .bss-like.
-
-> --- a/xen/include/xen/fdt-kernel.h
-> +++ b/xen/include/xen/fdt-kernel.h
-> @@ -59,8 +59,15 @@ struct kernel_info {
->          struct {
->              paddr_t kernel_addr;
->              paddr_t len;
-> -#if defined(CONFIG_ARM_64) || defined(CONFIG_RISCV_64)
-> -            paddr_t text_offset; /* 64-bit Image only */
-> +#if defined(CONFIG_ARM_64) || defined(CONFIG_RISCV)
-> +            /*
-> +             * ARM: 64-bit Image only.
-> +             * RISC-V: both 32-bit and 64-bit Images.
-> +             */
-> +            paddr_t text_offset;
+> --- a/xen/arch/riscv/p2m.c
+> +++ b/xen/arch/riscv/p2m.c
+> @@ -45,12 +45,27 @@ struct p2m_pte_ctx {
+>      unsigned int level;          /* Paging level at which the PTE resides. */
+>  };
+>  
+> -static struct gstage_mode_desc __ro_after_init max_gstage_mode = {
+> -    .mode = HGATP_MODE_OFF,
+> -    .paging_levels = 0,
+> -    .name = "Bare",
+> +/* Values should be sorted by ->mode in this array */
+> +static const struct gstage_mode_desc gstage_modes[] = {
+> +    /*
+> +     * Based on the RISC-V spec:
+> +     *   Bare mode is always supported, regardless of SXLEN.
+> +     *   When SXLEN=32, the only other valid setting for MODE is Sv32.
+> +     *   When SXLEN=64, three paged virtual-memory schemes are defined:
+> +     *   Sv39, Sv48, and Sv57.
+> +     */
+> +    { HGATP_MODE_OFF,    0, "none" },
+> +#ifdef CONFIG_RISCV_32
+> +    { HGATP_MODE_SV32X4, 1, "sv32" },
+> +#else
+> +    { HGATP_MODE_SV39X4, 2, "sv39" },
+> +    { HGATP_MODE_SV48X4, 3, "sv48" },
+> +    { HGATP_MODE_SV57X4, 4, "sv57" },
 > +#endif
-> +#if defined(CONFIG_RISCV)
-> +            uint64_t image_size; /* Effective size of Image */
+>  };
+>  
+> +const struct gstage_mode_desc * __ro_after_init max_gstage_mode = &gstage_modes[0];
 
-As this (apparently) is for both RV64 and RV32 - can the latter really have
-wider than 32-bit image sizes? If not - use size_t or unsigned long here?
+Nit: Overlong line (and, strictly speaking, a stray blank after *).
+
+> @@ -331,8 +324,35 @@ static int p2m_alloc_root_table(struct p2m_domain *p2m)
+>      return 0;
+>  }
+>  
+> -int p2m_init(struct domain *d)
+> +static const struct gstage_mode_desc *find_gstage_mode_by_bits(
+
+Is "_by_bits" adding much value to the function name? Especially ...
+
+> +    unsigned char gpa_bits)
+
+... seeing that the parameter name is making things pretty clear?
+
+> +int p2m_init(struct domain *d, const struct xen_domctl_createdomain *config)
+>  {
+> +    /*
+> +     * TODO: This static is a temporary constraint: all guests must use the
+> +     * same MMU mode because p2m_gpa_bits is not yet per-domain.
+> +     * Drop this once per-domain p2m_gpa_bits is introduced.
+> +     */
+> +    static const struct gstage_mode_desc __ro_after_init *m = &gstage_modes[0];
+>      struct p2m_domain *p2m = p2m_get_hostp2m(d);
+>  
+>      /*
+> @@ -341,6 +361,33 @@ int p2m_init(struct domain *d)
+>       */
+>      p2m->domain = d;
+>  
+> +    if ( !config )
+> +    {
+> +        dprintk(XENLOG_ERR, "NULL config is passed\n");
+> +        return -EINVAL;
+> +    }
+> +
+> +    p2m->mode = find_gstage_mode_by_bits(config->arch.gstage_addr_bits);
+> +
+> +    if ( !p2m->mode )
+> +    {
+> +        dprintk(XENLOG_ERR,
+> +                "Unsupported or unavailable gstage addr bits: %u\n",
+> +                config->arch.gstage_addr_bits);
+> +
+> +        return -EINVAL;
+> +    }
+> +
+> +    if ( m->mode == HGATP_MODE_OFF )
+> +        m = p2m->mode;
+> +
+> +    if ( m->mode != p2m->mode->mode )
+
+Since m always points into gstage_modes[], do you really need the extra
+indirection to compare the two ->mode fields? You could simply compare
+the pointers, couldn't you?
+
+> --- a/xen/include/public/arch-riscv.h
+> +++ b/xen/include/public/arch-riscv.h
+> @@ -56,6 +56,11 @@ typedef struct vcpu_guest_context vcpu_guest_context_t;
+>  DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
+>  
+>  struct xen_arch_domainconfig {
+> +    /*
+> +     * G-stage GPA address width in bits.
+> +     * Valid values: 34 (sv32x4), 41 (sv39x4), 50 (sv48x4), 59 (sv57x4).
+> +     */
+> +    unsigned char gstage_addr_bits;
+
+Fixed-width types only in the public interface please.
+
+Also, isn't the field effectively describing the maximum width of a
+guest (physical) address? In which case - simply gaddr_bits?
 
 Jan
 
