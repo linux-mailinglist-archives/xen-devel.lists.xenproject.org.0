@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MOZ5AROV+GkKwwIAu9opvQ
+	id OLChDBeV+GkOwwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:11 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:15 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A44D24BD2AF
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1299784.1574409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B12684BD2C5
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1299785.1574425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJsgV-0004JR-9r; Mon, 04 May 2026 12:46:03 +0000
+	id 1wJsgX-0004uL-L6; Mon, 04 May 2026 12:46:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1299784.1574409; Mon, 04 May 2026 12:46:03 +0000
+Received: by outflank-mailman (output) from mailman id 1299785.1574425; Mon, 04 May 2026 12:46:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJsgU-0004CB-SO; Mon, 04 May 2026 12:46:02 +0000
-Received: by outflank-mailman (input) for mailman id 1299784;
- Mon, 04 May 2026 12:46:01 +0000
+	id 1wJsgX-0004pk-Bj; Mon, 04 May 2026 12:46:05 +0000
+Received: by outflank-mailman (input) for mailman id 1299785;
+ Mon, 04 May 2026 12:46:03 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <marmarek@invisiblethingslab.com>) id 1wJsgT-0003vv-At
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 12:46:01 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1wJsgU-0004EC-P1
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 12:46:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wJsgS-002QAe-Md
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 14:46:00 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wJsgU-008wGN-3n
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 14:46:02 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <marmarek@invisiblethingslab.com>)
- id 69f894f8-5cb7-0a2a0a5109dd-0a2a4508c074-32
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:46:00 +0200
+ id 69f89506-5cb7-0a2a0a5109dd-0a2a4507cc76-24
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:46:02 +0200
 Received: from [202.12.124.154] (helo=fhigh-b3-smtp.messagingengine.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <marmarek@invisiblethingslab.com>)
- id 69f89507-63b5-0a2a45080019-ca0c7c9adeaf-3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:46:00 +0200
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 37CF97A00A5;
- Mon,  4 May 2026 08:45:59 -0400 (EDT)
+ id 69f89509-229c-0a2a45070019-ca0c7c9ac7b5-3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:46:01 +0200
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id B1CA47A00A9;
+ Mon,  4 May 2026 08:46:00 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-05.internal (MEProxy); Mon, 04 May 2026 08:45:59 -0400
+ by phl-compute-07.internal (MEProxy); Mon, 04 May 2026 08:46:00 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 4 May 2026 08:45:57 -0400 (EDT)
+ 4 May 2026 08:45:59 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,30 +60,30 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1777898759; x=1777985159; bh=AO5G90pFBx
-	jSjPmnC9JaB7F6HUPav+M3PPDEti/IWr0=; b=is1HC3S54Zve+k6VTxN4yd+rp9
-	Om6nSdnb3cAg5RNzFNu9NKfEhwy8uxcTlw5yWdyZ+BjVlPg3WSP90Q/YwhoJbcbK
-	M+RjxxgsF26j2KpWHKdFG+XmnIQg7kWV6nQ6CqUK6d8EQR+4IzV9jCV5Me1fUTkT
-	xvpU+2EE1QB3xcxc46Ikxq+ik5tyNCjB6LBJj7DtujB5g9tOKY29K8SsNrg4b0BO
-	I2xylb0uKxUuAQIZmh8qIoB3PIWq+BnqhyNRJCdz29VybLnkegqBw4/sRSLIwjn6
-	q9ucRqkdrDncr4/04ZV+TBgik8K53jYZlkOcxT6wCajm8QgfMW4A+05Ea30g==
+	:subject:to:to; s=fm2; t=1777898760; x=1777985160; bh=XX0Dg/7YfK
+	rsJr0bP1RqDlxPQIUTpCyaHF1UQw2fWRQ=; b=nkRlkLPC/WA0AHbfJhP6DjBSEO
+	Saa4DJsoeTnjolHYnKw3wXIVcgBO7z49UgDkqlT/ct9+nKDy4+YFFO4CzOvSaRLO
+	V7M08+YxwAx/oE7RqyoYbZtX0Ra5Vkim/xQYyRYLLYjvRqh14JfLvbpGVPMdqZyL
+	na0hf6SGhO+IY3Mj91zGm5Ed8XmNaRK6tzWUAcihTOjcJDoGRlxTt1pu8FQlDK60
+	E1UQS8AzrHaY0eHySzMLRsXL4Ni7YRNEgWBS51tEEWDkv1KCJzuthUWuoCqBNapt
+	P9r+XgzPhMteOaJMRMSMCvFqpi3vgpe+hM32zI7wJ/j9xgGq+eBeiPnS2jvw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777898759; x=
-	1777985159; bh=AO5G90pFBxjSjPmnC9JaB7F6HUPav+M3PPDEti/IWr0=; b=Y
-	5P/ySTYsl650uJKavS68h+fbpM6vgCjw2f70/o1R86aKOC5bw0tkKVS3MxxzkXNX
-	gvzy7TN2purf5ILNTKx8UiJdoE61W29uM1LQCCntoN0w7OdapIZOqlbKEl3+JQhp
-	nj5tuqryJU95K0U1NSrQgC1bxMX5bZLcs5mqGiviIIp9b9a2Wx5LgBslyQUNSV4P
-	S0VsSrujtUSDi/KBTHBwrIhwwffYW0cXbZ/zIIN1QoGpHTd9p0WgFZSxk+dX987m
-	nYAGWi3mtOG15vvhkLz6R4yrePQCyO0GKHCUfo3Ns1GZbqb163oEIIbvoJsuPrA4
-	Cp2HWtOb0qF/pnFfxCAiw==
-X-ME-Sender: <xms:B5X4aRKFN65RMhVEgERbFo4jYLcI4hpGAif8TTrkU4qsIrmmgIdQHA>
-    <xme:B5X4aUC79nLE5kRPNeLPLW4mbxoxqj3Qo3MzVxaDVCXZvG9XJfKtP_llh2KrDfBxo
-    3iFLslaOc97QnX8fCCCSqFCYt6rMDT_jHxUGYd_XL_jK5yDoA>
-X-ME-Received: <xmr:B5X4aSDNW2FNcIApqSgBb7FGEQVZ01J6GYQZhfez_WjomhemToPOs44xvP2WwHueirADekyws0vHa72Gx-yPPCdn05i1YN_5r2Di3DpNOGM>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777898760; x=
+	1777985160; bh=XX0Dg/7YfKrsJr0bP1RqDlxPQIUTpCyaHF1UQw2fWRQ=; b=N
+	27uBja9WafF7tXG3QkODmosMFQiAaPVt9nSIFCeKpLhLUZUrIy4iZUQOecpB2Cwk
+	+50VwAX0hc0pcw4gkjtvxeZRv17eA1uKXGXvOaWG+c/bIIN8F9OJKiLGkX4DvSmt
+	bnjD6nyhArc63nwCIbPLDQqeQ65dELy+RzYHYmH/OwHJWVxkpnaB2rToS6VMSu3y
+	9X8HViY6bpnG4IwjrfF1p4nB1P/1ijkmwn+4BKZDJN4RzDhL6XdznUNQLRWaFKET
+	0qh2m0CCGth1uPzJlzWPrjfpfzpgDkUlui++EtzH9v3TZM82BpFZd1iIe2dFxSkq
+	a9ywreUarTSgahtoRGI8w==
+X-ME-Sender: <xms:CJX4aQaxbMtpP6yfv0bSck5cZH5U8AKzsfBIevDiaui1GRbOiY2eZw>
+    <xme:CJX4aSSqB8VyW68_l4I9r2YSNsDMDKE0_blY9lWmMjFloHd7vvgPq2kgE75sR9ZYx
+    yv8BOKG-hnaBWNf9VLqfu3GpJNF6aBnG_t3JtsrG9DBS0EYnQ>
+X-ME-Received: <xmr:CJX4aTRcYntFSjIoyJlEXg5j5bfc9plX_OsccEqO-6lx0KZiroE0DlUX4BGiTFhGCUkAiTuSt4Y6MNvC2RFceE_7eHWvqVuyuOAVTQxdhL0>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelkeekkecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
     ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
@@ -91,7 +91,7 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelkeekkecutefuodetgg
     ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
     hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfeuudeh
     gfdvfeehhedujeehfeduveeugefhkefhheelgeevudetueeiudfggfffnecuvehluhhsth
-    gvrhfuihiivgepudenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
     nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohephedpmh
     houggvpehsmhhtphhouhhtpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdr
     gigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrh
@@ -99,11 +99,11 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelkeekkecutefuodetgg
     nhgvlhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
     dprhgtphhtthhopehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggs
     rdgtohhm
-X-ME-Proxy: <xmx:B5X4aeBAgk1vUAcL2G3pT9owrePCfg_-cgTVPNLl9T7BTSolcqkOkw>
-    <xmx:B5X4aVqcVEp0JiVUZBGiwhkPbW4RTwGFuEYqjffZtvkrl8vnYwwcEA>
-    <xmx:B5X4aQnIc92R_g_xgmpTVAdUdwEpLdG7rjtIp4EHGbXXtQkv_m2Erw>
-    <xmx:B5X4adyJidyTraGH6UDcWPkm3CuMPmWABiGezeGTB5ugG9ipbBJEKw>
-    <xmx:B5X4aX0iNhxdiMAwQ9KSlFVqWfWkF80_DLpqLQPbtPsBmmPmp56u9RTw>
+X-ME-Proxy: <xmx:CJX4aWQkSYWQ9FSNM7eqvlCbLgUqSoHPj3h4Q0CmsNwagawYGt6XWQ>
+    <xmx:CJX4aY4THPDo5Q-x2Bk_VEeEgJGeFwTGLcvvcEVQ7TcvV9p0pt1zTA>
+    <xmx:CJX4aS1BaqSudc4Vt1b4nN9C5oR2JNLPSg1wdHlZ7128zJrz7Q-h9w>
+    <xmx:CJX4aTB2gemWTV99xfxJdWsgKckbr2aJ5eWOMQOLrGl5gwaJv8AzdQ>
+    <xmx:CJX4aSHv7HohQ34Zwt5Uxi57ir3oPZZ3Ymxw7eMXkClu6oZM6KnIAxYu>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -111,19 +111,19 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v4 11/13] Prepare grub for booting x86_64 HVM domU from a disk
-Date: Mon,  4 May 2026 14:35:50 +0200
-Message-ID: <00344b97286d79b76334622611da48ceda7e7e8f.1777898148.git-series.marmarek@invisiblethingslab.com>
+Subject: [PATCH v4 12/13] Prepare grub for booting x86_64 HVM domU from a cdrom
+Date: Mon,  4 May 2026 14:35:51 +0200
+Message-ID: <4aa490a4f8a26ec86397cef30091cdd3f3598c30.1777898148.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.30e6171ddf1c6a72eadf4af0a77c892d4f18d811.1777898148.git-series.marmarek@invisiblethingslab.com>
 References: <cover.30e6171ddf1c6a72eadf4af0a77c892d4f18d811.1777898148.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c1860d/1777898760-C176EDB1-B29018E4/0/0
+X-purgate-ID: tlsNG-ef75cf/1777898762-2B77AC48-D4272D76/0/0
 X-purgate-type: clean
-X-purgate-size: 849
-X-Rspamd-Queue-Id: A44D24BD2AF
+X-purgate-size: 825
+X-Rspamd-Queue-Id: B12684BD2C5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.19 / 15.00];
@@ -158,30 +158,27 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[11]
 
-The stubdomain test will use it
+The stubdomain test will use it.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
- scripts/alpine-rootfs.sh | 7 +++++++
- 1 file changed, 7 insertions(+)
+ scripts/alpine-rootfs.sh | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/scripts/alpine-rootfs.sh b/scripts/alpine-rootfs.sh
-index 2671ab5..18f43e6 100755
+index 18f43e6..f649550 100755
 --- a/scripts/alpine-rootfs.sh
 +++ b/scripts/alpine-rootfs.sh
-@@ -96,5 +96,12 @@ cd /
-     echo -ne "dev\0proc\0run\0sys\0"
- } | cpio -0 -R 0:0 -H newc -o | gzip > "${COPYDIR}/rootfs.cpio.gz"
+@@ -101,6 +101,9 @@ if [ "$UNAME" = "x86_64" ]; then
+     grub-mkimage -o ${COPYDIR}/grub-core.img \
+         -O i386-pc -p '(hd0,msdos1)/boot/grub2' \
+         boot part_msdos ext2 linux biosdisk configfile normal
++    grub-mkimage -o ${COPYDIR}/grub-core-eltorito.img \
++        -O i386-pc-eltorito -p '(cd)/boot/grub2' \
++        boot part_msdos ext2 linux biosdisk configfile normal iso9660
+ fi
  
-+if [ "$UNAME" = "x86_64" ]; then
-+    # Prepare boot sector for HVM disk
-+    grub-mkimage -o ${COPYDIR}/grub-core.img \
-+        -O i386-pc -p '(hd0,msdos1)/boot/grub2' \
-+        boot part_msdos ext2 linux biosdisk configfile normal
-+fi
-+
  # Print the contents for the build log
- zcat "${COPYDIR}/rootfs.cpio.gz" | cpio -tv
 -- 
 git-series 0.9.1
 
