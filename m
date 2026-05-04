@@ -2,49 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mG+kOqyg+GkgxQIAu9opvQ
+	id EPp6DPSh+GlExQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 15:35:40 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 15:41:08 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CB034BDF12
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 15:35:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1299927.1574487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 869F84BDFE6
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 15:41:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1299935.1574496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJtSD-0002sS-PG; Mon, 04 May 2026 13:35:21 +0000
+	id 1wJtXY-0004hN-A8; Mon, 04 May 2026 13:40:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1299927.1574487; Mon, 04 May 2026 13:35:21 +0000
+Received: by outflank-mailman (output) from mailman id 1299935.1574496; Mon, 04 May 2026 13:40:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJtSD-0002qP-MV; Mon, 04 May 2026 13:35:21 +0000
-Received: by outflank-mailman (input) for mailman id 1299927;
- Mon, 04 May 2026 13:35:20 +0000
+	id 1wJtXY-0004fQ-7O; Mon, 04 May 2026 13:40:52 +0000
+Received: by outflank-mailman (input) for mailman id 1299935;
+ Mon, 04 May 2026 13:40:50 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wJtSC-0002qJ-NM
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 13:35:20 +0000
+ (envelope-from <Oleksii_Moisieiev@epam.com>) id 1wJtXW-0004f4-8Y
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 13:40:50 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wJtSB-00993s-Ro
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 15:35:19 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wJtXV-00GJlD-1v
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 15:40:49 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69f8a090-2eae-0a2a0a5409dd-0a2a450b9c14-46
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 15:35:19 +0200
-Received: from [209.85.221.49] (helo=mail-wr1-f49.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 69f8a097-212f-0a2a450b0019-d155dd31c069-3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 15:35:19 +0200
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-43d7badbd7dso1844507f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 06:35:19 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-44a981ded99sm26669965f8f.18.2026.05.04.06.35.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 May 2026 06:35:17 -0700 (PDT)
+ (envelope-from <Oleksii_Moisieiev@epam.com>)
+ id 69f8a1e1-e002-0a2a0a5209dd-0a2a4507b602-0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 15:40:49 +0200
+Received: from [52.101.70.94]
+ (helo=AS8PR04CU009.outbound.protection.outlook.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Oleksii_Moisieiev@epam.com>)
+ id 69f8a1e0-229c-0a2a45070019-3465465eaa83-3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 15:40:48 +0200
+Received: from DU5PR03MB10263.eurprd03.prod.outlook.com (2603:10a6:10:519::5)
+ by PAWPR03MB9106.eurprd03.prod.outlook.com (2603:10a6:102:33e::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 13:40:45 +0000
+Received: from DU5PR03MB10263.eurprd03.prod.outlook.com
+ ([fe80::8c9e:b301:61c0:3908]) by DU5PR03MB10263.eurprd03.prod.outlook.com
+ ([fe80::8c9e:b301:61c0:3908%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
+ 13:40:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,191 +58,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1777901719; x=1778506519; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=7gSJuGpSdqYwflAgAB1ocz08ydzzTqCwQ7xCeAzakzw=;
-        b=PJD4VzPFuAoLQZCmN9IZoS0wcK/WFRUqBKd+aHRBHRFipUvJIYXHAGL+dyY6mCBCar
-         eP2nPJxFV9bR7TeZLvcKK5AXB5aF017RDEdLFspTVWV5m78tMbAOae3/qNDLU05U/osw
-         bFd0DTRhQr3NMK7hkaoutB+eXnrug3T3ax9NWnyR4mV4M5ygZUyE25TsNmh3qudNUi3Y
-         xT1K/kIuod+V/XriOzSh7mywLofknxBMr5RdvNui/I9oNqdXxMvSrX2cM6vkKHmuPMJw
-         NhpvZoVYTsVLup0gaNC3dcasoMoouwoPZVSh6Wx2ICzjnwTGpallC1TtmzAyV02pyXkz
-         tBJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777901719; x=1778506519;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=7gSJuGpSdqYwflAgAB1ocz08ydzzTqCwQ7xCeAzakzw=;
-        b=UegSDvmiC+UtMvEWLNVDaPhJfIJtgJX5l8TdqRoE6QS5z7sOMT4sbOXYX/NKTK571m
-         qCHi55r1ajpRdVqm0AIiwwBbGtWA1UIc4mETbovdKdFO1EFTu/n6O3GSDGN1zKB+IbIB
-         q6kH8tiyaFX+RQ+u2Gr7IGXK+mOi5NnobgQsH0qfhfdoKgq39XF7SVi213OxFliD8G4t
-         lXk+Y4zpBJwrQTKTJSWQ4PK8QW4CxkZtWPJ0GitnYCN422GGPdxMwx8QBOddDTJ/BPN5
-         jpHH77woROoNT5oChP4ubHPFwI4ibUJgSskOxZS4ezB4OndzRJTQKxfbIUKFZWY7v4h+
-         xHOA==
-X-Forwarded-Encrypted: i=1; AFNElJ/vV5x/8dWP7IW+OArHNxZAA0BL+AG0jxhDorG1wBSaIeqMevXJoflmaoZAgzJ+DKd97yXVjTe0YQQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyGa8eGBOOSaYLxGLph0XZZ9QQuXzq8veB8apS2pgjNM/uySE0i
-	ayrFFrVvNnhp49pB+k57fHavMEMSHpXybuVuPBgAAEeDnmzJSZXrJeRCwDCrpwPwfQ==
-X-Gm-Gg: AeBDievZrE5a0v2g77s9VYNNmm4laR0m4yl8EpD/NM1DYrTZp60BR3fJaQdakfv0up5
-	pjiI7icRR2iUVW3RT8GSMcjxi6h0DR+/GuCt0AXWy78zJzNrQZufs8C6rDBTbLE0Uj7VnMvULFI
-	U5w0gGbSpuqGo5k2kpwcak5AbwnQc8g7Oo2GfrnYwrHhmRjcEjzhdmfmsTwJOH+/apdtnPe5d/k
-	eojCREkVS+rr+Vip1LQ4E1hsPHBsO27uHy4XOFP6+/PatcoE6+oGF0aA+c2MHfA9fh4brcaq1J6
-	Q4zNRCoMxJoYcHxJB2bbXR/emZKuYwBJD9/s7jquFzDrr9/ki9BCWVUjFGvst3lJvB6DTknVuQo
-	X4z4VgVRGNWxR10Bgwu73ijptdkVngN5m2rL6gTN8CSC8W4ry0HBtigVAFMbvQ2A7ZNlypwRJZt
-	XjyeLA2Q6H0oxXYfNMEHNLycc2jk7f1Dry7ZqMy7spkLq20HTm4YfQyEEA9J/4B9wZ05HBIU3G8
-	DgKpi3xkMJXEM5Ebq9m6hpJeA==
-X-Received: by 2002:a05:6000:24c9:b0:43d:21a:9a3e with SMTP id ffacd0b85a97d-44bb65dfc18mr15115451f8f.32.1777901717935;
-        Mon, 04 May 2026 06:35:17 -0700 (PDT)
-Message-ID: <23c6c675-70fd-415d-9b3e-6af68258f32d@suse.com>
-Date: Mon, 4 May 2026 15:35:27 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 8/9] hvm/ioreq: Negotiate extended destination ID
- support per ioreq server
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julian Vetter <julian.vetter@vates.tech>, xen-devel@lists.xenproject.org
-References: <20260427135406.1281424-1-julian.vetter@vates.tech>
- <1777298081.8631fc262581453bbf619ec5b2062170.19dcf3886cc000f373@vates.tech>
- <1777394145.8631fc262581453bbf619ec5b2062170.19dd4f256ec000f373@vates.tech>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KnpLMBPYLUMp8lFyGBUJVAcoDoDpxi1dJHF2LfZ71SoMZ2b4eI8p2vorjT+pcudW2pKFrE6hkuPOTsqVFF+XAT2yUiU4+JLOmmjfvbsrlrOe+nLfE01eTbLAAXafEdIO+64Yj4Vq81D0PUZkfig62er9HxcSyXNgmlU5bDWDxsUPk49TwF/hjuWZHpc3fquDCY4kshXfLGoqYXGgr6fg+RvS0aoY2JTJFg3BABLaMgaoWTG6IjtIa5OOWZ0t8hDKvd+h1M55Sg5qutV2QMAb+60aqw9M59vb34V8oOYiQFpsRnTTt/LIasDtuRBMM1qHiwjootDmVOZMdIShw4DEEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JbrAVut94sJ6tMqG9N+0US2Yjz7n+raoSKn/WWaiOuc=;
+ b=cKFoIWwFGZZSYwEzroloyp/izkuLTGKXmoaaT8Yv3oNh5x7t5GB0ST5YhlNlZ7Tnj2A9hsLDfzX/EGmk3On9m+gWMAST+0m2hfLehlRdt69qRsMVSmh8hdgu+t1bArMbNwMstldBrYRKvKGmj/uUBb05qh6laL9oEWAEcJJZYqCVRcwil6+A9fJAmlXR46+zLIyPgKaEoSQZq0FR7bMOaRM0tuVCaKo4vA7lMRZ5D79h51RGDrewUp/BybqF+pHPWD9fmyW7nwVx/LhhWp1t9gbY5leyy0Mt4xKJCuoIvWtxJwM78FuoJlGU4CuSb7tx0W3d59WQxj3D+oqucSL/nQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JbrAVut94sJ6tMqG9N+0US2Yjz7n+raoSKn/WWaiOuc=;
+ b=XVUCLuJpvKhvU9ogZSpeVO4CTOHidFNJeyMN60lAJOKquNh0jiQRZzKHcK7GUvydPzl7vb+iqWql4sB53hTsxlZX+o1Z5OB43U0slWl7njpLXtoIz/LkM0+vc4Si4adCmrymSCTCLKBvOq1SH9vuAq+VzthH9qmB0Y/SqQKqDjFy6h9gwxe80Yt54KQ3KtTEFuCzaWkaGYubtCWzD+yYPmr/dlwPvyZ/QoprADCzV82nzUPxKCLUy/jEZ9HSd0OM6EywlE4no13S+CdI35C2X3GKVustnR3tA0SNsXKC6G9RW9sjl0mkCsBs7y+b8IiMWxoXJYC0IRC+IZsesQBOGQ==
+From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>,
+	Juergen Gross <jgross@suse.com>, Meng Xu <mengxu@cis.upenn.edu>, Oleksii
+ Moisieiev <Oleksii_Moisieiev@epam.com>
+Subject: [PATCH v3] xen/sched: rtds: assert replq is empty on timer (re-)init
+Thread-Topic: [PATCH v3] xen/sched: rtds: assert replq is empty on timer
+ (re-)init
+Thread-Index: AQHc28ubWcgbGgaJskq0Bya4iIMSqw==
+Date: Mon, 4 May 2026 13:40:44 +0000
+Message-ID:
+ <f751db3a02efa96d737235e58eb7bfb35e6218bb.1777901826.git.oleksii_moisieiev@epam.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1777394145.8631fc262581453bbf619ec5b2062170.19dd4f256ec000f373@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1777901719-246B7F3B-6C0DFED6/0/0
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU5PR03MB10263:EE_|PAWPR03MB9106:EE_
+x-ms-office365-filtering-correlation-id: d6fee17f-6e06-4712-058d-08dea9e2bdf9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|1800799024|366016|56012099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ 4yG6IpwEc7oYc5FjpTakcGWKkE4H6Ntw1pb9R0RxmGN/IqSG4tPtYqn4uI6oEkEt0YOucVKLL20lxvd6H/YAhPANeZbPxjzqlsXbdqK7SFUxB2bI65CoJqPDFZQkvWIZ7jMSQAA0xyb2pKCHk0tc4IN05Ud0uPhh5jopB+hke1Q4AYfLjQkNs8MTkzI1CiDJWB+xshH25NZsxBc6Mc/s/Q/U/qCMMQsjtqJvlNLGtPD9AiZo72TGwPR18NLv/lBE9Z0tTTvL0Rc3LtVdRizyzQYc93chmnfX0JSWLRqu39bOBCiFSiJ9AJUqjp1A46MZ8SaDOMO8o6CSzNKj42ccgSxqxPjVotFKZfR2i3qO4Y/Tz3kTneRgSLdUUBc8sikk0xus/sW/pNX/iwGzqat7PIYZd6xxmswuern27C0/PEqnpOr0GcY8MEjMr6Mb34SdxEMTKWkd/lGo+xD+OOGcNVeMCwDkmhCsA/OPwcMm3pFYLJvIXlHodt4KWS36kWadqEven7QWU0C1onGOZSQyWMFJgCPzS7uiV0G6j7q24lVmyTR/gjEighvNRqqDd6ILl0KmihuOFcf/SFuxHPJpVukxNE6IL/autp86tKk8nc0Tgd4FIp162eKgVD5ujchndDRO2nlLB7cSDnLOO9UiuuAan9IHEDLq2gufDdtAah9eeaQstKAJXwZGFn/q+jLcWaTTkArvaiSyxXBxGHduqxMWZz0sqR5mWS2Yb+WiDki8VnwRMyAJS9Uac1npODiN
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU5PR03MB10263.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(56012099003)(18002099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?/iuDqoJXOK1dK08SlFxhgL8KiPcUUXtSPC037zxOXeetsUfh5Okmc6owWB?=
+ =?iso-8859-1?Q?Ma9Di20Vtc8qOY4kXv63h9Xt6Fu1jZZJDtvjMeP3WGRd8qKNhOWjShzofG?=
+ =?iso-8859-1?Q?xLwPR2jViJME5t50xgAvHLwugYIq5F6AznAILz0Ua8dYxy9PKcvCyEwzYu?=
+ =?iso-8859-1?Q?0SIOvtl60EQk5lSuIzRsN9sU1Hsb9romxCRz8a9ueZj2XopQZoiaUgX5wa?=
+ =?iso-8859-1?Q?2sr6OvK4LiT26cxqaz6QpQuZ8FlB0pOnzgFqXdcG7zuUvZ3IZKTtktLfFQ?=
+ =?iso-8859-1?Q?92elZ+dNFV0SUNAIn2x7xnCAzkbxM+sLt4Q73MWrwzc3r0rV0HtQgFlN+0?=
+ =?iso-8859-1?Q?R0ea4UfbgzODdoqjYs1gK9a5vGZ9u2xZ5yHZ+j5lw9KM2lcYG/D0Oe3huu?=
+ =?iso-8859-1?Q?hFT7BYiiuAZx2/3b5+8fx5SD+cT0UqOIdYZ9RbxAu/Ungn318VLPZSYFyz?=
+ =?iso-8859-1?Q?jDvri22a0XYI9MoupKlbPv4kgGGfHIBKKwu0PTgemBa74eVnaF0YQqm7pa?=
+ =?iso-8859-1?Q?gWA6XOzXaH5qrMMvU1HP9Z4pob2SHljZp/3C7oDaGRCEt+jHAszAg0swbw?=
+ =?iso-8859-1?Q?5OfxR52xoXrAVs+l6x11brIirZqcMusN9v+GNfVj6FXbvI0broiliJP1rT?=
+ =?iso-8859-1?Q?HZCENB8Awr1+vJa2GeElLdoE+iBLwYRODTSkWxUsZPf2Qs+3Br5/urzSs9?=
+ =?iso-8859-1?Q?DS9WBH/43xuqPQocB31rWm2K+pvyn4KcyyPNEOnAcTSRqF00j0uHtEVa1C?=
+ =?iso-8859-1?Q?1blyFmTLNTlLGN23/FiGsGEKPiqsT++mcTb9Boxz2lQar4vznpk0fmQtAE?=
+ =?iso-8859-1?Q?Wyo82guDh85Wx86VknApox5VipUBcWAZJcorMNe0u5pPLmqNZYSVJYHFMh?=
+ =?iso-8859-1?Q?Y/sXakoVHjLRZPCuOkbOQAE4fYhpzqTbTlclaEhWJGQONlKXZR5Ut+cwn2?=
+ =?iso-8859-1?Q?C+eokKkbrBTbcL1WCHDrwHFuEnXe06sazixrinng2Enj7YCTgf3yHPLjPC?=
+ =?iso-8859-1?Q?Jo/kw+D1Rcwvya+ecAL00TtnoSLCjkHNyRRwdQ9IeviGAQhv2qIHoP3vsf?=
+ =?iso-8859-1?Q?nJcfbpizBBa9bmLVWPQTzgUScz8l9RqdkDpCtQXmTxmH/Y74FbwIgpg7vv?=
+ =?iso-8859-1?Q?/cNFQ7218raJV6nmiTmk4LbtLm4/5Zbx+MTAWwzF1RDsCrLYDbGeote3FA?=
+ =?iso-8859-1?Q?rAqHZdrJOkGOruzhCCKbMLoSdRY04LztpclWvo9E7RCjqvbM1uzZwq4vt6?=
+ =?iso-8859-1?Q?oQXkHJaR46I1CGZislthi+eEj8blHJtmsyrI6zLTe68heIBJ9gZsS4BVZE?=
+ =?iso-8859-1?Q?Tk00MOO+xMT5k+7xEduAkxmjXAxRBQc9B7xmEoV45DvyOnB9dRMMSf/EzR?=
+ =?iso-8859-1?Q?Y2GD3zakG0lAsPQ1wqDH//0m3LBVl3QRPd80vOlCA8S1lNViKVrFCEqWIG?=
+ =?iso-8859-1?Q?aM+dBjMXeJC9pq7pewzXE2jzeO4cJWsJeNJfprgFcx4WkJp6gy+XoTSiOD?=
+ =?iso-8859-1?Q?S9VcFbwBPM2tYrXIoFJIG8lLPmoGx8V6J5AsG3s2bbIjdbtIfZq5owVxJF?=
+ =?iso-8859-1?Q?X+2FyGMP3d+PtDLcupWg4ZoTgGQbhJVN3zZEHjEnmSkurPR8NUFD0QOVFt?=
+ =?iso-8859-1?Q?Tu3PugJTpXucwdxFrjnBGFkw6Z5LKsFWheRu4aucDt7NM6ChJ7OFzPJTj+?=
+ =?iso-8859-1?Q?n4O1G/SP+TW9iXUjXCuCD+P2V4XjxmLw8G2+nV/8lAS+ljlqoV6+3Nk7+4?=
+ =?iso-8859-1?Q?ethnLbAXQN71TIePWJvwmjwDUHZT0rkb40gBD5SoWUlMlWg3KBWHOVlnRu?=
+ =?iso-8859-1?Q?ZY1X5FYo0+wuyDn06ks85VpTgm7uLC0=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DU5PR03MB10263.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6fee17f-6e06-4712-058d-08dea9e2bdf9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 May 2026 13:40:44.7891
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KqUr9WanAyxOBty5aFohxkP/fJUt2rZMXD4FrTu5VrhUJd8CChRr7V8pVuhjuFI+7qjkwQ9/ZiwUd5JuhzgXJig4ehmH9qaVvL6blDNHYkk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR03MB9106
+X-purgate-ID: tlsNG-ef75cf/1777902048-ACD67C48-B9557FFE/0/0
 X-purgate-type: clean
-X-purgate-size: 3236
-X-Rspamd-Queue-Id: 4CB034BDF12
+X-purgate-size: 2231
+X-Rspamd-Queue-Id: 869F84BDFE6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:julian.vetter@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:dfaggioli@suse.com,m:gwd@xenproject.org,m:jgross@suse.com,m:mengxu@cis.upenn.edu,m:Oleksii_Moisieiev@epam.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[Oleksii_Moisieiev@epam.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email,epam.com:dkim,epam.com:mid];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[Oleksii_Moisieiev@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[epam.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-On 28.04.2026 18:35, Teddy Astie wrote:
-> Le 27/04/2026 à 15:57, Julian Vetter a écrit :
->> Add a per-server capability flag in XEN_DMOP_create_ioreq_server to
->> signal extended destination ID support. Repurpose the first byte of the
->> existing pad[3] as a flags field, and define
->> XEN_DMOP_IOREQ_SERVER_EXT_DEST_ID (bit 0) for a server to signal it will
->> use XEN_DMOP_bind_pt_msi_irq for all passthrough MSI bindings.
->>
->> Track the flag in struct ioreq_server ext_dest_id.
->> hvm_ext_dest_id_enabled() returns true only if all registered ioreq
->> servers have opted in and at least one server is present. A single
->> server without the flag is sufficient to suppress the feature.
->>
->> Lock the feature at domain creation time:
->> arch_domain_creation_finished() computes the levelled result into struct
->> hvm_domain.ext_dest_id using OR to preserve any value previously
->> restored from an HVM save record. After creation_finished,
->> arch_ioreq_server_create_check() rejects new servers that lack
->> XEN_DMOP_IOREQ_SERVER_EXT_DEST_ID if the feature was already advertised
->> to the guest.
->>
->> Persist the locked state in a new HVM_SAVE_TYPE(EXT_DEST_ID) record so
->> that migration preserves the guest-visible CPUID bit independently of
->> when the device model re-registers its ioreq servers on the destination
->> host.
->>
->> On restore, ioapic_check() uses d->arch.hvm.ext_dest_id (restored from
->> the EXT_DEST_ID record) rather than the per-server dynamic check, since
->> the DM has not yet re-registered its servers at that point.
->>
->> Update xendevicemodel_create_ioreq_server() in libxendevicemodel to
->> accept the new flags parameter, remove
->> xendevicemodel_enable_ext_dest_id(), and fix the
->> xc_hvm_create_ioreq_server() compat wrapper to pass zero flags.
->>
->> Signed-off-by: Julian Vetter <julian.vetter@vates.tech>
-> 
-> That has somewhat already being discussed previously, but AFAIU, 
-> extended destination ID is only meaningful when guest APIC IDs cannot be 
-> represented with the "non-extended" model which can only happen in 
-> practice when having more than 128 vCPUs in the guest.
+In RTDS, removing the last eligible pCPU kills repl_timer. When a pCPU
+is later re-added, rt_switch_sched() reinitializes the timer object.
 
-As Andrew has been pointing out many times, we need to stop thinking in
-terms of 128 vCPU-s being the limit because of the vCPU ID times 2
-calculation for the APIC IDs. With a non-HT topology, more than 128
-vCPU-s would already be possible from an APIC ID perspective. Hence
-tying "extended dest ID" to the vCPU count is unlikely to be viable.
+cpupool_unassign_cpu_start() refuses to remove the last pCPU from a
+populated cpupool: if any domain is still alive while the system is
+active it returns -EBUSY, otherwise all domains are first moved to
+cpupool0. Consequently, by the time the killed-timer branch runs, no
+units remain in the pool and replq is guaranteed to be empty.
 
-Jan
+Document this invariant by asserting list_empty(replq) right after
+init_timer(). This catches any future regression in cpupool semantics
+that would leave pending replenishment events behind across a
+TIMER_STATUS_killed -> init_timer() transition, where the timer would
+otherwise stay disarmed until an unrelated event reprogrammed it.
 
-> I don't think we need to check for device model support unless the guest 
-> can have more than 128 vCPUs, where in such case it becomes mandatory 
-> (unless some form of interrupt remapping is implemented).
-> 
-> So I would rather check if domain->max_vcpus is more than 128 and 
-> require device models to implement support for extended destination ID 
-> in these cases.
-> 
-> In some way, that would imply that extended destination ID is only 
-> exposed to guests with domain->max_vcpus > 128.
-> 
-> Overall, what I propose would be to keep the new 
-> XEN_DMOP_IOREQ_SERVER_EXT_DEST_ID flag, and if d->max_vcpus > 128, we 
-> require the device model to support XEN_DMOP_IOREQ_SERVER_EXT_DEST_ID.
+Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+---
+
+Changes in v3:
+- rework patch according to the comments. Since cpupools functionality
+rejects last pCPU from removing so re-arm functionality doesn't make
+sence. So patch was reworked to check that replq is empty after timer init.
+
+Changes in v2:
+- update commit description, remove unneeded paragraph
+
+ xen/common/sched/rt.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/xen/common/sched/rt.c b/xen/common/sched/rt.c
+index 7b1f64a779..4b643eda30 100644
+--- a/xen/common/sched/rt.c
++++ b/xen/common/sched/rt.c
+@@ -743,6 +743,14 @@ rt_switch_sched(struct scheduler *new_ops, unsigned in=
+t cpu,
+     {
+         init_timer(&prv->repl_timer, repl_timer_handler, (void *)new_ops, =
+cpu);
+         dprintk(XENLOG_DEBUG, "RTDS: timer initialized on cpu %u\n", cpu);
++
++        /*
++         * cpupool_unassign_cpu_start() refuses to remove the last pCPU fr=
+om
++         * a populated cpupool, so by the time this path runs (timer was
++         * killed because all RTDS pCPUs were removed) the pool must have
++         * been empty of domains, which implies replq is empty too.
++         */
++        ASSERT(list_empty(rt_replq(new_ops)));
+     }
+=20
+     sched_idle_unit(cpu)->priv =3D vdata;
+--=20
+2.43.0
+
+base-commit: 680da952ac1ddfc94f9d1cd4dfa1815badae5302
+branch: amoi_rtds_rearmv3=
 
