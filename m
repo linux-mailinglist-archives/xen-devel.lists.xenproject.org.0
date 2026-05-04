@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yM8GDGkr+GmkrAIAu9opvQ
+	id gLK7KhIs+Gm/rAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 07:15:21 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 07:18:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 890504B877D
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 07:15:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1299427.1573956 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B18C4B8797
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 07:18:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1299434.1573965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJldF-0003Kh-Fp; Mon, 04 May 2026 05:14:13 +0000
+	id 1wJlgs-0003wb-QX; Mon, 04 May 2026 05:17:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1299427.1573956; Mon, 04 May 2026 05:14:13 +0000
+Received: by outflank-mailman (output) from mailman id 1299434.1573965; Mon, 04 May 2026 05:17:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJldF-0003IE-9T; Mon, 04 May 2026 05:14:13 +0000
-Received: by outflank-mailman (input) for mailman id 1299427;
- Mon, 04 May 2026 05:14:12 +0000
+	id 1wJlgs-0003uV-Np; Mon, 04 May 2026 05:17:58 +0000
+Received: by outflank-mailman (input) for mailman id 1299434;
+ Mon, 04 May 2026 05:17:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wJldE-0003I8-3y
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 05:14:12 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wJlgr-0003uN-2m
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 05:17:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wJldC-007IuY-Kf
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 07:14:10 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wJlgq-00ETi1-Ez
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 07:17:56 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69f82b16-2eae-0a2a0a5409dd-0a2a4507ee38-26
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 07:14:10 +0200
-Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69f82be6-5cb7-0a2a0a5109dd-0a2a4503b72c-48
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 07:17:56 +0200
+Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69f82b22-229c-0a2a45070019-d1558036cde2-3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 07:14:10 +0200
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-48896199cbaso32314295e9.1
- for <xen-devel@lists.xenproject.org>; Sun, 03 May 2026 22:14:10 -0700 (PDT)
+ id 69f82c04-672d-0a2a45030019-d1558029b1b2-3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 07:17:56 +0200
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4893940bb5eso18379465e9.3
+ for <xen-devel@lists.xenproject.org>; Sun, 03 May 2026 22:17:56 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b72b:870a:8d83:125f:d0c4:4383?
  (p200300cab72b870a8d83125fd0c44383.dip0.t-ipconnect.de.
  [2003:ca:b72b:870a:8d83:125f:d0c4:4383])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a8fee4f79sm68254765e9.20.2026.05.03.22.14.08
+ 5b1f17b1804b1-48a82301ad1sm463374825e9.9.2026.05.03.22.17.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 03 May 2026 22:14:09 -0700 (PDT)
+ Sun, 03 May 2026 22:17:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,55 +60,55 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1777871650; x=1778476450; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1777871876; x=1778476676; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=AtowkhyPRGWDHxAfF0IBdnr6lRIaISsKeQXivwSe6uE=;
-        b=BnPo8PV8bUrgGTSyU3DhdgoU6imNgl2YMO0/F5XkmLoGlv1vcsz2wRGd95FRfoLUgr
-         CiARojRlqECYugdWQsqyzFRwaH6/o0mdDHYxYxKDhTpXOOiC9S2H30MDaKH8Z/YSwkSD
-         78lraIgZbXxETybcmKACNhAlsDevEJwjbsmB+kdO3LdeF3RrsxmQGkRSpEXzvjhX2FJa
-         Sj/okaZG8FFG5tdO0L1lkl8EdXKg5Ndp4bP3NZgjNs+ufB2aYp026uimSFyGlW3TsheX
-         bL9lSe37Y+o/umXL5Rm3Y8whxS+W4OrCDaNIqk9pFtQakwguOTGaKWv+0zPN4iOJTf7G
-         qJ3w==
+        bh=Llu90yKy3gS4BzO/309sV4bIWAV1PcDaqAAryX6doug=;
+        b=MdSI1Cmgr5KzL+YyJJRZ1XKSSh9FIM3cU6XwHg8z7fXdQ1XhX5BOZBtMH8DisvxcsV
+         k76Bhin3v6jtXzPM5va4na7QI+kg1Pqjy7s5zIalM0jQpyZvfAvB0/FqUS0IpAscXxJb
+         ueWnZiWFkdwyw2wszs00cSZH1iBS5nxLD+H+5wXG4b6Mhsbwoy/XGmDNzh/QakWQSS73
+         U5XO0iYLg7ji3HeXZmkv3xfWIs1tePyETELqhvKTCAOX2jU5T9JoQ7j2ENYfphL3qwQ1
+         nJdgdJZ4OEZbl+kHqf9SZDF6RXrJ+iIDoPJR/sezk64wHw4KV98BE029alQph0AA/gTg
+         rq4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777871650; x=1778476450;
+        d=1e100.net; s=20251104; t=1777871876; x=1778476676;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=AtowkhyPRGWDHxAfF0IBdnr6lRIaISsKeQXivwSe6uE=;
-        b=YkIMCK1zbLP04FLoLiw+ZLMlmeUmqbMy777iUyvIB6z52nhv+wDjG5UuRrWjbi/jaD
-         ml7mNKEiyNygFyzh3EFZvPLI2ERWJdapTd0uoar5qQKyzb1oVZhOc3bJuA8tkpxqWW89
-         UfPFLX3H90bQMhPj3QVNiM7W6qfdwGXdvBtFHXOZ+wwHv7589gEj+2/lqqD+JejvsnDV
-         5a6hkl8UaHTPSsRzxJY6vF8CjVtPBEvSJJdVRXgnfFlLiCzsJlffJ3Q6WrBTWBpYzONI
-         AqibJBSt5Z6vQW15A8Bl1vX2JYWVZ18z1Wf8jwgKEXfKMo5pqHw1olCWUjPIaS4s9fyU
-         iwTg==
-X-Gm-Message-State: AOJu0Yzy46b34/BdcKv/CheVnrh7WuO5q10wQoV0MjtoiII953VXqAqu
-	YkXc3JUCxKiCQuFwRzALSD7V7bC02C+7x0KladEou0sEY0TsC5vrxvduzLco83hupQ==
-X-Gm-Gg: AeBDietbgx2JDXabU9ialFDhmDoPdcp8m0FryHP1TzvOufDUF8QvUsXzznveB1JneCd
-	1iO0rVNssJiHaOPxmYjkPkhuzYIDV0L0sqxA9Tsoe4vZQWOJOh7pJYj07tiAywIICKGZEEBmeib
-	JG9Qw7B9MJKAWPRJXTkBRiCKhxeuZiLgqZi85Mwkl8diaYsMciTiOIC3FK7y63kkUdZgIA1ajSS
-	e/D4AUxTgTjhZEL3njOa0SrrM0wNk7fxWudP7uzwggghbKk4tlWQ/KK5sD6RVIfy07nSvvrpiJR
-	TeTYvWnlX5ZjDZkaMadMN6HHGEIovZh6zwDwjQFgbJDjyvgPmGFgsyj50vaG0gYfUa7pHnysr3A
-	Y7GISsp36VEJ5nyUTI+RxRPRElvARgTIUjMfkcnliQX9fYVnc4iW9SRiu85CMiDrSu8svnzkqKg
-	7wpBwhev/MlyCudDTyjNMXioUNfpdR4mX14ybgaJLHK9hKXf1pO5ewmqX58f8R680tBtV/vwtlH
-	z4x76Q+QzpPi4mFhnYpetlDojR1XniUSPlccWVrvyaCXnjn2VqF1tlRdOvSkZ9atQyGwyE=
-X-Received: by 2002:a05:600c:1604:b0:48a:66a8:9981 with SMTP id 5b1f17b1804b1-48d0562f7efmr31502105e9.27.1777871649736;
-        Sun, 03 May 2026 22:14:09 -0700 (PDT)
-Message-ID: <53c4fb20-8cb9-440a-b37a-d829ec940e1b@suse.com>
-Date: Mon, 4 May 2026 07:14:08 +0200
+        bh=Llu90yKy3gS4BzO/309sV4bIWAV1PcDaqAAryX6doug=;
+        b=So72yv/f1FYbJx+DXGLV+93Yai6RnDe0vD37mskaI6W16rR/FPKLOwinw0ICMhp/rD
+         LjjSO7jrRcyoNr8Ou8thOCnxDVdKBC0vpXsZXHy8PQw0ws5ofIHFUx18OXaOduoJtltK
+         8LQ91NuglHQTOgM74VD3LGX4MIl8VMZ2kHGc/hcvhOZjTe9Z66miIT4tZzpRfdKvmmRQ
+         eQnBp9ar1+urZ6n5eTg/JSLVbaUkzFfpbcx15alzzoh8gIoU1wmxekvsx2lrciZ37I+k
+         V/QNcLDhpUPjRrjC5Z/L7SA8iQ2HbDVBZwEKkgWbU4/V7suVf09zjRWSzzyEytxXrvQa
+         /BdA==
+X-Forwarded-Encrypted: i=1; AFNElJ+qgGA275qnVNAipxWrAv85hUG0m4Ln7Q7/dXqL94VxyUzAF+OtcSSK6hzKkMx22acVY2AlUTjBQEU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yys8vnoBlbnMINZLl1D6McbQd3NfgzMgY1su8lp0e4d7ffAcXoD
+	WiFTk4YVzZiGebvFaaHWFOVqENu5KyPgLe4XRwcPHRnBxOW5REVTpV7sDSOsYvd94Q==
+X-Gm-Gg: AeBDietClT4AqPevPxPg/cb8a+WfK2vT0OGRf/j32YOmr/f2XD9ubDDu+JJfLOJ96iR
+	dPiDHYZquIZJmk3NFmWkCP2I2S5U8v8+ZNeLIl/TSzUyJq5SAEw3Y/8ecqWK4YofUL76eFSA06P
+	gpZ5nNg81y78VmzhXisOTlmKFEn0bf5S7lNOWBHNTjjQnHcZexbvyu0l6l8atEh7r479OSrM7Th
+	ALUowwO7u56/9t19Nplu4l0Q/nKUDvnUIxJX4YEjccItBWzT+kBs0IQMPYD1SHZcip+daedQ/Q7
+	UkFmSLhuZdDjLV2tp4jgQjRsm3rRPEI+4KH/M2l1UJe/rTPktoLaWnZ6LWArcGJTZIMDKdBL+2w
+	HW0Xmx5KnR8ChmhJSe0ZYUdtGUDbIfck409+3XtHM/L99NbU211FY2nbzKV7G/YFVt32PUbUQd6
+	PehBaIBOdeaFzU51ueRW2bHZNgHVZ4GyfpTp2R2EtKU/beY+Pq+yxOr+latoJ++n8dbf0C+JYoy
+	SrfvB7YmjBYV/A9ekcpf9JSIthQdRKIWVmswsbLjJeUdOYFmLUO2YufALtggouQvE0lhRc=
+X-Received: by 2002:a05:600c:4342:b0:485:2a85:e5ec with SMTP id 5b1f17b1804b1-48c6d455f69mr64308955e9.2.1777871875897;
+        Sun, 03 May 2026 22:17:55 -0700 (PDT)
+Message-ID: <e17cd134-a214-4f37-a03b-c71a54098d38@suse.com>
+Date: Mon, 4 May 2026 07:17:55 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/svm: Always sync guest CR2 on VMExit
+Subject: Re: [PATCH v2] hypfs: add ASSERT_UNREACHABLE() in
+ hypfs_get_entry_rel()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20260501213826.1291860-1-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2605011443580.512397@ubuntu-linux-20-04-desktop>
- <981a0dad-dcbb-42c8-a840-6f228eb89be1@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>,
+ Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6db49190e85a30c0129f251ce718d50923baba8d.1777387070.git.dmytro_prokopchuk1@epam.com>
+ <83b1e26a-cd17-4f64-ae82-dbf56f95b4ad@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,80 +134,100 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <981a0dad-dcbb-42c8-a840-6f228eb89be1@citrix.com>
+In-Reply-To: <83b1e26a-cd17-4f64-ae82-dbf56f95b4ad@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ef75cf/1777871650-16E67C48-E2DFA8EB/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-33051d/1777871876-2BD6B938-9EF1472B/0/0
 X-purgate-type: clean
-X-purgate-size: 1428
-X-Rspamd-Queue-Id: 890504B877D
+X-purgate-size: 2095
+X-Rspamd-Queue-Id: 1B18C4B8797
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:dkim,suse.com:mid];
-	TO_DN_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jgross@suse.com,m:dmytro_prokopchuk1@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns,gitlab.com:url,patchew.org:url,epam.com:email];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-On 02.05.2026 00:21, Andrew Cooper wrote:
-> On 01/05/2026 10:44 pm, Stefano Stabellini wrote:
->> On Fri, 1 May 2026, Andrew Cooper wrote:
->>> Under SVM, there are two copies of guest CR2.  One is v->arch.hvm.guest_cr[2]
->>> and one is in the VMCB.
->>>
->>> Xen doesn't intercept CR2 accesses, so this mostly goes unnoticed; hardware
->>> loads and saves the guest CR2 across VMRUN/VMExit.
->>>
->>> For HAP guests (where #PF is not intercepted, and therefore we don't typically
->>> inject #PF either), this causes the guest CR2 value to be lost on migrate.  As
->>> migration is cooperative and not done from the #PF handler, this also goes
->>> unoticed by guests.
->>>
->>> It also means that an emulated MOV-from-CR2 reads a stale value.
->>>
->>> Reported-by: Stefano Stabellini <sstabellini@kernel.org>
->>> Fixes: d1bd157fbc9b ("Big merge the HVM full-virtualisation abstractions.")
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+On 29.04.2026 11:44, Andrew Cooper wrote:
+> On 28/04/2026 7:19 pm, Dmytro Prokopchuk1 wrote:
+>> The statement 'return ERR_PTR(-ENOENT);' on the final line of the
+>> function 'hypfs_get_entry_rel()' is unreachable because the logic within
+>> the infinite loop 'for (;;)' provides all possible exit paths for the
+>> function. So there is no execution path to exit the loop and reach the
+>> final that statement.
+>>
+>> This unreachable code violates MISRA C Rule 2.1 which states: "A project
+>> shall not contain unreachable code".
+>>
+>> To fix that and potential compilers "control reaches end of non-void
+>> function" warning, mark the code path as unreachable using macro
+>> 'ASSERT_UNREACHABLE()'.
+>>
+>> Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
+>> ---
+>> Changes in v2:
+>> - add ASSERT_UNREACHABLE() before the final return statement instead of removing it
+>> Test CI pipeline:
+>> https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/2485661910
+>> Link to v1:
+>> https://patchew.org/Xen/341811ced2943fb79d0235c27781c564c7bdaf02.1775749146.git.dmytro._5Fprokopchuk1@epam.com/
+>> ---
+>>  xen/common/hypfs.c | 1 +
+>>  1 file changed, 1 insertion(+)
+>>
+>> diff --git a/xen/common/hypfs.c b/xen/common/hypfs.c
+>> index cdf4ee0171..02fb234568 100644
+>> --- a/xen/common/hypfs.c
+>> +++ b/xen/common/hypfs.c
+>> @@ -348,6 +348,7 @@ static struct hypfs_entry *hypfs_get_entry_rel(struct hypfs_entry_dir *dir,
+>>          dir = container_of(entry, struct hypfs_entry_dir, e);
+>>      }
+>>  
+>> +    ASSERT_UNREACHABLE();
+>>      return ERR_PTR(-ENOENT);
+>>  }
+>>  
 > 
-> Thanks, sadly I made the mistake of extending my XTF PoC for this.
-> 
-> There are also bugs on the emulated MOV-to-CR2 side, and they're far
-> harder to untangle.
+> No.  This is absurd.
 
-Any slightly closer details as to what?
+Why?
 
-> This patch probably wants to go in in this form, accepting that there
-> are issues still to be addressed on the other side.
+> Not to mention that you are *definitely* not fixing the stated MISRA rule.
 
-I agree:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Correct. It is instead deviating that rule for this code instance. I'm pretty
+sure we have a few other similar pieces of code elsewhere.
+
+In any event - your reply isn't really actionable. If you want things done
+differently, then please make a concrete suggestion. Otherwise, in a couple
+of days, I'll commit this with Jürgen's R-b.
 
 Jan
 
