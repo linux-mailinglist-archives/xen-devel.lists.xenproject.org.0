@@ -2,51 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MMWpLuGe+GnlxAIAu9opvQ
+	id QEfNN5Gf+GnlxAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 15:28:01 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 15:30:57 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14FE24BDE21
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 15:28:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1299911.1574470 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 359F34BDE92
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 15:30:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1299920.1574479 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJtKI-0000RZ-Oq; Mon, 04 May 2026 13:27:10 +0000
+	id 1wJtNf-0002JW-8d; Mon, 04 May 2026 13:30:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1299911.1574470; Mon, 04 May 2026 13:27:10 +0000
+Received: by outflank-mailman (output) from mailman id 1299920.1574479; Mon, 04 May 2026 13:30:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJtKI-0000Pd-LH; Mon, 04 May 2026 13:27:10 +0000
-Received: by outflank-mailman (input) for mailman id 1299911;
- Mon, 04 May 2026 13:27:08 +0000
+	id 1wJtNf-0002Hj-5h; Mon, 04 May 2026 13:30:39 +0000
+Received: by outflank-mailman (input) for mailman id 1299920;
+ Mon, 04 May 2026 13:30:38 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Oleksii_Moisieiev@epam.com>) id 1wJtKG-0000PV-Go
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 13:27:08 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wJtNe-0002Hd-77
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 13:30:38 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wJtKF-0096Tr-3I
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 15:27:07 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wJtNd-002Zyk-JK
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 15:30:37 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Oleksii_Moisieiev@epam.com>)
- id 69f89eaa-2eae-0a2a0a5409dd-0a2a4501bd48-2
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 15:27:06 +0200
-Received: from [40.107.130.113]
- (helo=MRWPR03CU001.outbound.protection.outlook.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Oleksii_Moisieiev@epam.com>)
- id 69f89eaa-c1f2-0a2a45010019-286b8271bc38-3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 15:27:06 +0200
-Received: from DU5PR03MB10263.eurprd03.prod.outlook.com (2603:10a6:10:519::5)
- by DBBPR03MB10342.eurprd03.prod.outlook.com (2603:10a6:10:52d::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
- 2026 13:27:04 +0000
-Received: from DU5PR03MB10263.eurprd03.prod.outlook.com
- ([fe80::8c9e:b301:61c0:3908]) by DU5PR03MB10263.eurprd03.prod.outlook.com
- ([fe80::8c9e:b301:61c0:3908%5]) with mapi id 15.20.9870.023; Mon, 4 May 2026
- 13:27:04 +0000
+ (envelope-from <jbeulich@suse.com>)
+ id 69f89f79-2eae-0a2a0a5409dd-0a2a450a806e-36
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 15:30:37 +0200
+Received: from [209.85.221.49] (helo=mail-wr1-f49.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 69f89f7d-56b3-0a2a450a0019-d155dd31ad5e-3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 15:30:37 +0200
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-44da2de25f3so714429f8f.1
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 06:30:37 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-44a8ea7d0e7sm24523595f8f.3.2026.05.04.06.30.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 04 May 2026 06:30:35 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,220 +56,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eSdQmT42pIeuHixXFF/RQ9AdONHNB/TMmsww45CThuduq5CS9+lCSf/31ZmNjs2T1LISVgiQktBvS6E6UfW2EKcTZL0Tdlp0ZZTULWg6D+1atPOBFusYmf1FPPQJcBwiU3taheLbYzDqu7ZwARaCboFkiraUvLhBRlXsGpRfMooMAstI140XXUpGP1AYOS18MaIhyOx9fyEUQ3fDonH+k+asdjp+qM4c+vyfcdc3zyqfb2d3k/yvxTs5TrJfJARKyJFx2MoNYliPKryD4Das04Gu0IEQPirxUjvljKOHdwf5eZp8aSnYkOXWaQkrnDZ/NWEMIlFbS+F1ZuKMavVWTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0pO07kbOLrBNf+2yh/pHl7wgNCy7tM4/oLXNW8eAzfo=;
- b=HnrktoUAKy6Ri1HhdJA1JwkkgqMwd+5iSps456MVgXJEU96s0WIQqGZ+4JA0dlK070CqbnZKV7yTZD4j5QrfTnVb7702mJejK2f+aCzvxi/xygpqYQ0G+Xn2fmt5a32xgoFcHxJ218rlTULyZUa7CU30g9juoJnb/by3czsb+C4Z8faKfEX/QSouAt4Zoxzx2rXJ+YFaL81CvtkWccDw99NAbbnYIRV6AbxALPQczRKMZqdCjYJ5SZdwMBXk9vnj6EF9x8yTQIeR0kGcjh0ZnJTFuo0Wfb76TWscHHxCERJ/HCg7qElbStew4nr+ESMf1HIUrIPD2RO06vIK6mi3dg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0pO07kbOLrBNf+2yh/pHl7wgNCy7tM4/oLXNW8eAzfo=;
- b=WyZNJJ3Vdmim9gvwByFpz3SCHEag7MPAndrnxQ6Zir0foTyODKETE8pWN+OJGJl9uisNtaYrCUr95m74gXKWSUfVrzNhsO4cFf/3/Pun2mqIA73qf36VIC8lrevDOuDH91C7hFj0bIXrAE/yx4NGlHx4bshWEko+1zSIl8pvk2kFz9LPzKiVtHBPPTCU8vdXMUmhfizzsSaZVwdEtkwtZQgUtKx8XHdlTaiQleN2vCus+ZwkYC4NYkVfdUoiyAUldNdnpUmTgdPnOUi3cFs3GgS5w4diLxYg5h8Hd6MQjOJaxqyuJtiFOo2x6vDbm4lHsOkc7SRLhnni1USgOLnBpQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=epam.com;
-Message-ID: <85710400-d4bf-4c4c-bd3a-7f6929e37fe2@epam.com>
-Date: Mon, 4 May 2026 16:27:02 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] xen/sched: rtds: re-arm repl_timer after timer
- re-initialization
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Dario Faggioli <dfaggioli@suse.com>, George Dunlap <gwd@xenproject.org>,
- Meng Xu <mengxu@cis.upenn.edu>
-References: <548ea03cc3c3287b1f5dcd101b3c2990ebc08089.1775208527.git.oleksii_moisieiev@epam.com>
- <775bc23d-7cd4-43b4-9e5f-0c70204b4262@suse.com>
- <66b7eaff-f7b9-4737-b32b-ca9ff7b661c1@epam.com>
- <fd394d84-4d8c-4fe2-9e51-58041dc09c69@suse.com>
- <ff983469-db32-46fb-a18a-aed3cda06209@suse.com>
- <ad43c0a3-a0bc-4943-b617-83200ac91ccc@epam.com>
- <ac3e1b58-3f81-406d-824d-4cdae7c7a76c@suse.com>
-Content-Language: en-US
-From: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-In-Reply-To: <ac3e1b58-3f81-406d-824d-4cdae7c7a76c@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: WA2P291CA0038.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1f::8) To DU5PR03MB10263.eurprd03.prod.outlook.com
- (2603:10a6:10:519::5)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1777901437; x=1778506237; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=QOOkiFGObE6BjGpDRahVyzy6YvLgLYMk5N0pRRQKYb0=;
+        b=UA4JIvb4HNNAX1YEZUktuG9H17XjnSWCFOh20HztY1hWN+mqL8ibgshWTr428PS2az
+         V0rznFKd87xaivEVPJX/5cf1fA0lERfLq6ggAhdIA0i3VIQwWapJCYwbdh0oR1BKt2fg
+         eKJnKlbTI4mhDkEpBOyRnxLlXMfodIgmxBEGdLg9+at6VQuxPqB7kEvJekaE9JSMXtDO
+         95gaAOph8UCoJz7vsdWHcxpF1jvS3uCU+pn0KDrlSUkecmnazRAvusDJlrOxIQxBADMF
+         +/MROI9nyxml3/634e8HrHaAVWbKUfsi/5h/0/0rVItUhTJbctMYHvuFy58Pfl9CZJFJ
+         E62A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777901437; x=1778506237;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QOOkiFGObE6BjGpDRahVyzy6YvLgLYMk5N0pRRQKYb0=;
+        b=lIiaEmlxTy9Fkv3HZQu7zaWvZHiCxQkMoI8nZRNjxmZMUDYYl0rrVjbBY/etMtgT7V
+         zmBsWPnAH1AIHL/Hy2do0/XmdIoiPP91ekUKpiXqm8r4nvrWu8P69KWlkr61MnGQZVkG
+         moZgH4BUGf06cjKo3am1PqsY/51GSKLLEPxwnbyiTKZQmDyx/VbS8SgdWddxboqZIAb3
+         n2t7AYcmIXRglPMm6C16jJDDZ1G0ORzaVdAKlt4e6KFDsiUkU0UX8UNfM4H59w8I32x/
+         Rd4VSd16tdNXIesD9FUw/vrmlVV/6Tk1B+bQce88Nfi+1Am4+Z4WCcc5tocl2XDA+HkQ
+         E2Cg==
+X-Forwarded-Encrypted: i=1; AFNElJ99EWeOAF4GYTqexylGjyHCdWtRJCAwBgWgTx4IzSY7rjzCsYipvynFY5Q3x/YZZcJwL95ZVTxOuv8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzV84xBihLcQjNafMBckdlv+31ooWuOJirt079QbnTDadwzIWeY
+	ZfukWduKXx/vo74BWBpA7swVujkjWMQqPWXKcREFZoYhb3PjJwbmd6SORM7BN1PN0Q==
+X-Gm-Gg: AeBDievZpKXV037XPhTb9i+ENujWL7TXVDnV8lYEWGJDxRhpoZwD7K75ULK2I8u+Od7
+	s6wnrpJem8KpZfL3e6gY+JmP7LHAmTePzOtJaBbvJGVc9Mp57WROAdteBGCttU8eHghsxahELEJ
+	XCl/rhk2Lryp+O84SNadaxDQbpp5JYN8wqTadQDBasBVLDMkoShagOVgvPJZnvkFrfAxiR/aPg6
+	PSqzFTFVfnGy/UKPcmuLrb0CIWEG3zx1Bgm7jzEytkHFJQTGNMMsgtBrPfeKAZlHp9w56IhLU9v
+	gSsHISxNip3oopo8GALCzFFuaGW05T69xIFYQ98IPCADo7kiviHGz0akdXeZeGIRDP7RtS6XLhr
+	20A9mQKSj6LqzidE5wF/Lvkj3UOJpqh2k91IvySEO5DECnNwG3PNTXWUcbO/4+K6tKTl+ILxsb4
+	EOQXrn1lIPSYGfT5W36Dy+RCjb+AfX1pUpuzOWJXVU//dUIvjq6k08Xc7P2fbzHOml2yA5h5gRv
+	HtDHbPT99YDo+JVvI6QvAtqRw==
+X-Received: by 2002:a05:6000:2088:b0:44a:b931:f32a with SMTP id ffacd0b85a97d-44bb586d065mr16610158f8f.27.1777901435408;
+        Mon, 04 May 2026 06:30:35 -0700 (PDT)
+Message-ID: <d22d841f-a694-4527-bc50-235e2525a0d3@suse.com>
+Date: Mon, 4 May 2026 15:30:44 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU5PR03MB10263:EE_|DBBPR03MB10342:EE_
-X-MS-Office365-Filtering-Correlation-Id: 086d9219-3169-4557-1572-08dea9e0d4f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	RO1dqWJz+N/fTQ/8scMYu58D9xM/qafsoQpPzqgr4Nl/yanyXM/KXDiu17hDvXICXQej0oXRnY2FzI8ksntCjVpTIMIn5nY9sudxt3p11iHpyx3fL+Ia9Ua6uzHW4GUgE0LI6se7zvoXxq6oLvxCnN8zkYpDue7pWS/0ZimBUllu6ZVdhU1G7ul2Sf2jVQrzsTzum2uqZHNMgWHzQBBIsRk1crU667OMKhc3H3jZPltbwB7jhDM3P0OLyz7aOxTelqYnlt4ah7VLRwSz9sfwM8eABaZwBIG1n5RQLCPZNZL49/YwEJKbeW0dq2K5Newj9TJ18nlKpVRerIRcMZD3d0SVg70+sVNzmsbbnxD3vAfXhDmgu8qZzdYKF20K+w8KxoNVy+PiVJuN3dOtyWDVFfYS4c+j8rFKYVnFETbI+Kmd4qTyhadbi0onosI4yz8YtErUg9ApMbwoY2qjVNi19NTlNgY2JiZQ16qsKtTStXVhhWBu6hjZsVmH9aVAFYzjsYNMEjCrijhhpm7zUwiZfuoaoo4Chkv/Z8ZW77M1Dn2X9i0SsCtsfkp75tPwldd4H8pl7pfLB+faD06A+WITrYKkE25ccxQrM05b2TiudWbqJGz4Cao9qIxGVNmoSnhrf/5nMPyp93HcP2Fbrlcu2KTYpijjJDT3XJNcouST36fN7DQWYYH+jLASNOwUat/k
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU5PR03MB10263.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YXdzcGRVbUVKekFFc3FpNWRVd2lRNnJwdnV5V2oyNXY1T2dGdUEwdnZzazBx?=
- =?utf-8?B?c2IvbUxuRGpLVnR5YXdFMjQrUDdHaHN4bEQ2c3FzaXZ2VkkyMXBzeDM5ZStJ?=
- =?utf-8?B?WlkzY2NhOXdYTFpuM0VTUW9sSWlvZmFOaFhmNEw0TytaZVM2ZE1VYzVJdEJy?=
- =?utf-8?B?ejdlRWNFczNZM2dUL2IvYlY2V2NJSEpIWWx6ajhVNm1xbFFNVkdvaG5wTzFs?=
- =?utf-8?B?bC9yc2pNbEJwY1gzWlRDc2NtbjRHdWI5M2RmdFZPbS9UdzErNTdIelZCVWgv?=
- =?utf-8?B?TU9ZSUxiR0orZUNlRGlpd1k4N0RqZjFJMjRNOFkyTy9Ja2VKRUY0OERLdDhI?=
- =?utf-8?B?M04vS1FGTWg3OWZGSFZJZ1lZN3FBaTViRWsvTDUrRWFHb01uTi9PcnZvQjN4?=
- =?utf-8?B?UUVVR1ZMeCt4VWt0c3Z2eUJDQVNGZUpzUjk5TUdqTDhKQWVWc2lUSGxPYVY1?=
- =?utf-8?B?bVlCMlZJNmJ0aUFGaHpLRXprV0FwcGpNLzNNWmkrYlBGTGNBR0hvb1pBckM2?=
- =?utf-8?B?OENTd0h5eW9NQmpOWFRDdHdoUk0vdlRFRW93bDJVdk0vL0JDZkRndVlqdzV5?=
- =?utf-8?B?RUdxR0lOejJ6Qm9Sbks2UzBqTFlmUldjUWNmcU40bCtETGhzcEVkbGRsK0dn?=
- =?utf-8?B?RUx1M3p6dWExbWlOY09kRjQ1cTYvRFkrb1Q3ZDhPUDFaazh5ZVpDVVc1WE5K?=
- =?utf-8?B?U2dKS0JsOE5XYWJ5Uk1kVExQbjA3Tzk3UTJBMlNPL0puTEw4QzV0TzNISldt?=
- =?utf-8?B?T2VHbDJMUUI2OVdyc2RaS3JHVVBEbE4wRFNzL0dGazdmNEQrU3A2WlFtY3pD?=
- =?utf-8?B?cnYwRFQwc3FCcjdqOTVVUFlwVlJyVUlTOHlDTlBJMnArQkUwT2VhT0I2SGR3?=
- =?utf-8?B?dFJmVnI3UUs5ZnJTQjNPQ1prTjlPVnVNSnRQVkNIS3drTUJOTjlvaTQ1Z1JY?=
- =?utf-8?B?K2VMRmMxZzdtZ3Qyb1BnS3RRVjgycUNPVXh5SlpUTHpKdU1ZejNTNEFJaUxB?=
- =?utf-8?B?bGVZbERKcWpYWTRITWZkTVI1VkVuNzBvNVRBbjhiUHRvQnpLR1JUTWxDaU9T?=
- =?utf-8?B?MWNBbXhUOFRrSWptZHFCU0dPTEZ2Y3prd3RvbXJrMWJDVVFLbGZxaUVXWXVw?=
- =?utf-8?B?ZWhqYWZRMUN6UU1waXppMmkyU01mU0dvaUUxZXVKbmQyZ2RjN1ZKNnhQR2xZ?=
- =?utf-8?B?UXNQRmxlK010V21tUklMSTlBcnFWUzZhUk5KZWNoZ3AzRllCeTN4SWVpYkx5?=
- =?utf-8?B?L25KVmFLNHhFbUxtWDBXUmdScnY4YjV6QnFCWGszV2tSRERSOFJwTkxSaVg2?=
- =?utf-8?B?KzJlNFdoTTU3Rkx5NTg1cG1PRnhZRlNVWGtnL252Z1lqV2tHK1dkWUJyT2lJ?=
- =?utf-8?B?dklEN0NiTDNNV2NHeFI1cEcvbVBzdmRkWnRVR3BZQnMyTFpWcWJINGhHejRI?=
- =?utf-8?B?OHNaNGlvZ1d0eEpOUVdaeitvNHNQeTNHSEd0d0NtV1BuMjNZWHYxMHFwNEpa?=
- =?utf-8?B?MExwNHZPY1VKYmxIcXBxbUxjbUFVREZ5YU4zRkU1K2tLcEVuT0ZSOE9MU0VB?=
- =?utf-8?B?ajdoV0M0RjZOUVJtOFc4QjVrU1E4LzE4d2gyNHFoWlVDWW5abklkWmJqMnFC?=
- =?utf-8?B?eDh1bEl5aUJEOGpVYSsrWGhYb1dWWjB1TVZ1UTF4dVNPS3B4eDVOUWlLL2ZF?=
- =?utf-8?B?ZzZJUU1jdDJ5MG1KUE1FWlhUbmd2cE5yYVdqLzhRUmRSQlMra1pOU2JzTWkr?=
- =?utf-8?B?VXY4VUxzWlp2cDNYQVA5Vk5Ga3lxcjI0Zm5lZXN1eDZjNHhVVmU1Y0dEY1F4?=
- =?utf-8?B?V1J4dlpNTEFRVWoxamhQRTJSQmlyUFhnbWswYjFCbUhTTXZJVjF0MmhlSEZn?=
- =?utf-8?B?UjBkQU00T2NWRURMcXBEbWdWblg1SWxvZ1dtdXZNOUxJdjhCaWNXd2hJQkor?=
- =?utf-8?B?U3g3ZVpLQ0JTcDhSWGVxa254Wm5SVnZqNExYYXZUby9UUWJlWmxTT3lsK2lK?=
- =?utf-8?B?cjAxMzJlMFRMcys4b0VIcXZacUFPQUxVOUNVRkVDMGRxSnVqc2EzMjRWekRQ?=
- =?utf-8?B?Z3ptcTl4Y0NxMkpyMmtYTTZ3bXFZZVFkV2E5YmU3NHVzU2RjVUFxMUFOWTlT?=
- =?utf-8?B?MzJwOEE5WW9XaDczUnU0VTZqeXR6bjVhWVhGblg0anJyckppcldacVV1QlRM?=
- =?utf-8?B?cXY1dDZERE1sdmRFbkRyMm45SDBTMHNXcWlkYUQvdy9jWUJsSXRLc3gzWDhl?=
- =?utf-8?B?OC9tdVFKZENUcW1xL0xTK21hTGcydXVHenhNaWlMc2pwSTA4SWs5YXN1K1RR?=
- =?utf-8?B?S2RzZWlWN21MN1kzQWlVcDIwdFZtTnQ5YmlVRE5rZEJyb1JiTmFLUT09?=
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 086d9219-3169-4557-1572-08dea9e0d4f0
-X-MS-Exchange-CrossTenant-AuthSource: DU5PR03MB10263.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 13:27:04.6066
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AiCX4igb1gF3zKwaopBdgLxAz5NmYClZPKMN3zqQeINdK/IiKyZjI1Ec8VlgCjYCzdOjVDi1SxeszQ7uqUv3n4zwnJJStZ0Mp3XeBQtWJVY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR03MB10342
-X-purgate-ID: tlsNG-d62444/1777901226-B787AFF4-CFFC35C0/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Ping: [PATCH] EFI: adjust cfg file buffer freeing
+From: Jan Beulich <jbeulich@suse.com>
+To: Marek Marczykowski <marmarek@invisiblethingslab.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>
+Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <bf990673-83c3-44c3-a76a-3b0c36108ec5@suse.com>
+Content-Language: en-US
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <bf990673-83c3-44c3-a76a-3b0c36108ec5@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-4011c0/1777901437-4556C8B7-25AD20AB/0/0
 X-purgate-type: clean
-X-purgate-size: 2834
-X-Rspamd-Queue-Id: 14FE24BDE21
+X-purgate-size: 2641
+X-Rspamd-Queue-Id: 359F34BDE92
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:xen-devel@lists.xenproject.org,m:dfaggioli@suse.com,m:gwd@xenproject.org,m:mengxu@cis.upenn.edu,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[oleksii_moisieiev@epam.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:dkim,epam.com:mid];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:marmarek@invisiblethingslab.com,m:dpsmith@apertussolutions.com,m:bernhard.kaindl@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksii_moisieiev@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[epam.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
+On 22.04.2026 13:51, Jan Beulich wrote:
+> The boot services FreePages() needs passing the size. Since we allocated
+> one more byte to put a trailing nul there, we also need to bump the size
+> passed there. Make a small helper function to centralize this.
+> 
+> Note that there's no permanent memory leak because of the oversight: The
+> allocation is done using EfiLoaderData, and all memory of that type is
+> later reclaimed anyway.
+> 
+> Fixes: df75f77092c1 ("EFI: avoid OOB config file reads")
+> Reported-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-On 10/04/2026 18:19, Jürgen Groß wrote:
-> On 10.04.26 17:12, Oleksii Moisieiev wrote:
->>
->> On 10/04/2026 15:16, Juergen Gross wrote:
->>> On 10.04.26 14:13, Juergen Gross wrote:
->>>> On 10.04.26 14:04, Oleksii Moisieiev wrote:
->>>>> Hi Juergen,
->>>>>
->>>>> During our safety certification analysis work, we identified this 
->>>>> as a potential
->>>>> issue. While we haven't encountered this problem in practice yet, 
->>>>> it could occur
->>>>> in the future, so I believe it should be addressed proactively.
->>>>
->>>> For being able to occur in future, the handling of removing a cpu 
->>>> from a
->>>> cpupool would need to be changed. Considering the refusal to remove 
->>>> the
->>>> last cpu from a populated cpupool is on purpose (this avoids leaving a
->>>> domain without any cpu to run on), adding the code as you suggest 
->>>> would
->>>> just be an addition without any benefit.
->>>>
->>>> It isn't doing any harm (other than adding code without purpose), so I
->>>> won't explicitly NAK the patch, but I won't Ack it either.
->>>
->>> One further remark: I would ack the addition of an 
->>> ASSERT(list_empty(replq))
->>> instead of the conditional set_timer() call.
->>>
->> You're right: with the current cpupool semantics, when the timer is 
->> re- initialized in this path, replq is expected to be empty. In that 
->> case there is nothing to re-arm, and the timer can be programmed 
->> later when a new replenishment event is queued.
->>
->> Now I see that it would probably be better to update the cpupool 
->> logic to prohibit removing the last pCPU from a cpupool. In that 
->> case, this fix — even with the ASSERT — seems to be no longer relevant.
->>
->> I think I'd rather post an update for the cpupool semantics and drop 
->> this patch. Or I can send a v3 with the ASSERT if you think that is 
->> still reasonable.
->
-> The cpupool semantics are already existing. I have written it this way 
-> when I
-> introduced cpupools.
->
->
-> Juergen
+Marek, Daniel?
 
-Hi Juergen,
+Thanks, Jan
 
-You're right, thanks for the pointer. I went back and re-checked
-cpupool_unassign_cpu_start() in xen/common/sched/cpupool.c and the guard
-is indeed already there: when n_dom > 0 and the cpu being removed is the
-last one in c->cpu_valid, all domains are moved to cpupool0 first, and
-the call returns -EBUSY if any domain is still alive while the system is
-active. So by the time the last RTDS pCPU is actually unassigned, no
-units remain in the pool and replq is guaranteed empty when
-rt_switch_sched() later re-initializes repl_timer.
-
-That makes the conditional set_timer() in v2 unreachable under the
-current (and intended) cpupool semantics, so there is no need to touch
-cpupool either.
-
-I'll send a v3 that replaces the conditional set_timer() with
-ASSERT(list_empty(replq))
-
--- 
-
-Oleksii
+> ---
+> This is an alternative proposal to
+> https://lists.xen.org/archives/html/xen-devel/2026-04/msg01044.html.
+> 
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -778,6 +778,16 @@ static void __init efi_relocate_esrt(EFI
+>   */
+>  #include "efi-boot.h"
+>  
+> +static void __init free_cfg(void)
+> +{
+> +    if ( !cfg.need_to_free )
+> +        return;
+> +
+> +    /* One extra byte was allocated to put a nul character there. */
+> +    efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size + 1));
+> +    cfg.need_to_free = false;
+> +}
+> +
+>  void __init noreturn blexit(const CHAR16 *str)
+>  {
+>      if ( str )
+> @@ -787,8 +797,7 @@ void __init noreturn blexit(const CHAR16
+>      if ( !efi_bs )
+>          efi_arch_halt();
+>  
+> -    if ( cfg.need_to_free )
+> -        efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+> +    free_cfg();
+>      if ( kernel.need_to_free )
+>          efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
+>      if ( ramdisk.need_to_free )
+> @@ -1557,11 +1566,7 @@ void EFIAPI __init noreturn efi_start(EF
+>              name.s = get_value(&cfg, "global", "chain");
+>              if ( !name.s )
+>                  break;
+> -            if ( cfg.need_to_free )
+> -            {
+> -                efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+> -                cfg.need_to_free = false;
+> -            }
+> +            free_cfg();
+>              if ( !read_file(dir_handle, s2w(&name), &cfg, NULL) )
+>              {
+>                  PrintStr(L"Chained configuration file '");
+> @@ -1631,11 +1636,7 @@ void EFIAPI __init noreturn efi_start(EF
+>  
+>          efi_arch_cfg_file_late(loaded_image, dir_handle, section.s);
+>  
+> -        if ( cfg.need_to_free )
+> -        {
+> -            efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+> -            cfg.need_to_free = false;
+> -        }
+> +        free_cfg();
+>  
+>          if ( dir_handle )
+>              dir_handle->Close(dir_handle);
 
 
