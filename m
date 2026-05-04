@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OLChDBeV+GkOwwIAu9opvQ
+	id sCq0DBeV+GkKwwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:15 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B12684BD2C5
+	by mail.lfdr.de (Postfix) with ESMTPS id B40EC4BD2C6
 	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1299785.1574425 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1299789.1574433 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJsgX-0004uL-L6; Mon, 04 May 2026 12:46:05 +0000
+	id 1wJsgZ-0005Eg-3w; Mon, 04 May 2026 12:46:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1299785.1574425; Mon, 04 May 2026 12:46:05 +0000
+Received: by outflank-mailman (output) from mailman id 1299789.1574433; Mon, 04 May 2026 12:46:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJsgX-0004pk-Bj; Mon, 04 May 2026 12:46:05 +0000
-Received: by outflank-mailman (input) for mailman id 1299785;
- Mon, 04 May 2026 12:46:03 +0000
+	id 1wJsgY-00058i-Oh; Mon, 04 May 2026 12:46:06 +0000
+Received: by outflank-mailman (input) for mailman id 1299789;
+ Mon, 04 May 2026 12:46:04 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <marmarek@invisiblethingslab.com>) id 1wJsgU-0004EC-P1
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 12:46:02 +0000
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1wJsgW-0004hA-KS
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 12:46:04 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wJsgU-008wGN-3n
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 14:46:02 +0200
+ id 1wJsgV-008wGN-V4
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 14:46:03 +0200
 Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <marmarek@invisiblethingslab.com>)
- id 69f89506-5cb7-0a2a0a5109dd-0a2a4507cc76-24
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:46:02 +0200
-Received: from [202.12.124.154] (helo=fhigh-b3-smtp.messagingengine.com)
+ id 69f89506-5cb7-0a2a0a5109dd-0a2a4507cc76-40
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:46:03 +0200
+Received: from [202.12.124.146] (helo=fout-b3-smtp.messagingengine.com)
  by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <marmarek@invisiblethingslab.com>)
- id 69f89509-229c-0a2a45070019-ca0c7c9ac7b5-3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:46:01 +0200
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
- by mailfhigh.stl.internal (Postfix) with ESMTP id B1CA47A00A9;
- Mon,  4 May 2026 08:46:00 -0400 (EDT)
+ id 69f8950a-229c-0a2a45070019-ca0c7c92b73f-3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:46:03 +0200
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfout.stl.internal (Postfix) with ESMTP id 4419D1D00072;
+ Mon,  4 May 2026 08:46:02 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-07.internal (MEProxy); Mon, 04 May 2026 08:46:00 -0400
+ by phl-compute-05.internal (MEProxy); Mon, 04 May 2026 08:46:02 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 4 May 2026 08:45:59 -0400 (EDT)
+ 4 May 2026 08:46:01 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,30 +60,30 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1777898760; x=1777985160; bh=XX0Dg/7YfK
-	rsJr0bP1RqDlxPQIUTpCyaHF1UQw2fWRQ=; b=nkRlkLPC/WA0AHbfJhP6DjBSEO
-	Saa4DJsoeTnjolHYnKw3wXIVcgBO7z49UgDkqlT/ct9+nKDy4+YFFO4CzOvSaRLO
-	V7M08+YxwAx/oE7RqyoYbZtX0Ra5Vkim/xQYyRYLLYjvRqh14JfLvbpGVPMdqZyL
-	na0hf6SGhO+IY3Mj91zGm5Ed8XmNaRK6tzWUAcihTOjcJDoGRlxTt1pu8FQlDK60
-	E1UQS8AzrHaY0eHySzMLRsXL4Ni7YRNEgWBS51tEEWDkv1KCJzuthUWuoCqBNapt
-	P9r+XgzPhMteOaJMRMSMCvFqpi3vgpe+hM32zI7wJ/j9xgGq+eBeiPnS2jvw==
+	:subject:to:to; s=fm2; t=1777898762; x=1777985162; bh=/ymJBx8GTx
+	CdivGqgtTD1zSfg4O+MOsuDgVQ5lv9Mo8=; b=IoLAfBpHrE9+vgcJr+XguJYmO5
+	sPSgkofYKMKErZXztKRdI3jBEDjASIn0Oa+rSAOyh0rp8ZGFx9m+lR9zR0pmdOni
+	bMpiOn5QM9M7euI/iK/9/kTAlUCMPlzS57TOCNcCSO164tjvlCjVmHANCjQ4Ldr3
+	D4OGgqQnCzJeK4soRMYkFz/8FvPFQYIdJ9mNaa2VuPHrJJZ5NDFd7YkmlyzbWTRO
+	9VWLBwLZmUuobcb8txDz+dNYV2PoHA3PRMdvToDxpTRQyt/2mqurmpNEpqEMJQ/9
+	anoTC9aEbKD3nLGNQG+cf0WJucYznSwld501AXuiuVyUeZiQ2z2IMLbYwi4Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777898760; x=
-	1777985160; bh=XX0Dg/7YfKrsJr0bP1RqDlxPQIUTpCyaHF1UQw2fWRQ=; b=N
-	27uBja9WafF7tXG3QkODmosMFQiAaPVt9nSIFCeKpLhLUZUrIy4iZUQOecpB2Cwk
-	+50VwAX0hc0pcw4gkjtvxeZRv17eA1uKXGXvOaWG+c/bIIN8F9OJKiLGkX4DvSmt
-	bnjD6nyhArc63nwCIbPLDQqeQ65dELy+RzYHYmH/OwHJWVxkpnaB2rToS6VMSu3y
-	9X8HViY6bpnG4IwjrfF1p4nB1P/1ijkmwn+4BKZDJN4RzDhL6XdznUNQLRWaFKET
-	0qh2m0CCGth1uPzJlzWPrjfpfzpgDkUlui++EtzH9v3TZM82BpFZd1iIe2dFxSkq
-	a9ywreUarTSgahtoRGI8w==
-X-ME-Sender: <xms:CJX4aQaxbMtpP6yfv0bSck5cZH5U8AKzsfBIevDiaui1GRbOiY2eZw>
-    <xme:CJX4aSSqB8VyW68_l4I9r2YSNsDMDKE0_blY9lWmMjFloHd7vvgPq2kgE75sR9ZYx
-    yv8BOKG-hnaBWNf9VLqfu3GpJNF6aBnG_t3JtsrG9DBS0EYnQ>
-X-ME-Received: <xmr:CJX4aTRcYntFSjIoyJlEXg5j5bfc9plX_OsccEqO-6lx0KZiroE0DlUX4BGiTFhGCUkAiTuSt4Y6MNvC2RFceE_7eHWvqVuyuOAVTQxdhL0>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777898762; x=
+	1777985162; bh=/ymJBx8GTxCdivGqgtTD1zSfg4O+MOsuDgVQ5lv9Mo8=; b=R
+	vAmDOmYsF1CM4FqU5KEb8VBYiCi8hBkEgnLklPMz8tRX9g1JvQfmm/RMB5ibf4gd
+	60WNcjLn1eCVg/V/OnouYU9ZwkRFDrs41Bpofdk+8dLOd6MDjAcGHSH9LtrAwkIX
+	/uj3X7dfTMaB+CxpSgXRoQdmQif0jkkK8zQ0bcpSPtG+InvaRz8Q1TelJXWmjXhX
+	xtdDqd+ujvAKp0YTWDFs18zXrUj6/MNu9Sdft35J16bl7NlMIIPI2u6aN/vj1QAP
+	4/QBZDOJBnkdjdwtl1OguSUszKT1w4MWrxKwdPRxjOSBuV3Re4qVD/xZakmwToeQ
+	rvG74nnQCPTj1WzuLgbqg==
+X-ME-Sender: <xms:CpX4aWuOWafVUGj--21TZNVRYQds5YyZLF1K3Nk4Zsdtk5YBLe6sbg>
+    <xme:CpX4aSWs5ub1Ilf3QWRIiWzBzpRDlgARW8AF3Hh2l2OvaZuWrTWQQkNzRr0qMpq2f
+    gkLU90Ri_JYDKjJdFAN2qeuIL4xUIuqyG4jCG2ga0ZweRfwDQ>
+X-ME-Received: <xmr:CpX4aaEcD_oROZDbTrabNIzgkn52yeC6vGWvT2XaVnq8Vbqxn1Dn34WW6n9O-T2V8g_RZfRPnRAGQrv9PEycQw_h0rRAnYlQ_PcTOW41NiE>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelkeekkecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
     ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
@@ -91,7 +91,7 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelkeekkecutefuodetgg
     ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
     hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfeuudeh
     gfdvfeehhedujeehfeduveeugefhkefhheelgeevudetueeiudfggfffnecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    gvrhfuihiivgepfeenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
     nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhdpnhgspghrtghpthhtohephedpmh
     houggvpehsmhhtphhouhhtpdhrtghpthhtohepgigvnhdquggvvhgvlheslhhishhtshdr
     gigvnhhprhhojhgvtghtrdhorhhgpdhrtghpthhtoheprghnughrvgifrdgtohhophgvrh
@@ -99,11 +99,11 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelkeekkecutefuodetgg
     nhgvlhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
     dprhgtphhtthhopehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggs
     rdgtohhm
-X-ME-Proxy: <xmx:CJX4aWQkSYWQ9FSNM7eqvlCbLgUqSoHPj3h4Q0CmsNwagawYGt6XWQ>
-    <xmx:CJX4aY4THPDo5Q-x2Bk_VEeEgJGeFwTGLcvvcEVQ7TcvV9p0pt1zTA>
-    <xmx:CJX4aS1BaqSudc4Vt1b4nN9C5oR2JNLPSg1wdHlZ7128zJrz7Q-h9w>
-    <xmx:CJX4aTB2gemWTV99xfxJdWsgKckbr2aJ5eWOMQOLrGl5gwaJv8AzdQ>
-    <xmx:CJX4aSHv7HohQ34Zwt5Uxi57ir3oPZZ3Ymxw7eMXkClu6oZM6KnIAxYu>
+X-ME-Proxy: <xmx:CpX4ac0ANZRGTxRmhQEZsxCIYOCqRGTZjhlNRT5JOZLdbgQVH3KWQw>
+    <xmx:CpX4aUNCW3FgORfWVkP8t1NRuktSiP5zVnTM1oWhDYmt4Akn3UnuzA>
+    <xmx:CpX4aT7CI3Wwq5ViH1TFjwHFBYdOSuOPTsPVG00K4bx-Ka5O25v3SA>
+    <xmx:CpX4aW2wHiw0vNBQFFsq_ynehOg9f_m4xCeUlSI6O8alvJDPfDiPGQ>
+    <xmx:CpX4aRIc0DCDWHZDCDcCNDP6ZV7Ig8bIHJO9M5jXY4oZwtbrNlnPQzTs>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -111,19 +111,19 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v4 12/13] Prepare grub for booting x86_64 HVM domU from a cdrom
-Date: Mon,  4 May 2026 14:35:51 +0200
-Message-ID: <4aa490a4f8a26ec86397cef30091cdd3f3598c30.1777898148.git-series.marmarek@invisiblethingslab.com>
+Subject: [PATCH v4 13/13] Setup ssh access to test systems
+Date: Mon,  4 May 2026 14:35:52 +0200
+Message-ID: <13f837cd9f394d3b4eddb4849156b8ed5d06d31b.1777898148.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.30e6171ddf1c6a72eadf4af0a77c892d4f18d811.1777898148.git-series.marmarek@invisiblethingslab.com>
 References: <cover.30e6171ddf1c6a72eadf4af0a77c892d4f18d811.1777898148.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1777898762-2B77AC48-D4272D76/0/0
+X-purgate-ID: tlsNG-ef75cf/1777898763-1505AC48-0BB3A418/0/0
 X-purgate-type: clean
-X-purgate-size: 825
-X-Rspamd-Queue-Id: B12684BD2C5
+X-purgate-size: 1527
+X-Rspamd-Queue-Id: B40EC4BD2C6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.19 / 15.00];
@@ -158,27 +158,54 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[11]
 
-The stubdomain test will use it.
+For this add also bridge package, so xenbr0 can be configured with
+/etc/network/interfaces.
+This allows extracting more logs out of the test system.
+
+Create empty /etc/network/interfaces, so the 'networking' service starts
+cleanly even if no interfaces are configured this way. This is
+necessary, as dropbear service depends on networking.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
- scripts/alpine-rootfs.sh | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v4:
+- adjust commit message
+- drop DROPBEAR_OPTS=\"-R\"
+Changes in v2:
+- do not allow passwordless login
+---
+ scripts/alpine-rootfs.sh | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/scripts/alpine-rootfs.sh b/scripts/alpine-rootfs.sh
-index 18f43e6..f649550 100755
+index f649550..c7fee4b 100755
 --- a/scripts/alpine-rootfs.sh
 +++ b/scripts/alpine-rootfs.sh
-@@ -101,6 +101,9 @@ if [ "$UNAME" = "x86_64" ]; then
-     grub-mkimage -o ${COPYDIR}/grub-core.img \
-         -O i386-pc -p '(hd0,msdos1)/boot/grub2' \
-         boot part_msdos ext2 linux biosdisk configfile normal
-+    grub-mkimage -o ${COPYDIR}/grub-core-eltorito.img \
-+        -O i386-pc-eltorito -p '(cd)/boot/grub2' \
-+        boot part_msdos ext2 linux biosdisk configfile normal iso9660
- fi
+@@ -10,6 +10,8 @@ apk --no-cache upgrade
  
- # Print the contents for the build log
+ PKGS=(
+     # System
++    bridge
++    dropbear
+     libgcc
+     openrc
+     udev
+@@ -72,6 +74,7 @@ rc-update add loopback sysinit
+ rc-update add bootmisc boot
+ rc-update add devfs sysinit
+ rc-update add dmesg sysinit
++rc-update add dropbear boot
+ rc-update add hostname boot
+ rc-update add hwclock boot
+ rc-update add hwdrivers sysinit
+@@ -85,6 +88,7 @@ echo "hvc0" >> /etc/securetty
+ echo "ttyS0::respawn:/sbin/getty -L ttyS0 115200 vt100" >> /etc/inittab
+ echo "hvc0::respawn:/sbin/getty -L hvc0 115200 vt100" >> /etc/inittab
+ echo "rc_verbose=yes" >> /etc/rc.conf
++touch /etc/network/interfaces
+ echo > /etc/modules
+ passwd -d "root" root
+ 
 -- 
 git-series 0.9.1
 
