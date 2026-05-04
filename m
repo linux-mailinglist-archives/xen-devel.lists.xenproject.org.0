@@ -2,44 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0IEhBd1A+GnCrwIAu9opvQ
+	id uFSoHcdB+GnCrwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 08:46:53 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 08:50:47 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65DA14B8FCB
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 08:46:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1299524.1574065 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD0E94B902E
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 08:50:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1299532.1574074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJn4Y-0003c6-HR; Mon, 04 May 2026 06:46:30 +0000
+	id 1wJn8S-0005H8-2x; Mon, 04 May 2026 06:50:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1299524.1574065; Mon, 04 May 2026 06:46:30 +0000
+Received: by outflank-mailman (output) from mailman id 1299532.1574074; Mon, 04 May 2026 06:50:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJn4Y-0003ae-E7; Mon, 04 May 2026 06:46:30 +0000
-Received: by outflank-mailman (input) for mailman id 1299524;
- Mon, 04 May 2026 06:46:29 +0000
+	id 1wJn8S-0005Fh-05; Mon, 04 May 2026 06:50:32 +0000
+Received: by outflank-mailman (input) for mailman id 1299532;
+ Mon, 04 May 2026 06:50:30 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wJn4W-0003aY-SL
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 06:46:29 +0000
+ (envelope-from <Michal.Orzel@amd.com>) id 1wJn8Q-0005Fb-5o
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 06:50:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wJn4V-000t0Z-Q5
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 08:46:27 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wJn8P-0011GQ-Fm
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 08:50:29 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69f840c1-e002-0a2a0a5209dd-0a2a4502b22a-16
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 08:46:27 +0200
-Received: from [209.85.208.182] (helo=mail-lj1-f182.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69f840c3-af86-0a2a45020019-d155d0b6d848-3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 08:46:27 +0200
-Received: by mail-lj1-f182.google.com with SMTP id
- 38308e7fff4ca-39380e79936so14187561fa.2
- for <xen-devel@lists.xenproject.org>; Sun, 03 May 2026 23:46:27 -0700 (PDT)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69f841b2-2eae-0a2a0a5409dd-0a2a4507d964-14
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 08:50:28 +0200
+Received: from [40.93.196.11]
+ (helo=SA9PR02CU001.outbound.protection.outlook.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69f841b3-229c-0a2a45070019-285dc40b14da-3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 08:50:28 +0200
+Received: from PH8P221CA0002.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::27)
+ by MW6PR12MB9018.namprd12.prod.outlook.com (2603:10b6:303:241::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 4 May
+ 2026 06:50:22 +0000
+Received: from MW1PEPF00016160.namprd21.prod.outlook.com
+ (2603:10b6:510:2d8:cafe::85) by PH8P221CA0002.outlook.office365.com
+ (2603:10b6:510:2d8::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.25 via Frontend Transport; Mon,
+ 4 May 2026 06:50:18 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MW1PEPF00016160.mail.protection.outlook.com (10.167.249.91) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.1 via Frontend Transport; Mon, 4 May 2026 06:50:18 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 4 May
+ 2026 01:50:17 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 4 May
+ 2026 01:50:17 -0500
+Received: from [10.252.145.116] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Mon, 4 May 2026 01:50:16 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,354 +74,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-ARC-Seal: i=1; a=rsa-sha256; t=1777877187; cv=none;
-        d=google.com; s=arc-20240605;
-        b=dB2AtvMAyFGNn4HIdCOXjiHVAnP6l3jeZOD0v5WdyCLvvmiK9+k5/+2ylVKXjoo3hp
-         kNHpykHoqxKZH3xVDoE2WTal5B+iU0OOODaUSHRkO6s9rofQattsXJyxaKLlCREXzhOH
-         83+7gO2fSKNWvewowJwbS88j/OjA/YCzwEMAUkgt2ctSMMHQXy9IqN78lko363GnoWFg
-         hdDFotuaRdtHyVDsjuGTIQfwybxofcFL0/WgyNP9m9vjjF3i3sNUEiz2O3lL/xJKD2sL
-         UUCVED9ab0m6XXgs8L0XGr5E+dVLSTqVMX5i8hjoli7WzSIAdr6KcLJjcg8h3vLyU8WI
-         GfLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hl7+8bj11o7w8ySG0svFpcCKviuJf6j1XMQI0d4D6G0=;
-        fh=UkW1QsykQMC33yWXr4pJKF3hWw8k7K8wwFcwAAasZs8=;
-        b=anMoty4zWM9KXvdfmv7bhAGNp0RaprBiJJq2I9fdQIf696oucwlr6ift7qfEZuE0Do
-         EhoRg07QLk5V9BBVyynZAmc4tgVaZ7639aE54DqEk/KqlHHaoNAeZsOcPCi4yf44KhbC
-         7pRNanhwLYW5Vxoux/x26/D2K3jGv3nwSGFvkEsanVJdIOr2ff+sSFRqFCh1bjGWo07p
-         NnE/rs5eGF5RrSTDW9HB1AmVD97PVG7egkYKi4vCS/CXuAZ+xr4G4vqxS+H5CPHyiFfP
-         jYecirjRFnHvQtMLaoyzuV/lFFUW4rUgd0Z2/R10t5PbqYal2qNVTb7RCHlGSMJCSg8O
-         7pbw==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1777877187; x=1778481987; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hl7+8bj11o7w8ySG0svFpcCKviuJf6j1XMQI0d4D6G0=;
-        b=Szwa1rxkj02uOHkPZZv6Txqjjy169YjqoJDH+8JcL+gxhNgVPS6FjSQe7PdoWiGLXx
-         i4NLHCcizeg9GGzZDw8FU8f/gkLpbO9pkm/lbWNbc+LQfz22Asxl2GEZ1e5aSwGiI4Le
-         be90HVUukqEQsq3BrcrjHE8R+6donnR65poy9xK/eMKdT3KYZiBAGGULZqC5cOx7b6p4
-         +gN3PnWfOncgH8dE5vneubCA2m+KF8kzxkIBijEcL2VBNf8RF8S7vsS3HhMiV+ZjCAgJ
-         Nkt4eRzVVNbP65jQ/Rrlvx1+zn2PYT35JSkaUTyhzQOcBggK6hDWDtk3oPWB4/rfTp07
-         b+bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777877187; x=1778481987;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=hl7+8bj11o7w8ySG0svFpcCKviuJf6j1XMQI0d4D6G0=;
-        b=G9fozv/QI6KdHnFdIAOg7Mbq2OfliAgIi7t4bpaRMucVuTHMqj2MAyOuuurKU7pBws
-         7LaBfGfdSnQTlohvKWB07GCWJdWyxzgy/Ap3dgau7nkGCLLck9AuF5B7F7VugrvE96iF
-         DxTn2ZjlAl1axFZpwyRKU4iN7DBod/WqE8JbwJ+3/DP5Kh8Tv0zMdnMpn0cWMzaxh4u/
-         4+cu028lUNYHt3E5KMuHCdEq0ahIi8E2MxBlB0f65jkqAUtBQHJ6jRaA9DcX2zL47FwD
-         elAF9PHTemIwDd9yBrVLTD+c+1NDFvghznKgc/avg/xrcx09EzdBpQgabzGEObSJaQBb
-         ClnQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+QJU4fCE0YAkP//71MglrqEIDGh9zC99aLZajQWOpcA2KBsgp4cQJghTbnllXOQFZJBt7zd3rWeXs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyZwawQFJ5grQFZgMsmh805idQaeFC2C6jyFbb2CsxKIe/mm894
-	KsD20J1RX4fLusvQqymf9BWQWlKM92OZVh63z9M9NZwci8qnHrv/tfSxjExPV7/MeVqfYDUfUfN
-	fi/wKgNSjaeMk5kJ9u3rZ6LaqmoyFSQI=
-X-Gm-Gg: AeBDievvbAzBDSNE8dxq377sTgxB7qIqxEu5FFVxtn1Ml8+s9TQ8uFYpkB0o3A9++gn
-	4R5iiffVXaOHW6cFp2ltyTfnHKXGrDndunru57ySv1LxQsCAbg06NVNOWCTc384zrphNr00/rgp
-	b+GyVtO8OXew0XmPk9DNe+2a//P7dZw8QWeyN4ub/bfu8mB2dvvHneQeorHHh8NWp+HlTI1wynC
-	Hc7idZKmoKOIjFJ1GLR6kyIx0mgILj41LTuyY4DXMYeSu239GXGVyrD/6EgpwzMLeT8VVXighdw
-	Q9dYmlhHF2bTfQPWS5oltiPtSzE=
-X-Received: by 2002:a05:651c:1588:b0:38e:4810:4f36 with SMTP id
- 38308e7fff4ca-393784ab329mr21544591fa.9.1777877186540; Sun, 03 May 2026
- 23:46:26 -0700 (PDT)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rpNlU/vZtwTTFv7XXQQ3Io7TfBTY/yvlnf2/VAwuNca4Y3ffc0ZUWFN3ggD1T3BJVBfeyzjjockCR04heu0HSQftxh9g/xuwydiR4NUSJNSd+hxXTrNphChL5MnWBZ+w097+gen9ndjT63uAqoiCviK4Ob0wXu1dGk0OIQ64761jau5675svekawaLg+psLdmamEeZyluouCCbqXJnfpJ/dk6elWFD4+VcAO7VgxwY637OGUQAjlEIhYh3OJIzWoBgSdfbeR9nglma2uScreLyYMimokGoPwVNscRODbDN66Di104W2OTUi1SDNsEFgWXtnRcWhbCjB910pmmLRm6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QpqUjFKiK1Aqh68TRvb9+tr1IbfG89bWxVthJX3f/vw=;
+ b=ieAAcemGFrGjShai2KBsxcyshf8j6PyjKLbXalhlQ1prr/hgiCvNzZFaW4g1jpOQviPuaO+v8rqW4huk1McCAu0Rj5Yraa+tRLooM+kJBGGPAcBvvWNrvuN/s9TgoWGZJXum7md3HqDPMNBLCoX6t62fgoCzSWjycAHnetyVr5Dwh9m7J89fF67HCtspIo2SIAddpB2CmFc6mM0hWhV/NEvpJg9fpLQ76c77IwS2rjKphknFAgaHCKQCsmL9CvG/+MvaDBIEUIHtdLtPE+fxp2vXFJsi/ZxpBZuJ201nzRFdO3WcnSfDxVH7yjdlBQ/IdSh4EYssTbWaAl1UNsklcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QpqUjFKiK1Aqh68TRvb9+tr1IbfG89bWxVthJX3f/vw=;
+ b=Zt2CVqZDej5B2kEaS7JSH9WTvKYmijBFR0TBxucgBZV+zbShC3ZLDIVwYYF1sLUgqVd9gWQbq2uQk8i5YemqvbBOVdOmoMnDhbRM3IWS7H9DlgCBWx24UUvNyRns2yik1umcjbnKd8FFEDKiz7dc72guySrcoL1xa3n4NLzOaVs=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <b0a340a9-a10e-4256-9f38-c804767b0bfd@amd.com>
+Date: Mon, 4 May 2026 08:50:14 +0200
 MIME-Version: 1.0
-References: <e1d18d55557ebe232fd62174f186b1cf228e48e5.1774981189.git.mykola_kvach@epam.com>
- <dc5550d7-5a2d-4ca1-85de-5a17c24aeac4@suse.com> <CAGeoDV-ffZsOW+Cu0-oPA1obBOv_1nWU8_PAdaqaoy6=YUHGig@mail.gmail.com>
- <5b16e00e-9a4d-4a18-8a5e-dde10b42a043@suse.com> <CAGeoDV_Cdpa6beFemKaVcCguwmo95x0g0rsRYbS1x5dAUxFPLQ@mail.gmail.com>
- <5fb9b5ee-ee71-49ec-b545-62c8ec27fc15@suse.com> <CAGeoDV-HCKUXZ-CZBASLik=xkR02w-n=5+HVsYGwfDf4zD-3zA@mail.gmail.com>
- <425cdc68-5e25-4e01-b5d9-6469e2d08abb@suse.com> <DDF9A244-22CB-416E-A855-D85FECE0A3C2@arm.com>
- <CAGeoDV_0r8_-dB33G5U81+Q1yncgzgLgMF5Ar_rmVt5h8-rgZQ@mail.gmail.com>
-In-Reply-To: <CAGeoDV_0r8_-dB33G5U81+Q1yncgzgLgMF5Ar_rmVt5h8-rgZQ@mail.gmail.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Mon, 4 May 2026 09:46:15 +0300
-X-Gm-Features: AVHnY4Jw3kqRt7TJitevrk3OlcM1c5n1EjC3wDuFDI48sg8R8MMzH8eUCqfFhW4
-Message-ID: <CAGeoDV-FWcrCHnE92s6Y+gpoVqa6vJDzB63Z6uXtL2T6Jfr7xw@mail.gmail.com>
-Subject: Ping: Re: [PATCH v3] xen/arm: vpsci: ignore upper 32 bits for SMC32
- PSCI arguments
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Mykola Kvach <mykola_kvach@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: Ping: Re: [PATCH v3] xen/arm: vpsci: ignore upper 32 bits for
+ SMC32 PSCI arguments
+To: Mykola Kvach <xakep.amatop@gmail.com>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>
+CC: Jan Beulich <jbeulich@suse.com>, Mykola Kvach <mykola_kvach@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e1d18d55557ebe232fd62174f186b1cf228e48e5.1774981189.git.mykola_kvach@epam.com>
+ <dc5550d7-5a2d-4ca1-85de-5a17c24aeac4@suse.com>
+ <CAGeoDV-ffZsOW+Cu0-oPA1obBOv_1nWU8_PAdaqaoy6=YUHGig@mail.gmail.com>
+ <5b16e00e-9a4d-4a18-8a5e-dde10b42a043@suse.com>
+ <CAGeoDV_Cdpa6beFemKaVcCguwmo95x0g0rsRYbS1x5dAUxFPLQ@mail.gmail.com>
+ <5fb9b5ee-ee71-49ec-b545-62c8ec27fc15@suse.com>
+ <CAGeoDV-HCKUXZ-CZBASLik=xkR02w-n=5+HVsYGwfDf4zD-3zA@mail.gmail.com>
+ <425cdc68-5e25-4e01-b5d9-6469e2d08abb@suse.com>
+ <DDF9A244-22CB-416E-A855-D85FECE0A3C2@arm.com>
+ <CAGeoDV_0r8_-dB33G5U81+Q1yncgzgLgMF5Ar_rmVt5h8-rgZQ@mail.gmail.com>
+ <CAGeoDV-FWcrCHnE92s6Y+gpoVqa6vJDzB63Z6uXtL2T6Jfr7xw@mail.gmail.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <CAGeoDV-FWcrCHnE92s6Y+gpoVqa6vJDzB63Z6uXtL2T6Jfr7xw@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-720697/1777877187-83563161-A7876D74/0/0
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF00016160:EE_|MW6PR12MB9018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 958da7ae-83f7-4302-13a3-08dea9a967ae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	fcN8WGEL+cbm85dq80DHl8QVxsvPRZmCjIWkhFLshbZHzr/t1Wa4l5YszEjO8Eh9tcF/fZXrwFifaODVW7gr6tX4EKOtxyxCbXWgZfTor7XhPwrLZT3aCPuTrrjZgSL0ktfkRnSZUjZ84cQPiBz/rnsaDhLwSgbJpDsbcXhYbGAbkOYL2BdfvJUPLyLrlIEnLTnt79SXGb1FMsoCBnwABA/gXAWn54S0hZngy45jexnAGqWHPIx3Eh4MiJtYbhViMvdiZpGoE+1wwT/ZLzHTFlUMz8HM1onYPUuxjcRhGQ8AMTmt4nn6mNXDZ9qBom3GfOyDlshCePe/qiAeWOS640cgWip3lEIZvSpOMS0/+vYx0AYUv4g/7wn0lL46kSpVoL4gvFDnNfw8GpN6t2+lEbgHI2sh8KsA3GDWiDHF9XA34YY+c3+bgj8hqhn8vT2Q0XZkG7op2s0alhCN09akmh0iPkzD3kxV2Sjf3XfuLXj7Kn0Ejd/g8NNux0ELmiDcvSEcbxTibsnS0Tp0KtZHooxVG9TwHwqElVk+Q5FHydPGaAuwna/gmBL5EMwLSUAxCiLOcpVjJ9cQOcQ3HzJ6WhwU21Aa1cFsRh/iFcXgjzhfrd0yeS+FuLYedasjPmhJ2f+BQK1p61O3Lp98r5FoVlDlklKT6CJ9KxgjH9u5NHQTtt9Jl72hupouo2LasSCm0fSXNv55IYPBE7Wihn5mw/cgakIUAhs6r6Mjs+DdQmg=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	9YbTnO57pNUKr9fEwJZkFjQ6xtvlPMjdrE+nHHvIT9uedPa358n6B5suqnaVbBV9ea3WrONUGMD4BCbzVJZQ4+PL5UX8hqSZ2nkr9kN/63CSy5fR3xoxwby/h80AKN/q8LT0TX9B/MhRS056NEZtWlV07YVR3VDKVK2OIw0JbvhHSnEMIWhek8hjgmh7eK4ByMvI8DDn7yZTjRdfUr0SoQXuSXYjKl3MQXa6z6fFIQaAV3eFqYa+owkkFqlckUzvzc7XVAZ7vo3rdjXQWKbjuPF0mEiA0SEoLngetjDifB/CTTuayjeA+gwlQ19OzMdqCtNm4t2sO/ExH4eE10cFVDz6RAzf3KPLJtT1rEg/Sx7uLq5OWU8G3o3k9umowP4CVckCX4kXgWO4K4GpkMle7xfGe73FfHbFIco3WSLswJ6GJ85mp+xCHdvmLBzpWQiO
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2026 06:50:18.5858
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 958da7ae-83f7-4302-13a3-08dea9a967ae
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF00016160.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9018
+X-purgate-ID: tlsNG-ef75cf/1777877428-14E57C48-02439D3C/0/0
 X-purgate-type: clean
-X-purgate-size: 8388
-X-Rspamd-Queue-Id: 65DA14B8FCB
+X-purgate-size: 306
+X-Rspamd-Queue-Id: DD0E94B902E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,suse.com:email,arm.com:email,epam.com:email];
-	TAGGED_FROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:Bertrand.Marquis@arm.com,m:jbeulich@suse.com,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:Bertrand.Marquis@arm.com,m:jbeulich@suse.com,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,m:xakepamatop@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com,arm.com];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCPT_COUNT_SEVEN(0.00)[8];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	FORGED_SENDER_MAILLIST(0.00)[]
 
-Hi all,
 
-Gentle ping on this patch.
 
-Bertrand has re-confirmed his Reviewed-by, and the previous discussion
-looks resolved from my side.
+On 04-May-26 08:46, Mykola Kvach wrote:
+> Hi all,
+> 
+> Gentle ping on this patch.
+> 
+> Bertrand has re-confirmed his Reviewed-by, and the previous discussion
+> looks resolved from my side.
+> 
+> Could this be picked up if there are no remaining concerns?
+Yes, I'll merge it soon.
 
-Could this be picked up if there are no remaining concerns?
+~Michal
 
-Best regards,
-Mykola
-
-On Thu, Apr 23, 2026 at 8:13=E2=80=AFAM Mykola Kvach <xakep.amatop@gmail.co=
-m> wrote:
->
-> Hi Bertrand,
->
-> On Wed, Apr 15, 2026 at 3:31=E2=80=AFPM Bertrand Marquis
-> <Bertrand.Marquis@arm.com> wrote:
-> >
-> > Hi Jan and Mykola,
-> >
-> > > On 1 Apr 2026, at 14:24, Jan Beulich <jbeulich@suse.com> wrote:
-> > >
-> > > On 01.04.2026 11:51, Mykola Kvach wrote:
-> > >> On Wed, Apr 1, 2026 at 12:22=E2=80=AFPM Jan Beulich <jbeulich@suse.c=
-om> wrote:
-> > >>> On 01.04.2026 10:49, Mykola Kvach wrote:
-> > >>>> On Wed, Apr 1, 2026 at 11:14=E2=80=AFAM Jan Beulich <jbeulich@suse=
-.com> wrote:
-> > >>>>> On 01.04.2026 09:13, Mykola Kvach wrote:
-> > >>>>>> On Wed, Apr 1, 2026 at 9:29=E2=80=AFAM Jan Beulich <jbeulich@sus=
-e.com> wrote:
-> > >>>>>>> On 31.03.2026 20:31, Mykola Kvach wrote:
-> > >>>>>>>> From: Mykola Kvach <mykola_kvach@epam.com>
-> > >>>>>>>>
-> > >>>>>>>> SMCCC DEN0028G, section 3.1, states that for AArch64 SMC/HVC c=
-alls
-> > >>>>>>>> using Wn, only the least significant 32 bits are significant a=
-nd the
-> > >>>>>>>> upper 32 bits must be ignored by the implementation.
-> > >>>>>>>>
-> > >>>>>>>> So for SMC32 PSCI calls, Xen must not treat non-zero upper bit=
-s in the
-> > >>>>>>>> argument registers as an error. Instead, they should be discar=
-ded when
-> > >>>>>>>> decoding the arguments.
-> > >>>>>>>>
-> > >>>>>>>> Arm ARM DDI 0487J.a (D1-5406) also notes that the upper 32 bit=
-s may be
-> > >>>>>>>> implementation defined when entering from AArch32. Xen zeros t=
-hem on
-> > >>>>>>>> entry, but that guarantee is only relevant for 32-bit domains.
-> > >>>>>>>>
-> > >>>>>>>> Update PSCI v0.2+ CPU_ON, CPU_SUSPEND, AFFINITY_INFO and SYSTE=
-M_SUSPEND
-> > >>>>>>>> to read SMC32 arguments via PSCI_ARG32(), while keeping the SM=
-C64
-> > >>>>>>>> handling unchanged.
-> > >>>>>>>>
-> > >>>>>>>> No functional change is intended for PSCI 0.1.
-> > >>>>>>>>
-> > >>>>>>>> Suggested-by: Julien Grall <julien@xen.org>
-> > >>>>>>>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> > >>>>>>>> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> > >>>>>>>
-> > >>>>>>> I thought I might as well include this in my next commit sweep,=
- but isn't
-> > >>>>>>> this R-b being invalidated by ...
-> > >>>>>>>
-> > >>>>>>>> ---
-> > >>>>>>>> v3:
-> > >>>>>>>> - use PSCI_ARG_CONV for SYSTEM_SUSPEND
-> > >>>>>>>
-> > >>>>>>> ... this change. That's ...
-> > >>>>>>>
-> > >>>>>>>> @@ -422,14 +427,8 @@ bool do_vpsci_0_2_call(struct cpu_user_re=
-gs *regs, uint32_t fid)
-> > >>>>>>>>     case PSCI_1_0_FN32_SYSTEM_SUSPEND:
-> > >>>>>>>>     case PSCI_1_0_FN64_SYSTEM_SUSPEND:
-> > >>>>>>>>     {
-> > >>>>>>>> -        register_t epoint =3D PSCI_ARG(regs, 1);
-> > >>>>>>>> -        register_t cid =3D PSCI_ARG(regs, 2);
-> > >>>>>>>> -
-> > >>>>>>>> -        if ( fid =3D=3D PSCI_1_0_FN32_SYSTEM_SUSPEND )
-> > >>>>>>>> -        {
-> > >>>>>>>> -            epoint &=3D GENMASK(31, 0);
-> > >>>>>>>> -            cid &=3D GENMASK(31, 0);
-> > >>>>>>>> -        }
-> > >>>>>>>> +        register_t epoint =3D PSCI_ARG_CONV(regs, 1, is_conv_=
-64);
-> > >>>>>>>> +        register_t cid =3D PSCI_ARG_CONV(regs, 2, is_conv_64)=
-;
-> > >>>>>>>>
-> > >>>>>>>>         perfc_incr(vpsci_system_suspend);
-> > >>>>>>>>         PSCI_SET_RESULT(regs, do_psci_1_0_system_suspend(epoin=
-t, cid));
-> > >>>>>>>
-> > >>>>>>> ... this hunk aiui, which is far from merely cosmetic imo. Whil=
-e
-> > >>>>>>
-> > >>>>>> Nobody said that the change had to be purely cosmetic in order t=
-o keep
-> > >>>>>> the tag. I understood it differently from the official Xen
-> > >>>>>> documentation pages.
-> > >>>>>>
-> > >>>>>>> behavior looks to remain the same for PSCI_1_0_FN32_SYSTEM_SUSP=
-END, it
-> > >>>>>>
-> > >>>>>> Exactly. If the changes are not substantial, I do not see a reas=
-on to
-> > >>>>>> drop the tag ...
-> > >>>>>>
-> > >>>>>>> clearly changes for PSCI_1_0_FN64_SYSTEM_SUSPEND. That may be i=
-ntended
-> > >>>>>>> and for the better, but the change clearly wasn't reviewed by B=
-ertrand,
-> > >>>>>>> nor - when offering the R-b - did he ask for this extra change.
-> > >>>>>>
-> > >>>>>> ... and this is also how I understood the Xen patch submission
-> > >>>>>> guidelines [1], which say:
-> > >>>>>>
-> > >>>>>> "Note that if there are several revisions of a patch, you ought =
-to
-> > >>>>>> copy tags that have accumulated during the review. For example, =
-if
-> > >>>>>> person A and person B added a Reviewed-by: tag to v1 of your pat=
-ch,
-> > >>>>>> include it into v2 of your patch. If you make substantial change=
-s
-> > >>>>>> after certain tags were already applied, you will want to consid=
-er
-> > >>>>>> which ones are no longer applicable (and may require re-providin=
-g)."
-> > >>>>>>
-> > >>>>>> So my understanding was that tags should normally be kept across
-> > >>>>>> revisions, unless the changes are substantial enough to make the=
-m no
-> > >>>>>> longer applicable.
-> > >>>>>
-> > >>>>> Maybe our understanding of "substantial" differs. To me that's an=
-ything
-> > >>>>> changing functionality. Style adjustments, typo corrections, and =
-alike
-> > >>>>> generally aren't substantial (albeit even then there may be excep=
-tions).
-> > >>>>
-> > >>>> Thanks for clarifying what you consider substantial.
-> > >>>>
-> > >>>> Even under that interpretation, I do not see a functionality chang=
-e
-> > >>>> here. "Refactoring" seems like the more accurate term in this case=
-:
-> > >>>> the internal form changes, but the intended external behavior does
-> > >>>> not.
-> > >>>>
-> > >>>> It may be that we are using "functional change" in slightly differ=
-ent
-> > >>>> senses here.
-> > >>>>
-> > >>>> For v3, the switch to PSCI_ARG_CONV() in SYSTEM_SUSPEND was meant =
-to
-> > >>>> make this case consistent with the helper-based argument decoding =
-used
-> > >>>> elsewhere, not to change behavior.
-> > >>>>
-> > >>>> In particular, I do not see a functional change for
-> > >>>> PSCI_1_0_FN64_SYSTEM_SUSPEND: v2 used PSCI_ARG(regs, 1/2), and in =
-v3
-> > >>>> PSCI_ARG_CONV(regs, 1/2, is_conv_64) should resolve to the same th=
-ing
-> > >>>> when is_conv_64 is true.
-> > >>>
-> > >>> Isn't the whole point of the patch to alter behavior when is_conv_6=
-4 is
-> > >>> false? For that case PSCI_1_0_FN64_SYSTEM_SUSPEND behavior looks to
-> > >>> change in v3, when it didn't in v2. Whereas for
-> > >>> PSCI_1_0_FN32_SYSTEM_SUSPEND the v3 change indeed only eliminates o=
-pen-
-> > >>> coding, which one may or may not regard as "substantial".
-> > >>
-> > >> I think the point I was trying to make is slightly narrower: in this
-> > >> code path, is_conv_64 is derived directly from fid via
-> > >> smccc_is_conv_64(fid) before the switch (fid).
-> > >>
-> > >> So for PSCI_1_0_FN64_SYSTEM_SUSPEND, I do not see how
-> > >> is_conv_64 =3D=3D false could arise here: if we are in the FN64 case=
-,
-> > >> the function ID already encodes the 64-bit convention.
-> > >>
-> > >> Conversely, if is_conv_64 is false here, then this cannot be the
-> > >> FN64 case.
-> > >
-> > > Ah, I see. To figure that out, I would have had to do a proper review=
-. I
-> > > was after committing only, which ought to be an entirely mechanical s=
-tep.
-> > >
-> > >> On that basis, I do not see a behavioral change for the FN64
-> > >> SYSTEM_SUSPEND case in v3.
-> > >
-> > > I agree (now). I'm still not going to pick up that patch, but rather
-> > > leave it to the Arm maintainers. While not as clear cut as it first
-> > > seemed to me, I still consider it within the grey area.
-> >
-> > Sorry for the delay, this felt through in my filters as it was reviewed=
--by already.
-> >
-> > I am ok with the changes done which make sense (mask is now done
-> > directly).
-> >
-> > Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
->
-> Thank you for taking another look.
->
-> With your Reviewed-by in place, and since I do not expect any further
-> changes from my side, I believe this patch should now be ready for the
-> Arm maintainers to pick up.
->
-> Best regards,
-> Mykola
->
-> >
-> > Cheers
-> > Bertrand
-> >
-> > >
-> > > Jan
-> >
-> >
 
