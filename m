@@ -2,47 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GDdSCQqV+Gn0wgIAu9opvQ
+	id UFzMDgyV+GnnwgIAu9opvQ:T2
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:02 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:05 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BC524BD242
-	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1299768.1574322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C415A4BD271
+	for <lists+xen-devel@lfdr.de>; Mon, 04 May 2026 14:46:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1299769.1574335 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJsgE-0001gu-T7; Mon, 04 May 2026 12:45:46 +0000
+	id 1wJsgG-00020X-7Z; Mon, 04 May 2026 12:45:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1299768.1574322; Mon, 04 May 2026 12:45:46 +0000
+Received: by outflank-mailman (output) from mailman id 1299769.1574335; Mon, 04 May 2026 12:45:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wJsgE-0001bU-PV; Mon, 04 May 2026 12:45:46 +0000
-Received: by outflank-mailman (input) for mailman id 1299768;
- Mon, 04 May 2026 12:45:45 +0000
+	id 1wJsgG-0001yc-3z; Mon, 04 May 2026 12:45:48 +0000
+Received: by outflank-mailman (input) for mailman id 1299769;
+ Mon, 04 May 2026 12:45:47 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wJsgD-0001YR-C2
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 12:45:45 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <marmarek@invisiblethingslab.com>) id 1wJsgF-0001kP-5x
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 12:45:47 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wJsgC-00AF4e-No
- for xen-devel@lists.xenproject.org; Mon, 04 May 2026 14:45:44 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wJsgE-001PV9-D1
+ for xen-devel@lists.xenproject.org; Mon, 04 May 2026 14:45:46 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <marmarek@invisiblethingslab.com>)
- id 69f894f6-bab6-0a2a0a5309dd-0a2a450285aa-18
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:45:44 +0200
+ id 69f894f8-e002-0a2a0a5209dd-0a2a4504ca26-8
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:45:46 +0200
 Received: from [202.12.124.146] (helo=fout-b3-smtp.messagingengine.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <marmarek@invisiblethingslab.com>)
- id 69f894f7-af86-0a2a45020019-ca0c7c9299d9-3
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:45:44 +0200
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfout.stl.internal (Postfix) with ESMTP id 2E9E61D00072;
- Mon,  4 May 2026 08:45:43 -0400 (EDT)
+ id 69f894f9-1dec-0a2a45040019-ca0c7c9297d7-3
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 14:45:46 +0200
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfout.stl.internal (Postfix) with ESMTP id C7D731D0007D;
+ Mon,  4 May 2026 08:45:44 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Mon, 04 May 2026 08:45:43 -0400
+ by phl-compute-05.internal (MEProxy); Mon, 04 May 2026 08:45:44 -0400
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 4 May 2026 08:45:41 -0400 (EDT)
+ 4 May 2026 08:45:43 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,30 +60,30 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1777898743; x=1777985143; bh=Nqcj1coJ3a
-	zx/jiKYdqjenpPAF4yXwqZcKoRg2bnT1k=; b=X6C8lIebmOB9+4XKmqk1Av6hzl
-	fUHNvj7eSfbIYjwq1aZhasqPubw+q0bbWROBC+iZtC/Kn5SduSmPfp9SlLa9z8es
-	GwNyvuk36uxwVA+LQhamvwEgWM6wcb4IItLIdIuwUScfD2NH546gd85sE4M/xxvx
-	0SDXqwqr0zpOmDsQit/qr9jNn+xBmGP6YBCm1tBjXXl/rxR5UrYKBpQFrvku5w2M
-	rHUxA5J/XopINmeu1YDrylTQO1Y61gaKiEqCJQViW/0EZmQAq58D5HDd7GrEctRu
-	ejmFDGj1aA3McVAjERkRZ1C4GvkbjWUIwex8dtI0H299u4fJ3fViGRr9FGew==
+	:subject:to:to; s=fm2; t=1777898744; x=1777985144; bh=lDurhCnEVx
+	k5QBuNDNgcwnaqx3Wd1t33ua2Ae6U5h5Y=; b=B6p2GnSnMe6AZ9zcJw2SfwTVVT
+	Nuq6S7BY+oXpUAkqe3kvJZR9SugIUQPvjW6JqGxn+q0Evpmgq9SA8UtG66LeDT7U
+	vFJNud8tSVL5a++J0psfrvv0DkDCUCkFta/nBbFnHZwp3l2XhWx79vz/ZOqmpQ1s
+	lQFnXGWJ5IizNUx+ogM80eOYYvkLpD9iwiW+jEHOxqHDe+sOtcijJLKB9t5elcbg
+	obGKJeSrm5HN1Y8bPtWSyj/55LqWkAbl9fYtUW3CK8XfebE3UJqeoYcju1ejuNR2
+	yiouZr6SKMBYSJiSbbPnPHaOAteaahtgzip4N5hiboMmbjLPelJ5131i7elg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777898743; x=
-	1777985143; bh=Nqcj1coJ3azx/jiKYdqjenpPAF4yXwqZcKoRg2bnT1k=; b=u
-	CHo96kktDXK2nlXXYkLq0U7X7nKt9nU2Fs8RUwx3nTrZM0UvYcsUT7fDJuWftcnN
-	qMLatvUMG9OWGie0pujFr6NCJNfYsn2Y0Zucwv8n6bpeCYE/dcLpQOJ+n5sCDv4v
-	a8SUZhsXWFV7Q9X1zWwkJ/9GnPGGIr5QsUG/m+uUTfiCH/moLOqesmIQrJ8xgJv3
-	JTMK2+5Qr0vl/oKA5ACYBewpoyCOUKSuvF1nXnSibjOicwhWVaJvpBhbfTKvtF+V
-	zuTcMFNPOotWnSnm4cHS5sOE1M5mUqCMSDQSfvfviGD1zd8CBFtQNh0m4OC5Jep5
-	xmJg3XLiQSLfQcAuixSSw==
-X-ME-Sender: <xms:9pT4acZwb4HAeC3QQsGGFgphEBuZ8n7xS-atHT9riEvs9Q2XMRATsw>
-    <xme:9pT4aeTOeQHoXoSoQ9xKyxAQc8U-lvmdTAIYDr0Qc3_wcmZOl-6CLAdr5BOu0WIZH
-    AVCuXigMYA-h9kQaH25tcV-e1b_ujEFKKNa5OeqpbVeZBuR7w>
-X-ME-Received: <xmr:9pT4afSBACbIZtMJDjX-51OINIp6IQ0o1Qt_mNtf5zl8zxz3jcr3hoz7nigCDvJ-uQ1rpVpUwpDF28PQZwtMoFItVn-1duASsoV7vNeCsro>
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1777898744; x=
+	1777985144; bh=lDurhCnEVxk5QBuNDNgcwnaqx3Wd1t33ua2Ae6U5h5Y=; b=M
+	cU+zisRjC/V4N4IHRzfMDG4Uth2PttqZt/uSKSs97HJJlO5Nr9s4EmvcvnyapQX3
+	8xk7zECV85S98/pnohD2/u3kem1JoA8y3Nf1FNppfHGivHtRW/MG3f5aVaDoHPuG
+	cHPvaEf/WCF1o1n9iFkYe0NeJELz/nIMIjHE+TYwmmEns/qwUN4Ru6GkPzhSpWeZ
+	29Rac4PMW/DAg2MtTwIc407GgyRDQPd/T0CfihRlQvy07Y6TQ8gIqZAjHt4fOamh
+	bfwuE+y1gtcyn72mpD6hQd5czuhwvqsa1rQyHs73HkUMvhJ0x2TTEIk5WhvkWfPW
+	mgIsEnzy6uPx6/i5QJdLg==
+X-ME-Sender: <xms:-JT4acTqwixw2NJ0eml8Pcp6YMV877QKI0E_bh_f5j8vTk26NXl_oA>
+    <xme:-JT4aQr0xq3l3P0B9wXOTE2FU48pXsZyXwrI4JiCt8YZDRFQxWuM65kJUwY6jkZi0
+    E2B2HNfpqB1Raw2acXUkQTrRGh6R6jqBP1t4whzxnxBbXSH1w>
+X-ME-Received: <xmr:-JT4aSJ3QQVibd2y-eyJobvCCA-P5OPU682s2FcjTBZth_HzAJHUMJHltz4UBHmHCMKGRv_3FLb8U0JNkmu4rXF5yQwudRDu84We-SZYDwM>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelkeekjecutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpuffrtefokffrpgfnqfghnecuuegr
     ihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjug
@@ -98,11 +99,11 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefhedrtddtgdelkeekjecutefuodetgg
     nhgvlhdrohhrghdprhgtphhtthhopehrohhgvghrrdhprghusegtihhtrhhigidrtghomh
     dprhgtphhtthhopehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggs
     rdgtohhm
-X-ME-Proxy: <xmx:9pT4aSS3iY2WkwnX9rsvDqBXW9eTNjfCo6lLhEDlxUnSWNDRvw7fFw>
-    <xmx:9pT4aU4Pc0Auh00Y9_XTihbdpIWSlWH5x-a8B4EBvwNx6kT-m3JvRA>
-    <xmx:9pT4ae3xoZQZUnMiDne71asYyuj82U9DLuNCQB2vPVxdu_ypbZm2wQ>
-    <xmx:9pT4afA3BKsiKuLz5Sx5nL8pzRqHX6LUz7B_ijrh3LG7lcpH047OPw>
-    <xmx:95T4aeEHgd8iLB7qZ_oSaPxVrCfAXHOgGlM-DYEa7dbc3pCyXqQouboT>
+X-ME-Proxy: <xmx:-JT4abpv4eI4t1jXVS500yZnemWlajZWDNROHtyB0VRe2C4ucxE-JQ>
+    <xmx:-JT4aSxr66QmtrUjrQcwMglYApyslYl-rr-NxOF16FSahLACNfi5Kg>
+    <xmx:-JT4aXODErMV7Iy5-RBA_O4b2KN5OwV90Y3B-ifWAeyLCem-I4jySQ>
+    <xmx:-JT4af6ROB_8LvS_dEzzbgYzF_l0kLIyGjQpONQ8DegzGSumpVU-xQ>
+    <xmx:-JT4aaf80cQQak_J8iDY-4D-xBNnzLQaR3qMnM1jrX59YYUBprHYQP0P>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -110,39 +111,39 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v4 01/13] Add Alpine 3.23 containers
-Date: Mon,  4 May 2026 14:35:40 +0200
-Message-ID: <d778b5c5936932fa0925ffa3bf3e1656da26bbaf.1777898148.git-series.marmarek@invisiblethingslab.com>
+Subject: [PATCH v4 02/13] Switch Linux builds to use Alpine 3.23 container
+Date: Mon,  4 May 2026 14:35:41 +0200
+Message-ID: <23fbf2c275cfb021161688eb5f0e9013bfb4aa83.1777898148.git-series.marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.30e6171ddf1c6a72eadf4af0a77c892d4f18d811.1777898148.git-series.marmarek@invisiblethingslab.com>
 References: <cover.30e6171ddf1c6a72eadf4af0a77c892d4f18d811.1777898148.git-series.marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-720697/1777898744-82374161-B98F688F/10/63158204843
-X-purgate-type: spam
-X-purgate-size: 6307
-X-Rspamd-Queue-Id: 8BC524BD242
+X-purgate-ID: tlsNG-ebf023/1777898746-32E743FF-0F06FFE7/0/0
+X-purgate-type: clean
+X-purgate-size: 1350
+X-Rspamd-Queue-Id: C415A4BD271
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
 	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm2,messagingengine.com:s=fm3];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:sstabellini@kernel.org,m:roger.pau@citrix.com,m:marmarek@invisiblethingslab.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[marmarek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,invisiblethingslab.com:email,invisiblethingslab.com:dkim,invisiblethingslab.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,messagingengine.com:dkim,invisiblethingslab.com:email,invisiblethingslab.com:dkim,invisiblethingslab.com:mid];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -157,212 +158,57 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[11]
 
-Add it in all variants:
-- base container
-- build container
-- initramfs archive
+Slowly phase out 3.18 one.
 
-libdw used to be part of libelf in Alpine 3.18, but it's a separate
-package in 3.23.
+But keep Linux 6.6 on Alpine 3.18 containers - it fails to build on
+Alpine 3.23 (due to GCC 15 defaulting to -std=c23).
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
 Changes in v4:
-- Update to Alpine 3.23
-- Fix alpine-3.22-arm64-rootfs
-- Adjust default in containerize script
-Changes in v3:
-- add comment about libdw
+- Alpine 3.23
+- Keep Linux 6.6 on Alpine 3.18
 ---
- .gitlab-ci.yml                             | 14 +++++++-
- containerize                               |  6 ++-
- images/alpine/3.23-arm64-base.dockerfile   |  6 +++-
- images/alpine/3.23-arm64-build.dockerfile  | 31 +++++++++++++++++-
- images/alpine/3.23-x86_64-base.dockerfile  |  6 +++-
- images/alpine/3.23-x86_64-build.dockerfile | 43 +++++++++++++++++++++++-
- scripts/alpine-rootfs.sh                   |  6 +++-
- 7 files changed, 111 insertions(+), 1 deletion(-)
- create mode 100644 images/alpine/3.23-arm64-base.dockerfile
- create mode 100644 images/alpine/3.23-arm64-build.dockerfile
- create mode 100644 images/alpine/3.23-x86_64-base.dockerfile
- create mode 100644 images/alpine/3.23-x86_64-build.dockerfile
+ .gitlab-ci.yml | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/.gitlab-ci.yml b/.gitlab-ci.yml
-index c698612..b86d9aa 100644
+index b86d9aa..5281c1f 100644
 --- a/.gitlab-ci.yml
 +++ b/.gitlab-ci.yml
-@@ -40,6 +40,13 @@ alpine-3.18-arm64-rootfs:
+@@ -21,14 +21,14 @@ stages:
+   tags:
+     - arm64
    variables:
-     CONTAINER: alpine:3.18-arm64-base
+-    CONTAINER: alpine:3.18-arm64-build
++    CONTAINER: alpine:3.23-arm64-build
  
-+alpine-3.23-arm64-rootfs:
-+  extends: .arm64-artifacts
-+  script:
-+    - ./scripts/alpine-rootfs.sh
-+  variables:
-+    CONTAINER: alpine:3.23-arm64-base
-+
- linux-6.6.86-arm64:
-   extends: .arm64-artifacts
+ .x86_64-artifacts:
+   extends: .artifacts
+   tags:
+     - x86_64
+   variables:
+-    CONTAINER: alpine:3.18-x86_64-build
++    CONTAINER: alpine:3.23-x86_64-build
+ 
+ #
+ # ARM64 artifacts
+@@ -52,6 +52,7 @@ linux-6.6.86-arm64:
    script: ./scripts/build-linux.sh
-@@ -56,6 +63,13 @@ alpine-3.18-x86_64-rootfs:
    variables:
-     CONTAINER: alpine:3.18-x86_64-base
+     LINUX_VERSION: 6.6.86
++    CONTAINER: alpine:3.18-arm64-build
  
-+alpine-3.23-x86_64-rootfs:
-+  extends: .x86_64-artifacts
-+  script:
-+    - ./scripts/alpine-rootfs.sh
-+  variables:
-+    CONTAINER: alpine:3.23-x86_64-base
-+
- linux-6.6.56-x86_64:
+ #
+ # x86_64 artifacts
+@@ -77,6 +78,7 @@ linux-6.6.56-x86_64:
+     LINUX_VERSION: 6.6.56
+     ARGO_SHA: "cf73819cacc945baca1a7421e5836d1bd481739b"
+     ARGOEXEC_SHA: "d900429f6640acc6f68a3d3a4c945d7da60625d8"
++    CONTAINER: alpine:3.18-x86_64-build
+ 
+ microcode-x86:
    extends: .x86_64-artifacts
-   script: ./scripts/build-linux.sh
-diff --git a/containerize b/containerize
-index 38a434a..a74ef45 100755
---- a/containerize
-+++ b/containerize
-@@ -27,7 +27,11 @@ case "_${CONTAINER}" in
-     _alpine-3.18-arm64-base) CONTAINER="${BASE}/alpine:3.18-arm64-base" ;;
-     _alpine-3.18-arm64-build) CONTAINER="${BASE}/alpine:3.18-arm64-build" ;;
-     _alpine-3.18-x86_64-base) CONTAINER="${BASE}/alpine:3.18-x86_64-base" ;;
--    _alpine-3.18-x86_64-build|_) CONTAINER="${BASE}/alpine:3.18-x86_64-build" ;;
-+    _alpine-3.18-x86_64-build) CONTAINER="${BASE}/alpine:3.18-x86_64-build" ;;
-+    _alpine-3.23-arm64-base) CONTAINER="${BASE}/alpine:3.23-arm64-base" ;;
-+    _alpine-3.23-arm64-build) CONTAINER="${BASE}/alpine:3.23-arm64-build" ;;
-+    _alpine-3.23-x86_64-base) CONTAINER="${BASE}/alpine:3.23-x86_64-base" ;;
-+    _alpine-3.23-x86_64-build|_) CONTAINER="${BASE}/alpine:3.23-x86_64-build" ;;
- esac
- 
- # Use this variable to control whether root should be used
-diff --git a/images/alpine/3.23-arm64-base.dockerfile b/images/alpine/3.23-arm64-base.dockerfile
-new file mode 100644
-index 0000000..5899803
---- /dev/null
-+++ b/images/alpine/3.23-arm64-base.dockerfile
-@@ -0,0 +1,6 @@
-+# syntax=docker/dockerfile:1
-+FROM --platform=linux/arm64/v8 alpine:3.23
-+LABEL maintainer.name="The Xen Project"
-+LABEL maintainer.email="xen-devel@lists.xenproject.org"
-+
-+RUN apk --no-cache add bash
-diff --git a/images/alpine/3.23-arm64-build.dockerfile b/images/alpine/3.23-arm64-build.dockerfile
-new file mode 100644
-index 0000000..1e04b3a
---- /dev/null
-+++ b/images/alpine/3.23-arm64-build.dockerfile
-@@ -0,0 +1,31 @@
-+# syntax=docker/dockerfile:1
-+FROM --platform=linux/arm64/v8 alpine:3.23
-+LABEL maintainer.name="The Xen Project"
-+LABEL maintainer.email="xen-devel@lists.xenproject.org"
-+
-+RUN apk --no-cache add bash
-+
-+RUN <<EOF
-+#!/bin/bash
-+      set -eu
-+
-+      adduser -D user --shell /bin/bash
-+
-+      DEPS=(# Base environment
-+            build-base
-+            curl
-+            git
-+
-+            # Linux build deps
-+            bison
-+            findutils
-+            flex
-+            openssl-dev
-+            perl
-+      )
-+
-+      apk add --no-cache "${DEPS[@]}"
-+EOF
-+
-+USER user
-+WORKDIR /build
-diff --git a/images/alpine/3.23-x86_64-base.dockerfile b/images/alpine/3.23-x86_64-base.dockerfile
-new file mode 100644
-index 0000000..4c5807f
---- /dev/null
-+++ b/images/alpine/3.23-x86_64-base.dockerfile
-@@ -0,0 +1,6 @@
-+# syntax=docker/dockerfile:1
-+FROM --platform=linux/amd64 alpine:3.23
-+LABEL maintainer.name="The Xen Project"
-+LABEL maintainer.email="xen-devel@lists.xenproject.org"
-+
-+RUN apk --no-cache add bash
-diff --git a/images/alpine/3.23-x86_64-build.dockerfile b/images/alpine/3.23-x86_64-build.dockerfile
-new file mode 100644
-index 0000000..b938d7b
---- /dev/null
-+++ b/images/alpine/3.23-x86_64-build.dockerfile
-@@ -0,0 +1,43 @@
-+# syntax=docker/dockerfile:1
-+FROM --platform=linux/amd64 alpine:3.23
-+LABEL maintainer.name="The Xen Project"
-+LABEL maintainer.email="xen-devel@lists.xenproject.org"
-+
-+RUN apk --no-cache add bash
-+
-+RUN <<EOF
-+#!/bin/bash
-+      set -eu
-+
-+      adduser -D user --shell /bin/bash
-+
-+      DEPS=(# Base environment
-+            build-base
-+            curl
-+            git
-+
-+            # Linux build deps
-+            bison
-+            diffutils
-+            elfutils-dev
-+            findutils
-+            flex
-+            gawk
-+            linux-headers
-+            openssl-dev
-+            perl
-+
-+            # Microcode
-+            jq
-+
-+            # Argo build deps
-+            autoconf
-+            automake
-+            libtool
-+      )
-+
-+      apk add --no-cache "${DEPS[@]}"
-+EOF
-+
-+USER user
-+WORKDIR /build
-diff --git a/scripts/alpine-rootfs.sh b/scripts/alpine-rootfs.sh
-index 6fa1d56..3cd3ab9 100755
---- a/scripts/alpine-rootfs.sh
-+++ b/scripts/alpine-rootfs.sh
-@@ -40,6 +40,12 @@ case $UNAME in
-             # QEMU
-             libelf
-             )
-+        # libdw used to be part of libelf in Alpine 3.18, but it's a separate
-+        # package in 3.22.
-+        if ! grep -q VERSION_ID=3.18 /etc/os-release; then
-+            # QEMU
-+            PKGS+=( libdw )
-+        fi
-         ;;
- 
-     aarch64)
 -- 
 git-series 0.9.1
 
