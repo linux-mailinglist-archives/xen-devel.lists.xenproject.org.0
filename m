@@ -2,44 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UOdrAuW2+WmNBAMAu9opvQ
+	id ONQSDuS9+WkIDAMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 11:22:45 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 11:52:36 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63A9F4C9883
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 11:22:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1300404.1574939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C01E4CA2B0
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 11:52:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1300420.1574947 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKByo-0003yK-EP; Tue, 05 May 2026 09:22:14 +0000
+	id 1wKCRc-0000D6-Mm; Tue, 05 May 2026 09:52:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1300404.1574939; Tue, 05 May 2026 09:22:14 +0000
+Received: by outflank-mailman (output) from mailman id 1300420.1574947; Tue, 05 May 2026 09:52:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKByo-0003wC-8k; Tue, 05 May 2026 09:22:14 +0000
-Received: by outflank-mailman (input) for mailman id 1300404;
- Tue, 05 May 2026 09:22:13 +0000
+	id 1wKCRc-0000BO-JZ; Tue, 05 May 2026 09:52:00 +0000
+Received: by outflank-mailman (input) for mailman id 1300420;
+ Tue, 05 May 2026 09:51:59 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jens.wiklander@linaro.org>) id 1wKByn-0003w6-2W
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 09:22:13 +0000
+ (envelope-from <andrew.cooper@citrix.com>) id 1wKCRa-0000BH-Ud
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 09:51:59 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKBym-005KFX-Ee
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 11:22:12 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wKCRa-00BuH5-8R
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 11:51:58 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jens.wiklander@linaro.org>)
- id 69f9b6af-e002-0a2a0a5209dd-0a2a45079eba-36
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 11:22:12 +0200
-Received: from [209.85.160.54] (helo=mail-oa1-f54.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jens.wiklander@linaro.org>)
- id 69f9b6c3-229c-0a2a45070019-d155a036c589-3
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 11:22:12 +0200
-Received: by mail-oa1-f54.google.com with SMTP id
- 586e51a60fabf-4232323a7daso1875815fac.1
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 02:22:11 -0700 (PDT)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 69f9bdbe-e002-0a2a0a5209dd-0a2a450bead6-0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 11:51:58 +0200
+Received: from [40.93.195.5]
+ (helo=SN4PR2101CU001.outbound.protection.outlook.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 69f9bdbc-212f-0a2a450b0019-285dc30517df-4
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 11:51:57 +0200
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by DM6PR03MB5226.namprd03.prod.outlook.com (2603:10b6:5:229::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 09:51:54 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9870.023; Tue, 5 May 2026
+ 09:51:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,405 +58,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=linaro.org header.i="@linaro.org" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-ARC-Seal: i=1; a=rsa-sha256; t=1777972930; cv=none;
-        d=google.com; s=arc-20240605;
-        b=A/dEKqpTmqOy9MnOG16YKWoUnkVKgc7MkorRydrIc+gJxM2tLZ6hDtaPxtVH5noF12
-         h+hU3F9PLp4ohDoq5lWOgQKCGDc9sqc75G/TkaNwLWeg0rciPrJv5ApyHvuiPpatdArx
-         bAj+1EIcAJJzUQVRo1cL+4qM4TyhVP/TWikafTuwAYV2iQf4MPsoVkBTO305k1QEp0fm
-         xJwYR29JNeQE+kEVZ2pbLiXPJUikkQv2BV26qMQoWakPIg+ukRuB5jegm0RQ8XC/6jSA
-         cLLuQUBsv6ATqNqO7miLvXc6pOn3Swydk0DpHrH2k8ctyMs3v8kHvJ4YEolxwkAPHvDx
-         ZGnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bF2MhqEkmPDfOhZHwctv0kDz2MF4bZE20UsKIaTdzEM=;
-        fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
-        b=XDnfQJYWadJ4jtutVAFepRlB32nhhDXnWaHd48Jcad/6Ombi0zYF/GCS54AtpyUS8K
-         Q+cxmiosDHXrsPjZzDL+WNqsVSd2Tc+jPxsTiwUOxK/ABFy9ucKcEmv5MOSAcASa6fY7
-         1QWEesae8XOEsciSG2FD3gSe2PLWVzIIWzLD7dx1GIlK9b5N/qsywhlKOULlFyhTRt1c
-         fU3S+SkBfLliD1hRpn7XYV3FfxEuCW7ldNFMOdiZnzcdaz2M+uGEJJCsUBmlAB2ux3wF
-         jyar47eNHA9A3CBg5m5QxyVgnlBifTaE68FoVbU4YtGim13SyURxzPXxlzo5dOkCMw79
-         GN+g==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1777972930; x=1778577730; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bF2MhqEkmPDfOhZHwctv0kDz2MF4bZE20UsKIaTdzEM=;
-        b=nUz4D8jT7jEcu0Pv8i3/r1z7HZ601LFDX/jC/xtpucVuCi2jwRNt+IBxPDX2zl8mTl
-         4PBX+8KuFAoHYeIvp0FUfPIvI3HHUWicdcgD0SZxXnkyWc7oZoXLrt6NKES1UASdf+MX
-         XhaTi30Q8V12b/m70W4UVdvE09CQo60RWYJiN4lk+i4IKByR7fH5NtBEy+1pjiYDoKtF
-         fl1TS0t7xRw97i0EipfynP37kbmcYdHN/n00JLqDFof3B/XzCu5NQzus8Liys7UqKDUj
-         UGEGuGyFV2GJlDLl4E0ONlHoz6dvDOwLtn3cRGYKc3ycNtMeopj/y/YSPMRFomhCr3Xn
-         ysHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777972930; x=1778577730;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=bF2MhqEkmPDfOhZHwctv0kDz2MF4bZE20UsKIaTdzEM=;
-        b=cGji5GxUdwLgMeq97inu9NMmlE6XDnAjY4IqjYTtBqfq9ByzOUS73EqSWSJ+L+4tFB
-         qQM2XWVa+AcSWX3BJp5Kp2GLL3V02zPdGzSb+GdEb68lls23cstPVrwT2jSuRC61fNTr
-         5kxsrQEDa/mzjf2oM7wVcosZUkTsT+QVfzKupctRWE/v6lq7QxQ0Pei4b3kiHZR2XvB8
-         e/8uxfxPPSOGO4VDQaWAh/iuaYoA9EiX/3bYOZEwIVGRNEWA/FUMyV6EpidGB7q5M1cI
-         9jfTO66zA5wAqp7Dzlzq9gZHqarg/bhOxvyHF2BwovZEf1SjEiJqSOxsoDVdePn4aqU3
-         msSw==
-X-Gm-Message-State: AOJu0YwhNruBu8cN9OI/jQguVtBE4Py+m9o99tuBhz4+NYbeVDMfaqdG
-	TreTOEcS3XcsrxhjA8OE1CyXMl65ujF195AZoEJrFSnd62nHZbhR2bagl7XV3h/iN5RFbUBkWfP
-	Ne5VqhmbO585trlw9GrJ0G9UMzR5lBnBru/hGiRDhdg==
-X-Gm-Gg: AeBDievB2V04ayCnz9mBBqPWVMa1ud5VEfcACPg6YGUW/NKMiRZuksven2thuSC5zmU
-	ipJiXkV7VEfP3UDK5oPoG/960lzHTToh2QFTdSilkX1e2mLiQ+OfkBFoHXpvQvBQpJBuiL3AOZu
-	oTt0861wzJEHSHwj/A1YTmSjuf6RKBQwNah3S9nGgAW807S66TifC0UczrB1zl9esVSxARbqt3g
-	bvNrdIHgoI6urp2PrwrsqDrfNsM/GURyGTLaCtFDoeo1XAPjRUyysaxDDdz1hRxFn4QCbxgw9qA
-	/XjSpfRju6oik0g8UUBooFjj08k+k1oQ9BQxvU218vL+fh0+
-X-Received: by 2002:a05:6871:829:b0:434:2752:34db with SMTP id
- 586e51a60fabf-434d3f64953mr1256227fac.5.1777972930369; Tue, 05 May 2026
- 02:22:10 -0700 (PDT)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t+FqDgr4qEDLO095/q7GD8adPNmA9n3YCHxxhotqeL4DVUkaM0+AOrUHxdkZwALyKWPf5jV+xZfUc4oL6Gdxx+Fg7Zxal16m50Ale3frD75KWgRo2ERKg3nY+KNYdc1xeDRkDiGc3wXEG8/50DVsDhGGhhMc8NdMVEnFrnmAMDiuMIN5AcJkkbH6IA1zKB8D3MOCAGpqMU2uSAR8iqJto2n571y3hoi6aETWzEL8/LCuPE1+UNX34ntCkVtBSuesNsbLcfO5sy2yHXZJly2qaTmxs0jrQ0qhzFzuFH8djV/BioxV8YBQqw+xS3LMqRCD2XeB6lww2xZ/LZTbQDCplA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x04ahgBByQJsXXmBoTLtnTDW8y+6xS92mrsbssJR3us=;
+ b=rqxT6jW8TV7mjgO3GDBRBB9kJ8N8UT5GlQALjGfSGRwB5vvtuE7EyS2AFuCAuJvjNcg+OK4LR0oU9dthSOte+NzfzSlXWbpzBG17nhLC2RYa0YOxM5ETJXnF82q+2bFBnaELpsUgi18e7Z78T0T31RNkSNQz+5vGFSFXxDNziPCXqwEXGf7ez8ln7ru3KlgXGl2+ahEZJtx+PWcZ8lEgfkM6fwW4/eTetfPteLyvSVwRs4EZntFGJK0KTVM7p5O+KJiM4zHoyBqnaxn1bIj5B8vBFHZEvp47XJyUUXERuKZ7TbIivhbph8bPDSFBpL3+PLNundM5khKJWCre6ACHGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x04ahgBByQJsXXmBoTLtnTDW8y+6xS92mrsbssJR3us=;
+ b=aL2pWyFvB7HseKTFnXtJRs/9CRh9PRHuirX+CYg3XAgKj95uCj8EjX9RotKBEtHWxzPFAZ7o0o0SWxVZwtzCI+PA2FtgDf87kKlM6jPR9y63mbpejd2D7OntUXX7rAeIDUO1Y7ixd4j3wMAUvdzZJRx+GUDZW7rYG1h8A3xQNbE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <97213bec-14f0-45e0-ac22-c01b4db5df6e@citrix.com>
+Date: Tue, 5 May 2026 10:51:51 +0100
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2] x86/boot: Disable interrupts when establishing SSP
+To: Jan Beulich <jbeulich@suse.com>
+References: <20260505084315.1350002-1-andrew.cooper3@citrix.com>
+ <ba9facaa-84e1-4c61-8e47-9ef76067a922@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ xsFNBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABzSlBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPsLBegQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86M7BTQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAcLB
+ XwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+In-Reply-To: <ba9facaa-84e1-4c61-8e47-9ef76067a922@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0189.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a4::14) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
-References: <cover.1776955622.git.bertrand.marquis@arm.com> <1ead2af7182a0501f16e7b4e9ad3e58ccd8f538c.1776955622.git.bertrand.marquis@arm.com>
-In-Reply-To: <1ead2af7182a0501f16e7b4e9ad3e58ccd8f538c.1776955622.git.bertrand.marquis@arm.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 5 May 2026 11:21:57 +0200
-X-Gm-Features: AVHnY4IxbheL-Y6kED6xjiouZiMz263rlg7LJlyow8jkhaTaKdqkJ3po73KqXvQ
-Message-ID: <CAHUa44ES1LD6wgDic8Y6zm7+AzWFg6x7pSZhY6NkneW3mse+wA@mail.gmail.com>
-Subject: Re: [PATCH v2 6/6] xen/arm: ffa: Deliver VM-to-VM notifications locally
-To: Bertrand Marquis <bertrand.marquis@arm.com>
-Cc: xen-devel@lists.xenproject.org, 
-	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-ef75cf/1777972932-16062C48-9F58A8FB/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|DM6PR03MB5226:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae9600c3-fb7a-4b38-b2f6-08deaa8bf066
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	NtAkir2KtG38XqabWn7byg1+z7rmgc8IrR3WRCrXB4akVAXGsOUnQbHeETQSHxdtXkFHRMiCXzb4uQGOoqaS/+DTXTJQraXvkgIlmpRSdiPVmd+4wDsVop3XrOAfVa/IhphPyCLAw04O8tNx74aOpT7zhDGd+wM6uFK5OBDuwfKwM8gWC1Fu9mPQby5Jc4qmauLpF4mlVZK+42vUYJ49hNgtsbfHVcpYo868jtZYy9S1cPds/dUCH8WA9e2dtFTwQgQXlOFmUmPZcDIFz+n3+jXLoZyLtY3K2ma1pcXbB4pp4Toi+up0GLxO8puWhnO4yqDHVljAoXAECGyLGPqR9ttRUiRNjzVtmXQSzayeYh/AebHh1i0s91PwrsTIRU656k24FFMgURzw1kj+3AycLKRHlxClA7ngZCDZRr6/0CohrEHankUuw1Mkw9QNV3/S6g7bazCly5iTzfYLKNjxVl9deoJDAPj/865It5AFVQnaTZsnZf2gefFwIXJ+eVClLsB1K7sxsjgdBWIOoNHq8QuxkFM+UNvAjY+8tIj2poM2UWAJLexDkb4GiQnSqCpYDq2AcZifPy1ab4WgByQIb76epcfFH14+y3h71IAaH2vJs5jrk/glgK2BZsKmbplbVC6fbLEN20OxdiXnIJyDRNHBYUd4gB0MKjHTzRiFOo5EuUsOFKHXgHEXRenR+u3q
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?STY5YmxMRi9iQk9iSFRncXBsZ2ZTV1l6b2t3dmRiYzVFRmo2MndSdmNXS29S?=
+ =?utf-8?B?R2pEalNVcUpta3ZXeldnUGRudWlaYmJWWEQrbkduN2daQlBURXJqY042NlhP?=
+ =?utf-8?B?Z3lUamVqOFFxNXVLOEFKVWp0U2g5NEhidWxqanF2YThZQU9ZMlNsbFN1MUMr?=
+ =?utf-8?B?QmQ3TC9aRCtCWnMrZ2tuaHA5ZGwvT0lGMjZTWGZoZEdoU2R2amZ5NndWT0ZX?=
+ =?utf-8?B?WUxPTjVwWU1saXFzMEVBTkZBU1U4eVp5RmhNc0xobTBlZ05TUnAwQVRlVm9V?=
+ =?utf-8?B?MHU2bXNkNHoyUCszdzFUWHdRd2pvNVB0UFZ0OWEyYnZVLzhMNTFxMVQxNWVk?=
+ =?utf-8?B?OWtMZ1VnS001RHlMdS85MXh5TS9qMjh6dzYzQlA0dmxMWjdQRFhYV1NvZHFS?=
+ =?utf-8?B?VUFxU0czTlEySm9jQThnVDlMUTAza3pBUVBUNjVRVE9BM290S2FIUFpnYmxu?=
+ =?utf-8?B?RVdjeTF6aFlNeWZKaTFyZHB4T1pYbUgzL1E2UjZrdUhEc0I3U0lWblNjOFZ4?=
+ =?utf-8?B?SzRWY1JXN2Y5Yll5RWhVQzVMNDYxRXA4RHVuRFRVb28vUTNRSnMzYnQ1QmtS?=
+ =?utf-8?B?bko4SjJwbUJuQit1MlU1cG81aHVvbFE0dmVweVR3SWdKNnllaHhYUzg4OHNS?=
+ =?utf-8?B?aENjRWZxQk1uRVNsWm1veksyampkQVltaXBEWENvYTFoTWRQL1lBTTYwVlhm?=
+ =?utf-8?B?YThXbUJRK2dmSlRRdzRWWlRkais0V21sb0szZEc1ZW9uQTJFU3RTdHlGZ1V2?=
+ =?utf-8?B?bkw3bktNdnQ0TlNNWkRFSE9UL0diN1BhM3RMa0MySzkxc3J5ZGNiOW9ZZHla?=
+ =?utf-8?B?aW0yS1IxeXV1cjkyUmppK2dsc3l5VmlVMC92ZW8wN3ZUcVljb08yOE9WSE5n?=
+ =?utf-8?B?elJXUWNUbFpUQXRpeTc2Snd4c1hrTVBJaUpKQTllVEV6ZWg5T3VrN1hpamU0?=
+ =?utf-8?B?TThuT0IzNWJsUkk0dVBVaUZXTVM3MDR2NGl1OFRucWhPdThmZGhpRjhLNFhw?=
+ =?utf-8?B?Y05wNTN5a2MvVnNHcWV1a2xBVkFkd01jUSt4WGI0VmtXZktFeHQwNGZWQm1j?=
+ =?utf-8?B?N3g5UU4xSXlMODh3ZEk1VU0vY0xSOHNCVTh4M1NqczFwYmo0Ym55eG5LY1dk?=
+ =?utf-8?B?RnFpODBuYTllS1RhUzg2TjZ5cTUzaTh5ZllJSUVoeDY0UTFyN0greEIwYk1v?=
+ =?utf-8?B?RGh2T1FHSlgxM2M3WHJhY2VrUDQ0bmVncFJuUmdsZFlKb0E1VnpKTGFSQXJv?=
+ =?utf-8?B?RzVmZll4ZVU1OEJTRGY5a0xFWWUyaS9XQVpERXlhUVlxTFF3UE93dHZWaDN0?=
+ =?utf-8?B?bmdOTkRzdVJwTHB0TDNwN3BFbXgveHozd0YvUE5CWGYwUFFXM2FOaGVtakRE?=
+ =?utf-8?B?am9FaHBjcVk1MHl4SXk4NTVITHEwMnRyNVgvR05CbkE0VjhJTG5kMkdOU3Nm?=
+ =?utf-8?B?WHN2Rkl1T0lqaUo0UjdvRzVGVmlOb3dRZzlXc3BRSUpyUENMWXMzTHFoZWcx?=
+ =?utf-8?B?Z0NkVWhuQlJ0T2szMFcrclVIVU1RTEkzZXVNTVVuUlR1bzJRZ0pCTzhWWURO?=
+ =?utf-8?B?UnJGMlNCMVZNMmdlNmEwUzQxenRNcmZsVjV6anVBUnl5UDQzWHNMVEtwVzh1?=
+ =?utf-8?B?VGRUU3lNNmNyblVKN3kyQXIwRVhlbHc0YzlLVlRmaWNTYm1Bb0VZNTYzMTFv?=
+ =?utf-8?B?TlFWR0ZMeDlmTy9waGRuZUFrZGQyRUtxRkRvLzMxbmxCdUsxeVp2TFNNWllC?=
+ =?utf-8?B?STljTDhhaHpJZzh5aldkc3g5OGoyQmVXazBsK1NIdDA0TTdnTnFDOEdhakhu?=
+ =?utf-8?B?MEVmVXF1bUtvUUdTb1ErQVhzUmJLenNOdWp1YVMyNVVKbmIxRVdpZ255Qzcr?=
+ =?utf-8?B?NzlQM2RlRmFiY2J5QlZkcnhlbUxiY2QzRGNoSnZTd1F5enZ4aGo4OG52WGto?=
+ =?utf-8?B?VGJSaU5OTkl6RnZadjd0VnU2SnhaZE9xZlh6cU85VHZ4U1B4T2xFeHpuTUxt?=
+ =?utf-8?B?bVVLNVNHZnZoUlhKUVkwaTdnQnl0ZUN3VUIydFB1bkErbVlFbHlJR3c3YlNK?=
+ =?utf-8?B?WUdpcStDYUQ1OWZIeGZlS0E5ancxSlh3dVdFK2NXRzhpVlVEemJMclEvMVEx?=
+ =?utf-8?B?TCtsdnljZGRmWWZrTEZEdXltT1ZXczhHV1U4NTZuWkhKOWttbXdINmxVdVRD?=
+ =?utf-8?B?WnNSNHZ5MU1KSnNmdjRYVmw4Z2Z3UnpGVmF5UnI5Rzl3bUMzTFhuam52Kys3?=
+ =?utf-8?B?d3pjQnNsWmtUYldZWFNyTmppK01TeTNMcTAyeFM3NklJM3hWVnlZZC9TSEoy?=
+ =?utf-8?B?TjdoV2hybCs2Tm83VVpKSEk2NzA1WE5haERJVjNXTW9RV3ROM2FFRzNROFUr?=
+ =?utf-8?Q?Pknf9v3KaHpYGJes=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae9600c3-fb7a-4b38-b2f6-08deaa8bf066
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 09:51:54.5552
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: arBCga74yqnmRg6tR+zk0nlUcXOVCyOYVCLM3NHxoDaq5oGW0Net/SRKfGBjXBxCBRcbrLFU6vTeK6M2mNQjoliy5ffUHD6vHyJRL4P2z6E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5226
+X-purgate-ID: tlsNG-42698a/1777974718-07374F3B-FB5F275F/0/0
 X-purgate-type: clean
-X-purgate-size: 10679
-X-Rspamd-Queue-Id: 63A9F4C9883
+X-purgate-size: 2819
+X-Rspamd-Queue-Id: 7C01E4CA2B0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
-	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bertrand.marquis@arm.com,m:xen-devel@lists.xenproject.org,m:volodymyr_babchuk@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	TO_DN_ALL(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[linaro.org:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCVD_COUNT_SEVEN(0.00)[10]
 
-Hi Bertrand,
+On 05/05/2026 10:00 am, Jan Beulich wrote:
+> On 05.05.2026 10:43, Andrew Cooper wrote:
+>> Gitlab CI reported a crash on boot on Alder Lake hardware.  The bug is years
+>> old, making it an incredibly rare occurance:
+>>
+>>   (XEN) *** DOUBLE FAULT ***
+>>   (XEN) ----[ Xen-4.22-unstable  x86_64  debug=y ubsan=y  Not tainted ]----
+>>   (XEN) CPU:    0
+>>   (XEN) RIP:    e008:[<ffff82d04077bbc4>] arch/x86/setup.c#reinit_bsp_stack+0xfa/0x160
+>>   (XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor
+>>   (XEN) rax: 0000000000000007   rbx: ffff83049a4b0000   rcx: 00000000000006a2
+>>   (XEN) rdx: 0000000000000000   rsi: 0000000000000000   rdi: 0000000000000000
+>>   (XEN) rbp: ffff83049a4b7f00   rsp: ffff83049a4b7ef8   r8:  ffff830497e47000
+>>   (XEN) r9:  00000000ffffffff   r10: 00000000900c2121   r11: 000000009a392956
+>>   (XEN) r12: ffff830497e47000   r13: ffff830497e49f40   r14: 0000000000000000
+>>   (XEN) r15: ffff82d0407dad10   cr0: 0000000080050033   cr4: 0000000000f526e0
+>>   (XEN) cr3: 0000000043c16000   cr2: fffffffffffffffc
+>>   (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
+>>   (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+>>   (XEN) Xen code around <ffff82d04077bbc4> (arch/x86/setup.c#reinit_bsp_stack+0xfa/0x160):
+>>   (XEN)  00 b9 a2 06 00 00 0f 30 <80> 3d 71 26 f1 ff 00 74 3e 48 8d 93 f8 5f 00 00
+>>   (XEN) Valid stack range: ffff83049a4b6000-ffff83049a4b8000, sp=ffff83049a4b7ef8, tss.rsp0=ffff83049a4b7fb0
+>>   (XEN) No stack overflow detected. Skipping stack trace.
+>>   (XEN)
+>>   (XEN) ****************************************
+>>   (XEN) Panic on CPU 0:
+>>   (XEN) DOUBLE FAULT -- system shutdown
+>>   (XEN) ****************************************
+>>
+>> This is on the instruction boundary after enabling CET (writing MSR_S_CET) and
+>> prior to establishing SSP.  Despite identifying this as a critical window
+>> where any fault was deadly (the CPU tries to push a shadow stack frame at 0,
+>> hence the CR2 value wrapping around to the top of the address space), I
+>> clearly forgot that this meant interrupts too, which are enabled.
+>>
+>> Disable interrupts during the critical period.
+>>
+>> Fixes: b60ab42db2f0 ("x86/shstk: Activate Supervisor Shadow Stacks")
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <jbeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Teddy Astie <teddy.astie@vates.tech>
+>>
+>> v2:
+>>  * Only disable regular interrupts.  NMIs are fine.
+> Much neater a fix as a result:
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-On Wed, Apr 29, 2026 at 7:44=E2=80=AFAM Bertrand Marquis
-<bertrand.marquis@arm.com> wrote:
->
-> VM notification binding and pending tracking exist for non-secure
-> endpoints, but FFA_NOTIFICATION_SET still only forwards secure
-> destinations to the SPMC. Non-secure VMs therefore cannot receive
-> notifications from other VMs. Local NPI delivery also needs explicit
-> re-arm tracking so repeated raises are not lost while the interrupt is
-> already pending.
->
-> Add a local VM notification delivery path for non-secure destinations.
-> notification_set_vm() resolves the destination endpoint, verifies that
-> every requested bit is bound to the sender, sets the receiver's
-> vm_pending bitmap under notif_lock, and raises an NPI only when local
-> pending state is not already armed.
->
-> Track whether a local NPI is already armed with notif_irq_raised,
-> clear that state once both VM and hypervisor pending bitmaps are
-> drained, and keep notif_lock held across the VM notification injection
-> attempt. If no destination vCPU is online, leave the pending bits set
-> and keep notif_irq_raised clear so delivery can be retried later.
-> Also expose firmware notification availability so FFA_FEATURES only
-> advertises notification support when it is actually provided by the
-> firmware or by CONFIG_FFA_VM_TO_VM.
->
-> Functional impact: when CONFIG_FFA_VM_TO_VM is enabled, non-secure
-> FFA_NOTIFICATION_SET delivers VM-to-VM notifications locally and keeps
-> NPI delivery reliable across repeated raises.
->
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-> ---
-> Changes since v1:
-> - serialize notification_set_vm() state updates with the NPI attempt
-> - keep pending VM notifications set when local injection fails
-> ---
->  xen/arch/arm/tee/ffa.c         | 24 ++++++++--
->  xen/arch/arm/tee/ffa_notif.c   | 82 ++++++++++++++++++++++++++++++++--
->  xen/arch/arm/tee/ffa_private.h | 17 ++++---
->  3 files changed, 107 insertions(+), 16 deletions(-)
->
-> diff --git a/xen/arch/arm/tee/ffa.c b/xen/arch/arm/tee/ffa.c
-> index 1fe33f26454a..7fe021049cba 100644
-> --- a/xen/arch/arm/tee/ffa.c
-> +++ b/xen/arch/arm/tee/ffa.c
-> @@ -39,8 +39,13 @@
->   * o FFA_MSG_SEND_DIRECT_REQ:
->   *   - only supported from a VM to an SP
->   * o FFA_NOTIFICATION_*:
-> + *   - only supported when firmware notifications are enabled or VM-to-V=
-M
-> + *     support is built in
->   *   - only supports global notifications, that is, per vCPU notificatio=
-ns
-> - *     are not supported
-> + *     are not supported and secure per-vCPU notification information is
-> + *     not forwarded
-> + *   - the source endpoint ID reported for a notification may no longer
-> + *     exist by the time the receiver consumes it
->   *   - doesn't support signalling the secondary scheduler of pending
->   *     notification for secure partitions
->   *   - doesn't support notifications for Xen itself
-> @@ -245,6 +250,8 @@ static void handle_features(struct cpu_user_regs *reg=
-s)
->      uint32_t a1 =3D get_user_reg(regs, 1);
->      struct domain *d =3D current->domain;
->      struct ffa_ctx *ctx =3D d->arch.tee;
-> +    bool notif_supported =3D IS_ENABLED(CONFIG_FFA_VM_TO_VM) ||
-> +                           ffa_notif_fw_enabled();
->
->      /*
->       * FFA_FEATURES defines w2 as input properties only for specific
-> @@ -343,10 +350,16 @@ static void handle_features(struct cpu_user_regs *r=
-egs)
->
->          break;
->      case FFA_FEATURE_NOTIF_PEND_INTR:
-> -        ffa_set_regs_success(regs, GUEST_FFA_NOTIF_PEND_INTR_ID, 0);
-> +        if ( notif_supported )
-> +            ffa_set_regs_success(regs, GUEST_FFA_NOTIF_PEND_INTR_ID, 0);
-> +        else
-> +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
->          break;
->      case FFA_FEATURE_SCHEDULE_RECV_INTR:
-> -        ffa_set_regs_success(regs, GUEST_FFA_SCHEDULE_RECV_INTR_ID, 0);
-> +        if ( notif_supported )
-> +            ffa_set_regs_success(regs, GUEST_FFA_SCHEDULE_RECV_INTR_ID, =
-0);
-> +        else
-> +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
->          break;
->      case FFA_PARTITION_INFO_GET_REGS:
->          if ( ACCESS_ONCE(ctx->guest_vers) >=3D FFA_VERSION_1_2 )
-> @@ -361,7 +374,10 @@ static void handle_features(struct cpu_user_regs *re=
-gs)
->      case FFA_NOTIFICATION_SET:
->      case FFA_NOTIFICATION_INFO_GET_32:
->      case FFA_NOTIFICATION_INFO_GET_64:
-> -        ffa_set_regs_success(regs, 0, 0);
-> +        if ( notif_supported )
-> +            ffa_set_regs_success(regs, 0, 0);
-> +        else
-> +            ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
->          break;
->      default:
->          ffa_set_regs_error(regs, FFA_RET_NOT_SUPPORTED);
-> diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-> index a841c8f8d747..b29d948a7110 100644
-> --- a/xen/arch/arm/tee/ffa_notif.c
-> +++ b/xen/arch/arm/tee/ffa_notif.c
-> @@ -21,6 +21,11 @@ static bool __ro_after_init fw_notif_enabled;
->  static unsigned int __ro_after_init notif_sri_irq;
->  static DEFINE_SPINLOCK(notif_info_lock);
->
-> +bool ffa_notif_fw_enabled(void)
-> +{
-> +    return fw_notif_enabled;
-> +}
-> +
->  static bool inject_notif_pending(struct domain *d)
->  {
->      struct vcpu *v;
-> @@ -107,6 +112,55 @@ out_unlock:
->      return ret;
->  }
->
-> +/*
-> + * Deliver a VM-to-VM notification. ctx->notif.notif_lock protects
-> + * vm_bind/vm_pending so callers must not hold it already.
-> + */
-> +static int32_t notification_set_vm(uint16_t dst_id, uint16_t src_id,
-> +                                   uint32_t flags, uint64_t bitmap)
-> +{
-> +    struct domain *dst_d;
-> +    struct ffa_ctx *dst_ctx;
-> +    unsigned int id;
-> +    int32_t ret;
-> +
-> +    if ( flags )
-> +        return FFA_RET_INVALID_PARAMETERS;
-> +
-> +    ret =3D ffa_endpoint_domain_lookup(dst_id, &dst_d, &dst_ctx);
-> +    if ( ret )
-> +        return ret;
-> +
-> +    ret =3D FFA_RET_OK;
-> +
-> +    spin_lock(&dst_ctx->notif.notif_lock);
-> +
-> +    for ( id =3D 0; id < FFA_NUM_VM_NOTIF; id++ )
-> +    {
-> +        if ( !(bitmap & BIT(id, ULL)) )
-> +            continue;
-> +
-> +        if ( dst_ctx->notif.vm_bind[id] !=3D src_id )
-> +        {
-> +            ret =3D FFA_RET_DENIED;
-> +            goto out_unlock;
-> +        }
-> +    }
-> +
-> +    dst_ctx->notif.vm_pending |=3D bitmap;
-> +    if ( !dst_ctx->notif.notif_irq_raised &&
-> +         (dst_ctx->notif.vm_pending || dst_ctx->notif.hyp_pending) &&
-> +         inject_notif_pending(dst_d) )
-> +        dst_ctx->notif.notif_irq_raised =3D true;
-> +
-> +out_unlock:
-> +    spin_unlock(&dst_ctx->notif.notif_lock);
-> +
-> +    rcu_unlock_domain(dst_d);
-> +
-> +    return ret;
-> +}
-> +
->  int32_t ffa_handle_notification_bind(struct cpu_user_regs *regs)
->  {
->      struct domain *d =3D current->domain;
-> @@ -288,6 +342,8 @@ void ffa_handle_notification_get(struct cpu_user_regs=
- *regs)
->
->      if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
->      {
-> +        bool pending;
-> +
->          spin_lock(&ctx->notif.notif_lock);
->
->          if ( (flags & FFA_NOTIF_FLAG_BITMAP_HYP) && ctx->notif.hyp_pendi=
-ng )
-> @@ -298,6 +354,18 @@ void ffa_handle_notification_get(struct cpu_user_reg=
-s *regs)
->                  ctx->notif.notif_irq_raised =3D false;
->          }
->
-> +        if ( (flags & FFA_NOTIF_FLAG_BITMAP_VM) && ctx->notif.vm_pending=
- )
-> +        {
-> +            w4 =3D (uint32_t)(ctx->notif.vm_pending & GENMASK(31, 0));
-> +            w5 =3D (uint32_t)((ctx->notif.vm_pending >> 32) & GENMASK(31=
-, 0));
-> +            ctx->notif.vm_pending =3D 0;
-> +        }
-> +
-> +        pending =3D (ctx->notif.hyp_pending !=3D 0) ||
-> +                  (ctx->notif.vm_pending !=3D 0);
-> +        if ( !pending )
-> +            ctx->notif.notif_irq_raised =3D false;
+Thanks, and yes; I'm rather embarrassed at how long it took to realise
+it was exactly the same as the SYSCALL gap, and therefore the same
+safety reasoning applied.
 
-This seems to take care of clearing notif_irq_raised for all cases. Do
-we still need the one just above this block (copied here):
-            if ( !ctx->notif.vm_pending )
-                ctx->notif.notif_irq_raised =3D false;
-?
-
-Cheers,
-Jens
-
-> +
->          spin_unlock(&ctx->notif.notif_lock);
->      }
->
-> @@ -323,9 +391,17 @@ int32_t ffa_handle_notification_set(struct cpu_user_=
-regs *regs)
->      if ( flags )
->          return FFA_RET_INVALID_PARAMETERS;
->
-> -    if ( FFA_ID_IS_SECURE(dest_id) && fw_notif_enabled )
-> -        return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags, bit=
-map_lo,
-> -                               bitmap_hi);
-> +    if ( FFA_ID_IS_SECURE(dest_id) )
-> +    {
-> +        if ( fw_notif_enabled )
-> +            return ffa_simple_call(FFA_NOTIFICATION_SET, src_dst, flags,
-> +                                   bitmap_lo, bitmap_hi);
-> +    }
-> +    else if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> +    {
-> +        return notification_set_vm(dest_id, caller_id, flags,
-> +                                   ((uint64_t)bitmap_hi << 32) | bitmap_=
-lo);
-> +    }
->
->      return FFA_RET_NOT_SUPPORTED;
->  }
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index 78a0a9815d56..923a071a9d7c 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -340,20 +340,18 @@ struct ffa_ctx_notif {
->      uint64_t vm_pending;
->
->      /*
-> -     * Source endpoint bound to each VM notification ID (0 means unbound=
-).
-> +     * Tracks whether an NPI has been raised for local pending notificat=
-ions.
-> +     * Protected by notif_lock.
->       */
-> -    uint16_t vm_bind[FFA_NUM_VM_NOTIF];
-> +    bool notif_irq_raised;
->
->      /*
-> -     * Lock protecting the hypervisor-managed notification state.
-> +     * Source endpoint bound to each VM notification ID (0 means unbound=
-).
->       */
-> -    spinlock_t notif_lock;
-> +    uint16_t vm_bind[FFA_NUM_VM_NOTIF];
->
-> -    /*
-> -     * Tracks whether a local notification pending interrupt was raised.
-> -     * Protected by notif_lock.
-> -     */
-> -    bool notif_irq_raised;
-> +    /* Lock protecting local notification state. */
-> +    spinlock_t notif_lock;
->
->      /*
->       * Bitmap of pending hypervisor notifications (for HYP bitmap querie=
-s).
-> @@ -495,6 +493,7 @@ void ffa_notif_init(void);
->  void ffa_notif_init_interrupt(void);
->  int ffa_notif_domain_init(struct domain *d);
->  void ffa_notif_domain_destroy(struct domain *d);
-> +bool ffa_notif_fw_enabled(void);
->
->  int32_t ffa_handle_notification_bind(struct cpu_user_regs *regs);
->  int32_t ffa_handle_notification_unbind(struct cpu_user_regs *regs);
-> --
-> 2.53.0
->
+~Andrew
 
