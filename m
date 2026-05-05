@@ -2,49 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GH1GEDLL+WmFEAMAu9opvQ
+	id qOurM3zY+WmbEgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 12:49:22 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 13:46:04 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3F984CBCF4
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 12:49:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1300552.1575083 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F7DB4CCE53
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 13:46:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1300582.1575113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKDKx-0006oX-62; Tue, 05 May 2026 10:49:11 +0000
+	id 1wKEDF-0007ON-K4; Tue, 05 May 2026 11:45:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1300552.1575083; Tue, 05 May 2026 10:49:11 +0000
+Received: by outflank-mailman (output) from mailman id 1300582.1575113; Tue, 05 May 2026 11:45:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKDKx-0006lj-3P; Tue, 05 May 2026 10:49:11 +0000
-Received: by outflank-mailman (input) for mailman id 1300552;
- Tue, 05 May 2026 10:49:09 +0000
+	id 1wKEDF-0007Mk-Fu; Tue, 05 May 2026 11:45:17 +0000
+Received: by outflank-mailman (input) for mailman id 1300582;
+ Tue, 05 May 2026 11:45:16 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wKDKv-0006ld-JX
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 10:49:09 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wKEDE-0007Md-4W
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 11:45:16 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKDKu-00DbwM-VS
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 12:49:08 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wKEDD-004rNG-HL
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 13:45:15 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69f9cb23-5cb7-0a2a0a5109dd-0a2a450ad7fc-8
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 12:49:08 +0200
-Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 69f9cb24-56b3-0a2a450a0019-d155802cb89c-3
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 12:49:08 +0200
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-488a88aeec9so57496285e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 03:49:08 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48d149de41asm24880285e9.2.2026.05.05.03.49.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 May 2026 03:49:07 -0700 (PDT)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69f9d83c-bab6-0a2a0a5309dd-0a2a4503ccc8-40
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 13:45:15 +0200
+Received: from [209.85.208.181] (helo=mail-lj1-f181.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69f9d84b-672d-0a2a45030019-d155d0b5cd45-3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 13:45:15 +0200
+Received: by mail-lj1-f181.google.com with SMTP id
+ 38308e7fff4ca-38def541b0bso49207291fa.1
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 04:45:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,194 +51,220 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1777981515; cv=none;
+        d=google.com; s=arc-20240605;
+        b=WvP2+1gDFVPHfD0ibEyxdevfi4lpQ9MqbJaIcfi5zpJNgdismJvVzTPSrGTY0YfVLs
+         mLQvgc/w9hk9oyGdSoayC4sYeSlaF1H6Jjlh6yzjvrD9hZ0K2t9Vi5DFW4vqn/u/9Vlm
+         y0VIJmd25LPevbfIs58CvkfiVrsp7cpqR0NaVgo1sf122DygOF0q3BYYhuuxdPvYeHlB
+         9+JU3AnwjH4oHUr+5y1Q+zcJIBq4BeeIW4vvpuqCTKPwhwZlKagnRoU0IBYUtenx29ls
+         ZagnJmP852TdX+ak7eYxHGxhrCcV+30Mv5APXDvbYkaf+yVgwJ734ySn8KgGr6ustXfr
+         cYNw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6zEpHfFqvUI3K5cIq5lmaqZoX68nLN2ySftFfomzcAc=;
+        fh=uAzoxIkY79cy0zES8IqO07ArU7DBG3jlr2bg4XRVkR0=;
+        b=f66sOzkDcYbZZx76iQSaKYdtDwkzK/BejluqSJ6zm1JAxkAiqG4e/+HZwSBz9MRgTX
+         STbrlLHMQfrnoO7XTaYsGVOs+PcRDQv2t31y5HKgtnARdZoYumyCB/BQuiAEjy6z2voM
+         77xMApO72PxIG+q+Y4F9A1DhsRZrWs1BWQ9fhj581zUcyqE9AwOZh6Ypf+ZvBuQ8Mum4
+         u5M9M8pTeIBl8KEFbTuI5oO2s+kMl9hGKzvIaw+2wFdcFgcGnkOfEDtSSViJEAEMT5Fs
+         Wpw5sP3wWj1Aso0S4KzW76+QJhlfaIwJW+gvo7epotGSZxRRZJffM+SX34SXSrFh7At/
+         pBOQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1777978148; x=1778582948; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KzjOlkiNB7SnTWeAjHaOHXklT9eln8RhKriTJ6bsVqo=;
-        b=dizDiL7unM39oBak7g+sjUcQvu9T349hS3QAtfo8YUXak7NFMepNERxVEGPJnNxUiF
-         ax/wZSyX7YTbDBjBhBca3ede7nVJ5SRZpO+/WyDzVY8zCeDwRK1NGW++nBSFMr0C9fFV
-         B9WGp5iaKpTcRmaDTaWvHU29k1QYuAm3x8DVm0cYgKqbKhF2TAiy7PZviac4ONEmR5vI
-         qk5FDMMuYVITC1osxeZf3wDMu821DUnkL945bA1dzFFaetdW9pb3+1ZUskSaoO1gm+yL
-         RFUjJ5EuZZpWz7ahTXVcWKnD2p38pfDVaWr4BOw9yrWHcZGCKWbubYXcbf9X1V5a+xLi
-         ioWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777978148; x=1778582948;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1777981515; x=1778586315; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KzjOlkiNB7SnTWeAjHaOHXklT9eln8RhKriTJ6bsVqo=;
-        b=sfjrZ0x3Ex/lDtavH8j7zzXdRUKQNT8FDIFNFbp9uiN0WpJmtXjtYIb5MjgesreJo+
-         290l3sr/CznGtLR7Ek9ydpv7y5wI5OUbFxI55JBnBnaMa4z121PTG9/ak/S8MYT4LwHg
-         2EWl/J68gPr++3W4iig7CE49i89pUseqvxsWv1yRWxIpM1A+8oK2+Yfjm2Kld0B31ZQo
-         z8tZ8lXhWhZjRFdpXiVmgFTORtygEx6xztatShn1a/qXGeXGDeG66mRqbTdaGvEtoQRo
-         MemPxlpC+6Cg6oOKQgR33jpknxIucHjrzHZFb9u75pMZ0bPetn+YWZKKAGYLXB2f87vP
-         VnQA==
-X-Gm-Message-State: AOJu0YzFR3/u4ScJZKNUy/60KmD8wRgfMKDJzi/41P/6zWabmOjPSCxV
-	WTFu+Vr/7uLx7rNUlWMylh3IKqx2m8g8aaRa1b7lCuDBYkAYpyT/9ToGtUIqjNc0gA==
-X-Gm-Gg: AeBDiesUSPAptBCx8aqZnmyzgw3zJ9fdDCcCf6xXWug0UPdBGAx1vtSfSc+9Usf2vgM
-	lA4VXxZy5naLhQ4Nmkz+dUnKm5SeLx9eQIJw7nkbwFuWeaZ9OPuivFMKcKMJZnlWdWRmdUUZtYD
-	3nxCsJW6RCX0lvRqdp6RalCVQR7auV/3jnJF4c2MwPxKJlskTTu8qrOxyT/juo2eq3iKT2vQwzX
-	Y4Wx3hqcqhiaZQyyfH6U/7bknAK4snOGuPwZ2kvIltW4PqRiUBUNz7DK42vZcru+usDH8ILpE9x
-	6Ky+k82Bh3/5SEqFXCgJeOBZfeTHxteRy/tew+fHczxVh8j/4HKtkpcIkwVLiEhJv10FOlpzELn
-	dyEY7cAGK+o8B6YYUZiZhgH2FrFmmAIZzgCjLAnTwRGylaiJanb0S3GYIh+6b35j2d55WGy/QQ1
-	jX+PWoVIc0cYFkQ2fyZSq1/bN1OSihjzBOm4lzgimrR8Bs/t9gwosYHT7+70dk9bor6iRLXFFYc
-	0RC/iScBrvm2CDmTIJIk07Zvg==
-X-Received: by 2002:a05:600c:a411:b0:48a:7b55:12a6 with SMTP id 5b1f17b1804b1-48a980fc3e7mr162675315e9.0.1777978148121;
-        Tue, 05 May 2026 03:49:08 -0700 (PDT)
-Message-ID: <0267eb6f-1161-45b7-8905-d7aecb78e74c@suse.com>
-Date: Tue, 5 May 2026 12:49:06 +0200
+        bh=6zEpHfFqvUI3K5cIq5lmaqZoX68nLN2ySftFfomzcAc=;
+        b=TbvS1Ulvag5uhqykis3F6VgiWAsvpHjvwVVe81DIZyYM5j213RPqVjNH6XJP+fPe9i
+         ABMdN+GQJ4YFlVvq5MbgZrx8XIPG9BaBp3wvxzby53LlSjZnSXx1sA5oOOSzhz0PCdGo
+         oUAO0ZEf1J78NlhI2J4vS/hwJHT85qYzJDEJS6Ule3gMuNroRCiArX1j3wXjvN63eeT1
+         b10zCcVyJcaPwAWa36nEsroZpqXagiy0URzASm1PvL/zvKQ6nwP20ZnJMouQJSAZBuqA
+         2WZkVaXtyByxbs3df607shTtBc68FsvD6nEA7mArjlSIXofHK1swsTULKuY4ZBKFMxbY
+         IZSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777981515; x=1778586315;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=6zEpHfFqvUI3K5cIq5lmaqZoX68nLN2ySftFfomzcAc=;
+        b=jvYkuiBv9pto670s7kWkTOxp4O00YkpG2NnMoKwSF0QTNSLSLT1uw+oGsn8VMMx51s
+         BZYvx0CXZZtm0N1ZU24PFa8U28W94kTsrCBpcFnBmAYn72IoKUfgquWShA4R/58jyu1h
+         +l4lq57cq/ZHX/2M5lwu6ces9yjzY4XE+lNT33Wx0Ew9nu1JajAHf49ua0esvJ+c0Y5g
+         jEzufqaiyj10DA2THsJXV3qTkx6fXIIwbRAi+oBArwWXzafoSGbe9ibvRlXCI7IriwHD
+         VyX/AJ5FkO0BfXYRJr7koCxCp66eoLC9qYuwukHotVhRQcpC+tcAB9j7oHiNQPVN0gTy
+         FI7A==
+X-Gm-Message-State: AOJu0YyP7fEodNDvOr3SoShgcso2k9N5qgQoV0LihNW7tnWJ5Wkq+ElC
+	ozzvnbu3HnogVMKqA61WFfiVYLHlev2dkYzzN+Vtw9MeRyCTBjRfXSBio0fdTqYYLl06f52P64z
+	QXaF4TBiBp3IlzWHWf0LeimQ5mhsQug4=
+X-Gm-Gg: AeBDies4RC5rz7TO18qYNZY5XHKdCSrGtV5jB9dhP2m7HGNd+PK2jGxF3lS3PZSYk0y
+	KvUYv7HRK+dk0lRAs2gTqNrE0Ywa3ip2pg6R85fDD8HC4se0bnNs8DvnQdyWnWWWjZ+2c4KKS41
+	yEP+jHW1FoiUZv4aFLRWC3YZhzCHDxRx03IGLd5x8owfkaVUMopFp4XwSt6BxVYFIT+kidpcqLw
+	dxDDiMKy4lghnUya6z4Pmzh7cryv/gDHUEwSBD/8OKzllVWGqWE0GZw1KVRvwC5B1XM7DmSsgty
+	sxbgvTll7KC3CjOK
+X-Received: by 2002:a2e:8a95:0:b0:38e:97b2:4b03 with SMTP id
+ 38308e7fff4ca-393b4d50fd8mr11285061fa.31.1777981514434; Tue, 05 May 2026
+ 04:45:14 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] xen/pdx: account for frametable_base_pdx in
- generic pdx_to_page/page_to_pdx
-To: "Orzel, Michal" <michal.orzel@amd.com>
-Cc: xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Timothy Pearson <tpearson@raptorengineering.com>,
- Teddy Astie <teddy.astie@vates.tech>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>
-References: <20260430125103.401811-1-michal.orzel@amd.com>
- <20260430125103.401811-2-michal.orzel@amd.com>
- <afi7HUFoDYabM9VV@macbook.local>
- <65ecf1c0-0844-4ba9-a250-a94aeaf4d251@amd.com>
- <afmYf-ldUxWQXRDL@macbook.local>
- <309b2ff6-c200-47d0-be3f-ec289df641c6@amd.com>
- <0a3583df-2682-426e-a704-aa8711caec0d@suse.com>
- <a90db340-e569-4f77-b5df-dd1a1504f8cf@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <a90db340-e569-4f77-b5df-dd1a1504f8cf@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-4011c0/1777978148-4616A8B7-D89741BE/0/0
+References: <cover.1775125380.git.mykola_kvach@epam.com> <63b219c3cae5201c5db804f69c3b88ac41c9bdf6.1775125380.git.mykola_kvach@epam.com>
+ <55B2462D-41E5-42CB-9525-39CF4843E95E@arm.com>
+In-Reply-To: <55B2462D-41E5-42CB-9525-39CF4843E95E@arm.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 5 May 2026 14:45:03 +0300
+X-Gm-Features: AVHnY4Iiroi7TYFgBdAn9YTSTkXYar6w48U2NFr6DOYwy4ITjdNgysHBdDQJoHw
+Message-ID: <CAGeoDV_htcXQ=rsWBbHGcbvwL7E5RKGDy2+p5pRio27dB6J6KA@mail.gmail.com>
+Subject: Re: [PATCH v8 08/13] iommu/ipmmu-vmsa: Implement suspend/resume callbacks
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-33051d/1777981515-28776938-3E2D35FC/0/0
 X-purgate-type: clean
-X-purgate-size: 3492
-X-Rspamd-Queue-Id: A3F984CBCF4
+X-purgate-size: 2991
+X-Rspamd-Queue-Id: 2F7DB4CCE53
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,mail.gmail.com:mid,epam.com:email];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:tpearson@raptorengineering.com,m:teddy.astie@vates.tech,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCVD_COUNT_SEVEN(0.00)[9]
 
-On 05.05.2026 12:46, Orzel, Michal wrote:
-> On 05-May-26 12:40, Jan Beulich wrote:
->> On 05.05.2026 09:35, Orzel, Michal wrote:
->>> On 05-May-26 09:13, Roger Pau Monné wrote:
->>>> On Tue, May 05, 2026 at 08:48:15AM +0200, Orzel, Michal wrote:
->>>>> On 04-May-26 17:28, Roger Pau Monné wrote:
->>>>>> On Thu, Apr 30, 2026 at 02:51:02PM +0200, Michal Orzel wrote:
->>>>>>> The generic pdx_to_page() and page_to_pdx() macros in xen/pdx.h assume
->>>>>>> the frame table starts at PDX 0, which is only true on x86. ARM
->>>>>>> uses a non-zero frametable_base_pdx to offset into the frame table (PPC also
->>>>>>> defines it).
->>>>>>>
->>>>>>> Fix the generic macros to subtract/add frametable_base_pdx, defaulting
->>>>>>> to 0 when the arch does not define it. This makes the generic macros
->>>>>>> correct for all architectures, even though they are only used on x86
->>>>>>> today.
->>>>>>
->>>>>> Hm, I assume this offset was added because the original mask PDX
->>>>>> compression won't (usually) compress the gap between 0 and the start
->>>>>> of RAM.  However the newish offset PDX compression should be able to
->>>>>> compress from 0 to start of RAM, and hence you don't need to apply
->>>>>> an extra PDX offset there?
->>>>>>
->>>>>> If that's indeed the case it might be better to integrate
->>>>>> frametable_base_pdx into the mask compression algorithm itself, so
->>>>>> that on some arches it's a mask plus a decrease.
->>>>> The offset is needed regardless of whether compression is used. With
->>>>> CONFIG_PDX_NONE (no compression, PDX == MFN), if RAM starts at e.g.
->>>>> 0x80000000, the first valid PDX is 0x80000.
->>>>
->>>> OK, so you are doing some (kind of) address space compression (removing
->>>> the leading empty range to the first RAM region) even when PDX is
->>>> disabled.
->>>>
->>>>> Without frametable_base_pdx
->>>>> the frame table would have to be indexed from 0, wasting
->>>>> 0x80000 * sizeof(page_info) of memory just to cover the hole before RAM.
->>>>
->>>> But you don't really "waste" memory, just address space?  Oh, maybe
->>>> not on ARM as it doesn't use pdx_group_valid?  And so you
->>>> unconditionally populate the frametable from PDX 0 to max PDX.
->>> With pdx_group_valid (which this series adds) we wouldn't waste
->>> physical memory for the leading gap. But we'd still waste virtual address
->>> space and the FRAMETABLE_NR check (max_pdx > FRAMETABLE_NR) becomes tighter
->>> because the full range from PDX 0 must fit. For example with RAM starting at 5TB
->>> the virtual offset before the first usable entry would be ~70GB — more than the
->>> entire 32GB FRAMETABLE_SIZE on ARM64.
->>
->> Yet still - this is exactly one of the situations offset compression means
->> to cover. I'm entirely with Roger as to it being undesirable to build a
->> special case variant of "offset compression" into "no compression".
-> In this case, if you don't want to generalize the macros, how should we proceed
-> on Arm if we still need the offset to cover the PDX_NONE variant that we also
-> use? In v1 I just created a local override but Julien wanted to generalize the
-> macros instead. The discussion about switching the default on Arm from mask to
-> offset that is not even selectable on Arm needs to wait for the new release cycle.
+Hi Luca,
 
-I'm not convinced of that. If you need offset by default, why not enable it by
-default (right now, and potentially even as a backport if there's any bug that
-is being fixed)?
+Thank you for the review.
 
-Jan
+On Fri, Apr 24, 2026 at 4:36=E2=80=AFPM Luca Fancellu <Luca.Fancellu@arm.co=
+m> wrote:
+>
+> Hi Mykola,
+>
+> > On 2 Apr 2026, at 11:45, Mykola Kvach <xakep.amatop@gmail.com> wrote:
+> >
+> > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> >
+> > Store and restore active context and micro-TLB registers.
+> >
+> > Tested on R-Car H3 Starter Kit.
+> >
+> > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> > Changes in V7:
+> > - moved suspend context allocation before pci stuff
+> > ---
+> > xen/drivers/passthrough/arm/ipmmu-vmsa.c | 305 ++++++++++++++++++++++-
+> > 1 file changed, 298 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/pas=
+sthrough/arm/ipmmu-vmsa.c
+> > index ea9fa9ddf3..6765bd3083 100644
+> > --- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
+> > +++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
+> > @@ -71,6 +71,8 @@
+> > })
+> > #endif
+> >
+> > +#define dev_dbg(dev, fmt, ...)    \
+> > +    dev_print(dev, XENLOG_DEBUG, fmt, ## __VA_ARGS__)
+> > #define dev_info(dev, fmt, ...)    \
+> >     dev_print(dev, XENLOG_INFO, fmt, ## __VA_ARGS__)
+> > #define dev_warn(dev, fmt, ...)    \
+> > @@ -130,6 +132,24 @@ struct ipmmu_features {
+> >     unsigned int imuctr_ttsel_mask;
+> > };
+> >
+>
+>
+> > [=E2=80=A6]
+>
+>
+> >
+> > @@ -1340,10 +1608,11 @@ static int ipmmu_add_device(u8 devfn, struct de=
+vice *dev)
+> >     struct iommu_fwspec *fwspec;
+> >
+> > #ifdef CONFIG_HAS_PCI
+> > +    int ret;
+> > +
+> >     if ( dev_is_pci(dev) )
+> >     {
+> >         struct pci_dev *pdev =3D dev_to_pci(dev);
+> > -        int ret;
+> >
+> >         if ( devfn !=3D pdev->devfn )
+> >             return 0;
+> > @@ -1371,6 +1640,15 @@ static int ipmmu_add_device(u8 devfn, struct dev=
+ice *dev)
+> >         /* Let Xen know that the master device is protected by an IOMMU=
+. */
+> >         dt_device_set_protected(dev_to_dt(dev));
+> >     }
+> > +
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +    if ( ipmmu_alloc_ctx_suspend(dev) )
+> > +    {
+> > +        dev_err(dev, "Failed to allocate context for suspend\n");
+> > +        return -ENOMEM;
+> > +    }
+> > +#endif
+>
+> If this fails the device will remain protected, I suggest we move this on=
+e before `if ( !dev_is_pci(dev) ) { =E2=80=A6 }`
+> block
+
+Good point, thanks.
+
+Yes, this should be fixed. In the original ordering, a failure in
+ipmmu_alloc_ctx_suspend() could leave a non-PCI DT device marked as
+protected even though ipmmu_add_device() returned an error.
+
+I'll reorder the code so dt_device_set_protected() is done only
+after ipmmu_alloc_ctx_suspend() succeeds. This keeps the successful path
+unchanged and avoids leaving stale protected state on failure.
+
+Best regards,
+Mykola
+
+>
+> The rest looks ok to me, but I=E2=80=99m not an expert of this part.
+>
+> Cheers,
+> Luca
+>
 
