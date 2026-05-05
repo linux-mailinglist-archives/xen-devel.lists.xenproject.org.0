@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8OuYIbCY+Wmo+AIAu9opvQ
+	id 2JG0GMyb+Wkn+QIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 09:13:52 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 09:27:08 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECF494C7AE1
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 09:13:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1300230.1574758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F77D4C7E44
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 09:27:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1300239.1574767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wK9xx-0004MA-J8; Tue, 05 May 2026 07:13:13 +0000
+	id 1wKAB4-00063b-Mo; Tue, 05 May 2026 07:26:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1300230.1574758; Tue, 05 May 2026 07:13:13 +0000
+Received: by outflank-mailman (output) from mailman id 1300239.1574767; Tue, 05 May 2026 07:26:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wK9xx-0004Jx-G2; Tue, 05 May 2026 07:13:13 +0000
-Received: by outflank-mailman (input) for mailman id 1300230;
- Tue, 05 May 2026 07:13:13 +0000
+	id 1wKAB4-00062A-JT; Tue, 05 May 2026 07:26:46 +0000
+Received: by outflank-mailman (input) for mailman id 1300239;
+ Tue, 05 May 2026 07:26:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wK9xw-0004Jr-Rf
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 07:13:13 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wKAB3-000624-IU
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 07:26:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wK9xv-004oYC-Lh
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 09:13:11 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wKAB2-00BQcD-UD
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 09:26:44 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69f99886-e002-0a2a0a5209dd-0a2a4502c106-4
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 09:13:11 +0200
-Received: from [40.107.208.61]
- (helo=PH0PR06CU001.outbound.protection.outlook.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69f99885-af86-0a2a45020019-286bd03d6d90-3
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 09:13:11 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by PH0PR03MB5752.namprd03.prod.outlook.com (2603:10b6:510:36::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
- 2026 07:13:07 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9870.023; Tue, 5 May 2026
- 07:13:07 +0000
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69f99bb1-bab6-0a2a0a5309dd-0a2a450ba790-14
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 09:26:44 +0200
+Received: from [209.85.167.44] (helo=mail-lf1-f44.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69f99bb4-212f-0a2a450b0019-d155a72cc13f-3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 09:26:44 +0200
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-5a86c1fe573so3345260e87.3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 00:26:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,204 +51,617 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d9tPYAqimQSJIyPCJGvZ5liD+68yhqk/RtsxgcyOffrwFU0zojyJE1+xZguNmI/Up9UnuVzAxL9m70mw7SEfgwd59PYo7igWW4u4uOZ7Rl6eA+S1QHJ3n7SQBp8+VaMgGoxzqN1Ay7lAJXXfr9V58CmAPP4XHNufw3l1m7qNEhYT/1R+w8zGx97QXU9Q/dpKI3QRvYvNYKodlhaQ9qZWAbJZeLL3NeqJcO9p2EtxoQuc3h6F2ayhJojjSIBRehReJotzVDVUtxqvR4ImUPPrD5JfOqlt61Ap33YUEim6Ut7iz5qHPR8dUTHdza8VlsTEa4vGvMbBz1P2IoyqSEUAkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t+AV+3QmT/PFKL1SK27tSCTKbimpMTh3lGCPVS+KyJU=;
- b=mPv4nHiNyrzjFopRdfG0/mJVGc9BtJwmTiU7Gyacg6bBBZjQj47DBl3iVWCj0n1Z9+f2X4KtSg2urxPImbM9gYQ0pUrU0ymbd4/+NrB+2SP6VzPx3CIJPU/BwnFgYG6+KwrKHlRQEstlBywdiwkt10pDy2m+o0+6MfDlxgm53p3Yd/qanB5xdqxjlcJzrDDfeiLowEDUoFh0UuBj4FLkufmYLOECfgz3NhTd7HubKv6nztBdLsnLkQSvcOHseaX/ZNeJm9XktEA6Z9019XY01yeyu8LKdSX/jglryixL44BDbUW63grIrki0GvZj9oLSRAJ3ROmzZxIYS4a9K3YYGA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t+AV+3QmT/PFKL1SK27tSCTKbimpMTh3lGCPVS+KyJU=;
- b=gzE6ckc9wbBAnp77YUefY5Fx2AQYi/N5s0+eMq+01R+sN8mOk9xuOwWCabxq0+4C6QNrUc0ldPlUsXHhjW5epVsmwfEbXdAeeFmzkKT/+sm3LD9rbByEwW2gQ+lelmwM3tH4SWYGDqR+oS5sI9RIPB2n5qeYazApuLxz/HHgPPQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 5 May 2026 09:13:03 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Orzel, Michal" <michal.orzel@amd.com>
-Cc: xen-devel@lists.xenproject.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	Timothy Pearson <tpearson@raptorengineering.com>,
-	Teddy Astie <teddy.astie@vates.tech>
-Subject: Re: [PATCH v2 1/2] xen/pdx: account for frametable_base_pdx in
- generic pdx_to_page/page_to_pdx
-Message-ID: <afmYf-ldUxWQXRDL@macbook.local>
-References: <20260430125103.401811-1-michal.orzel@amd.com>
- <20260430125103.401811-2-michal.orzel@amd.com>
- <afi7HUFoDYabM9VV@macbook.local>
- <65ecf1c0-0844-4ba9-a250-a94aeaf4d251@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <65ecf1c0-0844-4ba9-a250-a94aeaf4d251@amd.com>
-X-ClientProxiedBy: MA3P292CA0014.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2c::15) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1777966004; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Huwg4e0zbCTcfdwM9V6WTz77WhFRgwjTm9riaSqcSqo4urI7vKjcG/Jyw9xU2bP6q9
+         y0kFJF7D1+WRpWiiYx6HWqBaH2TtmvOeQWT+xG1FxCDRDQ03dSXRHouaeTCtwxs2joMv
+         Cj4TNRWUFkzNJDHVSheIm2KXMGtvfQ/A1fHLBdbQVafAm4fWtajrsHTaJwZCctOgr43P
+         AgcB4T1XN5JlRTuKja7S1oOJb93Mj43co/SrJwB+oJdgqgCPxk2s6Z4FDjzeo9IDycF9
+         EOmdSVkcLrlCdDJQpEsl5tiPwT4UmPPzPLYajXWQYEldqvWLq3uklc8KOt5edplyWmrX
+         Czsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=uJxBCTgTohl1pMx8+6kEX1CK8xPhaZnIMEyskNzn4a4=;
+        fh=uAzoxIkY79cy0zES8IqO07ArU7DBG3jlr2bg4XRVkR0=;
+        b=WKScqAsni3FR11J/5KSR3rL2zBLrLopjmTA51Hqp4HOmpEzLyWZdvIWiQ+dVRXwJKd
+         OX5GOaGNkYBk3GXSI2zM+N/3Uh4i7CkKbUKJzj5w2bSAqoOGOEk/GFKo5AcwdGMMeaxd
+         x92WywLfYioOG3B3iHqKTPSsbBTMqQ8ww9BojB9acmtvmsXtBf5FDvCk3HQGs8yStWm7
+         JQRJqhQ6GdXpAKY+nQrAkdT8uskV0IDs7OG91o9Nks9MzYZKG/hFLZg99Ew1KbPn6B7g
+         ILL272l+7I1Pnzhq+TfVnkZW+C0lz8Ygohir3YL5eoNPZgZ0B+46mv4My0BoklV6S3Vs
+         EDJQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777966004; x=1778570804; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uJxBCTgTohl1pMx8+6kEX1CK8xPhaZnIMEyskNzn4a4=;
+        b=EwIloe7z8Es7LEhc5k7/3IQoW+nbMBn7bvm6lIUzHLLAOpLm5d/d+Xwmiy54b9wepB
+         CUBvIaPNi9rKbyO+I02HqsajdHDbG/52caDow6iX1khy4H6nO95cpPtZDbImMgbrE7wJ
+         b1Ff93yqsasBq4g6vKkRMIIbNYHcprUo7JHmSC/IEZnR78Edt/K+cukRL/IehVktqYlJ
+         B7HmYNhfI5O9oJoNzqUNKtDO3w/yKtnceQUIg2Lw37a9YsEIoNO/l5/ErArLbL5JuA9k
+         N4Vz2A2PyvxW3MkZ3XLB9iOYuagjjNdDAJpW/YWpy5n7BC4Tm5lF4SNVd1W1mNSV6uhk
+         WPCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777966004; x=1778570804;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=uJxBCTgTohl1pMx8+6kEX1CK8xPhaZnIMEyskNzn4a4=;
+        b=rL/A4pJTSrzMce3z23cssgZi3kho6OtfXTfaE1hb8GsbzgTy0DksCp7lAaf6wF8Xhq
+         VCR7kseRjxU4szkBldtmHLU7KPDW3fRMwTurPFPw7Cg96wxhensKakdnq6br8zdIjSZJ
+         L9gUQMCdLwp2VCUvCSsFFECKJBCfcFmgX1o3tC7WjZ7zjW5qFKRZhwI0YOBousBTucPd
+         KcbYWc1FJA5owJtJUPAWvxIl/EQl+Y/a4XrCphRDqFzJ7lsAsnWbvKjZHs+tVCpOXh5Z
+         oN/ls4DYfeG+jW8T8+J3JqtxRPbYS09DnvK7iEhyFwE5BQQ+JyV3KlbEbK1lzXeAJ0sP
+         Lplw==
+X-Gm-Message-State: AOJu0YyYyOb7+1tJ3XBeEgveNRdvk+Y0oAWTzig/yki6Tsox0kFRGaDB
+	Tio7ITBa6Um58GQ0DnZee2NGrwwl/p21YnRrToAUpOQX4YNEC0fSSmdR2nMsBUMjZrlM4BV6wLJ
+	2PzkgH4fpNPCuuHYJDQYoVwifO3WypNA=
+X-Gm-Gg: AeBDieuGUNfkfweAykE7EZIa0jc7uuFdQ/QYPPWDyka1/y3A3rn+QCqi/Bb74LRDewY
+	IO4qUQgbQhBA5jeCfC+XRLshmzZlMioClYl8RvWmXshXxgF19g4mSq8wQs8zDCHu9/oVx7UgI4O
+	qYrF1Xo9Ou+XPNJ1ge/tGAntB+vJJivpBtngaUwJrr1XXoaC2LJLvWyZGXjN38+PMnXUyfHPpYk
+	x6JMRxY38WZNrhgSYRMUxnMpODmNc02DQW4wfg0i7hXNjFeji5g+zVcEB9/j4E2prp2mw37/q4c
+	YINy99s7ztwrJtl6
+X-Received: by 2002:a05:6512:31c8:b0:5a2:abe6:7bcd with SMTP id
+ 2adb3069b0e04-5a8631bac61mr3764812e87.19.1777966003685; Tue, 05 May 2026
+ 00:26:43 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|PH0PR03MB5752:EE_
-X-MS-Office365-Filtering-Correlation-Id: 112036f2-ac58-4d03-395e-08deaa75c191
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	XGe7eV4k4k/7hQ/YEf152hQQKbl54Cy9ElmU/nInFuNuFJfwJoHbokwIaljwB2VpdIDA+5iZkpqAo4yhwQauuogmW6qCTuuDoQRgPqCW4FZUnFIq8vmK4CXlIG5Az8SLZ3msDvNk4nJXvbnch3ijfFoArzmHzzL9tJOXZ9FKtz4Hl50TrzdhzUUFJgt7ex2uwCOvE0zt8KYm++a1PXpWHIAe0wp/uzUdbUoI5/EwhwePVtemWuQoICMy9u1dM56pwefTBBwshlnnDOl33d5Pu/wKrJJ1sg5w4R4OSSdrmdhNDUvnZm3KUNsLfY4tJBCv2Uuf5ipIrVvWpzSmxOszCimNY9syGKsRjt05WLij5rhZEm3utEq34WmG6qRArha8OSlEdAXAMUy9X1DdMHc7OKyTtQMhdRBkLUVjO0SmOX614Ni8oQPdk9RbIDCBjePFEXc631E/k9v7roHNdgOOiItRjod/BF5JXzN86SBdczJ994p5vPFgli1paa25fGHJyy/5nPMUGtgfjt8qmn3bsMW1R3qS+3dEnUvPFj1mh/S7oJ0ItdefJKjvy3fpgUbpjskIbFC9m5UdUGT7/uR/9GA/NwtnkR5OYGvijkQFh7gUY4qhxHNj0p6wO18rnqGDRAaiceAmbqhK4+3f2OSvD1mDVnGdLBakXvoiWMldYpW3/dhwwwCmwzsf1mENN7iW
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dUJLWk9UYmd0TXEvRW9tQ2l0Q1pHaWNRUXhCQkhmMzFtYXd5OGN2MStKMkYr?=
- =?utf-8?B?WW53NXFRcGJsaThjSVJUSEpmVUVVZzVoZkw0Vk1ZNXI0R2dQTzVYVGFQRk1y?=
- =?utf-8?B?cUZJYS85V3pjMlh6bFlEbEh6RVYydnZtNFN2TjgyOEtFdjRQK2ZiallhUUl2?=
- =?utf-8?B?eCs5L0Z1aWdPelZIdDZoUmJqN0xTOG4wQzhVZmZrbjBiUFJoRjdKN3lSZ2px?=
- =?utf-8?B?cGhtY2RlaUY2QUZqRVhCa1cydUFjMXo2R1piUHA3TnJhb0xBQ2NRUWwzN05B?=
- =?utf-8?B?bVMrRlVlSTNmSjlYbkxQbmtnU3psYnIxOXk1THRhN3VET1NjY0VhUVd0Szda?=
- =?utf-8?B?b2E3WUlyRWl0QmxYdFNnWnF4eUE3bisvbzREK2dFWGJQU2ZqeFV6N2ROdi9v?=
- =?utf-8?B?WFh3UDc1RWhMdE1MaTZqVHEvRlU0N3NScWNhbmF0dVQ3ditEeTJ2KzNLZW1U?=
- =?utf-8?B?NVVsNUpkcFFoeDBQUGNsc0VLUGpkSnFoc0EzUWF3VTFzdVVZNkNhd3owcXQ4?=
- =?utf-8?B?djJwKytPMzE1bXA1WmVZREduZk03QlpkNlM1SVFVZW5Wei9TSzdZVmNOZWgy?=
- =?utf-8?B?dU9LYU1Fa1ZPTm5TSFZkc0ltSTl3cmFtdGNiZTlFUDdqL1NYQWtiZHZtL2lp?=
- =?utf-8?B?SnV4dzhPcXNpTXg3T0xac1EzSEdiWktXN0RETHZDNGFGUkxZNVpHSVNxVW1H?=
- =?utf-8?B?UHJKYVRoUHdmTjhSNWI3S1EwVjFlSGlsakRqd2Z4dlBaUElSM0Z2RkpsZGVx?=
- =?utf-8?B?L2d3bDVhMDZybUdEY3A4VVg3Y2YyTVlLVUI2S2xqeklEMjIxaFp0UlFtWnNi?=
- =?utf-8?B?K2x6YndzSFIzK3NENTE2MGNOdWNYRGhMUmFzTGtJS1pDZXluc2pVbXAwM3hX?=
- =?utf-8?B?cE84U29TaEJJckpoL2cxWGREMFBJZXE5OVV5dkpubFhYQkdyOHdDVkVWTVJV?=
- =?utf-8?B?cDBIKy9IUHVvWjR1eHd2N1NTUnhVdnpRa1hDWHZPd1pKeGlJVDlEZmNWL1Bw?=
- =?utf-8?B?OUtOMVp5ZllscFVFcnFsM3ZiaWkvSWFiYVphNXRTc3N1cG0rSnZNRmZUcG1F?=
- =?utf-8?B?TXgrd2xJeXRDNzhGTU4wcC9xZTc3VDdheUVPU0dpU1gxbUJEMlBVL3hkUmJG?=
- =?utf-8?B?dlZ4REZBblFEZ0ROSjhpRnM2Z21nb2ZTd0hUT3NuSHVuOGdsMlBFZWFHTzZn?=
- =?utf-8?B?MHZ4QmVseUtiZ2g3L0tRbFNtdlQ4TjZhQjJsR2Q5ZTFkK2ZTenUyVW5GUTRS?=
- =?utf-8?B?Z0JwY0FEc051SC80SjUwQW5jN3JYNTlDeFNQUnZwVUR1T1JMNEdISmk2RGdv?=
- =?utf-8?B?aHN0OWIranMrMzdSSVJzZnJaelhxYjBxWXVBV1pHbU1xajNxVFdVTit2N09D?=
- =?utf-8?B?Y1lUTnQxN3FmT08yZVhkeEZBY3pmMER0Qm9XcWhUSXZ2K1lRZU5pbElmRUsr?=
- =?utf-8?B?aWdiVmVQczFlYU9JNHAzTExTQ0h6aXdFS0ExMlVPRGJ4WFpSSG1VbS91NDZ0?=
- =?utf-8?B?VzgzMGUzQlZ4L2J6WGtET01nSkdHZ2NoWXVSSmltUjcxVzNQUmRrR21lc1g3?=
- =?utf-8?B?b1pDUG4xT0VmdkJFeGlzd29WbFl4bmJLcVVLNStnVHN5b3RRbzd3aXZzdU11?=
- =?utf-8?B?c1RFd3hOZHJzaFR5RCt1cjRTOWswMHcvRTZ1UnFWVVZpTzBQNGplbWN2QVVY?=
- =?utf-8?B?eWRQZUVsdjM2NjZGd2NVelRSa1pKLzJGMnNNZW5Kc2JOdERXUlhVVk9vQU9l?=
- =?utf-8?B?K3ptNk5PL0FmaFc0VTk1b00vR1k2OGlsYkd2eVU2MEIxWGpnSzdCdHplcmho?=
- =?utf-8?B?Z1FxbGcrYVVuUmpEWXVydksva2NIR3RZTjMwdndTc1NjcTJrd1cxdzRpZFF5?=
- =?utf-8?B?NFIyYjk4NldobVlTZ20yR3E5YlpyY29ibE9pOWREeUI5eXdoTXpCUmRjbTBU?=
- =?utf-8?B?bHBNWE1jdGJDaWhPZWZhM2Eyb0E0cVk3cUNhbkxaNzA0WlJjdDg3elliakda?=
- =?utf-8?B?b2tvTFlxRGR6bGt6bm1IMEF1TjBDMkN2Vmh5SzJRdEJMcmZvVys5bzhBR3o3?=
- =?utf-8?B?clJFR1l3WkhqcGw5aVRpdzZqY1hoNUpPVW0vSWVDSkFDZCs4bDhqenBiMlRl?=
- =?utf-8?B?TzNRRUJpNWw2ZVdpMkdhRm9Id1YwaC8zTSs2MXpldGhjWjBWdWlKeW1NZWIx?=
- =?utf-8?B?bEM5WnlaSWFiWWdMQXBxMm94dWFDK1lTWmxLOGw0MWllaUFTWWUxeDc2Y0JS?=
- =?utf-8?B?NlpzM3o3aUJUSW1ZSTFUa2F3UDJCM1ZKc2h0UG8zYmZxYWFmUDlLOU1ReW9M?=
- =?utf-8?B?TTNXVGovcVV1czIra2I5cTFFWGhHWEhhTWsxWmptQzdvQnpWSmxPdz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 112036f2-ac58-4d03-395e-08deaa75c191
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 07:13:07.0933
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h87a38DH2uw52hpMTX7I67I2fvgTric9mRzCLdQ0BUHQSw3mGwYG40vNChTipRjc6KYtGKBQ1Q5eufeK1Bst3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5752
-X-purgate-ID: tlsNG-720697/1777965191-B3563161-C92E432A/0/0
+References: <cover.1775125380.git.mykola_kvach@epam.com> <d3398c62b8604bb869c204e3786f0b0246de7375.1775125380.git.mykola_kvach@epam.com>
+ <EA1567BB-4ED9-41C7-BDD9-9DABAA2D2855@arm.com>
+In-Reply-To: <EA1567BB-4ED9-41C7-BDD9-9DABAA2D2855@arm.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 5 May 2026 10:26:31 +0300
+X-Gm-Features: AVHnY4Ky8uJFLCBFZxjqUatpRvUbmjeQYVNb3WJbGYVqkHisl24pBjVF68cIxuo
+Message-ID: <CAGeoDV_ahBPZg1EW5zTYug4xLAFZe0SU2Wk9=ysuBP3+5QZXzg@mail.gmail.com>
+Subject: Re: [PATCH v8 04/13] xen/arm: gic-v3: Implement GICv3 suspend/resume functions
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-42698a/1777966004-7F57BF3B-15AC97D2/0/0
 X-purgate-type: clean
-X-purgate-size: 2527
-X-Rspamd-Queue-Id: ECF494C7AE1
+X-purgate-size: 16123
+X-Rspamd-Queue-Id: 6F77D4C7E44
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:tpearson@raptorengineering.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
 
-On Tue, May 05, 2026 at 08:48:15AM +0200, Orzel, Michal wrote:
-> 
-> 
-> On 04-May-26 17:28, Roger Pau Monné wrote:
-> > On Thu, Apr 30, 2026 at 02:51:02PM +0200, Michal Orzel wrote:
-> >> The generic pdx_to_page() and page_to_pdx() macros in xen/pdx.h assume
-> >> the frame table starts at PDX 0, which is only true on x86. ARM
-> >> uses a non-zero frametable_base_pdx to offset into the frame table (PPC also
-> >> defines it).
-> >>
-> >> Fix the generic macros to subtract/add frametable_base_pdx, defaulting
-> >> to 0 when the arch does not define it. This makes the generic macros
-> >> correct for all architectures, even though they are only used on x86
-> >> today.
-> > 
-> > Hm, I assume this offset was added because the original mask PDX
-> > compression won't (usually) compress the gap between 0 and the start
-> > of RAM.  However the newish offset PDX compression should be able to
-> > compress from 0 to start of RAM, and hence you don't need to apply
-> > an extra PDX offset there?
-> > 
-> > If that's indeed the case it might be better to integrate
-> > frametable_base_pdx into the mask compression algorithm itself, so
-> > that on some arches it's a mask plus a decrease.
-> The offset is needed regardless of whether compression is used. With
-> CONFIG_PDX_NONE (no compression, PDX == MFN), if RAM starts at e.g.
-> 0x80000000, the first valid PDX is 0x80000.
+Hi Luca,
 
-OK, so you are doing some (kind of) address space compression (removing
-the leading empty range to the first RAM region) even when PDX is
-disabled.
+Thank you for the review.
 
-> Without frametable_base_pdx
-> the frame table would have to be indexed from 0, wasting
-> 0x80000 * sizeof(page_info) of memory just to cover the hole before RAM.
+On Thu, Apr 23, 2026 at 2:29=E2=80=AFPM Luca Fancellu <Luca.Fancellu@arm.co=
+m> wrote:
+>
+> Hi Mykola,
+>
+> > diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+> > index 34fb065afc..d182a71478 100644
+> > --- a/xen/arch/arm/gic-v3.c
+> > +++ b/xen/arch/arm/gic-v3.c
+> > @@ -1072,12 +1072,12 @@ out:
+> >     return res;
+> > }
+> >
+> > -static void gicv3_hyp_disable(void)
+> > +static void gicv3_hyp_enable(bool enable)
+> > {
+> >     register_t hcr;
+> >
+> >     hcr =3D READ_SYSREG(ICH_HCR_EL2);
+> > -    hcr &=3D ~GICH_HCR_EN;
+> > +    hcr =3D enable ? (hcr | GICH_HCR_EN) : (hcr & ~GICH_HCR_EN);
+> >     WRITE_SYSREG(hcr, ICH_HCR_EL2);
+> >     isb();
+> > }
+> > @@ -1184,7 +1184,7 @@ static void gicv3_disable_interface(void)
+> >     spin_lock(&gicv3.lock);
+> >
+> >     gicv3_cpu_disable();
+> > -    gicv3_hyp_disable();
+> > +    gicv3_hyp_enable(false);
+> >
+> >     spin_unlock(&gicv3.lock);
+> > }
+> > @@ -1920,6 +1920,313 @@ static bool gic_dist_supports_lpis(void)
+> >     return (readl_relaxed(GICD + GICD_TYPER) & GICD_TYPE_LPIS);
+> > }
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +
+> > +/* This struct represent block of 32 IRQs */
+>
+> NIT: s/represent/represents
 
-But you don't really "waste" memory, just address space?  Oh, maybe
-not on ARM as it doesn't use pdx_group_valid?  And so you
-unconditionally populate the frametable from PDX 0 to max PDX.
+Ack.
 
-> So frametable_base_pdx is really a frame table indexing offset, not
-> something tied to the compression algorithm.
+>
+> > +struct dist_irq_block {
+> > +    uint32_t icfgr[2];
+> > +    uint32_t ipriorityr[8];
+> > +    uint64_t irouter[32];
+> > +    uint32_t isactiver;
+> > +    uint32_t isenabler;
+> > +};
+> > +
+> > +struct redist_ctx {
+> > +    uint32_t ctlr;
+> > +    uint32_t icfgr; /* only PPIs stored */
+> > +    uint32_t igroupr;
+>
+> I think Xen writes also GICD_IGROUPR<n>E, we are not saving it so in case=
+ of a reset
+> we would have GICD_IGROUPR<n>E containing the reset value which is zero.
+> Or we could decide to re-initialise it in the same way Xen does (all 1s).
 
-Right, it just seems odd to do that extra subtraction when using
-offset compression, as in that case the compression logic itself
-should remove that leading gap when RAM doesn't start at 0.
+Yes, good point.
 
-Instead of generalizing and expanding the usage of frametable_base_pdx
-it might be better to implement support for pdx_group_valid when
-populating the frame table, and switch by default to the offset
-compression method that will already remove any leading unpopulated
-spaces?
+For the normal SPI range I re-initialise GICD_IGROUPR to all 1s during resu=
+me,
+but I missed doing the same for the eSPI range. I will add the correspondin=
+g
+GICD_IGROUPR<n>E re-initialisation, matching the normal Xen initialisation =
+path.
 
-Thanks, Roger.
+>
+> > +    uint32_t ipriorityr[8];
+> > +    uint32_t isactiver;
+> > +    uint32_t isenabler;
+> > +
+> > +    uint64_t pendbase;
+> > +    uint64_t propbase;
+> > +};
+> > +
+> > +/* GICv3 registers to be saved/restored on system suspend/resume */
+> > +struct gicv3_ctx {
+> > +    struct dist_ctx {
+> > +        uint32_t ctlr;
+> > +        struct dist_irq_block *irqs, *espi_irqs;
+>
+> NIT: I would declare them one after the other and not in the same line, b=
+ut this is a matter of taste
+> maybe so I will leave the decision to the maintainers.
+
+Ack.
+
+>
+> > +    } dist;
+> > +
+> > +    /* have only one rdist structure for last running CPU during suspe=
+nd */
+> > +    struct redist_ctx rdist;
+> > +
+> > +    struct cpu_ctx {
+> > +        uint32_t ctlr;
+> > +        uint32_t pmr;
+> > +        uint32_t bpr;
+> > +        uint32_t sre_el2;
+> > +        uint32_t grpen;
+> > +    } cpu;
+> > +};
+> > +
+> > +static struct gicv3_ctx gicv3_ctx;
+> > +
+> > +static void __init gicv3_alloc_context(void)
+> > +{
+> > +    uint32_t blocks =3D DIV_ROUND_UP(gicv3_info.nr_lines, 32);
+> > +
+> > +    /* The spec allows for systems without any SPIs */
+> > +    if ( blocks > 1 )
+> > +    {
+> > +        gicv3_ctx.dist.irqs =3D xzalloc_array(struct dist_irq_block, b=
+locks - 1);
+> > +        if ( !gicv3_ctx.dist.irqs )
+> > +            panic("Failed to allocate memory for GICv3 suspend context=
+\n");
+> > +    }
+> > +
+> > +#ifdef CONFIG_GICV3_ESPI
+> > +    if ( !gic_number_espis() )
+> > +        return;
+> > +
+> > +    blocks =3D gic_number_espis() / 32;
+> > +    gicv3_ctx.dist.espi_irqs =3D xzalloc_array(struct dist_irq_block, =
+blocks);
+> > +    if ( !gicv3_ctx.dist.espi_irqs )
+> > +        panic("Failed to allocate memory for GICv3 eSPI suspend contex=
+t\n");
+> > +#endif
+> > +}
+> > +
+> > +static int gicv3_disable_redist(void)
+> > +{
+> > +    void __iomem *waker =3D GICD_RDIST_BASE + GICR_WAKER;
+> > +    s_time_t deadline;
+> > +
+> > +    /*
+> > +     * Avoid infinite loop if Non-secure does not have access to GICR_=
+WAKER.
+> > +     * See Arm IHI 0069H.b, 12.11.42 GICR_WAKER:
+> > +     *     When GICD_CTLR.DS =3D=3D 0 and an access is Non-secure acce=
+sses to this
+> > +     *     register are RAZ/WI.
+> > +     */
+> > +    if ( !(readl_relaxed(GICD + GICD_CTLR) & GICD_CTLR_DS) )
+> > +        return 0;
+> > +
+> > +    deadline =3D NOW() + MILLISECS(1000);
+> > +
+> > +    writel_relaxed(readl_relaxed(waker) | GICR_WAKER_ProcessorSleep, w=
+aker);
+> > +    while ( (readl_relaxed(waker) & GICR_WAKER_ChildrenAsleep) =3D=3D =
+0 )
+> > +    {
+> > +        if ( NOW() > deadline )
+> > +        {
+> > +            printk("GICv3: Timeout waiting for redistributor to sleep\=
+n");
+> > +            return -ETIMEDOUT;
+> > +        }
+> > +        cpu_relax();
+> > +        udelay(10);
+> > +    }
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +#define GET_SPI_REG_OFFSET(name, is_espi) \
+> > +    ((is_espi) ? GICD_##name##nE : GICD_##name)
+> > +
+> > +static void gicv3_store_spi_irq_block(struct dist_irq_block *irqs,
+> > +                                      unsigned int i, bool is_espi)
+> > +{
+> > +    void __iomem *base;
+> > +    unsigned int irq;
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(ICFGR, is_espi) + i * sizeof(ir=
+qs->icfgr);
+> > +    irqs->icfgr[0] =3D readl_relaxed(base);
+> > +    irqs->icfgr[1] =3D readl_relaxed(base + 4);
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(IPRIORITYR, is_espi);
+> > +    base +=3D i * sizeof(irqs->ipriorityr);
+> > +    for ( irq =3D 0; irq < ARRAY_SIZE(irqs->ipriorityr); irq++ )
+> > +        irqs->ipriorityr[irq] =3D readl_relaxed(base + 4 * irq);
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(IROUTER, is_espi);
+> > +    base +=3D i * sizeof(irqs->irouter);
+> > +    for ( irq =3D 0; irq < ARRAY_SIZE(irqs->irouter); irq++ )
+> > +        irqs->irouter[irq] =3D readq_relaxed_non_atomic(base + 8 * irq=
+);
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(ISACTIVER, is_espi);
+> > +    base +=3D i * sizeof(irqs->isactiver);
+> > +    irqs->isactiver =3D readl_relaxed(base);
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(ISENABLER, is_espi);
+> > +    base +=3D i * sizeof(irqs->isenabler);
+> > +    irqs->isenabler =3D readl_relaxed(base);
+> > +}
+> > +
+> > +static void gicv3_restore_spi_irq_block(struct dist_irq_block *irqs,
+> > +                                        unsigned int i, bool is_espi)
+> > +{
+> > +    void __iomem *base;
+> > +    unsigned int irq;
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(ICFGR, is_espi) + i * sizeof(ir=
+qs->icfgr);
+> > +    writel_relaxed(irqs->icfgr[0], base);
+> > +    writel_relaxed(irqs->icfgr[1], base + 4);
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(IPRIORITYR, is_espi);
+> > +    base +=3D i * sizeof(irqs->ipriorityr);
+> > +    for ( irq =3D 0; irq < ARRAY_SIZE(irqs->ipriorityr); irq++ )
+> > +        writel_relaxed(irqs->ipriorityr[irq], base + 4 * irq);
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(IROUTER, is_espi);
+> > +    base +=3D i * sizeof(irqs->irouter);
+> > +    for ( irq =3D 0; irq < ARRAY_SIZE(irqs->irouter); irq++ )
+> > +        writeq_relaxed_non_atomic(irqs->irouter[irq], base + 8 * irq);
+>
+>
+> The [1] 12.9.22 GICD_IROUTER<n> says "these registers are used only when =
+affinity routing is enabled.
+> When affinity routing is not enabled: These registers are RES0. An implem=
+entation is permitted to make
+> the register RAZ/WI in this case=E2=80=9D
+>
+> So I think these needs to be written after we set GICD_CTLR or we are goi=
+ng to loose anything written there
+> and also the configuration won=E2=80=99t be restored.
+
+You are right. Restoring IROUTER before restoring the affinity-routing stat=
+e is
+not safe, because these registers are only meaningful when affinity routing=
+ is
+enabled.
+
+I will fix the restore ordering in the next version.
+
+>
+>
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(ICENABLER, is_espi) + i * 4;
+> > +    writel_relaxed(GENMASK(31, 0), base);
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(ISENABLER, is_espi);
+> > +    base +=3D i * sizeof(irqs->isenabler);
+> > +    writel_relaxed(irqs->isenabler, base);
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(ICACTIVER, is_espi) + i * 4;
+> > +    writel_relaxed(GENMASK(31, 0), base);
+> > +
+> > +    base =3D GICD + GET_SPI_REG_OFFSET(ISACTIVER, is_espi);
+> > +    base +=3D i * sizeof(irqs->isactiver);
+> > +    writel_relaxed(irqs->isactiver, base);
+> > +}
+> > +
+> > +static int gicv3_suspend(void)
+> > +{
+> > +    unsigned int i;
+> > +    void __iomem *base;
+> > +    int ret;
+> > +    struct redist_ctx *rdist =3D &gicv3_ctx.rdist;
+> > +
+> > +    /* Save GICC configuration */
+> > +    gicv3_ctx.cpu.ctlr     =3D READ_SYSREG(ICC_CTLR_EL1);
+> > +    gicv3_ctx.cpu.pmr      =3D READ_SYSREG(ICC_PMR_EL1);
+> > +    gicv3_ctx.cpu.bpr      =3D READ_SYSREG(ICC_BPR1_EL1);
+> > +    gicv3_ctx.cpu.sre_el2  =3D READ_SYSREG(ICC_SRE_EL2);
+> > +    gicv3_ctx.cpu.grpen    =3D READ_SYSREG(ICC_IGRPEN1_EL1);
+> > +
+> > +    gicv3_disable_interface();
+>
+> this one is calling also gicv3_cpu_disable() that will zero ICC_IGRPEN1_E=
+L1 ...
+>
+> > +
+> > +    ret =3D gicv3_disable_redist();
+> > +    if ( ret )
+> > +        goto out_enable_iface;
+>
+> =E2=80=A6 but when we fail here ...
+>
+> > +
+> > +    /* Save GICR configuration */
+> > +    gicv3_redist_wait_for_rwp();
+> > +
+> > +    base =3D GICD_RDIST_BASE;
+> > +
+> > +    rdist->ctlr =3D readl_relaxed(base + GICR_CTLR);
+> > +
+> > +    rdist->propbase =3D readq_relaxed(base + GICR_PROPBASER);
+> > +    rdist->pendbase =3D readq_relaxed(base + GICR_PENDBASER);
+> > +
+> > +    base =3D GICD_RDIST_SGI_BASE;
+> > +
+> > +    /* Save priority on PPI and SGI interrupts */
+> > +    for ( i =3D 0; i < NR_GIC_LOCAL_IRQS / 4; i++ )
+> > +        rdist->ipriorityr[i] =3D readl_relaxed(base + GICR_IPRIORITYR0=
+ + 4 * i);
+> > +
+> > +    rdist->isactiver =3D readl_relaxed(base + GICR_ISACTIVER0);
+> > +    rdist->isenabler =3D readl_relaxed(base + GICR_ISENABLER0);
+> > +    rdist->igroupr   =3D readl_relaxed(base + GICR_IGROUPR0);
+> > +    rdist->icfgr     =3D readl_relaxed(base + GICR_ICFGR1);
+> > +
+> > +    /* Save GICD configuration */
+> > +    gicv3_dist_wait_for_rwp();
+> > +    gicv3_ctx.dist.ctlr =3D readl_relaxed(GICD + GICD_CTLR);
+> > +
+> > +    for ( i =3D 1; i < DIV_ROUND_UP(gicv3_info.nr_lines, 32); i++ )
+> > +        gicv3_store_spi_irq_block(gicv3_ctx.dist.irqs + i - 1, i, fals=
+e);
+> > +
+> > +#ifdef CONFIG_GICV3_ESPI
+> > +    for ( i =3D 0; i < gic_number_espis() / 32; i++ )
+> > +        gicv3_store_spi_irq_block(gicv3_ctx.dist.espi_irqs + i, i, tru=
+e);
+> > +#endif
+> > +
+> > +    return 0;
+> > +
+> > + out_enable_iface:
+> > +    gicv3_hyp_enable(true);
+> > +    WRITE_SYSREG(gicv3_ctx.cpu.ctlr, ICC_CTLR_EL1);
+>
+> we don=E2=80=99t recover ICC_IGRPEN1_EL1
+
+Yes, you are right.
+
+This series missed the change introduced by commit 18b718b6af3d ("xen/arm:
+gic-v3: disable Group 1 before CPU power-down"). Since gicv3_cpu_disable() =
+now
+disables ICC_IGRPEN1_EL1, the error path needs to restore it before returni=
+ng.
+
+I will fix this in the next version.
+
+Best regards,
+Mykola
+
+>
+> > +    isb();
+> > +
+> > +    return ret;
+> > +}
+> > +
+> > +static void gicv3_resume(void)
+> > +{
+> > +    int ret;
+> > +    unsigned int i;
+> > +    void __iomem *base;
+> > +    struct redist_ctx *rdist =3D &gicv3_ctx.rdist;
+> > +
+> > +    writel_relaxed(0, GICD + GICD_CTLR);
+> > +
+> > +    for ( i =3D NR_GIC_LOCAL_IRQS; i < gicv3_info.nr_lines; i +=3D 32 =
+)
+> > +        writel_relaxed(GENMASK(31, 0), GICD + GICD_IGROUPR + (i / 32) =
+* 4);
+> > +
+> > +    for ( i =3D 1; i < DIV_ROUND_UP(gicv3_info.nr_lines, 32); i++ )
+> > +        gicv3_restore_spi_irq_block(gicv3_ctx.dist.irqs + i - 1, i, fa=
+lse);
+> > +
+> > +#ifdef CONFIG_GICV3_ESPI
+> > +    for ( i =3D 0; i < gic_number_espis() / 32; i++ )
+> > +        gicv3_restore_spi_irq_block(gicv3_ctx.dist.espi_irqs + i, i, t=
+rue);
+> > +#endif
+> > +
+> > +    writel_relaxed(gicv3_ctx.dist.ctlr, GICD + GICD_CTLR);
+> > +    gicv3_dist_wait_for_rwp();
+> > +
+> > +    ret =3D gicv3_lpi_init_rdist(GICD_RDIST_BASE);
+> > +    /*
+> > +     * If LPIs are already enabled, assume firmware or the still-power=
+ed
+> > +     * redistributor has valid PROPBASER/PENDBASER and skip reprogramm=
+ing.
+> > +     * Return -EBUSY so callers can ignore this case.
+> > +     */
+> > +    if ( ret && ret !=3D -ENODEV && ret !=3D -EBUSY )
+> > +        panic("GICv3: Failed to re-initialize LPIs during resume\n");
+> > +    else if ( ret =3D=3D -EBUSY ) /* extra checks, just to be sure */
+> > +    {
+> > +        base =3D GICD_RDIST_BASE;
+> > +        if ( readq_relaxed(base + GICR_PROPBASER) !=3D rdist->propbase=
+ ||
+> > +             readq_relaxed(base + GICR_PENDBASER) !=3D rdist->pendbase=
+ )
+> > +        {
+> > +            panic("GICv3: LPIs already enabled with unexpected PROPBAS=
+ER/PENDBASER during resume\n");
+> > +        }
+> > +    }
+> > +
+> > +    /* Restore GICR (Redistributor) configuration */
+> > +    if ( gicv3_enable_redist() )
+> > +        panic("GICv3: Failed to re-enable redistributor during resume\=
+n");
+> > +
+> > +    base =3D GICD_RDIST_SGI_BASE;
+> > +
+> > +    writel_relaxed(GENMASK(31, 0), base + GICR_ICENABLER0);
+> > +    gicv3_redist_wait_for_rwp();
+> > +
+> > +    for ( i =3D 0; i < NR_GIC_LOCAL_IRQS / 4; i++ )
+> > +        writel_relaxed(rdist->ipriorityr[i], base + GICR_IPRIORITYR0 +=
+ i * 4);
+> > +
+> > +    writel_relaxed(rdist->isactiver, base + GICR_ISACTIVER0);
+> > +    writel_relaxed(rdist->igroupr,   base + GICR_IGROUPR0);
+> > +    writel_relaxed(rdist->icfgr,     base + GICR_ICFGR1);
+> > +
+> > +    gicv3_redist_wait_for_rwp();
+> > +
+> > +    writel_relaxed(rdist->isenabler, base + GICR_ISENABLER0);
+> > +    writel_relaxed(rdist->ctlr, GICD_RDIST_BASE + GICR_CTLR);
+> > +
+> > +    gicv3_redist_wait_for_rwp();
+> > +
+> > +    WRITE_SYSREG(gicv3_ctx.cpu.sre_el2, ICC_SRE_EL2);
+> > +    isb();
+> > +
+> > +    /* Restore CPU interface (System registers) */
+> > +    WRITE_SYSREG(gicv3_ctx.cpu.pmr,   ICC_PMR_EL1);
+> > +    WRITE_SYSREG(gicv3_ctx.cpu.bpr,   ICC_BPR1_EL1);
+> > +    WRITE_SYSREG(gicv3_ctx.cpu.ctlr,  ICC_CTLR_EL1);
+> > +    WRITE_SYSREG(gicv3_ctx.cpu.grpen, ICC_IGRPEN1_EL1);
+> > +    isb();
+> > +
+> > +    gicv3_hyp_init();
+> > +}
+> > +
+> > +#endif /* CONFIG_SYSTEM_SUSPEND */
+> > +
+> > /* Set up the GIC */
+> > static int __init gicv3_init(void)
+> > {
+> > @@ -1994,6 +2301,10 @@ static int __init gicv3_init(void)
+> >
+> >     gicv3_hyp_init();
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +    gicv3_alloc_context();
+> > +#endif
+> > +
+> > out:
+> >     spin_unlock(&gicv3.lock);
+> >
+> > @@ -2033,6 +2344,10 @@ static const struct gic_hw_operations gicv3_ops =
+=3D {
+> > #endif
+> >     .iomem_deny_access   =3D gicv3_iomem_deny_access,
+> >     .do_LPI              =3D gicv3_do_LPI,
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +    .suspend             =3D gicv3_suspend,
+> > +    .resume              =3D gicv3_resume,
+> > +#endif
+> > };
+> >
+> > static int __init gicv3_dt_preinit(struct dt_device_node *node, const v=
+oid *data)
+> > diff --git a/xen/arch/arm/include/asm/gic_v3_defs.h b/xen/arch/arm/incl=
+ude/asm/gic_v3_defs.h
+> > index c373b94d19..992c8f9c2f 100644
+> > --- a/xen/arch/arm/include/asm/gic_v3_defs.h
+> > +++ b/xen/arch/arm/include/asm/gic_v3_defs.h
+> > @@ -94,6 +94,7 @@
+> > #define GICD_TYPE_LPIS               (1U << 17)
+> >
+> > #define GICD_CTLR_RWP                (1UL << 31)
+> > +#define GICD_CTLR_DS                 (1U << 6)
+> > #define GICD_CTLR_ARE_NS             (1U << 4)
+> > #define GICD_CTLR_ENABLE_G1A         (1U << 1)
+> > #define GICD_CTLR_ENABLE_G1          (1U << 0)
+> >
+>
+> Cheers,
+> Luca
+>
+>
+>
+>
 
