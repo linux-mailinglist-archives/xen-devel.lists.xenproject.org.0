@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KEGTOvEK+mlsIgMAu9opvQ
+	id gCVNIYsL+mlsIgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 17:21:21 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 17:23:55 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35AB44D01D9
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 17:21:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1300801.1575269 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBE964D0246
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 17:23:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1300812.1575277 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKHZT-0002kg-6q; Tue, 05 May 2026 15:20:27 +0000
+	id 1wKHce-0003J4-K1; Tue, 05 May 2026 15:23:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1300801.1575269; Tue, 05 May 2026 15:20:27 +0000
+Received: by outflank-mailman (output) from mailman id 1300812.1575277; Tue, 05 May 2026 15:23:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKHZT-0002hw-3W; Tue, 05 May 2026 15:20:27 +0000
-Received: by outflank-mailman (input) for mailman id 1300801;
- Tue, 05 May 2026 15:20:25 +0000
+	id 1wKHce-0003HE-Gu; Tue, 05 May 2026 15:23:44 +0000
+Received: by outflank-mailman (input) for mailman id 1300812;
+ Tue, 05 May 2026 15:23:43 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wKHZR-0002hq-94
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 15:20:25 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wKHcd-0003H8-Bj
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 15:23:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKHZP-004FA0-4H
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 17:20:24 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wKHcc-00H1Tz-Ov
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 17:23:42 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69fa0aa7-e002-0a2a0a5209dd-0a2a4504e16c-48
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 17:20:24 +0200
-Received: from [40.107.209.68]
- (helo=PH8PR06CU001.outbound.protection.outlook.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69fa0ab6-1dec-0a2a45040019-286bd1441d2d-4
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 17:20:24 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by SA1PR03MB7076.namprd03.prod.outlook.com (2603:10b6:806:33d::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.27; Tue, 5 May
- 2026 15:20:19 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9891.008; Tue, 5 May 2026
- 15:20:18 +0000
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69fa0b56-bab6-0a2a0a5309dd-0a2a4506c922-42
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 17:23:42 +0200
+Received: from [209.85.208.170] (helo=mail-lj1-f170.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69fa0b7e-7371-0a2a45060019-d155d0aad4b5-3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 17:23:42 +0200
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-3922b35e69cso45595741fa.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 08:23:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,263 +51,440 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X0yFCG9o776Yfu2351swqgUkBJJ1lh0SLSXt95oO+eyF5Yun9pJI0ku0Z/VVM1mwNDVVhWaR1O7g1hjrLL1988m/1c84cBPeTzgjkeYvR4uNns8sgPkGmoE8DrFrTCRv/lxp5EnE8aF/OIjJqTKAGVvfvj9zYnbl+r8/O6wZM78YooKud5naQAdAasSTpZbmabSU7j65gRGWF9GHc4GbLtUgdkEGImcrKj8b5lFdvWdAm27keuRD2zlhnJGY9iB82WQbf3FcxMskB/G4xK00eCYl2EtCgwZtpcZXL6/qn/w7Pi+BkajEvJkgWbb74u0GyEaDvXE1zse56Ssroum+jQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Dj/j1347nmGGMN+UrJY1jiDh2tQtl1UDfnAXMgjXy4U=;
- b=rVyN+F5az3qjmVLvifsGTdiX2tSZu0gJKHf+2BxtaaLJMVQ9dLcxstmBXcGzYBdQpuRGYaENKOmuAXUfkQFr9oi3u/4gqrhs7yHzG10a2Y6eWIfiYs1EQBTvuXpIOKwkQa14SClU1iTteWKfMnpqW55GWgrxyce5FsFB5/vGJ4f5RuGGMXpR3/8URSF/Z+O3Y6uLrr8BJAJ7bR0XG176CHWvJ6RB8PRicFGQQX3KKpeQPDFVvTAd33tId3+jfGnntQlrWpbGGwMBLkwfRKtsmMP9ZueaHHzI2Zo1XnG85FYANV0th+wbKuyIeVoY0nbWOJRU35xYIXGQ750wcgq/uQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dj/j1347nmGGMN+UrJY1jiDh2tQtl1UDfnAXMgjXy4U=;
- b=tAqVGWbSy02hfJKSBZdJYuPzCg06tkkvXR3qulTzNOErp8g7lS+gBdOQBmoddk29jhnhaUrvhR5/EcSf05u5b6K9hrlMTupQ5Jv/YU3PXjD8aFDnYCkX6EEDJwUooCtYt5JUr72GPWgMfcB9ALE4SFOPqLvv8FL4vMceOJRAC5o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 5 May 2026 17:20:14 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Orzel, Michal" <michal.orzel@amd.com>
-Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Timothy Pearson <tpearson@raptorengineering.com>,
-	Teddy Astie <teddy.astie@vates.tech>
-Subject: Re: [PATCH v2 1/2] xen/pdx: account for frametable_base_pdx in
- generic pdx_to_page/page_to_pdx
-Message-ID: <afoKrmK7-vkPe8qE@macbook.local>
-References: <afi7HUFoDYabM9VV@macbook.local>
- <65ecf1c0-0844-4ba9-a250-a94aeaf4d251@amd.com>
- <afmYf-ldUxWQXRDL@macbook.local>
- <309b2ff6-c200-47d0-be3f-ec289df641c6@amd.com>
- <0a3583df-2682-426e-a704-aa8711caec0d@suse.com>
- <a90db340-e569-4f77-b5df-dd1a1504f8cf@amd.com>
- <0267eb6f-1161-45b7-8905-d7aecb78e74c@suse.com>
- <e8218607-26d8-4517-8634-df3c365e5bb2@amd.com>
- <94f1f29c-0430-421a-8b48-398fa0495966@suse.com>
- <323e36d0-63e1-4331-87ad-d84f948feef7@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <323e36d0-63e1-4331-87ad-d84f948feef7@amd.com>
-X-ClientProxiedBy: BN1PR14CA0008.namprd14.prod.outlook.com
- (2603:10b6:408:e3::13) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1777994622; cv=none;
+        d=google.com; s=arc-20240605;
+        b=V1/yl2kwNBL6msYMjex6OvdJ11LCAuT+GPUejXZ7T9e88b2qrFv78vdYkVNDflmzFG
+         wyBnvKsUvMoT/0C80Z+kBkLb6wC/KjEyZGh6wfyfyOR6eX+EviMvFStXePFjpAmmhIp2
+         G3U12AxPuDsbQ/+9s9YK1xRO+w7Fy+vWv35L8jpAsyMMCchPwiAQIk+X/eY+91H+ZcuG
+         SBae+iNo+krXudmy4RQUvP+aSwVLHDoXOsJ+UQBEq4/YXR6ittMhfoLeMUV2ki1q47ds
+         Obyorq9wDn4WWXAXm/ArllO6opLqoDlHVupTLhUs6zNh6Xg2OmZ1Kmo392dTZOBfKZmM
+         TkUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wMRiOKPRyEcaHZOOkpd9/VztiqgN92b+wRpsUBVO2Qw=;
+        fh=jXKZth/5dXfK4eyQ3th9VcbDCKu2IJKxdxWeypBGkUc=;
+        b=baPGUZB55y1TtnPt/5Ea+Bzl/Eu8qMudyQwzbVLHoUZJFa76Iosk8Nj/GV31SFXJ17
+         LhjRndJHj3q4CTJNYbFgCJrgyMQ1VkrPuL5TFPo6nkKaCNg/3DFRB1BuQr4AS5OKQUXW
+         4OeeldPdVwVGViBdy1+umWa1D3H9+fGci/AM5sdPsL+eNld/MjOC8u3/8nSmJmSZ2NJn
+         JePOodlPfiU4nR1SdicTB8c6fsixt/81wJMJoZ/giZIyHJJBDTyAjU1JOmECAp3h1LhW
+         0dZ66Rs5RGpl/eWvzdQQfStcrOdPjigihL/5s+KrgNeSz56Eul9pQH7KXXsEJVsrdf1V
+         vD+w==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1777994622; x=1778599422; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wMRiOKPRyEcaHZOOkpd9/VztiqgN92b+wRpsUBVO2Qw=;
+        b=XgruQDVCnrd1sAifQle04NylrnIGdqCJDngfAfsDIM8lSb33WO7A0IiJf4jdpbVNcK
+         tkUejBNiJK8mJ/ZDd1Z+vNH+9mw0CM3hoikx7Gd/76x+ezsODLFazovY99PZJaeixZID
+         4T5lDvdGYp7nBn5XHs7kmgR0n+nLSi8Cbs1gMS27CDfrly74BV++kq4JAZqDH+eBG67Q
+         dGfKcRXxFLNGA0xfWtZmek447U17A+C5dsW0GO3ZSeN1+pRvdXNQCqBvNu5lSplv43Mu
+         rR7tU1GAlgWoCHG4sp0SDFusvj6fpwCpnPhT2V+lc4usf2mONszAsHx1XKAOAyP7VdDT
+         5GNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777994622; x=1778599422;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=wMRiOKPRyEcaHZOOkpd9/VztiqgN92b+wRpsUBVO2Qw=;
+        b=e3LjG7Ar8By5WoyqRLTQAU5TPYoTqBVSLI5KJGkWjwDRBmlp4svMuWpLCOlHKLJIRs
+         t6Pu2t4AjtXaZjrGkHX1FeYejRqlXXZdl5hzBPq6zi0jV0GX6aQGBqs/XOKqJjLNDv+3
+         KMdMPALyXI/AuqHRvH8xdkW3H2/hwu2NqDUZWOCFIiV65JJHUkP8t3hhlwsOyaIfbCEi
+         ZtH533eHJ0rpQ++1j9eLlG1qtnrNy34P/AEz2azOf8u7/7wlmtQWrV5xEyJCzciIVK5T
+         67bLgliiGF9M8h06av9gaiQssJXwxFiSQff04TCwN0Da/E+hcoy+A+PlnGICL1+883e3
+         DH1Q==
+X-Gm-Message-State: AOJu0YwaTRT78Au8drUXR7uxA7vzuN/irsuGcl+LfzdeG2Gbbzda5KYH
+	1wc8hc1h2BZFiiyNmr2xYN0dEtbgxJbbu8q0mlP8ejSBD2eK35qsGzcs1htJcR3Fs4EeEsQ1KAz
+	Zp86k+tuVGm/xar73VUxmRKKgsy8O426GXO6YDbQ=
+X-Gm-Gg: AeBDievohqaegWANrMQ5/dB+MxDNlwe2Eu5/u3ZLd0eaW4ZcvB2Vs2Xs8ES7GnYw/GC
+	LERh3FHyFV9s5qPvjcRHKxsQD/SekWc3ZskFgE5G+sKj2z9hPFMD2wDSKUYTs0MNxxaePBOlm7l
+	FJmgk5pOqwSTh332PriINMohopVE2evc4KoQ+w2LjOxbl13kmEPwjGM2xalWGZWSIPWaZOGR5a6
+	A1A3CTkP5Yz37/ZKTP4bqfpsTk8RJdFMAPId16fsYn4QSsPxyXQTXqU4JNDbs34s8u9GVI4nt0L
+	//4oThdPbLtJIdhUo1orJwHA3PI=
+X-Received: by 2002:a2e:a54b:0:b0:383:20cd:52fe with SMTP id
+ 38308e7fff4ca-393b4d47acemr14985801fa.17.1777994621480; Tue, 05 May 2026
+ 08:23:41 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SA1PR03MB7076:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84ba5677-2f7a-48d9-8ae2-08deaab9d095
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	XYS0V303CwMlmnreoV1H77EH2rs6IWvcTTcjZUsPTE3FKsyRc3pj60VYd5wDt08N6Y94qbd8jGAKc05X3JutePejE28P6km2jYVuq963scEeErwh+im6zB4P4c8SJZYXMsGENpjr15sWATFuytY6BZP7k60aouNsAyiVVtEkid7EinD98si7+0fzxF1l8N3A//M0H0ZvI6eRMromN8P01OgWgb1zl89YDuBNffVw+DUQB0x1WYKdNzU2AwXwbnf9IOo7rBtg0OxGNzIsdPMbOOAbb7XM3HjuCrMb0UkkW/8TKJA3Y49B6ig1tpfV177sF6/ATjIp2JmAqg+4evy4+2IQVJRTBO4+rfkTiwIVXqB9bdNba78v6kvscDzuIjrJB4YCtghq4bA58hEmWV0NS6OMAzGyX/GunQvwpRLq2gvdeENRFVskwAChjCRSsvB+FepZ+Zk8hzp7lbHxCkbmuDuFgYYbYpia9HSthX5/Z68HJxLtqdX4OGRGznZxyl9Kj1CLjin7wLBRGy0ZO38D8jbtFqK8iDiNKMYd1CMjbp03KKL+btqFHEtNjKL+ky8CZUujqWkIToNa/oY99cEGeBe4BjBnwCxMcYyBCO1/kMVO2ea1Z6w4K9KrIq2WkR6ecmgCWDv7tTH84thVnRt1dZrUflpXyaF3Jgaf6qYlxos9adDGzWVu26EsXD+41JdB
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(18002099003)(56012099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cE5yNFJFb0hBSUN2cGRiWVFoYU5tY1RWd0hoTTRFcjFCUUZRT1llQ2hMa2hh?=
- =?utf-8?B?VTA0bkVVT3g0MlRqWGNDUHl4OXFrL2ZiVzIwb3ZEdVU0SUxLSG1nT2tpeGJS?=
- =?utf-8?B?cVEzc2w5UEhSakMyeCswbDZaOElhRDR5MHp5RndSN29GamwwVk0wSkdMeGF3?=
- =?utf-8?B?bURqWnA2WEhEN1hScnpmOS9PK25EcXZzbnhsUE9YZTZlczhyYmNkV0o5b1U0?=
- =?utf-8?B?N2h3bzhZakN3ZzJ6aDNZSldmVE1WalBnT1R3VFQwdlEzcnZjYjNkc2o2WmI0?=
- =?utf-8?B?cU9INTcxOW5sUDJ3NzN1TVIxVEVyR0MzSHIzTVAyS0hUMkIyaGFENDFDSmJL?=
- =?utf-8?B?OGtrMW1oayt3MWdoR3lTZ29OeDh0VXl5MW13V2ZDZmVPTzhTdzVmNTIrVlNG?=
- =?utf-8?B?dlYzb1RBUjJnRGNqMUlubzk5eVljRnF1QUxxb3JNWkEzdzBQSlVoc3dxMDc1?=
- =?utf-8?B?bDFubld1RnBQVXg3ZW9mTzhMQi9PQjRTS3lINm9zOXNtcmdkNGloZXUyajRL?=
- =?utf-8?B?cFEzM3lhVTcrakNmNlBWOGhCRFpJOW5GT2QvVUIwd3hSRmN1d3BXbnZLR3lG?=
- =?utf-8?B?MUhpTjVObmcycDU5RWN3aS92elpYWWtnVWNpRWppYnBiQ2RzQXlXdXV6dzZt?=
- =?utf-8?B?eTR5bE9ycHdsUk1wdU9qVndLQ2UrZWo3UnROWlJaVHVtQ1ZKWFg1Z2JTQzdR?=
- =?utf-8?B?N0dHeno2c0NETW9NRzQvWC9ZZmlPRmdSTWZKaGc4a2M0Wm5wL1Z3K0cvMmJF?=
- =?utf-8?B?cEV0TGkvc2RlVDhtOHVqeXFXd2pnNmNoMlZFMFc4Ti9xeTQzdkF2cS80R3VU?=
- =?utf-8?B?cnF6YTJONEh3MmxNa2lLZXliZjFtRTRvRkdEbUgzV2NQUTVYUjBYWmpaQWNl?=
- =?utf-8?B?YStvUEJGTzR1MWNmUlEyTGI4RHI1d3czZnduYm9MR1pJVk5ndDk3d2NBTW8v?=
- =?utf-8?B?ZjNJRytQSS8xeno4VUY0MWVqcDBOejhUNGZBZHF0aHJLOWlxZm02SzRBb3Ey?=
- =?utf-8?B?cG03SlpETk5TbklERGdsODN6bjVaM3FZb2g1R2d0R2lvNllzLzJEUFJOOElM?=
- =?utf-8?B?WGdFWWsyTU9DeDZaV2pxT2hYNlhTa1FMRjZDQlZRazFEbFRlSDFiS2xRVElu?=
- =?utf-8?B?b202WjFtcFArNjdFK1h4WmdidmQ4QWoxK29VUkhRYlgyTy9FTVNHSWE1bktF?=
- =?utf-8?B?emx6UHlsVWhJT0tub2JQelEvMHdyRkVjaHFjc0JOTnhsL2c3dzgwSW1ORXVy?=
- =?utf-8?B?QXZQOXh4UzFMMHRWbXIyRW5WOGwwVEdzdlNTLzQ5WGVhcTE2VkZ5bVB4THZp?=
- =?utf-8?B?eDVVZjZ0bDhuSnliQTNuZXBQbXFiZnQ4Si9ub3dRYW16RHpVbmUvZnFiSENh?=
- =?utf-8?B?bUtyY0NCMDNNMmkwQjRSUEFCdWpSYlZkOFZzV2IvYU5oYVo4a2kwK3BlWUpX?=
- =?utf-8?B?Q3dXdnVvRE9HdmREOWNqWS9rdGVXYmtkZDUvSjFEa0NHU3FrRmw2NXJ2cE96?=
- =?utf-8?B?N1RYVzEwb3UzT3pCZGNjTEZBRmZKOWt0SFZRUU5VdWFJZ1N2b2FVVmhtUnVF?=
- =?utf-8?B?U1Y4c1JjYUpJbTFFREdBbkFnSktrTGVZcjg2aWJZUUt6anNseHI0QnkwVnV1?=
- =?utf-8?B?UnVMUFBDV1hqUUdqMC9aZkdMdG1OU3N2bjRrbWFhV2lXMFJoUVlVUmN6dzVs?=
- =?utf-8?B?b09zYXBJdlg2TnZLTFJDNEdLVkptOWpsNFZzcm0vMFNoTFF4eks4SU8wcWw1?=
- =?utf-8?B?QTlmMkRkUW42bnVHWEdOdjcwRUhFZ1VlaHRiYmRIOWp4U1Q5ZkRvZVFOMzhw?=
- =?utf-8?B?cjlpdlFJTmdzc251dGZScHcxVFRzeGZlNWMveGJGMTd5QjVMRkQ3QXk2ZXJj?=
- =?utf-8?B?Q29MWG1KMm9CM3VEdmhWSk9KdXc0ZGdNMFVmRng1dWxXZ0MvL0xrbmtPYi8y?=
- =?utf-8?B?czErNUdtaDJDWHRVUHJJclhLekxsTXE3Q3dWUVovWDhGZ01PVlB1em14K3Jm?=
- =?utf-8?B?WlcxR2dub3dSNmZmQ0FVTE85RHY3Yk5RdlNUa1YyNHBiazNsczlLQkptem1B?=
- =?utf-8?B?d2dsa2lscUNYWmEvQ0FMYjBGcmVqaE0zMXVvZVk1MHlRcTVmQ3FRR0hOdXZt?=
- =?utf-8?B?VUtqK0xmTFpQYWR6OWh2UlJUNURUalBRZmdybnZqR2xFOEwwcVJDZXlKdk03?=
- =?utf-8?B?QTQxMWtuQUV1OVYwYklWc3BGdVdqUElCc3JBTFBISzRha05hOUxWZFhYQ0lh?=
- =?utf-8?B?Nmd3KzFTTEkvSUlMcDdudjhWNHlKeVlYVWxlZnB4N1VIRmpmQS9HalNuSkZM?=
- =?utf-8?B?eXFqTlk0YlMxbE9KVXIyazV1cmw2MkxrcjZEK3RMK3pMcDdMUlVXZz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84ba5677-2f7a-48d9-8ae2-08deaab9d095
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 15:20:18.1465
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n14dwXWYmrJI5+1x3pBW25kf7ThXh0OdPB4V1jvt3zyrTMDvXWVJgE4M6EvFPIPSMhnTk7bRVcRCmiKMmi8n+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB7076
-X-purgate-ID: tlsNG-ebf023/1777994424-43D6C3FF-122A9B51/0/0
+References: <cover.1775125380.git.mykola_kvach@epam.com> <038337ec0e3f1474c6cc6a92090e28c6972e4dc6.1775125380.git.mykola_kvach@epam.com>
+ <F5384D51-933E-48E6-AE7E-B54022AEAE11@arm.com>
+In-Reply-To: <F5384D51-933E-48E6-AE7E-B54022AEAE11@arm.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 5 May 2026 18:23:28 +0300
+X-Gm-Features: AVHnY4Lp8PLNiPSH_rXiXH9DXGfRY9OSOlaX6QNN69iV-sQmD-KYv1xHa12HpPs
+Message-ID: <CAGeoDV907jTK5RsN51ezapA5inhvG1jWpeybbqF=LkxWcEGnbQ@mail.gmail.com>
+Subject: Re: [PATCH v8 09/13] arm/smmu-v3: add suspend/resume handlers
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <mykola_kvach@epam.com>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Rahul Singh <Rahul.Singh@arm.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-16d1c6/1777994622-53B7DD75-BCDF7250/0/0
 X-purgate-type: clean
-X-purgate-size: 6418
-X-Rspamd-Queue-Id: 35AB44D01D9
+X-purgate-size: 9432
+X-Rspamd-Queue-Id: EBE964D0246
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email,mail.gmail.com:mid];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,macbook.local:mid];
-	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:tpearson@raptorengineering.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:Bertrand.Marquis@arm.com,m:Rahul.Singh@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
 
-On Tue, May 05, 2026 at 04:44:16PM +0200, Orzel, Michal wrote:
-> 
-> 
-> On 05-May-26 15:00, Jan Beulich wrote:
-> > On 05.05.2026 13:46, Orzel, Michal wrote:
-> >> On 05-May-26 12:49, Jan Beulich wrote:
-> >>> On 05.05.2026 12:46, Orzel, Michal wrote:
-> >>>> On 05-May-26 12:40, Jan Beulich wrote:
-> >>>>> On 05.05.2026 09:35, Orzel, Michal wrote:
-> >>>>>> On 05-May-26 09:13, Roger Pau Monné wrote:
-> >>>>>>> On Tue, May 05, 2026 at 08:48:15AM +0200, Orzel, Michal wrote:
-> >>>>>>>> On 04-May-26 17:28, Roger Pau Monné wrote:
-> >>>>>>>>> On Thu, Apr 30, 2026 at 02:51:02PM +0200, Michal Orzel wrote:
-> >>>>>>>>>> The generic pdx_to_page() and page_to_pdx() macros in xen/pdx.h assume
-> >>>>>>>>>> the frame table starts at PDX 0, which is only true on x86. ARM
-> >>>>>>>>>> uses a non-zero frametable_base_pdx to offset into the frame table (PPC also
-> >>>>>>>>>> defines it).
-> >>>>>>>>>>
-> >>>>>>>>>> Fix the generic macros to subtract/add frametable_base_pdx, defaulting
-> >>>>>>>>>> to 0 when the arch does not define it. This makes the generic macros
-> >>>>>>>>>> correct for all architectures, even though they are only used on x86
-> >>>>>>>>>> today.
-> >>>>>>>>>
-> >>>>>>>>> Hm, I assume this offset was added because the original mask PDX
-> >>>>>>>>> compression won't (usually) compress the gap between 0 and the start
-> >>>>>>>>> of RAM.  However the newish offset PDX compression should be able to
-> >>>>>>>>> compress from 0 to start of RAM, and hence you don't need to apply
-> >>>>>>>>> an extra PDX offset there?
-> >>>>>>>>>
-> >>>>>>>>> If that's indeed the case it might be better to integrate
-> >>>>>>>>> frametable_base_pdx into the mask compression algorithm itself, so
-> >>>>>>>>> that on some arches it's a mask plus a decrease.
-> >>>>>>>> The offset is needed regardless of whether compression is used. With
-> >>>>>>>> CONFIG_PDX_NONE (no compression, PDX == MFN), if RAM starts at e.g.
-> >>>>>>>> 0x80000000, the first valid PDX is 0x80000.
-> >>>>>>>
-> >>>>>>> OK, so you are doing some (kind of) address space compression (removing
-> >>>>>>> the leading empty range to the first RAM region) even when PDX is
-> >>>>>>> disabled.
-> >>>>>>>
-> >>>>>>>> Without frametable_base_pdx
-> >>>>>>>> the frame table would have to be indexed from 0, wasting
-> >>>>>>>> 0x80000 * sizeof(page_info) of memory just to cover the hole before RAM.
-> >>>>>>>
-> >>>>>>> But you don't really "waste" memory, just address space?  Oh, maybe
-> >>>>>>> not on ARM as it doesn't use pdx_group_valid?  And so you
-> >>>>>>> unconditionally populate the frametable from PDX 0 to max PDX.
-> >>>>>> With pdx_group_valid (which this series adds) we wouldn't waste
-> >>>>>> physical memory for the leading gap. But we'd still waste virtual address
-> >>>>>> space and the FRAMETABLE_NR check (max_pdx > FRAMETABLE_NR) becomes tighter
-> >>>>>> because the full range from PDX 0 must fit. For example with RAM starting at 5TB
-> >>>>>> the virtual offset before the first usable entry would be ~70GB — more than the
-> >>>>>> entire 32GB FRAMETABLE_SIZE on ARM64.
-> >>>>>
-> >>>>> Yet still - this is exactly one of the situations offset compression means
-> >>>>> to cover. I'm entirely with Roger as to it being undesirable to build a
-> >>>>> special case variant of "offset compression" into "no compression".
-> >>>> In this case, if you don't want to generalize the macros, how should we proceed
-> >>>> on Arm if we still need the offset to cover the PDX_NONE variant that we also
-> >>>> use? In v1 I just created a local override but Julien wanted to generalize the
-> >>>> macros instead. The discussion about switching the default on Arm from mask to
-> >>>> offset that is not even selectable on Arm needs to wait for the new release cycle.
-> >>>
-> >>> I'm not convinced of that. If you need offset by default, why not enable it by
-> >>> default (right now, and potentially even as a backport if there's any bug that
-> >>> is being fixed)?
-> >> As said before, we also need offset when using just PDX grouping and no compression.
-> > 
-> > And as also said before, this really is poor man's offset compression then. That
-> > may be tolerable if you insist that's best for Arm, yet then I'd suggest to limit
-> > that offset to just the "no compression" case. It's redundant with offset
-> > compression, and it may be (possible to make) redundant with mask compression.
-> > If the latter can't be arranged for, an offset may want introducing there as well.
-> > But it shouldn't exist independent of the compression scheme used.
-> Having a single per-scheme mechanism rather than an extra independent offset is
-> cleaner. But I don't think we can limit frametable_base_pdx to PDX_NONE today:
-> 
->  - Mask compression doesn't fold a leading [0, first_ram_pdx) zero
->    prefix into anything. So the PDX of
->    the first RAM frame stays at first_ram_pdx, and without the offset
->    the frame table virtual extent is max_pdx * sizeof(page_info)
->    rather than (max_pdx - first_ram_pdx) * sizeof(page_info).
-> 
->    For systems with a high RAM base (the 5TB example I gave earlier
->    needs ~70GB just to skip the leading hole, vs. 32GB FRAMETABLE_SIZE
->    on arm64) the (max_pdx > FRAMETABLE_NR) check then fails and we
->    panic before mapping anything. pdx_group_valid (which patch 2/2
->    adds) avoids backing those leading groups with physical memory, but
->    it doesn't shrink the virtual extent — only the offset does.
-> 
->  - With offset compression you're right that the leading hole could be
->    absorbed into the lookup table, making the extra offset redundant.
->    But Arm doesn't currently select offset compression, it's non-selectable,
-> untested and switching
->    the default is a separate (and bigger) discussion that I don't think
->    should block this fix given the state of the release.
-> 
-> So as it stands, the offset is needed on Arm for both PDX_NONE and
-> PDX_MASK_COMPRESSION. Folding it into the mask scheme (and dropping it
-> for offset compression) is a reasonable cleanup, but it's a refactor
-> of the compression layer itself, not something I'd like to mix into
-> this series.
+Hi Luca,
 
-Right, then it's likely best to avoid generalizing frametable_base_pdx
-and instead focus on integrating it with the PDX mask compression
-algorithm at a possibly later time (after release)?
+Thank you for the review.
 
-Thanks, Roger.
+On Mon, Apr 27, 2026 at 5:03=E2=80=AFPM Luca Fancellu <Luca.Fancellu@arm.co=
+m> wrote:
+>
+> Hi Mykola,
+>
+> >
+> > diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passth=
+rough/arm/smmu-v3.c
+> > index bf153227db..7607ffc9ca 100644
+> > --- a/xen/drivers/passthrough/arm/smmu-v3.c
+> > +++ b/xen/drivers/passthrough/arm/smmu-v3.c
+> > @@ -1814,8 +1814,7 @@ static int arm_smmu_write_reg_sync(struct arm_smm=
+u_device *smmu, u32 val,
+> > }
+> >
+> > /* GBPA is "special" */
+> > -static int __init arm_smmu_update_gbpa(struct arm_smmu_device *smmu,
+> > -                                       u32 set, u32 clr)
+> > +static int arm_smmu_update_gbpa(struct arm_smmu_device *smmu, u32 set,=
+ u32 clr)
+> > {
+> > int ret;
+> > u32 reg, __iomem *gbpa =3D smmu->base + ARM_SMMU_GBPA;
+> > @@ -1995,10 +1994,29 @@ err_free_evtq_irq:
+> > return ret;
+> > }
+> >
+> > +static int arm_smmu_enable_irqs(struct arm_smmu_device *smmu)
+> > +{
+> > + int ret;
+> > + u32 irqen_flags =3D IRQ_CTRL_EVTQ_IRQEN | IRQ_CTRL_GERROR_IRQEN;
+> > +
+> > + if ( smmu->features & ARM_SMMU_FEAT_PRI )
+> > + irqen_flags |=3D IRQ_CTRL_PRIQ_IRQEN;
+> > +
+> > + /* Enable interrupt generation on the SMMU */
+> > + ret =3D arm_smmu_write_reg_sync(smmu, irqen_flags,
+> > +      ARM_SMMU_IRQ_CTRL, ARM_SMMU_IRQ_CTRLACK);
+> > + if ( ret )
+> > + {
+> > + dev_warn(smmu->dev, "failed to enable irqs\n");
+> > + return ret;
+> > + }
+> > +
+> > + return 0;
+> > +}
+> > +
+> > static int __init arm_smmu_setup_irqs(struct arm_smmu_device *smmu)
+> > {
+> > int ret, irq;
+> > - u32 irqen_flags =3D IRQ_CTRL_EVTQ_IRQEN | IRQ_CTRL_GERROR_IRQEN;
+> >
+> > /* Disable IRQs first */
+> > ret =3D arm_smmu_write_reg_sync(smmu, 0, ARM_SMMU_IRQ_CTRL,
+> > @@ -2028,22 +2046,7 @@ static int __init arm_smmu_setup_irqs(struct arm=
+_smmu_device *smmu)
+> > }
+> > }
+> >
+> > - if (smmu->features & ARM_SMMU_FEAT_PRI)
+> > - irqen_flags |=3D IRQ_CTRL_PRIQ_IRQEN;
+> > -
+> > - /* Enable interrupt generation on the SMMU */
+> > - ret =3D arm_smmu_write_reg_sync(smmu, irqen_flags,
+> > -      ARM_SMMU_IRQ_CTRL, ARM_SMMU_IRQ_CTRLACK);
+> > - if (ret) {
+> > - dev_warn(smmu->dev, "failed to enable irqs\n");
+> > - goto err_free_irqs;
+> > - }
+> > -
+> > return 0;
+> > -
+> > -err_free_irqs:
+> > - arm_smmu_free_irqs(smmu);
+> > - return ret;
+> > }
+> >
+> > static int arm_smmu_device_disable(struct arm_smmu_device *smmu)
+> > @@ -2057,7 +2060,7 @@ static int arm_smmu_device_disable(struct arm_smm=
+u_device *smmu)
+> > return ret;
+> > }
+> >
+> > -static int __init arm_smmu_device_reset(struct arm_smmu_device *smmu)
+> > +static int arm_smmu_device_reset(struct arm_smmu_device *smmu)
+> > {
+> > int ret;
+> > u32 reg, enables;
+> > @@ -2163,17 +2166,9 @@ static int __init arm_smmu_device_reset(struct a=
+rm_smmu_device *smmu)
+> > }
+> > }
+> >
+> > - ret =3D arm_smmu_setup_irqs(smmu);
+> > - if (ret) {
+> > - dev_err(smmu->dev, "failed to setup irqs\n");
+>
+> We are moving this one to the probe and ..
+>
+> > + ret =3D arm_smmu_enable_irqs(smmu);
+> > + if ( ret )
+>
+> changing with this one, but arm_smmu_setup_irqs() also calls arm_smmu_set=
+up_unique_irqs() which
+> calls arm_smmu_setup_msis(), are we sure that on resume we will get the s=
+ame state?
+
+This follows the split introduced in the Linux arm-smmu-v3 runtime/system s=
+leep
+series:
+
+https://lore.kernel.org/linux-iommu/20260414194702.1229094-1-praan@google.c=
+om/
+
+The intent is to keep IRQ handler registration as one-time probe state, whi=
+le
+reset/resume only restores the SMMU hardware state and re-enables interrupt
+generation.
+
+You are right that the MSI case needs extra care. In the Linux series this =
+is
+handled by arm_smmu_resume_msis(), which restores the SMMU-side MSI
+configuration. I did not port that part in this patch because Xen SMMUv3 MS=
+I
+support is currently documented as unsupported and is not part of the
+supported/tested path, so this patch only covers the wired IRQ path used by=
+ Xen
+today.
+
+If Xen SMMUv3 MSI support becomes usable in the future, the resume path wil=
+l
+need an equivalent MSI restore step before IRQ_CTRL is re-enabled.
+
+I will add a code comment and update the commit message to make this scope
+explicit. I also noticed that I accidentally dropped the reference to Pranj=
+al's
+Linux series while reworking the patch; I will restore the Link/attribution=
+ in
+the next version.
+
+>
+> > return ret;
+> > - }
+> > -
+> > - /* Initialize tasklets for threaded IRQs*/
+> > - tasklet_init(&smmu->evtq_irq_tasklet, arm_smmu_evtq_tasklet, smmu);
+> > - tasklet_init(&smmu->priq_irq_tasklet, arm_smmu_priq_tasklet, smmu);
+> > - tasklet_init(&smmu->combined_irq_tasklet, arm_smmu_combined_irq_taskl=
+et,
+> > - smmu);
+> >
+> > /* Enable the SMMU interface, or ensure bypass */
+> > if (disable_bypass) {
+> > @@ -2181,20 +2176,16 @@ static int __init arm_smmu_device_reset(struct =
+arm_smmu_device *smmu)
+> > } else {
+> > ret =3D arm_smmu_update_gbpa(smmu, 0, GBPA_ABORT);
+> > if (ret)
+> > - goto err_free_irqs;
+> > + return ret;
+> > }
+> > ret =3D arm_smmu_write_reg_sync(smmu, enables, ARM_SMMU_CR0,
+> >     ARM_SMMU_CR0ACK);
+> > if (ret) {
+> > dev_err(smmu->dev, "failed to enable SMMU interface\n");
+> > - goto err_free_irqs;
+> > + return ret;
+> > }
+> >
+> > return 0;
+> > -
+> > -err_free_irqs:
+> > - arm_smmu_free_irqs(smmu);
+> > - return ret;
+> > }
+> >
+> > static int arm_smmu_device_hw_probe(struct arm_smmu_device *smmu)
+> > @@ -2558,10 +2549,23 @@ static int __init arm_smmu_device_probe(struct =
+platform_device *pdev)
+> > if (ret)
+> > goto out_free;
+> >
+> > + ret =3D arm_smmu_setup_irqs(smmu);
+> > + if ( ret )
+> > + {
+> > + dev_err(smmu->dev, "failed to setup irqs\n");
+> > + goto out_free;
+> > + }
+> > +
+> > + /* Initialize tasklets for threaded IRQs*/
+> > + tasklet_init(&smmu->evtq_irq_tasklet, arm_smmu_evtq_tasklet, smmu);
+> > + tasklet_init(&smmu->priq_irq_tasklet, arm_smmu_priq_tasklet, smmu);
+> > + tasklet_init(&smmu->combined_irq_tasklet, arm_smmu_combined_irq_taskl=
+et,
+> > + smmu);
+> > +
+> > /* Reset the device */
+> > ret =3D arm_smmu_device_reset(smmu);
+> > if (ret)
+> > - goto out_free;
+> > + goto out_free_irqs;
+> >
+> > /*
+> > * Keep a list of all probed devices. This will be used to query
+> > @@ -2575,6 +2579,8 @@ static int __init arm_smmu_device_probe(struct pl=
+atform_device *pdev)
+> >
+> > return 0;
+> >
+> > +out_free_irqs:
+> > + arm_smmu_free_irqs(smmu);
+> >
+> > out_free:
+> > arm_smmu_free_structures(smmu);
+> > @@ -2855,6 +2861,96 @@ static void arm_smmu_iommu_xen_domain_teardown(s=
+truct domain *d)
+> > xfree(xen_domain);
+> > }
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +
+> > +static void arm_smmu_reset_for_suspend_rollback(struct arm_smmu_device=
+ *smmu)
+> > +{
+> > + int ret =3D arm_smmu_device_reset(smmu);
+> > +
+> > + if ( ret )
+> > + dev_err(smmu->dev, "Failed to reset during suspend rollback: %d\n",
+> > + ret);
+> > +}
+> > +
+> > +static int arm_smmu_suspend(void)
+> > +{
+> > + struct arm_smmu_device *smmu;
+> > + int ret =3D 0;
+> > +
+> > + list_for_each_entry(smmu, &arm_smmu_devices, devices)
+> > + {
+> > + bool wfe =3D !!(smmu->features & ARM_SMMU_FEAT_SEV);
+> > +
+> > + /* Abort all transactions before disable to avoid spurious bypass */
+> > + ret =3D arm_smmu_update_gbpa(smmu, GBPA_ABORT, 0);
+> > + if ( ret )
+> > + goto fail;
+> > +
+> > + /* Disable the SMMU via CR0.EN and all queues except CMDQ */
+> > + ret =3D arm_smmu_write_reg_sync(smmu, CR0_CMDQEN, ARM_SMMU_CR0,
+> > + ARM_SMMU_CR0ACK);
+> > + if ( ret )
+> > + {
+> > + dev_err(smmu->dev, "Timed-out while disabling smmu\n");
+> > + goto fail;
+> > + }
+> > +
+> > + /*
+> > + * At this point the SMMU is completely disabled and won't access
+> > + * any translation/config structures, even speculative accesses
+> > + * aren't performed as per the IHI0070 spec (section 6.3.9.6).
+> > + */
+> > +
+> > + /* Wait for the CMDQs to be drained to flush any pending commands */
+> > + ret =3D queue_poll_cons(&smmu->cmdq.q, true, wfe);
+> > + if ( ret )
+> > + {
+> > + dev_err(smmu->dev, "Draining queues timed-out\n");
+> > + goto fail;
+> > + }
+>
+> polling the queue doesn=E2=80=99t give you the assurance that all prior c=
+ommands are complete,
+> I would use arm_smmu_cmdq_issue_sync for that instead of the above.
+>
+> ret =3D arm_smmu_cmdq_issue_sync(smmu);
+> if ( ret )
+>    goto fail;
+
+Yes, I agree.
+
+Polling CONS only shows that the SMMU has consumed the CMDQ entries; it doe=
+s
+not provide the completion semantics we want here. I will replace the direc=
+t
+queue_poll_cons() in the suspend path with arm_smmu_cmdq_issue_sync(), whil=
+e
+CMDQ is still enabled, and update the comment/commit message accordingly.
+
+Best regards,
+Mykola
+
+>
+> > +
+> > + /* Disable everything */
+> > + ret =3D arm_smmu_device_disable(smmu);
+> > + if ( ret )
+> > + goto fail;
+> > +
+> > + dev_dbg(smmu->dev, "Suspended smmu\n");
+> > + }
+> > +
+> > + return 0;
+> > +
+> > + fail:
+> > + /* Reset the device that failed as well as any already-suspended ones=
+. */
+> > + arm_smmu_reset_for_suspend_rollback(smmu);
+> > +
+> > + list_for_each_entry_continue_reverse(smmu, &arm_smmu_devices, devices=
+)
+> > + arm_smmu_reset_for_suspend_rollback(smmu);
+> > +
+> > + return ret;
+> > +}
+> > +
+>
+> Cheers,
+> Luca
+>
+>
 
