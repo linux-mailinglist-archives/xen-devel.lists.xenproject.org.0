@@ -2,52 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wI52Jp0S+mkWJAMAu9opvQ
+	id 2FcuKSIT+mlRJAMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 17:54:05 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 17:56:18 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3C694D0AB7
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 17:54:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1300840.1575296 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10FC94D0B77
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 17:56:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1300851.1575305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKI5Z-0000DO-51; Tue, 05 May 2026 15:53:37 +0000
+	id 1wKI81-0000oi-KE; Tue, 05 May 2026 15:56:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1300840.1575296; Tue, 05 May 2026 15:53:37 +0000
+Received: by outflank-mailman (output) from mailman id 1300851.1575305; Tue, 05 May 2026 15:56:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKI5Z-0000B8-1V; Tue, 05 May 2026 15:53:37 +0000
-Received: by outflank-mailman (input) for mailman id 1300840;
- Tue, 05 May 2026 15:53:34 +0000
+	id 1wKI81-0000mD-Gp; Tue, 05 May 2026 15:56:09 +0000
+Received: by outflank-mailman (input) for mailman id 1300851;
+ Tue, 05 May 2026 15:56:08 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jgross@suse.com>) id 1wKI5W-0000B2-MK
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 15:53:34 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wKI80-0000m7-9W
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 15:56:08 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKI5V-005haT-06
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 17:53:33 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wKI7z-005i21-MM
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 17:56:07 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jgross@suse.com>)
- id 69fa125d-2eae-0a2a0a5409dd-0a2a4501988a-34
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 17:53:32 +0200
-Received: from [209.85.208.54] (helo=mail-ed1-f54.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jgross@suse.com>)
- id 69fa127c-c1f2-0a2a45010019-d155d036c13f-3
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 17:53:32 +0200
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-66b2d49ffb0so7366310a12.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 08:53:32 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
- (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
- [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bc28c4ea2casm200362066b.53.2026.05.05.08.53.31
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 May 2026 08:53:31 -0700 (PDT)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69fa12f7-e002-0a2a0a5209dd-0a2a4502df6e-36
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 17:56:07 +0200
+Received: from [209.85.167.54] (helo=mail-lf1-f54.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69fa1317-af86-0a2a45020019-d155a736b0bc-3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 17:56:07 +0200
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-5a40cfab24dso5989855e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 08:56:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,279 +51,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Autocrypt:Subject:From:To:Content-Language:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1777996567; cv=none;
+        d=google.com; s=arc-20240605;
+        b=OuHR0heqH2jo6s5ihAnrLa4bhD93e4aIv9gApk9AjOZM2oIoY5z+WaH4nkkJgoogbm
+         0YskHSUEEoWmkR/WTOg3vaipZ9CXQH0gDo3WWs4dgfwDJ0r9qPs6BHD1pkFMWEJj8y23
+         RrDelIKBUvumxazXOcztFSGY+v9uGoKIgGWR+qj6xnLYqFlF1VUV41UONTV6vPATaboD
+         pceN8iD2muGZtHEqKqaWbJDEFrDIiOFlEc+HfJngZeiHvdiopFuejL3q/n81azP4Gm7u
+         7KRTjC4hKPJ2Gz+IagwgIouczDyEUxk3N9d4kRJ5aQd28gkJuWFJ2CZ8ktfV2WhLct69
+         B1lQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HuNZHulAwh+EOwt2M0h+Hs4hQD0c89BqN36BzTSZvHQ=;
+        fh=uAzoxIkY79cy0zES8IqO07ArU7DBG3jlr2bg4XRVkR0=;
+        b=YdzG0vcgs/90sPnmd32REblnlNbuYF9NbR3QzXBoQkFAyfPsdkBFONSTx3/XZHrY9Q
+         KZLz9ONRQi7XwjsDvA0g12YvQpgb2TX3/itmWNT7PGn12fOVfg4t35jd4oLeOrePzWEq
+         DKDeXNxuMxnuHrNBxOZ2nCXmlJuYWlTY9KcOm/soh5Eiu4sNAHtVO1+2Ixz70BRvd4pm
+         LTDSI6BHW4DjeviMQ5+G29Qm/NvYYTNLZiJmbsI0x/Hut1RAUH6Fz0PpKZPMiBq5cmer
+         PnXYyB07C8IqzIj94na5Juxx6A+1PLIxAJQdu9CTatoodP6FNpuKUmY1hdn5+yNV0kUg
+         XMPg==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1777996412; x=1778601212; darn=lists.xenproject.org;
-        h=autocrypt:subject:from:to:content-language:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=CUpsrxOvj9UJtsQYvciiuv8hh+g4t0hhK8mxnpPXyKo=;
-        b=JtxpS6X2dZxEvIE4GbsDXgcYrioTCNE4+o3TkDvV8SwvVQu53WTmUecq5ZDZh63uS6
-         7FfZ8MMC10NvBn7VSU//YAJcIa8Q5H7o04sKW2eRD3Q8NEpQaxeGKL38Rb6JqdvmVn36
-         DqB+D636yJpEUjPCbx9J1Z2C9D255k9ePqKj/uCL9/MwxGeSQM0h3g/h49QHVxwV8/dC
-         4bt5rm88vbpjS9iis/LEyHkP2ENgp2YDNR7HtL9mRDX6zH/emsgPnmuGzvAW0Yfzn5eg
-         V5WZt+OXzPcMa1OuOrXxzAcccZymHX2vCWrZ7HuOqYKj82VvaY4m2AvrWGs4bnfISHte
-         Ceow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777996412; x=1778601212;
-        h=autocrypt:subject:from:to:content-language:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1777996567; x=1778601367; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CUpsrxOvj9UJtsQYvciiuv8hh+g4t0hhK8mxnpPXyKo=;
-        b=KFx1b+9eYdvW9Ms4NkoTswj3+h+tQtEZ520kz7ggrsZaNaGRsS0SvCsCaMJW7sMkBq
-         62IvpyGBDw5R4SgXrK1gTcEMC3JSOIh4m/NSPuKXWWEGTvTVqYkciAVW2uDHQoz5zfg/
-         n7rTnR0XxNkqCXYnf6SQREQG4hi6uFjIufgs7ZXoO5L6Ye+7K2JwQ8Rh0UvUs1tWSB9O
-         1l0Q9/FeHL7rKy5GX85cvX2q8RHt2Nlyr6zTrFlLzTmsQ/vhZF6M7p+G3nLoJ/0AEdBR
-         3/Xi7DRRkhG7Z97PWKU+fznBHgUkPidLDZNPhrO2ONnWGi4vn+W+i35UTd6GD15MhB7j
-         q6pw==
-X-Gm-Message-State: AOJu0YzlKZ3WCm/gKaat775byaBpYEInz7OprGNjNmjjab28lKd2/cBi
-	mw047i4ptAN0RSdT9CF6Sp6c8fWN6MaY/c0pswlr4XViATGejlK6j/0DjILSXWVSISSSlN/U5EO
-	eYOD4T24=
-X-Gm-Gg: AeBDieuhWLZsVASBEfw6yJmserTXz0A0NuM0WT2Cdcp0uP62TVRsQ7D2iQ72VOgKFRT
-	6lciccJchjHkyPMAkbvNI4PzV/gRAngLVXSMU+w2wNhYeq+bmYshwoBj83SLXmFFUhN/F+ZHAy2
-	QV9tctZqjsbNoAyr08PtuBZOhq3KFuRq/ONn4r9jAbIdu5RC99jHJjkQ5A4W0Nku/VbuQcgTPlq
-	MpmXXFWSRxkS03G8BmtIhvvBBorCrlscTDnr2UIltKkCjAD4cng9yRAkExyqjD2/PPK6rgluY0m
-	rWKgYnmBHtMdYkMVEFxGT08pwmY+YSjNG5VPhAdSH2zM+DLcbrloV/4QlDf4mT7Myeux1K3/9/6
-	ml2zgcUyaj9zIe8f1c2JbbqcIFHmJZvXfXYBIYPrSIVDTYlZBaG6yzrmq++/DZEEYOTcnW4ss2+
-	dQ2n1KBK+NMyd6yhN+JAiVqj9OqfYXrhp7ZrhMC/jLsjDV9NCXOvKdlaB+R78HZdfanawqZOpfu
-	Scy2iMrWXHbrTeIF1KBs/DyrFBBelP+hK55pGbLNcwNI/dpYZgCP2124btkhSpv
-X-Received: by 2002:a17:907:ea5:b0:ba7:3578:f627 with SMTP id a640c23a62f3a-bbffbf77a93mr839479166b.37.1777996412065;
-        Tue, 05 May 2026 08:53:32 -0700 (PDT)
-Message-ID: <04c8ed4e-4e99-46ae-b83d-af9031f5b622@suse.com>
-Date: Tue, 5 May 2026 17:53:31 +0200
+        bh=HuNZHulAwh+EOwt2M0h+Hs4hQD0c89BqN36BzTSZvHQ=;
+        b=iAnKVa+yIOMlKD/gUpCz+qWmKCbCZe9tFY10TbRDMeund7oV+jvchb/DToNtLm+d6Y
+         CCTo+UR6HvDFtkmUG94TTsmMZCIDRZdng/szyGlN4t2eYAzfjJdbgj7uhfo7pMCHPecy
+         4SPgLgLxwOcKhNkhkIa40/qAFLmu+oFeD7tBrgPeL6R5Buu64R4yeoLIbehO/m/wKEhV
+         Fj5dN5b1a5pQ7/szBmZ+IK5x7gg3GONvFe22ouZince50tHavbqtI6pdCT+apYKM7OiB
+         XABKeMWN9HAA4l9KwRtEKb76RQOjb6tnvL3P8GFsoXWeTmDgIiDM94e0roLT2KqwP49T
+         OYUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777996567; x=1778601367;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=HuNZHulAwh+EOwt2M0h+Hs4hQD0c89BqN36BzTSZvHQ=;
+        b=W9oep2m4LK0+yzv1TPET6kEqBWb2RPRCQAvd44YZXIRCjtVr1599GEYxyTykz2K8yM
+         BVurmUDmTg6RFX9z2e0ftmTg7O+yJNxsviPFUneCrinvpOxTSflDlv76A0Xz81Yj+1Ij
+         3J+zC54J3O63oiBjyYgyghSpoaSbMwoYkaH4GUnABJkrqgAxPR/2MFadxptd3O3KifM0
+         75gaNwyf6DnKN9zk3L1oza76yiTtxKbDpelM1UyA8nq/2J42g6UZOjACQr+cpTUNKjMf
+         Y0v5zOmvbNzGsnP1YvJ0NsiNtHrZW+SKDzJ2j0htLClwot6vaHonXYtp7NnUmMMzYiKm
+         LRlw==
+X-Gm-Message-State: AOJu0YwYj6/NxCh7CDAr3ZJazHplVbmMdhjVRmbFIvrB6mUwJvve1K5g
+	xf8cUeaHrYJKwo5Q7mUqf7JvGaHt32esGskZ4zNKjPZN6OMk1SipjfmRMw2tfNgJ77L+SlCFVFK
+	Rc49RzfYUWm0cN8e5iKTEs4aQc6/e0/k=
+X-Gm-Gg: AeBDiet62Q5TRshmzYeInZsxoymdCwBW9F67aMs77IaB0Egpi2A618U1NxM6yPUTBGW
+	MK+9e2R3RvLcdP7nBnn/HWQUHkz2DPpPEUuXLbu/fQPv38vKKImiGMeeZC63bl5y6m+MPcNkAl9
+	lxYf6ndqZMBuPfKotaigPOEToUUtBYv2CZSypP/NYfpJgMMaNk9rkSJqQJODuXaJofImmaJch1D
+	gxjjztulA4SKLcapBpbkoSTAoJjfyTu60Hti6P0vJe/eG9N1w6F0FMWVRoPfkH8xV42FlBRsBEX
+	uciSXKtwq9ffFJX4s/SqV1566PE=
+X-Received: by 2002:a05:6512:3090:b0:5a8:7c80:3f3e with SMTP id
+ 2adb3069b0e04-5a87c803f6dmr2175169e87.14.1777996566521; Tue, 05 May 2026
+ 08:56:06 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Subject: Problem with PCI-passthrough to PV guest
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------ZzburDCEZJo4FwrKYKk3kUVf"
-X-purgate-ID: tlsNG-d62444/1777996412-B586AFF4-F932EB67/0/0
+References: <cover.1775125380.git.mykola_kvach@epam.com> <02b55a02f329d09c9f8b15d97ca9176b3c33017a.1775125380.git.mykola_kvach@epam.com>
+ <ECDA0BD5-C2C8-4726-9377-AE4AFBE972AD@arm.com>
+In-Reply-To: <ECDA0BD5-C2C8-4726-9377-AE4AFBE972AD@arm.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 5 May 2026 18:55:55 +0300
+X-Gm-Features: AVHnY4JDkdlmJZWNpT7hyZZMLcNL17vU7UTQSUH7lbzGeu5906GeV_u-4PeeC9Q
+Message-ID: <CAGeoDV9Jg0neHn0qzoaDSThhVRGQE8ko2qhbhDvF77=6hrYUWg@mail.gmail.com>
+Subject: Re: [PATCH v8 10/13] xen/arm: Resume memory management on Xen resume
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-720697/1777996567-81971161-B33E1FDD/0/0
 X-purgate-type: clean
-X-purgate-size: 9787
-X-Rspamd-Queue-Id: E3C694D0AB7
+X-purgate-size: 4117
+X-Rspamd-Queue-Id: 10FC94D0B77
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.08 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	R_MIXED_CHARSET(1.00)[subject];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid,arm.com:email];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_EQ_ADDR_ALL(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	RCPT_COUNT_ONE(0.00)[1];
-	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	HAS_ATTACHMENT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.919];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	ARC_NA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCVD_COUNT_SEVEN(0.00)[9]
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ZzburDCEZJo4FwrKYKk3kUVf
-Content-Type: multipart/mixed; boundary="------------pamF0kLiXXfK6t3bU3sVo5Re";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <04c8ed4e-4e99-46ae-b83d-af9031f5b622@suse.com>
-Subject: Problem with PCI-passthrough to PV guest
+Hi Luca,
 
---------------pamF0kLiXXfK6t3bU3sVo5Re
-Content-Type: multipart/mixed; boundary="------------q0O7MTI7ClbhQziXu4IbD3Rx"
+Thank you for the review.
 
---------------q0O7MTI7ClbhQziXu4IbD3Rx
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On Mon, Apr 27, 2026 at 5:51=E2=80=AFPM Luca Fancellu <Luca.Fancellu@arm.co=
+m> wrote:
+>
+> Hi Mykola,
+>
+> > On 2 Apr 2026, at 11:45, Mykola Kvach <xakep.amatop@gmail.com> wrote:
+> >
+> > From: Mirela Simonovic <mirela.simonovic@aggios.com>
+> >
+> > The MMU must be enabled during the resume path before restoring context=
+,
+> > as virtual addresses are used to access the saved context data.
+> >
+> > This patch adds MMU setup during resume by reusing the existing
+> > enable_secondary_cpu_mm function, which enables data cache and the MMU.
+>
+> I don=E2=80=99t understand where this last part happen in this commit:
 
-U1VTRSBRQSBpcyBzZWVpbmcgYSBwcm9ibGVtIHdpdGggUENJLXBhc3N0aHJvdWdoIG9mIGEg
-U1ItSU9WIHRvIGEgUFYgZ3Vlc3QNCnJ1bm5pbmcgYSA2LjQgYmFzZWQga2VybmVsLCBidXQg
-SSBjYW4gcmVwcm9kdWNlIHRoZSBwcm9ibGVtIHdpdGggdXBzdHJlYW0NCmtlcm5lbCwgdG9v
-Lg0KDQpUaGUgZ3Vlc3QgaXMgY29uZmlndXJlZCB3aXRoICJlODIwX2hvc3Q9MSIsIGJ1dCB0
-aGUgUENJIHJlZ2lvbiBvbiB0aGUgaG9zdA0KaXNuJ3QgbWFya2VkIGFzICJyZXNlcnZlZCIg
-aW4gdGhlIG1lbW9yeSBtYXAsIHNvIGl0IHdvbid0IGJlIHJlc2VydmVkIGluDQp0aGUgZWl0
-aGVyLg0KDQpBcyB0aGUgZ3Vlc3QgZG9lc24ndCBoYXZlIHRoZSBBQ1BJIHRhYmxlIGF2YWls
-YWJsZSBkZXNjcmliaW5nIHRoZSBQQ0kgcmVnaW9ucywNCi9wcm9jL2lvbWVtIGluIHRoZSBn
-dWVzdCB3b24ndCBpbmNsdWRlIHRob3NlIHJlZ2lvbnMgYXMgdXNlZCwgcmVzdWx0aW5nIGlu
-DQp0aGUga2VybmVsJ3MgcmVzb3VyY2UgbWFuYWdlbWVudCB0byB1c2UgdGhvc2UgYXJlYXMg
-Zm9yIHBvdGVudGlhbCBtZW1vcnk6DQoNCiAgcmVzb3VyY2U6IGF2b2lkaW5nIGFsbG9jYXRp
-b24gZnJvbSBlODIwIGVudHJ5IFttZW0gMHg3OGVkYzAwMC0weDc5ODY4ZmZmXQ0KICByZXNv
-dXJjZTogYXZvaWRpbmcgYWxsb2NhdGlvbiBmcm9tIGU4MjAgZW50cnkgW21lbSAweDc5ZDJh
-MDAwLTB4OGZmZmZmZmZdDQogIHJlc291cmNlOiByZW1haW5pbmcgW21lbSAweDAwMDAwMDAw
-OTAwMDAwMDAtMHgwMDAwMDAwMGZmZGZmZmZmXSBhdmFpbGFibGUNCiAgcmVzb3VyY2U6IGF2
-b2lkaW5nIGFsbG9jYXRpb24gZnJvbSBlODIwIGVudHJ5IFttZW0gMHhjN2ZmYzAwMC0weGM3
-ZmZjZmZmXQ0KICByZXNvdXJjZTogcmVtYWluaW5nIFttZW0gMHgwMDAwMDAwMDkwMDAwMDAw
-LTB4MDAwMDAwMDBjN2ZmYmZmZl0gYXZhaWxhYmxlDQoNCmRvbTAgL3Byb2MvaW9tZW06DQog
-IC4uLg0KICA4MDAwMDAwMC04ZmZmZmZmZiA6IFBDSSBNTUNPTkZJRyAwMDAwIFtidXMgMDAt
-ZmZdDQogIDkwMDAwMDAwLWM3ZmZiZmZmIDogUENJIEJ1cyAwMDAwOjAwICAgIOKGkCBQQ0kg
-TU1JTyB3aW5kb3cgYmVnaW5zIGhlcmUNCiAgICA5MDAwMDAwMC05MDBmZmZmZiA6IFBDSSBC
-dXMgMDAwMDowMSAg4oaQIEkzNTAgVkZzIGFzc2lnbmVkIGluIHRoaXMgcmFuZ2UNCiAgICBj
-NjAwMDAwMC1jNzBmZmZmZiA6IFBDSSBCdXMgMDAwMDowNA0KDQpkb20wIGU4MjAgbWFwOg0K
-ICAuLi4NCiAgWGVuOiBbbWVtIDB4MDAwMDAwMDA3OTg2OTAwMC0weDAwMDAwMDAwNzlkMjlm
-ZmZdIEFDUEkgTlZTDQogIFhlbjogW21lbSAweDAwMDAwMDAwNzlkMmEwMDAtMHgwMDAwMDAw
-MDhmZmZmZmZmXSByZXNlcnZlZA0KICBYZW46IFttZW0gMHgwMDAwMDAwMGM3ZmZjMDAwLTB4
-MDAwMDAwMDBjN2ZmY2ZmZl0gcmVzZXJ2ZWQNCiAgWGVuOiBbbWVtIDB4MDAwMDAwMDBmYmZm
-YzAwMC0weDAwMDAwMDAwZmJmZmNmZmZdIHJlc2VydmVkDQogIC4uLg0KDQpkb21VIC9wcm9j
-L2lvbWVtOg0KICAuLi4NCiAgMDAxMDAwMDAtNzhmMDZmZmYgOiBTeXN0ZW0gUkFNDQogICAg
-MDEwMDAwMDAtMDFmZmZmZmYgOiBLZXJuZWwgY29kZQ0KICAgIC4uLg0KICA5MDAwMDAwMC05
-N2ZmZmZmZiA6IFN5c3RlbSBSQU0NCiAgZmVlMDAwMDAtZmVlMDBmZmYgOiBMb2NhbCBBUElD
-DQoNCmRvbVUgZTgyMCBtYXA6DQogIC4uLg0KICBYZW46IFttZW0gMHgwMDAwMDAwMDc5ODY5
-MDAwLTB4MDAwMDAwMDA3OWQyOWZmZl0gQUNQSSBOVlMNCiAgWGVuOiBbbWVtIDB4MDAwMDAw
-MDA3OWQyYTAwMC0weDAwMDAwMDAwOGZmZmZmZmZdIHJlc2VydmVkDQogIFhlbjogW21lbSAw
-eDAwMDAwMDAwYzdmZmMwMDAtMHgwMDAwMDAwMGM3ZmZjZmZmXSByZXNlcnZlZA0KICBYZW46
-IFttZW0gMHgwMDAwMDAwMGZiZmZjMDAwLTB4MDAwMDAwMDBmYmZmY2ZmZl0gcmVzZXJ2ZWQN
-CiAgLi4uDQoNClRoZSBWRiBpcyBzaG93aW5nIHVwIG5lYXIgMHg5MDAwMA0KICBwY2kgMDAw
-MDowMDowMC40OiBbODA4NjoxNTIwXSB0eXBlIDAwIGNsYXNzIDB4MDIwMDAwDQogIHBjaSAw
-MDAwOjAwOjAwLjQ6IHJlZyAweDEwOiBbbWVtIDB4OTAwMDQwMDAtMHg5MDAwN2ZmZiA2NGJp
-dCBwcmVmXQ0KICBwY2kgMDAwMDowMDowMC40OiByZWcgMHgxYzogW21lbSAweDkwMDI0MDAw
-LTB4OTAwMjdmZmYgNjRiaXQgcHJlZl0NCiAgcGNpZnJvbnQgcGNpLTA6IE5ldyBkZXZpY2Ug
-b24gMDAwMDowMDowMC40IGZvdW5kLg0KICBwY2lmcm9udCBwY2ktMDogY2xhaW1pbmcgcmVz
-b3VyY2UgMDAwMDowMDowMC40LzANCiAgcGNpIDAwMDA6MDA6MDAuNDogY2FuJ3QgY2xhaW0g
-QkFSIDAgW21lbSAweDkwMDA0MDAwLTB4OTAwMDdmZmYgNjRiaXQgcHJlZl06IA0KYWRkcmVz
-cyBjb25mbGljdCB3aXRoIFN5c3RlbSBSQU0gW21lbSAweDkwMDAwMDAwLTB4OTdmZmZmZmZd
-DQogIHBjaWZyb250IHBjaS0wOiBDb3VsZCBub3QgY2xhaW0gcmVzb3VyY2UgMDAwMDowMDow
-MC40LzAhIERldmljZSBvZmZsaW5lLiBUcnkgDQp1c2luZyBlODIwX2hvc3Q9MSBpbiB0aGUg
-Z3Vlc3QgY29uZmlnLg0KICBwY2lmcm9udCBwY2ktMDogY2xhaW1pbmcgcmVzb3VyY2UgMDAw
-MDowMDowMC40LzMNCiAgcGNpIDAwMDA6MDA6MDAuNDogY2FuJ3QgY2xhaW0gQkFSIDMgW21l
-bSAweDkwMDI0MDAwLTB4OTAwMjdmZmYgNjRiaXQgcHJlZl06IA0KYWRkcmVzcyBjb25mbGlj
-dCB3aXRoIFN5c3RlbSBSQU0gW21lbSAweDkwMDAwMDAwLTB4OTdmZmZmZmZdDQogIHBjaWZy
-b250IHBjaS0wOiBDb3VsZCBub3QgY2xhaW0gcmVzb3VyY2UgMDAwMDowMDowMC40LzMhIERl
-dmljZSBvZmZsaW5lLiBUcnkgDQp1c2luZyBlODIwX2hvc3Q9MSBpbiB0aGUgZ3Vlc3QgY29u
-ZmlnLg0KDQpNeSBmaXJzdCBpZGVhIGZvciBzb2x2aW5nIHRoaXMgd2FzIHRvIGFkZCB0aGUg
-UENJIHJlZ2lvbnMgZnJvbSBkb20wJ3MNCi9wcm9jL2lvbWVtIHRvIHRoZSBlODIwIG1hcCBv
-ZiB0aGUgZ3Vlc3QsIGJ1dCB0aGlzIGlzIG1vcmUgYSBoYWNrIHRoYW4gYSBzYW5lDQpzb2x1
-dGlvbi4NCg0KVGhvdWdodHM/DQoNCg0KSnVlcmdlbg0K
---------------q0O7MTI7ClbhQziXu4IbD3Rx
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+This is a leftover from before the commits were reorganized. I will update =
+the
+commit message in v9 so that it only describes what this patch actually doe=
+s.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+>
+> > Before the MMU is enabled, the content of TTBR0_EL2 is changed to point
+> > to init_ttbr (page tables used at runtime).
+> >
+> > Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+> > Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+> > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> > Changes in v7:
+> > - no functional changes, just moved commit
+> > ---
+> > xen/arch/arm/arm64/head.S | 24 ++++++++++++++++++++++++
+> > 1 file changed, 24 insertions(+)
+> >
+> > diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+> > index 72c7b24498..596e960152 100644
+> > --- a/xen/arch/arm/arm64/head.S
+> > +++ b/xen/arch/arm/arm64/head.S
+> > @@ -561,6 +561,30 @@ END(efi_xen_start)
+> >
+> > #endif /* CONFIG_ARM_EFI */
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +
+> > +FUNC(hyp_resume)
+>
+> I think we should mask all exceptions here:
+> msr DAIFSet, 0xf
+>
+> until we resume correctly the status (VBAR_EL2, etc).
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+This was discussed in an earlier version:
 
---------------q0O7MTI7ClbhQziXu4IbD3Rx--
+https://patchew.org/Xen/cover.1741164138.git.xakep.amatop@gmail.com/2ef15cb=
+605f987eb087c5496d123c47c01cc0ae7.1741164138.git.xakep.amatop@gmail.com/#CA=
+GeoDV97no7mXSKd7auFu5E85wSXAHKWvqGW2=3D-VEAbkrTyU8Q@mail.gmail.com
 
---------------pamF0kLiXXfK6t3bU3sVo5Re--
+For SYSTEM_SUSPEND, PSCI ties the call semantics to CPU_SUSPEND. In
+particular, section 5.20.2 says that the caller must observe all the rules
+described for CPU_SUSPEND, and section 6.4 explicitly says that the initial
+state rules also apply to SYSTEM_SUSPEND.
 
---------------ZzburDCEZJo4FwrKYKk3kUVf
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+For the return Exception level on AArch64, section 6.4.3.3 requires
+SPSR_ELx.{D,A,I,F} to be set to {1, 1, 1, 1}. Therefore Xen expects to ente=
+r
+this resume path with DAIF already masked by PSCI-compliant firmware.
 
------BEGIN PGP SIGNATURE-----
+I agree this assumption is not obvious from the code, so I will add a comme=
+nt
+at the resume entry point to document that this path relies on the PSCI ini=
+tial
+core configuration requirements.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmn6EnsFAwAAAAAACgkQsN6d1ii/Ey8T
-dwf+LuOc81l6uqOBAx5iHB0PMG9VARr+ezrm7fnAiZI9bkGBI/anar5vPZVnraAebJawxKg+Lv7k
-DysJkkg/qKXBF2zI/WuNt1q/sv0wVSx9DLNeEIJLliaq/qvO58eFdbQtKzHFMhg4TiggRon7JgAB
-sO9LiYlIL22ZaZLreRye0fT1PTI6eQoU5bH1VZ+3OJeizzdKQZO6Uqlh4yrO4TwcPor0L+o0OL82
-e0AR9nmDxBnJmGkXeFm6qgBLlS6vneLxxj0LgRukNXyKoWBSpULZGnNUANNDBDix3TF84ftBs6Ub
-ULGR/v8WTRnyFqyX8SGciXHooH4tD5Qp3/cDj/iDcg==
-=PoZc
------END PGP SIGNATURE-----
+>
+> > +        /* Initialize the UART if earlyprintk has been enabled. */
+> > +#ifdef CONFIG_EARLY_PRINTK
+> > +        bl    init_uart
+> > +#endif
+> > +        PRINT_ID("- Xen resuming -\r\n")
+> > +
+> > +        bl    check_cpu_mode
+> > +        bl    cpu_init
+> > +
+> > +        ldr   x0, =3Dstart
+> > +        adr   x20, start             /* x20 :=3D paddr (start) */
+> > +        sub   x20, x20, x0           /* x20 :=3D phys-offset */
+> > +        ldr   lr, =3Dmmu_resumed
+> > +        b     enable_secondary_cpu_mm
+> > +
+> > +mmu_resumed:
+> > +        b .
+> > +END(hyp_resume)
+> > +
+> > +#endif /* CONFIG_SYSTEM_SUSPEND */
+> > +
+> > /*
+> >  * Local variables:
+> >  * mode: ASM
+> >
+>
+> This is more a trampoline for the core resuming, not sure if it could be =
+better to squash this
+> into the following patch, the maintainer could provide their preference.
 
---------------ZzburDCEZJo4FwrKYKk3kUVf--
+Yes, this patch is only the low-level resume trampoline before the context
+restore code is added by the following patch. I do not have a strong prefer=
+ence
+between keeping it separate and squashing it into the next patch. I can squ=
+ash
+them in v9 unless the maintainers prefer to keep the trampoline separate.
+
+Best regards,
+Mykola
+
+>
+> Cheers,
+> Luca
+>
+>
+>
 
