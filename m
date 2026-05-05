@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sPgrKxGF+WmM9QIAu9opvQ
+	id aIh2G66H+Wmx9QIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 07:50:09 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 08:01:18 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 288304C6F6C
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 07:50:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1300183.1574721 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9BC74C710E
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 08:01:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1300198.1574731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wK8fQ-000890-UU; Tue, 05 May 2026 05:50:00 +0000
+	id 1wK8q3-0002Zn-1Y; Tue, 05 May 2026 06:00:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1300183.1574721; Tue, 05 May 2026 05:50:00 +0000
+Received: by outflank-mailman (output) from mailman id 1300198.1574731; Tue, 05 May 2026 06:00:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wK8fQ-000872-Rr; Tue, 05 May 2026 05:50:00 +0000
-Received: by outflank-mailman (input) for mailman id 1300183;
- Tue, 05 May 2026 05:49:59 +0000
+	id 1wK8q2-0002X0-Up; Tue, 05 May 2026 06:00:58 +0000
+Received: by outflank-mailman (input) for mailman id 1300198;
+ Tue, 05 May 2026 06:00:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wK8fP-00086w-In
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 05:49:59 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wK8q1-0002Wu-AE
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 06:00:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wK8fO-004V5v-VA
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 07:49:58 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wK8q0-000fJX-87
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 08:00:56 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69f984fb-bab6-0a2a0a5309dd-0a2a45039e54-28
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 07:49:58 +0200
-Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69f98791-2eae-0a2a0a5409dd-0a2a450cc36c-34
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 08:00:56 +0200
+Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69f98506-672d-0a2a45030019-d1558029a4cb-3
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 07:49:58 +0200
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4891f625344so51185705e9.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 22:49:58 -0700 (PDT)
+ id 69f98797-62f1-0a2a450c0019-d155dd2cbc5e-3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 08:00:55 +0200
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-43d7e23defbso2689486f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 23:00:55 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48d17ff628esm17210955e9.1.2026.05.04.22.49.57
+ ffacd0b85a97d-450524833e1sm1893763f8f.2.2026.05.04.23.00.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 May 2026 22:49:58 -0700 (PDT)
+ Mon, 04 May 2026 23:00:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,61 +56,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1777960198; x=1778564998; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=tqLTAoRrClCBzaf8mQU+WziuZhB8bkImmo+2bNAvqks=;
-        b=OMKo4zTmM5X0/c/zW44o+tFxklZ3zIgQdU3lPZxOie7ikSkJbJYG5N+IpkQg6K6Fy2
-         LYsjXEKsmM3w/sKhR52Oxrpn9ckrO3ZOUSqVXY9uFCwMU321mB1yf0vw+KRIpbYJAiSz
-         kVi2iXUPEhrzJzzq0AYdrmgZ6TT4jr5oP7tP9IRNILseGzxVAGjbZeBrLhzLp/ietB8o
-         qRrIrK3L/Ix1WUSMuVcjnSEox99jDIyRlv2f2Ohi2Y71D7EJIZjtVYALdLeaRUB5/dV6
-         +g5QaSpOIUIuO4KTNuLdMKjH9xz85U+/tpt5BKSIFtmsUVpoeAPc0lUHdslcuVS/77uO
-         t8VA==
+        d=suse.com; s=google; t=1777960855; x=1778565655; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=xtUVewt/R03FxOqaGFMrHIUdEoTCyLXNODTxb3YDv3A=;
+        b=aoAP2uv0VesnN92tZO1zZ5g/NeCgZX7awIJ8h3/Vv1OvZf32r9hLmx9B2TPZ4CjRoV
+         7WLFP1/nOr4vd9v4kxsp5DFepYV9rznVk1du0Cw7m3ZLg98DcCtYrWQx8amJDpzzoQtq
+         FXCk9WgjuSBqE9LYji/AAoRYrc3i96/V48iRtwJYbq3rSAUiYszo6ZolbDO4Obj0mliZ
+         mHXC+e9W4LsqAjg09mgZOGX4wd4ctSHHCejpPCNQ8oN52kqRZIVMNWWUpQ3cncF5P4B5
+         CIHIn5jDVs0nQWWK2mDn0TLmXXhSa3iq9p8+MFoK8oADO0Bb0iLO+mo2uz4cbpWJhuT1
+         cd7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777960198; x=1778564998;
-        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1777960855; x=1778565655;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=tqLTAoRrClCBzaf8mQU+WziuZhB8bkImmo+2bNAvqks=;
-        b=mGOKBw37rfGesdyPVIsSaug8VNay7lzC8ttdE4TO9O/raJcv8HLTDGKIGTOmKTB6/R
-         xhUxBIPdiqFIEzzlR4GhW6UIi77n8SZ0EK0php8YmFVuk748Rq4LZCpx1FhEicjp/aZJ
-         Xbyczx7gXLq8hgk/EzpSL4829gkCAlLJQlwIK8JUUmngAAM5a579u+3cuWz6Z3NYIYcC
-         Cr/5LN4QSVmoWmRqBAye/cmAnHZEJc1OsCXvr2FFkX7A0MdmCYPIK0mt2bo/XTpktHR+
-         oFHfpKHv8EraAptlZT+L9GQ4tDNfRh91kqJG1E4apOyrOmbX56du85hv4wwBjdnvipe8
-         bAGw==
-X-Gm-Message-State: AOJu0Yw+LmAI5+8lowExax0KhMXg55CSTP3E8U+PNxqvunyBXXvVtsXy
-	QDg6MQH8asfoiCCM6cnXOzO+03LAb9JzL2WawxhBdZRm4H1D2CXwo6QkJOx9KrV+iQ==
-X-Gm-Gg: AeBDietWOKsHyiMRL1KGwbo+AX6D86ZX49loqaeN4LL0M03SqTkjNmTTRl080zUlzbg
-	Q3lxxDzwqkwjpxBVEVcLs8goW2cZWp+3F/kGr1YPUIfffLAlTYXGH2rNmNax623Hd81/EoWEZRA
-	eeb9E1HschDBvOotPb20zDcM+nrou+3kCP0dAxDrKCJFnorl1P2qb0d8F+BvqLknN0O+rq9zNYU
-	46EJtPGTz0K7rwx/Gj7GNeYCfDgwGcWrR5Xe2FGNwJnqs1+4X+DrF22LcKq5SeO7657X18XLsoQ
-	GNDUHFsda99jW77G7u+bEW/NVhP1MbILR/wZQs3zMvc1iqM7Ew4665eZ+eOsslQS5PkMYscJEIo
-	0vWCWxi+VMr7I8gBWwmZct7izj9FlsVGcx1+fGIQGu14AlPKPkN09wlr5uC4rrYabM6q7VLHeBd
-	s4xerTYVLCV52W4s6HEu+Gil6ccw22W9nOZGKHPpZ/MWKJ04WjsZ516OVxNbEDoTxqM0HhP3ges
-	J4Mg2TSk3l4yFPxO5QU1Z1mGaV652zplsqo
-X-Received: by 2002:a05:600c:45cd:b0:48a:5339:a46 with SMTP id 5b1f17b1804b1-48d1424f973mr33871025e9.9.1777960198429;
-        Mon, 04 May 2026 22:49:58 -0700 (PDT)
-Message-ID: <e8a1f255-5c55-4364-997a-6e687021554f@suse.com>
-Date: Tue, 5 May 2026 07:49:57 +0200
+        bh=xtUVewt/R03FxOqaGFMrHIUdEoTCyLXNODTxb3YDv3A=;
+        b=NGonEGXnHcsTIxYAYZDb+5YbYAmoqiCfHUdEzq75tGp1je/AwC7imPMydOGKIHvqVr
+         8nuo/tS+nfVnvK6dTeirI0XwUxew/MQpeKvvL/YaxWT9WleScK1dsb7kjESo3EkuJJFl
+         nSatkGa9jJ7G6ixKf5DDSsOm2umZm+KMYk6YXPoa02EhQmKb4iOLfiYSSC9US/ZTzU0n
+         pySwNE3mc8nFnmxyYojzss5B5HCJ9nt113eOIxZXLi7IyL5hjlB/WTG84vQtMNX0QYyu
+         /xCijrG4cvVJECv0XcpJpUY5eSzheCRqt7Q7Xo9HBE/jWnsClXvkh5/mUIiH+laaWFJK
+         DD+w==
+X-Gm-Message-State: AOJu0YwPsb1DPioWC0ykesf4nzyUHMHFxS9HO7ho7pg6XaK+lNMfSHJe
+	/QIpLegkyNuB5XbVQksfUeK3FWVNmgSa5DiiR0hdjpfUtiwMdhj7xPeIOUtJsk0ooEJAWyEM2cD
+	G1f0=
+X-Gm-Gg: AeBDievlh3Af5zOaTd3fRChJuQjvkf25BOziVVxoJI1RGPTa7uZKhfxn2TypLP7tIbB
+	CFrWjyDTTM7v6kraph2C6jGG6bNaUjNDBkszVH6wETLHzAeSpqunq966JYVAKYD9BcAO2PWbvgL
+	qcLvYfF1R0QW6Z+RPWlqCEx8kegiJVO4nq73dzyIdEbjad/d0A8oa76MIHErTKcbGJHFt7yxPaE
+	2INaN7AbzyCul/fDBRYAqmSb2GWo3AyPvX/K7HstM0LuZCNs4YONZOA3IMj/SXFehjnxsaFDjT1
+	p/bYXXXJSknbbdeYnTtBgfllOxQts6/f5b0Iq0AMxsitX7blcOuihR0HQuApTRAtk3LpAQIfyP3
+	Z3dkwhDYBwtItdw+2zeIP7i90E93RYq3s4q1At7TVusGjyjqjxrRCGejbcdE0Zfsf8XWclrS1VP
+	65G6WhbU/8FXTeZjo2Y8ecJtRPSpVYO4K45enDqNv0spZySzaTU+b/dSZ1w+/Iqnurqo/EIyKle
+	PlSSvEcAaclsfQVaueFrLtDUg==
+X-Received: by 2002:a05:6000:3110:b0:43d:1c4a:37c with SMTP id ffacd0b85a97d-44bb2e2eefamr21513703f8f.4.1777960855102;
+        Mon, 04 May 2026 23:00:55 -0700 (PDT)
+Message-ID: <d8d50b12-40c8-4103-a852-d7cc50aa4910@suse.com>
+Date: Tue, 5 May 2026 08:00:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/17] Q35 initial support for HVM guests
-From: Jan Beulich <jbeulich@suse.com>
-To: Thierry Escande <thierry.escande@vates.tech>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Juergen Gross
- <jgross@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-References: <20260313163455.790692-1-thierry.escande@vates.tech>
- <afBmWSFsyrwy_Ru1@macbook.local>
- <99756799-27be-45ae-99be-eae5b0c41a11@suse.com>
- <89ac0d3b-d155-4916-a943-156b1f7c7e2f@suse.com>
+Subject: Re: [PATCH] x86/svm: Always sync guest CR2 on VMExit
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20260501213826.1291860-1-andrew.cooper3@citrix.com>
+ <alpine.DEB.2.22.394.2605011443580.512397@ubuntu-linux-20-04-desktop>
+ <981a0dad-dcbb-42c8-a840-6f228eb89be1@citrix.com>
+ <53c4fb20-8cb9-440a-b37a-d829ec940e1b@suse.com>
+ <e1166c38-114f-4d37-bbd9-b4e1a534aaa5@citrix.com>
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -134,77 +135,94 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <89ac0d3b-d155-4916-a943-156b1f7c7e2f@suse.com>
+In-Reply-To: <e1166c38-114f-4d37-bbd9-b4e1a534aaa5@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1777960198-A3161938-70672F11/0/0
+X-purgate-ID: tlsNG-d25034/1777960855-F5204CF5-BA79FEE4/0/0
 X-purgate-type: clean
-X-purgate-size: 1583
-X-Rspamd-Queue-Id: 288304C6F6C
+X-purgate-size: 2233
+X-Rspamd-Queue-Id: C9BC74C710E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:jgross@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	ARC_NA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-On 05.05.2026 07:48, Jan Beulich wrote:
-> On 04.05.2026 12:45, Jan Beulich wrote:
->> On 28.04.2026 09:48, Roger Pau Monné wrote:
->>> On Fri, Mar 13, 2026 at 04:35:01PM +0000, Thierry Escande wrote:
->>>> This series introduces initial Q35 chipset support for HVM guests, based on the
->>>> patchset at [1] by Alexey Gerasimenko.
->>>>
->>>> Basic support means that this patchset allows to start an HVM guest that
->>>> emulates a Q35 chipset via Qemu and implements access to PCIe extended
->>>> configuration space for such devices emulated by Qemu.
->>>>
->>>> Support for PCIe device passthrough is not implemented yet. This is planned but
->>>> implies modifications in the hypervisor and the firmwares, mainly for the
->>>> support of multiple PCI buses.
+On 04.05.2026 18:24, Andrew Cooper wrote:
+> On 04/05/2026 6:14 am, Jan Beulich wrote:
+>> On 02.05.2026 00:21, Andrew Cooper wrote:
+>>> On 01/05/2026 10:44 pm, Stefano Stabellini wrote:
+>>>> On Fri, 1 May 2026, Andrew Cooper wrote:
+>>>>> Under SVM, there are two copies of guest CR2.  One is v->arch.hvm.guest_cr[2]
+>>>>> and one is in the VMCB.
+>>>>>
+>>>>> Xen doesn't intercept CR2 accesses, so this mostly goes unnoticed; hardware
+>>>>> loads and saves the guest CR2 across VMRUN/VMExit.
+>>>>>
+>>>>> For HAP guests (where #PF is not intercepted, and therefore we don't typically
+>>>>> inject #PF either), this causes the guest CR2 value to be lost on migrate.  As
+>>>>> migration is cooperative and not done from the #PF handler, this also goes
+>>>>> unoticed by guests.
+>>>>>
+>>>>> It also means that an emulated MOV-from-CR2 reads a stale value.
+>>>>>
+>>>>> Reported-by: Stefano Stabellini <sstabellini@kernel.org>
+>>>>> Fixes: d1bd157fbc9b ("Big merge the HVM full-virtualisation abstractions.")
+>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+>>> Thanks, sadly I made the mistake of extending my XTF PoC for this.
 >>>
->>> Why do you need multi bus support to expose PCIe capabilities?  I'm
->>> not seeing the relation between those two.  You could still expose a
->>> single bus on the MCFG table.
->>
->> Can a valid PCIe topology be expressed with just bus 0? If an endpoint
->> to be handed to a guest isn't root complex integrated, would it be valid
->> to make it appear so by putting it on bus 0?
+>>> There are also bugs on the emulated MOV-to-CR2 side, and they're far
+>>> harder to untangle.
+>> Any slightly closer details as to what?
 > 
-> We discussed this with Roger on our x86 call, and we came to the agreement
-> that for the time being putting everything on bus 0 may be good enough.
-> Introducing of bridge(s) and anything else that's required for multi-bus
-> support will want to be a separate piece of work.
+> hvmemul_write_cr() updates guest_cr[2] but doesn't sync it into the
+> VMCB.  This doesn't show up on Intel because CR2 is switched explicitly
+> in RAX across VMEntry/exit.
+> 
+> But, it's not the only problem path.
+> 
+> svm_vmexit_do_cr_access() is the fasthpath exit for CR intercepts when
+> decode assists are available.  hvm_mov_to_cr() and hvm_mov_from_cr() are
+> asymmetric in their handling of CR2.  mov_from will read from
+> guest_cr[2] but mov_to will domain crash.
+> 
+> However, case 2 ought to be unreachable in hvm_mov_from_cr() because of
+> how we program the intercepts, yet the QEMU bug which caused this to get
+> noticed will trigger an ASSERT() if I were to put one in.
+> 
+> So, do I fix up both to account for the fact we know QEMU is buggy with
+> intercepts?
 
-Oh, and: Where applicable this (deliberate) restriction (or should I say
-mistreatment) will want calling out in description(s).
+I think that's going to be (about) the best we can do.
 
 Jan
 
