@@ -2,51 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6L1LGBH++WkqFwMAu9opvQ
+	id IOolNBcB+ml1HAMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 16:26:25 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 16:39:19 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBB384CF5D4
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 16:26:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1300732.1575233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D724CF92A
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 16:39:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1300750.1575242 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKGir-00015S-Im; Tue, 05 May 2026 14:26:05 +0000
+	id 1wKGvE-00037B-KR; Tue, 05 May 2026 14:38:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1300732.1575233; Tue, 05 May 2026 14:26:05 +0000
+Received: by outflank-mailman (output) from mailman id 1300750.1575242; Tue, 05 May 2026 14:38:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKGir-00012m-G0; Tue, 05 May 2026 14:26:05 +0000
-Received: by outflank-mailman (input) for mailman id 1300732;
- Tue, 05 May 2026 14:26:04 +0000
+	id 1wKGvE-00035f-Hm; Tue, 05 May 2026 14:38:52 +0000
+Received: by outflank-mailman (input) for mailman id 1300750;
+ Tue, 05 May 2026 14:38:51 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wKGiq-00012g-5e
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 14:26:04 +0000
+ (envelope-from <Michal.Orzel@amd.com>) id 1wKGvD-00035Z-40
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 14:38:51 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKGip-00A5QV-IL
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 16:26:03 +0200
+ id 1wKGvC-00A7o8-Gk
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 16:38:50 +0200
 Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69f9fdf3-e002-0a2a0a5209dd-0a2a45098d12-32
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 16:26:03 +0200
-Received: from [52.101.53.43]
- (helo=BL0PR03CU003.outbound.protection.outlook.com)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69fa00f0-5cb7-0a2a0a5109dd-0a2a4509cac8-24
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 16:38:50 +0200
+Received: from [40.107.201.14]
+ (helo=CH4PR04CU002.outbound.protection.outlook.com)
  by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 69f9fdfa-2497-0a2a45090019-3465352b61dd-3
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 16:26:03 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by CH4PR03MB8019.namprd03.prod.outlook.com (2603:10b6:610:242::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.27; Tue, 5 May
- 2026 14:25:59 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9891.008; Tue, 5 May 2026
- 14:25:59 +0000
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 69fa00f8-2497-0a2a45090019-286bc90e6d78-3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 16:38:49 +0200
+Received: from PH7P221CA0055.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::27)
+ by DM3PR12MB9389.namprd12.prod.outlook.com (2603:10b6:0:46::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9870.18; Tue, 5 May 2026 14:38:41 +0000
+Received: from CY4PEPF0000E9DA.namprd05.prod.outlook.com
+ (2603:10b6:510:33c:cafe::98) by PH7P221CA0055.outlook.office365.com
+ (2603:10b6:510:33c::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.25 via Frontend Transport; Tue,
+ 5 May 2026 14:38:40 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000E9DA.mail.protection.outlook.com (10.167.241.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Tue, 5 May 2026 14:38:40 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 5 May
+ 2026 09:38:39 -0500
+Received: from [10.71.196.80] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 5 May 2026 09:38:37 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,209 +70,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rDdR37g1ehbSae5RQSt2XfDM7KraNYqeZACPJFxGKObLDnmnCO+cR/XTOY6vIh2sq749IpMoHaoeki1yGK+rH/YqtJEau8a8uWs24jEnX9XhgXr0I4sbpXfNgIqQUAE2oJzBQSdCv9T3sPnkMMdDyfrSteQUJxDalpGcfU7gN9C9zmyB/BSOp1DMuGyujhRaRMNnebfU61X83UrU0T1fGci0Dby2EF33TUQ8wXwna4LAmdnqc+PeTv4B3Cds+kIINOhrh7y2Eb7XoAyD2vhKSERI9lEAD3voVkNv/09B6ef6NKDfFhjsYKqYi/CKtHbBZmy0vflIAly5oK/vS1aaAQ==
+ b=q5ZmVAJY+pSPC//J3dBesRsvEg08zp5tC6pjU6C/jAJ0fyRr4MVeCMH0bqFjrptSgHO9SonSymhU+qZL07eRsKMGS3fmJKnrHBtuTm1/t93X/6NMVCeDT7sbdKbaKu2yiCRfhUlY/8WXLQyGIs/PzKdkUQBXh7zrKY06BhAtGFfDtDMqpWUaPcC0Arjic5yRDtK8k+Km0xlnDSq8WgefVc4ejYk/CHrRqKlsC3zUbLci5Eob7+EERZ032iPjvNvjmdsbw1ruOi9fFWiUByzDafPB4I7Q2ealx8JqcV24Eo44UkN9Ky2hIm9XN3Ix/uGFr5NBrXq559QkPiN3v4RSng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sS6iL4GPi2V7a4pSVK06PY2KwK0Yxn4Q413oDigm/1o=;
- b=IEKeMsSiauSCv/J2ecCax3186ZNoB1N3dWfyahAv6gZYhw/OR+AHznP6ptYOPid/6icP4Oo1yACq4utqFpzBY/54uldTbvxK6OmcMTI/gV2zUUE9wbQQz4ZXjybwojrFdVNXT3yWuKPzPAH4bJHjwMNWZovXr0pJ0i0GJqQvS7CE2kMMZ2lFfZZPZ5XTNWd6t3haniEyoe2YLICkp7PoLn57cYA18VW9iPqRWRDedOlU4ykp5CMGOYpdNn165A9FiKKjfJ7u3rmUBkOsUHmnxUymT4Bg6bU5SgnaXs6WyywN1vJIKFu6iZ2WmNWSkv1LLTlO98TDoUPjk9k/ieS1pw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ bh=HD00Oj62COg/PiI9JUpmfTm1pstQxRoEJOR6y1VN4Eg=;
+ b=YAJQaGmjSYPJYk5Jqx8Y2N/D9Ne8nYGbP7VEFVehTF0eGuVMcBVTi/woSdb3zL/PXHTSbk50eRnbPSBps3eVmLGbtFM9smNooxT1v409VWaCY8UbkvN7b30Gex6yTL1Ie4DCKzlU/RkgWHi3raz+F7yypk5COFMssVrJEsw0PEKHFZF9DzqsbRXiEfqMT/A2ZM4LELIcS6FyeCbrMRulFMhWhGstEQsgR/Le5TrmYiBiQkd48RoeKcxVhQo3MwnpRgDuTH8SZuSYAHyu5Rsv8/uWDu+X3qq06M47C9yVsYkIBKEPFyWDJ8Pu3RSxgVxE+YmOXBKMDNYW5zaSUSh2Bg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sS6iL4GPi2V7a4pSVK06PY2KwK0Yxn4Q413oDigm/1o=;
- b=nsUW2N6gYNitN9LVZPbF3955FbyeUv3j4zCB9TvkPbbJom9FaC0R9YP2+wXAEt7pYoGQrF0aobOACojl+lS9eTP98yVNX17Jck3xv5EpeB47EJYQlAWUK92FzP59wvp2ZJC8boGEKyElW4i/VyRJ2T5TFeBX17a6uV4pZs7K328=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 5 May 2026 16:25:56 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Alexey G <x1917x@gmail.com>
-Cc: Thierry Escande <thierry.escande@vates.tech>,
-	xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: Re: [PATCH 04/17] hvmloader: add ACPI enabling for Q35
-Message-ID: <afn99CqdQcuN4pfh@macbook.local>
-References: <20260313163455.790692-1-thierry.escande@vates.tech>
- <20260313163455.790692-5-thierry.escande@vates.tech>
- <afCQd2rTmiGpR_bk@macbook.local>
- <20260505155816.0f8ad76d@LinuxLaptop>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260505155816.0f8ad76d@LinuxLaptop>
-X-ClientProxiedBy: MA3P292CA0047.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:48::9) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+ bh=HD00Oj62COg/PiI9JUpmfTm1pstQxRoEJOR6y1VN4Eg=;
+ b=1xbx8hDNjglljpNAQWB8GsNXZKFLQIqHildSRVMQilcHjv8gTgOGOtdPg4ayGIh8CpyY8ubFPOCLRfr/gSopOFe4iC7NdwyRcmMkhVq/1AtPfB7oYkmyXbxk5eg3L71sAaJXT+jFf200CN7bwS5IZNF8DJjo+5Y0hXAX7zUgyiE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <7f209655-a9a4-4174-ad05-825b175fb90c@amd.com>
+Date: Tue, 5 May 2026 16:38:37 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] xen/pdx: account for frametable_base_pdx in
+ generic pdx_to_page/page_to_pdx
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>, <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand
+ Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>, Timothy Pearson
+	<tpearson@raptorengineering.com>, Teddy Astie <teddy.astie@vates.tech>
+References: <20260430125103.401811-1-michal.orzel@amd.com>
+ <20260430125103.401811-2-michal.orzel@amd.com>
+ <afi7HUFoDYabM9VV@macbook.local>
+ <65ecf1c0-0844-4ba9-a250-a94aeaf4d251@amd.com>
+ <afmYf-ldUxWQXRDL@macbook.local>
+ <309b2ff6-c200-47d0-be3f-ec289df641c6@amd.com>
+ <0a3583df-2682-426e-a704-aa8711caec0d@suse.com>
+ <a90db340-e569-4f77-b5df-dd1a1504f8cf@amd.com>
+ <0267eb6f-1161-45b7-8905-d7aecb78e74c@suse.com>
+ <e8218607-26d8-4517-8634-df3c365e5bb2@amd.com>
+ <afnfeLeYypvBiEze@macbook.local>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <afnfeLeYypvBiEze@macbook.local>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CH4PR03MB8019:EE_
-X-MS-Office365-Filtering-Correlation-Id: d9d4a065-fb7d-4803-906b-08deaab23a13
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9DA:EE_|DM3PR12MB9389:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9c4814e-ac15-49c3-c6f0-08deaab3fff4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|18002099003|22082099003|56012099003;
+	BCL:0;ARA:13230040|36860700016|376014|7416014|1800799024|82310400026|22082099003|18002099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	Q61XJouJC/AKRKG+XvAjKHkMe+AZfQgmsanpM9C87CFC2/oPxaPB3OFhOqd0QMK3WICuhG8+udkh5vVKI5HwPcPKUEWjVIwJFEsq2eiiGlDWJVKHxP4Zg2CC7SdqGK8v19T+fd23BB5KLKBXk4uOSWYIpV6kCU61M5ZrKubtqSDwJnCLlmVc0Z/nDJlG1DQ+QNtMayTnjGxkyYkbXbX52zn2ZyXT5HStCHbFCN629Gl08Na6If7WpHfmQyjgZjTzNW/aDBJ4LQDKJsMqYYL4FkvQJ+GxM/1TUhsrp/aqOHW3jurrsdviRuf2cAzpGPfSLopuvdBO+vLKuumDqe8NReuvySD3d7+32Czxa65ng680ahy5d+8ykkdmgIbqKorNyMiVgyqXizuKlt0YIr5G206lKi+DgWzWi0B5xxWIAgUo1o86pMIv06+pccV3Qm9vZUs5Utdse9sPbrwXGXrwpKZffgApTe0tE+DLjtPF3rBnZHt781buBhfIo0tgKEXFKnZyQOsP4NPvwSetqersRClcMVrWAKtV+fi20d1m99RvUkPBUs35UR/ZVn+0IrVgROwFqXV8D0juEydrH7Y57ZXtbpPmZft658Wn6odD1WLGlyQYj/syDqsEgvT0rVVgGIw1t2g6FU0nozwyltFhqbn1FczvX2HNjmHyf0eoTsSGKDI1MxVSzRxFPJQRs2Pl
+	p4uh5RqjEpyKLRAvxu954CplFlurZEsHqhLUEPyH6fRQvd0X6fSDJwbZKqwtFeJUPIX7K9YIQ+hDj3Xpxjj/gBvLTIxID9zv4abFaOv9/k9AXRIwYim6SvjGDYkkmYkjPwBimUfXKL3c1cThBAqJqkrJELA+fc7Z802uajy3CCbofmKPpudyWDf2tdiwuzdukHy5O1You55ylHobVgzHkx+AqK1EPqmUKhBGap4yuEbUD89X7MhnQR2DvygaGhy4Z68Q5O2yQmKnzp5yU19Q+8tReJvVodwnYVbSNQc5PKaLddKTrBjJmaYGfgQOlbcit2Etj8K64IPDCbt5WHa8LBbV5/x4MkLzhrOLbbhw0TzIBfFNWTRI7JBwDOhqgmPJDNWLpps/7a95jcSGl24RKFN7HLKw/qYBs37tv5vPtPUuNlEf0JHjoHVqegew/9eEWM0yTjHEz7QfAhq2+HKp8LtPJGu47xPJSSRv/wIFyYQow3luoFHRl41bsjjQ7kkdZLQYtMW3BOG4KZXQRLDz0CBu2ptazXNr2tsV+W7NCrZpGCuK2ACdSvyGmIzOr0vr36jAi6ydHQ38CaCSRNeb6X2KzcL32lhP4ZgdQNLAmxpMufesLUeyXD3OfUE27vJbosQB58HOAccRIPtjZCWc7/EN9MmimILSOo56czdJq+klsyDHGMAdQSzKfrCKJSXQFa2+293azBt9c2zdLEms7UQCt0QUyta5Rn1TdVNEduw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(7416014)(1800799024)(82310400026)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VjBlaVZBeEVKQkRFbHFLL2ErclVubHZZRyt4S2pmUWVFSk1Zb3l0dFdEMXZR?=
- =?utf-8?B?dDdiNmVrVUdLdThwVVV5OG1TMUhuWlFrYUZQcnRLTWI0Mm1OSTAveGsvZUIr?=
- =?utf-8?B?MHJkMnBybmVvTi95T1dILzdhcSs1SHpHRStsaFJ6SGwrcHBRU2lkR2FkSFcr?=
- =?utf-8?B?dUZGZkw3QVpTY3BNbUJHdE9Tb3d2NllrU1orQzRXQnZCcnhKbmw2OFMyUHZo?=
- =?utf-8?B?NldEbFErQmx3eFVVbGFNTkJqK0EzMEllKzdLV2dXUlNkY1FnL0F1cnFoWEl1?=
- =?utf-8?B?Q24rajdjaXJOQ2RYZ1lEU2dFZjE0U21uVjBWa1dOeUdHYU1lM2xkYkpRN0dX?=
- =?utf-8?B?R0RCWERRZFFDczg4RHNLYjdlR2JDZ1ZKbXlSNEFzNUZPcUhZNDc1NkF2dHZN?=
- =?utf-8?B?MzdlZmRPcWJzMzNjbnEySzdqc1NJWVNvSzNsV3RMb0piUnhYY3NxY015bjIv?=
- =?utf-8?B?TTRJbzZ1SVNFdEdQZnRKNzRTS293UDc3Y2d3Skpya1BOSjRCQW1lSUc0Wi9k?=
- =?utf-8?B?OE1qem1uU2JicWxOVll1bStickFMQUVzS1dsVmZoTnd5VUp4bk5jNzgreVF3?=
- =?utf-8?B?c3RXdzhkUlVHRjltaW9mOFI4MGdZZGhYRTF0cVhMZzVmdzdwQ0JBSlc3RjFG?=
- =?utf-8?B?cTlFc1JpUkk1V3ZpUzNBZUtSa1BPd2poZEZsc05jbFgyZnV4NzQvb3BnVnhE?=
- =?utf-8?B?RXRiNkN1aW83V2YvSVoxb0lIQiszNHhUZDBBMGhjaEhZaHZNYitpeGR0bVNE?=
- =?utf-8?B?K1ZBUjROSDNHTFNLSjZmT2hFTXBPRlpWNDVybWFlTitXY0xIUERna3BpaW1S?=
- =?utf-8?B?ai9jay9JR1VEYnZ4UG5idjFnM0YxTGRreXZQbGVUVHJINnQycXFYS0kxTzJ0?=
- =?utf-8?B?OVZkaHlock1xRjZvbGFZUXVXN1REZkxFdnBEK3BJZzNsZEp4MkhxaldnUVc2?=
- =?utf-8?B?WVNGVjZ1QU5xMlEzazhYblVxNnFRa1Y3NXlZQnk5Y0RQeXBzd29zcGNzcWha?=
- =?utf-8?B?cTlTcVpDRnlDeGJEaTU1UzFFcEJWdFRuOTVEVDZ0QWFYakhuckZ4Kzk2TkxT?=
- =?utf-8?B?c0lpWm9VZmdWNkVmUFpDdTI3T1Jzb2dTNXRSeEl1QkNKMmJOc2xWbnd4Nm5x?=
- =?utf-8?B?UmV2SHEyS3FnSzFnaWdDbXZHbE1ITExDNXpza20xUEtUc01NUEpOTHpVTFJX?=
- =?utf-8?B?aG1nU3o5VTFyTENIQnBrQ0xYRWxGWmtUN0V3MGhWaHYrVFA0UXpPWlZaNFVr?=
- =?utf-8?B?Sm1NTUZrS1ZnRmQ2VHdsNzVWRi9uekZiK2lsd0VySXdJV2VJRlJudzcwRFFt?=
- =?utf-8?B?elZJUHp6N2tGQVIrWU5yRndlUFE2bWozSzQrbm1lZnpTdXAxYzhNRXJTSG90?=
- =?utf-8?B?R1k2eWtsSWRzVEtRTzR2TjVub1ByQmhIbzNwd2FhVjFXSHN2ODc2R1JnZWQ0?=
- =?utf-8?B?UTBqd2pUaUZGbE9aazUrZTJmaWtkWDdKY21QaUR3UE9yZmdwVlgyU1dPSHc0?=
- =?utf-8?B?eXFPZFY5RDR0d0c5SGZSOTREM3hOOEdZbEpRNmgrQis5bW5vS0tEWjAzK0p1?=
- =?utf-8?B?Y0JGZUU1VjE1SzdZY1JFaVZoTHZFVFhOTWZ3ZEFkZlM0elpsSmRtLzNiYWI1?=
- =?utf-8?B?OXdmdTNiWVRIeE5NeW8wMzZtdWsrQi91UERnbG4vd01qVlYzb05aL2NmZGt4?=
- =?utf-8?B?YVcvZkZKRHpNcUo4cVkvdzlSaFZhSndWWDhtdGlBekEyYkxuazFEM1dRMmhu?=
- =?utf-8?B?UWI0Wm8yb21yZ3JCaUczUGp4YllLVVlSZjllSklaTkhybHVsbE5FZW9la1ZB?=
- =?utf-8?B?eEN1STRNOUtLV045eU1Wa3MwQjlNOVIxak1GSHpRYS85T1hNZ01GdWgrZ1BK?=
- =?utf-8?B?V2xQZmJoNHNNbk5jWUQ5WlUvOFlFY21Hb2hIVVo4OWpwN3FJTVNVZTA3Q3dy?=
- =?utf-8?B?WlhpUUl2QXdVZlpsSFBVeUw3R216ZStpcC9BSUdkV2tOR2t3M0xlSzhabXo0?=
- =?utf-8?B?NXVwK0tTeHlQNDlYb0lWQ2FWalFrWjcyQ3JKcjgxMFNMak85eGJWYUNZeEdu?=
- =?utf-8?B?clFyQXgzUzhxZFd6Rk45TStsdHo5VzFLekxkZXBsQkdvWkk5dWtOcVFxZ1Fk?=
- =?utf-8?B?dkUwa0JoRjdxUTJTdjJ1dThJdk9yeHEyRFNXU1piQlNTUWNuVXJoQ3BGdmd2?=
- =?utf-8?B?QnZCMnFNemxVTE80Q1V0aVpwWVhwOGZic2dGVDJpRzZWNEVoSWhpQnVQeUth?=
- =?utf-8?B?TUtBanFvVGxlRGJlWHg0VWY4aGk0eVAvMXRLTU1rek1xK0s2QTNhNlladXdJ?=
- =?utf-8?B?NGZIc3dML3FqWWU1cjRDRmR1NEFxbnYwdGhTRXdPVENCVExtUWc1UT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9d4a065-fb7d-4803-906b-08deaab23a13
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 14:25:59.1055
+	fokmwBWDBAOSmDGC3mpja+Hz2zz7ovHzR8a8ZAiOa2/ylN7UBkj6Y/peJKpFux/kH8MfTkoXt1zdAOkqQYOAXztisW/Ftpeoh4V1CI6Jdxd4wZ2X7BEp0r4p4rFce/KEZ/oG6gVeSwD1KDqPv6CeEShgMX5pl66hBrFRP1k61Jd9J+xyMOvyEmcoo/xJkfb2sG82cEgtNZIeFNWlbDY9lhs8a79etcYb1a4cK1HwUKBAf1fNg2Q7svqFc+OWdLgmtFsJ7j8JQwwH7FWW4lFnBJNhcE3Bxs+cpGp3N7I+op8EsSHa6IzvS/HF3l29d0tKZ2vvU3lPASMj31wNAwnYkhrQZB8aOQq5FxrUw8G7og+rsAjUfkylA6htBVIGWeP9gMKTrvSJ3j1fMeY0kCevXSRzuN4TUjr9OAWiPP7OVZhQrNadDXEIixc44/lbAiGh
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 14:38:40.0776
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SMVgkpsQ3QihwU4eUI1YRVtzeF/6d87qy9ks2WnqVsoadyBizvAANFkRM78dh7mC923UZ7rslW1rpA+eGngj2g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR03MB8019
-X-purgate-ID: tlsNG-bad1c0/1777991163-4216DA53-0C367687/0/0
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9c4814e-ac15-49c3-c6f0-08deaab3fff4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9DA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9389
+X-purgate-ID: tlsNG-bad1c0/1777991930-93D7FA53-B14C4AF8/0/0
 X-purgate-type: clean
-X-purgate-size: 3334
-X-Rspamd-Queue-Id: BBB384CF5D4
+X-purgate-size: 5187
+X-Rspamd-Queue-Id: 36D724CF92A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:x1917x@gmail.com,m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:email,citrix.com:dkim,citrix.com:email,macbook.local:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:tpearson@raptorengineering.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[13];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
 
-On Tue, May 05, 2026 at 03:58:16PM +0200, Alexey G wrote:
-> On Tue, 28 Apr 2026 12:48:23 +0200
-> Roger Pau Monné <roger.pau@citrix.com> wrote:
-> >On Fri, Mar 13, 2026 at 04:35:05PM +0000, Thierry Escande wrote:
-> >> In order to turn on ACPI for OS, we need to write a chipset-specific
-> >> value to SMI_CMD register (sort of imitation of the APM->ACPI switch
-> >> on real systems). Modify acpi_enable_sci() function to support both
-> >> i440 and Q35 emulation.
-> >> 
-> >> Signed-off-by: Alexey Gerasimenko <x1917x@gmail.com>
-> >> Signed-off-by: Thierry Escande <thierry.escande@vates.tech>
-> >
-> >Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-> >
-> >It's not great to add more stuff into hvmloader when we want to move
-> >out of it, but it's also not helpful to tie the Q35 addition to the
-> >removal of hvmloader.
+
+
+On 05-May-26 14:15, Roger Pau Monné wrote:
+> On Tue, May 05, 2026 at 01:46:51PM +0200, Orzel, Michal wrote:
+>>
+>>
+>> On 05-May-26 12:49, Jan Beulich wrote:
+>>> On 05.05.2026 12:46, Orzel, Michal wrote:
+>>>> On 05-May-26 12:40, Jan Beulich wrote:
+>>>>> On 05.05.2026 09:35, Orzel, Michal wrote:
+>>>>>> On 05-May-26 09:13, Roger Pau Monné wrote:
+>>>>>>> On Tue, May 05, 2026 at 08:48:15AM +0200, Orzel, Michal wrote:
+>>>>>>>> On 04-May-26 17:28, Roger Pau Monné wrote:
+>>>>>>>>> On Thu, Apr 30, 2026 at 02:51:02PM +0200, Michal Orzel wrote:
+>>>>>>>>>> The generic pdx_to_page() and page_to_pdx() macros in xen/pdx.h assume
+>>>>>>>>>> the frame table starts at PDX 0, which is only true on x86. ARM
+>>>>>>>>>> uses a non-zero frametable_base_pdx to offset into the frame table (PPC also
+>>>>>>>>>> defines it).
+>>>>>>>>>>
+>>>>>>>>>> Fix the generic macros to subtract/add frametable_base_pdx, defaulting
+>>>>>>>>>> to 0 when the arch does not define it. This makes the generic macros
+>>>>>>>>>> correct for all architectures, even though they are only used on x86
+>>>>>>>>>> today.
+>>>>>>>>>
+>>>>>>>>> Hm, I assume this offset was added because the original mask PDX
+>>>>>>>>> compression won't (usually) compress the gap between 0 and the start
+>>>>>>>>> of RAM.  However the newish offset PDX compression should be able to
+>>>>>>>>> compress from 0 to start of RAM, and hence you don't need to apply
+>>>>>>>>> an extra PDX offset there?
+>>>>>>>>>
+>>>>>>>>> If that's indeed the case it might be better to integrate
+>>>>>>>>> frametable_base_pdx into the mask compression algorithm itself, so
+>>>>>>>>> that on some arches it's a mask plus a decrease.
+>>>>>>>> The offset is needed regardless of whether compression is used. With
+>>>>>>>> CONFIG_PDX_NONE (no compression, PDX == MFN), if RAM starts at e.g.
+>>>>>>>> 0x80000000, the first valid PDX is 0x80000.
+>>>>>>>
+>>>>>>> OK, so you are doing some (kind of) address space compression (removing
+>>>>>>> the leading empty range to the first RAM region) even when PDX is
+>>>>>>> disabled.
+>>>>>>>
+>>>>>>>> Without frametable_base_pdx
+>>>>>>>> the frame table would have to be indexed from 0, wasting
+>>>>>>>> 0x80000 * sizeof(page_info) of memory just to cover the hole before RAM.
+>>>>>>>
+>>>>>>> But you don't really "waste" memory, just address space?  Oh, maybe
+>>>>>>> not on ARM as it doesn't use pdx_group_valid?  And so you
+>>>>>>> unconditionally populate the frametable from PDX 0 to max PDX.
+>>>>>> With pdx_group_valid (which this series adds) we wouldn't waste
+>>>>>> physical memory for the leading gap. But we'd still waste virtual address
+>>>>>> space and the FRAMETABLE_NR check (max_pdx > FRAMETABLE_NR) becomes tighter
+>>>>>> because the full range from PDX 0 must fit. For example with RAM starting at 5TB
+>>>>>> the virtual offset before the first usable entry would be ~70GB — more than the
+>>>>>> entire 32GB FRAMETABLE_SIZE on ARM64.
+>>>>>
+>>>>> Yet still - this is exactly one of the situations offset compression means
+>>>>> to cover. I'm entirely with Roger as to it being undesirable to build a
+>>>>> special case variant of "offset compression" into "no compression".
+>>>> In this case, if you don't want to generalize the macros, how should we proceed
+>>>> on Arm if we still need the offset to cover the PDX_NONE variant that we also
+>>>> use? In v1 I just created a local override but Julien wanted to generalize the
+>>>> macros instead. The discussion about switching the default on Arm from mask to
+>>>> offset that is not even selectable on Arm needs to wait for the new release cycle.
+>>>
+>>> I'm not convinced of that. If you need offset by default, why not enable it by
+>>> default (right now, and potentially even as a backport if there's any bug that
+>>> is being fixed)?
+>> As said before, we also need offset when using just PDX grouping and no compression.
 > 
-> I'm afraid the only option to get rid of hvmloader is to move its
-> responsibilities back into the firmware (SeaBIOS/OVMF). But if I
-> understand it right, the whole idea of introducing hvmloader originally
-> was to delegate Xen-specific parts of HVM guest initialization from
-> firmware to a component managed by Xen itself.
+> But you don't really mean no compression?  The offset itself that you
+> subtract is a transformation, and hence a compression, as the physical
+> and PDX address spaces are no longer identity mapped?  Maybe those
+> systems should have never worked with PDX_NONE, and instead required
+> a PDX compression in place (one that would remove the offset from 0 to
+> the first RAM range).
+I'd argue the PDX <-> PFN mapping itself is still identity here — with
+PDX_NONE, pfn_to_pdx(x) == x and pdx_to_pfn(x) == x. frametable_base_pdx
+is not a PDX-space transformation; it's an offset that's only applied
+when *indexing into the frame table*
 
-Maybe originally?  We then ended up having to add all sorts of Xen
-specific logic into both SeaBIOS and OVMF, so much to OVMF that
-there's a Xen-specific target/platform in OVMF.
+Conceptually it's closer to "skip the leading hole in the lookup arrays"
+than to a compression of the PFN/PDX number space. It also sits on top
+of (and is orthogonal to) whatever PDX scheme is selected.
 
-> So, to some extent hvmloader can be considered as a part of the firmware
-> itself as it does things like PCI BAR allocation etc which are normally
-> done by the guest firmware, but with more knowledge of Xen specifics.
 > 
-> I guess this hvmloader/firmware split model was introduced to have more
-> freedom/maintainability/control - I suppose it's much faster and easier
-> to integrate Xen-specific changes to hvmloader directly then to
-> upstream them to SeaBIOS/OVMF codebases.
+> It's an incomplete conversion IMO, as ARM applies it to the
+> frametable, but not the direct map.
+It is applied to the directmap on arm64 — see directmap_base_pdx.
 
-Faster to integrate possibly, but then we end up with IMO a lot of
-duplication between what hvmloader does vs what we could offload to
-OVMF.
+So both the frametable and (on arm64) the directmap apply the
+equivalent offset. They use separate variables (frametable_base_pdx vs.
+directmap_base_pdx) but the principle is the same.
 
-> But other than moving hvmloader's responsibilities to the firmware we
-> can't do much I think - HVM guests expect to have full freedom over the
-> emulated platform. Among problems are non-standard (chipset-specific)
-> devices which also need to have assigned resources like MMIO ranges -
-> and Xen doesn't know anything about these devices and their resource
-> requirements (left alone how to configure them), yet they still need to
-> have correct BARs assigned with no conflicts with other PCI devices and
-> to contribute to MMIO hole sizing. This is something which cannot be
-> solved on the toolstack level unless Xen emulates the whole chipset and
-> knows about all emulated chipset devices - we limit ourselves to
-> MMCONFIG now but there are more configurable ranges like this.
+> 
+> Thanks, Roger.
 
-I think we do want to move a lot of hvmloader responsibilities into
-OVMF (maybe SeaBIOS if possible also, albeit that's a legacy firmware
-by today standards anyway).  Whether we would need to partially
-offload some of what hvmloader does into the toolstack remains to be
-seen.
+~Michal
 
-Chipset initialization would possibly need to be done by OVMF, at
-which point we might require PVH guests that want to use PCI
-passthrough to also rely on OVMF instead of direct kernel boot.
-Anyway, this is quite distant future.
 
-Thanks, Roger.
 
