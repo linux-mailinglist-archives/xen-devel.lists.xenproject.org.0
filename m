@@ -2,49 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aIh2G66H+Wmx9QIAu9opvQ
+	id UHsGAfuI+WmF9gIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 08:01:18 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 08:06:51 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9BC74C710E
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 08:01:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1300198.1574731 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 697F04C7178
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 08:06:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1300207.1574740 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wK8q3-0002Zn-1Y; Tue, 05 May 2026 06:00:59 +0000
+	id 1wK8vO-00039S-JA; Tue, 05 May 2026 06:06:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1300198.1574731; Tue, 05 May 2026 06:00:59 +0000
+Received: by outflank-mailman (output) from mailman id 1300207.1574740; Tue, 05 May 2026 06:06:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wK8q2-0002X0-Up; Tue, 05 May 2026 06:00:58 +0000
-Received: by outflank-mailman (input) for mailman id 1300198;
- Tue, 05 May 2026 06:00:57 +0000
+	id 1wK8vO-00037E-GM; Tue, 05 May 2026 06:06:30 +0000
+Received: by outflank-mailman (input) for mailman id 1300207;
+ Tue, 05 May 2026 06:06:29 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wK8q1-0002Wu-AE
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 06:00:57 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wK8vM-000378-UV
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 06:06:29 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wK8q0-000fJX-87
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 08:00:56 +0200
+ id 1wK8vM-000gia-7I
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 08:06:28 +0200
 Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 69f98791-2eae-0a2a0a5409dd-0a2a450cc36c-34
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 08:00:56 +0200
-Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69f988e3-e002-0a2a0a5209dd-0a2a450cbd0e-8
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 08:06:28 +0200
+Received: from [209.85.208.170] (helo=mail-lj1-f170.google.com)
  by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 69f98797-62f1-0a2a450c0019-d155dd2cbc5e-3
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 08:00:55 +0200
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-43d7e23defbso2689486f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 23:00:55 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-450524833e1sm1893763f8f.2.2026.05.04.23.00.54
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 May 2026 23:00:54 -0700 (PDT)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69f988e3-62f1-0a2a450c0019-d155d0aacc67-3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 08:06:27 +0200
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-39393ec4ed0so23528261fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 04 May 2026 23:06:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,173 +51,298 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1777961187; cv=none;
+        d=google.com; s=arc-20240605;
+        b=XpTyLF2KJKHRVwWxqw3smaGi6u0N0Spf4zgXOySrm08f9qhxNXx4grSwHIifoqGyx/
+         fnhPPJmKJ4Yyb/ixEp6svNb/HYidR9T1G4TMu0pzONgvyHD3+fDI/PpRvcYNIWLf6aNm
+         wyA7A5BRWTOQQaBUA+0jq0AuJuWAT1/V5/5s9qNQucL2ApvWWFEBz97d3Zf6sdmlZGn7
+         v36zAqCfz8Iza6RMOvY76jIkgUXMFp5Tl6VzmtzCYI2rQHX5+4Gk5U1BNYo1lGi1N04+
+         aAkFEOusjNhCjpQ+uL2NESvGt8qWZWxP7WYLSnH+UB4nWtXR4VmQnWuJj+QgXJRELbGv
+         alaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DFFOXtk38hAz46vOIiuiR5vJQlqZM0Bfd9SfSoYLs4g=;
+        fh=uAzoxIkY79cy0zES8IqO07ArU7DBG3jlr2bg4XRVkR0=;
+        b=SWHTs1g4sIDS5pKb7SCGPOc7UoiFxjCN2rRK33qML9eKZOVCUZliFm0asuQm/oy7/I
+         uQsOzrKG2pjPsRpJI6pv0N1eq6lCA/Ijn+1+jGBz02R7JoieEVaD4iSaYMk+F0hb6djo
+         X9Qrvv/cj41hJDFFbGEY4pJ3SXxmhPrm2AuEeJt3YXKWcrorz1HzqQ8dA8gtXvHlAF62
+         WcnZnnk29PC8+ALBbSTcogogafufq9LsKjx61RdnjtuNz+P9cmQo11s26LhMeJgR5Mpz
+         qMP8Dfd+dGSEv++rPZp8fA8nF4HijzOHnI3jwIL+x566fmHj3hCe0GCvA+K+DfAO3J02
+         bN0w==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1777960855; x=1778565655; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=xtUVewt/R03FxOqaGFMrHIUdEoTCyLXNODTxb3YDv3A=;
-        b=aoAP2uv0VesnN92tZO1zZ5g/NeCgZX7awIJ8h3/Vv1OvZf32r9hLmx9B2TPZ4CjRoV
-         7WLFP1/nOr4vd9v4kxsp5DFepYV9rznVk1du0Cw7m3ZLg98DcCtYrWQx8amJDpzzoQtq
-         FXCk9WgjuSBqE9LYji/AAoRYrc3i96/V48iRtwJYbq3rSAUiYszo6ZolbDO4Obj0mliZ
-         mHXC+e9W4LsqAjg09mgZOGX4wd4ctSHHCejpPCNQ8oN52kqRZIVMNWWUpQ3cncF5P4B5
-         CIHIn5jDVs0nQWWK2mDn0TLmXXhSa3iq9p8+MFoK8oADO0Bb0iLO+mo2uz4cbpWJhuT1
-         cd7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777960855; x=1778565655;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1777961187; x=1778565987; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xtUVewt/R03FxOqaGFMrHIUdEoTCyLXNODTxb3YDv3A=;
-        b=NGonEGXnHcsTIxYAYZDb+5YbYAmoqiCfHUdEzq75tGp1je/AwC7imPMydOGKIHvqVr
-         8nuo/tS+nfVnvK6dTeirI0XwUxew/MQpeKvvL/YaxWT9WleScK1dsb7kjESo3EkuJJFl
-         nSatkGa9jJ7G6ixKf5DDSsOm2umZm+KMYk6YXPoa02EhQmKb4iOLfiYSSC9US/ZTzU0n
-         pySwNE3mc8nFnmxyYojzss5B5HCJ9nt113eOIxZXLi7IyL5hjlB/WTG84vQtMNX0QYyu
-         /xCijrG4cvVJECv0XcpJpUY5eSzheCRqt7Q7Xo9HBE/jWnsClXvkh5/mUIiH+laaWFJK
-         DD+w==
-X-Gm-Message-State: AOJu0YwPsb1DPioWC0ykesf4nzyUHMHFxS9HO7ho7pg6XaK+lNMfSHJe
-	/QIpLegkyNuB5XbVQksfUeK3FWVNmgSa5DiiR0hdjpfUtiwMdhj7xPeIOUtJsk0ooEJAWyEM2cD
-	G1f0=
-X-Gm-Gg: AeBDievlh3Af5zOaTd3fRChJuQjvkf25BOziVVxoJI1RGPTa7uZKhfxn2TypLP7tIbB
-	CFrWjyDTTM7v6kraph2C6jGG6bNaUjNDBkszVH6wETLHzAeSpqunq966JYVAKYD9BcAO2PWbvgL
-	qcLvYfF1R0QW6Z+RPWlqCEx8kegiJVO4nq73dzyIdEbjad/d0A8oa76MIHErTKcbGJHFt7yxPaE
-	2INaN7AbzyCul/fDBRYAqmSb2GWo3AyPvX/K7HstM0LuZCNs4YONZOA3IMj/SXFehjnxsaFDjT1
-	p/bYXXXJSknbbdeYnTtBgfllOxQts6/f5b0Iq0AMxsitX7blcOuihR0HQuApTRAtk3LpAQIfyP3
-	Z3dkwhDYBwtItdw+2zeIP7i90E93RYq3s4q1At7TVusGjyjqjxrRCGejbcdE0Zfsf8XWclrS1VP
-	65G6WhbU/8FXTeZjo2Y8ecJtRPSpVYO4K45enDqNv0spZySzaTU+b/dSZ1w+/Iqnurqo/EIyKle
-	PlSSvEcAaclsfQVaueFrLtDUg==
-X-Received: by 2002:a05:6000:3110:b0:43d:1c4a:37c with SMTP id ffacd0b85a97d-44bb2e2eefamr21513703f8f.4.1777960855102;
-        Mon, 04 May 2026 23:00:55 -0700 (PDT)
-Message-ID: <d8d50b12-40c8-4103-a852-d7cc50aa4910@suse.com>
-Date: Tue, 5 May 2026 08:00:53 +0200
+        bh=DFFOXtk38hAz46vOIiuiR5vJQlqZM0Bfd9SfSoYLs4g=;
+        b=GEvMc5FXPt/2QE4sc6wKk2Gj4SHrDbjmGT4MdLenXSZ1SYIkj/8XRoyuhE+j4fSDTa
+         /sRk+VGnqkWyuNhIltGMxHrMky7jyWVJ5o4eIt4upGeVa2RVScDfl24ndoB0KTppwRhE
+         NYPJoyIVpBfmyFBFxF7oz83GOlZSD6EKKVgLa9m91K0mqof19CnGGN7pF3k9xtX/74zq
+         mXc7RfcNQdYQFpUvJf8btN5jl1SrFsM14K9Ta2MlffYDkGuQ3mBRE5kjAv8o4G+Ns0jo
+         6nJvJTU9/wiP2sbGqUETQ6HWC1lRRBbpLaC+kYgvQBYjGYVG+UTzXx/gOpuGmnTbtuxK
+         +lcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1777961187; x=1778565987;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=DFFOXtk38hAz46vOIiuiR5vJQlqZM0Bfd9SfSoYLs4g=;
+        b=R4m466d0BAHintINs5qAzl/F2HRxSYwWooPTN4YHOK8G++vHjRw1OzAEsDsJ2z4DDg
+         UbV7Hs7QxGPSWIycQEU0f70L78YhVE7NAi4pryUyAqsjdRKzZHik/9j7b0EqmeWIOZfJ
+         JRmyf2+i1isWwh/mzdDRXsP+AonZB/DtXblysjLEq65EgOzHUKfzqdq+BMoYmxryX3Gc
+         wziOfLrxIk6gDHsD47kMl72kQ+lHp1e3jYOdg61DKy+jORi7MoxN+gRwli3tnvXJeckG
+         kowQGvWqaPNOnCijBnKE4zU+8hjBntX0pgUHx+K/68SzoAXmUofMZmOYPpazGYzJTF5H
+         aXoA==
+X-Gm-Message-State: AOJu0Yx8aiTlI2Msl+W5l8HLc2J9jSKvYEG41FmA4UPpDjN/qNPX91iC
+	CeOkJiU+WzBdM4ZCWDcSOgIut3o++ljzX+SUR/a71k9jB9M25mxMjwX2qQAEqOtRnh70iBC0S7N
+	rVZwQ7uADpVeFPJip9PkjIzI6jCSio20=
+X-Gm-Gg: AeBDieseQ1d4WQaWGTrgXOsfz5HVMbpTosPqcLWHo7Z23dXLAfCFDe2lmw4QVYgPmOg
+	MRf2RcfyjVDC0luZhIXLFVCUg4lpM4pEzTFgnuiskXbdqUV6Nx5fkBC1Fppluj9C7Vh/GVBri6k
+	KgnuHqiDPGlqIcvE1HbaTIMvR/kURZcU7LbxQ/bYK+xuBQMWLHEwP2AoY/JcUzcnCbBd4BX0u+d
+	SsOVyPabmTZCC8MBiMBopHWTBTe68iithmW8LsIERkBBTF0272PmqL7OM8ZJG//htwiTagRjS2S
+	17QNj2xAIr3sOjGJ
+X-Received: by 2002:a05:6512:b82:b0:5a4:d4:5c5a with SMTP id
+ 2adb3069b0e04-5a87f1f8830mr648703e87.28.1777961186323; Mon, 04 May 2026
+ 23:06:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/svm: Always sync guest CR2 on VMExit
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20260501213826.1291860-1-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2605011443580.512397@ubuntu-linux-20-04-desktop>
- <981a0dad-dcbb-42c8-a840-6f228eb89be1@citrix.com>
- <53c4fb20-8cb9-440a-b37a-d829ec940e1b@suse.com>
- <e1166c38-114f-4d37-bbd9-b4e1a534aaa5@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e1166c38-114f-4d37-bbd9-b4e1a534aaa5@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d25034/1777960855-F5204CF5-BA79FEE4/0/0
+References: <cover.1775125380.git.mykola_kvach@epam.com> <df183c2bc095ec611cff03e15ac1e358f0faa982.1775125380.git.mykola_kvach@epam.com>
+ <3235FD35-5EF1-4E77-B30E-AABEABCC081C@arm.com>
+In-Reply-To: <3235FD35-5EF1-4E77-B30E-AABEABCC081C@arm.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 5 May 2026 09:06:15 +0300
+X-Gm-Features: AVHnY4KGuXuIJPXZ56mqKw7xhaX19h8vIRKNSJ_Ys9-_ZZRDHVjaIz2EsfxTdIA
+Message-ID: <CAGeoDV-uWWVC_NiU6EN8qOCavxH=KaYE7coLoT5qXaOZQKAd4A@mail.gmail.com>
+Subject: Re: [PATCH v8 03/13] xen/arm: gic-v3: tolerate retained redistributor
+ LPI state across CPU_OFF
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-d25034/1777961187-F620CCF5-ECEF7BE5/0/0
 X-purgate-type: clean
-X-purgate-size: 2233
-X-Rspamd-Queue-Id: C9BC74C710E
+X-purgate-size: 5250
+X-Rspamd-Queue-Id: 697F04C7178
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:dkim,suse.com:mid];
-	TO_DN_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
 
-On 04.05.2026 18:24, Andrew Cooper wrote:
-> On 04/05/2026 6:14 am, Jan Beulich wrote:
->> On 02.05.2026 00:21, Andrew Cooper wrote:
->>> On 01/05/2026 10:44 pm, Stefano Stabellini wrote:
->>>> On Fri, 1 May 2026, Andrew Cooper wrote:
->>>>> Under SVM, there are two copies of guest CR2.  One is v->arch.hvm.guest_cr[2]
->>>>> and one is in the VMCB.
->>>>>
->>>>> Xen doesn't intercept CR2 accesses, so this mostly goes unnoticed; hardware
->>>>> loads and saves the guest CR2 across VMRUN/VMExit.
->>>>>
->>>>> For HAP guests (where #PF is not intercepted, and therefore we don't typically
->>>>> inject #PF either), this causes the guest CR2 value to be lost on migrate.  As
->>>>> migration is cooperative and not done from the #PF handler, this also goes
->>>>> unoticed by guests.
->>>>>
->>>>> It also means that an emulated MOV-from-CR2 reads a stale value.
->>>>>
->>>>> Reported-by: Stefano Stabellini <sstabellini@kernel.org>
->>>>> Fixes: d1bd157fbc9b ("Big merge the HVM full-virtualisation abstractions.")
->>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> Tested-by: Stefano Stabellini <sstabellini@kernel.org>
->>> Thanks, sadly I made the mistake of extending my XTF PoC for this.
->>>
->>> There are also bugs on the emulated MOV-to-CR2 side, and they're far
->>> harder to untangle.
->> Any slightly closer details as to what?
-> 
-> hvmemul_write_cr() updates guest_cr[2] but doesn't sync it into the
-> VMCB.  This doesn't show up on Intel because CR2 is switched explicitly
-> in RAX across VMEntry/exit.
-> 
-> But, it's not the only problem path.
-> 
-> svm_vmexit_do_cr_access() is the fasthpath exit for CR intercepts when
-> decode assists are available.  hvm_mov_to_cr() and hvm_mov_from_cr() are
-> asymmetric in their handling of CR2.  mov_from will read from
-> guest_cr[2] but mov_to will domain crash.
-> 
-> However, case 2 ought to be unreachable in hvm_mov_from_cr() because of
-> how we program the intercepts, yet the QEMU bug which caused this to get
-> noticed will trigger an ASSERT() if I were to put one in.
-> 
-> So, do I fix up both to account for the fact we know QEMU is buggy with
-> intercepts?
+Hi Luca,
 
-I think that's going to be (about) the best we can do.
+Thank you for the review.
 
-Jan
+On Wed, Apr 22, 2026 at 6:57=E2=80=AFPM Luca Fancellu <Luca.Fancellu@arm.co=
+m> wrote:
+>
+> Hi Mykola,
+>
+> > +
+> > +static int gicv3_lpi_disable_lpis(void __iomem *rdist_base)
+> > +{
+> > +    uint32_t reg =3D readl_relaxed(rdist_base + GICR_CTLR);
+> > +    int ret;
+> > +
+> > +    if ( !(reg & GICR_CTLR_ENABLE_LPIS) )
+> > +        return 0;
+> > +
+> > +    writel_relaxed(reg & ~GICR_CTLR_ENABLE_LPIS, rdist_base + GICR_CTL=
+R);
+> > +
+> > +    /*
+> > +     * The spec only guarantees programmability when we have observed =
+the bit
+> > +     * cleared. Where clearing is supported, RWP must reach 0 before t=
+ouching
+> > +     * PROPBASER/PENDBASER again.
+> > +     */
+> > +    wmb();
+> > +
+> > +    ret =3D gicv3_do_wait_for_rwp(rdist_base);
+>
+> I=E2=80=99m looking into the implementation of gicv3_do_wait_for_rwp() an=
+d I see
+> it=E2=80=99s polling on bit 31 (UWP) instead of bit 3 (RWP)?
+>
+> Not related to this patch but I feel we need to raise this.
+
+Good catch, thanks.
+
+UWP does have SGI-related semantics, but it is not the same as redistributo=
+r
+RWP. The existing helper is used as an RWP wait helper after redistributor
+register writes, so the redistributor path should poll GICR_CTLR.RWP rather
+than GICR_CTLR.UWP.
+
+I will send a separate prerequisite patch to make the redistributor
+path use GICR_CTLR_RWP.
+
+>
+> > +    if ( ret )
+> > +        return ret;
+> > +
+> > +    reg =3D readl_relaxed(rdist_base + GICR_CTLR);
+> > +    if ( reg & GICR_CTLR_ENABLE_LPIS )
+> > +        return -EBUSY;
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > /*
+> >  * Tell a redistributor about the (shared) property table, allocating o=
+ne
+> >  * if not already done.
+> > @@ -373,7 +434,21 @@ int gicv3_lpi_init_rdist(void __iomem * rdist_base=
+)
+> >     /* Make sure LPIs are disabled before setting up the tables. */
+> >     reg =3D readl_relaxed(rdist_base + GICR_CTLR);
+> >     if ( reg & GICR_CTLR_ENABLE_LPIS )
+> > -        return -EBUSY;
+> > +    {
+> > +        if ( gicv3_lpi_tables_match(rdist_base) )
+> > +            return -EBUSY;
+> > +
+> > +        ret =3D gicv3_lpi_disable_lpis(rdist_base);
+> > +        if ( ret =3D=3D -EBUSY )
+> > +        {
+> > +            printk(XENLOG_ERR
+> > +                   "GICv3: CPU%d: LPIs still enabled with unexpected r=
+edistributor tables\n",
+> > +                   smp_processor_id());
+> > +            return -EINVAL;
+> > +        }
+> > +        if ( ret )
+> > +            return ret;
+> > +    }
+> >
+> >     ret =3D gicv3_lpi_set_pendtable(rdist_base);
+> >     if ( ret )
+> > diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+> > index bc07f97c16..34fb065afc 100644
+> > --- a/xen/arch/arm/gic-v3.c
+> > +++ b/xen/arch/arm/gic-v3.c
+> > @@ -274,8 +274,8 @@ static void gicv3_enable_sre(void)
+> >     isb();
+> > }
+> >
+> > -/* Wait for completion of a distributor change */
+> > -static void gicv3_do_wait_for_rwp(void __iomem *base)
+> > +/* Wait for completion of a distributor/redistributor write-pending ch=
+ange. */
+> > +int gicv3_do_wait_for_rwp(void __iomem *base)
+> > {
+> >     uint32_t val;
+> >     bool timeout =3D false;
+> > @@ -295,17 +295,22 @@ static void gicv3_do_wait_for_rwp(void __iomem *b=
+ase)
+> >     } while ( 1 );
+> >
+> >     if ( timeout )
+> > +    {
+> >         dprintk(XENLOG_ERR, "RWP timeout\n");
+> > +        return -ETIMEDOUT;
+> > +    }
+> > +
+> > +    return 0;
+> > }
+> >
+> > static void gicv3_dist_wait_for_rwp(void)
+> > {
+> > -    gicv3_do_wait_for_rwp(GICD);
+> > +    (void)gicv3_do_wait_for_rwp(GICD);
+> > }
+> >
+> > static void gicv3_redist_wait_for_rwp(void)
+> > {
+> > -    gicv3_do_wait_for_rwp(GICD_RDIST_BASE);
+> > +    (void)gicv3_do_wait_for_rwp(GICD_RDIST_BASE);
+> > }
+> >
+> > static void gicv3_wait_for_rwp(int irq)
+> > @@ -925,7 +930,7 @@ static int __init gicv3_populate_rdist(void)
+> >                     gicv3_set_redist_address(rdist_addr, procnum);
+> >
+> >                     ret =3D gicv3_lpi_init_rdist(ptr);
+> > -                    if ( ret && ret !=3D -ENODEV )
+> > +                    if ( ret && ret !=3D -ENODEV && ret !=3D -EBUSY )
+> >                     {
+> >                         printk("GICv3: CPU%d: Cannot initialize LPIs: %=
+u\n=E2=80=9D,
+>
+> This should be the other way around? %u for smp_processor_id() and %d for=
+ ret?
+
+You're right, thanks. I will fix the format string.
+
+>
+> >                                smp_processor_id(), ret);
+> > diff --git a/xen/arch/arm/include/asm/gic_v3_its.h b/xen/arch/arm/inclu=
+de/asm/gic_v3_its.h
+> > index fc5a84892c..081bd19180 100644
+> > --- a/xen/arch/arm/include/asm/gic_v3_its.h
+> > +++ b/xen/arch/arm/include/asm/gic_v3_its.h
+>
+> Why this header and not gic.h?
+
+You're right, this prototype is not ITS-specific. I will move it to gic.h.
+
+Best regards,
+Mykola
+
+>
+> > @@ -133,6 +133,7 @@ struct host_its {
+> >
+> > /* Map a collection for this host CPU to each host ITS. */
+> > int gicv3_its_setup_collection(unsigned int cpu);
+> > +int gicv3_do_wait_for_rwp(void __iomem *base);
+> >
+> > #ifdef CONFIG_HAS_ITS
+> >
+> >
+>
+> The rest looks ok to me!
+>
+> Cheers,
+> Luca
+>
+>
+>
 
