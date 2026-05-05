@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GMOOCZXF+Wn2DgMAu9opvQ
+	id mOZANrXF+WmmDwMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 12:25:25 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 12:25:57 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8ED4D4CB27D
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 12:25:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1300489.1575020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 511754CB2A9
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 12:25:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1300495.1575029 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKCxJ-0008LQ-Rr; Tue, 05 May 2026 10:24:45 +0000
+	id 1wKCyL-0000Lz-3s; Tue, 05 May 2026 10:25:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1300489.1575020; Tue, 05 May 2026 10:24:45 +0000
+Received: by outflank-mailman (output) from mailman id 1300495.1575029; Tue, 05 May 2026 10:25:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKCxJ-0008Ix-P1; Tue, 05 May 2026 10:24:45 +0000
-Received: by outflank-mailman (input) for mailman id 1300489;
- Tue, 05 May 2026 10:24:44 +0000
+	id 1wKCyL-0000K5-19; Tue, 05 May 2026 10:25:49 +0000
+Received: by outflank-mailman (input) for mailman id 1300495;
+ Tue, 05 May 2026 10:25:47 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wKCxI-0008Ir-Eq
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 10:24:44 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wKCyJ-0000Jy-Qz
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 10:25:47 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKCxH-005YTf-E6
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 12:24:43 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wKCyJ-00FzWD-6w
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 12:25:47 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69f9c557-2eae-0a2a0a5409dd-0a2a450cc57e-28
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 12:24:43 +0200
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69f9c5a1-5cb7-0a2a0a5109dd-0a2a4509d224-32
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 12:25:47 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69f9c56b-62f1-0a2a450c0019-d1558031c951-3
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 12:24:43 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-488b8bc6bc9so31882635e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 03:24:43 -0700 (PDT)
+ id 69f9c5aa-2497-0a2a45090019-d1558030d446-3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 12:25:47 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4852a9c6309so41064555e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 03:25:47 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48a824f9f0dsm373141955e9.15.2026.05.05.03.24.42
+ 5b1f17b1804b1-48d149e8a82sm15967935e9.3.2026.05.05.03.25.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 05 May 2026 03:24:42 -0700 (PDT)
+ Tue, 05 May 2026 03:25:46 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,58 +58,55 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1777976683; x=1778581483; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1777976746; x=1778581546; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=559/gDL5cAkgHSxRcisKiAuG+SV9lJdifh/D33J/iJ4=;
-        b=V3E9wIU4ymQBn/TbADwA7QaJGQjUdyo4cAL5fAeU0qsQLItlppn2YT+bRbaKo/QP1U
-         yPBKKHq2PN9kumo6G63y+b0FtnITgJhSU6jOn/BJeDOPVv9YzxD8oErQIssJuYYJrqJL
-         QBcgGJrBV6IQKc6uMGc3g1VE4w8+L9SRHmJKrX+ofVexNaLPQUWvbAXXYXHIV7Vb8/6v
-         8tW/NdkPoX3hawekykBifoRgHiVlPoY7GZwZ8c6aERC7gEQcs9y7VxmuNYBsjZKZaXd5
-         xll//MGp2pBNNAxdkWly4lxso89uSwwsnkiHW/NOFNHNRrKxnIj9tRiUE2BQIoF8zhz7
-         Wq2A==
+        bh=2x6PSKZNoOPna5sB/ez/CUXRPh40PGHDpm4NzbQNLF8=;
+        b=P6i/7tDMEVRMoyjiIuHS/44VyCxEyUUqssgMLm43yBgXqXL/PoTmQ/2lPydJqfNYCU
+         75MdmjHjv/Ob72VFXVZk4ruefZb7HaV8YS88tKNB8tXIaF9/Cpg0u3CMpO4iRu1q78D4
+         TTIaVC3/mfP1Ftn3UbhNSwHhzPG6KIP8Ff6uiEpui+VvykJ4tGwZeOIpqJVZRVZGl62q
+         9JlDeuCUt6gmjyWba09XGXlkbwNdkqxpxDHpIQia23tonsSQYqBA1bErrNSAgBa85NFX
+         kXVcAMZfbAgeg13gzyG2anG9yK1nFOutIxQZbGyEn6WDRD1EqrTReZ5yNgL65f/+6x0Z
+         7h+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1777976683; x=1778581483;
+        d=1e100.net; s=20251104; t=1777976746; x=1778581546;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=559/gDL5cAkgHSxRcisKiAuG+SV9lJdifh/D33J/iJ4=;
-        b=ioTg/2rQPcr+2TkH1FESyR0a1twz5zi9Dwk1j8d7Fp3p6VVpf0BH1NCzZDmPsKRf9j
-         e3ikisNB6mFzhbgsboYj1SM30bbO3goHd3TI4KUAmAmXW1rz5qfLOF8vlDrwhqRZ3vpY
-         CNTzgmkzOpNVUfUPoNLfihI5sR1/6I7alSbcAG+bGGSCCHxfqMFe0QLDRf1RME6OOrhR
-         7h/5vW9l98jnkMi6SRu81ylAq/R3CMpuVCFWa8oXyVjrIra8aD3GBmLJOmj5je17bzRE
-         NBfCne230s/s4phVJems2QeoypqGMWjqu64x7if0SmO/wXig7QWWMEqJazjb0trPP3hm
-         Fsdg==
-X-Forwarded-Encrypted: i=1; AFNElJ9iwERY817A5jqKMoftDjsbuvsfDrMxEh1DeJpM2+63QJkck8QrmbmSQDXj8jmmqYWo08utY8h4YIk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzOY9yA0XLlqPqYXljgXAYlfhm5URtxzEyQKXVagrTBmz1jUHe+
-	0YIwmHhS7n+sSOZ/4ywmHTecdANfJaRMB+nPfkQwcdeXocIByEy35MsI/FUYWupGow==
-X-Gm-Gg: AeBDiesDSV8OJ/2f3gSdxxNf/E3NLa/+gqLRHU5m0VavIr+bNsOrmvk7L6w48PS21mD
-	QL1zaa/emmHMBehVZj0Eg7z0MSJElHXeG8ug63sBHn0kb7m6RLZqhpBLH6jF1h4gIPBIFsvwipC
-	spKJ9aNmM5RuFE8EA7DwEwSESftY681vOB4g5+wUCELYrl5s3HIUghR5tUvOnC1tGhPedjYsnIn
-	Mulcjeo48YowBR7CIP6yjlzXeACqiJguQ3gZVnYPEzz/OL3u4KdHw5Eb7bbnTeldQ9YstMOJp8Z
-	cueTBFkaS/QhR1XxeFZZjY8gvH+ucBL2XjR2bhXUH5DCy0+WYN/sUeD16D1D+p1blNTJUoSO3C/
-	HcrSk4j+jgNnarjo8Wg1g19JbY6H/9YvPJ0mkm3Cyw7t40DV1uutL61zy81Xs393EmNR/ZEfNpP
-	jdxPKMPrKrNsF5/Qvg7EIYbzzYcVW/qVP/qgdgitP6NmRwcybcAsQkBJO71gJzzbeeIZgUb05Nd
-	sMwQgrFoFHpZf2jyds9ZgXmzw==
-X-Received: by 2002:a05:600c:3b2a:b0:488:a797:f0ac with SMTP id 5b1f17b1804b1-48d18cf637amr40888785e9.28.1777976682686;
-        Tue, 05 May 2026 03:24:42 -0700 (PDT)
-Message-ID: <29422b34-b33f-4a25-838f-de6078151e46@suse.com>
-Date: Tue, 5 May 2026 12:24:41 +0200
+        bh=2x6PSKZNoOPna5sB/ez/CUXRPh40PGHDpm4NzbQNLF8=;
+        b=b0EGS5zYpR0pPABfmcaT0O0c6gj3RAWuaIuEWi7R59XnjaNSgNRCDYqDZvXQgxDQGN
+         bAosSaDGoVaNaCNjPzXPRXoU3WA9n7CMNMjStjNyVwggST+a0nLv5ibYaBdfvC07yONz
+         tz0vKymOgLnci3eJYvcd3u1/C9MO4nI5Rj0E73kJen7cVH8z7t1QxKF1CKylvL629I/d
+         HJIL3jYN5WNTza7RzZ/VjRYRp8mXEdUS+kCEZWIxZDP9CeK6ZSiEUKvOidaBiDPEvVBu
+         XsGskYeCkLesTW8BEFDHzCl80lpJ59pJW2IWQCqqxM+4SlVAkj5qSuhbHoYLTjVW7WMd
+         XPkw==
+X-Forwarded-Encrypted: i=1; AFNElJ+AVSPTtVIKY489XMa+egyUgu3CKdclqGLiB+pPrGtWRgvcj4IHtNU76hugJUpNcKTVP+qthYO1Ksg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx/x2c1IcH4y0oYlLi99NxObhl9RL4aHQPLRwMkqn5JoI65Zi3w
+	jdIv+wXtMIsrV/ohkHQDLJjkkpG82/X73XOlpE9S4BJSArEUo7svvrMP48hqzyc0hw==
+X-Gm-Gg: AeBDietr9TpNEJD9O3VJwHDQoLMZxlYEo+c3LCEDQPmw77CD9kECwy3pCmOS4Ea22Gb
+	5TN+8j8eWynnI+BPhwVGnJMZQ3ub1eHD/1i89+12a9XYEmm2bFJPWXj6A8NYumWQCEoxZbGpwLG
+	V6gz5bElhPBFNpmcvU19SExBDzEka6taK0REFh/otCHEx9rH28zF7iyH8Zro1UYkKgYNTHPxhHe
+	5JHqwJKde3ZXxILwakgrx6zVVn8k8RLTBijh8n/AccwzcroNqtbKG6+27C/o+FNVVrIdwSm//Id
+	uFi9NctoeuXQoKNdwIP+mW738aWzav0GOvM7ZgUTuFw5Z9R6tYDL+4jPYOFlXKkLpQIu5KbffQm
+	BHBG+3dp97aR1OJvYKu0HkCem72sixSHZ4Vq1EPa2E+JSOZMujTwbBS0GhYOWjaGi7mAwZ/fOng
+	+nScLeSLW7AsOMpTTxFU8nqd/kciVcLrm7nswirqCYKXFPmyGgdQTQdvpmgAVWt5fXSUTCYxWLI
+	b91Y+Zu/A4LX+xjeJl1ww5jjQ==
+X-Received: by 2002:a05:600c:8b11:b0:487:1108:48b8 with SMTP id 5b1f17b1804b1-48d186dc81bmr36376005e9.2.1777976746633;
+        Tue, 05 May 2026 03:25:46 -0700 (PDT)
+Message-ID: <1647b78f-e05c-425e-b908-42d153563c3f@suse.com>
+Date: Tue, 5 May 2026 12:25:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/xen: Fix a potential problem in
- xen_e820_resolve_conflicts()
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Subject: Re: [PATCH] x86/xen: Fix xen_e820_swap_entry_with_ram()
+To: Juergen Gross <jgross@suse.com>
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
  "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
  linux-kernel@vger.kernel.org, x86@kernel.org
-References: <20260505080653.197775-1-jgross@suse.com>
- <6b241236-ed6d-4ada-beac-8f660bd55185@suse.com>
- <59b953ce-4b51-4a47-8dba-9895dea33d41@suse.com>
+References: <20260505102417.208138-1-jgross@suse.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -135,19 +132,19 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <59b953ce-4b51-4a47-8dba-9895dea33d41@suse.com>
+In-Reply-To: <20260505102417.208138-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d25034/1777976683-6E169CF5-DEEE9B63/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-bad1c0/1777976747-496B0A53-D04F70B1/0/0
 X-purgate-type: clean
-X-purgate-size: 2990
-X-Rspamd-Queue-Id: 8ED4D4CB27D
+X-purgate-size: 502
+X-Rspamd-Queue-Id: 511754CB2A9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -155,8 +152,8 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:hpa@zytor.com,m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,m:x86@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
@@ -176,74 +173,15 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-On 05.05.2026 11:13, Jürgen Groß wrote:
-> On 05.05.26 10:43, Jan Beulich wrote:
->> On 05.05.2026 10:06, Juergen Gross wrote:
->>> When fixing a conflict in xen_e820_resolve_conflicts(), the loop over
->>> the E820 map entries needs to be restarted, as the E820 map will have
->>> been modified by the fix. Otherwise entries might be skipped by
->>> accident.
->>>
->>> Fixes: be35d91c8880 ("xen: tolerate ACPI NVS memory overlapping with Xen allocated memory")
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>
->> First, while trying to review this, isn't there another issue in
->> xen_e820_swap_entry_with_ram(), in that
->>
->> 			entry->addr = entry_end - swap_size +
->> 				      swap_addr - swap_entry->addr;
->>
->>
->> really means to be
->>
->> 			entry->addr = entry_end - swap_size +
->> 				      swap_entry->addr - swap_addr;
->>
->> (affecting non-page-aligned E820 entries)?
+On 05.05.2026 12:24, Juergen Gross wrote:
+> When swapping a not page-aligned E820 map entry with RAM, the start
+> address of the modified entry is calculated wrong (the offset into the
+> page is subtracted instead of being added to the page address).
 > 
-> Yes, you are right.
-> 
->>
->> Further, that function converts swap_entry to the page-aligned superset
->> of the passed in range. How is it guaranteed that this new range won't
->> overlap with the predecessor and/or successor one? Wouldn't that need
->> to be conversion to the page-aligned subset instead?
-> 
-> This is subtle. :-)
-> 
-> We are converting to RAM (usable), so the type value is 1. e820__update_table()
-> will handle overlaps just fine, with higher type values "winning" against lower
-> ones. So any other region overlapping with the new RAM region will result in
-> another conflict in the next loop iteration.
+> Fixes: be35d91c8880 ("xen: tolerate ACPI NVS memory overlapping with Xen allocated memory")
+> Reported-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Oh, wow, and this is a property of the function that one can rely upon?
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-> Using the page-aligned subset would result in possible memory holes, which would
-> be problematic (the kernel or page tables shouldn't have holes, after all).
-
-Aren't such holes normal to occur, e.g. on misaligned RAM/UNUSABLE
-boundaries?
-
->> And then, is passing the page-aligned superset to xen_add_remap_nonram()
->> really appropriate? Why would any leading or trailing space there be
->> subject to remapping?
-> 
-> How would you want to remap a sub-page physical memory area to another location
-> without affecting the rest of the page? We are reworking the final p2m map here.
-
-Well, first and foremost: xen_add_remap_nonram() takes and stores byte-
-granular addresses / sizes, with the sole requirement being that the
-offset-into-page be identical between both addresses. That check alone
-already indicates that non-page-aligned addresses are expected to be
-passed into here.
-
-Further, xen_acpi_os_ioremap() uses the resulting remap table, and is
-byte granular. With the physical address adjustment there, both mappings
-could (theoretically) coexist. But the problem I'm trying to point out
-is that by passing the page-aligned superset into xen_add_remap_nonram()
-you misguide xen_acpi_os_ioremap() (while at the same time
-xen_do_remap_nonram() will do suitable rounding to page boundaries even
-if exact addresses were passed).
-
-Jan
 
