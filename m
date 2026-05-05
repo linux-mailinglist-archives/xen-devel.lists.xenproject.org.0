@@ -2,43 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eGUcM8VV+mmNMgMAu9opvQ
+	id YOd0DF1d+mnmNgMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 22:40:37 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 23:13:01 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38E764D3BAE
-	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 22:40:37 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1301098.1575439 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DD4B4D3D32
+	for <lists+xen-devel@lfdr.de>; Tue, 05 May 2026 23:13:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1301108.1575448 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKMYM-0005oo-VO; Tue, 05 May 2026 20:39:38 +0000
+	id 1wKN2H-0003E3-Bn; Tue, 05 May 2026 21:10:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1301098.1575439; Tue, 05 May 2026 20:39:38 +0000
+Received: by outflank-mailman (output) from mailman id 1301108.1575448; Tue, 05 May 2026 21:10:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKMYM-0005mO-Sn; Tue, 05 May 2026 20:39:38 +0000
-Received: by outflank-mailman (input) for mailman id 1301098;
- Tue, 05 May 2026 20:39:37 +0000
+	id 1wKN2H-0003Bn-8a; Tue, 05 May 2026 21:10:33 +0000
+Received: by outflank-mailman (input) for mailman id 1301108;
+ Tue, 05 May 2026 21:10:31 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <dpsmith@apertussolutions.com>) id 1wKMYL-0005mI-Np
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 20:39:37 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wKN2F-0003Bh-KG
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 21:10:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKMYL-006JzV-4k
- for xen-devel@lists.xenproject.org; Tue, 05 May 2026 22:39:37 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wKN2F-00FIyN-19
+ for xen-devel@lists.xenproject.org; Tue, 05 May 2026 23:10:31 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <dpsmith@apertussolutions.com>)
- id 69fa5589-2eae-0a2a0a5409dd-0a2a4507df40-0
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 22:39:37 +0200
-Received: from [136.143.188.51] (helo=sender4-of-o51.zoho.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <dpsmith@apertussolutions.com>)
- id 69fa5587-229c-0a2a45070019-888fbc3352be-3
- for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 22:39:36 +0200
-Received: by mx.zohomail.com with SMTPS id 1778013565284692.9140756033918;
- Tue, 5 May 2026 13:39:25 -0700 (PDT)
+ (envelope-from <Jason.Andryuk@amd.com>)
+ id 69fa5cc2-5cb7-0a2a0a5109dd-0a2a4501e97e-6
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 23:10:30 +0200
+Received: from [40.93.201.34]
+ (helo=CY3PR05CU001.outbound.protection.outlook.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Jason.Andryuk@amd.com>)
+ id 69fa5cc4-c1f2-0a2a45010019-285dc922066a-3
+ for <xen-devel@lists.xenproject.org>; Tue, 05 May 2026 23:10:29 +0200
+Received: from SN1PR12CA0072.namprd12.prod.outlook.com (2603:10b6:802:20::43)
+ by SA1PR12MB9472.namprd12.prod.outlook.com (2603:10b6:806:45b::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Tue, 5 May
+ 2026 21:10:25 +0000
+Received: from SN1PEPF000397B3.namprd05.prod.outlook.com
+ (2603:10b6:802:20:cafe::19) by SN1PR12CA0072.outlook.office365.com
+ (2603:10b6:802:20::43) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.27 via Frontend Transport; Tue,
+ 5 May 2026 21:10:25 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF000397B3.mail.protection.outlook.com (10.167.248.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Tue, 5 May 2026 21:10:24 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 5 May
+ 2026 16:10:24 -0500
+Received: from [172.22.180.48] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 5 May 2026 16:10:23 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,191 +69,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=zoho header.d=apertussolutions.com header.i="dpsmith@apertussolutions.com" header.h="Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding"
-ARC-Seal: i=1; a=rsa-sha256; t=1778013568; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=fdvo+7ThLN5jMZJStd9qYcScfM3HotMoTGfOsksKBK57IamhYTHwIU+JJB7od9l84jV1jIJdeDS+3LYoDiGgWQc3/UaIuSMVuwZLgX+pOpIcEImCcbOigakt87KCUqalnhlefeWiOR7rFOKp4WxukwivKkj73Rhecuq5ZjwOMFI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1778013568; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=KOuaFhoFvTlT5kNzqoeorQp/xZ922AkKTe5UI5FSTls=; 
-	b=Wp6VG+dGY5y7YDr8fs31QaSzxoxv0B7+8hcG7KhdG3yjiJXTxhDt4tSiUJs0WvlYhK7yrIkfW2PzKDOx8w+bVeQ1iJuYam3zywX2i087td8Ux8+ljrobpJeY0IniCbvgVRpbmPXlQTjs0FmNhge0VspnjiQEgYxRDMd+epnF9Rw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1778013568;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=KOuaFhoFvTlT5kNzqoeorQp/xZ922AkKTe5UI5FSTls=;
-	b=PHdMvxcFd+qsfbCCh3I6+GKiwIt83u9XtP3cobgiEXahILK+YEo8xQ8IIm9wLTxH
-	wAwo8RGnA3qR8LM7FijMMEC7xLanILOLkQr/m6LzaDPN8/Q08mpqFMJHigmVCuSyXZn
-	FGQGeTSOmwItGMbGcBKU+bcZOisf5JF4EVMHecp8=
-Message-ID: <2c747296-5f18-406f-9a78-4deabdc27ac1@apertussolutions.com>
-Date: Tue, 5 May 2026 16:39:23 -0400
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qqJ0OkX2yrXLiT2h1SRFZ/GwtOXTeTR/h0ZKqvHXZtj+R1Uaj4iGu/soOe2qrOUw4kBechkD3W6EtkjeK04yqCV3H+r/8y+LuWxJo4gVMfMZRweKkf1WE1fnzxe9DJDtvGDB9Ig4AqTkto0vruiPWOLPY+1L/SsCSsP1ISYYNxi0O/LlUoJ8Z3ZcAmTXfJ4nt6o2NihMIcE1gOB/5CO5XohdexV8Xi+3iCvRinF/BIUCdc43iMUpAtIkf94vhBP3BhK6Y9s87BnLiG81tkFIDhPIDWLoreSufayL1j08P8gqzkbn7bS/b7yWGF+wCHgh71gT0/jjVUZwFv4pzDkq5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6FcoxPBlPRCsC4B3NbAyDyF622Hveg/a75eKDYCh94E=;
+ b=aqqA4a1eYrvtXkIv0YaAo4bm50aKSPZLCeFcVwcWi64gttiV4ogewSjBFgnGYYlquzFVlGoPurFULgRBcL6zO9rgNVQAk7TBejC2TO/VpoSnIboUVngNcP5AmdcMBXiD4o6/pQ2OhK30dWqrvKFa+Xx/h9zbCshUPPdZR2j2PeVpFsmPzVZO6LaBqYNbaKSk6kPLnaf2a/vIW+i7n2LbkGKBYenae3erwM9jqjRwp5D3k6y8C1aecEma9fnTbnp5FtsVGE+NIrfwA7Yi6bw/dqdJ9r1IelIJHQWCpAS+Z6Ank8//l3D1W5Qkf22yIVTtyccWAWKfHd3dSoVviYCsoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6FcoxPBlPRCsC4B3NbAyDyF622Hveg/a75eKDYCh94E=;
+ b=CEyjH3lbAD8wqKIEpTy8uwJTv+bOlF4GCu0c1Mnelsrx5W23p5+85h8gntSVD4/Lph5Y5kjRC6I6zVbJsC1RE0GWrwz4EverGbcCQpD0e3L8NWRHoN0VXGJDUcpzi/j/4/fCjJA8YRWHede0r3Fbu5BuvdRCgXPMwqFwjvraD20=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <089b9287-addb-4736-8174-f8a297de877f@amd.com>
+Date: Tue, 5 May 2026 17:10:22 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Ping: [PATCH] EFI: adjust cfg file buffer freeing
+From: Jason Andryuk <jason.andryuk@amd.com>
+Subject: Re: [PATCH v10 2/2] xen: Strip xen.efi by default
+To: Frediano Ziglio <frediano.ziglio@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+CC: Frediano Ziglio <frediano.ziglio@cloud.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+	<roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	"Frediano Ziglio" <freddy77@gmail.com>, Demi Marie Obenour
+	<demiobenour@gmail.com>, =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>, Stewart Hildebrand
+	<stewart.hildebrand@amd.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <20251208133945.61375-1-frediano.ziglio@citrix.com>
+ <20251208133945.61375-3-frediano.ziglio@citrix.com>
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- Marek Marczykowski <marmarek@invisiblethingslab.com>
-Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <bf990673-83c3-44c3-a76a-3b0c36108ec5@suse.com>
- <d22d841f-a694-4527-bc50-235e2525a0d3@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Autocrypt: addr=dpsmith@apertussolutions.com; keydata=
- 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
-In-Reply-To: <d22d841f-a694-4527-bc50-235e2525a0d3@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+In-Reply-To: <20251208133945.61375-3-frediano.ziglio@citrix.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
-X-purgate-ID: tlsNG-ef75cf/1778013577-2B175C48-0E11125E/0/0
-X-purgate-type: clean
-X-purgate-size: 2843
-X-Rspamd-Queue-Id: 38E764D3BAE
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B3:EE_|SA1PR12MB9472:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44152470-33cb-4ff9-afbc-08deaaeab9b8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|7416014|376014|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	0N5QSXrgr9/Hfln3VY3mN7R74gpmLg/jMFLhIWmLf/m4hSly46FgBLXeYoq2zSk5SDUT+pF54NfERrsBqvTNaOX4jW7fMgnsL15l6KM1fbaHBs++aFEdyloFDjxJhz7J2Mbwh+dK4iz8SW5Hee+ZWbHq8OcguaTJX3GIs0FbL9T+wfWxqQiwe3J3lHICoxZqVxtLnXrubxLLatUBsCPYKrHvQvWu6zvl2JbXZBg0Xhe+OmMyviIw7jYpy4ETWfWU3/LWAvgNhNP9gMImvEHBEYMv/i/nHZlS0+IYK3ewZVHwXTdL4p/7QFvibH5h/2+/e4TZaFB3ntbpvY9wWNKJb3PqPSSY6hfsE7TYMFplZRkBYGw3FobS9n978dj9fwScVSakxT7SXdfhfk08ZCXJ4wDBxT2mZFUF4V7VbEFWc9ROJ0mKptv6ptvr+ahZMOFT/NHZaG27O7lc4ASOet+7uPcikXU5G9iCLXITI88WHoE7Xf8juE4mu38ZL8jsSd8G+yyl9uZT8/2ao5JbM04tKtiSVIxHy5VlLOOdjLJ7j1qSHLGs4z9Vlumn0U139Blaad8N289DoeTKMORYB7ae29bBoYe0ec3/MNPSbku0e4k11+25hu8H2HqmZf4DX5JLHJrEJxDoram9Nh1wsZb1mxu6Tr+aXRzoBYlswYA+wdnrDyA5Nj5KS8gHrIIdrkACl7sHRMXonMhCGx3c2F78Mvw20utFZgfmnjs6U/n5SV4=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(7416014)(376014)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	TLFFy0clTYwzbss+yz02rb3wmjcQiJffNHv6iQAsr5axiQW/Np7+VznloPjV1Nv27sO8Z26AtzY19Wqn3+L+wOVbfy9PiXD3dSe8aNHeLFwjSvReUNF9FHGFNjnM6BVlsRicCTMXu8un0mXeZRU/f0UNYC2ZpnT1dYrRkFTMdC9j7XIPNqzVSZ+KqNL2i1qtynpV/9sUGASd4FHsk5CXSstX6FZsr/svjw9hfGZAlod9e5VoHNLDK25w0JmhAmMD8lCGHGqLde5bX9uHs9vCp35EurXqWNpWSlthVgX/TnCERmfu17XBl9NKg6mz3B1vV+XlHUeIb0T619Vl/fXT4KHgA622t7xIlmECd9lvfErNGEPZY5wf86EVH99m4bXQlJ6FhUK6K1aWlGZVwrDZUECU+muL+OS6RuXChuXjMxPB8NpgaaU68LqgJeTS+FFt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2026 21:10:24.7781
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44152470-33cb-4ff9-afbc-08deaaeab9b8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF000397B3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9472
+X-purgate-ID: tlsNG-d62444/1778015430-BF07EFF4-044A71D2/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 672
+X-Rspamd-Queue-Id: 8DD4B4D3D32
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.69 / 15.00];
-	ARC_ALLOW(-1.00)[zohomail.com:s=zohoarc:i=1];
-	R_DKIM_ALLOW(-0.20)[apertussolutions.com:s=zoho];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:marmarek@invisiblethingslab.com,m:bernhard.kaindl@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DMARC_NA(0.00)[apertussolutions.com];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:frediano.ziglio@citrix.com,m:xen-devel@lists.xenproject.org,m:frediano.ziglio@cloud.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:freddy77@gmail.com,m:demiobenour@gmail.com,m:marmarek@invisiblethingslab.com,m:stewart.hildebrand@amd.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FUZZY_RATELIMITED(0.00)[rspamd.com];
+	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FREEMAIL_CC(0.00)[cloud.com,citrix.com,vates.tech,amd.com,suse.com,xen.org,kernel.org,gmail.com,invisiblethingslab.com];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[dpsmith@apertussolutions.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[apertussolutions.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	BLOCKLISTDE_FAIL(0.00)[10.42.69.7:server fail,192.237.175.120:server fail,136.143.188.51:server fail,195.190.135.10:server fail];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[13];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[amd.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	BLOCKLISTDE_FAIL(0.00)[165.204.84.17:server fail,10.180.168.240:server fail,2603:10b6:802:20:cafe::19:server fail,10.181.42.216:server fail,2603:10b6:802:20::43:server fail,40.93.201.34:server fail,10.42.69.1:server fail,192.237.175.120:server fail,195.190.135.10:server fail];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:email,amd.com:dkim,amd.com:mid]
 
-On 5/4/26 09:30, Jan Beulich wrote:
-> On 22.04.2026 13:51, Jan Beulich wrote:
->> The boot services FreePages() needs passing the size. Since we allocated
->> one more byte to put a trailing nul there, we also need to bump the size
->> passed there. Make a small helper function to centralize this.
->>
->> Note that there's no permanent memory leak because of the oversight: The
->> allocation is done using EfiLoaderData, and all memory of that type is
->> later reclaimed anyway.
->>
->> Fixes: df75f77092c1 ("EFI: avoid OOB config file reads")
->> Reported-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 2025-12-08 08:39, Frediano Ziglio wrote:
+> From: Frediano Ziglio <frediano.ziglio@cloud.com>
 > 
-> Marek, Daniel?
+> For xen.gz file we strip all symbols and have an additional
+> xen-syms.efi file version with all symbols.
+> Make xen.efi more coherent stripping all symbols too.
+> xen-syms.efi can be used for debugging.
 > 
-> Thanks, Jan
-> 
->> ---
->> This is an alternative proposal to
->> https://lists.xen.org/archives/html/xen-devel/2026-04/msg01044.html.
->>
->> --- a/xen/common/efi/boot.c
->> +++ b/xen/common/efi/boot.c
->> @@ -778,6 +778,16 @@ static void __init efi_relocate_esrt(EFI
->>    */
->>   #include "efi-boot.h"
->>   
->> +static void __init free_cfg(void)
->> +{
->> +    if ( !cfg.need_to_free )
->> +        return;
->> +
->> +    /* One extra byte was allocated to put a nul character there. */
->> +    efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size + 1));
->> +    cfg.need_to_free = false;
->> +}
->> +
->>   void __init noreturn blexit(const CHAR16 *str)
->>   {
->>       if ( str )
->> @@ -787,8 +797,7 @@ void __init noreturn blexit(const CHAR16
->>       if ( !efi_bs )
->>           efi_arch_halt();
->>   
->> -    if ( cfg.need_to_free )
->> -        efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
->> +    free_cfg();
->>       if ( kernel.need_to_free )
->>           efi_bs->FreePages(kernel.addr, PFN_UP(kernel.size));
->>       if ( ramdisk.need_to_free )
->> @@ -1557,11 +1566,7 @@ void EFIAPI __init noreturn efi_start(EF
->>               name.s = get_value(&cfg, "global", "chain");
->>               if ( !name.s )
->>                   break;
->> -            if ( cfg.need_to_free )
->> -            {
->> -                efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
->> -                cfg.need_to_free = false;
->> -            }
->> +            free_cfg();
->>               if ( !read_file(dir_handle, s2w(&name), &cfg, NULL) )
->>               {
->>                   PrintStr(L"Chained configuration file '");
->> @@ -1631,11 +1636,7 @@ void EFIAPI __init noreturn efi_start(EF
->>   
->>           efi_arch_cfg_file_late(loaded_image, dir_handle, section.s);
->>   
->> -        if ( cfg.need_to_free )
->> -        {
->> -            efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
->> -            cfg.need_to_free = false;
->> -        }
->> +        free_cfg();
->>   
->>           if ( dir_handle )
->>               dir_handle->Close(dir_handle);
-> 
+> Signed-off-by: Frediano Ziglio <frediano.ziglio@cloud.com>
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Acked-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+
+While there is some discussion about patch 1, it seems like this patch 
+can do in independently of it?
+
+Regards,
+Jason
 
