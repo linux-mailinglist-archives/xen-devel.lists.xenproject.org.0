@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IBX+NZtI+2lZYwMAu9opvQ
+	id 9lsVOJxI+2lqYwMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 15:56:43 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 15:56:44 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43B714DB6C0
-	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 15:56:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1301762.1575958 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D0194DB6C8
+	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 15:56:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1301764.1575968 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKcjY-0004gI-VR; Wed, 06 May 2026 13:56:16 +0000
+	id 1wKcjd-0004vW-BD; Wed, 06 May 2026 13:56:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1301762.1575958; Wed, 06 May 2026 13:56:16 +0000
+Received: by outflank-mailman (output) from mailman id 1301764.1575968; Wed, 06 May 2026 13:56:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKcjY-0004dO-SE; Wed, 06 May 2026 13:56:16 +0000
-Received: by outflank-mailman (input) for mailman id 1301762;
- Wed, 06 May 2026 13:56:14 +0000
+	id 1wKcjd-0004t2-89; Wed, 06 May 2026 13:56:21 +0000
+Received: by outflank-mailman (input) for mailman id 1301764;
+ Wed, 06 May 2026 13:56:19 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wKcjW-0004d4-MY
- for xen-devel@lists.xenproject.org; Wed, 06 May 2026 13:56:14 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wKcjb-0004rq-PI
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2026 13:56:19 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKcjU-007bkp-HI
- for xen-devel@lists.xenproject.org; Wed, 06 May 2026 15:56:14 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wKcjZ-007bkp-KI
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2026 15:56:19 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <roger.pau@citrix.com>)
- id 69fb486f-bab6-0a2a0a5309dd-0a2a450b951e-16
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 15:56:13 +0200
-Received: from [52.101.56.32]
- (helo=BN1PR04CU002.outbound.protection.outlook.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69fb487e-bab6-0a2a0a5309dd-0a2a450aaf8a-14
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 15:56:19 +0200
+Received: from [52.101.46.9]
+ (helo=CO1PR03CU002.outbound.protection.outlook.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <roger.pau@citrix.com>)
- id 69fb487c-212f-0a2a450b0019-3465382053b8-3
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 15:56:13 +0200
+ id 69fb4881-56b3-0a2a450a0019-34652e09ee73-3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 15:56:18 +0200
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
  by BY5PR03MB5064.namprd03.prod.outlook.com (2603:10b6:a03:1e2::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.27; Wed, 6 May
- 2026 13:56:10 +0000
+ 2026 13:56:14 +0000
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9891.008; Wed, 6 May 2026
- 13:56:10 +0000
+ 13:56:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,20 +60,20 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kj80v9Gy7hi+AWd59MLt8CtlfHVG6eLYzgOKkjJQUGRvmfVF8O/7B6DqR6z4Si6FG3/GB3hsSPceF6mwAzVHkgrdCxmevBQlQpwzogF6EGMpgqRjK7y6yEPnjYJNcjICvAcrSKI5ix1cvmdVqX/b3aMwWqK15pwiPAu/JQC+VG3s0gDOiC36D7Zb9h1sIOlKiEU8LlnOoHtQPAx0kQcDhxaXq/2TFQay5yNp9jpVYJUvbOn7BS3YvcxLn6pp88JZM2k6cDqHBecKoT2LdGFQWs7LXtyvklFx5JuEipO74NDjWaqJivV6RI0CjgmP3xwBTrxp7tdUQsqtAHtJeS19lA==
+ b=pcter3EntOVvhI+c3ux5PGR/jI59fiaXgVhOTif97OtoZ5q4qFG5JTLvXk1H0+Oqr0XOgWDaXb8LDZsczlPE6pfX4wRA1y7zIUkvX4v60B4l6JDzPCyDVUduwmTiPVPDUeKwFZ3DBsVhBv23+etRljTctD8rYVvScumuiukEN2BeRd3T+Hb/1rRnjePX6zJA49juG1RD1NkC31h46gZcUdBDuQazVkmAaNXQMsn7PSjkm9w9paYJfrEOk2gLJ+ZtotbXFq9VnGgMbmSck8yr8mTSeOAEZV2msO+HV//CN9xdcRGDtWDLvURLKc0fdxQsaygZ8Mo+Bbgo+FD4USAVOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h86yfRitR+Edx+8fRFPWiKjEeDNn2k6WHpP9iqYYO4U=;
- b=N79yjc4tzCunkWv2wcD/maVElzjUYKuneVSDvqdFrb5sqQ60TqmBbC8IuAz5nTj5FPCHOWejQ+SpHaAXDhXTqdXFdGyvRNq+CgyCqnl9oyT/lo4F8coPHMHESkd2pSdKdpbeUDPPMnBVE+YD/5eNinCDzdKi7KJsIX8I/jiXr5pPmD63J82pNd3hXdG8HfPBNw0JTJAoD3HrLRdiNOVXjzALi7+p58AG6N/nA2/o6oQw3aLrIK6I/zAuwgXt1sz2/ccNfeGHYsYYjDYm4wDz5GAZP+CC2YAafhWtPbQnp9QRGBKD75YFFjyA09zeZBPEBa9eSmyFpSrDeOaNNJem8w==
+ bh=xrwxSKkv7rRh6ev0v8/Wi7eDOFVfG4pmI1FUsQ+FFwI=;
+ b=AAO5IAYZxj3gKj06n84P+d/bu/qLuE+XrNvYrVZmjpWJHQA1RMNuOr1jWYfPGbRMc2rtSgDNA6INlBMsoNIR+AKkgpc7pEGp8MBNYNGpjGWX0RtpZxV6WrhxGtLzZa2jsUL5ZlZf4IbfoMmZ0LRK17qvm681pT7Z11jnrmuFijIKqSTe6YZWyIhwHd/L9y4Ho/jZ5v0YMTS93lgCXuT8/kXOr2r6NAXeXYqU1mSVwuevNvmcIPARUKTWUbOmiVDNe20hkA82aUMpF17tbxGsAJgqvMAwgqF1i1/uRzmTE59yx2RWFkvTuaAxC4Gqm1UDcNwRAXdhFAeChmfJyT/afg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h86yfRitR+Edx+8fRFPWiKjEeDNn2k6WHpP9iqYYO4U=;
- b=TxjmSG+bEFdZnZA+U64GRBt0ayRvVwV8HbKexn5SXS/IqLh3z3GkLgJAk3ZH7VOEfaWPYbi3+WDEwaPng8coN43OY3qA1N3XVR1qEfWGrWwBfoYI5YoZqyWxNw7BRuY3heIG0MHt2ipOACLHvSGt5lyk2ayK7FavGg2rbwyuEdY=
+ bh=xrwxSKkv7rRh6ev0v8/Wi7eDOFVfG4pmI1FUsQ+FFwI=;
+ b=SO3Gn8tGlq3r1XnzlKFyHZ/h9Rz/V/yKpIzwvImlXWVqHVIDAF70ovcJMMBmJUYiWF8Pdamus84IN5Icxb3zjCcK4uNpypCOtnMUJvTO20g0iht3goFu+1gbdJNdHq1mgZ3g8IoPAaZX01yU6OSHXp4v9eItplHthZQ3XmDu4U8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
 From: Roger Pau Monne <roger.pau@citrix.com>
@@ -83,93 +83,93 @@ Cc: Roger Pau Monne <roger.pau@citrix.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Jason Andryuk <jason.andryuk@amd.com>,
 	Teddy Astie <teddy.astie@vates.tech>
-Subject: [PATCH v2 1/2] iommu/amd-vi: allow disable_iommu() against non-initialized IOMMUs
-Date: Wed,  6 May 2026 15:55:13 +0200
-Message-ID: <20260506135514.47310-2-roger.pau@citrix.com>
+Subject: [PATCH v2 2/2] iommu/amd-vi: do not zero IOMMU MMIO region
+Date: Wed,  6 May 2026 15:55:14 +0200
+Message-ID: <20260506135514.47310-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260506135514.47310-1-roger.pau@citrix.com>
 References: <20260506135514.47310-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR1P264CA0060.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:3e::21) To CH7PR03MB7860.namprd03.prod.outlook.com
+X-ClientProxiedBy: MR1P264CA0173.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:55::19) To CH7PR03MB7860.namprd03.prod.outlook.com
  (2603:10b6:610:24e::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BY5PR03MB5064:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80daeafb-2843-4d92-8f5e-08deab773a58
+X-MS-Office365-Filtering-Correlation-Id: 136dcfb9-2514-4f7f-119d-08deab773c97
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|376014|1800799024|366016|18002099003|22082099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	K0BigEKWt+Ll2pSKRoPbGizE6lCGfuHGkVOVtbfFJCemQiWRH1rkSIGCE8JyOEnNFG3nyZ6TodTQyVgLlRqEtjmp3CNZXUy4yMtvgv9RJcPreyOLC5gobt2qCZ2NtLc24xAVeMhx2bp56R54Br2tkkat0CLbsQAwPIRsoweMtSajPYkZ56I1xsnMFdeRFfGoYZ3laaF5Sdbw4BAhGOKaowFS8wAqjhuPalh+mQZzICu2In053tQ20taDE6+8GUkySABxguuNDTcKO/miOEtmfqNQ9gVipaNqeUO59SyszrIKwWawlUw/SluozcH3oUavrHPsbVrRBDMz/gY6k7chGvFB9NIoQqFhxMDdaHLRXEkMrpw5Zl0woEA1Q7YZLoOmPnMiMlkSvMxeieoadCV7VGphDK9jtQhCdQwN6zu10seSVFGzlEa/U8YbyQmOVMEGbI0cNSMP23rZOU0VxCP1FS+ciGXCY7POi0xrNbou5sOFgWxCP9Gm5WqXPoiwB8rnCb6Tm89RQTWqXDv7xCdiXs9TqIwtIsfcX01P4Pwiw7wfhR/fV1r2rqwyg82ACpzD4FlVHhegTovzM9MGr21GMfwDo/RDdjyxFOC9obPlgECJZ5vCKeNQWIXANI4AsO3VwCB8P4NKId8z9PHR5RZrUy1+eZc/sNguoXsWZYV6FFqdDszj3VqomL4M6eQ/E59X
+	qGDmAPs3hMQM6sTSqPJE/2N8pHcRGk84sEmz3vz9iNZvj31bjF/thUICafHljCWi1Dg17DncZQ6QCDJj0dDFhOt91cMgG/97THCGNBVS9ZyOtLC+akEcWw6caNONYcva/oC3z5mbNzSkrUfLqpaJG6GW869j+AHNrcSKMIRCDhNEO5PLMSEuLc8uj7IlvBzLzvmhXEPWf9MCZp4wkglPSd6ZFtMlsRU+Xp3Q5lILZr8zPfpR1hE9UIMO4+uLkl0me5kBoZlZ7oilhmmwM7A52OqGla3moF5tiJdtJJW/ham+GUaFxP9yNxi5ieHT+5PwZeSZqbTsqG/ojoOzKob+JSMl0tXWRxPsfyvi5FbSpmoLrDHzOY+ytheHdCJkInhmEg2FCxlY2zLSbt+Hk6vyN3S9ggiIMKtHbTHJDSeKuYTJDBP8baQCKdvmJZP//P5eu6r7wiDXJeJZM6Kr1XSy4VxI4k3dC0KUH7gAL640fAnQ6kpCaQbZZrD1oFEv6sG72+NcwPPSQMxUafVyix4ZgD8qTiefM9znRD2AOpGvOzraGeQP6NLa3eIBqlq9P1hH+aYER0A5USOfm97Py6ME67GLojtrmMNE3PrQVx6A3FrtL6MRd9PMrMe9OD9/PkEOdIm55Sw+v5HKXQOf3v56zVwebCQQS3M+xGZh6I/OSxD6tcuJO7P2mJDv1XcKAwhP
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L3FPY29NZStzemJlRkJFTC9waTA5L0lmazgvVGFtckM2ZDYrWGpXaVZncFo4?=
- =?utf-8?B?SDl0TUc5a3BIV1BycnJtVi9VVTVSRkloRTV4SEd3cTVBL3hLZzBxekZJNlkr?=
- =?utf-8?B?b1hOQ3MzVktnOFNLQTRvcXVwV2lMdE5nUFZqaUFzUmJEUTc5K1ltQUNjQnZ1?=
- =?utf-8?B?RytqQ3dyTGRBTkdFenI3YkdWWVZ1NGVXTml4Rm55SkN1Z29wRDN5UnRKMms3?=
- =?utf-8?B?c1g3bFpTVURTQ3lZMXF6OTcrTyt4TnlLRWNGSHFYOEoxM0M1UkEwSGVwOWdi?=
- =?utf-8?B?bWp0MGJlaEoxNlZLWnRJMElsdHk1L3liS3hQUjZ1WGlERDVYYVI1S2ZRaHNQ?=
- =?utf-8?B?b0pCQndtTXBaR09Ma2UzVk92RmNaQ0c2OENvNGc5V1hSbWd4b1BRdzBXR293?=
- =?utf-8?B?Ull4SVd0N2lvbEM0cDdaMEhCMkw5dEdrSkR4QmFSNnBkY0hmOHlFVHZHTEkw?=
- =?utf-8?B?MUdBQXdDc2laQmVtRnhab0hVN2xWV1p5Vnk3dTkvQmVPbExoSkRYWEl5WHdJ?=
- =?utf-8?B?V1l0WW1HWHhwK1F3TTV0cG1UWnd2cHRGczJmOFlyQk1SWUhUejZVYlZwY0h2?=
- =?utf-8?B?dWJuUTlVb0pUUlNYdDZxWXpYeVF6amlLb25jejk4bG01V05wZzk2V1NZb2Zv?=
- =?utf-8?B?V0tjbmVLazRxa1lKNDVkNXJKcTNOdVRUQ3B2OFVzT0svNzM4dHNPeFBZVm5t?=
- =?utf-8?B?RVloRlJUR2Y0NGJSZGpvWm5rNkFuSkFwdEY4Qm50ekIvUXEzTUJuM1ZkdXoy?=
- =?utf-8?B?NWk5amJTdGdMekx3Rk1iamVHdU13eUlRUkRmK3kyZDlTMXBPdlF6dU1LTmwz?=
- =?utf-8?B?OERPNzQ4Y2x6czZ0UGxHTnZ5YmUxNWhySU9qeW9rd0dmNHRJbXRFZGVFdUNq?=
- =?utf-8?B?R0IrNXRzTnJpMFpZTHNzQjh1U1U3MUZRYXNiY3BlNlVMU1NUckV0Z0x1RjdH?=
- =?utf-8?B?a04rV1ZxbDNGSzVMMm05MURDM3hSMjM2dEFzNElITDBscXdCei9TRWJuQUFz?=
- =?utf-8?B?b0tXSlBpK3FRM0xYeHFwWnhoa25hdzZoTUw2ekhFbXpyL0V5QXJsZ29TemRB?=
- =?utf-8?B?TDNEZzhWcjR3bFplajY3Nnk3ZmZQdTRORk94M1RtN1RkQWJuOEtVME9HN0tq?=
- =?utf-8?B?akdCeml0OS9jTk9jdFBnM1Zvb0dBTTJzQ2lPWU1OYUZlY3VxZ2IrMWZZeVJS?=
- =?utf-8?B?Zm1objAwOUU4bnJlSU9FVG0reGdUc2E5MlZOTy9pdkFLNFdzTUk5Z1pOUXh4?=
- =?utf-8?B?K2JhOTFrS0V0RWtlR0xnYjBYeG9ycjM0d3VhQkg1TDFEMmJqWGJ1Q0tmK3Zm?=
- =?utf-8?B?bWtYUGQ3MTBwWTcva0lBRTBVMkxOL1BLNzEwd0w2N0k0RlZ2TElVVk5aNW1N?=
- =?utf-8?B?SWFmdmtrS2pXbTJMVHNvV3NpdFhQdXpyOE9Gc3FmRUJXVjJZbHAreGZubWVW?=
- =?utf-8?B?bWdZbDNXSDErdVRodUJzT0IxY0I2QXdTLzhCcDRzZi94U0s3WFBFM3dGdkFM?=
- =?utf-8?B?SmROR1dYWmlxNU1RaFIyN1RpV1pWNkxVdGNqdXZDdHhQem5TRTJKVkhpcUhI?=
- =?utf-8?B?a0JIRDZOVm0vUzJyTEF3M2hTQUd4ZTRpb2l6V3lQTkJSMHMzdmplLzdIK3ND?=
- =?utf-8?B?Q240Qk95UU5NQ29BZWZmWWkyYVBFOTBydzVYNmw4NWFndS9VKzIyd3NnajVl?=
- =?utf-8?B?QTlHdGpoclpDdEdLZk5uRWNDZ2lDWlNOQnpWRHdmSlBzZ0tmY09WVWo4MHlI?=
- =?utf-8?B?YUhHVGxsYmpOOGd0YzBJaWMvdXBYS05VUzVPNkd4RVhKZVVaOW5wUGFtbEJj?=
- =?utf-8?B?TW5wYzBURUV6VjliU2hIZjZsZlkwU1IxWGJzK3laSW4zTTFXVExtZDBMSy9z?=
- =?utf-8?B?L0lNOGdVQTRyMjdndURKb2lhdEZZRDBrMFpYWHhUVnlyK0NIbm85bzBob3Rh?=
- =?utf-8?B?VHBoWDlscnE0VUpIckFCTTQ1Rk5EWkx6T1BlTTJVSnRiUjNoRVdQazdVUGlm?=
- =?utf-8?B?NXIyMk45TDhSejNnWC83d1NoTHkxT2FSdGVoc0hzRzVnbjQzaGwvTGxFcjBK?=
- =?utf-8?B?Nmc0U2JpMkdNNXkxdGE4WFVwWXhxRFRLMEREQWg4U05sV0VPVFRER2NZbHQw?=
- =?utf-8?B?WGVtMTQ1cGNJZUIwditQdEM1Wk4wOWtYK0Y3ZkF3WHArcStNLzFYdVZwMWxi?=
- =?utf-8?B?M0RDMWM5cW81aWFyK3o3RHVOTFZGd3VXSHBLTW4zRWpzUkdaU3o4eTgwRkRw?=
- =?utf-8?B?Z2dIcnVYYVdhbDU0SFJpVUJJVVJuYjlvVHBPREc2TUVoYys1QWpleXB6dUYv?=
- =?utf-8?B?RWlhTm9CTVdhNW9WdDV5K0VSdmdhelpMbWdGVWovWmtJZ2FpMTBUdz09?=
+	=?utf-8?B?RVVTVnQ0akxsNEFRTjJ4SXFYMG1jbGVYZ2gxYTJBdmU5MFdRSTh4aTVUcmJB?=
+ =?utf-8?B?UjBMcHVBRGF3L05aQ24wcFZDa045Y1l2RGt6RXdud1hnaThlWTY2SHdtUHVI?=
+ =?utf-8?B?N3FvbU1SeExDZU93b3BWQnlza1Z1NmxsUDI3elpaT3FkemRwbW9NdWFUQzh3?=
+ =?utf-8?B?aGpWR0xEbnByZ3BwNWRxOU9UeTBlajB5ME1HT0xYaGVQdmphWUxiRXJUaExY?=
+ =?utf-8?B?SUtyMVpLVTRYa1FSeHE5VTlkdWUzNXBzSndYR3lJM1VUalprWWE1V0YxT2hj?=
+ =?utf-8?B?R1RtRk50RnMxaUN2QXFyRkUvS3NSajdGaWFsdVZ0cXVtS0E1S3dHbTNpa1RY?=
+ =?utf-8?B?MGQ4d2lNdlMvRmtNeStzbXBPQTNmNXVYaDdhR1ZZaHNmbW0vOTV0VHJDR3NC?=
+ =?utf-8?B?NGpkWjZZOWJMOUdIRHdkUEQ3WkkwMmt4Y05pQ1BzT3FYMERZOTZRa1ZVOE9N?=
+ =?utf-8?B?S2UxdVFPOEhWK2M5RE5mTlF6SjFxZkxscXMxRzh4eStsK2JiZE4xWGlrSXJ3?=
+ =?utf-8?B?ZXNrNDdseG0xcGVKaVkweUJOd0JBRHBFVEJSdm1aSmc5TzRMYlE0eE1rQ0Vu?=
+ =?utf-8?B?V09mbWh1eURZRmN5c2w0S0pYVnRkcGNoOFFsY0g5ckRQbFdZMjJocUVqUU1S?=
+ =?utf-8?B?MXZxeWQ1UzMyM0Eyak5BTUovdkRTZVZXZS9VeTU1dG1aWXdVRm1va2poeGww?=
+ =?utf-8?B?VkVrMk5QQWM0STN2bnZlZVo5MWcycDRVa0UyQWRkdldXQjAvVXlTVDBWdXdW?=
+ =?utf-8?B?S3ZtT2RSc3ZrRXdtdDdkNzVBL05zZnJvZVk5L21ONzkyd3praFBqcFE4YWVY?=
+ =?utf-8?B?MFcvVGtPK3UvL1BnTmFMeDhLTVJTWjY1aTRtZXd1VHpGbDl3RGpiR1hwWkNH?=
+ =?utf-8?B?TFRIMkI5SzVsZ2swdUZnVWdxbjE5VDN5T1A5YXBTSDNQb1VVYjZucEZwQmV2?=
+ =?utf-8?B?a3ZvdHdCcko5T05DU1BnRE5VazFid29CaGtoWHhkOVY3aWxKQzNabmNqZHRW?=
+ =?utf-8?B?VXlVR1lIaHVycm5vYTdLRjNJNkFLcUdraEluUGU5bzBOcUdzNDNCQzdWbndE?=
+ =?utf-8?B?S1pvcDFiSFR0MXdEVHBCVUlkY0x1Z3h5QWp0SFBBZ0hadlpvSHZNNkgwL3F4?=
+ =?utf-8?B?ZkdTdXdSY3FuSHJwTkcrZlZTQWV4UUNzRVVhYm9Nd3V3bnU1S0J6K3JUVHRu?=
+ =?utf-8?B?bkNCN0w0a3cxYnV3TmdPVllYd2wyZHBCR2JNc08vUzFHVlUvbEtLSzVpWk54?=
+ =?utf-8?B?Y3JvRGlYSU1sVDFsZGZtcEFiajIxRjRSQ1RiSjFRQ2FGaWZnOGdkS2RCblNB?=
+ =?utf-8?B?cU5aL2NFT1VINEhjL0tZNm5NM3RLaFlRamZGN0htS0JYTlFheTRMZXd0UW1U?=
+ =?utf-8?B?bllqQm5BV0lzL1o0a2IzZHNXeE1LTlRnWHN0bmExNWVWM3RSN3FLWE45eDBH?=
+ =?utf-8?B?Qm1pNHYwbG1FN0lVN2pKUFVZWjZKWUVjVzl6NFNXVEw3bytIODhwV3FkZExm?=
+ =?utf-8?B?VFN1U3BOcTBkMmUydFNCZ0tYcVlCUi91d1V0QWlrN3BsZHNZaXpNcm83L0t2?=
+ =?utf-8?B?MlNRVkRYYnkwUkN3UXdySDF3U0FDNVdXSXNoUHVIbzc1STRUaUJESXcrQWlC?=
+ =?utf-8?B?dWc3OE1GaHJ4VU5BZ0JoTmRpb0dZMVZhMVJ5d1BJbkVkT2Z3K0EyZzRZdllm?=
+ =?utf-8?B?TXRHbkVHczllM1I4SVlQeWF5OTBVMWxiM2lxV3Y3L21ycGlXcytXbDYxWG9V?=
+ =?utf-8?B?YzB5TGpZOUozU240NHVkT2RUbkNkL0lPNjIyOUVLbURlUjBKSkpNcFNuN1lr?=
+ =?utf-8?B?a1hMSmNIbzdSQ3JkcnByOTNrUDVmVGFOMXdMMHBUV3MxTVRKekZYZmJQankz?=
+ =?utf-8?B?ODdtd2tCMm5FTGFySTdyaTBpaFJvRGI5aW9laGRYUnVuOGJKUmMyemR0Y3lP?=
+ =?utf-8?B?eUtXalgrMm1obEN4VFZ6OHV2blR5YmM0VHUvOUt1aWpnK2k3UzhUVUs0cFRP?=
+ =?utf-8?B?Znd0bHNhU2NoSmtQYlJRZUEvajFYQ0s1bFQrZTVrNEVhb2hkQjdLaGhlZGFT?=
+ =?utf-8?B?U2J5c0ZQREFzZDZMTXdEN3djMXZCMHUvVGJlZWJVZlVFaFI5M0JTdElJbDdD?=
+ =?utf-8?B?bEpDZGF0M1MwbFVXdnZUZncvcStucDFmVmZDdlcydXZucWxRMUFnRzJ4VmJ4?=
+ =?utf-8?B?TWE1ZzJhNkRvUU9mc0tOUmxuSldjOVdlQUlJUEdLNjd1b2syZ3VGVVVBWUtl?=
+ =?utf-8?B?SWdZL1N5b2gydG5OUHNuVmtDdXNiOE0yRkRJclFDL2lnZHJhU3ZjQUhwMGVn?=
+ =?utf-8?B?R1UxVXdDS0Jqem9XQU5YTVNiV1lNOWRqejBBcFIyazNUbUpuQS9QUT09?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80daeafb-2843-4d92-8f5e-08deab773a58
+X-MS-Exchange-CrossTenant-Network-Message-Id: 136dcfb9-2514-4f7f-119d-08deab773c97
 X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 13:56:10.3891
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 13:56:14.1335
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gwDz8mZi7Yiw3BLYoz8W/oiAPN7qbcOKvZagJWg6uvggHFQhkGvmn50iyUhLeFtkov8PaGvY6jJHXInTO6gGdg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: GHJLRlJr1efc8hnijnjl+9td/8Am/Mm8hudgAZ9BTkT53bLylHS9pa8GlD6tvBI3lEPP28fDqnUjwhx4kfkPCw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5064
-X-purgate-ID: tlsNG-42698a/1778075773-1A16DF3B-FA86CAA0/0/0
+X-purgate-ID: tlsNG-4011c0/1778075779-729768B7-6D0FD97D/0/0
 X-purgate-type: clean
-X-purgate-size: 2177
-X-Rspamd-Queue-Id: 43B714DB6C0
+X-purgate-size: 3059
+X-Rspamd-Queue-Id: 8D0194DB6C8
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -194,66 +194,87 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-Introduce a force option to disable_iommu() that allows it to disable the
-IOMMU, even when ->enabled is not set.  While there remove the unlikely(),
-this is not a hot path anyway.
+Attempting to memset the whole IOMMU MMIO region to zero is dangerous to
+say the least.  We don't know what registers might be there, nor which
+values might be safe for those registers.  On a forthcoming platform doing
+the zeroing of the MMIO region does put the IOMMU in a broken state, which
+is not recoverable by the IOMMU initialization procedure in Xen.
 
-No functional change, as there are no current callers that pass force ==
-true.
+Instead attempt to forcefully disable the IOMMU ahead of enabling it.  Fold
+map_iommu_mmio_region() into it's only caller, as the function body is just
+an ioremap() call after the removal of the memset().
 
+Fixes: 0700c962ac2d ("Add AMD IOMMU support into hypervisor")
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/drivers/passthrough/amd/iommu_init.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Changes since v1:
+ - Zero the control register after calling disable_iommu().
+ - Print a warning message if the IOMMU is handed enabled to Xen from
+   firmware.
+ - Fix commit log grammar issues.
+---
+ xen/drivers/passthrough/amd/iommu_init.c | 31 +++++++++++++-----------
+ 1 file changed, 17 insertions(+), 14 deletions(-)
 
 diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
-index d77dd8511288..76ae78e5ea53 100644
+index 76ae78e5ea53..ffc041211fb5 100644
 --- a/xen/drivers/passthrough/amd/iommu_init.c
 +++ b/xen/drivers/passthrough/amd/iommu_init.c
-@@ -929,13 +929,13 @@ static void enable_iommu(struct amd_iommu *iommu)
-         amd_iommu_flush_all_caches(iommu);
+@@ -42,18 +42,6 @@ static bool iommu_has_ht_flag(struct amd_iommu *iommu, u8 mask)
+     return iommu->ht_flags & mask;
  }
  
--static void disable_iommu(struct amd_iommu *iommu)
-+static void disable_iommu(struct amd_iommu *iommu, bool force)
+-static int __init map_iommu_mmio_region(struct amd_iommu *iommu)
+-{
+-    iommu->mmio_base = ioremap(iommu->mmio_base_phys,
+-                               IOMMU_MMIO_REGION_LENGTH);
+-    if ( !iommu->mmio_base )
+-        return -ENOMEM;
+-
+-    memset(iommu->mmio_base, 0, IOMMU_MMIO_REGION_LENGTH);
+-
+-    return 0;
+-}
+-
+ static void __init unmap_iommu_mmio_region(struct amd_iommu *iommu)
  {
-     unsigned long flags;
+     if ( iommu->mmio_base )
+@@ -1367,11 +1355,14 @@ static int __init amd_iommu_prepare_one(struct amd_iommu *iommu)
+ {
+     int rc = alloc_ivrs_mappings(iommu->sbdf.seg);
  
-     spin_lock_irqsave(&iommu->lock, flags);
+-    if ( !rc )
+-        rc = map_iommu_mmio_region(iommu);
+     if ( rc )
+         return rc;
  
--    if ( unlikely(!iommu->enabled) )
-+    if ( !iommu->enabled && !force )
-         goto out;
++    iommu->mmio_base = ioremap(iommu->mmio_base_phys,
++                               IOMMU_MMIO_REGION_LENGTH);
++    if ( !iommu->mmio_base )
++        return -ENOMEM;
++
+     get_iommu_features(iommu);
  
-     if ( !iommu->ctrl.int_cap_xt_en )
-@@ -1139,7 +1139,7 @@ static void __init amd_iommu_init_cleanup(void)
-         iommu->ctrl.int_cap_xt_en = 0;
+     /*
+@@ -1381,6 +1372,18 @@ static int __init amd_iommu_prepare_one(struct amd_iommu *iommu)
+     if ( amd_iommu_max_paging_mode < amd_iommu_min_paging_mode )
+         return -ERANGE;
  
-         if ( iommu->enabled )
--            disable_iommu(iommu);
-+            disable_iommu(iommu, false);
-         else if ( iommu->mmio_base )
-             writeq(iommu->ctrl.raw,
-                    iommu->mmio_base + IOMMU_CONTROL_MMIO_OFFSET);
-@@ -1584,7 +1584,7 @@ void cf_check amd_iommu_crash_shutdown(void)
-     struct amd_iommu *iommu;
- 
-     for_each_amd_iommu ( iommu )
--        disable_iommu(iommu);
-+        disable_iommu(iommu, false);
++    /* Read current control register and forcefully disable the IOMMU. */
++    iommu->ctrl.raw = readq(iommu->mmio_base + IOMMU_CONTROL_MMIO_OFFSET);
++    if ( iommu->ctrl.iommu_en )
++        printk(XENLOG_WARNING
++               "AMD-Vi: IOMMU %pp enabled by firmware (%016lx)\n",
++               &iommu->sbdf, iommu->ctrl.raw);
++    disable_iommu(iommu, true);
++
++    /* With the IOMMU disabled zero the control register. */
++    iommu->ctrl.raw = 0;
++    writeq(0, iommu->mmio_base + IOMMU_CONTROL_MMIO_OFFSET);
++
+     return 0;
  }
  
- void cf_check amd_iommu_resume(void)
-@@ -1598,7 +1598,7 @@ void cf_check amd_iommu_resume(void)
-         * To make sure that iommus have not been touched 
-         * before re-enablement
-         */
--        disable_iommu(iommu);
-+        disable_iommu(iommu, false);
-         enable_iommu(iommu);
-         if ( !iommu->features.flds.ia_sup )
-             invalidate_all = false;
 -- 
 2.53.0
 
