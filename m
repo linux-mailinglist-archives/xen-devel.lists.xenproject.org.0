@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OZfEBUDY+ml8TQMAu9opvQ
+	id +J0rB0DY+mk+TQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 07:57:20 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C6A54D6655
-	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 07:57:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1301156.1575485 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDFF84D6657
+	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 07:57:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1301154.1575476 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKVFK-0006jS-Fh; Wed, 06 May 2026 05:56:34 +0000
+	id 1wKVFK-0006bd-12; Wed, 06 May 2026 05:56:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1301156.1575485; Wed, 06 May 2026 05:56:34 +0000
+Received: by outflank-mailman (output) from mailman id 1301154.1575476; Wed, 06 May 2026 05:56:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKVFK-0006cI-9O; Wed, 06 May 2026 05:56:34 +0000
-Received: by outflank-mailman (input) for mailman id 1301156;
- Wed, 06 May 2026 05:56:33 +0000
+	id 1wKVFJ-0006YY-P2; Wed, 06 May 2026 05:56:33 +0000
+Received: by outflank-mailman (input) for mailman id 1301154;
+ Wed, 06 May 2026 05:56:32 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <penny.zheng@amd.com>) id 1wKVFJ-0006YS-1f
- for xen-devel@lists.xenproject.org; Wed, 06 May 2026 05:56:33 +0000
+ (envelope-from <penny.zheng@amd.com>) id 1wKVFI-0006YG-3b
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2026 05:56:32 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKVFI-00GH5N-Eb
- for xen-devel@lists.xenproject.org; Wed, 06 May 2026 07:56:32 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wKVFG-00GH5N-NE
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2026 07:56:30 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <penny.zheng@amd.com>)
- id 69fad7fd-bab6-0a2a0a5309dd-0a2a450aec6a-44
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 07:56:31 +0200
-Received: from [52.101.85.7]
- (helo=BYAPR05CU005.outbound.protection.outlook.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69fad80c-bab6-0a2a0a5309dd-0a2a4502cc5c-6
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 07:56:30 +0200
+Received: from [40.107.209.16]
+ (helo=PH8PR06CU001.outbound.protection.outlook.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <penny.zheng@amd.com>)
- id 69fad80d-56b3-0a2a450a0019-346555076118-3
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 07:56:31 +0200
-Received: from SA1PR02CA0006.namprd02.prod.outlook.com (2603:10b6:806:2cf::15)
- by SN7PR12MB7177.namprd12.prod.outlook.com (2603:10b6:806:2a5::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Wed, 6 May
+ id 69fad80c-af86-0a2a45020019-286bd110cdfa-3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 07:56:29 +0200
+Received: from SA1PR02CA0010.namprd02.prod.outlook.com (2603:10b6:806:2cf::16)
+ by SA5PPFD911547FB.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8e4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Wed, 6 May
  2026 05:56:23 +0000
 Received: from SN1PEPF00036F3F.namprd05.prod.outlook.com
- (2603:10b6:806:2cf:cafe::9c) by SA1PR02CA0006.outlook.office365.com
- (2603:10b6:806:2cf::15) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:806:2cf:cafe::d5) by SA1PR02CA0010.outlook.office365.com
+ (2603:10b6:806:2cf::16) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.15 via Frontend Transport; Wed,
  6 May 2026 05:56:23 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
@@ -55,7 +55,7 @@ Received: from satlexmb07.amd.com (165.204.84.17) by
 Received: from SHA-L-CHUTZHEN.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 6 May
- 2026 00:56:07 -0500
+ 2026 00:56:10 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,20 +69,20 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ABgYIuFm11r8dreV7cA0DJwFITnbkkyeK5Qo9Php8QrzEeJiU1399+l8JhKRIiVp8zUrs7kQIRv3pAts6y/Tr3K4AxCiXwst48Yzg0+jxNfPrd56oLp3JBGyOjEIR4qnuZkXsWxSwLbzFky5mR+t+OArIUmdJeRV9MmQd1llEaPrToM1xb1fQPWkywTKHeX3TqqpVUTDXWeh2znVcZDgcPFFh7EoLsgG4SgxvM4MuS/xsTx7Ur6EitdpBAYCKolvCDTuHjAP+1wyHoZb+vP9P6k1VEjZWju1zTSvtCGqyE/2sXfEJmSJNalQS54XTJTw/eDmxJefnQtbBqpsG5k/iQ==
+ b=gT5sSpRgbJ3+NfaH6JETfRsV7BQRYWKAR2FC2YK2Ap9XXioOmZ+uwGr/MeK+dtQvdiPNdAzkkrbyXhygoyHAEF6MPtS0l4IiHwL4PPTb3AvWf3G4PAd9jb1ywQB1EUaZu1jkDSy/VlLirOQT/DMKCLBkVOd0r+D9jziCN2PeS8EAKe+GEZvIJSTFyNsJCTLoy4uXd4T+axCIJBftAcq9Fmb28KocM4Svxg8TyhjCPx+uV1+HuIo2a+5TWfZc9RytGZw3FQj2UICSRLASTe8igEsUeMWRGupD8v6sm+XJXJOJgV51lzrScnKakYcpG8M7aAfrr4xd63QBrB+kVqhRpg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HtYmF59T1+vlFA/MbHNkN7Ydeg2pEly/nEThOGxN8ek=;
- b=UTFqJlOcgLd+dl2+0nTQkcqINSb54z21kSN91HdVrnNxJG3G65pUIkAG0l2UBgfC8r+M2sNj3LloifFURyTYEw9HjhqWV0kJQyk8Kfcd9xV22NAZI3tJdNim9en8qLaC9zZg+0JfLLLdlmpBKSys+fghtGp0xn6bIhOd2hWKf69y3feHP2wHoB5y5Gu4+OMC1fo6wkAgZpBQLHulgSnI74qnZ9k4o7+NI/qH1q7Oj+jHdUxU0vkAqA7hLq2xpJPoHA3boYhloTb9EGQepRLVYCWyXUd1JgN7LAxdAhKg2f7JurX++qi0RCkEYR5kA1xuvt6g637kp+fyxkMRbxoEBA==
+ bh=WEGHCDfQ42PqJ5PokzCA75qVSyr4zXg8komsg2bzaf4=;
+ b=jUK7tWwGYwpjpcIQXvAtNXJwgr9ie1zb1eZclxxLhEyan2V5dlaTUQQjwr61mCTWGIiA1ng4j/VWVBEfmyGfoFcvKoiVENeWwccm2cw0yoe+5J5LmBDj/I4+7nafAwwT0VLRoXsm0bpypYPKttqMdX4dyTRN4feZsmPbGBwX7dh/jDn8JdvqaFIn3wm0LDSd2WWmcXL9Rhv7a61xxjEN6+yy5jIkCKHohRtwWN6OEsJ+iuV63XuyAxayNxRbwHlXxy6cddz6Nxkmd4pdHuNQhLQHTQbOzf1Ihmiv78L/BUzVhDwXWjvh7qBv1p4GoZn5Sr0kNdFHwplVtslvkN1wVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HtYmF59T1+vlFA/MbHNkN7Ydeg2pEly/nEThOGxN8ek=;
- b=t64ULJ4i+DqEEuWnfBNxCbjxcQz6WWxjOt7zc/s7QpKYM4G+PPrfWEtCcrDI+HoSdGOH6/uJfTnD/fcQvbJPLWE6ntXFw+cxPUUGMzFsrqvxaiKY7n4SsXtrBQ1HZd0THLi8YHxCamt4P2RvVyCUWTgLzLl3oDtBe8EISynZ788=
+ bh=WEGHCDfQ42PqJ5PokzCA75qVSyr4zXg8komsg2bzaf4=;
+ b=swvpuLYRJckBccxYUcZMUMJbqRCtVtN04L9QfAbLqZZDuiJiOBFmnS5Xyv/87OzWBKNYxxUuN3utL4PNmZ6kTRAlwJbs6vYO6EiTHNdUGW2sVj/MIz+1IH3FdBisXqpXpkZ/yg5J2UY2+0a6lV8lDVliYFCjE8C7jtNMBJehDbk=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -98,10 +98,12 @@ CC: <ray.huang@amd.com>, <Jason.Andryuk@amd.com>,
 	<mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
 	<dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
 	<xen-devel@lists.xenproject.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v1 0/2] x86/amd_node: harden amd_smn_init() against Xen dom0 topology
-Date: Wed, 6 May 2026 13:55:17 +0800
-Message-ID: <20260506055528.476493-1-penny.zheng@amd.com>
+Subject: [PATCH v1 1/2] x86/amd_node: avoid divide-by-zero in amd_smn_init() under Xen dom0
+Date: Wed, 6 May 2026 13:55:18 +0800
+Message-ID: <20260506055528.476493-2-penny.zheng@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260506055528.476493-1-penny.zheng@amd.com>
+References: <20260506055528.476493-1-penny.zheng@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -110,34 +112,34 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3F:EE_|SN7PR12MB7177:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e8aa03c-bfff-4236-e045-08deab3433fb
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3F:EE_|SA5PPFD911547FB:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b51d57d-91d4-4d7f-2040-08deab343453
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|376014|18002099003|56012099003;
+	BCL:0;ARA:13230040|1800799024|376014|36860700016|82310400026|56012099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	1NVEyBkMl3LqMEGt3NC80/SzFN0Hpg6xvKTMYGPUfbUj+o3m43e3P/GFMl7j8LgTmd0cEyjE0W+LysZM1VytePiUkHviB8EAzKcwVu0EHtPWD5aZKrGpVWDTlMrJQ8ngXg18qI3TEamqGggEjBPY2OunV8flVlCYimLTLEstjWxbUpsxbLJKyNkOhlYYhlVgNgALKsImOrTsw12n2tKTfg84koAlywp+NeqiEdnIViQG9Qmlpmi16qbZemWEYaIpOthItOFH61Ut2l5pG/nfbzcmXef8YbAlOzFMTvM4jDIxHjxcVsSd3PopNc8hmiJnNCraND5uMiFCpAVdU4DP4p/mP7K2KCHzKUTIxS8/VE5EPTGZwFjPXFMmY5boz9+DJBgNjzKLvQB4r8Rn4z8hrLttWi8PsZo2y+oEyFGfa/6v2qg6Uvyezb5PpxpDPpHoWGRv8qrZ7KJWC0937/uhX7JbWQH0hoUjVhKBlfCbzQoCfAlIky3ut9vzQmaNcRVW8Tn68QhTqR6B8+ahXItUsIif120DoNvg/Sgg3W8o14DGguxRl9FAx0JGlMBFL4kFQHiHtXUWWEs+JzstBnRbhkbFVDMaDVlck7J55+x8uVL4vTuJjbde+alI1RENN85yKQJiY0cxTstwu1Y2jD+oe1vc/km3nNpdWvWL8OYEQu+edm7cl/isd25bYM0vvksiJeTTluaQb5lwzsUN92IKsdcJPpEvRKjEKEUxm5wv2Yc=
+	cy+qAi7I4xJtTYFwg/Xv7Tf5ht5MGr4cHFOe3vAYX6IGgQHjPpYRnQsWan9wkuai6Jj+offQtYO1a1DZ3DFKZOBJ5o/noynfsAfbgt2A4U8d5cTei0ixs27v7xMT+2yojuHuNqM+hGf06B6nIbCwUFZKWiJ/cZI1475bzWKqlCoejTdvRZbL3UpWw6SMh2MVKYA9rtT860nQ0zuwKV2iWxqjasmZXtM/lD3hVrYCyFM1FT3Im9Y9whYUOAeLwWycJHhYp6vQtzZU4GicFEkLe+NI09m+z73+PTru7C9xHVc8XIwEZYMNiI7DXmHTXyhjMpdPF9n8jn7uoQqPM9fqKYinEot94XLBVeHhkpFrxy+lN3qCs7aIKnsX4xwZFWHcHy/oYvJHrrXY8AIspkxkFKCFmn5uOFnjOPKKqblVe6kDqznl65NqqhDHsIyikKOZq4MP4M6EIe8uvqxw0ES8leypt+1rolay4rEIxbTUrJUeHkTZVsJx/qCyadgF3ph7Yl3nfJrwg23rWAlcWq6eTFvBsZu3P3b1UEKk3h8kMglSpJweo+d2thA8o+8Zb2Us8uzl3/faQMGRdim3S4+VSdUYXA1BSoSeDkUWCA9kGO+7qxKwMgcZZEErYgtpMLkjQYCaQFn8avXeon9FTFo1V1bkz6gO6FuWUYNF/6mCeE79ycMdQ/b/p1iqYTlXuk1WeF5TsMx9HsnBbQNy35P6z1y4ywiXQ3wAsNZEKmTwx5Y=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	XYJrrHJ4b4FCGJ9KDdD1K1CPGDtG7/qztUH2o+cpSMg3ux0VNL6RooTSTIJIjJxSA3Xo3Y9uisdahDYebfT3F2qXaAXlVWNjVkn1m1CNmKMHUOluzyI3VLwffFiWNWokh6F7wuh6DnLuxdtgo+C14+yDWuTtYGXwsyoR3bhvnv/sExlPskZRmnVCu4Z/J9kL0fsjkTT5oBtQg8tFQny9WoKRm3S1/xaId4/gbCmWNiOguO92d+wV6uqq+ETxsqkdT3mAe3AvsbYeD4Y2mjZx7EdnVpuXm1mloSJJKL6AAplOwRd7M6aRiLJPCCS0gEYk4A0n3sm78JLwEb68X955cb0imcrlDPWfQ9vo2sYZooivw1TFLwS1Vo5ME/edHnDKwsskejCXNuTB6Q9uTK4LDaBqM+oGCcAP9xngdp1yEDH7p6diOoH0xVWiKg8JMoS+
+	++9QBZu2qMm3vsjUnSr6e/ceM3c0R7gkHyjkPA3d39jAg4M4Pa7Qsqf233LskQMdMpJ55jhPitso3p9oVCLA3rOg68QI2Z/75Cps89DZL2FwE053LrUHxaQ4OiZZS0Gqv1rgtktWwkjn3uDLEcenMs5Z3jaGjEAQYaB/Qi392OueHGbE0JmpXmLAg4U21UNd/9Y2EKwUR5EHYaBG7fCPGDXFN04TwyoWlGyrZhj7vr1akeJOnni2JY6NqugsvmZNnKCfgomEU0QwTyess8jlgJvD+mWXIIVlhDBpPPMznA8qkIe7xIQ6tJM+MRt7cxHt0MpuC2y4lrAXtpwo74IggP4eyEr33IYWUVry2Gsxmqf2lt36dIIhebhGF6z7HlYbDiNNV+Xo4W+G+HMypvfagZGULW14DH5D+Yeza3FzAB+08/8fbqLqoXC+wStUWgQa
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 05:56:23.1329
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 05:56:23.7040
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e8aa03c-bfff-4236-e045-08deab3433fb
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b51d57d-91d4-4d7f-2040-08deab343453
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	SN1PEPF00036F3F.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7177
-X-purgate-ID: tlsNG-4011c0/1778046991-4797E8B7-CA23AB72/0/0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFD911547FB
+X-purgate-ID: tlsNG-720697/1778046989-83961161-0B5678D3/0/0
 X-purgate-type: clean
-X-purgate-size: 1221
-X-Rspamd-Queue-Id: 5C6A54D6655
+X-purgate-size: 1563
+X-Rspamd-Queue-Id: BDFF84D6657
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.69 / 15.00];
@@ -145,7 +147,7 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -172,37 +174,51 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	HAS_XOIP(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
-
-While booting a recent linux-next kernel as a Xen PVH dom0 on x86, the kernel
-oopses very early during fs_initcall:
-
-  Oops: divide error: 0000 [#1] SMP NOPTI
-  RIP: 0010:amd_smn_init+0x188/0x2e0
-
-Followed: on a kernel that survives the divide, it will fail by a NULL pointer
-dereference from the first SMN consumer (amd_pmc_probe -> amd_smn_read).
-
-Root cause
-==========
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:dkim,amd.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns]
 
 To prevent each dom0 vCPU from looking like an SMT sibling of another
-vCPU, Xen synthesizes guest x2APIC IDs as vcpu_index * 2. This spacing every
-vCPU's APIC ID by 2 can push the synthesized IDs past the package-field
-boundary. Linux then infers more "packages" and therefore more AMD
-nodes via amd_num_nodes() than the platform actually has, while the
-PCI-side host-bridge scan correctly reports the number of root complex.
+vCPU, Xen synthesizes guest x2APIC IDs as vcpu_index * 2.
+While the spacing every vCPU's APIC ID by 2 can therefore push the IDs
+past the package-field boundary, making Linux see more packages than
+the platform actually has. amd_num_nodes() inherits that inflated count,
+so num_nodes can exceed num_roots (the number of AMD root complexes
+discovered on the PCI bus). The subsequent
 
-The fixes are tested on Xen 4.20 PVH dom0 on AMD Zen (16 vCPUs) on top of
-linux-next/master (next-20260505).
+    roots_per_node = num_roots / num_nodes;
+    ... count % roots_per_node ...
 
-Penny Zheng (2):
-  x86/amd_node: avoid divide-by-zero in amd_smn_init() under Xen dom0
-  x86/amd_node: reject SMN access when amd_smn_init() did not complete
+then divides by zero in amd_smn_init().
 
- arch/x86/kernel/amd_node.c | 23 ++++++++++++++++++++---
- 1 file changed, 20 insertions(+), 3 deletions(-)
+Reject num_roots < num_nodes explicitly and bail out with -ENODEV.
 
+Signed-off-by: Penny Zheng <penny.zheng@amd.com>
+---
+ arch/x86/kernel/amd_node.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
+index 0be01725a2a4..c896060fe0df 100644
+--- a/arch/x86/kernel/amd_node.c
++++ b/arch/x86/kernel/amd_node.c
+@@ -282,6 +282,18 @@ static int __init amd_smn_init(void)
+ 		return -ENODEV;
+ 
+ 	num_nodes = amd_num_nodes();
++
++	/*
++	 * Xen dom0's synthetic APIC IDs may imply more nodes than host
++	 * bridges visible in PCI config space. Bail out to avoid a
++	 * divide-by-zero when later computing roots_per_node.
++	 */
++	if (num_roots < num_nodes) {
++		pr_debug("AMD root count (%u) < node count (%u); skipping SMN init\n",
++			 num_roots, num_nodes);
++		return -ENODEV;
++	}
++
+ 	amd_roots = kzalloc_objs(*amd_roots, num_nodes);
+ 	if (!amd_roots)
+ 		return -ENOMEM;
 -- 
 2.43.0
 
