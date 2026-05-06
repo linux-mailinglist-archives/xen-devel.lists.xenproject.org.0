@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0N2OE7As+2mrXAMAu9opvQ
+	id OOmgFZUu+2k4XQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 13:57:36 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 14:05:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B21B74D9E89
-	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 13:57:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1301651.1575888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B176E4D9F74
+	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 14:05:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1301663.1575898 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKasT-00030C-DJ; Wed, 06 May 2026 11:57:21 +0000
+	id 1wKb0A-0004qS-9g; Wed, 06 May 2026 12:05:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1301651.1575888; Wed, 06 May 2026 11:57:21 +0000
+Received: by outflank-mailman (output) from mailman id 1301663.1575898; Wed, 06 May 2026 12:05:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKasT-0002yD-Ag; Wed, 06 May 2026 11:57:21 +0000
-Received: by outflank-mailman (input) for mailman id 1301651;
- Wed, 06 May 2026 11:57:20 +0000
+	id 1wKb0A-0004oK-6b; Wed, 06 May 2026 12:05:18 +0000
+Received: by outflank-mailman (input) for mailman id 1301663;
+ Wed, 06 May 2026 12:05:17 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wKasS-0002xr-8m
- for xen-devel@lists.xenproject.org; Wed, 06 May 2026 11:57:20 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1wKb09-0004oD-3V
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2026 12:05:17 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKasQ-007C02-3x
- for xen-devel@lists.xenproject.org; Wed, 06 May 2026 13:57:19 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wKb08-00DLT7-Cp
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2026 14:05:16 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69fb2c9e-bab6-0a2a0a5309dd-0a2a4506ec58-6
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 13:57:19 +0200
-Received: from [209.85.208.48] (helo=mail-ed1-f48.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 69fb2c9f-7371-0a2a45060019-d155d030dc23-3
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 13:57:19 +0200
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-6729c6f0ca7so8131361a12.0
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 04:57:19 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
- [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-67cd90ef9c7sm1254599a12.10.2026.05.06.04.57.17
+ (envelope-from <jbeulich@suse.com>)
+ id 69fb2e73-bab6-0a2a0a5309dd-0a2a4505ad8a-30
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 14:05:16 +0200
+Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 69fb2e7c-aaa8-0a2a45050019-d1558035d8ca-3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 14:05:16 +0200
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4891c00e7aeso54011925e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 05:05:16 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45054b03d4csm12720434f8f.22.2026.05.06.05.05.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 May 2026 04:57:18 -0700 (PDT)
+ Wed, 06 May 2026 05:05:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,366 +56,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Subject:From:Cc:To:Content-Language:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778068639; x=1778673439; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jnQDEry0YTTv7htKQvsZB92JFfvTlJSoY4EpqSjXKeU=;
-        b=J8MpID2nHbOpx2eNFL9t5F6m2AQvVstZQ3E93A7up/mPUtaZhB9F0cNIw1FZRfL7qp
-         YS5s7qAkdfnswZtzMvi60Re/Io4NtoT2PpdCK4cJNnT5x/Vvptex5PK7xQ0rU7cUqs3p
-         a0awDo/rBWy2soJqX0KLqYF+Qq0OUoCVrlYgyf6gYC8J6sCv7sf2toeHpvqWfAI1Hw0L
-         kP53xhp6YfJTV61awylVFhiSE1dTTDCFtTxna7I5lxNZ9z62oGR8r9Kgjbq6U5OwFJgb
-         6gYwCQzndkrZNpOal35tHhcK/PCC4OxPsUCFRSebhKIFQ7L78K66RwiK9XWzo0MJWFZZ
-         sHvQ==
+        d=suse.com; s=google; t=1778069116; x=1778673916; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=N1i9Yyd7MB/CNIprVe1jSbeBhmSU2d6sb8wLHaMeUgc=;
+        b=EUsUo7K4GXSg6wy9vr4IzWMa7cnoKh4jKDV/FaoiAEgAHlbw0FkYVUchO8UqQtvUe7
+         fCMDIYXAQKZqZGYlMnEWdESs4kFOD0/1fwYl9JBzBWOruk+e2p042HwuTms4mbnIdADR
+         DlmC13dJRHqHlQqcUk36IgtcHuQLExRAl0v10AfX67aiFo1zzY/Ytb7wRU5390E7lbmI
+         SnZvjr9oJSSD0D9U0I8XnFyKjffcyraYuKfQwJPWaYN5OgyjOaEGJggVnf8d9oS5exvY
+         AMqKOHZsvHjz5BBZWFla37D++JzTuuQE2p3cs60L/ppWFJUlqTk9sMG0vbZTtzCihF2s
+         leQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778068639; x=1778673439;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jnQDEry0YTTv7htKQvsZB92JFfvTlJSoY4EpqSjXKeU=;
-        b=KYEAzj+E8aDqomQGFy/HoNdqRHUOYPsM1MiofCVzmjClGer1alebaw1AzlaVcQvb5K
-         elI59A2bRuXp2a0XQErbpz+z3ftGWiNGJYF0d13jh7r+PwL6niLrWVnm3XLN2j+nX0AJ
-         bSN7ngUiYqXtA9D2ZKzJTWIFy7JbTfKCHKRmvxdCwEQlyWfu06bNChNy76WgytrfxtYA
-         +4DBxdRwMrF03baEMQKmM0YkpD2ircgtGQXAfu8/TGUeYLgAl5MCBGsmG0Avik7/QRHx
-         C5YDo8mTUy4wvLcNvRaYvnf5eTY/S79abVmxhW0hu4CSuCAJcz86pB9TsRZ9lD6wP+QV
-         nrnQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/Jthzos9K9lVzQNpf644AW+hI6fSIpUszz8EuESiVmT/r9BiwlpXsLfRhoN8CLEugIs8XJvzyusd0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwBCkPEbLc1i9Y/Yeg4TMCVs4LMp+XNg5ZIOSPCzfsvSthjg3c2
-	cY4A+AcU1KQLhLbyPc1qLM0GagQbwCfp/FtaxoR2f9sPZy0mrUtiPX+2
-X-Gm-Gg: AeBDiesbuQ9yeKcxH2oNwM1fiSS68WmVL9uPckaKYN+eFKQ5Qo8g73MBZRllF6Ol0Tt
-	Zb0+AErQkJMJwUVvSZZmSQaYYtSm8gD8T+quhOLRnznjgMT+YqzPWMT+tQtnGGc2On8UVdxA1Pd
-	/OJfCYimKVzXT4G4yRsTvcOfmo0bvV2haVLNGvqZ+0zYm6fNR4CJLA3s645wRVNeptRj+5eXkCA
-	75wh7sb1XCR9PoLxvAyMcutSxHHPlMNYuZKTHH7/V5pn4ZUaut257Zh/Fs5y+Gx8BkigkX5t05/
-	RyFrmjpAn20E1Fz2ptYPFa5ONWO8FgtWcwcAj8adjBYtEqME2ULEtw1q+5o5QguwT/0Ek3qtcwg
-	tEQM3ploDgQq1fNIS1vV4namS7gkCsrlwceVvL2m3xdGNTor0hRTyA/ZvqHCkU9RVROVPOwDBVc
-	Ib6Ix5m5/9eE4AWyMJGwgfr8Q/cgpnMLvii0ujjYnELhpb90zoawi6JgwXBTmHsCOwVgzojofAt
-	SNlMpTqI9qC2g==
-X-Received: by 2002:a05:6402:3057:b0:67b:7a8f:3e2c with SMTP id 4fb4d7f45d1cf-67d6489e199mr1100200a12.25.1778068638857;
-        Wed, 06 May 2026 04:57:18 -0700 (PDT)
-Message-ID: <fa07cdad-81f9-408f-a04d-d9c3b8e1bef1@gmail.com>
-Date: Wed, 6 May 2026 13:57:17 +0200
+        d=1e100.net; s=20251104; t=1778069116; x=1778673916;
+        h=content-transfer-encoding:autocrypt:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=N1i9Yyd7MB/CNIprVe1jSbeBhmSU2d6sb8wLHaMeUgc=;
+        b=I2aYvoOmr4GhJ3BlL6/iYUxVEgyPHw9Ndp7YKYOGCAjvo9+RNlI7tatWd7MaBibIvW
+         Dh0kMDOAm0Hgsb2N/vUTjZjI9MppH2S9Q+R1IcEOKHzjqhAKEW2w1uokSiCOA3LCPFhS
+         uKrGZMJ+FcIh3qZAGhsvWjcmI9Uv2D8S1ri9sQJ2JZMJmtJ4UrKf5hcYT5GaJpmg93Ec
+         0Dt2gUn0h769/EKbulk29r5T+AE57ESMLP7SfXToKV3e/m14VTVkSrRmEpfcwZ1VDnvC
+         R45TR72R3ATDCLc/MFwOinhgqZo4R8J25035DJV0M0KThj/AzRAGQxDJ0IVQOqDg3cnn
+         zY9Q==
+X-Gm-Message-State: AOJu0YzPt+ASIox63VpxDa8ajECpaGoTxcz4aW12oa/mMBYAqIMUjVm+
+	nqvVY3l8PniiVcADl7Zt9fH0n/+pIAORaBrgCsV8s/AKIi9/rmcAV8mxbOkyBSB2/QoD+M/a1WN
+	qFkA=
+X-Gm-Gg: AeBDiesX4IJr1voQ641OJTi4EeFwV72LpKe5DuiPAXHBuuwyGbpWt4/nnHKM+/KW0cj
+	SV3OEZA31JMIk0wD0z9L8vf+GTmZq5DYMpgP5cnW5Nu2tNWm4uc4T8+dfZ9wjMm9MPUNwpaw4c7
+	gFwteCSGlyOw1PsT8FCaxUF+CsFZZVxvcs4zX55qyc0SkblOMIQ7JifrIshvRV3u1KZB7jK9wHT
+	52MC/BHHQ45Zew46ckzwg9vpPuu5GBm5RsfQszXoAJBopav4eTF2M+92hFaNztpS7dR5qbHN+i0
+	/CkNXGQTLTgHvjLfJ83pkMAB15EPJpt/WdJ8AatheYL3VuhM0tHmz7cwBvnbsiL7r2xRFNdPB3T
+	WRO2gY034ZGSXizdGZdTe8RxJKvpz46ySFArbD9PXmGoHCFBtInC8CxNcbwp/Q6b4pvN79X+ZGw
+	oHA+vAN6tTXh6PA0/gn8B1/sn1UnZWq8074UB+0XsG1IYtx25rOynEeMgsl5t5tnW0alDsxSdiK
+	HxwmMRiXQ97Gx9zj/ITXCaVTw==
+X-Received: by 2002:a05:600c:1797:b0:48d:366:b962 with SMTP id 5b1f17b1804b1-48e51e0a8a8mr27988185e9.6.1778069115440;
+        Wed, 06 May 2026 05:05:15 -0700 (PDT)
+Message-ID: <6d9345e7-7ad9-48f4-8447-3a955305430a@suse.com>
+Date: Wed, 6 May 2026 14:05:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/11] xen/riscv: add Linux kernel loading support
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1777303844.git.oleksii.kurochko@gmail.com>
- <af89f0b696c5a1ae477dc0903a9a99b84df26f7a.1777303844.git.oleksii.kurochko@gmail.com>
- <f61ddc8f-88a6-4f61-a470-c9c82b8b9b52@suse.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <f61ddc8f-88a6-4f61-a470-c9c82b8b9b52@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] CI: collect certain intermediate files as artifacts
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1778068639-8DD80D75-02E051E7/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 9556
-X-Rspamd-Queue-Id: B21B74D9E89
+X-purgate-ID: tlsNG-c201ff/1778069116-DAF6E443-656ED7D2/0/0
+X-purgate-type: clean
+X-purgate-size: 1624
+X-Rspamd-Queue-Id: B176E4D9F74
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
+	RCPT_COUNT_THREE(0.00)[3];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	ARC_NA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RBL_SEM_FAIL(0.00)[192.237.175.120:server fail];
+	SEM_URIBL_FRESH15_UNKNOWN_FAIL(0.00)[suse.com:server fail];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	SEM_URIBL_UNKNOWN_FAIL(0.00)[suse.com:server fail];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
+When one of the linking passes fails, additional intermediate files are
+still in place. Having them available for analysis of the underlying
+problem can be pretty helpful. Collect some into a new intermediates/
+directory. (Nothing new will be collected if linking succeeds.)
 
+While there also make sure xen-syms is collected (into binaries/). This
+is rather more useful for analysis of possible problems than its stripped
+counterpart.
 
-On 5/4/26 4:05 PM, Jan Beulich wrote:
-> On 28.04.2026 16:33, Oleksii Kurochko wrote:
->> --- /dev/null
->> +++ b/xen/arch/riscv/kernel.c
->> @@ -0,0 +1,242 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only */
->> +
->> +#include <xen/bug.h>
->> +#include <xen/compiler.h>
->> +#include <xen/errno.h>
->> +#include <xen/fdt-kernel.h>
->> +#include <xen/guest_access.h>
->> +#include <xen/init.h>
->> +#include <xen/libfdt/libfdt.h>
->> +#include <xen/mm.h>
->> +#include <xen/types.h>
->> +#include <xen/vmap.h>
->> +
->> +#include <asm/setup.h>
->> +
->> +#define IMAGE64_MAGIC_V2 0x05435352 /* Magic number 2, le, "RSC\x05" */
->> +
->> +static void __init place_modules(struct kernel_info *info, paddr_t kernbase,
->> +                                 paddr_t kernend)
->> +{
->> +    const struct boot_module *mod = info->bd.initrd;
->> +    const struct membanks *banks = kernel_info_get_mem_const(info);
->> +    const paddr_t initrd_len = ROUNDUP(mod ? mod->size : 0,
->> +                                       KERNEL_LOAD_ADDR_ALIGNMENT);
->> +    const paddr_t dtb_len = ROUNDUP(fdt_totalsize(info->fdt),
->> +                                    KERNEL_LOAD_ADDR_ALIGNMENT);
-> 
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+As the issue this is meant to help with didn't re-occur with this in
+place, the new logic wasn't really tested yet.
 
-> Why would modules need to be this strongly aligned?
-No specific reason except to be aligned with similar alignment below, it 
-could be lesser (PAGE_SIZE or even just unsigned long aligned) or even 
-dropped, I think. It was just easier then to calculate aligned 
-addresses. But I don't see any big issue to have such alignments except 
-maybe that it will waste some memory.
-
-> 
->> +    const paddr_t modsize = initrd_len + dtb_len;
->> +    unsigned int bi = banks->nr_banks;
->> +
->> +    BUG_ON(modsize < initrd_len);
-> 
-> Where's the earlier check that allows this to be BUG_ON()?
-
-There isn't one. I will replace that with:
-
-if ( modsize < initrd_len )
-     panic("Module size overflow: initrd + dtb size wraps paddr_t\n");
-
-
-> 
->> +    /*
->> +     * Place modules as high in RAM as possible, scanning banks from
->> +     * last to first so that the end of the last bank is preferred.
->> +     */
->> +    while ( bi-- > 0 )
->> +    {
->> +        const struct membank *bank = &banks->bank[bi];
->> +        const paddr_t bank_end = bank->start + bank->size;
->> +        paddr_t modbase;
->> +
->> +        if ( modsize > bank->size )
->> +            continue;
->> +
->> +        modbase = ROUNDDOWN(bank_end - modsize, KERNEL_LOAD_ADDR_ALIGNMENT);
-> 
-> Same question here.
-
-I used KERNEL_LOAD_ADDR_ALIGNMENT to be sure that big page tables be 
-potentially used in page table.
-
-> 
->> +        if ( modbase < bank->start )
->> +            continue;
->> +
->> +        /*
->> +         * If modules would overlap the kernel, try placing them below it.
->> +         */
-> 
-> With how kernel_image_place() works, and with the heavy alignment applied
-> above, is this even possible to succeed? Oh, wait, yes - for the not-
-> position-independent case.
-
-I don't understand what is wrong with putting initrd and dtb to 
-basically any place except where kernel is expected to be placed (as in 
-case of position dependent case I assume it is pretty crucial).
-
-> 
->> +        if ( (modbase < ROUNDUP(kernend, KERNEL_LOAD_ADDR_ALIGNMENT)) &&
->> +             (modbase + modsize > kernbase) )
->> +        {
->> +            modbase = ROUNDDOWN(kernbase - modsize, KERNEL_LOAD_ADDR_ALIGNMENT);
-> 
-> What prevents this subtraction from underflowing?
-
-I will put the following check at the start of the place_modules() function:
-if ( kernbase < modsize )
-    panic("Underflow could happen between kernbase and modsize\n");
-
-
-> 
->> +static paddr_t __init kernel_image_place(struct kernel_info *info)
->> +{
->> +    paddr_t load_addr = INVALID_PADDR;
->> +    uint64_t image_size = info->image.image_size ?: info->image.len;
->> +    const struct membanks *banks = kernel_info_get_mem_const(info);
->> +    unsigned int nr_banks = banks->nr_banks;
->> +    unsigned int bi;
->> +
->> +    dprintk(XENLOG_DEBUG, "nr_banks(%u)\n", nr_banks);
-> 
-> Did you mean to drop this before submitting?
-
-Sure, it should be dropped.
-
-> 
->> +    /*
->> +     * At the moment, RISC-V's Linux kernel should be always position
->> +     * independent based on "Per-MMU execution" of boot.rst:
->> +     *   https://docs.kernel.org/arch/riscv/boot.html#pre-mmu-execution
->> +     *
->> +     * But just for the case when RISC-V's Linux kernel isn't position
->> +     * independent it is needed to take load address from
->> +     * info->image.start.
->> +     *
->> +     * If `start` is zero, the Image is position independent.
->> +     */
->> +    if ( likely(!info->image.start) )
->> +    {
->> +        for ( bi = 0; bi != nr_banks; bi++ )
->> +        {
->> +            const struct membank *bank = &banks->bank[bi];
->> +            paddr_t bank_start = bank->start;
->> +            /*
->> +             * According to boot.rst kernel load address should be properly
->> +             * aligned:
->> +             *   https://docs.kernel.org/arch/riscv/boot.html#kernel-location
->> +             *
->> +             * As Image in this case is PIC we can ignore
->> +             * info->image.text_offset.
->> +             */
->> +            paddr_t aligned_start = ROUNDUP(bank_start, KERNEL_LOAD_ADDR_ALIGNMENT);
->> +            paddr_t bank_end = bank_start + bank->size;
->> +            paddr_t bank_size;
->> +
->> +            if ( aligned_start > bank_end )
->> +                continue;
->> +
->> +            bank_size = bank_end - aligned_start;
->> +
->> +            dprintk(XENLOG_DEBUG, "bank[%u].start=%"PRIpaddr"\n", bi, bank->start);
-> 
-> And this one? (I also find it puzzling that ->start would be of (primary) interest
-> here, when ...
-> 
->> +            if ( image_size <= bank_size )
-> 
-> ... bank_size is what's relevant.
-
-This one should be dropped too.
-
-> 
->> +/* Check if the image is a 64-bit Image */
->> +static int __init kernel_image64_probe(struct kernel_info *info,
->> +                                       paddr_t addr, paddr_t size)
->> +{
->> +    /* https://www.kernel.org/doc/Documentation/riscv/boot-image-header.rst */
->> +    struct {
->> +        uint32_t code0;         /* Executable code */
->> +        uint32_t code1;         /* Executable code */
->> +        uint64_t text_offset;   /* Image load offset, little endian */
->> +        uint64_t image_size;    /* Effective Image size, little endian */
->> +        uint64_t flags;         /* kernel flags, little endian */
->> +        uint32_t version;       /* Version of this header */
->> +        uint32_t res1;          /* Reserved */
->> +        uint64_t res2;          /* Reserved */
->> +        uint64_t magic;         /* Deprecated: Magic number, little endian, "RISCV" */
->> +        uint32_t magic2;        /* Magic number 2, little endian, "RSC\x05" */
->> +        uint32_t res3;          /* Reserved for PE COFF offset */
->> +    } image;
->> +    uint64_t effective_size;
->> +
->> +    if ( size < sizeof(image) )
->> +        return -EINVAL;
->> +
->> +    copy_from_paddr(&image, addr, sizeof(image));
->> +
->> +    /* Magic v1 is deprecated and may be removed.  Only use v2 */
->> +    if ( le32_to_cpu(image.magic2) != IMAGE64_MAGIC_V2 )
->> +        return -EINVAL;
->> +
->> +    effective_size = le64_to_cpu(image.image_size);
->> +
->> +    if ( effective_size && size > effective_size )
->> +        return -EINVAL;
-> 
-> Is the rhs of the && the wrong way round? If effective_size > size,
-> aren't you in trouble? Question of course is what "effective" really
-> means. Yet in any event it seems dubious to me that effective_size <
-> size would really be a problem. IOW this will want commenting upon
-> if the check is to stay.
-> 
-> Actually ...
-> 
->> +    info->image.kernel_addr = addr;
->> +    /* Actual size in the binary file */
->> +    info->image.len = size;
->> +    /* Total memory the kernel occupies at runtime */
->> +    info->image.image_size = effective_size;
-> 
-> ... this looks to suggest something .bss-like.
-
-Yes, effective_size it is size which included .bss.
-
-size it of LK after decompression of Image.gz and it doesn't include 
-.bss so it should be lesser then effective_size.
-
-I don't think that I am in trouble that effective_size is bigger then 
-size if we allocate enough space in memory effective_size is fine to be 
-bigger.
-
-It is a good question if effective_size < size is a problem. I think it
-isn't but could it be really happen?
-I think that I am okay to drop that part of if().
-
-> 
->> --- a/xen/include/xen/fdt-kernel.h
->> +++ b/xen/include/xen/fdt-kernel.h
->> @@ -59,8 +59,15 @@ struct kernel_info {
->>           struct {
->>               paddr_t kernel_addr;
->>               paddr_t len;
->> -#if defined(CONFIG_ARM_64) || defined(CONFIG_RISCV_64)
->> -            paddr_t text_offset; /* 64-bit Image only */
->> +#if defined(CONFIG_ARM_64) || defined(CONFIG_RISCV)
->> +            /*
->> +             * ARM: 64-bit Image only.
->> +             * RISC-V: both 32-bit and 64-bit Images.
->> +             */
->> +            paddr_t text_offset;
->> +#endif
->> +#if defined(CONFIG_RISCV)
->> +            uint64_t image_size; /* Effective size of Image */
-> 
-> As this (apparently) is for both RV64 and RV32 - can the latter really have
-> wider than 32-bit image sizes? If not - use size_t or unsigned long here?
-
-Agree, unsigned long should be enough.
-
-Thanks.
-
-~ Oleksii
-
-
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -6,6 +6,7 @@
+   artifacts:
+     paths:
+       - binaries/
++      - intermediates/
+       - xen-config
+       - xen-cppcheck.txt
+       - '*.log'
+--- a/automation/scripts/build
++++ b/automation/scripts/build
+@@ -41,18 +41,24 @@ fi
+ # to exit early -- bash is invoked with -e.
+ cp xen/.config xen-config
+ 
+-# Directory for the artefacts to be dumped into
+-mkdir -p binaries
++# Directories for the artefacts to be dumped into
++mkdir -p binaries intermediates
+ 
+ collect_xen_artefacts()
+ {
+     local f
+ 
+-    for f in xen/xen xen/xen.efi; do
++    for f in xen/xen xen/xen-syms xen/xen.efi; do
+         if [[ -f $f ]]; then
+             cp $f binaries/
+         fi
+     done
++
++    for f in xen/.xen-syms.* xen/.xen.efi.*; do
++        if [[ -f $f ]]; then
++            cp $f intermediates/
++        fi
++    done
+ }
+ 
+ if [[ "${CPPCHECK}" == "y" ]] && [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
 
