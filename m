@@ -2,51 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iL07Kcd3+2lnbgMAu9opvQ
+	id SPJeDNKr+2myewMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 19:17:59 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 23:00:02 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1543D4DEBDB
-	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 19:17:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1301999.1576100 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 854844E0759
+	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 23:00:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1302065.1576117 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKfsO-0006NB-Qr; Wed, 06 May 2026 17:17:36 +0000
+	id 1wKjKc-0001WB-Sa; Wed, 06 May 2026 20:58:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1301999.1576100; Wed, 06 May 2026 17:17:36 +0000
+Received: by outflank-mailman (output) from mailman id 1302065.1576117; Wed, 06 May 2026 20:58:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKfsO-0006Kv-O3; Wed, 06 May 2026 17:17:36 +0000
-Received: by outflank-mailman (input) for mailman id 1301999;
- Wed, 06 May 2026 17:17:34 +0000
+	id 1wKjKc-0001V1-Oh; Wed, 06 May 2026 20:58:58 +0000
+Received: by outflank-mailman (input) for mailman id 1302065;
+ Wed, 06 May 2026 20:58:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Mario.Limonciello@amd.com>) id 1wKfsM-0006DX-A4
- for xen-devel@lists.xenproject.org; Wed, 06 May 2026 17:17:34 +0000
+ (envelope-from <sstabellini@kernel.org>) id 1wKjKb-0001Uv-GR
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2026 20:58:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKfsL-003Tfk-17
- for xen-devel@lists.xenproject.org; Wed, 06 May 2026 19:17:33 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wKjKa-00EinO-FX
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2026 22:58:56 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Mario.Limonciello@amd.com>)
- id 69fb77ac-e002-0a2a0a5209dd-0a2a4505cdf0-2
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 19:17:32 +0200
-Received: from [52.101.193.40]
- (helo=CH1PR05CU001.outbound.protection.outlook.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Mario.Limonciello@amd.com>)
- id 69fb77aa-aaa8-0a2a45050019-3465c128b09b-3
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 19:17:32 +0200
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
- by EAYPR12MB999133.namprd12.prod.outlook.com (2603:10b6:303:2c1::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.15; Wed, 6 May
- 2026 17:17:28 +0000
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9891.008; Wed, 6 May 2026
- 17:17:28 +0000
+ (envelope-from <sstabellini@kernel.org>)
+ id 69fbab8d-2eae-0a2a0a5409dd-0a2a4504af5e-8
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 22:58:56 +0200
+Received: from [172.234.252.31] (helo=sea.source.kernel.org)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <sstabellini@kernel.org>)
+ id 69fbab8e-1dec-0a2a45040019-aceafc1feafa-3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 22:58:55 +0200
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id E8FFE432DE;
+ Wed,  6 May 2026 20:58:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93889C2BCB0;
+ Wed,  6 May 2026 20:58:53 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,178 +53,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yUAMcVnGEQCivMmKagwzrNPHXAQZYjW5+Nq3k6Sx7iHvq810Uw1Kka1s4sbvCaVsxqGWH5QB4mIJXPx70ELVCSvuMYCBKDqhQNYwchjvuclmlCv1Dh+dRBJVNIvaDg2HGlma1oJPnrU8qgunR5l577vQOYDYgEzDN7S1HCTmfMiaRauZP9XZXGc+EOYwBmucHcY7LhkHA9dXSR68Jg6yj/vbVMsSqtVGt31OknIOhibL98vYfzh/5CYzdE1oLaZwYtZU0NjOjPO23gcinPh3jpSes+IUYqg/X1SQVeM4l/PsOckLKRpeIT281piRlRshqz6j0m3g3xmAi70Ko9U+Vw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V9NVsZpXp7wdlk3ZA4diyLo0TbxzKlpQAYGTEuHvLiE=;
- b=mifkQextXN12Wp5yY8QJudUlY0kS98FIupFPiJEvjbPEuwp0y5Z3rfGv0aQbTi1HAHqQQZ1bsc1DHgaRmZnRnOF4Hdks61lCR/77frol33mjZJfFj2CLw9+AGv4j3DM8DXOIElxZm9Y91F9rTJuSz+uG+O+9M/4/7XVOoT0cxJsT10V8y8vUmJZI87EfxYk4oK1rmYGwiXbGnyLOjSpKzGiTSZVtXlk1Tzwtt6cXe7vyWwsZsDZNjNe9UN3UeXcpaBdrD9Htzg+NsG37ReFLHBPrPBbs4kKy0iJBF3vXk0blKSy7VS4dLNXSHBzs/pZidA24OY7BSj6+z6+Rh6VysQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V9NVsZpXp7wdlk3ZA4diyLo0TbxzKlpQAYGTEuHvLiE=;
- b=kWHG2Od6GkGCkun2qxecFD8JQ1IZOV82h+YjUSKs8/TDBYPcfh013wqxKHwZ3NIb66yQQdQHfxekxUOIr4GLbOGYGMz2WZ7KwXsr79DUwEur9rRCKh8n8LX9whdYz6Vp7QoOnCo34FM/doFzxCrrU0gCk/6iPvZbtMkSEHi2R0k=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <3d73ace6-5eeb-4a1d-a502-4dd5b0d73dab@amd.com>
-Date: Wed, 6 May 2026 12:17:24 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/2] x86/amd_node: harden amd_smn_init() against Xen
- dom0 topology
-Content-Language: en-US
-To: Penny Zheng <penny.zheng@amd.com>, x86@kernel.org
-Cc: ray.huang@amd.com, Jason.Andryuk@amd.com, stefano.stabellini@amd.com,
- Yazen Ghannam <yazen.ghannam@amd.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <20260506055528.476493-1-penny.zheng@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260506055528.476493-1-penny.zheng@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR04CA0071.namprd04.prod.outlook.com
- (2603:10b6:610:74::16) To SA0PR12MB4557.namprd12.prod.outlook.com
- (2603:10b6:806:9d::10)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="Date:From:To:cc:Subject:In-Reply-To:References"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1778101133;
+	bh=ygxCrxTmtdcv24MTN9N1JC/G1qLohRd86Aj4uEoj9T0=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=nFQtCTj8ZS7lgsOVZDHIWOc6O0JOvqyXujLxzkeg2Ma1NvSukyFY7DIwSm6zhrm2Z
+	 XCgeaIHhdd1AfF17aXtS7H83p0QM/CogJzykqUhZUrn5y+rqjEQHDnvr3FhbRPJnkX
+	 etz8gpN4csyG832+Ek0qfFWiVycVgspV1oSqynJ8a9XdsV7aGI0XYlgqa7DU+WegWk
+	 t2iFFCwq3m9M+kxbAfse0KMYRoxpCG/QnguCh9XeKnoyXDlkPpTSdgzjKYwJG5zN7v
+	 bhaOc71bziYjb6heDwA9xMjAwSHxIwIOq5xO06NnR33tRnycz6wQrS8OBUTTUj7G/l
+	 0RmMCuMP2IzJA==
+Date: Wed, 6 May 2026 13:58:53 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+cc: Michal Orzel <michal.orzel@amd.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v3] xen/arm: skip holes in physical address space when
+ setting up frametable
+In-Reply-To: <1EAB6ED4-3D64-4074-830B-EB9F8AD88547@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2605061358480.512397@ubuntu-linux-20-04-desktop>
+References: <20260506084137.40913-1-michal.orzel@amd.com> <1EAB6ED4-3D64-4074-830B-EB9F8AD88547@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|EAYPR12MB999133:EE_
-X-MS-Office365-Filtering-Correlation-Id: eef7f5c5-2edf-485c-81d4-08deab93592b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	bvc46vqeRimItM6WYtWznDxyFdUTg6fbucRTVK9OvbE6F0ioJDNWrNI0UmNHb57LLTiJcPw9N+tD8AvW8JvPD3ULbWCmAqWOFYmOWU4fSkW0Axk49Gt/n+GjEwhCG3aV3R69Twm1mO2FbTaz38Ka0dSeZsZ6v4FMpJ/MLqx8225CAAw4FRUEpzitgkETeqUFJGqMDMYxuhtD4eiZxp44Js1gdcMdSH2y0TaUKcZQ07os2ae+rIFmm85RgEKhFxjmpleinLIpgDv6TkFgEBf5l+1ZbRv/1l+x75fyP9vkTL2JQhJq6A3cS9rCWGmliC7Wd52xnmDjTJwL2eJMsoaDGewqVltGh1NK3E5j2Wo4Phh7jArFYj/Sw9KxP35JT82AfocOWi21OgT/jvQ2hbN3vueUUHneOYv0JIcBr6WPd+hiQtI5/051cptKPFqzC2XbS+BgIaXmWFzQoivhMn6IKuP+M4LR2gZxCDHu1Ky8zlqqyJgfssGPGfOd98jGCJV32+0HY1PbTqZiYMRNsa68tIdWr+ir7p5Mbxy8W7P1jMX28D4f0vEcKqjFsiidxeB2+SdbUPynheUqnWTmVTVQGZ3nvzResEVZLcImIjx7TweDa2tx1B6Ed1fx/LAaGHmgwQMh55gW8fo72O+CJV67FjIVMFhZ+lBLu5tpQ8h4BGt/ifPjmb1yhTRGYvMP7uf/
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR12MB4557.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZUVHdFdnaDZrNWIzY3BVSFp3RjVMRUVBL2pNQ1hibDFJbi9xQXhkcC83NDRu?=
- =?utf-8?B?b054d2ZQZXJhbUliRU92QlpIYU9XckRNeU4rbk1RYTJ6RWtya0FoSUNEY1g5?=
- =?utf-8?B?WHg0bEQvU2dqcE83OEpoQXFNTVE5WjNjUzRCa0tTaW1iRW9BcXRmbENuSWlW?=
- =?utf-8?B?NFlNc1dIa0RQTy82Q05ScGZoNEM4VWI0dXRBazJoK1BERHQ2cy9SVDg1Qmxq?=
- =?utf-8?B?SzBQdndUeVFZVjQ2SXZEQktTcWZNbldDbWVSZ3NpaTVoYnNiUzRsWW8yOUpk?=
- =?utf-8?B?NVlVQlFicVdKOUxNNDNKbDNudHdGdWVXeVBlM2FLV3UzSWg4UjZtYW1aclFX?=
- =?utf-8?B?NDlGUlNmQWRIQXRUb2VCMGoveWpTZmdwUGRsT2loeDZ4Vm82Zm9pSW5vRWhk?=
- =?utf-8?B?dEZtUDA1WldvaUVySWJHNkliQng3KzJFWk0wNHhYZWJRMnpmWjBsU1QwVllE?=
- =?utf-8?B?RGNxSlBpYzJHK1E4VURNYmVRK205RjR2a0NzdEoxMzQ0REZKRDViSnVsdzBy?=
- =?utf-8?B?VmFJaVQ5cGlSaXJORWoxY3MwcG8vTTZPMllQcnZBOFVNK0lRaHY0Z1N0VmtU?=
- =?utf-8?B?OWI2VDJoUzIyWUlPSDBOaHNEK1E1d2E2U0tzK1hJTFZ3YWVtZ1FnNmFwMDhL?=
- =?utf-8?B?WmV1OFhraEdPbWkvWHlMTDA3Z2lmcGs5UERXUlRyUldFWFF3TkdHenJSbkFX?=
- =?utf-8?B?VnU1UnM3ejhTYThpbHd2d1VveTZUVmI5WXJrcGIvUmI3TUJCNFpSM01aS1kz?=
- =?utf-8?B?RDd5Z3U1NGZLbGIwK2hrS2VkeStQTlo5NEFxSk5GeE9yenVvTHJKK3M2ZFpr?=
- =?utf-8?B?YXhmQ1B3OUUwVmJBSnJrdnpnUk94SDJWSm0wY2M3R1dBZTNpdkc5alNLWndr?=
- =?utf-8?B?OUIvdTNWSGtFcUlwQ2o0bS8yQjZLcVVkaDV2Ykpja0NLMFIwa3VhOVFreHZF?=
- =?utf-8?B?UkVMcWNhNGdjcHd4ZnFXT2U4d2hLRDRLQWxNS0tHTDNmNkdtVUJmWlBWOEFj?=
- =?utf-8?B?VU9sOUpXWGc3cVhIOXcybDVLUW9DajVWNzBqdUY5d1pOMDh4bFI3eDAxQ2ta?=
- =?utf-8?B?aXd6dkNjalovbVpPRG9ZS3d6NFNKcTJQYndEbkFNNHB2ZkdGRjI2ajRlWEUz?=
- =?utf-8?B?Q0JpZ0NmOS9OaDdwbWpaNVMrK2wrd0N2TDh3dU5FSytQS1dFLy9EMjJxWGdC?=
- =?utf-8?B?d3FvSi8vb2tDb3pnVCtJTm5FY21LU3BPbVRhRDhCYkZmU0xZR0JqdVI2QWNO?=
- =?utf-8?B?QkxpeDRBYkZ6YVRHZklKSlpvSE9WT2I2S0lPOGZZY0w3TUQyTTM5OE9GM2tD?=
- =?utf-8?B?ZW10aXFjTjNJcm5tYm9OMmdVVTFybXFKRGZ3Q3R6VEpVaG84UGcvejgwZ0ZE?=
- =?utf-8?B?SnF5L2o2eFNoOFBUdzdZV0pxNnJ4bkl6MjdpSjlLcWxNbWVWMnB1R3NWUmRN?=
- =?utf-8?B?ejJoMGEzZ25COHg1U2o3K2JnRi9SMHFuRFRmTzZxRTBHMjZuVWtQaEhEemFq?=
- =?utf-8?B?UDcrYWlQMllrMitFUFdXZkl6ZzlNNk9OTjFZdWVzdy9LTWI1cE9SNFdDS3U4?=
- =?utf-8?B?QkFmMjIrQXFxTUlsSStvampPeWd0Yk9NTTNocGFPRXptYXRibjVzb3ZtNndt?=
- =?utf-8?B?Y2FBVENwWGVkV2IvNmFwOUM4U2RXWXJCSERFdVlDZEMyV3UrdmoxU3VXODN4?=
- =?utf-8?B?RmtwWkNzUW5DZ3RQZzl4ZHBjZWhpeU84bEpiM2xvdG0xZ3pHcXpIS0s4aXly?=
- =?utf-8?B?TmF4QUVXUjIwYjc4czBRQTFSd200SnhnRjlpZURZWFE0czh5anZKcFZEWWZU?=
- =?utf-8?B?SUVyOENJbEdkRmgrL3p6aUpFUWl3clRQU2Z4ZHFIbXdZUmhHQnRRS01sMWRp?=
- =?utf-8?B?aXM1eFhBZ016VFd4RDJCVVpGSFBOK25laU9kcFpjRXA1U1p1bEk3KzhyZ0Yy?=
- =?utf-8?B?QzJHOXNXMCt4aHp6ZS8zdzRPMjNkSHpwdDhrM0J0YkhUcEZVTGNlYzhaSWd5?=
- =?utf-8?B?by90dUxINCs5bk96d01EaDRvVm9TM3ZyOVRHK1ZTcUhCa1pzNFJ4b3A4NGpn?=
- =?utf-8?B?RHhpU01LZTk1OTRIOEs1L3BIZDVPSndhZEpCRlVCdjNCOXVjaVpaTGdkSmU5?=
- =?utf-8?B?TFI4cnpzZHJxcWVwMkphYUJVZzkxaTc3bzY2SncyZ3hiM01rRTM2RFBBTnpz?=
- =?utf-8?B?ajBQK2hkT0ZoRGxHeWdXd3NoWnFOWk9DWDBqRy9vMDlmODVENVhtcVYybkUz?=
- =?utf-8?B?S29uMGN2NkxVY2F4NXlDNmR5anZSbFhveW9RRHI2b0VrVDJ2a3NTeVpxL2RZ?=
- =?utf-8?Q?nccnyrrJqZOhhMyBS+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eef7f5c5-2edf-485c-81d4-08deab93592b
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2026 17:17:28.0055
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pe4W4i5eSBwlVpF+hJJ/GzKSZyPRhwO10n5YOmD4s9k/3nTeQ2ajhaoKU6zLxw/1MUJRfKSlU5XHmdsCAKiFDw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB999133
-X-purgate-ID: tlsNG-c201ff/1778087852-D3D67443-96C7A2FF/0/0
+Content-Type: multipart/mixed; boundary="8323329-515320797-1778101133=:512397"
+X-purgate-ID: tlsNG-ebf023/1778101136-42B633FF-1C15BF66/0/0
 X-purgate-type: clean
-X-purgate-size: 1389
-X-Rspamd-Queue-Id: 1543D4DEBDB
+X-purgate-size: 6386
+X-Rspamd-Queue-Id: 854844E0759
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	CTYPE_MIXED_BOGUS(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:mid];
-	FORGED_SENDER(0.00)[mario.limonciello@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORGED_RECIPIENTS(0.00)[m:penny.zheng@amd.com,m:x86@kernel.org,m:ray.huang@amd.com,m:Jason.Andryuk@amd.com,m:stefano.stabellini@amd.com,m:yazen.ghannam@amd.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:hpa@zytor.com,m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[amd.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+,1:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[kernel.org:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mario.limonciello@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
+--8323329-515320797-1778101133=:512397
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-On 5/6/26 00:55, Penny Zheng wrote:
-> While booting a recent linux-next kernel as a Xen PVH dom0 on x86, the kernel
-> oopses very early during fs_initcall:
+On Wed, 6 May 2026, Luca Fancellu wrote:
+> Hi Michal,
 > 
->    Oops: divide error: 0000 [#1] SMP NOPTI
->    RIP: 0010:amd_smn_init+0x188/0x2e0
+> > diff --git a/xen/arch/arm/mmu/mm.c b/xen/arch/arm/mmu/mm.c
+> > index 6604f3bf4e6a..c4018a61aa01 100644
+> > --- a/xen/arch/arm/mmu/mm.c
+> > +++ b/xen/arch/arm/mmu/mm.c
+> > @@ -6,18 +6,55 @@
 > 
-> Followed: on a kernel that survives the divide, it will fail by a NULL pointer
-> dereference from the first SMN consumer (amd_pmc_probe -> amd_smn_read).
+> Should we have also #include <xen/bitops.h> because we use
+> find_next_*? Apologies I missed this in previous reviews.
+> 
+> > #include <xen/mm.h>
+> > #include <xen/mm-frame.h>
+> > #include <xen/pdx.h>
+> > +#include <xen/sizes.h>
+> > #include <xen/string.h>
+> > 
+> > -/* Map a frame table to cover physical addresses ps through pe */
+> > -void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+> > +static void __init init_frametable_chunk(unsigned long pdx_s,
+> > +                                         unsigned long pdx_e)
+> > {
+> > -    unsigned long nr_pdxs = mfn_to_pdx(mfn_add(maddr_to_mfn(pe), -1)) -
+> > -                            mfn_to_pdx(maddr_to_mfn(ps)) + 1;
+> > -    unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
+> > -    mfn_t base_mfn;
+> > -    const unsigned long mapping_size = frametable_size < MB(32) ? MB(2)
+> > -                                                                : MB(32);
+> > +    unsigned long nr_pdxs = pdx_e - pdx_s;
+> > +    unsigned long chunk_size = nr_pdxs * sizeof(struct page_info);
+> > +    unsigned long pfn_align;
+> > +    struct page_info *pg;
+> >     int rc;
+> > +    mfn_t base_mfn;
+> > +
+> > +    /*
+> > +     * In-loop chunks span whole PDX groups, which are always page-size
+> > +     * aligned. The last chunk ending at max_pdx may not be, so round up.
+> > +     */
+> > +    chunk_size = ROUNDUP(chunk_size, PAGE_SIZE);
+> > +
+> > +    /*
+> > +     * Try to align the allocation to the contiguous mapping size so that
+> > +     * map_pages_to_xen() can use the contiguous bit.
+> > +     */
+> > +    pfn_align = ((chunk_size >= MB(32)) ? MB(32) : MB(2)) >> PAGE_SHIFT;
+> > +
+> > +    base_mfn = alloc_boot_pages(chunk_size >> PAGE_SHIFT, pfn_align);
+> > +
+> > +    /*
+> > +     * Resolve the frametable VA via mfn_to_page(pdx_to_mfn(...)) rather
+> > +     * than pdx_to_page() because the generic pdx_to_page() does not subtract
+> > +     * frametable_base_pdx. There's more work to be done to make it generic, so
+> > +     * for now route through mfn_to_page(), which on Arm applies the
+> > +     * frametable_base_pdx offset and yields the correct VA.
+> > +     */
+> > +    pg = mfn_to_page(pdx_to_mfn(pdx_s));
+> > +    rc = map_pages_to_xen((unsigned long)pg, base_mfn,
+> > +                          chunk_size >> PAGE_SHIFT,
+> > +                          PAGE_HYPERVISOR_RW | _PAGE_BLOCK);
+> > +    if ( rc )
+> > +        panic("Unable to setup the frametable mappings\n");
+> > +
+> > +    memset(pg, 0, nr_pdxs * sizeof(struct page_info));
+> > +    memset(pg + nr_pdxs, -1,
+> > +           chunk_size - nr_pdxs * sizeof(struct page_info));
+> > +}
+> > +
+> > +void __init init_frametable(paddr_t ram_start)
+> > +{
+> > +    unsigned int sidx, nidx, max_idx;
+> > 
+> >     /*
+> >      * The size of paddr_t should be sufficient for the complete range of
+> > @@ -26,24 +63,40 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+> >     BUILD_BUG_ON((sizeof(paddr_t) * BITS_PER_BYTE) < PADDR_BITS);
+> >     BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
+> > 
+> > -    if ( frametable_size > FRAMETABLE_SIZE )
+> > -        panic("The frametable cannot cover the physical region %#"PRIpaddr" - %#"PRIpaddr"\n",
+> > -              ps, pe);
+> > +    /* init_frametable_chunk() allocation alignment assumes 4KB granule */
+> > +    BUILD_BUG_ON(PAGE_SIZE != SZ_4K);
+> > 
+> > -    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ps));
+> > -    /* Round up to 2M or 32M boundary, as appropriate. */
+> > -    frametable_size = ROUNDUP(frametable_size, mapping_size);
+> > -    base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 32<<(20-12));
+> > +    /* In-loop chunks must produce page-aligned frametable regions */
+> > +    BUILD_BUG_ON((PDX_GROUP_COUNT * sizeof(struct page_info)) % PAGE_SIZE);
+> > 
+> > -    rc = map_pages_to_xen(FRAMETABLE_VIRT_START, base_mfn,
+> > -                          frametable_size >> PAGE_SHIFT,
+> > -                          PAGE_HYPERVISOR_RW | _PAGE_BLOCK);
+> > -    if ( rc )
+> > -        panic("Unable to setup the frametable mappings.\n");
+> > +    max_idx = DIV_ROUND_UP(max_pdx, PDX_GROUP_COUNT);
+> > +    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ram_start));
+> > +
+> > +    /*
+> > +     * Mapping address in init_frametable_chunk must be page-aligned
+> > +     * for map_pages_to_xen(). Aligning to PDX_GROUP_COUNT guarantees this
+> > +     * because PDX_GROUP_COUNT * sizeof(page_info) is always a multiple of
+> > +     * PAGE_SIZE by construction.
+> > +     */
+> > +    frametable_base_pdx = ROUNDDOWN(frametable_base_pdx, PDX_GROUP_COUNT);
+> > +
+> > +    if ( (max_pdx - frametable_base_pdx) > FRAMETABLE_NR )
+> > +        panic("Frametable too small\n");
+> > +
+> > +    for ( sidx = (frametable_base_pdx / PDX_GROUP_COUNT); ; sidx = nidx )
+> > +    {
+> > +        unsigned int eidx;
+> > +
+> > +        eidx = find_next_zero_bit(pdx_group_valid, max_idx, sidx);
+> > +        nidx = find_next_bit(pdx_group_valid, max_idx, eidx);
+> > +
+> > +        if ( nidx >= max_idx )
+> > +            break;
+> > +
+> > +        init_frametable_chunk(sidx * PDX_GROUP_COUNT, eidx * PDX_GROUP_COUNT);
+> > +    }
+> > 
+> > -    memset(&frame_table[0], 0, nr_pdxs * sizeof(struct page_info));
+> > -    memset(&frame_table[nr_pdxs], -1,
+> > -           frametable_size - (nr_pdxs * sizeof(struct page_info)));
+> > +    init_frametable_chunk(sidx * PDX_GROUP_COUNT, max_pdx);
+> > }
+> 
+> 
+> Apart from that the rest looks ok to me. I’ve also tested for Arm64 MMU/MPU and Arm32 MMU.
+> 
+> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+> Tested-by: Luca Fancellu <luca.fancellu@arm.com>
 
-So to confirm - does amd_pmc_probe work properly with this series now?
-
-> 
-> Root cause
-> ==========
-> 
-> To prevent each dom0 vCPU from looking like an SMT sibling of another
-> vCPU, Xen synthesizes guest x2APIC IDs as vcpu_index * 2. This spacing every
-> vCPU's APIC ID by 2 can push the synthesized IDs past the package-field
-> boundary. Linux then infers more "packages" and therefore more AMD
-> nodes via amd_num_nodes() than the platform actually has, while the
-> PCI-side host-bridge scan correctly reports the number of root complex.
-> 
-> The fixes are tested on Xen 4.20 PVH dom0 on AMD Zen (16 vCPUs) on top of
-> linux-next/master (next-20260505).
-> 
-> Penny Zheng (2):
->    x86/amd_node: avoid divide-by-zero in amd_smn_init() under Xen dom0
->    x86/amd_node: reject SMN access when amd_smn_init() did not complete
-> 
->   arch/x86/kernel/amd_node.c | 23 ++++++++++++++++++++---
->   1 file changed, 20 insertions(+), 3 deletions(-)
-> 
-
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+--8323329-515320797-1778101133=:512397--
 
