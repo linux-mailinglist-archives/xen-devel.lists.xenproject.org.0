@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yMmJIIEL+2mbVQMAu9opvQ
+	id CBeVD/UL+2mbVQMAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 11:36:01 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 11:37:57 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC3B94D8B29
-	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 11:36:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1301424.1575709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 925FD4D8B8C
+	for <lists+xen-devel@lfdr.de>; Wed, 06 May 2026 11:37:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1301433.1575718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKYfV-0007Mf-9y; Wed, 06 May 2026 09:35:49 +0000
+	id 1wKYhO-0008CV-NC; Wed, 06 May 2026 09:37:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1301424.1575709; Wed, 06 May 2026 09:35:49 +0000
+Received: by outflank-mailman (output) from mailman id 1301433.1575718; Wed, 06 May 2026 09:37:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKYfV-0007Jh-6S; Wed, 06 May 2026 09:35:49 +0000
-Received: by outflank-mailman (input) for mailman id 1301424;
- Wed, 06 May 2026 09:35:48 +0000
+	id 1wKYhO-00089n-Jn; Wed, 06 May 2026 09:37:46 +0000
+Received: by outflank-mailman (input) for mailman id 1301433;
+ Wed, 06 May 2026 09:37:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wKYfU-0007JZ-1A
- for xen-devel@lists.xenproject.org; Wed, 06 May 2026 09:35:48 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wKYhM-00089f-RS
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2026 09:37:44 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKYfT-008DZC-Cn
- for xen-devel@lists.xenproject.org; Wed, 06 May 2026 11:35:47 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wKYhM-00FTsG-7u
+ for xen-devel@lists.xenproject.org; Wed, 06 May 2026 11:37:44 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69fb0b64-2eae-0a2a0a5409dd-0a2a450badd6-38
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 11:35:47 +0200
-Received: from [209.85.221.41] (helo=mail-wr1-f41.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69fb0be1-e002-0a2a0a5209dd-0a2a4506eae8-22
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 11:37:44 +0200
+Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69fb0b73-212f-0a2a450b0019-d155dd29c5a2-3
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 11:35:47 +0200
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-445795cf6f1so3825595f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 02:35:47 -0700 (PDT)
+ id 69fb0be7-7371-0a2a45060019-d155802ae136-3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 11:37:44 +0200
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-488a8ca4aadso65292125e9.3
+ for <xen-devel@lists.xenproject.org>; Wed, 06 May 2026 02:37:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45055e2d3d0sm10670559f8f.34.2026.05.06.02.35.46
+ 5b1f17b1804b1-48e52f5e668sm17102985e9.0.2026.05.06.02.37.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 06 May 2026 02:35:46 -0700 (PDT)
+ Wed, 06 May 2026 02:37:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,54 +58,53 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Subject:From:Cc:To:Content-Language:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778060147; x=1778664947; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778060263; x=1778665063; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=L71mztXwVFtsnyfyfV2aEurTsxFn8kQ6HteBxm3JtcE=;
-        b=UkbaDlSiU2eLaKfY4RHVUxF2iDSUTMq0fskqFCBcZHgaamthOKQLHQBoXPhtuuaE6p
-         z2i3rMgBrlY1zVxySDy/PbWtNuvuh2qQUqvkCTjqP9dPa3a+uiKaEO+P2UMzLvoEYeFZ
-         GrOV9FN9RMNFnGiCoF/VcV4cGPHlvYsbMG9eVkmWVYUS4VzOtjoGeo+f3aJ/K6h9Koeg
-         z3Z3DNtj2OYefiadno1z1vh1p2oSXgK7+rTqbA8BkqAQWN2D43IHU4MXQUxGeHNndIpZ
-         en+0endntig4xiUtX976gvUjcqmPx0Yq3E9kcYsoEQPF71cXEeNqMp5gLLfUWjwHdbQ8
-         trFg==
+        bh=qs+DlzY0nmy8xATHx3GZkcu4RgtuaNdQ+SDz1pEbEHc=;
+        b=VqDc26E8ubmFYx1fzxaU06L5XwWWNVzsnmsHc9A0q6gK4wvwZWkYwxiaNB3A34n0tN
+         n3OeByuKlVGSfAjRiD+A51d7VamdG4PaK5/UCzlZQtpApA1QKuaYidcNnelVla+sLbRg
+         CPAhVXBSa70VIqvJotMX1PF4MDJddymKz3z2pdPosKxBCZmb9no5f56P2eWZ5PioriK7
+         mnFatXS6rkrEJC1zA0gCi5l/UXq62oGmw8ZMfCgmSyWVmG49w3r5GwNa1RjcWFow0f8X
+         jVao66+uYLIFLGrFvX17b9zEz6cgMVN8+Fc98O+Q7cm09l9Q39es8mfmS1D5H/x9b7ca
+         eq8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778060147; x=1778664947;
+        d=1e100.net; s=20251104; t=1778060263; x=1778665063;
         h=content-transfer-encoding:autocrypt:subject:from:cc:to
          :content-language:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=L71mztXwVFtsnyfyfV2aEurTsxFn8kQ6HteBxm3JtcE=;
-        b=S2S+PEkeuRnkeDjI0ToEDDDO918plDMckRRfPsmu1DMg7c/UzdnNDkLJJ2bRLOvuZS
-         CuQF6HJsbxzi0vT/BXbyzWMxwaPT//SLLSF2jmMH0YY0HmngKk4KIQ4Y/BLcFtrF78CJ
-         9J5FSWbCyH7PxU32Q622CI7CNPx8gXvdVToO9bSxwyE5aqFTgIHaswNDcuiclD0TbQ74
-         uvAJdV5GLAZSQBSMFCMrMWVjAZjYyBWnW0T19Wx6nf1/X9Jg4ohdN48Tdon+N3VM5VUp
-         sHJTIjOw7OJPiARJug3fcBnBMIs9tN+/7Z+wuM/r/XZZxMcvjsBqCvp1q+Y6nqTuBk1I
-         ITmg==
-X-Gm-Message-State: AOJu0YxSFA7tVN5W/8G92LcWZELzfmy6e0fz5qDv2pd7b+yvoTFkmO3a
-	Ng58YXH7N2/OJF9u2gcGiM3aW7dSEOVCBZT+TGfugpJ2h6hem7F524FHDVncTfcxrwIl3zH3oIM
-	4iOg=
-X-Gm-Gg: AeBDiesk3ESBTRxXDPjfTzko7thyPnGg4MasfOEAlNvhzBEQEp0sAYiAcFF/NxFh8lC
-	xi49qrtvyUI7UBuaLth8ed9ivQXrEuNGp6C0VGJ0Q9E6yVkuYyjnMUB1dZgcy8qkUT6YW6xu2vs
-	Q4eOm54MnoVQzdThLDn0omS0hGyB6ybz2oiC05oFuUzVJjKMe4j6hjVIKpYtiLnUQTLYMqAgEtr
-	9d8i9TsiC8ppVLsos7LymF3Ogijq6QA6+9QuZs7UYVr6lgQC1ws4h0OmDSKQB52yNqJA4p8EUjk
-	kvEX15Gd/fHcoJgn66jXXn0s7bZvBgKspLfCQBWBDvwSHnTBLzQ0uDN8R4t1Ha6o3vnmqi37FkP
-	twSj2BgKk2jGXWctBPfxb0r7Z1lXb44wyMDICl/XXfbfUqx6Upfz6+s0DIUenXHO7wUkKd/8nSG
-	ilwuZtaA38rS0maKJR6q+xQYx3c63ga5ZYq0b5uFYo/idJKmlKLYeurAFteXp7wnl4vJYun108Y
-	+gZiSpojU66MkkrbGWyjTQ0pw==
-X-Received: by 2002:adf:e014:0:20b0:452:273:5cd6 with SMTP id ffacd0b85a97d-45202735d7emr1339868f8f.1.1778060146709;
-        Wed, 06 May 2026 02:35:46 -0700 (PDT)
-Message-ID: <99a4a514-3ed5-43f7-823c-54771f3bd03d@suse.com>
-Date: Wed, 6 May 2026 11:35:45 +0200
+        bh=qs+DlzY0nmy8xATHx3GZkcu4RgtuaNdQ+SDz1pEbEHc=;
+        b=bvaabvhS8W2Sch0VgAps4VNbVfRMG3E3fBAtYJgMVLWU5+YpLxmSl+OIECvp8cqUD3
+         oB4MMFa0Kp/AM5J0rFgQ88ERKcKPbakXyjP7S5fimmjD1cIbPd0Bea8kB7J3aDK9f7z2
+         tgI3txPuaGP+SF39Op2viD+u2SkQIqiRNS73lmphia2PrEuI/amF2hcHIdH0PP/j9gI+
+         /4iV5FZf/AsLeBeUiEu4qHn1fRXcsR66QcWhQza/2Af2Bke6jGRuhDx/B2sRAaAQpcVu
+         /iwtCdahYl8yDyBA+JnCRxcxfDHZiDFOU7Wc87zT9BCtNzwbpfOy60VkS07JxlP6rK2f
+         kqdg==
+X-Gm-Message-State: AOJu0YxTtM+JNaRhbdHd6R2GE8GwycoPY4/nEeJxErKLEQBE4QLjHA3L
+	7LaSio6w+pB+QHskDQGIGIqlgaHYHENezaPlIxe3boncRm3w26jRcAicNIaL1Tgt6LA7d07fHni
+	rLVA=
+X-Gm-Gg: AeBDiesv6W7t4XNpcDMapahi3T8kjCuoLlgjb/sQPiwyWZ7OcTYQdXwha8T+tVbQgnQ
+	zjL+XF40CPrT7w3Az8q/l2dRhangyQThDTEXRQ14kjtn5myqLU2CBwCIcSAIUZ5O/5sM738tHpM
+	HBmUMFRCdTUCkaZCcEeLmi0PT8spj2vKwHocC8Q91uKt1fs3HzXtmBHEU9jDOXquZ5pKmyHKeWK
+	VFmSviIZSzIKp16Wt8Zpe5ulq5mZPUTNfVIoLo+C9J4u+7005uBct4QT/aA07Qz+yDQIhWt2LUz
+	o0qAPwnSd1wW3nLswTNJC/pQO/Ayxr0XSg/RtfKVlsILumOrL/t2TQeppSRiD9SfSO1qZkKwtSi
+	QRzHHF6aoMRF/bYLf5ZBg0XLLsreirodF8PkSusPZlxK5Gc/C/6dXb5Q4S7PjArV9I+rJlonOWG
+	cgQCD0xlOcY4/nKJQpDogRt3+uYH8rKJLVpimgvY6eC+H8owtnipiZBQJNkXJG6EKN1ONVhfUwF
+	wg5RNJKqutyHWLsvVlHj/fh9A==
+X-Received: by 2002:a05:600c:4c97:b0:489:1fa4:50c6 with SMTP id 5b1f17b1804b1-48e51f45c63mr27839125e9.20.1778060263514;
+        Wed, 06 May 2026 02:37:43 -0700 (PDT)
+Message-ID: <746ce9af-156b-4c16-8cc0-6e8d929107a0@suse.com>
+Date: Wed, 6 May 2026 11:37:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
+ Teddy Astie <teddy.astie@vates.tech>
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/time: make do_settime() uses more accurate
+Subject: [PATCH RFC] x86/time: avoid early uses of NOW() to return zero
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -130,11 +129,11 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1778060147-19F6EF3B-ACEBE957/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-16d1c6/1778060264-84566D75-AC2B156B/0/0
 X-purgate-type: clean
-X-purgate-size: 2801
-X-Rspamd-Queue-Id: DC3B94D8B29
+X-purgate-size: 2361
+X-Rspamd-Queue-Id: 925FD4D8B8C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
@@ -144,24 +143,24 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:nicola.vetrini@bugseng.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:dkim,suse.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FORWARDED(0.00)[mailman];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -170,74 +169,59 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 
-As a comment next to one of the invocations states, get_wallclock_time()
-can take over a second. The order of evaluation of function arguments is
-in principle unspecified; in practice at least gcc looks to be evaluating
-them from last to first. Hence with NOW() invoked first, the respective
-value passed to do_settime() can be off by over a second (which is in
-contrast to __get_cmos_time() attempting to get the time exactly after an
-update, i.e. [pretty] precisely at a seconds boundary).
+Waiting loops like the one in flush_command_buffer() will degenerate to
+infinite ones when used early enough for NOW() to still return constant
+zero. Make sure the returned value at least monotonically increases.
 
-This also addresses a Misra C:2012 rule 13.2 ("The value of an expression
-and its persistent side-effects shall be the same under all permitted
-evaluation orders") violation each.
+Do this only in get_s_time(), as producing a sane value in
+get_s_time_fixed() for non-zero inputs won't be reasonably possible.
 
-Fixes: f64134cdb81c ("x86: Fix time_resume() to notify all domains of wallclock change")
-Fixes: 0bfcf984b727 ("x86: Reintroduce clocksource=tsc")
+Reported-by: Roger Pau Monné <roger.pau@citrix.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Of course the time it takes to do all the CMOS reads (or whichever else
-wallclock time source is in use) also results in an inaccuracy. For
-__get_cmos_time() this might be solvable by having it latch NOW() before
-doing the 6 reads, but in particular for efi_get_time() there's hardly
-anything we can do.
+RFC: This breaks at least the TSM_BOOT case printk_start_of_line(), which
+     checks for NOW() returning 0 (falling back to TSM_RAW in this case).
+     For now I have no idea how to avoid this, except that when CPUID leaf
+     0x15 is available we could leverage that to put in place at least an
+     approximate scale value. Doing so could, however, lead to a
+     discontinuity (returned value moving backwards) once the final scale
+     value was put in place. (Note, however, that such a discontinuity can
+     also result from init_percpu_time() using the BSP's scale value as
+     initial estimate for APs. Then again local_time_calibration() at
+     least makes an attempt at avoiding such.)
 
-As to Misra rule 13.2: tagging.ecl lists the rule as clean. I also can't
-find any deviation for the two instances fixed here. What am I missing?
+RFC: While generally the mentioned waiting loops will take longer to time
+     out, on a very fast CPU tight loops may time out too early.
 
-For __get_cmos_time(), tangentially: Wouldn't we better use the
-century byte if available? As it stands, things will break in 2070. Which
-is a long way out, yes, but still. (Of course this would mean a 7th slow
-I/O port write/read pair.)
+RFC: In get_s_time_fixed(), should we perhaps assert that the scale was
+     set?
+
+I don't think Fixes: tags should be put here. If we did, we'd have to
+enumerate all introductions of early uses of NOW() (or get_s_time()), with
+the exception of those dealing with getting back 0 (which I expect is only
+printk_start_of_line()).
 
 --- a/xen/arch/x86/time.c
 +++ b/xen/arch/x86/time.c
-@@ -2575,6 +2575,8 @@ __initcall(verify_tsc_reliability);
- /* Late init function (after interrupts are enabled). */
- int __init init_xen_time(void)
+@@ -1668,6 +1668,20 @@ s_time_t get_s_time_fixed(u64 at_tsc)
+ 
+ s_time_t get_s_time(void)
  {
-+    unsigned long wc;
++    /*
++     * Before the TSC scale is set, avoid returning constant 0 (or whatever
++     * this_cpu(cpu_time).stamp.local_stime is set to).  While the returned
++     * value is in no way representing time, it at least increases
++     * monotonically, thus avoiding e.g. waiting loops to degenerate to
++     * entirely infinite ones.
++     */
++    if ( unlikely(!this_cpu(cpu_time).tsc_scale.mul_frac) )
++    {
++        static s_time_t counter;
 +
-     tsc_check_writability();
- 
-     open_softirq(TIME_CALIBRATE_SOFTIRQ, local_time_calibration);
-@@ -2592,7 +2594,8 @@ int __init init_xen_time(void)
-     printk(XENLOG_INFO "Wallclock source: %s\n", wallclock_type_to_string());
- 
-     /* NB. get_wallclock_time() can take over one second to execute. */
--    do_settime(get_wallclock_time(), 0, NOW());
-+    wc = get_wallclock_time();
-+    do_settime(wc, 0,  NOW());
- 
-     /* Finish platform timer initialization. */
-     try_platform_timer_tail();
-@@ -2745,6 +2748,8 @@ int time_suspend(void)
- 
- int time_resume(void)
- {
-+    unsigned long wc;
++        return arch_fetch_and_add(&counter, 1);
++    }
 +
-     preinit_pit();
- 
-     resume_platform_timer();
-@@ -2756,7 +2761,8 @@ int time_resume(void)
- 
-     set_timer(&calibration_timer, NOW() + EPOCH);
- 
--    do_settime(get_wallclock_time() + cmos_utc_offset, 0, NOW());
-+    wc = get_wallclock_time();
-+    do_settime(wc + cmos_utc_offset, 0, NOW());
- 
-     update_vcpu_system_time(current);
+     return get_s_time_fixed(0);
+ }
  
 
