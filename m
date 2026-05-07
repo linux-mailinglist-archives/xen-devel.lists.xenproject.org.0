@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id /W7LECxF/Gn9NgAAu9opvQ
+	id uLhhLfpF/Gn9NgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 09:54:20 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 09:57:46 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D4764E4478
-	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 09:54:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1302230.1576207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 286504E453E
+	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 09:57:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1302237.1576217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKtYT-0005oj-Ei; Thu, 07 May 2026 07:53:57 +0000
+	id 1wKtbi-0006M2-TP; Thu, 07 May 2026 07:57:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1302230.1576207; Thu, 07 May 2026 07:53:57 +0000
+Received: by outflank-mailman (output) from mailman id 1302237.1576217; Thu, 07 May 2026 07:57:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKtYT-0005lw-Bk; Thu, 07 May 2026 07:53:57 +0000
-Received: by outflank-mailman (input) for mailman id 1302230;
- Thu, 07 May 2026 07:53:56 +0000
+	id 1wKtbi-0006J3-PS; Thu, 07 May 2026 07:57:18 +0000
+Received: by outflank-mailman (input) for mailman id 1302237;
+ Thu, 07 May 2026 07:57:17 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wKtYS-0005lq-7R
- for xen-devel@lists.xenproject.org; Thu, 07 May 2026 07:53:56 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wKtbg-0006Ix-Vl
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2026 07:57:17 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKtYR-00C5dA-KV
- for xen-devel@lists.xenproject.org; Thu, 07 May 2026 09:53:55 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wKtbg-005Fn6-8u
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2026 09:57:16 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 69fc4503-2eae-0a2a0a5409dd-0a2a4509884c-40
- for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 09:53:55 +0200
-Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69fc45d7-2eae-0a2a0a5409dd-0a2a45088ab0-20
+ for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 09:57:16 +0200
+Received: from [209.85.221.52] (helo=mail-wr1-f52.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 69fc4513-2497-0a2a45090019-d1558034d92d-3
- for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 09:53:55 +0200
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4852b81c73aso4473525e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 00:53:55 -0700 (PDT)
+ id 69fc45dc-63b5-0a2a45080019-d155dd34c424-3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 09:57:16 +0200
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-43fe3e22e33so313332f8f.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 00:57:16 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e53110aebsm53428625e9.3.2026.05.07.00.53.54
+ ffacd0b85a97d-45052a4878fsm17562972f8f.9.2026.05.07.00.57.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 May 2026 00:53:54 -0700 (PDT)
+ Thu, 07 May 2026 00:57:15 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,57 +58,55 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778140435; x=1778745235; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778140636; x=1778745436; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=8cpiZsq5QxQBhxrwredKlRb+311uA3g17xBJM/KVw7Y=;
-        b=gdnVFLAlJSx3t5AuZGSe0dcxN4kONMC1xZk+NzR584DuvMwtPslY6+daN+plflKgU7
-         OA4H4vtXwdc5PX6vUWS1RIZqxif+jFxcxcrx0104JetKbMpw/vwNiJJxxou/xSWB2a/z
-         ZswW6UxYJMn6cfOem1IB59zgfFwMzk4VJ2GwY/73Ip3EeotOieHNPVdCjc18pZPLEd2i
-         d8LqbnGGm+HPkQcf6fInqOLVoVb70/D0gmC/ud9nRZIQdLqEkpMbU7/W4UGJ/Dq0G8np
-         Otmc3oWdh8RipxvYp6X3XRQJnUwoFvlNPdNzzUMY9+C3lsRdbe54Zycer2XJyuNv8UfR
-         27bw==
+        bh=3oNtBhy9bRQ0n40pPopFcdMy2NYLPfrJ48jcUQh2stc=;
+        b=SN3hXnj/cECL4a566qpIbXAdkqNPZ5bs+VFGDDkiR9G9+plKUSXyVyXex0ZUMjn80W
+         Z6E5Zdf3Msz04nv+zS/ThjDIAMPYFCuuXpPAEb2RQsLHGZ/TCFxgLTJolLt1s1HuT6XY
+         WdtqLglBfL8tUT8+YoclM46TlOHjzerf+zn2DFYMrJoDEXyv3dWTkKYi39VlBdiYeMJn
+         M8KmP3q2R2wzIZ08hxNnMqY0DWv2uHKiyXbmvdi3perJAfoGzlIaNIhX1WPbI7dyGU0k
+         BO3thCM9uM8GTgyVlktW71195dXO5gB5CcIrmlgwMzgAubZeyfy1ziv9IfwCzt/9pOHX
+         oVaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778140435; x=1778745235;
+        d=1e100.net; s=20251104; t=1778140636; x=1778745436;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8cpiZsq5QxQBhxrwredKlRb+311uA3g17xBJM/KVw7Y=;
-        b=pqJd+h/igTCbDjhh9AJp9aLpjlOyqxJEPJcp8I+hz//vv96y/5q/xIHKRyT+stA3aE
-         irbFY39f83s31Og7YA3LqKkgCevxSORKJb4ZAdFkKFx4+iLfjbSR+5lD4G1IKQMEERrE
-         iJbYnYmjvl3KojgBMEx/DnusRYNKJ6tVqfj1TFjFnrU5tmlUXI25jona7D3f5JvOrBAV
-         sxYCs0W1Zm1YIVEC4AaQRcVn2k6eOKr2bYgUrI6FueRxxv4fBNfvhz7D9Z9SKrmvUc3P
-         SR7ncTQQNxBk3CENbLa5uSuDlg505rnJJ3wjimRDWObEDs7z+5b1OSsgiuKEgNZsJ1n2
-         rp/w==
-X-Forwarded-Encrypted: i=1; AFNElJ8vmETF9LVlOqJouNrDhCM1PkwaUaSJLzYZIrHU3ygHHNjQkGAVX39pV5XHyugfm711u5GbjPes2CE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzt5QBKRF6lqJ7VtbFoa2wYJfvREueRUNS29r0xNvAH/kyqWhqd
-	pjsckoFiruJpOWtqLrzrJJSugBrhkopenL/uHmv6nj7EghA9bcf/Tr9Cd9lkI8rBmA==
-X-Gm-Gg: AeBDiev/oyh7kdrtqg6miKaExVUEmt8FzqdPm78aTzmknSSvDWIze9A2fD/iMVgIiGk
-	MCEjm4SE+7r4L6yx+vywsb7TsRcTds5sNnCn3f3W7bXG+K8CViybE2epJzTm1R58zKZnvATrISO
-	ikIEtejUT7LeMT9P3l/Ulbzuy8RvTZJtI3FVVwpUzj7rl7sjzFiwwsIxLNJcY7Ca4ytAJOJcYbw
-	oHf+QBZ2stQZgASUhdkHL4kLYPAItK9XGvTj7B8NpJNUZCUcHRz9fn7+mbwTu3P5Gm4oHdoN7kZ
-	NznuZspyb5jD3BC1QU4FV4VF0C+/Q5PtjdTVtL92WQfs3eKsDD9Dk5fr8gNbKV2cDjYPDse4g5p
-	AuxCIMHX7qEa4Uu0aDm1TXHrmEIx7iMJcucQo6Al0aTMfRMhzlsyoN9VZdeJJLGDjux6ZVC7gW4
-	vSdC4KKfzbpuIrtIsVZt/j5NEKH3Qb7hYdxST7+mSLPqRG+IxHhRVSymw17IgfL3sLUu2bpxDN1
-	92XBRZgc9B5pwM79nqqWIkcGL7jbhOWu786
-X-Received: by 2002:a05:600c:8b8b:b0:489:1aed:1658 with SMTP id 5b1f17b1804b1-48e51f3fd03mr109878535e9.23.1778140435044;
-        Thu, 07 May 2026 00:53:55 -0700 (PDT)
-Message-ID: <231c1198-c267-459b-88ce-2b29d1625596@suse.com>
-Date: Thu, 7 May 2026 09:53:54 +0200
+        bh=3oNtBhy9bRQ0n40pPopFcdMy2NYLPfrJ48jcUQh2stc=;
+        b=MB48LIs8/MfNX3nvZpSw5Bn7nZRf3i++Fhv5NF25qVq23f+ztTUO3Z7MpHZQyHMn7Y
+         2R/R5rLIG+Hytxi16nBqLrX08ntAZk64qq49JHK2onzR9rIR2vTziy7gOVLPloO596P/
+         vRFrbwQ3tv5fR+0QRb032PrP0gUhjLgQmWnHxK5tmdcLztajlfSH3F4Qh9e+6IrJfERp
+         0m8YvMnr4Nw2Sr7BXxGi7G7ZgchXiCcJIr98AvHzqbXEAcnUbMRwd/5v0t/UyUKi/xYN
+         IuNqC9nzMp4YYiXw4QHWcBjCsYCl7yerKUTotbgK3LnrAZHdQJpcoP90n3u3CbcS738r
+         VwZQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+nb6I2brBkUk6XFLrlTrUDZrbRsEod4tXAiQi5u5suQ6+hZ19s98i8Y9UwBBoKDMIhMnwjf4Jg5xE=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yz9dK3OGfSh4RQRnFoGcFxOVloqcdMVCOynVliau17vRAt/03g3
+	yXEyTTUcmKipD03OK8Mr6+w9Eq6mZZQlkSI2yG9JFaWFE5M/gqXAT8ZB8sfWRvF+fg==
+X-Gm-Gg: AeBDietyCpOg5FZ7n1RTh8JesLGbPMd+3RMUAqSm1V6hA6dSz/rIKUyIJQUL8OT6yhC
+	qiO6BXbKwq/c+5WVGl0IBMz4jAkphIdEKevP0cOPnPunfBJscPBO3EOkLd60p2oInZEIGCDF0Nd
+	mUa8hVq/PecQDVlh2g1MdR9jBw/e+mEUkWAeOtWzh28VMBs++otp81GVM6dwug5uiZBjgP4/kGF
+	rouTTmBD9nEkGa8r9+yhgwTq8kmCW17cX0f5DSOTn302kvgmqmHwKKi7aV0BrSoOZtjK/0hMufo
+	KmsAu6kDyCRsdK1dNrRyCxyyOH7k4qup8r1QZxoQE4HI6hOMsXzrN6ayX3HEFcTj4Gwuf7XuRfO
+	EcMWJNL+8Qi4gTpxXmo3lOiGGAvX39HgzDJSvhmVdWvlO97xGECmvMshZBbYas3qHsJH4IGcWEK
+	d4HzJlLRPegJf36R2FooE/ce6c7rVXLpl7LpLC651mj7aUPFZe97YPSTRe+k5K21dru8Tclw+z9
+	PDoDLKzR/OvkNczQplzOVfXU9LgdCOgxpHC
+X-Received: by 2002:a05:6000:420c:b0:43d:7a97:78a2 with SMTP id ffacd0b85a97d-4515c5752f7mr11716646f8f.28.1778140635646;
+        Thu, 07 May 2026 00:57:15 -0700 (PDT)
+Message-ID: <cbaf9355-a136-4e71-835e-83d7bfdc9d23@suse.com>
+Date: Thu, 7 May 2026 09:57:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] tools/xenstored: remove permissions related to
- dead domain
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Cc: Julien Grall <julien@xen.org>, Anthony PERARD
- <anthony.perard@vates.tech>, Jason Andryuk <jason.andryuk@amd.com>,
- xen-devel@lists.xenproject.org
-References: <20260429120619.1013440-1-jgross@suse.com>
- <20260429120619.1013440-5-jgross@suse.com>
- <e9cfb86e-704d-4a5d-bc59-ad05d07bf69a@amd.com>
- <199b54b5-8571-4a18-bba6-226a5a94ecc9@suse.com>
+Subject: Re: [PATCH v2 2/2] iommu/amd-vi: do not zero IOMMU MMIO region
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Jason Andryuk <jason.andryuk@amd.com>,
+ Teddy Astie <teddy.astie@vates.tech>, Roger Pau Monne
+ <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+References: <20260506135514.47310-1-roger.pau@citrix.com>
+ <20260506135514.47310-3-roger.pau@citrix.com>
+ <5531fe94-6200-4f7c-9c22-e09189438e9c@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,28 +132,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <199b54b5-8571-4a18-bba6-226a5a94ecc9@suse.com>
+In-Reply-To: <5531fe94-6200-4f7c-9c22-e09189438e9c@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-bad1c0/1778140435-88970A53-30E5C3FF/0/0
+X-purgate-ID: tlsNG-c1860d/1778140636-BC766DB1-A4744FC5/0/0
 X-purgate-type: clean
-X-purgate-size: 935
-X-Rspamd-Queue-Id: 9D4764E4478
+X-purgate-size: 5053
+X-Rspamd-Queue-Id: 286504E453E
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:julien@xen.org,m:anthony.perard@vates.tech,m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jason.andryuk@amd.com,m:teddy.astie@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
@@ -174,31 +172,133 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-On 07.05.2026 09:43, Jürgen Groß wrote:
-> On 29.04.26 18:41, Jason Andryuk wrote:
->> On 2026-04-29 08:06, Juergen Gross wrote:
->>> Wit unprivileged domains now capable to use the @releaseDomain watch,
->>
->> s/Wit/With/ again.
->>
->> Regards,
->> Jason
->>
->>> there is no reason not to remove any node permissions which relate to
->>> a domain which has been removed.
->>>
->>> This resolves a complex scenario where a new domain could inherit the
->>> permissions of an old one with the same domid.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> Reviewed-by: Jason Andryuk <jason.andryuk@amd.com>
+On 06.05.2026 18:18, Andrew Cooper wrote:
+> On 06/05/2026 2:55 pm, Roger Pau Monne wrote:
+>> Attempting to memset the whole IOMMU MMIO region to zero is dangerous to
+>> say the least.  We don't know what registers might be there, nor which
 > 
-> Can this simple fix be done while committing, or should I send V3?
+> Sorry, one more.  "We don't know which registers might".
+> 
+>> values might be safe for those registers.  On a forthcoming platform doing
+>> the zeroing of the MMIO region does put the IOMMU in a broken state, which
+>> is not recoverable by the IOMMU initialization procedure in Xen.
+>>
+>> Instead attempt to forcefully disable the IOMMU ahead of enabling it.  Fold
+>> map_iommu_mmio_region() into it's only caller, as the function body is just
+>> an ioremap() call after the removal of the memset().
+>>
+>> Fixes: 0700c962ac2d ("Add AMD IOMMU support into hypervisor")
+>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>> ---
+>> Changes since v1:
+>>  - Zero the control register after calling disable_iommu().
+>>  - Print a warning message if the IOMMU is handed enabled to Xen from
+>>    firmware.
+>>  - Fix commit log grammar issues.
+>> ---
+>>  xen/drivers/passthrough/amd/iommu_init.c | 31 +++++++++++++-----------
+>>  1 file changed, 17 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
+>> index 76ae78e5ea53..ffc041211fb5 100644
+>> --- a/xen/drivers/passthrough/amd/iommu_init.c
+>> +++ b/xen/drivers/passthrough/amd/iommu_init.c
+>> @@ -42,18 +42,6 @@ static bool iommu_has_ht_flag(struct amd_iommu *iommu, u8 mask)
+>>      return iommu->ht_flags & mask;
+>>  }
+>>  
+>> -static int __init map_iommu_mmio_region(struct amd_iommu *iommu)
+>> -{
+>> -    iommu->mmio_base = ioremap(iommu->mmio_base_phys,
+>> -                               IOMMU_MMIO_REGION_LENGTH);
+>> -    if ( !iommu->mmio_base )
+>> -        return -ENOMEM;
+>> -
+>> -    memset(iommu->mmio_base, 0, IOMMU_MMIO_REGION_LENGTH);
+>> -
+>> -    return 0;
+>> -}
+>> -
+>>  static void __init unmap_iommu_mmio_region(struct amd_iommu *iommu)
+>>  {
+>>      if ( iommu->mmio_base )
+>> @@ -1367,11 +1355,14 @@ static int __init amd_iommu_prepare_one(struct amd_iommu *iommu)
+>>  {
+>>      int rc = alloc_ivrs_mappings(iommu->sbdf.seg);
+>>  
+>> -    if ( !rc )
+>> -        rc = map_iommu_mmio_region(iommu);
+>>      if ( rc )
+>>          return rc;
+>>  
+>> +    iommu->mmio_base = ioremap(iommu->mmio_base_phys,
+>> +                               IOMMU_MMIO_REGION_LENGTH);
+>> +    if ( !iommu->mmio_base )
+>> +        return -ENOMEM;
+>> +
+>>      get_iommu_features(iommu);
+>>  
+>>      /*
+>> @@ -1381,6 +1372,18 @@ static int __init amd_iommu_prepare_one(struct amd_iommu *iommu)
+>>      if ( amd_iommu_max_paging_mode < amd_iommu_min_paging_mode )
+>>          return -ERANGE;
+>>  
+>> +    /* Read current control register and forcefully disable the IOMMU. */
+>> +    iommu->ctrl.raw = readq(iommu->mmio_base + IOMMU_CONTROL_MMIO_OFFSET);
+>> +    if ( iommu->ctrl.iommu_en )
+>> +        printk(XENLOG_WARNING
+>> +               "AMD-Vi: IOMMU %pp enabled by firmware (%016lx)\n",
+>> +               &iommu->sbdf, iommu->ctrl.raw);
+>> +    disable_iommu(iommu, true);
+>> +
+>> +    /* With the IOMMU disabled zero the control register. */
+>> +    iommu->ctrl.raw = 0;
+>> +    writeq(0, iommu->mmio_base + IOMMU_CONTROL_MMIO_OFFSET);
+>> +
+>>      return 0;
+>>  }
+>>  
+> 
+> I don't think calling disable_iommu() is a good thing here.
+> 
+> It's just a cascade of clearing one/few bits in ctrl at a time, but is
+> is added unconditionally so that's 5 UC stores writing 0's to the same
+> register in the common case.
+> 
+> I think this logic wants to be:
+> 
+> @@ -1381,6 +1372,18 @@ static int __init amd_iommu_prepare_one(struct amd_iommu *iommu)
+>      if ( amd_iommu_max_paging_mode < amd_iommu_min_paging_mode )
+>          return -ERANGE;
+>  
+> +    /* Check if the IOMMU is active, and disable. */
+> +    iommu->ctrl.raw = readq(iommu->mmio_base + IOMMU_CONTROL_MMIO_OFFSET);
+> +    if ( iommu->ctrl.iommu_en )
+> +    {
+> +        printk(XENLOG_WARNING
+> +               "AMD-Vi: IOMMU %pp enabled by firmware (ctrl %016lx)\n",
+> +               &iommu->sbdf, iommu->ctrl.raw);
+> +
+> +        iommu->ctrl.raw = 0;
+> +        writeq(0, iommu->mmio_base + IOMMU_CONTROL_MMIO_OFFSET);
+> +    }
+> +
+>      return 0;
+>  }
+> 
+>  
+> 
+> which has the advantage that it's closer to the current behaviour, and
+> therefore arguably a safer backport.
+> 
+> The only thing that disable_iommu() does which isn't editing the control
+> register is playing with the PCI MSI enable bit, but that really doesn't
+> matter when we clear ctrl.int_cap_xt_en.  (And in fact, that path is
+> buggy because it clears MSI enable without inhibiting interrupt
+> generation, which architecturally will turn into legacy line interrupt
+> to deal with.)
 
-Afaic - of course it can be. Aiui the series wasn't committed (and can't
-be) because patch 1 still needs a REST maintainer ack. As per earlier
-comments throughout the history of the DOMID_ANY patch, I'm hesitant to
-offer it.
+Except there's no line interrupt associated with this?
 
 Jan
 
