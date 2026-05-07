@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eLimMmxU/GmKOQAAu9opvQ
+	id SIjfMW1U/GlOOAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 10:59:24 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 10:59:25 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84A3F4E55E7
-	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 10:59:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1302336.1576334 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B1354E55EE
+	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 10:59:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1302338.1576343 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKuZf-0003id-Sw; Thu, 07 May 2026 08:59:15 +0000
+	id 1wKuZi-00043e-TB; Thu, 07 May 2026 08:59:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1302336.1576334; Thu, 07 May 2026 08:59:15 +0000
+Received: by outflank-mailman (output) from mailman id 1302338.1576343; Thu, 07 May 2026 08:59:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKuZf-0003fe-MN; Thu, 07 May 2026 08:59:15 +0000
-Received: by outflank-mailman (input) for mailman id 1302336;
- Thu, 07 May 2026 08:59:13 +0000
+	id 1wKuZi-000401-E9; Thu, 07 May 2026 08:59:18 +0000
+Received: by outflank-mailman (input) for mailman id 1302338;
+ Thu, 07 May 2026 08:59:16 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wKuZd-0003LL-Gs
- for xen-devel@lists.xenproject.org; Thu, 07 May 2026 08:59:13 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wKuZg-0003sK-OG
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2026 08:59:16 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKuZc-002yCt-Sp
- for xen-devel@lists.xenproject.org; Thu, 07 May 2026 10:59:12 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wKuZg-005UsV-4q
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2026 10:59:16 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 69fc545c-2eae-0a2a0a5409dd-0a2a4508d59a-10
- for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 10:59:12 +0200
-Received: from [209.85.218.43] (helo=mail-ej1-f43.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69fc545f-e002-0a2a0a5209dd-0a2a4501ca64-28
+ for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 10:59:15 +0200
+Received: from [209.85.218.47] (helo=mail-ej1-f47.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 69fc5460-63b5-0a2a45080019-d155da2bcd56-3
- for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 10:59:12 +0200
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-bb962ce4dcfso87521966b.1
- for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 01:59:12 -0700 (PDT)
+ id 69fc5463-c1f2-0a2a45010019-d155da2fb86f-3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 10:59:15 +0200
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-bc2a455fd55so84106666b.2
+ for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 01:59:15 -0700 (PDT)
 Received: from fedora (user-109-243-69-121.play-internet.pl. [109.243.69.121])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bc81d5e9583sm57549966b.17.2026.05.07.01.59.10
+ a640c23a62f3a-bc81d5e9583sm57549966b.17.2026.05.07.01.59.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 May 2026 01:59:10 -0700 (PDT)
+ Thu, 07 May 2026 01:59:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,41 +57,41 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778144352; x=1778749152; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1778144354; x=1778749154; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=wGQ7zO8AKfHP1ag+tsRcXVHwApXHfJapq9I/qFco5NE=;
-        b=jf/i/+rDqRPS5qI4SAfOdsRF1r5QN2gNCYxHQELqmI2ZZg8Rsb53/D3Ip+UTOCQcS5
-         CfXtUDO7e4+FdnWLChhjcjvUbg61o7yLnL4Ba5w9iEUnbVwpuRg8nLhWKoLIodCm+uOq
-         mIYjZTdf3SXed18DglZG8pEY8grbL5bYUPw/24lC/4gkTHIJPX8w1WEsRTm/kFoqaY6l
-         aFrVKe8AAr4HWj6BvKRNgT0+Iwj6O1/RD43Wf9eXJUI9vC36X5ji2KIXXeUx44K9pQc4
-         DyGDPGy0CvpH80EHEdaamqhJ9p/ZMc3JVjVtPFEBEVYrHk3FKH+YBMxLgnUe2yXYG6GW
-         LqDg==
+        bh=b5JrowEde3AEZewOr27HDt+oy+DAfl7walW+rv1nHYY=;
+        b=mP/nPJIEtGqWpm+tqvmLR/rbg1uXu455kUbVDjckrCUnhE7MIGSg1ABjd9/6vLBGlL
+         J2bcdj/h040AGePpNnMvRS7+dkf7faWNY/8x8EQjGF7dV/PLMidL2FdbLNUnJRFLpddO
+         /IkzLG7qVMpJPW/8VxYqqQlzFPe3fycUBoPA7kfflpb6eAZ6GoObN//kwV95+p8kABIU
+         lxrEYl52riDBlwiLAsbJD8SSGmFuJwSnI4AopkNgId07ijTQJr2ZmlTtGRJk6fhOerLh
+         fNr6QO2el+Tg+X7JljSL84L/5jtLkuiThgmaEbK/VVkOe3Ymr8WU+fGmNg2OHQyIxlV9
+         Tn0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778144352; x=1778749152;
+        d=1e100.net; s=20251104; t=1778144354; x=1778749154;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=wGQ7zO8AKfHP1ag+tsRcXVHwApXHfJapq9I/qFco5NE=;
-        b=LrViiuvETZVScqRUCoTxeUTXhSpdrQ9+rb9pUjFkMFzHodmztqONg7bsfnqymy9Axf
-         rS1lAZF+wvxanvk8Li6UGlTc0BNPlErutSLwiMGG/rDnutIvp+3Us4+nJ6TZKH5umrua
-         GMV1E+UmJdWUgpuw3UKlWlt+4FkQU+8v7HfXeNck+uUeJysO0VFDxvjLLoL0uMcD5i5W
-         k7+NcACX7QmCN2mZjMkry1eQxCFRx+alCjM4bMl9AU6FgMfAXX6Tiy9h1kf0uVdyg/vi
-         w+vJl86eTvvnB0oDji8AUb6Kzr14iczts/bMRSSGQd5NHw7NLdZKMyy6FRxwt8uELVJw
-         RwZw==
-X-Gm-Message-State: AOJu0Yx2ZQ9z6y/Cjcp+BKtsow6ZsbJQLPODVTqOGlH4RJoS4BHss2Rm
-	DFzgmn8VkPplDqzq1An2Q0EXJglP++Yqf2yYjPV58LXGk8DjXPvMreqGFcSkHA==
-X-Gm-Gg: AeBDievIuMwkYYm2oLehyGfMySXZQwnnWrzjCiPVtJ5XYM4ciebV1toxoS2CX/wzMbf
-	Mjtlq7Q0ZWI1FikTEnwSxEVDXwy6d7DzS1LEstmxUMDcb89rAV9n5Y7dtAzCDtkgER4W8qOf4MM
-	3smdKmj8bedXTCdUjxsvW3B4dVWQW02Xu6piUlfOym0lTYCpEytZ4lA2VA+c4pSiWeT87ZFUd6e
-	4Fcxg9AeXaKYeUjkOgLlkVQQbDbVbUhLao2uuVL5f98lZ9OTXu2LE7kBUVx0dFzYKdsCa1o9Lny
-	+gUJVANqN3fH7y5IQYGtg02T8M89JtY6gCTUjYkT2qay0sUnI7yIPx5qj3r9ujPDkdGXUBd+zQR
-	TMfvQkoHihpBGxwaDqP7I14sBtTlR+28q8e0vlqAZjGsIiNP7axz1D02AQM8TERitBMdVYG69GK
-	tmwJjkFT4x7JOzTS1g5i08xz9XHaxApqrlrEMFcsFytbGIgc3PXIJo8mQeD9Qn6wo8z1VRQacfv
-	NJt
-X-Received: by 2002:a17:907:1ca8:b0:bc3:783f:1da9 with SMTP id a640c23a62f3a-bc56d13123amr367776966b.33.1778144351614;
-        Thu, 07 May 2026 01:59:11 -0700 (PDT)
+        bh=b5JrowEde3AEZewOr27HDt+oy+DAfl7walW+rv1nHYY=;
+        b=RU3MmjjvTJHIkitV/PI0ZpV+iDMs9sjC8NLEf9asT94ukD1xzlAsfylGwfOloxNo2P
+         YEHlwGKdat0ps4Al5HtJWnXK5t9+3xxv0RkO5YLDE2ShiOYk3wiikBExazj/S+QB4yBt
+         Y/cGKs+yF6z2NFeUD1DkUz4ng3jmGTDApXN926rPnVMz7PkK2vZT0UsZ7P9mB80PJqeP
+         W6646SHGg4Li6axWLmck0BGL40JDMOHW85NbWPNpZqMjzKNcWWL5Q36p28BRv50fJBbN
+         nI4AlBQNjT6CQn4YVBCVho5NlBvRDKP1hKMnMI3i2j8Wyj8g/fyBY2NpVsHuIKlxidId
+         I9yQ==
+X-Gm-Message-State: AOJu0YyEOcx0aMCYfLdDRDln+DTSohfEa4RHujUjN3rKjqY2sadPeoAh
+	O/BnvT1SNhNifuiGLMNZ0tvHTSXRJawwuM5nZSb29nF8XObErNRh58bHJgABhg==
+X-Gm-Gg: AeBDieuh+xY7M7A35w1dCLWTl80unv+DMh9epdFj5+pogNyFZpOPuDxZB5RfJQl5OPG
+	mf4njd+xyLE9+0V9oYlBFM0mbYRPMWSCIwC73aFI65UTWW2QqP87r0v9xjUaXZbpSsjOEShv4HB
+	UQ5Qom408PmGUmgGxfXbsHzTDcKjO2ObYs8lw9ZrdD3REWSwrhPyWziqfDSo7L9zdqJ/plc//3M
+	fXSBaPNq0iCFahr58Vy+IndY079gu+sj/i6HD8UF29jtYacqBM1I3yutSYEeCukrT+eoU+kLbDL
+	LrdS5mXUQudO+if6IPE0JK1QdTGLTkooM/pbA8Sktr76BMnO0ytDtuUmcvliWniENtP/q44+vr7
+	g4B9aEJtmuwrn2mzwWmthhU6jaLgtrgesN8sWdoE1wSxh+vvZAbKOtthhV3Otvk7FTp5SIHJMm/
+	og8Xha+3j6bt6po3e9Cgk4QV7SFhMtNF4qR2dsCogFnIL8GBMjlvg1NEBT33nhMKLbJfrdZmm28
+	GOO
+X-Received: by 2002:a17:906:99c1:b0:bc4:75be:62e3 with SMTP id a640c23a62f3a-bc56d137fc6mr400889466b.33.1778144352960;
+        Thu, 07 May 2026 01:59:12 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -105,18 +105,18 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 06/11] xen/riscv: implement copy_to_guest_phys()
-Date: Thu,  7 May 2026 10:58:45 +0200
-Message-ID: <90ff94daad0c3910b1398a7bd956f0d0bd6a2041.1778140240.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v5 07/11] xen/riscv: add Linux kernel loading support
+Date: Thu,  7 May 2026 10:58:46 +0200
+Message-ID: <f77ef278b7df729a3a97a0e1b3ed0b4ee4d08fac.1778140240.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1778140240.git.oleksii.kurochko@gmail.com>
 References: <cover.1778140240.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c1860d/1778144352-B7D7BDB1-F2C646D4/10/73395122804
+X-purgate-ID: tlsNG-d62444/1778144355-B715BFF4-9BCA9DAE/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 6574
-X-Rspamd-Queue-Id: 84A3F4E55E7
+X-purgate-size: 12546
+X-Rspamd-Queue-Id: 5B1354E55EE
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -155,213 +155,362 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-Introduce copy_to_guest_phys() for RISC-V, based on the Arm implementation.
+Introduce support for loading a Linux kernel Image which is got by
+uncompressing of Image.gz on RISC-V.
 
-Add a generic copy_guest() helper for copying to and from guest physical
-(and potentially virtual addresses in the future), and implement
-translate_get_page() to translate a guest physical address into a struct
-page_info via the domain p2m.
+kernel_image_load() and place_modules() currently call panic() on
+failure rather than returning an error. This is because the common
+kernel_load() in common/device-tree/kernel.c does not expect a
+return code. Handling errors gracefully would require a separate
+refactor.
 
-Compared to the Arm code:
-- Drop COPY_flush_dcache(), as no such use cases exist on RISC-V.
-- Do not implement the linear mapping case, which is currently unused.
-- Use PAGE_OFFSET() to initialize the local offset variable in copy_guest().
+The implementation is based on the Xen Arm kernel loading code.
+
+text_offset is available for both 32-bit and 64-bit Image, so fix
+that.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 Changes in v5:
- - Nothing changed. Only rebase.
+ - Introduce MODULES_ALIGNMENT and use it inside place_modules().
+ - Add if() to avoid underflow when modbase is calculated in the case when
+   modules would overlap the kernel.
+ - Drop unnessary dprintk()s.
+ - "&& size > effective_size" in kernel_image64_probe().
+ - Use 'size_t' for image_size in struct kernel_info to
+   fit both RV32 and RV64.
 ---
 Changes in v4:
- - Avoid using of min_t. (sync with Arm)
- - Add Acked-by: Jan Beulich <jbeulich@suse.com>.
----
-Changes in v3:
- - s/if (page == NULL)/if ( !page ).
- - Drop " - offset" for unmap_domain_page() inside copy_guest() function.
-   unmap_domain_page() is expected to mask (or something similar) the page
-   offset bits.
- - Change some types for functions as copy_to_guest_phys_cb function pointer
-   prototype was changed too in the prev. commit.
----
-Changes in v2:
- - Use BIT() instead of open-coding.
- - Rename COPY_ipa to COPY_gpa.
- - Rename COPY_linear to COPY_gva.
- - Use  BUG_ON(linear) instead if (lineer) + BUG_ON.
- - Rename arg liner to gva for translate_get_page().
- - Update translate_get_page() to properly handling write argument.
- - Return unsigned int for copy_guest() and copy_to_guest_phys() as
-   len function parameter is only 'unsigned int'.
- - Reformat function arguments for alignment
+ - Update the patch subject: add "... Linux kernel ...".
+ - Make bi variable unsigned. And use while() instead of for().
+ - Update the condition which calculates overlapping of kernel with modules.
+ - Reject a malformed image before the loop to avoid wrapping
+   load_addr + image_size in the per-bankcheck below.
+ - Use  mathematical representation to print ranges.
+ - Use #error instead of just returning unsupported.
+ - Update the comment above stuct image in kernel_image64_probe().
 ---
 ---
- xen/arch/riscv/Makefile                   |   1 +
- xen/arch/riscv/guestcopy.c                | 116 ++++++++++++++++++++++
- xen/arch/riscv/include/asm/guest_access.h |   7 ++
- 3 files changed, 124 insertions(+)
- create mode 100644 xen/arch/riscv/guestcopy.c
+ xen/arch/riscv/Makefile             |   1 +
+ xen/arch/riscv/include/asm/config.h |  13 ++
+ xen/arch/riscv/kernel.c             | 249 ++++++++++++++++++++++++++++
+ xen/include/xen/fdt-kernel.h        |  11 +-
+ 4 files changed, 272 insertions(+), 2 deletions(-)
+ create mode 100644 xen/arch/riscv/kernel.c
 
 diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index 04f02ad89cba..cfc3fdf7d208 100644
+index cfc3fdf7d208..eecdcbc76867 100644
 --- a/xen/arch/riscv/Makefile
 +++ b/xen/arch/riscv/Makefile
-@@ -4,6 +4,7 @@ obj-y += domain.o
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-y += entry.o
- obj-y += extable.o
-+obj-y += guestcopy.o
+@@ -8,6 +8,7 @@ obj-y += guestcopy.o
  obj-y += imsic.o
  obj-y += intc.o
  obj-y += irq.o
-diff --git a/xen/arch/riscv/guestcopy.c b/xen/arch/riscv/guestcopy.c
++obj-y += kernel.init.o
+ obj-y += mm.o
+ obj-y += p2m.o
+ obj-y += paging.o
+diff --git a/xen/arch/riscv/include/asm/config.h b/xen/arch/riscv/include/asm/config.h
+index 0613de008b13..fd69057826e1 100644
+--- a/xen/arch/riscv/include/asm/config.h
++++ b/xen/arch/riscv/include/asm/config.h
+@@ -151,6 +151,19 @@
+ extern unsigned long phys_offset; /* = load_start - XEN_VIRT_START */
+ #endif
+ 
++/*
++ * KERNEL_LOAD_ADDR_ALIGNMENT is defined based on paragraph of
++ * "Kernel location" of boot.rst:
++ * https://docs.kernel.org/arch/riscv/boot.html#kernel-location
++ */
++#if defined(CONFIG_RISCV_32)
++#define KERNEL_LOAD_ADDR_ALIGNMENT MB(4)
++#elif defined(CONFIG_RISCV_64)
++#define KERNEL_LOAD_ADDR_ALIGNMENT MB(2)
++#else
++#error "Define KERNEL_LOAD_ADDR_ALIGNMENT"
++#endif
++
+ #endif /* ASM__RISCV__CONFIG_H */
+ /*
+  * Local variables:
+diff --git a/xen/arch/riscv/kernel.c b/xen/arch/riscv/kernel.c
 new file mode 100644
-index 000000000000..8a89212e0bea
+index 000000000000..8580cdb32d7a
 --- /dev/null
-+++ b/xen/arch/riscv/guestcopy.c
-@@ -0,0 +1,116 @@
++++ b/xen/arch/riscv/kernel.c
+@@ -0,0 +1,249 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +
-+#include <xen/domain_page.h>
-+#include <xen/page-size.h>
-+#include <xen/sched.h>
-+#include <xen/string.h>
++#include <xen/bug.h>
++#include <xen/compiler.h>
++#include <xen/errno.h>
++#include <xen/fdt-kernel.h>
++#include <xen/guest_access.h>
++#include <xen/init.h>
++#include <xen/libfdt/libfdt.h>
++#include <xen/mm.h>
++#include <xen/types.h>
++#include <xen/vmap.h>
 +
-+#include <asm/guest_access.h>
++#include <asm/setup.h>
 +
-+#define COPY_from_guest     0U
-+#define COPY_to_guest       BIT(0, U)
-+#define COPY_gpa            0U
-+#define COPY_gva            BIT(1, U)
++#define IMAGE64_MAGIC_V2 0x05435352 /* Magic number 2, le, "RSC\x05" */
 +
-+typedef union
++/*
++ * Machine word alignment could be useful for copying to be more efficient.
++ * There is no reason for now to have bigger module alignment.
++ */
++#define MODULES_ALIGNMENT sizeof(unsigned long)
++
++static void __init place_modules(struct kernel_info *info, paddr_t kernbase,
++                                 paddr_t kernend)
 +{
-+    struct
-+    {
-+        struct vcpu *v;
-+    } gva;
++    const struct boot_module *mod = info->bd.initrd;
++    const struct membanks *banks = kernel_info_get_mem_const(info);
++    const paddr_t initrd_len = ROUNDUP(mod ? mod->size : 0,
++                                       MODULES_ALIGNMENT);
++    const paddr_t dtb_len = ROUNDUP(fdt_totalsize(info->fdt),
++                                    MODULES_ALIGNMENT);
++    const paddr_t modsize = initrd_len + dtb_len;
++    unsigned int bi = banks->nr_banks;
 +
-+    struct
-+    {
-+        struct domain *d;
-+    } gpa;
-+} copy_info_t;
-+
-+#define GVA_INFO(vcpu) ((copy_info_t) { .gva = { vcpu } })
-+#define GPA_INFO(domain) ((copy_info_t) { .gpa = { domain } })
-+
-+static struct page_info *translate_get_page(copy_info_t info, uint64_t addr,
-+                                            bool gva, bool write)
-+{
-+    p2m_type_t p2mt;
-+    struct page_info *page;
++    if ( modsize < initrd_len )
++        panic("Module size overflow: initrd + dtb size wraps paddr_t\n");
 +
 +    /*
-+     * Not implemented yet.
-+     *
-+     * If gva == true, the operation will likely require a struct vcpu
-+     * rather than just a struct domain. For this reason copy_info_t is
-+     * already passed here instead of only struct domain.
++     * Place modules as high in RAM as possible, scanning banks from
++     * last to first so that the end of the last bank is preferred.
 +     */
-+    BUG_ON(gva);
-+
-+    page = get_page_from_gfn(info.gpa.d, paddr_to_pfn(addr), &p2mt, P2M_ALLOC);
-+
-+    if ( !page )
-+        return NULL;
-+
-+    if ( write ? p2mt != p2m_ram_rw : !p2m_is_ram(p2mt) )
++    while ( bi-- > 0 )
 +    {
-+        put_page(page);
-+        return NULL;
-+    }
++        const struct membank *bank = &banks->bank[bi];
++        const paddr_t bank_end = bank->start + bank->size;
++        paddr_t modbase;
 +
-+    return page;
-+}
++        if ( modsize > bank->size )
++            continue;
 +
-+static unsigned long copy_guest(void *buf, uint64_t addr, unsigned long len,
-+                                copy_info_t info, unsigned int flags)
-+{
-+    unsigned int offset = PAGE_OFFSET(addr);
++        modbase = ROUNDDOWN(bank_end - modsize, MODULES_ALIGNMENT);
 +
-+    BUILD_BUG_ON((sizeof(addr)) < sizeof(vaddr_t));
-+    BUILD_BUG_ON((sizeof(addr)) < sizeof(paddr_t));
-+
-+    while ( len )
-+    {
-+        void *p;
-+        unsigned long size = min(len, PAGE_SIZE + 0UL - offset);
-+        struct page_info *page;
-+
-+        page = translate_get_page(info, addr, flags & COPY_gva,
-+                                  flags & COPY_to_guest);
-+        if ( !page )
-+            return len;
-+
-+        p = __map_domain_page(page);
-+        p += offset;
-+        if ( flags & COPY_to_guest )
-+        {
-+            /*
-+             * buf will be NULL when the caller request to zero the
-+             * guest memory.
-+             */
-+            if ( buf )
-+                memcpy(p, buf, size);
-+            else
-+                memset(p, 0, size);
-+        }
-+        else
-+            memcpy(buf, p, size);
-+
-+        unmap_domain_page(p);
-+        put_page(page);
-+        len -= size;
-+        buf += size;
-+        addr += size;
++        if ( modbase < bank->start )
++            continue;
 +
 +        /*
-+         * After the first iteration, guest virtual address is correctly
-+         * aligned to PAGE_SIZE.
++         * If modules would overlap the kernel, try placing them below it.
 +         */
-+        offset = 0;
++        if ( (modbase < ROUNDUP(kernend, MODULES_ALIGNMENT)) &&
++             (modbase + modsize > kernbase) )
++        {
++            /* Avoid underflow below */
++            if ( kernbase < modsize )
++                continue;
++
++            modbase = ROUNDDOWN(kernbase - modsize, MODULES_ALIGNMENT);
++            if ( modbase < bank->start )
++                continue;
++        }
++
++        info->dtb_paddr = modbase;
++        info->initrd_paddr = modbase + dtb_len;
++
++        return;
 +    }
++
++    panic("Unable to find suitable location for dtb+initrd\n");
++}
++
++static paddr_t __init kernel_image_place(struct kernel_info *info)
++{
++    paddr_t load_addr = INVALID_PADDR;
++    uint64_t image_size = info->image.image_size ?: info->image.len;
++    const struct membanks *banks = kernel_info_get_mem_const(info);
++    unsigned int nr_banks = banks->nr_banks;
++    unsigned int bi;
++
++    /*
++     * At the moment, RISC-V's Linux kernel should be always position
++     * independent based on "Per-MMU execution" of boot.rst:
++     *   https://docs.kernel.org/arch/riscv/boot.html#pre-mmu-execution
++     *
++     * But just for the case when RISC-V's Linux kernel isn't position
++     * independent it is needed to take load address from
++     * info->image.start.
++     *
++     * If `start` is zero, the Image is position independent.
++     */
++    if ( likely(!info->image.start) )
++    {
++        for ( bi = 0; bi != nr_banks; bi++ )
++        {
++            const struct membank *bank = &banks->bank[bi];
++            paddr_t bank_start = bank->start;
++            /*
++             * According to boot.rst kernel load address should be properly
++             * aligned:
++             *   https://docs.kernel.org/arch/riscv/boot.html#kernel-location
++             *
++             * As Image in this case is PIC we can ignore
++             * info->image.text_offset.
++             */
++            paddr_t aligned_start = ROUNDUP(bank_start, KERNEL_LOAD_ADDR_ALIGNMENT);
++            paddr_t bank_end = bank_start + bank->size;
++            paddr_t bank_size;
++
++            if ( aligned_start > bank_end )
++                continue;
++
++            bank_size = bank_end - aligned_start;
++
++            if ( image_size <= bank_size )
++            {
++                load_addr = aligned_start;
++                break;
++            }
++        }
++    }
++    else
++    {
++        load_addr = info->image.start + info->image.text_offset;
++
++        WARN_ON(!IS_ALIGNED(load_addr, KERNEL_LOAD_ADDR_ALIGNMENT));
++
++        /*
++         * Reject a malformed image before the loop to avoid wrapping
++         * load_addr + image_size in the per-bank check below by setting
++         * bi = nr_banks.
++         *
++         * image_size covers the kernel from _start (placed at load_addr =
++         * start + text_offset) through _end.  The alignment gap
++         * [start, load_addr) is padding and need not lie within a bank.
++         */
++        bi = image_size <= (paddr_t)-1 - load_addr ? 0 : nr_banks;
++        for ( ; bi != nr_banks; bi++ )
++        {
++            const struct membank *bank = &banks->bank[bi];
++            paddr_t bank_start = bank->start;
++            paddr_t bank_end = bank_start + bank->size;
++
++            if ( (load_addr >= bank_start) &&
++                 (load_addr + image_size <= bank_end) )
++                break;
++        }
++    }
++
++    if ( bi == nr_banks )
++        panic("Failed to place kernel image in any memory bank\n");
++
++    info->entry = load_addr;
++
++    return load_addr;
++}
++
++static void __init kernel_image_load(struct kernel_info *info)
++{
++    int rc;
++    paddr_t load_addr = kernel_image_place(info);
++    paddr_t paddr = info->image.kernel_addr;
++    paddr_t len = info->image.len;
++    paddr_t effective_size = info->image.image_size ?: len;
++    void *kernel;
++
++    place_modules(info, load_addr, load_addr + effective_size);
++
++    printk("Loading Image from %"PRIpaddr" to [%"PRIpaddr",%"PRIpaddr")\n",
++            paddr, load_addr, load_addr + effective_size);
++
++    kernel = ioremap_cache(paddr, len);
++
++    if ( !kernel )
++        panic("Unable to map kernel\n");
++
++    /* Move kernel to proper location in guest phys map */
++    rc = copy_to_guest_phys(info->bd.d, load_addr, kernel, len);
++
++    if ( rc )
++        panic("Unable to copy kernel to proper guest location\n");
++
++    iounmap(kernel);
++}
++
++/* Check if the image is a 64-bit Image */
++static int __init kernel_image64_probe(struct kernel_info *info,
++                                       paddr_t addr, paddr_t size)
++{
++    /* https://www.kernel.org/doc/Documentation/riscv/boot-image-header.rst */
++    struct {
++        uint32_t code0;         /* Executable code */
++        uint32_t code1;         /* Executable code */
++        uint64_t text_offset;   /* Image load offset, little endian */
++        uint64_t image_size;    /* Effective Image size, little endian */
++        uint64_t flags;         /* kernel flags, little endian */
++        uint32_t version;       /* Version of this header */
++        uint32_t res1;          /* Reserved */
++        uint64_t res2;          /* Reserved */
++        uint64_t magic;         /* Deprecated: Magic number, little endian, "RISCV" */
++        uint32_t magic2;        /* Magic number 2, little endian, "RSC\x05" */
++        uint32_t res3;          /* Reserved for PE COFF offset */
++    } image;
++    uint64_t effective_size;
++
++    if ( size < sizeof(image) )
++        return -EINVAL;
++
++    copy_from_paddr(&image, addr, sizeof(image));
++
++    /* Magic v1 is deprecated and may be removed.  Only use v2 */
++    if ( le32_to_cpu(image.magic2) != IMAGE64_MAGIC_V2 )
++        return -EINVAL;
++
++    effective_size = le64_to_cpu(image.image_size);
++
++    if ( !effective_size )
++        return -EINVAL;
++
++    info->image.kernel_addr = addr;
++    /* Actual size in the binary file */
++    info->image.len = size;
++    /* Total memory the kernel occupies at runtime */
++    info->image.image_size = effective_size;
++    info->image.text_offset = le64_to_cpu(image.text_offset);
++    info->image.start = 0;
++
++    info->load = kernel_image_load;
 +
 +    return 0;
 +}
 +
-+unsigned long copy_to_guest_phys(struct domain *d, paddr_t gpa, void *buf,
-+                                 unsigned long len)
++int __init kernel_image_probe(struct kernel_info *info, paddr_t addr,
++                              paddr_t size)
 +{
-+    return copy_guest(buf, gpa, len, GPA_INFO(d),
-+                      COPY_to_guest | COPY_gpa);
++#ifdef CONFIG_RISCV_64
++    return kernel_image64_probe(info, addr, size);
++#else
++#   error "Only 64-bit RISC-V is supported"
++#endif
 +}
-diff --git a/xen/arch/riscv/include/asm/guest_access.h b/xen/arch/riscv/include/asm/guest_access.h
-index 7cd51fbbdead..8d679319ded0 100644
---- a/xen/arch/riscv/include/asm/guest_access.h
-+++ b/xen/arch/riscv/include/asm/guest_access.h
-@@ -2,6 +2,10 @@
- #ifndef ASM__RISCV__GUEST_ACCESS_H
- #define ASM__RISCV__GUEST_ACCESS_H
- 
-+#include <xen/types.h>
-+
-+struct domain;
-+
- unsigned long raw_copy_to_guest(void *to, const void *from, unsigned len);
- unsigned long raw_copy_from_guest(void *to, const void *from, unsigned len);
- unsigned long raw_clear_guest(void *to, unsigned int len);
-@@ -18,6 +22,9 @@ unsigned long raw_clear_guest(void *to, unsigned int len);
- #define guest_handle_okay(hnd, nr) (1)
- #define guest_handle_subrange_okay(hnd, first, last) (1)
- 
-+unsigned long copy_to_guest_phys(struct domain *d, paddr_t gpa, void *buf,
-+                                 unsigned long len);
-+
- #endif /* ASM__RISCV__GUEST_ACCESS_H */
- /*
-  * Local variables:
+diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
+index 8cd1670c2c6f..00c37be101bf 100644
+--- a/xen/include/xen/fdt-kernel.h
++++ b/xen/include/xen/fdt-kernel.h
+@@ -59,8 +59,15 @@ struct kernel_info {
+         struct {
+             paddr_t kernel_addr;
+             paddr_t len;
+-#if defined(CONFIG_ARM_64) || defined(CONFIG_RISCV_64)
+-            paddr_t text_offset; /* 64-bit Image only */
++#if defined(CONFIG_ARM_64) || defined(CONFIG_RISCV)
++            /*
++             * ARM: 64-bit Image only.
++             * RISC-V: both 32-bit and 64-bit Images.
++             */
++            paddr_t text_offset;
++#endif
++#if defined(CONFIG_RISCV)
++            size_t image_size; /* Effective size of Image */
+ #endif
+             paddr_t start; /* Must be 0 for 64-bit Image */
+         } image;
 -- 
 2.54.0
 
