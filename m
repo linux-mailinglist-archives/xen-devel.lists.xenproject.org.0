@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UKBQBahC/GlYNgAAu9opvQ
+	id wJkqIQ9E/GnMNgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 09:43:36 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 09:49:35 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 738AA4E434E
-	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 09:43:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1302211.1576189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9C2D4E4404
+	for <lists+xen-devel@lfdr.de>; Thu, 07 May 2026 09:49:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1302221.1576199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKtOE-0003NH-7u; Thu, 07 May 2026 07:43:22 +0000
+	id 1wKtTn-0004Hy-UT; Thu, 07 May 2026 07:49:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1302211.1576189; Thu, 07 May 2026 07:43:22 +0000
+Received: by outflank-mailman (output) from mailman id 1302221.1576199; Thu, 07 May 2026 07:49:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wKtOE-0003Kx-4r; Thu, 07 May 2026 07:43:22 +0000
-Received: by outflank-mailman (input) for mailman id 1302211;
- Thu, 07 May 2026 07:43:21 +0000
+	id 1wKtTn-0004Fm-R5; Thu, 07 May 2026 07:49:07 +0000
+Received: by outflank-mailman (input) for mailman id 1302221;
+ Thu, 07 May 2026 07:49:07 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jgross@suse.com>) id 1wKtOC-0003Kp-V0
- for xen-devel@lists.xenproject.org; Thu, 07 May 2026 07:43:21 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wKtTm-0004Fb-SL
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2026 07:49:06 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wKtOC-008I3B-6L
- for xen-devel@lists.xenproject.org; Thu, 07 May 2026 09:43:20 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wKtTl-00148W-QJ
+ for xen-devel@lists.xenproject.org; Thu, 07 May 2026 09:49:05 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jgross@suse.com>)
- id 69fc4294-e002-0a2a0a5209dd-0a2a4506bf2c-14
- for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 09:43:20 +0200
-Received: from [209.85.218.54] (helo=mail-ej1-f54.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jgross@suse.com>)
- id 69fc4297-7371-0a2a45060019-d155da36a806-3
- for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 09:43:20 +0200
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-bc1f0830f44so316120466b.0
- for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 00:43:19 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
- (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
- [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bc8355281cfsm49688866b.54.2026.05.07.00.43.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 07 May 2026 00:43:18 -0700 (PDT)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69fc43e7-2eae-0a2a0a5409dd-0a2a4502834c-36
+ for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 09:49:05 +0200
+Received: from [209.85.167.43] (helo=mail-lf1-f43.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69fc43f1-af86-0a2a45020019-d155a72bc4fd-3
+ for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 09:49:05 +0200
+Received: by mail-lf1-f43.google.com with SMTP id
+ 2adb3069b0e04-5a86e4b950cso368632e87.0
+ for <xen-devel@lists.xenproject.org>; Thu, 07 May 2026 00:49:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,248 +51,321 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1778140145; cv=none;
+        d=google.com; s=arc-20240605;
+        b=KGkt4Rv1OZEfFY5XjGw+4yDnbNUSoMGB8rurbwV3N3NNh95ejA3C3i2fv6SpM3fl1O
+         MELl+WLwQnq8Iu82zMAbwz3CvDubUt5vvdNvChIV7hWvjkefP4KgBuB/YiPBlOuFe5+r
+         N2pnl3d+CGkVswU1OJg32298KE+/17aLmZ8lUTYDIn50/k5UAAVWdtAy2e8bwX4yi/kj
+         /kPG9spB/UHBPBLFkYDewFX28Dd6K8XjIFfniRvoiGYqLAhAZCYJax7DrLF8RJSezca9
+         76Mf0u6X7VyCT5uGvsNzcmzSbCJ4fEzaRARrEALy5cZgTYjxWu+bbXFKDThP0ZGzptqK
+         URxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FpH9ivn7J+a7CnqyryEVPZL0SHq/fQAbKBNReVXHWkM=;
+        fh=uAzoxIkY79cy0zES8IqO07ArU7DBG3jlr2bg4XRVkR0=;
+        b=fqUPtk7fNfk/3pn9ur5iswJsAyxFZ65cIUXORd83fL+EDgcRZxT6g4dW5YfxG2JQmD
+         sJpAGInLi0fT5g+7clz+oOtxHoBoK/x0+piJclPScTldqeQhtB+r+TxuMilhCMAk+sYW
+         gFaYFx/yrVRnDzGPnlUYp2O2mcbrLcPlT3SGaZMAxv4BMlo4aNPodwVWeNhMKHaSgecr
+         Sfmqmom0P97118xAjoYtSQZ3GxPRUeiE/Peed2xXwFChLzIrhdh37X7EZ21if5mEzvFE
+         winKeZHDkuQXk0F3CFH+iO/EbH3ldoYc70teK01hHH5GQp3v37bhXMYKsVbKX0niB/US
+         g8fQ==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778139799; x=1778744599; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=9VS3OfDpF1+VQZhX2yMePmBwdL0OOCrpGS/EsBP+94w=;
-        b=UV6iGtKAXw15JY8rGGqDy8U8RO2PJHUy7n9IQa1JoDocfVB9NnK6YRCk/Gc9sZ+Mep
-         yFtcTVUDtl4OItl7BC+k/jNlzZn09WYCoizJAq315ueBgbSaLHr0syIFLEJwuphCsWX/
-         /pcV+6isHaFsmMsXUpzNLfXoKmoBQGN6Waofp3i1rf2lnJP6t9AE1ixc67Mufac8itd9
-         tdPuh650ay9rFzlLypYghvbNadhLG6tkUHrzRyXEq16m4TZOh3LtDSNjsBTNJpnBEbv+
-         g6tuOhtd6SsKDZVkxUnb0wkjMmGzPRp3PLXv6NHMFjuUftO6Es/8zoV2QKhK9D/vbzYd
-         +gVg==
+        d=gmail.com; s=20251104; t=1778140145; x=1778744945; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FpH9ivn7J+a7CnqyryEVPZL0SHq/fQAbKBNReVXHWkM=;
+        b=Ep6iSL/CrPssqfhxINdNwa8t92H0Gi10k+oiV1/4d1tVGv/ZnkDruU74W1RJSljYN4
+         YMOqH8Hj5Eci0ICbCuFMvZ9CIr4IB/yThspEfbbXuFa1gXB0q2+17dZm2Fjp7cCiAoRC
+         0nCqBbCv8Z/bi6aUtDPOBpP6hMP60NhKigDhM7APU0nGkXdCBc8/fQ3/qhtLytW0yaJN
+         3pyrb15/fh7e12Hy8BGE6gCAHzrU7ow07b64l+RErarJ5daC1QPewpTC15g50qhOfkok
+         xo6xnx0PWemukH/Rkc3rRhmZIHYNNHYOykQLVS/PE9bJC+fJeXx4ZbKh0VNifYBj7iMA
+         /DOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778139799; x=1778744599;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=9VS3OfDpF1+VQZhX2yMePmBwdL0OOCrpGS/EsBP+94w=;
-        b=o5cuV1N6Q3ym+taOkNxb4zQC9AM/6JVvOvJQl6AlyP9lKQgXVOlFeA3gq6PwMnq2Xj
-         HGLyWSsqTDYOiXHuuLd5n8Uh50IKjeahD2Y1TVBM+j29fP4VLHTsbAK9j4qVM8nCx6+l
-         VlACNMkgAu0OEVMXavESZbgv7SH0Z6v7WMcW6CYp0zSORjJtaFR1VFxnJtp+7mx8s68s
-         8qE1I20iDtj/LvjYec+0jMqSrkOuZq7IpUOqD1heQ0jQYuBlaBui1yjfsQhc2uUrgHZh
-         wx1n8WeH/g1qG9m1UurUhLRTRpYTpylsuR86sMnU3YHbPHWC9wBm7sM+2Sst8cwC00we
-         TGqw==
-X-Forwarded-Encrypted: i=1; AFNElJ+QYvMVOaXP/TM8+PP6CNkHYkY5jRlPdHt4RoEYdG4wKOktgHsd3ScrbbfHb+bO4KaiSpTdpO58yFo=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyyTJOYL/E94KhIs9DaX27oJ5J+GEfx74j2v+vFIosg8RvNxBQj
-	zfOztnNZ956hhQFUT8l6MOpRuOikdNJ804vmSG/a/hxXjemQBixobVC+iCLoqFsEMCU=
-X-Gm-Gg: AeBDieuGuqHAV3L4AlpvdW/7cSINRXWatEhJbLAtvjuTJBoCHDJlyDckAfIdq5i9hJy
-	WxU7I0DOd0bj5YyYYlVQZtSG524sxygisy3rsaGgfYIUlsRszfGoFIFObtJbf1+KZCTHy14XLQ9
-	jwAm/0epVE3KakeCXJLEoADw3tlp40ypy9snwGYhw6N2+B7EAIuq2bmOrZXGJrZTxDRb6ZtKmEU
-	RfRIf7lhb/93OG65M7reyViVibcIiqLnxMGJUClKHhGNHp+YMbxjIxrLT6LxK1KmNnEnIcD+mWN
-	Na9dK/FwMUd7iSh5KAUbJifpD+bbxRKyTeJI9tXQIZBe0R5FUoh7OknkOpR30Wx/bR6AJYKXW9V
-	dTwg7vL0AaEzdikaT+7rjujiasIQ51McYTuGyrZEY+PeV2V5RXF0clPOsjdOu0f0D3Gvdg0EZOe
-	IGvPLAmznVLw3ECYDKuNTAiSo5M8zkbO2i5SU7mJh0b8pVUgGKLlssE6HsbeI1yBxKCY6GNXwUJ
-	Mk/EH8ErqI0CMNLhz+jwz/QUhr7saIGeWltt9agbk9z8OYZGwQ8V4mrNqzmbzY2
-X-Received: by 2002:a17:906:ee84:b0:bc5:114c:956 with SMTP id a640c23a62f3a-bc84cc73483mr79253766b.1.1778139799328;
-        Thu, 07 May 2026 00:43:19 -0700 (PDT)
-Message-ID: <199b54b5-8571-4a18-bba6-226a5a94ecc9@suse.com>
-Date: Thu, 7 May 2026 09:43:18 +0200
+        d=1e100.net; s=20251104; t=1778140145; x=1778744945;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=FpH9ivn7J+a7CnqyryEVPZL0SHq/fQAbKBNReVXHWkM=;
+        b=qmZnRjwR4QAS1WCBeVJVSvWHzVa/1MiGs/c1i0GVLizC/6RZPovl/yiwt3TijiaGQ6
+         8BQLHb4tAgEfDG9Q4HD8VWmzqtrdM/03bAITzILuw4Cd0UhlWKef+VazP9r8sdM34Z5u
+         zxE2rgeTZvsU9eNugMJhXfZgYnKNaakjp7dD4Sqy+esuKymhFjY1sm5Xz7GOOQ4Jn3JO
+         4qm7kqoTEAEYff4MbUnpuiAiidsg4Uj03tplr998MeldN7c3/TgeuvRjeeVS57Ajoyce
+         Vd8SQWNhLVJxOfHljtzdfhTh+DPAXjtpwoq3PAZ1vF3CqM+iYPPH3TOwUKUG8vufz7Na
+         YI2Q==
+X-Gm-Message-State: AOJu0Yyzl/BQf8f78/N5WNABXfNjCdAWB9OEYh+ts9KOKzSbYkjMA2Ts
+	fFcCHCv55YijuxMdJxJT2lO06uTEKZon6USB5LN1buwurWVECPKVJmJndqS7XTbrvi3kzng44nR
+	YbAzU9r2fKNbo5j1NYc/LScHq+j+F7bI=
+X-Gm-Gg: AeBDievCG4JLi+60IpydX2NLGFqlbaxS/aMAPpVgtmbDgoGRNsWSeyRi109FXFjKYRU
+	KuhqQ78RCMiEf86GfXYuoNbRiWcbVDwRmQkl/hkukGnT8P9SnOyjqLt4KcZpn7iZf0FnUIhDdD7
+	JW8MLip6FFZNT9z+dQccxdq901EESamPvHTg9WS5cnyLxCReCYyt/4HFgU20HmR4kdRPsjhvW7D
+	k2qopVz7gxM1f9ovCDA4RvZg/ztqSTEQAIixviaM9Ml/t2R9vsGN3W+56mrdDeYwrCNY07j5zp6
+	dS1UP1T4GzqrBYuZZqXKUN/HXVgDwwd0Td8Jpw==
+X-Received: by 2002:a05:6512:b86:b0:5a8:91c1:7110 with SMTP id
+ 2adb3069b0e04-5a891c172c7mr1307443e87.29.1778140144402; Thu, 07 May 2026
+ 00:49:04 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] tools/xenstored: remove permissions related to
- dead domain
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>
-References: <20260429120619.1013440-1-jgross@suse.com>
- <20260429120619.1013440-5-jgross@suse.com>
- <e9cfb86e-704d-4a5d-bc59-ad05d07bf69a@amd.com>
-Content-Language: en-US
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <e9cfb86e-704d-4a5d-bc59-ad05d07bf69a@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------I3K5I940S1iowrQwofMvgFlj"
-X-purgate-ID: tlsNG-16d1c6/1778139800-86974D75-1583D037/0/0
+References: <cover.1775125380.git.mykola_kvach@epam.com> <5e1951e1c17037e020de9c0eecb5fba94edcd9dd.1775125380.git.mykola_kvach@epam.com>
+ <EB3F884F-FCD6-4AE7-84FA-79ABF31EA88E@arm.com>
+In-Reply-To: <EB3F884F-FCD6-4AE7-84FA-79ABF31EA88E@arm.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Thu, 7 May 2026 10:48:52 +0300
+X-Gm-Features: AVHnY4JyCMWnh7af7YUMRsqcpCkfcPjyqh0VRnG7JWBC1lK6NFUYwK6bEhIz_PY
+Message-ID: <CAGeoDV80QHdesYQF-J4fg7wYQ6RLNg6u27aQhj4F+JoM4hU3uQ@mail.gmail.com>
+Subject: Re: [PATCH v8 02/13] xen/arm: gic-v2: Implement GIC suspend/resume functions
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-720697/1778140145-8336C161-E189388F/0/0
 X-purgate-type: clean
-X-purgate-size: 6820
-X-Rspamd-Queue-Id: 738AA4E434E
+X-purgate-size: 6948
+X-Rspamd-Queue-Id: E9C2D4E4404
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-1.46 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	R_MIXED_CHARSET(0.63)[subject];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
 	MAILLIST(-0.18)[generic];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TAGGED_FROM(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,m:julien@xen.org,m:anthony.perard@vates.tech,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	HAS_ATTACHMENT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Action: no action
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------I3K5I940S1iowrQwofMvgFlj
-Content-Type: multipart/mixed; boundary="------------7CbKlZjBSYIXH3Rxecf2PM1b";
- protected-headers="v1"
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-To: Jason Andryuk <jason.andryuk@amd.com>, xen-devel@lists.xenproject.org
-Cc: Julien Grall <julien@xen.org>, Anthony PERARD <anthony.perard@vates.tech>
-Message-ID: <199b54b5-8571-4a18-bba6-226a5a94ecc9@suse.com>
-Subject: Re: [PATCH v2 4/4] tools/xenstored: remove permissions related to
- dead domain
-References: <20260429120619.1013440-1-jgross@suse.com>
- <20260429120619.1013440-5-jgross@suse.com>
- <e9cfb86e-704d-4a5d-bc59-ad05d07bf69a@amd.com>
-In-Reply-To: <e9cfb86e-704d-4a5d-bc59-ad05d07bf69a@amd.com>
+Hi Luca,
 
---------------7CbKlZjBSYIXH3Rxecf2PM1b
-Content-Type: multipart/mixed; boundary="------------TxX2aORkAAQdRmZi0xMUc5Ph"
+Thank you for the feedback.
 
---------------TxX2aORkAAQdRmZi0xMUc5Ph
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On Tue, Apr 21, 2026 at 4:26=E2=80=AFPM Luca Fancellu <Luca.Fancellu@arm.co=
+m> wrote:
+>
+> Hi Mykola,
+>
+> >
+> > diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+> > index b23e72a3d0..dbff470962 100644
+> > --- a/xen/arch/arm/gic-v2.c
+> > +++ b/xen/arch/arm/gic-v2.c
+> > @@ -1098,6 +1098,129 @@ static int gicv2_iomem_deny_access(struct domai=
+n *d)
+> >     return iomem_deny_access(d, mfn, mfn + nr);
+> > }
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +
+> > +/* This struct represents block of 32 IRQs */
+> > +struct irq_block {
+> > +    uint32_t icfgr[2]; /* 2 registers of 16 IRQs each */
+> > +    uint32_t ipriorityr[8];
+> > +    uint32_t isenabler;
+> > +    uint32_t isactiver;
+> > +    uint32_t itargetsr[8];
+> > +};
+> > +
+> > +/* GICv2 registers to be saved/restored on system suspend/resume */
+> > +struct gicv2_context {
+> > +    /* GICC context */
+> > +    struct cpu_ctx {
+> > +        uint32_t ctlr;
+> > +        uint32_t pmr;
+> > +        uint32_t bpr;
+> > +    } cpu;
+> > +
+> > +    /* GICD context */
+> > +    struct dist_ctx {
+> > +        uint32_t ctlr;
+> > +        /* Includes banked SGI/PPI state for the boot CPU. */
+> > +        struct irq_block *irqs;
+> > +    } dist;
+> > +};
+> > +
+> > +static struct gicv2_context gic_ctx;
+> > +
+> > +static int gicv2_suspend(void)
+> > +{
+> > +    unsigned int i, blocks =3D DIV_ROUND_UP(gicv2_info.nr_lines, 32);
+> > +
+> > +    /* Save GICC_CTLR configuration. */
+> > +    gic_ctx.cpu.ctlr =3D readl_gicc(GICC_CTLR);
+> > +
+> > +    /* Quiesce the GIC CPU interface before suspend. */
+> > +    gicv2_cpu_disable();
+> > +
+> > +    /* Save GICD configuration */
+> > +    gic_ctx.dist.ctlr =3D readl_gicd(GICD_CTLR);
+> > +    writel_gicd(0, GICD_CTLR);
+> > +
+> > +    gic_ctx.cpu.pmr =3D readl_gicc(GICC_PMR);
+> > +    gic_ctx.cpu.bpr =3D readl_gicc(GICC_BPR);
+> > +
+> > +    for ( i =3D 0; i < blocks; i++ )
+> > +    {
+> > +        struct irq_block *irqs =3D gic_ctx.dist.irqs + i;
+> > +        size_t j, off =3D i * sizeof(irqs->isenabler);
+> > +
+> > +        irqs->isenabler =3D readl_gicd(GICD_ISENABLER + off);
+> > +        irqs->isactiver =3D readl_gicd(GICD_ISACTIVER + off);
+> > +
+> > +        off =3D i * sizeof(irqs->ipriorityr);
+> > +        for ( j =3D 0; j < ARRAY_SIZE(irqs->ipriorityr); j++ )
+> > +        {
+> > +            irqs->ipriorityr[j] =3D readl_gicd(GICD_IPRIORITYR + off +=
+ j * 4);
+> > +            irqs->itargetsr[j] =3D readl_gicd(GICD_ITARGETSR + off + j=
+ * 4);
+>
+> regarding GICD_ITARGETSR ...
+>
+> > +        }
+> > +
+> > +        off =3D i * sizeof(irqs->icfgr);
+> > +        for ( j =3D 0; j < ARRAY_SIZE(irqs->icfgr); j++ )
+> > +            irqs->icfgr[j] =3D readl_gicd(GICD_ICFGR + off + j * 4);
+> > +    }
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +static void gicv2_resume(void)
+> > +{
+> > +    unsigned int i, blocks =3D DIV_ROUND_UP(gicv2_info.nr_lines, 32);
+> > +
+> > +    gicv2_cpu_disable();
+> > +    /* Disable distributor */
+> > +    writel_gicd(0, GICD_CTLR);
+> > +
+> > +    for ( i =3D 0; i < blocks; i++ )
+> > +    {
+> > +        struct irq_block *irqs =3D gic_ctx.dist.irqs + i;
+> > +        size_t j, off =3D i * sizeof(irqs->isenabler);
+> > +
+> > +        writel_gicd(GENMASK(31, 0), GICD_ICENABLER + off);
+> > +        writel_gicd(irqs->isenabler, GICD_ISENABLER + off);
+> > +
+> > +        writel_gicd(GENMASK(31, 0), GICD_ICACTIVER + off);
+> > +        writel_gicd(irqs->isactiver, GICD_ISACTIVER + off);
+> > +
+> > +        off =3D i * sizeof(irqs->ipriorityr);
+> > +        for ( j =3D 0; j < ARRAY_SIZE(irqs->ipriorityr); j++ )
+> > +        {
+> > +            writel_gicd(irqs->ipriorityr[j], GICD_IPRIORITYR + off + j=
+ * 4);
+> > +            writel_gicd(irqs->itargetsr[j], GICD_ITARGETSR + off + j *=
+ 4);
+>
+> =E2=80=A6 please let me know if I read correctly this loop, but here GICD=
+_ITARGETSR0 =E2=80=A6 7
+> are restored when i=3D0, but the specificaitons says that this block is r=
+ead only on
+> multiprocessor, so we should skip the restore part.
+> Also saving it could be skipped because each field returns a value that c=
+orresponds
+> only to the processor reading the register.
+>
+> 4.3.12 User constraints [1]
 
-T24gMjkuMDQuMjYgMTg6NDEsIEphc29uIEFuZHJ5dWsgd3JvdGU6DQo+IE9uIDIwMjYtMDQt
-MjkgMDg6MDYsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBXaXQgdW5wcml2aWxlZ2VkIGRv
-bWFpbnMgbm93IGNhcGFibGUgdG8gdXNlIHRoZSBAcmVsZWFzZURvbWFpbiB3YXRjaCwNCj4g
-DQo+IHMvV2l0L1dpdGgvIGFnYWluLg0KPiANCj4gUmVnYXJkcywNCj4gSmFzb24NCj4gDQo+
-PiB0aGVyZSBpcyBubyByZWFzb24gbm90IHRvIHJlbW92ZSBhbnkgbm9kZSBwZXJtaXNzaW9u
-cyB3aGljaCByZWxhdGUgdG8NCj4+IGEgZG9tYWluIHdoaWNoIGhhcyBiZWVuIHJlbW92ZWQu
-DQo+Pg0KPj4gVGhpcyByZXNvbHZlcyBhIGNvbXBsZXggc2NlbmFyaW8gd2hlcmUgYSBuZXcg
-ZG9tYWluIGNvdWxkIGluaGVyaXQgdGhlDQo+PiBwZXJtaXNzaW9ucyBvZiBhbiBvbGQgb25l
-IHdpdGggdGhlIHNhbWUgZG9taWQuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBH
-cm9zcyA8amdyb3NzQHN1c2UuY29tPg0KPj4gUmV2aWV3ZWQtYnk6IEphc29uIEFuZHJ5dWsg
-PGphc29uLmFuZHJ5dWtAYW1kLmNvbT4NCg0KQ2FuIHRoaXMgc2ltcGxlIGZpeCBiZSBkb25l
-IHdoaWxlIGNvbW1pdHRpbmcsIG9yIHNob3VsZCBJIHNlbmQgVjM/DQoNCg0KSnVlcmdlbg0K
+You are right, thanks for pointing this out.
+I will skip saving/restoring the read-only GICD_ITARGETSR0..7 block in v9.
 
---------------TxX2aORkAAQdRmZi0xMUc5Ph
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+>
+> > +        }
+> > +
+> > +        off =3D i * sizeof(irqs->icfgr);
+> > +        for ( j =3D 0; j < ARRAY_SIZE(irqs->icfgr); j++ )
+> > +            writel_gicd(irqs->icfgr[j], GICD_ICFGR + off + j * 4);
+> > +    }
+> > +
+> > +    /* Make sure all registers are restored and enable distributor */
+> > +    writel_gicd(gic_ctx.dist.ctlr, GICD_CTLR);
+> > +
+> > +    /* Restore GIC CPU interface configuration */
+> > +    writel_gicc(gic_ctx.cpu.pmr, GICC_PMR);
+> > +    writel_gicc(gic_ctx.cpu.bpr, GICC_BPR);
+> > +
+> > +    /* Enable GIC CPU interface */
+> > +    writel_gicc(gic_ctx.cpu.ctlr, GICC_CTLR);
+> > +}
+> > +
+>
+> I also see that we don=E2=80=99t save pending SGIs state (by GICD_CPENDSG=
+IRn/GICD_SPENDSGIRn) or Active Priorities registers
+> state (GICC_APRn/GICC_NSAPRn [latter if security extension are there]) as=
+ written in [1] =E2=80=9C4.5 Preserving and restoring GIC state=E2=80=9D,
+> was it intentional?
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Yes, this was intentional.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+The GICv2 suspend callback is called at a quiescent point in the
+SYSTEM_SUSPEND path: all domains are already shut down for suspend, guest
+execution is quiesced, the scheduler is disabled, non-boot CPUs have been
+offlined, and CPU0 enters gic_suspend() with local interrupts disabled.
 
---------------TxX2aORkAAQdRmZi0xMUc5Ph--
+For SGIs, I don't consider GICD_CPENDSGIRn/GICD_SPENDSGIRn part of the save=
+d
+host GIC context. Xen uses physical SGIs as IPIs, and IPI delivery is an
+internal synchronization mechanism, not architectural state that should be
+replayed after SYSTEM_SUSPEND. Guest SGI state is virtual GIC state and is =
+not
+represented by these physical GICD SGI pending registers.
 
---------------7CbKlZjBSYIXH3Rxecf2PM1b--
+For GICC_APRn/GICC_NSAPRn, those registers describe active priority state f=
+or
+interrupts already acknowledged by the CPU interface. The final suspend pat=
+h is
+not expected to run with an active physical interrupt context. If those
+registers were non-zero there, restoring only APR/NSAPR would not make the
+corresponding interrupt handling context valid after resume, and could inst=
+ead
+leave the CPU interface with stale active priority state.
 
---------------I3K5I940S1iowrQwofMvgFlj
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+So I did not add save/restore for GICD_CPENDSGIRn/GICD_SPENDSGIRn or
+GICC_APRn/GICC_NSAPRn in this patch. I can add a short comment in v9 to mak=
+e
+this scope explicit.
 
------BEGIN PGP SIGNATURE-----
+Please let me know if you think there is a suspend/resume path where this
+state still needs to be preserved.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmn8QpYFAwAAAAAACgkQsN6d1ii/Ey+B
-OQf/UFoAluFeE7HnnSaI8Y+cacrGD5IGwtB5PdOIhs3gZoluuZhz2RtWMf2dt3XnQMikvVAHVJFN
-ArbjoWwx8925mu5Nd4enuay+HmJuk7ebSzWrWdIR6wikBTjD6bOM+OwXhkyYA56dQShPkH+yM5V7
-HjA/kGL7sL21jqKEFj9VdCKNXyLFbj2ncIWZiY3BshCcMJwEUNj1taAdPpBkJCVtzKeQkJVqqR0q
-crazqdnog7ZkyFuBDTOo5UjI4bbzXX6V7hqZN+Yp3JMulvZKwEe1FAKmFGt8KEb9aYWUYe2DA5Mw
-Oe/MmItbZ1YScFu89vBZhlylLm5agGUTHZ2t9dk46w==
-=faB5
------END PGP SIGNATURE-----
+Best regards,
+Mykola
 
---------------I3K5I940S1iowrQwofMvgFlj--
+>
+> [1] https://developer.arm.com/documentation/ihi0048/bb/?lang=3Den
+>
+> Cheers,
+> Luca
+>
+>
 
