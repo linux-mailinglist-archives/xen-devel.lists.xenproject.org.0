@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eExyFK/2/Wn5lAAAu9opvQ
+	id CPvwOLT2/WlilQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 16:43:59 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 16:44:04 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4970D4F7F82
-	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 16:43:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1303745.1577058 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BCD34F7F97
+	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 16:44:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1303746.1577067 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLMQi-0006hh-OR; Fri, 08 May 2026 14:43:52 +0000
+	id 1wLMQk-0006ya-98; Fri, 08 May 2026 14:43:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1303745.1577058; Fri, 08 May 2026 14:43:52 +0000
+Received: by outflank-mailman (output) from mailman id 1303746.1577067; Fri, 08 May 2026 14:43:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLMQi-0006dN-JH; Fri, 08 May 2026 14:43:52 +0000
-Received: by outflank-mailman (input) for mailman id 1303745;
- Fri, 08 May 2026 14:43:50 +0000
+	id 1wLMQj-0006ux-VS; Fri, 08 May 2026 14:43:53 +0000
+Received: by outflank-mailman (input) for mailman id 1303746;
+ Fri, 08 May 2026 14:43:52 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wLMQg-0006J3-QL
- for xen-devel@lists.xenproject.org; Fri, 08 May 2026 14:43:50 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wLMQi-0006aZ-5O
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2026 14:43:52 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLMQg-007XVC-6p
- for xen-devel@lists.xenproject.org; Fri, 08 May 2026 16:43:50 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wLMQh-00A90j-Id
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2026 16:43:51 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 69fdf6a5-2eae-0a2a0a5409dd-0a2a4502de26-2
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 16:43:50 +0200
-Received: from [209.85.218.51] (helo=mail-ej1-f51.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69fdf6a6-bab6-0a2a0a5309dd-0a2a450581d0-2
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 16:43:51 +0200
+Received: from [209.85.218.49] (helo=mail-ej1-f49.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 69fdf6a6-af86-0a2a45020019-d155da33a5c7-3
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 16:43:50 +0200
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-bc23bebd345so31302266b.1
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 07:43:50 -0700 (PDT)
+ id 69fdf6a7-aaa8-0a2a45050019-d155da31a443-3
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 16:43:51 +0200
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-b93698bb57aso376275666b.0
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 07:43:51 -0700 (PDT)
 Received: from fedora (user-109-243-69-121.play-internet.pl. [109.243.69.121])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bcac4942068sm90736166b.62.2026.05.08.07.43.48
+ a640c23a62f3a-bcac4942068sm90736166b.62.2026.05.08.07.43.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 May 2026 07:43:49 -0700 (PDT)
+ Fri, 08 May 2026 07:43:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,40 +57,40 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778251429; x=1778856229; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1778251431; x=1778856231; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8yGl4LH5XFe9FwGLjZCEW5kyIYDSUJUrG5QxrUQAt3k=;
-        b=YlIDZheTxRIsmAZj2iWN6ARrv4uC197sV8MXFaBvPIfPcqeq+0SgqAfvewPD0VA10+
-         DQkXbwgpzeHMLt2sbTrovV1drcaPsSp6gqYhMXnPUn52d4WGYTtWknRM9pwlIT5gXFGS
-         zVNqvQtDjdvq01DLxsrPcLg+3C7GrPZ/XyiE/1sTNqZTl5rKKpbD/z6iHAVwk0KI5aGX
-         u0hnf8JcnVnAx9PLW6+/AKzbFxwAoH8hyOkVx+gF56kYAr5Ipdp04zeh8+UvaIDFGtA+
-         Q8H5TFR2uRDi5uQmpC3xbiytPduJ/M+zXqrYjiGfkHh2ZKea5a5JFvAozBhNHrFaku1+
-         OZfw==
+        bh=/IQA+KUL5MpZcplutGw2+zZiZhu/Y0nI/Sw/1I/I0ks=;
+        b=ji80PUJ9EwNfOqVaAU9VD3Wsi8xo6rDjVxRhBQ0SZg+qBAvl7flY/BLeAmvq+gKy+S
+         vlYUyq+0bnHbIOOOE0e2X38mEiITUOFbB8ncBk6IuCXVFg7iPckzjn0hJtPju2QpEHx5
+         K7taLf1r1uPSX1FYmoGXEKPP2ljOxEyVKbjvTkgWki0mA51XaJrtoEL72OXZPFW3HWtC
+         dfhYlvWXYXNrFCBlh75w3x0CpkL7XceQeUPRaEH9hlm7KjvovsmoTzc9CaKmYvV+yUbX
+         QUOvbLFB5r8p0EIzAUBaDPmm4zpc2qD5VVzkm/P0J2gkvLgKwmexh3O5ItFUSD9O85dj
+         WA+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778251429; x=1778856229;
+        d=1e100.net; s=20251104; t=1778251431; x=1778856231;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=8yGl4LH5XFe9FwGLjZCEW5kyIYDSUJUrG5QxrUQAt3k=;
-        b=X/+6gUqfJCTcjBgC2nw1lopKvI6Rgo+NG6a17dxGgFEYRmScUzUc/5qLUbmqePmtpP
-         dXOOZwxY4uExVmAh2+IOn2n+Id5WpQ3s3d4EVI8bIY+OGR6HYoyV+CZ9F6vOhvRfpoII
-         FwXAu7JpjpPUBidCvAA4ihS81ebplcJoMfsaotB+QYvNAFZS/eFL7OV5YHB9yGxCjElb
-         uG0XS685PNBvfKL4oudKVWcQGGndK9qR1FSwm135adGjUXIARKf8fDEtj9pGlvsCsF1Q
-         Y7+qBQiSWhSK4/9OSzJtGeds6QTirhl+497IjTaSnnWpz8Wu/pmyLBXs8/1od7o42Uqo
-         WaDA==
-X-Gm-Message-State: AOJu0YzfNFtIRGWUJT/URXqm/ek8nOy5J6cG+djp4/nFYiAlHhC5KJUL
-	n05lF3P3DvgHYLZIBJkwL5FmOzXoTNlUHMbaTquPl1sv6MabifVkdUzvNNNaIQ==
-X-Gm-Gg: AeBDieulw6vLzepIwdhvSe6VT0PS/gAV9uGJTsZw+Pr5cl+p8FOz7PnJSPl2jnF5o8R
-	/5h4BXUy+CBg28kntmalSNDZSONkTl6sySY8UYrHrvVOaXbljRNZAaUPvOAWxtiz/hZw7ECgQgY
-	eZ/r6d1g1+usVnxzqqqH0T8OwAGrHv7CW/b7LyOErpJEs6EDIKtGyp5WBs88OnO+HhExM7QPw0t
-	vx8pd8G0oewHIITLw8u6+eLKY0IV5mXuNxnkS0cQ2XVPo9QzJRaBCypMlw+H8zGLsc2iZRyl7sy
-	rNZHh0UcPElJzAAtVr2X4ltQ8dv1v5nfVktLMEzhDoPDqtIFL2syGha4f7fJ0nQOGGXtEM11zbg
-	1HlPZgM04cIPsbgMLz1pgAr0oCbZ9HAQ0Obx2gCzyBOwKfvWeYH0+ncx6/7sqzps7eLIrVrNWoS
-	MVPZusi++VrNbDSkzoyTxuGodE6KcPrL0FSl4lkx13veZNiMKaQfbSjKW6OFeYo4Yc/w==
-X-Received: by 2002:a17:907:3f8e:b0:bc5:7c6d:8656 with SMTP id a640c23a62f3a-bc85d0b153bmr241091066b.19.1778251429347;
-        Fri, 08 May 2026 07:43:49 -0700 (PDT)
+        bh=/IQA+KUL5MpZcplutGw2+zZiZhu/Y0nI/Sw/1I/I0ks=;
+        b=emJKk16gQPzSuxOJnOAdXa7uRtpzzIBaM/PoKZX9G36zAus45FVgQJxTdK7papk7J8
+         eu9MKXjpluHUe+Pcx/5AK7gDEzK8/kedSL5JsCNLsxqK1Utm2YNPHucZjJmpqz8rdfht
+         B5kotRCbCPn/LkqQFJ71r9HIR9h4xzrwqVCs96K7uzAbFsNt1CJWMYnKY/2Cc4Fr2gCX
+         a6c9zFyNy+orzidLcuBzgOkyuSsG10QipkNLvXO1SVpOCJun1YNXklxWjtlpFz8xyVjw
+         MLVzyVU+CxqVwJhwxohC+v5DvjvE0OuJ4+CW+yCt0z09Eu5/Lm5L/Em4f8FmLEVvH/Ky
+         VJjA==
+X-Gm-Message-State: AOJu0YzXYuSRdDFSD6FrmSZAogbNTWotBg21of8PEJteKsnmbT+0UdJN
+	9PPFi3QUiEXlhdJ3qxtg3ydzRpP3j0kOgqZWRR2tl2r63+zcfkKMtejI1wlgMw==
+X-Gm-Gg: AeBDiesWLQtYF7ZAFZuHKHIk34bA/2ZLd0C/54TvNwHfJUvIuO84Lh/glfI/EeUZlQw
+	kWZgBvZqlLx+7BLxlRdLRjcsotuhRJTN0aYOnGri6Jq6AaDkjzsWTnHwSoAt09k8pQClFzlybyJ
+	hM+Go7/gMPptQZCrRcRK8KLPdcz9CMGctW+RH5HqMqexHH7xM/TLT2MSfiIP5RC3fxfQE165yuC
+	oUkwiAVneqjjBdFNnwBY7A5V1xh7s7oCJIRB4Oome3RdkbdouZWluewJAY4H6FJlTsS4V76l68Y
+	VHoRfo2ZgF1TsW1vI7Ge46MypXyc0h9F1mv6A+0ErTfd//gOcgcFLaW/ZcIpNi/x1QS3DM+6czs
+	B/Mj5sSztSd71UZ0JXHn9y0r04ExAZfPHbLOJOnnRH5p8u5HM9gWIVBrdCO052y2BjMfHkUjVrf
+	yXiapkL0DJ32kdRK6ZGPY8/hf7/QDvdOIOXVQO++LLv5uv0qpopJnwgmrgNh8eiA==
+X-Received: by 2002:a17:907:7207:b0:bcb:8b41:b0de with SMTP id a640c23a62f3a-bcb8b41b476mr22594966b.19.1778251430667;
+        Fri, 08 May 2026 07:43:50 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -104,18 +104,18 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 08/26] xen/riscv: implement make_arch_nodes()
-Date: Fri,  8 May 2026 16:43:10 +0200
-Message-ID: <92338cb9254da76cccb242154d0617603b856052.1778250616.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v2 09/26] xen/riscv: introduce init interrupt controller operations
+Date: Fri,  8 May 2026 16:43:11 +0200
+Message-ID: <286a8b99ad7c107fc46c346f7c075617740fa194.1778250616.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1778250616.git.oleksii.kurochko@gmail.com>
 References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-720697/1778251430-A937C161-1AA0B3AA/10/73395122804
+X-purgate-ID: tlsNG-c201ff/1778251431-E2997443-F9C86D02/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 1158
-X-Rspamd-Queue-Id: 4970D4F7F82
+X-purgate-size: 3566
+X-Rspamd-Queue-Id: 6BCD34F7F97
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -145,7 +145,7 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[gmail.com:+];
-	NEURAL_HAM(-0.00)[-0.998];
+	NEURAL_HAM(-0.00)[-0.996];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -155,45 +155,109 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-No RISC-V-specific nodes need to be created at the moment,
-so make_arch_nodes() is implemented to simply return 0.
-
-It is placed in dom0less-build.c as make_arch_nodes() is
-only used in the dom0less code path. In the future, it will
-be extended to create an emulated UART node.
+Introduce intc_hw_init_ops structure to avoid risky mix of init
+function and non-init function.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v2:
- - Update the commit message.
+ - New patch.
 ---
----
- xen/arch/riscv/dom0less-build.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ xen/arch/riscv/aplic.c            |  7 +++++--
+ xen/arch/riscv/include/asm/intc.h | 10 +++++++---
+ xen/arch/riscv/intc.c             | 10 ++++++++--
+ 3 files changed, 20 insertions(+), 7 deletions(-)
 
-diff --git a/xen/arch/riscv/dom0less-build.c b/xen/arch/riscv/dom0less-build.c
-index a683972e9235..4cc00012aa8d 100644
---- a/xen/arch/riscv/dom0less-build.c
-+++ b/xen/arch/riscv/dom0less-build.c
-@@ -2,10 +2,18 @@
+diff --git a/xen/arch/riscv/aplic.c b/xen/arch/riscv/aplic.c
+index 739e8dab3498..97dc0ef731f0 100644
+--- a/xen/arch/riscv/aplic.c
++++ b/xen/arch/riscv/aplic.c
+@@ -306,12 +306,15 @@ static const hw_irq_controller aplic_xen_irq_type = {
  
- #include <xen/bootfdt.h>
- #include <xen/device_tree.h>
-+#include <xen/fdt-kernel.h>
- #include <xen/init.h>
+ static const struct intc_hw_operations aplic_ops = {
+     .info                = &aplic_info,
+-    .init                = aplic_init,
+     .host_irq_type       = &aplic_xen_irq_type,
+     .handle_interrupt    = aplic_handle_interrupt,
+     .set_irq_type        = aplic_set_irq_type,
+ };
  
- #include <asm/p2m.h>
- 
-+int __init make_arch_nodes(struct kernel_info *kinfo)
-+{
-+    /* No RISC-V specific nodes need to be made, at the moment. */
++static const struct intc_hw_init_ops __initdata aplic_init_ops = {
++    .init                = aplic_init,
++};
 +
-+    return 0;
-+}
+ static int cf_check aplic_irq_xlate(const uint32_t *intspec,
+                                     unsigned int intsize,
+                                     unsigned int *out_hwirq,
+@@ -347,7 +350,7 @@ static int __init aplic_preinit(struct dt_device_node *node, const void *dat)
+ 
+     dt_irq_xlate = aplic_irq_xlate;
+ 
+-    register_intc_ops(&aplic_ops);
++    register_intc_ops(&aplic_ops, &aplic_init_ops);
+ 
+     /* Enable supervisor external interrupt */
+     csr_set(CSR_SIE, BIT(IRQ_S_EXT, UL));
+diff --git a/xen/arch/riscv/include/asm/intc.h b/xen/arch/riscv/include/asm/intc.h
+index ecdc8a5e6577..8b498e43b33f 100644
+--- a/xen/arch/riscv/include/asm/intc.h
++++ b/xen/arch/riscv/include/asm/intc.h
+@@ -28,8 +28,6 @@ struct intc_info {
+ struct intc_hw_operations {
+     /* Hold intc hw information */
+     const struct intc_info *info;
+-    /* Initialize the intc and the boot CPU */
+-    int (*init)(void);
+ 
+     /* hw_irq_controller to enable/disable/eoi host irq */
+     const struct hw_interrupt_type *host_irq_type;
+@@ -43,9 +41,15 @@ struct intc_hw_operations {
+     void (*handle_interrupt)(struct cpu_user_regs *regs);
+ };
+ 
++struct intc_hw_init_ops {
++    /* Initialize the intc and the boot CPU */
++    int (*init)(void);
++};
 +
- int __init arch_parse_dom0less_node(struct dt_device_node *node,
-                                     struct boot_domain *bd)
+ void intc_preinit(void);
+ 
+-void register_intc_ops(const struct intc_hw_operations *ops);
++void register_intc_ops(const struct intc_hw_operations *ops,
++                       const struct intc_hw_init_ops *init_ops);
+ 
+ void intc_init(void);
+ 
+diff --git a/xen/arch/riscv/intc.c b/xen/arch/riscv/intc.c
+index ea317aea5ad8..8649160403f7 100644
+--- a/xen/arch/riscv/intc.c
++++ b/xen/arch/riscv/intc.c
+@@ -12,9 +12,13 @@
+ 
+ static const struct intc_hw_operations *__ro_after_init intc_hw_ops;
+ 
+-void __init register_intc_ops(const struct intc_hw_operations *ops)
++static const struct intc_hw_init_ops *__initdata intc_hw_init_ops;
++
++void __init register_intc_ops(const struct intc_hw_operations *ops,
++                              const struct intc_hw_init_ops *init_ops)
  {
+     intc_hw_ops = ops;
++    intc_hw_init_ops = init_ops;
+ }
+ 
+ void __init intc_preinit(void)
+@@ -27,7 +31,9 @@ void __init intc_preinit(void)
+ 
+ void __init intc_init(void)
+ {
+-    if ( intc_hw_ops->init() )
++    ASSERT(intc_hw_init_ops && intc_hw_init_ops->init);
++
++    if ( intc_hw_init_ops->init() )
+         panic("Failed to initialize the interrupt controller drivers\n");
+ }
+ 
 -- 
 2.54.0
 
