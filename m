@@ -2,47 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +G5dOzGo/Wl0ggAAu9opvQ
+	id EN3JEVSo/WmEhAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 11:09:05 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 11:09:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 634F54F4116
-	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 11:09:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1303324.1576775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FD764F413A
+	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 11:09:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1303330.1576784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLHCE-0007Sr-Tn; Fri, 08 May 2026 09:08:34 +0000
+	id 1wLHDA-0007vi-6i; Fri, 08 May 2026 09:09:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1303324.1576775; Fri, 08 May 2026 09:08:34 +0000
+Received: by outflank-mailman (output) from mailman id 1303330.1576784; Fri, 08 May 2026 09:09:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLHCE-0007Qb-Qp; Fri, 08 May 2026 09:08:34 +0000
-Received: by outflank-mailman (input) for mailman id 1303324;
- Fri, 08 May 2026 09:08:33 +0000
+	id 1wLHDA-0007ss-2c; Fri, 08 May 2026 09:09:32 +0000
+Received: by outflank-mailman (input) for mailman id 1303330;
+ Fri, 08 May 2026 09:09:30 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <kevin.brodsky@arm.com>) id 1wLHCD-0007QV-GS
- for xen-devel@lists.xenproject.org; Fri, 08 May 2026 09:08:33 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wLHD8-0007sk-CF
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2026 09:09:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLHCA-00DoEb-SK
- for xen-devel@lists.xenproject.org; Fri, 08 May 2026 11:08:32 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wLHD7-00C82r-C5
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2026 11:09:29 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <kevin.brodsky@arm.com>)
- id 69fda80b-5cb7-0a2a0a5109dd-0a2a450c8db8-10
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 11:08:31 +0200
-Received: from [217.140.110.172] (helo=foss.arm.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTP (eXpurgate 4.56.1)
- (envelope-from <kevin.brodsky@arm.com>)
- id 69fda80f-62f1-0a2a450c0019-d98c6eacc134-1
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 11:08:31 +0200
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 56CD51AC1;
- Fri,  8 May 2026 02:08:25 -0700 (PDT)
-Received: from [10.57.35.71] (unknown [10.57.35.71])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F04523F7B4;
- Fri,  8 May 2026 02:08:25 -0700 (PDT)
+ (envelope-from <roger.pau@citrix.com>)
+ id 69fda836-bab6-0a2a0a5309dd-0a2a4501ed5a-44
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 11:09:29 +0200
+Received: from [52.101.53.62]
+ (helo=BL0PR03CU003.outbound.protection.outlook.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 69fda847-c1f2-0a2a45010019-3465353ec54c-4
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 11:09:29 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by BY1PR03MB7215.namprd03.prod.outlook.com (2603:10b6:a03:525::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.19; Fri, 8 May
+ 2026 09:09:25 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9891.019; Fri, 8 May 2026
+ 09:09:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,209 +58,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=foss header.d=arm.com header.i="@arm.com" header.h="Date:Subject:To:Cc:References:From:In-Reply-To"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1778231310; bh=998AzUHkBd2MHjoPernwnRkOgC5TCEI3RLAhgvrlDps=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=WPh3yUoFMFj8+b6NrCFhAXEvHu9aundhUOnMwNWD2QHqLVB/wfS7QiwL+0BDpm4RF
-	 NSMUNZAiTkWs+ukXKE7RyPNfyloPQoejZ2iApXnQrGF7MghSNxsyc0kXZ3cJwCG8wd
-	 Yjtv0h4b+w7/JhHBBOSnR+TQIO25g+ipSooZj9r0=
-Message-ID: <775a5fd2-394d-4409-81d3-4dc6ef8209f0@arm.com>
-Date: Fri, 8 May 2026 11:08:23 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/xen: Fix lazy mmu handling across context switch
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- linux-kernel@vger.kernel.org, x86@kernel.org, linux-mm@kvack.org
-Cc: mmarek@invisiblethingslab.com,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, xen-devel@lists.xenproject.org
-References: <20260508080514.454607-1-jgross@suse.com>
- <5cb54bd1-5981-4a46-9083-f7b527ca342f@suse.com>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <5cb54bd1-5981-4a46-9083-f7b527ca342f@suse.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KvlP9B/5AoQWV9M1n63ihAJ7UZu7nd1AnVZWEj7cWpcED07Tw7NHFmixIJNIeD5jbHklee0pVTg6StF4kEGHumSGUMy6CB2qGFqe4vsKbmvOpPoQEsWt9DBYCae/6mXrHBPwVhJehol5uvIKskmMbd4AvItKSOajMzpUknLRwiXDhLzEc3H/mGIyK66FH4IAuoPSm3xwUA/FshJe0UEKDieps5hG8q6U+0EaIL2vi1SXjPbQDxYxiT4/GfU4642V79itcWn29xtk2XQGNQQvJbrpRlsC2ODWCYtVQ+lMYwjcQHPYtWb8Shp4fLvOg/LdqLk9VrwwK052IwE52MX/uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xUVEHxrKR+eW3aGyNqw0ViTP/jQIYisrE+p6Ds940tQ=;
+ b=o+266p+Zvl8rOwQHxrK36IEQHOVISP5Wzfc9jY+or0FU91hW4ZmGnm8jlDSDwhl3aPpD0GyoETTEHyjPj8twrmfeTx3OnzOuwJd7hXf20gkQEvzRL65eyBKIAZ8hnQdsgEtHqCp6RjlnVtbv/7YmMau8UzyEGO/9LOjX+3Jintc89tXbkcB7FeE0G+5dNhSKgl+M3fbxEXBSOczWv5p33C2uFCNZKE8ypk336IFKMofvUOXkq8IXAuAtROhjqRoZZj863B36XBiyQJH942NZmZ1XWvbU0RDPJP2LK1olYeJCA0Bi9PCXyo+xedLvOG2eYHivpA2FPEFk1YvqF+K9fw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xUVEHxrKR+eW3aGyNqw0ViTP/jQIYisrE+p6Ds940tQ=;
+ b=h0xGq1tWL9vrMnjzkPZIziGhrBPopLsk6Vt7fhsyJ+VF918BXkPJJu+/7x8tDhVlAFAUYZV1cF3b3ZHhaBn7ZfWd4rOmFqwIJI1KNM2KJOPlY60O5qDWbomduqn6rqR6Vn+2p2fvJUst566FwZNliwl46TYBYAYBtH5mLa/Gcqk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Roger Pau Monne <roger.pau@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Teddy Astie <teddy.astie@vates.tech>
+Subject: [PATCH] x86/dom0: enable pf-fixup by default for PVH dom0
+Date: Fri,  8 May 2026 11:09:11 +0200
+Message-ID: <20260508090911.51941-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.53.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d25034/1778231311-DA577CF5-7D136E2F/0/0
+X-ClientProxiedBy: MA3P292CA0032.ESPP292.PROD.OUTLOOK.COM
+ (2603:10a6:250:46::10) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BY1PR03MB7215:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1cab7f5-bb98-46fc-e6ef-08deace17f2f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|366016|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ZTTaIVD5LJBF9qaotdjOLtMZi9r1e+cmvkKu49h2aJ4JmQkS4/UKmQdgNVf1l93wDQ6h+b+V2BqGZdGUm61kPDf8nXVE4EobSqyYMprkhTxrZEM/9eaBIuNn+oy+uxxRRbIUSGF0NwKKllIi+h80FmidF9mygttfPb5p9ZajzInwCEzdqmZbOxk933zkvWT50VPq99ekDDMn2P/ZSSXY62vOjKi6h1D25846MUKozqL275GX2+qne/1JSSeSRd25fOABKCsap+TmylkwtIIabJpmSTlgWjbHTktS6tnzekSqaiUecAH6Sr5ndd/m6rac6S8DH6PggAWJyCsZ8YVHOOBHZloE91Gag56GPQnLSw2+QlIEyUEjknPkcuaVvZKlIOv/fOxA9RvNK6ypJDNf2PSnDWAr6SWZJ59beUEpc4eHt0RShyiScgGpzOtjNQbRlwn9cveD4J2kDW8Mbk3k+HneM0CKzM6OOKaezcvDSL+4qHaH4wAaNF7Ej8KLpUERWMV2REiYnWrDkz3Z+D/9WUDatd84REXp2IN9VjUBu6/wET8r3OKIkG0b827/mYqzDaqlnwqvaA9/gKFehvFPIgLAgmlMeg+m7RQdd/8DbOZTYC/EA44Xqww0G28k4QtzoYSqfMcGUQgC87AcFCzONWJnZGBdL/X810eI1DtWmOQ5N41rel+/jYwnDbNe0YQf
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZENWWVl6blhibFhoYW1aR0RCSnVWYjc2QlUzSTQxQmYwUGl1UExKeTJWQXBD?=
+ =?utf-8?B?WVFlQmUxME1xOUpLUDNyWnVCUmRVWWxRR2dtYlBsT25CNG9qSFV0VTVNQ3RV?=
+ =?utf-8?B?empLTHh4bXhsUEJQUWJCQUo2VVBwclcyMTV3V21Mb3h1bnhsVkFvODFZRjdu?=
+ =?utf-8?B?SVAxSWNMTzIwTWgwVWkxa2ljd2ZxVmNUdEJlaHNoRjF3TDQvYmlQZWswbkZx?=
+ =?utf-8?B?b0JFejVmL3Q3Wkc4cWVPa2xvZ0pQUytKQm5BL1B2TUNzd0dqNngwWUYrZllY?=
+ =?utf-8?B?cU5VS3dVaUd0WmlRTVN3VWZjYTAyNVk0Ynh0TDJtUjRHd1A2L3h4MzBwYTdD?=
+ =?utf-8?B?SGJXVXUrUmRQRHVFQTdlb3puSk1YOEFlTVUzQ0prTTljbFFqRjhZd0k2UGgr?=
+ =?utf-8?B?bDFSNFJreU55M0J1d2xURWdOZk5nN3U5UitSdFU0clUwQkhkR0QzbFNMd2sw?=
+ =?utf-8?B?UlI4U3pxYVJoN2tmVXdQT1l4c0ZYK2JsU2FSTDVwU0dRby9yZnJhNTJOOTdX?=
+ =?utf-8?B?ckRiNUtFbUlNUXcxYXRBUzA1UmlkVWxZU2FCT1ZndXgydWJwdERuRjFpc1Zi?=
+ =?utf-8?B?RE1lYjVJN0syK2dWOXZrcXZ6YjV1dERId0lSNUpvNmRtR2FWcDIzOXVWV3c1?=
+ =?utf-8?B?K25aU1pvcE9wYWlhd09tVWZlSmF6NTU4Z1JFZWJCdTRETWt4M25wd3dGRkV3?=
+ =?utf-8?B?RERnY25iM242dmFQcTlUaCtNMWJWcm9YUklheU1yK2QyR0NaRnlBN2NUdWhw?=
+ =?utf-8?B?Ynd6Qmg1emFRTDVkN1phempxcG5Oa3YvNUp0cnNNQkV2dmIzKy9Feldlb0ow?=
+ =?utf-8?B?VWNqaDExZHc0ZDVmSzROY0ltS3dZNUpNNmJWWnlWckNKN2xQb0ZqYW1Xbm8v?=
+ =?utf-8?B?Zk12UmtUQ2xLY2o2dXB5TFNRWDZnczVnV1FYK3BhV0VKaitsc0pQVzZiUTNx?=
+ =?utf-8?B?RWdxYi9tUDhhTGg4djFSbTEveHJiNkRvNlVFTDBVRnNHZ3BOSDFBQzJ2blVt?=
+ =?utf-8?B?Z2xoZ2RDUHNUSzFTUW02OUJCYVVXWm9ILzZzd2JIMXVvLzF0L1dkVVNmTVNp?=
+ =?utf-8?B?SXN0WHFXdnRpRGJqY2Q0cnVoL0pQK0d2UHl5ait6YmFGeWc2T2x4ZGVsTkxx?=
+ =?utf-8?B?OG1UUkZSWUtsTENSdzVacXdUcFVxeGJ2OS9JYWlFMkJjbitXcnJMY2hGQW9o?=
+ =?utf-8?B?TDM3NTluYXFpdUdKWmZKTy9XZDlQVlZMYUxwMGYyN2VFQzdqR1JhbEFyU3k0?=
+ =?utf-8?B?U1FmT0R1ZVVPNlVoNmF1Z0J1amlmeklvZkROOU9za0xiWlQvRjE0K2pNQThC?=
+ =?utf-8?B?N3lRSEFkRFltUlNhSzhpUk43ZHRnT3BsOXFHd2YxS0hONUx3eHVOVSttdnNV?=
+ =?utf-8?B?aFU0M2ZnQjU3YzBHQ2R3d3RIbklLNlFDQjc5Z0NnRzVEM3ppZ20wdjZ3b0Jo?=
+ =?utf-8?B?cHJJMithQUlwMXhKVkd4TWhsc09GN294RllVaWd3RU93Ylp3ai8xNlFkNDMv?=
+ =?utf-8?B?TTJvOTF5ZUtYQndiRmQ4YWRacFV0bUtKL2FWeEVvRW90SWVYeFhIMWFWOVRV?=
+ =?utf-8?B?bXREYm5HN0lNaUtlU2FrSmF0cW96L2QzYXRkaUhzV2VwdGdzVG9qQi9CT2wy?=
+ =?utf-8?B?M0FrRUxYWVZlYUc0Y0ZnTUhQRVJrV0E3RGtXWWtxQzk4MGZMa2RWZndnOHNu?=
+ =?utf-8?B?aGg0dWdMZExXNWVXNVg4OFBxdGlyaXQ3bGhobTV5WXp1aDVpVENyMDR1Rzdm?=
+ =?utf-8?B?djU2akdOOFpyN1NwSVU2R0xsbDM3WG53MWlWSlRybkdpcG4xb3E4MkpKZStu?=
+ =?utf-8?B?d1UyNWJYUWFJUG02NTF4NFBYVWNGUzhKcGpHamF5bmIxUHpqVklVTzV1Snpr?=
+ =?utf-8?B?cXhzd01qM2hHZFp0RmZtZDg2eCtXbjhTbGZZc3JoblR5ZTFVOVR4L1RQbGFa?=
+ =?utf-8?B?QXRjbEl4VXI2b1F2RG1TZ3F6SjNOazJaWEFlVGxXZnVQYXJqTm5OeHRoTkw2?=
+ =?utf-8?B?cXJFNFBxK2x6ZHlFSWtSbHBPM05hQURtb0NqWndHdjg5c1p6WmNnZ3M2U2ZZ?=
+ =?utf-8?B?b0RXQkhwTnBxOVU0dy94enlCOEVoZFI2TkZFOFIvK3BEa3hZTk5GcllZVTFS?=
+ =?utf-8?B?VHhwQ2lzVEIxak95NDlJOWtZd21nM3ZFT0hvblJLVVRicEdTQXVudGFaMGJO?=
+ =?utf-8?B?VTFhWERTNkVzN09VcS85Y3ppNzRUSTZmcHpzRzJqcnI2Q0NWUFRJdnpjWkFx?=
+ =?utf-8?B?ZFBCN3FiZXFpTGR2eUJNS204RnVNaFdjL3J3ZTIyb2VMSVhUek1IcnRXZXho?=
+ =?utf-8?B?MlVwdVk3Zm1rTjZwTm4rNUp4T2RwTmdaTkFKVDcwbDhEcXpLZkY2QT09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1cab7f5-bb98-46fc-e6ef-08deace17f2f
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 09:09:23.6941
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: g8ioCH66zNAMK+efwPWUw/h3ZUKspJg+C7HYpn7lKGZ6vn8Hsr21R551PzUblRs9Jn3DOuqUlgxCAGJ+8MRO4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY1PR03MB7215
+X-purgate-ID: tlsNG-d62444/1778231369-B474CFF4-11E0AE1B/0/0
 X-purgate-type: clean
-X-purgate-size: 5656
-X-Rspamd-Queue-Id: 634F54F4116
+X-purgate-size: 1581
+X-Rspamd-Queue-Id: 9FD764F413A
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
-	R_DKIM_ALLOW(-0.20)[arm.com:s=foss];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	MID_CONTAINS_FROM(1.00)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jgross@suse.com,m:linux-kernel@vger.kernel.org,m:x86@kernel.org,m:linux-mm@kvack.org,m:mmarek@invisiblethingslab.com,m:boris.ostrovsky@oracle.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:hpa@zytor.com,m:akpm@linux-foundation.org,m:david@kernel.org,m:ljs@kernel.org,m:liam@infradead.org,m:vbabka@kernel.org,m:rppt@kernel.org,m:surenb@google.com,m:mhocko@suse.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:mid,arm.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	DKIM_TRACE(0.00)[arm.com:+];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[kevin.brodsky@arm.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[kevin.brodsky@arm.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-On 08/05/2026 10:33, Jürgen Groß wrote:
-> Please disregard this patch. It isn't fixing the real problem.
+A non-trivial amount of issues related to PVH dom0 are fixed by enabling
+the `pf-fixup` command line option, and no issues have been reported as a
+result of its usage.  Enable the option by default to make PVH dom0 more
+robust in its default configuration.
 
-That's what I would expect, see below.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+ docs/misc/xen-command-line.pandoc | 2 +-
+ xen/arch/x86/hvm/emulate.c        | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
->
-> On 08.05.26 10:05, Juergen Gross wrote:
->> The recent rework of mmu lazy mode has resulted in problems when
->> running as a Xen PV guest. Enabling lazy mmu mode for the new context
->> during context switch is done from the arch_end_context_switch() hook,
->> but when calling this hook current hasn't been changed yet, so the
->> lazy mmu mode state of the wrong task is modified.
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 6c77129732bf..0cbac1093928 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -849,7 +849,7 @@ Controls for how dom0 is constructed on x86 systems.
+     If using this option is necessary to fix an issue, please report a bug.
+ 
+ *   The `pf-fixup` boolean is only applicable when using a PVH dom0 and
+-    defaults to false.
++    defaults to true.
+ 
+     When running dom0 in PVH mode the dom0 kernel has no way to map MMIO
+     regions into its physical memory map, such mode relies on Xen dom0 builder
+diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
+index f3aae158e9f8..bb1bb03ac4e9 100644
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -165,7 +165,7 @@ void hvmemul_cancel(struct vcpu *v)
+     hvmemul_cache_disable(v);
+ }
+ 
+-bool __ro_after_init opt_dom0_pf_fixup;
++bool __ro_after_init opt_dom0_pf_fixup = true;
+ static int hwdom_fixup_p2m(paddr_t addr)
+ {
+     unsigned long gfn = paddr_to_pfn(addr);
+-- 
+2.53.0
 
-Currently xen_end_context_switch() checks if next has lazy MMU mode
-enabled and if so calls arch_enter_lazy_mmu_mode(), i.e.
-enter_lazy(XEN_LAZY_MMU). This does *not* modify any task state, rather
-it writes to the xen_lazy_mode percpu variable.
-
-I've thought about this from various angles when reworking lazy MMU, and
-the conclusion I made is that arch_{start,end}_context_switch() have no
-reason to change any task state. On arm64, for instance, we do nothing
-at all on context switching, since everything lazy MMU-related is
-tracked in task_struct and therefore already switched.
-
-Xen is trickier because it tracks lazy MMU/CPU state in a percpu
-variable, so these hooks do need to do something about it. This is
-entirely Xen-internal though, and there's no reason to be calling
-generic functions like lazy_mmu_mode_pause() that modify task state.
-
-The idea behind commit 291b3abed657 ("x86/xen: use lazy_mmu_state when
-context-switching") is that TIF_LAZY_MMU_UPDATES now duplicates
-lazy_mmu_state in task_struct and we can therefore replace the former
-with the latter. More specifically, the assumption is that
-TIF_LAZY_MMU_UPDATES is set if and only if the task has been scheduled
-out and __task_lazy_mmu_mode_active(task) is true.
-
-Clearly there is something wrong with this assumption, but I still can't
-put my finger on it. For now I would suggest reverting this commit if
-that solves the issue Marek reported; the intention was not to introduce
-any functional change, but only a (minor) optimisation.
-
-- Kevin
-
->>
->> Additionally it is much cleaner to use lazy_mmu_mode_pause() and
->> lazy_mmu_mode_resume() in the Xen context switch hooks, as it avoids
->> conditionals in those hooks.
->>
->> In order not having to add another hook to be called after switching
->> current, modify lazy_mmu_mode_resume() to use a new sub-function which
->> takes a task pointer as parameter. This new sub-function can then be
->> used in the xen_end_context_switch() hook.
->>
->> Fixes: 291b3abed657 ("x86/xen: use lazy_mmu_state when
->> context-switching")
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->>   arch/x86/xen/enlighten_pv.c |  7 ++-----
->>   include/linux/pgtable.h     | 33 ++++++++++++++++++++++++---------
->>   2 files changed, 26 insertions(+), 14 deletions(-)
->>
->> diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
->> index ed2d7a3756ce..67bb6bf6d240 100644
->> --- a/arch/x86/xen/enlighten_pv.c
->> +++ b/arch/x86/xen/enlighten_pv.c
->> @@ -424,9 +424,7 @@ static void xen_start_context_switch(struct
->> task_struct *prev)
->>   {
->>       BUG_ON(preemptible());
->>   -    if (this_cpu_read(xen_lazy_mode) == XEN_LAZY_MMU) {
->> -        arch_leave_lazy_mmu_mode();
->> -    }
->> +    lazy_mmu_mode_pause();
->>       enter_lazy(XEN_LAZY_CPU);
->>   }
->>   @@ -436,8 +434,7 @@ static void xen_end_context_switch(struct
->> task_struct *next)
->>         xen_mc_flush();
->>       leave_lazy(XEN_LAZY_CPU);
->> -    if (__task_lazy_mmu_mode_active(next))
->> -        arch_enter_lazy_mmu_mode();
->> +    lazy_mmu_mode_resume_task(next);
->>   }
->>     static unsigned long xen_store_tr(void)
->> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
->> index cdd68ed3ae1a..83a099bf2038 100644
->> --- a/include/linux/pgtable.h
->> +++ b/include/linux/pgtable.h
->> @@ -326,6 +326,28 @@ static inline void lazy_mmu_mode_pause(void)
->>           arch_leave_lazy_mmu_mode();
->>   }
->>   +/**
->> + * lazy_mmu_mode_resume_task() - Resume the lazy MMU mode for a
->> specific task.
->> + *
->> + * Like lazy_mmu_mode_resume() below, but with a task specified.
->> + * Must be called only by lazy_mmu_mode_resume() or during context
->> switch.
->> + * Must never be called in interrupt context.
->> + *
->> + * Must match a call to lazy_mmu_mode_pause().
->> + *
->> + * Has no effect if called:
->> + * - While paused (inside another pause()/resume() pair)
->> + */
->> +static inline void lazy_mmu_mode_resume_task(struct task_struct *task)
->> +{
->> +    struct lazy_mmu_state *state = &task->lazy_mmu_state;
->> +
->> +    VM_WARN_ON_ONCE(state->pause_count == 0);
->> +
->> +    if (--state->pause_count == 0 && state->enable_count > 0)
->> +        arch_enter_lazy_mmu_mode();
->> +}
->> +
->>   /**
->>    * lazy_mmu_mode_resume() - Resume the lazy MMU mode.
->>    *
->> @@ -341,15 +363,8 @@ static inline void lazy_mmu_mode_pause(void)
->>    */
->>   static inline void lazy_mmu_mode_resume(void)
->>   {
->> -    struct lazy_mmu_state *state = &current->lazy_mmu_state;
->> -
->> -    if (in_interrupt())
->> -        return;
->> -
->> -    VM_WARN_ON_ONCE(state->pause_count == 0);
->> -
->> -    if (--state->pause_count == 0 && state->enable_count > 0)
->> -        arch_enter_lazy_mmu_mode();
->> +    if (!in_interrupt())
->> +        lazy_mmu_mode_resume_task(current);
->>   }
->>   #else
->>   static inline void lazy_mmu_mode_enable(void) {}
->
 
