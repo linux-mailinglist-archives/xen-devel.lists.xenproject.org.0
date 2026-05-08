@@ -2,46 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qITvLldf/mmppwAAu9opvQ
+	id QNJzFY1f/mnCpwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sat, 09 May 2026 00:10:31 +0200
+	for <lists+xen-devel@lfdr.de>; Sat, 09 May 2026 00:11:25 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26AB74FC2F2
-	for <lists+xen-devel@lfdr.de>; Sat, 09 May 2026 00:10:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1304337.1577410 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0DCA4FC318
+	for <lists+xen-devel@lfdr.de>; Sat, 09 May 2026 00:11:24 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1304344.1577419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLTOT-0007Pl-V8; Fri, 08 May 2026 22:10:01 +0000
+	id 1wLTPf-0000Gv-7Z; Fri, 08 May 2026 22:11:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1304337.1577410; Fri, 08 May 2026 22:10:01 +0000
+Received: by outflank-mailman (output) from mailman id 1304344.1577419; Fri, 08 May 2026 22:11:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLTOT-0007Mj-RF; Fri, 08 May 2026 22:10:01 +0000
-Received: by outflank-mailman (input) for mailman id 1304337;
- Fri, 08 May 2026 22:10:00 +0000
+	id 1wLTPf-0000Do-3y; Fri, 08 May 2026 22:11:15 +0000
+Received: by outflank-mailman (input) for mailman id 1304344;
+ Fri, 08 May 2026 22:11:13 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <sstabellini@kernel.org>) id 1wLTOS-0007Ec-K9
- for xen-devel@lists.xenproject.org; Fri, 08 May 2026 22:10:00 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wLTPd-0000De-LQ
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2026 22:11:13 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLTOS-008ItA-0y
- for xen-devel@lists.xenproject.org; Sat, 09 May 2026 00:10:00 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wLTPc-0046H4-OQ
+ for xen-devel@lists.xenproject.org; Sat, 09 May 2026 00:11:12 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <sstabellini@kernel.org>)
- id 69fe5f34-2eae-0a2a0a5409dd-0a2a450c9ac2-4
- for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 00:09:59 +0200
-Received: from [172.105.4.254] (helo=tor.source.kernel.org)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <sstabellini@kernel.org>)
- id 69fe5f36-62f1-0a2a450c0019-ac6904feecee-3
- for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 00:09:59 +0200
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 28D5860181;
- Fri,  8 May 2026 22:09:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB865C2BCB0;
- Fri,  8 May 2026 22:09:57 +0000 (UTC)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69fe5f72-bab6-0a2a0a5309dd-0a2a4501bf2a-10
+ for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 00:11:12 +0200
+Received: from [209.85.208.174] (helo=mail-lj1-f174.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 69fe5f80-c1f2-0a2a45010019-d155d0aec514-3
+ for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 00:11:12 +0200
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-38eab6cf7d8so20199951fa.1
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 15:11:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,149 +51,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="Date:From:To:cc:Subject:In-Reply-To:References"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778278197;
-	bh=kHdcgmqC5b2xNkh8ZM37T9xVRgnh1ZpkO/c85/rTw8M=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=VmUyuDEXWQ96wivWfgCTxptNpYwWfn2fwr4uIPSEVD/0d85lkXdPwjm7+fRmJNfvK
-	 FIV0WVKd9onTZkRzLq7Upf4sb1Y3pSaK6MR0QS6AC6NnnPyHVgl6CNKH67M+LTlTS4
-	 Il7IeQ5Xbf/2w75qiERGZ+Ba0MjmwnLyf1P1TU+ZTlZnCC7gtLsAIFiYqAvjxlarK7
-	 SaywCoc3aCzcIZHAUOOlm+Lxc6a1RhGO1/TZ8X0Q91d20RxVCAy5UyPa53KduCrUfx
-	 xc+csJVJIeplKjmEzdfJhqycu/6pKAufjVVj9I4xyOxnrZ+rtduhh05s8GL2jTjCmt
-	 HAyjR9zYAtWzw==
-Date: Fri, 8 May 2026 15:09:57 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH] CI: collect certain intermediate files as artifacts
-In-Reply-To: <84e74842-9a2e-42ce-9ec9-2892156353b1@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2605081508520.1779943@ubuntu-linux-20-04-desktop>
-References: <6d9345e7-7ad9-48f4-8447-3a955305430a@suse.com> <alpine.DEB.2.22.394.2605061748080.1744448@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2605061753050.1744448@ubuntu-linux-20-04-desktop> <540ef3bd-6fc6-4cf1-a1fe-3def9cfcc114@suse.com>
- <alpine.DEB.2.22.394.2605071441490.1779943@ubuntu-linux-20-04-desktop> <84e74842-9a2e-42ce-9ec9-2892156353b1@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1778278272; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ctEPWtcrRH7/AL/gpGVlLx7wM7EkOI+33f4sCAwisOknQMFUMABo3E7hFQbuh/7VYC
+         mVqExXjx79FxN4h59yFo8BGP5uk/KAoz7tEWRUl/GunO0XwMlHL64fVBL7De46dvvIpI
+         eeUbdxgL1853u0NEUWMM8WHkG/nYFy1Y4wYL8+MRzFpusp3UqoNYSMx3J7NtYDkTTdnf
+         JeLeZzgbYLbEop0uG7rP63PKkL7EnA9Dk8hzCLHxX/Mi4QWfyXU72R67y+8WmdGB0wj2
+         4943bmQcWaUa58PFnjs1WvA9XHxplnldxn6xBaOmDMaarj66EEQjuqi7imJ7vyjRhoH4
+         ZQeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=4uoSD4dv/lM4JCjO11NQ3fturTKgoKsOxneWDpV0nVw=;
+        fh=URHEk7klKxjqc5bXwxtPgt12zwbJaOVjsCphaVnE7cw=;
+        b=Z/0mSUiTU3IoY0fIp3e5sDBGNOSFNuVxs6cB1DaTD7J4brf6nmLLui9X/Pul/TneuK
+         rfD5jESnayv9cqeUd2ec7zct9gM8oPtSkz6KL1q0l0vojJgWHzYocj6zgro9dlACrEre
+         k9QSEXgyQYfBRzADQ25l2dwdEu8enQOJDjaXfdyruy5UK1jDI+pLgrB9Il1rpv7WBwY2
+         GnE2bZjuSKqnzVziWwp+h3o57EWbotlGpn3mxAS454ai06N6lhnXwClm+uhjWWrfqlEX
+         DfiKkYAr9rkBGJr48ajTAL8/qmuzonrQmcyumGtaLfzOj4JKD36DTWOHy7SJZcxkxhjE
+         F/8w==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778278272; x=1778883072; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4uoSD4dv/lM4JCjO11NQ3fturTKgoKsOxneWDpV0nVw=;
+        b=sOONakH2mQP+bqcf3NFRKkE/IBDpvuBKda8Z34ugqiSW6Ag4PCxqbWQtuL9o4Ke7sM
+         +SodNjhwhOzlcz/FrqNKocJy9+wub82xVhyjk/wMUbyAFzm9Yw72IGXzA89j429CowyH
+         tz66yzu2RktJZhtknC+NeKVdjG2bh0xYSh6GQqkfLq++3A32npm0pAofqGL8vl9nobEG
+         af8vvQwRnIsqGEkCcyFtlULFNvV/80FsXtVX+DORt/OgkdHdnbNMg+pDqejD8CPZAUQz
+         EHIIUUkGobVytPgKG9uXVyrzy+xWIJMmNBDyPEboSW2uME62ZlZzvJ2vkmPgoqEBdWoN
+         UCRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778278272; x=1778883072;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=4uoSD4dv/lM4JCjO11NQ3fturTKgoKsOxneWDpV0nVw=;
+        b=QkN1G83I3xhmYyUEmKr13WavthHqIe8hcyZIUn46LDVyqZ/9fvy9XyoOl54PaQo+eZ
+         +9V0WEx4vgzaXnfSmSzOvQ8ye2NspSZXl34ymqGrFoaQyf+vBy/rTR0SlvvhNLviZljh
+         WKDFpu5DIzwlKj4AYCPvt16Kp+gEcGRqJ6Fbc+6uHsLbwwjBXEW7ZVjLC1f7+zCe5MkL
+         Z20NB+wNaFb4+Zh164IVbVw1Ep7FWHJo9fm/QKzRCbdmjjVG2T7PwpUdnpppJdHttQvf
+         cLgYnA3dSMKNzOKi/pb9tGtGtdssalL71tlNYHPCL4EmaZGnNesNz6VA79r2M54jqSvK
+         QMNg==
+X-Gm-Message-State: AOJu0YyTNa03nyodvcrl8Vlre4Nkq3hx6wnzioXkeyBtX2WBFQwaEvEH
+	+1I31Oprsop++SCb8p37jnOp821OxINoGfpKbCalOOt+bZrLwvDoR1zMzS51rarj64mshCjt+df
+	GBIAt2xhqGu4mWjbO1ZgpkiW1F3r7WQk=
+X-Gm-Gg: Acq92OGf+egH37peHOKTK8vFRVPRRdeJ4/y/yznp74qmTUfJ2GyQiL6dTNXcW7QSwjs
+	914UUz52FHg+2FuoPAdSsLGr/XKctOg77FWHAd2m/Sz0tlr3sasVpMQjaXHmYOUN0BGlG+K/9ox
+	cdJ76bqpBn8mW0oNgVmPqLp579VAmxvEhjngSTzBM+Kz+RHpKbhLe4XalrfpJOd6F8e0TcVYRx2
+	iUkxlwgCFh62Zj/94dSj0V54+e/4c91qoskGpgLK5qz+AIvJtujJ4gLCxCiFISstkqRE7ifeNSu
+	jVmL1w==
+X-Received: by 2002:a05:6512:308f:b0:5a8:94c2:d4cd with SMTP id
+ 2adb3069b0e04-5a894c2d734mr4503319e87.30.1778278271683; Fri, 08 May 2026
+ 15:11:11 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-purgate-ID: tlsNG-d25034/1778278199-E0D63CF5-3DBB9276/0/0
+References: <cover.1775125380.git.mykola_kvach@epam.com> <5a42b7c32fadf21262b8342f27e685916d0e5812.1775125380.git.mykola_kvach@epam.com>
+ <FDA8FF59-989D-42A8-9E75-1300E0B5EBD0@arm.com> <CAGeoDV_OkizsZj0hNXM3W84FpoeVjgSnzoRmAr3YtZj1Ri_3eA@mail.gmail.com>
+ <0BBBB87D-4A54-4378-BC30-4CFAB7553286@arm.com>
+In-Reply-To: <0BBBB87D-4A54-4378-BC30-4CFAB7553286@arm.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Sat, 9 May 2026 01:11:00 +0300
+X-Gm-Features: AVHnY4KELghW99FEnZfoYqB5SCXdtGae_3u-LzCWYOF0UcLWMBnXjDQnDLH9bQY
+Message-ID: <CAGeoDV9J67ycr7aANcQDAmEYBA7GZBTOUY0_CVrwLVjNzQcrDQ@mail.gmail.com>
+Subject: Re: [PATCH v8 05/13] xen/arm: gic-v3: add ITS suspend/resume support
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-d62444/1778278272-B474CFF4-85C35F64/0/0
 X-purgate-type: clean
-X-purgate-size: 3694
-X-Rspamd-Queue-Id: 26AB74FC2F2
+X-purgate-size: 3800
+X-Rspamd-Queue-Id: C0DCA4FC318
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TAGGED_FROM(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Action: no action
 
-On Fri, 8 May 2026, Jan Beulich wrote:
-> On 07.05.2026 23:44, Stefano Stabellini wrote:
-> > On Thu, 7 May 2026, Jan Beulich wrote:
-> >> On 07.05.2026 02:54, Stefano Stabellini wrote:
-> >>> On Wed, 6 May 2026, Stefano Stabellini wrote:
-> >>>> On Wed, 6 May 2026, Jan Beulich wrote:
-> >>>>> When one of the linking passes fails, additional intermediate files are
-> >>>>> still in place. Having them available for analysis of the underlying
-> >>>>> problem can be pretty helpful. Collect some into a new intermediates/
-> >>>>> directory. (Nothing new will be collected if linking succeeds.)
-> >>>>>
-> >>>>> While there also make sure xen-syms is collected (into binaries/). This
-> >>>>> is rather more useful for analysis of possible problems than its stripped
-> >>>>> counterpart.
-> >>>>>
-> >>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >>>>> ---
-> >>>>> As the issue this is meant to help with didn't re-occur with this in
-> >>>>> place, the new logic wasn't really tested yet.
-> >>>>
-> >>>> It looks OK but please provide a link to a successful pipeline
+On Fri, May 8, 2026 at 2:31=E2=80=AFPM Luca Fancellu <Luca.Fancellu@arm.com=
+> wrote:
+>
+> Hi Mykola,
+>
+> >
+> > On Fri, Apr 24, 2026 at 1:54=E2=80=AFPM Luca Fancellu <Luca.Fancellu@ar=
+m.com> wrote:
 > >>
-> >> Well, I had it in use in
-> >> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2503967215
-> >> but does that count, when the issue the change is for didn't really occur?
-> >> For now I can't test the additions without having a way to trigger that
-> >> symbol table issue (or any other problem at one of the linking stages).
-> >> Short of artificially breaking things, that is.
-> > 
-> > Please break it on purpose. Just push to a temporary branch.
-> > 
-> > 
-> >>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> >> Hi Mykola,
 > >>
-> >> Thanks, but the above wants clarifying first, and the below suggests you
-> >> actually meant to take back the R-b.
-> >>
-> >>> Actually, I see that the build script is run with bash -ex so I wonder
-> >>> if collect_xen_artefacts would even run if make fails. I think we need: 
+> >>> On 2 Apr 2026, at 11:45, Mykola Kvach <xakep.amatop@gmail.com> wrote:
 > >>>
-> >>> trap collect_xen_artefacts EXIT
+> >>> From: Mykola Kvach <mykola_kvach@epam.com>
+> >>>
+> >>> Handle system suspend/resume for GICv3 with an ITS present so LPIs ke=
+ep
+> >>> working after firmware powers the GIC down. Snapshot the CPU interfac=
+e,
+> >>> distributor and last-CPU redistributor state,
+>
+> =E2=80=9CSnapshot the CPU interface, distributor and last-CPU redistribut=
+or state=E2=80=9D happened in the commit before?
+
+Yes, fair point.
+
+That wording is too broad for this patch. It describes the wider GICv3
+suspend/resume flow in which the ITS handling is invoked, rather than the
+ITS-specific part added here.
+
+The CPU interface, distributor and redistributor handling are covered by
+the related GICv3 suspend/resume patches, while this patch itself adds the
+ITS state save/restore.
+
+I will tighten the commit message in the next version so it only describes
+the ITS-specific suspend/resume handling done by this patch.
+
+>
+> >>> disable the ITS to cache its
+> >>> CTLR/CBASER/BASER registers, then restore everything and re-arm the
+> >>> collection on resume.
+> >>>
+> >>> Add list_for_each_entry_continue_reverse() in list.h for the ITS susp=
+end
+> >>> error path that needs to roll back partially saved state.
+> >>>
+> >>> Based on Linux commit dba0bc7b76dc ("irqchip/gic-v3-its: Add ability =
+to save/restore ITS state")
+> >>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> >>> ---
+> [=E2=80=A6]
+> >
 > >>
-> >> I don't feel comfortable making such a change. Furthermore it's unrelated,
-> >> as it would mean that on other build failures successfully created final
-> >> binaries wouldn't be collected either (after all on x86 it may be only one
-> >> of the two links that failed). Plus then it would likely want doing
-> >> differently, by making the EXIT hook invoke a new
-> >> collect_xen_intermediates(), leaving collect_xen_artefacts() unaltered
-> >> (except for the xen-syms addition there)?
-> > 
-> > "trap collect_xen_artefacts EXIT" was just a quick suggestion to explain
-> > the type of change that would be needed to make this work, because as I
-> > understand it, it does not work now.
-> > 
-> > From your comment I don't understand if you think that the patch as is
-> > would work as intended or you agree with my comment that it would not
-> > work.
-> 
-> Given the -e passed to bash, I don't expect it to work as is. However, I
-> question this behavior. Exiting on error may be okay for any of the
-> preparatory commands, but exiting on failure of make feels dubious [1].
-> Hence I'm unsure which way to deal with that aspect (i.e. I'd prefer to
-> latch the main make's status, collect artifacts, and then exit the
-> script with make's status).
+> >>> +    {
+> >>> +        unsigned int i;
+> >>> +        void __iomem *base =3D its->its_base;
+> >>> +
+> >>> +        its->suspend_ctx.ctlr =3D readl_relaxed(base + GITS_CTLR);
+> >>> +        ret =3D gicv3_disable_its(its);
+> >>
+> >> This is called from system_suspend(), along the path iommu_suspend and
+> >> console_suspend() are called, finally reaching gic_suspend() and this =
+one.
+> >>
+> >> In the IHI 0069H.b, 5.6.2 Disabling an ITS, it says:
+> >> =E2=80=9CEnsure that all interrupts that target the ITS that is being =
+powered down are
+> >> either redirected or disabled=E2=80=9D, is it correct to assume all th=
+e ITS targeting source
+> >> at this point are disabled because domains should be already suspended=
+?
+> >
+> > Yes, that is the assumption here.
+> >
+> > Before Xen reaches this path, each domain must already have entered
+> > SHUTDOWN_suspend. In other words, the guest OS has already requested
+> > SYSTEM_SUSPEND only after completing its own suspend flow, so the
+> > ITS-targeting interrupt sources owned by that OS are expected to be
+> > quiesced at this point.
+> >
+> > So this code relies on the owning OS having disabled or otherwise
+> > quiesced those sources before issuing SYSTEM_SUSPEND, rather than Xen
+> > explicitly doing that in gicv3_its_suspend().
+>
+> Ok! I would be for a comment stating this assumption, unless the maintain=
+ers disagree
 
-I am OK with your preference.
+Ack.
 
+Best regards,
+Mykola
 
-> Somewhat related: Why is it that collect_xen_artefacts is invoked three
-> times, rather than just once at the very bottom of the script? At which
-> point it wouldn't even need to be a function.
-
-There doesn't seem to be a good reason
-
-
-
-> Jan
-> 
-> [1] E.g. a failed tools build may also be easier to analyze if the
-> already built components (libraries in particular) were collected.
-> 
+>
+> >
+> >>
+> >>
+> >>> +        if ( ret )
+> >>> +        {
+> >>> +            writel_relaxed(its->suspend_ctx.ctlr, base + GITS_CTLR);
+> >>
+> >> here and in the other places we write GITS_CTLR, this reg has Quiescen=
+t as RO,
+> >> maybe we should mask the write to only the other bits that are writabl=
+e?
+> >
+> > Yes, this was inherited from the Linux ITS suspend/resume code, which r=
+estores
+> > the saved GITS_CTLR value directly.
+> >
+> > That said, masking the write to the writable bits is cleaner, and I wil=
+l do
+> > that in the next version.
+>
+> ok
+>
+> Cheers,
+> Luca
+>
 
