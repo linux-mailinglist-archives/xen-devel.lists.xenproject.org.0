@@ -2,44 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oFUYAcug/WmwgQAAu9opvQ
+	id SCtjKaak/Wl0ggAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 10:37:31 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 10:53:58 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63E914F3CBA
-	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 10:37:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1303296.1576756 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF59D4F3ED1
+	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 10:53:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1303308.1576766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLGhy-0002BX-5z; Fri, 08 May 2026 08:37:18 +0000
+	id 1wLGxE-0005IR-I4; Fri, 08 May 2026 08:53:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1303296.1576756; Fri, 08 May 2026 08:37:18 +0000
+Received: by outflank-mailman (output) from mailman id 1303308.1576766; Fri, 08 May 2026 08:53:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLGhy-00028v-30; Fri, 08 May 2026 08:37:18 +0000
-Received: by outflank-mailman (input) for mailman id 1303296;
- Fri, 08 May 2026 08:37:16 +0000
+	id 1wLGxE-0005FS-FL; Fri, 08 May 2026 08:53:04 +0000
+Received: by outflank-mailman (input) for mailman id 1303308;
+ Fri, 08 May 2026 08:53:03 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wLGhw-000288-HW
- for xen-devel@lists.xenproject.org; Fri, 08 May 2026 08:37:16 +0000
+ (envelope-from <jgross@suse.com>) id 1wLGxD-0005FM-Iu
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2026 08:53:03 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLGhv-00Fa4Y-Jk
- for xen-devel@lists.xenproject.org; Fri, 08 May 2026 10:37:15 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wLGxC-004f2F-Vo
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2026 10:53:02 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69fda0b8-e002-0a2a0a5209dd-0a2a4507db7a-22
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 10:37:15 +0200
-Received: from [209.85.167.50] (helo=mail-lf1-f50.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 69fda0bb-229c-0a2a45070019-d155a732f177-3
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 10:37:15 +0200
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-5a858881ad2so1783885e87.3
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 01:37:15 -0700 (PDT)
+ (envelope-from <jgross@suse.com>)
+ id 69fda46d-e002-0a2a0a5209dd-0a2a4509a580-10
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 10:53:02 +0200
+Received: from [209.85.218.48] (helo=mail-ej1-f48.google.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jgross@suse.com>)
+ id 69fda46e-2497-0a2a45090019-d155da30eda8-3
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 10:53:02 +0200
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-bc56c52a0d1so283622366b.1
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 01:53:02 -0700 (PDT)
+Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
+ (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
+ [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bcac3a7fbc2sm51467566b.30.2026.05.08.01.53.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 08 May 2026 01:53:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,448 +58,480 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-ARC-Seal: i=1; a=rsa-sha256; t=1778229435; cv=none;
-        d=google.com; s=arc-20240605;
-        b=XEufQMKJj34/59AFkU1u6f7520oyhSl4DYJb94SS5Zp7G/0cWggtzNRuSdRrQdmB44
-         BZDfkS1yd0+2ruvTDKnWF+57tJuTHeyASY4Vow3pLAEe68rc0glySwz77tl71CSkTS8W
-         0d00IC5nu3ipM5vuqUkGo3QN+dsAMUSDwM3+KD8DendRGYRiI2ahjMz3+9Fc59DWUasa
-         LOB+gIXBddDsOoXyOhANdttsIn36yfYXcxQIAi+5qjGDfiTvz6HGfpq5Fmz6ESaJjgbC
-         2hI6C2QdvQqRqRVVJT5kxIy9zh/tCA11V7Ja01HX6SwUqe62IEa/QXEvQuyxwd+cCqqd
-         oQiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wpuQRbOQwrvqrL5TV1TLO/gtVPLeB51qcMTr2o4owZ8=;
-        fh=+B/FOpuBiPJXqAXn9GQiahGpdb0p7rrV8Rb8Q45Y2iA=;
-        b=Kx9dwFOmbQDSYUmbmyeIcBh4anQDYQtGEDDMHZ3OVLmVXfZfTkJy0DEQ+HRsP4CUSU
-         BSoKa4Z0xFhlGt7rblpfFRA+7MW/k6s4Nyj2miGggNypepFA1tNr7zsV4mLMJSPCtZeM
-         7HCvVCuZZwNrptj9YFtD3GzLVrl0ElfhbfqcRDmnmWXdcCtuN1A/A4jot62MsEciRFpw
-         WpciZURj537Jaf5r2pJ4LBPgG2nQ4revfoMoyWSl4MzLY42F2woNeIR/0OzbmB8fNTHb
-         55pJTFwTXWDZN6io5RrWimZKHxUzXrWNk6LT9r+Q2kPezF1Yin1qztD2DVzFOHP9b+td
-         x51w==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778229435; x=1778834235; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=wpuQRbOQwrvqrL5TV1TLO/gtVPLeB51qcMTr2o4owZ8=;
-        b=TYawcWIySkAfrE0YkSiA1Sz65PTfliPPw2mf2agR3C7FOps51ypXqnkA5iBsjUrC33
-         3w2L66OjE9mOKzCBolLkRc1ok0sh8aYT/G5Sv7gSwuG4ezFS3NbnuMKcWg/0I4IAvM9F
-         KaC+u/5Kw2FYj8UxWdF/8LBL6HjDyvdT3yynH+nkHVoBrHEA/EZ3wzZSAjtDuGdPVbuQ
-         epQZvxh9FGAsp4KsyOC1OR5PDaabzncKjkbrqOISVeQ3W/3H26FJ8pkNRvWj7eT+yMUL
-         UEKnQTvYPbKVlKJgv/dc+PELWjC5WTmH2d1T033WwIe4DWrbe+xW1HSeWR2P5TZhD4CH
-         JOhg==
+        d=suse.com; s=google; t=1778230382; x=1778835182; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:content-language:references:cc:to:from
+         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=wBHhKQLppFgHOQ3vXqMLnnpWlm/fZIKG8XCNgVizf7Q=;
+        b=DZk5qMUDXb6LSyZCoMq/dmvvGS397N12s5yGKURK6PLgQrHWsNJuAjnljRE4+2s0dR
+         F+MXWhy9ubqlYAYVPTSLvgl8ZkNFqPYNz83mIUS4jXz15nOYLNq1uuWH+7fMCYs2b7+X
+         Hv3xM1sXhPZZE51rrw8+CLdNzm5FrD/Ph5MkeTNA2U6rO2unpta+HXocEuTwekpt5tFT
+         /7SIElsNasQiNKASvrrLLFWfEBvX1mQDJgTHLI5zNjl+kqmjALeji+6XCwRJII3m7yXN
+         z77cmWrXK14nYq5A97iQ1jVYoKDR0+apc1BLTyImT/03azYd1nUZVx1kJE9l0Ty71aiu
+         vBSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778229435; x=1778834235;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=wpuQRbOQwrvqrL5TV1TLO/gtVPLeB51qcMTr2o4owZ8=;
-        b=W2MkrO0xvujygMPVRAqtg8LuiZqlReraHh5pLA+6eb2TLDs9EnT3qB2QwbFByXzk9C
-         RAs7avzy0stDgZoMYOZ/D5Yzoyy40QuBIrIHEnmPYZGiSybi6FDlsU0tg5X8u85VEcYe
-         41nTdR6G/U73AiTlANw4WWTRt+1xdngwkFsJFC8ag825nScKZd6oUx5Asfkd/kmiI2WX
-         1kc2D+9gHq0A7r06yCrb6K7Jdc7/zZTpq4QqobjiUvc8C+8vnJ8JIW8qiBOyCVhTkLkQ
-         jdoNq7be/3Cj725y7tLQNOX0cAW8dqXTBABOfylUDa9FrLM0IXGyGV3kGHB4oVlp+aOZ
-         k0JA==
-X-Forwarded-Encrypted: i=1; AFNElJ/EBRAucUyqaqehdcN8udDChjQT9IX7zVycTwRSb9hYSISWpTxOSIhTNS/NPooWUjoVEn6Cu34ks0o=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFhhtQuPoiwvqKSaXEV+CHMwpGPn0Pq/L+OQiG9LzRN1lGLb2R
-	RH9S0taAg9FU6lU2MM72oLOefFIuQiiSJO9szjzRxjKX+Va4WyDWoCH7SxlBvD6Qv8h7H2oVcJN
-	ddBQOfco5sshXgabTHSHygBqZ27gJSc0=
-X-Gm-Gg: Acq92OFTHrM2SV3i0Ov/S9+WeR4sPp9M6kg7FoNkozIdCsu0UfeCRP/aDP7KptvFjkg
-	gti/xheIWO80kNehWnxxjKsz7R5uFqaXoTsH58hXx0ZJSH816ryhr84MGJdXsUSFqll4xOMqiOT
-	C1dH1Qka3zuaIQJBpRmHQkQ/p1uzIpO7H5S0xSmXPbrLXG0tLk180HKKuFZf4oZYcaTriaOpt0z
-	2KG8wKgwwsCGKCFMgHWHx2BbGypjj+F7YBvyrvsrclOSc5JjbCGN0exGhSRnqqakhb2QWIQBIzz
-	MQCn7w==
-X-Received: by 2002:a05:6512:33ca:b0:5a8:8222:7fd2 with SMTP id
- 2adb3069b0e04-5a887add1f1mr3528722e87.2.1778229434408; Fri, 08 May 2026
- 01:37:14 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778230382; x=1778835182;
+        h=in-reply-to:autocrypt:content-language:references:cc:to:from
+         :subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=wBHhKQLppFgHOQ3vXqMLnnpWlm/fZIKG8XCNgVizf7Q=;
+        b=s9TdvSY871hCKf0XkarLmp6c+3FU4zHUg4WMWAK3qDHDwkQYJqqxRBdOF5JWTQ4uuQ
+         PXMLiWKEvZv+vv0M8jaPpgfB/orva6lumv0wtvffn3MpsdgTC+FPXramp1GuPEycgDl6
+         6Uvw98Tn00BkFpdpmXUH1AcQ+zHWK/71PcyjBg0N44j5qZxNczkckpQADPJR3s6X/5YQ
+         R5mLGHShHFsygLpBmX+uIZaX+t6ijDNKB0iqQZyMTxYm1EqC4ZTtcU53XK3GqCMYCKsS
+         3fZNmj8S/uKRUpCHVn3reOYPtwvYC25k6bm/6EywiH8/0cXnviooaZ2OonMt+77KSVDA
+         cKlQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8UvQGyH4GuEVo32MxffNgl6bSb7poAK6qFgH1emNJspkMO2mQumPTTwgBbPnmSwU/oOdhR6ms5SE0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx2prkP3V5xeGNJ1xSRWY+OkjUSX2Xe2eLNerHRQZvhHNTjMuCw
+	PTjAmxwS5CFYMTZFukqg9v6u5rPJbv/VNb7osZylCdbP1vuWEUdbEbrvMLn0UhxIe3s=
+X-Gm-Gg: AeBDieunkZoMhhNsc4HRUqt5rBSB23Ox377h2vfgWylajNwlpFFzO3Vkc0jXPM75wAl
+	zkyG0aLP41pMkyjGpZpiRNpe92qQKFB5r/rpUVIfCshxN0qElX6OMwvo8UlTKaaZUR4GxVb3f2X
+	NxFlEC8TZY90RG7KCSEUuYjwVSAtL0DTiLhbqoTmqsVxdubaoI9rEhTLLGJrwHmK2HmHbDKAIC0
+	zrDF5PFUzwvXlsgrnZRzgfBTgyYe07xO9QeGQ09E3KmMKgxvHvIVmxZasMVJdjM/4uYFDqnqjlm
+	iT5wN2vTaC32vBANaACzKBTn+27KvI43fsJ0Nnc+hBBFpLeyJCf92lg5/pnDZAI7+FMXBkcLn6l
+	1nYmsWr0cef8RfE34Z3E0zINGAypgPoN0WUlaDmG6+F92ieeUkNGWIm05jyZkfFp5mKmIsRs2Q1
+	lOJyRLGdTBeIgsJS1SlgcXEFTwL2NZQwF2N6HJ/Vgu2IJZh9praeVaePP6vS9rhR0s9ZZxNS6O5
+	zzzwWdQduGfR+jIMmxX5CRGmgcr5ynww470d4GeeYHBkN1KfMNQbGBadiCIq84R
+X-Received: by 2002:a17:907:a06:b0:bb9:4586:5dbc with SMTP id a640c23a62f3a-bc56d80f156mr662567266b.33.1778230382045;
+        Fri, 08 May 2026 01:53:02 -0700 (PDT)
+Message-ID: <15645d19-f19d-4955-8315-0188aa834eb6@suse.com>
+Date: Fri, 8 May 2026 10:53:01 +0200
 MIME-Version: 1.0
-References: <cover.1775125380.git.mykola_kvach@epam.com> <9b0f8922cd33df2b8e8038d639c1b8d8d73ce401.1775125380.git.mykola_kvach@epam.com>
- <4977CF18-39CC-4CC0-936A-890BAE5E8615@arm.com> <CAGeoDV8WkRGubF0qEXd4+PsXuabz3914G7bTYxTbaxZ2DsnY6w@mail.gmail.com>
- <87lddusvpy.fsf@epam.com>
-In-Reply-To: <87lddusvpy.fsf@epam.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Fri, 8 May 2026 11:37:02 +0300
-X-Gm-Features: AVHnY4JYt4-0UmJ7JSJaWoyZcgjN2R8NDLx-IG2Pt8MeXk4pyFfoI5_ZvDR8HQg
-Message-ID: <CAGeoDV_QcpgSpzHjn43EaaG7Owqes8+Zj-krOrKSJ3oCSpE9YQ@mail.gmail.com>
-Subject: Re: [PATCH v8 13/13] xen/arm: Add support for system suspend
- triggered by hardware domain
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Luca Fancellu <Luca.Fancellu@arm.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <Mykola_Kvach@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
-	Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Rahul Singh <Rahul.Singh@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-ef75cf/1778229435-09B68C48-A14C093E/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: kernel BUG around vmap/vfree -
+ xen_enter_lazy_mmu()/xen_leave_lazy_mmu() - Linux 7.0-rc1
+From: Juergen Gross <jgross@suse.com>
+To: Kevin Brodsky <kevin.brodsky@arm.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <aaBH3EAchUwKhrUA@mail-itl>
+ <c2f973a0-fcb5-48ea-9638-cd73fa3e37ce@citrix.com>
+ <c712c06f-7fcf-4876-b2d7-f2b7bc6f0dea@suse.com> <adIuP7-sNwuOid80@mail-itl>
+ <5d068304-837d-4aef-b8a7-87c91ccf96b4@arm.com>
+ <c6855bd1-5b41-470b-8942-a4ebe3b5de0b@suse.com>
+Content-Language: en-US
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <c6855bd1-5b41-470b-8942-a4ebe3b5de0b@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------RdDmWq5l0sPpSc0J9FZxrZu8"
+X-purgate-ID: tlsNG-bad1c0/1778230382-4357BA53-1AFDE7B2/0/0
 X-purgate-type: clean
-X-purgate-size: 11142
-X-Rspamd-Queue-Id: 63E914F3CBA
+X-purgate-size: 23578
+X-Rspamd-Queue-Id: CF59D4F3ED1
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [-3.08 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,mail.gmail.com:mid,system_suspend_tasklet.data:url];
-	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:kevin.brodsky@arm.com,m:marmarek@invisiblethingslab.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:boris.ostrovsky@oracle.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:Volodymyr_Babchuk@epam.com,m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:Mykola_Kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:Rahul.Singh@arm.com,s:lists@lfdr.de];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
+	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	RCPT_COUNT_FIVE(0.00)[5];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-Hi Volodymyr,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------RdDmWq5l0sPpSc0J9FZxrZu8
+Content-Type: multipart/mixed; boundary="------------t3vC8SoGTWdPdMkfSJf5PH1L";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Kevin Brodsky <kevin.brodsky@arm.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <15645d19-f19d-4955-8315-0188aa834eb6@suse.com>
+Subject: Re: kernel BUG around vmap/vfree -
+ xen_enter_lazy_mmu()/xen_leave_lazy_mmu() - Linux 7.0-rc1
+References: <aaBH3EAchUwKhrUA@mail-itl>
+ <c2f973a0-fcb5-48ea-9638-cd73fa3e37ce@citrix.com>
+ <c712c06f-7fcf-4876-b2d7-f2b7bc6f0dea@suse.com> <adIuP7-sNwuOid80@mail-itl>
+ <5d068304-837d-4aef-b8a7-87c91ccf96b4@arm.com>
+ <c6855bd1-5b41-470b-8942-a4ebe3b5de0b@suse.com>
+In-Reply-To: <c6855bd1-5b41-470b-8942-a4ebe3b5de0b@suse.com>
 
-Thank you for the feedback.
+--------------t3vC8SoGTWdPdMkfSJf5PH1L
+Content-Type: multipart/mixed; boundary="------------dgfJz710yWfdu8L0Ewpd6czF"
 
-On Fri, May 8, 2026 at 1:25=E2=80=AFAM Volodymyr Babchuk
-<Volodymyr_Babchuk@epam.com> wrote:
->
-> Hi Mykola,
->
-> Mykola Kvach <xakep.amatop@gmail.com> writes:
->
-> [...]
->
-> >> > +    status =3D can_system_suspend();
-> >> > +    if ( status )
-> >> > +    {
-> >> > +        system_state =3D SYS_STATE_resume;
-> >> > +        goto resume_scheduler;
-> >>
-> >> When we have an error and we get the resume_scheduler path, we apply b=
-ack the
-> >> context of the guest saved previously in do_psci_1_0_system_suspend(),=
- so am I
-> >> correct saying the guest won=E2=80=99t get any PSCI error back and we =
-resume the guest
-> >> from the guest resume entrypoint?
-> >>
-> >> In case, should we have a different path that returns a PSCI error (PS=
-CI_*) into the guest
-> >> x0, and skips the context restore?
-> >
-> > You are right about the current control flow: once the virtual
-> > SYSTEM_SUSPEND request has been accepted and the domain has been parked=
-, a
-> > later failure in the Xen-wide suspend path resumes the domain through t=
-he normal
-> > domain resume path, rather than returning a PSCI error from the origina=
-l call.
-> >
-> > This is intentional in the current design. The virtual PSCI SYSTEM_SUSP=
-END
-> > path parks the domain and saves its resume context. The actual Xen-wide=
- host
-> > suspend is a separate step that is attempted only after all domains are
-> > suspended.
-> >
-> > So a failure in the later Xen-wide suspend step is treated as an abort =
-of the
-> > host suspend attempt after the domain suspend was already accepted. The=
- domain
-> > is then resumed through the existing domain resume path, similarly to t=
-he
-> > toolstack/xl suspend-resume flow, rather than by re-entering the guest =
-PSCI
-> > call path and modifying the saved vCPU context again.
-> >
-> > I agree this design is not obvious from the patch. I will clarify the c=
-ommit
-> > message and comments. If you or the maintainers think that failures bef=
-ore the
-> > physical SYSTEM_SUSPEND call succeeds should be reported back through t=
-he
-> > original virtual PSCI call, then this would require a different flow. I=
- was
-> > trying to avoid that extra complexity in this series.
->
-> I think that there is no sense to reporting an error back to guest. PSCI
-> allows resume at any stage, so it is acceptable to have such brief "suspe=
-nd"
->
-> >
-> >>
-> >> > +    }
-> >> > +
-> >> > +    /*
-> >> > +     * Non-boot CPUs have to be disabled on suspend and enabled on =
-resume
-> >> > +     * (hotplug-based mechanism). Disabling non-boot CPUs will lead=
- to PSCI
-> >> > +     * CPU_OFF to be called by each non-boot CPU. Depending on the =
-underlying
-> >> > +     * platform capabilities, this may lead to the physical powerin=
-g down of
-> >> > +     * CPUs.
-> >> > +     */
-> >> > +    status =3D disable_nonboot_cpus();
-> >> > +    if ( status )
-> >> > +    {
-> >> > +        system_state =3D SYS_STATE_resume;
-> >> > +        goto resume_nonboot_cpus;
-> >> > +    }
-> >> > +
-> >> > +    time_suspend();
-> >> > +
-> >> > +    status =3D iommu_suspend();
-> >> > +    if ( status )
-> >> > +    {
-> >> > +        system_state =3D SYS_STATE_resume;
-> >> > +        goto resume_time;
-> >> > +    }
-> >> > +
-> >> > +    console_start_sync();
-> >> > +    status =3D console_suspend();
-> >> > +    if ( status )
-> >> > +    {
-> >> > +        dprintk(XENLOG_ERR, "Failed to suspend the console, err=3D%=
-d\n", status);
-> >> > +        system_state =3D SYS_STATE_resume;
-> >> > +        goto resume_end_sync;
-> >> > +    }
-> >> > +
-> >> > +    local_irq_save(flags);
-> >> > +    status =3D gic_suspend();
-> >> > +    if ( status )
-> >> > +    {
-> >> > +        system_state =3D SYS_STATE_resume;
-> >> > +        goto resume_irqs;
-> >> > +    }
-> >> > +
-> >> > +    set_init_ttbr(xen_pgtable);
-> >> > +
-> >> > +    /*
-> >> > +     * Enable identity mapping before entering suspend to simplify
-> >> > +     * the resume path
-> >> > +     */
-> >> > +    update_boot_mapping(true);
-> >> > +
-> >> > +    if ( prepare_resume_ctx(&cpu_context) )
-> >> > +    {
-> >> > +        status =3D call_psci_system_suspend();
-> >> > +        /*
-> >> > +         * If suspend is finalized properly by above system suspend=
- PSCI call,
-> >> > +         * the code below in this 'if' branch will never execute. E=
-xecution
-> >> > +         * will continue from hyp_resume which is the hypervisor's =
-resume point.
-> >> > +         * In hyp_resume CPU context will be restored and since lin=
-k-register is
-> >> > +         * restored as well, it will appear to return from prepare_=
-resume_ctx.
-> >> > +         * The difference in returning from prepare_resume_ctx on s=
-ystem suspend
-> >> > +         * versus resume is in function's return value: on suspend,=
- the return
-> >> > +         * value is a non-zero value, on resume it is zero. That is=
- why the
-> >> > +         * control flow will not re-enter this 'if' branch on resum=
-e.
-> >> > +         */
-> >> > +        if ( status )
-> >> > +            dprintk(XENLOG_WARNING, "PSCI system suspend failed, er=
-r=3D%d\n",
-> >> > +                    status);
-> >> > +    }
-> >> > +
-> >> > +    system_state =3D SYS_STATE_resume;
-> >> > +    update_boot_mapping(false);
-> >> > +
-> >> > +    gic_resume();
-> >> > +
-> >> > + resume_irqs:
-> >> > +    local_irq_restore(flags);
-> >> > +
-> >> > +    console_resume();
-> >> > + resume_end_sync:
-> >> > +    console_end_sync();
-> >> > +
-> >> > +    iommu_resume();
-> >> > +
-> >> > + resume_time:
-> >> > +    time_resume();
-> >> > +
-> >> > + resume_nonboot_cpus:
-> >> > +    /*
-> >> > +     * The rcu_barrier() has to be added to ensure that the per cpu=
- area is
-> >> > +     * freed before a non-boot CPU tries to initialize it (_free_pe=
-rcpu_area()
-> >> > +     * has to be called before the init_percpu_area()). This scenar=
-io occurs
-> >> > +     * when non-boot CPUs are hot-unplugged on suspend and hotplugg=
-ed on resume.
-> >> > +     */
-> >> > +    rcu_barrier();
-> >> > +    enable_nonboot_cpus();
-> >> > +
-> >> > + resume_scheduler:
-> >> > +    scheduler_enable();
-> >> > +    thaw_domains();
-> >> > +
-> >> > +    system_state =3D SYS_STATE_active;
-> >> > +
-> >> > +    printk("Resume (status %d)\n", status);
-> >> > +
-> >> > +    domain_resume(d);
-> >> > +}
-> >> > +
-> >> > +static DECLARE_TASKLET(system_suspend_tasklet, system_suspend, NULL=
-);
-> >> > +
-> >> > +void host_system_suspend(struct domain *d)
-> >> > +{
-> >> > +    system_suspend_tasklet.data =3D (void *)d;
-> >> > +    /*
-> >> > +     * The suspend procedure has to be finalized by the pCPU#0 (non=
--boot pCPUs
-> >> > +     * will be disabled during the suspend).
-> >> > +     */
-> >> > +    tasklet_schedule_on_cpu(&system_suspend_tasklet, 0);
-> >> > +}
-> >> > +
-> >> > /*
-> >> >  * Local variables:
-> >> >  * mode: C
-> >> > diff --git a/xen/arch/arm/vpsci.c b/xen/arch/arm/vpsci.c
-> >> > index bd87ec430d..8fb9172186 100644
-> >> > --- a/xen/arch/arm/vpsci.c
-> >> > +++ b/xen/arch/arm/vpsci.c
-> >> > @@ -5,6 +5,7 @@
-> >> >
-> >> > #include <asm/current.h>
-> >> > #include <asm/domain.h>
-> >> > +#include <asm/suspend.h>
-> >> > #include <asm/vgic.h>
-> >> > #include <asm/vpsci.h>
-> >> > #include <asm/event.h>
-> >> > @@ -232,8 +233,7 @@ static int32_t do_psci_1_0_system_suspend(regist=
-er_t epoint, register_t cid)
-> >> >     if ( is_64bit_domain(d) && is_thumb )
-> >> >         return PSCI_INVALID_ADDRESS;
-> >> >
-> >> > -    /* SYSTEM_SUSPEND is not supported for the hardware domain yet =
-*/
-> >> > -    if ( is_hardware_domain(d) )
-> >> > +    if ( !IS_ENABLED(CONFIG_SYSTEM_SUSPEND) && is_hardware_domain(d=
-) )
-> >> >         return PSCI_NOT_SUPPORTED;
-> >> >
-> >> >     /* Ensure that all CPUs other than the calling one are offline *=
-/
-> >> > @@ -266,6 +266,9 @@ static int32_t do_psci_1_0_system_suspend(regist=
-er_t epoint, register_t cid)
-> >> >             "SYSTEM_SUSPEND requested, epoint=3D%#"PRIregister", cid=
-=3D%#"PRIregister"\n",
-> >> >             epoint, cid);
-> >> >
-> >> > +    if ( is_control_domain(d) )
-> >>
-> >> Why is_control_domain() here and not is_hardware_domain() ?
-> >
-> > The use of is_control_domain() is intentional.
-> >
-> > The intended model is that Xen-wide host suspend is orchestrated by the
-> > privileged management/control domain. The control domain coordinates th=
-e
-> > toolstack side, asks other domains to enter suspend, and then issues th=
-e final
-> > SYSTEM_SUSPEND request to Xen.
-> >
-> > This does not have to be the same entity as the hardware domain. If the
-> > hardware domain is separate, it is one of the domains that the control =
-domain
-> > parks before the final host suspend step.
-> >
-> > The hwdom-specific checks in this patch have a different purpose: they =
-avoid
-> > the old hwdom_shutdown() path for SHUTDOWN_suspend and allow the hardwa=
-re
-> > domain to be parked as part of the suspend sequence. They do not define=
- the
-> > policy for who is allowed to trigger Xen-wide host suspend.
-> >
-> > That said, this policy may not be optimal for all configurations, espec=
-ially
-> > when the control and hardware domain roles are split. I would appreciat=
-e your
-> > view, as well as the maintainers' views, on whether the trigger should =
-remain
-> > control-domain based, be tied to the hardware domain instead, or be exp=
-ressed
-> > through a separate host-suspend capability/helper.
->
->
-> Hardware domain owns all the hardware. Hardware shall be put to
-> power-down/suspended state before suspending the SoC, so it can be
-> resumed afterwards. You can't just pause hardware domain in the same way
-> as pausing all other domains.
->
-> (Of course, we'll have the same issues with domain that have
-> passed-through hardware, but in this case Dom0 shall orchestrate proper
-> suspend sequence for these)
+--------------dgfJz710yWfdu8L0Ewpd6czF
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Yes, I agree that the hardware domain must not be externally
-paused as a replacement for its own suspend path.
+T24gMDcuMDUuMjYgMTg6MzEsIErDvHJnZW4gR3Jvw58gd3JvdGU6DQo+IE9uIDA3LjA0LjI2
+IDExOjIzLCBLZXZpbiBCcm9kc2t5IHdyb3RlOg0KPj4gT24gMDUvMDQvMjAyNiAxMTo0MSwg
+TWFyZWsgTWFyY3p5a293c2tpLUfDs3JlY2tpIHdyb3RlOg0KPj4+IE9uIFRodSwgRmViIDI2
+LCAyMDI2IGF0IDAyOjQxOjEyUE0gKzAxMDAsIErDvHJnZW4gR3Jvw58gd3JvdGU6DQo+Pj4+
+IE9uIDI2LjAyLjI2IDE0OjI3LCBBbmRyZXcgQ29vcGVyIHdyb3RlOg0KPj4+Pj4gT24gMjYv
+MDIvMjAyNiAxOjE3IHBtLCBNYXJlayBNYXJjenlrb3dza2ktR8OzcmVja2kgd3JvdGU6DQo+
+Pj4+Pj4gSGksDQo+Pj4+Pj4NCj4+Pj4+PiBXaGVuIHRlc3RpbmcgTGludXggNy4wLXJjMSBp
+biBQViBkb20wLCBJIGhpdCB0aGUgZm9sbG93aW5nIHBhbmljDQo+Pj4+Pj4gc29tZXRpbWVz
+Og0KPj4+Pj4+DQo+Pj4+Pj4gW8KgIDQzNi44NDk2MTRdIC0tLS0tLS0tLS0tLVsgY3V0IGhl
+cmUgXS0tLS0tLS0tLS0tLQ0KPj4+Pj4+IFvCoCA0MzYuODQ5NjY5XSBrZXJuZWwgQlVHIGF0
+IGFyY2gveDg2L2luY2x1ZGUvYXNtL3hlbi9oeXBlcnZpc29yLmg6NzghDQo+Pj4+Pj4gW8Kg
+IDQzNi44NDk2OTNdIE9vcHM6IGludmFsaWQgb3Bjb2RlOiAwMDAwIFsjMV0gU01QIE5PUFRJ
+DQo+Pj4+Pj4gW8KgIDQzNi44NDk3MTBdIENQVTogMyBVSUQ6IDAgUElEOiA0MDIxIENvbW06
+IGt3b3JrZXIvdTI1OjEgTm90IHRhaW50ZWQgDQo+Pj4+Pj4gNy4wLjAtMC5yYzEuMS5xdWJl
+cy4xMDAxLmZjNDEueDg2XzY0ICMxIFBSRUVNUFQoZnVsbCkNCj4+Pj4+PiBbwqAgNDM2Ljg0
+OTcyOV0gSGFyZHdhcmUgbmFtZTogU3RhciBMYWJzIFN0YXJCb29rL1N0YXJCb29rLCBCSU9T
+IDguOTcgDQo+Pj4+Pj4gMTAvMDMvMjAyMw0KPj4+Pj4+IFvCoCA0MzYuODQ5NzQzXSBXb3Jr
+cXVldWU6IGk5MTVfZmxpcCBpbnRlbF9hdG9taWNfY29tbWl0X3dvcmsgW2k5MTVdDQo+Pj4+
+Pj4gW8KgIDQzNi44NTAyMjZdIFJJUDogZTAzMDp4ZW5fZW50ZXJfbGF6eV9tbXUrMHgyNC8w
+eDMwDQo+Pj4+Pj4gW8KgIDQzNi44NTAyNDVdIENvZGU6IDkwIDkwIDkwIDkwIDkwIDkwIGYz
+IDBmIDFlIGZhIDBmIDFmIDQ0IDAwIDAwIDY1IDhiIDA1IA0KPj4+Pj4+IGI4IGU1IDAyIDAz
+IDg1IGMwIDc1IDEwIDY1IGM3IDA1IGE5IGU1IDAyIDAzIDAxIDAwIDAwIDAwIGMzIGNjIGNj
+IGNjIGNjIA0KPj4+Pj4+IDwwZj4gMGIgNjYgMmUgMGYgMWYgODQgMDAgMDAgMDAgMDAgMDAg
+OTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTANCj4+Pj4+PiBbwqAgNDM2Ljg1MDI3MF0g
+UlNQOiBlMDJiOmZmZmZjOTAwNDU3MjdhNjggRUZMQUdTOiAwMDAxMDIwMg0KPj4+Pj4+IFvC
+oCA0MzYuODUwMjgzXSBSQVg6IDAwMDAwMDAwMDAwMDAwMDEgUkJYOiBmZmZmODg4MTA0MmZh
+NmQwIFJDWDogDQo+Pj4+Pj4gMDAwZmZmZmZmZmUwMDAwMA0KPj4+Pj4+IFvCoCA0MzYuODUw
+Mjk2XSBSRFg6IDAwMDAwMDAwMDAwMDAwMDEgUlNJOiBmZmZmODg4MTBhNWEyOTgwIFJESTog
+DQo+Pj4+Pj4gMDAwMDAwMDAwMDAwMDAwMA0KPj4+Pj4+IFvCoCA0MzYuODUwMzA4XSBSQlA6
+IGZmZmZjOTAwNDllZGEwMDAgUjA4OiBmZmZmYzkwMDQ5ZWRjMDAwIFIwOTogDQo+Pj4+Pj4g
+ZmZmZmM5MDA0OWVkYzAwMA0KPj4+Pj4+IFvCoCA0MzYuODUwMzIwXSBSMTA6IGZmZmZjOTAw
+NDllZGMwMDAgUjExOiBmZmZmYzkwMDQ5ZWRiZmZmIFIxMjogDQo+Pj4+Pj4gZmZmZmM5MDA0
+OWVkYzAwMA0KPj4+Pj4+IFvCoCA0MzYuODUwMzMyXSBSMTM6IGZmZmZjOTAwNDU3MjdiYjAg
+UjE0OiBmZmZmYzkwMDQ1NzI3YjI4IFIxNTogDQo+Pj4+Pj4gODAwMDAwMDAwMDAwMDA2Yg0K
+Pj4+Pj4+IFvCoCA0MzYuODUwMzU2XSBGUzrCoCAwMDAwMDAwMDAwMDAwMDAwKDAwMDApIEdT
+OmZmZmY4ODgyMDFlNmUwMDAoMDAwMCkgDQo+Pj4+Pj4ga25sR1M6MDAwMDAwMDAwMDAwMDAw
+MA0KPj4+Pj4+IFvCoCA0MzYuODUwMzcxXSBDUzrCoCBlMDMwIERTOiAwMDAwIEVTOiAwMDAw
+IENSMDogMDAwMDAwMDA4MDA1MDAzMw0KPj4+Pj4+IFvCoCA0MzYuODUwMzgzXSBDUjI6IDAw
+MDA2NTQzZGJhZGUyNTAgQ1IzOiAwMDAwMDAwMTE1ZWYxMDAwIENSNDogDQo+Pj4+Pj4gMDAw
+MDAwMDAwMDA1MDY2MA0KPj4+Pj4+IFvCoCA0MzYuODUwNDAxXSBDYWxsIFRyYWNlOg0KPj4+
+Pj4+IFvCoCA0MzYuODUwNDEwXcKgIDxUQVNLPg0KPj4+Pj4+IFvCoCA0MzYuODUwNDIwXcKg
+IHZtYXBfcGFnZXNfcHVkX3JhbmdlKzB4NDdjLzB4NTMwDQo+Pj4+Pj4gW8KgIDQzNi44NTA0
+MzldwqAgdm1hcF9zbWFsbF9wYWdlc19yYW5nZV9ub2ZsdXNoKzB4MWYxLzB4MmIwDQo+Pj4+
+Pj4gW8KgIDQzNi44NTA0NTFdwqAgPyBfX2dldF92bV9hcmVhX25vZGUrMHgxMGEvMHgxNzAN
+Cj4+Pj4+PiBbwqAgNDM2Ljg1MDQ2NV3CoCB2bWFwKzB4NzkvMHhkMA0KPj4+Pj4+IFvCoCA0
+MzYuODUwNDc2XcKgIGk5MTVfZ2VtX29iamVjdF9tYXBfcGFnZSsweDEzYi8weDIxMCBbaTkx
+NV0NCj4+Pj4+PiBbwqAgNDM2Ljg1MDgxMl3CoCBpOTE1X2dlbV9vYmplY3RfcGluX21hcCsw
+eDFlMi8weDIxMCBbaTkxNV0NCj4+Pj4+PiBbwqAgNDM2Ljg1MTEyM13CoCBpOTE1X2dlbV9v
+YmplY3RfcGluX21hcF91bmxvY2tlZCsweDJkLzB4YTAgW2k5MTVdDQo+Pj4+Pj4gW8KgIDQz
+Ni44NTE0MjRdwqAgaW50ZWxfZHNiX2J1ZmZlcl9jcmVhdGUrMHhlZC8weDFhMCBbaTkxNV0N
+Cj4+Pj4+PiBbwqAgNDM2Ljg1MTc3OF3CoCBpbnRlbF9kc2JfcHJlcGFyZSsweGNhLzB4MWEw
+IFtpOTE1XQ0KPj4+Pj4+IFvCoCA0MzYuODUyMTEwXcKgIGludGVsX2F0b21pY19kc2JfZmlu
+aXNoKzB4OTIvMHgzNTAgW2k5MTVdDQo+Pj4+Pj4gW8KgIDQzNi44NTI0NTZdwqAgaW50ZWxf
+YXRvbWljX2NvbW1pdF90YWlsKzB4MzI2LzB4ZDQwIFtpOTE1XQ0KPj4+Pj4+IFvCoCA0MzYu
+ODUyNzY5XcKgIHByb2Nlc3Nfb25lX3dvcmsrMHgxOGQvMHgzODANCj4+Pj4+PiBbwqAgNDM2
+Ljg1Mjc3OV3CoCB3b3JrZXJfdGhyZWFkKzB4MTk2LzB4MzAwDQo+Pj4+Pj4gW8KgIDQzNi44
+NTI3ODddwqAgPyBfX3BmeF93b3JrZXJfdGhyZWFkKzB4MTAvMHgxMA0KPj4+Pj4+IFvCoCA0
+MzYuODUyNzk2XcKgIGt0aHJlYWQrMHhlMy8weDEyMA0KPj4+Pj4+IFvCoCA0MzYuODUyODA1
+XcKgID8gX19wZnhfa3RocmVhZCsweDEwLzB4MTANCj4+Pj4+PiBbwqAgNDM2Ljg1MjgxNV3C
+oCByZXRfZnJvbV9mb3JrKzB4MTllLzB4MjYwDQo+Pj4+Pj4gW8KgIDQzNi44NTI4MjRdwqAg
+PyBfX3BmeF9rdGhyZWFkKzB4MTAvMHgxMA0KPj4+Pj4+IFvCoCA0MzYuODUyODMyXcKgIHJl
+dF9mcm9tX2ZvcmtfYXNtKzB4MWEvMHgzMA0KPj4+Pj4+IFvCoCA0MzYuODUyODQyXcKgIDwv
+VEFTSz4NCj4+Pj4+PiBbwqAgNDM2Ljg1Mjg0N10gTW9kdWxlcyBsaW5rZWQgaW46IHNuZF9z
+ZXFfZHVtbXkgc25kX2hydGltZXIgDQo+Pj4+Pj4gc25kX2hkYV9jb2RlY19pbnRlbGhkbWkg
+c25kX2hkYV9jb2RlY19oZG1pIHNuZF9oZGFfY29kZWNfYWxjMjY5IA0KPj4+Pj4+IHNuZF9o
+ZGFfY29kZWNfcmVhbHRla19saWIgc25kX2hkYV9zY29kZWNfY29tcG9uZW50IHNuZF9oZGFf
+Y29kZWNfZ2VuZXJpYyANCj4+Pj4+PiBzbmRfaGRhX2ludGVsIHNuZF9zb2ZfcGNpX2ludGVs
+X3RnbCBzbmRfc29mX3BjaV9pbnRlbF9jbmwgDQo+Pj4+Pj4gc25kX3NvZl9pbnRlbF9oZGFf
+Z2VuZXJpYyBzb3VuZHdpcmVfaW50ZWwgc25kX3NvZl9pbnRlbF9oZGFfc2R3X2JwdCANCj4+
+Pj4+PiBzbmRfc29mX2ludGVsX2hkYV9jb21tb24gc25kX3NvY19oZGFjX2hkYSBzbmRfc29m
+X2ludGVsX2hkYV9tbGluayANCj4+Pj4+PiBzbmRfc29mX2ludGVsX2hkYSBzb3VuZHdpcmVf
+Y2FkZW5jZSBzbmRfc29mX3BjaSBzbmRfc29mX3h0ZW5zYV9kc3Agc25kX3NvZiANCj4+Pj4+
+PiBzbmRfc29mX3V0aWxzIHNuZF9zb2NfYWNwaV9pbnRlbF9tYXRjaCBzbmRfc29jX2FjcGlf
+aW50ZWxfc2RjYV9xdWlya3MgDQo+Pj4+Pj4gc291bmR3aXJlX2dlbmVyaWNfYWxsb2NhdGlv
+biBzbmRfc29jX3Nkd191dGlscyBzbmRfc29jX2FjcGkgY3JjOCANCj4+Pj4+PiBpbnRlbF9y
+YXBsX21zciBzb3VuZHdpcmVfYnVzIGludGVsX3JhcGxfY29tbW9uIHNuZF9zb2Nfc2RjYSBz
+bmRfc29jX2F2cyANCj4+Pj4+PiBzbmRfc29jX2hkYV9jb2RlYyBzbmRfaGRhX2V4dF9jb3Jl
+IHNuZF9oZGFfY29kZWMgdmZhdCANCj4+Pj4+PiBpbnRlbF91bmNvcmVfZnJlcXVlbmN5X2Nv
+bW1vbiBmYXQgc25kX2hkYV9jb3JlIHNuZF9pbnRlbF9kc3BjZmcgDQo+Pj4+Pj4gc25kX2lu
+dGVsX3Nkd19hY3BpIHNuZF9od2RlcCBpbnRlbF9wb3dlcmNsYW1wIHNuZF9zb2NfY29yZSBp
+d2x3aWZpIA0KPj4+Pj4+IHNuZF9jb21wcmVzcyBzcGlfbm9yIGlUQ09fd2R0IGFjOTdfYnVz
+IGludGVsX3BtY19ieHQgZWUxMDA0IG10ZCANCj4+Pj4+PiBzbmRfcGNtX2RtYWVuZ2luZSBz
+bmRfc2VxIGNmZzgwMjExIHNuZF9zZXFfZGV2aWNlIHBjc3BrciBzcGlfaW50ZWxfcGNpIA0K
+Pj4+Pj4+IHNuZF9wY20gcmZraWxsIHNwaV9pbnRlbCBzbmRfdGltZXIgc25kDQo+Pj4+Pj4g
+W8KgIDQzNi44NTI5MzldwqAgaTJjX2k4MDEgc291bmRjb3JlIGkyY19zbWJ1cyBpZG1hNjQg
+aW50ZWxfcG1jX2NvcmUgDQo+Pj4+Pj4gcG10X3RlbGVtZXRyeSBwbXRfZGlzY292ZXJ5IHBt
+dF9jbGFzcyBpbnRlbF9oaWQgaW50ZWxfcG1jX3NzcmFtX3RlbGVtZXRyeSANCj4+Pj4+PiBp
+bnRlbF9zY3VfcGx0ZHJ2IHNwYXJzZV9rZXltYXAgam95ZGV2IGxvb3AgZnVzZSB4ZW5mcyBu
+Zm5ldGxpbmsgDQo+Pj4+Pj4gdnNvY2tfbG9vcGJhY2sgdm13X3Zzb2NrX3ZpcnRpb190cmFu
+c3BvcnRfY29tbW9uIHZtd192c29ja192bWNpX3RyYW5zcG9ydCANCj4+Pj4+PiB2c29jayB6
+cmFtIHZtd192bWNpIGx6NGhjX2NvbXByZXNzIGx6NF9jb21wcmVzcyBkbV90aGluX3Bvb2wg
+DQo+Pj4+Pj4gZG1fcGVyc2lzdGVudF9kYXRhIGRtX2Jpb19wcmlzb24gZG1fY3J5cHQgeGUg
+ZHJtX3R0bV9oZWxwZXIgDQo+Pj4+Pj4gZHJtX3N1YmFsbG9jX2hlbHBlciBncHVfc2NoZWQg
+ZHJtX2dwdXZtIGRybV9leGVjIGRybV9ncHVzdm1faGVscGVyIGk5MTUgDQo+Pj4+Pj4gaTJj
+X2FsZ29fYml0IGRybV9idWRkeSBoaWRfbXVsdGl0b3VjaCBpMmNfaGlkX2FjcGkgZ2hhc2hf
+Y2xtdWxuaV9pbnRlbCANCj4+Pj4+PiB2aWRlbyBudm1lIHdtaSB0dG0gaTJjX2hpZCBudm1l
+X2NvcmUgbnZtZV9rZXlyaW5nIGRybV9kaXNwbGF5X2hlbHBlciANCj4+Pj4+PiBudm1lX2F1
+dGggeGhjaV9wY2kgcGluY3RybF90aWdlcmxha2UgdGh1bmRlcmJvbHQgaGtkZiBjZWMgeGhj
+aV9oY2QgDQo+Pj4+Pj4gaW50ZWxfdnNlYyBzZXJpb19yYXcgeGVuX2FjcGlfcHJvY2Vzc29y
+IHhlbl9wcml2Y21kIHhlbl9wY2liYWNrIA0KPj4+Pj4+IHhlbl9ibGtiYWNrIHhlbl9nbnRh
+bGxvYyB4ZW5fZ250ZGV2IHhlbl9ldnRjaG4gc2NzaV9kaF9yZGFjIHNjc2lfZGhfZW1jIA0K
+Pj4+Pj4+IHNjc2lfZGhfYWx1YSB1aW5wdXQgaTJjX2Rldg0KPj4+Pj4+IFvCoCA0MzYuODUz
+MTgzXSAtLS1bIGVuZCB0cmFjZSAwMDAwMDAwMDAwMDAwMDAwIF0tLS0NCj4+Pj4+Pg0KPj4+
+Pj4+IG9yIHRoaXM6DQo+Pj4+Pj4NCj4+Pj4+PiBbwqAgNTQ4LjczNjg4NF0gLS0tLS0tLS0t
+LS0tWyBjdXQgaGVyZSBdLS0tLS0tLS0tLS0tDQo+Pj4+Pj4gW8KgIDU0OC43MzY5MDddIGtl
+cm5lbCBCVUcgYXQgYXJjaC94ODYvaW5jbHVkZS9hc20veGVuL2h5cGVydmlzb3IuaDo4NSEN
+Cj4+Pj4+PiBbwqAgNTQ4LjczNjkyM10gT29wczogaW52YWxpZCBvcGNvZGU6IDAwMDAgWyMx
+XSBTTVAgTk9QVEkNCj4+Pj4+PiBbwqAgNTQ4LjczNjkzNV0gQ1BVOiAwIFVJRDogMCBQSUQ6
+IDIwNiBDb21tOiBrd29ya2VyLzA6MiBOb3QgdGFpbnRlZCANCj4+Pj4+PiA3LjAuMC0wLnJj
+MS4xLnF1YmVzLjEwMDEuZmM0MS54ODZfNjQgIzEgUFJFRU1QVChmdWxsKQ0KPj4+Pj4+IFvC
+oCA1NDguNzM2OTQ5XSBIYXJkd2FyZSBuYW1lOiBMRU5PVk8gMjM0N0E0NS8yMzQ3QTQ1LCBC
+SU9TIENCRVQ0MDAwIA0KPj4+Pj4+IE5pdHJva2V5LXYwLjIuMC0yNjA4LWdhNjQ5NTk3IDAx
+LzAxLzE5NzANCj4+Pj4+PiBbwqAgNTQ4LjczNjk2Ml0gV29ya3F1ZXVlOiBldmVudHMgZGVs
+YXllZF92ZnJlZV93b3JrDQo+Pj4+Pj4gW8KgIDU0OC43MzY5NzZdIFJJUDogZTAzMDp4ZW5f
+bGVhdmVfbGF6eV9tbXUrMHg0NC8weDUwDQo+Pj4+Pj4gW8KgIDU0OC43MzY5ODldIENvZGU6
+IDAyIDAzIDgzIGY4IDAxIDc1IDIzIDY1IGM3IDA1IDZjIGU0IDAyIDAzIDAwIDAwIDAwIDAw
+IA0KPj4+Pj4+IDY1IGZmIDBkIDdkIGI4IDAyIDAzIDc0IDA1IGMzIGNjIGNjIGNjIGNjIGU4
+IDYxIDVkIGZkIGZmIGMzIGNjIGNjIGNjIGNjIA0KPj4+Pj4+IDwwZj4gMGIgNjYgMmUgMGYg
+MWYgODQgMDAgMDAgMDAgMDAgMDAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTANCj4+
+Pj4+PiBbwqAgNTQ4LjczNzAxMF0gUlNQOiBlMDJiOmZmZmZjOTAwNDA2MDdjZjAgRUZMQUdT
+OiAwMDAxMDI5Nw0KPj4+Pj4+IFvCoCA1NDguNzM3MDE4XSBSQVg6IDAwMDAwMDAwMDAwMDAw
+MDAgUkJYOiBmZmZmODg4MTY0YTcwNDA4IFJDWDogDQo+Pj4+Pj4gMDAwMDAwMDAwMDAwMDAw
+MA0KPj4+Pj4+IFvCoCA1NDguNzM3MDI5XSBSRFg6IDAwMDAwMDAwMDAwMDAwMDAgUlNJOiAw
+MDBmZmZmZmZmZmZmMDAwIFJESTogDQo+Pj4+Pj4gZmZmZjg4ODEwNjljMDAwMA0KPj4+Pj4+
+IFvCoCA1NDguNzM3MDM5XSBSQlA6IGZmZmZjOTAwNDk2ODEwMDAgUjA4OiBmZmZmYzkwMDQ5
+NjgxMDAwIFIwOTogDQo+Pj4+Pj4gMDAwMDAwMDAwMDAwMDAyNw0KPj4+Pj4+IFvCoCA1NDgu
+NzM3MDUwXSBSMTA6IDAwMDAwMDAwMDAwMDAwMjcgUjExOiBmZWZlZmVmZWZlZmVmZWZmIFIx
+MjogDQo+Pj4+Pj4gZmZmZmM5MDA0OTY4MTAwMA0KPj4+Pj4+IFvCoCA1NDguNzM3MDYwXSBS
+MTM6IGZmZmY4ODgxMDAyZmQyNTggUjE0OiAwMDAwMDAwMDAwMDAwMDAwIFIxNTogDQo+Pj4+
+Pj4gZmZmZmM5MDA0MDYwN2RhYw0KPj4+Pj4+IFvCoCA1NDguNzM3MDc5XSBGUzrCoCAwMDAw
+MDAwMDAwMDAwMDAwKDAwMDApIEdTOmZmZmY4ODgxZjg4ZWUwMDAoMDAwMCkgDQo+Pj4+Pj4g
+a25sR1M6MDAwMDAwMDAwMDAwMDAwMA0KPj4+Pj4+IFvCoCA1NDguNzM3MDkwXSBDUzrCoCBl
+MDMwIERTOiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMw0KPj4+Pj4+IFvC
+oCA1NDguNzM3MDk5XSBDUjI6IDAwMDA1NTU3NmMyZTYwNTggQ1IzOiAwMDAwMDAwMTBkNDdi
+MDAwIENSNDogDQo+Pj4+Pj4gMDAwMDAwMDAwMDA1MDY2MA0KPj4+Pj4+IFvCoCA1NDguNzM3
+MTE1XSBDYWxsIFRyYWNlOg0KPj4+Pj4+IFvCoCA1NDguNzM3MTIzXcKgIDxUQVNLPg0KPj4+
+Pj4+IFvCoCA1NDguNzM3MTI4XcKgIHZ1bm1hcF9wbWRfcmFuZ2UuaXNyYS4wKzB4MWYxLzB4
+MmUwDQo+Pj4+Pj4gW8KgIDU0OC43MzcxNDJdwqAgdnVubWFwX3A0ZF9yYW5nZSsweDE3ZC8w
+eDI5MA0KPj4+Pj4+IFvCoCA1NDguNzM3MTUxXcKgIF9fdnVubWFwX3JhbmdlX25vZmx1c2gr
+MHgxODIvMHgxZDANCj4+Pj4+PiBbwqAgNTQ4LjczNzE2MV3CoCA/IF9yYXdfc3Bpbl91bmxv
+Y2srMHhlLzB4MzANCj4+Pj4+PiBbwqAgNTQ4LjczNzE3MV3CoCByZW1vdmVfdm1fYXJlYSsw
+eDQwLzB4NzANCj4+Pj4+PiBbwqAgNTQ4LjczNzE4MF3CoCB2ZnJlZS5wYXJ0LjArMHgxYi8w
+eDI5MA0KPj4+Pj4+IFvCoCA1NDguNzM3MTg5XcKgIGRlbGF5ZWRfdmZyZWVfd29yaysweDM1
+LzB4NTANCj4+Pj4+PiBbwqAgNTQ4LjczNzE5OF3CoCBwcm9jZXNzX29uZV93b3JrKzB4MThk
+LzB4MzgwDQo+Pj4+Pj4gW8KgIDU0OC43MzcyMDddwqAgd29ya2VyX3RocmVhZCsweDE5Ni8w
+eDMwMA0KPj4+Pj4+IFvCoCA1NDguNzM3MjE1XcKgID8gX19wZnhfd29ya2VyX3RocmVhZCsw
+eDEwLzB4MTANCj4+Pj4+PiBbwqAgNTQ4LjczNzIyNF3CoCBrdGhyZWFkKzB4ZTMvMHgxMjAN
+Cj4+Pj4+PiBbwqAgNTQ4LjczNzIzM13CoCA/IF9fcGZ4X2t0aHJlYWQrMHgxMC8weDEwDQo+
+Pj4+Pj4gW8KgIDU0OC43MzcyNDJdwqAgcmV0X2Zyb21fZm9yaysweDE5ZS8weDI2MA0KPj4+
+Pj4+IFvCoCA1NDguNzM3MjUwXcKgID8gX19wZnhfa3RocmVhZCsweDEwLzB4MTANCj4+Pj4+
+PiBbwqAgNTQ4LjczNzI1OF3CoCByZXRfZnJvbV9mb3JrX2FzbSsweDFhLzB4MzANCj4+Pj4+
+PiBbwqAgNTQ4LjczNzI2OV3CoCA8L1RBU0s+DQo+Pj4+Pj4gW8KgIDU0OC43MzcyNzRdIE1v
+ZHVsZXMgbGlua2VkIGluOiB2ZmF0IGZhdCBzbmRfc2VxX2R1bW15IHNuZF9ocnRpbWVyIGF0
+aDlrIA0KPj4+Pj4+IGF0aDlrX2NvbW1vbiBzbmRfaGRhX2NvZGVjX2ludGVsaGRtaSBzbmRf
+aGRhX2NvZGVjX2hkbWkgYXRoOWtfaHcgDQo+Pj4+Pj4gc25kX2hkYV9jb2RlY19hbGMyNjkg
+c25kX2hkYV9jb2RlY19yZWFsdGVrX2xpYiBzbmRfaGRhX3Njb2RlY19jb21wb25lbnQgDQo+
+Pj4+Pj4gc25kX2hkYV9jb2RlY19nZW5lcmljIHNuZF9oZGFfaW50ZWwgc25kX2hkYV9jb2Rl
+YyBtYWM4MDIxMSBzbmRfaGRhX2NvcmUgDQo+Pj4+Pj4gc25kX2ludGVsX2RzcGNmZyBzbmRf
+aW50ZWxfc2R3X2FjcGkgc25kX2h3ZGVwIGF0aCBzbmRfc2VxIHNuZF9zZXFfZGV2aWNlIA0K
+Pj4+Pj4+IHNuZF9jdGxfbGVkIGNmZzgwMjExIHNuZF9wY20gYXQyNCB0aGlua3BhZF9hY3Bp
+IGludGVsX3JhcGxfbXNyIGkyY19pODAxIA0KPj4+Pj4+IHNuZF90aW1lciBzcGFyc2Vfa2V5
+bWFwIGlUQ09fd2R0IGludGVsX3JhcGxfY29tbW9uIHBsYXRmb3JtX3Byb2ZpbGUgDQo+Pj4+
+Pj4gaW50ZWxfcG93ZXJjbGFtcCBpbnRlbF9wbWNfYnh0IHBjc3BrciBpMmNfc21idXMgcmZr
+aWxsIGxpYmFyYzQgc25kIA0KPj4+Pj4+IHNvdW5kY29yZSBtZWlfbWUgZTEwMDBlIG1laSBq
+b3lkZXYgbHBjX2ljaCBsb29wIGZ1c2UgeGVuZnMgbmZuZXRsaW5rIA0KPj4+Pj4+IHZzb2Nr
+X2xvb3BiYWNrIHZtd192c29ja192aXJ0aW9fdHJhbnNwb3J0X2NvbW1vbiB2bXdfdnNvY2tf
+dm1jaV90cmFuc3BvcnQgDQo+Pj4+Pj4gdnNvY2sgenJhbSB2bXdfdm1jaSBsejRoY19jb21w
+cmVzcyBsejRfY29tcHJlc3MgZG1fdGhpbl9wb29sIA0KPj4+Pj4+IGRtX3BlcnNpc3RlbnRf
+ZGF0YSBkbV9iaW9fcHJpc29uIGRtX2NyeXB0IGk5MTUgaTJjX2FsZ29fYml0IGRybV9idWRk
+eSANCj4+Pj4+PiBnaGFzaF9jbG11bG5pX2ludGVsIHR0bSBzZGhjaV9wY2kgZHJtX2Rpc3Bs
+YXlfaGVscGVyIHNkaGNpX3VoczIgc2RoY2kgDQo+Pj4+Pj4gdmlkZW8geGhjaV9wY2kgY3Fo
+Y2kgd21pIGNlYyB4aGNpX2hjZCBlaGNpX3BjaSBtbWNfY29yZSBlaGNpX2hjZCBzZXJpb19y
+YXcgDQo+Pj4+Pj4geGVuX2FjcGlfcHJvY2Vzc29yIHhlbl9wcml2Y21kIHhlbl9wY2liYWNr
+DQo+Pj4+Pj4gW8KgIDU0OC43MzczNDhdwqAgeGVuX2Jsa2JhY2sgeGVuX2dudGFsbG9jIHhl
+bl9nbnRkZXYgeGVuX2V2dGNobiANCj4+Pj4+PiBzY3NpX2RoX3JkYWMgc2NzaV9kaF9lbWMg
+c2NzaV9kaF9hbHVhIHVpbnB1dCBpMmNfZGV2DQo+Pj4+Pj4gW8KgIDU0OC43Mzc0NjldIC0t
+LVsgZW5kIHRyYWNlIDAwMDAwMDAwMDAwMDAwMDAgXS0tLQ0KPj4+Pj4+DQo+Pj4+Pj4gSSBk
+b24ndCBoYXZlIGNsZWFyIHBhdHRlcm4gd2hlbiB0aGlzIGhhcHBlbnMsIG9uZSB3YXMgZHVy
+aW5nIGhvc3QNCj4+Pj4+PiBzdXNwZW5kLCBidXQgdGhlIG90aGVyIHdhcyBkdXJpbmcgIm5v
+cm1hbCIgdGVzdCBydW4gKHN0YXJ0aW5nL3N0b3BwaW5nDQo+Pj4+Pj4gZG9tVXMgYW5kIHJ1
+bm5pbmcgc3R1ZmYgYXJvdW5kIHRoZW0pLiBOb3RlIGFsc28gb25lIG9mIHRob3NlIGlzIElu
+dGVsDQo+Pj4+Pj4gYW5kIHRoZSBvdGhlciBBTUQsIHNvIGl0IGlzbid0IHJlYWxseSBoYXJk
+d2FyZSBzcGVjaWZpYy4NCj4+Pj4+Pg0KPj4+Pj4+IFNsaWdodGx5IG1vcmUgZGV0YWlscyB3
+aXRoIGxpbmtzIChlc3BlY2lhbGx5IHNlcmlhbDAudHh0IGluIHRoZSBsb2dzDQo+Pj4+Pj4g
+dGFiKSBhdA0KPj4+Pj4+IGh0dHBzOi8vZ2l0aHViLmNvbS9RdWJlc09TL3F1YmVzLWxpbnV4
+LWtlcm5lbC8gDQo+Pj4+Pj4gcHVsbC82NjIjaXNzdWVjb21tZW50LTM5NjMzMjYxODgNCj4+
+Pj4+Pg0KPj4+Pj4+IEFueSBpZGVhPw0KPj4+Pj4+DQo+Pj4+PiBUaGF0IGxvb2tzIGxpa2Ug
+dGhlIGlzc3VlIEp1ZXJnZW4gZml4ZWQgd2l0aDoNCj4+Pj4+DQo+Pj4+PiBodHRwczovL2xv
+cmUua2VybmVsLm9yZy94ZW4tZGV2ZWwvMjAyNjAyMjAxMjM3MTUuODM0ODQ4LTEtamdyb3Nz
+QHN1c2UuY29tLw0KPj4+PiBObywgaXQgZG9lc24ndC4gVGhlIGZpeCBpcyBhbHJlYWR5IGlu
+IHJjMSwgYW5kIHRoZSBjcmFzaCB3YXMgcXVpdGUgZWFybHkgZHVyaW5nDQo+Pj4+IGJvb3Qg
+KGJlZm9yZSBhbnkgc2Vjb25kYXJ5IENQVXMgd2VyZSBicm91Z2h0IHVwKS4NCj4+Pj4NCj4+
+Pj4gSSBndWVzcyB0aGlzIHByb2JsZW0gaXMgcmVsYXRlZCB0byB0aGUgbGF6eV9tbXVfc3Rh
+dGUgc2VyaWVzIFsxXS4NCj4+DQo+PiBUaGF0IG1heSB3ZWxsIGJlIHRoZSBjYXNlIC0gaXQg
+c2VlbXMgdGhhdCB4ZW5fZW50ZXJfbGF6eV9tbXUoKSBpcyBjYWxsZWQNCj4+IHdoaWxlIGFs
+cmVhZHkgaW4gbGF6eSBNTVUgbW9kZSAoZmlyc3Qgc3BsYXQpLCBhbmQgeGVuX2xlYXZlX2xh
+enlfbW11KCkNCj4+IGlzIGNhbGxlZCB3aXRob3V0IGJlaW5nIGluIGxhenkgTU1VIG1vZGUg
+KHNlY29uZCBzcGxhdCkuIEkgZXhwZWN0IHRoaXMNCj4+IGlzIHNvbWV0aGluZyBzcGVjaWZp
+YyB0byBYZW4sIHdoaWNoIEkgZGlkbid0IGdldCB0aGUgY2hhbmNlIHRvIHRlc3QuDQo+IA0K
+PiBMb29raW5nIGludG8gdGhpcyBhZ2Fpbi4NCj4gDQo+IEkgdGhpbmsgdGhlIG1haW4gcHJv
+YmxlbSBpcyB0aGUgY2FsbCBvZiBhcmNoX2VuZF9jb250ZXh0X3N3aXRjaCgpIGluDQo+IF9f
+c3dpdGNoX3RvKCkuIEZvciB4ZW4gdGhpcyBpcyB4ZW5fZW5kX2NvbnRleHRfc3dpdGNoKCkg
+YW5kIGl0IGlzIGRvaW5nOg0KPiANCj4gIMKgIGlmIChfX3Rhc2tfbGF6eV9tbXVfbW9kZV9h
+Y3RpdmUobmV4dCkpDQo+ICDCoMKgwqDCoMKgIGFyY2hfZW50ZXJfbGF6eV9tbXVfbW9kZSgp
+DQo+IA0KPiBCdXQgdGhpcyBpcyB3cm9uZyBoZXJlLCBhcyBjdXJyZW50IGhhc24ndCBiZWVu
+IHN3aXRjaGVkIHRvICJuZXh0IiB5ZXQuDQo+IA0KPiBJIGRvbid0IHRoaW5rIHdlIGNhbiBq
+dXN0IG1vdmUgdGhlIGNhbGwgb2YgYXJjaF9lbmRfY29udGV4dF9zd2l0Y2goKSwgYXMNCj4g
+aXQgaXMgbmVlZGVkIGZvciBpc3N1aW5nIHRoZSBjb250ZXh0IHN3aXRjaCByZWxhdGVkIGh5
+cGVyY2FsbCBmb3Igc3dpdGNoaW5nDQo+IGFsbCB0aGUgbmVlZGVkIG5vbi1NTVUgc2V0dGlu
+Z3MuDQo+IA0KPiBXaGF0IHdlIHByb2JhYmx5IHJlYWxseSB3YW50IGlzIHRvIGNhbGwgbGF6
+eV9tbXVfbW9kZV9wYXVzZSgpIGJlZm9yZSB0aGUNCj4gY2FsbCBvZiBhcmNoX3N0YXJ0X2Nv
+bnRleHRfc3dpdGNoKCkgYW5kIGxhdGVyIGNhbGwgbGF6eV9tbXVfbW9kZV9yZXN1bWUoKQ0K
+PiBhZnRlciBzd2l0Y2hpbmcgY29udGV4dCB0byBuZXh0LiBJbiB4ZW5fc3RhcnRfY29udGV4
+dF9zd2l0Y2goKSBhbmQNCj4geGVuX2VuZF9jb250ZXh0X3N3aXRjaCgpIHRoZSBsYXp5IG1t
+dSBtb2RlIGhhbmRsaW5nIHNob3VsZCBiZSByZW1vdmVkLg0KPiANCj4gSSB3aWxsIHRlc3Qg
+dGhhdCB0b21vcnJvdywgdW5sZXNzIHNvbWVvbmUgdGFsa3MgbWUgb3V0IG9mIGl0LiA6LSkN
+Cg0KVGhhdCB3YXNuJ3QgaXQsIGFzIHRoZSByZWFzb25pbmcgd2FzIHdyb25nLg0KDQpCdXQg
+bm93IEkgdGhpbmsgSSBoYXZlIGZvdW5kIHRoZSByZWFsIGN1bHByaXQgaW4gbGF6eV9tbXVf
+bW9kZV9lbmFibGUoKToNCg0Kc3RhdGljIGlubGluZSB2b2lkIGxhenlfbW11X21vZGVfZW5h
+YmxlKHZvaWQpDQp7DQogICAgICAgICBzdHJ1Y3QgbGF6eV9tbXVfc3RhdGUgKnN0YXRlID0g
+JmN1cnJlbnQtPmxhenlfbW11X3N0YXRlOw0KDQogICAgICAgICBpZiAoaW5faW50ZXJydXB0
+KCkgfHwgc3RhdGUtPnBhdXNlX2NvdW50ID4gMCkNCiAgICAgICAgICAgICAgICAgcmV0dXJu
+Ow0KDQogICAgICAgICBWTV9XQVJOX09OX09OQ0Uoc3RhdGUtPmVuYWJsZV9jb3VudCA9PSBV
+OF9NQVgpOw0KDQogICAgICAgICBpZiAoc3RhdGUtPmVuYWJsZV9jb3VudCsrID09IDApDQog
+ICAgICAgICAgICAgICAgIGFyY2hfZW50ZXJfbGF6eV9tbXVfbW9kZSgpOw0KfQ0KDQpDb25z
+aWRlciBhIHByZWVtcHRpb24ganVzdCBiZWZvcmUgY2FsbGluZyBhcmNoX2VudGVyX2xhenlf
+bW11X21vZGUoKS4gVGhlDQplbmFibGVfY291bnQgd2lsbCBiZSAxIG5vdywgYnV0IHRoZXJl
+IHdhcyBubyBzd2l0Y2ggdG8gbGF6eSBtb2RlIHlldC4NCg0KV2hlbiB0aGUgdGFzayBiZWNv
+bWVzIGFjdGl2ZSBhZ2FpbiwgY29udGV4dCBzd2l0Y2ggaGFuZGxpbmcgd2lsbCBzZWUgbGF6
+eQ0KbW9kZSBlbmFibGVkIChlbmFibGVfY291bnQgPiAwKSwgc28gaXQgd2lsbCBjYWxsIGFy
+Y2hfZW50ZXJfbGF6eV9tbXVfbW9kZSgpLg0KQW5kIHRoZW4gdGhlIHRhc2sgcmVzdW1lcyBh
+bmQgaXMgY2FsbGluZyBhcmNoX2VudGVyX2xhenlfbW11X21vZGUoKSBhbm90aGVyDQp0aW1l
+Lg0KDQpUaGUgb25seSBjaGFuY2UgSSdtIHNlZWluZyB0byBhdm9pZCB0aGF0IHdvdWxkIGJl
+IHRvIGRpc2FibGUgcHJlZW1wdGlvbg0KYXJvdW5kIGFsbCBpbnN0YW5jZXMgb2YgdGVzdGlu
+ZyBhIGNvbmRpdGlvbiBhbmQgdGhlbiBlbmFibGluZyBvciBkaXNhYmxpbmcNCmxhenkgbW11
+IG1vZGUuDQoNCg0KSnVlcmdlbg0K
+--------------dgfJz710yWfdu8L0Ewpd6czF
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-What I meant to describe is a guest-driven suspend sequence.
-The control domain/toolstack may orchestrate the sequence,
-but each domain that needs to quiesce hardware, including
-the hardware domain and any domain with passed-through
-devices, is expected to enter its own suspend path first and
-quiesce its devices before issuing the virtual PSCI
-SYSTEM_SUSPEND call.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Xen only treats other domains as ready for host suspend after
-they have voluntarily reached SHUTDOWN_suspend. In the split
-control/hardware-domain case, the final host-wide suspend
-request from the control domain is accepted only after the
-other domains, including the hardware domain, are already in
-SHUTDOWN_suspend.
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-So my wording saying that the control domain "parks" the
-hardware domain was imprecise. The control domain orchestrates
-the sequence; it does not externally pause the hardware domain
-as a substitute for its own suspend path.
+--------------dgfJz710yWfdu8L0Ewpd6czF--
 
-Best regards,
-Mykola
+--------------t3vC8SoGTWdPdMkfSJf5PH1L--
 
->
-> [...]
->
-> --
-> WBR, Volodymyr
+--------------RdDmWq5l0sPpSc0J9FZxrZu8
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmn9pG0FAwAAAAAACgkQsN6d1ii/Ey9g
+qQgAk/1AEkTxbbY4W50dkPyk4rO4Znz1egQzLRfGWf8MdwqKG/p312vFx8ejSP+fYLf1o/I4ext/
+NHUP4eT9eaxAZZeqrmgassxCGweu+QeT2fPVOdnPco8csi5bPjrscsWxfrjXEGpaVUwz4ud3nFYO
+Nf3AtCv7puSfPftcS8XWr9EZpNBKXGeeDd5oLXrf5sEblW9XSjo4jKItIdSVVcCDB93lOzLQY/wz
+fOAvLi6QPJRKpUhmZDpmkOLwU8fE2qVuVygPLXW7QGcZ38VX5IfhF8rU3DDa+f/BB/Mr0GhzxVaW
+lFJOFBpBRuEdWU7E9/Qf3Wqyi1tODIhvmYzF0efwvQ==
+=kqXH
+-----END PGP SIGNATURE-----
+
+--------------RdDmWq5l0sPpSc0J9FZxrZu8--
 
