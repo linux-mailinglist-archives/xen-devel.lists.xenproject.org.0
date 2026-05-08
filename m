@@ -2,46 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WOYiDYNU/mlTpQAAu9opvQ
+	id uLc6N7hV/mmepQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 23:24:19 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 23:29:28 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA1514FBE0B
-	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 23:24:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1304240.1577319 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D53C24FBEAC
+	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 23:29:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1304250.1577334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLSfl-0003wy-0s; Fri, 08 May 2026 21:23:49 +0000
+	id 1wLSky-0004tT-Si; Fri, 08 May 2026 21:29:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1304240.1577319; Fri, 08 May 2026 21:23:48 +0000
+Received: by outflank-mailman (output) from mailman id 1304250.1577334; Fri, 08 May 2026 21:29:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLSfk-0003vX-UP; Fri, 08 May 2026 21:23:48 +0000
-Received: by outflank-mailman (input) for mailman id 1304240;
- Fri, 08 May 2026 21:23:47 +0000
+	id 1wLSky-0004oJ-Os; Fri, 08 May 2026 21:29:12 +0000
+Received: by outflank-mailman (input) for mailman id 1304250;
+ Fri, 08 May 2026 21:29:11 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <sstabellini@kernel.org>) id 1wLSfj-0003vR-Lu
- for xen-devel@lists.xenproject.org; Fri, 08 May 2026 21:23:47 +0000
+ (envelope-from <andrew.cooper3@citrix.com>) id 1wLSkx-0004lA-G4
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2026 21:29:11 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLSfh-00Fbsh-1m
- for xen-devel@lists.xenproject.org; Fri, 08 May 2026 23:23:46 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wLSkw-000E8K-Ke
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2026 23:29:10 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <sstabellini@kernel.org>)
- id 69fe5415-bab6-0a2a0a5309dd-0a2a4508c0e2-46
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 23:23:46 +0200
-Received: from [172.105.4.254] (helo=tor.source.kernel.org)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <sstabellini@kernel.org>)
- id 69fe5461-63b5-0a2a45080019-ac6904fe9cf0-3
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 23:23:46 +0200
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A850A6024D;
- Fri,  8 May 2026 21:23:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E71EC2BCB4;
- Fri,  8 May 2026 21:23:44 +0000 (UTC)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 69fe5568-5cb7-0a2a0a5109dd-0a2a4504d398-24
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 23:29:10 +0200
+Received: from [209.85.221.52] (helo=mail-wr1-f52.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <andrew.cooper3@citrix.com>)
+ id 69fe55a6-1dec-0a2a45040019-d155dd34d4e1-3
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 23:29:10 +0200
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-44985f4ab0fso1423792f8f.0
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 14:29:10 -0700 (PDT)
+Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
+ [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45491ca383asm7548608f8f.28.2026.05.08.14.29.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 08 May 2026 14:29:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,161 +56,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20201202 header.d=kernel.org header.i="@kernel.org" header.h="Date:From:To:cc:Subject:In-Reply-To:References"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1778275424;
-	bh=NAKnjKkODxWcV+2m2D9TCncmSNBk1eGzdy/HehPI1mI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=UoRMBodVC/DLgpW2vRuqRK2gDSMAI9m4sdZOHmwJMXDsD/heFcqUTqAxDOdQYl8qx
-	 u2M/67qQPq961yiGsCC6Ue05Kl8kPMTpU0gMOOCDhkOJMgxJln1PoAZLLaU0LGYKaR
-	 /b8XYdki5J738s4BhiXLKB0JOeDG66wCa1qaWRwewze8m8xQ1OzwumrpqtXMfsSEcL
-	 Ag8CreR74efjmvht0yTvpnnEkFdFRAa4CZO2PFo2/wVsgckYbyv4D7wCL7NNgozjeQ
-	 MOqs5iE77wFiQwuGYZTOizmO0ipHfsCT9gy5ygdweZSox1pF/KuYy3wK5/MMfvbsv4
-	 Yue7bt5W+IHPA==
-Date: Fri, 8 May 2026 14:23:43 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jiaqing Zhao <Zhao.Jiaqing@amd.com>
-cc: Andrew Cooper <andrew.cooper3@citrix.com>, 
-    Anthony PERARD <anthony.perard@vates.tech>, 
-    Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] ns16550: add support for WCH CH382 serial adapters
-In-Reply-To: <20260508092813.12894-1-Zhao.Jiaqing@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2605081413340.1779943@ubuntu-linux-20-04-desktop>
-References: <20260508092813.12894-1-Zhao.Jiaqing@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=citrix.com header.i="@citrix.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-Id:Date:Subject:Cc:To:From"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=citrix.com; s=google; t=1778275749; x=1778880549; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=N7PhNq5m+H+OFW/x+gihCJ9/fpAKXYUtHMB+rax9vss=;
+        b=FM0OR8FR30opGqMsRAySRLXdL3J383mB8ntp6Aq16juqWua3Lt52+pLRJg75yBiAul
+         4Hhf6CTbFe90wc58cYfOXgx5Q+bzLg6rffRyDQy3Cd4Zyo+jmmCJJKeW4SttSscND9Zu
+         Bn8swhWr5O63dOp3+e9qcrHd7PnAIAlDc6BzA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778275749; x=1778880549;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=N7PhNq5m+H+OFW/x+gihCJ9/fpAKXYUtHMB+rax9vss=;
+        b=gysg0PU+R75rQ48/Z/xaNYeVxO2VoQr/yKjmXoZioI80kWli0Vb9DMVA/m8RN5gP/L
+         PScY8DTmydyz3d9OhIEK1RLWJeONvUEFcF/7iqz1iHJSOBVynRbEEBa/oNacjrvy3sDM
+         HbaKyLQehgjaYeFIzVmYTl7leITxuIAHwl9+N8yILJGMqCxZCvhRcpq0TCDnmpZ7ocj3
+         +ds8EMKCeqXatC8fploznl2RsJmjKkezW4EVH7Ih34pfJqBujI520uT9J89f4aH2pyRc
+         PlZTfKcbf4hnGj69m10KQw+LiSzMGa7AncfK9PHNUrk8Pu/6HSo4iJDwjgHDdjFodh11
+         kKxQ==
+X-Gm-Message-State: AOJu0YzGc19Od86FQtEGPVIoi41bbj3CnihhmXFw9EZp+mFcLAtsdM8E
+	yRwEQfwAMnb3HnmyEhuR8RjX5Os1iKln0zSyoGysLFpntdjeajapKGcV19N4KGA0GTzBcQzPZSF
+	vFb2pQIk=
+X-Gm-Gg: Acq92OGz7ww1jEURp4rQ9h92/k5ZeNSX6hAkWwnYNvfNnkfmoe4kGXe6CMBlDxA+6b4
+	awR1ZM0ddK5HP59Q0rFph5bMJ9XTnNXSSUU3FZKwGiUja4rIgVzG2X7tfTb4lNTvc6A9jpEVLDk
+	rfgz6vUQFhZAuaaNnq4HrHWt7qDs1QbSUATp2sSWbQboWeRewsFhCu/61ALHJub9jD6ayU5IZGI
+	dgIIz9lw/N4js1iRJMsc3Af/wcvBv+s/sLx9D1JCoNA/qMBLx/f9BHKKjrsOLcdCsM4Lqk0vFpA
+	NRg7opeAQWUzh4LVM8/ZLqSW5npp8N68EBrpIcbEN3cgYce+psO94bknihUXdLghxJAsbyxkd3O
+	4mgyw+R4OyH09SZvnxdz6Wo32NH6f4EZIzWB5kdKJYBRFVFPOcRUJB4aVwvISWh3qyVS+mgRB4M
+	12SVOBML0/xFtyDX8+YnAIJ9DrZhJ5jatBaF1n3oNTazH5TyfwYxgJrx7qUhdc/n64WWKd6E86P
+	fp5
+X-Received: by 2002:a05:6000:24ca:b0:449:a07a:967f with SMTP id ffacd0b85a97d-4515cf127cemr23232077f8f.28.1778275748693;
+        Fri, 08 May 2026 14:29:08 -0700 (PDT)
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH 0/5] CI: Refresh ARM Debian testing
+Date: Fri,  8 May 2026 22:29:02 +0100
+Message-Id: <20260508212907.1643761-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.39.5
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-X-purgate-ID: tlsNG-c1860d/1778275426-B6368DB1-4A47739F/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-ebf023/1778275750-40B733FF-922BD691/0/0
 X-purgate-type: clean
-X-purgate-size: 2850
-X-Rspamd-Queue-Id: DA1514FBE0B
+X-purgate-size: 2017
+X-Rspamd-Queue-Id: D53C24FBEAC
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20201202];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:email,wch-ic.com:url];
 	RCVD_TLS_LAST(0.00)[];
+	TO_DN_ALL(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Zhao.Jiaqing@amd.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[kernel.org:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:cardoe@cardoe.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-On Fri, 8 May 2026, Jiaqing Zhao wrote:
-> Add support for the WCH (Nanjing Qinheng Microelectronics Co., Ltd.)
-> CH382 PCIe dual port serial adapter. The CH382 is available in two
-> variants:
->  - CH382 2S   [1c00:3253]: 2 serial ports
->  - CH382 2S1P [1c00:3250]: 2 serial ports + 1 parallel port
-> 
-> This chip uses IO BAR0, base baud rate 115200, ports starting at offset
-> 0xc0 and spaced 8 bytes apart, and a 256-byte FIFO. [1]
-> 
-> [1] https://www.wch-ic.com/downloads/CH382DS1_PDF.html
-> 
-> Signed-off-by: Jiaqing Zhao <Zhao.Jiaqing@amd.com>
+Long overdue.  Clean up the ARM Debian containers, conforming to the new style
+and naming schemes, and purge the final *-export jobs.
 
-WCH has a few PCI vendor IDs, including 0x1c00 and also 0x4348. Linux
-distinguishes them as PCI_VENDOR_ID_WCHIC = 0x1c00 and
-PCI_VENDOR_ID_WCHCN = 0x4348. It would probably be better to rename
-PCI_VENDOR_ID_WCH to PCI_VENDOR_ID_WCHIC in this patch.
+I have already deployed the containers as they're new names and don't collide.
+I have also checked that the series produces a green pipeline on every commit.
 
-Everything else looks good.
+Andrew Cooper (3):
+  CI: Adjust test needs[] to ensure binaries/ is non-root
+  CI: Add a Debian 13 (Trixie) arm64 container
+  CI: Switch qemu-arm* jobs to using the distro provided QEMU
 
-> ---
->  xen/drivers/char/ns16550.c | 23 +++++++++++++++++++++++
->  xen/include/xen/pci_ids.h  |  2 ++
->  2 files changed, 25 insertions(+)
-> 
-> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-> index 878da27f2e..106ef56316 100644
-> --- a/xen/drivers/char/ns16550.c
-> +++ b/xen/drivers/char/ns16550.c
-> @@ -95,6 +95,7 @@ struct ns16550_config {
->          param_exar_xr17v354,
->          param_exar_xr17v358,
->          param_intel_lpss,
-> +        param_wch_ch382,
->      } param;
->  };
-  
-> @@ -862,6 +862,16 @@ static const struct ns16550_config_param __initconst uart_param[] = {
->          .mmio = 1,
->          .max_ports = 1,
->      },
-> +    [param_wch_ch382] = {
-> +        .base_baud = 115200,
-> +        .first_offset = 0xc0,
-> +        .uart_offset = 8,
-> +        .reg_width = 1,
-> +        .fifo_size = 256,
-> +        .lsr_mask = UART_LSR_THRE,
-> +        .bar0 = 1,
-> +        .max_ports = 2,
-> +    },
->  };
->  
->  static const struct ns16550_config __initconst uart_config[] =
-> @@ -1189,6 +1200,18 @@ static const struct ns16550_config __initconst uart_config[] =
->          .dev_id = 0x7adc,
->          .param = param_intel_lpss
->      },
-> +    /* WCH CH382 2S */
-> +    {
-> +        .vendor_id = PCI_VENDOR_ID_WCH,
-> +        .dev_id = 0x3253,
-> +        .param = param_wch_ch382
-> +    },
-> +    /* WCH CH382 2S1P */
-> +    {
-> +        .vendor_id = PCI_VENDOR_ID_WCH,
-> +        .dev_id = 0x3250,
-> +        .param = param_wch_ch382
-> +    },
->  };
->  
->  static int __init
-> diff --git a/xen/include/xen/pci_ids.h b/xen/include/xen/pci_ids.h
-> index 5884a20b8f..b8316d464c 100644
-> --- a/xen/include/xen/pci_ids.h
-> +++ b/xen/include/xen/pci_ids.h
-> @@ -13,6 +13,8 @@
->  
->  #define PCI_VENDOR_ID_BROADCOM           0x14e4
->  
-> +#define PCI_VENDOR_ID_WCH                0x1c00
-> +
->  #define PCI_VENDOR_ID_INTEL              0x8086
->  
->  #endif /* XEN_PCI_IDS_H */
-> -- 
-> 2.53.0
-> 
+Javi Merino (2):
+  CI: Refresh the Debian 12 arm32 cross compile container
+  CI: Refresh the Debian 12 arm64 container
+
+ .../build/debian/12-arm64v8-arm32.dockerfile  | 32 ++++++++
+ automation/build/debian/12-arm64v8.dockerfile | 69 +++++++++++++++++
+ automation/build/debian/13-arm64v8.dockerfile | 71 +++++++++++++++++
+ .../bookworm-arm64v8-arm32-gcc.dockerfile     | 24 ------
+ .../build/debian/bookworm-arm64v8.dockerfile  | 55 -------------
+ automation/gitlab-ci/build.yaml               | 65 ++++------------
+ automation/gitlab-ci/test.yaml                | 30 ++++----
+ automation/scripts/containerize               |  5 +-
+ automation/scripts/include/xtf-arm64          |  7 +-
+ automation/scripts/qemu-smoke-dom0-arm32.sh   |  6 +-
+ automation/scripts/qemu-smoke-dom0-arm64.sh   |  6 +-
+ .../scripts/qemu-smoke-dom0less-arm32.sh      |  6 +-
+ .../scripts/qemu-smoke-dom0less-arm64.sh      |  6 +-
+ .../6.0.0-arm64v8.dockerfile                  | 77 -------------------
+ 14 files changed, 218 insertions(+), 241 deletions(-)
+ create mode 100644 automation/build/debian/12-arm64v8-arm32.dockerfile
+ create mode 100644 automation/build/debian/12-arm64v8.dockerfile
+ create mode 100644 automation/build/debian/13-arm64v8.dockerfile
+ delete mode 100644 automation/build/debian/bookworm-arm64v8-arm32-gcc.dockerfile
+ delete mode 100644 automation/build/debian/bookworm-arm64v8.dockerfile
+ delete mode 100644 automation/tests-artifacts/qemu-system-aarch64/6.0.0-arm64v8.dockerfile
+
+-- 
+2.39.5
+
 
