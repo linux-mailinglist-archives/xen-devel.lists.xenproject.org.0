@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wG/vK7b2/Wn5lAAAu9opvQ
+	id OCLRAbv2/WlklQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 16:44:06 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 16:44:11 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65D974F7FA5
-	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 16:44:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1303756.1577095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D5E4F7FAD
+	for <lists+xen-devel@lfdr.de>; Fri, 08 May 2026 16:44:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1303757.1577100 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLMQp-00082g-Jn; Fri, 08 May 2026 14:43:59 +0000
+	id 1wLMQq-0008A0-B8; Fri, 08 May 2026 14:44:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1303756.1577095; Fri, 08 May 2026 14:43:59 +0000
+Received: by outflank-mailman (output) from mailman id 1303757.1577100; Fri, 08 May 2026 14:44:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLMQp-0007sk-0x; Fri, 08 May 2026 14:43:59 +0000
-Received: by outflank-mailman (input) for mailman id 1303756;
- Fri, 08 May 2026 14:43:56 +0000
+	id 1wLMQp-00081x-KC; Fri, 08 May 2026 14:43:59 +0000
+Received: by outflank-mailman (input) for mailman id 1303757;
+ Fri, 08 May 2026 14:43:58 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wLMQm-0007TQ-H3
- for xen-devel@lists.xenproject.org; Fri, 08 May 2026 14:43:56 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wLMQo-0007kt-0g
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2026 14:43:58 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLMQk-00EpjT-Bx
- for xen-devel@lists.xenproject.org; Fri, 08 May 2026 16:43:55 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wLMQn-00A90j-DV
+ for xen-devel@lists.xenproject.org; Fri, 08 May 2026 16:43:57 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 69fdf689-5cb7-0a2a0a5109dd-0a2a4506c6fc-34
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 16:43:55 +0200
-Received: from [209.85.218.45] (helo=mail-ej1-f45.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 69fdf6a6-bab6-0a2a0a5309dd-0a2a450581d0-20
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 16:43:57 +0200
+Received: from [209.85.218.51] (helo=mail-ej1-f51.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 69fdf6ab-7371-0a2a45060019-d155da2da8ee-3
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 16:43:55 +0200
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-bc1f0830f44so590084566b.0
- for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 07:43:55 -0700 (PDT)
+ id 69fdf6ad-aaa8-0a2a45050019-d155da33c02a-3
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 16:43:57 +0200
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-ba545100a13so360284966b.2
+ for <xen-devel@lists.xenproject.org>; Fri, 08 May 2026 07:43:57 -0700 (PDT)
 Received: from fedora (user-109-243-69-121.play-internet.pl. [109.243.69.121])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bcac4942068sm90736166b.62.2026.05.08.07.43.53
+ a640c23a62f3a-bcac4942068sm90736166b.62.2026.05.08.07.43.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 08 May 2026 07:43:54 -0700 (PDT)
+ Fri, 08 May 2026 07:43:56 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,40 +57,40 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778251435; x=1778856235; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1778251437; x=1778856237; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bJo88tDYRHxEoMYk1G+kL6a6Xp9nCz03PcEHLeEJrNI=;
-        b=DGVXB8rf+bzvO7Y0vPrF96kXYNhOwQnp73HsI4cmT0jg8uxG5RDx273cAkM9EM6TXz
-         9Ih0gq11Tz1P/di2M5LVx9+PbhdJuaBvhGjTUdRFx8WbDFdvUt4kZkUq+KdSdZLF9CcO
-         b3DVaMC4QDu7qYL7lDwvKXRapX/u9gG0HjBG24QFyKk5MJLGPdINBxq7okDuVpc5ilnY
-         IGSEOr2zK7NU33Te2eR8i8oxZu5LD6zCIcKwmzKfDnwpB3zJBOoEOqAMp0w2ROXcMFGd
-         M6kvQkgwxhoiE+poscz0TI6KXOzsoemgw0/4dLitQVFgMqc5XWeAT4z8Wd6pW14/JSjr
-         wgfg==
+        bh=6MqW7oYxoiwR9Upy+HAuK/pfkhgDIEYHUh/OodAHs5I=;
+        b=f2ZT5yfq+epYOENha3RXQUVZ9QozLPuaNWB4SRXAlmnhwOlxHK4Tp6bv4YTMvndzEl
+         ljPf6e0x6Vt7xbZFp7UT/u+5pIJ0s0lWjbT91moc7RGjv5mS020EUx8Ap6IBvZXAcGfE
+         aPHrT7f0wU3L93AlNFhIddp5DsVlef6Y7P25sPgcP2wKbhqonfx3wJUW+xy0WZcaMr04
+         IpEPZNigNEJhIb+wSyUnQPyxNair8KTBk2EZU9qsXdqzIdu6mTRLtr8a1MJI2jZlt3JE
+         z4PyWVqgcxlHUR2oCkQJcPlno0ZBxitBnW0cLIJwBgbzSSQ0pAukFZhNfOkFFVMsxsyB
+         /lLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778251435; x=1778856235;
+        d=1e100.net; s=20251104; t=1778251437; x=1778856237;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=bJo88tDYRHxEoMYk1G+kL6a6Xp9nCz03PcEHLeEJrNI=;
-        b=XYlOL95aAHlY05yvp8oSGQq/Yu9Zv2XLEQsj/I2J2pVS0ylTG+EU+KPvMkKSpGiT9Y
-         BnH5fxZZ16XKaTxtZTUOGfrJCeqg9Tqdrbuu8NdlR4gT90ZnMesqzCCDTWTaTTmFSSYv
-         P9119/AtzbSoHJaBAf2RDrpxgwPwomSJFs6mxKeyFzgrPplgAgd5kL5yOnnoFdejRx4C
-         t/nzAxvo/L4sQOhw32FB5qT6mVLjc0QGz+xWMupEYXCpX29FWV3PcPhht683/gMyud3G
-         DhWy8WPR3cswMQbHj/5Fyd3t7krVtSBeljjBtZimWW08iYrO1rYSoqhmyqVHUFN1cFq4
-         lftg==
-X-Gm-Message-State: AOJu0YyNt3epYB+Ojwo3Ii+gu+PaLHiA8lokAHW+P7sFl6OA9ziEld1P
-	/r5q8QusXR8Fbap3fUS8PcwsQWMLBiNjx0yJxQrNSCJxcqwybPHZtFmVl/b5ew==
-X-Gm-Gg: Acq92OFCJTYkM9yU0IG2c1J97t0Ur0r5YLmzawv75dDhEmi2ygVKQmtjy6NGko7P74n
-	czUaW+1XX2e7CIBaAnjS9iGB1W6PkONNjIDmRcDt/o2bwBRMMn6MNkSmJYwf2Rm8gfXWMCy0xpj
-	Hb4lUbBDacxP3liipw446lQqP/QKAatFvX+5DBaoYJ5ZT9HXOvKQ76aKDW6Iz6G0SpOffabLOOF
-	rbEXE+EnG9HOOeIH7wEUkG6dsWYhJTeSLv7OGEDg2wNOcg/VWPjpVYbUF6bIWxdAHOkFJOcnLYF
-	lLzZpMSsHIOVyVgX2Q4p3hvMAS4q2DirUK2MuUn4nT+tyIfncDT4ijSDhn1kSifl2AXSxTP8MIi
-	9Q24jvINxSY4FT7iW6Ck/knepenuh/P8NfUTWtnJy2p8tSG809v+oxgvBqXeNLrcpvlHo3szFRn
-	QrzcHGme3N+MJ0DvNDatw8Ta9Q9c+oZD1zMBR4B/0OEyswPrOb0Eis3SeNAI3FysEMeQ==
-X-Received: by 2002:a17:906:fd87:b0:bc3:a0e9:e0c with SMTP id a640c23a62f3a-bc85c2b4e75mr424411766b.13.1778251435016;
-        Fri, 08 May 2026 07:43:55 -0700 (PDT)
+        bh=6MqW7oYxoiwR9Upy+HAuK/pfkhgDIEYHUh/OodAHs5I=;
+        b=exwo9fVKvVo4eYwqSjjFlql6Pk7SZXqJjDI1G80F14C9tXp2KWeF5Wdl6+WbDG+wpf
+         abu9hBZ03zODuBGl6dl+4OidpMdA5XanTrdpVPXyfV0D7l4esYZndVLB3rfU5OuAs6vy
+         1PtGoYi6pCsauzODMNNvn0Utkn1DG6f/A0Ja2G7WHdcfzJjdwTzgt3Rfyn5Ky19tda6h
+         6WfXxfXjmMTdpto2uCeVRkPKeXAzq7wJh8LtsgqsbJYPxTtFRwyJWP6dRKxxq83vVeKW
+         0P90J4OpVoxecwZd29MuCsH4QGfd6iAcwiXis8VSfSYuHDO+AIwu8HbNAnARaaBR7GIs
+         ubyA==
+X-Gm-Message-State: AOJu0YzJVft3vX378F+n5xm9PjeYueDyyM7m6BYrp7KZSgLGmt6KenBm
+	u1VPWxj6iLk3Pmd/MBsmxpytwqUhVlYhIVslMcNdR10BdCkABxuirC4wROf4yw==
+X-Gm-Gg: Acq92OHyyi38xxW31jF6UorHqWJweFTzHEMXFczFPTuXkXsqLWYZjT7kcU7T7fHuT05
+	3LC9+iJLLmPTEAotvdQ3k7CZ6rMPX/niRY710PmkDQMPhOkvnvvpbae3T9zA+d4x6ZEK1aOp8rM
+	A1cv1Na3GBMwWqc4gfSDDnLoEC3OHZSoO5jTSWpvCKkojtNVKRYMyUbcMc10LSDmx7YJgpZVcHb
+	AyYZUulvz9361qaduO5axc2WXR/7WiwelSGJhpbGL4ruPJHHFtxEgMVcbGICAMJG36hhqL83a9E
+	1255hoW9AeY7oh4DLZV984MN0YfFpKulbBFeMyUr1GZQlPX+RKFeqoj4YeA8WkwdN5J9tccY1+Q
+	YLsHC4rmtJGyv8F2FefH2O1W7bn8cPR91GuXhG058XXEPLPqHwnD8qp2roibK3i2Bb8+cXD0HRE
+	tY5PFOX2E/07NevMKSBsO55+cDudwedb0j3DRJHGfo66snfO6lyZXryezEbhrgN07X+Q==
+X-Received: by 2002:a17:907:9495:b0:bc2:7f6a:e4c5 with SMTP id a640c23a62f3a-bc56ce33c23mr724437866b.25.1778251436435;
+        Fri, 08 May 2026 07:43:56 -0700 (PDT)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
@@ -104,18 +104,18 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
 	Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 12/26] xen/riscv: add basic VGEIN management for AIA guests
-Date: Fri,  8 May 2026 16:43:14 +0200
-Message-ID: <61291bec7664e780f122ccf438091dfc1aba99e3.1778250616.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v2 13/26] xen/riscv: introduce per-vCPU IMSIC state
+Date: Fri,  8 May 2026 16:43:15 +0200
+Message-ID: <2471b51e89aff30765433d88b1646c5b2c72b5c2.1778250616.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1778250616.git.oleksii.kurochko@gmail.com>
 References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-16d1c6/1778251435-84F63D75-58623B76/10/73395122804
+X-purgate-ID: tlsNG-c201ff/1778251437-D917D443-B31D0D0C/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 8137
-X-Rspamd-Queue-Id: 65D974F7FA5
+X-purgate-size: 5109
+X-Rspamd-Queue-Id: A2D5E4F7FAD
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -155,256 +155,163 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-It was decided to add support for IMSIC from the start instead of having APLIC
-operate in direct delivery mode, as it requires a trap-and-emulation approach,
-which is not optimal from a performance standpoint.
+Each vCPU interacting with the IMSIC requires state to track the
+associated guest interrupt file and its backing context.
 
-AIA provides a hardware-accelerated mechanism for delivering external
-interrupts to domains via "guest interrupt files" located in IMSIC.
-A single physical hart can implement multiple such files (up to GEILEN),
-allowing several virtual harts to receive interrupts directly from hardware.
+Introduce a per-vCPU structure to hold IMSIC-related state, including
+the guest interrupt file identifier and the CPU providing the backing
+VS-file. Access to the guest file identifier is protected by a lock.
 
-Introduce per-CPU tracking of guest interrupt file identifiers (VGEIN)
-for systems implementing AIA specification. Each CPU maintains
-a bitmap describing which guest interrupt files are currently in use.
+Initialize this structure during vCPU setup and store it in arch_vcpu.
+The initial state marks the VS-file as software-backed until it becomes
+associated with a physical CPU.
 
-Add helpers to initialize the bitmap based on the number of available
-guest interrupt files (GEILEN), assign a VGEIN to a vCPU, and release it
-when no longer needed. When assigning a VGEIN, the corresponding value
-is written to the VGEIN field of the guest hstatus register so that
-VS-level external interrupts are delivered from the selected interrupt
-file.
+Add helpers to retrieve and update the guest interrupt file identifier:
+- imsic_set_guest_file_id() is going to be used during vCPU creation to
+  initialize IMSIC interrupt controller things for this vCPU.
+- vcpu_guest_file_id() is going to be used during update of APLIC's
+  target register with the pair of information <guest_file_id, cpu_id>
+  (to have MSI delivery mode work properly) when guest is trying to
+  access vAPLIC's target register.
+It will be used in the follow up patches.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in v2:
- - add static for defintion of vgein_bmp;
- - Drop declarartion of vgein_bmp from aia.h.
- - Move declaration of 'struct vgein_bmp' from aia.h to aia.c as all the
-   management is inside aia.c.
- - Instead of decrement of vgein->geilen just update the wait how it is
-   initialized.
- - Return -EOPNOTSUPP in vgein_init() instead of BUG_ON().
- - Use %u to print unsigned int.
- - make bmp field in vgein_bmp not a pointer.
- - allocate owners dynamically.
- - Drop unnessary blank lines.
- - use find_first_zero_bit() instead of bitmap_weight() to find a free slot
-   for vgein number.
- - Drop the section number for the comment.
- - Start to search from bitnum 1 for free vgein_id, as bitnum 0 is reserved to
-   tell that no guest extrenal interrupt number is used. Thereby drop vgein_id++
-   at the end of vgein_assign().
- - s/bitmap_set/__set_bit.
- - s/bitmap_clear/__clear_bit.
- - as vgein_init() is needed to be invoked once per CPU being brought up, drop
-   __init for it.
- - Return vgein_id == 0 if vgein_id is higher then maximun supported by h/w
-   VGEIN.
- - Add check in vgein_relase() that vgein is 0 and if it is there is nothing
-   is needed to do.
- - Use gdprintk instead of printk() in vgein_{assign,release}.
- - Add the claryfing comment above geilen field.
- - Drop ASSERT in vgein_assign() and return just vgein_id = 0 in the case when
-   there is no aviablable h/w VGEINs.
- - Make vgein_init() static.
+ - Rename imsic_state to vimsic_state.
+ - Use 'unsigned int' for vsfile_pcpu.
+ - Drop initialzation of ->guest_file_id as it will be by default zero.
+ - Add the comment about ->guest_file_id field.
+ - Drop __init for vcpu_imsic_init() as it could be used during post-boot
+   vCPU creation.
+ - Update the commit message.
+ - Drop locks around ->guest_file_id() in  vcpu_guest_file_id() and imsic_set_guest_file_id().
 ---
- xen/arch/riscv/aia.c             | 144 +++++++++++++++++++++++++++++++
- xen/arch/riscv/include/asm/aia.h |   8 ++
- 2 files changed, 152 insertions(+)
+ xen/arch/riscv/imsic.c              | 35 +++++++++++++++++++++++++++++
+ xen/arch/riscv/include/asm/domain.h |  2 ++
+ xen/arch/riscv/include/asm/imsic.h  | 23 +++++++++++++++++++
+ 3 files changed, 60 insertions(+)
 
-diff --git a/xen/arch/riscv/aia.c b/xen/arch/riscv/aia.c
-index f67f422c5a45..f7f44961e0f5 100644
---- a/xen/arch/riscv/aia.c
-+++ b/xen/arch/riscv/aia.c
-@@ -1,11 +1,33 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- 
-+#include <xen/bitmap.h>
-+#include <xen/cpu.h>
+diff --git a/xen/arch/riscv/imsic.c b/xen/arch/riscv/imsic.c
+index a4460576f620..8b46419ca23b 100644
+--- a/xen/arch/riscv/imsic.c
++++ b/xen/arch/riscv/imsic.c
+@@ -16,6 +16,7 @@
  #include <xen/errno.h>
  #include <xen/init.h>
- #include <xen/sections.h>
+ #include <xen/macros.h>
 +#include <xen/sched.h>
-+#include <xen/spinlock.h>
- #include <xen/types.h>
-+#include <xen/xvmalloc.h>
+ #include <xen/smp.h>
+ #include <xen/spinlock.h>
+ #include <xen/xvmalloc.h>
+@@ -56,6 +57,16 @@ do {                            \
+     csr_clear(CSR_SIREG, v);    \
+ } while (0)
  
-+#include <asm/aia.h>
- #include <asm/cpufeature.h>
-+#include <asm/csr.h>
-+#include <asm/current.h>
++unsigned int vcpu_guest_file_id(const struct vcpu *v)
++{
++    return ACCESS_ONCE(v->arch.vimsic_state->guest_file_id);
++}
 +
-+struct vgein_ctrl {
-+    unsigned long bmp;
-+    spinlock_t lock;
-+    struct vcpu **owners;
-+    /* The least-significant bits are implemented first, apart from bit 0 */
-+    unsigned int geilen;
-+};
++void imsic_set_guest_file_id(const struct vcpu *v, unsigned int guest_file_id)
++{
++    ACCESS_ONCE(v->arch.vimsic_state->guest_file_id) = guest_file_id;
++}
 +
-+/*
-+ * Bitmap for each physical cpus to detect which VS (guest)
-+ * interrupt file id was used.
-+ */
-+static DEFINE_PER_CPU(struct vgein_ctrl, vgein);
- 
- static bool __ro_after_init is_aia_usable;
- 
-@@ -14,10 +36,132 @@ bool aia_usable(void)
-     return is_aia_usable;
+ void __init imsic_ids_local_delivery(bool enable)
+ {
+     if ( enable )
+@@ -312,6 +323,30 @@ static int imsic_parse_node(const struct dt_device_node *node,
+     return 0;
  }
  
-+static int vgein_init(unsigned int cpu)
++int vcpu_imsic_init(struct vcpu *v)
 +{
-+    struct vgein_ctrl *vgein = &per_cpu(vgein, cpu);
++    struct vimsic_state *imsic_state;
 +
-+    csr_write(CSR_HGEIE, -1UL);
-+    vgein->geilen = flsl(csr_read(CSR_HGEIE) >> 1);
-+    csr_write(CSR_HGEIE, 0);
-+
-+    printk("cpu%d.geilen=%u\n", cpu, vgein->geilen);
-+
-+    if ( !vgein->geilen )
-+        return -EOPNOTSUPP;
-+
-+    vgein->owners = xvzalloc_array(struct vcpu *, vgein->geilen);
-+    if ( !vgein->owners )
++    /* Allocate IMSIC context */
++    imsic_state = xvzalloc(struct vimsic_state);
++    if ( !imsic_state )
 +        return -ENOMEM;
 +
-+    spin_lock_init(&vgein->lock);
++    v->arch.vimsic_state = imsic_state;
++
++    /* Setup IMSIC context  */
++    rwlock_init(&imsic_state->vsfile_lock);
++
++    imsic_state->vsfile_pcpu = NR_CPUS;
 +
 +    return 0;
 +}
 +
-+static int cf_check cpu_callback(struct notifier_block *nfb, unsigned long action,
-+                        void *hcpu)
++void vcpu_imsic_deinit(const struct vcpu *v)
 +{
-+    unsigned int cpu = (unsigned long)hcpu;
-+    int rc = 0;
-+
-+    switch ( action )
-+    {
-+    case CPU_STARTING:
-+        rc = vgein_init(cpu);
-+        if ( rc )
-+            printk("AIA: failed to init vgein for CPU%un", cpu);
-+        break;
-+    }
-+
-+    return notifier_from_errno(rc);
++    xvfree(v->arch.vimsic_state);
 +}
 +
-+static struct notifier_block cpu_nfb = {
-+    .notifier_call = cpu_callback,
+ /*
+  * Initialize the imsic_cfg structure based on the IMSIC DT node.
+  *
+diff --git a/xen/arch/riscv/include/asm/domain.h b/xen/arch/riscv/include/asm/domain.h
+index 136d9e816a44..42c1db91bd86 100644
+--- a/xen/arch/riscv/include/asm/domain.h
++++ b/xen/arch/riscv/include/asm/domain.h
+@@ -54,6 +54,8 @@ struct arch_vcpu {
+ 
+     struct vtimer vtimer;
+ 
++    struct vimsic_state *vimsic_state;
++
+     register_t hcounteren;
+     register_t hedeleg;
+     register_t hideleg;
+diff --git a/xen/arch/riscv/include/asm/imsic.h b/xen/arch/riscv/include/asm/imsic.h
+index c6c59215df20..2b84824cd377 100644
+--- a/xen/arch/riscv/include/asm/imsic.h
++++ b/xen/arch/riscv/include/asm/imsic.h
+@@ -11,6 +11,7 @@
+ #ifndef ASM_RISCV_IMSIC_H
+ #define ASM_RISCV_IMSIC_H
+ 
++#include <xen/rwlock.h>
+ #include <xen/spinlock.h>
+ #include <xen/stdbool.h>
+ #include <xen/types.h>
+@@ -61,7 +62,24 @@ struct imsic_config {
+     spinlock_t lock;
+ };
+ 
++struct vimsic_state {
++    /* IMSIC VS-file */
++    rwlock_t vsfile_lock;
++    /*
++     * (guest_file_id == 0) -> s/w IMSIC SW-file
++     * (guest_file_id > 0) -> h/w IMSIC VS-file
++     */
++    unsigned int guest_file_id;
++    /*
++     * (vsfile_pcpu >= 0) => h/w IMSIC VS-file
++     * (vsfile_pcpu == NR_CPUS) => s/w IMSIC SW-file
++     */
++    unsigned int vsfile_pcpu;
 +};
 +
- void __init aia_init(void)
- {
-+    int rc;
-+
-     if ( !riscv_isa_extension_available(NULL, RISCV_ISA_EXT_ssaia) )
-+    {
-+        dprintk(XENLOG_WARNING, "SSAIA isn't present in riscv,isa\n");
-+        return;
-+    }
-+
-+    if ( (rc = vgein_init(0)) )
-+    {
-+        dprintk(XENLOG_ERR, "vgein_init() failed with rc(%d)\n", rc);
-         return;
-+    }
- 
-     is_aia_usable = true;
-+
-+    register_cpu_notifier(&cpu_nfb);
-+}
-+
-+unsigned int vgein_assign(struct vcpu *v)
-+{
-+    unsigned int vgein_id;
-+    struct vgein_ctrl *vgein = &per_cpu(vgein, v->processor);
-+    unsigned long *bmp = &vgein->bmp;
-+    unsigned long flags;
-+
-+    spin_lock_irqsave(&vgein->lock, flags);
-+    /*
-+     * The vgein_id shouldn't be zero, as it will indicate that no guest
-+     * external interrupt source is selected for VS-level external interrupts
-+     * according to RISC-V priviliged spec:
-+     *   Hypervisor Status Register (hstatus) in RISC-V priviliged spec:
-+     *
-+     *   The VGEIN (Virtual Guest External Interrupt Number) field selects
-+     *   a guest external interrupt source for VS-level external interrupts.
-+     *   VGEIN is a WLRL field that must be able to hold values between zero
-+     *   and the maximum guest external interrupt number (known as GEILEN),
-+     *   inclusive.
-+     *   When VGEIN=0, no guest external interrupt source is selected for
-+     *   VS-level external interrupts.
-+     *
-+     * So start to search from bit number 1.
-+     */
-+    vgein_id = find_next_zero_bit(bmp, vgein->geilen + 1, 1);
-+
-+    if ( vgein_id > vgein->geilen )
-+        vgein_id = 0;
-+    else
-+        __set_bit(vgein_id, bmp);
-+
-+    spin_unlock_irqrestore(&vgein->lock, flags);
-+
-+#ifdef VGEIN_DEBUG
-+    gprintk(XENLOG_DEBUG, "%s: %pv: vgein_id(%u), xen_cpu%d_bmp=%#lx\n",
-+           __func__, v, vgein_id, v->processor, *bmp);
-+#endif
-+
-+    vcpu_guest_cpu_user_regs(v)->hstatus &= ~HSTATUS_VGEIN;
-+    vcpu_guest_cpu_user_regs(v)->hstatus |=
-+        MASK_INSR(vgein_id, HSTATUS_VGEIN);
-+
-+    return vgein_id;
-+}
-+
-+void vgein_release(struct vcpu *v, unsigned int vgen_id)
-+{
-+    unsigned long flags;
-+    struct vgein_ctrl *vgein = &per_cpu(vgein, v->processor);
-+
-+    if ( !vgen_id )
-+        return;
-+
-+    spin_lock_irqsave(&vgein->lock, flags);
-+     __clear_bit(vgen_id, &vgein->bmp);
-+    spin_unlock_irqrestore(&vgein->lock, flags);
-+
-+#ifdef VGEIN_DEBUG
-+    gprintk(XENLOG_DEBUG, "%s: vgein_id(%u), xen_cpu%d_bmp=%#lx\n",
-+           __func__, vgen_id, v->processor, vgein->bmp);
-+#endif
-+
-+    vcpu_guest_cpu_user_regs(v)->hstatus &= ~HSTATUS_VGEIN;
- }
-diff --git a/xen/arch/riscv/include/asm/aia.h b/xen/arch/riscv/include/asm/aia.h
-index ca42c3086126..6073c89774bb 100644
---- a/xen/arch/riscv/include/asm/aia.h
-+++ b/xen/arch/riscv/include/asm/aia.h
-@@ -3,8 +3,16 @@
- #ifndef ASM__RISCV__AIA_H
- #define ASM__RISCV__AIA_H
- 
-+#include <xen/percpu.h>
-+#include <xen/spinlock.h>
-+
+ struct dt_device_node;
 +struct vcpu;
 +
- bool aia_usable(void);
+ int imsic_init(const struct dt_device_node *node);
  
- void aia_init(void);
+ const struct imsic_config *imsic_get_config(void);
+@@ -71,4 +89,9 @@ void imsic_irq_disable(unsigned int hwirq);
  
-+unsigned int vgein_assign(struct vcpu *v);
-+void vgein_release(struct vcpu *v, unsigned int vgen_id);
+ void imsic_ids_local_delivery(bool enable);
+ 
++int vcpu_imsic_init(struct vcpu *v);
++void vcpu_imsic_deinit(const struct vcpu *v);
++unsigned int vcpu_guest_file_id(const struct vcpu *v);
++void imsic_set_guest_file_id(const struct vcpu *v, unsigned int guest_file_id);
 +
- #endif /* ASM__RISCV__ACPI_H */
+ #endif /* ASM_RISCV_IMSIC_H */
 -- 
 2.54.0
 
