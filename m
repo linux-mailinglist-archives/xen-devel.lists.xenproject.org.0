@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +BHDNycR/2lU1wAAu9opvQ
+	id tVOENScR/2lY1wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Sat, 09 May 2026 12:49:11 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45E274FF5BB
-	for <lists+xen-devel@lfdr.de>; Sat, 09 May 2026 12:49:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1304600.1577511 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B67074FF5BA
+	for <lists+xen-devel@lfdr.de>; Sat, 09 May 2026 12:49:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1304602.1577525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLfEQ-0001de-7V; Sat, 09 May 2026 10:48:26 +0000
+	id 1wLfEQ-0001qP-RZ; Sat, 09 May 2026 10:48:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1304600.1577511; Sat, 09 May 2026 10:48:26 +0000
+Received: by outflank-mailman (output) from mailman id 1304602.1577525; Sat, 09 May 2026 10:48:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLfEP-0001ap-Uq; Sat, 09 May 2026 10:48:25 +0000
-Received: by outflank-mailman (input) for mailman id 1304600;
+	id 1wLfEQ-0001gc-Lz; Sat, 09 May 2026 10:48:26 +0000
+Received: by outflank-mailman (input) for mailman id 1304602;
  Sat, 09 May 2026 10:48:24 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>) id 1wLfEN-0001aT-OQ
+ (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>) id 1wLfEO-0001aX-Db
  for xen-devel@lists.xenproject.org; Sat, 09 May 2026 10:48:24 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLfEN-0010Ja-5Y
+ id 1wLfEN-00FIIk-Qi
  for xen-devel@lists.xenproject.org; Sat, 09 May 2026 12:48:23 +0200
-Received: from [10.42.69.4] (helo=localhost)
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
- id 69ff10a2-e002-0a2a0a5209dd-0a2a4504db1e-46
+ id 69ff10e4-bab6-0a2a0a5309dd-0a2a4505bea4-12
  for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 12:48:23 +0200
 Received: from [49.212.243.89] (helo=www3579.sakura.ne.jp)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
- id 69ff10f4-1dec-0a2a45040019-31d4f359d609-3
- for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 12:48:22 +0200
+ id 69ff10f4-aaa8-0a2a45050019-31d4f359d627-3
+ for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 12:48:23 +0200
 Received: from h183.csg.ci.i.u-tokyo.ac.jp (h183.csg.ci.i.u-tokyo.ac.jp
  [133.11.54.183]) (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 649AlY2R090834
+ by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 649AlY2T090834
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
  Sat, 9 May 2026 19:48:03 +0900 (JST)
  (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
@@ -55,23 +55,24 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=temperror header.s=rs20250326 header.d=rsg.ci.i.u-tokyo.ac.jp header.i="@rsg.ci.i.u-tokyo.ac.jp"
-DKIM-Signature: a=rsa-sha256; bh=1HZL/g+SoS2O30ERYe2Yb6nxo7jFOLr4qDArV1Di8vs=;
+DKIM-Signature: a=rsa-sha256; bh=xdQOdc7TBZKnyuoO4opRDkTrA3cJx8lBTarnEJcV0aU=;
         c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
         h=From:Message-Id:To:Subject:Date;
         s=rs20250326; t=1778323683; v=1;
-        b=t78Qg2FX6fQPQYjv6ccpjNB5PHM57Z7vH/sFNvFVepBntRbIzBYVxDoFA4Z8zcUH
-         yNwbFuM/ho+hh5SZ7tf+Lkfd6Wii0FvKwt2Neo7Zxyyjj0CPtZ4hhs+44YPVNLLd
-         H36Sm6ApZio0GZOtvJjE7gfl/iPNr1pEm9G79xaqieF17GWnxd4PNKVHVkqEn2ls
-         /0VUSq1OHHAEnBbOUVdWr/eFNLlH0fNvZTrUrycauuM0c2twgV+IGere0olLlQui
-         J1WlwuqN0kKbylZVRId1EEn/7T+bo86HLmzUhdvkZ04CYAklhxjCBTPvbnydSqGn
-         /+uvgM+9RWPYf4U/G5z4Iw==
+        b=GIZRVXUprHxdgxXu37WO+oDE2tz2qK9qCDhUVa6i501Q91fZ3ewidrfX+a8lpkAF
+         6GqCbMHjs4ZNM/T0U3JUUNO0lOuRgt45WaPhjxfRUQzQ7L41jedjZJWipNEubGOE
+         phEjj2/PsKnUryJDy3atw73TABpx0Y4RKe2xapC3S35WIb2p/Sj+GgbMhxfd+I70
+         AZYj1bbqe2j25S7YFoc+uJIXEsy4Kj2NTOTGcdZAcyrOD159de5VRjVD/hXBc01L
+         nZ1SauA8vcN6tXKEc/UJt4UHl2gikPAmNjculIMWV+molbtmhbb9DaqjVYaa6FS5
+         4ThCfIkHGRDhexBedKxrCQ==
 From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Date: Sat, 09 May 2026 19:34:38 +0900
-Subject: [PATCH RFC 26/28] qemu-keymap: Use Linux key codes
+Date: Sat, 09 May 2026 19:34:40 +0900
+Subject: [PATCH RFC 28/28] ui/input: Remove unused QKeyCode helpers and
+ keymaps
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260509-input-v1-26-66f18d2edde6@rsg.ci.i.u-tokyo.ac.jp>
+Message-Id: <20260509-input-v1-28-66f18d2edde6@rsg.ci.i.u-tokyo.ac.jp>
 References: <20260509-input-v1-0-66f18d2edde6@rsg.ci.i.u-tokyo.ac.jp>
 In-Reply-To: <20260509-input-v1-0-66f18d2edde6@rsg.ci.i.u-tokyo.ac.jp>
 To: qemu-devel@nongnu.org
@@ -91,19 +92,19 @@ Cc: =?utf-8?q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
         =?utf-8?q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
         Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
 X-Mailer: b4 0.16-dev-16047
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4832;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10998;
  i=odaki@rsg.ci.i.u-tokyo.ac.jp; h=from:subject:message-id;
- bh=gcrDwacqS5bkEtnqJY5QTRr0nAfP9KdzJWUdu+r+4i4=;
- b=owGbwMvMwCWmMbc20y1CyJDxtFoSQ+Z/gdv2pyc8enzc0iTzyvf7mQVVX9WD1Rq6ixadzH/JV
- yrMcK6po5SFQYyLQVZMkSWlaDe3RnTtp8KE+BaYOaxMIEMYuDgFYCJC+xn+x7yYeKUtmfn115RK
- 3xvJgtvLP+5/9FLHS22im/b1xpj4EIb/gfX6z9rXXG/80tV+1W2F992I945mHGvOMaadZLTVPBL
- LDwA=
+ bh=C1sfssKpLnbwImq0G/bJG/Pt5wdJQR3NAMSed0uq3qA=;
+ b=owGbwMvMwCWmMbc20y1CyJDxtFoSQ+Z/gTsvbv/RVWZK0P/Ye32FUfvZF0LeavN4fqxacE/m2
+ LZffzYc7yhlYRDjYpAVU2RJKdrNrRFd+6kwIb4FZg4rE8gQBi5OAZiINAfD/zyXjrvBn7VsX/38
+ oJZuI3cv/2e13IRlN6JljeY/jlVWsWX4nz7hxrV1iZZ5b0xCA5OvZrmoHWAssvl9n2vl1as9GzJ
+ yuQE=
 X-Developer-Key: i=odaki@rsg.ci.i.u-tokyo.ac.jp; a=openpgp;
  fpr=AEDC03C9AF734F2EC26A7BFFA4BAEAA73536753C
-X-purgate-ID: tlsNG-ebf023/1778323703-42B633FF-F2E52775/0/0
+X-purgate-ID: tlsNG-c201ff/1778323703-D8B78443-CA7F16EE/0/0
 X-purgate-type: clean
-X-purgate-size: 4834
-X-Rspamd-Queue-Id: 45E274FF5BB
+X-purgate-size: 11000
+X-Rspamd-Queue-Id: B67074FF5BA
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.11 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -116,7 +117,7 @@ X-Spamd-Result: default: False [1.11 / 15.00];
 	FORGED_RECIPIENTS(0.00)[m:qemu-devel@nongnu.org,m:marcandre.lureau@redhat.com,m:pbonzini@redhat.com,m:jan.kiszka@web.de,m:peter.maydell@linaro.org,m:sstabellini@kernel.org,m:anthony@xenproject.org,m:edgar.iglesias@gmail.com,m:mark.cave-ayland@ilande.co.uk,m:kraxel@redhat.com,m:mst@redhat.com,m:th.huth+qemu@posteo.eu,m:alex.bennee@linaro.org,m:qemu-arm@nongnu.org,m:xen-devel@lists.xenproject.org,m:qemu-ppc@nongnu.org,m:philmd@linaro.org,m:odaki@rsg.ci.i.u-tokyo.ac.jp,m:edgariglesias@gmail.com,m:th.huth@posteo.eu,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	R_DKIM_PERMFAIL(0.00)[rsg.ci.i.u-tokyo.ac.jp:s=rs20250326];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[u-tokyo.ac.jp:email,qcode.data:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[u-tokyo.ac.jp:email];
 	ARC_NA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[18];
 	FREEMAIL_CC(0.00)[redhat.com,web.de,linaro.org,kernel.org,xenproject.org,gmail.com,ilande.co.uk,posteo.eu,nongnu.org,lists.xenproject.org,rsg.ci.i.u-tokyo.ac.jp];
@@ -124,7 +125,7 @@ X-Spamd-Result: default: False [1.11 / 15.00];
 	FORWARDED(0.00)[mailman];
 	FORGED_SENDER(0.00)[odaki@rsg.ci.i.u-tokyo.ac.jp,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[rsg.ci.i.u-tokyo.ac.jp:~];
-	NEURAL_SPAM(0.00)[0.843];
+	NEURAL_SPAM(0.00)[0.280];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -140,129 +141,299 @@ X-Spamd-Result: default: False [1.11 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Action: no action
 
-QemuInputEvent now stores Linux key codes for key events. Use those
-codes directly instead of translating between internal key code
-representations.
+Their users have migrated to Linux key codes.
 
 Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
 ---
- qemu-keymap.c | 41 ++++++++++++++++++++---------------------
- 1 file changed, 20 insertions(+), 21 deletions(-)
+ include/ui/input.h | 50 --------------------------------------------------
+ ui/input-keymap.c  | 39 ---------------------------------------
+ ui/input.c         | 18 +-----------------
+ ui/meson.build     | 15 ---------------
+ 4 files changed, 1 insertion(+), 121 deletions(-)
 
-diff --git a/qemu-keymap.c b/qemu-keymap.c
-index d4dccf456ef3..d63b6be8ce32 100644
---- a/qemu-keymap.c
-+++ b/qemu-keymap.c
-@@ -11,6 +11,7 @@
-  */
- #include "qemu/osdep.h"
- #include "qemu/notify.h"
-+#include "standard-headers/linux/input-event-codes.h"
- #include "ui/input.h"
+diff --git a/include/ui/input.h b/include/ui/input.h
+index caa757ea1c2e..6e4892b73155 100644
+--- a/include/ui/input.h
++++ b/include/ui/input.h
+@@ -58,18 +58,13 @@ void qemu_input_event_send_impl(QemuConsole *src, QemuInputEvent *evt);
+ void qemu_input_event_sync(void);
+ void qemu_input_event_sync_impl(void);
  
- #include <xkbcommon/xkbcommon.h>
-@@ -32,19 +33,17 @@ static FILE *outfile;
+-void qemu_input_event_send_key(QemuConsole *src, KeyValue *key, bool down);
+ void qemu_input_event_send_key_linux(QemuConsole *src, unsigned int lnx,
+                                      bool down);
+ void qemu_input_event_send_key_number(QemuConsole *src, int num, bool down);
+-void qemu_input_event_send_key_qcode(QemuConsole *src, QKeyCode q, bool down);
+ void qemu_input_event_send_key_delay(uint32_t delay_ms);
+ int qemu_input_key_number_to_qcode(unsigned int nr);
+ unsigned int qemu_input_key_number_to_linux(unsigned int nr);
+-int qemu_input_key_value_to_number(const KeyValue *value);
+-int qemu_input_key_value_to_qcode(const KeyValue *value);
+ unsigned int qemu_input_key_value_to_linux(const KeyValue *value);
+-int qemu_input_qcode_to_scancode(QKeyCode qcode, bool down, int *codes);
+ int qemu_input_linux_to_scancode(unsigned int lnx, bool down, int *codes);
+ int qemu_input_linux_to_qcode(unsigned int lnx);
  
- /* ------------------------------------------------------------------------ */
+@@ -94,96 +89,51 @@ void qemu_input_check_mode_change(void);
+ void qemu_add_mouse_mode_change_notifier(Notifier *notify);
+ void qemu_remove_mouse_mode_change_notifier(Notifier *notify);
  
--static uint32_t qcode_to_number(uint32_t qcode)
-+static uint32_t linux_to_number(uint32_t lnx)
+-extern const guint qemu_input_map_atset1_to_qcode_len;
+-extern const guint16 qemu_input_map_atset1_to_qcode[];
+-
+ extern const guint qemu_input_map_atset1_to_linux_len;
+ extern const guint16 qemu_input_map_atset1_to_linux[];
+ 
+ extern const guint qemu_input_map_linux_to_qcode_len;
+ extern const guint16 qemu_input_map_linux_to_qcode[];
+ 
+-extern const guint qemu_input_map_qcode_to_atset1_len;
+-extern const guint16 qemu_input_map_qcode_to_atset1[];
+-
+ extern const guint qemu_input_map_linux_to_atset1_len;
+ extern const guint16 qemu_input_map_linux_to_atset1[];
+ 
+-extern const guint qemu_input_map_qcode_to_atset2_len;
+-extern const guint16 qemu_input_map_qcode_to_atset2[];
+-
+ extern const guint qemu_input_map_linux_to_atset2_len;
+ extern const guint16 qemu_input_map_linux_to_atset2[];
+ 
+-extern const guint qemu_input_map_qcode_to_atset3_len;
+-extern const guint16 qemu_input_map_qcode_to_atset3[];
+-
+ extern const guint qemu_input_map_linux_to_atset3_len;
+ extern const guint16 qemu_input_map_linux_to_atset3[];
+ 
+ extern const guint qemu_input_map_qcode_to_linux_len;
+ extern const guint16 qemu_input_map_qcode_to_linux[];
+ 
+-extern const guint qemu_input_map_qcode_to_qnum_len;
+-extern const guint16 qemu_input_map_qcode_to_qnum[];
+-
+ extern const guint qemu_input_map_linux_to_qnum_len;
+ extern const guint16 qemu_input_map_linux_to_qnum[];
+ 
+-extern const guint qemu_input_map_qcode_to_sun_len;
+-extern const guint16 qemu_input_map_qcode_to_sun[];
+-
+ extern const guint qemu_input_map_linux_to_sun_len;
+ extern const guint16 qemu_input_map_linux_to_sun[];
+ 
+-extern const guint qemu_input_map_qnum_to_qcode_len;
+-extern const guint16 qemu_input_map_qnum_to_qcode[];
+-
+ extern const guint qemu_input_map_qnum_to_linux_len;
+ extern const guint16 qemu_input_map_qnum_to_linux[];
+ 
+-extern const guint qemu_input_map_usb_to_qcode_len;
+-extern const guint16 qemu_input_map_usb_to_qcode[];
+-
+ extern const guint qemu_input_map_usb_to_linux_len;
+ extern const guint16 qemu_input_map_usb_to_linux[];
+ 
+-extern const guint qemu_input_map_win32_to_qcode_len;
+-extern const guint16 qemu_input_map_win32_to_qcode[];
+-
+ extern const guint qemu_input_map_win32_to_linux_len;
+ extern const guint16 qemu_input_map_win32_to_linux[];
+ 
+-extern const guint qemu_input_map_x11_to_qcode_len;
+-extern const guint16 qemu_input_map_x11_to_qcode[];
+-
+ extern const guint qemu_input_map_x11_to_linux_len;
+ extern const guint16 qemu_input_map_x11_to_linux[];
+ 
+-extern const guint qemu_input_map_xorgevdev_to_qcode_len;
+-extern const guint16 qemu_input_map_xorgevdev_to_qcode[];
+-
+-extern const guint qemu_input_map_xorgkbd_to_qcode_len;
+-extern const guint16 qemu_input_map_xorgkbd_to_qcode[];
+-
+ extern const guint qemu_input_map_xorgkbd_to_linux_len;
+ extern const guint16 qemu_input_map_xorgkbd_to_linux[];
+ 
+-extern const guint qemu_input_map_xorgxquartz_to_qcode_len;
+-extern const guint16 qemu_input_map_xorgxquartz_to_qcode[];
+-
+ extern const guint qemu_input_map_xorgxquartz_to_linux_len;
+ extern const guint16 qemu_input_map_xorgxquartz_to_linux[];
+ 
+-extern const guint qemu_input_map_xorgxwin_to_qcode_len;
+-extern const guint16 qemu_input_map_xorgxwin_to_qcode[];
+-
+ extern const guint qemu_input_map_xorgxwin_to_linux_len;
+ extern const guint16 qemu_input_map_xorgxwin_to_linux[];
+ 
+-extern const guint qemu_input_map_osx_to_qcode_len;
+-extern const guint16 qemu_input_map_osx_to_qcode[];
+-
+ extern const guint qemu_input_map_osx_to_linux_len;
+ extern const guint16 qemu_input_map_osx_to_linux[];
+ 
+diff --git a/ui/input-keymap.c b/ui/input-keymap.c
+index 2b77ef09fd66..ec2a1fbc1a95 100644
+--- a/ui/input-keymap.c
++++ b/ui/input-keymap.c
+@@ -4,36 +4,21 @@
+ 
+ #include "standard-headers/linux/input.h"
+ 
+-#include "ui/input-keymap-atset1-to-qcode.c.inc"
+ #include "ui/input-keymap-atset1-to-linux.c.inc"
+ #include "ui/input-keymap-linux-to-qcode.c.inc"
+-#include "ui/input-keymap-qcode-to-atset1.c.inc"
+ #include "ui/input-keymap-linux-to-atset1.c.inc"
+-#include "ui/input-keymap-qcode-to-atset2.c.inc"
+ #include "ui/input-keymap-linux-to-atset2.c.inc"
+-#include "ui/input-keymap-qcode-to-atset3.c.inc"
+ #include "ui/input-keymap-linux-to-atset3.c.inc"
+ #include "ui/input-keymap-qcode-to-linux.c.inc"
+-#include "ui/input-keymap-qcode-to-qnum.c.inc"
+ #include "ui/input-keymap-linux-to-qnum.c.inc"
+-#include "ui/input-keymap-qcode-to-sun.c.inc"
+ #include "ui/input-keymap-linux-to-sun.c.inc"
+-#include "ui/input-keymap-qnum-to-qcode.c.inc"
+ #include "ui/input-keymap-qnum-to-linux.c.inc"
+-#include "ui/input-keymap-usb-to-qcode.c.inc"
+ #include "ui/input-keymap-usb-to-linux.c.inc"
+-#include "ui/input-keymap-win32-to-qcode.c.inc"
+ #include "ui/input-keymap-win32-to-linux.c.inc"
+-#include "ui/input-keymap-x11-to-qcode.c.inc"
+ #include "ui/input-keymap-x11-to-linux.c.inc"
+-#include "ui/input-keymap-xorgevdev-to-qcode.c.inc"
+-#include "ui/input-keymap-xorgkbd-to-qcode.c.inc"
+ #include "ui/input-keymap-xorgkbd-to-linux.c.inc"
+-#include "ui/input-keymap-xorgxquartz-to-qcode.c.inc"
+ #include "ui/input-keymap-xorgxquartz-to-linux.c.inc"
+-#include "ui/input-keymap-xorgxwin-to-qcode.c.inc"
+ #include "ui/input-keymap-xorgxwin-to-linux.c.inc"
+-#include "ui/input-keymap-osx-to-qcode.c.inc"
+ #include "ui/input-keymap-osx-to-linux.c.inc"
+ 
+ int qemu_input_linux_to_qcode(unsigned int lnx)
+@@ -44,19 +29,6 @@ int qemu_input_linux_to_qcode(unsigned int lnx)
+     return qemu_input_map_linux_to_qcode[lnx];
+ }
+ 
+-int qemu_input_key_value_to_number(const KeyValue *value)
+-{
+-    if (value->type == KEY_VALUE_KIND_QCODE) {
+-        if (value->u.qcode.data >= qemu_input_map_qcode_to_qnum_len) {
+-            return 0;
+-        }
+-        return qemu_input_map_qcode_to_qnum[value->u.qcode.data];
+-    } else {
+-        assert(value->type == KEY_VALUE_KIND_NUMBER);
+-        return value->u.number.data;
+-    }
+-}
+-
+ int qemu_input_key_number_to_qcode(unsigned int nr)
  {
--    KeyValue keyvalue;
-     uint32_t number;
- 
--    keyvalue.type = KEY_VALUE_KIND_QCODE;
--    keyvalue.u.qcode.data = qcode;
--    number = qemu_input_key_value_to_number(&keyvalue);
-+    assert(lnx < qemu_input_map_linux_to_qnum_len);
-+    number = qemu_input_map_linux_to_qnum[lnx];
-     assert(number != 0);
-     return number;
+     return qemu_input_linux_to_qcode(qemu_input_key_number_to_linux(nr));
+@@ -70,11 +42,6 @@ unsigned int qemu_input_key_number_to_linux(unsigned int nr)
+     return qemu_input_map_qnum_to_linux[nr];
  }
  
--static void print_sym(xkb_keysym_t sym, uint32_t qcode, const char *mod)
-+static void print_sym(xkb_keysym_t sym, uint32_t lnx, const char *mod)
+-int qemu_input_key_value_to_qcode(const KeyValue *value)
+-{
+-    return qemu_input_linux_to_qcode(qemu_input_key_value_to_linux(value));
+-}
+-
+ unsigned int qemu_input_key_value_to_linux(const KeyValue *value)
  {
-     char name[64];
- 
-@@ -54,7 +53,7 @@ static void print_sym(xkb_keysym_t sym, uint32_t qcode, const char *mod)
-     xkb_keysym_get_name(sym, name, sizeof(name));
- 
-     /* TODO: make ui/keymap.c parser accept QKeyCode names */
--    fprintf(outfile, "%s 0x%02x%s\n", name, qcode_to_number(qcode), mod);
-+    fprintf(outfile, "%s 0x%02x%s\n", name, linux_to_number(lnx), mod);
- }
- 
- static void walk_map(struct xkb_keymap *map, xkb_keycode_t code, void *data)
-@@ -84,37 +83,37 @@ static void walk_map(struct xkb_keymap *map, xkb_keycode_t code, void *data)
-     fprintf(outfile, "# evdev %d (0x%x), QKeyCode \"%s\", number 0x%x\n",
-             evdev, evdev,
-             QKeyCode_str(qcode),
--            qcode_to_number(qcode));
-+            linux_to_number(evdev));
- 
-     /*
-      * check which modifier states generate which keysyms
-      */
-     xkb_state_update_mask(state,  0, 0, 0,  0, 0, 0);
-     kbase = xkb_state_key_get_one_sym(state, code);
--    print_sym(kbase, qcode, "");
-+    print_sym(kbase, evdev, "");
- 
-     xkb_state_update_mask(state,  0, 0, numlock,  0, 0, 0);
-     knumlock = xkb_state_key_get_one_sym(state, code);
-     if (kbase != knumlock) {
--        print_sym(knumlock, qcode, " numlock");
-+        print_sym(knumlock, evdev, " numlock");
-     }
- 
-     xkb_state_update_mask(state,  shift, 0, 0,  0, 0, 0);
-     kshift = xkb_state_key_get_one_sym(state, code);
-     if (kbase != kshift && knumlock != kshift) {
--        print_sym(kshift, qcode, " shift");
-+        print_sym(kshift, evdev, " shift");
-     }
- 
-     xkb_state_update_mask(state,  altgr, 0, 0,  0, 0, 0);
-     kaltgr = xkb_state_key_get_one_sym(state, code);
-     if (kbase != kaltgr) {
--        print_sym(kaltgr, qcode, " altgr");
-+        print_sym(kaltgr, evdev, " altgr");
-     }
- 
-     xkb_state_update_mask(state,  altgr | shift, 0, 0,  0, 0, 0);
-     kaltgrshift = xkb_state_key_get_one_sym(state, code);
-     if (kshift != kaltgrshift && kaltgr != kaltgrshift) {
--        print_sym(kaltgrshift, qcode, " shift altgr");
-+        print_sym(kaltgrshift, evdev, " shift altgr");
+     switch (value->type) {
+@@ -89,12 +56,6 @@ unsigned int qemu_input_key_value_to_linux(const KeyValue *value)
      }
  }
  
-@@ -251,16 +250,16 @@ int main(int argc, char *argv[])
-             "# keysyms.  So append them here.\n"
-             "#\n"
-             "\n");
--    print_sym(XKB_KEY_Print,            Q_KEY_CODE_SYSRQ,      "");
--    print_sym(XKB_KEY_Sys_Req,          Q_KEY_CODE_SYSRQ,      "");
--    print_sym(XKB_KEY_Execute,          Q_KEY_CODE_SYSRQ,      "");
-+    print_sym(XKB_KEY_Print,            KEY_SYSRQ,    "");
-+    print_sym(XKB_KEY_Sys_Req,          KEY_SYSRQ,    "");
-+    print_sym(XKB_KEY_Execute,          KEY_SYSRQ,    "");
+-int qemu_input_qcode_to_scancode(QKeyCode qcode, bool down, int *codes)
+-{
+-    return qemu_input_linux_to_scancode(qemu_input_map_qcode_to_linux[qcode],
+-                                        down, codes);
+-}
+-
+ int qemu_input_linux_to_scancode(unsigned int lnx, bool down, int *codes)
+ {
+     int keycode = lnx < qemu_input_map_linux_to_qnum_len ?
+diff --git a/ui/input.c b/ui/input.c
+index e3e277117949..2524abaedf7b 100644
+--- a/ui/input.c
++++ b/ui/input.c
+@@ -352,14 +352,6 @@ void qemu_input_event_sync(void)
+     replay_input_sync_event();
+ }
  
--    print_sym(XKB_KEY_KP_Decimal,       Q_KEY_CODE_KP_DECIMAL, " numlock");
--    print_sym(XKB_KEY_KP_Separator,     Q_KEY_CODE_KP_DECIMAL, " numlock");
-+    print_sym(XKB_KEY_KP_Decimal,       KEY_KPDOT,    " numlock");
-+    print_sym(XKB_KEY_KP_Separator,     KEY_KPDOT,    " numlock");
+-void qemu_input_event_send_key(QemuConsole *src, KeyValue *key, bool down)
+-{
+-    unsigned int lnx = qemu_input_key_value_to_linux(key);
+-
+-    g_free(key);
+-    qemu_input_event_send_key_linux(src, lnx, down);
+-}
+-
+ void qemu_input_event_send_key_linux(QemuConsole *src, unsigned int lnx,
+                                      bool down)
+ {
+@@ -383,15 +375,7 @@ void qemu_input_event_send_key_linux(QemuConsole *src, unsigned int lnx,
+ void qemu_input_event_send_key_number(QemuConsole *src, int num, bool down)
+ {
+     unsigned int lnx = qemu_input_key_number_to_linux(num);
+-    qemu_input_event_send_key_qcode(src, lnx, down);
+-}
+-
+-void qemu_input_event_send_key_qcode(QemuConsole *src, QKeyCode q, bool down)
+-{
+-    KeyValue *key = g_new0(KeyValue, 1);
+-    key->type = KEY_VALUE_KIND_QCODE;
+-    key->u.qcode.data = q;
+-    qemu_input_event_send_key(src, key, down);
++    qemu_input_event_send_key_linux(src, lnx, down);
+ }
  
--    print_sym(XKB_KEY_Alt_R,            Q_KEY_CODE_ALT_R,      "");
--    print_sym(XKB_KEY_ISO_Level3_Shift, Q_KEY_CODE_ALT_R,      "");
--    print_sym(XKB_KEY_Mode_switch,      Q_KEY_CODE_ALT_R,      "");
-+    print_sym(XKB_KEY_Alt_R,            KEY_RIGHTALT, "");
-+    print_sym(XKB_KEY_ISO_Level3_Shift, KEY_RIGHTALT, "");
-+    print_sym(XKB_KEY_Mode_switch,      KEY_RIGHTALT, "");
+ void qemu_input_event_send_key_delay(uint32_t delay_ms)
+diff --git a/ui/meson.build b/ui/meson.build
+index 4aa2a38c52f4..0b810925d2db 100644
+--- a/ui/meson.build
++++ b/ui/meson.build
+@@ -149,36 +149,21 @@ if spice.found()
+ endif
  
-     fprintf(outfile,
-             "\n"
+ keymaps = [
+-  ['atset1', 'qcode'],
+   ['atset1', 'linux'],
+   ['linux', 'qcode'],
+-  ['qcode', 'atset1'],
+   ['linux', 'atset1'],
+-  ['qcode', 'atset2'],
+   ['linux', 'atset2'],
+-  ['qcode', 'atset3'],
+   ['linux', 'atset3'],
+   ['qcode', 'linux'],
+-  ['qcode', 'qnum'],
+   ['linux', 'qnum'],
+-  ['qcode', 'sun'],
+   ['linux', 'sun'],
+-  ['qnum', 'qcode'],
+   ['qnum', 'linux'],
+-  ['usb', 'qcode'],
+   ['usb', 'linux'],
+-  ['win32', 'qcode'],
+   ['win32', 'linux'],
+-  ['x11', 'qcode'],
+   ['x11', 'linux'],
+-  ['xorgevdev', 'qcode'],
+-  ['xorgkbd', 'qcode'],
+   ['xorgkbd', 'linux'],
+-  ['xorgxquartz', 'qcode'],
+   ['xorgxquartz', 'linux'],
+-  ['xorgxwin', 'qcode'],
+   ['xorgxwin', 'linux'],
+-  ['osx', 'qcode'],
+   ['osx', 'linux'],
+ ]
+ 
 
 -- 
 2.54.0
