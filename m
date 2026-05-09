@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aB5ZB8i6/2nm9wAAu9opvQ
+	id gEVUGPm5/2mk9wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:52:56 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:49:29 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7030C501D3D
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:52:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1305099.1577725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59E37501B87
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:49:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1304992.1577610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLqXP-0004rI-Nz; Sat, 09 May 2026 22:52:47 +0000
+	id 1wLqTX-0005Hj-JR; Sat, 09 May 2026 22:48:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1305099.1577725; Sat, 09 May 2026 22:52:47 +0000
+Received: by outflank-mailman (output) from mailman id 1304992.1577610; Sat, 09 May 2026 22:48:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLqXP-0004qc-I5; Sat, 09 May 2026 22:52:47 +0000
-Received: by outflank-mailman (input) for mailman id 1305099;
- Sat, 09 May 2026 22:52:46 +0000
+	id 1wLqTX-0005B4-Be; Sat, 09 May 2026 22:48:47 +0000
+Received: by outflank-mailman (input) for mailman id 1304992;
+ Sat, 09 May 2026 22:48:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 1wLqXO-0004qF-Hz
- for xen-devel@lists.xenproject.org; Sat, 09 May 2026 22:52:46 +0000
+ id 1wLqTV-0004xy-8i
+ for xen-devel@lists.xenproject.org; Sat, 09 May 2026 22:48:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLqXN-008rH7-VM; Sun, 10 May 2026 00:52:45 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wLqTU-008qns-Lo; Sun, 10 May 2026 00:48:44 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 69ffba24-2eae-0a2a0a5409dd-0a2a4506b144-46
- for <multiple-recipients>; Sun, 10 May 2026 00:52:45 +0200
+ id 69ffb87f-2eae-0a2a0a5409dd-0a2a4501d5b6-32
+ for <multiple-recipients>; Sun, 10 May 2026 00:48:44 +0200
 Received: from [90.155.92.199] (helo=desiato.infradead.org)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 69ffb9cc-7371-0a2a45060019-5a9b5cc78a84-3
- for <multiple-recipients>; Sun, 10 May 2026 00:48:44 +0200
+ id 69ffb9cb-c1f2-0a2a45010019-5a9b5cc7a03e-3
+ for <multiple-recipients>; Sun, 10 May 2026 00:48:43 +0200
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wLqTD-00000008wz8-0RZG; Sat, 09 May 2026 22:48:28 +0000
+ id 1wLqTD-00000008wz9-0U27; Sat, 09 May 2026 22:48:28 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1wLqTC-0000000DhHZ-0vyl;
+ Hat Linux)) id 1wLqTC-0000000DhHd-1ExZ;
  Sat, 09 May 2026 23:48:26 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -54,17 +54,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=desiato.20200630 header.d=infradead.org header.i="@infradead.org" header.h="Sender:Content-Transfer-Encoding:Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=desiato.20200630 header.d=infradead.org header.i="@infradead.org" header.h="Sender:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:
-	From:Reply-To:Cc:Content-ID:Content-Description;
-	bh=fjV26NrwIY9cQcLo8KkXdG7OKt7Yi3rTCYPgBP8g6KA=; b=KLhaK8eBC6ebOLVUd2G2XJdjhp
-	GXwrOjDkaQr8ATVtUHjTxBu5zBqFFwsjGTlzl3hjb+yDwKI/GmtnzkbTLBCprwF5i88X+i2gNfNtu
-	AhTzqJLvX1o0xaW7BbsUEpF6HwIzH+C2ZBvSKAi6klr3u/5mYzzCxSJlrpU+cmgbBrcCNwGqty8hx
-	MvQC0vAJX2NsYDgXYha5BQc60V0RqWatSl4OwQvuBRfWWCc1TYsEBzZ4dkPj7w/H8YWI9dn5o/cm6
-	juwXijSC7WN8YToiRDEbEXHGa1bNmrufksGVCXtjiXykouJq4qg1d6G3d2NX7Gxi1KBXm5+3pWC0N
-	o7slZr4g==;
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From:Reply-To:
+	Cc:Content-Type:Content-ID:Content-Description;
+	bh=VZW3BYOsJBjCxrX0Ak3Y7mLfSYoVJvjVzeACh4h0wdA=; b=F8o2huYCyGm1b+IKEhxif0OKZe
+	1/VjHOyqiLIQDr1VUqRvk7k4ZwOHLp8x2xUQoPmNubIdn/Y9PGOOKLUCPS0Bd6huZraf2VXT69Tcy
+	PrYoG0wU7gMusTyFns2Sk+299Y82Z4fHtRYuTFtZd8fvUT/6x9Lu9Uqy/UPrHonTZFD7kEszHE5Es
+	s0CbR3wEQ7PbLtr3p6fRXS1cxQxf/q+QIwcW3ESwiOvm2ZnZymrCuIOOmVlJ0ZsoEgLs3M07cKcok
+	GwmW2q+R9tkBkUh3woXo6m/KggKAhiNjMtxICUNY9cdd96vI/ocFJGk0T4R8oFSPGI1cygwDPHqGH
+	zDppAOQA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	Jonathan Corbet <corbet@lwn.net>,
@@ -93,530 +93,103 @@ To: Paolo Bonzini <pbonzini@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v4 05/30] KVM: selftests: Add KVM/PV clock selftest to prove timer correction
-Date: Sat,  9 May 2026 23:46:31 +0100
-Message-ID: <20260509224824.3264567-6-dwmw2@infradead.org>
+Subject: [PATCH v4 06/30] KVM: x86: Explicitly disable TSC scaling without CONSTANT_TSC
+Date: Sat,  9 May 2026 23:46:32 +0100
+Message-ID: <20260509224824.3264567-7-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260509224824.3264567-1-dwmw2@infradead.org>
 References: <20260509224824.3264567-1-dwmw2@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-16d1c6/1778366924-8556ED75-AF4EFC7B/0/0
+X-purgate-ID: tlsNG-d62444/1778366924-AEF58FF4-D61C0A67/0/0
 X-purgate-type: clean
-X-purgate-size: 15144
-X-Rspamd-Queue-Id: 7030C501D3D
+X-purgate-size: 1884
+X-Rspamd-Queue-Id: 59E37501B87
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[infradead.org,none];
+	R_MISSING_CHARSET(0.50)[];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[infradead.org:s=desiato.20200630];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[27];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[27];
 	FORGED_RECIPIENTS(0.00)[m:pbonzini@redhat.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:seanjc@google.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:dwmw2@infradead.org,m:paul@xen.org,m:jic23@kernel.org,m:Sascha.Bischoff@arm.com,m:maz@kernel.org,m:joey.gouly@arm.com,m:jalliste@amazon.com,m:dongli.zhang@oracle.com,m:joe.jin@oracle.com,m:kvm@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kselftest@vger.kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,infradead.org:dkim,oracle.com:email,amazon.co.uk:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,xen.org:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[infradead.org:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xen.org:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,amazon.co.uk:email];
 	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[infradead.org:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-From: Jack Allister <jalliste@amazon.com>
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-A VM's KVM/PV clock has an inherent relationship to its TSC. When either
-the host system live-updates or the VM is live-migrated this pairing of
-the two clock sources should stay the same. In reality this is not the
-case without some correction taking place.
+KVM does make an attempt to cope with non-constant TSC, and has
+notifiers to handle host TSC frequency changes. However, it *only*
+adjusts the KVM clock, and doesn't adjust TSC frequency scaling when
+the host changes.
 
-The KVM_GET_CLOCK_GUEST/KVM_SET_CLOCK_GUEST ioctls can be used to
-perform a correction on the PVTI (PV time information) structure held by
-KVM to effectively fix up the kvmclock_offset prior to the guest VM
-resuming in either a live-update/migration scenario.
+This is presumably because non-constant TSCs were fixed in hardware
+long before TSC scaling was implemented, so there should never be real
+CPUs which have TSC scaling but *not* CONSTANT_TSC.
 
-This test proves that without the necessary fixup there is a perceived
-change in the guest TSC and KVM/PV clock relationship before and after a
-simulated LU/LM takes place, and that the correction eliminates it.
+Such a combination could potentially happen in some odd L1 nesting
+environment, but it isn't worth trying to support it. Just make the
+dependency explicit.
 
-The test:
-  1. Snapshots the PVTI at boot (PVTI0).
-  2. Induces a change in PVTI data (KVM_REQ_MASTERCLOCK_UPDATE).
-  3. Snapshots the PVTI after the change (PVTI1).
-  4. Requests correction via KVM_SET_CLOCK_GUEST using PVTI0.
-  5. Snapshots the PVTI after correction (PVTI2).
-
-Then samples the TSC at a single point in time and calculates the KVM
-clock using each PVTI snapshot. The corrected clock should match the
-boot clock to within ±1ns.
-
-The test enumerates multiple TSC frequencies from 1GHz to 5GHz at 500MHz
-steps, crossing the 32-bit boundary, to exercise the scaling path at
-various ratios. The sleep duration between snapshots is configurable via
-the -s/--sleep command line option.
-
-Co-developed-by: David Woodhouse <dwmw@amazon.co.uk>
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Signed-off-by: Jack Allister <jalliste@amazon.com>
 Reviewed-by: Paul Durrant <paul@xen.org>
-Cc: Dongli Zhang <dongli.zhang@oracle.com>
 ---
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../testing/selftests/kvm/x86/pvclock_test.c  | 415 ++++++++++++++++++
- 2 files changed, 416 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/x86/pvclock_test.c
+ arch/x86/kvm/svm/svm.c | 3 ++-
+ arch/x86/kvm/vmx/vmx.c | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 9118a5a51b89..fb935ae3bf38 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -105,6 +105,7 @@ TEST_GEN_PROGS_x86 += x86/pmu_counters_test
- TEST_GEN_PROGS_x86 += x86/pmu_event_filter_test
- TEST_GEN_PROGS_x86 += x86/private_mem_conversions_test
- TEST_GEN_PROGS_x86 += x86/private_mem_kvm_exits_test
-+TEST_GEN_PROGS_x86 += x86/pvclock_test
- TEST_GEN_PROGS_x86 += x86/set_boot_cpu_id
- TEST_GEN_PROGS_x86 += x86/set_sregs_test
- TEST_GEN_PROGS_x86 += x86/smaller_maxphyaddr_emulation_test
-diff --git a/tools/testing/selftests/kvm/x86/pvclock_test.c b/tools/testing/selftests/kvm/x86/pvclock_test.c
-new file mode 100644
-index 000000000000..1a3d52923c71
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/pvclock_test.c
-@@ -0,0 +1,415 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright © Amazon.com, Inc. or its affiliates.
-+ *
-+ * Tests for pvclock API
-+ * KVM_SET_CLOCK_GUEST/KVM_GET_CLOCK_GUEST
-+ */
-+#include <getopt.h>
-+#include <stdint.h>
-+#include <string.h>
-+#include <time.h>
-+#include <unistd.h>
-+
-+#include "test_util.h"
-+#include "kvm_util.h"
-+#include "processor.h"
-+
-+#include <asm/pvclock-abi.h>
-+
-+/*
-+ * Reproduce the pvclock calculation the guest uses to convert TSC to
-+ * nanoseconds. This must match the kernel's __pvclock_read_cycles().
-+ */
-+static inline uint64_t pvclock_scale_delta(uint64_t delta, uint32_t mul,
-+					   int8_t shift)
-+{
-+	if (shift < 0)
-+		delta >>= -shift;
-+	else
-+		delta <<= shift;
-+	return ((__uint128_t)delta * mul) >> 32;
-+}
-+
-+static inline uint64_t pvclock_read_cycles(struct pvclock_vcpu_time_info *src,
-+					   uint64_t tsc)
-+{
-+	uint64_t delta = tsc - src->tsc_timestamp;
-+
-+	return src->system_time + pvclock_scale_delta(delta,
-+						      src->tsc_to_system_mul,
-+						      src->tsc_shift);
-+}
-+
-+enum {
-+	STAGE_FIRST_BOOT,
-+	STAGE_UNCORRECTED,
-+	STAGE_CORRECTED
-+};
-+
-+#define KVMCLOCK_GPA	0xc0000000ull
-+#define KVMCLOCK_SIZE	sizeof(struct pvclock_vcpu_time_info)
-+
-+static void trigger_pvti_update(void)
-+{
-+	/*
-+	 * Toggle between KVM's old and new system time methods to coerce KVM
-+	 * into updating the fields in the PV time info struct.
-+	 */
-+	wrmsr(MSR_KVM_SYSTEM_TIME, KVMCLOCK_GPA | KVM_MSR_ENABLED);
-+	wrmsr(MSR_KVM_SYSTEM_TIME_NEW, KVMCLOCK_GPA | KVM_MSR_ENABLED);
-+}
-+
-+static void guest_code(void)
-+{
-+	struct pvclock_vcpu_time_info *pvti =
-+		(void *)(unsigned long)KVMCLOCK_GPA;
-+	struct pvclock_vcpu_time_info pvti_boot;
-+	struct pvclock_vcpu_time_info pvti_uncorrected;
-+	struct pvclock_vcpu_time_info pvti_corrected;
-+	uint64_t tsc_guest;
-+	uint64_t clk_boot, clk_uncorrected, clk_corrected;
-+	int64_t delta_corrected;
-+
-+	/* Set up kvmclock and snapshot the initial pvclock parameters. */
-+	wrmsr(MSR_KVM_SYSTEM_TIME_NEW, KVMCLOCK_GPA | KVM_MSR_ENABLED);
-+	pvti_boot = *pvti;
-+	GUEST_SYNC(STAGE_FIRST_BOOT);
-+
-+	/*
-+	 * Trigger an update of the PVTI. Calculating the KVM clock using this
-+	 * updated structure will show a delta from the original.
-+	 */
-+	trigger_pvti_update();
-+	pvti_uncorrected = *pvti;
-+	GUEST_SYNC(STAGE_UNCORRECTED);
-+
-+	/*
-+	 * Snapshot the corrected time (the host does KVM_SET_CLOCK_GUEST when
-+	 * handling STAGE_UNCORRECTED).
-+	 */
-+	pvti_corrected = *pvti;
-+
-+	/*
-+	 * Sample the TSC at a single point in time, then calculate the
-+	 * effective KVM clock using the PVTI from each stage. Verify that the
-+	 * corrected clock matches the boot clock to within ±1ns.
-+	 */
-+	tsc_guest = rdtsc();
-+
-+	clk_boot = pvclock_read_cycles(&pvti_boot, tsc_guest);
-+	clk_uncorrected = pvclock_read_cycles(&pvti_uncorrected, tsc_guest);
-+	clk_corrected = pvclock_read_cycles(&pvti_corrected, tsc_guest);
-+
-+	delta_corrected = clk_boot - clk_corrected;
-+
-+	__GUEST_ASSERT(delta_corrected >= -2 && delta_corrected <= 2,
-+		       "corrected delta %ld out of range (boot=%lu uncorrected=%lu corrected=%lu)",
-+		       delta_corrected, clk_boot, clk_uncorrected, clk_corrected);
-+
-+	GUEST_SYNC(STAGE_CORRECTED);
-+}
-+
-+static void run_test(struct kvm_vm *vm, struct kvm_vcpu *vcpu,
-+		     unsigned int sleep_sec)
-+{
-+	struct pvclock_vcpu_time_info pvti_before;
-+	struct ucall uc;
-+
-+	for (;;) {
-+		vcpu_run(vcpu);
-+		TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+
-+		switch (get_ucall(vcpu, &uc)) {
-+		case UCALL_ABORT:
-+			REPORT_GUEST_ASSERT(uc);
-+			break;
-+		case UCALL_SYNC:
-+			break;
-+		default:
-+			TEST_FAIL("Unexpected ucall");
-+		}
-+
-+		switch (uc.args[1]) {
-+		case STAGE_FIRST_BOOT:
-+			/* Save the pvclock parameters before the update. */
-+			vcpu_ioctl(vcpu, KVM_GET_CLOCK_GUEST, &pvti_before);
-+
-+			/* Sleep to let the clocks diverge. */
-+			sleep(sleep_sec);
-+			break;
-+
-+		case STAGE_UNCORRECTED:
-+			/* Restore the original pvclock parameters. */
-+			vcpu_ioctl(vcpu, KVM_SET_CLOCK_GUEST, &pvti_before);
-+			break;
-+
-+		case STAGE_CORRECTED:
-+			/* Guest verified the delta in-guest. */
-+			return;
-+
-+		default:
-+			TEST_FAIL("Unknown stage %lu", uc.args[1]);
-+		}
-+	}
-+}
-+
-+static void configure_pvclock(struct kvm_vm *vm)
-+{
-+	unsigned int nr_pages;
-+
-+	nr_pages = vm_calc_num_guest_pages(VM_MODE_DEFAULT, KVMCLOCK_SIZE);
-+	vm_userspace_mem_region_add(vm, VM_MEM_SRC_ANONYMOUS,
-+				    KVMCLOCK_GPA, 1, nr_pages, 0);
-+	virt_map(vm, KVMCLOCK_GPA, KVMCLOCK_GPA, nr_pages);
-+}
-+
-+static void run_at_frequency(uint64_t tsc_khz, unsigned int sleep_sec)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+
-+	pr_info("Testing at TSC frequency %lu kHz\n", tsc_khz);
-+	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
-+	configure_pvclock(vm);
-+	vcpu_ioctl(vcpu, KVM_SET_TSC_KHZ, (void *)tsc_khz);
-+	run_test(vm, vcpu, sleep_sec);
-+	kvm_vm_release(vm);
-+}
-+
-+static void test_tsc_stable_bit(void);
-+static void test_clock_guest_with_offsets(void);
-+
-+static void usage(const char *name)
-+{
-+	printf("Usage: %s [options]\n"
-+	       "  -s, --sleep SEC     sleep duration between snapshots (default: 2)\n"
-+	       "  -h, --help          show this help\n", name);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	static const struct option long_opts[] = {
-+		{ "sleep", required_argument, NULL, 's' },
-+		{ "help",  no_argument,       NULL, 'h' },
-+		{ NULL,    0,                  NULL,  0  },
-+	};
-+	unsigned int sleep_sec = 2;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	uint64_t host_khz;
-+	uint64_t freq;
-+	int opt;
-+
-+	while ((opt = getopt_long(argc, argv, "s:h", long_opts, NULL)) != -1) {
-+		switch (opt) {
-+		case 's':
-+			sleep_sec = atoi(optarg);
-+			break;
-+		case 'h':
-+		default:
-+			usage(argv[0]);
-+			return opt == 'h' ? 0 : 1;
-+		}
-+	}
-+
-+	TEST_REQUIRE(sys_clocksource_is_based_on_tsc());
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
-+	configure_pvclock(vm);
-+
-+	/* First run at native frequency (no scaling). */
-+	run_test(vm, vcpu, sleep_sec);
-+
-+	/*
-+	 * Then enumerate a range of TSC frequencies crossing the 32-bit
-+	 * boundary, to exercise the scaling path at various ratios.
-+	 */
-+	host_khz = __vcpu_ioctl(vcpu, KVM_GET_TSC_KHZ, NULL);
-+	kvm_vm_release(vm);
-+
-+	for (freq = 1000000; freq <= 5000000; freq += 500000) {
-+		if (freq == host_khz)
-+			continue;
-+		run_at_frequency(freq, sleep_sec);
-+	}
-+
-+	test_tsc_stable_bit();
-+	test_clock_guest_with_offsets();
-+
-+	return 0;
-+}
-+
-+static void guest_code_stable_bit(void)
-+{
-+	wrmsr(MSR_KVM_SYSTEM_TIME_NEW, KVMCLOCK_GPA | KVM_MSR_ENABLED);
-+	GUEST_SYNC(0);
-+	GUEST_SYNC(0);
-+	GUEST_SYNC(0);
-+}
-+
-+static void set_tsc_offset(struct kvm_vcpu *vcpu, uint64_t offset)
-+{
-+	struct kvm_device_attr attr = {
-+		.group = KVM_VCPU_TSC_CTRL,
-+		.attr = KVM_VCPU_TSC_OFFSET,
-+		.addr = (__u64)(uintptr_t)&offset,
-+	};
-+	vcpu_ioctl(vcpu, KVM_SET_DEVICE_ATTR, &attr);
-+}
-+
-+static void run_vcpu_once(struct kvm_vcpu *vcpu)
-+{
-+	struct ucall uc;
-+
-+	vcpu_run(vcpu);
-+	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+	switch (get_ucall(vcpu, &uc)) {
-+	case UCALL_ABORT:
-+		REPORT_GUEST_ASSERT(uc);
-+		break;
-+	case UCALL_SYNC:
-+		break;
-+	default:
-+		TEST_FAIL("Unexpected ucall");
-+	}
-+}
-+
-+static void test_tsc_stable_bit(void)
-+{
-+	struct pvclock_vcpu_time_info pvti;
-+	struct kvm_vcpu *vcpus[2];
-+	struct kvm_vm *vm;
-+	int ret;
-+
-+	pr_info("Testing PVCLOCK_TSC_STABLE_BIT with matched/unmatched TSCs\n");
-+
-+	vm = vm_create_with_vcpus(2, guest_code_stable_bit, vcpus);
-+	configure_pvclock(vm);
-+
-+	/*
-+	 * Case 1: All TSCs matched (same frequency and offset).
-+	 * Master clock should be active, PVCLOCK_TSC_STABLE_BIT set.
-+	 */
-+	run_vcpu_once(vcpus[0]);
-+
-+	ret = __vcpu_ioctl(vcpus[0], KVM_GET_CLOCK_GUEST, &pvti);
-+	TEST_ASSERT(!ret, "GET_CLOCK_GUEST should succeed with matched TSCs");
-+	TEST_ASSERT(pvti.flags & PVCLOCK_TSC_STABLE_BIT,
-+		    "PVCLOCK_TSC_STABLE_BIT should be set with matched TSCs");
-+
-+	/*
-+	 * Case 2: Different TSC offset, same frequency.
-+	 * Master clock should still be active (frequency matches), but
-+	 * PVCLOCK_TSC_STABLE_BIT should be cleared (offsets differ).
-+	 */
-+	set_tsc_offset(vcpus[1], 12345678);
-+	run_vcpu_once(vcpus[1]);
-+	run_vcpu_once(vcpus[0]);
-+
-+	ret = __vcpu_ioctl(vcpus[0], KVM_GET_CLOCK_GUEST, &pvti);
-+	if (ret) {
-+		/* Master clock disabled by offset mismatch — old kernel */
-+		pr_info("  Skipping offset tests (master clock requires matched offsets)\n");
-+		goto out_stable;
-+	}
-+	TEST_ASSERT(!(pvti.flags & PVCLOCK_TSC_STABLE_BIT),
-+		    "PVCLOCK_TSC_STABLE_BIT should be clear with offset-mismatched TSCs");
-+
-+	/*
-+	 * Case 3: Different TSC frequency.
-+	 * Master clock should be disabled entirely.
-+	 */
-+	vcpu_ioctl(vcpus[1], KVM_SET_TSC_KHZ,
-+		   (void *)(unsigned long)(__vcpu_ioctl(vcpus[1], KVM_GET_TSC_KHZ, NULL) / 2));
-+	/* Write TSC to trigger kvm_synchronize_tsc / kvm_track_tsc_matching */
-+	vcpu_set_msr(vcpus[1], MSR_IA32_TSC, 0);
-+	run_vcpu_once(vcpus[1]);
-+
-+	ret = __vcpu_ioctl(vcpus[0], KVM_GET_CLOCK_GUEST, &pvti);
-+	TEST_ASSERT(ret && errno == EINVAL,
-+		    "GET_CLOCK_GUEST should fail with frequency-mismatched TSCs, got %d (errno %d)",
-+		    ret, errno);
-+
-+out_stable:
-+	kvm_vm_release(vm);
-+}
-+
-+static void test_clock_guest_with_offsets(void)
-+{
-+	struct pvclock_vcpu_time_info pvti0, pvti1, pvti1_after;
-+	struct kvm_vcpu *vcpus[2];
-+	struct kvm_vm *vm;
-+	int64_t delta;
-+	int ret;
-+
-+	pr_info("Testing KVM_[GS]ET_CLOCK_GUEST with different TSC offsets\n");
-+
-+	vm = vm_create_with_vcpus(2, guest_code_stable_bit, vcpus);
-+	configure_pvclock(vm);
-+
-+	/* Set different TSC offsets on the two vCPUs */
-+	set_tsc_offset(vcpus[0], 0);
-+	set_tsc_offset(vcpus[1], 1000000000ull);
-+
-+	/* Run both to establish kvmclock */
-+	run_vcpu_once(vcpus[0]);
-+	run_vcpu_once(vcpus[1]);
-+
-+	/* GET_CLOCK_GUEST on both — should succeed (master clock active) */
-+	ret = __vcpu_ioctl(vcpus[0], KVM_GET_CLOCK_GUEST, &pvti0);
-+	if (ret) {
-+		pr_info("  Skipping (master clock requires matched offsets on this kernel)\n");
-+		kvm_vm_release(vm);
-+		return;
-+	}
-+	ret = __vcpu_ioctl(vcpus[1], KVM_GET_CLOCK_GUEST, &pvti1);
-+	TEST_ASSERT(!ret, "GET_CLOCK_GUEST on vcpu1 failed");
-+
-+	/* The tsc_timestamps should differ (different offsets) */
-+	TEST_ASSERT(pvti0.tsc_timestamp != pvti1.tsc_timestamp,
-+		    "tsc_timestamps should differ with different offsets");
-+
-+	/* Sleep to let time elapse, then restore vcpu0's clock */
-+	sleep(1);
-+	vcpu_ioctl(vcpus[0], KVM_SET_CLOCK_GUEST, &pvti0);
-+
-+	/* Run vcpu0 to process the clock update */
-+	run_vcpu_once(vcpus[0]);
-+
-+	/* GET_CLOCK_GUEST on vcpu1 — should reflect the correction */
-+	ret = __vcpu_ioctl(vcpus[1], KVM_GET_CLOCK_GUEST, &pvti1_after);
-+	TEST_ASSERT(!ret, "GET_CLOCK_GUEST on vcpu1 after SET failed");
-+
-+	/*
-+	 * After SET on vcpu0, verify the correction worked by getting
-+	 * the clock on vcpu0 again. The mul/shift should be the same,
-+	 * and computing kvmclock at the same TSC should give the same
-+	 * result as the original (within ±2ns).
-+	 */
-+	{
-+		struct pvclock_vcpu_time_info pvti0_after;
-+		uint64_t tsc_now, clk_from_old, clk_from_new;
-+
-+		ret = __vcpu_ioctl(vcpus[0], KVM_GET_CLOCK_GUEST, &pvti0_after);
-+		TEST_ASSERT(!ret, "GET_CLOCK_GUEST on vcpu0 after SET failed");
-+
-+		tsc_now = pvti0_after.tsc_timestamp;
-+		clk_from_old = pvclock_read_cycles(&pvti0, tsc_now);
-+		clk_from_new = pvclock_read_cycles(&pvti0_after, tsc_now);
-+
-+		delta = (int64_t)clk_from_new - (int64_t)clk_from_old;
-+		TEST_ASSERT(delta >= -2 && delta <= 2,
-+			    "clock correction delta should be <=2ns, got %ld ns",
-+			    delta);
-+	}
-+
-+	/*
-+	 * Also verify that vcpu1's clock is still accessible (master
-+	 * clock still active with different offsets).
-+	 */
-+	ret = __vcpu_ioctl(vcpus[1], KVM_GET_CLOCK_GUEST, &pvti1_after);
-+	TEST_ASSERT(!ret, "GET_CLOCK_GUEST on vcpu1 after SET failed");
-+
-+	kvm_vm_release(vm);
-+}
+diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+index e7fdd7a9c280..7817752533fe 100644
+--- a/arch/x86/kvm/svm/svm.c
++++ b/arch/x86/kvm/svm/svm.c
+@@ -5546,7 +5546,8 @@ static __init int svm_hardware_setup(void)
+ 				     XFEATURE_MASK_BNDCSR);
+ 
+ 	if (tsc_scaling) {
+-		if (!boot_cpu_has(X86_FEATURE_TSCRATEMSR)) {
++		if (!boot_cpu_has(X86_FEATURE_TSCRATEMSR) ||
++		    !boot_cpu_has(X86_FEATURE_CONSTANT_TSC)) {
+ 			tsc_scaling = false;
+ 		} else {
+ 			pr_info("TSC scaling supported\n");
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index 5c2c33a5f7dc..4f6035d72bbe 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -8696,7 +8696,7 @@ __init int vmx_hardware_setup(void)
+ 	if (!enable_apicv || !cpu_has_vmx_ipiv())
+ 		enable_ipiv = false;
+ 
+-	if (cpu_has_vmx_tsc_scaling())
++	if (cpu_has_vmx_tsc_scaling() && boot_cpu_has(X86_FEATURE_CONSTANT_TSC))
+ 		kvm_caps.has_tsc_control = true;
+ 
+ 	kvm_caps.max_tsc_scaling_ratio = KVM_VMX_TSC_MULTIPLIER_MAX;
 -- 
 2.51.0
 
