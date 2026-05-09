@@ -2,47 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id tVOENScR/2lY1wAAu9opvQ
+	id 6L4qGpxo/2nQ6AAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sat, 09 May 2026 12:49:11 +0200
+	for <lists+xen-devel@lfdr.de>; Sat, 09 May 2026 19:02:20 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B67074FF5BA
-	for <lists+xen-devel@lfdr.de>; Sat, 09 May 2026 12:49:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1304602.1577525 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9E7650099A
+	for <lists+xen-devel@lfdr.de>; Sat, 09 May 2026 19:02:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1304888.1577571 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLfEQ-0001qP-RZ; Sat, 09 May 2026 10:48:26 +0000
+	id 1wLl2v-0002wA-Qo; Sat, 09 May 2026 17:00:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1304602.1577525; Sat, 09 May 2026 10:48:26 +0000
+Received: by outflank-mailman (output) from mailman id 1304888.1577571; Sat, 09 May 2026 17:00:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLfEQ-0001gc-Lz; Sat, 09 May 2026 10:48:26 +0000
-Received: by outflank-mailman (input) for mailman id 1304602;
- Sat, 09 May 2026 10:48:24 +0000
+	id 1wLl2v-0002tC-KX; Sat, 09 May 2026 17:00:57 +0000
+Received: by outflank-mailman (input) for mailman id 1304888;
+ Sat, 09 May 2026 17:00:56 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>) id 1wLfEO-0001aX-Db
- for xen-devel@lists.xenproject.org; Sat, 09 May 2026 10:48:24 +0000
+ (envelope-from <jgg@ziepe.ca>) id 1wLl2t-0002t6-Un
+ for xen-devel@lists.xenproject.org; Sat, 09 May 2026 17:00:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLfEN-00FIIk-Qi
- for xen-devel@lists.xenproject.org; Sat, 09 May 2026 12:48:23 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wLl2s-001bV2-VQ
+ for xen-devel@lists.xenproject.org; Sat, 09 May 2026 19:00:55 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
- id 69ff10e4-bab6-0a2a0a5309dd-0a2a4505bea4-12
- for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 12:48:23 +0200
-Received: from [49.212.243.89] (helo=www3579.sakura.ne.jp)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <odaki@rsg.ci.i.u-tokyo.ac.jp>)
- id 69ff10f4-aaa8-0a2a45050019-31d4f359d627-3
- for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 12:48:23 +0200
-Received: from h183.csg.ci.i.u-tokyo.ac.jp (h183.csg.ci.i.u-tokyo.ac.jp
- [133.11.54.183]) (authenticated bits=0)
- by www3579.sakura.ne.jp (8.16.1/8.16.1) with ESMTPSA id 649AlY2T090834
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Sat, 9 May 2026 19:48:03 +0900 (JST)
- (envelope-from odaki@rsg.ci.i.u-tokyo.ac.jp)
+ (envelope-from <jgg@ziepe.ca>)
+ id 69ff6830-2eae-0a2a0a5409dd-0a2a45048f3a-26
+ for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 19:00:54 +0200
+Received: from [209.85.222.180] (helo=mail-qk1-f180.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jgg@ziepe.ca>)
+ id 69ff6845-1dec-0a2a45040019-d155deb4a4ee-3
+ for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 19:00:54 +0200
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-8dbbc6c16b2so404700585a.0
+ for <xen-devel@lists.xenproject.org>; Sat, 09 May 2026 10:00:54 -0700 (PDT)
+Received: from ziepe.ca
+ (crbknf0213w-47-54-130-67.pppoe-dynamic.high-speed.nl.bellaliant.net.
+ [47.54.130.67]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8fc2c91c807sm2841885185a.32.2026.05.09.10.00.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 09 May 2026 10:00:52 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1wLl2p-00000001ptR-0bDu;
+ Sat, 09 May 2026 14:00:51 -0300
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,388 +60,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=temperror header.s=rs20250326 header.d=rsg.ci.i.u-tokyo.ac.jp header.i="@rsg.ci.i.u-tokyo.ac.jp"
-DKIM-Signature: a=rsa-sha256; bh=xdQOdc7TBZKnyuoO4opRDkTrA3cJx8lBTarnEJcV0aU=;
-        c=relaxed/relaxed; d=rsg.ci.i.u-tokyo.ac.jp;
-        h=From:Message-Id:To:Subject:Date;
-        s=rs20250326; t=1778323683; v=1;
-        b=GIZRVXUprHxdgxXu37WO+oDE2tz2qK9qCDhUVa6i501Q91fZ3ewidrfX+a8lpkAF
-         6GqCbMHjs4ZNM/T0U3JUUNO0lOuRgt45WaPhjxfRUQzQ7L41jedjZJWipNEubGOE
-         phEjj2/PsKnUryJDy3atw73TABpx0Y4RKe2xapC3S35WIb2p/Sj+GgbMhxfd+I70
-         AZYj1bbqe2j25S7YFoc+uJIXEsy4Kj2NTOTGcdZAcyrOD159de5VRjVD/hXBc01L
-         nZ1SauA8vcN6tXKEc/UJt4UHl2gikPAmNjculIMWV+molbtmhbb9DaqjVYaa6FS5
-         4ThCfIkHGRDhexBedKxrCQ==
-From: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-Date: Sat, 09 May 2026 19:34:40 +0900
-Subject: [PATCH RFC 28/28] ui/input: Remove unused QKeyCode helpers and
- keymaps
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=ziepe.ca header.i="@ziepe.ca" header.h="In-Reply-To:Content-Disposition:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1778346053; x=1778950853; darn=lists.xenproject.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=IRop8m7XaImUSxbpG/XbxbRCDh4G22WGRyOV4N0sJrU=;
+        b=QISdGVENNJWF3WqynFWR9xj5ZY6K/dgoKEJvvh39m+ZOTOFpw/G31Xz7jZTqf2YMe8
+         MR0kttlI4rmvboJKaxANkjBqlm8q7zupdVsEpiRn1lPuwX2hOs+uzz0MRoQL2+vv34qU
+         ZSKMPd+xZkvob5u+vwfIFdJMzlPXFaY7f8wb34X2qCEUHBxdgVsMbUNg/lIoZoivTBGy
+         Sad0AmzxZq3UGNJbpFfNCHDSHcEhdrybJTce1szDpi7wSbqQnZ9Nb26+lHjnbl4k770U
+         hNuPCUJTt7g1Yt/rVAWwHeoiyOrelxoHwl9K41hmCRXQ6E1alqHf+GYONs33zH1SIAYL
+         vzkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778346053; x=1778950853;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=IRop8m7XaImUSxbpG/XbxbRCDh4G22WGRyOV4N0sJrU=;
+        b=cnpyIWjDbYGVwgoPSlMYuAOnI4tMy+0+KRIa967aXNlxvNJPLP2NLiiZyQNlHiaA0p
+         T2S4PRNiqwwc25awUH5P0FgTULynOr4uPMb7mU61AKyTwf7TRRUsxlfuY70CU+AhyuxF
+         kR0GL/DMSqgZc+d36kYzRJdVWryhQtLDkJefw2GCl2v4kMyB57Ah9wjqzl/pO2ZeguWk
+         2AjbcbL0cfwmDIlnpNFwBzgt9JfqklRPRxnIeXGzIvOFNiZ/M9KfOalpLsoNi+5kf6qO
+         jcJOP/X/WqLvXMI3NVUdWn/uOw69UAn1VnDCvqW4L69CbS1SKij8q2IbaY4rRDKi4t6X
+         BAjA==
+X-Forwarded-Encrypted: i=1; AFNElJ/HP+8ua7sEMp5YrkBs+6Fsqdp4qHOmem0nYdRWcJrGjeSZVWctcc/s2fHUK9HWwSLKR0RiYKwx1R0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx/UDbne6YoBr46onHakO0VcbzH9ACmWTJd8cfYzDtVUP5cLk1A
+	w9Gi0njCqslJz2S9+m41IkR7wqZO890kLq6FsM0ObwAKG7kIM+RwZ1eaeedSO8bNHMg=
+X-Gm-Gg: Acq92OFdmqNrvw15F6YnDZ830pRAwR9fHd7o46C2QBCj8PWEYJcL0iwpiO9s41ggxJf
+	AqYV4ZsKCOHEaFinRATRcXIxYtxEFPf/8pwDvwUfVTqd9cviSffNVFUuILLckseO9cfYCg93K91
+	lmXxjpX8HkzqrO/z4B+6I50Hcy1eNYajlTvlEP9LnJxox5v4/Lkgael2wz/aOWTnTYs0Kj1ime9
+	5Qh9G5T/UeSaXl6b36krMamZJeswDAPjwoTFN934bUvxsWTsHE5UMyo7Ud/vzK6dwCanQI68Q4T
+	XmgpiarHfylNhcWZw/MqYINIM+lJ9SWJ3BxW5lJ7+wKj8LzcxHGtSKojeZSXobB3OWDMioM8jb6
+	OiTDXJnlrmpDY5Lw+NM8OSw3QYUGjo288wHutCBv+HkHgynn10NRnl+qc4n6YqVjMdBnrUmIuJP
+	EdhhhbneITpRQwiu9TgjqihSeYoSYPHRjlZ/Ez5mQJU0lrdQU0NdgEQY0SUkm7+MjHnYWsYAKYG
+	cL0WA==
+X-Received: by 2002:a05:620a:45a6:b0:8d6:6db0:88de with SMTP id af79cd13be357-90653728e7emr1667325985a.44.1778346053103;
+        Sat, 09 May 2026 10:00:53 -0700 (PDT)
+Date: Sat, 9 May 2026 14:00:51 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Tian, Kevin" <kevin.tian@intel.com>
+Cc: Teddy Astie <teddy.astie@vates.tech>,
+	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: How to express "externally managed" IOMMU domains for
+ VFIO/IOMMUFD ?
+Message-ID: <20260509170051.GD9285@ziepe.ca>
+References: <1776873531.8631fc262581453bbf619ec5b2062170.19db5ea67ab000f373@vates.tech>
+ <BN9PR11MB5276B3A829AD624A7E1AB4408C2A2@BN9PR11MB5276.namprd11.prod.outlook.com>
+ <20260426133027.GB3501894@ziepe.ca>
+ <BN9PR11MB52768B5170F6CE558B0AC8AA8C3C2@BN9PR11MB5276.namprd11.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260509-input-v1-28-66f18d2edde6@rsg.ci.i.u-tokyo.ac.jp>
-References: <20260509-input-v1-0-66f18d2edde6@rsg.ci.i.u-tokyo.ac.jp>
-In-Reply-To: <20260509-input-v1-0-66f18d2edde6@rsg.ci.i.u-tokyo.ac.jp>
-To: qemu-devel@nongnu.org
-Cc: =?utf-8?q?Marc-Andr=C3=A9_Lureau?= <marcandre.lureau@redhat.com>,
-        Paolo Bonzini <pbonzini@redhat.com>, Jan Kiszka <jan.kiszka@web.de>,
-        Peter Maydell <peter.maydell@linaro.org>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Anthony PERARD <anthony@xenproject.org>,
-        "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
-        Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-        Gerd Hoffmann <kraxel@redhat.com>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Thomas Huth <th.huth+qemu@posteo.eu>,
-        =?utf-8?q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>,
-        qemu-arm@nongnu.org, xen-devel@lists.xenproject.org,
-        qemu-ppc@nongnu.org,
-        =?utf-8?q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-        Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
-X-Mailer: b4 0.16-dev-16047
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10998;
- i=odaki@rsg.ci.i.u-tokyo.ac.jp; h=from:subject:message-id;
- bh=C1sfssKpLnbwImq0G/bJG/Pt5wdJQR3NAMSed0uq3qA=;
- b=owGbwMvMwCWmMbc20y1CyJDxtFoSQ+Z/gTsvbv/RVWZK0P/Ye32FUfvZF0LeavN4fqxacE/m2
- LZffzYc7yhlYRDjYpAVU2RJKdrNrRFd+6kwIb4FZg4rE8gQBi5OAZiINAfD/zyXjrvBn7VsX/38
- oJZuI3cv/2e13IRlN6JljeY/jlVWsWX4nz7hxrV1iZZ5b0xCA5OvZrmoHWAssvl9n2vl1as9GzJ
- yuQE=
-X-Developer-Key: i=odaki@rsg.ci.i.u-tokyo.ac.jp; a=openpgp;
- fpr=AEDC03C9AF734F2EC26A7BFFA4BAEAA73536753C
-X-purgate-ID: tlsNG-c201ff/1778323703-D8B78443-CA7F16EE/0/0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <BN9PR11MB52768B5170F6CE558B0AC8AA8C3C2@BN9PR11MB5276.namprd11.prod.outlook.com>
+X-purgate-ID: tlsNG-ebf023/1778346054-2A5603FF-95453907/0/0
 X-purgate-type: clean
-X-purgate-size: 11000
-X-Rspamd-Queue-Id: B67074FF5BA
+X-purgate-size: 2153
+X-Rspamd-Queue-Id: B9E7650099A
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.11 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUBJECT_ENDS_QUESTION(1.00)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[ziepe.ca:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[u-tokyo.ac.jp : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:qemu-devel@nongnu.org,m:marcandre.lureau@redhat.com,m:pbonzini@redhat.com,m:jan.kiszka@web.de,m:peter.maydell@linaro.org,m:sstabellini@kernel.org,m:anthony@xenproject.org,m:edgar.iglesias@gmail.com,m:mark.cave-ayland@ilande.co.uk,m:kraxel@redhat.com,m:mst@redhat.com,m:th.huth+qemu@posteo.eu,m:alex.bennee@linaro.org,m:qemu-arm@nongnu.org,m:xen-devel@lists.xenproject.org,m:qemu-ppc@nongnu.org,m:philmd@linaro.org,m:odaki@rsg.ci.i.u-tokyo.ac.jp,m:edgariglesias@gmail.com,m:th.huth@posteo.eu,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ziepe.ca:email,ziepe.ca:mid,ziepe.ca:dkim];
 	RCVD_TLS_LAST(0.00)[];
-	R_DKIM_PERMFAIL(0.00)[rsg.ci.i.u-tokyo.ac.jp:s=rs20250326];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[u-tokyo.ac.jp:email];
+	FORGED_RECIPIENTS(0.00)[m:kevin.tian@intel.com,m:teddy.astie@vates.tech,m:iommu@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DMARC_NA(0.00)[ziepe.ca];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jgg@ziepe.ca,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	FREEMAIL_CC(0.00)[redhat.com,web.de,linaro.org,kernel.org,xenproject.org,gmail.com,ilande.co.uk,posteo.eu,nongnu.org,lists.xenproject.org,rsg.ci.i.u-tokyo.ac.jp];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[odaki@rsg.ci.i.u-tokyo.ac.jp,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[rsg.ci.i.u-tokyo.ac.jp:~];
-	NEURAL_SPAM(0.00)[0.280];
+	DKIM_TRACE(0.00)[ziepe.ca:+];
 	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[odaki@rsg.ci.i.u-tokyo.ac.jp,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jgg@ziepe.ca,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel,qemu];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Action: no action
 
-Their users have migrated to Linux key codes.
+On Thu, May 07, 2026 at 08:02:40AM +0000, Tian, Kevin wrote:
+> > From: Jason Gunthorpe <jgg@ziepe.ca>
+> > Sent: Sunday, April 26, 2026 9:30 PM
+> > 
+> > On Thu, Apr 23, 2026 at 08:01:50AM +0000, Tian, Kevin wrote:
+> > > > On Xen, we have a dedicated hypercalls for moving a device into another
+> > > > guest (so it no longer belongs in Dom0, at far as DMA is concerned).
+> > > >
+> > > > But it looks like there are no way to describe that idea of "attach that
+> > > > device to this VM" nor "the device is in a VM"; which makes that
+> > > > impracticable.
+> > > >
+> > > > There may be things that could be done with the vIOMMU objects, but
+> > > > there would be no "parent domain" in such case, as said earlier it
+> > > > doesn't exist in the IOMMU subsystem.
+> > > >
+> > > > What is expected to be done instead ?
+> > > >
+> > > > Teddy
+> > > >
+> > > > [1] https://www.youtube.com/watch?v=pLMGRgEJ-Eg
+> > > >
+> > >
+> > > It'd be much easier to collect comments if you can put plain words
+> > > to explain the problem rather than expecting other folks to watch
+> > > the video first...
+> > 
+> > It sounds like CC and pkvm to me so I think it should re-use those
+> > mechanisms..
+> > 
+> 
+> for CC and pkvm the guest memory is still allocated from host.
 
-Signed-off-by: Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>
----
- include/ui/input.h | 50 --------------------------------------------------
- ui/input-keymap.c  | 39 ---------------------------------------
- ui/input.c         | 18 +-----------------
- ui/meson.build     | 15 ---------------
- 4 files changed, 1 insertion(+), 121 deletions(-)
+From an iommu perspective that doesn't entirely matter, what it sees
+is that the translation is controlled by some secure world and it
+only needs a way to associate the kvm handle for the secure world with
+any required call for configuring the viommu.
 
-diff --git a/include/ui/input.h b/include/ui/input.h
-index caa757ea1c2e..6e4892b73155 100644
---- a/include/ui/input.h
-+++ b/include/ui/input.h
-@@ -58,18 +58,13 @@ void qemu_input_event_send_impl(QemuConsole *src, QemuInputEvent *evt);
- void qemu_input_event_sync(void);
- void qemu_input_event_sync_impl(void);
- 
--void qemu_input_event_send_key(QemuConsole *src, KeyValue *key, bool down);
- void qemu_input_event_send_key_linux(QemuConsole *src, unsigned int lnx,
-                                      bool down);
- void qemu_input_event_send_key_number(QemuConsole *src, int num, bool down);
--void qemu_input_event_send_key_qcode(QemuConsole *src, QKeyCode q, bool down);
- void qemu_input_event_send_key_delay(uint32_t delay_ms);
- int qemu_input_key_number_to_qcode(unsigned int nr);
- unsigned int qemu_input_key_number_to_linux(unsigned int nr);
--int qemu_input_key_value_to_number(const KeyValue *value);
--int qemu_input_key_value_to_qcode(const KeyValue *value);
- unsigned int qemu_input_key_value_to_linux(const KeyValue *value);
--int qemu_input_qcode_to_scancode(QKeyCode qcode, bool down, int *codes);
- int qemu_input_linux_to_scancode(unsigned int lnx, bool down, int *codes);
- int qemu_input_linux_to_qcode(unsigned int lnx);
- 
-@@ -94,96 +89,51 @@ void qemu_input_check_mode_change(void);
- void qemu_add_mouse_mode_change_notifier(Notifier *notify);
- void qemu_remove_mouse_mode_change_notifier(Notifier *notify);
- 
--extern const guint qemu_input_map_atset1_to_qcode_len;
--extern const guint16 qemu_input_map_atset1_to_qcode[];
--
- extern const guint qemu_input_map_atset1_to_linux_len;
- extern const guint16 qemu_input_map_atset1_to_linux[];
- 
- extern const guint qemu_input_map_linux_to_qcode_len;
- extern const guint16 qemu_input_map_linux_to_qcode[];
- 
--extern const guint qemu_input_map_qcode_to_atset1_len;
--extern const guint16 qemu_input_map_qcode_to_atset1[];
--
- extern const guint qemu_input_map_linux_to_atset1_len;
- extern const guint16 qemu_input_map_linux_to_atset1[];
- 
--extern const guint qemu_input_map_qcode_to_atset2_len;
--extern const guint16 qemu_input_map_qcode_to_atset2[];
--
- extern const guint qemu_input_map_linux_to_atset2_len;
- extern const guint16 qemu_input_map_linux_to_atset2[];
- 
--extern const guint qemu_input_map_qcode_to_atset3_len;
--extern const guint16 qemu_input_map_qcode_to_atset3[];
--
- extern const guint qemu_input_map_linux_to_atset3_len;
- extern const guint16 qemu_input_map_linux_to_atset3[];
- 
- extern const guint qemu_input_map_qcode_to_linux_len;
- extern const guint16 qemu_input_map_qcode_to_linux[];
- 
--extern const guint qemu_input_map_qcode_to_qnum_len;
--extern const guint16 qemu_input_map_qcode_to_qnum[];
--
- extern const guint qemu_input_map_linux_to_qnum_len;
- extern const guint16 qemu_input_map_linux_to_qnum[];
- 
--extern const guint qemu_input_map_qcode_to_sun_len;
--extern const guint16 qemu_input_map_qcode_to_sun[];
--
- extern const guint qemu_input_map_linux_to_sun_len;
- extern const guint16 qemu_input_map_linux_to_sun[];
- 
--extern const guint qemu_input_map_qnum_to_qcode_len;
--extern const guint16 qemu_input_map_qnum_to_qcode[];
--
- extern const guint qemu_input_map_qnum_to_linux_len;
- extern const guint16 qemu_input_map_qnum_to_linux[];
- 
--extern const guint qemu_input_map_usb_to_qcode_len;
--extern const guint16 qemu_input_map_usb_to_qcode[];
--
- extern const guint qemu_input_map_usb_to_linux_len;
- extern const guint16 qemu_input_map_usb_to_linux[];
- 
--extern const guint qemu_input_map_win32_to_qcode_len;
--extern const guint16 qemu_input_map_win32_to_qcode[];
--
- extern const guint qemu_input_map_win32_to_linux_len;
- extern const guint16 qemu_input_map_win32_to_linux[];
- 
--extern const guint qemu_input_map_x11_to_qcode_len;
--extern const guint16 qemu_input_map_x11_to_qcode[];
--
- extern const guint qemu_input_map_x11_to_linux_len;
- extern const guint16 qemu_input_map_x11_to_linux[];
- 
--extern const guint qemu_input_map_xorgevdev_to_qcode_len;
--extern const guint16 qemu_input_map_xorgevdev_to_qcode[];
--
--extern const guint qemu_input_map_xorgkbd_to_qcode_len;
--extern const guint16 qemu_input_map_xorgkbd_to_qcode[];
--
- extern const guint qemu_input_map_xorgkbd_to_linux_len;
- extern const guint16 qemu_input_map_xorgkbd_to_linux[];
- 
--extern const guint qemu_input_map_xorgxquartz_to_qcode_len;
--extern const guint16 qemu_input_map_xorgxquartz_to_qcode[];
--
- extern const guint qemu_input_map_xorgxquartz_to_linux_len;
- extern const guint16 qemu_input_map_xorgxquartz_to_linux[];
- 
--extern const guint qemu_input_map_xorgxwin_to_qcode_len;
--extern const guint16 qemu_input_map_xorgxwin_to_qcode[];
--
- extern const guint qemu_input_map_xorgxwin_to_linux_len;
- extern const guint16 qemu_input_map_xorgxwin_to_linux[];
- 
--extern const guint qemu_input_map_osx_to_qcode_len;
--extern const guint16 qemu_input_map_osx_to_qcode[];
--
- extern const guint qemu_input_map_osx_to_linux_len;
- extern const guint16 qemu_input_map_osx_to_linux[];
- 
-diff --git a/ui/input-keymap.c b/ui/input-keymap.c
-index 2b77ef09fd66..ec2a1fbc1a95 100644
---- a/ui/input-keymap.c
-+++ b/ui/input-keymap.c
-@@ -4,36 +4,21 @@
- 
- #include "standard-headers/linux/input.h"
- 
--#include "ui/input-keymap-atset1-to-qcode.c.inc"
- #include "ui/input-keymap-atset1-to-linux.c.inc"
- #include "ui/input-keymap-linux-to-qcode.c.inc"
--#include "ui/input-keymap-qcode-to-atset1.c.inc"
- #include "ui/input-keymap-linux-to-atset1.c.inc"
--#include "ui/input-keymap-qcode-to-atset2.c.inc"
- #include "ui/input-keymap-linux-to-atset2.c.inc"
--#include "ui/input-keymap-qcode-to-atset3.c.inc"
- #include "ui/input-keymap-linux-to-atset3.c.inc"
- #include "ui/input-keymap-qcode-to-linux.c.inc"
--#include "ui/input-keymap-qcode-to-qnum.c.inc"
- #include "ui/input-keymap-linux-to-qnum.c.inc"
--#include "ui/input-keymap-qcode-to-sun.c.inc"
- #include "ui/input-keymap-linux-to-sun.c.inc"
--#include "ui/input-keymap-qnum-to-qcode.c.inc"
- #include "ui/input-keymap-qnum-to-linux.c.inc"
--#include "ui/input-keymap-usb-to-qcode.c.inc"
- #include "ui/input-keymap-usb-to-linux.c.inc"
--#include "ui/input-keymap-win32-to-qcode.c.inc"
- #include "ui/input-keymap-win32-to-linux.c.inc"
--#include "ui/input-keymap-x11-to-qcode.c.inc"
- #include "ui/input-keymap-x11-to-linux.c.inc"
--#include "ui/input-keymap-xorgevdev-to-qcode.c.inc"
--#include "ui/input-keymap-xorgkbd-to-qcode.c.inc"
- #include "ui/input-keymap-xorgkbd-to-linux.c.inc"
--#include "ui/input-keymap-xorgxquartz-to-qcode.c.inc"
- #include "ui/input-keymap-xorgxquartz-to-linux.c.inc"
--#include "ui/input-keymap-xorgxwin-to-qcode.c.inc"
- #include "ui/input-keymap-xorgxwin-to-linux.c.inc"
--#include "ui/input-keymap-osx-to-qcode.c.inc"
- #include "ui/input-keymap-osx-to-linux.c.inc"
- 
- int qemu_input_linux_to_qcode(unsigned int lnx)
-@@ -44,19 +29,6 @@ int qemu_input_linux_to_qcode(unsigned int lnx)
-     return qemu_input_map_linux_to_qcode[lnx];
- }
- 
--int qemu_input_key_value_to_number(const KeyValue *value)
--{
--    if (value->type == KEY_VALUE_KIND_QCODE) {
--        if (value->u.qcode.data >= qemu_input_map_qcode_to_qnum_len) {
--            return 0;
--        }
--        return qemu_input_map_qcode_to_qnum[value->u.qcode.data];
--    } else {
--        assert(value->type == KEY_VALUE_KIND_NUMBER);
--        return value->u.number.data;
--    }
--}
--
- int qemu_input_key_number_to_qcode(unsigned int nr)
- {
-     return qemu_input_linux_to_qcode(qemu_input_key_number_to_linux(nr));
-@@ -70,11 +42,6 @@ unsigned int qemu_input_key_number_to_linux(unsigned int nr)
-     return qemu_input_map_qnum_to_linux[nr];
- }
- 
--int qemu_input_key_value_to_qcode(const KeyValue *value)
--{
--    return qemu_input_linux_to_qcode(qemu_input_key_value_to_linux(value));
--}
--
- unsigned int qemu_input_key_value_to_linux(const KeyValue *value)
- {
-     switch (value->type) {
-@@ -89,12 +56,6 @@ unsigned int qemu_input_key_value_to_linux(const KeyValue *value)
-     }
- }
- 
--int qemu_input_qcode_to_scancode(QKeyCode qcode, bool down, int *codes)
--{
--    return qemu_input_linux_to_scancode(qemu_input_map_qcode_to_linux[qcode],
--                                        down, codes);
--}
--
- int qemu_input_linux_to_scancode(unsigned int lnx, bool down, int *codes)
- {
-     int keycode = lnx < qemu_input_map_linux_to_qnum_len ?
-diff --git a/ui/input.c b/ui/input.c
-index e3e277117949..2524abaedf7b 100644
---- a/ui/input.c
-+++ b/ui/input.c
-@@ -352,14 +352,6 @@ void qemu_input_event_sync(void)
-     replay_input_sync_event();
- }
- 
--void qemu_input_event_send_key(QemuConsole *src, KeyValue *key, bool down)
--{
--    unsigned int lnx = qemu_input_key_value_to_linux(key);
--
--    g_free(key);
--    qemu_input_event_send_key_linux(src, lnx, down);
--}
--
- void qemu_input_event_send_key_linux(QemuConsole *src, unsigned int lnx,
-                                      bool down)
- {
-@@ -383,15 +375,7 @@ void qemu_input_event_send_key_linux(QemuConsole *src, unsigned int lnx,
- void qemu_input_event_send_key_number(QemuConsole *src, int num, bool down)
- {
-     unsigned int lnx = qemu_input_key_number_to_linux(num);
--    qemu_input_event_send_key_qcode(src, lnx, down);
--}
--
--void qemu_input_event_send_key_qcode(QemuConsole *src, QKeyCode q, bool down)
--{
--    KeyValue *key = g_new0(KeyValue, 1);
--    key->type = KEY_VALUE_KIND_QCODE;
--    key->u.qcode.data = q;
--    qemu_input_event_send_key(src, key, down);
-+    qemu_input_event_send_key_linux(src, lnx, down);
- }
- 
- void qemu_input_event_send_key_delay(uint32_t delay_ms)
-diff --git a/ui/meson.build b/ui/meson.build
-index 4aa2a38c52f4..0b810925d2db 100644
---- a/ui/meson.build
-+++ b/ui/meson.build
-@@ -149,36 +149,21 @@ if spice.found()
- endif
- 
- keymaps = [
--  ['atset1', 'qcode'],
-   ['atset1', 'linux'],
-   ['linux', 'qcode'],
--  ['qcode', 'atset1'],
-   ['linux', 'atset1'],
--  ['qcode', 'atset2'],
-   ['linux', 'atset2'],
--  ['qcode', 'atset3'],
-   ['linux', 'atset3'],
-   ['qcode', 'linux'],
--  ['qcode', 'qnum'],
-   ['linux', 'qnum'],
--  ['qcode', 'sun'],
-   ['linux', 'sun'],
--  ['qnum', 'qcode'],
-   ['qnum', 'linux'],
--  ['usb', 'qcode'],
-   ['usb', 'linux'],
--  ['win32', 'qcode'],
-   ['win32', 'linux'],
--  ['x11', 'qcode'],
-   ['x11', 'linux'],
--  ['xorgevdev', 'qcode'],
--  ['xorgkbd', 'qcode'],
-   ['xorgkbd', 'linux'],
--  ['xorgxquartz', 'qcode'],
-   ['xorgxquartz', 'linux'],
--  ['xorgxwin', 'qcode'],
-   ['xorgxwin', 'linux'],
--  ['osx', 'qcode'],
-   ['osx', 'linux'],
- ]
- 
+It is not very different from KVM installing encrypted pages that have
+been completed unmapped from all page tables in the hypervisor into
+the VM's secure EPT through TDX calls and then iommufd creating a
+viommu that re-uses the secure EPT.
 
--- 
-2.54.0
+The only thing dealing with the memory map is KVM. I'd expect Xen to
+work the same, however the invisible memory was affiliated with the VM
+through KVM the iommu side should pick up the KVM and then request a
+VIOMMU to be setup for the VFIO device on the target KVM and that
+should trigger the hypercalls to move the device into the selected
+guest.
 
+Jason
 
