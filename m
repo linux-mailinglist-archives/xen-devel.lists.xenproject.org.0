@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uOG3Idm6/2mm9wAAu9opvQ
+	id qOu9MMq6/2nl9wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:53:13 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:52:58 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E099501D96
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:53:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1305124.1577836 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E4BB501D5C
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:52:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1305105.1577766 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLqXi-0008FY-2V; Sat, 09 May 2026 22:53:06 +0000
+	id 1wLqXT-0005ip-Gi; Sat, 09 May 2026 22:52:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1305124.1577836; Sat, 09 May 2026 22:53:06 +0000
+Received: by outflank-mailman (output) from mailman id 1305105.1577766; Sat, 09 May 2026 22:52:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLqXh-00089s-GF; Sat, 09 May 2026 22:53:05 +0000
-Received: by outflank-mailman (input) for mailman id 1305124;
- Sat, 09 May 2026 22:53:02 +0000
+	id 1wLqXT-0005cd-25; Sat, 09 May 2026 22:52:51 +0000
+Received: by outflank-mailman (input) for mailman id 1305105;
+ Sat, 09 May 2026 22:52:48 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 1wLqXe-0007kw-Ga
- for xen-devel@lists.xenproject.org; Sat, 09 May 2026 22:53:02 +0000
+ <BATV+34a25b45fb3f66caac6a+8294+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 1wLqXQ-000532-LL
+ for xen-devel@lists.xenproject.org; Sat, 09 May 2026 22:52:48 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLqXd-002c5y-Ts; Sun, 10 May 2026 00:53:01 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wLqXQ-006SzZ-2G; Sun, 10 May 2026 00:52:48 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 69ffba4c-e002-0a2a0a5209dd-0a2a450ae9e4-24
- for <multiple-recipients>; Sun, 10 May 2026 00:53:01 +0200
-Received: from [90.155.92.199] (helo=desiato.infradead.org)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ <BATV+34a25b45fb3f66caac6a+8294+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 69ffba91-bab6-0a2a0a5309dd-0a2a450884bc-22
+ for <multiple-recipients>; Sun, 10 May 2026 00:52:48 +0200
+Received: from [90.155.50.34] (helo=casper.infradead.org)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 69ffb9dc-56b3-0a2a450a0019-5a9b5cc7b01a-3
- for <multiple-recipients>; Sun, 10 May 2026 00:49:00 +0200
+ <BATV+34a25b45fb3f66caac6a+8294+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 69ffb9cf-63b5-0a2a45080019-5a9b322294c0-3
+ for <multiple-recipients>; Sun, 10 May 2026 00:48:47 +0200
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
- by desiato.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wLqTD-00000008wzK-0NIx; Sat, 09 May 2026 22:48:28 +0000
+ by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wLqTD-000000060LJ-1pmT; Sat, 09 May 2026 22:48:31 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1wLqTD-0000000DhIf-06oU;
+ Hat Linux)) id 1wLqTD-0000000DhIj-0Fe7;
  Sat, 09 May 2026 23:48:27 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -54,17 +54,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=desiato.20200630 header.d=infradead.org header.i="@infradead.org" header.h="Sender:Content-Transfer-Encoding:Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=casper.20170209 header.d=infradead.org header.i="@infradead.org" header.h="Sender:Content-Transfer-Encoding:Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:
 	From:Reply-To:Cc:Content-ID:Content-Description;
-	bh=kOxo26JgkgBnkgpV4u4u6bNS0TzdmD76LNhTnJ/HBkg=; b=S1Qj7ot+NvaVb/ETnLNcOSWLI7
-	a8uV8eSZQIwsFNUiD0HkK8FYHDMAVTpOBbqWewmXi9iTOyErjosby5Pac1eE/QdywtKg3s1IgXLek
-	HsNyTFM+ykVPLWmEpjCYTbzPzXkWq2gBFRY2VWy5lSXutf/hfKCAX5QZID2vs2Qba7bmYbLFSYdHJ
-	e63CuDfT1qC1GqGhST/XGcE8ayKk2efxCazSVC33178g9UgpHiWeSxDzwAU6HGywcZLQDaNc+JTqO
-	f/VY+Sc/cuha12qsM/abTJXD6y2KRPxWwrDd1pwd3HDISKnYc2g96zWw4BFuGCu9pg1BtxPbgj7Dm
-	WQFH5k/g==;
+	bh=fg8C3e0zngZ/qjTwoH3UeG+KjIQgclDXz6pRh4tinms=; b=PKujpKHmlrgXqjPVL9jaYkGJO3
+	T53JltigiUhtpHLz+35Soyi64kAnFI6avFDSQ7/IsNyZ28l+qFCRvclVStCfZHOZz828JXHb31UdJ
+	N7lE9EYlEhuJZCzxJ4ROVt9rXq8DoQ6Kq4DUaUrRGuQx0dP4khkmjRDJ/M13crOzpM7oqACBUXIs3
+	Q4nD8VTOzo/a5INBq2ieHxDAu27u1CaWybhnejK7d4D9LRkfa7L3FXKr81GvuOhbDZFGzyrQ8YMGi
+	8v/2/UeGdEcEt4bq95OSqY24tuE+B53teUl+Vpo85e3cKBhcevIqPiHpEnEnceUh3LIMiGmLn2PyW
+	NDQeV2eg==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	Jonathan Corbet <corbet@lwn.net>,
@@ -93,9 +93,9 @@ To: Paolo Bonzini <pbonzini@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v4 22/30] KVM: x86: Allow KVM master clock mode when TSCs are offset from each other
-Date: Sat,  9 May 2026 23:46:48 +0100
-Message-ID: <20260509224824.3264567-23-dwmw2@infradead.org>
+Subject: [PATCH v4 23/30] KVM: x86: Factor out kvm_use_master_clock()
+Date: Sat,  9 May 2026 23:46:49 +0100
+Message-ID: <20260509224824.3264567-24-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260509224824.3264567-1-dwmw2@infradead.org>
 References: <20260509224824.3264567-1-dwmw2@infradead.org>
@@ -103,17 +103,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-4011c0/1778366940-727758B7-C95BCE30/13/0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-purgate-ID: tlsNG-c1860d/1778366927-BFD7BDB1-47E21989/13/0
 X-purgate-type: clean
-X-purgate-size: 4581
-X-Rspamd-Queue-Id: 3E099501D96
+X-purgate-size: 3576
+X-Rspamd-Queue-Id: 7E4BB501D5C
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[infradead.org,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[infradead.org:s=desiato.20200630];
+	R_DKIM_ALLOW(-0.20)[infradead.org:s=casper.20170209];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -125,7 +125,7 @@ X-Spamd-Result: default: False [-0.19 / 15.00];
 	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS(0.00)[m:pbonzini@redhat.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:seanjc@google.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:dwmw2@infradead.org,m:paul@xen.org,m:jic23@kernel.org,m:Sascha.Bischoff@arm.com,m:maz@kernel.org,m:joey.gouly@arm.com,m:jalliste@amazon.com,m:dongli.zhang@oracle.com,m:joe.jin@oracle.com,m:kvm@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kselftest@vger.kernel.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,infradead.org:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,amazon.co.uk:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,infradead.org:mid,infradead.org:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,xen.org:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -143,113 +143,98 @@ X-Rspamd-Action: no action
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-There is no reason why the KVM clock cannot be in masterclock mode when
-the TSCs are not in sync, as long as they are at the same *frequency*.
+Both kvm_track_tsc_matching() and pvclock_update_vm_gtod_copy() make a
+decision about whether the KVM clock should be in master clock mode.
+They used *different* criteria for the decision though. This isn't
+really a problem; it only has the potential to cause unnecessary
+invocations of KVM_REQ_MASTERCLOCK_UPDATE if the masterclock was
+disabled due to TSC going backwards, or the guest using the old MSR.
+But it isn't pretty.
 
-Running at a different frequency would lead to a systemic skew between
-the clock(s) as observed by different vCPUs due to arithmetic precision
-in the scaling. So that should indeed force the clock to be based on the
-host's CLOCK_MONOTONIC_RAW instead of being in masterclock mode where it
-is defined by the guest TSC.
-
-But when the vCPUs merely have a different TSC *offset*, that's not a
-problem. The offset is applied to that vCPU's kvmclock->tsc_timestamp
-field, and it all comes out in the wash.
-
-Track frequency matching separately from full TSC matching. Use
-frequency match for master clock eligibility, and full TSC match
-(including offset) only for PVCLOCK_TSC_STABLE_BIT, which tells the
-guest it is safe to skip cross-vCPU monotonicity enforcement.
+Factor the decision out to a single function. And document the
+historical reason why it's disabled for guests that use the old
+MSR_KVM_SYSTEM_TIME.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Reviewed-by: Paul Durrant <paul@xen.org>
 ---
- arch/x86/include/asm/kvm_host.h |  1 +
- arch/x86/kvm/x86.c              | 27 +++++++++++++++++++++------
- 2 files changed, 22 insertions(+), 6 deletions(-)
+ arch/x86/kvm/x86.c | 33 ++++++++++++++++++++++++++-------
+ 1 file changed, 26 insertions(+), 7 deletions(-)
 
-diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
-index eb81f90284ba..c770c63087cb 100644
---- a/arch/x86/include/asm/kvm_host.h
-+++ b/arch/x86/include/asm/kvm_host.h
-@@ -1493,6 +1493,7 @@ struct kvm_arch {
- 	u64 cur_tsc_offset;
- 	u64 cur_tsc_generation;
- 	bool all_vcpus_matched_tsc;
-+	bool all_vcpus_matched_freq;
- 	int nr_vcpus_matched_tsc;
- 
- 	u32 default_tsc_khz;
 diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index b74fd8b088ad..d36d03b8268e 100644
+index d36d03b8268e..0656d901fe79 100644
 --- a/arch/x86/kvm/x86.c
 +++ b/arch/x86/kvm/x86.c
-@@ -2647,13 +2647,22 @@ static void kvm_track_tsc_matching(struct kvm_vcpu *vcpu, bool new_generation)
- 	struct pvclock_gtod_data *gtod = &pvclock_gtod_data;
+@@ -2640,6 +2640,27 @@ static inline bool gtod_is_based_on_tsc(int mode)
+ }
+ #endif
  
- 	/*
--	 * To use the masterclock, the host clocksource must be based on TSC
--	 * and all vCPUs must have matching TSCs.
-+	 * Track whether all vCPUs have matching TSC offsets (for
-+	 * PVCLOCK_TSC_STABLE_BIT) and matching frequencies (for
-+	 * master clock eligibility).
- 	 */
- 	ka->all_vcpus_matched_tsc = (ka->nr_vcpus_matched_tsc + 1 ==
- 				     atomic_read(&vcpu->kvm->online_vcpus));
-+	if (ka->all_vcpus_matched_tsc)
-+		ka->all_vcpus_matched_freq = true;
- 
--	bool use_master_clock = ka->all_vcpus_matched_tsc &&
++static bool kvm_use_master_clock(struct kvm *kvm)
++{
++	struct kvm_arch *ka = &kvm->arch;
++
 +	/*
-+	 * To use the masterclock, the host clocksource must be based on TSC
-+	 * and all vCPUs must have matching TSC *frequency*. Different offsets
-+	 * are fine — each vCPU's pvclock has its own tsc_timestamp that
-+	 * accounts for its offset.
++	 * The 'old kvmclock' check is a workaround (from 2015) for a
++	 * SUSE 2.6.16 kernel that didn't boot if the system_time in
++	 * its kvmclock was too far behind the current time. So the
++	 * mode of just setting the reference point and allowing time
++	 * to proceed linearly from there makes it fail to boot.
++	 * Despite that being kind of the *point* of the way the clock
++	 * is exposed to the guest. By coincidence, the offending
++	 * kernels used the old MSR_KVM_SYSTEM_TIME, which was moved
++	 * only because it resided in the wrong number range. So the
++	 * workaround is activated for *all* guests using the old MSR.
 +	 */
-+	bool use_master_clock = ka->all_vcpus_matched_freq &&
++	return ka->all_vcpus_matched_freq &&
++		!ka->backwards_tsc_observed &&
++		!ka->boot_vcpu_runs_old_kvmclock;
++}
++
+ static void kvm_track_tsc_matching(struct kvm_vcpu *vcpu, bool new_generation)
+ {
+ #ifdef CONFIG_X86_64
+@@ -2662,7 +2683,7 @@ static void kvm_track_tsc_matching(struct kvm_vcpu *vcpu, bool new_generation)
+ 	 * are fine — each vCPU's pvclock has its own tsc_timestamp that
+ 	 * accounts for its offset.
+ 	 */
+-	bool use_master_clock = ka->all_vcpus_matched_freq &&
++	bool use_master_clock = kvm_use_master_clock(vcpu->kvm) &&
  				gtod_is_based_on_tsc(gtod->clock.vclock_mode);
  
  	/*
-@@ -2817,7 +2826,13 @@ static void __kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 offset, u64 tsc,
- 	 * Track the TSC frequency, scaling ratio, and offset for the current
- 	 * generation. These are used to detect matching TSC writes and to
- 	 * compute the guest TSC from the host clock.
-+	 *
-+	 * If the frequency changed, master clock mode can no longer be used
-+	 * since the kvmclock scaling factors differ between vCPUs.
- 	 */
-+	if (vcpu->arch.virtual_tsc_khz != kvm->arch.cur_tsc_khz)
-+		kvm->arch.all_vcpus_matched_freq = false;
-+
- 	kvm->arch.cur_tsc_khz = vcpu->arch.virtual_tsc_khz;
- 	kvm->arch.cur_tsc_scaling_ratio = vcpu->arch.l1_tsc_scaling_ratio;
- 
-@@ -3178,7 +3193,7 @@ static void pvclock_update_vm_gtod_copy(struct kvm *kvm)
- 	bool host_tsc_clocksource, vcpus_matched;
+@@ -3190,10 +3211,9 @@ static void pvclock_update_vm_gtod_copy(struct kvm *kvm)
+ #ifdef CONFIG_X86_64
+ 	struct kvm_arch *ka = &kvm->arch;
+ 	int vclock_mode;
+-	bool host_tsc_clocksource, vcpus_matched;
++	bool host_tsc_clocksource;
  
  	lockdep_assert_held(&kvm->arch.tsc_write_lock);
--	vcpus_matched = ka->all_vcpus_matched_tsc;
-+	vcpus_matched = ka->all_vcpus_matched_freq;
+-	vcpus_matched = ka->all_vcpus_matched_freq;
  
  	/*
  	 * If the host uses TSC clock, then passthrough TSC as stable
-@@ -3513,7 +3528,7 @@ int kvm_guest_time_update(struct kvm_vcpu *v)
+@@ -3203,9 +3223,8 @@ static void pvclock_update_vm_gtod_copy(struct kvm *kvm)
+ 					&ka->master_kernel_ns,
+ 					&ka->master_cycle_now);
  
- 	/* If the host uses TSC clocksource, then it is stable */
- 	hv_clock.flags = 0;
--	if (use_master_clock)
-+	if (use_master_clock && ka->all_vcpus_matched_tsc)
- 		hv_clock.flags |= PVCLOCK_TSC_STABLE_BIT;
+-	ka->use_master_clock = host_tsc_clocksource && vcpus_matched
+-				&& !ka->backwards_tsc_observed
+-				&& !ka->boot_vcpu_runs_old_kvmclock;
++	ka->use_master_clock = host_tsc_clocksource &&
++				kvm_use_master_clock(kvm);
  
- 	if (vcpu->pv_time.active) {
-@@ -6340,7 +6355,7 @@ static int kvm_vcpu_ioctl_get_clock_guest(struct kvm_vcpu *v, void __user *argp)
+ 	if (ka->use_master_clock) {
+ 		u64 tsc_hz;
+@@ -3231,7 +3250,7 @@ static void pvclock_update_vm_gtod_copy(struct kvm *kvm)
  
- 	hv_clock.tsc_shift = vcpu->pvclock_tsc_shift;
- 	hv_clock.tsc_to_system_mul = vcpu->pvclock_tsc_mul;
--	hv_clock.flags = PVCLOCK_TSC_STABLE_BIT;
-+	hv_clock.flags = ka->all_vcpus_matched_tsc ? PVCLOCK_TSC_STABLE_BIT : 0;
+ 	vclock_mode = pvclock_gtod_data.clock.vclock_mode;
+ 	trace_kvm_update_master_clock(ka->use_master_clock, vclock_mode,
+-					vcpus_matched);
++					ka->all_vcpus_matched_freq);
+ #endif
+ }
  
- 	if (copy_to_user(argp, &hv_clock, sizeof(hv_clock)))
- 		return -EFAULT;
 -- 
 2.51.0
 
