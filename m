@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uBRxIaK6/2mm9wAAu9opvQ
+	id MEYOOvi5/2mz9wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:52:18 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:49:28 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 195E7501CCD
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:52:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1305069.1577690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 974A0501B79
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:49:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1304997.1577665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLqWn-00030S-F5; Sat, 09 May 2026 22:52:09 +0000
+	id 1wLqTa-0006eq-UE; Sat, 09 May 2026 22:48:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1305069.1577690; Sat, 09 May 2026 22:52:09 +0000
+Received: by outflank-mailman (output) from mailman id 1304997.1577665; Sat, 09 May 2026 22:48:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLqWn-0002xM-Ac; Sat, 09 May 2026 22:52:09 +0000
-Received: by outflank-mailman (input) for mailman id 1305069;
- Sat, 09 May 2026 22:52:07 +0000
+	id 1wLqTa-0006aw-J9; Sat, 09 May 2026 22:48:50 +0000
+Received: by outflank-mailman (input) for mailman id 1304997;
+ Sat, 09 May 2026 22:48:48 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 1wLqWl-0002wR-On
- for xen-devel@lists.xenproject.org; Sat, 09 May 2026 22:52:07 +0000
+ <BATV+34a25b45fb3f66caac6a+8294+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 1wLqTY-0005Zz-Aa
+ for xen-devel@lists.xenproject.org; Sat, 09 May 2026 22:48:48 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLqWl-008rH7-5c; Sun, 10 May 2026 00:52:07 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wLqTX-002bXZ-Ng; Sun, 10 May 2026 00:48:47 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 69ffba24-2eae-0a2a0a5409dd-0a2a4506b144-28
- for <multiple-recipients>; Sun, 10 May 2026 00:52:06 +0200
-Received: from [90.155.92.199] (helo=desiato.infradead.org)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ <BATV+34a25b45fb3f66caac6a+8294+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 69ffb9cf-bab6-0a2a0a5309dd-0a2a450bc9d2-0
+ for <multiple-recipients>; Sun, 10 May 2026 00:48:47 +0200
+Received: from [90.155.50.34] (helo=casper.infradead.org)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 69ffb9e2-7371-0a2a45060019-5a9b5cc7e19a-3
- for <multiple-recipients>; Sun, 10 May 2026 00:49:06 +0200
+ <BATV+34a25b45fb3f66caac6a+8294+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 69ffb9cf-212f-0a2a450b0019-5a9b3222ce9e-3
+ for <multiple-recipients>; Sun, 10 May 2026 00:48:47 +0200
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
- by desiato.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wLqTD-00000008wz7-0Xnk; Sat, 09 May 2026 22:48:34 +0000
+ by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wLqTC-000000060L9-2Pfv; Sat, 09 May 2026 22:48:32 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1wLqTC-0000000DhHP-0ITl;
+ Hat Linux)) id 1wLqTC-0000000DhHV-0c3b;
  Sat, 09 May 2026 23:48:26 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -54,17 +54,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=desiato.20200630 header.d=infradead.org header.i="@infradead.org" header.h="Sender:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=casper.20170209 header.d=infradead.org header.i="@infradead.org" header.h="Sender:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
+	d=infradead.org; s=casper.20170209; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From:Reply-To:
 	Cc:Content-Type:Content-ID:Content-Description;
-	bh=cy4WX+pEhq0ONnRd44jsWeJgn8jdEFwX+WNyOailsXI=; b=f1v81ARMTELtkK8Uo8Dot8XJtu
-	ZPciDZdzdNb1UHVK8ThK5p7adwR8E97R+9zIyV0sMXwSSyxjd4IvQlFS1KguGP5C+dFNoPz2650YT
-	vZPBfyVoT3pRwi4VvjZVlaifWMSpT8PK8VePe/zBIi4e47aMk1d9kmUFgZknxrqOXL2hEvnpa6Snd
-	y4uvxo7khgiNAVT2itX+II+hxxOa7kgC788aR89gNlujoCfM6pkUPukM1rscIT6j4W8yH9v0XoPYA
-	LkcLMKnb6NvFlwXfeMKBZDHIP502+a0Hxb+TlAS4PXWuTHMYVmQlYlBXe0VjTlPt4/nVgJdkX0n4H
-	2lt+5C2w==;
+	bh=QaE/jvGdpKCrMu7vuBQqqJqP5vWDROke7W8G0eRZk4g=; b=DoOTPUu0tDOpDhNUD5GD3VymGC
+	agkMnNVNF3tXlzjfcJ3f8fgMLH0TVNE6lTDA+SmaBZpdndkRQvdUfYpNNQUjYo4h9pmFg1ghTy6JK
+	TJTD6SNzc2p9xzSd92A3Nod6poc4y3RYpG6snRh5AMmLjSitEoxCD9SnH0EZvrtQ4BiPzgnLMFjUy
+	usxXQCvIHAmTY5b1qUnWerxbab01zCu1M4crES3M4j2BRAHhvBHu1n2xa4oyoj0CIviPuT/Ak90um
+	Wp9wF78NVSSs0glwlOn0E3FZMCPVRqMhutT0hqOqdevTMtFNPl2n/xRBHkhARcz3GtW5FPLogwoms
+	3soFmUOA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	Jonathan Corbet <corbet@lwn.net>,
@@ -93,27 +93,27 @@ To: Paolo Bonzini <pbonzini@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v4 03/30] UAPI: x86: Move pvclock-abi to UAPI for x86 platforms
-Date: Sat,  9 May 2026 23:46:29 +0100
-Message-ID: <20260509224824.3264567-4-dwmw2@infradead.org>
+Subject: [PATCH v4 04/30] KVM: x86: Add KVM_[GS]ET_CLOCK_GUEST for accurate KVM clock migration
+Date: Sat,  9 May 2026 23:46:30 +0100
+Message-ID: <20260509224824.3264567-5-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260509224824.3264567-1-dwmw2@infradead.org>
 References: <20260509224824.3264567-1-dwmw2@infradead.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-16d1c6/1778366946-84964D75-378A9408/0/0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-purgate-ID: tlsNG-42698a/1778366927-1A971F3B-EEF38261/0/0
 X-purgate-type: clean
-X-purgate-size: 2944
-X-Rspamd-Queue-Id: 195E7501CCD
+X-purgate-size: 10255
+X-Rspamd-Queue-Id: 974A0501B79
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[infradead.org,none];
 	R_MISSING_CHARSET(0.50)[];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[infradead.org:s=desiato.20200630];
+	R_DKIM_ALLOW(-0.20)[infradead.org:s=casper.20170209];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -129,7 +129,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,infradead.org:mid,infradead.org:dkim,oracle.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,xen.org:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oracle.com:email,xen.org:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,amazon.co.uk:email];
 	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -143,96 +143,294 @@ X-Rspamd-Action: no action
 
 From: Jack Allister <jalliste@amazon.com>
 
-A subsequent commit will provide a new KVM interface for performing a
-fixup/correction of the KVM clock against the reference TSC. The
-KVM_[GS]ET_CLOCK_GUEST API requires a pvclock_vcpu_time_info, as such
-the caller must know about this definition.
+In the common case (where kvm->arch.use_master_clock is true), the KVM
+clock is defined as a simple arithmetic function of the guest TSC, based
+on a reference point stored in kvm->arch.master_kernel_ns and
+kvm->arch.master_cycle_now.
 
-Move the definition to the UAPI folder so that it is exported to
-usermode and also change the type definitions to use the standard for
-UAPI exports.
+The existing KVM_[GS]ET_CLOCK functionality does not allow for this
+relationship to be precisely saved and restored by userspace. All it can
+currently do is set the KVM clock at a given UTC reference time, which
+is necessarily imprecise.
 
-Signed-off-by: Jack Allister <jalliste@amazon.com>
+So on live update, the guest TSC can remain cycle accurate at precisely
+the same offset from the host TSC, but there is no way for userspace to
+restore the KVM clock accurately.
+
+Even on live migration to a new host, where the accuracy of the guest
+time-keeping is fundamentally limited by the accuracy of wallclock
+synchronization between the source and destination hosts, the clock jump
+experienced by the guest's TSC and its KVM clock should at least be
+*consistent*. Even when the guest TSC suffers a discontinuity, its KVM
+clock should still remain the *same* arithmetic function of the guest
+TSC, and not suffer an *additional* discontinuity.
+
+To allow for accurate migration of the KVM clock, add per-vCPU ioctls
+which save and restore the actual PV clock info in
+pvclock_vcpu_time_info.
+
+The restoration in KVM_SET_CLOCK_GUEST works by creating a new reference
+point in time just as kvm_update_masterclock() does, and calculating the
+corresponding guest TSC value. This guest TSC value is then passed
+through the user-provided pvclock structure to generate the *intended*
+KVM clock value at that point in time, and through the *actual* KVM
+clock calculation. Then kvm->arch.kvmclock_offset is adjusted to
+eliminate the difference.
+
+Where kvm->arch.use_master_clock is false (because the host TSC is
+unreliable, or the guest TSCs are configured strangely), the KVM clock
+is *not* defined as a function of the guest TSC so KVM_GET_CLOCK_GUEST
+returns an error. In this case, as documented, userspace shall use the
+legacy KVM_GET_CLOCK ioctl. The loss of precision is acceptable in this
+case since the clocks are imprecise in this mode anyway.
+
+On *restoration*, if kvm->arch.use_master_clock is false, an error is
+returned for similar reasons and userspace shall fall back to using
+KVM_SET_CLOCK. This does mean that, as documented, userspace needs to
+use *both* KVM_GET_CLOCK_GUEST and KVM_GET_CLOCK and send both results
+with the migration data (unless the intent is to refuse to resume on a
+host with bad TSC).
+
+Co-developed-by: David Woodhouse <dwmw@amazon.co.uk>
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Signed-off-by: Jack Allister <jalliste@amazon.com>
 Reviewed-by: Paul Durrant <paul@xen.org>
+Cc: Dongli Zhang <dongli.zhang@oracle.com>
 ---
- MAINTAINERS                                   |  4 +--
- arch/x86/include/{ => uapi}/asm/pvclock-abi.h | 27 ++++++++++---------
- 2 files changed, 17 insertions(+), 14 deletions(-)
- rename arch/x86/include/{ => uapi}/asm/pvclock-abi.h (82%)
+ Documentation/virt/kvm/api.rst |  37 ++++++++
+ arch/x86/kvm/x86.c             | 151 +++++++++++++++++++++++++++++++++
+ include/uapi/linux/kvm.h       |   3 +
+ 3 files changed, 191 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e0b307b2108c..e49676955c0c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -14406,7 +14406,7 @@ S:	Supported
- T:	git git://git.kernel.org/pub/scm/virt/kvm/kvm.git
- F:	arch/um/include/asm/kvm_para.h
- F:	arch/x86/include/asm/kvm_para.h
--F:	arch/x86/include/asm/pvclock-abi.h
-+F:	arch/x86/include/uapi/asm/pvclock-abi.h
- F:	arch/x86/include/uapi/asm/kvm_para.h
- F:	arch/x86/kernel/kvm.c
- F:	arch/x86/kernel/kvmclock.c
-@@ -29087,7 +29087,7 @@ R:	Boris Ostrovsky <boris.ostrovsky@oracle.com>
- L:	xen-devel@lists.xenproject.org (moderated for non-subscribers)
- S:	Supported
- F:	arch/x86/configs/xen.config
--F:	arch/x86/include/asm/pvclock-abi.h
-+F:	arch/x86/include/uapi/asm/pvclock-abi.h
- F:	arch/x86/include/asm/xen/
- F:	arch/x86/platform/pvh/
- F:	arch/x86/xen/
-diff --git a/arch/x86/include/asm/pvclock-abi.h b/arch/x86/include/uapi/asm/pvclock-abi.h
-similarity index 82%
-rename from arch/x86/include/asm/pvclock-abi.h
-rename to arch/x86/include/uapi/asm/pvclock-abi.h
-index b9fece5fc96d..6d70cf640362 100644
---- a/arch/x86/include/asm/pvclock-abi.h
-+++ b/arch/x86/include/uapi/asm/pvclock-abi.h
-@@ -1,6 +1,9 @@
--/* SPDX-License-Identifier: GPL-2.0 */
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
- #ifndef _ASM_X86_PVCLOCK_ABI_H
- #define _ASM_X86_PVCLOCK_ABI_H
+diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+index 52bbbb553ce1..2268b4442df6 100644
+--- a/Documentation/virt/kvm/api.rst
++++ b/Documentation/virt/kvm/api.rst
+@@ -6553,6 +6553,43 @@ KVM_S390_KEYOP_SSKE
+   Sets the storage key for the guest address ``guest_addr`` to the key
+   specified in ``key``, returning the previous value in ``key``.
+ 
++4.145 KVM_GET_CLOCK_GUEST
++----------------------------
 +
-+#include <linux/types.h>
++:Capability: none
++:Architectures: x86_64
++:Type: vcpu ioctl
++:Parameters: struct pvclock_vcpu_time_info (out)
++:Returns: 0 on success, <0 on error
 +
- #ifndef __ASSEMBLER__
++Retrieves the current time information structure used for KVM/PV clocks,
++in precisely the form advertised to the guest vCPU, which gives parameters
++for a direct conversion from a guest TSC value to nanoseconds.
++
++When the KVM clock is not in "master clock" mode, for example because the
++host TSC is unreliable or the guest TSCs are oddly configured, the KVM clock
++is actually defined by the host CLOCK_MONOTONIC_RAW instead of the guest TSC.
++In this case, the KVM_GET_CLOCK_GUEST ioctl returns -EINVAL.
++
++4.146 KVM_SET_CLOCK_GUEST
++----------------------------
++
++:Capability: none
++:Architectures: x86_64
++:Type: vcpu ioctl
++:Parameters: struct pvclock_vcpu_time_info (in)
++:Returns: 0 on success, <0 on error
++
++Sets the KVM clock (for the whole VM) in terms of the vCPU TSC, using the
++pvclock structure as returned by KVM_GET_CLOCK_GUEST. This allows the precise
++arithmetic relationship between guest TSC and KVM clock to be preserved by
++userspace across migration.
++
++When the KVM clock is not in "master clock" mode, and the KVM clock is actually
++defined by the host CLOCK_MONOTONIC_RAW, this ioctl returns -EINVAL. Userspace
++may choose to set the clock using the less precise KVM_SET_CLOCK ioctl, or may
++choose to fail, denying migration to a host whose TSC is misbehaving.
++
+ .. _kvm_run:
  
- /*
-@@ -24,20 +27,20 @@
-  */
+ 5. The kvm_run structure
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index d9ef165df6a1..d1327d5fba3f 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -6205,6 +6205,149 @@ static int kvm_get_reg_list(struct kvm_vcpu *vcpu,
+ 	return 0;
+ }
  
- struct pvclock_vcpu_time_info {
--	u32   version;
--	u32   pad0;
--	u64   tsc_timestamp;
--	u64   system_time;
--	u32   tsc_to_system_mul;
--	s8    tsc_shift;
--	u8    flags;
--	u8    pad[2];
-+	__u32   version;
-+	__u32   pad0;
-+	__u64   tsc_timestamp;
-+	__u64   system_time;
-+	__u32   tsc_to_system_mul;
-+	__s8    tsc_shift;
-+	__u8    flags;
-+	__u8    pad[2];
- } __attribute__((__packed__)); /* 32 bytes */
++#ifdef CONFIG_X86_64
++static int kvm_vcpu_ioctl_get_clock_guest(struct kvm_vcpu *v, void __user *argp)
++{
++	struct pvclock_vcpu_time_info hv_clock = {};
++	struct kvm_vcpu_arch *vcpu = &v->arch;
++	struct kvm_arch *ka = &v->kvm->arch;
++	unsigned int seq;
++
++	/*
++	 * If KVM_REQ_CLOCK_UPDATE is already pending, or if the pvclock
++	 * has never been generated at all, call kvm_guest_time_update().
++	 */
++	if (kvm_check_request(KVM_REQ_CLOCK_UPDATE, v) || !vcpu->hw_tsc_hz) {
++		int idx = srcu_read_lock(&v->kvm->srcu);
++		int ret = kvm_guest_time_update(v);
++
++		srcu_read_unlock(&v->kvm->srcu, idx);
++		if (ret)
++			return -EINVAL;
++	}
++
++	/*
++	 * Reconstruct the pvclock from the master clock state, matching
++	 * exactly what kvm_guest_time_update() writes to the guest.
++	 */
++	do {
++		seq = read_seqcount_begin(&ka->pvclock_sc);
++
++		if (!ka->use_master_clock)
++			return -EINVAL;
++
++		hv_clock.tsc_timestamp = kvm_read_l1_tsc(v, ka->master_cycle_now);
++		hv_clock.system_time = ka->master_kernel_ns + ka->kvmclock_offset;
++	} while (read_seqcount_retry(&ka->pvclock_sc, seq));
++
++	hv_clock.tsc_shift = vcpu->pvclock_tsc_shift;
++	hv_clock.tsc_to_system_mul = vcpu->pvclock_tsc_mul;
++	hv_clock.flags = PVCLOCK_TSC_STABLE_BIT;
++
++	if (copy_to_user(argp, &hv_clock, sizeof(hv_clock)))
++		return -EFAULT;
++
++	return 0;
++}
++
++/*
++ * Reverse the calculation in the hv_clock definition.
++ *
++ * time_ns = ( (cycles << shift) * mul ) >> 32;
++ * (although shift can be negative, so that's bad C)
++ *
++ * So for a single second,
++ * NSEC_PER_SEC = ( ( FREQ_HZ << shift) * mul ) >> 32
++ * NSEC_PER_SEC << 32 = ( FREQ_HZ << shift ) * mul
++ * ( NSEC_PER_SEC << 32 ) / mul = FREQ_HZ << shift
++ * ( NSEC_PER_SEC << 32 ) / mul ) >> shift = FREQ_HZ
++ */
++static u64 hvclock_to_hz(u32 mul, s8 shift)
++{
++	u64 tm = NSEC_PER_SEC << 32;
++
++	/* Maximise precision. Shift right until the top bit is set */
++	tm <<= 2;
++	shift += 2;
++
++	/* While 'mul' is even, increase the shift *after* the division */
++	while (!(mul & 1)) {
++		shift++;
++		mul >>= 1;
++	}
++
++	tm /= mul;
++
++	if (shift > 0)
++		return tm >> shift;
++	else
++		return tm << -shift;
++}
++
++static int kvm_vcpu_ioctl_set_clock_guest(struct kvm_vcpu *v, void __user *argp)
++{
++	struct pvclock_vcpu_time_info user_hv_clock;
++	struct kvm *kvm = v->kvm;
++	struct kvm_arch *ka = &kvm->arch;
++	u64 curr_tsc_hz, user_tsc_hz;
++	u64 user_clk_ns;
++	u64 guest_tsc;
++	int rc = 0;
++
++	if (copy_from_user(&user_hv_clock, argp, sizeof(user_hv_clock)))
++		return -EFAULT;
++
++	if (!user_hv_clock.tsc_to_system_mul)
++		return -EINVAL;
++
++	user_tsc_hz = hvclock_to_hz(user_hv_clock.tsc_to_system_mul,
++				    user_hv_clock.tsc_shift);
++
++	kvm_hv_request_tsc_page_update(kvm);
++	kvm_start_pvclock_update(kvm);
++	pvclock_update_vm_gtod_copy(kvm);
++
++	if (!ka->use_master_clock) {
++		rc = -EINVAL;
++		goto out;
++	}
++
++	curr_tsc_hz = (u64)get_cpu_tsc_khz() * 1000;
++	if (unlikely(curr_tsc_hz == 0)) {
++		rc = -EINVAL;
++		goto out;
++	}
++
++	if (kvm_caps.has_tsc_control)
++		curr_tsc_hz = kvm_scale_tsc(curr_tsc_hz,
++					    v->arch.l1_tsc_scaling_ratio);
++
++	/*
++	 * Allow for a discrepancy of 1 kHz either way between the TSC
++	 * frequency used to generate the user's pvclock and the current
++	 * host's measured frequency, since they may not precisely match.
++	 */
++	if (user_tsc_hz < curr_tsc_hz - 1000 ||
++	    user_tsc_hz > curr_tsc_hz + 1000) {
++		rc = -ERANGE;
++		goto out;
++	}
++
++	/*
++	 * Calculate the guest TSC at the new reference point, and the
++	 * corresponding KVM clock value according to user_hv_clock.
++	 * Adjust kvmclock_offset so both definitions agree.
++	 */
++	guest_tsc = kvm_read_l1_tsc(v, ka->master_cycle_now);
++	user_clk_ns = __pvclock_read_cycles(&user_hv_clock, guest_tsc);
++	ka->kvmclock_offset = user_clk_ns - ka->master_kernel_ns;
++
++out:
++	kvm_end_pvclock_update(kvm);
++	return rc;
++}
++#endif
++
+ long kvm_arch_vcpu_ioctl(struct file *filp,
+ 			 unsigned int ioctl, unsigned long arg)
+ {
+@@ -6605,6 +6748,14 @@ long kvm_arch_vcpu_ioctl(struct file *filp,
+ 		srcu_read_unlock(&vcpu->kvm->srcu, idx);
+ 		break;
+ 	}
++#ifdef CONFIG_X86_64
++	case KVM_SET_CLOCK_GUEST:
++		r = kvm_vcpu_ioctl_set_clock_guest(vcpu, argp);
++		break;
++	case KVM_GET_CLOCK_GUEST:
++		r = kvm_vcpu_ioctl_get_clock_guest(vcpu, argp);
++		break;
++#endif
+ #ifdef CONFIG_KVM_HYPERV
+ 	case KVM_GET_SUPPORTED_HV_CPUID:
+ 		r = kvm_ioctl_get_supported_hv_cpuid(vcpu, argp);
+diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+index 6c8afa2047bf..9b50191b859c 100644
+--- a/include/uapi/linux/kvm.h
++++ b/include/uapi/linux/kvm.h
+@@ -1669,4 +1669,7 @@ struct kvm_pre_fault_memory {
+ 	__u64 padding[5];
+ };
  
- struct pvclock_wall_clock {
--	u32   version;
--	u32   sec;
--	u32   nsec;
-+	__u32   version;
-+	__u32   sec;
-+	__u32   nsec;
- } __attribute__((__packed__));
- 
- #define PVCLOCK_TSC_STABLE_BIT	(1 << 0)
++#define KVM_SET_CLOCK_GUEST	_IOW(KVMIO, 0xd6, struct pvclock_vcpu_time_info)
++#define KVM_GET_CLOCK_GUEST	_IOR(KVMIO, 0xd7, struct pvclock_vcpu_time_info)
++
+ #endif /* __LINUX_KVM_H */
 -- 
 2.51.0
 
