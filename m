@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sIsMDfi5/2m39wAAu9opvQ
+	id aGSlKae6/2mm9wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:49:28 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:52:23 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 287E4501B71
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:49:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1304990.1577593 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B036501CF3
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:52:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1305072.1577716 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLqTW-00055K-Q2; Sat, 09 May 2026 22:48:46 +0000
+	id 1wLqWs-0003jt-F1; Sat, 09 May 2026 22:52:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1304990.1577593; Sat, 09 May 2026 22:48:46 +0000
+Received: by outflank-mailman (output) from mailman id 1305072.1577716; Sat, 09 May 2026 22:52:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLqTW-000507-Ly; Sat, 09 May 2026 22:48:46 +0000
-Received: by outflank-mailman (input) for mailman id 1304990;
- Sat, 09 May 2026 22:48:45 +0000
+	id 1wLqWs-0003gK-Aw; Sat, 09 May 2026 22:52:14 +0000
+Received: by outflank-mailman (input) for mailman id 1305072;
+ Sat, 09 May 2026 22:52:12 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 1wLqTU-0004xv-RP
- for xen-devel@lists.xenproject.org; Sat, 09 May 2026 22:48:45 +0000
+ id 1wLqWq-0003eE-Qf
+ for xen-devel@lists.xenproject.org; Sat, 09 May 2026 22:52:12 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLqTU-0026cu-8W; Sun, 10 May 2026 00:48:44 +0200
+ id 1wLqWq-008rH7-7a; Sun, 10 May 2026 00:52:12 +0200
 Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 69ffb8f5-5cb7-0a2a0a5109dd-0a2a4506e2c6-30
- for <multiple-recipients>; Sun, 10 May 2026 00:48:44 +0200
+ id 69ffba24-2eae-0a2a0a5409dd-0a2a4506b144-32
+ for <multiple-recipients>; Sun, 10 May 2026 00:52:11 +0200
 Received: from [90.155.92.199] (helo=desiato.infradead.org)
  by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 69ffb9cb-7371-0a2a45060019-5a9b5cc79ecc-3
- for <multiple-recipients>; Sun, 10 May 2026 00:48:44 +0200
+ id 69ffb9e7-7371-0a2a45060019-5a9b5cc7eaac-3
+ for <multiple-recipients>; Sun, 10 May 2026 00:49:11 +0200
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wLqTD-00000008wzH-0U6f; Sat, 09 May 2026 22:48:28 +0000
+ id 1wLqTD-00000008wzI-0OeQ; Sat, 09 May 2026 22:48:28 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1wLqTC-0000000DhID-35Yi;
+ Hat Linux)) id 1wLqTC-0000000DhIH-3IBh;
  Sat, 09 May 2026 23:48:26 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -59,12 +59,12 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From:Reply-To:
 	Cc:Content-Type:Content-ID:Content-Description;
-	bh=D3ZD9svrsYhkrCggc0KSRTT7FBRjbp88Q/98SjyDptU=; b=NrR9w8Khx8VGuwXJ3A16aybrkh
-	ouMjKpQP6w9R9TcqzykS72xA/q0gH4AnT/doDfI3e5MH+ZYve9uiC4MpDjdR9lV6ySGhrydJumLyu
-	NRE6qOZhbMnyVxh0P9LHfCe6NExErdMqYT1Nw3g8Wv/ITqy9kuvgl0DnJY4N544z/iucLmfyYY4c4
-	YfuyAi3lxDKP1xpkaJePxhXdW73RHEX+f4rOvW6iiVc02rg0BLNX/qjWlRfklA0qK5eTITC9i6vD3
-	6pSwy+DBngCkFGmK2VnZxRsO13YK8EaftPUcsEt0y86xLTVynuB/ogM2Ne36wGplkptXKQWhZVUSB
-	R/Rz284g==;
+	bh=LepzYKC8zChWcqxDUMiFOK7RmizpFH9hCCvlIfnf3aY=; b=bkTTeIeQ6yjciV79dnwOCTS3X8
+	kWPljQM5uuCcLf9xYvOMvxwp0BudJtlKdezBUn+2HsrUtDHGE8X85ygS5I9M1clK6zpm2ifFrsLyI
+	6vHlr9bbTcd192RWw5BeCaycQCXib9QwDp+uVtaExyL6cHh0l//vCGieuOmQt3Zb6k0V42gUmdzy2
+	v+X/RNkqyGK6O828YYwwQwcGi7JC5ICV2+sjdn6xRCbShFs6B4a8UPDR2YF3J0Ue6G7OcdLr2c0KW
+	mS9Em/atYVqzn+EMq4KLzVjs83ETumOZCG//oet13+jOZDJ2WZbahqUjO1qRQftiPO8dK8pbrQTVE
+	zPdP0YPA==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	Jonathan Corbet <corbet@lwn.net>,
@@ -93,9 +93,9 @@ To: Paolo Bonzini <pbonzini@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v4 15/30] KVM: x86: Fix compute_guest_tsc() to handle negative time deltas
-Date: Sat,  9 May 2026 23:46:41 +0100
-Message-ID: <20260509224824.3264567-16-dwmw2@infradead.org>
+Subject: [PATCH v4 16/30] KVM: x86: Restructure kvm_guest_time_update() for TSC upscaling
+Date: Sat,  9 May 2026 23:46:42 +0100
+Message-ID: <20260509224824.3264567-17-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260509224824.3264567-1-dwmw2@infradead.org>
 References: <20260509224824.3264567-1-dwmw2@infradead.org>
@@ -103,10 +103,10 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-16d1c6/1778366924-8C07ED75-342E4FF8/0/0
+X-purgate-ID: tlsNG-16d1c6/1778366951-86D72D75-A28EBC8B/0/0
 X-purgate-type: clean
-X-purgate-size: 1886
-X-Rspamd-Queue-Id: 287E4501B71
+X-purgate-size: 4131
+X-Rspamd-Queue-Id: 3B036501CF3
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -129,7 +129,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amazon.co.uk:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,infradead.org:mid,infradead.org:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -143,54 +143,135 @@ X-Rspamd-Action: no action
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-The compute_guest_tsc() function computes the guest TSC at a given
-kernel_ns timestamp. When the master clock reference point
-(master_kernel_ns) is earlier than vcpu->arch.this_tsc_nsec, the delta
-is negative. Since pvclock_scale_delta() takes a u64, the negative
-value wraps to a huge positive number, producing a wildly wrong result.
+Restructure kvm_guest_time_update() so that kernel_ns/host_tsc are
+always "now" when doing TSC catchup, then swap in the master clock
+reference values afterward for the hv_clock.
 
-Change the return type to s64 and handle negative deltas explicitly by
-negating the delta, scaling it, and subtracting from this_tsc_write.
+This makes the TSC upscaling code considerably simpler: the catchup
+adjustment is computed as the delta between what the guest TSC *should*
+be at "now" and what it actually is, rather than mixing "now" and
+"master clock reference" timestamps.
+
+The seqcount loop now also contains the kvm_get_time_and_clockread()
+call (matching get_kvmclock's pattern), with the same WARN for
+unexpected failure.
+
+Based on a suggestion by Sean Christopherson.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- arch/x86/kvm/x86.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ arch/x86/kvm/x86.c | 67 ++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 47 insertions(+), 20 deletions(-)
 
 diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 2bbc2c7ac449..e281c49561fa 100644
+index e281c49561fa..8e4993ef4f6b 100644
 --- a/arch/x86/kvm/x86.c
 +++ b/arch/x86/kvm/x86.c
-@@ -2586,13 +2586,23 @@ static int kvm_set_tsc_khz(struct kvm_vcpu *vcpu, u32 user_tsc_khz)
- 	return set_tsc_khz(vcpu, user_tsc_khz, use_scaling);
- }
+@@ -3363,39 +3363,51 @@ int kvm_guest_time_update(struct kvm_vcpu *v)
+ 	struct kvm_arch *ka = &v->kvm->arch;
+ 	s64 kernel_ns;
+ 	u64 tsc_timestamp, host_tsc;
++	u64 master_host_tsc = 0;
++	s64 master_kernel_ns = 0;
+ 	bool use_master_clock;
  
--static u64 compute_guest_tsc(struct kvm_vcpu *vcpu, s64 kernel_ns)
-+static s64 compute_guest_tsc(struct kvm_vcpu *vcpu, s64 kernel_ns)
- {
--	u64 tsc = pvclock_scale_delta(kernel_ns-vcpu->arch.this_tsc_nsec,
--				      vcpu->arch.virtual_tsc_mult,
--				      vcpu->arch.virtual_tsc_shift);
--	tsc += vcpu->arch.this_tsc_write;
--	return tsc;
-+	s64 delta_ns = kernel_ns - vcpu->arch.this_tsc_nsec;
-+	u64 tsc;
+-	kernel_ns = 0;
+-	host_tsc = 0;
+-
+ 	/*
+ 	 * If the host uses TSC clock, then passthrough TSC as stable
+ 	 * to the guest.
+ 	 */
+ 	do {
+ 		seq = read_seqcount_begin(&ka->pvclock_sc);
 +
-+	/* Handle negative deltas gracefully (master clock ref may be earlier) */
-+	if (delta_ns < 0) {
-+		tsc = pvclock_scale_delta(-delta_ns,
-+					  vcpu->arch.virtual_tsc_mult,
-+					  vcpu->arch.virtual_tsc_shift);
-+		return vcpu->arch.this_tsc_write - tsc;
+ 		use_master_clock = ka->use_master_clock;
+-		if (use_master_clock) {
+-			host_tsc = ka->master_cycle_now;
+-			kernel_ns = ka->master_kernel_ns;
+-		}
++
++		/*
++		 * The TSC read and the call to get_cpu_tsc_khz() must happen
++		 * on the same CPU.
++		 */
++		get_cpu();
++
++		tgt_tsc_hz = (u64)get_cpu_tsc_khz() * 1000;
++
++		if (use_master_clock &&
++		    !kvm_get_time_and_clockread(&kernel_ns, &host_tsc) &&
++		    WARN_ON_ONCE(!read_seqcount_retry(&ka->pvclock_sc, seq)))
++			use_master_clock = false;
++
++		put_cpu();
++
++		if (!use_master_clock)
++			break;
++
++		master_host_tsc = ka->master_cycle_now;
++		master_kernel_ns = ka->master_kernel_ns;
+ 	} while (read_seqcount_retry(&ka->pvclock_sc, seq));
+ 
+-	/* Keep irq disabled to prevent changes to the clock */
+-	local_irq_save(flags);
+-	tgt_tsc_hz = (u64)get_cpu_tsc_khz() * 1000;
+ 	if (unlikely(tgt_tsc_hz == 0)) {
+-		local_irq_restore(flags);
+ 		kvm_make_request(KVM_REQ_CLOCK_UPDATE, v);
+ 		return 1;
+ 	}
++
+ 	if (!use_master_clock) {
+ 		host_tsc = rdtsc();
+ 		kernel_ns = get_kvmclock_base_ns();
+ 	}
+ 
+-	tsc_timestamp = kvm_read_l1_tsc(v, host_tsc);
+-
+ 	/*
+ 	 * We may have to catch up the TSC to match elapsed wall clock
+ 	 * time for two reasons, even if kvmclock is used.
+@@ -3404,17 +3416,32 @@ int kvm_guest_time_update(struct kvm_vcpu *v)
+ 	 *      entry to avoid unknown leaps of TSC even when running
+ 	 *      again on the same CPU.  This may cause apparent elapsed
+ 	 *      time to disappear, and the guest to stand still or run
+-	 *	very slowly.
++	 *      very slowly.
+ 	 */
+ 	if (vcpu->tsc_catchup) {
+-		u64 tsc = compute_guest_tsc(v, kernel_ns);
+-		if (tsc > tsc_timestamp) {
+-			adjust_tsc_offset_guest(v, tsc - tsc_timestamp);
+-			tsc_timestamp = tsc;
+-		}
++		s64 adjustment;
++
++		/*
++		 * Calculate the delta between what the guest TSC *should* be
++		 * and what it actually is according to kvm_read_l1_tsc().
++		 */
++		adjustment = compute_guest_tsc(v, kernel_ns) -
++			     kvm_read_l1_tsc(v, host_tsc);
++		if (adjustment > 0)
++			adjust_tsc_offset_guest(v, adjustment);
+ 	}
+ 
+-	local_irq_restore(flags);
++	/*
++	 * Now that TSC upscaling is out of the way, the remaining calculations
++	 * are all relative to the reference time that's placed in hv_clock.
++	 * If the master clock is NOT in use, the reference time is "now".  If
++	 * master clock is in use, the reference time comes from there.
++	 */
++	if (use_master_clock) {
++		host_tsc = master_host_tsc;
++		kernel_ns = master_kernel_ns;
 +	}
-+
-+	tsc = pvclock_scale_delta(delta_ns,
-+				  vcpu->arch.virtual_tsc_mult,
-+				  vcpu->arch.virtual_tsc_shift);
-+	return vcpu->arch.this_tsc_write + tsc;
- }
++	tsc_timestamp = kvm_read_l1_tsc(v, host_tsc);
  
- #ifdef CONFIG_X86_64
+ 	/* With all the info we got, fill in the values */
+ 
 -- 
 2.51.0
 
