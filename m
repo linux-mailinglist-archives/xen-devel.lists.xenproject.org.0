@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eC/xEda6/2nm9wAAu9opvQ
+	id 0uM3A/e5/2mz9wAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:53:10 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:49:27 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BEA1501D81
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:53:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1305120.1577816 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9381B501B64
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 00:49:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1304988.1577590 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLqXf-0007rZ-HH; Sat, 09 May 2026 22:53:03 +0000
+	id 1wLqTW-00051e-KM; Sat, 09 May 2026 22:48:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1305120.1577816; Sat, 09 May 2026 22:53:03 +0000
+Received: by outflank-mailman (output) from mailman id 1304988.1577590; Sat, 09 May 2026 22:48:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wLqXf-0007mx-8e; Sat, 09 May 2026 22:53:03 +0000
-Received: by outflank-mailman (input) for mailman id 1305120;
- Sat, 09 May 2026 22:53:01 +0000
+	id 1wLqTW-0004yk-Cw; Sat, 09 May 2026 22:48:46 +0000
+Received: by outflank-mailman (input) for mailman id 1304988;
+ Sat, 09 May 2026 22:48:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 1wLqXd-0007i0-Si
- for xen-devel@lists.xenproject.org; Sat, 09 May 2026 22:53:01 +0000
+ id 1wLqTV-0004xx-1k
+ for xen-devel@lists.xenproject.org; Sat, 09 May 2026 22:48:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wLqXd-006SzZ-9C; Sun, 10 May 2026 00:53:01 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wLqTU-00DG64-De; Sun, 10 May 2026 00:48:44 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 69ffba1a-bab6-0a2a0a5309dd-0a2a4501b8f8-24
- for <multiple-recipients>; Sun, 10 May 2026 00:53:01 +0200
+ id 69ffb8ed-e002-0a2a0a5209dd-0a2a450aedf4-32
+ for <multiple-recipients>; Sun, 10 May 2026 00:48:44 +0200
 Received: from [90.155.92.199] (helo=desiato.infradead.org)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+9b8b472e89b521af7d3c+8294+infradead.org+dwmw2@desiato.srs.infradead.org>)
- id 69ffb9dc-c1f2-0a2a45010019-5a9b5cc7e740-3
- for <multiple-recipients>; Sun, 10 May 2026 00:49:00 +0200
+ id 69ffb9ca-56b3-0a2a450a0019-5a9b5cc7c8dc-3
+ for <multiple-recipients>; Sun, 10 May 2026 00:48:43 +0200
 Received: from [2001:8b0:10b:1::425] (helo=i7.infradead.org)
  by desiato.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wLqTD-00000008wzD-0P9r; Sat, 09 May 2026 22:48:28 +0000
+ id 1wLqTD-00000008wzE-0SAJ; Sat, 09 May 2026 22:48:34 +0000
 Received: from dwoodhou by i7.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1wLqTC-0000000DhHx-2Z87;
+ Hat Linux)) id 1wLqTC-0000000DhI1-2gsb;
  Sat, 09 May 2026 23:48:26 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -59,12 +59,12 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=desiato.20200630; h=Sender:Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:To:From:Reply-To:
 	Cc:Content-Type:Content-ID:Content-Description;
-	bh=r8GUuEfSqVDY4ObHqgt5fkCwzZUXPNLZaFFwnl8uecE=; b=HmsoA/x37thVn7QmEUqzXzZ9dp
-	ISe/5Rd32SNWt4q/Hbqvi9qSeQ3m/RtXJVGMmKWoN+OBAG8rHeLvJxRArpgwhp/bdKz6lzirvf8+j
-	lU6es406aj7gY7eg4CaYfnmcL3Ekw6pKnOBZbpEf5Yi7Ujp3B0CbSJpFSogmG934w7gSa13zWF15F
-	8WY2cypbbhm5GfQeDwrC57KIozrcjnTuGUB//phuSrDxdxKUBVfD8R4QRbDbZwVGHlu49uXm1L5jK
-	p7AtGqj6hNRZwETSVvraP00ZpIIBVXPuj3ThBQtbUkwVhFMHy4lwLeaSA6Rd3M8bbeKoJBkhcuJxJ
-	rYlaHovQ==;
+	bh=zKn6rM5SNp1NUsYTwVeNP1ZCWEOK4E9JR5PloHDb+Ck=; b=nkedMhJt8F9vSW46ftqs+afk74
+	R2kXr8DGF/BR2ZbLetJk7cK8mb7U8wrd+BjH0SLOd2HT+EGkf+eHfiV6BHYj9S3aMKR1w+7RbmCgL
+	WfZdFYRkUyitRkvhEwFbn8/RZK606OSsjn+RxBhvg4DRPETaEapIcUUaSBInJkB6+TK5nUtBNgb72
+	fA3ZOT6czVLlApEuNGzRjCGH87yrxPogqqE0x+gC0ah5O5nNxLIWkSQaGtRdHx9srHNiP4bM1d0lV
+	h0qnlA792499cVUurkX1eNKfWL1N3jMb9S/HMH93MHG6mUxkvvyxBtKCKH195l2JIeGXuHxtogYJU
+	dinfu75Q==;
 From: David Woodhouse <dwmw2@infradead.org>
 To: Paolo Bonzini <pbonzini@redhat.com>,
 	Jonathan Corbet <corbet@lwn.net>,
@@ -93,9 +93,9 @@ To: Paolo Bonzini <pbonzini@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	xen-devel@lists.xenproject.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v4 11/30] KVM: x86: Add WARN and restructure get_kvmclock()
-Date: Sat,  9 May 2026 23:46:37 +0100
-Message-ID: <20260509224824.3264567-12-dwmw2@infradead.org>
+Subject: [PATCH v4 12/30] KVM: x86: Use get_kvmclock_base_ns() as fallback in get_kvmclock()
+Date: Sat,  9 May 2026 23:46:38 +0100
+Message-ID: <20260509224824.3264567-13-dwmw2@infradead.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260509224824.3264567-1-dwmw2@infradead.org>
 References: <20260509224824.3264567-1-dwmw2@infradead.org>
@@ -103,24 +103,24 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Sender: David Woodhouse <dwmw2@infradead.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-d62444/1778366940-ADBA8FF4-964F25BB/13/0
+X-purgate-ID: tlsNG-4011c0/1778366924-725748B7-EE4BF64C/0/0
 X-purgate-type: clean
-X-purgate-size: 2313
-X-Rspamd-Queue-Id: 0BEA1501D81
+X-purgate-size: 1265
+X-Rspamd-Queue-Id: 9381B501B64
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[infradead.org,none];
 	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[infradead.org:s=desiato.20200630];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	RCPT_COUNT_TWELVE(0.00)[27];
 	FORGED_RECIPIENTS(0.00)[m:pbonzini@redhat.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:seanjc@google.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:dwmw2@infradead.org,m:paul@xen.org,m:jic23@kernel.org,m:Sascha.Bischoff@arm.com,m:maz@kernel.org,m:joey.gouly@arm.com,m:jalliste@amazon.com,m:dongli.zhang@oracle.com,m:joe.jin@oracle.com,m:kvm@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kselftest@vger.kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
@@ -129,7 +129,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,infradead.org:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,amazon.co.uk:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -143,74 +143,35 @@ X-Rspamd-Action: no action
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Add the same WARN_ON_ONCE for unexpected kvm_get_walltime_and_clockread()
-failure as in kvm_get_wall_clock_epoch().
+If kvm_get_walltime_and_clockread() fails unexpectedly (the WARN case),
+restart the seqcount loop rather than falling back to a raw rdtsc()
+which would set KVM_CLOCK_TSC_STABLE without KVM_CLOCK_REALTIME.
 
-Move get/put_cpu inside the use_master_clock branch since they are only
-needed there (for RDTSC and get_cpu_tsc_khz() to be on the same CPU).
-
-Also simplify the use_master_clock condition: the open-coded
-CONSTANT_TSC || cpu_tsc_khz check is unnecessary since use_master_clock
-can only be true when the TSC is usable.
+That code path could never actually be reached in practice: on 64-bit
+hosts, use_master_clock can only be true when the clocksource is
+TSC-based, and on 32-bit hosts, use_master_clock is never set. But
+the fallback to raw rdtsc() was misleading and the resulting flags
+combination was inconsistent.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- arch/x86/kvm/x86.c | 24 +++++++++++++++---------
- 1 file changed, 15 insertions(+), 9 deletions(-)
+ arch/x86/kvm/x86.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 6f660c3210ee..9b395c00ccf2 100644
+index 9b395c00ccf2..f2653eaccdf8 100644
 --- a/arch/x86/kvm/x86.c
 +++ b/arch/x86/kvm/x86.c
-@@ -3209,21 +3209,27 @@ static void get_kvmclock(struct kvm *kvm, struct kvm_clock_data *data)
- 	do {
- 		seq = read_seqcount_begin(&ka->pvclock_sc);
- 
--		/* both __this_cpu_read() and rdtsc() should be on the same cpu */
--		get_cpu();
--
- 		data->flags = 0;
--		if (ka->use_master_clock &&
--		    (static_cpu_has(X86_FEATURE_CONSTANT_TSC) || __this_cpu_read(cpu_tsc_khz))) {
-+		if (ka->use_master_clock) {
- #ifdef CONFIG_X86_64
- 			struct timespec64 ts;
-+#endif
-+			/*
-+			 * The RDTSC and get_cpu_tsc_khz() must happen on
-+			 * the same CPU.
-+			 */
-+			get_cpu();
- 
-+#ifdef CONFIG_X86_64
- 			if (kvm_get_walltime_and_clockread(&ts, &data->host_tsc)) {
+@@ -3225,7 +3225,8 @@ static void get_kvmclock(struct kvm *kvm, struct kvm_clock_data *data)
  				data->realtime = ts.tv_nsec + NSEC_PER_SEC * ts.tv_sec;
  				data->flags |= KVM_CLOCK_REALTIME | KVM_CLOCK_HOST_TSC;
--			} else
--#endif
-+			} else if (WARN_ON_ONCE(!read_seqcount_retry(&ka->pvclock_sc, seq))) {
-+				data->host_tsc = rdtsc();
-+			}
-+#else
+ 			} else if (WARN_ON_ONCE(!read_seqcount_retry(&ka->pvclock_sc, seq))) {
+-				data->host_tsc = rdtsc();
++				put_cpu();
++				continue;
+ 			}
+ #else
  			data->host_tsc = rdtsc();
-+#endif
- 
- 			data->flags |= KVM_CLOCK_TSC_STABLE;
- 			hv_clock.tsc_timestamp = ka->master_cycle_now;
-@@ -3232,11 +3238,11 @@ static void get_kvmclock(struct kvm *kvm, struct kvm_clock_data *data)
- 					   &hv_clock.tsc_shift,
- 					   &hv_clock.tsc_to_system_mul);
- 			data->clock = __pvclock_read_cycles(&hv_clock, data->host_tsc);
-+
-+			put_cpu();
- 		} else {
- 			data->clock = get_kvmclock_base_ns() + ka->kvmclock_offset;
- 		}
--
--		put_cpu();
- 	} while (read_seqcount_retry(&ka->pvclock_sc, seq));
- }
- 
 -- 
 2.51.0
 
