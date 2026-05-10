@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kI0RA+TxAGrxOgEAu9opvQ
+	id WPtvCkLzAGpYOwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 23:00:20 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 23:06:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38262506627
-	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 23:00:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1305593.1577886 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 942EE50666A
+	for <lists+xen-devel@lfdr.de>; Sun, 10 May 2026 23:06:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1305612.1577896 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMBFI-0005J2-Jg; Sun, 10 May 2026 20:59:28 +0000
+	id 1wMBLY-000790-B0; Sun, 10 May 2026 21:05:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1305593.1577886; Sun, 10 May 2026 20:59:28 +0000
+Received: by outflank-mailman (output) from mailman id 1305612.1577896; Sun, 10 May 2026 21:05:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMBFI-0005H2-Fb; Sun, 10 May 2026 20:59:28 +0000
-Received: by outflank-mailman (input) for mailman id 1305593;
- Sun, 10 May 2026 20:59:27 +0000
+	id 1wMBLY-00076H-7s; Sun, 10 May 2026 21:05:56 +0000
+Received: by outflank-mailman (input) for mailman id 1305612;
+ Sun, 10 May 2026 21:05:54 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+0abf7e93b395bf2e804e+8295+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wMBFH-0005FU-9P
- for xen-devel@lists.xenproject.org; Sun, 10 May 2026 20:59:27 +0000
+ id 1wMBLW-00076B-Fp
+ for xen-devel@lists.xenproject.org; Sun, 10 May 2026 21:05:54 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMBFG-003wke-Mc; Sun, 10 May 2026 22:59:26 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wMBLV-00FRbJ-PR; Sun, 10 May 2026 23:05:53 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+0abf7e93b395bf2e804e+8295+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a00f152-5cb7-0a2a0a5109dd-0a2a450aec3c-34
- for <multiple-recipients>; Sun, 10 May 2026 22:59:25 +0200
+ id 6a00f309-2eae-0a2a0a5409dd-0a2a4507d730-10
+ for <multiple-recipients>; Sun, 10 May 2026 23:05:53 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+0abf7e93b395bf2e804e+8295+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a00f1ad-56b3-0a2a450a0019-5a9b322292ea-3
- for <multiple-recipients>; Sun, 10 May 2026 22:59:25 +0200
+ id 6a00f330-229c-0a2a45070019-5a9b3222e5ba-3
+ for <multiple-recipients>; Sun, 10 May 2026 23:05:53 +0200
 Received: from 54-240-197-234.amazon.com ([54.240.197.234]
  helo=u09cd745991455d.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wMBEe-00000007GLM-0IXw; Sun, 10 May 2026 20:58:58 +0000
+ id 1wMBLA-00000007GmD-1vIF; Sun, 10 May 2026 21:05:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,15 +58,14 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:To:From:Subject:Message-ID:Sender:Reply-To:Cc:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=xVN4cOYEHLvsvTsrs+Mo4ZF+TKkKL5dKm3kNYJ9llFY=; b=qnSpKJ33qhVTOfzu2g2xy/mOWn
-	WgAnKyKONg75//4h4TDKLqKtbEQC7vadz8Gu58pP3oL3ub0M1GFAwcY9vKlYRq/oc8zuJV92NgJwN
-	f0/3F1kmVCbhl4p3jm+cNSRXnfz7h4ZI6Wro/2ShZlH3AuHcVuiCSkNIe2CWQ44+SFexvzRskAKPJ
-	T4d0cDCMojrcEffGmo1ijQzcCVZZp+YHV9S8qlpFnbGMvSBzPvWGFumv+QOsL2MzlaF3y1cNVq0zR
-	1YRaRp9pbvZTesm0G9/tAEwB+YZfloUwHm951aEWeSoah+Ey4FFSi/QSgIo8wW8wNsxc+W7c3bUQ0
-	F7hgqY/A==;
-Message-ID: <6a820ac041d4d289dba2e78eff815443a036fe0d.camel@infradead.org>
-Subject: [PATCH v4 31/30] KVM: selftests: Add Xen/generic CPUID timing leaf
- test
+	bh=bhNOFvkH719t7i9pQvqgD9PQhJFs6ir/zUj3G3rKD18=; b=k3gDaT7vBcXRudpVf2JczbIT1q
+	5afuzuA0DX9RyNuKWPIbcFfMzM95N5bcyy38ZIevIkLL9zY4zLoghfyqt5mCgw8RfARtFladk4DRS
+	mhEmCZR0wnj1sMkVgMRew2bzKtPMcrFIMBGzMRto5CiJui/yonAWitgBo7DXOG5JF9RIu1i377M2A
+	pgfSLhdq3rJcC+kwSrgxUxqx9iVfay9FgtA+vIZz0+eZTBiF3uABfmOlRptJ3ez23N83pSvwwqWSb
+	icd8XPttOeADBiZBrMnnQzrvU7QGpB/zx9+imXaF4rhTGXJghLDrx3sI7cbaAI/Qvr8bngLVEixRy
+	87Plb/WQ==;
+Message-ID: <66458bbc44f98b7f9742007348a9f70ee8086429.camel@infradead.org>
+Subject: [PATCH v4 32/30] KVM: x86: Re-synchronize TSC after KVM_SET_TSC_KHZ
 From: David Woodhouse <dwmw2@infradead.org>
 To: Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
  Shuah Khan <skhan@linuxfoundation.org>, Sean Christopherson
@@ -82,35 +81,35 @@ To: Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
  <joey.gouly@arm.com>, kvm@vger.kernel.org,  linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org,
  linux-kselftest@vger.kernel.org
-Date: Sun, 10 May 2026 21:58:21 +0100
+Date: Sun, 10 May 2026 22:05:31 +0100
 In-Reply-To: <20260509224824.3264567-1-dwmw2@infradead.org>
 References: <20260509224824.3264567-1-dwmw2@infradead.org>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-Baioh5K8VSQI5oIkCRkB"
+	boundary="=-n1rYoFphXBZk9zIVxw0J"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-4011c0/1778446765-7D5868B7-18587396/0/0
+X-purgate-ID: tlsNG-ef75cf/1778447153-28479C48-A21FFE83/0/0
 X-purgate-type: clean
-X-purgate-size: 16200
-X-Rspamd-Queue-Id: 38262506627
+X-purgate-size: 9332
+X-Rspamd-Queue-Id: 942EE50666A
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,infradead.org:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:pbonzini@redhat.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:seanjc@google.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:dwmw2@infradead.org,m:paul@xen.org,m:jic23@kernel.org,m:Sascha.Bischoff@arm.com,m:maz@kernel.org,m:dongli.zhang@oracle.com,m:jalliste@amazon.com,m:joe.jin@oracle.com,m:joey.gouly@arm.com,m:kvm@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kselftest@vger.kernel.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,infradead.org:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[27];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	DKIM_TRACE(0.00)[infradead.org:-];
@@ -130,301 +129,72 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 X-Rspamd-Action: no action
 
 
---=-Baioh5K8VSQI5oIkCRkB
+--=-n1rYoFphXBZk9zIVxw0J
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Verify that userspace can correctly populate Xen and generic CPUID
-timing leaves using the KVM_VCPU_TSC_EFFECTIVE_FREQ and
-KVM_VCPU_TSC_SCALE attributes.
+KVM_SET_TSC_KHZ changes the vCPU's TSC scaling ratio but does not
+update the VM-wide cur_tsc_scaling_ratio used by get_kvmclock().
+This causes get_kvmclock() to use a stale (default 1:1) ratio when
+computing the KVM clock, leading to drift between the host-side
+kvmclock and what the guest observes.
 
-This validates that the removal of KVM's runtime Xen CPUID modification
-doesn't break guests: userspace queries the effective TSC and bus
-frequencies, computes the pvclock mul/shift, populates the CPUID leaves,
-and the guest verifies the values match.
-
-The test exercises:
- - KVM_VCPU_TSC_EFFECTIVE_FREQ at native and scaled frequencies
- - KVM_VCPU_TSC_SCALE ratio verification against effective frequency
- - Generic timing leaf 0x40000010 (EAX=3Dtsc_khz, EBX=3Dbus_khz)
- - Xen leaf 3 sub-leaf 0 (ECX=3Dguest TSC kHz)
- - Xen leaf 3 sub-leaf 1 (ECX=3Dmul, EDX=3Dshift)
-
-Gracefully skips TSC scaling tests on hardware without support.
+Fix this by calling kvm_synchronize_tsc() after changing the TSC
+frequency. This:
+ - Updates cur_tsc_scaling_ratio (consumed by pvclock_update_vm_gtod_copy)
+ - Ensures the TSC value is continuous across the frequency change
+ - Triggers kvm_track_tsc_matching() for proper masterclock handling
+ - Allows subsequent vCPUs to synchronize via the 1-second slop hack
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/x86/xen_cpuid_timing_test.c | 232 ++++++++++++++++++
- 2 files changed, 233 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/x86/xen_cpuid_timing_test.c
+ arch/x86/kvm/x86.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selft=
-ests/kvm/Makefile.kvm
-index fb935ae3bf38..50f02116249f 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -139,6 +139,7 @@ TEST_GEN_PROGS_x86 +=3D x86/xss_msr_test
- TEST_GEN_PROGS_x86 +=3D x86/debug_regs
- TEST_GEN_PROGS_x86 +=3D x86/tsc_msrs_test
- TEST_GEN_PROGS_x86 +=3D x86/vmx_pmu_caps_test
-+TEST_GEN_PROGS_x86 +=3D x86/xen_cpuid_timing_test
- TEST_GEN_PROGS_x86 +=3D x86/xen_shinfo_test
- TEST_GEN_PROGS_x86 +=3D x86/xen_vmcall_test
- TEST_GEN_PROGS_x86 +=3D x86/sev_init2_tests
-diff --git a/tools/testing/selftests/kvm/x86/xen_cpuid_timing_test.c b/tool=
-s/testing/selftests/kvm/x86/xen_cpuid_timing_test.c
-new file mode 100644
-index 000000000000..f574343ed449
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/xen_cpuid_timing_test.c
-@@ -0,0 +1,232 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Test that userspace can correctly populate Xen and generic CPUID
-+ * timing leaves using KVM_VCPU_TSC_EFFECTIVE_FREQ.
-+ *
-+ * This validates that the removal of KVM's runtime Xen CPUID modification
-+ * doesn't break guests, because userspace has all the information needed.
-+ */
-+#include <stdint.h>
-+#include <string.h>
-+#include <unistd.h>
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index ac982652e5e0..833a4f119e22 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -206,6 +206,7 @@ module_param(mitigate_smt_rsb, bool, 0444);
+ #ifdef CONFIG_X86_64
+ static bool kvm_get_time_and_clockread(s64 *kernel_ns, u64 *tsc_timestamp)=
+;
+ #endif
++static void kvm_synchronize_tsc(struct kvm_vcpu *vcpu, u64 *user_value);
+ #define KVM_MAX_NR_USER_RETURN_MSRS 16
+=20
+ struct kvm_user_return_msrs {
+@@ -2611,7 +2612,20 @@ static int kvm_set_tsc_khz(struct kvm_vcpu *vcpu, u3=
+2 user_tsc_khz)
+ 			 user_tsc_khz, thresh_lo, thresh_hi);
+ 		use_scaling =3D 1;
+ 	}
+-	return set_tsc_khz(vcpu, user_tsc_khz, use_scaling);
++	if (set_tsc_khz(vcpu, user_tsc_khz, use_scaling))
++		return -1;
 +
-+#include "test_util.h"
-+#include "kvm_util.h"
-+#include "processor.h"
-+
-+#include <asm/pvclock-abi.h>
-+
-+#define XEN_CPUID_BASE		0x40000100
-+#define XEN_CPUID_LEAF(n)	(XEN_CPUID_BASE + (n))
-+#define GENERIC_TIMING_LEAF	0x40000010
-+
-+/* Values set by host, verified by guest */
-+static uint32_t expected_tsc_khz;
-+static uint32_t expected_bus_khz;
-+static uint32_t expected_tsc_mul;
-+static int8_t   expected_tsc_shift;
-+static uint64_t host_khz;
-+
-+static void guest_code(void)
-+{
-+	uint32_t eax, ebx, ecx, edx;
-+
-+	/* Check generic timing leaf 0x40000010 */
-+	__cpuid(GENERIC_TIMING_LEAF, 0, &eax, &ebx, &ecx, &edx);
-+	GUEST_ASSERT_EQ(eax, expected_tsc_khz);
-+	GUEST_ASSERT_EQ(ebx, expected_bus_khz);
-+
-+	/* Check Xen leaf 3, sub-leaf 0: ECX =3D guest TSC frequency */
-+	__cpuid(XEN_CPUID_LEAF(3), 0, &eax, &ebx, &ecx, &edx);
-+	GUEST_ASSERT_EQ(ecx, expected_tsc_khz);
-+
-+	/* Check Xen leaf 3, sub-leaf 1: ECX =3D mul, EDX =3D shift */
-+	__cpuid(XEN_CPUID_LEAF(3), 1, &eax, &ebx, &ecx, &edx);
-+	GUEST_ASSERT_EQ(ecx, expected_tsc_mul);
-+	GUEST_ASSERT_EQ((int8_t)edx, expected_tsc_shift);
-+
-+	GUEST_SYNC(0);
-+}
-+
-+static void add_cpuid_entry(struct kvm_vcpu *vcpu, uint32_t function,
-+			    uint32_t index, uint32_t eax, uint32_t ebx,
-+			    uint32_t ecx, uint32_t edx)
-+{
-+	struct kvm_cpuid2 *cpuid =3D vcpu->cpuid;
-+	struct kvm_cpuid_entry2 *entry;
-+	int n =3D cpuid->nent;
-+
-+	vcpu->cpuid =3D realloc(vcpu->cpuid,
-+			      sizeof(*cpuid) + (n + 1) * sizeof(*entry));
-+	cpuid =3D vcpu->cpuid;
-+	cpuid->nent =3D n + 1;
-+
-+	entry =3D &cpuid->entries[n];
-+	memset(entry, 0, sizeof(*entry));
-+	entry->function =3D function;
-+	entry->index =3D index;
-+	entry->flags =3D KVM_CPUID_FLAG_SIGNIFCANT_INDEX;
-+	entry->eax =3D eax;
-+	entry->ebx =3D ebx;
-+	entry->ecx =3D ecx;
-+	entry->edx =3D edx;
-+}
-+
-+/*
-+ * Compute pvclock mul/shift from frequency, matching kvm_get_time_scale()=
-.
-+ */
-+static void compute_tsc_mul_shift(uint64_t tsc_hz, uint32_t *mul, int8_t *=
-shift)
-+{
-+	uint64_t scaled =3D 1000000000ULL;
-+	uint64_t base =3D tsc_hz;
-+	int32_t s =3D 0;
-+	uint32_t base32;
-+
-+	while (base > scaled * 2 || base >> 32) {
-+		base >>=3D 1;
-+		s--;
-+	}
-+	base32 =3D (uint32_t)base;
-+	while (base32 <=3D scaled || scaled >> 32) {
-+		if (scaled >> 32 || base32 & (1U << 31))
-+			scaled >>=3D 1;
-+		else
-+			base32 <<=3D 1;
-+		s++;
-+	}
-+	*mul =3D (uint32_t)((scaled << 32) / base32);
-+	*shift =3D (int8_t)s;
-+}
-+
-+static void run_test(uint64_t tsc_khz)
-+{
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	struct ucall uc;
-+	struct { uint32_t tsc_khz; uint32_t bus_khz; } freq;
-+	struct kvm_device_attr freq_attr =3D {
-+		.group =3D KVM_VCPU_TSC_CTRL,
-+		.attr =3D 2, /* KVM_VCPU_TSC_EFFECTIVE_FREQ */
-+		.addr =3D (uint64_t)(uintptr_t)&freq,
-+	};
-+
-+	vm =3D vm_create_with_one_vcpu(&vcpu, guest_code);
-+
-+	if (tsc_khz) {
-+		pr_info("Testing at TSC frequency %lu kHz\n", tsc_khz);
-+		vcpu_ioctl(vcpu, KVM_SET_TSC_KHZ, (void *)(unsigned long)tsc_khz);
-+	} else {
-+		pr_info("Testing at native TSC frequency\n");
-+	}
-+
-+	vcpu_ioctl(vcpu, KVM_GET_DEVICE_ATTR, &freq_attr);
-+
-+	/* If scaling wasn't applied, skip this frequency */
-+	if (tsc_khz && freq.tsc_khz =3D=3D host_khz) {
-+		pr_info("  TSC scaling not available, skipping\n");
-+		kvm_vm_release(vm);
-+		return;
-+	}
-+
-+	pr_info("  Effective TSC: %u kHz, Bus: %u kHz\n", freq.tsc_khz, freq.bus_=
-khz);
-+
-+	/* Also exercise KVM_VCPU_TSC_SCALE if available */
++	/*
++	 * Re-synchronize the TSC after changing frequency. This ensures
++	 * cur_tsc_scaling_ratio is updated (used by get_kvmclock) and
++	 * the TSC value is continuous across the frequency change.
++	 */
 +	{
-+		struct { uint64_t ratio; uint64_t frac_bits; } scale;
-+		struct kvm_device_attr scale_attr =3D {
-+			.group =3D KVM_VCPU_TSC_CTRL,
-+			.attr =3D 1, /* KVM_VCPU_TSC_SCALE */
-+			.addr =3D (uint64_t)(uintptr_t)&scale,
-+		};
++		u64 tsc =3D kvm_read_l1_tsc(vcpu, rdtsc());
 +
-+		if (!__vcpu_ioctl(vcpu, KVM_HAS_DEVICE_ATTR, &scale_attr)) {
-+			vcpu_ioctl(vcpu, KVM_GET_DEVICE_ATTR, &scale_attr);
-+			pr_info("  TSC scale: ratio=3D%lu frac_bits=3D%lu\n",
-+				scale.ratio, scale.frac_bits);
-+
-+			/*
-+			 * Verify: applying the ratio to the host TSC frequency
-+			 * should give approximately the effective frequency.
-+			 */
-+			if (tsc_khz) {
-+				uint64_t computed =3D ((__uint128_t)host_khz * scale.ratio) >> scale.f=
-rac_bits;
-+				int64_t diff =3D (int64_t)computed - (int64_t)freq.tsc_khz;
-+
-+				TEST_ASSERT(diff >=3D -1 && diff <=3D 1,
-+					    "TSC_SCALE ratio mismatch: computed %lu vs effective %u (diff %ld=
-)",
-+					    computed, freq.tsc_khz, diff);
-+			}
-+		}
++		kvm_synchronize_tsc(vcpu, &tsc);
 +	}
-+
-+	compute_tsc_mul_shift((uint64_t)freq.tsc_khz * 1000,
-+			      &expected_tsc_mul, &expected_tsc_shift);
-+
-+	expected_tsc_khz =3D freq.tsc_khz;
-+	expected_bus_khz =3D freq.bus_khz;
-+
-+	sync_global_to_guest(vm, expected_tsc_khz);
-+	sync_global_to_guest(vm, expected_bus_khz);
-+	sync_global_to_guest(vm, expected_tsc_mul);
-+	sync_global_to_guest(vm, expected_tsc_shift);
-+
-+	/* Populate CPUID leaves as a VMM would */
-+	add_cpuid_entry(vcpu, GENERIC_TIMING_LEAF, 0,
-+			freq.tsc_khz, freq.bus_khz, 0, 0);
-+	add_cpuid_entry(vcpu, XEN_CPUID_LEAF(3), 0,
-+			0, 0, freq.tsc_khz, 0);
-+	add_cpuid_entry(vcpu, XEN_CPUID_LEAF(3), 1,
-+			0, 0, expected_tsc_mul,
-+			(uint32_t)(uint8_t)expected_tsc_shift);
-+
-+	vcpu_set_cpuid(vcpu);
-+
-+	pr_info("  pvclock mul=3D%u shift=3D%d\n", expected_tsc_mul, expected_tsc=
-_shift);
-+
-+	vcpu_run(vcpu);
-+	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+
-+	switch (get_ucall(vcpu, &uc)) {
-+	case UCALL_ABORT:
-+		REPORT_GUEST_ASSERT(uc);
-+		break;
-+	case UCALL_SYNC:
-+		break;
-+	default:
-+		TEST_FAIL("Unexpected ucall");
-+	}
-+
-+	kvm_vm_release(vm);
-+}
-+
-+int main(void)
-+{
-+	uint64_t freq;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	struct kvm_device_attr attr =3D {
-+		.group =3D KVM_VCPU_TSC_CTRL,
-+		.attr =3D 2,
-+	};
-+
-+	TEST_REQUIRE(sys_clocksource_is_based_on_tsc());
-+
-+	/* Check KVM_VCPU_TSC_EFFECTIVE_FREQ is supported */
-+	vm =3D vm_create_with_one_vcpu(&vcpu, guest_code);
-+	TEST_REQUIRE(!__vcpu_ioctl(vcpu, KVM_HAS_DEVICE_ATTR, &attr));
-+	host_khz =3D __vcpu_ioctl(vcpu, KVM_GET_TSC_KHZ, NULL);
-+	kvm_vm_release(vm);
-+
-+	/* Native frequency */
-+	run_test(0);
-+
-+	/* Scaled frequencies =E2=80=94 skip if TSC scaling not available */
-+	for (freq =3D 1000000; freq <=3D 4000000; freq +=3D 1000000) {
-+		if (freq =3D=3D host_khz)
-+			continue;
-+		run_test(freq);
-+	}
-+
-+	pr_info("PASS: All CPUID timing leaf tests passed\n");
 +	return 0;
-+}
+ }
+=20
+ static s64 compute_guest_tsc(struct kvm_vcpu *vcpu, s64 kernel_ns)
 --=20
 2.43.0
 
 
 
---=-Baioh5K8VSQI5oIkCRkB
+--=-n1rYoFphXBZk9zIVxw0J
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -503,22 +273,22 @@ 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
-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
+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
-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
+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
 
 
---=-Baioh5K8VSQI5oIkCRkB--
+--=-n1rYoFphXBZk9zIVxw0J--
 
