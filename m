@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wBUpEIwlAmpooQEAu9opvQ
+	id IJmuFYklAmqEoQEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 20:53:00 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 20:52:57 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74697514B1F
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 20:52:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1306366.1578358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD128514B16
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 20:52:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1306370.1578367 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMVjR-0005yz-Fl; Mon, 11 May 2026 18:51:57 +0000
+	id 1wMVk5-0006Os-JX; Mon, 11 May 2026 18:52:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1306366.1578358; Mon, 11 May 2026 18:51:57 +0000
+Received: by outflank-mailman (output) from mailman id 1306370.1578367; Mon, 11 May 2026 18:52:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMVjR-0005w4-8u; Mon, 11 May 2026 18:51:57 +0000
-Received: by outflank-mailman (input) for mailman id 1306366;
- Mon, 11 May 2026 18:51:55 +0000
+	id 1wMVk5-0006NC-Gh; Mon, 11 May 2026 18:52:37 +0000
+Received: by outflank-mailman (input) for mailman id 1306370;
+ Mon, 11 May 2026 18:52:35 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wMVjP-0005vy-HR
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 18:51:55 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wMVk3-0006N1-J7
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 18:52:35 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMVjO-007EpK-RG
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 20:51:54 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wMVk3-001EDj-01
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 20:52:35 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a022540-bab6-0a2a0a5309dd-0a2a4501d11c-26
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 20:51:54 +0200
-Received: from [52.101.85.34]
- (helo=BYAPR05CU005.outbound.protection.outlook.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a022548-c1f2-0a2a45010019-346555228de1-4
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 20:51:54 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by CH5PR03MB7792.namprd03.prod.outlook.com (2603:10b6:610:215::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Mon, 11 May
- 2026 18:51:50 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9891.021; Mon, 11 May 2026
- 18:51:50 +0000
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a022534-2eae-0a2a0a5409dd-0a2a450484c4-40
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 20:52:34 +0200
+Received: from [209.85.208.176] (helo=mail-lj1-f176.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a022572-1dec-0a2a45040019-d155d0b0c1ed-3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 20:52:34 +0200
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-393a44854d2so36868541fa.3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 11:52:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,220 +51,348 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=siJmZm/InMatD5Yx8d73HyB9uHUQmtN6b0Qwmc62DtAIkwMtiTs+vpiqc6fOH87NEO2ymH46wPfEyvUk4icsrA5yC0BbfTNhUEtHB4FCYNTBWYD5mDFiJODdtDO2gOB5+FQRzBMGmkMQKIhhGxwL4NXctaegeIORTaBhPVhoexhk2PHvMZWxrWJQT00Rhx8pTDIBWDjfAHQwSVH80FkVSPJV5qua3tExA7A6rik1+V8MdP3nMY8qSh5HA5wDQC05GroglWDmqwvFjAiEn4hkpvphSD7xvzfk59Z+7No0pNxwGVq4biFAVUrfd20C+1eXNAlzxEmF71IdDuy/ZaCJWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RWhMxsqM5QCJaP97OCbM04Lq6/lCSArZnYYo/iyvrYk=;
- b=v6rVugydnnmmohOFkO41Gds7KlPmAu6neFbGWf2h7/z1WD4vGaFjtCst/TzhhwOEUuR6053Xg92YfqLX2J/WoW8YOxF/WnC/VEEB/oxCgY4mVnhtDsVkSZ8wcPmiukGtns+im8C9S8enPqDWqBspqqxXUPh+Fnvcf7Cb3JyG0KmqsTzP56q2mEdYm4jo2gJJ5vRwhTlqpyoUYHayFYWOw20DW4eoRwdVBEuwvVGdgjxH6xeX/Sdel8RY+IEvExaciPeodER6isFlSfodQ9aqibsUiHwpPpzVTrqu03ZePG3+pQmVV4J7Gl54ASntOfa0GxPVnIarvCAp7AWkjxMBCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RWhMxsqM5QCJaP97OCbM04Lq6/lCSArZnYYo/iyvrYk=;
- b=FN1IIq+c60Vb05MsQcPYQFIUBRA8dXnQCewMtdNvwMed997jAtz8FRNWHJWixlu35hPahBN9I+XyCULj6fLOhUpAJgdBCqkaEOYBllw6S6HlHDK5QB6BScwHZT3cJ+u19sUd3UqwluNfOqCZaVyG10q97TiJLlpwJAGr+oeoQqs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Community Manager <community.manager@xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Teddy Astie <teddy.astie@vates.tech>
-Subject: [PATCH v2] x86/dom0: enable pf-fixup by default for PVH dom0
-Date: Mon, 11 May 2026 20:51:45 +0200
-Message-ID: <20260511185145.23750-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.53.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA2P292CA0002.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:1::18) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1778525554; cv=none;
+        d=google.com; s=arc-20240605;
+        b=RP9t7sQxDmWQhcJV8e61lJ39PyBiFXfwGaHAsJIRr/HrbXkT3MWzJfJz1DMro0xor/
+         sPLh+DV7PN4rakmAKvAh9WnY3L9RIW5Hm5ld5aPZ7Z8tnojDM04EsI7VNakfjDU5e5pg
+         1QDOZAD7C8MCQ8ACeUm5YBl1sxXGsjeerRrB2j38uI45J41gRMubGo91MueVA6YqMojG
+         0Nl6vGkrhOKoLQZx7j2wkC6qzKloD6p+2O1w7fA4b53JYcv/H3U6xl3EikDEdidZHBkB
+         uPomSKnVNwU5TBbTDnWoHlEq4L4if0Rlx5LmChwo3nmjj3MfsgiDv2nLL9MTwLJsPWp0
+         rTkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=naYHQ6TyAdVtGN3Kv18P8iV2zmMmIC7Yo8VrV1NrKyc=;
+        fh=SFtdlMni3BnFH+oTSZbVgVF1hLyFxrwlVmTI+BqD6+c=;
+        b=CyQI9JA6w/iY+0hVHOX0dvJ3GmKbAA1M3GpsnkvBdgh+pkLkTMDH7KUbw5mpWKcDq7
+         GBrLD6igd0sUlueNuL/x64eHYJ/DF4jKsSiiZhu8cMRndmXMrzVUs8YTy2ZboucfuLeX
+         Hiz5GUAeYC3S7hVGHnZeg0lu1Z0kJnj/4qYpr8HTXL8ZKz1wDMsSbSNP0UuEAdbO2fHc
+         5exClNuvdvNcc0ULmwkQfDo/S0p0P35tN6sq+QCrem43rKN6A+/VgJuActW6naa1x8Z6
+         kjZ4bhOsatKpEft3dA+L50sU7nvnr4P9vXuzIjk6CC4l7lwCc4nGbUs2S0eRwdTcY5wp
+         nwZA==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778525554; x=1779130354; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=naYHQ6TyAdVtGN3Kv18P8iV2zmMmIC7Yo8VrV1NrKyc=;
+        b=clXdQWTS1qEVSnd2qnpOKvri4HDWY2sEmQKYq8At0B+WthUmZ0IGaokU0oB0aB+/j3
+         erEMlVYbID9+hHR1L5is4H4EEojNfeZ8RXo9d29CEN3M9uaA+9I+wCXHiBow8zmNk5bC
+         W92R0pVyDGfOwypmqtybPzzL8lIyOF4y5/UHn36BFhcV8oSms1/s/wO67uliFA/+ezBf
+         GO890Fdvr7JHiNqsDehAQkIsYU+XKJTsN+kepBZDqnPNyIQbO+tcs121VkjNnwVIzorw
+         8NRHwZTg5oWdD2nRLbJPLxYHaoLlGX4sVI7JhaO6FQhM2XnuGcvC8pbZ+Ki+FJjdu/eM
+         TYGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778525554; x=1779130354;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=naYHQ6TyAdVtGN3Kv18P8iV2zmMmIC7Yo8VrV1NrKyc=;
+        b=IKmlkV75oTVF1sZSZTPTqyQHeKXWkUg+Dc0kVtPphc/vBKGa5Y7YtIS9mHjGTvcDCf
+         0M2oXSN+9jE4F1fXXPJik6Lwtn4QWFa4j2L96d738HLPdOxsgB2fWZufycvlsVGXGZ2Z
+         iZ6vbo94QbVd+sUA3dhYbpyeaAVOq4Qz9AHd7zFVFcscDiLNDaiGX5wKfn8Z/CpEzje4
+         9Men0lexklg/jypXF/+pIi8NHmPxLsYN/NBX0x1mb8F38DxeqYDzNk0GwGLOrJOYA9U8
+         7z8scFgjr4gCf2Ohkh7RoBBCZe6N0rpsYdYo5yWaPUXQLjC02jXMft/mS6LAqF2mjque
+         XCMA==
+X-Gm-Message-State: AOJu0YxTK8e17q08YCxaLgSYDI+CE2y+uBR5EZlQ6GH5Fp2fvBX2RMEx
+	Kpg1ynqzkn0mh401inOk+m+Ozgf2xJVUFMqhgHjwCka6u0j/1cbIbMnxcW5ac+S1dKsZCw1v4MN
+	o8aVEgZzznFwTMAi8rf5w8I5ezNEDdmc=
+X-Gm-Gg: Acq92OFVn00bSsGje58hz+sMwg8bQcQCgwCbLCkxPSKDPH/LgawefwgrnlcCwHFQAid
+	14Rd3LkJ2JJ4osT6AomrJdmtLgI9cMPeyfNULEh1hGDbMgmt71H4D9+yvqKkoLL8F6YaRG5FGEG
+	7hgP+A1mLDrLFzfJ3XsRWdOz+/B2AWJp5908O/l4vSmTMKAzhiJCLKvhRssNLblhfOR/z+kK5rL
+	qE35QpMM3KPt2s/m3SspcFUkQazqS5HeC2swy7w3zb56XxYgAVS1u2DOgo4kznkL3D4I8VKiw9o
+	nmnrPQ==
+X-Received: by 2002:a2e:a80b:0:b0:393:55e1:4bcd with SMTP id
+ 38308e7fff4ca-394081a4cd1mr30841201fa.31.1778525553821; Mon, 11 May 2026
+ 11:52:33 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CH5PR03MB7792:EE_
-X-MS-Office365-Filtering-Correlation-Id: 640db228-2350-4255-abb7-08deaf8e5c38
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|3023799003|11063799003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	43QlVrp95OuIp9DciDZpepq3tuwmRnVaLKD15xv2wTjrIJZpGchBmFG0RwRkhq8oyXbXrBphPOewE9VD8J7d+WtLJiXCOzVsnWenjLG0MDKmwO5HLOVkMKtXF2PbDHxdEBjsqicFq3t/vvKh+m+C0dhiVASKxY9279n7YhaBeqUQH08Q9WC0dnyIKbo4hTiNaFpRizjaWKZf8XQtxKJaFdVfJcHFRonnyqpY8Z+nC2NHa9yhrYuqTTsVrW2o6g8L1ZYAsbX5ewsSJAVXrT8k0IoSWDAk3nPyrIkndIRAScnWPbicE11aqYVssQPa5CEf4AOtpNnGqb3OykxrTdAFUyZbTxu4y2+YJWPHmReBO7YE09j1mWzzFGodE4MWHBJGZLUA9hd5LVcbsuTGAT4mP+xm6/9NjPRRvYeWYy2kduygL+oyScm2N8wY0EGirCpCerJzFog7nEw2Cl+f+Tg3ojH1FszH4GZ+zkGUQhoRzl7+W7PgwKQ+BKpM2OD+JfPql3yV57M0SCZ91EneT/jchYwrlH1xYN9OmI6GuHSAVQ0uotHaYwjMiIb08oOKnOhtYNSC8DT/z7KYh6zYIiXeCr8CCECJx7SMnRmFUafW/cxntT+4/1GcykYgIa80McQzNRzawIOkJhL3d2U1PewXDw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(3023799003)(11063799003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dWtOYkVYeEsyMHcxKy9rUnZyWUxHZlZ2Z1V5ekxKTzlDRWVrbHhSbWg0akVx?=
- =?utf-8?B?TDlVLytualdrR1RwcVlPYUREK2V4eDBDRDBlQ3NWR2lLdiszd0dvblhzRnI0?=
- =?utf-8?B?MGgvWVAzM1ozYlpOMVNqbnVCOWU2SG1FZDNxR2NFWmJmRE1zY21tNmZNdHlp?=
- =?utf-8?B?aW1DM3g4MDZXc2t5QTRDQXEwU3Y0VklZeWVjY21KQUFmSGlNeVFiS2xTYjdH?=
- =?utf-8?B?YmJjaWh4NUhhNU10UzZSbCtKZGFVdGVFbncxaWdHbkJuK0EzSEsrVk9IWlhy?=
- =?utf-8?B?MG5SUU5neFl3TVBhRXBpc25hOHhPaURBRnlCS2E2V0kxZG93eHJBY0FiaEc1?=
- =?utf-8?B?OENFSmRic3V6RmV4V2VmZ2FVNjVCQTdtaHpEcUNtUG5lZHdFMFVpZG5SSGd6?=
- =?utf-8?B?emtDZGFmYWpVL1RDUVJzc21meENTUUxpbklGNlpuU2d5WEVhT0JDOXhub3lB?=
- =?utf-8?B?RVNHNWk2R1dkSUxnd2JnU3R5OEcvZkdMcXJUR2ljc04xKzcwTnpHdkNOZVo5?=
- =?utf-8?B?RmJ0UXd0ZURWeG5vMDhwQ3VPNXlNM3o5WGpBb2pCcCs1WWFGQk1sVkQ5bDBy?=
- =?utf-8?B?T0QydGFabVZjL25OTWdnOEFFVldPNnlsUXhVV2RxY1dZRjhDMEZ0akNPRE5R?=
- =?utf-8?B?c2hWV0JHRnpMeDRzM3Z2YXlHeVBERkhnczJzZ0VEemNyTVNOdnpKODBhaVlz?=
- =?utf-8?B?ZTZpMW1nVktIeUJXQ2lOcC9XZ1YzUVozYk9CUGZ1U3FhSlJQRjNlZ0Y0eUNX?=
- =?utf-8?B?TlFBNUxxSVpKajVPNDhWbXVpUzBNbFU3cDJpa213YTRtZFZWSm4zNkxseGFL?=
- =?utf-8?B?UktjRHJHVmNiL09UMWxuc3A2aXY5cWlCWGg5dUFWZHZkSGUzUUtqUGx5a2ho?=
- =?utf-8?B?c3Z1U3dZWGd0TVErbng4SE9IcmcyN3VzdkhIblZlN1c2UHg3MDkyYjNUZGFz?=
- =?utf-8?B?RVFHUnlyR3FKaS9SL05JOWpqZjMvKzBQSGFYNjAxNmpmWm81aDJ6ZGNBbGpH?=
- =?utf-8?B?OXJZUlVFL3lkNHhOYWtjU08vTk9uZEY4bXppajR2MXRtZ3hnYkxVTktncTZE?=
- =?utf-8?B?MTFFbDMrNzNYVlJ2NENHOWV2U3VES3F3cmJBUnRjMllaQWJVOE9CQXo2cUkw?=
- =?utf-8?B?TDg5WjNyOFhXaEFHblBJT04zUys2cDhZR0NiMFhZaFUyQS9YUmF6TnJGYnN3?=
- =?utf-8?B?dzJUbEF3RHVtbzlYTUlvZ0JZRCs5WHByNnRGR29SU3dUZlJVR1dPaEFOTWRk?=
- =?utf-8?B?M00ySkFSVXh3NVo4VHd2Y0pvLzcySVB2OVJ0MmxDV2kxQXZ3SGdJOTZ6dWUy?=
- =?utf-8?B?eC9reUlSN0VETm5NbE9mL21QaC8rYUtDd0lxSU5YdTJRRDFZTGZ1TUJnMnJD?=
- =?utf-8?B?NVlxbENVRzNhTWZoZldOVk1rNlJZODhGTmFmeFFkRFhudjBkZUU2TnRFYmVn?=
- =?utf-8?B?UU92OXJFbmFzaTA5RStqZUJRc1E1dnd6aGpBYnF4WjhrdmV0MHljeDZBR3Rp?=
- =?utf-8?B?TDA3aHpmaGRKZXlWemdmZUFaeFZxZi91T0pXbTd3VHlxM1c4RUZKNGJjTjVx?=
- =?utf-8?B?V04wYnA4UnVhWE5Gd1cvcFBnK2N3bE9scWtCa1NOYTdLYnBNYURJaVlEaGNl?=
- =?utf-8?B?N2UyZ1Q1S00rRW5CZzhHRTlBMnpPNFIyaTlLTnFZbmdReTlsQ0FsZFVwME41?=
- =?utf-8?B?QWFNYytKQmdJaVY1K3FUL2hRMkppS2NEN0IrL0dJanlXU3VzUGtEbmxXaVUv?=
- =?utf-8?B?RHRzTFE1UitBQ29sZVVTMFhnSGJIN1d0ZjQ4dVRuQTVtV0VsVlNKQVN4V2da?=
- =?utf-8?B?bXZGT09sWDBIUDBwRzhNWko5eFQ1TFpSN282OElTcURVTDl0RDI4QjdLdXdM?=
- =?utf-8?B?N21UTXZMMjB4MTMrZ1BReUpZaG9DM3BWSm9yUVBMTmxhSnBiOHF5a0k3UVNm?=
- =?utf-8?B?WW52b1hQTTVLOC9kUDJlUVRYamRkTkN2bEZkWktCa1hCdW1paEhyWFcycW9l?=
- =?utf-8?B?Ry9VTysyYVpwZUNCL3Yxd0YrYS9tSXhuQ0NXV09WVWc1OGJvREUvTm9uOG4x?=
- =?utf-8?B?Sy81clVaSlhhTzhCaE5KcUlsTDRvK1JFcTRwZmJtVFpyRVZGSzRpdkUrSjJV?=
- =?utf-8?B?YmVvTWh5QnhCZjBBSFJyempQZktpYjBwQWI4a0l2b01QK0RnSmlyL2F4alla?=
- =?utf-8?B?dVZRQ0FKN09BOThXcEFVWUh4VSsyT05oSFFTWngzVW1YQUlORE5lM0ZFbHd6?=
- =?utf-8?B?V2dHcStFU1FsRUlOSlZYczc4TjYrME9iTlhCOVdFVXFGd0dMY2Y4WjVZS1ZP?=
- =?utf-8?B?WDNqMVhqUkpJNzJGcExDa2hmYUhkU0lHWVpJTlAxV3drVnA3WHE2dz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 640db228-2350-4255-abb7-08deaf8e5c38
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 18:51:50.2025
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i0/APC6TX+xAS+anpyyMhVlEVqQFYz9ul1TrRIFSbRw2qsUs+Jnc/AC8Fs5PODVSBNt+gyKwpm8gO1LxgaRIGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH5PR03MB7792
-X-purgate-ID: tlsNG-d62444/1778525514-B695FFF4-D6233A47/0/0
+References: <cover.1775125380.git.mykola_kvach@epam.com> <f87a2bcb6b09e95e07e51c27541ad91406e849d1.1775125380.git.mykola_kvach@epam.com>
+ <515377c0-2d8c-4069-86d0-e50674fefc68@gmail.com>
+In-Reply-To: <515377c0-2d8c-4069-86d0-e50674fefc68@gmail.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Mon, 11 May 2026 21:52:22 +0300
+X-Gm-Features: AVHnY4J3h-b6myBnxQz8_mxa7K4zWtVZ_3YhrYRdOqN1yMuVXJvULZvcvf1b5gI
+Message-ID: <CAGeoDV9OxZGFhORoXRGYnDKOXdUvGaFwLCo8Otbi2g96FRYkgA@mail.gmail.com>
+Subject: Re: [PATCH v8 11/13] xen/arm: Save/restore context on suspend/resume
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-ebf023/1778525554-491763FF-87D55BBF/0/0
 X-purgate-type: clean
-X-purgate-size: 3080
-X-Rspamd-Queue-Id: 74697514B1F
+X-purgate-size: 8050
+X-Rspamd-Queue-Id: AD128514B16
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[citrix.com,gmail.com,xenproject.org,vates.tech,amd.com,suse.com,xen.org,kernel.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,aggios.com:email,epam.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:community.manager@xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,m:teddy.astie@vates.tech,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email,citrix.com:mid,citrix.com:dkim,keepachangelog.com:url];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:olekstysh@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Action: no action
 
-A non-trivial amount of issues related to PVH dom0 are fixed by enabling
-the `pf-fixup` command line option, and no issues have been reported as a
-result of its usage.  Enable the option by default to make PVH dom0 more
-robust in its default configuration.
+Hi Oleksandr,
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - Slightly reword an expand option help text.
- - Mention the change of defaults in CHANGELOG.
----
- CHANGELOG.md                      | 2 ++
- docs/misc/xen-command-line.pandoc | 8 ++++++--
- xen/arch/x86/hvm/emulate.c        | 2 +-
- 3 files changed, 9 insertions(+), 3 deletions(-)
+Thank you for the review.
 
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index ce46020dbdb4..25f5a192ed48 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
- ## [4.22.0 UNRELEASED](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
- 
- ### Changed
-+ - On x86:
-+   - Enable pf-fixup option by default for PVH dom0.
- 
- ### Added
-  - Support for per-domain Xenstore quota in C xenstored (includes
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 6c77129732bf..2da90548d8fb 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -849,7 +849,7 @@ Controls for how dom0 is constructed on x86 systems.
-     If using this option is necessary to fix an issue, please report a bug.
- 
- *   The `pf-fixup` boolean is only applicable when using a PVH dom0 and
--    defaults to false.
-+    defaults to true.
- 
-     When running dom0 in PVH mode the dom0 kernel has no way to map MMIO
-     regions into its physical memory map, such mode relies on Xen dom0 builder
-@@ -857,10 +857,14 @@ Controls for how dom0 is constructed on x86 systems.
-     access.  However Xen doesn't have a complete picture of the host memory
-     map, due to not being able to process ACPI dynamic tables.
- 
--    The `pf-fixup` option allows Xen to attempt to add missing MMIO regions
-+    The `pf-fixup` option causes Xen to attempt to add missing MMIO regions
-     to the dom0 physical memory map in response to page-faults generated by
-     dom0 trying to access unpopulated entries in the memory map.
- 
-+    Users having to disable the feature to boot in PVH dom0 mode should report
-+    it to the xen-devel mailing list, together with Xen and dom0 output with the
-+    option enabled.
-+
- Enables features on dom0 on Arm systems.
- 
- *   The `sve` integer parameter enables Arm SVE usage for Dom0 and sets the
-diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
-index f3aae158e9f8..bb1bb03ac4e9 100644
---- a/xen/arch/x86/hvm/emulate.c
-+++ b/xen/arch/x86/hvm/emulate.c
-@@ -165,7 +165,7 @@ void hvmemul_cancel(struct vcpu *v)
-     hvmemul_cache_disable(v);
- }
- 
--bool __ro_after_init opt_dom0_pf_fixup;
-+bool __ro_after_init opt_dom0_pf_fixup = true;
- static int hwdom_fixup_p2m(paddr_t addr)
- {
-     unsigned long gfn = paddr_to_pfn(addr);
--- 
-2.53.0
+On Mon, May 11, 2026 at 7:00=E2=80=AFPM Oleksandr Tyshchenko
+<olekstysh@gmail.com> wrote:
+>
+>
+>
+> On 4/2/26 13:45, Mykola Kvach wrote:
+>
+> Hello Mykola
+>
+> I did not spot any obvious issues with this patch. As far as I can tell,
+> the save/restore register set appears to be complete and correct for the
+> current codebase.
+>
+> Just one observation: there is an API asymmetry between
+> prepare_resume_ctx() and hyp_resume() (save uses pointer, restore
+> hardcodes global) ...
+>
+> > From: Mirela Simonovic <mirela.simonovic@aggios.com>
+> >
+> > The context of CPU general purpose and system control registers must be
+> > saved on suspend and restored on resume. This is implemented in
+> > prepare_resume_ctx and before the return from the hyp_resume function.
+> > The prepare_resume_ctx must be invoked just before the PSCI system susp=
+end
+> > call is issued to the ATF. The prepare_resume_ctx must return a non-zer=
+o
+> > value so that the calling 'if' statement evaluates to true, causing the
+> > system suspend to be invoked. Upon resume, the context saved on suspend
+> > will be restored, including the link register. Therefore, after
+> > restoring the context, the control flow will return to the address
+> > pointed to by the saved link register, which is the place from which
+> > prepare_resume_ctx was called. To ensure that the calling 'if' statemen=
+t
+> > does not again evaluate to true and initiate system suspend, hyp_resume
+> > must return a zero value after restoring the context.
+> >
+> > Note that the order of saving register context into cpu_context structu=
+re
+> > must match the order of restoring.
+> >
+> > Support for ARM32 is not implemented. Instead, compilation fails with a
+> > build-time error if suspend is enabled for ARM32.
+> >
+> > Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+> > Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+> > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> > Changes in v8:
+> > - fix alignments in code
+> >
+> > Changes in v7:
+> > - no changes
+> > ---
+> >   xen/arch/arm/Makefile              |  1 +
+> >   xen/arch/arm/arm64/head.S          | 90 +++++++++++++++++++++++++++++=
+-
+> >   xen/arch/arm/include/asm/suspend.h | 26 +++++++++
+> >   xen/arch/arm/suspend.c             | 14 +++++
+> >   4 files changed, 130 insertions(+), 1 deletion(-)
+> >   create mode 100644 xen/arch/arm/suspend.c
+> >
+> > diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> > index 69200b2728..c36158271a 100644
+> > --- a/xen/arch/arm/Makefile
+> > +++ b/xen/arch/arm/Makefile
+> > @@ -51,6 +51,7 @@ obj-y +=3D setup.o
+> >   obj-y +=3D shutdown.o
+> >   obj-y +=3D smp.o
+> >   obj-y +=3D smpboot.o
+> > +obj-$(CONFIG_SYSTEM_SUSPEND) +=3D suspend.o
+> >   obj-$(CONFIG_SYSCTL) +=3D sysctl.o
+> >   obj-y +=3D time.o
+> >   obj-y +=3D traps.o
+> > diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+> > index 596e960152..2cb02ee314 100644
+> > --- a/xen/arch/arm/arm64/head.S
+> > +++ b/xen/arch/arm/arm64/head.S
+> > @@ -562,6 +562,52 @@ END(efi_xen_start)
+> >   #endif /* CONFIG_ARM_EFI */
+> >
+> >   #ifdef CONFIG_SYSTEM_SUSPEND
+> > +/*
+> > + * int prepare_resume_ctx(struct cpu_context *ptr)
+> > + *
+> > + * x0 - pointer to the storage where callee's context will be saved
+>
+>     ... the C signature takes a pointer (struct cpu_context *ptr) and
+> the save path uses it, ...
+>
+> > + *
+> > + * CPU context saved here will be restored on resume in hyp_resume fun=
+ction.
+> > + * prepare_resume_ctx shall return a non-zero value. Upon restoring co=
+ntext
+> > + * hyp_resume shall return value zero instead. From C code that invoke=
+s
+> > + * prepare_resume_ctx, the return value is interpreted to determine wh=
+ether
+> > + * the context is saved (prepare_resume_ctx) or restored (hyp_resume).
+> > + */
+> > +FUNC(prepare_resume_ctx)
+> > +        /* Store callee-saved registers */
+> > +        stp   x19, x20, [x0], #16
+> > +        stp   x21, x22, [x0], #16
+> > +        stp   x23, x24, [x0], #16
+> > +        stp   x25, x26, [x0], #16
+> > +        stp   x27, x28, [x0], #16
+> > +        stp   x29, lr, [x0], #16
+> > +
+> > +        /* Store stack-pointer */
+> > +        mov   x2, sp
+> > +        str   x2, [x0], #8
+> > +
+> > +        /* Store system control registers */
+> > +        mrs   x2, VBAR_EL2
+> > +        str   x2, [x0], #8
+> > +        mrs   x2, VTCR_EL2
+> > +        str   x2, [x0], #8
+> > +        mrs   x2, VTTBR_EL2
+> > +        str   x2, [x0], #8
+> > +        mrs   x2, TPIDR_EL2
+> > +        str   x2, [x0], #8
+> > +        mrs   x2, MDCR_EL2
+> > +        str   x2, [x0], #8
+> > +        mrs   x2, HSTR_EL2
+> > +        str   x2, [x0], #8
+> > +        mrs   x2, CPTR_EL2
+> > +        str   x2, [x0], #8
+> > +        mrs   x2, HCR_EL2
+> > +        str   x2, [x0], #8
+> > +
+> > +        /* prepare_resume_ctx must return a non-zero value */
+> > +        mov   x0, #1
+> > +        ret
+> > +END(prepare_resume_ctx)
+> >
+> >   FUNC(hyp_resume)
+> >           /* Initialize the UART if earlyprintk has been enabled. */
+> > @@ -580,7 +626,49 @@ FUNC(hyp_resume)
+> >           b     enable_secondary_cpu_mm
+> >
+> >   mmu_resumed:
+> > -        b .
+> > +        /* Now we can access the cpu_context, so restore the context h=
+ere */
+> > +        ldr   x0, =3Dcpu_context
+>
+>     ... but the restore path hardcodes =3Dcpu_context, ignoring whatever
+> pointer was originally passed. If a caller were to pass anything other
+> than &cpu_context, the resume would load from the wrong location. Since
+> the sole call site does pass &cpu_context (called from system_suspend()
+> in the last patch), this works correctly today =E2=80=94 but the API is s=
+omewhat
+> misleading.
+>
+> I might be missing something, but why not make prepare_resume_ctx() take
+> no arguments and use =3Dcpu_context directly inside the assembly? That wa=
+y
+> the save and restore paths would both use the same global, and the API
+> would not be misleading.
 
+Yes, good point. Since the resume path restores from the global context obj=
+ect,
+the argument to prepare_resume_ctx() is misleading.
+
+I will remove the argument and make both the save and restore paths use the
+same global resume_cpu_context object.
+
+Best regards,
+Mykola
+
+>
+> > +
+> > +        /* Restore callee-saved registers */
+> > +        ldp   x19, x20, [x0], #16
+> > +        ldp   x21, x22, [x0], #16
+> > +        ldp   x23, x24, [x0], #16
+> > +        ldp   x25, x26, [x0], #16
+> > +        ldp   x27, x28, [x0], #16
+> > +        ldp   x29, lr, [x0], #16
+> > +
+> > +        /* Restore stack pointer */
+> > +        ldr   x2, [x0], #8
+> > +        mov   sp, x2
+> > +
+> > +        /* Restore system control registers */
+> > +        ldr   x2, [x0], #8
+> > +        msr   VBAR_EL2, x2
+> > +        ldr   x2, [x0], #8
+> > +        msr   VTCR_EL2, x2
+> > +        ldr   x2, [x0], #8
+> > +        msr   VTTBR_EL2, x2
+> > +        ldr   x2, [x0], #8
+> > +        msr   TPIDR_EL2, x2
+> > +        ldr   x2, [x0], #8
+> > +        msr   MDCR_EL2, x2
+> > +        ldr   x2, [x0], #8
+> > +        msr   HSTR_EL2, x2
+> > +        ldr   x2, [x0], #8
+> > +        msr   CPTR_EL2, x2
+> > +        ldr   x2, [x0], #8
+> > +        msr   HCR_EL2, x2
+> > +        isb
+> > +
+> > +        /*
+> > +         * Since context is restored return from this function will ap=
+pear
+> > +         * as return from prepare_resume_ctx. To distinguish a return =
+from
+> > +         * prepare_resume_ctx which is called upon finalizing the susp=
+end,
+> > +         * as opposed to return from this function which executes on r=
+esume,
+> > +         * we need to return zero value here.
+> > +         */
+> > +        mov   x0, #0
+> > +        ret
+> >   END(hyp_resume)
+> >
+> >   #endif /* CONFIG_SYSTEM_SUSPEND */
+>
+>
+> [snip]
+>
+>
 
