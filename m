@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KIz3CH79AWppnAEAu9opvQ
+	id eIypELr/AWppnAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 18:02:06 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 18:11:38 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CDF7511BBE
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 18:01:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1306308.1578341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A686A511DB4
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 18:11:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1306319.1578349 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMT3z-0000ax-Ho; Mon, 11 May 2026 16:00:59 +0000
+	id 1wMTE2-0002LL-Dx; Mon, 11 May 2026 16:11:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1306308.1578341; Mon, 11 May 2026 16:00:59 +0000
+Received: by outflank-mailman (output) from mailman id 1306319.1578349; Mon, 11 May 2026 16:11:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMT3z-0000Xz-F6; Mon, 11 May 2026 16:00:59 +0000
-Received: by outflank-mailman (input) for mailman id 1306308;
- Mon, 11 May 2026 16:00:58 +0000
+	id 1wMTE2-0002Jn-Au; Mon, 11 May 2026 16:11:22 +0000
+Received: by outflank-mailman (input) for mailman id 1306319;
+ Mon, 11 May 2026 16:11:21 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <olekstysh@gmail.com>) id 1wMT3x-0000Xp-Rv
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 16:00:58 +0000
+ (envelope-from <olekstysh@gmail.com>) id 1wMTE0-0002Jf-VY
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 16:11:20 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMT3u-007hct-AW
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 18:00:54 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wMTE0-006ykw-1o
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 18:11:20 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <olekstysh@gmail.com>)
- id 6a01fd25-5cb7-0a2a0a5109dd-0a2a45019b44-18
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 18:00:54 +0200
-Received: from [209.85.208.181] (helo=mail-lj1-f181.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a01ff99-bab6-0a2a0a5309dd-0a2a4504e8f0-28
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 18:11:20 +0200
+Received: from [209.85.167.48] (helo=mail-lf1-f48.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <olekstysh@gmail.com>)
- id 6a01fd35-c1f2-0a2a45010019-d155d0b5b19b-3
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 18:00:54 +0200
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-39393c1b5aaso40018451fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 09:00:54 -0700 (PDT)
+ id 6a01ffa7-1dec-0a2a45040019-d155a730dd6d-3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 18:11:19 +0200
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-5a8cb92f26aso1217441e87.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 09:11:19 -0700 (PDT)
 Received: from [10.17.80.122] (ll-74.141.223.85.sovam.net.ua. [85.223.141.74])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-393f6131c08sm28569531fa.30.2026.05.11.09.00.51
+ 2adb3069b0e04-5a8a956606fsm2729763e87.60.2026.05.11.09.11.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 May 2026 09:00:52 -0700 (PDT)
+ Mon, 11 May 2026 09:11:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,91 +58,96 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778515253; x=1779120053; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1778515879; x=1779120679; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=+ug0aCUEmDPdrZzEZL+s+UF5tIuI8VwfPl3ENnEI/bU=;
-        b=Wxnbl9hnWsu9UWf3ytnnBycu+lhrFtPqhA1Oa3jPOWs73v5iFOFhTgnkklL3TZJnt8
-         UY6DnHn3swnBjPr8lo4aEUabFqNXPswTegfANc709ovqliHgUBOPTK0XcXRqXlcHh0zp
-         oDV1xh++GcucaRfAByYkXxepk8DyGNXBtIvrZ6ZneDSV403JWQtBuL3ksbZRr7quzhty
-         wScZciAOMc0vbirQbiN1+MIXTwbfYnY8DlGANXkwriNlZKuj/ABFqmpS5i9SPxEnsVSI
-         kWz+SvC8c/KftJSaQaFz3Pkkflr+heRBU61iDj8E0IJ0cFOUcsHUIY1IZVqmsXv5zm41
-         cRwQ==
+        bh=Sls1bHMvWLGjROEhjj794p0jW0oEgupA7PELvWg6QEo=;
+        b=E7+Ldo0P8dunEG3fGto7rH9E4gvzoctBQMNXNPNK/9gDSRrqM9qUHU1Z67kRuZNECF
+         5yOHCa3RU4VNG5F2uW/Sbs5oreVx/zMReAF1J/XKK0SSzvbZivtO45iNXkQlDmlo2GNj
+         EMFMev5c2GLlGlo3C3jNrEq+s4tMGXERKNynCROeRLs4XKNK72/zM5uoeqKi5y8VPEgD
+         MhreLSw9p4JZAqJ5+zagvNRaaOezyOOdJOqe1/xKge3MOhWa3/QIVG85p4PCresFLk2U
+         hr99TSKRSi2BYBP5QtNY6NDgK+c+kWLIj/hAjq00TQqDf2Ybh7OB3CFzNVFyG0Xb/Suc
+         ArGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778515253; x=1779120053;
+        d=1e100.net; s=20251104; t=1778515879; x=1779120679;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=+ug0aCUEmDPdrZzEZL+s+UF5tIuI8VwfPl3ENnEI/bU=;
-        b=JC1u4SEZUKKNnBWwHTRPX7ASAr4qCDNx4auPWjgzJ+gqnm3ozXbxY5t3uDgC2SYZxc
-         j2Sd+YmTLLlLklva0JtIDkbDHlHliOKE15hWXIYTcWa7RgD3psK3tQWpOvAc8hyaetNU
-         urKbfSTMfvNMympEEXMyqWsCpUAdIVxym4DPlSW3AAyVAIS4+Y17Ou8rgqHYqZGy4n0A
-         PrP6Ffuatp0cQDiX5hYcc2QBkjDNzRkLrbIgM3z0Y6MbcalgW5ddePB3dlH9zweealaa
-         49Alc+oTl5V36PGPF4HLcEPo4c7SbimMzTiCF/zf37Ih4CjERqHEuRIbHOVpUnnw2nFu
-         jC7w==
-X-Forwarded-Encrypted: i=1; AFNElJ8Lo0P1LoJ14JAMvOcTdvjUjwa4tiffBzlsOJw7zq7zjrXwEBnYOsq8CQRY7a+QrhY5I7atJweeFiE=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyhbzWEaP8RP/8r3gkWOJikpP4y6ZVSd3DgGf82RAMqgBbD0w2s
-	671+Dku+Sc5rlRD7H5evC3cdc9pwFicNQR13tbvEV1N0zXOVFncuQy7k
-X-Gm-Gg: Acq92OHycYWSFmqQhylMKVoy3u5xJ0yedIJYBdrK62mFy28uNpKqbZ1zSMYgjV9DJy9
-	F2pAleBfups842PnxTRINqI33GdL7UOwCZQFBT5dJTOavg5pVWSotZ3ZmM8OSA3eGPpTJjt4c34
-	hDd6PZ9cLMpukHdEV4MJmZGxkYrs5vvRqC//UMGGNhIixtt9Xo9YuffPMCDPDvOJ6YOgNq46Gm/
-	TzLrryoA8fRPmMGSGmKREB6rbg4AyIjxjhBHPYTLqMUegnvhiiAU/ZsDLqtvZSPC4CsNkaPPgjk
-	dPfenjyK5RgXqTBP2zfS4j6GBdhCDEJZRbO25FLlF1JV/hurvC3AiRe7HePKeZ8uNxQ5l8sX/bN
-	wy1cHp6w3jiIc2exNS4WlG4eAkFVnNFTXXVhcBCsbgv1CgCMwNOOvJ3Nrhc8YPxPKw+8bl8yiJ1
-	Z8Ana7a8efdblRoIPrV5dZb5kUKhbb/xJB0WVXCALpIfW5ZI/To9kkz8fyuYw3kW+ZPA==
-X-Received: by 2002:a2e:bc09:0:b0:393:bffa:d815 with SMTP id 38308e7fff4ca-393f4f1d3edmr38453991fa.21.1778515253066;
-        Mon, 11 May 2026 09:00:53 -0700 (PDT)
-Message-ID: <515377c0-2d8c-4069-86d0-e50674fefc68@gmail.com>
-Date: Mon, 11 May 2026 19:00:50 +0300
+        bh=Sls1bHMvWLGjROEhjj794p0jW0oEgupA7PELvWg6QEo=;
+        b=A0FAAzYs+s9QlIXuynN0+syA1dAKRHCP6orEqZEzQ6Vm++FFYXaUUoa2UlIx2TYTGG
+         x641wWWGYmNk4i2BRtcddkYSJZCTcPlgPSnOyG36YWe1zAfhZb5hYsBfYUZxx6eF9dBs
+         4/3EcqlERcqXwLwlATXfS0VKmNBF1TD2tFsiVpkxVlwLCRQK0N4vVlmJOrNl0DrvQofL
+         akVezXWJogL/YQBpOIPaGRxEtKjBCMGRZZ62uuZZGxdRdg/ev/2l9pqjjZ/oW/hXnq4u
+         +wxUKRg8YcsRXJ1ZU5YAfmhy2xcLQP5WEzJgv3xNDQm8ck3cuWjmAH0Yu5lElTl/v8TE
+         Xw5g==
+X-Forwarded-Encrypted: i=1; AFNElJ/Cm7jE1fNW1seFIlOAjPzlQVVYHB/FcXbRdPx5HaXouvBl9RhFv4IMrwgz6jZXz+sV7SS+UqY6HvU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzMTqjl5sopHId+c7Zkge/bCSfmDdVF2lkJynRw83T+HIv9yo5S
+	NDS/e+N0JnAK7hcCIw6pJ4pDhyKw9ojygxEECfHg4mSA9yJ13Hx/c4aq
+X-Gm-Gg: Acq92OEVLaJjUUDyrvr9ksrl2GCCgkb7Pl6mF/mrZNts+O9MvYcj8XvRanTrRaQgv5A
+	6fEd+EgwI2P4O4Uyj9jjqlEtS8k7HlfN4ZZbH1aXIEh5ZqzS/hErbHw6/U2Nv0A83XPVLIItI+O
+	97dFJAsLpiVZsG2OqlZh1xVdhISlqyaWah+6pE1amzzDj5IW5Cwyh04VSihH3pfb3dAZEP71VzV
+	rLFlSJK33PJGx20GsdLhed29AZwJe+bZxsjkf/fUP7OBu9uzHIrQEqk7/CDF/QIqz7WIpv4qAm4
+	BM8x7+NKeGujfSTUxZI4yfNpwmT9T6hEV5JajJanwIS271DQVmp12yKj3vY1nJD50XGpoGvESPy
+	pue9yj/m1J/gsTXYCyhRK9bZr7wZaSDr7wRfZTK+ChsO4lbIAZbE4uSGaFAhFm3pUZKi0jcnC8l
+	rlYhCgAaRLUjSwUysqF0bSiXGhQuWKJnJjgenJcc7H0gjAOf0iSCe+x1Y=
+X-Received: by 2002:a05:6512:3188:b0:5a3:f2ed:87cd with SMTP id 2adb3069b0e04-5a887adfccemr9511589e87.10.1778515878947;
+        Mon, 11 May 2026 09:11:18 -0700 (PDT)
+Message-ID: <aa86b867-417c-4dbb-a5ac-aea9910369ce@gmail.com>
+Date: Mon, 11 May 2026 19:11:15 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 11/13] xen/arm: Save/restore context on suspend/resume
-To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
+Subject: Re: [PATCH v8 10/13] xen/arm: Resume memory management on Xen resume
+To: Mykola Kvach <xakep.amatop@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Mykola Kvach <Mykola_Kvach@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <cover.1775125380.git.mykola_kvach@epam.com>
- <f87a2bcb6b09e95e07e51c27541ad91406e849d1.1775125380.git.mykola_kvach@epam.com>
+ <02b55a02f329d09c9f8b15d97ca9176b3c33017a.1775125380.git.mykola_kvach@epam.com>
+ <873402ub63.fsf@epam.com>
+ <CAGeoDV8KppmniGEtRzCeHMLuVdXD-2bRXa_CeOPh8P9xPjiCTg@mail.gmail.com>
 Content-Language: en-US
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <f87a2bcb6b09e95e07e51c27541ad91406e849d1.1775125380.git.mykola_kvach@epam.com>
+In-Reply-To: <CAGeoDV8KppmniGEtRzCeHMLuVdXD-2bRXa_CeOPh8P9xPjiCTg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d62444/1778515254-AC055FF4-57AE83BC/0/0
+X-purgate-ID: tlsNG-ebf023/1778515879-42F653FF-4178308E/0/0
 X-purgate-type: clean
-X-purgate-size: 7202
-X-Rspamd-Queue-Id: 5CDF7511BBE
+X-purgate-size: 2925
+X-Rspamd-Queue-Id: A686A511DB4
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xakepamatop@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:Mykola_Kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xakepamatop@gmail.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER(0.00)[olekstysh@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	ASN_FAIL(0.00)[120.175.237.192.asn.rspamd.com:query timed out];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[olekstysh@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
 	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	ARC_NA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[olekstysh@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-0.999];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -154,198 +159,101 @@ X-Rspamd-Action: no action
 
 
 
-On 4/2/26 13:45, Mykola Kvach wrote:
+On 5/8/26 23:59, Mykola Kvach wrote:
 
 Hello Mykola
 
-I did not spot any obvious issues with this patch. As far as I can tell, 
-the save/restore register set appears to be complete and correct for the 
-current codebase.
-
-Just one observation: there is an API asymmetry between 
-prepare_resume_ctx() and hyp_resume() (save uses pointer, restore 
-hardcodes global) ...
-
-> From: Mirela Simonovic <mirela.simonovic@aggios.com>
+> Hi Volodymyr,
 > 
-> The context of CPU general purpose and system control registers must be
-> saved on suspend and restored on resume. This is implemented in
-> prepare_resume_ctx and before the return from the hyp_resume function.
-> The prepare_resume_ctx must be invoked just before the PSCI system suspend
-> call is issued to the ATF. The prepare_resume_ctx must return a non-zero
-> value so that the calling 'if' statement evaluates to true, causing the
-> system suspend to be invoked. Upon resume, the context saved on suspend
-> will be restored, including the link register. Therefore, after
-> restoring the context, the control flow will return to the address
-> pointed to by the saved link register, which is the place from which
-> prepare_resume_ctx was called. To ensure that the calling 'if' statement
-> does not again evaluate to true and initiate system suspend, hyp_resume
-> must return a zero value after restoring the context.
+> Thank you for the feedback.
 > 
-> Note that the order of saving register context into cpu_context structure
-> must match the order of restoring.
+> On Fri, May 8, 2026 at 1:06 AM Volodymyr Babchuk
+> <Volodymyr_Babchuk@epam.com> wrote:
+>>
+>> Hi Mykola,
+>>
+>> Mykola Kvach <xakep.amatop@gmail.com> writes:
+>>
+>>> From: Mirela Simonovic <mirela.simonovic@aggios.com>
+>>>
+>>> The MMU must be enabled during the resume path before restoring context,
+>>> as virtual addresses are used to access the saved context data.
+>>>
+>>
+>> I agree with Luca, this patch does not makes sense as is. I don't see
+>> why it should be separated from the rest of the resume path that is
+>> added in the next patch
 > 
-> Support for ARM32 is not implemented. Instead, compilation fails with a
-> build-time error if suspend is enabled for ARM32.
+> Ack. I'll combine this with the next patch in v9.
 > 
-> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
-> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> ---
-> Changes in v8:
-> - fix alignments in code
+> Best regards,
+> Mykola
 > 
-> Changes in v7:
-> - no changes
-> ---
->   xen/arch/arm/Makefile              |  1 +
->   xen/arch/arm/arm64/head.S          | 90 +++++++++++++++++++++++++++++-
->   xen/arch/arm/include/asm/suspend.h | 26 +++++++++
->   xen/arch/arm/suspend.c             | 14 +++++
->   4 files changed, 130 insertions(+), 1 deletion(-)
->   create mode 100644 xen/arch/arm/suspend.c
+>>
+>>> This patch adds MMU setup during resume by reusing the existing
+>>> enable_secondary_cpu_mm function, which enables data cache and the MMU.
+>>> Before the MMU is enabled, the content of TTBR0_EL2 is changed to point
+>>> to init_ttbr (page tables used at runtime).
+>>>
+>>> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+>>> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+>>> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+>>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+>>> ---
+>>> Changes in v7:
+>>> - no functional changes, just moved commit
+>>> ---
+>>>   xen/arch/arm/arm64/head.S | 24 ++++++++++++++++++++++++
+>>>   1 file changed, 24 insertions(+)
+>>>
+>>> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+>>> index 72c7b24498..596e960152 100644
+>>> --- a/xen/arch/arm/arm64/head.S
+>>> +++ b/xen/arch/arm/arm64/head.S
+>>> @@ -561,6 +561,30 @@ END(efi_xen_start)
+>>>
+>>>   #endif /* CONFIG_ARM_EFI */
+>>>
+>>> +#ifdef CONFIG_SYSTEM_SUSPEND
+>>> +
+>>> +FUNC(hyp_resume)
+>>> +        /* Initialize the UART if earlyprintk has been enabled. */
+>>> +#ifdef CONFIG_EARLY_PRINTK
+>>> +        bl    init_uart
+>>> +#endif
+>>> +        PRINT_ID("- Xen resuming -\r\n")
+>>> +
+>>> +        bl    check_cpu_mode
+>>> +        bl    cpu_init
+>>> +
+>>> +        ldr   x0, =start
+>>> +        adr   x20, start             /* x20 := paddr (start) */
+>>> +        sub   x20, x20, x0           /* x20 := phys-offset */
+>>> +        ldr   lr, =mmu_resumed
+>>> +        b     enable_secondary_cpu_mm
+>>> +
+>>> +mmu_resumed:
+>>> +        b .
+
+I also think this patch would be better squashed with the next one, as 
+they are tightly coupled.
+
+During the review of patch 11, I had to switch between patches 10 and 11 
+several times to understand the full context—patch 10 sets up hyp_resume 
+with a placeholder (b .), and patch 11 immediately fills in the actual 
+context restore.
+
+
+>>> +END(hyp_resume)
+>>> +
+>>> +#endif /* CONFIG_SYSTEM_SUSPEND */
+>>> +
+>>>   /*
+>>>    * Local variables:
+>>>    * mode: ASM
+>>
+>> --
+>> WBR, Volodymyr
 > 
-> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-> index 69200b2728..c36158271a 100644
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -51,6 +51,7 @@ obj-y += setup.o
->   obj-y += shutdown.o
->   obj-y += smp.o
->   obj-y += smpboot.o
-> +obj-$(CONFIG_SYSTEM_SUSPEND) += suspend.o
->   obj-$(CONFIG_SYSCTL) += sysctl.o
->   obj-y += time.o
->   obj-y += traps.o
-> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-> index 596e960152..2cb02ee314 100644
-> --- a/xen/arch/arm/arm64/head.S
-> +++ b/xen/arch/arm/arm64/head.S
-> @@ -562,6 +562,52 @@ END(efi_xen_start)
->   #endif /* CONFIG_ARM_EFI */
->   
->   #ifdef CONFIG_SYSTEM_SUSPEND
-> +/*
-> + * int prepare_resume_ctx(struct cpu_context *ptr)
-> + *
-> + * x0 - pointer to the storage where callee's context will be saved
-
-    ... the C signature takes a pointer (struct cpu_context *ptr) and 
-the save path uses it, ...
-
-> + *
-> + * CPU context saved here will be restored on resume in hyp_resume function.
-> + * prepare_resume_ctx shall return a non-zero value. Upon restoring context
-> + * hyp_resume shall return value zero instead. From C code that invokes
-> + * prepare_resume_ctx, the return value is interpreted to determine whether
-> + * the context is saved (prepare_resume_ctx) or restored (hyp_resume).
-> + */
-> +FUNC(prepare_resume_ctx)
-> +        /* Store callee-saved registers */
-> +        stp   x19, x20, [x0], #16
-> +        stp   x21, x22, [x0], #16
-> +        stp   x23, x24, [x0], #16
-> +        stp   x25, x26, [x0], #16
-> +        stp   x27, x28, [x0], #16
-> +        stp   x29, lr, [x0], #16
-> +
-> +        /* Store stack-pointer */
-> +        mov   x2, sp
-> +        str   x2, [x0], #8
-> +
-> +        /* Store system control registers */
-> +        mrs   x2, VBAR_EL2
-> +        str   x2, [x0], #8
-> +        mrs   x2, VTCR_EL2
-> +        str   x2, [x0], #8
-> +        mrs   x2, VTTBR_EL2
-> +        str   x2, [x0], #8
-> +        mrs   x2, TPIDR_EL2
-> +        str   x2, [x0], #8
-> +        mrs   x2, MDCR_EL2
-> +        str   x2, [x0], #8
-> +        mrs   x2, HSTR_EL2
-> +        str   x2, [x0], #8
-> +        mrs   x2, CPTR_EL2
-> +        str   x2, [x0], #8
-> +        mrs   x2, HCR_EL2
-> +        str   x2, [x0], #8
-> +
-> +        /* prepare_resume_ctx must return a non-zero value */
-> +        mov   x0, #1
-> +        ret
-> +END(prepare_resume_ctx)
->   
->   FUNC(hyp_resume)
->           /* Initialize the UART if earlyprintk has been enabled. */
-> @@ -580,7 +626,49 @@ FUNC(hyp_resume)
->           b     enable_secondary_cpu_mm
->   
->   mmu_resumed:
-> -        b .
-> +        /* Now we can access the cpu_context, so restore the context here */
-> +        ldr   x0, =cpu_context
-
-    ... but the restore path hardcodes =cpu_context, ignoring whatever 
-pointer was originally passed. If a caller were to pass anything other 
-than &cpu_context, the resume would load from the wrong location. Since 
-the sole call site does pass &cpu_context (called from system_suspend() 
-in the last patch), this works correctly today — but the API is somewhat 
-misleading.
-
-I might be missing something, but why not make prepare_resume_ctx() take 
-no arguments and use =cpu_context directly inside the assembly? That way 
-the save and restore paths would both use the same global, and the API 
-would not be misleading.
-
-> +
-> +        /* Restore callee-saved registers */
-> +        ldp   x19, x20, [x0], #16
-> +        ldp   x21, x22, [x0], #16
-> +        ldp   x23, x24, [x0], #16
-> +        ldp   x25, x26, [x0], #16
-> +        ldp   x27, x28, [x0], #16
-> +        ldp   x29, lr, [x0], #16
-> +
-> +        /* Restore stack pointer */
-> +        ldr   x2, [x0], #8
-> +        mov   sp, x2
-> +
-> +        /* Restore system control registers */
-> +        ldr   x2, [x0], #8
-> +        msr   VBAR_EL2, x2
-> +        ldr   x2, [x0], #8
-> +        msr   VTCR_EL2, x2
-> +        ldr   x2, [x0], #8
-> +        msr   VTTBR_EL2, x2
-> +        ldr   x2, [x0], #8
-> +        msr   TPIDR_EL2, x2
-> +        ldr   x2, [x0], #8
-> +        msr   MDCR_EL2, x2
-> +        ldr   x2, [x0], #8
-> +        msr   HSTR_EL2, x2
-> +        ldr   x2, [x0], #8
-> +        msr   CPTR_EL2, x2
-> +        ldr   x2, [x0], #8
-> +        msr   HCR_EL2, x2
-> +        isb
-> +
-> +        /*
-> +         * Since context is restored return from this function will appear
-> +         * as return from prepare_resume_ctx. To distinguish a return from
-> +         * prepare_resume_ctx which is called upon finalizing the suspend,
-> +         * as opposed to return from this function which executes on resume,
-> +         * we need to return zero value here.
-> +         */
-> +        mov   x0, #0
-> +        ret
->   END(hyp_resume)
->   
->   #endif /* CONFIG_SYSTEM_SUSPEND */
-
-
-[snip]
-
 
 
