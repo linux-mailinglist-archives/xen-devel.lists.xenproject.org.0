@@ -2,48 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aGXeHLioAWqFhgEAu9opvQ
+	id 8MzvAp+sAWoMhwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 12:00:24 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 12:17:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFA3450B787
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 12:00:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1305952.1578058 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E34850BC0B
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 12:17:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1305966.1578067 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMNQi-0003fs-2X; Mon, 11 May 2026 10:00:04 +0000
+	id 1wMNgB-000697-Fg; Mon, 11 May 2026 10:16:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1305952.1578058; Mon, 11 May 2026 10:00:04 +0000
+Received: by outflank-mailman (output) from mailman id 1305966.1578067; Mon, 11 May 2026 10:16:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMNQh-0003dC-Uk; Mon, 11 May 2026 10:00:03 +0000
-Received: by outflank-mailman (input) for mailman id 1305952;
- Mon, 11 May 2026 10:00:03 +0000
+	id 1wMNgB-00066U-CP; Mon, 11 May 2026 10:16:03 +0000
+Received: by outflank-mailman (input) for mailman id 1305966;
+ Mon, 11 May 2026 10:16:01 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wMNQh-0003PO-8x
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 10:00:03 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <Michal.Orzel@amd.com>) id 1wMNg9-00066O-FJ
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 10:16:01 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMNQg-006U3W-6y
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 12:00:02 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wMNg8-002fTn-SM
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 12:16:00 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a01a890-bab6-0a2a0a5309dd-0a2a45028a90-44
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 12:00:02 +0200
-Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a01a8a1-af86-0a2a45020019-d1558029d935-3
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 12:00:02 +0200
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-48e82c23840so6070855e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 03:00:02 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e701e957asm176120265e9.6.2026.05.11.03.00.00
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 May 2026 03:00:01 -0700 (PDT)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a01ac52-2eae-0a2a0a5409dd-0a2a4505c22a-26
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 12:16:00 +0200
+Received: from [52.101.46.64]
+ (helo=CO1PR03CU002.outbound.protection.outlook.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a01ac5e-aaa8-0a2a45050019-34652e40ecff-3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 12:16:00 +0200
+Received: from CY8PR12CA0022.namprd12.prod.outlook.com (2603:10b6:930:4e::17)
+ by SN7PR12MB6984.namprd12.prod.outlook.com (2603:10b6:806:260::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.22; Mon, 11 May
+ 2026 10:15:53 +0000
+Received: from CY4PEPF0000E9D0.namprd03.prod.outlook.com
+ (2603:10b6:930:4e:cafe::7d) by CY8PR12CA0022.outlook.office365.com
+ (2603:10b6:930:4e::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.23 via Frontend Transport; Mon,
+ 11 May 2026 10:15:53 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D0.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Mon, 11 May 2026 10:15:52 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Mon, 11 May
+ 2026 05:15:52 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 11 May
+ 2026 05:15:52 -0500
+Received: from [10.252.145.116] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 11 May 2026 05:15:50 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,197 +74,402 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Subject:From:Cc:To:Content-Language:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778493601; x=1779098401; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=HVd9iugrtUDUjoruVF6GpRXRAR1XLlPcsH6axxeJ14k=;
-        b=Uz8Vlu4GKIX8xMidHyYgANMxK/ZuetjMR/8Snbe7zIAde0dawyLAh//cMxhvPdw+MZ
-         s2zxFJkPIIw55dTOHTOjOzEIXm9I6qaao0tnxj6aSTMS89u018U+HthvcN/Kxkt16ski
-         nYsePBNvK4KF54gm/5h7MS/8rSM6kmtQn319ezIe3dwJpp/RaOJ3m5hWFAsOETj0Iu0G
-         CR9IoBYs+hpE7i2Qc35A2cfXjuCK7zQ1vzEN+BMnXk6tVfpb4BhCB5fY08/5JMYTVsn8
-         V6IEWqGfOQH0GNoNqbM4QwDI6t8qk1si6VNDD0TB9wFptYQelzIifpCp/vFqYGNvdyHP
-         7zCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778493601; x=1779098401;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=HVd9iugrtUDUjoruVF6GpRXRAR1XLlPcsH6axxeJ14k=;
-        b=Qj+gL0X0g8+znumDDgMVeiY/5BVgdZXQmFE1xkhs707kefsQHXc0u4GQZnny2fXfG8
-         JfB6Lv5q0SWboeVoiigQ0fLpPEvlT7wabqvxe7uoWogjob9DzmP5HpiYjbupCbqUkaYn
-         tkipttwPJ8eqyHtAzLrM0HXYYMkrLr4CTwMG/s1Oky/9AUpEsek8ZfgZa3dLEU2ROv6V
-         2rhTxbs/P3s2QRq19PqLpJTKFMripWndhGsvyokp0jAQIohtP6X4VRDC79CzCiSRRRu5
-         OJ3BKPNPyDv73ioJMIVxdk9JfetQKnh8O00srSbQy4Oe/IFPqdqObdCAdTnlgAtF6oCN
-         bBLQ==
-X-Gm-Message-State: AOJu0YzArqsnS8eKDG6m3vASQwrU0JXKQX84AKHmFvO0QH2yb+BhhTFZ
-	aG/66NLsV5uUERQUub80FdCX26aRK09dKQHEtloONddMYZYIId1tcokqA74DDYxSK3WI+LzhD1O
-	QzAg=
-X-Gm-Gg: Acq92OG4oA2oEaYCv+7ZBvokAjEeq8zzyds3RHw7rikUO0w/SA4SpjFAro2FH9ZvELM
-	ewOUJW/sBHLpZJ+WBAtVv2FEzQ7ZjRmjGurMslq19iERQvad0k1WZcRqAPY1R7SLzAuJNZc4E65
-	HNbWnRYSa5Q5Z5hfYxv6yUkbW3XcjAnfuezgpZnEyatvWoftHTUyIn7/IYjYXaZgWFoXUAVmi49
-	Triae/tOwydA7wTyDZbvvy5N3HU7PcdZIGhzXlJpxOeJYVwDFPAhAClLLmTuxh/Z+R1jHnToqYA
-	T1OXF13Nl2mpWttTho47HEWBRbnHCFxvwwWQJWoTxlJJUBsGBlRkqhRZDDL4YkeRZUDfbnZAznc
-	AA+aFhDEJOzRDn5jjPIYlB2a2HB3S5qArHjvKkdGkfKotxj4gY0I3Gj6x3RmjFcVR5AI1jFibVU
-	2ccj59wb+oKhptHnfxcAf7HsuhehODQpq1q7i6Ow8ODcSJoR9NaaopYb01qqaK1XLYgxzdXpvDC
-	y1OF2j3ahZn70Q=
-X-Received: by 2002:a05:600c:a30b:b0:489:1c1f:35f9 with SMTP id 5b1f17b1804b1-48e51e1773bmr320788445e9.9.1778493601443;
-        Mon, 11 May 2026 03:00:01 -0700 (PDT)
-Message-ID: <f921abc1-1f1a-4ef1-b21b-a65b5d50eafd@suse.com>
-Date: Mon, 11 May 2026 12:00:03 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ULJSeZK/b90pb+Vu99pRsy487KGXHyFwc/PXBfjRf6JROKm8hOflHehBl4SGWqayj5oaXyXzoWRPmBouqwN0DOfNHFgm8rt/BZlH27n9CILDyUvJrJzHwMbZ1JWfF6NT5x4q+p4p59jzDeop6EjXTo6AfXmsZaFHxj65tc/CVPYZAbTE6cY0SfFx0sCiuhmMuvgfY8aqM66FSkUZ7PZL7+P6oML9icHzHHUrF+ZVHO/ME7TQXmNHmpNnOdgmkhDeKgnmZT56/aCyP52P0L4WtguyaEmtSHgyWIlGFVCO9yrGDyoNzNBCvX9CabBpA+I8LTV+0IcpLvkkkJLyB2LJPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wy62t5pMG6OU0Yn66m7Z2DmwJW0UbR2c54uKV84Z7PU=;
+ b=qlahfv3TSAOOYXEB3yhnPnSIHu0v2U0zZQM0/f1dxTZ46ApLVew7p7NCz2CaLqrL6RQr25yLVwb09lCwBUxn+bnL2GRVMRPSTqczC4K21FH6oqeZuCNnNNjvlnS4lfA4JGelSOE+8rPI6+I+SxBKvMQ3KaSK6aZc1v73pfu5iBfHouTYt/65hPLRg9S/GsH1PbWdF5rZNsybBRD/hDGSRxLMts3WL1C8RsAi32KhPwCINUnbIFKUnwVMxogMFKLEPFO4cvDhML4k9rvL9YWaWxCYoQ3g30yWpLZjlh3cTU7dKCgX2DXbfZpVxFberMVRkEvSGSLxzQ1VpQwfL3YXPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wy62t5pMG6OU0Yn66m7Z2DmwJW0UbR2c54uKV84Z7PU=;
+ b=y5TBnJ9/R/JPNzw+fGM/A7nUo+0BCbFB4dxOKY9Lo1Uc+xM27DrQqsLCNTzoFv1At/cJ5NhBt1tin1KRe8oz/M6Jp4p4jxrAWPHKbS+7JtLs4Xi/jdyWYTDuAWwULo3ZeRrl3SvdvIYQmGjgbf13JzvinleY7z+BMu6Kau58D6I=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <63c08741-42dd-41c2-9f27-b14f350544c7@amd.com>
+Date: Mon, 11 May 2026 12:15:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/3] arm/mpu: Introduce `v8r_el1_msa` device tree
+ property for domains
+To: Luca Fancellu <luca.fancellu@arm.com>, <xen-devel@lists.xenproject.org>
+CC: Harry Ramsey <harry.ramsey@arm.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <20260508143353.3512004-1-luca.fancellu@arm.com>
+ <20260508143353.3512004-3-luca.fancellu@arm.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
 Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Oleksii Kurochko <oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] symbols: explicitly specify source file name for symtab
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20260508143353.3512004-3-luca.fancellu@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-720697/1778493602-A8D7F161-852BBC38/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 3295
-X-Rspamd-Queue-Id: BFA3450B787
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D0:EE_|SN7PR12MB6984:EE_
+X-MS-Office365-Filtering-Correlation-Id: 87f1bc23-f951-4305-9893-08deaf464858
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|1800799024|82310400026|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	OJtzhJ2RocMMLimkiDj5uw0QS/U6ZbEV63hpVHEdgWk59BvGncf2Aziijj3cBXHhUgrr0YBTxZsvr2/S2Yy9G/qt1piwN2kWJCNfKO1gaIhOLbkbGN8dw8QeqEsqhGB33O6ZRktaqihM64ndRRjpMOL0z3zy/JDJY2Hao6Hyvp0ESxhHZRMCEp/nUIsWqxX2TbWdZVzQHNKaqEmGtVaMPQfXbYf3iFSvrBqmDhldkPue24EkLkGCllOgiXvpJC/La2lLiSZww7v8eHxmJLuYF3101rL/Ex6N13xLyQoybs4slh937ZByn1Mowqe6SvBsqnTaFfxAMaJ9ANMhNCcvxhJmATflunuxpktBrZu6hiE0S5yh+B9j3R0ZYF4s7YEpMUXEGifcpIR8h739QHaVH6aL7qse+TKmnNPMwrMCKFea0U/kc7xw/L9yFNwtCbXH8NJGOvZG3YFQAFJHgycbrzoOOoz/TkilF2giilVfJ0j87UeqTbYQTjCn8L1+TbxFrVyh3kbRTcFDnyKoVY577rAsuOm1ydAP185KuzARUW68mCjVYuYJ5NWYza9il0FJdqxr9+UK0OKBAkwvEb5P18ZXJ3dzfV4484AL59cen1E8LkY1t5GOElV1J12QSvkrL7jR9Rx9SiGA9tnn3lwG4tSmtQU4Y3dCD2nb7K+Hc1tnocoU1J9Hv9q8rgErNBSZBfRfSOsrg6uMjoEiDSBQdY3GapYKyNp6ob8Zju6NnJE=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(1800799024)(82310400026)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	6E2i9eEwH3eNSU08KxErThEKw+hdyS+BCYlWNrXcZ3kjdLnvcU+TxZ1CyKlBFO1ipZ3arGCFWT502O/VQPkL3uxbSmZKIc1xQeg8wBvAMCaVfXBlb92xuqWhaa9QY8LFNCbFfRsL1raGv7W1jSPQ2NHjWjiF3TurLePA2NL6IMFI2C+c3VAtUDiqKSyklXlu1zuiQsVuzInl8VdaTeeY7+HkcKF4IrFdjv0km1R9M5y0vyffmySERw3czvrNHcLYlAOCcKLesfRseolQeluoQuD5Z3qg5i7yUwDNN03tvMAPBea/T3ziW/HDmxMUGHvSp+onSk2UgMU06Pfly1JDat4D11/QR7WBUJUutdN4iWAPU5Lq7RZpMth1QWq+PrrnS/JYs+GRh+x83bzxWCs9x4CSdimBYK7VoiGPXBorGlYAc61us47haOfuWJ5IKTgu
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 10:15:52.8618
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87f1bc23-f951-4305-9893-08deaf464858
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000E9D0.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6984
+X-purgate-ID: tlsNG-c201ff/1778494560-E0461443-F87F1A77/0/0
+X-purgate-type: clean
+X-purgate-size: 10302
+X-Rspamd-Queue-Id: 3E34850BC0B
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[citrix.com,xen.org,kernel.org,vates.tech,amd.com,gmail.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:luca.fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:harry.ramsey@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,amd.com:mid,amd.com:dkim]
 X-Rspamd-Action: no action
 
-If there are any local symbols in an object file, GNU ld will create an
-STT_FILE symbol derived from the object file name if there is none in the
-incoming symbol table. The object file name, however, varies between
-linking passes. As a result, symbol name compression can yield different
-results if any of those local symbols need retaining (Arm [and RISC-V]
-mapping symbols are omitted, for example). If that difference in
-compression would yield a difference in the sizes of symbol_names[] or
-symbols_token_table[], the compare-symbol-tables sanity check will fail.
 
-Fixes: d37d63d4b548 ("symbols: prefix static symbols with their source file names")
-Reported-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-The observed problem was with a stub generated as Arm64 erratum 843419
-workaround. Such stubs' symbols (imo wrongly) are associated with the last
-input object, rather than the input object they belong to. Also for other
-kinds of stubs, afaict. See
-https://sourceware.org/bugzilla/show_bug.cgi?id=34140.
 
-As per the above, having a Fixes: tag here is questionable.
+On 08-May-26 16:33, Luca Fancellu wrote:
+> From: Harry Ramsey <harry.ramsey@arm.com>
+> 
+> Add a new device tree property `v8r_el1_msa` to select the MSA (memory
+> system architecture) at EL1 for Armv8-R architecture: MPU or MMU, the
+> former is the default if the property is not passed.
+> 
+> Implement the dom0less path to parse the new device tree property, add
+> a new domctl hypercall input parameter `v8r_el1_msa` for arm and
+> add the sanitisation in arch_sanitise_domain_config(), the parameter
+> is intended to be used on CONFIG_MPU systems and returns an error if
+> selected for MMU.
+> 
+> Given the breaking change, bump the XEN_DOMCTL_INTERFACE_VERSION.
+> 
+> Signed-off-by: Harry Ramsey <harry.ramsey@arm.com>
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+> v5:
+>  - follow the way domu_dt_sci_parse and ARM_SCI is doing, but
+>    return error if property is present in MMU systems.
+>  - Align the commit message on the new changes
+>  - fix documentation
+>  - fix multiline comment
+>  - drop the explicit padding from struct xen_arch_domainconfig
+> v4:
+> - Rework the patch to have the v8r_el1_msa input parameter more
+>   enclosed in the Armv8-A (mmu)/Armv8-R (mpu) space.
+> v3:
+> - Improve commit message and device tree property description
+> - Remove macro protection
+> - Remove unused function is_mpu_domain
+> - Code formatting
+> ---
+>  docs/misc/arm/device-tree/booting.txt   | 14 +++++
+>  xen/arch/arm/dom0less-build.c           | 74 +++++++++++++++++++++++++
+>  xen/arch/arm/domain.c                   | 11 ++++
+>  xen/arch/arm/include/asm/domain.h       |  4 ++
+>  xen/arch/arm/include/asm/domain_build.h | 21 +++++++
+>  xen/arch/arm/mpu/arm32/mm.c             | 17 ++++++
+>  xen/arch/arm/mpu/arm64/mm.c             | 18 ++++++
+>  xen/include/public/arch-arm.h           |  6 ++
+>  xen/include/public/domctl.h             |  4 +-
+>  9 files changed, 167 insertions(+), 2 deletions(-)
+> 
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 977b4286082f..2389ae610963 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -322,6 +322,20 @@ with the following properties:
+>      Should be used together with scmi-smc-passthrough Xen command line
+>      option.
+>  
+> +- v8r_el1_msa
+> +
+> +    A string property specifying whether, on Armv8-R systems at EL1, a domain
+> +    should use PMSAv8 (MPU) or VMSAv8 (MMU).
+> +
+> +    - "mmu"
+> +    Enables VMSAv8 at EL1. This requires hardware support and is only
+> +    optionally available on AArch64. Not supported on AArch32.
+> +
+> +    - "mpu"
+> +    Enables PMSAv8 at EL1. This is the default behaviour when the property is
+s/behaviour/behavior/
 
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -200,7 +200,8 @@ $(TARGET).efi: $(objtree)/prelink.o $(no
- ifeq ($(CONFIG_DEBUG_INFO),y)
- 	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),echo,:) "Will strip debug info from $(@F)"
- endif
--	$(objtree)/tools/symbols $(all_symbols) --empty > $(dot-target).0s.S
-+	$(objtree)/tools/symbols $(all_symbols) --source-name=$(@F).S --empty \
-+		> $(dot-target).0s.S
- 	$(MAKE) $(build)=$(@D) .$(@F).0s.o
- 	$(foreach base, $(VIRT_BASE) $(ALT_BASE), \
- 	          $(LD) $(call EFI_LDFLAGS,$(base)) -T $(obj)/efi.lds $< $(relocs-dummy) \
-@@ -210,6 +211,7 @@ endif
- 		> $(dot-target).1r.S
- 	$(NM) -pa --format=sysv $(dot-target).$(VIRT_BASE).0 \
- 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-+                  --source-name=$(@F).S \
- 		> $(dot-target).1s.S
- 	$(MAKE) $(build)=$(@D) .$(@F).1r.o .$(@F).1s.o
- 	$(foreach base, $(VIRT_BASE) $(ALT_BASE), \
-@@ -220,6 +222,7 @@ endif
- 		> $(dot-target).2r.S
- 	$(NM) -pa --format=sysv $(dot-target).$(VIRT_BASE).1 \
- 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-+                  --source-name=$(@F).S \
- 		> $(dot-target).2s.S
- 	$(MAKE) $(build)=$(@D) .$(@F).2r.o .$(@F).2s.o
- 	$(call compare-symbol-tables, $(dot-target).1r.o, $(dot-target).2r.o)
---- a/xen/tools/symbols.c
-+++ b/xen/tools/symbols.c
-@@ -66,6 +66,7 @@ int token_profit[0x10000];
- unsigned char best_table[256][2];
- unsigned char best_table_len[256];
- 
-+static const char *srcname = "xen-syms.S";
- 
- static void usage(void)
- {
-@@ -356,6 +357,7 @@ static void write_src(void)
- 	printf("#define ALGN 4\n");
- 	printf("#endif\n");
- 
-+	printf("\t.file \"%s\"\n", srcname);
- 	printf("\t.section .rodata, \"a\"\n");
- 
- 	printf("#ifndef SYMBOLS_ORIGIN\n");
-@@ -679,6 +681,8 @@ int main(int argc, char **argv)
- 				unsorted = true;
- 			else if (strcmp(argv[i], "--sort-by-name") == 0)
- 				sort_by_name = 1;
-+			else if (strncmp(argv[i], "--source-name=", 14) == 0)
-+				srcname = argv[i] + 14;
- 			else if (strcmp(argv[i], "--warn-dup") == 0)
- 				warn_dup = true;
- 			else if (strcmp(argv[i], "--error-dup") == 0)
+> +    not passed. This configuration requires static allocation (xen,static-mem)
+> +    and direct mapping (direct-map).
+> +
+>  Under the "xen,domain" compatible node, one or more sub-nodes are present
+>  for the DomU kernel and ramdisk.
+>  
+> diff --git a/xen/arch/arm/dom0less-build.c b/xen/arch/arm/dom0less-build.c
+> index 6f73c65e5151..2a0671bd0e8e 100644
+> --- a/xen/arch/arm/dom0less-build.c
+> +++ b/xen/arch/arm/dom0less-build.c
+> @@ -295,6 +295,77 @@ static int __init domu_dt_sci_parse(struct dt_device_node *node,
+>      return 0;
+>  }
+>  
+> +static int __init
+> +domu_dt_v8r_el1_msa_parse(struct dt_device_node *node,
+node can be const
+
+> +                          struct xen_domctl_createdomain *d_cfg,
+> +                          unsigned int flags)
+> +{
+> +    bool property_present = dt_property_read_bool(node, "v8r_el1_msa");
+> +
+> +    if ( !property_present )
+> +        d_cfg->arch.v8r_el1_msa = XEN_DOMCTL_CONFIG_ARM_V8R_EL1_MSA_NONE;
+> +    else
+> +    {
+> +        const char *v8r_el1_msa;
+> +        int ret = dt_property_read_string(node, "v8r_el1_msa", &v8r_el1_msa);
+> +
+> +        if ( ret )
+> +            return ret;
+> +
+> +        if ( !strcmp(v8r_el1_msa, "mpu") )
+> +            d_cfg->arch.v8r_el1_msa = XEN_DOMCTL_CONFIG_ARM_V8R_EL1_MSA_PMSA;
+> +        else if ( !strcmp(v8r_el1_msa, "mmu") )
+> +            d_cfg->arch.v8r_el1_msa = XEN_DOMCTL_CONFIG_ARM_V8R_EL1_MSA_VMSA;
+> +        else
+> +        {
+> +            printk(XENLOG_ERR
+> +                   "v8r_el1_msa value (%s) not valid for domain %s\n",
+> +                   v8r_el1_msa, dt_node_name(node));
+dt_node_name can be any arbitrary name not necessarily denoting a domain in a
+meaningful way. Without a full path it can be misleading. Either print a full
+path or don't print it at all. Here and elsewhere.
+
+> +            return -EINVAL;
+> +        }
+> +    }
+> +
+> +    if ( !IS_ENABLED(CONFIG_MPU) )
+> +    {
+> +        if ( !property_present )
+> +            return 0;
+> +
+> +        printk(XENLOG_ERR
+> +               "Not supported 'v8r_el1_msa' DT property found for domain %s\n",
+> +               dt_node_name(node));
+> +        return -EINVAL;
+> +    }
+> +
+> +    switch ( d_cfg->arch.v8r_el1_msa )
+> +    {
+> +    case XEN_DOMCTL_CONFIG_ARM_V8R_EL1_MSA_NONE:
+> +        fallthrough;
+> +    case XEN_DOMCTL_CONFIG_ARM_V8R_EL1_MSA_PMSA:
+> +        if ( !(flags & CDF_staticmem) || !(flags & CDF_directmap) )
+> +        {
+> +            printk(XENLOG_ERR
+> +                   "PMSA is not valid for domain (%s) without static allocation and direct map (v8r_el1_msa)\n",
+> +                   dt_node_name(node));
+> +            return -EINVAL;
+> +        }
+> +        break;
+> +
+> +    case XEN_DOMCTL_CONFIG_ARM_V8R_EL1_MSA_VMSA:
+> +        if ( !has_v8r_vmsa_support() )
+> +        {
+> +            printk(XENLOG_ERR
+> +                   "Platform doesn't support VMSA at EL1 (v8r_el1_msa)\n");
+> +            return -EINVAL;
+> +        }
+> +        break;
+> +
+> +    default:
+> +        return -EINVAL;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+>  int __init arch_parse_dom0less_node(struct dt_device_node *node,
+>                                      struct boot_domain *bd)
+>  {
+> @@ -308,6 +379,9 @@ int __init arch_parse_dom0less_node(struct dt_device_node *node,
+>      if ( domu_dt_sci_parse(node, d_cfg) )
+>          panic("Error getting SCI configuration\n");
+>  
+> +    if ( domu_dt_v8r_el1_msa_parse(node, d_cfg, flags) )
+> +        panic("Error getting v8r_el1_msa configuration\n");
+> +
+>      if ( !dt_property_read_u32(node, "nr_spis", &d_cfg->arch.nr_spis) )
+>      {
+>          int vpl011_virq = GUEST_VPL011_SPI;
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 26380a807cad..ac7d1abd9c7c 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -18,6 +18,7 @@
+>  #include <asm/cpuerrata.h>
+>  #include <asm/cpufeature.h>
+>  #include <asm/current.h>
+> +#include <asm/domain_build.h>
+>  #include <asm/event.h>
+>  #include <asm/gic.h>
+>  #include <asm/guest_atomics.h>
+> @@ -630,6 +631,12 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>          return -EINVAL;
+>      }
+>  
+> +    if ( !v8r_el1_msa_domain_sanitise_config(config) )
+> +    {
+> +        dprintk(XENLOG_INFO, "Unsupported v8r_el1_msa value\n");
+> +        return -EINVAL;
+> +    }
+> +
+>      return sci_domain_sanitise_config(config);
+>  }
+>  
+> @@ -722,6 +729,10 @@ int arch_domain_create(struct domain *d,
+>      d->arch.sve_vl = config->arch.sve_vl;
+>  #endif
+>  
+> +#ifdef CONFIG_MPU
+> +    d->arch.v8r_el1_msa = config->arch.v8r_el1_msa;
+> +#endif
+> +
+>      if ( (rc = sci_domain_init(d, config)) != 0 )
+>          goto fail;
+>  
+> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+> index b24f02d269be..ac7300e41fcd 100644
+> --- a/xen/arch/arm/include/asm/domain.h
+> +++ b/xen/arch/arm/include/asm/domain.h
+> @@ -112,6 +112,10 @@ struct arch_domain
+>  #endif
+>  
+>      struct resume_info resume_ctx;
+> +
+> +#ifdef CONFIG_MPU
+> +    uint8_t v8r_el1_msa;
+> +#endif
+>  }  __cacheline_aligned;
+>  
+>  struct arch_vcpu
+> diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
+> index 6674dac5e2f8..50ddc0511e7e 100644
+> --- a/xen/arch/arm/include/asm/domain_build.h
+> +++ b/xen/arch/arm/include/asm/domain_build.h
+> @@ -19,6 +19,27 @@ int prepare_acpi(struct domain *d, struct kernel_info *kinfo);
+>  
+>  int add_ext_regions(unsigned long s_gfn, unsigned long e_gfn, void *data);
+>  
+> +#ifdef CONFIG_MPU
+> +/* Utility function to determine if an Armv8-R processor supports VMSA. */
+> +bool has_v8r_vmsa_support(void);
+> +bool v8r_el1_msa_domain_sanitise_config(
+> +    const struct xen_domctl_createdomain *config);
+> +#else
+> +static inline bool has_v8r_vmsa_support(void)
+> +{
+> +    return false;
+> +}
+> +
+> +static inline bool v8r_el1_msa_domain_sanitise_config(
+> +    const struct xen_domctl_createdomain *config)
+Why can't this function be common? I can see 3 definitions (Arm64 MPU, Arm32
+MPU, MMU) but they do not have anything that would prevent from generalizing
+them in a single function.
+
+> +{
+> +    if ( config->arch.v8r_el1_msa != XEN_DOMCTL_CONFIG_ARM_V8R_EL1_MSA_NONE )
+> +        return false;
+> +
+> +    return true;
+> +}
+> +#endif /* CONFIG_MPU */
+> +
+>  #endif
+>  
+>  /*
+> diff --git a/xen/arch/arm/mpu/arm32/mm.c b/xen/arch/arm/mpu/arm32/mm.c
+> index a4673c351141..a759ebdfc124 100644
+> --- a/xen/arch/arm/mpu/arm32/mm.c
+> +++ b/xen/arch/arm/mpu/arm32/mm.c
+> @@ -5,6 +5,8 @@
+>  #include <asm/mpu.h>
+>  #include <asm/sysregs.h>
+>  #include <asm/system.h>
+> +#include <public/arch-arm.h>
+> +#include <public/domctl.h>
+>  
+>  #define GENERATE_WRITE_PR_REG_CASE(num, pr)               \
+>      case num:                                             \
+> @@ -38,6 +40,21 @@
+>          break;                                            \
+>      }
+>  
+> +bool has_v8r_vmsa_support(void)
+> +{
+> +    return false;
+> +}
+> +
+> +bool v8r_el1_msa_domain_sanitise_config(
+> +    const struct xen_domctl_createdomain *config)
+> +{
+> +    if ( config->arch.v8r_el1_msa != XEN_DOMCTL_CONFIG_ARM_V8R_EL1_MSA_NONE &&
+> +         config->arch.v8r_el1_msa != XEN_DOMCTL_CONFIG_ARM_V8R_EL1_MSA_PMSA )
+Please add brackets ( () && () )
+
+
+~Michal
+
 
