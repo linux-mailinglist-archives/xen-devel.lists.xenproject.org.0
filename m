@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QGdwFb/TAWryjwEAu9opvQ
+	id yB8oJ+nTAWryjwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 15:03:59 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 15:04:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EED3850E83C
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 15:03:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1306146.1578211 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A99E50E868
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 15:04:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1306153.1578220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMQIU-0002l4-Fn; Mon, 11 May 2026 13:03:46 +0000
+	id 1wMQJF-0003Cu-OW; Mon, 11 May 2026 13:04:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1306146.1578211; Mon, 11 May 2026 13:03:46 +0000
+Received: by outflank-mailman (output) from mailman id 1306153.1578220; Mon, 11 May 2026 13:04:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMQIU-0002iW-D4; Mon, 11 May 2026 13:03:46 +0000
-Received: by outflank-mailman (input) for mailman id 1306146;
- Mon, 11 May 2026 13:03:44 +0000
+	id 1wMQJF-0003BR-LS; Mon, 11 May 2026 13:04:33 +0000
+Received: by outflank-mailman (input) for mailman id 1306153;
+ Mon, 11 May 2026 13:04:32 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wMQIS-0002iO-BG
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 13:03:44 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wMQJE-0003BF-4C
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 13:04:32 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMQIR-006Tjw-ON
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 15:03:43 +0200
+ id 1wMQJD-006IPn-HD
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 15:04:31 +0200
 Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a01d3aa-bab6-0a2a0a5309dd-0a2a450aa54c-12
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 15:03:43 +0200
-Received: from [209.85.221.51] (helo=mail-wr1-f51.google.com)
+ id 6a01d3d1-5cb7-0a2a0a5109dd-0a2a450ab54c-42
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 15:04:31 +0200
+Received: from [209.85.221.42] (helo=mail-wr1-f42.google.com)
  by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a01d3af-56b3-0a2a450a0019-d155dd33b85a-3
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 15:03:43 +0200
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-43d76dd4ee8so3939332f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 06:03:43 -0700 (PDT)
+ id 6a01d3df-56b3-0a2a450a0019-d155dd2ac0a1-3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 15:04:31 +0200
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-4526a8170ceso2326570f8f.2
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 06:04:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e6fffba5fsm177478885e9.2.2026.05.11.06.03.42
+ ffacd0b85a97d-4548ec6aea4sm29766551f8f.10.2026.05.11.06.04.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 May 2026 06:03:42 -0700 (PDT)
+ Mon, 11 May 2026 06:04:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,53 +56,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Content-Language:Cc:To:Subject:From:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778504623; x=1779109423; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=wUoJK4XDhRgnZtEgQTpPwZ92ka9XV+2KFMeknnPSOcc=;
-        b=CpmlHsV4lNctvibB7crtljEca5nV04TevawPeb2pKL/T0d7ZXTQAYPR6qAazpJ6tfu
-         4INXP6wim6dIbNDhZvgTXq4j45TAJCr4aUl+2cGqp4a5ueX7L16tcpjEEaodoak1hRL7
-         mCNwjcNKJz6YfgG4Pliyeal3ng1RpnpKiigKAagkM4kAXbPZKdDTTXt8Ug6oGPevQEk9
-         pYIRdycdy2HuuRbqPX5pznACk0BVdvFDox1vk6lnPLrc59HQdvvuQ/tBAdAYytmDxUxB
-         gYEkowWbkiD1aSXYqQG4qijiRflhbY1ei6NSHFy4e00y8weJocFw4HcL/ddJkJfOUXJK
-         CVIw==
+        d=suse.com; s=google; t=1778504671; x=1779109471; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=2fASRzB8nQ57rMJi7XMHtCPQOTg59xiY5NktzJBJKvI=;
+        b=XaF+gaO8MyPa/N1dzTOnViLpGGcBtAxTHWs0D32uv1lQtrW0Ky/UEMaDzxJI4PArkK
+         L0WWqfBlVGe8u1Ymd863OcD01DUgPtZdqetgO42/rMT2yVcJEJ3irr4uupPQRKtjAPft
+         7ZdcT0bBx77Wlf7CJIgkRGAxpwgP9aCKP8MFCvKPExo+dvth4DA8Uy5h9di1kE5TWLiJ
+         D3OYeFPvoYxJNtVwGEQ287+qb7poxn5mNJGzXEFE6pQAbUS/JVfcrg1gHyWUGpErDrq+
+         PgbTCbA52APzlzlvZW++JC99ry+2XLFv3dOcoZ6/Zyl3+37VoRoIaTgqSoBRG8t2Q8qC
+         IeHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778504623; x=1779109423;
-        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
-         :from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=wUoJK4XDhRgnZtEgQTpPwZ92ka9XV+2KFMeknnPSOcc=;
-        b=NXr2QSlS8yJcEx8hNSbBvuJGLgwALswD8UiegouPqSgg+yqbFayEUtSI2aRrfHmi3j
-         BmPRsfRIkA8IvTU/bKUDJtfBY1WnqhRrQBEfwavFXembbXqv8hfRWzhLKyy3RkEnudcP
-         9gmssQ9PrqBAp0bJrMrdserdi2ZhAOaJ43pAFEPKA2dibLTcN+xwGKi8iptBGwL06Wty
-         DsiSadwMQzZx4PvYxGvmH+bpWQED52yQrfDi339itsg9+T2PDWF/WRAV8vYzWNM+/QQV
-         hyCDDl3rK/mIRw274PZj0TmKKQYS5qcNRIo3xVPRTyRV31p3hu5Ekj5SenxiT/ZU4zo2
-         Lxug==
-X-Gm-Message-State: AOJu0Yy3m/DhTlmQE1GxY3iFk/ttL5tFuVaRr/kHzPPdP0+pNCY4UCXY
-	+FjkjPe1s0usjNpCSfv6K9rYWpPhZwuF5nJBHejSEBBojLEfnSn+4RoyhHhbgsvocH1NiTpgqXZ
-	KFtg=
-X-Gm-Gg: Acq92OFODQWIxDr/5TcS+nW5Tv8pxKr3+HkDQkxSkGAy3EWTKZKJRHTrUfIRcAl85GM
-	c3/2UtJ5Oe+Dqmu843gx/ZkemStWJ21SzVWiYXWr0C/72HHvfeYWsnLeTBVCA/iqL4AboLrxrDb
-	ZuE8eCobeWzHmIxo9KUoJgmg9SzXfdGUDGCxtxLYHRqoQ//0CXfZNbMaQNJVlUDkQZxStObOvMH
-	DIon4EL2NbSWf1LZ47OEsqcEaK8rxnG2pPpx0K4q32DATU1AfBLvz4RjNS52grw8fH8nEM3VjEP
-	b8aBgIoBxDKQyvUoD4xcQy18RpYsBS170ttoN9Hsna7kY1poTmyMirTgFjPpXrlDaQIlVvLleAO
-	ZjZHFXYJkVJXunCSkRc0WRZXddFVv8eIWMWNc2uS+doKs+dmo58kD+eIQJRbvL1pNgQh75xSXbf
-	t9fpEkDuI+X73PUQCg21FeXfPgKdewgs8hazyONxEHiAvqtYZ6TWcyB9JHGhyLE8gwhbMtkFVTR
-	pw/HhdqeaElviPnVGwAJI+ZYg==
-X-Received: by 2002:a05:600c:3507:b0:489:1b0c:8b43 with SMTP id 5b1f17b1804b1-48e706ad0e5mr151676895e9.1.1778504623040;
-        Mon, 11 May 2026 06:03:43 -0700 (PDT)
-Message-ID: <ced1547a-f1cd-42c8-a050-51430adc829b@suse.com>
-Date: Mon, 11 May 2026 15:03:44 +0200
+        d=1e100.net; s=20251104; t=1778504671; x=1779109471;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=2fASRzB8nQ57rMJi7XMHtCPQOTg59xiY5NktzJBJKvI=;
+        b=s/L+ifawjI3ol6s/wVCNG+siU46QNTBC2eYyfvxHMYkMhWtUTXfx6jwIcJoFT1h9OS
+         E9FJPdUd8BoPmP38RFafxWDvx76F9RthtulLeXOlvChNHRXlmUdbUdrmO+t7Jyl64DLC
+         OuzX2HtK1opZJrlu5nYGzuTWR6lI0LJCXSmeY8tU81zG+gL+SN5qDT6K2+FHQXKyVQRJ
+         evO8ODyMXHf4c2IGzInZOFJKIwRWHs4lh8gcoz3g9WYYJQ8RS0Q5dvH5CpotTw3tsOXg
+         78K1C0KXu3qF++KOCnsK2HVEKEERUHBLB/Fvzyvm6WWeemNVjqTJUvmzbemghMU64IZr
+         nvfQ==
+X-Gm-Message-State: AOJu0YwtVxosTG31BSMojzxQmnous+OR2zfb3dw9k79oZJ1qbeeWashi
+	ZlcGPoqiQizT+bLl2G+XNz1wpbZ4RZIwTl1rD9pDiNOgjY9Is0BCtJHBQ3Bi7AnMKZ3+s4YumzL
+	8T7Y=
+X-Gm-Gg: Acq92OFQJLcgEIi+4pbfRTDeezcF0y9NGI1PjqUaemE1V8txDGiU86Jmaatp2sydjrI
+	S7rRv0TKSeH4QnhCuQfWAjI+CFFiWCUv3sOF9P98ybkR3NAfoZpdq9Sf/X6Pl2TbM1t6XXRGCs6
+	nZU2YgqzkPsmv5MoojW3oh4/dcECmF4QjqXoABNlkxZF0BUjcIPkc9gz69/62svNoTgojzlr6I7
+	ACf9MOPL1TyTHN47EUu/wV0L7w7gyis3tt/vi6gxoiE9bqAHPj6LU4j/Y/yyKLllftW6BX78sdI
+	Il5Syw9lbYFuJbrjdmqgHbhxOfA3BUyeDNxFJ5K8u/ik1bCoUlZgmYhlI7HdUSdECBZMxNLFThU
+	R8aSF+QVP1kfPzruI2A19CP64EAf2caQLb9Z3CPkBHtH6xp3GQbgi6mzPzP1sQes350Ssrf2bma
+	UEJjQgP/RhB4rTadgFtUssF5ZrMqqCLOjyKkQmI1zD8NMwZm2z39ZIwRuIn1LQRgKfo6vNT4/3f
+	4s4UkxV+mHubco=
+X-Received: by 2002:a5d:584c:0:b0:441:1c18:f779 with SMTP id ffacd0b85a97d-4568e70690amr14375770f8f.37.1778504670844;
+        Mon, 11 May 2026 06:04:30 -0700 (PDT)
+Message-ID: <b2eb6d3a-f5ed-4ca6-a556-c9bf06809abb@suse.com>
+Date: Mon, 11 May 2026 15:04:32 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: [PATCH v2 1/2] CI: re-work Xen artifacts collection
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2 0/2] CI: re-work / extend artifacts collection
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>
+References: <ced1547a-f1cd-42c8-a050-51430adc829b@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -127,12 +129,13 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ced1547a-f1cd-42c8-a050-51430adc829b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1778504623-7C67F8B7-96893E8B/0/0
+X-purgate-ID: tlsNG-4011c0/1778504671-7377D8B7-AF9A630E/0/0
 X-purgate-type: clean
-X-purgate-size: 212
-X-Rspamd-Queue-Id: EED3850E83C
+X-purgate-size: 1989
+X-Rspamd-Queue-Id: 0A99E50E868
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -145,7 +148,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,gitlab.com:url];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -168,11 +171,67 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-1: re-work Xen artifacts collection
-2: collect certain intermediate files as artifacts
+There's no need to do this separately from three places. Once moved to the
+bottom of the script, the need for this to be a function also disappears.
 
-Pipeline (PPC intentionally broken):
-https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2515787945
+While there also make sure xen-syms is collected. This is rather more
+useful for analysis of possible problems than its stripped counterpart.
 
-Jan
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+--- a/automation/scripts/build
++++ b/automation/scripts/build
+@@ -44,30 +44,15 @@ cp xen/.config xen-config
+ # Directory for the artefacts to be dumped into
+ mkdir -p binaries
+ 
+-collect_xen_artefacts()
+-{
+-    local f
+-
+-    for f in xen/xen xen/xen.efi; do
+-        if [[ -f $f ]]; then
+-            cp $f binaries/
+-        fi
+-    done
+-}
+-
+ if [[ "${CPPCHECK}" == "y" ]] && [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
+     # Cppcheck analysis invokes Xen-only build
+     xen/scripts/xen-analysis.py --run-cppcheck --cppcheck-misra -- -j$(nproc)
+ 
+     # Preserve artefacts
+-    collect_xen_artefacts
+     cp xen/cppcheck-report/xen-cppcheck.txt xen-cppcheck.txt
+ elif [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
+     # Xen-only build
+     make -j$(nproc) xen
+-
+-    # Preserve artefacts
+-    collect_xen_artefacts
+ else
+     # Full build.  Figure out our ./configure options
+     cfgargs=("--prefix=/usr")
+@@ -108,9 +93,16 @@ else
+     make -j$(nproc) dist
+ 
+     # Preserve artefacts
+-    # Note: Some smoke tests depending on finding binaries/xen on a full build
+-    # even though dist/ contains everything, while some containers don't even
+-    # build Xen
+     (cd dist/install; find | cpio -R 0:0 -o -H newc | gzip) > binaries/xen-tools.cpio.gz
+-    collect_xen_artefacts
+ fi
++
++# Preserve Xen artefacts
++#
++# Note: Some smoke tests depend on finding binaries/xen on a full build
++# even though dist/ contains everything, while some containers don't even
++# build Xen.
++for f in xen/xen xen/xen-syms xen/xen.efi; do
++    if [[ -f $f ]]; then
++        cp $f binaries/
++    fi
++done
+
 
