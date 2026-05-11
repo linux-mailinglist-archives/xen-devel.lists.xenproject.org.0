@@ -2,48 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wI+8AuwVAWpIQgEAu9opvQ
+	id mDEJHqN0AWr9ZwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 01:34:04 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 08:18:11 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AE2B506D33
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 01:34:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1305660.1577904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C74B2508748
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 08:18:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1305758.1577913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMDds-0000L3-7h; Sun, 10 May 2026 23:33:00 +0000
+	id 1wMJww-0008E1-V2; Mon, 11 May 2026 06:17:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1305660.1577904; Sun, 10 May 2026 23:33:00 +0000
+Received: by outflank-mailman (output) from mailman id 1305758.1577913; Mon, 11 May 2026 06:17:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMDds-0000Jq-4l; Sun, 10 May 2026 23:33:00 +0000
-Received: by outflank-mailman (input) for mailman id 1305660;
- Sun, 10 May 2026 23:32:58 +0000
+	id 1wMJww-0008Ax-N6; Mon, 11 May 2026 06:17:06 +0000
+Received: by outflank-mailman (input) for mailman id 1305758;
+ Mon, 11 May 2026 06:17:05 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <x1917x@gmail.com>) id 1wMDdq-0000Jk-PD
- for xen-devel@lists.xenproject.org; Sun, 10 May 2026 23:32:58 +0000
+ (envelope-from <Michal.Orzel@amd.com>) id 1wMJwv-0008Ar-Gy
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 06:17:05 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMDdo-002arT-KK
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 01:32:58 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wMJwu-004sn7-Fn
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 08:17:04 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <x1917x@gmail.com>)
- id 6a011560-bab6-0a2a0a5309dd-0a2a450285c2-32
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 01:32:58 +0200
-Received: from [209.85.221.49] (helo=mail-wr1-f49.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <x1917x@gmail.com>)
- id 6a0115aa-af86-0a2a45020019-d155dd31b006-3
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 01:32:58 +0200
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-43fe608cb92so2238675f8f.2
- for <xen-devel@lists.xenproject.org>; Sun, 10 May 2026 16:32:58 -0700 (PDT)
-Received: from LinuxLaptop ([45.157.112.7]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e702e6d41sm183399535e9.7.2026.05.10.16.32.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 10 May 2026 16:32:55 -0700 (PDT)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a017458-e002-0a2a0a5209dd-0a2a45038aec-24
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 08:17:03 +0200
+Received: from [52.101.48.62]
+ (helo=MW6PR02CU001.outbound.protection.outlook.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a01745e-672d-0a2a45030019-3465303e43a2-3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 08:17:03 +0200
+Received: from BN0PR03CA0017.namprd03.prod.outlook.com (2603:10b6:408:e6::22)
+ by SJ5PPF4D350AC80.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::993) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.22; Mon, 11 May
+ 2026 06:16:57 +0000
+Received: from BN1PEPF0000468A.namprd05.prod.outlook.com
+ (2603:10b6:408:e6:cafe::76) by BN0PR03CA0017.outlook.office365.com
+ (2603:10b6:408:e6::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.22 via Frontend Transport; Mon,
+ 11 May 2026 06:16:57 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN1PEPF0000468A.mail.protection.outlook.com (10.167.243.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Mon, 11 May 2026 06:16:57 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Mon, 11 May
+ 2026 01:16:57 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 11 May
+ 2026 01:16:56 -0500
+Received: from [10.252.145.116] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 11 May 2026 01:16:55 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,148 +74,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Organization:References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778455977; x=1779060777; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:organization:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Ta7TMvMqH6+uZY4QpSPG2FQFlhWtL36NChaZdBFFffI=;
-        b=saPpRtVgRnb2bFGeB2oHcM/tvyEF0vJAZbM+du9aaqhX8S7oPBHOY22jUUDzB5NWGU
-         LXSP8mmMIQwgHW3mRImXtvKjPgbM0DCnIYd3SZPF5XZCeoSqAGGEE9Z8vYA7OpyVastH
-         3xExipRtxETUZhKf/1fRkOghhmU+wBwPLQt4ZltM8L01nJ5lPmu0PLsQc4zCz6dkVwa8
-         qG2GBYmXS+FEYGp1khf+5Kd5kTy6dNR06HmeKv314ryd/OXVRWv1/jBtCQJphIOy7ZSv
-         F6ZnmuJkFDFdt3FO94s0xXkDvGwODjH2O8SrH5ESn2fg+h6LM5ZVtfFyWNK4E/qVg9Mt
-         EFDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778455977; x=1779060777;
-        h=content-transfer-encoding:mime-version:organization:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Ta7TMvMqH6+uZY4QpSPG2FQFlhWtL36NChaZdBFFffI=;
-        b=V6ut8wSnXF2+vdaDRargEEg9sNUjF0BB7NSVT+LVKleTZHBV76CD583pO3uDp6kMr1
-         h8xW3ciz/L4UrgpNg6av9Jirnz77BX538r30QmypNo7CeuZdlChsDkMzcAuH3EHW0rdf
-         RnuxzWOy6qM0IdwUW/KHvCWJv00vmwsD7mySlpeW2TdjJYKxoBIfrS3YQbzeO5vsso3q
-         a/y5yTleOPO207cXI/koO40Xzu9S58uusrURoKAu1vVfbuGWbj+YXPGXy4xxOso4veL0
-         g87a2KjU1sXLo+U7lC2F1+YZvifNCm0ERsxG/mvcYemv1X8tM38UDcSuabrLv0XK5fGM
-         1SlA==
-X-Forwarded-Encrypted: i=1; AFNElJ8FdxaAxRHFMX4U0L2jsEXFB37lZYk25mEGIkVU3Fntn2R5twDS7fMF4xIRCoc3/Nle56poMAQM+Do=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzU2I1mLbx+ITGEVKs6ayaXiXhQ9zbWP6X+KmjC33CJVR5QZB4c
-	ATx+cvtxDjIdNGi0xvXr4CpWNf6JtLT2Y/jpP3ysKSbbhSjLm2OEzEQx
-X-Gm-Gg: Acq92OEUfgc+ZoLU2uDfOen5NdLoyZqhVwtsCuyEcFtJd6OVq+wdMZK4RlKRj8KElvo
-	ZWcAPbKas0l649Di7eaybUq1zZipHYvfTgjNz6N+2BoSGXQuzFYKvlBygd09UCenYXLOJDFauFJ
-	zaNabFyLKc7EEgWNBKMhGAm88Jsj7pskGXXHD+BXhANRS55v6EotvIIPkCanDL5Plt13+l0nBVH
-	9p/TWzZUsFLFrgpBNDB2+e6TdpVdHrz+zv/9IFUEcfvMlwv8VWTtrMe4RF2BDikgg4Z0ghQEp2v
-	eVs49ZckmDKvvtEwEGJxLbFcz03A5VaoUjHfRdT3HJfMyF8U4QJwtTTm/kxWvBQWg9Sq2zF09dW
-	NxwHY7FhnGLpxWq2jpdx/Z5HppJg8OkOcBtd4wfl5w59fd1mkWOhLlln7jKxoGhYu6J93u57SlW
-	dNpKZuhOiWKaZLo1g=
-X-Received: by 2002:a05:600c:a30d:b0:48e:5d91:cfe3 with SMTP id 5b1f17b1804b1-48e6748a72fmr123941125e9.1.1778455977319;
-        Sun, 10 May 2026 16:32:57 -0700 (PDT)
-Date: Mon, 11 May 2026 01:32:52 +0200
-From: Alexey G <x1917x@gmail.com>
-To: Roger Pau =?UTF-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Cc: Thierry Escande <thierry.escande@vates.tech>,
- xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
- <anthony.perard@vates.tech>
-Subject: Re: [PATCH 07/17] hvmloader: add basic Q35 support
-Message-ID: <20260511013252.326cd768@LinuxLaptop>
-In-Reply-To: <afCy-IU85MdDBlUq@macbook.local>
-References: <20260313163455.790692-1-thierry.escande@vates.tech>
-	<20260313163455.790692-8-thierry.escande@vates.tech>
-	<afCy-IU85MdDBlUq@macbook.local>
-Organization: none
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TGPB9o+nUFjsuTGvX5kL9wnB7bVn4FyEncTmTmQ5LqTQw1dSjX88Jm4SVI4v9eRR9dYgDJ9J185I0wDvQ2RGlZWEjH0tV+WyJAghVuXLIkzw7JKd81hSe57bNv57TVF7HgEavZic1eDybJPC0PS8aJgNrJl5S8v5yHTHM5HtKqwkmsNcXAvoXoUssQqnmwokxngKJl2MhpRRG+ApJagCZmgFTvEeGy8ASofzl3r+ptjGFmAcuFUCRlb6V8jtxgxSnRW48/ntiOI4BjnHPC4MQMhR094WcFTS9uojFSUgAzih7egAdUmOmQ4X/+Q2t1s9zcyKP11qqrqFugHOWovuLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xB6YnHqIy3x5v/O1+TImmWizAfouAcAAeyLqOsoTeRM=;
+ b=C19g/grNSg3q9r49IQyDpTKOYQdKIsQU8NXmz/LIPPAhgcsyrFSWEzGbbOKU5lWKNc0buSr5BaoizrRaU0hx1Wib6pjPdqgfDc6NtjqFgacrRjqHMAV5VYpHAkT43n27DKoryO0rE/EgHB+TQnD+FhsJt6lew3yZKWDEu1waseX0PuNcvvYTEvGMYmMQAfxs8aiAzuQaS4bfVo6NpsSAgt+k+WzL13TQ0OD4aKHfZK1NY9J2HMUdxjg9iFayEZWhThSeK0fYbx7YHl3HGkID+F+wKTMjvt08ZqoNn9c4i4AheOKGneaI1JpIbejgrK0wcqlUnMu/j/eQdbWmBvFTzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xB6YnHqIy3x5v/O1+TImmWizAfouAcAAeyLqOsoTeRM=;
+ b=isxZbv/GyWaHEWs+gAURr1lRvFOpMy4iTvYP+7x0YDEGNyrWNuCMTSuG5SK/m8X8D7kIR6z+Rk7qeW2lP2g508XC1ixVs+xBcgZOZEIsWZTILMT2b2lsP53RJVRJmLUpq8zJ9p1gmd0RipDszthkblfq/Qnet9pMevsP/INaPxE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <a7932bc7-86ad-401c-b462-01078e6e11bb@amd.com>
+Date: Mon, 11 May 2026 08:16:54 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-720697/1778455978-B0B78161-EB2FB015/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/5] CI: Adjust test needs[] to ensure binaries/ is
+ non-root
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@vates.tech>, Stefano Stabellini
+	<sstabellini@kernel.org>, Doug Goldstein <cardoe@cardoe.com>
+References: <20260508212907.1643761-1-andrew.cooper3@citrix.com>
+ <20260508212907.1643761-2-andrew.cooper3@citrix.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <20260508212907.1643761-2-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF0000468A:EE_|SJ5PPF4D350AC80:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b3daa51-a50f-438a-1005-08deaf24e7b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700016|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	h57W9QwEx3I8NHIYajgaXLFlK1rOUbCi9/7Eakyn+TiO8DOVQLpaxUCTxgvEDqvB00SIpL4VuzMVA5f9mvBgBeMbxdVKJjvV1yn7F8sk8w8TV9MoS/dfFGuwv+UaRdR1Oks64K2E4N1S9IuWc4PdUFmOwZBjC8zgPKMLv658WOyrRWZPRoUnfo/cDTaYrxOcrVyXhaxuUYFaBeWPjmysY+6BQusfvOEiQ6YerFjriPlqJ/XeXIhlfDx51WtIF3NSseGpN1NmvSJQbG57vPfKAn1Yp0FS/h45zPGhaxJKDNMwr4EDpzLCntlYOlxsoyKwZ9vvZ0b7HXiMHMrX7VK450Kd/pnNAY0FQ3gzZ4sHyxIHJMgxRzq1ViSiaoHK4hoa2MSzP1ZlgYrGD4KKoQUqI8Lqmt6IUy6q1j83V3ZGNnRy85RCCJ7CQNEGGtSY/AO2onXR3wsFMYk0dZkh4D6R5qcvXbUtUvJB5KyavcItc3GqoO+zM65pQhhal6X/U1V3WAzdUmJ0DDGspietJP1o9Ybd1aNFDPX3VTyImn9N/OUdO66d60cJnuHEE0nZvUf5yGkpO2f91+xUCB0/rP7xAs3ylhXHiuR3xfjr4BhfuX5QllfVv5qJT0DTkM8r8jCb3r0YhewfpCqi4wSgncm37cQ8TWp84VytEllp5y3pDmT7StY/E7tJ9ErfaZIYcQdHOOB5pmgv/X4K9KcHhmSt7EjV35J64qgiknCF1YFj6vQ=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	PzD+cxI9Vgws0aogubZQWwvV+NhUTySfMr8pNfvcqPcLS37QXpIr/D+qjwaG3Fhh/3D6raN2+NeH8BXKXK741IbyE//pj2tuA81tRzSUtpqexjnXFHLcPgq9N+MFRcr5WixLZn6qcjEpGIsA7mwR3HajTM4oQlzUT3ZeaoNnLizQ3VL7nwbvSLkh2olbcdAOzwTmwpnRdYEIlrWM9R6GHbhNwyBzsETUM9Ih0LqqftB2+kcRYGkbUhy6x4T4y0UyyZMKyNrhw/kooh9iPkyAJ3kRzi4innXqX86DhECaoGrqIKuQQEcqAve9h867fx9T0fHUal+Dbx2lEzyyG60c/J90wnyP1AtIIIxBZ8J59o6wpl7WevBF1XI1Bz0G21PnS9DhpumO48XrDZmPRibfUCw4zdJL8phZFYk8bIa0P/ufQsuNjuJsipblf1Ufz8Nq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 06:16:57.3853
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b3daa51-a50f-438a-1005-08deaf24e7b5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF0000468A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF4D350AC80
+X-purgate-ID: tlsNG-33051d/1778480223-38B74938-F545CCBE/0/0
 X-purgate-type: clean
-X-purgate-size: 2556
-X-Rspamd-Queue-Id: 5AE2B506D33
+X-purgate-size: 3134
+X-Rspamd-Queue-Id: C74B2508748
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER(0.00)[x1917x@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:thierry.escande@vates.tech,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	TO_DN_SOME(0.00)[];
-	HAS_ORG_HEADER(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[x1917x@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:cardoe@cardoe.com,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[amd.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:email,cardoe.com:email]
 X-Rspamd-Action: no action
 
-On Tue, 28 Apr 2026 15:15:36 +0200
-Roger Pau Monn=C3=A9 <roger.pau@citrix.com> wrote:
->
->> +        pci_writel(devfn, 0x40, ACPI_PM1A_EVT_BLK_ADDRESS_V1 | 1);
->> +        pci_writeb(devfn, 0x44, 0x80); /* enable PM io space */
->> +        outl(SCI_EN_IOPORT, inl(SCI_EN_IOPORT) | GBL_SMI_EN | APMC_EN);
->
->Most of the above looks like black magic.  It's not like the context
->of this function is great, most of the existing stuff is poorly
->documented.  Can we get a bit more comments about what's this supposed
->to do, and maybe a reference to the Intel specification that lists
->where those PCI config space registers are coming from?
 
-This is a precondition for the (later) switch to ACPI.
 
-First, we set the ACPI I/O registers base - it can be absolutely
-arbitrary but we choose the same value that was used before for PIIX4 -
-ACPI_PM1A_EVT_BLK_ADDRESS_V1. The "| 1" part is likely NOT necessary
-and should be removed unless QEMU has a bug with its handling -
-according to Intel datasheet, bit0 is "Hardwired to 1 to indicate I/O
-space", no need to set it explicitly.
+On 08-May-26 23:29, Andrew Cooper wrote:
+> The binaries/ directory is a composition from the artefacts, and also used as
+> a working directory for most of the tests.  If the very first artefact is from
+> a root container, then the test must also be a root container to use it as a
+> working directory.
+> 
+> For arm64, the existing linux-arm64 artefact suffices.  For arm32, pull in the
+> microcode-x86 artefact as it's the smallest available.  This bodge can be
+> removed when all build containers have become non-root.
+> 
+> For the qemu-xtf-dom0less-arm64-*-xen-version jobs, use *arm64-test-needs
+> ahead of alpine-3.18-gcc-* (as it's a root container), and to deduplicate
+> the *-export dependency.
+> 
+> This will allow us to change containers to being non-root one at a time,
+> rather than all in one go.
+> 
+> No functional change.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Anthony PERARD <anthony.perard@vates.tech>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Michal Orzel <michal.orzel@amd.com>
+> CC: Doug Goldstein <cardoe@cardoe.com>
+> 
+> We should also stop using binaries/ as a working directory for the tests, but
+> that gets very complicated very quickly and I don't have time to do it at this
+> juncture.
+> ---
+>  automation/gitlab-ci/test.yaml | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index 8770c523e228..517af1732437 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -15,6 +15,12 @@
+>    - qemu-system-aarch64-6.0.0-arm64-export
+>  
+>  .arm32-test-needs: &arm32-test-needs
+> +  # Bodge to ensure binaries/ is non-root.  Can be any artefact which comes
+> +  # from a non-root container, and microcode-x86 is the smallest.  Remove when
+> +  # all build containers have become non-root.
+> +  - project: $ARTIFACTS_REPO
+> +    job: microcode-x86
+> +    ref: $ARTIFACTS_BRANCH
+I don't see it being removed in this series even though the containers are non-root.
 
-At this point we can use ACPI I/O register block at
-ACPI_PM1A_EVT_BLK_ADDRESS_V1. We are only interested in one register
-from this range - at offset +30h. SCI_EN_IOPORT is a wrong name
-actually, it should be renamed to SMI_EN_IOPORT.
+>    - qemu-system-aarch64-6.0.0-arm32-export
+>  
+>  .x86-64-test-needs: &x86-64-test-needs
+> @@ -569,16 +575,16 @@ qemu-xtf-dom0less-arm64-gcc-hyp-xen-version:
+>    script:
+>      - ./automation/scripts/qemu-xtf.sh arm64 mmu64le hyp-xen-version 2>&1 | tee ${LOGFILE}
+>    needs:
+> +    - *arm64-test-needs
+This also pulls in Linux image and rootfs which XTF tests don't need. I think
+it's much better for a test to list the actual list of its dependencies.
+Otherwise you are asking user/developer to dig into the yaml.
 
-Finally, the line
-"outl(SCI_EN_IOPORT, inl(SCI_EN_IOPORT) | GBL_SMI_EN | APMC_EN)"
-enables SMI generation - we will use it later to perform a classic
-APM -> ACPI switch via a write to the APM_CNT (0B2h) register to
-trigger an SW SMI, followed by validating SCI_EN=3D1 to confirm the
-successful switch.
+~Michal
 
-Basically, all this setup is just a preparation for the step done in
-the next patch - "hvmloader: add ACPI enabling for Q35".
+>      - alpine-3.18-gcc-arm64
+> -    - qemu-system-aarch64-6.0.0-arm64-export
+>  
+>  qemu-xtf-dom0less-arm64-gcc-debug-hyp-xen-version:
+>    extends: .qemu-arm64
+>    script:
+>      - ./automation/scripts/qemu-xtf.sh arm64 mmu64le hyp-xen-version 2>&1 | tee ${LOGFILE}
+>    needs:
+> +    - *arm64-test-needs
+>      - alpine-3.18-gcc-debug-arm64
+> -    - qemu-system-aarch64-6.0.0-arm64-export
+>  
+>  qemu-smoke-dom0-arm32-gcc:
+>    extends: .qemu-arm32
 
-What I don't remember is who was actually responsible for actual ACPI
-enabling - either QEMU or firmware.
-On real systems it is a bit more complicated - the APM -> ACPI switch
-is done by an ACPI-aware OS itself (OSPM, how they call it). The OS
-extracts information from ACPI tables and use it to find out what and
-where to write in order to switch to ACPI. Under the hood it's still a
-special value written to the SW SMI register, triggering a SMI handler
-in the firmware. The actual hand-off to ACPI was done by the SMI
-handler, including switching the PM interrupt from SMI to ACPI's SCI.
-
-I'm not sure why hvmloader does this switch early instead. But at least
-this APM -> ACPI switch flow matches the older (PIIX4) one. Perhaps
-this is how it was handled by QEMU.
 
