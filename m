@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yB8oJ+nTAWryjwEAu9opvQ
+	id +G8JBwzUAWryjwEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 15:04:41 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 15:05:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A99E50E868
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 15:04:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1306153.1578220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81C9C50E894
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 15:05:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1306158.1578229 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMQJF-0003Cu-OW; Mon, 11 May 2026 13:04:33 +0000
+	id 1wMQJk-0003e2-0L; Mon, 11 May 2026 13:05:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1306153.1578220; Mon, 11 May 2026 13:04:33 +0000
+Received: by outflank-mailman (output) from mailman id 1306158.1578229; Mon, 11 May 2026 13:05:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMQJF-0003BR-LS; Mon, 11 May 2026 13:04:33 +0000
-Received: by outflank-mailman (input) for mailman id 1306153;
- Mon, 11 May 2026 13:04:32 +0000
+	id 1wMQJj-0003bZ-TO; Mon, 11 May 2026 13:05:03 +0000
+Received: by outflank-mailman (input) for mailman id 1306158;
+ Mon, 11 May 2026 13:05:02 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wMQJE-0003BF-4C
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 13:04:32 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wMQJi-0003bJ-4o
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 13:05:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMQJD-006IPn-HD
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 15:04:31 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wMQJh-00DB1g-HZ
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 15:05:01 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a01d3d1-5cb7-0a2a0a5109dd-0a2a450ab54c-42
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 15:04:31 +0200
-Received: from [209.85.221.42] (helo=mail-wr1-f42.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a01d3fb-2eae-0a2a0a5409dd-0a2a450ba71a-6
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 15:05:01 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a01d3df-56b3-0a2a450a0019-d155dd2ac0a1-3
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 15:04:31 +0200
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-4526a8170ceso2326570f8f.2
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 06:04:31 -0700 (PDT)
+ id 6a01d3fd-212f-0a2a450b0019-d1558030bd12-3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 15:05:01 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-488b0046078so35992875e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 06:05:01 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4548ec6aea4sm29766551f8f.10.2026.05.11.06.04.30
+ 5b1f17b1804b1-48e6fffb9bdsm172144195e9.1.2026.05.11.06.05.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 11 May 2026 06:04:30 -0700 (PDT)
+ Mon, 11 May 2026 06:05:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,48 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778504671; x=1779109471; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778504701; x=1779109501; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2fASRzB8nQ57rMJi7XMHtCPQOTg59xiY5NktzJBJKvI=;
-        b=XaF+gaO8MyPa/N1dzTOnViLpGGcBtAxTHWs0D32uv1lQtrW0Ky/UEMaDzxJI4PArkK
-         L0WWqfBlVGe8u1Ymd863OcD01DUgPtZdqetgO42/rMT2yVcJEJ3irr4uupPQRKtjAPft
-         7ZdcT0bBx77Wlf7CJIgkRGAxpwgP9aCKP8MFCvKPExo+dvth4DA8Uy5h9di1kE5TWLiJ
-         D3OYeFPvoYxJNtVwGEQ287+qb7poxn5mNJGzXEFE6pQAbUS/JVfcrg1gHyWUGpErDrq+
-         PgbTCbA52APzlzlvZW++JC99ry+2XLFv3dOcoZ6/Zyl3+37VoRoIaTgqSoBRG8t2Q8qC
-         IeHg==
+        bh=ExMfZGjK/TN3VobC9Bl8Sp492l2t0I9xSSZ7GtLdHpc=;
+        b=eTkry5uy02QFGIkf5varVjuOzbugZIg3rsflNTp/q2uhfD7m14V6EtVxsXCBkD0EQy
+         OEBpj6Itc7GoNtSO1JbUz++cOwiD4b+HsaEUGTn2JwBqgwS4gI5AFg+D/meC3qz5y/0B
+         ldqa4KfmiMuUz/57EX62DbJiUQIr36yL7N9doMD/L4hB22SGf1xDuuIyp7uz0FAbeaaX
+         lLGpMBy2Ah9EnB76ydJPTMPTdgbPY9JuP8O0LvIhLwYZuD8IvSuWqRSP29gVdQpewUbn
+         wFRgwjXxXdSr5Rw5bVlLQJYxUe8g2Du9DX9QddOFCs+rh93RxiTt9OAsuMKNEDyiaost
+         +CWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778504671; x=1779109471;
+        d=1e100.net; s=20251104; t=1778504701; x=1779109501;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2fASRzB8nQ57rMJi7XMHtCPQOTg59xiY5NktzJBJKvI=;
-        b=s/L+ifawjI3ol6s/wVCNG+siU46QNTBC2eYyfvxHMYkMhWtUTXfx6jwIcJoFT1h9OS
-         E9FJPdUd8BoPmP38RFafxWDvx76F9RthtulLeXOlvChNHRXlmUdbUdrmO+t7Jyl64DLC
-         OuzX2HtK1opZJrlu5nYGzuTWR6lI0LJCXSmeY8tU81zG+gL+SN5qDT6K2+FHQXKyVQRJ
-         evO8ODyMXHf4c2IGzInZOFJKIwRWHs4lh8gcoz3g9WYYJQ8RS0Q5dvH5CpotTw3tsOXg
-         78K1C0KXu3qF++KOCnsK2HVEKEERUHBLB/Fvzyvm6WWeemNVjqTJUvmzbemghMU64IZr
-         nvfQ==
-X-Gm-Message-State: AOJu0YwtVxosTG31BSMojzxQmnous+OR2zfb3dw9k79oZJ1qbeeWashi
-	ZlcGPoqiQizT+bLl2G+XNz1wpbZ4RZIwTl1rD9pDiNOgjY9Is0BCtJHBQ3Bi7AnMKZ3+s4YumzL
-	8T7Y=
-X-Gm-Gg: Acq92OFQJLcgEIi+4pbfRTDeezcF0y9NGI1PjqUaemE1V8txDGiU86Jmaatp2sydjrI
-	S7rRv0TKSeH4QnhCuQfWAjI+CFFiWCUv3sOF9P98ybkR3NAfoZpdq9Sf/X6Pl2TbM1t6XXRGCs6
-	nZU2YgqzkPsmv5MoojW3oh4/dcECmF4QjqXoABNlkxZF0BUjcIPkc9gz69/62svNoTgojzlr6I7
-	ACf9MOPL1TyTHN47EUu/wV0L7w7gyis3tt/vi6gxoiE9bqAHPj6LU4j/Y/yyKLllftW6BX78sdI
-	Il5Syw9lbYFuJbrjdmqgHbhxOfA3BUyeDNxFJ5K8u/ik1bCoUlZgmYhlI7HdUSdECBZMxNLFThU
-	R8aSF+QVP1kfPzruI2A19CP64EAf2caQLb9Z3CPkBHtH6xp3GQbgi6mzPzP1sQes350Ssrf2bma
-	UEJjQgP/RhB4rTadgFtUssF5ZrMqqCLOjyKkQmI1zD8NMwZm2z39ZIwRuIn1LQRgKfo6vNT4/3f
-	4s4UkxV+mHubco=
-X-Received: by 2002:a5d:584c:0:b0:441:1c18:f779 with SMTP id ffacd0b85a97d-4568e70690amr14375770f8f.37.1778504670844;
-        Mon, 11 May 2026 06:04:30 -0700 (PDT)
-Message-ID: <b2eb6d3a-f5ed-4ca6-a556-c9bf06809abb@suse.com>
-Date: Mon, 11 May 2026 15:04:32 +0200
+        bh=ExMfZGjK/TN3VobC9Bl8Sp492l2t0I9xSSZ7GtLdHpc=;
+        b=LhsbG38s5Y22zEnj2e3geAW9/GiWugpQOffqBtWvNhmnAqsbf8qeMIdf5K+yeW0H49
+         Ki+sq1vO6tY2s7klFD7nfTqmjWqKGqs5TJkcXblac5NoHxhE+qO4FQxRq6piRXpt3o8l
+         HTF1iwwXAYvG+vBvODBpBeJ1l4JaPM+EJ+J6jRAEIisdtMOIvS+Qd9hqLRKrbAkjRW3S
+         EwzPnuu/gb8PyFeCUPs095c04lyYA9SbMr3m0ocG1IPurg/p9/FSYKug4jXdl3VSu+Xz
+         wvQMwkITUyae1pCkmyqY4IOffTcSRLJFXnHta0hTVkElUWSgeaNLnmvBwCu9SsZMsTbR
+         UeqQ==
+X-Gm-Message-State: AOJu0YxbVB14TseJue0T20sBfq1aG7atTO2w+xMYs+Hn4SwLA+n/asuQ
+	7p2u8yS3KBaX+jdiLjWpPID32BUxGWSJS90NTGIjK1tgcwLlGmG6d9fohaopoXSDUNQ3d3oJoGt
+	r93c=
+X-Gm-Gg: Acq92OFPF+bx3jnjJHXg8KbQXtCk+jqEEjd9fdiGTi4ddpW/sXs7KFFL+gVjDzX8kGy
+	4mlkEREXFU7aV5npcxv8YCykxXA6DIdlmwfJKm6rOhJgNWTIDoEIuokWEvG9ZojheIsCdRAW6ds
+	qHvLR3z8WEWYcdliWTyI20kySk8Zcw+RgLzSsFGMD4BqBT90BZTrlBk3Z/IDm0JAsZKqIuyY3hs
+	ZdqBQWLZdHdptrmptRToC1w1LnyyYHljwhUfqDiDbPjL2UPJenqkg4aR7K3ewhrZ3AL3+BoESON
+	0MR/TwVTNrTlh9l+KJeAEy55EpFfVaFm/AO6zzA+p26dv2BFNY352mjUot1rIhHCnR19lqFg0VE
+	xRh0IOkrksVFUzOuyZQTfH8Y5qCApMC/BQBhPf6tBCMboEYZtwh4GDXC9CrqmedAXv+c5gI2ovQ
+	PA09JKbZIlwVsXPyucZIHCeUPI1/JFnIv65jN0JDgSAd/F7w2VGKVIpSZQlUis7wqB/guOgjzcx
+	DjUrHJ/paQFf8A=
+X-Received: by 2002:a05:600c:8b65:b0:488:a824:fdff with SMTP id 5b1f17b1804b1-48e706c7e20mr159001025e9.22.1778504700900;
+        Mon, 11 May 2026 06:05:00 -0700 (PDT)
+Message-ID: <6e0266e6-8dda-4a87-886d-79da637c2172@suse.com>
+Date: Mon, 11 May 2026 15:05:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH v2 1/2] CI: re-work Xen artifacts collection
+Subject: [PATCH v2 2/2] CI: collect certain intermediate files as artifacts
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
@@ -132,10 +132,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <ced1547a-f1cd-42c8-a050-51430adc829b@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1778504671-7377D8B7-AF9A630E/0/0
+X-purgate-ID: tlsNG-42698a/1778504701-22589F3B-C2F86D50/0/0
 X-purgate-type: clean
-X-purgate-size: 1989
-X-Rspamd-Queue-Id: 0A99E50E868
+X-purgate-size: 2753
+X-Rspamd-Queue-Id: 81C9C50E894
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -148,7 +148,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,gitlab.com:url];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -171,67 +171,86 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-There's no need to do this separately from three places. Once moved to the
-bottom of the script, the need for this to be a function also disappears.
+When one of the linking passes fails, additional intermediate files are
+still in place. Having them available for analysis of the underlying
+problem can be pretty helpful. Collect some into a new intermediates/
+directory. (Nothing new will be collected if linking succeeds.)
 
-While there also make sure xen-syms is collected. This is rather more
-useful for analysis of possible problems than its stripped counterpart.
+As the script is run with -e passed to bash, defer exit if the main
+"make" (or substituent script thereof) failed. This way more artifacts
+are collected, potentially making it easier to analyze the failure.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2515787945
+(with PPC forced to invoke the new logic, hence respective failures there)
+---
+v2: Different approach.
 
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -6,6 +6,7 @@
+   artifacts:
+     paths:
+       - binaries/
++      - intermediates/
+       - xen-config
+       - xen-cppcheck.txt
+       - '*.log'
 --- a/automation/scripts/build
 +++ b/automation/scripts/build
-@@ -44,30 +44,15 @@ cp xen/.config xen-config
- # Directory for the artefacts to be dumped into
- mkdir -p binaries
+@@ -37,22 +37,24 @@ else
+     make -j$(nproc) -C xen olddefconfig
+ fi
  
--collect_xen_artefacts()
--{
--    local f
--
--    for f in xen/xen xen/xen.efi; do
--        if [[ -f $f ]]; then
--            cp $f binaries/
--        fi
--    done
--}
--
+-# Save the config file before building because build failure causes the script
+-# to exit early -- bash is invoked with -e.
++# Save the config file before building, just in case.
+ cp xen/.config xen-config
+ 
+-# Directory for the artefacts to be dumped into
+-mkdir -p binaries
++# Directories for artefacts to be dumped into
++mkdir -p binaries intermediates
++
++# Script exit status, to be overridden by the main make's status below.
++ret=0
+ 
  if [[ "${CPPCHECK}" == "y" ]] && [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
      # Cppcheck analysis invokes Xen-only build
-     xen/scripts/xen-analysis.py --run-cppcheck --cppcheck-misra -- -j$(nproc)
+-    xen/scripts/xen-analysis.py --run-cppcheck --cppcheck-misra -- -j$(nproc)
++    xen/scripts/xen-analysis.py --run-cppcheck --cppcheck-misra -- -j$(nproc) || ret=$?
  
      # Preserve artefacts
--    collect_xen_artefacts
      cp xen/cppcheck-report/xen-cppcheck.txt xen-cppcheck.txt
  elif [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
      # Xen-only build
-     make -j$(nproc) xen
--
--    # Preserve artefacts
--    collect_xen_artefacts
+-    make -j$(nproc) xen
++    make -j$(nproc) xen || ret=$?
  else
      # Full build.  Figure out our ./configure options
      cfgargs=("--prefix=/usr")
-@@ -108,9 +93,16 @@ else
-     make -j$(nproc) dist
+@@ -90,7 +92,7 @@ else
+     fi
+ 
+     ./configure "${cfgargs[@]}"
+-    make -j$(nproc) dist
++    make -j$(nproc) dist || ret=$?
  
      # Preserve artefacts
--    # Note: Some smoke tests depending on finding binaries/xen on a full build
--    # even though dist/ contains everything, while some containers don't even
--    # build Xen
      (cd dist/install; find | cpio -R 0:0 -o -H newc | gzip) > binaries/xen-tools.cpio.gz
--    collect_xen_artefacts
- fi
+@@ -106,3 +108,12 @@ for f in xen/xen xen/xen-syms xen/xen.ef
+         cp $f binaries/
+     fi
+ done
 +
-+# Preserve Xen artefacts
-+#
-+# Note: Some smoke tests depend on finding binaries/xen on a full build
-+# even though dist/ contains everything, while some containers don't even
-+# build Xen.
-+for f in xen/xen xen/xen-syms xen/xen.efi; do
++# Preserve Xen intermediate files.  Some may be there only upon build failure.
++for f in xen/.xen-syms.* xen/.xen.efi.*; do
 +    if [[ -f $f ]]; then
-+        cp $f binaries/
++        cp $f intermediates/
 +    fi
 +done
++
++exit $ret
 
 
