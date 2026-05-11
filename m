@@ -2,51 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +GOAMp6bAWoBgQEAu9opvQ
+	id 0KWLHEScAWqDgAEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 11:04:30 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 11:07:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 102C750A8BC
-	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 11:04:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1305869.1577995 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA73F50A98D
+	for <lists+xen-devel@lfdr.de>; Mon, 11 May 2026 11:07:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1305878.1578004 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMMXw-0001EN-I8; Mon, 11 May 2026 09:03:28 +0000
+	id 1wMMbR-0001pt-2z; Mon, 11 May 2026 09:07:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1305869.1577995; Mon, 11 May 2026 09:03:28 +0000
+Received: by outflank-mailman (output) from mailman id 1305878.1578004; Mon, 11 May 2026 09:07:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMMXw-0001C3-Ei; Mon, 11 May 2026 09:03:28 +0000
-Received: by outflank-mailman (input) for mailman id 1305869;
- Mon, 11 May 2026 09:03:26 +0000
+	id 1wMMbQ-0001n2-Vm; Mon, 11 May 2026 09:07:04 +0000
+Received: by outflank-mailman (input) for mailman id 1305878;
+ Mon, 11 May 2026 09:07:02 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <andrew.cooper@citrix.com>) id 1wMMXu-0001Bx-DD
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 09:03:26 +0000
+ (envelope-from <Michal.Orzel@amd.com>) id 1wMMbO-0001mu-PZ
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 09:07:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMMXt-002OOg-Ga
- for xen-devel@lists.xenproject.org; Mon, 11 May 2026 11:03:25 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wMMbN-00H4Tm-S0
+ for xen-devel@lists.xenproject.org; Mon, 11 May 2026 11:07:01 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper@citrix.com>)
- id 6a019b5a-5cb7-0a2a0a5109dd-0a2a450ac0be-26
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 11:03:25 +0200
-Received: from [52.101.46.61]
- (helo=CO1PR03CU002.outbound.protection.outlook.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <andrew.cooper@citrix.com>)
- id 6a019b5b-56b3-0a2a450a0019-34652e3d6df8-3
- for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 11:03:24 +0200
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
- by CHXPR03MB989196.namprd03.prod.outlook.com (2603:10b6:610:2fd::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9846.26; Mon, 11 May
- 2026 09:03:22 +0000
-Received: from CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
- ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.20.9891.021; Mon, 11 May 2026
- 09:03:21 +0000
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a019c2b-2eae-0a2a0a5409dd-0a2a4508b3c2-32
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 11:07:01 +0200
+Received: from [40.107.208.29]
+ (helo=PH0PR06CU001.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a019c33-63b5-0a2a45080019-286bd01d531f-3
+ for <xen-devel@lists.xenproject.org>; Mon, 11 May 2026 11:07:01 +0200
+Received: from CH0PR08CA0024.namprd08.prod.outlook.com (2603:10b6:610:33::29)
+ by DS7PR12MB6007.namprd12.prod.outlook.com (2603:10b6:8:7e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.22; Mon, 11 May
+ 2026 09:06:56 +0000
+Received: from CH3PEPF00000011.namprd21.prod.outlook.com
+ (2603:10b6:610:33:cafe::8e) by CH0PR08CA0024.outlook.office365.com
+ (2603:10b6:610:33::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.23 via Frontend Transport; Mon,
+ 11 May 2026 09:06:56 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH3PEPF00000011.mail.protection.outlook.com (10.167.244.116) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.48.3 via Frontend Transport; Mon, 11 May 2026 09:06:56 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 11 May
+ 2026 04:06:56 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 11 May
+ 2026 04:06:55 -0500
+Received: from [10.252.145.116] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 11 May 2026 04:06:54 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,271 +74,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JHipfDw9CgvUej9oXf1nqoePBZmrlOGjRGPQJkE1oEKh9Gr6A/9fPKMuICPc0tZyDOoE8QWIpVcIkguHV641iQVgQvinhk7JljajVHv2ejb/R6zSYGa+wZfJWV5OdcWFWwPiCgsSx0HHLZGdLANJ22XRYk2wlNI3nqu8wR7PNN6QqlU0BJSRZ05Q5SAKIy/PGcnhofhXhpMiVRxpdogIaysmLt0kY9gHRBJOX0A4mpkrjNkSih9AFgGIQP2cdp5sn4+DCzAV3TXpqxoqSX0UQXt+3f4N+RzlsoQR6gz8Y1mFqjq/qoFPSB+CUpv0Xtn0QOZA/MHMALrDpIzhPWpqnw==
+ b=LV72yy0hazOjRNm5VBVJnAF/5Ghg1GGwn3xNG4YtRqSjEPwOm2diXdOXCdomDCI5orZiWSSdT1yt0DEDGzL2dvptSs6SmHgJ5Ahgfz+rjnOC50T+GQskfHoIgzkKPqrzUaZYwaTm7N09OGYAKZooni6MyYikS1Gi5SJAgyU86fFKRgzToLhbjDA/V9FglYX4w+bB7yM3Zp1TsTkInb+w583h2cCVHUFoDXgDDzxpuXKMOFQV3XhfEQeZMDyCCYqUrK8PjSO3dX95/qDq6xAig4fv86f9jj4JCkrBbDUKZ/bpTlfZAdcB/IbTa2uQrCSt389kV7RpsIX687vLbXhkfQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8oG10SayMrqEogdE2+xZWBJaUMiEzpOs9UQzcLRW+Ww=;
- b=KtxeXimqngl3hXqmSsohCBUMj3SC+3/9TpLDvH7DlAmlrT7r6cZTWo1j3/eo6ivtxpu0rIkdXOADRHt71aUlUYikMe+oBIoLhCBT0NvlHnjmMzTEYn2cOkrYTxFJifNXmHzHlZTsN3BGYdzIzcbrhZ4OkGo+IwLtA6U4pTWsIYqcHdzByaK5neMqwQoZYkeAJEFkEN4MtTMQrGEB8vy9idQVB51pbuIxrS1OPrtDf+rrb/NG9KX/bPeRRxGEwNEaTUnnqQ4gWtD4kMCwERNGsYtfgIuwyf254seBiKH8SHrpCPRSJ+LkojGukVF0LKIj27pkXr4MYv3lmQ6IKiXqDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ bh=VNNpEWZNOWj8GR5qhCHhoPedjD2cb6cMhr+uoI5xJQk=;
+ b=GQpRDaJ8LSStkaIs0+IS2gS2vOzMMx+8gbanx5pTutEqPbvF/hZ/nb4V8LfMioKFDdRxgK/IePVdayAFBCT6BY4zq/MLVK+i+0nuGQfcAS/W2ezN0mLdLup2luGZ1g6jBULABfcpvJhTawDGjuON4WYIbdAP+3y4oE8BURIufSveZFEyI9CBMe1PGImLz5uYLzIzzkYLVC8v0q+Aeucn0NV0hLwduLYuOdQa1SBbCkdIMIetaIyX484eD4DAsn8lqBgchQIr5vOw6JGxLDJ0diWBH9yKDyFmShJ2WnDEf9mc1gllKc0dwLnHICPMlUOEI9AfmFR2ZZhRzD+aGfKwQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8oG10SayMrqEogdE2+xZWBJaUMiEzpOs9UQzcLRW+Ww=;
- b=mABMZweKq4SwwIT2R9k5+YoKfNAP+15v2d3QeR8JROcsE0cbz4c8NDEalfC76KANKvedoRsA/VqahmlYyCcYKT+wZYrd4j1LDz+uFs2BvO56PA8ktRpdDhv+UkPpmmTzVgVUNU+O37QVOq+xuruAkxTGE0uQn3gREEwOAEqwkII=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <455c64a2-bae4-47d0-a2bd-902be3ea6127@citrix.com>
-Date: Mon, 11 May 2026 10:03:17 +0100
+ bh=VNNpEWZNOWj8GR5qhCHhoPedjD2cb6cMhr+uoI5xJQk=;
+ b=ds86QHYKm9oXOaNhhw9co9i4yqZW/+S3VfjwHFgi/hEEt0rxQXzBOTuSzxxuTqcy2qIDfbwtQ3ccgDgVwWvFJYiZ68eeTKuJ9oKt6Pyz8oPucB0QsmJBIS3yqJMy48b+PpnNw26GV9Clk/oYHnUhIaYFmidqUiS8f8e8pkZ9w+g=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <fd6d9873-d1db-4aef-acbf-6f7659f5c528@amd.com>
+Date: Mon, 11 May 2026 11:06:49 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Doug Goldstein <cardoe@cardoe.com>
 Subject: Re: [PATCH 1/5] CI: Adjust test needs[] to ensure binaries/ is
  non-root
-To: "Orzel, Michal" <michal.orzel@amd.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@vates.tech>, Stefano Stabellini
+	<sstabellini@kernel.org>, Doug Goldstein <cardoe@cardoe.com>
 References: <20260508212907.1643761-1-andrew.cooper3@citrix.com>
  <20260508212907.1643761-2-andrew.cooper3@citrix.com>
  <a7932bc7-86ad-401c-b462-01078e6e11bb@amd.com>
-Content-Language: en-GB
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
- 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
- 6+ahAA==
-In-Reply-To: <a7932bc7-86ad-401c-b462-01078e6e11bb@amd.com>
-Content-Type: text/plain; charset=UTF-8
+ <455c64a2-bae4-47d0-a2bd-902be3ea6127@citrix.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <455c64a2-bae4-47d0-a2bd-902be3ea6127@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P265CA0273.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:37a::10) To CH8PR03MB8275.namprd03.prod.outlook.com
- (2603:10b6:610:2b9::7)
-MIME-Version: 1.0
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|CHXPR03MB989196:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b3d2c57-5bd5-4538-8f22-08deaf3c26a6
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000011:EE_|DS7PR12MB6007:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ece4e74-363c-4a7d-1ad8-08deaf3ca6d0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|22082099003|18002099003|56012099003;
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|22082099003|56012099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	KxxFo/xKxei9fftduC0OLH19yXKoyBs+guE0+0FdICmz5Ja0k2QSsEm6xz6e43tWCr0fzqjqMIsD4Gvdac/O2vcLDiOikgo/xR9IKWNDwrLudjxrBuCGcjATpO+JvbFGzRuSxtZUYCwU40RmXuWYbf+aDdSVdg/5L3SXya+XN0IhpNRuL+3h9opbxMHWj3a2KWm3Czyn8j0NSds+TXIBbJOLUBZ+Xisx72WAQzWy/RZ1aU80XLm/nmHyC/qC9Wk5JyF0mINP6rtQEn7Etmago3KESEooztOse5cm/KIIvT9f/p/qBESRyc8trKI/bw1m6vYqAGb48cA0MKaid8Tz8DhsoH85EGv4lukpwKR7S+wqwP43tqYJj4ISMvMPTEQwvc2MkpB9hX2M0DUP0IoZEERIto/jX61QqeHrKbSAoLuwWTmg+go8ndt0yt+l6adir1cl3T2hwnZtlopzF0zyWEi38MDT9So/NDZtV1NTwooST9j4gS1NDiF8aHBVGUJStnbesQs6/scrKGf9sHrdj+O8jIZafwKXNhfBkEezV+tblQ/JeG4f1MkBvTNp5PJu99IYkgB1N4rf/0cHHFdrH/Af3Lfd+7qVX5fYNOxYWiBTa/xmwo3NmFszU4jPxdeVohENTELWGZJrrOuwiaP28GfzPIZcQ8CaUemPCHKmeNeanegMP4M0E9hfFE+igNl7
+	5RmHdlYV8RT/DNCx/hbwkOwiTvd/xPrUiERWNFKqq+u8LbFUvrgm6Qfw2vjEzjhhZNF5HnxZbCEhmh3+iDL7tBT0FGKkloIlutflvmeeZXhsU9vswcAblKJ/uaTFKmLJtinNdek1z0Fr8O42TzUDtzsG5ZUvFK4QtCviC5bsTgPKjqS3tLdUPpla0AkGImfYidGdy1nZQVBjkAePFJEF3/ByBHqVvW+qjzj8ZCBxQmf/+C84j3QwdTS04JWYRTrmNzTZ6KFukGHv75nbD5S8+70Rm/sg0hVLUQtvsteGevdrC+1VHyQxH37TcoNXPprgRQdZLVa+kJ2RsWsOu2s3ShvwECLlGa8a8VE9aPppbHl9NfsKogIU+j1Y5WLTNlQ3X3hK2y1eOZOSd078JCnzcE2zs9CZ3PPNi3IAJGBsvxZisY4AgGS0TbVgctrYoIk/XU/LbE9yHdn38216aNr+8UmJcm4Y3yGwkaLJL0BNtn74Eb/WMOy3c/oZa/IxMXLdNuCX4rCaZ7KIx4Hm27A9udi/0EUDC0tGSAjpPvyO30jvUcczS3FXgGIaYeMbXTDagoDb90mf4hY5BNjVR7VSdszq7gZYZIgXhd3nWLkThdW8VEVYFtNtJBJ/0vXPF+oa3Wurlvnf34+kQgb1ta8CYcOj3Dv5xm/PDim80E1UtNT+daeoUFY+rCgDDeTIZ3WUDJi2yX2nW1wVV8TAgtf9nqrTorI7uW+1hI/cXDsOzM8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MHNTSnN0aXRITlo4TjNvYkN1NkFSZUtwTUx4SUIremVDZ2Y4S0hRbGF3SmVL?=
- =?utf-8?B?OGJ4ZFpNdkhMZ3BqSE1BVm92anVxWVk5WHZzaHpzZXVmSFcrZkhwd3JETDFj?=
- =?utf-8?B?Yjg1TW5wcTVyM1JGRXFKaHZnMW5HaTd0MEtRSlk4V3NBUWhCSVdBd1RINlNt?=
- =?utf-8?B?QmFMSTNPaEdqdzVKQXpaWEZZeVEzRnRZOHlsdVlvREJ0d0dpN0F3L0xxaUR5?=
- =?utf-8?B?dWN2akEyS2k5bnRyZ1VmQlJkS2Q5YnI4UFowQnplajdhTmo3MDRhYnJmSlhq?=
- =?utf-8?B?Rk1ISkVvMEphQ1ltVWw5MVpCdW1mVEJTRXlPKzgvNWR5L1dZOTJRUVpYTlY3?=
- =?utf-8?B?MlVyZW9QSVRoRFNpdHhJL3R3WmRPc2pHM0JGb09DcHRkQnVFc0pESkFpOVh1?=
- =?utf-8?B?OXJtM1dzaDhVZ1ZMVU5CV1k4bjZDTjRGaktSckN6VURCS3NWR2E4NXkwTklV?=
- =?utf-8?B?SE5BUUpJSTBCM1MvVWZoNktMZ2FzSm9BNW9KMElJdFdWUWdJTk9CK2tCbWc4?=
- =?utf-8?B?T3dFUFVldEppSHllaTVjVDRsT3N4RmJEc2VTOXRadUxmcEFOQ05rTjVRVzJR?=
- =?utf-8?B?dXJTcmgvcWpUeGhkdUQ0c2JSYzdFcUVHa1l3NEtoOEpFQUpMTHlrRjcyVjIy?=
- =?utf-8?B?blBzNHJNYnU4dzROYVduLzVSTkpJcHZNRHRMS0p3NXAzVHpzNHVTMlQ1emdG?=
- =?utf-8?B?WWtOZ1I0eEZBbWJpanhjSzlvOXlTMVFvU0NMRG5PL3hMaFE0aFFNK3FJTkpK?=
- =?utf-8?B?azhnTnErY0xENE52eVBpVTNCVHdQTnU5TUcyekdpSTQrSTBPY1Q3Vi8xNktR?=
- =?utf-8?B?YUc4S3RxM25zUDZsWEdsNGIvZWoxcE1JNWt5dDZnVG9LWEJzVXNQamxVK3JM?=
- =?utf-8?B?NENLWDdSdWRSRUtTQ2tYRXRYcDkzd1IyWmZHWHQrNnprd1pUL1pzSy9JZGt3?=
- =?utf-8?B?R3QwU3ZlellZYnVFQjhUdHNTVHJjUWpQVjZnRldYMWNZSk9oWmE0UTR2cUEv?=
- =?utf-8?B?VkcwNzRRZFVKeGJXbDdLVTkvZzJmaHRHRmRTMmhUOFhoY0dvV0ZNZEZMMmpn?=
- =?utf-8?B?bFJ2ZEF4aDRjbzd3clR6VWx3MENLTmkyYW1rQnYvTUdxbVpXYVRrTHlnaklD?=
- =?utf-8?B?VEV0MjMrOVA0TlcrOUM2clJzRTRkSFp5Tk9wSkpsOGY3WitHUFVIcmlqaUZv?=
- =?utf-8?B?NlNCdjlab0lhVCsvajJudXJmemtCbkhhMWNsS3NDaW9RNW1EUnRlMzNWa3ph?=
- =?utf-8?B?VWttTUlDTHF5d3ZRQ3ZsSFVUbERSN282ZktTVTNIajQ0Z3Q0WFpYa002KzVm?=
- =?utf-8?B?UG5mM2gzSlN6S0ZXazk3WCtVV2VYNmhUVzNkcGovZ3NjS2g4a05pdGc3aHk0?=
- =?utf-8?B?VndXdE56Zm4xYkVETmZyNDhVNVU3cFNWVkpzSWhIcVpGQ1ptVUhUSUN3NkdV?=
- =?utf-8?B?bERRbEZwWDNURlhQdkxUeDJLYzhIU1VDZnc3T0ZwNmxWUjVZeEcrSGxvWTE2?=
- =?utf-8?B?ZjRsNG1tMFN1SWZaWkdmZ2hZRktxc2xvajVEL29WYWJQcEZCWkwwd1RraVcx?=
- =?utf-8?B?Y2cwaERzYUZhaGZsdDZndnlSZ0NLZ3ZIdUtHQTlHcTVGK2dhbW15L2hsM0lO?=
- =?utf-8?B?a2cyNW1MOTdGYTYwZ2dCVFZXOURiTzZLZlViZ3F0ZFVwY2NmdFFlbWlsdnEr?=
- =?utf-8?B?NmhTWXJTZ3g3ZUIyZ2g0TmtsdXdWUGVWbTZtek1CUTNVekJsTEtPSzUwelZ2?=
- =?utf-8?B?VXZWMTRqYlFRbm1leThGRld3alRSOWtKVHVsRGVVYVJwMmZTY2NvTTM1UFpo?=
- =?utf-8?B?WWxKa3piYXJIeFNpR0ZpYXdDendERXlBTWNZSVFiS1N2My9CSG1uN0wyV29r?=
- =?utf-8?B?WXhBKzhMMGJLTUlZc1dzSWowRWlvVlZ0V0I1bUJQNzUveUowUkxkZXlHcXVF?=
- =?utf-8?B?R3NkQnNxc0VFdnJBeU1tRVlzK3VFaUxoaEFDUGlRYVdWc2UzcEgzalMrR0RM?=
- =?utf-8?B?QnRJSld5TVFjUFpIWUlpUG51eHk3OERPQmlIaWpJK0FlR2VUMFF5amxIZ1Zl?=
- =?utf-8?B?WkJ4UEFwNnVyNFhQQXFYMDQyQlk4NDZmamk2U2hjK2hWRHBVWFUwc3BoZVRs?=
- =?utf-8?B?eFJaVUludnpheHFWem5WU1VtQ1BWc2pHdmhzTVN6d1FreERmdjVRS2JBU0NR?=
- =?utf-8?B?MU5GOVhqY1k2TFFVVWFmc1ZSdXZnYmY1aHJaMG9VK3J2UE1TNnI1OUt2TXpI?=
- =?utf-8?B?Zys4eGFLK0JGblJzbXBNUnIrUjVWeVJzMEh4UjlydUlVaXduOW00RTBuMXcr?=
- =?utf-8?B?c0E2bEU0TzBPOVZ5TXUyc0NiZVNkMUNtczhpbkRzUDVJdjBCZWVhV29ObU4w?=
- =?utf-8?Q?MIIi0NUGWYC/1sTg=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b3d2c57-5bd5-4538-8f22-08deaf3c26a6
-X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 09:03:21.6040
+	p7n6e9Oh9u6lH+QStZorANeaavRV1KQAuUlwLmkqi6UaEjxlZZLkheBkNZimDi1DQe28D5ePsCtYrCMkmXrxoQ2O3N5D+X7mNbRT23AYa/NqYph1BZyTMiMXtpeJl5EOrsmyxKCK9kmnxSGm5oTCGPR9mmudQnWb+vHAlNvqxvNaz5CyJdQASMEQ7M4a379uJbTqI6eeXjWnXevwfivwosUK/oHTriiF6vTeaJfRHJKvQYAYs6XqvzYvt7R9EcE6zgrNfLUUBI0mVEC7/hmEiwPj4GfEMPC3FmHPerWOhL5pxNED02eMFmeG5M50v0u0gcrEFo3EcH4Rqf7VuFNDpHU7ox7+fYf8Odo6RKCtusyfT0Wzbw4QbSdQ/HOyUmP+1l1FZeBBrSRQbm0EZn+TLSl2HsghaMu7Dre8c3rp7o3maThrxP3DHl4GZaF01brg
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 09:06:56.4445
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: suh4hkt46wXsZw/xsviipvxZ2npYXdrSwSyk6BZIRIIfiFyfjE/DyoKgDq0E756BZAup/n2AH0Q1k7k88KPu6O6pYZTj36xCazategNZ2Q0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHXPR03MB989196
-X-purgate-ID: tlsNG-4011c0/1778490205-73D788B7-BCC99DF0/0/0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ece4e74-363c-4a7d-1ad8-08deaf3ca6d0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000011.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6007
+X-purgate-ID: tlsNG-c1860d/1778490421-B6D73DB1-B56C75CD/0/0
 X-purgate-type: clean
-X-purgate-size: 3131
-X-Rspamd-Queue-Id: 102C750A8BC
+X-purgate-size: 3431
+X-Rspamd-Queue-Id: DA73F50A98D
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:email,cardoe.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:email];
-	RCVD_TLS_LAST(0.00)[];
 	TO_DN_ALL(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:cardoe@cardoe.com,m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:cardoe@cardoe.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:email,amd.com:mid,amd.com:dkim,vates.tech:email,cardoe.com:email]
 X-Rspamd-Action: no action
 
-On 11/05/2026 7:16 am, Orzel, Michal wrote:
->
-> On 08-May-26 23:29, Andrew Cooper wrote:
->> The binaries/ directory is a composition from the artefacts, and also used as
->> a working directory for most of the tests.  If the very first artefact is from
->> a root container, then the test must also be a root container to use it as a
->> working directory.
+
+
+On 11-May-26 11:03, Andrew Cooper wrote:
+> On 11/05/2026 7:16 am, Orzel, Michal wrote:
 >>
->> For arm64, the existing linux-arm64 artefact suffices.  For arm32, pull in the
->> microcode-x86 artefact as it's the smallest available.  This bodge can be
->> removed when all build containers have become non-root.
+>> On 08-May-26 23:29, Andrew Cooper wrote:
+>>> The binaries/ directory is a composition from the artefacts, and also used as
+>>> a working directory for most of the tests.  If the very first artefact is from
+>>> a root container, then the test must also be a root container to use it as a
+>>> working directory.
+>>>
+>>> For arm64, the existing linux-arm64 artefact suffices.  For arm32, pull in the
+>>> microcode-x86 artefact as it's the smallest available.  This bodge can be
+>>> removed when all build containers have become non-root.
+>>>
+>>> For the qemu-xtf-dom0less-arm64-*-xen-version jobs, use *arm64-test-needs
+>>> ahead of alpine-3.18-gcc-* (as it's a root container), and to deduplicate
+>>> the *-export dependency.
+>>>
+>>> This will allow us to change containers to being non-root one at a time,
+>>> rather than all in one go.
+>>>
+>>> No functional change.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>> ---
+>>> CC: Anthony PERARD <anthony.perard@vates.tech>
+>>> CC: Stefano Stabellini <sstabellini@kernel.org>
+>>> CC: Michal Orzel <michal.orzel@amd.com>
+>>> CC: Doug Goldstein <cardoe@cardoe.com>
+>>>
+>>> We should also stop using binaries/ as a working directory for the tests, but
+>>> that gets very complicated very quickly and I don't have time to do it at this
+>>> juncture.
+>>> ---
+>>>  automation/gitlab-ci/test.yaml | 10 ++++++++--
+>>>  1 file changed, 8 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+>>> index 8770c523e228..517af1732437 100644
+>>> --- a/automation/gitlab-ci/test.yaml
+>>> +++ b/automation/gitlab-ci/test.yaml
+>>> @@ -15,6 +15,12 @@
+>>>    - qemu-system-aarch64-6.0.0-arm64-export
+>>>  
+>>>  .arm32-test-needs: &arm32-test-needs
+>>> +  # Bodge to ensure binaries/ is non-root.  Can be any artefact which comes
+>>> +  # from a non-root container, and microcode-x86 is the smallest.  Remove when
+>>> +  # all build containers have become non-root.
+>>> +  - project: $ARTIFACTS_REPO
+>>> +    job: microcode-x86
+>>> +    ref: $ARTIFACTS_BRANCH
+>> I don't see it being removed in this series even though the containers are non-root.
+> 
+> Correct.  The Alpine container still being root is discussed in the
+> commit message, and is why ...
+> 
 >>
->> For the qemu-xtf-dom0less-arm64-*-xen-version jobs, use *arm64-test-needs
->> ahead of alpine-3.18-gcc-* (as it's a root container), and to deduplicate
->> the *-export dependency.
+>>>    - qemu-system-aarch64-6.0.0-arm32-export
+>>>  
+>>>  .x86-64-test-needs: &x86-64-test-needs
+>>> @@ -569,16 +575,16 @@ qemu-xtf-dom0less-arm64-gcc-hyp-xen-version:
+>>>    script:
+>>>      - ./automation/scripts/qemu-xtf.sh arm64 mmu64le hyp-xen-version 2>&1 | tee ${LOGFILE}
+>>>    needs:
+>>> +    - *arm64-test-needs
+> 
+> ... why use here is ahead of ...
+> 
+> 
+>> This also pulls in Linux image and rootfs which XTF tests don't need. I think
+>> it's much better for a test to list the actual list of its dependencies.
+>> Otherwise you are asking user/developer to dig into the yaml.
 >>
->> This will allow us to change containers to being non-root one at a time,
->> rather than all in one go.
+>> ~Michal
 >>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Anthony PERARD <anthony.perard@vates.tech>
->> CC: Stefano Stabellini <sstabellini@kernel.org>
->> CC: Michal Orzel <michal.orzel@amd.com>
->> CC: Doug Goldstein <cardoe@cardoe.com>
->>
->> We should also stop using binaries/ as a working directory for the tests, but
->> that gets very complicated very quickly and I don't have time to do it at this
->> juncture.
->> ---
->>  automation/gitlab-ci/test.yaml | 10 ++++++++--
->>  1 file changed, 8 insertions(+), 2 deletions(-)
->>
->> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
->> index 8770c523e228..517af1732437 100644
->> --- a/automation/gitlab-ci/test.yaml
->> +++ b/automation/gitlab-ci/test.yaml
->> @@ -15,6 +15,12 @@
->>    - qemu-system-aarch64-6.0.0-arm64-export
->>  
->>  .arm32-test-needs: &arm32-test-needs
->> +  # Bodge to ensure binaries/ is non-root.  Can be any artefact which comes
->> +  # from a non-root container, and microcode-x86 is the smallest.  Remove when
->> +  # all build containers have become non-root.
->> +  - project: $ARTIFACTS_REPO
->> +    job: microcode-x86
->> +    ref: $ARTIFACTS_BRANCH
-> I don't see it being removed in this series even though the containers are non-root.
+>>>      - alpine-3.18-gcc-arm64
+>>> -    - qemu-system-aarch64-6.0.0-arm64-export
+> 
+> ... the alpine inclusion here.
+> 
+> This can get reverted once the alpine container is split/reworked, but
+> not before.
+Ok, so once the Alpine container is reworked, we will get back to proper
+dependencies list. In that case:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-Correct.  The Alpine container still being root is discussed in the
-commit message, and is why ...
+~Michal
 
->
->>    - qemu-system-aarch64-6.0.0-arm32-export
->>  
->>  .x86-64-test-needs: &x86-64-test-needs
->> @@ -569,16 +575,16 @@ qemu-xtf-dom0less-arm64-gcc-hyp-xen-version:
->>    script:
->>      - ./automation/scripts/qemu-xtf.sh arm64 mmu64le hyp-xen-version 2>&1 | tee ${LOGFILE}
->>    needs:
->> +    - *arm64-test-needs
-
-... why use here is ahead of ...
-
-
-> This also pulls in Linux image and rootfs which XTF tests don't need. I think
-> it's much better for a test to list the actual list of its dependencies.
-> Otherwise you are asking user/developer to dig into the yaml.
->
-> ~Michal
->
->>      - alpine-3.18-gcc-arm64
->> -    - qemu-system-aarch64-6.0.0-arm64-export
-
-... the alpine inclusion here.
-
-This can get reverted once the alpine container is split/reworked, but
-not before.
-
-~Andrew
 
