@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IEBTOIJAA2ro2AEAu9opvQ
+	id KMf8CapAA2ro2AEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:00:18 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:00:58 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 554E7523244
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:00:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1306906.1578642 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5966523281
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:00:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1306914.1578651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMoae-0002KW-PO; Tue, 12 May 2026 15:00:08 +0000
+	id 1wMobI-0002tT-5s; Tue, 12 May 2026 15:00:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1306906.1578642; Tue, 12 May 2026 15:00:08 +0000
+Received: by outflank-mailman (output) from mailman id 1306914.1578651; Tue, 12 May 2026 15:00:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMoae-0002Il-Ln; Tue, 12 May 2026 15:00:08 +0000
-Received: by outflank-mailman (input) for mailman id 1306906;
- Tue, 12 May 2026 15:00:06 +0000
+	id 1wMobI-0002qp-2q; Tue, 12 May 2026 15:00:48 +0000
+Received: by outflank-mailman (input) for mailman id 1306914;
+ Tue, 12 May 2026 15:00:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wMoac-0002Fv-R3
- for xen-devel@lists.xenproject.org; Tue, 12 May 2026 15:00:06 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wMobF-0002qd-QA
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2026 15:00:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMoac-00AJkn-7g
- for xen-devel@lists.xenproject.org; Tue, 12 May 2026 17:00:06 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wMobF-004Fsk-70
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2026 17:00:45 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a034076-bab6-0a2a0a5309dd-0a2a4508cdb2-0
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:00:06 +0200
-Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a034097-bab6-0a2a0a5309dd-0a2a4504baf4-36
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:00:45 +0200
+Received: from [209.85.221.45] (helo=mail-wr1-f45.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a034076-63b5-0a2a45080019-d155dd36ac8c-3
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:00:06 +0200
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-44e1860558fso3656599f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 08:00:06 -0700 (PDT)
+ id 6a03409d-1dec-0a2a45040019-d155dd2dc5a2-3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:00:45 +0200
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-45562c41ec7so2406316f8f.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 08:00:45 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45491304387sm32459259f8f.21.2026.05.12.08.00.05
+ ffacd0b85a97d-4548ec6be40sm34620921f8f.12.2026.05.12.08.00.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 May 2026 08:00:05 -0700 (PDT)
+ Tue, 12 May 2026 08:00:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,52 +58,54 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778598005; x=1779202805; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778598044; x=1779202844; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=2L5XWk37Hty4eGHWvaxUEX6h6h0l+D2/1Nxh6sBvqFg=;
-        b=D/oRAY/Z1bkF+oIGgGRd4+OFrQSm96a6pXz5gi6UnrF4kIPoPz57Dcsy4kAGyZNcXE
-         +2hvOMwtFof7EJ5yYXXeHmuvRau8mnnno641O0P24NUhA4vT7ilYL4jHIwscWHSOyhG3
-         2gyOAuk0Cz4109RZOeOn5ABb3ZSmfqW3HxD3Rwsne3jk3WYPZvj6J+j9xqJtgI1JdAu8
-         uC41ue9axhLZB1RDpRIcuxhoEZ3x24sSv8PbVP5kdlAWqxJxrMaSESRDyjLZtBZoO4DP
-         Lb4uDiq3N7Q60/nm4cw40ZUCYbXiSEg3ZEBT+kfnLuw6uMr0/U/m5Wlux/cVILEeYEt5
-         QPdg==
+        bh=+4wWtJqQjz6zQQRwVYkyfsmuZHB9+q0gyFAm93ZpUBw=;
+        b=M9CWg80+qkur906rO/i8XQBcF/l54mFXNXnXUuB7QBpdgIYfqHRADqXPxj6epez5aT
+         tK6khm1NBuUxLDP5zcjVHSBpDUqyt+Sfkg7JRoDyZTdJiPEN5859daJtyqbsMv+7tguD
+         75i9XJFSguC6PwJo+nKjclinDFTSk/xcByjzwINIIQxf36l87+dy+2UQNm+zztJIADmd
+         b2m7I7QHncAY86LaypPESi3fHmKvaD1MAvCTPrQqM0WKyOMquakIOQbQZzhX5bKNLoQt
+         PBGetPePVC0FmGet2dXayFemhIBoVwbXgjy+LgVyANp4OfHKumlbbF75xnPg+PCUle/O
+         3k2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778598005; x=1779202805;
+        d=1e100.net; s=20251104; t=1778598044; x=1779202844;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=2L5XWk37Hty4eGHWvaxUEX6h6h0l+D2/1Nxh6sBvqFg=;
-        b=d0AaBMnSKWLqwk8ws34rplh8xyror5+862NSRDmGSN08O+XVNQoSyMk9cQzUKETa+C
-         OGoWHU29hlcS9y3q6WJq7U39rSK9XDNDKdllgUxtmop7EsYnr8m3D9KW2aW64pTK33+2
-         FNqbjwbvI0bWY4o6jzj9jhKsMvSG+1AMmGIvNGfJ6ZUYdeoejtd63/63JfOq1OFPpbmD
-         wYo76UHmlk8JuCJPTHLn+6lNKmwh8xZ2yFB3t/e4xABAFNADQ9ck75RP18RuCc9wApN6
-         9B9kPhXRuA9IXF/5pYi+cxa6uofbdM7EBg8Wr4C41ic+LeZOsXOavvywoZy7g3pQLJDn
-         bFTw==
-X-Gm-Message-State: AOJu0YyJRH76MG4LCklmOjIsOaU9LpYecqUSg+CFbs23HiNOus/eZzR0
-	vycGJ3/VWJ6qK4BUfSyaKn2ZNzs4w1yZvg/u94B4RvhFdGS1312o22owjl7FpH9LCQXKK1CNO0m
-	uaM4=
-X-Gm-Gg: Acq92OEkFAuJTpSKE2Ax2pMdSD6fGnuUVKZXXHdhGgupqgK8gtVjH3eS+CAldgOGG0F
-	Cq3eoSof11vR2TWYaZdcUAWr8WZVzDdjRc6Zl9mVlnuDNDEm/JLzy84YbRRijmGnXkZdAJzEK5J
-	XYcIpN3C2PAOVJRAaqwZMDmT/tp2qHYxhg3kDh2vl1fmMAGBWswyS6kSlJmkoHhGfGjwHN7NmwV
-	xjJpAsOQ6kxbrsBYEtFHGOav3YXZXY2plIpzioEBiQn1io+hZtEnX0lOFT6YnvAiQseqiVgKh40
-	yd77lM4L1CKHa3LAiLZ2LZnex3g6hKgXmJdLveDs5PT4KS/+GrO5ie/ZXzZXwyTEjw857XY/1DO
-	qZXvM0HaGdZJXS6KsYpExNq/sxoGT3N/9I5y3x09cVormFaN4krRbD85ZoDzXeWcpsyF23jdjXK
-	T4DpSFx5Fk+bcgajHwSQKU4PQdmkjRX29+ysn71rMps/+oSmymSG/2Ux1wxcARoRMvF7set+Pf
-X-Received: by 2002:a05:6000:1a85:b0:43c:fdd:ea96 with SMTP id ffacd0b85a97d-45462c342e0mr30075541f8f.26.1778598005512;
-        Tue, 12 May 2026 08:00:05 -0700 (PDT)
-Message-ID: <dac2443b-3ef4-4508-aa49-1e7d68a72d02@suse.com>
-Date: Tue, 12 May 2026 17:00:04 +0200
+        bh=+4wWtJqQjz6zQQRwVYkyfsmuZHB9+q0gyFAm93ZpUBw=;
+        b=o7ErCHNxQMXZb4wNNiby4JuxJZGZWx0m2mVVq4ToqGBc4Rzjk0yX6vVHeFZPL/KrIb
+         ENQ0ugbFljD2CpSBiitMqEXMhtis4tYsENAh+frwK46MMYnx7ITjTM0QHosl2w8Kf4xa
+         3zQHlLAm3+ETk9qkeXLn7MQpou+GDpNdlCnYyDD0sEsNyMfQ27dDJ72bARpq1Nf/UurV
+         IBmjL1OfoUv6bEYCFXDH68q5wzOkiZqA3dM3pZtPbF8x7BEPE0sg4js+ukig2JMkO+Oz
+         xmwWnkpeI6C1/16k2m6w2KUzbKvwOO0jWeYFcaQzqUpLWEjKtcaPVV77VmzntSnOyEnq
+         LioA==
+X-Gm-Message-State: AOJu0YxRetPNfHKXwqoxTW7arBiJf+Ix14GelMoKhmEW1h0AGqjQGevb
+	QdeoHmNS7+Z8cdNzMBPQeR7YpF0hxK+n0tAa+Bq2Mz9Az3i22FDZl3iLvlrqymSo2NEDjgr4v6H
+	OqoU=
+X-Gm-Gg: Acq92OHKBZjGVwAZ+dU8ccIYAJczruylgYq/aDL3vQC2zO6KXAhcQ3eltfwgFBzruTQ
+	5K7aerau3rGMsE/sTduIoDmEgBdbor/nxSsczcQmxo0tSX94kBYxhDQSdwL5OteqmwR2YqyJt9k
+	g/yBLUs5xe8MGrOHC0aUoq6hrpKurp8QOOLZqfU26VooKQWXQGij7IHa4i46yilvXLbqFJdBgzw
+	v6KWG2wDpQ9bY1UsIL9Eo7e5L/njeLrzbrveuIw9lyCx9nqJsjihleKlGH1WInfFC7FLjXVoutD
+	TNqGGLFMh+vLwVFZV8ozPcxrV8NsZYliVKmkel4REsvWnOmCGXVsqfpVaTaB5OAQGHNDWm1zvS7
+	LzE+KPPmiT3DEOMgON8MEnKEd5scFMWyFF6YeNe5hW6sKgcJSgbbFHDVEQHrL656dVeknoCcMea
+	3vuU7tL3rLyMiOqPu9BOu5W+/8x6Kfk+ir01ZlOXRyCFTOR7XpBUiTq561ConJA3CU644iDR+7O
+	WUMtZaJSbS4bvQ=
+X-Received: by 2002:a5d:5f86:0:b0:43d:77a8:3baf with SMTP id ffacd0b85a97d-45b15682310mr5149035f8f.32.1778598044522;
+        Tue, 12 May 2026 08:00:44 -0700 (PDT)
+Message-ID: <4bcd76e9-1bd5-4a2c-8d75-7d29b9dfa31f@suse.com>
+Date: Tue, 12 May 2026 17:00:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/5] x86/vRTC: use available macros for BCD <-> BIN conversion
+Subject: [PATCH 5/5] tools/xen-hvmctx: shorten various format strings a little
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>
+ Teddy Astie <teddy.astie@vates.tech>,
+ Anthony PERARD <anthony.perard@vates.tech>
 References: <b36b6f2f-2b0e-462d-9846-4a1b4d7edef9@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,10 +134,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <b36b6f2f-2b0e-462d-9846-4a1b4d7edef9@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c1860d/1778598006-C5386DB1-604F2D14/0/0
+X-purgate-ID: tlsNG-ebf023/1778598045-433673FF-6E94AD80/0/0
 X-purgate-type: clean
-X-purgate-size: 889
-X-Rspamd-Queue-Id: 554E7523244
+X-purgate-size: 6655
+X-Rspamd-Queue-Id: A5966523281
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -144,24 +146,24 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FORWARDED(0.00)[mailman];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -171,37 +173,134 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-There's no need to open-code these. No functional change intended, even if
-the | changes to + in to_bcd().
+%4.4x and alike format specifiers can be expressed shorter as %04x or, as
+e.g. dump_ioapic() has it, %.4x.
+
+In dump_fpu()'s XMM register dumping, also move away from showing bogus
+xmm03 and alike. The proper register name is xmm3 for that particular
+example.
+
+Also strip trailing whitespace from lines touched.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/hvm/rtc.c
-+++ b/xen/arch/x86/hvm/rtc.c
-@@ -253,18 +253,18 @@ static void cf_check rtc_update_timer2(v
+--- a/tools/misc/xen-hvmctx.c
++++ b/tools/misc/xen-hvmctx.c
+@@ -107,26 +107,26 @@ static void dump_fpu(void *p)
+     struct fpu_regs *r = p;
+     int i;
  
- static unsigned int to_bcd(const RTCState *s, unsigned int a)
- {
--    if ( s->hw.cmos_data[RTC_REG_B] & RTC_DM_BINARY )
--        return a;
-+    if ( !(s->hw.cmos_data[RTC_REG_B] & RTC_DM_BINARY) )
-+        BIN_TO_BCD(a);
+-    printf("    FPU:    fcw 0x%4.4x fsw 0x%4.4x\n"  
+-           "            ftw 0x%2.2x (0x%2.2x) fop 0x%4.4x\n"
+-           "          fpuip 0x%16.16"PRIx64" fpudp 0x%16.16"PRIx64"\n"
+-           "          mxcsr 0x%8.8lx mask 0x%8.8lx\n",
++    printf("    FPU:    fcw 0x%04x fsw 0x%04x\n"
++           "            ftw 0x%02x (0x%02x) fop 0x%04x\n"
++           "          fpuip 0x%016"PRIx64" fpudp 0x%016"PRIx64"\n"
++           "          mxcsr 0x%08lx mask 0x%08lx\n",
+            (unsigned)r->fcw, (unsigned)r->fsw, 
+            (unsigned)r->ftw, (unsigned)r->res0, (unsigned)r->fop, 
+            r->fpuip, r->fpudp, 
+            (unsigned long)r->mxcsr, (unsigned long)r->mxcsr_mask);
  
--    return ((a / 10) << 4) | (a % 10);
-+    return a;
+     for ( i = 0 ; i < 8 ; i++ ) 
+-        printf("            mm%i 0x%4.4x%16.16"PRIx64" (0x%4.4x%4.4x%4.4x)\n",
++        printf("            mm%i 0x%04x%016"PRIx64" (0x%04x%04x%04x)\n",
+                i, r->mm[i].hi, r->mm[i].lo,
+                r->mm[i].pad[2], r->mm[i].pad[1], r->mm[i].pad[0]);
+ 
+     for ( i = 0 ; i < 16 ; i++ ) 
+-        printf("          xmm%2.2i 0x%16.16"PRIx64"%16.16"PRIx64"\n",
++        printf("          xmm%-2i 0x%016"PRIx64"%016"PRIx64"\n",
+                i, r->xmm[i].hi, r->xmm[i].lo);
+     
+     for ( i = 0 ; i < 6 ; i++ ) 
+-        printf("               (0x%16.16"PRIx64"%16.16"PRIx64")\n",
++        printf("               (0x%016"PRIx64"%016"PRIx64")\n",
+                r->res1[2*i+1], r->res1[2*i]);
  }
  
- static unsigned int from_bcd(const RTCState *s, unsigned int a)
+@@ -134,20 +134,20 @@ static void dump_cpu(void)
  {
--    if ( s->hw.cmos_data[RTC_REG_B] & RTC_DM_BINARY )
--        return a;
-+    if ( !(s->hw.cmos_data[RTC_REG_B] & RTC_DM_BINARY) )
-+        BCD_TO_BIN(a);
- 
--    return ((a >> 4) * 10) + (a & 0x0f);
-+    return a;
+     HVM_SAVE_TYPE(CPU) c;
+     READ(c);
+-    printf("    CPU:    rax 0x%16.16llx     rbx 0x%16.16llx\n"
+-           "            rcx 0x%16.16llx     rdx 0x%16.16llx\n"
+-           "            rbp 0x%16.16llx     rsi 0x%16.16llx\n"
+-           "            rdi 0x%16.16llx     rsp 0x%16.16llx\n"
+-           "             r8 0x%16.16llx      r9 0x%16.16llx\n"
+-           "            r10 0x%16.16llx     r11 0x%16.16llx\n"
+-           "            r12 0x%16.16llx     r13 0x%16.16llx\n"
+-           "            r14 0x%16.16llx     r15 0x%16.16llx\n"
+-           "            rip 0x%16.16llx  rflags 0x%16.16llx\n"
+-           "            cr0 0x%16.16llx     cr2 0x%16.16llx\n"
+-           "            cr3 0x%16.16llx     cr4 0x%16.16llx\n"
+-           "            dr0 0x%16.16llx     dr1 0x%16.16llx\n"
+-           "            dr2 0x%16.16llx     dr3 0x%16.16llx\n"
+-           "            dr6 0x%16.16llx     dr7 0x%16.16llx\n"
++    printf("    CPU:    rax 0x%016llx     rbx 0x%016llx\n"
++           "            rcx 0x%016llx     rdx 0x%016llx\n"
++           "            rbp 0x%016llx     rsi 0x%016llx\n"
++           "            rdi 0x%016llx     rsp 0x%016llx\n"
++           "             r8 0x%016llx      r9 0x%016llx\n"
++           "            r10 0x%016llx     r11 0x%016llx\n"
++           "            r12 0x%016llx     r13 0x%016llx\n"
++           "            r14 0x%016llx     r15 0x%016llx\n"
++           "            rip 0x%016llx  rflags 0x%016llx\n"
++           "            cr0 0x%016llx     cr2 0x%016llx\n"
++           "            cr3 0x%016llx     cr4 0x%016llx\n"
++           "            dr0 0x%016llx     dr1 0x%016llx\n"
++           "            dr2 0x%016llx     dr3 0x%016llx\n"
++           "            dr6 0x%016llx     dr7 0x%016llx\n"
+            "             cs %#6.4" PRIx32 " (%#18.8" PRIx64 " + %#10.8" PRIx32 " / %#7.4" PRIx32 ")\n"
+            "             es %#6.4" PRIx32 " (%#18.8" PRIx64 " + %#10.8" PRIx32 " / %#7.4" PRIx32 ")\n"
+            "             ds %#6.4" PRIx32 " (%#18.8" PRIx64 " + %#10.8" PRIx32 " / %#7.4" PRIx32 ")\n"
+@@ -158,12 +158,12 @@ static void dump_cpu(void)
+            "           ldtr %#6.4" PRIx32 " (%#18.8" PRIx64 " + %#10.4" PRIx32 " / %#7.4" PRIx32 ")\n"
+            "           idtr        (%#18.8" PRIx64 " + %#10.4" PRIx32 ")\n"
+            "           gdtr        (%#18.8" PRIx64 " + %#10.4" PRIx32 ")\n"
+-           "    sysenter cs 0x%8.8llx  eip 0x%16.16llx  esp 0x%16.16llx\n"
++           "    sysenter cs 0x%08llx  eip 0x%016llx  esp 0x%016llx\n"
+            "      shadow gs %#18.16" PRIx64 "   efer %#18.8" PRIx64 "\n"
+            "          lstar %#18.16" PRIx64 "  cstar %#18.16" PRIx64 "\n"
+            "           star %#18.16" PRIx64 " sfmask %#18.8" PRIx64 "\n"
+-           "            tsc 0x%16.16llx\n"
+-           "          event 0x%8.8lx error 0x%8.8lx\n",
++           "            tsc 0x%016llx\n"
++           "          event 0x%08lx error 0x%08lx\n",
+            (unsigned long long) c.rax, (unsigned long long) c.rbx,
+            (unsigned long long) c.rcx, (unsigned long long) c.rdx,
+            (unsigned long long) c.rbp, (unsigned long long) c.rsi,
+@@ -260,7 +260,7 @@ static void dump_pci_irq(void)
+ {
+     HVM_SAVE_TYPE(PCI_IRQ) i;
+     READ(i);
+-    printf("    PCI IRQs: 0x%16.16llx%16.16llx\n", 
++    printf("    PCI IRQs: 0x%016llx%016llx\n",
+            (unsigned long long) i.pad[0], (unsigned long long) i.pad[1]);
  }
  
- /*
+@@ -268,7 +268,7 @@ static void dump_isa_irq(void)
+ {
+     HVM_SAVE_TYPE(ISA_IRQ) i;
+     READ(i);
+-    printf("    ISA IRQs: 0x%4.4llx\n", 
++    printf("    ISA IRQs: 0x%04llx\n",
+            (unsigned long long) i.pad[0]);
+ }
+ 
+@@ -305,10 +305,10 @@ static void dump_rtc(void)
+ {
+     HVM_SAVE_TYPE(RTC) r;
+     READ(r);
+-    printf("    RTC: regs 0x%2.2x 0x%2.2x 0x%2.2x 0x%2.2x 0x%2.2x 0x%2.2x 0x%2.2x 0x%2.2x\n",
++    printf("    RTC: regs 0x%02x 0x%02x 0x%02x 0x%02x 0x%02x 0x%02x 0x%02x 0x%02x\n",
+            r.cmos_data[0], r.cmos_data[1], r.cmos_data[2], r.cmos_data[3], 
+            r.cmos_data[4], r.cmos_data[5], r.cmos_data[6], r.cmos_data[7]);
+-    printf("              0x%2.2x 0x%2.2x 0x%2.2x 0x%2.2x 0x%2.2x 0x%2.2x, index 0x%2.2x\n",
++    printf("              0x%02x 0x%02x 0x%02x 0x%02x 0x%02x 0x%02x, index 0x%02x\n",
+            r.cmos_data[8], r.cmos_data[9], r.cmos_data[10], r.cmos_data[11], 
+            r.cmos_data[12], r.cmos_data[13], r.cmos_index);
+     printf("         century 0x%02x  offset %"PRId64"\n", r.century, r.rtc_offset);
 
 
