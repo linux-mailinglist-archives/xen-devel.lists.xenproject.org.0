@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mPjyA9VIA2pU2wEAu9opvQ
+	id WJF/LfFIA2pU2wEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:35:49 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:36:17 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76046523C19
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:35:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1306994.1578722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B743523C6C
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:36:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1306999.1578731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMp8z-0002yK-88; Tue, 12 May 2026 15:35:37 +0000
+	id 1wMp9W-0003OT-F9; Tue, 12 May 2026 15:36:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1306994.1578722; Tue, 12 May 2026 15:35:37 +0000
+Received: by outflank-mailman (output) from mailman id 1306999.1578731; Tue, 12 May 2026 15:36:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMp8z-0002wg-5P; Tue, 12 May 2026 15:35:37 +0000
-Received: by outflank-mailman (input) for mailman id 1306994;
- Tue, 12 May 2026 15:35:36 +0000
+	id 1wMp9W-0003NV-CJ; Tue, 12 May 2026 15:36:10 +0000
+Received: by outflank-mailman (input) for mailman id 1306999;
+ Tue, 12 May 2026 15:36:08 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wMp8y-0002wY-7F
- for xen-devel@lists.xenproject.org; Tue, 12 May 2026 15:35:36 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wMp9U-0003NH-QH
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2026 15:36:08 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMp8x-00HGoL-Gh
- for xen-devel@lists.xenproject.org; Tue, 12 May 2026 17:35:35 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wMp9U-00AQXI-6u
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2026 17:36:08 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0348c3-e002-0a2a0a5209dd-0a2a450794fc-26
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:35:35 +0200
-Received: from [209.85.221.51] (helo=mail-wr1-f51.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0348dc-bab6-0a2a0a5309dd-0a2a4503a70c-40
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:36:08 +0200
+Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0348c7-229c-0a2a45070019-d155dd33b8ad-3
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:35:35 +0200
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-43d76dd4ee8so5264888f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 08:35:35 -0700 (PDT)
+ id 6a0348e8-672d-0a2a45030019-d1558032c526-3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:36:08 +0200
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-488af9fdaa7so32813645e9.1
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 08:36:08 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45491304505sm33585782f8f.22.2026.05.12.08.35.34
+ 5b1f17b1804b1-48e8f410558sm41030815e9.5.2026.05.12.08.36.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 May 2026 08:35:34 -0700 (PDT)
+ Tue, 12 May 2026 08:36:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,49 +58,49 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778600135; x=1779204935; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778600167; x=1779204967; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+F18zTQ2tYhuJeL6OBgVxAMYMHPNiYmv6o58vYh8r4k=;
-        b=OQKxYwGUB1j7rijXPZQ+DtPbrw+MKIcVxEZfMOjEU6xrBy2ogOVxlTJ1f4CSAolZjO
-         VKp5plf/1Ridv+XFQDbfprO7192DMp80DiDkEwk1TPKtBJz/6D//GL7FFqCqynAwZXUg
-         fexPyqelIRthaFPi9v33EqwgclBy5jCCGgVZLFHAW6k/u1O9s78Q5dysVE571zqlAFD9
-         MX/dwIwIyEF7x6YkHRGMC1f6sU/bKdfsaKivV5dmdyZXeiyzHmkQdB0vfZmSnv2afJbz
-         HzlZOvHd1g+2kSmdp7vEkKyxeZ36IcUL7eFmzKj2PHsaWYXDFBF6Dx6xXraI00cJwE7H
-         FXwQ==
+        bh=9ZzX9y9DzM/pf6lRtwdmKQ1uBuLJ5k1HbTo5s1srMNQ=;
+        b=O5yNjw6fI55+fKspXzZ/e+w7J1NmeGG8U48oFiwJSM6Caejs5QX4IN/qWtOLdQSbBa
+         5ROnXXrVgMzrqUl9TWEsmwADvA44QZr16xQCuFgYqXH6wkm8qUHLhPV6G/T/KjCgezw7
+         Acm6TC2CuOH7WAKMbhPLkdd8xmgYBt/w4R1ktKX76yDOHDkoFewTREcqxgvXGGDKBque
+         0irBF2D+Dt4Vwoz+0xrMFL/GQvcOPCLeeseEM9O4+lb3xRl33tjMYI/amKzmJDMkKh17
+         yPaBiIlkE0CJvhWp5Y6BzSl3i7YlMO7YMP27xCim3m1O9DcB+TodBHLoxc07Nc1OZFMA
+         ELlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778600135; x=1779204935;
+        d=1e100.net; s=20251104; t=1778600167; x=1779204967;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+F18zTQ2tYhuJeL6OBgVxAMYMHPNiYmv6o58vYh8r4k=;
-        b=GclHBz0L4AO2XV2QVUGbDYDkjNBJTk7vM7qcIXom5NRIQov2WFNXLnOwYLZrau4VLK
-         abAyAe/lz6tvZaKeea93d3yjZ+sRWYcDrX6i+MOYccmU6h+5L71DwgVxl5H4WLrZVKuJ
-         JpJMLubqL5kUGYvpTDxeBWGTw+Orb74nlKOk5JMuS04KHLwb01Gb213WDxj3v/4zXwQm
-         lcFuVQdrv9UpYdfnL7bO377SQKGJuXkxhAEPbwpg2AJVbtMaIjMubmhSRdN3cWREtgP7
-         F2zrUcbQ7XjtjXauBLvDFvOxNYMNx8RXcAjTTYKZnDGqRjKisQxHTDntjqU92agueF/v
-         zjZQ==
-X-Gm-Message-State: AOJu0YxMJVY7H33s5nSoxbrcmb637zedoJY2rmgOGoGym53K8mSbgHm4
-	ftgMxXwlVcKJziCn1VxRXSYKdqO+iFDEYbOgh180opOpPj3Iqq5/I6cm1RAnGXmeYBTBmHR0Av0
-	BFcw=
-X-Gm-Gg: Acq92OGZE7dgxLd4Q+UinBrGfYwqEQyCJ5ZN7cTgxspUInG2/Vi6Kudekjj2aTtjrFg
-	PX5jqx75Kp1C6sOhHIe+4Fnu1IojE5Lwx8FCt8fFmpkkdbDpJvCwxQQEahh/Z+GXXzRRt05QdOf
-	7AnEFiFYubFFI8KshTi+lL6JIr2y1qUblrjYKueiO4dFKClUEaSx+7fiexd7tLZFKKxNx1JdQZ8
-	yvGct3n+ZV6RUzZbGkKaMslyZrM37DNHcIbobrQ7xTHMFDJD9hzP1roOclHsLl8p1owom985Z0C
-	JOTr9Fo1lJThZIja4XH+BPKDOV/07j/L7+S7/JocxcRjXGJsewLCTTHqhSj8/AFJybFp75M3ONJ
-	LR5livL5aPeQRhOX65CkM2WE7krd87dCjZQ6YX+sRiVGMu7BkJmK0CNs+Z+EeMiin4o+z1jWOIC
-	E4m3aDZGGri4yvYTY2i0wxZzQrgzbSb2nYKmzvsIpM9OguuT5wUWM2ZRmqkwH+/W87DiUi4Q8+X
-	4yHXftFhC+H8yM=
-X-Received: by 2002:a05:6000:3113:b0:456:15fa:9eba with SMTP id ffacd0b85a97d-456a4daccb9mr21661640f8f.43.1778600134763;
-        Tue, 12 May 2026 08:35:34 -0700 (PDT)
-Message-ID: <5c66cfb1-e234-4efa-9a01-88acb284e414@suse.com>
-Date: Tue, 12 May 2026 17:35:33 +0200
+        bh=9ZzX9y9DzM/pf6lRtwdmKQ1uBuLJ5k1HbTo5s1srMNQ=;
+        b=ZYZXXT3hfMhYbKgL8LdTQArA6jUnOcmgc33QFfBvV2dp7qCjNkoVWpLJnW1dB2NXec
+         r0wElmH9bKcIfaPbJh8CW34X9r8uQWXp41DuuDgrWbGLd0rBSm540E9ISZk/decqsuij
+         jKUEzRS6vbftJUkaCjCR6RhRXwz75ahe9mkcgvifGXq+SzcxmU0ejb6/IT5wrj7E6J92
+         jYA8tPoyLRyPtnImvlPHIVRdISkqET7vNrJeWhMVW6Ogjj00OuaMg/sdvfGiUnb8jjmV
+         VxcvoiQHly6eBskQE5zscXmuv8ZJKp86rihpBcUZoAWwlTkkVUg8/LVGDRBtIJ3ed5hs
+         8x8Q==
+X-Gm-Message-State: AOJu0Yx78e7x68lknRzLHQ/MuSSyIW9nonEf65N+UUuh98cFeFKPVmrO
+	95KQGsSvDhNkcDu6IM9jOpUAPqlQOBKwPBKlKTdYrsx3f4YCpZd6jxGbkEoM+RURtID8b4HRTZL
+	Vzcw=
+X-Gm-Gg: Acq92OHEii2EF9xfHLw3m5hHD0zQFl1Co9ATmHvYK4cmn0fRZMh07Q2DK2XL0Wx30jD
+	Mbnrlv2ujerRAaIWqMh1U0WtwNjpNZ8h0reGRJsjCMuHK3WqM11M+fom4TJiDgTA8h/M6/D4NdO
+	4XTjzWiytd6xmvgeFNSDeoXMjvTc+kRHuhcg4jvOEZR3IDCJap4czdgkR3VjHk30CihkiKA0W+U
+	A/mwcVRrSKzW3DHcQJtcCiAG9AMHiLJSrBTcr968ah/wLKe76Lhfss0MJARmKokw4VzP2ldoN4f
+	mRVUqUZiuLokYvPo/RPvfuQ8VvVhuSv/B7tZwcWdmWglhc7neouLU6TjknobSqHMiqk2juhlma8
+	Qx23rj/eS/TBdOznuHkuHRf4uxAvagVL84SkWztD2nm0apXB3wrdqdZifxXUn4zyv8UU7xIirer
+	fQhfcg4HYAh1t9NgROCXACy5Ir+kDl//a6AWE5oTsYFLQN/eu2OtRh5ZCkBGc5jOs8+zJGuXmAn
+	zo/PoLZAJt47VQ=
+X-Received: by 2002:a05:600c:3e88:b0:48a:55d8:7882 with SMTP id 5b1f17b1804b1-48e8fe5494bmr53983685e9.9.1778600167550;
+        Tue, 12 May 2026 08:36:07 -0700 (PDT)
+Message-ID: <aa14f45e-44fa-4cfc-8c51-d48548d55f3a@suse.com>
+Date: Tue, 12 May 2026 17:36:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH for-4.22 v2 1/8] x86/mwait-idle: arrange for BSP MSR
- adjustments during S3 resume
+Subject: [PATCH for-4.22 v2 2/8] x86/mwait-idle: clean up BYT/CHT auto
+ demotion disable
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -133,10 +133,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <178739fe-fa41-4ff7-b16e-67c4b2a99b38@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ef75cf/1778600135-0AB70C48-33CB9FDF/0/0
+X-purgate-ID: tlsNG-33051d/1778600168-3B96D938-1DFE7A89/0/0
 X-purgate-type: clean
-X-purgate-size: 3124
-X-Rspamd-Queue-Id: 76046523C19
+X-purgate-size: 3850
+X-Rspamd-Queue-Id: 2B743523C6C
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -149,7 +149,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:mid,suse.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -172,118 +172,123 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-mwait_idle_cpu_init() is only called for APs, yet MSR writes will
-typically need re-doing post-S3 even for the BSP. When multiple cores /
-threads are present (and to come back online) in a package, for package
-scope MSRs this may be covered by APs doing the writes, but we can't rely
-on that.
+Bay Trail (BYT) and Cherry Trail (CHT) platforms have a very specific way
+of disabling auto-demotion via specific MSR bits. Clean up the code so that
+BYT/CHT-specifics do not show up in the common 'struct idle_cpu' data
+structure.
+
+Remove the 'byt_auto_demotion_disable_flag' flag from 'struct idle_cpu',
+because a better coding pattern is to avoid very case-specific fields like
+'bool byt_auto_demotion_disable_flag' in a common data structure, which is
+used for all platforms, not only BYT/CHT. The code is just more readable
+when common data structures contain only commonly used fields.
+
+Instead, match BYT/CHT in the 'intel_idle_init_cstates_icpu()' function,
+and introduce a small helper to take care of BYT/CHT auto-demotion. This
+is consistent with how platform-specific things are done for other
+platforms.
+
+No intended functional changes.
+
+Inspired by (and description largely taken from) Linux'es c93d13b661a6
+("intel_idle: clean up BYT/CHT auto demotion disable").
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v2: Init "first" to "true" in mwait_idle_cpu_init().
 
---- a/xen/arch/x86/acpi/power.c
-+++ b/xen/arch/x86/acpi/power.c
-@@ -28,6 +28,7 @@
- #include <asm/io_apic.h>
- #include <asm/irq.h>
- #include <asm/microcode.h>
-+#include <asm/mwait.h>
- #include <asm/prot-key.h>
- #include <asm/spec_ctrl.h>
- #include <asm/tboot.h>
-@@ -299,6 +300,7 @@ static int enter_state(u32 state)
-     acpi_sleep_post(state);
-     if ( hvm_cpu_up() )
-         BUG();
-+    mwait_idle_resume();
-     cpufreq_add_cpu(0);
- 
-  enable_cpu:
 --- a/xen/arch/x86/cpu/mwait-idle.c
 +++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -1677,6 +1677,28 @@ static int __init mwait_idle_probe(void)
+@@ -103,7 +103,6 @@ struct idle_cpu {
+ 	 * Indicate which enable bits to clear here.
+ 	 */
+ 	unsigned long auto_demotion_disable_flags;
+-	bool byt_auto_demotion_disable_flag;
+ 	enum c1e_promotion c1e_promotion;
+ };
+ 
+@@ -1144,7 +1143,7 @@ static void cf_check auto_demotion_disab
+ 	wrmsrl(MSR_PKG_CST_CONFIG_CONTROL, msr_bits);
+ }
+ 
+-static void cf_check byt_auto_demotion_disable(void *dummy)
++static void byt_cht_auto_demotion_disable(void)
+ {
+ 	wrmsrl(MSR_CC6_DEMOTION_POLICY_CONFIG, 0);
+ 	wrmsrl(MSR_MC6_DEMOTION_POLICY_CONFIG, 0);
+@@ -1195,13 +1194,11 @@ static const struct idle_cpu idle_cpu_sn
+ static const struct idle_cpu idle_cpu_byt = {
+ 	.state_table = byt_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+-	.byt_auto_demotion_disable_flag = true,
+ };
+ 
+ static const struct idle_cpu idle_cpu_cht = {
+ 	.state_table = cht_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+-	.byt_auto_demotion_disable_flag = true,
+ };
+ 
+ static const struct idle_cpu idle_cpu_ivb = {
+@@ -1677,14 +1674,11 @@ static int __init mwait_idle_probe(void)
  	return 0;
  }
  
-+static void mwait_idle_cpu_tweak(unsigned int cpu)
-+{
-+	if (icpu->auto_demotion_disable_flags)
-+		on_selected_cpus(cpumask_of(cpu), auto_demotion_disable, NULL, 1);
-+
-+	if (icpu->byt_auto_demotion_disable_flag)
-+		on_selected_cpus(cpumask_of(cpu), byt_auto_demotion_disable, NULL, 1);
-+
-+	switch (icpu->c1e_promotion) {
-+	case C1E_PROMOTION_DISABLE:
-+		on_selected_cpus(cpumask_of(cpu), c1e_promotion_disable, NULL, 1);
-+		break;
-+
-+	case C1E_PROMOTION_ENABLE:
-+		on_selected_cpus(cpumask_of(cpu), c1e_promotion_enable, NULL, 1);
-+		break;
-+
-+	case C1E_PROMOTION_PRESERVE:
-+		break;
-+	}
-+}
-+
- static int cf_check mwait_idle_cpu_init(
-     struct notifier_block *nfb, unsigned long action, void *hcpu)
+-static void mwait_idle_cpu_tweak(unsigned int cpu)
++static void mwait_idle_cpu_tweak(unsigned int cpu, bool bsp)
  {
-@@ -1759,24 +1781,7 @@ static int cf_check mwait_idle_cpu_init(
- 		dev->count++;
- 	}
+ 	if (icpu->auto_demotion_disable_flags)
+ 		on_selected_cpus(cpumask_of(cpu), auto_demotion_disable, NULL, 1);
  
--	if (icpu->auto_demotion_disable_flags)
--		on_selected_cpus(cpumask_of(cpu), auto_demotion_disable, NULL, 1);
--
 -	if (icpu->byt_auto_demotion_disable_flag)
 -		on_selected_cpus(cpumask_of(cpu), byt_auto_demotion_disable, NULL, 1);
 -
--	switch (icpu->c1e_promotion) {
--	case C1E_PROMOTION_DISABLE:
--		on_selected_cpus(cpumask_of(cpu), c1e_promotion_disable, NULL, 1);
--		break;
--
--	case C1E_PROMOTION_ENABLE:
--		on_selected_cpus(cpumask_of(cpu), c1e_promotion_enable, NULL, 1);
--		break;
--
--	case C1E_PROMOTION_PRESERVE:
--		break;
--	}
-+	mwait_idle_cpu_tweak(cpu);
+ 	switch (icpu->c1e_promotion) {
+ 	case C1E_PROMOTION_DISABLE:
+ 		on_selected_cpus(cpumask_of(cpu), c1e_promotion_disable, NULL, 1);
+@@ -1697,12 +1691,24 @@ static void mwait_idle_cpu_tweak(unsigne
+ 	case C1E_PROMOTION_PRESERVE:
+ 		break;
+ 	}
++
++	/* Pkg-scope MSRs on 1-socket-only systems need writing only once. */
++	if (!bsp)
++		return;
++
++	switch (boot_cpu_data.vfm) {
++	case INTEL_ATOM_SILVERMONT:
++	case INTEL_ATOM_AIRMONT:
++		byt_cht_auto_demotion_disable();
++		break;
++	}
+ }
+ 
+ static int cf_check mwait_idle_cpu_init(
+     struct notifier_block *nfb, unsigned long action, void *hcpu)
+ {
+ 	unsigned int cpu = (unsigned long)hcpu, cstate;
++	static bool first = true;
+ 	struct acpi_processor_power *dev = processor_powers[cpu];
+ 
+ 	switch (action) {
+@@ -1781,7 +1787,8 @@ static int cf_check mwait_idle_cpu_init(
+ 		dev->count++;
+ 	}
+ 
+-	mwait_idle_cpu_tweak(cpu);
++	mwait_idle_cpu_tweak(cpu, first);
++	first = false;
  
  	return NOTIFY_DONE;
  }
-@@ -1808,6 +1813,14 @@ int __init mwait_idle_init(struct notifi
- 	return err;
+@@ -1818,7 +1825,7 @@ void mwait_idle_resume(void)
+ 	if (!icpu)
+ 		return;
+ 
+-	mwait_idle_cpu_tweak(smp_processor_id());
++	mwait_idle_cpu_tweak(smp_processor_id(), true);
  }
  
-+void mwait_idle_resume(void)
-+{
-+	if (!icpu)
-+		return;
-+
-+	mwait_idle_cpu_tweak(smp_processor_id());
-+}
-+
  /* Helper function for HPET. */
- bool __init mwait_pc10_supported(void)
- {
---- a/xen/arch/x86/include/asm/mwait.h
-+++ b/xen/arch/x86/include/asm/mwait.h
-@@ -14,9 +14,12 @@
- #define MWAIT_ECX_INTERRUPT_BREAK	0x1
- 
- void mwait_idle_with_hints(unsigned int eax, unsigned int ecx);
-+
- #ifdef CONFIG_INTEL
-+void mwait_idle_resume(void);
- bool mwait_pc10_supported(void);
- #else
-+static inline void mwait_idle_resume(void) {}
- static inline bool mwait_pc10_supported(void)
- {
-     return false;
 
 
