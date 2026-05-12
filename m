@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8CrGN4VJA2pU2wEAu9opvQ
+	id WBbNGchJA2r+2wEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:38:45 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:39:52 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70933523D12
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:38:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1307041.1578786 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3FCF523D8A
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:39:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1307053.1578795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMpBt-00070n-1H; Tue, 12 May 2026 15:38:37 +0000
+	id 1wMpCy-0007d6-Ad; Tue, 12 May 2026 15:39:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1307041.1578786; Tue, 12 May 2026 15:38:37 +0000
+Received: by outflank-mailman (output) from mailman id 1307053.1578795; Tue, 12 May 2026 15:39:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMpBs-0006xs-U3; Tue, 12 May 2026 15:38:36 +0000
-Received: by outflank-mailman (input) for mailman id 1307041;
- Tue, 12 May 2026 15:38:35 +0000
+	id 1wMpCy-0007aV-70; Tue, 12 May 2026 15:39:44 +0000
+Received: by outflank-mailman (input) for mailman id 1307053;
+ Tue, 12 May 2026 15:39:42 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wMpBr-0006ve-1f
- for xen-devel@lists.xenproject.org; Tue, 12 May 2026 15:38:35 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wMpCw-0007aL-LQ
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2026 15:39:42 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMpBq-004MKj-Eh
- for xen-devel@lists.xenproject.org; Tue, 12 May 2026 17:38:34 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wMpCw-00AMT0-2C
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2026 17:39:42 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a03495d-5cb7-0a2a0a5109dd-0a2a4505e454-42
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:38:34 +0200
-Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0349a6-bab6-0a2a0a5309dd-0a2a4501e428-36
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:39:42 +0200
+Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a03497a-aaa8-0a2a45050019-d1558034dc9f-3
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:38:34 +0200
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-48909558b3aso58479815e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 08:38:34 -0700 (PDT)
+ id 6a0349bd-c1f2-0a2a45010019-d155802acc0b-3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:39:41 +0200
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-48984d29fe3so60580955e9.0
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 08:39:41 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fc8d624fbsm13356605e9.10.2026.05.12.08.38.33
+ ffacd0b85a97d-4548e4bbebdsm36877386f8f.5.2026.05.12.08.39.40
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 May 2026 08:38:33 -0700 (PDT)
+ Tue, 12 May 2026 08:39:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,52 +58,54 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778600314; x=1779205114; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778600381; x=1779205181; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=WzBd3MuuDBK0yJ9aRas8h0fwt5fLexFcIS7F696osWI=;
-        b=DQI62Jfa+Khb/WlloCeKmxta1Hm9KDkNjkG+laZ84Oje+rI7RZJFZuiQ9u/zpGsmHQ
-         L52D6TTSMAJhbWjMA0VGzHgsRxLjFMqwfMoUKOakjFfoW/FsifnlBO9UZaiNdcvf3C84
-         9khpFIXy6L4Ppm4sraA8z2x+tRfBFrcVBnjW2O1YLK07Qz6+OrBpkuO/xVdhBa9RfkR2
-         uJgkO3L1oYCzt52p8RJxK2ATKMiPLAZFIzp677URNEHoaYpWOskD2Tt4WDnnsAWdXt/O
-         IjKC3+UxWiDwrEwYcaArMcFjEcUEOwB7+s+T8ZDU6AuLIiUh6NTTNUDmGxZHy0YT9F+I
-         ABFQ==
+        bh=DL8Q7t2XncyxaDtSAnCnBT1mRwgenE/2U9CE4qm6meI=;
+        b=XSNuRN0bzCN75x1vo3WGV8XF4XRr7tGjC8b1t63N0KzmyYaTyGLc/zQy+Oi5TS5/Tq
+         MmP3Z2GpLIq/f99/NYaso2eezco4D8UxbDBcARqSgSTXSUrjrN3BFAY9Z7F68oYBBlGo
+         /DWKjeyn3WNmhRAFWH3mBDxJSr0PevM67DpkraSaGDvHr3iRJwep31EOIWykLgSMOO1F
+         Na2Xfb+YgF3LO4o+O8PbhfCu2DnUE9pxnuaVJS+MgjF7k7Wb3s7ktWjUdQpFgpHoNUWv
+         fojpQrMUFGZf0Li8jswWEzi4tB6gOyVg3mGr4RncKbuPbgtBa/fsx9GLU2dIhrIV+IsT
+         QZuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778600314; x=1779205114;
+        d=1e100.net; s=20251104; t=1778600381; x=1779205181;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=WzBd3MuuDBK0yJ9aRas8h0fwt5fLexFcIS7F696osWI=;
-        b=F5BVthsC4F9qEkECefiSW1Uv/wqyP/V8LX9biqy3C5LiPdM4LZsEXVV65qSwAXkqqS
-         C8UIn46CHwc1WNXO5bpLCf8M5NbgU89wONj4SC731U+4a0TNkDeu3d+5+ftrZh5/hbJz
-         6+wcrOJqc94aX+NvZWVDu9HqaS2g7h7gRdJG1GQSANyiMr/053r/LlAwBzD1NvNyh4nF
-         TXEdA9JmsFHM46fQy9Dr7DOsArlvFSc5tN5Q39FCp5C6UPGISB5Xk0Q9b/p9YHDQk+I+
-         gvSP5XWfi7JOEQJeX9+/seOOU2TXPLa8se3gzHoW5UUwjdj0rNzdNQOa/6i9px0vNl4U
-         SXEA==
-X-Gm-Message-State: AOJu0YwcESzmK20jOtRpRlvZ7zkHm62BmX4DvWRZzZ9atbzpT3cK5teH
-	tsyBuycQSuAf0/xJHiBW3Vvg6gOEFBLyj/gSTNKfHcEIZG6WqFueMhI/NO0EJtztQAMGoolaPfl
-	mnJ4=
-X-Gm-Gg: Acq92OHISxxLp0VGvxBHufzxYfIaOhMYWG7tZMT7czpDxcFNCPZpHjgLC5hgZXigmsV
-	E1m0o35fJyLUQp0idWupFjLuQlTpmnTQpUDDj2CAHUPgkMGbHvAGNuD864r/BIlBfw049qhnqNy
-	nURFxDT1Gq7SVI0TVK+wfw7Km/8LFyGCbLNSzVlGRG2Lx04c99eRyt/qa52qkVN38l970JLPM16
-	Bm1NFLkJWSmAjos1rtQm9wCPiXhMe9nXqByRzYzKoO1XVACy7GaU53ekA/I6zjLiug0pCuc4vhZ
-	Hi63e4NeVzPsklMcK99I3osmMQUwE4N1DPEP62GQSrwvrMDP3QtXP4q8501Acpccd8jFJ3QSbRQ
-	SAWrJpJSkt7xiqMo/p8nRTvwB78VDum5ehvoE2gSH6xI0cW75ZikUY6vugtWo+Xx2YzDTqzM0cH
-	TPVwJzR6K9Co0gRBLcd2idc9h7BaMol5pZMh3bRCPrPB9koicnDITVZwYWMiP3sBDsCLm85e2Hk
-	EpD6AMzWuGaefHlJFmMazcnUw==
-X-Received: by 2002:a05:600c:c094:b0:488:b14f:b8ed with SMTP id 5b1f17b1804b1-48e51dd89ffmr336736725e9.0.1778600313756;
-        Tue, 12 May 2026 08:38:33 -0700 (PDT)
-Message-ID: <d8c66d85-59c1-4107-b283-a03f92f6eab1@suse.com>
-Date: Tue, 12 May 2026 17:38:32 +0200
+        bh=DL8Q7t2XncyxaDtSAnCnBT1mRwgenE/2U9CE4qm6meI=;
+        b=jhtkgcO2zvPYGQSWJXL2+KXa7/kEahYaSoNF8nNQzugjXvSKLVdyfQGIkvHprLqygj
+         MNICvnipSKtpnNdz+Pk+rL0dUcRa0+3B8D8MKxVcEzDxO8eHg9P7CY0V2tHARXAg/yS8
+         r5zZJ585dH4zLosp+YdiBu+5ExYtFrDPSvPNhBlRBZF1lPJf+R1Fm9O4fwEekPOOhgxw
+         pKUDXEHF/YPRyeIHuUeHhuKrJttUmZsyDus32mQEgRnckWLz2xwTSImYZ+WQJKww0nnM
+         qyHqXtLcKkXuqfBij8iGktJGWJW1P6IbBA12gMEOfqRws7jXYpu7mjAD/HcZKIQg7nMj
+         KTxQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9R5tOT9sOwhZi6ofzrT1fgrDaPYKjcygCQ2c2rbeu1J5Y5/EJeq5a0vAiYTanSxE/jr5l/6tyExIc=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YznSHd/6NBgOBX4RpBVGhwImgI/xauD6BTCLd82ZV2dbU3jAON+
+	rUBom3BS2lEmYmNKiYMvpoRgB+WMRkXju8hQW1sL+JPP3KouNs90E3/eVl6+peNopeVniKzlKUH
+	JGfA=
+X-Gm-Gg: Acq92OFslkTxoULKOhGSz9Yi+mBO+qAEpK2GzH74/sj5PxrD/KC4VDzNnXTWUcuqjPt
+	1DBEm88630XnAw4ZoPUq1UJF1yITxNQpvPOu6JE8ey4W45MESCoaO39TZWxzLe8uVLkAxUaRCEr
+	NGnZeMBAXzB8Ehkk2wQ08SoXpg2sy2NEgnHLQb9rlbnPEtOsg9LN9gP0XHGpbzNbrEv0maOCHBl
+	PFPzuJiAP55r9PXf2HbjB5bpf4ejvcWhaDbC/jajIPRrDpHqImUAc51sXdqXK/nPEr0FEaWAsj5
+	MmeeZRIBqiv7U57BsCzmpCPr7PkLoV+6ebNlPd+1HOYeMcWZ2FdeglaPrBH2qbn/rRijUT5g8gz
+	S//vDPAB1CUGRBBlx5QcOZNbHf4unAXwJUgpd/5kl+R3zAmDnfKeO2/Zj6b3dRhL1wG6LykS3Tu
+	2q2P/USmUcKH7I4UV+3rrZGLBpA8ivBxQ0ogqsvaa6N7FfZ7oiVP1T02sBB8XkUTlAOYOA7rQZM
+	xUwOIAhB63rLMY=
+X-Received: by 2002:a05:600c:8b77:b0:48e:8741:fd42 with SMTP id 5b1f17b1804b1-48e8fe59c3amr56201575e9.12.1778600381495;
+        Tue, 12 May 2026 08:39:41 -0700 (PDT)
+Message-ID: <13ca8476-1164-4436-89ba-d4da52d3c8c3@suse.com>
+Date: Tue, 12 May 2026 17:39:40 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH for-4.22 v2 8/8] x86/mwait-idle: Add C-states validation
+Subject: Re: [PATCH for-4.22 v2 0/8] x86/mwait-idle: sync up with Linux 7.0-rc
 From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <178739fe-fa41-4ff7-b16e-67c4b2a99b38@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -132,10 +134,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <178739fe-fa41-4ff7-b16e-67c4b2a99b38@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c201ff/1778600314-DAD6F443-93512BCA/0/0
+X-purgate-ID: tlsNG-d62444/1778600382-AE342FF4-B284F238/0/0
 X-purgate-type: clean
-X-purgate-size: 3148
-X-Rspamd-Queue-Id: 70933523D12
+X-purgate-size: 516
+X-Rspamd-Queue-Id: D3FCF523D8A
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -147,12 +149,13 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[msgid.link:url,intel.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:mid,suse.com:dkim];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
@@ -161,7 +164,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_THREE(0.00)[4];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -171,99 +174,19 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-From: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+On 12.05.2026 17:34, Jan Beulich wrote:
+> Includes a few custom changes, too.
+> 
+> 1: arrange for BSP MSR adjustments during S3 resume
+> 2: clean up BYT/CHT auto demotion disable
+> 3: latch struct idle_cpu contents
+> 4: move pre-initialized struct idle_cpu instances
+> 5: Remove the 'preferred_cstates' parameter
+> 6: drop const from struct cpuidle_state arrays
+> 7: Add cmdline option to adjust C-states table
+> 8: Add C-states validation
 
-Add validation for C-states specified via the "table=" module parameter.
-Treat this module parameter as untrusted input and validate it thoroughly.
+I probably should have Cc-ed you on the v2 submission.
 
-Signed-off-by: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
-Link: https://patch.msgid.link/20251216080402.156988-4-dedekind1@gmail.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git be6a150829b3
-
-Add __init to validate_cmdline_cstate(). Other adjustments to fit our env.
-
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: Const-ify validate_cmdline_cstate()'s parameters.
-
---- a/xen/arch/x86/cpu/mwait-idle.c
-+++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -72,6 +72,11 @@ boolean_param("mwait-idle", opt_mwait_id
- 
- /* The maximum allowed length for the 'table' module parameter  */
- #define MAX_CMDLINE_TABLE_LEN 256
-+/* Maximum allowed C-state latency */
-+#define MAX_CMDLINE_LATENCY_US (5 * 1000 /* USEC_PER_MSEC */)
-+/* Maximum allowed C-state target residency */
-+#define MAX_CMDLINE_RESIDENCY_US (100 * 1000 /* USEC_PER_MSEC */)
-+
- static char cmdline_table_str[MAX_CMDLINE_TABLE_LEN] __initdata;
- string_param("mwait-idle.table", cmdline_table_str);
- 
-@@ -1590,6 +1595,41 @@ static char *__init get_cmdline_field(ch
- }
- 
- /**
-+ * validate_cmdline_cstate - Validate a C-state from cmdline.
-+ * @state: The C-state to validate.
-+ * @prev_state: The previous C-state in the table or NULL.
-+ *
-+ * Return: 0 if the C-state is valid or -EINVAL otherwise.
-+ */
-+static int __init validate_cmdline_cstate(const struct cpuidle_state *state,
-+					  const struct cpuidle_state *prev_state)
-+{
-+	if (state->exit_latency == 0)
-+		/* Exit latency 0 can only be used for the POLL state */
-+		return -EINVAL;
-+
-+	if (state->exit_latency > MAX_CMDLINE_LATENCY_US)
-+		return -EINVAL;
-+
-+	if (state->target_residency > MAX_CMDLINE_RESIDENCY_US)
-+		return -EINVAL;
-+
-+	if (state->target_residency < state->exit_latency)
-+		return -EINVAL;
-+
-+	if (!prev_state)
-+		return 0;
-+
-+	if (state->exit_latency <= prev_state->exit_latency)
-+		return -EINVAL;
-+
-+	if (state->target_residency <= prev_state->target_residency)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+/**
-  * cmdline_table_adjust - Adjust the C-states table with data from cmdline.
-  *
-  * Adjust the C-states table with data from the 'mwait-idle.table' parameter
-@@ -1697,6 +1737,21 @@ static void __init cmdline_table_adjust(
- 		       state->name, state->exit_latency, state->target_residency);
- 	}
- 
-+	/* Validate the adjusted C-states */
-+	for (i = 0; i < state_count; i++) {
-+		struct cpuidle_state *prev_state;
-+
-+		state = &cmdline_states[i];
-+		prev_state = i ? &cmdline_states[i - 1] : NULL;
-+
-+		if (validate_cmdline_cstate(state, prev_state)) {
-+			printk(XENLOG_ERR PREFIX
-+			       "C-state '%s' validation failed\n",
-+			       state->name);
-+			goto error;
-+		}
-+	}
-+
- 	/* Copy the adjusted C-states table back */
- 	for (i = 0; i < state_count; i++)
- 		icpu.state_table[i] = cmdline_states[i];
-
+Jan
 
