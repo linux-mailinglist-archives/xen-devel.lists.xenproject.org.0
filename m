@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SDoABQpJA2pU2wEAu9opvQ
+	id uCdYNhxJA2pU2wEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:36:42 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:37:00 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EA7C523C95
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:36:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1307004.1578741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C086523CA6
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 17:36:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1307009.1578749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMp9s-0003nf-N7; Tue, 12 May 2026 15:36:32 +0000
+	id 1wMpAC-0004J9-0C; Tue, 12 May 2026 15:36:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1307004.1578741; Tue, 12 May 2026 15:36:32 +0000
+Received: by outflank-mailman (output) from mailman id 1307009.1578749; Tue, 12 May 2026 15:36:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMp9s-0003lc-Jb; Tue, 12 May 2026 15:36:32 +0000
-Received: by outflank-mailman (input) for mailman id 1307004;
- Tue, 12 May 2026 15:36:30 +0000
+	id 1wMpAB-0004Gj-TL; Tue, 12 May 2026 15:36:51 +0000
+Received: by outflank-mailman (input) for mailman id 1307009;
+ Tue, 12 May 2026 15:36:50 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wMp9q-0003lF-NC
- for xen-devel@lists.xenproject.org; Tue, 12 May 2026 15:36:30 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wMpAA-0004G2-47
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2026 15:36:50 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMp9q-00AQbz-47
- for xen-devel@lists.xenproject.org; Tue, 12 May 2026 17:36:30 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wMpA9-00AM4u-H4
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2026 17:36:49 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0348fa-bab6-0a2a0a5309dd-0a2a4501acb2-8
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:36:30 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a034911-bab6-0a2a0a5309dd-0a2a4508c200-0
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:36:49 +0200
+Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0348fd-c1f2-0a2a45010019-d1558032d188-3
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:36:30 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-48d146705b4so69766415e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 08:36:30 -0700 (PDT)
+ id 6a034911-63b5-0a2a45080019-d1558029e984-3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 17:36:49 +0200
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4891d7164ddso32279685e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 08:36:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fc8d15e09sm5644885e9.3.2026.05.12.08.36.29
+ 5b1f17b1804b1-48fc8d15e09sm5653765e9.3.2026.05.12.08.36.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 May 2026 08:36:29 -0700 (PDT)
+ Tue, 12 May 2026 08:36:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,49 +58,49 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778600189; x=1779204989; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778600209; x=1779205009; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=+p/Ij2CgQ3Fd9f/uexuTOqD95AbabIMcKqaBQDpzCqU=;
-        b=KvNEsXF1uAgYhkqcMYcyThaf1izdepbk4naGvQxLb57cyuU9sm5dDY8RTnLU9Dw/zP
-         xT7Nma28BGCWIO1Qv/T6GtARH6RuSNGOVy3Wlz9dwvtPSReMVENN/zJWFDwVGreQ48+6
-         3GclYMYPU7QYRdu5ToKu85OsEWZgW/L0cAazVr1XzX6NzwuTY7OdaBjU6c+vGJdBlli3
-         TtZqyXCGp7ctxCowTqPRiDTCT4cG8cXdDwZ+e+/MshQh/vgpctjBkPSiceonrw9zxrpW
-         bB8VyAgdOybuheHfT6TNjgEQzQoYfV86pQmssW8gAv9fB2aGHF7IWuAqsz99NIw1XtTd
-         POlQ==
+        bh=Oi+Og7lmHi8fzPQHLlkJ8CT1xlB+s06Eq97nVFSpVO8=;
+        b=IeH7ecdVEaaBi/1qTxUZOeRvkKadcscVEzGutApZIKleWkrxDQwM64SWyfQKny54z9
+         9QQA7WxJFgh81G5NUFcMo7xdxtCjkN6Ao7YAG1MTDEgrwFb6egSmclvbryI+cHDRCuyA
+         q7gA93TxmF8UANSu8rWdPxQsHe2M2+kOS/SyODjPAt/4w8/4AAd+w7B7AesxLnnEJ4Fr
+         1DPhiYHsIMtBHJ3kBWjcSFrI4r8FI64lXf5C1Sx77X5w111bdSPve7OjLtWNJQY8E2BE
+         fwrfN3B7PWk52RR9lG7SMrA+LmAMfsMQ2OYiU2ff2AO9H4zr6wtPOKbjm9MNbFXUegXa
+         XdiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778600189; x=1779204989;
+        d=1e100.net; s=20251104; t=1778600209; x=1779205009;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=+p/Ij2CgQ3Fd9f/uexuTOqD95AbabIMcKqaBQDpzCqU=;
-        b=dVxXUvM5X8x/dMNFXVV9P8Zah6TSWhd1NtWGMdgUcS2Yl02AXrl7RlW491AIYypSQz
-         xi1E9XSQV7sgCS75H4LeMNpd5gQuQ4OmiozG922gNwVVzm+wtQl6vW3LRFhvQUU7LJww
-         qm2PluVgw0JhqC5GKvMYHVDOH5bCmPvxqNHtZR2kwuJn0BYlB/EXtRYNSVu3LM7S94By
-         wxgPvYL0qFIk3bcf7WJZgE9Y9NNNfGd81rd26G6Q+gyElI4YtuAl9vfAzMNVgdaRchRt
-         254vGkIaeHxaxLayTQYWkQdIy0XneSDVL3Dg43b7lw8My5o5rdauBfDyH8RiqFt29YVy
-         S/Sw==
-X-Gm-Message-State: AOJu0YzOzC65rb1ScutTyfBT9xm2xqKwQp0Ag0Kca3vYD5WmZfWsBH2p
-	d5hMJTHO9mBKXY3a0Jb+lICKngdJvyY7HwvHLiSFo+Va3AUbsvuSUOYo/Sly/1MnqjhQhiQWW1g
-	cAno=
-X-Gm-Gg: Acq92OF6pDSVNM4JNsUzhA8JFpTDRuzw5s8J7MlLb/nFf4uRsdzLv0zLbqdAeqUsIjS
-	Pvk1oMsQg6nN+x2RZd5Etg6rDOBiOKffJCdmXFpGnt3zl/hBthZMLcFBUpqOCocFC3us1SfPEtH
-	+AMItInbLDf2jWq2peRHkxpulUYOOmsdQA4YTL48jq1SIfpxEt4YtAb5Ifj5tIX8jiwOrkzxsq8
-	T7hWX+JA5hn2y+NbLjqUttHe1stpCFUDtzGuz4LsvXx7psSyRyhoy3CH67KqfzsxRF88Zkkyrje
-	bBdhQjSyXiMnV2Ss1dYc1elf0JnjCqxhzC7VvFuFRF8Mc5U/96ilHMQezMu5h6UojisS+ClU0Qk
-	6KcnGZFxIR8hLB4pWAeyhOUDdWX059uRdSnCIRz/2GSoY58DQ5ZbqZKr/UQaOJO2EmarR2pBY4Y
-	ope6ShIYQ39bDgC6I66Una+saOwJiuzMcU328ds0Dj5kNopC4kP8dXdA1O6ukRaJma7egVRLmSc
-	+FiPWr23eHFqDNWh4l2rII5IA==
-X-Received: by 2002:a05:600c:3e0e:b0:48a:52f2:a0f1 with SMTP id 5b1f17b1804b1-48e8fe73355mr58352175e9.18.1778600189596;
-        Tue, 12 May 2026 08:36:29 -0700 (PDT)
-Message-ID: <696b4fe5-d8a5-4768-9b24-5c2d2975e686@suse.com>
-Date: Tue, 12 May 2026 17:36:28 +0200
+        bh=Oi+Og7lmHi8fzPQHLlkJ8CT1xlB+s06Eq97nVFSpVO8=;
+        b=LWvEFBwEjjz4puR9jTHvcUhfJ2O8Y+MQN2494cBwqesK28GDWgvUTgtZ+Z0MVWVtQj
+         BIdASPpspN6Il+sKsZrZbEagt1U8mj9oDZlDViFy+elLplN6RWMePQf1vQRsh266MDbT
+         bT8IqpoAD5mo60axpyxk3RU8i3M8ehUHEZkqpkuAws8KbfwH9odhQt+FaqG52KPLRkYc
+         cp5S/X0SrVEtxQ3gCswuG75ne41PVvYv+mGF9n986qhqOMOKqhPs4zW4VXTyXEaMPeuB
+         WnKUTnxGJ1eduZPbQetbCqXniM7hElF1BPTyHsj3ifraQ3bG4B9GMBWfxr37RtW5pxxG
+         9xWA==
+X-Gm-Message-State: AOJu0YyP+RTAsCj+B8BnD8bsfOElgEw/Gxve1pS4COocYqaHXyxNpTAB
+	jF5/Oie2Yiy20QREWNMTpeEfdiaZ94YZyfAo/vOqHNq3azq65/AgMAiMFTw/yU27WC6Ht89pGTU
+	CqFk=
+X-Gm-Gg: Acq92OHJ5mNRsb+xXimGwQK4jajjFqT/XTCjgMHDvknrmNv+i8cmROCylWVZw4hs4sR
+	HvJgG9xJNmePgoaKLsem9smjLhnT7EstxLzQUdDoLeXZCGjSStqHNTS3zMqO/KVtFilH7VHUtpO
+	Whn0EU5WRhSYgLSfyWVZjEfknhWQW5cFgywDc8vCtk8wNkSeszbEzKJ4+op5BZFlVSn1IjIgdei
+	hRBq3phHua1PjrXHPgv9E/tz8DYMjLMYttfqtt/mY2sTUH/8prUJnTQLk213idnho8h+fSRgvfE
+	7pZyB8ETaG4bAWWBCYc4XM9el5iK0OMzsUG/QaIlLtIQVY8DBa5YMa29xVQPZgfCJ2tLbWnq/4K
+	qt4aiIYkLk/k1ikt1hEYJCkTcvfTDFKuWujQeHdvIiaeGVXHtSlqx/vGK9IapL/hZQOVSzF88+9
+	zEi86jw7OgFzBeBEQ178ddHzfOmLca0ZegSNxvSxMzzR8Tl+CD7CAZGGpEA8s3fYPL9sivV5UL2
+	PoZizrmvu6T+og=
+X-Received: by 2002:a05:600c:6290:b0:485:3f30:6250 with SMTP id 5b1f17b1804b1-48e51f3fd58mr510167455e9.20.1778600208885;
+        Tue, 12 May 2026 08:36:48 -0700 (PDT)
+Message-ID: <2e8a4a74-fae9-4c75-aa98-f4b0dc7ac6bf@suse.com>
+Date: Tue, 12 May 2026 17:36:47 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH for-4.22 v2 3/8] x86/mwait-idle: latch struct idle_cpu
- contents
+Subject: [PATCH for-4.22 v2 4/8] x86/mwait-idle: move pre-initialized struct
+ idle_cpu instances
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -133,10 +133,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <178739fe-fa41-4ff7-b16e-67c4b2a99b38@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d62444/1778600190-B695FFF4-1EE8C1D0/0/0
+X-purgate-ID: tlsNG-c1860d/1778600209-BCD63DB1-4E30620E/0/0
 X-purgate-type: clean
-X-purgate-size: 5850
-X-Rspamd-Queue-Id: 7EA7C523C95
+X-purgate-size: 5568
+X-Rspamd-Queue-Id: 5C086523CA6
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -149,7 +149,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:mid,suse.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:mid,suse.com:dkim,citrix.com:email];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -172,178 +172,174 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-Rather than storing a pointer (and needing to keep all struct instances in
-memory post-init), and rather than (like the Linux counterpart has it)
-keeping individual variables, simply copy the respective structure
-instance. By implication, subsequent updates now need doing to the copy.
+Now that they're not referenced anymore post-init, they can themselves
+move into .init.rodata. (idle_cpu_adl{,_l} can also become const in the
+first place.)
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
 --- a/xen/arch/x86/cpu/mwait-idle.c
 +++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -106,14 +106,14 @@ struct idle_cpu {
- 	enum c1e_promotion c1e_promotion;
+@@ -1167,132 +1167,132 @@ static void cf_check c1e_promotion_disab
+ 	wrmsrl(MSR_IA32_POWER_CTL, msr_bits);
+ }
+ 
+-static const struct idle_cpu idle_cpu_nehalem = {
++static const struct idle_cpu __initconstrel idle_cpu_nehalem = {
+ 	.state_table = nehalem_cstates,
+ 	.auto_demotion_disable_flags = NHM_C1_AUTO_DEMOTE | NHM_C3_AUTO_DEMOTE,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
  };
  
--static const struct idle_cpu *__ro_after_init icpu;
-+static struct idle_cpu __ro_after_init icpu;
+-static const struct idle_cpu idle_cpu_atom = {
++static const struct idle_cpu __initconstrel idle_cpu_atom = {
+ 	.state_table = atom_cstates,
+ };
  
--static const struct cpuidle_state {
-+struct cpuidle_state {
- 	char		name[16];
- 	unsigned int	flags;
- 	unsigned int	exit_latency; /* in US */
- 	unsigned int	target_residency; /* in US */
--} *__ro_after_init cpuidle_state_table;
-+};
+-static const struct idle_cpu idle_cpu_tangier = {
++static const struct idle_cpu __initconstrel idle_cpu_tangier = {
+ 	.state_table = tangier_cstates,
+ };
  
- #define CPUIDLE_FLAG_DISABLED		0x1
- /*
-@@ -1097,7 +1097,7 @@ static void cf_check mwait_idle(void)
- 	 * leave_mm() to avoid costly and often unnecessary wakeups
- 	 * for flushing the user TLB's associated with the active mm.
- 	 */
--	if (cpuidle_state_table[].flags & CPUIDLE_FLAG_TLB_FLUSHED)
-+	if (icpu.state_table[].flags & CPUIDLE_FLAG_TLB_FLUSHED)
- 		leave_mm(cpu);
- #endif
+-static const struct idle_cpu idle_cpu_lincroft = {
++static const struct idle_cpu __initconstrel idle_cpu_lincroft = {
+ 	.state_table = atom_cstates,
+ 	.auto_demotion_disable_flags = ATM_LNC_C6_AUTO_DEMOTE,
+ };
  
-@@ -1139,7 +1139,7 @@ static void cf_check auto_demotion_disab
- 	u64 msr_bits;
+-static const struct idle_cpu idle_cpu_snb = {
++static const struct idle_cpu __initconstrel idle_cpu_snb = {
+ 	.state_table = snb_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- 	rdmsrl(MSR_PKG_CST_CONFIG_CONTROL, msr_bits);
--	msr_bits &= ~(icpu->auto_demotion_disable_flags);
-+	msr_bits &= ~icpu.auto_demotion_disable_flags;
- 	wrmsrl(MSR_PKG_CST_CONFIG_CONTROL, msr_bits);
- }
+-static const struct idle_cpu idle_cpu_byt = {
++static const struct idle_cpu __initconstrel idle_cpu_byt = {
+ 	.state_table = byt_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
-@@ -1371,10 +1371,10 @@ static void __init ivt_idle_state_table_
- 		/* 1 and 2 socket systems use default ivt_cstates */
- 		break;
- 	case 2: case 3:
--		cpuidle_state_table = ivt_cstates_4s;
-+		icpu.state_table = ivt_cstates_4s;
- 		break;
- 	default:
--		cpuidle_state_table = ivt_cstates_8s;
-+		icpu.state_table = ivt_cstates_8s;
- 		break;
- 	}
- }
-@@ -1525,14 +1525,12 @@ static void __init adl_idle_state_table_
- 		adl_l_cstates[1].flags |= CPUIDLE_FLAG_DISABLED;
+-static const struct idle_cpu idle_cpu_cht = {
++static const struct idle_cpu __initconstrel idle_cpu_cht = {
+ 	.state_table = cht_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- 		/* Disable C1E by clearing the "C1E promotion" bit. */
--		idle_cpu_adl.c1e_promotion = C1E_PROMOTION_DISABLE;
--		idle_cpu_adl_l.c1e_promotion = C1E_PROMOTION_DISABLE;
-+		icpu.c1e_promotion = C1E_PROMOTION_DISABLE;
- 		return;
- 	}
+-static const struct idle_cpu idle_cpu_ivb = {
++static const struct idle_cpu __initconstrel idle_cpu_ivb = {
+ 	.state_table = ivb_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- 	/* Make sure C1E is enabled by default */
--	idle_cpu_adl.c1e_promotion = C1E_PROMOTION_ENABLE;
--	idle_cpu_adl_l.c1e_promotion = C1E_PROMOTION_ENABLE;
-+	icpu.c1e_promotion = C1E_PROMOTION_ENABLE;
- }
+-static const struct idle_cpu idle_cpu_ivt = {
++static const struct idle_cpu __initconstrel idle_cpu_ivt = {
+ 	.state_table = ivt_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- /*
-@@ -1593,6 +1591,7 @@ static int __init mwait_idle_probe(void)
- {
- 	unsigned int eax, ebx, ecx;
- 	const struct x86_cpu_id *id;
-+	const struct idle_cpu *idle_cpu;
- 	const char *str;
+-static const struct idle_cpu idle_cpu_hsw = {
++static const struct idle_cpu __initconstrel idle_cpu_hsw = {
+ 	.state_table = hsw_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- 	if (boot_cpu_data.vendor != X86_VENDOR_INTEL)
-@@ -1627,8 +1626,8 @@ static int __init mwait_idle_probe(void)
+-static const struct idle_cpu idle_cpu_bdw = {
++static const struct idle_cpu __initconstrel idle_cpu_bdw = {
+ 	.state_table = bdw_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- 	pr_debug(PREFIX "MWAIT substates: %#x\n", mwait_substates);
+-static const struct idle_cpu idle_cpu_skl = {
++static const struct idle_cpu __initconstrel idle_cpu_skl = {
+ 	.state_table = skl_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
--	icpu = id->driver_data;
--	cpuidle_state_table = icpu->state_table;
-+	idle_cpu = id->driver_data;
-+	icpu = *idle_cpu;
+-static const struct idle_cpu idle_cpu_skx = {
++static const struct idle_cpu __initconstrel idle_cpu_skx = {
+ 	.state_table = skx_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- 	if (boot_cpu_has(X86_FEATURE_XEN_ARAT))
- 		lapic_timer_reliable_states = LAPIC_TIMER_ALWAYS_RELIABLE;
-@@ -1644,7 +1643,7 @@ static int __init mwait_idle_probe(void)
- 		const char *ss;
+-static const struct idle_cpu idle_cpu_icx = {
++static const struct idle_cpu __initconstrel idle_cpu_icx = {
+ 	.state_table = icx_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- 		do {
--			const struct cpuidle_state *state = icpu->state_table;
-+			const struct cpuidle_state *state = idle_cpu->state_table;
- 			unsigned int bit = 1;
+-static struct idle_cpu __ro_after_init idle_cpu_adl = {
++static const struct idle_cpu __initconstrel idle_cpu_adl = {
+ 	.state_table = adl_cstates,
+ };
  
- 			ss = strchr(str, ',');
-@@ -1676,10 +1675,10 @@ static int __init mwait_idle_probe(void)
+-static struct idle_cpu __ro_after_init idle_cpu_adl_l = {
++static const struct idle_cpu __initconstrel idle_cpu_adl_l = {
+ 	.state_table = adl_l_cstates,
+ };
  
- static void mwait_idle_cpu_tweak(unsigned int cpu, bool bsp)
- {
--	if (icpu->auto_demotion_disable_flags)
-+	if (icpu.auto_demotion_disable_flags)
- 		on_selected_cpus(cpumask_of(cpu), auto_demotion_disable, NULL, 1);
+-static const struct idle_cpu idle_cpu_mtl_l = {
++static const struct idle_cpu __initconstrel idle_cpu_mtl_l = {
+ 	.state_table = mtl_l_cstates,
+ };
  
--	switch (icpu->c1e_promotion) {
-+	switch (icpu.c1e_promotion) {
- 	case C1E_PROMOTION_DISABLE:
- 		on_selected_cpus(cpumask_of(cpu), c1e_promotion_disable, NULL, 1);
- 		break;
-@@ -1732,11 +1731,11 @@ static int cf_check mwait_idle_cpu_init(
+-static const struct idle_cpu idle_cpu_gmt = {
++static const struct idle_cpu __initconstrel idle_cpu_gmt = {
+ 	.state_table = gmt_cstates,
+ };
  
- 	dev->count = 1;
+-static const struct idle_cpu idle_cpu_spr = {
++static const struct idle_cpu __initconstrel idle_cpu_spr = {
+ 	.state_table = spr_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
--	for (cstate = 0; cpuidle_state_table[cstate].target_residency; ++cstate) {
-+	for (cstate = 0; icpu.state_table[cstate].target_residency; ++cstate) {
- 		unsigned int num_substates, hint, state;
- 		struct acpi_processor_cx *cx;
+-static const struct idle_cpu idle_cpu_gnr = {
++static const struct idle_cpu __initconstrel idle_cpu_gnr = {
+ 	.state_table = gnr_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
--		hint = flg2MWAIT(cpuidle_state_table[cstate].flags);
-+		hint = flg2MWAIT(icpu.state_table[cstate].flags);
- 		state = MWAIT_HINT2CSTATE(hint) + 1;
+-static const struct idle_cpu idle_cpu_gnrd = {
++static const struct idle_cpu __initconstrel idle_cpu_gnrd = {
+ 	.state_table = gnrd_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- 		if (state > max_cstate()) {
-@@ -1752,10 +1751,10 @@ static int cf_check mwait_idle_cpu_init(
- 			continue;
+-static const struct idle_cpu idle_cpu_avn = {
++static const struct idle_cpu __initconstrel idle_cpu_avn = {
+ 	.state_table = avn_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- 		/* if state marked as disabled, skip it */
--		if (cpuidle_state_table[cstate].flags &
-+		if (icpu.state_table[cstate].flags &
- 		    CPUIDLE_FLAG_DISABLED) {
- 			printk(XENLOG_DEBUG PREFIX "state %s is disabled\n",
--			       cpuidle_state_table[cstate].name);
-+			       icpu.state_table[cstate].name);
- 			continue;
- 		}
+-static const struct idle_cpu idle_cpu_bxt = {
++static const struct idle_cpu __initconstrel idle_cpu_bxt = {
+ 	.state_table = bxt_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
-@@ -1773,15 +1772,15 @@ static int cf_check mwait_idle_cpu_init(
- 		cx->type = state;
- 		cx->address = hint;
- 		cx->entry_method = ACPI_CSTATE_EM_FFH;
--		cx->latency = cpuidle_state_table[cstate].exit_latency;
-+		cx->latency = icpu.state_table[cstate].exit_latency;
- 		cx->target_residency =
--			cpuidle_state_table[cstate].target_residency;
--		if ((cpuidle_state_table[cstate].flags &
-+			icpu.state_table[cstate].target_residency;
-+		if ((icpu.state_table[cstate].flags &
- 		     CPUIDLE_FLAG_IRQ_ENABLE) &&
- 		    /* cstate_restore_tsc() needs to be a no-op */
- 		    boot_cpu_has(X86_FEATURE_NONSTOP_TSC))
- 			cx->irq_enable_early = true;
--		if (cpuidle_state_table[cstate].flags & CPUIDLE_FLAG_IBRS)
-+		if (icpu.state_table[cstate].flags & CPUIDLE_FLAG_IBRS)
- 			cx->ibrs_disable = true;
+-static const struct idle_cpu idle_cpu_dnv = {
++static const struct idle_cpu __initconstrel idle_cpu_dnv = {
+ 	.state_table = dnv_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- 		dev->count++;
-@@ -1822,7 +1821,7 @@ int __init mwait_idle_init(struct notifi
+-static const struct idle_cpu idle_cpu_snr = {
++static const struct idle_cpu __initconstrel idle_cpu_snr = {
+ 	.state_table = snr_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- void mwait_idle_resume(void)
- {
--	if (!icpu)
-+	if (!icpu.state_table)
- 		return;
+-static const struct idle_cpu idle_cpu_grr = {
++static const struct idle_cpu __initconstrel idle_cpu_grr = {
+ 	.state_table = grr_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
  
- 	mwait_idle_cpu_tweak(smp_processor_id(), true);
+-static const struct idle_cpu idle_cpu_srf = {
++static const struct idle_cpu __initconstrel idle_cpu_srf = {
+ 	.state_table = srf_cstates,
+ 	.c1e_promotion = C1E_PROMOTION_DISABLE,
+ };
 
 
