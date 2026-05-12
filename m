@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eAIBG3I9A2oq2AEAu9opvQ
+	id 8DNNAhA+A2qr2AEAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 16:47:14 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 16:49:52 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB930522DD1
-	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 16:47:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1306832.1578588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A1E2522E92
+	for <lists+xen-devel@lfdr.de>; Tue, 12 May 2026 16:49:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1306865.1578596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMoNG-0005Mt-HZ; Tue, 12 May 2026 14:46:18 +0000
+	id 1wMoQW-00064S-Us; Tue, 12 May 2026 14:49:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1306832.1578588; Tue, 12 May 2026 14:46:18 +0000
+Received: by outflank-mailman (output) from mailman id 1306865.1578596; Tue, 12 May 2026 14:49:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wMoNG-0005LD-Ev; Tue, 12 May 2026 14:46:18 +0000
-Received: by outflank-mailman (input) for mailman id 1306832;
- Tue, 12 May 2026 14:46:17 +0000
+	id 1wMoQW-00062S-S7; Tue, 12 May 2026 14:49:40 +0000
+Received: by outflank-mailman (input) for mailman id 1306865;
+ Tue, 12 May 2026 14:49:39 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wMoNE-0005L7-OV
- for xen-devel@lists.xenproject.org; Tue, 12 May 2026 14:46:16 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wMoQV-00062K-CH
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2026 14:49:39 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wMoNE-00AHY7-55
- for xen-devel@lists.xenproject.org; Tue, 12 May 2026 16:46:16 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wMoQU-004Dpu-PN
+ for xen-devel@lists.xenproject.org; Tue, 12 May 2026 16:49:38 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a033d2d-5cb7-0a2a0a5109dd-0a2a4503d1c6-30
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 16:46:16 +0200
-Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a033dfb-e002-0a2a0a5209dd-0a2a450ac3d2-12
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 16:49:38 +0200
+Received: from [209.85.221.49] (helo=mail-wr1-f49.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a033d37-672d-0a2a45030019-d155802ad525-3
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 16:46:15 +0200
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-488ba840146so50706295e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 07:46:15 -0700 (PDT)
+ id 6a033e02-56b3-0a2a450a0019-d155dd31d89a-3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 16:49:38 +0200
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-44e1ebb3122so2950226f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 07:49:38 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4548ec6b071sm32678652f8f.14.2026.05.12.07.46.14
+ ffacd0b85a97d-45491bae13csm32284298f8f.29.2026.05.12.07.49.37
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 12 May 2026 07:46:14 -0700 (PDT)
+ Tue, 12 May 2026 07:49:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,60 +58,52 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Content-Language:Cc:To:Subject:From:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778597175; x=1779201975; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778597378; x=1779202178; darn=lists.xenproject.org;
         h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
          :from:user-agent:mime-version:date:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=ef0Ej7/EwGOt8gsXR4m1PlHknpHJki/daNNQxhNXIi8=;
-        b=AQKc++IRs2q9crTXDygnm2D1dpgGRl/Oi384E2RhQ4IdAKGIXlM244Idd2bZskNAS6
-         pGQZUqeMwpsMD2lXHqf5F0QkEXLzpu50hEE8Qw4ssNLp15DpiVESMocQ+V7bAj5pAf0X
-         Wd5bvbAP068wmHICtdty3Tj7+409Erq1L03ibIMOuOS+QnjX3LmBgY06uPSmL2na4SpV
-         Bh5eQZiceLuekGmb7ABQck0QrQsMMVnHd9fKatQjqNqhQ5qDGRA40P3hvWTjryqzUKBY
-         T09BzZhiyLAq32U7kCfZIGX51L0u4W2jl1cHJYTGQfUqSCyziziYWVOaSoz7pVGuJ4Eg
-         KTdg==
+        bh=BkBBCMkmJExXqLA468nivUiDeCwwD3TxXfg9UbGdhnI=;
+        b=ZG5h0VQliZaCGL5EjRhfxf/5ETW4gcDkMK7qVneGkvkQHt0jzzXysdAiJEpBMA2wbs
+         TJyz+6fjshlN101J1BidZXdjt3lsmCcOTO8Fr7oJJg+NSUTthDmbXOqUWMmP/W0yewmW
+         T0YrdiBlBIqMypBC6aVE5C4AVMBMTa6KFHn+vTgUBM0nOIp90nW1Svwbi4GO0TJsZHze
+         n3GSI4Ly2mx/G7DIqnAq5+pfxlAOoTfmH7LDcfQoe9tSpL8hfLl50Ec4JKPj7mn/xWHA
+         NiZvSxNypYVt3nUaSdahZmAiVX9fcL7yRYrqcW4DwWPHBxiXvNY7nHOAZHbbj0Ix61of
+         1umw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778597175; x=1779201975;
+        d=1e100.net; s=20251104; t=1778597378; x=1779202178;
         h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
          :from:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ef0Ej7/EwGOt8gsXR4m1PlHknpHJki/daNNQxhNXIi8=;
-        b=I3QRh2WKXjHUXiNhZPTODZlNj66/sF9YnbNgtaqvHlH0rUE6INnHrWoCY+817R/a1h
-         DaOymv8YLNo2rF8dTfXJMqYcpXwVWy34AN9UBxMzi7sKf6jBBstOdK5sd4AYTcHrUsSB
-         YU/TTmu9yry3vQrX77Jn3Yg82kzI5ZV56N+Pt9Z+PnhcxEEDEl38bJ5cAVlOilB85ERH
-         Hd/YVdujA3ZmW+q55I8aiSioiblHgbaRXgMWqV5dNFjQVsSl6Z6GuTMVblx+W1C8LoSC
-         bBVoP03w9qz7QlYTRE6aTRUeYbMhqwuYxzx6shsjIdRR+PiNXp3RwOf1KIylKq4OX15m
-         smeA==
-X-Gm-Message-State: AOJu0Yx3clgRgI6MVXAxEw8he56IHVaQ8MtqTu7ScIyMaiXvlYcR6t9S
-	Exifw47yitmG+xD+87hy+3T8O9wfCTq7P67t0f9kZhsxlO0OaOOkYQyRBmIu5OuPG4OmZNZCPI0
-	tuQk=
-X-Gm-Gg: Acq92OFTAULNj6mm46nOkEXTGnbS6ay6TUr5PfA+d0Mu9aTC3fEe3tFzqc+VuDrhOgT
-	qynnHYweliwBCvZZP2oI1kCM1fzkoUaQLBOhiVvpvMqmGhU9Admjp8uLjNOnKB+Tpnn0whuYGl+
-	8JFhtYwnRNYRJ8fbnjY+iBoutLGUEIZaD0lceBd9cEx6PV6TvrVYqAZgb7BiMATgDVdNuWSB+B6
-	FD+N9d3UtZTHG9uXFMj1pmW4DL+TPa4HIR4H3xvaMEgaVtcvWoYMzUwM06yMKpQG2Tig4a5psHV
-	aTpV4SaIjbRjenoVSm8YkPhJZLrK4KAk7+Dkp6AtoBtYWOP0+tGbAulPAVYkFZ+kT7BngTgNaAr
-	EsWv/rS0Z0sulXPd6iVHcvF8LKsWIBHLjIM1rm4s5K+ktLCFJ5Eq91wBfNB69VzmYkWsl8ec8m3
-	DN/+tNUAYK5pSDX5Vg4SAk0I0Jzax+gL6GRMTMXxGxIsPLWZzadvebCuQcmfz29xltdEiokSSUc
-	GhmDI2Snsqyk2WgR9ty0+n7mA==
-X-Received: by 2002:a05:6000:24c7:b0:44a:198a:5256 with SMTP id ffacd0b85a97d-45b138873e9mr4882549f8f.24.1778597175256;
-        Tue, 12 May 2026 07:46:15 -0700 (PDT)
-Message-ID: <6e3dbb4f-5849-4525-8f8b-a2818c39da2d@suse.com>
-Date: Tue, 12 May 2026 16:46:13 +0200
+        bh=BkBBCMkmJExXqLA468nivUiDeCwwD3TxXfg9UbGdhnI=;
+        b=PfI8HhXGPXsHgd+yt/mWRixGqB6y6tO1FccQVBuWAb+i4mzFbVCPd++cWbmx5UMUzb
+         ph3zUliWs6RU2aLxinSyWMF/aWC5KfQWxu1LDUl2xK6Nbh8juVKGdbqpCCr9RPBCWyLm
+         70IGpW0hc4x/btzf5T2mhj/tFheP0tANDFUvcOrgUwbL7/fmVwiCVM9jLzfy/xm0l0tQ
+         qb74Enj9DvzCLzMGrQMQxMxQVFe4wEFVeWLTJhbCtg5Jpugf/SIT1g0XZtQVu7UKU/qj
+         f/8oqWDfBlRh56ZU4fW/FMS+ai8G2cR7w6sFlpcyexMdRnq4AxoBkjfOthkUKbQBa7hG
+         bfMA==
+X-Gm-Message-State: AOJu0YzrmiTSMdcpVohzh5oj9m2DGliH7xTvXmJzGUxMlokjy5VZsIdp
+	aNcUgTHQK1Y87dqZDAenSB5AFug8Vowo8JTsVFU+Fo96eLIZrV+wu2/1pkGkEnho7ELid6kTIKO
+	ctBc=
+X-Gm-Gg: Acq92OHYIil/vvI4RslSIU34MSBWmzT1ZDpNf37BYPznlySOfrc7ycrXigYT9PcdlLf
+	KSN9JLWuEQnmiKV3b6YOkAFO/HaHtrzF3qWJkE4X6EVlG+fmMWGg8uY3thrvG4POXVU2S8diW8r
+	T3xz8SFOICblmky/NUpDysrclY3nhqyG2OdhavrjK/Nbfg2xJWtWVpVa6FNnuD0zvdWKXPkbS+m
+	EX5CvAPzyNuno6JRdjSA048vyTyIWh5iUnhTLWmDGRZ73Et9GVRwru+b81Z5P3GJcGoah/Q3kQr
+	nB8i5stLRhr0cL4Lj9DoE3ql9IETBp7p96jjjxSWZ5V8ef9Am9DsRwlOxNC7gwkZdFHm5xJbsY8
+	wpFFzrVuSMpWqyBIP64pFNfbRL+OniwUiSfJvaB7Yl2GPScz5OwspxoEq94JvCksOXOUiBmY0Mc
+	dkM/F+Q1hOzxWy0WET+YHr0GyJRy+Wh/+WDgNojGjKctLI9nvBX12iRRD67uhTn+02qo+5JEMty
+	aqRjUyqbVutHKc=
+X-Received: by 2002:a05:6000:2483:b0:451:2157:6291 with SMTP id ffacd0b85a97d-45b14adc11bmr4866067f8f.41.1778597378108;
+        Tue, 12 May 2026 07:49:38 -0700 (PDT)
+Message-ID: <7b5dd0c9-ff34-4d03-be4c-7d50e517b0e9@suse.com>
+Date: Tue, 12 May 2026 16:49:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH for-4.22(?) v2] gnttab: simplify (really: drop)
- gnttab_set_frame_gfn()
+Subject: [PATCH RFC v2] x86/time: set AP's TSC scale estimate earlier
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Rafal Wojtczuk <rafal.wojtczuk@7bulls.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
+ Teddy Astie <teddy.astie@vates.tech>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
@@ -138,115 +130,106 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1778597175-42965938-03EF2E91/0/0
+X-purgate-ID: tlsNG-4011c0/1778597378-7397E8B7-C2DD9C81/0/0
 X-purgate-type: clean
-X-purgate-size: 3269
-X-Rspamd-Queue-Id: CB930522DD1
+X-purgate-size: 2010
+X-Rspamd-Queue-Id: 6A1E2522E92
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[xen.org,kernel.org,epam.com,arm.com,amd.com,citrix.com,vates.tech,7bulls.com,gmail.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:julien@xen.org,m:sstabellini@kernel.org,m:volodymyr_babchuk@epam.com,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:rafal.wojtczuk@7bulls.com,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	ARC_NA(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim];
-	MID_RHS_MATCH_FROM(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	SUBJECT_HAS_QUESTION(0.00)[]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-It's not really doing anything for valid GFNs, which renders its one use
-site pretty pointless. The other isn't so much about setting anything, but
-rather about clearing.
+NOW() (in particular) can be used ahead of init_percpu_time(). As the
+initial scale value set is merely the BSP's, we can as well set it very
+early when the AP is coming up.
 
-The main point here, however, is about Rafal spotting the double
-fetching of the GFN (first in gnttab_unpopulate_status_frames(), then
-again in gnttab_set_frame_gfn()). Re-purpose the macro parameter to pass
-in the already fetched GFN, while dropping the no longer used parameters.
+Setting the scale alone, however, doesn't work, so the entire struct
+cpu_time is copied.
 
-As the result is a mere wrapper around guest_physmap_remove_page(), drop
-the hook altogether.
-
-Suggested-by: Rafal Wojtczuk <rafal.wojtczuk@7bulls.com>
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2: Drop hook altogether.
+RFC: Copying the entire struct won't work very well when tsc_adjust[] is
+     in use (and values there differ between sockets).
 
---- a/xen/arch/arm/include/asm/grant_table.h
-+++ b/xen/arch/arm/include/asm/grant_table.h
-@@ -50,13 +50,6 @@ int replace_grant_host_mapping(uint64_t
- #define gnttab_dom0_frames()                                             \
-     min_t(unsigned int, opt_max_grant_frames, PFN_DOWN(_etext - _stext))
+This in particular mostly eliminates an anomaly with log messages issued
+early while APs are coming up, when "boot" console timestamps are in use.
+---
+v2: Call the function from very early in start_secondary()
+
+--- a/xen/arch/x86/include/asm/time.h
++++ b/xen/arch/x86/include/asm/time.h
+@@ -21,6 +21,7 @@ mktime (unsigned int year, unsigned int
+ int time_suspend(void);
+ int time_resume(void);
  
--#define gnttab_set_frame_gfn(gt, st, idx, gfn, mfn)                      \
--    (gfn_eq(gfn, INVALID_GFN)                                            \
--     ? guest_physmap_remove_page((gt)->domain,                           \
--                                 gnttab_get_frame_gfn(gt, st, idx),      \
--                                 mfn, 0)                                 \
--     : 0)
--
- #define gnttab_get_frame_gfn(gt, st, idx) ({                             \
-    (st) ? gnttab_status_gfn(NULL, gt, idx)                               \
-         : gnttab_shared_gfn(NULL, gt, idx);                              \
---- a/xen/arch/x86/include/asm/grant_table.h
-+++ b/xen/arch/x86/include/asm/grant_table.h
-@@ -32,12 +32,6 @@ static inline int replace_grant_host_map
-     return replace_grant_pv_mapping(addr, frame, new_addr, flags);
++void preinit_percpu_time(unsigned int cpu);
+ void init_percpu_time(void);
+ void time_latch_stamps(void);
+ 
+--- a/xen/arch/x86/smpboot.c
++++ b/xen/arch/x86/smpboot.c
+@@ -356,6 +356,8 @@ void asmlinkage start_secondary(void)
+     /* Safe to enable feature such as CR4.MCE with the IDT set up now. */
+     write_cr4(mmu_cr4_features);
+ 
++    preinit_percpu_time(cpu);
++
+     percpu_traps_init();
+ 
+     cpu_init();
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -2346,6 +2346,12 @@ void time_latch_stamps(void)
+     ap_bringup_ref.local_stime = get_s_time_fixed(ap_bringup_ref.local_tsc);
  }
  
--#define gnttab_set_frame_gfn(gt, st, idx, gfn, mfn)                      \
--    (gfn_eq(gfn, INVALID_GFN)                                            \
--     ? guest_physmap_remove_page((gt)->domain,                           \
--                                 gnttab_get_frame_gfn(gt, st, idx),      \
--                                 mfn, 0)                                 \
--     : 0 /* Handled in add_to_physmap_one(). */)
- #define gnttab_get_frame_gfn(gt, st, idx) ({                             \
-     mfn_t mfn_ = (st) ? gnttab_status_mfn(gt, idx)                       \
-                       : gnttab_shared_mfn(gt, idx);                      \
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -1844,8 +1844,7 @@ gnttab_unpopulate_status_frames(struct d
-         {
-             int rc = gfn_eq(gfn, INVALID_GFN)
-                      ? 0
--                     : gnttab_set_frame_gfn(gt, true, i, INVALID_GFN,
--                                            page_to_mfn(pg));
-+                     : guest_physmap_remove_page(d, gfn, page_to_mfn(pg), 0);
++void preinit_percpu_time(unsigned int cpu)
++{
++    /* Initial estimate for TSC rate etc. */
++    per_cpu(cpu_time, cpu) = per_cpu(cpu_time, 0);
++}
++
+ void init_percpu_time(void)
+ {
+     struct cpu_time *t = &this_cpu(cpu_time);
+@@ -2353,9 +2359,6 @@ void init_percpu_time(void)
+     u64 tsc;
+     s_time_t now;
  
-             if ( rc )
-             {
-@@ -4285,8 +4284,6 @@ int gnttab_map_frame_begin(
-          */
-         if ( !get_page(pg, d) )
-             rc = -EBUSY;
--        else if ( (rc = gnttab_set_frame_gfn(gt, status, idx, gfn, *mfn)) )
--            put_page(pg);
-     }
- 
-     if ( rc )
+-    /* Initial estimate for TSC rate. */
+-    t->tsc_scale = per_cpu(cpu_time, 0).tsc_scale;
+-
+     if ( tsc_adjust )
+     {
+         unsigned int socket = cpu_to_socket(smp_processor_id());
 
