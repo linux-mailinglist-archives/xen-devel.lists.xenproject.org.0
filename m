@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kBi8CRmEBGrVKwIAu9opvQ
+	id 0IseITSEBGqILAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 16:00:57 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 16:01:24 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0831253492F
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 16:00:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1308036.1579583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E431C534947
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 16:01:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1308042.1579593 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNA8k-0007C0-Gk; Wed, 13 May 2026 14:00:46 +0000
+	id 1wNA9A-0007hT-Si; Wed, 13 May 2026 14:01:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1308036.1579583; Wed, 13 May 2026 14:00:46 +0000
+Received: by outflank-mailman (output) from mailman id 1308042.1579593; Wed, 13 May 2026 14:01:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNA8k-00079b-E8; Wed, 13 May 2026 14:00:46 +0000
-Received: by outflank-mailman (input) for mailman id 1308036;
- Wed, 13 May 2026 14:00:45 +0000
+	id 1wNA9A-0007gA-On; Wed, 13 May 2026 14:01:12 +0000
+Received: by outflank-mailman (input) for mailman id 1308042;
+ Wed, 13 May 2026 14:01:11 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wNA8j-00079K-Io
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 14:00:45 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wNA99-0007dz-GR
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 14:01:11 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNA8i-00357C-T6
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 16:00:44 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wNA98-00EQdJ-Rc
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 16:01:10 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a048406-bab6-0a2a0a5309dd-0a2a4501e290-6
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 16:00:43 +0200
-Received: from [209.85.128.47] (helo=mail-wm1-f47.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a048416-2eae-0a2a0a5409dd-0a2a4503a792-40
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 16:01:10 +0200
+Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a04840b-c1f2-0a2a45010019-d155802fc065-3
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 16:00:43 +0200
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-488a9033b2cso61476385e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 07:00:43 -0700 (PDT)
+ id 6a048426-672d-0a2a45030019-d155dd36cc9b-3
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 16:01:10 +0200
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-44ce78ab5feso5843028f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 07:01:10 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fce38328esm44172595e9.13.2026.05.13.07.00.42
+ ffacd0b85a97d-45491e94c0fsm43198189f8f.32.2026.05.13.07.01.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 May 2026 07:00:42 -0700 (PDT)
+ Wed, 13 May 2026 07:01:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,51 +58,55 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778680843; x=1779285643; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778680870; x=1779285670; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=G79nBLbusI+wOTeHofiLWxIFyMI86o2grvlpiB2XF6M=;
-        b=HL+QtMsCYJ9DdQAmdNhVSJ8IJUzYd6pJs9yTNSxoJMVpGn0pyya/PjY4PbDOHx8S6s
-         TYYOXxc4Ie0EjqfmSoV9QXqJuxsUzC56d7RVpujkKvxmC3zBTvMxFje/nPMmckuMjCEq
-         XgYwMAlxATR7+YS3NvhK6HHgzmWGGiHerTeqJ0JkhtJPaPpa/Opc2LzECIoNrVHF6tbm
-         2vmk0up88jZRb/RP7sJEB702EaMOybpB8qjjtri3Mb5iUAcHcMxUtJEYRwPtUkWa0/Km
-         Uqs+AwW7zWZzyoRJz8maNRRs16bIIEilVh/SSQVov4fst1Xqi/XGFFBaFBZVNFtExlRh
-         uTZw==
+        bh=femi926UTfwC+WciGwdWOVpE8CZ0X7r6UWioon78b18=;
+        b=YvQHJ5NZbx37SYN5wrokhD+e6WzoybxJURedj3Lj5uEVGMeREWhqDqR9OGwbpC7FAW
+         3BG5bmHOHTZVWLD6ZxIouOpzc7t1MR/uSeD0pmp3Tf0SEoj88pgmpAVW7Gv6/KI5NKOb
+         grYEcRPdn3in7QynXTKaA90NohLkygKrQI38CXj04xp/x4GE/3liJv0OIe9+zBcF1tFl
+         EHw71MqQDz6pG66fF7yJWEYMJ0ULbn7NpUqVymYiStWQJwPHY+mQU/pTJe2440Npa/jl
+         FSga4QVodcSzLYCc6F1Zd/6+w83ldFC52FeP9MYgJ3OGnxUkOaEnptpylUsXvvS1OnJA
+         e1eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778680843; x=1779285643;
+        d=1e100.net; s=20251104; t=1778680870; x=1779285670;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=G79nBLbusI+wOTeHofiLWxIFyMI86o2grvlpiB2XF6M=;
-        b=NDwAD+IxFD9cOmgd6i4Jw8YfMmiV6eyy79qYcwRhPyNxys4Ja+RkevehzEJG4A8TKt
-         J+2xT/2Cr6thymJmOx9yhHEKbipKicRA56GzOsVz1ptmsWStKtXC3rcD6UaNRsvuoZMy
-         tRp24O/lOMIJihq9I9ZIP8lq/bYOv0fXn5iHsi5IsBFknWw/XlDvehZ0QMlXCT04I4Ur
-         rDPlYnTxI7NR9TDWdwr0+EMRPS8yQ4iP3biVp/7ybZr2uTPxIR5vuTUqtsgQIuoVYaAE
-         aC5d4wA0UFWwAYZxO6e3e2gDBb9IjzFSRxNgxXisl1t1s0HsGuTqsA1KEYOKq42m/ERy
-         b3Zw==
-X-Gm-Message-State: AOJu0Yz+iah28r9G0O1GHi5gmGFYU2Q2hScLt6+4H3EEVlsEKFbtcl7j
-	9v/mRi2bAKD9RApcqP8JofUGWo0/htP7+ddsYl4mG1eRwAdObXIBaNS8SA9WGjXgsuz0jXGY4Z/
-	rB08=
-X-Gm-Gg: Acq92OGef3NeAC5aIQsZEhpIcOZqvSMpW1e5U3s3kIRd02jSS4VnTZ5oV5N6jTXzCAZ
-	2+nudHuzcrYILclRXvuKy8ppU4mtKBsnn1pDzwqIBHIdxWOHOto8w79ZidNEPi0O0Lz69Sn9irS
-	CIGzjxdLTENxewuUF4pbvcQznpVUwhCd0UeKMu4pAfRzhcH9J07TIYlrNpUcsy5OfGhLyATnBvm
-	CUAqLurskffTfZ1RRepadjuDh387iOpdqlOE1v6in9etYA7eWf0HmlQayfna5Q2t5u4J+i+X5W3
-	HYwsukCWHN7uizq4b9dn+v6aKkKy7pT05eihSEt2D9kN7hE2+6FbpMKIvEnYMKryWQcwBAUNThJ
-	mavL20StmhFBJJxKL1frH6qSQhVXFgyFudFfcAGCz3RMlJgqbMFxxf1vjfehD60ukPsP6dYpZv9
-	gY1WUDAOlsYhYwAaCDofJaNs+VLz8JX92s9pKClwMzFfjRzzzwaeJA6O80AFZOATdqm9oObaL//
-	DzClF5Vynu5eYs=
-X-Received: by 2002:a05:600c:4e43:b0:489:1fa5:997f with SMTP id 5b1f17b1804b1-48fc9a0ef11mr46192765e9.9.1778680842484;
-        Wed, 13 May 2026 07:00:42 -0700 (PDT)
-Message-ID: <0af810a1-3392-472a-93c9-c98fcb81c43a@suse.com>
-Date: Wed, 13 May 2026 16:00:41 +0200
+        bh=femi926UTfwC+WciGwdWOVpE8CZ0X7r6UWioon78b18=;
+        b=Yp/Ifq9NHRefNJfSuo8YTh5+3ecfdYI7+XNMPrzj/niXXtxfdLlu38uO81QdIxqm3X
+         fxDMjOo7O2LEYsuZx+ZmvGEw3d0ljvDs+fkb/9DieDaj6m1syCSrsB8+wdRxSz4C5gyW
+         5f2X6sGXlx9akT1TsYgY6EJ5dXBQSAy3ZWCswuzLyYLL7ggaAyBWlas8hw0TUtxzloYP
+         qGMfTxjhb1x6mu2mtzjB2pXa01VqcEtr1uRQXzwYSWbX58IUXNr+ZmdW+rlccqYmtOy0
+         hGw5KLtIBjAfNzV+UIq2DkwWdPZWjVLgHPtzuyBk6LPPh46iqII9vtjYh95PAc+Oim+r
+         Y77Q==
+X-Gm-Message-State: AOJu0Yz3xo66VcIQ8OcAeKagg4slDpViOEsLyQXerbop1BpgUMXjXk5l
+	0f6DE+PnFOwj/93rEspEnIrjwA+XXIEQ5ebROsICMEDMmsUpXnZCjIdx4UZUpeGwYuwve1Hd8Jy
+	gxK4=
+X-Gm-Gg: Acq92OEZ0c//3eOazubRhFNJqlIvMtcO3dJTb9RGZs5WSicVB3l/LmKvl4V6b+f8opu
+	ayewMCtz6BWg6O2oCQnoBeWYzT++hLmgzrJDJXAyc5fEfHj8hSJ87ZWt8tt16pEEYuYrJhkf8RG
+	732tirKPUA5ZWz/in8Y4afzQ1e/JPaYMkz73FXiKYx4Bkz3uK6ZLACnkpl8xN+9kJiejEhzcScm
+	DCnrbHn/v7JlmwvSoEY+FekGfDp/NKb8k+qh/SxmnnpyUgK4dXmF3tL67AqgsCNBRyQBSbdOvfe
+	JkdrEFhMop77mbq/U/i3H4T3bXzYz7UhTOBVh7YKMcOZtN+zJ8eVQcG9+vOcKftuIB7pDZysYxG
+	aBtLI38lt+ieLdMUzYD0qvkBkmJKnCOuWFbYoScTWSvRhMPIZSkoTyWrEMm4paA72teMev97+H2
+	kuIkmxbS/v3a6nrymR1epvzSQkQQ2fCoj41gpNiR6541bCdEx7i/0oCtSWhYOHfbXPthyCpnICq
+	e2Kno3LSEhBfEE=
+X-Received: by 2002:a5d:5d13:0:b0:43d:76d8:5794 with SMTP id ffacd0b85a97d-45c5ac51c66mr5460534f8f.36.1778680869772;
+        Wed, 13 May 2026 07:01:09 -0700 (PDT)
+Message-ID: <3ca0351a-8be9-4b3b-989f-0ba004fada2f@suse.com>
+Date: Wed, 13 May 2026 16:01:08 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/2] kexec: kexec_crash_save_info() vs Misra C:2012 rule 8.3
+Subject: [PATCH 2/2] crypto/rijndael: adjust for Misra C:2012 rule 8.3
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
 References: <13ca5f9f-d985-41bf-9c30-afd657dade89@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,63 +135,67 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <13ca5f9f-d985-41bf-9c30-afd657dade89@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1778680843-AC851FF4-E60505C5/0/0
+X-purgate-ID: tlsNG-33051d/1778680870-39B7C938-8944C878/0/0
 X-purgate-type: clean
-X-purgate-size: 644
-X-Rspamd-Queue-Id: 0831253492F
+X-purgate-size: 1235
+X-Rspamd-Queue-Id: E431C534947
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
+	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
 ... ("All declarations of an object or function shall use the same names
-and type qualifiers"). The declaration doesn't use the typedef, so the
-definition shouldn't either.
+and type qualifiers"). Bring declarations in line with the corresponding
+definitions, accepting the use of the being-phased-out u<N> types. While
+we don't define NEED_RIJNDAEL_DECRYPT, cover rijndaelKeySetupDec() as
+well for completeness.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Really, is the typedef of much use? I.e. can't we drop it altogether?
 
---- a/xen/common/kexec.c
-+++ b/xen/common/kexec.c
-@@ -333,7 +333,7 @@ void kexec_crash_save_cpu(void)
- }
+--- a/xen/include/crypto/rijndael.h
++++ b/xen/include/crypto/rijndael.h
+@@ -50,9 +50,8 @@ int	rijndael_set_key_enc_only(rijndael_c
+ void	rijndael_decrypt(rijndael_ctx *ctx, const unsigned char *src, unsigned char *dst);
+ void	rijndael_encrypt(rijndael_ctx *ctx, const unsigned char *src, unsigned char *dst);
  
- /* Set up the single Xen-specific-info crash note. */
--crash_xen_info_t *kexec_crash_save_info(void)
-+struct crash_xen_info *kexec_crash_save_info(void)
- {
-     int cpu = smp_processor_id();
-     crash_xen_info_t info;
+-int	rijndaelKeySetupEnc(unsigned int rk[], const unsigned char cipherKey[], int keyBits);
+-int	rijndaelKeySetupDec(unsigned int rk[], const unsigned char cipkerKey[], int keyBits);
+-void	rijndaelEncrypt(const unsigned int rk[], int Nr, const unsigned char pt[16],
+-			unsigned char ct[16]);
++int	rijndaelKeySetupEnc(u32 rk[], const u8 cipherKey[], int keyBits);
++int	rijndaelKeySetupDec(u32 rk[], const u8 cipkerKey[], int keyBits);
++void	rijndaelEncrypt(const u32 rk[], int Nr, const u8 pt[16], u8 ct[16]);
+ 
+ #endif /* __RIJNDAEL_H */
 
 
