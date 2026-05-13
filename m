@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MDYxBLOXBGpiLwIAu9opvQ
+	id mPlaBCmcBGr3LwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 17:24:35 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 17:43:37 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 698F1536067
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 17:24:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1308227.1579763 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60FE05365F4
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 17:43:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1308238.1579772 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNBRY-0003jv-Rp; Wed, 13 May 2026 15:24:16 +0000
+	id 1wNBjj-0007FV-9c; Wed, 13 May 2026 15:43:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1308227.1579763; Wed, 13 May 2026 15:24:16 +0000
+Received: by outflank-mailman (output) from mailman id 1308238.1579772; Wed, 13 May 2026 15:43:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNBRY-0003gz-OM; Wed, 13 May 2026 15:24:16 +0000
-Received: by outflank-mailman (input) for mailman id 1308227;
- Wed, 13 May 2026 15:24:15 +0000
+	id 1wNBjj-0007EC-5u; Wed, 13 May 2026 15:43:03 +0000
+Received: by outflank-mailman (input) for mailman id 1308238;
+ Wed, 13 May 2026 15:43:01 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wNBRX-0003gt-Dt
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 15:24:15 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wNBjh-0007E6-Q5
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 15:43:01 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNBRW-00128n-Qo
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 17:24:14 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wNBjg-0015Eo-Ld
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 17:43:00 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a04977c-5cb7-0a2a0a5109dd-0a2a45019d26-48
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 17:24:14 +0200
-Received: from [209.85.221.52] (helo=mail-wr1-f52.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a049bfa-e002-0a2a0a5209dd-0a2a450bd542-16
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 17:43:00 +0200
+Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a04979e-c1f2-0a2a45010019-d155dd34f095-3
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 17:24:14 +0200
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-43d73422431so5227633f8f.2
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 08:24:14 -0700 (PDT)
+ id 6a049c04-212f-0a2a450b0019-d1558036b414-3
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 17:43:00 +0200
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-488af96f6b2so83309225e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 08:43:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4548e6a68ebsm40025840f8f.1.2026.05.13.08.24.13
+ ffacd0b85a97d-45491f8d4c3sm41760372f8f.34.2026.05.13.08.42.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 May 2026 08:24:13 -0700 (PDT)
+ Wed, 13 May 2026 08:42:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,49 +56,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778685854; x=1779290654; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=KW5t2bpTW8HpaeVug28uTHeYudospfOIsPRQK1HG9Ss=;
-        b=fjOFmCosPeifdzBXnssakr3xoP+M3yr9WspfsYM0DI5Axi4fqVwE9/wqjwLzBsV0Nv
-         BHFKE4A9Jvfzn0lG97xY4DbpaC2FGFxe6WQEK06W1HiNrZfYbyh9foWxHT0YLUQrc+X5
-         HX1ksobuu2Ijdee3ujO8MKWRhhQdMfml7523utSm7XaCMfAcLhkiPKdNv6S9Jk65y41W
-         f+l1tKHjbxTTzwDnTFOC7TKjyMcuob3AFMTPD0ySt/D4H1XIufCKF74rsrGOOJAO+AxL
-         7yEagwUMucuR4Flb3/9nDHp9cs4r4ImISYi066PJgYPzE4AJvQvPagBx5Vlwfn5cLwsS
-         V2/w==
+        d=suse.com; s=google; t=1778686980; x=1779291780; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=V+inOK2x/6FApQmexOxsKZ4km4MjoG7n4SP9MvzDO5o=;
+        b=CWzTRpj1yZdRov8bja0XptZn/ufHrGHzRR0GXP79XC4UqYd0NPaTt819YvB27TKEh4
+         4Cf+I2vYUNeTL7HlFRaAgrgx0o04mHjJMz3Z9vaLYHsiOfu18fk2nJXKsuU1NFzDcSgw
+         LlM63zAwgrMDYuHz5QlD0SUPC0b58//BYQwQH9AaldNdqq6TGrnIx6E+EUEud6rVsHVl
+         XeCrzsXkQ8RBEAnieSYfHw2XSikNCdccDN9c1ViC/fzLlEzGiqpH/R7Ud8Fo1g50ir1j
+         be8Ak8uV8Gy8GE8lW+xEJ9RLH5ELHOdJM1QdSxcR9/Lx7JOPGR7QbERwJqtA1WDTIxjU
+         Iwow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778685854; x=1779290654;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1778686980; x=1779291780;
+        h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=KW5t2bpTW8HpaeVug28uTHeYudospfOIsPRQK1HG9Ss=;
-        b=pPRdl+eKOsIc+1wOz0KVZYuIkCmShHzLHM+6+yAO2Z6cGHKTKRwl2/EviDcXakoZCF
-         Tfhgc34+NdcsAvwZDq8vnZYzyHGVMHNwyHa5YuMeDNIN/Tg7T+aNzd7i89fG90lPAFRm
-         r6eNygo24cular3rUoziVSK/BWosu2ANk3twaXsirRubDwy51uv3m8iO9CD5rNjZyO7E
-         kcqH5Eu1flRH1WQj0svfhr5FnMJoFHpx7kn3R6BE8QOcHRR2X3x8hyyemVoLTMh05TEf
-         7u0XQHKPVcAPyGF0EUeo4QH1Y34YzZ1A8GNP3cBbBajyHDiPJO1ZRDB6vQceVVYw6lDc
-         FEjQ==
-X-Gm-Message-State: AOJu0Yz/HWB/HXe865/xg0QuJCh99ve8ILAT9FPDcuAUy1q3nrnd+YYZ
-	W33hu2jTqKcf4oQ6v6t+Q2qDYJEeV56RkmsQbiyQHyJA+NKvL/7jttHu9HkzbFe/SQ==
-X-Gm-Gg: Acq92OEAbw62KhkQpgGKe8J808e7cU++CzAYCYXBTgbDBaS1kMZlAOmLgJISKrfE1QX
-	t9Rm4aYTMI936P9UaI/VOCb6qxHNnW/HCNHX7QB8+XEGtTfDlVpAW7e6kmoYGo4i7SV8LpCcame
-	cSwtLD/qFVGRJVleYk9pLpkz1QNf1Ny57AxC7gRwQpUcZPH826QtedHkhJ7HRxyvHi+YOT3vCWb
-	GTffKO7kakz25FLGFC6VCERHfJfdF2QKZGTs1aqt1+wEBVeqo339FHR9Qfd5L0KpQSL05KaqOvg
-	7QEPjepnRQLeF35+v3q/sDikBEG0+Upzh7HdphIMnZHvkqDwn6UJUc36G6PHG4hKwmoYPuf4DtQ
-	PtdLegXAYBZBqSmixT72bfVFEVf6VMaKCWQ9ueve80oa4w0YOFMpHcg8+w0kv+7ao0W0HQbP75y
-	Uyo0xTwo3Kys0GBAWzd6ny803vRGv0btkvt2fFo8NATQagTOWSJ+sQGhOou8lLpz2BWoNXElOHS
-	uyg/Dz0Be6qdXA=
-X-Received: by 2002:a05:6000:1a8a:b0:455:59b5:d6ba with SMTP id ffacd0b85a97d-45c79f28b08mr5945274f8f.28.1778685854086;
-        Wed, 13 May 2026 08:24:14 -0700 (PDT)
-Message-ID: <439d03f4-4ebb-4bbf-a1ea-324156bff9f0@suse.com>
-Date: Wed, 13 May 2026 17:24:13 +0200
+        bh=V+inOK2x/6FApQmexOxsKZ4km4MjoG7n4SP9MvzDO5o=;
+        b=SizjRBMcM3L3bYTOkSTfdX36QfLgNJeDW4JsxnizSJP0YEH+UWZzFhG7hl9tKf7KSw
+         cf0V1xsxcc8VHi4fWtrqrP9Or6QUL6AsodSEuFF2TfAvEQDx6IHSj4i0E68cBlRo1oqv
+         LNQnvj8KCwkSypq2AowkCYSCmhaKt0Uo5yGCnKgBb92a+tPW7XIWF3vYpD3rL5QBL2Rr
+         yI28W2khQ0Q0El+VDJ9fi6Bjmb1Uq9j3rUa7Mbk8crCy1jZaku9OBuxzN94dLpMws94q
+         Jt9+vF17/GeX2qzpRMd+iRN9BL2BRTR3ChL7Cfi6Rpd2Dom48IXWsjV+mGORK+730qSZ
+         MKnQ==
+X-Gm-Message-State: AOJu0YxUCpUStlusLh3W7nZ2aSrH9bc3lZOzaH0UNu4abacOU2/PfsRO
+	bioZbn5aJZyf9QTegAB2yQo2nJAN0hqfofmRTw68PrXzBjPH0tq0Vax3eZ5eTmLBXdUtefOh0Om
+	GFQY=
+X-Gm-Gg: Acq92OF1JgJipBiZVo+5Sy0Fo7Oo5+zelrI9/bUwEf2N08E/nL8YP2ErjM8FyGWnWXm
+	114Olybr5pJv/PrSRnF/Gk0Ycle5J5yyk3Nz1iEWNvfQMd8z7x5pgtU4wtH5NCtaS34+RVMCg2K
+	SQ/LnHwBSSnCKPjEaetmudJkPv1GNrmqqzyJXztQykangrjlOxN/JKZhZwXMnUdAGcej+BqfWxt
+	GcdvDxgzn55i34cIXtev340UAClB2wtQxfam1ExhctOJ/aWErCqfwTYejGd5lUZLAe1R1fWhehG
+	QTTAUS/ocFCF6uCYNfiKwg6/AT55Vfc6uQdh8pOO+M6mzfwO/jBYYGvGobU2HXU3Y1bjjr4/YUX
+	pGLleZ0IR2eiFUtFjFTutyJBZySe5pwjKoBJ97Q/6EKJtI1fWfGjUKnkuQ4oEMujygOUQWV+fbH
+	OKNIuaA4c/MqUkGtv1mvZYx31H6XEmQSFAFzR0x94qdeDrhtK+0M9XDPIweYVtCrRlEB0eZ0qP2
+	M0o/kQi8X+ae8M=
+X-Received: by 2002:a05:600c:4e0d:b0:48a:5c23:cab with SMTP id 5b1f17b1804b1-48fc9a3abb0mr59848425e9.19.1778686980012;
+        Wed, 13 May 2026 08:43:00 -0700 (PDT)
+Message-ID: <6ef656b3-0428-4867-aea2-901d852d12e7@suse.com>
+Date: Wed, 13 May 2026 17:42:58 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH for-4.22 3/5] x86/vRTC: support century field
+From: Jan Beulich <jbeulich@suse.com>
 To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -108,9 +110,7 @@ References: <b36b6f2f-2b0e-462d-9846-4a1b4d7edef9@suse.com>
  <383355d1-7032-4445-8a06-cb4411ea797e@suse.com>
  <agSJlh8KQ9orL6wC@macbook.local>
  <17a25f0e-91e3-4e09-92ad-21e7dc0ebe62@suse.com>
- <agSVa3uPHSZrszjz@macbook.local>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -134,13 +134,13 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <agSVa3uPHSZrszjz@macbook.local>
+In-Reply-To: <17a25f0e-91e3-4e09-92ad-21e7dc0ebe62@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d62444/1778685854-AFB56FF4-0D32E4E9/0/0
+X-purgate-ID: tlsNG-42698a/1778686980-13B78F3B-7C50F452/0/0
 X-purgate-type: clean
-X-purgate-size: 4939
-X-Rspamd-Queue-Id: 698F1536067
+X-purgate-size: 2495
+X-Rspamd-Queue-Id: 60FE05365F4
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -160,7 +160,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FREEMAIL_CC(0.00)[lists.xenproject.org,citrix.com,vates.tech,gmail.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:mid,suse.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -178,116 +178,51 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-On 13.05.2026 17:14, Roger Pau Monné wrote:
-> On Wed, May 13, 2026 at 04:58:57PM +0200, Jan Beulich wrote:
->> On 13.05.2026 16:24, Roger Pau Monné wrote:
->>> On Tue, May 12, 2026 at 04:59:35PM +0200, Jan Beulich wrote:
->>>> --- a/tools/libacpi/static_tables.c
->>>> +++ b/tools/libacpi/static_tables.c
->>>> @@ -33,6 +33,8 @@ struct acpi_20_facs Facs = {
->>>>  #define ACPI_PM_TMR_BLK_BIT_WIDTH           0x20
->>>>  #define ACPI_PM_TMR_BLK_BIT_OFFSET          0x00
->>>>  
->>>> +#define CMOS_CENTURY 0x32 /* Conventional index used also without ACPI */
+On 13.05.2026 16:58, Jan Beulich wrote:
+> On 13.05.2026 16:24, Roger Pau Monné wrote:
+>> On Tue, May 12, 2026 at 04:59:35PM +0200, Jan Beulich wrote:
+>>> Both ROMBIOS and SeaBIOS (with CONFIG_QEMU=y, as we build it) blindly
+>>> assume availability of this field (at its conventional index 0x32); OVMF
+>>> at least has code to inspect FADT. Hence we ought to have supported it
+>>> virtually forever.
 >>>
->>> IMO this define (together with the RTC_CENTURY one below) need to be
->>> in a public header so it can be consumed by both the hypervisor and
->>> the toolstack.  Having two separate defines, one for the hypervisor,
->>> and another for the toolstack will just create confusion.
->>
->> I first thought I'd do it like this, but (a) this isn't a value Xen
->> defines (hence the comments in both places) and (b) I'm not entirely
->> happy with such a(n) (ab)use of the public headers (yes, we have other
->> such examples there, which I also don't really like).
-> 
-> Yeah, it's not great, but it's better than having the same value
-> defined in two different files, and having to keep them in-sync for
-> the CMOS century field to work correctly?
-
-As the values come from the outside, they necessarily need to stay the
-way they are (and hence implicitly in sync). If we meant to announce
-another value to guests in the FADT we produce (breaking non-ACPI
-guests), we then couldn't use RTC_CENTURY in hvm/rtc.c anyway. Instead
-we'd have to track and migrate the index to use.
-
->>>> --- a/xen/arch/x86/hvm/rtc.c
->>>> +++ b/xen/arch/x86/hvm/rtc.c
->>>> @@ -47,6 +47,12 @@
->>>>  #define epoch_year     1900
->>>>  #define get_year(x)    ((x) + epoch_year)
->>>>  
->>>> +static inline bool is_century(unsigned int x)
->>>> +{
->>>> +    /* Constant below should match epoch_year above, just as BCD value. */
->>>> +    return x >= 0x19 && (x & 0xf) < 10 && (x >> 4) < 10;
->>>> +}
->>>> +
->>>>  enum rtc_mode {
->>>>     rtc_mode_no_ack,
->>>>     rtc_mode_strict
->>>> @@ -482,16 +488,32 @@ static int rtc_ioport_write(void *opaque
->>>>          data &= 0x7f;
->>>>          s->hw.cmos_index = data;
->>>>          spin_unlock(&s->lock);
->>>> +        /* RTC_CENTURY always forwarded to DM. */
->>>>          return (data < RTC_CMOS_SIZE);
->>>>      }
->>>>  
->>>> -    if ( s->hw.cmos_index >= RTC_CMOS_SIZE )
->>>> +    switch ( s->hw.cmos_index )
->>>>      {
->>>> +    case 0 ... RTC_CMOS_SIZE - 1:
->>>> +        orig = s->hw.cmos_data[s->hw.cmos_index];
->>>> +        break;
->>>> +
->>>> +    case RTC_CENTURY:
->>>> +        orig = s->hw.century;
->>>> +        if ( !is_century(orig) || !is_century(data) )
+>>> As the index is beyond RTC_CMOS_SIZE, leverage the padding field in
+>>> struct hvm_hw_rtc to hold its value. Update the field only when involved
+>>> values are valid BCD century specifiers. Otherwise (for VMs migrated in
+>>> from an older hypervisor) leave handling to the DM.
 >>>
->>> Is a real RTC strict in such a way, ie: will it refuse to set the
->>> century value to < 19 (0x19)?  For example QEMU seems to be way more
->>> relaxed, and allow any century value.
->>
->> I can switch to rejecting merely 0. Unlike centuries in the future, it
->> didn't look very useful to me to permit anything below 19. Please clarify
->> which way you prefer it.
-> 
-> QEMU seems to tolerate everything, so I lean towards tolerating
-> everything that's not 0.  That's solely based on what QEMU does, which
-> I think it's likely to be (quite) widely tested.
-
-Will do.
-
->>>> @@ -515,7 +538,10 @@ static int rtc_ioport_write(void *opaque
->>>>              /* Fetch the current time and update just this field. */
->>>>              s->current_tm = gmtime(get_localtime(d));
->>>>              rtc_copy_date(s);
->>>> -            s->hw.cmos_data[s->hw.cmos_index] = data;
->>>> +            if ( s->hw.cmos_index != RTC_CENTURY )
->>>> +                s->hw.cmos_data[s->hw.cmos_index] = data;
->>>> +            else
->>>> +                s->hw.century = data;
->>>>              rtc_set_time(s);
->>>>          }
->>>>          alarm_timer_update(s);
+>>> This makes the Linux rtc-cmos driver report y3k compatibility.
 >>>
->>> Don't you need to adjust the tail return of rtc_ioport_write() (below
->>> the context here) to return 0 when s->hw.cmos_index == RTC_CENTURY, so
->>> the set value is also propagated to the DM, and not only the index?
+>>> While extending xen-hvmctx.c:dump_rtc() also add RTC offset there.
+>>>
+>>> Fixes: 4ca161214355 ("[HVM] Move RTC emulation into the hypervisor")
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> Am I overly paranoid with the checking of the field, considering that
+>>> Xen 3.x post-dates year 2000 and hence all firmware nowadays usable guests
+>>> have ever run with should have been aware of the field? Or am I, quite the
+>>> opposite, still not strict enough?
+>>>
+>>> I can't help the impression that this introduces a latency issue for
+>>> the 2nd of gmtime()'s while() loops: We now allow years up into the 99th
+>>> century, i.e. over 8000 years away from 1970. 8000 years are very roughly
+>>> 2^^38 seconds, making for (again very roughly) 5 million iterations there.
+>>> Did I get my math wrong, or do we need a prereq change to (vastly) reduce
+>>> the number of iterations of that loop (e.g. along the lines of the other
+>>> one, first going in 400 year steps)?
 >>
->> I don't think so. The case of us not handling RTC_CENTURY is dealt with
->> earlier in the function. Whereas when we handle the field, we don't want
->> to forward (like for all the other RTC fields).
+>> Hm, maybe we need to add some XTF testing for the RTC?  I'm slightly
+>> worried how much time this could take, and since those calls are
+>> serialized on the s->lock I wonder whether enough parallel accesses
+>> from the guest could manage to trigger the watchdog?
 > 
-> Right, so then you also want to adjust the top part of
-> rtc_ioport_write() to not propagate the write to the 0x70 IO port when
-> data is RTC_CENTURY?  Otherwise you propagate the write to port 0x70,
-> but not the read/write to port 0x71?
+> I'm not really up to making an XTF test, I guess. However, as you look to
+> share my concern, I'll add a prereq patch adjusting gmtime().
 
-I can't, as whether to forward depends on the data subsequently written.
-Propagating the index "just in case" is the only workable model that I
-can think of. And as guests can do any number of successive port 70
-writes, the DM needs to cope with this anyway.
+While making such a patch, I noticed my flaw in the description above: That
+loop walks in granularity of years, so can't have more than about 10k
+iterations. Shortening the processing by first going in 400-year steps may
+still be worthwhile, but doesn't look to be strictly required.
 
 Jan
 
