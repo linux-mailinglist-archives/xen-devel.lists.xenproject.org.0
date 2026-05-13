@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0G1sAIDMBGrMPAIAu9opvQ
+	id mI7HG+TTBGr0PQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 21:09:52 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 21:41:24 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D192539A09
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 21:09:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1308406.1579855 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6E4D53A21F
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 21:41:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1308425.1579864 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNEwj-0004yv-N4; Wed, 13 May 2026 19:08:41 +0000
+	id 1wNFRo-00020G-VU; Wed, 13 May 2026 19:40:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1308406.1579855; Wed, 13 May 2026 19:08:41 +0000
+Received: by outflank-mailman (output) from mailman id 1308425.1579864; Wed, 13 May 2026 19:40:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNEwj-0004xc-Jj; Wed, 13 May 2026 19:08:41 +0000
-Received: by outflank-mailman (input) for mailman id 1308406;
- Wed, 13 May 2026 19:08:40 +0000
+	id 1wNFRo-0001xo-SB; Wed, 13 May 2026 19:40:48 +0000
+Received: by outflank-mailman (input) for mailman id 1308425;
+ Wed, 13 May 2026 19:40:47 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wNEwi-0004xW-DE
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 19:08:40 +0000
+ (envelope-from <roger.pau@citrix.com>) id 1wNFRn-0001xi-43
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 19:40:47 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNEwh-00EGvO-Qa
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 21:08:39 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wNFRm-001ZkT-HH
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 21:40:46 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <roger.pau@citrix.com>)
- id 6a04cc23-2eae-0a2a0a5409dd-0a2a450983ec-16
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 21:08:39 +0200
-Received: from [52.101.43.67]
- (helo=SJ2PR03CU001.outbound.protection.outlook.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a04d3a1-bab6-0a2a0a5309dd-0a2a450880d2-20
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 21:40:46 +0200
+Received: from [40.107.208.16]
+ (helo=PH0PR06CU001.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <roger.pau@citrix.com>)
- id 6a04cc35-2497-0a2a45090019-34652b43ece5-3
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 21:08:39 +0200
+ id 6a04d3bc-63b5-0a2a45080019-286bd01053a2-4
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 21:40:46 +0200
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by BL1PR03MB6197.namprd03.prod.outlook.com (2603:10b6:208:30b::11)
+ by SA0PR03MB5483.namprd03.prod.outlook.com (2603:10b6:806:c0::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
- 2026 19:08:34 +0000
+ 2026 19:40:41 +0000
 Received: from CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
  ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9913.009; Wed, 13 May 2026
- 19:08:34 +0000
+ 19:40:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,112 +60,111 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TKc9Kdr9DVNFC+qHeg3Jbk1AD7v6RGHiYvTwnvUxSBHi9VEWApS5cS/y81/XkmnGShzNEqPGLt1n5an2Wdp/RWDKGEUnfE6QBexAStWy1VgutIx3l3ukG/OVXOdA/0PjaB80aiDLRg9w1spKBD9yvI69PsK5KLZLZlzEoFk7XV7TlBVV9Z53XkmIzX7y4wnd8U28a+cDG0KgcoNLIc7w/670M7ZNPlb8217CqClCvBdDR2DTCBsoIIHDA1tsz3F98IekqbIhSwWmZ7FPJhMt3ld28yC3RxIKntoapet+3smsql1ZNX7QgZJroIsH9dW+drXYJqo/PycKqpEc2O+9yw==
+ b=iTUe2wUe1zGa7tE4IOQX/wPBhvMb6/qHOK/YBnEWlZTGVyFriUPtfIlxHDswco3mSXA8e/XVjFazlfqP4nQV9luZBmQm7Qzee7E/tTYwXHROCV8sO27xDo6EVlFlhc45iY8UH6w040ONFE2pHV378AXDSbTW/xCOOgaC3vKOfNH13HjIR+YcbylS2ahvUfxh2P1dMyAYy1d3ktEXoVTYmX7SGJV0SZTxb3EzM0ETiM3P6/iq7lGCIQ+Dxi8nbVpQ2JwNhHeDfN3zNlREbj9HMTZoQ8QUaJP7iKzJCfiVL6UBKzVOW0TK6iCZBj9V+ewx54qwtk5OVD1iB9w7guVtlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vz4vYBXMwChhlORcTPcnmqpu/FXpRscHXrRtQggSTOM=;
- b=xHDSb4sWuCP1z+QvRsMQ/1PHdAD2XorRHsQQO53SQuemcSr4UyZrOX6gQYyuFWX4+R4WU0/7q9ufgCHtgG/lD7Npxd/WqoibTCCjTOH/W4PZ60a+2XA2Ysz4g9LuApBGvXHaUncj7wrNUoO0Z7Tp6ynP9aZMxXpqyNWab8fRtDq73WrpM4lWqt/q659Mb8rkWTjEpujlE5qbvHH+0qdVtzo8Ti2e01kvdPvsrR/ZShCHHXOfTlQuseH0vfxFeRy3rM7n/LsJwubNrh2y8BKFO07zlyYzyA/VSbcufc1iCN965plOYDJpDJaRUrWlVPeAKFhBJdq/Kt1fr9hak2Pseg==
+ bh=t1nerSrzRJqrPfkCEiNpI2oIyUx2VoHuheIDrVf7BJA=;
+ b=ABvKDxx2f/x7FvTzd2KyoB0V3nbUiSIOvvm9mR1RIdlqVJjrgyaDqvSi7GvDw5yRRcz0hcco6joK1qWsr4OomhHh+V5zWlkejR3QzTWMBOrW0RtwXgP6FzJ64TbSZNscfZ/glgV2ZYU9dn5mcEBbYm2aF1RftpcBjVZHSSsOA2u5LG6xPygMqN7gVX09cQcuDmOOmaJuj3GVX3PpcPLNh6OIr8fcfvc+vgoFsYVetQf9FUm1Btwpc9AJDMfvp6b9HpaKRbBiRopyVT7sCgk7vh1a0LtCvB8HRk4ZzsLqRNIMMtD8pPBfXgyboIpQi5a1GbdRK5ipWmesIzdz27y24Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vz4vYBXMwChhlORcTPcnmqpu/FXpRscHXrRtQggSTOM=;
- b=D1JBRtcic080k7ukMuaKxRV2gzEiTV6VFSDINm2Um1fv4tzXb9uf9vRRBuG6YcpAVGeFZCq/hEJo71iGCyYz+z+dd4cCjokBy9X+40mWhKvEb8m4mP9SlenT3RHNQqriLpxPLXJyyToeXVlgimBwRQDb3RojeYWpj1nzLCm9QyY=
+ bh=t1nerSrzRJqrPfkCEiNpI2oIyUx2VoHuheIDrVf7BJA=;
+ b=nVmHgqlwJbE8uoUPqDPqEy8sYDR9f7wi5PDlv04nHl3+09UEJ6H/6YmLrwPZWbdnzGvgrIoOvbUGk9RhCk0wSbn15mPlaiI810MpKLhdMjvb6/dUTngKMqywDSr6MIJ8qke5NsAER+ndMJdLEo05A2J+C/PUFQlMlYY3pJ6M808=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Wed, 13 May 2026 21:08:30 +0200
+Date: Wed, 13 May 2026 21:40:38 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Teddy Astie <teddy.astie@vates.tech>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH 2/5] x86/time: move BCD_TO_BIN() uses
-Message-ID: <agTMLgTwsKf96IpL@macbook.local>
+Subject: Re: [PATCH for-4.22 3/5] x86/vRTC: support century field
+Message-ID: <agTTtrSm1tBnBGK9@macbook.local>
 References: <b36b6f2f-2b0e-462d-9846-4a1b4d7edef9@suse.com>
- <2c5af8f9-05f6-43c4-afb4-a50cbacd2d49@suse.com>
- <agQ8tRY3Kya6RasY@macbook.local>
- <d37322ac-fdf9-48bb-91e3-3e8d560fa758@suse.com>
- <agSRm3T0Y3EfuqFb@macbook.local>
- <d70965fe-5039-4a9a-a470-a9d2a0bc6ebe@suse.com>
+ <383355d1-7032-4445-8a06-cb4411ea797e@suse.com>
+ <agSJlh8KQ9orL6wC@macbook.local>
+ <17a25f0e-91e3-4e09-92ad-21e7dc0ebe62@suse.com>
+ <agSVa3uPHSZrszjz@macbook.local>
+ <439d03f4-4ebb-4bbf-a1ea-324156bff9f0@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d70965fe-5039-4a9a-a470-a9d2a0bc6ebe@suse.com>
-X-ClientProxiedBy: MR1P264CA0136.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:51::9) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+In-Reply-To: <439d03f4-4ebb-4bbf-a1ea-324156bff9f0@suse.com>
+X-ClientProxiedBy: MA2P292CA0021.ESPP292.PROD.OUTLOOK.COM (2603:10a6:250::13)
+ To CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BL1PR03MB6197:EE_
-X-MS-Office365-Filtering-Correlation-Id: 776b8db9-2af4-4036-9c4a-08deb1230773
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|SA0PR03MB5483:EE_
+X-MS-Office365-Filtering-Correlation-Id: ddcca115-057c-47bf-d86b-08deb127842d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|22082099003|56012099003|18002099003|11063799003|4143699003;
+	BCL:0;ARA:13230040|376014|1800799024|366016|4143699003|56012099003|22082099003|18002099003|11063799003|3023799003;
 X-Microsoft-Antispam-Message-Info:
-	p01F5VaFxSceWaZEFZQvRanMQZT7BkjKE0VAT0Nq6Y5duXe0MZc8q0D6yJyuAEqQ8xQLFqpkruUlK+e7ecbxbS1sxiGPnSTN0uXictL3LyZFSjlsvOPuYQ04ce4MomFNCQ62nVfyDwTyXsv6/YMdpixpP3jd2hoxFUQVt3iVutgLX60oRcUinxrjkimWYpOFhe7U2/LLwdHNtJditRL9EckbnBATBTzbyqPVZuteJTT1HRvqXBvl8A0c4hPcJcKyr1x1VIXxh4TMiTAtI08wSK+JoG7fofXxju7s8LW1d1cROW7zg/LQeDEwLl+ZniurygYqqSeMTvYQ8yHVZVhXZt4gcJSuPod+QOda7oi5mzHCP+EZ+58d9/jQIEPq14SddkJUcYOGE7OxIkwuZrUAcZSxETiLNZ0vxAdEM6c2xXbmF8hqiPF9WHQNbKIGMmawFUojvNE5mjKUpIRWxTRzSeKcPUeMjvnZHfrzxFQ1clS16cHp5Ul1XN1jrCyNXKDM3uugePm99xIWDVHnVjdKbKDDWh516BxaUEHt2zOBhQCXj93zdKSIy03wICRZbSKa3AR3v6UwU8Pm2RqGBmWe053Eye7dCdZInfOZ5uR0oSKup7etdj08oqBfSsi5LqeBgjxlDyRFPr5rJC2ThEagWvqNaOU/tsbaWbSKx7JQZMW5K+VmoOCM01MlMYyqI+5P
+	UwZY6Pe+MzuG+5b4VjPweWBjLzA1or2QoMudEUxZfUcq9ofcHYfBSvIYw+KgfThx1MQWd4YaoCPZKN3r98HBLnSnFNINJiVe30G0Z7+MhJBaHKPE61VHLa3x5hTbTHn+MisM+D79torHbGH8HR7zWJ3w3p5a1l5mN6cvS78mOdt0ocNkwJ+IR8/x8exyFNmT1788h6xpqs1pK0nLxCqaLdtZyl3aj+s0cZuxBlw5vx2CeAFkFmI4TT9aQ3PW/qKcgYs4Fz3Q0jVsJE/FLCHJkiWcQe76v1h9ciqV0wF0JRD96gh8yg3NmuWaVuWKSEA4xe1xaZ7KceVmlEYjl5KE0/a6sqw+Nz+mq9Qnp1WQpV+JOBHS4/bwxNf1cFI/RInvKavsd65y/H4UwhjLH4u8vIr5KdwKzc6RPtgR+bD/hbMpUYfGG3BCH73KrjLYoHX9SuQIxFmI4qeKLSHPkiuR+YAMH7M0R50cLH4XnCdpBvvqJe19Xk5qXLd+oUilLeo2sMgPwZdmLyfBzfxRPqc1thSPhrkw3VDd97AdUmCZrauU4Eqa+i+MV/CGD6gJRjAOIniCqesAYGrZNXXwBUwbd89bfi0HPLOK8U25X//7ZolBYfbDs+TREHUwtjx4neF9UWtYjPE/7HYQzrh0VrRNAYPD7U54ur46azeyDnkcUN74SyWgQ1LwGrcNDl+jh1+P
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(22082099003)(56012099003)(18002099003)(11063799003)(4143699003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(4143699003)(56012099003)(22082099003)(18002099003)(11063799003)(3023799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T2tWTFlaNFhhNno5dTFVQmMwcDBwMkl1YXB4YU1qdTNBM1piQUtNL1R1aVZ3?=
- =?utf-8?B?TW9NN2k3U1hLVFJtY0pKRmVWbkZ0TEluaTM5YkdSTUNKSXdjUFQxSEQxbEln?=
- =?utf-8?B?aW50TXdMSGVsMytNMUUwM3kxc0FtUjBGSEJWNnlhYmtGMG5GZzhRanl2QXM1?=
- =?utf-8?B?VmRSVlozQW0rS1gyeVp6SHVNcmg3aWRibVBBZkMraUd5QmV6dU14MEVmOUhi?=
- =?utf-8?B?VEUrREZnWEtDYTc0ajRvWG5tcmRhUFVob1l2RExRalp6QWR0aElZcTR6Rm5k?=
- =?utf-8?B?QUZMM0Z0TStaK2pOdUJQTDkxN0gxMTEvM2FtM1U0c1gwTTVhVVlwM1ovVVk1?=
- =?utf-8?B?SHI4c2hIMGdrbzJNMHRFUWtLa2F5YVlIdWRhRGRvdjkrY2RGd2F2Q1BXNC9t?=
- =?utf-8?B?dGtGR3kwT1NCZTBjMjBPb1Vxa09TNllJUTFpRXIyQ0FBeGZQUUZQSmFkYUhz?=
- =?utf-8?B?a2ZwWTV2bkpERkxiL2p3dDBFL1ZOMWdleUpxbFBhVzNCYjd3bisrMVB3ZHNn?=
- =?utf-8?B?cmVZVlIzUEhZYVlPUURZL1NDZHBZRmtCc0V6c3p6S2lSMjVxZ09mRHZnWTVy?=
- =?utf-8?B?RVp1ZlJHTXBDWEh2VERsVDR0dVFuT1FsOWxsYWJsWmVDam9zb0tXeHViNHVZ?=
- =?utf-8?B?UGVwQXpkdGMwT2ZIemlFWW50c2JLdlRSUHQyeXVySEYzMVNPSmgwRHZNQ2JT?=
- =?utf-8?B?bC9TUVpEVzR3K0wxdUtWV3hNZGdweUhMYnZqclZCckVQQ3JITUdkTU5mRUZF?=
- =?utf-8?B?RkVvQTdBSnFJWVFMOUxYRGdEMjltdjBLSDRCT0pwMitnTDgxTjZTd3VEU051?=
- =?utf-8?B?ZkNweXJrUXE3WEJYSUhITHdWaWhDT2lDMHl1Z0EwNzNqNXovVnFXeEhXM01N?=
- =?utf-8?B?QXZLd2VEMDZUdTR4cXlpa0g0YVViSzZEaWhnaFBhbkVEdlE2dVZzeUN5cWNT?=
- =?utf-8?B?UE9rR2hsbXVZd0xJZHhEYUNLT25ZcG92eXdRRXAxN0taNU5FZSthSkRlazVt?=
- =?utf-8?B?WTk2MEdzMVNkZEplN05wWkVGWDNpNUtURVgvZG9BOEo0dXFwcnV6S29KWWlr?=
- =?utf-8?B?NmJ1clMzTUJ6aVNpcnV6Y3UxSUczbUZGVHUrNzVhWVAvT1lOMWUxK0hDa3Vj?=
- =?utf-8?B?Q0gwNmJxREZBNG9XY2ppWlp1ZFZXM3JVK2VDM3ZNNmUrSDQrbUVvVFdnR0I5?=
- =?utf-8?B?Z1dzMTNvSmdVNEpNdnpOd2gva2RqRlpBS1huUVpQNytzMWRmWlU3SzJvUDUw?=
- =?utf-8?B?S0xNV2IrWWhmZFM4UUlRVnRxRFNBcmU2TjB4d2ZuaStsTGF0ZTQrZ2V2TjhK?=
- =?utf-8?B?TFNXbHFLOS9SOW9TRzljWGovOWNsb0dyVzNPc1NKbEIvUVd5K3Z1SVQxdVU2?=
- =?utf-8?B?WGM0MUJPeGNMczBUM0gyb3pBRlErY2ttY1A2MEdpUFkveHliRHpwbStqYW5n?=
- =?utf-8?B?ZDFsZTl0MXY5QjJFaGN0NElqQm9VdHpSM2xPVytsYmwrcnBRSGozb3ZwYjRp?=
- =?utf-8?B?Y2FGVkRiaGZoT0RNOWJlaitBMjZTeDZ3Uk50VXZvZ2trYkV4WlJLT1Uxb0Jx?=
- =?utf-8?B?aFpZQzg1N2tJL0hkcTFKRGhzS1FwSE9EMm80MU5tdG5SK1V3a0RicVdBUnhX?=
- =?utf-8?B?SUFYaXFpeW5LSnZHRDZqVGdUL21vcHdpRm5HMnVZTklNdkNnckhvZldzNW5z?=
- =?utf-8?B?TmtqeUg0cXl3SGlZNlZ2clAyVVpST2tmSk1Ndm8xeXB4ZEZJNkc3WEdyNXM3?=
- =?utf-8?B?SU9SUjNMbHBSTVgxZWVhUng4d2Y0RnJ3dzhOWEd2eGpqbEw1OGFPNlM3VEpW?=
- =?utf-8?B?UGNKQTV2djA1RUM4SkllemJySUpzNnRnNVdnNnVVRnh5WnViZWZudnE5emlI?=
- =?utf-8?B?ZHRSaTNmNEZIbFpNWm5DcytUTkJhMldWY2VZKzFKcGlqaWwyc3ErQ3lCRDFL?=
- =?utf-8?B?WDVtNDI5bDR0OCtCVlI5cHFmVmpEZ3ZQTDZGYXcra2tvcCt2N3RVNEYxbmZS?=
- =?utf-8?B?RmpzQU1rb0RCNVRINTBndmRnSCs4UkVQVnJtVzJTclZ0UlBMUlBONEJMeXBB?=
- =?utf-8?B?ZzFuNXNSOGsyMW44TmFrSmFGZmxtTFI5SGZDTk1kWFZocWxMc1RsVit6SnJ3?=
- =?utf-8?B?VEY1UUpzcFR2WXg0RkFZcUZlZWw4Q2hOektSWFpEMEp3U2tLMlc1cTB2Z3gr?=
- =?utf-8?B?NVhkM3RKUm5INFdHay9qREI0eGV5dU9LOUdTV3NITGtDeVpLYTFOVHFuUm15?=
- =?utf-8?B?WTIyZ1lBcHVzV1hEbjZIR1ZKTG1VNVBwTGZzQVFMejN0eHRma0JSNGY1K3hr?=
- =?utf-8?B?YmxBbE56SnpQa0E2M3pIdFhQaXNxbkE2V2VrSE1Jd1hQY2RDT0N1Zz09?=
+	=?utf-8?B?M0lmdkFqakJYOEVjTTBGS3dzbHdRZDNWL0VsbVF2bklnMHpOd09DdEYzTmR1?=
+ =?utf-8?B?Vk5ZTjZ4NUlDQ1BFODN4MVlIR2o3Y29CVEg0Rk45eDlBVjFTNSsyQTk3UWow?=
+ =?utf-8?B?NldWeXQ4dVZWUVo2QTBjZnNmeFFpTlBDdDdRNEpES1B0VWEzV1lvemsvbk4w?=
+ =?utf-8?B?VG5BWUZBdXZoUjdXOXR2Ty9vMVJNUk02dXpwcjlvRkJ1OE84Z2FaZTJxWjRq?=
+ =?utf-8?B?aE5SdjBHeFN1dXNQZzBSd05QaTRrL0NxdERuZE13c0lmUUtLT1VXQWFqRERS?=
+ =?utf-8?B?czcvbHEyanBPWVFSS2g2eFdmQjYyK3hBVC9la3lSeVJjWWtPV1NLZkEzTlhD?=
+ =?utf-8?B?enZhbmZlc0pVZnlNYkN6Y3B3M3d6UjAzd1ErTGpwc2x4ODI2Mit0eDh1ZFpv?=
+ =?utf-8?B?WjZwTGtuUHV3QlRsS2prWU90T20vZkFWSU5yN25RMVFUV0EvbHlPdkRPV0Ja?=
+ =?utf-8?B?VWltN0pZcXRSVFRUYXpiNWJUQzRnQmU2RnRyNDlzT2VuZFJVVzlaV3AzaTlt?=
+ =?utf-8?B?SjI0d2s2ZlZ1QU5ueVJNZmx4ZDJVZyt3bzcybHd4N3h3KzlUQm1yY1BVVGZZ?=
+ =?utf-8?B?T1VVV2RGMlFsa29xRWhwVGNlNStmeWhibnUxS1h5bjlqU3ovY0FQZm9PdGg0?=
+ =?utf-8?B?MVcralV1ZTNnMXEzaktuSUo1WDBrbU90UmFOeFUxMlFIZ0VLc1ZGYXhob0Vu?=
+ =?utf-8?B?bWpRYXN1NG05b3JoeWVKZXdIanBRa0hwSGVHa2dmc3ZJeHlNaE9EbEpleUlZ?=
+ =?utf-8?B?Q3FETmRtWnoraTJjQ0I0aTNlRVRwNUlpWERjRHNXZy9WWTFYV0ljMWgwNVRZ?=
+ =?utf-8?B?b3FMcjhoMk5UdnNSYXhjb1cyVDRTQm1GTE5ZeTVWeWk1ZE5JVmpZNi95TFdw?=
+ =?utf-8?B?akZBMDIyM09qaUltL0lISUY3ZGlKME1tNURhUkhjZ0c1djFIWVlvbTU2b0Np?=
+ =?utf-8?B?TFpEU3ZXUmZkUlBneFlvWFRtOTRjSGlqVjVUUTI2MkJDY0xPM0x6WDU3U0dN?=
+ =?utf-8?B?WHlEQmlvMUl5VURNU0lCaVhXdmh3K3ZKa0d1eWRZVEduV3B4emg5YWtMVEVP?=
+ =?utf-8?B?ZGZ2ZVplcVpZYUpIb216OFFqMTVsTmJPQm92S0lkaXY0cEluSUt3VVpHblhy?=
+ =?utf-8?B?d2pIZ1phY0Vmd2RTUkNwa0VwR1M4TE1ySTM1NEpvWlNzalBsMlZmMTFnTnp0?=
+ =?utf-8?B?a0lRaWVmMDlqbUFuZit4bllneWo5TVEzMjdqeGRWclZTRmoxNTVNSm00Yi9y?=
+ =?utf-8?B?QVA4UFlEZHVtRXVWYlVwVGJXLzJxUFNPZGtDcUswZWFnNmpxbGRIaWZzL3Nu?=
+ =?utf-8?B?aXgva1dWaW4wY0c2eGpTQTd3VkxOTVhBeTNRSXpxcmVxM011bDFObkE2V204?=
+ =?utf-8?B?b3FWaERRVGZ5WFEwTlRZM1lqWEx6TG5zMG4vMm04YXFxWDhmN0liRkYrU2U4?=
+ =?utf-8?B?WG9sdGNVZHBvRmVDb2NCQkRqN0dUNHFhcW4xckNwdzNhdEZXZEZIZ3NURnZt?=
+ =?utf-8?B?dkdreE56a0o0TGlRc2FrQ1EzV3pDTHQzNEFZYkNISkdmSVVKTmZWVnA4YVkz?=
+ =?utf-8?B?NDZHMEpKVURhZHhWZnk3a0JHWkdIcmRRd3JiVWd6WTQ3WG9zVG1Qcko5N2tv?=
+ =?utf-8?B?UHBma0lwTksweTd1ZWZHdlBIbk0wbkh0WndoaS84enZ4eThaUkFxNXpJc3N0?=
+ =?utf-8?B?QitER2FrTnN1L0lQekZYczJpNFRMVFVmK3YyTHRWdVNNeGdncW1RVEpFOElP?=
+ =?utf-8?B?bUlmMWdFc3orRWNZdTNUdmU3WERYTWNjbnF2OVFPL3llaS8yTkd6Q2cxSk9S?=
+ =?utf-8?B?SVlqY2tlQ1ZFcEZET1k3S1NuV0V5Mm5ScUtEQmJ0cW4ydWJiZ0VGTnpNaXJW?=
+ =?utf-8?B?RVJKU3JBRWRVSXc0N3U1ejRhZEtEL1pLdFBsZTlSRXlqUnBFQnlKTWZqTDg0?=
+ =?utf-8?B?Z0dOZmphR1hMby9RTFhLMmdBZHFJc3RxMnkwWXFoUTZkcjU1eW1xU1FVSExu?=
+ =?utf-8?B?cmxHMXkxRW5ZY3VkNUFxNnhKZXJEM2FCWmhJbHMvTEZsc3Zmb3VCZW4yQnR2?=
+ =?utf-8?B?R09tVERTK3JiaEgrYVBQL29ZWm1rL1lVdm5sVnY4TldhRjkydTNWTUNuYjVO?=
+ =?utf-8?B?aFNnbFVoVFJzT1BESnpKNDEzUE5XWnlud0x4SVNRaXhwQmtXSCtzVUNESS9h?=
+ =?utf-8?B?NVdZazdnS1FxVjZaY0tQSzhYTW1CWWFacDczdEhQSW9OMmhsMTg5djJiWTNh?=
+ =?utf-8?B?U3VCVytWTldnMlloNmUyQVF4Y3BIUUdNcVJWUFdnOUYrNDUveHVyeTNhZXJY?=
+ =?utf-8?B?dVpUdStsQ052TWxqS0ZycUNXSHJpS1l4QTBCOWs1Sk9rSFV3L0V3Zz09?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 776b8db9-2af4-4036-9c4a-08deb1230773
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddcca115-057c-47bf-d86b-08deb127842d
 X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 19:08:34.4063
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 19:40:41.5033
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n3Vy8S5BWdknRYZLk59j+lDKD/DzfDAV0sP96w03h3/2GybxjmLQIIHk5pynQhpr0v9rKrnSiElibCW5Np9D/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR03MB6197
-X-purgate-ID: tlsNG-bad1c0/1778699319-43374A53-AF92DEC5/0/0
+X-MS-Exchange-CrossTenant-UserPrincipalName: Yhm082lgsFDUNtGAC9U27F4Ukneo0xdaxDfNRg8fPLT3YAGrr71xBdDho0LT+ymLjxh4e4cbcIDwAPG1W7IQ0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR03MB5483
+X-purgate-ID: tlsNG-c1860d/1778701246-BEB74DB1-CEB39F76/0/0
 X-purgate-type: clean
-X-purgate-size: 2519
-X-Rspamd-Queue-Id: 5D192539A09
+X-purgate-size: 6119
+X-Rspamd-Queue-Id: B6E4D53A21F
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -176,9 +175,9 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[macbook.local:mid,citrix.com:dkim];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[macbook.local:mid,citrix.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -202,55 +201,135 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-On Wed, May 13, 2026 at 05:15:41PM +0200, Jan Beulich wrote:
-> On 13.05.2026 16:58, Roger Pau Monné wrote:
-> > On Wed, May 13, 2026 at 12:39:46PM +0200, Jan Beulich wrote:
-> >> On 13.05.2026 10:56, Roger Pau Monné wrote:
-> >>> On Tue, May 12, 2026 at 04:59:03PM +0200, Jan Beulich wrote:
-> >>>> ---
-> >>>> How come RTC_ALWAYS_BCD is compile-time constant 1? And then even with an
-> >>>> inverted comment? Looks like we've inherited this from Linux, and even in
-> >>>> Linus'es current tree it's still this same way. Yet all half-way recent
-> >>>> chipsets I'm aware of properly implement the DM bit in reg B. Might this
-> >>>> be another 32-bit leftover?
+On Wed, May 13, 2026 at 05:24:13PM +0200, Jan Beulich wrote:
+> On 13.05.2026 17:14, Roger Pau Monné wrote:
+> > On Wed, May 13, 2026 at 04:58:57PM +0200, Jan Beulich wrote:
+> >> On 13.05.2026 16:24, Roger Pau Monné wrote:
+> >>> On Tue, May 12, 2026 at 04:59:35PM +0200, Jan Beulich wrote:
+> >>>> --- a/tools/libacpi/static_tables.c
+> >>>> +++ b/tools/libacpi/static_tables.c
+> >>>> @@ -33,6 +33,8 @@ struct acpi_20_facs Facs = {
+> >>>>  #define ACPI_PM_TMR_BLK_BIT_WIDTH           0x20
+> >>>>  #define ACPI_PM_TMR_BLK_BIT_OFFSET          0x00
+> >>>>  
+> >>>> +#define CMOS_CENTURY 0x32 /* Conventional index used also without ACPI */
 > >>>
-> >>> *shrugs* I don't know.  Seems like Linux is still doing it, so it's
-> >>> likely safer for us to continue doing it also?  We had no reports of
-> >>> it being problematic, albeit one could argue it would be best to
-> >>> prevent such reports by doing the right thing.
+> >>> IMO this define (together with the RTC_CENTURY one below) need to be
+> >>> in a public header so it can be consumed by both the hypervisor and
+> >>> the toolstack.  Having two separate defines, one for the hypervisor,
+> >>> and another for the toolstack will just create confusion.
 > >>
-> >> That's my point. If we did this as specified, we'd unbreak systems with the
-> >> DM bit set correctly, but we'd break (hypothetical) systems with it bogusly
-> >> set. Like with a few other fixes, perhaps we should correct it, but provide
-> >> a command line option to restore old behavior?
+> >> I first thought I'd do it like this, but (a) this isn't a value Xen
+> >> defines (hence the comments in both places) and (b) I'm not entirely
+> >> happy with such a(n) (ab)use of the public headers (yes, we have other
+> >> such examples there, which I also don't really like).
 > > 
-> > Possibly, but I would do after 4.22 has branched, just in case.
+> > Yeah, it's not great, but it's better than having the same value
+> > defined in two different files, and having to keep them in-sync for
+> > the CMOS century field to work correctly?
 > 
-> Of course.
+> As the values come from the outside, they necessarily need to stay the
+> way they are (and hence implicitly in sync). If we meant to announce
+> another value to guests in the FADT we produce (breaking non-ACPI
+> guests), we then couldn't use RTC_CENTURY in hvm/rtc.c anyway. Instead
+> we'd have to track and migrate the index to use.
+
+Hm, OK, so the value is well-known enough to be considered part of the
+standard CMOS index layout, I guess that's fair enough.
+
+> >>>> --- a/xen/arch/x86/hvm/rtc.c
+> >>>> +++ b/xen/arch/x86/hvm/rtc.c
+> >>>> @@ -47,6 +47,12 @@
+> >>>>  #define epoch_year     1900
+> >>>>  #define get_year(x)    ((x) + epoch_year)
+> >>>>  
+> >>>> +static inline bool is_century(unsigned int x)
+> >>>> +{
+> >>>> +    /* Constant below should match epoch_year above, just as BCD value. */
+> >>>> +    return x >= 0x19 && (x & 0xf) < 10 && (x >> 4) < 10;
+> >>>> +}
+> >>>> +
+> >>>>  enum rtc_mode {
+> >>>>     rtc_mode_no_ack,
+> >>>>     rtc_mode_strict
+> >>>> @@ -482,16 +488,32 @@ static int rtc_ioport_write(void *opaque
+> >>>>          data &= 0x7f;
+> >>>>          s->hw.cmos_index = data;
+> >>>>          spin_unlock(&s->lock);
+> >>>> +        /* RTC_CENTURY always forwarded to DM. */
+> >>>>          return (data < RTC_CMOS_SIZE);
+> >>>>      }
+> >>>>  
+> >>>> -    if ( s->hw.cmos_index >= RTC_CMOS_SIZE )
+> >>>> +    switch ( s->hw.cmos_index )
+> >>>>      {
+> >>>> +    case 0 ... RTC_CMOS_SIZE - 1:
+> >>>> +        orig = s->hw.cmos_data[s->hw.cmos_index];
+> >>>> +        break;
+> >>>> +
+> >>>> +    case RTC_CENTURY:
+> >>>> +        orig = s->hw.century;
+> >>>> +        if ( !is_century(orig) || !is_century(data) )
+> >>>
+> >>> Is a real RTC strict in such a way, ie: will it refuse to set the
+> >>> century value to < 19 (0x19)?  For example QEMU seems to be way more
+> >>> relaxed, and allow any century value.
+> >>
+> >> I can switch to rejecting merely 0. Unlike centuries in the future, it
+> >> didn't look very useful to me to permit anything below 19. Please clarify
+> >> which way you prefer it.
+> > 
+> > QEMU seems to tolerate everything, so I lean towards tolerating
+> > everything that's not 0.  That's solely based on what QEMU does, which
+> > I think it's likely to be (quite) widely tested.
 > 
-> > One thing I've noticed, is that Xen don't attempts to set
-> > RTC_DM_BINARY in REG_B, shouldn't it try to set the bit when probing
-> > for the CMOS?  Since it assumes BCD mode it should at least try to set
-> > it?
+> Will do.
+
+We need to keep 0 as the sentinel invalid value, because that's the
+content of the pad field in the structure when not supported.
+Otherwise we could just use 0xff (or any other invalid) BCD value.
+
+> >>>> @@ -515,7 +538,10 @@ static int rtc_ioport_write(void *opaque
+> >>>>              /* Fetch the current time and update just this field. */
+> >>>>              s->current_tm = gmtime(get_localtime(d));
+> >>>>              rtc_copy_date(s);
+> >>>> -            s->hw.cmos_data[s->hw.cmos_index] = data;
+> >>>> +            if ( s->hw.cmos_index != RTC_CENTURY )
+> >>>> +                s->hw.cmos_data[s->hw.cmos_index] = data;
+> >>>> +            else
+> >>>> +                s->hw.century = data;
+> >>>>              rtc_set_time(s);
+> >>>>          }
+> >>>>          alarm_timer_update(s);
+> >>>
+> >>> Don't you need to adjust the tail return of rtc_ioport_write() (below
+> >>> the context here) to return 0 when s->hw.cmos_index == RTC_CENTURY, so
+> >>> the set value is also propagated to the DM, and not only the index?
+> >>
+> >> I don't think so. The case of us not handling RTC_CENTURY is dealt with
+> >> earlier in the function. Whereas when we handle the field, we don't want
+> >> to forward (like for all the other RTC fields).
+> > 
+> > Right, so then you also want to adjust the top part of
+> > rtc_ioport_write() to not propagate the write to the 0x70 IO port when
+> > data is RTC_CENTURY?  Otherwise you propagate the write to port 0x70,
+> > but not the read/write to port 0x71?
 > 
-> For one - don't you mean "clear it"? But then - no, that bit is purely
-> informational aiui. Changing it won't alter what the date/time registers
-> hold (only how they're updated). Hence by fiddling with it we'd corrupt
-> information (breaking OSes which properly respect the bit).
+> I can't, as whether to forward depends on the data subsequently written.
+> Propagating the index "just in case" is the only workable model that I
+> can think of. And as guests can do any number of successive port 70
+> writes, the DM needs to cope with this anyway.
 
-Yes, sorry, clear it.  The (possibly very outdated) specification I
-have contains:
+Hm, I see, the newly written value to port 0x71 is taken into account
+to decide whether to forward to the DM or not.
 
-DM – The data mode (DM) bit indicates whether time
-and calendar updates are to use binary or BCD formats. The
-DM bit is written by the processor program and maybe read
-by the program, but is not modified by any internal functions
-or RESET. A "1" in DM signifies binary data, while a "0" in
-DM specifies binary-coded-decimal (BCD) data.
-
-To me the "DM bit is written by the processor program" reads as if it
-could be set by the OS, but maybe that just means the bit is writable,
-but it doesn't affect the format of the field really.
+I wonder: would it be simpler to extend the size of the hvm_hw_rtc
+structure so that Xen can detect whether the incoming VM has support
+for the century field, and then avoid having to play heuristics
+with the value itself?  We would know ahead of starting the guest
+whether RTC_CENTURY is supposed to be handled by Xen or forwarded to
+the DM, and we won't be limited to use 0 as the sentinel value for not
+exposing RTC_CENTURY.
 
 Thanks, Roger.
 
