@@ -2,62 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CA1rORMbBGpxEAIAu9opvQ
+	id SHXzCPMdBGpyEAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 08:32:51 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 08:45:07 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49B4E52E1BA
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 08:32:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1307607.1579209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 859FE52E35B
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 08:45:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1307616.1579217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wN38g-0002bN-DO; Wed, 13 May 2026 06:32:14 +0000
+	id 1wN3Ks-0004k2-ER; Wed, 13 May 2026 06:44:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1307607.1579209; Wed, 13 May 2026 06:32:14 +0000
+Received: by outflank-mailman (output) from mailman id 1307616.1579217; Wed, 13 May 2026 06:44:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wN38g-0002Zp-AZ; Wed, 13 May 2026 06:32:14 +0000
-Received: by outflank-mailman (input) for mailman id 1307607;
- Wed, 13 May 2026 06:32:13 +0000
+	id 1wN3Ks-0004hT-Bi; Wed, 13 May 2026 06:44:50 +0000
+Received: by outflank-mailman (input) for mailman id 1307616;
+ Wed, 13 May 2026 06:44:49 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wN38f-0002Zj-0Q
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 06:32:13 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1wN3Kr-0004hL-Dx
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 06:44:49 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wN38e-00C2pj-9j
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 08:32:12 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wN3Kq-001RW2-CS
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 08:44:48 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 6a041ae7-bab6-0a2a0a5309dd-0a2a4507b346-38
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 08:32:11 +0200
-Received: from [52.101.53.49]
- (helo=BL0PR03CU003.outbound.protection.outlook.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 6a041aea-229c-0a2a45070019-346535312ba7-3
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 08:32:11 +0200
-Received: from BLAPR03CA0033.namprd03.prod.outlook.com (2603:10b6:208:32d::8)
- by LV8PR12MB9452.namprd12.prod.outlook.com (2603:10b6:408:200::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Wed, 13 May
- 2026 06:32:07 +0000
-Received: from BN1PEPF0000468B.namprd05.prod.outlook.com
- (2603:10b6:208:32d:cafe::6e) by BLAPR03CA0033.outlook.office365.com
- (2603:10b6:208:32d::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.23 via Frontend Transport; Wed,
- 13 May 2026 06:32:07 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF0000468B.mail.protection.outlook.com (10.167.243.136) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Wed, 13 May 2026 06:32:07 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 13 May
- 2026 01:32:04 -0500
-Received: from [10.252.145.116] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 13 May 2026 01:32:03 -0500
+ (envelope-from <jbeulich@suse.com>)
+ id 6a041dd4-2eae-0a2a0a5409dd-0a2a450c9570-48
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 08:44:48 +0200
+Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a041de0-62f1-0a2a450c0019-d1558034e181-3
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 08:44:48 +0200
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-488a8ca4aadso57796565e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 23:44:48 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48fcdf6408bsm29081335e9.3.2026.05.12.23.44.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 May 2026 23:44:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,239 +56,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vT1+dYOuO4FtmIZ3bnoicz69/al2XIubd+Z20q5Omynl+xUTjaPbpROmQs20D/jHsRCzydRg9AX2rtuM2/IWEfYqSI9+iUnXj02kxwRf6QXQjqBz69snzDU/KZWqsPEnXe/tLYY5JLz+wVVZstXt1vcbYMVCTJVhpfWWUcpeLr1y82RbxEEH6cU+kgqmwel8PiBJNcc/yRJIxZ8ONhcfh6k/yAFnnecnzcE0Cups9CvGNw4Ho9A/Qm1+4j6kvPC5i/RL09NVehnwqlSPCAXTmZWOiNziWcqjstU5YZqntlOesHeQLX6r51er0sTeVg8Mqc60L3odD85LXKRCSSyBzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4nnedsHeDiEFp1HsXvQiXNMLNfyxh1rOKP1OQLerBsQ=;
- b=BrLH6toO2dCwl8wcMvarSKLHGzWzfpgwPnFy3MJWYZThKMiMkhPIG3uFprRxtsYirgU7hIoH8Q7A8bWGbaj3+tK4vjkTvq74E+V+uPkDp85UNriDx7E/iVkn0qBrh/cUSSMfz21pQQhGcJHu9USimSpnfmi0wNg0dzoJ1i2KQI12Oyd/aHMzADJEugwoKzcqnLO67iCzuy5wWoFZADQ0Xkxnn0v+Uyak9/aCM5/SM5uQzxvGF6POgCx+Wh6sVglD59QaCbAf1D3NDilL7DrqUbSCy0mmmsEaVojUsQxA7Rbior1qIHPqatzn4SHVIQ4iYakr75pnSG2OMNmYpLNrAA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4nnedsHeDiEFp1HsXvQiXNMLNfyxh1rOKP1OQLerBsQ=;
- b=VqenwQ5/ijknhRrkA132fCrLsyUW8I3jMxoGZI0ecKH5YhqMhXqcUOrrUhTxk9CsVRv5nCYFLZkDX8Po4XKojajyUZeXA4DzumLuJtLHpWIXmO8vNfC06zfRk7MPeLufVUB+MeZeCHF+6/GX52Fz4XifmhOoMVgP9HexubA9ZC8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <36527d70-da8c-454d-8de4-54c29c3bd565@amd.com>
-Date: Wed, 13 May 2026 08:32:02 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Content-Language:Cc:To:Subject:From:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1778654688; x=1779259488; darn=lists.xenproject.org;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=ZUrH8i/YVTA1yhjN7VVQDsPDHU1txiZ6leU/AQLk+WA=;
+        b=auMjt5Z3H3LYAK3irQq1Fxjq6qFNb0ef5GtxP8nDjvOC90Ddx5gyviCAxq7Y/XB0c/
+         oacaH57TB02ML2lv/ZP0Ta17aTqC2oVRUXBqlkHJvAhyRxrARjLropbPEJnnnLzTe8+1
+         9hhZK5sCwXk5MRFv3reVupJpKVuQs20pBnCUeDhSJbxa1WJZv/XzjYCjQfrfvour54CL
+         O0VLntkpJr29SojPri5rAF6O+YAXvCY0qhKw5lpg3/+4d+J2yr0dNHp5Nix2XxVUf/Nv
+         HkFhF5AMCveBYsP73g2Pr8zicBrjS+UJ1ewd9dfD/EooD2FVhB5zXm5Zs6Rl4Gz5Jm4l
+         LTiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778654688; x=1779259488;
+        h=content-transfer-encoding:autocrypt:content-language:cc:to:subject
+         :from:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZUrH8i/YVTA1yhjN7VVQDsPDHU1txiZ6leU/AQLk+WA=;
+        b=Ch9Q4CO7X5djI3eAu40Rl41HoYHYQ7kgWQWjEi/6420KvwxJMwjc8XWNo8dEXw6DjP
+         XiISG4m/ilg9GsldWDSr0ngLW4rq6aYPvmbx/9ULI9mBHwSF7T6LMKBTZa4LgVD5ir4l
+         sW7GAdjZ4QXWVXKLeUHtwcJlp0udgEtJJYI0HZJEhvEhySFKXPRtrB24NG5jt7jrrmRS
+         59dmfD5lEltNW4k+KOjKG2SVttVH0qEOe3lkYK4mm/9WSy4kw7Iey6qB7NSY7jYFlHQ7
+         RteN/KWN8FrkmJBVRiqh1jDF9RVvI0GbfDGOHvngVJHsqEescHwmBRoJIc35Gup0NucX
+         cGXQ==
+X-Gm-Message-State: AOJu0YxSJPatc4LZ6Twdhu1THr0JAJ/zM06hbhPCeENAGwhImtYy8Fhk
+	MdzkbFSJGRp545Ft4QeE/HQOf+GjntJR6m++VQf6auep0/S7MK4wwD9unyNi3G+S3gYa4s/zZ/9
+	Hrac=
+X-Gm-Gg: Acq92OHnemjy6UVj7RUJpbYM8KPVU15rVI1lUVT8K47PeSvanKo3dPe8ojyNCnV9SRy
+	90bS8iy9/wet//sF4kfLWkC44LsFWCIKVISAuqsS8Y6l473uBMPmTcM6+VAuispCA98Ic+stg5f
+	tX9Zjn4KTJNOV/riIsZxBjPBeECSmOzDHn3uDBUY7COBfhZSl252Z0s1K4L86IHT+zWMrlRb0y0
+	eUvHDLSgsWNWKg+FaNrtIRWPXmCc6YDikf5vvMFGlNc1BS2j+YB4Y38NvChs4yb31jBsUPfaIzK
+	gpivo8y/mU4YhukZP1Ij6VxdRITkV95n4gD8Pg8OgV8JVOKPsmNZbGwLeUYRCOqkjggoHKBlXRx
+	Gs+SQu+ttBNdB/c9drIcbiMpsGwCjUZxP0ihcM8aI5RSh7JytAJ5UUo8l+1fPYacjTtqpaCY9RM
+	mvweGUQPWqwIMBCUe9Bjb63XfFcrcX/BymQogCjQydJshAcnOID0MfZEOq2W39eV7+7viFT9XVk
+	4ZZZzOwP3/vhSU=
+X-Received: by 2002:a05:600d:4:b0:488:a2ac:a34c with SMTP id 5b1f17b1804b1-48fce9d6283mr15741225e9.12.1778654687560;
+        Tue, 12 May 2026 23:44:47 -0700 (PDT)
+Message-ID: <68b1607a-f2a1-4f53-84c5-43c61eeb1869@suse.com>
+Date: Wed, 13 May 2026 08:44:46 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] CI: Add a Debian 13 (Trixie) arm64 container
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@vates.tech>, Stefano Stabellini
-	<sstabellini@kernel.org>, Doug Goldstein <cardoe@cardoe.com>
-References: <20260508212907.1643761-1-andrew.cooper3@citrix.com>
- <20260508212907.1643761-5-andrew.cooper3@citrix.com>
- <249ca124-b144-4c50-a0fb-3c0e6db5a1ca@amd.com>
- <d1037e15-cde7-40a1-9011-a02c23e870e8@citrix.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2 RFC] x86/time: avoid early uses of NOW() to return zero
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>
 Content-Language: en-US
-In-Reply-To: <d1037e15-cde7-40a1-9011-a02c23e870e8@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468B:EE_|LV8PR12MB9452:EE_
-X-MS-Office365-Filtering-Correlation-Id: cebb09d0-6e21-46e2-f354-08deb0b95ac6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|11063799003|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	6UY5hknrLRijp+xBAGcuHv69gXo7Amtum2W1FuuMJtP6eZuLTEoUa5Zk96I7CIN5jCWTRS8mM2F1lKodXoo6ceF0x05T9qCM7+7pypX23m+sE5pTYHUzA8j6fpfKy5FyyOpRAwsXeh/00riPE4WlEfzyjLdRc6OQgYR4tjBUQLPSmKnqpL9MgTeddLWUsXvQteG2M06xR6RLzPu2zTHToATLZUlwq4Q/6HTTnBOciEy+P95Zbl/qnqxw5l76u2DN4XBmxkuDEb1H5Wecw9rXHUe8tXbQ6DkMo7VH91a4rZhqI7oGRW4cjE5BtA4e0C/zDgz3c1aawP7oJ6Ebih9uC0dj5QXHXAio4HReotP1F699F9WRdktO66zAKHuyMyBPXw5S2hBjeyM+T67oRH1MrlBtLG3rAibA/Y6j+hb3VJfalo8tzIOsdWmgSHSlwQy3IoiBJfCbUVCQpsvXRLFsvG0cP7a+gsX0OAuo2Uzf63am4jwFzNFjYGjqa7g5MGduXrvoNPE+4XIT0q53lQgsNqJVXkWQIdMlp51eequgxfQtkw3F6VkzMbO9PDRAkqsBv/yH6Fe7G148Y5VaBhrbx03hcM+UyeqR7EppDvIV9pBIKAJRAGeCRKm89vEsQ6H0Cuq3m61Dnmyy5mpNA3US77aFXidWak+BiGhxmWHXQ2lSr/4KOulzuExSBuwO7zHkgdLuY6ip8Jam4VskUorrU2BhfMO0pvASeiEO0zdKsAg=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(11063799003)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	sGS48mLdiIbO2GCCBzp/YYm2b+t+g973Mt6TIG+Oz+ur5NqN6ONR56aWVy+p5Zr0qjslEXM37DVkNbLr4uX+AWClZ+jrZ9vKnPN7Qgys/4/YFp/s4tIvxzgwkNtcNdgpQxGkQiiIRWotV7LFkwb0I7Our+YRwIUvEQoSTEzf/RzMs0qEVkd7ubEvQ8kx+RZjFPYdQuqAoYaQmm7rS/2fp8FGgBpKCG3wnCvqXegUFh7jH/8ga7d2+s/htoMCumoqiylKbWVsKvdv1XQ8ONSHM4ASCfVQSdAg+uTfYu5tCbPIsznGQNyN2xJqogoHUxUx6q8AOLwfK/+Ej6oAeZvKs1DWmQQkbBJMf6zcRgj2UfxVypIcU7BIa4IZRVhD4i8Vubum9hVZOkQzpIau8J9XUMTY06eet1jTasqZUAt4E83cta82upBbWIDeL+cHTnrK
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2026 06:32:07.1222
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cebb09d0-6e21-46e2-f354-08deb0b95ac6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF0000468B.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9452
-X-purgate-ID: tlsNG-ef75cf/1778653931-23374C48-5C54813F/10/63158204843
-X-purgate-type: spam
-X-purgate-size: 4599
-X-Rspamd-Queue-Id: 49B4E52E1BA
+X-purgate-ID: tlsNG-d25034/1778654688-DA368CF5-9A085F9D/0/0
+X-purgate-type: clean
+X-purgate-size: 5826
+X-Rspamd-Queue-Id: 859FE52E35B
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:anthony.perard@vates.tech,m:sstabellini@kernel.org,m:cardoe@cardoe.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,citrix.com:email];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[amd.com:+];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_COUNT_TWELVE(0.00)[13];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:mid,amd.com:dkim,xenproject.org:email]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
+Waiting loops like the one in flush_command_buffer() will degenerate to
+infinite ones when used early enough for NOW() to still return constant
+zero. Make sure the returned value at least monotonically increases. When
+available, use nominal frequency values as initial approximation.
 
+Do this only in get_s_time(), as producing a sane value in
+get_s_time_fixed() for non-zero inputs won't be reasonably possible.
+Put an assertion there.
 
-On 11-May-26 11:21, Andrew Cooper wrote:
-> On 11/05/2026 7:29 am, Orzel, Michal wrote:
->>
->> On 08-May-26 23:29, Andrew Cooper wrote:
->>> Exactly as per the Bookworm container, but additionally with the ipxe-qemu and
->>> qemu-system-aarch64 packages.  These will be used to remove the export jobs.
->>>
->>> Switch qemu-arm{32,64} jobs to use this container.
->>>
->>> No functional change.
->>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Anthony PERARD <anthony.perard@vates.tech>
->>> CC: Stefano Stabellini <sstabellini@kernel.org>
->>> CC: Michal Orzel <michal.orzel@amd.com>
->>> CC: Doug Goldstein <cardoe@cardoe.com>
->>>
->>> We should probably wire up some build tests too, but it's too late on a Friday
->>> for me to be thinking about that for this posting.
->>> ---
->>>  automation/build/debian/13-arm64v8.dockerfile | 71 +++++++++++++++++++
->>>  automation/gitlab-ci/test.yaml                |  4 +-
->>>  automation/scripts/containerize               |  1 +
->>>  3 files changed, 74 insertions(+), 2 deletions(-)
->>>  create mode 100644 automation/build/debian/13-arm64v8.dockerfile
->>>
->>> diff --git a/automation/build/debian/13-arm64v8.dockerfile b/automation/build/debian/13-arm64v8.dockerfile
->>> new file mode 100644
->>> index 000000000000..b9062ee8b443
->>> --- /dev/null
->>> +++ b/automation/build/debian/13-arm64v8.dockerfile
->>> @@ -0,0 +1,71 @@
->>> +# syntax=docker/dockerfile:1
->>> +FROM --platform=linux/arm64/v8 debian:trixie-slim
->>> +LABEL maintainer.name="The Xen Project"
->>> +LABEL maintainer.email="xen-devel@lists.xenproject.org"
->>> +
->>> +ENV DEBIAN_FRONTEND=noninteractive
->>> +
->>> +RUN <<EOF
->>> +#!/bin/bash
->>> +    set -eu
->>> +
->>> +    useradd --create-home user
->>> +
->>> +    apt-get update
->>> +
->>> +    DEPS=(
->>> +        # Xen
->>> +        bison
->>> +        build-essential
->>> +        checkpolicy
->>> +        flex
->>> +
->>> +        # Tools (general)
->>> +        ca-certificates
->>> +        cpio
->>> +        git-core
->>> +        pkg-config
->>> +        wget
->>> +        # libxenguest dombuilder
->>> +        libbz2-dev
->>> +        liblzma-dev
->>> +        liblzo2-dev
->>> +        libzstd-dev
->>> +        zlib1g-dev
->>> +        # libacpi
->>> +        acpica-tools
->>> +        # libxl
->>> +        libfdt-dev
->>> +        libjson-c-dev
->>> +        uuid-dev
->>> +        # xentop
->>> +        libncurses5-dev
->>> +        # Python bindings
->>> +        python3-dev
->>> +        python3-setuptools
->>> +        # Golang bindings
->>> +        golang-go
->>> +        # Ocaml bindings/oxenstored
->>> +        ocaml-nox
->>> +        ocaml-findlib
->> Since this is a container used only for tests, why listing packages required for
->> Xen and tools build?
-> 
-> I did leave a note about that.
-> 
->>
->>> +
->>> +        # for test phase, qemu-* jobs
->>> +        busybox-static
->>> +        curl
->>> +        device-tree-compiler
->>> +        expect
->>> +        file
->>> +        ipxe-qemu
->>> +        ovmf
->>> +        qemu-system-aarch64
->>> +        u-boot-qemu
->>> +        u-boot-tools
->> So after this change, even though you replace debian-12 with debian-13 for all
->> the tests, the debian-12 still contains the unneeded packages (i.e. for a test
->> phase that it no longer runs).
-> 
-> Yes.  I can't do this series bisectably without it.  Also, in the past
-Ok, I understand the bisectibility problem.
-> people have explicitly requested to be able to run the qemu smoke
-> testing from the build container, which is why it's like this and not split.
-Unless it's a rule that every container follows and is documented somewhere I
-don't like this argument. My plan then is to do the clean up of Arm containers
-in the future to remove packages not used. It creates more confusion for people
-willing to create their own dockerfiles for testing (or just to see what it
-takes to build e.g. Xen on Arm) than it gives benefits.
-> 
-> Honestly, I was hoping to leave the Trixie update to the ARM
-> maintainers, but despite the Bookworm QEMU (7.2) being newer than the
-> 6.0 in the export jobs, it contains the SYSREG interception bugs which
-> prevents hiding ThumbEE from guests, and breaks all the arm32 testing
-> with a Linux dom0.
-Does it make sense to have both Debian 12 and Debian 13 build/test? Can't we
-have just the latest one?
+Reported-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+RFC: This breaks at least the TSM_BOOT case printk_start_of_line(), which
+     checks for NOW() returning 0 (falling back to TSM_RAW in this case).
+     For now I have no idea how to avoid this; perhaps that's tolerable at
+     least in the case where we put in place an early estimate? Should we
+     maybe weaken the fallback condition to take effect for any value
+     below 1μs?
 
-All of the remarks above are not something that should prevent this patch from
-going in, so:
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+RFC: While generally the mentioned waiting loops will take longer to time
+     out, on a very fast CPU tight loops may time out too early.
 
-~Michal
+RFC: For the AMD/Hygon case, if the "nominal" value isn't available, we
+     could use the "high" one. That would cause NOW() to run too slowly
+     (until the scale is properly set), but maybe that's still better than
+     it returning 0? (As it stands, I can't really test the new code
+     there, as my Rome system only supplies the lo/hi pair of values.)
 
+RFC: On the 2nd pass through early_cpu_init() it may be okay to skip the
+     new additions.
 
+With "x86/time: set AP's TSC scale estimate earlier" the counter update
+may not need to be atomic anymore, as then only the BSP can reasonably hit
+that path.
+
+I don't think Fixes: tags should be put here. If we did, we'd have to
+enumerate all introductions of early uses of NOW() (or get_s_time()), with
+the exception of those dealing with getting back 0 (which I expect is only
+printk_start_of_line()). Will want backporting nevertheless (unless deemed
+too risky).
+---
+v2: Add assertion to get_s_time_fixed(). Use nominal frequencies for very
+    early setting, if available.
+
+--- unstable.orig/xen/arch/x86/cpu/common.c	2026-05-13 08:35:28.640503356 +0200
++++ unstable/xen/arch/x86/cpu/common.c	2026-05-12 12:30:35.475284195 +0200
+@@ -19,6 +19,7 @@
+ #include <asm/random.h>
+ #include <asm/setup.h>
+ #include <asm/shstk.h>
++#include <asm/time.h>
+ #include <asm/xstate.h>
+ 
+ #include <public/sysctl.h>
+@@ -403,6 +404,25 @@ void __init early_cpu_init(bool verbose)
+ 				    &c->x86_capability[FEATURESET_7d1]);
+ 	}
+ 
++	if (c->cpuid_level >= 0x15) {
++		cpuid(0x15, &eax, &ebx, &ecx, &edx);
++
++		if (ecx && ebx && eax)
++			preset_tsc_scale(DIV_ROUND_UP(ecx * 1UL * ebx, eax));
++		else if (c->cpuid_level >= 0x16) {
++			/* Assume CPU base freq ≈ TSC freq. */
++			cpuid(0x16, &eax, &ebx, &ecx, &edx);
++			if (eax)
++				preset_tsc_scale(eax * 1000000UL);
++		}
++	} else if (c->vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON)) {
++		unsigned int nom_mhz = 0;
++
++		amd_process_freq(c, NULL, &nom_mhz, NULL);
++		if (nom_mhz)
++			preset_tsc_scale(nom_mhz * 1000000UL);
++	}
++
+ 	eax = cpuid_eax(0x80000000);
+ 	if ((eax >> 16) == 0x8000 && eax >= 0x80000008) {
+ 		ebx = eax >= 0x8000001f ? cpuid_ebx(0x8000001f) : 0;
+--- unstable.orig/xen/arch/x86/include/asm/time.h	2026-05-13 08:35:28.640503356 +0200
++++ unstable/xen/arch/x86/include/asm/time.h	2026-05-12 12:25:14.435489339 +0200
+@@ -23,6 +23,7 @@ mktime (unsigned int year, unsigned int
+ int time_suspend(void);
+ int time_resume(void);
+ 
++void preset_tsc_scale(unsigned long freq);
+ void init_percpu_time(void);
+ void time_latch_stamps(void);
+ 
+--- unstable.orig/xen/arch/x86/time.c	2026-05-13 08:35:28.640503356 +0200
++++ unstable/xen/arch/x86/time.c	2026-05-13 08:33:54.000000000 +0200
+@@ -1655,6 +1655,9 @@ s_time_t get_s_time_fixed(u64 at_tsc)
+     const struct cpu_time *t = &this_cpu(cpu_time);
+     u64 tsc, delta;
+ 
++    /* scale_delta() degenerates when the scale wasn't set yet. */
++    ASSERT(t->tsc_scale.mul_frac);
++
+     if ( at_tsc )
+         tsc = at_tsc;
+     else
+@@ -1670,6 +1673,20 @@ s_time_t get_s_time_fixed(u64 at_tsc)
+ 
+ s_time_t get_s_time(void)
+ {
++    /*
++     * Before the TSC scale is set, avoid returning constant 0 (or whatever
++     * this_cpu(cpu_time).stamp.local_stime is set to).  While the returned
++     * value is in no way representing time, it at least increases
++     * monotonically, thus avoiding e.g. waiting loops to degenerate to
++     * entirely infinite ones.
++     */
++    if ( unlikely(!this_cpu(cpu_time).tsc_scale.mul_frac) )
++    {
++        static s_time_t counter;
++
++        return arch_fetch_and_add(&counter, 1);
++    }
++
+     return get_s_time_fixed(0);
+ }
+ 
+@@ -2623,6 +2640,21 @@ int __init init_xen_time(void)
+     return 0;
+ }
+ 
++/* BSP-only function to pre-set an approximate TSC scale. */
++void __init preset_tsc_scale(unsigned long freq)
++{
++    struct cpu_time *t = &this_cpu(cpu_time);
++
++    /*
++     * The incoming frequency is only approximate (nominal).  Increase it by
++     * 1% to make NOW() output rather a little too slow than too fast, thus
++     * avoiding a possible backwards jump once the final scale is set.
++     */
++    freq += DIV_ROUND_UP(freq, 100);
++
++    set_time_scale(&t->tsc_scale, freq);
++    t->stamp.local_tsc = boot_tsc_stamp;
++}
+ 
+ /* Early init function. */
+ void __init early_time_init(void)
+@@ -2640,6 +2672,9 @@ void __init early_time_init(void)
+                    "TSC ADJUST set to %lx on boot CPU - clearing\n", tmp);
+             wrmsrl(MSR_IA32_TSC_ADJUST, 0);
+             boot_tsc_stamp -= tmp;
++
++            if ( t->stamp.local_tsc )
++                t->stamp.local_tsc -= tmp;
+         }
+     }
+ 
 
