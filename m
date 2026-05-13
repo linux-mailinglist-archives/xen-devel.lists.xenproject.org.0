@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mNx+Ja0RBGoMDAIAu9opvQ
+	id eAUlJ60RBGqVDAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 07:52:45 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7CFC52DCB3
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 07:52:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1307573.1579172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1368652DCB4
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 07:52:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1307577.1579181 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wN2VL-0003Rb-Ol; Wed, 13 May 2026 05:51:35 +0000
+	id 1wN2Vu-0003pH-Vz; Wed, 13 May 2026 05:52:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1307573.1579172; Wed, 13 May 2026 05:51:35 +0000
+Received: by outflank-mailman (output) from mailman id 1307577.1579181; Wed, 13 May 2026 05:52:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wN2VL-0003Oh-Gm; Wed, 13 May 2026 05:51:35 +0000
-Received: by outflank-mailman (input) for mailman id 1307573;
- Wed, 13 May 2026 05:51:34 +0000
+	id 1wN2Vu-0003nL-TP; Wed, 13 May 2026 05:52:10 +0000
+Received: by outflank-mailman (input) for mailman id 1307577;
+ Wed, 13 May 2026 05:52:09 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jens.wiklander@linaro.org>) id 1wN2VJ-0003Ob-Pj
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 05:51:33 +0000
+ (envelope-from <jens.wiklander@linaro.org>) id 1wN2Vt-0003n1-6P
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 05:52:09 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wN2VI-00Cgwd-NX
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 07:51:32 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wN2Vs-00GVmr-JX
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 07:52:08 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jens.wiklander@linaro.org>)
- id 6a041160-5cb7-0a2a0a5109dd-0a2a4502afd4-12
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 07:51:32 +0200
-Received: from [209.85.161.43] (helo=mail-oo1-f43.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a04116d-2eae-0a2a0a5409dd-0a2a4503a882-28
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 07:52:08 +0200
+Received: from [209.85.167.182] (helo=mail-oi1-f182.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jens.wiklander@linaro.org>)
- id 6a041163-af86-0a2a45020019-d155a12bc91f-3
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 07:51:32 +0200
-Received: by mail-oo1-f43.google.com with SMTP id
- 006d021491bc7-694932346a1so2309890eaf.3
- for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 22:51:32 -0700 (PDT)
+ id 6a041187-672d-0a2a45030019-d155a7b6e965-3
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 07:52:08 +0200
+Received: by mail-oi1-f182.google.com with SMTP id
+ 5614622812f47-479dd56d016so4692180b6e.3
+ for <xen-devel@lists.xenproject.org>; Tue, 12 May 2026 22:52:08 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,92 +52,93 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=linaro.org header.i="@linaro.org" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-ARC-Seal: i=1; a=rsa-sha256; t=1778651491; cv=none;
+ARC-Seal: i=1; a=rsa-sha256; t=1778651527; cv=none;
         d=google.com; s=arc-20240605;
-        b=JCDibiwu7oFrtD+v704GIPIM3EUR/OJSFCLPm3GDsZLEvLSGUcU54wJcb74vGFo4iS
-         s2YgFPcYfEdWITwg9PeObDaTWuTJvgQFSXne+nGVzNemie7lg49FHspe2jkfZeDFXSIp
-         WvH07voxOHvMZFEv2qBv+BOv3MxzhS6IJQDwHFrm7id3zNhlvJjnlnb/+dhcm57Pl38I
-         yoGKcdhXzfk+7uj2JFe/arGpP8hK0KDQCozGMrP/LEFCCGqqAA2rfR2Ssl8QTts64leX
-         Vz2iPnv7EnMSF3oY/6O4Mtjwy3s79VvmryXCyS+pBy1XGIgubtC0cX63p5BRrD4IEm6T
-         L56w==
+        b=KCZvoD2FzNWU1yL5ZPXkS5yih6b+wec9xicSzd1nlf2wpmyevHGAftUaTbtRuocSOZ
+         LGm8WHaEJIm3TUTNP/ZLkSn9h7ZGWVnq9mjF3nTtViSUDouRmOktuk11dCMblkhnS5Ty
+         iQ2UEoO3N697GT474N25hkKiJ8EHyMaHiWNRN/S47gNbCBL0ml+4NdfCIad2MLh6FgUF
+         FZCVsnpB1Rs8HCEkPyVDmE6MamcCXzL/C1aysy4ITk50AjE73NWVlmqP/ttmKEfNgfgb
+         zk/lp2AcpybZjTXIxEOBEU/LAGxuBE3uve1zd2CvmyD4rkPbpdVaz8uc62t+Dl2+qdhI
+         LQJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=bhTpi/CpEXo8RyqZTmivoo9OsZQNme5x14a7tnaLrZE=;
+        bh=pjtW/ih8DgRup9tUYord5CdhpuchYBY3fKaAqR8q44M=;
         fh=wNLC6Hyb5Ukz/ErppBRQBwv8vwa/OMsdh6R8bnNsiPU=;
-        b=VYz5UsNToDfBMxCxrr6lqCoD6lx1pndqsSaQpUKTxY/lH2SihH6z/GP+941RREnagv
-         l+FkLkswGR4xxqTFAHzCXsr5ZOkGtl8KO2sF/qWxQU8w2+nWAb/LBD8iEnLSCKfsBtXL
-         exyjGIKVnH6TD1vYPj0Xn9zqJgno1xOXds+Qp+Ql2k/2RyGvWCt0RXK+UcrhY0gShAbf
-         YTcgn9qE3d9l8Ncuinc0Ly9Sxh3OAsRIv9RyGYjv0J4NyVIvVnU46CW/N5y9VsKSm4ME
-         hyFoUgFrsGbLYjBoLe3Hp0mAQbcOpGqjc1zK7DqlL/KaiadpLINo6aN4SV7Cx2nCS2bh
-         bH2g==;
+        b=j9LACpKzNU+CQgztoWmgUdt28yRQ4a93SowNU5LjOvMiCDcVc1B4/LI/8jAxXabVMh
+         JjED9r0hLvqg/lIptzH0SLQ/NMhtyiAEMtRrR8BOmW/5iDtkAAyT76L8pU++XKRNFaMw
+         UrgBNsBvYWV09de9jwl6TZXWYN9mnPqHlKfEo7e0oEaza0yuoi24RRoyfhwuyyiRGsO1
+         nkM9LNMucxhyGuC6jXDfdEdXk8/9/l+HGm1kzDSQkutnM2HW9he3fJzU+Dqm8JdNjMPW
+         Ep1zc5Q7zG2VMxMA0BrjYBMCescAjkzogl+6snYfg35P4CDiLMLZidrrZXUsV7ctSLXC
+         LqRw==;
         darn=lists.xenproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1778651491; x=1779256291; darn=lists.xenproject.org;
+        d=linaro.org; s=google; t=1778651527; x=1779256327; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=bhTpi/CpEXo8RyqZTmivoo9OsZQNme5x14a7tnaLrZE=;
-        b=szJQOtsEMXLBCxi0dJvlAPzbQvljV2XgLXi8uHkQU+xl0+TNdBEvKTuOR3PdKWetuV
-         1Tcnbmjmxj9xse8PoEIukQLuMfuTpFF0QWDRyaHpcw5n2FdSkzUuWP2NQCZglHSlHCmd
-         ZBGAq+e/DiMO6c6pO+HNChrf5K5ap2B343xEfEIh3mXSl2mVvbFlNATiFg0JcKHwMZQe
-         5duYHaGBiITxD39H9Cjq/scxrJssAOuIFoDRrvqfrO5jWlyhWF9SOpozYeLiAFg85EU2
-         2PHYc540hymgem3pGApJdllvn4OCD4eWfaX5M/jCB/Eroyjo03k3zHl4myBUJhbFKcDc
-         /HLw==
+        bh=pjtW/ih8DgRup9tUYord5CdhpuchYBY3fKaAqR8q44M=;
+        b=VJbKm+G+87tlF0uA+hn7iz38bCvyB+tKQFuozmSi8Saxy1jbdQZb0BzZ3qvR+smGE9
+         lUC6h/nBg63qQUCWIa3ilfC8ysfhAe4GaSg7VDBkaRBBXO2g7mV241nHYzSmdfkYp+nG
+         m26RGU/6TiYK0UOwWNyHD+yJ2IdV12lgSmWmH/eB+C/xyossXKPeFLjd7CFK/K3y1cET
+         4nFEHXDWdwkB+b1bOQoRiDxaG0khN8/bsLHU9mOEYjKlhY6RnOCucTO/9lgPKIns7enc
+         6uzbVMMMhmizkI3FD7XIM9FJuzrJ7tIeHW/ur7hwp1DVHdAWdWl5bVZpOb7wcuu9NnIL
+         9AeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778651491; x=1779256291;
+        d=1e100.net; s=20251104; t=1778651527; x=1779256327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=bhTpi/CpEXo8RyqZTmivoo9OsZQNme5x14a7tnaLrZE=;
-        b=mM1Do5rnMUxNPCIW5OpkcDqN47iVrXiuH+WeaVp0w0PAQWvRImJY6UoXixnym7hTHI
-         lzQFDKKxuktHg2kIyd6V3VRC3yzv7QGH/DCMcQ9p1ZSwyFOs5d03Xbzc0r1H1CgRgwGP
-         0R8AHTeIilxVPOfbGi9MVPaxxk/Lu/90SNx1OBinGoip9WnNpB3nfqhkPZGjdbBN2N9s
-         JXeV2FHWQ72Qq1au4uuDO5lVSulodgvi0yWCt62FedKul7RZkK5H+f1Tkj5K/f+gyD/C
-         +qceCu1yeKwKNGU9Dr1k5Ey+CsYF4tTFBiYoDveDagPFbLzssv4rezisVnCI+RoeaQsu
-         DnKw==
-X-Gm-Message-State: AOJu0YyH0uTB/JG/RRoaN0Z6SG56gLBHeEwm9hEOGYUPd08kQpnCXSRc
-	oKS+PIjvfWOV4gfLMmvKLjTAMHNyrmRVgLdOPgI++jcoxfctIg4BqFMAOLVckVs30tAM2RAnH68
-	GUi796W+W4oi8/ZqWYN3yAH0U/sWXH+zBMM38wApHpg==
-X-Gm-Gg: Acq92OEoO/Kwb/FUii/RKCMmuTCvEz+jvYL7a/nGgBPJ76HNDVGdwvO5nXjQ/oahEZS
-	MBOLT2dv/TLKOyNx/GzuaoBvwa2vMmForzA/QZBKZZrpFcJBLCRSIs1Y0XpvuEpTDCU54HA2CDx
-	BrhrL10UP1rO9n0aIGJLSYjAWHgSSUdpBgstrrBAakqly2nMzDMAhCGukJ3pW1ux52B1XYgQM9r
-	kgZodhAp/esr/a3cvBUx4vD1DwGOfFmMdzIdUC0PFritmhCpsiXU9WGBL1pJePf5FN0gl8tRpbM
-	ETBL+AyVF/l5aH1pstJ1DqSy3ifAv/2xKkBuKQnJBR0yRLJy
-X-Received: by 2002:a05:6820:814:b0:696:1d34:3271 with SMTP id
- 006d021491bc7-69b78e4a46fmr1111690eaf.58.1778651490688; Tue, 12 May 2026
- 22:51:30 -0700 (PDT)
+        bh=pjtW/ih8DgRup9tUYord5CdhpuchYBY3fKaAqR8q44M=;
+        b=EIHKE/+LyA8Fl8U9VsgSH1A9iyCDIXHZUU4QM+GT+k+7X4/i6F0UUf5/QMEz1dyCQT
+         EwZonNxdMbI94vxwNd4XIApsMpHn4RLH+r/qLXuylaMn1n9kVObICMkkPeD0v5mCF0Rl
+         vhnmKJ5PaMp6hPLaWWtqZIng70hP4/8KdwoK2ivW/5MILMcMqlI9X1muX0AL/niHY6ur
+         qQE1oVNU9spqfu16EvO0mEJ7nTx7FmxjnSOTWxfCVRMUWI2sY+TvY1UY93mo13M4VZ4N
+         osXbrnATiMrhiAUP9HLO8u3OODv5UNAbgX2yCOgIbmkIF2bI9upV3uYlpdy/GSyi74rk
+         XVng==
+X-Gm-Message-State: AOJu0YzxcaPcNwVcypIZWUU+93Gh9K1dlHDA2ooBUC+0fRcGJ7uaSs4/
+	uFm6ydIckNuWjAvKZPp2fOeoXwaOkAwTgY58dghI38jEwrxCwvl+GH71RLdU6zIkTaZvSZi+vyh
+	LxPY4tDnr65a7mHp4bFlfpaXqYXp/T5YIRhcbOvvTnHcBCNdCT/jTPt8Aqw==
+X-Gm-Gg: Acq92OGc1MNcGNHuEnDQnO5ELUCgqYeho0XSKbQpq4aRKg8K3+A1o9UcOCDwxdzPcrf
+	okPN4O+OBCmRQDcyD248Era6vemd0fL4w1qfnB7MZznyshmKQ46jN1TxwOZifsE8EC67uv+cr05
+	AxtyGj7he5WcggaPdNhDA1Ss/1K74zDYUsv2VdE+KR7Q9mQjdjrSXaPrX/uuUooylo2PgQRJPAS
+	tevhw0CWcE7sp0h4FAgKviIcp0O/1ORVq7RqwyBXO6MkDTKc7NCUujnvrfqW1KZluaxgZEFfqb1
+	3En3N+hP16Uf0RMrUZElLUwwwPy7RwZPKwSlrv1ryq0AF6JC
+X-Received: by 2002:a05:6808:3c43:b0:45c:881c:e0c0 with SMTP id
+ 5614622812f47-482b6288b52mr966806b6e.47.1778651526471; Tue, 12 May 2026
+ 22:52:06 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1776955622.git.bertrand.marquis@arm.com> <b83650603daa853d7069748a2575ebe6ece040c2.1776955622.git.bertrand.marquis@arm.com>
-In-Reply-To: <b83650603daa853d7069748a2575ebe6ece040c2.1776955622.git.bertrand.marquis@arm.com>
+References: <cover.1776955622.git.bertrand.marquis@arm.com> <b22ff7b7bf12fc21e6fbff47d77b092f5c487aec.1776955622.git.bertrand.marquis@arm.com>
+In-Reply-To: <b22ff7b7bf12fc21e6fbff47d77b092f5c487aec.1776955622.git.bertrand.marquis@arm.com>
 From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Wed, 13 May 2026 07:51:19 +0200
-X-Gm-Features: AVHnY4Kt3Zf2s_av28Irr6I9SAXTnMMXzbj2154gD1vg7BivIcdLyJ0bhJxZRRw
-Message-ID: <CAHUa44HLK9dNdh1cffXAr5A4Nbo5_ZvtXgSOYxSe3hMH06TLmg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/6] xen/arm: ffa: Track hypervisor notifications in a bitmap
+Date: Wed, 13 May 2026 07:51:55 +0200
+X-Gm-Features: AVHnY4JDr4br8YW584uPXHxxnLvNtoDya9_GfV9ljZW70CeJkuhrYmlrDTHC6SY
+Message-ID: <CAHUa44EOHaFyyExqLRHtF0c+4MAxhrtW6UfqAmhvPQSXOEpr3w@mail.gmail.com>
+Subject: Re: [PATCH v2 4/6] xen/arm: ffa: Preserve secure notification state
+ when polling SPMC
 To: Bertrand Marquis <bertrand.marquis@arm.com>
 Cc: xen-devel@lists.xenproject.org, 
 	Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
 	Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-720697/1778651492-81B70161-82860AF4/0/0
+X-purgate-ID: tlsNG-33051d/1778651528-40E68938-CD8BE204/0/0
 X-purgate-type: clean
-X-purgate-size: 7434
-X-Rspamd-Queue-Id: D7CFC52DCB3
+X-purgate-size: 7845
+X-Rspamd-Queue-Id: 1368652DCB4
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
 	DMARC_POLICY_ALLOW(-0.50)[linaro.org,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[linaro.org:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,arm.com:email,linaro.org:email,linaro.org:dkim,mail.gmail.com:mid];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,linaro.org:email,linaro.org:dkim,arm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FORGED_SENDER(0.00)[jens.wiklander@linaro.org,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -164,47 +165,34 @@ Hi Bertrand,
 On Wed, Apr 29, 2026 at 7:44=E2=80=AFAM Bertrand Marquis
 <bertrand.marquis@arm.com> wrote:
 >
-> Hypervisor notifications are currently tracked with a dedicated
-> buff_full_pending boolean. The old RX-buffer-full path also exposed a
-> pending indication indirectly via vm_pending, so
-> FFA_NOTIFICATION_INFO_GET could clear that summary before the guest
-> retrieved the Hypervisor notification bitmap with
-> FFA_NOTIFICATION_GET.
+> Secure pending state is latched when the SPMC raises the schedule
+> receiver interrupt, but Xen currently clears that latch too aggressively.
+> Guest FFA_NOTIFICATION_INFO_GET consumes secure_pending even though it
+> only reports pending state, and secure FFA_NOTIFICATION_GET only clears
+> the latch when both SP and SPM bitmaps are requested together. This can
+> drop a pending indication before the receiver retrieves secure
+> notifications, or keep INFO_GET reporting stale secure pending state
+> after a successful GET.
 >
-> Replace the single boolean with a Hypervisor notification bitmap
-> protected by notif_lock. INFO_GET reports pending when hyp_pending is
-> non-zero, GET returns and clears the HYP bitmap under the lock, and
-> RX-buffer-full now keeps notif_lock held across the local NPI
-> decision. notif_irq_raised is only set when an NPI is actually
-> injected, and is cleared once the local pending state is consumed.
+> Keep secure_pending as a latched indication until secure notifications
+> are actually retrieved. Guest FFA_NOTIFICATION_INFO_GET now reports the
+> latched state without clearing it, while a successful secure
+> FFA_NOTIFICATION_GET clears the latch regardless of which secure bitmap
+> flags were requested. Also protect secure_pending with notif_lock,
+> serialize SPMC INFO_GET polling behind notif_info_lock, and preserve the
+> caller-visible INFO_GET success width.
 >
-> Initialize and clear the bitmap during domain lifecycle handling, and
-> use ctx->ffa_id for bitmap create and destroy so the notification
-> state stays tied to the cached FF-A endpoint ID.
->
-> If the local injection attempt fails because no vCPU is online,
-> hyp_pending remains set and notif_irq_raised remains clear. This
-> keeps the RX-buffer-full notification pending until the guest
-> retrieves it, without publishing a successful local IRQ state too
-> early.
->
-> Functional impact: RX-buffer-full remains pending in hyp_pending
-> until FFA_NOTIFICATION_GET, and failed local NPI injection no longer
-> leaves Xen thinking the interrupt was already raised.
+> Functional impact: guest INFO_GET preserves the secure pending
+> indication until secure notifications are retrieved, and successful
+> secure GET clears the guest-visible pending latch.
 >
 > Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 > ---
 > Changes since v1:
-> - clarify that v1 exposed RX-buffer-full indirectly via vm_pending
-> - document that v2 keeps the HYP pending indication until
->   FFA_NOTIFICATION_GET
-> - keep RX-buffer-full pending state stable across failed local NPI
->   injection attempts
+> - drop the defensive fw_notif_enabled guard in notif_sri_action()
 > ---
->  xen/arch/arm/tee/ffa_notif.c   | 56 ++++++++++++++++++++++++++--------
->  xen/arch/arm/tee/ffa_private.h | 15 +++++++--
->  2 files changed, 56 insertions(+), 15 deletions(-)
-
+>  xen/arch/arm/tee/ffa_notif.c | 51 ++++++++++++++++++++++--------------
+>  1 file changed, 32 insertions(+), 19 deletions(-)
 
 Looks good.
 Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
@@ -213,167 +201,175 @@ Cheers,
 Jens
 
 >
->
 > diff --git a/xen/arch/arm/tee/ffa_notif.c b/xen/arch/arm/tee/ffa_notif.c
-> index 07bc5cb3a430..a631481e3815 100644
+> index 1260f98a77e9..e1cd852d1c53 100644
 > --- a/xen/arch/arm/tee/ffa_notif.c
 > +++ b/xen/arch/arm/tee/ffa_notif.c
-> @@ -19,7 +19,7 @@
+> @@ -18,6 +18,7 @@
+>
 >  static bool __ro_after_init fw_notif_enabled;
 >  static unsigned int __ro_after_init notif_sri_irq;
+> +static DEFINE_SPINLOCK(notif_info_lock);
 >
-> -static void inject_notif_pending(struct domain *d)
-> +static bool inject_notif_pending(struct domain *d)
+>  static bool inject_notif_pending(struct domain *d)
 >  {
->      struct vcpu *v;
+> @@ -111,6 +112,7 @@ void ffa_handle_notification_info_get(struct cpu_user=
+_regs *regs)
+>  {
+>      struct domain *d =3D current->domain;
+>      struct ffa_ctx *ctx =3D d->arch.tee;
+> +    uint32_t fid =3D get_user_reg(regs, 0);
+>      bool notif_pending;
 >
-> @@ -33,13 +33,15 @@ static void inject_notif_pending(struct domain *d)
->          if ( is_vcpu_online(v) )
->          {
->              vgic_inject_irq(d, v, GUEST_FFA_NOTIF_PEND_INTR_ID, true);
-> -            return;
-> +            return true;
->          }
+>      if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
+> @@ -119,7 +121,10 @@ void ffa_handle_notification_info_get(struct cpu_use=
+r_regs *regs)
+>          return;
 >      }
 >
->      if ( printk_ratelimit() )
->          printk(XENLOG_G_DEBUG "%pd: ffa: can't inject NPI, all vCPUs off=
-line\n",
->                 d);
+> -    notif_pending =3D test_and_clear_bool(ctx->notif.secure_pending);
+> +    spin_lock(&ctx->notif.notif_lock);
+> +    notif_pending =3D ctx->notif.secure_pending;
+> +    spin_unlock(&ctx->notif.notif_lock);
 > +
-> +    return false;
->  }
->
->  int32_t ffa_handle_notification_bind(struct cpu_user_regs *regs)
-> @@ -94,8 +96,15 @@ void ffa_handle_notification_info_get(struct cpu_user_=
-regs *regs)
->
->      notif_pending =3D test_and_clear_bool(ctx->notif.secure_pending);
 >      if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
-> +    {
+>      {
 >          notif_pending |=3D test_and_clear_bool(ctx->notif.vm_pending);
->
-> +        spin_lock(&ctx->notif.notif_lock);
-> +        if ( ctx->notif.hyp_pending )
-> +            notif_pending =3D true;
-> +        spin_unlock(&ctx->notif.notif_lock);
-> +    }
-> +
+> @@ -133,7 +138,9 @@ void ffa_handle_notification_info_get(struct cpu_user=
+_regs *regs)
 >      if ( notif_pending )
 >      {
 >          /* A pending global notification for the guest */
-> @@ -174,12 +183,19 @@ void ffa_handle_notification_get(struct cpu_user_re=
+> -        ffa_set_regs(regs, FFA_SUCCESS_64, 0,
+> +        ffa_set_regs(regs,
+> +                     smccc_is_conv_64(fid) ? FFA_SUCCESS_64 : FFA_SUCCES=
+S_32,
+> +                     0,
+>                       1U << FFA_NOTIF_INFO_GET_ID_COUNT_SHIFT, ffa_get_vm=
+_id(d),
+>                       0, 0, 0, 0);
+>      }
+> @@ -156,6 +163,8 @@ void ffa_handle_notification_get(struct cpu_user_regs=
+ *regs)
+>      uint32_t w5 =3D 0;
+>      uint32_t w6 =3D 0;
+>      uint32_t w7 =3D 0;
+> +    uint32_t secure_flags =3D flags & ( FFA_NOTIF_FLAG_BITMAP_SP |
+> +                                      FFA_NOTIF_FLAG_BITMAP_SPM );
+>
+>      if ( !IS_ENABLED(CONFIG_FFA_VM_TO_VM) && !fw_notif_enabled )
+>      {
+> @@ -175,27 +184,16 @@ void ffa_handle_notification_get(struct cpu_user_re=
 gs *regs)
->              w6 =3D resp.a6;
+>          return;
 >      }
 >
-> -    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) &&
-> -          flags & FFA_NOTIF_FLAG_BITMAP_HYP &&
-> -          test_and_clear_bool(ctx->notif.buff_full_pending) )
-> +    if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+> -    if ( fw_notif_enabled && (flags & ( FFA_NOTIF_FLAG_BITMAP_SP |
+> -                                        FFA_NOTIF_FLAG_BITMAP_SPM )) )
+> +    if ( fw_notif_enabled && secure_flags )
 >      {
-> -        ACCESS_ONCE(ctx->notif.vm_pending) =3D false;
-> -        w7 =3D FFA_NOTIF_RX_BUFFER_FULL;
+>          struct arm_smccc_1_2_regs arg =3D {
+>              .a0 =3D FFA_NOTIFICATION_GET,
+>              .a1 =3D recv,
+> -            .a2 =3D flags & ( FFA_NOTIF_FLAG_BITMAP_SP |
+> -                            FFA_NOTIF_FLAG_BITMAP_SPM ),
+> +            .a2 =3D secure_flags,
+>          };
+>          struct arm_smccc_1_2_regs resp;
+>          int32_t e;
+>
+> -        /*
+> -         * Clear secure pending if both FFA_NOTIF_FLAG_BITMAP_SP and
+> -         * FFA_NOTIF_FLAG_BITMAP_SPM are set since secure world can't ha=
+ve
+> -         * any more pending notifications.
+> -         */
+> -        if ( ( flags  & FFA_NOTIF_FLAG_BITMAP_SP ) &&
+> -             ( flags & FFA_NOTIF_FLAG_BITMAP_SPM ) )
+> -            ACCESS_ONCE(ctx->notif.secure_pending) =3D false;
+> -
+>          arm_smccc_1_2_smc(&arg, &resp);
+>          e =3D ffa_get_ret_code(&resp);
+>          if ( e )
+> @@ -212,6 +210,10 @@ void ffa_handle_notification_get(struct cpu_user_reg=
+s *regs)
+>
+>          if ( flags & FFA_NOTIF_FLAG_BITMAP_SPM )
+>              w6 =3D resp.a6;
+> +
 > +        spin_lock(&ctx->notif.notif_lock);
-> +
-> +        if ( (flags & FFA_NOTIF_FLAG_BITMAP_HYP) && ctx->notif.hyp_pendi=
-ng )
-> +        {
-> +            w7 =3D ctx->notif.hyp_pending;
-> +            ctx->notif.hyp_pending =3D 0;
-> +            if ( !ctx->notif.vm_pending )
-> +                ctx->notif.notif_irq_raised =3D false;
-> +        }
-> +
+> +        ctx->notif.secure_pending =3D false;
 > +        spin_unlock(&ctx->notif.notif_lock);
 >      }
 >
->      ffa_set_regs(regs, FFA_SUCCESS_32, 0, w2, w3, w4, w5, w6, w7);
-> @@ -211,9 +227,12 @@ void ffa_raise_rx_buffer_full(struct domain *d)
->      if ( !ctx )
->          return;
->
-> -    ACCESS_ONCE(ctx->notif.buff_full_pending) =3D true;
-> -    if ( !test_and_set_bool(ctx->notif.vm_pending) )
-> -        inject_notif_pending(d);
+>      if ( IS_ENABLED(CONFIG_FFA_VM_TO_VM) )
+> @@ -356,7 +358,10 @@ static void notif_vm_pend_intr(uint16_t vm_id)
+>       * guarantees that the data structure isn't freed while we're access=
+ing
+>       * it.
+>       */
+> -    ACCESS_ONCE(ctx->notif.secure_pending) =3D true;
 > +    spin_lock(&ctx->notif.notif_lock);
-> +    ctx->notif.hyp_pending |=3D FFA_NOTIF_RX_BUFFER_FULL;
-> +    if ( !ctx->notif.notif_irq_raised &&
-> +         inject_notif_pending(d) )
-> +        ctx->notif.notif_irq_raised =3D true;
+> +    ctx->notif.secure_pending =3D true;
 > +    spin_unlock(&ctx->notif.notif_lock);
->  }
->  #endif
+> +
+>      inject_notif_pending(d);
 >
-> @@ -426,12 +445,16 @@ void ffa_notif_init(void)
->
->  int ffa_notif_domain_init(struct domain *d)
->  {
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
+>  out_unlock:
+> @@ -375,11 +380,15 @@ static void notif_sri_action(void *unused)
+>      unsigned int n;
 >      int32_t res;
 >
-> +    spin_lock_init(&ctx->notif.notif_lock);
-> +    ctx->notif.notif_irq_raised =3D false;
-> +    ctx->notif.hyp_pending =3D 0;
+> -    do {
+> +    spin_lock(&notif_info_lock);
 > +
->      if ( fw_notif_enabled )
->      {
-> -
-> -        res =3D ffa_notification_bitmap_create(ffa_get_vm_id(d), d->max_=
-vcpus);
-> +        res =3D ffa_notification_bitmap_create(ctx->ffa_id, d->max_vcpus=
-);
+> +    do
+> +    {
+>          arm_smccc_1_2_smc(&arg, &resp);
+>          res =3D ffa_get_ret_code(&resp);
 >          if ( res )
->              return -ENOMEM;
->      }
-> @@ -441,10 +464,17 @@ int ffa_notif_domain_init(struct domain *d)
+>          {
+> +            spin_unlock(&notif_info_lock);
+>              if ( res !=3D FFA_RET_NO_DATA && printk_ratelimit() )
+>                  printk(XENLOG_WARNING
+>                         "ffa: notification info get failed: error %d\n", =
+res);
+> @@ -393,7 +402,7 @@ static void notif_sri_action(void *unused)
+>          id_pos =3D 0;
+>          for ( n =3D 0; n < list_count; n++ )
+>          {
+> -            unsigned int count =3D ((ids_count >> 2 * n) & 0x3) + 1;
+> +            unsigned int count =3D ((ids_count >> (2 * n)) & 0x3) + 1;
+>              uint16_t vm_id =3D get_id_from_resp(&resp, id_pos);
 >
->  void ffa_notif_domain_destroy(struct domain *d)
->  {
-> +    struct ffa_ctx *ctx =3D d->arch.tee;
+>              notif_vm_pend_intr(vm_id);
+> @@ -401,7 +410,9 @@ static void notif_sri_action(void *unused)
+>              id_pos +=3D count;
+>          }
+>
+> -    } while (resp.a2 & FFA_NOTIF_INFO_GET_MORE_FLAG);
+> +    } while ( resp.a2 & FFA_NOTIF_INFO_GET_MORE_FLAG );
 > +
-> +    spin_lock(&ctx->notif.notif_lock);
-> +    ctx->notif.notif_irq_raised =3D false;
-> +    ctx->notif.hyp_pending =3D 0;
-> +    spin_unlock(&ctx->notif.notif_lock);
-> +
->      /*
->       * Call bitmap_destroy even if bitmap create failed as the SPMC will
->       * return a DENIED error that we will ignore.
->       */
->      if ( fw_notif_enabled )
-> -        ffa_notification_bitmap_destroy(ffa_get_vm_id(d));
-> +        ffa_notification_bitmap_destroy(ctx->ffa_id);
+> +    spin_unlock(&notif_info_lock);
 >  }
-> diff --git a/xen/arch/arm/tee/ffa_private.h b/xen/arch/arm/tee/ffa_privat=
-e.h
-> index c291f32b56ff..9ddda3f88986 100644
-> --- a/xen/arch/arm/tee/ffa_private.h
-> +++ b/xen/arch/arm/tee/ffa_private.h
-> @@ -340,9 +340,20 @@ struct ffa_ctx_notif {
->      bool vm_pending;
 >
->      /*
-> -     * True if domain has buffer full notification pending
-> +     * Lock protecting the hypervisor-managed notification state.
->       */
-> -    bool buff_full_pending;
-> +    spinlock_t notif_lock;
-> +
-> +    /*
-> +     * Tracks whether a local notification pending interrupt was raised.
-> +     * Protected by notif_lock.
-> +     */
-> +    bool notif_irq_raised;
-> +
-> +    /*
-> +     * Bitmap of pending hypervisor notifications (for HYP bitmap querie=
-s).
-> +     */
-> +    uint32_t hyp_pending;
->  };
+>  static DECLARE_TASKLET(notif_sri_tasklet, notif_sri_action, NULL);
+> @@ -489,6 +500,7 @@ int ffa_notif_domain_init(struct domain *d)
 >
->  struct ffa_ctx {
+>      spin_lock_init(&ctx->notif.notif_lock);
+>      ctx->notif.notif_irq_raised =3D false;
+> +    ctx->notif.secure_pending =3D false;
+>      ctx->notif.hyp_pending =3D 0;
+>
+>      if ( fw_notif_enabled )
+> @@ -507,6 +519,7 @@ void ffa_notif_domain_destroy(struct domain *d)
+>
+>      spin_lock(&ctx->notif.notif_lock);
+>      ctx->notif.notif_irq_raised =3D false;
+> +    ctx->notif.secure_pending =3D false;
+>      ctx->notif.hyp_pending =3D 0;
+>      spin_unlock(&ctx->notif.notif_lock);
+>
 > --
 > 2.53.0
 >
