@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +C5AEVWFBGrVKwIAu9opvQ
+	id 0HA+EmeFBGrVKwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 16:06:13 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 16:06:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EF3D534ACA
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 16:06:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1308078.1579624 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B64EB534ADF
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 16:06:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1308083.1579632 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNADo-000172-SP; Wed, 13 May 2026 14:06:00 +0000
+	id 1wNAEC-0001WX-6k; Wed, 13 May 2026 14:06:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1308078.1579624; Wed, 13 May 2026 14:06:00 +0000
+Received: by outflank-mailman (output) from mailman id 1308083.1579632; Wed, 13 May 2026 14:06:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNADo-00015L-Od; Wed, 13 May 2026 14:06:00 +0000
-Received: by outflank-mailman (input) for mailman id 1308078;
- Wed, 13 May 2026 14:05:59 +0000
+	id 1wNAEC-0001Ti-3s; Wed, 13 May 2026 14:06:24 +0000
+Received: by outflank-mailman (input) for mailman id 1308083;
+ Wed, 13 May 2026 14:06:22 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wNADn-00015F-8l
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 14:05:59 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wNAEA-0001TM-IT
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 14:06:22 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNADl-00CJAv-3v
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 16:05:58 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wNAE8-00CJHY-DX
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 16:06:21 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a048541-5cb7-0a2a0a5109dd-0a2a450aad26-12
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 16:05:58 +0200
-Received: from [209.85.221.50] (helo=mail-wr1-f50.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a04855b-5cb7-0a2a0a5109dd-0a2a45029b4a-14
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 16:06:21 +0200
+Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a048546-56b3-0a2a450a0019-d155dd32ac9b-3
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 16:05:58 +0200
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-44e1860558fso4404839f8f.0
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 07:05:58 -0700 (PDT)
+ id 6a04855d-af86-0a2a45020019-d1558034e582-3
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 16:06:21 +0200
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-48e8132c6d0so30464545e9.1
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 07:06:21 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-454913049ecsm39703682f8f.19.2026.05.13.07.05.56
+ ffacd0b85a97d-45491f8d4c3sm41175703f8f.34.2026.05.13.07.06.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 May 2026 07:05:56 -0700 (PDT)
+ Wed, 13 May 2026 07:06:21 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,48 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778681158; x=1779285958; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778681181; x=1779285981; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=LGLDB1oLz7dytXJNDddp3ZiftmqYBvYmdivYW9ydtQI=;
-        b=e1E79wOtISn7omuHm+TCiG2rFYn091hAQdWdXcikykJjdTPVmuEhhwT+fdyMV3ymJc
-         CBj1AAcnjJERqmyGpBEnpHAzGUU6CwHotZ92C/oXrp4zBgrlwlO4/RzWS90v+ppJYo/1
-         firjWvPU52WdcpFj7uHVmky519Jnd1Vgy+ds/jbiP3gpAM+fjyjE6vd0tBfWWatu9DgN
-         hx4wODLMiWZ7kXFwbTdHZIgHpiyALJ8rqU4aarftx77nJq5ds72r86I+4ldh7G2Rtx9N
-         /CmSVbjgppI2hEaasVN+cgT1sn7wWTf/20Yz8dthW6tiXcEPfwacwwwkp7hrtEcwYKa0
-         j8PA==
+        bh=wy+UKfr0jpUKnUnHywACAxAHzw2WJmvRPSq5Ydx2cgA=;
+        b=LTqa4d4CptUL/o1ZQ1dz+3eY4yOhYFzHJcz4/s/67tlwjEBGYgJl3NVZfCNqeZfAGY
+         itPxzMVAQouhngLeDDmV4BQBfS5LGjmKQr6r6WmvJfFmn8pEuIhMTqLEOnzY9PYOw+4E
+         JQkwhKlrC5ggKZz8ZPv71ZzV3EY303G+m7dPwrK4dpCPKHEZ4FOWZoRw+9pk9tsAjz3b
+         LC/t99+TuU3g7fm3C15VE7DYimBX5f+RIgcJL+kRgyzJLJ4ZiBcPDeaImZQ7lLoI1XUi
+         ixRRproB/qgfInNeShzHNSG8WiH7vKmvQzMRYPC9sAwEG+aSWVXZcwApcNiEsQQ8d+/u
+         e3+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778681158; x=1779285958;
+        d=1e100.net; s=20251104; t=1778681181; x=1779285981;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LGLDB1oLz7dytXJNDddp3ZiftmqYBvYmdivYW9ydtQI=;
-        b=PuyE6+GashqrGawofs9xf6FU0mBOD+qB1zpc4FRO1oMSLumxlsf1yrCWCDgJs4Sbmi
-         ElIvqBKU7eb9PEB4WnnDU5N1komrvlnA0Z9iDIlaDgXhajE3GtBXdZsJNEUwB7GVIpu1
-         4I7acaIlVS4YaWK6fb61i1n8gVnz23wyuUO5PCGhGuM5f2l7KdFFjSgtFhUA+Qf9MW71
-         6gqsRBLaKQoRfrbkYXJBvHAy1DuxZtDHgNOKKlE/ASd5ObKfxYiiEtM0nchXQwFW4uOK
-         Nvm+A7rRr61w6KwxMAaGOP845zKjDK/o2/SU7+iSD7Ymy8h78Fwxz6SVumHDxKnMW5eI
-         3WRQ==
-X-Gm-Message-State: AOJu0YwiXiHph83VkgEVm0aSJADCPrcM5zaFiVrMEQxULyw4FDNE569b
-	8Z9QghlM0ojHd2bX+CIqvgY7iA0TX4KsJkw2n5Pu3XV/GuAJbLQ+gmXLtcd2KVvs2FVW/fpZ2qW
-	tJuQ=
-X-Gm-Gg: Acq92OHcs2rf6PnLTI6wf9zawDIRhHEhSFWzddwt8v580xh2KGj8Yn6Q34KFN/1YcR+
-	xdaDd7eJPFW95nV8D73xfpPVGGRghDiXA+ShZZvf4Wkjh+65AokVhcmjShMdmE+66WZ9lIbBzV/
-	RO6QrX/RelNjE961f+MX2gyniTMzjlX8UkeRusi2sjbXEqBVn9cQBtLh5T/ZmSM0stg+NoyzENb
-	gNlr7A8JB/H9seFxS6v/5mDDQPlYzNbisPbVpShQm3btQXZxjlDgIm03c8hz1tiLUDIB6zqS5/1
-	LXgZnYArU4+wllKX81dJRXRwghYxLMcoVIFmJqtnRZfyGuu1XRke9TghL2Snp/CrQaFbzp8ZSHU
-	gAdgbh1Q1CGwSnOHFIzSXR7PhSOIqc5HXL4VNgUuGaxAcpDeJRlGFK5NeRT0bZLTIVqjo85gY3v
-	obnggxmcZbZ7hIIcKya7g14EbRsN3CyP5ou8QU7FC33h04ffRRRC2GwuFSXoBPNENu56L0hdqrb
-	Ys6Sa7muaxv280=
-X-Received: by 2002:a05:6000:18a5:b0:43d:50c:6f18 with SMTP id ffacd0b85a97d-45c58696122mr5641842f8f.11.1778681156869;
-        Wed, 13 May 2026 07:05:56 -0700 (PDT)
-Message-ID: <ddecaf67-a167-4a1e-8674-20284f6f02b3@suse.com>
-Date: Wed, 13 May 2026 16:05:55 +0200
+        bh=wy+UKfr0jpUKnUnHywACAxAHzw2WJmvRPSq5Ydx2cgA=;
+        b=mrYc4voN9bUvwKWSkKEo7SyqfeeCMu1VtBQ+fNJnLKTwnc0Ud5bQQO5+9ZiRIbxUKs
+         zGaOUL9OWFmp+0JJAb5jkUH84LrxsftFOg4qCwhv9K3Ve7Q3N/ZiMp3lKgRqMbmch9+l
+         IGGUzb7zXkkrp1rGUE3QkNc8RTG6hghZP4bXKZ6Q15cIwqQdJUmnyK+tYmIapRDJZfyd
+         zLa5s2bHKYbH8k3/hw5kBCj87O7j6eyuUWwts7USVorvhzpE5vn0OYXZCA1uDXiwsEp9
+         y9Erkost9jLfvghmzKFy3OSFHRDZjp4dwpgCygZ+4JrTNPNsr3RmsSYIkPqPupy82WYD
+         aM2w==
+X-Gm-Message-State: AOJu0YwKTByDRiTxdq6WEEFvZBAp2M42FCLosVWxdry8601pGwG/zajU
+	vFn6pcY7kyCUdrfRCYRhdiwkqm4aOw9tvc7M+IZ8uNKYmrUtcIpwbPBnZTfa9XTMVSX61U25qrZ
+	k8zY=
+X-Gm-Gg: Acq92OG5nWc4mwsQ6/pBBnKCvk67DjlAQlGFo7M56Hsqf5myHtrNWSqqh3OX8uK0orG
+	LtKyLZjZ7R/C6jQiaSKw0xX0Hmi/pbCbJ9gsO0idgJBNynfyYNIkeXJ8qglcNZpYk6loRg2hnU9
+	KDZ6xNrombL3wggYd5fN9FTjRkG++O0rp+k7cCiYMxIGENKf54FWSsOoVae/H+uhiGgQCbqxV75
+	OUfq+13HtwIGdB4YYw4dR8HUWepVfEakr4ath5ZLcRmosesxcFoLZFTLnAC5Ae7r7l2ojJVTkRu
+	WZ+ge6lIs2NTu5pu3TKkbJ/81oZbyojx2YS+em0oCwKjZobYQoIwWsKTQzZQv0uG7Ui86K9Bi6D
+	SDI4X9vh5vi0hGspjF0Psw0rvmdBdm90ERJ9ek3MCdcceAKSYVhHwB09IF5HbUwb7ha8NhXDN1x
+	ny9wxps83hRibQONBt61njQEYquSDVy9IRTbtumw9QpSE9t6UGdY7p1At1R0El/suun8V9yEAJm
+	u9eJhHsWNHqkZ0=
+X-Received: by 2002:a05:600d:18:b0:48a:5574:3a5d with SMTP id 5b1f17b1804b1-48fce9bd5d1mr35850885e9.7.1778681181303;
+        Wed, 13 May 2026 07:06:21 -0700 (PDT)
+Message-ID: <d04afa56-1197-4f5c-b158-b4b7eb7fc6b9@suse.com>
+Date: Wed, 13 May 2026 16:06:20 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/2] x86/mm: address Misra C:2012 rule 16.2
+Subject: [PATCH 2/2] x86/PV: address Misra C:2012 rule 16.2
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -133,15 +133,15 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <e3cdf68f-122a-4a41-a72c-8e6ed857b282@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1778681158-731728B7-668B4DC0/0/0
+X-purgate-ID: tlsNG-720697/1778681181-AB36C161-C8707750/0/0
 X-purgate-type: clean
-X-purgate-size: 1228
-X-Rspamd-Queue-Id: 9EF3D534ACA
+X-purgate-size: 3535
+X-Rspamd-Queue-Id: B64EB534ADF
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -150,14 +150,14 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -173,38 +173,100 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 X-Rspamd-Action: no action
 
 ... ("A switch label shall only be used when the most closely-enclosing
-compound statement is the body of a `switch' statement"). Use a form of
-fall-through instead. No difference in generated code, except for some
-line number changes.
+compound statement is the body of a `switch' statement"). While I don't
+really like doing so, use a few "goto" instead. No change in generated
+code (somewhat to my surprise).
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -2663,15 +2663,17 @@ static int validate_page(struct page_inf
-                  get_gpfn_from_mfn(mfn_x(page_to_mfn(page))),
-                  type, page->count_info, page->u.inuse.type_info);
-         if ( page != current->arch.old_guest_table )
--            page->u.inuse.type_info = 0;
--        else
-         {
--            ASSERT((page->u.inuse.type_info &
--                    (PGT_count_mask | PGT_validated)) == 1);
--    case -ERESTART:
--            get_page_light(page);
--            page->u.inuse.type_info |= PGT_partial;
-+            page->u.inuse.type_info = 0;
-+            break;
-         }
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -897,7 +897,7 @@ static int cf_check read_msr(
+     struct vcpu *curr = current;
+     const struct domain *currd = curr->domain;
+     const struct cpu_policy *cp = currd->arch.cpu_policy;
+-    bool vpmu_msr = false, warn = false;
++    bool warn = false;
+     uint64_t tmp;
+     int ret;
+ 
+@@ -996,21 +996,21 @@ static int cf_check read_msr(
+     case MSR_CORE_PERF_FIXED_CTR0 ... MSR_CORE_PERF_FIXED_CTR2:
+     case MSR_CORE_PERF_FIXED_CTR_CTRL ... MSR_CORE_PERF_GLOBAL_OVF_CTRL:
+         if ( boot_cpu_data.vendor == X86_VENDOR_INTEL )
+-        {
+-            vpmu_msr = true;
+-            /* fall through */
++            goto vpmu;
++        goto check_relaxed;
 +
-+        ASSERT((page->u.inuse.type_info &
-+                (PGT_count_mask | PGT_validated)) == 1);
-+        fallthrough;
-+    case -ERESTART:
-+        get_page_light(page);
-+        page->u.inuse.type_info |= PGT_partial;
-         break;
-     }
+     case MSR_AMD_FAM15H_EVNTSEL0 ... MSR_AMD_FAM15H_PERFCTR5:
+     case MSR_K7_EVNTSEL0 ... MSR_K7_PERFCTR3:
+-            if ( vpmu_msr || (boot_cpu_data.vendor &
+-                              (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
+-            {
+-                if ( vpmu_do_rdmsr(reg, val) )
+-                    break;
+-                return X86EMUL_OKAY;
+-            }
++        if ( boot_cpu_data.vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
++        {
++    vpmu:
++            if ( vpmu_do_rdmsr(reg, val) )
++                break;
++            return X86EMUL_OKAY;
+         }
+         /* fall through */
+     default:
++    check_relaxed:
+         if ( currd->arch.msr_relaxed && !rdmsr_safe(reg, &tmp) )
+         {
+             *val = 0;
+@@ -1049,7 +1049,6 @@ static int cf_check write_msr(
+     const struct domain *currd = curr->domain;
+     const struct cpu_policy *cp = currd->arch.cpu_policy;
+     uint64_t temp = 0;
+-    bool vpmu_msr = false;
+     int ret;
+ 
+     if ( (ret = guest_wrmsr(curr, reg, val)) != X86EMUL_UNHANDLEABLE )
+@@ -1179,24 +1178,25 @@ static int cf_check write_msr(
+     case MSR_CORE_PERF_FIXED_CTR0 ... MSR_CORE_PERF_FIXED_CTR2:
+     case MSR_CORE_PERF_FIXED_CTR_CTRL ... MSR_CORE_PERF_GLOBAL_OVF_CTRL:
+         if ( boot_cpu_data.vendor == X86_VENDOR_INTEL )
+-        {
+-            vpmu_msr = true;
++            goto vpmu;
++        goto check_relaxed;
++
+     case MSR_AMD_FAM15H_EVNTSEL0 ... MSR_AMD_FAM15H_PERFCTR5:
+     case MSR_K7_EVNTSEL0 ... MSR_K7_PERFCTR3:
+-            if ( vpmu_msr || (boot_cpu_data.vendor &
+-                              (X86_VENDOR_AMD | X86_VENDOR_HYGON)) )
+-            {
+-                if ( (vpmu_mode & XENPMU_MODE_ALL) &&
+-                     !is_hardware_domain(currd) )
+-                    return X86EMUL_OKAY;
+-
+-                if ( vpmu_do_wrmsr(reg, val) )
+-                    break;
++        if ( boot_cpu_data.vendor & (X86_VENDOR_AMD | X86_VENDOR_HYGON) )
++        {
++    vpmu:
++            if ( (vpmu_mode & XENPMU_MODE_ALL) &&
++                 !is_hardware_domain(currd) )
+                 return X86EMUL_OKAY;
+-            }
++
++            if ( vpmu_do_wrmsr(reg, val) )
++                break;
++            return X86EMUL_OKAY;
+         }
+         /* fall through */
+     default:
++    check_relaxed:
+         if ( currd->arch.msr_relaxed && !rdmsr_safe(reg, &val) )
+             return X86EMUL_OKAY;
  
 
 
