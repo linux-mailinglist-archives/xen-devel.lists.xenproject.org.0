@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gNebFotkBGq6HgIAu9opvQ
+	id QG5aFb9kBGq6HgIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 13:46:19 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 13:47:11 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C39485327C3
-	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 13:46:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1307896.1579467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B63BF5327F3
+	for <lists+xen-devel@lfdr.de>; Wed, 13 May 2026 13:47:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1307902.1579475 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wN82V-0006oU-2T; Wed, 13 May 2026 11:46:11 +0000
+	id 1wN83L-0007Hl-AG; Wed, 13 May 2026 11:47:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1307896.1579467; Wed, 13 May 2026 11:46:11 +0000
+Received: by outflank-mailman (output) from mailman id 1307902.1579475; Wed, 13 May 2026 11:47:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wN82U-0006mS-Vv; Wed, 13 May 2026 11:46:10 +0000
-Received: by outflank-mailman (input) for mailman id 1307896;
- Wed, 13 May 2026 11:46:10 +0000
+	id 1wN83L-0007GN-7d; Wed, 13 May 2026 11:47:03 +0000
+Received: by outflank-mailman (input) for mailman id 1307902;
+ Wed, 13 May 2026 11:47:01 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wN82U-0006mM-7C
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 11:46:10 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wN83J-0007GD-Jp
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 11:47:01 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wN82T-00D90v-K3
- for xen-devel@lists.xenproject.org; Wed, 13 May 2026 13:46:09 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wN83J-00A2US-0T
+ for xen-devel@lists.xenproject.org; Wed, 13 May 2026 13:47:01 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a04647c-2eae-0a2a0a5409dd-0a2a450ad202-16
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 13:46:09 +0200
-Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0464a0-bab6-0a2a0a5309dd-0a2a450898be-40
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 13:47:00 +0200
+Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a046481-56b3-0a2a450a0019-d155802adc46-3
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 13:46:09 +0200
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-48909558b3aso66381825e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 04:46:09 -0700 (PDT)
+ id 6a0464b4-63b5-0a2a45080019-d1558035e080-3
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 13:47:00 +0200
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-488b0e1b870so112025175e9.2
+ for <xen-devel@lists.xenproject.org>; Wed, 13 May 2026 04:47:00 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fc8d74536sm71732675e9.15.2026.05.13.04.46.08
+ 5b1f17b1804b1-48fce38e42fsm46744745e9.15.2026.05.13.04.46.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 13 May 2026 04:46:08 -0700 (PDT)
+ Wed, 13 May 2026 04:47:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,55 +58,53 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778672769; x=1779277569; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778672820; x=1779277620; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=pZuQ87zTRQs5K2PzA9WOyQftHPdtCVC/Cj62DUtB07o=;
-        b=cvgG9udHWEIoY2pPm3m/wYgF5cgUpkMFnYjy7ZiRZGSQrpzzQEN23bUusSDpC2k0u3
-         OAPNXtGN6BMXhhqBFfhGLprySX/uQ2dmT16KDnPWQjXTWJwmpVxfxoT0G34KQc/emisu
-         FSf6dwDzqavPr1j3lqTzSBRMLNfSbt3vtAN7+ADhV5eiddRLO5I6fwS45uLg07c+l0o4
-         ZqBIVozG2vLkW2dv3dK9TqHTkfZ4TM8RZXBNJz1zopi5kvFBpoC+xNaR8al1kODkBRAc
-         LQWL2O4zBy56AIIIAtMvcumpHoCYUvft7Y1hoRiCOYwLQlu2fNyqHqzYGw1ZR/kD9clV
-         nRMw==
+        bh=5LnypQr9QCdWJIq8PrShfWfOV8zW0x3TsVs9GGSmzQg=;
+        b=J8a0kJaxHNDFCmQ2SkkVqFNSbFK7b9COjP7ZWj58BR4RZclWrXWo3Uuzihb0H03m56
+         JjckQvXSICynw9HZD4Qkx+bDK1HDjxROkELXfEoDEAVzSVwpDlk1ucnz+Oki3nWXypxq
+         nQGzvRAPawL6mFp534GEzhb2yJE0aDNRvanXWecRpMeVQ0l8EZWN6z4Ka+W2YT/NYezT
+         /k8/EL3GEUIKq1k1Wa5Do01QkkhNJfWJRLm2qhXX1bdwIQy1tuR7sxesWVEZLw8ks93A
+         e1tVbzgIqMEz3dGdztTPw+AVFHZFXxm+iFBs2B1SfhjIoDqsrd0DbXSNcoEQHIV2npuv
+         CodA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778672769; x=1779277569;
+        d=1e100.net; s=20251104; t=1778672820; x=1779277620;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pZuQ87zTRQs5K2PzA9WOyQftHPdtCVC/Cj62DUtB07o=;
-        b=M+JfRidLO7aEfyyJ07qFBMoyCpSRzP79kRBMdKUvJYnu898LVKwx5WLj25Kgv2+Z9G
-         isVmU95NyrFDnwHZt3jOvbka+jFUFO9fU6hHHCTyfhqLsf1M7mZIgO8IbyUpy2wu3Nws
-         TdV/heKqyr4f47/IZsK6PT8XcZYJ4on8SVkbIgRFvII/XKNXLxf+srLRYf2S2KzIv2Pc
-         9lFg/mg7+Z6m6YEm6tOtZ3GV9Cq0+jztI11AtyEJ2vdUQLj1FNP0gBqo1Qi1VMBPn5at
-         /GIhFdFDO6Lf0IZw86meOem4cBSS7Tx0VaCtYOLMXjplaDUNl9CeWvwmMZmtxgiTX5l9
-         mhXw==
-X-Gm-Message-State: AOJu0YyGBcaMoq4EkvJYEoxLgZKXwnknLHB/FqF/Me6GI+fxMORctQVL
-	KetvTxyIvsy3JRo66ybF/eAcxFkJKkl6rZ0D4EvfNpoUsszPB++JjfQfBb1IQffvWO6BZd0UJmd
-	ycKQ=
-X-Gm-Gg: Acq92OGkRkNiffrrfbf+lxapcJjaSq8xu5uyJEOddGyxr8oEcBauzxx9kLXNNWGoHS8
-	2lxsN/t16bmx6a7qWekZmC3aclOTxEJ8XOWsIRRGJ1gBlu+RwXQiKY1hI3h25XW6yxJ48XkMluv
-	fEzj6oL39wgRWLCgJLzx7stwPWKMIgYDmivbdVCZ9xhd0cLqfa4FqhsHQC/DqVs30YKoi1tALM3
-	oLMcINHZ+69QwNYWDX+Q1yWYmsWDh4ZfzE+8XP2Mskn8HFW/ycs+MhyXRYAaIWwKyRDb4jhhtUA
-	W4V2d9wnKXRZCAAKW6q/WVjDxKNIwvmF7a//E0xbWGnrOwoNUL6ysthVqv8VsV/9WIuq/Iwxn++
-	mavwLeRbWzCg9qsFuEGIEam0Ux0FPDxpaEWGyutcHj0zIxj9c3YpTrJRRK7C3vs6xm3ggPmbYj+
-	FHZ9R/vGhe/hW14be+JxaACF6uxP/QMGY7/Drd/i17QoPrVRPtwLBig++u8zIBKLZJ+yMnPUKgF
-	Ha66Azugl19nU8=
-X-Received: by 2002:a05:600c:4583:b0:487:2439:b7be with SMTP id 5b1f17b1804b1-48fce9b2fe7mr33310625e9.6.1778672769058;
-        Wed, 13 May 2026 04:46:09 -0700 (PDT)
-Message-ID: <146d214c-e766-4b3f-bc50-0b9beee50473@suse.com>
-Date: Wed, 13 May 2026 13:46:08 +0200
+        bh=5LnypQr9QCdWJIq8PrShfWfOV8zW0x3TsVs9GGSmzQg=;
+        b=EPQc8d/0gUn5s7YHTzZvlrMZqPLY0LWtGBVnWgDcVQGCFs0xbTBIBG2RO66Shl8rtZ
+         vLDBwiP3g8EexU9WmHXsNMYU1vbHXZOrKx0cXMCb+IVEyhaEEbbPrmwlFttoSg3niusx
+         xLNuNV/Ndrv3AR9dFUsG45A0gBWKwRcw4AxuzoCAzT8wuW5gjYQuSYMtzjdmN/b1HyG9
+         f3j0DFMZdqwj2PiGct2F6wFz1fa3pekltvOGInH28ZwizSyibc2hDUxUsWOx73HzSPX6
+         B3zEITz+fAC31MgKGGo6awo4sok/62x1lcsv+/MmNr76JS0YBFYx+jJwQ+WS5P0Amkll
+         Hy9Q==
+X-Gm-Message-State: AOJu0Ywf5x5QPsJZeIBrAua7TKaRW1+Ip5XAt0Co0BcliUPVgZjUGj9o
+	fwkqBKz1sIDAXGuaKtPHfH9Le9/rwuQxeFrpq4Fgu4qtw3VYo31VPsmuK952zgsjdY3E8e1gcAq
+	XhFE=
+X-Gm-Gg: Acq92OHpUvY8Cq2HoZvQ22IpPjlAAuntB7llv/hRKYbJbaW/zaeCpPhDV029vUnBod+
+	uMGgmcDS83QNf2OMBZpT20EsSLOJb2SzAIhXBaaJM0bE7yS9MUAqSRogtWe2Fmyd1fScz1t9SwP
+	hU1vSgyX4kZ4Sa96dsPedXlLlQlOmg3EsR32X4C1mNQFq1EHak5Hh4o5sc1eN4ezZyXCcqAZhju
+	/fJFHkT4UcOylbIYQWEky7QtkDBEPdtnm9NYk5uDu2uZxwxT9QCZ+VtQRfzzlibR5SHGJ+Sqg5t
+	Fy/3TSCVTHoLRDWVGI45uQ82Xo5HxWDbeXrbzJ1Cr0v/N0x3aDL+CbwRo2UIje5VVxcsZCOftdG
+	i7qFgu8urSuv+7DsxkHk15G1EWJTHnrB93dTW8ml4BZ0G7kKkbLgxRX52xIBMPYJylQsuQPc53Q
+	LbpER1jMMl/4dVPQavOi0jynZEnIowT0R+2WZ9nGlsgPtMy43wxVgnAwcc7W9jpM0G7U5nlAq2F
+	HtM895shsfjtR6f86BzPwP+Dg==
+X-Received: by 2002:a05:600c:4e54:b0:488:c014:34da with SMTP id 5b1f17b1804b1-48fcea15f3cmr36451015e9.26.1778672820418;
+        Wed, 13 May 2026 04:47:00 -0700 (PDT)
+Message-ID: <8aca671a-eb6f-475d-87cb-7a738ecd0793@suse.com>
+Date: Wed, 13 May 2026 13:46:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 4/5] x86/shadow: split a nested max() invocation
+Subject: [PATCH 5/5] x86/shadow: rename a parameter of shadow_l<N>_index()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Nicola Vetrini <nicola.vetrini@bugseng.com>
+ Teddy Astie <teddy.astie@vates.tech>
 References: <5eaaf72a-850c-4535-9f20-13b4feed38d1@suse.com>
 Content-Language: en-US
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -135,10 +133,10 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <5eaaf72a-850c-4535-9f20-13b4feed38d1@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1778672769-73F798B7-C5C149AD/0/0
+X-purgate-ID: tlsNG-c1860d/1778672820-BC766DB1-D6F222C2/0/0
 X-purgate-type: clean
-X-purgate-size: 1655
-X-Rspamd-Queue-Id: C39485327C3
+X-purgate-size: 2555
+X-Rspamd-Queue-Id: B63BF5327F3
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -147,24 +145,24 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:sstabellini@kernel.org,m:nicola.vetrini@bugseng.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,suse.com:email,suse.com:mid,suse.com:dkim];
-	FORWARDED(0.00)[mailman];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[6];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -174,39 +172,80 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-Such nesting causes the inner instance to shadow the outer instance's
-macro-local variables, thus violating Misra C:2012 rule 5.3 ("An
-identifier declared in an inner scope shall not hide an identifier
-declared in an outer scope"). Use an intermediate variable for the
-inner invocation. No difference in generated code.
+... shadowing a file scope one, thus violating Misra C:2012 rule 5.3
+("An identifier declared in an inner scope shall not hide an identifier
+declared in an outer scope").
+
+While there,
+- replace u32 by uint32_t,
+- reduce the number of cf_check by aliasing shadow_l<N>_index() to
+  shadow_l1_index() for N > 1 and GUEST_PAGING_LEVELS > 2.
+
+No difference in generated code, except of course the removal of the
+duplicate function instances.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Supposedly this case is deviated (rules.rst). Does that deviation not work
-quite right? Actually, am I mis-reading deviations.ecl or is the
-respective setting only covering the combination of min() and max(), but
-not multiple use of the same macro? Furthermore, why would e.g.
-min(max_t(), ...) need a deviation? Even more generally, aren't those
-expressions too permissive?
 
---- a/xen/arch/x86/mm/shadow/common.c
-+++ b/xen/arch/x86/mm/shadow/common.c
-@@ -767,11 +767,12 @@ static unsigned int sh_min_allocation(co
-      * megabyte of RAM (for the p2m table, minimally enough for HVM's setting
-      * up of slot zero and an LAPIC page), plus one for HVM's 1-to-1 pagetable.
-      */
-+    unsigned int extra = max(domain_tot_pages(d) / 256,
-+                             is_hvm_domain(d) ? CONFIG_PAGING_LEVELS + 2 : 0U) +
-+                         is_hvm_domain(d);
-+
-     return shadow_min_acceptable_pages(d) +
--           max(max(domain_tot_pages(d) / 256,
--                   is_hvm_domain(d) ? CONFIG_PAGING_LEVELS + 2 : 0U) +
--               is_hvm_domain(d),
--               d->arch.paging.p2m_pages);
-+           max(extra, d->arch.paging.p2m_pages);
+--- a/xen/arch/x86/mm/shadow/multi.c
++++ b/xen/arch/x86/mm/shadow/multi.c
+@@ -402,46 +402,39 @@ guest_index(const void *ptr)
+     return (u32)((unsigned long)ptr & ~PAGE_MASK) / sizeof(guest_l1e_t);
  }
  
- int shadow_set_allocation(struct domain *d, unsigned int pages, bool *preempted)
+-static u32 cf_check shadow_l1_index(mfn_t *smfn, u32 guest_index)
++static uint32_t cf_check shadow_l1_index(mfn_t *smfn, uint32_t gidx)
+ {
+ #if (GUEST_PAGING_LEVELS == 2)
+     ASSERT(mfn_to_page(*smfn)->u.sh.head);
+-    if ( guest_index >= SHADOW_L1_PAGETABLE_ENTRIES )
++    if ( gidx >= SHADOW_L1_PAGETABLE_ENTRIES )
+         *smfn = sh_next_page(*smfn);
+-    return (guest_index % SHADOW_L1_PAGETABLE_ENTRIES);
++    return (gidx % SHADOW_L1_PAGETABLE_ENTRIES);
+ #else
+-    return guest_index;
++    return gidx;
+ #endif
+ }
+ 
+-static u32 cf_check shadow_l2_index(mfn_t *smfn, u32 guest_index)
+-{
+ #if (GUEST_PAGING_LEVELS == 2)
++static uint32_t cf_check shadow_l2_index(mfn_t *smfn, uint32_t gidx)
++{
+     int i;
+     ASSERT(mfn_to_page(*smfn)->u.sh.head);
+     // Because we use 2 shadow l2 entries for each guest entry, the number of
+     // guest entries per shadow page is SHADOW_L2_PAGETABLE_ENTRIES/2
+-    for ( i = 0; i < guest_index / (SHADOW_L2_PAGETABLE_ENTRIES / 2); i++ )
++    for ( i = 0; i < gidx / (SHADOW_L2_PAGETABLE_ENTRIES / 2); i++ )
+         *smfn = sh_next_page(*smfn);
+     // We multiply by two to get the index of the first of the two entries
+     // used to shadow the specified guest entry.
+-    return (guest_index % (SHADOW_L2_PAGETABLE_ENTRIES / 2)) * 2;
++    return (gidx % (SHADOW_L2_PAGETABLE_ENTRIES / 2)) * 2;
++}
+ #else
+-    return guest_index;
++#define shadow_l2_index shadow_l1_index
+ #endif
+-}
+ 
+ #if GUEST_PAGING_LEVELS >= 4
+ 
+-static u32 cf_check shadow_l3_index(mfn_t *smfn, u32 guest_index)
+-{
+-    return guest_index;
+-}
+-
+-static u32 cf_check shadow_l4_index(mfn_t *smfn, u32 guest_index)
+-{
+-    return guest_index;
+-}
++#define shadow_l3_index shadow_l1_index
++#define shadow_l4_index shadow_l1_index
+ 
+ #endif // GUEST_PAGING_LEVELS >= 4
+ 
 
 
