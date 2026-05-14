@@ -2,48 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YMfvKauRBWrfYgIAu9opvQ
+	id 4IUWLpOhBWo1ZAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 11:11:07 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 12:18:59 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C89F53FA04
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 11:11:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1308755.1580119 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 634D95404EA
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 12:18:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1308774.1580129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNS5X-0004dx-5K; Thu, 14 May 2026 09:10:39 +0000
+	id 1wNT8i-0005WX-Sf; Thu, 14 May 2026 10:18:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1308755.1580119; Thu, 14 May 2026 09:10:39 +0000
+Received: by outflank-mailman (output) from mailman id 1308774.1580129; Thu, 14 May 2026 10:18:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNS5X-0004cP-2I; Thu, 14 May 2026 09:10:39 +0000
-Received: by outflank-mailman (input) for mailman id 1308755;
- Thu, 14 May 2026 09:10:38 +0000
+	id 1wNT8i-0005UX-Pb; Thu, 14 May 2026 10:18:00 +0000
+Received: by outflank-mailman (input) for mailman id 1308774;
+ Thu, 14 May 2026 10:17:59 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wNS5W-0004cJ-9M
- for xen-devel@lists.xenproject.org; Thu, 14 May 2026 09:10:38 +0000
+ (envelope-from <SRS0=Fkyv=DL=gmail.com=nicola.vetrini@bugseng.com>)
+ id 1wNT8h-0005UR-A7
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2026 10:17:59 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNS5V-005B0q-MJ
- for xen-devel@lists.xenproject.org; Thu, 14 May 2026 11:10:37 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wNT8g-00GhHP-Mu
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2026 12:17:58 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a05917a-5cb7-0a2a0a5109dd-0a2a4501b2c4-38
- for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 11:10:37 +0200
-Received: from [209.85.167.49] (helo=mail-lf1-f49.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a05918d-c1f2-0a2a45010019-d155a731f05e-3
- for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 11:10:37 +0200
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5a85b30dd54so7717652e87.2
- for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 02:10:37 -0700 (PDT)
-Received: from EPUAKYIW02F7.. ([45.12.26.18]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a90f11a7a0sm342068e87.24.2026.05.14.02.10.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 02:10:36 -0700 (PDT)
+ (envelope-from <SRS0=Fkyv=DL=gmail.com=nicola.vetrini@bugseng.com>)
+ id 6a05a11b-bab6-0a2a0a5309dd-0a2a4502dff2-44
+ for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 12:17:58 +0200
+Received: from [162.55.131.47] (helo=support.bugseng.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <SRS0=Fkyv=DL=gmail.com=nicola.vetrini@bugseng.com>)
+ id 6a05a156-af86-0a2a45020019-a237832f8248-3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 12:17:58 +0200
+Received: from nico-ideapad.sca.unipi.it (unknown [131.114.30.34])
+ (Authenticated sender: nicola)
+ by support.bugseng.com (Postfix) with ESMTPSA id 9D3C24EE3CFD;
+ Thu, 14 May 2026 12:17:57 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,178 +53,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1778749837; x=1779354637; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UEnvo9OmaIrifU4IF1NjzdEIguWJngIg2w/0p8PT3os=;
-        b=qzai1i5DRdf851JTfRhiRMDgRqN90YY3Q31iosIbC01pt3rMnERgAk86QxAT7JGP9s
-         ZjT5a0UrszQswsGFtRVfwqGOOq56vP/Qq/KeUFZaSVqPBE6SGdyQITFycWvZ3/nP7ffJ
-         hnBFiPq//jMUJUd2MPaOSEITKyDr5/3bCtv5WQoznQ3Fq4/2w1+1YWPVTeqf7GPzU3Xq
-         K8ubY3a1rFtFRarUwVgVg2XY/7lNOcyg5Mb+Xb+3lyFYPjNZ4V2BxkuDoewm5/WZ+Ohw
-         7tcMTqmJYOgDXKPqGGiey5RgChUTzhDfznjHQh2lwVRpnhZ0p/a2uVHU6kscV05sSINh
-         /Cgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778749837; x=1779354637;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=UEnvo9OmaIrifU4IF1NjzdEIguWJngIg2w/0p8PT3os=;
-        b=YDp+rUz48UBbIBhN8IGbEZRElwuRc8gde9cQrYIYw6Arnzj6C9P2rbqX59+g5f4pF4
-         x4+UdOksOiXChAf66xIz/NNPA97dKznB9UsaYBpGScziFRmhnqRykKfumuZsvNmXeRb8
-         iQXSdp792zshb5TCDKbdwC7rrTkp1fyCid0WsY9myWRlUrKMEVhPKt1vLOJzkNgHnZXg
-         rjd2WxefDI+VCGWnV20nkr9/m3aV89tZqgxl751D8BCpBCMS9Bj1RWwakwpri2HKhEPt
-         hOa0JFgnBbWNZcZWWqoXs7vimaiAdnllL9Th1/kpfkz3YVLxwiPfqUx0EHSlmCYiXzzn
-         B+tA==
-X-Gm-Message-State: AOJu0YwUN0xx2ROmQUhCYwdii2K3hu8G2EMxdXyR7Zx9iHejAOpUzls1
-	pUclab3vVOyJHLcn8wfpcEKEo3SpF96O/XbxQd8JVvhUH53w3lnmSV+b8k3anw==
-X-Gm-Gg: Acq92OHAoi0sSDgIrlii6uAKKFOC1HLOZA+jd8Y139QGODcsxSZQmWSscatpw0Pf1hl
-	dBGczDH/AQfzuDqyd9Ao14hEaFc+J8Siuv9zZlg+JV3Sp9N2fM0twcN29c+IOwc53l6+gw5+Xeh
-	BpdIvzNltPVIsM/uy4NEaFHyap1kN1j1OIASpHyBpEpL37t380K1J52oWV3TSwzU96HZooKTPfT
-	Dqkrmgd/hvu0sStcwFeQ7l681oKvy8MJZhtHTPO+La08Nd8LQhPYu0QcQqHJAKVTknACcZ0FWWA
-	gKtT75ClNReYIrPzlVQonc2wnUc/Tsw/3NV/g/E/m2S32w2klOAWtgxsUGI+Y+cHq4eqN66PFyq
-	aVSnjEZa8mwekvlnfHm2MXg2KBmBT1ScmcygZ/N+0xtfGuKc/lUvwdWlnIeWldgshErDQec1GCN
-	6WxzRcwch/7qziY4mTTd4OdO1eYw==
-X-Received: by 2002:a05:6512:3186:b0:5a8:6931:ddea with SMTP id 2adb3069b0e04-5a8f37c31d9mr2050765e87.3.1778749836559;
-        Thu, 14 May 2026 02:10:36 -0700 (PDT)
-From: Mykola Kvach <xakep.amatop@gmail.com>
+Authentication-Results: eu.smtp.expurgate.cloud; none
+Authentication-Results: bugseng.com; arc=none smtp.remote-ip=131.114.30.34
+ARC-Seal: i=1; d=bugseng.com; s=openarc; a=rsa-sha256; cv=none; t=1778753878;
+	b=vrVY1tf3+RCzl5ZfIkcRzlNvGHsb60OAvUBeTTaNNQcTlAATiRXO5IioJLunpbSuOr7L
+	 FF0dz7p4LjeP+cq0DTH61DT13JFhKker82I1k207yKtt6mLurc9TPb6GoumEQScvtDjij
+	 7j15b5cBBistsjbdkqw+gqoBu3L6EHN7TWWBn2VygILLVk+Aa08ivi6EbaXJkcO79oVW0
+	 MsZWIbeZpXJX7A04thQ5GxA5bHjkGCTUOpqtk8yjNtoa7gW+aU5O8JRl8h2xFDqKfyJie
+	 f1W7Xhu+9CEtzQfdSNxVkK+pew8uPiYf1apXh1jeZhwZlwkCeR1Mnkz7Yw81b//F03YoF
+	 VS0izfP1+vedqExXS2e3EKdtqLqDJyIIlxJQ6LBw2XUPytPs5RpVlG5KWT9W9ldYONgfo
+	 eDCSkYpD0F6E4mpw2EJGZQKptd96cUhAs8198Z1z46n/auzpriKx8Ai/EVczhcbATmBlu
+	 Uphu+jKtPS19pGxdeQyPzJGRgLYjEPJzj1+VWpM36bXYAN0Br1XUdD7LTyBjReiDY9dVf
+	 EJ8Y2oylhmQBefdNb5tduRVmHC4fD/0XjtGil7naoG/5ZWOMVas9YsA6sYToBrr/aSJNm
+	 iz8itEtnH8umj4Wm2LdluCffD/QpD1AjeO9O9Y2gqAjpz2jbIYQDTUtPUPvas/I=
+ARC-Message-Signature: i=1; d=bugseng.com; s=openarc; a=rsa-sha256;
+	c=relaxed/relaxed; t=1778753878;
+	h=From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Zh73BPxmAVtviTnIt+PaWBA8sAaQSvHP6+asUf5cbXI=;
+	b=ygkMBRSMFcV/naw7ZxTji3SuTcgSwftO8TIQoHNf/7kAjDxLruAr4po7pmqd8fYDtpvp
+	 Qz8RUZQeo7WiaTvir/2ptzb3/6jAvaOZAjCtwDHXI9qibVOls8pEi5YkOBy4jDt3Vakdn
+	 tolIjZNf81H8Jx7w10nhUpvkVGBt6oASKcG9bN8gbYZKxmICgHYd8CM5AIHrQs8ITVDGF
+	 FvE/dARQzzjDzrhrmI+lQ9/bNmUlqWXDDmUwkgR1SjQfbOUMZh29JG2auFy4Nq5/3UuHl
+	 Wha1GeoSzLuZX98NNDHOQvtSfUikkDjOpGSxoTTsj6VaQMCiPjRTz5Xie9GdcAtaspHJv
+	 U8vyUiJB+ccz7v1hDkxasf4MSfdy6TJMBEfKq7uck9QVK8+KMM+kHkHAxL8SeGD9Hc2pM
+	 pwB2d2LI+6vRQejlr6PPSakadynOzH0wh3hubkWhbMjgnvWla1OF712EJE5fV7FiSd8hk
+	 jjNHEkG83X5U232GcW6BsNcn/W2gQkdiCiEtAAB/YGKSYyvUTVas5WVrmARhDIvIqocqn
+	 v3luvAviiAm3Uu0RDyNAW8i4Bbc7RfQq0nNEc8bwALyH3MLBemJvfKXmYPClnNs3U+Lqp
+	 3UVQ4tZ9PDWBc2cbF1uro5tuX3ZpmGMiPJ/ghww9iJeCL39wp3+cfMVAYTkc/nU=
+ARC-Authentication-Results: i=1; bugseng.com; arc=none smtp.remote-ip=131.114.30.34
+From: Nicola Vetrini <nicola.vetrini@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
+Cc: consulting@bugseng.com,
+	Nicola Vetrini <nicola.vetrini@bugseng.com>,
+	Doug Goldstein <cardoe@cardoe.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Luca Fancellu <luca.fancellu@arm.com>
-Subject: [PATCH] xen/arm: gic-v3: Wait for redistributor RWP using the right bit
-Date: Thu, 14 May 2026 12:08:13 +0300
-Message-ID: <0fc5e4d297b8dde66ea36be3ebd60a68dea2562d.1778749474.git.mykola_kvach@epam.com>
-X-Mailer: git-send-email 2.43.0
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH] ci: ECLAIR: avoid intercepting intermediate linking steps
+Date: Thu, 14 May 2026 12:16:20 +0200
+Message-ID: <edd4d992a269dc45b4a41f1c8277ff0d04995dc6.1778753597.git.nicola.vetrini@bugseng.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-d62444/1778749837-B6342FF4-3695D959/0/0
+X-purgate-ID: tlsNG-720697/1778753878-82374161-AB444DE1/0/0
 X-purgate-type: clean
-X-purgate-size: 2933
-X-Rspamd-Queue-Id: 0C89F53FA04
+X-purgate-size: 1422
+X-Rspamd-Queue-Id: 634D95404EA
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
+X-Spamd-Result: default: False [-0.89 / 15.00];
+	ARC_ALLOW(-1.00)[bugseng.com:s=openarc:i=1];
 	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:luca.fancellu@arm.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:consulting@bugseng.com,m:nicola.vetrini@bugseng.com,m:cardoe@cardoe.com,m:sstabellini@kernel.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[nicolavetrini@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,suse.com:email,bugseng.com:email,bugseng.com:mid];
+	FROM_NEQ_ENVFROM(0.00)[nicolavetrini@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	R_DKIM_NA(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Action: no action
 
-From: Mykola Kvach <mykola_kvach@epam.com>
+From: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-gicv3_do_wait_for_rwp() is used for both distributor and
-redistributor writes. The CTLR register is at offset 0 for both,
-but the RWP bit is not in the same position.
+These do not add any value to the analysis other than duplicating some reports
+in whole-program analysis, as the intermediate linking steps are only used to
+build the symbol table.
 
-For GICD_CTLR, RWP is bit 31. For GICR_CTLR, bit 31 is UWP,
-while RWP is bit 3. The redistributor wait path was therefore
-polling UWP instead of RWP.
-
-UWP covers upstream writes, including Generate SGI packets, and is
-not a substitute for redistributor register write completion. The
-existing redistributor callers need RWP semantics for redistributor
-register writes such as GICR_ICENABLER0 and GICR_CTLR updates.
-
-Add GICR_CTLR_RWP and pass the expected RWP bit to the shared
-helper.
-
-Fixes: bc183a0235e ("xen/arm: Add support for GIC v3")
-Reported-by: Luca Fancellu <luca.fancellu@arm.com>
-Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 ---
- xen/arch/arm/gic-v3.c                  | 14 +++++++++-----
- xen/arch/arm/include/asm/gic_v3_defs.h |  1 +
- 2 files changed, 10 insertions(+), 5 deletions(-)
+Pipeline: https://gitlab.com/xen-project/people/bugseng/xen/-/pipelines/2524548198
 
-diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-index 7f365cdbe9..dfd5d44603 100644
---- a/xen/arch/arm/gic-v3.c
-+++ b/xen/arch/arm/gic-v3.c
-@@ -274,16 +274,20 @@ static void gicv3_enable_sre(void)
-     isb();
- }
+A significant reduction in wallclock time can be seen for both arm64 and x86_64 jobs,
+with no impact on correctness as far as I'm aware.
+---
+ automation/eclair_analysis/ECLAIR/analysis.ecl | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/automation/eclair_analysis/ECLAIR/analysis.ecl b/automation/eclair_analysis/ECLAIR/analysis.ecl
+index 399099938f..ec37f7eff5 100644
+--- a/automation/eclair_analysis/ECLAIR/analysis.ecl
++++ b/automation/eclair_analysis/ECLAIR/analysis.ecl
+@@ -34,6 +34,13 @@ their Standard Library equivalents."
  
--/* Wait for completion of a distributor change */
--static void gicv3_do_wait_for_rwp(void __iomem *base)
-+/* Wait for completion of a distributor/redistributor change */
-+static void gicv3_do_wait_for_rwp(void __iomem *base, uint32_t rwp_bit)
- {
-     uint32_t val;
-     bool timeout = false;
-     s_time_t deadline = NOW() + MILLISECS(1000);
+ -doc_end
  
-     do {
-+        /*
-+         * GICD_CTLR and GICR_CTLR are both at offset 0, so this is
-+         * valid for either a distributor or redistributor base.
-+         */
-         val = readl_relaxed(base + GICD_CTLR);
--        if ( !(val & GICD_CTLR_RWP) )
-+        if ( !(val & rwp_bit) )
-             break;
-         if ( NOW() > deadline )
-         {
-@@ -300,12 +304,12 @@ static void gicv3_do_wait_for_rwp(void __iomem *base)
++-doc_begin="Do not analyze intermediate linking artifacts, as they do not differ from their final
++counterparts for the purposes of MISRA C static analysis."
++-file_tag+={xen_efi, "^xen/\\.xen\\.efi\\..*$"}
++-file_tag+={xen_syms, "^xen/\\.xen-syms\\.[0-9]+$"}
++-frames+={hide, "kind(program)&&target(xen_syms||xen_efi)"}
++-doc_end
++
+ -eval_file=toolchain.ecl
+ -eval_file=public_APIs.ecl
  
- static void gicv3_dist_wait_for_rwp(void)
- {
--    gicv3_do_wait_for_rwp(GICD);
-+    gicv3_do_wait_for_rwp(GICD, GICD_CTLR_RWP);
- }
- 
- static void gicv3_redist_wait_for_rwp(void)
- {
--    gicv3_do_wait_for_rwp(GICD_RDIST_BASE);
-+    gicv3_do_wait_for_rwp(GICD_RDIST_BASE, GICR_CTLR_RWP);
- }
- 
- static void gicv3_wait_for_rwp(int irq)
-diff --git a/xen/arch/arm/include/asm/gic_v3_defs.h b/xen/arch/arm/include/asm/gic_v3_defs.h
-index c373b94d19..3714cfeb7d 100644
---- a/xen/arch/arm/include/asm/gic_v3_defs.h
-+++ b/xen/arch/arm/include/asm/gic_v3_defs.h
-@@ -146,6 +146,7 @@
- #define GICR_NSACR                   (0x0E00)
- 
- #define GICR_CTLR_ENABLE_LPIS        (1U << 0)
-+#define GICR_CTLR_RWP                (1U << 3)
- 
- #define GICR_TYPER_PLPIS             (1U << 0)
- #define GICR_TYPER_VLPIS             (1U << 1)
 -- 
-2.43.0
+2.54.0
 
 
