@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yGRyOHKHBWr5XwIAu9opvQ
+	id OLgnLuOKBWrGYAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 10:27:30 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 10:42:11 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A49653F4F2
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 10:27:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1308728.1580101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21E1253F6E0
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 10:42:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1308738.1580110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNROr-0005PW-QU; Thu, 14 May 2026 08:26:33 +0000
+	id 1wNRdg-00008R-Uv; Thu, 14 May 2026 08:41:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1308728.1580101; Thu, 14 May 2026 08:26:33 +0000
+Received: by outflank-mailman (output) from mailman id 1308738.1580110; Thu, 14 May 2026 08:41:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNROr-0005Md-LU; Thu, 14 May 2026 08:26:33 +0000
-Received: by outflank-mailman (input) for mailman id 1308728;
- Thu, 14 May 2026 08:26:32 +0000
+	id 1wNRdg-00005u-Rt; Thu, 14 May 2026 08:41:52 +0000
+Received: by outflank-mailman (input) for mailman id 1308738;
+ Thu, 14 May 2026 08:41:51 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wNROp-0005MX-Sc
- for xen-devel@lists.xenproject.org; Thu, 14 May 2026 08:26:32 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wNRdf-00005o-7O
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2026 08:41:51 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNROo-00FaSD-Op
- for xen-devel@lists.xenproject.org; Thu, 14 May 2026 10:26:30 +0200
+ id 1wNRde-0057nR-FC
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2026 10:41:50 +0200
 Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a0586e7-bab6-0a2a0a5309dd-0a2a45038bbc-44
- for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 10:26:30 +0200
-Received: from [52.101.61.65]
- (helo=DM1PR04CU001.outbound.protection.outlook.com)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a058ab8-2eae-0a2a0a5409dd-0a2a4503c22e-6
+ for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 10:41:50 +0200
+Received: from [209.85.208.173] (helo=mail-lj1-f173.google.com)
  by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a058735-672d-0a2a45030019-34653d413bce-3
- for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 10:26:30 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by DS7PR03MB5447.namprd03.prod.outlook.com (2603:10b6:5:2c7::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Thu, 14 May
- 2026 08:26:27 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.20.9913.009; Thu, 14 May 2026
- 08:26:27 +0000
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a058acd-672d-0a2a45030019-d155d0adb036-3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 10:41:50 +0200
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-39397d63804so89349241fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 01:41:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,195 +51,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QIEO/Rlckm/N/aqvY5pU3+9CserO23BXZiLPT3uTuSj/Cw91kD8UJLhTnLr3lsZE5eZWY5kY+k64wlt11w7R/o4j9CL8XwWJytwfE+vMod2C1bM0g8axe7YaUPR0g3tdzQ9kcS3faeNJVe+j10MqFupM/AM/FPD7FXq9JnibZlOV2poJkvPy54gXD2McDTzTc4qofN7LozI9gdlCBAtQ1PwPXub++WiOrwapWLIR7tu76z5M/dx7+Odfb2iIJsivR0F6BlpPVJfmx8rlodBP0zHF3N7vI8pHqo84+tQ+qtcpGwByvH3BlH3OtnTrBI+zFlJGZcW22q16XZS46UtJLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0yarz+iCBQ6fwySuMnC6plDb2Fr9B9vp4POLRhIBt/8=;
- b=PCn+5KYdwHi27x4WNhE8U9CKq0owXHzd7tIAkfK2LTKsuAqYAoI/oeBHCPaHcqUF0dAe88vl2laB3mx7uyCKlVHM7B7pITLd49pbNRSMhrKpK8M18ww99ZcmYS/nqSI35kzmviipvCDZI0AqQbkvJIPc0wPaiI+A8yMq2jekimrz4N2+KzfktuH3RcwiHeWdVa4zBOaifIYYaq4GYxZk1jfLzI4r/XrjG1u4wI+oefLIvf/mN1Vd1hjUTr4JEmU9uwACzRW/bIAzuce8Cud0t+YSHBSDB12kMHIaZJymMYP3WFf3Iqk/w2kRlvgjcrgv7ZIkhV+RAmDbox3kKaBA9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0yarz+iCBQ6fwySuMnC6plDb2Fr9B9vp4POLRhIBt/8=;
- b=R+4g2+M9HVNtjlfZ3vY1cO649rgstqRhyt2jiisfb/6km8bFyuSfyG5lxlim5AVeGTnmTNt6mYIkXn04WtuNKeOaS6qXWLABih+dq20TAc++HTU+pDwZQZOW/VI1WxYQXLPrmAZjRCs/rUA/643I6HtdtYsLEZVZGqW1/kjc+O4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Thu, 14 May 2026 10:26:20 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: map_domain_pirq(): pirq already mapped?
-Message-ID: <agWHLHzvhKCLQMI1@macbook.local>
-References: <700f3bd5-2887-4f30-95b2-5dd19fb91abe@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <700f3bd5-2887-4f30-95b2-5dd19fb91abe@amd.com>
-X-ClientProxiedBy: MR1P264CA0177.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:58::8) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1778748109; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ILG3PhRC3dABd7Sv+UOaQzZb8on6W9GHbG1v2/Y/spCxNV7lK4qRswH+/9paTNkRlr
+         MyazpK6x9xfsYWB9lH3IebFdtvaYIS4P2h98UgvDIG7RJdm8d9iSFHjHbVk9eI0sr0Sz
+         ojZ9Xw8/iJZKLcBFMEbFwg3NXC+4deOPmU1RnZLgjodpkEkqi4k3Sv9Dtj+q6LT7Fbyo
+         symyurKwsTWqlDzPdr8H9txvdgvvHQg+EAwqFoBdtz3EWfE/jW5mBGp7+KTol9M182PP
+         MkJfsmqfZFsdB9FlS8o5GADLP/llW+84isVMT/8Fs+3XFTpSfL0qdGCnoaUelvjmFEw0
+         grBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cluKyGouWJtd1lIstxQNzBM7OpUssjSxRkEElOaVOGI=;
+        fh=uAzoxIkY79cy0zES8IqO07ArU7DBG3jlr2bg4XRVkR0=;
+        b=jFtxp2UmrAaxC5LcACWgqhEp9ZmQjiqQKM5YRZzxWQHqmiiysfIMJ0wa1zHWjoptFy
+         4wcodmDZFN+ELOn8MroFvKAKElm6Fs9Fhrb5cJP5OS4cFKRuaFSOYO6kKurHHjsRqzHE
+         F4Ios+duLVzrwK6k4kTmDis4OqqDanYSBzc7X+2qChgyedHu/n9rnBghoXBRY4ksKYdN
+         wt2vhCjn380txTJp5Ch6pwjK+O0bp5gOV4PSDc1HkVtBTz4R6hht+XQsXfx21DM2Y8pL
+         RFNBlxXhw1tXuSUlij3W4ViTTSFNyyxDs69VIH4ydLgxHK2toKar41HK/C0xEnSIs+Zv
+         nb3A==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778748109; x=1779352909; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=cluKyGouWJtd1lIstxQNzBM7OpUssjSxRkEElOaVOGI=;
+        b=L/mHnFPGME2pWa711Ro7S0dXqQ/Ljjf9/rub+hXlBHdlMZhBYY/6C2QqrKKWn8FJdb
+         31Zfr3Kj+k//6nROr6qYi/Snals+32tr4c/q4xg/CF12LTvoqv6VwMONvFP8zGQnyuPL
+         v0CF6o0Lezl1J0cTiWpheOM14cjeqEtKVDKdRajC5LaW86tnb2HMiPZWu9MDrGwBaRjT
+         qFt7JFF4G6OgvXstLLByghd2UiWn0tfWwNPPFJKinlidN3WQaLEIwr3225uC4aQfxl1t
+         kD9uOvUPGf3Rc0ZwonNn0yegf6JsFdpaPbHvzh9FoqTAvA2U10WsIHdwLgBC9P+IaiNf
+         37bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778748109; x=1779352909;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=cluKyGouWJtd1lIstxQNzBM7OpUssjSxRkEElOaVOGI=;
+        b=p/UFFZcwHRQiVN8Bn0OqmNXowngqKcby3RRuJ39KawFl/Y/PjL2z2G7ZlDUW8X7yZp
+         R1aDT93Z2uDmKSnLTVJVinwB5nW8fqsoMHL/7IMaChVfGXrwqYgG7xi57kaJ3RQutbs0
+         L3JYba5FcF/QL/plWzFKf0Kli91ARLWzFLZzDsWZByC8717Atz/WKT8c+0x3S0janlzw
+         OI/2CviyJklH7zH552RcjBnNMB8MJSAVwPnR+Su0B65iopbGTTa8t/7zf9Jw+HiN/cll
+         DMKwPLNjHWy6xbKrbkKParpNQKEVc7lDsQ9h0eQ8LeQbgIJkt+R0eZboyF2cytIMiFKp
+         g+WA==
+X-Gm-Message-State: AOJu0YzarTZnA+Zz8tlaLbUeWSBuoFMIUTf21FNWH1JcKiEyfHkZBI2B
+	eHiVSt22UQaUXl/EZDSCrl7yqW3wR3EulXls9yabMvFGkNzsgLiXguqcEgfHbV/wtB69b9d/MoE
+	3LkaLLhKoqvso6VWhI86hTuuzOXZIykk=
+X-Gm-Gg: Acq92OFyIwXRGVCBw5e9ySuWyfCKsQXarlUj5mmT/dQCBqXluH8KGVn+GffB8yqOBhd
+	EyP/MkbNiPd9AGFfl3RUC8ur8/43GX0dDklLsJBdk4MItATG1h7wGwWVgXrzlnMQgTyH277ZD6L
+	4A8Y52TxsM/uh1al3a0OTGPVmo6M/6ZUsouWKR6A/X2DiYcG2KVMX8L8Hm4lxmOkSDjCp3v84YL
+	54TEfheNOvZBTwSjz3ge3m7qIyUBOvintsOx3JTWW2RoxrRvmTZ1o+v8/d4JkXR8QoLa+lnpCO1
+	z4tgM+sQ0gyPdCs=
+X-Received: by 2002:a05:651c:546:b0:38f:f8f3:6c58 with SMTP id
+ 38308e7fff4ca-3944b4225abmr27236341fa.11.1778748109260; Thu, 14 May 2026
+ 01:41:49 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|DS7PR03MB5447:EE_
-X-MS-Office365-Filtering-Correlation-Id: e961a39c-a332-4917-dc53-08deb1927dc3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|18002099003|22082099003|11063799003|56012099003;
-X-Microsoft-Antispam-Message-Info:
-	aXDr6unMIbXUFf30/soGEhu8raTSnwo3SEfODCvfyvepx4sP4lJ1BiaFXy902bvj24X+U6WTReqzZB7M97Xmilty1yh6CzTNz2mcQ6RNAGGVOQZ0BiWmH+4rfYOwVVjlAWYdRq/Ak6s8J51jdDPmOHwicuEG+hNLwtNk/gFOhpK/6f541HCJ0r/xflUmOeHo8ItpeDVUa0KgB5S960TQRZ9zmmwcwl2xCcxvt6z0ixU1ykZU1P39djw5VktMBjv1qhlubXfQxlylhLzzbyIB46yeHaMEqdM2u4fQI9+qtzceO2DWmbSAqdZlm7GbXajHOSNATaXVc4ZlICrAbNlbhyBu4YxB0VJNXbs5sQOwL5gLRvTjrd3gdjOnXFsMx9ksgLlX7a3My0y9TbQPHs8Fi7j63rJdJzaGd5xKnr9KnyNXalPTq3CqtO7uh3kTfPXvk3aLNqJoXetq32qrQze+xoyXpfdgdz9JNmsd43eiHONJI98oXUoGmzQVR2rI729V+HMeDGckOOnhPzsFOZ4lsk14FzlZPNFPQAQkZPCZAHwzHxWyoGNzi6zKAHCRUPMO8aNOKJ7DWDTZWnzBQ0AOO3QHzBxsj/8jxBUCv/3fRslWWU5GrD1MfwfarUTTwNRhwEgbRKOwXVNTjonddnaA7X2Ecqcwu0nTuzjozGX/fFULk/T7HDqgNJDoxGrI3Qtw
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(11063799003)(56012099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Zm11enlnVEZwV0NIcTdUWmNOcGQyOHp5RGNwSUg5V2RwaGkrbzBHWSs3Z1dP?=
- =?utf-8?B?eE5wbkJSc1U5V3hJZnRSbEZyZUZrcWxkclA0blo3L2t3Z2hOMFkyVk5DTGNa?=
- =?utf-8?B?dXB6bFJFcnQrdDc4WU5ZalkyQ2ZWTWJTVDgvcFFPRWltM05tTnhKSm9UbGNV?=
- =?utf-8?B?V0dRN1FCTHllSThqSDZvdldkTDNKMlQzVEsrR21WcGMvRkloSUhVRGl1bytZ?=
- =?utf-8?B?bk1KSGl2Y3J2UlRhcGJYT3E5TDZuVGRyZnBUN2VHblVoc24zZGlOSU05dFlG?=
- =?utf-8?B?TU1JeGdFaHBpdmNocHB2amg2bGt3b2lJY0IvUFpNdHlGMGo2STRXV3NmRE5t?=
- =?utf-8?B?RjlOWGs3eVpGeWVYa0p3U3hkd00wWmJGdEEzdENGYk00ZlEvSGRwZGlIdC9Z?=
- =?utf-8?B?VExDcjJmaU9GeGowYkxjZGViS1ppU2ZBVzgwWlhvOVhTcWM0MWh4NUtIK3py?=
- =?utf-8?B?d00zaGU3czF1dGduT2VRQVRyRmQ0bm85emZ6N2g1WW91Wmgvd1oxYkRVOG1u?=
- =?utf-8?B?dDY2UGtaaFVtdXpBRFhObnp3d3huRUVET0VtVXNobWNZV0Zsc2lxaFNkWU5T?=
- =?utf-8?B?MG41YnVZQ0RSdGpWem9XSW1oSm1TSUJSVTdDVEZFTDdPVFFDSlpvQ21WaU1t?=
- =?utf-8?B?cWlGV1JNZktYU0lnRVpNOXJJak9BL25qcE9wS1BNbzVJTjdhMjF1bUNLY1Ev?=
- =?utf-8?B?V0p5YzV3c3FtYVR2K1FtR1NIWGtzZU95MXBlSElZRDRrU0ZaeHJSeDdXMlIz?=
- =?utf-8?B?SjJhbUhWWDlDMVhWWTJVS0o3SEZ0ZGJUS0c4bkJ5MnNEdTdEajRpdUUyeEUz?=
- =?utf-8?B?TWUwMk9zSkxMa0w0cXpkbDhzZTMwVDV0akNTUHBydSswK2FoNThVOVVJWDdG?=
- =?utf-8?B?ZHdqRVIxdWpUMWQ1MUFpV3ZWU1BDS2p1TGJkSG5jWE12TGVSdlU5bFIyZ0dk?=
- =?utf-8?B?R1dNbG5SaEpkeHRlUFVrK0F6bENOdGVLditGVTl1U1Y4M2dPN3V6NHpzRVNp?=
- =?utf-8?B?UkVsREpNcG40MGZadGkySzVVeENuUGhOTnFaTnc4dmZmY2g1Y3RJNVdUUTFh?=
- =?utf-8?B?bDlLZmx3Mk5WOVVEWGZpL29qWkNJYzVsdUZXaStQMDJ3eHR0Y1R3SmVqTWZs?=
- =?utf-8?B?K0dhMjZJR05tYjJJaGxFSWVqaHdZNXk2VDNaWnV0bnpsRXYwRzFuQkJHd1dm?=
- =?utf-8?B?MXJ2VFg3MWZMUXpZd2sxVElNYytiYmxyWXFNUjVRQTJNaldCWUVUWXRkc2l6?=
- =?utf-8?B?M1pWUXdkRDg4MUNJbVluN0xOcTdSbmdYQUpwNmhDS2JjRkp5VXJpRldadnZG?=
- =?utf-8?B?cWI4RHArSEZldzNRWFBqeXBJL1U2aXJwemZrNXZJRVU4RnFWN0F3anp3OXJO?=
- =?utf-8?B?MDd5WGJ6c1VCZ2hteVJEUGhYUE9OZWZ4TlpvLytPd1U1ZzBLRlBZQ2dsUkUw?=
- =?utf-8?B?SjV2Q24zSmd1ZmtCN05rQnZTazVJaFdzOHJ3cEY4SGRyOEYyY2dWSG5Wd1Er?=
- =?utf-8?B?WHBDY1V2KzV4S0ZWcmxNSHJtNGxwNllWUDM3MTNQMU12bDA5MEI5RXdVM3pM?=
- =?utf-8?B?aWJHZUpxWElCcTk1SktTUGdVU3JyUEtWaVZHSmRNQ2pLSHVZSi81VEFxMS83?=
- =?utf-8?B?eWxSYzFxN1ZVUzFiR2JIMXk4cndDc3Q0UXJRdGdDTzV2MThaaytlT3dPamFa?=
- =?utf-8?B?bkVIOGxkS3Q3bmRtYmtjRTFBSldCekZmZ0NvQ25NQkhHQjJ5VzN6U3kyajUz?=
- =?utf-8?B?UTAyWUlPTlBtODVXN1dvUjkrekNadlhPWHY5UlVYSHJPbXc1UFBXWEUxMXRL?=
- =?utf-8?B?YjZLRjFJSU41Kys1YUJQRmg2M1JoZUhnL3NFTGcxNXA0YjI4UjhUbURQdlU1?=
- =?utf-8?B?WGxPTXBhdzZ2d0NSZldVMGFmRW1zdFhVWGVOeW5rSU8ybkxrMmN2TVBPbWxT?=
- =?utf-8?B?K2xzcElCV1c1VlpFdzU1VWpLSWVBem5KZVIxanVRcmkwUVUyRzhXZnlxRitL?=
- =?utf-8?B?YjVSZGs0MmdxT200V2FpWGpNSWVOaWZ5RmlCYVpYd3N5VXM2WEViVnp3ZXl0?=
- =?utf-8?B?aDRoRExmazVhTHpadS9ELzUrN1NGUW1ESVVzZ3hJZnVyYzNLaUEvT0Vjc3Jj?=
- =?utf-8?B?bkFjSWpPaHRTaEp5VWl6U0UyWURXQXBZbFJUdnNQYUJBME8vdm5LMGR3RXVx?=
- =?utf-8?B?aFB4akpEOTI0NG5rOHZGRVFBTWlRbTdhK2hqTFl2dktLUkdCTldRNjdLUzRH?=
- =?utf-8?B?aDRsOGtWK2Q5UFcwekpLaHJ0K1UwN2lYbEpvOGE5L20zb1BJRW1UOEtaZEc4?=
- =?utf-8?B?T1Z0UjlSWmU2V1pVRUxMQ0toYVF0bitNL0xsd045Vnl2OGNrb2Jmdz09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e961a39c-a332-4917-dc53-08deb1927dc3
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 08:26:27.0646
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lMbhmEZD4pgCRbjwIiVQfoCVPVT0EKL/uanPN43gs6ryw2dCuionXnREvdo8y1i+NIwMLoOSyZg7Ieym7ozRCw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR03MB5447
-X-purgate-ID: tlsNG-33051d/1778747190-38577938-FAA2A475/0/0
+References: <cover.1778605274.git.mykola_kvach@epam.com> <ddf37bff562e7e2055ee049ab63111c5a2a2e611.1778605274.git.mykola_kvach@epam.com>
+ <B1776A58-502C-403E-8EDD-6FF3B62E1EBE@arm.com>
+In-Reply-To: <B1776A58-502C-403E-8EDD-6FF3B62E1EBE@arm.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Thu, 14 May 2026 11:41:37 +0300
+X-Gm-Features: AVHnY4I0gUvzQQ-_qHdTa0hzEHhPjCzUk3TSOa0yP8AT7mJJff5njkcTSwduex8
+Message-ID: <CAGeoDV_XncpoEAnKVzeGo6Hr3ry5iwT0-Pn6NfruqSbdyE+V+w@mail.gmail.com>
+Subject: Re: [PATCH v9 03/13] xen/arm: gic-v3: tolerate retained redistributor
+ LPI state across CPU_OFF
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-33051d/1778748110-4066C938-535ADEF6/0/0
 X-purgate-type: clean
-X-purgate-size: 2641
-X-Rspamd-Queue-Id: 3A49653F4F2
+X-purgate-size: 4492
+X-Rspamd-Queue-Id: 21E1253F6E0
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.63 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	SUBJECT_ENDS_QUESTION(1.00)[];
-	R_MIXED_CHARSET(0.56)[subject];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
-	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jason.andryuk@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Action: no action
 
-On Wed, May 13, 2026 at 09:18:46PM -0400, Jason Andryuk wrote:
-> Hi,
-> 
-> Early in map_domain_pirq(), we have this block:
-> 
->     old_irq = domain_pirq_to_irq(d, pirq);
->     old_pirq = domain_irq_to_pirq(d, irq);
-> 
->     if ( (old_irq > 0 && (old_irq != irq) ) ||
->          (old_pirq && (old_pirq != pirq)) )
->     {
->         dprintk(XENLOG_G_WARNING,
->                 "dom%d: pirq %d or irq %d already mapped (%d,%d)\n",
->                 d->domain_id, pirq, irq, old_pirq, old_irq);
->         return 0;
->     }
-> 
-> Why do we return 0 instead of -EEXIST?  Since the pirq is not updated, the
-> caller doesn't know that pirq won't fire - only old_pirq.  For
-> allocate_and_map_gsi_pirq(), the new pirq is still returned to the caller.
-> I would expect old_pirq to be returned so the caller knows what to use.  Am
-> I missing something?
+Hi Luca,
 
-Looking at bfc341a65cfb2 it seems like this might have been an attempt
-to keep the previous logic in ioapic_guest_write() that didn't return
-an error when attempting to add/move an in use IRQ, while switching
-ioapic_guest_write() to use map_domain_pirq()?
+Thank you for the review.
 
-The commit description is not very helpful sadly.  I think the mention
-of "And this patch also makes broken NetBSD dom0 work again." is
-relevant. AFAICT NetBSD will do PHYSDEVOP_apic_read -> modify RTE (ie:
-set mask bit for example) -> PHYSDEVOP_apic_write.  However the
-semantics of those hypercalls is not symmetric.  PHYSDEVOP_apic_read
-will return the vector used by Xen in the RTE, while
-PHYSDEVOP_apic_write expects the vector field of the RTE to contain
-the pIRQ.  I think this is why map_domain_pirq() was adjusted in such
-a weird way, to ignore requests with bogus pIRQs and still succeed, so
-that PHYSDEVOP_apic_write would also succeed.  Ideally the interface
-should have been adjusted so that read/modify/write cycles using
-PHYSDEVOP_apic_{read,write} would work as expected (iow:
-PHYSDEVOP_apic_read should have returned the pIRQ in the vector
-field).
+On Wed, May 13, 2026 at 5:53=E2=80=AFPM Luca Fancellu <Luca.Fancellu@arm.co=
+m> wrote:
+>
+> Hi Mykola,
+>
+> > On 12 May 2026, at 18:07, Mykola Kvach <xakep.amatop@gmail.com> wrote:
+> >
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > PSCI does not guarantee that a GICv3 redistributor is powered down acro=
+ss
+> > CPU_OFF -> CPU_ON.
+> >
+> > DEN0022F.b says CPU_OFF powers down the calling core (5.5) and CPU_ON
+> > brings the core back with a defined initial CPU state (5.6, 6.4).
+> > However, PSCI leaves interrupt migration and GIC re-initialization to t=
+he
+> > supervisory software/firmware stack: the caller must migrate interrupts
+> > away before CPU_OFF (5.5.2), and the execution context that is lost in =
+a
+> > powerdown state must be saved and restored by software (6.8). PSCI also
+> > calls out GIC management explicitly in 6.8, including retargeting SPIs,
+> > preventing PPIs/SGIs from targeting a powered down CPU, and reinitializ=
+ing
+> > the CPU interface after CPU_ON.
+> >
+> > This matches the GIC architecture. IHI0069H.b Chapter 11.1 requires the=
+ PE
+> > and CPU interface to share a power domain, but explicitly allows the
+> > associated redistributor, distributor, and ITS to remain powered while =
+the
+> > PE and CPU interface are off. All other GIC power-management behavior i=
+s
+> > IMPLEMENTATION DEFINED. DEN0050D Chapter 4.2, "Generic Interrupt
+> > Controller (GIC)", says the GICv3 redistributor may live either in the =
+AP
+> > core power domain or in a relatively always-on parent domain. So after
+> > CPU_OFF -> CPU_ON a secondary CPU can legitimately come back to a live
+> > redistributor with GICR_CTLR.EnableLPIs still set.
+> >
+> > Handle that case in the LPI setup path instead of assuming a fully rese=
+t
+> > redistributor.
+> >
+> > The LPI path needs special care because the GIC spec makes redistributo=
+r
+> > LPI state sticky and partially implementation defined. IHI0069H.b 5.1.1
+> > and 5.1.2 say that changing GICR_PROPBASER or GICR_PENDBASER while
+> > GICR_CTLR.EnableLPIs =3D=3D 1 is UNPREDICTABLE. After clearing EnableLP=
+Is,
+> > software must wait for GICR_CTLR.RWP =3D=3D 0 before touching the pendi=
+ng
+> > table. The architecture also permits implementations where, once
+> > EnableLPIs has been set, clearing it again is not guaranteed to work.
+> > Where an ITS is present, the spec strongly recommends moving LPIs to
+> > another redistributor before clearing EnableLPIs.
+> >
+> > Because of that, treat a retained EnableLPIs state as valid when the
+> > redistributor still points at Xen's expected PROPBASER/PENDBASER tables=
+.
+> > Only try to clear EnableLPIs when the retained configuration does not
+> > match Xen's state, and wait for RWP before reprogramming the tables.
+> >
+> > This is also consistent with platform firmware reality: PSCI and the GI=
+C
+> > architecture allow platform-specific redistributor power handling, and =
+not
+> > all platform firmware implementations force a full redistributor power-=
+off
+> > through implementation-defined controls during CPU_OFF. Xen therefore n=
+eeds
+> > to tolerate retained redistributor state on secondary CPU bring-up.
+> >
+> > Keep gicv3_populate_rdist() resident as well, because gicv3_cpu_init()
+> > reuses it on secondary CPU bring-up after init.
+> >
+> > Tested using Xen's non-boot CPU disable/enable path on Arm
+> > FVP_Base_RevC-2xAEMvA, both with and without:
+> > -C gic_distributor.allow-LPIEN-clear=3D1
+> > -C gic_distributor.GICR-clear-enable-supported=3D1
+> > and on Orange Pi 5.
+> >
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+>
+> I understand you will send a separate patch to fix RWP.
+>
+> Looks ok to me, I see you=E2=80=99ve touched some printk in gicv3_populat=
+e_rdist() which
+> were wrongly having %d for smp_processor_id(), sometimes maintainers are =
+not
+> really ok with that when the changes are not related to the commit, but a=
+part from that:
 
-In the context of GSIs, I think we aim for Xen to always identity map
-them (so IRQ == pIRQ), but there might be (or might have been)
-hypercalls that could allow you to create non-identity mappings
-between GSIs and pIRQs.
+That change was intentional.
 
-Explicitly looking at allocate_and_map_gsi_pirq() do you know what
-causes the domain_irq_to_pirq() in allocate_pirq() to not return the
-already allocated pIRQ that matches the passed IRQ?
+In the previous version of this series, you pointed out the
+wrong format specifier for smp_processor_id() in one of these
+printk()s.
 
-Overall we should likely adjust map_domain_pirq() to return -EEIXST,
-and then fix ioapic_guest_write() to shallow such error so we can keep
-the current behavior for that specific interface.
+Although it was not directly related to the functional change in
+this patch, I decided to fix the other similar occurrences in
+gicv3_populate_rdist() as well, for consistency.
 
-Regards, Roger.
+>
+> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+>
+> Cheers,
+> Luca
+>
+>
+
+Best regards,
+Mykola
 
