@@ -2,65 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4ChMMlbgBWpJdAIAu9opvQ
+	id WMvcDpXhBWqNdAIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 16:46:46 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 16:52:05 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 028CD5436A7
-	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 16:46:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1308958.1580187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9748A543819
+	for <lists+xen-devel@lfdr.de>; Thu, 14 May 2026 16:52:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1308969.1580195 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNXKL-0003jB-Mp; Thu, 14 May 2026 14:46:17 +0000
+	id 1wNXPj-0005WF-Bl; Thu, 14 May 2026 14:51:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1308958.1580187; Thu, 14 May 2026 14:46:17 +0000
+Received: by outflank-mailman (output) from mailman id 1308969.1580195; Thu, 14 May 2026 14:51:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNXKL-0003gH-JD; Thu, 14 May 2026 14:46:17 +0000
-Received: by outflank-mailman (input) for mailman id 1308958;
- Thu, 14 May 2026 14:46:16 +0000
+	id 1wNXPj-0005Uo-92; Thu, 14 May 2026 14:51:51 +0000
+Received: by outflank-mailman (input) for mailman id 1308969;
+ Thu, 14 May 2026 14:51:49 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Luca.Fancellu@arm.com>) id 1wNXKK-0003gB-GL
- for xen-devel@lists.xenproject.org; Thu, 14 May 2026 14:46:16 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wNXPh-0005Ui-Nq
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2026 14:51:49 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNXKJ-005qgn-Pv
- for xen-devel@lists.xenproject.org; Thu, 14 May 2026 16:46:15 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wNXPf-00FIXN-5R
+ for xen-devel@lists.xenproject.org; Thu, 14 May 2026 16:51:48 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Luca.Fancellu@arm.com>)
- id 6a05e010-2eae-0a2a0a5409dd-0a2a450884f0-20
- for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 16:46:14 +0200
-Received: from [52.101.72.0]
- (helo=AM0PR02CU008.outbound.protection.outlook.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Luca.Fancellu@arm.com>)
- id 6a05e036-63b5-0a2a45080019-34654800750b-3
- for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 16:46:14 +0200
-Received: from CWLP123CA0106.GBRP123.PROD.OUTLOOK.COM (2603:10a6:401:5f::22)
- by GV1PR08MB10477.eurprd08.prod.outlook.com (2603:10a6:150:163::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Thu, 14 May
- 2026 14:46:08 +0000
-Received: from AMS0EPF000001A7.eurprd05.prod.outlook.com
- (2603:10a6:401:5f:cafe::4b) by CWLP123CA0106.outlook.office365.com
- (2603:10a6:401:5f::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.18 via Frontend Transport; Thu, 14
- May 2026 14:46:07 +0000
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS0EPF000001A7.mail.protection.outlook.com (10.167.16.234) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.13
- via Frontend Transport; Thu, 14 May 2026 14:46:07 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com (2603:10a6:10:2d7::16)
- by GVXPR08MB11318.eurprd08.prod.outlook.com (2603:10a6:150:2c2::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Thu, 14 May
- 2026 14:45:04 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::5d34:206f:373:a323]) by DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::5d34:206f:373:a323%6]) with mapi id 15.20.9913.009; Thu, 14 May 2026
- 14:45:04 +0000
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a05e149-e002-0a2a0a5209dd-0a2a4505d048-44
+ for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 16:51:48 +0200
+Received: from [209.85.208.172] (helo=mail-lj1-f172.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a05e184-aaa8-0a2a45050019-d155d0acb00f-3
+ for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 16:51:48 +0200
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-39397d63804so93455251fa.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 07:51:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,284 +51,337 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=TiIdws1Sxd+qgZ/bf8U7mXL71QCQYb30Kon7DYCnJg49WdKh3yGXygR1CycSPn390CIeV+DnkZJ62q2p0hWmeGfvoilaiPyt+Hi5GU0DpR47g8xESCsBvdtn44n0RAqxkSK4DrFxaRhsU09ArdpdiKYgeqDHFCLTaqalDu8jKtYPvxvAk2bSWBgVj3FSBeqHr7uTa8HH8Vwta2BNnecjH75wsBhtBP2OF7jflksAKznX1QlqPmolG0ilWkHWXMNbaXZJVOwye4ptKoj+wz8UQMAGYGiqUnvWT0gN71z7kDn6oaevT29CrjGBvXfab8hm3/RfaDF3lh1h+3EAbXVukg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pXcoDxHRxGKKp8TCK5YNDj+o6REzgmHVFwVATp9BCck=;
- b=zPm39aeOtzvn+LrswtThgBV4yCDuJjig64W1poxRErQv6ZUFal0dM/N4+veP/Yf8dySDv46kPUOyYUuz0fE3RhnUhjiqr3rpDTFKupd90tK3wvcQb6T5JVK5oam+aX3LyTPDs4/T6adJyI1B7j6bXGB91LVCHLmxa/HgKyJtTrtzWx95VwrtqLZRXU/ktN5mvLLUVZeFzgF4+hMvYHerlI2x7Gug4eMR0VPrjkctIvlvbRF7SYR0U4redCE4b2VLV69VjNZCdAAVuIZr+Gapf3tlTa15c9PTGVdpmZFhi2KJU2KkzU4VW94yfcDte23YVUO47qx1uvdalMkwErxHJQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=gmail.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pXcoDxHRxGKKp8TCK5YNDj+o6REzgmHVFwVATp9BCck=;
- b=bmzaljxNTagqdBS93ILTJ2ZCkIh0FELd6KafcUQ/lVjuHSYQfA3XUgrhlAlW1sO/YTd/DFokMPPImbfeMkbdgA3nmHHqMXOJvyHMI1+606B2xkj2i1PQujKL1kjeLKgqpXxMCtll3wLqNh8huW7FA3MwYGCL6n3whrFQAI7moLM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WG9j7faOQSW7lBcjlO+X80ZF5DVgpaqfPEryD6xbDSwgiifZOEKvKjkLM3VhphfOX9At8S4g7DfPZ04uTUpa3jdUdPxkRnrVB3Cl5wO/K6KHlUmlKK1ZrlqoDGbsK9V3CUMht+ALFzEfQe1WpN+JWCtWkCNyfy7osZyrpqvvPYjC+h2RhQaL1ayWSCNbZEwPsAwZfdt2Wp7N+9i4rdxo1RSYvpSCkSadiKra9ZouV/gVPOgE8YI6qeDFIzUVk3vg+fQO9WK51bzLfLBk7G3TXK6AbthPn9LigwPi2ohiHHTGgVlK/TFavkPB7xkr5s0O6HUQRu9tsrYFYumW1abZkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pXcoDxHRxGKKp8TCK5YNDj+o6REzgmHVFwVATp9BCck=;
- b=arvRz/JnERYq9R8IHvuwJdAXgRPswJ5l/p68XQvEBKa1SF4WdgBpoNS0S1GCp9lLoDHfoDQq3C+p2vaHUgZhTYYiWat8QDLZyAcmREQC7MrkestLIYuq7V+F9ByHQob/7ibF+GR3YIxEYK8/tPF+YrU8EEurqzoojelHxBZ8IrBTmms4jugXdvJJQwT7E+bexzT31RCWBmj4bpSQNeeE0In0Jr6A+e/0N2yhyKJr0BJwRccKRdMt8ECQa4hAGjGWiV/JldqUe5QSgNOk5EmE+9NiubNz8xIvJIkZPiHa5UE3hijVjI4dwZJbBx70GzlOxsYQH+BdlEbgczC5rdgmqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pXcoDxHRxGKKp8TCK5YNDj+o6REzgmHVFwVATp9BCck=;
- b=bmzaljxNTagqdBS93ILTJ2ZCkIh0FELd6KafcUQ/lVjuHSYQfA3XUgrhlAlW1sO/YTd/DFokMPPImbfeMkbdgA3nmHHqMXOJvyHMI1+606B2xkj2i1PQujKL1kjeLKgqpXxMCtll3wLqNh8huW7FA3MwYGCL6n3whrFQAI7moLM=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Mykola Kvach <xakep.amatop@gmail.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola
- Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v9 05/13] xen/arm: gic-v3: add ITS suspend/resume support
-Thread-Topic: [PATCH v9 05/13] xen/arm: gic-v3: add ITS suspend/resume support
-Thread-Index: AQHc4jIv4lr3xwecDU6oUMQf2MSZUrYNm/aA
-Date: Thu, 14 May 2026 14:45:04 +0000
-Message-ID: <5323B63C-7F37-418C-97C6-0A94F9D03B4F@arm.com>
-References: <cover.1778605274.git.mykola_kvach@epam.com>
- <bd79226263c1dd9c915a7fffd4f92b194af864ee.1778605274.git.mykola_kvach@epam.com>
-In-Reply-To:
- <bd79226263c1dd9c915a7fffd4f92b194af864ee.1778605274.git.mykola_kvach@epam.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.700.81.1.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DU2PR08MB7272:EE_|GVXPR08MB11318:EE_|AMS0EPF000001A7:EE_|GV1PR08MB10477:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7c39170-c7ca-4fc6-32b0-08deb1c78811
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|1800799024|376014|7416014|366016|18002099003|22082099003|56012099003|38070700021|3023799003|11063799003|4143699003;
-X-Microsoft-Antispam-Message-Info-Original:
- IcNz05VCJKlZDr6vaIdo7CJsFCKF3YxUJmUM1JQUgKkA5qX5hQhIDF9BfNR4q+AmK7wDKnu1V+iFVEEwtAccYAvt0Uf1Kf6h6YtgNSVB5IEI5pMXk3IHQJoYJLcZBos1Q3DylK2Ca6bEHpQ+EUWNGcO+QiGwBFLGxu3Zt8z5m2SigRKBqrYSw2KRio921Wz+mzlBB/4gIkHSB2MqoqUMJUKv5ngbeCF+aHXUIlYD3TWjbEzH3kCkzCSDNU2d5+gh/8Z2NPUKWFJqnM7YPUTeMDUGaA39d940gZsJr126itp12qu/FnkJ4mf3/rbqBRjYuxdy4WEBHNbK2/k48sLiTE2hi9iP9utTe7ddT/4/OOLdry+pJUFnLR0QRvwuNqQDQl39aCuR2H8kTETqXI0YIRVnc1+cp6ZVc2y+P45db5gX7/ZWYSqH3At4+U2kX2TfjUjj8bnZxWZBVf/h1HT0BDegFir9OOk30xCMI2U3VnWSwwPYRLy05CLngfGVeYBi6dEajLXKv0oh4mUj7JEBa6o2BdQVOj3EnQgJZnBND/x8uyOBUkeKOaxr3XbqY0AnTa6te0pwf9SPckntSKQA7jFdKbnRCM2yaJYM3PpudicjhU76aXwWdK7vE84TQb8APvCKA77g0ck9FxvQ8KvFzuGA7My7/hbbq+HooGyGeDPWTLiU2j3z2ys9t5ihvH8D+icQBUt0OKcSTJouUKT9sm3ZbYSPOO1/v/9bG4QZOp0JwwmwsUPQkFSe9zUzSGtd
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7272.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(18002099003)(22082099003)(56012099003)(38070700021)(3023799003)(11063799003)(4143699003);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <DCEEE0F0D2B6D54685B646230F19FF70@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1778770308; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ZULRKXErdrQW3HpmDvIgQJ+hwoDkqsdXpUKjGjZa9Ov4MazpyuUHUoEN/wtyDnlj2n
+         fnYbTfsrnPy/xJ0UzkL6B0zmOms9BWUJR+N1X7wS+GZ3vmOhljri3HLhZzZHlnxSvvF7
+         SB3Iriw5HfIqIdQtQ1OxS8Y4fUQLkau/sP7K8+BwxiYJAmFysNo8h9EAe0ItPVPirSGu
+         VPouy9FUwamIFquVHTIJQCfTDBg4VrSSsiT5IwlYxVUn22FeBCynuv/KJYbA7iFulaJ7
+         +fy65Rr1c6tODoKuhy7o1aFV7N8YGrJbMNy5Y7APzZu2dB+03hdV+EOOS5ryyXJ0GRoH
+         m6Fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KIIiwCBbQ685Z7X9m9+JX/D+mioY59yU2loMFYxhtWQ=;
+        fh=GgMYjtlO+qGjk4ieOEUMK5gpFDA70JLVlWtgRNJ+MYY=;
+        b=jtC8aXgQq8CywyTtOXqPggsgWOj5Ra7xotCqIHSw+7KQs4adZ4GxPSC+3FxYGyytNI
+         CMYsSpCmI5/mqUAKY80/h1LydJPl/5Pzr1L+rwel0eLhq+s7sExEgOr12C+by9TJWry5
+         fcKX+T4FBJEtDOZS8dNh5l2bLNQd/smpQH9PMGmoGV0H3FUnJ7aJJpA0Ze/jQKyFW7KS
+         UQ9bQhQ7JFwjCfF2IU8lyDd+NpdJF6f6tFIANQKavzOPVN5DMaTVP8QKxmVfHromxCqS
+         bLx2Ygp+Pad/08rHqhKvdj9OFgwutRcLwtJnoldx9sVcmevurWker9eFsiGYOnUKi2FR
+         118g==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778770308; x=1779375108; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=KIIiwCBbQ685Z7X9m9+JX/D+mioY59yU2loMFYxhtWQ=;
+        b=d/QC5ca//pUsbCXx/3sFfpstYfTaanAXkDKt9G+N4VPwLqNdVS5ceEAN8k0Ryc+z4o
+         8D+wmEUobzwaPeT/2YOoPPTCCc15peqLj//06nhPuGVH3R7SbdQCkKrGF6pilUQmUVwc
+         jyH4iPKA4o0z7XwfGBDwupWO9MA7iUaPeEjictWCBmVi7XO9x4rEQVLbi9xK1Ss8OqjP
+         6M68acgXllVF7EwK5Rd87iU+BMlR1+NU9fNN2FJagewoi44QqqmQr9rV6JHuiV4f8O8C
+         4wlrOUNOfzg58M93iQdUPaiY40fCOUPsnXjHkqev5SOHxDJ7kOFo8H41ZY3Vs6wlD0+C
+         ZjSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778770308; x=1779375108;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=KIIiwCBbQ685Z7X9m9+JX/D+mioY59yU2loMFYxhtWQ=;
+        b=OOa+iSfRZjc+t52xxronALk2pvuWG8K/m3DMrMB8MUKuV77MUXhfDfETSwnjDJvYEI
+         4laisSzkkgMxtEGQNFJe38PVLLP/YIcZk/xd38if3/Hdk17qF1QSfXM/feDE9WlLZQFy
+         HN7eI3Vl+rJ4JKS6U3CVmCc5TfcPEo/3rgr+zetryfPJE2Tt9chi9WTfyWNQGQ73+U83
+         CYpYTyS49c3mqqrWvUZX6wo6Rb8rx4g4IM/LRF5GQnPMHa+n5GxN++m4u7OgTK05yqoQ
+         81BaFcC4kM5J7tNGlD2EUc6NGhtnintjo2X7k8EX18Jum0E9oKonMH1qD9m9lREFlwJ/
+         6lrg==
+X-Forwarded-Encrypted: i=1; AFNElJ9PdtJFHKl4Uhpi65dk7sAhZ800+tDytPDum8rWCBW1p2DRIcHILCF/N964GUk40lWuQU1vcL1LgTI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxnYSxAxf3gJ8VGUBvnsQwaC1hU8+T+OLuE+LvwIqeuqL1lGXgl
+	d4TchvZKq5X32D5tmwq8g0ANWqgmP4QPODXJ9qOMQsxOkXL76iqVKTFuY8U20ibDJiU535aw5WU
+	gZLf/W1TRu7THu9sYIjHPYnzgSBrx1+0=
+X-Gm-Gg: Acq92OFVAVDXASZcOefMNTM5ZeSwgDuDH7YTCBcvBNoZmSk2Wa5jC/BZr1lpTlTKAB6
+	v3wWbWvirZatzrlIHOOhOpxIU6b0uR+RNnJqgkmGt9RzphN7b4Bwf3IKKiGw/i4dh5bwU1+c1Sw
+	igPBJ8wzorQWuoB/zImcFLPz5euFJndhtV90dROLZPqQaaTjX6vfbdivIW559/OUUkV02ZH+xYK
+	/MKEb4mSM9zqKTYQqY72K+CMd8RNMKHK+QiG5QiG69Lb+FZyULz4PnUSxBAp6WPtQNYUxa5lIdU
+	ipgXhNF+EdO6Mrs=
+X-Received: by 2002:a05:651c:24a:b0:394:5c9a:f315 with SMTP id
+ 38308e7fff4ca-3945c9afc6cmr15373501fa.14.1778770307546; Thu, 14 May 2026
+ 07:51:47 -0700 (PDT)
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
- NQXV4T+lywkCMJtt3QFLDd1MaVi6WSSVTIQKM3SIhWuxqvjTZbT6Xma/glx2IoI70C1rf8j0t1kTFYnPJzlz0D5EpYwt9Ij1/srJlewCmXkMlEzwz/cQS7aGthvSt22zGeJ7m+fCvE5E/O5rLK3Jjn4UBPoHP5+4mZmANs3X6mChIexIqw4S7IRqZUqoA/ewHmKawNQxSQTAbQAH28whGX5vfZlaxGLlG8rfS29gEGvBpqpkYwH/ZKJIgj0XWU5qeoBR87FyKn0S/7G66ORYM/jtgXDP0khryXR86TmD2I9VuGpS+soM2JMpQY2QflzgiO2dti40k4OYdL2x+q/i+w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB11318
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AMS0EPF000001A7.eurprd05.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	fa80bc95-c204-46a1-de1a-08deb1c76274
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|14060799003|82310400026|7416014|1800799024|36860700016|35042699022|3023799003|11063799003|22082099003|56012099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	bnDvruiUMe/HIDNygPyuhQUAqWpbi0QYSl2dHcmL2OgQqy00Iyi1//MF782wWy+GaLbmuRdHioiM9lDRw26KQxDcw/REOcW+HhYaG8eEj7Eh+yKLfYtPE0pDw5lsGrAAxNl1QKlf4sMlNBPK1WhAr+xqWu2RNLQMeY0KCrbQCYshLO/3M7MbJqNF6lv+87tAtBdKtcnjoCjZoZgzTnpB6qD1cHSlJ9dlStbQzH5QIryuvqfh20We81y4P1IIZBk3208tu5QGbL37xjAIK6csa7fIhVHawKcvh0WSPpiAbiuCYNhxZqUUFq3bjk/ETWwgTtaIpqLdV6n0q4lEdEVMNefo85Gv4ynShBG6LpZ+upPvJnVPTLEs6s1puLcTMu6kOkjPHkZP4mz68IK+nrVMcwAWWN3ri2tUAdEPzR8Agg4rtpFPVnq01/7cCItvAvzDd6+rhhfq9IILv/9xe8X7X4zakqBaO+j2owOeXqWE+EvZLOn95dAcrPH1B9pFOqJThwUWvaLmyb20cse4yxIiAaL6ao5cj/mbgixmL7Fp+308ufQEA3sZSku0dnX2CFhWBzIuMUYSCmQeGSIxxnp/WZVHanOeWCVgRNNUAq2vx3C4GWat41XvebTkT+DgAUG+4N+qwZuedBkNiAlA8lRHpHpkxvGN+Eh5nYqaVBQUnyoSiJBCPmnPAA9ehATrNgnEnPDE09l3ODgeGb23tYBvygJZi1tuBDelK+XqIj8CAM4=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(14060799003)(82310400026)(7416014)(1800799024)(36860700016)(35042699022)(3023799003)(11063799003)(22082099003)(56012099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	WDexAI+5mJu9f2z67bnLD6lUPShk4sW92+z0+VfSBBvHFrUmTbLu3oTSqcLVti1cWpy20excUTWuULWDsQqrBgNtrb5hCbQsIYpZJqVOK8ilw+xw20x4Lj3Rkaz4kmrVEgLJt+1vVbttEobF8v6I84BDgtfJALTj9hRpuag+2+7j1fGsRZ5OzwMY/+Y6g819ckJNXoL0pQhkVI43PYxdxp5R74lCxAu3/khta+Nk3mOAIU2XrvVCVHreHGzgpuAw8bWzQ/1O78XaLqdOHHM8hg0M2JRISH7mpKNilTMd4LpqIuHSiVDGApktmJzxK7hiAOO8tAziGrX00clmwRUFzwZjSF1Fsfag12Lph3EuG8l9+7h7ZonBvgTR3XSKx8ol7xVi34aAtlQpMhpJQ2dMYxSpGpI/nCpSQoYErK0/ioWx54J3qG+QiyaH30L7HedJ
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 14:46:07.1664
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7c39170-c7ca-4fc6-32b0-08deb1c78811
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF000001A7.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB10477
-X-purgate-ID: tlsNG-c1860d/1778769974-BC766DB1-C2A927A2/0/0
+References: <cover.1778605274.git.mykola_kvach@epam.com> <06448a30ef6694a55ac85d4c8c78ca2d71342430.1778605274.git.mykola_kvach@epam.com>
+ <7a540913-adc4-4172-9108-9c91eaf854fe@suse.com>
+In-Reply-To: <7a540913-adc4-4172-9108-9c91eaf854fe@suse.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Thu, 14 May 2026 17:51:36 +0300
+X-Gm-Features: AVHnY4JWFNAD9wNXPx--H8U3_8L_mpDIMMkgHAKqUqL7_4hcbV5XqSOH_oqu7g8
+Message-ID: <CAGeoDV8cmFJPcaJRg_dqxZqc7Q+=CDS9jvw-HDw1pDfb3HGfog@mail.gmail.com>
+Subject: Re: [PATCH v9 12/13] xen/arm: Add vPSCI SYSTEM_SUSPEND policy
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>, 
+	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Rahul Singh <rahul.singh@arm.com>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-c201ff/1778770308-E0A66443-DE9AD681/0/0
 X-purgate-type: clean
-X-purgate-size: 10096
-X-Rspamd-Queue-Id: 028CD5436A7
+X-purgate-size: 7462
+X-Rspamd-Queue-Id: 9748A543819
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.59 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=2];
-	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
-	R_DKIM_ALLOW(-0.20)[arm.com:s=selector1];
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:xakepamatop@gmail.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FORGED_SENDER(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:rahul.singh@arm.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,suse.com:email];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[13];
-	FROM_NEQ_ENVFROM(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[arm.com:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:mid,arm.com:dkim]
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Action: no action
 
-SGkgTXlrb2xhLA0KDQo+IE9uIDEyIE1heSAyMDI2LCBhdCAxODowNywgTXlrb2xhIEt2YWNoIDx4
-YWtlcC5hbWF0b3BAZ21haWwuY29tPiB3cm90ZToNCj4gDQo+IEZyb206IE15a29sYSBLdmFjaCA8
-bXlrb2xhX2t2YWNoQGVwYW0uY29tPg0KPiANCj4gSGFuZGxlIHN5c3RlbSBzdXNwZW5kL3Jlc3Vt
-ZSBmb3IgR0lDdjMgd2l0aCBhbiBJVFMgcHJlc2VudCBzbyBMUElzIGtlZXANCj4gd29ya2luZyBh
-ZnRlciBmaXJtd2FyZSBwb3dlcnMgdGhlIEdJQyBkb3duLiBTYXZlIGFuZCByZXN0b3JlIHRoZSBJ
-VFMNCj4gQ1RMUiwgQ0JBU0VSIGFuZCBCQVNFUiByZWdpc3RlcnMsIGFuZCByZS1lc3RhYmxpc2gg
-dGhlIGNvbGxlY3Rpb24gbWFwcGluZw0KPiBvbiByZXN1bWUuDQo+IA0KPiBBZGQgbGlzdF9mb3Jf
-ZWFjaF9lbnRyeV9jb250aW51ZV9yZXZlcnNlKCkgaW4gbGlzdC5oIGZvciB0aGUgSVRTIHN1c3Bl
-bmQNCj4gZXJyb3IgcGF0aCB0aGF0IG5lZWRzIHRvIHJvbGwgYmFjayBwYXJ0aWFsbHkgc2F2ZWQg
-c3RhdGUuDQo+IA0KPiBCYXNlZCBvbiBMaW51eCBjb21taXQgZGJhMGJjN2I3NmRjOg0KPiAiaXJx
-Y2hpcC9naWMtdjMtaXRzOiBBZGQgYWJpbGl0eSB0byBzYXZlL3Jlc3RvcmUgSVRTIHN0YXRlIi4N
-Cj4gU2lnbmVkLW9mZi1ieTogTXlrb2xhIEt2YWNoIDxteWtvbGFfa3ZhY2hAZXBhbS5jb20+DQo+
-IC0tLQ0KPiBDaGFuZ2VzIGluIFY5Og0KPiAtIGZpeCB0aGUgSVRTIHN1c3BlbmQvcmVzdW1lIGNv
-ZGluZy1zdHlsZSBuaXRzOw0KPiAtIHByZXNlcnZlIHRoZSBzYXZlZCBHSVRTX0NUTFIgc3RhdGUg
-d2hpbGUgbWFza2luZyB0aGUgcmVhZC1vbmx5DQo+ICBRVUlFU0NFTlQgYml0Lg0KPiANCj4gQ2hh
-bmdlcyBpbiBWODoNCj4gLSBSZXdvcmQgdGhlIENCQVNFUi9DV1JJVEVSIGNvbW1lbnQgdG8gbWF0
-Y2ggWGVuIGFuZCBkcm9wIHRoZSBzdGFsZSBMaW51eA0KPiAgY21kX3dyaXRlIHJlZmVyZW5jZS4N
-Cj4gLSBDbGFyaWZ5IHRoZSBsaXN0X2Zvcl9lYWNoX2VudHJ5X2NvbnRpbnVlX3JldmVyc2UoKSBj
-b21tZW50Lg0KPiAtIEZhY3RvciBvdXQgcGVyLUlUUyBoZWxwZXJzIGZvciBjb2xsZWN0aW9uIHNl
-dHVwIGFuZCByZXN1bWUuDQo+IC0gUmVzdG9yZSBlYWNoIElUUyBhbmQgcmUtZXN0YWJsaXNoIGl0
-cyBjb2xsZWN0aW9uIG1hcHBpbmcgaW4gdGhlIHNhbWUNCj4gIGxvb3AsIHNvIGEgZmFpbGVkIElU
-UyByZXN1bWUgaXMgbm90IGZvbGxvd2VkIGJ5IE1BUEMvU1lOQyBvbiB0aGF0DQo+ICB1bi1yZXN0
-b3JlZCBpbnN0YW5jZS4NCj4gLSBwYW5pYyBpbiBjYXNlIHdoZW4gcmVzdW1lIG9mIGFuIElUUyBm
-YWlsZWQNCj4gLSBjbGVhbnVwIGJhc2VyIGNhY2hlIGR1cmluZyBzdXNwZW5kDQo+IC0tLQ0KPiB4
-ZW4vYXJjaC9hcm0vZ2ljLXYzLWl0cy5jICAgICAgICAgICAgIHwgMTMzICsrKysrKysrKysrKysr
-KysrKysrKysrKy0tDQo+IHhlbi9hcmNoL2FybS9naWMtdjMuYyAgICAgICAgICAgICAgICAgfCAg
-MTEgKystDQo+IHhlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9naWNfdjNfaXRzLmggfCAgMjMgKysr
-KysNCj4geGVuL2luY2x1ZGUveGVuL2xpc3QuaCAgICAgICAgICAgICAgICB8ICAxNCArKysNCj4g
-NCBmaWxlcyBjaGFuZ2VkLCAxNzEgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pDQo+IA0K
-PiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL2dpYy12My1pdHMuYyBiL3hlbi9hcmNoL2FybS9n
-aWMtdjMtaXRzLmMNCj4gaW5kZXggOTAwNWNlOGNlNS4uNTgyYzI2ZDk2NCAxMDA2NDQNCj4gLS0t
-IGEveGVuL2FyY2gvYXJtL2dpYy12My1pdHMuYw0KPiArKysgYi94ZW4vYXJjaC9hcm0vZ2ljLXYz
-LWl0cy5jDQo+IEBAIC0zMzUsNiArMzM1LDIyIEBAIHN0YXRpYyBpbnQgaXRzX3NlbmRfY21kX2lu
-dihzdHJ1Y3QgaG9zdF9pdHMgKml0cywNCj4gICAgIHJldHVybiBpdHNfc2VuZF9jb21tYW5kKGl0
-cywgY21kKTsNCj4gfQ0KPiANCj4gK3N0YXRpYyBpbnQgZ2ljdjNfaXRzX3NldHVwX2NvbGxlY3Rp
-b25fc2luZ2xlKHN0cnVjdCBob3N0X2l0cyAqaXRzLA0KPiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgaW50IGNwdSkNCj4gK3sNCj4gKyAgICBp
-bnQgcmV0Ow0KPiArDQo+ICsgICAgcmV0ID0gaXRzX3NlbmRfY21kX21hcGMoaXRzLCBjcHUsIGNw
-dSk7DQo+ICsgICAgaWYgKCByZXQgKQ0KPiArICAgICAgICByZXR1cm4gcmV0Ow0KPiArDQo+ICsg
-ICAgcmV0ID0gaXRzX3NlbmRfY21kX3N5bmMoaXRzLCBjcHUpOw0KPiArICAgIGlmICggcmV0ICkN
-Cj4gKyAgICAgICAgcmV0dXJuIHJldDsNCj4gKw0KPiArICAgIHJldHVybiBnaWN2M19pdHNfd2Fp
-dF9jb21tYW5kcyhpdHMpOw0KPiArfQ0KPiArDQo+IC8qIFNldCB1cCB0aGUgKDE6MSkgY29sbGVj
-dGlvbiBtYXBwaW5nIGZvciB0aGUgZ2l2ZW4gaG9zdCBDUFUuICovDQo+IGludCBnaWN2M19pdHNf
-c2V0dXBfY29sbGVjdGlvbih1bnNpZ25lZCBpbnQgY3B1KQ0KPiB7DQo+IEBAIC0zNDMsMTUgKzM1
-OSw3IEBAIGludCBnaWN2M19pdHNfc2V0dXBfY29sbGVjdGlvbih1bnNpZ25lZCBpbnQgY3B1KQ0K
-PiANCj4gICAgIGxpc3RfZm9yX2VhY2hfZW50cnkoaXRzLCAmaG9zdF9pdHNfbGlzdCwgZW50cnkp
-DQo+ICAgICB7DQo+IC0gICAgICAgIHJldCA9IGl0c19zZW5kX2NtZF9tYXBjKGl0cywgY3B1LCBj
-cHUpOw0KPiAtICAgICAgICBpZiAoIHJldCApDQo+IC0gICAgICAgICAgICByZXR1cm4gcmV0Ow0K
-PiAtDQo+IC0gICAgICAgIHJldCA9IGl0c19zZW5kX2NtZF9zeW5jKGl0cywgY3B1KTsNCj4gLSAg
-ICAgICAgaWYgKCByZXQgKQ0KPiAtICAgICAgICAgICAgcmV0dXJuIHJldDsNCj4gLQ0KPiAtICAg
-ICAgICByZXQgPSBnaWN2M19pdHNfd2FpdF9jb21tYW5kcyhpdHMpOw0KPiArICAgICAgICByZXQg
-PSBnaWN2M19pdHNfc2V0dXBfY29sbGVjdGlvbl9zaW5nbGUoaXRzLCBjcHUpOw0KPiAgICAgICAg
-IGlmICggcmV0ICkNCj4gICAgICAgICAgICAgcmV0dXJuIHJldDsNCj4gICAgIH0NCj4gQEAgLTEy
-MTAsNiArMTIxOCwxMTMgQEAgaW50IGdpY3YzX2l0c19pbml0KHZvaWQpDQo+ICAgICByZXR1cm4g
-MDsNCj4gfQ0KPiANCj4gKyNpZmRlZiBDT05GSUdfU1lTVEVNX1NVU1BFTkQNCj4gK2ludCBnaWN2
-M19pdHNfc3VzcGVuZCh2b2lkKQ0KPiArew0KPiArICAgIHN0cnVjdCBob3N0X2l0cyAqaXRzOw0K
-PiArICAgIGludCByZXQ7DQo+ICsNCj4gKyAgICBsaXN0X2Zvcl9lYWNoX2VudHJ5KCBpdHMsICZo
-b3N0X2l0c19saXN0LCBlbnRyeSApDQo+ICsgICAgew0KPiArICAgICAgICB1bnNpZ25lZCBpbnQg
-aTsNCj4gKyAgICAgICAgdm9pZCBfX2lvbWVtICpiYXNlID0gaXRzLT5pdHNfYmFzZTsNCj4gKw0K
-PiArICAgICAgICAvKg0KPiArICAgICAgICAgKiBCeSB0aGUgdGltZSBYZW4gcmVhY2hlcyBnaWNf
-c3VzcGVuZCgpLCBldmVyeSBkb21haW4gaXMgYWxyZWFkeSBpbg0KPiArICAgICAgICAgKiBTSFVU
-RE9XTl9zdXNwZW5kLCBzbyBJVFMtdGFyZ2V0aW5nIGludGVycnVwdCBzb3VyY2VzIGFyZSBleHBl
-Y3RlZA0KPiArICAgICAgICAgKiB0byBoYXZlIGJlZW4gcXVpZXNjZWQgYnkgdGhlIG93bmluZyBP
-UyBiZWZvcmUgU1lTVEVNX1NVU1BFTkQuDQo+ICsgICAgICAgICAqLw0KPiArICAgICAgICAvKiBQ
-cmVzZXJ2ZSBzYXZlZCBHSVRTX0NUTFIgc3RhdGUsIGV4Y2x1ZGluZyByZWFkLW9ubHkgUVVJRVND
-RU5ULiAqLw0KPiArICAgICAgICBpdHMtPnN1c3BlbmRfY3R4LmN0bHIgPSByZWFkbF9yZWxheGVk
-KGJhc2UgKyBHSVRTX0NUTFIpICYNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-fkdJVFNfQ1RMUl9RVUlFU0NFTlQ7DQo+ICsgICAgICAgIHJldCA9IGdpY3YzX2Rpc2FibGVfaXRz
-KGl0cyk7DQo+ICsgICAgICAgIGlmICggcmV0ICkNCj4gKyAgICAgICAgew0KPiArICAgICAgICAg
-ICAgd3JpdGVsX3JlbGF4ZWQoaXRzLT5zdXNwZW5kX2N0eC5jdGxyLCBiYXNlICsgR0lUU19DVExS
-KTsNCj4gKyAgICAgICAgICAgIGdvdG8gZXJyOw0KPiArICAgICAgICB9DQo+ICsNCj4gKyAgICAg
-ICAgaXRzLT5zdXNwZW5kX2N0eC5jYmFzZXIgPSByZWFkcV9yZWxheGVkKGJhc2UgKyBHSVRTX0NC
-QVNFUik7DQo+ICsNCj4gKyAgICAgICAgZm9yICggaSA9IDA7IGkgPCBHSVRTX0JBU0VSX05SX1JF
-R1M7IGkrKyApDQo+ICsgICAgICAgIHsNCj4gKyAgICAgICAgICAgIHVpbnQ2NF90IGJhc2VyID0g
-cmVhZHFfcmVsYXhlZChiYXNlICsgR0lUU19CQVNFUjAgKyBpICogOCk7DQo+ICsNCj4gKyAgICAg
-ICAgICAgIGl0cy0+c3VzcGVuZF9jdHguYmFzZXJbaV0gPSAwOw0KPiArDQo+ICsgICAgICAgICAg
-ICBpZiAoICEoYmFzZXIgJiBHSVRTX1ZBTElEX0JJVCkgKQ0KPiArICAgICAgICAgICAgICAgIGNv
-bnRpbnVlOw0KPiArDQo+ICsgICAgICAgICAgICBpdHMtPnN1c3BlbmRfY3R4LmJhc2VyW2ldID0g
-YmFzZXI7DQo+ICsgICAgICAgIH0NCj4gKyAgICB9DQo+ICsNCj4gKyAgICByZXR1cm4gMDsNCj4g
-Kw0KPiArIGVycjoNCj4gKyAgICBsaXN0X2Zvcl9lYWNoX2VudHJ5X2NvbnRpbnVlX3JldmVyc2Uo
-IGl0cywgJmhvc3RfaXRzX2xpc3QsIGVudHJ5ICkNCj4gKyAgICAgICAgd3JpdGVsX3JlbGF4ZWQo
-aXRzLT5zdXNwZW5kX2N0eC5jdGxyLCBpdHMtPml0c19iYXNlICsgR0lUU19DVExSKTsNCj4gKw0K
-PiArICAgIHJldHVybiByZXQ7DQo+ICt9DQo+ICsNCj4gK3N0YXRpYyBpbnQgZ2ljdjNfaXRzX3Jl
-c3VtZV9zaW5nbGUoc3RydWN0IGhvc3RfaXRzICppdHMsIHVuc2lnbmVkIGludCBjcHUpDQo+ICt7
-DQo+ICsgICAgdm9pZCBfX2lvbWVtICpiYXNlID0gaXRzLT5pdHNfYmFzZTsNCj4gKyAgICB1bnNp
-Z25lZCBpbnQgaTsNCj4gKyAgICBpbnQgcmV0Ow0KPiArDQo+ICsgICAgLyoNCj4gKyAgICAgKiBN
-YWtlIHN1cmUgdGhhdCB0aGUgSVRTIGlzIGRpc2FibGVkLiBJZiBpdCBmYWlscyB0byBxdWllc2Nl
-LA0KPiArICAgICAqIGRvbid0IHJlc3RvcmUgaXQgc2luY2Ugd3JpdGluZyB0byBDQkFTRVIgb3Ig
-QkFTRVI8bj4NCj4gKyAgICAgKiByZWdpc3RlcnMgaXMgdW5kZWZpbmVkIGFjY29yZGluZyB0byB0
-aGUgR0lDIHYzIElUUw0KDQpzL3VuZGVmaW5lZC91bnByZWRpY3RhYmxlLyA/DQoNCj4gKyAgICAg
-KiBTcGVjaWZpY2F0aW9uLg0KPiArICAgICAqLw0KPiArICAgIFdBUk5fT04ocmVhZGxfcmVsYXhl
-ZChiYXNlICsgR0lUU19DVExSKSAmIEdJVFNfQ1RMUl9FTkFCTEUpOw0KPiArICAgIHJldCA9IGdp
-Y3YzX2Rpc2FibGVfaXRzKGl0cyk7DQo+ICsgICAgaWYgKCByZXQgKQ0KPiArICAgICAgICByZXR1
-cm4gcmV0Ow0KPiArDQo+ICsgICAgd3JpdGVxX3JlbGF4ZWQoaXRzLT5zdXNwZW5kX2N0eC5jYmFz
-ZXIsIGJhc2UgKyBHSVRTX0NCQVNFUik7DQo+ICsNCj4gKyAgICAvKg0KPiArICAgICAqIFdyaXRp
-bmcgQ0JBU0VSIHJlc2V0cyBDUkVBRFIgdG8gMCwgc28gcmVzZXQgQ1dSSVRFUiB0bw0KPiArICAg
-ICAqIGtlZXAgdGhlIGNvbW1hbmQgcXVldWUgcG9pbnRlcnMgYWxpZ25lZC4NCj4gKyAgICAgKi8N
-Cj4gKyAgICB3cml0ZXFfcmVsYXhlZCgwLCBiYXNlICsgR0lUU19DV1JJVEVSKTsNCj4gKw0KPiAr
-ICAgIC8qIFJlc3RvcmUgR0lUU19CQVNFUiBmcm9tIHRoZSB2YWx1ZSBjYWNoZS4gKi8NCj4gKyAg
-ICBmb3IgKCBpID0gMDsgaSA8IEdJVFNfQkFTRVJfTlJfUkVHUzsgaSsrICkNCj4gKyAgICB7DQo+
-ICsgICAgICAgIHVpbnQ2NF90IGJhc2VyID0gaXRzLT5zdXNwZW5kX2N0eC5iYXNlcltpXTsNCj4g
-Kw0KPiArICAgICAgICBpZiAoICEoYmFzZXIgJiBHSVRTX1ZBTElEX0JJVCkgKQ0KPiArICAgICAg
-ICAgICAgY29udGludWU7DQo+ICsNCj4gKyAgICAgICAgd3JpdGVxX3JlbGF4ZWQoYmFzZXIsIGJh
-c2UgKyBHSVRTX0JBU0VSMCArIGkgKiA4KTsNCj4gKyAgICB9DQo+ICsNCj4gKyAgICB3cml0ZWxf
-cmVsYXhlZChpdHMtPnN1c3BlbmRfY3R4LmN0bHIsIGJhc2UgKyBHSVRTX0NUTFIpOw0KPiArDQo+
-ICsgICAgcmV0dXJuIGdpY3YzX2l0c19zZXR1cF9jb2xsZWN0aW9uX3NpbmdsZShpdHMsIGNwdSk7
-DQoNClRoaXMgd2lsbCBhbHdheXMgaXNzdWUgYSBNQVBDIFY9MSwgaW4gdGhlIHNlY3Rpb24gNS4z
-LjkgaXQgc2FpcyBpdOKAmXMgInVucHJlZGljdGFibGUNCmlmIHRoZXJlIGFyZSBpbnRlcnJ1cHRz
-IHRoYXQgYXJlIG1hcHBlZCB0byB0aGUgc3BlY2lmaWVkIGNvbGxlY3Rpb24gYW5kIHRoZQ0KY29s
-bGVjdGlvbiBpcyBjdXJyZW50bHkgbWFwcGVkIHRvIGEgUmVkaXN0cmlidXRvciwgdW5sZXNzIE1B
-UEMgaXMgZm9sbG93ZWQgYnkgTU9WQUxM4oCdLA0KaW4gdGhpcyBjYXNlIHRoZSByZWRpc3RyaWJ1
-dG9yIGlzIHRoZSBzYW1lIGJ1dCB0aGUgc3BlY3MgZG9u4oCZdCBzYXkgYW55dGhpbmcgYWJvdXQg
-dGhpcyBjYXNlLA0KaXTigJlzIGdlbmVyYWxseSB1bnByZWRpY3RhYmxlIGlmIHdlIGFyZSByZW1h
-cHBpbmcgYW4gYWxyZWFkeS1saXZlIGNvbGxlY3Rpb24uDQoNCkkgc2VlIExpbnV4IHJlcGx5IHRo
-ZSBNQVBDIFY9MSBvbmx5IGlmIHRoZSBjb2xsZWN0aW9uIGlzIHN0b3JlZCBpbiB0aGUgSVRTIChu
-b3QgbWVtb3J5IGJhY2tlZCksDQpvdXIgY29sX2lkIGlzIGBjcHVgLCB3aGljaCBJIGJlbGlldmUg
-dGhhdCBmb3IgdGhlIHN1c3BlbmQgcGF0aCBpcyBhbHdheXMgemVybyAoPyksIHNvIGJ5IGxvb2tp
-bmcgaW50bw0KSENDIHdlIGNvdWxkIGNoZWNrIGlmIHdlIG5lZWQgdG8gaXNzdWUgdGhlIE1BUEMg
-b3Igbm90Lg0KDQppZiAoIGNwdSA8IEdJVFNfVFlQRVJfSENDKHJlYWRxX3JlbGF4ZWQoYmFzZSAr
-IEdJVFNfVFlQRVIpKSApDQogICAgcmV0dXJuIGdpY3YzX2l0c19zZXR1cF9jb2xsZWN0aW9uX3Np
-bmdsZShpdHMsIGNwdSk7DQoNCnJldHVybiAwOw0KDQo+ICt9DQo+ICsNCj4gK3ZvaWQgZ2ljdjNf
-aXRzX3Jlc3VtZSh2b2lkKQ0KPiArew0KPiArICAgIHN0cnVjdCBob3N0X2l0cyAqaXRzOw0KPiAr
-ICAgIHVuc2lnbmVkIGludCBjcHUgPSBzbXBfcHJvY2Vzc29yX2lkKCk7DQo+ICsgICAgaW50IHJl
-dDsNCj4gKw0KPiArICAgIGxpc3RfZm9yX2VhY2hfZW50cnkoIGl0cywgJmhvc3RfaXRzX2xpc3Qs
-IGVudHJ5ICkNCj4gKyAgICB7DQo+ICsgICAgICAgIHJldCA9IGdpY3YzX2l0c19yZXN1bWVfc2lu
-Z2xlKGl0cywgY3B1KTsNCj4gKyAgICAgICAgaWYgKCByZXQgKQ0KPiArICAgICAgICAgICAgcGFu
-aWMoIkdJQ3YzOiBJVFNAJSJQUklwYWRkciI6IGZhaWxlZCB0byByZXN0b3JlIGR1cmluZyByZXN1
-bWU6ICVkXG4iLA0KPiArICAgICAgICAgICAgICAgICAgIGl0cy0+YWRkciwgcmV0KTsNCj4gKyAg
-ICB9DQo+ICt9DQo+ICsNCj4gKyNlbmRpZiAvKiBDT05GSUdfU1lTVEVNX1NVU1BFTkQgKi8NCj4g
-DQoNCkNoZWVycywNCkx1Y2ENCg0KDQo=
+Hi Jan,
+
+Thank you for the review.
+
+On Wed, May 13, 2026 at 9:54=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wro=
+te:
+>
+> On 12.05.2026 19:07, Mykola Kvach wrote:
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > Introduce CONFIG_HAS_HWDOM_SYSTEM_SUSPEND as an architecture-selected
+> > capability for platforms where the hardware domain can be parked with
+> > SHUTDOWN_suspend without calling hwdom_shutdown().
+> >
+> > Expose PSCI SYSTEM_SUSPEND as a vPSCI operation for all domains. For
+> > non-control domains, including the hardware domain when it is not actin=
+g as a
+> > control domain, the call is handled as a guest/domain suspend request a=
+nd
+> > parks the domain in SHUTDOWN_suspend.
+> >
+> > Control domains need additional sequencing because their SYSTEM_SUSPEND
+> > request is used to coordinate host-wide suspend. A non-last awake contr=
+ol
+> > domain may be parked in SHUTDOWN_suspend without requiring the host sus=
+pend
+> > path to be available. The last awake control domain is treated as the p=
+oint
+> > where the request becomes a host-suspend request, and it may only proce=
+ed
+> > when all non-control domains are already in SHUTDOWN_suspend and the ho=
+st
+> > suspend path is available.
+> >
+> > Keep the control-domain sequencing and domain-readiness checks out of
+> > PSCI_FEATURES. They are per-attempt runtime conditions rather than stab=
+le PSCI
+> > function availability. Advertise SYSTEM_SUSPEND as implemented by vPSCI=
+ and
+> > enforce the sequencing policy in the call handler.
+> >
+> > Select HAS_HWDOM_SYSTEM_SUSPEND independently from CONFIG_SYSTEM_SUSPEN=
+D so
+> > that SHUTDOWN_suspend from the hardware domain can be treated as a doma=
+in
+> > suspend state rather than as a hardware-domain initiated host shutdown.=
+ This
+> > does not by itself imply that host-wide suspend is available.
+> >
+> > Add host_system_suspend_allowed() to combine the host PSCI SYSTEM_SUSPE=
+ND
+> > capability with runtime blockers reported by Xen-owned subsystems. Add
+> > runtime blockers for registered serial, IOMMU, GIC and SMMUv3 MSI IRQ p=
+aths
+> > lacking suspend/resume support. These blockers are runtime based, so th=
+ey
+> > only apply to drivers or paths that Xen actually uses on the platform. =
+For
+> > SMMUv3, the blocker applies only when Xen actually uses the MSI IRQ pat=
+h,
+> > since resume does not restore the SMMU *_IRQ_CFGn MSI registers yet.
+> >
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> >  xen/arch/arm/Kconfig                  |   1 +
+> >  xen/arch/arm/gic.c                    |   6 ++
+> >  xen/arch/arm/include/asm/psci.h       |   3 +
+> >  xen/arch/arm/include/asm/suspend.h    |  10 ++-
+> >  xen/arch/arm/psci.c                   |   7 ++
+> >  xen/arch/arm/suspend.c                |  40 +++++++++
+> >  xen/arch/arm/vpsci.c                  | 114 +++++++++++++++++++++++---
+> >  xen/common/Kconfig                    |   3 +
+> >  xen/common/domain.c                   |   7 +-
+> >  xen/drivers/char/serial.c             |  12 +++
+> >  xen/drivers/passthrough/arm/iommu.c   |   4 +
+> >  xen/drivers/passthrough/arm/smmu-v3.c |   4 +
+> >  xen/include/xen/serial.h              |   1 +
+> >  xen/include/xen/suspend.h             |   2 +
+> >  14 files changed, 201 insertions(+), 13 deletions(-)
+> >
+>
+> Contrary to what the cover letter says, there's no revlog here.
+
+Right, I should have added a short note for this patch as well.
+
+This is a new patch in this version of the series, so there was no previous
+version of this particular patch to compare against, but I agree that this
+should still have been mentioned explicitly, e.g. as "New in v9". I will ad=
+d
+that in the next version.
+
+>
+> > --- a/xen/arch/arm/suspend.c
+> > +++ b/xen/arch/arm/suspend.c
+> > @@ -1,9 +1,49 @@
+> >  /* SPDX-License-Identifier: GPL-2.0-only */
+> >
+> > +#include <asm/psci.h>
+> >  #include <asm/suspend.h>
+> >
+> > +#include <xen/lib.h>
+> > +#include <xen/serial.h>
+> > +
+> >  struct resume_cpu_context resume_cpu_context;
+> >
+> > +/*
+> > + * Non-PSCI infrastructure can make host suspend impossible even when =
+the PSCI
+> > + * SYSTEM_SUSPEND conduit is present, e.g. when a Xen-owned driver has=
+ no valid
+> > + * suspend/resume path.
+> > + *
+> > + * This gate is checked only when the last awake control domain attemp=
+ts to
+> > + * turn a guest SYSTEM_SUSPEND request into a host-suspend request.
+> > + */
+> > +static bool host_system_suspend_runtime_allowed =3D true;
+> > +
+> > +static bool host_serial_suspend_allowed(void)
+> > +{
+> > +    if ( serial_suspend_supported() )
+> > +        return true;
+> > +
+> > +    printk_once(XENLOG_INFO
+> > +                "Host SYSTEM_SUSPEND blocked: serial driver lacks susp=
+end/resume support\n");
+>
+> Please try to keep log messages down to a reasonable size. In the case he=
+re,
+> what value does "suspend/resume" add?
+
+Fair point. The important part is that the serial driver cannot support the
+host suspend path. I will shorten the message somehow.
+
+>
+> > +static int32_t domain_psci_system_suspend_policy(struct domain *d)
+> > +{
+> > +    struct domain *other;
+> > +    bool last_awake_control_domain =3D true;
+> > +    bool awake_non_control_domain =3D false;
+> > +
+> > +    /* Only control domains participate in sequencing policy. */
+> > +    if ( !is_control_domain(d) )
+> > +        return 0;
+> > +
+> > +    rcu_read_lock(&domlist_read_lock);
+> > +
+> > +    for_each_domain ( other )
+> > +    {
+> > +        bool suspended;
+> > +
+> > +        if ( other =3D=3D d )
+> > +            continue;
+> > +
+> > +        suspended =3D domain_in_suspend_state(other);
+> > +        if ( suspended )
+> > +            continue;
+> > +
+> > +        if ( is_control_domain(other) )
+> > +        {
+> > +            last_awake_control_domain =3D false;
+> > +            break;
+> > +        }
+> > +
+> > +        awake_non_control_domain =3D true;
+> > +    }
+> > +
+> > +    rcu_read_unlock(&domlist_read_lock);
+> > +
+> > +    /*
+> > +     * Another control domain is still awake. This request is only the=
+ first
+> > +     * phase of the sequencing: park this control domain and leave the=
+ host
+> > +     * running. Host-wide suspend gates must not block this intermedia=
+te state.
+> > +     */
+> > +    if ( !last_awake_control_domain )
+> > +        return 0;
+> > +
+> > +    /*
+> > +     * This is the last awake control domain. It must not be parked un=
+less the
+> > +     * request can proceed as a host-suspend request; otherwise Xen wo=
+uld lose
+> > +     * the last domain that can coordinate the system suspend.
+> > +     */
+> > +    if ( awake_non_control_domain )
+> > +    {
+> > +        printk(XENLOG_DEBUG
+> > +               "SYSTEM_SUSPEND denied: last awake control domain dom%u=
+ requested host suspend while non-control domains are still awake\n",
+> > +               d->domain_id);
+>
+> Same here, plus please use %pd.
+
+Ack, I will shorten the message and use %pd.
+
+>
+> > --- a/xen/drivers/char/serial.c
+> > +++ b/xen/drivers/char/serial.c
+> > @@ -497,6 +497,8 @@ const struct vuart_info *serial_vuart_info(int idx)
+> >
+> >  #ifdef CONFIG_SYSTEM_SUSPEND
+> >
+> > +static bool __read_mostly serial_suspend_available =3D true;
+>
+> __ro_after_init?
+
+Good catch, yes.
+I will use __ro_after_init for this variable.
+
+Best regards,
+Mykola
+
+>
+> Jan
 
