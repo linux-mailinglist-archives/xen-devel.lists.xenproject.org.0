@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aE6wDDBzB2pZ4AIAu9opvQ
+	id gNN+FEFyB2qd3wIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:25:36 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:21:37 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD099556C3C
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:25:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1310392.1581338 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5456556AFE
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:21:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1310294.1581212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNyA5-0004PH-1Y; Fri, 15 May 2026 19:25:29 +0000
+	id 1wNy6C-000690-Vh; Fri, 15 May 2026 19:21:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1310392.1581338; Fri, 15 May 2026 19:25:28 +0000
+Received: by outflank-mailman (output) from mailman id 1310294.1581212; Fri, 15 May 2026 19:21:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNyA4-0004G3-Ne; Fri, 15 May 2026 19:25:28 +0000
-Received: by outflank-mailman (input) for mailman id 1310392;
- Fri, 15 May 2026 19:25:27 +0000
+	id 1wNy6C-00066d-Rv; Fri, 15 May 2026 19:21:28 +0000
+Received: by outflank-mailman (input) for mailman id 1310294;
+ Fri, 15 May 2026 19:21:27 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <3M3IHagYKCYw8uq3zsw44w1u.s42Du3-tuBu11y898.Du3574zus9.47w@flex--seanjc.bounces.google.com>)
- id 1wNyA2-0003li-IF
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 19:25:26 +0000
+ <3NHIHagYKCY09vr40tx55x2v.t53Ev4-uvCv22z9A9.Ev46850vtA.58x@flex--seanjc.bounces.google.com>)
+ id 1wNy6B-00064U-Hv
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 19:21:27 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNyA1-009QbB-U4
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 21:25:25 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wNy6A-0039we-UL
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 21:21:26 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <3M3IHagYKCYw8uq3zsw44w1u.s42Du3-tuBu11y898.Du3574zus9.47w@flex--seanjc.bounces.google.com>)
- id 6a077318-e002-0a2a0a5209dd-0a2a450c9a16-18
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:25:25 +0200
-Received: from [209.85.210.201] (helo=mail-pf1-f201.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ <3NHIHagYKCY09vr40tx55x2v.t53Ev4-uvCv22z9A9.Ev46850vtA.58x@flex--seanjc.bounces.google.com>)
+ id 6a0771e7-5cb7-0a2a0a5109dd-0a2a4507aa8c-42
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:21:26 +0200
+Received: from [209.85.215.201] (helo=mail-pg1-f201.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <3M3IHagYKCYw8uq3zsw44w1u.s42Du3-tuBu11y898.Du3574zus9.47w@flex--seanjc.bounces.google.com>)
- id 6a077234-62f1-0a2a450c0019-d155d2c9d8af-3
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:21:25 +0200
-Received: by mail-pf1-f201.google.com with SMTP id
- d2e1a72fcca58-82f6a5b4f88so296446b3a.2
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 12:21:25 -0700 (PDT)
+ <3NHIHagYKCY09vr40tx55x2v.t53Ev4-uvCv22z9A9.Ev46850vtA.58x@flex--seanjc.bounces.google.com>)
+ id 6a077235-229c-0a2a45070019-d155d7c9c938-3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:21:26 +0200
+Received: by mail-pg1-f201.google.com with SMTP id
+ 41be03b00d2f7-c828b1b7fddso60028a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 12:21:26 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,45 +55,45 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=google.com header.i="@google.com" header.h="Cc:To:From:Subject:Message-ID:References:Mime-Version:In-Reply-To:Date:Reply-To"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1778872884; x=1779477684; darn=lists.xenproject.org;
+        d=google.com; s=20251104; t=1778872885; x=1779477685; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=cGLSRPI8RMv865ATBw7wYYFL1PB8rGFTI0lK6a8u9vM=;
-        b=CwFfRLWrmcwZul9xj3VDy5gzUjpprx2LU/SLbvsMd/bUYoRSggyLmx//L3Nav633lY
-         9hMnVj2yAei4ixw5dZNGBHx4tNUlyWlKAS9syjzphENBnklxCufM2+PsktoOV/4D9CrK
-         gejZPMPzuugJB4McL1hy43EsR/zSp/XrZgqxaPg2C6EoXsaInJ++NNAim5GhLhH5nwma
-         0czTfthbZmkzZZz9+UEwqZWpO0I3MZ8phadQX9UpjVvAS/jzivDVuJUwkPIByU9vSSCm
-         vxCRF/CuIW7K/gBFOegb1o7pG4veyz3PLyZLOMglRbg0pAGAia8znBWaD31Tv3FjWKBa
-         v+gg==
+        bh=5BJQi7ZR1svDe2KF7RHkPrmL6MBNA7Dkc8gFvThdUD0=;
+        b=uRLv+LzdA0cDNLipZ3eejmsfPb//TmpL8yn4dH6B8W60dNkBg10r4HSL54xqTzAmfi
+         XjDOj4VZvP7hzRktAyqVYY6ItEojjqNmsAd8/7Tp5Yr0TbmIr+rPHK+Y3HtK1fyfdWSa
+         7zNcK4yx27TYcPdjmZgtAPLQtB188jJTiaYE1dChA7j8Uh/3IB2yDmQrFkkYeYPLxZQM
+         K3QOZps4Ijy6Cq2nVZp0NlccxpWkUmOqwvs0eSOteJp+uHbosFPjQ2IYTI5P/U1jTvT5
+         3M56Y61gco2K9lmGTLw86m40Si076KtCksHUy0eq3TCR8CxWOqCTxyRT2TS3IdF6oD2a
+         hrBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778872884; x=1779477684;
+        d=1e100.net; s=20251104; t=1778872885; x=1779477685;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=cGLSRPI8RMv865ATBw7wYYFL1PB8rGFTI0lK6a8u9vM=;
-        b=jSJM43tvNLV2kFp0gvixkdoS268vQ5rUbe4HxZt0vcKhZWSdi5JojmHIDJgB+JFYyT
-         tAx5Iv80W8lrU1quK9KvrIvGikiZ0y94QzSRWdPit0bv8sYIywk4gPawqOvb+Qii+OxR
-         Mb0i8ufj+PHIty/GP4bvtBBjctQn/Er1YqceVT50n3Fqg71bDnv4QVtMXFRPlbPQjWKN
-         +hr5wQuJ+Xd1A/Q6A8dVCVR4mRoTMYqg8RYHdcVNCEdLx0NC0QiMvuPiMByoprGfNXrx
-         hIWt3yEiTPrHIYx9CuehPMDEO1B4WicgrhnpGNWA/xLQgfbz2R5Mro76KDtggt6QtiME
-         wxVA==
-X-Forwarded-Encrypted: i=1; AFNElJ8FtqMckfkJNHUJFzcZLaWw3rtQxLZsbsfoVFAbrSrUfzFb5AfAnVedu5lmXdVWm5CBQYwGIy0TKmk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwyuaDbtNgspGBH2SSRggtR19ODpVpqd4PYdkyuEZI58YWKiYXA
-	UY+KPwbgAXAen8g58sD7ELd9Uofji1w/EFzOGPNF0uaiR+n/y1zh25/GMCvqJLAX8ZWEsLEqOs9
-	fC7wBYg==
-X-Received: from pfdc18.prod.google.com ([2002:aa7:8c12:0:b0:834:df9e:8e02])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:194f:b0:82f:355a:857e
- with SMTP id d2e1a72fcca58-83f33d0398emr5462972b3a.47.1778872883144; Fri, 15
- May 2026 12:21:23 -0700 (PDT)
+        bh=5BJQi7ZR1svDe2KF7RHkPrmL6MBNA7Dkc8gFvThdUD0=;
+        b=oUlnKB2dioVhF1VKRDxeeNCiaTTUTchgEWxICE6U53AbUnI6In06htLvwE+wogPoUT
+         3nAYJV5CDraqGBiwNzfGP4XkVoLL3i4zmCdHyNXmPq3eB2RZFi5t4EUTP9RFQHJjhQSd
+         e/uR0gqkcPpnXJhOg7uzbVFx/PY9pWAhmRC0rGrqwpLOCxiSmLP6TAu/xsKCG3IVaHnI
+         PLn2Ivwy5FCHwnG3tFvTxZzTAl66AFu3IiTkvQ5i0h/bcBjkoh43DgBhjA56/Y2660Yw
+         D1gtGeDKtz04xBn/MNfpOHFxtJ60yZuHCVFhOTUdACC8Zfa6GmCsRN/mnHAcFQrQzBP1
+         mN4w==
+X-Forwarded-Encrypted: i=1; AFNElJ8xfyK3LD67WWMPdQEmivuduuHt64J/yldjqyEzSXJGlGlEoF1JqfXw2KQ6DTlaDu3YNmIzn1P5Cj0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxnPKMMAdmOdVBWBWopa9+HX0sySbqEaM9chX/xFZxKaD1lL9rK
+	YnTmuoUYHWQwRjQ0m6sk94QrrfXxLE4clNwdzJOwCVIUqGEhKyTNu4VDlePRWNoS0RM81lySN4B
+	4OgowDQ==
+X-Received: from pfbeq4.prod.google.com ([2002:a05:6a00:37c4:b0:82f:344e:386a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:9502:b0:838:1c02:2763
+ with SMTP id d2e1a72fcca58-83f33ab667bmr5736284b3a.9.1778872884225; Fri, 15
+ May 2026 12:21:24 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 15 May 2026 12:19:41 -0700
+Date: Fri, 15 May 2026 12:19:42 -0700
 In-Reply-To: <20260515191942.1892718-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20260515191942.1892718-1-seanjc@google.com>
 X-Mailer: git-send-email 2.54.0.563.g4f69b47b94-goog
-Message-ID: <20260515191942.1892718-41-seanjc@google.com>
-Subject: [PATCH v3 40/41] x86/tsc: Add standalone helper for getting CPU
- frequency from CPUID
+Message-ID: <20260515191942.1892718-42-seanjc@google.com>
+Subject: [PATCH v3 41/41] x86/kvmclock: Get CPU base frequency from CPUID when
+ it's available
 From: Sean Christopherson <seanjc@google.com>
 To: Kiryl Shutsemau <kas@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Sean Christopherson <seanjc@google.com>, "K. Y. Srinivasan" <kys@microsoft.com>, 
@@ -113,10 +113,10 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov <vkuznets@redh
 	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
 	Thomas Gleixner <tglx@linutronix.de>, David Woodhouse <dwmw@amazon.co.uk>
 Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-d25034/1778872885-E1161CF5-7BEA6DCF/0/0
+X-purgate-ID: tlsNG-ef75cf/1778872886-28C7DC48-DEB56334/0/0
 X-purgate-type: clean
-X-purgate-size: 3014
-X-Rspamd-Queue-Id: DD099556C3C
+X-purgate-size: 1663
+X-Rspamd-Queue-Id: C5456556AFE
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -154,99 +154,52 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	REPLYTO_EQ_FROM(0.00)[]
 X-Rspamd-Action: no action
 
-Extract the guts of cpu_khz_from_cpuid() to a standalone helper that
-doesn't restrict the usage to Intel CPUs.  This will allow sharing the
-core logic with kvmclock, as (a) CPUID.0x16 may be enumerated alongside
-kvmclock, and (b) KVM generally doesn't restrict CPUID based on vendor.
-
-No functional change intended.
+If CPUID.0x16 is present and valid, use the CPU frequency provided by
+CPUID instead of assuming that the virtual CPU runs at the same
+frequency as TSC and/or kvmclock.  Back before constant TSCs were a
+thing, treating the TSC and CPU frequencies as one and the same was
+somewhat reasonable, but now it's nonsensical, especially if the
+hypervisor explicitly enumerates the CPU frequency.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/include/asm/tsc.h |  1 +
- arch/x86/kernel/tsc.c      | 37 +++++++++++++++++++++++--------------
- 2 files changed, 24 insertions(+), 14 deletions(-)
+ arch/x86/kernel/kvmclock.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/include/asm/tsc.h b/arch/x86/include/asm/tsc.h
-index f458be688512..c145f5707b52 100644
---- a/arch/x86/include/asm/tsc.h
-+++ b/arch/x86/include/asm/tsc.h
-@@ -91,6 +91,7 @@ struct cpuid_tsc_info {
- };
- extern int cpuid_get_tsc_info(struct cpuid_tsc_info *info);
- extern int cpuid_get_tsc_freq(struct cpuid_tsc_info *info);
-+extern int cpuid_get_cpu_freq(unsigned int *cpu_khz);
- 
- extern void tsc_early_init(void);
- extern void tsc_init(void);
-diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-index 1b569954ae5e..745fa2052c74 100644
---- a/arch/x86/kernel/tsc.c
-+++ b/arch/x86/kernel/tsc.c
-@@ -719,6 +719,24 @@ int cpuid_get_tsc_freq(struct cpuid_tsc_info *info)
- 	return 0;
+diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
+index 62c8ea2e6769..7607920ae386 100644
+--- a/arch/x86/kernel/kvmclock.c
++++ b/arch/x86/kernel/kvmclock.c
+@@ -190,6 +190,20 @@ void kvmclock_cpu_action(enum kvm_guest_cpu_action action)
+ 	}
  }
  
-+int cpuid_get_cpu_freq(unsigned int *cpu_khz)
++static unsigned long kvm_get_cpu_khz(void)
 +{
-+	unsigned int eax_base_mhz, ebx, ecx, edx;
++	unsigned int cpu_khz;
 +
-+	*cpu_khz = 0;
++	/*
++	 * Prefer CPUID over kvmclock when possible, as the base CPU frequency
++	 * isn't necessarily the same as the kvmlock "TSC" frequency.
++	 */
++	if (!cpuid_get_cpu_freq(&cpu_khz))
++		return cpu_khz;
 +
-+	if (boot_cpu_data.cpuid_level < CPUID_LEAF_FREQ)
-+		return -ENOENT;
-+
-+	cpuid(CPUID_LEAF_FREQ, &eax_base_mhz, &ebx, &ecx, &edx);
-+
-+	if (!eax_base_mhz)
-+		return -ENOENT;
-+
-+	*cpu_khz = eax_base_mhz * 1000;
-+	return 0;
++	return pvclock_tsc_khz(this_cpu_pvti());
 +}
 +
- /**
-  * native_calibrate_tsc - determine TSC frequency
-  * Determine TSC frequency via CPUID, else return 0.
-@@ -754,13 +772,8 @@ unsigned long native_calibrate_tsc(void)
- 	 * clock, but we can easily calculate it to a high degree of accuracy
- 	 * by considering the crystal ratio and the CPU speed.
- 	 */
--	if (!info.crystal_khz && boot_cpu_data.cpuid_level >= CPUID_LEAF_FREQ) {
--		unsigned int eax_base_mhz, ebx, ecx, edx;
--
--		cpuid(CPUID_LEAF_FREQ, &eax_base_mhz, &ebx, &ecx, &edx);
--		info.crystal_khz = eax_base_mhz * 1000 *
--			info.denominator / info.numerator;
--	}
-+	if (!info.crystal_khz && !cpuid_get_cpu_freq(&cpu_khz))
-+		info.crystal_khz = cpu_khz * info.denominator / info.numerator;
- 
- 	if (!info.crystal_khz)
- 		return 0;
-@@ -787,19 +800,15 @@ unsigned long native_calibrate_tsc(void)
- 
- static unsigned long cpu_khz_from_cpuid(void)
- {
--	unsigned int eax_base_mhz, ebx_max_mhz, ecx_bus_mhz, edx;
-+	unsigned int cpu_khz;
- 
- 	if (boot_cpu_data.x86_vendor != X86_VENDOR_INTEL)
- 		return 0;
- 
--	if (boot_cpu_data.cpuid_level < CPUID_LEAF_FREQ)
-+	if (cpuid_get_cpu_freq(&cpu_khz))
- 		return 0;
- 
--	eax_base_mhz = ebx_max_mhz = ecx_bus_mhz = edx = 0;
--
--	cpuid(CPUID_LEAF_FREQ, &eax_base_mhz, &ebx_max_mhz, &ecx_bus_mhz, &edx);
--
--	return eax_base_mhz * 1000;
-+	return cpu_khz;
- }
- 
  /*
+  * If we don't do that, there is the possibility that the guest
+  * will calibrate under heavy load - thus, getting a lower lpj -
+@@ -434,7 +448,7 @@ void __init kvmclock_init(void)
+ 		kvm_sched_clock_init(stable);
+ 	}
+ 
+-	tsc_register_calibration_routines(kvm_get_tsc_khz, kvm_get_tsc_khz,
++	tsc_register_calibration_routines(kvm_get_tsc_khz, kvm_get_cpu_khz,
+ 					  tsc_properties);
+ 
+ 	x86_platform.get_wallclock = kvm_get_wallclock;
 -- 
 2.54.0.563.g4f69b47b94-goog
 
