@@ -2,65 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YCE8BtDFBmpdngIAu9opvQ
+	id iArZNTzIBmrynwIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 09:05:52 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 09:16:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7774354A4C5
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 09:05:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1309654.1580702 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5150F54A6A1
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 09:16:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1309662.1580711 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNmc2-0004bG-ND; Fri, 15 May 2026 07:05:34 +0000
+	id 1wNmls-0006j1-J3; Fri, 15 May 2026 07:15:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1309654.1580702; Fri, 15 May 2026 07:05:34 +0000
+Received: by outflank-mailman (output) from mailman id 1309662.1580711; Fri, 15 May 2026 07:15:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNmc2-0004Yi-Js; Fri, 15 May 2026 07:05:34 +0000
-Received: by outflank-mailman (input) for mailman id 1309654;
- Fri, 15 May 2026 07:05:32 +0000
+	id 1wNmls-0006g7-G6; Fri, 15 May 2026 07:15:44 +0000
+Received: by outflank-mailman (input) for mailman id 1309662;
+ Fri, 15 May 2026 07:15:42 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Luca.Fancellu@arm.com>) id 1wNmc0-0004Yc-JL
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 07:05:32 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wNmlq-0006g1-IZ
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 07:15:42 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNmbz-005PL3-S1
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 09:05:31 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wNmlp-005RNb-Ux
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 09:15:41 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Luca.Fancellu@arm.com>)
- id 6a06c5ae-5cb7-0a2a0a5109dd-0a2a4507da50-28
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 09:05:31 +0200
-Received: from [52.101.84.11]
- (helo=DB3PR0202CU003.outbound.protection.outlook.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Luca.Fancellu@arm.com>)
- id 6a06c5ba-229c-0a2a45070019-3465540b6227-3
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 09:05:31 +0200
-Received: from AS9PR06CA0495.eurprd06.prod.outlook.com (2603:10a6:20b:49b::20)
- by AS2PR08MB9943.eurprd08.prod.outlook.com (2603:10a6:20b:546::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Fri, 15 May
- 2026 07:05:26 +0000
-Received: from AM4PEPF00027A68.eurprd04.prod.outlook.com
- (2603:10a6:20b:49b:cafe::4c) by AS9PR06CA0495.outlook.office365.com
- (2603:10a6:20b:49b::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.20 via Frontend Transport; Fri, 15
- May 2026 07:05:26 +0000
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM4PEPF00027A68.mail.protection.outlook.com (10.167.16.85) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.13
- via Frontend Transport; Fri, 15 May 2026 07:05:26 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com (2603:10a6:10:2d7::16)
- by DBBPR08MB10699.eurprd08.prod.outlook.com (2603:10a6:10:52f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.12; Fri, 15 May
- 2026 07:04:23 +0000
-Received: from DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::5d34:206f:373:a323]) by DU2PR08MB7272.eurprd08.prod.outlook.com
- ([fe80::5d34:206f:373:a323%6]) with mapi id 15.20.9913.009; Fri, 15 May 2026
- 07:04:23 +0000
+ (envelope-from <jbeulich@suse.com>)
+ id 6a06c7fd-5cb7-0a2a0a5109dd-0a2a4502a79c-28
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 09:15:41 +0200
+Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a06c81d-af86-0a2a45020019-d1558032d4af-3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 09:15:41 +0200
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-48e6db3ff7eso37932165e9.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 00:15:41 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48feab290e1sm14113145e9.2.2026.05.15.00.15.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 May 2026 00:15:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,181 +56,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"; dkim=pass header.s=selector1 header.d=arm.com header.i="@arm.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=Lb5fKqTZIE6Sv5eUz4wj9OPsVsIVSIlKxL1YfO9caoI+3GatqjSlC/BvL3aDHA0jVp8VvdrEnB6ACf28JsQfOOMZq2QU2T3aE6VkASeIC/uqNSNUYPTww+G6Ip2XxNvap0/CtjJ0K239+QGyPaycnrYPcOfVICfDjudYsD+FA+od3tCO+W7d+9E18jmJsx7Pnq9MQ1O8KzFHLjAh1EwDZSO3NJ5qTCeOy0PuIKjn8/zssI1MMnqnnV5zwqMYRU/YMjQadZ6udlvQPimtbPPo2FogccWOfFKwyOJDaHYbfmjKhROxdmuJtZrhv5twODqfSvF6HtsmS9u239uBfJvTQA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uu1uYv1k/2Y0RBOxtjt+HnO0Z0e2WC8nQVnXE7nlwCM=;
- b=nAAqLBstuKnS2/Ox0smgNZ0G8iXWbcFRyx2KTcBWYbra9jyUxI0mV7LkAJA86p/aMKaOlxLX/S+O7Mtfr74fJXujZzWBge3tFI3Bghid2imlqSxAYEuAPgHoOFy7ofxDkTzxVssFOh/LeTt5p6MMYcFRLhD0IOHICEKGaSvw9fylA+bDaNZbL/ayofZXmxbyEcPvyOmTT8qeklaqezkXG4edscL2sCTxqwVOVbPlQp4a9TOmmJUgzw68/Sqt7JLBCbEeOdchXwCZRHvF1mABn7upWHsBQ5U7OoCMrSUwtTvx7n4c8w56aCH6rUYqbLRVYDcqf+WA7CrFoZ+NMAABGg==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=gmail.com smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uu1uYv1k/2Y0RBOxtjt+HnO0Z0e2WC8nQVnXE7nlwCM=;
- b=E/94HaSrnCIBAx94vrKduYlrcCtIT47JT+GVWGDhsTnn2IOXU1sA1nz+EeI841zFdEimuuCxDOYh6L1a3j1XdBSpbNytuTruRBJHOXCTYIufDopEveoWD/MTwrFHn8JYnGAU4cK2dp5b7AuK+0ZPihsXk8S20mXrDOYEav/gvbQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nayznMdrEedBAkp4/k32B0quDUmu0kvLGEW8sk6yakHJAV8XgqMbyzo6jlbge6WD/TqmHXag8K051++j4DEpu/+uPupPJRk20Kf19vL4SpPC3G18Sx0+nY1uao2ApPHBeTjRb0nXx07XqY8cLfp8RwenAoUyPXBgFVi71cV81d+jNvO5TVsZxDgdBEmDHTdskeSFbgOivoLPYEsPUmRkvYEmU7HU9DQ8kvCOng0XgJDZJgk3ds0+n1y/24dNIM0nm8TNO5Q9OJA/pdM8OYNj0ISrh14Mu/4Vw7Mh1iQf0oHHa+zkmxf6GF82RZQsujAXCe03Id3VwGd5x6w8doCKYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uu1uYv1k/2Y0RBOxtjt+HnO0Z0e2WC8nQVnXE7nlwCM=;
- b=oVDPk8/761sPIZYybR2x1rDuu/ktKxWpC7ocDwTWMCpWYyzy0fuYG1bkwd22PdyPbPj35+sYKhHKBUnfjuhcAlOjL3kuJylYdUH4Ar9Tl00MjivtfhU5FbMBBl55Jxa/wPpG35GAIF+aeYmh6N0hj5JOS/Da1dTGhVN/3AHiST/JN3dAspiDP0dn19ybKgfzyt6zrpvhds54DHdCVT/RjbjjLkxtCFMuScMLtOyVxZuvM1Xh537Qmi5RJj9nCTg/WMLhhDPNIfE7xxrDeRGM9JOEK5zwGv1Eiz84LrupIZQaDiGWwu5svzVCEb4mauY4KJACOe61IU4yvlzmQZCFGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uu1uYv1k/2Y0RBOxtjt+HnO0Z0e2WC8nQVnXE7nlwCM=;
- b=E/94HaSrnCIBAx94vrKduYlrcCtIT47JT+GVWGDhsTnn2IOXU1sA1nz+EeI841zFdEimuuCxDOYh6L1a3j1XdBSpbNytuTruRBJHOXCTYIufDopEveoWD/MTwrFHn8JYnGAU4cK2dp5b7AuK+0ZPihsXk8S20mXrDOYEav/gvbQ=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Mykola Kvach <xakep.amatop@gmail.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola
- Kvach <mykola_kvach@epam.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v9 11/13] xen/arm: Implement PSCI SYSTEM_SUSPEND call
- (host interface)
-Thread-Topic: [PATCH v9 11/13] xen/arm: Implement PSCI SYSTEM_SUSPEND call
- (host interface)
-Thread-Index: AQHc4jI5Oej4drtZZ0aMeZtjQOxaL7YOrZWA
-Date: Fri, 15 May 2026 07:04:23 +0000
-Message-ID: <C9CA8E5D-E163-46F9-8090-3792A2B4B001@arm.com>
-References: <cover.1778605274.git.mykola_kvach@epam.com>
- <9d76348fdd25f0ac7c449ed302ce24ac93b70e95.1778605274.git.mykola_kvach@epam.com>
-In-Reply-To:
- <9d76348fdd25f0ac7c449ed302ce24ac93b70e95.1778605274.git.mykola_kvach@epam.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3826.700.81.1.6)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	DU2PR08MB7272:EE_|DBBPR08MB10699:EE_|AM4PEPF00027A68:EE_|AS2PR08MB9943:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f960d25-7d95-4968-562d-08deb250574f
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted:
- BCL:0;ARA:13230040|376014|1800799024|366016|56012099003|4143699003|11063799003|18002099003|22082099003|38070700021;
-X-Microsoft-Antispam-Message-Info-Original:
- 4c/0vY5GnQ0m47j1K8+1PeYvvAiR1i+eCRuEUrtL3MyGgM1R69sVM9yAmdzd6hSuVFlT4KrJjAKKYBhbnlslJa3x7xT2XKh3OvLgZSwAwq+pjeLsow2qnNmhYcXcdWeSyIDMRqTY8wdWtnQNvusHrXeO8Zip5N42WfsXSXImAeIAsUguO3EPKjohe3Hj65tqHy6DttTpy7jXFqQzXXPl2PROyAcJ885rxHB11XXBH+vyx449gPaaS2a4/HnvmXh/02OA+1UdQTZGb8g+gdAZXUBaK3bxl/xcx9AU+Y1CwZV9tU5ii5zt8w66l5OLUDkmokrUrF2ypboTX2Z0rdGIhgaPunid0UwK04n6+4N6s+CKIRq6cjZxQWSou1E0eTTe3ffw0t6mFpktI6iyyfsBGajVQplhmjL+Lv37yQ5vMIZaXVXTkDPYE3ZVxrlA9W42/WIjPSv9c9N0+lhf4ZDTr/t9MoUMmBTZfegFIDaV5HWH8hKg3/YgitUFcgmw5s9Ax4zr2rF8hdy8o9FQsMNbm1RE/sVWZaU+IP/s8Rn5uP6Bn8Rio7Sl97jqzfoy+MYccetytDl5cW4R7htgwSYLWLkvgK8THU6Gudo4y1ulm+zVFlWVlawSgfynZxK+57d5R51PVUYhBkvCSUnFOg+2aeJpfRRYyVx99PGs5DEwgMncBohLUpyqZ9rS2QQ3LKueUWp0JiqXs6DeaQQHwXBr0U4uMna9YdFWA3NXBeExGg7JKP3LegPj1wKPnu2G/G+V
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7272.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(56012099003)(4143699003)(11063799003)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <BEA7EC6C78FB9640990615E4E1248981@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1778829341; x=1779434141; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=VOs+Kg0UNc09Wh2/h4eiQrPl4SGLhZXxpuowRQyrkiU=;
+        b=HYqtw0iq5JMYyHuV12/SQcGyLjepnIk3y6j6CUEhRd8Xr2Z39P4v97pqs20v8W1AFx
+         vepUICMRLkbyamet+8UJW/GhsksEX44dNyKrvqGDFUFLw2wwgoU7+9XbcheOHsrfi63i
+         hjcRlPac5QWRh7+jpikafa6NQGOg8eL1PYmqvLPyHizub9AstlFk70nYNtDnGlxFp6jh
+         c8e0Gpl2OUpZ+hiw/k77TeIjDnI2Ietvya9Mefuu/MzC4/4Qeg0Kmmrh1tqIWh5IIh6+
+         F/d03CkBXnoQhxbvgZn/Q3t62WQcZusntYp9qzOd2RO4Dd9Zbi6YVDeQH+akkKtQcEVJ
+         Z4lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778829341; x=1779434141;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VOs+Kg0UNc09Wh2/h4eiQrPl4SGLhZXxpuowRQyrkiU=;
+        b=abqxiJPeYBkdzi4fTRUTnjSp6IDaQP0PqWjR53fbhUlJTRBMnPptbDyxBZ2DkGo06R
+         pgI2Vd4BTLT6MmxhGAwq6ct6mxtbmdF7nnYlGtUY9siyIBMpy7zzLr2li0BNpvmQjmP3
+         Vu3tQcfWCMDPR+lKU/KyEpoH7wCzLLnTpnfhGfS2Jx1tCZoReipwpm5MbB5LsvAREobr
+         I7QmULo7NOT9iwEveXdfHII34ntzdcEGB3pSXQ9/Z16a325s2VAgCOio6gGv9JzfACIt
+         c9Le1z7r6sMDOy/5N4IBbcq0Mgrm8F2AmCMF48kWqwhcm6N7+jbnM1YqprBlX6d1uYMA
+         c3IQ==
+X-Gm-Message-State: AOJu0YxrGnETnu10bOKO1OgbkuvmrPxKsdel7yPTSsh0fv01LbaszX1v
+	E3ZHu1nv1llWsaORPPxZ3K1rbXKXSK0stNogvHC+SNzwLuMgwMlHrKj3t67nOb5Uhw==
+X-Gm-Gg: Acq92OHenjPeIufk+WzNXKQ1KYDJFifE4ll9TpNMzJJS1ZnUuALfQWJ6hprWfeUFnh/
+	HRpP1+x8ZfcAaYu8T1e1CPO954NSj/yEIsNCUs8S9se7glmOU0rJgB846vLcyuG147UsALoswOr
+	zQaaj7wBw+JHs55mRXno5FnLxqEpsh5IVuKVtAd0NB26vxq9GeGO241dF3Bw5lT8SPM/fN5scIL
+	Euch3wL0KGXAwW8hLGSej/Mhrs/vDSUU7m+gwxTVqyIlMj2PqrWB7VOSyg8ylgqTOa0B9wiTFG8
+	vuzOtRVvfzf4N/SGY6yHo1UNgMfRDicmRhECFWO/Gnl/cfb1v6IZXeBLkH1Afq+ag8CCPsGcrV1
+	PVkEvJtGg7r3YFVDaC4hhAj9Oto98SB/qOSQl3rEbpPWpH2LW8o4opiecM/fVnBvx6ipsVrZJh/
+	uQumLFhoH0T0dGpM7MtYGNm0vz66B1w5vnGtqcLgv0m0CuvPxshUf9LEJk1sqLMKmzUFEaW7iKt
+	1yuqmpJQb2O0p4=
+X-Received: by 2002:a05:600c:49a2:b0:48f:e6de:1cbb with SMTP id 5b1f17b1804b1-48fe6de1de1mr19425805e9.28.1778829341252;
+        Fri, 15 May 2026 00:15:41 -0700 (PDT)
+Message-ID: <8fbab1f4-3078-4ac3-b147-84d1b5f5abd1@suse.com>
+Date: Fri, 15 May 2026 09:15:40 +0200
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
- mjILgXKinWamSXkGFY62kq+ouNMLB31DpzVncokQuwpReN8M5HhqyOzy9jR2A1A4vHsPimBs7w3+Eg7n3/CoYm3KE2Ui+XSIqxZ7aU2ok3n3v18VOscep8Wxtw8T+MNdLJbRBXWh4NpBgWiUI0zWfk/feJ0YPB90LRUej8eyIIZP41fXQ87wjgf0iVecCxPfIEePsbw26U7xKIkxW+bqJ2+xLL9A9qMQEaSdfBqsfV5mNq7SsZnECV+85KNXZiW0dEKQ9Eu6VNdlSU1xnVOlD5ujqA7I7LdjYOIn9d7Dg5TpMPJiM7aOwS0zlsg+kLJd6qweao33PzberCRp1KneFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB10699
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM4PEPF00027A68.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	0f0b054e-13e7-488e-5897-08deb25031ab
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|14060799003|36860700016|376014|35042699022|18002099003|22082099003|56012099003|11063799003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	e3uXesN7pW8RXO6EGMO1DWxKL5J1gS9loZruZi5SxrPeRiREu3HtR1Ni2iWJciSxypf34it1LeX/7WaSx8NSoG/0ZBlvCRr0pY4dAhkV/xn72Y2KdrPlXneAEXrBB/Nfvc8agm0APFe2SWfSgcKTJeasT9t5H9i68Y6aB5qkCEcng6RkEUt9pqMJwXZrNfX7XHwu0Ns5yAwVZr4kzpEV3AIwqcEP3a55U3QKqFOYgnjZosMu23ddHRTfNRh0HfwK9Qk6Lx2EUFMt6ZX+aK5VMIrfQTGBH3CVI/QHzuHUS6kaXHuUXCMtp9yRa5Glr0mZk3Ftww2bIm7WFvmu+fxDTJ1GfnMmDeDY645mV2ACvhKvCAvlvzk3rVOsK9XpfXoadCiQk/C2/Eb7hPJruer+CoAO0e3GC8L1y3NIPA31nWaRPu1YXyC4Qq3KvwC3vjUXMk1s05S90uSaJHLxwPeBMd9z0i9XRDLHAClZ7UxJFmW4p2NsB8pgEuFlvP5PZyjIQEP8lIQQsYtSC3FH68x0HanZ50CqIsRZC07GRDongDqul8NTiRB4SsytE80gB2aPDaOMlci3ITzLmiFR/FEfM3j2TY9+L62zgVv+9T0+X3RZJu+CoKzHVh0BFf+K4qzKftch20IVBjI87Q20QX2/qypafEAJNSTyC7MnDeS6ztVTp4O9yMjsp10cn3RumXs2SChZLap9gVOGxOFWhCk5174WEAmzZISImWygR9TRlaw=
-X-Forefront-Antispam-Report:
-	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(14060799003)(36860700016)(376014)(35042699022)(18002099003)(22082099003)(56012099003)(11063799003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	NpKxWektACUWTI2rInbPZE8tmq3g1eIBGsXX7RafbvQaJav7evp24ZVlvEBMEwiXOv8/jjX4/Cf6M1fHF5oJJW83Kvs9u6TUiMdF1+n2RqbyRoLvXlE+UlLNa/mbg8skbfCGczwXUs1vaufuoT8llVI3ul87P7A5Es+HLXZKFEBHSNKWuojnfGIWeEAJh/ArxTaWL7bDPFy/HjCe3sRkOkjKIx82m1CKCGq4kGIXr+d7IuFnWot8Ram2wG+FKXIdnG/JXieGcHNukVOXAqGtwzgSR/dtjUOrv2lvUk5JYiIzzkjrpxLVzlUzzIqu9W958c5aj+B9iRm1GZ0PIexuUGAiTCcJ5G8hRGDRl9RxD+bkLGB/NhXRfowH/tUBfahZhbzS86o2VepPi5siSDH6qUUPhjNTDjb+6aOEDdLY0kOa9Dly5POWvh5t/erZLLgJ
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 07:05:26.4200
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f960d25-7d95-4968-562d-08deb250574f
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM4PEPF00027A68.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9943
-X-purgate-ID: tlsNG-ef75cf/1778828731-09969C48-52178B3D/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 RFC] x86/time: avoid early uses of NOW() to return zero
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>
+References: <68b1607a-f2a1-4f53-84c5-43c61eeb1869@suse.com>
+ <agXwsshLlV50dcnV@macbook.local>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <agXwsshLlV50dcnV@macbook.local>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-720697/1778829341-81F76161-44E4E2E4/0/0
 X-purgate-type: clean
-X-purgate-size: 971
-X-Rspamd-Queue-Id: 7774354A4C5
+X-purgate-size: 3446
+X-Rspamd-Queue-Id: 5150F54A6A1
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=2];
-	DMARC_POLICY_ALLOW(-0.50)[arm.com,none];
-	R_DKIM_ALLOW(-0.20)[arm.com:s=selector1];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xakepamatop@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[13];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[Luca.Fancellu@arm.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[arm.com:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[4];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,arm.com:mid,arm.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email,xilinx.com:email]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-Hi Mykola,
+On 14.05.2026 17:56, Roger Pau Monné wrote:
+> On Wed, May 13, 2026 at 08:44:46AM +0200, Jan Beulich wrote:
+>> Waiting loops like the one in flush_command_buffer() will degenerate to
+>> infinite ones when used early enough for NOW() to still return constant
+>> zero. Make sure the returned value at least monotonically increases. When
+>> available, use nominal frequency values as initial approximation.
+>>
+>> Do this only in get_s_time(), as producing a sane value in
+>> get_s_time_fixed() for non-zero inputs won't be reasonably possible.
+>> Put an assertion there.
+>>
+>> Reported-by: Roger Pau Monné <roger.pau@citrix.com>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> RFC: This breaks at least the TSM_BOOT case printk_start_of_line(), which
+>>      checks for NOW() returning 0 (falling back to TSM_RAW in this case).
+>>      For now I have no idea how to avoid this; perhaps that's tolerable at
+>>      least in the case where we put in place an early estimate? Should we
+>>      maybe weaken the fallback condition to take effect for any value
+>>      below 1μs?
+> 
+> Maybe it's fine to print cycles unconditionally until we reach
+> SYS_STATE_smp_boot when we know the per-cpu scale is correctly set?
 
-> On 12 May 2026, at 18:07, Mykola Kvach <xakep.amatop@gmail.com> wrote:
->=20
-> From: Mirela Simonovic <mirela.simonovic@aggios.com>
->=20
-> Invoke PSCI SYSTEM_SUSPEND to finalize Xen's suspend sequence on ARM64
-> platforms. Pass the Xen resume entry point (hyp_resume) to EL3 together
-> with a zero context ID, matching Linux.
->=20
-> This patch wires up only the host-side PSCI SYSTEM_SUSPEND invocation.
-> The resume trampoline and context restore are provided by earlier patches
-> in the series.
->=20
-> Only enable this path when CONFIG_SYSTEM_SUSPEND is set and PSCI
-> advertises SYSTEM_SUSPEND via PSCI_FEATURES.
->=20
-> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
-> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
-> Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> ---
+I remain of the opinion (as said in reply to your similar v1 comment) that
+this isn't very desirable. Tying to SYS_STATE_smp_boot also would feel
+pretty arbitrary. Other ports may have NOW() properly working much earlier.
+If anything we may want to add a global indicator of NOW() properly working.
 
-Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+>> RFC: While generally the mentioned waiting loops will take longer to time
+>>      out, on a very fast CPU tight loops may time out too early.
+>>
+>> RFC: For the AMD/Hygon case, if the "nominal" value isn't available, we
+>>      could use the "high" one. That would cause NOW() to run too slowly
+>>      (until the scale is properly set), but maybe that's still better than
+>>      it returning 0? (As it stands, I can't really test the new code
+>>      there, as my Rome system only supplies the lo/hi pair of values.)
+> 
+> Using the "high" frequency would seem fine to me.
 
-Cheers,
-Luca
+Okay, will do then for v3.
 
+Related aspect: With these family/model specific additions for AMD, we could
+also separate out intel_log_freq()'s model specific part, to leverage from
+here as well.
+
+>> @@ -2623,6 +2640,21 @@ int __init init_xen_time(void)
+>>      return 0;
+>>  }
+>>  
+>> +/* BSP-only function to pre-set an approximate TSC scale. */
+>> +void __init preset_tsc_scale(unsigned long freq)
+>> +{
+>> +    struct cpu_time *t = &this_cpu(cpu_time);
+>> +
+>> +    /*
+>> +     * The incoming frequency is only approximate (nominal).  Increase it by
+>> +     * 1% to make NOW() output rather a little too slow than too fast, thus
+>> +     * avoiding a possible backwards jump once the final scale is set.
+>> +     */
+>> +    freq += DIV_ROUND_UP(freq, 100);
+> 
+> To avoid such possible jump backwards, won't it safer to also update
+> the ->local_stime and ->local_tsc fields at the time the new scale is
+> set?  Updatign those ahead of setting the new scale should avoid any
+> backward jumps.
+
+->stamp.local_tsc does get updated; you merely dropped that line from reply
+context. As to local_stime - how could we possibly set that, when we didn't
+get through init_platform_timer() yet? Leaving it at 0 is the correct
+match for setting local_tsc to boot_tsc_stamp.
+
+Jan
 
