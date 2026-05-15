@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GMaJKT2dBmpLlQIAu9opvQ
+	id uDaUNkCdBmpLlQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 06:12:45 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 06:12:48 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E215549267
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 06:12:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1309489.1580558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88A2254926F
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 06:12:48 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1309490.1580568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNjuf-0004fL-0y; Fri, 15 May 2026 04:12:37 +0000
+	id 1wNjuj-00052s-J5; Fri, 15 May 2026 04:12:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1309489.1580558; Fri, 15 May 2026 04:12:36 +0000
+Received: by outflank-mailman (output) from mailman id 1309490.1580568; Fri, 15 May 2026 04:12:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNjue-0004bq-RV; Fri, 15 May 2026 04:12:36 +0000
-Received: by outflank-mailman (input) for mailman id 1309489;
- Fri, 15 May 2026 04:12:35 +0000
+	id 1wNjuj-0004zF-Ca; Fri, 15 May 2026 04:12:41 +0000
+Received: by outflank-mailman (input) for mailman id 1309490;
+ Fri, 15 May 2026 04:12:39 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <den@valinux.co.jp>) id 1wNjuc-00048s-Rp
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 04:12:34 +0000
+ (envelope-from <den@valinux.co.jp>) id 1wNjuh-0004u5-Do
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 04:12:39 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNjuc-000yVE-84
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 06:12:34 +0200
+ id 1wNjug-000yVE-QE
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 06:12:38 +0200
 Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <den@valinux.co.jp>)
- id 6a069d26-bab6-0a2a0a5309dd-0a2a4504b2a4-8
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 06:12:34 +0200
-Received: from [52.101.125.129]
- (helo=TYVP286CU001.outbound.protection.outlook.com)
+ id 6a069d26-bab6-0a2a0a5309dd-0a2a4504b2a4-12
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 06:12:38 +0200
+Received: from [40.107.74.93]
+ (helo=OS0P286CU010.outbound.protection.outlook.com)
  by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <den@valinux.co.jp>)
- id 6a069c35-1dec-0a2a45040019-34657d8136d2-10
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 06:08:33 +0200
+ id 6a069c44-1dec-0a2a45040019-286b4a5dedd0-3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 06:08:38 +0200
 Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
  by TYYP286MB3981.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:156::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.18; Fri, 15 May
- 2026 04:08:30 +0000
+ 2026 04:08:31 +0000
 Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
  ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
  ([fe80::2305:327c:28ec:9b32%5]) with mapi id 15.20.9846.025; Fri, 15 May 2026
- 04:08:30 +0000
+ 04:08:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,20 +60,20 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=valinux.co.jp header.i="@valinux.co.jp" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jp+/O/GeQwJmOb7MFT9Ek25aZ7U4EoVMvKSVMZq10HtD+NcaUo7+kcbVRPi0jFXqQV12YIjtR975uXDySqNnb5oM9WfVGH7CqbZv5dO8O2+SXIyOmd77dD2vx8QdFTzGUOr9ADCbwhY3SzFH091ARmHHcFaepMXU8ofWkbm0dEArwjPM486vI4KArCNV7AHfmsvICQEkBjHr9MXKnvYPQNVBlARsGqYst+HCspE5mhy6101a8h5K3yaRvDlNjzAiUuoqpo05g5IeCKgcE4xMd7TcaGXG/1gZSMjvU1aAKy1AluN2kYAQKlU77toOLehL3uzi8BRdbLvLB7MFtkRL6w==
+ b=YBlYFF/JZ3pryGAABICzL5fnic9gYzEsoLzvyN/B0CC0PabfIElJGTkPaC6gcRk9LF8nwWXR6xgRObWXQKNfKO3jpHJLmo3/9cMFH+w0AuAZK6ftPXB6iWta1p8Y5qPfPp/11UoJHUD7nTmx6ALY4ZbIBjEEBhdgQaNT99pl5smmwscyLMwR7+YyNx0unOaYPQgpnvLL3dootiAPUG5r/Inr8Fpw6Y/C44pc3q8np/OsB7LxdCqt9oFCSTkQSi7ZjdRxH4EOOF6qXs4L05nSk8fuL6j+nQwxIpfQii5t0NrwTcZRWf7rLUD6LDF93dxE2BoXe+hne6AfON231oVclA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FZtK/SKYZCbPqZPdtBWTxkdfuoOJCT3QfZZUH1rHysw=;
- b=mUx+ftlah+frn9InSWv9C5utTgOaDEm+tKlekXtfxjhqO93nwvlMZE2m4IuGxJsuItZ0wHRJ/zFIQ7+rN624iGd/SUN0XWJrFis4/X84f7awXuSpi7wZQRoSJx7RFq4kCt1CzDooYPRu+TjvPfd8cgy6cBUknZwumajbRVvuA7hiRbrA0pA9iWqrlIy0ERZDfyWVYCunDOK0GO1KpVI+zZ+dKR/64hliLs4wbA7xAmhwX15IX5K5Ue3paPymLbFMa8vIhvab7nuaYS34zplZZih7A9CkFfx0isoFUNQmEBn12ugFDd+TFPJrbNEyGnuqx7RixxqW37eLTg7XHlVnqA==
+ bh=ic4DMqcnpHbXQ4IcgQkHlB6E0zWUFBVW3mjpWAW49LI=;
+ b=WjuP+IuMrr7obYTiBrVCamPq/XI3vTNvDz2ICaQHTRujqjA7BgcW4n4o3Fvq+6z3EvFMBMTfn/xHla3jc8mqh9aBPIpqjsdaWv0UPgt64lLNiraHPYoPvteiLrnVX5SAxF9oMBNl30Qo3zEL4yxgPwLjyDp2INHN7F4dSLoER9wb5mxgul3epCyKMPTRr8kERYfu/TpEBN1hKlHszpS/HHjTX6vdvxqAEU+yWw61E+EcKffrbFgkJDLpHch+CP0aeWTWndzrHKqxGE6yNrLXJ0iIt9KD+UHEoKebKw5KK8Vt/jhVPZ5zlbgpO4w9nx32rF+zLWn0+6gob6t0h2TRJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FZtK/SKYZCbPqZPdtBWTxkdfuoOJCT3QfZZUH1rHysw=;
- b=UhbZxC/gWhgIyo3DfTpD1u2lNu48sr5kql55ojsI76V/I8DxlIKaCBZvUN2XXSc0vcbAXWpcGFqbkuz2TvK48af4bQ4J02mfJH/vQHXvXWPFSeI/OFkP06Evg2KIYKYuD4KR3hXLPu5vWB1xmvD0w00B/7xBlC/zSy3TLK8cMAs=
+ bh=ic4DMqcnpHbXQ4IcgQkHlB6E0zWUFBVW3mjpWAW49LI=;
+ b=ASmV9ZixM6nhrnDZqYV8GgLVxQyBzGZGViORUYbW1OZf8jgixlHpRIBDDzLKCTH1gb6cguqxNLdwGJqsjm3rZnn06QAwiUqQURO6ThJEvX+QocGBghtKBjBXcLqXXSKyZwADcjwOp4PMDMuNlubT2ARVkjfYcklXRdfNTnsuY3M=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 From: Koichiro Den <den@valinux.co.jp>
@@ -89,76 +89,76 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Juergen Gross <jgross@suse.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [RFC PATCH v1 15/26] xen/arm/cca: create Realm descriptors
-Date: Fri, 15 May 2026 13:08:01 +0900
-Message-ID: <20260515040812.983626-16-den@valinux.co.jp>
+Subject: [RFC PATCH v1 16/26] xen/arm/cca: build Realm RTTs
+Date: Fri, 15 May 2026 13:08:02 +0900
+Message-ID: <20260515040812.983626-17-den@valinux.co.jp>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260515040812.983626-1-den@valinux.co.jp>
 References: <20260515040812.983626-1-den@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TYCP301CA0001.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:386::19) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TY4P286CA0069.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:371::11) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:405:38f::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TYYP286MB3981:EE_
-X-MS-Office365-Filtering-Correlation-Id: 09dd67a0-dcf9-4135-92d8-08deb2379f98
+X-MS-Office365-Filtering-Correlation-Id: 050a3046-af8b-4c3d-25ef-08deb237a00e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|10070799003|3023799003|18002099003|22082099003|56012099003;
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|10070799003|18002099003|22082099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	V3xS5r1JAE/Ukme4iMo8UCnJR4zgZO4VdeUsjcCTpTbzLeXQDbKgUCF/fJ8ZrDy/q410Tud5x9ZZbT1+pln3ODwrf1JzkoVZggYXwxQkl6y4aq2TOZJ1qEeft8odO0nood9sEsdcnVU9hFfIU1sUUn+1TCDpx80LiNlPBZNfBxkbH+QEQdfO3XOeA5BCUqfZ4XbDR6XPHzUDVnFB0NdZhy4zF1ZPiQX4qNwb8PDwsHPQRegDuXXFlIaEaRcDadeE1sbfaRqbsWBm599Xxvr8salvzDRS+Std6Nv/6VGWv+u9CIlcLTj7bbIiSSmpOa52BiTQMu39AhHkxM/Y0PBJDUNf0sxi5il7mvDW3x71b9s+CRbAZvehR/XTGg2L6O7J1WpMoO8l8Mlu4v1ieomqWczBsoErr8/nulMCIbrAD+9spfm6VSmA9w3GPLZ30jMrV4BS6Xc45eV5fEt99o/h56FaBHOpF+A14IrgJ6aZ1QUg7BXhw1mJvdM2Y4GuhV23vGfeG0mktknt9m2Dbf1XpsT2jvWG9PZHQK7pyowWLxoRDYTpUsDj6zPNPaZkZw2StBfdqbREBl9LmC7PSw9tme/3P6p6jAYAZ9BSh7i/NQQpjqs6QIo4VyzgqicfSApRPfXTstqFZxNue4mDheLINeWqXPcoD28lR4eiuqVqKZKtOEvgfkfAhnfftyp+PTtn
+	6PMNdPElGGfEcYqItk2aYTGz+S8bTo6L6/C3BV52RlG9U4lNWAUdad/T/a96tQpdf1bfZF9147g23ACYQhQZ5DZejgDCA8jJL47KwOBqdsKWFt9hmQ4I8Ihf8msgvVZe5ZuJkYf29qCEGtp6YBP0gX4PC421tRL1RWQuA4e8f9AsfIuB6VT7Pm4POud++XEa6axzG409juIP292a7D2Cg3l51WWL1e1a8FZkoz3GKtDi7eSUXtC1uxt2qvhmCPNaZwHWK4Y5+k4YtH9t//dWxMG+rJfYF5JwyEfcCdkwpGRJfLO2g8GEy/lYDj+Vw84ml+KQXvUTYH2AHBecnC7n7YxO5MakudWO+7hMICBOyYaK4EVQABuaX6f3zkBzrp1KyuuIQ6rlpiL98yCTpPsgYIecKZC0sJY8D0OpAhFCuqyQRTq/2OFwBoW6peBoyx0JHMHIzm5/Dqatz0SjB4UcRsrLEr85JvRHwddeyYOx/UVctROcq3jVo0z4qv08kM8rKv80MP+I2hGCy0wc26b0N0QO3vnzucKfpehr7WqNBMDkE9pqvQGTmB5bRFi5XgFN1MWspj4XeQix2WVL8juWvy3n1yYiofhkEATmVPqdEwhYff4nC/dCyzkO7+eu/I5P+9eMnc/2ht24V2bHegRtD4RTsy56GzRhoZBXhUFaZPhuIU9DZY966Dv+3sph6Ql1
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003)(3023799003)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?eDjwDLLTvKIR8XhvAV+DclLr/BeAZDcWMeJFHHwoUtYtAjCk4GX5f77z6WhI?=
- =?us-ascii?Q?CpCDhsxp5WGQutpFLqfKzGr74LA01/R+3uWUVoE4/ZdWlKMdOyWISGVcToGf?=
- =?us-ascii?Q?uWTGinbZXE58MuTflyUPUxJzbKLs1E4GGJLRuLoddEFFsFWvPaoKUyyLIuQm?=
- =?us-ascii?Q?3TqSDImcuoIX4oJKj+soY0fGS6xu68T/OQUBwJfUGPeE8EmksIdhmNtdpwzD?=
- =?us-ascii?Q?uGgB+Z3bui7T0ybWHdploeIKCySmjk//2mLD0wA5vYDrWZNv6HTVDPpx8s1r?=
- =?us-ascii?Q?RDdoEMt7VsBpso2bwaapYcTLuNquF2KFiQM3lg12c/aNwKQdTU3ImWu460Q7?=
- =?us-ascii?Q?r9liNgURVuVmq2ZLrj1WrjfeFKhIzUV/O/FLoK9djr1i4ly++WuUZk+Xj8Nx?=
- =?us-ascii?Q?BBy5kpMALJB9Gnszu/VT9B/+eTozQgF6nG+gEl1ygZc5QxR2U+P0ZkuEQ7fl?=
- =?us-ascii?Q?0IvxjnHA4GDxrMetutXm2OLOUFWPv/4SWwrbvpeXSz4NgwDyqZXmenwdeIq3?=
- =?us-ascii?Q?dzfd+LpLbSwZYsYnr8VacM8LB44TUnzpU3txCOaWigNlNtJpj0Mf4XmgUPei?=
- =?us-ascii?Q?sBqnObF+sSNBTrei2CLXAmLCUBhzVWM/FGG8L08iaWSJbvPqyQgzb+S1gQey?=
- =?us-ascii?Q?6WPu/CYVcqX9UgtZwGZrOJiDGDnPBLA0aY6DnVKi4zdgSkRiEDHEmyArM8d6?=
- =?us-ascii?Q?M3JpJosBFABXs8mzVQpsq578uX/JOx293wo7dhp3PWbJE27/9m071kL/Sdz3?=
- =?us-ascii?Q?8vPTXE5A0bg0roq6o/K8YP2cpiARZm+QMIKfL8AneafGVt2dVquNlDGXwCPV?=
- =?us-ascii?Q?1RFBghTZw78Ql04KfigeD5Ln49qUxul89VLNskFlwlVQyXoXwEZ6LkyuU/P8?=
- =?us-ascii?Q?nk9k6lLFkhJnHQe1Fxly6sAutrj4e+qYRRTfVv2NjkhF9xCLq5vSm/GkodK7?=
- =?us-ascii?Q?/Q7SoG1RIrRslImrjm79NmOluezM6MYzUfzcUlCl+Ijqli7BER7V9EGT8363?=
- =?us-ascii?Q?0Q+Dz0Lzc5Ra25PuELuNzbJ6o8ovXTyO+7MH0tYVnkU9bx6S9TbezfB4ib2F?=
- =?us-ascii?Q?Zql1+st9YUp9gzqEmGvf3Aye/I2DrOH0FAo9xVt74U4IenL5/PKaRlWOXgQN?=
- =?us-ascii?Q?qJdS+rUMQ/bzglMzvk+B89W3d+2Nbq0HTE0yxGbv55ozff4Zq5LzQkiTsDsu?=
- =?us-ascii?Q?UCQrufhlltdqdoEHxImTtCfqb61Mt7USDUGzAuRfEfPGfuDLBztYhl84Lcck?=
- =?us-ascii?Q?S3uSQGDsZUiFvuPwa4O+A3NyZFzhYz+joM1Di68vDS9ZwxLP8jP2rYfSySfw?=
- =?us-ascii?Q?kJbJ+GCPonrjHkNqDpjCjnrGQUxohxq+6rGmV3tZlkOWOPAo0FRpYSLpVjHP?=
- =?us-ascii?Q?UVZbidyWhMvcp5SyKFdcq+LKIPfysRHTfvgh1g9Cuixw9bmLtojpkG7c0IVG?=
- =?us-ascii?Q?+BVryQKLKcw5x/GgUn+jFtkfNA67fcGt0zGLiCISgudIYKK4kdP9YfwFBxd0?=
- =?us-ascii?Q?baviNSKdeS0jtFKXH1DgWSkdlfzi7brg7nPzpGpHkI4NTurr7GBrUZeJT2wl?=
- =?us-ascii?Q?gsNSuZDak2zN96F9jxVb8qkuE9ng9gzg6U7IPwcEif9UVZtZ0LjatVRnOP4G?=
- =?us-ascii?Q?fEJC0pXyGaOnoKVUMvCnnh/ca4vHrWFFEeHicLXfzu2WgK9+ZqwvRSApYBsu?=
- =?us-ascii?Q?t3q4sbiPQyOH7uOjcDzSUcyCaBh0V3RkDyTVyWvNJi30jocKfOkJBU0+EU4B?=
- =?us-ascii?Q?LPC8jLfPxc1vYpB08lb62ik4eatQqDT83p9Kttg/9GNdHcjlTW6g?=
+	=?us-ascii?Q?ZONyaHKDlQnmMBpAm1Lh/I1MF8+uiPWHtDHNfW8mFklLgRX3SLgglkbhdrR1?=
+ =?us-ascii?Q?O8UyOxEjMBYym2E8qMDarjvaUc8/8Aba11qfWDJBi7tInZEZr2+dfwSXO+Dn?=
+ =?us-ascii?Q?e8Per0I7kgyXSEf0sAwnj5FbOPMoDvbn/UGxWsAA6svVbDtRGxnfZuN6CEaH?=
+ =?us-ascii?Q?5mC89X2SwtrTlZFP88DIZ2vSvsMGIHHNuY+wWpZ1yaG8rPTRO/mAjRLdxqFy?=
+ =?us-ascii?Q?IV5HA5LRwA/tYO3Bz9PKQ7DeiYnqLCzU9Vk3rMvE+4jXi+Ukut04/n3GBBaL?=
+ =?us-ascii?Q?f7kSxuL3X5OIgatlgR9Gkc40qZk67oJg3DcDfCMyDj64BdGTudvbXsofKRQH?=
+ =?us-ascii?Q?4NpCkuwFpQ+ra4pBwIoni6I0nNthfgLcHfE/ZTi4hiUapoZ5aGj35yXEGjAj?=
+ =?us-ascii?Q?mW6gUrJUKYK2F7CWSIA0VRiJdlLlqBn3rsRMr7X3Gfc0qhZwsiSEea+uMjEG?=
+ =?us-ascii?Q?CQn17xO9bOcoPPDx7/rQFPavT/Qz9aj/jrZsHms8SYw+Zg32HKbh0bK6SJgc?=
+ =?us-ascii?Q?qdOqCvAQdwoQXQ7Eh9FBuHPMhQZIQJY4OowpQkyQzgCRvl4HvwnPgxgJ8sBD?=
+ =?us-ascii?Q?3DRyIV40QrSPIK6Wof5+E1O+sEdaqgHrC5rRJKQ96Z57YOBcaaQcsrwyvsQI?=
+ =?us-ascii?Q?IlUKqQ7s1LMpLocl2tPGdJh/Q9RR/mTBwZ7k+9wSNwBV/rWya/V4aPIgC3Co?=
+ =?us-ascii?Q?YsLw4nG6cSgR2zN3t2HScBCsd2KQ+2upM+yfkmyoXuXYJxkAH7llBL42iNqQ?=
+ =?us-ascii?Q?AA/Vw3nAawA5V7xqEgAEX8dn7jKUhP9dPzshjZUjdlBsReg09E3opYCvEtN0?=
+ =?us-ascii?Q?W6GTOFUsy8xYIDPJQA6eUTJKiOIf96/wAnHdNsqFUpyvHbmgQQOlWk3loUiZ?=
+ =?us-ascii?Q?p9VVI41udheHWL87UYmm2xjsr+L89xPqLrojV1QeoRNU9VuW6JEUG0+MtIW9?=
+ =?us-ascii?Q?ff4iXoc8OZCM+7Ee0KB1oESoDUk8XE+cww09J5/w6SKx3Fm6jqHg75yBo/b8?=
+ =?us-ascii?Q?KQxYNuK7t/vAoW/I1mA9UnsfasqaceCvAekObTkORRobCKxPZjhyU3cmA+Ff?=
+ =?us-ascii?Q?x0c/A51LZNdB53KtmeQpC7f7KwdHpO4vutGbvNlFwFA5cazJX12TPOJs7qn8?=
+ =?us-ascii?Q?RQxAx/x7EE3L5yzpqqunZcHgGmbrRR9P7SVpaOCErRHn7xfSmh+fFqiFj8RT?=
+ =?us-ascii?Q?vmgh1GblIBL/sW/K4OZGvj3wGtb0MLWzP7LBqzLBuZKvFUTR9+mgYd7WcBE8?=
+ =?us-ascii?Q?ZK2DiyNIACDOsIBouVFFIItsFtnyyPwjz94UqGJyURJJ54UfgZDTCimBbkXM?=
+ =?us-ascii?Q?idrdY9g9HgyGjS/NLoLUzfYfXxuxIB57pDsD1I6/0VsWjPxOOcRzT9ZiIc3/?=
+ =?us-ascii?Q?lZxsecUX7/Yq9XXAcxJwRmdMBmJe2kOghupsa01KScVxK2YEWYX+1xLqta/5?=
+ =?us-ascii?Q?7vLtqcw/RNRtQkSErMaW8X9vp7TJM+dyhj6QDmarW41cQ+HeisVbHgSmHY7g?=
+ =?us-ascii?Q?7vK0TduhPClYB/RfgZVeEcBThODuTcLjfNYI0UVaXL5tlHVYZ+VNK8/XDmoF?=
+ =?us-ascii?Q?/2o+D4IrI5H5TD82nQgtgxuj3K3S0iHumxpPVSTwEMcNEx7LuIs/aXz/BK33?=
+ =?us-ascii?Q?pGumLvVq82X4I5SEhc+Kgv4N1GhR1OrrdFT/dj+rzz+vp+ZZNyLZ3wM5G+gd?=
+ =?us-ascii?Q?Rj7E5ya55r2/jLHJDa1nWrDUNpMnTtoVdZd42eQxXio8Rx6EKo5PRT6ouzIO?=
+ =?us-ascii?Q?qa1XvcJbqPB6G3b7TkgfSNkYWk0JQnpEKf4tsvldX+XSUvZaoD8G?=
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09dd67a0-dcf9-4135-92d8-08deb2379f98
+X-MS-Exchange-CrossTenant-Network-Message-Id: 050a3046-af8b-4c3d-25ef-08deb237a00e
 X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 04:08:30.4211
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 04:08:31.1941
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /Mw9cYarOAX5YnMziMUm21rytVTJVpUe3WJZpdDJOtphFD/zVfmyMwYzePzJAMG6N5zj8CbgnP/jiV3CcqWVSQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: zwlBgvM6pBArqAOHDB0n2NDG9C0CXT8mQaKwlnvt4A4Xw3pIFQkvnYwUKVN758GZs5PQHe4ObrWDbyPU7hWWyQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB3981
-X-purgate-ID: tlsNG-ebf023/1778818113-2AD643FF-CE381AFF/0/0
+X-purgate-ID: tlsNG-ebf023/1778818118-4237F3FF-11C8E8B2/0/0
 X-purgate-type: clean
-X-purgate-size: 4417
-X-Rspamd-Queue-Id: 5E215549267
+X-purgate-size: 4565
+X-Rspamd-Queue-Id: 88A2254926F
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.32 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -193,137 +193,160 @@ X-Spamd-Result: default: False [1.32 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-Create the RD, root RTT and Realm parameter block for RMI_REALM_CREATE.
-Record the delegated pages straight away so abort cleanup can find them.
+Build the initial RTT tree in restartable chunks, recording each table
+so Realm destruction can walk the reverse path later.
 
 Signed-off-by: Koichiro Den <den@valinux.co.jp>
 ---
- xen/arch/arm/cca/build.c | 116 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 116 insertions(+)
+ xen/arch/arm/cca/build.c | 139 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 139 insertions(+)
 
 diff --git a/xen/arch/arm/cca/build.c b/xen/arch/arm/cca/build.c
-index f333813e10a0..66d9c88da161 100644
+index 66d9c88da161..10f61b5038ef 100644
 --- a/xen/arch/arm/cca/build.c
 +++ b/xen/arch/arm/cca/build.c
-@@ -409,3 +409,119 @@ static int arm_cca_validate_realm_features(struct domain *d)
+@@ -525,3 +525,142 @@ out:
  
-     return arm_cca_validate_realm_features1(d);
+     return rc;
  }
 +
-+static int arm_cca_rmi_realm_create_complete(struct domain *d, paddr_t rd,
-+                                             paddr_t params,
-+                                             uint64_t *rmi_result)
++static int arm_cca_create_rtt_table(struct domain *d, paddr_t ipa,
++                                    unsigned int level,
++                                    uint64_t *rmi_result)
 +{
-+    struct arm_cca_sro_mem_xfer xfer = {
-+        .pages = d->arch.cca.realm_sro_pages,
-+        .nr_pages = &d->arch.cca.nr_realm_sro_pages,
-+        .max_pages = ARRAY_SIZE(d->arch.cca.realm_sro_pages),
-+        .abandoned_pages = &d->arch.cca.abandoned_pages,
-+    };
++    struct page_info *pg;
 +    struct arm_smccc_res res;
 +    int rc;
++    unsigned int idx = d->arch.cca.nr_rtts;
 +
-+    rc = arm_cca_rmi_realm_create(rd, params, &res);
-+    rc = arm_cca_sro_complete_mem_transfer(rc, &res, &xfer);
++    pg = arm_cca_alloc_host_page();
++    if ( !pg )
++        return -ENOMEM;
++
++    rc = arm_cca_delegate_granule(page_to_maddr(pg));
++    if ( rc != 0 )
++        goto err_free_page;
++
++    rc = arm_cca_rmi_rtt_create(d->arch.cca.rd, page_to_maddr(pg), ipa,
++                                level, &res);
 +    rc = arm_cca_build_record_rmi_failure(rmi_result, rc, &res);
++    if ( rc != 0 )
++        goto err_undelegate;
 +
-+    if ( rc != 0 && d->arch.cca.nr_realm_sro_pages != 0 )
-+        d->arch.cca.build_unrecoverable = true;
++    d->arch.cca.rtts[idx].ipa = ipa;
++    d->arch.cca.rtts[idx].pa = page_to_maddr(pg);
++    d->arch.cca.rtts[idx].level = level;
++    d->arch.cca.nr_rtts++;
 +
++    return 0;
++
++err_undelegate:
++    arm_cca_free_or_abandon_build_page(d, pg, true);
++    return rc;
++err_free_page:
++    free_domheap_page(pg);
 +    return rc;
 +}
 +
-+/* DEN0137 2.0-bet1 - D1.2.1 Realm creation flow. */
-+static int arm_cca_create_realm(struct domain *d, uint64_t *rmi_result)
++static paddr_t arm_cca_rtt_span(unsigned int level)
 +{
-+    struct arm_cca_rmi_realm_params *params;
-+    struct page_info *params_pg = NULL;
-+    struct page_info *rd_pg = NULL;
-+    struct page_info *rtt_root_pg = NULL;
-+    bool rd_delegated = false, rtt_root_delegated = false;
-+    void *va;
-+    int rc = -ENOMEM;
-+
-+    rc = arm_cca_validate_realm_features(d);
-+    if ( rc != 0 )
-+        return rc;
-+
-+    rd_pg = arm_cca_alloc_host_page();
-+    if ( !rd_pg )
-+        goto out;
-+
-+    rtt_root_pg = arm_cca_alloc_host_page();
-+    if ( !rtt_root_pg )
-+        goto out;
-+
-+    params_pg = arm_cca_alloc_host_page();
-+    if ( !params_pg )
-+        goto out;
-+
-+    rc = arm_cca_delegate_granule(page_to_maddr(rd_pg));
-+    if ( rc != 0 )
-+        goto out;
-+    rd_delegated = true;
-+    d->arch.cca.rd_page = rd_pg;
-+
-+    rc = arm_cca_delegate_granule(page_to_maddr(rtt_root_pg));
-+    if ( rc != 0 )
-+        goto out;
-+    rtt_root_delegated = true;
-+    d->arch.cca.rtt_root_page = rtt_root_pg;
-+
-+    va = map_domain_page(page_to_mfn(params_pg));
-+    params = va;
-+    arm_cca_realm_params_init(params);
-+    /*
-+     * Initial Xen CCA supports only shared MEC Realms.  Set the policy
-+     * explicitly even though RMI_MEC_POLICY_SHARED is encoded as zero.
-+     */
-+    params->flags0 = ARM_CCA_RMI_REALM_FLAGS0_MEC_POLICY(
-+        ARM_CCA_RMI_MEC_POLICY_SHARED);
-+    params->s2sz = p2m_ipa_bits;
-+    params->hash_algo = ARM_CCA_RMI_HASH_SHA_256;
-+    params->num_bps = arm_cca_feature_field(
-+        d->arch.cca.rmi_features0,
-+        ARM_CCA_RMI_FEATURE_REGISTER_0_NUM_BPS_SHIFT,
-+        ARM_CCA_RMI_FEATURE_REGISTER_0_NUM_BPS_WIDTH);
-+    params->num_wps = arm_cca_feature_field(
-+        d->arch.cca.rmi_features0,
-+        ARM_CCA_RMI_FEATURE_REGISTER_0_NUM_WPS_SHIFT,
-+        ARM_CCA_RMI_FEATURE_REGISTER_0_NUM_WPS_WIDTH);
-+    params->sve_vl = 0;
-+    params->rtt_base = page_to_maddr(rtt_root_pg);
-+    params->rtt_level_start = 0;
-+    params->rtt_num_start = 1;
-+    unmap_domain_page(va);
-+
-+    d->arch.cca.rd = page_to_maddr(rd_pg);
-+
-+    rc = arm_cca_rmi_realm_create_complete(d, d->arch.cca.rd,
-+                                           page_to_maddr(params_pg),
-+                                           rmi_result);
-+    if ( rc != 0 )
-+        goto out;
-+
-+    rc = 0;
-+
-+out:
-+    if ( params_pg )
-+        free_domheap_page(params_pg);
-+
-+    if ( rc != 0 )
++    switch ( level )
 +    {
-+        if ( arm_cca_free_build_page(d, rtt_root_pg, rtt_root_delegated) )
-+            d->arch.cca.rtt_root_page = NULL;
++    case 1:
++        return ARM_CCA_L0_TABLE_SPAN;
++    case 2:
++        return ARM_CCA_L1_TABLE_SPAN;
++    case 3:
++        return ARM_CCA_L2_TABLE_SPAN;
++    default:
++        return 0;
++    }
++}
 +
-+        if ( arm_cca_free_build_page(d, rd_pg, rd_delegated) )
-+        {
-+            d->arch.cca.rd = INVALID_PADDR;
-+            d->arch.cca.rd_page = NULL;
-+        }
++static paddr_t arm_cca_rtt_start(paddr_t base, unsigned int level)
++{
++    return ROUNDDOWN(base, arm_cca_rtt_span(level));
++}
++
++static unsigned int arm_cca_count_rtt_tables(paddr_t base, paddr_t end)
++{
++    unsigned int level, nr_tables = 0;
++
++    for ( level = 1; level <= 3; level++ )
++    {
++        paddr_t span = arm_cca_rtt_span(level);
++
++        nr_tables += (unsigned int)((ROUNDUP(end, span) -
++                                     ROUNDDOWN(base, span)) / span);
 +    }
 +
-+    return rc;
++    return nr_tables;
++}
++
++static bool arm_cca_build_should_preempt(unsigned long work,
++                                         unsigned long soft_limit,
++                                         unsigned long hard_limit)
++{
++    if ( work < soft_limit )
++        return false;
++
++    return hypercall_preempt_check() || work >= hard_limit;
++}
++
++/*
++ * DEN0137 2.0-bet1 - D1.2.2 Realm Translation Table creation flow.
++ */
++static int arm_cca_build_rtts(struct domain *d, paddr_t base,
++                              unsigned long nr_pages,
++                              uint64_t *rmi_result)
++{
++    paddr_t end = base + nr_pages * PAGE_SIZE;
++    unsigned long work = 0;
++    int rc;
++
++    if ( !d->arch.cca.rtts )
++    {
++        unsigned int nr_tables = arm_cca_count_rtt_tables(base, end);
++
++        d->arch.cca.rtts = xzalloc_array(struct arm_cca_rtt_record, nr_tables);
++        if ( !d->arch.cca.rtts )
++            return -ENOMEM;
++
++        d->arch.cca.build_rtt_level = 1;
++        d->arch.cca.build_next_ipa = arm_cca_rtt_start(base, 1);
++    }
++
++    while ( d->arch.cca.build_rtt_level <= 3 )
++    {
++        unsigned int level = d->arch.cca.build_rtt_level;
++        paddr_t span = arm_cca_rtt_span(level);
++        paddr_t ipa = d->arch.cca.build_next_ipa;
++
++        if ( ipa >= end )
++        {
++            level++;
++            d->arch.cca.build_rtt_level = level;
++            if ( level <= 3 )
++                d->arch.cca.build_next_ipa = arm_cca_rtt_start(base, level);
++            continue;
++        }
++
++        rc = arm_cca_create_rtt_table(d, ipa, level, rmi_result);
++        if ( rc != 0 )
++            return rc;
++
++        d->arch.cca.build_next_ipa = ipa + span;
++
++        if ( arm_cca_build_should_preempt(++work,
++                                          ARM_CCA_BUILD_PREEMPT_TABLES,
++                                          ARM_CCA_BUILD_FORCE_PREEMPT_TABLES) )
++            return -ERESTART;
++    }
++
++    d->arch.cca.build_next_ipa = INVALID_PADDR;
++    d->arch.cca.build_rtt_level = 0;
++
++    return 0;
 +}
 -- 
 2.51.0
