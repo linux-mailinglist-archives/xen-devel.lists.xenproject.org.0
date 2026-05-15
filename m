@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AA7qJSRzB2r03wIAu9opvQ
+	id XM9TKSRzB2pZ4AIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:25:24 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F866556C0B
+	by mail.lfdr.de (Postfix) with ESMTPS id 544DD556C0C
 	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:25:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1310367.1581301 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1310368.1581307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNy9s-0002bl-Ut; Fri, 15 May 2026 19:25:16 +0000
+	id 1wNy9t-0002f2-DM; Fri, 15 May 2026 19:25:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1310367.1581301; Fri, 15 May 2026 19:25:16 +0000
+Received: by outflank-mailman (output) from mailman id 1310368.1581307; Fri, 15 May 2026 19:25:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNy9s-0002YS-Lk; Fri, 15 May 2026 19:25:16 +0000
-Received: by outflank-mailman (input) for mailman id 1310367;
- Fri, 15 May 2026 19:25:14 +0000
+	id 1wNy9t-0002bu-1p; Fri, 15 May 2026 19:25:17 +0000
+Received: by outflank-mailman (input) for mailman id 1310368;
+ Fri, 15 May 2026 19:25:15 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <3J3IHagYKCYAwierngksskpi.gsq1ir-hizippmwxw.1irtvsnigx.svk@flex--seanjc.bounces.google.com>)
- id 1wNy9q-00025f-IO
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 19:25:14 +0000
+ <3KHIHagYKCYExjfsohlttlqj.htr2js-ij0jqqnxyx.2jsuwtojhy.twl@flex--seanjc.bounces.google.com>)
+ id 1wNy9r-0002Me-Nc
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 19:25:15 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNy9p-001IcX-Ui
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 21:25:13 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wNy9r-001ywb-3R
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 21:25:15 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <3J3IHagYKCYAwierngksskpi.gsq1ir-hizippmwxw.1irtvsnigx.svk@flex--seanjc.bounces.google.com>)
- id 6a0772ea-2eae-0a2a0a5409dd-0a2a4504d0a2-30
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:25:13 +0200
-Received: from [209.85.210.201] (helo=mail-pf1-f201.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ <3KHIHagYKCYExjfsohlttlqj.htr2js-ij0jqqnxyx.2jsuwtojhy.twl@flex--seanjc.bounces.google.com>)
+ id 6a0772f2-5cb7-0a2a0a5109dd-0a2a45069d3a-34
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:25:15 +0200
+Received: from [209.85.216.74] (helo=mail-pj1-f74.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <3J3IHagYKCYAwierngksskpi.gsq1ir-hizippmwxw.1irtvsnigx.svk@flex--seanjc.bounces.google.com>)
- id 6a077228-1dec-0a2a45040019-d155d2c9b86d-3
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:21:13 +0200
-Received: by mail-pf1-f201.google.com with SMTP id
- d2e1a72fcca58-837d43e9ff3so95386b3a.2
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 12:21:13 -0700 (PDT)
+ <3KHIHagYKCYExjfsohlttlqj.htr2js-ij0jqqnxyx.2jsuwtojhy.twl@flex--seanjc.bounces.google.com>)
+ id 6a077229-7371-0a2a45060019-d155d84acc55-3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:21:14 +0200
+Received: by mail-pj1-f74.google.com with SMTP id
+ 98e67ed59e1d1-369467ab5bfso127923a91.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 12:21:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,45 +55,45 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=google.com header.i="@google.com" header.h="Cc:To:From:Subject:Message-ID:References:Mime-Version:In-Reply-To:Date:Reply-To"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1778872871; x=1779477671; darn=lists.xenproject.org;
+        d=google.com; s=20251104; t=1778872873; x=1779477673; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=HRAsSS8xU7yGk1K8a9fV0Bzp4HNJreTB4TmSZ4FXvc4=;
-        b=Km6eOLC1hI9myxPLNAKgpI3idmmwQ96Fu+FqKZYoNRkQVVUDnEbloB0XlqJOYpXLBE
-         SkdGQCZ4RJxrn9zFbYCSk6pGD2u174YJLSt4dTjDKfpzXC841GfoNf5O7OVdbsjLZ100
-         c20t20sBvoo4LxfnDONWPlttCbLCJU1cZR1iQiKrrjDIAjPAFXRKX6W8HX2Cq64O3SC8
-         9zYDZ26AyxjijEZfSyziqzsZFeawI978vC8uW+smUY/TRBRpci67vi5ztIDu3AQsWcTF
-         Tr2wWAKtTF8HEFlYPM0HvBphzAhVsNqX5wvyQrh67jGglhzj9kBfd5iv3b/EFIb7smQV
-         00Fw==
+        bh=POYAFJXhX15R3hmqAgfLZg3VsZ+0XFpd3jcwWXWllKs=;
+        b=UZjv3Q3NmRjVO67+6jl5YyRh1GMy2Xzh9iV6IK4CaAUrnbZ0hm9D/DSPzvdZpBYsRf
+         4SVHFq4va6ho9uKM+0H8qUrZQkOncas9F20D4Uvxoek0NovIx9xr8VjXm0gBpmUl7Ndb
+         bLEOykC7Or6aeEUU2/T0Xa2L61vn0XR4/6WsWFo9G/mZc6a0Nyt4ImgfJi0DnFEarvg+
+         MYiPWXpbwMpqQSqlGlSO+Ey+s1h5gy4exSSEPNGVSQBJHNqgC/DbxkdnxpjC+m58Pqf7
+         1jDPOnBpaSV/8XvwzmhLMcLY+TbPPk40a74IIqR2wUghLnKQ2l6nuOvRWypBcLmWRClf
+         ffKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778872871; x=1779477671;
+        d=1e100.net; s=20251104; t=1778872873; x=1779477673;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=HRAsSS8xU7yGk1K8a9fV0Bzp4HNJreTB4TmSZ4FXvc4=;
-        b=iETyqKYmN0DN1iFjQ/66FaW16q/qqsR2+8i+Oc/zyXmslV2ka9BYY/T6YA/NQiKSx1
-         +IP2Fkc9Wa9bFXkpwFCxTJgR2f2F4yPWELCwHSjTVuioZVffm6Wbb7HbOXlhBGLa4AZp
-         qsns26cXNsd6EBvrinRrkpC0W9VeCUedtAyIVMQlZE60d1gjOlK/7IqeyTFV0bKyUNBR
-         JZSnYDM3o4aA3V2fAs9Y9l4eUO0Gj3URl9/JRWCtBub8SXVunVut8YSiYwia5orDo6Ay
-         arQOlbkQIZTFnA4SdJ0URlUhLpraAIDmfYSu7aHFlULf+jm8Wmov44+7hjyhc649htCW
-         MrAg==
-X-Forwarded-Encrypted: i=1; AFNElJ+pPXZMLvoC0L+W3WJIsrJEODBC95cxkI5IBx5QmVnQ//CwERpmZBtPuIph0E6NOAaeRWAh+iItq/E=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxYwpO8dLgxDZT1m8xLU910TtAfjeMmXtBAWJD/Ve64ll9BSo3H
-	uQYt9MLJ3VGrRE9DqwXg4ai0NX4U7kRbuuTL37NZ0JgDKokLchYMfUQDjrI9PBAt/BBT+MRugX1
-	FaMqeJw==
-X-Received: from pfdc5.prod.google.com ([2002:aa7:8c05:0:b0:82f:a75b:f7fa])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:ab0d:b0:839:e27c:6cce
- with SMTP id d2e1a72fcca58-83f33d97d9amr5480931b3a.37.1778872871152; Fri, 15
- May 2026 12:21:11 -0700 (PDT)
+        bh=POYAFJXhX15R3hmqAgfLZg3VsZ+0XFpd3jcwWXWllKs=;
+        b=gS4Daiips7g/wEdjfKFgLpA6tGcHRqXd2hOE/5+M7MNz2wrDkwIMnSw6F3mQq1jFQ0
+         /iIL3HISOCPsZYxTae0prO6M/3DsvBvagn6UYMUHgOkwgtqPE0sGDFkx3lQWq0EJjYgA
+         cFXazG1ESNOtXyPKcgqoOaM2f1Wqq0Nb26hnVEiFOJBXwo3E2/jrDUuMx76DDRUq5h/y
+         1hzVOXx8/7yOI72UH8E27tHZ0mlSRnwKja7XxTusDtffztszDglY8iLZtXfxRQoklv01
+         FcVN2Mr1fxJQ6zWd1wHse/5oAWFM2xzguwR35og9618ET/UVJwZT4SZqCEfUsEL/7moI
+         HtZQ==
+X-Forwarded-Encrypted: i=1; AFNElJ84nQ2RL6C0NDIT4ynusZbA3xIjMQA/49n2Tfd+CuGknWPMx3sQJznBjkY4fpo88PDAxxzmJ1ZXpFI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw2NT49vXD2H1WY9yKpV/VBjrBAcNWSI7oOX3Dw8wT+1WCZJxLY
+	POjFjOiFgreiHMtpqBeR68LEJTJSsgUjcN7pWS83Bt3CG8LeLoN3Vu//U9ThT8cEDflTUNa2LLM
+	7KvMnoA==
+X-Received: from pgla17.prod.google.com ([2002:a63:b51:0:b0:c82:2e5b:8f33])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3505:b0:364:edd2:812
+ with SMTP id 98e67ed59e1d1-36951cb3086mr5037302a91.25.1778872872299; Fri, 15
+ May 2026 12:21:12 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 15 May 2026 12:19:33 -0700
+Date: Fri, 15 May 2026 12:19:34 -0700
 In-Reply-To: <20260515191942.1892718-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20260515191942.1892718-1-seanjc@google.com>
 X-Mailer: git-send-email 2.54.0.563.g4f69b47b94-goog
-Message-ID: <20260515191942.1892718-33-seanjc@google.com>
-Subject: [PATCH v3 32/41] x86/tsc: Rejects attempts to override TSC
- calibration with lesser routine
+Message-ID: <20260515191942.1892718-34-seanjc@google.com>
+Subject: [PATCH v3 33/41] x86/kvmclock: Mark TSC as reliable when it's
+ constant and nonstop
 From: Sean Christopherson <seanjc@google.com>
 To: Kiryl Shutsemau <kas@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Sean Christopherson <seanjc@google.com>, "K. Y. Srinivasan" <kys@microsoft.com>, 
@@ -113,10 +113,10 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov <vkuznets@redh
 	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
 	Thomas Gleixner <tglx@linutronix.de>, David Woodhouse <dwmw@amazon.co.uk>
 Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-ebf023/1778872873-43B6B3FF-241EF507/13/0
+X-purgate-ID: tlsNG-16d1c6/1778872874-7FB7DD75-844FEDFF/0/0
 X-purgate-type: clean
-X-purgate-size: 1550
-X-Rspamd-Queue-Id: 4F866556C0B
+X-purgate-size: 2828
+X-Rspamd-Queue-Id: 544DD556C0C
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -154,42 +154,82 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	REPLYTO_EQ_FROM(0.00)[]
 X-Rspamd-Action: no action
 
-When registering a TSC frequency calibration routine, sanity check that
-the incoming routine is as robust as the outgoing routine, and reject the
-incoming routine if the sanity check fails.
+Mark the TSC as reliable if the hypervisor (KVM) has enumerated the TSC
+as constant and nonstop, and the admin hasn't explicitly marked the TSC
+as unstable.  Like most (all?) virtualization setups, any secondary
+clocksource that's used as a watchdog is guaranteed to be less reliable
+than a constant, nonstop TSC, as all clocksources the kernel uses as a
+watchdog are all but guaranteed to be emulated when running as a KVM
+guest.  I.e. any observed discrepancies between the TSC and watchdog will
+be due to jitter in the watchdog.
 
-Because native calibration routines only mark the TSC frequency as known
-and reliable when they actually run, the effective progression of
-capabilities is: None (native) => Known and maybe Reliable (PV) =>
-Known and Reliable (CoCo).  Violating that progression for a PV override
-is relatively benign, but messing up the progression when CoCo is
-involved is more problematic, as it likely means a trusted source of
-information (hardware/firmware) is being discarded in favor of a less
-trusted source (hypervisor).
+This is especially true for KVM, as the watchdog clocksource is usually
+emulated in host userspace, i.e. reading the clock incurs a roundtrip
+cost of thousands of cycles.
+
+Marking the TSC reliable addresses a flaw where the TSC will occasionally
+be marked unstable if the host is under moderate/heavy load.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/kernel/tsc.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/x86/kernel/kvmclock.c | 29 ++++++++++++++++-------------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
 
-diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-index 98bef1d06fa9..7a261214fa3e 100644
---- a/arch/x86/kernel/tsc.c
-+++ b/arch/x86/kernel/tsc.c
-@@ -1319,8 +1319,13 @@ void tsc_register_calibration_routines(unsigned long (*calibrate_tsc)(void),
+diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
+index b6b2018c51db..47f7df1e81a0 100644
+--- a/arch/x86/kernel/kvmclock.c
++++ b/arch/x86/kernel/kvmclock.c
+@@ -363,6 +363,7 @@ static __init void kvm_sched_clock_init(bool stable)
  
- 	if (properties & TSC_FREQUENCY_KNOWN)
- 		setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
-+	else if (WARN_ON(boot_cpu_has(X86_FEATURE_TSC_KNOWN_FREQ)))
-+		return;
+ void __init kvmclock_init(void)
+ {
++	enum tsc_properties tsc_properties = TSC_FREQUENCY_KNOWN;
+ 	bool stable = false;
+ 
+ 	if (!kvm_para_available() || !kvmclock)
+@@ -401,18 +402,6 @@ void __init kvmclock_init(void)
+ 			 PVCLOCK_TSC_STABLE_BIT;
+ 	}
+ 
+-	kvm_sched_clock_init(stable);
+-
+-	tsc_register_calibration_routines(kvm_get_tsc_khz, kvm_get_tsc_khz,
+-					  TSC_FREQUENCY_KNOWN);
+-
+-	x86_platform.get_wallclock = kvm_get_wallclock;
+-	x86_platform.set_wallclock = kvm_set_wallclock;
+-#ifdef CONFIG_SMP
+-	x86_cpuinit.early_percpu_clock_init = kvm_setup_secondary_clock;
+-#endif
+-	kvm_get_preset_lpj();
+-
+ 	/*
+ 	 * X86_FEATURE_NONSTOP_TSC is TSC runs at constant rate
+ 	 * with P/T states and does not stop in deep C-states.
+@@ -423,8 +412,22 @@ void __init kvmclock_init(void)
+ 	 */
+ 	if (boot_cpu_has(X86_FEATURE_CONSTANT_TSC) &&
+ 	    boot_cpu_has(X86_FEATURE_NONSTOP_TSC) &&
+-	    !check_tsc_unstable())
++	    !check_tsc_unstable()) {
+ 		kvm_clock.rating = 299;
++		tsc_properties = TSC_FREQ_KNOWN_AND_RELIABLE;
++	}
 +
- 	if (properties & TSC_RELIABLE)
- 		setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
-+	else if (WARN_ON(boot_cpu_has(X86_FEATURE_TSC_RELIABLE)))
-+		return;
++	kvm_sched_clock_init(stable);
++
++	tsc_register_calibration_routines(kvm_get_tsc_khz, kvm_get_tsc_khz,
++					  tsc_properties);
++
++	x86_platform.get_wallclock = kvm_get_wallclock;
++	x86_platform.set_wallclock = kvm_set_wallclock;
++#ifdef CONFIG_SMP
++	x86_cpuinit.early_percpu_clock_init = kvm_setup_secondary_clock;
++#endif
++	kvm_get_preset_lpj();
  
- 	x86_platform.calibrate_tsc = calibrate_tsc;
- 	if (calibrate_cpu)
+ 	clocksource_register_hz(&kvm_clock, NSEC_PER_SEC);
+ 	pv_info.name = "KVM";
 -- 
 2.54.0.563.g4f69b47b94-goog
 
