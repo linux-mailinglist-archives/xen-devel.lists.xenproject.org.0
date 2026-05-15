@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0Gd3KBxyB2qd3wIAu9opvQ
+	id AJWDKBxyB2qc3wIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:21:00 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3736C556AB1
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F951556AB2
 	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:21:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1310180.1581041 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1310184.1581054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNy5I-00063r-1f; Fri, 15 May 2026 19:20:32 +0000
+	id 1wNy5K-0006OU-Nk; Fri, 15 May 2026 19:20:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1310180.1581041; Fri, 15 May 2026 19:20:32 +0000
+Received: by outflank-mailman (output) from mailman id 1310184.1581054; Fri, 15 May 2026 19:20:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNy5H-00061O-Tb; Fri, 15 May 2026 19:20:31 +0000
-Received: by outflank-mailman (input) for mailman id 1310180;
- Fri, 15 May 2026 19:20:30 +0000
+	id 1wNy5K-0006K9-Ho; Fri, 15 May 2026 19:20:34 +0000
+Received: by outflank-mailman (input) for mailman id 1310184;
+ Fri, 15 May 2026 19:20:33 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <3-3EHagYKCVQE0w95y2AA270.yA8J09-z0H0774EFE.J09BDA50yF.AD2@flex--seanjc.bounces.google.com>)
- id 1wNy5G-0005kg-HX
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 19:20:30 +0000
+ <3_HEHagYKCVUF1xA6z3BB381.zB9K1A-01I1885FGF.K1ACEB61zG.BE3@flex--seanjc.bounces.google.com>)
+ id 1wNy5J-0006Dh-0E
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 19:20:33 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNy5F-007OOK-Ty
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 21:20:29 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wNy5I-0039nU-CT
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 21:20:32 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <3-3EHagYKCVQE0w95y2AA270.yA8J09-z0H0774EFE.J09BDA50yF.AD2@flex--seanjc.bounces.google.com>)
- id 6a0771ef-bab6-0a2a0a5309dd-0a2a4503db10-14
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:20:29 +0200
+ <3_HEHagYKCVUF1xA6z3BB381.zB9K1A-01I1885FGF.K1ACEB61zG.BE3@flex--seanjc.bounces.google.com>)
+ id 6a0771fd-2eae-0a2a0a5409dd-0a2a4502be44-4
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:20:32 +0200
 Received: from [209.85.210.201] (helo=mail-pf1-f201.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <3-3EHagYKCVQE0w95y2AA270.yA8J09-z0H0774EFE.J09BDA50yF.AD2@flex--seanjc.bounces.google.com>)
- id 6a0771fc-672d-0a2a45030019-d155d2c9f06e-3
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:20:29 +0200
+ <3_HEHagYKCVUF1xA6z3BB381.zB9K1A-01I1885FGF.K1ACEB61zG.BE3@flex--seanjc.bounces.google.com>)
+ id 6a0771fd-af86-0a2a45020019-d155d2c9a97b-3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:20:30 +0200
 Received: by mail-pf1-f201.google.com with SMTP id
- d2e1a72fcca58-82f7bec24fdso156221b3a.2
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 12:20:29 -0700 (PDT)
+ d2e1a72fcca58-8230d6d54a5so1056912b3a.1
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 12:20:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,45 +55,44 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=google.com header.i="@google.com" header.h="Cc:To:From:Subject:Message-ID:References:Mime-Version:In-Reply-To:Date:Reply-To"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1778872828; x=1779477628; darn=lists.xenproject.org;
+        d=google.com; s=20251104; t=1778872829; x=1779477629; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=f8J88NcF7oH9XUSV/4XAna5n7NY6XY4d9JdR9Rumg2w=;
-        b=X8J5yOFdWPkauQXkoVGrpiMj/e+mBQ3ws8f48L4NId81qRmD3a9VirCwGLCH0mULFO
-         49CAy457zbnzBfJOGlUSIDiuWY+tztKTfBkTSnl9juH/xz/S2gi36pFw5kkkjysaSY8l
-         hyzhtvDluaBE4QTGV+3ZBWVS6B871NHo5T1xxWqDdXNtdAz48l8dclLVd86q9T/J+3Iy
-         9z1nJ94+VEong19yO9/z7SDdQygwq3I0TZjyv2asXpJbTp9yI4QEBF68Z2MqQNzM79DQ
-         C+0JW84fuKluPa2Kiwl+ieRrzi0wRqco40eS5+oowsYfeyN0x2eHJtTyM82OXXrPnqdv
-         vcVA==
+        bh=ikDY1x359wvY/+q3wacNdXpEm487YvEWh2udCoEd+NA=;
+        b=OZbRHsKSLwHbxyLI5+CWSdjSTBsqE8EudA31+iur5m2mHA9m7kbCMKJDxtOE++2Gyo
+         eYE+8lHk/tsDy/59f+DIuJMur4LZF64iF9p7izC8id8yM3MMqoh1ZnsWwx5ssJQWjSpi
+         kBpfAUFfp2s5pYdLPFWNeVMmwxHUHHPy/wiaGbbOBYMu7/vFrYwD/KQ+z5+i/OI4jTkV
+         EqFDPC5WaBcQYuHvevhhMRiZ6cfjr9ZnGrTeqVK6jJEWMkzE0dAYAas0LdpR9fR7Qcx7
+         vuohKhpFKbYsJLUUWM2fqloZc8OdL6CE9sx95S/MDX6C54d/coD1hJ2IDiLEbWWJDBQI
+         zI3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778872828; x=1779477628;
+        d=1e100.net; s=20251104; t=1778872829; x=1779477629;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=f8J88NcF7oH9XUSV/4XAna5n7NY6XY4d9JdR9Rumg2w=;
-        b=LYRRNDm4bJrzjMZJ66UT1NCvHrTCo4C3cRQ52WaElPdruwrxMHDRXueHr+D75I5/Ll
-         pohREYUNpMq0/pxWYbC58E9FAlUN/+vKMWon+d/5qlFEngKpmiMsYWfUYhfYGGaSN/d7
-         8lybKluL45z2GfUKwHgnkZh2DMjCe2X2TNvcxCJYdj/pepSLqYlELfEklMLe7EuOpJar
-         0OTXG/Wr5eUBjZF3uFcvLgP9lLWHfzemp08BUX9LVDQUOuESCnwpoHuQGZSy/Gp0UrBZ
-         /B3sNsbAO9wZE3Kg/ozLoc662tm7JAAamLka5M+zfB0c4twLPilfyh5VgwFZ7Lz41DuO
-         UVTg==
-X-Forwarded-Encrypted: i=1; AFNElJ+g8G0c6rav64oaRg4CflLaAjgnsjbg6UfDKTNXvi/l3BoJBqP1Wr03Kb9X3penAsWDP/qljCUt4b8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyFl2DX/oVflAmd+rU/uQEXgIlVn1MDfTc6jjjqVGKH63Wgj6yh
-	KU9C/9pmLGY5jOsb474vekTilsD9W9fTjgJiTNN/2D0u8reZAgiYPT8nTpmRR+0TqdiLd7yCsNA
-	1O37Ngg==
-X-Received: from pfch22.prod.google.com ([2002:a05:6a00:1716:b0:82f:6a26:5f78])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:12e4:b0:835:405a:7e68
- with SMTP id d2e1a72fcca58-83f33d9dd83mr5936320b3a.32.1778872827310; Fri, 15
- May 2026 12:20:27 -0700 (PDT)
+        bh=ikDY1x359wvY/+q3wacNdXpEm487YvEWh2udCoEd+NA=;
+        b=Hs4L9/FZLFqhdccCgX/U8VTLxPm4XI48XP+KaU4nPNTY/8MOZ7eGLbtb+59OpdZiaP
+         9F+ERlO2KUSoY+J6sZ7S0CVQz4h+MWRHt/0UV7Yl4oHOr0Kyb4v3c0DcagFEAkEsAFFA
+         uMgWgRcK/O8CGUaxGg7y6U4pdtWOvSAvr64/sCwi4uggSc44KXMJKzF9fD1YiB/M1qLK
+         2tMW5Ms3d8vZSHE098adoyILIeI/v9VfqOwGwNjrqfJU7FVAZGit3MoNhh6ORQjo0+2u
+         mgGc6xFWveIkVje3odZr0P+F1f+xwovzbzCYXfAo3gYlXixSIRFRndyPC0UUFLMLt7MR
+         X9vQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/v8fklv3MCI598bFORUqa5jb9KyUB8ECtvQPiwBdZDCxabIcp0bCi7pxmiv8stihT3ikf+6jdJs34=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YydalLHPiNji+gaSu12owcMwnKoCGOB+Cziwf2f2U5L/dpNBwq6
+	GYx+gkxnCzvkelWpfXGn8nf7lXxqxb/oUdZyenw/5Y0Ne0aGz8PlkrefYbNKlOyKz7dls3KTtK9
+	zczR0bA==
+X-Received: from pfbgg10.prod.google.com ([2002:a05:6a00:630a:b0:83a:d498:99fb])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:a907:b0:835:447b:a2ac
+ with SMTP id d2e1a72fcca58-83f18d5b8f5mr8777489b3a.5.1778872828431; Fri, 15
+ May 2026 12:20:28 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 15 May 2026 12:19:04 -0700
+Date: Fri, 15 May 2026 12:19:05 -0700
 In-Reply-To: <20260515191942.1892718-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20260515191942.1892718-1-seanjc@google.com>
 X-Mailer: git-send-email 2.54.0.563.g4f69b47b94-goog
-Message-ID: <20260515191942.1892718-4-seanjc@google.com>
-Subject: [PATCH v3 03/41] x86/sev: Mark TSC as reliable when configuring
- Secure TSC
+Message-ID: <20260515191942.1892718-5-seanjc@google.com>
+Subject: [PATCH v3 04/41] x86/sev: Move check for SNP Secure TSC support to tsc_early_init()
 From: Sean Christopherson <seanjc@google.com>
 To: Kiryl Shutsemau <kas@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Sean Christopherson <seanjc@google.com>, "K. Y. Srinivasan" <kys@microsoft.com>, 
@@ -113,10 +112,10 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov <vkuznets@redh
 	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
 	Thomas Gleixner <tglx@linutronix.de>, David Woodhouse <dwmw@amazon.co.uk>
 Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-33051d/1778872829-4046D938-E33DD438/0/0
+X-purgate-ID: tlsNG-720697/1778872831-A9B70161-310994C1/0/0
 X-purgate-type: clean
-X-purgate-size: 1673
-X-Rspamd-Queue-Id: 3736C556AB1
+X-purgate-size: 1533
+X-Rspamd-Queue-Id: 3F951556AB2
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -141,7 +140,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	HAS_REPLYTO(0.00)[seanjc@google.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,amd.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FROM_NEQ_ENVFROM(0.00)[seanjc@google.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[google.com:+];
@@ -154,49 +153,49 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	REPLYTO_EQ_FROM(0.00)[]
 X-Rspamd-Action: no action
 
-Move the code to mark the TSC as reliable from sme_early_init() to
-snp_secure_tsc_init().  The only reader of TSC_RELIABLE is the aptly
-named check_system_tsc_reliable(), which runs in tsc_init(), i.e.
-after snp_secure_tsc_init().
+Move the check on having a Secure TSC to the common tsc_early_init() so
+that it's obvious that having a Secure TSC is conditional, and to prepare
+for adding TDX to the mix (blindly initializing *both* SNP and TDX TSC
+logic looks especially weird).
 
-This will allow consolidating the handling of TSC_KNOWN_FREQ and
-TSC_RELIABLE when overriding the TSC calibration routine.
+No functional change intended.
 
 Cc: Tom Lendacky <thomas.lendacky@amd.com>
 Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/coco/sev/core.c      | 2 ++
- arch/x86/mm/mem_encrypt_amd.c | 3 ---
- 2 files changed, 2 insertions(+), 3 deletions(-)
+ arch/x86/coco/sev/core.c | 3 ---
+ arch/x86/kernel/tsc.c    | 3 ++-
+ 2 files changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-index d27cf8f8b025..14ced854cd83 100644
+index 14ced854cd83..39fb50697542 100644
 --- a/arch/x86/coco/sev/core.c
 +++ b/arch/x86/coco/sev/core.c
-@@ -2041,6 +2041,8 @@ void __init snp_secure_tsc_init(void)
- 	secrets = (__force struct snp_secrets_page *)mem;
+@@ -2029,9 +2029,6 @@ void __init snp_secure_tsc_init(void)
+ 	unsigned long tsc_freq_mhz;
+ 	void *mem;
  
- 	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
-+	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
-+
- 	rdmsrq(MSR_AMD64_GUEST_TSC_FREQ, tsc_freq_mhz);
- 
- 	/* Extract the GUEST TSC MHZ from BIT[17:0], rest is reserved space */
-diff --git a/arch/x86/mm/mem_encrypt_amd.c b/arch/x86/mm/mem_encrypt_amd.c
-index 2f8c32173972..6c3af974c7c2 100644
---- a/arch/x86/mm/mem_encrypt_amd.c
-+++ b/arch/x86/mm/mem_encrypt_amd.c
-@@ -535,9 +535,6 @@ void __init sme_early_init(void)
- 		 */
- 		x86_init.resources.dmi_setup = snp_dmi_setup;
- 	}
+-	if (!cc_platform_has(CC_ATTR_GUEST_SNP_SECURE_TSC))
+-		return;
 -
--	if (sev_status & MSR_AMD64_SNP_SECURE_TSC)
--		setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
- }
+ 	mem = early_memremap_encrypted(sev_secrets_pa, PAGE_SIZE);
+ 	if (!mem) {
+ 		pr_err("Unable to get TSC_FACTOR: failed to map the SNP secrets page.\n");
+diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
+index 7e639c0a94a2..243999692aea 100644
+--- a/arch/x86/kernel/tsc.c
++++ b/arch/x86/kernel/tsc.c
+@@ -1559,7 +1559,8 @@ void __init tsc_early_init(void)
+ 	if (is_early_uv_system())
+ 		return;
  
- void __init mem_encrypt_free_decrypted_mem(void)
+-	snp_secure_tsc_init();
++	if (cc_platform_has(CC_ATTR_GUEST_SNP_SECURE_TSC))
++		snp_secure_tsc_init();
+ 
+ 	if (!determine_cpu_tsc_frequencies(true))
+ 		return;
 -- 
 2.54.0.563.g4f69b47b94-goog
 
