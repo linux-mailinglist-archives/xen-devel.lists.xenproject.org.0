@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GHcLGhtyB2pX3wIAu9opvQ
+	id qLIpKx9yB2qa3wIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:20:59 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:21:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBFFC556A69
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:20:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1310214.1581141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65423556AC8
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:21:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1310217.1581150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNy5c-0001Ah-97; Fri, 15 May 2026 19:20:52 +0000
+	id 1wNy5e-0001cG-EF; Fri, 15 May 2026 19:20:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1310214.1581141; Fri, 15 May 2026 19:20:52 +0000
+Received: by outflank-mailman (output) from mailman id 1310217.1581150; Fri, 15 May 2026 19:20:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNy5b-0000xC-RO; Fri, 15 May 2026 19:20:51 +0000
-Received: by outflank-mailman (input) for mailman id 1310214;
- Fri, 15 May 2026 19:20:50 +0000
+	id 1wNy5d-0001VK-UM; Fri, 15 May 2026 19:20:53 +0000
+Received: by outflank-mailman (input) for mailman id 1310217;
+ Fri, 15 May 2026 19:20:51 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <3DnIHagYKCWcXJFSOHLTTLQJ.HTRcJS-IJaJQQNXYX.cJSUWTOJHY.TWL@flex--seanjc.bounces.google.com>)
- id 1wNy5a-0000ng-2m
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 19:20:50 +0000
+ <3EHIHagYKCWkZLHUQJNVVNSL.JVTeLU-KLcLSSPZaZ.eLUWYVQLJa.VYN@flex--seanjc.bounces.google.com>)
+ id 1wNy5b-0000wI-9X
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 19:20:51 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNy5Z-00BXCT-FB
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 21:20:49 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wNy5a-0039ru-Kp
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 21:20:50 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <3DnIHagYKCWcXJFSOHLTTLQJ.HTRcJS-IJaJQQNXYX.cJSUWTOJHY.TWL@flex--seanjc.bounces.google.com>)
- id 6a0771db-2eae-0a2a0a5409dd-0a2a450ca7e8-42
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:20:49 +0200
-Received: from [209.85.210.202] (helo=mail-pf1-f202.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ <3EHIHagYKCWkZLHUQJNVVNSL.JVTeLU-KLcLSSPZaZ.eLUWYVQLJa.VYN@flex--seanjc.bounces.google.com>)
+ id 6a077209-5cb7-0a2a0a5109dd-0a2a450aaabc-24
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:20:50 +0200
+Received: from [209.85.215.201] (helo=mail-pg1-f201.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <3DnIHagYKCWcXJFSOHLTTLQJ.HTRcJS-IJaJQQNXYX.cJSUWTOJHY.TWL@flex--seanjc.bounces.google.com>)
- id 6a07720f-62f1-0a2a450c0019-d155d2cac1b2-3
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:20:49 +0200
-Received: by mail-pf1-f202.google.com with SMTP id
- d2e1a72fcca58-82f9429f49cso281930b3a.3
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 12:20:48 -0700 (PDT)
+ <3EHIHagYKCWkZLHUQJNVVNSL.JVTeLU-KLcLSSPZaZ.eLUWYVQLJa.VYN@flex--seanjc.bounces.google.com>)
+ id 6a077211-56b3-0a2a450a0019-d155d7c9e9be-3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:20:50 +0200
+Received: by mail-pg1-f201.google.com with SMTP id
+ 41be03b00d2f7-c709551ec08so187596a12.3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 12:20:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,45 +55,45 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=google.com header.i="@google.com" header.h="Cc:To:From:Subject:Message-ID:References:Mime-Version:In-Reply-To:Date:Reply-To"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1778872847; x=1779477647; darn=lists.xenproject.org;
+        d=google.com; s=20251104; t=1778872848; x=1779477648; darn=lists.xenproject.org;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=eVzC+1NNlxe1k/R0gBkxcy+TPbGnZzPB3ftmmd4+5ik=;
-        b=FNxSv0QMjiNcryFo7pRpskl6vIozXAqmCGrWN3Y9p2Ag2h43VZYVNf/+TYdVAmiEVH
-         ulIKtXc+m8rRSHEzfpU8oRXR06k5i9v5u8PEOWyBWR0HCAQnxzKrWBG/ozo/s1a4EIKd
-         kt57ALZGxhA99MK6hLiIcCnfsC/Rpa1Z34gHXi25ELdPZx1FHi/BCgEmYVARBFQFMl1B
-         g1/TBgoXn8LtMgxFBhFXzSNYv0+ruuiY6qZh2iIQ4fRrdkTR1veCQG/kHBPW4o5MTbXL
-         MjUfTCdo4zx0/gqSStdkJw7bY/2bBYyzGSzHgatOgMBM3So4x2JKQAEHcTDN+rdmod5I
-         C3fw==
+        bh=c0VSXuwvwTL0EdvBxlPRCLOC48TzlA2S3UU4EaITdRg=;
+        b=NTfevY8y4WDIjPVRsl8tUMYHJboNemqhMsVVjM3paK4D7rkxZA/B0+6qPXxoO9U2BS
+         W5xIhg60A2E0hupZfplxN1Eqn5l77TD/Lbalkl+CoxrE7nkKktdJkebmoyZQk9hCgO62
+         aUfyRL0TgHnP9Ti61Ed8YYsmJ3wWxtugXE16Iqn2dYnJGJjwZ7/X7w5+yE9K9voIYaXo
+         ZPyrZahlgI8hTduqS9VeKELH4cnT2n9wd5CJVhpbeCfRnrsLH/87KBZTI4zomFEQpw+D
+         tpAFu0CmIhZVmP6Do23SAjmoqFWyluvWSxeKLw3Hi7BU1s20yTeNq4tZAfO4SYBxCX6L
+         0DKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778872847; x=1779477647;
+        d=1e100.net; s=20251104; t=1778872848; x=1779477648;
         h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
          :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=eVzC+1NNlxe1k/R0gBkxcy+TPbGnZzPB3ftmmd4+5ik=;
-        b=hr0E17K0nj2eAme12odv3Ggg4h0qeG3ag4lLz8qo55J3eYCEDA9CsiJORHNi5loHDm
-         euO+Puhtg4plXheAcoEmI/GC/Aq4MSnez7HKpyOUUX/ta/0pHsnddzBHbibmXwCoOBMp
-         LG82IFLH5oIrJKRvlkaiEgIX8x4la6brOkTb6+8sjDGXgRMv5nSeg4jBZpH1tw7TXZc8
-         V2ShkHX2oJmzyKGLEkvJxVJ9ziMnNtwXkVsTqlyPGLsdnD0QCcDLz+AzdE5PY0gWya+Q
-         ciRONPeudd4bP0mmSxYtxCEilH4UtiPlq6w4k5nvaY2ZevsfLk/NL8hWuAKbFuixMP1J
-         KQ3w==
-X-Forwarded-Encrypted: i=1; AFNElJ9TQ40SO1feQNWtWZ8a22+2dFNwLJFz14Cjw0Yp6ZvjH7Lkb4jKRZbH4vCqCwEa6d3QbcuksibQTXs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzpeyi20j9+HSJPEZdQh0t7J2EWvMErNmg1gZI8haOcexIpPtnf
-	YGe0pJkZ2EKS5Rx5bTQRage2LMzPX6uEpwUkhVsMY/WOAmC/ZoJZVj3U7Py/KB0697W1GPwZiQr
-	sRvK8+g==
-X-Received: from pfblu4.prod.google.com ([2002:a05:6a00:7484:b0:83a:58c1:f5e2])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1404:b0:829:9a7b:db84
- with SMTP id d2e1a72fcca58-83f33f30bf8mr5787888b3a.49.1778872846903; Fri, 15
- May 2026 12:20:46 -0700 (PDT)
+        bh=c0VSXuwvwTL0EdvBxlPRCLOC48TzlA2S3UU4EaITdRg=;
+        b=hPdO8LA8rL1gFRgAvbQfCgNn7dTHv4/tojBwYP8UnAC8M+1apG96sg58wtF330gNGy
+         sCao3/RGByPIQlAiG1HxbabihmQXZRUHQFGplcllt9iOEwK3XjeTSMy4v/36DLvKPJRV
+         5p/xydWk4NeFpO1opjAYG0Nd5mcvgCxI0QmBNC9MQ4EazLj+NsNZdtNCWB7CfZAL9sZx
+         fl7+/nqIxfNAONJ8JAHCkU+aEqP1nQ+2vNp4ZE9zwYrNbSoVZNM+wTsoLIIwtcMwkO58
+         0dAfswI8yRn4yg4eKu1cIUXIJEp1YF8VRh5c5ixu/NaQdLwGKihFE16PT7bOiPdPs0/M
+         PN9Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+m67F4FARiBorh4cIEIOKL4Cf33wJrQmc5vSawfilhfc6VwA8VZ8wCAX6tR/34wtH2kJmeFfllqh0=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwfNF7vd1i15zarfpiFGomvf+gNm98MR58qbjW49yeI8uryyk9Z
+	G7+uzeNnRUQcoZovw6M70Oc8PZFQAd3RZpIlgliniaVQsZgB/zJtdfwKpGWOn4ZYnkni7ysPvJs
+	0pd59uA==
+X-Received: from pfbff26.prod.google.com ([2002:a05:6a00:2f5a:b0:83e:dfc6:971])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1908:b0:82f:50cd:e586
+ with SMTP id d2e1a72fcca58-83f33cb2c40mr5886442b3a.13.1778872848066; Fri, 15
+ May 2026 12:20:48 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 15 May 2026 12:19:16 -0700
+Date: Fri, 15 May 2026 12:19:17 -0700
 In-Reply-To: <20260515191942.1892718-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20260515191942.1892718-1-seanjc@google.com>
 X-Mailer: git-send-email 2.54.0.563.g4f69b47b94-goog
-Message-ID: <20260515191942.1892718-16-seanjc@google.com>
-Subject: [PATCH v3 15/41] x86/xen/time: Nullify x86_platform's sched_clock
- save/restore hooks
+Message-ID: <20260515191942.1892718-17-seanjc@google.com>
+Subject: [PATCH v3 16/41] x86/vmware: Nullify save/restore hooks when using
+ VMware's sched_clock
 From: Sean Christopherson <seanjc@google.com>
 To: Kiryl Shutsemau <kas@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Sean Christopherson <seanjc@google.com>, "K. Y. Srinivasan" <kys@microsoft.com>, 
@@ -113,17 +113,17 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov <vkuznets@redh
 	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
 	Thomas Gleixner <tglx@linutronix.de>, David Woodhouse <dwmw@amazon.co.uk>
 Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-d25034/1778872849-E0F62CF5-2456AD60/0/0
+X-purgate-ID: tlsNG-4011c0/1778872850-7C67F8B7-2B5C773B/0/0
 X-purgate-type: clean
-X-purgate-size: 1097
-X-Rspamd-Queue-Id: EBFFC556A69
+X-purgate-size: 1195
+X-Rspamd-Queue-Id: 65423556AC8
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	DMARC_POLICY_ALLOW(-0.50)[google.com,reject];
 	MV_CASE(0.50)[];
 	R_DKIM_ALLOW(-0.20)[google.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -154,32 +154,37 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	REPLYTO_EQ_FROM(0.00)[]
 X-Rspamd-Action: no action
 
-Nullify the x86_platform sched_clock save/restore hooks when setting up
-Xen's PV clock to make it somewhat obvious the hooks aren't used when
-running as a Xen guest (Xen uses a paravirtualized suspend/resume flow).
+Nullify the sched_clock save/restore hooks when using VMware's version of
+sched_clock.  This will allow extending paravirt_set_sched_clock() to set
+the save/restore hooks, without having to simultaneously change the
+behavior of VMware guests.
+
+Note, it's not at all obvious that it's safe/correct for VMware guests to
+do nothing on suspend/resume, but that's a pre-existing problem.  Leave it
+for a VMware expert to sort out.
 
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/xen/time.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/x86/kernel/cpu/vmware.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
-index 3d3165eef821..21d366d01985 100644
---- a/arch/x86/xen/time.c
-+++ b/arch/x86/xen/time.c
-@@ -568,6 +568,12 @@ static void __init xen_init_time_common(void)
- 	xen_sched_clock_offset = xen_clocksource_read();
- 	static_call_update(pv_steal_clock, xen_steal_clock);
- 	paravirt_set_sched_clock(xen_sched_clock);
-+	/*
-+	 * Xen has paravirtualized suspend/resume and so doesn't use the common
-+	 * x86 sched_clock save/restore hooks.
-+	 */
-+	x86_platform.save_sched_clock_state = NULL;
-+	x86_platform.restore_sched_clock_state = NULL;
+diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
+index b88d9ca01202..b5cb66ca022b 100644
+--- a/arch/x86/kernel/cpu/vmware.c
++++ b/arch/x86/kernel/cpu/vmware.c
+@@ -347,8 +347,11 @@ static void __init vmware_paravirt_ops_setup(void)
  
- 	tsc_register_calibration_routines(xen_tsc_khz, NULL);
- 	x86_platform.get_wallclock = xen_get_wallclock;
+ 	vmware_cyc2ns_setup();
+ 
+-	if (vmw_sched_clock)
++	if (vmw_sched_clock) {
+ 		paravirt_set_sched_clock(vmware_sched_clock);
++		x86_platform.save_sched_clock_state = NULL;
++		x86_platform.restore_sched_clock_state = NULL;
++	}
+ 
+ 	if (vmware_is_stealclock_available()) {
+ 		has_steal_clock = true;
 -- 
 2.54.0.563.g4f69b47b94-goog
 
