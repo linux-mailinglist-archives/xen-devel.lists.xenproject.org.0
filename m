@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wPwWLN+1BmrrnAIAu9opvQ
+	id UFVlDhC5BmpAnQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 07:57:51 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 08:11:28 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E05A549CED
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 07:57:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1309554.1580594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99BCE549DE4
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 08:11:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1309562.1580602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNlXb-0002Y7-B1; Fri, 15 May 2026 05:56:55 +0000
+	id 1wNllK-0007Bs-FI; Fri, 15 May 2026 06:11:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1309554.1580594; Fri, 15 May 2026 05:56:55 +0000
+Received: by outflank-mailman (output) from mailman id 1309562.1580602; Fri, 15 May 2026 06:11:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNlXb-0002WI-83; Fri, 15 May 2026 05:56:55 +0000
-Received: by outflank-mailman (input) for mailman id 1309554;
- Fri, 15 May 2026 05:56:54 +0000
+	id 1wNllK-00079X-CN; Fri, 15 May 2026 06:11:06 +0000
+Received: by outflank-mailman (input) for mailman id 1309562;
+ Fri, 15 May 2026 06:11:05 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wNlXa-0002WC-0W
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 05:56:54 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wNllJ-00079R-Jo
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 06:11:05 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNlXX-009VN7-IS
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 07:56:51 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wNllI-007PYK-Hi
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 08:11:04 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a06b596-5cb7-0a2a0a5109dd-0a2a4506b5be-26
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 07:56:51 +0200
-Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a06b8ee-5cb7-0a2a0a5109dd-0a2a4501aa48-36
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 08:11:04 +0200
+Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a06b5a3-7371-0a2a45060019-d155802cd92b-3
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 07:56:51 +0200
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-48e82c23840so46373165e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 22:56:51 -0700 (PDT)
+ id 6a06b8f8-c1f2-0a2a45010019-d1558034b090-3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 08:11:04 +0200
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-48d102471a4so85677845e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 14 May 2026 23:11:04 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da15a6449sm11545525f8f.37.2026.05.14.22.56.50
+ 5b1f17b1804b1-48fe5ab52a6sm35537855e9.10.2026.05.14.23.11.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 14 May 2026 22:56:50 -0700 (PDT)
+ Thu, 14 May 2026 23:11:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,61 +58,57 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1778824611; x=1779429411; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1778825464; x=1779430264; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=QY/5uJ/lYfBdWRoMT0tCNS3zl2PQuJ+GlLOUlLPPHzY=;
-        b=NXkyIjgphEZm/aKMZNofw/c4uDTh1tmyZLh0qk2vyfVRhcb/RVLuPMcgq3khoaMx0M
-         Q5dVPHp+N7Wn5bPPN8M3jpQB6CF4JlRyO7GT+LGAHItQYRLelQ7p1rAuXaUrluctmN7t
-         ucrzGPgTVXg1AU10Z//fRY1zDqVMAhilieuDzICAtv6glVT2yaqJFiCRjLi5vdeLhS5L
-         fV7dqvRXz69mmxUMWaRv7XAVgGPVDCGK00po8xZSI/xe0ziANhmAAGR+e33xfhTEbwXj
-         gdvjSXjDMOVJLXPwO5D+S9eRQICRjKWWBD93XsKcsEPwHHqe5ldnahHnmrYxNz8mWYRF
-         Mmcw==
+        bh=YVL10f+o4MmNin1nn3KWDZDVZl0inQKW5lNVeEjhFHA=;
+        b=Ry3tWJl5gPWHXrmPqsf71QMgn6n+YiH0yguBuckIZt+bFlVZVIkYweJazZmuyI/V80
+         h9BK63n1Wyq996BvGY8+CVPJS9WZvj7XZsnSeYMzv2w7zl3KH5NBRAP3WkKACJySRGtk
+         S5JSDphud+GzocltwGOZBzP8xPLpDWxKShQI2KrJy8eiOcxXIc0ZKVIVbmUmGmec7IYU
+         mgr7xazs5ElsDI6Hj2jl2T+9M+1oRAzIMnq4ygZAp9mbk5i4IFwK8cmqsZkVapTJ1x5O
+         QzWEjo78ryDcnEyLB79KzOww1vWYwRywnmcZVQ6+5FCDlcs1qoImhnmY4dNy0kWWmT0R
+         ipBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778824611; x=1779429411;
+        d=1e100.net; s=20251104; t=1778825464; x=1779430264;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=QY/5uJ/lYfBdWRoMT0tCNS3zl2PQuJ+GlLOUlLPPHzY=;
-        b=TD6YKDmpOrwPDZcHYGelB9X20eixeKgp3wuZmSEpKRt5f37paEyurq954TjkVRh5Hq
-         J/danSS6fRSiZ3y3cy3g6sTz5/tpvy92rxrs1gdQD2TRhxbcgs4ZC/vLmr4sHPIiOgi1
-         RnB5htOEsmtheol7LWdqNMlbV84nP0gE0elDR0EeMxGvxb8rWAeX3jkZdONNAiWgwyCe
-         13sYwUF8pfOIsw941RZLXHbPDR3S4kAqqp2hTYt4v20CNs2U+YkKSakw4nYVZDfswJJE
-         aI+CIhtbmDJonLaS2Hi50ZnIwNZfldQ/AVvoPgyTrC8u5GCgf/44qKXTD1UeYNAtsP3I
-         e1UQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8TEwBGjXjpF17Ef6FcZgwNkV8zlj6ZpDlHl3rKDa9Z06TJFyopY0Nvq+lYcfyqT/7i8Wod2N1gPdw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzXlnQjI5Z44B94f9PlnvbW1LHLuaeVNxKHt+ELGm10DkvBQkyq
-	O5ODDzVtNhejnaWM7A+2wlwFPjIniuoRuctAMjOZ6MW++1AzZe948vFiLb1tkme+nQ==
-X-Gm-Gg: Acq92OEgcEy8P0lYYHSNyQxFlk5YjuHKp+/B7YPWN12tdbTA/0lzVPw4tAS4ISDg6Cv
-	+fq35I4EKzLgFQNGpQgw2JPznwMRi3I3/d96ajLVXbahX12j/x7zXuQ6RotyzWl/AKwGMbHRQva
-	C6HQ3+fD5Cuiado/wjM7jPbOBWSYRz6wYxioavhkCCPA9UJSf8JWShoM2WG/KfFTTueHpjDBL0x
-	fccenVbYdkYUxLpbfmhtZrcjE0G6bC8RpAfMdJ1R70KMBfoRvG2J4Icc5fRLayIn7yGZNCswgV+
-	SABhzEuGAPkuGR3YBvMisTboanrpB1BDLLDzd5T5sJVEHpVg/Sfwm/bvUpdMANrsYRohrf/vyI2
-	XJRPiDuJJgiOXQ3yIuwaOeSwN/aMTmYUp/AcTyNEmZ7kG0H/+vk55lOYVx732XNlmGZhBvn6+aE
-	Bu+cJLwfpTXHyrIXlNooVozSHcqZXCBemjvKnMAqulH98EkRIszrqMIRfP7jiG+9vl+ukXshuQv
-	ym0h5rE8gtgrEn/U6RAUZ4SlA==
-X-Received: by 2002:a05:600c:8901:b0:485:ae14:8191 with SMTP id 5b1f17b1804b1-48fe60e3663mr24739695e9.5.1778824610888;
-        Thu, 14 May 2026 22:56:50 -0700 (PDT)
-Message-ID: <843895bc-75a9-487e-87a3-2e11492faf3d@suse.com>
-Date: Fri, 15 May 2026 07:56:49 +0200
+        bh=YVL10f+o4MmNin1nn3KWDZDVZl0inQKW5lNVeEjhFHA=;
+        b=LxSaCkIpvtYDlRrkhcOGNQJbG3FZyinsGw6Sk+atY9VskSnQ7hJz2pQ2Eo6ACznYym
+         2qXvKRG8EjUe0QPjBJv3KIrYHBrOVvAQ8bretE6oqLgWmpPDhsfYvTzAwWF+bv/vDf+d
+         B0zl9NZhDBTetf8lSdmZd2YvmjXcqaeOEhZkmRR21snCD3KlADankNpKhfoy+nncrjE6
+         QC3pMbtgMXui4hE0D/yVdF3w0553sJrHbPca4XUZ5ajth60detUH/5Dn63+o204qqiKt
+         eSdAP4aAXe/bmttLqzP6g8soEGjBHR8VeoHQqQ2THHbdFB2Ar7l/vczz2RaFtnsJgLF4
+         Xmcw==
+X-Forwarded-Encrypted: i=1; AFNElJ8m60kqYPl8gFy29XmkQgONlQ7T71/rxDxt8hbIhSFDCrUZSngg3QN1rPIUMM46ThELZoEgpwAcBkY=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwBkytK1KLJZkMBU4ZoIoDnEIHQxy5pJ1ejF3nwx39q34kgbfqJ
+	FKsKXGW5As6cTM/csvXWxDH8sFtOizrYBJgBUT7+R5NiCw1jGPb8C5U/T9RnPnaZhQ==
+X-Gm-Gg: Acq92OF1VtlxQfP8xY28+YggPfm3d3RA5gSuns1WuPq3YvXv3vQUHhE56oMeNAC64Mb
+	zr0RtH2LhN8UjrxvvocJaBVHCl9fqPj7NG2DqX/fn4qZPwz9jAd18RdDiV8X0lDpL4HM8xp9awB
+	pcgjwAkHWf2Ucz1zYVYsXhZKgj0JZLYUYR7RHIExldtKuOJl1+QBfiNUa5fGnMRMiUkO2u27HM0
+	ujjVNNLQU8Hgj9nOwYaDbAqnvBC63anOniZmmzYOaZUdgA8b4+cRYpoq+HxlfrwbcxZa5z/9Peh
+	R14/5IjVT+ZVyPtuNoyuVbzTYhsQqzrg27EW0gjsJhNVgqtZokIGXwipnjwrc/9zpmbBuP+tgNy
+	glkHYmRG/wAX8C5S81Jf6lu1037BSAwbQEzYNdqC+UOQRCLHZ0UE92NEpJ1A9/xXvDvw9p8b+0x
+	82Jad7VIYRMb2RsT+mdVRXHvYDwZHr4n888e5rIhz4j2Si2JZKk7Znv5GahUk7Hyx67HU4Htwln
+	JH/rzBnrCl88Ys=
+X-Received: by 2002:a05:600c:858d:b0:48f:e230:80a2 with SMTP id 5b1f17b1804b1-48fe65148e1mr25475715e9.32.1778825463794;
+        Thu, 14 May 2026 23:11:03 -0700 (PDT)
+Message-ID: <39b78725-1d4c-44f3-a64a-1d243a61f8cf@suse.com>
+Date: Fri, 15 May 2026 08:11:02 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 24/26] xen/arm, tools: add domctl for Realm
- finalization
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Juergen Gross <jgross@suse.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20260515040812.983626-1-den@valinux.co.jp>
- <20260515040812.983626-25-den@valinux.co.jp>
+Subject: Re: [PATCH 2/2] crypto/rijndael: adjust for Misra C:2012 rule 8.3
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <13ca5f9f-d985-41bf-9c30-afd657dade89@suse.com>
+ <3ca0351a-8be9-4b3b-989f-0ba004fada2f@suse.com>
+ <1f8c7aef-1432-4026-b97a-acf9a3d06330@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -138,13 +134,13 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260515040812.983626-25-den@valinux.co.jp>
+In-Reply-To: <1f8c7aef-1432-4026-b97a-acf9a3d06330@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1778824611-8CE79D75-D9BA651B/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-d62444/1778825464-B715BFF4-CCFF9FD9/0/0
 X-purgate-type: clean
-X-purgate-size: 1744
-X-Rspamd-Queue-Id: 0E05A549CED
+X-purgate-size: 1975
+X-Rspamd-Queue-Id: 99BCE549DE4
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -153,73 +149,72 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:den@valinux.co.jp,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:dpsmith@apertussolutions.com,m:jgross@suse.com,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-On 15.05.2026 06:08, Koichiro Den wrote:
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -1201,6 +1201,16 @@ struct xen_domctl_vuart_op {
->                                   */
->  };
->  
-> +/* XEN_DOMCTL_arm_cca_op */
-> +struct xen_domctl_arm_cca_op {
-> +#define XEN_DOMCTL_ARM_CCA_OP_INIT_REALM  0
-> +        uint32_t cmd;              /* IN - XEN_DOMCTL_ARM_CCA_OP_* */
-> +        uint32_t flags;            /* IN - reserved, must be zero */
-> +        uint64_aligned_t base_gfn;   /* IN - first guest RAM gfn to protect */
-> +        uint64_aligned_t nr_pages;   /* IN - number of 4K pages to protect */
-> +        uint64_aligned_t rmi_result; /* OUT - raw RMI result on -EIO */
-> +};
-> +
->  /* XEN_DOMCTL_vmtrace_op: Perform VM tracing operations. */
->  struct xen_domctl_vmtrace_op {
->      uint32_t cmd;           /* IN */
-> @@ -1368,6 +1378,7 @@ struct xen_domctl {
->  #define XEN_DOMCTL_gsi_permission                88
->  #define XEN_DOMCTL_set_llc_colors                89
->  #define XEN_DOMCTL_get_domain_state              90 /* stable interface */
-> +#define XEN_DOMCTL_arm_cca_op                    91
+On 14.05.2026 20:11, Andrew Cooper wrote:
+> On 13/05/2026 3:01 pm, Jan Beulich wrote:
+>> ... ("All declarations of an object or function shall use the same names
+>> and type qualifiers"). Bring declarations in line with the corresponding
+>> definitions, accepting the use of the being-phased-out u<N> types. While
+>> we don't define NEED_RIJNDAEL_DECRYPT, cover rijndaelKeySetupDec() as
+>> well for completeness.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/include/crypto/rijndael.h
+>> +++ b/xen/include/crypto/rijndael.h
+>> @@ -50,9 +50,8 @@ int	rijndael_set_key_enc_only(rijndael_c
+>>  void	rijndael_decrypt(rijndael_ctx *ctx, const unsigned char *src, unsigned char *dst);
+>>  void	rijndael_encrypt(rijndael_ctx *ctx, const unsigned char *src, unsigned char *dst);
+>>  
+>> -int	rijndaelKeySetupEnc(unsigned int rk[], const unsigned char cipherKey[], int keyBits);
+>> -int	rijndaelKeySetupDec(unsigned int rk[], const unsigned char cipkerKey[], int keyBits);
+>> -void	rijndaelEncrypt(const unsigned int rk[], int Nr, const unsigned char pt[16],
+>> -			unsigned char ct[16]);
+>> +int	rijndaelKeySetupEnc(u32 rk[], const u8 cipherKey[], int keyBits);
+>> +int	rijndaelKeySetupDec(u32 rk[], const u8 cipkerKey[], int keyBits);
+>> +void	rijndaelEncrypt(const u32 rk[], int Nr, const u8 pt[16], u8 ct[16]);
+>>  
+>>  #endif /* __RIJNDAEL_H */
+>>
+> 
+> Hmm.
+> 
+> The rijndael_encrypt() in context is a trivial wrapper of
+> rijndaelEncrypt() using rijndael_ctx.  The only user is VMAC which
+> defines aes_encryption() in terms of rijndaelEncrypt(), making
+> rijndael_encrypt() dead code.  The decrypt side is even deader code.
+> 
+> It might be worth taking this patch in the short term, but I think we
+> could get away with a lot of deletion.
 
-If this is to be Arm only (as the name implies), ...
-
-> @@ -1429,6 +1440,7 @@ struct xen_domctl {
->          struct xen_domctl_monitor_op        monitor_op;
->          struct xen_domctl_psr_alloc         psr_alloc;
->          struct xen_domctl_vuart_op          vuart_op;
-> +        struct xen_domctl_arm_cca_op        arm_cca_op;
-
-... this wants to move ...
-
->          struct xen_domctl_vmtrace_op        vmtrace_op;
->          struct xen_domctl_paging_mempool    paging_mempool;
->  #if defined(__arm__) || defined(__aarch64__)
-
-... into this #if.
+Well, really this whole piece of code would likely better be replaced by
+something structured, assuming it's going to be needed at all anymore
+after TBOOT deletion.
 
 Jan
 
