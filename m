@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WNL6L/6cBmpLlQIAu9opvQ
+	id mMb5HzmdBmpLlQIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 06:11:42 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 06:12:41 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BBE9549212
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 06:11:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1309420.1580459 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DECC0549252
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 06:12:40 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1309486.1580531 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNjte-0008Vp-6f; Fri, 15 May 2026 04:11:34 +0000
+	id 1wNjub-0003xD-Vi; Fri, 15 May 2026 04:12:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1309420.1580459; Fri, 15 May 2026 04:11:34 +0000
+Received: by outflank-mailman (output) from mailman id 1309486.1580531; Fri, 15 May 2026 04:12:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNjte-0008TJ-3Y; Fri, 15 May 2026 04:11:34 +0000
-Received: by outflank-mailman (input) for mailman id 1309420;
- Fri, 15 May 2026 04:11:32 +0000
+	id 1wNjub-0003w3-SK; Fri, 15 May 2026 04:12:33 +0000
+Received: by outflank-mailman (input) for mailman id 1309486;
+ Fri, 15 May 2026 04:12:32 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <den@valinux.co.jp>) id 1wNjtc-0008T3-Nb
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 04:11:32 +0000
+ (envelope-from <den@valinux.co.jp>) id 1wNjua-0003vI-Ig
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 04:12:32 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNjtc-0052Iz-47
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 06:11:32 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wNjuZ-000yVE-VJ
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 06:12:31 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <den@valinux.co.jp>)
- id 6a069cab-e002-0a2a0a5209dd-0a2a4503c7a4-32
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 06:11:32 +0200
-Received: from [52.101.228.127]
- (helo=OS0P286CU011.outbound.protection.outlook.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a069d26-bab6-0a2a0a5309dd-0a2a4504b2a4-4
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 06:12:31 +0200
+Received: from [52.101.125.129]
+ (helo=TYVP286CU001.outbound.protection.outlook.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <den@valinux.co.jp>)
- id 6a069c3b-672d-0a2a45030019-3465e47fdc14-5
+ id 6a069c35-1dec-0a2a45040019-34657d8136d2-8
  for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 06:08:31 +0200
 Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
- by TYYP286MB5257.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:163::9) with
- Microsoft SMTP Server (version=TLS1_2,
+ by TYYP286MB3981.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:156::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.18; Fri, 15 May
- 2026 04:08:26 +0000
+ 2026 04:08:27 +0000
 Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
  ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
  ([fe80::2305:327c:28ec:9b32%5]) with mapi id 15.20.9846.025; Fri, 15 May 2026
- 04:08:26 +0000
+ 04:08:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,20 +60,20 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=valinux.co.jp header.i="@valinux.co.jp" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xs0ySpsXho/Q/PJkUY8kHQOPF8BiMJOyVyG1On69+0sLGBFGdWPDQDlaF5wp2mr3rulYxR9wP0SfbQRvHLhMcZlyjXF78a4zoXU6WlPKYyBoq9FTuE0irpt36iprv6ZNe26nsfmNzmq/UcU0kZMyayvnixvCmmzpX/GMs9XGLDR90CYd9ac5t++2Gd5e5DLQCO6F6o1jfslEaVOEFYOXCQmH/2cgNZQJ+Xa8VZ3bJ7m0Xpa7M7fHUQW5iQQmClwS7eOvigCW3vAOtgyb9bH/Katua+bo35oJqnG7xXjhqadUHX7UJ4jLsRgkO5FJkqe/iCZY5Zxx128GnX8GLaUTbg==
+ b=HqMeKL6+t5HTfD1sFnJcQa1xL8qOZZ4tMOVV/GkOhttW0nhD7i6sh2z94Gy9GTuGYTHQkcCCPyECQo/vLDUN2ivUliB56axWIPsPAVL43Az1E6ox5pHVu7hBC58OoUhk3oIuzla6ofmTRxpc5T6JJqYl0i3elVFXebLc/u9cpLPvwMZMZ+Ie1502kfjJjzkQd50GnBI8k9hZ8EHXeqIGIypZJ3QmnIvA4IoAO46HcN0rXSj1DOTpM9EDWQsTs9d/b3g+Y1sGwuDxBPl+HsFZ5BDju+B3QV72AG5vVhjpjShu47PiG8LiZ36MPgiss3BFW+S6UJqtlUiZ7S130uMvQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iQozeGS6NXue2xy04GwS38eB6n43tpIm85e71KD3+fs=;
- b=BQw0NCinlv8YvV9NUnVME52qwAL+Us66Bxia60rM2OBPfamYqcTbuczz9XiljOSkAj1Ivq8LFBRNBnZb18b/uBY10JUTpy/NokPp3GAQkCU75ES9bC7f/4fjR0VKiEfZhHoq2Cd6FDF3Ux+DbjHP/lYlKlKjY2qSElN25ctr+rvTKQHfis75QoMZQRFAS/Pfm6JVPVWuhj/NK9g/tPvjj4B7Vx1i2UHGMdOgE+XgCWJbSWwMZf7163f0dQQj02wsuU/N77WUYcYxBHHVjo29Iz2jX1TEno1x6D3D6Zmh7uv1Dg3WcjHQPoSURzx3kZiM4jUzUI0Ut8RXKGu6iwQsew==
+ bh=/bHYT6atPOeZOv2k1L5q3pwz1qEMb9cMvUWztfWVSOo=;
+ b=f6oC0cn/u8yXC7n94q+pGMj7xn5ahLQ9biNhMhxNZArow95r2utq6Ne5iZvRTN7kIItFDK5h/F2bDFTbM5wEgvHXL/fAb/JH52/ILCWzbQh7SzmtSXdGaL0ULUiy0bjXD/ORILAev2K84bAAYd6Jl3DCo/3lOPXHl1fQvJG8XyvdS0EWnYV2OmmxPiyZ0PFSXI3rrWIyfln4XzSJDcRuT+4lr21oF9gyndrYXWJomuhxwPX9fnn3d02sh2UEdzXrFfXXOknRPidfwDJ9QwYrVECv0n5P/Zfini5v0AAlQo1WxQXsU9/V7Kp8LWjG/EFnxeBelZF8aC3nt0PhNWn4aw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iQozeGS6NXue2xy04GwS38eB6n43tpIm85e71KD3+fs=;
- b=M28oMCAlK0o5+PH5XnmMEvKUu95EfDESKwS/S+TehN31E4HYV6T6Eune1mVIguWXXC+lf1GemZ+0UydSBNYLbBdZXUmBXKRCJLgpwwgUHp7yp+zNUGoxgNPx1lhMBSEfYdHvq0B+W2hQfTGct3nlPJjCDOymWG1GFdIupMF+awc=
+ bh=/bHYT6atPOeZOv2k1L5q3pwz1qEMb9cMvUWztfWVSOo=;
+ b=hLmhABq9j/HWqdKJEUFbENp19Y+sPhbunK5U33Ao+1C5Oi0yj+GaWe5xgsuMgDpQteuqL0pbq9rCBMVUlo3Ta4VAsl81TXIa7AWDwT/7EUhbflKv4+aC+MnHaLeXETwc4dbVu0oBclUCJiE7wtoxf0xw0dws/3aUpHmmEk493fA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 From: Koichiro Den <den@valinux.co.jp>
@@ -89,76 +89,76 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Juergen Gross <jgross@suse.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [RFC PATCH v1 10/26] xen/arm/cca: add Realm relinquish entry point
-Date: Fri, 15 May 2026 13:07:56 +0900
-Message-ID: <20260515040812.983626-11-den@valinux.co.jp>
+Subject: [RFC PATCH v1 11/26] xen/arm/cca: terminate and destroy Realms on relinquish
+Date: Fri, 15 May 2026 13:07:57 +0900
+Message-ID: <20260515040812.983626-12-den@valinux.co.jp>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260515040812.983626-1-den@valinux.co.jp>
 References: <20260515040812.983626-1-den@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TYCPR01CA0070.jpnprd01.prod.outlook.com
- (2603:1096:405:2::34) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TYCP286CA0222.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c5::9) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:405:38f::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TYYP286MB5257:EE_
-X-MS-Office365-Filtering-Correlation-Id: e384598f-eddb-4503-84a9-08deb2379d55
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TYYP286MB3981:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7a94171-427a-45da-6252-08deb2379dce
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|10070799003|376014|7416014|366016|56012099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|10070799003|18002099003|22082099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	WA4HlbaemzL5K2jLH8XnQivh7FT52NP2WdiNqHSdgeTCw9uYueJGRq2J8gjQIJhXFcXaVtKsejakqG7TxMjOggMwGvpEIyEZtzEpXFHdEUGkOvDMN7S+26il90Ng/qs72h0Z1R9hHHbPpVYKbIPLkqfAA8NmVdbNR9FYo3aO0jA+s/OV8GB6dEn+p1EWE5rQ+M5Dl2a8SwMgjkWp+jQFhdIZJyks11wMbgOQY/SyNF44IVUufPtGgf9+vUp66wTITpHIrOxHniQADc3kzKf+BfdWxfsBfistCNHLkhIC60a4k+K6/J0tb4r3fLqmEv+PsVKMDkoOuzpwt955NK6M/FTbg3wBZE8vQjVbzWf4HjfZEGOoz08gl5mVy+/zD0cpWjZjb7k5iqeJIJlSyHLcGItORcuF04WSu7gDWBQt32Sego6hjJYxoivDTVWmDs3m4oCdzxqh+JqAJRHjDoT2Hp8cI4zUGaaRAbUcjqqh4qLe7/6ffyI1Fo3+8jTEAMZ8G2b/qqznkiueRA+luRkNopg6XH9mvZf7QPCZ8Hr7JpYXzCqwMteSSvZ5w4chk8a6mgul4QY6NtZ2wNa7pZP9fOsC77OfQMMt9/V5sBeQv35Ji1oBb4y94OPGl015HEo3TQndhl0CMECDvi1MRb5+l5gWorRFFHBVRV00e4GAfbAEK90ixFLFA6TvJPNkudmn
+	sKcxBNa+IElQZkLoN1w9kxi7M7X+Sm3J/j1xx0ZgnkKIvKBg+cOLFhV3bnjyyemrCaalhWBitQNhfP83JlTqxRNSCjLZiPJT69LpgQ1ZnQmupz0whS5lE6E1BOgS8OkJk0q0JIhmisvlwNKhxcbWmqSVs79u6uwV0618M1WLt+3+FGFeqoYYFMCEO4Gj7UHFJlqDa+11U9/d4GABsANmcKNsPkeV65RmqQqhPyCJ8ZcXcnZdNDo+PlWmCTiu99rp62OUug5a7O2J2l54ZQHsiEoTjJZ9yCjE1TBJ9vvBRNNA+A3F8QZuKWJa41RyiZcsQ/Jo4NKV02gkwCHGka3NBafAdnCBBnu5eaHhjPFQF6/cHyB6ps5aSwwtK42gVReHBXVyphUUAgJmN3soNFDxaw8JDw+TWmaH6+yY1VQXmVxYECTD+HS056RGSxg/bB+xDRX8EgvTIEzvfkgLd69DPXGsMNlf+Qhv7mY6QpaD0ncovvzWqRv15ZRUplkv4OzcvI3EdjbEBF/lNLP98EEcxpI23oto1xKBZm7Vun5l2YJh5CyF3/Jfni492dqrQ6csTi5FoVPV3qeLP0s3sHnzK3IXG3cIcx7PxHQg5qwoPH9dVh8PzenFou8RGav6vtG2t5bwO9BG5B7JIpSXPtGnFTb8pRFcVD7LVDl/4qEku9EEPRvaff3O7LcrfbNa/T7U
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(376014)(7416014)(366016)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bHDSnIWcw7ASPEAzyqscbjn5EVg/54TM5UVtuBIAW03GMVmwERIyvXwP7piU?=
- =?us-ascii?Q?j6JAzWy4whmGmeGFVkQc9e6O1I7dHGUIwGAwJFik4+nWXWIfzWBDSCSfgYJL?=
- =?us-ascii?Q?ioIVSP0IQ6An/KgXZrtnkIEQlXPcAgAScxMJ+7q7kxH/nWe5nKmXMEDrOWGu?=
- =?us-ascii?Q?SdfISybxvHmL9mogH61/54hYAcPZCOXwWFtzw2gioKUgGb0SHzdcRvyYQa/g?=
- =?us-ascii?Q?Uneqe2aQSDyeMrI7CJq/DsVoOUaEK+6veDDsUaGmt5yeL54gSnMapzZcBU/k?=
- =?us-ascii?Q?GTTEXpswTpJjVddlt5VRVa6ipaCH95+OsI8/e2f317NK7F1532Ba3HwunW32?=
- =?us-ascii?Q?aHo0Zx4NPCn11+MbxksP1ukSpplKHKuIn74d5lYmK+KR0zL+ZVgfXCuM4cgC?=
- =?us-ascii?Q?ipUWU2cD51ZHVTY5vAw2e2RmkR72p8+1Ufozes4BBaCNH4H8Dx8dkxs3WwV1?=
- =?us-ascii?Q?+jlZ/2iS/7uVi7J5vF9dy0HGWMsFGn1bWX4ibdPBOU5NIWiSeBph3m10z41G?=
- =?us-ascii?Q?FQgvTgQ/5Z6fY4Tmi4PNe/gsrFUh/ZwAW7kO64V38RKpfzBjPtF0Oz3b+CqG?=
- =?us-ascii?Q?N25NwCc+4XUTOfLJxcvBPsHi1wUFb0mXhe1bwITlwoSDxJDCWKQEx4eT8J+z?=
- =?us-ascii?Q?4gaczxZT6gxeqcYy2zqAn39mYrrMhRlnQAHA6MAHOWHYNuTk5uShrpxgIVHr?=
- =?us-ascii?Q?JawAfSvDXKbYKcctRtd4cv7p4A+Q7DL4e4loovIqg9KiVK5tx/GKE/sSGMd7?=
- =?us-ascii?Q?OV0Wj7t/ombXyEQRASKAL6VLyhGtWBU1zRaoJeP2Vf6O5tODtw4JbldoivZx?=
- =?us-ascii?Q?Voj20htKA9ATURzpAowkmhHN/S64Ae9Eh2zmZB/7aH4AvpNlgEeHpkNTrP3c?=
- =?us-ascii?Q?bJUJEVxztaLfFbksjM3SWUSOZRolGMPTkt+sdkqMJ79uGV5PrcprA30lGANw?=
- =?us-ascii?Q?yvkDFy68xhiAmaILUTV+w/zhSzRgFvThwlVeDllujqbbU9wowl2eMAQwcFIt?=
- =?us-ascii?Q?0Ir2ygv+PmFRS9O0N8lMpbQfayWq19ivpfiD2IvfplPIySgnQIf28ZOGftFV?=
- =?us-ascii?Q?lxRSV04FfQ7Btqvgb+EMTOpaaEj5Am2l3ZR83ahvQDxjRULk/VXvA9tKlx0Z?=
- =?us-ascii?Q?YZfPcH4+RqGqJWylPnpJorPB/PkeVT4ojTm0eiBhUcTp0Pz2zuItNi1P0PKe?=
- =?us-ascii?Q?Q2u3whtPhEi/SDL5GIMzZXCYOZhlY+o6slfHiKy1pa7Z5r77zLBa0h6hbNzl?=
- =?us-ascii?Q?GEKFSHVEqojslgdaeZgCIJ27bsRm5r7EfsTLxZggVJuxdwaDMv8MkUVRdvUh?=
- =?us-ascii?Q?hNCO1M8LWhgJ2rhi2QXDe6U91AMxcnwl5OhT82WNpu+DWSNUMcB2CRdWsHyM?=
- =?us-ascii?Q?UFhSVESjbZw1zl3L4vpPXRmQSAKsLp07Zmvq1LMjPNumahEvOw16C5XFgifT?=
- =?us-ascii?Q?l9hDvil72kqwptVg231M3qNleyxo+Xhf5cMhxugBeVndNZ1mV7XzpM/j6eRU?=
- =?us-ascii?Q?ZBs5hR1cXLJVCu3xJ3rM3bqzahA5+1mMGKoP4/Wk+iKrvQImIQtlfExBq7WU?=
- =?us-ascii?Q?3OSFO4MOsyyXJWv6YpJF+0d8g/7ERzA46xwvpr6nCJX8kzZDgbfVy4/Sc79u?=
- =?us-ascii?Q?drPGb4Mlr6VXh6XJQ3/qqXwk4cI2bfnTg+NC0nHxnSeRUh7t0LATgy88nQrS?=
- =?us-ascii?Q?yhmtk/4eR9wxvQwa13ZCeEDnbCoXjQf7M9PCvJjqaWD2GGXjpUPBjs2y4ERA?=
- =?us-ascii?Q?GA2eNniSroJxBEhhMB0S5cFRkEXaT1eB7jvvtczvwK3C9v/KYbD9?=
+	=?us-ascii?Q?4aLGh8c08GG9sqvk6nK3dALLX8eAdb6MOjwGMWZ0oxMZZ/oPKXNQ1peVJdSe?=
+ =?us-ascii?Q?t6YbJy2/fschhDfAMzoH6CBbL7X38EKmuJeJI/31iRrKvH0uI8uojMKxfT/2?=
+ =?us-ascii?Q?0E9JnEEZV4Lr3622+fetNOopscTpWscUYAr53qh9eHGNNs04JMDp/XBSYpiC?=
+ =?us-ascii?Q?HsqAhL+2Obf76T8BheF639Ji9Ukq0qf6BAGKE7F0Xpc0kyABIIqA8XdP7wHU?=
+ =?us-ascii?Q?sFBmT3NHAB5DnZN0+lIpAquk+ap1eZUqGdgby9B0HQucQc0NA1LllRnHfxJv?=
+ =?us-ascii?Q?KBCYCjjjWE3eD5AoC1xNRV3/dptR+siBIQl9VNziOoOk8UxEJlw+0dNSeT9I?=
+ =?us-ascii?Q?38QA3hM4CJ/W5dongYNzJ5BEQaqChB4O+QeS01dChd4O2qXmj83eEznwlNlc?=
+ =?us-ascii?Q?XObCzFFCqztencr63dbw7DDxAV6qYasw//PsFKleTeE8OoMvfkXvNqFePC6x?=
+ =?us-ascii?Q?shIps13Q5LaFjYDHkdysfbZaXZArepoXxJ7ZsJqrCIE7ScCbK8PcJqupyDyH?=
+ =?us-ascii?Q?a6LR6p6lkJpZ3dIR0B/YO1AeGDDxX2rzUuMW4dqwnMHXnb5z72DxKdpLimn4?=
+ =?us-ascii?Q?NhhizXqO9Uu2rzzcPiUWlis8zsOASJiN0NZ7d80ttW4B/dIV/IucLDrpCfpD?=
+ =?us-ascii?Q?XDgwFoP84pRUxuRk/mXV6r5kttvNhvHp6k0jC4UBdZ0vyAyOVf/Y75EPQBrK?=
+ =?us-ascii?Q?iCbRlvRG17K4ddjQV5KuFagS0Z6Iqeaf0AvT5nBIhQGmvPHAiMMt06vPbdHg?=
+ =?us-ascii?Q?9Ox3CFh7aPN4vqiCYtHBZreTeWpOzE4M9YpELrB7ja4wd2EH4In6WwO+Bdiy?=
+ =?us-ascii?Q?VoFM0Z+Lo4pFCa4tYtTepd04L300GtQ80/GPJmHhebGT9fGC8osKxajMm0qu?=
+ =?us-ascii?Q?a8d7KksS+SCfkuAVVnEQjIcUR93A3TQuOPhWlE6XxCF5PShgNDt28nUd2Wuh?=
+ =?us-ascii?Q?gVEUsKE2M2JAVVx38fSHeEi2VAKmK/MjllvtrL+OZZWXbq16Il4siRvClbS2?=
+ =?us-ascii?Q?7/5UOTY2Nbv/2ZTPFHUnCyGMYH0n3URIv3WH3gB/RAVUnO4S+jo/iTmZgcfF?=
+ =?us-ascii?Q?OkAuTx8fadtR3bkGNqOQucMfLNrJdWuZ4AbcOOr3IulgNrCT8YBEIbFSV4mw?=
+ =?us-ascii?Q?70ghr7ZmouHWQOfi1Mdusl8yV5YZh91yx6D4fEYbcBV/AmsbdRiUS5ZP7aSh?=
+ =?us-ascii?Q?2S8RkBBAT9w843h493Zm3qHtEOI8c0L3cvw8pa6A1KT+bU9qHLmV0Kiyp7Qx?=
+ =?us-ascii?Q?DH0LtwIa8R9zJ1CtcFc1/aI+etOAegGImxm9woz5fsCWgVo2P3WCWUSkjRcS?=
+ =?us-ascii?Q?c7G9Qu7dPn0oDDbrA55Lo++85KHFuNelBdphuy40MqD7LYdxIKs5I2fEUT+5?=
+ =?us-ascii?Q?0YQhNVbYg284mHzhOVIbzn1Vno1yYrLIeSy1cE7TBPJyNCzTuz77BrBEL4po?=
+ =?us-ascii?Q?d7s+C11rsi++wknhYyHAtyUlUX20mpRw0aryQpfCgCWp77SOb06L556odmqH?=
+ =?us-ascii?Q?ih1IAol7dXSLhX8fl6nV3r1RXYUuvzVEi5+JwKvZ3KHHZ9KFVv2T8zDwKzsr?=
+ =?us-ascii?Q?YzGcatvO+g5HiepOR5+Kta7o9EAcEYKh+DE1yZTNMe0lxWfatIdxZJFyoNrE?=
+ =?us-ascii?Q?9UIX0OOJtqs2duUnYQCHknNQBk6lfmv7cy/zTKITGNGSmvjMbSKdKCUojVk7?=
+ =?us-ascii?Q?m61S+d9zDNpSmwSprJINSZEsJKgBLZvnn/rEz8N2N7/ySZAq5qTDnXYVcBjX?=
+ =?us-ascii?Q?4aBg+p5kRLNxv3LEHADxzJyMvqX3eviyjLKzDGAXYqXGsd0WR1vU?=
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: e384598f-eddb-4503-84a9-08deb2379d55
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7a94171-427a-45da-6252-08deb2379dce
 X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 04:08:26.6341
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2026 04:08:27.4348
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hc+uDErL99zt12g8UJj0QPunqB19KHTtMV/KGinscfZqqs92msFJTYAYFimQDqNb1x+i/q+Ql67HkUza+pTIlA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB5257
-X-purgate-ID: tlsNG-33051d/1778818111-38776938-1E0469A9/0/0
+X-MS-Exchange-CrossTenant-UserPrincipalName: jtQLDF3yIgbqPF/G2Nbpy/4tWTwnS6UOo7oVrDn5Iva/TAdrNjkS59nPAwXKlqpqR34q+HFPWF5o8M8u+TJZmg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB3981
+X-purgate-ID: tlsNG-ebf023/1778818111-297793FF-5BFD5979/0/0
 X-purgate-type: clean
-X-purgate-size: 3313
-X-Rspamd-Queue-Id: 2BBE9549212
+X-purgate-size: 5190
+X-Rspamd-Queue-Id: DECC0549252
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [1.32 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -181,7 +181,7 @@ X-Spamd-Result: default: False [1.32 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[valinux.co.jp:email,valinux.co.jp:mid,valinux.co.jp:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,valinux.co.jp:email,valinux.co.jp:mid,valinux.co.jp:dkim];
 	FROM_NEQ_ENVFROM(0.00)[den@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[valinux.co.jp:+];
@@ -193,114 +193,188 @@ X-Spamd-Result: default: False [1.32 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-Add a returnable CCA hook to domain_relinquish_resources(). Later
-patches plug the RMI teardown work into this path.
+Run Realm termination and destruction from the relinquish path. Keep the
+metadata until RMM ownership has really ended.
 
 Signed-off-by: Koichiro Den <den@valinux.co.jp>
 ---
- xen/arch/arm/cca/state.c       | 24 ++++++++++++++++++++++++
- xen/arch/arm/domain.c          |  8 ++++++++
- xen/arch/arm/include/asm/cca.h |  5 +++++
- 3 files changed, 37 insertions(+)
+ xen/arch/arm/cca/state.c       | 119 ++++++++++++++++++++++++++++++++-
+ xen/arch/arm/include/asm/cca.h |   3 +
+ 2 files changed, 121 insertions(+), 1 deletion(-)
 
 diff --git a/xen/arch/arm/cca/state.c b/xen/arch/arm/cca/state.c
-index 66375965a1b4..3646948eb11c 100644
+index 3646948eb11c..e58e261265f3 100644
 --- a/xen/arch/arm/cca/state.c
 +++ b/xen/arch/arm/cca/state.c
-@@ -19,6 +19,7 @@ static void arm_cca_reset_domain_state(struct domain *d)
-     d->arch.cca.rd_page = NULL;
-     d->arch.cca.rtt_root_page = NULL;
-     d->arch.cca.nr_realm_sro_pages = 0;
-+    INIT_PAGE_LIST_HEAD(&d->arch.cca.abandoned_pages);
-     d->arch.cca.rtts = NULL;
+@@ -3,10 +3,12 @@
+ #include <xen/lib.h>
+ #include <xen/mm.h>
+ #include <xen/sched.h>
++#include <xen/xmalloc.h>
+ 
+ #include <asm/cca.h>
+ 
+ #include "rmi.h"
++#include "sro.h"
+ 
+ static void arm_cca_reset_domain_state(struct domain *d)
+ {
+@@ -24,6 +26,7 @@ static void arm_cca_reset_domain_state(struct domain *d)
      d->arch.cca.nr_rtts = 0;
      d->arch.cca.data_pages = NULL;
-@@ -52,6 +53,29 @@ void arm_cca_domain_destroy(struct domain *d)
+     d->arch.cca.nr_data_pages = 0;
++    d->arch.cca.realm_terminate_done = false;
+ 
+     for ( i = 0; i < ARRAY_SIZE(d->arch.cca.realm_sro_pages); ++i )
+         d->arch.cca.realm_sro_pages[i] = NULL;
+@@ -48,8 +51,20 @@ void arm_cca_domain_init(struct domain *d)
      arm_cca_reset_domain_state(d);
  }
  
-+static int arm_cca_relinquish_abandoned_pages(struct domain *d)
++static void arm_cca_domain_free_metadata(struct domain *d)
 +{
-+    struct page_info *pg, *tmp;
++    xfree(d->arch.cca.data_pages);
++    xfree(d->arch.cca.rtts);
++}
++
++/*
++ * RMI teardown is returnable and runs from
++ * arm_cca_domain_relinquish_resources().  The final domain hook only releases
++ * metadata if an earlier setup path left it behind.
++ */
+ void arm_cca_domain_destroy(struct domain *d)
+ {
++    arm_cca_domain_free_metadata(d);
+     arm_cca_reset_domain_state(d);
+ }
+ 
+@@ -71,9 +86,111 @@ static int arm_cca_relinquish_abandoned_pages(struct domain *d)
+     return 0;
+ }
+ 
++static int arm_cca_rmi_realm_destroy_complete(struct domain *d)
++{
++    struct arm_cca_sro_mem_xfer xfer = {
++        .pages = d->arch.cca.realm_sro_pages,
++        .nr_pages = &d->arch.cca.nr_realm_sro_pages,
++        .abandoned_pages = &d->arch.cca.abandoned_pages,
++    };
++    struct arm_smccc_res res;
 +    int rc;
 +
-+    page_list_for_each_safe( pg, tmp, &d->arch.cca.abandoned_pages )
++    rc = arm_cca_rmi_realm_destroy(d->arch.cca.rd, &res);
++    rc = arm_cca_sro_complete_mem_transfer(rc, &res, &xfer);
++    if ( rc == 0 && d->arch.cca.nr_realm_sro_pages != 0 )
++        rc = -EIO;
++
++    return rc;
++}
++
++static int arm_cca_terminate_realm(struct domain *d)
++{
++    struct arm_smccc_res res;
++    int rc;
++
++    if ( d->arch.cca.rd == INVALID_PADDR || d->arch.cca.realm_terminate_done )
++        return 0;
++
++    /*
++     * DEN0137 2.0-bet1 - D1.2.5 starts Realm destruction by terminating the
++     * Realm.  Remember success because later host-side undelegation may fail
++     * and force a retry.
++     */
++    rc = arm_cca_rmi_realm_terminate(d->arch.cca.rd, &res);
++    if ( rc != 0 )
++        return rc;
++
++    d->arch.cca.realm_terminate_done = true;
++
++    return 0;
++}
++
++static int arm_cca_destroy_realm(struct domain *d)
++{
++    int rc;
++
++    if ( d->arch.cca.rd != INVALID_PADDR )
 +    {
-+        rc = arm_cca_undelegate_granule(page_to_maddr(pg));
++        rc = arm_cca_rmi_realm_destroy_complete(d);
 +        if ( rc != 0 )
 +            return rc;
 +
-+        page_list_del(pg, &d->arch.cca.abandoned_pages);
-+        free_domheap_page(pg);
++        d->arch.cca.rd = INVALID_PADDR;
++        d->arch.cca.realm_active = false;
++    }
++
++    if ( d->arch.cca.rtt_root_page )
++    {
++        rc = arm_cca_undelegate_granule(
++            page_to_maddr(d->arch.cca.rtt_root_page));
++        if ( rc != 0 )
++            return rc;
++
++        free_domheap_page(d->arch.cca.rtt_root_page);
++        d->arch.cca.rtt_root_page = NULL;
++    }
++
++    if ( d->arch.cca.rd_page )
++    {
++        rc = arm_cca_undelegate_granule(page_to_maddr(d->arch.cca.rd_page));
++        if ( rc != 0 )
++            return rc;
++
++        free_domheap_page(d->arch.cca.rd_page);
++        d->arch.cca.rd_page = NULL;
 +    }
 +
 +    return 0;
 +}
 +
-+int arm_cca_domain_relinquish_resources(struct domain *d)
-+{
-+    return arm_cca_relinquish_abandoned_pages(d);
-+}
-+
- void arm_cca_vcpu_init(struct vcpu *v)
++/*
++ * DEN0137 2.0-bet1 - D1.2.5 Realm destruction flow.
++ *
++ * RMI teardown runs in the returnable relinquish path so Xen can retry
++ * incomplete destruction and avoid resource leaks.  Realm-associated objects
++ * can be destroyed in any order.
++ */
+ int arm_cca_domain_relinquish_resources(struct domain *d)
  {
-     arm_cca_reset_vcpu_state(v);
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 4b6115491c59..2d9469f388c6 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -1038,6 +1038,7 @@ enum {
-     PROG_sci,
-     PROG_tee,
-     PROG_xen,
-+    PROG_cca,
-     PROG_page,
-     PROG_mapping,
-     PROG_p2m_root,
-@@ -1098,6 +1099,13 @@ int domain_relinquish_resources(struct domain *d)
-         if ( ret )
-             return ret;
- 
-+    PROGRESS(cca):
-+#ifdef CONFIG_ARM_CCA
-+        ret = arm_cca_domain_relinquish_resources(d);
-+        if ( ret )
-+            return ret;
-+#endif
+-    return arm_cca_relinquish_abandoned_pages(d);
++    int rc;
 +
-     PROGRESS(page):
-         ret = relinquish_memory(d, &d->page_list);
-         if ( ret )
++    rc = arm_cca_terminate_realm(d);
++    if ( rc != 0 )
++        return rc;
++
++    rc = arm_cca_destroy_realm(d);
++    if ( rc != 0 )
++        return rc;
++
++    rc = arm_cca_relinquish_abandoned_pages(d);
++    if ( rc != 0 )
++        return rc;
++
++    arm_cca_domain_free_metadata(d);
++    arm_cca_reset_domain_state(d);
++
++    return 0;
+ }
+ 
+ void arm_cca_vcpu_init(struct vcpu *v)
 diff --git a/xen/arch/arm/include/asm/cca.h b/xen/arch/arm/include/asm/cca.h
-index 80c161078d6c..9b53c80b5bba 100644
+index 9b53c80b5bba..b135dd176751 100644
 --- a/xen/arch/arm/include/asm/cca.h
 +++ b/xen/arch/arm/include/asm/cca.h
-@@ -3,6 +3,7 @@
- #define ARM_CCA_H
+@@ -66,6 +66,9 @@ struct arm_cca_domain_state {
  
- #include <xen/init.h>
-+#include <xen/mm.h>
- #include <xen/types.h>
- 
- /*
-@@ -57,6 +58,9 @@ struct arm_cca_domain_state {
-     struct page_info *realm_sro_pages[ARM_CCA_MAX_SRO_DONATION_PAGES];
-     unsigned int nr_realm_sro_pages;
- 
-+    /* Delegated pages which still need host-side undelegation retry. */
-+    struct page_list_head abandoned_pages;
+     struct arm_cca_data_page_record *data_pages;
+     unsigned long nr_data_pages;
 +
-     struct arm_cca_rtt_record *rtts;
-     unsigned int nr_rtts;
++    /* Realm destruction state for domain_relinquish_resources(). */
++    bool realm_terminate_done;
+ };
  
-@@ -76,6 +80,7 @@ struct arm_cca_vcpu_state {
- 
- void arm_cca_domain_init(struct domain *d);
- void arm_cca_domain_destroy(struct domain *d);
-+int arm_cca_domain_relinquish_resources(struct domain *d);
- 
- void arm_cca_vcpu_init(struct vcpu *v);
- void arm_cca_vcpu_destroy(struct vcpu *v);
+ struct arm_cca_vcpu_state {
 -- 
 2.51.0
 
