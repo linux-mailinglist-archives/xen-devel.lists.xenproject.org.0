@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AJWDKBxyB2qc3wIAu9opvQ
+	id oFipCBxyB2qa3wIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:21:00 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F951556AB2
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:21:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1310184.1581054 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A106B556A84
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 21:20:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1310183.1581050 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNy5K-0006OU-Nk; Fri, 15 May 2026 19:20:34 +0000
+	id 1wNy5K-0006K6-Dd; Fri, 15 May 2026 19:20:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1310184.1581054; Fri, 15 May 2026 19:20:34 +0000
+Received: by outflank-mailman (output) from mailman id 1310183.1581050; Fri, 15 May 2026 19:20:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNy5K-0006K9-Ho; Fri, 15 May 2026 19:20:34 +0000
-Received: by outflank-mailman (input) for mailman id 1310184;
- Fri, 15 May 2026 19:20:33 +0000
+	id 1wNy5K-0006IA-9Z; Fri, 15 May 2026 19:20:34 +0000
+Received: by outflank-mailman (input) for mailman id 1310183;
+ Fri, 15 May 2026 19:20:32 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <3_HEHagYKCVUF1xA6z3BB381.zB9K1A-01I1885FGF.K1ACEB61zG.BE3@flex--seanjc.bounces.google.com>)
- id 1wNy5J-0006Dh-0E
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 19:20:33 +0000
+ <3_XEHagYKCVYG2yB704CC492.0CAL2B-12J2996GHG.L2BDFC720H.CF4@flex--seanjc.bounces.google.com>)
+ id 1wNy5I-0006B6-OX
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 19:20:32 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNy5I-0039nU-CT
+ id 1wNy5I-0039nU-4E
  for xen-devel@lists.xenproject.org; Fri, 15 May 2026 21:20:32 +0200
-Received: from [10.42.69.2] (helo=localhost)
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <3_HEHagYKCVUF1xA6z3BB381.zB9K1A-01I1885FGF.K1ACEB61zG.BE3@flex--seanjc.bounces.google.com>)
- id 6a0771fd-2eae-0a2a0a5409dd-0a2a4502be44-4
+ <3_XEHagYKCVYG2yB704CC492.0CAL2B-12J2996GHG.L2BDFC720H.CF4@flex--seanjc.bounces.google.com>)
+ id 6a0771db-2eae-0a2a0a5409dd-0a2a450ca7e8-28
  for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:20:32 +0200
-Received: from [209.85.210.201] (helo=mail-pf1-f201.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+Received: from [209.85.214.201] (helo=mail-pl1-f201.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <3_HEHagYKCVUF1xA6z3BB381.zB9K1A-01I1885FGF.K1ACEB61zG.BE3@flex--seanjc.bounces.google.com>)
- id 6a0771fd-af86-0a2a45020019-d155d2c9a97b-3
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:20:30 +0200
-Received: by mail-pf1-f201.google.com with SMTP id
- d2e1a72fcca58-8230d6d54a5so1056912b3a.1
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 12:20:30 -0700 (PDT)
+ <3_XEHagYKCVYG2yB704CC492.0CAL2B-12J2996GHG.L2BDFC720H.CF4@flex--seanjc.bounces.google.com>)
+ id 6a0771fe-62f1-0a2a450c0019-d155d6c9a8b1-3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 21:20:31 +0200
+Received: by mail-pl1-f201.google.com with SMTP id
+ d9443c01a7336-2ba054e0304so10110415ad.0
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 12:20:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,46 +53,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=google.com header.i="@google.com" header.h="Cc:To:From:Subject:Message-ID:References:Mime-Version:In-Reply-To:Date:Reply-To"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=google.com header.i="@google.com" header.h="Content-Transfer-Encoding:Cc:To:From:Subject:Message-ID:References:Mime-Version:In-Reply-To:Date:Reply-To"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1778872829; x=1779477629; darn=lists.xenproject.org;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:reply-to:from:to:cc:subject:date:message-id:reply-to;
-        bh=ikDY1x359wvY/+q3wacNdXpEm487YvEWh2udCoEd+NA=;
-        b=OZbRHsKSLwHbxyLI5+CWSdjSTBsqE8EudA31+iur5m2mHA9m7kbCMKJDxtOE++2Gyo
-         eYE+8lHk/tsDy/59f+DIuJMur4LZF64iF9p7izC8id8yM3MMqoh1ZnsWwx5ssJQWjSpi
-         kBpfAUFfp2s5pYdLPFWNeVMmwxHUHHPy/wiaGbbOBYMu7/vFrYwD/KQ+z5+i/OI4jTkV
-         EqFDPC5WaBcQYuHvevhhMRiZ6cfjr9ZnGrTeqVK6jJEWMkzE0dAYAas0LdpR9fR7Qcx7
-         vuohKhpFKbYsJLUUWM2fqloZc8OdL6CE9sx95S/MDX6C54d/coD1hJ2IDiLEbWWJDBQI
-         zI3A==
+        d=google.com; s=20251104; t=1778872830; x=1779477630; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:reply-to:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uYn60803QiVrZ6qwk1MLFZ7C4I/KRQoL9rhTP31HXeM=;
+        b=bQ0juJAjx5hBWREDTyPlajhD5c0lqO0B8YgZGn+dumYgNFVljWJ2CLcCjkPhJjPQj3
+         HF4jcLz2t0ldLURmKQC1YLNWgBg+kKGoH8DxYOLZbilmWEFMHLvRB+2Es/LiJxzbB3oW
+         VGs4I9p77MrC/tmHKJMW8KOQzTKZoiqJg7e7V5OkCX3vTCNs4QSBK4dlAZ7u40KMuQZ4
+         h2DHNp+qIzQxEAZovY8YUZAzWD37gqZXgQCi3ZwuJpKCl9sAdvOi7KVIPjI59kwhMfJw
+         YBvEscw4rysoAyUON3zrwOAv+635daGvy7kWRScqMLir+cxj94PzaThgZVi3tCaZfd0Y
+         IRCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1778872829; x=1779477629;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=ikDY1x359wvY/+q3wacNdXpEm487YvEWh2udCoEd+NA=;
-        b=Hs4L9/FZLFqhdccCgX/U8VTLxPm4XI48XP+KaU4nPNTY/8MOZ7eGLbtb+59OpdZiaP
-         9F+ERlO2KUSoY+J6sZ7S0CVQz4h+MWRHt/0UV7Yl4oHOr0Kyb4v3c0DcagFEAkEsAFFA
-         uMgWgRcK/O8CGUaxGg7y6U4pdtWOvSAvr64/sCwi4uggSc44KXMJKzF9fD1YiB/M1qLK
-         2tMW5Ms3d8vZSHE098adoyILIeI/v9VfqOwGwNjrqfJU7FVAZGit3MoNhh6ORQjo0+2u
-         mgGc6xFWveIkVje3odZr0P+F1f+xwovzbzCYXfAo3gYlXixSIRFRndyPC0UUFLMLt7MR
-         X9vQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/v8fklv3MCI598bFORUqa5jb9KyUB8ECtvQPiwBdZDCxabIcp0bCi7pxmiv8stihT3ikf+6jdJs34=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YydalLHPiNji+gaSu12owcMwnKoCGOB+Cziwf2f2U5L/dpNBwq6
-	GYx+gkxnCzvkelWpfXGn8nf7lXxqxb/oUdZyenw/5Y0Ne0aGz8PlkrefYbNKlOyKz7dls3KTtK9
-	zczR0bA==
-X-Received: from pfbgg10.prod.google.com ([2002:a05:6a00:630a:b0:83a:d498:99fb])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:a907:b0:835:447b:a2ac
- with SMTP id d2e1a72fcca58-83f18d5b8f5mr8777489b3a.5.1778872828431; Fri, 15
- May 2026 12:20:28 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1778872830; x=1779477630;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:reply-to:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=uYn60803QiVrZ6qwk1MLFZ7C4I/KRQoL9rhTP31HXeM=;
+        b=GIqR99XojRpu6Inmhgf4SCBQA89fPZ6x9n19f4uT6uyDONJ9yYoP6w/sDmCl4Bnb8t
+         IdPYBmbKnE3mohSuhs6NMpEFxo3HMEnBVrmJHUgQ7vPCME64HqwMlkkN8CNxSCwXBvqx
+         A0CzGOX2vJtAREQZ+OG2iuFc1FZ7gYHvcNkH1jGKy8NsE4YbtvFpssma2hCs7JU6zWNG
+         Z2wGfxRJYV30wBSO8uRXtuE+Tv8miua0PBiy23l1H6DZQooEVLbS9u8pTi3El7+6Pn40
+         7YvmlkjPw/3NA2Sp/E4EFrA/4kIV/ZDeU/w3EQLhx3Yswl4xoeP2Jq53eoCm/1W+4cwa
+         a0SA==
+X-Forwarded-Encrypted: i=1; AFNElJ9JL9qJhsK3pyNFw4P+fuyEeiQsOqKZ22FuOuv24tlNEAWhbly4WgxZC91poTKBuy1U4mYffIp29ZM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yzv435ZwrLrTEGT6wkKfdTwQoWPRl/u/NA/iwRTCfqa+kBBYLvo
+	OUrVwbBDsya0XvUEOXtd6LU7YMb12qvLgLKUp9+l5LJCwyEi3FdxD5Zn/MjHlHDdx1QCwvv4iIm
+	o6A44yw==
+X-Received: from plkj6.prod.google.com ([2002:a17:902:6906:b0:2bd:a0e6:1a81])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:3843:b0:2b0:6068:4c5f
+ with SMTP id d9443c01a7336-2bd526ed865mr87328355ad.8.1778872829653; Fri, 15
+ May 2026 12:20:29 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 15 May 2026 12:19:05 -0700
+Date: Fri, 15 May 2026 12:19:06 -0700
 In-Reply-To: <20260515191942.1892718-1-seanjc@google.com>
 Mime-Version: 1.0
 References: <20260515191942.1892718-1-seanjc@google.com>
 X-Mailer: git-send-email 2.54.0.563.g4f69b47b94-goog
-Message-ID: <20260515191942.1892718-5-seanjc@google.com>
-Subject: [PATCH v3 04/41] x86/sev: Move check for SNP Secure TSC support to tsc_early_init()
+Message-ID: <20260515191942.1892718-6-seanjc@google.com>
+Subject: [PATCH v3 05/41] x86/tdx: Override PV calibration routines with
+ CPUID-based calibration
 From: Sean Christopherson <seanjc@google.com>
 To: Kiryl Shutsemau <kas@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
 	Sean Christopherson <seanjc@google.com>, "K. Y. Srinivasan" <kys@microsoft.com>, 
@@ -112,10 +114,11 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov <vkuznets@redh
 	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
 	Thomas Gleixner <tglx@linutronix.de>, David Woodhouse <dwmw@amazon.co.uk>
 Content-Type: text/plain; charset="UTF-8"
-X-purgate-ID: tlsNG-720697/1778872831-A9B70161-310994C1/0/0
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-d25034/1778872832-F407FCF5-9E674668/0/0
 X-purgate-type: clean
-X-purgate-size: 1533
-X-Rspamd-Queue-Id: 3F951556AB2
+X-purgate-size: 5002
+X-Rspamd-Queue-Id: A106B556A84
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -140,7 +143,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	HAS_REPLYTO(0.00)[seanjc@google.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	FROM_NEQ_ENVFROM(0.00)[seanjc@google.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[google.com:+];
@@ -153,50 +156,147 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	REPLYTO_EQ_FROM(0.00)[]
 X-Rspamd-Action: no action
 
-Move the check on having a Secure TSC to the common tsc_early_init() so
-that it's obvious that having a Secure TSC is conditional, and to prepare
-for adding TDX to the mix (blindly initializing *both* SNP and TDX TSC
-logic looks especially weird).
+When running as a TDX guest, explicitly override the TSC frequency
+calibration routine with CPUID-based calibration instead of potentially
+relying on a hypervisor-controlled PV routine.  For TDX guests, CPUID.0x15
+is always emulated by the TDX-Module, i.e. the information from CPUID is
+more trustworthy than the information provided by the hypervisor.
 
-No functional change intended.
+To maintain backwards compatibility with TDX guest kernels that use native
+calibration, and because it's the least awful option, retain
+native_calibrate_tsc()'s stuffing of the local APIC bus period using the
+core crystal frequency.  While it's entirely possible for the hypervisor
+to emulate the APIC timer at a different frequency than the core crystal
+frequency, the commonly accepted interpretation of Intel's SDM is that APIC
+timer runs at the core crystal frequency when that latter is enumerated via
+CPUID:
 
-Cc: Tom Lendacky <thomas.lendacky@amd.com>
-Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
+  The APIC timer frequency will be the processor=E2=80=99s bus clock or cor=
+e
+  crystal clock frequency (when TSC/core crystal clock ratio is enumerated
+  in CPUID leaf 0x15).
+
+If the hypervisor is malicious and deliberately runs the APIC timer at the
+wrong frequency, nothing would stop the hypervisor from modifying the
+frequency at any time, i.e. attempting to manually calibrate the frequency
+out of paranoia would be futile.
+
+Deliberately leave the CPU frequency calibration routine as is, since the
+TDX-Module doesn't provide any guarantees with respect to CPUID.0x16.
+
+Opportunistically add a comment explaining that CoCo TSC initialization
+needs to come after hypervisor specific initialization.
+
+Cc: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/x86/coco/sev/core.c | 3 ---
- arch/x86/kernel/tsc.c    | 3 ++-
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ arch/x86/coco/tdx/tdx.c    | 30 +++++++++++++++++++++++++++---
+ arch/x86/include/asm/tdx.h |  2 ++
+ arch/x86/kernel/tsc.c      |  8 ++++++++
+ 3 files changed, 37 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
-index 14ced854cd83..39fb50697542 100644
---- a/arch/x86/coco/sev/core.c
-+++ b/arch/x86/coco/sev/core.c
-@@ -2029,9 +2029,6 @@ void __init snp_secure_tsc_init(void)
- 	unsigned long tsc_freq_mhz;
- 	void *mem;
- 
--	if (!cc_platform_has(CC_ATTR_GUEST_SNP_SECURE_TSC))
--		return;
+diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+index 29b6f1ed59ec..26890cea790b 100644
+--- a/arch/x86/coco/tdx/tdx.c
++++ b/arch/x86/coco/tdx/tdx.c
+@@ -8,6 +8,7 @@
+ #include <linux/export.h>
+ #include <linux/io.h>
+ #include <linux/kexec.h>
++#include <asm/apic.h>
+ #include <asm/coco.h>
+ #include <asm/tdx.h>
+ #include <asm/vmx.h>
+@@ -1123,9 +1124,6 @@ void __init tdx_early_init(void)
+=20
+ 	setup_force_cpu_cap(X86_FEATURE_TDX_GUEST);
+=20
+-	/* TSC is the only reliable clock in TDX guest */
+-	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
 -
- 	mem = early_memremap_encrypted(sev_secrets_pa, PAGE_SIZE);
- 	if (!mem) {
- 		pr_err("Unable to get TSC_FACTOR: failed to map the SNP secrets page.\n");
+ 	cc_vendor =3D CC_VENDOR_INTEL;
+=20
+ 	/* Configure the TD */
+@@ -1195,3 +1193,29 @@ void __init tdx_early_init(void)
+=20
+ 	tdx_announce();
+ }
++
++static unsigned long tdx_get_tsc_khz(void)
++{
++	struct cpuid_tsc_info info;
++
++	if (WARN_ON_ONCE(cpuid_get_tsc_freq(&info)))
++		return 0;
++
++	lapic_timer_period =3D info.crystal_khz * 1000 / HZ;
++
++	return info.tsc_khz;
++}
++
++void __init tdx_tsc_init(void)
++{
++	/* TSC is the only reliable clock in TDX guest */
++	setup_force_cpu_cap(X86_FEATURE_TSC_RELIABLE);
++	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
++
++	/*
++	 * Override the PV calibration routines (if set) with more trustworthy
++	 * CPUID-based calibration.  The TDX module emulates CPUID, whereas any
++	 * PV information is provided by the hypervisor.
++	 */
++	tsc_register_calibration_routines(tdx_get_tsc_khz, NULL);
++}
+diff --git a/arch/x86/include/asm/tdx.h b/arch/x86/include/asm/tdx.h
+index 15eac89b0afb..60deab0ed979 100644
+--- a/arch/x86/include/asm/tdx.h
++++ b/arch/x86/include/asm/tdx.h
+@@ -57,6 +57,7 @@ struct ve_info {
+ #ifdef CONFIG_INTEL_TDX_GUEST
+=20
+ void __init tdx_early_init(void);
++void __init tdx_tsc_init(void);
+=20
+ void tdx_get_ve_info(struct ve_info *ve);
+=20
+@@ -78,6 +79,7 @@ void __init tdx_dump_td_ctls(u64 td_ctls);
+ #else
+=20
+ static inline void tdx_early_init(void) { };
++static inline void tdx_tsc_init(void) { }
+ static inline void tdx_halt(void) { };
+=20
+ static inline bool tdx_early_handle_ve(struct pt_regs *regs) { return fals=
+e; }
 diff --git a/arch/x86/kernel/tsc.c b/arch/x86/kernel/tsc.c
-index 7e639c0a94a2..243999692aea 100644
+index 243999692aea..e00f53e3dd8d 100644
 --- a/arch/x86/kernel/tsc.c
 +++ b/arch/x86/kernel/tsc.c
-@@ -1559,7 +1559,8 @@ void __init tsc_early_init(void)
+@@ -34,6 +34,7 @@
+ #include <asm/topology.h>
+ #include <asm/uv/uv.h>
+ #include <asm/sev.h>
++#include <asm/tdx.h>
+=20
+ unsigned int __read_mostly cpu_khz;	/* TSC clocks / usec, not used here */
+ EXPORT_SYMBOL(cpu_khz);
+@@ -1559,8 +1560,15 @@ void __init tsc_early_init(void)
  	if (is_early_uv_system())
  		return;
- 
--	snp_secure_tsc_init();
-+	if (cc_platform_has(CC_ATTR_GUEST_SNP_SECURE_TSC))
-+		snp_secure_tsc_init();
- 
+=20
++	/*
++	 * Do CoCo specific "secure" TSC initialization *after* hypervisor
++	 * platform initialization so that the secure variant can override the
++	 * hypervisor's PV calibration routine with a more trusted method.
++	 */
+ 	if (cc_platform_has(CC_ATTR_GUEST_SNP_SECURE_TSC))
+ 		snp_secure_tsc_init();
++	else if (boot_cpu_has(X86_FEATURE_TDX_GUEST))
++		tdx_tsc_init();
+=20
  	if (!determine_cpu_tsc_frequencies(true))
  		return;
--- 
+--=20
 2.54.0.563.g4f69b47b94-goog
 
 
