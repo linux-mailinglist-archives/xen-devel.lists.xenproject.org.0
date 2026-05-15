@@ -2,54 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aHyWFjHoBmpKowIAu9opvQ
+	id oNdbDkDrBmqVowIAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 11:32:33 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 11:45:36 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0145654C777
-	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 11:32:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1309785.1580834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0DDE54CAD5
+	for <lists+xen-devel@lfdr.de>; Fri, 15 May 2026 11:45:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1309795.1580843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNou5-0007hI-3z; Fri, 15 May 2026 09:32:21 +0000
+	id 1wNp6W-0001CM-4S; Fri, 15 May 2026 09:45:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1309785.1580834; Fri, 15 May 2026 09:32:21 +0000
+Received: by outflank-mailman (output) from mailman id 1309795.1580843; Fri, 15 May 2026 09:45:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wNou5-0007fr-0H; Fri, 15 May 2026 09:32:21 +0000
-Received: by outflank-mailman (input) for mailman id 1309785;
- Fri, 15 May 2026 09:32:19 +0000
+	id 1wNp6W-00019x-1P; Fri, 15 May 2026 09:45:12 +0000
+Received: by outflank-mailman (input) for mailman id 1309795;
+ Fri, 15 May 2026 09:45:10 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e2afab906000f373@swg.vates.tech>)
- id 1wNou3-0007fj-GM
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 09:32:19 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <xakep.amatop@gmail.com>) id 1wNp6U-00019q-9q
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 09:45:10 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wNou2-001pLU-Hr
- for xen-devel@lists.xenproject.org; Fri, 15 May 2026 11:32:18 +0200
-Received: from [10.42.69.1] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e2afab906000f373@swg.vates.tech>)
- id 6a06e81d-e002-0a2a0a5209dd-0a2a450187c4-12
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 11:32:18 +0200
-Received: from [185.255.28.34] (helo=prod-mta-13.swg-srv.net)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e2afab906000f373@swg.vates.tech>)
- id 6a06e822-c1f2-0a2a45010019-b9ff1c2298a3-3
- for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 11:32:18 +0200
-Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
- (Authenticated sender:
- 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19e2afab906000f373.003 for <xen-devel@lists.xenproject.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Fri, 15 May 2026 09:32:14 +0000
-Received: from l14 (unknown [82.67.99.167])
- (Authenticated sender: anthony.perard)
- by mail2.vates.fr (Postfix) with ESMTPSA id 3389186361;
- Fri, 15 May 2026 11:32:14 +0200 (CEST)
+ id 1wNp6T-005wNZ-4i
+ for xen-devel@lists.xenproject.org; Fri, 15 May 2026 11:45:09 +0200
+Received: from [10.42.69.11] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a06eb0f-5cb7-0a2a0a5109dd-0a2a450bc304-48
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 11:45:09 +0200
+Received: from [209.85.218.51] (helo=mail-ej1-f51.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a06eb24-212f-0a2a450b0019-d155da33f128-3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 11:45:09 +0200
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-bcc2b199c17so874180166b.3
+ for <xen-devel@lists.xenproject.org>; Fri, 15 May 2026 02:45:09 -0700 (PDT)
+Received: from EPUAKYIW02F7.. ([45.12.26.18]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bd4f4ded99dsm197009366b.30.2026.05.15.02.45.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 May 2026 02:45:07 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,116 +55,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=vates.tech header.i="@vates.tech" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:In-Reply-To:References:Feedback-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=frZrEIceEJBjky/XIZOPtKSrxZxciHjGS0LID6HlQdI=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=VxDBrXBE/YFscrQhvM1RC2sEuCgFB+7pbakQ0JXkE0fc9UJYimskk3d/P+6/HSa5mPnU7jdBR
- YV9j5ngiXOmuy7I7n7TbvkeYo39IWK6LKK6hrXd05g1zZHcyCPWp0CSt/ExMbVhz75M52ILJ9bv
- +Yed+/sZthN3JTjGmU+aiwYUrF1rOdi02eTxmCAKyTkX+JWCD0+i275jxJbUl3PTlpMOI2V+yLC
- EW8PALIgZyD9ijE4qxqKZ+U9Jbby/gARwYfBDXd5xEEJJOJjmb85ZSc4ZPyYBPknutWtSph/k+b
- 5iKpK9UfZLbySNrTyc5A7Kr9hxKNIiG5ip2c8iKCXp4w==
-X-Zone-Loop: b4e54ffadb1b12ed6d6c7c095950a8c9ef573f4e9a41
-x-campaign-type: default
-x-transaction-id: 80a8a379-4575-4c4f-a6d8-44aa66e23e82
-x-swg-uid: 01-057b524d-0fff-4f4b-b284-09b78e30bf2e
-X-Mailer: Sweego
-Message-ID:
- <1778837535.8631fc262581453bbf619ec5b2062170.19e2afab906000f373@vates.tech>
-x-swg-bid: 1778837535.8631fc262581453bbf619ec5b2062170.19e2afab906000f373
-Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
-x-campaign-id: default
-x-client-id: 8631fc262581453bbf619ec5b2062170
-X-Originating-IP: [37.26.189.201]
-Date: Fri, 15 May 2026 11:32:13 +0200
-From: Anthony PERARD <anthony.perard@vates.tech>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>
-Subject: Re: [PATCH 5/5] tools/xen-hvmctx: shorten various format strings a
- little
-References: <b36b6f2f-2b0e-462d-9846-4a1b4d7edef9@suse.com>
- <4bcd76e9-1bd5-4a2c-8d75-7d29b9dfa31f@suse.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1778838308; x=1779443108; darn=lists.xenproject.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=+hJaSnQ3sX5cqD1qfGugpJRcqI2K1GGAvge8mcTL6Nw=;
+        b=kKMolczeSgGFbWFeXf52Gcj4XbbkObleKPvTEcVpsum/34KlH5yft+nlCSjEdxwwBo
+         O6x4rW+wOguqXN9gJ2BafWtNxBrPzWLCdYJh3eUXZ8j6KDWn5GzQtZN3Gu3IIOohB+f7
+         PnJtAD/nFwdVw60lgI11JWtbwU84flL9ib8y6DT5kBI1LIRxlO3jLJmEwuINTLecONhz
+         Obv6ywHSBd8LPQ+p3CBnlqHAB6uC9CF0zsBuo/Zexja56s9m8hyAi2BTzVnR0E5PVUw9
+         7btjHrzKoZU9FK/6ymYUvZTS3b3cIRinWKCrH6qLweVreiFsXRkRKw5IbNNDQZfFA5EZ
+         ZTRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1778838308; x=1779443108;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=+hJaSnQ3sX5cqD1qfGugpJRcqI2K1GGAvge8mcTL6Nw=;
+        b=Nzze+uh3KFBQJnRGOS1zbS+1uqGhOhKfLvIgbSxT8Q9uy1UD4W8LtyupDDaIVdzPXh
+         Xb27LwO6f3/No4ObdkHgj3sEUGUKuRfAdta7zUS8vuHTr1zV8UlU4ZmmTZtvTmrr+N3L
+         pGcLdKYv53wzqCWNiKXmi4e4MJ3ZOLRTcGk858Fbo/h4xTcYgAd0Rvt7npqx2ztUJhlj
+         IMyUo/8nIoTZfP6IgsmBr4ya23Dj/uLd7y+cfGm3nW185aRTnJ7JNeWJGjPTRSxcBwQn
+         wKmYGOqQO8n6q7c42GTCtUrOTyQ4AiyfOfxyfBi4mjrKzFaON42zgYasqjMB87r49YAU
+         eofA==
+X-Gm-Message-State: AOJu0YzXwkjV00066iiChEbnnE3hx33uvP3s0dlELs7ZxAFv+bBiYGeu
+	T99ua74zAJ2xVbCqevXkppLNwx30Z2yKxgTvbuaI5dOEyJdzdEu+UgA6TBRGzg==
+X-Gm-Gg: Acq92OG32P2INN95E2zzXRCdqtEZQTHq1f4Ifht9/dTkXEzniufgVMXPYqDoH4pM14D
+	vl4bnKkj4WHOlJuAqFZM9nH1bMaOHtkBRno193jb08hR6ADW8LxuBLNspDpdyKD6DzM4LUmfNDZ
+	DRLExxH4bUltnQK4ps6MLAJAokImDciHdlaUUJJ7drfZ4dusyyxrF841uX7uSF+4YmK2NRmmaly
+	h9ovx6pa4E7bFxyuIkxjcLL31HQBn5Wkq3N8ZP/kBpAgP+ycUlijcoTvLD9vcWjppV++haSEsCZ
+	EF8ot3b1OtbQ5EiM3pqMDsL4aVtW59m/W0Glw9/hPpIF1v1pJFAM6cZonx7DmoIiStUmQt8AC64
+	eqnh7daxKmZhajXE8z4d79Kd3VwOhFFDwfbgzBhBpq0tGDmYzsLmPaJv3heH01BAEdh7QjeD6zk
+	yfwGPRo+WmWBht2xJ6ARQo/fKmLkS60PNjGbXG
+X-Received: by 2002:a17:907:6d01:b0:bd2:b983:96b with SMTP id a640c23a62f3a-bd5178652bdmr147607466b.20.1778838308287;
+        Fri, 15 May 2026 02:45:08 -0700 (PDT)
+From: Mykola Kvach <xakep.amatop@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] arm/gicv3: Detect normal NC ITS command queues
+Date: Fri, 15 May 2026 12:40:31 +0300
+Message-ID: <4d72da78b9c30f5da62c8e03c3b03a01c24101eb.1778836836.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4bcd76e9-1bd5-4a2c-8d75-7d29b9dfa31f@suse.com>
-X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.c5a.f45f64b97bdcb137.19e2afab675.6e4fa590aafa495=-"
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1778837534325
-X-purgate-ID: tlsNG-d62444/1778837538-B5947FF4-D4146F17/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-42698a/1778838309-21B86F3B-F118FD1E/0/0
 X-purgate-type: clean
-X-purgate-size: 887
-X-Rspamd-Queue-Id: 0145654C777
+X-purgate-size: 1399
+X-Rspamd-Queue-Id: E0DDE54CAD5
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.82 / 15.00];
-	MIME_MA_MISSING_HTML(1.00)[];
-	URI_COUNT_ODD(1.00)[1];
-	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	R_MISSING_CHARSET(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TAGGED_FROM(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	HAS_XOIP(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[vates.tech:+];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
----=Part.c5a.f45f64b97bdcb137.19e2afab675.6e4fa590aafa495=-
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-On Tue, May 12, 2026 at 05:00:43PM +0200, Jan Beulich wrote:
-> %4=2E4x and alike format specifiers can be expressed shorter as %04x or,=
- as
-> e=2Eg=2E dump_ioapic() has it, %=2E4x=2E
->=20
-> In dump_fpu()'s XMM register dumping, also move away from showing bogus
-> xmm03 and alike=2E The proper register name is xmm3 for that particular
-> example=2E
->=20
-> Also strip trailing whitespace from lines touched=2E
->=20
-> Signed-off-by: Jan Beulich <jbeulich@suse=2Ecom>
+GITS_CBASER.InnerCache uses the GIC BASER cacheability encoding.
+Both 0b000 (Device-nGnRnE) and 0b001 (Normal Inner
+Non-cacheable) describe non-cacheable accesses to the command queue.
 
-Acked-by: Anthony PERARD <anthony=2Eperard@vates=2Etech>
+its_map_cbaser() only checked whether the shifted field was zero,
+so an ITS that reports Normal Inner Non-cacheable would not set
+HOST_ITS_FLUSH_CMD_QUEUE. Decode the field before comparing it with
+the unshifted enum value, matching the handling of ITS BASER tables
+and GICR_PROPBASER.
 
-Thanks,
+Fixes: 8ed8d21373be ("ARM: GICv3 ITS: map ITS command buffer")
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+---
+ xen/arch/arm/gic-v3-its.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-
+diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
+index 9005ce8ce5..7560d46c6d 100644
+--- a/xen/arch/arm/gic-v3-its.c
++++ b/xen/arch/arm/gic-v3-its.c
+@@ -424,7 +424,8 @@ static void *its_map_cbaser(struct host_its *its)
+      * If the command queue memory is mapped as uncached, we need to flush
+      * it on every access.
+      */
+-    if ( !(reg & GITS_BASER_INNER_CACHEABILITY_MASK) )
++    if ( MASK_EXTR(reg, GITS_BASER_INNER_CACHEABILITY_MASK) <=
++         GIC_BASER_CACHE_nC )
+     {
+         its->flags |= HOST_ITS_FLUSH_CMD_QUEUE;
+         printk(XENLOG_WARNING "using non-cacheable ITS command queue\n");
 -- 
-Anthony Perard | Vates XCP-ng Developer
+2.43.0
 
-XCP-ng & Xen Orchestra - Vate=
-s solutions
-
-web: https://vates=2Etech
----=Part.c5a.f45f64b97bdcb137.19e2afab675.6e4fa590aafa495=---
 
