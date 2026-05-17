@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2GhqIh/bCWqZswQAu9opvQ
+	id 8Mi/GAD7CWpPvwQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 17 May 2026 17:13:35 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 17 May 2026 19:29:36 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5987561EEB
-	for <lists+xen-devel@lfdr.de>; Sun, 17 May 2026 17:13:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1311281.1581482 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC0B55628AF
+	for <lists+xen-devel@lfdr.de>; Sun, 17 May 2026 19:29:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1311323.1581499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOdAl-0007fN-Ch; Sun, 17 May 2026 15:12:55 +0000
+	id 1wOfHo-0000hI-Mo; Sun, 17 May 2026 17:28:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1311281.1581482; Sun, 17 May 2026 15:12:55 +0000
+Received: by outflank-mailman (output) from mailman id 1311323.1581499; Sun, 17 May 2026 17:28:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOdAl-0007dZ-9X; Sun, 17 May 2026 15:12:55 +0000
-Received: by outflank-mailman (input) for mailman id 1311281;
- Sun, 17 May 2026 15:12:54 +0000
+	id 1wOfHo-0000eR-I9; Sun, 17 May 2026 17:28:20 +0000
+Received: by outflank-mailman (input) for mailman id 1311323;
+ Sun, 17 May 2026 17:28:19 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <olekstysh@gmail.com>) id 1wOdAj-0007dT-Ss
- for xen-devel@lists.xenproject.org; Sun, 17 May 2026 15:12:54 +0000
+ (envelope-from <olekstysh@gmail.com>) id 1wOfHm-0000e3-Ph
+ for xen-devel@lists.xenproject.org; Sun, 17 May 2026 17:28:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wOdAj-005ro4-50
- for xen-devel@lists.xenproject.org; Sun, 17 May 2026 17:12:53 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wOfHl-000Wbw-HZ
+ for xen-devel@lists.xenproject.org; Sun, 17 May 2026 19:28:17 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <olekstysh@gmail.com>)
- id 6a09dae3-e002-0a2a0a5209dd-0a2a45098bc2-4
- for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 17:12:53 +0200
-Received: from [209.85.208.169] (helo=mail-lj1-f169.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a09fa0e-bab6-0a2a0a5309dd-0a2a4508d522-38
+ for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 19:28:17 +0200
+Received: from [209.85.167.50] (helo=mail-lf1-f50.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <olekstysh@gmail.com>)
- id 6a09daf4-2497-0a2a45090019-d155d0a9cd1d-3
- for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 17:12:52 +0200
-Received: by mail-lj1-f169.google.com with SMTP id
- 38308e7fff4ca-393c40246afso18785471fa.1
- for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 08:12:52 -0700 (PDT)
+ id 6a09fab0-63b5-0a2a45080019-d155a732ac14-3
+ for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 19:28:17 +0200
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-5a8f9841616so1340385e87.0
+ for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 10:28:17 -0700 (PDT)
 Received: from [192.168.0.112] ([91.123.151.42])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-395882c41c1sm5715151fa.12.2026.05.17.08.12.49
+ 2adb3069b0e04-5a9164bc12asm2792303e87.42.2026.05.17.10.28.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 17 May 2026 08:12:51 -0700 (PDT)
+ Sun, 17 May 2026 10:28:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,47 +58,47 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779030772; x=1779635572; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1779038896; x=1779643696; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=z15437ihNsBn2bknoWGnhSYwX6Gf3shYweS8Kz4hD5w=;
-        b=JLGRq2zJkZUeiVv/tgQIfF8vRAICe+eZA57UAsL7RG5CuG/ee25rd6+4hI0RtNWIJh
-         csdf5ksRe5SFrpWUYfhv/3ZrNgXM5peCvrE0reoHQc1IXz7pi2jMO9UOIRfDBn964T8v
-         quiSb9CQKPOhdLYKDn5A2xAk9RDivUEfKQqxEELofBim7/cwhcnoZdrEFKi+MjiUpv/m
-         89DMXocQl0llW4B2Xmy9VT5BjMe7+TCgEw8k7gVkIo49KY+obY4NeUD8x6FqclWqaMBp
-         lqDHeqLSqKDR1rjao2Q2ej94lKDJpe4SBIjZ8RMkULnCWNsHsCxPAG7TtvdlqS8v3KS8
-         I9mw==
+        bh=f0nZfOiwNgvR4Mbx8ZzVOWKx6v/Kdg4ziHaQGgZUnOE=;
+        b=T4tp0G3oCiKTSMnP13gggPQJ7Xiy8H+TWxmRwpBWzLPZ62eknv5zOYH0FmSK8sL4jA
+         Dj9cbhJV2EQR0nPXXs0TjpIsh6EvqLD8KEx+HYhZotzTC1BwymhUL9ic7pg6b9L/rqq/
+         A5QeHKBWPT+MvfAnKVHoJVhZD2bRiHGuM16WWstjl5Dg4R9td35Nya3jZ43CyExx38u0
+         vdjXkP9PubD/a3ROrxevZF9uHsUBigr6Kkv2uQMUbXeNDzhk87CvGeEsiPrM0oWuqWBA
+         ysVgcNTIp3eQ2NgKnhsO6ZusTopTPFgUl+OdCzGKUz5gRAqZhNZwFIlqgatL0sTNAQzj
+         WhcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779030772; x=1779635572;
+        d=1e100.net; s=20251104; t=1779038896; x=1779643696;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=z15437ihNsBn2bknoWGnhSYwX6Gf3shYweS8Kz4hD5w=;
-        b=WR0Kqo0KEwYcyo5TMm2Zz8ETNOE/W1ooNMdZEjJJgrtgoWMZ/WWvE/1cN8WHZxHPtu
-         ZklBfunvySlSvELR93OSzFZHYjX42kUB1qiSXMBV+m9OHZVUEnWx/i58dP1098l9aza9
-         00/cFzCh8v9GfwTLs8/bbbwvE+JCwVPakIm8biPCUnaWsvpL7gZf1ozeSOaKLs3Tl1JP
-         ZbtOwCFWAIiLoUY15x2a/r2k9pL+NddpMeFunjbagcg8v1j+uXqePx7rHmoxX3bNVyEV
-         AEaXKUgI6OM2I4Jm4pBHV/9LTzuKuPSTLUfEmjN0h+AD14LEYxlxGIJyFP+lKO1g+6KT
-         6+Qg==
-X-Gm-Message-State: AOJu0Yzs64FPMNlYzmpQCCbJHqU41OM3Q51CbIIT3NixHgR9iTM/FJ9+
-	t+WPlkyp4xrjrKZVz6ak1im71QPVEDnevgMEmOyLZs1x6K4MC69W3ud8
-X-Gm-Gg: Acq92OFmynKw2TWYs5lKlz6/N2s+g4rj5kq7i17JxwDbfZehAgqSz4dbDRbchf69BD9
-	jT8ZVLTg8CYqDXim5xhdWb/DTZM0G1ZnPcb3a+0AL/+2R6KKGkd7hWHYtBuh492CmJIS5/tT8oY
-	Q1NDyX1lhvCkFSudUVc1XQVEh3JamLFna3lz5aaOrUSxot+IJPLFs1NsD55lPwyrAo4NwiHfPAb
-	9gc188pBCAJpTZkhVj6LyYyQdHbR7tgsMUxHr51f50vvup17r6xL5HgN6x95LxUuxT8r/VgrVZ7
-	gbU7pY381HB26Sbcdq0KuxAsvBjxwMjCSf7C8G2WLOWmUWDEhf2j7l5lGTogR1Nke7bGIh6faSw
-	YVHd8A4VN5M+PfsKk9lArbNcjmnEbfIgj+oZk7t3gDwEElaY2eAEmN/Y74zLOjjmFX3IhR/Bzw7
-	HkvgrEaPR+WvbsN08oob995Fktew==
-X-Received: by 2002:a2e:a995:0:b0:38e:186e:350e with SMTP id 38308e7fff4ca-39561a26af2mr33975421fa.7.1779030771927;
-        Sun, 17 May 2026 08:12:51 -0700 (PDT)
-Message-ID: <636cda11-bc98-44e9-a333-5a61cc86e0dd@gmail.com>
-Date: Sun, 17 May 2026 18:12:48 +0300
+        bh=f0nZfOiwNgvR4Mbx8ZzVOWKx6v/Kdg4ziHaQGgZUnOE=;
+        b=mOChkLCTc/KpZZEsIUA0kgZLPCI3aj3Wc/vroms48GJmTP0IySP6x/zciHODgDlkpG
+         caAt9M4405XKF9nK+5RxEYfGU1a7nUpy+qN+p4Rj5IW1AcJl794plaQQ0+GUFn1PRK/m
+         SuquE38tKZHa2PMbnENxX5OmDIBbGc63qKocg48eZPNu57NWxL7tHhe4bwPV6MBXLwfn
+         fAT9Aw1UNqH8dzxWzRUbf4sGjN3zTeQHeidPtEp2c0BmjGCnHPZEsn1SoTJcnndHUalY
+         2JfA1Nk4sMtAwh7jY/GHDen1twwpd3Cdkqll0wk49PyCClrdc3KKj5xd61sJEYFKnJ0f
+         W1zg==
+X-Gm-Message-State: AOJu0Yw0chOMzkClMI+8zzwFsEMa4nREdLvCLIxHbqGOrLNGqs/1N2+p
+	MXEFHgqUHGp/J0NvLcLcNF++tyXVj5cED6hX37LywNXKChj2at30IxWO
+X-Gm-Gg: Acq92OF7TZKW7j/avk6wfz/SNh2BpgjNqASfN5UtHPa7JaI1XnSrtQzN0KpLNX3rkrA
+	A59z2UaOd5AKoJXYYnN0m6cwC+F9exZLEmr7Cc8GUkNUGpY7kPlUpdKEbNfFtFSFY+eELalWtRi
+	NQsEiWYG4bNH6cgoSCesdBhAYsGnFK9lNj8us4+6xSF9gf/Qyl0DegY9j7sI1Umf+nJi6ojonHd
+	Q0EAxi+q51z2VReE3SmoVEQWk7gycHA2NGVB52XJ9yC2unHvApV4fBlPqaFVMmZJIbdP5Niumzc
+	6nuJUo8q2NN/1U6WXJgrj3RH7BdyNtNP3qjKqpXFlVHY8uhViSsN4xebwPyaR6CUM+9MtEZvS6i
+	nYk4Kb2q0+X+ItjKe2LghCuBq1HuLPOJMPT9PLIW2UDoo4z8RxtecbkdW0POttYSghxk/GLPq8X
+	PeeqhWaNHp7JCPJ92JfYEDMqoy/XUXgp6YMgKZ
+X-Received: by 2002:a05:6512:3d88:b0:5a4:1798:31ba with SMTP id 2adb3069b0e04-5aa0e7321e5mr4498476e87.21.1779038896127;
+        Sun, 17 May 2026 10:28:16 -0700 (PDT)
+Message-ID: <a99d4c20-446c-4c5c-b95c-8b317eb1a0c2@gmail.com>
+Date: Sun, 17 May 2026 20:28:13 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 08/13] iommu/ipmmu-vmsa: Implement suspend/resume
- callbacks
+Subject: Re: [PATCH v9 10/13] xen/arm64: Save/restore CPU context across
+ SYSTEM_SUSPEND
 To: Luca Fancellu <Luca.Fancellu@arm.com>,
  Mykola Kvach <xakep.amatop@gmail.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
@@ -108,17 +108,17 @@ Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <cover.1778605274.git.mykola_kvach@epam.com>
- <4162aa58c351677a4a267fe85989c6d4e07487d8.1778605274.git.mykola_kvach@epam.com>
- <28587F96-D8A1-46FA-91B0-D9A30E55EFC9@arm.com>
+ <46bbc9e008a65dd86fb2b368e4751eb7d2014afa.1778605274.git.mykola_kvach@epam.com>
+ <7254EEC1-315F-41EB-B623-5CACAD7255E9@arm.com>
 Content-Language: en-US
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <28587F96-D8A1-46FA-91B0-D9A30E55EFC9@arm.com>
+In-Reply-To: <7254EEC1-315F-41EB-B623-5CACAD7255E9@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-bad1c0/1779030772-41165A53-7D061DD8/0/0
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-c1860d/1779038897-B6975DB1-D2455346/0/0
 X-purgate-type: clean
-X-purgate-size: 8134
-X-Rspamd-Queue-Id: E5987561EEB
+X-purgate-size: 3168
+X-Rspamd-Queue-Id: BC0B55628AF
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -148,7 +148,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[olekstysh@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.917];
+	NEURAL_HAM(-0.00)[-0.938];
 	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -159,251 +159,86 @@ X-Rspamd-Action: no action
 
 
 
-On 5/14/26 18:57, Luca Fancellu wrote:
+On 5/14/26 20:20, Luca Fancellu wrote:
 > Hi Mykola,
 
-Hello Luca and Mykola
+Hello Mykola and Luca
+
+Mykola, I have no further comments on this patch, but I think Luca has 
+raised a valid point. Once that is resolved (or clarified why no change 
+is needed), feel free to add my:
+Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+
+see below
 
 > 
->>
->> diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
->> index fa9ab9cb13..e1b47a5824 100644
->> --- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
->> +++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
->> @@ -71,6 +71,8 @@
->> })
->> #endif
->>
->> +#define dev_dbg(dev, fmt, ...)    \
->> +    dev_print(dev, XENLOG_DEBUG, fmt, ## __VA_ARGS__)
->> #define dev_info(dev, fmt, ...)    \
->>      dev_print(dev, XENLOG_INFO, fmt, ## __VA_ARGS__)
->> #define dev_warn(dev, fmt, ...)    \
->> @@ -130,6 +132,24 @@ struct ipmmu_features {
->>      unsigned int imuctr_ttsel_mask;
->> };
 >>
 >> +#ifdef CONFIG_SYSTEM_SUSPEND
->> +
->> +struct ipmmu_reg_ctx {
->> +    unsigned int imttlbr0;
->> +    unsigned int imttubr0;
->> +    unsigned int imttbcr;
->> +    unsigned int imctr;
->> +};
->> +
->> +struct ipmmu_vmsa_backup {
->> +    struct device *dev;
->> +    unsigned int *utlbs_val;
->> +    unsigned int *asids_val;
->> +    struct list_head list;
->> +};
->> +
->> +#endif
->> +
->> /* Root/Cache IPMMU device's information */
->> struct ipmmu_vmsa_device {
->>      struct device *dev;
->> @@ -142,6 +162,9 @@ struct ipmmu_vmsa_device {
->>      struct ipmmu_vmsa_domain *domains[IPMMU_CTX_MAX];
->>      unsigned int utlb_refcount[IPMMU_UTLB_MAX];
->>      const struct ipmmu_features *features;
->> +#ifdef CONFIG_SYSTEM_SUSPEND
->> +    struct ipmmu_reg_ctx *reg_backup[IPMMU_CTX_MAX];
->> +#endif
->> };
->>
->> /*
->> @@ -547,6 +570,245 @@ static void ipmmu_domain_free_context(struct ipmmu_vmsa_device *mmu,
->>      spin_unlock_irqrestore(&mmu->lock, flags);
->> }
->>
->> +#ifdef CONFIG_SYSTEM_SUSPEND
->> +
->> +static DEFINE_SPINLOCK(ipmmu_devices_backup_lock);
->> +static LIST_HEAD(ipmmu_devices_backup);
->> +
->> +static struct ipmmu_reg_ctx root_pgtable[IPMMU_CTX_MAX];
->> +
->> +static uint32_t ipmmu_imuasid_read(struct ipmmu_vmsa_device *mmu,
->> +                                   unsigned int utlb)
->> +{
->> +    return ipmmu_read(mmu, ipmmu_utlb_reg(mmu, IMUASID(utlb)));
->> +}
->> +
->> +static void ipmmu_utlbs_backup(struct ipmmu_vmsa_device *mmu)
->> +{
->> +    struct ipmmu_vmsa_backup *backup_data;
->> +
->> +    dev_dbg(mmu->dev, "Handle micro-TLBs backup\n");
->> +
->> +    spin_lock(&ipmmu_devices_backup_lock);
->> +
->> +    list_for_each_entry( backup_data, &ipmmu_devices_backup, list )
->> +    {
->> +        struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(backup_data->dev);
->> +        unsigned int i;
->> +
->> +        if ( to_ipmmu(backup_data->dev) != mmu )
->> +            continue;
->> +
->> +        for ( i = 0; i < fwspec->num_ids; i++ )
->> +        {
->> +            unsigned int utlb = fwspec->ids[i];
->> +
->> +            backup_data->asids_val[i] = ipmmu_imuasid_read(mmu, utlb);
->> +            backup_data->utlbs_val[i] = ipmmu_imuctr_read(mmu, utlb);
->> +        }
->> +    }
->> +
->> +    spin_unlock(&ipmmu_devices_backup_lock);
->> +}
->> +
->> +static void ipmmu_utlbs_restore(struct ipmmu_vmsa_device *mmu)
->> +{
->> +    struct ipmmu_vmsa_backup *backup_data;
->> +
->> +    dev_dbg(mmu->dev, "Handle micro-TLBs restore\n");
->> +
->> +    spin_lock(&ipmmu_devices_backup_lock);
->> +
->> +    list_for_each_entry( backup_data, &ipmmu_devices_backup, list )
->> +    {
->> +        struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(backup_data->dev);
->> +        unsigned int i;
->> +
->> +        if ( to_ipmmu(backup_data->dev) != mmu )
->> +            continue;
->> +
->> +        for ( i = 0; i < fwspec->num_ids; i++ )
->> +        {
->> +            unsigned int utlb = fwspec->ids[i];
->> +
->> +            ipmmu_imuasid_write(mmu, utlb, backup_data->asids_val[i]);
->> +            ipmmu_imuctr_write(mmu, utlb, backup_data->utlbs_val[i]);
->> +        }
->> +    }
->> +
->> +    spin_unlock(&ipmmu_devices_backup_lock);
->> +}
->> +
->> +static void ipmmu_domain_backup_context(struct ipmmu_vmsa_domain *domain)
->> +{
->> +    struct ipmmu_vmsa_device *mmu = domain->mmu->root;
->> +    struct ipmmu_reg_ctx *regs = mmu->reg_backup[domain->context_id];
->> +
->> +    dev_dbg(mmu->dev, "Handle domain context %u backup\n", domain->context_id);
->> +
->> +    regs->imttlbr0 = ipmmu_ctx_read_root(domain, IMTTLBR0);
->> +    regs->imttubr0 = ipmmu_ctx_read_root(domain, IMTTUBR0);
->> +    regs->imttbcr  = ipmmu_ctx_read_root(domain, IMTTBCR);
->> +    regs->imctr    = ipmmu_ctx_read_root(domain, IMCTR);
->> +}
->> +
->> +static void ipmmu_domain_restore_context(struct ipmmu_vmsa_domain *domain)
->> +{
->> +    struct ipmmu_vmsa_device *mmu = domain->mmu->root;
->> +    struct ipmmu_reg_ctx *regs  = mmu->reg_backup[domain->context_id];
-> 
-> NIT: There is a double space before the `=`
-> 
->> +
->> +    dev_dbg(mmu->dev, "Handle domain context %u restore\n", domain->context_id);
->> +
->> +    ipmmu_ctx_write_root(domain, IMTTLBR0, regs->imttlbr0);
->> +    ipmmu_ctx_write_root(domain, IMTTUBR0, regs->imttubr0);
->> +    ipmmu_ctx_write_root(domain, IMTTBCR,  regs->imttbcr);
->> +    ipmmu_ctx_write_all(domain,  IMCTR,    regs->imctr | IMCTR_FLUSH);
-> 
-> I see in ipmmu_tlb_invalidate() we do:
-> dsb(sy);
-> ipmmu_tlb_sync(domain);
-> 
-> Is it safe to omit them here?
-
-Luca, good question, thanks. Below my understanding (which might be wrong):
-
-The IMCTR_FLUSH bit here is not an explicit TLB invalidation request — 
-it is required by the HW whenever context registers are modified 
-(regardless of whether an actual TLB flush is the intent). For example, 
-ipmmu_domain_init_context() similarly writes:
-
-ipmmu_ctx_write_root(domain, IMCTR,
-                      IMCTR_VA64 | IMCTR_INTEN | IMCTR_FLUSH | IMCTR_MMUEN);
-
-and does not follow it with dsb(sy) / ipmmu_tlb_sync().
-
-In contrast, ipmmu_tlb_invalidate() does include the sync because it is 
-an explicit flush request from the P2M framework, and we need a 
-guarantee that the invalidation has completed before proceeding.
-
-Here, we are simply restoring context registers after resume, there is 
-no caller waiting on flush completion, so the additional synchronization 
-is not necessary from my PoV.
-
-
-> 
->> +}
->> +
 >> +/*
->> + * Xen: Unlike Linux implementation, Xen uses a single driver instance
->> + * for handling all IPMMUs. There is no framework for ipmmu_suspend/resume
->> + * callbacks to be invoked for each IPMMU device. So, we need to iterate
->> + * through all registered IPMMUs performing required actions.
+>> + * int prepare_resume_ctx(void)
 >> + *
->> + * Also take care of restoring special settings, such as translation
->> + * table format, etc.
+>> + * CPU context saved here will be restored on resume in hyp_resume function.
+>> + * prepare_resume_ctx shall return a non-zero value. Upon restoring context
+>> + * hyp_resume shall return value zero instead. From C code that invokes
+>> + * prepare_resume_ctx, the return value is interpreted to determine whether
+>> + * the context is saved (prepare_resume_ctx) or restored (hyp_resume).
 >> + */
->> +static int __must_check ipmmu_suspend(void)
->> +{
->> +    struct ipmmu_vmsa_device *mmu;
+>> +FUNC(prepare_resume_ctx)
+>> +        ldr   x0, =resume_cpu_context
 >> +
->> +    if ( !iommu_enabled )
->> +        return 0;
+>> +        /* Store callee-saved registers */
+>> +        stp   x19, x20, [x0, #RESUME_CTX_X19]
+>> +        stp   x21, x22, [x0, #RESUME_CTX_X21]
+>> +        stp   x23, x24, [x0, #RESUME_CTX_X23]
+>> +        stp   x25, x26, [x0, #RESUME_CTX_X25]
+>> +        stp   x27, x28, [x0, #RESUME_CTX_X27]
+>> +        stp   x29, lr, [x0, #RESUME_CTX_X29]
 >> +
->> +    printk(XENLOG_DEBUG "ipmmu: Suspending...\n");
+>> +        /* Store stack-pointer */
+>> +        mov   x2, sp
+>> +        str   x2, [x0, #RESUME_CTX_SP]
 >> +
->> +    spin_lock(&ipmmu_devices_lock);
->> +
->> +    list_for_each_entry( mmu, &ipmmu_devices, list )
->> +    {
->> +        if ( ipmmu_is_root(mmu) )
->> +        {
->> +            unsigned int i;
->> +
->> +            for ( i = 0; i < mmu->num_ctx; i++ )
->> +            {
->> +                if ( !mmu->domains[i] )
->> +                    continue;
->> +                ipmmu_domain_backup_context(mmu->domains[i]);
->> +            }
->> +        }
->> +        else
->> +            ipmmu_utlbs_backup(mmu);
->> +    }
->> +
->> +    spin_unlock(&ipmmu_devices_lock);
->> +
->> +    return 0;
->> +}
->> +
->> +static void ipmmu_resume(void)
->> +{
->> +    struct ipmmu_vmsa_device *mmu;
->> +
->> +    if ( !iommu_enabled )
->> +        return;
->> +
->> +    printk(XENLOG_DEBUG "ipmmu: Resuming...\n");
->> +
->> +    spin_lock(&ipmmu_devices_lock);
->> +
->> +    list_for_each_entry( mmu, &ipmmu_devices, list )
+>> +        /* Store system control registers */
+>> +        mrs   x2, VBAR_EL2
+>> +        str   x2, [x0, #RESUME_CTX_VBAR_EL2]
+>> +        mrs   x2, VTCR_EL2
+>> +        str   x2, [x0, #RESUME_CTX_VTCR_EL2]
+>> +        mrs   x2, VTTBR_EL2
+>> +        str   x2, [x0, #RESUME_CTX_VTTBR_EL2]
+>> +        mrs   x2, TPIDR_EL2
+>> +        str   x2, [x0, #RESUME_CTX_TPIDR_EL2]
+>> +        mrs   x2, MDCR_EL2
+>> +        str   x2, [x0, #RESUME_CTX_MDCR_EL2]
+>> +        mrs   x2, HSTR_EL2
+>> +        str   x2, [x0, #RESUME_CTX_HSTR_EL2]
+>> +        mrs   x2, CPTR_EL2
+>> +        str   x2, [x0, #RESUME_CTX_CPTR_EL2]
+>> +        mrs   x2, HCR_EL2
+>> +        str   x2, [x0, #RESUME_CTX_HCR_EL2]
 > 
-> This loop has an ordering problem because we can run ipmmu_utlbs_restore() before
-> the root ipmmu is restored (ipmmu_probe() uses `list_add()`).
-> Maybe going twice on the list, restoring first the root and in the second round the rest
-> should work.
+> Do you think we should save also CNTHCTL_EL2? Apologies it escaped my first review,
+> but I see we program it in the boot cpu path + secondary cpu path: init_timer_interrupt().
+
+
+Yes, CNTHCTL_EL2 is programmed by init_timer_interrupt() during the 
+initialization of both boot and secondary CPUs. Whether it needs to be 
+saved here depends on the resume path:
+
+  - If the resume handler (after prepare_resume_ctx() returns 0) 
+re-invokes timer initialization, it is already covered.
+  - If not, CNTHCTL_EL2 should be added to struct resume_cpu_context and 
+included in the save/restore assembly.
+
+If I understand the current flow correctly:
+  - Secondary CPUs wake up via hotplug, so they execute 
+start_secondary()->init_timer_interrupt() and configure CNTHCTL_EL2.
+  - The boot CPU wakes up via hyp_resume() and jumps straight back to C 
+code, which appears to bypass init_timer_interrupt() call. At least I 
+have not spotted where system_suspend() would re-invoke it.
+
+
+> 
+> The rest looks ok.
 > 
 > Cheers,
 > Luca
