@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sOB9Ht+ZCmqs4AQAu9opvQ
+	id pW8gHKIsCmqUxQQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 06:47:27 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 17 May 2026 23:01:22 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28D02565BA1
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 06:47:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1311348.1581563 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7B21563E2F
+	for <lists+xen-devel@lfdr.de>; Sun, 17 May 2026 23:01:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1311360.1581517 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOpsp-00041F-V4; Mon, 18 May 2026 04:47:15 +0000
+	id 1wOiat-00038F-7g; Sun, 17 May 2026 21:00:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1311348.1581563; Mon, 18 May 2026 04:47:15 +0000
+Received: by outflank-mailman (output) from mailman id 1311360.1581517; Sun, 17 May 2026 21:00:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOpsp-0003yg-RR; Mon, 18 May 2026 04:47:15 +0000
-Received: by outflank-mailman (input) for mailman id 1311348;
- Sun, 17 May 2026 19:44:59 +0000
+	id 1wOiat-00037G-48; Sun, 17 May 2026 21:00:15 +0000
+Received: by outflank-mailman (input) for mailman id 1311360;
+ Sun, 17 May 2026 21:00:14 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <gabi.qs.mail@gmail.com>) id 1wOhQ3-0001vx-Hn
- for xen-devel@lists.xenproject.org; Sun, 17 May 2026 19:44:59 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wOias-00037A-1q
+ for xen-devel@lists.xenproject.org; Sun, 17 May 2026 21:00:14 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wOhQ2-00Bwks-UA
- for xen-devel@lists.xenproject.org; Sun, 17 May 2026 21:44:58 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wOiar-00C3rz-EH
+ for xen-devel@lists.xenproject.org; Sun, 17 May 2026 23:00:13 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <gabi.qs.mail@gmail.com>)
- id 6a0a1a8c-2eae-0a2a0a5409dd-0a2a450ab15e-10
- for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 21:44:58 +0200
-Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <gabi.qs.mail@gmail.com>)
- id 6a0a1aba-56b3-0a2a450a0019-d155dd2ed925-3
- for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 21:44:58 +0200
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-43fe62837baso748767f8f.3
- for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 12:44:58 -0700 (PDT)
-Received: from fedora ([212.231.230.22]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da0a17a22sm32610761f8f.22.2026.05.17.12.44.57
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a0a2beb-5cb7-0a2a0a5109dd-0a2a4505e9cc-30
+ for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 23:00:13 +0200
+Received: from [209.85.218.50] (helo=mail-ej1-f50.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a0a2c5d-aaa8-0a2a45050019-d155da32d845-3
+ for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 23:00:13 +0200
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-bcc9fdc959cso329399966b.2
+ for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 14:00:13 -0700 (PDT)
+Received: from EPUAKYIW02F7.. ([45.12.26.18]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bd4f4bd0a24sm485504066b.11.2026.05.17.14.00.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 May 2026 12:44:57 -0700 (PDT)
+ Sun, 17 May 2026 14:00:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,138 +57,359 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779047098; x=1779651898; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1779051613; x=1779656413; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OF+u0pee6OdXPZyMSBKxZwEOVfRLtT3PPpeO+Uq+LEs=;
-        b=Fs5Wc6k6DLkLQqLurciFXHf4d1lQQJPry1b9HPqunK0FE0ajTIJRgI8mBzpK/hmQdN
-         KXeQvPDLTN++8DKG7baag9jH5nhKblmyEmqmKn6U/fiBx+jy1NfuadA9QuFMsT4t12ij
-         DqS/kiifet4+wGfdABVvRSfYW89eJT3Gf77e+Vl3uKW7wndSUqt+EO3qpmHvpX2ZX+td
-         br75u2fo6CRierlD33nEAZ7HTErlQYwACr9XK9l+gi+TX8o9BA4v6JQVUZM9ZjaAkuN8
-         fAEKbhsQPioC2PW1VL5jiaY8Ycj1odluXC79TDyc9eTJapsz9Wb7uaGUbyYC/0E2zxlZ
-         5pRg==
+        bh=NAAkDjpl4ADPy8uGozIOL9uUsscjlLFpYuYbxX1FRPw=;
+        b=FmtplVeA1+gmEOX9AcfXHmWWH6reOEWnkA8TPEzgcDR3RzuzLhS+PodYSwQRTW5p3l
+         5vNEUzmeD7+UAD5e7C1PmZEgx334vc9MouFKDdHrjbk3pSHLp5Wn24//zJ1qBFq5NS2d
+         I6Mha5VKc/IQnUXWm+eZVm7x44/nSczDZuCRd+be3S6l37R6AJkuhAVUgLlSEKGOSzmP
+         OzuG1QHqqCIE+eY9fqBpHx2J20wWZESpDDpn9eGCW/zB/p5PDz8+UCP1vT4lsvA+Skxf
+         B8ffVCNhck341VHMh9vVWnv2yzs7H1D7X3xEAlYcnjobPW8lEyQUtqeLVqgzikKPgKKN
+         tLmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779047098; x=1779651898;
+        d=1e100.net; s=20251104; t=1779051613; x=1779656413;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OF+u0pee6OdXPZyMSBKxZwEOVfRLtT3PPpeO+Uq+LEs=;
-        b=SLMoJIa9HEl4rJkUW7ROLmFyev9RZYcZkpXG0TeRoAIbhOMQMlGAXYuYnEJjWJ5PaZ
-         rXOATWRhhdmpM/7BWZhEMXjzy+u6JLVQL6fT50wdHjXyokC6fOZL8AsFR7ggJnoo89dQ
-         Ef8i7+s7Ygm9flrkcxFZ0784Vpspc7mH5HljNmfEINPAw8qNwSJRzlS0t3ZpogHZHEpg
-         3ulximRfsfm3F6Dwq6fEGKfWDjaiurXlAezo++9fmfUl9Lb4lgwO4Lngs/JZCzBkDBoX
-         RsvA81ryWyuy6aB758DjhbnHb/Di1/dQLm/qfoirbEOLm9yv6HTbJZE3vtuIZi6irUMe
-         v0HA==
-X-Gm-Message-State: AOJu0Yw0qhMOecLqF+ClgTkkIxMCHSOO3Sv2mCBSe7uB76FPSJPoKaGn
-	L1t+ZcsTTDm05o4x6RtB2dbNi1t21lReV6dp1+7XqNgFdRUZYo2IwmG+Hh/jpLbHNBk=
-X-Gm-Gg: Acq92OFO7dKJr3GPXkgu5QtwW2A+6ZWvndyPNQczGKCO/UGi2Grj4GwCVp3GfQ5mKqW
-	0yAZoQhxjuE8X2L1VrU30kEwiXQ4VvlqjhoXZmk2K+5J/iaEe029Ll3OlxmZWEyW6dhMRFQmW2F
-	RxoZ6Ig1bT3acLm1YVXToZTLdydwukxHuqdyUb0jhQGs+2kf0r+6Fb206MLH+G01OY4/QXALlZ4
-	RYQQpgJC4/LxMEMLQEFfZUtWEj397YJt4YB/8acUhzDkIJINm12nFr62dwE9oW2DccvGbVrgiL2
-	2Mq7shez/tq39f6MgF29OgoOdPidsVwM3N2oFzX7jirTRbTNG98xEhivVkkThsK6y5lAmjYfZZD
-	FSYpOIHIpAu8twzzYTWtD6UZOV0cXgZPjXDGRwPskYPS8gpXRjU4BPnmpEDxGRY8EaX4NNTxM5+
-	pyZEuqj2lgkPbayBGlituCdWnSK7G7P9s=
-X-Received: by 2002:a5d:584c:0:b0:45d:4020:8b59 with SMTP id ffacd0b85a97d-45e5c5877admr18849791f8f.24.1779047098207;
-        Sun, 17 May 2026 12:44:58 -0700 (PDT)
-From: =?UTF-8?q?Gabriel=20Quint=C3=A1ns=20Souto?= <gabi.qs.mail@gmail.com>
+        bh=NAAkDjpl4ADPy8uGozIOL9uUsscjlLFpYuYbxX1FRPw=;
+        b=mLw+BuKYmNaGgTZ9tCF5Xe8L4gxEWmebiAzIPhlngLbeVWk/ADS+BpEjhaLvEp6eyL
+         q/igy/bzxs0P9l4JcGeDhIRRedORjh1VdiEudGPSQmTELjTc0iHac52R2nUuu9GKEGiG
+         24zCC/Ln03/iDpiwwYNWPy3M/hIMAIJzgy5rzNg70ssxR921TAzGtZkjGa2AN7JJPKZy
+         1v6Gkqg99ImXL9RT5ImIqV/hdLVvd5WoCTWLJtxjvffmfYdc1/X5SxTaAISrQZXdyryu
+         zDLywWWzpg0+11MLz6MYEHGDiMOs5LN2n/5WbzZmMd/WX5rphwr5nJhaZEHnZLVnFeWa
+         YiNQ==
+X-Gm-Message-State: AOJu0YwdcN6MkbDpJFpbncW8Uv1YsTdaR/V1+SNcJpPAX1nYixZAlu8i
+	d/cOjI1X/QQt31RgL8O5h+it7XMbw4Kht8QQ/XMTWfq7ypc7yMhCji/IihuOUQ==
+X-Gm-Gg: Acq92OERZRmjdHUEn0MrTqRY4kebodgBpREUQyCXZwoAyzNpojdupemrs9QLUAysU9X
+	xguD/a0mYGblp95qjwOokPHdNz/zVt5PiFxJiMijGFFbJ5IUW13zChoHy8lMx1omIaGp75UgQAF
+	rxfZ//5iJmZz/bAkL7AJ7IhY60lfdu1jono2X0oLtpFEiLYZr7OgOYgsHd4Ngm0sxivrRluN3Or
+	F9rM+eiCuWU67qfZN2JdJGj16ABk27OvXbihKnc/VIoNcMHWYFKeFwU1p9lf8tLbzabb8C0Ntv8
+	Mf6JpxtIN3mKEnP3Yvq/AOWZLUa+meqoqV3RrJbErfJ4Zrkka/7A09OQyX7DiPSdanj0CHa7jHv
+	xuKg0+E/IWiCS/F0vDGhRuI1N3b2kYlrb2d4Sw2+mwuuotDNQsgLf/igJrvayHSjPRJN7nRX+2D
+	ft9GiHvOxzwwo32Pgi/FOWZweHZQ==
+X-Received: by 2002:a17:907:1988:b0:ba4:f501:cb8b with SMTP id a640c23a62f3a-bd5177db61fmr624330266b.16.1779051612688;
+        Sun, 17 May 2026 14:00:12 -0700 (PDT)
+From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	julien@xen.org,
-	bertrand.marquis@arm.com,
-	michal.orzel@amd.com,
-	=?UTF-8?q?Gabriel=20Quint=C3=A1ns=20Souto?= <gabi.qs.mail@gmail.com>
-Subject: [PATCH] arm64/mmu: Fix PT_PT table descriptor value and comment
-Date: Sun, 17 May 2026 21:44:43 +0200
-Message-ID: <20260517194443.59134-1-gabi.qs.mail@gmail.com>
-X-Mailer: git-send-email 2.54.0
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [RFC PATCH] device-tree: size first hwdom bank for boot modules
+Date: Sun, 17 May 2026 23:57:56 +0300
+Message-ID: <9ae4f7dd49f5b1f761193adae573c2675c92e883.1779051035.git.mykola_kvach@epam.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-4011c0/1779047098-7C8788B7-2F081F06/0/0
+X-purgate-ID: tlsNG-c201ff/1779051613-E3589443-5950C84A/0/0
 X-purgate-type: clean
-X-purgate-size: 1746
-X-Rspamd-Queue-Id: 28D02565BA1
+X-purgate-size: 10312
+X-Rspamd-Queue-Id: C7B21563E2F
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:gabi.qs.mail@gmail.com,m:gabiqsmail@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[gabiqsmail@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FREEMAIL_FROM(0.00)[gmail.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	DKIM_TRACE(0.00)[gmail.com:+];
-	RCPT_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.981];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[gabiqsmail@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[kernel.org,xen.org,arm.com,amd.com,gmail.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,epam.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.982];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-PT_PT is used to create table descriptors in create_table_entry_from_paddr.
-The previous value (0xf7f) and comment incorrectly included attribute fields
-(nG, SH, AP, NS, ATTR) that only exist in block/page descriptors, not in
-table descriptors.
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-Per the ARMv8-A Architecture Reference Manual (DDI0487, Section D8.3.1),
-table descriptors only define:
-  - Bits [63:12]: Next-level table address
-  - Bit [11]: Ignored
-  - Bit [10]: AF (Access Flag, ARMv8.1+)
-  - Bits [9:2]: Ignored or reserved for extensions
-  - Bit [1]: Descriptor type (1 = Table)
-  - Bit [0]: Valid bit (1 = Valid)
+With LLC coloring enabled, the hardware domain memory comes from
+allocate_hwdom_memory(), not from the fixed direct-map banks used when
+coloring is off.
 
-Update to 0x743 with only the relevant bits set:
-  - Bit [10]: AF (Access Flag, ARMv8.1+)
-  - Bits [9:8]: Reserved/extension bits
-  - Bit [6]: SKL (ARMv9)
-  - Bits [5:2]: Cleared (ignored by hardware)
-  - Bit [1]: Table descriptor type
-  - Bit [0]: Valid
+Commit de99f3263555 ("device-tree: Improve hwdom memory allocation for
+DMA") made that allocator sort free host regions by ascending address so
+Dom0 gets DMA-capable low memory first. The first bank filter still only
+required 128MB. That can select a low region which is large enough for
+the heuristic, but not large enough for place_modules() to put the Dom0
+kernel, generated DTB and initrd contiguously in bank 0.
 
-Compile-tested and boot-tested in QEMU ARM64 (virt machine, cortex-a57).
+Ask arch code for any additional first-bank size requirement. On Arm,
+compute it from the actual Dom0 kernel placement, rounded initrd size and
+generated DTB size hint. For 64-bit Image kernels, include the text offset
+from the candidate bank start, because the returned requirement is compared
+with a bank size measured from that start. The hint covers both the normal
+Device Tree path and the minimal DTB created for ACPI boot.
 
-Signed-off-by: Gabriel Quintáns Souto <gabi.qs.mail@gmail.com>
+Check the first-bank threshold against the size which will actually be
+assigned to Dom0, after capping the host region by the remaining unassigned
+Dom0 memory. Otherwise a large host region could pass the test but still
+produce a first guest bank too small for place_modules().
+
+Use the typed min()/max() helpers for this normal allocation arithmetic;
+MIN()/MAX() are intended for preprocessor-style contexts and skip the type
+checking provided by the lowercase helpers.
+
+This keeps the DMA-oriented allocation policy from de99f3263555 while
+preventing a too-small bank 0 from reaching place_modules().
+
+Fixes: de99f3263555 ("device-tree: Improve hwdom memory allocation for DMA")
+Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 ---
- xen/arch/arm/arm64/mmu/head.S | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Test/setup notes:
 
-diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/head.S
-index d14780ad19..c3cb262e88 100644
---- a/xen/arch/arm/arm64/mmu/head.S
-+++ b/xen/arch/arm/arm64/mmu/head.S
-@@ -8,7 +8,7 @@
- #include <asm/page.h>
- #include <asm/early_printk.h>
+The failure was reproduced on a Renesas H3ULCB/R-Car H3 (r8a7795)
+arm64 board booted through U-Boot/TFTP and using huge initrd.
+
+Relevant Xen command line excerpt:
+  dom0_mem=2048M llc-coloring=on
+
+Boot module layout from Xen:
+  MODULE[2]: 0x0000000084000040-0x000000008e75d92f Ramdisk
+  MODULE[3]: 0x00000000a0000000-0x00000000a3ffffff Kernel
+  MODULE[4]: 0x00000000a4000000-0x00000000a400ffff XSM Policy
+
+The initrd is about 168MB. With LLC coloring enabled and the low-address
+allocation policy from de99f3263555, Dom0 can receive a 192MB first bank:
+  d0 BANK[0] 0x00000048000000-0x00000054000000 (192MB)
+
+That bank satisfies the old 128MB minimum but is too small for the
+rounded Dom0 kernel, generated DTB and initrd placement. The observed
+failure before this patch was:
+  Panic on CPU 0:
+  Not enough memory in the first bank for the kernel+dtb+initrd
+
+With this patch, the same boot skips the too-small low region for bank 0
+and reaches Dom0:
+  d0 BANK[0] 0x00000057000000-0x00000084000000 (720MB)
+  d0 BANK[1] 0x0000008e800000-0x000000c0000000 (792MB)
+  d0 BANK[2] 0x00000500000000-0x00000521800000 (536MB)
+  d0: extended region 0: 0x48000000->0x54000000
+  Loading zImage from 0x00000000a0000000 to 0x57000000-0x5b000000
+  Loading d0 initrd from 0x0000000084000040 to 0x5f200000-0x6995d8f0
+  Loading d0 DTB to 0x5f000000-0x5f011c80
+  Linux version 5.10.194-yocto-standard
+---
+ xen/arch/arm/acpi/domain_build.c        |  2 --
+ xen/arch/arm/domain_build.c             |  8 ++++++
+ xen/arch/arm/include/asm/domain_build.h |  4 +++
+ xen/arch/arm/include/asm/kernel.h       |  8 ++++++
+ xen/arch/arm/kernel.c                   | 35 +++++++++++++++++++++++++
+ xen/common/device-tree/domain-build.c   | 27 ++++++++++++++-----
+ xen/include/xen/fdt-kernel.h            |  8 ++++++
+ 7 files changed, 83 insertions(+), 9 deletions(-)
+
+diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domain_build.c
+index 249d899c33..db16f7fa94 100644
+--- a/xen/arch/arm/acpi/domain_build.c
++++ b/xen/arch/arm/acpi/domain_build.c
+@@ -26,8 +26,6 @@
+ #undef virt_to_mfn
+ #define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
  
--#define PT_PT     0xf7f /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=1 P=1 */
-+#define PT_PT     0x743 /* AF=1 RES=11 SKL=1 IGN=0000 T=1 P=1 */
- #define PT_MEM    0xf7d /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=0 P=1 */
- #define PT_MEM_L3 0xf7f /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=1 P=1 */
- #define PT_DEV    0xe71 /* nG=1 AF=1 SH=10 AP=01 NS=1 ATTR=100 T=0 P=1 */
+-#define ACPI_DOM0_FDT_MIN_SIZE 4096
+-
+ static int __init acpi_iomem_deny_access(struct domain *d)
+ {
+     acpi_status status;
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 1efddc60ef..226e053c68 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -115,6 +115,14 @@ int __init parse_arch_dom0_param(const char *s, const char *e)
+                              (IS_ENABLED(CONFIG_STATIC_SHM) ?         \
+                               (NR_SHMEM_BANKS * (160 + 16)) : 0))
+ 
++paddr_t __init dom0_get_fdt_size_hint(void)
++{
++    if ( !acpi_disabled )
++        return ACPI_DOM0_FDT_MIN_SIZE;
++
++    return fdt_totalsize(device_tree_flattened) + DOM0_FDT_EXTRA_SIZE;
++}
++
+ unsigned int __init dom0_max_vcpus(void)
+ {
+     if ( opt_dom0_max_vcpus == 0 )
+diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
+index df8b361b3d..45687c5d6f 100644
+--- a/xen/arch/arm/include/asm/domain_build.h
++++ b/xen/arch/arm/include/asm/domain_build.h
+@@ -19,6 +19,10 @@ int prepare_acpi(struct domain *d, struct kernel_info *kinfo);
+ 
+ int add_ext_regions(unsigned long s_gfn, unsigned long e_gfn, void *data);
+ 
++#define ACPI_DOM0_FDT_MIN_SIZE 4096
++
++paddr_t dom0_get_fdt_size_hint(void);
++
+ #if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
+ /* Utility function to determine if an Armv8-R processor supports VMSA. */
+ bool has_v8r_vmsa_support(void);
+diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+index 21f4273fa1..17c5b9bce4 100644
+--- a/xen/arch/arm/include/asm/kernel.h
++++ b/xen/arch/arm/include/asm/kernel.h
+@@ -8,12 +8,20 @@
+ 
+ #include <asm/domain.h>
+ 
++#include <xen/types.h>
++
++struct kernel_info;
++
+ struct arch_kernel_info
+ {
+     /* Enable pl011 emulation */
+     bool vpl011;
+ };
+ 
++#define arch_get_min_first_bank_size arch_get_min_first_bank_size
++paddr_t arch_get_min_first_bank_size(struct kernel_info *info,
++                                     paddr_t bank_start);
++
+ #endif /* #ifdef __ARCH_ARM_KERNEL_H__ */
+ 
+ /*
+diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+index b72585b7fe..3644663e2f 100644
+--- a/xen/arch/arm/kernel.c
++++ b/xen/arch/arm/kernel.c
+@@ -128,6 +128,41 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
+     return load_addr;
+ }
+ 
++static paddr_t __init kernel_placement_size(paddr_t load_addr, paddr_t len)
++{
++    return ROUNDUP(load_addr + len, MB(2)) - load_addr;
++}
++
++paddr_t __init arch_get_min_first_bank_size(struct kernel_info *info,
++                                            paddr_t bank_start)
++{
++    const struct boot_module *mod = info->bd.initrd;
++    const paddr_t initrd_len = ROUNDUP(mod ? mod->size : 0, MB(2));
++    const paddr_t dtb_len = ROUNDUP(dom0_get_fdt_size_hint(), MB(2));
++    paddr_t kernsize;
++
++#ifdef CONFIG_HAS_DOMAIN_TYPE
++    if ( (info->type == DOMAIN_64BIT) && (info->image.start == 0) )
++    {
++        paddr_t load_addr = bank_start + info->image.text_offset;
++
++        /*
++         * The caller compares this value with a size measured from
++         * bank_start, so include the text offset before the kernel.
++         */
++        kernsize = ROUNDUP(load_addr + info->image.len, MB(2)) - bank_start;
++        return kernsize + initrd_len + dtb_len;
++    }
++#endif
++
++    if ( info->image.start == 0 )
++        kernsize = ROUNDUP(info->image.len, MB(2));
++    else
++        kernsize = kernel_placement_size(info->image.start, info->image.len);
++
++    return kernsize + initrd_len + dtb_len;
++}
++
+ static void __init kernel_zimage_load(struct kernel_info *info)
+ {
+     paddr_t load_addr = kernel_zimage_place(info);
+diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
+index 2a760b007b..d8865db259 100644
+--- a/xen/common/device-tree/domain-build.c
++++ b/xen/common/device-tree/domain-build.c
+@@ -299,20 +299,33 @@ static bool __init allocate_hwdom_memory(struct kernel_info *kinfo)
+ 
+     for ( i = 0; (kinfo->unassigned_mem > 0) && (i < nr_banks); i++ )
+     {
+-        paddr_t bank_size;
++        const paddr_t bank_start = hwdom_free_mem->bank[i].start;
++        paddr_t bank_size = hwdom_free_mem->bank[i].size;
++
++        /*
++         * Check the size that would actually be assigned, not just the size
++         * of the host region.
++         */
++        bank_size = min(bank_size, kinfo->unassigned_mem);
+ 
+         /*
+          * The first bank must be large enough for place_modules() to
+          * fit the kernel, DTB and initrd.  Skip small regions to avoid
+          * ending up with a tiny first bank.
+          */
+-        if ( !mem->nr_banks && (hwdom_free_mem->bank[i].size < min_bank_size) )
+-            continue;
++        if ( !mem->nr_banks )
++        {
++            paddr_t arch_min_size;
++            paddr_t required_first_bank_size;
++
++            arch_min_size = arch_get_min_first_bank_size(kinfo, bank_start);
++            required_first_bank_size = max(min_bank_size, arch_min_size);
++
++            if ( bank_size < required_first_bank_size )
++                continue;
++        }
+ 
+-        bank_size = MIN(hwdom_free_mem->bank[i].size, kinfo->unassigned_mem);
+-        if ( !allocate_bank_memory(kinfo,
+-                                   gaddr_to_gfn(hwdom_free_mem->bank[i].start),
+-                                   bank_size) )
++        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), bank_size) )
+         {
+             xfree(hwdom_free_mem);
+             return false;
+diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
+index 8cd1670c2c..931b3e1686 100644
+--- a/xen/include/xen/fdt-kernel.h
++++ b/xen/include/xen/fdt-kernel.h
+@@ -86,6 +86,14 @@ kernel_info_get_mem_const(const struct kernel_info *kinfo)
+     return container_of(&kinfo->mem.common, const struct membanks, common);
+ }
+ 
++#ifndef arch_get_min_first_bank_size
++static inline paddr_t arch_get_min_first_bank_size(struct kernel_info *info,
++                                                   paddr_t bank_start)
++{
++    return 0;
++}
++#endif
++
+ #ifndef KERNEL_INFO_SHM_MEM_INIT
+ 
+ #ifdef CONFIG_STATIC_SHM
 -- 
-2.53.0
+2.43.0
 
 
