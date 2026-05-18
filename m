@@ -2,48 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6DyeLSB/C2r8IQUAu9opvQ
+	id OFfVLKeAC2pvIgUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 23:05:36 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 23:12:07 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B6E7573A35
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 23:05:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312239.1582384 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A9D6573A8E
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 23:12:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312248.1582392 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP59M-0007IX-Kp; Mon, 18 May 2026 21:05:20 +0000
+	id 1wP5Fe-0000cp-Aj; Mon, 18 May 2026 21:11:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312239.1582384; Mon, 18 May 2026 21:05:20 +0000
+Received: by outflank-mailman (output) from mailman id 1312248.1582392; Mon, 18 May 2026 21:11:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP59M-0007GW-H3; Mon, 18 May 2026 21:05:20 +0000
-Received: by outflank-mailman (input) for mailman id 1312239;
- Mon, 18 May 2026 21:05:18 +0000
+	id 1wP5Fe-0000aI-7s; Mon, 18 May 2026 21:11:50 +0000
+Received: by outflank-mailman (input) for mailman id 1312248;
+ Mon, 18 May 2026 21:11:48 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <gabi.qs.mail@gmail.com>) id 1wP59K-0007GQ-Ln
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 21:05:18 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <3kYALagYKCRgG2yB704CC492.0CAL2B-12J2996GHG.L2BDFC720H.CF4@flex--seanjc.bounces.google.com>)
+ id 1wP5Fc-0000aC-NY
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 21:11:48 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wP59J-009coL-JP
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 23:05:17 +0200
-Received: from [10.42.69.4] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <gabi.qs.mail@gmail.com>)
- id 6a0b7efc-5cb7-0a2a0a5109dd-0a2a4504ccc0-16
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 23:05:17 +0200
-Received: from [209.85.221.49] (helo=mail-wr1-f49.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <gabi.qs.mail@gmail.com>)
- id 6a0b7f0d-1dec-0a2a45040019-d155dd31b507-3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 23:05:17 +0200
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-45ae6a0e523so1431151f8f.1
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 14:05:17 -0700 (PDT)
-Received: from fedora ([212.231.230.22]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da0a17a22sm40443669f8f.22.2026.05.18.14.05.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 May 2026 14:05:16 -0700 (PDT)
+ id 1wP5Fc-00FfbF-06
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 23:11:48 +0200
+Received: from [10.42.69.5] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <3kYALagYKCRgG2yB704CC492.0CAL2B-12J2996GHG.L2BDFC720H.CF4@flex--seanjc.bounces.google.com>)
+ id 6a0b8076-e002-0a2a0a5209dd-0a2a450590fc-32
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 23:11:47 +0200
+Received: from [209.85.214.201] (helo=mail-pl1-f201.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <3kYALagYKCRgG2yB704CC492.0CAL2B-12J2996GHG.L2BDFC720H.CF4@flex--seanjc.bounces.google.com>)
+ id 6a0b8092-aaa8-0a2a45050019-d155d6c9c474-3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 23:11:47 +0200
+Received: by mail-pl1-f201.google.com with SMTP id
+ d9443c01a7336-2ba3245a43dso29499985ad.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 14:11:47 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,149 +53,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=google.com header.i="@google.com" header.h="To:From:Subject:Message-ID:References:Mime-Version:In-Reply-To:Date"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779138317; x=1779743117; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=agHCrwJYP0DCxaiVVTnVqUVT8BS6ccgDGvOgzoEs3C4=;
-        b=iNx23pqOp5n8Zstd1aSEz+UOlJ6s0IWCLpGRKuk9gv6+NPTb+KeGyXfB+mJh5Zq7kg
-         uZBbE8lZQNfTDVKiDHg81fRL8YWXIZcqME4Hajezhq4kavOTFL1JjC+HZcnD3gfDVKg2
-         oScj7lsWjBykG5mVYTuRqqOvyCMnFlz69pUllcIzubwLgoN4AR1GC1Bykd8MOzIUe3xf
-         D8Gg+dxBQnPHUOPzI/9Y/Du/vsUdVNdMmAFPHfmdyFWAZHVHFANBke+Oh1lPfH3oa7b/
-         8maf6QEwXb0hJ7qQBENTG831Sivk4h9epXKdZ22/bVebOx9aEYFjAoChx63LUIKwGzWT
-         kQ9A==
+        d=google.com; s=20251104; t=1779138706; x=1779743506; darn=lists.xenproject.org;
+        h=to:from:subject:message-id:references:mime-version:in-reply-to:date
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=M0HR0/OeCt5J6wDdP6oTOA3/U+zZIegjjUJa8wpeaiw=;
+        b=oHa+fhmoEyvGpMxzcJoQbuLyHNZk6Kc2g4bme75/EsQzqLW7As0RohEzxvTbtFL17i
+         i0ZJ6kfo7I2sU2rC+Tvvvv7QnGDhJ2fF/CElTc8u6bBej4EaK4sDQmjJhfRWctE0U8vs
+         VcvQ73XBAvDw+JP5+UY7RzOd8luHTussH6IvPXNZt3Es6Kdbdc4PKo1QePag6HxJvBOj
+         Py8q7q0+RUAwcjfBcs3qFcz1wk9sBW+lmRAoq8UPRTbukmTRJCmIpvBDCCSfZIx3J70Q
+         18GdmiP8k/x0u0vRFwwZQy97OjdKUPucK9YsM9HgCI8jWc10rbC1MnhdXLRncMdCoUYK
+         dxWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779138317; x=1779743117;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=agHCrwJYP0DCxaiVVTnVqUVT8BS6ccgDGvOgzoEs3C4=;
-        b=SHnuBss08wuC1uNuWLrHJdMmuhf7mt0I8PWN/CdQ95xMnSVFf7UGrZ4GDZsw6NdjyW
-         oe57w7QuD2a91mlc+UOIPJHlFEkRqWvY80ENJ2ooF9C7tZHOmkFUx6kMZwLDsuWCz7Ub
-         qSY1x0YRE8+MYlUILVJaE5RqDfKQnxoYs7fzQVqfnQMiT5g1YrEnhKbk7+hqFDDD87TU
-         4ycSxMxxXxgG6oi308Qc6j9BiNQQpd6han9iYsfv2Wl6TUUEmwwmAYpJnDMlWkJvjaTr
-         BCgpksU/V9KK5b3qPCjePU7f7W1SquPczsjmE3ZsR8pHNvrE1CnUollRcoyk3M/SXoNI
-         2heA==
-X-Gm-Message-State: AOJu0YzyMU1Rj6SBXHdD8U1S61fOlo0wHBtU4aOsSbzoe0qNCqCWBAAk
-	3mA6U2YCxZijH7MIXCDbyYuLf5wtYb/+NLBz1ODha+vRlPhDtJH9hca6g8aSrlWYQ1A=
-X-Gm-Gg: Acq92OGaasIoxL2d+Z4iiwvWoJwzut1gPK3qEEUMfk2/TFmDhtoVfa5C/n2DRjNBVDj
-	Ry163sHFT61XbKNcXhbA86dVVT1xPYv8KlMCvyqVkQAJIPxtvS6885phK22pUNuBBmPRKICPN7b
-	QBZl3vBPck+7JC/SRO45O5M4wEgVFfyh6KkngY3UkRNpHPFN1ZDGlCPSWu37sRPDyfARPvnI8Oo
-	WRj+Cde6srod8MBtgztmJrK9pNVk0+9ryZ2gBBwSkuPVwCYaJdPNStwtRjkNQfnaoxSJ7aKkQoW
-	mFLpLYEeaXfkYm0g8oyucprb0yqan7/U5mqRAjTXxi9kDpjIcsj6mE8K/J6UM8xPRZPpFjW2G1G
-	SZzA3OUmnO8ZOhS3r68TRr9BLr/gyqi1IK9iRYM8sZPadCbAHXtp/8xKVJFxJhHQWlD3cA97bF9
-	8A87b7I8PowZFk9LbXF6zCR7U5fCKtrtU=
-X-Received: by 2002:a05:6000:400f:b0:456:15fa:9eba with SMTP id ffacd0b85a97d-45e5c5a56f7mr25710079f8f.43.1779138316581;
-        Mon, 18 May 2026 14:05:16 -0700 (PDT)
-From: =?UTF-8?q?Gabriel=20Quint=C3=A1ns=20Souto?= <gabi.qs.mail@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	julien@xen.org,
-	bertrand.marquis@arm.com,
-	michal.orzel@amd.com,
-	=?UTF-8?q?Gabriel=20Quint=C3=A1ns=20Souto?= <gabi.qs.mail@gmail.com>
-Subject: [PATCH v3] arm: Fix PT_PT table descriptor value and comment
-Date: Mon, 18 May 2026 23:00:08 +0200
-Message-ID: <20260518210340.81347-1-gabi.qs.mail@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <b0a7dbdf-775a-45e2-bee4-d234ca21c002@amd.com>
-References: <b0a7dbdf-775a-45e2-bee4-d234ca21c002@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ebf023/1779138317-28F753FF-7C68DAAE/0/0
+        d=1e100.net; s=20251104; t=1779138706; x=1779743506;
+        h=to:from:subject:message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=M0HR0/OeCt5J6wDdP6oTOA3/U+zZIegjjUJa8wpeaiw=;
+        b=nOOCVSdY4P1qrnw7bgtd7UCHFcLsjIUMH7pUUD9dVP10qTMn3gVkuy1R9NDkf8FWqa
+         awUc+w4P4xaPjSX+xHs0hMDykebz3iKMS0MWjCiNu1IOsjhwkrXYVfi7fRRjOi0G60z6
+         ySDISS8KHRwfghtO+FX6INtdLocqey+UZKR+epsSpqTaBqCoN0cpgiYdKKIQhauVUXMS
+         YP4O9vFi0lN5s568TidCj0dhI5Nnpy0gS3QluKnrbyhDxQ73oC+oPPXwpGLVC9V3v/an
+         8sqbd68CsZkbT/Zt0GYrNCXFGTglJ4V9Izi6AgQv23y7Z2kiu7Z0MtQIHjqVQduM+1Mr
+         eWxQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8qMAigoBmFAF5syJhYRi5Qu05JsMGfkMGPTWSX4A3TpfBM4IjdFK1cqBfYGUjLwHg7hmUIBn+BR2E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxBzifZ9E1ombSqeXusaCUs4paIir3XSvnBonFF7rSVy58wVxxY
+	3p1J5PqTeo4zR+YoWZRDEbTmEHESs88X0yKMw0hlmgauF9xM9V1KJuoTX8N15G9AMq1NqwzA4PH
+	m1zU7zw==
+X-Received: from plhq16.prod.google.com ([2002:a17:903:11d0:b0:2b2:43c2:a183])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:11c4:b0:2bd:9766:bd2b
+ with SMTP id d9443c01a7336-2bd9766be37mr135740745ad.19.1779138705542; Mon, 18
+ May 2026 14:11:45 -0700 (PDT)
+Date: Mon, 18 May 2026 14:11:44 -0700
+In-Reply-To: <20260515191942.1892718-1-seanjc@google.com>
+Mime-Version: 1.0
+References: <20260515191942.1892718-1-seanjc@google.com>
+Message-ID: <aguAkMTrkSVPthal@google.com>
+Subject: Re: [PATCH v3 00/41] x86: Try to wrangle PV clocks vs. TSC
+From: Sean Christopherson <seanjc@google.com>
+To: Kiryl Shutsemau <kas@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
+	Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov <alexey.makhalov@broadcom.com>, 
+	Jan Kiszka <jan.kiszka@siemens.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Juergen Gross <jgross@suse.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	John Stultz <jstultz@google.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stephen Boyd <sboyd@kernel.org>, x86@kernel.org, 
+	linux-coco@lists.linux.dev, kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, Michael Kelley <mhklinux@outlook.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
+	Thomas Gleixner <tglx@linutronix.de>, David Woodhouse <dwmw@amazon.co.uk>
+Content-Type: text/plain; charset="us-ascii"
+X-purgate-ID: tlsNG-c201ff/1779138707-E0A66443-D63935C1/0/0
 X-purgate-type: clean
-X-purgate-size: 1929
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+X-purgate-size: 1577
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	MV_CASE(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[google.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_DKIM_ALLOW(-0.20)[google.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:gabi.qs.mail@gmail.com,m:gabiqsmail@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,m:dwmw@amazon.co.uk,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[gabiqsmail@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_FROM(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FREEMAIL_TO(0.00)[kernel.org,redhat.com,microsoft.com,broadcom.com,siemens.com,linux.intel.com,infradead.org,suse.com,google.com,intel.com,oracle.com,lists.linux.dev,vger.kernel.org,lists.xenproject.org,outlook.com,amd.com,linutronix.de,amazon.co.uk];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	RCPT_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[34];
+	FORGED_SENDER(0.00)[seanjc@google.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[google.com:+];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[seanjc@google.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[gabiqsmail@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[kernel.org,xen.org,arm.com,amd.com,gmail.com];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 6B6E7573A35
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 2A9D6573A8E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Per ARMv7-A/ARMv8-A ARM, bits [11:2] of table descriptors are
-ignored by hardware. The original comment incorrectly described
-block/page descriptor fields which are not present in table
-descriptors.
+On Fri, May 15, 2026, Sean Christopherson wrote:
+> Dave/Thomas/Peter/Boris, what's the going rate for bribes to take something
+> like this through the tip tree?  
+> 
+> The bulk of the changes are in kvmclock and TSC, but pretty much every
+> hypervisor's guest-side code gets touched at some point.  I am reaonsably
+> confident in the correctness of the KVM changes.  Michael tested Hyper-V in
+> v2, and while there were conflicts when rebasing, they were largely
+> superficial (and I've just jinxed myself).  For all other hypervisors, assume
+> the code is compile-tested only, but those changes are all quite small and
+> straightforward.
+> 
+> The only changes that are questionable/contentious are the last two patches,
+> which have KVM-as-a-guest use CPUID 0x16 to get the CPU frequency, even on
+> AMD (that's the dubious part).  I very deliberately put them last, so that
+> they can be dropped at will (I don't care terribly if those patches land).
+> To merge them, I would want explicit Acks from Paolo and David W.
+> 
+> So, except for the last two patches, to get the stuff I really care about
+> landed, I think/hope it's just the TSC and guest-side CoCo changes that need
+> reviews/acks?
 
-Use the minimal valid encoding for table descriptors by setting
-PT_PT to 0x3.
+FYI, don't bother reviewing this version.  Sashiko found several glaring flaws,
+but I just realized that sashiko-bot's emails are only being sent to myself and
+linux-hyperv@vger.kernel.org.  I'll make sure to highlight the changes in the
+next version.
 
-This updates both arm32 and arm64 for consistency.
-
-Signed-off-by: Gabriel Quintáns Souto <gabi.qs.mail@gmail.com>
----
-Changes in v3:
-- Use 0x3 instead of 0x403
-
-Changes in v2:
-- Apply fix to both arm32 and arm64
-- Use 0x403 instead of 0x743
----
- xen/arch/arm/arm32/mmu/head.S | 2 +-
- xen/arch/arm/arm64/mmu/head.S | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/xen/arch/arm/arm32/mmu/head.S b/xen/arch/arm/arm32/mmu/head.S
-index cab7be0621..3731322f7e 100644
---- a/xen/arch/arm/arm32/mmu/head.S
-+++ b/xen/arch/arm/arm32/mmu/head.S
-@@ -8,7 +8,7 @@
- #include <asm/page.h>
- #include <asm/early_printk.h>
- 
--#define PT_PT     0x403 /* AF=1 T=1 P=1 (bits [11:2] ignored in table descriptors) */
-+#define PT_PT     0x3   /* T=1 P=1 */
- #define PT_MEM    0xf7d /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=0 P=1 */
- #define PT_MEM_L3 0xf7f /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=1 P=1 */
- #define PT_DEV    0xe71 /* nG=1 AF=1 SH=10 AP=01 NS=1 ATTR=100 T=0 P=1 */
-diff --git a/xen/arch/arm/arm64/mmu/head.S b/xen/arch/arm/arm64/mmu/head.S
-index 375d703d9b..8e514d2114 100644
---- a/xen/arch/arm/arm64/mmu/head.S
-+++ b/xen/arch/arm/arm64/mmu/head.S
-@@ -8,7 +8,7 @@
- #include <asm/page.h>
- #include <asm/early_printk.h>
- 
--#define PT_PT     0x403 /* AF=1 T=1 P=1 (bits [11:2] ignored in table descriptors) */
-+#define PT_PT     0x3   /* T=1 P=1 */
- #define PT_MEM    0xf7d /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=0 P=1 */
- #define PT_MEM_L3 0xf7f /* nG=1 AF=1 SH=11 AP=01 NS=1 ATTR=111 T=1 P=1 */
- #define PT_DEV    0xe71 /* nG=1 AF=1 SH=10 AP=01 NS=1 ATTR=100 T=0 P=1 */
--- 
-2.54.0
-
+In the meantime, Sashiko's feedback is archived on lore if you want to see me
+get torched by AI :-)
 
