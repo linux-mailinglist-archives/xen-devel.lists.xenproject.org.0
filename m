@@ -2,48 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +DJpER0uC2plEQUAu9opvQ
+	id qC+LBs4uC2plEQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:19:57 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:22:54 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD0A456FCB8
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:19:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312016.1582186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4950756FD5B
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:22:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312030.1582203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOzkh-0000Xf-Ti; Mon, 18 May 2026 15:19:31 +0000
+	id 1wOznp-0002WF-JB; Mon, 18 May 2026 15:22:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312016.1582186; Mon, 18 May 2026 15:19:31 +0000
+Received: by outflank-mailman (output) from mailman id 1312030.1582203; Mon, 18 May 2026 15:22:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOzkh-0000VV-QR; Mon, 18 May 2026 15:19:31 +0000
-Received: by outflank-mailman (input) for mailman id 1312016;
- Mon, 18 May 2026 15:19:30 +0000
+	id 1wOznp-0002Tk-GK; Mon, 18 May 2026 15:22:45 +0000
+Received: by outflank-mailman (input) for mailman id 1312030;
+ Mon, 18 May 2026 15:22:44 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wOzkg-0000VP-L0
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 15:19:30 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3bae951e000f373@swg.vates.tech>)
+ id 1wOznn-0002SL-SU
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 15:22:44 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wOzkf-009ZjU-Ev
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 17:19:29 +0200
-Received: from [10.42.69.3] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a0b2df5-bab6-0a2a0a5309dd-0a2a4503acdc-28
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:19:29 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a0b2e00-672d-0a2a45030019-d1558032f0b4-3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:19:28 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-488d2079582so23072215e9.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 08:19:28 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe5694fbfsm455202775e9.6.2026.05.18.08.19.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 May 2026 08:19:27 -0700 (PDT)
+ id 1wOznn-00AUfW-8R
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 17:22:43 +0200
+Received: from [10.42.69.9] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3bae951e000f373@swg.vates.tech>)
+ id 6a0b2eb3-2eae-0a2a0a5409dd-0a2a4509b9ec-48
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:22:43 +0200
+Received: from [185.255.28.34] (helo=prod-mta-13.swg-srv.net)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3bae951e000f373@swg.vates.tech>)
+ id 6a0b2ec2-2497-0a2a45090019-b9ff1c229311-3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:22:42 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19e3bae951e000f373.006 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Mon, 18 May 2026 15:22:37 +0000
+Received: from localhost.localdomain (88-175-170-134.subs.proxad.net
+ [88.175.170.134]) (Authenticated sender: teddy.astie@vates.tech)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 0AC5F8661A;
+ Mon, 18 May 2026 17:22:37 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,145 +61,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779117568; x=1779722368; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ep7xTMulpjYnoCRJahZI/ruB9JBQthJc0DK1bBUJPLU=;
-        b=LTUJSg+SPQrb5Vpt7bgRkJUhjS1lhyq432vnNBjQLjvYrczzYkZAgSRvLvXqwH1xXS
-         JJIAoOjZwU9qe2MlQeVB8lyjqOu9Y2VfmTtyX9N3T3aTborfsgbeP4wdNlaobZzpsnts
-         eq/+SzIC2r2DiNdaUg8kAS7japg3G+nffSUk33oDW+ii4E0Dr2C9P5wGE3/w3CYexRCF
-         OU/35Ckk4qLiOldkQxQl6Mlz3fYp2yTmb00gfHgbkD4lNPW7lml3V0ZMg3UGsDKisVda
-         I0leUXGvpx5xYxad/nRwjvXI5Dofd37VUEDjYgGrsjIVatnkiO82agLRCcrQ0LfdSmB4
-         oHaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779117568; x=1779722368;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ep7xTMulpjYnoCRJahZI/ruB9JBQthJc0DK1bBUJPLU=;
-        b=MfP0BO1t8uj2sPNzqg4957Pc/hzHdjMgbpXS4kgJ65s+7joUvwaKxSBbwNprtnfvVB
-         kBrb69PrlGbUczAH4RKObr178hrwFsVsRr5uZGFYnzo8nD+hhbpABqUrmFDy6PpDfRqI
-         ySf14eTykbQqq0erEWGtfohh7jVa//kFwTztvYNYxtpv1u2apyfhBrf3sk67o/CNst/4
-         3lDelDQGAzMS/ol8dWSkTkdobzg+7OAOFGgxrEal+0fGk0qdwVwum4EKS1IB40HvHVCe
-         s5dMbJhrpm5j5yxBawQhg5EEChDXsMcDN44P/Xsg7QkamDtmxpJk6dID/4SYDFkmZRFN
-         vZnA==
-X-Forwarded-Encrypted: i=1; AFNElJ8kh/+Km797sSRmpzREdyOh7Dzy6tNAyqxscpUU6VbH8YHokUaBKd1s5i/P5CPw2+u70r/Vgq9VkIY=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzQBlMXZiuH1gM6wnCos/tU39cLw8ANN24F4JDKi4UuTfSj4UKe
-	RIJfX5qPtd04Mwlh/HfBswKSmhEOPZYkEVQBIEe/gF/D1lG4SXmhTdQSaoRPlJvx+Q==
-X-Gm-Gg: Acq92OG/XTK67Oz/3OhNQIVwe7unCRWQgpDf0zMbnFCRqb1FBxFFcNEs/6dLxwcuX71
-	fLpFBN9hvHcMBkORS9BAjna+MjqcSUwov9Q4FXezw7vem6mtLioXGpDEqFbnIo4TD7cVXfjJq1P
-	s58wGhbOZkKseexYFW9l/34HhpR4HM09uKezUXIJEnPY/RQquGwLYU4Cc1z0nyf8KGY0YdrQN3V
-	/8qobAyzbXrGCn9R9ySCUaUO0ba7aREJA8cJPgcdt/Lgnt02PCXrMq+NI8S7LoYZ22VmyPKTagQ
-	4slEgDrIqlBdFSv/613li6bTlzN+UNOZUhReSqnVj9Jzq4P/PKB3EarBMEHNsTFGF/IjtTaC+z+
-	wczU+6Cch7BwAOHLGDjNs0vFQ5AMYGI9lnlFqjnMuPLvvxAsYP0/IINaHyOwraTrTxdqwyDzU75
-	ZC+nxd/2kuluYnQr2z7o3OuUlq/F+XWoOjh+xpnz5U1PT9C5Rjh9iQwngOZkNl0Agg/47yGnMwL
-	ZskiZB49YtmKNHEq2SEC2z0xw==
-X-Received: by 2002:a05:600c:821b:b0:488:b811:51c4 with SMTP id 5b1f17b1804b1-48fe6515831mr227013125e9.25.1779117568121;
-        Mon, 18 May 2026 08:19:28 -0700 (PDT)
-Message-ID: <c102da85-ca30-4c77-b4a6-a91ae2f9d47a@suse.com>
-Date: Mon, 18 May 2026 17:19:27 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=vates.tech header.i="@vates.tech" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:Feedback-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=eY2fdw+gmvQcsbHIwQEVTX0BWf+Umr3H4vi3FSP+vPs=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:feedback-id;
+ b=mrZSNL15/2otbQ+Cc7U2CURUdyavKWBFjvCttg6Yy9el0TJGzG15c8jgzq4DIY4+pIXqMamHp
+ CPAIPzNqxtdAuc1b+XY/5Xr5Zpk2HPEXJaPSS49p0oFhdDAAFRCOQOQiXjPeopC21u1vRsYNGKa
+ HtMBYfR2OZzPCy9Q/PtiRNLoT1CjVpKDZFcn0XVYOXJLAjFvhdlnGNltHRlacEflTWZCAf9DMAl
+ FDvu9mUD5Eag5Oqh5FI6RttRWaD8yOt6Tc88RpCXKpvPXrtFC6pq1jEhXnXK552wl+PLsik8g9K
+ c+Zbn/4Pd6Cg6dH8/XCnEWFRPKJ4fn+eL9rO8AivMaGw==
+X-Zone-Loop: f7968938d8e7a305757c45ce51c9015bfb0ad428f836
+x-campaign-type: default
+x-transaction-id: 7dda9839-6225-433d-a97f-942a0b3ee0e7
+x-swg-uid: 01-cd6c7802-fc5a-42ff-be83-ccce10616db6
+X-Mailer: Sweego
+Message-ID:
+ <1779117757.8631fc262581453bbf619ec5b2062170.19e3bae951e000f373@vates.tech>
+x-swg-bid: 1779117757.8631fc262581453bbf619ec5b2062170.19e3bae951e000f373
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+From: Teddy Astie <teddy.astie@vates.tech>
+To: xen-devel@lists.xenproject.org
+Cc: Teddy Astie <teddy.astie@vates.tech>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Jason Andryuk <jason.andryuk@amd.com>
+Subject: [PATCH 0/5] Small PCI refactoring
+Date: Mon, 18 May 2026 17:21:24 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 07/11] xen/riscv: add Linux kernel loading support
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1778140240.git.oleksii.kurochko@gmail.com>
- <f77ef278b7df729a3a97a0e1b3ed0b4ee4d08fac.1778140240.git.oleksii.kurochko@gmail.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <f77ef278b7df729a3a97a0e1b3ed0b4ee4d08fac.1778140240.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1779117568-38149938-86D0F5B5/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 714
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.e0f.e56d5032f9a0f31f.19e3bae9324.438d1bb93da6ab6f=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1779117757225
+X-purgate-ID: tlsNG-bad1c0/1779117763-89D85A53-CA40CAD9/0/0
+X-purgate-type: clean
+X-purgate-size: 4492
+X-Spamd-Result: default: False [0.82 / 15.00];
+	URI_COUNT_ODD(1.00)[1];
+	MIME_MA_MISSING_HTML(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FROM_HAS_DN(0.00)[];
+	XM_UA_NO_VERSION(0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:jason.andryuk@amd.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+];
 	FORWARDED(0.00)[mailman];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,vates.tech:url,vates.tech:dkim,vates.tech:mid];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	TAGGED_RCPT(0.00)[xen-devel];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: AD0A456FCB8
+X-Rspamd-Queue-Id: 4950756FD5B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 07.05.2026 10:58, Oleksii Kurochko wrote:
-> Introduce support for loading a Linux kernel Image which is got by
-> uncompressing of Image.gz on RISC-V.
-> 
-> kernel_image_load() and place_modules() currently call panic() on
-> failure rather than returning an error. This is because the common
-> kernel_load() in common/device-tree/kernel.c does not expect a
-> return code. Handling errors gracefully would require a separate
-> refactor.
-> 
-> The implementation is based on the Xen Arm kernel loading code.
-> 
-> text_offset is available for both 32-bit and 64-bit Image, so fix
-> that.
-> 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---=Part.e0f.e56d5032f9a0f31f.19e3bae9324.438d1bb93da6ab6f=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+The goal of this series is to make some refactoring of some
+pci primitives to improve codegen and make code less verbose=2E
 
+A big chunk of it is converting many places where (seg, bus, dev, fn)
+is split into multiples variables and convert it into being just
+pci_sbdf_t, in particular in some PCI function parameters to reduce
+parameter count which usually translate into less registers to pass
+to the function=2E Moreover, we also avoid translating back and forth
+between pci_sbdf_t and individual (seg, bus, dev, fn)=2E
+
+Latest patch attempts to improve codegen of pci_conf_{read,write}N()
+by making them inline specialized variants of pci_mmcfg_{read,write}()
+in order to eliminate a particular `switch (len)` at compile time=2E
+
+No intended functional change, aside some parts of the codebase that will
+now correctly handle PCI segment when parsed while it was previously
+ignored (e=2Eg dbgp)=2E
+
+Bloat-o-meter is pretty telling
+
+add/remove: 4/2 grow/shrink: 11/14 up/down: 529/-1470 (-941)
+Function                                     old     new   delta
+pci_mmcfg_base                                 -     106    +106
+parse_pci_sbdf_seg                             -      88     +88
+parse_pci_sbdf                                 -      85     +85
+pci_dev_base                                   -      56     +56
+pci_conf_read16                               92     118     +26
+pci_conf_read8                                92     117     +25
+ehci_dbgp_init                               629     652     +23
+pci_conf_read32                               94     116     +22
+pci_conf_write32                              88     109     +21
+symbols_names                             106435  106452     +17
+symbols_sorted_offsets                     59672   59688     +16
+pci_conf_write16                              94     109     +15
+pci_conf_write8                               94     108     +14
+reserve_unity_map_for_device                 434     445     +11
+symbols_offsets                            31920   31924      +4
+mmcfg_intercept_write                        194     193      -1
+add_one_user_rmrr                            653     644      -9
+__find_dbgp                                   87      60     -27
+pci_device_detect                             89      55     -34
+pci_mmcfg_write                              197     152     -45
+_scan_pci_devices                            286     241     -45
+parse_ivrs_ioapic                            292     235     -57
+parse_rmrr_param                             484     420     -64
+register_one_rmrr                            389     324     -65
+parse_ivrs_hpet                              249     184     -65
+parse_ivmd_param                             651     570     -81
+acpi_parse_dmar                             2625    2520    -105
+get_virt                                     106       -    -106
+pci_mmcfg_read                               189       -    -189
+ns16550_init                                3205    3002    -203
+acpi_parse_dev_scope                        1465    1091    -374
+
+Teddy Astie (5):
+  pci: Introduce parse_pci_sbdf{_seg}()
+  vtd: Use pci_sbdf_t in acpi_parse_dev_scope()
+  pci: Use pci_sbdf_t in pci_device_detect()
+  pci: Parse into pci_sbdf_t directly
+  RFC: pci: Migrate pci_mmcfg_{read,write}() to pci=2Ec
+
+ xen/arch/x86/pv/ro-page-fault=2Ec          |   3 +-
+ xen/arch/x86/x86_64/mmconfig=2Eh           |  43 --------
+ xen/arch/x86/x86_64/mmconfig_64=2Ec        | 106 ++++----------------
+ xen/arch/x86/x86_64/pci=2Ec                | 122 +++++++++++++++++++++--
+ xen/drivers/char/ehci-dbgp=2Ec             |  35 +++----
+ xen/drivers/char/ns16550=2Ec               |  24 ++---
+ xen/drivers/char/xhci-dbc=2Ec              |   6 +-
+ xen/drivers/passthrough/amd/iommu_acpi=2Ec |  26 ++---
+ xen/drivers/passthrough/pci=2Ec            |  16 +--
+ xen/drivers/passthrough/vtd/dmar=2Ec       |  80 ++++++---------
+ xen/drivers/pci/pci=2Ec                    |  18 ++++
+ xen/include/xen/pci=2Eh                    |  11 +-
+ 12 files changed, 243 insertions(+), 247 deletions(-)
+
+--=20
+2=2E52=2E0
+
+
+
+-- 
+ | Vates 
+
+XCP-ng & Xen Orchestra - Vates solutions
+
+web: https://vate=
+s=2Etech
+---=Part.e0f.e56d5032f9a0f31f.19e3bae9324.438d1bb93da6ab6f=---
 
