@@ -2,49 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sCLxCfuWC2rXJgUAu9opvQ
+	id AMMRFzujC2ooKQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 00:47:23 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 01:39:39 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D60B574C84
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 00:47:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312281.1582429 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5DBF575076
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 01:39:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312304.1582437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP6jt-00058p-Kr; Mon, 18 May 2026 22:47:09 +0000
+	id 1wP7Xf-00049s-9T; Mon, 18 May 2026 23:38:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312281.1582429; Mon, 18 May 2026 22:47:09 +0000
+Received: by outflank-mailman (output) from mailman id 1312304.1582437; Mon, 18 May 2026 23:38:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP6jt-00056z-Gu; Mon, 18 May 2026 22:47:09 +0000
-Received: by outflank-mailman (input) for mailman id 1312281;
- Mon, 18 May 2026 22:47:08 +0000
+	id 1wP7Xf-00047l-6r; Mon, 18 May 2026 23:38:35 +0000
+Received: by outflank-mailman (input) for mailman id 1312304;
+ Mon, 18 May 2026 23:38:33 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <edgar.iglesias@gmail.com>) id 1wP6js-00056m-H4
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 22:47:08 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <BATV+b63a902a6511c8cff3bf+8303+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 1wP7Xa-00047e-9L
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 23:38:33 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wP6jr-004ZjV-TO
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 00:47:07 +0200
-Received: from [10.42.69.3] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <edgar.iglesias@gmail.com>)
- id 6a0b969b-e002-0a2a0a5209dd-0a2a4503a918-40
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 00:47:07 +0200
-Received: from [209.85.167.45] (helo=mail-lf1-f45.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <edgar.iglesias@gmail.com>)
- id 6a0b96eb-672d-0a2a45030019-d155a72dd8e4-3
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 00:47:07 +0200
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-5a8fbe18b1dso4771316e87.2
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 15:47:07 -0700 (PDT)
-Received: from gmail.com (213-67-3-247-no600.tbcn.telia.com. [213.67.3.247])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-395882c41c1sm14934341fa.12.2026.05.18.15.47.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 May 2026 15:47:05 -0700 (PDT)
+ id 1wP7XZ-00A6xQ-LF
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 01:38:29 +0200
+Received: from [10.42.69.9] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <BATV+b63a902a6511c8cff3bf+8303+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 6a0ba2ec-bab6-0a2a0a5309dd-0a2a4509affa-6
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 01:38:28 +0200
+Received: from [90.155.50.34] (helo=casper.infradead.org)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <BATV+b63a902a6511c8cff3bf+8303+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 6a0ba2f3-2497-0a2a45090019-5a9b3222c666-3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 01:38:27 +0200
+Received: from 54-240-197-225.amazon.com ([54.240.197.225]
+ helo=u09cd745991455d.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wP7XL-00000005GUS-2sDo; Mon, 18 May 2026 23:38:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,125 +54,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779144427; x=1779749227; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gj9Q26Xnp9vgzseXLrlgwBsXJj51q6a2TH2ZhhhDnDU=;
-        b=MYk0ymf8NLJITWwGuDHhYlIvtikKwbOhBTDvTHyLfR1P0H1un/bxgTOY5yhGixhdBd
-         RWC+Na9BNPUjA1ATrTyzwqWq3GzeRho/rYPSIcDwupJ6ttnn52/fOcbhSENa/lr6LIyR
-         nUMqLHOdULNZCjLziUkKw2zlrdKwvaIftkL6bliaNoHZCmtPW6gwVAwbVhpdluCE84+T
-         hhpe7/oDOdHrOvn4rGM7Y9jdGZ94HEx1OEEEJW7zbnfSU4YkxHNnCvitLicUWEw8F/ud
-         Z0LsiEKbTbKSYW6J63E3M02OUhN9Zbu79reMmrrPQZaLiaLw7KcsFG7Z5Wp9nPwDTlKo
-         oUrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779144427; x=1779749227;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=gj9Q26Xnp9vgzseXLrlgwBsXJj51q6a2TH2ZhhhDnDU=;
-        b=iC8l+KbxuFcMqD5Cji3xYdYM0yk2oUNojimRIlovdJYrVKzOiQ9IQ5IAWiitAIl7bq
-         1lR3irqJNxD7Bv8g9uM1A4JdcJYP5YU6WIoTRjvECVTd4ERCkFB4KZqWcY4nFCedqKL8
-         Lh5EFLKFd3AtbDsrqIL3Twbj2BZJNvtVTUcIJJ+FXOZezwUFrJXR5ilGcVtAsGWmHq03
-         PdspdyNA+vQK7azJN3+e5+mHr0DrzI8ps61xvilGAq1QLbDXUYD6aRU5joBY/RAMV6b9
-         qGw9dzxwvUnzulVIP6kU8AvCJ0taoWbxeVktgRVYcLR/jgkDqEoNgzuMgM+r3f49iRlo
-         EFYQ==
-X-Gm-Message-State: AOJu0YzeYnXV0a5aEqndnDgzRV/HIt4jGc8RBeCLiNLuOQnRmvhcebg+
-	z5BKiHeZxafYQJ02a4emP8WfiiMwAHKHxXB2O8ZVMXzj+7ho+vnsA/wDwhZIHQ==
-X-Gm-Gg: Acq92OEh/AYPlq0zjaQs5yOi8IA2VILh5ooDsF7bB+Vi5LHYssFsE1rF+moMnq8C8Xy
-	i1D9rW/5FXMBe7LGel3neuq7qstxzB4Ly5JfFxLIXqTOmBQKXdSYLthipL2ui06vWGaXJ2oS0o1
-	235xEXrtnJyLfEpHn/4FemuY7cdGdPuYgN/7+F0hNHE2JOKwJL/zvyvFeVM8AEXyfsJYUbIMxEs
-	EVuFgyq3Q5KN8bblBPInYpLu20FJe9XR+p+Jq8gEDc7kDggPXDKV9/UjDmuDBx3ipSaTBeMHqk/
-	U7lUl8mfir6K5LpLol6+EHQ2uC4xbzcLwHaPKJaSx+anIK7b4v/+JtshdY885iPzalWU9qW6Y/x
-	Fr8ZJkZ0Jz60k/NgdkF3LT50yoI9+pP8Zo5LI+wYU47IZ3LSt+fXTyu4hsGbMLhxarPKthgHHs4
-	Iug9/xML6LYBIgyZ3sn1o2CscCLGhc/eHwrkrXIq94xnv6ITZ4Du9Gb4VILIA=
-X-Received: by 2002:a05:6512:3a85:b0:5a8:f984:142c with SMTP id 2adb3069b0e04-5aa0e742944mr4597322e87.12.1779144426918;
-        Mon, 18 May 2026 15:47:06 -0700 (PDT)
-From: "Edgar E. Iglesias" <edgar.iglesias@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	julien@xen.org,
-	bertrand.marquis@arm.com,
-	michal.orzel@amd.com,
-	Volodymyr_Babchuk@epam.com,
-	edgar.iglesias@amd.com
-Subject: [PATCH v1 1/1] xen/arm: gic-v3: Fix wake-up loop in gicv3_enable_redist
-Date: Tue, 19 May 2026 00:46:52 +0200
-Message-ID: <20260518224652.422864-2-edgar.iglesias@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260518224652.422864-1-edgar.iglesias@gmail.com>
-References: <20260518224652.422864-1-edgar.iglesias@gmail.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=casper.20170209 header.d=infradead.org header.i="@infradead.org" header.h="MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=ybRa/FKcrPbhXiFoMzbhw3eRNrNHkp49lvJnD4jyFgA=; b=dtdG+4Gdeg84QaH+8VNriJYoBT
+	WyboTRG7NvCI0iX/6Bh8KJOFRRhm3RzTgBjF+Md6KFnV5ODJhXyUBICKCBGFZZbW+f5VOiOihaK4p
+	Dx48fZ9qPlQhHdU4VhwMXWSngojfty/OM4XQ31H/+/VLzJp4RPfaQB5G9e9xzqnJj8txjasWjfdBu
+	vqtGwP+FW1dxS+GwNI76wn9utdQyT8VMRMsIkA5+LOKG5EYz0lTId0nHb9QuQigjq1WzcPHfGLWg/
+	7iT5QG4j5VP7zfEZprEQRdrxpJd2Y4/MKHfxTYHCUbiPvEozcoXvsnsTgh9gDubohNxpI3LjyPeju
+	IroO6uTQ==;
+Message-ID: <7260682b21c28d1299e58400b9a2f4b8d23bd434.camel@infradead.org>
+Subject: Re: [PATCH v3 00/41] x86: Try to wrangle PV clocks vs. TSC
+From: David Woodhouse <dwmw2@infradead.org>
+To: Sean Christopherson <seanjc@google.com>, Kiryl Shutsemau
+ <kas@kernel.org>,  Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan"
+ <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
+ <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li
+ <longli@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, Alexey
+ Makhalov <alexey.makhalov@broadcom.com>,  Jan Kiszka
+ <jan.kiszka@siemens.com>, Dave Hansen <dave.hansen@linux.intel.com>, Andy
+ Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Juergen Gross <jgross@suse.com>, Daniel Lezcano
+ <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, John Stultz
+ <jstultz@google.com>
+Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov
+ <vkuznets@redhat.com>, Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Stephen Boyd <sboyd@kernel.org>,
+ x86@kernel.org,  linux-coco@lists.linux.dev, kvm@vger.kernel.org,
+ linux-hyperv@vger.kernel.org,  virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org, Michael
+ Kelley <mhklinux@outlook.com>, Tom Lendacky <thomas.lendacky@amd.com>,
+ Nikunj A Dadhania <nikunj@amd.com>, Thomas Gleixner <tglx@linutronix.de>
+Date: Tue, 19 May 2026 00:38:13 +0100
+In-Reply-To: <20260515191942.1892718-1-seanjc@google.com>
+References: <20260515191942.1892718-1-seanjc@google.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-sVYMF3zPsR6TVbl8qGQi"
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1779144427-3B56F938-E1191340/0/0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-purgate-ID: tlsNG-bad1c0/1779147508-3777AA53-0135CA1A/0/0
 X-purgate-type: clean
-X-purgate-size: 849
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-purgate-size: 11024
+X-Spamd-Result: default: False [-1.49 / 15.00];
+	SIGNED_SMIME(-2.00)[];
+	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[edgariglesias@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:edgar.iglesias@amd.com,s:lists@lfdr.de];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[34];
+	FORWARDED(0.00)[mailman];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	FREEMAIL_CC(0.00)[intel.com,redhat.com,broadcom.com,oracle.com,kernel.org,lists.linux.dev,vger.kernel.org,lists.xenproject.org,outlook.com,amd.com,linutronix.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[edgariglesias@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	DKIM_TRACE(0.00)[infradead.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 1D60B574C84
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: B5DBF575076
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 
-timeout starts as false and is only set on the timeout break, so the
-loop always exits after one iteration and a stuck redistributor is
-silently treated as woken. Use while ( 1 ) to match the sibling
-gicv3_do_wait_for_rwp().
+--=-sVYMF3zPsR6TVbl8qGQi
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: bc183a0235 ("xen/arm: Add support for GIC v3")
-Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
----
- xen/arch/arm/gic-v3.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
+> Dave/Thomas/Peter/Boris, what's the going rate for bribes to take somethi=
+ng
+> like this through the tip tree?
+>=20
+> The bulk of the changes are in kvmclock and TSC, but pretty much every
+> hypervisor's guest-side code gets touched at some point.=C2=A0 I am reaon=
+sably
+> confident in the correctness of the KVM changes.=C2=A0 Michael tested Hyp=
+er-V in
+> v2, and while there were conflicts when rebasing, they were largely
+> superficial (and I've just jinxed myself).=C2=A0 For all other hypervisor=
+s, assume
+> the code is compile-tested only, but those changes are all quite small an=
+d
+> straightforward.
+>=20
+> The only changes that are questionable/contentious are the last two patch=
+es,
+> which have KVM-as-a-guest use CPUID 0x16 to get the CPU frequency, even o=
+n
+> AMD (that's the dubious part).=C2=A0 I very deliberately put them last, s=
+o that
+> they can be dropped at will (I don't care terribly if those patches land)=
+.
+> To merge them, I would want explicit Acks from Paolo and David W.
+>=20
+> So, except for the last two patches, to get the stuff I really care about
+> landed, I think/hope it's just the TSC and guest-side CoCo changes that n=
+eed
+> reviews/acks?
+>=20
+> The primary goal of this series is (or at least was, when I started) to
+> fix flaws with SNP and TDX guests where a PV clock provided by the untrus=
+ted
+> hypervisor is used instead of the secure/trusted TSC that is controlled b=
+y
+> trusted firmware.
+>=20
+> The secondary goal is to draft off of the SNP and TDX changes to slightly
+> modernize running under KVM.=C2=A0 Currently, KVM guests will use TSC for
+> clocksource, but not sched_clock.=C2=A0 And they ignore Intel's CPUID-bas=
+ed TSC
+> and CPU frequency enumeration, even when using the TSC instead of kvmcloc=
+k.
+> And if the host provides the core crystal frequency in CPUID.0x15, then K=
+VM
+> guests can use that for the APIC timer period instead of manually calibra=
+ting
+> the frequency.
+>=20
+> The tertiary goal is to clean up all of the PV clock code to deduplicate =
+logic
+> across hypervisors, and to hopefully make it all easier to maintain going
+> forward.
 
-diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-index 7f365cdbe9..f03217282e 100644
---- a/xen/arch/arm/gic-v3.c
-+++ b/xen/arch/arm/gic-v3.c
-@@ -828,7 +828,7 @@ static int gicv3_enable_redist(void)
-         }
-         cpu_relax();
-         udelay(1);
--    } while ( timeout );
-+    } while ( 1 );
- 
-     if ( timeout )
-     {
--- 
-2.43.0
+I booted this in qemu with -cpu host,+invtsc,+vmware-cpuid-freq
 
+I was expecting to see it eschew the kvmclock and use *only* the TSC.
+Is there even any need for 'tsc-early' given that it's *told* the TSC
+frequency in CPUID? Shouldn't it have detected that the TSC is known
+before init_tsc_clocksource() runs?
+
+And then it even spent some time at boot actually using the kvmclock as
+clocksource... when ideally I don't think it would even have *enabled*
+it at all?
+
+[    0.000000] clocksource: kvm-clock: mask: 0xffffffffffffffff max_cycles:=
+ 0x1cd42e4dffb, max_idle_ns: 881590591483 ns
+[    0.000000] tsc: Detected 2400.000 MHz processor
+[    0.008205] TSC deadline timer available
+[    0.008270] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0=
+xffffffff, max_idle_ns: 1910969940391419 ns
+[    0.159085] clocksource: hpet: mask: 0xffffffff max_cycles: 0xffffffff, =
+max_idle_ns: 19112604467 ns
+[    0.164074] clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles:=
+ 0x22983777dd9, max_idle_ns: 440795300422 ns
+[    0.229087] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xfffffff=
+f, max_idle_ns: 1911260446275000 ns
+[    0.337095] clocksource: Switched to clocksource kvm-clock
+[    0.345246] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, m=
+ax_idle_ns: 2085701024 ns
+[    0.356201] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x229=
+83777dd9, max_idle_ns: 440795300422 ns
+[    0.360560] clocksource: Switched to clocksource tsc
+
+
+--=-sVYMF3zPsR6TVbl8qGQi
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
+ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
+MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
+a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
+jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
+GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
+aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
+nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
+8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
+IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
+KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
+BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
+QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
+QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
+ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
+/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
+uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
+xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
+W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
+c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
+VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
+NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
+sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
+w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
+i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
+kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
+0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
+ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
+blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
+hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
+VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
+HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
+ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
+AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
+cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
+cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
+AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
+aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
+hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
+iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
+8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
+JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
+xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
+EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
+B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
+MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
+KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
+Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
+nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
+WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
+W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
+nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
+g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
+9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
+9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
+sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
+a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
+ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
+AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
+dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
+MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
+YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
+4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
+6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
+QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
+nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
+MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
+VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
+ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDUxODIzMzgx
+M1owLwYJKoZIhvcNAQkEMSIEICdpbo3FRjD2AASiln/oatPqw6OBqIGwJ89vQ7u8KoDcMGQGCSsG
+AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
+cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
+VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
+cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAX3Y4/TDg29Zl
+OlYDg5rl4FNcTkhdLPPU4NOnexpsV0ImspXiP9DmV6XCtGHlUzwU2QVmWEAKJ5gcWJDG109BJ4iD
+MxCvKPxWGIQv6XhRTnNHXdRVR47Cmi0iBkwH1qYGkPLDbevrZBye+PMkGo0xfTStett2FKx3J5kZ
+XveIeeAsSHlgf9mzo04N/SXhFZ1diqosTRs0bKrQTR8Yq4+23+HQgdCWfqie4gzeHaS8ncTOSQD3
+f9Gg2ntNVonQT8aaPU/oRVMRFX5vwmVT5dq6V2lTibWpW8DEHsfm3CKkQLMqbUJaKXzNuzMbPjDA
+py895Q8WQZJt7hDj5JpDRW2Wt0RaZP1MoaLDgWPs7DfY8WczAExYq9ChG2KtIVCJB5Ulvv+NMkpL
+rGHKe6CciVeN4AIXq2O81rpIo/u2X25skg7WLWMgWg/w/0lfODLGUMPUca0JN5eT2Rhr7gUFR/J8
+JUCGPPKTRJ8bQTPUXuck3zhspeWr65nn2W5NkR97txju6m8/UDGCwGwAKt/IogxYX9q2msD8/XJ7
+lXJ3YVePKePxCJuryW7H6tm70i/Xz2vpt37ctLT0gWm8Hk2gC54DxPqWicyaoLKityRxYrxL4God
+6oWdil4yhCPpUix045UYkrFJwSxgRwc3b4bDLKPNjAY+tmYkzEJiyID4znkkJsYAAAAAAAA=
+
+
+--=-sVYMF3zPsR6TVbl8qGQi--
 
