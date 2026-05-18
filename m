@@ -2,62 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KNpDD1GSC2ohJgUAu9opvQ
+	id 6B1wOZqUC2ohJgUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 00:27:29 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 00:37:14 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EE0C5746EE
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 00:27:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312262.1582402 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B3295749EC
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 00:37:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312269.1582410 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP60H-0006VS-RJ; Mon, 18 May 2026 22:00:01 +0000
+	id 1wP6Zm-00036g-BQ; Mon, 18 May 2026 22:36:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312262.1582402; Mon, 18 May 2026 22:00:01 +0000
+Received: by outflank-mailman (output) from mailman id 1312269.1582410; Mon, 18 May 2026 22:36:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP60H-0006SN-NO; Mon, 18 May 2026 22:00:01 +0000
-Received: by outflank-mailman (input) for mailman id 1312262;
- Mon, 18 May 2026 22:00:00 +0000
+	id 1wP6Zm-00035E-8W; Mon, 18 May 2026 22:36:42 +0000
+Received: by outflank-mailman (input) for mailman id 1312269;
+ Mon, 18 May 2026 22:36:41 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <prvs=591c97781=dwmw@amazon.co.uk>)
- id 1wP60G-0006Kf-JN
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 22:00:00 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wP6Zl-000358-8t
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 22:36:41 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wP60D-00Fk3Q-0U
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 23:59:57 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wP6Zk-00HTli-4e
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 00:36:40 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <prvs=591c97781=dwmw@amazon.co.uk>)
- id 6a0b8b8b-5cb7-0a2a0a5109dd-0a2a450cebb2-30
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 23:59:56 +0200
-Received: from [3.211.80.218]
- (helo=iad-out-005.esa.us-east-1.outbound.mail-perimeter.amazon.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <prvs=591c97781=dwmw@amazon.co.uk>)
- id 6a0b8bdb-62f1-0a2a450c0019-03d350da3660-3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 23:59:56 +0200
-Received: from ip-10-4-3-150.ec2.internal (HELO
- smtpout.naws.us-east-1.prod.farcaster.email.amazon.dev) ([10.4.3.150])
- by internal-iad-out-005.esa.us-east-1.outbound.mail-perimeter.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 May 2026 21:59:52 +0000
-Received: from EX19MTAUEB001.ant.amazon.com [72.21.198.67:31640]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.94.94:2525]
- with esmtp (Farcaster)
- id 7fef345e-b796-4a43-8663-485108bc2c9b; Mon, 18 May 2026 21:59:51 +0000 (UTC)
-Received: from EX19D001UEB002.ant.amazon.com (10.252.135.17) by
- EX19MTAUEB001.ant.amazon.com (10.252.135.108) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
- Mon, 18 May 2026 21:59:51 +0000
-Received: from EX19D001UEB002.ant.amazon.com (10.252.135.17) by
- EX19D001UEB002.ant.amazon.com (10.252.135.17) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.37;
- Mon, 18 May 2026 21:59:51 +0000
-Received: from EX19D001UEB002.ant.amazon.com ([fe80::19d6:e954:f18:6292]) by
- EX19D001UEB002.ant.amazon.com ([fe80::19d6:e954:f18:6292%3]) with mapi id
- 15.02.2562.037; Mon, 18 May 2026 21:59:51 +0000
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a0b9452-2eae-0a2a0a5409dd-0a2a45048334-8
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 00:36:40 +0200
+Received: from [209.85.208.177] (helo=mail-lj1-f177.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a0b9477-1dec-0a2a45040019-d155d0b1b8e3-3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 00:36:39 +0200
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-393c93a0166so31155171fa.2
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 15:36:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,297 +51,356 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=amazoncorp2 header.d=amazon.co.uk header.i="@amazon.co.uk" header.h="From:To:CC:Subject:Date:Message-ID:References:In-Reply-To"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1779143799; cv=none;
+        d=google.com; s=arc-20240605;
+        b=OF+Uj7cfKnYGSyn668pydX58vrnnvHoyY9yY8pNUCbLCX2a9o+fsN0f1dhucS3Zbfr
+         xXqdw3qZUls7GDSUpd+r7y9O/Dlqc+YirRVB98PuzudLf7z3P+ORyW5X0O2AGNO3JGCj
+         vQrxlsmGn5k3gAYoVFXwlVfB7JASGSikRBStfXozyE8t3oQVyEIWFF97tLycHuPqCP66
+         MYZ3e4srd0SivZhRZlbSLFpYHwla8MWJh6Da32Y33BuOdB16SPvyznYjZSUvMmNaYoZI
+         SiChD/GUcH+2ck7bj6MG7ArYv7v+QKoEtjR2V3SOu0xuaapBQ2jkI8IU2tUAS+6nNY/7
+         REUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vxjc9Rh85UVDLOa6UVs+hSnPillcyypzCV/sXZmXpZM=;
+        fh=URHEk7klKxjqc5bXwxtPgt12zwbJaOVjsCphaVnE7cw=;
+        b=S2iIOZn2NA5XtDcw7FRGgDeyxeznBBR1RPqQwMd7Yl/3wNvJ6MrTOVRq5UInQYelQO
+         pMJCrFmdeCiibGW4M+8bRbQP6WcedIQ0hJkn9PO2jmFyBR7pMG7DjvpURzz/eylRf3vP
+         3/uuzopnKdTbwZFp6ilVPsMTuanrE9+DPxthprU2dHgt9klsjXoFFxZTbTUu1RjmVgEW
+         oxEo8QWaAqrC478K2cH7+iyWx+fgWQ9M3on3TSg5piPNSfLFMZxUdoNOIz44tpV8HQFc
+         Jmm3K4QFjbPC8jT/jnpDGuCgaM6+6mch/Lpy0TepuBUJZVawG+BaiID1yAVN22Or//CA
+         2FGA==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
-  s=amazoncorp2; t=1779141596; x=1810677596;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to;
-  bh=UY4px7obefDkFSqtaMX8W1nqhkHCToXgPd5bqMLXMUU=;
-  b=s034rcmGp4TIFYSid6n8PJcuq2IX2/8c04vw2V/3r3bm5BJuzAqXeg+E
-   cbR2cgDi1wt0eSUid0wu52PSZ+XVpjzonR60EhZZz9tFfzryw18rdGWHc
-   KyOTViQ+rmVh+1xybtq/JpUgjwf38BBPH7J8mXY9poVcCwM5SvqxAkmOo
-   Dn4k3mN9FwxMHP+l/VtGwfzCM7DqRDa7LPBE6IJ6U6dKqHQy73wgstkCG
-   g+YqJJcXqCJWHQfRaVuFfBsWjcfChpGGQU0Q882rPY4DzvS5o5oK7UsLh
-   pCQZpgAl92ZE4ljGlWKayZfyr5eSCfDoUwGeNozRKDeWkrZNggzfv96Oc
-   Q==;
-X-CSE-ConnectionGUID: gTMEk/4WTCen/jZTSjFtkg==
-X-CSE-MsgGUID: 8tZ40CHMRQSBVjZo5QI3zg==
-X-Amazon-filename: smime.p7s
-X-IronPort-AV: E=Sophos;i="6.23,242,1770595200"; 
-   d="p7s'346?scan'346,208,346";a="18989139"
-Content-Type: multipart/mixed; boundary="===============4007323092883351321=="
+        d=gmail.com; s=20251104; t=1779143799; x=1779748599; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=vxjc9Rh85UVDLOa6UVs+hSnPillcyypzCV/sXZmXpZM=;
+        b=k7q4nOB1an6n7Ev76exccvK76OaSUynCgabgMMv4vlf9zj0k7UrfIKlDoIvnDSU0sm
+         aphpJtxtpFdDLIPbvewpGTApHYg6FKiJ1ms16WseL9k1wRIoEDaaDMAHv+ZCM1Lfqk4n
+         H+bUiesnuAlkedxWDrESg/PciLV70j7ovxrB/QTJvPyRk4CJgzUQRFkGQ7IfkzrR2MDV
+         9xp8ptSKHdpCWkPOiWWwdapeRZo1LMKyT/ry4gjSQKt7IvSKh/8sNi6ccFaQeDKnYs8+
+         evvBH8DnhcGZsAVNpkuVz2DHPfNwFoWSi17FcTYc+Bna0ADMRbu4mMTjjjlNd+/lpYJB
+         6pCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779143799; x=1779748599;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=vxjc9Rh85UVDLOa6UVs+hSnPillcyypzCV/sXZmXpZM=;
+        b=n/NTni7nTVAsoLyfpkYQ4uGqXxuVCXAJtOVa8biES5PWdll8Q7rKWaX5uiF11U0e8V
+         kfecnLCFV0UWpv/bNvq5yEw80c7zudQWesi4si3f7HA+CJKlHXkz3W+CyrVIo2W7NW4v
+         udJ3KC16fkIwXeMz61kIjNWeo98dJX6JYuKyf9ZOqAe3l5JCI6TDTxTU/9e1/C0cnd22
+         zrR5RVUeLqEg0l68sI52ZopFvUwaFEq8HK3WoXB8AnU5KPdJamATH3Snpnka5dtoNuPz
+         vjUALWbABAy/ibtgRGS3K2+bYeW2vCRYs68pU7uz1x69A7S9ahe5XYUCpBHCwYP8uV7h
+         HTFg==
+X-Gm-Message-State: AOJu0YzsCDBnu9XOJxq+dBoY7bhmswFfKYpPDmdMnpvUQySRAAU8iWiS
+	g6rq22VbhOzco+2YH3MYu01BEzxvCz1yxoEfUGvMkoV0YY1Hz4dB3CJ646vF8Vw9qQEY6m1L9pH
+	vBGCBvpbTeALtjI5W/afsH2wXmfWUPmQ=
+X-Gm-Gg: Acq92OHYvybMqGnhritMEDwqEvtB8/D7I1owTPsAl2OZCCAN/Bi+bprvKwt4ErDdP2K
+	1cLjrJYTYsx+U6Z160wtytlgBuBSxXc2PSedNJAhyrIhnNULJUyJgjGazMWLnG8njiVIghI0jCw
+	hSnCwq+S9A8Gi3IcWYjUzRLCgbdkwqUMZJQUorQoszj43sG+BmlxSmRe07MQdQFL2uqQ0r+irsl
+	wksc4RphuTk4azHKAIwlHgB6JG+cof+Ky+k0/yTyaEXB9j6yMtwFySgxfEspbUqTUz00d53kEq3
+	KPa0
+X-Received: by 2002:a05:651c:515:b0:393:975b:5634 with SMTP id
+ 38308e7fff4ca-39561c8b784mr49655891fa.11.1779143799011; Mon, 18 May 2026
+ 15:36:39 -0700 (PDT)
 MIME-Version: 1.0
-X-Farcaster-Flow-ID: 7fef345e-b796-4a43-8663-485108bc2c9b
-From: "Woodhouse, David" <dwmw@amazon.co.uk>
-To: "tglx@kernel.org" <tglx@kernel.org>, "longli@microsoft.com"
-	<longli@microsoft.com>, "luto@kernel.org" <luto@kernel.org>,
-	"alexey.makhalov@broadcom.com" <alexey.makhalov@broadcom.com>,
-	"jstultz@google.com" <jstultz@google.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "ajay.kaher@broadcom.com"
-	<ajay.kaher@broadcom.com>, "jan.kiszka@siemens.com" <jan.kiszka@siemens.com>,
-	"haiyangz@microsoft.com" <haiyangz@microsoft.com>, "kas@kernel.org"
-	<kas@kernel.org>, "seanjc@google.com" <seanjc@google.com>,
-	"pbonzini@redhat.com" <pbonzini@redhat.com>, "kys@microsoft.com"
-	<kys@microsoft.com>, "decui@microsoft.com" <decui@microsoft.com>,
-	"daniel.lezcano@kernel.org" <daniel.lezcano@kernel.org>, "wei.liu@kernel.org"
-	<wei.liu@kernel.org>, "peterz@infradead.org" <peterz@infradead.org>,
-	"jgross@suse.com" <jgross@suse.com>
-CC: "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, "mhklinux@outlook.com"
-	<mhklinux@outlook.com>, "thomas.lendacky@amd.com" <thomas.lendacky@amd.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"bcm-kernel-feedback-list@broadcom.com"
-	<bcm-kernel-feedback-list@broadcom.com>, "tglx@linutronix.de"
-	<tglx@linutronix.de>, "nikunj@amd.com" <nikunj@amd.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"vkuznets@redhat.com" <vkuznets@redhat.com>, "rick.p.edgecombe@intel.com"
-	<rick.p.edgecombe@intel.com>, "virtualization@lists.linux.dev"
-	<virtualization@lists.linux.dev>, "sboyd@kernel.org" <sboyd@kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>
-Subject: Re: [PATCH v3 02/41] x86/tsc: Add helper to register CPU and TSC freq
- calibration routines
-Thread-Topic: [PATCH v3 02/41] x86/tsc: Add helper to register CPU and TSC
- freq calibration routines
-Thread-Index: AQHc5xGmpbVPXJqKvE66awyRkPGU2A==
-Date: Mon, 18 May 2026 21:59:51 +0000
-Message-ID: <949e39aec749f019b18fa41c2a42bcc9231288b9.camel@amazon.co.uk>
-References: <20260515191942.1892718-1-seanjc@google.com>
-	 <20260515191942.1892718-3-seanjc@google.com>
-In-Reply-To: <20260515191942.1892718-3-seanjc@google.com>
-Accept-Language: en-GB, en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.106.83.21]
-MIME-Version: 1.0
-X-purgate-ID: tlsNG-d25034/1779141596-F4C79CF5-E0AA7E1A/21/137
+References: <cover.1778605274.git.mykola_kvach@epam.com> <bd79226263c1dd9c915a7fffd4f92b194af864ee.1778605274.git.mykola_kvach@epam.com>
+ <5323B63C-7F37-418C-97C6-0A94F9D03B4F@arm.com>
+In-Reply-To: <5323B63C-7F37-418C-97C6-0A94F9D03B4F@arm.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Tue, 19 May 2026 01:36:27 +0300
+X-Gm-Features: AVHnY4Ku4LoE7n8DvxKqiqS6D51-CFgb9rxrL3rIPk1MoKeL7dmPSVikAsYebDE
+Message-ID: <CAGeoDV-fkfUh_+tQ=kddHdPiaGJhgSdFsm79qCWhAyJ6sS0tdw@mail.gmail.com>
+Subject: Re: [PATCH v9 05/13] xen/arm: gic-v3: add ITS suspend/resume support
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-ebf023/1779143799-2B5683FF-DB206C5E/0/0
 X-purgate-type: clean
-X-purgate-size: 10730
-X-Spamd-Result: default: False [5.92 / 15.00];
-	BLACKLIST_DMARC(6.00)[amazon.co.uk:D:-];
-	SIGNED_SMIME(-2.00)[];
-	DMARC_POLICY_QUARANTINE(1.50)[amazon.co.uk : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[amazon.co.uk:s=amazoncorp2];
-	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain,multipart/alternative];
+X-purgate-size: 7917
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_EQ_ADDR_ALL(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:tglx@kernel.org,m:longli@microsoft.com,m:luto@kernel.org,m:alexey.makhalov@broadcom.com,m:jstultz@google.com,m:dave.hansen@linux.intel.com,m:ajay.kaher@broadcom.com,m:jan.kiszka@siemens.com,m:haiyangz@microsoft.com,m:kas@kernel.org,m:seanjc@google.com,m:pbonzini@redhat.com,m:kys@microsoft.com,m:decui@microsoft.com,m:daniel.lezcano@kernel.org,m:wei.liu@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:linux-kernel@vger.kernel.org,m:bcm-kernel-feedback-list@broadcom.com,m:tglx@linutronix.de,m:nikunj@amd.com,m:xen-devel@lists.xenproject.org,m:linux-hyperv@vger.kernel.org,m:vkuznets@redhat.com,m:rick.p.edgecombe@intel.com,m:virtualization@lists.linux.dev,m:sboyd@kernel.org,m:x86@kernel.org,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,body];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+,5:+,6:~];
-	RCPT_COUNT_TWELVE(0.00)[34];
-	FREEMAIL_CC(0.00)[oracle.com,lists.linux.dev,vger.kernel.org,outlook.com,amd.com,broadcom.com,linutronix.de,lists.xenproject.org,redhat.com,intel.com,kernel.org];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[dwmw@amazon.co.uk,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[13];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dwmw@amazon.co.uk,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[amazon.co.uk:-];
-	HAS_XOIP(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:Luca.Fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:Bertrand.Marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	TAGGED_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,epam.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	MISSING_XM_UA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo]
-X-Rspamd-Queue-Id: 9EE0C5746EE
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 4B3295749EC
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
---===============4007323092883351321==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=sha-256;
-	protocol="application/pkcs7-signature"; boundary="=-6Tz0T5TstgWdynDqmecj"
+Hi Luca,
 
---=-6Tz0T5TstgWdynDqmecj
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thank you for the detailed review.
 
-On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
->=20
-> --- a/arch/x86/xen/time.c
-> +++ b/arch/x86/xen/time.c
-> @@ -569,7 +569,7 @@ static void __init xen_init_time_common(void)
-> =C2=A0	static_call_update(pv_steal_clock, xen_steal_clock);
-> =C2=A0	paravirt_set_sched_clock(xen_sched_clock);
-> =C2=A0
-> -	x86_platform.calibrate_tsc =3D xen_tsc_khz;
-> +	tsc_register_calibration_routines(xen_tsc_khz, NULL);
-> =C2=A0	x86_platform.get_wallclock =3D xen_get_wallclock;
-> =C2=A0}
-> =C2=A0
+On Thu, May 14, 2026 at 5:46=E2=80=AFPM Luca Fancellu <Luca.Fancellu@arm.co=
+m> wrote:
+>
+> Hi Mykola,
+>
+> > On 12 May 2026, at 18:07, Mykola Kvach <xakep.amatop@gmail.com> wrote:
+> >
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > Handle system suspend/resume for GICv3 with an ITS present so LPIs keep
+> > working after firmware powers the GIC down. Save and restore the ITS
+> > CTLR, CBASER and BASER registers, and re-establish the collection mappi=
+ng
+> > on resume.
+> >
+> > Add list_for_each_entry_continue_reverse() in list.h for the ITS suspen=
+d
+> > error path that needs to roll back partially saved state.
+> >
+> > Based on Linux commit dba0bc7b76dc:
+> > "irqchip/gic-v3-its: Add ability to save/restore ITS state".
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> > Changes in V9:
+> > - fix the ITS suspend/resume coding-style nits;
+> > - preserve the saved GITS_CTLR state while masking the read-only
+> >  QUIESCENT bit.
+> >
+> > Changes in V8:
+> > - Reword the CBASER/CWRITER comment to match Xen and drop the stale Lin=
+ux
+> >  cmd_write reference.
+> > - Clarify the list_for_each_entry_continue_reverse() comment.
+> > - Factor out per-ITS helpers for collection setup and resume.
+> > - Restore each ITS and re-establish its collection mapping in the same
+> >  loop, so a failed ITS resume is not followed by MAPC/SYNC on that
+> >  un-restored instance.
+> > - panic in case when resume of an ITS failed
+> > - cleanup baser cache during suspend
+> > ---
+> > xen/arch/arm/gic-v3-its.c             | 133 ++++++++++++++++++++++++--
+> > xen/arch/arm/gic-v3.c                 |  11 ++-
+> > xen/arch/arm/include/asm/gic_v3_its.h |  23 +++++
+> > xen/include/xen/list.h                |  14 +++
+> > 4 files changed, 171 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
+> > index 9005ce8ce5..582c26d964 100644
+> > --- a/xen/arch/arm/gic-v3-its.c
+> > +++ b/xen/arch/arm/gic-v3-its.c
+> > @@ -335,6 +335,22 @@ static int its_send_cmd_inv(struct host_its *its,
+> >     return its_send_command(its, cmd);
+> > }
+> >
+> > +static int gicv3_its_setup_collection_single(struct host_its *its,
+> > +                                             unsigned int cpu)
+> > +{
+> > +    int ret;
+> > +
+> > +    ret =3D its_send_cmd_mapc(its, cpu, cpu);
+> > +    if ( ret )
+> > +        return ret;
+> > +
+> > +    ret =3D its_send_cmd_sync(its, cpu);
+> > +    if ( ret )
+> > +        return ret;
+> > +
+> > +    return gicv3_its_wait_commands(its);
+> > +}
+> > +
+> > /* Set up the (1:1) collection mapping for the given host CPU. */
+> > int gicv3_its_setup_collection(unsigned int cpu)
+> > {
+> > @@ -343,15 +359,7 @@ int gicv3_its_setup_collection(unsigned int cpu)
+> >
+> >     list_for_each_entry(its, &host_its_list, entry)
+> >     {
+> > -        ret =3D its_send_cmd_mapc(its, cpu, cpu);
+> > -        if ( ret )
+> > -            return ret;
+> > -
+> > -        ret =3D its_send_cmd_sync(its, cpu);
+> > -        if ( ret )
+> > -            return ret;
+> > -
+> > -        ret =3D gicv3_its_wait_commands(its);
+> > +        ret =3D gicv3_its_setup_collection_single(its, cpu);
+> >         if ( ret )
+> >             return ret;
+> >     }
+> > @@ -1210,6 +1218,113 @@ int gicv3_its_init(void)
+> >     return 0;
+> > }
+> >
+> > +#ifdef CONFIG_SYSTEM_SUSPEND
+> > +int gicv3_its_suspend(void)
+> > +{
+> > +    struct host_its *its;
+> > +    int ret;
+> > +
+> > +    list_for_each_entry( its, &host_its_list, entry )
+> > +    {
+> > +        unsigned int i;
+> > +        void __iomem *base =3D its->its_base;
+> > +
+> > +        /*
+> > +         * By the time Xen reaches gic_suspend(), every domain is alre=
+ady in
+> > +         * SHUTDOWN_suspend, so ITS-targeting interrupt sources are ex=
+pected
+> > +         * to have been quiesced by the owning OS before SYSTEM_SUSPEN=
+D.
+> > +         */
+> > +        /* Preserve saved GITS_CTLR state, excluding read-only QUIESCE=
+NT. */
+> > +        its->suspend_ctx.ctlr =3D readl_relaxed(base + GITS_CTLR) &
+> > +                                ~GITS_CTLR_QUIESCENT;
+> > +        ret =3D gicv3_disable_its(its);
+> > +        if ( ret )
+> > +        {
+> > +            writel_relaxed(its->suspend_ctx.ctlr, base + GITS_CTLR);
+> > +            goto err;
+> > +        }
+> > +
+> > +        its->suspend_ctx.cbaser =3D readq_relaxed(base + GITS_CBASER);
+> > +
+> > +        for ( i =3D 0; i < GITS_BASER_NR_REGS; i++ )
+> > +        {
+> > +            uint64_t baser =3D readq_relaxed(base + GITS_BASER0 + i * =
+8);
+> > +
+> > +            its->suspend_ctx.baser[i] =3D 0;
+> > +
+> > +            if ( !(baser & GITS_VALID_BIT) )
+> > +                continue;
+> > +
+> > +            its->suspend_ctx.baser[i] =3D baser;
+> > +        }
+> > +    }
+> > +
+> > +    return 0;
+> > +
+> > + err:
+> > +    list_for_each_entry_continue_reverse( its, &host_its_list, entry )
+> > +        writel_relaxed(its->suspend_ctx.ctlr, its->its_base + GITS_CTL=
+R);
+> > +
+> > +    return ret;
+> > +}
+> > +
+> > +static int gicv3_its_resume_single(struct host_its *its, unsigned int =
+cpu)
+> > +{
+> > +    void __iomem *base =3D its->its_base;
+> > +    unsigned int i;
+> > +    int ret;
+> > +
+> > +    /*
+> > +     * Make sure that the ITS is disabled. If it fails to quiesce,
+> > +     * don't restore it since writing to CBASER or BASER<n>
+> > +     * registers is undefined according to the GIC v3 ITS
+>
+> s/undefined/unpredictable/ ?
 
-xen_tsc_khz() doesn't use CPUID but really *should*.
+Ack.
 
-Care to pull in
-https://lore.kernel.org/all/20260509224824.3264567-31-dwmw2@infradead.org/
-to your next round please?
+>
+> > +     * Specification.
+> > +     */
+> > +    WARN_ON(readl_relaxed(base + GITS_CTLR) & GITS_CTLR_ENABLE);
+> > +    ret =3D gicv3_disable_its(its);
+> > +    if ( ret )
+> > +        return ret;
+> > +
+> > +    writeq_relaxed(its->suspend_ctx.cbaser, base + GITS_CBASER);
+> > +
+> > +    /*
+> > +     * Writing CBASER resets CREADR to 0, so reset CWRITER to
+> > +     * keep the command queue pointers aligned.
+> > +     */
+> > +    writeq_relaxed(0, base + GITS_CWRITER);
+> > +
+> > +    /* Restore GITS_BASER from the value cache. */
+> > +    for ( i =3D 0; i < GITS_BASER_NR_REGS; i++ )
+> > +    {
+> > +        uint64_t baser =3D its->suspend_ctx.baser[i];
+> > +
+> > +        if ( !(baser & GITS_VALID_BIT) )
+> > +            continue;
+> > +
+> > +        writeq_relaxed(baser, base + GITS_BASER0 + i * 8);
+> > +    }
+> > +
+> > +    writel_relaxed(its->suspend_ctx.ctlr, base + GITS_CTLR);
+> > +
+> > +    return gicv3_its_setup_collection_single(its, cpu);
+>
+> This will always issue a MAPC V=3D1, in the section 5.3.9 it sais it=E2=
+=80=99s "unpredictable
+> if there are interrupts that are mapped to the specified collection and t=
+he
+> collection is currently mapped to a Redistributor, unless MAPC is followe=
+d by MOVALL=E2=80=9D,
+> in this case the redistributor is the same but the specs don=E2=80=99t sa=
+y anything about this case,
+> it=E2=80=99s generally unpredictable if we are remapping an already-live =
+collection.
+>
+> I see Linux reply the MAPC V=3D1 only if the collection is stored in the =
+ITS (not memory backed),
+> our col_id is `cpu`, which I believe that for the suspend path is always =
+zero (?), so by looking into
+> HCC we could check if we need to issue the MAPC or not.
+>
+> if ( cpu < GITS_TYPER_HCC(readq_relaxed(base + GITS_TYPER)) )
+>     return gicv3_its_setup_collection_single(its, cpu);
+>
+> return 0;
+>
 
-(Without the misplaced changes in kvm/x86.c that should have been in
-two different prior commits, and are now folded into those correctly in
-my kvmclock5 branch ready for the next posting of that).
+Good point, I agree.
 
-I'll drop that patch, and the similar x86/kvm one which you *have*
-already taken in this series, from my next posting.
+Replaying MAPC unconditionally is not needed here and may be unsafe for
+memory-backed collections. Since Xen currently uses col_id =3D=3D cpu, I wi=
+ll
+add the HCC check before calling gicv3_its_setup_collection_single(), as
+you suggested.
 
-Thanks.
+I will also add a short comment to make clear that the check is about the
+CollectionID being ITS-held.
 
-
---=-6Tz0T5TstgWdynDqmecj
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkYw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhUwggT9oAMCAQICEFQru/eJkU7BxeS7T6sWKmYwDQYJKoZIhvcN
-AQELBQAwgZYxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNV
-BAcTB1NhbGZvcmQxGDAWBgNVBAoTD1NlY3RpZ28gTGltaXRlZDE+MDwGA1UEAxM1U2VjdGlnbyBS
-U0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0EwHhcNMjQxMjE1MDAw
-MDAwWhcNMjYxMjE1MjM1OTU5WjAiMSAwHgYJKoZIhvcNAQkBFhFkd213QGFtYXpvbi5jby51azCC
-AiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBANhjs6T4tJ0lcw4+6sawEn2FowmhunUBsnSV
-ccB+aA7s3Zd9PZV46CU6phAlCWpKk1yFVcD1Rnc4ux17o4LbUgFXiKrORS0jiF/5Oa0rXG3FISG1
-Xdjt8oPKIq+9Z1s2e7Ipi5WWj4AG/xlkH/YMMctL9O8CCRHSrhiChbE/gR57x9PAnt5aeZZ2YWza
-GOOeceaZe+u6vHCHITRmknSAnAX/aNoNJNsQCGcfrE83y9iHmP8BFrSRZqajBKlKq8tyJd5FnSwP
-H3kSUcQlHOwiIfCRFXP4rpXSZ7nKOEZr3SXH06ADY9gZtrSpwBbuzKWDPGWMRuRnz8ogj/Y6DeU4
-2zB/ZAIi5b0BzWf4u0rBEQD5xtpOCxYHc2nXQaFSWu36kP1JaNqElE51OQ92EyVKfW3N6qZcKiBr
-VijXY2EtR+/5W9ixRFnEs4nIeb94Sf92UMEeG9ew2yVvcYXXNPaicGnrkESNC19/a8YXxQEZfrmB
-eAPT9viQJhn3O+sD4pP0Ss3SjVZc6EO7vfoP07bt2n9YE08XSPkxcyb1J/4t/+AskkKeYFBGdpjg
-xd+iLFxjSwBytZuh3+7DuHUfg876WA44ieQDrhHSjuvuAZ1Wb8WUsrpzrcLoYjqFmb/bf6/yyoxl
-t31mdgPC+FLc+Yu1BQwXC3JMbrvbFBVTtn5X2EKDAgMBAAGjggHQMIIBzDAfBgNVHSMEGDAWgBQJ
-wPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUWvtA1XsSV8xjgfFQL/DUTNIbJu4wDgYDVR0P
-AQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwEwYDVR0lBAwwCgYIKwYBBQUHAwQwUAYDVR0gBEkwRzA6
-BgwrBgEEAbIxAQIBCgIwKjAoBggrBgEFBQcCARYcaHR0cHM6Ly9zZWN0aWdvLmNvbS9TTUlNRUNQ
-UzAJBgdngQwBBQEDMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2Vj
-dGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUF
-BwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xp
-ZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDov
-L29jc3Auc2VjdGlnby5jb20wHAYDVR0RBBUwE4ERZHdtd0BhbWF6b24uY28udWswDQYJKoZIhvcN
-AQELBQADggEBAED6T+rfP2XPdLfHoCd5n1iGIcYauWfPHRdZN2Tw7a7NEXIkm2yZNizOSpp3NrMi
-WOBN13XgqnYLsqdpxJhbjwKczKX50/qfhhkOHtrQ0GRkucybK447Aaul80cZT8T3WG9U9dhl3Ct/
-MuyKBWQg3MYlbUT6u4kC9Pk8rd+cR14ttYRUWDKTS2BrL7e8jpNmtCoEakDkMY4MrpoMwM1f4ANV
-qZ8cnDntwXq5ormZIksN2DqxsKLmrFyVAONhqSST72ImBfIVWhFRTCF9tTcI5wE/0Skl25FZmSsB
-B2LUgecgK7MZyw9Do/b0sYS+8YmA/ujUCqNb0fPJBE/B9vBomhswggYVMIIE/aADAgECAhBUK7v3
-iZFOwcXku0+rFipmMA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTI0MTIxNTAwMDAwMFoXDTI2MTIxNTIzNTk1OVowIjEgMB4GCSqGSIb3DQEJ
-ARYRZHdtd0BhbWF6b24uY28udWswggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDYY7Ok
-+LSdJXMOPurGsBJ9haMJobp1AbJ0lXHAfmgO7N2XfT2VeOglOqYQJQlqSpNchVXA9UZ3OLsde6OC
-21IBV4iqzkUtI4hf+TmtK1xtxSEhtV3Y7fKDyiKvvWdbNnuyKYuVlo+ABv8ZZB/2DDHLS/TvAgkR
-0q4YgoWxP4Eee8fTwJ7eWnmWdmFs2hjjnnHmmXvrurxwhyE0ZpJ0gJwF/2jaDSTbEAhnH6xPN8vY
-h5j/ARa0kWamowSpSqvLciXeRZ0sDx95ElHEJRzsIiHwkRVz+K6V0me5yjhGa90lx9OgA2PYGba0
-qcAW7sylgzxljEbkZ8/KII/2Og3lONswf2QCIuW9Ac1n+LtKwREA+cbaTgsWB3Np10GhUlrt+pD9
-SWjahJROdTkPdhMlSn1tzeqmXCoga1Yo12NhLUfv+VvYsURZxLOJyHm/eEn/dlDBHhvXsNslb3GF
-1zT2onBp65BEjQtff2vGF8UBGX65gXgD0/b4kCYZ9zvrA+KT9ErN0o1WXOhDu736D9O27dp/WBNP
-F0j5MXMm9Sf+Lf/gLJJCnmBQRnaY4MXfoixcY0sAcrWbod/uw7h1H4PO+lgOOInkA64R0o7r7gGd
-Vm/FlLK6c63C6GI6hZm/23+v8sqMZbd9ZnYDwvhS3PmLtQUMFwtyTG672xQVU7Z+V9hCgwIDAQAB
-o4IB0DCCAcwwHwYDVR0jBBgwFoAUCcDy/AvalNtf/ivfqJlCz8ngrQAwHQYDVR0OBBYEFFr7QNV7
-ElfMY4HxUC/w1EzSGybuMA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMBMGA1UdJQQMMAoG
-CCsGAQUFBwMEMFAGA1UdIARJMEcwOgYMKwYBBAGyMQECAQoCMCowKAYIKwYBBQUHAgEWHGh0dHBz
-Oi8vc2VjdGlnby5jb20vU01JTUVDUFMwCQYHZ4EMAQUBAzBaBgNVHR8EUzBRME+gTaBLhklodHRw
-Oi8vY3JsLnNlY3RpZ28uY29tL1NlY3RpZ29SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3Vy
-ZUVtYWlsQ0EuY3JsMIGKBggrBgEFBQcBAQR+MHwwVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuc2Vj
-dGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5j
-cnQwIwYIKwYBBQUHMAGGF2h0dHA6Ly9vY3NwLnNlY3RpZ28uY29tMBwGA1UdEQQVMBOBEWR3bXdA
-YW1hem9uLmNvLnVrMA0GCSqGSIb3DQEBCwUAA4IBAQBA+k/q3z9lz3S3x6AneZ9YhiHGGrlnzx0X
-WTdk8O2uzRFyJJtsmTYszkqadzazIljgTdd14Kp2C7KnacSYW48CnMyl+dP6n4YZDh7a0NBkZLnM
-myuOOwGrpfNHGU/E91hvVPXYZdwrfzLsigVkINzGJW1E+ruJAvT5PK3fnEdeLbWEVFgyk0tgay+3
-vI6TZrQqBGpA5DGODK6aDMDNX+ADVamfHJw57cF6uaK5mSJLDdg6sbCi5qxclQDjYakkk+9iJgXy
-FVoRUUwhfbU3COcBP9EpJduRWZkrAQdi1IHnICuzGcsPQ6P29LGEvvGJgP7o1AqjW9HzyQRPwfbw
-aJobMYIExDCCBMACAQEwgaswgZYxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNo
-ZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGDAWBgNVBAoTD1NlY3RpZ28gTGltaXRlZDE+MDwGA1UE
-AxM1U2VjdGlnbyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0EC
-EFQru/eJkU7BxeS7T6sWKmYwDQYJYIZIAWUDBAIBBQCgggHpMBgGCSqGSIb3DQEJAzELBgkqhkiG
-9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDUxODIxNTk0OVowLwYJKoZIhvcNAQkEMSIEIFiU5Qg9
-Fmi9PGbvIBjBzAyfDqygPzdshDgwa/NHUv8rMIG8BgkrBgEEAYI3EAQxga4wgaswgZYxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGDAW
-BgNVBAoTD1NlY3RpZ28gTGltaXRlZDE+MDwGA1UEAxM1U2VjdGlnbyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEFQru/eJkU7BxeS7T6sWKmYwgb4GCyqGSIb3
-DQEJEAILMYGuoIGrMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhBUK7v3
-iZFOwcXku0+rFipmMA0GCSqGSIb3DQEBAQUABIICAM8OsQlCgYxvSOF82bTYNa12ZmCvPHorscCM
-aJsr915mAOH/vS0/0IoGcAzfJ0o+GGrTheWdZh+QRqPF5PFnxgPeB2FpVh2zSA+OwvDXwoLx8McZ
-AuZqnRD7mB6jK0/n9Fyi2Pa1Pe7IBxNKaWGgKg0AY4QtJU5p9v/pdw11UyUdilJIqXh4c/uiIOgv
-Cpsb/onNbypJ4vSH6zqkc2tjkvAAEAmHxeezBt6nhxZDVCjJseM/e5FivKIxFuWxR9LTNQsWMom5
-qTImdoMRznno5kM6Hyv3sGJXRojDzYUnC/LBXC9gPds87vzE6KT1D4orfcejKbshuuWa+5l24ufr
-bd90fbHVDfmcHj/pqs+rsZ+SfHaCWHp5S+8jlB/xIywDsw9f6IQ9bm2RWEIoPvNHxSdWK7kzZmFJ
-aMHdOdhzOgm/7fL/8R0KFTTC792rh/lP/SbeZ7b76iovsDKAA+hzbg/LXTQbgzqMktUzyD7wiRbL
-s+JQFTavHAAXR3oYAEhn+9g+WG5oPwGSvJKt/QiciQJiuuO9t4lOZ62h6nTmaGvLGHnnsDFMXgft
-4KJsLrmUnCgTOUe6DXrXzYkohA4g1dNlv17uT1W+48IhnQEhxtyCQzirrPQpdY+C/+knjYlPiQZr
-WGoxCpHSfs4SZcMIF5SoHnHRT64vORa3kYLfaeRpAAAAAAAA
-
-
---=-6Tz0T5TstgWdynDqmecj--
-
---===============4007323092883351321==
-Content-Type: multipart/alternative; boundary="===============2999282878485236890=="
-MIME-Version: 1.0
-Content-Disposition: inline
-
---===============2999282878485236890==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-
-
-
-Amazon Development Centre (London) Ltd. Registered in England and Wales wit=
-h registration number 04543232 with its registered office at 1 Principal Pl=
-ace, Worship Street, London EC2A 2FA, United Kingdom.
-
-
-
---===============2999282878485236890==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-<br><br><br>Amazon Development Centre (London) Ltd.Registered in England an=
-d Wales with registration number 04543232 with its registered office at 1 P=
-rincipal Place, Worship Street, London EC2A 2FA, United Kingdom.<br><br><br>
-
---===============2999282878485236890==--
-
---===============4007323092883351321==--
+Best regards,
+Mykola
 
