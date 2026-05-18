@@ -2,54 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6PG5INguC2qZEQUAu9opvQ
+	id QMjZJ90uC2plEQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:23:04 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:23:09 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1B6756FD92
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:23:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312036.1582239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB74456FDA0
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:23:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312038.1582249 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOznz-0003aO-MD; Mon, 18 May 2026 15:22:55 +0000
+	id 1wOzo2-0003sV-5A; Mon, 18 May 2026 15:22:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312036.1582239; Mon, 18 May 2026 15:22:55 +0000
+Received: by outflank-mailman (output) from mailman id 1312038.1582249; Mon, 18 May 2026 15:22:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOznz-0003Y4-JB; Mon, 18 May 2026 15:22:55 +0000
-Received: by outflank-mailman (input) for mailman id 1312036;
- Mon, 18 May 2026 15:22:53 +0000
+	id 1wOzo1-0003pM-TO; Mon, 18 May 2026 15:22:57 +0000
+Received: by outflank-mailman (input) for mailman id 1312038;
+ Mon, 18 May 2026 15:22:56 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3baeac47000f373@swg.vates.tech>)
- id 1wOznx-0003Uv-Lg
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 15:22:53 +0000
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3baeb295000f373@swg.vates.tech>)
+ id 1wOznz-0003aM-R1
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 15:22:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wOznx-00AUlP-25
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 17:22:53 +0200
+ id 1wOznz-00AUlP-70
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 17:22:55 +0200
 Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3baeac47000f373@swg.vates.tech>)
- id 6a0b2ec3-2eae-0a2a0a5409dd-0a2a4509caf4-24
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:22:53 +0200
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3baeb295000f373@swg.vates.tech>)
+ id 6a0b2ec3-2eae-0a2a0a5409dd-0a2a4509caf4-30
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:22:55 +0200
 Received: from [185.255.28.34] (helo=prod-mta-13.swg-srv.net)
  by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3baeac47000f373@swg.vates.tech>)
- id 6a0b2ec2-2497-0a2a45090019-b9ff1c229311-7
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:22:52 +0200
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3baeb295000f373@swg.vates.tech>)
+ id 6a0b2ec2-2497-0a2a45090019-b9ff1c229311-8
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:22:55 +0200
 Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
  (Authenticated sender:
  8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
  by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19e3baeac47000f373.006 for <xen-devel@lists.xenproject.org>
+ 19e3baeb295000f373.005 for <xen-devel@lists.xenproject.org>
  (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Mon, 18 May 2026 15:22:43 +0000
+ Mon, 18 May 2026 15:22:45 +0000
 Received: from localhost.localdomain (88-175-170-134.subs.proxad.net
  [88.175.170.134]) (Authenticated sender: teddy.astie@vates.tech)
- by mail2.vates.fr (Postfix) with ESMTPSA id E8FF98109B;
- Mon, 18 May 2026 17:22:42 +0200 (CEST)
+ by mail2.vates.fr (Postfix) with ESMTPSA id A9B3E8109B;
+ Mon, 18 May 2026 17:22:44 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,21 +63,21 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=vates.tech header.i="@vates.tech" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:In-Reply-To:References:Feedback-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=lCuB8OipHgX7QjdQDTipGB47RFvpJl4Bz4q0RfmxJBs=;
+ q=dns/txt; s=selector1; bh=FjIJ0qn6YXT/MB4DavtiFr+GFFMvwouh5zyGyQ5hzYk=;
  h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=hd9rHajzEWY8wNJdy32McJlSpsmZH1RhuUBwriwGo8dXVbzUxDs+3/VrwtNxSaN63Lj8HRQjd
- QXxoLePCqjCMEJc+qXL4mEZbB60ZAweyHu5x0ZEBCfWGUvnfW1S6BswrfFO6i/2Rk91npC5HDgr
- y+HcXqw1/uW4OGkcXVdwMNHj2Qjr+ikJGKcx+NuJEuAySuMnJxoh/rkEVC8vbFzt6lfO5IbRvOi
- St/gN7WEqpl5dxjY4BhQYIAf9GOqDvuciO3/D2qn2pWaHxXlzV2lWONGkPgRNH2WD5mHntmhGEA
- +SB6y5zOUkm4nLovGyb09ZJV5bovDbSIlogrhlEGw72w==
-X-Zone-Loop: 8591f7294167705024c8cd2dfe97522cd371b033b7a3
+ b=fQkTP4aNqatXkzLmnlzYgfTSCHJRk+GW+qpb64hDtyf6yVhAhSo34c8qaVvHFqTywe1AhBq2y
+ vMFYGoC1ly3m/4gOEOGA+s1nTbZG8diMzSczi5aPEPNgbQBBNGvYu0N5/t4T1WTKfOsbpS52VBb
+ 3zQFtMHxMCR+hnagoS/Kl/8DI/vfzF5p4079bs9qimW+nCPkvZxQ+mwhrqkDAb1pDQxCnGpHEf3
+ weFLK0RHZ36ppLBAl+gFVhoUOGLyn3K02gl9hnvQN1cQlVytLcHwIiteByi8vhehtnpX98pXPhJ
+ 7+Z+tMETYoBOs4BtQ03qMrrCowysRdvNw0XZcX4SgVRw==
+X-Zone-Loop: 991f01706a5dd5a03324978a5c43df3809a4e90e3850
 x-campaign-type: default
-x-transaction-id: 834ff78e-68be-46b5-b992-e9341c612e6d
-x-swg-uid: 01-57342fb2-2da4-44a0-a703-05dace5f91f6
+x-transaction-id: 885ea2e3-dc9b-4a16-b479-8f55638b1b54
+x-swg-uid: 01-4f558138-cff9-40f0-910f-f83b480e3e1c
 X-Mailer: Sweego
 Message-ID:
- <1779117763.8631fc262581453bbf619ec5b2062170.19e3baeac47000f373@vates.tech>
-x-swg-bid: 1779117763.8631fc262581453bbf619ec5b2062170.19e3baeac47000f373
+ <1779117765.8631fc262581453bbf619ec5b2062170.19e3baeb295000f373@vates.tech>
+x-swg-bid: 1779117765.8631fc262581453bbf619ec5b2062170.19e3baeb295000f373
 Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
 x-campaign-id: default
 x-client-id: 8631fc262581453bbf619ec5b2062170
@@ -85,29 +85,28 @@ X-Originating-IP: [37.26.189.201]
 From: Teddy Astie <teddy.astie@vates.tech>
 To: xen-devel@lists.xenproject.org
 Cc: Teddy Astie <teddy.astie@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Jason Andryuk <jason.andryuk@amd.com>
-Subject: [PATCH 4/5] pci: Parse into pci_sbdf_t directly
-Date: Mon, 18 May 2026 17:21:28 +0200
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH 5/5] RFC: pci: Migrate pci_mmcfg_{read,write} to pci.c
+Date: Mon, 18 May 2026 17:21:29 +0200
 In-Reply-To: <cover.1779116255.git.teddy.astie@vates.tech>
 References: <cover.1779116255.git.teddy.astie@vates.tech>
 MIME-Version: 1.0
 X-BM-Disclaimer: Yes
-Content-Type: multipart/alternative; boundary="-=Part.e13.6ca638ed955f5b82.19e3baeaa36.1a70f84ed571b8b4=-"
+Content-Type: multipart/alternative; boundary="-=Part.e14.e5f1b60d69208c0d.19e3baeb0f7.8800be35dc06f22b=-"
 X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1779117763126
-X-purgate-ID: tlsNG-bad1c0/1779117773-40B60A53-503FCAF6/0/0
+X-Bm-Transport-Timestamp: 1779117764855
+X-purgate-ID: tlsNG-bad1c0/1779117775-88F71A53-7813A008/0/0
 X-purgate-type: clean
-X-purgate-size: 9094
+X-purgate-size: 16473
 X-Spamd-Result: default: False [0.82 / 15.00];
 	MIME_MA_MISSING_HTML(1.00)[];
-	URI_COUNT_ODD(1.00)[3];
+	URI_COUNT_ODD(1.00)[1];
 	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
 	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
@@ -117,7 +116,7 @@ X-Spamd-Result: default: False [0.82 / 15.00];
 	XM_UA_NO_VERSION(0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:jason.andryuk@amd.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:teddy.astie@vates.tech,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
@@ -136,262 +135,512 @@ X-Spamd-Result: default: False [0.82 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: F1B6756FD92
+X-Rspamd-Queue-Id: EB74456FDA0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
----=Part.e13.6ca638ed955f5b82.19e3baeaa36.1a70f84ed571b8b4=-
+---=Part.e14.e5f1b60d69208c0d.19e3baeb0f7.8800be35dc06f22b=-
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Use the newly introduced parse_pci_sbdf() and parse_pci_sbdf_seg() in order
-to parse into a pci_sbdf_t directly instead of reconstructing it afterward=
-=2E
+Key parts of MMCFG access bits are in mmconfig_64=2Ec (in particular
+pci_mmcfg_{read,write}()) while PCI configuration primitives (used accross=
+ the
+codebase) are in pci=2Ec=2E
+This leads to situations where the compiler cannot optimize the `switch (l=
+en)`
+for MMCFG access for all pci_conf_{read,write}N(), because they are not fr=
+om
+the same file=2E
+
+Move the pci_mmcfg_{read,write} in pci=2Ec and hint the compiler to inline=
+ these
+functions such that it's more likely that the compiler eliminates the
+`switch (len)``=2E
+
+Also take the opportunity to migrate to pci_sbdf_t to reduce the parameter=
+ count
+and drop many parameter domains checks=2E
+
+On GCC 16=2E1, this leads to codegen where pci_conf_{read,write}N() doesn'=
+t call
+pci_mmcfg_{read,write}() anymore and directly perform the MMIO RW=2E
+
+<pci_conf_read32>:
+       55                      push   %rbp
+       48 89 e5                mov    %rsp,%rbp
+       53                      push   %rbx
+       89 f8                   mov    %edi,%eax
+       89 f3                   mov    %esi,%ebx
+       c1 ef 10                shr    $0x10,%edi
+       81 fe ff 00 00 00       cmp    $0xff,%esi
+       77 26                   ja     ffff82d040301fab <pci_conf_read32+0x=
+3a>
+       85 ff                   test   %edi,%edi
+       75 22                   jne    ffff82d040301fab <pci_conf_read32+0x=
+3a>
+       0f b7 f8                movzwl %ax,%edi
+       c1 e7 08                shl    $0x8,%edi
+       83 e3 fc                and    $0xfffffffc,%ebx
+       09 df                   or     %ebx,%edi
+       81 cf 00 00 00 80       or     $0x80000000,%edi
+       ba 04 00 00 00          mov    $0x4,%edx
+       be 00 00 00 00          mov    $0x0,%esi
+       e8 2a 1c 03 00          call   ffff82d040333bd3 <pci_conf_read>
+       eb 22                   jmp    ffff82d040301fcd <pci_conf_read32+0x=
+5c>
+       81 fb ff 0f 00 00       cmp    $0xfff,%ebx
+       77 24                   ja     ffff82d040301fd7 <pci_conf_read32+0x=
+66>
+       0f b6 d0                movzbl %al,%edx
+       0f b6 f4                movzbl %ah,%esi
+       0f b7 ff                movzwl %di,%edi
+       e8 f5 fd ff ff          call   ffff82d040301db6 <pci_dev_base>
+       48 85 c0                test   %rax,%rax
+       74 18                   je     ffff82d040301fde <pci_conf_read32+0x=
+6d>
+       89 db                   mov    %ebx,%ebx
+       48 01 d8                add    %rbx,%rax
+       8b 00                   mov    (%rax),%eax
+       48 8b 5d f8             mov    -0x8(%rbp),%rbx
+       c9                      leave
+       e9 89 12 f0 ff          jmp    ffff82d040203260 <__x86_return_thunk=
+>
+       b8 ff ff ff ff          mov    $0xffffffff,%eax
+       eb ef                   jmp    ffff82d040301fcd <pci_conf_read32+0x=
+5c>
+       b8 ff ff ff ff          mov    $0xffffffff,%eax
+       eb e8                   jmp    ffff82d040301fcd <pci_conf_read32+0x=
+5c>
 
 Signed-off-by: Teddy Astie <teddy=2Eastie@vates=2Etech>
 ---
- xen/drivers/char/ns16550=2Ec               | 24 +++++++++++-----------
- xen/drivers/char/xhci-dbc=2Ec              |  6 +++---
- xen/drivers/passthrough/amd/iommu_acpi=2Ec | 26 ++++++++++++------------
- xen/drivers/passthrough/vtd/dmar=2Ec       |  7 +++----
- 4 files changed, 31 insertions(+), 32 deletions(-)
+ xen/arch/x86/pv/ro-page-fault=2Ec   |   3 +-
+ xen/arch/x86/x86_64/mmconfig=2Eh    |  43 -----------
+ xen/arch/x86/x86_64/mmconfig_64=2Ec | 106 +++++---------------------
+ xen/arch/x86/x86_64/pci=2Ec         | 122 ++++++++++++++++++++++++++++--
+ xen/include/xen/pci=2Eh             |   6 +-
+ 5 files changed, 138 insertions(+), 142 deletions(-)
 
-diff --git a/xen/drivers/char/ns16550=2Ec b/xen/drivers/char/ns16550=2Ec
-index 878da27f2e=2E=2Efa2d0e5991 100644
---- a/xen/drivers/char/ns16550=2Ec
-+++ b/xen/drivers/char/ns16550=2Ec
-@@ -1572,22 +1572,22 @@ static bool __init parse_positional(struct ns16550=
- *uart, char **str)
- #ifdef CONFIG_HAS_PCI
-     if ( *conf =3D=3D ',' && *++conf !=3D ',' )
-     {
--        unsigned int b, d, f;
-+        pci_sbdf_t sbdf;
+diff --git a/xen/arch/x86/pv/ro-page-fault=2Ec b/xen/arch/x86/pv/ro-page-f=
+ault=2Ec
+index d89306d34f=2E=2E647041560f 100644
+--- a/xen/arch/x86/pv/ro-page-fault=2Ec
++++ b/xen/arch/x86/pv/ro-page-fault=2Ec
+@@ -331,8 +331,7 @@ static int cf_check mmcfg_intercept_write(
+     offset &=3D 0xfff;
+     if ( pci_conf_write_intercept(mmio_ctxt->seg, mmio_ctxt->bdf,
+                                   offset, bytes, p_data) >=3D 0 )
+-        pci_mmcfg_write(mmio_ctxt->seg, PCI_BUS(mmio_ctxt->bdf),
+-                        PCI_DEVFN(mmio_ctxt->bdf), offset, bytes,
++        pci_mmcfg_write(PCI_SBDF(mmio_ctxt->seg, mmio_ctxt->bdf), offset,=
+ bytes,
+                         *(uint32_t *)p_data);
 =20
--        conf =3D parse_pci(conf, NULL, &b, &d, &f);
-+        conf =3D parse_pci_sbdf(conf, &sbdf);
-         if ( !conf )
-             PARSE_ERR_RET("Bad port PCI coordinates");
--        uart->pci_device =3D PCI_SBDF(0, b, d, f);
-+        uart->pci_device =3D sbdf;
-         uart->ps_bdf_enable =3D true;
-     }
+     return X86EMUL_OKAY;
+diff --git a/xen/arch/x86/x86_64/mmconfig=2Eh b/xen/arch/x86/x86_64/mmconf=
+ig=2Eh
+index 27c0ae5cb1=2E=2Ec1786a3ceb 100644
+--- a/xen/arch/x86/x86_64/mmconfig=2Eh
++++ b/xen/arch/x86/x86_64/mmconfig=2Eh
+@@ -23,49 +23,6 @@
 =20
-     if ( *conf =3D=3D ',' && *++conf !=3D ',' )
-     {
--        unsigned int b, d, f;
-+        pci_sbdf_t sbdf;
+ extern unsigned int pci_probe;
 =20
--        if ( !parse_pci(conf, NULL, &b, &d, &f) )
-+        if ( !parse_pci_sbdf(conf, &sbdf) )
-             PARSE_ERR_RET("Bad bridge PCI coordinates");
--        uart->pci_bridge =3D PCI_SBDF(0, b, d, f);
-+        uart->pci_bridge =3D sbdf;
-         uart->pb_bdf_enable =3D true;
-     }
- #endif
-@@ -1671,22 +1671,22 @@ static bool __init parse_namevalue_pairs(char *str=
-, struct ns16550 *uart)
+-/*
+- * AMD Fam10h CPUs are buggy, and cannot access MMIO config space
+- * on their northbrige except through the * %eax register=2E As such, you=
+ MUST
+- * NOT use normal IOMEM accesses, you need to only use the magic mmio-con=
+fig
+- * accessor functions=2E
+- * In fact just use pci_config_*, nothing else please=2E
+- */
+-static inline unsigned char mmio_config_readb(void __iomem *pos)
+-{
+-    u8 val;
+-    asm volatile("movb (%1),%%al" : "=3Da" (val) : "r" (pos));
+-    return val;
+-}
+-
+-static inline unsigned short mmio_config_readw(void __iomem *pos)
+-{
+-    u16 val;
+-    asm volatile("movw (%1),%%ax" : "=3Da" (val) : "r" (pos));
+-    return val;
+-}
+-
+-static inline unsigned int mmio_config_readl(void __iomem *pos)
+-{
+-    u32 val;
+-    asm volatile("movl (%1),%%eax" : "=3Da" (val) : "r" (pos));
+-    return val;
+-}
+-
+-static inline void mmio_config_writeb(void __iomem *pos, u8 val)
+-{
+-    asm volatile("movb %%al,(%1)" :: "a" (val), "r" (pos) : "memory");
+-}
+-
+-static inline void mmio_config_writew(void __iomem *pos, u16 val)
+-{
+-    asm volatile("movw %%ax,(%1)" :: "a" (val), "r" (pos) : "memory");
+-}
+-
+-static inline void mmio_config_writel(void __iomem *pos, u32 val)
+-{
+-    asm volatile("movl %%eax,(%1)" :: "a" (val), "r" (pos) : "memory");
+-}
+-
+ /* function prototypes */
+ struct acpi_table_header;
+ int cf_check acpi_parse_mcfg(struct acpi_table_header *header);
+diff --git a/xen/arch/x86/x86_64/mmconfig_64=2Ec b/xen/arch/x86/x86_64/mmc=
+onfig_64=2Ec
+index 940cf6d747=2E=2E483dff9c2c 100644
+--- a/xen/arch/x86/x86_64/mmconfig_64=2Ec
++++ b/xen/arch/x86/x86_64/mmconfig_64=2Ec
+@@ -26,93 +26,6 @@ struct mmcfg_virt {
+ static struct mmcfg_virt *pci_mmcfg_virt;
+ static unsigned int mmcfg_pci_segment_shift;
 =20
-         case port_bdf:
-         {
--            unsigned int b, d, f;
-+            pci_sbdf_t sbdf;
-=20
--            if ( !parse_pci(param_value, NULL, &b, &d, &f) )
-+            if ( !parse_pci_sbdf(param_value, &sbdf) )
-                 PARSE_ERR_RET("Bad port PCI coordinates\n");
--            uart->pci_device =3D PCI_SBDF(0, b, d, f);
-+            uart->pci_device =3D sbdf;
-             uart->ps_bdf_enable =3D true;
-             break;
-         }
-=20
-         case bridge_bdf:
-         {
--            unsigned int b, d, f;
-+            pci_sbdf_t sbdf;
-=20
--            if ( !parse_pci(param_value, NULL, &b, &d, &f) )
-+            if ( !parse_pci_sbdf(param_value, &sbdf) )
-                 PARSE_ERR_RET("Bad bridge PCI coordinates\n");
--            uart->pci_bridge =3D PCI_SBDF(0, b, d, f);
-+            uart->pci_bridge =3D sbdf;
-             uart->pb_bdf_enable =3D true;
-             break;
-         }
-diff --git a/xen/drivers/char/xhci-dbc=2Ec b/xen/drivers/char/xhci-dbc=2Ec
-index c1ff528de6=2E=2Ec7fd554be0 100644
---- a/xen/drivers/char/xhci-dbc=2Ec
-+++ b/xen/drivers/char/xhci-dbc=2Ec
-@@ -1357,9 +1357,9 @@ static int __init cf_check xhci_parse_dbgp(const cha=
-r *opt_dbgp)
-     }
-     else if ( strncmp(opt_dbgp + 4, "@pci", 4) =3D=3D 0 )
-     {
--        unsigned int bus, slot, func;
-+        pci_sbdf_t sbdf;
-=20
--        e =3D parse_pci(opt_dbgp + 8, NULL, &bus, &slot, &func);
-+        e =3D parse_pci_sbdf(opt_dbgp + 8, &sbdf);
-         if ( !e || (*e && *e !=3D ',') )
-         {
-             printk(XENLOG_ERR
-@@ -1368,7 +1368,7 @@ static int __init cf_check xhci_parse_dbgp(const cha=
-r *opt_dbgp)
-             return -EINVAL;
-         }
-=20
--        dbc->sbdf =3D PCI_SBDF(0, bus, slot, func);
-+        dbc->sbdf =3D sbdf;
-     }
-     opt =3D e;
-=20
-diff --git a/xen/drivers/passthrough/amd/iommu_acpi=2Ec b/xen/drivers/pass=
-through/amd/iommu_acpi=2Ec
-index 39ae637959=2E=2E7b40da33ae 100644
---- a/xen/drivers/passthrough/amd/iommu_acpi=2Ec
-+++ b/xen/drivers/passthrough/amd/iommu_acpi=2Ec
-@@ -682,8 +682,8 @@ static int __init cf_check parse_ivrs_ioapic(const cha=
-r *str)
+-static char __iomem *get_virt(unsigned int seg, unsigned int *bus)
+-{
+-    struct acpi_mcfg_allocation *cfg;
+-    int cfg_num;
+-
+-    for (cfg_num =3D 0; cfg_num < pci_mmcfg_config_num; cfg_num++) {
+-        cfg =3D pci_mmcfg_virt[cfg_num]=2Ecfg;
+-        if (cfg->pci_segment =3D=3D seg &&
+-            (cfg->start_bus_number <=3D *bus) &&
+-            (cfg->end_bus_number >=3D *bus)) {
+-            *bus -=3D cfg->start_bus_number;
+-            return pci_mmcfg_virt[cfg_num]=2Evirt;
+-        }
+-    }
+-
+-    /* Fall back to type 0 */
+-    return NULL;
+-}
+-
+-static char __iomem *pci_dev_base(unsigned int seg, unsigned int bus, uns=
+igned int devfn)
+-{
+-    char __iomem *addr;
+-
+-    addr =3D get_virt(seg, &bus);
+-    if (!addr)
+-        return NULL;
+-     return addr + ((bus << 20) | (devfn << 12));
+-}
+-
+-int pci_mmcfg_read(unsigned int seg, unsigned int bus,
+-              unsigned int devfn, int reg, int len, u32 *value)
+-{
+-    char __iomem *addr;
+-
+-    /* Why do we have this when nobody checks it=2E How about a BUG()!? -=
+AK */
+-    if (unlikely((bus > 255) || (devfn > 255) || (reg > 4095))) {
+-err:        *value =3D -1;
+-        return -EINVAL;
+-    }
+-
+-    addr =3D pci_dev_base(seg, bus, devfn);
+-    if (!addr)
+-        goto err;
+-
+-    switch (len) {
+-    case 1:
+-        *value =3D mmio_config_readb(addr + reg);
+-        break;
+-    case 2:
+-        *value =3D mmio_config_readw(addr + reg);
+-        break;
+-    case 4:
+-        *value =3D mmio_config_readl(addr + reg);
+-        break;
+-    }
+-
+-    return 0;
+-}
+-
+-int pci_mmcfg_write(unsigned int seg, unsigned int bus,
+-               unsigned int devfn, int reg, int len, u32 value)
+-{
+-    char __iomem *addr;
+-
+-    /* Why do we have this when nobody checks it=2E How about a BUG()!? -=
+AK */
+-    if (unlikely((bus > 255) || (devfn > 255) || (reg > 4095)))
+-        return -EINVAL;
+-
+-    addr =3D pci_dev_base(seg, bus, devfn);
+-    if (!addr)
+-        return -EINVAL;
+-
+-    switch (len) {
+-    case 1:
+-        mmio_config_writeb(addr + reg, value);
+-        break;
+-    case 2:
+-        mmio_config_writew(addr + reg, value);
+-        break;
+-    case 4:
+-        mmio_config_writel(addr + reg, value);
+-        break;
+-    }
+-
+-    return 0;
+-}
+-
+ static void __iomem *mcfg_ioremap(const struct acpi_mcfg_allocation *cfg,
+                                   unsigned long idx, unsigned int prot)
  {
-     const char *s =3D str;
-     unsigned long id;
--    unsigned int seg, bus, dev, func;
-     unsigned int idx;
-+    pci_sbdf_t sbdf;
+@@ -133,6 +46,25 @@ static void __iomem *mcfg_ioremap(const struct acpi_mc=
+fg_allocation *cfg,
+     return (void __iomem *) virt;
+ }
 =20
-     if ( *s !=3D '[' )
-         return -EINVAL;
-@@ -692,7 +692,7 @@ static int __init cf_check parse_ivrs_ioapic(const cha=
-r *str)
-     if ( *s !=3D ']' || *++s !=3D '=3D' )
-         return -EINVAL;
++char __iomem *pci_mmcfg_base(unsigned int seg, unsigned int *bus)
++{
++    struct acpi_mcfg_allocation *cfg;
++    int cfg_num;
++
++    for (cfg_num =3D 0; cfg_num < pci_mmcfg_config_num; cfg_num++) {
++        cfg =3D pci_mmcfg_virt[cfg_num]=2Ecfg;
++        if (cfg->pci_segment =3D=3D seg &&
++            (cfg->start_bus_number <=3D *bus) &&
++            (cfg->end_bus_number >=3D *bus)) {
++            *bus -=3D cfg->start_bus_number;
++            return pci_mmcfg_virt[cfg_num]=2Evirt;
++        }
++    }
++
++    /* Fall back to type 0 */
++    return NULL;
++}
++
+ int pci_mmcfg_arch_enable(unsigned int idx)
+ {
+     const typeof(pci_mmcfg_config[0]) *cfg =3D pci_mmcfg_virt[idx]=2Ecfg;
+diff --git a/xen/arch/x86/x86_64/pci=2Ec b/xen/arch/x86/x86_64/pci=2Ec
+index 8d33429103=2E=2Ec37e3edade 100644
+--- a/xen/arch/x86/x86_64/pci=2Ec
++++ b/xen/arch/x86/x86_64/pci=2Ec
+@@ -11,13 +11,123 @@
+ #define PCI_CONF_ADDRESS(sbdf, reg) \
+     (0x80000000U | ((sbdf)=2Ebdf << 8) | ((reg) & ~3))
 =20
--    s =3D parse_pci(s + 1, &seg, &bus, &dev, &func);
-+    s =3D parse_pci_sbdf(s + 1, &sbdf);
-     if ( !s || *s )
-         return -EINVAL;
++/*
++ * AMD Fam10h CPUs are buggy, and cannot access MMIO config space
++ * on their northbrige except through the * %eax register=2E As such, you=
+ MUST
++ * NOT use normal IOMEM accesses, you need to only use the magic mmio-con=
+fig
++ * accessor functions=2E
++ * In fact just use pci_config_*, nothing else please=2E
++ */
++static inline unsigned char mmio_config_readb(void __iomem *pos)
++{
++    u8 val;
++    asm volatile("movb (%1),%%al" : "=3Da" (val) : "r" (pos));
++    return val;
++}
++
++static inline unsigned short mmio_config_readw(void __iomem *pos)
++{
++    u16 val;
++    asm volatile("movw (%1),%%ax" : "=3Da" (val) : "r" (pos));
++    return val;
++}
++
++static inline unsigned int mmio_config_readl(void __iomem *pos)
++{
++    u32 val;
++    asm volatile("movl (%1),%%eax" : "=3Da" (val) : "r" (pos));
++    return val;
++}
++
++static inline void mmio_config_writeb(void __iomem *pos, u8 val)
++{
++    asm volatile("movb %%al,(%1)" :: "a" (val), "r" (pos) : "memory");
++}
++
++static inline void mmio_config_writew(void __iomem *pos, u16 val)
++{
++    asm volatile("movw %%ax,(%1)" :: "a" (val), "r" (pos) : "memory");
++}
++
++static inline void mmio_config_writel(void __iomem *pos, u32 val)
++{
++    asm volatile("movl %%eax,(%1)" :: "a" (val), "r" (pos) : "memory");
++}
++
++static char __iomem *pci_dev_base(unsigned int seg, unsigned int bus, uns=
+igned int devfn)
++{
++    char __iomem *addr;
++
++    addr =3D pci_mmcfg_base(seg, &bus);
++    if (!addr)
++        return NULL;
++     return addr + ((bus << 20) | (devfn << 12));
++}
++
++static inline
++int pci_mmcfg_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int len, u=
+32 *value)
++{
++    char __iomem *addr;
++
++    /* Why do we have this when nobody checks it=2E How about a BUG()!? -=
+AK */
++    if (unlikely(reg > 4095)) {
++err:        *value =3D -1;
++        return -EINVAL;
++    }
++
++    addr =3D pci_dev_base(sbdf=2Eseg, sbdf=2Ebus, sbdf=2Edevfn);
++    if (!addr)
++        goto err;
++
++    switch (len) {
++    case 1:
++        *value =3D mmio_config_readb(addr + reg);
++        break;
++    case 2:
++        *value =3D mmio_config_readw(addr + reg);
++        break;
++    case 4:
++        *value =3D mmio_config_readl(addr + reg);
++        break;
++    }
++
++    return 0;
++}
++
++inline int pci_mmcfg_write(pci_sbdf_t sbdf, unsigned int reg, unsigned in=
+t len, u32 value)
++{
++    char __iomem *addr;
++
++    /* Why do we have this when nobody checks it=2E How about a BUG()!? -=
+AK */
++    if (unlikely(reg > 4095))
++        return -EINVAL;
++
++    addr =3D pci_dev_base(sbdf=2Eseg, sbdf=2Ebus, sbdf=2Edevfn);
++    if (!addr)
++        return -EINVAL;
++
++    switch (len) {
++    case 1:
++        mmio_config_writeb(addr + reg, value);
++        break;
++    case 2:
++        mmio_config_writew(addr + reg, value);
++        break;
++    case 4:
++        mmio_config_writel(addr + reg, value);
++        break;
++    }
++
++    return 0;
++}
++
+ uint8_t pci_conf_read8(pci_sbdf_t sbdf, unsigned int reg)
+ {
+     uint32_t value;
 =20
-@@ -707,7 +707,7 @@ static int __init cf_check parse_ivrs_ioapic(const cha=
-r *str)
-         }
+     if ( sbdf=2Eseg || reg > 255 )
+     {
+-        pci_mmcfg_read(sbdf=2Eseg, sbdf=2Ebus, sbdf=2Edevfn, reg, 1, &val=
+ue);
++        pci_mmcfg_read(sbdf, reg, 1, &value);
+         return value;
      }
 =20
--    ioapic_sbdf[idx]=2Esbdf =3D PCI_SBDF(seg, bus, dev, func);
-+    ioapic_sbdf[idx]=2Esbdf =3D sbdf;
-     ioapic_sbdf[idx]=2Eid =3D id;
-     ioapic_sbdf[idx]=2Ecmdline =3D true;
+@@ -30,7 +140,7 @@ uint16_t pci_conf_read16(pci_sbdf_t sbdf, unsigned int =
+reg)
+     {
+         uint32_t value;
 =20
-@@ -719,7 +719,7 @@ static int __init cf_check parse_ivrs_hpet(const char =
-*str)
+-        pci_mmcfg_read(sbdf=2Eseg, sbdf=2Ebus, sbdf=2Edevfn, reg, 2, &val=
+ue);
++        pci_mmcfg_read(sbdf, reg, 2, &value);
+         return value;
+     }
+=20
+@@ -43,7 +153,7 @@ uint32_t pci_conf_read32(pci_sbdf_t sbdf, unsigned int =
+reg)
+     {
+         uint32_t value;
+=20
+-        pci_mmcfg_read(sbdf=2Eseg, sbdf=2Ebus, sbdf=2Edevfn, reg, 4, &val=
+ue);
++        pci_mmcfg_read(sbdf, reg, 4, &value);
+         return value;
+     }
+=20
+@@ -53,7 +163,7 @@ uint32_t pci_conf_read32(pci_sbdf_t sbdf, unsigned int =
+reg)
+ void pci_conf_write8(pci_sbdf_t sbdf, unsigned int reg, uint8_t data)
  {
-     const char *s =3D str;
-     unsigned long id;
--    unsigned int seg, bus, dev, func;
-+    pci_sbdf_t sbdf;
-=20
-     if ( *s !=3D '[' )
-         return -EINVAL;
-@@ -728,12 +728,12 @@ static int __init cf_check parse_ivrs_hpet(const cha=
-r *str)
-     if ( id !=3D (typeof(hpet_sbdf=2Eid))id || *s !=3D ']' || *++s !=3D '=
-=3D' )
-         return -EINVAL;
-=20
--    s =3D parse_pci(s + 1, &seg, &bus, &dev, &func);
-+    s =3D parse_pci_sbdf(s + 1, &sbdf);
-     if ( !s || *s )
-         return -EINVAL;
-=20
-     hpet_sbdf=2Eid =3D id;
--    hpet_sbdf=2Esbdf =3D PCI_SBDF(seg, bus, dev, func);
-+    hpet_sbdf=2Esbdf =3D sbdf;
-     hpet_sbdf=2Einit =3D HPET_CMDL;
-=20
-     return 0;
-@@ -1399,13 +1399,13 @@ static int __init cf_check parse_ivmd_param(const =
-char *s)
-         }
-=20
-         do {
--            unsigned int seg, bus, dev, func;
-+            pci_sbdf_t sbdf;
-=20
-             if ( nr_ivmd >=3D ARRAY_SIZE(user_ivmds) )
-                 return -E2BIG;
-=20
--            s =3D parse_pci(s + 1, &seg, &bus, &dev, &func);
--            if ( !s || seg )
-+            s =3D parse_pci_sbdf(s + 1, &sbdf);
-+            if ( !s || sbdf=2Eseg )
-                 return -EINVAL;
-=20
-             user_ivmds[nr_ivmd]=2Estart_address =3D start << PAGE_SHIFT;
-@@ -1413,16 +1413,16 @@ static int __init cf_check parse_ivmd_param(const =
-char *s)
-             user_ivmds[nr_ivmd]=2Eheader=2Eflags =3D ACPI_IVMD_UNITY |
-                                                ACPI_IVMD_READ | ACPI_IVMD=
-_WRITE;
-             user_ivmds[nr_ivmd]=2Eheader=2Elength =3D sizeof(*user_ivmds)=
-;
--            user_ivmds[nr_ivmd]=2Eheader=2Edevice_id =3D PCI_BDF(bus, dev=
-, func);
-+            user_ivmds[nr_ivmd]=2Eheader=2Edevice_id =3D sbdf=2Ebdf;
-             user_ivmds[nr_ivmd]=2Eheader=2Etype =3D ACPI_IVRS_TYPE_MEMORY=
-_ONE;
-=20
-             if ( *s =3D=3D '-' )
-             {
--                s =3D parse_pci(s + 1, &seg, &bus, &dev, &func);
--                if ( !s || seg )
-+                s =3D parse_pci_sbdf(s + 1, &sbdf);
-+                if ( !s || sbdf=2Eseg )
-                     return -EINVAL;
-=20
--                user_ivmds[nr_ivmd]=2Eaux_data =3D PCI_BDF(bus, dev, func=
-);
-+                user_ivmds[nr_ivmd]=2Eaux_data =3D sbdf=2Ebdf;
-                 if ( user_ivmds[nr_ivmd]=2Eaux_data <
-                      user_ivmds[nr_ivmd]=2Eheader=2Edevice_id )
-                     return -EINVAL;
-diff --git a/xen/drivers/passthrough/vtd/dmar=2Ec b/xen/drivers/passthroug=
-h/vtd/dmar=2Ec
-index 9f9b639eba=2E=2Edafe1b62f6 100644
---- a/xen/drivers/passthrough/vtd/dmar=2Ec
-+++ b/xen/drivers/passthrough/vtd/dmar=2Ec
-@@ -1215,7 +1215,7 @@ static int __init cf_check parse_rmrr_param(const ch=
-ar *str)
-         do {
-             bool def_seg =3D false;
-=20
--            stmp =3D parse_pci_seg(s + 1, &seg, &bus, &dev, &func, &def_s=
-eg);
-+            stmp =3D parse_pci_sbdf_seg(s + 1, &sbdf, &def_seg);
-             if ( !stmp )
-                 return -EINVAL;
-=20
-@@ -1224,12 +1224,11 @@ static int __init cf_check parse_rmrr_param(const =
-char *str)
-              * Segment will be replaced with one from first device=2E
-              */
-             if ( user_rmrrs[nr_rmrr]=2Edev_count && def_seg )
--                seg =3D PCI_SEG(user_rmrrs[nr_rmrr]=2Esbdf[0]);
-+                sbdf=2Eseg =3D PCI_SEG(user_rmrrs[nr_rmrr]=2Esbdf[0]);
-=20
-             /* Keep sbdf's even if they differ and later report an error=
-=2E */
-             dev_count =3D user_rmrrs[nr_rmrr]=2Edev_count;
--            user_rmrrs[nr_rmrr]=2Esbdf[dev_count] =3D
--               PCI_SBDF(seg, bus, dev, func)=2Esbdf;
-+            user_rmrrs[nr_rmrr]=2Esbdf[dev_count] =3D sbdf=2Esbdf;
-=20
-             user_rmrrs[nr_rmrr]=2Edev_count++;
-             s =3D stmp;
+     if ( sbdf=2Eseg || reg > 255 )
+-        pci_mmcfg_write(sbdf=2Eseg, sbdf=2Ebus, sbdf=2Edevfn, reg, 1, dat=
+a);
++        pci_mmcfg_write(sbdf, reg, 1, data);
+     else
+         pci_conf_write(PCI_CONF_ADDRESS(sbdf, reg), reg & 3, 1, data);
+ }
+@@ -61,7 +171,7 @@ void pci_conf_write8(pci_sbdf_t sbdf, unsigned int reg,=
+ uint8_t data)
+ void pci_conf_write16(pci_sbdf_t sbdf, unsigned int reg, uint16_t data)
+ {
+     if ( sbdf=2Eseg || reg > 255 )
+-        pci_mmcfg_write(sbdf=2Eseg, sbdf=2Ebus, sbdf=2Edevfn, reg, 2, dat=
+a);
++        pci_mmcfg_write(sbdf, reg, 2, data);
+     else
+         pci_conf_write(PCI_CONF_ADDRESS(sbdf, reg), reg & 2, 2, data);
+ }
+@@ -69,7 +179,7 @@ void pci_conf_write16(pci_sbdf_t sbdf, unsigned int reg=
+, uint16_t data)
+ void pci_conf_write32(pci_sbdf_t sbdf, unsigned int reg, uint32_t data)
+ {
+     if ( sbdf=2Eseg || reg > 255 )
+-        pci_mmcfg_write(sbdf=2Eseg, sbdf=2Ebus, sbdf=2Edevfn, reg, 4, dat=
+a);
++        pci_mmcfg_write(sbdf, reg, 4, data);
+     else
+         pci_conf_write(PCI_CONF_ADDRESS(sbdf, reg), 0, 4, data);
+ }
+diff --git a/xen/include/xen/pci=2Eh b/xen/include/xen/pci=2Eh
+index d816dcad05=2E=2Eb3c91fea9c 100644
+--- a/xen/include/xen/pci=2Eh
++++ b/xen/include/xen/pci=2Eh
+@@ -258,10 +258,8 @@ void pci_conf_write16(pci_sbdf_t sbdf, unsigned int r=
+eg, uint16_t data);
+ void pci_conf_write32(pci_sbdf_t sbdf, unsigned int reg, uint32_t data);
+ uint32_t pci_conf_read(uint32_t cf8, uint8_t offset, uint8_t bytes);
+ void pci_conf_write(uint32_t cf8, uint8_t offset, uint8_t bytes, uint32_t=
+ data);
+-int pci_mmcfg_read(unsigned int seg, unsigned int bus,
+-                   unsigned int devfn, int reg, int len, u32 *value);
+-int pci_mmcfg_write(unsigned int seg, unsigned int bus,
+-                    unsigned int devfn, int reg, int len, u32 value);
++char *pci_mmcfg_base(unsigned int seg, unsigned int *bus);
++int pci_mmcfg_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int len, =
+u32 value);
+ unsigned int pci_find_cap_offset(pci_sbdf_t sbdf, unsigned int cap);
+ unsigned int pci_find_next_cap_ttl(pci_sbdf_t sbdf, unsigned int pos,
+                                    const unsigned int caps[], unsigned in=
+t n,
 --=20
 2=2E52=2E0
 
@@ -404,5 +653,5 @@ XCP-ng & Xen Orchestra - Vates s=
 olutions
 
 web: https://vates=2Etech
----=Part.e13.6ca638ed955f5b82.19e3baeaa36.1a70f84ed571b8b4=---
+---=Part.e14.e5f1b60d69208c0d.19e3baeb0f7.8800be35dc06f22b=---
 
