@@ -2,54 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EHtcGJtKC2o7FQUAu9opvQ
+	id qDxyMBROC2o7FQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 19:21:31 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 19:36:20 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6EDF5718DA
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 19:21:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312173.1582339 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AAB1571AE0
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 19:36:19 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312181.1582348 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP1df-0002QH-G6; Mon, 18 May 2026 17:20:23 +0000
+	id 1wP1sl-0004MY-Nx; Mon, 18 May 2026 17:35:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312173.1582339; Mon, 18 May 2026 17:20:23 +0000
+Received: by outflank-mailman (output) from mailman id 1312181.1582348; Mon, 18 May 2026 17:35:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP1df-0002OX-D6; Mon, 18 May 2026 17:20:23 +0000
-Received: by outflank-mailman (input) for mailman id 1312173;
- Mon, 18 May 2026 17:20:22 +0000
+	id 1wP1sl-0004Jx-KQ; Mon, 18 May 2026 17:35:59 +0000
+Received: by outflank-mailman (input) for mailman id 1312181;
+ Mon, 18 May 2026 17:35:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3c1a4a3e000f373@swg.vates.tech>)
- id 1wP1de-0002OR-H1
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 17:20:22 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <andrew.cooper@citrix.com>) id 1wP1sj-0004Jq-Gn
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 17:35:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wP1dd-009CLD-TP
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 19:20:21 +0200
+ id 1wP1si-00435A-Ap
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 19:35:56 +0200
 Received: from [10.42.69.12] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3c1a4a3e000f373@swg.vates.tech>)
- id 6a0b4a3e-bab6-0a2a0a5309dd-0a2a450c92fa-48
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 19:20:21 +0200
-Received: from [185.255.28.34] (helo=prod-mta-13.swg-srv.net)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a0b4deb-2eae-0a2a0a5409dd-0a2a450c97fe-46
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 19:35:56 +0200
+Received: from [52.101.57.59]
+ (helo=BN8PR05CU002.outbound.protection.outlook.com)
  by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from
- <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e3c1a4a3e000f373@swg.vates.tech>)
- id 6a0b4a55-62f1-0a2a450c0019-b9ff1c2292af-3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 19:20:21 +0200
-Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
- (Authenticated sender:
- 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
- by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
- 19e3c1a4a3e000f373.006 for <xen-devel@lists.xenproject.org>
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Mon, 18 May 2026 17:20:16 +0000
-Received: from [192.168.1.18] (88-175-170-134.subs.proxad.net [88.175.170.134])
- (Authenticated sender: teddy.astie)
- by mail2.vates.fr (Postfix) with ESMTPSA id A244E862B6;
- Mon, 18 May 2026 19:20:15 +0200 (CEST)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a0b4dfa-62f1-0a2a450c0019-3465393b65df-3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 19:35:55 +0200
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by SA2PR03MB5881.namprd03.prod.outlook.com (2603:10b6:806:11d::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
+ 2026 17:35:51 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.21.0025.022; Mon, 18 May 2026
+ 17:35:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,302 +58,473 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=vates.tech header.i="@vates.tech" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:In-Reply-To:References:Feedback-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
- q=dns/txt; s=selector1; bh=hra9r/K7igTQFEEyjuEvXlR5DPULI1rg28Vp8J2SGCc=;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
- b=kUX/B+Zab2MOGdzdLl8xorHiE3bocZ2W5/i3+s9YFD14pkgUcdSSNIheZpgtQnaqmb1o7JcbI
- dv8WBUvXEK2iMxBuzR69hYAIRFwkOEEidPkGA34Gm0Mp0snC4CU2bmEx0qEpyTGPlOi6t9iijaI
- dYLxeX4tHRydCFNAH/cmwVYBOvIEVJsM1RUMCPg/C3M6VFfbWZhWpHAmD0BPx4SwQ1fgGl94Eh1
- rDCpfznW3wDzpKpZttUvD6xfKmCYdqP0e0v7hUIleEori4VB1LMOcIw3KO8OuoDmJWj1eunYs+v
- IRIPyzoyv7Y9UA55rP42DBPaPXG5fsspZed1bkUbfi6Q==
-X-Zone-Loop: a6ca151f86f1954769f84cd7dba69e910b8496af4835
-x-campaign-type: default
-x-transaction-id: 027ce0ef-2aac-4fc7-bfa1-bd925e781530
-x-swg-uid: 01-919c3f49-d901-4964-b27c-2c025e2667e7
-X-Mailer: Sweego
-Message-ID:
- <1779124816.8631fc262581453bbf619ec5b2062170.19e3c1a4a3e000f373@vates.tech>
-x-swg-bid: 1779124816.8631fc262581453bbf619ec5b2062170.19e3c1a4a3e000f373
-Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
-x-campaign-id: default
-x-client-id: 8631fc262581453bbf619ec5b2062170
-X-Originating-IP: [37.26.189.201]
-Date: Mon, 18 May 2026 19:20:15 +0200
-MIME-Version: 1.0
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DhwJeJX732cqNiiMNFydYFznN24c8TPZwn+axWo8K/NH7CGicJfIPhifQJQkIuLkZc3LquwKqXzLxnRXCWHR6bNfAc38FCqbaNQxGLfdIGPMJrd2JxvWA0rQSFqwzGaor+PYY3tW/S+swL31YsYPyW4D684OeXwF6jtLoQfw2mKCxgwRQlmMrnWLbvHOYu8HZRFNN2kN77GuRwbVhIaefVKmuyhg8mtTj/lccbeykQ4+R7G5rOpAHl92j4UKBV5OXRSfT0V4eus8hSgZNN3Vq5v8AWvPsG1IZDo+U3IH3Uc6SXTcOSM9+6eBT0aQpSH3Iz1+4cxP4jQY55h/BSWA0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q3V/3xqU8rvEI4kDqvuV4q+H2XEtjmhTKcs+k/WkhGM=;
+ b=UxLxa7qxJEkL7L/+3Ua1fQb7s4oiDqSGFUFFyt6b6FwFyKmQG8Krfxu3tU25ufKZn8L9jg+I3VnYzWjJbE9KaaoEPK9BOb8a/CWG8dMbSttopzvoXp3wB66WR9g3rOo5ngYAC8pvoyY55gTDNL9r25GeA25Gu51JlXjapsIvdPUXVLAQ8NcIX4hCUbvTfbXyCvvquD20aqmAZu//HtHIzOksX7KyRad2Yp1yAXSE+rq/ZSgNb68DHsJT7ROyljjjh+E75ilJXVzegZT4Y5tle1UQ2h0ddrJKhxD1QtTCChTlAxiu/fI2RG3SIro2K9d5q2O9VlHfWqZTyydLuCObIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q3V/3xqU8rvEI4kDqvuV4q+H2XEtjmhTKcs+k/WkhGM=;
+ b=Rg7OFzs/b/XDnBYG8bY3ewgL00Pz4O7DBrUdaMKWVMqByMRR1AKNTnZ6eyAhS6CztR0Y4fjkfv1ZJYJLJA8glNtxg7seNJ8CkV/3TdfoDVeDGTJJN9J5G1HlZM6f8sRVhID7RIptiQXe7ML409KborbQKMfubLwwQbSf2Igzk1M=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <7ac53569-acca-44f7-a129-99b5dcb97500@citrix.com>
+Date: Mon, 18 May 2026 18:35:48 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] Small PCI refactoring
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Jason Andryuk <jason.andryuk@amd.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH 5/5] RFC: pci: Migrate pci_mmcfg_{read,write} to pci.c
+To: Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
 References: <cover.1779116255.git.teddy.astie@vates.tech>
-Content-Language: en-US
-From: Teddy Astie <teddy.astie@vates.tech>
-Autocrypt: addr=teddy.astie@vates.tech; keydata=
- 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
- x9fhaZEsniw8/bYgC3igkk5YJiOa
-In-Reply-To: <cover.1779116255.git.teddy.astie@vates.tech>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------wsDScAUdj85lIBzS7DRc1Uw9"
-X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
-X-Bm-Transport-Timestamp: 1779124815832
-X-purgate-ID: tlsNG-d25034/1779124821-F5585CF5-002AD657/0/0
+ <1779117765.8631fc262581453bbf619ec5b2062170.19e3baeb295000f373@vates.tech>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <1779117765.8631fc262581453bbf619ec5b2062170.19e3baeb295000f373@vates.tech>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0331.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18c::12) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SA2PR03MB5881:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4dc2d8a6-5837-471e-da9e-08deb503e7c6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|3023799003|4143699003|11063799003|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	5YW3a/RqrBVC9UIGwVXwzEYl7l7YnFLyOmVakbiw5S3ey4fVrQvEHovh8kqiQ6E9XzbCjfw456yGbFRsLeQXqFLD+HKtSFwyhokK8IFgQJOYrnU5mgkPTJCndHnAw/WVVeXOOOvcYEBPWkUHFv9gqrvbwZ7uyC0UxUEdgTIz0N4kt1mGoDVpbEIWMgJ+gHq0kHZC9207j6efoxx2J9T+e5pxsD/N3Qm523zohTCTdI2sPWCNirQM5heCtJqwTmweqHKsJv7hanDfXxYFXaqbrmBHQmPTtDpLrwUdFYVCsya2qgVAbv9LOx2aRAAt4S7rKPpZ1faQc+QmqII30pJMmIYA/PppWjNXZbWKiIpoNnoqN5KSr5ACM7hJg/4Bt3E5iYJinLURqz4U4tPEqj4kufemv31W84H2aRPof4fsFAcJD3m3Z1hAb+iyfJcsZskn/MmF9jZ0uOaEvtXg1dl7kD9pE/L0JBbYIl1HwmPn1LsEkDNpD4ZVaUc5cGVnmz6TJsqN8YdMEpukPYgACcvQSfgYvpzvIujuO9xPx6xd1Dj3FLfIookUhgq3ErjyXAT4sKMyyWFIWWaXOndc5QMYfIXpzwpXdmj5Yx+XiH+kFsOKBp9FpcoLzubwZ4R9I17pLmg9ax72LhQKiPH9wvCq3HshpFY/VvGb3RDxKo82MUXoqc00j/vP+WoIo1RnL52blstZLlir6/Rxj2ht70y97Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(3023799003)(4143699003)(11063799003)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SWkwaWFZK2gwZHBUYkkrNGJiN2FTanVxa0Y5NEE4dno4Yys0dWJEUDU2Z3Jw?=
+ =?utf-8?B?ZTNoM3lxSWZ3czU3MDh1RGEvSHIzU1cwQXZPaWJIVUxhdWhzdDYrUGFyTGdS?=
+ =?utf-8?B?QThxdjRIaHZTT0VWaDAzaitkeXZkbjFrNzRVVFViVFFWbEZERmJjdDhvTnJy?=
+ =?utf-8?B?Z2p0YXZrWlowckE4MXdNT0FMWE1rOFZqTkNGZDJUYXFlZGdFeW1tcmE5bzFE?=
+ =?utf-8?B?T1p6OWVneXorR1JjcDJzaWFvWHUwK0IrY0NpdEFpZFVueFVlSVNVSWxSTFh6?=
+ =?utf-8?B?b2dSaDVvZXhpWkRlbktVM0FKaHB4dkR0RG8rcWxBYTY0YThxcUltMmljblVY?=
+ =?utf-8?B?SjJtZ3hjVUZVU2hFMkVEOG03SUdUV1djVENzTTJReVVqNkRVNmc0WFcxWm9j?=
+ =?utf-8?B?cmJlb3FwTjducVJmTFM2UXhqZG9HOWZNMnc5c0NteUpLUWdRS0lPa1pwSnVm?=
+ =?utf-8?B?TVEybHE2TC9idXFQNU50cElINEhQQmNlUEdFaUpFRTJ5Q0ZzQ1F3YkRaYXgr?=
+ =?utf-8?B?aVlMT2Q5c0xNNUxPOG8rQzlYUDgvclN6NWVKVisyNXhDaVZvdXhnTkdKWm1Y?=
+ =?utf-8?B?T25nTVNiRUo3TzllYXBxNjZWajQwWVdRbXV0cklXOGNoU3oyT0ZrM1ppR2kv?=
+ =?utf-8?B?YXRjTnFqOVJJVzBOOUxua0xDYXY0UEhqWVFEWmZOVWIyQlpSaHJKbnB4T2Rk?=
+ =?utf-8?B?YmxmTDhYOHZRTXFmNGo3czBaMWtjVWFHdzVRejIwdUJnUlB5N1hPdUk3MEhu?=
+ =?utf-8?B?UGxNVTZobVRqWS8wbHBmSU9VbDg2ZkZXVGM3eW1vSHB1bm1iNEFqekhUUUUy?=
+ =?utf-8?B?dUF4RU91QmV2aEFjNDNFRjVLLzhTYksyRDNnYkNqUlpxQmhTTzI3aVZXTG4w?=
+ =?utf-8?B?TEgyRjFIWTFiZkdQTVFYaWFWQnQvSVNPeUl4ci9RS2QyelJmSHJYbDRRL1Fy?=
+ =?utf-8?B?WTF5YTdxd1ZPRlByUExBWHQ1UE1pVi82bUc0eFh4SkdXdjhTSklCL3RzSG9G?=
+ =?utf-8?B?MFMvcSsraURVWHRSdjQxVDBrK2krYjVNWjFHNDJTb3hYZXZ5NVcveFJ4R2pP?=
+ =?utf-8?B?TzdnZkNBSGluTjFBbUlTUXpPN3d1RnZBOXc4QmZLc3hvRndYQzVqWkpla21N?=
+ =?utf-8?B?R3pSdEd4ei9ML21tWlBxUjRwQTlzd2c3bFlTMkpFcGQveVltM1ovVktYWmhT?=
+ =?utf-8?B?ZENadWdsZTRKQnRUdFlzSkZwSllCTytFNTYzdkMyMnp0dk1IWHd5aExJQVBu?=
+ =?utf-8?B?Z1V6YVFzODQzWEFnVG4yMVR4TDFBbWZMaFhoaDNSdm5pR3JJRTB4OFROYnk4?=
+ =?utf-8?B?bU5Za2dZNUZKNm9pNElraHJDTGliRnRaeHpRVjFTZVRxN2EyemtOWTFkQ1pW?=
+ =?utf-8?B?QkpvTHg2SFltekwzcno4RlcyTk96MWt0cGV3NmJkd2Fsa2tFblFhV3NkVkNo?=
+ =?utf-8?B?NGZxS0FOdnJ3VGdscVRQbzBYcHBZRTdVYjg4cXF5dldmUDJaV0xGM1NDTm5n?=
+ =?utf-8?B?UkNLTGdIMTlZRXpPRXVnVXRpRGgwMEdQcDJsUnlrdUNrYkk4cldSZTcxcFdh?=
+ =?utf-8?B?eE02TFpUZXIxbnA1ejkzMWZ5T2s1R1oxbUJHdEhld0pUcTI2SDMza1dyVCtK?=
+ =?utf-8?B?Nk1Ia3RsbUNFRGhpaTJwL3ZONzE0RjViUjJYc1MyblQzWFJBR0g5akMyaVBY?=
+ =?utf-8?B?VC9na0Q2TTNFaW1oaUtjakhhNXBsT1c2MnAvSmFPYnNjQU1YS0dIRCtpSjdy?=
+ =?utf-8?B?RERGUm5vVEh0MEIwR0EzOTk4YXhUNkRKTXRpa2RYclh5aFJSc25qcU1PTXlt?=
+ =?utf-8?B?d29zNURLaDdrTjVXREZvT3ZVVmZZc08zNEhCRURSeHNsRjYvQnl2RWY4RWJa?=
+ =?utf-8?B?T2I1SUFjSmpRMzZ0ckZtSnNkTk5tWDBhemVSRTBrZDQyUk5BNzhJZExDU1JS?=
+ =?utf-8?B?VmUzNjQ0eUZzZWtEdzY3dDJ4ZjJyRE5hRVdGUThYbVcyWEh6Rkt1YnhQN0lo?=
+ =?utf-8?B?ME1JUEZTZlJHTXBVd28wNER0QUV1MWRDRGkvM0dsVFpvb254VklwdEowbEpy?=
+ =?utf-8?B?NnBSNE11dHZmT2Q4eThuNStUM2VCMnR3K0VYRS9leERoZ1IxdG5wUnhlYTMy?=
+ =?utf-8?B?YmpwMU9nenF5K3dxQ3pWT1grRDlpdzhhZGU0eHFaQ2JTaG16Vm9NNUkrZlpI?=
+ =?utf-8?B?V0ZSWVAzV0cvR3dXLzVrQ3BIY1h1TnhSS2lKbVF5NTJ2S0Q2QjBsaVM2U3hi?=
+ =?utf-8?B?L3JKcU9uQldaTU5OWW1paVdLVVhyN2JzbzJnZWhuQVMzcHd3M0NvWEI1aFhI?=
+ =?utf-8?B?VnBKSnU0MkhNNUtNSll2TkorUzJuT1RoTkwxVDVrWkNoVE5nYUhGNE1IT3B1?=
+ =?utf-8?Q?HMjnotgiOh7cHfo4=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4dc2d8a6-5837-471e-da9e-08deb503e7c6
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 17:35:51.2438
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PG0QQktzQmKYDBHVpiCtqF9fBRX+U5N/Vse9fBYeHUTOzywbim5E34rBLWrogyQ+NAuuBD4HW3aGxcRwNyhiJfcZSbP80dyOb/ZLeedPW34=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA2PR03MB5881
+X-purgate-ID: tlsNG-d25034/1779125756-D996DCF5-CF2E183E/0/0
 X-purgate-type: clean
-X-purgate-size: 11125
-X-Spamd-Result: default: False [-3.08 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+X-purgate-size: 10709
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_MUA_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:jason.andryuk@amd.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:mid,vates.tech:dkim];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	HAS_ATTACHMENT(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	HAS_XOIP(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[teddy.astie@vates.tech,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[vates.tech:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: B6EDF5718DA
+X-Rspamd-Queue-Id: 1AAB1571AE0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------wsDScAUdj85lIBzS7DRc1Uw9
-Content-Type: multipart/mixed; boundary="------------eViBguofPDE0pRtXSMXpjhGo";
- protected-headers="v1"
-From: Teddy Astie <teddy.astie@vates.tech>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Jason Andryuk <jason.andryuk@amd.com>
-Message-ID: <70b597da-e564-4f97-b22d-a647b6497a0d@vates.tech>
-Subject: Re: [PATCH 0/5] Small PCI refactoring
-References: <cover.1779116255.git.teddy.astie@vates.tech>
-In-Reply-To: <cover.1779116255.git.teddy.astie@vates.tech>
+On 18/05/2026 4:21 pm, Teddy Astie wrote:
+> Key parts of MMCFG access bits are in mmconfig_64.c (in particular
+> pci_mmcfg_{read,write}()) while PCI configuration primitives (used accross the
+> codebase) are in pci.c.
+> This leads to situations where the compiler cannot optimize the `switch (len)`
+> for MMCFG access for all pci_conf_{read,write}N(), because they are not from
+> the same file.
+>
+> Move the pci_mmcfg_{read,write} in pci.c and hint the compiler to inline these
+> functions such that it's more likely that the compiler eliminates the
+> `switch (len)``.
+>
+> Also take the opportunity to migrate to pci_sbdf_t to reduce the parameter count
+> and drop many parameter domains checks.
+>
+> On GCC 16.1, this leads to codegen where pci_conf_{read,write}N() doesn't call
+> pci_mmcfg_{read,write}() anymore and directly perform the MMIO RW.
+>
+> <pci_conf_read32>:
+>        55                      push   %rbp
+>        48 89 e5                mov    %rsp,%rbp
+>        53                      push   %rbx
+>        89 f8                   mov    %edi,%eax
+>        89 f3                   mov    %esi,%ebx
+>        c1 ef 10                shr    $0x10,%edi
+>        81 fe ff 00 00 00       cmp    $0xff,%esi
+>        77 26                   ja     ffff82d040301fab <pci_conf_read32+0x3a>
+>        85 ff                   test   %edi,%edi
+>        75 22                   jne    ffff82d040301fab <pci_conf_read32+0x3a>
+>        0f b7 f8                movzwl %ax,%edi
+>        c1 e7 08                shl    $0x8,%edi
+>        83 e3 fc                and    $0xfffffffc,%ebx
+>        09 df                   or     %ebx,%edi
+>        81 cf 00 00 00 80       or     $0x80000000,%edi
+>        ba 04 00 00 00          mov    $0x4,%edx
+>        be 00 00 00 00          mov    $0x0,%esi
+>        e8 2a 1c 03 00          call   ffff82d040333bd3 <pci_conf_read>
+>        eb 22                   jmp    ffff82d040301fcd <pci_conf_read32+0x5c>
+>        81 fb ff 0f 00 00       cmp    $0xfff,%ebx
+>        77 24                   ja     ffff82d040301fd7 <pci_conf_read32+0x66>
+>        0f b6 d0                movzbl %al,%edx
+>        0f b6 f4                movzbl %ah,%esi
+>        0f b7 ff                movzwl %di,%edi
+>        e8 f5 fd ff ff          call   ffff82d040301db6 <pci_dev_base>
+>        48 85 c0                test   %rax,%rax
+>        74 18                   je     ffff82d040301fde <pci_conf_read32+0x6d>
+>        89 db                   mov    %ebx,%ebx
+>        48 01 d8                add    %rbx,%rax
+>        8b 00                   mov    (%rax),%eax
+>        48 8b 5d f8             mov    -0x8(%rbp),%rbx
+>        c9                      leave
+>        e9 89 12 f0 ff          jmp    ffff82d040203260 <__x86_return_thunk>
+>        b8 ff ff ff ff          mov    $0xffffffff,%eax
+>        eb ef                   jmp    ffff82d040301fcd <pci_conf_read32+0x5c>
+>        b8 ff ff ff ff          mov    $0xffffffff,%eax
+>        eb e8                   jmp    ffff82d040301fcd <pci_conf_read32+0x5c>
 
---------------eViBguofPDE0pRtXSMXpjhGo
-Content-Type: multipart/mixed; boundary="------------zvnv6f4a0PpngRFwpPYNjlmx"
+This is not the whole function because it's missing a pop %rbx.  Also,
+right at the bottom here are the -1's from bad error paths (discussed
+later).
 
---------------zvnv6f4a0PpngRFwpPYNjlmx
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+But, this should be after the ---.  Disassembly this long isn't
+interesting to stay in the commit message.
 
-TGUgMTgvMDUvMjAyNiDDoCAxNzoyMiwgVGVkZHkgQXN0aWUgYSDDqWNyaXTCoDoNCj4gVGhl
-IGdvYWwgb2YgdGhpcyBzZXJpZXMgaXMgdG8gbWFrZSBzb21lIHJlZmFjdG9yaW5nIG9mIHNv
-bWUNCj4gcGNpIHByaW1pdGl2ZXMgdG8gaW1wcm92ZSBjb2RlZ2VuIGFuZCBtYWtlIGNvZGUg
-bGVzcyB2ZXJib3NlLg0KPiANCj4gQSBiaWcgY2h1bmsgb2YgaXQgaXMgY29udmVydGluZyBt
-YW55IHBsYWNlcyB3aGVyZSAoc2VnLCBidXMsIGRldiwgZm4pDQo+IGlzIHNwbGl0IGludG8g
-bXVsdGlwbGVzIHZhcmlhYmxlcyBhbmQgY29udmVydCBpdCBpbnRvIGJlaW5nIGp1c3QNCj4g
-cGNpX3NiZGZfdCwgaW4gcGFydGljdWxhciBpbiBzb21lIFBDSSBmdW5jdGlvbiBwYXJhbWV0
-ZXJzIHRvIHJlZHVjZQ0KPiBwYXJhbWV0ZXIgY291bnQgd2hpY2ggdXN1YWxseSB0cmFuc2xh
-dGUgaW50byBsZXNzIHJlZ2lzdGVycyB0byBwYXNzDQo+IHRvIHRoZSBmdW5jdGlvbi4gTW9y
-ZW92ZXIsIHdlIGFsc28gYXZvaWQgdHJhbnNsYXRpbmcgYmFjayBhbmQgZm9ydGgNCj4gYmV0
-d2VlbiBwY2lfc2JkZl90IGFuZCBpbmRpdmlkdWFsIChzZWcsIGJ1cywgZGV2LCBmbikuDQo+
-IA0KPiBMYXRlc3QgcGF0Y2ggYXR0ZW1wdHMgdG8gaW1wcm92ZSBjb2RlZ2VuIG9mIHBjaV9j
-b25mX3tyZWFkLHdyaXRlfU4oKQ0KPiBieSBtYWtpbmcgdGhlbSBpbmxpbmUgc3BlY2lhbGl6
-ZWQgdmFyaWFudHMgb2YgcGNpX21tY2ZnX3tyZWFkLHdyaXRlfSgpDQo+IGluIG9yZGVyIHRv
-IGVsaW1pbmF0ZSBhIHBhcnRpY3VsYXIgYHN3aXRjaCAobGVuKWAgYXQgY29tcGlsZSB0aW1l
-Lg0KPiANCj4gTm8gaW50ZW5kZWQgZnVuY3Rpb25hbCBjaGFuZ2UsIGFzaWRlIHNvbWUgcGFy
-dHMgb2YgdGhlIGNvZGViYXNlIHRoYXQgd2lsbA0KPiBub3cgY29ycmVjdGx5IGhhbmRsZSBQ
-Q0kgc2VnbWVudCB3aGVuIHBhcnNlZCB3aGlsZSBpdCB3YXMgcHJldmlvdXNseQ0KPiBpZ25v
-cmVkIChlLmcgZGJncCkuDQo+IA0KPiBCbG9hdC1vLW1ldGVyIGlzIHByZXR0eSB0ZWxsaW5n
-DQo+IA0KPiBhZGQvcmVtb3ZlOiA0LzIgZ3Jvdy9zaHJpbms6IDExLzE0IHVwL2Rvd246IDUy
-OS8tMTQ3MCAoLTk0MSkNCj4gRnVuY3Rpb24gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgb2xkICAgICBuZXcgICBkZWx0YQ0KPiBwY2lfbW1jZmdfYmFzZSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIC0gICAgIDEwNiAgICArMTA2DQo+IHBhcnNlX3Bj
-aV9zYmRmX3NlZyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLSAgICAgIDg4ICAgICAr
-ODgNCj4gcGFyc2VfcGNpX3NiZGYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAt
-ICAgICAgODUgICAgICs4NQ0KPiBwY2lfZGV2X2Jhc2UgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIC0gICAgICA1NiAgICAgKzU2DQo+IHBjaV9jb25mX3JlYWQxNiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICA5MiAgICAgMTE4ICAgICArMjYNCj4gcGNpX2Nv
-bmZfcmVhZDggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDkyICAgICAxMTcgICAg
-ICsyNQ0KPiBlaGNpX2RiZ3BfaW5pdCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA2
-MjkgICAgIDY1MiAgICAgKzIzDQo+IHBjaV9jb25mX3JlYWQzMiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICA5NCAgICAgMTE2ICAgICArMjINCj4gcGNpX2NvbmZfd3JpdGUzMiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDg4ICAgICAxMDkgICAgICsyMQ0KPiBzeW1i
-b2xzX25hbWVzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAxMDY0MzUgIDEwNjQ1MiAg
-ICAgKzE3DQo+IHN5bWJvbHNfc29ydGVkX29mZnNldHMgICAgICAgICAgICAgICAgICAgICA1
-OTY3MiAgIDU5Njg4ICAgICArMTYNCj4gcGNpX2NvbmZfd3JpdGUxNiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIDk0ICAgICAxMDkgICAgICsxNQ0KPiBwY2lfY29uZl93cml0ZTgg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOTQgICAgIDEwOCAgICAgKzE0DQo+IHJl
-c2VydmVfdW5pdHlfbWFwX2Zvcl9kZXZpY2UgICAgICAgICAgICAgICAgIDQzNCAgICAgNDQ1
-ICAgICArMTENCj4gc3ltYm9sc19vZmZzZXRzICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IDMxOTIwICAgMzE5MjQgICAgICArNA0KPiBtbWNmZ19pbnRlcmNlcHRfd3JpdGUgICAgICAg
-ICAgICAgICAgICAgICAgICAxOTQgICAgIDE5MyAgICAgIC0xDQo+IGFkZF9vbmVfdXNlcl9y
-bXJyICAgICAgICAgICAgICAgICAgICAgICAgICAgIDY1MyAgICAgNjQ0ICAgICAgLTkNCj4g
-X19maW5kX2RiZ3AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDg3ICAgICAg
-NjAgICAgIC0yNw0KPiBwY2lfZGV2aWNlX2RldGVjdCAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgODkgICAgICA1NSAgICAgLTM0DQo+IHBjaV9tbWNmZ193cml0ZSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIDE5NyAgICAgMTUyICAgICAtNDUNCj4gX3NjYW5fcGNpX2Rl
-dmljZXMgICAgICAgICAgICAgICAgICAgICAgICAgICAgMjg2ICAgICAyNDEgICAgIC00NQ0K
-PiBwYXJzZV9pdnJzX2lvYXBpYyAgICAgICAgICAgICAgICAgICAgICAgICAgICAyOTIgICAg
-IDIzNSAgICAgLTU3DQo+IHBhcnNlX3JtcnJfcGFyYW0gICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIDQ4NCAgICAgNDIwICAgICAtNjQNCj4gcmVnaXN0ZXJfb25lX3JtcnIgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgMzg5ICAgICAzMjQgICAgIC02NQ0KPiBwYXJzZV9pdnJz
-X2hwZXQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAyNDkgICAgIDE4NCAgICAgLTY1
-DQo+IHBhcnNlX2l2bWRfcGFyYW0gICAgICAgICAgICAgICAgICAgICAgICAgICAgIDY1MSAg
-ICAgNTcwICAgICAtODENCj4gYWNwaV9wYXJzZV9kbWFyICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAyNjI1ICAgIDI1MjAgICAgLTEwNQ0KPiBnZXRfdmlydCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAxMDYgICAgICAgLSAgICAtMTA2DQo+IHBjaV9tbWNm
-Z19yZWFkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDE4OSAgICAgICAtICAgIC0x
-ODkNCj4gbnMxNjU1MF9pbml0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAzMjA1
-ICAgIDMwMDIgICAgLTIwMw0KPiBhY3BpX3BhcnNlX2Rldl9zY29wZSAgICAgICAgICAgICAg
-ICAgICAgICAgIDE0NjUgICAgMTA5MSAgICAtMzc0DQo+IA0KPiBUZWRkeSBBc3RpZSAoNSk6
-DQo+ICAgIHBjaTogSW50cm9kdWNlIHBhcnNlX3BjaV9zYmRme19zZWd9KCkNCj4gICAgdnRk
-OiBVc2UgcGNpX3NiZGZfdCBpbiBhY3BpX3BhcnNlX2Rldl9zY29wZSgpDQo+ICAgIHBjaTog
-VXNlIHBjaV9zYmRmX3QgaW4gcGNpX2RldmljZV9kZXRlY3QoKQ0KPiAgICBwY2k6IFBhcnNl
-IGludG8gcGNpX3NiZGZfdCBkaXJlY3RseQ0KPiAgICBSRkM6IHBjaTogTWlncmF0ZSBwY2lf
-bW1jZmdfe3JlYWQsd3JpdGV9KCkgdG8gcGNpLmMNCj4gDQo+ICAgeGVuL2FyY2gveDg2L3B2
-L3JvLXBhZ2UtZmF1bHQuYyAgICAgICAgICB8ICAgMyArLQ0KPiAgIHhlbi9hcmNoL3g4Ni94
-ODZfNjQvbW1jb25maWcuaCAgICAgICAgICAgfCAgNDMgLS0tLS0tLS0NCj4gICB4ZW4vYXJj
-aC94ODYveDg2XzY0L21tY29uZmlnXzY0LmMgICAgICAgIHwgMTA2ICsrKystLS0tLS0tLS0t
-LS0tLS0tDQo+ICAgeGVuL2FyY2gveDg2L3g4Nl82NC9wY2kuYyAgICAgICAgICAgICAgICB8
-IDEyMiArKysrKysrKysrKysrKysrKysrKystLQ0KPiAgIHhlbi9kcml2ZXJzL2NoYXIvZWhj
-aS1kYmdwLmMgICAgICAgICAgICAgfCAgMzUgKysrLS0tLQ0KPiAgIHhlbi9kcml2ZXJzL2No
-YXIvbnMxNjU1MC5jICAgICAgICAgICAgICAgfCAgMjQgKystLS0NCj4gICB4ZW4vZHJpdmVy
-cy9jaGFyL3hoY2ktZGJjLmMgICAgICAgICAgICAgIHwgICA2ICstDQo+ICAgeGVuL2RyaXZl
-cnMvcGFzc3Rocm91Z2gvYW1kL2lvbW11X2FjcGkuYyB8ICAyNiArKy0tLQ0KPiAgIHhlbi9k
-cml2ZXJzL3Bhc3N0aHJvdWdoL3BjaS5jICAgICAgICAgICAgfCAgMTYgKy0tDQo+ICAgeGVu
-L2RyaXZlcnMvcGFzc3Rocm91Z2gvdnRkL2RtYXIuYyAgICAgICB8ICA4MCArKysrKystLS0t
-LS0tLS0NCj4gICB4ZW4vZHJpdmVycy9wY2kvcGNpLmMgICAgICAgICAgICAgICAgICAgIHwg
-IDE4ICsrKysNCj4gICB4ZW4vaW5jbHVkZS94ZW4vcGNpLmggICAgICAgICAgICAgICAgICAg
-IHwgIDExICstDQo+ICAgMTIgZmlsZXMgY2hhbmdlZCwgMjQzIGluc2VydGlvbnMoKyksIDI0
-NyBkZWxldGlvbnMoLSkNCj4gDQoNClRoZXJlIGFyZSBzb21lIGlzc3VlcyB3aXRoIG91ciBt
-YWlsIHByb3ZpZGVyIGZvciB0aGUgY292ZXIgbGV0dGVyIGFuZCANCnNvbWUgd2hpdGVzcGFj
-ZSBpc3N1ZXMgaW4gb25lIG9mIHRoZSBwYXRjaCwgd2lsbCByZXNlbmQgdG9tb3Jyb3cgDQoo
-aG9wZWZ1bGx5IGNvcnJlY3RseSB0aGlzIHRpbWUpLg0KDQpUZWRkeQ0K
---------------zvnv6f4a0PpngRFwpPYNjlmx
-Content-Type: application/pgp-keys; name="OpenPGP_0x660FA9D102CBCFD0.asc"
-Content-Disposition: attachment; filename="OpenPGP_0x660FA9D102CBCFD0.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> diff --git a/xen/arch/x86/x86_64/mmconfig_64.c b/xen/arch/x86/x86_64/mmconfig_64.c
+> index 940cf6d747..483dff9c2c 100644
+> --- a/xen/arch/x86/x86_64/mmconfig_64.c
+> +++ b/xen/arch/x86/x86_64/mmconfig_64.c
+> @@ -133,6 +46,25 @@ static void __iomem *mcfg_ioremap(const struct acpi_mcfg_allocation *cfg,
+>      return (void __iomem *) virt;
+>  }
+>  
+> +char __iomem *pci_mmcfg_base(unsigned int seg, unsigned int *bus)
+> +{
+> +    struct acpi_mcfg_allocation *cfg;
+> +    int cfg_num;
+> +
+> +    for (cfg_num = 0; cfg_num < pci_mmcfg_config_num; cfg_num++) {
+> +        cfg = pci_mmcfg_virt[cfg_num].cfg;
+> +        if (cfg->pci_segment == seg &&
+> +            (cfg->start_bus_number <= *bus) &&
+> +            (cfg->end_bus_number >= *bus)) {
+> +            *bus -= cfg->start_bus_number;
+> +            return pci_mmcfg_virt[cfg_num].virt;
+> +        }
+> +    }
+> +
+> +    /* Fall back to type 0 */
+> +    return NULL;
+> +}
 
-xsDNBGn5sK8BDACuzSrrTjpVf4ay06OYB6yY0J1PqKffihoNMtrQRZjAHxoAPC7L
-TBVHV/XOZw5HJc+9R71z1JV+iYg6z3jPziGKzX8Fj3ZXlzJPmpf1PuETH3KdbvtJ
-T4ny+OGntnJntUoRKRPhTirr6yNeBk/637O3CQXjtqFUPZnko8OI/o1yawIBhJJA
-WicutjkkUgd28Bh6HV9EIumHtCBgn5/1A/fpm9624MMgYLsA8qjC4XsoovQvFCaO
-8HEhvfzrrTZHjn/nPeB9SigxIxXW8YaTVqMdqul07o72m3eA2mf+LMu9a04FX/d4
-wbxBLtELm+1jIrbtyaFZEMOLv/haSiS/Lj3btJH/EoucejoZ5SH49ksmVAmKOLkt
-OaTQ8b2gEvP7iaKiIiszCCtOSRohr+2GvDsDeLvVZnlR3I+SPhHar7TPKjFz0G3D
-PNolyjXywNqOAMpomSPi8lSwjAFsxOtQbcck/qRGRSNk4DAmH70pA+89MXfQXZ3q
-t1Q01B1+sU0I8xsAEQEAAc0kVGVkZHkgQXN0aWUgPHRlZGR5LmFzdGllQHZhdGVz
-LnRlY2g+wsENBBMBCAA3FiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmn5sK8FCQWj
-moACGwMECwkIBwUVCAkKCwUWAgMBAAAKCRBmD6nRAsvP0ID6DACGOktArFbLKHNz
-uyOVCskwfUZPla6Zpd3GZ8r61SrAKePIr2BnpgPkd0hV3bSRkRLIrgjzR2NRCzfp
-0x0HfuhcYfAYPR46XHTvjaJEv99sT/vGUG1BZguYDOScSEpgSNaNlYum3RKZbMuR
-OxdK8G+YHccJY8PvWSq2K2yiae2KGiAv1yjnZxug9/PtDfX8vQFUSg2w1ukRDf50
-wvDohN1zUQfFtofOP2xCRsDZiHAlQ0pF+aUjXQhPeP3IdpfWc8cyRLXF06Rk46YM
-YCytweGtGdHcqAfrVthl84129ZPN422k/voW0sm14gjYlGcTUwgnYlFRk2FLq0Qe
-KEDcS0aj3o3EVAQCrayoGzi1pnlIKE3PRGUcUzjGVvzQ/po24gOjwba9Egr/Wmu3
-MQlx/7A8zT5QBzF/n+RYdLNQ0Eu6YnUwf0Z1uieqNaon+olyIRFiLb/hCZHO6ekN
-f5vrm2clHUbQAYaPQebknujoKBo6ZLHg0WM1gZS01Gz+aUpKsUfOwM0EafmwsAEM
-AKiQiZa3yQMmc/h3sDbfVHPSiBA4IMI/NAB7IotzPHq1GzCpsoVILAhF/INbWjxJ
-3DbVf+en3/FvdVZg2S38xtnth0njNdlVKpyxm054phKjbdoFDwaknWolS4hrddTm
-etSG5/52AjtmPFtlXAk0NmLvfJnW3seXVQbgM7sW/MNXPP5UKDpkGnLhnvej+GU0
-s3109sJeXT5ImVdphFs9cvyZyBT9t1PbRowv58EgV0zE4hbAeVkULAbxFV5b/ExT
-jjGVHoX7CVhWxvCiTqCUoXZRkUE9C3FnkzEFRkKbYu6NCfiHfEyB3Xyg9hfdrRgj
-MRq907zCof+nDtWxGz1MSEuvTj1g9GZ049Bennqzjc/Q+0ovXoK4jm+Py0FiUGUa
-A6yhexficjH+kCR/xDbVnWrMhSLB4AuTBT9HjfZI6gk3uYLhoT8Pig4/eVtR2Q1w
-ZIJsFToR6ofGuyECwFcs+PUXN7fmGRSiPXgjAr/zIUBdW0VWCE3OGPNqtRk2E5s6
-IQARAQABwsD8BBgBCAAmFiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmn5sLAFCQWj
-moACGwwACgkQZg+p0QLLz9DncQwAg76IehTemLIfrB8T9WIBZrI4kUV7G7a4rjiV
-oUiHYN5QwhnbZnsaJDlt+Ezoqy/510eo2bCSzvW5xXYPgyjcuOPwgQo1Qp764Qxy
-X6rld2f2RcWkDuBHun55ZWXjby8o21ginPRwruBVYY5rVf3DV1iBu4NurUeHtyFk
-/dS0XTOQi2wVUb17sW/+ybCEokdVacZGzOqP/OmwHrF8ylXlXnhQq6e3r+J+T8fu
-oGJelm/CJiMwyP6cEWE8sxVqX/iqwjwUYkuOCpE+lOWSvdNHgoEkWR0RXBPQjnGm
-LKbfTl/QDXLk6NP2/r9uxm2HL6Ei3QJKSEdrp+XZaVnk/OffO485NOTKwGOxyWb0
-06cTMh53xPkAJFQu4Tvdj+odsHz88jqw5wfPG0BYWx0I/FspYj7N9kZR8ULR9nX0
-LvpzJ/kB4NgHIUt8YtIL6ZSfM2dbF7fKzvx1UqFfvozJZwFzfEieJLXa4nlGgR6D
-x9fhaZEsniw8/bYgC3igkk5YJiOa
-=3DlUIA
------END PGP PUBLIC KEY BLOCK-----
+This is a horrid function.  Accessing and modifying bus like that causes
+poor code generation, and by now having this in a separate translation
+unit, the optimiser can't fold it into it's single caller and undo the
+poor decisions which went into writing this function.
 
---------------zvnv6f4a0PpngRFwpPYNjlmx--
+Instead, you want:
 
---------------eViBguofPDE0pRtXSMXpjhGo--
+void __iomem *pci_mmcfg_base(pci_sbdf_t sbdf)
+{
+    ...
+}
 
---------------wsDScAUdj85lIBzS7DRc1Uw9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+base which takes care of the bus adjustment internally.  This can be
+broken out into a separate patch, and take the opportunity to write it
+to Xen style.
 
------BEGIN PGP SIGNATURE-----
+> diff --git a/xen/arch/x86/x86_64/pci.c b/xen/arch/x86/x86_64/pci.c
+> index 8d33429103..c37e3edade 100644
+> --- a/xen/arch/x86/x86_64/pci.c
+> +++ b/xen/arch/x86/x86_64/pci.c
+> @@ -11,13 +11,123 @@
+>  #define PCI_CONF_ADDRESS(sbdf, reg) \
+>      (0x80000000U | ((sbdf).bdf << 8) | ((reg) & ~3))
+>  
+> +/*
+> + * AMD Fam10h CPUs are buggy, and cannot access MMIO config space
+> + * on their northbrige except through the * %eax register. As such, you MUST
+> + * NOT use normal IOMEM accesses, you need to only use the magic mmio-config
+> + * accessor functions.
+> + * In fact just use pci_config_*, nothing else please.
 
-wsD5BAABCAAjFiEEGAIew9LzHY3pdrqtZg+p0QLLz9AFAmoLSk8FAwAAAAAACgkQZg+p0QLLz9DK
-ywwAkatCCt3kig4rV6kGwkbHQfs5ImENXC0GfqBHWNEDv1aDZRYY9uV8Xy3cLQr266VMliaa7qTW
-JAYOYX+JlLR2qeTHTRY+Yt8w4hkcuZbBoFNOShHNUVMXoBCXUfsFOgwwQfeg99lmzZEIPpuANJcu
-JI9BUX7oe4c2tSYDrnEimHMuXLzze+vy7HUbxotOLv/tVCPDuWHl9cHZag1Qdx5DFFdxWw5qY3rx
-yzFRvEZv28/U/qMNhSm2rRq8vNHX+udw9+In8+HMvFH3lsJtxyXvPO4t+4UXHxLT6cQWny+6Wg8w
-pgT12op4yJCJ4gH7kHhal6BErGXG4ijrWRwMLN+vdR7FMEXAiMX311wJ8RFTjAxetz9+jtEFXhF5
-TeN9QsXZwZ3GwirG5yT0i0zz48Esppirwry63itcX3uedMHkuo+7KT76w2W3vyowkOTH4AJvbPGJ
-5FdnRCa0afUbXm/sssMX6eRP/fOEKDrsRzB2IaKoUjOdNxxZEw/njQ+q7Uhe
-=vSDr
------END PGP SIGNATURE-----
+I know you're just copying an existing comment, but it's mostly an
+opinion and not terribly helpful in place.
 
---------------wsDScAUdj85lIBzS7DRc1Uw9--
+"AMD Fam10h CPUs can only make MMCFG accesses via MOV %eax/%ax/%al",
+would be better, except...
+
+... this claim cannot be true.  It's been made since the K8 RevF BKWG
+and exists even into the latest PPRs, but that's simply not how
+load/store ops work in the pipeline.
+
+It was added to Linux in
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=3320ad994afb2c44ad34b3b34c3c5cf0da297331
+but without adequate justification.  I've made some enquiries.
+
+> + */
+> +static inline unsigned char mmio_config_readb(void __iomem *pos)
+> +{
+> +    u8 val;
+> +    asm volatile("movb (%1),%%al" : "=a" (val) : "r" (pos));
+> +    return val;
+> +}
+
+These need corrections, either in this patch or a followup.
+
+Switch to Xen types, and correct the memory operand constraint to be "m"
+(*(uint8_t *)ptr).
+
+The Fam10h BKWG states that any memory encoding is acceptable, and this
+allows the optimiser more flexibility (which will get used).
+
+> +
+> +static inline unsigned short mmio_config_readw(void __iomem *pos)
+> +{
+> +    u16 val;
+> +    asm volatile("movw (%1),%%ax" : "=a" (val) : "r" (pos));
+> +    return val;
+> +}
+> +
+> +static inline unsigned int mmio_config_readl(void __iomem *pos)
+> +{
+> +    u32 val;
+> +    asm volatile("movl (%1),%%eax" : "=a" (val) : "r" (pos));
+> +    return val;
+> +}
+> +
+> +static inline void mmio_config_writeb(void __iomem *pos, u8 val)
+> +{
+> +    asm volatile("movb %%al,(%1)" :: "a" (val), "r" (pos) : "memory");
+> +}
+> +
+> +static inline void mmio_config_writew(void __iomem *pos, u16 val)
+> +{
+> +    asm volatile("movw %%ax,(%1)" :: "a" (val), "r" (pos) : "memory");
+> +}
+> +
+> +static inline void mmio_config_writel(void __iomem *pos, u32 val)
+> +{
+> +    asm volatile("movl %%eax,(%1)" :: "a" (val), "r" (pos) : "memory");
+> +}
+> +
+> +static char __iomem *pci_dev_base(unsigned int seg, unsigned int bus, unsigned int devfn)
+> +{
+> +    char __iomem *addr;
+> +
+> +    addr = pci_mmcfg_base(seg, &bus);
+> +    if (!addr)
+> +        return NULL;
+> +     return addr + ((bus << 20) | (devfn << 12));
+> +}
+> +
+> +static inline
+> +int pci_mmcfg_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int len, u32 *value)
+> +{
+> +    char __iomem *addr;
+> +
+> +    /* Why do we have this when nobody checks it. How about a BUG()!? -AK */
+> +    if (unlikely(reg > 4095)) {
+> +err:        *value = -1;
+> +        return -EINVAL;
+> +    }
+> +
+> +    addr = pci_dev_base(sbdf.seg, sbdf.bus, sbdf.devfn);
+> +    if (!addr)
+> +        goto err;
+> +
+> +    switch (len) {
+> +    case 1:
+> +        *value = mmio_config_readb(addr + reg);
+> +        break;
+> +    case 2:
+> +        *value = mmio_config_readw(addr + reg);
+> +        break;
+> +    case 4:
+> +        *value = mmio_config_readl(addr + reg);
+> +        break;
+> +    }
+> +
+> +    return 0;
+> +}
+
+Again, for this patch or a later cleanup, drop the output-by-pointer and
+return value directly.  The optimiser is hopefully doing this already
+but it also makes the function simpler.
+
+At best, we want ASSERT_UNREACHBLE()'s in the error paths (including no
+mapping), and to consistently return -1.  Returning 0 for a bad length
+is bogus.
+
+Strictly speaking we also need to check reg & (len - 1) because accesses
+must be naturally aligned, but even with ASSERT_UNREACHABLE() and a
+failsafe -1, that's still logic emitted and I'm not sure if it's worth
+having.  Amongst other things you really need to know that len is 1, 2
+or 4 before the alignment check reads correctly.
+
+> +
+> +inline int pci_mmcfg_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int len, u32 value)
+> +{
+> +    char __iomem *addr;
+> +
+> +    /* Why do we have this when nobody checks it. How about a BUG()!? -AK */
+> +    if (unlikely(reg > 4095))
+> +        return -EINVAL;
+> +
+> +    addr = pci_dev_base(sbdf.seg, sbdf.bus, sbdf.devfn);
+> +    if (!addr)
+> +        return -EINVAL;
+> +
+> +    switch (len) {
+> +    case 1:
+> +        mmio_config_writeb(addr + reg, value);
+> +        break;
+> +    case 2:
+> +        mmio_config_writew(addr + reg, value);
+> +        break;
+> +    case 4:
+> +        mmio_config_writel(addr + reg, value);
+> +        break;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+>  uint8_t pci_conf_read8(pci_sbdf_t sbdf, unsigned int reg)
+>  {
+>      uint32_t value;
+>  
+>      if ( sbdf.seg || reg > 255 )
+>      {
+> -        pci_mmcfg_read(sbdf.seg, sbdf.bus, sbdf.devfn, reg, 1, &value);
+> +        pci_mmcfg_read(sbdf, reg, 1, &value);
+>          return value;
+>      }
+
+Not for this patch, but we also need to junk the if() condition here and
+elsewhere.
+
+We should be using MMCFG unilaterally if it's available; the IO port
+pairs require use of a global spinlock, and behind the scenes all the
+CPU is doing is translating it back into MMCFG-like accesses.
+
+At this juncture we should probably change it at the start of the 4.23
+dev window to give it maximum time to settle before getting into a
+release, so probably best to tack it on as a final commit in this series?
+
+~Andrew
 
