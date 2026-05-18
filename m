@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CEnYOs0QC2pN/gQAu9opvQ
+	id 2OhyK9QQC2pN/gQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 15:14:53 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 15:15:00 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 819C056D6B7
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 15:14:53 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1311845.1581994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4367656D6EF
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 15:15:00 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1311847.1582003 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOxni-0000PX-Ck; Mon, 18 May 2026 13:14:30 +0000
+	id 1wOxnl-0000hi-MT; Mon, 18 May 2026 13:14:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1311845.1581994; Mon, 18 May 2026 13:14:30 +0000
+Received: by outflank-mailman (output) from mailman id 1311847.1582003; Mon, 18 May 2026 13:14:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOxni-0000NX-9o; Mon, 18 May 2026 13:14:30 +0000
-Received: by outflank-mailman (input) for mailman id 1311845;
- Mon, 18 May 2026 13:14:29 +0000
+	id 1wOxnl-0000es-JY; Mon, 18 May 2026 13:14:33 +0000
+Received: by outflank-mailman (input) for mailman id 1311847;
+ Mon, 18 May 2026 13:14:32 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ross.lagerwall@citrix.com>) id 1wOxnh-0000KK-06
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 13:14:29 +0000
+ (envelope-from <ross.lagerwall@citrix.com>) id 1wOxnj-0000bp-OX
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 13:14:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wOxng-00EWKw-CM
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 15:14:28 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wOxnj-009DNN-4d
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 15:14:31 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <ross.lagerwall@citrix.com>)
- id 6a0b10aa-5cb7-0a2a0a5109dd-0a2a450aa170-48
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 15:14:28 +0200
-Received: from [40.107.208.49]
- (helo=PH0PR06CU001.outbound.protection.outlook.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0b10aa-e002-0a2a0a5209dd-0a2a45039368-46
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 15:14:31 +0200
+Received: from [52.101.56.13]
+ (helo=BN1PR04CU002.outbound.protection.outlook.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <ross.lagerwall@citrix.com>)
- id 6a0b10b2-56b3-0a2a450a0019-286bd03147ae-3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 15:14:28 +0200
+ id 6a0b10b5-672d-0a2a45030019-3465380dc3c7-3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 15:14:30 +0200
 Received: from CH8PR03MB8274.namprd03.prod.outlook.com (2603:10b6:610:2ba::5)
  by BY5PR03MB5111.namprd03.prod.outlook.com (2603:10b6:a03:1e2::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.24; Mon, 18 May
- 2026 13:14:24 +0000
+ 2026 13:14:28 +0000
 Received: from CH8PR03MB8274.namprd03.prod.outlook.com
  ([fe80::ebe2:32c1:d2be:a096]) by CH8PR03MB8274.namprd03.prod.outlook.com
  ([fe80::ebe2:32c1:d2be:a096%7]) with mapi id 15.21.0025.022; Mon, 18 May 2026
- 13:14:23 +0000
+ 13:14:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,20 +60,20 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KsV39skMRHI6JNafJKHe2WpW2WvXfSPJo58c9633aMt2xqaV296InJ13wNYfvSu++LrH67Jx8KLW1LK61QtG0WH+KamG/A3oLUobFkYEuf2VrljD/eN4FbWDbyBFLpiqY8bXq7z9E0aDxMdBGZJFNMEodMiS+Mq/G4AF8R4VxEW5JFmvGKM/vFSwjg3EqVV3qeN5gluKT4bVxD/U2L5/raqzwogJUswTVTMSi+bo/YxNRkZGQ+nwB+3eg+ZS5maQik3Bj4v9s5NWkUg4yJzM+Z7ROowV85lBMNuYlredCTUGugsntQ+uuwza3E5NqikY7vA5jcYKGxAsXlqPQzy8eA==
+ b=GuZlb7uKpvo9maczxH5N2NRCmDsTD9umaTmUdvS5IkGAFvhCQekVHSkTnsCcGuXGUF7380MpWvtVyprRSq/YRP/03NCOFmoSFc1hQ3YNYYCApnGOFQxyOCu9j8QReHyJjNOXPtgl9ygm3yMSgbbKGf3h+0bV+vee1jgqUVemoIiOCfotAFpn4nfbIMadR8oc/vFsp7LQGrU6XxcNRwySkZT6uPWh1FSpx3NBayikA9pfGprJmQa5GFWtsBiSE6t/6MtfOzbKd9iE8huHKhFtGdSNaD55/rlUjjUkozizHhyS/8+CPCqQQI6dNlVeUfvPyI4vv6Yvlf9KU8x/pkM3vQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IvpufiE6EX4IADgKhV1F40NPVtMT7lPinzez3cDqZ/k=;
- b=C9H0tTNEy5ArjqkzokC8lHlg5i9rgIvXKi4shMc+buSmeV4usg66B6pBEEs3VHgHOXJ+1XptSYcOB7f0po50pSpsOpM/tLtB0piCnxXlmLlMeZV5jSKbBTsqGIjVjCK0Ex39RQfIse+4AVJTbldo3/VckMcck5VaIzG4Fl6LUw6+5EcN7ZbYIO3RAo0be2qg8yVWaLR3ZyeUJfXZs989N4/UpwrmvewXRaKzAS89ZCcSx1dcEqOAmeZSO57RCErgxcoToG+aR1eUTRZuvFoxSFlP3Himlw4WvNMGZ1dUWboI12OLFPUijP9busW8D1Ioh4x3DX9EfC247eMAS/Dt+g==
+ bh=E01jp2Z6iewjF/MH52l40+JkT5jeEYpzfDYIumrs0IU=;
+ b=GmPxPmJYcPiUyvgSKXypjGxedEU1SZdONU3G4BAKk1GPaHRzIf136TGiYJYM8Edn9Sf3RZLe3/qR/+Yuvj0QdpPPsCouz6ivFaokujG9Eg7i/haZYqPhX2xS5N131GTupEh8w1lLWz6bqyu3aw6FfZ6cfnalTuzKEXb2mARyxNpeHenFNA1/rmggHDglL1ujQ6z2jIWMa52YJIrP4rkFsesB4KYaSsmoF4gQ2mjWUu3D1TfsC0Q8UDBm8c4uXP59QJZ4OHBwJ+/1fQQW1HoNd+xmZ6JRVX5cpi6qx7QcYtuj+r+Zxkd8bKh7c9H9LehS0W3Ce2dchXSZ4Yza1F3+dA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IvpufiE6EX4IADgKhV1F40NPVtMT7lPinzez3cDqZ/k=;
- b=iCNnDkDr0ycJG2/xEIovV3zbuTTrrG2wqDSwbU4VHI6xOIPUR9Wwhy9fUM7JiS8HE9HAj+Hll6YTL6bwFOlr9tGy7UNXkH3cnp1NQiL6n+x7P1MroLtmuTNxVqr4TWmk8aG6r1FtgCeHHtXQV8m4QIrcoPtQRQG1bPfFxakkH4I=
+ bh=E01jp2Z6iewjF/MH52l40+JkT5jeEYpzfDYIumrs0IU=;
+ b=JrwbENw0EVUBYb4agrMGNpL2rI8b8GClIi7jG6z6/M+168/nghVqLdNhwqC18zIEG1Lh/yYMF4fZtyW8O0qCaqoW77E8e9/tnkymvMgA9YiAMzDfijhZePO4Qx5YOoFLIm1r1Bu2ocWfI5uX/z+1FB5if1eNoO/4082PMCPj9+M=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
@@ -83,76 +83,76 @@ Cc: Ross Lagerwall <ross.lagerwall@citrix.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Teddy Astie <teddy.astie@vates.tech>
-Subject: [RFC v1 3/7] x86/emul: Separate out instruction completion
-Date: Mon, 18 May 2026 14:14:00 +0100
-Message-ID: <20260518131404.3716969-4-ross.lagerwall@citrix.com>
+Subject: [RFC v1 4/7] x86/hvm: Support a fast path during emulation
+Date: Mon, 18 May 2026 14:14:01 +0100
+Message-ID: <20260518131404.3716969-5-ross.lagerwall@citrix.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260518131404.3716969-1-ross.lagerwall@citrix.com>
 References: <20260518131404.3716969-1-ross.lagerwall@citrix.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: AS4PR10CA0005.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:5dc::13) To CH8PR03MB8274.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0362.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18e::7) To CH8PR03MB8274.namprd03.prod.outlook.com
  (2603:10b6:610:2ba::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|BY5PR03MB5111:EE_
-X-MS-Office365-Filtering-Correlation-Id: f0b56c02-0799-45c7-807c-08deb4df613d
+X-MS-Office365-Filtering-Correlation-Id: a667065c-4896-4d76-7bec-08deb4df63a9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|366016|1800799024|376014|22082099003|56012099003|18002099003|3023799003|11063799003;
 X-Microsoft-Antispam-Message-Info:
-	TC/bt776wv+lTW1EoVcUWMvaDvxbHDdARI1mrw/5SXKhrk9dzl6NwomlMQ82qrAvHzMyy8fHLIA8tSafF1bvpfMLF0frwH91zq8p5JF0/c2zhmVicjhO0XMjOEDUfJm27StcNdnBAx0PXfXCWxkJ/rFoC94u3QtZ4AinKuQqfW5gI6gKEQYWsFIzMHcwht5T1NBME+3/0flfC98WE5x7D94F6RwFs7suW0IZVA3EzO047AjdtAW+jaJOQ9aT4o5wlCsa4OkInCQMe2UEjba4Q/3JRhmP/4zTIAVgUdr34hEbzAkxSKwL2d+qeYO7MTbDSZt2GN9MFOotBS8OMysMQd2gaKFeZlIabUfIZqEM7igWbS3DeTqMX4B5Kd3INXVh/7PTT3/4X8f5L1LlWhOdHw9+dF3EFNz17BbZKE2RKA/9qkr9TFBSf35zDoR5xwcjUfRDzOCKkZJRbyQkrupRWBilyiMqH4l1B+7gtw8jCkw6fouszICNcJ+7elPH21f59NDifjOnPXD8p0WBDCFpQC6kRK8PRSgEQCY3bz8m7XJ+LOBQ9tjNGwtBPw0SadxWOArVh9lCTo7nu682lR6NZX78Tqy1hI1uISzobjHqH9TltfZOQVbRF4HmU2JXIe9lEuyQHfbALZWTzUbF526w0jm9GIx5sJHqhs0j351FS6thOj4PBLQHbIi4QN5k/Hfn
+	hBjlCrB1Viehht3VOiAvG64AanGlSpYCI0pn6mohhk++38UJMu0gdyM7CS2Njso6dJuGzHN62c5xoFe0soDWZo9SfDHOV3/sCKAOk77kMrX+5qb7Qc/l4BgBniRP/tXDxvfZibVt1XUCJ+Xw36kt55Ah82kVGCyx3I7QbwIwfD2FYS+r/tRmSjULQHpwxbj/eJnb28V9SGjknPhlNjn8351To1CZvDF6s7cAI0H3VNK1ayRh5rjWoEt9tZfIT0+BEuazKI6fyzFXeyJxrUvmCMr3M366Tyi22SiSyVtEW20KDPv6U9NA8FahyYRCBAsEraDxkFRQsA86xitzIlMolAWW97YwIGavYCqJzcrr/wAlzFuCgOgKJy0cfuDMFLWxI/VpScrcCW9hnO7jW6xqwn6q0Km1MtYeMVbEtLlAhd5AmqGTgbOcuJBmeSLEQ6aYp95ArFNTlJXxXKnozyRz7FvsSouR+LgtMBnblGskF8/kiXZgZR6KKyD19waFvMUpwl3PTAneD+hQ1NbX0UVmC6Tr1f0H7j8y87gwCO/LKqsNJty3+FXGiuCrPBX4pv9CG9goqRWTm0asxozXm+3E9yWZdRu1b07eRsj4A3rSxw2L2ZFqulxRYNxTK5XWw9iSjDu494ySfyycX+y7dAChhmNU0jI66rVr1K1uHxr840jThlzc2gM/I3oHerkDjLpY
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(56012099003)(18002099003)(3023799003)(11063799003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?qlfB+jTAQlAbBYQDbh5PfwPatKBwKzHNFcHlh9UdCyuXFckqVuDzZMaHqZ7H?=
- =?us-ascii?Q?336W9VV+yvSNRYgluFCaweA/SNrrRcZfr7bBthUZf4OakWsrhc8LiGzO8pVl?=
- =?us-ascii?Q?R9SWjb/sFXuWVn6Aj2dkykbEumTc1cMa3736zGVhxw6zX2Wm1HDBcTli6KCS?=
- =?us-ascii?Q?QocKZgN5rAU+xu2w971M5juRjKA6I1V8DZvmNZ2G1RQvahF7P8nUyJCSiC+E?=
- =?us-ascii?Q?+n43XHZu9IaPYBoh2jhQGahOlW4p0uNoPm+KGzxmryTPt4RAIbPI63R1HIwY?=
- =?us-ascii?Q?9s3uHCfksRL5htTbgS4gFkojRFjbQaZFE6Bb47Llp3/OLHrYW6BLxfeYe/bd?=
- =?us-ascii?Q?RRMS5FIlZq4mwouCb+4mN2zfPPYjDJuAlvS9pzBwqA1DqS+GxmbHxlQNdv9s?=
- =?us-ascii?Q?ZvzyWwSf5nAs82A+rL+TwaR85DUbsY51Y6g00vorwnqyW9Gr9yRAUlD2WKDn?=
- =?us-ascii?Q?sxDdvF+xI4OpJ8cAr5ueEKXQ+vyJK3pO4Y88TsayO+Ni26p8V4hdUE3yE12U?=
- =?us-ascii?Q?wXlcN2a43alm/S2HRyxfVebrpY5p4mWp8jsjx26dAO0H88w1Phs26ygLAiI3?=
- =?us-ascii?Q?Ra2hRM3cd9yhB/CLQX1a8r0NfyT9NW6NuDxVAc1WRsdbmyzKzPO3mTpqYqFF?=
- =?us-ascii?Q?GkWSj/Ognuk9KagZC+rWg940e/ZyTqGLSwdeeOgwn7fhZTP0gLfKwWVUl9f+?=
- =?us-ascii?Q?jG+bZ7TEJgSrs1PeawTgmJXBzAEyNHsDvhdF/t2iRk0SW96IZ54AZQzPECF5?=
- =?us-ascii?Q?LsLe6BWrjXrN3B+G+W7PetGL+OmZt5lL9HdykyP3ZrzxW+i4UQ8w7snFX5Yd?=
- =?us-ascii?Q?B3kEZqj1H5FK26GL8U2sCA5UWXse4JmTQm9eWZQDyKbCLz6X7kvSVzilEG23?=
- =?us-ascii?Q?7u3SKlK63TJ6msh+cpNtZffHn1ic5dJw+69pL078rilnHuCe6Y7NQoLRmbcs?=
- =?us-ascii?Q?qE1JDyi2ZFG2cV9PKDJQw45usXIBvFe4uMq9BYEDK7Ogf1kO7xNQXr/u8In5?=
- =?us-ascii?Q?VaGblX99mzwcoB0yuD0tGF3NWEJF1pe1wHFnd8KP3Xw3V3Vd0DVZCQXT4ZmJ?=
- =?us-ascii?Q?Icjt/nprKdnt1hqwPoukfE0C1VsEek0y2kBDG8cwIBLAlSBio699lEsQI246?=
- =?us-ascii?Q?maintDwwDKFu2fPD26dMMqXroH+wYfGx7+JNh7ww0IIlVHMGH14o3JTkIEtn?=
- =?us-ascii?Q?+OksI8TmxqJpOoxA1gnils6vhMmWYoha3KnfC5mhWuFu3nhI9aFhyrMtfXQF?=
- =?us-ascii?Q?NhG3kR9OiKa535oB+YSvA4vP4P3emGlJHGcKfmH3lldDHGlA6eD4bP37iiGV?=
- =?us-ascii?Q?T+maLmU1Ie6vsEAwWweQVMXuJmyVcP8geP9rEn/TwKW1j6n4fFK7gyiHUZMN?=
- =?us-ascii?Q?ioJaGnHQ4MpK8B7uqtaKgIUaQWoRUM5b+1Qnm+t9MNO+gyRgc16v3nbnNTwo?=
- =?us-ascii?Q?NSmmD1DLFKdmwQTDSn0B7q7VKQ3QI0Gd6eAiNOn7IhvL3Dmww4e1n+dh2vyL?=
- =?us-ascii?Q?BV1BOEWQRw3rjxzlUOd1c2yfAd7IABdwFihKZWUpaw2rAVS1EOlDgxBzIVOH?=
- =?us-ascii?Q?qgKCa3QFK7JRobOAmDBSmvQfIcxx1eP374c21pSJ91tSItDQs43ljmEf5HI1?=
- =?us-ascii?Q?Xr9Pp1iZFkrwqbva/6wS4XeVxZDmjArW8p9NfWdN3gG0Drdy2mjEG+ZscEap?=
- =?us-ascii?Q?5JD4e9YjgsU/EAxYHopCOKt0T7iEJGGyEvU7PxrkuEP+3OYWpP+gNnrP7vgh?=
- =?us-ascii?Q?t/oAZ1ejDvgzIYUbmxG32zcV/Q/XRec=3D?=
+	=?us-ascii?Q?pcg7YG4MRPTQfOJorsLSmhTh2LWk9D8OY62tusqrtFjdpzn3C0pzJkadcjzL?=
+ =?us-ascii?Q?4MOTLNJamGJ/RiZfqMEI6JzrUEtrbV8sK+flCSuMVuhmStoGEcWYsz9zigkG?=
+ =?us-ascii?Q?I1GXjXJRcI1sEnuKQyJx+UUCx0QdpEryl2Ed79CtGzkbzLXh6iUTMpAo6CD3?=
+ =?us-ascii?Q?Oz11ZAZaTtUtR8Y1Dq/D7WXgK7lGVszAMC9eAN63DuC7ab3hKdomcufEQRhG?=
+ =?us-ascii?Q?vqOo0mMnPYe/yimQQ+d6APS3SN+NYqZgA+nwYqLbYp8cFFYkzfi+ffsTQAq1?=
+ =?us-ascii?Q?ZxTlVsJa6+V99NLiMWTow+/2t3a4sEz/Es5/kg7jNEL8Q5z7ueHrmgSLeLhD?=
+ =?us-ascii?Q?jlF+FJ58R50Q/syzGqu7GFx7SQbbZbg5FNZmvERwfoi7Pe60gXyyqhjgkN3T?=
+ =?us-ascii?Q?Sy7RTL8Z+OVqN2RZ58g+3rzyc9AYZQZ3J3p6fbbQXuAdcZ0vaN3/R/l12vzd?=
+ =?us-ascii?Q?hvY0NUpFNpbMytT7ZKIvIqUWgIKGhuco8QGE8I0PDcN/qmZBOz+k+Ifg/f1N?=
+ =?us-ascii?Q?Czfe0LhKGsa2/lYwFK7/Yo3QzvuDRDSgEIdSTV7jD9UlIdMYt0GbitkYnMqf?=
+ =?us-ascii?Q?FmFMi343J5UBH2nXHn1hFzpik0ob/4JsBxPH9xCdXIm8ZDXf4+Uw/TS96KvE?=
+ =?us-ascii?Q?SGPlCm3d4jRvJazT2Sw2oKBfulWjeLQE22cQh8pjWqSKvZYRjr2dhmOSnCGa?=
+ =?us-ascii?Q?hyOR5hZQlzLaUxempvH3pFrXRRqe8zzw1PSnQRBVVXZhjAnYcaO2IMLcVhjI?=
+ =?us-ascii?Q?Qo4daVEl4CX/koEbnUr5DAhnoZnag3CjekMEC3lLcuEX7HLQN1UdyIgBUPcy?=
+ =?us-ascii?Q?PIH9t2p5k7xpwwHvRUxNPYLySf9p4hqtxQ6pCn4yST/o4EYvV5g4SS8uj5Q7?=
+ =?us-ascii?Q?wEIL0TFKuk/QrPL5ZuCjYS5SNDAzZAdckoJDRGiGcgoMcYDRrDxMPRcRvjZA?=
+ =?us-ascii?Q?efWEjIFEG4DZoBg7W30h2tjjrERbskM2OrCL3Jv6rZOtmRiSinxvjDQlhYmr?=
+ =?us-ascii?Q?h/1S+EbwRDdKBn6TTR1ji4HUowTfRiZpkW4eRZz87mE/IDs4jO79xHmp1WOc?=
+ =?us-ascii?Q?GNWv6MAuNie+1GZtONKC3cAmD1w4/bmuA4H9oXqVrekkG1yOUA1iAd0U7ZBw?=
+ =?us-ascii?Q?jNwp5lg0N9y5b3Qb4ACGW2IdjbmhNf2KccP0TXVOGVnqrOzzPCvEhx+JHeaN?=
+ =?us-ascii?Q?l+L4g6eDJcC4Y9JZODhC7veDbAq/XEmbrVp5AM/XRPDHP/3m8X5KigaKaJa4?=
+ =?us-ascii?Q?BTkGgyU947aAyVkv07AQwxNMdjQZddsQCGweAR676upMH6Xcrq3uX7xRjDKU?=
+ =?us-ascii?Q?fCLnksue8rq6QM7s1oS17qzQRVJ1vNb2mW1LHGdxUz/leHqXh9DCuJl6DlU9?=
+ =?us-ascii?Q?n6H3PuxtC8xpF5gXSu7E92m4rF44dpttT0KRYsTTpi9hnNjYOjYSZZtrNi7F?=
+ =?us-ascii?Q?SFHjoNWBmGXlfDg5wf36+SSdgAPzENXD2S0kVGt8iq7nIjPLBf4ZnEusBatT?=
+ =?us-ascii?Q?pj1fqkvL7+iGeeUt7nBCiMeAdoj6SCBHLVVGcQysgcR+UrsJGkaCikj6AbfW?=
+ =?us-ascii?Q?8XtQ9GUpy2AMnf56b4KbNDi8Nahgps9W7jnDjU6eAUnhggsORLc0O1s+ztlj?=
+ =?us-ascii?Q?Ub5Orc4LR+Hs1vEEDCcbAKT/V0AZLcJZeg5jdazHLG2hY4MI/lXM2isme4tp?=
+ =?us-ascii?Q?TGvycLtPT+mCh3/i4i82QSGv8txqoZ/cyTGgI/xfoKNkq77LC0Dw5x41eF2J?=
+ =?us-ascii?Q?BhSGVrlAgyWok678mMiHYHMMD7PoTfM=3D?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f0b56c02-0799-45c7-807c-08deb4df613d
+X-MS-Exchange-CrossTenant-Network-Message-Id: a667065c-4896-4d76-7bec-08deb4df63a9
 X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8274.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 13:14:23.7949
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 13:14:28.1158
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F3FQZQM4rfQYtzM7ZSsdCAz1aH4sbzHtpqXu9GydHclp3ymMTQ/crmLULzvk5QmWFkQpHe+Uaq1l/n2+ouSUv9QsgWEaRF3gHvlMFBQ7mLs=
+X-MS-Exchange-CrossTenant-UserPrincipalName: c7n2IhOyE3uYNtBgqv10I+vFnmtCAoENlcYYeNHyIV9SjaUmipL85TzaJ1BKGpfE+fHdA1+7/cYY1kBAnpBtw7EXE8OGsGWYjUvxa6fEWW8=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5111
-X-purgate-ID: tlsNG-4011c0/1779110068-7236B8B7-976AE496/0/0
+X-purgate-ID: tlsNG-33051d/1779110071-4066C938-B80763D6/0/0
 X-purgate-type: clean
-X-purgate-size: 6425
-X-Rspamd-Queue-Id: 819C056D6B7
+X-purgate-size: 8277
+X-Rspamd-Queue-Id: 4367656D6EF
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -187,173 +187,226 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-To support merging the emulated instruction and VMEXIT paths, split out
-instruction completion from the core x86 emulation so it can be called
-separately.
+Information to complete the instruction may be provided by the processor
+during a VMEXIT. Add a fast path during emulation to use this
+information and avoid going through the full x86 emulator. Plumbing the
+fast path through the emulator ensures consistent behaviour.
 
 Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
 ---
- xen/arch/x86/x86_emulate/x86_emulate.c | 48 +++++++++++++++-----------
- xen/arch/x86/x86_emulate/x86_emulate.h |  3 ++
- 2 files changed, 30 insertions(+), 21 deletions(-)
+ xen/arch/x86/hvm/emulate.c             | 160 ++++++++++++++++++-------
+ xen/arch/x86/include/asm/hvm/emulate.h |   3 +
+ 2 files changed, 123 insertions(+), 40 deletions(-)
 
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.c b/xen/arch/x86/x86_emulate/x86_emulate.c
-index 364e6c092ded..76fbebf96b4d 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -320,7 +320,7 @@ do {                                                                    \
-     rc = ops->insn_fetch(ip, NULL, 0, ctxt);                            \
-     if ( rc ) goto done;                                                \
-     _regs.r(ip) = ip;                                                   \
--    singlestep = _regs.eflags & X86_EFLAGS_TF;                          \
-+    ctxt->singlestep = _regs.eflags & X86_EFLAGS_TF;                    \
- } while (0)
- 
- #define validate_far_branch(cs, ip) ({                                  \
-@@ -337,7 +337,7 @@ do {                                                                    \
-         ({                                                              \
-             validate_far_branch(cs, newip);                             \
-             _regs.r(ip) = (newip);                                      \
--            singlestep = _regs.eflags & X86_EFLAGS_TF;                  \
-+            ctxt->singlestep = _regs.eflags & X86_EFLAGS_TF;            \
-         }),                                                             \
-         ops->write_segment(x86_seg_cs, cs, ctxt)                        \
-     )
-@@ -1234,6 +1234,22 @@ int cf_check x86emul_unhandleable_rw(
-     return X86EMUL_UNHANDLEABLE;
- }
- 
-+void x86_emulate_complete(struct x86_emulate_ctxt *ctxt, int rc)
-+{
-+    /* Zero the upper 32 bits of %rip if not in 64-bit mode. */
-+    if ( !mode_64bit() )
-+        ctxt->regs->r(ip) = (uint32_t)ctxt->regs->r(ip);
-+
-+    /* Should a singlestep #DB be raised? */
-+    if ( rc == X86EMUL_OKAY && ctxt->singlestep && !ctxt->retire.mov_ss )
-+    {
-+        ctxt->retire.singlestep = true;
-+        ctxt->retire.sti = false;
-+    }
-+
-+    ctxt->regs->eflags &= ~X86_EFLAGS_RF;
-+}
-+
- /* Helper definitions. */
- #define op_bytes (state->op_bytes)
- #define ad_bytes (state->ad_bytes)
-@@ -1265,8 +1281,6 @@ x86_emulate(
-     uint8_t b, d, *opc = NULL;
-     unsigned int first_byte = 0, elem_bytes, insn_bytes = 0;
-     uint64_t op_mask = ~0ULL;
--    bool singlestep = (_regs.eflags & X86_EFLAGS_TF) &&
--	    !is_branch_step(ctxt, ops);
-     bool sfence = false, fault_suppression = false;
-     struct operand src = { .reg = PTR_POISON };
-     struct operand dst = { .reg = PTR_POISON };
-@@ -1280,6 +1294,9 @@ x86_emulate(
- 
-     init_context(ctxt);
- 
-+    ctxt->singlestep = (_regs.eflags & X86_EFLAGS_TF) &&
-+	    !is_branch_step(ctxt, ops);
-+
-     generate_exception_if((mode_vif() &&
-                            (_regs.eflags & X86_EFLAGS_VIF) &&
-                            (_regs.eflags & X86_EFLAGS_VIP)),
-@@ -2064,7 +2081,7 @@ x86_emulate(
-             goto done;
- 
-         _regs.r(ip) = imm1;
--        singlestep = _regs.eflags & X86_EFLAGS_TF;
-+        ctxt->singlestep = _regs.eflags & X86_EFLAGS_TF;
-         break;
- 
- #ifndef X86EMUL_NO_FPU
-@@ -3103,7 +3120,7 @@ x86_emulate(
-          * Their only mitigation is to use a task gate for handling
-          * #DB (or to not use enable EFER.SCE to start with).
-          */
--        singlestep = _regs.eflags & X86_EFLAGS_TF;
-+        ctxt->singlestep = _regs.eflags & X86_EFLAGS_TF;
-         break;
- 
-     case X86EMUL_OPC(0x0f, 0x06): /* clts */
-@@ -3189,7 +3206,7 @@ x86_emulate(
-                                       ctxt)) != X86EMUL_OKAY )
-             goto done;
- 
--        singlestep = _regs.eflags & X86_EFLAGS_TF;
-+        ctxt->singlestep = _regs.eflags & X86_EFLAGS_TF;
-         break;
- 
-     case X86EMUL_OPC(0x0f, 0x08): /* invd */
-@@ -3918,7 +3935,7 @@ x86_emulate(
-             /* In particular mode_64bit() needs to return true from here on. */
-             ctxt->addr_size = ctxt->sp_size = 64;
- 
--        singlestep = _regs.eflags & X86_EFLAGS_TF;
-+        ctxt->singlestep = _regs.eflags & X86_EFLAGS_TF;
-         break;
- 
-     case X86EMUL_OPC(0x0f, 0x35): /* sysexit */
-@@ -3958,7 +3975,7 @@ x86_emulate(
-         _regs.r(ip) = op_bytes == 8 ? _regs.r(dx) : _regs.edx;
-         _regs.r(sp) = op_bytes == 8 ? _regs.r(cx) : _regs.ecx;
- 
--        singlestep = _regs.eflags & X86_EFLAGS_TF;
-+        ctxt->singlestep = _regs.eflags & X86_EFLAGS_TF;
-         break;
- 
-     case X86EMUL_OPC(0x0f, 0x40) ... X86EMUL_OPC(0x0f, 0x4f): /* cmovcc */
-@@ -8347,17 +8364,6 @@ x86_emulate(
-     put_fpu(fpu_type, false, state, ctxt, ops);
-     fpu_type = X86EMUL_FPU_none;
- 
--    /* Zero the upper 32 bits of %rip if not in 64-bit mode. */
--    if ( !mode_64bit() )
--        _regs.r(ip) = (uint32_t)_regs.r(ip);
--
--    /* Should a singlestep #DB be raised? */
--    if ( rc == X86EMUL_OKAY && singlestep && !ctxt->retire.mov_ss )
--    {
--        ctxt->retire.singlestep = true;
--        ctxt->retire.sti = false;
--    }
--
-     if ( rc != X86EMUL_DONE )
-         *ctxt->regs = _regs;
-     else
-@@ -8366,7 +8372,7 @@ x86_emulate(
-         rc = X86EMUL_OKAY;
-     }
- 
--    ctxt->regs->eflags &= ~X86_EFLAGS_RF;
-+    x86_emulate_complete(ctxt, rc);
- 
-  done:
-     put_fpu(fpu_type, insn_bytes > 0 && dst.type == OP_MEM, state, ctxt, ops);
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
-index 0fd20747dc43..17bf14455cf3 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.h
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.h
-@@ -594,6 +594,7 @@ struct x86_emulate_ctxt
-     } retire;
- 
-     bool event_pending;
-+    bool singlestep;
-     struct x86_event event;
+diff --git a/xen/arch/x86/hvm/emulate.c b/xen/arch/x86/hvm/emulate.c
+index a96d7814f91c..c9553cd28238 100644
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -2724,6 +2724,52 @@ static const struct x86_emulate_ops hvm_emulate_ops = {
+     .vmfunc        = hvmemul_vmfunc,
  };
  
-@@ -680,6 +681,8 @@ x86_emulate(
-     struct x86_emulate_ctxt *ctxt,
-     const struct x86_emulate_ops *ops);
- 
-+void x86_emulate_complete(struct x86_emulate_ctxt *ctxt, int rc);
++static int hvm_emulate_insn_len(struct hvm_emulate_ctxt *hvmemul_ctxt)
++{
++    struct x86_emulate_state *state;
++    unsigned long emul_len;
++    unsigned int instr_opcode, instr_modrm;
++    unsigned int modrm_rm, modrm_reg;
++    int modrm_mod;
 +
- #ifndef NDEBUG
++    state = x86_decode_insn(&hvmemul_ctxt->ctxt, hvmemul_insn_fetch);
++    if ( IS_ERR_OR_NULL(state) )
++        return X86EMUL_EXCEPTION;
++
++    emul_len = x86_insn_length(state, &hvmemul_ctxt->ctxt);
++    modrm_mod = x86_insn_modrm(state, &modrm_rm, &modrm_reg);
++    x86_emulate_free_state(state);
++
++    /* Extract components from instr_enc. */
++    instr_modrm  = hvmemul_ctxt->insn & 0xff;
++    instr_opcode = hvmemul_ctxt->insn >> 8;
++
++    if ( instr_opcode == hvmemul_ctxt->ctxt.opcode )
++    {
++        if ( !instr_modrm )
++        {
++            hvmemul_ctxt->insn_len = emul_len;
++            return X86EMUL_OKAY;
++        }
++
++        if ( modrm_mod       == MASK_EXTR(instr_modrm, 0300) && /* octal-ok */
++             (modrm_reg & 7) == MASK_EXTR(instr_modrm, 0070) && /* octal-ok */
++             (modrm_rm  & 7) == MASK_EXTR(instr_modrm, 0007) )  /* octal-ok */
++        {
++            hvmemul_ctxt->insn_len = emul_len;
++            return X86EMUL_OKAY;
++        }
++    }
++
++    printk(XENLOG_G_WARNING
++           "Insn mismatch: Expected opcode %#x, modrm %#x, got emul_len %lu\n",
++           instr_opcode, instr_modrm, emul_len);
++    hvm_dump_emulation_state(XENLOG_G_WARNING, "Insn len",
++                             hvmemul_ctxt, X86EMUL_UNHANDLEABLE);
++
++    return X86EMUL_EXCEPTION;
++}
++
  /*
-  * In debug builds, wrap x86_emulate() with some assertions about its expected
+  * Note that passing VIO_no_completion into this function serves as kind
+  * of (but not fully) an "auto select completion" indicator.  When there's
+@@ -2733,63 +2779,97 @@ static int _hvm_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt,
+     const struct x86_emulate_ops *ops,
+     enum vio_completion completion)
+ {
+-    const struct cpu_user_regs *regs = hvmemul_ctxt->ctxt.regs;
++    struct cpu_user_regs *regs = hvmemul_ctxt->ctxt.regs;
+     struct vcpu *curr = current;
+     uint32_t new_intr_shadow;
+     struct hvm_vcpu_io *hvio = &curr->arch.hvm.hvm_io;
+     int rc;
+ 
+-    /*
+-     * Enable caching if it's currently disabled, but leave the cache
+-     * untouched if it's already enabled, for re-execution to consume
+-     * entries populated by an earlier pass.
+-     */
+-    if ( hvio->cache->num_ents > hvio->cache->max_ents )
++    if ( hvmemul_ctxt->insn )
+     {
+-        ASSERT(curr->io.req.state == STATE_IOREQ_NONE);
+-        hvio->cache->num_ents = 0;
++        hvm_emulate_init_per_insn(hvmemul_ctxt, NULL, 0);
++        if ( !hvmemul_ctxt->insn_len )
++        {
++            rc = hvm_emulate_insn_len(hvmemul_ctxt);
++            if ( rc == X86EMUL_EXCEPTION )
++            {
++                x86_emul_hw_exception(X86_EXC_GP, 0, &hvmemul_ctxt->ctxt);
++                goto complete_insn;
++            }
++        }
++
++        switch ( hvmemul_ctxt->insn )
++        {
++        default:
++            ASSERT_UNREACHABLE();
++            rc = X86EMUL_UNHANDLEABLE;
++            break;
++        }
++
++        if ( rc == X86EMUL_OKAY )
++        {
++            regs->rip += hvmemul_ctxt->insn_len;
++            hvmemul_ctxt->ctxt.singlestep = regs->eflags & X86_EFLAGS_TF;
++            x86_emulate_complete(&hvmemul_ctxt->ctxt, rc);
++        }
+     }
+     else
+-        ASSERT(curr->io.req.state == STATE_IORESP_READY);
++    {
++        /* No fast path. Go through full emulator */
++        /*
++         * Enable caching if it's currently disabled, but leave the cache
++         * untouched if it's already enabled, for re-execution to consume
++         * entries populated by an earlier pass.
++         */
++        if ( hvio->cache->num_ents > hvio->cache->max_ents )
++        {
++            ASSERT(curr->io.req.state == STATE_IOREQ_NONE);
++            hvio->cache->num_ents = 0;
++        }
++        else
++            ASSERT(curr->io.req.state == STATE_IORESP_READY);
+ 
+-    hvm_emulate_init_per_insn(hvmemul_ctxt, hvio->mmio_insn,
+-                              hvio->mmio_insn_bytes);
++        hvm_emulate_init_per_insn(hvmemul_ctxt, hvio->mmio_insn,
++                                  hvio->mmio_insn_bytes);
+ 
+-    hvio->mmio_retry = 0;
++        hvio->mmio_retry = 0;
+ 
+-    rc = x86_emulate(&hvmemul_ctxt->ctxt, ops);
+-    if ( rc == X86EMUL_OKAY && hvio->mmio_retry )
+-        rc = X86EMUL_RETRY;
++        rc = x86_emulate(&hvmemul_ctxt->ctxt, ops);
++        if ( rc == X86EMUL_OKAY && hvio->mmio_retry )
++            rc = X86EMUL_RETRY;
+ 
+-    if ( !ioreq_needs_completion(&curr->io.req) )
+-        completion = VIO_no_completion;
+-    else if ( completion == VIO_no_completion )
+-        completion = (curr->io.req.type != IOREQ_TYPE_PIO ||
+-                      hvmemul_ctxt->is_mem_access) ? VIO_mmio_completion
+-                                                   : VIO_pio_completion;
++        if ( !ioreq_needs_completion(&curr->io.req) )
++            completion = VIO_no_completion;
++        else if ( completion == VIO_no_completion )
++            completion = (curr->io.req.type != IOREQ_TYPE_PIO ||
++                          hvmemul_ctxt->is_mem_access) ? VIO_mmio_completion
++                                                       : VIO_pio_completion;
+ 
+-    switch ( curr->io.completion = completion )
+-    {
+-    case VIO_no_completion:
+-    case VIO_pio_completion:
+-        hvio->mmio_cache_count = 0;
+-        hvio->mmio_insn_bytes = 0;
+-        hvio->mmio_access = (struct npfec){};
+-        hvmemul_cache_disable(curr);
+-        break;
++        switch ( curr->io.completion = completion )
++        {
++        case VIO_no_completion:
++        case VIO_pio_completion:
++            hvio->mmio_cache_count = 0;
++            hvio->mmio_insn_bytes = 0;
++            hvio->mmio_access = (struct npfec){};
++            hvmemul_cache_disable(curr);
++            break;
+ 
+-    case VIO_mmio_completion:
+-    case VIO_realmode_completion:
+-        BUILD_BUG_ON(sizeof(hvio->mmio_insn) < sizeof(hvmemul_ctxt->insn_buf));
+-        hvio->mmio_insn_bytes = hvmemul_ctxt->insn_buf_bytes;
+-        memcpy(hvio->mmio_insn, hvmemul_ctxt->insn_buf, hvio->mmio_insn_bytes);
+-        break;
++        case VIO_mmio_completion:
++        case VIO_realmode_completion:
++            BUILD_BUG_ON(sizeof(hvio->mmio_insn) < sizeof(hvmemul_ctxt->insn_buf));
++            hvio->mmio_insn_bytes = hvmemul_ctxt->insn_buf_bytes;
++            memcpy(hvio->mmio_insn, hvmemul_ctxt->insn_buf, hvio->mmio_insn_bytes);
++            break;
+ 
+-    default:
+-        ASSERT_UNREACHABLE();
+-        return X86EMUL_UNHANDLEABLE;
++        default:
++            ASSERT_UNREACHABLE();
++            return X86EMUL_UNHANDLEABLE;
++        }
+     }
+ 
++ complete_insn:
++
+     if ( hvmemul_ctxt->ctxt.retire.singlestep )
+         hvm_inject_hw_exception(X86_EXC_DB, X86_EVENT_NO_EC);
+ 
+diff --git a/xen/arch/x86/include/asm/hvm/emulate.h b/xen/arch/x86/include/asm/hvm/emulate.h
+index 084e2bd90588..1e626f8af8f2 100644
+--- a/xen/arch/x86/include/asm/hvm/emulate.h
++++ b/xen/arch/x86/include/asm/hvm/emulate.h
+@@ -53,6 +53,9 @@ struct hvm_emulate_ctxt {
+     bool is_mem_access;
+ 
+     bool set_context;
++
++    unsigned int insn;
++    unsigned int insn_len;
+ };
+ 
+ enum emul_kind {
 -- 
 2.53.0
 
