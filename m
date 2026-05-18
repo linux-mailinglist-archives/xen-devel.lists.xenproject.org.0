@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wPRNKqY1C2qgEgUAu9opvQ
+	id kDlUD543C2qgEgUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:52:06 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 18:00:30 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22654570553
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:52:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312111.1582285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A149B5707B4
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 18:00:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312122.1582294 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP0Fv-00035K-1C; Mon, 18 May 2026 15:51:47 +0000
+	id 1wP0O7-0005Ui-SJ; Mon, 18 May 2026 16:00:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312111.1582285; Mon, 18 May 2026 15:51:47 +0000
+Received: by outflank-mailman (output) from mailman id 1312122.1582294; Mon, 18 May 2026 16:00:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP0Fu-00032Y-UI; Mon, 18 May 2026 15:51:46 +0000
-Received: by outflank-mailman (input) for mailman id 1312111;
- Mon, 18 May 2026 15:51:45 +0000
+	id 1wP0O7-0005S2-P2; Mon, 18 May 2026 16:00:15 +0000
+Received: by outflank-mailman (input) for mailman id 1312122;
+ Mon, 18 May 2026 16:00:14 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wP0Ft-00032S-Ep
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 15:51:45 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wP0O6-0005Rv-5Z
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 16:00:14 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wP0Fs-00F2NS-Fv
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 17:51:44 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wP0O5-0090YI-EK
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 18:00:13 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0b3580-5cb7-0a2a0a5109dd-0a2a450b93ea-30
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:51:44 +0200
-Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0b378b-bab6-0a2a0a5309dd-0a2a4504e72a-24
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 18:00:13 +0200
+Received: from [209.85.128.51] (helo=mail-wm1-f51.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0b3590-212f-0a2a450b0019-d155dd2ea447-3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:51:44 +0200
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-43d734223e4so1543777f8f.0
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 08:51:44 -0700 (PDT)
+ id 6a0b378d-1dec-0a2a45040019-d1558033ed46-3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 18:00:13 +0200
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4891e86fabeso33670535e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 09:00:13 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da0fe13a7sm39765648f8f.29.2026.05.18.08.51.43
+ 5b1f17b1804b1-48febf81970sm118375315e9.8.2026.05.18.09.00.11
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 May 2026 08:51:43 -0700 (PDT)
+ Mon, 18 May 2026 09:00:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,48 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779119504; x=1779724304; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1779120013; x=1779724813; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=IzlThvmhLIBjzAkrqvq74kWIvUxnNWa7d68hXnZ1JB0=;
-        b=NPzxM+t5AZE0BQ5gBACepP0FaCxX8eKWjlw94xjAWy2IFcR/641XValvJLADBnrGhX
-         kyEEzIloLt/a2VdBdZz5GIAlyw4whIQRRKtYqZAoS2wcqN6qpc5oVdmacQDkqh9J2if7
-         xZh+cLCm/w7qf5awgucbvOWR43YmiR+Pqn6fFbSNUpYPVBH6WnfDWN6N4RX62ihIG6NR
-         rtJ75eXpkupIOsobJiHemFst+k3RIPJ7o3wCunULm4neomU8k3ve9AdgJUBV+EUEG2+2
-         a/jb5hdZVh0pqDUD0xfdCoZn8rPoLpraCSwyqDyCtpPeZPRUYnUOlz6iPy6WyMAZfFo3
-         ItiQ==
+        bh=ZS0F4Q4a37PChXIgi7DKC5iYO2nLobBUU4nfJAGybw8=;
+        b=H0qhhhVYqVyqL5sny7aj7xmf6djz0OTNgBau84+0codB2OETvBRkPzkkL10ohPsjH2
+         hBoJaBZGY/wpOJw88XMWcL+F6G0GBswhSO6C9awE4ZJZLAYHrUJP51ElZJ7I4nbsvzV8
+         JJ5Pg/6gQRIRX251qjWVKK4hQ3HBIUcDmVRY/Uck7Nj0urAF6Vw/IfnqED6aiWYwVpJX
+         qBd6ubrVzWkCjgIhHUy/YscOmpfxsBgRNrGCXq6o7Bc8o26F9KmFuGjVDAQwxnLmh7OX
+         h++jx23VykSSwe9Y4lc6hVXfkFLr9GzFcvTJ9Gstp1A4dFC51zGWcOLeyftnh6pUHyzo
+         40ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779119504; x=1779724304;
+        d=1e100.net; s=20251104; t=1779120013; x=1779724813;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IzlThvmhLIBjzAkrqvq74kWIvUxnNWa7d68hXnZ1JB0=;
-        b=qDwnRTKc2B6hw95E3TsLGiyO/JXqeBbuh/uctt2Z3fBbj2oZc6yJh5Ubn6qNJ4FWcj
-         Zqa1fUkjyEVFdJx0RLbCf0XOlmLy3iRQ2N2CnFiPYOwCWtEMLZDJUlWBan9Nm6fL2gKI
-         xD1U6M8GwirVTqqcOOzc/9zWiZ1SPOgCSm2APqSZ1ZgdR/cV9mPeaKvQShXKgzhnnjOf
-         eCfVHVolIFA5WuEGkFL9mtG2WbatfLMz4szE85Kz2AuxWQLOgXwEbKOpuH9DWy8pqSKw
-         zlXVwSHes3TBIkLZ/btyJ/GvmV2tXmcvTah+klVR0rmySDbvDNX+KSU4evj0YfglaplY
-         uCXQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9nWPqeAuvELHHUfuQNp2JZqsc3E++Kn9vuStttJ8p53BbjtEOFF67Pz4lmgGM5gRohjFICcEDIo0g=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzsMn/DxClsWnphpFjxJDu6SZLrZtsckIx06ODBRZciM/OGAjjD
-	djbJTIz3P7SXoT7kCKuBXMTZE3FpskNQIrmz52vF9hYkJ9gQZWGGO7TwouNhz2ty6w==
-X-Gm-Gg: Acq92OG9i1CYUX8hsPoM5ndG4Aa/EX67Vu60DSZtZ/gVnJ/WExprM7v4kW5/YtKjE/v
-	PlpuxlSBTsyRXyzRn84y26rlsBPAr1CSIYwx2AHVfkjwZydDxCc6Btt/AXB1dUqIxJUZwpYHzYO
-	ubDcoNXL/s/K+cJQlwOFFMK1HDVoTwUJ8upE524h15XEclPmNP1v5oYD3KBypjaCNETw0ELt8Jp
-	jgRmHGs4z0R0+KBGAcSTF7E5sw/XV9EIZLBdpBADahQVhrQwmEx4WpeJauw1v/uewWpLOZWsaQy
-	4B4EB5pnXpsmuF9hKGg+NSK9AiF9e7mQkultX7hLG1YjBuSMelej/WlnbgX5iBIgsPdB3OY64+9
-	4Hvy/A8ZcxH4Sf3xQ1auRnCN+xgqrWOBsJoT0aAxNLOZN+M/eOkBdWbYAPN6WdUbz+VqX8GkM2g
-	y0lBYKD+FddzVZkgtZXtBVyNkBSfq8qtJUu/As1L5Sg2saB0ZEEdP+Uhx3HT/F3Kg39L75LJ2Ds
-	bDxPnsfbRJoC/8=
-X-Received: by 2002:a05:6000:1949:b0:45e:7792:6e6d with SMTP id ffacd0b85a97d-45e7792716cmr7604965f8f.13.1779119503837;
-        Mon, 18 May 2026 08:51:43 -0700 (PDT)
-Message-ID: <364abd6e-4fff-437a-90c8-bb4489f0c51d@suse.com>
-Date: Mon, 18 May 2026 17:51:42 +0200
+        bh=ZS0F4Q4a37PChXIgi7DKC5iYO2nLobBUU4nfJAGybw8=;
+        b=ig/qzLRC1TOpLCL9gRNMJB23ZSlK3/kj35wC0ncP3peS2OC4SwVgl+CTNkRr8ix3BG
+         gIuUAwgrAaZEYalXDYHnrqg20OGlUcDvNjbowfW6Gt3STJwEpPMF7+pqyw/xzKdElsIp
+         Ach8q1hDvjIdK3q8/5VcKJMxc6gLDyjdWU5z90pTnk8pmlxlB8mb8Gt59gxc+3Hb+rzr
+         RF9WEtlf6q1URRy88HTLrcMy4fXA/sYlmX+y7pKLnzrD/qHdJ84Mkx7W20u2dlCQQ1Bk
+         uwQeQWYiHcen5M4ij4PfYtZ5LUSvXgahzd547xYlCR3Ws0ssL6ZgoT+TllfNYMOCHEB1
+         N4ag==
+X-Forwarded-Encrypted: i=1; AFNElJ9hsX+w1hYwt920rxJvG8pwSxN5P7+chsyjhKnR17VIn7M2D6sEzuiDmjc4Ka1eIUByawE1vdv+CGo=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwzCWsVKxoxNkSPaI3+19v4DRYVlT/4T5scUSH45TwgHEamaCCC
+	Rs5nfWDc1/FQCrKtvZBm9EHt3uvcGso1wMgiV21h7VALy7S/bKjHTBV9OnJkgjesUw==
+X-Gm-Gg: Acq92OHW6eDlRkrRJGVmz9WrmYLtpA9SjfhL3dbLKMMNOJZ2TBAwyJZQZCez7/DGSuI
+	0zmgkoR3mHPzC5CBT8PumTqwRQt2Pe0soiuN68n1hfa9MzRFZdF6J8veR6L/34zIkIbrPHLORgI
+	H4tKnAQWCbcHX7cbu0H/JaVPZogmWvURDdkFLmu2W08txghkJieGseW/F2Ts3qEkkP/iBxaHDPR
+	lzceveBsgsMrcNrT4WUGZk6tYg6psg39pgtVJXiCnTsIoPXbkjN+OZbv33/i1p8WWPTn76Dgq/d
+	UaqUl1zffiTr/0WawB8c8rQ4ov3HadfKKGeFxPerHU6Z/ZrnoWFJQFy6llVjGPymvUVauVtfGgD
+	NFkNJyo5seiSweEazesr3IWt/svBti/FEKadOzioDu7FFAtP7vEE4KMwif7E2XExanqJfhKMegD
+	C9ZO8pCC5zpQcK/kUZrogCbILFWlwrZ+enii6HLHfMZNv0/oto+4cGjewdcd0UI+QuppdbMZOEY
+	OMmvGY42NhtO+Y=
+X-Received: by 2002:a05:600c:c10b:b0:48f:d612:3c59 with SMTP id 5b1f17b1804b1-48fe60eb0f6mr166812605e9.9.1779120012634;
+        Mon, 18 May 2026 09:00:12 -0700 (PDT)
+Message-ID: <3c0e5b33-d3bb-41ea-ba13-43add1d64617@suse.com>
+Date: Mon, 18 May 2026 18:00:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/26] xen/riscv: introduce guest riscv,isa string
+Subject: Re: [PATCH v2 06/26] xen/riscv: implement make_cpus_node()
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -110,7 +110,7 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
- <b2d4f3f7f049837a25bc00bfb1d3da8b984a8b5a.1778250616.git.oleksii.kurochko@gmail.com>
+ <69d2dd26b7c2d00c9d28f898f041f6d1be145e0d.1778250616.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,12 +136,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b2d4f3f7f049837a25bc00bfb1d3da8b984a8b5a.1778250616.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <69d2dd26b7c2d00c9d28f898f041f6d1be145e0d.1778250616.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1779119504-1AD77F3B-D24F6471/0/0
+X-purgate-ID: tlsNG-ebf023/1779120013-2997A3FF-FD8DDBA0/0/0
 X-purgate-type: clean
-X-purgate-size: 2567
+X-purgate-size: 3825
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -160,7 +160,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:mid,suse.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -175,89 +175,135 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 22654570553
+X-Rspamd-Queue-Id: A149B5707B4
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 08.05.2026 16:43, Oleksii Kurochko wrote:
-> @@ -480,6 +488,53 @@ bool riscv_isa_extension_available(const unsigned long *isa_bitmap,
->      return test_bit(id, isa_bitmap);
->  }
+> @@ -50,3 +52,107 @@ int __init construct_domain(struct domain *d, struct kernel_info *kinfo)
 >  
-> +int init_guest_isa(struct domain *d)
+>      return 0;
+>  }
+> +int __init make_cpus_node(const struct domain *d, struct kernel_info *kinfo)
+
+Nit: Blank line above here, please.
+
 > +{
-> +    char *buf = d->arch.guest_isa_str;
-> +    size_t len = sizeof(d->arch.guest_isa_str);
-
-Seeing these uses: Is the "guest" prefix really of much use here?
-
-> +    bitmap_andnot(d->arch.guest_isa, riscv_isa, guest_unsupp,
-> +                  RISCV_ISA_EXT_MAX);
-
-Same question here, clearly.
-
-> +#if defined(CONFIG_RISCV_32)
-> +    if ( snprintf(buf, len, "rv32") >= len )
-> +        return -ENOBUFS;
-> +#elif defined(CONFIG_RISCV_64)
-> +    if ( snprintf(buf, len, "rv64") >= len )
-> +        return -ENOBUFS;
-> +#else
-> +#   error "Unsupported RISC-V bitness"
-> +#endif
+> +    int res;
+> +    const struct dt_device_node *cpus = dt_find_node_by_path("/cpus");
+> +    unsigned int cpu;
+> +    uint32_t timebase_frequency;
+> +    bool frequency_valid;
+> +    void *fdt = kinfo->fdt;
 > +
-> +    for ( unsigned int i = 0; i < ARRAY_SIZE(riscv_isa_ext); i++ )
+> +    dt_dprintk("Create cpus node\n");
+> +
+> +    if ( !cpus )
 > +    {
-> +        const struct riscv_isa_ext_data *ext = &riscv_isa_ext[i];
-> +
-> +        if ( !riscv_isa_extension_available(d->arch.guest_isa, ext->id) )
-> +            continue;
-> +
-> +        if ( ext->id >= RISCV_ISA_EXT_BASE && strlcat(buf, "_", len) >= len )
-> +            return -ENOBUFS;
-> +
-> +        if ( strlcat(buf, ext->name, len) >= len )
-> +            return -ENOBUFS;
+> +        dprintk(XENLOG_ERR, "Missing /cpus node in the device tree?\n");
+> +        return -ENOENT;
 > +    }
 > +
-> +    return 0;
-> +}
+> +    frequency_valid = dt_property_read_u32(cpus, "timebase-frequency",
+> +                                           &timebase_frequency);
 > +
-> +static void __init init_guest_unsupp(void)
-> +{
-> +    set_bit(RISCV_ISA_EXT_f, guest_unsupp);
-> +    set_bit(RISCV_ISA_EXT_d, guest_unsupp);
-> +    set_bit(RISCV_ISA_EXT_q, guest_unsupp);
-> +    set_bit(RISCV_ISA_EXT_v, guest_unsupp);
-> +    set_bit(RISCV_ISA_EXT_h, guest_unsupp);
-> +    set_bit(RISCV_ISA_EXT_sstc, guest_unsupp);
-> +    set_bit(RISCV_ISA_EXT_svade, guest_unsupp);
-> +    set_bit(RISCV_ISA_EXT_svpbmt, guest_unsupp);
+> +    res = fdt_begin_node(fdt, "cpus");
+> +    if ( res )
+> +        return res;
+> +
+> +    res = fdt_property_cell(fdt, "#address-cells", 1);
+> +    if ( res )
+> +        return res;
+> +
+> +    res = fdt_property_cell(fdt, "#size-cells", 0);
+> +    if ( res )
+> +        return res;
+> +
+> +    if ( frequency_valid )
+> +        res = fdt_property_cell(fdt, "timebase-frequency", timebase_frequency);
+> +
+> +    for ( cpu = 0; cpu < d->max_vcpus; cpu++ )
+
+Limit cpu's scope to this loop?
+
+> +    {
+> +        char buf[64];
+> +        uint32_t reg = cpu_to_fdt32(cpu);
+
+Isn't this a byte-order adjustment? If so, how come ...
+
+> +        snprintf(buf, sizeof(buf), "cpu@%u", cpu);
+
+... the result is passed to an entirely non-FDT function? (Most pre-existing uses
+of the function that I can spot store something in memory, i.e. adjusting byte-
+order makes sense there.)
+
+> +        res = fdt_begin_node(fdt, buf);
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_property(fdt, "reg", &reg, sizeof(reg));
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_property_string(fdt, "status", "okay");
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_property_string(fdt, "compatible", "riscv");
+> +        if ( res )
+> +            return res;
+> +
+> +        BUILD_BUG_ON((sizeof("riscv,") +
+> +                      sizeof_field(struct gstage_mode_desc, name)) >= sizeof(buf));
+> +        snprintf(buf, sizeof(buf), "riscv,%s", max_gstage_mode->name);
+> +        res = fdt_property_string(fdt, "mmu-type", buf);
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_property_string(fdt, "riscv,isa", d->arch.guest_isa_str);
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_property_string(fdt, "device_type", "cpu");
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_begin_node(fdt, "interrupt-controller");
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_property_string(fdt, "compatible", "riscv,cpu-intc");
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_property_cell(fdt, "#interrupt-cells", 1);
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_property(fdt, "interrupt-controller", NULL, 0);
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_property_u32(fdt, "phandle", alloc_phandle(kinfo));
+> +        if ( res )
+> +            return res;
+> +
+> +        /* end of interrupt-controller */
+
+Nit: Comment style. Also such a comment pretty clearly calls for a counterpart
+at the start.
+
+> +        res = fdt_end_node(fdt);
+> +        if ( res )
+> +            return res;
+> +
+> +        res = fdt_end_node(fdt);
+> +        if ( res )
+> +            return res;
+> +    }
+> +
+> +    return fdt_end_node(fdt);
 > +}
 
-These don't need to be atomic, do they? I.e. __set_bit() would suffice.
-
-> --- a/xen/arch/riscv/include/asm/cpufeature.h
-> +++ b/xen/arch/riscv/include/asm/cpufeature.h
-> @@ -17,6 +17,8 @@
->   */
->  #define RISCV_ISA_EXT_BASE  26
->  
-> +#define RISCV_GUEST_ISA_STR_MAX 256
-
-This looks like it won't be good for very long, seeing how long ISA strings can
-get. I wonder anyway whether ...
-
-> @@ -94,6 +95,9 @@ struct arch_domain {
->      struct p2m_domain p2m;
->  
->      struct paging_domain paging;
-> +
-> +    DECLARE_BITMAP(guest_isa, RISCV_ISA_EXT_MAX);
-> +    char guest_isa_str[RISCV_GUEST_ISA_STR_MAX];
-
-... a compile-time sized buffer is suitable here. Can't you allocate a buffer
-just large enough to hold the string?
-
-Jan
 
