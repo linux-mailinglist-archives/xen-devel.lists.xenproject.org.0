@@ -2,67 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oEvKMJ62CmoB6QQAu9opvQ
+	id OCPqIze3CmoH6gQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 08:50:06 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 08:52:39 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36570566F32
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 08:50:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1311519.1581635 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04149566FC6
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 08:52:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1311528.1581644 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOrnV-0007En-0S; Mon, 18 May 2026 06:49:53 +0000
+	id 1wOrpo-0000Mf-Go; Mon, 18 May 2026 06:52:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1311519.1581635; Mon, 18 May 2026 06:49:52 +0000
+Received: by outflank-mailman (output) from mailman id 1311528.1581644; Mon, 18 May 2026 06:52:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOrnU-0007DJ-Sl; Mon, 18 May 2026 06:49:52 +0000
-Received: by outflank-mailman (input) for mailman id 1311519;
- Mon, 18 May 2026 06:49:52 +0000
+	id 1wOrpo-0000Kj-D1; Mon, 18 May 2026 06:52:16 +0000
+Received: by outflank-mailman (input) for mailman id 1311528;
+ Mon, 18 May 2026 06:52:14 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Michal.Orzel@amd.com>) id 1wOrnT-0007D8-T8
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 06:49:52 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wOrpm-0000Kd-Kn
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 06:52:14 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wOrnT-0075aF-4m
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 08:49:51 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wOrpl-0076WH-TQ
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 08:52:13 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 6a0ab675-bab6-0a2a0a5309dd-0a2a4503ecca-44
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 08:49:50 +0200
-Received: from [52.101.43.18]
- (helo=SJ2PR03CU001.outbound.protection.outlook.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Michal.Orzel@amd.com>)
- id 6a0ab68c-672d-0a2a45030019-34652b124845-3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 08:49:50 +0200
-Received: from DM6PR02CA0130.namprd02.prod.outlook.com (2603:10b6:5:1b4::32)
- by SA1PR12MB6948.namprd12.prod.outlook.com (2603:10b6:806:24f::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Mon, 18 May
- 2026 06:49:43 +0000
-Received: from CY4PEPF0000EE34.namprd05.prod.outlook.com
- (2603:10b6:5:1b4:cafe::d7) by DM6PR02CA0130.outlook.office365.com
- (2603:10b6:5:1b4::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.23 via Frontend Transport; Mon, 18
- May 2026 06:49:43 +0000
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000EE34.mail.protection.outlook.com (10.167.242.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.11 via Frontend Transport; Mon, 18 May 2026 06:49:43 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Mon, 18 May
- 2026 01:49:42 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 18 May
- 2026 01:49:42 -0500
-Received: from [10.71.196.80] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Mon, 18 May 2026 01:49:39 -0500
+ (envelope-from <jbeulich@suse.com>)
+ id 6a0ab70c-e002-0a2a0a5209dd-0a2a450b8414-46
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 08:52:13 +0200
+Received: from [209.85.221.41] (helo=mail-wr1-f41.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a0ab71d-212f-0a2a450b0019-d155dd29c803-3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 08:52:13 +0200
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-43d77f6092eso885343f8f.2
+ for <xen-devel@lists.xenproject.org>; Sun, 17 May 2026 23:52:13 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48fe4c8344asm403034785e9.1.2026.05.17.23.52.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 17 May 2026 23:52:12 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -74,177 +56,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c6AOCoVAyYfn02aiN+DUacLfty/GyC1/qHkbdPj2auyhJEyQ2xoZOozCdxo9k4ebXcGCAFfJqKEzO0UNO1L2MopCY1jk+8Q5kcs7TXYZld6lfLX8tFAvTJW8AACGm7u4fe6gvdWhbKf3EpKoMUBQPDFVaNs5BlY0uxyoQ/Bw7vWr/kH/TNxfrnEl9Zxxr8Pcymw4pzMmP0mYVXuhJpqzFK76IQoOfeWeoFp4azxsx4urIoR/vvhoKjKM2GtNegUuIZodVOoXff/Onjc6vPu2RZakpTMRsiUvRKTfFbiAQ6J0C4QAjWmXggD0LWxXR0z6zJ2SVBX/I7JIL52Zc3FZFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lyFcLFBZ/FHST6KrIS+sKf3VQK0G9mbIEtwtjkVCqdU=;
- b=TxeQnLbWFXuhu+9FVdh73JxBHsGy3MBXh/E45PrceDoN+PMAYqPXY44oTUvuMQSqzBWU3Zzty2fSVeOw/w2PUa3InBHUvn+w3D9WGDPDJXKI0DybuZc+cwdBVQh3G/aFAHLhbVtR9CF5cctIm9hnP50bd66lj2XA3iW7PRvDaq1vjc4WEzEniMQZsDrmLFNzfl3NzeAANo2pqOIH2XhSjbE99fExdll2SKkyiP33qFLT2qmEfXYhcNUxSXLZkBi6d2FhgrE9PLaYLO7Uv7VZDHTIyi8GUhPBAwDfwoNKKJrDl7j7MiHGHVVxrCpZNOTaPOeWpKyG6/NPj+7IK8oxug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lyFcLFBZ/FHST6KrIS+sKf3VQK0G9mbIEtwtjkVCqdU=;
- b=uaSdnX632DErEtitLZow3dz4EbqcSj8KdsEMB9Xb/SXLP4CATeyWa9a9eXyFKk3i4DRqwcpv41v0TfzCC3TlCq4GJZI+mt13r/4AWXbj+U/dt7Q6mbiGMWo+yAERUTBweFshgeAzejaV41+pdg8AmLcpyBHcS9UX8RzYu8WRZ8E=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Message-ID: <09274238-3874-4114-99e1-efd587498a8b@amd.com>
-Date: Mon, 18 May 2026 08:49:38 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1779087133; x=1779691933; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=4iAmaJNBJRtpqb/vsur7JtbcNtNbCFnALZmghaNeFO0=;
+        b=dQ0AMr+/xHKrCrMVrRYKM4bmIIJQEKyY2I6/FWsh69JEyPp0DSh4y7Kh1Y2towTPnd
+         XAZfKS1bGxBmvbHEobd63Fma5aZMovIi9uu+i/jHU46M1xyqD4b2PKSsS8HKLJbi9ImM
+         KDG06wo87IWNq9zvZ2a5dvWvAkABUnSDnJe24sJJcgMhj8/Bv+hCvGMbFxdMuz+66Ug5
+         NOdTUdrjMnf7kGIyxeqFQwiisLXaNMcv+sSuBRkwPSsru8KhRSnLFebz1gh+ucgLqGMs
+         v8jGeemY10IcA0qASdaiDXVblUA2YJcRr8odSgpDJ66ISGtSpn5fX+Kellh14ZAIpNB9
+         WZkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779087133; x=1779691933;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4iAmaJNBJRtpqb/vsur7JtbcNtNbCFnALZmghaNeFO0=;
+        b=kBb4jngLOzLvE4e/MqQ5VH+ZG27b9e05fCTdXfbLZlY64K4FwPj248Qdn5TjnGd1QX
+         q1fA0Cd6KsIqUBTueQ0La7Z9J6oaYOR82m9lak1GHb+Gv8hDG9V+C6uX7ATOaIIDbj6N
+         wAKBJWpfq1Xet6LIKCmP1vcu6TQ04cWw99ldpuXor/mxQmICkaXREDdtbAIQiTk5q8Ji
+         FFM0BgG6Oeyec9SsxPDbDg9Qz+NQaAlAuMqTTxIo20rqHKRV0UC1kZO4bGQvCocFawV1
+         elRQC28gbRX8HFDuLyuwPX//yU22z38AK8VhGFtxoYPdJHdFpUeEyErGTxITLs8qqFHn
+         aqsw==
+X-Forwarded-Encrypted: i=1; AFNElJ9/dmdnTenB6dPOKTKBlNUj/RUntIMFa4fE2/Zhkn+kIK4HacZdfV5lE9d3QKqmGHgyb0E7X/sIjjM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy4G6xu8juI0yA8xrLkPhhG71n6r19dEW2KuLJ4J/TLL7yJDIkc
+	5jwyG6dP89HTu+Xw7QrimVFSY8GSVsLUnrOvUYUi3s+VrzXTGRn8fL3165QzqGxEuQ==
+X-Gm-Gg: Acq92OG5eBdgd+nIO2clA0hw0TyHlAJtgiLnwP/+O35hlCSRdhNCnYIOe9HGGUZTz25
+	rN9y9GiV0avrXhdW1M0+W+rTKAfir4E52syksPSHzKX4kkQ0orDItGY1udeQCLaVlWZy5cfMgZ2
+	FOoWU0zupLU8Tt0184ihk/80s6qLWZOZY18gz8+yfIwVBpDPgQ4UICXK0D1td8jG+w5ygYN2Yic
+	bfDF+nPxbJMRO6csHyWHPOUIiFl6LuwxLH9HhnQnAd4Gonjp8JGzq+YTGKsM+55QT4qqzCw5x+x
+	5bkw1RACj6anxGQphuS98VNxrju8LQrNOU5OZ65lUXGh4RvbRpvHSDpKgB9VcL8kwks32Dihwcb
+	C2nPbqeqlHtwbrFG77nYo1sqXWT1MYoIPAzVGNLGqfB7QQf9ZzMyXLhwoiyZuf82nnNz7ZLpafg
+	Wucvxkt8YGW3klYc13cW/Vt4LGJLLQSzsUFJydnpKt5cgNhAwk++bypI15ttEWJO3Htwt7uEPiE
+	V/02Y5WtqByWgoNnY7PJqVIOA==
+X-Received: by 2002:a05:600c:3e1b:b0:486:fd5c:2b35 with SMTP id 5b1f17b1804b1-48fe60eccc3mr198182715e9.13.1779087133180;
+        Sun, 17 May 2026 23:52:13 -0700 (PDT)
+Message-ID: <a5d1dc32-c505-4f42-8d48-ba2710d7b831@suse.com>
+Date: Mon, 18 May 2026 08:52:13 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/common: llc-coloring: reject empty color tokens
-To: Mykola Kvach <xakep.amatop@gmail.com>, <xen-devel@lists.xenproject.org>
-CC: Mykola Kvach <mykola_kvach@epam.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>, "Jan
- Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Carlo Nonato <carlo.nonato@minervasys.tech>,
-	"Miccio, Luca" <luca.miccio@amd.com>, Marco Solieri
-	<marco.solieri@minervasys.tech>
+Subject: Re: [PATCH 0/2] xen/common: llc-coloring parser fixes
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Carlo Nonato <carlo.nonato@minervasys.tech>,
+ Marco Solieri <marco.solieri@minervasys.tech>
 References: <cover.1778925998.git.mykola_kvach@epam.com>
- <0820f91dd0499e5f66f8961b5e27fe0a0ff9be35.1778925998.git.mykola_kvach@epam.com>
-From: "Orzel, Michal" <michal.orzel@amd.com>
+ <d9db51c5-97a1-4131-8575-dca1ae2cf52c@suse.com>
+ <CAGeoDV9DitsH629pWGe+X=0VM+oi1BfSgWMxE+t32CCR5gMgtw@mail.gmail.com>
 Content-Language: en-US
-In-Reply-To: <0820f91dd0499e5f66f8961b5e27fe0a0ff9be35.1778925998.git.mykola_kvach@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB04.amd.com: michal.orzel@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE34:EE_|SA1PR12MB6948:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e311160-ddfd-4ca5-6e29-08deb4a9a43e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|30052699003|36860700016|7416014|376014|11063799003|4143699003|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	2IG8CN5zh/Rg2MNfpezi5UlDTeIDth7OCu3FtHlpVkC+ks3wnVGXPmBynjAs5TWDPxJT6Rd0LT4J/nPAgcjgpIDD852PSGuLDfu0qQX/tB6zXwjBcFreDuc6yxcVGUrC3tk+WwHNsQbnQ7bHuyX4ZY4skPGWtDKcDJ+ZgHLAfFQq0HcAOKGJgEaL8ntzzDCExtA2haIbilvuYq3VcLb0bw4tuHqX44/tJrdE8qzqg3OAZgr3EjYw1mhEDgnTt55UHNLNv9UBblzIQDbbg1m4hXhyWobfKU4ZFAk/5nLywspM3S9do3kfV4XguIQVfThY8e1bQgybKYyX9dAmwgPM8qVOdCTipCXIjIa/XNvHaWQBngcYt66tsVzNmmkJNx08iylN2AOeVKkBV1iSmdoZFTDeVXr2g/DbA5rO1pI4L1Wvpir0VW9rGMa5/Php8YZ8owibPzyW/EfTieuyDw8guFwajmd1MGtnPmp0B0CXuLxGFDwkMcBwgu55ZU7nJTRnlzpfuCHGC9PHgVQlwM574TYU2CaexMAfrlID+L54/SX2FHOexUxovtNElh9nNlbuVHrIXDgFhX+K2cRTOIEBnHpKQe+YSJCqHZGpj2vuEPQZDiYTS5EuCv9DKtjDcSatbxAjo2cA4G2UhaBm/kHXey6PkdbO6+wIoClC32PmjyANMbZfyMbSF9BVtI3cseIs0B1yCjvtqLDtvey7m3jq7WxUCpuQynOBNrTDMpBOWaM=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(30052699003)(36860700016)(7416014)(376014)(11063799003)(4143699003)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	XcD0HDLX+RrXoKtcMt6cuTYexBQqbp5N9TccUCCD92rObKjI84t8syYSbLn2aK//nHoGniTYPHlpmsZBy5mz7vg3Cvy9i4WHaWsuFXDu85TKPaK1Rfh4Jg4XoyYiVMPWxZ8U/bdjcdkx3qQOufLZ9o/P34kf0LrFXGR7hgHsYvcHEnTdUCXaPPEQXm340RAJn5UkobB8GFvBcywurV/0Rc3SWgQnrTqqa+WYKLBdWxjQHqI7PL3Q64n7T2FWEn5hRHN5/Ked75mPW/QsvP86OIoBMuupLKGMW3PSMlSOyINDkdPtgkz0dnU5ojXRE/ItA9D8IYPGxpEXVevbW/mUb4zAi9gA9tDxc1GQVqZL5ZTBw7XtJTAk6UlrqdKITy3Qjh8rxEyNTwDWOLl9htG2IxTSbQ19vK/CmjKbdJ/fyy/Klj48g9/VM5ob2Q8a9AcA
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2026 06:49:43.0399
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e311160-ddfd-4ca5-6e29-08deb4a9a43e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE34.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6948
-X-purgate-ID: tlsNG-33051d/1779086990-42F62938-322199E5/0/0
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAGeoDV9DitsH629pWGe+X=0VM+oi1BfSgWMxE+t32CCR5gMgtw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-42698a/1779087133-21F84F3B-178D6048/0/0
 X-purgate-type: clean
-X-purgate-size: 2313
-X-Rspamd-Queue-Id: 36570566F32
+X-purgate-size: 2425
+X-Rspamd-Queue-Id: 04149566FC6
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [1.31 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:carlo.nonato@minervasys.tech,m:luca.miccio@amd.com,m:marco.solieri@minervasys.tech,m:xakepamatop@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:mykola_kvach@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:carlo.nonato@minervasys.tech,m:marco.solieri@minervasys.tech,m:xakepamatop@gmail.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[amd.com:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[14];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,amd.com:email,amd.com:mid,amd.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-+cc Carlo, Marco, Luca
-
-On 16-May-26 17:03, Mykola Kvach wrote:
-> From: Mykola Kvach <mykola_kvach@epam.com>
+On 18.05.2026 08:42, Mykola Kvach wrote:
+> On Mon, May 18, 2026 at 9:20 AM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 16.05.2026 17:03, Mykola Kvach wrote:
+>>> This small series fixes two issues in parse_color_config().
+>>>
+>>> The first patch makes parse failures leave the caller-visible color count
+>>> at zero.  This prevents a rejected command-line value from leaving a
+>>> partially parsed configuration behind for later init paths to consume.
+>>>
+>>> The second patch rejects empty color tokens.  Previously, delimiters in
+>>> places where a color value was expected could be interpreted as color 0,
+>>> because simple_strtoul() returns zero without advancing the input pointer.
+>>> The patch checks that each parsed color value consumed input.  It also
+>>> adds the missing newline to the DT color parsing error message.
+>>>
+>>> Mykola Kvach (2):
+>>>   xen/common: llc-coloring: clear color count on parse failure
+>>>   xen/common: llc-coloring: reject empty color tokens
+>>
+>> For both of these, a question which isn't even considered in the reasoning
+>> is whether the present behavior may be intentional. Especially for the 2nd
+>> ISTR Stefano(?) not so long ago indicating that the behavior is indeed
+>> intended to be this way. That may have been somewhere on Matrix rather than
+>> on the list, though.
 > 
-> parse_color_config() currently accepts delimiters where a color value
-> is expected because simple_strtoul() returns zero without advancing the
-> input pointer. This makes strings such as ",2-6", "-10,19-20" or
-> "1,,2" look as if an empty value was color 0.
+> Thank you for pointing this out.
 > 
-> Also add the missing newline to the DT color parsing error message.
+> For the first patch, my reasoning was that returning an error while
+> leaving a partially parsed caller-visible color count behind looks
+> surprising. If the value is rejected, I think later init paths should
+> not be able to consume the partially parsed state.
 > 
-> Fixes: 6cdea3444eaf ("xen/arm: add Dom0 cache coloring support")
-> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-I don't see anything in the user facing docs that would make me think the
-current behavior is intentional, therefore:
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> For the second patch, my reasoning was that the current behavior looks
+> accidental rather than an intentional extension of the syntax.
 
-I will still give a chance for the original authors to chime in if needed.
+That was my impression as well, hence why I had raised the question back
+then.
 
-~Michal
-
-> ---
->  xen/common/llc-coloring.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+> The parser comment says:
 > 
-> diff --git a/xen/common/llc-coloring.c b/xen/common/llc-coloring.c
-> index 2606cb0977..5d00d4b40e 100644
-> --- a/xen/common/llc-coloring.c
-> +++ b/xen/common/llc-coloring.c
-> @@ -64,14 +64,21 @@ static int __init parse_color_config(const char *buf, unsigned int colors[],
->  
->      while ( *s != '\0' )
->      {
-> +        const char *endp;
->          unsigned int color, start, end;
->  
-> -        start = simple_strtoul(s, &s, 0);
-> +        start = simple_strtoul(s, &endp, 0);
-> +        if ( endp == s )
-> +            goto fail;
-> +        s = endp;
->  
->          if ( *s == '-' )    /* Range */
->          {
->              s++;
-> -            end = simple_strtoul(s, &s, 0);
-> +            end = simple_strtoul(s, &endp, 0);
-> +            if ( endp == s )
-> +                goto fail;
-> +            s = endp;
->          }
->          else                /* Single value */
->              end = start;
-> @@ -334,7 +341,7 @@ int __init domain_set_llc_colors_from_str(struct domain *d, const char *str)
->      err = parse_color_config(str, colors, max_nr_colors, &num_colors);
->      if ( err )
->      {
-> -        printk(XENLOG_ERR "Error parsing LLC color configuration");
-> +        printk(XENLOG_ERR "Error parsing LLC color configuration\n");
->          xfree(colors);
->          return err;
->      }
+> COLOR_CONFIGURATION ::= COLOR | RANGE,...,COLOR | RANGE
+> RANGE ::= COLOR-COLOR
+> 
+> The user guide also describes this as a comma-separated list of colors
+> or ranges, with ranges written as hyphen-separated inclusive intervals.
+> I don't see an empty-token production there.
 
+What you quote is insufficient to determine: COLOR may be allowed to be
+<nothing>. Iirc the reasoning went in particular towards a range with
+merely the upper end specified being something (halfway) meaningful.
+
+Jan
 
