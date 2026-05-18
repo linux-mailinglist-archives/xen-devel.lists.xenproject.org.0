@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +IUvB5kzC2qgEgUAu9opvQ
+	id wPRNKqY1C2qgEgUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:43:21 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:52:06 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 839B4570329
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:43:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312104.1582275 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22654570553
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 17:52:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312111.1582285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP07U-0001CV-7h; Mon, 18 May 2026 15:43:04 +0000
+	id 1wP0Fv-00035K-1C; Mon, 18 May 2026 15:51:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312104.1582275; Mon, 18 May 2026 15:43:04 +0000
+Received: by outflank-mailman (output) from mailman id 1312111.1582285; Mon, 18 May 2026 15:51:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wP07U-0001A2-4k; Mon, 18 May 2026 15:43:04 +0000
-Received: by outflank-mailman (input) for mailman id 1312104;
- Mon, 18 May 2026 15:43:02 +0000
+	id 1wP0Fu-00032Y-UI; Mon, 18 May 2026 15:51:46 +0000
+Received: by outflank-mailman (input) for mailman id 1312111;
+ Mon, 18 May 2026 15:51:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wP07S-00019v-C3
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 15:43:02 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wP0Ft-00032S-Ep
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 15:51:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wP07R-009dKq-ON
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 17:43:01 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wP0Fs-00F2NS-Fv
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 17:51:44 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0b337b-e002-0a2a0a5209dd-0a2a450abab2-8
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:43:01 +0200
-Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0b3580-5cb7-0a2a0a5109dd-0a2a450b93ea-30
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:51:44 +0200
+Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0b3385-56b3-0a2a450a0019-d155802ac9f5-3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:43:01 +0200
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-488b8bc6bc9so14294055e9.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 08:43:01 -0700 (PDT)
+ id 6a0b3590-212f-0a2a450b0019-d155dd2ea447-3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 17:51:44 +0200
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-43d734223e4so1543777f8f.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 08:51:44 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da0fe248dsm37522824f8f.30.2026.05.18.08.43.00
+ ffacd0b85a97d-45da0fe13a7sm39765648f8f.29.2026.05.18.08.51.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 May 2026 08:43:00 -0700 (PDT)
+ Mon, 18 May 2026 08:51:43 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,49 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779118981; x=1779723781; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1779119504; x=1779724304; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rhf9hUi+PrYqZ5KPKZaHt0LmySJhRBUtHslVoaCrFBM=;
-        b=OmEra1M7PxCaYJ16/jU4r/Eie9qeigXFB3BdhzOZJAQh4A7j5kcyTVRZ+MdbzX2apQ
-         m2CDxfjNpUrRNHAM9jb6OAfd2zNHGU5rGoau4YJXk5r9lseyA8xT/+qjvWD1t2XJcCS4
-         kVtOxG5fEgDALHrB25MYCSCM/cyO1WmfNgIAQ2alxWoBPSVnupbdKi1WNmyKKdTuFSqt
-         OEXVt+/N0rnuYc2o5MwK0cx6fRvVjIJ1U0TcM0zy6NomYyO19SqVugSnb4GPjUknFBUr
-         sA7FXEHN6qof1ubzAdnzrHuyhNJ40OaBYmL7+sHIXDEJaVMrZS5WhNvAEzmJkJ5EQewZ
-         +8oQ==
+        bh=IzlThvmhLIBjzAkrqvq74kWIvUxnNWa7d68hXnZ1JB0=;
+        b=NPzxM+t5AZE0BQ5gBACepP0FaCxX8eKWjlw94xjAWy2IFcR/641XValvJLADBnrGhX
+         kyEEzIloLt/a2VdBdZz5GIAlyw4whIQRRKtYqZAoS2wcqN6qpc5oVdmacQDkqh9J2if7
+         xZh+cLCm/w7qf5awgucbvOWR43YmiR+Pqn6fFbSNUpYPVBH6WnfDWN6N4RX62ihIG6NR
+         rtJ75eXpkupIOsobJiHemFst+k3RIPJ7o3wCunULm4neomU8k3ve9AdgJUBV+EUEG2+2
+         a/jb5hdZVh0pqDUD0xfdCoZn8rPoLpraCSwyqDyCtpPeZPRUYnUOlz6iPy6WyMAZfFo3
+         ItiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779118981; x=1779723781;
+        d=1e100.net; s=20251104; t=1779119504; x=1779724304;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rhf9hUi+PrYqZ5KPKZaHt0LmySJhRBUtHslVoaCrFBM=;
-        b=TkoEK4OglQsXSsjkzZR6Hc6N68gDesTv1Ev6xrnxnZ0DGj9RClggiE+rABMIM9RoXj
-         n6d5FvPCkeNLFdiqmrgQ83pGTlkKcsylsnQWHqY686LtXg3Dtw5B2Ht8t3BHTtC8R5Pw
-         o5e9JjLUfrkrgdhNnQPrSwtlMU3FkAWycxj73ruT1M6PkyeQQUew3L+xxQUf40OE5LKj
-         SjESW/Jq1Qhztundv83WT6wOQ2oOtO5VuLrz1FNCaNek67wTjwETKG9HHCSZMAe7nkur
-         8o7Idu1Jyn9d82W+WdSphamr1ZjUYskDJSB116Aml/WNW4BJqFaVTVl+4X7T1HAv7a5K
-         VkIw==
-X-Forwarded-Encrypted: i=1; AFNElJ8rFPWuT+j3VGNXN4v/w60fSkXShkc6QGdd3nIg+murGcvrP9el/9JkCpvVU6g0bMYmCM2fJUQRja8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxIW1EDEuvxHNkWftEgu0PbbzmfeUaBUXIJ4nIzha/TI8vWK3ps
-	NSEqzpSwt+waN1MLVLVM7v3A71Wf3Po4Zsng8UGNYzYPdMcQJdG6vVAA9GSIHrlCsg==
-X-Gm-Gg: Acq92OFAVEWKXEe1uV+E/HnJlgUN32fr5ZFVENEPtpxJKIQAEbiAyE1wprKSn4lVbMu
-	on5qvRBMggfJRoYtM/nBNHtKSxCkwo92++QcHAKLluvttMZYsj7D4RScSAWNrPGNA7DgordpGYe
-	fALF4rg3dNh1uI5arYz+hP/+vmoq/jEzYqOVIBS4IYv/rKOa7l8ncpTjPqedsUyfn+AaoIJNOny
-	G8+KfNsSxXTMhtsSDvYhRoSsPEq39cPJhy2EOjRMDAOhqhKQd+lDioV34KQ71rzeAx4DAyIkkUI
-	JQVvZMrAtNps0hME0qJ4KukXZyiAVeGWM8eM1DczC2xl5duD4TzT9aSzKZsrCGrlMLjvydeFkA1
-	F9Di4W4T0nfUAFBaQ2pE9OCLZqCkR8N1RQBQIQ5YI8Wqpi6CYQfeBsG9LCrnb/bjwGozEkM8BjJ
-	FNltUZpFvUhCYaOkronifspIgfny8+oguwJd8AZpzEzvOpkSasAsPXEy/R6/VoG9EYIFlpVjIUN
-	Szqprkj7798ZsObVg6IdMcZOw==
-X-Received: by 2002:a05:600c:49a7:b0:48f:e230:8caa with SMTP id 5b1f17b1804b1-48fe6898854mr146752735e9.30.1779118981193;
-        Mon, 18 May 2026 08:43:01 -0700 (PDT)
-Message-ID: <5c047204-09ac-49b7-b9b3-c6e1c7b7f079@suse.com>
-Date: Mon, 18 May 2026 17:43:00 +0200
+        bh=IzlThvmhLIBjzAkrqvq74kWIvUxnNWa7d68hXnZ1JB0=;
+        b=qDwnRTKc2B6hw95E3TsLGiyO/JXqeBbuh/uctt2Z3fBbj2oZc6yJh5Ubn6qNJ4FWcj
+         Zqa1fUkjyEVFdJx0RLbCf0XOlmLy3iRQ2N2CnFiPYOwCWtEMLZDJUlWBan9Nm6fL2gKI
+         xD1U6M8GwirVTqqcOOzc/9zWiZ1SPOgCSm2APqSZ1ZgdR/cV9mPeaKvQShXKgzhnnjOf
+         eCfVHVolIFA5WuEGkFL9mtG2WbatfLMz4szE85Kz2AuxWQLOgXwEbKOpuH9DWy8pqSKw
+         zlXVwSHes3TBIkLZ/btyJ/GvmV2tXmcvTah+klVR0rmySDbvDNX+KSU4evj0YfglaplY
+         uCXQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9nWPqeAuvELHHUfuQNp2JZqsc3E++Kn9vuStttJ8p53BbjtEOFF67Pz4lmgGM5gRohjFICcEDIo0g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzsMn/DxClsWnphpFjxJDu6SZLrZtsckIx06ODBRZciM/OGAjjD
+	djbJTIz3P7SXoT7kCKuBXMTZE3FpskNQIrmz52vF9hYkJ9gQZWGGO7TwouNhz2ty6w==
+X-Gm-Gg: Acq92OG9i1CYUX8hsPoM5ndG4Aa/EX67Vu60DSZtZ/gVnJ/WExprM7v4kW5/YtKjE/v
+	PlpuxlSBTsyRXyzRn84y26rlsBPAr1CSIYwx2AHVfkjwZydDxCc6Btt/AXB1dUqIxJUZwpYHzYO
+	ubDcoNXL/s/K+cJQlwOFFMK1HDVoTwUJ8upE524h15XEclPmNP1v5oYD3KBypjaCNETw0ELt8Jp
+	jgRmHGs4z0R0+KBGAcSTF7E5sw/XV9EIZLBdpBADahQVhrQwmEx4WpeJauw1v/uewWpLOZWsaQy
+	4B4EB5pnXpsmuF9hKGg+NSK9AiF9e7mQkultX7hLG1YjBuSMelej/WlnbgX5iBIgsPdB3OY64+9
+	4Hvy/A8ZcxH4Sf3xQ1auRnCN+xgqrWOBsJoT0aAxNLOZN+M/eOkBdWbYAPN6WdUbz+VqX8GkM2g
+	y0lBYKD+FddzVZkgtZXtBVyNkBSfq8qtJUu/As1L5Sg2saB0ZEEdP+Uhx3HT/F3Kg39L75LJ2Ds
+	bDxPnsfbRJoC/8=
+X-Received: by 2002:a05:6000:1949:b0:45e:7792:6e6d with SMTP id ffacd0b85a97d-45e7792716cmr7604965f8f.13.1779119503837;
+        Mon, 18 May 2026 08:51:43 -0700 (PDT)
+Message-ID: <364abd6e-4fff-437a-90c8-bb4489f0c51d@suse.com>
+Date: Mon, 18 May 2026 17:51:42 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/26] xen/riscv: implement prerequisites for
- domain_create()
+Subject: Re: [PATCH v2 05/26] xen/riscv: introduce guest riscv,isa string
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  Alistair Francis <alistair.francis@wdc.com>,
@@ -111,7 +110,7 @@ Cc: Romain Caritey <Romain.Caritey@microchip.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
- <e4d6f36bcdf13e8fc12e8769dd965954c5f45b97.1778250616.git.oleksii.kurochko@gmail.com>
+ <b2d4f3f7f049837a25bc00bfb1d3da8b984a8b5a.1778250616.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -137,12 +136,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <e4d6f36bcdf13e8fc12e8769dd965954c5f45b97.1778250616.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <b2d4f3f7f049837a25bc00bfb1d3da8b984a8b5a.1778250616.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1779118981-7E78F8B7-ECB80F71/0/0
+X-purgate-ID: tlsNG-42698a/1779119504-1AD77F3B-D24F6471/0/0
 X-purgate-type: clean
-X-purgate-size: 957
+X-purgate-size: 2567
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
@@ -176,45 +175,89 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 839B4570329
+X-Rspamd-Queue-Id: 22654570553
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 08.05.2026 16:43, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/domain.c
-> +++ b/xen/arch/riscv/domain.c
-> @@ -289,6 +289,31 @@ void sync_vcpu_execstate(struct vcpu *v)
->      /* Nothing to do -- no lazy switching */
+> @@ -480,6 +488,53 @@ bool riscv_isa_extension_available(const unsigned long *isa_bitmap,
+>      return test_bit(id, isa_bitmap);
 >  }
 >  
-> +int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+> +int init_guest_isa(struct domain *d)
 > +{
+> +    char *buf = d->arch.guest_isa_str;
+> +    size_t len = sizeof(d->arch.guest_isa_str);
+
+Seeing these uses: Is the "guest" prefix really of much use here?
+
+> +    bitmap_andnot(d->arch.guest_isa, riscv_isa, guest_unsupp,
+> +                  RISCV_ISA_EXT_MAX);
+
+Same question here, clearly.
+
+> +#if defined(CONFIG_RISCV_32)
+> +    if ( snprintf(buf, len, "rv32") >= len )
+> +        return -ENOBUFS;
+> +#elif defined(CONFIG_RISCV_64)
+> +    if ( snprintf(buf, len, "rv64") >= len )
+> +        return -ENOBUFS;
+> +#else
+> +#   error "Unsupported RISC-V bitness"
+> +#endif
+> +
+> +    for ( unsigned int i = 0; i < ARRAY_SIZE(riscv_isa_ext); i++ )
+> +    {
+> +        const struct riscv_isa_ext_data *ext = &riscv_isa_ext[i];
+> +
+> +        if ( !riscv_isa_extension_available(d->arch.guest_isa, ext->id) )
+> +            continue;
+> +
+> +        if ( ext->id >= RISCV_ISA_EXT_BASE && strlcat(buf, "_", len) >= len )
+> +            return -ENOBUFS;
+> +
+> +        if ( strlcat(buf, ext->name, len) >= len )
+> +            return -ENOBUFS;
+> +    }
+> +
 > +    return 0;
 > +}
 > +
-> +int arch_domain_create(struct domain *d,
-> +                       struct xen_domctl_createdomain *config,
-> +                       unsigned int flags)
+> +static void __init init_guest_unsupp(void)
 > +{
-> +    int rc = 0;
-> +
-> +    if ( is_idle_domain(d) )
-> +        return 0;
-> +
-> +    if ( (rc = p2m_init(d, config)) != 0)
-> +        goto fail;
-> +
-> +    return rc;
-> +
-> + fail:
-> +    d->is_dying = DOMDYING_dead;
+> +    set_bit(RISCV_ISA_EXT_f, guest_unsupp);
+> +    set_bit(RISCV_ISA_EXT_d, guest_unsupp);
+> +    set_bit(RISCV_ISA_EXT_q, guest_unsupp);
+> +    set_bit(RISCV_ISA_EXT_v, guest_unsupp);
+> +    set_bit(RISCV_ISA_EXT_h, guest_unsupp);
+> +    set_bit(RISCV_ISA_EXT_sstc, guest_unsupp);
+> +    set_bit(RISCV_ISA_EXT_svade, guest_unsupp);
+> +    set_bit(RISCV_ISA_EXT_svpbmt, guest_unsupp);
+> +}
 
-domain_create() does this as well. Is it really needed here?
+These don't need to be atomic, do they? I.e. __set_bit() would suffice.
 
-> +    arch_domain_destroy(d);
+> --- a/xen/arch/riscv/include/asm/cpufeature.h
+> +++ b/xen/arch/riscv/include/asm/cpufeature.h
+> @@ -17,6 +17,8 @@
+>   */
+>  #define RISCV_ISA_EXT_BASE  26
+>  
+> +#define RISCV_GUEST_ISA_STR_MAX 256
 
-This continues to be a stub, i.e. upon encountering any kind of error one
-would hit the BUG_ON() there.
+This looks like it won't be good for very long, seeing how long ISA strings can
+get. I wonder anyway whether ...
+
+> @@ -94,6 +95,9 @@ struct arch_domain {
+>      struct p2m_domain p2m;
+>  
+>      struct paging_domain paging;
+> +
+> +    DECLARE_BITMAP(guest_isa, RISCV_ISA_EXT_MAX);
+> +    char guest_isa_str[RISCV_GUEST_ISA_STR_MAX];
+
+... a compile-time sized buffer is suitable here. Can't you allocate a buffer
+just large enough to hold the string?
 
 Jan
 
