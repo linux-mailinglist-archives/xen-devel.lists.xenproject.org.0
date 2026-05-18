@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GIhvNqa9Cmrb7AQAu9opvQ
+	id cPPgGiDACmrb7AQAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 09:20:06 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 09:30:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F005675C2
-	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 09:20:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1311574.1581688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D616E567950
+	for <lists+xen-devel@lfdr.de>; Mon, 18 May 2026 09:30:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1311585.1581697 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOsGU-0006B3-9P; Mon, 18 May 2026 07:19:50 +0000
+	id 1wOsQV-0000dO-5L; Mon, 18 May 2026 07:30:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1311574.1581688; Mon, 18 May 2026 07:19:50 +0000
+Received: by outflank-mailman (output) from mailman id 1311585.1581697; Mon, 18 May 2026 07:30:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wOsGU-00068m-6Z; Mon, 18 May 2026 07:19:50 +0000
-Received: by outflank-mailman (input) for mailman id 1311574;
- Mon, 18 May 2026 07:19:49 +0000
+	id 1wOsQV-0000b5-2f; Mon, 18 May 2026 07:30:11 +0000
+Received: by outflank-mailman (input) for mailman id 1311585;
+ Mon, 18 May 2026 07:30:10 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wOsGT-00068g-5H
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 07:19:49 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wOsQU-0000az-14
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 07:30:10 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wOsGS-00EqMo-Ha
- for xen-devel@lists.xenproject.org; Mon, 18 May 2026 09:19:48 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wOsQT-008mgc-DJ
+ for xen-devel@lists.xenproject.org; Mon, 18 May 2026 09:30:09 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <xakep.amatop@gmail.com>)
- id 6a0abd8e-e002-0a2a0a5209dd-0a2a450bde56-16
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 09:19:48 +0200
+ id 6a0ac001-5cb7-0a2a0a5109dd-0a2a4507938e-2
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 09:30:09 +0200
 Received: from [209.85.208.178] (helo=mail-lj1-f178.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <xakep.amatop@gmail.com>)
- id 6a0abd94-212f-0a2a450b0019-d155d0b2d939-3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 09:19:48 +0200
+ id 6a0ac000-229c-0a2a45070019-d155d0b2a897-3
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 09:30:09 +0200
 Received: by mail-lj1-f178.google.com with SMTP id
- 38308e7fff4ca-38ea6a5a0b3so16696081fa.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 00:19:48 -0700 (PDT)
+ 38308e7fff4ca-393d6025f99so28241731fa.0
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 00:30:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,87 +52,81 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-ARC-Seal: i=1; a=rsa-sha256; t=1779088788; cv=none;
+ARC-Seal: i=1; a=rsa-sha256; t=1779089408; cv=none;
         d=google.com; s=arc-20240605;
-        b=O4o7VuV0V21mN/Hjk8pFAADZGlwuarf46hm2wLWEw/wx/lkXdbWG7fMj74ONUS9Bh1
-         X6iG1dEq1IOaQmmBVX6AoTB1WAB+pYKBZrW30GrYwe7m4AWygutej9DlNkqz5CtoTq1d
-         wHxJm5VhgXx6/N6IDbYzUsTcXFXZ8KMfN5Vq0iQO1w7lBdng/dUyMXmI3uEX6ZXwb6hW
-         4uN0AEVUljDwmWoEDXnZwyEjz3svs/fiN2KFgIVbQOIqEt07nhcrrWpztMWjRGeZok/n
-         QOuRoS6ujsyZqjR/+wRpH20clz4jKzFebXBwFRBMXl/5zGB7Z9rxypfXAZLCSoiN6e4m
-         Enyg==
+        b=hBGSJVl5LvazBOsbTK7APQI+aS20slzk864eIxSIYPy9gw85awyR3wWjvfNnwlPwlT
+         EAJFr4xLLhqtBrL4fV7EfT5s5VWQtSJF5xGqHJF++hbXFijJy9xPMqKsyqoqV3cbZR+i
+         G70Bl8FEt5mcOBgm4/gcOzjesq5v03A1q2YwfdZYZJoU6AfgR54qkyaI6pkvSp8t3p1w
+         oFy6SL5AmkUknP+RNSrdsPjmoVkEBegL2msUEzU0CIW72P06JDIdO2j1cf9J+b4/9H0K
+         tRvSbmUNYHKqXaeGbtNi/Var2l1CY8YI2Shn360L24xc46lk+VQ6Eg/9LoOC5WTcE7DQ
+         TSwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=XqKh2H5OQ1Dg1L1lKIwZJ6zaaT9V+e6s0GtG2jzMM94=;
-        fh=QoAKTk/9VDlNwcmDZ1nH53LgYL0xRRdphyzLOnBU0Ws=;
-        b=e9spgFs79SS425PkTSb9OzlYXDjAWH+3HNlrBfYZEkLDl3aWpzTlgT92FoW8YOfzuM
-         JrL7wU8oKD5yLdG2SJ275FGfAtX7h5t8as6jpT748HFSp3fJGPr+paJaG8j+tx6HD6cl
-         cIeFXOQ6fnmFtMdWdzJZ5ppr/nCMdsW6pUo+ekc4V4k1qFXQHobArsKV4peJP6nMCTgk
-         k4IWk0QjiQMxhkK53mzqHxIuQi+ws+dyeE8u+xBE1Y5d4+dBIGWUvPJgpmvVV7Vbq0YY
-         Xx+X+4W7Sl3AgknnEHQIfsx5GoWrUpXXfMbTHFYqKLNK57FPVLCissKKqw07HoT1JfVh
-         ap+w==;
+        bh=GbB0xIaK2vd2KM7jae/EfM0r1j2c34jEMfjm9Ap3LFY=;
+        fh=VmRYTqrYqQr1nP/EHKOetkoKt+mAJtoUveNvQ+rA8II=;
+        b=imK8sLAAt5rPBiBgkvSyqvAV8L72CwCvg59I89KGuyOQTk7KAsPkIvXbrE7zQUpZ4g
+         7vc0ZS7f1wi4LmXPw2ZJgWT1xzoKguFs8z4UxYyxEl5K3FdmK/rMgVA2Hm6futMxeiXG
+         vtql7NAVkn7WZ3LQO1sz2PRTOZJsYIuhQ7XNSbza+UNndUi6fw0C3ZwltfWvinh4v/ej
+         63WeyaSLxT3fKNbF+DPucO5SbTq/bikH4/VG0ogfF0D+zwvbT1+lzqYIxsp2SrEPXETR
+         WnSSCWfFhXra+Q42FFXmVoOutKaELHSCmZt0dCEWLAVQXSQz6gNGwwprHJmVQBp79ni8
+         55cg==;
         darn=lists.xenproject.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779088788; x=1779693588; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1779089408; x=1779694208; darn=lists.xenproject.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=XqKh2H5OQ1Dg1L1lKIwZJ6zaaT9V+e6s0GtG2jzMM94=;
-        b=SGJVBFkPrvJyOEK0k4BKaBMxEQWG494D7IgbTuBDttjqs1yJDwokh+NJLluFXWPaEd
-         v4UwU3lGlyXX36++vqxwBrFkhVdqL7Oiv/0UAW/oKjWZHkpq6xqedBxRyCQPe22a0Nyl
-         94d825ZcMZOWHw9K0WeivJqJ0DO6F1uz3c+l5f5v18cN6KrGcyVLE/rZ+TBxdVHZ8XRT
-         t5wlO2QVD40/E93J5KVV23I/9W/H/SFd345szr8UBvxCasra9OtSkPKho9fzZJuAdNJp
-         /cFlMoHfO49WLuVLYRxQ/jfB+Bulc0GWtc5pUb7hwQO9l3wooAJtIoHi8KRCBM+Fx9Jh
-         t67w==
+        bh=GbB0xIaK2vd2KM7jae/EfM0r1j2c34jEMfjm9Ap3LFY=;
+        b=gl57NG8R2USOxXHI5Y4q0RFW1IuDgnGG7qPxWc2oNnxLBtJAu4Pl/O4i6VQiulcg52
+         h0vVthgmPXSRTU8Fy/uI8re+qcjMd/2Kz8TNaj20SQEq2KAFCv7474bCB7Z6fOvCvujn
+         kY9VcadNC5wcoaGPgntGXnlrxUfYiogoaJ/C1cj58uzn6sY+FfHsQZQ3pgHhBbRofGWw
+         FSEWDxdeWEOui6p697UZSrMyEimwOG7Ba51S1tPls7uqN2GxeQdFDKwjpvWq2yWm3Dg+
+         BayH5oXPoGSoos9YPkgc5dWeC/xEqdQTnyPuTPPGAH258vileqNRcXu/4bCp2jD5eQ3Z
+         gxDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779088788; x=1779693588;
+        d=1e100.net; s=20251104; t=1779089408; x=1779694208;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=XqKh2H5OQ1Dg1L1lKIwZJ6zaaT9V+e6s0GtG2jzMM94=;
-        b=jz1q1T+ny+gmcxH1yT/9jPc+u2F1ZeBVsc6Hxh78vkpl+1n4taW/aHWh51dA/GiUbS
-         cp1xRveOYiWqp1JoWs4Lbru2slRBx9F9qc0V/3GkL9/1LI3vm5jgHVRdFNsT3HjMk+9S
-         ycoHYiWNZLijchxw+IN1tpjNvCG6EEctnOQJnszlZ1CsNM62DqT5L0+clsGdgx2tIU7w
-         LrQ2fQLDUPmdu1Uj20TRdkg0mmZvNDUQShLAOMDENdiAxkR0Z88/Cc2d1g2AiyxgjvJW
-         1+vRA0I75Q+GOMLFbCv6SwldYBUIbG087UEI8XrPRNPmcaFmp4aJwnjD7bJ1pRz98Tky
-         h2Hg==
-X-Forwarded-Encrypted: i=1; AFNElJ8tQRtwYqYcAoc5Aqn+ziH5UqFtfJ70IkntN488cX9nH8HgvzVH9aI2jBcYmcPUmxDCA7/skuCwGHc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yz26UeChrpf7W6nr4KB+QQF9aYILpyZaWVmhMS/tLWVTux+wY29
-	eAacEff0f0wnrc5azJxpkU53MJVj9SzHLn02LTcjnr4eiRXmUYFeLNjtydwWY1aiO2bllN3VjIi
-	+HZU0IjOEKexfIWbdlFPRwZyWu0RQaYA=
-X-Gm-Gg: Acq92OFVW0bdFHFQa2Ro85bGwgteR25JtqVjuihkSZ8LGKs9kxkaUofmSHwfRrrf8t1
-	7lCj3FgjqvijUohaTN31j5F2RZrByiVQ/IeNGxZL3mNSyp/UVVn8Fb1y1LnDjOVPO12k/yVczVk
-	KLC2fbUrGIViSbOf5AXvbX/hZ97Qln5mNDoDmayTuTn5EjC5jpjtXvwzwL0I29CmF2ENrPrZva3
-	98RKq1oZU/I0EAIzaGoHHtfyPA5I2KYyGCQQdAIlRAfB/NEKWGDQRJWhKOAeOE4lnyu6DFgcnqa
-	ZSIR
-X-Received: by 2002:a2e:8812:0:b0:393:e50b:6b2a with SMTP id
- 38308e7fff4ca-39561c360d6mr31427231fa.11.1779088787501; Mon, 18 May 2026
- 00:19:47 -0700 (PDT)
+        bh=GbB0xIaK2vd2KM7jae/EfM0r1j2c34jEMfjm9Ap3LFY=;
+        b=UaUJujlJQz3qf5oDR5BaENRC2XWDNkllmJVcu5kvONB0/Z4D9HtB4r0n0e7WUVHR0Q
+         Q+Q0pHD/qYCb6WOqKsOdIKLbM8NB/Cu7A8wIlueH5vI/rpMUAj82f0I6FKRDGExfktCc
+         mAhjnCj4XcvIOwDwSBAqftcjkUGr8Vt4IQg49SwnEnR/KKCbACxNO9SXEYly6LzLAmYJ
+         11pxJahiBqphMLFZHeIkjPh+wGUDWQ7dQJBUa8sQxweaR9uWMNp/2GnO61hBfWMNhH+Y
+         AoBpcwPbzSJHjX//WuoE1L71C70iDbj6dhkyxA68A7F2tyuu8aYFebwKGfxWRj5Ye055
+         D/8g==
+X-Gm-Message-State: AOJu0YwntbNujzKEd93gfKjT57EC6VJC5vZJX4EMAJBQYa9SY4wFi9EG
+	1cDfPNeE6HI0hiSO4obFHjxM4R/LrX0A78bGU2TWXUgjIyWs+tWGNx163r5oquF6B0Td2KNwMI6
+	3DfauJemzAj4tcdAYATJYcrzUs2tw/u0=
+X-Gm-Gg: Acq92OFcTe/F6GJtpggJpCjAQN6bKUGwNkR7EqYBW1DYjyyicSlv3KzsK4ETyv2w/9d
+	hAqr8tX/a9aVDWx7b3cefUnKgN/PLL91NbyfPyXrUY59AIWyRXspZoRampe3zey08bXGdNsSDUH
+	rBY4rpNg9JaGCGZOjDRdWZV3u4YfEp5Z+3Bckc9AaGWNhB0Wns0htA1czY37MaB9xsR7RJeRraS
+	eJ281M8M3hPzrRaMNi/i5uvdJcMrmexS6B6yI9SsaoY1gg4T7nr42VQHuiiL8LbETbC1HPh3BiA
+	YgnmpHPYCFWzT3c=
+X-Received: by 2002:a05:651c:41d5:b0:38e:8357:c5ae with SMTP id
+ 38308e7fff4ca-395609c0ac6mr40375261fa.9.1779089408290; Mon, 18 May 2026
+ 00:30:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1778925998.git.mykola_kvach@epam.com> <d9db51c5-97a1-4131-8575-dca1ae2cf52c@suse.com>
- <CAGeoDV9DitsH629pWGe+X=0VM+oi1BfSgWMxE+t32CCR5gMgtw@mail.gmail.com>
- <a5d1dc32-c505-4f42-8d48-ba2710d7b831@suse.com> <CAGeoDV_8BNRPy9tbe1ArgR4Lj8YHZPwo_7D59oJJSiSqNQFNFQ@mail.gmail.com>
- <22edbeb3-4b0b-48d4-9873-76bfa31b970d@suse.com>
-In-Reply-To: <22edbeb3-4b0b-48d4-9873-76bfa31b970d@suse.com>
+References: <20260518070524.19813-1-luca.fancellu@arm.com>
+In-Reply-To: <20260518070524.19813-1-luca.fancellu@arm.com>
 From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Mon, 18 May 2026 10:19:36 +0300
-X-Gm-Features: AVHnY4Lv3pVlfuck1gY7G0IBtYWJgoNUyOjGgPF-y08xcl4h2KigeBkfm2LufmE
-Message-ID: <CAGeoDV8ucuZ-FrYe6j_ke4cK33z27=rNZ-9oZzb0R9PxqDJBqQ@mail.gmail.com>
-Subject: Re: [PATCH 0/2] xen/common: llc-coloring parser fixes
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Mykola Kvach <mykola_kvach@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Michal Orzel <michal.orzel@amd.com>, 
-	Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org, 
-	Carlo Nonato <carlo.nonato@minervasys.tech>, 
-	Marco Solieri <marco.solieri@minervasys.tech>
+Date: Mon, 18 May 2026 10:29:57 +0300
+X-Gm-Features: AVHnY4Ii4E0urLp1QprBh4czoFh0poZJ63kuZ7e6h6SWp5ENyorLcNGjFhVduas
+Message-ID: <CAGeoDV8XLgPCVmK0uBxmYFTCGf9f6wYJqMB1H7WJHT_uDNqM2A@mail.gmail.com>
+Subject: Re: [PATCH] xen/arm: gic-v3: Fix redistributor wakeup polling
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-42698a/1779088788-13175F3B-01CE4FEC/0/0
+X-purgate-ID: tlsNG-ef75cf/1779089409-2176AC48-EA80748B/0/0
 X-purgate-type: clean
-X-purgate-size: 4131
-X-Rspamd-Queue-Id: 40F005675C2
+X-purgate-size: 1702
+X-Rspamd-Queue-Id: D616E567950
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [-2.19 / 15.00];
 	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
@@ -142,14 +136,14 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,mail.gmail.com:mid,lists.xenproject.org:helo,lists.xenproject.org:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,arm.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,epam.com:email];
 	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:mykola_kvach@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:carlo.nonato@minervasys.tech,m:marco.solieri@minervasys.tech,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:luca.fancellu@arm.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[gmail.com:+];
@@ -160,8 +154,8 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.950];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	NEURAL_HAM(-0.00)[-0.944];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
@@ -169,112 +163,57 @@ X-Spamd-Result: default: False [-2.19 / 15.00];
 	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Action: no action
 
-On Mon, May 18, 2026 at 10:06=E2=80=AFAM Jan Beulich <jbeulich@suse.com> wr=
-ote:
+On Mon, May 18, 2026 at 10:05=E2=80=AFAM Luca Fancellu <luca.fancellu@arm.c=
+om> wrote:
 >
-> On 18.05.2026 09:01, Mykola Kvach wrote:
-> > On Mon, May 18, 2026 at 9:52=E2=80=AFAM Jan Beulich <jbeulich@suse.com>=
- wrote:
-> >>
-> >> On 18.05.2026 08:42, Mykola Kvach wrote:
-> >>> On Mon, May 18, 2026 at 9:20=E2=80=AFAM Jan Beulich <jbeulich@suse.co=
-m> wrote:
-> >>>> On 16.05.2026 17:03, Mykola Kvach wrote:
-> >>>>> This small series fixes two issues in parse_color_config().
-> >>>>>
-> >>>>> The first patch makes parse failures leave the caller-visible color=
- count
-> >>>>> at zero.  This prevents a rejected command-line value from leaving =
-a
-> >>>>> partially parsed configuration behind for later init paths to consu=
-me.
-> >>>>>
-> >>>>> The second patch rejects empty color tokens.  Previously, delimiter=
-s in
-> >>>>> places where a color value was expected could be interpreted as col=
-or 0,
-> >>>>> because simple_strtoul() returns zero without advancing the input p=
-ointer.
-> >>>>> The patch checks that each parsed color value consumed input.  It a=
-lso
-> >>>>> adds the missing newline to the DT color parsing error message.
-> >>>>>
-> >>>>> Mykola Kvach (2):
-> >>>>>   xen/common: llc-coloring: clear color count on parse failure
-> >>>>>   xen/common: llc-coloring: reject empty color tokens
-> >>>>
-> >>>> For both of these, a question which isn't even considered in the rea=
-soning
-> >>>> is whether the present behavior may be intentional. Especially for t=
-he 2nd
-> >>>> ISTR Stefano(?) not so long ago indicating that the behavior is inde=
-ed
-> >>>> intended to be this way. That may have been somewhere on Matrix rath=
-er than
-> >>>> on the list, though.
-> >>>
-> >>> Thank you for pointing this out.
-> >>>
-> >>> For the first patch, my reasoning was that returning an error while
-> >>> leaving a partially parsed caller-visible color count behind looks
-> >>> surprising. If the value is rejected, I think later init paths should
-> >>> not be able to consume the partially parsed state.
-> >>>
-> >>> For the second patch, my reasoning was that the current behavior look=
-s
-> >>> accidental rather than an intentional extension of the syntax.
-> >>
-> >> That was my impression as well, hence why I had raised the question ba=
-ck
-> >> then.
-> >>
-> >>> The parser comment says:
-> >>>
-> >>> COLOR_CONFIGURATION ::=3D COLOR | RANGE,...,COLOR | RANGE
-> >>> RANGE ::=3D COLOR-COLOR
-> >>>
-> >>> The user guide also describes this as a comma-separated list of color=
-s
-> >>> or ranges, with ranges written as hyphen-separated inclusive interval=
-s.
-> >>> I don't see an empty-token production there.
-> >>
-> >> What you quote is insufficient to determine: COLOR may be allowed to b=
-e
-> >> <nothing>. Iirc the reasoning went in particular towards a range with
-> >> merely the upper end specified being something (halfway) meaningful.
-> >
-> > Right, I see your point.
-> >
-> > The grammar does not define COLOR explicitly, so it does not by itself
-> > prove that an empty token is invalid. I was implicitly reading COLOR as
-> > a numeric color value, partly because all examples seem to use numeric
-> > values, but I agree that this is not stated there.
-> >
-> > If this behavior is intentional, then I agree the second patch should
-> > not go in as-is.
+> gicv3_enable_redist() clears GICR_WAKER.ProcessorSleep and then waits for
+> GICR_WAKER.ChildrenAsleep to clear, as required after waking a
+> redistributor.
 >
-> Just to mention: Something like "-5" won't be interpreted as "0-5" even
-> right now. Instead it's taken as a single color with value -5U, afaict.
+> However, the polling loop currently uses "while ( timeout )". Since
+> timeout is initially false, the loop runs only once unless the timeout
+> path has already been reached. As a result, Xen can continue before the
+> redistributor has completed wakeup.
+>
+> Use an unconditional loop, matching the surrounding timeout/break pattern=
+,
+> so the code polls until either ChildrenAsleep is clear or the deadline is
+> reached.
+>
+> While there, also fix the timeout message. This path polls
+> GICR_WAKER.ChildrenAsleep, not an RWP bit, so "RWP timeout" is misleading=
+.
+>
+> Fixes: bc183a0235e0 ("xen/arm: Add support for GIC v3")
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+> ---
+>  xen/arch/arm/gic-v3.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+> index 7f365cdbe9df..bb946dc11375 100644
+> --- a/xen/arch/arm/gic-v3.c
+> +++ b/xen/arch/arm/gic-v3.c
+> @@ -828,11 +828,11 @@ static int gicv3_enable_redist(void)
+>          }
+>          cpu_relax();
+>          udelay(1);
+> -    } while ( timeout );
+> +    } while ( 1 );
+>
+>      if ( timeout )
+>      {
+> -        dprintk(XENLOG_ERR, "GICv3: Redist enable RWP timeout\n");
+> +        dprintk(XENLOG_ERR, "GICv3: Redist wakeup timeout\n");
+>          return 1;
+>      }
+>
+> --
+> 2.34.1
+>
+>
 
-I don't think that is what happens with the current parser.
-
-I tested this without the patches from this series:
-
-(XEN) Command line: dom0_mem=3D2048M console=3Ddtuart dtuart=3Dserial0
-(XEN) loglvl=3Dall console_timestamps=3Dboot llc-coloring=3Don
-(XEN) xen-llc-colors=3D-5
-...
-(XEN) LLC coloring info:
-(XEN) Number of LLC colors supported: 32
-(XEN) Xen LLC colors (6): { 0-5 }
-
-So "-5" is currently interpreted as "0-5", not as a single color with
-value -5U.
-
-That seems to happen because simple_strtoul() does not consume the
-leading '-', so start remains 0 and the parser then takes the range
-path.
+Reviewed-by: Mykola Kvach <mykola_kvach@epam.com>
 
 Best regards,
 Mykola
