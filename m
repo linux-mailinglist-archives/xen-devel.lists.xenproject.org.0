@@ -2,48 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WE8lKT5/DGopigUAu9opvQ
+	id 8Eo4MsSADGpPigUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 17:18:22 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 17:24:52 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17175581451
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 17:18:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1313148.1583372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3127358161C
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 17:24:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1313156.1583380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPMCF-0003mE-BC; Tue, 19 May 2026 15:17:27 +0000
+	id 1wPMJD-0005Zc-0X; Tue, 19 May 2026 15:24:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1313148.1583372; Tue, 19 May 2026 15:17:27 +0000
+Received: by outflank-mailman (output) from mailman id 1313156.1583380; Tue, 19 May 2026 15:24:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPMCF-0003kk-7q; Tue, 19 May 2026 15:17:27 +0000
-Received: by outflank-mailman (input) for mailman id 1313148;
- Tue, 19 May 2026 15:17:25 +0000
+	id 1wPMJC-0005Wq-U5; Tue, 19 May 2026 15:24:38 +0000
+Received: by outflank-mailman (input) for mailman id 1313156;
+ Tue, 19 May 2026 15:24:38 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wPMCD-0003kb-EV
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 15:17:25 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <Edgar.Iglesias@amd.com>) id 1wPMJB-0005Wk-O7
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 15:24:37 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPMCB-00CiuL-JB
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 17:17:23 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wPMJB-00DAZD-0C
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 17:24:37 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a0c7ef6-5cb7-0a2a0a5109dd-0a2a4508b0fe-36
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 17:17:23 +0200
-Received: from [209.85.218.47] (helo=mail-ej1-f47.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a0c7f03-63b5-0a2a45080019-d155da2fece0-3
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 17:17:23 +0200
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-bd22b2abaa4so655781366b.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 08:17:23 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
- [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-68311670a00sm6448919a12.20.2026.05.19.08.17.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 May 2026 08:17:22 -0700 (PDT)
+ (envelope-from <Edgar.Iglesias@amd.com>)
+ id 6a0c8099-e002-0a2a0a5209dd-0a2a4506bd94-44
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 17:24:36 +0200
+Received: from [40.107.200.68]
+ (helo=CH5PR02CU005.outbound.protection.outlook.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Edgar.Iglesias@amd.com>)
+ id 6a0c80b2-7371-0a2a45060019-286bc844dc50-3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 17:24:36 +0200
+Received: from SN7PR12MB6839.namprd12.prod.outlook.com (2603:10b6:806:265::21)
+ by SA1PR12MB8741.namprd12.prod.outlook.com (2603:10b6:806:378::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
+ 2026 15:24:28 +0000
+Received: from SN7PR12MB6839.namprd12.prod.outlook.com
+ ([fe80::ae79:f50b:b7a6:4cd8]) by SN7PR12MB6839.namprd12.prod.outlook.com
+ ([fe80::ae79:f50b:b7a6:4cd8%5]) with mapi id 15.21.0025.016; Tue, 19 May 2026
+ 15:24:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,242 +58,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779203843; x=1779808643; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=W4Tad3+H1mBSyVcoyjsaiYAt1DwHQRehXSMzcDpaoRk=;
-        b=iGsF2SOT+yvRKtYZNjpX0a+gXEiTrVTKzA47rA15gkDoFmF4WP9DCpKPeGl//lNCjg
-         62sqZTta2J+J8T3SxEgA+uWv3UFiqJG01LZFyyHORAfjTKr6uEDkkg3+AFG55HSEaDQ3
-         gjlNpcGWdegogjRwv0pYtZvoPk275QfiFqNvJ07ZHydnNq+Qn2aI4WVR7fA0eDI5XIFN
-         SAeQ2ZU56wmZl57xB1gCOrAIXeQaGyb1HiEKAS8xAKnD9h1husoq89jJ77hniZjVDy44
-         LKpDlrfyrnWaTvPhuV7l83UOcE0APTO6b20AnCBCv1T9CV8PpLP4EcEsfSPTln2Yux+A
-         wT5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779203843; x=1779808643;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=W4Tad3+H1mBSyVcoyjsaiYAt1DwHQRehXSMzcDpaoRk=;
-        b=d55CbE0LKZkdBhxCnIKTqDtRnRLBG8x5OA8e1qUwlGR5n5NG/cp2xdWK3Lzn3PcvkR
-         1JwnF1sjmnitNd0QHaNm/KOJDfkbh3bmHPUt49Y+ZsbmRjR4/sKN+YorPRcNAtTxH+2u
-         f4P5SvIwwucR4r54jaIuVBp8cyBNmU53DfpCS6WzXImIq8JexbvhwsuuRkuY8nT+rWyX
-         p7WLkVqcnXnQw3x5N1qzQ/7jsi0HLwB3/Bba5ZQJKHre2yp+kDhkCLYrxQDFB7gN7deO
-         dPbre7DyRkzbSghCp+MnCZUVP3uEQYBSYx/989kjzoDDN1cvUSD/H6qIPW4vBdmLT8V7
-         zp3g==
-X-Forwarded-Encrypted: i=1; AFNElJ+0zwAVy/QriZ0MQkeyG0BCCOpfbhz7jPlQWxMaB1MdSTi8tQh2S2+PeUNWVLnAW2TnCqBENlTbkPk=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwVXdUKYZxo6DBooWt6Y9MAzzvPBlY1+ehJV5mDaRo59DAXSzvz
-	ZLjlAgOg2Q45SgfZ4oGTFyBdN7GJwRo+08YIY5XzikoTLVHyYXiVBO8w
-X-Gm-Gg: Acq92OHgPuVLM69Vd4Yh/6w/qq48/utuT1CjvXqh3R7mhYy1GhMX7GDjDERcuqReuOd
-	3reU274mLGgPu3xDwxtGbxBhLRI6Sv/a2VwyCKkt75205Z1W5NzTzGaFxpDo8YnkPzXo10L4Oxv
-	vD0DqWKrbqnO4lo9+hshSUxspyFr3x341iYJUc/u0l5ElSoAGpvaeIUxtDzARZDGUPNR70eIj6v
-	+Qr8LgTcT5iCaVnr0pfAnQ9/ms45p8Lch/m476RFbep22uZTbVCot2/bXUNAK+hrRLmXFyeqaDi
-	FuAI4E7l9KZTVrwZooormsXpOxjXrpPm9/jhMkSE7u0wozR6Osfnx6Cu0Hx9DiFvOv3ZYgRyh7I
-	jsfzFYZacl5J88Pd+VU+YYFAtZh5o2G9uX33q+dm/7e543YLQX9f/EWhHlE9nA6bCDCmYffsUVg
-	gYkl8rJAdrifVr6HUNHhKr/fI0CdFItom/TDS4aTpytbb947YXAcxZFz70fafoAbpkoG7M4DvPY
-	14=
-X-Received: by 2002:a17:906:730b:b0:bd5:7c3:ac9e with SMTP id a640c23a62f3a-bd517aa8105mr1079972866b.46.1779203842663;
-        Tue, 19 May 2026 08:17:22 -0700 (PDT)
-Message-ID: <8472866e-49e6-45e8-8d86-3b6b09d2c177@gmail.com>
-Date: Tue, 19 May 2026 17:17:21 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/26] xen/riscv: introduce guest riscv,isa string
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dKZLqP/6Sc8wWaTL6rYRBOgY8ifiprFYvEp3rzTLaF7hlqXu1LJWhUji1ANn3LH0CQ07MW6msSUAtBa5V5WTADtzxrBAM+6mM+6g9mxWkUSPR4lBQRIpFBuscW+9wyqHQAR/+U4nJpf/mjVcopi18uIn5o5RiDDooOf/EEmlAOm252+ISwhjFSizngReKcMYVZZ9LMaDCAYtBwD2CcMgAvhj7zUS5TEK+2P7m6xNfCGaEC5UMaFIoES4LEDgxiFCvOLYiMHAtgiyySmuEXUrEQxZKBghjFROIp8nGc5v3KTHvwfHC6bcCzaN0XpARUOB7IVS5WvCoXhWY3rUgeqb2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L2FPL1DcUqrpzDA09JXWsJT5W314n+sIwMchd5dgiPQ=;
+ b=b/UULwZl0m1cvTxsU5zf2/v0uWBAxDe3tM3PtmMJoaDqZPQx8QZYjc0z0GNVWqbgx16EEV9YuEkM09kQvTrAVTtXCz2qPBAna9UXbhsT74yBpgmY2fPia9ah0wqA+H+I+Kw8D8DB+Yd2i6Z/fs4ItapfUehm+7m9ne0qvsTBz/HbEHlYeVtDRN4yBmSt74JdMNHVNgeMzj6ExS7oc7cQLTwKtUqEYxq4pZvrKnemQ9+oCh9D0Tvl4x9Hfl2B/3ZsuNQielb2cXX0fwpLb2Jedj9/QhsNr8m8EQyplUt7RXTq2MjCscKlyZ2UoAU63zGxPdA9FeBszxfa5IgJ/+08+w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L2FPL1DcUqrpzDA09JXWsJT5W314n+sIwMchd5dgiPQ=;
+ b=MGeET17aKfUUvdY6chFjvA3x8Ca6MR86bUsd0N2nIMd4h7HEz4Jfy6GHkGO+gyB3m0fP7FduQCKymvKV9PHvzssv+0c23+pSRTtOStDu5Lm4burDAgtkRxyUii38hPz31jId7iCXJp1VCN/fh0Fj1mBamksayrD4g4US5Klr/MI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Date: Tue, 19 May 2026 17:24:24 +0200
+From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
- <b2d4f3f7f049837a25bc00bfb1d3da8b984a8b5a.1778250616.git.oleksii.kurochko@gmail.com>
- <364abd6e-4fff-437a-90c8-bb4489f0c51d@suse.com>
- <f032149e-aa99-4976-8012-39bd01d4a653@gmail.com>
- <23e8de1e-b792-4863-bd99-f529642fb963@suse.com>
- <fbd8b102-d495-4678-8226-a199554e266d@gmail.com>
- <3d9e2a3a-6839-4909-b60f-28b4c1a02cdd@suse.com>
- <fa617f4f-7057-4b59-8f28-5a014b0c423a@gmail.com>
- <3b5f681c-bda4-4c46-a96d-cd3da1658e28@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <3b5f681c-bda4-4c46-a96d-cd3da1658e28@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c1860d/1779203843-BE368DB1-4CFEC29D/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 4111
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+Cc: sstabellini@kernel.org, julien@xen.org, bertrand.marquis@arm.com,
+	michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 1/1] arm64: Fix strrchr() matching of null terminator
+Message-ID: <agyAqDWWYUunmYFW@zapote>
+References: <20260518234353.453193-1-edgar.iglesias@amd.com>
+ <20260518234353.453193-2-edgar.iglesias@amd.com>
+ <9b8ec97f-02ae-4a1a-9abe-59873d574a64@suse.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9b8ec97f-02ae-4a1a-9abe-59873d574a64@suse.com>
+User-Agent: Mutt/2.2.14+84 (2efcabc4) (2026-01-25)
+X-ClientProxiedBy: GVYP280CA0014.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:150:fa::8) To SN7PR12MB6839.namprd12.prod.outlook.com
+ (2603:10b6:806:265::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR12MB6839:EE_|SA1PR12MB8741:EE_
+X-MS-Office365-Filtering-Correlation-Id: 297e2c95-40d4-40a6-aa6c-08deb5bab7c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|3023799003|4143699003|18002099003|22082099003|56012099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	tmZTYJ/W6d+RlR8Eku8u7z3vQaA+90AyOYFa6tzTiIrUzuxnFNHkXlGyUabOicZTn/3uqf9mn0i4o02zrZeQjxBYYrmJonOQTmO+aj+bWKMgO2pUnMJenEDT7tQW5Abk2O2KFTdFDqpnQ8KDmtt3eLDTQa5G2gFyxvmNdWS+oYZwZOhXt5gKDdfAtEJOa7vluab1aiIHCxOVOTIjiVQz1EGvaXrPOVeyhNPNTzTXAJbkzjpkn9Q0aOQgspDoX7BUzSwhQ2XpjkrOuD4+Ef4+YLUwMaTxFBH2j6hf10h2sEzizXOIH2cSq/70xiWElp7FysEEKRyzVoIZWKflnPVy3cRHuHDnXKIMKMi9n/fopEbm7ELg64ddXHZzllIERhUWXVKsuUa6BUPTCAHAMy0vLBUYOSdGyU71oTFFEAjnjnnFllLZDeixkRRfI6Jgm31GcHMT4/ZP2jM7x6aOHHO6ftIS14DFPP2UeSWOys6tW/+LBjFB02WDtkYM4E4tKEy2p6MarzUs9jiWCU8k7p646ECXa8Gj4LYAZVJ2oURzVlJrxmJkKrXsrlsDReFSGUYs8CCgf7kXjg3OkgJOFkebMLvqVoZJAA/71cisZ1hxht63T5dOM2gLTc0XuuuH7w3CAKvbkLRu6VhLJb1BERKsKqnLhsi9kkxx7YWainPHSpdp4GvOjp5AsrI94oz7Y7pi
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB6839.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(3023799003)(4143699003)(18002099003)(22082099003)(56012099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?QBfjWozbAG8qMJNwstrHDXTcMAIKgNBSoYecip+I66M+yNrfSjbLMr4a5Sgt?=
+ =?us-ascii?Q?5T21EEQJjmNG8392+nu7J5U0BgzPCS6VZjZrMahPT1Lj6rYokEz5M1uY41w/?=
+ =?us-ascii?Q?by/Siho4D11bUZupIVB/NPQw6CkXa1jLiF17H0v2AWJK0JMQ3iUJk8pHZJbO?=
+ =?us-ascii?Q?uhOH5ejEZOqT5geIEWWszuadcYgAAtpCECCRT8x1Z3Wxq1tC32ODrQnupeuL?=
+ =?us-ascii?Q?rpDr/fnJbK71y8fZTHCFEUYp+YNBC6wwZQz4lObLEEM6NHpUuZCQwyI01mHz?=
+ =?us-ascii?Q?wecMCxGyKkaVahPsgjKUfg2sEf7ubAcpqXje8xsQDWSvQL/cMtAwkBy+a2IV?=
+ =?us-ascii?Q?08I8ngbA+VgSpRP5sZ+Z6OB4XbD2a1IVVN243YIIfT45LXlfHFBw5owfWqkO?=
+ =?us-ascii?Q?xfpXVDvCmm4287JFsZVNgSq7fldykdJ1TrByaJD4tD7S8nJuPbcF7qUCvBJC?=
+ =?us-ascii?Q?/qTP4FNFo09wMWaK+5IT420Hkaz9KQJKk34JPWWGL9bvxd3MMaHiTXociR91?=
+ =?us-ascii?Q?ixgP8hS/Rcu1n2T2eKzD6gq253b+129gOc32XIVQKZk6/OE4kOtpXq4H4Mig?=
+ =?us-ascii?Q?lJVZHjwnAqBgbzAWLW6oplQFn8Pzabk0CDKNfRrWE9hZvkDozanM4P8XBP6Y?=
+ =?us-ascii?Q?ovq2JN6RKEMholLalz0uiJsfQ0G8C5pDJWvTvIMp51xWUINCGAZj/MhJHfqN?=
+ =?us-ascii?Q?u+9QMgsg4QOicoQ4YcbVeYepdORO3AyEzCknmSdPuWfMp7ktFN9H68jk6AXN?=
+ =?us-ascii?Q?TahXkrPXUSX9vQ2mpL/ZYcMpdf3ZGurr/U9GTi9GwFv1cdCragdWlHiZqZGz?=
+ =?us-ascii?Q?KoC6z4yif1T5D4g32WIdnz9HT+en9cIVGZXHkvl7WmyIb4U9GbBwSFR5Q4Go?=
+ =?us-ascii?Q?FDb0vKoXoWSjEgNA0XWUqxRqMJEO9b1NbjIH6g8WgK06i1TFfCnxIeyzrr3y?=
+ =?us-ascii?Q?16GViuX0RTrGbPrXY9mWRcuwg7g5H+ln/0Vsn7SzJEMb4X3VLjI80d227gZM?=
+ =?us-ascii?Q?Ierq32HbWcgbxd31L1zEhEqSwjx5c1v0Rrno+1UHGdohn5Wu5KHuqjJRsNcp?=
+ =?us-ascii?Q?lLRiAf9gIY/QOlXR4vpq3/eeZx/ll2p/50GgLueHcSt117OjCVx38otA+gdL?=
+ =?us-ascii?Q?ZCSc6/QoThE42TnHymclJ47Kb8VZT64y75G3O++n4o98y4DW1M67QNrsOSJP?=
+ =?us-ascii?Q?VHtrx7IW2SgRdHJCbNFl3VsR1pONfzUsq6yoU4jTMSmwqhNTyTYOKPwyt5eu?=
+ =?us-ascii?Q?fL00YkpL2/sGT18vm9767MZZ7Mnd1PO4MR+459G8QKMX5KzuQmTQd+dysZds?=
+ =?us-ascii?Q?Oz+bWjC6NEdHWNx6b4OuqiR2qebDxW1xTPRk1ZcDMTSwMTjXOWTVHP28ERb+?=
+ =?us-ascii?Q?VLf35tjKTL4Kpha5t0M75s9aXrQtL+why2CQxy8Otm8FyvgKTo3RJUhnqWkk?=
+ =?us-ascii?Q?xIyc2ZVCxl6TFSB7OZ8bsJlLFC6XgNZE11SCoS+ctcn8RmzoQG/1tia8WXwP?=
+ =?us-ascii?Q?XsxDcvkCXJCpR8cdjMY0CuRz5OyOi28WpixdXpi53Jee+z0hJoh1vDUqZTpO?=
+ =?us-ascii?Q?VNHg9kdYonPgFZaveTpASrexMM2HzffqvaK/e/gH3VvX1Q7XsfQgYBV/mWg0?=
+ =?us-ascii?Q?wG83fhWV8/5RuRlLhMhE09kV8m3v3DFXtti2Q2ptD5T+5YKlrRpCOMw6nBTG?=
+ =?us-ascii?Q?IlUbpPL5SInPY0aXHPPiHhtIFMGbMiw1xd3f4pDBnf8jwV5C?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 297e2c95-40d4-40a6-aa6c-08deb5bab7c3
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB6839.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 15:24:28.6377
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MAk4bXmuVNNMLKXhzZ/d9kKt8wTjJX7eVf9iCRfWmQOWCKHNmTDHWoE4oHGUkoW/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8741
+X-purgate-ID: tlsNG-16d1c6/1779204276-8E38FD75-99C6F12A/0/0
+X-purgate-type: clean
+X-purgate-size: 2748
+X-Spamd-Result: default: False [0.31 / 15.00];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[edgar.iglesias@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,amd.com:email,amd.com:dkim,suse.com:email,b.ne:url];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[edgar.iglesias@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 17175581451
+X-Rspamd-Queue-Id: 3127358161C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+On Tue, May 19, 2026 at 08:40:54AM +0200, Jan Beulich wrote:
+> On 19.05.2026 01:43, Edgar E. Iglesias wrote:
+> > The generic Xen strrchr() implementation returns a pointer to the string
+> > terminator when searching for '\0', matching the standard C semantics.
+> > 
+> > The ARM64 assembly version stopped as soon as it loaded the terminator and
+> > returned the previous match pointer instead.  This made strrchr("", '\0')
+> > return NULL.
+> 
+> I wonder though: Why would one pass '\0' to strrchr()? If you want to find
+> the end of a string, more efficient (at least in the general case) options
+> exist (strchr(), memchr(), strlen()).
 
+Right, this came from a fuzzer checking standard strrchr() behavior, not
+from an explicit end-of-string use case.
 
-On 5/19/26 4:53 PM, Jan Beulich wrote:
-> On 19.05.2026 16:49, Oleksii Kurochko wrote:
->> On 5/19/26 3:40 PM, Jan Beulich wrote:
->>> On 19.05.2026 15:24, Oleksii Kurochko wrote:
->>>> I thought about two options as alternatives:
->>>>
->>>> 1. Take as a length host RISC-V ISA string but theoretically we can
->>>> emulate some extensions which aren't mentioned in host RISC-V ISA string
->>>> so it could be longer. So not a good option.
->>>>
->>>> 2. Having two walks in init_guest_isa():
->>>>       Introduce the following function:
->>>> static size_t guest_isa_str_len(const unsigned long *isa_bitmap)
->>>> {
->>>>        size_t len = 4; /* rvX prefix */
->>>>
->>>>        for ( unsigned int i = 0; i < ARRAY_SIZE(riscv_isa_ext); i++ )
->>>>        {
->>>>            const struct riscv_isa_ext_data *ext = &riscv_isa_ext[i];
->>>>
->>>>            if ( !riscv_isa_extension_available(isa_bitmap, ext->id) )
->>>>                continue;
->>>>
->>>>            if ( ext->id >= RISCV_ISA_EXT_BASE )
->>>>                len++; /* '_' separator */
->>>>
->>>>            len += strlen(ext->name);
->>>>        }
->>>>
->>>>        return len + 1; /* NUL terminator */
->>>> }
->>>>
->>>>      and then:
->>>>
->>>> int init_guest_isa(struct domain *d)
->>>> {
->>>>        bitmap_andnot(d->arch.guest_isa, riscv_isa, guest_unsupp,
->>>>                      RISCV_ISA_EXT_MAX);
->>>>
->>>>        size_t len = guest_isa_str_len(d->arch.guest_isa);
->>>>        d->arch.guest_isa_str = xzalloc_array(char, len);
->>>>        if ( !d->arch.guest_isa_str )
->>>>            return -ENOMEM;
->>>>
->>>>        /* ... existing snprintf + strlcat loop unchanged ... */
->>>> }
->>>>
->>>> If approach 2 is a good one I can follow it.
->>>
->>> This might be yet better with only a single function. Otherwise the two are
->>> always at risk of going out of sync. After all you can use snprintf() to
->>> determine just the size needed; if you go look, there may even be an
->>> example or two in the tree.
->>
->> I will do than in the following way:
->>
->> static int build_guest_isa_str(char *buf, size_t size,
->>                                  const unsigned long *isa_bitmap)
->> {
->>       int total = 0;
->>       int ret;
->>
->> #if defined(CONFIG_RISCV_32)
->>       ret = snprintf(buf, size, "rv32");
->> #elif defined(CONFIG_RISCV_64)
->>       ret = snprintf(buf, size, "rv64");
->> #else
->> #   error "Unsupported RISC-V bitness"
->> #endif
->>       if ( ret < 0 )
->>           return ret;
-> 
-> You can use total here right away, and limit ...
-> 
->>       total += ret;
->>
->>       for ( unsigned int i = 0; i < ARRAY_SIZE(riscv_isa_ext); i++ )
->>       {
->>           const struct riscv_isa_ext_data *ext = &riscv_isa_ext[i];
-> 
-> ... ret's scope to this loop. This then also justifies total to be of a
-> signed type.
-It makes sense.
+I agree strlen() or strchr(s, '\0') would be better for that, but
+strrchr(s, '\0') is valid input, so we should handle it to avoid
+surprises for existing or future callers.
+
 
 > 
->>           if ( !riscv_isa_extension_available(isa_bitmap, ext->id) )
->>               continue;
->>
->>           ret = snprintf(buf ? buf + total : NULL,
->>                          buf ? size - total : 0, "%s%s",
->>                          ext->id >= RISCV_ISA_EXT_BASE ? "_" : "",
->>                          ext->name);
->>           if ( ret < 0 )
->>               return ret;
->>           total += ret;
->>       }
->>
->>       return total;
->> }
->>
->> int init_guest_isa(struct domain *d)
->> {
->>       int len;
->>
->>       bitmap_andnot(d->arch.isa, riscv_isa, guest_unsupp,
->>                     RISCV_ISA_EXT_MAX);
->>
->>       len = build_guest_isa_str(NULL, 0, d->arch.isa);
->>       if ( len < 0 )
->>           return len;
->>
->>       d->arch.isa_str = xmalloc_array(char, len + 1);
->>       if ( !d->arch.isa_str )
->>           return -ENOMEM;
->>
->>       build_guest_isa_str(d->arch.isa_str, len + 1, d->arch.isa);
+> > Compare the loaded byte against the requested character before deciding
+> > whether to stop at the terminator, so the terminator itself can be returned
+> > when it is the requested character.
 > 
-> At least ASSERT() the success of this?
+> Nit: "..., so a pointer to the terminator ...".
 
-I will add:
+Updated, thanks.
 
-ASSERT(build_guest_isa_str(d->arch.isa_str, len + 1, d->arch.isa) == len);
 
-but I expect that we won't be here if len is incorrect or 
-d->arch.isa_str wasn't allocated properly.
+> 
+> > Fixes: 42c4eb6a83 ("xen: arm64: assembly optimised mem* and str*")
+> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> 
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> However, the function having come from Linux, imo the patch wants to go to
+> Linux (ideally first, but at the very least also).
 
-Thanks.
+Yes, sounds good.
 
-~ Oleksii
+
+> 
+> Additionally, looking at strchr() - couldn't the code here be written in a
+> similar way, allowing to get away with just a single branch? (Arm32's pair
+> of functions is also pretty similar in this regard.)
+
+Hm, good point. I had a closer look and came up with a couple of options
+that look better. This one is not quite the same shape as strchr(), but it
+eliminates one branch and shortens the inner loop from 5 to 4 insns...
+
+FUNC(strrchr)
+	mov	x3, #0		/* Last match, or NULL */
+	sub	x0, x0, #1	/* For the pre-indexed load */
+	and	w1, w1, #0xff
+1:	ldrb	w2, [x0, #1]!	/* Load next byte */
+	cmp	w2, w1
+	csel	x3, x0, x3, eq	/* Remember match */
+	cbnz	w2, 1b		/* Keep going until NUL */
+	mov	x0, x3
+	ret
+END(strrchr)
+
+Cheers,
+Edgar
+
+> 
+> Jan
+> 
+> > --- a/xen/arch/arm/arm64/lib/strrchr.S
+> > +++ b/xen/arch/arm/arm64/lib/strrchr.S
+> > @@ -30,11 +30,10 @@ FUNC(strrchr)
+> >  	mov	x3, #0
+> >  	and	w1, w1, #0xff
+> >  1:	ldrb	w2, [x0], #1
+> > -	cbz	w2, 2f
+> >  	cmp	w2, w1
+> > -	b.ne	1b
+> > +	b.ne	2f
+> >  	sub	x3, x0, #1
+> > -	b	1b
+> > -2:	mov	x0, x3
+> > +2:	cbnz	w2, 1b
+> > +	mov	x0, x3
+> >  	ret
+> >  END(strrchr)
+> 
 
