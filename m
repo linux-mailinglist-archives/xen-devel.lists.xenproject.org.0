@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wXKuC3UvDGo4ZAUAu9opvQ
+	id 2ImYD10yDGrdZAUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 11:37:57 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 11:50:21 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88EFB57B6B1
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 11:37:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312675.1582752 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96A0A57BA1F
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 11:50:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312693.1582761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPGtU-0006ph-GG; Tue, 19 May 2026 09:37:44 +0000
+	id 1wPH4p-0000c6-GI; Tue, 19 May 2026 09:49:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312675.1582752; Tue, 19 May 2026 09:37:44 +0000
+Received: by outflank-mailman (output) from mailman id 1312693.1582761; Tue, 19 May 2026 09:49:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPGtU-0006na-DT; Tue, 19 May 2026 09:37:44 +0000
-Received: by outflank-mailman (input) for mailman id 1312675;
- Tue, 19 May 2026 09:37:43 +0000
+	id 1wPH4p-0000aV-DM; Tue, 19 May 2026 09:49:27 +0000
+Received: by outflank-mailman (input) for mailman id 1312693;
+ Tue, 19 May 2026 09:49:26 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wPGtT-0006nF-71
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 09:37:43 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1wPH4o-0000aP-HN
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 09:49:26 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPGtS-00BMV2-JC
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 11:37:42 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wPH4n-003buL-S4
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 11:49:25 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0c2f52-2eae-0a2a0a5409dd-0a2a4503e3e8-40
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 11:37:42 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0c321e-bab6-0a2a0a5309dd-0a2a4507e37a-42
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 11:49:25 +0200
+Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0c2f66-672d-0a2a45030019-d155802bb8ba-3
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 11:37:42 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-488a88aeec9so39363405e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 02:37:42 -0700 (PDT)
+ id 6a0c3225-229c-0a2a45070019-d1558036b92a-3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 11:49:25 +0200
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-48ff4f8ef0dso37744925e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 02:49:25 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe5ab3977sm343673985e9.9.2026.05.19.02.37.40
+ 5b1f17b1804b1-48fe57944c1sm345441045e9.7.2026.05.19.02.49.24
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 May 2026 02:37:41 -0700 (PDT)
+ Tue, 19 May 2026 02:49:24 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,58 +58,55 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779183462; x=1779788262; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1779184165; x=1779788965; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=57pwnHxMPCxaGBZNl8cs6PC7ps1WywDh+7AYGFUot5k=;
-        b=feZgPsLOcIrllOuKrxaB9856pKf+EmNc0zVMtbqWRS4EQtiHW9EQqQq4pkbUzrab0L
-         X/kvXfumNGq8GSZmytCMhKLRTLG7wMPXI8iWnB5dB2avwl4AkPLgaLMq4SI54W2npZZY
-         XF2EQUuTMYe7kJ/ks012q+juLHbsMSwbZnqV5Tieu52TfBz6La60ykNLoKscqqs4lW8k
-         C0aD2LngX39ZooTGbeZkvXdmP9wEqNKNoJCwKLZ7rbS0/Pdszy5Deq7lc3BE4hiF2HyI
-         hRksogVlrvx6PXDobSk2OEd5jPwYUWRiTEn182AZ0cY93Dmz0LSMpROfAQ4TCFbKTcSe
-         nSxw==
+        bh=5ssfubz4vlC62LceaJXcP4RoWsVK53s2WgjOkCLZ36w=;
+        b=fTthePOqJKydzDl2TeGtH5a1ooskDK5N3u93wemRNv0EYfaHHSlNvOl9KYim2RDgzj
+         LTB4Xmkx+mm62LAWfrCAA9z5UnwQ8xkRa+tNPYjCUFS7Q9gknn/1rjrR2GdZB0x3ciwg
+         566gzy9L3x2Lry2wsPub6yh1IpV/V1j0D0ZJItyM4aXcs5SkqRwqIeKd1LqEsfw4s97o
+         uPgeWaznLFA0DLeM78MlHxrPw66fpRSHAHoDFcn2uTZ8dcVZi+qx0Ixh4EItF0pz/AC7
+         L73ajpSRHGJBUb9oIKOMcqk3wgbiG0EbESeneobXolHGLGubfQGAxyDiKBuUCmaDhS+4
+         3/9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779183462; x=1779788262;
+        d=1e100.net; s=20251104; t=1779184165; x=1779788965;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=57pwnHxMPCxaGBZNl8cs6PC7ps1WywDh+7AYGFUot5k=;
-        b=FN3fIfnPuo1yC8OqjLKr8MijNPfJ5VfQXovJ68Co5foOwGJ9ojFGfJohJmx2UMq8j9
-         4pK/VLPTjd+gfDWMlufgoL8GLVM/oY3zorkQBw/Dk43rZ2zoUxeMcUz40jQ5oazM2PeG
-         Ceo9LiUhdOBwIdfhbPLRfpvn1uVP9uG1mT0qLmTOo+DAzKTgkWYeTg67TyJjMzjI/2yX
-         NhR/9unv1kMkiYMcOEOBbnuEf4dYUX99OyC+H0fltw3YVYEd2mm4d+8p2NnnI4dc3dwx
-         Y6MwEdudRqkMPDDlNpKcWXPdi+UqfzdvTgGWICj6YtBx+UCYODXkQdPVLmJHClDu4EVC
-         bVtg==
-X-Forwarded-Encrypted: i=1; AFNElJ8RnUrJzKDQA5HTnrj8DwpTv7Tg/C5qCNLEF4k97jo8oXFIv/dQ3Fzsot7iAEnNLdPa2pVYgg14zXs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yzf2CSbxxBooHAJAdzdjYK1dpw9zhoRrmlXxWg9o+ah6oo6jCl0
-	+JBO5UzUdMc91MUrQ8Z6wi5WcEPEsUNnbBqudo3r8iNSTzt/qB9oFiMTzHwtCybc0g==
-X-Gm-Gg: Acq92OFalsSr+GejATrit95Ga4qLOYkP5/E/V+p2lf7ekal+tf+LH2pYxlc4+OGhuCx
-	Zaf/vR7QNh4MGlJFHuhay+Ei6ZA2g6Jc16X9Of4i+VDuw20MpTEXAdFUiHtmeBitwurvMdCjwGV
-	hKIqSsCnuumcCGzuYWgtJVqortzJxX6Gcrpc15OkQ5LQqK6oZaKV4IQ+XhmgszFik+TVBtS4iJj
-	ZA21a2GNXa9X+Qoj6Flbnv6DueHX140QbTN8PE+UDZ6Eq8dWeiFa3vVZ07l2ourg9pT9paPUg2N
-	l/dkwCMto0rfafZL627P30bP9BfTBHBHIjh4qdlEEOx7C99XPnrh4F+AWC4MtFN8ecaU2BQATBy
-	4Yh9Pw66eAKN/0ez4EHjriKl+HeLv91UabB9rBZ79QAQfP0rDu8QZGq2+TExv/5xvH0NiYsZW1S
-	SpVH0angm8/SW5iHpL6/KIkxdkLQCscS2a5ovFHCaeqReomUlu5katw/ZmSWxcqSrFffxWWE0QR
-	ImOks5BNnZ6E8Q=
-X-Received: by 2002:a05:600c:8210:b0:48a:5c23:cab with SMTP id 5b1f17b1804b1-48fe6322447mr270923715e9.19.1779183461808;
-        Tue, 19 May 2026 02:37:41 -0700 (PDT)
-Message-ID: <2be07ba3-879b-4c79-8103-b4951ab4cf53@suse.com>
-Date: Tue, 19 May 2026 11:37:40 +0200
+        bh=5ssfubz4vlC62LceaJXcP4RoWsVK53s2WgjOkCLZ36w=;
+        b=ilw719Ap5i7IBRLxV1LhgocBdXyLxrCS2SqIFQG5hG0L18gAohC1cG/S0yzOv7zsMt
+         pVn0JDI3Iulp1GCn3i0m+sfeMu8XcvEcARne/FXcRokhe7Kv7HoOag8QZYfnUdyboTFL
+         jhN99RVApeu/DFmoJU6ImNGmhuwPf91dHoiHMfEUXJX/OCtET9tvkgtge1obk89Kwa+M
+         LD6wB+FhvUnkPM9DpjimBXPso0FelmzJanRdliXpMOnIfbC8RZtcghZXdUDqMIrTHFgJ
+         SzuV3pVyLXra/jYdiP8gegZkWE9yeKpSoKx6TH+tWZzyzSIBhZclYvKe+mTFEEaopcQV
+         wRbg==
+X-Forwarded-Encrypted: i=1; AFNElJ/QigTAcSmOYObrFq11hycqdl3g0/SJkaYys5Kt7DXbHSZKW5ncldzR7UxxWEjF8ZacFalf5djEXI8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxruBix/VP196s0WyW2T6QHd7dL2rUz5weC1r0CUI0xoMjFvR1Q
+	566j6uHHlQFU+euAWhHTgst7K6zGIoJNGnFjG29ULoc9pf3XyqTSuVmDfGi7j0yRTQ==
+X-Gm-Gg: Acq92OGJQ3Iin8i5CZ86YOvZrJaskYDcX+8P8dmd9tYZrTF6sFeh4efd1XhxEQTNTSG
+	7hZ+Bt0AGXUOXDI7ZyOrurKC7y14oRMW6xSrboGfuU9C09lAdhWSQnz6o6S6aYM3nqxthNhqcRj
+	HZQiQsfTrkaoBclx6Q3t0Nv6kMYO2+IltZQv2AO+YBCb7qbge//sJAKPL01J5TP7K/xyxF7tSoa
+	bROf6nvPIwVeNjAHHnNc8VZHrhdccoF097KGE9DYauIlmtq33mJLB1LyWKu9K773A7T4YAYLd4O
+	zJc6G6hKFcyY4GyCuFEhjYpK8stxDdP6gR1R/hszyqGX3gpNdRid58TfYPb1Xk3PuwftI2RYttD
+	oZC2heMDLu+qt4IdDbMeSBjbGHPwFcjcXlttsavyUEUDprt5PYW8sOzdL+JFS9zKbfZ24HC6FK1
+	RrvX1F1yE2TySOuop63D/q3Dv8LT6AiuG3kQBailC2H5OopNOx/39SUb7t8zsMPQlttLe7wIWOi
+	3AGWRuknyaVFUM=
+X-Received: by 2002:a05:600c:4e02:b0:483:2c98:4368 with SMTP id 5b1f17b1804b1-48fe6322416mr304310965e9.18.1779184164939;
+        Tue, 19 May 2026 02:49:24 -0700 (PDT)
+Message-ID: <a5b2561f-0225-4f18-bc74-7f66227bc807@suse.com>
+Date: Tue, 19 May 2026 11:49:23 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] xen/domain: fix UBSAN null pointer dereference in
- vcpu_info_reset()
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Baptiste Le Duc <baptiste.le-duc@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Subject: Re: [RFC v1 5/7] x86/hvm: Move INSTR_* constants to hvm.h
+To: Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1779179301.git.oleksii.kurochko@gmail.com>
- <09ae75638f9e7991163ed3633e7a60461d93da70.1779179301.git.oleksii.kurochko@gmail.com>
+ Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
+ xen-devel@lists.xenproject.org
+References: <20260518131404.3716969-1-ross.lagerwall@citrix.com>
+ <20260518131404.3716969-6-ross.lagerwall@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,81 +132,124 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <09ae75638f9e7991163ed3633e7a60461d93da70.1779179301.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <20260518131404.3716969-6-ross.lagerwall@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-33051d/1779183462-36F42938-45DFF5D3/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 1792
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-purgate-ID: tlsNG-ef75cf/1779184165-2236CC48-77160299/0/0
+X-purgate-type: clean
+X-purgate-size: 4088
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:baptiste.le-duc@vates.tech,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:ross.lagerwall@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:mid,suse.com:dkim];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 88EFB57B6B1
+X-Rspamd-Queue-Id: 96A0A57BA1F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 19.05.2026 10:39, Oleksii Kurochko wrote:
-> vcpu_info_reset() maps v->vcpu_info_area.map to the per-vcpu slot inside
-> the domain's shared_info page for vcpus with id < XEN_LEGACY_MAX_VCPUS,
-> and falls back to dummy_vcpu_info for vcpus beyond that limit.
-> 
-> However, it does not guard against d->shared_info being NULL.  The
-> shared_info() macro expands to a member access through d->shared_info,
-> so when an architecture does not allocate a shared_info page the
-> dereference triggers UBSAN:
->   UBSAN: Undefined behaviour in common/domain.c:325:10
->   member access within null pointer of type 'struct shared_info_t'
-> 
-> Extend the existing fallback condition to also cover the case where no
-> shared_info page has been allocated, mapping the vcpu to dummy_vcpu_info
-> instead. This is the correct behaviour: dummy_vcpu_info already serves
-> as the safe stand-in for vcpus that have no usable shared_info slot.
-> 
-> Fixes: 295514ff75506 ("common: convert vCPU info area registration")
+On 18.05.2026 15:14, Ross Lagerwall wrote:
+> These aren't specific to SVM and will be used for emulator fast path so
+> move them to hvm.h.
 
-I question this, largely (but not only) because I also ...
+Some are SVM-specific, e.g. ...
 
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Reviewed-by: Baptiste Le Duc <baptiste.le-duc@vates.tech>
-> ---
-> RISC-V does not allocate a shared_info page at the momemnt because its
-> guests run in dom0less mode and do not use the Xen PV ABI, so
-> d->shared_info remains NULL throughout domain lifetime.
+> --- a/xen/arch/x86/hvm/svm/svm.h
+> +++ b/xen/arch/x86/hvm/svm/svm.h
+> @@ -36,35 +36,6 @@ static inline void svm_invlpga(unsigned long linear, uint32_t asid)
+>      asm volatile ( "invlpga" :: "a" (linear), "c" (asid) );
+>  }
+>  
+> -/*
+> - * Encoding for svm_get_insn_len().  We take X86EMUL_OPC() for the main
+> - * opcode, shifted left to make room for the ModRM byte.
+> - *
+> - * The Grp7 instructions have their ModRM byte expressed in octal for easier
+> - * cross referencing with the opcode extension table.
+> - */
+> -#define INSTR_ENC(opc, modrm) (((opc) << 8) | (modrm))
+> -
+> -#define INSTR_PAUSE      INSTR_ENC(X86EMUL_OPC_F3(0, 0x90), 0)
+> -#define INSTR_INT3       INSTR_ENC(X86EMUL_OPC(   0, 0xcc), 0)
+> -#define INSTR_ICEBP      INSTR_ENC(X86EMUL_OPC(   0, 0xf1), 0)
+> -#define INSTR_HLT        INSTR_ENC(X86EMUL_OPC(   0, 0xf4), 0)
+> -#define INSTR_XSETBV     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0321) /* octal-ok */
+> -#define INSTR_VMRUN      INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0330) /* octal-ok */
+> -#define INSTR_VMCALL     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0331) /* octal-ok */
+> -#define INSTR_VMLOAD     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0332) /* octal-ok */
+> -#define INSTR_VMSAVE     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0333) /* octal-ok */
+> -#define INSTR_STGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0334) /* octal-ok */
+> -#define INSTR_CLGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0335) /* octal-ok */
+> -#define INSTR_INVLPGA    INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0337) /* octal-ok */
 
-... question this mode of operation. Yes, you may (for now) be able to get
-away without, but e.g. event channels will want supporting at some point.
-Which will require a shared info page. Better put that in place right away,
-even if the guests you test with don't use it (yet). Certain other common
-code also assumes d->shared_info to never be NULL for an alive domain.
+... the 7 ones above.
+
+> --- a/xen/arch/x86/include/asm/hvm/hvm.h
+> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
+> @@ -851,6 +851,35 @@ static inline void hvm_sync_pir_to_irr(struct vcpu *v)
+>          alternative_vcall(hvm_funcs.sync_pir_to_irr, v);
+>  }
+>  
+> +/*
+> + * Encoding for svm_get_insn_len().  We take X86EMUL_OPC() for the main
+> + * opcode, shifted left to make room for the ModRM byte.
+
+With all of this moved, the comment wants adjusting, at the very least by
+putting "e.g." in front of the function name.
+
+> + * The Grp7 instructions have their ModRM byte expressed in octal for easier
+> + * cross referencing with the opcode extension table.
+> + */
+> +#define INSTR_ENC(opc, modrm) (((opc) << 8) | (modrm))
+> +
+> +#define INSTR_PAUSE      INSTR_ENC(X86EMUL_OPC_F3(0, 0x90), 0)
+> +#define INSTR_INT3       INSTR_ENC(X86EMUL_OPC(   0, 0xcc), 0)
+> +#define INSTR_ICEBP      INSTR_ENC(X86EMUL_OPC(   0, 0xf1), 0)
+> +#define INSTR_HLT        INSTR_ENC(X86EMUL_OPC(   0, 0xf4), 0)
+> +#define INSTR_XSETBV     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0321) /* octal-ok */
+> +#define INSTR_VMRUN      INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0330) /* octal-ok */
+> +#define INSTR_VMCALL     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0331) /* octal-ok */
+> +#define INSTR_VMLOAD     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0332) /* octal-ok */
+> +#define INSTR_VMSAVE     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0333) /* octal-ok */
+> +#define INSTR_STGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0334) /* octal-ok */
+> +#define INSTR_CLGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0335) /* octal-ok */
+> +#define INSTR_INVLPGA    INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0337) /* octal-ok */
+> +#define INSTR_RDTSCP     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0371) /* octal-ok */
+> +#define INSTR_INVD       INSTR_ENC(X86EMUL_OPC(0x0f, 0x08), 0)
+> +#define INSTR_WBINVD     INSTR_ENC(X86EMUL_OPC(0x0f, 0x09), 0)
+> +#define INSTR_WRMSR      INSTR_ENC(X86EMUL_OPC(0x0f, 0x30), 0)
+> +#define INSTR_RDTSC      INSTR_ENC(X86EMUL_OPC(0x0f, 0x31), 0)
+> +#define INSTR_RDMSR      INSTR_ENC(X86EMUL_OPC(0x0f, 0x32), 0)
+> +#define INSTR_CPUID      INSTR_ENC(X86EMUL_OPC(0x0f, 0xa2), 0)
+> +
+>  #else  /* CONFIG_HVM */
+
+I further wonder whether putting this in hvm.h is a good idea. Is there
+anything wrong with using a brand new header, e.g. instr-enc.h?
 
 Jan
 
