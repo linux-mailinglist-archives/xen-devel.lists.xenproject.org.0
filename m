@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8Eo4MsSADGpPigUAu9opvQ
+	id 8P02HLOBDGpPigUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 17:24:52 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 17:28:51 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3127358161C
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 17:24:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1313156.1583380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1748581747
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 17:28:50 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1313164.1583390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPMJD-0005Zc-0X; Tue, 19 May 2026 15:24:39 +0000
+	id 1wPMN2-0006Pw-H2; Tue, 19 May 2026 15:28:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1313156.1583380; Tue, 19 May 2026 15:24:38 +0000
+Received: by outflank-mailman (output) from mailman id 1313164.1583390; Tue, 19 May 2026 15:28:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPMJC-0005Wq-U5; Tue, 19 May 2026 15:24:38 +0000
-Received: by outflank-mailman (input) for mailman id 1313156;
- Tue, 19 May 2026 15:24:38 +0000
+	id 1wPMN2-0006N2-Di; Tue, 19 May 2026 15:28:36 +0000
+Received: by outflank-mailman (input) for mailman id 1313164;
+ Tue, 19 May 2026 15:28:35 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Edgar.Iglesias@amd.com>) id 1wPMJB-0005Wk-O7
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 15:24:37 +0000
+ (envelope-from <Edgar.Iglesias@amd.com>) id 1wPMN1-0006Mw-GL
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 15:28:35 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPMJB-00DAZD-0C
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 17:24:37 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wPMN0-0013Vn-Bq
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 17:28:34 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <Edgar.Iglesias@amd.com>)
- id 6a0c8099-e002-0a2a0a5209dd-0a2a4506bd94-44
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 17:24:36 +0200
-Received: from [40.107.200.68]
- (helo=CH5PR02CU005.outbound.protection.outlook.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0c819f-e002-0a2a0a5209dd-0a2a4503d486-8
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 17:28:34 +0200
+Received: from [52.101.43.2]
+ (helo=SJ2PR03CU001.outbound.protection.outlook.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <Edgar.Iglesias@amd.com>)
- id 6a0c80b2-7371-0a2a45060019-286bc844dc50-3
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 17:24:36 +0200
+ id 6a0c81a0-672d-0a2a45030019-34652b02ca67-3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 17:28:33 +0200
 Received: from SN7PR12MB6839.namprd12.prod.outlook.com (2603:10b6:806:265::21)
- by SA1PR12MB8741.namprd12.prod.outlook.com (2603:10b6:806:378::16)
+ by IA0PR12MB8205.namprd12.prod.outlook.com (2603:10b6:208:400::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
- 2026 15:24:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Tue, 19 May
+ 2026 15:28:25 +0000
 Received: from SN7PR12MB6839.namprd12.prod.outlook.com
  ([fe80::ae79:f50b:b7a6:4cd8]) by SN7PR12MB6839.namprd12.prod.outlook.com
  ([fe80::ae79:f50b:b7a6:4cd8%5]) with mapi id 15.21.0025.016; Tue, 19 May 2026
- 15:24:28 +0000
+ 15:28:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,102 +60,102 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dKZLqP/6Sc8wWaTL6rYRBOgY8ifiprFYvEp3rzTLaF7hlqXu1LJWhUji1ANn3LH0CQ07MW6msSUAtBa5V5WTADtzxrBAM+6mM+6g9mxWkUSPR4lBQRIpFBuscW+9wyqHQAR/+U4nJpf/mjVcopi18uIn5o5RiDDooOf/EEmlAOm252+ISwhjFSizngReKcMYVZZ9LMaDCAYtBwD2CcMgAvhj7zUS5TEK+2P7m6xNfCGaEC5UMaFIoES4LEDgxiFCvOLYiMHAtgiyySmuEXUrEQxZKBghjFROIp8nGc5v3KTHvwfHC6bcCzaN0XpARUOB7IVS5WvCoXhWY3rUgeqb2g==
+ b=MV03DHUdzvs0GnxqS4AXJx2sXPMeVh2+IlkReacGVyMvEwc3Ae/hR5F1cVEHROO/+dGYR8NIyi8SCYFh1LJPxY0ZjscthC5GIdTy4OQsWi5D6ikoyyXMj7h8wpYF2whCtXxuAP+wjG3NWz5ulbxZyOIKIMA/gQf2pQGRZiQUoDPVeG4tte7hGpWAoUrGfIkai0AE7hHlnPI0KtjcOe96Gef4ton+hyMkS8+04A6y4EhS3aLGrp0JqS68GHaq3g0OO1zU2QTtnccIpSdbBvRlHf+UnxbFKS1c3F1oB0AVX7OnKiV3uV5ImvFlCG86eiSu0Zh1X4QCWocPWoTf0aFMsA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L2FPL1DcUqrpzDA09JXWsJT5W314n+sIwMchd5dgiPQ=;
- b=b/UULwZl0m1cvTxsU5zf2/v0uWBAxDe3tM3PtmMJoaDqZPQx8QZYjc0z0GNVWqbgx16EEV9YuEkM09kQvTrAVTtXCz2qPBAna9UXbhsT74yBpgmY2fPia9ah0wqA+H+I+Kw8D8DB+Yd2i6Z/fs4ItapfUehm+7m9ne0qvsTBz/HbEHlYeVtDRN4yBmSt74JdMNHVNgeMzj6ExS7oc7cQLTwKtUqEYxq4pZvrKnemQ9+oCh9D0Tvl4x9Hfl2B/3ZsuNQielb2cXX0fwpLb2Jedj9/QhsNr8m8EQyplUt7RXTq2MjCscKlyZ2UoAU63zGxPdA9FeBszxfa5IgJ/+08+w==
+ bh=HLxL1355H4oAxjE+x6aGUjZQyn+L6Reedm8G67kkc8I=;
+ b=E+VgaPJGDdIcipm8w8vYKjp4q6yMLcqXTyOP/0cJ6qlJyPyrj1NUhiY+cQ3ktLAb7NT2EXXXNR3RY4l02eTCpouVw6B7AEqY8757XYf6YMmVMAbvgkPWhNJBTtAa7NEaYf46u9jyM3TSFh3Cx29GVcReoShy/cWDWVMlPFEu1stJ3/5COavgALtO/d1XxtHvJj+En04oXJVSoFoKsgv+WBRV3joVphe8wRD97+wnxLbNlKt6dA36Sno3IxlUwVLBQSuh+nZL7lIl7iyuMFMhhNu0G/CaL9QtdKk9kjSevIUVwmca4jff35eZAPmLwM3EOzfSKlF/Sk4BH4ncrZmwPA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L2FPL1DcUqrpzDA09JXWsJT5W314n+sIwMchd5dgiPQ=;
- b=MGeET17aKfUUvdY6chFjvA3x8Ca6MR86bUsd0N2nIMd4h7HEz4Jfy6GHkGO+gyB3m0fP7FduQCKymvKV9PHvzssv+0c23+pSRTtOStDu5Lm4burDAgtkRxyUii38hPz31jId7iCXJp1VCN/fh0Fj1mBamksayrD4g4US5Klr/MI=
+ bh=HLxL1355H4oAxjE+x6aGUjZQyn+L6Reedm8G67kkc8I=;
+ b=pauqsv+y4QDMCTPrk2xkerXMO11M6GtbaMyvOG2uV80qBNBtDN00coCfhAie19A7pEsB/FkQ7K07p9qh/KnMOv8IcrR0bw5BSRo4/K+K6x4+YtOHVktgjTzv5qtjbmPLcYKKFkEBC7tKHYGix930do2oK53hvyAvz4tzjxZ1Q1Q=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Date: Tue, 19 May 2026 17:24:24 +0200
+Date: Tue, 19 May 2026 17:28:20 +0200
 From: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, julien@xen.org, bertrand.marquis@arm.com,
-	michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
-	xen-devel@lists.xenproject.org
+To: Julien Grall <julien@xen.org>
+Cc: Jan Beulich <jbeulich@suse.com>, sstabellini@kernel.org,
+	bertrand.marquis@arm.com, michal.orzel@amd.com,
+	Volodymyr_Babchuk@epam.com, xen-devel@lists.xenproject.org
 Subject: Re: [PATCH v1 1/1] arm64: Fix strrchr() matching of null terminator
-Message-ID: <agyAqDWWYUunmYFW@zapote>
+Message-ID: <agyBlAsqtVEv5c38@zapote>
 References: <20260518234353.453193-1-edgar.iglesias@amd.com>
  <20260518234353.453193-2-edgar.iglesias@amd.com>
  <9b8ec97f-02ae-4a1a-9abe-59873d574a64@suse.com>
+ <3d1001c8-6761-41ba-83df-42c83a453f3e@xen.org>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <9b8ec97f-02ae-4a1a-9abe-59873d574a64@suse.com>
+In-Reply-To: <3d1001c8-6761-41ba-83df-42c83a453f3e@xen.org>
 User-Agent: Mutt/2.2.14+84 (2efcabc4) (2026-01-25)
-X-ClientProxiedBy: GVYP280CA0014.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:150:fa::8) To SN7PR12MB6839.namprd12.prod.outlook.com
- (2603:10b6:806:265::21)
+X-ClientProxiedBy: CPCP307CA0004.DNKP307.PROD.OUTLOOK.COM (2603:10a6:380::17)
+ To SN7PR12MB6839.namprd12.prod.outlook.com (2603:10b6:806:265::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB6839:EE_|SA1PR12MB8741:EE_
-X-MS-Office365-Filtering-Correlation-Id: 297e2c95-40d4-40a6-aa6c-08deb5bab7c3
+X-MS-TrafficTypeDiagnostic: SN7PR12MB6839:EE_|IA0PR12MB8205:EE_
+X-MS-Office365-Filtering-Correlation-Id: f67f9c87-520c-45e5-5378-08deb5bb43f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|3023799003|4143699003|18002099003|22082099003|56012099003|11063799006;
+	BCL:0;ARA:13230040|366016|1800799024|376014|3023799003|4143699003|22082099003|56012099003|18002099003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	tmZTYJ/W6d+RlR8Eku8u7z3vQaA+90AyOYFa6tzTiIrUzuxnFNHkXlGyUabOicZTn/3uqf9mn0i4o02zrZeQjxBYYrmJonOQTmO+aj+bWKMgO2pUnMJenEDT7tQW5Abk2O2KFTdFDqpnQ8KDmtt3eLDTQa5G2gFyxvmNdWS+oYZwZOhXt5gKDdfAtEJOa7vluab1aiIHCxOVOTIjiVQz1EGvaXrPOVeyhNPNTzTXAJbkzjpkn9Q0aOQgspDoX7BUzSwhQ2XpjkrOuD4+Ef4+YLUwMaTxFBH2j6hf10h2sEzizXOIH2cSq/70xiWElp7FysEEKRyzVoIZWKflnPVy3cRHuHDnXKIMKMi9n/fopEbm7ELg64ddXHZzllIERhUWXVKsuUa6BUPTCAHAMy0vLBUYOSdGyU71oTFFEAjnjnnFllLZDeixkRRfI6Jgm31GcHMT4/ZP2jM7x6aOHHO6ftIS14DFPP2UeSWOys6tW/+LBjFB02WDtkYM4E4tKEy2p6MarzUs9jiWCU8k7p646ECXa8Gj4LYAZVJ2oURzVlJrxmJkKrXsrlsDReFSGUYs8CCgf7kXjg3OkgJOFkebMLvqVoZJAA/71cisZ1hxht63T5dOM2gLTc0XuuuH7w3CAKvbkLRu6VhLJb1BERKsKqnLhsi9kkxx7YWainPHSpdp4GvOjp5AsrI94oz7Y7pi
+	yueoleGg9KSq15ln/FGRgLaYwz9ApaGeGNI7DNgDxx8LuU+ujkQiXiwSgDBaJrIjMcc2DsF/YvmA8D68RUbrER8AwocPMqFZgf3ec7GgL1+JWUa3XHNDdRpcsmGpgYGbQcTwdDy9MFDFgq5qcTHiNtXqRYYNf4hfWljcQNOF9a30lYVmlPM01iL4x29jIuV7vL1fL0H3rLL/23D+XgTDFfcgt1hJLEjtsjIb/z5165YkI9/VgzSXEoR2C0gZK+Yh+tO6wlku8qftM69wYTYv6RE4fioJcz2MVV4uGO1zyuY9DslwPjkN+fsuGTTeJN+ImgSa7u/CjWEQdE3n9KkQoPmsJbxfDDiX7CAwRi6bYN66OL3BPCoA5OX17RMLd5yslbx1kSpUwtMVMmNNWUjlff5Z7Suvir+GQNFmbWTeME5Gb/9+g//UE0rfjSYVez9zvU0k1BFn9bwWAOO8VpTjRu+e6NThz+JwXasjHAb9XdJnITQFRNGusU9JZol2SNxEtef+MqW+u3+cRNcGT2erZ8nYQiKIOPiPcPMMomLxFTGOf5PYCLosDDbd2f4GYj0jnDCrF0GcXw7tkGkthOepbMmm7Pw0/xon4KuG71Fg7tBc0sIGRMCtrB1zgApLrv3pshg6kSacC4cyoRvyApZC9y11i9J7l+HE1Atc8QweSlYuTlFrtbUuieRxnjNPJEPv
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB6839.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(3023799003)(4143699003)(18002099003)(22082099003)(56012099003)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB6839.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(3023799003)(4143699003)(22082099003)(56012099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?QBfjWozbAG8qMJNwstrHDXTcMAIKgNBSoYecip+I66M+yNrfSjbLMr4a5Sgt?=
- =?us-ascii?Q?5T21EEQJjmNG8392+nu7J5U0BgzPCS6VZjZrMahPT1Lj6rYokEz5M1uY41w/?=
- =?us-ascii?Q?by/Siho4D11bUZupIVB/NPQw6CkXa1jLiF17H0v2AWJK0JMQ3iUJk8pHZJbO?=
- =?us-ascii?Q?uhOH5ejEZOqT5geIEWWszuadcYgAAtpCECCRT8x1Z3Wxq1tC32ODrQnupeuL?=
- =?us-ascii?Q?rpDr/fnJbK71y8fZTHCFEUYp+YNBC6wwZQz4lObLEEM6NHpUuZCQwyI01mHz?=
- =?us-ascii?Q?wecMCxGyKkaVahPsgjKUfg2sEf7ubAcpqXje8xsQDWSvQL/cMtAwkBy+a2IV?=
- =?us-ascii?Q?08I8ngbA+VgSpRP5sZ+Z6OB4XbD2a1IVVN243YIIfT45LXlfHFBw5owfWqkO?=
- =?us-ascii?Q?xfpXVDvCmm4287JFsZVNgSq7fldykdJ1TrByaJD4tD7S8nJuPbcF7qUCvBJC?=
- =?us-ascii?Q?/qTP4FNFo09wMWaK+5IT420Hkaz9KQJKk34JPWWGL9bvxd3MMaHiTXociR91?=
- =?us-ascii?Q?ixgP8hS/Rcu1n2T2eKzD6gq253b+129gOc32XIVQKZk6/OE4kOtpXq4H4Mig?=
- =?us-ascii?Q?lJVZHjwnAqBgbzAWLW6oplQFn8Pzabk0CDKNfRrWE9hZvkDozanM4P8XBP6Y?=
- =?us-ascii?Q?ovq2JN6RKEMholLalz0uiJsfQ0G8C5pDJWvTvIMp51xWUINCGAZj/MhJHfqN?=
- =?us-ascii?Q?u+9QMgsg4QOicoQ4YcbVeYepdORO3AyEzCknmSdPuWfMp7ktFN9H68jk6AXN?=
- =?us-ascii?Q?TahXkrPXUSX9vQ2mpL/ZYcMpdf3ZGurr/U9GTi9GwFv1cdCragdWlHiZqZGz?=
- =?us-ascii?Q?KoC6z4yif1T5D4g32WIdnz9HT+en9cIVGZXHkvl7WmyIb4U9GbBwSFR5Q4Go?=
- =?us-ascii?Q?FDb0vKoXoWSjEgNA0XWUqxRqMJEO9b1NbjIH6g8WgK06i1TFfCnxIeyzrr3y?=
- =?us-ascii?Q?16GViuX0RTrGbPrXY9mWRcuwg7g5H+ln/0Vsn7SzJEMb4X3VLjI80d227gZM?=
- =?us-ascii?Q?Ierq32HbWcgbxd31L1zEhEqSwjx5c1v0Rrno+1UHGdohn5Wu5KHuqjJRsNcp?=
- =?us-ascii?Q?lLRiAf9gIY/QOlXR4vpq3/eeZx/ll2p/50GgLueHcSt117OjCVx38otA+gdL?=
- =?us-ascii?Q?ZCSc6/QoThE42TnHymclJ47Kb8VZT64y75G3O++n4o98y4DW1M67QNrsOSJP?=
- =?us-ascii?Q?VHtrx7IW2SgRdHJCbNFl3VsR1pONfzUsq6yoU4jTMSmwqhNTyTYOKPwyt5eu?=
- =?us-ascii?Q?fL00YkpL2/sGT18vm9767MZZ7Mnd1PO4MR+459G8QKMX5KzuQmTQd+dysZds?=
- =?us-ascii?Q?Oz+bWjC6NEdHWNx6b4OuqiR2qebDxW1xTPRk1ZcDMTSwMTjXOWTVHP28ERb+?=
- =?us-ascii?Q?VLf35tjKTL4Kpha5t0M75s9aXrQtL+why2CQxy8Otm8FyvgKTo3RJUhnqWkk?=
- =?us-ascii?Q?xIyc2ZVCxl6TFSB7OZ8bsJlLFC6XgNZE11SCoS+ctcn8RmzoQG/1tia8WXwP?=
- =?us-ascii?Q?XsxDcvkCXJCpR8cdjMY0CuRz5OyOi28WpixdXpi53Jee+z0hJoh1vDUqZTpO?=
- =?us-ascii?Q?VNHg9kdYonPgFZaveTpASrexMM2HzffqvaK/e/gH3VvX1Q7XsfQgYBV/mWg0?=
- =?us-ascii?Q?wG83fhWV8/5RuRlLhMhE09kV8m3v3DFXtti2Q2ptD5T+5YKlrRpCOMw6nBTG?=
- =?us-ascii?Q?IlUbpPL5SInPY0aXHPPiHhtIFMGbMiw1xd3f4pDBnf8jwV5C?=
+	=?us-ascii?Q?PHVaY1qJLDGae23Sz+Z+g/asK5pATlVMZ9iXXHUsT/F0UH55T00hLlxeN8W+?=
+ =?us-ascii?Q?ta3uW+mWSSBAZVRLhgxa0lJhQhjuh2VKcyNN9+Gf46jdbTMhFVJh0/epspL6?=
+ =?us-ascii?Q?Sra/9eVpymGAGv5bJFWBjHpt2HxuXdVoKK6GhWSO4Giabm/8IXO9PbbpTcYR?=
+ =?us-ascii?Q?yL9AAHi/z37w/1e5Cq2oNl0YyqH4eNTYUU0/CkYd6E/UtUqFG/hjH8Ynd0Vv?=
+ =?us-ascii?Q?InDL6CLKH7RUtCvXbwc+dTR7cGU8WKjEydk3MxsRg7QvL7AgRDEBREcxTHdg?=
+ =?us-ascii?Q?xjtOwH52aS0UL/GzlLU/wAqAgym6imDmWwEo7msQO4A7yQTd5U1S14PUi4MI?=
+ =?us-ascii?Q?0FkBKGkm2ygTxgrcAcb6uWf0vyvzCLokPvV1XzNiBY4vJrMVCeBV6G/lKHyC?=
+ =?us-ascii?Q?x/G/rAOp2wHVHsNqh71lwcdusWgaobVw5mxjBOwvpxNxmlh8AntAiStYuIN8?=
+ =?us-ascii?Q?W5AMj6mGPLmH6VuSIpIKDqhpFE+wZaTYtTYHR8WcORZfRDVPevbz6ujczVvv?=
+ =?us-ascii?Q?IdpLMXpk+em9nFDOjq1C3asX4xtOVkjQMe0viNAkyfkyVkl+jscEpUU1LDu7?=
+ =?us-ascii?Q?PZlPUrWleWAj1BBaRP+2ttEHV6xFR0r7j935HGle8FicqiBmzFlfQuxWcVNs?=
+ =?us-ascii?Q?5h7v7ToAZrDokLi47+C2zHWPmoK/M6DlcQBZYzjdWxdXyfOZO0Y124gnrmuP?=
+ =?us-ascii?Q?u3Tbg67jlAKX3abkYkDfTKlc/ZZaIE8GRmYnBlQMNlzmtEbJ7OStKG7OHqvI?=
+ =?us-ascii?Q?VLZynlOfaAlAIZxGWBxzqkXsO0TBMz7fs10bQZtJ/UxKlk52PcFTzeySdFu/?=
+ =?us-ascii?Q?QgyNy/KVTwNzukRCd6Bu5YkYFBbT92l7ZB47+u6jEaOnJNKeSwtSiQd2jXce?=
+ =?us-ascii?Q?EsiDfgn4gAM4SiSabfavAkuIG2OeQSW3Sn7Qw58Jc1TJ6S2RzTxI4OAAPN+X?=
+ =?us-ascii?Q?fQ4gcWlWFLrBsF8qnv1vYagP2x9nSDKPizdAsPppuTbWHYewT61SPFpnPRKK?=
+ =?us-ascii?Q?fNJHSeRupyPMQlzgNZHXu8DAvxnMhaAcwNWtFGJ+N5rZnwBjJjidMRSLqrqP?=
+ =?us-ascii?Q?w8uJuB3yPeMfK0Ng3rSpovjRY8cQCLQc2wir0cxnCBXpJjbxgYd8XnxsWXsA?=
+ =?us-ascii?Q?qsPdEDtT30jYlrnYkyXFfp2j/kgQpgZZYmZgS6fWgGTZVv0qtqK7ItLzigAf?=
+ =?us-ascii?Q?RhIkE+1RzCtOprYuarjO4GZzW94B7OJptpsxrIUNjsBKTJ3LqilBltUhzym5?=
+ =?us-ascii?Q?ETXyM36+iSDSh04mqMyAT98xHSa24ns/g91zQaLwvrqZSQOVEEUL/U92ChjV?=
+ =?us-ascii?Q?GrGrjPyMwrEhIwHaND3ZP9azOyJh4dPq0+IdbqS829Yf8cYvemcPOe3N53SJ?=
+ =?us-ascii?Q?Eo3EgLNvoOYYEm9dWRSTScCAq8+g3RocneNBbmgoF0xh5Y2DoEEjoWMqj+T1?=
+ =?us-ascii?Q?RSURZhDDXziWNUabu+ATxrXhwe4DSgrgcZgW3IJJ6EVR8X0NHhipJbjEUkRi?=
+ =?us-ascii?Q?p+U2k4gKaQupt04qG4hDfk3WGYvKGaeJBbWvfAGntMHfXW/yyAEHCb+8Ixmq?=
+ =?us-ascii?Q?dIR7cHg7Da5cTnTamBvC2S0oEgvu7GeLq/NFzUAsA7E6c+91Gm/9tQiFTCMi?=
+ =?us-ascii?Q?lfQInDWngONqOSCHgEqS4Ji3yeQOjjA1iiLcv2bs9JB3CsU8sgR2LJUAeGaQ?=
+ =?us-ascii?Q?M7whSb3BxTEdW+nUxoSPOOX5uTPYk87hU4/003xos2Bc6gv4?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 297e2c95-40d4-40a6-aa6c-08deb5bab7c3
+X-MS-Exchange-CrossTenant-Network-Message-Id: f67f9c87-520c-45e5-5378-08deb5bb43f0
 X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB6839.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 15:24:28.6377
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 15:28:23.7600
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MAk4bXmuVNNMLKXhzZ/d9kKt8wTjJX7eVf9iCRfWmQOWCKHNmTDHWoE4oHGUkoW/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8741
-X-purgate-ID: tlsNG-16d1c6/1779204276-8E38FD75-99C6F12A/0/0
+X-MS-Exchange-CrossTenant-UserPrincipalName: zOxuofKU5Q3D+zdTc1bMiGqtAzFlOV/hXn0rec08Qq5Zo9iqglaP2oW/AEqb1u7S
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8205
+X-purgate-ID: tlsNG-33051d/1779204514-3B360938-F3B59085/0/0
 X-purgate-type: clean
-X-purgate-size: 2748
+X-purgate-size: 1856
 X-Spamd-Result: default: False [0.31 / 15.00];
 	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -165,8 +165,8 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[edgar.iglesias@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,amd.com:email,amd.com:dkim,suse.com:email,b.ne:url];
+	FORGED_RECIPIENTS(0.00)[m:julien@xen.org,m:jbeulich@suse.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,amd.com:email,amd.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -179,96 +179,52 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 3127358161C
+X-Rspamd-Queue-Id: C1748581747
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Tue, May 19, 2026 at 08:40:54AM +0200, Jan Beulich wrote:
-> On 19.05.2026 01:43, Edgar E. Iglesias wrote:
-> > The generic Xen strrchr() implementation returns a pointer to the string
-> > terminator when searching for '\0', matching the standard C semantics.
+On Tue, May 19, 2026 at 08:47:17AM +0100, Julien Grall wrote:
+> Hi Edgar and Jan,
+> 
+> On 19/05/2026 07:40, Jan Beulich wrote:
+> > On 19.05.2026 01:43, Edgar E. Iglesias wrote:
+> > > The generic Xen strrchr() implementation returns a pointer to the string
+> > > terminator when searching for '\0', matching the standard C semantics.
+> >>>> The ARM64 assembly version stopped as soon as it loaded the terminator
+> and
+> > > returned the previous match pointer instead.  This made strrchr("", '\0')
+> > > return NULL.
 > > 
-> > The ARM64 assembly version stopped as soon as it loaded the terminator and
-> > returned the previous match pointer instead.  This made strrchr("", '\0')
-> > return NULL.
+> > I wonder though: Why would one pass '\0' to strrchr()? If you want to find
+> > the end of a string, more efficient (at least in the general case) options
+> > exist (strchr(), memchr(), strlen()).
 > 
-> I wonder though: Why would one pass '\0' to strrchr()? If you want to find
-> the end of a string, more efficient (at least in the general case) options
-> exist (strchr(), memchr(), strlen()).
-
-Right, this came from a fuzzer checking standard strrchr() behavior, not
-from an explicit end-of-string use case.
-
-I agree strlen() or strchr(s, '\0') would be better for that, but
-strrchr(s, '\0') is valid input, so we should handle it to avoid
-surprises for existing or future callers.
-
-
+> +1 I am interested to know the use-case for this change. Is this for
+> compliance or real issue? If the latter, can we add some details.
 > 
-> > Compare the loaded byte against the requested character before deciding
-> > whether to stop at the terminator, so the terminator itself can be returned
-> > when it is the requested character.
+> It might also be worth to write a selftest to avoid any regression (in
+> particular if we decide to diverge from Linux).
 > 
-> Nit: "..., so a pointer to the terminator ...".
-
-Updated, thanks.
-
-
+> > 
+> > > Compare the loaded byte against the requested character before deciding
+> > > whether to stop at the terminator, so the terminator itself can be returned
+> > > when it is the requested character.
+> > 
+> > Nit: "..., so a pointer to the terminator ...".
+> > 
+> > > Fixes: 42c4eb6a83 ("xen: arm64: assembly optimised mem* and str*")
+> > > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
+> > 
+> > Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> > 
+> > However, the function having come from Linux, imo the patch wants to go to
+> > Linux (ideally first, but at the very least also).
 > 
-> > Fixes: 42c4eb6a83 ("xen: arm64: assembly optimised mem* and str*")
-> > Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-> 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> However, the function having come from Linux, imo the patch wants to go to
-> Linux (ideally first, but at the very least also).
+> We are trying to keep the core implementation in lib the same as linux (see
+> arch/arm/README.LinuxPrimitives). I would prefer if this is also first
+> committed to Linux and then backported.
+>
 
-Yes, sounds good.
+Sounds good, thanks!
 
-
-> 
-> Additionally, looking at strchr() - couldn't the code here be written in a
-> similar way, allowing to get away with just a single branch? (Arm32's pair
-> of functions is also pretty similar in this regard.)
-
-Hm, good point. I had a closer look and came up with a couple of options
-that look better. This one is not quite the same shape as strchr(), but it
-eliminates one branch and shortens the inner loop from 5 to 4 insns...
-
-FUNC(strrchr)
-	mov	x3, #0		/* Last match, or NULL */
-	sub	x0, x0, #1	/* For the pre-indexed load */
-	and	w1, w1, #0xff
-1:	ldrb	w2, [x0, #1]!	/* Load next byte */
-	cmp	w2, w1
-	csel	x3, x0, x3, eq	/* Remember match */
-	cbnz	w2, 1b		/* Keep going until NUL */
-	mov	x0, x3
-	ret
-END(strrchr)
-
-Cheers,
-Edgar
-
-> 
-> Jan
-> 
-> > --- a/xen/arch/arm/arm64/lib/strrchr.S
-> > +++ b/xen/arch/arm/arm64/lib/strrchr.S
-> > @@ -30,11 +30,10 @@ FUNC(strrchr)
-> >  	mov	x3, #0
-> >  	and	w1, w1, #0xff
-> >  1:	ldrb	w2, [x0], #1
-> > -	cbz	w2, 2f
-> >  	cmp	w2, w1
-> > -	b.ne	1b
-> > +	b.ne	2f
-> >  	sub	x3, x0, #1
-> > -	b	1b
-> > -2:	mov	x0, x3
-> > +2:	cbnz	w2, 1b
-> > +	mov	x0, x3
-> >  	ret
-> >  END(strrchr)
-> 
 
