@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iEyYLmwXDGrrVwUAu9opvQ
+	id uHQ+EroXDGrrVwUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 09:55:24 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 09:56:42 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 320A15797D0
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 09:55:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312529.1582626 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B41A5579847
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 09:56:41 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312535.1582636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPFIC-0002aD-Q6; Tue, 19 May 2026 07:55:08 +0000
+	id 1wPFJV-00033G-2P; Tue, 19 May 2026 07:56:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312529.1582626; Tue, 19 May 2026 07:55:08 +0000
+Received: by outflank-mailman (output) from mailman id 1312535.1582636; Tue, 19 May 2026 07:56:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPFIC-0002Xu-N4; Tue, 19 May 2026 07:55:08 +0000
-Received: by outflank-mailman (input) for mailman id 1312529;
- Tue, 19 May 2026 07:55:07 +0000
+	id 1wPFJU-000315-VT; Tue, 19 May 2026 07:56:28 +0000
+Received: by outflank-mailman (input) for mailman id 1312535;
+ Tue, 19 May 2026 07:56:27 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+4b7c99f23599b32cd9f8+8304+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPFIB-0002Xo-GS
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 07:55:07 +0000
+ id 1wPFJS-00030x-SV
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 07:56:26 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPFIA-0038EK-SQ; Tue, 19 May 2026 09:55:06 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wPFJS-0014p8-8J; Tue, 19 May 2026 09:56:26 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+4b7c99f23599b32cd9f8+8304+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0c174a-5cb7-0a2a0a5109dd-0a2a4509e872-48
- for <multiple-recipients>; Tue, 19 May 2026 09:55:06 +0200
+ id 6a0c17a6-e002-0a2a0a5209dd-0a2a45079b46-10
+ for <multiple-recipients>; Tue, 19 May 2026 09:56:25 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+4b7c99f23599b32cd9f8+8304+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0c1759-2497-0a2a45090019-5a9b3222c902-3
- for <multiple-recipients>; Tue, 19 May 2026 09:55:05 +0200
+ id 6a0c17a9-229c-0a2a45070019-5a9b3222bf02-3
+ for <multiple-recipients>; Tue, 19 May 2026 09:56:25 +0200
 Received: from 54-240-197-233.amazon.com ([54.240.197.233]
  helo=u09cd745991455d.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPFHz-00000005dTa-0xkJ; Tue, 19 May 2026 07:54:55 +0000
+ id 1wPFJJ-00000005dZk-0ipd; Tue, 19 May 2026 07:56:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,63 +58,63 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=kxDnhCMFukfGQTD0OCV8H6wDlq4JqmueGtLA8tc8FP8=; b=mjb4kKbrJ/Q2zXDIIGOJ32SVgA
-	DHLYAdYPhjAoxXZy7N0ZI8Edf1UZAuPPXAUb9agUSue0Duv0Gt4PgYUDfQCgc+W6hV9tFdBKlM2WQ
-	b9aNQqdrK5IR8mOFWDK7V/QimpZKdP3wlIViNxfg4i+BplaqX+RTukA+OnED0AK0xwupT6Ng+h0GU
-	egUFRMVtVbC7k82tm6K4hWla+J+GsF2YVLZxf/19Gf5e+vouR3euCUlxO5Hc4AO7BxTWzyKJ0pKpe
-	O6VlubjrBvUuklOMdEi+gcj7mMvGlZHEU/JpGTvMX59tTi5W2wQnd7gm+DScuDx1fj9ZnD2Zh7lZh
-	vsET8LIg==;
-Message-ID: <dda019489e11cd6069c831f270cfbd814ebea9a7.camel@infradead.org>
-Subject: Re: [PATCH v4 16/30] KVM: x86: Restructure kvm_guest_time_update()
- for TSC upscaling
+	bh=c/xnNDdjdW3yPVm49W7NS9yIdxRdtcywCdi46mY7yjM=; b=Jq+W1MTsbFtc0xIylRBZvpp5p0
+	+s/2q0SDdZe18F4EZhGc8BWhPxAQ+YL/gRXCeCRy/Un32J31dEoDc3LLtE6uQHdVBxup/4p8pC4cG
+	XbZ5Jm2EKIog53Ms4DLAKzsVAaRYZsxCjJpn7Tt3Uj1clww5mUB+tj+BPEt9htFXnTK1MbcrDOYWe
+	43FtYg63bwrkTGCqfuONAduNKjc+LOcJExNSrWAIx2kUmoUMBAbJXeSN+qNKtPqJk7S+yrI5DQqJ6
+	c41mq3Z9y71jCKd60JMjVl6TFYDbnJv6HibpuPueuIA1iHmV3OIPYO88kkVZlVU6Mky4gYTbkG/EF
+	lJ/uefhQ==;
+Message-ID: <8af90f613ddb4a4f3c60d756c23e696fbd6a6a82.camel@infradead.org>
+Subject: Re: [PATCH v4 03/30] UAPI: x86: Move pvclock-abi to UAPI for x86
+ platforms
 From: David Woodhouse <dwmw2@infradead.org>
 To: Dongli Zhang <dongli.zhang@oracle.com>, kvm@vger.kernel.org
 Cc: Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Sean Christopherson
- <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,  Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Juergen Gross
- <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Paul
- Durrant <paul@xen.org>, Jonathan Cameron <jic23@kernel.org>, Sascha
- Bischoff <Sascha.Bischoff@arm.com>, Marc Zyngier <maz@kernel.org>, Joey
- Gouly <joey.gouly@arm.com>, Jack Allister <jalliste@amazon.com>,
- joe.jin@oracle.com, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, 
+ Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
+ Sean Christopherson <seanjc@google.com>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov
+ <vkuznets@redhat.com>, Juergen Gross <jgross@suse.com>, Boris Ostrovsky
+ <boris.ostrovsky@oracle.com>, Paul Durrant <paul@xen.org>, Jonathan Cameron
+ <jic23@kernel.org>, Sascha Bischoff <Sascha.Bischoff@arm.com>, Marc Zyngier
+ <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, Jack Allister
+ <jalliste@amazon.com>, joe.jin@oracle.com,  linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org,
  linux-kselftest@vger.kernel.org
-Date: Tue, 19 May 2026 08:54:53 +0100
-In-Reply-To: <b5a8262d-4128-4fd4-b3db-fa718002c4cc@oracle.com>
+Date: Tue, 19 May 2026 08:56:15 +0100
+In-Reply-To: <93e799fd-b661-45f0-9cc6-21823765332e@oracle.com>
 References: <20260509224824.3264567-1-dwmw2@infradead.org>
-	 <20260509224824.3264567-17-dwmw2@infradead.org>
-	 <b5a8262d-4128-4fd4-b3db-fa718002c4cc@oracle.com>
+	 <20260509224824.3264567-4-dwmw2@infradead.org>
+	 <93e799fd-b661-45f0-9cc6-21823765332e@oracle.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-fhzFy9YA8yde6QYEuqnv"
+	boundary="=-1WSy560khALeCoLYNttJ"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-bad1c0/1779177305-89174A53-D6D1CF7C/0/0
+X-purgate-ID: tlsNG-ef75cf/1779177385-23F7EC48-98F0A059/0/0
 X-purgate-type: clean
-X-purgate-size: 8868
-X-Spamd-Result: default: False [-1.49 / 15.00];
+X-purgate-size: 8411
+X-Spamd-Result: default: False [-1.39 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
+	MIME_BASE64_TEXT(0.10)[];
 	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:dongli.zhang@oracle.com,m:kvm@vger.kernel.org,m:pbonzini@redhat.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:seanjc@google.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:paul@xen.org,m:jic23@kernel.org,m:Sascha.Bischoff@arm.com,m:maz@kernel.org,m:joey.gouly@arm.com,m:jalliste@amazon.com,m:joe.jin@oracle.com,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kselftest@vger.kernel.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dongli.zhang@oracle.com,m:kvm@vger.kernel.org,m:pbonzini@redhat.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:tglx@kernel.org,m:seanjc@google.com,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:paul@xen.org,m:jic23@kernel.org,m:Sascha.Bischoff@arm.com,m:maz@kernel.org,m:joey.gouly@arm.com,m:jalliste@amazon.com,m:joe.jin@oracle.com,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kselftest@vger.kernel.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	RCPT_COUNT_TWELVE(0.00)[26];
+	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,infradead.org:url,infradead.org:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo,kernelnewbies.org:url];
 	HAS_ATTACHMENT(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
@@ -126,52 +126,33 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 320A15797D0
+X-Rspamd-Queue-Id: B41A5579847
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-fhzFy9YA8yde6QYEuqnv
+--=-1WSy560khALeCoLYNttJ
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 
-On Tue, 2026-05-19 at 00:38 -0700, Dongli Zhang wrote:
-> I have encountered this build error with this patch.
->=20
-> Perhaps it is because all usage of "flags" are removed.
->=20
-> $ make -j32 > /dev/null
-> arch/x86/kvm/x86.c: In function =E2=80=98kvm_guest_time_update=E2=80=99:
-> arch/x86/kvm/x86.c:3359:23: error: unused variable =E2=80=98flags=E2=80=
-=99 [-Werror=3Dunused-variable]
-> =C2=A03359 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned lon=
-g flags;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 ^~~~~
-> cc1: all warnings being treated as errors
-> make[4]: *** [scripts/Makefile.build:289: arch/x86/kvm/x86.o] Error 1
-> make[3]: *** [scripts/Makefile.build:548: arch/x86/kvm] Error 2
-> make[2]: *** [scripts/Makefile.build:548: arch/x86] Error 2
-> make[1]: *** [/home/opc/ext4/mainline-linux/Makefile:2143: .] Error 2
-> make: *** [Makefile:248: __sub-make] Error 2
->=20
-> Thank you very much!
->=20
-> Dongli Zhang
+T24gVHVlLCAyMDI2LTA1LTE5IGF0IDAwOjM1IC0wNzAwLCBEb25nbGkgWmhhbmcgd3JvdGU6Cj4g
+SSBoYXZlIGVuY291bnRlcmVkIGJlbG93IGJ1aWxkIHdhcm5pbmcuCj4gCj4gUGVyaGFwcyBpdCBp
+cyBiZWNhdXNlIG9mIFBBVENIIDAzPwo+IApBbG1vc3QgY2VydGFpbmx5OyBJJ2xsIGNsZWFuIGl0
+IHVwLiBUaGFuayB5b3UuCgo+IEluIGZpbGUgaW5jbHVkZWQgZnJvbSAuL2luY2x1ZGUvbGludXgv
+dHlwZXMuaDo1LAo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZyb20gLi9hcmNo
+L3g4Ni9pbmNsdWRlL3VhcGkvYXNtL3B2Y2xvY2stYWJpLmg6NSwKPiDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBmcm9tIC4vYXJjaC94ODYvaW5jbHVkZS9hc20veGVuL2ludGVyZmFj
+ZS5oOjE5NywKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBmcm9tIC4vaW5jbHVk
+ZS94ZW4vaW50ZXJmYWNlL3hlbi5oOjEzLAo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGZyb20gPGNvbW1hbmQtbGluZT46Cj4gLi9pbmNsdWRlL3VhcGkvbGludXgvdHlwZXMuaDox
+MDoyOiB3YXJuaW5nOiAjd2FybmluZyAiQXR0ZW1wdCB0byB1c2Uga2VybmVsCj4gaGVhZGVycyBm
+cm9tIHVzZXIgc3BhY2UsIHNlZSBodHRwczovL2tlcm5lbG5ld2JpZXMub3JnL0tlcm5lbEhlYWRl
+cnMiIFstV2NwcF0KPiDCoMKgIDEwIHwgI3dhcm5pbmcgIkF0dGVtcHQgdG8gdXNlIGtlcm5lbCBo
+ZWFkZXJzIGZyb20gdXNlciBzcGFjZSwgc2VlCj4gaHR0cHM6Ly9rZXJuZWxuZXdiaWVzLm9yZy9L
+ZXJuZWxIZWFkZXJzIgo+IMKgwqDCoMKgwqAgfMKgIF5+fn5+fn4KCg==
 
-Yes, in all the refactoring/rebasing, somehow the line which should
-have removed 'flags' there ended up in
-https://lore.kernel.org/all/20260509224824.3264567-31-dwmw2@infradead.org/
-along with another one-liner that should have been in a different
-previous commit and breaks bisectability of that too. Sorry about that.
 
-Should all be fixed in
-https://git.infradead.org/?p=3Dusers/dwmw2/linux.git;a=3Dshortlog;h=3Drefs/=
-heads/kvmclock5
-where I'm accumulating various fixes in preparation to post a v5.
-
---=-fhzFy9YA8yde6QYEuqnv
+--=-1WSy560khALeCoLYNttJ
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -250,22 +231,22 @@ QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
 nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
 MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
 VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDUxOTA3NTQ1
-M1owLwYJKoZIhvcNAQkEMSIEIFjBawHgTxxMoNA8G5On3H8btH5yalszT/cXuFQ1QRfyMGQGCSsG
+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
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAoTylpGEan1Eb
-RzrHGC6MGv9bsV8TMMRQz7uk1duVRywTxsTgF9F/8DlAJ0H20CoIGijaJmxPpsTRMe0xUueIGIGI
-F5W5rnWQIbtsFVW3foiEHpgligRz5MhK1Y5GmaOujy+3mJqE3XlmPQjo3XhYM5N0M4MpLENdxuOv
-ZZYHA36AwfQAYRnohdjZBhWKrIYT0ZLgFfyhgCDc0MfWMb4xxWhvY58h71OBP4xW6DYt7nL0wxkF
-9RAb5mn/E4fseQs8+1MC8kiQwr5URO5DAcdkYVFiCFIFPZpHKCV2/TtGITmjVvcoRXgEW3gKR2hh
-nV0OL1wUi6zTjdp3NHIh61RDMZREsueGZE8QLcqjI0uKtX/FgAW81MJ3qN/epzXp7EwnKVjVqvsA
-xVbM+OEhXARn0eIKmMMD2hnso+D1PbUuxmxVhtklpKuFXB5av82eEd5+cVagNlr6JB8u7pIG6Wu7
-AqX33Z1WhCfFWdRXBUBXcYFvv00PpQ1OGeSPKja0Lk92wQxkuCDNMnC2HiQEhsg1zVbeALLH7mlJ
-0TzjOVSGXp+4HelIY9E8y/peyumIkwWpzrmwSyimnPgvnXJsYPgchggSe/cN9o5WhyfC1mM/TMoc
-o/yelqMLGv6vhg37fAggVevF1KgasAOjdVOvi/FEQIs5JP/pfXzih/tfvxktBQsAAAAAAAA=
+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
 
 
---=-fhzFy9YA8yde6QYEuqnv--
+--=-1WSy560khALeCoLYNttJ--
 
