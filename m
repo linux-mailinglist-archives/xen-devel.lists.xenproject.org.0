@@ -2,46 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AISgNennDGoopwUAu9opvQ
+	id AEeEKuTzDGqPqQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 00:44:57 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 01:36:04 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 299F9585CBF
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 00:44:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1313438.1583569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E41A358610B
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 01:36:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1313448.1583578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPTAB-0000pi-Fq; Tue, 19 May 2026 22:43:47 +0000
+	id 1wPTyE-0007q5-4s; Tue, 19 May 2026 23:35:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1313438.1583569; Tue, 19 May 2026 22:43:47 +0000
+Received: by outflank-mailman (output) from mailman id 1313448.1583578; Tue, 19 May 2026 23:35:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPTAB-0000mq-Cj; Tue, 19 May 2026 22:43:47 +0000
-Received: by outflank-mailman (input) for mailman id 1313438;
- Tue, 19 May 2026 22:43:46 +0000
+	id 1wPTyE-0007oP-0s; Tue, 19 May 2026 23:35:30 +0000
+Received: by outflank-mailman (input) for mailman id 1313448;
+ Tue, 19 May 2026 23:35:28 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <BATV+4b7c99f23599b32cd9f8+8304+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPTA7-0000mk-Ie
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 22:43:46 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <dongli.zhang@oracle.com>) id 1wPTyC-0007oH-3K
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 23:35:28 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPTA5-00DdEQ-J3; Wed, 20 May 2026 00:43:42 +0200
-Received: from [10.42.69.10] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <BATV+4b7c99f23599b32cd9f8+8304+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0ce794-bab6-0a2a0a5309dd-0a2a450a8fda-12
- for <multiple-recipients>; Wed, 20 May 2026 00:43:41 +0200
-Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from
- <BATV+4b7c99f23599b32cd9f8+8304+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0ce79c-56b3-0a2a450a0019-5a9b3222885c-3
- for <multiple-recipients>; Wed, 20 May 2026 00:43:40 +0200
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=u09cd745991455d.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPT9u-00000006Ogz-2yWk; Tue, 19 May 2026 22:43:31 +0000
+ id 1wPTyB-001z9q-Fa
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 01:35:27 +0200
+Received: from [10.42.69.3] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1)
+ (envelope-from <dongli.zhang@oracle.com>)
+ id 6a0cf38d-5cb7-0a2a0a5109dd-0a2a450391ec-38
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 01:35:26 +0200
+Received: from [205.220.177.32] (helo=mx0b-00069f02.pphosted.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <dongli.zhang@oracle.com>)
+ id 6a0cf3bd-672d-0a2a45030019-cddcb1205c02-3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 01:35:26 +0200
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 64JNPQwi3362833; Tue, 19 May 2026 23:34:58 GMT
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4e6h1swwhf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 19 May 2026 23:34:58 +0000 (GMT)
+Received: from pps.filterd
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7)
+ with ESMTP id 64JNTqI7029364; Tue, 19 May 2026 23:34:57 GMT
+Received: from bl2pr02cu003.outbound.protection.outlook.com
+ (mail-eastusazon11011026.outbound.protection.outlook.com [52.101.52.26])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 4e84ecx4d9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 19 May 2026 23:34:57 +0000 (GMT)
+Received: from BN0PR10MB5109.namprd10.prod.outlook.com (2603:10b6:408:124::23)
+ by MW5PR10MB5714.namprd10.prod.outlook.com (2603:10b6:303:19b::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 19 May
+ 2026 23:34:52 +0000
+Received: from BN0PR10MB5109.namprd10.prod.outlook.com
+ ([fe80::d9fa:7ad2:804b:bb83]) by BN0PR10MB5109.namprd10.prod.outlook.com
+ ([fe80::d9fa:7ad2:804b:bb83%6]) with mapi id 15.21.0025.023; Tue, 19 May 2026
+ 23:34:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,382 +75,335 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=casper.20170209 header.d=infradead.org header.i="@infradead.org" header.h="MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=+WCIzdWes3UVgHCi8CWN6cps7bIrLmIXX90dePdofcg=; b=XZTxoahJXwWUNgdkc2NGwg+w0C
-	9grBLzjCxRxZt/Dw4831UwgeQh7kB3FwYkzBODyrZZp7PEziYcE75tP5JxV+4EBoEAHSXKW0Xt71O
-	1XdfN+I84K4HE7TOw6J9hgOsTuSlKHvJ99s4Z+JRpgVUp+lkdBYcFvKFSCboAzbeWS5iRLML9Q5rA
-	sGb4WmwPjp/AGqYvnDSXWbIGoVL0HfAkTeMAR8b17QeFvtAUHEhd4rOL2Cjo3r2+R9VbqG0v6QEJC
-	ijG6gU2ZgHHadxvqka+o/fMHrNc668yBdBd/uv1R02ESlxiNhvIT7BuTW6sPpFE0HexGKeLmNw8T1
-	EqsW6aaQ==;
-Message-ID: <32ca0a8da4bfb1e92013a7f75e0ff7541ebcd6a6.camel@infradead.org>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=corp-2025-04-25 header.d=oracle.com header.i="@oracle.com" header.h="Cc:Content-Transfer-Encoding:Content-Type:Date:From:In-Reply-To:Message-ID:MIME-Version:References:Subject:To"; dkim=pass header.s=selector2-oracle-onmicrosoft-com header.d=oracle.onmicrosoft.com header.i="@oracle.onmicrosoft.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=pHI1IYp6ddLBZA3tX/Wz5bpMoCHlqHpiPcKyYqfwPTs=; b=
+	n0zWZcKd0M7EUYIy/IFjbuyhpn419OGMexQb4LmeIjfB7mPsrZQBKdTYz5EI9Cqh
+	GWHg6bNHcxG4xTgGuBxu6gTpGIzhZsQQpYi12SarQb2stPW8gZ87WeWgszaTMUU7
+	M/zmSfxwnBBIHwQqQigz7bMf5YBsRjri3jdxPGeiNU47wwZ5WiRBEblO5C/WkYxL
+	tLnvcyHN3E5NIZyPULXoTXAwzR3kiIiFvRlbsAzZyCg9efH9VKrAxsPoksWdTJFw
+	c+SQiBVGsJHPR01IhMKFKwYPre7KOxbrmJYkj8cvf4MaQxxMjEFjK1CdzYiRxJx5
+	ENfCh5L41U9B4LSArSR2aw==
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tX3oQ+8DXRsbadh3mwZZK89ace4b6jueMDsR/wC1mRAu04zPnFGnwH6UgQfj1a8BPDE+/10NPnybnwSRD7XvcaYfwU6fQM5KnM54IeGFDPuB9gOIHDC/NIRMdF3heGm0xR1T4BEvDRbPZZLqtVRAA4uBnVvwGmB68mGoJpW2dB4X+yfCIh8UveV40XC0xuVGDYQm90r446e5Sr0n66ToSyohKn2Hr9epfX5bmm471/HTn+Wd9NLSGj8/nfwtOoHM15LK1dGvw1+0FMb3iopactiomRFEjQvFgKK/YjTENuy+/YiP8zCzGATTeRc0fewj71fGn2rwNRyMbbS0Cc9bwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pHI1IYp6ddLBZA3tX/Wz5bpMoCHlqHpiPcKyYqfwPTs=;
+ b=FpdPHvkPZS7E4jJd0giF5N6+1XPZj9E2XVql+gvq9TgwI0ZFc+GK3PdSqQJTMip9TfiXbHW4kowjxia1gWJNgHQsDMzwvAQ4rAeaRG37DNYtppULx8LvRWWd6w937R2eOEPC0ArtuUCg29/jWs9iTPayxwYnsHcu4rfYvnMJZkNagsz3iFbpLZw/Ggq15WeIOMvr1SZJRjkqn4YoeeQcp6ZQ3nBmR7tWbyz1pDXkq/dwp08Q0+qEeuB+CpmNYolTxGoBaPq1yJQqRkxtbrdx7dNXd1AfnHVoJf0IPtu2vStQAu/l4TRXfTbgSGR5do8Bw+AOsKQN5UPYo8K99jxbFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pHI1IYp6ddLBZA3tX/Wz5bpMoCHlqHpiPcKyYqfwPTs=;
+ b=nijXpo0KhCXcy9RGIOCDX3EaWq4ixZNshhCm0Aoc7tMHAUDyjJWq695+v73K3Ba+OLRFyYr4mj7L9ZkksAYvgc36ywwXeBbNEn9BDRAlpetDRc5FFF0xSSGrF5P/cd6ZfKP3vwxigPkIIyqQ/ZaxXV+SBDs9JXeqUjcprjopJ0w=
+Message-ID: <08a64760-a431-4d0a-9480-562f8f38c908@oracle.com>
+Date: Tue, 19 May 2026 16:34:48 -0700
+User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 04/30] KVM: x86: Add KVM_[GS]ET_CLOCK_GUEST for
  accurate KVM clock migration
-From: David Woodhouse <dwmw2@infradead.org>
-To: Dongli Zhang <dongli.zhang@oracle.com>, kvm@vger.kernel.org
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
- Sean Christopherson <seanjc@google.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>, Dave
- Hansen <dave.hansen@linux.intel.com>, Vitaly Kuznetsov
- <vkuznets@redhat.com>,  x86@kernel.org, Marc Zyngier <maz@kernel.org>,
- Juergen Gross <jgross@suse.com>,  Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Paul Durrant <paul@xen.org>, Jonathan Cameron
- <jic23@kernel.org>,  Sascha Bischoff <Sascha.Bischoff@arm.com>, Jack
- Allister <jalliste@amazon.com>, Joey Gouly <joey.gouly@arm.com>, 
- joe.jin@oracle.com, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org,
- linux-kselftest@vger.kernel.org
-Date: Tue, 19 May 2026 23:43:29 +0100
-In-Reply-To: <aa68ed10-15da-4368-a986-6864843a3c44@oracle.com>
+To: David Woodhouse <dwmw2@infradead.org>, kvm@vger.kernel.org
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Thomas Gleixner <tglx@kernel.org>,
+        Sean Christopherson <seanjc@google.com>,
+        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+        "H. Peter Anvin" <hpa@zytor.com>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Vitaly Kuznetsov <vkuznets@redhat.com>, x86@kernel.org,
+        Marc Zyngier <maz@kernel.org>, Juergen Gross <jgross@suse.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Paul Durrant <paul@xen.org>, Jonathan Cameron <jic23@kernel.org>,
+        Sascha Bischoff <Sascha.Bischoff@arm.com>,
+        Jack Allister <jalliste@amazon.com>, Joey Gouly <joey.gouly@arm.com>,
+        joe.jin@oracle.com, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+        linux-kselftest@vger.kernel.org
 References: <20260509224824.3264567-1-dwmw2@infradead.org>
-	 <20260509224824.3264567-5-dwmw2@infradead.org>
-	 <0ae8e471-db7a-4842-aca4-8ef643acde8b@oracle.com>
-	 <d3c461415e05345a9b82e6f995828c1ae64a4e61.camel@infradead.org>
-	 <935312be-9a86-49fd-8bb4-2c998a68e2df@oracle.com>
-	 <b9980333f3a310bf05e170e79c40cb2f46485caf.camel@infradead.org>
-	 <aa68ed10-15da-4368-a986-6864843a3c44@oracle.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-r8BxiHhSG54aOSyFfagN"
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+ <20260509224824.3264567-5-dwmw2@infradead.org>
+ <0ae8e471-db7a-4842-aca4-8ef643acde8b@oracle.com>
+ <d3c461415e05345a9b82e6f995828c1ae64a4e61.camel@infradead.org>
+ <935312be-9a86-49fd-8bb4-2c998a68e2df@oracle.com>
+ <b9980333f3a310bf05e170e79c40cb2f46485caf.camel@infradead.org>
+ <aa68ed10-15da-4368-a986-6864843a3c44@oracle.com>
+ <32ca0a8da4bfb1e92013a7f75e0ff7541ebcd6a6.camel@infradead.org>
+Content-Language: en-US
+From: Dongli Zhang <dongli.zhang@oracle.com>
+In-Reply-To: <32ca0a8da4bfb1e92013a7f75e0ff7541ebcd6a6.camel@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR03CA0312.namprd03.prod.outlook.com
+ (2603:10b6:610:118::21) To BN0PR10MB5109.namprd10.prod.outlook.com
+ (2603:10b6:408:124::23)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-4011c0/1779230621-72F718B7-D52F7678/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN0PR10MB5109:EE_|MW5PR10MB5714:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b93a29f-1af6-4b16-c75f-08deb5ff3972
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|366016|5023799004|13003099007|22082099003|56012099003|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	Erv8FgNpAGPqcjHm9og7Fgvkn1msKmwUc1ZsAplt3goaaeGE3taL66TyRLiIApU+AV03Oek2QPAlJsuxldr2uK9/Sob0EyBN7x5TCrcQK3V1gup8Yw/pqIgb3h88dm0CA2o6z/9NtzE/dzGsXYnhf9DCqYLsJ0dn9sxDCJF0SUxz9/5YYBx2yo35rlqluvUcYG0zs39yg7/huvxuXllEOrHDODyZLBcTvMxrTA5vy2OzrjpxfnCz93Me9ZilPUS5k6ESYblxhHqF2AVRt46eDJyZwhWImLh9n9teW21d4WtQEP3cdlITUIbxGWp8Rj2/smHBY4K5TKCjEQzv0FnBJnvQqAQq+xkR3pbB2tFR/I88z3NxzLZqFjrkFY46UU6YVN0igdXZlU4hZ95xiJRpIBI8WPYMQuROktQv2AtIvfOt4SMqhofOd+1VRFISW+XZ+Yl3a16n8vTkOzB8Iq06hAFYBCFn9JKTlDDHTbfk92b0AVt6XNiHbEenRVsf/79xqzlJlSRw+H/6dZ0QV4nZeYQuvnot37ZS6DfZtL7jZsFRaGfHv2Dj2BjmPvLOza3SaM0iIV8BN9Ttk+OZtHHlcPypKoYCV1hsiQL5Ugac5FPHYj7hC1/J1Q8scjgY2eyTVx8ew5Oq7yBoePPutvxK49DAzlncmPhCpsNWVW1rgff/wZEJkwYRnxSrDrGe4aXCSvBnk+Kynv16pczx2sSuuQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN0PR10MB5109.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(5023799004)(13003099007)(22082099003)(56012099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T1hCcnZnTEJzaUpNVmMzcmYyZURzb0svTnM2SUtzRkVPaWg2dU1NMFlPRnVT?=
+ =?utf-8?B?ek1vQUxLbjFmK2Q3SXNackNlcTFBYlFhQnEwaTF6VTVzZDFiTGNNdUNUaFBu?=
+ =?utf-8?B?OGFqZEJCS1pmWEtZRXFUSUQ3aThWYkdFQWJ1Wk9TNzRDR0hlRmVpTEVjTDRo?=
+ =?utf-8?B?cDVMTlkwVy9KZ1licElTMGE1TjlrNHVQUmhRdFpyZThjTyt3aXlQa3RIZEFR?=
+ =?utf-8?B?cGsxbVE4OE45TzhsRFZqY2xOZ210NUdSTGEvZGlsMll5d25MdnV0dEt6QnBv?=
+ =?utf-8?B?K0N4MTV4SmNxa0VpTFd1Y3dyc29sRHdCa3NTRGtRZUI1WjlPMmdVeEFlQ3lL?=
+ =?utf-8?B?Y1FhQ3hyZDNhSmI3ZlJiL3AvM0ZGaU1VeExWdTE1eW55aGtoVWlSa2tvd0k1?=
+ =?utf-8?B?bDR2Rlhoa2dvRi95cjJJNnhzcDJ3UXYrT2xUcXVlNWRzcThmU2tvd3FiS0hP?=
+ =?utf-8?B?a1VYMkxRT3R6ZElMcUIxY3VrbzdZL3o5aG5Zcm11cE9VdmxmMEZWR3RnMzY5?=
+ =?utf-8?B?dkx5OURnWGNiY01HWVhwbVBjQlJSSnRLVUN2T0ZqenZwQ09HOWpUdkxrdUtJ?=
+ =?utf-8?B?UXp3Q0N5OWNSVFMzaWdrZGUvTlBXeHRyNXNXWld2SFBVTmM1QVgyTFBTM3JL?=
+ =?utf-8?B?MHp0d21NeEtxeGFwQ3lCRU1FZVpGWisrSlRFelJmQmRDOFFjS053OGE3MkJq?=
+ =?utf-8?B?VFBzMGdwQnA5WnhianlwZE9lUlNLODBNa1BjTTlXWnQwazV0UGdOK3IzbWli?=
+ =?utf-8?B?TXUvV1dKZC9XbWNlK1dyM1M3SlExUWlBVXJTdWVwL09ncG5sNkU2K09jM1R4?=
+ =?utf-8?B?L3NnenBYYmw3SWllTVJlaWIvQjdGaTFmL1JpWjJ1cFVmNVNlVjRYNDBLcEEx?=
+ =?utf-8?B?VkVZQUUwZk1YZytqTTNaNkoyWWxFUlVNeWlObTdxbVAxOS96THJ6eHJuYStJ?=
+ =?utf-8?B?UzBFbjltanY2WlZCeVlraVJSdDVrSkJ3dUlRazlLUHJnMlJPVnZvcWxtMTFo?=
+ =?utf-8?B?MVB0R0xYQWViL0Y2Nlkwak04TGZVdisxdFpwRkpyM01YTHlDSWVPcW04WVlJ?=
+ =?utf-8?B?N3NMdlQ0SGg4UVhvYldOWU1Za0ZJUzViazY2N1hxMHd5dXB6WTlvYTQzSkd4?=
+ =?utf-8?B?ZGl5bktnRjdUd3RnS1RESmNaUUFxbEFPMG1YMzdrcVAxb05ock9TdktwSGNk?=
+ =?utf-8?B?ZjQzVWJDZkx0UlRSUHFjQ2tLdXlYcDJad1dMbW5rOEQzcXROZ2RCbnFqNjZr?=
+ =?utf-8?B?bmxqTFdPbVhHU0lqODVpWHBzS3Q1RGp6UWt4VVc0WTNMaVM2dXEyRnRsSFB2?=
+ =?utf-8?B?YW1yajNhQm1uYmFITXNFU3dGTUtrOWNGKy9XM28xY01aWFY4MTdCQk44TGJV?=
+ =?utf-8?B?RDN0VDV3WE5ydVd2Mzl2RTNveWJoSGZmOGJtYXY3QjFaRndrUk56OHduUCtS?=
+ =?utf-8?B?aDdXcmo1TmR2ZlliVUlUT282c0pMR2IrZDg1YndTK3VudDltdmJwM2hMQzZa?=
+ =?utf-8?B?aVNoMkJpYlpGN2RwN3FPR0YwRTlibVc3R2R3eXlrbGRLRG02eHMwQWxpaUt5?=
+ =?utf-8?B?Z2NDYi8xNjVtdnFlblk4ZkVUcWNVRXZqZmpaYzdHekRNWnhNVUhQdE9pS2JC?=
+ =?utf-8?B?dWRDaVM0VlVwZ1ZuaklPcWhudUxMYnc3TGlwbU1wUTZSTnNJRjd3UEhZazZ0?=
+ =?utf-8?B?dEU2YjNPdFhKclhoMVhMTTlWS1FaRHdBM2FMNGZNZUwrcDlleVF1b0FMdHhK?=
+ =?utf-8?B?dkRGSnY2MTNMRVlPV2g4Wkg2WFBlTjdtN1JXTjMvSkxYc3M1c0QvSkZsV2xY?=
+ =?utf-8?B?aTFlYUlSTU9RdnpORUJaVmMva0pKVXB0VmJnMy9UOHQ0OXJtNXhCUjU2c1hx?=
+ =?utf-8?B?aDNZNjNndUVObWR6QTNXZm9HNEdRbGxWNlJjKzF5VmZKdkhHYVorWkFjL1NF?=
+ =?utf-8?B?VWJwZmVxRkdURm5qTGVSdDd5cDN1MFhMTGk4VDlxQ0xyMi9VVlBQT1hHdk0x?=
+ =?utf-8?B?TFRXL2swYzZFeVFKR2hYRURRMC90dFpaNnAxTzRTZzN1Y1VQSnh1OWVqVlF5?=
+ =?utf-8?B?aldqL0w4OS9zYkRSZFUwRmRiMlp6dlFIY3REeHZiYTBPVWRLM2VvYXpOUWdu?=
+ =?utf-8?B?QjExbHpxYlhaWktVb01NTkN6UENBYU40K0hwUTlxaTFsd1VHSUJqL2F2bUFC?=
+ =?utf-8?B?cmRhKzBUS2FkWW16a2t0VVV0dGkrM2prckxxRFI5YXZKTzhOcE5CU0M1bmNE?=
+ =?utf-8?B?OUE4TXBITlgvRWs5OUVuZkVSZThpY1EvQWZlOCthRjZyTmJjNXE2TFN4ejYv?=
+ =?utf-8?B?eFFYS1lIQWdyOXlQb0hGcStwTC9laW1EaUd6QzUvTytNRXhwaGdNZz09?=
+X-Exchange-RoutingPolicyChecked:
+	Uor6c8jtF8h2aaBejnDYejM+7VWDzwjd+kEJ9jkOE2vsj6JzJBfa+TvF5G6OnMAZhrXdO+gR0fyysu79dGTQAjDuZ500pLwqkv07wqbBFXx7bOzC168USLRQ1fdKJdRS7dUa7bcdpScXkFKC+vIcASjp2PuqBmpgr97xw5VUla5l9mfIvgoLGaILkjNAm1goRHpFNq4k4GbqkqEGvgv5NnTLF8J700w4xm+jJA6V3eUUNO71fPQlypel+vOxw8KYnlC//N/5m1wD1tewvfU82k55EUkCf4ya/c64gLo7t5zWk2RNDpHIWYn4MyIEGi59bOZSE8KJxfyAaNyNsoPi4g==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	WQWdvuqxgCDEYBIDHPP8FI3VSQSnoSB60x6wb0pRpy1da5dTXq1COUrZd3T2XaGfJ14VtjuSwGdKV9vH+RsxjodnCBLS/+WVCs4tl0v1NUjK9xzAn7yq7fmagtm6F6KX8q2GeE9rB5lFeET8iaoyFobgqqJMVIcmxZCVH4zMKUvPx7LbDU2i7DNb0bfIPb/ANddNTn8LoS+khu+khu+Gw9Ar33iHhJxJnp3GyadbYR55QkH+5fNurcdmvT2A0FKceFax3dqJD6wvHRhd3DT4dFP2j5NtPNs+Ua3jBfI6p1zZB6yD794wf1RhYMpPOHvN8etg1+7cZC/ou0Qkw8KOFXbNp25KKacA2rzmy8PcVz7Nq2vA9UqDmM4XtNFvTODaQ249xm+dlkiQFpodeQwQ9gA+h+a9LhIl5YiXwNGZIyfNS/ft9CoWccWJxYLc8DeumWwGb2AVNTjOoguOi57nqaL9t1wL7EVGRB2RrpENgmHidhYYR059nBCrS9/uVgzpybCkqeO60TjwmcWrIvApF+p/RF0sfuGKspA3eoGz62ML9RpK3x+bCYvpKYWS8DYRZpSQR9RgOUpKyJ3801aAXrBs4s2Jie/10g9cWaCYPtA=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b93a29f-1af6-4b16-c75f-08deb5ff3972
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR10MB5109.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 May 2026 23:34:51.9879
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7mqZef0S6doLd1S9rVoSWnIRBGQ3BfyIO46ToKMMkCRs+VneLz/L9iNHbU5ckbNZqenzR7MC1PYica3/vk5I0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR10MB5714
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-19_06,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ spamscore=0 adultscore=0 mlxlogscore=999 mlxscore=0 lowpriorityscore=0
+ bulkscore=0 phishscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2605130000 definitions=main-2605190235
+X-Proofpoint-ORIG-GUID: 1On2-jH6s1HTS5W4K0QeBUWrqYw4DWEN
+X-Authority-Analysis: v=2.4 cv=aoKCzyZV c=1 sm=1 tr=0 ts=6a0cf3a2 b=1 cx=c_pps
+ a=e1sVV491RgrpLwSTMOnk8w==:117 a=e1sVV491RgrpLwSTMOnk8w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=NGcC8JguVDcA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=o5oIOnhZENCTenyL_yNV:22 a=VwQbUJbxAAAA:8
+ a=JfrnYn6hAAAA:8 a=UsYC2ujuzK4GPOI29i0A:9 a=QEXdDO2ut3YA:10
+ a=1CNFftbPRP8L7MoqJWF3:22 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22
+ cc=ntf awl=host:13839
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTE5MDIzNSBTYWx0ZWRfXzBIo1c2W/gqI
+ nhqhVx1svmXEqRCiKtPLq+LnFMGeqVv6BPqyqgl3a9OM0REZD5w+OMylwPTlVEKWLpRc4nMFrNW
+ 5CqFIQiUBcyGwAob79X4ArKXB32gaerm15y0qyexH5QRqONmLNB9MYEXzehkujeBLMexLTl/dVk
+ RY8Bu8n+RGjTRdnyRn7IfXooisnRbKO1N+F+zR0c9kzEVqtio2wm5fL5eXpmO3UdAjaoCNXhcXL
+ 24XCk5Y0FRsJFWyYG26mDUW6yfKKpb8cmOuVPh+dKJsOi4MQgOt0WGInlpQ6YvSBLUomAzvv/QT
+ z5+dOyvBZ1HgQr1Zurxb505DePtWPyD/aNewe7mbVtNkRQnz15xtYMdrVui5ztOHUohMLI+ftuc
+ LAjfGbyegdrDhU5OQoCdU/4EeDsHKchcLxa49w/VX2SN2f0Z7T2TlK+yQ8T6s3v2jNHoD+m5ix6
+ lRdJssS23/O+mSOXrs1S01lS1bqzN6q8JXZhxJOU=
+X-Proofpoint-GUID: 1On2-jH6s1HTS5W4K0QeBUWrqYw4DWEN
+X-purgate-ID: tlsNG-33051d/1779233726-38D73938-809F779F/0/0
 X-purgate-type: clean
-X-purgate-size: 14660
-X-Spamd-Result: default: False [-1.49 / 15.00];
-	SIGNED_SMIME(-2.00)[];
-	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
+X-purgate-size: 5246
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[oracle.com,reject];
+	R_DKIM_ALLOW(-0.20)[oracle.com:s=corp-2025-04-25,oracle.onmicrosoft.com:s=selector2-oracle-onmicrosoft-com];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
-	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dongli.zhang@oracle.com,m:kvm@vger.kernel.org,m:pbonzini@redhat.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:tglx@kernel.org,m:seanjc@google.com,m:mingo@redhat.com,m:bp@alien8.de,m:hpa@zytor.com,m:dave.hansen@linux.intel.com,m:vkuznets@redhat.com,m:x86@kernel.org,m:maz@kernel.org,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:paul@xen.org,m:jic23@kernel.org,m:Sascha.Bischoff@arm.com,m:jalliste@amazon.com,m:joey.gouly@arm.com,m:joe.jin@oracle.com,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kselftest@vger.kernel.org,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[26];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	DKIM_TRACE(0.00)[infradead.org:-];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[dongli.zhang@oracle.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[26];
+	FORGED_RECIPIENTS(0.00)[m:dwmw2@infradead.org,m:kvm@vger.kernel.org,m:pbonzini@redhat.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:tglx@kernel.org,m:seanjc@google.com,m:mingo@redhat.com,m:bp@alien8.de,m:hpa@zytor.com,m:dave.hansen@linux.intel.com,m:vkuznets@redhat.com,m:x86@kernel.org,m:maz@kernel.org,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:paul@xen.org,m:jic23@kernel.org,m:Sascha.Bischoff@arm.com,m:jalliste@amazon.com,m:joey.gouly@arm.com,m:joe.jin@oracle.com,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kselftest@vger.kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[oracle.com:+,oracle.onmicrosoft.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dongli.zhang@oracle.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 299F9585CBF
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oracle.com:mid,oracle.com:dkim,oracle.onmicrosoft.com:dkim]
+X-Rspamd-Queue-Id: E41A358610B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-r8BxiHhSG54aOSyFfagN
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-05-19 at 14:23 -0700, Dongli Zhang wrote:
-> I think I now understand why I feel like I am always asking weird questio=
-ns. I
-> have been thinking about how to account for downtime, so I see
-> KVM_SET_CLOCK_GUEST as a supplement to KVM_SET_CLOCK.
+On 2026-05-19 3:43 PM, David Woodhouse wrote:
+> On Tue, 2026-05-19 at 14:23 -0700, Dongli Zhang wrote:
+>> I think I now understand why I feel like I am always asking weird questions. I
+>> have been thinking about how to account for downtime, so I see
+>> KVM_SET_CLOCK_GUEST as a supplement to KVM_SET_CLOCK.
+> 
+> I do not believe in "downtime". There is no such thing.
+> There is only "steal time".
 
-I do not believe in "downtime". There is no such thing.
-There is only "steal time".
+Or "leap seconds" as used in the document?
 
-A CPU may be off in the weeds =E2=80=94 a vCPU suffering steal time, or eve=
-n a
-pCPU in SMM which is effectively the same thing =E2=80=94 but time doesn't
-stop, and neither does the TSC.
-
-> Suppose we are not going to account for any downtime. With KVM_SET_CLOCK_=
-GUEST:
->=20
-> 1. The masterclock is active, so gTSC is synchronized across vCPUs. All v=
-CPUs
-> share the same kvm_read_l1_tsc(v, ka->master_cycle_now).
-
-Strictly, by the time we get to the end of my series, masterclock is
-active *because* all the vCPUs are running at the same TSC rate (even
-if the guest set them to different offsets). But OK.
-
-> 2. Migrate the gTSC to the target VM however people want (either ablolute=
- value
-> or offset value). (Optional) Account for downtime in gTSC however people =
-want,
-> even with KVM_SET_CLOCK/KVM_CLOCK_REALTIME, which you may not like.
->
-> 3. Adjust kvm-clock (that is, ka->kvmclock_offset) with KVM_SET_CLOCK_GUE=
-ST.
->=20
-> That is why you think KVM_SET_CLOCK is no longer required if we have
-> KVM_SET_CLOCK_GUEST. While I think KVM_SET_CLOCK is required because of
-> KVM_CLOCK_REALTIME.
-
-If I recall correctly what we described in
-https://lore.kernel.org/all/20240522001817.619072-8-dwmw2@infradead.org/
-I don't think we actually needed KVM_SET_CLOCK at all, did we?
-
-We *abuse* KVM_GET_CLOCK to give us a tuple of {realtime, host TSC}
-because there's actually no other way for *userspace* to get that. We
-don't actually *care* about the KVM clock part.
-
-We use the {realtime, host TSC} pair to reconstitute the guest TSC
-values to correctly reflect the passing of time while the guest was in
-the ether.
-
-> It it isn't required to account any downtime for gTSC or if there is anot=
-her way
-> to do so, only KVM_SET_CLOCK_GUEST is enough.
-
-Right. If you only want the guest to come back with the *same* values
-in its TSC as before the migration, as if the TSC was *paused* during
-the migration, then you can just restore those values and use
-KVM_SET_CLOCK_GUEST. Assuming you are on modern hardware and have set
-all vCPUs to the same rate (and are using this series so the *guest*
-can't break masterclock for you, and you can trust the
-KVM_SET_CLOCK_GUEST will work).
-
-> >=20
-> > > Another scenario is when only MASTERCLOCK_UPDATE is pending and there=
- is no
-> > > pending CLOCK_UPDATE.
-> > >=20
-> > > In this scenario, is it fine to skip processing MASTERCLOCK_UPDATE be=
-fore saving
-> > > pvclock_vcpu_time_info?
-> > >=20
-> >=20
-> > I'm not sure I understand that scenario.=20
-> >=20
-> > MASTERCLOCK_UPDATE means we have to actually recalculate the master
-> > clock (which really *should* be rare, now!). And then any time we do
-> > that, we also have to do a CLOCK_UPDATE on every vCPU to disseminate
-> > the new information. Which is why kvm_end_pvclock_update() does exactly
-> > that.
-> >=20
-> > So your "MASTERCLOCK_UPDATE is pending and there is no pending
-> > CLOCK_UPDATE" doesn't make much sense to me. If MASTERCLOCK_UPDATE is
-> > pending, then there *will* be a CLOCK_UPDATE pending.
->=20
-> Suppose the VM is stopped and the master clock is active.
-
-I don't know what it means for a VM to be 'stopped'. Do you mean that
-all vCPUs happen to be experiencing steal time at the present moment?
-
-> Suddenly, we change the host clocksource from TSC to HPET. pvclock_gtod_n=
-otify()
-> may call pvclock_gtod_update_fn() to set a pending KVM_REQ_MASTERCLOCK_UP=
-DATE
-> for all vCPUs. Unless the pending KVM_REQ_MASTERCLOCK_UPDATE is processed=
- by
-> kvm_update_masterclock(), kvm_end_pvclock_update() will not set a pending
-> KVM_REQ_CLOCK_UPDATE.
-
-You say 'Unless'... do you mean 'Until'?
-
-> Therefore, this is a scenario in which only KVM_REQ_MASTERCLOCK_UPDATE is=
- pending.
->=20
-> I do not think this scenario is important. I am just curious about the ex=
-pected
-> way to implement similar code in the future :)
-
-I think that's working correctly. Until the master clock has *actually*
-been updated, there's no point in setting CLOCK_UPDATE for each vCPU to
-disseminate the new information to its own pvclock?
+https://lore.kernel.org/all/20240522001817.619072-8-dwmw2@infradead.org
 
 
+> 
+> If I recall correctly what we described in
+> https://lore.kernel.org/all/20240522001817.619072-8-dwmw2@infradead.org/
+> I don't think we actually needed KVM_SET_CLOCK at all, did we?
 
-> >=20
-> >=20
-> > > > >=20
-> > > > > Would it be helpful to validate that the delta is within a reason=
-able range,
-> > > > > e.g. that the drift can never be more than five minutes (forward =
-or backward)?
-> > > >=20
-> > > > If a guest has been running for months on a previous host and is
-> > > > migrated to a new host, don't we expect that the KVM clock of the n=
-ew
-> > > > VM on the new host is tweaked from its default near-zero after
-> > > > creation, to some large amount?
-> > > >=20
-> > >=20
-> > > Regarding live migration, my own investigation does not show a propor=
-tional
-> > > relationship between VM uptime and the amount of drift.
-> >=20
-> > You're comparing the VM on the source host, with the VM on the
-> > destination post-migration.
->=20
-> Apologies for making it confusing. I was just trying to explain why I thi=
-nk the
-> kvm-clock drift will not be large.
+Here I partially copied the content from the link.
 
-Sure, but I don't care. If we have a sane API, the drift should be zero
-:)
+The 2nd step of destination VMM is to invoke KVM_SET_CLOCK ioctl.
 
-> We previously discussed the vCPU hotplug and kvm-clock drift issue. The l=
-onger
-> the time interval between two vCPU hotplug events, the larger the drift.
->=20
-> For live migration (with QEMU), I provided the equation to show that the =
-drift
-> will not be large, because it is determined by something else rather than=
- by how
-> long the VM has been running on the source server.
->=20
->=20
-> For the previous vCPU hotplug and kvm-clock bug, if we add more vCPUs to =
-a guest
-> that has been running for three months, the drift will be relatively larg=
-er.
->=20
-> For QEMU live migration, migrating a guest VM that has been running on th=
-e
-> source host for *three months* versus one that has been running for *one =
-day*
-> will not cause much difference in kvm-clock drift.
+---
+ From the destination VMM process:
 
-Right.
+-4. Invoke the KVM_SET_CLOCK ioctl, providing the source nanoseconds from
+-   kvmclock (guest_src) and CLOCK_REALTIME (host_src) in their respective
++4. Before creating the vCPUs, invoke the KVM_SET_TSC_KHZ ioctl on the VM, to
++   set the scaled frequency of the guest's TSC (freq).
++
++5. Invoke the KVM_SET_CLOCK ioctl, providing the source nanoseconds from
++   kvmclock (guest_src) and CLOCK_REALTIME (time_src) in their respective
+    fields.  Ensure that the KVM_CLOCK_REALTIME flag is set in the provided
+    structure.
 
-> For the ideal live update case (on the same host), there may be no need t=
-o
-> adjust gTSC so that it keeps incrementing. In that case, KVM_SET_CLOCK_GU=
-EST can
-> be used to adjust kvm-clock based on gTSC.
-
-Right. You restore the gTSC using its *offset* from the host TSC which
-hasn't stopped counting on the same host. Then use KVM_SET_CLOCK_GUEST
-to restore the kvmclock in terms of the gTSC. And you have an
-absolutely cycle-perfect migration.
-
-> For the live migration scenario, the current QEMU implementation not only=
- fails
-> to account for downtime, but also has a drift issue. That is what I would=
- like
-> to address in QEMU.
-
-Again, restore the gTSC as accurately as possible. Probably by working
-out for *yourself* the relationships of the source and destination host
-TSCs to real time, and then reconstituting on the destination using TSC
-offset just as for live migration.
-
-And then use KVM_SET_CLOCK_GUEST too.
-
-That's what I attempted to document in
-https://lore.kernel.org/all/20240522001817.619072-8-dwmw2@infradead.org/
-and should probably revive.
-
---=-r8BxiHhSG54aOSyFfagN
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
-ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
-MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
-a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
-jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
-GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
-aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
-nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
-8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
-IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
-KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
-BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
-QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
-QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
-ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
-/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
-uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
-xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
-W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
-c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
-VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
-NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
-DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
-sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
-w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
-i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
-kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
-0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
-ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
-blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
-hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
-VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
-HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
-ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
-AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
-cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
-cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
-AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
-aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
-hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
-iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
-8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
-JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
-xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
-EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
-B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
-MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
-KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
-Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
-nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
-WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
-W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
-nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
-g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
-9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
-9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
-sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
-a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
-ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
-AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
-dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
-MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
-YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
-4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
-6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
-QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
-nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
-MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
-VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDUxOTIyNDMy
-OVowLwYJKoZIhvcNAQkEMSIEIGTvfr5wfeHz/LRotJrCHsL4izASUvFK0bew3Yy0ltj1MGQGCSsG
-AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
-cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
-VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAHpod2FTGRp3s
-+iubDiwdcG6yaOTdLcBeMf4EYW4N1+Rt6Gck9iU5sVGP3pjXieU+mwW7lt+U+XalI+GvZqTE9cNr
-nigUN/7qXrrLuS437UBhzJhkKtGJ/nAcmxNKoLH4y6ptsBA+AmWEGbhcw4HdSjAzWwHU1hpmkZWy
-opAnjCHqlwswKjzdilciJX6xXiad4m2Tc3/MPxzIygybUazKxvdUYvPe9UmNy35fBKYWxBymxdmh
-u+H+3V6ox/UzgU5Hd/uEZQ9P85r6Kq7sYJR8o6G6TZ9Vebc5KYuwhutMvBxAEcPD1OlCfdTbPl5I
-LitD+Bu1nKdQE02aArTZhKnacUald05J8/pWbiYaoQBhPWJ7XU1KlTz5QscEjQ4EEAmmAqYiHgPg
-stP9ABKr4g5kVi4xgubf83i1b+bBUiMRLVPq18aOHAGFHF7c7OEVW77h0nqM5KQsZ9OcDH7g7+8a
-VHLYixTOAbSYJuAcO9Uctr28WNXcNevtYnTLhHIhzFHUV2jlGNxtNWXZJJrSno3C319MIv1iHfrU
-PsPW4O90+2wVD+yu3h1pHhhEioBi75IS29XyKJDvRwVRc3UAC+kp7Gh1+lToWweYHMMjQL2EMxn6
-e0EeV98Imp12ELJnHfYCcoqMebvBXYSNACKmkQ3RPN0DRVqsF3DA001gtCC4wSMAAAAAAAA=
+-   KVM will advance the VM's kvmclock to account for elapsed time since
+-   recording the clock values.  Note that this will cause problems in
++   KVM will restore the VM's kvmclock, accounting for elapsed time since
++   the clock values were recorded.  Note that this will cause problems in
+    the guest (e.g., timeouts) unless CLOCK_REALTIME is synchronized
+    between the source and destination, and a reasonably short time passes
+-   between the source pausing the VMs and the destination executing
+-   steps 4-7.
++   between the source pausing the VMs and the destination resuming them.
++   Due to the KVM_[SG]ET_CLOCK API using CLOCK_REALTIME instead of
++   CLOCK_TAI, leap seconds during the migration may also introduce errors.
+--
 
 
---=-r8BxiHhSG54aOSyFfagN--
+>>>
+>>> So your "MASTERCLOCK_UPDATE is pending and there is no pending
+>>> CLOCK_UPDATE" doesn't make much sense to me. If MASTERCLOCK_UPDATE is
+>>> pending, then there *will* be a CLOCK_UPDATE pending.
+>>
+>> Suppose the VM is stopped and the master clock is active.
+> 
+> I don't know what it means for a VM to be 'stopped'. Do you mean that
+> all vCPUs happen to be experiencing steal time at the present moment?
+
+Taking QEMU as an example, all vCPU threads remain asleep in host userspace
+without having a chance to invoke KVM_RUN. As a result, none of the vCPUs can
+enter KVM kernel mode to process any pending requests.
+
+This is the state before QEMU resumes from live migration or live update.
+
+(qemu) stop
+
+(qemu) info status
+VM status: paused
+
+
+According to my understanding, older KVM versions even required the userspace
+VMM to keep vCPUs in userspace to avoid racing with KVM_RUN.
+
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/kvm/x86.c?h=v5.15#n6090
+
+	case KVM_SET_CLOCK: {
+... ...
+		/*
+		 * TODO: userspace has to take care of races with VCPU_RUN, so
+		 * kvm_gen_update_masterclock() can be cut down to locked
+		 * pvclock_update_vm_gtod_copy().
+		 */
+
+> 
+>> Suddenly, we change the host clocksource from TSC to HPET. pvclock_gtod_notify()
+>> may call pvclock_gtod_update_fn() to set a pending KVM_REQ_MASTERCLOCK_UPDATE
+>> for all vCPUs. Unless the pending KVM_REQ_MASTERCLOCK_UPDATE is processed by
+>> kvm_update_masterclock(), kvm_end_pvclock_update() will not set a pending
+>> KVM_REQ_CLOCK_UPDATE.
+> 
+> You say 'Unless'... do you mean 'Until'?
+
+Until.
+
+> 
+>> Therefore, this is a scenario in which only KVM_REQ_MASTERCLOCK_UPDATE is pending.
+>>
+>> I do not think this scenario is important. I am just curious about the expected
+>> way to implement similar code in the future :)
+> 
+> I think that's working correctly. Until the master clock has *actually*
+> been updated, there's no point in setting CLOCK_UPDATE for each vCPU to
+> disseminate the new information to its own pvclock?
+
+Thank you very much for helping confirm this.
+
+
+> 
+>> For the live migration scenario, the current QEMU implementation not only fails
+>> to account for downtime, but also has a drift issue. That is what I would like
+>> to address in QEMU.
+> 
+> Again, restore the gTSC as accurately as possible. Probably by working
+> out for *yourself* the relationships of the source and destination host
+> TSCs to real time, and then reconstituting on the destination using TSC
+> offset just as for live migration.
+> 
+> And then use KVM_SET_CLOCK_GUEST too.
+> 
+> That's what I attempted to document in
+> https://lore.kernel.org/all/20240522001817.619072-8-dwmw2@infradead.org/
+> and should probably revive.
+
+I would really appreciate it if this document could be revived. I don't see it
+in your most recent v4 PATCH 7. It is very helpful as a guideline for how
+userspace VMMs should take advantage of these APIs.
+
+Thank you very much!
+
+Dongli Zhang
+
 
