@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QEx+CYcUDGoZVQUAu9opvQ
+	id UPz9MqYUDGoZVQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 09:43:03 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 09:43:34 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B8415794DC
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 09:43:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312498.1582591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4081A579510
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 09:43:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312502.1582600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPF6H-0007aB-3z; Tue, 19 May 2026 07:42:49 +0000
+	id 1wPF6r-00080x-Bh; Tue, 19 May 2026 07:43:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312498.1582591; Tue, 19 May 2026 07:42:49 +0000
+Received: by outflank-mailman (output) from mailman id 1312502.1582600; Tue, 19 May 2026 07:43:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPF6H-0007XU-1O; Tue, 19 May 2026 07:42:49 +0000
-Received: by outflank-mailman (input) for mailman id 1312498;
- Tue, 19 May 2026 07:42:47 +0000
+	id 1wPF6r-0007yU-8W; Tue, 19 May 2026 07:43:25 +0000
+Received: by outflank-mailman (input) for mailman id 1312502;
+ Tue, 19 May 2026 07:43:24 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wPF6F-0007XO-91
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 07:42:47 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wPF6q-0007yL-Fg
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 07:43:24 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPF6E-008MlH-He
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 09:42:46 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wPF6p-00BRVh-Rm
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 09:43:23 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a0c1472-5cb7-0a2a0a5109dd-0a2a45018dd8-4
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 09:42:46 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0c148f-5cb7-0a2a0a5109dd-0a2a45078b64-18
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 09:43:23 +0200
+Received: from [209.85.208.44] (helo=mail-ed1-f44.google.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a0c1476-c1f2-0a2a45010019-d155802ba838-3
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 09:42:46 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4890d945eb4so22515305e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 00:42:46 -0700 (PDT)
+ id 6a0c149b-229c-0a2a45070019-d155d02ccd14-3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 09:43:23 +0200
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-67c1e0229acso5338770a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 00:43:23 -0700 (PDT)
 Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
  [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fffb9aac4sm351862365e9.9.2026.05.19.00.42.44
+ a640c23a62f3a-bd4f4e21235sm665912566b.43.2026.05.19.00.43.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 May 2026 00:42:45 -0700 (PDT)
+ Tue, 19 May 2026 00:43:22 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,48 +57,49 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779176566; x=1779781366; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1779176603; x=1779781403; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=mxE2l2DTSq4VLsZsXteYhl4kO9URI3X7sspxnSaUzCU=;
-        b=C5gmeNp2hiKoB2Rvq/nOfmdQTnp3fhG6zl8z/ZISbNLReCtnBo0dQOZzzH7yQHDXe2
-         xiZq2TnNtZvQqmFIp3NQ2wFxMYbAgrwXlnYfV+MLwS41TMw3rNlt2IAV5KN0A8Z2kyxx
-         SJLjRY/UsfyP2W81C6fI967TPtvtLmcq8RbX4th/qEMF7zbajvOxEavVYltXvpzxgDNV
-         fcUI4BxLH2c8EsSyWyh9fMI+M4I45T7qeqiScJSQUE0cKZyDQpDHci5ZtCcSc4flMNDI
-         8YyZsBjaluCnfVmQ2Uw0dZS1uLxTZoNTYC2VkkjSyu5Cs1M0pDAzExaL/iX1dowak62Q
-         kzjg==
+        bh=U67Y+WBfxsx3bNgtn4VyTq7TZtw0qP5joQfLchg05Dg=;
+        b=kNOS7giwfrS9xd/axhcT4eF5MHTiGxWTj8w75lIWQekdl6Mo0urzdY89CxIR1DkCbi
+         eCygLfa4pntxxycZTyPIbpEUVlq9cXUnhaLrV8QeBREu6XKgkU6cKZ8zkNHYmlbPCvtM
+         j4NsZDkRg9WiSBtriRxMrrBR4BqRcReBZwSVnYSCKbz6C+kTwid3wv+ufgiPl8RTpYQW
+         TXXUV99Kpxq7xsILr1J1puQiTIvfM5x9V6snVqcifSVWiDvhnVH9lbf9Q2hqpwxcMdzV
+         sgcOgEVPpbQPGQLqmqokRLGqNUVyo1bPt7TBy6bFAcxUUelkGtNlxqBt5twNyZ2zUq2V
+         kRTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779176566; x=1779781366;
+        d=1e100.net; s=20251104; t=1779176603; x=1779781403;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=mxE2l2DTSq4VLsZsXteYhl4kO9URI3X7sspxnSaUzCU=;
-        b=DnE1IV+Ra1K8Qu2sftHHBPZ5KgMSQo+xII/NQrdT/0VP5pMQnRK7gdDkee30hr69RG
-         nhMmgLpsO1sYS/S3JKeVpitsq/sqYrXth4B6Q24nAbV1Ja7Z6f+CR/fBgeyS6q58uQIf
-         dziiFY/PiAq2XnN/s6bPEsNZXFrFWrgSbmI2HG4l5N25raT7y70auLV+9EIAvvNaw9Mh
-         w2lL18OPZG+HNKR6BKJqpu5tqyd30N/T4TrqvWS8tuDuEDjT/BDyLo1bOmD9E7wSHpW+
-         hxVDQOeAIpqv6n1mwSiZ5gn7Vi6s/RTbxXvzFYX3XgD+HuoH9naELbBl41A9KU4oP0FO
-         NxEQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/i+1yOSUfDmyb7/jkIBy9sIFHqCFboxUVDgBfxByskC+OMyH30ajCj6ZAQflmJCpk9YDpPk9+fy30=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzjUTfPF40V/SyIkZSax7Yrj7pXWgcByXmTbUkZnZjKIB95wtTT
-	SwFz+3mmeQL8qCbfuuQRLzSyG7FUmtUSD9dXU6ggFpnLjr0Qs/haipuY
-X-Gm-Gg: Acq92OFx8V6gWTlPyj4quLMscSDUIZf6+3fbpCcbPEXZXmMagq/zcT305dMsxIeUJdT
-	0eHAIcgnVeQ5DHtVcjYXREO11zfK1NnZPnQkXqa09euiPIaGX8kpp37tn3cXpGs6F0LoqqKDnOE
-	vtXfyp64WDF/qFAvwz1OTpHTUCUJDFPnn+Jjb6gWn7r104kAUCleXQCsgFsl/eMpdu/MBoLIW4l
-	qWf0CqYhkzDpZ+dAllpCw+DKvuHefv+3NjeJULoQwLiMSTM9dsIebGO6d5sLgXT8dkJeV/cWhq8
-	BC9mmO3jJR46sx55ozKr4e87bFfwjp+I/NOvtIBZPx6BhrRnXDtSqV1fkUFc2bLXCbC5neehwLi
-	g9tNhzUA4/4FUi2SpNnf4UqxmtF/xgYnY4cmj2KwX5lzJDsjakUBFhGn+ZxU6Dy1snkjkW4TgzO
-	vvILJeTZsMhAH4nOWXXDiM/QhD+QxjbCDlorFKnEXeZhiT/jAJ0Y6QasR2gnsRF0XuYO7SQ8Lrr
-	Fk=
-X-Received: by 2002:a05:600c:8485:b0:48a:5339:a46 with SMTP id 5b1f17b1804b1-48fe537fb70mr4494115e9.9.1779176565600;
-        Tue, 19 May 2026 00:42:45 -0700 (PDT)
-Message-ID: <0386a521-5a26-430c-9143-e70e77c8d452@gmail.com>
-Date: Tue, 19 May 2026 09:42:44 +0200
+        bh=U67Y+WBfxsx3bNgtn4VyTq7TZtw0qP5joQfLchg05Dg=;
+        b=bInAQ/tKDUPV3ZhLL9QWuKat1rGT7g/l2lvsd8ltxaxR+BWunarg2N4ZlbsJ4W0Fil
+         V1jA0OH7++iPXnACnHYVOPvD/z2E+OF/QXSW+taJ8B5FHfKkJU33SRrNshiBnlf9jhcm
+         FdqfL1eVYSTSKtfUA4qnhZhwGIoAwt7b5M80Dlhyx5CvhZIerus98ReTds0LEfRgGojC
+         GzIOfDmld1wP9wdCKg3Q7vGEo95QIy3cBJ3xTzjwu0Fev3SDAsrdhKDI/DE6halOzXtH
+         /ZVkeag6rZFgjerFKGDQTs5qHw4E3svowIR2VeDVy1z0j3KWgvL/X1l/xDTxqpYgzvIf
+         P4wQ==
+X-Forwarded-Encrypted: i=1; AFNElJ84WVXc0ASJYhYa3xGUoiDNMpJblnZTfAzC69ury4WRMm/Sz4rUDf1Ai1iu5fVHAHuiP7yXB97/R7o=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Ywbe7iF8kEBs3p94N+7UUb7/oU+bXuEO1AB9IPpcvy3U/ejyUW2
+	zWzlA/3BahjANoPCGYLSqVWcAeVHCt3Lw4rWcCJjkxtOf7jQY9pDCDpb
+X-Gm-Gg: Acq92OE4v3mXJjaJxiLUUsbk9Us3+w1CQDmWxeghIn6K42+7wumhUXxQ07rRzWP2axc
+	aV5kKj1O9elub0Pc7EVPiOkirqH5FCoc7jlqKaUT3tAmCYcB9UhU1g+uFO5rVkn/9Hc/rThcExK
+	wWuEr3DeUigls3ZqJngbM8hsdSG4JjNnd36w+HADLTslzLzpbkoTTUTdNphBBbMmgnG8XnAk9vg
+	92WO7Xdejst3z21RamDC3agJMGyNzb0pFS4hpXvrcRz/ifbC/vWLwaYnwx38KY7WtEOwc7PsWSy
+	sc0V7r+FaubqwEbSxQx/ch9CMX/ELrmmwz3HPAd2c10OPhEkrczG2XanaECSjypuDS9VR9q6BuK
+	NVEldYQUMDC75cPwjE/7seOHl3ctbBYTV8PbBL1ocQ3dYqX6APys2ubYj7NBfHGC3fDRc7hDSEN
+	hk0XCg1lO9txKxwrpONfgT29dGn9F4w4veiBG+dYw1YfcKNMDYk8JrYGcadDdo9LktwnXYq+hd1
+	EI=
+X-Received: by 2002:a17:907:8325:b0:bd8:f4bf:76e2 with SMTP id a640c23a62f3a-bd8f4cec6fbmr174028066b.48.1779176603045;
+        Tue, 19 May 2026 00:43:23 -0700 (PDT)
+Message-ID: <79b48043-baf2-4c42-aabe-062b40b3057d@gmail.com>
+Date: Tue, 19 May 2026 09:43:21 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm/gicv3: Detect normal NC ITS command queues
+Subject: Re: [PATCH] xen/arm: gic-v3: Wait for redistributor RWP using the
+ right bit
 To: Stefano Stabellini <sstabellini@kernel.org>,
  Luca Fancellu <Luca.Fancellu@arm.com>
 Cc: Mykola Kvach <xakep.amatop@gmail.com>,
@@ -107,17 +108,17 @@ Cc: Mykola Kvach <xakep.amatop@gmail.com>,
  Bertrand Marquis <Bertrand.Marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <4d72da78b9c30f5da62c8e03c3b03a01c24101eb.1778836836.git.mykola_kvach@epam.com>
- <05997446-AB81-433D-84D9-48A5FBE1D62D@arm.com>
- <alpine.DEB.2.22.394.2605151434470.52999@ubuntu-linux-20-04-desktop>
+References: <0fc5e4d297b8dde66ea36be3ebd60a68dea2562d.1778749474.git.mykola_kvach@epam.com>
+ <EDF5B3D9-F532-4D8E-B156-172649433AE9@arm.com>
+ <alpine.DEB.2.22.394.2605151436280.52999@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <alpine.DEB.2.22.394.2605151434470.52999@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2605151436280.52999@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1779176566-AC055FF4-76400CB3/10/73395122804
+X-purgate-ID: tlsNG-ef75cf/1779176603-09364C48-4939A2F1/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 2029
+X-purgate-size: 1430
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
@@ -137,7 +138,7 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,arm.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -153,16 +154,14 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 8B8415794DC
+X-Rspamd-Queue-Id: 4081A579510
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
 
-On 5/15/26 11:35 PM, Stefano Stabellini wrote:
-> Oleksii, can we have a release ack on this fix?
-
-Sure, fixes could go until Hard Code freeze is started.
+On 5/15/26 11:36 PM, Stefano Stabellini wrote:
+> Oleksii, can we have a release ack for this fix?
 
 Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
@@ -174,48 +173,37 @@ Thanks.
 > On Fri, 15 May 2026, Luca Fancellu wrote:
 >> Hi Mykola,
 >>
->>> On 15 May 2026, at 10:40, Mykola Kvach <xakep.amatop@gmail.com> wrote:
+>>> On 14 May 2026, at 10:08, Mykola Kvach <xakep.amatop@gmail.com> wrote:
 >>>
 >>> From: Mykola Kvach <mykola_kvach@epam.com>
 >>>
->>> GITS_CBASER.InnerCache uses the GIC BASER cacheability encoding.
->>> Both 0b000 (Device-nGnRnE) and 0b001 (Normal Inner
->>> Non-cacheable) describe non-cacheable accesses to the command queue.
+>>> gicv3_do_wait_for_rwp() is used for both distributor and
+>>> redistributor writes. The CTLR register is at offset 0 for both,
+>>> but the RWP bit is not in the same position.
 >>>
->>> its_map_cbaser() only checked whether the shifted field was zero,
->>> so an ITS that reports Normal Inner Non-cacheable would not set
->>> HOST_ITS_FLUSH_CMD_QUEUE. Decode the field before comparing it with
->>> the unshifted enum value, matching the handling of ITS BASER tables
->>> and GICR_PROPBASER.
+>>> For GICD_CTLR, RWP is bit 31. For GICR_CTLR, bit 31 is UWP,
+>>> while RWP is bit 3. The redistributor wait path was therefore
+>>> polling UWP instead of RWP.
 >>>
->>> Fixes: 8ed8d21373be ("ARM: GICv3 ITS: map ITS command buffer")
+>>> UWP covers upstream writes, including Generate SGI packets, and is
+>>> not a substitute for redistributor register write completion. The
+>>> existing redistributor callers need RWP semantics for redistributor
+>>> register writes such as GICR_ICENABLER0 and GICR_CTLR updates.
+>>>
+>>> Add GICR_CTLR_RWP and pass the expected RWP bit to the shared
+>>> helper.
+>>>
+>>> Fixes: bc183a0235e ("xen/arm: Add support for GIC v3")
+>>> Reported-by: Luca Fancellu <luca.fancellu@arm.com>
 >>> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 >>> ---
->>> xen/arch/arm/gic-v3-its.c | 3 ++-
->>> 1 file changed, 2 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
->>> index 9005ce8ce5..7560d46c6d 100644
->>> --- a/xen/arch/arm/gic-v3-its.c
->>> +++ b/xen/arch/arm/gic-v3-its.c
->>> @@ -424,7 +424,8 @@ static void *its_map_cbaser(struct host_its *its)
->>>       * If the command queue memory is mapped as uncached, we need to flush
->>>       * it on every access.
->>>       */
->>> -    if ( !(reg & GITS_BASER_INNER_CACHEABILITY_MASK) )
->>> +    if ( MASK_EXTR(reg, GITS_BASER_INNER_CACHEABILITY_MASK) <=
->>> +         GIC_BASER_CACHE_nC )
->>>      {
->>>          its->flags |= HOST_ITS_FLUSH_CMD_QUEUE;
->>>          printk(XENLOG_WARNING "using non-cacheable ITS command queue\n");
->>> -- 
->>> 2.43.0
->>>
->>>
 >>
->> Looks ok to me
+>> This looks ok to me
 >>
 >> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-> 
+>>
+>> Cheers,
+>> Luca
+>>
 
 
