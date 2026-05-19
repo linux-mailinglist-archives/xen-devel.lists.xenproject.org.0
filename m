@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aHM1HBwGDGojTwUAu9opvQ
+	id MqSGCDgJDGrSUQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 08:41:32 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 08:54:48 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4F4E5783D7
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 08:41:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1312415.1582509 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D3C15786F1
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 08:54:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1312426.1582518 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPE8Q-0003aH-SC; Tue, 19 May 2026 06:40:58 +0000
+	id 1wPELX-0005Oo-VG; Tue, 19 May 2026 06:54:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1312415.1582509; Tue, 19 May 2026 06:40:58 +0000
+Received: by outflank-mailman (output) from mailman id 1312426.1582518; Tue, 19 May 2026 06:54:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPE8Q-0003Yq-PX; Tue, 19 May 2026 06:40:58 +0000
-Received: by outflank-mailman (input) for mailman id 1312415;
- Tue, 19 May 2026 06:40:57 +0000
+	id 1wPELX-0005MU-SI; Tue, 19 May 2026 06:54:31 +0000
+Received: by outflank-mailman (input) for mailman id 1312426;
+ Tue, 19 May 2026 06:54:30 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wPE8P-0003Yk-7H
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 06:40:57 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wPELW-0005MO-Sf
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 06:54:30 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPE8O-005ShI-JA
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 08:40:56 +0200
+ id 1wPELW-002sa1-8g
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 08:54:30 +0200
 Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0c05ef-bab6-0a2a0a5309dd-0a2a4507e562-24
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 08:40:56 +0200
-Received: from [209.85.221.50] (helo=mail-wr1-f50.google.com)
+ id 6a0c0910-2eae-0a2a0a5409dd-0a2a45078e26-18
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 08:54:30 +0200
+Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
  by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0c05f8-229c-0a2a45070019-d155dd32b1f4-3
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 08:40:56 +0200
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-448528f4e69so2023249f8f.3
- for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 23:40:56 -0700 (PDT)
+ id 6a0c0925-229c-0a2a45070019-d155802bbd4c-3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 08:54:30 +0200
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-488b0046078so28142595e9.1
+ for <xen-devel@lists.xenproject.org>; Mon, 18 May 2026 23:54:30 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45d9ed30110sm47025205f8f.13.2026.05.18.23.40.54
+ 5b1f17b1804b1-48fe53ab671sm308183535e9.1.2026.05.18.23.54.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 18 May 2026 23:40:54 -0700 (PDT)
+ Mon, 18 May 2026 23:54:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,54 +58,63 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779172856; x=1779777656; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1779173669; x=1779778469; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=OUXgLVmBVPIiMSKfHXDS6jk0Qd0XP7lL+x1l1bwIrGM=;
-        b=A9awz4hOxdrA+BC43hGYDz5019n+pFZG2MgbSbtbxUWK+Dzqoi0Js/g0RhWTubHhXs
-         IGiEYScI4VPkG0aO7d+twu73n8A7LxtwA8usZLiwLeq1dsU0r7EU3Zvo3Qqp3LGE+McG
-         cLutz++rp4qeEFzi7ZIr1lLhmw792WoiYlkVpvJS//tcUf8/M5gwnMaik2weftgjbm6z
-         JzpiHCZ14ynXXWIRu7mtx/uHuIr2YL4WdOxg8SGR1VSH+80fFrRJlROM42/VIpz4dtDE
-         SPKr3DuPtiuPo68SSDx7m3WXq1tjBW01yw7mUWlOkChTs/XKRnuQqvUpEgwy3UbDYMOj
-         CnBg==
+        bh=Wmu5e1tpzklBOlYf+M5dndt3/PCcAx4cpV7DzEBBG3o=;
+        b=XiLHlfOFsRc1U3T4elHD8Ra+Yonud4FtQukme8jIff5OvqKl0Ch1dS/CAT3FrG13sz
+         iGdKQgf7g1bRBiFIyG6mqOFERND9jDaT6im1vEkv+3u6geRHTIWcwhE+nymHeFxta/n8
+         0oQ14/J78Bd/3H4Z47ZuNh4TKiw7HarKe7dVH8zQon16m+oggF2e8pDL54y50b3Gblqn
+         /6fwEpLnKs69umVB5PIl8rLcC2r3zOx7lyIseDwCyF0ml8evsRoaydFXd53uiIrGIeEj
+         IiQbRf8Z60ToRJC+yWC14B0VfT/abjAoKU8hRTc+g4L7l6ExpiRiXvhKXAg0BfBYAEbf
+         Cg8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779172856; x=1779777656;
+        d=1e100.net; s=20251104; t=1779173669; x=1779778469;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=OUXgLVmBVPIiMSKfHXDS6jk0Qd0XP7lL+x1l1bwIrGM=;
-        b=LocrRs/PRiHQ6fwPyhrvTJofQIpvYi00O5Z/WAHTq1v7Q1XggqCscolJ0t223ITGN1
-         H2tNoX+4tBH2rPTR0ObxlxiB4YaMNUdM/B/e63EQWobyO/qwu4w48RmDfNchT+ftsTGU
-         P0sIWCBo/whXdS7lpID6A4YY8J8UAPQVRGIvdZurZGIELhjMAJaZuqP43YHpc1+NJ5bw
-         mDm8MoBkSdPjR2E4kC8ceeJ7k+WBTxElnFDwigvjECOaZ3Yj4WdwOskI9oO+RBh4bZc9
-         kecYAfxZHgt7r2K4vutYNPOdl4noBh82H5AQLk31nAPKupxOhCg4/ad8alF/zbkKe/ki
-         7MYw==
-X-Forwarded-Encrypted: i=1; AFNElJ8ef7YVwS6r4arW+RWfZ9niSBZalelTS8Im/qvpoaMByIUeT/HUmIByHc161cG4gKAo+szK5LRlUoA=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyCHFPIEKMw0tB2+6KmGLiVsyg48vHI1+/1ytqxrRRn7y2DOxfO
-	djfgoLo2Pal3FRijXipqGrlExZKsQSRj4ggNBZHBxZtfjG8NkFv0D15lfq3AiDKbrw==
-X-Gm-Gg: Acq92OE0nvtsAc7EqV6w17/91/hWo2iIvpp3LUjdp6Z8lPnZwxMmp/fP52wRAT9/PzO
-	frsnOtsz7oWzDIIkMO97u5Ju0HuzmIesLW5CMFm+h4Xz+IyVRRD8Zo3u6R9GuslD+HXSdIoK5wO
-	DOX4E6Mpn0KQ/ulzlFTY864Lvg/xjyWOHczSCGR0MqgZmNtqhg0ZNMRljK37/RzL5jYF/zFrlyQ
-	arn7u9B3i3dOLCKN0cuvltFLcQcQnpMNwdW/uZnR+j03M/FNHT+TSKN4uCv4w5ZkfK6xzCAkOPG
-	4vLtGyC1y+ISQJakjdFdm8rRTI1gHo7W26MKN3Nad22FnHasU/jKCoJ7NaTrKfZRw/wsIPKdOD+
-	yA4GXfBmWIwBYATah67LV0WNfnOkMg1r54yh5f9aeMixKea0xMTGyFWKJTBB+lACklPJ8WZ1VRR
-	jHJyCQSw3ynwfF4amnyCMgKfU23t0BF6ZCtbzTb2c09Sb24qigNF2BmVIsGx2k5XVM+/FygXqxw
-	HIzIUkSCfeC/84=
-X-Received: by 2002:a05:6000:2405:b0:448:5ec1:dcb5 with SMTP id ffacd0b85a97d-45e5c57d463mr29382650f8f.7.1779172855811;
-        Mon, 18 May 2026 23:40:55 -0700 (PDT)
-Message-ID: <9b8ec97f-02ae-4a1a-9abe-59873d574a64@suse.com>
-Date: Tue, 19 May 2026 08:40:54 +0200
+        bh=Wmu5e1tpzklBOlYf+M5dndt3/PCcAx4cpV7DzEBBG3o=;
+        b=tKCUvCHXlDrFa1qIdyAvxTIGHbE3IF99CjX5vG+z2ZLEJ8WSo1enJ4W2B05AC43xoB
+         +HxCeZmPd5mPyiEnjfiQOcfCcddctIw8fVx09016ku+6EWq8GUPtgCn5MbK7PM3bzYNV
+         6UTk5801O3um4rMmiEmqWWbcZ52v86O+PWUgjyX4a86Y8QBXazz2E3R7HXURU5T8Fheg
+         VFIvsX8ydjcoQ260L50O/y7UbXZogzrRZ4sYlt8LyvELqWRh0BE7O9AUaK4+cg/DkhT2
+         QdRUj1drKxt2b6GhieHKp5nXo+YQEDl5mhoTZa2V45Fq8zVD4AiVQieLgpL6j3Sv6oUj
+         FJHg==
+X-Forwarded-Encrypted: i=1; AFNElJ+28FLyLUVsQ/2GI1MtCummyFv5fNMsOyxphe0S28DIhgX3lL3bGajbSdIMgBeElDd0X+EQyQnmYog=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yy5SelpKgpu8FSq2nBCETSUJIhyG+pv35NLCWzPuVMlevRljl/E
+	w6567vVjACkx1VmPG5X7WcG5BaVMmX07eZKdCRfuQw4ehGz9SNjM2Pz3Ru3LOUO+CyHF80o8g6R
+	fvfQ=
+X-Gm-Gg: Acq92OHr05wFWLIrgefJF7zciMYyWq+MQg+CiSGNPJZT5EmrDtQrvCPjmhkZG5dkDbb
+	IzbyQFSBzftwqUKfVJKdNOtACpMTDp+5KY8CMtdyJrG2tAur7umZZ/bF4xn+Mb5XtDsa2a+l/0f
+	OoUaVGpiPbjdofhLR+QWp0yxfyBdu5fizuecW6Gg3Bg0uj9KqVPOoxtS/uV5d4O/+MWd/FP0jlp
+	fWRn8xI2AQax3cMWklDJkr/E9rSfnSNW5Z3+2v0bb9KKRh/m+pA+CiR98mlHd650tIdd1agOKHH
+	drRJBpWHUDZxmva4tBv+FhcZUSbtG/8etJwz+HbCI2HvdQb7QU1otDK1Gv9irnWpyb9JIvNFIzX
+	j9qsSPRUZO2Ph5aGfmTVJOnMYgTNfQFXOzg9WhPvTHjB5/KkM3jPnCxHE9tMJxfquCs8FZgPj55
+	UinkjkLHd6r1vkJibHFEBX9WcdLx4EV7PyBguJneH3QikN3UbzoiU1W0WhXwVHUmpiD3WLMYqwl
+	KItOTfQOejl9rU=
+X-Received: by 2002:a05:600c:608b:b0:48a:58ae:9933 with SMTP id 5b1f17b1804b1-48fe61ed232mr288393135e9.18.1779173669612;
+        Mon, 18 May 2026 23:54:29 -0700 (PDT)
+Message-ID: <8b0ec241-4636-44ff-917b-1bdadc03f6f8@suse.com>
+Date: Tue, 19 May 2026 08:54:27 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/1] arm64: Fix strrchr() matching of null terminator
-To: "Edgar E. Iglesias" <edgar.iglesias@amd.com>
-Cc: sstabellini@kernel.org, julien@xen.org, bertrand.marquis@arm.com,
- michal.orzel@amd.com, Volodymyr_Babchuk@epam.com,
- xen-devel@lists.xenproject.org
-References: <20260518234353.453193-1-edgar.iglesias@amd.com>
- <20260518234353.453193-2-edgar.iglesias@amd.com>
+Subject: Re: [PATCH for-4.22(?) v2] gnttab: simplify (really: drop)
+ gnttab_set_frame_gfn()
+To: "Orzel, Michal" <michal.orzel@amd.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Rafal Wojtczuk <rafal.wojtczuk@7bulls.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6e3dbb4f-5849-4525-8f8b-a2818c39da2d@suse.com>
+ <93e15ff8-a313-4f19-84f1-2906cb2ade1b@amd.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -131,94 +140,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260518234353.453193-2-edgar.iglesias@amd.com>
+In-Reply-To: <93e15ff8-a313-4f19-84f1-2906cb2ade1b@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-ef75cf/1779172856-21165C48-D50F316C/0/0
+X-purgate-ID: tlsNG-ef75cf/1779173670-2176AC48-810B261D/0/0
 X-purgate-type: clean
-X-purgate-size: 1693
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-purgate-size: 1007
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[xen.org,kernel.org,epam.com,arm.com,citrix.com,vates.tech,7bulls.com,gmail.com,lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:edgar.iglesias@amd.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	SUBJECT_HAS_QUESTION(0.00)[];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:volodymyr_babchuk@epam.com,m:bertrand.marquis@arm.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:rafal.wojtczuk@7bulls.com,m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: C4F4E5783D7
+X-Rspamd-Queue-Id: 6D3C15786F1
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 19.05.2026 01:43, Edgar E. Iglesias wrote:
-> The generic Xen strrchr() implementation returns a pointer to the string
-> terminator when searching for '\0', matching the standard C semantics.
-> 
-> The ARM64 assembly version stopped as soon as it loaded the terminator and
-> returned the previous match pointer instead.  This made strrchr("", '\0')
-> return NULL.
+On 18.05.2026 20:00, Orzel, Michal wrote:
+> On 12-May-26 16:46, Jan Beulich wrote:
+>> --- a/xen/common/grant_table.c
+>> +++ b/xen/common/grant_table.c
+>> @@ -1844,8 +1844,7 @@ gnttab_unpopulate_status_frames(struct d
+>>          {
+>>              int rc = gfn_eq(gfn, INVALID_GFN)
+>>                       ? 0
+>> -                     : gnttab_set_frame_gfn(gt, true, i, INVALID_GFN,
+>> -                                            page_to_mfn(pg));
+>> +                     : guest_physmap_remove_page(d, gfn, page_to_mfn(pg), 0);
+>>  
+>>              if ( rc )
+>>              {
+>> @@ -4285,8 +4284,6 @@ int gnttab_map_frame_begin(
+>>           */
+>>          if ( !get_page(pg, d) )
+>>              rc = -EBUSY;
+>> -        else if ( (rc = gnttab_set_frame_gfn(gt, status, idx, gfn, *mfn)) )
+> status is now a variable that is set but never read. Remove it.
 
-I wonder though: Why would one pass '\0' to strrchr()? If you want to find
-the end of a string, more efficient (at least in the general case) options
-exist (strchr(), memchr(), strlen()).
+Oh, good point. Thanks for spotting.
 
-> Compare the loaded byte against the requested character before deciding
-> whether to stop at the terminator, so the terminator itself can be returned
-> when it is the requested character.
+> With that:
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-Nit: "..., so a pointer to the terminator ...".
-
-> Fixes: 42c4eb6a83 ("xen: arm64: assembly optimised mem* and str*")
-> Signed-off-by: Edgar E. Iglesias <edgar.iglesias@amd.com>
-
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-However, the function having come from Linux, imo the patch wants to go to
-Linux (ideally first, but at the very least also).
-
-Additionally, looking at strchr() - couldn't the code here be written in a
-similar way, allowing to get away with just a single branch? (Arm32's pair
-of functions is also pretty similar in this regard.)
+Thanks.
 
 Jan
-
-> --- a/xen/arch/arm/arm64/lib/strrchr.S
-> +++ b/xen/arch/arm/arm64/lib/strrchr.S
-> @@ -30,11 +30,10 @@ FUNC(strrchr)
->  	mov	x3, #0
->  	and	w1, w1, #0xff
->  1:	ldrb	w2, [x0], #1
-> -	cbz	w2, 2f
->  	cmp	w2, w1
-> -	b.ne	1b
-> +	b.ne	2f
->  	sub	x3, x0, #1
-> -	b	1b
-> -2:	mov	x0, x3
-> +2:	cbnz	w2, 1b
-> +	mov	x0, x3
->  	ret
->  END(strrchr)
-
 
