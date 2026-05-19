@@ -2,49 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kN89KkFrDGo8hQUAu9opvQ
+	id oL1GLj9rDGo8hQUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 15:53:05 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 15:53:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 445215800A0
-	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 15:53:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1313085.1583309 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EC25580098
+	for <lists+xen-devel@lfdr.de>; Tue, 19 May 2026 15:53:02 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1313086.1583317 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPKsO-0005FP-UA; Tue, 19 May 2026 13:52:52 +0000
+	id 1wPKsR-0005Sx-4N; Tue, 19 May 2026 13:52:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1313085.1583309; Tue, 19 May 2026 13:52:52 +0000
+Received: by outflank-mailman (output) from mailman id 1313086.1583317; Tue, 19 May 2026 13:52:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPKsO-0005Dy-R4; Tue, 19 May 2026 13:52:52 +0000
-Received: by outflank-mailman (input) for mailman id 1313085;
- Tue, 19 May 2026 13:52:51 +0000
+	id 1wPKsR-0005RJ-0q; Tue, 19 May 2026 13:52:55 +0000
+Received: by outflank-mailman (input) for mailman id 1313086;
+ Tue, 19 May 2026 13:52:54 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wPKsN-0005Ds-Cm
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 13:52:51 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wPKsP-0005Ql-Sn
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 13:52:54 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPKsM-00DnjS-Od
- for xen-devel@lists.xenproject.org; Tue, 19 May 2026 15:52:50 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wPKsP-00CrVd-8d
+ for xen-devel@lists.xenproject.org; Tue, 19 May 2026 15:52:53 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a0c6b2c-e002-0a2a0a5209dd-0a2a450cc34e-16
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 15:52:50 +0200
-Received: from [209.85.128.49] (helo=mail-wm1-f49.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a0c6b32-62f1-0a2a450c0019-d1558031e5c1-3
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 15:52:50 +0200
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-48e8132c6d0so23625475e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 06:52:50 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe5694fcasm305965725e9.5.2026.05.19.06.52.49
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a0c6b2b-bab6-0a2a0a5309dd-0a2a4505e706-34
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 15:52:53 +0200
+Received: from [209.85.208.43] (helo=mail-ed1-f43.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <oleksii.kurochko@gmail.com>)
+ id 6a0c6b35-aaa8-0a2a45050019-d155d02be5ae-3
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 15:52:53 +0200
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-67be41d5eeeso6300829a12.1
+ for <xen-devel@lists.xenproject.org>; Tue, 19 May 2026 06:52:53 -0700 (PDT)
+Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
+ [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-68310b3e8fbsm6640261a12.2.2026.05.19.06.52.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 May 2026 06:52:49 -0700 (PDT)
+ Tue, 19 May 2026 06:52:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,200 +55,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779198770; x=1779803570; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=O/a/OzZaxIL/wVLf1FKXaBULJNpj/cLuMHB3ipX6KUw=;
-        b=YgE9HpEuqYuLyP1kXz8r3AkiqZpxYgnwPlCtmu2F6lL/JoyDOvHipltzTbgDJPZ228
-         PdQalysj1a4ID6F3F5W+NDC5USgw8sDuyzFZ4yh7FhpZ1qkRrmPWgfieQf7M+ckIPr8/
-         8f/lzV3lGZIt9m2YcJvl8wspGwD8hUro+zjhlLa0nhkrfzDQ/rxMIsl+jkuJdOsl/TbA
-         nUfPrRKMlbVvhzXU/C2yOf4Nfm1KT/nZlM9AqqyaUc1lM34X2nELAj53VdREjDAl+j3k
-         OC6LY2Kh1Ol0ogFsHvtlXgh7RVoGSONTryWvkYIoUcdapxakXCApifqOjmn801Lu3l4Z
-         JDIA==
+        d=gmail.com; s=20251104; t=1779198773; x=1779803573; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=5zQzDAawb2MyiQGrMt/FCPmrtX8nCJ88FEd+CX8xZiY=;
+        b=TqkYayUqukRkAdQEi6uco7Ts8MN5ZIONI4AsEETCuoHb2pyIYN/uEuHfyZofXUyxWO
+         wsIa1ipdsPGrQMp8OAKX6IWurs+7l16/O6OMextvPx9N3dPylEXqHK3qCxHuhGFH9PEC
+         8RPwQytGSVHrvUEXUAUzwpweqvrrr4FKO4KAfFFWe7O3cl9jqlF7oLI7LyATJHWu211D
+         aV9GFEDOStGK7KbgQFxBIreMFyOL4jWaHCzUNdD5JMZOuE/RohYpH8hnpSq1O3m9f05Z
+         zMmuCaCXsNrR55vgkrgCsLDf+W58n1ZTxGdGdjNWzpOTpdXi6+vIdMJEEly+LtMYktz6
+         eexg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779198770; x=1779803570;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=O/a/OzZaxIL/wVLf1FKXaBULJNpj/cLuMHB3ipX6KUw=;
-        b=fGuVMfZZcMaxp+R0CPMZ76ewKhXKbqJFJMrt+w90sc+/XqVizvA91NjFBB1ZDLbIPT
-         QcwQ1gKP4SoOk85dQqk+gqb/wkCPfqk+d9jJiZVTNLSdvYL+RqJ3oXK86PTFgr8Qhpke
-         ALngOhuEGJr1/qY0rhq4M/zBwXEUhdJh5/HKcIPfR7+5M/azNpt0dKUWuKpfKUlA3Qs9
-         +/XZtvurBX1zmv11z2lbQTZVy2fEA9AqXDSj/aYnNw5YWpHfl0PALEbrXWNRBF28Pcl+
-         iNAnn6OLxWN5twYAvU4JP4zH26HNpEBoA/xINqs8TCsK0h8wk6wEBdXS/t7XhBGxHKvh
-         yvFg==
-X-Forwarded-Encrypted: i=1; AFNElJ/VWbKj7Pp2axwN4jwnTqaY1s+PBIGVV8kwpqFl7lQY+z1CYm78zfflaUTA32hr9vGG57Km/vOltss=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yx7Ug207/Xf2STJgzEvcFMXP3+dNwM3e/5Axfksk3k3Ba/d94Mw
-	A7LXqChjPaQ9FI5a2NNaKcDqUd+8kXJtMhtzh2iKDRG+GqNZmIfQDQNLnDYd5jdv/A==
-X-Gm-Gg: Acq92OFCY88xgGh/f4pHMNOnh8OaLcE3bNz90Eebn1NnJWt/VXJaerlCDIr0NsDD6Cs
-	xqdIJte+gOPu6ATk2gmX3CkU8DRPoMiGDSZuwQVOdJRCVWUrsCMlbQbwgZuDMA5Z18XmyJ6Hoov
-	Rkl665WpvSHw8z4A0kRcKvvp5AUMOkg1CfLAZKDISKHxIFFE64PfeQ0gEPu+AkMnfQLkNgE9V4d
-	usMcI+gunLzfFVz5488KeJggcBwKmbNYPV21pPMHHbYq7mBZ4slkHh8UnYp0IpktfvoH49D4/6x
-	kuvO3UXl09xR/txlXng0OfkI4vI2NjSAagPVkqQSAiWIQ5np3d+2hIlKh/kJaLWnEfyfUXLBNSG
-	NKp+QtHSXf3KHH5+1nwqBWlrZ2DmPe6TglCfMklA98eZXG4LS5mIqoXr2iYeF7a/XeWPVyGUOFO
-	Bm5kO3MwT0wmM9KtDJKwB+r5gopP7FyqCnu3CrOtII0/gI5wingRdmVeX5l2C6yV6n2lLGLsHHI
-	si6dmQ+hkYRE7mWPtYmq4t0EQtyPo2ciS4X
-X-Received: by 2002:a05:600c:a11c:b0:48a:5574:3a5d with SMTP id 5b1f17b1804b1-48fe60e476fmr209131095e9.7.1779198770052;
-        Tue, 19 May 2026 06:52:50 -0700 (PDT)
-Message-ID: <15e7a49d-9f0b-481d-b6db-2fa6fb218abe@suse.com>
-Date: Tue, 19 May 2026 15:52:48 +0200
+        d=1e100.net; s=20251104; t=1779198773; x=1779803573;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=5zQzDAawb2MyiQGrMt/FCPmrtX8nCJ88FEd+CX8xZiY=;
+        b=mvZEqVdZGRiSGNrSY0fZFmuMM3Eht87ZmZ4mpXHwj9Hxf5fZXNZNBqeAdBiyYp2ADI
+         QhMpO7FwlbC20dY4XHtvzlXx5c3Z6AQHFRqqn5BRj19o1XbQiiMgcN6ax/7f2Rj32mfo
+         bPPsMZiMKmfUYqXTfdhQHAY2J4FsoAvDt/K1SnLcfxNIuyFALfJn1KAHTbeZW1lMN6sZ
+         WlHxVAhWBgSwkmKFSFstMaYerbfFt8ML+oUnA00FJGcd6MlQ6G56JksMDNaGufAOIawE
+         OJzQCS11HQVCD7xe/LW//BPV8sQLWhuv9FeW31Q9yZfdHPMWtFgObHvWcAqg0HpAl5NJ
+         mnoA==
+X-Forwarded-Encrypted: i=1; AFNElJ8rEJyRJwK96aAapR95HIQoHOe4Bibo747HIIZIN53s8LDBkg1OcXRokDc5q+Ns+Vx8HrzUEeVzzC8=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzpFXIc1V0i3koExSUGcEzpIt7sg0OAhfhWRY+bgIAFqSEbF/5k
+	wgFwrjc66gr43NSnGfmgRs8uqg9Q/aQY/AiFqsBr2tzrqgKzXp0fqAa6
+X-Gm-Gg: Acq92OGeJw4Xyp5rI0dn7H2LvrG19TsHPvvL73msbtWZojbpNrTxJvuEDyMUhjJicqi
+	rdP9755xD8ILnhvmDn7/ap3ZCxLblLcXSs785gpi2xt5tegQBHAKo2bxg6ueYFuQ44gp2ChCleP
+	jdCyE/160WRnwsPYvavs47eTPsZT3rLiFHfwVL8FJd/nQEzGq611igTyFphecL9yuR18WB3NJZB
+	TzlNWUvDgV1SbbS+sbMHLv1EiCzo5skVFOPbHfksrn3JE9LOnQxPGBS7R9DfBPwgVI8h+txBVBv
+	8VHFxNXYabWppsfITcLmlPixN9a1TVjoEaclzjhGzkVSurL/x/CJMi/d6eES/8zfSkbsJ/4opoo
+	lTYMtvWAiwiybauhQIVar4JY4//l0Kua5frTr8N32TlFzLOZsLu/K3TZATza6+qGLQZOE/fuXQ1
+	VIRxnr7I9rjiVOi7ol0qubXcV3Y7DnmnKyNByZ2Y59cmq9RVaja0Yde4iYxjTMq3EwV65tiCQ/M
+	Zc=
+X-Received: by 2002:a05:6402:428e:b0:683:e394:cc0c with SMTP id 4fb4d7f45d1cf-683e394ce69mr9374327a12.4.1779198772428;
+        Tue, 19 May 2026 06:52:52 -0700 (PDT)
+Message-ID: <f6b8ce86-11ad-4014-add3-6360c9c53230@gmail.com>
+Date: Tue, 19 May 2026 15:52:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs/process: document AI-assisted patch tags
-To: Cody Zuschlag <cody.zuschlag@gmail.com>
-Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech,
- michal.orzel@amd.com, julien@xen.org, roger.pau@citrix.com,
- sstabellini@kernel.org, xen-devel@lists.xenproject.org
-References: <20260519134417.16024-2-cody.zuschlag@gmail.com>
+Subject: Re: [PATCH v1 2/3] xen/domain: fix UBSAN null pointer dereference in
+ vcpu_info_reset()
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Baptiste Le Duc <baptiste.le-duc@vates.tech>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <cover.1779179301.git.oleksii.kurochko@gmail.com>
+ <09ae75638f9e7991163ed3633e7a60461d93da70.1779179301.git.oleksii.kurochko@gmail.com>
+ <2be07ba3-879b-4c79-8103-b4951ab4cf53@suse.com>
+ <bedfec37-4c74-40dc-904e-b80e33461be7@gmail.com>
+ <e77cb8b3-35ce-4fc1-b98c-d4e889502acf@gmail.com>
+ <e65d9be5-f788-42d1-9117-eef70303a1a4@citrix.com>
+ <ee441369-cc67-4ec1-84f9-4619ce645da1@suse.com>
+ <f5cd7d50-e274-4a8c-a535-8c0f47cec137@citrix.com>
 Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260519134417.16024-2-cody.zuschlag@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d25034/1779198770-E1F6ACF5-7A46D43B/0/0
-X-purgate-type: clean
-X-purgate-size: 2633
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <f5cd7d50-e274-4a8c-a535-8c0f47cec137@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-c201ff/1779198773-D8145443-08A95838/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 4202
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:baptiste.le-duc@vates.tech,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:cody.zuschlag@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:codyzuschlag@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TAGGED_FROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	TAGGED_RCPT(0.00)[xen-devel];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 445215800A0
+X-Rspamd-Queue-Id: 2EC25580098
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 19.05.2026 15:44, Cody Zuschlag wrote:
-> This patch adds lightweight guidance for AI-assisted patch
+
+
+On 5/19/26 1:56 PM, Andrew Cooper wrote:
+> On 19/05/2026 12:51 pm, Jan Beulich wrote:
+>> On 19.05.2026 13:32, Andrew Cooper wrote:
+>>> On 19/05/2026 12:22 pm, Oleksii Kurochko wrote:
+>>>> On 5/19/26 12:55 PM, Oleksii Kurochko wrote:
+>>>>> On 5/19/26 11:37 AM, Jan Beulich wrote:
+>>>>>> On 19.05.2026 10:39, Oleksii Kurochko wrote:
+>>>>>>> vcpu_info_reset() maps v->vcpu_info_area.map to the per-vcpu slot
+>>>>>>> inside
+>>>>>>> the domain's shared_info page for vcpus with id <
+>>>>>>> XEN_LEGACY_MAX_VCPUS,
+>>>>>>> and falls back to dummy_vcpu_info for vcpus beyond that limit.
+>>>>>>>
+>>>>>>> However, it does not guard against d->shared_info being NULL.  The
+>>>>>>> shared_info() macro expands to a member access through d->shared_info,
+>>>>>>> so when an architecture does not allocate a shared_info page the
+>>>>>>> dereference triggers UBSAN:
+>>>>>>>     UBSAN: Undefined behaviour in common/domain.c:325:10
+>>>>>>>     member access within null pointer of type 'struct shared_info_t'
+>>>>>>>
+>>>>>>> Extend the existing fallback condition to also cover the case where no
+>>>>>>> shared_info page has been allocated, mapping the vcpu to
+>>>>>>> dummy_vcpu_info
+>>>>>>> instead. This is the correct behaviour: dummy_vcpu_info already serves
+>>>>>>> as the safe stand-in for vcpus that have no usable shared_info slot.
+>>>>>>>
+>>>>>>> Fixes: 295514ff75506 ("common: convert vCPU info area registration")
+>>>>>> I question this, largely (but not only) because I also ...
+>>>>>>
+>>>>>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>>>>>> Reviewed-by: Baptiste Le Duc <baptiste.le-duc@vates.tech>
+>>>>>>> ---
+>>>>>>> RISC-V does not allocate a shared_info page at the momemnt because its
+>>>>>>> guests run in dom0less mode and do not use the Xen PV ABI, so
+>>>>>>> d->shared_info remains NULL throughout domain lifetime.
+>>>>>> ... question this mode of operation. Yes, you may (for now) be able
+>>>>>> to get
+>>>>>> away without, but e.g. event channels will want supporting at some
+>>>>>> point.
+>>>>>> Which will require a shared info page. Better put that in place
+>>>>>> right away,
+>>>>>> even if the guests you test with don't use it (yet). Certain other
+>>>>>> common
+>>>>>> code also assumes d->shared_info to never be NULL for an alive domain.
+>>>>>>
+>>>>> Would it be fine than to allocate it in arch_domain_create() ... :
+>>>>>
+>>>>>       if ( (d->shared_info = alloc_xenheap_pages(0, 0)) == NULL )
+>>>>>           goto fail;
+>>>>>
+>>>>>       clear_page(d->shared_info);
+>>>>>
+>>>>> ... but without calling share_xen_page_with_guest() after that
+>>>>> allocation as share_xen_page_with_guest() isn't implemented at the
+>>>>> moment?
+>>>> Or could it be an option for all arch-s move allocation of
+>>>> d->shared_info to domain_create() in common just after
+>>>> arch_domain_create()?
+>>>>
+>>>> The only question if share_xen_page_with_guest() could be ifdef-ed
+>>>> somehow so not to block new ports to implement it from the start.
+>>> shared_info is an x86-PV-ism which escaped into HVM and then infected
+>>> ARM too.
+>>>
+>>> Sadly it's ABI there, but this is one of many areas where I really want
+>>> RISC-V not to inherit the mistakes of prior ports.
+>> In which case, how do you propose e.g. event channels to be handled in
+>> whatever is going to be the alternative?
 > 
-> attribution via an Assisted-by tag.
-> 
-> The proposal is inspired by similar Linux kernel documentation,
-> 
-> while keeping the Xen guidance intentionally minimal and aligned
-> 
-> with the existing sending-patches documentation.
-> 
-> Feedback welcome.
+> Implement proper enumeration of virtual capabilities (to be retrofitted
+> to x86/ARM too), and only offer the FIFO ABI (which is superior in every
+> way to the 2L ABI).
 
-Up to here it's kind of a cover letter in disguise?
+I'm not familiar with the FIFO ABI, but after a quick look it seems 
+d->shared_info is used here for example:
+static void setup_ports(struct domain *d, unsigned int prev_evtchns)
+{
+...
+     for ( port = 1; port < prev_evtchns; port++ )
+     {
+...
 
-> docs/process: document AI-assisted patch tags
-> 
-> Add documentation for the Assisted-by tag to clarify how
-> AI-assisted tooling may be disclosed in Xen patches.
-> 
-> The guidance is inspired by similar work in the Linux kernel
-> documentation.
-> 
-> Signed-off-by: Cody Zuschlag <cody.zuschlag@gmail.com>
-> ---
->  docs/process/sending-patches.pandoc | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
->  mode change 100644 => 100755 docs/process/sending-patches.pandoc
+         evtchn = evtchn_from_port(d, port);
 
-This and hence ...
+         if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
+             evtchn->pending = true;
 
-> diff --git a/docs/process/sending-patches.pandoc b/docs/process/sending-patches.pandoc
-> old mode 100644
-> new mode 100755
+         evtchn_fifo_set_priority(d, evtchn, EVTCHN_FIFO_PRIORITY_DEFAULT);
+     }
+}
 
-... this looks unwanted.
+So shouldn't it be still allocated in arch_domain_create() or as I 
+suggested in domain_create()?
 
-Looks okay beyond that.
-
-Jan
-
-> index 798ecceb..b61584f9
-> --- a/docs/process/sending-patches.pandoc
-> +++ b/docs/process/sending-patches.pandoc
-> @@ -195,6 +195,25 @@ E.g.:
->  
->      Requested-by: Jane Doe <jane.doe@example.org>
->  
-> +### Assisted-by:
-> +
-> +This optional tag can be used when AI-assisted tooling contributed to the
-> +preparation of a patch. It is in the format:
-> +
-> +    Assisted-by: <tool-name>[:<model-version>] [tool...]
-> +
-> +E.g.:
-> +
-> +    Assisted-by: Claude:claude-3-opus coccinelle sparse
-> +    Assisted-by: ChatGPT:gpt-5.5
-> +
-> +Basic development tools, such as git, compilers, make, and editors, should
-> +not be listed.
-> +
-> +The person submitting the patch remains responsible for reviewing any
-> +AI-generated content and ensuring the contribution is correct, appropriate,
-> +and compliant with Xen's contribution and licensing requirements.
-> +
->  ### Signed-off-by:
->  
->  This mandatory tag specifies the author(s) of a patch (for each author a
-> @@ -209,6 +228,9 @@ E.g.:
->  The author must be a natural person (not a team or just a company) and the
->  `Signed-off-by:` tag must include the real name of the author (no pseudonym).
->  
-> +AI tools must not add `Signed-off-by:` tags, as only natural
-> +persons can certify the `Developer's Certificate of Origin`.
-> +
->  By signing the patch with her/his name the author explicitly confirms to have
->  made the contribution conforming to the `Developer's Certificate of Origin`:
->  
-
+~ Oleksii
 
