@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gJ5fLGA5Dmqu8wUAu9opvQ
+	id wPJmGPY5Dmqu8wUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 00:44:48 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 00:47:18 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2490559C3BE
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 00:44:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314580.1584560 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3ADD59C466
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 00:47:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314589.1584568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPpea-0002ID-LP; Wed, 20 May 2026 22:44:40 +0000
+	id 1wPpgo-0002tp-5W; Wed, 20 May 2026 22:46:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314580.1584560; Wed, 20 May 2026 22:44:40 +0000
+Received: by outflank-mailman (output) from mailman id 1314589.1584568; Wed, 20 May 2026 22:46:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPpea-0002Gp-Hn; Wed, 20 May 2026 22:44:40 +0000
-Received: by outflank-mailman (input) for mailman id 1314580;
- Wed, 20 May 2026 22:44:39 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wPpgo-0002rc-2o; Wed, 20 May 2026 22:46:58 +0000
+Received: by outflank-mailman (input) for mailman id 1314589;
+ Wed, 20 May 2026 22:46:56 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPpeY-0002GY-Pj
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 22:44:39 +0000
+ id 1wPpgm-0002rV-96
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 22:46:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPpeX-00HaCQ-Iz
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 00:44:38 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wPpgl-005QBw-Ky
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 00:46:55 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e3954-e002-0a2a0a5209dd-0a2a4505c5ac-0
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 00:44:36 +0200
+ id 6a0e3983-5cb7-0a2a0a5109dd-0a2a45089da6-26
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 00:46:55 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e3954-aaa8-0a2a45050019-5a9b3222dad0-3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 00:44:36 +0200
+ id 6a0e39de-63b5-0a2a45080019-5a9b32229104-3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 00:46:55 +0200
 Received: from 54-240-197-227.amazon.com ([54.240.197.227]
  helo=freeip.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPpeP-00000007hpg-3cKx; Wed, 20 May 2026 22:44:30 +0000
+ id 1wPpgd-00000007i1f-1xjN; Wed, 20 May 2026 22:46:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=+DZstB+MHV1CL9v7iC4hC3EpbpRzleu52F3/Mziw8iM=; b=fYoCh94NRELg3JF+baJD0NwyKW
-	qxprqsvXJn2MLO6JnMX7rBBAYmPRxh9oA0VXaxq7IPID3cN1CXZ1FoPyXcDgP7YIZVUCN6LkrWLg+
-	euJPiQ4jxmCc5ul4K7Oz1xvORpLHrVNR4RZu9n8hXvWd+bJris5s+eYCrokeLoHFBIwwYU7hAk1I7
-	GZUeduno3qphHT8EMk5R8iL+8rzytL+Y0w+dqcZsY9iHIymEVxtU1VCt0jgXPKRQeUQhe4YqqsREg
-	X7+OioG2bJiktmDw51FG/9t02YZZgfal7nQRjAB8LbeAK2DDXVTQRje3/+ud1Aob0y3Z8qc5DoTOa
-	4/B+EDcA==;
-Message-ID: <3c319fe5f9d9e1ff005074320de9065af8a79f41.camel@infradead.org>
-Subject: Re: [PATCH v3 22/41] x86/pvclock: WARN if pvclock's valid_flags are
- overwritten
+	bh=eGf8zE8VSU/CYWvR8RwGK3Zkxx3u3NJdsOQ3RwMffU4=; b=ES80omK3u8axorzR/jGS695miN
+	cvmxX5MMxSnJGpZensYsRW0qi/rn4sH6nj1g+6ltU0uUMgFD6ZAgdwVWyfk1cPWPMW7A90Ay4PH+T
+	NROgO2JN27vk2hi6ymoA42i6p7XPaKC6+sCveUhLQbzFMR/w94Ojd8UNzZFp92i4czyLvQryBgmzI
+	EcbCsN4RIxRXykjbYldnrz5Tdj5X+e2KzJ/tf/11fJN+3nkFHmgZOhJ7matEiNZO4fqEl2jRjR2jn
+	D0UaKI55Bhwsypops6zHGPGOlXFLlDmhWYOog0JH9WV43Eu7L33/tORS6rjqF/eyA0s5NtkPMx1/+
+	DHosMsDw==;
+Message-ID: <5979bd60fc7d8eebfacb71112db5d0a74a98de19.camel@infradead.org>
+Subject: Re: [PATCH v3 23/41] x86/kvmclock: Refactor handling of
+ PVCLOCK_TSC_STABLE_BIT during kvmclock_init()
 From: David Woodhouse <dwmw2@infradead.org>
 To: Sean Christopherson <seanjc@google.com>, Kiryl Shutsemau
  <kas@kernel.org>,  Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan"
@@ -89,18 +89,18 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov
  linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org, Michael
  Kelley <mhklinux@outlook.com>, Tom Lendacky <thomas.lendacky@amd.com>,
  Nikunj A Dadhania <nikunj@amd.com>, Thomas Gleixner <tglx@linutronix.de>
-Date: Wed, 20 May 2026 23:44:28 +0100
-In-Reply-To: <20260515191942.1892718-23-seanjc@google.com>
+Date: Wed, 20 May 2026 23:46:45 +0100
+In-Reply-To: <20260515191942.1892718-24-seanjc@google.com>
 References: <20260515191942.1892718-1-seanjc@google.com>
-	 <20260515191942.1892718-23-seanjc@google.com>
+	 <20260515191942.1892718-24-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-NmFCdyiY4egYUvp+XVXA"
+	boundary="=-2WAgxEizV8hcN/lY6ryq"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-c201ff/1779317076-D8F7E443-EA9245C5/0/0
+X-purgate-ID: tlsNG-c1860d/1779317215-B6D73DB1-CF0D1FB2/0/0
 X-purgate-type: clean
-X-purgate-size: 7645
+X-purgate-size: 7941
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
@@ -112,7 +112,7 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,infradead.org:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,lists.xenproject.org:rdns,lists.xenproject.org:helo,infradead.org:mid];
 	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -136,25 +136,33 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 2490559C3BE
+X-Rspamd-Queue-Id: C3ADD59C466
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-NmFCdyiY4egYUvp+XVXA
+--=-2WAgxEizV8hcN/lY6ryq
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
-> WARN if the common PV clock valid_flags are overwritten; all PV clocks
-> expect that they are the one and only PV clock, i.e. don't guard against
-> another PV clock having modified the flags.
+> Clean up the setting of PVCLOCK_TSC_STABLE_BIT during kvmclock init to
+> make it somewhat obvious that pvclock_read_flags() must be called *after*
+> pvclock_set_flags().
 >=20
+> Note, in theory, a different PV clock could have set PVCLOCK_TSC_STABLE_B=
+IT
+> in the supported flags, i.e. reading flags only if
+> KVM_FEATURE_CLOCKSOURCE_STABLE_BIT is set could very, very theoretically
+> result in a change in behavior.=C2=A0 In practice, the kernel only suppor=
+ts a
+> single PV clock.
+
 > Signed-off-by: Sean Christopherson <seanjc@google.com>
 
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
---=-NmFCdyiY4egYUvp+XVXA
+--=-2WAgxEizV8hcN/lY6ryq
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -233,22 +241,22 @@ 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
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDUyMDIyNDQy
-OFowLwYJKoZIhvcNAQkEMSIEIJdSbDqznLlmk+9xLPrpY5tHHF5lZRvHPu+xsrwyCB8kMGQGCSsG
+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
-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
+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
 
 
---=-NmFCdyiY4egYUvp+XVXA--
+--=-2WAgxEizV8hcN/lY6ryq--
 
