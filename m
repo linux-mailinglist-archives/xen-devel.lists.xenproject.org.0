@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AFxJFGUGDmp25gUAu9opvQ
+	id CNFdKJ8IDmrY5gUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 21:07:17 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 21:16:47 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B772E597C97
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 21:07:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314322.1584290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15A5059810D
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 21:16:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314335.1584298 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPmG4-0000yn-63; Wed, 20 May 2026 19:07:08 +0000
+	id 1wPmP4-0002pk-VX; Wed, 20 May 2026 19:16:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314322.1584290; Wed, 20 May 2026 19:07:08 +0000
+Received: by outflank-mailman (output) from mailman id 1314335.1584298; Wed, 20 May 2026 19:16:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPmG4-0000xM-1s; Wed, 20 May 2026 19:07:08 +0000
-Received: by outflank-mailman (input) for mailman id 1314322;
- Wed, 20 May 2026 19:07:06 +0000
+	id 1wPmP4-0002mt-Sr; Wed, 20 May 2026 19:16:26 +0000
+Received: by outflank-mailman (input) for mailman id 1314335;
+ Wed, 20 May 2026 19:16:25 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPmG2-0000ww-JM
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 19:07:06 +0000
+ id 1wPmP3-0002mn-9o
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 19:16:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPmG1-00BGAX-Vm
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 21:07:05 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wPmP2-000RxG-I7
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 21:16:24 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e0644-e002-0a2a0a5209dd-0a2a4507d81e-20
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 21:07:05 +0200
+ id 6a0e0857-bab6-0a2a0a5309dd-0a2a4503ec7c-42
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 21:16:24 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e0659-229c-0a2a45070019-5a9b3222ad7a-3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 21:07:05 +0200
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ id 6a0e0887-672d-0a2a45030019-5a9b3222dd60-3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 21:16:23 +0200
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
  helo=freeip.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPmFr-00000007V1a-3HR4; Wed, 20 May 2026 19:06:55 +0000
+ id 1wPmOr-00000007VRU-2Tk4; Wed, 20 May 2026 19:16:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=KBm/TLbfPZj0qsgOsLDng1ZI6bZ8URdy5t6tLhKnzXo=; b=TkxNPg1dpluV9BITXlJJuw4kXL
-	2kkGiWpzEqbOAjSw/BdQ09Ld6amQ8ITurcs6fNtHk9Y/t+cQtdtTHd04wgxkqwGWW7llQKeaVObp0
-	mlNZxv1L09bDDezWrGXcVN2x+ycvHSRkWXZ7pyo8MwjmEdootwOG0yhvUfBu2Mac+CzkiCegrf/RP
-	vexXz15qcADvTfdiM2LJ+ZPsjGJKo6BCQ+nM+DoJnqlXZIyYHG+DcQxJ5jpT4rfkXnD09znJvTRtO
-	cG2SocKIG66e5AjMqA4BbaR9tbpcvlZQS+U+VRYGaHEmTrb381orpErgam7Upj7TNnnO8K4TuYNkk
-	Fbyuc8zQ==;
-Message-ID: <5cbc62dd2ad1f3f7b8ed4771c9ae02c8eee45886.camel@infradead.org>
-Subject: Re: [PATCH v3 03/41] x86/sev: Mark TSC as reliable when configuring
- Secure TSC
+	bh=9DXK3vuF2YCkTc2OlQDicr0ftdse5wXqLiL3ouHr4ms=; b=VE5Yl6ZhrWBXN0rkkMgd1i5Lrb
+	/e2rPlMT7Mb3GqHa+oX3i6w94pFC89AjuOqCgc1nooRFQyYx6dBbwsQtYGtniSDaMP3aVKVQM9xPv
+	6TQzcW3f5akieX8W/8kbw8fN7AHERtGlv1aGw9OwkeDiCUTUPWriwTrNGKzDcSJfOeiAk0ZkRNeu/
+	6T3LJesThKwF+slByTbXW8z3S+f8lP/fWXPQ+Uh4eYGqiqcTRb4jshPwMnuLbdWYtBdjCgCKaA1oi
+	D3DrQ0uSzxTAHw6kTVBGBkAiQ8fM6ekQOv8skb/cQyr/zoo7dqYLKHBUChPS6tXFlRaXnEb5w+I78
+	jLR5Hp0w==;
+Message-ID: <5136c8a3d03d33f0d249ebcf72b956d15ab80757.camel@infradead.org>
+Subject: Re: [PATCH v3 04/41] x86/sev: Move check for SNP Secure TSC support
+ to tsc_early_init()
 From: David Woodhouse <dwmw2@infradead.org>
 To: Sean Christopherson <seanjc@google.com>, Kiryl Shutsemau
  <kas@kernel.org>,  Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan"
@@ -89,22 +89,22 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov
  linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org, Michael
  Kelley <mhklinux@outlook.com>, Tom Lendacky <thomas.lendacky@amd.com>,
  Nikunj A Dadhania <nikunj@amd.com>, Thomas Gleixner <tglx@linutronix.de>
-Date: Wed, 20 May 2026 20:06:54 +0100
-In-Reply-To: <20260515191942.1892718-4-seanjc@google.com>
+Date: Wed, 20 May 2026 20:16:11 +0100
+In-Reply-To: <20260515191942.1892718-5-seanjc@google.com>
 References: <20260515191942.1892718-1-seanjc@google.com>
-	 <20260515191942.1892718-4-seanjc@google.com>
+	 <20260515191942.1892718-5-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-rhI5F8i7SpBc8jvUjeNP"
+	boundary="=-SwdCHlOnxZcQ2QC94Edp"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-ef75cf/1779304025-09D6FC48-C604C7D8/0/0
+X-purgate-ID: tlsNG-33051d/1779304584-37F4A938-3636054C/0/0
 X-purgate-type: clean
-X-purgate-size: 7930
+X-purgate-size: 7845
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
 	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
@@ -112,7 +112,7 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,amd.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,infradead.org:mid,amazon.co.uk:email];
 	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -136,32 +136,30 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: B772E597C97
+X-Rspamd-Queue-Id: 15A5059810D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-rhI5F8i7SpBc8jvUjeNP
+--=-SwdCHlOnxZcQ2QC94Edp
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
-> Move the code to mark the TSC as reliable from sme_early_init() to
-> snp_secure_tsc_init().=C2=A0 The only reader of TSC_RELIABLE is the aptly
-> named check_system_tsc_reliable(), which runs in tsc_init(), i.e.
-> after snp_secure_tsc_init().
+> Move the check on having a Secure TSC to the common tsc_early_init() so
+> that it's obvious that having a Secure TSC is conditional, and to prepare
+> for adding TDX to the mix (blindly initializing *both* SNP and TDX TSC
+> logic looks especially weird).
 >=20
-> This will allow consolidating the handling of TSC_KNOWN_FREQ and
-> TSC_RELIABLE when overriding the TSC calibration routine.
+> No functional change intended.
 >=20
 > Cc: Tom Lendacky <thomas.lendacky@amd.com>
 > Reviewed-by: Nikunj A Dadhania <nikunj@amd.com>
 > Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
---=-rhI5F8i7SpBc8jvUjeNP
+--=-SwdCHlOnxZcQ2QC94Edp
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -240,22 +238,22 @@ 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
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDUyMDE5MDY1
-NFowLwYJKoZIhvcNAQkEMSIEIEnxGKASfqeQ+RjblD7XQkcFO3wA0ehRKjPcM9LOmGXQMGQGCSsG
+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
-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
+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
 
 
---=-rhI5F8i7SpBc8jvUjeNP--
+--=-SwdCHlOnxZcQ2QC94Edp--
 
