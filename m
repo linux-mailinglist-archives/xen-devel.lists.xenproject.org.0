@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yGoTHvOkDWpM0wUAu9opvQ
+	id wP+LDpupDWox1QUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 14:11:31 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 14:31:23 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E55FD58D5FD
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 14:11:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1313898.1583931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8040C58DB1E
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 14:31:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1313918.1583939 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPflb-0001Uq-6N; Wed, 20 May 2026 12:11:15 +0000
+	id 1wPg4f-0004hv-OZ; Wed, 20 May 2026 12:30:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1313898.1583931; Wed, 20 May 2026 12:11:15 +0000
+Received: by outflank-mailman (output) from mailman id 1313918.1583939; Wed, 20 May 2026 12:30:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPflb-0001Rk-2p; Wed, 20 May 2026 12:11:15 +0000
-Received: by outflank-mailman (input) for mailman id 1313898;
- Wed, 20 May 2026 12:11:13 +0000
+	id 1wPg4f-0004fg-Lw; Wed, 20 May 2026 12:30:57 +0000
+Received: by outflank-mailman (input) for mailman id 1313918;
+ Wed, 20 May 2026 12:30:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wPflZ-0001Ra-Io
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 12:11:13 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wPg4f-0004fa-1Y
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 12:30:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPflY-007XCj-K0
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 14:11:12 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wPg4e-00H5Oa-Di
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 14:30:56 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0da4dc-2eae-0a2a0a5409dd-0a2a450acb1a-18
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 14:11:12 +0200
-Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0da97a-bab6-0a2a0a5309dd-0a2a4503bdc0-30
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 14:30:56 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0da4de-56b3-0a2a450a0019-d1558035ecef-3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 14:11:10 +0200
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-48a7fe4f40bso57650765e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 05:11:10 -0700 (PDT)
+ id 6a0da980-672d-0a2a45030019-d1558030b49f-3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 14:30:56 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-488af96f6b2so51998425e9.0
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 05:30:56 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48fe5694fcasm368284335e9.5.2026.05.20.05.11.09
+ ffacd0b85a97d-45d9ed2f738sm52371893f8f.16.2026.05.20.05.30.54
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 May 2026 05:11:10 -0700 (PDT)
+ Wed, 20 May 2026 05:30:55 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,55 +56,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:Autocrypt:Subject:From:Cc:To:Content-Language:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779279070; x=1779883870; darn=lists.xenproject.org;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Y0ixmEhnIn+bt53HAzXc3q5zzjNf9ZvQMkFxbuYcfyU=;
-        b=K9bUOvPXyreVzRcxqrsSyzFhXBuVM5Jq0/oMTK5eSin0pvjzXIhHit5ERdS0cU/PG3
-         gfRLLEfkjHe9iWqBPt8kLB4DSvQ5Y5ebO6tlYPzd78wN45LoZ/f25AY+STJWMg/8O48u
-         p5D96FDZ6C4zxMWYm0XRMwPeTGwwa0Rm46DNpJhpz+OvXMUK9Ro/JQDmmvvLQrZVHDEE
-         8AhsMs811qNGAXPJ37CY9CU4rU3R7g+KS8ENFQ/YX91YN47jwGBmeJTjvBiIj/2LIxdP
-         N0tVrBGuDfWowgAQ6LtORuARTkQzf8EUW0tAxIREBJUrPnSzTMRforDg9kNBTGI5GORQ
-         b8/g==
+        d=suse.com; s=google; t=1779280255; x=1779885055; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=DyrjVMz/CBFQOrBzEWGj1Z+FYpZqcVY8M5LwV9dqMSM=;
+        b=SdSAEV+IEEPJoI2rRi6+IVx4fb+/8ZYvWIMstZIWpmV92TNJOojXs72JCxXyLB2+VJ
+         eXLZWkh8OTd84qsIlvethWbc9a9tvrs8eGp22IXlk61wxksi+zklSiLyiBetBTRHAW7w
+         NMEPWs2s4iYCiMrykcKEfpTIhPLagTcFjpc5PhhH2CQWl11ImNb44UX3u8Xd8IpR2Cnb
+         mmeiLcwhRj8gJ6M8x+joSPLrTJP6nUNHhP0s6uq2CHTCU9wFrtPR/XdvFYvCo/sQ5oEG
+         uqayOIu1Yps+f4MMmkQ0gW7yermi/yzvm200lJRiwre+rGGPw2yJAJynbdQVRkVnmBM8
+         FFdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779279070; x=1779883870;
-        h=content-transfer-encoding:autocrypt:subject:from:cc:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=Y0ixmEhnIn+bt53HAzXc3q5zzjNf9ZvQMkFxbuYcfyU=;
-        b=BZVJ+mLN/9eib0mW/tqwtNjXAg+ZK3b+r4A/WhXy4mqyC9Km89judyvGwzM68UATYU
-         0AlJL+etdhUOENJE9as7D3ZIzInPycjV0rBC6jHZylp9olwys5IpS+c8NMqln8z7IdXE
-         iHbhWKQPTlHWNb6p7nmALyMjc3hcgZ1JXqIISgIS0lxhx4C+tPCm8PDCoh/0yBNwSUsn
-         O78FfTa499Hxu2tcJ11VIx9a8fLUAwhpBg/nA66oHUgSCMBVdUAYdt6PRy249qjnhf+w
-         3GGifGqtPNflEDlGSjiN/1XbMvc6nE9WC6UlWGnqLuqqQvJKneyFZEsQkwdYKkATm8PK
-         8ajw==
-X-Gm-Message-State: AOJu0Yy59iNkWErMEusBmQeXYrNN8Xxam6XR5A1nkNSrJ7PYH1DK/zlZ
-	fDun9k4KeK2yUnAfmdjz0neSSfbwmAEXN3N4Pn3hNETYFPBKNArE6v5qUEKVOvRV7L1GqA0yKic
-	WEMc=
-X-Gm-Gg: Acq92OEvT5c6R01XNxg3G3ZP2ev9ndz/m5HyR9VygyseuMzn2Sqf/x05Nv9HQK9NHZh
-	t0ypfSpACWLgRO+PZzmL8GNPMb+p0c0lQIRNUGUnJk2sX9NP05+RDnV4RfOoIbBEQO1Hw1MgblP
-	+iAS+j3gGoTK/U61JC2RRJLH303TJENfzceLpLmjHc0UPDY8TOxHnZ1dhTJ8mv/g98IRFwe9WrA
-	2xz5LBOhyNY51gbomwiCNM5Oi4R+m4AHK/oz0jArAGuLiMyZpJfiFf5d4gbSK9j1KzYdqEYM4AZ
-	1BBmMfd20VqxnHZICdMsglohVwJ4LI2VxE8oYXSNNFV2pB1mf1jRucPrcWsfavDfCAtoDVI0amM
-	N2R3cl93lULkI9p0iaMs3JMyyumB6hQM2SidbodKxfOkHunPWUBD0QKIjuAix+284el88EHACUB
-	7RP8Z0qqKt/5vb+MFt3Ai3Ynlm+LLtHVd0Ko3l/4YFDzuNXqQI9TTE2XIpliNW2Iy0oXE6Wl2/2
-	FXY+Wl/Dd7e9ok=
-X-Received: by 2002:a05:600c:a11c:b0:48f:e468:1761 with SMTP id 5b1f17b1804b1-48fe60e47afmr270980825e9.2.1779279070451;
-        Wed, 20 May 2026 05:11:10 -0700 (PDT)
-Message-ID: <7a2fb6cc-fc9b-43c1-9f4f-d5a573d52dbc@suse.com>
-Date: Wed, 20 May 2026 14:11:09 +0200
+        d=1e100.net; s=20251104; t=1779280255; x=1779885055;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DyrjVMz/CBFQOrBzEWGj1Z+FYpZqcVY8M5LwV9dqMSM=;
+        b=Y1w9nYTGvJrWi2Cz8F0uwVqckdUH77IJ0nGZxzPcnFOWl+cT6JLhtoz9eQN+nbSXJ/
+         n/26CfZoCDkN68gMXs7EnM8CUwd/E7DUJ70mQZ/pwaFwJR2nAKKBs8fm4DRdNvqcpu25
+         zUgocjY9cEUyrPAS/lCRcLTcahvlthR2N3XoZgw+4FbDb72tsdIBtw2vQu24Fwq77L+6
+         zlu2tyv3+1zo+RZ5K7XK+a2kSxIwhA3Frt/nNAt+QNnRXUXH8zFCMiwNhgb3zN4JYNGx
+         xnjArI+cwkrhI/rfdsS5LCeq/U0zetE2w0Nuaos3gekGpsu4XGHQ1VPBiU+3hbxr5ZaQ
+         UNRA==
+X-Gm-Message-State: AOJu0YxEnK8kJald4uxzue5c7ecmBBFdguko3QtYamNUVDkWCFgi/gb7
+	XE4kKUH/2zDNEfcrgMFBw8TLy2FGHd5gsWpKcFEWDjeAf2yLy0iZAhRay7QpfVv8hMERsV49wx+
+	WtBU=
+X-Gm-Gg: Acq92OGd7dSKEreIDyt+JBFKDFqMpk6XfhLj8gDlAZnRNITzEo/rJgG3AnPiCTcGPu2
+	V/xMZLXwutprTrlNZEMnZ7MiWly/9X5kE/VtDqR15I08ccQ6tkBkdKeBTbYdhYr7f+u/CXPKMSP
+	iZq+AAX0RjeAteR74ZKXbsIk4NzxjJtEuedZINa5TFCHh1rVjZycVSAKhZubKTi+6x9OlNWUWsY
+	Z5qdd5+B15lE7AId+zPERXj9Pu0kCgS3hHP0BKV9TRLT6U/Yy21b00ewSQrQRVzSOXDGBxWhFfb
+	MDTAsv/mYn6TcqA8iMEoVCtk6/O2u7JVeeJrPE2jCB6YlZF4uOtT7LqLtPlDjbUVsmM2+uthc3Y
+	IHMzhcgV9PFHHBuiXPPqh1FFlhgA2EXcrMJppHS+Pvgw8GMjDwnt8o27nl2YzfTLrNYU2efQ0Su
+	/Vsrhno/s4ebinA9v+g4+7HILhAopAeqMQysRdFSXgMGs/O6WepQXNZ2Ry8Qk93B/k52g6UjvcD
+	hwf2MrrL5aaKZI=
+X-Received: by 2002:a05:600c:4504:b0:48f:d1b8:9a9c with SMTP id 5b1f17b1804b1-48fe60e14bamr350630225e9.7.1779280255553;
+        Wed, 20 May 2026 05:30:55 -0700 (PDT)
+Message-ID: <02d7f002-dc14-497e-bae9-a8c0c9460fac@suse.com>
+Date: Wed, 20 May 2026 14:30:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+Subject: Re: [PATCH v2 RFC] x86/time: avoid early uses of NOW() to return zero
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Teddy Astie <teddy.astie@vates.tech>
+References: <68b1607a-f2a1-4f53-84c5-43c61eeb1869@suse.com>
+ <agXwsshLlV50dcnV@macbook.local>
+ <8fbab1f4-3078-4ac3-b147-84d1b5f5abd1@suse.com>
+ <agcb1WAGLWDRYZ06@macbook.local>
+ <547161b2-2fea-4576-a635-62838ffa2d33@suse.com>
+ <ag2GzXm-yg12DQY5@macbook.local>
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: strip debug info for intermediate linking steps
 Autocrypt: addr=jbeulich@suse.com; keydata=
  xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
  hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
@@ -128,31 +135,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <ag2GzXm-yg12DQY5@macbook.local>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-4011c0/1779279070-72F718B7-58021305/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-33051d/1779280256-3754F938-9332087E/0/0
 X-purgate-type: clean
-X-purgate-size: 2967
+X-purgate-size: 3325
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
@@ -165,63 +173,84 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: E55FD58D5FD
+X-Rspamd-Queue-Id: 8040C58DB1E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Linking debug info takes time, especially for xen.efi. At the same time
-symbol table contents aren't affected by presence / absence of debug info
-in the linked binaries (the ELF and COFF symbol tables would have extra
-section symbols, but tools/symbols omits those anyway).
+On 20.05.2026 12:02, Roger Pau Monné wrote:
+> On Mon, May 18, 2026 at 10:05:41AM +0200, Jan Beulich wrote:
+>> On 15.05.2026 15:12, Roger Pau Monné wrote:
+>>> On Fri, May 15, 2026 at 09:15:40AM +0200, Jan Beulich wrote:
+>>>> On 14.05.2026 17:56, Roger Pau Monné wrote:
+>>>>> On Wed, May 13, 2026 at 08:44:46AM +0200, Jan Beulich wrote:
+>>>>>> @@ -2623,6 +2640,21 @@ int __init init_xen_time(void)
+>>>>>>      return 0;
+>>>>>>  }
+>>>>>>  
+>>>>>> +/* BSP-only function to pre-set an approximate TSC scale. */
+>>>>>> +void __init preset_tsc_scale(unsigned long freq)
+>>>>>> +{
+>>>>>> +    struct cpu_time *t = &this_cpu(cpu_time);
+>>>>>> +
+>>>>>> +    /*
+>>>>>> +     * The incoming frequency is only approximate (nominal).  Increase it by
+>>>>>> +     * 1% to make NOW() output rather a little too slow than too fast, thus
+>>>>>> +     * avoiding a possible backwards jump once the final scale is set.
+>>>>>> +     */
+>>>>>> +    freq += DIV_ROUND_UP(freq, 100);
+>>>>>
+>>>>> To avoid such possible jump backwards, won't it safer to also update
+>>>>> the ->local_stime and ->local_tsc fields at the time the new scale is
+>>>>> set?  Updatign those ahead of setting the new scale should avoid any
+>>>>> backward jumps.
+>>>>
+>>>> ->stamp.local_tsc does get updated; you merely dropped that line from reply
+>>>> context. As to local_stime - how could we possibly set that, when we didn't
+>>>> get through init_platform_timer() yet? Leaving it at 0 is the correct
+>>>> match for setting local_tsc to boot_tsc_stamp.
+>>>
+>>> Please bear with me, maybe I'm not understanding exactly to what the
+>>> code comment refers to as "possible backwards jump once the final
+>>> scale is set".  I assume you refer to the setting of scale
+>>> early_time_init()?  The ->stamp.local_tsc value also gets updated at
+>>> that point, so it's not possible for the timer going backwards?
+>>
+>> It is updated there, but only to boot_tsc_stamp. I.e. no change at all
+>> if preset_tsc_scale() set the field already.
+> 
+> Couldn't we do the following in early_init_time() to ensure time
+> doesn't go backwards:
+> 
+>     if ( t->tsc_scale.mul_frac )
+>     {
+>         /*
+>          * Update time snapshot to ensure time doesn't go backwards as a
+>          * result of the scale change done below.
+>          */
+>         t->stamp.local_tsc = rdtsc_ordered();
+>         t->stamp.local_stime = get_s_time_fixed(t->stamp.local_tsc);
+>     }
+>     else
+>         t->stamp.local_tsc = boot_tsc_stamp;
+> 
+>     set_time_scale(&t->tsc_scale, tmp);
+>     init_percpu_time();
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-The main speed gain is from xen.efi linking. Therefore I'm not even sure
-if this wants mirroring to the other targets, where only xen-syms is
-produced. It would mainly be some transient space saving there. (It would
-perhaps want retaining when the linking steps are moved to common code.)
-Thoughts?
+Yes, this would prevent stime going backwards. But at the same time it
+would latch the imprecise calculations done initially. The farther off
+the initial scale (e.g. when using "high" in case "nominal" isn't
+available, as discussed previously), the bigger the error. That may be
+mainly (only?) a cosmetic thing, but still.
 
-On the system I measured this on, "real" time went down from 4.9s to 3.9s,
-while "user" time went from 7.8s to 6.8s (all approximate values of
-course, as there naturally is a bit of variance, and all for full
-incremental builds with no other changes, i.e. mainly the final linking
-steps getting carried out for the common/version.o change).
+Actually, if we did that, what would prevent stime going backwards by
+the update done in init_percpu_time()? Aiui we really want .local_stime
+to be written there for the very first time.
 
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -127,13 +127,13 @@ CFLAGS-$(XEN_BUILD_EFI) += -DXEN_BUILD_E
- $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
- 	$(objtree)/tools/symbols $(all_symbols) --empty > $(dot-target).0.S
- 	$(MAKE) $(build)=$(@D) $(dot-target).0.o
--	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) --strip-debug \
- 	      $(dot-target).0.o -o $(dot-target).0
- 	$(NM) -pa --format=sysv $(dot-target).0 \
- 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
- 		> $(dot-target).1.S
- 	$(MAKE) $(build)=$(@D) $(dot-target).1.o
--	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) --strip-debug \
- 	    $(dot-target).1.o -o $(dot-target).1
- 	$(NM) -pa --format=sysv $(dot-target).1 \
- 		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort $(syms-warn-dup-y) \
-@@ -205,7 +205,7 @@ endif
- 	$(MAKE) $(build)=$(@D) .$(@F).0s.o
- 	$(foreach base, $(VIRT_BASE) $(ALT_BASE), \
- 	          $(LD) $(call EFI_LDFLAGS,$(base)) -T $(obj)/efi.lds $< $(relocs-dummy) \
--	                $(dot-target).0s.o $(note_file_option) \
-+	                $(dot-target).0s.o $(note_file_option) --strip-debug \
- 	                -o $(dot-target).$(base).0 &&) :
- 	$(MKRELOC) $(foreach base,$(VIRT_BASE) $(ALT_BASE),$(dot-target).$(base).0) \
- 		> $(dot-target).1r.S
-@@ -215,7 +215,7 @@ endif
- 		> $(dot-target).1s.S
- 	$(MAKE) $(build)=$(@D) .$(@F).1r.o .$(@F).1s.o
- 	$(foreach base, $(VIRT_BASE) $(ALT_BASE), \
--	          $(LD) $(call EFI_LDFLAGS,$(base)) -T $(obj)/efi.lds $< \
-+	          $(LD) $(call EFI_LDFLAGS,$(base)) -T $(obj)/efi.lds $<  --strip-debug \
- 	                $(dot-target).1r.o $(dot-target).1s.o $(note_file_option) \
- 	                -o $(dot-target).$(base).1 &&) :
- 	$(MKRELOC) $(foreach base,$(VIRT_BASE) $(ALT_BASE),$(dot-target).$(base).1) \
+> That's kind of the same logic that's used in cpu_frequency_change()
+> ahead of calling set_time_scale().
+
+That function is ripe for removal anyway, so I'm hesitant to derive
+anything from it.
+
+Jan
 
