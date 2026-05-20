@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CHqUAs8uDmoK7wUAu9opvQ
+	id mAf+IMgxDmou8AUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:59:43 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 00:12:24 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6258C59B903
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:59:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314512.1584487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E665B59BCF8
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 00:12:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314522.1584497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPowr-0000gc-O8; Wed, 20 May 2026 21:59:29 +0000
+	id 1wPp8c-0003Pd-OV; Wed, 20 May 2026 22:11:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314512.1584487; Wed, 20 May 2026 21:59:29 +0000
+Received: by outflank-mailman (output) from mailman id 1314522.1584497; Wed, 20 May 2026 22:11:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPowr-0000dg-LF; Wed, 20 May 2026 21:59:29 +0000
-Received: by outflank-mailman (input) for mailman id 1314512;
- Wed, 20 May 2026 21:59:28 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wPp8c-0003OC-Le; Wed, 20 May 2026 22:11:38 +0000
+Received: by outflank-mailman (input) for mailman id 1314522;
+ Wed, 20 May 2026 22:11:37 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPowp-0000da-VP
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 21:59:28 +0000
+ id 1wPp8Z-0003O6-QE
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 22:11:37 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPowp-000S1I-CB
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:59:27 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wPp8Z-008vem-5k
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 00:11:35 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e2ebf-5cb7-0a2a0a5109dd-0a2a4502a2a0-0
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:59:27 +0200
+ id 6a0e3173-5cb7-0a2a0a5109dd-0a2a450a87da-24
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 00:11:34 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e2ebe-af86-0a2a45020019-5a9b32229b96-3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:59:27 +0200
+ id 6a0e3196-56b3-0a2a450a0019-5a9b32229d3a-3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 00:11:34 +0200
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=freeip.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPowf-00000007dEY-2xst; Wed, 20 May 2026 21:59:17 +0000
+ id 1wPp8P-00000007emg-1ZkF; Wed, 20 May 2026 22:11:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Nxl72hpGuRjTtFDFYVIo2HTu6nOPkXxVj25aveizy6g=; b=rWM0lK7Hb+v9K8wEmJj/KZGSYj
-	kDp9lGXOtLBV9sa8n35EUiVvI2ure9vEJax/mBA11EaqvNwHobSvmqnpqe77NuTeAAt/mcYg8LeyN
-	c9MXpxa5tpbhSxt/zp7k+cuirWL2lrB4rxT5Ae3Na/SYbnAvrp5cfdzPzFrout1MgTppWvMo+ZwzP
-	6DJzFDhMSJ4F91pZHMVXs4sHCkjT8LHSmvyFm00Y2BL7ELdQjC4/+RGJRrMeE079Fn7LcaPTTHUm2
-	KsO9X8NY3H4bmoh4UkTHqE5neD/VH26JyjMV4rnusuyKL4M3wXgCJw+hrbp/q1m8q/yNoJp8GkuqY
-	dp2vdBEw==;
-Message-ID: <4f5fb04c3682a8814ff6eaef9c7d5358f97f2dd1.camel@infradead.org>
-Subject: Re: [PATCH v3 14/41] x86/kvmclock: Move sched_clock save/restore
- helpers up in kvmclock.c
+	bh=CT5QpPm6eA1CZnoEA6O4hJlmgB44gFuedizQIf0klZQ=; b=c6or5S8TwDkifUFcK1yIWbcrXf
+	iRKKGvwlZrOWMQeTdtkFxu/d1OfuzMFdhaJI2d9ssCc8q372BQ2B1Ep1743dJ/anVPzTkw5Yo8fBt
+	Vj1JnT8xFtDqfEaMkxIao0gcZVpBpNQhW/S5a4eLRfbm4ARdcEdMimgSzT3zv9wu/T8QvZn5yjO1W
+	tUWxXHaBGj3zJnza9n8IJyoDru0nfl0tRUPczn8U5Km5oQ6HZx0s1p0Xx2Lc6lux2lZYyxHPAALvR
+	RaY4ql1iINZwgGIr6pW/Hj1n5NKw+17K+4RZuUFhTggbPIl9gHTD0B6G+Qb3g+qEpDUiJVM+lXo9b
+	53Jm1N8w==;
+Message-ID: <93f8fad19e2c617ca17f544d11483c517024bfc4.camel@infradead.org>
+Subject: Re: [PATCH v3 15/41] x86/xen/time: Nullify x86_platform's
+ sched_clock save/restore hooks
 From: David Woodhouse <dwmw2@infradead.org>
 To: Sean Christopherson <seanjc@google.com>, Kiryl Shutsemau
  <kas@kernel.org>,  Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan"
@@ -89,22 +89,22 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov
  linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org, Michael
  Kelley <mhklinux@outlook.com>, Tom Lendacky <thomas.lendacky@amd.com>,
  Nikunj A Dadhania <nikunj@amd.com>, Thomas Gleixner <tglx@linutronix.de>
-Date: Wed, 20 May 2026 22:59:15 +0100
-In-Reply-To: <20260515191942.1892718-15-seanjc@google.com>
+Date: Wed, 20 May 2026 23:11:23 +0100
+In-Reply-To: <20260515191942.1892718-16-seanjc@google.com>
 References: <20260515191942.1892718-1-seanjc@google.com>
-	 <20260515191942.1892718-15-seanjc@google.com>
+	 <20260515191942.1892718-16-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-SmgPIZ7sB07ARuLBADik"
+	boundary="=-eUMZcoCFNRZTyvVvYNIb"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-720697/1779314367-7BF66161-91A61A3E/0/0
+X-purgate-ID: tlsNG-4011c0/1779315094-72D708B7-8EBC1E31/0/0
 X-purgate-type: clean
-X-purgate-size: 7618
+X-purgate-size: 8596
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
 	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
@@ -112,7 +112,7 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,infradead.org:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,infradead.org:mid];
 	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -136,26 +136,50 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 6258C59B903
+X-Rspamd-Queue-Id: E665B59BCF8
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-SmgPIZ7sB07ARuLBADik
+--=-eUMZcoCFNRZTyvVvYNIb
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
-> Move kvmclock's sched_clock save/restore helper "up" so that they can
-> (eventually) be referenced by kvm_sched_clock_init().
->=20
-> No functional change intended.
+> Nullify the x86_platform sched_clock save/restore hooks when setting up
+> Xen's PV clock to make it somewhat obvious the hooks aren't used when
+> running as a Xen guest (Xen uses a paravirtualized suspend/resume flow).
 >=20
 > Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
+Hm. Xen HVM guests *do* use a standard ACPI S4 hibernation flow.
 
---=-SmgPIZ7sB07ARuLBADik
+Does that need testing?
+
+> ---
+> =C2=A0arch/x86/xen/time.c | 6 ++++++
+> =C2=A01 file changed, 6 insertions(+)
+>=20
+> diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
+> index 3d3165eef821..21d366d01985 100644
+> --- a/arch/x86/xen/time.c
+> +++ b/arch/x86/xen/time.c
+> @@ -568,6 +568,12 @@ static void __init xen_init_time_common(void)
+> =C2=A0	xen_sched_clock_offset =3D xen_clocksource_read();
+> =C2=A0	static_call_update(pv_steal_clock, xen_steal_clock);
+> =C2=A0	paravirt_set_sched_clock(xen_sched_clock);
+> +	/*
+> +	 * Xen has paravirtualized suspend/resume and so doesn't use the common
+> +	 * x86 sched_clock save/restore hooks.
+> +	 */
+> +	x86_platform.save_sched_clock_state =3D NULL;
+> +	x86_platform.restore_sched_clock_state =3D NULL;
+> =C2=A0
+> =C2=A0	tsc_register_calibration_routines(xen_tsc_khz, NULL);
+> =C2=A0	x86_platform.get_wallclock =3D xen_get_wallclock;
+
+
+--=-eUMZcoCFNRZTyvVvYNIb
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -234,22 +258,22 @@ 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
-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
+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
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIA1i/IdMAU6jNE
-YR+Er7BKG2cHykZ7mph2HRWuutg8RzbkuqvfvD0METs1Ayxh8fqZHLh0IG6D5lUxT5s2I85e+Pq2
-yF+OzE4w0KaLk1wK93V9lKwasuH4WqNiLwWK4g5GUdB0MlMaBsI/VZB5dUFHyhzshFC4UYVKfdua
-xagqL87YM4Tpssvhd9eybPc+YG3xOiNP6eW3uAagZAa2EccZ3/xM6v6ICVo/wgV4qSWUdxqAQtdN
-pqMsvPegEPXiqgvD+10jFAabrydyizy085OgXXd88sW/HvT5KdT9vE4xX2myxLqhaop6/rEhxgvg
-iQEclFlgpR4wxYbUHk4yfJt9bTxZBiVuk35kH8Kn9OjhMeVrxxIm8dC/sjOvMRwd5d6tg1VMEqMx
-GdjxelrKboQ2TUEHW9yIjyWCgU5jntwfHxauGaW5UDJ6GK35JhsqIX8rHqwaOwQikgRsScQ+Y8KK
-4I7N+2Qv/55WMueEq+uXCEolpyP6AgD8huXXBB8Hmf/0cGpkHHcWw8qrekWZOYAJT9qLR7q1h7P/
-ypfMRQiU6q8bMMEJpk3nes/xrZgYg1G8amAphx3jSggq2TsGtdUSVIBk2fXqAzydNXPbn5WfuQ7d
-N29x1joyhR6HpjpY9ipP3FFvo6vhhuR4w42OUK7R1GM/6Attasc01bIfhhB1QCQAAAAAAAA=
+cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAkoslWOiVglKA
+MfX4FWwlVWwm7DnxMV4Z/ctuNZBNjVd2VYW/SezvSfOqMuAoj7G+Hg2Pj4tq2WvX2sedXmd3OeHl
+CaKlFsmAiK1ASraPdeAGHKwZpFsb4Jbvo+3xHXBW1JWOKdvhzNcmN9asFdZgzqGeEJ5ZZVzB+jxy
+3oEQA7Lt/ChWQFOBzKJteBog/7EvYYrvNDTPOtvnJO9ehUPSEfzazLA5Uo3RezTz+tR5gMV1VvSI
+LagaRfCN6OZl8y1sOAIu+XXAk24B7B47l/rrhPYTeukeOJlRIvx2ToJ7Q1NcwmJq1c3AugtCjOie
+H9qyA2LyqrLqEJ/nctTvVj8LBFMQBD818qAOzolUwy+QuHXgxzKTpLhV+h0JHb8KYYmZ4sQRnZUR
+/Va1eJAe4S0BCn+EAdcjWt7uSmywZXWjWJYQFEW15xw9RNiGGmQccE9JrdGOQHtxhPu4cZ8HGfmO
+bncsG9lgA45mjKEnQtNM+ERGSgOeLP33Qz+S1U814PyAQLZ/ZeT6elUux3gFoBmOaEt+1XSeKYLP
+z/2Ii/6QWpBc3ABODZjvdlAshLXlX59uKlYD17LdydkTrAqYXXASl826hmF9GI6ui+nEoefY3kct
+CcGuqIT/XuMGN+tl1uHot/PmzP4771iRYqAkw+DyGLGHic2UTxK1EMN5WOlPY4EAAAAAAAA=
 
 
---=-SmgPIZ7sB07ARuLBADik--
+--=-eUMZcoCFNRZTyvVvYNIb--
 
