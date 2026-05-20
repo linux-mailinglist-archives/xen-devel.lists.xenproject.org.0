@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id xkCULecjDmoo6gUAu9opvQ
+	id 2A2yHOIjDmr26QUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:13:11 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:13:06 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3393F59A8FA
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:13:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314395.1584357 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E0A359A8DD
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:13:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314394.1584353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPoDm-0004DK-7v; Wed, 20 May 2026 21:12:54 +0000
+	id 1wPoDl-00047X-VR; Wed, 20 May 2026 21:12:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314395.1584357; Wed, 20 May 2026 21:12:54 +0000
+Received: by outflank-mailman (output) from mailman id 1314394.1584353; Wed, 20 May 2026 21:12:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPoDm-00047O-4X; Wed, 20 May 2026 21:12:54 +0000
-Received: by outflank-mailman (input) for mailman id 1314395;
+	id 1wPoDl-000458-Ri; Wed, 20 May 2026 21:12:53 +0000
+Received: by outflank-mailman (input) for mailman id 1314394;
  Wed, 20 May 2026 21:12:52 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <mfo@igalia.com>) id 1wPoDk-00044l-Px
+ (envelope-from <mfo@igalia.com>) id 1wPoDk-00044Z-4c
  for xen-devel@lists.xenproject.org; Wed, 20 May 2026 21:12:52 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPoDk-005Gae-63
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:12:52 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wPoDj-00EDfE-H6
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:12:51 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <mfo@igalia.com>)
- id 6a0e23c0-2eae-0a2a0a5409dd-0a2a450789f8-14
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:12:52 +0200
+ id 6a0e23cc-e002-0a2a0a5209dd-0a2a4502d6f0-10
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:12:51 +0200
 Received: from [213.97.179.56] (helo=fanzine2.igalia.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <mfo@igalia.com>)
- id 6a0e23d3-229c-0a2a45070019-d561b338a818-3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:12:52 +0200
+ id 6a0e23d2-af86-0a2a45020019-d561b338a816-3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:12:51 +0200
 Received: from 186-249-145-161.shared.desktop.com.br ([186.249.145.161]
  helo=[192.168.1.68]) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wPoDN-0041Tq-R0; Wed, 20 May 2026 23:12:30 +0200
+ id 1wPoDS-0041Tq-O9; Wed, 20 May 2026 23:12:35 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,31 +52,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20170329 header.d=igalia.com header.i="@igalia.com" header.h="Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:Date:Subject:From"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20170329 header.d=igalia.com header.i="@igalia.com" header.h="Cc:To:In-Reply-To:References:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
-	Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=HMYOPdGU8sl7pv2qCjbJUiNAmrkkLYxcfG9BmUTr1j0=; b=G5/E2wwpP3qOYwkqsVagOvWPkD
-	sNR91BuKo1uImAfen8tomjkL5x3iaLKBFF87LMWLTEGsgPyPfcwsYqtdaXP5UtLliXfonRM3u/OCo
-	F+/fM2JBLm0FyO4zhizXA9k4YQgNriAGCIb+Mg8vUEPjtdxglxrBn79WEkEpMnzIoG3KBxQxpvjVr
-	J0uIHqZxstPkw5ExB7jI3mLXriokseheA5NpjN4G896npCFWzy3IeRLQNGWdc/1PnQUkrhXhnx1UK
-	rSldvJPksowRssF8w3czF1Wf1ZWtsxSt5U+nWeL7fagxxh30ACgyrvYGoMeB1OofoTs0pfvhEe2+X
-	pxKGyQDg==;
+	s=20170329; h=Cc:To:In-Reply-To:References:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=QWDJ2OzZaJom0a60jnwGYvvAozNLoOMpVxRWdTCYrLY=; b=k0wISdlG2PRGKql4/MXlPi0po4
+	EfelhhvuoBBZAUZY1KGzV8lbvG53iTgc3x9kKP66naKIZNo7xHGstbidJ6sMr0YL4w3vMBC/hnTwv
+	0GdgVAjRGCRlGhMoW+ofgtEzcU6REh6OX0BSJVUP00+BD7qD5i1Us2ijJlI3NbLqyG3FyoZ2zCXps
+	N2ETl/O8vHJyASsxVO2zCNbjpA/m9aYC+q1GAqVJufiNSgYUQJCEq5+Uo8aK1A0GdukhrAs/TosIB
+	xdFYNv7CSitO+KF2Rwm1wI8dc8b99jTvpIBDZtbZjWMclDN64XwsDUXbzEnJXMsZnImd8KZkl+F7P
+	1HCZg+bQ==;
 From: Mauricio Faria de Oliveira <mfo@igalia.com>
-Subject: [PATCH v3 0/4] x86/pvh: fix unbootable VMs again (PVH + KASAN)
-Date: Wed, 20 May 2026 18:12:04 -0300
-Message-Id: <20260520-pvh-kasan-inline-v3-0-bede769c6ec7@igalia.com>
+Date: Wed, 20 May 2026 18:12:05 -0300
+Subject: [PATCH v3 1/4] x86/asm: move inline string functions to
+ <asm/string_inline.h>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKQjDmoC/33NQQ6CMBCF4auQrq2hQ23FlfcwLkqZwkQspDWNh
- nB3CytNjMv/JfPNzCIGwshOxcwCJoo0+hzVrmC2N75DTm1uBiWoUgLwKfX8ZqLxnPxAHrlCZ6z
- WTjSgWT6bAjp6buTlmrun+BjDa/uQxLr+wZLgJdeoRC0rKW0NZ+rMQGZvxztbtQSfgv4hQBbAH
- nRzbK1zynwJy7K8AZCPjPPzAAAA
-X-Change-ID: 20260422-pvh-kasan-inline-6efac77f1b27
+Message-Id: <20260520-pvh-kasan-inline-v3-1-bede769c6ec7@igalia.com>
+References: <20260520-pvh-kasan-inline-v3-0-bede769c6ec7@igalia.com>
+In-Reply-To: <20260520-pvh-kasan-inline-v3-0-bede769c6ec7@igalia.com>
 To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
  Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
  x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
@@ -86,9 +84,9 @@ Cc: kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
  xen-devel@lists.xenproject.org, Mauricio Faria de Oliveira <mfo@igalia.com>, 
  kernel test robot <lkp@intel.com>
 X-Mailer: b4 0.14.2
-X-purgate-ID: tlsNG-ef75cf/1779311572-22F76C48-C353EFC2/0/0
+X-purgate-ID: tlsNG-720697/1779311571-B0979161-D1A88A3B/0/0
 X-purgate-type: clean
-X-purgate-size: 6162
+X-purgate-size: 4424
 X-Spamd-Result: default: False [0.61 / 15.00];
 	R_DKIM_REJECT(1.00)[igalia.com:s=20170329];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
@@ -100,7 +98,7 @@ X-Spamd-Result: default: False [0.61 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:adobriyan@gmail.com,m:boris.ostrovsky@oracle.com,m:kernel-dev@igalia.com,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mfo@igalia.com,m:lkp@intel.com,s:lists@lfdr.de];
 	FREEMAIL_TO(0.00)[kernel.org,redhat.com,alien8.de,linux.intel.com,zytor.com,suse.com,gmail.com,oracle.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[entry:email,igalia.com:mid,igalia.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,intel.com:email,igalia.com:mid,igalia.com:email];
 	FORGED_SENDER(0.00)[mfo@igalia.com,xen-devel-bounces@lists.xenproject.org];
 	RCPT_COUNT_TWELVE(0.00)[14];
 	FUZZY_RATELIMITED(0.00)[rspamd.com];
@@ -122,160 +120,136 @@ X-Spamd-Result: default: False [0.61 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 3393F59A8FA
+X-Rspamd-Queue-Id: 0E0A359A8DD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The issue of unbootable VMs with CONFIG_PVH due to CONFIG_KASAN is back.
+In next patch, inline string functions are included from 'boot/string.c'.
 
-Booting directly from vmlinux (instead of bzImage) now fails with gcc-14/15
-(but works with gcc-12/13) if CONFIG_KASAN_GENERIC is set, on Ubuntu 25.10.
+Using the header <asm/string.h> is problematic for a couple of reasons (*)
+(i.e., build errors), which can be addressed, but introduce unnecessary
+complexity and regression risk (beyond these _found_ couple of reasons).
 
-The PVH code is required/supposed not to use the KASAN memory access check
-in the kernel entry point as KASAN has not yet been setup, or an exception
-is hit and the boot fails.
+Using a new header <asm/string_inline.h> is simpler and transparent to
+existing users of <asm/string.h>, with less changes to 'boot/string.c'
+and its users (eg 'boot/compressed/string.c' and 'purgatory/purgatory.ro'),
+which minimize regression risk.
 
-This was previously described and addressed with __builtin_mem{cmp,set}():
-- commit 661362e3dcab ("xen, pvh: fix unbootable VMs (PVH + KASAN - AMD_MEM_ENCRYPT)")
-- commit 416a33c9afce ("x86/cpu: fix unbootable VMs by inlining memcmp() in hypervisor_cpuid_base()")
-- commit fbe5a6dfe492 ("xen, pvh: fix unbootable VMs by inlining memset() in xen_prepare_pvh()")
+No functional change intended.
 
-However, even with __builtin the compiler may decide to use the out of line
-function instead of the inline implementation. So, that does not really fix
-the issue unconditionally; see details below.
+(*) Reasons not to include <asm/string.h> in 'boot/string.c':
 
-In order to address this, it's required to switch to inline implementations
-that do not depend on the compiler.
+1) 'boot/string.c' is built for 16-bit/real mode thus some type and word
+size errors happen when <asm/string.h> include, e.g., <asm/string_64.h>.
 
-There's such a memset() in <asm/string.h> and memcmp() in 'boot/string.c'.
-Use them instead of builtins in PVH entry.
+This can be addressed with '#ifndef _SETUP' (defined by 'boot/Makefile').
 
-Testing:
+2) 'boot/string.c' is included by 'boot/compressed/string.c' which is
+the source of 'purgatory/string.o', linked by 'purgatory/purgatory.ro'
+(CONFIG_KEXEC_FILE).
 
-- Booting from vmlinux (fixed) and bzImage (still works) using
-  allnoconfig + CONFIG_PVH + CONFIG_KASAN with gcc-12/13/14/15.
+In 64BIT, <asm/string.h> includes <asm/string_64.h>, which references
+__memset() and __memmove() with KCFI_REFERENCE(), ie, __ADDRESSABLE();
+however, 'purgatory/purgatory.ro' is not linked with implementations.
 
-- Building with CONFIG_KEXEC_FILE, CONFIG_CFI and !CONFIG_KASAN with LLVM 20
-  (check for a build error related to <asm/string.h>, not caught previously).
+So, CONFIG_KEXEC_FILE and CONFIG_CFI without CONFIG_KASAN hit errors:
 
-Details/Debugging:
+  >> ld.lld: error: undefined symbol: __memset
+     >>> referenced by string.c
+     >>>               arch/x86/purgatory/purgatory.ro:\
+                       (__UNIQUE_ID_addressable___memset_0)
+  --
+  >> ld.lld: error: undefined symbol: __memmove
+     >>> referenced by string.c
+     >>>               arch/x86/purgatory/purgatory.ro:\
+                       (__UNIQUE_ID_addressable___memmove_1)
 
-- Only CONFIG_PVH (works):
+(Note: this is not hit with CONFIG_KASAN because 'boot/compressed/string.c'
+adds aliases __memset()/__memmove() to memset()/memmove() in that case.)
 
-  make allnoconfig
-  ./scripts/config \
-    -e 64BIT -e HYPERVISOR_GUEST -e PVH \
-    -e SERIAL_8250 -e SERIAL_8250_CONSOLE
-  make olddefconfig
-  make -j$(nproc) vmlinux
+This can be addressed with 'CFLAGS_string.o := -D__DISABLE_EXPORTS' so to
+disable KCFI_REFERENCE() in 'purgatory/Makefile' (it removes CC_FLAGS_CFI
+anyway).
 
-  qemu-system-x86_64 \
-    -accel kvm -nodefaults -nographic -serial stdio \
-    -kernel vmlinux -append 'console=ttyS0'
-  ...
-  SeaBIOS (version ...)
-  Booting from ROM...
-  Linux version ...
-  ...
-  <Ctrl-C>
+...
 
-- With CONFIG_KASAN (fails)
+However, since a change in this series would need more changes to address
+errors it causes, it is reasonable to change the series not to cause them,
+by using a separate header with _just_ inline string functions.
 
-  ./scripts/config -e KASAN
-  make olddefconfig
-  make -j$(nproc) vmlinux
-
-  qemu-system-x86_64 \
-    -accel kvm -nodefaults -nographic -serial stdio \
-    -kernel vmlinux -append 'console=ttyS0'
-  ...
-  SeaBIOS (version ...)
-  Booting from ROM...
-  <QEMU reboot loop, flashing the text above>
-
-- Debugging:
-
-  Enable debug info and rebuild.
-
-  QEMU: enable and wait for GDB, stop rebooting, remain running.
-
-  qemu-system-x86_64 \
-    -s -S -no-reboot -no-shutdown \
-    <other options>
-
-  gdb vmlinux
-  (gdb) target remote localhost:1234
-  ...
-  (gdb) c
-  ...
-  Thread 2 received signal SIGQUIT, Quit.
-  ...
-  (gdb) info threads
-    Id   Target Id                    Frame
-    1    Thread 1.1 (CPU#0 [running]) bytes_is_nonzero (
-      start=0xfffffbfff031eebe <error: Cannot access memory at address 0xfffffbfff031eebe>, size=1)
-      at .../linux/mm/kasan/generic.c:98
-  * 2    Thread 1.2 (CPU#1 [halted ]) 0x00000000000fd0a9 in ?? ()
-  ...
-  (gdb) thr 1
-  ...
-  (gdb) bt
-  #0  bytes_is_nonzero (start=0xfffffbfff031eebe <error: Cannot access memory at address 0xfffffbfff031eebe>, size=1)
-      at .../linux/mm/kasan/generic.c:98
-  #1  memory_is_nonzero (start=0xfffffbfff031eebe, end=0xfffffbfff031eebf) at .../linux/mm/kasan/generic.c:115
-  #2  memory_is_poisoned_n (addr=0xffffffff818f75f0, size=8) at .../linux/mm/kasan/generic.c:140
-  #3  memory_is_poisoned (addr=0xffffffff818f75f0, size=8) at .../linux/mm/kasan/generic.c:172
-  #4  check_region_inline (addr=0xffffffff818f75f0, size=8, write=false, ret_ip=18446744071585002062)
-      at .../linux/mm/kasan/generic.c:191
-  #5  kasan_check_range (addr=addr@entry=0xffffffff818f75f0, size=size@entry=8, write=write@entry=false,
-      ret_ip=18446744071585002062) at .../linux/mm/kasan/generic.c:200
-  #6  0xffffffff813eb283 in __asan_loadN (addr=addr@entry=0xffffffff818f75f0, size=size@entry=8)
-      at .../linux/mm/kasan/generic.c:278
-  #7  0xffffffff815df24e in memcmp (cs=cs@entry=0xffffffff818f75f0, ct=ct@entry=0x1be2fe4, count=<optimized out>,
-      count@entry=12) at .../linux/lib/string.c:683
-  #8  0xffffffff81ba2323 in cpuid_base_hypervisor (sig=0xffffffff818f75f0 "XenVMMXenVMM", leaves=2)
-      at .../linux/arch/x86/include/asm/cpuid/api.h:206
-  #9  xen_cpuid_base () at .../linux/arch/x86/include/asm/xen/hypervisor.h:46
-  #10 xen_prepare_pvh () at .../linux/arch/x86/platform/pvh/enlighten.c:119
-  #11 0x0000000001ba2588 in ?? ()
-  #12 0x0000000000000000 in ?? ()
-  (gdb)
-
-  Frames #7-#8 show the non-builtin memcmp() (lib/string.c) was called
-  even with __builtin_memcmp() being used in cpuid_base_hypervisor().
-
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202605140922.q7IlUv7o-lkp@intel.com/
 Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
 ---
-Changes in v3:
-- Create and use a separate header for inline string functions
-  to fix a build error reported by kernel test robot (patch 1).
-- That also removes '#ifndef _SETUP/#endif' in <asm/string.h>.
-- Link to v2: https://lore.kernel.org/r/20260427-pvh-kasan-inline-v2-0-2c57b8dcff6a@igalia.com
+ arch/x86/include/asm/string.h        | 21 +--------------------
+ arch/x86/include/asm/string_inline.h | 26 ++++++++++++++++++++++++++
+ 2 files changed, 27 insertions(+), 20 deletions(-)
 
-Changes in v2:
-- Add comment about the return value of __inline_memcmp() in patch 1. (v3: now 2)
-- Add 'Reviewed-by: Juergen Gross' in patches 2 and 3 (v3: now 3 and 4).
-- Link to v1: https://lore.kernel.org/r/20260422-pvh-kasan-inline-v1-0-7e6194344c92@igalia.com
+diff --git a/arch/x86/include/asm/string.h b/arch/x86/include/asm/string.h
+index 9cb5aae7fba9ffcf0f5af8f939d30467750ccaa9..8a849bb5d0c7100a2a1820ec0af9fc9f850727fd 100644
+--- a/arch/x86/include/asm/string.h
++++ b/arch/x86/include/asm/string.h
+@@ -8,25 +8,6 @@
+ # include <asm/string_64.h>
+ #endif
+ 
+-static __always_inline void *__inline_memcpy(void *to, const void *from, size_t len)
+-{
+-	void *ret = to;
+-
+-	asm volatile("rep movsb"
+-		     : "+D" (to), "+S" (from), "+c" (len)
+-		     : : "memory");
+-	return ret;
+-}
+-
+-static __always_inline void *__inline_memset(void *s, int v, size_t n)
+-{
+-	void *ret = s;
+-
+-	asm volatile("rep stosb"
+-		     : "+D" (s), "+c" (n)
+-		     : "a" ((uint8_t)v)
+-		     : "memory");
+-	return ret;
+-}
++#include <asm/string_inline.h>
+ 
+ #endif /* _ASM_X86_STRING_H */
+diff --git a/arch/x86/include/asm/string_inline.h b/arch/x86/include/asm/string_inline.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..ffcfa6583d2bc7b91d078888518d0e80248af940
+--- /dev/null
++++ b/arch/x86/include/asm/string_inline.h
+@@ -0,0 +1,26 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _ASM_X86_STRING_INLINE_H
++#define _ASM_X86_STRING_INLINE_H
++
++static __always_inline void *__inline_memcpy(void *to, const void *from, size_t len)
++{
++	void *ret = to;
++
++	asm volatile("rep movsb"
++		     : "+D" (to), "+S" (from), "+c" (len)
++		     : : "memory");
++	return ret;
++}
++
++static __always_inline void *__inline_memset(void *s, int v, size_t n)
++{
++	void *ret = s;
++
++	asm volatile("rep stosb"
++		     : "+D" (s), "+c" (n)
++		     : "a" ((uint8_t)v)
++		     : "memory");
++	return ret;
++}
++
++#endif /* _ASM_X86_STRING_INLINE_H */
 
----
-Mauricio Faria de Oliveira (4):
-      x86/asm: move inline string functions to <asm/string_inline.h>
-      x86/asm, x86/boot: expose inline memcmp
-      x86/cpuid: fix unbootable VMs by really inlining memcmp() in hypervisor_cpuid_base()
-      x86/pvh: fix unbootable VMs by really inlining memset() in xen_prepare_pvh()
-
- arch/x86/boot/string.c               |  6 ++----
- arch/x86/include/asm/cpuid/api.h     |  2 +-
- arch/x86/include/asm/string.h        | 21 +-------------------
- arch/x86/include/asm/string_inline.h | 37 ++++++++++++++++++++++++++++++++++++
- arch/x86/platform/pvh/enlighten.c    |  3 ++-
- 5 files changed, 43 insertions(+), 26 deletions(-)
----
-base-commit: 80dd246accce631c328ea43294e53b2b2dd2aa32
-change-id: 20260422-pvh-kasan-inline-6efac77f1b27
-
-Best regards,
 -- 
-Mauricio Faria de Oliveira <mfo@igalia.com>
+2.51.0
 
 
