@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2JsuNYcCDmra5QUAu9opvQ
+	id wLdbGPYCDmqs5QUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 20:50:47 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 20:52:38 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38C045974D3
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 20:50:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314289.1584245 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C139B597579
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 20:52:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314296.1584254 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPlzq-0005S8-OB; Wed, 20 May 2026 18:50:22 +0000
+	id 1wPm1n-00062Q-7x; Wed, 20 May 2026 18:52:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314289.1584245; Wed, 20 May 2026 18:50:22 +0000
+Received: by outflank-mailman (output) from mailman id 1314296.1584254; Wed, 20 May 2026 18:52:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPlzq-0005Q6-Ky; Wed, 20 May 2026 18:50:22 +0000
-Received: by outflank-mailman (input) for mailman id 1314289;
- Wed, 20 May 2026 18:50:20 +0000
+	id 1wPm1n-0005zW-58; Wed, 20 May 2026 18:52:23 +0000
+Received: by outflank-mailman (input) for mailman id 1314296;
+ Wed, 20 May 2026 18:52:22 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPlzo-0005Px-NV
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 18:50:20 +0000
+ id 1wPm1m-0005zQ-9M
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 18:52:22 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPlzn-00513u-LM
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 20:50:19 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wPm1l-008YEM-Lq
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 20:52:21 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e0268-bab6-0a2a0a5309dd-0a2a45049fd0-2
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 20:50:18 +0200
+ id 6a0e02dc-bab6-0a2a0a5309dd-0a2a450be6d6-8
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 20:52:20 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e026a-1dec-0a2a45040019-5a9b3222a532-3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 20:50:18 +0200
+ id 6a0e02e4-212f-0a2a450b0019-5a9b3222bfcc-3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 20:52:20 +0200
 Received: from 54-240-197-227.amazon.com ([54.240.197.227]
  helo=freeip.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPlzZ-00000007UI1-3OGD; Wed, 20 May 2026 18:50:06 +0000
+ id 1wPm1d-00000007UNm-3bew; Wed, 20 May 2026 18:52:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,18 +59,18 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=vfqQqe3/Q5FohBSCxOE8qHtO0nxO4XvM5LjLHZKXyao=; b=LMM/1bfq7BKcsb1h5JmlVGAaqW
-	vi8jmiUaEoy+tahKu2tgUaSO9O0xNvl+zkTWYReTeSdPjeJucgVK5iiSoGE8XdlPjbEflxMAovy0J
-	9Q4N+u9Y/VZ6oK8vkDXNkLffswvQhkZ01Bazh+3DdTFIGV670OJV4FhZ9CYmgnzNWEDZfbIoSKcRG
-	S1wnSn16JqIf9a8tBjsyYQZjy69Nj6zCvX5x2jroKuilGJOO/IjPGMmqVI4LzsRgCOBYYVLj3cZG8
-	SahANau1nYZOtWoYoQ+CykqDx66r4FqVPVBvoTcSECdEbqdw4oMj+3eQBlwVw4PMkiBPwJlrcxmOZ
-	V3TQPMqg==;
-Message-ID: <e892099dd6f459e5fe60ae7b9cb2183c2da2e1e6.camel@infradead.org>
-Subject: Re: [PATCH v3 40/41] x86/tsc: Add standalone helper for getting CPU
- frequency from CPUID
+	bh=eRikeJAaevbA4NP2g19rUNwI2NZyhVnTYBWtQ7dcaAU=; b=lgUr7i8EL2F8QaWtzohapoINjb
+	dAnsORiobdYMPtmsSDZ/QRiN7s1rJUCLo9RKbLoIg7hISvL/AVEQZV+KPYSUfrPlPLBx6WxW38sGS
+	StE/N1VLLOq2EXBHiHp5tpuj4XnsA94KqqySKjvCZH1818yr33rWd2lt3i8Z7+V5eDgAVvzdgankH
+	o6qQUd23ZxwUk68fsqyexc2ORewi6gkpiiPpEOsilLASL6yk5nr0Xj2C2toi+f9IuAfZLfUPegn0l
+	dMC3Fcyo7XJFJ3v8+0OXg/iwVZLcN5GdGUs4G5fr4w3PaILbl4vVz1q0UuQpfAUDYMnvOFqzrUtKR
+	sQuhKA1A==;
+Message-ID: <0a3aa07a1d3c4bec2b89f8026093969155b73caa.camel@infradead.org>
+Subject: Re: [PATCH v3 41/41] x86/kvmclock: Get CPU base frequency from
+ CPUID when it's available
 From: David Woodhouse <dwmw2@infradead.org>
-To: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
- <seanjc@google.com>,  Kiryl Shutsemau <kas@kernel.org>, "K. Y. Srinivasan"
+To: Sean Christopherson <seanjc@google.com>, Kiryl Shutsemau
+ <kas@kernel.org>,  Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan"
  <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
  <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li
  <longli@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, Alexey
@@ -89,31 +89,30 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov
  linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org, Michael
  Kelley <mhklinux@outlook.com>, Tom Lendacky <thomas.lendacky@amd.com>,
  Nikunj A Dadhania <nikunj@amd.com>, Thomas Gleixner <tglx@linutronix.de>
-Date: Wed, 20 May 2026 19:50:04 +0100
-In-Reply-To: <3cb683b4-973a-4b3e-a5d5-a8baa8a70eb0@redhat.com>
+Date: Wed, 20 May 2026 19:52:12 +0100
+In-Reply-To: <20260515191942.1892718-42-seanjc@google.com>
 References: <20260515191942.1892718-1-seanjc@google.com>
-	 <20260515191942.1892718-41-seanjc@google.com>
-	 <3cb683b4-973a-4b3e-a5d5-a8baa8a70eb0@redhat.com>
+	 <20260515191942.1892718-42-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-JOgeb2pU8FOLtFZNxJ2T"
+	boundary="=-iph/FD/9Oere6U4F6y6S"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-ebf023/1779303018-2A9623FF-30B6FFEF/0/0
+X-purgate-ID: tlsNG-42698a/1779303140-1AF76F3B-1CF750A4/0/0
 X-purgate-type: clean
-X-purgate-size: 8201
+X-purgate-size: 8741
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
 	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:pbonzini@redhat.com,m:seanjc@google.com,m:kas@kernel.org,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,infradead.org:mid,amazon.co.uk:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -137,40 +136,56 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 38C045974D3
+X-Rspamd-Queue-Id: C139B597579
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-JOgeb2pU8FOLtFZNxJ2T
+--=-iph/FD/9Oere6U4F6y6S
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, 2026-05-16 at 09:42 +0200, Paolo Bonzini wrote:
-> On 5/15/26 21:19, Sean Christopherson wrote:
-> > Extract the guts of cpu_khz_from_cpuid() to a standalone helper that
-> > doesn't restrict the usage to Intel CPUs.=C2=A0 This will allow sharing=
- the
-> > core logic with kvmclock, as (a) CPUID.0x16 may be enumerated alongside
-> > kvmclock, and (b) KVM generally doesn't restrict CPUID based on vendor.
+On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
+> If CPUID.0x16 is present and valid, use the CPU frequency provided by
+> CPUID instead of assuming that the virtual CPU runs at the same
+> frequency as TSC and/or kvmclock.=C2=A0 Back before constant TSCs were a
+> thing, treating the TSC and CPU frequencies as one and the same was
+> somewhat reasonable, but now it's nonsensical, especially if the
+> hypervisor explicitly enumerates the CPU frequency.
 >=20
-> Even for native there's no real reason to restrict to Intel, I think.
-> native_calibrate_tsc() only limits itself because historically (prior to=
-=20
-> commit 604dc9170f24, "x86/tsc: Use CPUID.0x16 to calculate missing=20
-> crystal frequency", 2019-05-09) it used a hardcoded table of crystal=20
-> frequencies.
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+> =C2=A0arch/x86/kernel/kvmclock.c | 16 +++++++++++++++-
+> =C2=A01 file changed, 15 insertions(+), 1 deletion(-)
 >=20
-> Of course paranoia applies, but for virtualization, if the leaf exists=
-=20
-> there is no reason not to trust it.
+> diff --git a/arch/x86/kernel/kvmclock.c b/arch/x86/kernel/kvmclock.c
+> index 62c8ea2e6769..7607920ae386 100644
+> --- a/arch/x86/kernel/kvmclock.c
+> +++ b/arch/x86/kernel/kvmclock.c
+> @@ -190,6 +190,20 @@ void kvmclock_cpu_action(enum kvm_guest_cpu_action a=
+ction)
+> =C2=A0	}
+> =C2=A0}
+> =C2=A0
+> +static unsigned long kvm_get_cpu_khz(void)
+> +{
+> +	unsigned int cpu_khz;
+> +
+> +	/*
+> +	 * Prefer CPUID over kvmclock when possible, as the base CPU frequency
+> +	 * isn't necessarily the same as the kvmlock "TSC" frequency.
+> +	 */
+> +	if (!cpuid_get_cpu_freq(&cpu_khz))
+> +		return cpu_khz;
+> +
+> +	return pvclock_tsc_khz(this_cpu_pvti());
 
-Agreed.
+I'm fine with this in principle but shouldn't the fallback be calling
+kvm_get_tsc_khz() instead of directly calling pvclock_tsc_khz()?
 
-Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
 
---=-JOgeb2pU8FOLtFZNxJ2T
+--=-iph/FD/9Oere6U4F6y6S
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -249,22 +264,22 @@ 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
-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
+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
-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
+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
 
 
---=-JOgeb2pU8FOLtFZNxJ2T--
+--=-iph/FD/9Oere6U4F6y6S--
 
