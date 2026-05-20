@@ -2,48 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CFrHKzq8DWpT2wUAu9opvQ
+	id KKNfOUS9DWrH2wUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 15:50:50 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 15:55:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2890758F141
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 15:50:50 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1313978.1583993 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B4A058F22E
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 15:55:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1313986.1584003 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPhJL-0001TC-C5; Wed, 20 May 2026 13:50:11 +0000
+	id 1wPhO1-00020e-Tq; Wed, 20 May 2026 13:55:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1313978.1583993; Wed, 20 May 2026 13:50:11 +0000
+Received: by outflank-mailman (output) from mailman id 1313986.1584003; Wed, 20 May 2026 13:55:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPhJL-0001Qr-9L; Wed, 20 May 2026 13:50:11 +0000
-Received: by outflank-mailman (input) for mailman id 1313978;
- Wed, 20 May 2026 13:50:09 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wPhJJ-0001Ql-Md
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 13:50:09 +0000
+	id 1wPhO1-0001yQ-QW; Wed, 20 May 2026 13:55:01 +0000
+Received: by outflank-mailman (input) for mailman id 1313986;
+ Wed, 20 May 2026 13:55:00 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <roger.pau@citrix.com>) id 1wPhNz-0001yI-So
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 13:55:00 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPhJI-00AUIF-Jz
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 15:50:08 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wPhNy-00GHcw-Ry
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 15:54:59 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a0dbc0f-2eae-0a2a0a5409dd-0a2a45089730-2
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 15:50:08 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a0dbc10-63b5-0a2a45080019-d1558032a409-3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 15:50:08 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-48fde648a71so36200935e9.0
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 06:50:08 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-69-121.play-internet.pl.
- [109.243.69.121]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48febf8305dsm194507585e9.9.2026.05.20.06.50.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 May 2026 06:50:07 -0700 (PDT)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a0dbd15-2eae-0a2a0a5409dd-0a2a4507aac2-38
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 15:54:58 +0200
+Received: from [40.93.201.32]
+ (helo=CY3PR05CU001.outbound.protection.outlook.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <roger.pau@citrix.com>)
+ id 6a0dbd30-229c-0a2a45070019-285dc9206623-3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 15:54:58 +0200
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
+ by MW4PR03MB6523.namprd03.prod.outlook.com (2603:10b6:303:126::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Wed, 20 May
+ 2026 13:54:52 +0000
+Received: from CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
+ ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0048.013; Wed, 20 May 2026
+ 13:54:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,213 +58,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:In-Reply-To:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779285008; x=1779889808; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=EZ9lCyVH1EXRNroQFJ1fse/T5OyZlgaGaj8jm+Tv6j4=;
-        b=HUJldVWrmQa/QzA20m6P8azDebr9GOPPx+i52/ChECImRj1c8bVXnMYuelFXOgdYbx
-         bR7lgpFbc0hp0OXw8e2tPXy1QSQLjM6KOGxZGXlW1Fn7vhuPjFwIa0WB1P4+tWtn07BK
-         izeXR20BuAHaEhQKBJo/ZfAj9nt5cWvTrU0Thr9ClaalZyzr7wn9BZaeolN8OEmfAk+0
-         IAGsYszNVxImnhS170lPssTRMBATbaY2i/5ey+XB/3v3rMfdXboEv2acAKtSA+voozE/
-         gNLepQ0AtyBPNQBToeKE0wqpwDB89YvrpsW7c0skYPaXDR+JNyjBawkeTz1Z7oSwAiYe
-         2DLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779285008; x=1779889808;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=EZ9lCyVH1EXRNroQFJ1fse/T5OyZlgaGaj8jm+Tv6j4=;
-        b=p+SIdRTNXI0PF7SEV46PxulkoDfswf9E2vIpJIibK+O1xvUGH7/f2ck6Ch9V5lceid
-         MRAXok7fdtIR0VR86C6SJZc+fd8d2ofAzfyL/1yzx7vYeY6Mt/W9XITwu+aIk+Tu+V7k
-         Rz1aXWt1RgNU2i/hSgkpglZZmIINl2opqCg1rRE4OG/EAlQa+gWkb6GpZsyndpts/RLZ
-         SzGDR7d5++lPWagkBz4dNHnJbQ+GpWW0DRhfA1tp9nTk5PFEN59saq3IHPXDa4C+ly+V
-         ZqE+0djJGdvFoslu99kIbZLHWrQxu9x3uAnrd9oNupLirLjXL2onbQZ7w3dIZb36uwMJ
-         c92Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+aW/IifiTh2gzEGIkIUr+hMU40DLo7Em1gk8MVKU0eoECeNEpruR0zw8SoFvDZ3TE2thYFNMCoApw=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzyLnxFMoPYCmDfgRGSJjF4Z1otUqnV/WgrvGaxair6MbxHdyB6
-	55P22ofyACD8HrWGb/uFTXl4/0OqslejYuO1bEPmDTx55raL6OnHpMVsaWySow==
-X-Gm-Gg: Acq92OHAZfdGZjA3u6b3dl1QCXYjeY0A7PnEn0c5Pywcnxor1s6P35fVpSlkm47E/Mi
-	1sVg7tJYMYEL9wCGQPF+Yj/JK0ESLhOXPSeyQ4s8RmI6Gl5yNcppFOEgdXGxpwr+hjP0UPthhjD
-	NK2H0Lf7GHml7JtGoIzfLgc7HZHyt0JxCTdmdMpKjWHMnBO+hTM+cbgG6joQkr0BCmzu0ztLn6e
-	PyyntAjR1OpRdzzJAT8YBGp7ZbbtaEHTQMjg1QwG/K8fmNCtdsCLijQ5RX05GDdaMv7vqeZW/zW
-	BbAl484iNifbd7+XcdIfmp7BfTRbAbCQh4FkCSsQ03SFjljv1Ff8MPNHSaKqwm4Ofb96q3yOizy
-	DXFFhEZpsWGQT2cZGPVL3qVZtwU/N102aVcLplaEiexWBeutkwaySeXtWADXl3GkT4mbCaz1k7o
-	kFzI6H6i5pw0hvvl0mm9h35XxMREowpqCmcaP0KKYz72ZEjm2S8bpALXEu+JyayT8IG9hU3tiGJ
-	OU=
-X-Received: by 2002:a05:600c:1d09:b0:48d:50a:6ef4 with SMTP id 5b1f17b1804b1-48fe537fb44mr314284825e9.11.1779285007760;
-        Wed, 20 May 2026 06:50:07 -0700 (PDT)
-Message-ID: <cd7c7b48-16db-456b-b38a-5f7e8fdb43c1@gmail.com>
-Date: Wed, 20 May 2026 15:50:06 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Arm: do a 4th linking pass if necessary
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <7b23e011-56b8-4f6c-bd55-83e1d9b0453f@suse.com>
-Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <7b23e011-56b8-4f6c-bd55-83e1d9b0453f@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RpR4ifVe77t2GEop0aicxKo+RGpgDCTOQ1DE7CinXElZK9PaZhtVutTUIPgW/pgPtnUAXLpH9Y3DJHvxTGuUzOTnbr5+5kncRirsGBi+8LL5S/Sftfc4priWbUnQ1oHTnVjFd/cjdwbBaaVEhzF09lxfSlfXANNva3syqzHzRvD9P9Sjgj8diGD6YceFjJR55FesJsLginUUbFQHzudeEHyhNhY3BAYtSA2iZFlHz1zhb46POlA/+uAjSvHiH0BTDAxQQGlxzcGCisX5NRul2qrxVX+Ip6btZCE9hA+9U16W6eCg2AaYUokpfPQ5XI5gyLfkMCT56e8us/26rvWrSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6SGbwOpwSnbAXjVEgb37b75Phl/x2O+0FRj1Cy2LLmQ=;
+ b=VnYLDZCjiY1K/Kj1ISYzqGv99+Dzl+sYlZOW3Q9+abJsfHfLkUetPo7vY5LajmKkrI+OfKPGMgb/ElRPUkV01C7eLx4BMlXsbdht0vJVI7BJdICfhHvNRGycDTG+p1+8gxjPRyEzPuDkV8JGQNtnyPyntyGHFk+204u7lfDwizcPWEKFntXLVoQv/HS8EeeXCL1GM/Qr2Gz3Bs5kpZaxW48yk6BxlEuJLD6pdRSRKtFkgyK0uaG3pWu3WMMlonmBxHgUNxeqO9w/B92i2BlglA0FTrRal/0k+hbPfcs7YYXvXrNA9smr4MpQVwj5zm47Ta6xGmM5GrYromJwEkD2jA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6SGbwOpwSnbAXjVEgb37b75Phl/x2O+0FRj1Cy2LLmQ=;
+ b=IimDgSwUFIN9iAoAcXuhB99fs7qaheWvLGJkYbu/ej45yGnCJdPveWKGaiBCrwc786RRdnzZXx4JFgrK79dBywanVhPaJMb8/B9HEe6rPQemNE4bF3Zib8y9B6tzOVHM/O8W5+CON+lhJjRRiokM4pMeOhHzmcBj+mNOyXLHHCc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Wed, 20 May 2026 15:54:48 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 2/3] x86/shadow: VRAM last_dirty tagging
+Message-ID: <ag29KOzxOyU47mFM@macbook.local>
+References: <5149ab32-7d03-4ae5-9af0-e62dd5836329@suse.com>
+ <8559db88-5f1d-4ced-980c-e71c4e229c7c@suse.com>
+ <ae8sMiXAWjeXI3o1@macbook.local>
+ <eba10bd9-064b-437a-bf42-7a627fda464b@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c1860d/1779285008-BCB64DB1-27313756/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 4903
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+In-Reply-To: <eba10bd9-064b-437a-bf42-7a627fda464b@suse.com>
+X-ClientProxiedBy: MR1P264CA0031.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:2f::18) To CH7PR03MB7860.namprd03.prod.outlook.com
+ (2603:10b6:610:24e::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|MW4PR03MB6523:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7495e67-9ed6-417b-69ff-08deb6775d8d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|56012099003|22082099003|18002099003|5023799004|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	peIokoq4r67ZmAROmnjlxMpgG9a8uOoBzIs8fzgAJyszphSGPi5/lt8FYVTOxV4felPwyV3ZaLlvziclQywUCD5niZHKnIPizXK9vNCGOz01bA3QiQU4DY+ElZaCASULpFyD1nYnZajyxEC6fMw8tRgR+wlLcSP/BY1mRKvO7T2K0GfAqKZ3Vf5JeqZ7WmHkIhMmm2/fTMaE/9/4ks+DDhSGs4idZFoU3LO4DC6ffXZF7i8WLU7UW+aQ/t3RXL+ac2t/ZBeUjE7mZG5p0vExLeng2QGCLQhSJHB/uWRqQzwgFw4YQ+XDNCtbpU8RpQGtJYKUiGwjlTJL15YYYm/TryLO99Zd93i6Hef60Pm36YFgfEExFL6D3/G57u8xWKOLuN7gACq36zkEw+0NwAy6cXvBGJ3zI5++lTH5qpUdAgb0OFEcs0MDOHtboaJDERREIjr05GrI9IpjjMipUpNv7Eoq7wMpEzy/asdW8ov18oruhmtb1VqT6e2svZhf7b1SeaSGpzPsLDY/NnNYXAZgGN4PkyHuKznsE1TZf+Kf7DRxpvtvOp3Rf3rmj3k0N8fc6eazOyFDH+hxGPuwDBqEKNMFBOMYM/br9C7Pzga5HeyaJtxnijiC6UfxBiRenCT++rHFyzYv5eRJnNrr/ZVruUiSJ8Xcmjg3NYaFD2uH7vtHssBrXDcTADAZEPkZ6vCd
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(56012099003)(22082099003)(18002099003)(5023799004)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NGVIbzZvZnIrdmN3THdacm94OHErWWxGaGRyOGwrUkNJdU5uVUVZWFJKeE50?=
+ =?utf-8?B?N2xxRGoxZVhRYWliM1A0WVo3Uk1KTEJHVkQ4c0ZnMzhHUzRWYThrSXdTWjY3?=
+ =?utf-8?B?eHd4WnJ1eGRpMld4UzZDZ0Fma1hKOGtlYUdZZG1QOW5mRjY0eWhpRmxxZGl6?=
+ =?utf-8?B?eFQwUittNUd3M0czampmRXplUVh1anBMTmNld3U0WXVCWkFrbVF1SklDZnp4?=
+ =?utf-8?B?YzhMbVBRanEzVUVQUGxXZW8xc1J6NjdFZFBYRE9XMGZVckoyWW44clFCVjlk?=
+ =?utf-8?B?cis3QXR0dzluSVlpdG5JaU54c1BWUXY4UWpPQnE5YWtaU0xER1NPQ3NyYlJI?=
+ =?utf-8?B?WGNJbVVUSXY1TWtjSnc2QTU4cERoMzkzUzFiVEJlbkJUeEFFWnJsOU5TUUl3?=
+ =?utf-8?B?cmpyc01PbEMrRGJLbjFraElkRXUwSmNQUTlYRWY2TFRuSzF0bFZNV0lUT0l6?=
+ =?utf-8?B?MXBrTVBWWUZtVGhPR25pUnVsQ2pCMUxCNmRXc2pVdDdKQ29SYjJsRWNwY0Za?=
+ =?utf-8?B?YW5tVjJhZDYyY1JDdjZuT1hiUEg5MmFndlh1MXBGY3MvTS9YT2RGV0RMV2Jp?=
+ =?utf-8?B?Rk5NSnorK0Z5K0FyYUQvTk5rR0Q5bUZJTlNtTkczYUxKV1NudDRzUHNCSlpw?=
+ =?utf-8?B?VjZUVjJoT3JJWENRUmtQMjNKT0ZpNzB6TTVhT2Z1cStiSDBNVTU4SHcxMlh0?=
+ =?utf-8?B?bFpVZXByUGpHOFNNYTR0ZWwwdWlzVDRRN3JVeWR0Qkx6UWVFd1FIR2ZpaytL?=
+ =?utf-8?B?Y3A5Tm9uL0xJYWRINHJndTk0VzZBRHNraHNreExXQVU2Ym5PMjh5b09tRTdk?=
+ =?utf-8?B?RTl5bmJCMFAvQzNxbjYraWlPamZnM2ZGZU5lZThvM2d4UmwrQUFKbWxtYURV?=
+ =?utf-8?B?aXFVMm9XbEYvZzV3RFkzOHNGTjBVb1Z1dU9oMm1VWEZaNVB1MFhGL3MxTXhp?=
+ =?utf-8?B?bzdmWE9aZUhyT215dUorS0VhL08zaGJLQkhWb0JWZllWN3lNUURKOExycGUx?=
+ =?utf-8?B?bmJwcHhFT1BmY3pNTHA0RnJHRC9JM09LZzZ5K3E0cFBObUVQYytjeE43Nkla?=
+ =?utf-8?B?bDZwUE1kK3dKQUk4SkJOTm9oRXVYa014OXordXp6YUpYdVlSWHNMSVVFc1Bw?=
+ =?utf-8?B?ZVFWYkY0Ui9OeDh4MitBMzR6bjNzRDZqWko4RG1Bd2dvemt0dmk1ZjNWR2Qr?=
+ =?utf-8?B?YUtNaWhYbUYzNVo3WCtDbkdUa21mSXpwQm1uYW5LQVppZnA3RWdSeVNXSGZo?=
+ =?utf-8?B?ditGRmlueHltTmtUMUlBQi9HTlFnOGJCZFJPYkxOdXBqaEJ4Vmsvbk5tclpX?=
+ =?utf-8?B?K2RHY0VtNHZLaWJNL2ZzQWFPQ0ZJVE1XWkJidVBxTFh2Nkw2UDcrQlJOWmJU?=
+ =?utf-8?B?K0wxMGxXZVRGQWhJbHZ1cXhUdWJGeHVURWpqcnN1QXZXdWJYYVFVcU04TVhS?=
+ =?utf-8?B?MURva2k3VVdFZEZ3WVc5ODc0cjRDeVdjNjdHN0l6RUU3U3NtOENaS25adno3?=
+ =?utf-8?B?TGJ2OUl4b2s2RFBpRkt4ZVNrT3RPTnY0L1FMMEZKZW5ZQ2VlNXRNUW9md2Fp?=
+ =?utf-8?B?enpkdGZ2ZnBUYUlGZVdMZG5uVDJwU1JCQkNhRGRLWGhqN3B6d0NlM0pYcTQr?=
+ =?utf-8?B?ZERURkpHQ1ZPTWdrY2xGdjZvdDBHVlcyWG9pbmdkTTFjdVRhQWFKUDNLS2Vr?=
+ =?utf-8?B?bEJST0d0TzVhZjNHUURmTzJ3RjFZWSt6K2ErOTRzVDhQUERnOVI2NnBVT2Zh?=
+ =?utf-8?B?cm5lUUc1WDJsWVJWQlU2NVliMEl1cnA2eGxXb3RJRHpad0xrTWtoUGdnUDJa?=
+ =?utf-8?B?NVU3eThsK2NwdCtQZmdEZ3FMTDFLK3JSeTI1aDV1bDArYnNwRE9YVDloQlE2?=
+ =?utf-8?B?bkZabExaSFdEQUx2UUoyWG5QeFNPY0pHK2lrNERzVC9Ud1NicFc5OXJhMXdE?=
+ =?utf-8?B?dWxjMVVSc1NFZGFTQVBOZExRZGN4bzV0OWYyZ0JCRU5IdWltbE1ObXRyQm1m?=
+ =?utf-8?B?YVR3VFZsWDBiWlg1UFBOdTdtemdyZzBxOTB3WkhiN3laSlhXMjdCMnF6Wkly?=
+ =?utf-8?B?aGh1K09nVWhHTVpHbnZmSlNseUNvYTlJUy9oL2dSbEo0Z2UxajVSRDJ0RjFl?=
+ =?utf-8?B?NFVsamRLYTNLT09uZVVpNCttMnJiU2xxZWl2YVdTU2liaVJjeFBuOTFhZm56?=
+ =?utf-8?B?Nk1YOG5oWTRUcEp6RlArZ2ZhQnNrVFRRQWxzV1dEM2g0dS9qZWFZL0RWb2pl?=
+ =?utf-8?B?dHF4N2pUQ3k4eW91R0V2OEVoRlcvSWxBU1VEWXpLRTd2RFdDZ0hRYVBYUjlJ?=
+ =?utf-8?B?WEdJSk9kRGoxMXd3dDB6ZXk1dTZTeW5PSm9JR01ER29LQmplZTlGdz09?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7495e67-9ed6-417b-69ff-08deb6775d8d
+X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2026 13:54:52.3556
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Nwk8Yz2FAeN4TPQA8Xu5EYjY19ncHoTr4gSYe0djeP+lIcsUE1YYJJOC4rbpRpeQchXsg3JjGlYc9C+vBg6i7A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6523
+X-purgate-ID: tlsNG-ef75cf/1779285298-0BD7FC48-2DB25939/0/0
+X-purgate-type: clean
+X-purgate-size: 3590
+X-Spamd-Result: default: False [-0.18 / 15.00];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:bertrand.marquis@arm.com,m:volodymyr_babchuk@epam.com,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:email,gitlab.com:url];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
 	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,citrix.com:email,citrix.com:dkim];
+	RCPT_COUNT_THREE(0.00)[3];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 2890758F141
+X-Rspamd-Queue-Id: 5B4A058F22E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 5/20/26 1:53 PM, Jan Beulich wrote:
-> The .rodata growth between 1st and 2nd linking passes may affect the
-> number of stubs the linker wants to insert, which in turn affects the
-> number of symbols. If symbol table sizes change after the 2nd linking
-> pass, insert another one before the final one. (As a comment in Linux puts
-> it, "In theory it's possible this results in even more stubs, but
-> unlikely.")
+On Mon, May 04, 2026 at 10:39:53AM +0200, Jan Beulich wrote:
+> On 27.04.2026 11:28, Roger Pau Monné wrote:
+> > On Tue, Feb 03, 2026 at 05:49:55PM +0100, Jan Beulich wrote:
+> >> --- a/xen/arch/x86/mm/shadow/hvm.c
+> >> +++ b/xen/arch/x86/mm/shadow/hvm.c
+> >> @@ -1087,18 +1087,18 @@ int shadow_track_dirty_vram(struct domai
+> >>          if ( (dirty_vram->dirty_bitmap = xzalloc_array(uint8_t, dirty_size)) == NULL )
+> >>              goto out_sl1ma;
+> >>  
+> >> -        dirty_vram->last_dirty = NOW();
+> >> +        dirty_vram->last_dirty = -1;
+> >>  
+> >>          /* Tell the caller that this time we could not track dirty bits. */
+> >>          rc = -ENODATA;
+> >>      }
+> >> -    else if ( dirty_vram->last_dirty == -1 )
+> >> -        /* still completely clean, just copy our empty bitmap */
+> >> -        memcpy(dirty_bitmap, dirty_vram->dirty_bitmap, dirty_size);
+> >> -    else
+> >> +    /* Nothing to do when the bitmap is still completely clean. */
+> >> +    else if ( dirty_vram->last_dirty != -1 )
+> >>      {
+> >>          mfn_t map_mfn = INVALID_MFN;
+> >>          void *map_sl1p = NULL;
+> >> +        bool any_dirty = false;
+> >> +        s_time_t now;
+> >>  
+> >>          /* Iterate over VRAM to track dirty bits. */
+> >>          for ( i = 0; i < nr_frames; i++ )
+> >> @@ -1174,16 +1174,20 @@ int shadow_track_dirty_vram(struct domai
+> >>              if ( dirty )
+> >>              {
+> >>                  dirty_vram->dirty_bitmap[i / 8] |= 1 << (i % 8);
+> >> -                dirty_vram->last_dirty = NOW();
+> >> +                any_dirty = true;
+> >>              }
+> >>          }
+> >>  
+> >> +        now = NOW();
+> >> +        if ( any_dirty )
+> >> +            dirty_vram->last_dirty = now;
+> > 
+> > I'm a bit confused with the setting of ->last_dirty here ...
+> > 
+> >> +
+> >>          if ( map_sl1p )
+> >>              unmap_domain_page(map_sl1p);
+> >>  
+> >>          memcpy(dirty_bitmap, dirty_vram->dirty_bitmap, dirty_size);
+> >>          memset(dirty_vram->dirty_bitmap, 0, dirty_size);
+> > 
+> > ... as here the bitmap is zeroed, and hence ->last_dirty should be set
+> > to -1?
 > 
-> To use the $(compare-symbol-tables) macro in a shell "if", it needs
-> slightly adjusting (and then wrapping to be run in a sub-shell).
+> That's not how I understand the field is used. Aiui it identifies "was
+> clean for more than 2 seconds". That's not the case here. Hence the
+> setting to -1 only conditionally a few lines down from here.
+
+Hm, OK, it seems like a very complicated way to signal this.  Won't it
+be easier to unconditionally store the last write time in
+->last_dirty, and let the consumer decide whether it's been more than
+2s or not?
+
+Maybe you could write a comment next to the field in the struct
+declaration?
+
+Either way:
+
+Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+
+> >> @@ -1216,6 +1220,7 @@ int shadow_track_dirty_vram(struct domai
+> >>          paging_lock(d);
+> >>          for ( i = 0; i < dirty_size; i++ )
+> >>              dirty_vram->dirty_bitmap[i] |= dirty_bitmap[i];
+> >> +        dirty_vram->last_dirty = NOW();
+> > 
+> > I think this is doesn't deserve a 'Fixes:' tag because the setting of
+> > ->last_dirty unconditionally to NOW() regardless of whether the bitmap
+> > is zeroed?
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> There's imo no good Fixes: tag, since (aiui) stubs (veneers) may also be
-> inserted for reasons other than errata workarounds.
-> 
-> For context: The Cortex A53 erratum 843419 workaround in GNU ld comes in
-> two flavors: In the general case a stub is inserted, but if the problem
-> ADRP can be replaced by ADR (i.e. the target symbol is within ±1Mb), then
-> that's preferred and no stub is needed. The addition of the symbol table
-> data is what then results in the stub-less form to no longer be usable in
-> affected configurations. A possible countermeasure could be to move
-> .rodata ahead of .text. (Also, from looking at generated code, it may well
-> be that newer gcc simply avoids producing problematic insn sequences.)
-> 
-> Linux simply compares object file sizes, but I consider that fragile: A
-> change in size of one of the symbol table constituents may not necessarily
-> change the object file size, due to padding which may be in use.
-> 
-> Once we generalize linking, we may want to introduce an equivalent of
-> Linux'es KALLSYMS_EXTRA_PASS as well. I don't think doing this right here
-> would make overly much sense, though.
+> There was (and is) no unconditional setting of ->last_dirty. Technically
+> maybe a Fixes: tag might be appropriate, but this is an error path which
+> should never be taken (assuming a well behaved DM). Do you think I should
+> dig out the offending commit?
 
-Probably we want to have the similar for RISC-V. Not so far time ago in 
-downstream we faced the following issue:
-https://gitlab.com/xen-project/people/olkur/xen/-/jobs/14389897308
+I'm not specially fuzzed about backporting this, I think it's fine to
+go in without a Fixes tag (and then no backport).
 
-Unfortunately I wasn't able to reproduce it locally and it was only on 
-CI but I suggested the similar to this fix and it helped:
-
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index a1124eb5d072..72b9789cfd9c 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -52,9 +52,15 @@ $(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
-  		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-  		> $(dot-target).2.S
-  	$(MAKE) $(build)=$(@D) $(dot-target).2.o
--	$(call compare-symbol-tables, $(dot-target).1.o, $(dot-target).2.o)
-  	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
--	    $(dot-target).2.o -o $@
-+	    $(dot-target).2.o -o $(dot-target).2
-+	$(NM) -pa --format=sysv $(dot-target).2 \
-+		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-+		> $(dot-target).3.S
-+	$(MAKE) $(build)=$(@D) $(dot-target).3.o
-+	$(call compare-symbol-tables, $(dot-target).2.o, $(dot-target).3.o)
-+	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
-+	    $(dot-target).3.o -o $@
-  	$(NM) -pa --format=sysv $@ \
-  		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
-  		> $@.map
-
-The fix wasn't sent as after merging some extra patches on top of it the 
-issue just disappear.
-
-> 
-> --- a/xen/arch/arm/Makefile
-> +++ b/xen/arch/arm/Makefile
-> @@ -99,9 +99,20 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
->   		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->   		> $(dot-target).2.S
->   	$(MAKE) $(build)=$(@D) $(dot-target).2.o
-> -	$(call compare-symbol-tables, $(dot-target).1.o, $(dot-target).2.o)
-> +	if ! { $(call compare-symbol-tables, $(dot-target).1.o, $(dot-target).2.o) >/dev/null; }; \
-> +	then \
-> +		$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
-> +		    $(dot-target).2.o -o $(dot-target).2; \
-> +		$(NM) -pa --format=sysv $(dot-target).2 \
-> +			| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
-> +			> $(dot-target).3.S; \
-> +		$(MAKE) $(build)=$(@D) $(dot-target).3.o; \
-> +		$(call compare-symbol-tables, $(dot-target).2.o, $(dot-target).3.o); \
-> +	else \
-> +		ln -sf $(dot-target).2.o $(dot-target).3.o; \
-> +	fi
->   	$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
-> -	    $(dot-target).2.o -o $@
-> +	    $(dot-target).3.o -o $@
->   	$(NM) -pa --format=sysv $@ \
->   		| $(objtree)/tools/symbols --all-symbols --xensyms --sysv --sort \
->   		> $@.map
-> --- a/xen/scripts/Kbuild.include
-> +++ b/xen/scripts/Kbuild.include
-> @@ -65,7 +65,7 @@ define compare-symbol-tables
->       $(OBJDUMP) -t $(@D)/.cst.$$$$ > $(1).sym; \
->       ln -f $(2) $(@D)/.cst.$$$$; \
->       $(OBJDUMP) -t $(@D)/.cst.$$$$ > $(2).sym; \
-> -    rm -f $(@D)/.cst.$$$$
-> +    rm -f $(@D)/.cst.$$$$; \
->       diff -u $(1).sym $(2).sym
->   endef
->   
-
-LGTM:
-  Reviewed-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-
-Thanks.
-
-~ Oleksii
+Thanks, Roger.
 
