@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WG0OLJZKDmoM9gUAu9opvQ
+	id IAOuLgpLDmrL9gUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 01:58:14 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 02:00:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13F2159D08B
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 01:58:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314703.1584704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2923D59D174
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 02:00:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314712.1584713 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPqnX-0002iB-I8; Wed, 20 May 2026 23:57:59 +0000
+	id 1wPqpH-0003Dk-SJ; Wed, 20 May 2026 23:59:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314703.1584704; Wed, 20 May 2026 23:57:59 +0000
+Received: by outflank-mailman (output) from mailman id 1314712.1584713; Wed, 20 May 2026 23:59:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPqnX-0002gR-F9; Wed, 20 May 2026 23:57:59 +0000
-Received: by outflank-mailman (input) for mailman id 1314703;
- Wed, 20 May 2026 23:57:57 +0000
+	id 1wPqpH-0003As-Pg; Wed, 20 May 2026 23:59:47 +0000
+Received: by outflank-mailman (input) for mailman id 1314712;
+ Wed, 20 May 2026 23:59:45 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPqnV-0002gL-JZ
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:57:57 +0000
+ id 1wPqpF-0003Am-Mx
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:59:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPqnV-0007NP-0R
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 01:57:57 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wPqpF-000gYl-3q
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 01:59:45 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e496c-2eae-0a2a0a5409dd-0a2a450ce1ac-18
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 01:57:56 +0200
+ id 6a0e4ac1-e002-0a2a0a5209dd-0a2a4502cb70-12
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 01:59:44 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e4a48-62f1-0a2a450c0019-5a9b3222e6a6-3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 01:56:56 +0200
+ id 6a0e4af0-af86-0a2a45020019-5a9b3222b4bc-3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 01:59:44 +0200
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=freeip.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPqmO-00000007lg2-1peW; Wed, 20 May 2026 23:56:48 +0000
+ id 1wPqp6-00000007lp0-0wIC; Wed, 20 May 2026 23:59:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=jTiku2mluObpXzBa1NiYoGfbUZnqEbOOqXCo232N2ic=; b=OmqFRRZQxWH9gzIjOn8pJhyobz
-	C/mp6rFHZg1NTyyb93fxGkowyb/YRrFZpHytaXexnnLEveykpofuINlf4eX5iNcrxif81LIQ/Ytl6
-	fSQI40Xtuxn0JO9omehm7eJkFr4rPrezzqu+ZupbtcgD8FEsmxD5ui4dK84+jabLaD6vKUfa1Mlrh
-	P+X8Xc1jWuK9mAT5dnoungd3495qh8Y/++RA5MYy7/g//9h3PDg2Pxm5RjR97sdBmIQCnFuNizGs8
-	KvUCOyXar9Ui6dq+fLstukIZuFA0BiRM//wvGhJxNz3sTH+uXPnNX/m6uqXkPP1phSwk796LOWE8r
-	09QEtjJQ==;
-Message-ID: <715e3b725b87e96d9733c5565cb00f97b03e6485.camel@infradead.org>
-Subject: Re: [PATCH v3 37/41] x86/kvmclock: Use TSC for sched_clock if it's
- constant and non-stop
+	bh=4fumDqpfFh7qTUUSt85YEOGP4Jz6d/tV2ufryLf11Sw=; b=SbcgRP/WC+khq2voSt24X8TsZc
+	LgTJct21PsM/eYu33L8Rw4dCttnJxdFtOJIbT++GI/8Evz9oMMnyOIaVXE1ocnST7p2R+rYlJspqZ
+	FwI3NYgR/E9nczxvpWj+94v2Hp1noG4+kMkpkjSyq+ZtJq+vocxDLip7r6bEburTLmXjS7M3s8A1J
+	61mxQGpcIdA1zpYLe0I6vAPHlDYPY/crmL1Sf2UVF+xmn4MvjxExX5qdrTYwjWtTZFUIao2vK3iuJ
+	qVzTxJ0blfy4aDeYcd3/IwaY2elApHkQmedp4eHtqi9kN1I5cr6AL00uDkZzPcOaZANBHMWRWJkb9
+	r0sTUDFQ==;
+Message-ID: <ca2851959379cd0bd8fbae6e86c20c6765bbefca.camel@infradead.org>
+Subject: Re: [PATCH v3 38/41] x86/paravirt: kvmclock: Setup kvmclock early
+ iff it's sched_clock
 From: David Woodhouse <dwmw2@infradead.org>
 To: Sean Christopherson <seanjc@google.com>, Kiryl Shutsemau
  <kas@kernel.org>,  Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan"
@@ -89,18 +89,18 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov
  linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org, Michael
  Kelley <mhklinux@outlook.com>, Tom Lendacky <thomas.lendacky@amd.com>,
  Nikunj A Dadhania <nikunj@amd.com>, Thomas Gleixner <tglx@linutronix.de>
-Date: Thu, 21 May 2026 00:56:46 +0100
-In-Reply-To: <20260515191942.1892718-38-seanjc@google.com>
+Date: Thu, 21 May 2026 00:59:34 +0100
+In-Reply-To: <20260515191942.1892718-39-seanjc@google.com>
 References: <20260515191942.1892718-1-seanjc@google.com>
-	 <20260515191942.1892718-38-seanjc@google.com>
+	 <20260515191942.1892718-39-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-kKUdfWK5Ck2wirAYsNEp"
+	boundary="=-2k1D7VS0lDh/MqkdLHDz"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-d25034/1779321416-DB370CF5-6588B9CB/13/0
+X-purgate-ID: tlsNG-720697/1779321584-8316D161-728003A8/0/0
 X-purgate-type: clean
-X-purgate-size: 9304
+X-purgate-size: 7979
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
@@ -112,7 +112,7 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,amazon.co.uk:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,infradead.org:mid,amazon.co.uk:email];
 	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -136,57 +136,33 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 13F2159D08B
+X-Rspamd-Queue-Id: 2923D59D174
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-kKUdfWK5Ck2wirAYsNEp
+--=-2k1D7VS0lDh/MqkdLHDz
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
-> Prefer the TSC over kvmclock for sched_clock if the TSC is constant,
-> nonstop, and not marked unstable via command line.=C2=A0 I.e. use the sam=
-e
-> criteria as tweaking the clocksource rating so that TSC is preferred over
-> kvmclock.=C2=A0 Per the below comment from native_sched_clock(), sched_cl=
-ock
-> is more tolerant of slop than clocksource; using TSC for clocksource but
-> not sched_clock makes little to no sense, especially now that KVM CoCo
-> guests with a trusted TSC use TSC, not kvmclock.
+> Rework the seemingly generic x86_cpuinit_ops.early_percpu_clock_init hook
+> into a dedicated PV sched_clock hook, as the only reason the hook exists
+> is to allow kvmclock to enable its PV clock on secondary CPUs before the
+> kernel tries to reference sched_clock, e.g. when grabbing a timestamp for
+> printk.
 >=20
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * Fall back to jiffies i=
-f there's no TSC available:
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * ( But note that we sti=
-ll use it if the TSC is marked
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0 unstable. =
-We do this because unlike Time Of Day,
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0 the schedu=
-ler clock tolerates small errors and it's
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0 very impor=
-tant for it to be as fast as the platform
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *=C2=A0=C2=A0 can achiev=
-e it. )
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+> Rearranging the hook doesn't exactly reduce complexity; arguably it does
+> the opposite.=C2=A0 But as-is, it's practically impossible to understand =
+*why*
+> kvmclock needs to do early configuration.
 >=20
-> The only advantage of using kvmclock is that doing so allows for early
-> and common detection of PVCLOCK_GUEST_STOPPED, but that code has been
-> broken for over two years with nary a complaint, i.e. it can't be
-> _that_ valuable.=C2=A0 And as above, certain types of KVM guests are losi=
-ng
-> the functionality regardless, i.e. acknowledging PVCLOCK_GUEST_STOPPED
-> needs to be decoupled from sched_clock() no matter what.
->=20
-> Link: https://lore.kernel.org/all/Z4hDK27OV7wK572A@google.com
 > Signed-off-by: Sean Christopherson <seanjc@google.com>
-
-Yay! (Albeit only for sched_clock, and we should do Xen too)
 
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
---=-kKUdfWK5Ck2wirAYsNEp
+
+--=-2k1D7VS0lDh/MqkdLHDz
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -265,22 +241,22 @@ QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
 nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
 MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
 VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
-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
+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
-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
+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
 
 
---=-kKUdfWK5Ck2wirAYsNEp--
+--=-2k1D7VS0lDh/MqkdLHDz--
 
