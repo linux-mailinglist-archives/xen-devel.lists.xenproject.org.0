@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gGDJI+dIDmoM9gUAu9opvQ
+	id KNX/FiZJDmoM9gUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 01:51:03 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 01:52:06 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 032D259CF17
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 01:51:02 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314681.1584677 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7EA159CF54
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 01:52:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314686.1584686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPqgb-0000vi-Cn; Wed, 20 May 2026 23:50:49 +0000
+	id 1wPqhg-0001OZ-Lv; Wed, 20 May 2026 23:51:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314681.1584677; Wed, 20 May 2026 23:50:49 +0000
+Received: by outflank-mailman (output) from mailman id 1314686.1584686; Wed, 20 May 2026 23:51:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPqgb-0000so-9l; Wed, 20 May 2026 23:50:49 +0000
-Received: by outflank-mailman (input) for mailman id 1314681;
- Wed, 20 May 2026 23:50:48 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wPqhg-0001N6-Ic; Wed, 20 May 2026 23:51:56 +0000
+Received: by outflank-mailman (input) for mailman id 1314686;
+ Wed, 20 May 2026 23:51:56 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPqga-0000si-Kf
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:50:48 +0000
+ id 1wPqhf-0001My-U4
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:51:56 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPqga-00Bixg-0a
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 01:50:48 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wPqhf-000fhM-Aw
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 01:51:55 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e48b1-5cb7-0a2a0a5109dd-0a2a4502e7fc-28
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 01:50:47 +0200
+ id 6a0e48f0-e002-0a2a0a5209dd-0a2a4509d28a-16
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 01:51:54 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e48d7-af86-0a2a45020019-5a9b3222933c-3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 01:50:47 +0200
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ id 6a0e491a-2497-0a2a45090019-5a9b3222d046-3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 01:51:54 +0200
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=freeip.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPqgS-00000007lNX-069X; Wed, 20 May 2026 23:50:40 +0000
+ id 1wPqhX-00000007lRX-0Plz; Wed, 20 May 2026 23:51:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=kjXkTST37i+1gmjQGjhQW588QxcAxvvLMWHi+QpQkZo=; b=a5PC97TD9BKkPl+3e0F6kGlkZ9
-	zCbTS/Oo+FoXd4urkvEM1VR8kscN/rFTBlB5Z0VoUPn/tgTVyzLP3mx8Kqx/lgHAjvRXZ5fGmkApq
-	jHycwdxF4CqRMaL9mzfuhEvvxFdjD2nnfR9DrD7M3cNRzkUyVcKrDzywFPGi/JDGD933yYoqOAdBU
-	deLaoIWGnTDPJb9+jlSQbH9XgV4bfbQ4hfKlIgngYj5XFzOZEjja6vzFMmUl0jpACj4GQlvZ4GMG+
-	pNTKyQDM8Bxl7QRUXdZGXFvtIno1U6YAorOg7bqfzc1CJA4JWbFiBWIRS9XHfXE8x4tA/8O/7XQa+
-	2P8z9lXA==;
-Message-ID: <1e46bbafd280fa70137e530e6694e969f305ab11.camel@infradead.org>
-Subject: Re: [PATCH v3 32/41] x86/tsc: Rejects attempts to override TSC
- calibration with lesser routine
+	bh=qR+Yt9w79nLl/vKvoVluqJPTCmCSxA09aP7VAr8rnyY=; b=GSaT4OmU8kCyicP8KRwwNSqhBH
+	HnEbIU6ancVWsUENun739xiy5/VgMvV8SNDhb07i09YdgCXfHtdTdk9SIahJGQvI8Hsg61a2AC2yc
+	8hUqMq8vnthSEqscSfZM4DWl/E7EGILkh8xa4N9TNag/3+ZwpyWB4DAMkwDEgQuLUr1S+wAeZ/K8S
+	zP7n+NVHOTr20imXsHeiPHoe0Ku2i5XPw7mDFikvIpxEfPI2juH468hLtYmMpaO4TLIe9EULc7fJD
+	dLWZdeafhT+iHYXU/yYaPJHM8XIabCVBx3yYRUPzqxD5smwws5FMXPwmdPmonOf9vEWEMvDrzxopq
+	f+Uw3GNw==;
+Message-ID: <97e3657ea14fca4b1fffd8c845b71b7a2f71785b.camel@infradead.org>
+Subject: Re: [PATCH v3 33/41] x86/kvmclock: Mark TSC as reliable when it's
+ constant and nonstop
 From: David Woodhouse <dwmw2@infradead.org>
 To: Sean Christopherson <seanjc@google.com>, Kiryl Shutsemau
  <kas@kernel.org>,  Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan"
@@ -89,18 +89,18 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov
  linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org, Michael
  Kelley <mhklinux@outlook.com>, Tom Lendacky <thomas.lendacky@amd.com>,
  Nikunj A Dadhania <nikunj@amd.com>, Thomas Gleixner <tglx@linutronix.de>
-Date: Thu, 21 May 2026 00:50:38 +0100
-In-Reply-To: <20260515191942.1892718-33-seanjc@google.com>
+Date: Thu, 21 May 2026 00:51:45 +0100
+In-Reply-To: <20260515191942.1892718-34-seanjc@google.com>
 References: <20260515191942.1892718-1-seanjc@google.com>
-	 <20260515191942.1892718-33-seanjc@google.com>
+	 <20260515191942.1892718-34-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-a1hInw8KTqMYkOpxFKcW"
+	boundary="=-edWqDmeYeCUKdM6/JTWj"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-720697/1779321047-ABD67161-10E157ED/0/0
+X-purgate-ID: tlsNG-bad1c0/1779321114-43979A53-31F672E5/0/0
 X-purgate-type: clean
-X-purgate-size: 8202
+X-purgate-size: 8350
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
@@ -112,7 +112,7 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,lists.xenproject.org:rdns,lists.xenproject.org:helo,infradead.org:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,infradead.org:mid,amazon.co.uk:email];
 	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -136,35 +136,38 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 032D259CF17
+X-Rspamd-Queue-Id: B7EA159CF54
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-a1hInw8KTqMYkOpxFKcW
+--=-edWqDmeYeCUKdM6/JTWj
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
-> When registering a TSC frequency calibration routine, sanity check that
-> the incoming routine is as robust as the outgoing routine, and reject the
-> incoming routine if the sanity check fails.
+> Mark the TSC as reliable if the hypervisor (KVM) has enumerated the TSC
+> as constant and nonstop, and the admin hasn't explicitly marked the TSC
+> as unstable.=C2=A0 Like most (all?) virtualization setups, any secondary
+> clocksource that's used as a watchdog is guaranteed to be less reliable
+> than a constant, nonstop TSC, as all clocksources the kernel uses as a
+> watchdog are all but guaranteed to be emulated when running as a KVM
+> guest.=C2=A0 I.e. any observed discrepancies between the TSC and watchdog=
+ will
+> be due to jitter in the watchdog.
 >=20
-> Because native calibration routines only mark the TSC frequency as known
-> and reliable when they actually run, the effective progression of
-> capabilities is: None (native) =3D> Known and maybe Reliable (PV) =3D>
-> Known and Reliable (CoCo).=C2=A0 Violating that progression for a PV over=
-ride
-> is relatively benign, but messing up the progression when CoCo is
-> involved is more problematic, as it likely means a trusted source of
-> information (hardware/firmware) is being discarded in favor of a less
-> trusted source (hypervisor).
+> This is especially true for KVM, as the watchdog clocksource is usually
+> emulated in host userspace, i.e. reading the clock incurs a roundtrip
+> cost of thousands of cycles.
+>=20
+> Marking the TSC reliable addresses a flaw where the TSC will occasionally
+> be marked unstable if the host is under moderate/heavy load.
 >=20
 > Signed-off-by: Sean Christopherson <seanjc@google.com>
 
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
---=-a1hInw8KTqMYkOpxFKcW
+--=-edWqDmeYeCUKdM6/JTWj
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -243,22 +246,22 @@ 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
-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
+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
-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
+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
 
 
---=-a1hInw8KTqMYkOpxFKcW--
+--=-edWqDmeYeCUKdM6/JTWj--
 
