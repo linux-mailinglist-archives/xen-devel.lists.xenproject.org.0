@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aM6HMq0rDmpq6gUAu9opvQ
+	id +JnGEBgtDmrz7gUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:46:21 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:52:24 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43CD159B480
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:46:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314484.1584452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A843459B63C
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:52:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314492.1584461 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPoju-0005Xp-RC; Wed, 20 May 2026 21:46:06 +0000
+	id 1wPopb-0007KT-Ih; Wed, 20 May 2026 21:51:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314484.1584452; Wed, 20 May 2026 21:46:06 +0000
+Received: by outflank-mailman (output) from mailman id 1314492.1584461; Wed, 20 May 2026 21:51:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPoju-0005W3-Nx; Wed, 20 May 2026 21:46:06 +0000
-Received: by outflank-mailman (input) for mailman id 1314484;
- Wed, 20 May 2026 21:46:04 +0000
+	id 1wPopb-0007HZ-FU; Wed, 20 May 2026 21:51:59 +0000
+Received: by outflank-mailman (input) for mailman id 1314492;
+ Wed, 20 May 2026 21:51:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPojs-0005Vv-L8
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 21:46:04 +0000
+ id 1wPopZ-0007HT-81
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 21:51:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPojs-000hdK-1B
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:46:04 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wPopY-00BXe1-Fe
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:51:56 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e2b70-2eae-0a2a0a5409dd-0a2a450cac30-38
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:46:03 +0200
+ id 6a0e2cf8-e002-0a2a0a5209dd-0a2a450b812e-2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:51:56 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e2b9b-62f1-0a2a450c0019-5a9b3222b608-3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:46:03 +0200
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ id 6a0e2cfb-212f-0a2a450b0019-5a9b3222e90c-3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:51:56 +0200
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=freeip.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPojk-00000007c3P-0JUI; Wed, 20 May 2026 21:45:56 +0000
+ id 1wPopP-00000007cNa-1TEk; Wed, 20 May 2026 21:51:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=kMvKUYUiacn08XkU4Q8chB3i7d0Md6scr9tZlkvezXo=; b=e0Y1e/z/NlAQMOxl7qWJr20NHv
-	4M9sDFcjk6Vt29Tb1kezyRviZ3URUrpKS2JjK2X7mL5txD0EyfZQUxTlHhkwoFPFg2HXKhLBnkHy6
-	+ee093iE6WdCtkjbla98j2HbmY/Bh4bwKn0MpQzJLKRdbaCY3QCb5WbGUV1KStdOD8aE0ZPtyqIbJ
-	vhkXPD/wYNL+ufFiOb/SSQyOn+jsE0Syyk0+DOuyyV9r9FRJL52x9xc+RH+oYNHC2teuLISgNX+bQ
-	FN3kdnlfLKIMxCC0+wJQzxMUNjrLtkle+IIhOY933l03yaINabarzpg4ZcUUEc79P9bErwp+sAKYP
-	jdxI5DPQ==;
-Message-ID: <d02f2ad81ba1030029ad0624c5dbb6f8bf1806a8.camel@infradead.org>
-Subject: Re: [PATCH v3 10/41] x86/kvmclock: Setup kvmclock for secondary
- CPUs iff CONFIG_SMP=y
+	bh=76gkSSjJ06e6pDzAypOKfXDG5VHWtkBMD5ifLWyI+5o=; b=jDmVqRhZHbXv3h5OJh4AYHQSn8
+	TcRtwUK1NdPokJBhfUkxNtROd3xAiaREqNuRLWVIiAXHP3UvgdDYC5Yf5BY4rY2TUaQPllysR1KXQ
+	dO3DkzxajHWJ5inYosuVwKRT3D1Rr4EnWLI7eDhQTR5KCsWJbTO7vE10xzs5bJTR8JwGwjEPARDuH
+	Wcfd1KxkS1iwkD1eI4tUV852ZYMaBI+Larn/10z+aIEdObmWVitRQmNZoTanmKg4em5hfIx+C+nrN
+	Cnt2ATvIMHLya1fQDhLPMBKr7eHbZ+6VLggLrfzNweB1BhFDqasyaNljdnwfvp/3r5yRvfXJeRphV
+	/KxhU1rQ==;
+Message-ID: <133628b2e275b00f0b0779b6b6507043f08c4a52.camel@infradead.org>
+Subject: Re: [PATCH v3 11/41] x86/kvm: Don't disable kvmclock on BSP in
+ syscore_suspend()
 From: David Woodhouse <dwmw2@infradead.org>
 To: Sean Christopherson <seanjc@google.com>, Kiryl Shutsemau
  <kas@kernel.org>,  Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan"
@@ -89,22 +89,22 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov
  linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org, Michael
  Kelley <mhklinux@outlook.com>, Tom Lendacky <thomas.lendacky@amd.com>,
  Nikunj A Dadhania <nikunj@amd.com>, Thomas Gleixner <tglx@linutronix.de>
-Date: Wed, 20 May 2026 22:45:54 +0100
-In-Reply-To: <20260515191942.1892718-11-seanjc@google.com>
+Date: Wed, 20 May 2026 22:51:45 +0100
+In-Reply-To: <20260515191942.1892718-12-seanjc@google.com>
 References: <20260515191942.1892718-1-seanjc@google.com>
-	 <20260515191942.1892718-11-seanjc@google.com>
+	 <20260515191942.1892718-12-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-+JrU7A56rZDSz8IlvFyo"
+	boundary="=-kWcNeJmwuu+RfO0gpPl+"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-d25034/1779313563-E196DCF5-A62DF8C6/0/0
+X-purgate-ID: tlsNG-42698a/1779313916-12971F3B-C19676F8/0/0
 X-purgate-type: clean
-X-purgate-size: 7791
+X-purgate-size: 8499
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
 	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
@@ -135,29 +135,44 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 43CD159B480
+X-Rspamd-Queue-Id: A843459B63C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-+JrU7A56rZDSz8IlvFyo
+--=-kWcNeJmwuu+RfO0gpPl+
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
-> Gate kvmclock's secondary CPU code on CONFIG_SMP, not CONFIG_X86_LOCAL_AP=
-IC.
-> Originally, kvmclock piggybacked PV APIC ops to setup secondary CPUs.
-> When that wart was fixed by commit df156f90a0f9 ("x86: Introduce
-> x86_cpuinit.early_percpu_clock_init hook"), the dependency on a local API=
-C
-> got carried forward unnecessarily.
+> Don't disable kvmclock on the BSP during syscore_suspend(), as the BSP's
+> clock is NOT restored during syscore_resume(), but is instead restored
+> earlier via the sched_clock restore callback.=C2=A0 If suspend is aborted=
+, e.g.
+> due to a late wakeup, the BSP will run without its clock enabled, which
+> "works" only because KVM-the-hypervisor is kind enough to not clobber the
+> shared memory when the clock is disabled.=C2=A0 But over time, the BSP's =
+view
+> of time will drift from APs.
+
+The work that Dongli and I have been doing elsewhere makes me want to
+phrase that last sentence far more judgmentally, as the kvmclock
+absolutely should *not* be randomly drifting over time without good
+reason, and what was written to it earlier really *ought* to still be
+valid.
+
+But OK :)
+
+> Plumb in an "action" to KVM-as-a-guest and kvmclock code in preparation
+> for additional cleanups to kvmclock's suspend/resume logic.
 >=20
+> Fixes: c02027b5742b ("x86/kvm: Disable kvmclock on all CPUs on shutdown")
+> Cc: stable@vger.kernel.org
 > Signed-off-by: Sean Christopherson <seanjc@google.com>
 
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
---=-+JrU7A56rZDSz8IlvFyo
+--=-kWcNeJmwuu+RfO0gpPl+
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -236,22 +251,22 @@ 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
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDUyMDIxNDU1
-NFowLwYJKoZIhvcNAQkEMSIEIKPdoFhvPTMpPVw2XUITwTLNBQPAmcxVv7Tg/fzHVvB0MGQGCSsG
+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
-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
+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
 
 
---=-+JrU7A56rZDSz8IlvFyo--
+--=-kWcNeJmwuu+RfO0gpPl+--
 
