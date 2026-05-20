@@ -2,47 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AIitEBooDmpq6gUAu9opvQ
+	id GPLoEcUoDmpq6gUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:31:06 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:33:57 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A471059AF50
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:31:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314459.1584425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7CC359B052
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:33:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314466.1584434 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPoVA-0002Zv-56; Wed, 20 May 2026 21:30:52 +0000
+	id 1wPoXt-0003Db-KI; Wed, 20 May 2026 21:33:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314459.1584425; Wed, 20 May 2026 21:30:52 +0000
+Received: by outflank-mailman (output) from mailman id 1314466.1584434; Wed, 20 May 2026 21:33:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPoVA-0002Xg-1a; Wed, 20 May 2026 21:30:52 +0000
-Received: by outflank-mailman (input) for mailman id 1314459;
- Wed, 20 May 2026 21:30:51 +0000
+	id 1wPoXt-0003B8-HH; Wed, 20 May 2026 21:33:41 +0000
+Received: by outflank-mailman (input) for mailman id 1314466;
+ Wed, 20 May 2026 21:33:39 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPoV9-0002XV-51
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 21:30:51 +0000
+ <3sCgOagYKCZEDzv84x19916z.x97Iz8-yzGz663DED.Iz8AC94zxE.9C1@flex--seanjc.bounces.google.com>)
+ id 1wPoXr-0003Au-N2
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 21:33:39 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPoV8-00EFYb-Hc
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:30:50 +0200
+ id 1wPoXq-000gTb-PH
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:33:38 +0200
 Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
- <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e27dd-e002-0a2a0a5209dd-0a2a4503a624-14
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:30:49 +0200
-Received: from [90.155.50.34] (helo=casper.infradead.org)
+ <3sCgOagYKCZEDzv84x19916z.x97Iz8-yzGz663DED.Iz8AC94zxE.9C1@flex--seanjc.bounces.google.com>)
+ id 6a0e2876-5cb7-0a2a0a5109dd-0a2a4503bc6e-38
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:33:38 +0200
+Received: from [209.85.215.201] (helo=mail-pg1-f201.google.com)
  by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
- <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e2809-672d-0a2a45030019-5a9b3222cd76-3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:30:49 +0200
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=freeip.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPoV0-00000007bNi-3Sai; Wed, 20 May 2026 21:30:43 +0000
+ <3sCgOagYKCZEDzv84x19916z.x97Iz8-yzGz663DED.Iz8AC94zxE.9C1@flex--seanjc.bounces.google.com>)
+ id 6a0e28b1-672d-0a2a45030019-d155d7c9d921-3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:33:38 +0200
+Received: by mail-pg1-f201.google.com with SMTP id
+ 41be03b00d2f7-c828acf7c1dso8774959a12.3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 14:33:38 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,212 +53,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=casper.20170209 header.d=infradead.org header.i="@infradead.org" header.h="MIME-Version:Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=iR0vPLYITswgtSgBTBoRMyjUX6mzMxULdJ7R+Sys+Ms=; b=vr0sBVx5eHlZoE7JM07BZ2HK6V
-	+Nlyipxl9SHT0Bbe7Kc1YS4xhkhoaxoTsvqPNbggpQNxMueEB91VbhSBvtR9FzGq5Ywy4JypnGy5e
-	f5gccZoj0ctTgKyFSFWO3OoNP5VE2HrbwsMs+RTlEvZNtCdkf8wlJKpfNsWS9Kev3hPeZ7cENoNMb
-	26HRx+plhBG8DM7SgwqpuwrElbsw86w/FddZTYPWTEO2pGJeV/X4yS3jdGPwK/dN4Oov776G5ccaS
-	kwziog9DmxJWPQrHB5kMofq7xOfJgd9ImoLdUad2jRg8orVPuFMxztf/ym1442HECcSGtIvXzZk7a
-	Rq1sJwIw==;
-Message-ID: <1115ab6aedaaa25dfa4f143ad151bb2af0e290d3.camel@infradead.org>
-Subject: Re: [PATCH v3 09/41] clocksource: hyper-v: Don't save/restore TSC
- offset when using HV sched_clock
-From: David Woodhouse <dwmw2@infradead.org>
-To: Sean Christopherson <seanjc@google.com>, Kiryl Shutsemau
- <kas@kernel.org>,  Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan"
- <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu
- <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li
- <longli@microsoft.com>, Ajay Kaher <ajay.kaher@broadcom.com>, Alexey
- Makhalov <alexey.makhalov@broadcom.com>,  Jan Kiszka
- <jan.kiszka@siemens.com>, Dave Hansen <dave.hansen@linux.intel.com>, Andy
- Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Juergen Gross <jgross@suse.com>, Daniel Lezcano
- <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, John Stultz
- <jstultz@google.com>
-Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov
- <vkuznets@redhat.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Stephen Boyd <sboyd@kernel.org>,
- x86@kernel.org,  linux-coco@lists.linux.dev, kvm@vger.kernel.org,
- linux-hyperv@vger.kernel.org,  virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org, Michael
- Kelley <mhklinux@outlook.com>, Tom Lendacky <thomas.lendacky@amd.com>,
- Nikunj A Dadhania <nikunj@amd.com>, Thomas Gleixner <tglx@linutronix.de>
-Date: Wed, 20 May 2026 22:30:41 +0100
-In-Reply-To: <20260515191942.1892718-10-seanjc@google.com>
-References: <20260515191942.1892718-1-seanjc@google.com>
-	 <20260515191942.1892718-10-seanjc@google.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-Sn8epQWSao7nVocRa+BP"
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
-MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-33051d/1779312649-38577938-7E8548B0/0/0
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=google.com header.i="@google.com" header.h="Content-Transfer-Encoding:Cc:To:From:Subject:Message-ID:References:Mime-Version:In-Reply-To:Date"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1779312816; x=1779917616; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LZSsn4W0FsDL+gHozCZFUr2SRc1gslr4/bysNvveKJE=;
+        b=Bj04TAHLewNVYX/QUbiC3VU8l65ecoXf8zQbW2Gwjj0Kv34+JbiWwYyVlnpIhGDirY
+         85WrUovIZqICDQBD8vQCYEZIplLs5LecZSdEEzEyslJX1mpsgZszyH1Qt98aSSMxsHdV
+         yxFeOB2qVgfqdHmSlshAmsMY6C/6xlfrXh96iI+KQOF4KZJ1j5Pn/BH/u4+Ml6Ju/MWN
+         9TKOtI/Ce1zaaWHhsLziDw4b0h9rfooDFSbyjL8dYxGJo8tCGBVH/FgsBBgErBt8bD7S
+         eEyImAyYcrXw+Z/o08KYA/BuZ2YLBSSZMujvrFAWF9TKrHYiSDGx9n84SE7FZXNy24f5
+         6tlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779312816; x=1779917616;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=LZSsn4W0FsDL+gHozCZFUr2SRc1gslr4/bysNvveKJE=;
+        b=oZ4eSrF2NXjJbpLwdMAnIEp+CGl8p58L7nCFnllEokZObBkRfBjF9m9tkVnfzT8Q7d
+         7VkLhf/GRDDq3xqne5D+ZwsgqbHO7QNxA/NDhNd2F1tOKRFrzF5AR4x9vUPFKFJFYZIB
+         84dByNsbH22m+jzKZ3AXADmGAfewdDBKH80X7EN7JdfYNnFeEiW3kqUcwU+OXeBA6vS6
+         BLggMA/zPmIwmRJzWziBTc9WE6Ysk4i/0Tb45X7O22AWJXXBRP+MGzRSC+Bzw/UuCi+s
+         UWpeEY8nE0JdlmPCBFtqFMqMUPJHNFpuHMjVg8LG+kZu8FZq6sb3iacp9+/OX96KCufY
+         9wQQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+QYRbf80WV3PMPZXu5z+LoKXu/f85uYYo7nzwt4wCgZzw58iU1oZ/oAF5ciA5yK7RB0MdgHoz/kBU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxBifvR+cIp7jllGEaB3ptZqJAG9mquxeoxvAEIAbBU6xsv6c1N
+	H+NsY+ACTySR97GF1Dqa1OAn7ntDU9rPrwAqpZHpAUvwkXitgh0a3BnFtxOEgmx9iOV1g1hSV21
+	t8PVX6A==
+X-Received: from pgdh5.prod.google.com ([2002:a05:6a02:5185:b0:c79:7107:a67a])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:7fa8:b0:3a0:b65a:5dd1
+ with SMTP id adf61e73a8af0-3b3081bfb61mr164633637.0.1779312816324; Wed, 20
+ May 2026 14:33:36 -0700 (PDT)
+Date: Wed, 20 May 2026 14:33:35 -0700
+In-Reply-To: <621e10bdc9e297c6c600b561d8fa25c3b62968bc.camel@infradead.org>
+Mime-Version: 1.0
+References: <20260515191942.1892718-1-seanjc@google.com> <20260515191942.1892718-3-seanjc@google.com>
+ <44e0d60548d317fd59895f18bd17220dfb2f834b.camel@infradead.org>
+ <ag4dMc2B3JQi4vxU@google.com> <621e10bdc9e297c6c600b561d8fa25c3b62968bc.camel@infradead.org>
+Message-ID: <ag4or9-9c6VZxqya@google.com>
+Subject: Re: [PATCH v3 02/41] x86/tsc: Add helper to register CPU and TSC freq
+ calibration routines
+From: Sean Christopherson <seanjc@google.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
+	"K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
+	Ajay Kaher <ajay.kaher@broadcom.com>, Alexey Makhalov <alexey.makhalov@broadcom.com>, 
+	Jan Kiszka <jan.kiszka@siemens.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Juergen Gross <jgross@suse.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	John Stultz <jstultz@google.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	Vitaly Kuznetsov <vkuznets@redhat.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stephen Boyd <sboyd@kernel.org>, x86@kernel.org, 
+	linux-coco@lists.linux.dev, kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, Michael Kelley <mhklinux@outlook.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
+	Thomas Gleixner <tglx@linutronix.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+X-purgate-ID: tlsNG-33051d/1779312818-3794D938-11D3E248/0/0
 X-purgate-type: clean
-X-purgate-size: 8240
-X-Spamd-Result: default: False [-1.49 / 15.00];
-	SIGNED_SMIME(-2.00)[];
-	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	MIME_GOOD(-0.20)[multipart/signed,text/plain];
+X-purgate-size: 4426
+X-Spamd-Result: default: False [-0.59 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[google.com,reject];
+	MV_CASE(0.50)[];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[google.com:s=20251104];
 	MAILLIST(-0.18)[generic];
-	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,amazon.co.uk:email,outlook.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dwmw2@infradead.org,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
 	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	RCPT_COUNT_TWELVE(0.00)[34];
+	FREEMAIL_CC(0.00)[kernel.org,redhat.com,microsoft.com,broadcom.com,siemens.com,linux.intel.com,infradead.org,suse.com,google.com,intel.com,oracle.com,lists.linux.dev,vger.kernel.org,lists.xenproject.org,outlook.com,amd.com,linutronix.de];
 	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+,1:+,2:~];
-	FREEMAIL_CC(0.00)[intel.com,redhat.com,broadcom.com,oracle.com,kernel.org,lists.linux.dev,vger.kernel.org,lists.xenproject.org,outlook.com,amd.com,linutronix.de];
+	RCPT_COUNT_TWELVE(0.00)[34];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[seanjc@google.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[infradead.org:-];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FROM_NEQ_ENVFROM(0.00)[seanjc@google.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[google.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: A471059AF50
+X-Rspamd-Queue-Id: A7CC359B052
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-
---=-Sn8epQWSao7nVocRa+BP
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
-> Now that Hyper-V overrides the sched_clock save/restore hooks if and only
-> sched_clock itself is set to the Hyper-V reference counter, drop the
-> invocation of the "old" save/restore callbacks.=C2=A0 When the registrati=
-on of
-> the PV sched_clock was done separately from overriding the save/restore
-> hooks, it was possible for Hyper-V to clobber the TSC save/restore
-> callbacks without actually switching to the Hyper-V refcounter.
->=20
-> Enabling a PV sched_clock is a one-way street, i.e. the kernel will never
-> revert to using TSC for sched_clock, and so there is no need to invoke th=
-e
-> TSC save/restore hooks (and if there was, it belongs in common PV code).
->=20
-> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-> Tested-by: Michael Kelley <mhklinux@outlook.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-
-Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
-
---=-Sn8epQWSao7nVocRa+BP
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
-ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
-MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
-a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
-jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
-GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
-aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
-nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
-8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
-HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
-IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
-KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
-BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
-QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
-QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
-ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
-/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
-uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
-xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
-W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
-c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
-VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
-NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
-DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
-sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
-w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
-i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
-kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
-0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
-ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
-blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
-hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
-VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
-HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
-ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
-AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
-cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
-cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
-AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
-aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
-hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
-iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
-8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
-JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
-xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
-EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
-B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
-MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
-KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
-Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
-nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
-WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
-W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
-nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
-g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
-9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
-9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
-sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
-a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
-ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
-AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
-dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
-Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
-MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
-YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
-4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
-6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
-QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
-nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
-MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
-VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
-ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDUyMDIxMzA0
-MVowLwYJKoZIhvcNAQkEMSIEIMeQ1gU+KVwGQPHzOL8it0kgAyiQSr7Z/VeLigqpvrGjMGQGCSsG
-AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
-cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
-VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
-cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAEYz61V0unSv/
-wFhbyk9O9q6uHQtWdSW4YW6o688L8yDPnW0/YO/grLOswG50sdT2fJ7CCtfEzl+mnVYh4mfp0P29
-VP3rmmAGp2xGhrc9gqE3yb/dgRhQs0zNmvgXphdVFB8v/sfbebvwQP/8tHLizSXrQlEFoC8zJDk8
-lfoTid4Z23xHgE6tBYzZOZ/ML+Ev+Jc4Q5dEEQRt5QSr2OJcgAqr6+F9PW0F4xPLVFenMG+jVnZT
-8vwtnYw35xOCQk+8fEZKYQwjF8EaG8GpjhVabchQ+EW7dRTBSZ9mhiv6lKuo6qx1CtVVQrNRbipN
-CHBWCwMU41m/jlkSlUc1n7hJXJo735U3BmcCm2uJ2YcFbfyIZPGHCiajwjSzso0xWGaeJTtX0hIS
-TkyAGlGJrDioxK1VoxaNEp1D2BCiyOX4E6qs7YJKtFjHnuScwO6vwtHOPhYgFQc4Z5eNcdy+0xZw
-CW9gz2BimMvOmFVbqcBsKGL28tUTNpE4dUrxItc4kR31rhWJyk3iU8w7b8ZmO+DhrTbubO67thzO
-1uBPoKfqL3GIdVVlSZuHKpCKQHFbQacDnstMPxSBB2K8Cg99Kj9mAjgTmKuVcRvGEAKhWwPw+bB8
-wKJKp3x5Mq2NmqdOPpoi2jt5wHxFBCtZCwKTMkBzeBth4F6zUouUItU+QY9IYT4AAAAAAAA=
-
-
---=-Sn8epQWSao7nVocRa+BP--
+T24gV2VkLCBNYXkgMjAsIDIwMjYsIERhdmlkIFdvb2Rob3VzZSB3cm90ZToKPiBPbiBXZWQsIDIw
+MjYtMDUtMjAgYXQgMTM6NDQgLTA3MDAsIFNlYW4gQ2hyaXN0b3BoZXJzb24gd3JvdGU6Cj4gPiAK
+PiA+ICvCoMKgwqDCoMKgwqAgLyoKPiA+ICvCoMKgwqDCoMKgwqDCoCAqIElmIHRoZSBUU0MgY291
+bnRzIGF0IGEgY29uc3RhbnQgZnJlcXVlbmN5IGFjcm9zcyBQL1Qgc3RhdGVzLCBjb3VudHMKPiA+
+ICvCoMKgwqDCoMKgwqDCoCAqIGluIGRlZXAgQy1zdGF0ZXMsIGFuZCB0aGUgVFNDIGhhc24ndCBi
+ZWVuIG1hcmtlZCB1bnN0YWJsZSwgdHJlYXQgdGhlCj4gPiArwqDCoMKgwqDCoMKgwqAgKiBUU0Mg
+cmVsaWFibGUsIGFzIGd1YXJhbnRlZWQgYnkgS1ZNLsKgIE5vdGUsIHRoZSBUU0MgdW5zdGFibGUg
+Y2hlY2sKPiA+ICvCoMKgwqDCoMKgwqDCoCAqIGV4aXN0cyBwdXJlbHkgdG8gaG9ub3IgdGhlIFRT
+QyBiZWluZyBtYXJrZWQgdW5zdGFibGUgdmlhIGNvbW1hbmQKPiA+ICvCoMKgwqDCoMKgwqDCoCAq
+IGxpbmUsIGFueSBydW50aW1lIGRldGVjdGlvbiBvZiBhbiB1bnN0YWJsZSB3aWxsIGhhcHBlbiBh
+ZnRlciB0aGlzLgo+ID4gK8KgwqDCoMKgwqDCoMKgICovCj4gPiArwqDCoMKgwqDCoMKgIGlmIChi
+b290X2NwdV9oYXMoWDg2X0ZFQVRVUkVfQ09OU1RBTlRfVFNDKSAmJgo+ID4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgIGJvb3RfY3B1X2hhcyhYODZfRkVBVFVSRV9OT05TVE9QX1RTQykgJiYKPiA+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoCAhY2hlY2tfdHNjX3Vuc3RhYmxlKCkpCj4gICAgIHsgCj4gPiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0c2NfcHJvcGVydGllcyA9IFRTQ19GUkVRX0tO
+T1dOX0FORF9SRUxJQUJMRTsKPiAKPiAgICAga3ZtY2xvY2sgPSAwOyAvKiBXaHkgdXNlIGl0IGlm
+IHRoZSBUU0Mgd29ya3M/IFRoZSBrdm1jbG9jayBleGlzdHMKPiAgICAgICAgICAgICAgICAgICAg
+ICAqcHVyZWx5KiB0byB3b3JrIGFyb3VuZCBhIFRTQyB3aGljaCAqZG9lc24ndCoKPiAgICAgICAg
+ICAgICAgICAgICAgICBoYXZlIHRob3NlIHByb3BlcnRpZXMgY2hlY2tlZCBhYm92ZS4gKi8KCmt2
+bWNsb2NrIHN0aWxsIHByb3ZpZGVzIFNZU1RFTV9USU1FIGFuZCBXQUxMX0NMT0NLIDotLwoKPiAg
+ICAgfQo+IAo+IEkgd2FzIGdvaW5nIHRvIHNheSBQVkNMT0NLX1RTQ19TVEFCTEVfQklULCBhbmQg
+bWF5YmUgd2Ugc2hvdWxkIGNoZWNrCj4gdGhhdCAqdG9vKiBmb3IgcGFyYW5vaWE/CgpObz8gUFZD
+TE9DS19UU0NfU1RBQkxFIGlzIHByb3BlcnR5IG9mIGt2bWNsb2NrIG1vcmUgdGhhbiBpdCdzIGEg
+cHJvcGVydHkgb2YgdGhlClRTQyBpdHNlbGYuICBBbmQgZm9yIHRoZSBuby1rdm1jbG9jayBjYXNl
+LCB3ZSBtb3N0IGRlZmluaXRlbHkgZG9uJ3Qgd2FudCB0byBzZXR1cAprdm1jbG9jayBqdXN0IHRv
+IHF1ZXJ5IHRoYXQgZmxhZy4KCj4gQnV0IGhvcGVmdWxseSB0aGUgY2hlY2tzIHlvdSBoYXZlIGFi
+b3ZlIGFyZSBlcXVpdmFsZW50PwoKVGhleSBhcmVuJ3QgYXMgcGFyYW5vaWQsIGJ1dCBpZiB0aGUg
+aG9zdCBlbnVtZXJhdGVzIENPTlNUQU5UK05PTlNUT1AgVFNDIGRlc3BpdGUKS1ZNLXRoZS1ob3N0
+IG5vdCBiZWluZyBhYmxlIHRvIGFkdmVydGlzZSBQVkNMT0NLX1RTQ19TVEFCTEVfQklULCB0aGVu
+IHRoZSBWTU0gZG9uZQptZXNzZWQgdXAuCgo+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoCBrdm1fdHNj
+X2toel9jcHVpZCA9IGt2bV9wYXJhX3RzY19raHooKTsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqAg
+LyoKPiA+ICvCoMKgwqDCoMKgwqDCoCAqIElmIHByb3ZpZGVkLCB1c2UgdGhlIFRTQyAoYW5kIEFQ
+SUMgYnVzKSBmcmVxdWVuY3kgcHJvdmlkZWQgaW4gS1ZNJ3MKPiA+ICvCoMKgwqDCoMKgwqDCoCAq
+IFBWIENQVUlEIGxlYWYgZXZlbiBpZiBrdm1jbG9jayBpdHNlbGYgaXMgZGlzYWJsZWQgdmlhIGNv
+bW1hbmQgbGluZS4KPiA+ICvCoMKgwqDCoMKgwqDCoCAqIFRoZSBQViBDUFVJRCBpbmZvcm1hdGlv
+biBpc24ndCBkZXBlbmRlbnQgb24ga3ZtY2xvY2sgaW4gYW55IHdheSwgYW5kCj4gPiArwqDCoMKg
+wqDCoMKgwqAgKiBpbiBmYWN0IHVzaW5nIHRoZSBwcmVjaXNlIGluZm9ybWF0aW9uIGlzICptb3Jl
+KiBpbXBvcnRhbnQgd2hlbiB0aGUKPiA+ICvCoMKgwqDCoMKgwqDCoCAqIHVzZXIgaGFzIGV4cGxp
+Y2l0bHkgZGlzYWJsZWQga3ZtY2xvY2sgdG8gZm9yY2UgdGhlIGtlcm5lbCB0byB1c2UgdGhlCj4g
+PiArwqDCoMKgwqDCoMKgwqAgKiBUU0MgYXMgaXRzIGNsb2Nrc291cmNlLgo+ID4gK8KgwqDCoMKg
+wqDCoMKgICovCj4gPiArwqDCoMKgwqDCoMKgIGlmICgha3ZtY2xvY2spIHsKPiA+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChrdm1fdHNjX2toel9jcHVpZCkKPiA+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0c2NfcmVnaXN0ZXJfY2FsaWJy
+YXRpb25fcm91dGluZXMoa3ZtX2dldF90c2Nfa2h6LAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAga3ZtX2dldF9jcHVfa2h6LAo+ID4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+dHNjX3Byb3BlcnRpZXMpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJu
+Owo+ID4gK8KgwqDCoMKgwqDCoCB9Cj4gPiArCj4gCj4gCj4gUmVnYXJkbGVzcyBvZiB0aGUgYWJv
+dmUsIHdoeSBub3QganVzdCByZWdpc3RlciB0aGVzZSBoZXJlCj4gdW5jb25kaXRpb25hbGx5LCBh
+bmQgcmVtb3ZlIHRoZSBsYXRlciBjYWxsIHRoYXQgZG9lcyB0aGUgc2FtZT8KCkJlY2F1c2UgaWYg
+a3ZtY2xvY2s9biwgaXQncyBvbmx5IHNhZmUgdG8gY2FsbCBrdm1fZ2V0X3RzY19raHooKSBpZiBr
+dm1fdHNjX2toel9jcHVpZAppcyBub24temVybywgb3RoZXIgd2lzZSB0aGUgImVsc2UiIHBhdGgg
+d2lsbCBoaXQgYSBOVUxMIHBvaW50ZXIgZGVyZWYgd2hlbiB0cnlpbmcKdG8gZ2V0IHRoZSBmcmVx
+dWVuY3kgZnJvbSB0aGUgUFYgY2xvY2sgc3RydWN0OgoKCXJldHVybiBrdm1fdHNjX2toel9jcHVp
+ZCA/IDogcHZjbG9ja190c2Nfa2h6KHRoaXNfY3B1X3B2dGkoKSk7Cg==
 
