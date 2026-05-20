@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wNw7BF0RDmrw5wUAu9opvQ
+	id +JfRKjETDmoW6AUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 21:54:05 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 22:01:53 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 649C0598DC3
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 21:54:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314356.1584308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 254D2599090
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 22:01:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314364.1584317 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPmyM-00008r-LH; Wed, 20 May 2026 19:52:54 +0000
+	id 1wPn6l-0001tt-Cr; Wed, 20 May 2026 20:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314356.1584308; Wed, 20 May 2026 19:52:54 +0000
+Received: by outflank-mailman (output) from mailman id 1314364.1584317; Wed, 20 May 2026 20:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPmyM-000067-I4; Wed, 20 May 2026 19:52:54 +0000
-Received: by outflank-mailman (input) for mailman id 1314356;
- Wed, 20 May 2026 19:52:53 +0000
+	id 1wPn6l-0001sl-8q; Wed, 20 May 2026 20:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 1314364;
+ Wed, 20 May 2026 20:01:33 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPmyI-000060-Tm
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 19:52:53 +0000
+ id 1wPn6j-0001sf-4J
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 20:01:33 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPmyH-000WSn-8r
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 21:52:50 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wPn6h-00E5o6-E5
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 22:01:32 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e10e8-2eae-0a2a0a5409dd-0a2a450cee2a-42
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 21:52:49 +0200
+ id 6a0e1306-2eae-0a2a0a5409dd-0a2a450ba57a-38
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 22:01:30 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e1110-62f1-0a2a450c0019-5a9b3222a4aa-3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 21:52:49 +0200
+ id 6a0e131a-212f-0a2a450b0019-5a9b3222c51c-3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 22:01:30 +0200
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=freeip.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPmy6-00000007X3w-0iI8; Wed, 20 May 2026 19:52:38 +0000
+ id 1wPn6Y-00000007XP2-0MYI; Wed, 20 May 2026 20:01:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=NfDpWCHNwCELYmlOslr/nQ3b8qR5PBi6+oTunXmBd4o=; b=DkoJ/w1PPPOjo84eaBmK3YrnUk
-	9H1j54dtNQaWS9aYKjJOV4LaeDeHzYJ8wV/KR7UGTuxRrRQylp1GWU6k1H+s5w+eWsWwmmqxdybuH
-	gbtoAQOU+y7SeDsiyFcCl2IfVipHbaSO3RiSLrS2oaDiAd+Abl2Smbu93cLi9/vTIw/JMe5RK897z
-	ZBi1VceUgVrtC6pGP+YpmzNDSNqVjVkou6NYUlB7ZUQYrezAJVmCXwGu/ph/hOuIrt1W+H572McTe
-	9nbmgL7H4CD3jaFTXtPFuXwG8PtQOd7d5siZIRaz2wm2lCJhwyriFq7UeEck7P0P1/rHzSB1WP72H
-	DdxKO+PA==;
-Message-ID: <cbb47751c74ea07298b87145c65b12850d731ff7.camel@infradead.org>
-Subject: Re: [PATCH v3 05/41] x86/tdx: Override PV calibration routines with
- CPUID-based calibration
+	bh=z7cL9NmYzNY0dm/kHQmLedGtyro/w1YtGsslfqFf7rU=; b=HTI93RWkuybXpEb4YMAveyPPv/
+	sI4YMAa4ukmqd6Inidx4NQ3yOZpxMrKNP6N40nFP81aPdbQAGe+C6a4auz/LaDhVnTansTJKgiPp+
+	ewCyEDeXzlncCkeatMNHniDVVnIwy0xUepX5SFJcdKap9uSckbNxHYpzU8O79VCS55ffWk3u8SHEN
+	vkeScKhHd2WdYu8Gebnc0FhWr1ivo+FikXYRYAZHCR5Muvom0vT+SAlIDIytr98k6Fyo6eYPHvuBY
+	4UB46sdoUfvyiEpyyNqk4c3wip3HM5bpjUnsFbRHzFIt6XP3cWsUoDRkiVEVQJvCXUAc5ElV/IQF7
+	afaU1LHw==;
+Message-ID: <c347d65f555ad1e10a0e87ee57c5879c7046d0e7.camel@infradead.org>
+Subject: Re: [PATCH v3 06/41] x86/acrn: Mark TSC frequency as known when
+ using ACRN for calibration
 From: David Woodhouse <dwmw2@infradead.org>
 To: Sean Christopherson <seanjc@google.com>, Kiryl Shutsemau
  <kas@kernel.org>,  Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan"
@@ -89,18 +89,18 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov
  linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org, Michael
  Kelley <mhklinux@outlook.com>, Tom Lendacky <thomas.lendacky@amd.com>,
  Nikunj A Dadhania <nikunj@amd.com>, Thomas Gleixner <tglx@linutronix.de>
-Date: Wed, 20 May 2026 20:52:36 +0100
-In-Reply-To: <20260515191942.1892718-6-seanjc@google.com>
+Date: Wed, 20 May 2026 21:01:20 +0100
+In-Reply-To: <20260515191942.1892718-7-seanjc@google.com>
 References: <20260515191942.1892718-1-seanjc@google.com>
-	 <20260515191942.1892718-6-seanjc@google.com>
+	 <20260515191942.1892718-7-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-5uq1B3Al8/yI7wiKnpz0"
+	boundary="=-dAeHKvdWKxIIK3rDkIA7"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-d25034/1779306769-DB370CF5-EF504B1B/0/0
+X-purgate-ID: tlsNG-42698a/1779307290-23374F3B-3267BB31/0/0
 X-purgate-type: clean
-X-purgate-size: 9337
+X-purgate-size: 8602
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
@@ -112,7 +112,7 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,intel.com:email,infradead.org:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -136,65 +136,48 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 649C0598DC3
+X-Rspamd-Queue-Id: 254D2599090
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-5uq1B3Al8/yI7wiKnpz0
+--=-dAeHKvdWKxIIK3rDkIA7
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
-> When running as a TDX guest, explicitly override the TSC frequency
-> calibration routine with CPUID-based calibration instead of potentially
-> relying on a hypervisor-controlled PV routine.=C2=A0 For TDX guests, CPUI=
-D.0x15
-> is always emulated by the TDX-Module, i.e. the information from CPUID is
-> more trustworthy than the information provided by the hypervisor.
+> Mark the TSC frequency as known when using ACRN's PV CPUID information.
+> Per commit 81a71f51b89e ("x86/acrn: Set up timekeeping") and common sense=
+,
+> the TSC freq is explicitly provided by the hypervisor.
 >=20
-> To maintain backwards compatibility with TDX guest kernels that use nativ=
-e
-> calibration, and because it's the least awful option, retain
-> native_calibrate_tsc()'s stuffing of the local APIC bus period using the
-> core crystal frequency.=C2=A0 While it's entirely possible for the hyperv=
-isor
-> to emulate the APIC timer at a different frequency than the core crystal
-> frequency, the commonly accepted interpretation of Intel's SDM is that AP=
-IC
-> timer runs at the core crystal frequency when that latter is enumerated v=
-ia
-> CPUID:
->=20
-> =C2=A0 The APIC timer frequency will be the processor=E2=80=99s bus clock=
- or core
-> =C2=A0 crystal clock frequency (when TSC/core crystal clock ratio is enum=
-erated
-> =C2=A0 in CPUID leaf 0x15).
->=20
-> If the hypervisor is malicious and deliberately runs the APIC timer at th=
-e
-> wrong frequency, nothing would stop the hypervisor from modifying the
-> frequency at any time, i.e. attempting to manually calibrate the frequenc=
-y
-> out of paranoia would be futile.
->=20
-> Deliberately leave the CPU frequency calibration routine as is, since the
-> TDX-Module doesn't provide any guarantees with respect to CPUID.0x16.
->=20
-> Opportunistically add a comment explaining that CoCo TSC initialization
-> needs to come after hypervisor specific initialization.
->=20
-> Cc: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
 > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+> =C2=A0arch/x86/kernel/cpu/acrn.c | 1 +
+> =C2=A01 file changed, 1 insertion(+)
+>=20
+> diff --git a/arch/x86/kernel/cpu/acrn.c b/arch/x86/kernel/cpu/acrn.c
+> index c1506cb87d8c..2da3de4d470e 100644
+> --- a/arch/x86/kernel/cpu/acrn.c
+> +++ b/arch/x86/kernel/cpu/acrn.c
+> @@ -29,6 +29,7 @@ static void __init acrn_init_platform(void)
+> =C2=A0	/* Install system interrupt handler for ACRN hypervisor callback *=
+/
+> =C2=A0	sysvec_install(HYPERVISOR_CALLBACK_VECTOR, sysvec_acrn_hv_callback=
+);
+> =C2=A0
+> +	setup_force_cpu_cap(X86_FEATURE_TSC_KNOWN_FREQ);
+> =C2=A0	tsc_register_calibration_routines(acrn_get_tsc_khz,
+> =C2=A0					=C2=A0 acrn_get_tsc_khz);
 
-I don't much like stuffing the lapic_timer_period... but I'll give you
-'least awful option'. For now.
+I'd feel slightly happier doing that from within acrn_get_tsc_khz()
+itself.... which I note is 'static inline'. I'm vaguely surprised that
+even builds (although it does). Probably nicer to move it explicitly
+out of line in acrn.c though.
 
-Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
+Most of that should be a comment on patch  2 of the series, I guess?
 
-
---=-5uq1B3Al8/yI7wiKnpz0
+--=-dAeHKvdWKxIIK3rDkIA7
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -273,22 +256,22 @@ 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
-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
+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
-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
+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
 
 
---=-5uq1B3Al8/yI7wiKnpz0--
+--=-dAeHKvdWKxIIK3rDkIA7--
 
