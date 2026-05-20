@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gIgzLWYtDmrz7gUAu9opvQ
+	id sBkxCmouDmoK7wUAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:53:42 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:58:02 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24E4659B6CC
-	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:53:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314498.1584469 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EC4C59B881
+	for <lists+xen-devel@lfdr.de>; Wed, 20 May 2026 23:58:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314505.1584479 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPor2-0007oM-RM; Wed, 20 May 2026 21:53:28 +0000
+	id 1wPov7-00005T-Ap; Wed, 20 May 2026 21:57:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314498.1584469; Wed, 20 May 2026 21:53:28 +0000
+Received: by outflank-mailman (output) from mailman id 1314505.1584479; Wed, 20 May 2026 21:57:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPor2-0007mk-Ok; Wed, 20 May 2026 21:53:28 +0000
-Received: by outflank-mailman (input) for mailman id 1314498;
- Wed, 20 May 2026 21:53:27 +0000
+	id 1wPov7-0008Ub-7B; Wed, 20 May 2026 21:57:41 +0000
+Received: by outflank-mailman (input) for mailman id 1314505;
+ Wed, 20 May 2026 21:57:40 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wPor1-0007mc-AU
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 21:53:27 +0000
+ id 1wPov6-0008UV-B2
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 21:57:40 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPor0-005Ktp-NL
- for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:53:26 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wPov5-008u4B-9A
+ for xen-devel@lists.xenproject.org; Wed, 20 May 2026 23:57:39 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e2d55-e002-0a2a0a5209dd-0a2a4506d960-0
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:53:25 +0200
+ id 6a0e2e44-bab6-0a2a0a5309dd-0a2a4508cf74-14
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:57:38 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+a57aa1d5a46c52e8d71d+8305+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a0e2d55-7371-0a2a45060019-5a9b32229f44-3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:53:25 +0200
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ id 6a0e2e52-63b5-0a2a45080019-5a9b3222eda6-3
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:57:38 +0200
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
  helo=freeip.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wPoqo-00000007cdF-2nQQ; Wed, 20 May 2026 21:53:15 +0000
+ id 1wPouw-00000007d9H-14M2; Wed, 20 May 2026 21:57:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=xSmotBumbh9nvUNe1AmY/zmLJ0tpoG/fPrPBvV+spqM=; b=C3KXodiWWlgbcDiMbYKSpffnDe
-	2wy6vD24WI6C1ASVsOfhTce+ihf2Dqyd8eFfQDaSYovFMEhBW5AOUerUAgoxbwDXXzU9ZwM9og/Xr
-	5bv0RZOSJ+eSbKBsKc/SSqtqaRjHyLpz09cbwVaqvKPKwb8WAMQC76x+9LXAG6WObOE6rTG6nb71T
-	IWO5oPlGRzeP3SUbnQjxiq20sactLFbbEYLGhsc1jW3JJzkvgt2G9Sajga+enQxPWp/X+J0cIDhxr
-	eonRP9bLJO0+FNHlGndkblplvoAfPUYaHDXks6QiL5Suq2vZXuRu7+upJTYnEveFeyHljBzRSjpUk
-	t1GTRagQ==;
-Message-ID: <d9fbed593b0ecca90a71fc6882a0de9edddbcfe9.camel@infradead.org>
-Subject: Re: [PATCH v3 12/41] x86/paravirt: Remove unnecessary PARAVIRT=n
- stub for paravirt_set_sched_clock()
+	bh=38ANKb1jM4JmiMAnBWx/WwzViNtUVSjLLpZWyzM+25E=; b=PI0diD+pIo5hPd+dE2/c7EucR4
+	eoXPFJj9K2jg+Q44TZdb/PVK5gc9FJrKYGBqpzqXIpj9r9J5Rz4/jg2cgHi6XzBqkZLUBgTLUYLoy
+	047XQmdylbC/gviPM4c+Tif5Oo2OKwymc3pSYxOocHUhVdbVS3YzkPnZOKYtwtwNHUgWZp3GhJ4ga
+	/oLbFiB63TZwL9iUYbPSGEfVWT9pIav1zASgHO4FaOLw3UcWV2in/7/WVffKmNb4voCLSQH2kYOht
+	zGmG4zVhSn4VIJVtC6mAR/8UKzddaT0j+PEhOs84B88U10UHpPh+VcrvVk2a2NXrX25TN/iCx0Ss/
+	Rcid4VuA==;
+Message-ID: <c4fa5996ceddc4e420f21aeab0601263eedad717.camel@infradead.org>
+Subject: Re: [PATCH v3 13/41] x86/paravirt: Move handling of unstable PV
+ clocks into paravirt_set_sched_clock()
 From: David Woodhouse <dwmw2@infradead.org>
 To: Sean Christopherson <seanjc@google.com>, Kiryl Shutsemau
  <kas@kernel.org>,  Paolo Bonzini <pbonzini@redhat.com>, "K. Y. Srinivasan"
@@ -89,30 +89,30 @@ Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>, Vitaly Kuznetsov
  linux-kernel@vger.kernel.org,  xen-devel@lists.xenproject.org, Michael
  Kelley <mhklinux@outlook.com>, Tom Lendacky <thomas.lendacky@amd.com>,
  Nikunj A Dadhania <nikunj@amd.com>, Thomas Gleixner <tglx@linutronix.de>
-Date: Wed, 20 May 2026 22:53:12 +0100
-In-Reply-To: <20260515191942.1892718-13-seanjc@google.com>
+Date: Wed, 20 May 2026 22:57:28 +0100
+In-Reply-To: <20260515191942.1892718-14-seanjc@google.com>
 References: <20260515191942.1892718-1-seanjc@google.com>
-	 <20260515191942.1892718-13-seanjc@google.com>
+	 <20260515191942.1892718-14-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-LZSBgeOiINF7ylNXtgtB"
+	boundary="=-3Uz1L207KXSTPaqLS94I"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-16d1c6/1779314005-8D186D75-A49B79EA/0/0
+X-purgate-ID: tlsNG-c1860d/1779314258-B6F72DB1-A1F6CD8D/0/0
 X-purgate-type: clean
-X-purgate-size: 7816
+X-purgate-size: 8130
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
 	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,infradead.org:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -121,12 +121,13 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+,1:+,2:~];
 	FREEMAIL_CC(0.00)[intel.com,redhat.com,broadcom.com,oracle.com,kernel.org,lists.linux.dev,vger.kernel.org,lists.xenproject.org,outlook.com,amd.com,linutronix.de];
-	HAS_ATTACHMENT(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
 	DKIM_TRACE(0.00)[infradead.org:-];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
@@ -135,31 +136,40 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 24E4659B6CC
+X-Rspamd-Queue-Id: 8EC4C59B881
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-LZSBgeOiINF7ylNXtgtB
+--=-3Uz1L207KXSTPaqLS94I
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
-> Remove the unnecessary paravirt_set_sched_clock() stub for PARAVIRT=3Dn, =
-as
-> all callers are gated by PARAVIRT=3Dy.=C2=A0 Eliminating the stub will av=
-oid a
-> pile of pointless churn as the "real" implementation evolves.
+> Move the handling of unstable PV clocks, of which kvmclock is the only
+> example, into paravirt_set_sched_clock().=C2=A0 This will allow modifying
+> paravirt_set_sched_clock() to keep using the TSC for sched_clock in
+> certain scenarios without unintentionally marking the TSC-based clock as
+> unstable.
 >=20
 > No functional change intended.
 >=20
-> Fixes: 39965afb1151 ("x86/paravirt: Move paravirt_sched_clock() related c=
-ode into tsc.c")
 > Signed-off-by: Sean Christopherson <seanjc@google.com>
 
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
---=-LZSBgeOiINF7ylNXtgtB
+> -void paravirt_set_sched_clock(u64 (*func)(void));
+> +void __paravirt_set_sched_clock(u64 (*func)(void), bool stable);
+> +
+> +static inline void paravirt_set_sched_clock(u64 (*func)(void))
+> +{
+> +	__paravirt_set_sched_clock(func, true);
+> +}
+
+One of the few things I actually like about C++ is default arguments...
+
+
+--=-3Uz1L207KXSTPaqLS94I
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -238,22 +248,22 @@ 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
-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
+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
-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
+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
 
 
---=-LZSBgeOiINF7ylNXtgtB--
+--=-3Uz1L207KXSTPaqLS94I--
 
