@@ -2,49 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cNa9Ml8ED2pDEQYAu9opvQ
+	id cEEsNmsED2pDEQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 15:10:55 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 15:11:07 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C6F45A56DB
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 15:10:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1315183.1585027 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4693B5A56EA
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 15:11:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1315187.1585036 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ3AX-00055X-6p; Thu, 21 May 2026 13:10:33 +0000
+	id 1wQ3Au-0005Pp-EZ; Thu, 21 May 2026 13:10:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1315183.1585027; Thu, 21 May 2026 13:10:33 +0000
+Received: by outflank-mailman (output) from mailman id 1315187.1585036; Thu, 21 May 2026 13:10:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ3AX-00052d-3X; Thu, 21 May 2026 13:10:33 +0000
-Received: by outflank-mailman (input) for mailman id 1315183;
- Thu, 21 May 2026 13:10:31 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <peterz@infradead.org>) id 1wQ3AU-00052X-Pu
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 13:10:31 +0000
+	id 1wQ3Au-0005NW-Ag; Thu, 21 May 2026 13:10:56 +0000
+Received: by outflank-mailman (input) for mailman id 1315187;
+ Thu, 21 May 2026 13:10:54 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e4aa8f3cc000f373@swg.vates.tech>)
+ id 1wQ3As-0005N4-IL
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 13:10:54 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQ3AT-007gjB-OW
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 15:10:30 +0200
-Received: from [10.42.69.7] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <peterz@infradead.org>)
- id 6a0f042c-2eae-0a2a0a5409dd-0a2a4507cada-44
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 15:10:29 +0200
-Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <peterz@infradead.org>)
- id 6a0f0444-229c-0a2a45070019-5a9b3222a22e-3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 15:10:28 +0200
-Received: from
- 2001-1c00-8d85-4b00-266e-96ff-fe07-7dcc.cable.dynamic.v6.ziggo.nl
- ([2001:1c00:8d85:4b00:266e:96ff:fe07:7dcc]
- helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wQ3AK-00000008VrU-2GqZ; Thu, 21 May 2026 13:10:20 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id 111F6300446; Thu, 21 May 2026 15:10:19 +0200 (CEST)
+ id 1wQ3Ar-0036UN-V9
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 15:10:53 +0200
+Received: from [10.42.69.10] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e4aa8f3cc000f373@swg.vates.tech>)
+ id 6a0f045c-5cb7-0a2a0a5109dd-0a2a450ae036-10
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 15:10:53 +0200
+Received: from [185.255.28.34] (helo=prod-mta-13.swg-srv.net)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e4aa8f3cc000f373@swg.vates.tech>)
+ id 6a0f045c-56b3-0a2a450a0019-b9ff1c22b5e3-3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 15:10:52 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19e4aa8f3cc000f373.007 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Thu, 21 May 2026 13:10:46 +0000
+Received: from l14 (unknown [82.67.99.167])
+ (Authenticated sender: anthony.perard)
+ by mail2.vates.fr (Postfix) with ESMTPSA id 4772B866C6;
+ Thu, 21 May 2026 15:10:46 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,123 +61,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=casper.20170209 header.d=infradead.org header.i="@infradead.org" header.h="In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=DA7DVimM8Ck0kNzDR7awZketijLzqktg5UcM679ki4g=; b=q6twZ/quiaPkS7JYDLfYP4oxQR
-	kwL3xkWZBEpV2j7C1uN45f/dlF1ZLXrwx+jWqL7SQEvjHcy7/MS8yAxgKbQMJOBppFTgAyijrmCw+
-	qsUedKzMdKPt0VHol7Hg5iM2yiOqZHQAzBNQpo0ETgquMSq330OAMMUOL5XazrqdRvIuwmq8fCzvJ
-	8w7PV454mMuz+QtTx/4yGia1zkhOm9E43cVzP05eFWXg6UOcrEZyigPUrzrWk0OV5q9ekYN/vFQ9r
-	H8UIXCIrcHRZ6j+ZCex3x14hX/FPAOr2uRFQk4MepXZ9vQBQZkKMP2xQUakHd/KfGdD8DmUEqPEFb
-	l12Q18Ng==;
-Date: Thu, 21 May 2026 15:10:19 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: David Woodhouse <dwmw2@infradead.org>, Kiryl Shutsemau <kas@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	"K. Y. Srinivasan" <kys@microsoft.com>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
-	Long Li <longli@microsoft.com>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Jan Kiszka <jan.kiszka@siemens.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>, Juergen Gross <jgross@suse.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, John Stultz <jstultz@google.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stephen Boyd <sboyd@kernel.org>, x86@kernel.org,
-	linux-coco@lists.linux.dev, kvm@vger.kernel.org,
-	linux-hyperv@vger.kernel.org, virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-	Michael Kelley <mhklinux@outlook.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Nikunj A Dadhania <nikunj@amd.com>,
-	Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [PATCH v3 27/41] x86/kvmclock: Enable kvmclock on APs during
- onlining if kvmclock isn't sched_clock
-Message-ID: <20260521131019.GI3126523@noisy.programming.kicks-ass.net>
-References: <20260515191942.1892718-1-seanjc@google.com>
- <20260515191942.1892718-28-seanjc@google.com>
- <423b37f056f0d4d596d5f4cc73802fb1079ecf63.camel@infradead.org>
- <ag8Bpc_uVNrNWqfX@google.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=vates.tech header.i="@vates.tech" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:In-Reply-To:References:Feedback-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=+zgSvlim6gRdCupTW4H21bdYQ4IwdPqT0BeBRo8Cn7s=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=LfMC+pArjoiP1nvfVdsmK29UgMkX7q44+DPqLvnlHLxzCnGsKmyTATjJ6TQVuAzlLlzFxZdn1
+ ay5vaA4dX9lHhm2f4lJmFnIDnrDE3XnaHNEQFQYiKaRj3MhV8yMJZKaqRvdIk+/SQC7WQpcu1UK
+ clkkbxkr9k5T/iPlZhK8fFFSAGXWALpIypkasFF+o4VPEKNM1nOB9v++NTo/kcQDpVQm4c3zY5i
+ pVhOy1Rm7IHr1PXSN9ZLLnyf5aHPJDd+16adh8Myr25SyiMNGs9ACNrAs9fiySIEqmtTESnYlI6
+ HVxBktIexN0CPrYAyRb5thddvOocxFsMlii34+mVTWhQ==
+X-Zone-Loop: 7fd641c7608def934c8445d1eccb769459b160f92d1c
+x-campaign-type: default
+x-transaction-id: 213d17ae-20e8-4dd2-a84b-fc5fb827ac70
+x-swg-uid: 01-be5ecac9-3414-44cd-9823-884a22860b65
+X-Mailer: Sweego
+Message-ID:
+ <1779369047.8631fc262581453bbf619ec5b2062170.19e4aa8f3cc000f373@vates.tech>
+x-swg-bid: 1779369047.8631fc262581453bbf619ec5b2062170.19e4aa8f3cc000f373
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Thu, 21 May 2026 15:10:45 +0200
+From: Anthony PERARD <anthony.perard@vates.tech>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+Subject: Re: [PATCH] Arm: do a 4th linking pass if necessary
+References: <7b23e011-56b8-4f6c-bd55-83e1d9b0453f@suse.com>
+ <1779293000.8631fc262581453bbf619ec5b2062170.19e46209296000f373@vates.tech>
+ <e3a08386-7b3a-4127-9127-f484ff8bcac8@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ag8Bpc_uVNrNWqfX@google.com>
-X-purgate-ID: tlsNG-ef75cf/1779369029-0B57BC48-2C90EFCE/0/0
+In-Reply-To: <e3a08386-7b3a-4127-9127-f484ff8bcac8@suse.com>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.1119.e76aa2b3b30ea5b4.19e4aa8f1c7.4a35099588d3b533=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1779369046472
+X-purgate-ID: tlsNG-4011c0/1779369053-7C47E8B7-AE5D6594/0/0
 X-purgate-type: clean
-X-purgate-size: 1570
-X-Spamd-Result: default: False [0.61 / 15.00];
-	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-purgate-size: 2734
+X-Spamd-Result: default: False [0.82 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	URI_COUNT_ODD(1.00)[1];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	XM_UA_NO_VERSION(0.01)[];
 	HAS_LIST_UNSUB(-0.01)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:dwmw2@infradead.org,m:kas@kernel.org,m:pbonzini@redhat.com,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:dave.hansen@linux.intel.com,m:luto@kernel.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:tglx@kernel.org,m:jstultz@google.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:x86@kernel.org,m:linux-coco@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mhklinux@outlook.com,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:tglx@linutronix.de,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,noisy.programming.kicks-ass.net:mid];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[34];
-	FREEMAIL_CC(0.00)[infradead.org,kernel.org,redhat.com,microsoft.com,broadcom.com,siemens.com,linux.intel.com,suse.com,google.com,intel.com,oracle.com,lists.linux.dev,vger.kernel.org,lists.xenproject.org,outlook.com,amd.com,linutronix.de];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[peterz@infradead.org,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[infradead.org:-];
-	MISSING_XM_UA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[peterz@infradead.org,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:bertrand.marquis@arm.com,m:volodymyr_babchuk@epam.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	DKIM_TRACE(0.00)[vates.tech:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.997];
+	ARC_NA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	HAS_XOIP(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 5C6F45A56DB
+X-Rspamd-Queue-Id: 4693B5A56EA
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, May 21, 2026 at 05:59:17AM -0700, Sean Christopherson wrote:
-> On Thu, May 21, 2026, David Woodhouse wrote:
-> > On Fri, 2026-05-15 at 12:19 -0700, Sean Christopherson wrote:
-> > > In anticipation of making x86_cpuinit.early_percpu_clock_init(), i.e.
-> > > kvm_setup_secondary_clock(), a dedicated sched_clock hook that will be
-> > > invoked if and only if kvmclock is set as sched_clock, ensure APs enable
-> > > their kvmclock during CPU online.  While a redundant write to the MSR is
-> > > technically ok, skip the registration when kvmclock is sched_clock so that
-> > > it's somewhat obvious that kvmclock *needs* to be enabled during early
-> > > bringup when it's being used as sched_clock.
-> > > 
-> > > Plumb in the BSP's resume path purely for documentation purposes.  Both
-> > > KVM (as-a-guest) and timekeeping/clocksource hook syscore_ops, and it's
-> > > not super obvious that using KVM's hooks would be flawed.  E.g. it would
-> > > work today, because KVM's hooks happen to run after/before timekeeping's
-> > > hooks during suspend/resume, but that's sheer dumb luck as the order in
-> > > which syscore_ops are invoked depends entirely on when a subsystem is
-> > > initialized and thus registers its hooks.
-> > > 
-> > > Opportunsitically make the registration messages more precise to help
-> > > debug issues where kvmclock is enabled too late.
-> > 
-> > That's a hard word to type, isn't it?
-> 
-> Heh, you have no idea.  I've been "this" close to creating a VIM binding for a
-> while, it is time...
+---=Part.1119.e76aa2b3b30ea5b4.19e4aa8f1c7.4a35099588d3b533=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-'z=' not good enough?
+On Thu, May 21, 2026 at 08:08:44AM +0200, Jan Beulich wrote:
+> On 20=2E05=2E2026 18:03, Anthony PERARD wrote:
+> > On Wed, May 20, 2026 at 01:53:34PM +0200, Jan Beulich wrote:
+> >> +	then \
+> >> +		$(LD) $(XEN_LDFLAGS) -T $(obj)/xen=2Elds $< $(build_id_linker) \
+> >> +		    $(dot-target)=2E2=2Eo -o $(dot-target)=2E2; \
+> >> +		$(NM) -pa --format=3Dsysv $(dot-target)=2E2 \
+> >> +			| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
+> >> +			> $(dot-target)=2E3=2ES; \
+> >> +		$(MAKE) $(build)=3D$(@D) $(dot-target)=2E3=2Eo; \
+> >=20
+> > This new block ignore all errors, from LD, NM and MAKE=2E We want
+> > a `set -e` before the if=2E
+>=20
+> Hmm, perhaps I should add that, yes, albeit =2E=2E=2E
+>=20
+> >> +		$(call compare-symbol-tables, $(dot-target)=2E2=2Eo, $(dot-target)=
+=2E3=2Eo); \
+> >=20
+> > At least, an error returned by `diff` in that macro should be taken in=
+to
+> > account, for now=2E
+>=20
+> =2E=2E=2E I expect this would fail if there was an earlier error=2E
 
+Yes, but that's fragile, and that's not how `make` behave=2E It's better i=
+f
+every command behave the same way, that is the recipe fails on the first
+command that fail=2E So adding `set -e` would be useful=2E
+
+> >> --- a/xen/scripts/Kbuild=2Einclude
+> >> +++ b/xen/scripts/Kbuild=2Einclude
+> >> @@ -65,7 +65,7 @@ define compare-symbol-tables
+> >>      $(OBJDUMP) -t $(@D)/=2Ecst=2E$$$$ > $(1)=2Esym; \
+> >>      ln -f $(2) $(@D)/=2Ecst=2E$$$$; \
+> >>      $(OBJDUMP) -t $(@D)/=2Ecst=2E$$$$ > $(2)=2Esym; \
+> >> -    rm -f $(@D)/=2Ecst=2E$$$$
+> >> +    rm -f $(@D)/=2Ecst=2E$$$$; \
+> >>      diff -u $(1)=2Esym $(2)=2Esym
+> >=20
+> > This macro is missing `set -e`, if both OBJDUMP command fails and crea=
+te
+> > an empty file, `diff` will return success=2E
+>=20
+> Whether to have "set -e" here is an independent question, I guess=2E To =
+avoid
+> the case you mention, maybe better
+>=20
+>       $(OBJDUMP) -t $(@D)/=2Ecst=2E$$$$ > $(1)=2Esym || rm -f $(1)=2Esym=
+; \
+>=20
+> ?
+
+That sounds fine=2E (Replacing all the `;` by `&&` would work too=2E)
+
+> > But looks like `set -e` in
+> > this macro isn't going to work in the condition of the `if`=2E
+>=20
+> Whereas the above would be compatible with both uses, I think=2E
+
+Yes=2E
+
+
+With at lest a `set -e` for the `if` block:
+Reviewed-by: Anthony PERARD <anthony=2Eperard@vates=2Etech>
+
+Thanks,
+
+
+-- 
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vate=
+s solutions
+
+web: https://vates=2Etech
+---=Part.1119.e76aa2b3b30ea5b4.19e4aa8f1c7.4a35099588d3b533=---
 
