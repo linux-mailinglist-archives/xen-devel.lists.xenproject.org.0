@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cFXLFK7XDmr2CQYAu9opvQ
+	id sFiJBJLaDmrmCgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 12:00:14 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 12:12:34 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8DB55A2D68
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 12:00:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314976.1584882 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6215A5A3095
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 12:12:33 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314989.1584891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ0Bq-0004ns-9W; Thu, 21 May 2026 09:59:42 +0000
+	id 1wQ0Nx-0007i9-8o; Thu, 21 May 2026 10:12:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314976.1584882; Thu, 21 May 2026 09:59:42 +0000
+Received: by outflank-mailman (output) from mailman id 1314989.1584891; Thu, 21 May 2026 10:12:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ0Bq-0004la-6r; Thu, 21 May 2026 09:59:42 +0000
-Received: by outflank-mailman (input) for mailman id 1314976;
- Thu, 21 May 2026 09:59:41 +0000
+	id 1wQ0Nx-0007gi-5t; Thu, 21 May 2026 10:12:13 +0000
+Received: by outflank-mailman (input) for mailman id 1314989;
+ Thu, 21 May 2026 10:12:11 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ross.lagerwall@citrix.com>) id 1wQ0Bp-0004lU-5i
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 09:59:41 +0000
+ (envelope-from <ross.lagerwall@citrix.com>) id 1wQ0Nv-0007fo-PL
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 10:12:11 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQ0Bo-002NTO-D7
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 11:59:40 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wQ0Nv-0074Mx-54
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 12:12:11 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <ross.lagerwall@citrix.com>)
- id 6a0ed77d-5cb7-0a2a0a5109dd-0a2a4507a0a6-40
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 11:59:40 +0200
-Received: from [52.101.46.44]
- (helo=CO1PR03CU002.outbound.protection.outlook.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0eda76-e002-0a2a0a5209dd-0a2a45048692-26
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 12:12:11 +0200
+Received: from [40.93.195.69]
+ (helo=SN4PR2101CU001.outbound.protection.outlook.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <ross.lagerwall@citrix.com>)
- id 6a0ed78a-229c-0a2a45070019-34652e2ca4ba-3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 11:59:40 +0200
+ id 6a0eda79-1dec-0a2a45040019-285dc3450e15-3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 12:12:10 +0200
 Received: from CH8PR03MB8274.namprd03.prod.outlook.com (2603:10b6:610:2ba::5)
- by DM6PR03MB5065.namprd03.prod.outlook.com (2603:10b6:5:1e6::10) with
+ by BN8PR03MB5089.namprd03.prod.outlook.com (2603:10b6:408:7d::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.14; Thu, 21 May
- 2026 09:59:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Thu, 21 May
+ 2026 10:12:07 +0000
 Received: from CH8PR03MB8274.namprd03.prod.outlook.com
  ([fe80::ebe2:32c1:d2be:a096]) by CH8PR03MB8274.namprd03.prod.outlook.com
  ([fe80::ebe2:32c1:d2be:a096%7]) with mapi id 15.21.0048.016; Thu, 21 May 2026
- 09:59:36 +0000
+ 10:12:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,109 +60,110 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wv/yM2lobqSxCfkP/YeuFSEHurgv/LOnWwKViSgzfJxIBTDLv+pYGdsB1nRYN3QX8cB2utpGNzAnBQZjv0XZqv/x91hXHb5oTvjtREs6U3RyWKjx67mqouij6WkuPBJ2w3KdVCvMYQOyQxKtHWDb7SPudKZlXn98IopspySTxtlm4P1va70ZjHGU0lB7JXhZdoMjXswhCH3uBBE91qLe8LSZst1ix/bZGgJqJu7ge/NrC/uG9awsMY5eetYDsyomAK0GeNUw91pu3244bSgFEDNLCmCp+nuzuKlB+G9eo9J0dRjb4uZrnMP4DwuApZcpVFNOKY0DVx4lrDqvNgP9Vw==
+ b=MKTRDEIRK6Cekh7RMhU6hB0FRePzyCV36FwlNMyWy1gZBJOo6MLdRf+SFrnMMt3fQ4VXYsmpD40IDiXQSMmLULE5LWV0c963m6Dh4dDBxvVsf4LVMxucpBoyKzT2xQVhldEqptqHTqGTyWxLASlTsoa1f70QZjEEL2iJzOr0ovKkVRlbDBBzTVg1YZRTaZWW75wp2xrTqFbQMzsfWICYGp/ewVanVo6xc1KRPUQLTgjEUYlyYbTw+udKp9CeilONxFHJjpI3gMGHUDk6EgHJzbJi04yGpPOMFBpEk86D2Gq18n0rAjryleIPBmoSH7xDs/8xc+xb1atkMXfPNamqmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eDEJxPnWZRZ1I1hMe9c7ZBpGFl48edlwTI0Es+xq44E=;
- b=mqll3hVgk+CZO4oUTPcNLMv7mD9tKXFzPaYwHf6GhqlDbtn6dkEef8GcO4AWjfahtctDnPbj+N9OnanF4CJL8CKLp08kfK5UjcIB7C4PHLDXwNyQ0JjRvvnyza62Fh/n0/diK0qMuyom6rzjZfY5Et/ci5By2jfiBzhcD3uAGwRQ2ONOV5KLIrwsw8ZZ6cR2Idvuqhag2csmaWjxSrp4NhgqlKrSZF+9oodY4wR2epylzZ53KvwUrpbISr07hyWtpgK0dpmrXduS5SMGxB6DDWGD/y+EdZUXxrsHg87tNzlrD7QeMkoiM3xpISk3Yx6l5ypFc3YwzFB0e6rZStwOLw==
+ bh=Iyo8tMZPDiMI4BhMgaPK7WwQBjL+2b/LtntTFfBi/kg=;
+ b=TM5CAF9Y85c6LrXsWkWIDVDsHIg8UMayv7rH5l5CUCOLJaxaVogRoGxrUIOBrL+hD79ZRzhzcjNvCINZbShNIyMWAOYAnY/1/RdSbLQCoRQyBwnQJyFAFvw1IgzPrQkIR3dpE0Wio9336pDDAs3QV2L8mYkZlrZnGy8GheOj5QHJ62+ofPqIN1zmThWrUVMbYT0//QriIBW8U1YST3LR8i2G9i2GY3tnjbrGyGXfJC9zI1NniMYeayITx7q8Tpq7r2K1iPCR4xonjeItL7DnwRDVuJQXDxVsKwMnaiBz9lkhliG1Zqbd9aK5KSy+TrxJeUiuHFLZU+AX8axIP4WWiA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eDEJxPnWZRZ1I1hMe9c7ZBpGFl48edlwTI0Es+xq44E=;
- b=oZ7v9NSvNq1D4LP+J8XTLOnJ2NYDaRhKF2l+ZnhVzck1omazR2wXnouQ7QZ5wn4FSsjlS4G2TJJtU+8pSoiNfxhsWoqIL7wCXyen0WYGS8MWeUML7+ri/wXXNbxGmE9LFkE0/i7SF6ThxwmiI4sIKx4BYtbluZhEKZ8KcbEZroc=
+ bh=Iyo8tMZPDiMI4BhMgaPK7WwQBjL+2b/LtntTFfBi/kg=;
+ b=rcN0djlqaCFMVmmELUxoWz5oJGAt2NdIwXpugIWlLLGI5dvAs9CwYkCCMRHCJEMxmYAdXNtYnkA30KKcYH2jL8p3Q7e/CWsgN5WuuD/bshF/iK+mSndTmv7iD/ScqEldoUyPGGSavuqRcVLOzenGMEDJP2VLzyXm73j1BlOnFvE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <41ae79a0-70b0-4343-a75c-f43f33a6d5d1@citrix.com>
-Date: Thu, 21 May 2026 10:59:32 +0100
+Message-ID: <6a6dd703-cb9f-4a13-b0da-ff1a9d841bc5@citrix.com>
+Date: Thu, 21 May 2026 11:12:03 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v1 3/7] x86/emul: Separate out instruction completion
+Subject: Re: [RFC v1 5/7] x86/hvm: Move INSTR_* constants to hvm.h
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Teddy Astie <teddy.astie@vates.tech>, xen-devel@lists.xenproject.org
+ Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
+ xen-devel@lists.xenproject.org
 References: <20260518131404.3716969-1-ross.lagerwall@citrix.com>
- <20260518131404.3716969-4-ross.lagerwall@citrix.com>
- <882ff7e2-077a-4af1-8e0c-4a0e83d8c2b8@suse.com>
+ <20260518131404.3716969-6-ross.lagerwall@citrix.com>
+ <a5b2561f-0225-4f18-bc74-7f66227bc807@suse.com>
 Content-Language: en-US
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
-In-Reply-To: <882ff7e2-077a-4af1-8e0c-4a0e83d8c2b8@suse.com>
+In-Reply-To: <a5b2561f-0225-4f18-bc74-7f66227bc807@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P265CA0381.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a3::33) To CH8PR03MB8274.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0587.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:295::15) To CH8PR03MB8274.namprd03.prod.outlook.com
  (2603:10b6:610:2ba::5)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|DM6PR03MB5065:EE_
-X-MS-Office365-Filtering-Correlation-Id: adbaa2d8-29f2-45ab-d65f-08deb71faa6c
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8274:EE_|BN8PR03MB5089:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b141d71-1075-45ca-a1d2-08deb72169f4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|4143699003|5023799004|3023799007|56012099003|18002099003|22082099003|11063799006;
+	BCL:0;ARA:13230040|376014|366016|1800799024|11063799006|6133799003|3023799007|4143699003|18002099003|22082099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	hHKe3O1WwNVOMrLoRqUivKkhT7C8Rdk8mYbmoCBEy/zhceguZyzZ8qxd0SyrNGV9Oa4K3weJpy//MSRIVly+ZtkmVpYJtjYBqU1xAnKuy0wkQW7IZaTOeaaXoOLoOS7f+tPyPMMMiO/8Jy9vL/l76D1YPeYdgckoVL8dOzcDpMZ1oax8BCXwdH0LuFds1adUiv0KnI5YtWQnRaADjnvLi7AUWVIF04u1ppZ48Hb6SoYBaHo785pZDfJafVcG5dEa428YVnSZ/b4gyS1sCYGUQQiAwXQSjNNA2rADvLzPDA/RdRs50sHIcCZ1pcm5wDUtiz3wfI2sUzJ3kxedsYWbj3Ca1laheuYWLQX3Uw1Oo7ExvvLaIcvGrvcPN6jeZImLiDcqgEOPOumoDD0fJajPwbCaIt/SiWfa1/lqdHnKE5TMaOe+KKfIX3Bc4oVRDyK/zpCb/ssVQNUB5ZJ+1tpsxKmjD3NQNSSeNjovcX5/w8Oty6JO8rNuyDhvI4gY4otVONgXqV0kn0CGvnWacipQOHsBtvehwd3d3Imv2dWe2XOa5akkPpx7R5RZ+m3IVHZjluMo2KVNpQagZCAW4/cIkDBT9++z3c6ViO5oZQPSsOkDPXhyYAvPFKhQsCwok/nZ6IJZ008+qLBU/PQdDyL72BRjczP5kAjYbQCcv0XFOAgQodKR18egYRUXp4sAwnog
+	KtJ3MzaOEfpr4FBBv5b7G88IDAMI6URkBtWzp2+KD5uMg/7XcNdumBPL6Wk0M/5U5B1cbK5Bvaravs0S4WxwqAc3JCRR25lcsieR0jsEDMPZ3aaNNimFo0aR4cKFHRWOX/Uw3Fsmd8nUZV18vFTWt1O69XX0C6psHzD9IG1F2OoXCHvTtR711Whyvd3BxTVIpuYFHlal3kS2GM+K+SInrpeLuo1Nv3mYVMLqAgiQJJjA0grq89rOU0/k8oK8G8ho9M8wz5/eKGNj3ktOeds22ZUf6Q9CN81wIqVrO5/F7/TY3qOdVFhasgncQSEKZoopsPgQMxqbC1zLpBz3H6Bya3vc3f6kDKXy0LDib74zobex6wAb7gX1biiNY1lz7cvwZf0VN2AvW9A5UqYXjqx6v1rIzXRd403seE9OMQoVE5Utv/bEHLLLdlCJ2MtLiCmyvhX5gslGpKg4VUf5Y3reoF+BbZC7W7kxuaukrhhPF8NmvOSAlbD20YvcqvUVa0wVO5Qj+C3+HBF2W5mD90y+PCwCyAwF6sBvzFoZLABZDflZZjrv3zqTcCGWXAf6UEfJx0SCDLfREIXigtmGU9E2j1M78Sy/cuGUo2ZiE5e0R/m25pGpMdZsZfoGprIyvQ2ei4PAn3N4b504SJ6rQhqsiKJ0BBJBVJ5ZXOuPQBizkZIE7pDwdS0uTJhLG/2jFyof
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(4143699003)(5023799004)(3023799007)(56012099003)(18002099003)(22082099003)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8274.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(11063799006)(6133799003)(3023799007)(4143699003)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SUVTdk5HQlBPUldodmN2cEttUCtKaHJsTXJGUTJBUWlidE1LMk9WUUZ6Um50?=
- =?utf-8?B?UEhqTVh1QnU3NGxuT1FpTWp3ajFSYjhsYmFLc3lxLyt3MW9kRHQ4WnRwUS9X?=
- =?utf-8?B?YTNGRXlFLzVWeDFMRUYvSWxoNHJ3K1FXU3VNU1RrN3BGWFFBbGxaWVJOWEEy?=
- =?utf-8?B?VTdobVYwMm9ObHpXa20wNll1TUE1OGMxak1WTEt5cEdOYUZKMGZDbFE4eStY?=
- =?utf-8?B?bXpaVnBEdnRiMjN2K0dHZUVvd3pBRXprSG9FNUZuaThFNFFVaTA3by9BbFht?=
- =?utf-8?B?YjM3UmNHZzlDOVVLblFWZytzc3JoaDJrWkxZR0JJWnh4ZHR4QlpsUVp1aDYx?=
- =?utf-8?B?TEVxR0Y0NTVaaUtKZFk1a2diWFJYeUtGQlpHL2pRMDBFQ0ZsMGVtOTk3RE92?=
- =?utf-8?B?d2JGTFZ4N0lFeWlpUXhKbjJtcDV0OThzd1c0ZURGUnU5TThlVXAreFI1RTF6?=
- =?utf-8?B?MStYTXN6T2tJQ3JLWEpxU01OODYxMmVQTkJWdXp0OTdyUFVxc3JKK3BQak54?=
- =?utf-8?B?TUlYK3hHQk1HbUZMRzNycVprd2dMbEhrNlVtSmdvSkRWZXFYQ3p0OXd2ZG0y?=
- =?utf-8?B?RTVocEJhK29uZ2FGWEhCUlhOakZndVpxUGJXc0lMQmVnOTdMd3ZCS2s4cE1q?=
- =?utf-8?B?QjRDZ2ZzMVJiOVgvaXpnLzFkanpoSGM0OE95Qmlwd2JRUlVLc1NEaFFFNlRW?=
- =?utf-8?B?SGpjQlEyZXRqZVJJbXk2bmsrNW1LMEQ0SmxBRzRaR1VEQWtBYnQydWdwOUQ5?=
- =?utf-8?B?N3FVT0ErQ3h6b2lTR29QczJBaURTTko2T2paUDZKS3hCTHlvcWR1OVdjSXM2?=
- =?utf-8?B?WlpzRUwxTjFRdWw2L3VzVUFGQTJTZmNERnA4QVo3bXN6M3JFSEx0RmxqY1p5?=
- =?utf-8?B?dTBEeVhMNDNlUWJFd21zRURPSlgzeHZGdi9YRCt6c1FIZGRwRFVQc08vYUEx?=
- =?utf-8?B?VHlXSU1WTml4cEYycmZkOWFQK2dFSklmU2FHRVdJS2IvL1U3OXpiK2x4Lzhl?=
- =?utf-8?B?dFZvQVAxY2FnOWRUaEJRekN4Q3BYbjdhRUgxTmZOSFVmMSthTUNGc3hVaXdi?=
- =?utf-8?B?SzhUb0xSMDVOQjV1T1FkUG5JV3N5UXNzVXFkR001UGpEMnJiMG5BdHVNcUdh?=
- =?utf-8?B?dVpDZm5UTTRWb1lUdFBhdTArRHZvMG92TmdBV2svYnlZQit0Uk9JOTBvSXk3?=
- =?utf-8?B?UnR5dzljMjhXUnF3L1ZWUHlaVW04TDlyeGRSQ1JqYjgvYTYzU1dYUFNBRHRH?=
- =?utf-8?B?MkJrV1ozc2VCRW1rOFBqbG9KSUxTTlQxOWVSMW84RTlLREFScUg3a0hyVlNr?=
- =?utf-8?B?NTJoV3ZiM0JkajhrQ2ovRUhCelhIOU1RMW8zWStpZjFuTXZJd01jTjJHMjd2?=
- =?utf-8?B?TC9BQjhqU3RKcVAydE55ME9LZWE1d1hXZG1UT2FKcnRkTkowMnR6eEQyTVNQ?=
- =?utf-8?B?dzl5SlJqK1JzWmRGV3RWdWJyM1pxS0dDTVYrYUpjNEo4Z0t0T3FtU2tybWNa?=
- =?utf-8?B?NXp6aGQ5bUNZRVExbjBHYkZTcGszS0VjOHJTcXN4eEhuMC9rQjdIeHZHaUg0?=
- =?utf-8?B?VDJuS3ZyWjkxdVljdEo3TURJWjZtV3hXZk50Ry92YXpQc1dhQUJsQUJrYmZt?=
- =?utf-8?B?cDRvUmdRS3ErdGNBZDY2NWdIN0t1M2dmaGhuNHBNaXRnRHJkZUpESGQwQ1Fy?=
- =?utf-8?B?TzJQMFZRR2JRS3hoTTgzNHVYWm5aV3Z4Mm9NaEpYdThOaS9wU1BUbUN1VHhx?=
- =?utf-8?B?eUZJK3c3Q3BUL3lWemFyTytYSTl6S1ZiKzRaRFBYQU5iYWxnNHQ3Qkl5NVFL?=
- =?utf-8?B?RHl1c2NLT0ZrSlB2VUNpdk44aTZFb29sSU9GbDY5UE83YTdGK3JpVzI2YmJu?=
- =?utf-8?B?YjZJeCt6UE01c3Mxc2lFYitHK3BBSXdlTnV3alFJOSt0T3pkT1NHaFpnZVZD?=
- =?utf-8?B?UzF4NlF1b002a2tPSjY4b21VTmtXdHQ2ekt4QitSY3d0QytrdU5PY0QraGhX?=
- =?utf-8?B?Y0o4ZE4vV0FVS2l4bkJlSWEyQlBjdjZoS2YvUTJBU2M2cG1oc3BjSkN2Y0xx?=
- =?utf-8?B?TjEvaHRGQ1Q1V0RFNnAwNDlkSndBVExyNzY5K3hUdXpaVFo1Ui9zSG8vNG1C?=
- =?utf-8?B?dmNvbi9UcGllNksweGh0M2JYTTlFWFJLdFFwRTBoKzVtYnFGNWZhcVROQ1hB?=
- =?utf-8?B?UzU1KzBzZUQxNWZ6UlJRWGc0bHVVSU5aSnB2T1NBWlZSa2RFY1RRZGpiekkz?=
- =?utf-8?B?dlh5NnVrUzRJNXc1VHNKckc4ZFpxNGFFT1dHZzhEUGdLUVBWb3gxVlY5UkNh?=
- =?utf-8?B?aFNxUUIyOUdlY3Z0UkgxelpwTjcxc1MyeUpNb3BaYWViUS9qaUp3aHRRU1RV?=
- =?utf-8?Q?L5honWLh8579GrUw=3D?=
+	=?utf-8?B?TXZKSW5GdVIvNTh5UWtTOVNTem1qRi9tVHI2YU9uU25OdTFBd3BQa2VNcW5F?=
+ =?utf-8?B?VWhacTZrRG5hTHlBZXM5MFZObjE1bElZL2ZDU0N3OG05N3JvUmlIOFJtN3VD?=
+ =?utf-8?B?TUJaZEdCVkZaN1Q0VElCSHhyVGljbStrbVZrSlhFbE52K1lNRzNzZ0duODRY?=
+ =?utf-8?B?ZTZxQ25XYmFOQ3JUUlIrZDFSRVFmZElka29kUzRDQWE5RHEvdzZoQStDV3hP?=
+ =?utf-8?B?d1cwK0VDM21UQ3U2UmtpdldueUlodGJ3TG10TS91WURQQWpMWlI3bVBQdFZv?=
+ =?utf-8?B?TEk5QkNSN0pUQ1c3eGJSM09objMvWTJOeXE0V0Jld05XODNCMkZud3M4cG44?=
+ =?utf-8?B?RWtaZ2lYSHhwbVVHRUs3RGgrT3hQbjFzeHByNzNKdjNwbWVmNUtqc3JjN1Bx?=
+ =?utf-8?B?ZmJqRStTM0JpK0I3NzNKeDdGdi81VUhTRnA5NnhkRFlKTCs2VFhiM2U4S21v?=
+ =?utf-8?B?NVZqWUkrSmV5ZFpzTFY5eGtwZFF3TEhrajZncUVEY2I3UFordXArdzRYbnFD?=
+ =?utf-8?B?YkpXelR4cjNrVTY0Z0N0WmVNR2lCQVRuMEduelZvUTBGQlVFbGNWUXcrVS9p?=
+ =?utf-8?B?QzBERXJ4T1RiT1Q3alE4K2Q0cWJHaEY1WmttL09GbURyWWFjS0xtVnBnNTVY?=
+ =?utf-8?B?MnpZWVY3RUNHMjhWRkJ3MFpOSDQ1SHQrd3ZUSDdSa2RBN0ZkT0gwRFVYam45?=
+ =?utf-8?B?OFZEL2swV1hSZW9DZDJPWDZHK2tsZkxXSmJucFhUL0lKdit3OWxjRytHZU5Y?=
+ =?utf-8?B?cHV0RGhsN0RYcnRLayswTFlXaGFtUm8zSjkwMUJ6aC9pWnlXNVd6QWtTblp4?=
+ =?utf-8?B?UDZiN0g1TXBNRmtrMStPMjZHQzhPaUc0Z05ZSGFHdStHNjBBNVVlWmtoNXNn?=
+ =?utf-8?B?ZHlmQWNyc1p0a3ZSL1dkb1AzR1k1cHFlS1p6UnM0WlRCZDFiOEZucDcrSm5q?=
+ =?utf-8?B?Ty9kemNCb1JSamZwMnhLYzFBcFhjbzI1Rzg5RDhpMjJjY3gvZEdXWWNSLzIy?=
+ =?utf-8?B?TUthVkVYTkdxdlV5NWhMVnE5UkJMTi9FM0VIc05qeHg5QXdlR1B5dXl5S2tQ?=
+ =?utf-8?B?OHh1dVVCb3dFbmU2VW1XaU9KWGNkVDFxUXJpblRZWmFvbkR4ZWdoU3IvNm9J?=
+ =?utf-8?B?OGo5MnRmb0lsTkVoVkh4OG5leVNPMVdpRnZGdUZlZ0dPQkExMnZxS3J4MGRU?=
+ =?utf-8?B?V0w1WTZKdUN1TUkxbTY1SnYyTGRabzhodXhqMEI3RnpBNDkrNlliZE9HeVJ5?=
+ =?utf-8?B?amV5ZmhnRWpCcGEwMlZqaWFCL0k0cWVYSGVOR1NGQTQvN0dpV2Y0MnIvS29Q?=
+ =?utf-8?B?dFhwakV5T0ZWQlA0YnUxUldVRnFIcFhYMzFhYW5wWFE0TnprVmk3MlNPcUow?=
+ =?utf-8?B?eUNEWXdzeHNCMUZzOWNReFVxWmpnN2JURmJCYy9PNGpQU29Pa0xhcC9oUzlo?=
+ =?utf-8?B?aDM3U0JqNXFtQ2VFVnFsRnlnOEhITjJ1dkp1bnhvU2l3Q01sSkl0NVhWY0xK?=
+ =?utf-8?B?VGMzd2xmSzNJa0Q4TGNMYXRGY0VGNkZoMk1oQlhFV0VKTlN2UU1yQ1d4dUNi?=
+ =?utf-8?B?aTBqK3JJdklHbzJ0NkNEdVdLeTZnWGx3VmlGMkFERWxhd1h6NWlrcFFWTitO?=
+ =?utf-8?B?VTZtZUJvMDNyeW9zZi9kcUdCWVFaeFZuOUxjRUJnbW5VSlVVcDMzdzduQThO?=
+ =?utf-8?B?cWI4S0xLRU9hdm4vSEppeWs1SmViVWVsMGJuN1QrdzBwdWdrOFozbDk3UDlY?=
+ =?utf-8?B?RGt2OHIvcDZ6QldVUWZQYTVTUU43T2hMZVgwTVBjSCtCSkg0TUs1Y2VCbFhK?=
+ =?utf-8?B?ekJiWCsxR3JxOUhodTlDaGxKWWtTc2NTNlFhUGpWM0EvTW9lMDZvenNpdndB?=
+ =?utf-8?B?UHNuc0VNemdTWjZteGJhRVpVTnd1QVBQYk5iSktqdnJ2c2o5dDVBVDJmb0xY?=
+ =?utf-8?B?MDhVNHF2YlpMd29nRmFzdk1IblpmdnhMayswaGF6TkdESkhTVW9tMXMxcmlx?=
+ =?utf-8?B?M2NYOWpxelZUQWdWUWt5bkE3TkRVa05KdWxNN0QyeVdnV2JJTmhINGlSeTd0?=
+ =?utf-8?B?QzFlVDdkaW9UMnhnNW50NGNDZkVMV0JhUXJDdnVKUHMxZDVVcDF4TnFsVi81?=
+ =?utf-8?B?NzNUVll3dFpySnhoUEVTQ3MwZk85RS9sVDB6bVdSeHp2RFQ2MDhRdUlIM0FJ?=
+ =?utf-8?B?eXppaVd3TkpXZTRpSUUrTzZzSWRFWXFETU5TcUg1Q2NKNDJyYlJpTjI0bld5?=
+ =?utf-8?B?UTJTbG9pUkZKdy9OSU9URHlNa1RBSWtoTjZUSjY1ZndxcW15eit1ekpJVUlQ?=
+ =?utf-8?B?Y0czVm5qQ2VQa21yNFZneWRHUzkraUJ4RXk5ZDQ5SGJBWnVJVTVlNTNGYUpG?=
+ =?utf-8?Q?tAwAV9gPPXs5oEMk=3D?=
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: adbaa2d8-29f2-45ab-d65f-08deb71faa6c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b141d71-1075-45ca-a1d2-08deb72169f4
 X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8274.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 09:59:36.5937
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 10:12:07.4148
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iRKyK/VEUdf89IQjap0UdMTPOdrlnWCiP8IvOkqHANBl1CdV7diG2IlE51OB65Cp+PiUE+YH46ZS+zqqIJU3GXwHouPDKIa9ysFyIR3+v/w=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5065
-X-purgate-ID: tlsNG-ef75cf/1779357580-23B78C48-6C5679EA/0/0
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ec2gjru6lsk8fsyYkBBsCGjFegyHgDdfSVcxvHxSokgNOMrXUTLpBHIgBIrAR9H+go8eoyPluxtWyC2qqNT4M7ftspF/eCw/+jl8QaeFff8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB5089
+X-purgate-ID: tlsNG-ebf023/1779358331-42B633FF-7F735B02/0/0
 X-purgate-type: clean
-X-purgate-size: 2346
+X-purgate-size: 4531
 X-Spamd-Result: default: False [-0.18 / 15.00];
 	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
@@ -177,11 +178,11 @@ X-Spamd-Result: default: False [-0.18 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:dkim];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,citrix.com:mid,citrix.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	RCPT_COUNT_FIVE(0.00)[6];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[ross.lagerwall@citrix.com,xen-devel-bounces@lists.xenproject.org];
@@ -193,73 +194,94 @@ X-Spamd-Result: default: False [-0.18 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: B8DB55A2D68
+X-Rspamd-Queue-Id: 6215A5A3095
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 5/19/26 11:08 AM, Jan Beulich wrote:
+On 5/19/26 10:49 AM, Jan Beulich wrote:
 > On 18.05.2026 15:14, Ross Lagerwall wrote:
->> To support merging the emulated instruction and VMEXIT paths, split out
->> instruction completion from the core x86 emulation so it can be called
->> separately.
+>> These aren't specific to SVM and will be used for emulator fast path so
+>> move them to hvm.h.
 > 
-> You don't mean to use a full-fledged struct x86_emulate_ctxt on the VMEXIT
-> paths, do you?
-
-For VMEXITs it uses a struct hvm_emulate_ctxt which contains struct
-x86_emulate_ctxt but without going through the full emulator. See patch 4 for
-details (probably makes sense to discuss this in the context of that patch).
-
+> Some are SVM-specific, e.g. ...
 > 
->> @@ -1265,8 +1281,6 @@ x86_emulate(
->>       uint8_t b, d, *opc = NULL;
->>       unsigned int first_byte = 0, elem_bytes, insn_bytes = 0;
->>       uint64_t op_mask = ~0ULL;
->> -    bool singlestep = (_regs.eflags & X86_EFLAGS_TF) &&
->> -	    !is_branch_step(ctxt, ops);
-> 
-> Nit: Yes, indentation was screwed here. Please ...
-> 
->> @@ -1280,6 +1294,9 @@ x86_emulate(
+>> --- a/xen/arch/x86/hvm/svm/svm.h
+>> +++ b/xen/arch/x86/hvm/svm/svm.h
+>> @@ -36,35 +36,6 @@ static inline void svm_invlpga(unsigned long linear, uint32_t asid)
+>>       asm volatile ( "invlpga" :: "a" (linear), "c" (asid) );
+>>   }
 >>   
->>       init_context(ctxt);
->>   
->> +    ctxt->singlestep = (_regs.eflags & X86_EFLAGS_TF) &&
->> +	    !is_branch_step(ctxt, ops);
-> 
-> ... correct such when moving code around.
-
-OK.
-
-> 
->> @@ -8347,17 +8364,6 @@ x86_emulate(
->>       put_fpu(fpu_type, false, state, ctxt, ops);
->>       fpu_type = X86EMUL_FPU_none;
->>   
->> -    /* Zero the upper 32 bits of %rip if not in 64-bit mode. */
->> -    if ( !mode_64bit() )
->> -        _regs.r(ip) = (uint32_t)_regs.r(ip);
-> 
-> While, because you have the new helper update ctxt->regs, the removal of
-> this update of _regs looks technically okay, ...
-> 
->> -    /* Should a singlestep #DB be raised? */
->> -    if ( rc == X86EMUL_OKAY && singlestep && !ctxt->retire.mov_ss )
->> -    {
->> -        ctxt->retire.singlestep = true;
->> -        ctxt->retire.sti = false;
->> -    }
+>> -/*
+>> - * Encoding for svm_get_insn_len().  We take X86EMUL_OPC() for the main
+>> - * opcode, shifted left to make room for the ModRM byte.
+>> - *
+>> - * The Grp7 instructions have their ModRM byte expressed in octal for easier
+>> - * cross referencing with the opcode extension table.
+>> - */
+>> -#define INSTR_ENC(opc, modrm) (((opc) << 8) | (modrm))
 >> -
->>       if ( rc != X86EMUL_DONE )
->>           *ctxt->regs = _regs;
+>> -#define INSTR_PAUSE      INSTR_ENC(X86EMUL_OPC_F3(0, 0x90), 0)
+>> -#define INSTR_INT3       INSTR_ENC(X86EMUL_OPC(   0, 0xcc), 0)
+>> -#define INSTR_ICEBP      INSTR_ENC(X86EMUL_OPC(   0, 0xf1), 0)
+>> -#define INSTR_HLT        INSTR_ENC(X86EMUL_OPC(   0, 0xf4), 0)
+>> -#define INSTR_XSETBV     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0321) /* octal-ok */
+>> -#define INSTR_VMRUN      INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0330) /* octal-ok */
+>> -#define INSTR_VMCALL     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0331) /* octal-ok */
+>> -#define INSTR_VMLOAD     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0332) /* octal-ok */
+>> -#define INSTR_VMSAVE     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0333) /* octal-ok */
+>> -#define INSTR_STGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0334) /* octal-ok */
+>> -#define INSTR_CLGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0335) /* octal-ok */
+>> -#define INSTR_INVLPGA    INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0337) /* octal-ok */
 > 
-> ... further uses of _regs here (not this one, but in general) would be at
-> risk of no longer working as expected (yet only in a corner case, so
-> possibly not covered by testing).
+> ... the 7 ones above.
+> 
+>> --- a/xen/arch/x86/include/asm/hvm/hvm.h
+>> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
+>> @@ -851,6 +851,35 @@ static inline void hvm_sync_pir_to_irr(struct vcpu *v)
+>>           alternative_vcall(hvm_funcs.sync_pir_to_irr, v);
+>>   }
+>>   
+>> +/*
+>> + * Encoding for svm_get_insn_len().  We take X86EMUL_OPC() for the main
+>> + * opcode, shifted left to make room for the ModRM byte.
+> 
+> With all of this moved, the comment wants adjusting, at the very least by
+> putting "e.g." in front of the function name.
+> 
+>> + * The Grp7 instructions have their ModRM byte expressed in octal for easier
+>> + * cross referencing with the opcode extension table.
+>> + */
+>> +#define INSTR_ENC(opc, modrm) (((opc) << 8) | (modrm))
+>> +
+>> +#define INSTR_PAUSE      INSTR_ENC(X86EMUL_OPC_F3(0, 0x90), 0)
+>> +#define INSTR_INT3       INSTR_ENC(X86EMUL_OPC(   0, 0xcc), 0)
+>> +#define INSTR_ICEBP      INSTR_ENC(X86EMUL_OPC(   0, 0xf1), 0)
+>> +#define INSTR_HLT        INSTR_ENC(X86EMUL_OPC(   0, 0xf4), 0)
+>> +#define INSTR_XSETBV     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0321) /* octal-ok */
+>> +#define INSTR_VMRUN      INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0330) /* octal-ok */
+>> +#define INSTR_VMCALL     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0331) /* octal-ok */
+>> +#define INSTR_VMLOAD     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0332) /* octal-ok */
+>> +#define INSTR_VMSAVE     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0333) /* octal-ok */
+>> +#define INSTR_STGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0334) /* octal-ok */
+>> +#define INSTR_CLGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0335) /* octal-ok */
+>> +#define INSTR_INVLPGA    INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0337) /* octal-ok */
+>> +#define INSTR_RDTSCP     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0371) /* octal-ok */
+>> +#define INSTR_INVD       INSTR_ENC(X86EMUL_OPC(0x0f, 0x08), 0)
+>> +#define INSTR_WBINVD     INSTR_ENC(X86EMUL_OPC(0x0f, 0x09), 0)
+>> +#define INSTR_WRMSR      INSTR_ENC(X86EMUL_OPC(0x0f, 0x30), 0)
+>> +#define INSTR_RDTSC      INSTR_ENC(X86EMUL_OPC(0x0f, 0x31), 0)
+>> +#define INSTR_RDMSR      INSTR_ENC(X86EMUL_OPC(0x0f, 0x32), 0)
+>> +#define INSTR_CPUID      INSTR_ENC(X86EMUL_OPC(0x0f, 0xa2), 0)
+>> +
+>>   #else  /* CONFIG_HVM */
+> 
+> I further wonder whether putting this in hvm.h is a good idea. Is there
+> anything wrong with using a brand new header, e.g. instr-enc.h?
 
-Any uses of _regs after assignment back to the context is surely broken anyway
-because nothing outside of this function would see the result? Not that I would
-expect that to happen anyway since this is essentially the end of the function.
+No objection to that. I do wonder though if using the instruction encoding like
+this is the best way of passing through the instruction to the fast path in
+hvm_emulate_one_ctxt() since I think in some cases the instruction encoding
+may not match the actual instruction that triggered the VMEXIT.
 
 Ross
 
