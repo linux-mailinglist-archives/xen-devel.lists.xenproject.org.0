@@ -2,44 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ACU3HIQuD2r+HQYAu9opvQ
+	id YAJOMUMvD2r+HQYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 18:10:44 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 18:13:55 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0570B5A8F2B
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 18:10:43 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1315496.1585313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C75F5A902E
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 18:13:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1315555.1585323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ5ym-0005TG-DM; Thu, 21 May 2026 16:10:36 +0000
+	id 1wQ61m-0006Q0-QG; Thu, 21 May 2026 16:13:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1315496.1585313; Thu, 21 May 2026 16:10:36 +0000
+Received: by outflank-mailman (output) from mailman id 1315555.1585323; Thu, 21 May 2026 16:13:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ5ym-0005Qy-9p; Thu, 21 May 2026 16:10:36 +0000
-Received: by outflank-mailman (input) for mailman id 1315496;
- Thu, 21 May 2026 16:10:34 +0000
+	id 1wQ61m-0006O0-N4; Thu, 21 May 2026 16:13:42 +0000
+Received: by outflank-mailman (input) for mailman id 1315555;
+ Thu, 21 May 2026 16:13:41 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <bernhard.kaindl@citrix.com>) id 1wQ5yk-0005QK-C7
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 16:10:34 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wQ61l-0006Nu-7w
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 16:13:41 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQ5yj-003Zqu-OX
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 18:10:33 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wQ61k-00Bu3F-I6
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 18:13:40 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a0f2e68-e002-0a2a0a5209dd-0a2a4504a856-20
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 18:10:33 +0200
-Received: from [160.101.131.9] (helo=na1pdmzitismtp02.tibco.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a0f2e78-1dec-0a2a45040019-a06583099528-3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 18:10:33 +0200
-Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id 962C48242087;
- Thu, 21 May 2026 12:09:21 -0400 (EDT)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a0f2f31-e002-0a2a0a5209dd-0a2a4502e96c-4
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 18:13:40 +0200
+Received: from [52.101.53.57]
+ (helo=BL0PR03CU003.outbound.protection.outlook.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a0f2f33-af86-0a2a45020019-346535392b1b-3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 18:13:40 +0200
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by SA1PR03MB6434.namprd03.prod.outlook.com (2603:10b6:806:1c1::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Thu, 21 May
+ 2026 16:13:37 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.21.0048.016; Thu, 21 May 2026
+ 16:13:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,562 +57,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; none
-From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v3 2/2] tests/native: Add native tests for NUMA claim sets
-Date: Thu, 21 May 2026 17:08:08 +0100
-Message-Id: <ebafa1b46ff792d728a316ac920dbfa7965d0cb8.1779379609.git.bernhard.kaindl@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1779379609.git.bernhard.kaindl@citrix.com>
-References: <cover.1779379609.git.bernhard.kaindl@citrix.com>
-MIME-Version: 1.0
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ouu+Vdtcw62fwziOhE5sYyERanTrg0rh/8nuu2E/GvKa/8NbLoFDRq3PwkhWd8NadIPAbN5wHGWE1QBGOqHCvj4Om/mYeg42emXL/rLyAI/aU/BuqDFWodsbP9bLkYUQwNFDLsuXW89ZAnZNQk2mjVeHLZ8H7dkasw1QP/KvMUwtSvET/r5oBblX8I90TjR2ojksZ2FIq9fOTMB1Xt4g9l4ARykyw6u2QKxE3ZngtvIfaAXqdz4hf9QVySar6yUIKTwM0abuOYrdWlfdqhK8Jnq/kumfOvzlITCuF2omavvZc7XuqYA/++FZjZwhbKL8yPkJ3Ig6KD5c2HkPFqWweQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+5xNII3hj8gty8GfUvNS+hTs+MRbWU0WgkzomPKrsc4=;
+ b=BeHwQD7w+MZfVjssHAKut2ISeVD8OJlNWtpmdSHws0yhkYbUb4A4scbgPTJAmrXSJILlfIT5j3FcnCpsUWQt6VEUI40Gi1Gi8A7l/eBbugac45sbsupRziBykmnsCqF9IQxE7SYBF4eUUclCgkrROrttKanvu3R34qztcK2R12B512YoK71bKEx5LU+38FWoqV0E+AWsY42Hko7Sr2k8el8bNyzA2/yxoMjTbCzA9j3QiaGvz0cb6DsVFtRvWf205qcqkSRKJBDWK5Bn1+NK9nacYZBPsIf7Cu23bSdZnqSleUgHxlyAI8U3Quyp701nHpfotQMLwQs86AsPof9WOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+5xNII3hj8gty8GfUvNS+hTs+MRbWU0WgkzomPKrsc4=;
+ b=U5VHwFAPQ18FJUjV31k9jy5excTDmxscgw9SGOyUcTBnO07qCsGGxooc/PSOvumY3FVxhk5s/H3RYF7s2bW6Py9SslYNY1N8fek6PzdCMqmFlBUE+vfKdVkNKIzqGWCEexpVkqpHyirc7gl1mVekik9kjl/oTvgKs52tQUdaOJA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <35746cb2-9b36-4c4a-b9bd-71a5df64ed92@citrix.com>
+Date: Thu, 21 May 2026 17:13:32 +0100
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Abdelkareem Abdelsaamad <abdelkareem.abdelsaamad@citrix.com>,
+ Teddy Astie <teddy.astie@vates.tech>, Jason Andryuk <jason.andryuk@amd.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH for-4.22 v6] x86/svm: Support vNMI on capable hardware
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <20260514175623.1869042-1-andrew.cooper3@citrix.com>
+ <ca7c7f2b-ab85-44ec-a62f-1bab60d045d6@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <ca7c7f2b-ab85-44ec-a62f-1bab60d045d6@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ebf023/1779379833-28D743FF-75B8AFE9/0/0
-X-purgate-type: clean
-X-purgate-size: 21358
-X-Spamd-Result: default: False [3.01 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
+X-ClientProxiedBy: LO4P265CA0019.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ae::21) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SA1PR03MB6434:EE_
+X-MS-Office365-Filtering-Correlation-Id: e204eb92-6132-495c-89c7-08deb753e96d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|11063799006|4143699003|3023799007|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	ANGPgrhrvu7MNukQcVfrdLun21FenkYFB8XpGpORs6lFBrsQaOrMRdaO1iqecPiFqFVHwSmh+w95dkqFzyiAep2jT8Q/g36uBE2nXvQDZXYX18FPOPu3k7tmJmcnl0/fdW6jgTPPu3MaiEvOOB066g96aBbSWhWtuw0N6K1yQOBjR1j2aLzmouhszap7huWB6JII6pbNXgKnsuGr4+xmuk6csnib4MsDbgaaT1f7hk+lK9aKzJFmqhDewq2ryqhJZzBI60nK3rj6qe+i2yHDD4IQeJMpR2+jiXH6EFcLZkicqxc2e3DLArDP5Mhmu4qszg2R+/iRdUEnUJTQYiuNbAtxT7boKlupXCnLYq0qV36j8DVIHSo6qUZZ3ap0Ak+DtpJT3aVBgr/buLM5jFaibZhU4lSrSoLWllbTCZgympjiNLk4KBSPtfwxK2DDp1T1KKXa+P7EfqEhvjsU/7Xd91wDAUZVzMgqKYqbuOdECXDdgOUL0HUJKZIDHz1I910YsKkJ6m35hjUMSJP2Z+0vKQsRtrQmPsniKzm+HoCbJjjjXthp5RV1d2RoXujZZJT2ZUx/UJ7O6n9sqadABx3wja5Wi70FDU/BJCFXknSjM074aUcYgUQ5RMwumq6AWwtTywr+wgPp2zzReFRqGj1hS/OvnykWnub/R7wsfoVg1utIvds+RU7EbNt/id9T/Ktq
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(11063799006)(4143699003)(3023799007)(18002099003)(22082099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ak9lUG5waVhwL0lacEl6Z21LVEhLQllYVjMzTlVYN09PMnJqZFNKSXBOVyt5?=
+ =?utf-8?B?MWQza2plT3RKYUFldENIMjNqc0NLMksvNkdPT3RSOGppR0VVVDR2QVlrZjhH?=
+ =?utf-8?B?em9KR3JLeFJCSnFHeXVBbFpURjdERnhIZEtKRXNrRWpQN1BXZ1RaWFFhWWJ1?=
+ =?utf-8?B?VlNEdVRmTFlWTktOYnFEY1E2aTNmM3d2bHlXTmc4ZlFQaGx0SXdhanFaa1lj?=
+ =?utf-8?B?MlZGUlBaVTNxd3RmcVowL1ZhUmFJYnpVZTJESnVMRHFuanhIQ3A4bC9kRFRw?=
+ =?utf-8?B?bFF2WmZFelFYSzRVTU9QdjVlaXRvenArYTFCUzZ5OUpSSDlkWkdvMVBuR1M3?=
+ =?utf-8?B?MkVNRkg3L24wZVM4OFEwUkFnWFJiSVEvaFVLODJjOTZRVjBUcjFqQnk3dDdo?=
+ =?utf-8?B?NlBsbVplRXdXSjBpa0JrSkxwZFE2Zks2aVpYMTB2eFJVMmZFc2xRY00xVzdX?=
+ =?utf-8?B?M0xidmxBd3poZTNQdW5SNE9vS2VuUnhtMGd1dEdUL2R6SEhDSTdoYlR0ejZh?=
+ =?utf-8?B?Wno1ZG5tdnRhM2lNUXVEUmxmdFhTVzhkOEVDNmIyQzIzZjloOXhBZUZXRWd2?=
+ =?utf-8?B?N05yQThzMzBVbmJZM0puWHVhYytBa2M3ckoweG5uZVpMZGttQ1FET3dPNXcz?=
+ =?utf-8?B?YXJQdGJlR2F3cHFTRjRpWU0yQktxUFdUQW4wbEFCeWxzdDVVS3Q1MmY1dGdY?=
+ =?utf-8?B?YWFEN3RndS9jNnQ4ZEFGL29MVGgrdTU4RDZ5QUJmN2k3UTZQODE0TndWQkxx?=
+ =?utf-8?B?R0NKbHVZdWIyS2o3Nm1GMFRhUU9QcTNqM0ExQWdleFdCQUdSU2c0dDM0RHBI?=
+ =?utf-8?B?Q0tmUFlxN2ptSkNMYVoySXRmc0tSZTJzcnVnSmpUY2tCeUpBRG9vbVR4aHda?=
+ =?utf-8?B?T00xbHh6bUxodDEzUEQ2WUNHZmZHLzZ4NStPT3dPMzJGamk2MFNkMExvdk9v?=
+ =?utf-8?B?YjlyWnkvd2l6b1RtNi83U2JZeElZUTkxdTU3MmRCbzh1cGZmdFNIUUU1Y2ZY?=
+ =?utf-8?B?Y0lpUlczTVoxRnlmL2tjeStWd3Y3TTVIWFF6U1ZxeVdNK3Y4ZWpqdVlXeExa?=
+ =?utf-8?B?WGo5SG1rSGNZLzRkQjg5bWxBUXBDVE5QeDRla0t5NXdBRzQrZVVhZVZwQnI1?=
+ =?utf-8?B?M0REc3NENjJpa0RtWE1jamdub1oyalNKbWJyVEVKb3ErWWFSMVJ5QnM5dTBn?=
+ =?utf-8?B?WHVzMVkzODlwMHJWTi8weG1DNXFBd1FFWWNEOGRNNk83MjVPTEZTSUpCZFNJ?=
+ =?utf-8?B?RUtNQUpqcXMrTXVBMVBqUkpIWE9EcC9MWEVVeHc5ODFjN3MyYytYaFhEb0kv?=
+ =?utf-8?B?MGZSSXMvWVBQeCtWQ2xpMy84cWhpUkVzeFJaM1lORHZPMHlxTkxRV0hiSXNy?=
+ =?utf-8?B?bUVIWHNrSEt1KzAwZFphN2wzcFp6NHk1NGhxb0s0ajg3dVRTM05OdkU3allE?=
+ =?utf-8?B?eHN4dm9EdDNaYmZSNGwvZk9mKzc0UXNiZmMzN3dncC9ZTTQzcWNvNnR6YThj?=
+ =?utf-8?B?Q3hGbW9sVmNsOEd6akFkMmlLdlFtSDZhN2cwWEx2M294YWFXVEVlWmowZlNF?=
+ =?utf-8?B?Y20wNkc1bnpBSGhGMk52SHAzL3czTnpMSDVVek15QnI1ZFlZOTd6bDJmcGpu?=
+ =?utf-8?B?YmYzMHliTU5ReCtVR1hLeFVFeWVwSDcySEhuWm0xUDhUYmhqZldEdXhKZGx3?=
+ =?utf-8?B?SUk1SlhSSzJPQUR6TlFXYWhZL2R4cnEzamFRL3BBS3d5Y25vTFBoOW9STTk1?=
+ =?utf-8?B?VkZNbVNQWXhTVEJCMWljS3lHMWEyVnBTRWF3MFFncFVNZ2djU1dQWVFNTGV6?=
+ =?utf-8?B?d2FRTllxVTdkcklya3l2cXRtRzZIQlBFZ0FpYVg1UFRlb3JIaC8vWEMzNVBu?=
+ =?utf-8?B?R0laVjkxVVltQUZSK2Q4Qy83Y2lJV2wrcU5OQjc1aUtlblM1MmhTNlgyNmxD?=
+ =?utf-8?B?RXNsZ0hmQWpIYm1mT0JaZ3hMWVhUNm1kZERTdHgvMWhjTmk4U2hnTWxBWkRa?=
+ =?utf-8?B?ck1aRndKMC81Tkl3ZlNuVENLUllaOU9hdXN0T25DUzhjeWF2TXl3Q09lMXVL?=
+ =?utf-8?B?NWFlbE85TG9LRCtGazV2Z00wdFdwNVdYMEt2eUN2KzkvNCszNkNjVHg0ZmFl?=
+ =?utf-8?B?cC91YU5NNUhpWVdTZE9PRDV4emlrSkJsOVlkK0hKQ3dvL1V4dGExY0pEdHE3?=
+ =?utf-8?B?aFUxeHd5UEVkNVVVY0p1ekQxamJQbkRDYVcrRHYxbzF5dXdVSmJvUjVRaDJG?=
+ =?utf-8?B?N2pJQURBQmZUUHVCN0gwNFdPWFlNMGZJem5nWEJ2cmJhV05XZ2VHMWI5cHY5?=
+ =?utf-8?B?bWtDVzlGdkZaZXR5ZDRkTnUzTjJOMnRELzRtUUg3OHdNVzd0S2pTdDRYOVl5?=
+ =?utf-8?Q?Mxv669EvPmj7Bbmw=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e204eb92-6132-495c-89c7-08deb753e96d
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2026 16:13:36.0444
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sBKP6rKdhpb/QH15kyNlqDsdc9B8fpFqz+vS/ANzI8DTL1PutLIU3PrIccpmLk0MXZaEuYkZd+t8P+O6zrAAk81KwChlHddeFtfSk9bzgtY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6434
+X-purgate-ID: tlsNG-720697/1779380020-83961161-6D1755AC/10/73395122804
+X-purgate-type: spam
+X-purgate-size: 2289
+X-Spamd-Result: default: False [1.32 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_ALL(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:abdelkareem.abdelsaamad@citrix.com,m:teddy.astie@vates.tech,m:jason.andryuk@amd.com,m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	RCPT_COUNT_THREE(0.00)[3];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	RCVD_COUNT_SEVEN(0.00)[9];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	R_DKIM_NA(0.00)[];
+	FREEMAIL_CC(0.00)[citrix.com,vates.tech,amd.com,gmail.com,lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo,citrix.com:email,citrix.com:mid,citrix.com:dkim,suse.com:email];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_SENDER_FORWARDING(0.00)[]
-X-Rspamd-Queue-Id: 0570B5A8F2B
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: 1C75F5A902E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Test the page allocator's claim behaviour using:
+On 21/05/2026 4:51 pm, Jan Beulich wrote:
+> On 14.05.2026 19:56, Andrew Cooper wrote:
+>> From: Abdelkareem Abdelsaamad <abdelkareem.abdelsaamad@citrix.com>
+>>
+>> Starting with Zen4, AMD CPUs can virtualise NMIs for a guest.  On older
+>> hardware, determining when an NMI is safe to deliver is a challenge and Xen
+>> does not handle all corner cases correctly.
+>>
+>> With vNMI, there is an enablement bit and two new bits of state in the VMCB; a
+>> pending bit, and a blocked bit.  These directly map to the CPU state for
+>> handling NMIs, and are maintained by hardware during the running of the vCPU.
+>>
+>> When vNMI is enabled, have svm_{get,set}set_interrupt_shadow() work in terms
+>> of the vnmi_blocking bit rather than the IRET intercept.  This allows an
+>> emulated IRET instruction to re-enable NMIs.
+>>
+>> When injecting a new NMI, simply set the vnmi_pending bit; hardware will
+>> deliver the NMI to the guest at the next suitable juncture.
+>>
+>> One complication is that, when delivering a second NMI before the first has
+>> completed, the mix between common HVM logic and SVM specific logic will try to
+>> open an NMI window, malfunctioning as it does so.  When vNMI is enabled, short
+>> circuit this to not consider NMIs blocked.
+>>
+>> Signed-off-by: Abdelkareem Abdelsaamad <abdelkareem.abdelsaamad@citrix.com>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <jbeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Teddy Astie <teddy.astie@vates.tech>
+>> CC: Jason Andryuk <jason.andryuk@amd.com>
+>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>
+>> For 4.22.  This is somewhat overdue and makes a concrete improvement to NMI
+>> handling on recent AMD hardware.
+> In particular with this remark in mind - should I perhaps pull this over onto
+> 4.21 as well? Or are there dependencies I'm overlooking?
 
-- the legacy xc_domain_claim_pages() call, and
-- the new xc_domain_claim_memory() call of the claim-set API,
+There's this patch, and a prior patch from a while ago adding the vNMI
+CPUID enumeration and fields.  There are no other dependencies that I'm
+aware of.
 
-exercising both host-wide and NUMA node-specific multi-node claims.
+I was intending to backport this to 4.21 in XenServer in due course.
 
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
----
- tools/tests/native/host-claims.c | 248 +++++++++++++++++++++++++++++++
- tools/tests/native/node-claims.c | 230 ++++++++++++++++++++++++++++
- 2 files changed, 478 insertions(+)
- create mode 100644 tools/tests/native/host-claims.c
- create mode 100644 tools/tests/native/node-claims.c
+vNMI will be a hard dependency for supporting FRED in guests on AMD, but
+I doubt we'll be wanting to backport this as a feature.
 
-diff --git a/tools/tests/native/host-claims.c b/tools/tests/native/host-claims.c
-new file mode 100644
-index 000000000000..8286fc586282
---- /dev/null
-+++ b/tools/tests/native/host-claims.c
-@@ -0,0 +1,248 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Test basic host-wide functionality of memory claims, including
-+ * installing and redeeming claims, and that claims are respected
-+ * by allocations and protected against other allocations.
-+ *
-+ * Copyright (C) 2026 Cloud Software Group
-+ */
-+
-+#define TEST_ENABLE_XC_DOMAIN_C /* Enable xc_domain.c APIs */
-+#include "harness/native.h"
-+
-+typedef int (*set_global_claims)(struct domain *d, unsigned long pages);
-+set_global_claims install_host_claims;
-+
-+/* Install a host-wide claim using the legacy xc_domain_claim_pages() call */
-+int install_host_claims_legacy(struct domain *d, unsigned long pages)
-+{
-+    if (pages == 0)
-+        return xc_domain_claim_pages(xch, d->domain_id, 0);
-+
-+    /* The legacy call need resetting claims before claims can be set again */
-+    xc_domain_claim_pages(xch, d->domain_id, 0);
-+
-+    /* The argument of the legacy call includes the domain's existing pages */
-+    pages += domain_tot_pages(d);
-+
-+    return xc_domain_claim_pages(xch, d->domain_id, pages);
-+}
-+
-+/* Install a host-wide claim set using the xc_domain.c hypercall API */
-+int xc_domain_claim_memory_host(struct domain *d, unsigned long pages)
-+{
-+    xen_memory_claim_t claim_set[] = {
-+        { .target = XEN_DOMCTL_CLAIM_MEMORY_HOST, .pages = pages },
-+    };
-+    uint32_t nr_entries = ARRAY_SIZE(claim_set);
-+
-+    return xc_domain_claim_memory(xch, d->domain_id,
-+        XEN_DOMCTL_CLAIM_MEMORY_SET, &nr_entries, claim_set);
-+}
-+
-+static void test_alloc_domheap_redeems_claims(int start_mfn)
-+{
-+    int ret;
-+    struct page_info *pages = frame_table + start_mfn, *pg;
-+
-+    test_page_list_add_buddy(pages, order2);
-+    ASSERT(!install_host_claims(dom1, 3));
-+    ASSERT(alloc_domheap_pages(dom1, order1, 0) == pages + 2);
-+    ASSERT(alloc_domheap_pages(dom1, order0, 0) == pages + 1);
-+    CHECK(TOTAL_CLAIMS == 0, "Expect all claims consumed after allocations");
-+    CHECK(FREE_PAGES == 1, "Expect one free page after allocations");
-+
-+    ASSERT(!install_host_claims(dom2, FREE_PAGES));
-+
-+    /* Claim more than dom1 already has fails with ENOMEM (claimed by dom2) */
-+    ret = install_host_claims(dom1, domain_tot_pages(dom1) + 1);
-+    CHECK(ret == -ENOMEM, "dom 1 claim +1 fails due to insufficient pages");
-+
-+    /* Claim more than dom1's d->max_pages fails with EINVAL */
-+    ret = install_host_claims(dom1, dom1->max_pages + 1);
-+    CHECK(ret == -EINVAL, "dom 1 claim fails due to exceeding max_pages");
-+
-+    /* Attempt to allocate an order-0 page with a foreign claim present */
-+    pg = alloc_domheap_pages(dom1, order0, 0);
-+    CHECK(pg == NULL, "dom 1 allocation fails because of domain 2's claim");
-+    CHECK(TOTAL_CLAIMS == 1, "Expect domain 2's claim to be still present");
-+    CHECK(FREE_PAGES == 1, "Expect one free page after failed alloc");
-+}
-+
-+/*
-+ * Test that memory claims can be cancelled by setting the claim count to 0,
-+ * and that cancelled claims are freed up for other domains to claim.
-+ *
-+ * This is important for domain_kill() to be able to cancel claims of a dying
-+ * domain and free up the pages for other domains to claim and free, otherwise
-+ * the host might run out of free pages due to claims that are not released.
-+ *
-+ * - Test that after claiming pages for a domain, allocations redeem a portion
-+ *   of those claims.
-+ *
-+ * - Test that other domains cannot claim more pages than the unclaimed free
-+ *   pages, and that cancelled claims are no longer present after cancellation.
-+ *
-+ * - Test that after cancelling claims for a domain, other domains can claim
-+ *   and allocate all remaining free pages.
-+ */
-+static void test_claim_alloc_cancel(int start_mfn)
-+{
-+    struct page_info *expected, *page = frame_table + start_mfn;
-+    unsigned long heap_pages, claims;
-+    unsigned int alloc_order;
-+
-+    /* Create a buddy of order 2 (4 pages) and add it to the heap. */
-+    test_page_list_add_buddy(page, order3);
-+    heap_pages = FREE_PAGES;
-+    claims = heap_pages / 2;
-+
-+    /* Claim half of the free pages for domain 1 */
-+    ASSERT(install_host_claims(dom1, claims) == 0);
-+    ASSERT(TOTAL_CLAIMS == claims);
-+
-+    /* Allocate an order 1 page for domain 1 */
-+    alloc_order = order1;
-+    /* Expect the highest available page to be allocated */
-+    expected = page + FREE_PAGES - (1UL << alloc_order);
-+    ASSERT(alloc_domheap_pages(dom1, alloc_order, 0) == expected);
-+    ASSERT(TOTAL_CLAIMS == (claims -= 1UL << alloc_order, claims));
-+
-+    /* Allocate an order 0 page for domain 1 */
-+    alloc_order = order0;
-+    /* Expect the highest available page to be allocated */
-+    expected = page + FREE_PAGES - (1UL << alloc_order);
-+    ASSERT(alloc_domheap_pages(dom1, alloc_order, 0) == expected);
-+    ASSERT(TOTAL_CLAIMS == (claims -= 1UL << alloc_order, claims));
-+
-+    /* Claiming more than unclaimed for domain 2 should fail */
-+    ASSERT(install_host_claims(dom2, heap_pages - claims + 1) == -ENOMEM);
-+    /* Claiming all free pages for domain 2 should fail (dom1 has a claim) */
-+    ASSERT(install_host_claims(dom2, FREE_PAGES) == -ENOMEM);
-+    ASSERT(TOTAL_CLAIMS == claims);
-+
-+    /*
-+     * Cancelling claims needs to always work, the checks in place for
-+     * installing claims should not prevent cancelling claims, which is
-+     * important for domain_kill() to be able to cancel claims of a dying
-+     * domain regardless of the state of the domain's configuration.
-+     *
-+     * An important check that cancelling claims needs to bypass is the
-+     * max_pages check, as a domain's max_pages can be set to a low value
-+     * due to a toolstack process (Xapi's "squeezed" squeezing the domain
-+     * can set its max_pages to a lower value than domain_tot_pages() by
-+     * invoking do_domctl(XEN_DOMCTL_max_mem).
-+     *
-+     * This should not prevent the claims from being cancelled as required.
-+     */
-+    dom1->max_pages = domain_tot_pages(dom1) - 1;
-+
-+    /* Cancel all remaining claims for domain 1 */
-+    ASSERT(install_host_claims(dom1, 0) == 0);
-+    ASSERT(TOTAL_CLAIMS == 0);
-+
-+    /* Claim all free pages for domain 2, should work */
-+    claims = FREE_PAGES;
-+    ASSERT(install_host_claims(dom2, claims) == 0);
-+    ASSERT(TOTAL_CLAIMS == claims);
-+
-+    /* Claiming for domain 1 should fail with EINVAL due to max_pages = 0 */
-+    ASSERT(install_host_claims(dom1, 1) == -EINVAL);
-+
-+    /* With d->max_pages > domain_tot_pages(), dom1 claims fails with -ENOMEM */
-+    dom1->max_pages = heap_pages;
-+    ASSERT(install_host_claims(dom1, 1) == -ENOMEM);
-+
-+    /* Attempting to allocate a page for domain 1 should likewise fail now */
-+    ASSERT(alloc_domheap_pages(dom1, order0, 0) == NULL);
-+
-+    /* Allocating a page for domain 2 still work as it has the claims */
-+    alloc_order = order0;
-+    /* Expect the highest available page to be allocated */
-+    expected = page + FREE_PAGES - (1UL << alloc_order);
-+    ASSERT(alloc_domheap_pages(dom2, alloc_order, 0) == expected);
-+    ASSERT(TOTAL_CLAIMS == (claims -= 1UL << alloc_order, claims));
-+
-+    /* Even allocating the remaining order 2 buddy for domain 2 works */
-+    alloc_order = order2;
-+    /* Expect the highest available page to be allocated */
-+    expected = page + FREE_PAGES - (1UL << alloc_order);
-+    ASSERT(alloc_domheap_pages(dom2, alloc_order, 0) == expected);
-+    ASSERT(TOTAL_CLAIMS == (claims -= 1UL << alloc_order, claims));
-+}
-+
-+/* Test offlining free pages outside and inside the claimed pages pool */
-+static void test_offlining_host_claims(int start_mfn)
-+{
-+    struct page_info *pages = frame_table + start_mfn;
-+    unsigned long heap_size, claims;
-+
-+    test_page_list_add_buddy(pages, order2);
-+
-+    heap_size = FREE_PAGES;
-+    claims = heap_size - 1; /* Claim all but one page */
-+    ASSERT(!install_host_claims(dom1, claims));
-+
-+    /* Mark a first page as offline */
-+
-+    mark_page_offline(pages + 3, 0);
-+    ASSERT(page_state_is(pages + 3, offlined));
-+
-+    /* Due to the single unclaimed page, the claims should remain unchanged */
-+    ASSERT(FREE_PAGES == heap_size);
-+    ASSERT(TOTAL_CLAIMS == heap_size - 1);
-+    ASSERT(reserve_offlined_page(pages) == 1);
-+    ASSERT(FREE_PAGES == heap_size - 1); /* One free page is offlined */
-+    ASSERT(TOTAL_CLAIMS == heap_size - 1);
-+
-+    /* Offline a second page. Offlines a portion of the claimed pages pool. */
-+
-+    mark_page_offline(pages + 1, 0);
-+    ASSERT(page_state_is(pages + 1, offlined));
-+
-+    /* Assert the effect of offlining a portion of the claimed pages pool */
-+    ASSERT(FREE_PAGES == heap_size - 1);
-+    ASSERT(TOTAL_CLAIMS == heap_size - 1);
-+    ASSERT(reserve_offlined_page(pages) == 1);
-+    ASSERT(FREE_PAGES == heap_size - 2); /* Two pages are offlined */
-+    ASSERT(TOTAL_CLAIMS == heap_size - 2); /* One claim is be released */
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+    const char *topic = "Test host-wide claims with old and new interfaces";
-+
-+    if ( !parse_args(argc, argv, topic) )
-+        return EXIT_FAILURE;
-+
-+    init_page_alloc_tests();
-+
-+    /*
-+     * Run the tests on all levels of the claims interface:
-+     *
-+     * 1. Direct page_alloc function call used by other code in the hypervisor,
-+     *    which needs to support claim cancellation, needed by domain_kill().
-+     *
-+     * 2. The domctl helper for the hypercall, which is used by the hypercall
-+     *    handler itself to parse the hypercall arguments before calling the
-+     *    page_allocator functions.
-+     *
-+     * 3. The real DOMCTL handler, do_domctl(), which is the actual handler
-+     *    function called when invoking the real hypercall.
-+     */
-+
-+    /* Test using the direct claim function call used inside the hypervisor */
-+    install_host_claims = install_host_claims_legacy;
-+    RUN_TESTCASE("TCCD", test_claim_alloc_cancel, 8);
-+    RUN_TESTCASE("DCGD", test_alloc_domheap_redeems_claims, 4);
-+
-+    /* Test claims setup using the actual DOMCTL handler itself, do_domctl() */
-+    install_host_claims = xc_domain_claim_memory_host;
-+    RUN_TESTCASE("TCCH", test_claim_alloc_cancel, 8);
-+    RUN_TESTCASE("DCGH", test_alloc_domheap_redeems_claims, 4);
-+
-+    /* Test offlining free pages outside and inside the claimed pages pool */
-+    RUN_TESTCASE("OHCH", test_offlining_host_claims, 4);
-+
-+    return test_complete();
-+}
-diff --git a/tools/tests/native/node-claims.c b/tools/tests/native/node-claims.c
-new file mode 100644
-index 000000000000..aa736f325f6b
---- /dev/null
-+++ b/tools/tests/native/node-claims.c
-@@ -0,0 +1,230 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Integration tests for NUMA-aware memory claims.
-+ *
-+ * The install test verifies that when a domain has a claim set installed
-+ * with host-wide and per-NUMA-node claims, allocations that specify NUMA
-+ * node affinity will redeem the appropriate claims (same-node first,
-+ * host-wide fallback claim next, then other nodes, to not exceed page
-+ * limits). It also verifies that the aggregate claim counters are updated
-+ * correctly after each allocation.
-+ *
-+ * The get test verifies that callers can query the required number of
-+ * claim records by passing a count of 0 and a NULL claim set buffer.
-+ *
-+ * Copyright (C) 2026 Cloud Software Group
-+ */
-+
-+#ifdef __x86_64__
-+#define CONFIG_NUMA 1 /* Enable NUMA support in the test environment. */
-+#define TEST_ENABLE_XC_DOMAIN_C /* Enable xc_domain.c wrapper */
-+#include "harness/native.h"
-+
-+typedef int (*set_numa_claims)
-+    (struct domain *d, uint32_t entries, const xen_memory_claim_t *claim_set);
-+set_numa_claims install_numa_claims;
-+
-+/*
-+ * Test redeeming NUMA memory claims in exchange for allocations,
-+ * where the redeemed claims are correctly reflected in the domain's
-+ * claim state and the aggregate claim counters.
-+ */
-+static void test_claims_numa_install(int start_mfn)
-+{
-+    test_page_list_add_node_buddy(node0, start_mfn, order2);
-+    test_page_list_add_node_buddy(node1, start_mfn, order2);
-+
-+    /* Install a claim set with host-wide + per-NUMA-node claims. */
-+    xen_memory_claim_t claim_set[3] = {
-+        { .target = XEN_DOMCTL_CLAIM_MEMORY_HOST, .pages = 2 },
-+        { .target = node0, .pages = 2 },
-+        { .target = node1, .pages = 2 },
-+    };
-+    int install = install_numa_claims(dom1, ARRAY_SIZE(claim_set), claim_set);
-+
-+    ASSERT(install == 0);
-+    CHECK(TOTAL_CLAIMS == 6, "Expect 6 total claims after installation");
-+    CLAIMS(dom1, claim_set);
-+
-+    ASSERT(alloc_domheap_pages(dom1, order0, MEMF_node(node0)));
-+    CHECK(TOTAL_CLAIMS == 5, "Expect 5 total claims left after allocation");
-+    CHECK(FREE_PAGES == 7, "Expect 7 free pages left after allocation");
-+    ASSERT(claim_set[1].target == node0);
-+    claim_set[1].pages--; /* Expect the allocation redeemed from node 0 */
-+    CLAIMS(dom1, claim_set);
-+
-+    /* An allocation on node 1 redeems a claim from node 1 */
-+    ASSERT(alloc_domheap_pages(dom1, order0, MEMF_node(node1)));
-+    CHECK(TOTAL_CLAIMS == 4, "Expect 4 total claims left after allocation");
-+    CHECK(FREE_PAGES == 6, "Expect 6 free pages left after allocation");
-+    ASSERT(claim_set[2].target == node1);
-+    claim_set[2].pages--; /* Expect the allocation redeemed from node 1 */
-+    CLAIMS(dom1, claim_set);
-+
-+    /* An allocation on node 1 redeems the last claim from node 1 */
-+    ASSERT(alloc_domheap_pages(dom1, order1, MEMF_node(node1)));
-+    CHECK(TOTAL_CLAIMS == 2, "Expect 2 total claims left after allocation");
-+    CHECK(FREE_PAGES == 4, "Expect 4 free pages left after allocation");
-+    xen_memory_claim_t claim_set2[2] = {
-+        claim_set[0], /* The Host-wide claim should still be present. */
-+        claim_set[1], /* Claim from node 0 should still be present. */
-+        /* The claim from node 1 is consumed, not part of the claim set. */
-+    };
-+    claim_set2[0].pages--; /* The 2nd page is redeemed from host-wide claim */
-+    CLAIMS(dom1, claim_set2);
-+
-+    /* An allocation on node 1 falls back to the host-wide claim */
-+    ASSERT(alloc_domheap_pages(dom1, order0, MEMF_node(node1)));
-+    CHECK(TOTAL_CLAIMS == 1, "Expect 1 total claims left after allocation");
-+    CHECK(FREE_PAGES == 3, "Expect 3 free pages left after allocation");
-+    claim_set2[0].pages--; /* The 2nd page is redeemed from host-wide claim */
-+    CLAIMS(dom1, claim_set2);
-+
-+    /* An allocation on node 1 falls back to node 0 */
-+    ASSERT(alloc_domheap_pages(dom1, order0, MEMF_node(node1)));
-+    CHECK(TOTAL_CLAIMS == 0, "Expect 0 total claims left after allocation");
-+    CHECK(FREE_PAGES == 2, "Expect 2 free pages left after allocation");
-+    CLAIMS(dom1, /* All claims should be consumed */
-+           ((xen_memory_claim_t[]){
-+                { .target = XEN_DOMCTL_CLAIM_MEMORY_HOST, .pages = 0 },
-+            }));
-+}
-+
-+/* Test getting the current claim set for a domain. */
-+static void test_claims_numa_get(int start_mfn)
-+{
-+    test_page_list_add_node_buddy(node0, start_mfn, order2);
-+    test_page_list_add_node_buddy(node1, start_mfn, order2);
-+
-+    /* Install a claim set with host-wide + per-NUMA-node claims. */
-+    const xen_memory_claim_t claim_set[3] = {
-+        { .target = XEN_DOMCTL_CLAIM_MEMORY_HOST, .pages = 2 },
-+        { .target = node0, .pages = 2 },
-+        { .target = node1, .pages = 2 },
-+    };
-+    int install = install_numa_claims(dom1, ARRAY_SIZE(claim_set), claim_set);
-+
-+    ASSERT(install == 0);
-+
-+    /*
-+     * Assert that the direct call can get the number of claim records by
-+     * passing a count of 0 and NULL for the claim set buffer.
-+     */
-+    uint32_t records = 0, expected_records = ARRAY_SIZE(claim_set);
-+
-+    ASSERT(domain_get_claim_entries(dom1, &records, NULL) == -ERANGE);
-+    ASSERT(records == expected_records);
-+
-+    /*
-+     * Assert that the libxc wrapper can get the number of claim records for
-+     * a domain by passing a count of 0 and NULL for the claim set buffer.
-+     */
-+    records = 0;
-+    ASSERT(xc_domain_claim_memory(&test_xc_handle, dom1->domain_id,
-+                                  XEN_DOMCTL_CLAIM_MEMORY_GET,
-+                                  &records, NULL) == -ERANGE);
-+    ASSERT(records == expected_records);
-+
-+    /* Assert the libxc wrapper returning the expected claim set contents */
-+    CLAIMS(dom1,
-+           ((xen_memory_claim_t[]){
-+                { .target = XEN_DOMCTL_CLAIM_MEMORY_HOST, .pages = 2 },
-+                { .target = node0, .pages = 2 },
-+                { .target = node1, .pages = 2 }
-+            }));
-+}
-+
-+/* Test offlining free pages outside and inside the claimed pages pool */
-+static void test_offlining_node_claims(int start_mfn)
-+{
-+    struct page_info *pages = test_get_node_page(node0, start_mfn);
-+    unsigned long heap_size, claims, host;
-+
-+    test_page_list_add_node_buddy(node0, start_mfn, order2);
-+    test_page_list_add_node_buddy(node1, start_mfn, order2);
-+    heap_size = FREE_PAGES;
-+    claims = heap_size / 2 - 1; /* Claim all but 1 page on each node*/
-+    host = heap_size - 2 * claims; /* Claim the rest host-wide */
-+
-+    /* Install a claim set with host-wide + per-NUMA-node claims. */
-+    xen_memory_claim_t claim_set[] = {
-+        { .target = XEN_DOMCTL_CLAIM_MEMORY_HOST, .pages = host },
-+        { .target = node0, .pages = claims },
-+        { .target = node1, .pages = claims },
-+    };
-+    ASSERT(install_numa_claims(dom1, ARRAY_SIZE(claim_set), claim_set) == 0);
-+
-+    /* Mark a first page as offline */
-+
-+    mark_page_offline(pages + 3, 0);
-+    ASSERT(page_state_is(pages + 3, offlined));
-+
-+    /* The 1st page was not in a node's claims pool, but in the host pool */
-+    ASSERT(FREE_PAGES == heap_size);
-+    ASSERT(TOTAL_CLAIMS == heap_size);
-+    ASSERT(reserve_offlined_page(pages) == 1);
-+    ASSERT(FREE_PAGES == heap_size - 1); /* One free page is offlined */
-+    ASSERT(TOTAL_CLAIMS == heap_size - 1);
-+
-+    /* Expect the pool of host-wide claims to be reduced by 1 page */
-+    xen_memory_claim_t claim_set1[] = {
-+        { .target = XEN_DOMCTL_CLAIM_MEMORY_HOST, .pages = host - 1 },
-+        { .target = node0, .pages = claims },
-+        { .target = node1, .pages = claims }
-+    };
-+    CLAIMS(dom1, claim_set1);
-+
-+    /* Offline a second page. Offlines a portion of the claimed pages pool. */
-+
-+    mark_page_offline(pages + 1, 0);
-+    ASSERT(page_state_is(pages + 1, offlined));
-+
-+    /* Assert the effect of offlining a portion of the claimed pages pool */
-+    ASSERT(FREE_PAGES == heap_size - 1);
-+    ASSERT(TOTAL_CLAIMS == heap_size - 1);
-+    ASSERT(reserve_offlined_page(pages) == 1);
-+    ASSERT(FREE_PAGES == heap_size - 2); /* Two pages are offlined */
-+    ASSERT(TOTAL_CLAIMS == heap_size - 2); /* One claim is be released */
-+
-+    /* The 2nd page was in the claims pool on node0, it should be released */
-+    xen_memory_claim_t claim_set2[] = {
-+                { .target = XEN_DOMCTL_CLAIM_MEMORY_HOST, .pages = host - 1 },
-+                { .target = node0, .pages = claims - 1 },
-+                { .target = node1, .pages = claims }
-+            };
-+    CLAIMS(dom1, claim_set2);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+    const char *topic = "Test NUMA-aware claims with allocation from the heap";
-+
-+    if ( !parse_args(argc, argv, topic) )
-+        return EXIT_FAILURE;
-+
-+    init_page_alloc_tests();
-+
-+    /* Run test cases with different NUMA claim installation methods */
-+
-+    /* Run the test with a direct call to domain_set_claim_entries() */
-+    install_numa_claims = domain_set_claim_entries;
-+    RUN_TESTCASE("CNIS", test_claims_numa_install, 4);
-+
-+    /* Run the test for getting the current claim set for a domain */
-+    install_numa_claims = domain_set_claim_entries;
-+    RUN_TESTCASE("CNGS", test_claims_numa_get, 4);
-+
-+    RUN_TESTCASE("ONCS", test_offlining_node_claims, 4);
-+
-+    return test_complete();
-+}
-+#else
-+#include <stdio.h>
-+int main(int argc, char *argv[])
-+{
-+    (void)argc;
-+    (void)argv;
-+    printf("This test requires NUMA, which is only available on x86_64.\n");
-+    return 0;
-+}
-+#endif
--- 
-2.39.5
-
+~Andrew
 
