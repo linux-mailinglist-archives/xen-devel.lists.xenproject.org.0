@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qEdbN4RFD2qNIgYAu9opvQ
+	id YAgqIoVFD2ptIgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 19:48:52 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 19:48:53 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93E825AA8F5
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 19:48:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1315651.1585372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EEC25AA903
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 19:48:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1315652.1585385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ7VM-0001P2-Eo; Thu, 21 May 2026 17:48:20 +0000
+	id 1wQ7VN-0001nn-PI; Thu, 21 May 2026 17:48:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1315651.1585372; Thu, 21 May 2026 17:48:20 +0000
+Received: by outflank-mailman (output) from mailman id 1315652.1585385; Thu, 21 May 2026 17:48:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ7VM-0001M8-8x; Thu, 21 May 2026 17:48:20 +0000
-Received: by outflank-mailman (input) for mailman id 1315651;
- Thu, 21 May 2026 17:48:18 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wQ7VN-0001kc-MB; Thu, 21 May 2026 17:48:21 +0000
+Received: by outflank-mailman (input) for mailman id 1315652;
+ Thu, 21 May 2026 17:48:20 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wQ7VK-00017d-Jq
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 17:48:18 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wQ7VL-0001KV-Vl
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 17:48:20 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQ7VK-003wjj-0Q
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 19:48:18 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wQ7VL-00BluR-BU
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 19:48:19 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <xakep.amatop@gmail.com>)
- id 6a0f455d-e002-0a2a0a5209dd-0a2a4507b53c-2
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 19:48:17 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0f452f-bab6-0a2a0a5309dd-0a2a4508d226-22
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 19:48:19 +0200
+Received: from [209.85.128.46] (helo=mail-wm1-f46.google.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <xakep.amatop@gmail.com>)
- id 6a0f4561-229c-0a2a45070019-d155802be131-3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 19:48:17 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-488a8ca4aadso63009745e9.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 10:48:17 -0700 (PDT)
+ id 6a0f4563-63b5-0a2a45080019-d155802ec0fe-3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 19:48:19 +0200
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4903f7a90d1so3694485e9.2
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 10:48:19 -0700 (PDT)
 Received: from EPUAKYIW02F7.. ([45.12.24.36]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49033d8e24bsm74565925e9.10.2026.05.21.10.48.16
+ 5b1f17b1804b1-49033d8e24bsm74565925e9.10.2026.05.21.10.48.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 10:48:16 -0700 (PDT)
+ Thu, 21 May 2026 10:48:17 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,40 +57,40 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779385697; x=1779990497; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1779385699; x=1779990499; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vJhOSVjOo3e4ttnIxYNTbaGwn5HUF03ETdQ3xyz7eZQ=;
-        b=DLCQSlV7sth1ZFQoBDU2Htmzxb9j5N3RobZTnwTdortmqySURauDKbE6RyedDshiXE
-         ExP1yHJJhrwHs1blqCVRaKpaFC1PdxXjzt9KMIaIXNuWu+OXkRvhwdHpUHxmf9L3QA2E
-         S287CD1ljmr9eJWCkUIc+OguDnes+ZeVj0UcyntZmPfbsdpezTOk5pcm+qWV2Ubf3w9c
-         xYfnIdcOGhRmNfYGkNyBepOSacwResgcaR+MpmsFej7BETrRC887KBHZ0wiXrwg3ux/1
-         u2ATMOHAAihEUE0P5GtMeKUeMduWfxK5wfRWcOWBTsteDg+exb6Sv3DB7glC83F4lQQN
-         bsWA==
+        bh=EXJbJP8MzENl4VsPg33jnVV005m1Xgxxkwr1fiQgkQc=;
+        b=MFB5BzYskP1KR+6tv0f1isY05Mp9DKgnKJRYvOMYXovJzMcne26mQXnOrow4Sb5vqk
+         WhZqHZdF1whj6NoKQwFuyp7L2uWnRGG2grpmpKlPMU+BpmVTpRcZdlbEV5qimhMXmR2k
+         RMxrtSPL+r0IW4+eWy9Nq/nyGSSyZyaB/rizIkk9phhmjdzqdkv6+YR5bvQFsTmsiQHh
+         ZMkbrn8dRWjxkL2QrPNSozQVe7ZbFJApnZQN94s1rHVAByQV53rtiL8bKu2/Eq78gJ7S
+         kzei0ZH7vfKVcqe3CPy+UISiNhEvsTbcuj1pSUIu2w4UsJMpVfYrDXARUT9c+d+OcvzK
+         cvPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779385697; x=1779990497;
+        d=1e100.net; s=20251104; t=1779385699; x=1779990499;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=vJhOSVjOo3e4ttnIxYNTbaGwn5HUF03ETdQ3xyz7eZQ=;
-        b=d8ChgT0FcW9CbsVHafmz61xCTIPVinJpl6gCq7S6o8wDQnzgWGSNkuB/8jSE2NHjSX
-         9caL6vjgnJ1PkS0MZQQzRq2u6HLkmVmq4lXmpEmRh9UrMTPcEjJKm/cY7xBIfzDrrf/F
-         hUH7LjiAEyg9CKI0vckofB12kjOMc/aESh7h0dzvaSF0MRd2RbTavnQKjoJyZuR882sx
-         Isv6qrQKsrIfy68JnNAhiTUP9LgJePI9+J4MXvnd9NmrcY5gw7OsFLO+zjdTr/ez59j4
-         A7tYtfgW0KaWOSr5IkApSU8PpNNavWzBLO4qe5pResR2YB70xpZ/ZOIQBl4OpwCwX/hF
-         P6CQ==
-X-Gm-Message-State: AOJu0Yyl5A+rSalqTkX1ZpA9gK810jzNu/iounWWKpHw7ePJzLrms4kZ
-	M8pfn4mOtaGNZnKgKXZAjJ5Fnj29fDtw+v7rrWoVQWiSYPLPQU8dWtS3dFcmLA3H
-X-Gm-Gg: Acq92OHNV4UZ4c2EfE931cxOmebsHVonwsYAVOBX6KFzndtuLFl8bpOdifIzSbCcSax
-	HcKWzNpKXspKWf9sS15ayh02EcV7zPBgmdRT8mBB91oKm615NIm1DP/W2LNmUHmSurOp9/yqsjC
-	EPC6i3uwa/zgW0nZkbA+gZqS6EslY55wS2IxKe9V4/YYp5SJdb0uJfNsQmx94PMWE6uSk5Cz/qE
-	dXC06EA8hOZF76UMJ3e7XfP59R+s4FC/FydNlS33vQSn8EbcF+xwGXVq/f7jLTMFCeCrj2pF/QO
-	9UZei91/A+ZeMPfnAbUUn789H2SLyUQQWe1I9DVGiOvCMOn26RPEeKMH6/Yq3EiryUB1+w0wuOV
-	A/twgPppy7CBd65Dlz/iDD9+99w9+u0ub5S1xoKTOuPesKBoRWdQqcpTzC8RSKDO0gtkyAecZ/u
-	dl9u972gwbHolfkMF+PlKlW+eBw/aJrOUhc4pI
-X-Received: by 2002:a05:600c:4690:b0:490:402f:324d with SMTP id 5b1f17b1804b1-490402f34b6mr10884925e9.29.1779385697115;
-        Thu, 21 May 2026 10:48:17 -0700 (PDT)
+        bh=EXJbJP8MzENl4VsPg33jnVV005m1Xgxxkwr1fiQgkQc=;
+        b=cu/Xxnak14t1m/ZBG7gX4ZlRZtJDpbOK84hSdFQgKGBlGzUwMT4LIagAT5wUH21fNU
+         wi1j3mfAfKKn/kIFdav6+D9QQyuPxk+toYaJn+qHn5n4J+hIYpcvre0WRhVXIY86pc1A
+         F7c4TwqW0uMSEltcWeot2lhx7mEGgfQopkMWXdlcDh20Gye+IVFS/8gZs6R/BzctdGBv
+         MXNYTeU/Ppk7g9beQQy26fgIlmc59m3/Tm6UyPpsRxFrsimxNqGS1Ee7g+iuCGQj4Rny
+         uYrW+g0iH8TRLVlclOpAA4Hbq6K02J9MI6ViKSYWRsr3XL143yKoEzFp0vIh67rIw2mp
+         OeDw==
+X-Gm-Message-State: AOJu0Ywu56JUuNuUJ1DNmKn8nk7CU5/ecMSonXavch50+WwIqCXOGnmI
+	At8yZsCw5A8nWqNcQBgzWhTl/55N4eQ0vj1dvnY92ejoT+/jaGzJ4P3cPwUqtiEk
+X-Gm-Gg: Acq92OGYmij+pPEHf0w1mHbNgKKtHYzSBXnAeVyscHZzOou+VJMGFAxyh9DDG7Wz/OL
+	AbrMkgu7oV80gO7AIVVXGw07fhmqI3kpSNLg6mUGGQib2loWYb5zoI6itfdDgI+xIRR/bGLrQCo
+	lNB0kN0Me1rP0NmbTrQ4jBSqwCSWMvZVxaqmOrQ6M5+uOdDLpahho4z4irI/TZEvXL5svOQR0XT
+	aLA7oZhWt8GJ3VicgvGK0F1INSL3y7GuH1Vy/sLz5FuszrrTPh8FQqJz9o1vBZTP6agF59RaEyz
+	/i7aFCslG2seGC0GJtUzVNmmOdlF8BbdUsWQ/ZVr1wlKooMk2mwYH+uPtdsdXddfTpXtLQUyisE
+	fj8hv22Wx0YFDo+5qKrfai386w/l9/Eseo88Sd0k2mXxpMzqw2pHO7cSObNQv2g/ifJkQTYCCpq
+	DO5DdrdVA+tBcvxQJiL33GggEzXA==
+X-Received: by 2002:a05:600c:858c:b0:490:778:4fec with SMTP id 5b1f17b1804b1-490360f28f7mr43420375e9.33.1779385698610;
+        Thu, 21 May 2026 10:48:18 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Mykola Kvach <mykola_kvach@epam.com>,
@@ -100,17 +100,17 @@ Cc: Mykola Kvach <mykola_kvach@epam.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v10 02/13] xen/arm: gic-v2: Implement GIC suspend/resume functions
-Date: Thu, 21 May 2026 20:45:20 +0300
-Message-ID: <ae553923955259dae7d680d427fca36824657ecf.1779385072.git.mykola_kvach@epam.com>
+Subject: [PATCH v10 03/13] xen/arm: gic-v3: tolerate retained redistributor LPI state across CPU_OFF
+Date: Thu, 21 May 2026 20:45:21 +0300
+Message-ID: <34155c346c31582699f269d7c50f7dcd8aedafa9.1779385072.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1779385072.git.mykola_kvach@epam.com>
 References: <cover.1779385072.git.mykola_kvach@epam.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1779385697-22573C48-1E81D96B/0/0
+X-purgate-ID: tlsNG-c1860d/1779385699-C5784DB1-414DB1AA/0/0
 X-purgate-type: clean
-X-purgate-size: 13521
+X-purgate-size: 9602
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
@@ -133,7 +133,7 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[xilinx.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[arm.com:email];
 	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -144,391 +144,260 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 93E825AA8F5
+X-Rspamd-Queue-Id: 3EEC25AA903
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-From: Mirela Simonovic <mirela.simonovic@aggios.com>
+From: Mykola Kvach <mykola_kvach@epam.com>
 
-System suspend may lead to a state where GIC would be powered down.
-Therefore, Xen should save/restore the context of GIC on suspend/resume.
+PSCI does not guarantee that a GICv3 redistributor is powered down across
+CPU_OFF -> CPU_ON.
 
-Note that the context consists of states of registers which are
-controlled by the hypervisor. Other GIC registers which are accessible
-by guests are saved/restored on context switch.
+DEN0022F.b says CPU_OFF powers down the calling core (5.5) and CPU_ON
+brings the core back with a defined initial CPU state (5.6, 6.4).
+However, PSCI leaves interrupt migration and GIC re-initialization to the
+supervisory software/firmware stack: the caller must migrate interrupts
+away before CPU_OFF (5.5.2), and the execution context that is lost in a
+powerdown state must be saved and restored by software (6.8). PSCI also
+calls out GIC management explicitly in 6.8, including retargeting SPIs,
+preventing PPIs/SGIs from targeting a powered down CPU, and reinitializing
+the CPU interface after CPU_ON.
 
-Transient physical SGI pending state (GICD_CPENDSGIRn/GICD_SPENDSGIRn)
-is intentionally excluded. CPU-interface active-priority state is also
-not restored across suspend/resume. Xen reaches the final suspend path
-at a quiescent point, so there is no active-priority execution context
-to replay after resume. Enforce this with a runtime check after
-disabling the CPU interface: if any implemented GICC_APRn word is still
-non-zero, restore GICC_CTLR and abort suspend with -EBUSY.
+This matches the GIC architecture. IHI0069H.b Chapter 11.1 requires the PE
+and CPU interface to share a power domain, but explicitly allows the
+associated redistributor, distributor, and ITS to remain powered while the
+PE and CPU interface are off. All other GIC power-management behavior is
+IMPLEMENTATION DEFINED. DEN0050D Chapter 4.2, "Generic Interrupt
+Controller (GIC)", says the GICv3 redistributor may live either in the AP
+core power domain or in a relatively always-on parent domain. So after
+CPU_OFF -> CPU_ON a secondary CPU can legitimately come back to a live
+redistributor with GICR_CTLR.EnableLPIs still set.
 
-This does not apply to distributor active state. With GICv2 EOImode==1,
-EOIR only drops the interrupt priority; final deactivation is a separate
-step. For guest-routed interrupts, Xen can have already EOIed the physical
-IRQ while deactivation is still pending on the vGIC/GICV path. Therefore
-GICD_ISACTIVER is preserved as architectural in-flight interrupt state.
+Handle that case in the LPI setup path instead of assuming a fully reset
+redistributor.
 
-Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
-Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
-Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
+The LPI path needs special care because the GIC spec makes redistributor
+LPI state sticky and partially implementation defined. IHI0069H.b 5.1.1
+and 5.1.2 say that changing GICR_PROPBASER or GICR_PENDBASER while
+GICR_CTLR.EnableLPIs == 1 is UNPREDICTABLE. After clearing EnableLPIs,
+software must wait for GICR_CTLR.RWP == 0 before touching the pending
+table. The architecture also permits implementations where, once
+EnableLPIs has been set, clearing it again is not guaranteed to work.
+Where an ITS is present, the spec strongly recommends moving LPIs to
+another redistributor before clearing EnableLPIs.
+
+Because of that, treat a retained EnableLPIs state as valid when the
+redistributor still points at Xen's expected PROPBASER/PENDBASER tables.
+Only try to clear EnableLPIs when the retained configuration does not
+match Xen's state, and wait for RWP before reprogramming the tables.
+
+This is also consistent with platform firmware reality: PSCI and the GIC
+architecture allow platform-specific redistributor power handling, and not
+all platform firmware implementations force a full redistributor power-off
+through implementation-defined controls during CPU_OFF. Xen therefore needs
+to tolerate retained redistributor state on secondary CPU bring-up.
+
+Keep gicv3_populate_rdist() resident as well, because gicv3_cpu_init()
+reuses it on secondary CPU bring-up after init.
+
+Tested using Xen's non-boot CPU disable/enable path on Arm
+FVP_Base_RevC-2xAEMvA, both with and without:
+-C gic_distributor.allow-LPIEN-clear=1
+-C gic_distributor.GICR-clear-enable-supported=1
+and on Orange Pi 5.
+
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
 ---
-Changes in V10:
-- Limit GICC_APR<n> active-priority checks to APR bits visible from
-  the Xen CPU-interface view.
-- Avoid touching reserved GICD_IPRIORITYR/GICD_ITARGETSR words when the
-  last implemented interrupt block is partial.
-- Restore distributor configuration before restoring interrupt enable
-  state, so GICD_ICFGR is written while the corresponding interrupts are
-  disabled.
+Changes in v10:
+- Drop unrelated gicv3_populate_rdist() printk() format cleanups to keep
+  the patch focused on retained redistributor LPI state.
 
-Changes in V9:
-- Skip saving/restoring GICD_ITARGETSR0..7 because SGI/PPI target
-  registers hold no state (read-only on MP, RAZ/WI on UP).
-- Add a runtime GICC_APRn quiescence check after disabling the CPU
-  interface, and restore GICC_CTLR before returning -EBUSY.
-
-Changes in V8:
-- disable cpu interface + distributor before suspend
-- change 0xffffffff to GENMASK;
-- cosmetic changes;
-
-Changes in V7:
-- Allocate one contiguous memory block for the GICv2 dist suspend context.
-- gicv2_resume() no longer unconditionally re-enables the distributor/CPU
-  interface; it now writes back the saved CTLR values as-is.
-- gicv2_alloc_context() now returns 0 on success and panics on failure,
-  since suspend context allocation is not recoverable.
+Changes in v9:
+- move gicv3_do_wait_for_rwp prototype from its related header to gic.h
+- drop __init from gicv3_populate_rdist(), which is reused on secondary
+  CPU bring-up after boot
+- changed print format for smp_processor_id in gicv3_populate_rdist func
+- cosmetic changes
 ---
- xen/arch/arm/gic-v2.c          | 226 +++++++++++++++++++++++++++++++++
- xen/arch/arm/gic.c             |  29 +++++
- xen/arch/arm/include/asm/gic.h |  12 ++
- 3 files changed, 267 insertions(+)
+ xen/arch/arm/gic-v3-lpi.c      | 77 +++++++++++++++++++++++++++++++++-
+ xen/arch/arm/gic-v3.c          | 15 ++++---
+ xen/arch/arm/include/asm/gic.h |  4 ++
+ 3 files changed, 90 insertions(+), 6 deletions(-)
 
-diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-index 43a379fdda..a0ef6ffc7f 100644
---- a/xen/arch/arm/gic-v2.c
-+++ b/xen/arch/arm/gic-v2.c
-@@ -1108,6 +1108,223 @@ static int gicv2_iomem_deny_access(struct domain *d)
-     return iomem_deny_access(d, mfn, mfn + nr - 1);
- }
+diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
+index 9ee338edc2..847da26ff7 100644
+--- a/xen/arch/arm/gic-v3-lpi.c
++++ b/xen/arch/arm/gic-v3-lpi.c
+@@ -81,6 +81,13 @@ static DEFINE_PER_CPU(struct lpi_redist_data, lpi_redist);
+ #define MAX_NR_HOST_LPIS   (lpi_data.max_host_lpi_ids - LPI_OFFSET)
+ #define HOST_LPIS_PER_PAGE      (PAGE_SIZE / sizeof(union host_lpi))
  
-+#ifdef CONFIG_SYSTEM_SUSPEND
++#define GICR_PROPBASER_XEN_MASK  GENMASK_ULL(51, 12)
++/*
++ * For retained redistributor state, match the pending table by address only.
++ * Attribute bits such as PTZ may not read back with the programmed value.
++ */
++#define GICR_PENDBASER_XEN_MASK  GENMASK_ULL(51, 16)
 +
-+/* This struct represents block of 32 IRQs */
-+struct irq_block {
-+    uint32_t icfgr[2]; /* 2 registers of 16 IRQs each */
-+    uint32_t ipriorityr[8];
-+    uint32_t isenabler;
-+    uint32_t isactiver;
-+    uint32_t itargetsr[8];
-+};
-+
-+/* GICv2 registers to be saved/restored on system suspend/resume */
-+struct gicv2_context {
-+    /* GICC context */
-+    struct cpu_ctx {
-+        uint32_t ctlr;
-+        uint32_t pmr;
-+        uint32_t bpr;
-+    } cpu;
-+
-+    /* GICD context */
-+    struct dist_ctx {
-+        uint32_t ctlr;
-+        /* Includes banked SGI/PPI state for the boot CPU. */
-+        struct irq_block *irqs;
-+    } dist;
-+};
-+
-+static struct gicv2_context gic_ctx;
-+
-+#define GICV2_NR_APRS          4
-+#define GICV2_APR_BITS_PER_REG 32U
-+
-+static int gicv2_check_active_priorities(uint32_t bpr)
-+{
-+    unsigned int i, apr_bits, nr_aprs;
-+
-+    /*
-+     * Xen writes GICC_BPR to 0 during CPU init and does not change it. Per
-+     * IHI0048B.b, a write below the implementation minimum reads back as the
-+     * minimum supported BPR value. Table 4-47 maps that Xen-visible BPR value
-+     * to the visible GICC_APR<n> bits. Avoid reading APR registers outside
-+     * that visible range.
-+     *
-+     * This covers both GICv2 with and without Security Extensions.
-+     */
-+    apr_bits = 1U << (7 - (bpr & 0x7));
-+    nr_aprs = DIV_ROUND_UP(apr_bits, GICV2_APR_BITS_PER_REG);
-+
-+    ASSERT(nr_aprs <= GICV2_NR_APRS);
-+
-+    for ( i = 0; i < nr_aprs; i++ )
-+    {
-+        unsigned int bits = min(GICV2_APR_BITS_PER_REG,
-+                                apr_bits - i * GICV2_APR_BITS_PER_REG);
-+        uint32_t mask = GENMASK(bits - 1, 0);
-+        uint32_t apr = readl_gicc(GICC_APR + i * 4) & mask;
-+
-+        if ( !apr )
-+            continue;
-+
-+        printk(XENLOG_ERR "GICv2: suspend aborted: GICC_APR%u=%#08x\n",
-+               i, apr);
-+        return -EBUSY;
-+    }
-+
-+    return 0;
-+}
-+
-+static int gicv2_suspend(void)
-+{
-+    unsigned int i, blocks = DIV_ROUND_UP(gicv2_info.nr_lines, 32);
-+    int ret;
-+
-+    /* Save GICC_CTLR configuration. */
-+    gic_ctx.cpu.ctlr = readl_gicc(GICC_CTLR);
-+
-+    /* Quiesce the GIC CPU interface before suspend. */
-+    gicv2_cpu_disable();
-+
-+    gic_ctx.cpu.bpr = readl_gicc(GICC_BPR);
-+
-+    /*
-+     * Check the active-priority state for the group Xen drives through the
-+     * CPU interface. GICC_CTL_ENABLE enables Group 0 without SecurityExtn and
-+     * Group 1 in Xen's Non-secure view with SecurityExtn, and in both cases
-+     * the relevant state is visible through GICC_APRn. The APR layout is
-+     * implementation-defined, so only test the bits visible from Xen's CPU
-+     * interface view instead of reading every possible APR register.
-+     */
-+    ret = gicv2_check_active_priorities(gic_ctx.cpu.bpr);
-+    if ( ret )
-+    {
-+        writel_gicc(gic_ctx.cpu.ctlr, GICC_CTLR);
-+        return ret;
-+    }
-+
-+    gic_ctx.cpu.pmr = readl_gicc(GICC_PMR);
-+
-+    /* Save GICD configuration */
-+    gic_ctx.dist.ctlr = readl_gicd(GICD_CTLR);
-+    writel_gicd(0, GICD_CTLR);
-+
-+    for ( i = 0; i < blocks; i++ )
-+    {
-+        struct irq_block *irqs = gic_ctx.dist.irqs + i;
-+        size_t j, off = i * sizeof(irqs->isenabler);
-+        size_t nr_regs = ARRAY_SIZE(irqs->ipriorityr);
-+
-+        if ( i == blocks - 1 )
-+            nr_regs = DIV_ROUND_UP(gicv2_info.nr_lines - i * 32, 4);
-+
-+        irqs->isenabler = readl_gicd(GICD_ISENABLER + off);
-+
-+        /*
-+         * Save distributor active state as part of the hypervisor-owned
-+         * physical interrupt state. In GICv2 EOImode==1, EOIR only drops the
-+         * priority; final deactivation is separate. For guest-routed
-+         * interrupts, Xen may have EOIed the physical IRQ while the guest/vGIC
-+         * side still owns the deactivate step. Therefore GICD_ISACTIVER can
-+         * legitimately remain set even though transient SGI pending state and
-+         * CPU-interface active-priority state are expected to be quiesced here.
-+         */
-+        irqs->isactiver = readl_gicd(GICD_ISACTIVER + off);
-+
-+        off = i * sizeof(irqs->ipriorityr);
-+        for ( j = 0; j < nr_regs; j++ )
-+            irqs->ipriorityr[j] = readl_gicd(GICD_IPRIORITYR + off + j * 4);
-+
-+        /*
-+         * GICD_ITARGETSR0..7 cover SGIs/PPIs and hold no state to save:
-+         * they are read-only on multiprocessor implementations and RAZ/WI
-+         * on uniprocessor implementations.
-+         */
-+        if ( i )
-+        {
-+            off = i * sizeof(irqs->itargetsr);
-+            for ( j = 0; j < nr_regs; j++ )
-+                irqs->itargetsr[j] = readl_gicd(GICD_ITARGETSR + off + j * 4);
-+        }
-+
-+        off = i * sizeof(irqs->icfgr);
-+        for ( j = 0; j < ARRAY_SIZE(irqs->icfgr); j++ )
-+            irqs->icfgr[j] = readl_gicd(GICD_ICFGR + off + j * 4);
-+    }
-+
-+    return 0;
-+}
-+
-+static void gicv2_resume(void)
-+{
-+    unsigned int i, blocks = DIV_ROUND_UP(gicv2_info.nr_lines, 32);
-+
-+    gicv2_cpu_disable();
-+    /* Disable distributor */
-+    writel_gicd(0, GICD_CTLR);
-+
-+    for ( i = 0; i < blocks; i++ )
-+    {
-+        struct irq_block *irqs = gic_ctx.dist.irqs + i;
-+        size_t j, off = i * sizeof(irqs->isenabler);
-+        size_t nr_regs = ARRAY_SIZE(irqs->ipriorityr);
-+
-+        if ( i == blocks - 1 )
-+            nr_regs = DIV_ROUND_UP(gicv2_info.nr_lines - i * 32, 4);
-+
-+        writel_gicd(GENMASK(31, 0), GICD_ICENABLER + off);
-+
-+        off = i * sizeof(irqs->icfgr);
-+        for ( j = 0; j < ARRAY_SIZE(irqs->icfgr); j++ )
-+            writel_gicd(irqs->icfgr[j], GICD_ICFGR + off + j * 4);
-+
-+        off = i * sizeof(irqs->ipriorityr);
-+        for ( j = 0; j < nr_regs; j++ )
-+            writel_gicd(irqs->ipriorityr[j], GICD_IPRIORITYR + off + j * 4);
-+
-+        /*
-+         * GICD_ITARGETSR0..7 cover SGIs/PPIs and hold no state to save:
-+         * they are read-only on multiprocessor implementations and RAZ/WI
-+         * on uniprocessor implementations.
-+         */
-+        if ( i )
-+        {
-+            off = i * sizeof(irqs->itargetsr);
-+            for ( j = 0; j < nr_regs; j++ )
-+                writel_gicd(irqs->itargetsr[j], GICD_ITARGETSR + off + j * 4);
-+        }
-+
-+        off = i * sizeof(irqs->isenabler);
-+        writel_gicd(irqs->isenabler, GICD_ISENABLER + off);
-+
-+        writel_gicd(GENMASK(31, 0), GICD_ICACTIVER + off);
-+        writel_gicd(irqs->isactiver, GICD_ISACTIVER + off);
-+    }
-+
-+    /* Restore distributor control state. */
-+    writel_gicd(gic_ctx.dist.ctlr, GICD_CTLR);
-+
-+    /* Restore GIC CPU interface configuration */
-+    writel_gicc(gic_ctx.cpu.pmr, GICC_PMR);
-+    writel_gicc(gic_ctx.cpu.bpr, GICC_BPR);
-+
-+    /* Enable GIC CPU interface */
-+    writel_gicc(gic_ctx.cpu.ctlr, GICC_CTLR);
-+}
-+
-+static void __init gicv2_alloc_context(void)
-+{
-+    uint32_t blocks = DIV_ROUND_UP(gicv2_info.nr_lines, 32);
-+
-+    gic_ctx.dist.irqs = xzalloc_array(struct irq_block, blocks);
-+    if ( !gic_ctx.dist.irqs )
-+        panic("Failed to allocate memory for GICv2 suspend context\n");
-+}
-+
-+#endif /* CONFIG_SYSTEM_SUSPEND */
-+
- #ifdef CONFIG_ACPI
- static unsigned long gicv2_get_hwdom_extra_madt_size(const struct domain *d)
+ static union host_lpi *gic_get_host_lpi(uint32_t plpi)
  {
-@@ -1312,6 +1529,11 @@ static int __init gicv2_init(void)
- 
-     spin_unlock(&gicv2.lock);
- 
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+    /* Allocate memory to be used for saving GIC context during the suspend */
-+    gicv2_alloc_context();
-+#endif /* CONFIG_SYSTEM_SUSPEND */
-+
+     union host_lpi *block;
+@@ -296,6 +303,60 @@ static int gicv3_lpi_set_pendtable(void __iomem *rdist_base)
      return 0;
  }
  
-@@ -1355,6 +1577,10 @@ static const struct gic_hw_operations gicv2_ops = {
-     .map_hwdom_extra_mappings = gicv2_map_hwdom_extra_mappings,
-     .iomem_deny_access   = gicv2_iomem_deny_access,
-     .do_LPI              = gicv2_do_LPI,
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+    .suspend             = gicv2_suspend,
-+    .resume              = gicv2_resume,
-+#endif /* CONFIG_SYSTEM_SUSPEND */
- };
++static uint64_t gicv3_lpi_expected_proptable(void)
++{
++    return virt_to_maddr(lpi_data.lpi_property);
++}
++
++static uint64_t gicv3_lpi_expected_pendtable(void)
++{
++    return virt_to_maddr(this_cpu(lpi_redist).pending_table);
++}
++
++static bool gicv3_lpi_tables_match(void __iomem *rdist_base)
++{
++    uint64_t propbase, pendbase;
++
++    if ( !lpi_data.lpi_property || !this_cpu(lpi_redist).pending_table )
++        return false;
++
++    propbase = readq_relaxed(rdist_base + GICR_PROPBASER);
++    pendbase = readq_relaxed(rdist_base + GICR_PENDBASER);
++
++    return ((propbase & GICR_PROPBASER_XEN_MASK) ==
++            (gicv3_lpi_expected_proptable() & GICR_PROPBASER_XEN_MASK)) &&
++           ((pendbase & GICR_PENDBASER_XEN_MASK) ==
++            (gicv3_lpi_expected_pendtable() & GICR_PENDBASER_XEN_MASK));
++}
++
++static int gicv3_lpi_disable_lpis(void __iomem *rdist_base)
++{
++    uint32_t reg = readl_relaxed(rdist_base + GICR_CTLR);
++    int ret;
++
++    if ( !(reg & GICR_CTLR_ENABLE_LPIS) )
++        return 0;
++
++    writel_relaxed(reg & ~GICR_CTLR_ENABLE_LPIS, rdist_base + GICR_CTLR);
++
++    /*
++     * The spec only guarantees programmability when we have observed the bit
++     * cleared. Where clearing is supported, RWP must reach 0 before touching
++     * PROPBASER/PENDBASER again.
++     */
++    wmb();
++
++    ret = gicv3_do_wait_for_rwp(rdist_base, GICR_CTLR_RWP);
++    if ( ret )
++        return ret;
++
++    reg = readl_relaxed(rdist_base + GICR_CTLR);
++    if ( reg & GICR_CTLR_ENABLE_LPIS )
++        return -EBUSY;
++
++    return 0;
++}
++
+ /*
+  * Tell a redistributor about the (shared) property table, allocating one
+  * if not already done.
+@@ -374,7 +435,21 @@ int gicv3_lpi_init_rdist(void __iomem * rdist_base)
+     /* Make sure LPIs are disabled before setting up the tables. */
+     reg = readl_relaxed(rdist_base + GICR_CTLR);
+     if ( reg & GICR_CTLR_ENABLE_LPIS )
+-        return -EBUSY;
++    {
++        if ( gicv3_lpi_tables_match(rdist_base) )
++            return -EBUSY;
++
++        ret = gicv3_lpi_disable_lpis(rdist_base);
++        if ( ret == -EBUSY )
++        {
++            printk(XENLOG_ERR
++                   "GICv3: CPU%u: LPIs still enabled with unexpected redistributor tables\n",
++                   smp_processor_id());
++            return -EINVAL;
++        }
++        if ( ret )
++            return ret;
++    }
  
- /* Set up the GIC */
-diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-index ee75258fc3..7727ffed5a 100644
---- a/xen/arch/arm/gic.c
-+++ b/xen/arch/arm/gic.c
-@@ -432,6 +432,35 @@ int gic_iomem_deny_access(struct domain *d)
-     return gic_hw_ops->iomem_deny_access(d);
+     ret = gicv3_lpi_set_pendtable(rdist_base);
+     if ( ret )
+diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+index dfd5d44603..a2553e647e 100644
+--- a/xen/arch/arm/gic-v3.c
++++ b/xen/arch/arm/gic-v3.c
+@@ -275,7 +275,7 @@ static void gicv3_enable_sre(void)
  }
  
-+#ifdef CONFIG_SYSTEM_SUSPEND
+ /* Wait for completion of a distributor/redistributor change */
+-static void gicv3_do_wait_for_rwp(void __iomem *base, uint32_t rwp_bit)
++int gicv3_do_wait_for_rwp(void __iomem *base, uint32_t rwp_bit)
+ {
+     uint32_t val;
+     bool timeout = false;
+@@ -299,17 +299,22 @@ static void gicv3_do_wait_for_rwp(void __iomem *base, uint32_t rwp_bit)
+     } while ( 1 );
+ 
+     if ( timeout )
++    {
+         dprintk(XENLOG_ERR, "RWP timeout\n");
++        return -ETIMEDOUT;
++    }
 +
-+int gic_suspend(void)
-+{
-+    /* Must be called by boot CPU#0 with interrupts disabled */
-+    ASSERT(!local_irq_is_enabled());
-+    ASSERT(!smp_processor_id());
-+
-+    if ( !gic_hw_ops->suspend || !gic_hw_ops->resume )
-+        return -ENOSYS;
-+
-+    return gic_hw_ops->suspend();
-+}
-+
-+void gic_resume(void)
-+{
-+    /*
-+     * Must be called by boot CPU#0 with interrupts disabled after gic_suspend
-+     * has returned successfully.
-+     */
-+    ASSERT(!local_irq_is_enabled());
-+    ASSERT(!smp_processor_id());
-+    ASSERT(gic_hw_ops->resume);
-+
-+    gic_hw_ops->resume();
-+}
-+
-+#endif /* CONFIG_SYSTEM_SUSPEND */
-+
- static int cpu_gic_callback(struct notifier_block *nfb,
-                             unsigned long action,
-                             void *hcpu)
++    return 0;
+ }
+ 
+ static void gicv3_dist_wait_for_rwp(void)
+ {
+-    gicv3_do_wait_for_rwp(GICD, GICD_CTLR_RWP);
++    (void)gicv3_do_wait_for_rwp(GICD, GICD_CTLR_RWP);
+ }
+ 
+ static void gicv3_redist_wait_for_rwp(void)
+ {
+-    gicv3_do_wait_for_rwp(GICD_RDIST_BASE, GICR_CTLR_RWP);
++    (void)gicv3_do_wait_for_rwp(GICD_RDIST_BASE, GICR_CTLR_RWP);
+ }
+ 
+ static void gicv3_wait_for_rwp(int irq)
+@@ -861,7 +866,7 @@ static bool gicv3_enable_lpis(void)
+     return true;
+ }
+ 
+-static int __init gicv3_populate_rdist(void)
++static int gicv3_populate_rdist(void)
+ {
+     int i;
+     uint32_t aff;
+@@ -929,7 +934,7 @@ static int __init gicv3_populate_rdist(void)
+                     gicv3_set_redist_address(rdist_addr, procnum);
+ 
+                     ret = gicv3_lpi_init_rdist(ptr);
+-                    if ( ret && ret != -ENODEV )
++                    if ( ret && ret != -ENODEV && ret != -EBUSY )
+                     {
+                         printk("GICv3: CPU%d: Cannot initialize LPIs: %u\n",
+                                smp_processor_id(), ret);
 diff --git a/xen/arch/arm/include/asm/gic.h b/xen/arch/arm/include/asm/gic.h
-index ff22dea40d..fbf0d69edd 100644
+index fbf0d69edd..84e146b832 100644
 --- a/xen/arch/arm/include/asm/gic.h
 +++ b/xen/arch/arm/include/asm/gic.h
-@@ -301,6 +301,12 @@ extern int gicv_setup(struct domain *d);
+@@ -301,6 +301,10 @@ extern int gicv_setup(struct domain *d);
  extern void gic_save_state(struct vcpu *v);
  extern void gic_restore_state(struct vcpu *v);
  
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+/* Suspend/resume */
-+extern int gic_suspend(void);
-+extern void gic_resume(void);
-+#endif /* CONFIG_SYSTEM_SUSPEND */
++#ifdef CONFIG_GICV3
++int gicv3_do_wait_for_rwp(void __iomem *base, uint32_t rwp_bit);
++#endif
 +
- /* SGI (AKA IPIs) */
- enum gic_sgi {
-     GIC_SGI_EVENT_CHECK,
-@@ -444,6 +450,12 @@ struct gic_hw_operations {
-     int (*iomem_deny_access)(struct domain *d);
-     /* Handle LPIs, which require special handling */
-     void (*do_LPI)(unsigned int lpi);
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+    /* Save GIC configuration due to the system suspend */
-+    int (*suspend)(void);
-+    /* Restore GIC configuration due to the system resume */
-+    void (*resume)(void);
-+#endif /* CONFIG_SYSTEM_SUSPEND */
- };
- 
- extern const struct gic_hw_operations *gic_hw_ops;
+ #ifdef CONFIG_SYSTEM_SUSPEND
+ /* Suspend/resume */
+ extern int gic_suspend(void);
 -- 
 2.43.0
 
