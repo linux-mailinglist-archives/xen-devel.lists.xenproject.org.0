@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KB5cF7yhDmpCAwYAu9opvQ
+	id eLoFMSalDmpxAwYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 08:10:04 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 08:24:38 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B225C59F4EA
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 08:10:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1314795.1584763 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3763459F612
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 08:24:37 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1314802.1584773 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPwaQ-0002NC-V2; Thu, 21 May 2026 06:08:50 +0000
+	id 1wPwpP-0005CU-6i; Thu, 21 May 2026 06:24:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1314795.1584763; Thu, 21 May 2026 06:08:50 +0000
+Received: by outflank-mailman (output) from mailman id 1314802.1584773; Thu, 21 May 2026 06:24:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wPwaQ-0002Kx-Rx; Thu, 21 May 2026 06:08:50 +0000
-Received: by outflank-mailman (input) for mailman id 1314795;
- Thu, 21 May 2026 06:08:49 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wPwpP-0005B3-3C; Thu, 21 May 2026 06:24:19 +0000
+Received: by outflank-mailman (input) for mailman id 1314802;
+ Thu, 21 May 2026 06:24:17 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wPwaP-0002Kr-0m
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 06:08:49 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wPwpM-0005Ax-UA
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 06:24:17 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wPwaN-000v1c-BV
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 08:08:47 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wPwpM-0092ij-6N
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 08:24:16 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0ea16a-e002-0a2a0a5209dd-0a2a45068d88-16
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 08:08:47 +0200
-Received: from [209.85.128.45] (helo=mail-wm1-f45.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0ea505-bab6-0a2a0a5309dd-0a2a450ce274-16
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 08:24:16 +0200
+Received: from [209.85.221.51] (helo=mail-wr1-f51.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0ea16e-7371-0a2a45060019-d155802db9da-3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 08:08:46 +0200
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-48ff4f8ef0dso62328415e9.3
- for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:08:46 -0700 (PDT)
+ id 6a0ea50f-62f1-0a2a450c0019-d155dd33a4a9-3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 08:24:15 +0200
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-43d734223e4so3749855f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 20 May 2026 23:24:15 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49035c22d97sm8655395e9.1.2026.05.20.23.08.45
+ ffacd0b85a97d-45eaa93633esm132650f8f.29.2026.05.20.23.24.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 20 May 2026 23:08:46 -0700 (PDT)
+ Wed, 20 May 2026 23:24:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,57 +58,54 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779343726; x=1779948526; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1779344655; x=1779949455; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=1Y7kIHZzlotLB68oXuC02FuqM+ANZWIfcpe9XcjNznU=;
-        b=b28JB5e+pwpyeSvamK4RK3BwU9rbnyAm63dy3nskGiAOzTK4HU2VbZtEj+oXA5hkqx
-         DXiu03J4eFTkqfR3fsRIZFP5vQ2UryGytnAgeOvdDW1DW2FfnPP13PxPspTmqKoNSvqx
-         1NeU/7mAlV3LwPd+fykqqmVC0AxplmiCrKsUbD3IWl6anG4Zjor6oS79xZHLBHTtRijF
-         mhtuULxkAK+yjLcphr+1v9zuAkaFo0G/EPbm5tyDadr9SsTLnWxDu4EX8Y20uBEQAryk
-         YLSYb0vi1xkkc2umKYshKi1KrQ5Cv36Gx1vx6IwuDqS1fPdECHFFIVyzeGIcZHlv4mq5
-         gZ1w==
+        bh=Bu9p2QcIhGzylnu9qw5fFo3HIoHdBDprs5E2aDZaigs=;
+        b=PrMfVyXc2asVQqon9jb3FaBeh6FrkNPd//zzbeeQcmdqL/ZIKqxu6zEhNFE/e5tZ1r
+         LbfhYXsOTw09YdSHLZqnm5w5J2BWBgD2lLeib2hAN4rapxuPstE9YfERm2P7WQmubkWd
+         Gu7Esyaoy2DpmrwL0T6i6/o/B/VQeXIFQm52D9EWBl7rIgsAcDKMLd4eOKv7IZ9EtA4z
+         gfOpBbhtv8JHdgOb88JSeTYCLIZiNO0tPhWXvkDuJXstaSV4j1BvNb/mUxwwMxLut/yx
+         mfWmik25u8xeigxyFreQHfnz/K3cf1X5UNCLqTr4hqqBdJoeV+W/28vjnbJnD5JuiqwP
+         wxBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779343726; x=1779948526;
+        d=1e100.net; s=20251104; t=1779344655; x=1779949455;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=1Y7kIHZzlotLB68oXuC02FuqM+ANZWIfcpe9XcjNznU=;
-        b=ilOjlqSPXHVY5Ksa5SEhZ1p7laBvKLVioj8hIHnlsJhDy6LjGd0oOfXrCj0GvXNVuk
-         bOxgk24Y+bz+5q/U+jdr1dVS+pYcKnhJAEL5C1INQDmxj8N7k6ZhHTMG8b2KDYZgCEn4
-         7NalZiIXR0bouV5/HCWfXFi8IzMICuc0O06lUcuBD0ihFCygdvXvwL0uZ8vBzqp3upna
-         hAQqwKgQingSc+Jt8twKcOkCR2niF94Ijmsr6u9DmOAPOlEJHsDz11z9TbjvwWUgQe8q
-         q9eTm0Cm6eg/gRL+Rf5gDZ4qftMHtaexCTvKCCm5h9C5fVcuPL2J2oZeN/j5YK7VomqT
-         enXA==
-X-Gm-Message-State: AOJu0YzONRCYBtBMEm8al9RVGq/cEYRxBWWJNXTPWrHykyrflvnIhWaf
-	Yufj1gIlE2FgkDf0MWgb/tKbsPs4oMAHUeGmc7LxgCOhNX13aEIblbVPz7d9QNl3gR3tLR3honM
-	tOwE=
-X-Gm-Gg: Acq92OGRh/M0XzhT94JhIqQOYx+LoGAvjM0NTSzSQFjMJkartSI/fadnIivmJYaObUd
-	+phzlBWps1vIhm2y28kequmy7JnbDXAJMdNxIwK/ZXWuUMApG2q4REJIyswi8wO/nFJpBdPCl6q
-	LpV8sUf9BOr/FgeVk0X/5aRyKKqaBnx7yK2pBcuDjJXDJc5iR4/Vzm9YNGXDHDOTItdbx0ldNzX
-	gzANkAKZxl4aXkMUCx9zIYVGtxLYUu79ws+EEQ+pU1OW50c5y12ClBd2Jgg03amUYtorSeyhN2P
-	70FtNv90B72sLRXjJAt5b4rQyk4ngwn0ezgNtQwWx5cnBZ2hJoi572B2k+hcKvPcoGbPFHCYX8F
-	eD50JkpGtakFXu4nCxBxoTbzxNP+gvK9S4qEsuS9Wrc/bT9x8Ckae6u8GDbs0KggOOTKQNqIelZ
-	IkngMrvDSwTUwFEHkZKWlC5IGBEa3lmobQwLZgvLqgDOC1w28QJD+f998G2v7XmOaUZbfe9heSK
-	BnaCy+6w22BidvLU5OHHCDDSA==
-X-Received: by 2002:a05:600c:c0c2:b0:48f:e230:2a1c with SMTP id 5b1f17b1804b1-490360eda02mr13047275e9.31.1779343726464;
-        Wed, 20 May 2026 23:08:46 -0700 (PDT)
-Message-ID: <e3a08386-7b3a-4127-9127-f484ff8bcac8@suse.com>
-Date: Thu, 21 May 2026 08:08:44 +0200
+        bh=Bu9p2QcIhGzylnu9qw5fFo3HIoHdBDprs5E2aDZaigs=;
+        b=kCnQnoLDuVKcMjnJrBRsTHbfovYHHkC6uFmhHJ6C95PnuJ0306RiNnJwjRzYWf+H21
+         rDIOuoMIyEaS50QcI8vbl2MWgA9VinZnosSbDoQkAxShotcCfqExIlTgnVTL//SwkEnZ
+         NjZEwgPMSGGm/dpOYpWPc3Plfg3eBPkvq5JCnAfaQfg6Xc4EwJenrA7LWkwnlQk4Fqcj
+         d58Dd2E3NxrSfijpAILhyZMYobr+SWBxbPtjIHxSpI/hVW/qbLzoib9X5984tJRAdjyT
+         gAEmkPMFL0ZgbXjd3TXekWDI9t6UvBem824notQx6ci5YrDzpq8JdOoanYoGQUxvM2Zd
+         WBqQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8ScMGXJnSToPnprsoL0PyarU1c9Pzul4rVxN9itDNMCzrL9I7zs6PYQQmiv01BoQDa2dhDWibL2vM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yyy1j7gC1oTvucBSjiZ3IU/wGSop50S1JXUOFDUyYBXyFfFCaA/
+	5Sc+q7Xsc4Ggn3HRDfeT/ZJpZyK7uoX+rDiSCbGS95vzpd5NdJlyMoh4aejXL60bXg==
+X-Gm-Gg: Acq92OFdxnL7aDg2tSWwPcnEuSCJf/j1kU1Mi0qYE+jPM9PaflNxAf2o/Licgj55DdA
+	WIFgNTfPsVB8xaY2/nEgqXEng60qp3VQaDH9arDJoQsTdQJY2mwIB9qimzOjZ+eODYGD0hHc+zX
+	4tWgLW9x02AoVBjsqB5x89/ygwS5CO07M3A8mTI85DQrmSon0ObjBVdu+dbeB5e7ZkbOLFq9Z75
+	V/OhewMUV2UmJopiySxMS2EeHixOAJ9K9ND+oQEv/p3+idAJTWJNMdTszBRnpBCDoKCC8FSzwgh
+	Z0o1JiuQxTqHa8BXU75ZTSq4VO/XFKSYPAtCWuToltOjhRELWS56hQpBsgMkx2ZRbokBAPybrgG
+	4nucpNCCTa2lxu0YyWPvwQWzefcJEx4WRLaVM2Aowsr7NK2qtEQxksO5nk+vb8ysYxknThlXUU7
+	FqSsJfryFgsfoVC8iXA77iKoFmiDkLMJItEhFHNdUNBTjzGaOPY1HyF3mM7lu5vlB2pVxDYq4aG
+	MIIWNQFV+B/aVc=
+X-Received: by 2002:a05:6000:178b:b0:44b:5a37:36c4 with SMTP id ffacd0b85a97d-45ea31ce906mr2073897f8f.26.1779344655329;
+        Wed, 20 May 2026 23:24:15 -0700 (PDT)
+Message-ID: <57a83a27-b472-4f5b-9a0e-b230be0c7151@suse.com>
+Date: Thu, 21 May 2026 08:24:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Arm: do a 4th linking pass if necessary
-To: Anthony PERARD <anthony.perard@vates.tech>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Michal Orzel <michal.orzel@amd.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
- <roger.pau@citrix.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <7b23e011-56b8-4f6c-bd55-83e1d9b0453f@suse.com>
- <1779293000.8631fc262581453bbf619ec5b2062170.19e46209296000f373@vates.tech>
+Subject: Re: [PATCH] pv32: Fix bogus cr2 on fault in emulation gate
+To: Teddy Astie <teddy.astie@vates.tech>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <1779292317.8631fc262581453bbf619ec5b2062170.19e46162869000f373@vates.tech>
+ <0e23078f-30e0-4077-be1e-365a265603de@citrix.com>
+ <1779295699.8631fc262581453bbf619ec5b2062170.19e4649c100000f373@vates.tech>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -134,12 +131,12 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1779293000.8631fc262581453bbf619ec5b2062170.19e46209296000f373@vates.tech>
+In-Reply-To: <1779295699.8631fc262581453bbf619ec5b2062170.19e4649c100000f373@vates.tech>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1779343727-8EF89D75-07A65ED5/0/0
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-d25034/1779344655-DBD7BCF5-DBD7904B/0/0
 X-purgate-type: clean
-X-purgate-size: 2893
+X-purgate-size: 2818
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -147,107 +144,108 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:julien@xen.org,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:bertrand.marquis@arm.com,m:volodymyr_babchuk@epam.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:roger.pau@citrix.com,m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_THREE(0.00)[4];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: B225C59F4EA
+X-Rspamd-Queue-Id: 3763459F612
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 20.05.2026 18:03, Anthony PERARD wrote:
-> On Wed, May 20, 2026 at 01:53:34PM +0200, Jan Beulich wrote:
->> Once we generalize linking, we may want to introduce an equivalent of
->> Linux'es KALLSYMS_EXTRA_PASS as well. I don't think doing this right here
->> would make overly much sense, though.
+On 20.05.2026 18:48, Teddy Astie wrote:
+> Le 20/05/2026 à 18:34, Andrew Cooper a écrit :
+>> On 20/05/2026 4:51 pm, Teddy Astie wrote:
+>>> __{put,get}_guest returns -EFAULT on access faults which causes
+>>> the injected cr2 to be off by 14 bytes (as EFAULT is 14) which is
+>>> incorrect.
+>>>
+>>> Fix the computation by relying on copy_{from,to}_guest_pv which
+>>> reports the number of remaining bytes instead of a negative errno,
+>>> such that we can compute the offset properly.
+>>>
+>>> Fixes: 70ad570b2799 ("x86/64: paravirt 32-on-64 call gate support")
+>>> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+>>> ---
+>>>   xen/arch/x86/pv/emul-gate-op.c | 5 +++--
+>>>   1 file changed, 3 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/xen/arch/x86/pv/emul-gate-op.c b/xen/arch/x86/pv/emul-gate-op.c
+>>> index c2c699fbff..cacc171115 100644
+>>> --- a/xen/arch/x86/pv/emul-gate-op.c
+>>> +++ b/xen/arch/x86/pv/emul-gate-op.c
+>>> @@ -289,9 +289,10 @@ void pv_emulate_gate_op(struct cpu_user_regs *regs)
+>>>           int rc;
+>>>   #define push(item) do \
+>>>           { \
+>>> +            unsigned int __value = item; \
+>>>               --stkp; \
+>>>               esp -= 4; \
+>>> -            rc = __put_guest(item, stkp); \
+>>> +            rc = copy_to_guest_pv(stkp, &__value, sizeof(__value)); \
+>>
+>> Oh, this probably violates MISRA, but you don't need to use a separate
+>> variable because sizeof() has no side effects.
+>>
+>> Given that the expression is now &item, I think it needs to be &(item).
+>>
 > 
-> If you generalise linking, you are going to put it in a shell script,
-> right? Because this recipe is getting very complicated, for within a
-> makefile.
-
-Well. Prior to this change I was definitely hoping to spit the big rule up
-into small ones. Whether that's still feasible with an optional path I'll
-have to see; I very much would prefer if I could keep everything in make
-logic.
-
->> --- a/xen/arch/arm/Makefile
->> +++ b/xen/arch/arm/Makefile
->> @@ -99,9 +99,20 @@ $(TARGET)-syms: $(objtree)/prelink.o $(o
->>  		| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->>  		> $(dot-target).2.S
->>  	$(MAKE) $(build)=$(@D) $(dot-target).2.o
->> -	$(call compare-symbol-tables, $(dot-target).1.o, $(dot-target).2.o)
->> +	if ! { $(call compare-symbol-tables, $(dot-target).1.o, $(dot-target).2.o) >/dev/null; }; \
+> I tried something like that, but it looked a bit weird and clang wasn't 
+> happy (at least in language server) because of the &(x + y).
 > 
-> This `>/dev/null` seems to only suppress the output of the `diff` of the
-> macro, is it what is intended?
-
-Yes. All errors and alike should appear normally.
-
->> +	then \
->> +		$(LD) $(XEN_LDFLAGS) -T $(obj)/xen.lds $< $(build_id_linker) \
->> +		    $(dot-target).2.o -o $(dot-target).2; \
->> +		$(NM) -pa --format=sysv $(dot-target).2 \
->> +			| $(objtree)/tools/symbols $(all_symbols) --sysv --sort \
->> +			> $(dot-target).3.S; \
->> +		$(MAKE) $(build)=$(@D) $(dot-target).3.o; \
+> We also need to ensure that we're actually copying 32-bits scalars (and 
+> not 16-bits or 64-bits ones) like the previous behavior.
 > 
-> This new block ignore all errors, from LD, NM and MAKE. We want
-> a `set -e` before the if.
-
-Hmm, perhaps I should add that, yes, albeit ...
-
->> +		$(call compare-symbol-tables, $(dot-target).2.o, $(dot-target).3.o); \
+> That diff seems to work though
 > 
-> At least, an error returned by `diff` in that macro should be taken into
-> account, for now.
+> diff --git a/xen/arch/x86/pv/emul-gate-op.c b/xen/arch/x86/pv/emul-gate-op.c
+> index cacc171115..b72a3058dd 100644
+> --- a/xen/arch/x86/pv/emul-gate-op.c
+> +++ b/xen/arch/x86/pv/emul-gate-op.c
+> @@ -289,10 +289,9 @@ void pv_emulate_gate_op(struct cpu_user_regs *regs)
+>           int rc;
+>   #define push(item) do \
+>           { \
+> -            unsigned int __value = item; \
+>               --stkp; \
+>               esp -= 4; \
+> -            rc = copy_to_guest_pv(stkp, &__value, sizeof(__value)); \
+> +            rc = copy_to_guest_pv(stkp, &(uint32_t)(item), 
+> sizeof(uint32_t)); \
 
-... I expect this would fail if there was an earlier error.
-
->> --- a/xen/scripts/Kbuild.include
->> +++ b/xen/scripts/Kbuild.include
->> @@ -65,7 +65,7 @@ define compare-symbol-tables
->>      $(OBJDUMP) -t $(@D)/.cst.$$$$ > $(1).sym; \
->>      ln -f $(2) $(@D)/.cst.$$$$; \
->>      $(OBJDUMP) -t $(@D)/.cst.$$$$ > $(2).sym; \
->> -    rm -f $(@D)/.cst.$$$$
->> +    rm -f $(@D)/.cst.$$$$; \
->>      diff -u $(1).sym $(2).sym
-> 
-> This macro is missing `set -e`, if both OBJDUMP command fails and create
-> an empty file, `diff` will return success.
-
-Whether to have "set -e" here is an independent question, I guess. To avoid
-the case you mention, maybe better
-
-      $(OBJDUMP) -t $(@D)/.cst.$$$$ > $(1).sym || rm -f $(1).sym; \
-
-?
-
-> But looks like `set -e` in
-> this macro isn't going to work in the condition of the `if`.
-
-Whereas the above would be compatible with both uses, I think.
+But a cast expression isn't an lvalue, so & cannot be applied to it (much
+like it can't be applied to (x + y) as you mentioned above).
 
 Jan
+
+>               if ( rc ) \
+>               { \
+>                   pv_inject_page_fault(PFEC_write_access, \
+> 
+> 
+>> Can also be fixed on commit.
+>>
+>> ~Andrew
+> 
+> Teddy
+
 
