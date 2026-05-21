@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4Gc6FKIhD2rPGAYAu9opvQ
+	id sILfM7MhD2rPGAYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 17:15:46 +0200
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 17:16:03 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD4895A81A9
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 17:15:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1315348.1585152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EDD65A81D9
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 17:16:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1315350.1585162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ57X-0000dU-Cb; Thu, 21 May 2026 15:15:35 +0000
+	id 1wQ57q-00012O-LP; Thu, 21 May 2026 15:15:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1315348.1585152; Thu, 21 May 2026 15:15:35 +0000
+Received: by outflank-mailman (output) from mailman id 1315350.1585162; Thu, 21 May 2026 15:15:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ57X-0000bu-9l; Thu, 21 May 2026 15:15:35 +0000
-Received: by outflank-mailman (input) for mailman id 1315348;
- Thu, 21 May 2026 15:15:34 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wQ57q-0000yP-IT; Thu, 21 May 2026 15:15:54 +0000
+Received: by outflank-mailman (input) for mailman id 1315350;
+ Thu, 21 May 2026 15:15:52 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wQ57V-0000bk-Rh
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 15:15:33 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wQ57o-0000wa-MI
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 15:15:52 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQ57V-0034aG-8K
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 17:15:33 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wQ57o-003RkT-2S
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 17:15:52 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0f2177-e002-0a2a0a5209dd-0a2a45098682-46
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 17:15:33 +0200
-Received: from [209.85.221.42] (helo=mail-wr1-f42.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0f21a1-5cb7-0a2a0a5109dd-0a2a4506e020-24
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 17:15:52 +0200
+Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a0f2194-2497-0a2a45090019-d155dd2ab115-3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 17:15:32 +0200
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-45ea19f412aso781019f8f.3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 08:15:32 -0700 (PDT)
+ id 6a0f21a7-7371-0a2a45060019-d155802adcd2-3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 17:15:52 +0200
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-48909558b3aso64242765e9.0
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 08:15:51 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eaa756d61sm3580079f8f.0.2026.05.21.08.15.31
+ 5b1f17b1804b1-49033d44705sm66282045e9.4.2026.05.21.08.15.50
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 21 May 2026 08:15:31 -0700 (PDT)
+ Thu, 21 May 2026 08:15:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,48 +58,48 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:Content-Language:References:Cc:To:From:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779376532; x=1779981332; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1779376551; x=1779981351; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=zvnwyGfWO+aykVDdTfFo9jZYML1o5FaJFSxKnq9Hzn4=;
-        b=aBn1uyVoPp4b2+wqaKqJOveD4ILEPhHKNlOBYOXh24Kr7O9ouKUWeV8qxAIbLT/rm5
-         GLMiYGhbF4lD8BAnPVNMsdDinCyLTGZNu0xuBmZLGgxb7HsM0KYxceadpvoaZ08UjHt6
-         yiKnkvVhYsMkqvh4RYtV3cS12kkwYPRS18s1F3SHDoVtxG/ENJ2xEFpXJ67UvcfJu2ua
-         HazSs5lqI1ret2YIDb+MdLEfnI7kF61+nq3eWOPa88Joi4i9NrJP5m9xBUvv/k6KmPJ2
-         8txUxQZUCmA+XlStu4lSSCDNDRt2OkxRd5tdNKHomYQNAzGDWjv3nNfwMXjcinuq1HQm
-         EKXg==
+        bh=e9nzObur1F+0YwQCb6VhkGWkPYh337ms8dSLVHnK8/g=;
+        b=BeKLZX7ZXrauQCVGn9sXH84rl2NRsW/wVif+S5VD/UkvBRea52t+b71bF3nATntSAt
+         cWUXUW9PjeSoCPklrNLy3jOaWDS1Q02CSmO749kLUtBYffEs4syz93W75qmhPZpw4Pw7
+         BMChFHVP3BYMPytDIx9ZoTk6rSU1uNJwyFlh2gmpfbWbkA41G7eY1aYDClihU1e5UB5V
+         KTk0EAWnRmrwJK4yS2xAqIK1Bg6/3UctMPNIgUk4ENmZQsjalAWCNX1fztbrYcANmfdK
+         cwoIQmh6irfeqsYrkrhz6KEnGWSva+jNK/3kpjz3bZL1uOvpN7cCuB0liGTlip62Qxhf
+         wyCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779376532; x=1779981332;
+        d=1e100.net; s=20251104; t=1779376551; x=1779981351;
         h=content-transfer-encoding:in-reply-to:autocrypt:content-language
          :references:cc:to:from:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zvnwyGfWO+aykVDdTfFo9jZYML1o5FaJFSxKnq9Hzn4=;
-        b=SPQF52GUCbZHMBmVW3ZWXINbADH5cqHnvxcH6yQ6HQ0DdHdMMFduxFHxP2xUjxQ/7A
-         oqgaRaYwdNYMzZJc8G2xX1hHJ0RTsuzRuuKzqQnUFK9LFYM3VmWSoZzVtvBrQCby/xAe
-         x/CSimEbnl0L9fTVz++fXtFxXYbEYjgwL9Qv0+hNYbZz3GNVUp2H7njFvqMOtGuxQoQk
-         3CiVArQncnle66JMfO16ijHQRYyXNPY0JsHyMHB0TAOmzThk2iNWZcRWxe+b1h4m0txe
-         1x7fC1lkZ+vsGPuJxCzn3zl0zpdrLwYFK+XBL6g/smI5JKyfAYFGMKANEgcR7qvWYYYN
-         w+eA==
-X-Gm-Message-State: AOJu0YxUz0HJZiuTsKsHAKkaOvOJ4RBFCksStVslbumynBZ5UEiaACf1
-	I0cy68bVSE37TduPoORXHBwZEDH4HPcoTBp48R3NbTLlSo5QOv7UvKU2GlKzq+ubukiSDvPi2dD
-	yqBg=
-X-Gm-Gg: Acq92OH88Uua0Vo+UJdx4QjOT4l+KUNTHYshS3qcNbUf+rhZSjQ/Uc9t8BeWH2ywuBL
-	CEx3YfgcZZBxoN/+B4AaHcQ0Xlm0vEQBrx/GimHj5kCMx58fV44D4VFmPb6K+dT8AF3Bn2dQYtS
-	rOO4u8n8zgofQRSrUqv1K4PeVsnsmYOzFR9Y159svgOhG31QUkVwSzPZt3U/6C0KIyl0Yrk1s/F
-	PtDgMERZxjvspRJthR8kU5Jer31RNsUf5Zm9eRVm6yPY1ZDSLwkmS20Hairb0XwkvfHiMArKk04
-	H6iqDedDuOImbCThieu9KB1T9+NqSG/oE/ucQUbRqvdhUo356nmmkXMP4WTx19SnAS/bG1B5tIU
-	VVM4LxV/XmxMwt8eDdZNlO4gXLFpxY/QjXqkgT9p8MvOCyQ/gThr1TwnIG6WVVTLszI42gbWQ/r
-	Vfq3ITOWTc6SZCIic2Zdmjx3eREqUBaDGe05itiZ679aLuPXiDCoicpYThqQPrlADkijTuSb0XT
-	QzsXmkRDHhPuZ4=
-X-Received: by 2002:a05:6000:41e5:b0:45e:a19f:22e4 with SMTP id ffacd0b85a97d-45ea3ef2dc8mr5634208f8f.17.1779376532074;
-        Thu, 21 May 2026 08:15:32 -0700 (PDT)
-Message-ID: <f532fc29-f3cc-484f-b137-c3f8d04279fb@suse.com>
-Date: Thu, 21 May 2026 17:15:31 +0200
+        bh=e9nzObur1F+0YwQCb6VhkGWkPYh337ms8dSLVHnK8/g=;
+        b=ic56ntJm9QTMA5hzyWiMJThjskw1zyppxaEuDQha+wQ71lYdBYEwuNWnVQIzMuTlZa
+         mQ5dSZAEBm5DQpr1omT3tZt95qcfUVh9H9bnUCxlrO7z8b1gddrIdmOBEPgmbHyl4aXA
+         80QGDsyDjoxSxOXSdrVzkcvEsJPjR/CPMGOFxTgFHlLDQbPoa++nXKDyqq8tw5ZNrvcb
+         nDwxX3pcCR1m1D0b9CmrB0M+BFSB4TEZbui3PhhR5cYaX5GQKZzXVG6TbfbE+IkCAEmN
+         aRzaQv8kgWpTLLvSDdmqMfNkyywcnBxsvCqfFC8pnJdzWBT54ILDKAJTHtnAp2Pxyr9n
+         aw7Q==
+X-Gm-Message-State: AOJu0Yx44pZToT/OQZbvwgAzV1cMogN/8Vk2k6aOycNmu/ddfydx1EL8
+	M4QnOqSL1nu4bGzDX1anuq3AvzH3UcDFC1lryZlb4nYI06kyUThjU+Ni2qGajdVybKSshjw4xVz
+	I79U=
+X-Gm-Gg: Acq92OHDJZQ//GjLbUB0e6pqrtA+yy8SQUY0ksVncnfey8xFwSKZCG1AqFgQ9l04gPI
+	wn8Wj8KVtM7YWgxZ9s7cd/UkwliNqmB3prBbQ8mQ9S+cvKNjLOlnWpNCHNebTIrDoTIavR7jcaY
+	GZsO19a3rBGxc9Cf3tTQ6CH02/g9//cFzsRofl9gX4PCl4jv4SNgpJusjrz3nJCJwphW90/9A6v
+	KQ1GRonVtdb035OBHSEAxxXVkJVioBY6r2SZpFy1WIC+MoK3Qx/hw4GpotSWTK67Vrl7SA4OBZy
+	/nrAxvBOyD91Q36zna093kecAAM8uN27u5MzX/N4TjBNhw+5Af+wCa9UXiZwtyW3W3gftpgE+0k
+	g517nn5RXqguiTEADDB2DAryDmWxY6+J8Dwd5WZzxp1jncw+pYpiURxQVMMmzeVXi+0BHSzEkoU
+	3PCd/IJndWZLjA87NJuH8lUj9/7nfhldk13Bw5HqnjzWfF8ui9AP+pN+FPeK/OkM8kTEUyRxATL
+	5M7kNnxRXvyYuJQ3cvqQqaHAA==
+X-Received: by 2002:a05:600c:81c9:b0:490:3cec:52f5 with SMTP id 5b1f17b1804b1-4903cec55f5mr29327415e9.2.1779376551501;
+        Thu, 21 May 2026 08:15:51 -0700 (PDT)
+Message-ID: <3e70e912-cb57-42ba-88a9-45e9e3ebab49@suse.com>
+Date: Thu, 21 May 2026 17:15:50 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: [PATCH 1/4] x86/shadow: split get_unsafe() invocations
+Subject: [PATCH 2/4] x86/shadow: avoid sizeof(this_cpu(...))
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -133,9 +133,9 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
 In-Reply-To: <738daea9-ebec-4299-b0f9-49448293106d@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-bad1c0/1779376532-8B790A53-F1F82B1D/0/0
+X-purgate-ID: tlsNG-16d1c6/1779376552-7F77FD75-61876E58/0/0
 X-purgate-type: clean
-X-purgate-size: 4442
+X-purgate-size: 1607
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
@@ -168,109 +168,50 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: BD4895A81A9
+X-Rspamd-Queue-Id: 4EDD65A81D9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Misra C:2012 rule 13.6 takes issue with is_hvm_vcpu() uses (deep) inside
-sizeof(), as used by get_unsafe(). While sh_linear_l1_table() doesn't
-involve is_hvm_vcpu(), the rule there kicks in for "call to function
-`__builtin_expect(long, long)' (unevaluated `nothrow' call effect)".
-Break out the address calculations.
+Misra C:2012 rule 13.6 takes issue with RELOC_HIDE() uses inside sizeof(),
+as used by this_cpu(). Latch the address of the per-CPU variable into a
+local variable, and use that in the two sizeof().
 
-This, overall, turns out to also improve generated code (with gcc15 at
-least). No functional change intended.
+No difference in generated code for 2- and 4-level code. There's a small
+improvement for the 3-level case.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/mm/shadow/multi.c
 +++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -2197,16 +2197,19 @@ static int cf_check sh_page_fault(
- #if (SHADOW_OPTIMIZATIONS & SHOPT_FAST_FAULT_PATH)
-     if ( (regs->error_code & PFEC_reserved_bit) )
-     {
-+        const shadow_l1e_t *psl1e;
-+
- #if (SHADOW_OPTIMIZATIONS & SHOPT_OUT_OF_SYNC)
-         /* First, need to check that this isn't an out-of-sync
-          * shadow l1e.  If it is, we fall back to the slow path, which
-          * will sync it up again. */
-         {
-             shadow_l2e_t sl2e;
-+            const shadow_l2e_t *psl2e = sh_linear_l2_table(v) +
-+                                        shadow_l2_linear_offset(va);
-             mfn_t gl1mfn;
--            if ( (get_unsafe(sl2e,
--                             (sh_linear_l2_table(v) +
--                              shadow_l2_linear_offset(va))) != 0)
-+
-+            if ( (get_unsafe(sl2e, psl2e) != 0)
-                  || !(shadow_l2e_get_flags(sl2e) & _PAGE_PRESENT)
-                  || !mfn_valid(gl1mfn = backpointer(mfn_to_page(
-                                   shadow_l2e_get_mfn(sl2e))))
-@@ -2222,9 +2225,8 @@ static int cf_check sh_page_fault(
- #endif /* SHOPT_OUT_OF_SYNC */
-         /* The only reasons for reserved bits to be set in shadow entries
-          * are the two "magic" shadow_l1e entries. */
--        if ( likely((get_unsafe(sl1e,
--                                (sh_linear_l1_table(v) +
--                                 shadow_l1_linear_offset(va))) == 0)
-+        psl1e = sh_linear_l1_table(v) + shadow_l1_linear_offset(va);
-+        if ( likely((get_unsafe(sl1e, psl1e) == 0)
-                     && sh_l1e_is_magic(sl1e)) )
-         {
- 
-@@ -2879,6 +2881,7 @@ static bool cf_check sh_invlpg(struct vc
+@@ -2057,22 +2057,24 @@ static DEFINE_PER_CPU(guest_l1e_t, trace
+ static void cf_check trace_emulate_write_val(
+     const void *ptr, unsigned long vaddr, const void *src, unsigned int bytes)
  {
-     mfn_t sl1mfn;
-     shadow_l2e_t sl2e;
-+    const shadow_l2e_t *psl2e;
- 
-     perfc_incr(shadow_invlpg);
- 
-@@ -2897,6 +2900,9 @@ static bool cf_check sh_invlpg(struct vc
- #if SHADOW_PAGING_LEVELS == 4
-     {
-         shadow_l3e_t sl3e;
-+        const shadow_l3e_t *psl3e = sh_linear_l3_table(v) +
-+                                    shadow_l3_linear_offset(linear);
+-    if ( bytes > sizeof(this_cpu(trace_emulate_write_val)) )
+-        bytes = sizeof(this_cpu(trace_emulate_write_val));
++    guest_l1e_t *pval = &this_cpu(trace_emulate_write_val);
 +
-         if ( !(shadow_l4e_get_flags(
-                    sh_linear_l4_table(v)[shadow_l4_linear_offset(linear)])
-                & _PAGE_PRESENT) )
-@@ -2904,9 +2910,7 @@ static bool cf_check sh_invlpg(struct vc
-         /* This must still be a copy-from-unsafe because we don't have the
-          * paging lock, and the higher-level shadows might disappear
-          * under our feet. */
--        if ( get_unsafe(sl3e,
--                        (sh_linear_l3_table(v) +
--                         shadow_l3_linear_offset(linear))) != 0 )
-+        if ( get_unsafe(sl3e, psl3e) != 0 )
-         {
-             perfc_incr(shadow_invlpg_fault);
-             return false;
-@@ -2925,9 +2929,8 @@ static bool cf_check sh_invlpg(struct vc
++    if ( bytes > sizeof(*pval) )
++        bytes = sizeof(*pval);
  
-     /* This must still be a copy-from-unsafe because we don't have the shadow
-      * lock, and the higher-level shadows might disappear under our feet. */
--    if ( get_unsafe(sl2e,
--                    (sh_linear_l2_table(v) +
--                     shadow_l2_linear_offset(linear))) != 0 )
-+    psl2e = sh_linear_l2_table(v) + shadow_l2_linear_offset(linear);
-+    if ( get_unsafe(sl2e, psl2e) != 0 )
+ #if GUEST_PAGING_LEVELS == 3
+     if ( vaddr == this_cpu(trace_emulate_initial_va) )
+-        memcpy(&this_cpu(trace_emulate_write_val), src, bytes);
++        memcpy(pval, src, bytes);
+     else if ( (vaddr & ~(GUEST_PTE_SIZE - 1)) ==
+               this_cpu(trace_emulate_initial_va) )
      {
-         perfc_incr(shadow_invlpg_fault);
-         return false;
-@@ -2968,9 +2971,7 @@ static bool cf_check sh_invlpg(struct vc
-              * have the paging lock last time we checked, and the
-              * higher-level shadows might have disappeared under our
-              * feet. */
--            if ( get_unsafe(sl2e,
--                            (sh_linear_l2_table(v) +
--                             shadow_l2_linear_offset(linear))) != 0 )
-+            if ( get_unsafe(sl2e, psl2e) != 0 )
-             {
-                 perfc_incr(shadow_invlpg_fault);
-                 paging_unlock(d);
+         TRACE_SHADOW_PATH_FLAG(TRCE_SFLAG_EMULATE_FULL_PT);
+-        memcpy(&this_cpu(trace_emulate_write_val),
++        memcpy(pval,
+                (typeof(ptr))((unsigned long)ptr & ~(GUEST_PTE_SIZE - 1)),
+                GUEST_PTE_SIZE);
+     }
+ #else
+-    memcpy(&this_cpu(trace_emulate_write_val), src, bytes);
++    memcpy(pval, src, bytes);
+ #endif
+ }
+ #endif /* CONFIG_TRACEBUFFER */
 
 
