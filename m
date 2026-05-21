@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KCvNKoRFD2qNIgYAu9opvQ
+	id YJGIEoRFD2qNIgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 19:48:52 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 452B65AA8EB
-	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 19:48:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1315662.1585462 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7D9B5AA8E0
+	for <lists+xen-devel@lfdr.de>; Thu, 21 May 2026 19:48:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1315663.1585473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ7VX-00041c-Qv; Thu, 21 May 2026 17:48:31 +0000
+	id 1wQ7VZ-0004Qf-Rr; Thu, 21 May 2026 17:48:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1315662.1585462; Thu, 21 May 2026 17:48:31 +0000
+Received: by outflank-mailman (output) from mailman id 1315663.1585473; Thu, 21 May 2026 17:48:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQ7VX-0003u3-Fn; Thu, 21 May 2026 17:48:31 +0000
-Received: by outflank-mailman (input) for mailman id 1315662;
- Thu, 21 May 2026 17:48:28 +0000
+	id 1wQ7VZ-0004KX-Kq; Thu, 21 May 2026 17:48:33 +0000
+Received: by outflank-mailman (input) for mailman id 1315663;
+ Thu, 21 May 2026 17:48:29 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wQ7VU-0003M8-E1
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 17:48:28 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wQ7VV-0003Wf-8u
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 17:48:29 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQ7VT-00HNF5-Q1
- for xen-devel@lists.xenproject.org; Thu, 21 May 2026 19:48:27 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wQ7VU-00HNFj-Ka
+ for xen-devel@lists.xenproject.org; Thu, 21 May 2026 19:48:28 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <xakep.amatop@gmail.com>)
- id 6a0f4551-5cb7-0a2a0a5109dd-0a2a4503b258-18
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 19:48:27 +0200
-Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a0f453f-e002-0a2a0a5209dd-0a2a450bb4b0-44
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 19:48:28 +0200
+Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <xakep.amatop@gmail.com>)
- id 6a0f456b-672d-0a2a45030019-d155802ad8d0-3
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 19:48:27 +0200
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4891c00e7aeso47876575e9.2
- for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 10:48:27 -0700 (PDT)
+ id 6a0f456c-212f-0a2a450b0019-d1558029d507-3
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 19:48:28 +0200
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-48fe26a177cso48790455e9.1
+ for <xen-devel@lists.xenproject.org>; Thu, 21 May 2026 10:48:28 -0700 (PDT)
 Received: from EPUAKYIW02F7.. ([45.12.24.36]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49033d8e24bsm74565925e9.10.2026.05.21.10.48.25
+ 5b1f17b1804b1-49033d8e24bsm74565925e9.10.2026.05.21.10.48.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 10:48:26 -0700 (PDT)
+ Thu, 21 May 2026 10:48:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,39 +57,39 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779385707; x=1779990507; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1779385708; x=1779990508; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xH+CdyKs4JSeNRtHkAqySvPXuG95ECPS3iRUPK1CuT4=;
-        b=nYgklPOz6MJnn5IShbCtfiy9XtYB3nxnUHCRapavg59xlsP3dYol77pHGGOMPuIqWt
-         rFKKaS7D6/xB1Bfbr1RhMCImqAdzhruj++qMDA0ymMX58slPaZnqrBWez3tjd6DuDxHG
-         wRapnx3xIbat/Jdy1sGXdicjsll9Arr9x/3zr4nGdnyqiYi3dUCRF48POQVW0lrbjqYa
-         mdB/7ysr/eEejJ8RTe0X9zafLvNqwrjGsNTW07PR7qt5ysB78v9pGspIm7A/MnRrFRK4
-         NeCItqeiDcGoFI8+ls3pM2ycmvnGo3Rt2V1ut343kVo9cDRRCeEBB2XX201yR1BeHVto
-         +xoA==
+        bh=rsbyAykeGDbUvOwTWSI9USgGEMUbfPp5YFjbccc/+1E=;
+        b=Y5PkYpAua5N0V6UgrI1Yv5PErzC/00fbyRWmZFq2imnW+LRvAcVyuNOoTqzMKC0p06
+         aJkN3Yl6hwm7zkSB6t88/BX1hae0geppsPsoGHp0uNHx0ho30uawOf8YQQypXE0cZ/4d
+         B8l3/s7lxTEPP71rL2dPJzgjk8qUy0herLQoWQvSUEDe0jt/DQdoi9qu9URfYvw1FJFl
+         NSiIG5CIuJqzW8Tm4g8NgtMHj++NefP+uz6domiXTN76uwKOfTeXVcZQF9VQmCvdlS0W
+         dzrkCrFjRnw1EPKpRXbe8/N7qyaYry2RGODMBwvo2W03Ex8bPsxSs/QP3Qu/s7gzdAwo
+         QTbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779385707; x=1779990507;
+        d=1e100.net; s=20251104; t=1779385708; x=1779990508;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=xH+CdyKs4JSeNRtHkAqySvPXuG95ECPS3iRUPK1CuT4=;
-        b=UVyYQiNRquysV2VIDxyzkQqXg4ncRw3UyqFfC31hUubeiXiFThP+ftjnSWi9spb+Bf
-         /5pXpdvOasYvhDaRpb2QxzWu3Q3yeAWsfmEljDFveuC01bhkZCrU8rkMQeXbMYTojdkh
-         DwFBqFIhgurXBW/p6ghLYZJ/T3nZKgvfs66AHvBU8YnFeiI6c0SKUMIZWpfOIFUCqMKi
-         ytHJnRc3MYIfiSel/4SzflQ9LJfznh3XDA/if1+LflHvmAKDtLxa1UlctPHF/btYlWfM
-         9CBugP6S3Yo8zDejZuKa12BXHM2ZK391b+L+7Dk8gHq1jyU2tex0eTC+zBULr1xWgUEI
-         Brjg==
-X-Gm-Message-State: AOJu0YxwMtF2W3mJ1g4VfeikFOgldvdp0kOiBsT8vGrihXYHMvur+fbh
-	vyy9s+7BcD1DD0b7BLyCBvTFH54IFNMmqnpSUNZb9vdb1x7JvGuoKq5i4DoquekK
-X-Gm-Gg: Acq92OFrFSM52+M6B+RjDPt5N+U05gfbU7GtCpV47P5nhHmd5jfyEhtq1reiBz9XkPx
-	EFzRN2uU/qZ+aR6cHaMMqPBXLxftFx5wrEhxsQI6PjQZq5Pow+Y2cHIQkLY6iXLG/3gBgKD1uXB
-	e23BBmbgQI/gCy5ZA443+roldcHiPzwsOhPOE74gCHztt2qzKJh8g5CAu75tMf/fdSebD2Zv0/1
-	KxO+jHe1SlhvjS2nRWbtkd1xI2AhNFJbsyxo7YUzM1Dqn3ISPX3f1OiQrlNzMn+7ohFfZGZIWUl
-	gYU5rKlaLYD2z/HO/OfxRgD9kqafRNIyRXJu/in22Dy+DLWnJtM9ufQvt088CPPndSRFbsP1cCp
-	sZhURNR6XdSfLhaGbljvC9wO6xOIgd+OtcqpjEY1DDY9ivtQP5by7Musd5PB3Hhm6RnmHv6alFY
-	gSloVrhepQOphZl/xPUVId/93lAykNdyzh0SE9
-X-Received: by 2002:a05:600c:3513:b0:490:32da:30d with SMTP id 5b1f17b1804b1-4903605f0edmr56575805e9.9.1779385707107;
+        bh=rsbyAykeGDbUvOwTWSI9USgGEMUbfPp5YFjbccc/+1E=;
+        b=PoXtY86CQc4Xaugau8mn6ci8Z7lWyMUrgG3lEO+Eqe07Gj4cAOC6uF+tNLcRTzBFtz
+         Ofrkf82qqwvDFNqnzrxjq7WBD1JsbVsSTPvLGpDJD5qX0mfd5+L6vH3iMmey92a1x0C2
+         lkFeZj3qPZ/nSeS1JjuMnH/d8MQ1EnXZm2559cbu+eP7HtAe/Myox127V+ljvEZofdoU
+         eOLjUOYHW3pWURjw7vW1xKODs1BQIH7+vC/+1UC8//fEQ7n+TKEOfHfvuj7VFPBJtv9J
+         4afBMFmi0a1VZkSNNSw1KFZw3FqIcX3Wo8zrmrFstYWpmkq4Db12FZkVmK7DEomoEfoy
+         0XMQ==
+X-Gm-Message-State: AOJu0YwvWsxju8VFfcS8bLwau7DDewnM596cszZ6yJlp4j6fw5L2ZE1S
+	46QsdU/jDAgERcFUFX0opE0coC8860ghTy+iR2ikX+7AvHQLZ4RFNJRJOgiwv955
+X-Gm-Gg: Acq92OFdmFxtCktFnI+6BaH8PKPrLve7udg3mJDbdsG0wBPELJztEmna0Kv4iSInnMV
+	MZNkX1EY9YyD9N32FNBeNXB5bBJImppqklkyUbFhdm+TtvKSCD1n/Qnz2ppfsvK4bA3R1tbWqoi
+	qI8GiK8cqcPF+a+eI0TpZl5sHDH2Anh1ZK21sw7uNXOcVqVvLCYkYod7JK8aojZIQLLVrisXoBG
+	9Y90WB+ok9Kqv4oCct/rB6fnaA3U9z+OehFID9y5jsAqSlrsygXAZ7x+AqYVBWSaqFwWxFi6PLs
+	09v9gl8NEaJa2xWixI6UTcGSxd5Zmgi1tjE3XuLmTErc3f3npgFzTepU4iv1rkaLfGpjuHekQtd
+	mDNNDpCbl3poklhqnN31/odwbmhYu7spu+8VcTFui35dn5p/337uyaV3J2z2x42RkolqU/etd4/
+	6pE4MwnWDR9hqVGTs1Mz4UvOukJw==
+X-Received: by 2002:a05:600c:4818:b0:488:904b:f31 with SMTP id 5b1f17b1804b1-490360bac01mr39835105e9.22.1779385707903;
         Thu, 21 May 2026 10:48:27 -0700 (PDT)
 From: Mykola Kvach <xakep.amatop@gmail.com>
 To: xen-devel@lists.xenproject.org
@@ -99,585 +99,455 @@ Cc: Mykola Kvach <mykola_kvach@epam.com>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Rahul Singh <rahul.singh@arm.com>
-Subject: [PATCH v10 12/13] xen/arm: Add vPSCI SYSTEM_SUSPEND policy
-Date: Thu, 21 May 2026 20:45:30 +0300
-Message-ID: <1d49511fff3ef5f77bc2d4daac00e6895c1359b1.1779385072.git.mykola_kvach@epam.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH v10 13/13] xen/arm: Add host system suspend backend
+Date: Thu, 21 May 2026 20:45:31 +0300
+Message-ID: <199d18fdaf027c2df14c4946df1ec98f42c31c70.1779385072.git.mykola_kvach@epam.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1779385072.git.mykola_kvach@epam.com>
 References: <cover.1779385072.git.mykola_kvach@epam.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1779385707-4086B938-8B9365E2/0/0
+X-purgate-ID: tlsNG-42698a/1779385708-2087FF3B-CB26C90E/0/0
 X-purgate-type: clean
-X-purgate-size: 17397
+X-purgate-size: 13984
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:luca.fancellu@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:rahul.singh@arm.com,s:lists@lfdr.de];
+	TAGGED_FROM(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:luca.fancellu@arm.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	TAGGED_FROM(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[xilinx.com:email,system_suspend_tasklet.data:url];
 	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 452B65AA8EB
+X-Rspamd-Queue-Id: B7D9B5AA8E0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-From: Mykola Kvach <mykola_kvach@epam.com>
+From: Mirela Simonovic <mirela.simonovic@aggios.com>
 
-Introduce CONFIG_HAS_HWDOM_SYSTEM_SUSPEND as an architecture-selected
-capability for platforms where the hardware domain can be parked with
-SHUTDOWN_suspend without calling hwdom_shutdown().
+Add the Xen-wide suspend/resume backend used after a control-domain
+vPSCI SYSTEM_SUSPEND request has been accepted. The vPSCI policy,
+runtime driver blockers and control-domain sequencing checks are handled
+by the preceding commit; this change adds the code that actually drives
+the host suspend attempt.
 
-Expose PSCI SYSTEM_SUSPEND as a vPSCI operation for all domains. For
-non-control domains, including the hardware domain when it is not acting
-as a control domain, the call is handled as a guest/domain suspend request
-and parks the domain in SHUTDOWN_suspend.
+The backend runs from a tasklet scheduled on pCPU0, because non-boot CPUs
+are disabled during suspend. It freezes domains, disables the scheduler
+and then disables non-boot CPUs.
 
-Control domains need additional sequencing because their SYSTEM_SUSPEND
-request is used to coordinate host-wide suspend. A non-last awake control
-domain may be parked in SHUTDOWN_suspend without requiring the host
-suspend path to be available. The last awake control domain is treated as
-the point where the request becomes a host-suspend request, and it may
-only proceed when all non-control domains are already in SHUTDOWN_suspend
-and the host suspend path is available.
+Host-side suspend participants are handled in phases. IOMMU and console
+state are suspended first. Local IRQs are then disabled before suspending
+timer and GIC state. On resume or failure, the completed suspend phases
+are unwound in reverse: GIC and timer state are restored while IRQs are
+still disabled, local IRQs are restored, and then console and IOMMU state
+are restored.
 
-Keep the control-domain sequencing and domain-readiness checks out of
-PSCI_FEATURES. They are per-attempt runtime conditions rather than stable
-PSCI function availability. Advertise SYSTEM_SUSPEND as implemented by
-vPSCI and report attempt-time policy failures as PSCI_DENIED.
+On boot, init_ttbr is normally initialized during secondary CPU hotplug.
+On uniprocessor systems this can leave init_ttbr uninitialized, so set it
+from the boot CPU before entering suspend.
 
-Select HAS_HWDOM_SYSTEM_SUSPEND independently from CONFIG_SYSTEM_SUSPEND
-so that SHUTDOWN_suspend from the hardware domain can be treated as a
-domain suspend state rather than as a hardware-domain initiated host
-shutdown. This does not by itself imply that host-wide suspend is
-available.
+Note: the code is behind CONFIG_SYSTEM_SUSPEND. On ARM64 this is currently
+only available when HAS_SYSTEM_SUSPEND is selected, which requires
+UNSUPPORTED to be set and MPU to be unset.
 
-Add host_system_suspend_allowed() to combine the host PSCI SYSTEM_SUSPEND
-capability with runtime blockers reported by Xen-owned subsystems. Add
-runtime blockers for registered serial, IOMMU, GIC and SMMUv3 MSI IRQ
-paths lacking suspend/resume support. These blockers are runtime based,
-so they only apply to drivers or paths that Xen actually uses on the
-platform. For SMMUv3, the blocker applies only when Xen actually uses the
-MSI IRQ path, since resume does not restore the SMMU *_IRQ_CFGn MSI
-registers yet.
-
-Add a struct domain forward declaration to xen/suspend.h so the generic
-header can expose arch_domain_resume() without requiring a full domain.h
-include.
-
+Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 ---
 Changes in V10:
-- Return PSCI_DENIED rather than PSCI_NOT_SUPPORTED when the last awake
-  control domain cannot proceed to host suspend, keeping PSCI_FEATURES
-  stable once SYSTEM_SUSPEND is advertised.
-- Shorten SYSTEM_SUSPEND blocker messages and use %pd when logging the
-  control domain.
-- Mark serial_suspend_available as __ro_after_init.
-- Mention the struct domain forward declaration added to xen/suspend.h.
+- Re-apply boot CPU local errata/workaround handling after SYSTEM_SUSPEND,
+  before resuming the rest of the host suspend path.
+- Move set_init_ttbr() declaration to asm/mmu/mm.h, since it is
+  MMU-specific.
 
 Changes in V9:
-- Select HAS_HWDOM_SYSTEM_SUSPEND independently from CONFIG_SYSTEM_SUSPEND
-  so that hardware-domain SHUTDOWN_suspend support is not tied to
-  host-wide system suspend availability.
-- Add runtime host suspend blockers for Xen-owned subsystems lacking
-  suspend/resume support.
-- Keep vPSCI SYSTEM_SUSPEND advertised through PSCI_FEATURES and enforce
-  control-domain sequencing in the call handler.
+- Split vPSCI availability policy, runtime host-suspend blockers and the
+  domain-readiness precheck into the preceding commit.
+- Trigger the host suspend backend from the control-domain SYSTEM_SUSPEND
+  path.
+- Reorder the host suspend/resume phases so the timer is suspended with
+  local IRQs disabled and local IRQs are restored after the GIC and timer
+  resume paths, before the console and IOMMU resume paths.
+- Move HAS_HWDOM_SYSTEM_SUSPEND and related logic to policy patch.
+
+Changes in V8:
+- Add a pre-suspend check in system_suspend() after scheduler_disable() to
+  require all domains to be in the shut down state with SHUTDOWN_suspend
+  before proceeding with the global suspend flow.
+- Drop the common-level depends on !ARM_64 || !SYSTEM_SUSPEND from
+  CONFIG_HAS_HWDOM_SHUTDOWN_ON_SUSPEND and model the ARM64 suspend case
+  with an arch-selected capability instead.
+- Rename CONFIG_HAS_HWDOM_SHUTDOWN_ON_SUSPEND to
+  CONFIG_HAS_HWDOM_SYSTEM_SUSPEND.
+- Rename need_hwdom_shutdown() to want_hwdom_shutdown().
+
+Changes in V7:
+- Control domain is responsible for host suspend.
+- Add an empty inline host_system_suspend() function when SYSTEM_SUSPEND
+  config is disabled.
+- Use IS_ENABLED() for config checking instead of #ifdef.
+- Replace #ifdef checks in domain_shutdown() with IS_ENABLED() to simplify
+  control flow.
+- Factor hardware domain shutdown condition into a helper
+  (need_hwdom_shutdown()) to avoid preprocessor directives inside the
+  function.
+- Squash with iommu suspend/resume commit.
 ---
- xen/arch/arm/Kconfig                  |   1 +
- xen/arch/arm/gic.c                    |   6 ++
- xen/arch/arm/include/asm/psci.h       |   3 +
- xen/arch/arm/include/asm/suspend.h    |  10 ++-
- xen/arch/arm/psci.c                   |   7 ++
- xen/arch/arm/suspend.c                |  40 +++++++++
- xen/arch/arm/vpsci.c                  | 114 +++++++++++++++++++++++---
- xen/common/Kconfig                    |   3 +
- xen/common/domain.c                   |   7 +-
- xen/drivers/char/serial.c             |  12 +++
- xen/drivers/passthrough/arm/iommu.c   |   4 +
- xen/drivers/passthrough/arm/smmu-v3.c |   4 +
- xen/include/xen/serial.h              |   1 +
- xen/include/xen/suspend.h             |   2 +
- 14 files changed, 201 insertions(+), 13 deletions(-)
+ xen/arch/arm/Kconfig                 |   1 +
+ xen/arch/arm/cpuerrata.c             |   7 +-
+ xen/arch/arm/include/asm/cpuerrata.h |   1 +
+ xen/arch/arm/include/asm/mmu/mm.h    |   2 +
+ xen/arch/arm/include/asm/suspend.h   |   2 +
+ xen/arch/arm/mmu/smpboot.c           |   2 +-
+ xen/arch/arm/suspend.c               | 156 +++++++++++++++++++++++++++
+ xen/arch/arm/vpsci.c                 |  10 +-
+ 8 files changed, 177 insertions(+), 4 deletions(-)
 
 diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 79622b46a1..54a5bfb9ae 100644
+index 54a5bfb9ae..119bc00674 100644
 --- a/xen/arch/arm/Kconfig
 +++ b/xen/arch/arm/Kconfig
-@@ -19,6 +19,7 @@ config ARM
- 	select HAS_ALTERNATIVE if HAS_VMAP
- 	select HAS_DEVICE_TREE_DISCOVERY
- 	select HAS_DOM0LESS
-+	select HAS_HWDOM_SYSTEM_SUSPEND if !MPU
- 	select HAS_GRANT_CACHE_FLUSH if GRANT_TABLE
- 	select HAS_STACK_PROTECTOR
- 	select HAS_UBSAN
-diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
-index 7727ffed5a..60488c95b4 100644
---- a/xen/arch/arm/gic.c
-+++ b/xen/arch/arm/gic.c
-@@ -26,6 +26,7 @@
- #include <asm/device.h>
- #include <asm/io.h>
- #include <asm/gic.h>
-+#include <asm/suspend.h>
- #include <asm/vgic.h>
- #include <asm/acpi.h>
+@@ -9,6 +9,7 @@ config ARM_64
+ 	select 64BIT
+ 	select HAS_DOMAIN_TYPE
+ 	select HAS_FAST_MULTIPLY
++	select HAS_SYSTEM_SUSPEND if !MPU && UNSUPPORTED
+ 	select HAS_VPCI_GUEST_SUPPORT if PCI_PASSTHROUGH
  
-@@ -44,6 +45,11 @@ static void __init __maybe_unused build_assertions(void)
- void register_gic_ops(const struct gic_hw_operations *ops)
- {
-     gic_hw_ops = ops;
-+
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+    if ( !ops->suspend || !ops->resume )
-+        host_system_suspend_disable("GIC driver lacks suspend support");
-+#endif
+ config ARM
+diff --git a/xen/arch/arm/cpuerrata.c b/xen/arch/arm/cpuerrata.c
+index 17cf134f1b..dd3394345c 100644
+--- a/xen/arch/arm/cpuerrata.c
++++ b/xen/arch/arm/cpuerrata.c
+@@ -696,6 +696,11 @@ void check_local_cpu_errata(void)
+     update_cpu_capabilities(arm_errata, "enabled workaround for");
  }
  
- static void clear_cpu_lr_mask(void)
-diff --git a/xen/arch/arm/include/asm/psci.h b/xen/arch/arm/include/asm/psci.h
-index bb3c73496e..142fa1bfe5 100644
---- a/xen/arch/arm/include/asm/psci.h
-+++ b/xen/arch/arm/include/asm/psci.h
-@@ -24,6 +24,9 @@ void call_psci_cpu_off(void);
- void call_psci_system_off(void);
- void call_psci_system_reset(void);
- int call_psci_system_suspend(void);
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+bool psci_system_suspend_allowed(void);
-+#endif
++int enable_local_cpu_errata_workarounds(void)
++{
++    return enable_nonboot_cpu_caps(arm_errata);
++}
++
+ void __init enable_errata_workarounds(void)
+ {
+     enable_cpu_capabilities(arm_errata);
+@@ -732,7 +737,7 @@ static int cpu_errata_callback(struct notifier_block *nfb,
+          * fixed to expect an error at CPU_STARTING phase.
+          */
+         ASSERT(system_state != SYS_STATE_boot);
+-        rc = enable_nonboot_cpu_caps(arm_errata);
++        rc = enable_local_cpu_errata_workarounds();
+         break;
+     default:
+         break;
+diff --git a/xen/arch/arm/include/asm/cpuerrata.h b/xen/arch/arm/include/asm/cpuerrata.h
+index 1799a16d7e..b93521326f 100644
+--- a/xen/arch/arm/include/asm/cpuerrata.h
++++ b/xen/arch/arm/include/asm/cpuerrata.h
+@@ -5,6 +5,7 @@
+ #include <asm/alternative.h>
  
- /* Range of allocated PSCI function numbers */
- #define	PSCI_FNUM_MIN_VALUE                 _AC(0,U)
+ void check_local_cpu_errata(void);
++int enable_local_cpu_errata_workarounds(void);
+ void enable_errata_workarounds(void);
+ 
+ #define CHECK_WORKAROUND_HELPER(erratum, feature, arch)         \
+diff --git a/xen/arch/arm/include/asm/mmu/mm.h b/xen/arch/arm/include/asm/mmu/mm.h
+index 7f4d59137d..ee73a77777 100644
+--- a/xen/arch/arm/include/asm/mmu/mm.h
++++ b/xen/arch/arm/include/asm/mmu/mm.h
+@@ -110,6 +110,8 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
+ extern void switch_ttbr(uint64_t ttbr);
+ extern void relocate_and_switch_ttbr(uint64_t ttbr);
+ 
++void set_init_ttbr(lpae_t *root);
++
+ #endif /* __ARM_MMU_MM_H__ */
+ 
+ /*
 diff --git a/xen/arch/arm/include/asm/suspend.h b/xen/arch/arm/include/asm/suspend.h
-index c848fc6340..50dc6e9fdf 100644
+index 50dc6e9fdf..889a6509d9 100644
 --- a/xen/arch/arm/include/asm/suspend.h
 +++ b/xen/arch/arm/include/asm/suspend.h
-@@ -39,7 +39,15 @@ extern struct resume_cpu_context resume_cpu_context;
- 
- int prepare_resume_ctx(void);
+@@ -41,11 +41,13 @@ int prepare_resume_ctx(void);
  void hyp_resume(void);
--#endif /* CONFIG_SYSTEM_SUSPEND */
-+bool host_system_suspend_allowed(void);
-+void host_system_suspend_disable(const char *reason);
-+
-+#else /* !CONFIG_SYSTEM_SUSPEND */
-+
-+static inline bool host_system_suspend_allowed(void) { return false; }
-+static inline void host_system_suspend_disable(const char *reason) {}
-+
-+#endif
+ bool host_system_suspend_allowed(void);
+ void host_system_suspend_disable(const char *reason);
++void host_system_suspend(struct domain *d);
  
- #endif /* ARM_SUSPEND_H */
+ #else /* !CONFIG_SYSTEM_SUSPEND */
  
-diff --git a/xen/arch/arm/psci.c b/xen/arch/arm/psci.c
-index e05dae1133..e9d78668fd 100644
---- a/xen/arch/arm/psci.c
-+++ b/xen/arch/arm/psci.c
-@@ -41,6 +41,13 @@ static bool __ro_after_init has_psci_system_suspend;
+ static inline bool host_system_suspend_allowed(void) { return false; }
+ static inline void host_system_suspend_disable(const char *reason) {}
++static inline void host_system_suspend(struct domain *d) {}
  
- #define PSCI_RET(res)   ((int32_t)(res).a0)
+ #endif
  
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+bool psci_system_suspend_allowed(void)
-+{
-+    return has_psci_system_suspend;
-+}
-+#endif
-+
- int call_psci_cpu_on(int cpu)
+diff --git a/xen/arch/arm/mmu/smpboot.c b/xen/arch/arm/mmu/smpboot.c
+index 37e91d72b7..ff508ecf40 100644
+--- a/xen/arch/arm/mmu/smpboot.c
++++ b/xen/arch/arm/mmu/smpboot.c
+@@ -72,7 +72,7 @@ static void clear_boot_pagetables(void)
+     clear_table(boot_third);
+ }
+ 
+-static void set_init_ttbr(lpae_t *root)
++void set_init_ttbr(lpae_t *root)
  {
-     struct arm_smccc_res res;
+     /*
+      * init_ttbr is part of the identity mapping which is read-only. So
 diff --git a/xen/arch/arm/suspend.c b/xen/arch/arm/suspend.c
-index 6ea4a0f9cc..98ddd46a47 100644
+index 98ddd46a47..2e0833a13c 100644
 --- a/xen/arch/arm/suspend.c
 +++ b/xen/arch/arm/suspend.c
-@@ -1,9 +1,49 @@
+@@ -1,10 +1,18 @@
  /* SPDX-License-Identifier: GPL-2.0-only */
  
-+#include <asm/psci.h>
++#include <asm/cpuerrata.h>
++#include <asm/cpufeature.h>
++#include <asm/gic.h>
+ #include <asm/psci.h>
  #include <asm/suspend.h>
  
-+#include <xen/lib.h>
-+#include <xen/serial.h>
-+
++#include <xen/console.h>
++#include <xen/cpu.h>
++#include <xen/iommu.h>
+ #include <xen/lib.h>
++#include <xen/sched.h>
+ #include <xen/serial.h>
++#include <xen/tasklet.h>
+ 
  struct resume_cpu_context resume_cpu_context;
  
-+/*
-+ * Non-PSCI infrastructure can make host suspend impossible even when the PSCI
-+ * SYSTEM_SUSPEND conduit is present, e.g. when a Xen-owned driver has no valid
-+ * suspend/resume path.
-+ *
-+ * This gate is checked only when the last awake control domain attempts to
-+ * turn a guest SYSTEM_SUSPEND request into a host-suspend request.
-+ */
-+static bool host_system_suspend_runtime_allowed = true;
-+
-+static bool host_serial_suspend_allowed(void)
+@@ -44,6 +52,154 @@ void host_system_suspend_disable(const char *reason)
+            reason ? reason : "unsupported suspend/resume path");
+ }
+ 
++/* Xen suspend. data identifies the domain that initiated suspend. */
++static void system_suspend(void *data)
 +{
-+    if ( serial_suspend_supported() )
-+        return true;
++    int status;
++    unsigned long flags;
++    struct domain *d = (struct domain *)data;
 +
-+    printk_once(XENLOG_INFO
-+                "Host SYSTEM_SUSPEND blocked: serial unsupported\n");
++    BUG_ON(system_state != SYS_STATE_active);
 +
-+    return false;
++    system_state = SYS_STATE_suspend;
++
++    printk("Xen suspending...\n");
++
++    freeze_domains();
++    scheduler_disable();
++
++    /*
++     * Non-boot CPUs have to be disabled on suspend and enabled on resume
++     * (hotplug-based mechanism). Disabling non-boot CPUs will lead to PSCI
++     * CPU_OFF to be called by each non-boot CPU. Depending on the underlying
++     * platform capabilities, this may lead to the physical powering down of
++     * CPUs.
++     */
++    status = disable_nonboot_cpus();
++    if ( status )
++    {
++        system_state = SYS_STATE_resume;
++        goto resume_nonboot_cpus;
++    }
++
++    console_start_sync();
++    status = iommu_suspend();
++    if ( status )
++    {
++        system_state = SYS_STATE_resume;
++        goto resume_end_sync;
++    }
++
++    status = console_suspend();
++    if ( status )
++    {
++        dprintk(XENLOG_ERR, "Failed to suspend the console, err=%d\n", status);
++        system_state = SYS_STATE_resume;
++        goto resume_iommu;
++    }
++
++    local_irq_save(flags);
++
++    time_suspend();
++
++    status = gic_suspend();
++    if ( status )
++    {
++        system_state = SYS_STATE_resume;
++        goto resume_time;
++    }
++
++    set_init_ttbr(xen_pgtable);
++
++    /*
++     * Enable identity mapping before entering suspend to simplify
++     * the resume path
++     */
++    update_boot_mapping(true);
++
++    if ( prepare_resume_ctx() )
++    {
++        status = call_psci_system_suspend();
++        /*
++         * If suspend is finalized properly by above system suspend PSCI call,
++         * the code below in this 'if' branch will never execute. Execution
++         * will continue from hyp_resume which is the hypervisor's resume point.
++         * In hyp_resume CPU context will be restored and since link-register is
++         * restored as well, it will appear to return from prepare_resume_ctx.
++         * The difference in returning from prepare_resume_ctx on system suspend
++         * versus resume is in function's return value: on suspend, the return
++         * value is a non-zero value, on resume it is zero. That is why the
++         * control flow will not re-enter this 'if' branch on resume.
++         */
++        if ( status )
++            dprintk(XENLOG_WARNING, "PSCI system suspend failed, err=%d\n",
++                    status);
++
++        system_state = SYS_STATE_resume;
++    }
++    else
++    {
++        system_state = SYS_STATE_resume;
++
++        /*
++         * CPU0 resumes directly from hyp_resume(), bypassing the CPU hotplug
++         * path that re-checks and re-enables errata workarounds for secondary
++         * CPUs.
++         */
++        check_local_cpu_errata();
++        check_local_cpu_features();
++        BUG_ON(enable_local_cpu_errata_workarounds());
++    }
++
++    update_boot_mapping(false);
++
++    gic_resume();
++
++ resume_time:
++    time_resume();
++
++    local_irq_restore(flags);
++
++    console_resume();
++
++ resume_iommu:
++    iommu_resume();
++
++ resume_end_sync:
++    console_end_sync();
++
++ resume_nonboot_cpus:
++    /*
++     * The rcu_barrier() has to be added to ensure that the per cpu area is
++     * freed before a non-boot CPU tries to initialize it (_free_percpu_area()
++     * has to be called before the init_percpu_area()). This scenario occurs
++     * when non-boot CPUs are hot-unplugged on suspend and hotplugged on resume.
++     */
++    rcu_barrier();
++    enable_nonboot_cpus();
++
++    scheduler_enable();
++    thaw_domains();
++
++    system_state = SYS_STATE_active;
++
++    printk("Resume (status %d)\n", status);
++
++    domain_resume(d);
 +}
 +
-+bool host_system_suspend_allowed(void)
-+{
-+    return psci_system_suspend_allowed() &&
-+           host_serial_suspend_allowed() &&
-+           host_system_suspend_runtime_allowed;
-+}
++static DECLARE_TASKLET(system_suspend_tasklet, system_suspend, NULL);
 +
-+void host_system_suspend_disable(const char *reason)
++void host_system_suspend(struct domain *d)
 +{
-+    host_system_suspend_runtime_allowed = false;
-+
-+    printk(XENLOG_INFO "Host SYSTEM_SUSPEND blocked: %s\n",
-+           reason ? reason : "unsupported suspend/resume path");
++    system_suspend_tasklet.data = (void *)d;
++    /*
++     * The suspend procedure has to be finalized by the pCPU#0 (non-boot pCPUs
++     * will be disabled during the suspend).
++     */
++    tasklet_schedule_on_cpu(&system_suspend_tasklet, 0);
 +}
 +
  /*
   * Local variables:
   * mode: C
 diff --git a/xen/arch/arm/vpsci.c b/xen/arch/arm/vpsci.c
-index ac6af6118f..0bae42c1bd 100644
+index 0bae42c1bd..6e332d6a12 100644
 --- a/xen/arch/arm/vpsci.c
 +++ b/xen/arch/arm/vpsci.c
-@@ -5,6 +5,7 @@
- 
- #include <asm/current.h>
- #include <asm/domain.h>
-+#include <asm/suspend.h>
- #include <asm/vgic.h>
- #include <asm/vpsci.h>
- #include <asm/event.h>
-@@ -219,6 +220,89 @@ static void do_psci_0_2_system_reset(void)
-     domain_shutdown(d,SHUTDOWN_reboot);
+@@ -237,7 +237,8 @@ static bool domain_in_suspend_state(struct domain *d)
+     return suspended;
  }
  
-+/*
-+ * Serialise SYSTEM_SUSPEND policy decisions with the domain suspend transition,
-+ * so multiple control domains cannot all observe each other as still awake.
-+ */
-+static DEFINE_SPINLOCK(vpsci_system_suspend_lock);
-+
-+static bool domain_in_suspend_state(struct domain *d)
-+{
-+    bool suspended;
-+
-+    spin_lock(&d->shutdown_lock);
-+    suspended = d->is_shut_down && d->shutdown_code == SHUTDOWN_suspend;
-+    spin_unlock(&d->shutdown_lock);
-+
-+    return suspended;
-+}
-+
-+static int32_t domain_psci_system_suspend_policy(struct domain *d)
-+{
-+    struct domain *other;
-+    bool last_awake_control_domain = true;
-+    bool awake_non_control_domain = false;
-+
-+    /* Only control domains participate in sequencing policy. */
-+    if ( !is_control_domain(d) )
-+        return 0;
-+
-+    rcu_read_lock(&domlist_read_lock);
-+
-+    for_each_domain ( other )
-+    {
-+        bool suspended;
-+
-+        if ( other == d )
-+            continue;
-+
-+        suspended = domain_in_suspend_state(other);
-+        if ( suspended )
-+            continue;
-+
-+        if ( is_control_domain(other) )
-+        {
-+            last_awake_control_domain = false;
-+            break;
-+        }
-+
-+        awake_non_control_domain = true;
-+    }
-+
-+    rcu_read_unlock(&domlist_read_lock);
-+
-+    /*
-+     * Another control domain is still awake. This request is only the first
-+     * phase of the sequencing: park this control domain and leave the host
-+     * running. Host-wide suspend gates must not block this intermediate state.
-+     */
-+    if ( !last_awake_control_domain )
-+        return 0;
-+
-+    /*
-+     * This is the last awake control domain. It must not be parked unless the
-+     * request can proceed as a host-suspend request; otherwise Xen would lose
-+     * the last domain that can coordinate the system suspend.
-+     */
-+    if ( awake_non_control_domain )
-+    {
-+        printk(XENLOG_DEBUG
-+               "SYSTEM_SUSPEND denied for %pd: non-control domains awake\n",
-+               d);
-+        return PSCI_DENIED;
-+    }
-+
-+    /*
-+     * Host-wide gates are relevant only for the last-control-domain case. They
-+     * must not block parking of a non-last control domain, but they must deny
-+     * the last control domain when host suspend is not currently available.
-+     */
-+    if ( !host_system_suspend_allowed() )
-+        return PSCI_DENIED;
-+
-+    return 0;
-+}
-+
- static int32_t do_psci_1_0_system_suspend(register_t epoint, register_t cid)
+-static int32_t domain_psci_system_suspend_policy(struct domain *d)
++static int32_t domain_psci_system_suspend_policy(struct domain *d,
++                                                 bool *host_suspend)
  {
-     int32_t rc;
-@@ -232,10 +316,6 @@ static int32_t do_psci_1_0_system_suspend(register_t epoint, register_t cid)
-     if ( is_64bit_domain(d) && is_thumb )
-         return PSCI_INVALID_ADDRESS;
- 
--    /* SYSTEM_SUSPEND is not supported for the hardware domain yet */
--    if ( is_hardware_domain(d) )
--        return PSCI_NOT_SUPPORTED;
--
-     /* Ensure that all CPUs other than the calling one are offline */
-     domain_lock(d);
-     for_each_vcpu ( d, v )
-@@ -252,16 +332,29 @@ static int32_t do_psci_1_0_system_suspend(register_t epoint, register_t cid)
-     if ( rc )
+     struct domain *other;
+     bool last_awake_control_domain = true;
+@@ -300,6 +301,7 @@ static int32_t domain_psci_system_suspend_policy(struct domain *d)
+     if ( !host_system_suspend_allowed() )
          return PSCI_DENIED;
  
--    rc = domain_shutdown(d, SHUTDOWN_suspend);
-+    spin_lock(&vpsci_system_suspend_lock);
-+
-+    rc = domain_psci_system_suspend_policy(d);
-+    if ( !rc )
-+    {
-+        rc = domain_shutdown(d, SHUTDOWN_suspend);
-+        if ( rc )
-+            rc = PSCI_DENIED;
-+        else
-+        {
-+            rctx->ctxt = ctxt;
-+            rctx->wake_cpu = current;
-+        }
-+    }
-+
-+    spin_unlock(&vpsci_system_suspend_lock);
-+
-     if ( rc )
-     {
-         free_vcpu_guest_context(ctxt);
--        return PSCI_DENIED;
-+        return rc;
-     }
++    *host_suspend = true;
+     return 0;
+ }
  
--    rctx->ctxt = ctxt;
--    rctx->wake_cpu = current;
--
-     gprintk(XENLOG_DEBUG,
+@@ -310,6 +312,7 @@ static int32_t do_psci_1_0_system_suspend(register_t epoint, register_t cid)
+     struct vcpu *v;
+     struct domain *d = current->domain;
+     bool is_thumb = epoint & 1;
++    bool host_suspend = false;
+     struct resume_info *rctx = &d->arch.resume_ctx;
+ 
+     /* THUMB set is not allowed with 64-bit domain */
+@@ -334,7 +337,7 @@ static int32_t do_psci_1_0_system_suspend(register_t epoint, register_t cid)
+ 
+     spin_lock(&vpsci_system_suspend_lock);
+ 
+-    rc = domain_psci_system_suspend_policy(d);
++    rc = domain_psci_system_suspend_policy(d, &host_suspend);
+     if ( !rc )
+     {
+         rc = domain_shutdown(d, SHUTDOWN_suspend);
+@@ -359,6 +362,9 @@ static int32_t do_psci_1_0_system_suspend(register_t epoint, register_t cid)
              "SYSTEM_SUSPEND requested, epoint=%#"PRIregister", cid=%#"PRIregister"\n",
              epoint, cid);
-@@ -287,10 +380,9 @@ static int32_t do_psci_1_0_features(uint32_t psci_func_id)
-     case PSCI_0_2_FN32_SYSTEM_RESET:
-     case PSCI_1_0_FN32_PSCI_FEATURES:
-     case ARM_SMCCC_VERSION_FID:
--        return 0;
-     case PSCI_1_0_FN32_SYSTEM_SUSPEND:
-     case PSCI_1_0_FN64_SYSTEM_SUSPEND:
--        return is_hardware_domain(current->domain) ? PSCI_NOT_SUPPORTED : 0;
-+        return 0;
-     default:
-         return PSCI_NOT_SUPPORTED;
-     }
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 5ff71480ee..816a1a4ecb 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -140,6 +140,9 @@ config HAS_EX_TABLE
- config HAS_FAST_MULTIPLY
- 	bool
  
-+config HAS_HWDOM_SYSTEM_SUSPEND
-+	bool
++    if ( host_suspend )
++        host_system_suspend(d);
 +
- config HAS_IOPORTS
- 	bool
- 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index bb9e210c28..d3edfb2a13 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -1375,6 +1375,11 @@ void __domain_crash(struct domain *d)
-     domain_shutdown(d, SHUTDOWN_crash);
+     return rc;
  }
- 
-+static inline bool want_hwdom_shutdown(uint8_t reason)
-+{
-+    return !IS_ENABLED(CONFIG_HAS_HWDOM_SYSTEM_SUSPEND) ||
-+           reason != SHUTDOWN_suspend;
-+}
- 
- int domain_shutdown(struct domain *d, u8 reason)
- {
-@@ -1391,7 +1396,7 @@ int domain_shutdown(struct domain *d, u8 reason)
-         d->shutdown_code = reason;
-     reason = d->shutdown_code;
- 
--    if ( is_hardware_domain(d) )
-+    if ( is_hardware_domain(d) && want_hwdom_shutdown(reason) )
-         hwdom_shutdown(reason);
- 
-     if ( d->is_shutting_down )
-diff --git a/xen/drivers/char/serial.c b/xen/drivers/char/serial.c
-index adb312d796..e5348b5445 100644
---- a/xen/drivers/char/serial.c
-+++ b/xen/drivers/char/serial.c
-@@ -497,6 +497,8 @@ const struct vuart_info *serial_vuart_info(int idx)
- 
- #ifdef CONFIG_SYSTEM_SUSPEND
- 
-+static bool __ro_after_init serial_suspend_available = true;
-+
- void serial_suspend(void)
- {
-     int i;
-@@ -513,6 +515,11 @@ void serial_resume(void)
-             com[i].driver->resume(&com[i]);
- }
- 
-+bool serial_suspend_supported(void)
-+{
-+    return serial_suspend_available;
-+}
-+
- #endif /* CONFIG_SYSTEM_SUSPEND */
- 
- void __init serial_register_uart(int idx, struct uart_driver *driver,
-@@ -521,6 +528,11 @@ void __init serial_register_uart(int idx, struct uart_driver *driver,
-     /* Store UART-specific info. */
-     com[idx].driver = driver;
-     com[idx].uart   = uart;
-+
-+#ifdef CONFIG_SYSTEM_SUSPEND
-+    if ( !driver->suspend || !driver->resume )
-+        serial_suspend_available = false;
-+#endif
- }
- 
- void __init serial_async_transmit(struct serial_port *port)
-diff --git a/xen/drivers/passthrough/arm/iommu.c b/xen/drivers/passthrough/arm/iommu.c
-index 100545e23f..547048af05 100644
---- a/xen/drivers/passthrough/arm/iommu.c
-+++ b/xen/drivers/passthrough/arm/iommu.c
-@@ -19,6 +19,7 @@
- #include <xen/device_tree.h>
- #include <xen/iommu.h>
- #include <xen/lib.h>
-+#include <xen/suspend.h>
- 
- #include <asm/device.h>
- 
-@@ -46,6 +47,9 @@ void __init iommu_set_ops(const struct iommu_ops *ops)
-     }
- 
-     iommu_ops = ops;
-+
-+    if ( !ops->suspend || !ops->resume )
-+        host_system_suspend_disable("IOMMU driver lacks suspend support");
- }
- 
- int __init iommu_hardware_setup(void)
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-index be8028c036..1b6bb1bc5f 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.c
-+++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -91,6 +91,7 @@
- #include <asm/io.h>
- #include <asm/iommu_fwspec.h>
- #include <asm/platform.h>
-+#include <asm/suspend.h>
- 
- #include "smmu-v3.h"
- 
-@@ -1903,6 +1904,9 @@ static void arm_smmu_setup_msis(struct arm_smmu_device *smmu)
- 		}
- 	}
- 
-+	host_system_suspend_disable(
-+		"SMMUv3 MSI IRQ path is unsupported for host suspend");
-+
- 	/* Add callback to free MSIs on teardown */
- 	devm_add_action(dev, arm_smmu_free_msis, dev);
- }
-diff --git a/xen/include/xen/serial.h b/xen/include/xen/serial.h
-index 8e18445552..418b00ead0 100644
---- a/xen/include/xen/serial.h
-+++ b/xen/include/xen/serial.h
-@@ -137,6 +137,7 @@ const struct vuart_info* serial_vuart_info(int idx);
- /* Serial suspend/resume. */
- void serial_suspend(void);
- void serial_resume(void);
-+bool serial_suspend_supported(void);
- #endif
- 
- /*
-diff --git a/xen/include/xen/suspend.h b/xen/include/xen/suspend.h
-index 6f94fd53b0..a941331035 100644
---- a/xen/include/xen/suspend.h
-+++ b/xen/include/xen/suspend.h
-@@ -6,6 +6,8 @@
- #if __has_include(<asm/suspend.h>)
- #include <asm/suspend.h>
- #else
-+struct domain;
-+
- static inline void arch_domain_resume(struct domain *d) {}
- #endif
  
 -- 
 2.43.0
