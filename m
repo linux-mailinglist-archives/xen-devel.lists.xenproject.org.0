@@ -2,49 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aMo7I+4kEGoYUQYAu9opvQ
+	id 4QfZJ5AsEGqSUgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 11:42:06 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 12:14:40 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEA9E5B160B
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 11:42:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1316522.1585914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F05405B1CFE
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 12:14:39 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1316548.1585922 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQMNw-0003Bz-PJ; Fri, 22 May 2026 09:41:40 +0000
+	id 1wQMtH-0000hD-8x; Fri, 22 May 2026 10:14:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1316522.1585914; Fri, 22 May 2026 09:41:40 +0000
+Received: by outflank-mailman (output) from mailman id 1316548.1585922; Fri, 22 May 2026 10:14:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQMNw-0003AY-Lr; Fri, 22 May 2026 09:41:40 +0000
-Received: by outflank-mailman (input) for mailman id 1316522;
- Fri, 22 May 2026 09:41:38 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wQMtH-0000fE-62; Fri, 22 May 2026 10:14:03 +0000
+Received: by outflank-mailman (input) for mailman id 1316548;
+ Fri, 22 May 2026 10:14:01 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wQMNu-0003AS-PW
- for xen-devel@lists.xenproject.org; Fri, 22 May 2026 09:41:38 +0000
+ (envelope-from <xakep.amatop@gmail.com>) id 1wQMtE-0000e3-VE
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2026 10:14:01 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQMNt-00E7da-Vt
- for xen-devel@lists.xenproject.org; Fri, 22 May 2026 11:41:38 +0200
-Received: from [10.42.69.1] (helo=localhost)
+ id 1wQMtD-006PAg-T7
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2026 12:13:59 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a1024ca-5cb7-0a2a0a5109dd-0a2a4501a2aa-28
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 11:41:37 +0200
-Received: from [209.85.221.43] (helo=mail-wr1-f43.google.com)
- by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a1024d1-c1f2-0a2a45010019-d155dd2bd803-3
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 11:41:37 +0200
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-44e1ebb3122so4390743f8f.2
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 02:41:37 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eb6cd151asm2575040f8f.13.2026.05.22.02.41.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 May 2026 02:41:36 -0700 (PDT)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a102c61-2eae-0a2a0a5409dd-0a2a4502d7de-18
+ for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 12:13:59 +0200
+Received: from [209.85.208.175] (helo=mail-lj1-f175.google.com)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <xakep.amatop@gmail.com>)
+ id 6a102c67-af86-0a2a45020019-d155d0afac11-3
+ for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 12:13:59 +0200
+Received: by mail-lj1-f175.google.com with SMTP id
+ 38308e7fff4ca-3937014be0cso14153981fa.0
+ for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 03:13:59 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,191 +51,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
+ARC-Seal: i=1; a=rsa-sha256; t=1779444839; cv=none;
+        d=google.com; s=arc-20240605;
+        b=OUUAqPPwaFFD9BYbhTUT1OEw6GJXMo++kT9TFhr8Ubm48hiNvY0fdTkUtZEtS2Flff
+         +1BsSvS+q5b0Cw0dhekgxOB/Ib5bilfAzszVkKmxfwiUFlSSF7kiLmE014P/PDA1QJZ6
+         aiC0cVsWMZ05PuWEhLwPyOhG/8YWTXaiYsYUdB8EteMw+qWOm3VzDP37vOurQKNwuy45
+         QUaXlLWxUS6rtbR4SyP8GfikV/Z2Dis+wc5gWPpsBVJtnzzjIM2C5ZdSjB6WLLznTlK/
+         J+HVHqNOwJihksa2YOxJFqbQqJlkwXLozrpOEYzog/AN+zEfQ6s+4rRwExB2QMUEch+E
+         q1NA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JUX6vHTa7p0Sfwz+CeidZwv32/WawPrRTHCpIPs0Gdc=;
+        fh=zL8KVAj6rSaYbk/102rEWeOa69wm5cw+i9nXMzeM8z8=;
+        b=VcxvFykSeKMh428DFLWUPtDRfjZLT/VIYvSLXdWHl0bDocDI6WcAMOIHuEZn1ckF1d
+         NWzJBJroYQfAZdS8Un+/m/mQR3lZLb7tgKZmcW9USR11uAtr3a/ZsLKbPn10wS0He0uN
+         IOvHsTwjqJZ8UPp4KbXgBvDVXIfNyHF5GCDuhQIJBdfq2SiRgEr4G7HVmTjUs8GVDjqg
+         7mHvhV/tb72ABjDBC6BxnGoie0nUvHTcO5JB3bfGrwkSSPSJibLYQ3uXONX/Pm0Cki2i
+         k5TnR3yAL/gAAZsUa9ljLxIbXUXBLUlAbFKLEXOEZ4zwnoBicePx9EwDvcvgUCX+m0st
+         j1Jw==;
+        darn=lists.xenproject.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779442897; x=1780047697; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=mvs9EKNx66wxPurTbgSTe8g22KjiF2kCa8E7RV4Cf1w=;
-        b=H/o4HcgnfhY4UGPDI5xF8+gL39h+suh5O7aQQ8Won9zjFVhMn2lsH1+d3V5uHbFyYy
-         vwGB23rHW528/JVBuQzk2CgBlEZydtyNl9nsww5JyBc4GiC2KWy9bWbvtuT6qhYv27QQ
-         tEKgY0ea8AjrHD2vxAugQWXcuHLY7LtKmUNqFR1CFt3hPX5n4E/rTrZV5C+j/PZ1X/r2
-         CinKhBEPUU9o1QF+9puihAgJ/e0u8u//q27ZPhdA+RCPdwpAUwqI0FvGssXiSDMBB6kC
-         HW6rmNL2IlH8x9nhDXOvY61YXs5k2yTQgyqmBWG1b1tSVqwjVSjSn5rGjEpR6iiIJAR+
-         dQgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779442897; x=1780047697;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1779444839; x=1780049639; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=mvs9EKNx66wxPurTbgSTe8g22KjiF2kCa8E7RV4Cf1w=;
-        b=VKfNe6LsoEyrEb2uGno92geDc3kkSlMFKkJG3fIleCEdiK2/LqxFTriAnn0KMWQVxV
-         TAY7C/orhoE2AneSrkXVOOC84eVeg8XhVtB9+Bby2xg7R0CQA3qZM9N0PUwZ4likaRwD
-         lflpKrTRptuBqo1G0TLkebIEY0FS7P7OXFhVZi1ibDm0MAyHVsIjNMehkWg6uFcU5lM2
-         9XJxsQvqADXvAf+VXDHiQF0qdpKuflieKz6Yj1Xvt9tktXWQknMHqnrJoAu1QCJGogfi
-         1rc74KIBl/9Ua0+M7ImU26pGZ2wQXOhWwjJnfQbaJnfIp1DvGTk9apgR2d3p4vJwU6lr
-         TUiQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8h08wtds1o3C4wtOcoV09pnWJfqaRd8RDUEiUtcXHMsLSL3zNalIiLtI4q22bMNwseApNjtKKV0mQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw4Mwg7gO3FhiaPfbRrRio5m4TUZpYujv71yoR3KeFgdC6Lj2Uu
-	gR7HSKZ06WRTg5n0n5N4hSyEnWA03Vt4ovo0nHYAEsX58bv3K/lR4vz0QpfTVfZARA==
-X-Gm-Gg: Acq92OFtj51E5HRWn5OXkTfdARSQvPj9C0J78H6BEjBtXTUul9XUvngBaCb+oPhzoPX
-	sbNED2d/dNHAChXSJxfVJFPI7xzCjDyrYnNIxDkHVcEGFZJvqVCnUM1tZjAojeEZIvF5b11WJMd
-	+w0ThSwz/YrIcfXiXhP1DrdY0UsTqxF3FGyXrH8zYHUM02lPO/iF/Zekp9BezG0IDpkeXSSReM5
-	JIPIUdPY457ut2Q7iGo2HlnjNbofR763qhktfZ8HLJRiiO7v6mbqetVfNpwpFc2Cse74FPXGI5r
-	Ek8818hhQgP+Py6Ea6jK0x9GzvLq8E5/EQwmtirfH7vym4Ih1a1OxNV2JBTmtCQ+tyiUlaz/CWL
-	MXQKiTHNt1HqU9OHatkCo6eQglZXymIPeIpyRzQSMPF8/7UxozuB21u8ZS+A4bh8WNLKGoOAtlb
-	/CVABXE5IP0+vY+2YHKc7arDiMUX2eJ6Hu9soa2cL0C/wRvc6UblSOdQ+td9KqBxVYfWFLK+1i2
-	YFBHN4y4sQpzhjqMllEG6R1Vg==
-X-Received: by 2002:a5d:5f54:0:b0:43d:67f4:91aa with SMTP id ffacd0b85a97d-45eb3af66e2mr3835573f8f.40.1779442897167;
-        Fri, 22 May 2026 02:41:37 -0700 (PDT)
-Message-ID: <11cbd069-8e2b-4678-a80c-82d0d4318f70@suse.com>
-Date: Fri, 22 May 2026 11:41:36 +0200
+        bh=JUX6vHTa7p0Sfwz+CeidZwv32/WawPrRTHCpIPs0Gdc=;
+        b=LPIeRfwNH1X6nF+0631fonW5AZZahlbS5Fxs/uJwp7iYYvo7TzesuuENHud3D1f4uc
+         RpTTR+bjeX+eEQvmd5gl36GfhGjY2/dE9fHhfhuRWsL6j1dWemR/uF68l55CabJUSSF6
+         thuCGS5H1Fk3UcL7mtqEbd1VCbLV2/4rSM4Pq6Hoq75OEdbPOFx/9w2jmUpWHwlJIuTX
+         pshDHH/4VAS38S4SbvhnVwNT2rCxiw5H0sPxfYFJ0CV6T+YcQxKsM+yluPDrCwMJsSIk
+         FCRjoDQJOBlbE8Q8TCMdARpFEJlvycx6ULezP4MnCX8jn6Cgd5j8Q0Mey9Rhtc+q3Xq7
+         Hw4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779444839; x=1780049639;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=JUX6vHTa7p0Sfwz+CeidZwv32/WawPrRTHCpIPs0Gdc=;
+        b=HaqIb5UXBK8zqSCOO5jUD/144LrUjbCjTNwuZH9Nz+7bcK23jThlJ2AuO/0IQsFS61
+         Ia9AZ/BjI3iuluoFyBai4f17q3oI+ZPYKMnYJgk/xvjLr7zgash6raKdFfVV+K0bPmbp
+         mQvexRwLgNcLUW32W83ONhcqCGOLKKtqzzbUy4smXmFE5295oWvxDHjBRT3TvhIr/I8T
+         +sgFtgsqb+LWGJ+JKAzHDNV5CwYk8U6b7GjtQ0UQEYO26zlcLJPWlrnuFtltIrFBSP7l
+         LL9o8TTVsIdF0RY88/LGjbFBoDCywxzLwNsgb345U4lDIRAH8NDIwP/W1FDcVln6nwsH
+         QMXg==
+X-Gm-Message-State: AOJu0YxlrE39Am7qqARHn2zSAAE8iPTJxsyNNxyF1EWHWr+yBrSg4zDP
+	6n4Pg8MHG80IqjQjRjWVNCbbAkocGGorIC4MYMu9CQ39KC6bV1LcbTVMaLlVfWKmPtNsq39tbOX
+	1bVtWnDPHI6GXCShGjRHSm29UgvISaek=
+X-Gm-Gg: Acq92OHCXOV7+WpU+9RsxUJ4mZ1VAKDolIvjZiVd43JVdPf7Q1OnRArmAXJJedh6ggA
+	nQL9e20kyUVv32S977e6FSvB2TuPzTp1wvyubqbDzlfS27mck+LXuV0j3EOMJJGzbKd5twh3jem
+	tqfkVyMW0i/DR+aBSWJRpn+UFjBCWTcFbzSQluLbjzpqPFClT7u2SguSP5QgKdRtcUxhHvgnYUl
+	0iEK7Mrw9y6AzZ4/v0f4QcjZy8mOp7wpvw0tsFvuXvhXvPJJ9y3rcSXKq8KRAYaEbZRhCsM4eoY
+	zMNV1lDPeeJTBrY=
+X-Received: by 2002:a2e:be2c:0:b0:393:bffa:d815 with SMTP id
+ 38308e7fff4ca-395d8d3c6f4mr8774721fa.21.1779444838764; Fri, 22 May 2026
+ 03:13:58 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v1 5/7] x86/hvm: Move INSTR_* constants to hvm.h
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Jason Andryuk <jason.andryuk@amd.com>, Teddy Astie <teddy.astie@vates.tech>,
- xen-devel@lists.xenproject.org
-References: <20260518131404.3716969-1-ross.lagerwall@citrix.com>
- <20260518131404.3716969-6-ross.lagerwall@citrix.com>
- <a5b2561f-0225-4f18-bc74-7f66227bc807@suse.com>
- <6a6dd703-cb9f-4a13-b0da-ff1a9d841bc5@citrix.com>
- <4aac1424-1a65-4af2-b9cd-0ec70eee042a@suse.com>
- <9cd57494-3b11-4e75-a8bd-4fe2767f0490@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9cd57494-3b11-4e75-a8bd-4fe2767f0490@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d62444/1779442897-AE342FF4-0764C774/0/0
+References: <998162706f89bb3100bda409d8fde3c8b143eae6.1777886129.git.mykola_kvach@epam.com>
+ <6ebccf8b-c90f-4dca-acf3-ea9cc0dd97f9@amd.com>
+In-Reply-To: <6ebccf8b-c90f-4dca-acf3-ea9cc0dd97f9@amd.com>
+From: Mykola Kvach <xakep.amatop@gmail.com>
+Date: Fri, 22 May 2026 13:13:47 +0300
+X-Gm-Features: AVHnY4JTY5oRYwLyLX9db7cgfHvfqQZA12KjiW4RrfsCgewum5DgEcTugvUwajg
+Message-ID: <CAGeoDV8e1=hqR1VC51ouzFhy125FMtasNB6kLG_g6fJ3GTuLAg@mail.gmail.com>
+Subject: Re: [PATCH] xen/arm: scan CLIDR Ctype fields upwards when probing LLC
+To: "Orzel, Michal" <michal.orzel@amd.com>
+Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-720697/1779444839-83F66161-DA40A2A9/0/0
 X-purgate-type: clean
-X-purgate-size: 3570
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-purgate-size: 4039
+X-Spamd-Result: default: False [-2.19 / 15.00];
+	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:mid,suse.com:dkim];
+	FROM_HAS_DN(0.00)[];
+	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:ross.lagerwall@citrix.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:jason.andryuk@amd.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	MISSING_XM_UA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: EEA9E5B160B
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: F05405B1CFE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 22.05.2026 11:14, Ross Lagerwall wrote:
-> On 5/21/26 12:57 PM, Jan Beulich wrote:
->> On 21.05.2026 12:12, Ross Lagerwall wrote:
->>> On 5/19/26 10:49 AM, Jan Beulich wrote:
->>>> On 18.05.2026 15:14, Ross Lagerwall wrote:
->>>>> --- a/xen/arch/x86/include/asm/hvm/hvm.h
->>>>> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
->>>>> @@ -851,6 +851,35 @@ static inline void hvm_sync_pir_to_irr(struct vcpu *v)
->>>>>            alternative_vcall(hvm_funcs.sync_pir_to_irr, v);
->>>>>    }
->>>>>    
->>>>> +/*
->>>>> + * Encoding for svm_get_insn_len().  We take X86EMUL_OPC() for the main
->>>>> + * opcode, shifted left to make room for the ModRM byte.
->>>>
->>>> With all of this moved, the comment wants adjusting, at the very least by
->>>> putting "e.g." in front of the function name.
->>>>
->>>>> + * The Grp7 instructions have their ModRM byte expressed in octal for easier
->>>>> + * cross referencing with the opcode extension table.
->>>>> + */
->>>>> +#define INSTR_ENC(opc, modrm) (((opc) << 8) | (modrm))
->>>>> +
->>>>> +#define INSTR_PAUSE      INSTR_ENC(X86EMUL_OPC_F3(0, 0x90), 0)
->>>>> +#define INSTR_INT3       INSTR_ENC(X86EMUL_OPC(   0, 0xcc), 0)
->>>>> +#define INSTR_ICEBP      INSTR_ENC(X86EMUL_OPC(   0, 0xf1), 0)
->>>>> +#define INSTR_HLT        INSTR_ENC(X86EMUL_OPC(   0, 0xf4), 0)
->>>>> +#define INSTR_XSETBV     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0321) /* octal-ok */
->>>>> +#define INSTR_VMRUN      INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0330) /* octal-ok */
->>>>> +#define INSTR_VMCALL     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0331) /* octal-ok */
->>>>> +#define INSTR_VMLOAD     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0332) /* octal-ok */
->>>>> +#define INSTR_VMSAVE     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0333) /* octal-ok */
->>>>> +#define INSTR_STGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0334) /* octal-ok */
->>>>> +#define INSTR_CLGI       INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0335) /* octal-ok */
->>>>> +#define INSTR_INVLPGA    INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0337) /* octal-ok */
->>>>> +#define INSTR_RDTSCP     INSTR_ENC(X86EMUL_OPC(0x0f, 0x01), 0371) /* octal-ok */
->>>>> +#define INSTR_INVD       INSTR_ENC(X86EMUL_OPC(0x0f, 0x08), 0)
->>>>> +#define INSTR_WBINVD     INSTR_ENC(X86EMUL_OPC(0x0f, 0x09), 0)
->>>>> +#define INSTR_WRMSR      INSTR_ENC(X86EMUL_OPC(0x0f, 0x30), 0)
->>>>> +#define INSTR_RDTSC      INSTR_ENC(X86EMUL_OPC(0x0f, 0x31), 0)
->>>>> +#define INSTR_RDMSR      INSTR_ENC(X86EMUL_OPC(0x0f, 0x32), 0)
->>>>> +#define INSTR_CPUID      INSTR_ENC(X86EMUL_OPC(0x0f, 0xa2), 0)
->>>>> +
->>>>>    #else  /* CONFIG_HVM */
->>>>
->>>> I further wonder whether putting this in hvm.h is a good idea. Is there
->>>> anything wrong with using a brand new header, e.g. instr-enc.h?
->>>
->>> No objection to that. I do wonder though if using the instruction encoding like
->>> this is the best way of passing through the instruction to the fast path in
->>> hvm_emulate_one_ctxt() since I think in some cases the instruction encoding
->>> may not match the actual instruction that triggered the VMEXIT.
->>
->> Do you have an example? If so, that would indeed be at risk of being misleading
->> or actively confusing. (Of course INSTR_VMCALL wants renaming, as was already
->> suggested.)
->>
-> 
-> VMEXIT_CR0_READ may be triggered by MOV-from-CR or SMSW. There are probably
-> other examples...
+Hi Michal,
 
-Like LMSW, then also relevant to VMX. I think these indeed better wouldn't use
-the wrong INSTR_*. On SVM with decode assists, SMSW can be identified, but
-LMSW / CLTS are ambiguous without fetching the insn.
+Thank you for the feedback.
 
-Jan
+On Fri, May 22, 2026 at 9:41=E2=80=AFAM Orzel, Michal <michal.orzel@amd.com=
+> wrote:
+>
+>
+>
+> On 04-May-26 11:19, Mykola Kvach wrote:
+> > From: Mykola Kvach <mykola_kvach@epam.com>
+> >
+> > get_llc_way_size() currently scans CLIDR_EL1 Ctype fields from the
+> > highest level downwards and stops at the first unified cache it finds.
+> >
+> > However, CLIDR_EL1 describes the cache hierarchy from Ctype1 upwards.
+> > Arm ARM DDI 0487J.a, D19.2.27 says that once software has seen a
+> > Ctype value of 0b000 while reading from Ctype1 upwards, no caches
+> > manageable by the architected set/way maintenance instructions exist at
+> > further-out levels, and the higher Ctype fields must be ignored.
+> >
+> > The current reverse scan can therefore select a unified cache level fro=
+m
+> > a Ctype field above the first no-cache level. Such a field is not part =
+of
+> > the architecturally described CLIDR/CCSIDR cache hierarchy and should n=
+ot
+> > be used for selecting the CCSIDR level.
+> >
+> > Scan Ctype fields from L1 upwards, stop at the first no-cache level, an=
+d
+> > keep the outermost unified cache observed before that point.
+> >
+> > This preserves the result for regular cache hierarchies, while avoiding
+> > selection of an architecturally ignored Ctype field.
+> >
+> > Fixes: f4985fce6f0b ("xen/arm: add initial support for LLC coloring on =
+arm64")
+> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> > ---
+> > This patch follows the xen-devel discussion:
+> > https://lists.xenproject.org/archives/html/xen-devel/2026-01/msg00345.h=
+tml
+> >
+> > In that thread, Michal noted that the reverse scan was a simplification
+> > rather than an intentional requirement, and that changing the
+> > implementation would be fine.
+> >
+> > Testing performed:
+> > - standalone synthetic CLIDR tests covered both regular and pathologica=
+l
+> >   Ctype sequences and showed that the forward scan ignores unified cach=
+e
+> >   levels above the first Ctype =3D=3D 0b000 while the reverse scan can =
+pick
+> >   them
+> > - Renesas H3ULCB booted with llc-coloring=3Don
+> > ---
+> >  xen/arch/arm/llc-coloring.c | 22 +++++++++++++++++-----
+> >  1 file changed, 17 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/llc-coloring.c b/xen/arch/arm/llc-coloring.c
+> > index 6f78817c57..3783f4c824 100644
+> > --- a/xen/arch/arm/llc-coloring.c
+> > +++ b/xen/arch/arm/llc-coloring.c
+> > @@ -22,21 +22,33 @@ unsigned int __init get_llc_way_size(void)
+> >      register_t id_aa64mmfr2_el1 =3D READ_SYSREG(ID_AA64MMFR2_EL1);
+> >      uint32_t ccsidr_numsets_shift =3D CCSIDR_NUMSETS_SHIFT;
+> >      uint32_t ccsidr_numsets_mask =3D CCSIDR_NUMSETS_MASK;
+> > -    unsigned int n, line_size, num_sets;
+> > -
+> > -    for ( n =3D CLIDR_CTYPEn_LEVELS; n !=3D 0; n-- )
+> > +    unsigned int n, line_size, num_sets, llc_level =3D 0;
+> > +
+> > +    /*
+> > +     * CLIDR_EL1 Ctype fields are interpreted from Ctype1 upwards. Onc=
+e a
+> > +     * no-cache level is seen, higher Ctype fields are architecturally=
+ ignored
+> > +     * for the CLIDR/CCSIDR set/way manageable cache hierarchy.
+> > +     *
+> > +     * Keep the outermost unified cache before that point.
+> > +     */
+> > +    for ( n =3D 1; n <=3D CLIDR_CTYPEn_LEVELS; n++ )
+> >      {
+> >          uint8_t ctype_n =3D (clidr_el1 >> CLIDR_CTYPEn_SHIFT(n)) &
+> >                             CLIDR_CTYPEn_MASK;
+> >
+> > +        if ( ctype_n =3D=3D 0b000 )
+> > +            break;
+> > +
+> >          /* Unified cache (see Arm ARM DDI 0487J.a D19.2.27) */
+> >          if ( ctype_n =3D=3D 0b100 )
+> > -            break;
+> > +            llc_level =3D n;
+> >      }
+> >
+> > -    if ( n =3D=3D 0 )
+> > +    if ( !llc_level )
+> >          return 0;
+> >
+> > +    n =3D llc_level;
+> After a loop, n does not carry any meaning, so I find this assignment a b=
+it odd
+> and confusing to read. Just use llc_level below. With that:
+
+Ack.
+
+Best regards,
+Mykola
 
