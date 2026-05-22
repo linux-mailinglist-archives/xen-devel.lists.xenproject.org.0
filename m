@@ -2,44 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4QfZJ5AsEGqSUgYAu9opvQ
+	id aCBYFQcuEGrIUgYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 12:14:40 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 12:20:55 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F05405B1CFE
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 12:14:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1316548.1585922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA76F5B1F31
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 12:20:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1316557.1585931 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQMtH-0000hD-8x; Fri, 22 May 2026 10:14:03 +0000
+	id 1wQMzJ-0002aI-T5; Fri, 22 May 2026 10:20:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1316548.1585922; Fri, 22 May 2026 10:14:03 +0000
+Received: by outflank-mailman (output) from mailman id 1316557.1585931; Fri, 22 May 2026 10:20:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQMtH-0000fE-62; Fri, 22 May 2026 10:14:03 +0000
-Received: by outflank-mailman (input) for mailman id 1316548;
- Fri, 22 May 2026 10:14:01 +0000
+	id 1wQMzJ-0002YG-QN; Fri, 22 May 2026 10:20:17 +0000
+Received: by outflank-mailman (input) for mailman id 1316557;
+ Fri, 22 May 2026 10:20:16 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wQMtE-0000e3-VE
- for xen-devel@lists.xenproject.org; Fri, 22 May 2026 10:14:01 +0000
+ (envelope-from <andrew.cooper@citrix.com>) id 1wQMzI-0002YA-DM
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2026 10:20:16 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQMtD-006PAg-T7
- for xen-devel@lists.xenproject.org; Fri, 22 May 2026 12:13:59 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wQMzH-0061aW-KM
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2026 12:20:15 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a102c61-2eae-0a2a0a5409dd-0a2a4502d7de-18
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 12:13:59 +0200
-Received: from [209.85.208.175] (helo=mail-lj1-f175.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a102c67-af86-0a2a45020019-d155d0afac11-3
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 12:13:59 +0200
-Received: by mail-lj1-f175.google.com with SMTP id
- 38308e7fff4ca-3937014be0cso14153981fa.0
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 03:13:59 -0700 (PDT)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a102dd4-2eae-0a2a0a5409dd-0a2a4506d84a-40
+ for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 12:20:15 +0200
+Received: from [52.101.62.13]
+ (helo=DM5PR21CU001.outbound.protection.outlook.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a102ddb-7371-0a2a45060019-34653e0de39b-4
+ for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 12:20:13 +0200
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by SJ0PR03MB6614.namprd03.prod.outlook.com (2603:10b6:a03:38a::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Fri, 22 May
+ 2026 10:20:05 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.21.0048.016; Fri, 22 May 2026
+ 10:20:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,225 +58,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-ARC-Seal: i=1; a=rsa-sha256; t=1779444839; cv=none;
-        d=google.com; s=arc-20240605;
-        b=OUUAqPPwaFFD9BYbhTUT1OEw6GJXMo++kT9TFhr8Ubm48hiNvY0fdTkUtZEtS2Flff
-         +1BsSvS+q5b0Cw0dhekgxOB/Ib5bilfAzszVkKmxfwiUFlSSF7kiLmE014P/PDA1QJZ6
-         aiC0cVsWMZ05PuWEhLwPyOhG/8YWTXaiYsYUdB8EteMw+qWOm3VzDP37vOurQKNwuy45
-         QUaXlLWxUS6rtbR4SyP8GfikV/Z2Dis+wc5gWPpsBVJtnzzjIM2C5ZdSjB6WLLznTlK/
-         J+HVHqNOwJihksa2YOxJFqbQqJlkwXLozrpOEYzog/AN+zEfQ6s+4rRwExB2QMUEch+E
-         q1NA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JUX6vHTa7p0Sfwz+CeidZwv32/WawPrRTHCpIPs0Gdc=;
-        fh=zL8KVAj6rSaYbk/102rEWeOa69wm5cw+i9nXMzeM8z8=;
-        b=VcxvFykSeKMh428DFLWUPtDRfjZLT/VIYvSLXdWHl0bDocDI6WcAMOIHuEZn1ckF1d
-         NWzJBJroYQfAZdS8Un+/m/mQR3lZLb7tgKZmcW9USR11uAtr3a/ZsLKbPn10wS0He0uN
-         IOvHsTwjqJZ8UPp4KbXgBvDVXIfNyHF5GCDuhQIJBdfq2SiRgEr4G7HVmTjUs8GVDjqg
-         7mHvhV/tb72ABjDBC6BxnGoie0nUvHTcO5JB3bfGrwkSSPSJibLYQ3uXONX/Pm0Cki2i
-         k5TnR3yAL/gAAZsUa9ljLxIbXUXBLUlAbFKLEXOEZ4zwnoBicePx9EwDvcvgUCX+m0st
-         j1Jw==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779444839; x=1780049639; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JUX6vHTa7p0Sfwz+CeidZwv32/WawPrRTHCpIPs0Gdc=;
-        b=LPIeRfwNH1X6nF+0631fonW5AZZahlbS5Fxs/uJwp7iYYvo7TzesuuENHud3D1f4uc
-         RpTTR+bjeX+eEQvmd5gl36GfhGjY2/dE9fHhfhuRWsL6j1dWemR/uF68l55CabJUSSF6
-         thuCGS5H1Fk3UcL7mtqEbd1VCbLV2/4rSM4Pq6Hoq75OEdbPOFx/9w2jmUpWHwlJIuTX
-         pshDHH/4VAS38S4SbvhnVwNT2rCxiw5H0sPxfYFJ0CV6T+YcQxKsM+yluPDrCwMJsSIk
-         FCRjoDQJOBlbE8Q8TCMdARpFEJlvycx6ULezP4MnCX8jn6Cgd5j8Q0Mey9Rhtc+q3Xq7
-         Hw4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779444839; x=1780049639;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=JUX6vHTa7p0Sfwz+CeidZwv32/WawPrRTHCpIPs0Gdc=;
-        b=HaqIb5UXBK8zqSCOO5jUD/144LrUjbCjTNwuZH9Nz+7bcK23jThlJ2AuO/0IQsFS61
-         Ia9AZ/BjI3iuluoFyBai4f17q3oI+ZPYKMnYJgk/xvjLr7zgash6raKdFfVV+K0bPmbp
-         mQvexRwLgNcLUW32W83ONhcqCGOLKKtqzzbUy4smXmFE5295oWvxDHjBRT3TvhIr/I8T
-         +sgFtgsqb+LWGJ+JKAzHDNV5CwYk8U6b7GjtQ0UQEYO26zlcLJPWlrnuFtltIrFBSP7l
-         LL9o8TTVsIdF0RY88/LGjbFBoDCywxzLwNsgb345U4lDIRAH8NDIwP/W1FDcVln6nwsH
-         QMXg==
-X-Gm-Message-State: AOJu0YxlrE39Am7qqARHn2zSAAE8iPTJxsyNNxyF1EWHWr+yBrSg4zDP
-	6n4Pg8MHG80IqjQjRjWVNCbbAkocGGorIC4MYMu9CQ39KC6bV1LcbTVMaLlVfWKmPtNsq39tbOX
-	1bVtWnDPHI6GXCShGjRHSm29UgvISaek=
-X-Gm-Gg: Acq92OHCXOV7+WpU+9RsxUJ4mZ1VAKDolIvjZiVd43JVdPf7Q1OnRArmAXJJedh6ggA
-	nQL9e20kyUVv32S977e6FSvB2TuPzTp1wvyubqbDzlfS27mck+LXuV0j3EOMJJGzbKd5twh3jem
-	tqfkVyMW0i/DR+aBSWJRpn+UFjBCWTcFbzSQluLbjzpqPFClT7u2SguSP5QgKdRtcUxhHvgnYUl
-	0iEK7Mrw9y6AzZ4/v0f4QcjZy8mOp7wpvw0tsFvuXvhXvPJJ9y3rcSXKq8KRAYaEbZRhCsM4eoY
-	zMNV1lDPeeJTBrY=
-X-Received: by 2002:a2e:be2c:0:b0:393:bffa:d815 with SMTP id
- 38308e7fff4ca-395d8d3c6f4mr8774721fa.21.1779444838764; Fri, 22 May 2026
- 03:13:58 -0700 (PDT)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZRvZuymOzuizy3NKMJTmhNsG/XXIOW4vxOjfVVBdeLYAacUgWjEsdVMbFQJBCeB/zQLpXsrzC7tq3lU7TLpKNRAKJ1GtaJA8eTAD201Hrj6176KXtOS+hENGsUPRZvuOxqEsMNokCNe5A3qIPbDWruIACGZrOH8UjAlFug9hajth+bkUqAbDZAUZz/qjOJjXrLt7G6o9evB1E/tHDDAYr5ujPXN0ykPiAsL6TKJOB0P8eTW4TvYhEm8syqR4XO4T/eDnRBQiLRj8NQXABpsvQm8tGnTkCLkuFaglgtwQ2fY3tn51R5sVYrF7rUQSVU8fptzbY63VVR6aTUnDyH3uJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T4Z5ZTTDJlRsvZDCAMq4Vzo1JTnNk3MS3KO2phOkyiw=;
+ b=EaxzAHeyX5SrgJT9MhbGULeua+dgjqaLbOI3QnsVxBBZQL568kZpVDc0fQX/SLiHFKlTZGjw5FRSz4je0PbmANGQ/SdmL48fOQBQuUAOUpB3FEZ7dCFKWvOaGusG2KRcKlykyyLV4kcR//VFe+tfRr4wDNUrVwihLbUNrSmpYzHjdE+ey6VWgsQw65MhRh9X4CqSCO97xSGSsmyusXA3xyyLi8vpUFALjNvWxvF2owa//aomhMXO33sNSqVe7JlMJ8FEkliqoFH+3s5wF0mGjkyA+FzhsVjAYOVIzBZDPA5RDVZ/BTn8SA/RpNAprmWQas6kcn9yiAAL9w3Ek4CCuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T4Z5ZTTDJlRsvZDCAMq4Vzo1JTnNk3MS3KO2phOkyiw=;
+ b=zmbrR4ubE3Fqc87nK+sS/gsq6dlwTRS6EK/04lDIWKZgl3K6qs43Hfvadx9LZd1fcsLPETd6D79ii6bI/dkUUT2m736l56EIig2V0Yg6bAAK/H4msXE45XqgbOBkCNNdIQfuEJLKZmMW5TWRGuXZZKffsIXp+OLu3Ybfc65jXUE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Message-ID: <00d987d3-6a9c-440e-beb8-6587a3fd1d9b@citrix.com>
+Date: Fri, 22 May 2026 11:20:02 +0100
+User-Agent: Mozilla Thunderbird
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH v1] automation: edit rules for analyze jobs
+To: Victor Lira <victorm.lira@amd.com>, xen-devel@lists.xenproject.org
+References: <20260520225820.31550-1-victorm.lira@amd.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <20260520225820.31550-1-victorm.lira@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0433.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a9::6) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
 MIME-Version: 1.0
-References: <998162706f89bb3100bda409d8fde3c8b143eae6.1777886129.git.mykola_kvach@epam.com>
- <6ebccf8b-c90f-4dca-acf3-ea9cc0dd97f9@amd.com>
-In-Reply-To: <6ebccf8b-c90f-4dca-acf3-ea9cc0dd97f9@amd.com>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Fri, 22 May 2026 13:13:47 +0300
-X-Gm-Features: AVHnY4JTY5oRYwLyLX9db7cgfHvfqQZA12KjiW4RrfsCgewum5DgEcTugvUwajg
-Message-ID: <CAGeoDV8e1=hqR1VC51ouzFhy125FMtasNB6kLG_g6fJ3GTuLAg@mail.gmail.com>
-Subject: Re: [PATCH] xen/arm: scan CLIDR Ctype fields upwards when probing LLC
-To: "Orzel, Michal" <michal.orzel@amd.com>
-Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-720697/1779444839-83F66161-DA40A2A9/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|SJ0PR03MB6614:EE_
+X-MS-Office365-Filtering-Correlation-Id: 53ef9f1a-42d5-42e0-d6cf-08deb7ebb16c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|6133799003|11063799006|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	12rZNECHG/NRedEb5KR+dzJLakVlTjzC8DY1vcN4Ur6PySSXcYMNXj4s6bDcjny7PVfbmErPmarb59EKRRtTT/4Fp3cEBS5fX7cSM3PAb0b3avlt64J/5yr4ufno9oaFF2wXostZ2OhZgebw1hzP8L2kle623NoIgkmSJixQEXCa04OoqRtfEM7zE/31dL3OlK60KHzoGGpbbceBkdBv0CTY49KtbjDJ1oDdj1FHwyZqc3jcIMhNI1bJL7ufx/DH7oEGwW7rpUYRe08WX/6BzBSh+D82C/10FaYJ8JT/7SjCYwM2C1teyFhPKlm9pVUYTbjegLCKPUQe+dhwWlkfjZYhJxfaVbsrY8DtKUn5x5l6i1rqCYYtbYi6Tr7ZGXwrfUe3TWa6OPM6D/5AshUzGUaLRFh4g0L4V9Z4Qrkkz5p7Tb7Ir+kwemm8i/hmLmOr98zfL5HNxprGhynp4ELcng1UX/Y6620Ohggwl+P34RbcVpn6EoGxkd4c01mioPrgCDeTIubwSLxe4FEFc/yJ82++2e/IeD9+oCV4xtx7T7dWquFxnhEqqfLbayDHFvru0Yp72GtCe5D7YIqe/iagBI10k/xaYmt80xE8JTWtmjPoNa6Y+j9l2XWPSXkAuH/pud5e0V97+qPCJugciS4bbjBlUHgAesBpBexeK0IW1erFRDMaLdqQFWzliJLP6RqAYYPn0r744pRszRDXVIWHDQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(6133799003)(11063799006)(22082099003)(56012099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SHN5SEh2WUl6OW1YK01iZVFYZ25TV002NTRtNXF5VWlveFRkeDMyL3dCT2VU?=
+ =?utf-8?B?WVZrUlo2MVNrNldoWS8rOWxaV1EydUV3QVRMaFhpeERmRSs4cXZmcjlaL1lW?=
+ =?utf-8?B?aGs2Q2srTGVjWklkcllYSTlqUUUrYzZpUkFBNU5zS01kUUo1QXF4Vkp3VVdh?=
+ =?utf-8?B?Vmd5VDNlbzQwQlUyK1EyeFNxUjdRajdmdzR5UzRUL1IvM0pOelVUK1V3dDk4?=
+ =?utf-8?B?dlUyV2srWURRM3lyNUx6RVhCUGM4R3FmUUxURGNJenRndW5mbEM1bFFLcDV2?=
+ =?utf-8?B?ekg3dWJpYWcrMG0rVnozdVRoVXNUcTcxdlhRZWw5THdtWWRkNnV1a0M0dkNk?=
+ =?utf-8?B?REY1bGU5MzE4cElqY2VUdlg3Ny9UUW4vV1FPN0lQU2Z2aFZvRStTSXRBVzRp?=
+ =?utf-8?B?dVFYZjQvWlpucUNqVW5raEplUCtOMk9jcHQ0QWRnNHR3YVRCeTlGN2plUVhS?=
+ =?utf-8?B?dDZLRWFRUGpKNTF5UTdaSEVWTkoza2VReUZEL2RCVHo3NzRJQzdkNU5lTGVP?=
+ =?utf-8?B?U2h5RGthYnNCSnpVSFFtT1VBaDM3ZEFyL0tLeklMcU1HZE5oWEdqZ0hxSkFX?=
+ =?utf-8?B?U0UyWXNTM3N6b3BjMkVWYjhXTVNXYXJ0ZkFUbW1yVVowL0MvVjVEanJ4aHZ3?=
+ =?utf-8?B?NTdaRkc3R2prajNsYy9zeXpUWFgxQ0ord3YzWGlQMWgyZDdGREphaGlxb2pr?=
+ =?utf-8?B?a2ZlOTJuT0JkT2ttUFNuLytPNTBScFdZMlFWSkhrc1dBcjNEWmFLUkVvMVFU?=
+ =?utf-8?B?aDNxL2doYnVyS2xnZks5bVVHNkViQXNHdVFieHJIZ0dPL1B1L3lpUjMxQXBB?=
+ =?utf-8?B?TkRxN3VjZlJSWU8wMWx5dU1aQlVRN0hXWmVlKzVtczkyaWI5Qy95d0Y4Z3M4?=
+ =?utf-8?B?T1lFSE4vWFRORnNKVTgydlJFWWJrNDl2amR0LzlCemFZalFSaHNibUlSaGhO?=
+ =?utf-8?B?V0RTQ1BTS1dqeUVuQzB5dytMR3dIdlgyZ2R1Z2hPWGUzU1lUTlRMMHhXRHdQ?=
+ =?utf-8?B?eGRpOVdnTUtCaGxaeW5teTNsTnpJNnZzMTFMeXpMVURmbW5lR0N4K2l3MDhQ?=
+ =?utf-8?B?SXBtckMxaDV5UTRpM1d3SzdvbEc3SDNaN2dCL2p2bmhJVUpYSC9IOXowVk1H?=
+ =?utf-8?B?MUdrQlZwaGpSS2xWWGExRFRkYmVOTkpLbWd5SmNsTndMaEVOZ2RxR25MMWJn?=
+ =?utf-8?B?YysyVkJzQmdCb1V4SUNmamVNanRBQTQrSE0xMVNoOVc0aWFSMU9FUnAzOEIz?=
+ =?utf-8?B?cGF4TG5YZk5MOHFCSVRsdkxQZTVkNDJyYjdHMGlVR1pBWEVpVGEvZGx3dHYr?=
+ =?utf-8?B?WVJPYXh1MW1qMHQxS3R6K3ZlNGRoaFRMTnJ1ZGhUK3pEN3VaRFRRS0I3N0gz?=
+ =?utf-8?B?VXRxbGptRVZKcnZ0OUhReFJrMTZjeHJWSEIreGpqeVdOT21jVmhzOVVhUFln?=
+ =?utf-8?B?aDNoQWhmOVcvd2N3NkVubTJwR1hQUjdKajRIUG9DV29hZTZhRDAwWEFoWDd1?=
+ =?utf-8?B?VVRDNExvWVRLUlFIR3lwTXlUNmRHL3FjREVhb2lmb1llRllBdWxEOVdRa1F5?=
+ =?utf-8?B?NlZNVTg3cmpObWRkbkU3QTg2WElrVUdQUjJ2WGVyT1ZxdUtudVVXY3RIVVd0?=
+ =?utf-8?B?V0VjRHdOTTNGcThiWnBmSjBvR21mMUQ4VDRRNm4yNFZjTlpiTkJaekJuemJG?=
+ =?utf-8?B?Tm5kanYzS2V3NGVhOTZVYVNnTnNONjB1OEhrZkJ3cllhOElNT1ZtdUczWnBw?=
+ =?utf-8?B?ZDgxSDFTTG5qRVBPUTgyT1IzdmIrb2FjVmdDRGcrQUxBOGVCVk1PL1BtVjR3?=
+ =?utf-8?B?bmVxY3VJVnlRUnBWakJzcVB6aDJZWXZGYW9PRzdTV2FBTnpteFpYUzQ0WmJW?=
+ =?utf-8?B?bWlwdVphVEdRblF6azRCRnFWdW1MekRMKytIQ0g3ZkQ0bEdWTUtqWnJXOWM4?=
+ =?utf-8?B?bDVSY2xPWjM3Q1pKcGhWZ21LeSszWTNnUVMrOHV4azFtQ1NXcFNMckNSNEwz?=
+ =?utf-8?B?d1FLQUlNRnZjZjRVcHk2aGQ2WVBJNVRWZ3dsWmJaVEw5UGE4UG5ZVXQya3BL?=
+ =?utf-8?B?d0FRZkZObUpUZVNQdktiVmYvQXMvRjBTb2xYNkFocCs3eXZweVZ0OTRnRmJH?=
+ =?utf-8?B?SFBQMTJCY0VVcFNFVWVEeFZkUUN5ZmZPdHl0OTNMck1JaXA1Vkt0NGhyL0Qx?=
+ =?utf-8?B?TnlPU2RjZys1czhNUzI5T21sNUluR1ptK3QxNjROVWRJekxBY0FDdHlBYkx2?=
+ =?utf-8?B?UWl0TlNzRTNJSCtKdTZlS2xsbXp3TWQxamkwNFhIUm5wUHozU3hFbWNqM1lz?=
+ =?utf-8?B?UkgycU9vaE1uNVJxL2dJRzNxMllLWmxrNEY0bGJXR1JYQUJIdDVFMnFPTTFM?=
+ =?utf-8?Q?//VMHVDKiGcLNaGU=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53ef9f1a-42d5-42e0-d6cf-08deb7ebb16c
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2026 10:20:05.5766
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: U8hEYU8klWBTV6x0e6GJXmuhWwVHrbtlNiu2J58WYW1W8t4T+7VxpxMK5y8uhbE0DcLJqEdrLjJAjyjLq0DCvdm35tTKTXlhVuuqWoBjB0E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6614
+X-purgate-ID: tlsNG-16d1c6/1779445213-8DF81D75-6F34DDF9/0/0
 X-purgate-type: clean
-X-purgate-size: 4039
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-purgate-size: 1835
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	TAGGED_FROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	URIBL_MULTI_FAIL(0.00)[amd.com:server fail,lists.xenproject.org:server fail,gitlab.com:server fail,citrix.com:server fail];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:michal.orzel@amd.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:cardoe@cardoe.com,m:sstabellini@kernel.org,m:victorm.lira@amd.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.999];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,citrix.com:mid,citrix.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo,amd.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: F05405B1CFE
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: AA76F5B1F31
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Michal,
-
-Thank you for the feedback.
-
-On Fri, May 22, 2026 at 9:41=E2=80=AFAM Orzel, Michal <michal.orzel@amd.com=
-> wrote:
+On 20/05/2026 11:58 pm, Victor Lira wrote:
+> rewrite analyze jobs rules to simplify the conditions under which the
+> jobs appear and run
 >
+> after these changes:
+>  - to appear, all jobs must be selected (SELECTED_JOBS_ONLY), have token
+>    (WTOKEN), and be in an allowed path (CI_PROJECT_PATH), this is specified in
+>    .eclair-analysis
+>  - the subcategories have their own exceptions, keeping current behavior:
+>    - ECLAIR_SAFETY/ECLAIR_TESTING can force enable some
+>    - eclair-testing jobs will not appear outside xen-project/people
 >
+> This assumes we don't use pipeline sources other than push/api/schedule.
 >
-> On 04-May-26 11:19, Mykola Kvach wrote:
-> > From: Mykola Kvach <mykola_kvach@epam.com>
-> >
-> > get_llc_way_size() currently scans CLIDR_EL1 Ctype fields from the
-> > highest level downwards and stops at the first unified cache it finds.
-> >
-> > However, CLIDR_EL1 describes the cache hierarchy from Ctype1 upwards.
-> > Arm ARM DDI 0487J.a, D19.2.27 says that once software has seen a
-> > Ctype value of 0b000 while reading from Ctype1 upwards, no caches
-> > manageable by the architected set/way maintenance instructions exist at
-> > further-out levels, and the higher Ctype fields must be ignored.
-> >
-> > The current reverse scan can therefore select a unified cache level fro=
-m
-> > a Ctype field above the first no-cache level. Such a field is not part =
-of
-> > the architecturally described CLIDR/CCSIDR cache hierarchy and should n=
-ot
-> > be used for selecting the CCSIDR level.
-> >
-> > Scan Ctype fields from L1 upwards, stop at the first no-cache level, an=
-d
-> > keep the outermost unified cache observed before that point.
-> >
-> > This preserves the result for regular cache hierarchies, while avoiding
-> > selection of an architecturally ignored Ctype field.
-> >
-> > Fixes: f4985fce6f0b ("xen/arm: add initial support for LLC coloring on =
-arm64")
-> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> > ---
-> > This patch follows the xen-devel discussion:
-> > https://lists.xenproject.org/archives/html/xen-devel/2026-01/msg00345.h=
-tml
-> >
-> > In that thread, Michal noted that the reverse scan was a simplification
-> > rather than an intentional requirement, and that changing the
-> > implementation would be fine.
-> >
-> > Testing performed:
-> > - standalone synthetic CLIDR tests covered both regular and pathologica=
-l
-> >   Ctype sequences and showed that the forward scan ignores unified cach=
-e
-> >   levels above the first Ctype =3D=3D 0b000 while the reverse scan can =
-pick
-> >   them
-> > - Renesas H3ULCB booted with llc-coloring=3Don
-> > ---
-> >  xen/arch/arm/llc-coloring.c | 22 +++++++++++++++++-----
-> >  1 file changed, 17 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/xen/arch/arm/llc-coloring.c b/xen/arch/arm/llc-coloring.c
-> > index 6f78817c57..3783f4c824 100644
-> > --- a/xen/arch/arm/llc-coloring.c
-> > +++ b/xen/arch/arm/llc-coloring.c
-> > @@ -22,21 +22,33 @@ unsigned int __init get_llc_way_size(void)
-> >      register_t id_aa64mmfr2_el1 =3D READ_SYSREG(ID_AA64MMFR2_EL1);
-> >      uint32_t ccsidr_numsets_shift =3D CCSIDR_NUMSETS_SHIFT;
-> >      uint32_t ccsidr_numsets_mask =3D CCSIDR_NUMSETS_MASK;
-> > -    unsigned int n, line_size, num_sets;
-> > -
-> > -    for ( n =3D CLIDR_CTYPEn_LEVELS; n !=3D 0; n-- )
-> > +    unsigned int n, line_size, num_sets, llc_level =3D 0;
-> > +
-> > +    /*
-> > +     * CLIDR_EL1 Ctype fields are interpreted from Ctype1 upwards. Onc=
-e a
-> > +     * no-cache level is seen, higher Ctype fields are architecturally=
- ignored
-> > +     * for the CLIDR/CCSIDR set/way manageable cache hierarchy.
-> > +     *
-> > +     * Keep the outermost unified cache before that point.
-> > +     */
-> > +    for ( n =3D 1; n <=3D CLIDR_CTYPEn_LEVELS; n++ )
-> >      {
-> >          uint8_t ctype_n =3D (clidr_el1 >> CLIDR_CTYPEn_SHIFT(n)) &
-> >                             CLIDR_CTYPEn_MASK;
-> >
-> > +        if ( ctype_n =3D=3D 0b000 )
-> > +            break;
-> > +
-> >          /* Unified cache (see Arm ARM DDI 0487J.a D19.2.27) */
-> >          if ( ctype_n =3D=3D 0b100 )
-> > -            break;
-> > +            llc_level =3D n;
-> >      }
-> >
-> > -    if ( n =3D=3D 0 )
-> > +    if ( !llc_level )
-> >          return 0;
-> >
-> > +    n =3D llc_level;
-> After a loop, n does not carry any meaning, so I find this assignment a b=
-it odd
-> and confusing to read. Just use llc_level below. With that:
+> Signed-off-by: Victor Lira <victorm.lira@amd.com>
+> ---
+> this preseves the current behavior of the -testing jobs running anywhere on
+> xen-project/people but maybe we want to limit it to whoever is doing the
+> testing, or in some other way
+>
+> tested on my own repo xen-project/people/victormlira/xen
+>
+> push https://gitlab.com/xen-project/people/victormlira/xen/-/pipelines/2541858231
+> push /eclair-x86_64-amd$|alpine-3.18-gcc$/ https://gitlab.com/xen-project/people/victormlira/xen/-/pipelines/2541859057
+> push /alpine-3.18-gcc$/ https://gitlab.com/xen-project/people/victormlira/xen/-/pipelines/2541859605
+> schedule https://gitlab.com/xen-project/people/victormlira/xen/-/pipelines/2541871689
+> schedule /eclair-x86_64-amd$|alpine-3.18-gcc$/ https://gitlab.com/xen-project/people/victormlira/xen/-/pipelines/2541875599
+> schudule /alpine-3.18-gcc$/ https://gitlab.com/xen-project/people/victormlira/xen/-/pipelines/2541876512
 
-Ack.
+I'm afraid this still doesn't work.
 
-Best regards,
-Mykola
+I pushed with ci.variable=SELECTED_JOBS_ONLY="/eclair-x86_64-allcode/"
+and still got the eclair-*-amd jobs started.
+
+https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2545988798
+
+~Andrew
 
