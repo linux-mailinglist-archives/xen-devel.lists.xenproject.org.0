@@ -2,49 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6LRoCdg+EGrzVAYAu9opvQ
+	id 8A4wNQtLEGqmVwYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 13:32:40 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 14:24:43 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F37D5B30B9
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 13:32:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1316691.1586052 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68A7A5B3E05
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 14:24:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1316724.1586072 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQO6Q-0004JE-Rd; Fri, 22 May 2026 11:31:42 +0000
+	id 1wQOvB-00057x-N0; Fri, 22 May 2026 12:24:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1316691.1586052; Fri, 22 May 2026 11:31:42 +0000
+Received: by outflank-mailman (output) from mailman id 1316724.1586072; Fri, 22 May 2026 12:24:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQO6Q-0004Hm-Nu; Fri, 22 May 2026 11:31:42 +0000
-Received: by outflank-mailman (input) for mailman id 1316691;
- Fri, 22 May 2026 11:31:41 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wQO6P-0004Hg-3S
- for xen-devel@lists.xenproject.org; Fri, 22 May 2026 11:31:41 +0000
+	id 1wQOvB-00055Q-KK; Fri, 22 May 2026 12:24:09 +0000
+Received: by outflank-mailman (input) for mailman id 1316724;
+ Fri, 22 May 2026 12:24:08 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e4fa4847a000f373@swg.vates.tech>)
+ id 1wQOvA-00055K-3L
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2026 12:24:08 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQO6O-006HyH-1b
- for xen-devel@lists.xenproject.org; Fri, 22 May 2026 13:31:40 +0200
-Received: from [10.42.69.12] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a103e87-5cb7-0a2a0a5109dd-0a2a450cae20-48
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 13:31:39 +0200
-Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a103e9b-62f1-0a2a450c0019-d155dd36a864-3
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 13:31:39 +0200
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-44dd5cb0f81so5566419f8f.0
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 04:31:39 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eb6d70d89sm3734890f8f.37.2026.05.22.04.31.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 May 2026 04:31:38 -0700 (PDT)
+ id 1wQOv9-006ODu-Ej
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2026 14:24:07 +0200
+Received: from [10.42.69.3] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e4fa4847a000f373@swg.vates.tech>)
+ id 6a104ad9-5cb7-0a2a0a5109dd-0a2a45039680-28
+ for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 14:24:07 +0200
+Received: from [185.255.28.34] (helo=prod-mta-13.swg-srv.net)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e4fa4847a000f373@swg.vates.tech>)
+ id 6a104ae6-672d-0a2a45030019-b9ff1c2292ed-3
+ for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 14:24:07 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19e4fa4847a000f373.006 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 22 May 2026 12:24:02 +0000
+Received: from l14 (unknown [82.67.99.167])
+ (Authenticated sender: anthony.perard)
+ by mail2.vates.fr (Postfix) with ESMTPSA id B668786A30;
+ Fri, 22 May 2026 14:24:01 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,147 +61,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779449499; x=1780054299; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=cS+xhpdW4/9T0o18/WwgltAV9N9KT6izsx/rOGJbAS4=;
-        b=dOc09XxzvMNazY4jE/VCZiogCSGkOES6p8fnFFz5hYKMBMjWp6tKYa87Igvsy5rgjd
-         xzPuzdDpIHUcKm/6gJTftmRdx3M6JeqVwlKjgoR50lRa3zyYZ7ehxLxcv9tz5a0k8nRH
-         t6A4YiSk6I0U/hp/Uvpkxucw66la/05sFSqVbGlZuL1q7HgYpiIOAUUCH+V5kMuME/9S
-         mELmwyNvfx5ywRSL+U0s/tr6oJLsoPsJWMpLFqQRBB2WoPd9T8BctW2I1R1YKNMZZL4w
-         pls2HJcFjghixys647aVGrthGwumjz9ZR+KsoKiImNorUUfDkQX0jq2cnxGH5vyKleGM
-         SQOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779449499; x=1780054299;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cS+xhpdW4/9T0o18/WwgltAV9N9KT6izsx/rOGJbAS4=;
-        b=Ml3S+uqVqfjW5lxqOau2vlf9agxAe/o8I+cOpAY0m+jXHk6lE7dptCBaGhxhRkKAXI
-         8nCf/euK8Z7dMjx5je+zqvJIsbWO7e4USLx8LooT9L23zQbVQE//3eiciid9kGFJ6+lC
-         IYWlcep4LdicNAxXFPB9pk6f/oY1G0o0Rggk4hK7O2eoMCZVaS7f0ST0ex5cbJhGENbw
-         6FBQTMybZzVJxGVyA97S5DV2ikTtoPyyrrIZkMhH4w/P1PcpYp4kXzhK+To+HjTp+cjH
-         qCZcKY81Zi1oWIH+vd9MrMOgGieTkvhz21Ozf8BAp9XlkDPU6QvxXZvNRj8FhwOklM+S
-         J8Aw==
-X-Forwarded-Encrypted: i=1; AFNElJ/8TkQyw35Mxm28UPKGSPcSJhe33mxJ6ktsbR04Jf2IqM0KDIGsn3MPvUzxy8dRcZEHL7q4JsG/N3A=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyWcJyScErM8+YVWoEW7W5SLc1neJ6DWS1Hs8/SqoUG5YiuzyKc
-	HTzQ9LLMvEmJZkJj0ApV2/s8uuIDfU92Au1YncVsF6srstBbEJ+M57Jp8TXjDGP38w==
-X-Gm-Gg: Acq92OHRdEea5K+qGRnYCAR7uO61cukKZzwnvVzowntC6KY4FrlQ4iwDVL+vp9KTfnd
-	US0UPdax+YQYFbZ1Hc69EXVoXjedjeg8V/Opwtb1DIndTG6aMiiddRMXvI4X1OHOBf+ShvQUHNe
-	AYJEjPAkks+6bDR6gNSxBiLeYWs2ckQdG28u56LDg/Pkxfexo2IJJxCjQ6VFKaELkwOcKnK7Z68
-	1LMURDpcp6sg/cyfnUaivZc3HUipr7HY0eojfJABOZcZ4t1WQAJILoK/9hiy1Fo38Z9kBubgZna
-	JofSxpZenufuA3XZHCwRfFjHsGn5wcw2SOjQ6V+hqqZpj3POjGYnUyPdMYtu6hhK1dRYq6rzOI7
-	A7uw4hiKKUOgNkYeP6/sr6ta4IwOR3TwpnXnW3m7sQU+fpmA7KEGFS21a9MH31Ewc+2CljCa6XQ
-	wMAE75gq+Z5dPA0P6MFJhc8EfQGVN0XJqFkr0Uf/fz6x4ICRS1VxKuEnE8d9j3klvLnnMF0j+Ui
-	cb8HLeH1s0hJVE=
-X-Received: by 2002:a5d:5d81:0:b0:45e:91c1:2518 with SMTP id ffacd0b85a97d-45ea31a1efemr10182196f8f.19.1779449499176;
-        Fri, 22 May 2026 04:31:39 -0700 (PDT)
-Message-ID: <8c394056-36a8-426c-8c09-ec7594202b4a@suse.com>
-Date: Fri, 22 May 2026 13:31:37 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [for-4.22 PATCH] xen/gnttab: Fix TOCTOU race in
- gnttab_set_version()
-To: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=vates.tech header.i="@vates.tech" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:In-Reply-To:References:Feedback-ID"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=8i7nULkws/S/u415AReAU6V5YZyWrzfJhGhmffEUBJI=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=odlHCq05VRUp1R2kNjuYhFcO45q3J1ZuKA0BRIb4a79Q7Z5ABaGAEVcCCMoAdKqKthyF5a9Yf
+ n1D3betJiY2Im8UwiElHWN9A8Zeu/nkXVyjq17LKIOow6wlK5oVQvicqAZ5pOaClJmo3HLPIDfd
+ lH2U59HjUX4HqsEpmCNzBJLLD1SRXbaEotiQfT7vB7J6jN9BH0GAX6Nmz/B31+G5yN2CXwWUccn
+ vuDEBwaJlbMtDf8712arZCvjWuYRj/3F3LzG99JDBVQE562k2L6XJVnyAtRETTgqM7netxkmTz8
+ x6JtWKn3X4Nu7SMXzjMKxa5Lq60LgHWiymZFLoItYygA==
+X-Zone-Loop: 1d18b5a0c1e15245d1999d450963cd0602742097590e
+x-campaign-type: default
+x-transaction-id: 2249cc6a-b8b6-4462-a299-47bd2dfe9dba
+x-swg-uid: 01-5171774b-106b-4f75-b025-b1c6b60a906d
+X-Mailer: Sweego
+Message-ID:
+ <1779452642.8631fc262581453bbf619ec5b2062170.19e4fa4847a000f373@vates.tech>
+x-swg-bid: 1779452642.8631fc262581453bbf619ec5b2062170.19e4fa4847a000f373
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Fri, 22 May 2026 14:24:01 +0200
+From: Anthony PERARD <anthony.perard@vates.tech>
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20260522105709.25073-1-alejandro.garciavallejo@amd.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260522105709.25073-1-alejandro.garciavallejo@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-d25034/1779449499-E0F62CF5-C4D05F02/0/0
+	Victor Lira <victorm.lira@amd.com>, xen-devel@lists.xenproject.org,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [XEN PATCH v1] automation: edit rules for analyze jobs
+References: <20260520225820.31550-1-victorm.lira@amd.com>
+ <00d987d3-6a9c-440e-beb8-6587a3fd1d9b@citrix.com>
+ <751c1684902e41fdd9d29b71670b49f0@bugseng.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <751c1684902e41fdd9d29b71670b49f0@bugseng.com>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.123a.871fb6907f276c21.19e4fa48259.1c9e4a2228e6831c=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1779452641881
+X-purgate-ID: tlsNG-33051d/1779452647-4259D938-DC32CFAE/0/0
 X-purgate-type: clean
-X-purgate-size: 957
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-purgate-size: 1080
+X-Spamd-Result: default: False [-0.18 / 15.00];
+	MIME_MA_MISSING_HTML(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	XM_UA_NO_VERSION(0.01)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,epam.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[citrix.com,vates.tech,amd.com,xen.org,gmail.com,kernel.org,epam.com,lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:alejandro.garciavallejo@amd.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:oleksii.kurochko@gmail.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Oleksandr_Tyshchenko@epam.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:nicola.vetrini@bugseng.com,m:andrew.cooper3@citrix.com,m:victorm.lira@amd.com,m:xen-devel@lists.xenproject.org,m:cardoe@cardoe.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[192.237.175.120:from];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[vates.tech:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_FIVE(0.00)[6];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RECEIVED_SPAMHAUS_PBL(0.00)[82.67.99.167:received];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	HAS_XOIP(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.999];
 	TAGGED_RCPT(0.00)[xen-devel];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[195.190.135.10:received,37.26.189.201:received,10.42.69.3:received,185.255.28.34:received];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 7F37D5B30B9
+X-Rspamd-Queue-Id: 68A7A5B3E05
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 22.05.2026 12:57, Alejandro Vallejo wrote:
-> Move first read of gt->gt_version inside the critical region of the
-> rwlock, otherwise concurrent gnttab operations (silly as they would be)
-> may get mutually confused as to the actual current version.
-> 
-> Fixes: c1488502c949("grant-tables: do not fail attempts to...")
-> Reported-by: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-> Signed-off-by: Alejandro Vallejo <alejandro.garciavallejo@amd.com>
+---=Part.123a.871fb6907f276c21.19e4fa48259.1c9e4a2228e6831c=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+On Fri, May 22, 2026 at 12:32:33PM +0200, Nicola Vetrini wrote:
+> On 2026-05-22 12:20, Andrew Cooper wrote:
+> > I'm afraid this still doesn't work=2E
+> >=20
+> > I pushed with ci=2Evariable=3DSELECTED_JOBS_ONLY=3D"/eclair-x86_64-all=
+code/"
+> > and still got the eclair-*-amd jobs started=2E
+> >=20
+> > https://gitlab=2Ecom/xen-project/hardware/xen-staging/-/pipelines/2545=
+988798
+>=20
+> Perhaps it's because the runner is marked as a safety runner?
+>=20
+>   rules:
+>     - if: $ECLAIR_SAFETY
+>       when: always
 
-> There are a number of lockless reads of gt_version (e.g: right after unlock),
-> but they aren't very worrying because they are effectively snapshots of the
-> instantaneous version. I'd feel better if they were all atomic_read(), but all
-> Xen ports guarantee atomic access on aligned 4 octet fields, so I couldn't be
-> bothered to go chase them.
 
-Sooner or later we will want to deal with all (latent) problems of this kind.
+The variable isn't set in the runner (runners variable wouldn't be taken
+into account here anyway)=2E The variable is set for the group
+"xen-project/hardware", so for every repo under it=2E
 
-Jan
+Cheers,
+
+
+-- 
+Anthony Perard | Vates XCP-ng Developer
+
+XCP-ng & Xen Orchestra - Vate=
+s solutions
+
+web: https://vates=2Etech
+---=Part.123a.871fb6907f276c21.19e4fa48259.1c9e4a2228e6831c=---
 
