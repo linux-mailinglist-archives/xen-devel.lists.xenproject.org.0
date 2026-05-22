@@ -2,49 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qDrjOWRPEGq5VwYAu9opvQ
+	id UBZHNAdREGrgWAYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 14:43:16 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 14:50:15 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59F815B451C
-	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 14:43:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1316752.1586099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F9FC5B4789
+	for <lists+xen-devel@lfdr.de>; Fri, 22 May 2026 14:50:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1316762.1586109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQPDG-0001aX-Hm; Fri, 22 May 2026 12:42:50 +0000
+	id 1wQPK8-0002pC-CJ; Fri, 22 May 2026 12:49:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1316752.1586099; Fri, 22 May 2026 12:42:50 +0000
+Received: by outflank-mailman (output) from mailman id 1316762.1586109; Fri, 22 May 2026 12:49:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQPDG-0001YZ-FA; Fri, 22 May 2026 12:42:50 +0000
-Received: by outflank-mailman (input) for mailman id 1316752;
- Fri, 22 May 2026 12:42:48 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wQPDE-0001YT-Q6
- for xen-devel@lists.xenproject.org; Fri, 22 May 2026 12:42:48 +0000
+	id 1wQPK8-0002mI-9h; Fri, 22 May 2026 12:49:56 +0000
+Received: by outflank-mailman (input) for mailman id 1316762;
+ Fri, 22 May 2026 12:49:55 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <37lAQagYKCSkXJFSOHLTTLQJ.HTRcJS-IJaJQQNXYX.cJSUWTOJHY.TWL@flex--seanjc.bounces.google.com>)
+ id 1wQPK7-0002mC-LJ
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2026 12:49:55 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQPDE-006RZX-62
- for xen-devel@lists.xenproject.org; Fri, 22 May 2026 14:42:48 +0200
-Received: from [10.42.69.9] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a104f48-bab6-0a2a0a5309dd-0a2a45099fac-0
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 14:42:48 +0200
-Received: from [209.85.221.53] (helo=mail-wr1-f53.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a104f47-2497-0a2a45090019-d155dd35d1cb-3
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 14:42:47 +0200
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-45297094718so5755796f8f.3
- for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 05:42:47 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eb6d6ebf0sm4195227f8f.34.2026.05.22.05.42.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 May 2026 05:42:47 -0700 (PDT)
+ id 1wQPK6-006a5e-NI
+ for xen-devel@lists.xenproject.org; Fri, 22 May 2026 14:49:54 +0200
+Received: from [10.42.69.6] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <37lAQagYKCSkXJFSOHLTTLQJ.HTRcJS-IJaJQQNXYX.cJSUWTOJHY.TWL@flex--seanjc.bounces.google.com>)
+ id 6a1050eb-e002-0a2a0a5209dd-0a2a4506964c-28
+ for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 14:49:54 +0200
+Received: from [209.85.214.202] (helo=mail-pl1-f202.google.com)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <37lAQagYKCSkXJFSOHLTTLQJ.HTRcJS-IJaJQQNXYX.cJSUWTOJHY.TWL@flex--seanjc.bounces.google.com>)
+ id 6a1050ef-7371-0a2a45060019-d155d6cadc31-3
+ for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 14:49:52 +0200
+Received: by mail-pl1-f202.google.com with SMTP id
+ d9443c01a7336-2b9b8137828so74872355ad.0
+ for <xen-devel@lists.xenproject.org>; Fri, 22 May 2026 05:49:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,151 +53,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=google.com header.i="@google.com" header.h="Content-Transfer-Encoding:Cc:To:From:Subject:Message-ID:References:Mime-Version:In-Reply-To:Date"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779453767; x=1780058567; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=vKYVs1+oJuMu+VlKKc7eRF/nlwaJXJo0Tqfyag2Ys9A=;
-        b=bjnlIjoZVuzt5aNQcTlCE3nPmm7k6rrYJVwB1q4rLLogUt7N+OlzYGm80FR7q9mTmX
-         UAjDrgqbL7EkpwtwTkEeWBTwC3WdTdMro9l9/c5pHkbrkFtk172qCDsnmnJ3WDPJQhqa
-         37F68auC1/7N3rnntUnozXqzB79vBLQ7OdrWjkHih3e9x5cZVL4hb4WESUFB+jxnSfoo
-         /1+9dv0kfMNtBVqPF1GphU/dp9Q8AEOHx2dTlGDdD2R6KAYYbj4BvkW0oKziPeVs0DI+
-         JrWRd1c/uCezG0XbxFeTKBQgOgRbAudXaaKi8mj9TxrH63NvVitK3OttCB+RuwwkzL+l
-         Ttew==
+        d=google.com; s=20251104; t=1779454191; x=1780058991; darn=lists.xenproject.org;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DQXBtYOgD26OY0sxOaH3yIHE1h+TPqKS3BQiU+AvFJA=;
+        b=jV7Q9I2dA27qnqDRDYYYvH3PQOKQqjvNFpzHYWCV9Cdn+akZCyfW15uhns/YD8yLWc
+         rloyX6WWpzextkmZJpPAsZtCSpbeaeeGC2H1FuF92QVshGEWVIYm+uxXTOB5T7uSx9vf
+         e7qhy48DdrXCog+Te+d23BoLUbB1HGDRWYgRKyR8udcC7Y/rZv1IukKfHjEw4FbPn+E+
+         1RK83OuKDRSG53APBC8j4KRSyZLTd4KYTLY2JuxNt6HuDwEGZn5DPfWudnqLip0Kfse8
+         hrCHOGABlq7TCHJK27SwY6d8pPU6OSU8eumCG5Yftjk03MVLxIyqtBOWZUHgFk5vjWR2
+         BTXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779453767; x=1780058567;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vKYVs1+oJuMu+VlKKc7eRF/nlwaJXJo0Tqfyag2Ys9A=;
-        b=duUgD5CeI+gFeYFXfRbnL2sGMftMGF2VOfwsBKqEB7WsXt5IY7Ck/zhCjJsX12v+21
-         gK8KHcD6FYSf/PnZOk6sflVPPvCfLCwG/Z9VFshGaNE2Nnoljp7GLVJWrUK0HJ6k+XUP
-         NO9h/vIgTwOlVcv8ZLHChPNer4SCJ6gK8ZqODdPQ8L3UqcuRA1G1mSuj9UBJ17Nq08da
-         JXGti7Fxc5Tva91OYCkmKfqBRDK1n0Jut49gCCXXQ9PFRMytUY0rInH593MUq9EtF4R2
-         JZJhL/jqyVy8RrWm3XMogDzPlgitdOpU6FODI2QR9Zujon6jD5N4O3EicXdfWmIiTxPe
-         3dfw==
-X-Forwarded-Encrypted: i=1; AFNElJ/+D6rWKx2tY6ZiVbHY/BjvDe8+qli7k5jCJLc8zay0ZnB6eo0EbqMcOZYqZiw7FYFXXu8U4QFpK9k=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyidSvJQEemEfYbNq38JRBd7PN48SoPko2bK4pSsYoth821pD9l
-	R5fb6L86bGBNxLeqDd4gK2AlpPVAUPwvoAWg5mKHs2z/8b4ss/6xu8F4ChjeGamXwQ==
-X-Gm-Gg: Acq92OF/uzF1YkZG5QTe004Uw//EKm82PnKZQjOXRWwB7JkNdHQMIDJj7CnpP+lQZN9
-	JhbTWwBlUFsYZVHF12hhf3eDP3Ft7456XrIkQxe7QyBrGVbQou1eofKeFr07Z6d5nlOVKhobtP3
-	0imM9jmbvmT2WFXkrzXA1mNNipZyUDPUs+C/XoflKox61xZnJ+7ioyqE9iTPF6+oCVvtyLRhkNZ
-	8n0zqI4AioYZeAtcaE0GWV3R8H8mQ1VH+CLA5Ssvm9HWz5BiIn6a4O5YrRFgY4PapEdWk8lPoWR
-	9Em8ur4257MoEI3duBv+SIPE2YC0sOwxXUydRAJhP2vhUBAHOAB6kFw/QXb0Hn4fYTQbB3JXxyH
-	jIWFQZOwQZ9JjQAG3Wz8sMR8nB+28zoKr7lMmQTycAqhdMHS1Nz7xAPdJwbnfW8L2N0yhMiny0M
-	+RBLUJfC+1ALTZR7ecnL0aI8Aw6YHblQYovvzOBonJys0CiebStvzNHB8uNzysVuTf/TFbcaQKd
-	OCbmcDNASNGVImXzbmOzMRzbQ==
-X-Received: by 2002:a05:6000:144c:b0:45e:655e:4e02 with SMTP id ffacd0b85a97d-45eb38c1f5amr5354947f8f.32.1779453767457;
-        Fri, 22 May 2026 05:42:47 -0700 (PDT)
-Message-ID: <0c9a577c-07bb-459a-96b2-e9693ef89cca@suse.com>
-Date: Fri, 22 May 2026 14:42:46 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] pv32: Fix bogus cr2 on fault in emulation gate
-To: Teddy Astie <teddy.astie@vates.tech>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-References: <1779453231.8631fc262581453bbf619ec5b2062170.19e4fad80e4000f373@vates.tech>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <1779453231.8631fc262581453bbf619ec5b2062170.19e4fad80e4000f373@vates.tech>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-bad1c0/1779453768-8B193A53-514EBB4A/0/0
+        d=1e100.net; s=20251104; t=1779454191; x=1780058991;
+        h=content-transfer-encoding:cc:to:from:subject:message-id:references
+         :mime-version:in-reply-to:date:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=DQXBtYOgD26OY0sxOaH3yIHE1h+TPqKS3BQiU+AvFJA=;
+        b=f2Z/A069AcU7RMu66JqgJBLyLvLErXIYWkcZbDvM639m3ciKvwYdwzWmYpTHba51aP
+         X7FiAE3yXsK/RMgdk2yRxpJxdLy8P1qe3YSDHB55GbUtCuH1WnCl+s4LHp9aU3tFJPAS
+         LN+wLNga1rnoVXz566pjunLGDm3L5Ea3WtfX8HOuyPHMak7LEwGKNB8N/B58Ggnr6I3a
+         l06EmsdphjZTIfzSlcIfM4fkYYH7HCMrs6ScgQ9ZsraGY+XBJdvGVqor2ZcTlIXXBrUW
+         qAsrtGPsGw40epbEiYzXf8k/gMj0B/3rrR2P3TESE7gWXLWKsQjRLUAXRQ34yc5QLgnB
+         lyUQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+jGGkAW7RU0os7ZZIs0E5ljAls9UpwvakzA8Ce1p5MD3rn7Cd/CDvIBgRSlxRFCJjdFVE/eNupPTg=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzpXgAQJlJ8QamCrUINoumxeiiTX8W5roeam1aTd5Z8+8c841Nj
+	N83ED2DB7IeH2Y5l2Ifq7fWD9ftues27saqIlB3fXQe+Ld5W1X6vn8uevHa3F5effipAXgKbnI5
+	9YScI2w==
+X-Received: from plpf11.prod.google.com ([2002:a17:903:3c4b:b0:2b0:51f0:272d])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:c94d:b0:2b4:63bf:5535
+ with SMTP id d9443c01a7336-2beb073d568mr36887635ad.41.1779454190670; Fri, 22
+ May 2026 05:49:50 -0700 (PDT)
+Date: Fri, 22 May 2026 05:49:50 -0700
+In-Reply-To: <ab84153e33fbe7c25667f595c56b310d4d5a93ef.camel@infradead.org>
+Mime-Version: 1.0
+References: <20260509224824.3264567-1-dwmw2@infradead.org> <20260509224824.3264567-28-dwmw2@infradead.org>
+ <3ad6cd109480772ade3c11f23b9c1d7a9855d67e.camel@infradead.org>
+ <ag-Hf2liLSX9q0rS@google.com> <ab84153e33fbe7c25667f595c56b310d4d5a93ef.camel@infradead.org>
+Message-ID: <ahBQ7mXNaTtouT3C@google.com>
+Subject: Re: [PATCH v4 27/30] KVM: x86: Add KVM_VCPU_TSC_EFFECTIVE_FREQ attribute
+From: Sean Christopherson <seanjc@google.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, Juergen Gross <jgross@suse.com>, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Paul Durrant <paul@xen.org>, 
+	Jonathan Cameron <jic23@kernel.org>, Sascha Bischoff <Sascha.Bischoff@arm.com>, 
+	Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, Jack Allister <jalliste@amazon.com>, 
+	Dongli Zhang <dongli.zhang@oracle.com>, joe.jin@oracle.com, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	xen-devel@lists.xenproject.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-purgate-ID: tlsNG-16d1c6/1779454193-8C47CD75-77086E51/0/0
 X-purgate-type: clean
-X-purgate-size: 1055
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-purgate-size: 1727
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	MV_CASE(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[google.com,reject];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[google.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo,vates.tech:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dwmw2@infradead.org,m:pbonzini@redhat.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:vkuznets@redhat.com,m:jgross@suse.com,m:boris.ostrovsky@oracle.com,m:paul@xen.org,m:jic23@kernel.org,m:Sascha.Bischoff@arm.com,m:maz@kernel.org,m:joey.gouly@arm.com,m:jalliste@amazon.com,m:dongli.zhang@oracle.com,m:joe.jin@oracle.com,m:kvm@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:linux-kselftest@vger.kernel.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,amazon.co.uk:email];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:teddy.astie@vates.tech,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[26];
+	DKIM_TRACE(0.00)[google.com:+];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[seanjc@google.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[seanjc@google.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_THREE(0.00)[4];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.818];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 59F815B451C
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 2F9FC5B4789
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 22.05.2026 14:33, Teddy Astie wrote:
-> __{put,get}_guest returns -EFAULT on access faults which causes
-> the injected cr2 to be off by 14 bytes (as EFAULT is 14) which is
-> incorrect.
-> 
-> Fix the computation by relying on copy_{from,to}_guest_pv which
-> reports the number of remaining bytes instead of a negative errno,
-> such that we can compute the offset properly.
-> 
-> Fixes: 70ad570b2799 ("x86/64: paravirt 32-on-64 call gate support")
-> Signed-off-by: Teddy Astie <teddy.astie@vates.tech>
+On Thu, May 21, 2026, David Woodhouse wrote:
+> On Thu, 2026-05-21 at 15:30 -0700, Sean Christopherson wrote:
+> > On Thu, May 21, 2026, David Woodhouse wrote:
+> > > On Sat, 2026-05-09 at 23:46 +0100, David Woodhouse wrote:
+> > > > From: David Woodhouse <dwmw@amazon.co.uk>
+> > > That does leave userspace still needing a way to get the APIC bus
+> > > frequency, to populate CPUID. So maybe I'll just make an attribute
+> > > which returns that as a single value.
+> >=20
+> > Already exists, KVM_CAP_X86_APIC_BUS_CYCLES_NS.=C2=A0 The TDX architect=
+ure decided
+> > that unconditionally telling guests the virtual APIC bus runs at 400Mhz=
+ was a
+> > brilliant idea.
+>=20
+> Ah, thanks.
+>=20
+> So KVM always exposes 1GHz by default regardless of the actual host?
+> Which is why there's no *get* method?
+>=20
+> (Well... getting KVM_CAP_APIC_BUS_CYCLES_NS returns
+> APIC_BUS_CYCLE_NS_DEFAULT which is 1, so it's basically just returning
+> 1 like a lot of cap queries do, and *not* returning what the period is
+> actually set to)
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-preferably with ...
+Oh, that's just an oversight, definitely not intentional.  Easy enough to f=
+ix:
 
-> --- a/xen/arch/x86/pv/emul-gate-op.c
-> +++ b/xen/arch/x86/pv/emul-gate-op.c
-> @@ -286,12 +286,14 @@ void pv_emulate_gate_op(struct cpu_user_regs *regs)
->      if ( !jump )
->      {
->          unsigned int ss, esp, *stkp;
-> +        uint32_t value;
->          int rc;
->  #define push(item) do \
->          { \
-> +            value = item; \
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 1616b2eec6e7..cd4a244ca0c5 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -2235,7 +2235,7 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, lon=
+g ext)
+                r =3D tdp_enabled;
+                break;
+        case KVM_CAP_X86_APIC_BUS_CYCLES_NS:
+-               r =3D APIC_BUS_CYCLE_NS_DEFAULT;
++               r =3D kvm ? kvm->arch.apic_bus_cycle_ns : APIC_BUS_CYCLE_NS=
+_DEFAULT;
+                break;
+        case KVM_CAP_EXIT_HYPERCALL:
+                r =3D KVM_EXIT_HYPERCALL_VALID_MASK;
 
-... (item) here. I think we're okay without, but let's play safe.
-
-Likely can be adjusted by the committer.
-
-Jan
 
