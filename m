@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qL4dA0lAEmpCxAYAu9opvQ
+	id GM0nDFBAEmpExAYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 02:03:21 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 02:03:28 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93C4E5C0EE8
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 02:03:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1318244.1586687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B03675C0EF6
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 02:03:27 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1318252.1586696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQwJF-0008Jw-Fd; Sun, 24 May 2026 00:03:13 +0000
+	id 1wQwJI-0000Nz-TE; Sun, 24 May 2026 00:03:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1318244.1586687; Sun, 24 May 2026 00:03:13 +0000
+Received: by outflank-mailman (output) from mailman id 1318252.1586696; Sun, 24 May 2026 00:03:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQwJF-0008Cb-BQ; Sun, 24 May 2026 00:03:13 +0000
-Received: by outflank-mailman (input) for mailman id 1318244;
- Sun, 24 May 2026 00:03:11 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wQwJI-0000Lx-Lz; Sun, 24 May 2026 00:03:16 +0000
+Received: by outflank-mailman (input) for mailman id 1318252;
+ Sun, 24 May 2026 00:03:14 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <taka@valinux.co.jp>) id 1wQwJC-0007lG-Sk
- for xen-devel@lists.xenproject.org; Sun, 24 May 2026 00:03:11 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1wQwJG-0008U8-C7
+ for xen-devel@lists.xenproject.org; Sun, 24 May 2026 00:03:14 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQwJC-005yId-7v
- for xen-devel@lists.xenproject.org; Sun, 24 May 2026 02:03:10 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wQwJF-00BC9e-Og
+ for xen-devel@lists.xenproject.org; Sun, 24 May 2026 02:03:13 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a12403e-2eae-0a2a0a5409dd-0a2a450bb766-0
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 02:03:10 +0200
-Received: from [52.101.125.111]
+ id 6a124008-e002-0a2a0a5209dd-0a2a4503cd2c-22
+ for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 02:03:13 +0200
+Received: from [52.101.125.93]
  (helo=TYVP286CU001.outbound.protection.outlook.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a12403a-212f-0a2a450b0019-34657d6f18e0-4
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 02:03:09 +0200
+ id 6a12403f-672d-0a2a45030019-34657d5d2f13-3
+ for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 02:03:13 +0200
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
  by OS7P286MB7274.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:439::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.18; Sun, 24 May
- 2026 00:03:07 +0000
+ 2026 00:03:09 +0000
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0048.016; Sun, 24 May 2026
- 00:03:07 +0000
+ 00:03:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,20 +60,20 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=valinux.co.jp header.i="@valinux.co.jp" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gk/Q7S7CeAKlgmwgwCfdPaRt22BakVe8S2IfAPLUKK+twhwI7Wdz1jN7HGncal39WydNbXhS4kQ1fKL/GShC5C7qogs76vMLqNHI5UMOKO8/JMVtP56wsdQkx86qHQX3ey3JfyOobDdLJwsCSorpwzCMwIb3lnmZgwEB6IDFtwTXJZgFoCRH37+TsVIPjpfRSLG9eU68fut9Ru3Vx8VxubzFChqgJSftDGVZQZUitUmNU2lbvLXPvvFwHqFicR/HyalNknLrJfbVu6/K+Bw+5pLKrV95GKbA03j0CXSu9neJDDbs+06v/RBJ2RXb1hMRpiGLpIppNRBciqz0fCxZcw==
+ b=bbMPEwJbRaFnrcaQgbQ31+GBmkN1wqmv1jN0WiLSbxZPGxK1gp8UiazRoQMkIp8i/+s/AHAZiWuAQbx0AVfiE9bMCXZeG8GJOCwCE4mC/Bh5fSeU0GW35rCtC+ehRDXOOuNPvgTYNZI5wElzYnRMNpQVfjgejI/44xisxTjFm461xE+sw2vqvEa4mPmLCEsAILwxRaMrbI47U7kwoWUPWt4wgiiVV2A50QrDSXP7cDQIveRbNXnmle3r/xiIGomolfIH4OwzVUxkgymEPPB5B6+bXntUKdJLBHKEup8c4a5GKXKLeV42TDWZsc7gxqQf5JKqjv0uxQJN0jp2+FXBPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b/uOZioLySihrc5rQcsyh87OXtUbbmHXHPRWdNWOE7k=;
- b=dzmdEM7biGPob/YvNDpWgRfD539rCe8/NNb0MHxR3yTt1qgv41D5tgo09hM4Je9eh13SLLTNn0cweYqcgjM9yK4D7SFttZWN2+xwRu7NRoB7GVWi3xBHb404zU33fKNT/ul4sNFuOpBymh8HhYgR30w4v5Rimy61cmNnzfxUzQZxluJp1ZCATtsJKwGzAzMowhEV39Cltu5/9bkyyFbXtGFsumknaLdQ/xteUf6xVCTSSJaMMeItAsY7yuGCjgX9fjcCu8SeiSJYDZGc2hFJjo9QKq0ZgYzYKNY0C596e607P56rFdJi2czeV+X10DAqYL9nGryKN3GJOhsN2hRBBw==
+ bh=JFwOGfPyzWG9F7U0qyfrx8XENPksC2lqRTWEjzBLvZU=;
+ b=kwOPPbsOkm/Ym8+lBSwC/G52Fk4zYAxLa8TQYhx37D0vCymYWlMPkquAcugVmeHP8PQBV55KgTnqE1DllSxXNtX3DZlXobiWLG1gS170SX0lKLtT6JvFCLTJmio40i6AtIuCTZ1w1ro3VshMvG96ltxdn7c1dUGbvwNmqGzE+0ZaQOnpzjd4s7GeYHJOdY3qVOd/EKkGcci2yjHuwKbnMBSbgsZnbzVm6Yo7G74K3/QfwEl6CITn7jmAZm6gYNkDfxiqS/cm13SoaOTLc9l0ksOb3OwcmYwk3BXf3S3DuZlLzVTdIhfI9o5CqeKdtTnlaOGQgbJ0HWE6XSNwp2iqJQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b/uOZioLySihrc5rQcsyh87OXtUbbmHXHPRWdNWOE7k=;
- b=nIKYRJJXMQZs5eqyZAK41Gjn0kAZr5pfnH1paEaXIOPH7pB0Cw0+MTFfQZkXOiM/kj8fS9Ajxr+wG9sgJ9peG7visYQ8ADI3ytWyWNLv3FSuV6ngLtt9+LoHOeFtoqu2IfkBnQgcQQmcbd4gQ5ZBf00plDmuoNQmnY0AXnsu8Aw=
+ bh=JFwOGfPyzWG9F7U0qyfrx8XENPksC2lqRTWEjzBLvZU=;
+ b=G/HDYjA3qlKlYyAsK2txh+Z3qcTQjx/KAbLnYfS4L4VKBWDbKBW+KMFuMsFBBE6BxcL42fWlgL83IjItGZvUWdlQCDZt13tqUoR7DjVHPDx9j5qZ0GjzmW6rPTnqnQbTY+iQ+BXX0ACGo/rCs4Jmd3MzsG9LN5VM2csWeH3AJ/U=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 From: Hirokazu Takahashi <taka@valinux.co.jp>
@@ -91,76 +91,76 @@ Cc: andrew.cooper3@citrix.com,
 	dfaggioli@suse.com,
 	gwd@xenproject.org,
 	Hirokazu Takahashi <taka@valinux.co.jp>
-Subject: [PATCH 18/21] xen/arm: Generate distance-map node for Dom0 Device Tree
-Date: Sun, 24 May 2026 09:02:06 +0900
-Message-ID: <20260524000209.292370-19-taka@valinux.co.jp>
+Subject: [PATCH 19/21] xen/arm: Balance Dom0 memory allocation across allowed NUMA nodes
+Date: Sun, 24 May 2026 09:02:07 +0900
+Message-ID: <20260524000209.292370-20-taka@valinux.co.jp>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260524000209.292370-1-taka@valinux.co.jp>
 References: <20260524000209.292370-1-taka@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TYCPR01CA0148.jpnprd01.prod.outlook.com
- (2603:1096:400:2b7::7) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TYCP286CA0190.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:382::10) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:604:458::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|OS7P286MB7274:EE_
-X-MS-Office365-Filtering-Correlation-Id: db4e0624-4c96-4f22-9af3-08deb927d5b4
+X-MS-Office365-Filtering-Correlation-Id: 3771ee30-d235-430a-b1e8-08deb927d71b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|376014|10070799003|1800799024|56012099003|18002099003|22082099003;
+	BCL:0;ARA:13230040|7416014|366016|376014|10070799003|1800799024|5023799004|3023799007|6133799003|56012099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	9+vgDBfwZF93VpAd9CUqriBskjTN/zo4hzULGr/G97SZv8++C7CJWPoMg78JQmr9zUDsXrQtMewoO0u9vHdCf5lt0rMJIjGNIFQDAkOFsDZC8PsxUM4grHpqxitWqEarVoMlrsZSncORtE6d7rP3+lxZW9jVlwvSSt6tOqENTsOh3VgQt3vjpmglchdWdIsKBD0+tT0a7VrNYYUglyt6ET2j/U0mKLWvOH/YqdbFreXwf1V+SeiLSMhAN8sZYMFUmsU+2+SEtqRK0JBKuhhUf10nYIPBNHqAJLJyHy9jIE4eBfsfZ8Hr/EXnJotqeVshIqeRhVrRrE07wW3OuMTSFhiOQKbE07/I5U1gQ9wSuT4n9Cphi1XyDT/JOlyEij1KRtn77g3lfxkSD1MBcURcE9yW96HbQGiHrdjGpy9J5kcF36/yWfSWf7bVTicn9KGGFxa5K6OYT+REs2QYRmfMqYK9APXbzYbeBx2asnKAOktFmnk+bi3JUa8FT5bfPSSj4tzDR61EJYuRIHz213stA/au0VW1x8E81sW1LJMgf7S3+w5e9Vvycr6sPbd+sSMJGq2mGIDaVZklBzEoauKMd6f2S+5bHDC9jYtqnVFbHFDryifnzs6C2vElPSkB0hgSJ/vSpIQyFrujN3F2IJcvoyi//H0wGwBZyBxRo8QnLnpW2xBblah05jHqcIdyBZki
+	J4cYOY36nVc8IgqOLKu77NZZ7gIulWg9ummMo+vDp8Gfdo+1N6L4huyxerdC5I4pc4KcoKbPLg989HVsctm8IVdIK/I3KPRonRM712B2hmrhxkvvmdLTWg62eIvyrJx+VpqqU524pw/Z0efbQ0/yu+8gQKjl14gFYxE4JfE2JldZ+j5gF1QFHilBX/zIwMpkkpFbuM9zC+uQMcUa59p+5OCz5AM4aEb1ixUW2lwoUaGaQ5SWnTAU5rLgy/XfG6dPY8Se0hIxezCPTEPar5TeVDHaq6b/kF+B4PbUKGM6lA36kXYjoS/nyQBwxzHklXYZvcGUYh3b1z1aYFYj+rDo6uK9KmqWl1imDS31M0ECC46m7o1VjLq6Dx8hF1jYRVxl9fnV8q4Vv/Q6jBgjct946JkOw7whwLgiiiJdrFOm5vKjxOvvPOxx/lgcNku3kHD+zW76Snt0tfILFYn5TFLnX1FYCKDV3dcLCWoYbUmQPvICDvGPiIN1BGd/7NplUBfoj4ODySnnzjDXyptDn4k/RDknTA/99Llklq6l01zCng2GOvjgioEiCIXkIigdn1gqvwVR2pFsXXQ07Cqtd2dCFLF/6qEXD+5EMMDYeNn2oP5vSkoznbNAaSgfgVPvmpw/nQEFE3qeNsRUKVnB3uY37f7TlfXi0ar7S6Dp/mcFz84pAH6RqwTNuvoIZ3C236p8
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(10070799003)(1800799024)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(10070799003)(1800799024)(5023799004)(3023799007)(6133799003)(56012099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RHh4CSCAsIo0A7J860PWcvu1lkoBUiCz6OgIQmfIFzo2wQr8g4Wl5AAxlQDz?=
- =?us-ascii?Q?TC922s8W8xfvByHTVCdHZKxhRDrsnct6/JAEpYJ6R87INBStZl+WDa3Pmn+p?=
- =?us-ascii?Q?jM9oWCH61KTunr8ZAcaLeluJ99NQMMRlLajTKg2LDjfHYJ3+DnH1bVZFhhze?=
- =?us-ascii?Q?zEreAGpiTauxAeVm20qFZwJLj4Gr3zuQjBE9rogfPE5NqVIC5EkI2KRnNBkd?=
- =?us-ascii?Q?jW5ONvccSZZesn5RWb2T5D0YpHntmXXE9RjKrXfT0Unle3Z6Zl5ZBV6OQBiM?=
- =?us-ascii?Q?s461zBFn9zb0Na24YcZt+E8mKMlzorTrVfiB3MpgJ3ntHpBshhF6CNU8AcxA?=
- =?us-ascii?Q?/U3jVfHwaL9BIadUORiFKd0/Mt78HuYUQdHNaWvY8vAYG+iDhsS0kjwLGpfE?=
- =?us-ascii?Q?opqS5t+dGbS2H8Vl0cxXoKTd9ggYTi264682mt8RdPt1NIleyopfytVu1eOt?=
- =?us-ascii?Q?ldxZKz9wV/BRDuCPvJqp2PckeXKjr3jPWGJ4d40CsuXVMSm/LPRzDv0TWg5m?=
- =?us-ascii?Q?V5ygNOq7tHO3Hp7s/hKTPSD94p0OH2n055Vy/4pjW/L4q/ELwFjBJM6+lige?=
- =?us-ascii?Q?Y+lmayFT2jQUuEjcLSb4N1/5yw/2P3v9WGsmFyzIuhibUfpZzypCYMD4QgML?=
- =?us-ascii?Q?rrgdR/TCo/CwjKQBjCx4gr9XxXMhSJJ7VGvsJgRS7Ju3Y7JKbUoeTdm0hs4S?=
- =?us-ascii?Q?rQkpNyOcW6iJPIdFuICJtxsi9VbrOcnmITvcUt2Je0h+iAHymRUUKeVRyW2f?=
- =?us-ascii?Q?iEUYt22QoBNJ8lgDLxlRD+RRBIP+3042C/MzsGULRE3kfhoF8+Kw20J3Hi6q?=
- =?us-ascii?Q?PsT/+aE/cdN0RZ0qtJuTdHBVqZNr3zxZXdeMVjQIUnorYnHvGoj2BrRoye1r?=
- =?us-ascii?Q?O8m4eZZvIpkBDYRltrH0w4PQyWvZ6spbaZlZabmvqavt8VN9YBZPu7ExI1a/?=
- =?us-ascii?Q?+advpLzu6cCT5mYuvjSCJUTWs+tojwZpYXI48IQki6bjOB8qTdS8aWNuFDs7?=
- =?us-ascii?Q?mQK+Ti3/6nfEzPr/6GhcjJw8Qv9H8ebZWz7z76ZRuypAVSWjpC1FbXsFN2bh?=
- =?us-ascii?Q?YAmo7kX6WgS7KA2ilZCLa7WyH0F8i8QQ3CJqxBSq6BWFnDmaB1v7HxHKjnlp?=
- =?us-ascii?Q?kLI0L2sl0ntpN4I5V8Rg+TcLM9fzW1FZyI4wieDT0GD1UF3bsnMuTdcO540T?=
- =?us-ascii?Q?YboBgnkEQW2Z+SdCRVXZm8++VWo3O02A/Hs8BZAKUlt57aIlVjbr9BEGEmdb?=
- =?us-ascii?Q?PkLgUzfRsgWihAPIeu/lbOO6GMeN3qQ/A3pC7iNokqRczqpCYDxY1PQlJWDk?=
- =?us-ascii?Q?tbIsog5orMowu3pLqZeI3i/wCgSwgaVH6GadcVrpAzjGf22U9VlgxWXBo/5P?=
- =?us-ascii?Q?+9GfYIs9CWUpuwWCA4g2mlcNtXqS7OvObgmrwu26vj/bVkK0KT/EPowsyQDT?=
- =?us-ascii?Q?ErRJmFgrICpdSDf8uXImeqgM1fo+kNAudH6pJEP44cogFPFd1CTxNCfHLwEN?=
- =?us-ascii?Q?1M97XlMwiI13rGAVzhv7pgd3QBOAUqGsBCphNpYUC89wgogrkQgb4tm6RgbI?=
- =?us-ascii?Q?PArbCD62/5Y4+HvTVfBNOjhkJia1yk7NLQlldphrN2vp3vEGAWP90h06TSr5?=
- =?us-ascii?Q?Gjy/wnGYWnlOQMJv11fq+8qtYMOELg6zdbrTrKeHmnPiHbFXGyE5OGjBTBSo?=
- =?us-ascii?Q?MuJ3GldkYhTryzcGc2afocxlS36KCay+Ptzt9nyB8FOYwJ9nTvXNxg2epYjo?=
- =?us-ascii?Q?87NQnwqMLnuvnO2ne/+9+5ZQ/mY13XtQtKYxuP895778hL9cYIUJK+bxoZQu?=
-X-MS-Exchange-AntiSpam-MessageData-1: WFKQ3vWYpPpySw==
+	=?us-ascii?Q?QqbSxH24mN1wUTXhdw8ewsA4mv7ANKQoQ0Zyw58BBgz5IEn2XT502vXh5/0m?=
+ =?us-ascii?Q?IIkdstchwoiTrL56j3jwGTeC9ZvLYdgFppkwTtba9bXZ5qEO4ye30gLOp5LC?=
+ =?us-ascii?Q?lf2Vbcrg32hstmp36qGFyJtJrH1aXxyLh3hOlvcecWGO6m2NR92OQHNF8atM?=
+ =?us-ascii?Q?ROIg883OKNp/8bwCY+KX/mU66I/4bMAerRAxATL8acH0l6h5uTeJh++WTxcd?=
+ =?us-ascii?Q?oLq1RPC5E4G4a7/eH+5jJGYKmXapIa3S6SBW1HJ3mAYIpNgR83BGjPtO4T4I?=
+ =?us-ascii?Q?d7thqsrrpwZ7cHdkxXd0onnshKZP5c8MPiDeO165SgDjacoJZC8jLIwGGTQl?=
+ =?us-ascii?Q?IsHvT2cvt/FYzEfzzj130IOGWZItW0mzIZuIGsSwTATwXc5EDvTQnQq9sszn?=
+ =?us-ascii?Q?fvPI++NVecYKowuSZqZeGzh4uONbL6COTxpR5g2Qj6rRDtrTuXc3SWrbaC68?=
+ =?us-ascii?Q?BphwtLIJrvLMlm/6BVcLXBtEHTi2Skdam8NAm6CRA3zM5se6yYwTO1Jz4C9T?=
+ =?us-ascii?Q?TImZC3DnIbv/6tbHOJ/Ys9rGQfHtDGhTsOBsZBzzeEOhbTQcS2VNNFt1DsQl?=
+ =?us-ascii?Q?1Y+/2GDNDcSuv26AbORq5Pwn34/82kH8WkqGAUnXw2Kcnkn2PGgUKe13a03C?=
+ =?us-ascii?Q?GwitU8StkT5DDyOVcuuHh3DrZOUpE0g7U6ex7OFu/+ZijfoVhNthTjmDaBEz?=
+ =?us-ascii?Q?U3Xq7EdunX8q1ig7VTajJIzLxGWXCN0A5+eOThX9L+BxjNhzHfdBMsgCZ6nY?=
+ =?us-ascii?Q?stLszvTIZWl3hxZijiCoDUAPM0GyEHNz0Npfcm3NJP08pADgiYMual1DCF6a?=
+ =?us-ascii?Q?WehjSTIyOJFHApimP+QDu+n+s8kxLdkT2ruzmTXv2GaXWLkzEufsRflB2AjC?=
+ =?us-ascii?Q?+2+HRZUbLrudXr8Q35AkB0WjG/+csDSVxRMINUYOquwwrZoHTwHm83+LhP6v?=
+ =?us-ascii?Q?fR/DnYmxZJXXtovP+VsiPZJeFpabARUBK2RUNj+wtkxw4TAUNJN8WZtSvKYk?=
+ =?us-ascii?Q?u3EpYPuqrUV+Uj2ALAF8d5rjWNGPY4DLZrmY/Sgq7tFoJBjdceDKzxcoKxVO?=
+ =?us-ascii?Q?p4sJNtsBwxXW/YaYSoB6v7kTEckaHfjtkrzY7/6lYf1IHipt7AJb1wZgC5Fv?=
+ =?us-ascii?Q?j/Qg+ZdqVaqRLQL73ZV6UHwY+BCDmMFKQ/Xnme7OkQ5jUSe48gsuZoYiTwV7?=
+ =?us-ascii?Q?1jkLew0BhdD+Tdosh+alJV5hVJcowb2LlEyTdXK07+0evLgWHao7g3/B/zm5?=
+ =?us-ascii?Q?F8kn8QWXXWkcm/TseTlj/AxZqwxYyDE3mPrs/eaJZZ5XFbpuzEPm2e+pbZY2?=
+ =?us-ascii?Q?AdIEn5sBEC+pG0TZFFYoyh+E6P+NdCfXP1WBEUpWnopN+t/zCBctSL7KdNHC?=
+ =?us-ascii?Q?1aCX8N2RCQWC7tdWJTFpBei3VIFmslfeDZl4+spySQVbBgytxo0mBsYYAX1Z?=
+ =?us-ascii?Q?MWRaj1ZZ/YHPm/Cyw13cSnH+8iuvUfCVAibWLCqs8NZS0Ez7dSiMlbDskPoL?=
+ =?us-ascii?Q?XsueVgBTAbC+G9xuQNWbcNnaRLw/m9dXQTek1s8iEAajGtpsu1tCEf2SQb5J?=
+ =?us-ascii?Q?syLTOSFVEDxFgRsB11gKMypHzGkL588lDNBIZMYONmZdXmqQa6vlenNKdtKw?=
+ =?us-ascii?Q?7zGP5nGTM6wtcYhwhUUhewGz06w8L4mwjwr6PABLXtiXxs7EmBWNaANAphrJ?=
+ =?us-ascii?Q?sxcRW+SCyRJDOFIuCgxYETq9LGNc2REeswlYMdnn8OKP/ACqqvK1+lynz7tW?=
+ =?us-ascii?Q?MR3fTBM6ELPaUmGn3Sm/RGtNcp74iz4bxs7sKOfQBE4laf71bTaXpkkEWaj9?=
+X-MS-Exchange-AntiSpam-MessageData-1: N8tkEqXc4sI4fA==
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: db4e0624-4c96-4f22-9af3-08deb927d5b4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3771ee30-d235-430a-b1e8-08deb927d71b
 X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2026 00:03:07.4429
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2026 00:03:09.7953
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y4YeP49LSEiH+nH1fpAw1lE/9PUpr1B8/AjYJZx7uDfvK/5HhEwSHdyA3dS1Qwv25rhHmagwY3P7WcAF3505Sw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6Vuzhg4SQQIdwrDCTF/wLI9+wgp+bDPHoKjhMi8dw843E788/WJVpXu9X7u+YwaE9S6sEoK07gnGhhQhpl2Ajg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7P286MB7274
-X-purgate-ID: tlsNG-42698a/1779580990-18F66F3B-1AD57355/0/0
+X-purgate-ID: tlsNG-33051d/1779580993-3754F938-FA7CA0E2/0/0
 X-purgate-type: clean
-X-purgate-size: 2697
+X-purgate-size: 14953
 X-Spamd-Result: default: False [1.32 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
@@ -191,92 +191,384 @@ X-Spamd-Result: default: False [1.32 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 93C4E5C0EE8
+X-Rspamd-Queue-Id: B03675C0EF6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Generate the 'distance-map' node within the Domain-0 Device Tree.
-This ensures that distances are populated only for the specific NUMA
-nodes assigned to Domain-0.
+Allocate memory for Domain-0 exclusively from the permitted NUMA nodes.
+When multiple NUMA nodes are available, distribute the allocation in a
+balanced manner across each of these nodes.
 ---
- xen/arch/arm/domain_build.c | 50 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ xen/arch/arm/domain_build.c | 275 ++++++++++++++++++++----------------
+ 1 file changed, 150 insertions(+), 125 deletions(-)
 
 diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 11d0fa1233..2bf4b37f89 100644
+index 2bf4b37f89..7960dcd33a 100644
 --- a/xen/arch/arm/domain_build.c
 +++ b/xen/arch/arm/domain_build.c
-@@ -718,6 +718,51 @@ static int __init fdt_property_interrupts(const struct kernel_info *kinfo,
-     return res;
+@@ -180,33 +180,19 @@ unsigned int __init dom0_max_vcpus(void)
+ static bool __init insert_11_bank(struct domain *d,
+                                   struct kernel_info *kinfo,
+                                   struct page_info *pg,
+-                                  unsigned int order)
++                                  unsigned int order,
++                                  nodeid_t node)
+ {
+     struct membanks *mem = kernel_info_get_mem(kinfo);
+     unsigned int i;
+     int res;
+     mfn_t smfn;
+     paddr_t start, size;
+-    nodeid_t node = 0U;
+ 
+     smfn = page_to_mfn(pg);
+     start = mfn_to_maddr(smfn);
+     size = pfn_to_paddr(1UL << order);
+ 
+-    /* This code is temporal */
+-    {
+-        struct membanks *mem = bootinfo_get_mem();
+-        for ( i = 0; i < mem->nr_banks; i++ )
+-        {
+-            if ( start >= mem->bank[i].start &&
+-                 start < (mem->bank[i].start + mem->bank[i].size) )
+-            {
+-                node = get_numa_nodeid(&mem->bank[i]);
+-                break;
+-            }
+-        }
+-    }
+-
+     D11PRINT("Allocated %#"PRIpaddr"-%#"PRIpaddr" (%ldMB/%ldMB, order %d)\n",
+              start, start + size,
+              1UL << (order + PAGE_SHIFT - 20),
+@@ -293,7 +279,13 @@ fail:
  }
  
-+#ifdef CONFIG_NUMA
-+static int __init make_distance_map_node(const struct domain *d, void *fdt)
-+{
-+    nodeid_t from, to;
-+    unsigned int count = 0;
-+    int res;
-+
-+    static uint32_t __initdata matrix[MAX_NUMNODES * MAX_NUMNODES * 3];
-+
-+    if ( nodes_weight(d->node_affinity) <= 1 )
-+        return 0;
-+
-+    for_each_node_mask(from, d->node_affinity)
-+    {
-+        for_each_node_mask(to, d->node_affinity)
-+        {
-+            matrix[count * 3 + 0] = cpu_to_fdt32(from);
-+            matrix[count * 3 + 1] = cpu_to_fdt32(to);
-+            matrix[count * 3 + 2] = cpu_to_fdt32(__node_distance(from, to));
-+            count++;
-+        }
-+    }
-+
-+    res = fdt_begin_node(fdt, "distance-map");
-+    if ( res )
-+        return res;
-+
-+    res = fdt_property_string(fdt, "compatible", "numa-distance-map-v1");
-+    if ( res )
-+        return res;
-+
-+    res = fdt_property(fdt, "distance-matrix", matrix, count * 3 * sizeof(uint32_t));
-+    if ( res )
-+        return res;
-+
-+    res = fdt_end_node(fdt);
-+    if ( res )
-+        return res;
-+
-+    return 0;
-+}
-+#else /* CONFIG_NUMA */
-+#define make_distance_map_node(d, fdt) (0)
-+#endif /* CONFIG_NUMA */
-+
- int __init add_ext_regions(unsigned long s_gfn, unsigned long e_gfn,
-                            void *data)
+ /*
+- * This is all pretty horrible.
++ * Allocate NUMA-aware memory for Dom0 with 1:1 mapping.
++ *
++ * This function distributes the requested Dom0 memory across the allowed
++ * physical NUMA nodes in a balanced manner. It implements a multi-pass
++ * scavenging loop to allow nodes to dynamically back up each other if a
++ * particular node runs out of memory, maintaining a balanced distribution
++ * while ensuring the maximum amount of requested memory is satisfied.
+  *
+  * Requirements:
+  *
+@@ -308,155 +300,187 @@ fail:
+  *    below 4GB, so that it can be used by non-LPAE enabled kernels (32-bit).
+  * 4. Some devices assigned to dom0 can only do 32-bit DMA access or
+  *    even be more restricted. We want to allocate as much of the RAM
+- *    as we reasonably can that can be accessed from all the devices..
++ *    as we reasonably can that can be accessed from all the devices.
+  * 5. For 32-bit dom0 the kernel must be located below 4GB.
+- * 6. We want to have a few largers banks rather than many smaller ones.
++ * 6. We want to have a few larger banks rather than many smaller ones.
+  *
+  * For the first two requirements we need to make sure that the lowest
+- * bank is sufficiently large.
+- *
+- * For convenience we also sort the banks by physical address.
+- *
+- * The memory allocator does not really give us the flexibility to
+- * meet these requirements directly. So instead of proceed as follows:
+- *
+- * We first allocate the largest allocation we can as low as we
+- * can. This then becomes the first bank. This bank must be at least
+- * 128MB (or memory size requested for domain if that is smaller).
++ * bank (Bank 0) is sufficiently large to hold all boot modules.
+  *
+- * Then we start allocating more memory, trying to allocate the
+- * largest possible size and trying smaller sizes until we
+- * successfully allocate something.
++ * The memory allocator does not really give us the flexibility to meet
++ * these requirements directly under NUMA topologies. So instead we proceed
++ * as follows:
+  *
+- * We then try and insert this memory in to the list of banks. If it
+- * can be merged into an existing bank then this is trivial.
++ * We first calculate the total size required for the kernel, ramdisk, and
++ * DTB to establish a safe minimum size constraint for the first bank (Bank 0).
+  *
+- * If the new memory is before the first bank (and cannot be merged into it)
+- * and is at least 128M then we allow it, otherwise we give up. Since the
+- * allocator prefers to allocate high addresses first and the first bank has
+- * already been allocated to be as low as possible this likely means we
+- * wouldn't have been able to allocate much more memory anyway.
++ * We then enter a multi-pass outer loop that runs until the full memory
++ * request is met. In each pass, we dynamically calculate the target allocation
++ * amount for each remaining active node to ensure a balanced distribution.
+  *
+- * Otherwise we insert a new bank. If we've reached MAX_NR_BANKS then
+- * we give up.
+- *
+- * For 32-bit domain we require that the initial allocation for the
+- * first bank is part of the low mem. For 64-bit, the first bank is preferred
+- * to be allocated in the low mem. Then for subsequent allocation, we
+- * initially allocate memory only from low mem. Once that runs out out
+- * (as described above) we allow higher allocations and continue until
+- * that runs out (or we have allocated sufficient dom0 memory).
++ * For the initial chunk (Bank 0), we try to allocate the largest possible size
++ * as low as possible, honoring the 32-bit lowmem/DMA constraints. If it fails
++ * to find lowmem space and the domain is 64-bit, it falls back to highmem
++ * without violating the minimum size needed for the boot modules.
+  */
+ static void __init allocate_memory_11(struct domain *d,
+                                       struct kernel_info *kinfo)
  {
-@@ -1569,6 +1614,7 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
-         DT_MATCH_TYPE("memory"),
-         /* The memory mapped timer is not supported by Xen. */
-         DT_MATCH_COMPATIBLE("arm,armv7-timer-mem"),
-+        DT_MATCH_COMPATIBLE("numa-distance-map-v1"),
-         { /* sentinel */ },
-     };
-     static const struct dt_device_match timer_matches[] __initconst =
-@@ -1734,6 +1780,10 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
-         if ( res )
-             return res;
- 
-+        res = make_distance_map_node(d, kinfo->fdt);
-+        if ( res )
-+            return res;
+-    const unsigned int min_low_order =
+-        get_order_from_bytes(min_t(paddr_t, kinfo->unassigned_mem, MB(128)));
+-    const unsigned int min_order = get_order_from_bytes(MB(4));
++    paddr_t todo = kinfo->unassigned_mem;
++    nodeid_t node;
 +
-         res = sci_dt_finalize(d, kinfo->fdt);
-         if ( res )
-             return res;
++    unsigned int max_chunk_order = get_order_from_bytes(MB(128));
++    unsigned int min_bank0_order;
++    unsigned int lowmem_bitsize = arch_get_dma_bitsize();
++    bool is_bank0 = true;
++
++    struct boot_module *kernel_mod  = boot_module_find_by_kind(BOOTMOD_KERNEL);
++    struct boot_module *ramdisk_mod = boot_module_find_by_kind(BOOTMOD_RAMDISK);
++    struct boot_module *dtb_mod     = boot_module_find_by_kind(BOOTMOD_FDT);
++    paddr_t required_size = 0;
++
++    nodemask_t exhausted_nodes;
++    nodemask_t valid_nodes;
++
+     struct membanks *mem = kernel_info_get_mem(kinfo);
+-    struct page_info *pg;
+-    unsigned int order = get_allocation_size(kinfo->unassigned_mem);
+     unsigned int i;
+ 
+-    bool lowmem = true;
+-    unsigned int lowmem_bitsize = min(32U, arch_get_dma_bitsize());
+-    unsigned int bits;
+-
+     /*
+      * TODO: Implement memory bank allocation when DOM0 is not direct
+      * mapped
+      */
+     BUG_ON(!is_domain_direct_mapped(d));
+ 
+-    printk("Allocating 1:1 mappings totalling %ldMB for %pd:\n",
++    printk("Allocating 1:1 mappings totalling %ldMB for dom0:\n",
+            /* Don't want format this as PRIpaddr (16 digit hex) */
+-           (unsigned long)(kinfo->unassigned_mem >> 20), d);
++           (unsigned long)(kinfo->unassigned_mem >> 20));
+ 
+     mem->nr_banks = 0;
+ 
+     /*
+-     * First try and allocate the largest thing we can as low as
+-     * possible to be bank 0.
++     * Calculate the absolute minimum size required to fit the kernel,
++     * initrd, and DTB inside Bank 0
+      */
+-    while ( order >= min_low_order )
+-    {
+-        for ( bits = order ; bits <= lowmem_bitsize; bits++ )
+-        {
+-            pg = alloc_domheap_pages(d, order, MEMF_bits(bits));
+-            if ( pg != NULL )
+-            {
+-                if ( !insert_11_bank(d, kinfo, pg, order) )
+-                    BUG(); /* Cannot fail for first bank */
++    if ( kernel_mod )
++        required_size += kernel_mod->size;
++    if ( ramdisk_mod )
++        required_size += ramdisk_mod->size;
++    if ( dtb_mod )
++        required_size += dtb_mod->size;
+ 
+-                goto got_bank0;
+-            }
+-        }
+-        order--;
+-    }
+-
+-    /* Failed to allocate bank0 in the lowmem region. */
+-    if ( is_32bit_domain(d) )
+-        panic("Unable to allocate first memory bank\n");
++    min_bank0_order = get_order_from_bytes(required_size);
+ 
+-    /* Try to allocate memory from above the lowmem region */
+-    printk(XENLOG_INFO "No bank has been allocated below %u-bit.\n",
+-           lowmem_bitsize);
+-    lowmem = false;
++    nodes_clear(exhausted_nodes);
++    nodes_and(valid_nodes, d->node_affinity, node_online_map);
+ 
+- got_bank0:
++    BUG_ON(nodes_empty(valid_nodes));
+ 
+-    /*
+-     * If we failed to allocate bank0 in the lowmem region,
+-     * continue allocating from above the lowmem and fill in banks.
+-     */
+-    order = get_allocation_size(kinfo->unassigned_mem);
+-    while ( kinfo->unassigned_mem && mem->nr_banks < mem->max_banks )
++    while ( todo > 0 )
+     {
+-        pg = alloc_domheap_pages(d, order,
+-                                 lowmem ? MEMF_bits(lowmem_bitsize) : 0);
+-        if ( !pg )
+-        {
+-            order --;
++        paddr_t last_todo = todo;
++        nodemask_t active_nodes;
++        unsigned int active_nodes_count;
++        unsigned int nodes_left;
+ 
+-            if ( lowmem && order < min_low_order)
+-            {
+-                D11PRINT("Failed at min_low_order, allow high allocations\n");
+-                order = get_allocation_size(kinfo->unassigned_mem);
+-                lowmem = false;
+-                continue;
+-            }
+-            if ( order >= min_order )
+-                continue;
++        /* Filter out exhausted nodes to find active candidates */
++        nodes_andnot(active_nodes, valid_nodes, exhausted_nodes);
++        active_nodes_count = nodes_weight(active_nodes);
+ 
+-            /* No more we can do */
++        if ( active_nodes_count == 0 )
++        {
++            printk(XENLOG_WARNING "Dom0 NUMA: All specified nodes are completely exhausted.\n");
+             break;
+         }
+ 
+-        if ( !insert_11_bank(d, kinfo, pg, order) )
++        nodes_left = active_nodes_count;
++
++        for_each_node_mask(node, active_nodes)
+         {
+-            if ( mem->nr_banks == mem->max_banks )
+-                /* Nothing more we can do. */
+-                break;
++            paddr_t target_per_node;
++            paddr_t node_todo;
+ 
+-            if ( lowmem )
+-            {
+-                D11PRINT("Allocation below bank 0, allow high allocations\n");
+-                order = get_allocation_size(kinfo->unassigned_mem);
+-                lowmem = false;
+-                continue;
+-            }
+-            else
++            /* Target chunk size per node */
++            target_per_node = DIV_ROUND_UP(todo, nodes_left);
++            target_per_node = DIV_ROUND_UP(target_per_node, MB(128)) * MB(128);
++
++            node_todo = min(todo, target_per_node);
++
++            while ( node_todo > 0 )
+             {
+-                D11PRINT("Allocation below bank 0\n");
+-                break;
++                struct page_info *pg = NULL;
++                unsigned int max_order = get_allocation_size(node_todo);
++                unsigned int order;
++                paddr_t bank_size;
++
++                /*
++                 * Enforce a maximum chunk cap of 128MB for all allocations
++                 * except Bank 0
++                 */
++                if ( !is_bank0 && max_order > max_chunk_order )
++                    max_order = max_chunk_order;
++
++                for ( order = max_order; ; order-- )
++                {
++                    unsigned int memflags = MEMF_node(node);
++                    if ( !dom0_affinity_relaxed )
++                        memflags |= MEMF_exact_node;
++
++                    if ( is_bank0 )
++                    {
++                        unsigned int bits;
++                        for ( bits = order; bits <= lowmem_bitsize; bits++ )
++                        {
++                            pg = alloc_domheap_pages(d, order, memflags | MEMF_bits(bits));
++                            if ( pg != NULL )
++                                break;
++                        }
++
++                        if ( !pg && order <= min_bank0_order )
++                        {
++                            if ( is_32bit_domain(d) )
++                                panic("Unable to allocate first memory bank below %u-bit\n", lowmem_bitsize);
++
++                            pg = alloc_domheap_pages(d, order, memflags);
++                        }
++                    }
++                    else
++                    {
++                        pg = alloc_domheap_pages(d, order, memflags);
++                    }
++
++                    if ( pg || order == 0 )
++                        break;
++                }
++
++                if ( !pg )
++                {
++                    node_set(node, exhausted_nodes);
++                    break;
++                }
++
++                if ( is_bank0 )
++                    is_bank0 = false;
++
++                if ( !insert_11_bank(d, kinfo, pg, order, node) )
++                    break;
++
++                bank_size = 1ULL << (PAGE_SHIFT + order);
++                node_todo -= bank_size;
++                todo -= bank_size;
++
++                if ( todo == 0 ) break;
+             }
++
++            nodes_left--;
++            if ( todo == 0 ) break;
+         }
+ 
+         /*
+-         * Success, next time around try again to get the largest order
+-         * allocation possible.
++         * Prevent infinite loop if a full pass across all active nodes
++         * yields zero progress
+          */
+-        order = get_allocation_size(kinfo->unassigned_mem);
++        if ( todo == last_todo )
++            break;
+     }
+ 
+     if ( kinfo->unassigned_mem )
+@@ -464,14 +488,15 @@ static void __init allocate_memory_11(struct domain *d,
+         panic("Failed to allocate requested dom0 memory. %ldMB unallocated\n",
+               (unsigned long)kinfo->unassigned_mem >> 20);
+ 
+-    for( i = 0; i < mem->nr_banks; i++ )
++    for ( i = 0; i < mem->nr_banks; i++ )
+     {
+-        printk("BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%ldMB)\n",
++        printk("BANK[%d] %#"PRIpaddr"-%#"PRIpaddr" (%ldMB) NODE:%u\n",
+                i,
+                mem->bank[i].start,
+                mem->bank[i].start + mem->bank[i].size,
+                /* Don't want format this as PRIpaddr (16 digit hex) */
+-               (unsigned long)(mem->bank[i].size >> 20));
++               (unsigned long)(mem->bank[i].size >> 20),
++               get_numa_nodeid(&mem->bank[i]));
+     }
+ }
+ 
 -- 
 2.43.0
 
