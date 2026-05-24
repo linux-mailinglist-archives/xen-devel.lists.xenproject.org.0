@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +HODOHzaEmoZ4wYAu9opvQ
+	id 3BGxCz7eEmqs4wYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 13:01:16 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 13:17:18 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EE945C2260
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 13:01:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1318619.1586749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B469B5C22B9
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 13:17:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1318628.1586758 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wR6Z6-0004Ts-SB; Sun, 24 May 2026 11:00:16 +0000
+	id 1wR6pB-0006M9-6d; Sun, 24 May 2026 11:16:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1318619.1586749; Sun, 24 May 2026 11:00:16 +0000
+Received: by outflank-mailman (output) from mailman id 1318628.1586758; Sun, 24 May 2026 11:16:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wR6Z6-0004RI-Ow; Sun, 24 May 2026 11:00:16 +0000
-Received: by outflank-mailman (input) for mailman id 1318619;
- Sun, 24 May 2026 11:00:15 +0000
+	id 1wR6pB-0006JV-42; Sun, 24 May 2026 11:16:53 +0000
+Received: by outflank-mailman (input) for mailman id 1318628;
+ Sun, 24 May 2026 11:16:51 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1wR6Z5-0004RC-QD
- for xen-devel@lists.xenproject.org; Sun, 24 May 2026 11:00:15 +0000
+ (envelope-from <julien@xen.org>) id 1wR6p9-0006JP-6l
+ for xen-devel@lists.xenproject.org; Sun, 24 May 2026 11:16:51 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1wR6Z5-003zR6-0Z;
- Sun, 24 May 2026 11:00:15 +0000
+ (envelope-from <julien@xen.org>) id 1wR6p8-003ziy-2K;
+ Sun, 24 May 2026 11:16:50 +0000
 Received: from [2a02:8012:3a1:0:94ee:8228:5d9d:4ee8]
  by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
- (envelope-from <julien@xen.org>) id 1wR6Z4-005PIm-39;
- Sun, 24 May 2026 11:00:15 +0000
+ (envelope-from <julien@xen.org>) id 1wR6p8-005QDS-1O;
+ Sun, 24 May 2026 11:16:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,33 +47,33 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=7m4lJ7TIcGE792JMwbJcSf0iwwa49L3L/8UsoUChDbM=; b=PSoEG+vNRgfWC8ttgY5EfqB6Fi
-	fPWA0s8YnqBwboe+qgHxLVNSLg88IveZ6yhggJIV5gZTNS78JMqwMZ28kOXZC5aDHtq7Qo5NnwU1K
-	O7IZp7PtdKSrn7J0vf8GnzFMenXtjWzxYvwmIHOwIGbzIQiinyv/snqIzgEnSiR8oXOY=;
-Message-ID: <e489f44e-ef61-425c-bd0e-0a992c32f7cf@xen.org>
-Date: Sun, 24 May 2026 12:00:13 +0100
+	bh=DpCjZi3SL0X921Oss3oqgK+DJOyDoHLLjH65p7XLZKo=; b=u8/gNR6zrOeRb5J+4G+ZjjCVbk
+	MCetsK9hflHoiUFhe3tVU9ClF/EdSIES2hhndQccA1uAZNEj9LflLIS2LmWTI13oeoqphvQ1+Usz6
+	sEfFCl318UOgXvyjRK8CzxgFoqSrVD1XpE30pwujAEcz6nc15GvAfV6dg4rYwVTlqivE=;
+Message-ID: <ffb1e917-857f-470b-8d52-36812e4c9492@xen.org>
+Date: Sun, 24 May 2026 12:16:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/23] xen/arm: smmuv3: Add support for stage-1 and
- nested stage translation
+Subject: Re: [PATCH v3 05/23] xen/arm: vsmmuv3: Add dummy support for virtual
+ SMMUv3 for guests
 Content-Language: en-GB
 To: Milan Djokic <milan_djokic@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Rahul Singh <rahul.singh@arm.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  Michal Orzel <michal.orzel@amd.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <cover.1774305918.git.milan_djokic@epam.com>
- <cb8a2cb5df50128f4c49d34a7ab8faa4e73f83c6.1774305918.git.milan_djokic@epam.com>
- <56a7c116-4ecb-4dfc-a7dd-774d53041fe9@xen.org>
- <87a04781-5765-43b6-8b21-cb993609bd91@epam.com>
- <cd2c76a2-7a13-4bbf-9c29-5dcf3ae06fc0@xen.org>
- <4c96c478-aeb5-443c-a6ca-f23caf7d5430@epam.com>
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>
+References: <cover.1774918270.git.milan_djokic@epam.com>
+ <97aa20fdcec324bb58c6869ddcba5fcf29bf75b3.1774918270.git.milan_djokic@epam.com>
+ <1dcec397-a265-4972-8f2c-fd10c6e0b6ad@xen.org>
+ <c8d683f1-eba2-4ec9-beca-84e6b5e80914@epam.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <4c96c478-aeb5-443c-a6ca-f23caf7d5430@epam.com>
+In-Reply-To: <c8d683f1-eba2-4ec9-beca-84e6b5e80914@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	R_DKIM_ALLOW(-0.20)[xen.org:s=20200302mail];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
@@ -82,7 +82,7 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:milan_djokic@epam.com,m:xen-devel@lists.xenproject.org,m:rahul.singh@arm.com,m:bertrand.marquis@arm.com,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:milan_djokic@epam.com,m:xen-devel@lists.xenproject.org,m:rahul.singh@arm.com,m:sstabellini@kernel.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	DMARC_NA(0.00)[xen.org];
 	ARC_NA(0.00)[];
@@ -100,51 +100,135 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 7EE945C2260
+X-Rspamd-Queue-Id: B469B5C22B9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 Hi Milan,
 
-On 28/04/2026 11:16, Milan Djokic wrote:
->>> The original idea was to also allow stage-1-only support. But I'm not
->>> sure if stage-1-only usecase is useful or even valid for Xen.. I will
->>> update the patch series with the missing parts for stage-1-only support,
->>> pointed out by Luca, but the question remains if this is needed at all.
->>> If not, I can revert to original state where stage-2 was always 
->>> required.
+On 03/05/2026 19:38, Milan Djokic wrote:
+> On 4/14/26 09:09, Julien Grall wrote:
+>>> diff --git a/xen/arch/arm/include/asm/viommu.h b/xen/arch/arm/ 
+>>> include/asm/viommu.h
+>>> index 4598f543b8..2a6742de73 100644
+>>> --- a/xen/arch/arm/include/asm/viommu.h
+>>> +++ b/xen/arch/arm/include/asm/viommu.h
+>>> @@ -5,9 +5,21 @@
+>>>    #ifdef CONFIG_ARM_VIRTUAL_IOMMU
+>>>    #include <xen/lib.h>
+>>> +#include <xen/list.h>
+>>>    #include <xen/types.h>
+>>>    #include <public/xen.h>
+>>> +extern struct list_head host_iommu_list;
+>>> +
+>>> +/* data structure for each hardware IOMMU */
+>>> +struct host_iommu {
+>>> +    struct list_head entry;
+>>> +    const struct dt_device_node *dt_node;
+>>> +    paddr_t addr;
+>>> +    paddr_t size;
+>>> +    uint32_t irq;
 >>
->> By "stage-1 only" support, do you mean Xen would use the stage-1 in
->> replacement of the stage-2? Or do you mean the guest will use the
->> stage-1 page-table and there will be no isolation from Xen?
->>
->> If the former, then I believe the page tables don't have the exact same
->> format. Today, the page-tables are shared between the CPU and IOMMU, so
->> this would need to be duplicated. For now, I am not sure this is worth
->> to do.
->>
->> If the latter, this would require the guest to be directly mapped (i.e.
->> IPA == PA) but it would also open a big hole. So I would want to
->> understand the exact use case first.
+>> You don't seem to use ``irq`` in this patch. What is this meant to be
+>> used for?
 >>
 > 
-> The latter. In this case, the guest would configure stage-1 while 
-> stage-2 translation is not used, so there is no additional isolation 
-> enforced by Xen. This would only be intended for specific usecases with 
-> trusted domains. But yes, this opens a significant hole if used with 
-> untrusted guests. If there is no strong usecase, we could restrict the 
-> implementation to always require stage-2.
+> This field will be used for vIOMMU event queue creation for the hardware 
+> domain in a later patch (xen/arm: vsmmuv3: Add support for event queue 
+> and global error). The emulated IRQ and MMIO region for the hardware 
+> domain vIOMMU will match those of the host IOMMU.
 
-It is still unclear what would be the exact use-case. Is it a system 
-where the SMMU doesn't support stage-2? Performance reason?
+I would prefer if this is introduced when you need it.
 
-Overall, I would rather not add any extra code in Xen without any strong 
-use case.
+[..]
+
+>>> diff --git a/xen/drivers/passthrough/arm/viommu.c b/xen/drivers/ 
+>>> passthrough/arm/viommu.c
+>>> index 7ab6061e34..53ae46349a 100644
+>>> --- a/xen/drivers/passthrough/arm/viommu.c
+>>> +++ b/xen/drivers/passthrough/arm/viommu.c
+>>> @@ -2,12 +2,42 @@
+>>>    #include <xen/errno.h>
+>>>    #include <xen/init.h>
+>>> +#include <xen/irq.h>
+>>>    #include <xen/types.h>
+>>>    #include <asm/viommu.h>
+>>> +/* List of all host IOMMUs */
+>>> +LIST_HEAD(host_iommu_list);
+>>
+>> I don't quite follow why this is part of the common code. That said, why
+>> do we need to register the host IOMMU? Wouldn't it be simpler to go
+>> through the list of pIOMMU in the vSMMU v3 implementation?
+>>
+> 
+> ``host_iommu_list`` is part of the generic code to allow reuse for other 
+> IOMMU types in the future. For example, it can be reused for Renesas 
+> IPMMU, rather than duplicating it.
+> As for why we need to register IOMMUs, it seems more suitable to create 
+> this list at initialization and add IOMMUs with the necessary properties 
+> when the pIOMMU is probed.
+> We can't reuse the same list from the SMMU driver because vIOMMU needs 
+> raw DT properties (address, size), which I don't think we can extract 
+> from the host driver list.
+
+The IOMMU ABI is not fixed in Xen. It can be modified to fit the vIOMMU 
+work. My main concern with the current approach is the list of 
+information we may need will differ between IOMMUs and the information 
+will need to be duplicated. So I am still not convinced this is the 
+right way to have generic code.
+
+It would be better if we have callback to prepare the firmware table 
+(and maybe mapping/irq) for a given SMMU.
+
+That said, it might be preferable to avoid any genericity until we 
+actually know how this will be used by other virtual IOMMUs.
+
+>>>    const struct viommu_desc __read_mostly *cur_viommu;
+>>> +/* Common function for adding to host_iommu_list */
+>>> +void add_to_host_iommu_list(paddr_t addr, paddr_t size,
+>>> +                            const struct dt_device_node *node)
+>>
+>> Is this supposed to only be called during __init? If so, this will help
+>> to justify the ...
+>>
+>>> +{
+>>> +    struct host_iommu *iommu_data;
+>>> +
+>>> +    iommu_data = xzalloc(struct host_iommu);
+>>> +    if ( !iommu_data )
+>>> +        panic("vIOMMU: Cannot allocate memory for host IOMMU data\n");
+>>
+>> ... panic(). If not, then this function needs to return an error.
+>>
+> 
+> Yes, this is called during init, on pIOMMU driver probe 
+> (arm_smmu_device_probe())
+> 
+>>> +
+>>> +    iommu_data->addr = addr;
+>>> +    iommu_data->size = size;
+>>> +    iommu_data->dt_node = node;
+>>> +    iommu_data->irq = platform_get_irq(node, 0);
+>>> +    if ( iommu_data->irq < 0 )
+>>> +    {
+>>> +        gdprintk(XENLOG_ERR,
+>>> +                 "vIOMMU: Cannot find a valid IOMMU irq\n");
+>>
+>> Shouldn't you free the allocated memory? That said, why is it ok to
+>> ignore the vIOMMU in this case?
+>>
+> 
+> Yes, this is missing. We ignore the host IOMMU with an invalid IRQ 
+> because event queue emulation won't work in this case.
+
+What you are telling me is that the vIOMMU emulation doesn't support the 
+event queue. However, if the OS is able to probe/use an SMMU without the 
+IRQ then we should support it.
 
 Cheers,
 
