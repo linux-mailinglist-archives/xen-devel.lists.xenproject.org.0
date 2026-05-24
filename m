@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UDbwEPsXE2oi7gYAu9opvQ
+	id OKyOMksYE2oi7gYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 17:23:39 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 17:24:59 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F9DA5C2D68
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 17:23:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1318719.1586777 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F1E05C2D87
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 17:24:59 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1318725.1586785 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRAep-0005sk-MA; Sun, 24 May 2026 15:22:27 +0000
+	id 1wRAh6-0006Kj-0M; Sun, 24 May 2026 15:24:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1318719.1586777; Sun, 24 May 2026 15:22:27 +0000
+Received: by outflank-mailman (output) from mailman id 1318725.1586785; Sun, 24 May 2026 15:24:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRAep-0005qC-Il; Sun, 24 May 2026 15:22:27 +0000
-Received: by outflank-mailman (input) for mailman id 1318719;
- Sun, 24 May 2026 15:22:26 +0000
+	id 1wRAh5-0006Ip-Tg; Sun, 24 May 2026 15:24:47 +0000
+Received: by outflank-mailman (input) for mailman id 1318725;
+ Sun, 24 May 2026 15:24:46 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wRAen-0005q4-RC
- for xen-devel@lists.xenproject.org; Sun, 24 May 2026 15:22:25 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wRAh4-0006Ii-Hm
+ for xen-devel@lists.xenproject.org; Sun, 24 May 2026 15:24:46 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wRAen-00BQUy-7G
- for xen-devel@lists.xenproject.org; Sun, 24 May 2026 17:22:25 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wRAh3-00BQfG-QI
+ for xen-devel@lists.xenproject.org; Sun, 24 May 2026 17:24:45 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a13176d-bab6-0a2a0a5309dd-0a2a450bc806-26
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 17:22:25 +0200
-Received: from [209.85.128.53] (helo=mail-wm1-f53.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a13181f-bab6-0a2a0a5309dd-0a2a450abbb8-8
+ for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 17:24:45 +0200
+Received: from [209.85.221.44] (helo=mail-wr1-f44.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a1317b0-212f-0a2a450b0019-d1558035b0d9-3
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 17:22:25 +0200
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-49039a8851fso32451765e9.2
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 08:22:24 -0700 (PDT)
+ id 6a13183d-56b3-0a2a450a0019-d155dd2cad9b-3
+ for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 17:24:45 +0200
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-459bf19e87bso5128602f8f.1
+ for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 08:24:45 -0700 (PDT)
 Received: from ?IPV6:2003:ca:b727:851f:6065:3b2:383f:b228?
  (p200300cab727851f606503b2383fb228.dip0.t-ipconnect.de.
  [2003:ca:b727:851f:6065:3b2:383f:b228])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490454cfcaesm178920795e9.4.2026.05.24.08.22.23
+ ffacd0b85a97d-45eb6d48e23sm19066355f8f.20.2026.05.24.08.24.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 24 May 2026 08:22:23 -0700 (PDT)
+ Sun, 24 May 2026 08:24:44 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,49 +60,49 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779636144; x=1780240944; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1779636285; x=1780241085; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=HmEAwjes32EorWsWlnfEI2UTf+gI2ldQv49cV02s4QQ=;
-        b=HSNohEXLTn+LYn6bqpz9S+MVEN2GmxNbEL8lZpionhfSheyNSxr92ovjV6hbuZFJTi
-         SfbmVSb+ADMgfb4akT9SV8McrarKwXs8OUhNpXjJfuIfefRaecw711gbMJLvMtnnXCkB
-         ad5vxdF/XXvcLfzSpdqSnoAf5EdEyyP3TTelrl03e6rUyDLBJoO+xRIgCc76moSOvI0o
-         jYRTZPgYLJYhj58WQpRk9q2N8nAIzm4fyYvX9YWazi1O43HzSWG9hmAcCzWSa1ThPrT7
-         ESoiZShMnNgwYOXNu5rXzRvKCrgCYWSj5uYSroF6RYcq/UMqI1kcUcxs7fUoZI2qjAmV
-         r7qg==
+        bh=wz0ce+1bAd2vC1HYkRJekSw0wiuP/YDW2GhoK1lI1CY=;
+        b=FKYVQOFFF7TWT/ghzBgv/SKcMqOQlOmrStwfMBUGvKtPOVRCheRoZPSAao5knSo1QQ
+         1rCZcYQB2IuyPVuBQrZghT7k76tenRIRhy7l3wZy3nnguoqwrsPn+ksZ9hOxluiEAUsO
+         b02acb5N5WLCDviyPS3jUxLH/pZbVOxVf8n2v42j7tQLSCSdJSI8WsftZWS9Bi9+7JIc
+         2ohijxQJh6E7pqHL5tnxgIAn3vr8odfjpOYZh7E/BLWDlCOMQOBC5VVQ1djqGsj9kDHw
+         RIUyx3sGWBDT3lXOAYG/tEgrdCiUeMPqW6mOqMALWtZ05z3fLGSlkRqBUnVp9bftZ+eT
+         VAlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779636144; x=1780240944;
+        d=1e100.net; s=20251104; t=1779636285; x=1780241085;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=HmEAwjes32EorWsWlnfEI2UTf+gI2ldQv49cV02s4QQ=;
-        b=f4ohYJr9ETYGwPmopYIt/cZrRQn4WByFICk081Tu7mRGiBijjOW54n19mFFYGIF25H
-         YcitNWQNKajXoJo52KcBJmSAyB5V2m2m7Aj6k2EEWSEIqZU6SzQ8Xmm2TNF5tPHXMtjV
-         4fFqOhPqPliouAooogCWZDTiLbazwi3rgry6f7X5Kl4Byg3Q0JHUgKa6+q3c5bw9cRTL
-         Fsmr2Hl1xcuk4mwlIHlegEPkzp88lQvgiJUd+AF5lQGQrwwBr8HAh2YAzZh4oFhgSwBa
-         LzFfVkzNsUfMEsUMbSy2V7YSFqDK41ZdUHXg5qvYVV5QTKRel+T0bzhxNqr4RLBFJI8n
-         nCaA==
-X-Forwarded-Encrypted: i=1; AFNElJ9i9MXYGp9AUxub2Nc58L5WlpOEYTkXUSYd96P7ZCj/exNSmL7WAXq0xdIxnXPFAsCoy02bHh6ERcg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxWm1oJ4DG8UNsu/1MTzA3xUCrE08A2EDXpnuOGJ+EP1bOIVAOI
-	urMrYnEdrmAoHTDUifDakUcZ7Ir2k+ktA3ISC0p6kgtUiJMHL/9est9+orHRnUYqgw==
-X-Gm-Gg: Acq92OGW1wvCgf33dRV5Afv3Czx2+pS9fq9VzYPpO6i5Q0mf46QUP9UOt0VLU5YKc1X
-	aOeOHpm9G02NpvrTrhnAsXJwiY7XkufnFhpH03y6FzvLpHq1p4GkChwfNbLjY/aKv2fiXMQQckZ
-	0aZFh0Jtquj3h8uCvvCrxGYU6kalIW3zOG4V99UGqdkqWu9oPFxOMM6BE2EGeLsEHfonEJ5r0Gv
-	7AAqw327/hOueC6wTRyQ7LMhnRaomEy0v87xh5jKr9VVYqCIcLsz0FPRdcgryuiJ2fWQWtqZ6EX
-	iwXUTKoXj43S8Mm5s3U/Mw2sJuQDZ5SRk5B9mXQGGwihQEDEZjfQYi+PhwBFeIDGQCgNsEtyjqe
-	ArP1ZKKtbuEIYJVjt7OS7ZkqZvpNW1HHJxjxiPaBvQTg0St30pHrpi6fqLnP+hauW3b0g8T/INE
-	uVtfQbs4F4pt+dZAjH0PGMxLKaORWSE9pK+VtiyN4QQ9bGV7VM/n4QQTfoEV952VHpqPDoEenpx
-	gNmawKC5+fep0pZJTw28eZaeTW9Zep6DeMyeJwLulKGRRZtqzxLTbp41A==
-X-Received: by 2002:a05:600c:6383:b0:490:4717:970f with SMTP id 5b1f17b1804b1-4904717984dmr168504635e9.14.1779636144459;
-        Sun, 24 May 2026 08:22:24 -0700 (PDT)
-Message-ID: <50a4d56e-6adb-442c-ae98-1922315706ba@suse.com>
-Date: Sun, 24 May 2026 17:22:22 +0200
+        bh=wz0ce+1bAd2vC1HYkRJekSw0wiuP/YDW2GhoK1lI1CY=;
+        b=NziIgYACSTPi2M0bWWA1qZnF61forraGnuaOjLrCYzmRgVmOKos65K/PMR3jFUN14R
+         1DZY5jxDkt2a6cJAgLogW7GZ4fZIb8UDl9quzr2Q7+iCnYEYJlRABPT56/YrEQxTflp9
+         CbuRKT4D7A8aHTy5yQI1KF6zpaKXbEOg+ky70/vCZlR4Ld3i2KGPOiZbLqyKQ20lA/Zw
+         NE/XXQr52xuyovgDZ7IGV3gG6f5gT+CmwJu5dnptT4q6e80v/WklZAXcG874spQ6Tnpv
+         fVKvHAm5Vr9HuQXOJ67bx/3S6EuycAZEQ4ELTAsoNf3natfoJVUVdD2+hnM64a8PTGqI
+         3GQA==
+X-Forwarded-Encrypted: i=1; AFNElJ/3D4/76isbk1gPEpzzGydiVjSxdxq7yY2YI0AJTuZsjOay0jDzgKHDcliYvwTwtkJtdS/hKBqlvnw=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzOgbQfUr2DlxuOtG5tUwj/uRHagPpw7aeuCSD2yuVc+vTQwURM
+	OlVvZ4AHucXBAubdz3YaDvtv8kOpNQVWHhPrk+EKUZvvzFA3uEG0UacNJkGbkqv1FQ==
+X-Gm-Gg: Acq92OGVqY2RdMmPFCM4cbpfnQqQbC3YwR3fhE0+kur+K6jUaJuCfAUbPGzwoJIHUs9
+	XKcnrFIk20ABiuIrRvK/QghJere11j7TAF5rSDveo8oyEzchnawYqrvMVeuN9Tvej/sPHwSaUoC
+	Kw/KTW0tWwy6OFhqr4UqNc9Rsjwuoieo2rmQGdcmt5gPxE9YVDMVqr2Bch0BcsOABeAACDyhE6A
+	PFmH9Bu+IYIH8AmfbXlhf/T7VhWLhHEB6rtQDiImdx8lEQUNhU3MUWK1dasxxvZ5hl0L3scKoK9
+	FVphthlUZt/z/u1zh6bDPa7Rg8OXQsbsitpoB7Tfz5Woz7dyvX4cmjyYWtn0LY6Nfu8nmVoqN4U
+	MqDHl1wYkH5TLefItz9DxRRW5AGBZFjX0ItvPAxkxhYgL2nQvic6qGf0SmM84DnoSzrAvCgV4Ij
+	r1vrnId75I4N7UB8ZrLqa64oLYwo42eyK+WixTXlaVteAnJO8Td7kPcC/tSK6Az0QI++m4/Inok
+	i/WGLj9uOjzcz9t99t5XDVqNcEGJuBCJj/pwx/Nbs144tgm1beWhso9NXlSzDiTfE+W
+X-Received: by 2002:a05:6000:2003:b0:43b:4136:1e6f with SMTP id ffacd0b85a97d-45eb38e4b46mr18775261f8f.38.1779636285246;
+        Sun, 24 May 2026 08:24:45 -0700 (PDT)
+Message-ID: <b9ccc68d-011f-478f-9911-94c746b2a930@suse.com>
+Date: Sun, 24 May 2026 17:24:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 07/21] xen/device-tree: Parse 'cpu-map' node for CPU
- topology exploration
+Subject: Re: [PATCH 08/21] xen/sched: Link CPU topology to scheduler and
+ display via xl info
 To: Hirokazu Takahashi <taka@valinux.co.jp>
 Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech,
  michal.orzel@amd.com, julien@xen.org, roger.pau@citrix.com,
@@ -110,7 +110,7 @@ Cc: andrew.cooper3@citrix.com, anthony.perard@vates.tech,
  Volodymyr_Babchuk@epam.com, dfaggioli@suse.com, gwd@xenproject.org,
  xen-devel@lists.xenproject.org
 References: <20260524000209.292370-1-taka@valinux.co.jp>
- <20260524000209.292370-8-taka@valinux.co.jp>
+ <20260524000209.292370-9-taka@valinux.co.jp>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,28 +136,28 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260524000209.292370-8-taka@valinux.co.jp>
+In-Reply-To: <20260524000209.292370-9-taka@valinux.co.jp>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1779636145-20479F3B-75FB875E/0/0
+X-purgate-ID: tlsNG-4011c0/1779636285-7357C8B7-2B499D98/0/0
 X-purgate-type: clean
-X-purgate-size: 1874
+X-purgate-size: 542
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:taka@valinux.co.jp,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:jgross@suse.com,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:dfaggioli@suse.com,m:gwd@xenproject.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim];
-	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	RCPT_COUNT_TWELVE(0.00)[13];
 	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -173,56 +173,25 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 9F9DA5C2D68
+X-Rspamd-Queue-Id: 3F1E05C2D87
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 24.05.2026 02:01, Hirokazu Takahashi wrote:
-> Parse the 'cpu-map' node in the Device Tree to extract CPU topology
-> information. If the 'cpu-map' node is absent, fall back to
-> generating the topology data from the NUMA information. This
-> generation assumes exactly one socket per NUMA node and that SMT
-> is unsupported.
-> ---
->  xen/arch/arm/smpboot.c                |   6 +
->  xen/common/Kconfig                    |   7 +
->  xen/common/device-tree/Makefile       |   1 +
->  xen/common/device-tree/cpu_topology.c | 307 ++++++++++++++++++++++++++
->  xen/include/xen/cpu_topology.h        |  42 ++++
->  5 files changed, 363 insertions(+)
->  create mode 100644 xen/common/device-tree/cpu_topology.c
->  create mode 100644 xen/include/xen/cpu_topology.h
+> --- a/xen/include/xen/cpu_topology.h
+> +++ b/xen/include/xen/cpu_topology.h
+> @@ -14,6 +14,9 @@ struct cpu_topology {
+>      cpumask_t thread_sibling;
+>      cpumask_t core_sibling;
+>      cpumask_t cluster_sibling;
+> +    int to_core;
+> +    int to_socket;
+> +    int num_siblings;
+>  };
 
-Nit: New files' names want to use dashes in favor of underscores.
-
-> --- a/xen/common/Kconfig
-> +++ b/xen/common/Kconfig
-> @@ -188,6 +188,13 @@ config VM_EVENT
->  config NEEDS_LIBELF
->  	bool
->  
-> +config DT_CPU_TOPOLOGY
-> +       bool "Device tree based CPU topology support (UNSUPPORTED)" if UNSUPPORTED && ARM
-
-Instead of open-coding ARM here (and also in patch 03), please consider
-using another ...
-
-> +       depends on HAS_DEVICE_TREE_DISCOVERY
-
-... HAS_*, just like you make use of an existing one here.
-
-> --- a/xen/common/device-tree/Makefile
-> +++ b/xen/common/device-tree/Makefile
-> @@ -11,4 +11,5 @@ obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += kernel.o
->  obj-$(CONFIG_STATIC_EVTCHN) += static-evtchn.init.o
->  obj-$(CONFIG_STATIC_MEMORY) += static-memory.init.o
->  obj-$(CONFIG_STATIC_SHM) += static-shmem.init.o
-> +obj-$(CONFIG_DT_CPU_TOPOLOGY) += cpu_topology.o
->  obj-$(CONFIG_DEVICE_TREE_NUMA) += numa.o
-
-Again for here and (apparently) an earlier patch in the series: This
-file looks to be sorted alphabetically. Please don't blindly add to
-the end.
+What significance do the to_ prefixes have here? And what's the meaning
+of any of the fields holding negative values? (If they can't hold
+negative values, use unsigned int please.)
 
 Jan
 
