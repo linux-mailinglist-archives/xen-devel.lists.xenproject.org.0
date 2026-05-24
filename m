@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yIEfCrTJEWqEpwYAu9opvQ
+	id ybKMLT5AEmpExAYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sat, 23 May 2026 17:37:24 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 02:03:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9250F5BFB06
-	for <lists+xen-devel@lfdr.de>; Sat, 23 May 2026 17:37:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1317898.1586516 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A950E5C0E88
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 02:03:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1318175.1586524 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQoPU-00032S-88; Sat, 23 May 2026 15:37:08 +0000
+	id 1wQwIV-0001cy-FV; Sun, 24 May 2026 00:02:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1317898.1586516; Sat, 23 May 2026 15:37:08 +0000
+Received: by outflank-mailman (output) from mailman id 1318175.1586524; Sun, 24 May 2026 00:02:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQoPU-0002zd-59; Sat, 23 May 2026 15:37:08 +0000
-Received: by outflank-mailman (input) for mailman id 1317898;
- Sat, 23 May 2026 15:37:06 +0000
+	id 1wQwIV-0001Zr-9N; Sun, 24 May 2026 00:02:27 +0000
+Received: by outflank-mailman (input) for mailman id 1318175;
+ Sun, 24 May 2026 00:02:25 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jgross@suse.com>) id 1wQoPR-0002zX-Vf
- for xen-devel@lists.xenproject.org; Sat, 23 May 2026 15:37:06 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1wQwIS-0001Zl-8T
+ for xen-devel@lists.xenproject.org; Sun, 24 May 2026 00:02:25 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQoPR-00BBav-5w
- for xen-devel@lists.xenproject.org; Sat, 23 May 2026 17:37:05 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wQwIR-005yAt-L3
+ for xen-devel@lists.xenproject.org; Sun, 24 May 2026 02:02:23 +0200
+Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jgross@suse.com>)
- id 6a11c98e-e002-0a2a0a5209dd-0a2a4506ac5e-38
- for <xen-devel@lists.xenproject.org>; Sat, 23 May 2026 17:37:05 +0200
-Received: from [209.85.218.42] (helo=mail-ej1-f42.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jgross@suse.com>)
- id 6a11c9a0-7371-0a2a45060019-d155da2ad48a-3
- for <xen-devel@lists.xenproject.org>; Sat, 23 May 2026 17:37:05 +0200
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-bd9a71b565aso894664866b.0
- for <xen-devel@lists.xenproject.org>; Sat, 23 May 2026 08:37:05 -0700 (PDT)
-Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
- (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
- [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bddc30508d7sm196324866b.18.2026.05.23.08.37.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 23 May 2026 08:37:04 -0700 (PDT)
+ (envelope-from <taka@valinux.co.jp>)
+ id 6a123fee-2eae-0a2a0a5409dd-0a2a4508d87c-24
+ for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 02:02:22 +0200
+Received: from [52.101.229.130]
+ (helo=TY3P286CU002.outbound.protection.outlook.com)
+ by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <taka@valinux.co.jp>)
+ id 6a12400c-63b5-0a2a45080019-3465e58276d0-3
+ for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 02:02:22 +0200
+Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
+ by OS9P286MB4275.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:2ca::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Sun, 24 May
+ 2026 00:02:18 +0000
+Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0048.016; Sun, 24 May 2026
+ 00:02:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,245 +58,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1779550624; x=1780155424; darn=lists.xenproject.org;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=FfKQHdjwih2q+EkxV7DufViCJgSQzMqFM2acZntYQKU=;
-        b=VAlseSju1Zaocwi8ptiH0Ucq6jeqMx/WCIZxRlxgTRAT9rnBgpXujTgwGMyCWGkbC7
-         NPZ4gwW7r+H76WkI196+iDZrhGgnOSn3G4rlCZIEXwYRfK1AbM3RbH0MODSR1YTqckq8
-         lSuPIX8rPQ+kJtGrtgxl6BN9+p2Q7LP06NEHCjIo+6OOOY/bl/wfBZPlCOZRYvWVcfTi
-         MX8vmcr9CsBP1v3ASMsLsGTl+N836qNAbodUWROfX5Jhwht8iR82wMmq3wI4CnzrpbuO
-         7CCttDuuX8yoeavFQxnRIfuimmRt5dz31uBhwqV11+YvG7PXlOqXatB7y3thZQxnHP2U
-         HLXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779550624; x=1780155424;
-        h=in-reply-to:autocrypt:from:content-language:references:cc:to
-         :subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=FfKQHdjwih2q+EkxV7DufViCJgSQzMqFM2acZntYQKU=;
-        b=HljFFvr9vx+OuEI2pJW9IEPaJmrexp6R6tfHyn0H9xJrLosl1QkQJaqJ+W0VNf6jtn
-         92Hq6dvo+1vQpfF09+I9iUJdzv3LgxRFzKWaQsh0ptFwPMN7UgC6lB4CF6VYX/SIWXSW
-         tm/Gksy0YKyragAOHwuJ2W2QR8v6geEzg3xJc+yiuRPwEzPHQ2+Py6TQ11xMOV/GMrUF
-         6Rp4ArWIWe/SP4caeDmA1vfNPyFQfD2l3vaWxWgdhRDnG6r+P/b6efIdAYvRI/Rp+cS/
-         XayF/RiogwobAm7hIaJIuJ3Pgv9lcREW23AenNYy2L4MrHAGncWAsxYj8AtAckw/bhA3
-         gGpA==
-X-Gm-Message-State: AOJu0YzIEGCi8lgJlgJKnPzsTSkyQAgcdCacIdhYVtFfQ/tibd8wziXl
-	XBLnR9zm8xNb/Wb+IJrdjamuW49VGaDuEB32uYTe0I8r54xWly2tjP5jp0iH1pB/TGo=
-X-Gm-Gg: Acq92OFVd0wyXgJ0NNJkHccN9kccGCNGDl2bRQYXVwQwD8Rfu9P0Vxso3uCXvrkxwfD
-	1cjB6mJ6WHVZNnKTibdmeVLlK3OyNQi105aAHcdkPgtlaLjsazx3Zki6UuaIUsxM8COynbKKzZW
-	i0b8IGGV4BpQpvZ8No4y2wvrwEDtKyjaVE5VoGO5wm8wJtLb2e34TNi8Vh3i7jnL1TLgWDOgpgt
-	J80PDUsWfA1NAvA9Fakfopoqem4HX/7oWo+Ns8z3JjrPNt7Lr6Y+Ic1F2njAs5JbVhcTCUE4nvF
-	mF1L9mDL7oPItYuC4PsNPJYDfayYkbbQEmCtwVkoLE2vgM7r+O2gv1ZLzB1sg0ADAfgxowwQjpT
-	8MYJoMXa3+nCFW3BK8gzCREmpVqiKwUikohiZiEcdRa8IiKDooTqkkMJmPIQ7x0x3k0yHeFZStq
-	36SpMCX3EkS0ptuGsAUBobTSUoLoew075C9prrYTLG/s9BhaoZ1tc4/qsFISgXb7BCtchYr5t6i
-	zewucXteClvQr8Ez5zF+znQvahyWamqWuawJrbm7h+zFtJhbW7XiXWEqTeZj6B8
-X-Received: by 2002:a17:907:94cc:b0:bad:92f5:daea with SMTP id a640c23a62f3a-bdd22f2522dmr464567466b.14.1779550624518;
-        Sat, 23 May 2026 08:37:04 -0700 (PDT)
-Message-ID: <e2df8ceb-2649-42d2-aaf7-37f73ac27318@suse.com>
-Date: Sat, 23 May 2026 17:37:03 +0200
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=valinux.co.jp header.i="@valinux.co.jp" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GfsP7e4GQ+j7aXejBo4LspgnBnL3lF9D4eaA4IJZc0/TFNY+9VjZCpcPJcjne8n5UJIiJeAGGSWMvtvsiCIsM4fbAJkcq2vNXhbkdoJqgwBDmYdWSirtzTk/7yf24pN0ZlJgufl9N/z+BnwguqFlU/yRq6NuIF+3wR2Vy7GrzHS2MTRi2jIbe8LheKWdAdz21CbWA/2XhWHSpzCNErcsaqC04D2JJRJT3Wqpd2MP1jtD3ztRkufo5qJP4NJWEKN98EIKwq0qgd8BPKtlLiOWE6fbypYZXDMMYSy6Ecxnd084QIhpq9Ijzn8JxKCSYcIeF/2oGcI+RLd/Ln5cDw/0sA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IMx/z4cJBICeXl4yN63GuRWscjM+ZyI0l1AM2oZE+/U=;
+ b=TMjlLscOp0lJIg+zm68qUa3ao5VEFL3IpHdJyraQEBOw50Pm8Xii29cxPLtFRRjAHhLu/SxxL8DyaBIM43MLdx0SXbFMnTumiGJmM1Yhkpvuf8jqAvhcRHblk+e3kFOSn/hOAze2vnqEr6OHWQZwIL/yvybahAUwip2kCsdt6P2MIZ7GFazUtsVpfdq7c658SVTnZzlDxMFqtbwjMMnHyVktdHjiHu9EdIRWrlG5R8fNlSPrZRFyrkjH1P1ALaK9CH+aJetrhyp4qBdsnyaFtGnxZeDn8g/WJfmu4g+Q/cqDVF4FPFNkxIrl/Pjk7fvbzqen0SEDwp0W0mkE1Hq6+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IMx/z4cJBICeXl4yN63GuRWscjM+ZyI0l1AM2oZE+/U=;
+ b=hy6XUXPOt/6CLZY07rgp7RwjCgnu5STuDyLk/q+aSkzGYa5KP5bz6ZwC37UNoKyKQCx5qek6JwQaxYBzXLi+g9jaLz6R1fDyvX2v6tWCWg1RS+OjJmp1Wt8p/ivPAmGhcA8jcFtUUXEIVT8muacqClLjbd51dNBGHYMK3FwIGQk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+From: Hirokazu Takahashi <taka@valinux.co.jp>
+To: xen-devel@lists.xenproject.org
+Cc: andrew.cooper3@citrix.com,
+	anthony.perard@vates.tech,
+	michal.orzel@amd.com,
+	jbeulich@suse.com,
+	julien@xen.org,
+	roger.pau@citrix.com,
+	sstabellini@kernel.org,
+	jgross@suse.com,
+	bertrand.marquis@arm.com,
+	Volodymyr_Babchuk@epam.com,
+	dfaggioli@suse.com,
+	gwd@xenproject.org,
+	Hirokazu Takahashi <taka@valinux.co.jp>
+Subject: [PATCH 00/21] Introduce Device Tree based NUMA support for ARM Xen
+Date: Sun, 24 May 2026 09:01:48 +0900
+Message-ID: <20260524000209.292370-1-taka@valinux.co.jp>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCPR01CA0186.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b0::9) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:458::18)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/mcelog: mark g_physinfo, ncpus and
- xen_mce_chrdev_device as __ro_after_init
-To: Len Bao <len.bao@gmx.us>, Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <20260523132802.25391-1-len.bao@gmx.us>
-Content-Language: en-US
-From: Juergen Gross <jgross@suse.com>
-Autocrypt: addr=jgross@suse.com; keydata=
- xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
- ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
- dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
- NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
- XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
- AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
- CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
- mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
- G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
- kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
- Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
- RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
- vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
- sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
- aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
- w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
- auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
- 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
- fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
- HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
- QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
- ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
-In-Reply-To: <20260523132802.25391-1-len.bao@gmx.us>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------spcSpvn3ewuJgGMJz0qThZnr"
-X-purgate-ID: tlsNG-16d1c6/1779550625-84566D75-78E339B0/0/0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|OS9P286MB4275:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0144aab5-663f-470b-c161-08deb927b74a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|10070799003|7416014|376014|366016|18002099003|56012099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	QQg1lAU8/q7UXF/IOQQb50++dHnZQnr6mVf52F9+aPEVc38CLipioEmssWTH4FOo9cwuPjH4kahS5HykJGBx6stD/qTu/S/pDhd5pKT/hpSHccXPtSx0TQBvpX93UYccW/zqJ8eJOB5EboJSyLwzL6xS3zhDK16ZKHEcvpze3+vxvkYK6n7q8h6DylIRf7fS7xYQPhtaFurfLeEH9J1pf7FR3LjPAZwfuKdNvQoLbf3iFGhjhtyO5dTMAPKHzjSgFHPBRE24VNj8JjDMX4E3naVxa+ePkNlNRmimB5eS0wkhM/EhyoVLRL9+B4yUTCNsuJRYURD6VBu4w/ejsY9Ayw3AqvwdhL3J+bak4pCzG7Gjr6mNcadc2ATrblPdTJXZr8Y8riTHAGKgwSM/hGtlzJTrfRuXYaJGtlIJAAapP9MOOgubeZpCcVJyRaP/37MMCIHRxi7ELOm2wIbKjIYg4t9OTbsjzwXDufjo3mQYPZ2Fvk9jBCv6u1tkn2HBjZyXc8ID+9J4ZoQZ5PV7Hg3qm85c9OD+CTM6XTAD/Ff1Zpf4SP5aR/WpQjKdl3tLAieWCsbDag7+nfFWvHC/FT7A/pPKo14A8zbt8AbRiPcrhQnKj3WpxKLcvMujSPWFyv4f1t6tzQUObZhco2jwB9r+1+8WJoVWUv1J/ghdLhBI8epJOuyNE0p9RKV0fBYu1GYG
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(7416014)(376014)(366016)(18002099003)(56012099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?1QaCXQR5poPFxKvOumBVhgOxZZh4ynOnmoYfUaiP2DyZbng0ZqXysrHZ1Jal?=
+ =?us-ascii?Q?F8qDzszst3l4eWaokc1Em/itFV1FaAFare6Mt8iVMyehtfJiJn3tLDG3BiEV?=
+ =?us-ascii?Q?ZvY8zCZB3ecddDzAtUi/OANOoVjOhdl2qWtJ9TR6YMW5FbsUFn3r9Ey7gUMz?=
+ =?us-ascii?Q?VfANrI8mhZjfeEX0UUFx9LRQO7RZzfL+A3FJ4s5HyCriHV1R2UyGF14T0Xvm?=
+ =?us-ascii?Q?txNs3ZtRFJJrTr16v23wlxbkQauCRllxUUg52LNkEgqJ1c6dhH1hmA2fKXeZ?=
+ =?us-ascii?Q?nJ5tNZnrA1OQX/Djn+1K58dba6sAD5okNJ+FPSFWi63UzAFGOKxtmDdEu35Q?=
+ =?us-ascii?Q?php15Vfp/j95RRjkboRZ0nv0VmQ/4lYGJB8n9YkrWkD3Nfeicqe8C85p/Oee?=
+ =?us-ascii?Q?s7dVON6G2bDpp6ZRbMSx2YbphmuzqzINkbQvMu/6djoZEPWB8uhPCndFzo5s?=
+ =?us-ascii?Q?LIQXQ+974jIqjkwv+Ezd0Lfl5Lj19LOdVQhg2a9pP90FLAQm7gcXZyRvNNvP?=
+ =?us-ascii?Q?+WXLTnR2pdVOmEAdA1vevSfketout5KevFXG5tCSf607fDVcdl2mu30Qp5Or?=
+ =?us-ascii?Q?Ky6Zd7YM/hy0Mx73ykDhHs2b9EbB9EQ4uKGtTVmM6JlbQQFlvgXsRbSfFky2?=
+ =?us-ascii?Q?pGrjL463GcXAdzhwJiA5r27LplR/VhcqkQA1zRgQFSPeONidX+K8aoTk4/IN?=
+ =?us-ascii?Q?0zsjklETinsWTGuwy/vR4L4412TP5SyGeNjdtXSfEaYG9ju3rfhHIyhxnT6L?=
+ =?us-ascii?Q?iRhq/S63ZNLo8U940yJYD1s+phDm5GQvtO2cLusrYTbCm15xvzwKZj/CrtcX?=
+ =?us-ascii?Q?sLW12U1wgK6Id9RTl2Tj+Ci0cjxzS+IUw8fOJSIVcEYabG8byMS5K8Ki65ax?=
+ =?us-ascii?Q?z+ROTF0qKMUhKINV19llQrQkvZmw3Ws2ugbgVu4INKUdmTBXZ0hz4RfQSfBN?=
+ =?us-ascii?Q?oZ56rwUIZxIw8AodA89W0jSc+67e1cFKEVkI+WmbSgx5DiSACkYR5tNxnC15?=
+ =?us-ascii?Q?at5NVHrXscGCVIcPotWW8x5l/kbN+ciLmXsYpkNg794RsSEJXV6ywbeW1i9o?=
+ =?us-ascii?Q?c0UwJVf2CAGTRmy0ck4ocTWRv3H0TGPoQxCwTL844GjkWgys8UIORkv5v4yI?=
+ =?us-ascii?Q?BzV/Nqx2Bu2j2ppvlcYanngKdiPtgXt2FvGU3AboKr0fhBif6Yg9KoCRx+cC?=
+ =?us-ascii?Q?59pUgRlPXBRqozzrRxl7S+2ZtRxYwb3wE29ay7e1AamUvnOOgSbmZFcoAThp?=
+ =?us-ascii?Q?k+qRfkAKDzFZPkv/fpPGMwzIxUxUJJd9AjBW1g5lkdu0SQevvxJ/Wfjfsk1v?=
+ =?us-ascii?Q?HuWVMJNF/dqLiXLWOa8Ct8rXYbKAav4yOUkEfc3f2LZv+dyT57owpIumIPVP?=
+ =?us-ascii?Q?EY0K3VsDcUu4oeMdZ/jLxQ+bF33IdKXfloAUz6F7A3cgD3Jyq/N8TMweNQfd?=
+ =?us-ascii?Q?een4dNL0NxpyAKEzuJCsSleuUftIBubjTz7Ro9rVPddrczitSqCAbTc+WgjD?=
+ =?us-ascii?Q?GhhHckWftArPPKhtlF9/5+CN4fcwRux/rXrBYCd19ocRkKr58mrYKxjmnGkD?=
+ =?us-ascii?Q?K7B50zAPCBiqhDSxHjVRYzAqg+4L2j2dkcb/Wlz9jHBrfUMKPFcs7we1HnEq?=
+ =?us-ascii?Q?ucZpFXBslIGf8sEkWCf9RSVKe0GFPCUv2DmG0FatFKC0uYAzdbFoPjFzgf/I?=
+ =?us-ascii?Q?BCzJDI+guswF9Wf71GrDicD3fnNaZD1Ca8N2NSczIp2SxiWPAn0VpI5ipot+?=
+ =?us-ascii?Q?GOhH7qumJosdx7cQvu4k+iWTPd+mnF3WenYyqtFXGgUoXWJ9IZUDy4LKfB7k?=
+X-MS-Exchange-AntiSpam-MessageData-1: Bg5r+jLZmVLH1A==
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0144aab5-663f-470b-c161-08deb927b74a
+X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2026 00:02:16.5191
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EOb5zW/KsVNqFE8iSFJ6C8QgTwvHG5ONKykyJclldvalSoWyb5hUguLH380JUReQb/5bEYYeo4SzUG3aYMhGRg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9P286MB4275
+X-purgate-ID: tlsNG-c1860d/1779580942-B7D7BDB1-36844D53/0/0
 X-purgate-type: clean
-X-purgate-size: 6724
-X-Spamd-Result: default: False [-2.08 / 15.00];
-	SIGNED_PGP(-2.00)[];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-purgate-size: 3839
+X-Spamd-Result: default: False [1.31 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	DMARC_POLICY_ALLOW(-0.50)[valinux.co.jp,none];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[valinux.co.jp:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	MIME_UNKNOWN(0.10)[application/pgp-keys];
-	MIME_BASE64_TEXT(0.10)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:len.bao@gmx.us,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:xen-devel@lists.xenproject.org,m:linux-kernel@vger.kernel.org,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmx.us,kernel.org,epam.com];
-	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:jgross@suse.com,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:dfaggioli@suse.com,m:gwd@xenproject.org,m:taka@valinux.co.jp,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.com:mid,suse.com:dkim,gmx.us:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[valinux.co.jp:+];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	HAS_ATTACHMENT(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	NEURAL_HAM(-0.00)[-0.279];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_FIVE(0.00)[5];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-0.997];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 9250F5BFB06
+X-Rspamd-Queue-Id: A950E5C0E88
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------spcSpvn3ewuJgGMJz0qThZnr
-Content-Type: multipart/mixed; boundary="------------y3y8chL4tuIw4Z0IVuAWlnEb";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Len Bao <len.bao@gmx.us>, Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Message-ID: <e2df8ceb-2649-42d2-aaf7-37f73ac27318@suse.com>
-Subject: Re: [PATCH] xen/mcelog: mark g_physinfo, ncpus and
- xen_mce_chrdev_device as __ro_after_init
-References: <20260523132802.25391-1-len.bao@gmx.us>
-In-Reply-To: <20260523132802.25391-1-len.bao@gmx.us>
+Hi all,
 
---------------y3y8chL4tuIw4Z0IVuAWlnEb
-Content-Type: multipart/mixed; boundary="------------duyL2UmKsaOJkxK6bjEObK7W"
+A few years ago, there was an attempt to bring NUMA support to Xen on
+ARM, but it got stalled. This patch series revives that work to get
+proper NUMA support up and running on ARM.
 
---------------duyL2UmKsaOJkxK6bjEObK7W
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Note that this series only covers Device Tree environments for now.
+ACPI support is skipped and left for the future.
 
-T24gMjMuMDUuMjYgMTU6MjgsIExlbiBCYW8gd3JvdGU6DQo+IFRoZSAnZ19waHlzaW5mbycg
-YW5kICduY3B1cycgdmFyaWFibGVzIGFyZSBpbml0aWFsaXplZCBvbmx5IGR1cmluZyB0aGUN
-Cj4gaW5pdCBwaGFzZSBpbiB0aGUgJ2JpbmRfdmlycV9mb3JfbWNlJyBmdW5jdGlvbiBhbmQg
-bmV2ZXIgY2hhbmdlZC4gU28sDQo+IG1hcmsgdGhlbSBhcyBfX3JvX2FmdGVyX2luaXQuDQo+
-IA0KPiBUaGUgJ3hlbl9tY2VfY2hyZGV2X2RldmljZScgdmFyaWFibGUgaXMgaW5pdGlhbGl6
-ZWQgb25seSBpbiB0aGUNCj4gZGVjbGFyYXRpb24gYW5kIG5ldmVyIGNoYW5nZWQuIFNvLCB0
-aGlzIHZhcmlhYmxlIGNvdWxkIGJlICdjb25zdCcsIGJ1dA0KPiB1c2luZyB0aGUgJ21pc2Nf
-cmVnaXN0ZXInIGFuZCAnbWlzY19kZXJlZ2lzdGVyJyBmdW5jdGlvbnMgZGlzY2FyZHMgdGhl
-DQo+ICdjb25zdCcgcXVhbGlmaWVyLiBUaGVyZWZvcmUsIGFzIGFuIGFsdGVybmF0aXZlLCBt
-YXJrIGl0IGFzDQo+IF9fcm9fYWZ0ZXJfaW5pdC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IExl
-biBCYW8gPGxlbi5iYW9AZ214LnVzPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8
-amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
---------------duyL2UmKsaOJkxK6bjEObK7W
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Also, I've put the NUMA DT helper functions into the common code,
+so that other DT-based architectures like RISC-V or PPC can easily
+reuse them later.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+The series is structured as follows:
+- Patches 01-09: Basic Device Tree parsing and NUMA initialization
+                 for ARM.
+- Patches 10-12: Toolstack enhancements to generate vNUMA device
+                 tree nodes for guests.
+- Patches 13-20: Dom0 memory and vCPU allocation adjustments based
+                 on node affinity.
+- Patch 21:      Update documentation for the 'numa' and 'dom0_nodes'
+                 command-line options.
 
-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
-kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
-=3DeeAB
------END PGP PUBLIC KEY BLOCK-----
+Thanks,
+Hirokazu Takahashi
 
---------------duyL2UmKsaOJkxK6bjEObK7W--
+Hirokazu Takahashi (21):
+  xen/device-tree: Initial framework for Device Tree NUMA support
+  xen/arm: NUMA helper functions via Device Tree helpers
+  xen/arm: Introduce CONFIG_DEVICE_TREE_NUMA config option
+  xen/arm: Configure NUMA affinity for populated memory banks
+  xen/arm: Map populated CPUs to their respective NUMA nodes
+  xen/device-tree: Read NUMA node distance from Device Tree
+    'distance-map'
+  xen/device-tree: Parse 'cpu-map' node for CPU topology exploration
+  xen/sched: Link CPU topology to scheduler and display via xl info
+  xen/common: Allow building ARM32 Xen with CONFIG_NUMA
+  tools/libxl: Add 'numa-node-id' property to DomU memory nodes
+  tools/libxl: Add 'numa-node-id' property to DomU CPU nodes
+  tools/libxl: Create 'distance-map' node in DomU Device Tree
+  xen/arm: Introduce dom0_nodes boot command option
+  xen/arm: Set Domain-0 node affinity from dom0_nodes option
+  xen/arm: Reflect physical NUMA node IDs in Dom0 memory DT nodes
+  xen/arm: Balance Dom0 vCPU assignment across NUMA nodes
+  xen/arm: Export Dom0 vCPU-to-NUMA node mapping to Device Tree
+  xen/arm: Generate distance-map node for Dom0 Device Tree
+  xen/arm: Balance Dom0 memory allocation across allowed NUMA nodes
+  xen/arm: Use dedicated function for Static SHM Device Tree creation
+  xen/arm: Support numa and numa_nodes boot options
 
---------------y3y8chL4tuIw4Z0IVuAWlnEb--
+ docs/misc/xen-command-line.pandoc     |   9 +-
+ tools/libs/light/libxl_arm.c          | 134 +++++++-
+ xen/arch/arm/Makefile                 |   1 +
+ xen/arch/arm/domain_build.c           | 428 +++++++++++++++++++-------
+ xen/arch/arm/include/asm/numa.h       |  19 ++
+ xen/arch/arm/include/asm/processor.h  |   6 +-
+ xen/arch/arm/numa.c                   |  62 ++++
+ xen/arch/arm/setup.c                  |   4 +
+ xen/arch/arm/smpboot.c                |  35 ++-
+ xen/common/Kconfig                    |  16 +
+ xen/common/device-tree/Makefile       |   2 +
+ xen/common/device-tree/bootinfo-fdt.c |   8 +
+ xen/common/device-tree/cpu_topology.c | 361 ++++++++++++++++++++++
+ xen/common/device-tree/domain-build.c |  99 +++---
+ xen/common/device-tree/numa.c         | 142 +++++++++
+ xen/common/numa.c                     |   2 +-
+ xen/common/sched/credit2.c            |   3 +
+ xen/common/sysctl.c                   |   1 +
+ xen/include/xen/bootinfo.h            |  37 +++
+ xen/include/xen/cpu_topology.h        |  45 +++
+ xen/include/xen/dt-numa.h             |  31 ++
+ xen/include/xen/fdt-domain-build.h    |   2 +
+ 22 files changed, 1274 insertions(+), 173 deletions(-)
+ create mode 100644 xen/arch/arm/include/asm/numa.h
+ create mode 100644 xen/arch/arm/numa.c
+ create mode 100644 xen/common/device-tree/cpu_topology.c
+ create mode 100644 xen/common/device-tree/numa.c
+ create mode 100644 xen/include/xen/cpu_topology.h
+ create mode 100644 xen/include/xen/dt-numa.h
 
---------------spcSpvn3ewuJgGMJz0qThZnr
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+-- 
+2.43.0
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmoRyZ8FAwAAAAAACgkQsN6d1ii/Ey+D
-WAf/Ubj/lcofaGXWai9oviS+4xtaQ7Xo3WT7hy86J6q5zUptxDlE1P7NtJeFFMWg8KuqVLHMWxUw
-mvlIROEkWQaJf+Vo3kujJsFH7lzjD+dPw+94Ldeh4AO7QNsJ0IcibkWSsH8AIWj9ltusBcKXYGYT
-h5ntjm3mh0ux4OjObvEL6ZDBiJOFFOPkT2z8kGDGJeYNtDgHFOcCQ2GjS990LzHmLbgxDmfTbIy8
-TNSm7/XEX48f3w5zrb8uP8UsVnfg9m5mY8KnR8MM0OeCR13tMgwE8KpLQGu7B46pMUGMilL8AoNA
-9PmKtkLcYMAmZ95ysqAgPEhKbRjkokchEeSGJgGNbQ==
-=Xvnz
------END PGP SIGNATURE-----
-
---------------spcSpvn3ewuJgGMJz0qThZnr--
 
