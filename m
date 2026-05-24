@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CLiPDz9AEmpFxAYAu9opvQ
+	id cBmmB0NAEmo7xAYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 02:03:11 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 02:03:15 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E78885C0EA0
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 02:03:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1318214.1586650 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0E055C0ED1
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 02:03:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1318217.1586659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQwJ5-0006GX-Jj; Sun, 24 May 2026 00:03:03 +0000
+	id 1wQwJ6-0006Zg-V1; Sun, 24 May 2026 00:03:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1318214.1586650; Sun, 24 May 2026 00:03:03 +0000
+Received: by outflank-mailman (output) from mailman id 1318217.1586659; Sun, 24 May 2026 00:03:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wQwJ5-0006D8-DS; Sun, 24 May 2026 00:03:03 +0000
-Received: by outflank-mailman (input) for mailman id 1318214;
- Sun, 24 May 2026 00:03:02 +0000
+	id 1wQwJ6-0006Vg-OW; Sun, 24 May 2026 00:03:04 +0000
+Received: by outflank-mailman (input) for mailman id 1318217;
+ Sun, 24 May 2026 00:03:03 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <taka@valinux.co.jp>) id 1wQwJ3-00064q-SO
- for xen-devel@lists.xenproject.org; Sun, 24 May 2026 00:03:01 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1wQwJ4-0006Bb-TZ
+ for xen-devel@lists.xenproject.org; Sun, 24 May 2026 00:03:03 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wQwJ3-005yId-8f
- for xen-devel@lists.xenproject.org; Sun, 24 May 2026 02:03:01 +0200
+ id 1wQwJ4-005yId-9j
+ for xen-devel@lists.xenproject.org; Sun, 24 May 2026 02:03:02 +0200
 Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a12400e-2eae-0a2a0a5409dd-0a2a4504c06e-20
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 02:03:01 +0200
+ id 6a12400e-2eae-0a2a0a5409dd-0a2a4504c06e-24
+ for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 02:03:02 +0200
 Received: from [52.101.125.126]
  (helo=TYVP286CU001.outbound.protection.outlook.com)
  by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a124032-1dec-0a2a45040019-34657d7e3800-3
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 02:03:00 +0200
+ id 6a124032-1dec-0a2a45040019-34657d7e3800-4
+ for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 02:03:02 +0200
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
  by OS9P286MB4275.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:2ca::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Sun, 24 May
- 2026 00:02:57 +0000
+ 2026 00:03:00 +0000
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0048.016; Sun, 24 May 2026
- 00:02:57 +0000
+ 00:03:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,20 +60,20 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=valinux.co.jp header.i="@valinux.co.jp" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YQH/wlxKECsi9JaiDpa4H5C2e/Tc0UHzUeYMeWpt7PVnpIf51zx3DAvIyJ/ZliRBxiKrOH5W5gGsieidRqTM65gXbRg1vCWE4lJWrD2ZecGEAs+nkqfiRWipehJHbWlSMsXuoFPKOMmgCJGNd9CLvhL/rKUsdPdeB7uQyT1z75ttU4ZwcISFNUVlkkuMW4p3jt19KOAAfs+RZjaJYQUXz54ZRzPhlQJHq05yM/RI7fU0ZGqXqetJaJk15FwlPeTwIkKYtjs8SzpRV9uCU4Nk0v9rypEXOKed/w2IskMLznkuEmPqJH/oxyJRnpgVGkal6j2xYAU+/tk36tP82Gx6iw==
+ b=h3incp0fEeHgjGaf/D0IlTarSW4mxbwuYhbOxV1SNEOpru0A1v4mJvlVpzkCixB4J4waFbq99yX0DucCBYYhSQCSkwxzACJfAvEZ1uOFQzUA0WUJDOEKYyrS0QFqKckqopvJy870MsKq/Ep0puPx13Ls3pSMyH7yahUaiGarOA742vKhyP+NrYF5bltAb+T84n6FzvGuJX5kzMVxYNv+aF+HPgMmO9MUPIV6INImEc6fmtYLmYnjLQsTd8lKAjcrm5+UVERVJRIRDfncKMK9sc/QUs3w8KzQW3zbDpzDbpAqcChl3/bKHqqI2PEd8ZyvAo+1tE7fOnQBaajHyLH4KA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=blu4oOd7tpGPVUBQPLctq+uqUO6TNkR+RChL3tWjD80=;
- b=UW38uiKJ7CT9NDilJO3jMNm6lIz7dxIcAlizc4SaYvqx7qW5HS71OlKC8Y8Unq1niBCDH+gk1ZC8WyIw6rsYOk1T6rtQKonCn1FWddlQ6FS/ZF4A+Pl/aniZUfb8TeFu3oVBhusunMrr6JKI+jt71Xo+rQ4v74u92U3hMxkwhVpaLsVeDiblSy63U8clnl8X6KgvnWUCoqjleyrBtBAYlVSL7ikd8vrDI+2q/pNdvpWTmOFfTCoetNAQJAYLSjVFH7E3QJ0/OkRAFKUtOTE07/3Kj5j+gNAPXvLcBN2GpmQqVClltKX2sCNFm6nZ6gqWpjWB5cy5YqD+1sLyS/na+Q==
+ bh=uGKyh0qPXMyFNehAOEHpm32bV3yJeO8ltFIFkUh1kGI=;
+ b=a5SitS0aBaLqJ9aeJ3yEpvdXu/CZmYRa/Z3BkRMSpt5OSUfHdGjfkYehoupkt+mFJfUqlljkCmeKqR7+iAVtAxyKvz5AdKWauxJ7msh/cB3kIXvgSt8uWHpmYEM2huLnulhY8QsV2SPLZSvnSaqpG+riuBig7Lieeje/rD5OLvL1DKobNUTg00eMSKPfjkh8cdakEs+/gg6XJ0q38LHgJYOCvqZJNTXPdo6RyvbpM3mJvssyV003vZDCOhhvAqGZMAByjcARIGSWY3fHkzvzIpSpvD0urC0fNiOz8DjOfuUk+naKEi20gChFXYqmnXnzu0Y3+qjXGR/TOwuV42TstQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=blu4oOd7tpGPVUBQPLctq+uqUO6TNkR+RChL3tWjD80=;
- b=rdmA9BUL9vjRZlo4RhpHxqDzfamWF2Pb9aU786Fu36QUjR1uFZFxk1fGMalwj4DTIA4JrVU5RbFVMxxF08z7fq9sqF6BM4U2gWEhqAeYTpKSncpuno6CDY+VFC1bYp0WIGKJQt+WBln3zwzLE0j1Z9w2uxLDlKWt4KjOR7or4GM=
+ bh=uGKyh0qPXMyFNehAOEHpm32bV3yJeO8ltFIFkUh1kGI=;
+ b=MiBfZdLPkZj5gpBCn5BDCkD2wzzXcs2YP88gigMqvxXm/kj2HG5PanXlLhNzKl6wlH0XUmS7OOyZ8LfKXuwcVuj9UfXh7eU23xbxvGr015sAL6C3OIBCzcUo/UdCkGCf2A+jsjICySPGNUnT8xwHda/J5EafT130qU4hg3g5KU8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 From: Hirokazu Takahashi <taka@valinux.co.jp>
@@ -91,76 +91,76 @@ Cc: andrew.cooper3@citrix.com,
 	dfaggioli@suse.com,
 	gwd@xenproject.org,
 	Hirokazu Takahashi <taka@valinux.co.jp>
-Subject: [PATCH 14/21] xen/arm: Set Domain-0 node affinity from dom0_nodes option
-Date: Sun, 24 May 2026 09:02:02 +0900
-Message-ID: <20260524000209.292370-15-taka@valinux.co.jp>
+Subject: [PATCH 15/21] xen/arm: Reflect physical NUMA node IDs in Dom0 memory DT nodes
+Date: Sun, 24 May 2026 09:02:03 +0900
+Message-ID: <20260524000209.292370-16-taka@valinux.co.jp>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260524000209.292370-1-taka@valinux.co.jp>
 References: <20260524000209.292370-1-taka@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TYCP286CA0112.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:29c::7) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TYCP286CA0115.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29c::19) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:604:458::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|OS9P286MB4275:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82b99f45-8beb-447e-7c86-08deb927cfe9
+X-MS-Office365-Filtering-Correlation-Id: 1945a39b-5589-4ff2-3dd3-08deb927d14c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|1800799024|10070799003|7416014|376014|366016|22082099003|18002099003|56012099003;
 X-Microsoft-Antispam-Message-Info:
-	gxwkfaTMKAqlQEEnXHj4KvcQRB0OLOPgWkw+aGwZz37itZOg62wyRn+fXoUniWBfkQgiDe1T5u8yJI5JiHNjgjAYtlPZMxhjpBq8lFtAhslI2JOvKuwEU70VMjxK4iw4OtTlaYTkiPmMXCy9dlc5GwhO2edDdupBt+nJRBNhaFqBiX7keyWeF2Kq5Y8nTCtfdAUUD429wIZfuKcxYokT2dXwWLZBYIhJA5oH+2BtCoLFHvr9f/HYIZBoEqmzTlO++O++Xq8R7+lPgV4rLSYA51IwFZT3BaceBTfmP7qaRN4cmt0eKyWqcBVO7Qow+To97YOuFdyrwiv2AXdBoh+0E/y62dl2grRUqtR+fKF4YHdxfXfexRSaGhKWuLD9YuExtDIE9IARXklShwvEMe4RejaiE/Q102WTty9tcSH8nFScyQtgvpTGwJocWd8N4VWIpUkKdUk6BRMY/DyNSs1VzZx8v71G3OyPny/iiXzJoGfe0G62aYi0Gky1AK+Z49tm6yFzMnnMf7vrsOKz7DodqRWOee719MlGHvRsuAFr6ch2WtgXmOAgCX9qwmcXS8tTFGelDAh3xM452w4z2Pp3AVg23/+/uMPLPUYBLyFljPgvphpYgxF5X51WTMdr31UXBBOIgBC9qPwb/kJnJxEJNMNMzNl0DdkntOk/wHpgClxDmVp7S53YTOwnQ6Xf7Ibo
+	pT9LDoPqhKRQXECn8O2g0PjOf2SvwkyAkDu5MRYymalk1gCqKFG5esyB3YWydLEXKJp0wrWzk3gn1C3RyC2LH2rNJuI90Y7FAYQADw+BdI4CnQ9PS8aeb8LcfPboJQXs/6HsmjW+DRWkrPGn2loWK2yOwVWKtRBK144mfJKzITqbv5EFoNrTZHEN7NIXQN+q+HN30K91BkZ12XVaG8vMaoqVufAl1N8Eg6ZeOJabXSV4PMR5SSN4UlXkcoxWXuKmKPG/doULQenoDSBoB+2XoV3dHIHu4q4aabUAffRsBrTB7dHp7a5cY9PH61izqPBw5su94mfO2J2HR3db+ztZPz6IG+BEb2VEl090LGWJQMYPQY5xZEmfNz63t4qDoinUS3Fd8rB/KOy7nO8gzpYpvkBWt8kZwhNwx1z3mkI7dQBeR63A1y9/hZD5sb7bLJZIJ3e3iPBwfBDF7bYXztYSp0zsx/RiRnpRFIbJwB9jJyMKrgeJlyM5CZMBtwH9i+hSt2x909/4MdoAyNl4CrcSojN1VPKdA3UqUr/lFRH0SoxksNBXsZlLaEIQUQ8i7To05tY3X7tyGUkYfg7HRA93sieA2KeU1WHR4zNkfrSnSa6oRlFLWYErrL2YDWCWVfvfH4j8yn3rAX/K5z+mQlzvBlA3hieqy6IISrKXp4ZVDcpeGAMi2QMcmj66onWQkqqJ
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(7416014)(376014)(366016)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?eZhrmdJ2IMwteR9gnQzkJudDtJZI7LA8IjsxR8dIXzYWwpl78hvldT21Akv+?=
- =?us-ascii?Q?mWm9nYDgwW0Xg/y+kBo54keXhJyXLoIbLwRmJALxXSPEfW8O3CHFbSQtta3i?=
- =?us-ascii?Q?Nf2zJI+G24EXcQGQ+uhKO+VOkeWkbyF+VstqSwc9/jrLWhULFj/vrYRYwJ6x?=
- =?us-ascii?Q?E5Q8T7Kn4udr5t4FbV0qQegea/kMdP/iZwOd6lyn6HLQqcptkOt0rsTvMAfU?=
- =?us-ascii?Q?C6hnQKdQPkTbR8qEWC71HsRioDg2Q5gg3By7va/XPCnAryZZ8V0BRaUWsnCG?=
- =?us-ascii?Q?kkL+Zq8l6jtUavbV8TGrBYd7CuyDNym7JeZDqh4+j/IPiy2qPrps0Z4aHf6h?=
- =?us-ascii?Q?2PvY8KBRcIzYrKL23pFX0qFBWU07AGw0/VZf8TSl/GVr0gKwnmU013rRgqf9?=
- =?us-ascii?Q?3cuKjzchnXvCG0fqZGY4ZSY9FPGJ4kHyRxj3NsUWaK1LpXGaHPeKWpvX5PXH?=
- =?us-ascii?Q?YIgBUntJWLZeoHmvaBzqwQQCIa4oRwcIUlbtL7n6o5krEeIc9aveunfmc7pO?=
- =?us-ascii?Q?WkU94IzpLPV+UMkP5Ge112mTFXqMb5CiplzV6O+hrIw7/9kkAW6eq4yTFb1k?=
- =?us-ascii?Q?DAnjmNCZY6DSnxvWbHpIrYN39ndMdiryeBs9VPvU32c27Z2v9rf9A2bmuUzj?=
- =?us-ascii?Q?XNVwTaLLq+iYhJcFbNryQUhUoT9KyOqALsRcKBPGdVMt8PYl8zBrc+uJqexC?=
- =?us-ascii?Q?3rAMkB0iOoGPUi3c58+tcJAucZUmYDVnqBApkUJgl7nmI2LqzK4rgKz7dc8L?=
- =?us-ascii?Q?aflohRX77DBFIJcetxog+w1BueHYjkPKUpwRZIuauwZVQk4g9GrhBBH/p/6R?=
- =?us-ascii?Q?qRx48qK0MzDo87/SMZ0vA4byiZFLmmdVypUR322jXF9ECtNH9cwoVGBu4uwe?=
- =?us-ascii?Q?UE5f2OWwfbPqfPKobr1LU9qYlIWUyjs0Ga0czx2z/oknGxbDw+W+BC8zsYXO?=
- =?us-ascii?Q?BrN77bzgpwb387/7Yf0/CZj9YjfBUpPrwTaxOv6218ZjB+/7hsyDwJFM3YUy?=
- =?us-ascii?Q?hIXFgymFrg20OE/RfHShGUVWfjEJpgXX950d39rfp6SxcQqLavud6U/oGwyI?=
- =?us-ascii?Q?m6vYwbhiQluAx//Pce6keFztGytfvJv12tMPA4PjhigQoLnV5cRFylHGy7Ku?=
- =?us-ascii?Q?TB1hmJqtpuPo3NidKT+vmi96IJIMmFFubcr6LLK7JC/1Kb87qaTFe0cQkiLs?=
- =?us-ascii?Q?rcKOaFdAgD9kiTVK+ZAveymkzYHHzv6Ndd0FGbIWwx9SHbS86QNqTX9eXobz?=
- =?us-ascii?Q?VrDqXo3Ibx1K8jSFdvrtUigXZeskJYOydc8yn9SLP78zDpAEOCjTS4Dgn4oa?=
- =?us-ascii?Q?nSU22bc+w7jpswMqDvICxS1o1hh+H+NaahxeE4U07BG8QO7JKWRTjPgCelv9?=
- =?us-ascii?Q?Nl/AVuXy5ZSCLkI/EPUIDVf7XrJEveypDJwDkezO3Rrg+9GMEffjcVslWuO0?=
- =?us-ascii?Q?bU1EIwweHkoVtQgRbb+U65CkEBq1W1yZBXJk21NFtVYPbxz9i31iTkZsvXz3?=
- =?us-ascii?Q?EehLEY4GC81PvnhkuPFlqtKEMREyfFyDm5xt/02BzrOkf7KDxwyC2BxQZFkR?=
- =?us-ascii?Q?hojrPvIdfOJnx9KtukIxJqtKMg0bdyreJUgDc0UBZqmzlmwdU3A+RiDCzoBF?=
- =?us-ascii?Q?d+ksn0y0b/JHX6KlzaF461t0O0E931OiRPneou4QltWTOeXToH7t5VNZ7MUQ?=
- =?us-ascii?Q?atcXyMVC5g5/hDojpWsXGLpyWzIZmFJMRzAOIv0+jj9hhPRy+HLYRqAD1c4X?=
- =?us-ascii?Q?NBC14Fhuacx26Sfi87DI7lW9SOQNSZ/5OFQfk6ixPrMKPs9Knzav9l6r/duE?=
-X-MS-Exchange-AntiSpam-MessageData-1: fbQEOer6YPHR+A==
+	=?us-ascii?Q?hNq8h7ForHdKvQiRQwB9nOmdZQAsD1FKlKEAY744A1XzjCE/cQmZr+5DB81v?=
+ =?us-ascii?Q?5whY/MhgnoXGIJOTH1YlZzN0Y5JAj/f5QtpPnRJC5Fr6nD9RLJPXlLITCCSJ?=
+ =?us-ascii?Q?6XpROm+DbzcrDD+xSPy0d1QcyVG6UggWzhk/29m4KB//0N6+yMN7VkCKbJMP?=
+ =?us-ascii?Q?r/jhjT8UaUMPKDwiLbKE/htqOcHHiS9cGBLU31wCy0/jPh4HAO6ouSEHkBqF?=
+ =?us-ascii?Q?9sPkPkMT2r5Ap+rjH1RN7ZRflH5HoG9BH3txci/B6zZfIB6i/zG1C4MA/Wve?=
+ =?us-ascii?Q?BqyZW/8X2b7nC1VoweKiTjq6yYpW5XB4AaJi+1QhV2cggWY5c2NczZDfbJRu?=
+ =?us-ascii?Q?lMC9uGH2jTjKpiy46NHh3kavjVBRxs1BSgv4eoSxx1TP/Cdsf/yQRttgBeFl?=
+ =?us-ascii?Q?MIRIkQeAymeSKeB/0VXm8VAn3uchm2CO+jEslaNJfXsm8FZukrTGiCkpcOGp?=
+ =?us-ascii?Q?/e7GaBeTFk1l5i1cbRD7q7a7SH3AzowiB35icqc+z4dYN/+pslbvqrUn664W?=
+ =?us-ascii?Q?AdOrr8hoVXq2Z6Y1XjJ7AIcUG0FtSEQUvw67oD17/74F4AgimH+cYFUvDaQD?=
+ =?us-ascii?Q?KtydYdC3GO6mj8imRbZKYiNyxpwbXcaQWlutaU8aHM3sFlivpvd1yV8XLm+/?=
+ =?us-ascii?Q?j8hjf5qlYAjMqCfL4HPmyFufSQ/cjoooYoFER5qT7MbsynJD9ZJygWK643UZ?=
+ =?us-ascii?Q?ilEMYji2xNemMxpF+QAUd6ufJUtMdqNqRySy2vKVNMWhSFWST/RD1G0L5OoD?=
+ =?us-ascii?Q?cYmATkjc13w7OewOLRQ4qBjxn5JmkmzJMOJ16li8rTRFctb63/+Nve19E7zf?=
+ =?us-ascii?Q?in1kjXT1HwBaKJUpW72TFkRbyW1NV6IF5WDTZVh0o8SHtUWoCJRPt8S7DRAD?=
+ =?us-ascii?Q?Oxx/kAfdTwx2WxmW/E8M/0uzTyk3iHP2RXrC0BxANPnq1q8JS19tHWi1uLhn?=
+ =?us-ascii?Q?2HlOultXpxbIHUSyqB5WQ0qEqiSRJPFGIAJlDQ3z8h60HqTlp0TRgTliq1Kj?=
+ =?us-ascii?Q?UtMg/Rozdi61EBskyuEX00SoPIjU1VRqBsTj/BTx0lT623azadZHq/5dOGoU?=
+ =?us-ascii?Q?iEmG7ylJXJ8PQQovzPGZ15KD2vaN2A9Ov0R6L4TlHSY9IjZLWRDqI+Zui7i9?=
+ =?us-ascii?Q?/CiBeo+76Avj8JpK+eRQwGx52TgSRg5N2afmm0xSbuJHXBeEvSOWqeeTciAd?=
+ =?us-ascii?Q?ikg050sgdb1kIbiU8qoUu4tWTBC51Si7/FSYemfcLDJmLFkmx6MDJnCZ6UzM?=
+ =?us-ascii?Q?Rb9Zkg2OJVnOB9/sgin5ibnCRqwz5B+GjqhpfiTaKSld3U7BqHwcTllGaogN?=
+ =?us-ascii?Q?7vfzQh5u+QrS2eBlmv4p3LMQLH5KAwPdttmXIqBKLkRxKA9iq6ak6mc4wIgi?=
+ =?us-ascii?Q?SwouR6t6fAC8s29kXlMK9mpcYcPclxmmwnPnoQr6gOOtlC5tlbht8Gx09CR5?=
+ =?us-ascii?Q?KLBjCJ/+F6GxXNcObCvh/7keuvnC8o0NwkyqyCDT7+WJGkb38rN782AptmfZ?=
+ =?us-ascii?Q?jlW99Qu+s4A5kP46noFE6VYVJmkOsnh7jaKIIRvsCP222XFItiiHr06bx2MD?=
+ =?us-ascii?Q?7LJKsesVpRulXZYicq9069mY7u/MDUalFLgqrDTS76P7N1B8HMuamVsF1JfZ?=
+ =?us-ascii?Q?ewqpEw5JeF2rUtDE/G7jSuRTc2+IvItOaivQ2u0BY4+Wt2l1cW6KcZpEOP5M?=
+ =?us-ascii?Q?rqUmH21udez8PIzjWkmaX/GUL7+EZMH+3snm10Z/mda6grQy6Ru6pPrjivF1?=
+ =?us-ascii?Q?2KiCb8qWPW7Rjq1F0a+PliBKuLLLUW6bge1S6Z3S/6uZ0sQsQUXT0Iwlb96z?=
+X-MS-Exchange-AntiSpam-MessageData-1: MAu7AU4DucXDpQ==
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82b99f45-8beb-447e-7c86-08deb927cfe9
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1945a39b-5589-4ff2-3dd3-08deb927d14c
 X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2026 00:02:57.7139
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 May 2026 00:03:00.0545
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UM3aiVynNIoeaZMQJIMysXytLRT8ZOJACWBV3UsJp4I3FvL4Sm+7rm4igSaqfJjkrkxv+V9AKGcgXUNeBRxHMg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2I0siPZsjxzga0PsiA3ybkzKDq6DwmV9Hne2KIRV4bLTsflzQ8SgXch7w8tAaxd1cHFfVMRnDBP7vnBx2o1lHg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9P286MB4275
-X-purgate-ID: tlsNG-ebf023/1779580981-291763FF-D3526000/0/0
+X-purgate-ID: tlsNG-ebf023/1779580982-2AF653FF-16449E80/0/0
 X-purgate-type: clean
-X-purgate-size: 1124
+X-purgate-size: 6804
 X-Spamd-Result: default: False [1.32 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
@@ -187,40 +187,213 @@ X-Spamd-Result: default: False [1.32 / 15.00];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
+	NEURAL_HAM(-0.00)[-0.998];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: E78885C0EA0
+X-Rspamd-Queue-Id: A0E055C0ED1
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Set Domain-0's node affinity to run on the NUMA nodes specified via the
-'dom0_nodes' boot command line option. If the option is omitted, the
-node affinity is configured to use all available NUMA nodes managed by
-Xen. When Xen is built with CONFIG_NUMA disabled, the node affinity
-falls back to using only NUMA node 0.
+Extract the physical NUMA node ID for each memory bank allocated for Dom0
+and apply it to the corresponding memory node in the Dom0 Device Tree.
+This implementation maps the physical NUMA node IDs directly as Dom0's
+virtual NUMA node IDs.
 ---
- xen/arch/arm/domain_build.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ xen/arch/arm/domain_build.c           | 22 ++++++-
+ xen/common/device-tree/domain-build.c | 88 +++++++++++++--------------
+ 2 files changed, 63 insertions(+), 47 deletions(-)
 
 diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index f4187512b0..2518909ed0 100644
+index 2518909ed0..1deb4c1139 100644
 --- a/xen/arch/arm/domain_build.c
 +++ b/xen/arch/arm/domain_build.c
-@@ -2027,6 +2027,13 @@ void __init create_dom0(void)
-     if ( llc_coloring_enabled && (rc = dom0_set_llc_colors(dom0)) )
-         panic("Error initializing LLC coloring for %pd (rc = %d)\n", dom0, rc);
+@@ -187,11 +187,26 @@ static bool __init insert_11_bank(struct domain *d,
+     int res;
+     mfn_t smfn;
+     paddr_t start, size;
++    nodeid_t node = 0U;
  
-+    nodes_and(dom0_nodes, dom0_nodes, node_online_map);
-+    if ( nodes_empty(dom0_nodes) )
-+        dom0_nodes = node_online_map;
+     smfn = page_to_mfn(pg);
+     start = mfn_to_maddr(smfn);
+     size = pfn_to_paddr(1UL << order);
+ 
++    /* This code is temporal */
++    {
++        struct membanks *mem = bootinfo_get_mem();
++        for ( i = 0; i < mem->nr_banks; i++ )
++        {
++            if ( start >= mem->bank[i].start &&
++                 start < (mem->bank[i].start + mem->bank[i].size) )
++            {
++                node = get_numa_nodeid(&mem->bank[i]);
++                break;
++            }
++        }
++    }
 +
-+    dom0->node_affinity = dom0_nodes;
-+    dom0->auto_node_affinity = false;
+     D11PRINT("Allocated %#"PRIpaddr"-%#"PRIpaddr" (%ldMB/%ldMB, order %d)\n",
+              start, start + size,
+              1UL << (order + PAGE_SHIFT - 20),
+@@ -217,6 +232,7 @@ static bool __init insert_11_bank(struct domain *d,
+     {
+         mem->bank[0].start = start;
+         mem->bank[0].size = size;
++        set_numa_nodeid(&mem->bank[0], node);
+         mem->nr_banks = 1;
+         return true;
+     }
+@@ -226,7 +242,7 @@ static bool __init insert_11_bank(struct domain *d,
+         struct membank *bank = &mem->bank[i];
+ 
+         /* If possible merge new memory into the start of the bank */
+-        if ( bank->start == start+size )
++        if ( bank->start == start+size && get_numa_nodeid(bank) == node )
+         {
+             bank->start = start;
+             bank->size += size;
+@@ -234,7 +250,7 @@ static bool __init insert_11_bank(struct domain *d,
+         }
+ 
+         /* If possible merge new memory onto the end of the bank */
+-        if ( start == bank->start + bank->size )
++        if ( start == bank->start + bank->size && get_numa_nodeid(bank) == node )
+         {
+             bank->size += size;
+             return true;
+@@ -253,6 +269,7 @@ static bool __init insert_11_bank(struct domain *d,
+             mem->nr_banks++;
+             bank->start = start;
+             bank->size = size;
++            set_numa_nodeid(bank, node);
+             return true;
+         }
+     }
+@@ -263,6 +280,7 @@ static bool __init insert_11_bank(struct domain *d,
+ 
+         bank->start = start;
+         bank->size = size;
++        set_numa_nodeid(bank, node);
+         mem->nr_banks++;
+         return true;
+     }
+diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
+index 2a760b007b..61e2e50062 100644
+--- a/xen/common/device-tree/domain-build.c
++++ b/xen/common/device-tree/domain-build.c
+@@ -493,15 +493,50 @@ int __init make_chosen_node(const struct kernel_info *kinfo)
+     return res;
+ }
+ 
++static int __init make_memory_sibling_node(const struct kernel_info *kinfo, int addrcells,
++                            int sizecells, const struct membank *bank)
++{
++    void *fdt = kinfo->fdt;
++    int res = 0;
++    u64 start = bank->start;
++    u64 size = bank->size;
++    __be32 reg[DT_MEM_NODE_REG_RANGE_SIZE];
++    __be32 *cells = &reg[0];
++    nodeid_t node = get_numa_nodeid(bank);
++    char name[32];
 +
-     if ( vcpu_create(dom0, 0) == NULL )
-         panic("Error creating %pdv0\n", dom0);
++    dt_dprintk("  Bank: %#"PRIx64"->%#"PRIx64" Node:%u\n", start, start + size, node);
++
++    snprintf(name, sizeof(name), "memory@%"PRIx64, start);
++    res = fdt_begin_node(fdt, name);
++    if ( res )
++        return res;
++
++    dt_child_set_range(&cells, addrcells, sizecells, start, size);
++    res = fdt_property_string(fdt, "device_type", "memory");
++    if ( res )
++        return res;
++
++    res = fdt_property(fdt, "reg", reg, (addrcells + sizecells) * sizeof(*reg));
++    if ( res )
++        return res;
++
++#ifdef CONFIG_NUMA
++    res = fdt_property_u32(fdt, "numa-node-id", node);
++    if ( res )
++        return res;
++#endif /* CONFIG_NUMA */
++
++    res = fdt_end_node(fdt);
++
++    return res;
++}
++
+ int __init make_memory_node(const struct kernel_info *kinfo, int addrcells,
+                             int sizecells, const struct membanks *mem)
+ {
+-    void *fdt = kinfo->fdt;
+     unsigned int i;
+-    int res, reg_size = addrcells + sizecells;
+-    int nr_cells = 0;
+-    __be32 reg[DT_MEM_NODE_REG_RANGE_SIZE];
+-    __be32 *cells;
++    int res = 0;
+ 
+     if ( mem->nr_banks == 0 )
+         return -ENOENT;
+@@ -516,54 +551,17 @@ int __init make_memory_node(const struct kernel_info *kinfo, int addrcells,
+ 
+     dt_dprintk("Create memory node\n");
+ 
+-    res = domain_fdt_begin_node(fdt, "memory", mem->bank[i].start);
+-    if ( res )
+-        return res;
+-
+-    res = fdt_property_string(fdt, "device_type", "memory");
+-    if ( res )
+-        return res;
+-
+-    cells = &reg[0];
+     for ( ; i < mem->nr_banks; i++ )
+     {
+-        u64 start = mem->bank[i].start;
+-        u64 size = mem->bank[i].size;
+-
+         if ( (mem->bank[i].type == MEMBANK_STATIC_DOMAIN) ||
+              (mem->bank[i].type == MEMBANK_FDT_RESVMEM) )
+             continue;
+ 
+-        nr_cells += reg_size;
+-        BUG_ON(nr_cells > ARRAY_SIZE(reg));
+-        dt_child_set_range(&cells, addrcells, sizecells, start, size);
+-    }
+-
+-    /*
+-     * static shared memory banks need to be listed as /memory node, so when
+-     * this function is handling the normal memory, add the banks.
+-     */
+-    if ( mem == kernel_info_get_mem_const(kinfo) )
+-        shm_mem_node_fill_reg_range(kinfo, reg, &nr_cells, addrcells,
+-                                    sizecells);
+-
+-    for ( cells = reg, i = 0; cells < reg + nr_cells; i++, cells += reg_size )
+-    {
+-        uint64_t start = dt_read_number(cells, addrcells);
+-        uint64_t size = dt_read_number(cells + addrcells, sizecells);
+-
+-        dt_dprintk("  Bank %u: %#"PRIx64"->%#"PRIx64"\n",
+-                   i, start, start + size);
++        res = make_memory_sibling_node(kinfo, addrcells, sizecells, &mem->bank[i]);
++        if ( res )
++            return res;
+     }
+ 
+-    dt_dprintk("(reg size %d, nr cells %d)\n", reg_size, nr_cells);
+-
+-    res = fdt_property(fdt, "reg", reg, nr_cells * sizeof(*reg));
+-    if ( res )
+-        return res;
+-
+-    res = fdt_end_node(fdt);
+-
+     return res;
+ }
  
 -- 
 2.43.0
