@@ -2,53 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ALMIEmmsEmq42gYAu9opvQ
+	id +HODOHzaEmoZ4wYAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 09:44:41 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 13:01:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9765C1A1A
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 09:44:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1318554.1586740 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EE945C2260
+	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 13:01:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1318619.1586749 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wR3VR-0002Nd-8D; Sun, 24 May 2026 07:44:17 +0000
+	id 1wR6Z6-0004Ts-SB; Sun, 24 May 2026 11:00:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1318554.1586740; Sun, 24 May 2026 07:44:17 +0000
+Received: by outflank-mailman (output) from mailman id 1318619.1586749; Sun, 24 May 2026 11:00:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wR3VR-0002Kn-5R; Sun, 24 May 2026 07:44:17 +0000
-Received: by outflank-mailman (input) for mailman id 1318554;
- Sun, 24 May 2026 07:44:15 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wR6Z6-0004RI-Ow; Sun, 24 May 2026 11:00:16 +0000
+Received: by outflank-mailman (input) for mailman id 1318619;
+ Sun, 24 May 2026 11:00:15 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <mst@redhat.com>) id 1wR3VO-0002Kh-Ub
- for xen-devel@lists.xenproject.org; Sun, 24 May 2026 07:44:15 +0000
-Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wR3VO-00DB05-Ap
- for xen-devel@lists.xenproject.org; Sun, 24 May 2026 09:44:14 +0200
-Received: from [10.42.69.2] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <mst@redhat.com>)
- id 6a12ac36-5cb7-0a2a0a5109dd-0a2a4502eb7e-12
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 09:44:14 +0200
-Received: from [170.10.133.124] (helo=us-smtp-delivery-124.mimecast.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <mst@redhat.com>)
- id 6a12ac48-af86-0a2a45020019-aa0a857c7265-3
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 09:44:13 +0200
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-686-HPj7AkDRM9y3ZA0gp2j0Mw-1; Sun, 24 May 2026 03:43:55 -0400
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-49041d39887so15178985e9.2
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 00:43:52 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-25-45.inter.net.il. [80.230.25.45])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45ec7fcd7f9sm4733435f8f.37.2026.05.24.00.43.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 24 May 2026 00:43:49 -0700 (PDT)
+ (envelope-from <julien@xen.org>) id 1wR6Z5-0004RC-QD
+ for xen-devel@lists.xenproject.org; Sun, 24 May 2026 11:00:15 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1wR6Z5-003zR6-0Z;
+ Sun, 24 May 2026 11:00:15 +0000
+Received: from [2a02:8012:3a1:0:94ee:8228:5d9d:4ee8]
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <julien@xen.org>) id 1wR6Z4-005PIm-39;
+ Sun, 24 May 2026 11:00:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,171 +44,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=mimecast20190719 header.d=redhat.com header.i="@redhat.com" header.h="From:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:In-Reply-To:References"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1779608648;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d31P/47NSDwQAWFSW6gul/ImIejpiWKEwkFsv0GPKu4=;
-	b=Wn775bIpvOKhFBBj2pln9Z1xVaVmsirkCJzAeul3Jr46vftlEf9o7JzaI6SAxQ1z7RxOTT
-	kmLvzbnXnwg1HHqlEngyyvrVQRl/v8hQYyFTUzY8C54D2mSbS+aD8IKXlQDmfsane1Hdls
-	sAnwsGh+oLoj3EAN3/8CiwH+Xsy8UJI=
-X-MC-Unique: HPj7AkDRM9y3ZA0gp2j0Mw-1
-X-Mimecast-MFC-AGG-ID: HPj7AkDRM9y3ZA0gp2j0Mw_1779608631
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779608631; x=1780213431;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=d31P/47NSDwQAWFSW6gul/ImIejpiWKEwkFsv0GPKu4=;
-        b=bBYdGIGTK3R1ElroSy2tEvcnzHOSDERgb1M37zLT7z4KboaWltO0EMILyw+JU8RISg
-         +S5X9PO7Qc+XJeRcmpoOJK11OdAotJFBQ2HcfaAd4F3cAZx2u/A0VzaNxG5jPUS9teEO
-         5Q3yTTpbK9yiaOe+Oo2FFSb5BLBosdeXzohPpjDMis2cBZHMlJZ+rb/YeyNC2zaZojY5
-         vMRuD6J4/p8BVoG8JJEfhWeL1AdlaQeDdikbidMgxAOKA2rQjB8KJUIgJIxFPvDpmhss
-         HkVLrltFuNPa8Ut9aUoPyy0OOVe9QfcL+f/2s8IYZn6YknxmpcuSem/1Ozm1naQCtMgj
-         687g==
-X-Forwarded-Encrypted: i=1; AFNElJ891/IpiKWAWexx1dMJ60Od/dpqy7VWc08/iruDmRVdHFQw08WlzoASCr8LqaQZbme2quklZy8Wdsc=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw3vYWGRbJ9j+cvFsv22ushzMR9GJXbKzm5xF6s8lDUY8s0ZNGW
-	mmlmkZy0qEktdNPof2m0ecx2SYQ6HFyDFLCHeKLNSDYHhEvk2a07P37xbF+JpDToZkHL8KkZZfN
-	fHlcSk4BNCe0tfCxltRycH24DBP78GE2nk86M23JMycqwFlw9ObFmlhsu5HMnmhl8pcdg
-X-Gm-Gg: Acq92OEHaVF7IS+/wuv9/m/XQmvaPKALUe7iV5gwOAbYULR+bjD1LdDKahOmrddd2XW
-	zfefWdYBUlFksiJrBw4fYr3OhELvVlroe35kVLEgMf4eDAbbTg4qG8hvWLVoDQgQ5Dzn/ZK4acz
-	6F+QJIIcSor//e0O34IUzwUBlBznw3KE9pvS1j1gf0RzQjtOpTELFkplhdIBu4dfGZKdzY6jchS
-	kYQAHMB7CXIQYUV4W0QOeV68uZoCBB/7qGasnTC9xCGXH/CQ9KwAZ+ppunk02XoNOYnjx/z+/7N
-	Qnl8jJf2zMpqOKOUbtOxmOgRyMX0IZvmR4YdYGFHgOc5pULr5xAWpRYPvJSuQZszaA4mI3enwbp
-	Ld+l45X4BvF0J6nA6nNy9X0JqMLlSbmqdP6IDV08hZRc=
-X-Received: by 2002:a05:600c:1393:b0:489:1d74:56d with SMTP id 5b1f17b1804b1-490428e15e9mr155921965e9.29.1779608630984;
-        Sun, 24 May 2026 00:43:50 -0700 (PDT)
-X-Received: by 2002:a05:600c:1393:b0:489:1d74:56d with SMTP id 5b1f17b1804b1-490428e15e9mr155921545e9.29.1779608630486;
-        Sun, 24 May 2026 00:43:50 -0700 (PDT)
-Date: Sun, 24 May 2026 03:43:47 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Thierry Escande <thierry.escande@vates.tech>
-Cc: qemu-devel@nongnu.org, Alexey Gerasimenko <x1917x@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Anthony PERARD <anthony@xenproject.org>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 3/4] q35: Fix incorrect values for PCIEXBAR masks
-Message-ID: <20260524034330-mutt-send-email-mst@kernel.org>
-References: <20260313164649.794591-1-thierry.escande@vates.tech>
- <20260313164649.794591-4-thierry.escande@vates.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=7m4lJ7TIcGE792JMwbJcSf0iwwa49L3L/8UsoUChDbM=; b=PSoEG+vNRgfWC8ttgY5EfqB6Fi
+	fPWA0s8YnqBwboe+qgHxLVNSLg88IveZ6yhggJIV5gZTNS78JMqwMZ28kOXZC5aDHtq7Qo5NnwU1K
+	O7IZp7PtdKSrn7J0vf8GnzFMenXtjWzxYvwmIHOwIGbzIQiinyv/snqIzgEnSiR8oXOY=;
+Message-ID: <e489f44e-ef61-425c-bd0e-0a992c32f7cf@xen.org>
+Date: Sun, 24 May 2026 12:00:13 +0100
 MIME-Version: 1.0
-In-Reply-To: <20260313164649.794591-4-thierry.escande@vates.tech>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: GvbJn9nt70AJek-a76xWxoW6KvuYzTsD9sK-ymqt1cg_1779608631
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-purgate-ID: tlsNG-720697/1779608654-82D6F161-58F8FA19/0/0
-X-purgate-type: clean
-X-purgate-size: 2927
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[redhat.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[redhat.com:s=mimecast20190719];
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/23] xen/arm: smmuv3: Add support for stage-1 and
+ nested stage translation
+Content-Language: en-GB
+To: Milan Djokic <milan_djokic@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Rahul Singh <rahul.singh@arm.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <cover.1774305918.git.milan_djokic@epam.com>
+ <cb8a2cb5df50128f4c49d34a7ab8faa4e73f83c6.1774305918.git.milan_djokic@epam.com>
+ <56a7c116-4ecb-4dfc-a7dd-774d53041fe9@xen.org>
+ <87a04781-5765-43b6-8b21-cb993609bd91@epam.com>
+ <cd2c76a2-7a13-4bbf-9c29-5dcf3ae06fc0@xen.org>
+ <4c96c478-aeb5-443c-a6ca-f23caf7d5430@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <4c96c478-aeb5-443c-a6ca-f23caf7d5430@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	R_DKIM_ALLOW(-0.20)[xen.org:s=20200302mail];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:url,vates.tech:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
-	FREEMAIL_CC(0.00)[nongnu.org,gmail.com,redhat.com,linaro.org,habkost.net,xenproject.org,lists.xenproject.org];
-	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[mst@redhat.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:milan_djokic@epam.com,m:xen-devel@lists.xenproject.org,m:rahul.singh@arm.com,m:bertrand.marquis@arm.com,m:sstabellini@kernel.org,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	DMARC_NA(0.00)[xen.org];
 	ARC_NA(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:thierry.escande@vates.tech,m:qemu-devel@nongnu.org,m:x1917x@gmail.com,m:pbonzini@redhat.com,m:richard.henderson@linaro.org,m:eduardo@habkost.net,m:anthony@xenproject.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DKIM_TRACE(0.00)[xen.org:+];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[redhat.com:+];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[mst@redhat.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[julien@xen.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: 9D9765C1A1A
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 7EE945C2260
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Fri, Mar 13, 2026 at 04:47:16PM +0000, Thierry Escande wrote:
-> From: Alexey Gerasimenko <x1917x@gmail.com>
-> 
-> There are two small issues in PCIEXBAR address mask handling:
-> - wrong bit positions for address mask bits (see PCIEXBAR description
->   in Q35 datasheet)
-> - incorrect usage of 64ADR_MASK
-> 
-> Due to this, attempting to write a valid PCIEXBAR address may cause it
-> to shift to another address, causing memory layout corruption where
-> emulated MMIO regions may overlap real (passed through) MMIO ranges. Fix
-> this by providing correct values.
-> 
-> Signed-off-by: Alexey Gerasimenko <x1917x@gmail.com>
-> Signed-off-by: Thierry Escande <thierry.escande@vates.tech>
+Hi Milan,
 
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
+On 28/04/2026 11:16, Milan Djokic wrote:
+>>> The original idea was to also allow stage-1-only support. But I'm not
+>>> sure if stage-1-only usecase is useful or even valid for Xen.. I will
+>>> update the patch series with the missing parts for stage-1-only support,
+>>> pointed out by Luca, but the question remains if this is needed at all.
+>>> If not, I can revert to original state where stage-2 was always 
+>>> required.
+>>
+>> By "stage-1 only" support, do you mean Xen would use the stage-1 in
+>> replacement of the stage-2? Or do you mean the guest will use the
+>> stage-1 page-table and there will be no isolation from Xen?
+>>
+>> If the former, then I believe the page tables don't have the exact same
+>> format. Today, the page-tables are shared between the CPU and IOMMU, so
+>> this would need to be duplicated. For now, I am not sure this is worth
+>> to do.
+>>
+>> If the latter, this would require the guest to be directly mapped (i.e.
+>> IPA == PA) but it would also open a big hole. So I would want to
+>> understand the exact use case first.
+>>
+> 
+> The latter. In this case, the guest would configure stage-1 while 
+> stage-2 translation is not used, so there is no additional isolation 
+> enforced by Xen. This would only be intended for specific usecases with 
+> trusted domains. But yes, this opens a significant hole if used with 
+> untrusted guests. If there is no strong usecase, we could restrict the 
+> implementation to always require stage-2.
 
-> ---
->  hw/pci-host/q35.c         | 6 +++---
->  include/hw/pci-host/q35.h | 4 ++--
->  2 files changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/hw/pci-host/q35.c b/hw/pci-host/q35.c
-> index e85e4227b3..7368e3c598 100644
-> --- a/hw/pci-host/q35.c
-> +++ b/hw/pci-host/q35.c
-> @@ -306,12 +306,12 @@ static void mch_update_pciexbar(MCHPCIState *mch)
->          break;
->      case MCH_HOST_BRIDGE_PCIEXBAR_LENGTH_128M:
->          length = 128 * 1024 * 1024;
-> -        addr_mask |= MCH_HOST_BRIDGE_PCIEXBAR_128ADMSK |
-> -            MCH_HOST_BRIDGE_PCIEXBAR_64ADMSK;
-> +        addr_mask |= MCH_HOST_BRIDGE_PCIEXBAR_128ADMSK;
->          break;
->      case MCH_HOST_BRIDGE_PCIEXBAR_LENGTH_64M:
->          length = 64 * 1024 * 1024;
-> -        addr_mask |= MCH_HOST_BRIDGE_PCIEXBAR_64ADMSK;
-> +        addr_mask |= MCH_HOST_BRIDGE_PCIEXBAR_64ADMSK |
-> +            MCH_HOST_BRIDGE_PCIEXBAR_128ADMSK;
->          break;
->      case MCH_HOST_BRIDGE_PCIEXBAR_LENGTH_RVD:
->          qemu_log_mask(LOG_GUEST_ERROR, "Q35: Reserved PCIEXBAR LENGTH\n");
-> diff --git a/include/hw/pci-host/q35.h b/include/hw/pci-host/q35.h
-> index ddafc3f2e3..f31a71010b 100644
-> --- a/include/hw/pci-host/q35.h
-> +++ b/include/hw/pci-host/q35.h
-> @@ -100,8 +100,8 @@ struct Q35PCIHost {
->  #define MCH_HOST_BRIDGE_PCIEXBAR_DEFAULT       0xb0000000
->  #define MCH_HOST_BRIDGE_PCIEXBAR_MAX           (0x10000000) /* 256M */
->  #define MCH_HOST_BRIDGE_PCIEXBAR_ADMSK         Q35_MASK(64, 35, 28)
-> -#define MCH_HOST_BRIDGE_PCIEXBAR_128ADMSK      ((uint64_t)(1 << 26))
-> -#define MCH_HOST_BRIDGE_PCIEXBAR_64ADMSK       ((uint64_t)(1 << 25))
-> +#define MCH_HOST_BRIDGE_PCIEXBAR_128ADMSK      ((uint64_t)(1 << 27))
-> +#define MCH_HOST_BRIDGE_PCIEXBAR_64ADMSK       ((uint64_t)(1 << 26))
->  #define MCH_HOST_BRIDGE_PCIEXBAR_LENGTH_MASK   ((uint64_t)(0x3 << 1))
->  #define MCH_HOST_BRIDGE_PCIEXBAR_LENGTH_256M   ((uint64_t)(0x0 << 1))
->  #define MCH_HOST_BRIDGE_PCIEXBAR_LENGTH_128M   ((uint64_t)(0x1 << 1))
-> -- 
-> 2.51.0
-> 
-> 
-> 
-> --
-> Thierry Escande | Vates XCP-ng Developer
-> 
-> XCP-ng & Xen Orchestra - Vates solutions
-> 
-> web: https://vates.tech
+It is still unclear what would be the exact use-case. Is it a system 
+where the SMMU doesn't support stage-2? Performance reason?
+
+Overall, I would rather not add any extra code in Xen without any strong 
+use case.
+
+Cheers,
+
+-- 
+Julien Grall
 
 
