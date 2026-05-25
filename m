@@ -2,51 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aKn1OY1hE2qh/QYAu9opvQ
+	id yHKzEQX8E2puHwcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 22:37:33 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2026 09:36:37 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5110A5C42DA
-	for <lists+xen-devel@lfdr.de>; Sun, 24 May 2026 22:37:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1318885.1586813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F0095C732A
+	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2026 09:36:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1319069.1586821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRFZZ-0006DZ-7j; Sun, 24 May 2026 20:37:21 +0000
+	id 1wRPqP-0005lP-FL; Mon, 25 May 2026 07:35:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1318885.1586813; Sun, 24 May 2026 20:37:21 +0000
+Received: by outflank-mailman (output) from mailman id 1319069.1586821; Mon, 25 May 2026 07:35:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRFZZ-0006C8-4f; Sun, 24 May 2026 20:37:21 +0000
-Received: by outflank-mailman (input) for mailman id 1318885;
- Sun, 24 May 2026 20:37:19 +0000
+	id 1wRPqP-0005jX-CZ; Mon, 25 May 2026 07:35:25 +0000
+Received: by outflank-mailman (input) for mailman id 1319069;
+ Mon, 25 May 2026 07:35:24 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <taka@valinux.co.jp>) id 1wRFZX-0006C2-Pl
- for xen-devel@lists.xenproject.org; Sun, 24 May 2026 20:37:19 +0000
+ (envelope-from <Michal.Orzel@amd.com>) id 1wRPqN-0005jR-K1
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2026 07:35:23 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wRFZX-002icK-5x
- for xen-devel@lists.xenproject.org; Sun, 24 May 2026 22:37:19 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wRPqN-00CqiB-07
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2026 09:35:23 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <taka@valinux.co.jp>)
- id 6a13614f-2eae-0a2a0a5409dd-0a2a450c96d0-20
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 22:37:19 +0200
-Received: from [52.101.229.112]
- (helo=TY3P286CU002.outbound.protection.outlook.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <taka@valinux.co.jp>)
- id 6a13617c-62f1-0a2a450c0019-3465e570df67-3
- for <xen-devel@lists.xenproject.org>; Sun, 24 May 2026 22:37:18 +0200
-Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
- by OS3P286MB2325.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:152::12)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a13fb99-5cb7-0a2a0a5109dd-0a2a450584dc-30
+ for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 09:35:22 +0200
+Received: from [40.107.208.60]
+ (helo=PH0PR06CU001.outbound.protection.outlook.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a13fbb8-aaa8-0a2a45050019-286bd03c0b3b-3
+ for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 09:35:22 +0200
+Received: from SJ0PR13CA0220.namprd13.prod.outlook.com (2603:10b6:a03:2c1::15)
+ by MN0PR12MB6198.namprd12.prod.outlook.com (2603:10b6:208:3c5::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.19; Sun, 24 May
- 2026 20:37:15 +0000
-Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
- ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
- ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0048.016; Sun, 24 May 2026
- 20:37:15 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.18; Mon, 25 May
+ 2026 07:35:14 +0000
+Received: from SJ1PEPF00002316.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c1:cafe::60) by SJ0PR13CA0220.outlook.office365.com
+ (2603:10b6:a03:2c1::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.11 via Frontend Transport; Mon, 25
+ May 2026 07:35:13 +0000
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00002316.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.7 via Frontend Transport; Mon, 25 May 2026 07:35:13 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 25 May
+ 2026 02:35:12 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 25 May
+ 2026 00:35:12 -0700
+Received: from [10.71.196.80] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Mon, 25 May 2026 02:35:10 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,170 +74,404 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=valinux.co.jp header.i="@valinux.co.jp" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jl2VRAS++AK2N9p0S2W2sNnFYtcrcxM6gWfg0mcOWxSha5JkT6Crb8gPWUsYisA88RKPcQo1cYECPgSneYnVUWx2mW3/0q4dGppVyHVtok02KVr1cxrOgkK+zz8IaDXqEtrL/lHLiybaZcc6NwjYjUUHe9nF0yuWtTzB5h5vVlD645crJuHLHpWGXoHfc2WsdTW2hRLwPhcupfikGIwFB7alIfp+6b1VXT64FJU8/CbgAZhRBzYd+qsfZcfuCCM1Kltk2KKI1bQybvzaTjYJJWaejLggI1X5+8Qaa8JIUeQvy5huXUlJ+Kvof5I1ALPOp2mtndsIUyZYONaVkVGK9A==
+ b=HtIBscLcW0QblFW/PCsCd+bY6YAMIvnN1xx08ufn06DmnmuajSZPMeT2EDouZTr4m4WRFAZ1SjMlEQ/wVP7Qp83OdUHGEsQ4ng0XVNkKWcgLoCfyDpbDeZTCaKhLh3OW2YVsh7/gupk+hYVjdaXv67QSSbAA5ujxeXJ1Yyn8rzSpZojzAmLMKLgJLw+mN31oi2mBiIhQAImOEY86vhKe+u7EDZojECM27W0N9VgRHK6mpPEsJeDg8dELOrxejXE1blyeZz9sohuW7YHlgLdStW903b13yNfQ4OBFipKplrlzFSrVyPuos2Mdi5WJknfyxtr36/gBF/GtfxRTk7OhFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vuLWY8E/UoAVMi1CTfubagCsoMAjzmZBXHgxmR2lN2M=;
- b=QIZxCe5xXskVKblfFTkAz7rndZXpXUQ2vKTWi4WQEDg6csnvnGHXJc27wPgzYZSCBLPOf9SzaXEjxw23Qoj4/hB5dqKALcNI+Eg+HvPnazzhzYY7D75ldAdilryWscJR4hj/TI+8BfITbEVV577OQC+TNBS8OKWRB9DSvdBX3eMNAxCyg51Z5OzBqAuey5ZHiBYfPZ46iHm+G7eYHJqopNyzYDqa6eJZavNJHrg6dcpMiMmdJKVSFxPWK1QyAY/kuZrPT4gG5xA7JMm5GasmRk2UCj/9CN8Y6MoVyuHS5ChlSZMu+Yi8OZYINcRMTzecvVjYF8jOPQYnZ+ZTk1zybg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
+ bh=dttcNPH6bZXUjF0roJGm1BUQZ+bNSQulkSrbgFSYqgE=;
+ b=ex8FZsjj9AxiBCng8RA00rBm4RjEpvEvH6hDAziNTHa3Q9psB64yMJtSb3Ih221QyLFnrQZfR9JjMTmy5D53L2ej5am5ccAPSbMpnZf18smSqPQOowo/imGXV9kxwEpSQiGAO1XDAEj5kZBYPahEROTpqscMDYJH3BvG7M7AcT0TaD4NMGYGvM6KxGz/GpG63VAaFiVZ5z4snYVyDz677CPFWNJWyUuO0CkrRGlhNXQJi2e/RB2/dSpa+svOJYrYZty9c23IJji1dwz3AXRsyKt8DhCuKHjHKnRz+KJZUhQtAFN0sp4SmkCYcGm0tnXMjVTKFc2iTS6BGMpIDoUNOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vuLWY8E/UoAVMi1CTfubagCsoMAjzmZBXHgxmR2lN2M=;
- b=sf7fv4F8gb80WVmgiNPDF0Sw9/rX24i7d0jSp63gnW00GSLYqbjjAVPj6ZoiLFCA6aRr2V9SiWPIUFJAfGxYsOdPq0bIylwNukH28Skt5OkCKIaQLDMiKeViTdhWWe/GJUKbJ3Gn3Yj+XCzPbyAIxTsJW0VvP7mMsL86lp3v6OQ=
-From: Hirokazu Takahashi <taka@valinux.co.jp>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
-	"anthony.perard@vates.tech" <anthony.perard@vates.tech>,
-	"michal.orzel@amd.com" <michal.orzel@amd.com>, "julien@xen.org"
-	<julien@xen.org>, "roger.pau@citrix.com" <roger.pau@citrix.com>,
-	"sstabellini@kernel.org" <sstabellini@kernel.org>, "jgross@suse.com"
-	<jgross@suse.com>, "bertrand.marquis@arm.com" <bertrand.marquis@arm.com>,
-	"Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
-	"dfaggioli@suse.com" <dfaggioli@suse.com>, "gwd@xenproject.org"
-	<gwd@xenproject.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH 08/21] xen/sched: Link CPU topology to scheduler and
- display via xl info
-Thread-Topic: [PATCH 08/21] xen/sched: Link CPU topology to scheduler and
- display via xl info
-Thread-Index: AQHc6xClRaEaMKd2V0q5p1f04gDybbYdTMKAgABWeWA=
-Date: Sun, 24 May 2026 20:37:15 +0000
-Message-ID:
- <OS9P286MB72224573F9FC2D8E34AFE8FB820D2@OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM>
-References: <20260524000209.292370-1-taka@valinux.co.jp>
- <20260524000209.292370-9-taka@valinux.co.jp>
- <b9ccc68d-011f-478f-9911-94c746b2a930@suse.com>
-In-Reply-To: <b9ccc68d-011f-478f-9911-94c746b2a930@suse.com>
-Accept-Language: ja-JP, en-US
-Content-Language: ja-JP
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: OS9P286MB7222:EE_|OS3P286MB2325:EE_
-x-ms-office365-filtering-correlation-id: 8883ec78-cffb-4bd5-6391-08deb9d43dc3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|7416014|376014|366016|22082099003|56012099003|18002099003|38070700021|4143699003;
-x-microsoft-antispam-message-info:
- nj1HCce51Yk3UnUnvpkQ8GfWldog+nL4ko8hrlSK7uj4tl5Yf8O6sp+2SMgHs7Z0UCo1piK8PKT6C7W8GMIOZbHpjIfgs5Wg59DUH6wb0fWMam1iT+5M4n27bzMlPrTAS7cdLf4fKDkLes+OePiEDfE9XO83gzW6/Ca4mGjY0Q/XxaxrtkJfCjn4hHKsDEPfdC3ZjDfG5vPLKc7v3NZyz3oo+zwAfRZH9hJXLF8tAmn+J9PgsnMu4oHfuJKn+mNdGXd5TIh2wNNr9DmfOLSFCHBvASHp/Q7vEXL4CSNyL6n+OWZxF2oL4QLLkF6V0/yTLfUC+GeIdVbqICFLiyQCqTxBmLvqRZtGw4BpWlCT91pJjRs7dnvEflkCUPWO9rLq7cuOBVkFQN0nYL4sdTT5r1ZVdRpE+/+5MV6PRgLYYspnMKFPrUxofbLkTwtt0ZcNMixTmVeaMoSoDAPCcBH0pQOaKXVh2m7pBDOgZAqot2tQafeTobFz7SYz2AOCoO7PZIHgDDbfsaRfAXm+CJwHKyEn6YVwZSf0Ux56iEYKa9FQm3mY7vDloMCCofL89VPcSNGjEcMH63CRmpPE1lf3oCfYBeVxS74UERzQE2q+I7xbUXYT+mbkrk+X9PVt2moGPJxgKiVP8qTUuWCJf+A/UT/Lw5BlPiXSFAKuxCSlqU6QLeLoRx2oq4fbtQqXqy4ykdVJY1w9ArnEZTvVZ7NTJ+h4rnV5sofvQ5zQIRTjYUV1N1BOjMzL4AORC2GIY7Nm
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(22082099003)(56012099003)(18002099003)(38070700021)(4143699003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bVJkMUUzSkk2ZkdnbHBaUDdRTzd1RVVDd2Uzdi8yOFlKZTFhUmVEWlZUaHMv?=
- =?utf-8?B?azRQSGkxM2RHUGxqNkk3dXBNZUxmNUF0cUhxMURka2FoNnBZSDRPclFuZGs3?=
- =?utf-8?B?eDUxRE5vZ1B0NXFRUFhGSldzbFdIZGpDa2ZNdTJHZy8yaitGZ2c2MGJKcytN?=
- =?utf-8?B?b0M1YmlSN1N2T2FhSlBoMm5UMzNOeFVkT0pwZmhYbExOKzUyQ3V5V1FFTUxw?=
- =?utf-8?B?alJDa004QVM0dVF1L1FObDBTd3VHcWlBSGdUTlgrUkdBQVFPU3kwZXUwNDBY?=
- =?utf-8?B?aE1BYm5SeEExUU1FWTM3L0dXTU1qL0xnRmdONGYwdWtiK0wzWUtwalpBakFj?=
- =?utf-8?B?RzhoT1owdEZwekZ2V0F5VzFjdVY1UUluUW9kZmh6OC9QaVBiR01DQS9QcDVi?=
- =?utf-8?B?RVRSOWtnYm9mRGJGVUpVWUFkMXNqTGtPQnNoYVdsZCtERkdiNnp1Uys4MHhp?=
- =?utf-8?B?bGZBdUpsUW1BRHFUSGYrU0ZDTzNMd0k3SThhUkcxV053YzdTREhBcGNwNEVm?=
- =?utf-8?B?N3U3bjE4SStoUlN3ODNTN3pCWlYrQ3NObHBoSGsxU2lNMmhxa1VvMnVIemEx?=
- =?utf-8?B?SGF5VmZRZ20wSkNlY3NBUE53bzd6Qzk4V1lpRGpYOEsvUm1IVXliMGRaK0xy?=
- =?utf-8?B?dG1FMlRQWHlQdWplVmtWa2QzNEcwVk80S1hUNVY1dUV2NTlxRWlyRkNicjNo?=
- =?utf-8?B?MGpGRWQzZ2M2a1lsYXVjTnd3NTFWbmJmd2FURkZPdm45a1IzZTYrNHN2cEhi?=
- =?utf-8?B?SktaaG45d2l6RWhsakY0L2pPbklZSE9IK3A3b2ZlMU82djBnckc4dmZrVzBx?=
- =?utf-8?B?WHpmNGU5cVhVWE8vWTNDRGJ5ekMvWDRybWVObUh0WldDa3VyNENySEw2cVVH?=
- =?utf-8?B?N05vYzRDTzh4ZHZKcDZQeTF5dlBMUVdpZzcyNXhNdnBVaTQ4cTNxeHVsZUt0?=
- =?utf-8?B?WUFzeVc3TWVDb1VTdE1QY0w5YUlVaE9PL0FoZjI5QVB2UkNNbnRUU3diNVJa?=
- =?utf-8?B?T0lKRWs0MkhUdkhTNWpHU1BlbHgwRlJTaWZXZmpOdWNYTWYyek9hMFZPVjl5?=
- =?utf-8?B?TWRQcitmdU5tQnUrZ1paOXJZZnk3WXc4V1NLdmJ1TE5NcWpwdEFHbWJoVEdZ?=
- =?utf-8?B?ai9XV3ZlVnRZU2dyaXBnQi80RkVETmoxSlpBZUN6ckZ3WWZ1RkxCUEVNam12?=
- =?utf-8?B?YVRhRUhMYzRCYUVkVzJETXJnQUttUDhmS2xrU2lnUUxMTVdRd2RDSHZqclNB?=
- =?utf-8?B?N1N6KzBSZDl0VVVOU2J3V0dyZi9TZ2Z4cTkwdGNtQzg1SmozQjd4eGhJVHhK?=
- =?utf-8?B?cTBLZ0YrUTBUd2krRTArWjFwaWdQa2lYNjhXMUtwazBrV3pybGxjMG5Hd3Fy?=
- =?utf-8?B?VGI4N2tmTGtEYWo0T1VvQkZiRTlSeG9TZndTeWhUOVMvR0VvZDhxM1UrVm1l?=
- =?utf-8?B?TFc5K1F6YTNQM3VqWjZkenpSRnNIaW81WGswNFd2Q1hqdzRKa2llT244WnpU?=
- =?utf-8?B?RE84M1BXVC9ETkQyaS8vbEswWGxZQ0F5OGIyVDlidDNWMk83WFFEajJXYUN2?=
- =?utf-8?B?cmR2aGEyR1J6UXpuNGxmNXkyaU5qNEFhWTE4ZEF3QTlLRnA3RVU0NGR4MVBh?=
- =?utf-8?B?ek9ieFJpc2ZGdGp6MERJSXp1ZnY4RGtnSmZ1dU0wZmZ6VXJ0NnJhWUsxWUpw?=
- =?utf-8?B?eGdmZ2dwVllSNFdLUHBQb2NuNmZIRUtJcDN4L09pdXpSR3FZUWllVW5lRE0x?=
- =?utf-8?B?V2EzRllaVXVyVXc1YXdVeG4zaWRyblhKZnRxbkl1TGNKMXZsSDh2VWZxUS9n?=
- =?utf-8?B?ODlNdXAxNElEL3lLUFVPaWIxbDF0NGpscmtyaGtNa2piRDNtcWlYUHh2Vng0?=
- =?utf-8?B?bHNDYjhmZlQ5Z090RTF3djBBbmI3V2tvRDdPaXZ3Y0VIdkFqNitnWE5welY2?=
- =?utf-8?B?N0FQNW9UdmJ5Wi9IVTc4L1dKVTlCVkdQTHZ6VVgrYWZTRmNtTFdvbm5wbG1a?=
- =?utf-8?B?dlJkamdYWTVPa0F1RUg5bElKcithOE5VVHVnLytnV3R1WjJxSCtrNTIwNEFx?=
- =?utf-8?B?MzEySnFxK1cvT2dnRVNadm9vbGNub0xTckNtaTJXTVFETmJ5d1lWd3BQMzlQ?=
- =?utf-8?B?SEhmM3FYQlhVQVpoblY2VlZPdm8xODd3VkJ0VUlPZTE3a2hZL1Brcm9IQVp2?=
- =?utf-8?B?K1loNVlWZlBhcEE5TG9scHRkaXYrYmFJamx4c3g1RDVQbXovRHFlbFg0SkQr?=
- =?utf-8?B?MHZYSTZyK2dZNGNST3VmdXNBeGw4cVpNSHA0TnJvRlFCbmJiSi81dW9DakYx?=
- =?utf-8?Q?nw32HDq+suI3WgsRr8?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ bh=dttcNPH6bZXUjF0roJGm1BUQZ+bNSQulkSrbgFSYqgE=;
+ b=IISWf3seErDgybuYNVj88hSqFbWSx+QJcmzU/bUUkbaF0GH/UD8EW1pyr8u0SR3VUzR71tib9S/HYh/1DHnrxXH4uIqethxB9idRor26sAVAoiXI2wkvndMzJeMPXrC8EeG/BzEoVXm+OEdZvKMiUDJFcQa06QGpbZftURiVFek=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Message-ID: <0db37c10-b920-4d9d-9453-18f820e6d093@amd.com>
+Date: Mon, 25 May 2026 09:35:04 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8883ec78-cffb-4bd5-6391-08deb9d43dc3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 May 2026 20:37:15.3174
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] device-tree: size first hwdom bank for boot modules
+To: Mykola Kvach <xakep.amatop@gmail.com>, <xen-devel@lists.xenproject.org>
+CC: Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, "Daniel P. Smith"
+	<dpsmith@apertussolutions.com>
+References: <9ae4f7dd49f5b1f761193adae573c2675c92e883.1779051035.git.mykola_kvach@epam.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <9ae4f7dd49f5b1f761193adae573c2675c92e883.1779051035.git.mykola_kvach@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|MN0PR12MB6198:EE_
+X-MS-Office365-Filtering-Correlation-Id: e60f1b6b-f079-41f2-6fe2-08deba30288c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|376014|1800799024|82310400026|18002099003|56012099003|22082099003|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	FYvt/uM4a5MGpAueyFh3Sc7ihFhjRdJWAY1qNXr8jmj2Ap6yYAfuswgfZ/mmnWeHZ3e5RXOtHwhESqRFL6iUyU9adYTHWNr88ZRY2cNds/lSHoP7AOXudojtQVOteQemTMDFDNBL4OlgF+BNMEHW6UWMdrRHB4g2j1RJXVtJVw0gtz5trR869YjHPePNr0fNuw77akYOh07Y1QOuE/m9vXenKjdfk1YONeaJzKTuZFTWQOSGPmMf9uVAFYq0sVUVUcos9LH1M52Fug/sQCeSPdpWJzm9AQw2SlPmk+8Qg6/cngTaKHwIUGZWIJZIjHurdb7liOEQFO8X7BbDjgcXCjhOg+xF+wZg1H17y5FgnMgU6JzoBIT7Bk0zuoEizAphM5bTeOBVaxjpqwLP0/427btoxQ3FkV2oSyQ+HJI5GBk8AwDZClyptJzJ+LzBgzbrom0bBxWA5062IH0+NhJhZSma2aiNdmLWwCxjSvOcj6NaEz686aLgQc7cniIlIMU/npxGabr4LnJqmI2Kp8+NGaJ+M3f/fF9D1SphF72mMyARWhccHtaNEP8azYNfcoD4+VP9qq5I9sUtQpgIjlG5weGXxBUUb0K0UNjzaBlSpvF6SqEII+g2atmVh5MiWj9WTStAPcdLtsdJbJnGnHqBQiH8GUC8am3gZZp/PqxTIGNV6p2yQf+Y1cnu2oZBgBF6bKiSLyzQrJUp5RLH1WfosrWJ0zgNkXlsTiPTfFj8V8c=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(1800799024)(82310400026)(18002099003)(56012099003)(22082099003)(5023799004)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	rCPl0twHbZcKbZ0RwSejhSLsn4mI2Wmu5GEhpDy0aK5FgUot6ONMPl1aJcn8Cmfy76fv+D2oVHIvs0nWadZamUDK/3IaUWowple8ufQmifPtxMAXq3xUL+Tr/FejfvRq/DYD7BuaBbiqMopAxTyo/rQnWw18vpAwEe1CkMG0FLhudjqCan8fFw6Gp9g+V/8jTR8RiTjJ7WVAaLEMGKaYzg6mOc39GoMjT3ItDjbChDxFnuIZdly5YbF/2khhjUFHEyFOuFGVhQmp+TjvIqWO0QLNhwYOke1D+1MiWB160HX9jwW/leK3Rw9/a8F7PDmesF/kdsGD5ofs8Aj1nQchZezR1I/fc5Qc6V6r6qxurCQp9v1wolJpCmj9984fkY7LSUvyl4vRpofXy03SHc6gc+6Y0YPa7PrcBjdphfp9IbHEewLWCc8cZhNuJO70ab02
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 07:35:13.3330
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7kWoAZqe6tO8ZYZSCfLNtqnpcAKMOssz2sfPXlWQeuRFNLwAKD4o4Dt1oZ/akQiqaUurl9J0dCa/WxCcYPnP8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3P286MB2325
-X-purgate-ID: tlsNG-d25034/1779655039-DBD7BCF5-3DFE6F27/0/0
+X-MS-Exchange-CrossTenant-Network-Message-Id: e60f1b6b-f079-41f2-6fe2-08deba30288c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002316.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6198
+X-purgate-ID: tlsNG-c201ff/1779694522-D8D7F443-0C2D15C1/0/0
 X-purgate-type: clean
-X-purgate-size: 1056
-X-Spamd-Result: default: False [0.91 / 15.00];
+X-purgate-size: 11927
+X-Spamd-Result: default: False [1.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	MIME_BASE64_TEXT_BOGUS(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[valinux.co.jp,none];
-	R_DKIM_ALLOW(-0.20)[valinux.co.jp:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
-	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:jgross@suse.com,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:dfaggioli@suse.com,m:gwd@xenproject.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	RCPT_COUNT_TWELVE(0.00)[13];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,valinux.co.jp:dkim,OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:dpsmith@apertussolutions.com,m:xakepamatop@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[valinux.co.jp:+];
+	DKIM_TRACE(0.00)[amd.com:+];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[14];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-0.980];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.207];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 5110A5C42DA
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,epam.com:email,amd.com:mid,amd.com:dkim]
+X-Rspamd-Queue-Id: 7F0095C732A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-SGVsbG8sDQoNCj4gPiAtLS0gYS94ZW4vaW5jbHVkZS94ZW4vY3B1X3RvcG9sb2d5LmgNCj4gPiAr
-KysgYi94ZW4vaW5jbHVkZS94ZW4vY3B1X3RvcG9sb2d5LmgNCj4gPiBAQCAtMTQsNiArMTQsOSBA
-QCBzdHJ1Y3QgY3B1X3RvcG9sb2d5IHsNCj4gPiAgICAgIGNwdW1hc2tfdCB0aHJlYWRfc2libGlu
-ZzsNCj4gPiAgICAgIGNwdW1hc2tfdCBjb3JlX3NpYmxpbmc7DQo+ID4gICAgICBjcHVtYXNrX3Qg
-Y2x1c3Rlcl9zaWJsaW5nOw0KPiA+ICsgICAgaW50IHRvX2NvcmU7DQo+ID4gKyAgICBpbnQgdG9f
-c29ja2V0Ow0KPiA+ICsgICAgaW50IG51bV9zaWJsaW5nczsNCj4gPiAgfTsNCj4gDQo+IFdoYXQg
-c2lnbmlmaWNhbmNlIGRvIHRoZSB0b18gcHJlZml4ZXMgaGF2ZSBoZXJlPyBBbmQgd2hhdCdzIHRo
-ZSBtZWFuaW5nIG9mIGFueQ0KPiBvZiB0aGUgZmllbGRzIGhvbGRpbmcgbmVnYXRpdmUgdmFsdWVz
-PyAoSWYgdGhleSBjYW4ndCBob2xkIG5lZ2F0aXZlIHZhbHVlcywgdXNlDQo+IHVuc2lnbmVkIGlu
-dCBwbGVhc2UuKQ0KDQpUaGVzZSBtZW1iZXJzIGFyZSB1c2VkIHRvIG1hcCBhIGxvZ2ljYWwgQ1BV
-IElEIHRvIGEgcGh5c2ljYWwgY29yZSBJRCBhbmQNCmEgcGh5c2ljYWwgc29ja2V0IElELiBJIHdp
-bGwgcmVuYW1lIHRoZW0gdG8gcGh5c19jb3JlX2lkIGFuZCBwaHlzX3NvY2tldF9pZA0KcmVzcGVj
-dGl2ZWx5LCBhbmQgbWFrZSB0aGVtIHVuc2lnbmVkIGludC4NCg0KVGhhbmsgeW91IGZvciB5b3Vy
-IGFkdmljZS4NCkhpcm9rYXp1IFRha2FoYXNoaQ0K
+
+
+On 17-May-26 22:57, Mykola Kvach wrote:
+> From: Mykola Kvach <mykola_kvach@epam.com>
+> 
+> With LLC coloring enabled, the hardware domain memory comes from
+> allocate_hwdom_memory(), not from the fixed direct-map banks used when
+> coloring is off.
+> 
+> Commit de99f3263555 ("device-tree: Improve hwdom memory allocation for
+> DMA") made that allocator sort free host regions by ascending address so
+> Dom0 gets DMA-capable low memory first. The first bank filter still only
+> required 128MB. That can select a low region which is large enough for
+> the heuristic, but not large enough for place_modules() to put the Dom0
+Don't mention dom0 given that this is purely hwdom path.
+
+> kernel, generated DTB and initrd contiguously in bank 0.
+> 
+> Ask arch code for any additional first-bank size requirement. On Arm,
+> compute it from the actual Dom0 kernel placement, rounded initrd size and
+> generated DTB size hint. For 64-bit Image kernels, include the text offset
+> from the candidate bank start, because the returned requirement is compared
+> with a bank size measured from that start. The hint covers both the normal
+> Device Tree path and the minimal DTB created for ACPI boot.
+> 
+> Check the first-bank threshold against the size which will actually be
+> assigned to Dom0, after capping the host region by the remaining unassigned
+> Dom0 memory. Otherwise a large host region could pass the test but still
+> produce a first guest bank too small for place_modules().
+> 
+> Use the typed min()/max() helpers for this normal allocation arithmetic;
+> MIN()/MAX() are intended for preprocessor-style contexts and skip the type
+> checking provided by the lowercase helpers.
+> 
+> This keeps the DMA-oriented allocation policy from de99f3263555 while
+> preventing a too-small bank 0 from reaching place_modules().
+> 
+> Fixes: de99f3263555 ("device-tree: Improve hwdom memory allocation for DMA")
+> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> ---
+> Test/setup notes:
+> 
+> The failure was reproduced on a Renesas H3ULCB/R-Car H3 (r8a7795)
+> arm64 board booted through U-Boot/TFTP and using huge initrd.
+> 
+> Relevant Xen command line excerpt:
+>   dom0_mem=2048M llc-coloring=on
+> 
+> Boot module layout from Xen:
+>   MODULE[2]: 0x0000000084000040-0x000000008e75d92f Ramdisk
+>   MODULE[3]: 0x00000000a0000000-0x00000000a3ffffff Kernel
+>   MODULE[4]: 0x00000000a4000000-0x00000000a400ffff XSM Policy
+> 
+> The initrd is about 168MB. With LLC coloring enabled and the low-address
+> allocation policy from de99f3263555, Dom0 can receive a 192MB first bank:
+>   d0 BANK[0] 0x00000048000000-0x00000054000000 (192MB)
+> 
+> That bank satisfies the old 128MB minimum but is too small for the
+> rounded Dom0 kernel, generated DTB and initrd placement. The observed
+> failure before this patch was:
+>   Panic on CPU 0:
+>   Not enough memory in the first bank for the kernel+dtb+initrd
+> 
+> With this patch, the same boot skips the too-small low region for bank 0
+> and reaches Dom0:
+>   d0 BANK[0] 0x00000057000000-0x00000084000000 (720MB)
+>   d0 BANK[1] 0x0000008e800000-0x000000c0000000 (792MB)
+>   d0 BANK[2] 0x00000500000000-0x00000521800000 (536MB)
+>   d0: extended region 0: 0x48000000->0x54000000
+>   Loading zImage from 0x00000000a0000000 to 0x57000000-0x5b000000
+>   Loading d0 initrd from 0x0000000084000040 to 0x5f200000-0x6995d8f0
+>   Loading d0 DTB to 0x5f000000-0x5f011c80
+>   Linux version 5.10.194-yocto-standard
+> ---
+>  xen/arch/arm/acpi/domain_build.c        |  2 --
+>  xen/arch/arm/domain_build.c             |  8 ++++++
+>  xen/arch/arm/include/asm/domain_build.h |  4 +++
+>  xen/arch/arm/include/asm/kernel.h       |  8 ++++++
+>  xen/arch/arm/kernel.c                   | 35 +++++++++++++++++++++++++
+>  xen/common/device-tree/domain-build.c   | 27 ++++++++++++++-----
+>  xen/include/xen/fdt-kernel.h            |  8 ++++++
+>  7 files changed, 83 insertions(+), 9 deletions(-)
+> 
+> diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domain_build.c
+> index 249d899c33..db16f7fa94 100644
+> --- a/xen/arch/arm/acpi/domain_build.c
+> +++ b/xen/arch/arm/acpi/domain_build.c
+> @@ -26,8 +26,6 @@
+>  #undef virt_to_mfn
+>  #define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
+>  
+> -#define ACPI_DOM0_FDT_MIN_SIZE 4096
+> -
+>  static int __init acpi_iomem_deny_access(struct domain *d)
+>  {
+>      acpi_status status;
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 1efddc60ef..226e053c68 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -115,6 +115,14 @@ int __init parse_arch_dom0_param(const char *s, const char *e)
+>                               (IS_ENABLED(CONFIG_STATIC_SHM) ?         \
+>                                (NR_SHMEM_BANKS * (160 + 16)) : 0))
+>  
+> +paddr_t __init dom0_get_fdt_size_hint(void)
+> +{
+> +    if ( !acpi_disabled )
+> +        return ACPI_DOM0_FDT_MIN_SIZE;
+> +
+> +    return fdt_totalsize(device_tree_flattened) + DOM0_FDT_EXTRA_SIZE;
+> +}
+> +
+>  unsigned int __init dom0_max_vcpus(void)
+>  {
+>      if ( opt_dom0_max_vcpus == 0 )
+> diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
+> index df8b361b3d..45687c5d6f 100644
+> --- a/xen/arch/arm/include/asm/domain_build.h
+> +++ b/xen/arch/arm/include/asm/domain_build.h
+> @@ -19,6 +19,10 @@ int prepare_acpi(struct domain *d, struct kernel_info *kinfo);
+>  
+>  int add_ext_regions(unsigned long s_gfn, unsigned long e_gfn, void *data);
+>  
+> +#define ACPI_DOM0_FDT_MIN_SIZE 4096
+> +
+> +paddr_t dom0_get_fdt_size_hint(void);
+> +
+>  #if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
+>  /* Utility function to determine if an Armv8-R processor supports VMSA. */
+>  bool has_v8r_vmsa_support(void);
+> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+> index 21f4273fa1..17c5b9bce4 100644
+> --- a/xen/arch/arm/include/asm/kernel.h
+> +++ b/xen/arch/arm/include/asm/kernel.h
+> @@ -8,12 +8,20 @@
+>  
+>  #include <asm/domain.h>
+>  
+> +#include <xen/types.h>
+> +
+> +struct kernel_info;
+> +
+>  struct arch_kernel_info
+>  {
+>      /* Enable pl011 emulation */
+>      bool vpl011;
+>  };
+>  
+> +#define arch_get_min_first_bank_size arch_get_min_first_bank_size
+> +paddr_t arch_get_min_first_bank_size(struct kernel_info *info,
+> +                                     paddr_t bank_start);
+> +
+>  #endif /* #ifdef __ARCH_ARM_KERNEL_H__ */
+>  
+>  /*
+> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+> index b72585b7fe..3644663e2f 100644
+> --- a/xen/arch/arm/kernel.c
+> +++ b/xen/arch/arm/kernel.c
+> @@ -128,6 +128,41 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
+>      return load_addr;
+>  }
+>  
+> +static paddr_t __init kernel_placement_size(paddr_t load_addr, paddr_t len)
+> +{
+> +    return ROUNDUP(load_addr + len, MB(2)) - load_addr;
+Used from one site. place_modules() open-codes the same
+expression; the CONFIG_HAS_DOMAIN_TYPE branch below is
+kernel_placement_size(load_addr, len) + text_offset. Either drop the helper or
+use it consistently.
+
+> +}
+> +
+> +paddr_t __init arch_get_min_first_bank_size(struct kernel_info *info,
+info is RO, so const please.
+
+> +                                            paddr_t bank_start)
+> +{
+> +    const struct boot_module *mod = info->bd.initrd;
+Why mod instead of initrd? - choose more meaningful names
+
+> +    const paddr_t initrd_len = ROUNDUP(mod ? mod->size : 0, MB(2));
+It would be nice to explain why 2MB, at least to say that it mirrors
+place_modules rounding.
+
+> +    const paddr_t dtb_len = ROUNDUP(dom0_get_fdt_size_hint(), MB(2));
+> +    paddr_t kernsize;
+> +
+> +#ifdef CONFIG_HAS_DOMAIN_TYPE
+> +    if ( (info->type == DOMAIN_64BIT) && (info->image.start == 0) )
+> +    {
+> +        paddr_t load_addr = bank_start + info->image.text_offset;
+> +
+> +        /*
+> +         * The caller compares this value with a size measured from
+> +         * bank_start, so include the text offset before the kernel.
+The comment belongs above the load_addr line above.
+
+> +         */
+> +        kernsize = ROUNDUP(load_addr + info->image.len, MB(2)) - bank_start;
+> +        return kernsize + initrd_len + dtb_len;
+Could it be written as:
+info->image.text_offset + kernel_placement_size(load_addr, info->image.len)
+
+> +    }
+> +#endif
+> +
+> +    if ( info->image.start == 0 )
+> +        kernsize = ROUNDUP(info->image.len, MB(2));
+> +    else
+> +        kernsize = kernel_placement_size(info->image.start, info->image.len);
+This could be written as a single expression, no need for if/else:
+kernsize = kernel_placement_size(info->image.start, info->image.len);
+
+> +
+> +    return kernsize + initrd_len + dtb_len;
+> +}
+> +
+>  static void __init kernel_zimage_load(struct kernel_info *info)
+>  {
+>      paddr_t load_addr = kernel_zimage_place(info);
+> diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
+> index 2a760b007b..d8865db259 100644
+> --- a/xen/common/device-tree/domain-build.c
+> +++ b/xen/common/device-tree/domain-build.c
+> @@ -299,20 +299,33 @@ static bool __init allocate_hwdom_memory(struct kernel_info *kinfo)
+>  
+>      for ( i = 0; (kinfo->unassigned_mem > 0) && (i < nr_banks); i++ )
+>      {
+> -        paddr_t bank_size;
+> +        const paddr_t bank_start = hwdom_free_mem->bank[i].start;
+> +        paddr_t bank_size = hwdom_free_mem->bank[i].size;
+> +
+> +        /*
+> +         * Check the size that would actually be assigned, not just the size
+> +         * of the host region.
+> +         */
+> +        bank_size = min(bank_size, kinfo->unassigned_mem);
+>  
+>          /*
+>           * The first bank must be large enough for place_modules() to
+>           * fit the kernel, DTB and initrd.  Skip small regions to avoid
+>           * ending up with a tiny first bank.
+>           */
+> -        if ( !mem->nr_banks && (hwdom_free_mem->bank[i].size < min_bank_size) )
+> -            continue;
+> +        if ( !mem->nr_banks )
+> +        {
+> +            paddr_t arch_min_size;
+> +            paddr_t required_first_bank_size;
+> +
+> +            arch_min_size = arch_get_min_first_bank_size(kinfo, bank_start);
+> +            required_first_bank_size = max(min_bank_size, arch_min_size);
+> +
+> +            if ( bank_size < required_first_bank_size )
+> +                continue;
+> +        }
+>  
+> -        bank_size = MIN(hwdom_free_mem->bank[i].size, kinfo->unassigned_mem);
+> -        if ( !allocate_bank_memory(kinfo,
+> -                                   gaddr_to_gfn(hwdom_free_mem->bank[i].start),
+> -                                   bank_size) )
+> +        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), bank_size) )
+>          {
+>              xfree(hwdom_free_mem);
+>              return false;
+> diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
+> index 8cd1670c2c..931b3e1686 100644
+> --- a/xen/include/xen/fdt-kernel.h
+> +++ b/xen/include/xen/fdt-kernel.h
+> @@ -86,6 +86,14 @@ kernel_info_get_mem_const(const struct kernel_info *kinfo)
+>      return container_of(&kinfo->mem.common, const struct membanks, common);
+>  }
+>  
+> +#ifndef arch_get_min_first_bank_size
+> +static inline paddr_t arch_get_min_first_bank_size(struct kernel_info *info,
+> +                                                   paddr_t bank_start)
+> +{
+> +    return 0;
+> +}
+> +#endif
+> +
+>  #ifndef KERNEL_INFO_SHM_MEM_INIT
+>  
+>  #ifdef CONFIG_STATIC_SHM
+
+As for the upstream CI test, we should start with more generic tests that we are
+missing (like regular LLC boot) before thinking of covering more granular
+scenarios. Also, in the past we agreed on first covering the supported features
+before adding tests for unsupported ones.
+
+~Michal
+
+
 
