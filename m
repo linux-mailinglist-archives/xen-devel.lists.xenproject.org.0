@@ -2,48 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yJg0M4o3FGpuKwcAu9opvQ
+	id SDwvCxk7FGpDLAcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2026 13:50:34 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2026 14:05:45 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 306AA5CA2E8
-	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2026 13:50:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1319189.1586893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 824F25CA43C
+	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2026 14:05:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1319203.1586903 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRTof-0001Ci-R9; Mon, 25 May 2026 11:49:53 +0000
+	id 1wRU3V-00047E-4o; Mon, 25 May 2026 12:05:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1319189.1586893; Mon, 25 May 2026 11:49:53 +0000
+Received: by outflank-mailman (output) from mailman id 1319203.1586903; Mon, 25 May 2026 12:05:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRTof-0001A5-OV; Mon, 25 May 2026 11:49:53 +0000
-Received: by outflank-mailman (input) for mailman id 1319189;
- Mon, 25 May 2026 11:49:52 +0000
+	id 1wRU3V-00044L-0r; Mon, 25 May 2026 12:05:13 +0000
+Received: by outflank-mailman (input) for mailman id 1319203;
+ Mon, 25 May 2026 12:05:11 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wRTod-00019x-Ve
- for xen-devel@lists.xenproject.org; Mon, 25 May 2026 11:49:52 +0000
+ (envelope-from <dmytro_prokopchuk1@epam.com>) id 1wRU3T-000448-5W
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2026 12:05:11 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wRToc-006Zda-Ta
- for xen-devel@lists.xenproject.org; Mon, 25 May 2026 13:49:50 +0200
-Received: from [10.42.69.4] (helo=localhost)
+ id 1wRU3S-009ZL5-E2
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2026 14:05:10 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a143755-5cb7-0a2a0a5109dd-0a2a4504a612-16
- for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 13:49:50 +0200
-Received: from [209.85.218.54] (helo=mail-ej1-f54.google.com)
- by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a14375e-1dec-0a2a45040019-d155da36bcd3-3
- for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 13:49:50 +0200
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-bcd3c190f71so1534788166b.0
- for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 04:49:50 -0700 (PDT)
-Received: from EPUAKYIW02F7.. ([45.12.24.36]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bddc5eced0asm393643566b.39.2026.05.25.04.49.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 May 2026 04:49:49 -0700 (PDT)
+ (envelope-from <dmytro_prokopchuk1@epam.com>)
+ id 6a143ad0-e002-0a2a0a5209dd-0a2a45018c26-40
+ for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 14:05:10 +0200
+Received: from [40.107.159.87]
+ (helo=OSPPR02CU001.outbound.protection.outlook.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <dmytro_prokopchuk1@epam.com>)
+ id 6a143af5-c1f2-0a2a45010019-286b9f57a41b-3
+ for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 14:05:10 +0200
+Received: from AM9PR03MB7526.eurprd03.prod.outlook.com (2603:10a6:20b:3de::17)
+ by AM9PR03MB7026.eurprd03.prod.outlook.com (2603:10a6:20b:280::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.19; Mon, 25 May
+ 2026 12:05:08 +0000
+Received: from AM9PR03MB7526.eurprd03.prod.outlook.com
+ ([fe80::904d:5820:80e1:41ba]) by AM9PR03MB7526.eurprd03.prod.outlook.com
+ ([fe80::904d:5820:80e1:41ba%3]) with mapi id 15.21.0048.019; Mon, 25 May 2026
+ 12:05:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,201 +58,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779709790; x=1780314590; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=1jI01HwKooNheF6pO192at6Bii7Ij61+AZWCIl1TlZE=;
-        b=Bt6anAjb/soC4PkBhlL6dR9AD7KpDJmp/XMZotXFIeheBt15ZbkBIMzbAiCJdKlg4a
-         x7rEqLxIT8tGkO2GpTLL7lBg6qpJPxrV+HeEljbwx+4PgJ+AxWMUfjbaqGC7JbkEd1GQ
-         XtLW6ulZwOba/GCIXWu8LMMysdDQ41d9XaaQC8o/Jad9pH7aPUXCcgEk7IhZDepkk6XZ
-         eu0fz4emN5TRPB31+oY9lbQ+EtO1YnKyYEkeuqcZ0v0yn3FPT0UQYtcDkgksCapS42q5
-         ekBn9yfqW9tZ+a14AVB5n18s8GP0tGQ8rhG8NhDUj8a9qgSE8oSW+2CLE2KADir5I7X7
-         quSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779709790; x=1780314590;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=1jI01HwKooNheF6pO192at6Bii7Ij61+AZWCIl1TlZE=;
-        b=adbMhumSrbkXqk7W3moT3Oj1+NnA1IwookqxG+sRq2RcVJSxewLhucuSQumE3JTBXl
-         BRf2r4rkBhok7rOiS1LOoFaDjmlFzVjZZO4iWS52lnYGVADiBKUef+8vVC8XjI3RVwCL
-         HCU2Y5bRdbhwFPECz1Imj5R/QvM8LMLwJgLUTF+NGONAh/u8Vzd7CR2MqplgsCvrEJMd
-         wSgNi+3smgwP14Ntb6I8gjHo3gv4sKrdT6pTUIVcPyS/FPrC4GQ8/kM687yuKY4tMUIG
-         bIZwXG/22Dynol8mbYiSDxdkPi83eRcW27eJyJhWaz2G6nR3fqdGCck8k5XnMaWCd9hi
-         wEuw==
-X-Gm-Message-State: AOJu0YyAcIRfleDoxtYzNb2zHCR2D2yMTmJSa7/hpzIS+exVfkWLmPLz
-	vIspL0mJxOuEqkkq5kfIN1oWxUuo5Fek76o2SD8HB8LBIgh/bsvCnjRNqbXqi/uc
-X-Gm-Gg: Acq92OEg96nNTkgD59EsE+41olO9zZpW6DozJ3NzM7/QA9PpPLMv9scgwOxDpx+cgfd
-	HKc5sU/KqeApGhDMUgUqVqeyehABZ4VHWVXvT0r1GLIp0BHLpbyHWppRWGmUOZ05vysPK3Zg+sf
-	MptFnR+dMjrtDgverTxU1RBUtSFabK8ZILM3IsBunVlyGqketEs9MB4f306MeFmni69iCcY6hfw
-	E7X91TGARZUz0EMwwI7Bl1vVPNYDZd/7cJ9yDj9qQrp6opgnF6qSbSFyIJbxx1K5sUeGfPBxma4
-	B06XsAVpe957GSj1MvJXymzep/e9m7sZ7QpYRzjAxKmInnwGom3pmt2dBq5wXjgJhPtZDiqZL9d
-	pnb/q7ZuHLxZylrTH8mrBRm/AbBC9Yg8gpw+JhvXZPZnm79jkbIsfmkvP/oKpR+jRMLNjR/oi1v
-	bP6t+bdzvC5O4Cha8Cd403y/M84Oc2zRnm06NE+xyTaPDEmw4=
-X-Received: by 2002:a17:907:c06:b0:bd4:6da5:d5b2 with SMTP id a640c23a62f3a-bdd23cfc4d1mr766022466b.1.1779709789998;
-        Mon, 25 May 2026 04:49:49 -0700 (PDT)
-From: Mykola Kvach <xakep.amatop@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Luca Miccio <lucmiccio@gmail.com>,
-	Carlo Nonato <carlo.nonato@minervasys.tech>,
-	Marco Solieri <marco.solieri@minervasys.tech>,
-	Luca Fancellu <luca.fancellu@arm.com>
-Subject: [PATCH v2] xen/arm: scan CLIDR Ctype fields upwards when probing LLC
-Date: Mon, 25 May 2026 14:47:35 +0300
-Message-ID: <fc9f1babe0c320214c03b1d294398d411fa41254.1779708833.git.mykola_kvach@epam.com>
-X-Mailer: git-send-email 2.43.0
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AxPuD/8Di5j9acSKcZFO+8hpv2C0yAQxkFzlWkZM6iG6G1cROQFOIs55vN0Ci4fYEMB6ZOglK0RHg894mwtDyoEpZ4MKvxxym2eM7vdVKbGm4NE0v61cPWjn0WcJg6h4bm7I3mDwdOZnRNAAhhQKc8uqS3Man86uU1aqz1shuBgcNGyGUg+uYJ1uBfk4LOqP2Ru3XZ5zSKQRyQ5fNA15Q0qiYpLO9H0YJ+wNbnbHuDUKI4dryGP4M10DtHBDadJPB7M/spnpEP5NH7M6lTaNhwKGHM+3mKw86oE7oesM+F8Bm30itVQiC9eKuZZxbZv1v2vS6aFvXzCc2zQ5+EWlCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+xT93su+GvrQoMibkXDU/nROpFa/p02/vvtcZhLRfyA=;
+ b=bdom5pE6s+lN/1U1tAQtuZyK3nbnYE4UTA7CuaxA80Pn+Bt4bedkxjMkaIALxwOn1P+qCrdhQgH67NdANdKpYGNJhG08jnzLvQvVH53bFClhyP5TzZ08+JvWF//qaOfkP3H2gCF79uD4WncW6F3USbvnuzPcz6ThMUCWF2S6mpmnYBkYQdM8AaiPM9m1QdA21+kAvdKc02lrykhHjBdagRbmm0Y38/Hd/lnmK1cYIhN9LoIlRyBzfX2v30WgU29Bc4bG8MWU+wp1u25uCXZf8QrRhk/h6pZTYMuF5Bckq+LWzx5inavyj7U3w579ODh5HisZDW0NR/S/12y+RL2vNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+xT93su+GvrQoMibkXDU/nROpFa/p02/vvtcZhLRfyA=;
+ b=mg+TX05vEaZIHExhLjp5/mXOD8nidRtw/xDsz5GXDM4QkobD1/qLqro4ZPegRBmKoaxnO5AETNcnAufiS0w0GHzeqLi2T9vYayW0Odg5dLj0L+YxQCwQxbqZGf/cYZnylEeHuP5xhW07DTtB0jlsRCowNg3rCoHrJcjw7yZFPlbUuuaHcUR4uhjrz8ILv+fKyEVD3l+liu2Dz/W7tGuLNyRgOE0RreA6AX8mKqKjWgboYFc3JwrTBXHGvFtE8or8E1dpdntngSGto4a76UhRoUhzpIq9EO/hBfn/Q+2+7LtrZvx0rDgHFu3M5naNSSaaa4c9JdDhZq/CTzSXvVHNUg==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Nicola Vetrini
+	<nicola.vetrini@bugseng.com>, Doug Goldstein <cardoe@cardoe.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>
+Subject: [PATCH 0/3] misra: add Rule 5.5 deviations for intentional macro
+ clashes
+Thread-Topic: [PATCH 0/3] misra: add Rule 5.5 deviations for intentional macro
+ clashes
+Thread-Index: AQHc7D6650ZgUP24f0WL24fn/edbYQ==
+Date: Mon, 25 May 2026 12:05:07 +0000
+Message-ID: <cover.1779709902.git.dmytro_prokopchuk1@epam.com>
+Accept-Language: en-US, uk-UA, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM9PR03MB7526:EE_|AM9PR03MB7026:EE_
+x-ms-office365-filtering-correlation-id: de24bf3d-2f72-4b89-fc87-08deba55dd40
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|42112799006|376014|7416014|366016|1800799024|18002099003|11063799006|56012099003|38070700021;
+x-microsoft-antispam-message-info:
+ 3fJVTe9RLex6BRIQcPyrl6Ac27RNwQefprV2xJdMDSLzDmdNz5ZCoxUgRy0kzQUG4dLb7UbW3/XXsj6CdkRqijWRmP5irEgNC8IJl9vadA7NsrJ/10m5172rS6EpOASKTegRbSyQiU+22pwFCn23x15QiTYYNQJgoMi5PvEiC4Srnwnm32L87U6zMP1Vc4Ef4tcgsRgDT6cvvYgppt6LN2/8DQPPpPDRf1bfvJIt34ENZi7PUN7n8iuiobgUlLOwFeF85EX6NuYFdKhwfoCrHjo5ry9l1GkALCezPB0C+TxT42VJgIyRE5B8qENtt38eyh92N2T3HqGx1ctV2WhL+hMykBMrKqCCB99Qv5jaXemwKbN0Dl8+mnChWJYKKgc7zyuGOLRmaLPKeMpaRQG/SByVWXh0r7I26jMAOPReZP7GyG5d/TCJ7BcgjZl/5UlVD/P3Na7+96+2Dsj2T8zhldhBxaemr2WCfruRod5jn8C/7wqiaHqHL3a+K5dnZAJPPmdgcbpVWx7XojOsBvn//bBHkvzbpJsTegScIWIDJZJbujaAWoxDRZLdvCUhcKVg80mHSI4w8vwQ4dCvK8yQHqY56NDSaUxV+mIfpnUwF/SZ8M0/wQDoU3Au3hXXaROhAdzoBM6+tAYSKIRXiQE/3lkDOnw3dxlaa0PBjwPGeF62CUTQ83wL3IMP/26qPT47fSkG94kn0jGlRPnnABhjWoJJ+lcY34RZxz+PjuVn2NYuPrQIWM2wgtf7r6yGHqEA
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR03MB7526.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(376014)(7416014)(366016)(1800799024)(18002099003)(11063799006)(56012099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?4hkcIw0zRquMNa+AAxQSXOEF1pBB+I+RUORwG4Y8x6m2hpxc+k55TmKVAZ?=
+ =?iso-8859-1?Q?tAgvsDLa44GD3gkYZV5bKOg4SI51qlSMcI8/2Z/EaWZo9dGcjIWfUjc8eK?=
+ =?iso-8859-1?Q?d2IASY9++XUdpvtdu3nconuIpDVl0ORzl2ycW3m+T+uU2X1Huqe5vn0Yry?=
+ =?iso-8859-1?Q?fNfP/lNeK7is5mJwJltJve961voR86umBqEn/f8IeGXxkkRIHONjoKUpIQ?=
+ =?iso-8859-1?Q?TyDcki4UdkhF4eAuWSE9hIW6B4/yYxTsGqCaoxsN+Kb6/939Jblenyo8hY?=
+ =?iso-8859-1?Q?TeP82heLi2AdP4Y6jj5ZlqM8pDdzqXIqVg4Nh0ttdPdp984iOrOAhEJxqV?=
+ =?iso-8859-1?Q?y48sm4ND8ec6sHxBSU6ntXjR5h8SvR/X2GDGFTxQ4SK3OGnlEwo3OCGPkq?=
+ =?iso-8859-1?Q?q+XwctRFa093HLylM+cA3Rt8ujlFGdXo1c/R8XlqQfxG9bolTCeaTkPDEN?=
+ =?iso-8859-1?Q?lFtzdwIEtOWCt5enk9RkMie4FKHEU6KWwswIbRANSU2Tk9zKW4xvhqYdVU?=
+ =?iso-8859-1?Q?78A0ZJe/mXKTDa1Jv6AEFKTGUUGvbTSa8Kj3rWEgGlOrn30vgAmDr7zmtn?=
+ =?iso-8859-1?Q?yNNCHgOu/jT2B09Pdaowl6SC8XRMDp0UcWlDoLOMDEmfr/NM1IiF2q993m?=
+ =?iso-8859-1?Q?yR091XRcvK532fpWE9yKlOZikiE0BNSF1bjJBF5atWI9vJgZzCvFdOorAi?=
+ =?iso-8859-1?Q?DITBrHQzssypjpZJI+Q/ZkpZJj9YPphVBycxucJe5Y9+OU9IlnU1FwTLUS?=
+ =?iso-8859-1?Q?2OJ46CCau+zXR9GLlqo0DtKvnVVhpC94c36Udc4lE0MNLA7I1st93Nq0WL?=
+ =?iso-8859-1?Q?XcnRNxp+z4VGuVOSn52tKjoBi9YwemPZlChqAXJx9obKg/JlRmDPivyXIP?=
+ =?iso-8859-1?Q?ogcuzy3niAhSEWODcPL8w1Ked3CKR9H3lP70B3fqRucFezKEWC7bdhL6JU?=
+ =?iso-8859-1?Q?TfBUqqAsA7Z1c7B/ed+Sc5kzNPYT68kBEiZXuAppYM9WiiBreXDqzrKp4F?=
+ =?iso-8859-1?Q?Vy57+TD4M/3mdBvrg3QToRq99GmBuoiAsLRfpPSMxpROYTer7fUFRLPOzh?=
+ =?iso-8859-1?Q?OGb+FaSxGFNKFWbXBVLRRzXoEGgwIAvyAHbNWZ6FVB79lxZ/P8A72XKZVa?=
+ =?iso-8859-1?Q?9otYMMpcFC9vXSjPeabfKUzRsJocU69vRlVSXeV+RSLva4+0wmqIi+xKBs?=
+ =?iso-8859-1?Q?PiFrOQ65ZtB4vMSSzRrWtAp3XneScJIdJE05LWSwSLcor2mPfO0K2gVDDl?=
+ =?iso-8859-1?Q?ojFqErB4GyNfIxvZ6W++JoXUcFd1sAYmfi8ypjaM/HNaNxL0wL8CEVbmTS?=
+ =?iso-8859-1?Q?VQFdoYdotAbU7+nNkecTtmgoabBQ2Ve49UX6aAKPhlTR0QdJnvBRP7UVsv?=
+ =?iso-8859-1?Q?2IVE3WXlosxzLESvpvmM0ogNSew85O4wcVQObjEFCBB8OywX8zR8AdY7KX?=
+ =?iso-8859-1?Q?i1wnayNLjgzcVwd1GbE2ujR5PU1K1nOi3cnCj1kuTP6Ke8g7oIXjIJorP1?=
+ =?iso-8859-1?Q?TnlY6EbT4RdXUgtN1uJqfeLh06QiXBZpT+CFJioaU+h3thYNf5MWmeYhR+?=
+ =?iso-8859-1?Q?x8TPTmAkkjhwXuxzSdr1OddCj/83Bm/ar87f/SGZsVuZgufeZS4zz2+CPL?=
+ =?iso-8859-1?Q?mCWuhDPbv1mULcBgzKr6eF2qGwRG4xsYiFqmlDaJYsowr+so2rPi69i7Oi?=
+ =?iso-8859-1?Q?VyWiGJfa4vB3h6DE2sxyaD8vduFzKsR5nqZ8wFx0CJLcBcYLgX1C5Tx3vJ?=
+ =?iso-8859-1?Q?BeyGKH7mvsSZGM+gwpQdTfz/26H2RKOkdUuL2eLshSSlxx4XiyI9Ixriiy?=
+ =?iso-8859-1?Q?zZ2JElv8gAc2aDTnEAN1b/rxrWuBJ0k=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ebf023/1779709790-2A9623FF-921348D1/0/0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR03MB7526.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: de24bf3d-2f72-4b89-fc87-08deba55dd40
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 May 2026 12:05:08.0035
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LLE9Xv8+qsTLot2IUqDf+OVIZ6xDwM8COIeKM9AqGDPJx7Qd7RHbG3LK+qDmeDWz/68yPF5NcHRadmy0kLpuub3jjSnZEDb1nvDD8SzP/d0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7026
+X-purgate-ID: tlsNG-d62444/1779710710-AC656FF4-026D83A8/0/0
 X-purgate-type: clean
-X-purgate-size: 4130
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
+X-purgate-size: 710
+X-Spamd-Result: default: False [0.81 / 15.00];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:lucmiccio@gmail.com,m:carlo.nonato@minervasys.tech,m:marco.solieri@minervasys.tech,m:luca.fancellu@arm.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER(0.00)[dmytro_prokopchuk1@epam.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:dmytro_prokopchuk1@epam.com,m:nicola.vetrini@bugseng.com,m:cardoe@cardoe.com,m:sstabellini@kernel.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FREEMAIL_CC(0.00)[epam.com,kernel.org,xen.org,arm.com,amd.com,gmail.com,minervasys.tech];
-	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gitlab.com:url,epam.com:mid,epam.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[dmytro_prokopchuk1@epam.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	NEURAL_HAM(-0.00)[-0.999];
+	DKIM_TRACE(0.00)[epam.com:+];
+	NEURAL_HAM(-0.00)[-1.000];
 	RCPT_COUNT_SEVEN(0.00)[11];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 306AA5CA2E8
+X-Rspamd-Queue-Id: 824F25CA43C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-From: Mykola Kvach <mykola_kvach@epam.com>
+This series adds deviations for intentional function/macro name clashes whe=
+re
+the macro is used as a wrapper around an existing function name.
 
-get_llc_way_size() currently scans CLIDR_EL1 Ctype fields from the
-highest level downwards and stops at the first unified cache it finds.
+Test CI pipeline:
+https://gitlab.com/xen-project/people/dimaprkp4k/xen/-/pipelines/2550931948
 
-However, CLIDR_EL1 describes the cache hierarchy from Ctype1 upwards.
-Arm ARM DDI 0487J.a, D19.2.27 says that once software has seen a
-Ctype value of 0b000 while reading from Ctype1 upwards, no caches
-manageable by the architected set/way maintenance instructions exist at
-further-out levels, and the higher Ctype fields must be ignored.
+Dmytro Prokopchuk (3):
+  misra: deviate MISRA C Rule 5.5 for 'hypfs_alloc_dyndata'
+  misra: deviate MISRA C Rule 5.5 for 'request_irq'
+  misra: deviate MISRA C Rule 5.5 for ARM SMMU fault handlers
 
-The current reverse scan can therefore select a unified cache level from
-a Ctype field above the first no-cache level. Such a field is not part of
-the architecturally described CLIDR/CCSIDR cache hierarchy and should not
-be used for selecting the CCSIDR level.
+ .../eclair_analysis/ECLAIR/deviations.ecl     | 18 +++++++++++++++
+ docs/misra/deviations.rst                     | 23 +++++++++++++++++++
+ docs/misra/rules.rst                          | 12 ++++++++++
+ 3 files changed, 53 insertions(+)
 
-Scan Ctype fields from L1 upwards, stop at the first no-cache level, and
-keep the outermost unified cache observed before that point.
-
-This preserves the result for regular cache hierarchies, while avoiding
-selection of an architecturally ignored Ctype field.
-
-Fixes: f4985fce6f0b ("xen/arm: add initial support for LLC coloring on arm64")
-Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
----
-Changes in v2:
-- Use llc_level directly after the CLIDR scan instead of assigning it back to n.
-- Add Reviewed-by tags from Luca and Michal.
-
-
-This patch follows the xen-devel discussion:
-https://lists.xenproject.org/archives/html/xen-devel/2026-01/msg00345.html
-
-In that thread, Michal noted that the reverse scan was a simplification
-rather than an intentional requirement, and that changing the
-implementation would be fine.
-
-Testing performed:
-- standalone synthetic CLIDR tests covered both regular and pathological
-  Ctype sequences and showed that the forward scan ignores unified cache
-  levels above the first Ctype == 0b000 while the reverse scan can pick
-  them
-- Renesas H3ULCB booted with llc-coloring=on
----
- xen/arch/arm/llc-coloring.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
-
-diff --git a/xen/arch/arm/llc-coloring.c b/xen/arch/arm/llc-coloring.c
-index 6f78817c57..f7b69f629f 100644
---- a/xen/arch/arm/llc-coloring.c
-+++ b/xen/arch/arm/llc-coloring.c
-@@ -22,22 +22,32 @@ unsigned int __init get_llc_way_size(void)
-     register_t id_aa64mmfr2_el1 = READ_SYSREG(ID_AA64MMFR2_EL1);
-     uint32_t ccsidr_numsets_shift = CCSIDR_NUMSETS_SHIFT;
-     uint32_t ccsidr_numsets_mask = CCSIDR_NUMSETS_MASK;
--    unsigned int n, line_size, num_sets;
--
--    for ( n = CLIDR_CTYPEn_LEVELS; n != 0; n-- )
-+    unsigned int n, line_size, num_sets, llc_level = 0;
-+
-+    /*
-+     * CLIDR_EL1 Ctype fields are interpreted from Ctype1 upwards. Once a
-+     * no-cache level is seen, higher Ctype fields are architecturally ignored
-+     * for the CLIDR/CCSIDR set/way manageable cache hierarchy.
-+     *
-+     * Keep the outermost unified cache before that point.
-+     */
-+    for ( n = 1; n <= CLIDR_CTYPEn_LEVELS; n++ )
-     {
-         uint8_t ctype_n = (clidr_el1 >> CLIDR_CTYPEn_SHIFT(n)) &
-                            CLIDR_CTYPEn_MASK;
- 
-+        if ( ctype_n == 0b000 )
-+            break;
-+
-         /* Unified cache (see Arm ARM DDI 0487J.a D19.2.27) */
-         if ( ctype_n == 0b100 )
--            break;
-+            llc_level = n;
-     }
- 
--    if ( n == 0 )
-+    if ( !llc_level )
-         return 0;
- 
--    WRITE_SYSREG((n - 1) << CSSELR_LEVEL_SHIFT, CSSELR_EL1);
-+    WRITE_SYSREG((llc_level - 1) << CSSELR_LEVEL_SHIFT, CSSELR_EL1);
-     isb();
- 
-     ccsidr_el1 = READ_SYSREG(CCSIDR_EL1);
-@@ -56,7 +66,7 @@ unsigned int __init get_llc_way_size(void)
-     num_sets = ((ccsidr_el1 >> ccsidr_numsets_shift) & ccsidr_numsets_mask) + 1;
- 
-     printk(XENLOG_INFO "LLC found: L%u (line size: %u bytes, sets num: %u)\n",
--           n, line_size, num_sets);
-+           llc_level, line_size, num_sets);
- 
-     /* Restore value in CSSELR_EL1 */
-     WRITE_SYSREG(csselr_el1, CSSELR_EL1);
--- 
+--=20
 2.43.0
-
 
