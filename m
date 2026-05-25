@@ -2,44 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wM/IGrd5FGokNgcAu9opvQ
+	id kMdlJLmJFGrgOAcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2026 18:32:55 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2026 19:41:13 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B698B5CCE9B
-	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2026 18:32:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1319362.1587007 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A24615CD6C2
+	for <lists+xen-devel@lfdr.de>; Mon, 25 May 2026 19:41:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1319382.1587017 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRYDV-0001Jj-9H; Mon, 25 May 2026 16:31:49 +0000
+	id 1wRZHe-00021w-UD; Mon, 25 May 2026 17:40:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1319362.1587007; Mon, 25 May 2026 16:31:49 +0000
+Received: by outflank-mailman (output) from mailman id 1319382.1587017; Mon, 25 May 2026 17:40:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRYDV-0001Gu-3p; Mon, 25 May 2026 16:31:49 +0000
-Received: by outflank-mailman (input) for mailman id 1319362;
- Mon, 25 May 2026 16:31:47 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wRZHe-00020V-RH; Mon, 25 May 2026 17:40:10 +0000
+Received: by outflank-mailman (input) for mailman id 1319382;
+ Mon, 25 May 2026 17:40:09 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wRYDT-0001Go-GJ
- for xen-devel@lists.xenproject.org; Mon, 25 May 2026 16:31:47 +0000
+ (envelope-from <accek@invisiblethingslab.com>) id 1wRZHd-00020P-AS
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2026 17:40:09 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wRYDS-00FFFO-Pu
- for xen-devel@lists.xenproject.org; Mon, 25 May 2026 18:31:46 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wRZHc-0013Iy-Ml
+ for xen-devel@lists.xenproject.org; Mon, 25 May 2026 19:40:08 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a147953-e002-0a2a0a5209dd-0a2a4508da4c-34
- for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 18:31:46 +0200
-Received: from [209.85.167.53] (helo=mail-lf1-f53.google.com)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a147972-63b5-0a2a45080019-d155a735ddca-3
- for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 18:31:46 +0200
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-5a8cb92f26aso10419033e87.1
- for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 09:31:46 -0700 (PDT)
+ (envelope-from <accek@invisiblethingslab.com>)
+ id 6a148971-e002-0a2a0a5209dd-0a2a4509abe2-14
+ for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 19:40:08 +0200
+Received: from [103.168.172.156] (helo=fhigh-a5-smtp.messagingengine.com)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <accek@invisiblethingslab.com>)
+ id 6a148976-2497-0a2a45090019-67a8ac9cdfc3-3
+ for <xen-devel@lists.xenproject.org>; Mon, 25 May 2026 19:40:07 +0200
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 6CD6E1400051;
+ Mon, 25 May 2026 13:40:06 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-03.internal (MEProxy); Mon, 25 May 2026 13:40:06 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 25 May 2026 13:40:00 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,331 +55,377 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:MIME-Version"
-ARC-Seal: i=1; a=rsa-sha256; t=1779726706; cv=none;
-        d=google.com; s=arc-20240605;
-        b=TW74qCTXuNcoEDs+JwjELR+Rmu+P+pjMdnxYa05fTiWEIDCBK5Pjn7kJ/rDltv3jRG
-         JBxjZ/twu3Jyvo3gNtDpVE9PfVLPDw3wAt0yLNMdBaSV8VWV5wFHFMWqS+6yEaGn8xuK
-         +lQAAn92Idk68FfggzFiaDE75NlQ6bfhGSBDwARZ7qj1ZsOthJqrqKO5IH0fz4zOEDAm
-         VD3d/YsXXxlV1HcHHy/Y+UocmbIiKzuzS1O/jclu+LyFB8Jbn/Iq6zte/2xBxC8jlnMU
-         fTQkA94r9cyg/A9+1vSydtEe2VAN22IOsyakloHx91IiTETf/qAgkeHCSh5xtNhRgRzJ
-         cF0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=bdjHvJti1PFGKhzoVezSMAeyJZDGbVl6BB/kPZLIlDY=;
-        fh=9JZxiMpSfuLqiQWy+/Qm7fbwQ+MYsT4GTch2ySqG6FU=;
-        b=RDg8EY3RqMTzqcCNj529l6Nq0K8Q0/+NNRkq8S0X8GvVzgHjhENRd4dj2Le1Ye2gz8
-         x9haK7DQds0t8M0Ks48cZCIQgII788RgeCR7jj3Z2mSHE6epgsN4b++M7TxurikRuViW
-         XTsiYP9nXW9yarYjKvw3t9NAxa81TSqcUJmfOp0pYiR23wDzWsKu7wQSi/GhyIDT2Vtp
-         N/H3FCT3h5eELk8/UZgPx/O/9M4R7LMBLmC6RXZNjlG2qjs5xk51A0/Q0VtIZNhE2W2n
-         tTUIodRTRHS2QieB4OOQExLHkUfH5kOOjj2bCZcFvXG4mYRw1BXNKhRYW37+a11jKztN
-         hr+A==;
-        darn=lists.xenproject.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779726706; x=1780331506; darn=lists.xenproject.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bdjHvJti1PFGKhzoVezSMAeyJZDGbVl6BB/kPZLIlDY=;
-        b=rH6y+YZMTI0WxeSl7vVgcMx265xN/fqMrZ8poD0M5sSVyhtpRnKqu1Om2vTm2UqZdF
-         Pf/DTs8CS6GisVXx2r1hjWAAbBFVPJhvVGkRQk4Jbi8XYMDtYTwuJxE3xGX07HHri+pd
-         D2e7Uw+1GRMWn4RmxQqZ18kiCsUFmg6jNfJ//DqJe1CZq5vUojNOimJR/CXmYuGvj5lq
-         9wYB+qbgOViNZr+B/7rTAIew+KsaHIkslqTDrgNyZnMA5Doe4Vk43Tmu6jMBPk9LXtO5
-         LK0MI/RgfnEnk3B5HBP51cMtlaQWL8bQcxUJMpdxGqZMITI5R3eBawlpg7koiFC1TeQ3
-         gwAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779726706; x=1780331506;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=bdjHvJti1PFGKhzoVezSMAeyJZDGbVl6BB/kPZLIlDY=;
-        b=YF4mhSznY6h5YrKnY3h1mFvqz0DzYeutH8gYkiAUCPQpnsEEwzBq5NFy8hHs26sWv8
-         oBLxaVvjLK2XoNLIRXm3VNSJ0GVys/wQZYtSsM5WOIRNH+cp/g4pD25hmvD+QFo0DGgx
-         IHbHC7/LDyvHbXVTfX6A2Mfe+fJ3RYZebYdasiolAJsgCKUi/vOMzclnlqnbLVWxoYEO
-         BZ3D63Z7oBekEKasrCmBmk+tyRFSE1FxSmYbtnbwIfDAOLDWKYWf3LqwRRvCtdD8Vdnk
-         R5MTY0VaECnjffJjElyxpL2OGGMwZnUf9CHMoss05rzl7rKwlHMEo9DaZZGLMpOTjWTG
-         caZA==
-X-Gm-Message-State: AOJu0YymPq8+CRj+3NNNMdeZTmd7CwcjJuVqLhXkEBkZn7qtY8kNOxaV
-	TPh/zaYfT8kuM1OPOe0/rRWeBCQ21jykSf83U8Yc2DPXqzDHoqEdnn1g54LoL/resQ9M3kTEqpj
-	nO+9fdVYwzvLRD0JU+bqONxl7fZHDlh0=
-X-Gm-Gg: Acq92OEL4Fp84pQ+rZL0P+qZsoveKXKc4GBeoGXUxt+wEEBCYL9oUrcSKBGJS0AyXqi
-	V1twyaZ7Ov+9UlTYzKJo4XcDaP7M/q+K0CjKCVIhcrHD897ouj8L0cqQBafWct+gFDDURxutWSr
-	XnJEgNpH0H56AwDP16Aqm54S1nnp0LeB+T3ExjrSL1brR9kwOQonDF2dXCOEqtruHJdY9iiN49R
-	UQm1tSAMi3ACb/uV6CqBDxd+shiZJLLaox+XQDEcmDR4IH4SvNrSYLQ4s3RUAu70elk8pswr3fc
-	J2K0
-X-Received: by 2002:ac2:54bc:0:b0:5a8:6b89:5e5b with SMTP id
- 2adb3069b0e04-5aa323cf6admr3635114e87.36.1779726705738; Mon, 25 May 2026
- 09:31:45 -0700 (PDT)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=fm3 header.d=invisiblethingslab.com header.i="@invisiblethingslab.com" header.h="Cc:Content-Transfer-Encoding:Content-Type:Date:From:Message-ID:MIME-Version:Subject:To"; dkim=pass header.s=fm3 header.d=messagingengine.com header.i="@messagingengine.com" header.h="Cc:Content-Transfer-Encoding:Content-Type:Date:Feedback-ID:From:Message-ID:MIME-Version:Subject:To:X-ME-Proxy:X-ME-Sender"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm3;
+	 t=1779730806; x=1779817206; bh=UN1tCVrzEQOruACyzdmLbvIpTXgXCHXG
+	x+kTPh86tw4=; b=UHiJ+RYRRy1iboOpNy72P7LDLeKbF4h17yI/rCJTDxOEIQd4
+	fGdUkbAhmzPeWJhXlaROKSe1GnYenNm00LQYwov+eT1z+/KxNlMCsE4U9RnP0R6D
+	+U8SnmPiTPBzNjs9IPSlxE064d/DAYpHPTe3qArkOxkC990niJ+SzTXRp7aNc8un
+	wFGokQwmEIkrIreg4dRIW3zEfQWdwia7bPLrxUGrXlbgjQe1v7WLgBuVI4ul+DU4
+	yPXsGbmWtW78Ajot4SD+V71nnx2IydoZnPrTYJOrnGZ2ks74AGljTE0r/RoVvPqP
+	wmSxH1tFJQqAOGLkKV4DDO6wXPhjBf5hSZ6zZQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1779730806; x=1779817206; bh=UN1tCVrzEQOruACyzdmLbvIpTXgX
+	CHXGx+kTPh86tw4=; b=NLEFLWsF9A7x1VxJNam20SycqEhuNDS06p1TX0IF87fl
+	AhIVURoBEfZ2FhP1MGHBY4343ZfKtNJLH5y1ccTsHfxjpjWzy5go4HqiSWT/t28V
+	2AEQFHtSWmi+3WRwXVunS8vZSrmMgihjvI6zWWhM7+fR3Oe7zEyRPPeNvCSe28m8
+	4AcHNhZyMsxQ0YBjQnpGPJvprNp193oeeKwKUxXZZ4gd3NBxmLhPOmoX+lw/e/S8
+	BVG1HNr3FbdCFqucMmU7WzpnHKif4ntYSvNivfeuxK6zvkTz176M64l+clBVQL+N
+	Mcfqt6sNY1t8/WsOXO4qsXF5e5Dk1yq3qf0hRB0+ng==
+X-ME-Sender: <xms:dYkUau5sfDAe0FV_Af9dgv9YuYdGGCWn1PL4ZbZsSCApBX0HktBlfQ>
+    <xme:dYkUarkoBty2GkuAYY7Ghw7vM4VuqUI4ywF90kJp52occMnx2E9tXcmz_mwnWopLz
+    jYcBSrgm2zJX3fCRBqM8FwBSd-zbvFJc0bz6uGlmm9p8MX4hg>
+X-ME-Received: <xmr:dYkUamHaOPeLXDPuRy2W5-SicZEegk5wu45dakOjfOA1wvyT72aMzkVXrQ>
+X-ME-Proxy-Cause: dmFkZTGcyCBBM2XUZnPN6jxXYmxu2ix4ilCgvL7cY711i5OPMy4ilzn99AAg3v5bo+w4Yx
+    lclcjZT4HfHWfDkMN4mlfdSd6nGkxkLfFqkUOzhyzXBCTnpvYzX+fYd5Oc+3oa7cHx4oF8
+    xY1xxCA/j23VMy2LLxhI++RbbspWc1BkzRtwyk7laL6cUpbUl03ZzLDts4RtLMdZyVFRCP
+    rpdY0b5S5U2QuBkyfYbniwu3G5i4gQOG2lTlIkdOSYSgg2yaaLcaByIvEaFzVzdy+TC1bJ
+    hHohUprD21FCeN0UWXTPmkqGZOlcjGRWE50DEorRrr8z/X3kVCXCoZ3fMgMxi/x4TSGqAh
+    s/qIrmXGeUJ9dTkLXX81UgS1cRO3rc5L5UpxlS7ru3JwLQeQHQbGY080QLIvlobyt/p+re
+    g5R1emiRC0XF/i/kAbqL/3r7V1KVXPZKqXlkH3ZYR2uZo69n/l3e7wGQnsPVyZBI9dRPdW
+    2MoT8w+2o2Qc1LJAYDR0sFHSaHnLPFsZ7us4zKss/s9k5UheVhPuSFnxYC6TdkjuVjJut/
+    ht5mcyNUAQV19DOdyz1hQbR/DFKdg4W2FVRuizFgsx6RzVB42gMbsiKsJW8LHZUAEfLV2y
+    DmU/kD0wGi/aNhJycs7aZNoTR6yW31tXA3WpHgZ8YnHU1vL/a92j1mq4m1mw
+X-ME-Proxy: <xmx:dYkUashoVPf_xTixGlXJaDUWzmg__Zp5FCIizkE7_Yyzv4Fdchjycw>
+    <xmx:dYkUajjV3kxpwkTx3LPBXQCL0cBT_J7k8Sc1cNRuswrUoFig3jDkrA>
+    <xmx:dYkUavlXL6x9qTavFr8aaG7mBalES62erg3uCfh965nuHmShi0Ng5g>
+    <xmx:dYkUana-OcPt2MTzz-t9v6hNvWAKg6F6rVRWLgLdZvZJzEBtVW7BJA>
+    <xmx:dokUaunvIwTmj62HfkY3z9xXJbn7AHL_76CnE7bmmUe7NpMp2axxzBCH>
+Feedback-ID: i792e4853:Fastmail
+From: =?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: oleksii.kurochko@gmail.com,
+	=?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Teddy Astie <teddy.astie@vates.tech>
+Subject: [PATCH v3 for-4.22] EFI: Fix boot from a device without a file system
+Date: Mon, 25 May 2026 19:37:03 +0200
+Message-ID: <79d8684ede3bf1e9abe02a2e5ed966a0ecd5949d.1779726979.git.accek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <9ae4f7dd49f5b1f761193adae573c2675c92e883.1779051035.git.mykola_kvach@epam.com>
- <ag+C21L9WoH3ngg8@kraken>
-In-Reply-To: <ag+C21L9WoH3ngg8@kraken>
-From: Mykola Kvach <xakep.amatop@gmail.com>
-Date: Mon, 25 May 2026 19:31:33 +0300
-X-Gm-Features: AVHnY4K5F0OU4tmh7fdxYvq7UIAaTrEP1RX1L81qx53F7Ov3mquqO3EjVwIDgJI
-Message-ID: <CAGeoDV-Tpt4Qa2fdWCwFdAfvcOSyssnyBn3w_fEvArJxf7eiww@mail.gmail.com>
-Subject: Re: [RFC PATCH] device-tree: size first hwdom bank for boot modules
-To: dmukhin@ford.com
-Cc: xen-devel@lists.xenproject.org, Mykola Kvach <mykola_kvach@epam.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Anthony PERARD <anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-purgate-ID: tlsNG-c1860d/1779726706-BE577DB1-01B0C2FC/0/0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-bad1c0/1779730808-8A38AA53-637CA9B5/0/0
 X-purgate-type: clean
-X-purgate-size: 8052
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[google.com:s=arc-20240605:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-purgate-size: 10700
+X-Spamd-Result: default: False [1.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm3,messagingengine.com:s=fm3];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dmukhin@ford.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:dpsmith@apertussolutions.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORWARDED(0.00)[mailman];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FREEMAIL_CC(0.00)[gmail.com,invisiblethingslab.com,citrix.com,kernel.org,xen.org,arm.com,amd.com,epam.com,apertussolutions.com,suse.com,vates.tech];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid];
-	MISSING_XM_UA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:accek@invisiblethingslab.com,m:andrew.cooper3@citrix.com,m:marmarek@invisiblethingslab.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:dpsmith@apertussolutions.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[mailman];
+	FORGED_SENDER(0.00)[accek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[messagingengine.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	NEURAL_HAM(-0.00)[-0.999];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TO_DN_SOME(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[accek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-0.998];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: B698B5CCE9B
+	RCVD_COUNT_SEVEN(0.00)[11]
+X-Rspamd-Queue-Id: A24615CD6C2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Fri, May 22, 2026 at 1:10=E2=80=AFAM <dmukhin@ford.com> wrote:
->
-> Hi Mykola,
->
-> The patch looks good!
->
-> I would try to add a CI coverage for QEMU aarch64 tests, since QEMU
-> supports multiple RAM banks topology.
->
-> What do you think?
->
-> Also, few remarks below.
->
-> On Sun, May 17, 2026 at 11:57:56PM +0300, Mykola Kvach wrote:
-> > From: Mykola Kvach <mykola_kvach@epam.com>
-> >
-> > With LLC coloring enabled, the hardware domain memory comes from
-> > allocate_hwdom_memory(), not from the fixed direct-map banks used when
-> > coloring is off.
-> >
-> > Commit de99f3263555 ("device-tree: Improve hwdom memory allocation for
-> > DMA") made that allocator sort free host regions by ascending address s=
-o
-> > Dom0 gets DMA-capable low memory first. The first bank filter still onl=
-y
-> > required 128MB. That can select a low region which is large enough for
-> > the heuristic, but not large enough for place_modules() to put the Dom0
-> > kernel, generated DTB and initrd contiguously in bank 0.
-> >
-> > Ask arch code for any additional first-bank size requirement. On Arm,
-> > compute it from the actual Dom0 kernel placement, rounded initrd size a=
-nd
-> > generated DTB size hint. For 64-bit Image kernels, include the text off=
-set
-> > from the candidate bank start, because the returned requirement is comp=
-ared
-> > with a bank size measured from that start. The hint covers both the nor=
-mal
-> > Device Tree path and the minimal DTB created for ACPI boot.
-> >
-> > Check the first-bank threshold against the size which will actually be
-> > assigned to Dom0, after capping the host region by the remaining unassi=
-gned
-> > Dom0 memory. Otherwise a large host region could pass the test but stil=
-l
-> > produce a first guest bank too small for place_modules().
-> >
-> > Use the typed min()/max() helpers for this normal allocation arithmetic=
-;
-> > MIN()/MAX() are intended for preprocessor-style contexts and skip the t=
-ype
-> > checking provided by the lowercase helpers.
-> >
-> > This keeps the DMA-oriented allocation policy from de99f3263555 while
-> > preventing a too-small bank 0 from reaching place_modules().
-> >
-> > Fixes: de99f3263555 ("device-tree: Improve hwdom memory allocation for =
-DMA")
-> > Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
-> > ---
-> > Test/setup notes:
-> >
-> > The failure was reproduced on a Renesas H3ULCB/R-Car H3 (r8a7795)
-> > arm64 board booted through U-Boot/TFTP and using huge initrd.
-> >
-> > Relevant Xen command line excerpt:
-> >   dom0_mem=3D2048M llc-coloring=3Don
-> >
-> > Boot module layout from Xen:
-> >   MODULE[2]: 0x0000000084000040-0x000000008e75d92f Ramdisk
-> >   MODULE[3]: 0x00000000a0000000-0x00000000a3ffffff Kernel
-> >   MODULE[4]: 0x00000000a4000000-0x00000000a400ffff XSM Policy
-> >
-> > The initrd is about 168MB. With LLC coloring enabled and the low-addres=
-s
-> > allocation policy from de99f3263555, Dom0 can receive a 192MB first ban=
-k:
-> >   d0 BANK[0] 0x00000048000000-0x00000054000000 (192MB)
-> >
-> > That bank satisfies the old 128MB minimum but is too small for the
-> > rounded Dom0 kernel, generated DTB and initrd placement. The observed
-> > failure before this patch was:
-> >   Panic on CPU 0:
-> >   Not enough memory in the first bank for the kernel+dtb+initrd
-> >
-> > With this patch, the same boot skips the too-small low region for bank =
-0
-> > and reaches Dom0:
-> >   d0 BANK[0] 0x00000057000000-0x00000084000000 (720MB)
-> >   d0 BANK[1] 0x0000008e800000-0x000000c0000000 (792MB)
-> >   d0 BANK[2] 0x00000500000000-0x00000521800000 (536MB)
-> >   d0: extended region 0: 0x48000000->0x54000000
-> >   Loading zImage from 0x00000000a0000000 to 0x57000000-0x5b000000
-> >   Loading d0 initrd from 0x0000000084000040 to 0x5f200000-0x6995d8f0
-> >   Loading d0 DTB to 0x5f000000-0x5f011c80
-> >   Linux version 5.10.194-yocto-standard
-> > ---
-> >  xen/arch/arm/acpi/domain_build.c        |  2 --
-> >  xen/arch/arm/domain_build.c             |  8 ++++++
-> >  xen/arch/arm/include/asm/domain_build.h |  4 +++
-> >  xen/arch/arm/include/asm/kernel.h       |  8 ++++++
-> >  xen/arch/arm/kernel.c                   | 35 +++++++++++++++++++++++++
-> >  xen/common/device-tree/domain-build.c   | 27 ++++++++++++++-----
-> >  xen/include/xen/fdt-kernel.h            |  8 ++++++
-> >  7 files changed, 83 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domai=
-n_build.c
-> > index 249d899c33..db16f7fa94 100644
-> > --- a/xen/arch/arm/acpi/domain_build.c
-> > +++ b/xen/arch/arm/acpi/domain_build.c
-> > @@ -26,8 +26,6 @@
-> >  #undef virt_to_mfn
-> >  #define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
-> >
-> > -#define ACPI_DOM0_FDT_MIN_SIZE 4096
-> > -
-> >  static int __init acpi_iomem_deny_access(struct domain *d)
-> >  {
-> >      acpi_status status;
-> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> > index 1efddc60ef..226e053c68 100644
-> > --- a/xen/arch/arm/domain_build.c
-> > +++ b/xen/arch/arm/domain_build.c
-> > @@ -115,6 +115,14 @@ int __init parse_arch_dom0_param(const char *s, co=
-nst char *e)
-> >                               (IS_ENABLED(CONFIG_STATIC_SHM) ?         =
-\
-> >                                (NR_SHMEM_BANKS * (160 + 16)) : 0))
-> >
-> > +paddr_t __init dom0_get_fdt_size_hint(void)
-> > +{
-> > +    if ( !acpi_disabled )
-> > +        return ACPI_DOM0_FDT_MIN_SIZE;
-> > +
-> > +    return fdt_totalsize(device_tree_flattened) + DOM0_FDT_EXTRA_SIZE;
->
-> I would invert the condition so it is read more straightforward:
->
->     if ( acpi_disabled )
->         return fdt_totalsize(device_tree_flattened) + DOM0_FDT_EXTRA_SIZE=
-;
->
->     return ACPI_DOM0_FDT_MIN_SIZE;
->
-> [..]
-> > diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-> > index b72585b7fe..3644663e2f 100644
-> > --- a/xen/arch/arm/kernel.c
-> > +++ b/xen/arch/arm/kernel.c
-> > @@ -128,6 +128,41 @@ static paddr_t __init kernel_zimage_place(struct k=
-ernel_info *info)
-> >      return load_addr;
-> >  }
-> >
-> > +static paddr_t __init kernel_placement_size(paddr_t load_addr, paddr_t=
- len)
-> > +{
-> > +    return ROUNDUP(load_addr + len, MB(2)) - load_addr;
-> > +}
-> > +
-> > +paddr_t __init arch_get_min_first_bank_size(struct kernel_info *info,
-> > +                                            paddr_t bank_start)
-> > +{
-> > +    const struct boot_module *mod =3D info->bd.initrd;
-> > +    const paddr_t initrd_len =3D ROUNDUP(mod ? mod->size : 0, MB(2));
-> > +    const paddr_t dtb_len =3D ROUNDUP(dom0_get_fdt_size_hint(), MB(2))=
-;
-> > +    paddr_t kernsize;
-> > +
-> > +#ifdef CONFIG_HAS_DOMAIN_TYPE
->
-> Perhaps use `IS_ENABLED(CONFIG_HAS_DOMAIN_TYPE)` to reduce ifdefery?
-> My impression that IS_ENABLED() is preferred.
->
-> > +    if ( (info->type =3D=3D DOMAIN_64BIT) && (info->image.start =3D=3D=
- 0) )
-> > +    {
-> > +        paddr_t load_addr =3D bank_start + info->image.text_offset;
-> > +
-> > +        /*
-> > +         * The caller compares this value with a size measured from
-> > +         * bank_start, so include the text offset before the kernel.
-> > +         */
-> > +        kernsize =3D ROUNDUP(load_addr + info->image.len, MB(2)) - ban=
-k_start;
-> > +        return kernsize + initrd_len + dtb_len;
-> > +    }
-> > +#endif
-> > +
-> > +    if ( info->image.start =3D=3D 0 )
->
-> Here too: invert the condition?
->
->        if ( info->image.start )
->            kernsize =3D kernel_placement_size(info->image.start, info->im=
-age.len);
->        else
->            ...
+When netbooting a unified Xen kernel image (via GRUB chainloader),
+the resulting loaded_image->DeviceHandle does not support
+SIMPLE_FILE_SYSTEM_PROTOCOL.
 
-I think I will keep the explicit info->image.start =3D=3D 0 check here.
+Instead of crashing via noreturn PrintErrMesg() in get_parent_handle(),
+we defer calling this function until filesystem access is needed.
+This way when booting UKI, get_parent_handle() is not called at all.
 
-In this code, start =3D=3D 0 is an established special case rather than jus=
-t
-a numeric input to the helper. kernel_zimage_place() handles it
-explicitly as the position-independent image case where Xen chooses the
-load address. Keeping the branch in the same form matches the surrounding
-code and keeps that special case visible.
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Suggested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Signed-off-by: Szymon Acedański <accek@invisiblethingslab.com>
+---
+Changes in v3:
+ - read_file(): replaced unreachable `if ( !dir_handle )` branch with
+   BUG_ON(!dir_handle), per Marek's suggestion.
 
-Best regards,
-Mykola
+Changes in v2:
+ - Restructured along the lines Andrew and Marek both suggested on v1:
+   defer get_parent_handle() until the first call site that actually
+   needs a file.
+
+   This mirrors the existing lazy pattern in ARM's
+   allocate_module_file() in xen/arch/arm/efi/efi-boot.h, which was also
+   changed to use the new ensure_dir_handle() helper.
+
+Tested (same as v2):
+ - PXE-loaded GRUB chainloading UKI - failure without patch, success
+   with patch
+ - QEMU boot from EFI partition, with config, kernel and initrd
+   on EFI partition too - success with and without patch
+ - Cross-compiling ARM64 - success
+
+ xen/arch/arm/efi/efi-boot.h | 12 ++++---
+ xen/arch/x86/efi/efi-boot.h |  9 +++--
+ xen/common/efi/boot.c       | 66 +++++++++++++++++++++++--------------
+ 3 files changed, 54 insertions(+), 33 deletions(-)
+
+diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+index ea59de47e7..069cc68b0a 100644
+--- a/xen/arch/arm/efi/efi-boot.h
++++ b/xen/arch/arm/efi/efi-boot.h
+@@ -403,7 +403,7 @@ static void __init noreturn efi_arch_post_exit_boot(void)
+ }
+ 
+ static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
+-                                           EFI_FILE_HANDLE dir_handle,
++                                           EFI_FILE_HANDLE *dir_handle,
+                                            const char *section)
+ {
+     union string name;
+@@ -419,8 +419,11 @@ static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
+         name.s = get_value(&cfg, section, "dtb");
+         if ( name.s )
+         {
++            CHAR16 *fname;
++
+             split_string(name.s);
+-            read_file(dir_handle, s2w(&name), &dtbfile, NULL);
++            ensure_dir_handle(image, dir_handle, &fname);
++            read_file(*dir_handle, s2w(&name), &dtbfile, NULL);
+             efi_bs->FreePool(name.w);
+         }
+     }
+@@ -430,7 +433,7 @@ static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
+ }
+ 
+ static void __init efi_arch_cfg_file_late(const EFI_LOADED_IMAGE *image,
+-                                          EFI_FILE_HANDLE dir_handle,
++                                          EFI_FILE_HANDLE *dir_handle,
+                                           const char *section)
+ {
+ }
+@@ -665,8 +668,7 @@ static int __init allocate_module_file(const EFI_LOADED_IMAGE *loaded_image,
+     file_info->name_len = name_len;
+ 
+     /* Get the file system interface. */
+-    if ( !*dir_handle )
+-        *dir_handle = get_parent_handle(loaded_image, &fname);
++    ensure_dir_handle(loaded_image, dir_handle, &fname);
+ 
+     /* Load the binary in memory */
+     read_file(*dir_handle, s2w(&module_name), &module_binary, NULL);
+diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+index 42a2c46b5e..d738b839ee 100644
+--- a/xen/arch/x86/efi/efi-boot.h
++++ b/xen/arch/x86/efi/efi-boot.h
+@@ -284,13 +284,13 @@ static void __init noreturn efi_arch_post_exit_boot(void)
+ }
+ 
+ static void __init efi_arch_cfg_file_early(const EFI_LOADED_IMAGE *image,
+-                                           EFI_FILE_HANDLE dir_handle,
++                                           EFI_FILE_HANDLE *dir_handle,
+                                            const char *section)
+ {
+ }
+ 
+ static void __init efi_arch_cfg_file_late(const EFI_LOADED_IMAGE *image,
+-                                          EFI_FILE_HANDLE dir_handle,
++                                          EFI_FILE_HANDLE *dir_handle,
+                                           const char *section)
+ {
+     union string name;
+@@ -304,9 +304,12 @@ static void __init efi_arch_cfg_file_late(const EFI_LOADED_IMAGE *image,
+         name.s = get_value(&cfg, "global", "ucode");
+     if ( name.s )
+     {
++        CHAR16 *fname;
++
+         microcode_set_module(mbi.mods_count);
+         split_string(name.s);
+-        read_file(dir_handle, s2w(&name), &ucode, NULL);
++        ensure_dir_handle(image, dir_handle, &fname);
++        read_file(*dir_handle, s2w(&name), &ucode, NULL);
+         efi_bs->FreePool(name.w);
+     }
+ }
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 9ea2183c0b..2971ea8696 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -547,6 +547,17 @@ static EFI_FILE_HANDLE __init get_parent_handle(const EFI_LOADED_IMAGE *loaded_i
+     return dir_handle;
+ }
+ 
++static void __init ensure_dir_handle(const EFI_LOADED_IMAGE *loaded_image,
++                                     EFI_FILE_HANDLE *dir_handle,
++                                     CHAR16 **file_name)
++{
++    if ( *dir_handle )
++        return;
++    *dir_handle = get_parent_handle(loaded_image, file_name);
++    if ( !*dir_handle )
++        blexit(L"Cannot load files without a usable file system");
++}
++
+ static CHAR16 *__init point_tail(CHAR16 *fn)
+ {
+     CHAR16 *tail = NULL;
+@@ -838,12 +849,11 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+     if ( !name )
+         PrintErrMesg(L"No filename", EFI_OUT_OF_RESOURCES);
+ 
++    BUG_ON(!dir_handle);
++
+     what = L"Open";
+-    if ( dir_handle )
+-        ret = dir_handle->Open(dir_handle, &FileHandle, name,
+-                               EFI_FILE_MODE_READ, 0);
+-    else
+-        ret = EFI_NOT_FOUND;
++    ret = dir_handle->Open(dir_handle, &FileHandle, name,
++                           EFI_FILE_MODE_READ, 0);
+     if ( file == &cfg && ret == EFI_NOT_FOUND )
+         return false;
+     if ( EFI_ERROR(ret) )
+@@ -1514,7 +1524,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+ 
+     if ( use_cfg_file )
+     {
+-        EFI_FILE_HANDLE dir_handle;
++        EFI_FILE_HANDLE dir_handle = NULL;
+         EFI_HANDLE gop_handle;
+         UINTN depth, cols, rows;
+ 
+@@ -1526,31 +1536,33 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+ 
+         gop = efi_get_gop(&gop_handle);
+ 
+-        /* Get the file system interface. */
+-        dir_handle = get_parent_handle(loaded_image, &file_name);
+-
+         /* Read and parse the config file. */
+         if ( read_section(loaded_image, L"config", &cfg, NULL) )
+             PrintStr(L"Using builtin config file\r\n");
+-        else if ( !cfg_file_name && file_name )
++        else
+         {
+-            CHAR16 *tail;
++            ensure_dir_handle(loaded_image, &dir_handle, &file_name);
+ 
+-            while ( (tail = point_tail(file_name)) != NULL )
++            if ( !cfg_file_name )
+             {
+-                wstrcpy(tail, L".cfg");
+-                if ( read_file(dir_handle, file_name, &cfg, NULL) )
+-                    break;
+-                *tail = 0;
++                CHAR16 *tail;
++
++                while ( (tail = point_tail(file_name)) != NULL )
++                {
++                    wstrcpy(tail, L".cfg");
++                    if ( read_file(dir_handle, file_name, &cfg, NULL) )
++                        break;
++                    *tail = 0;
++                }
++                if ( !tail )
++                    blexit(L"No configuration file found.");
++                PrintStr(L"Using configuration file '");
++                PrintStr(file_name);
++                PrintStr(L"'\r\n");
+             }
+-            if ( !tail )
+-                blexit(L"No configuration file found.");
+-            PrintStr(L"Using configuration file '");
+-            PrintStr(file_name);
+-            PrintStr(L"'\r\n");
++            else if ( !read_file(dir_handle, cfg_file_name, &cfg, NULL) )
++                blexit(L"Configuration file not found.");
+         }
+-        else if ( !read_file(dir_handle, cfg_file_name, &cfg, NULL) )
+-            blexit(L"Configuration file not found.");
+         pre_parse(&cfg);
+ 
+         if ( section.w )
+@@ -1567,6 +1579,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+             if ( !name.s )
+                 break;
+             free_cfg();
++            ensure_dir_handle(loaded_image, &dir_handle, &file_name);
+             if ( !read_file(dir_handle, s2w(&name), &cfg, NULL) )
+             {
+                 PrintStr(L"Chained configuration file '");
+@@ -1578,13 +1591,14 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+             efi_bs->FreePool(name.w);
+         }
+ 
+-        efi_arch_cfg_file_early(loaded_image, dir_handle, section.s);
++        efi_arch_cfg_file_early(loaded_image, &dir_handle, section.s);
+ 
+         option_str = name.s ? split_string(name.s) : NULL;
+ 
+         if ( !read_section(loaded_image, L"kernel", &kernel, option_str) &&
+              name.s )
+         {
++            ensure_dir_handle(loaded_image, &dir_handle, &file_name);
+             read_file(dir_handle, s2w(&name), &kernel, option_str);
+             efi_bs->FreePool(name.w);
+         }
+@@ -1599,6 +1613,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+             name.s = get_value(&cfg, section.s, "ramdisk");
+             if ( name.s )
+             {
++                ensure_dir_handle(loaded_image, &dir_handle, &file_name);
+                 read_file(dir_handle, s2w(&name), &ramdisk, NULL);
+                 efi_bs->FreePool(name.w);
+             }
+@@ -1609,6 +1624,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+             name.s = get_value(&cfg, section.s, "xsm");
+             if ( name.s )
+             {
++                ensure_dir_handle(loaded_image, &dir_handle, &file_name);
+                 read_file(dir_handle, s2w(&name), &xsm, NULL);
+                 efi_bs->FreePool(name.w);
+             }
+@@ -1634,7 +1650,7 @@ void EFIAPI __init noreturn efi_start(EFI_HANDLE ImageHandle,
+             }
+         }
+ 
+-        efi_arch_cfg_file_late(loaded_image, dir_handle, section.s);
++        efi_arch_cfg_file_late(loaded_image, &dir_handle, section.s);
+ 
+         free_cfg();
+ 
+-- 
+2.53.0
+
 
