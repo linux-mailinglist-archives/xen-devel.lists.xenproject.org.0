@@ -2,63 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IKSSCGMDFmrNgwcAu9opvQ
+	id 6D1mHs8LFmrYhAcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2026 22:32:35 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2026 23:08:31 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E56E5DC53D
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2026 22:32:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1320158.1587524 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8A0E5DC9AD
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2026 23:08:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1320169.1587533 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRyR2-0001l9-Js; Tue, 26 May 2026 20:31:32 +0000
+	id 1wRz0A-00068G-67; Tue, 26 May 2026 21:07:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1320158.1587524; Tue, 26 May 2026 20:31:32 +0000
+Received: by outflank-mailman (output) from mailman id 1320169.1587533; Tue, 26 May 2026 21:07:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRyR2-0001ih-Ed; Tue, 26 May 2026 20:31:32 +0000
-Received: by outflank-mailman (input) for mailman id 1320158;
- Tue, 26 May 2026 20:31:30 +0000
+	id 1wRz0A-000666-2A; Tue, 26 May 2026 21:07:50 +0000
+Received: by outflank-mailman (input) for mailman id 1320169;
+ Tue, 26 May 2026 21:07:48 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Jason.Andryuk@amd.com>) id 1wRyR0-0001ib-8B
- for xen-devel@lists.xenproject.org; Tue, 26 May 2026 20:31:30 +0000
+ (envelope-from <dmytro_prokopchuk1@epam.com>) id 1wRz07-00065y-Vf
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2026 21:07:48 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wRyQz-008rIk-GI
- for xen-devel@lists.xenproject.org; Tue, 26 May 2026 22:31:29 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wRz05-0008cE-ET
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2026 23:07:45 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Jason.Andryuk@amd.com>)
- id 6a1602e1-5cb7-0a2a0a5109dd-0a2a4505d964-38
- for <xen-devel@lists.xenproject.org>; Tue, 26 May 2026 22:31:28 +0200
-Received: from [52.101.62.52]
- (helo=DM5PR21CU001.outbound.protection.outlook.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Jason.Andryuk@amd.com>)
- id 6a16031f-aaa8-0a2a45050019-34653e34cc53-3
- for <xen-devel@lists.xenproject.org>; Tue, 26 May 2026 22:31:28 +0200
-Received: from BL1PR13CA0288.namprd13.prod.outlook.com (2603:10b6:208:2bc::23)
- by CY8PR12MB8193.namprd12.prod.outlook.com (2603:10b6:930:71::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Tue, 26 May
- 2026 20:31:22 +0000
-Received: from BL6PEPF00022570.namprd02.prod.outlook.com
- (2603:10b6:208:2bc:cafe::f) by BL1PR13CA0288.outlook.office365.com
- (2603:10b6:208:2bc::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.12 via Frontend Transport; Tue, 26
- May 2026 20:31:22 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00022570.mail.protection.outlook.com (10.167.249.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 20:31:22 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 26 May
- 2026 15:31:22 -0500
-Received: from fedora.mshome.net (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Tue, 26 May 2026 15:31:21 -0500
+ (envelope-from <dmytro_prokopchuk1@epam.com>)
+ id 6a160b59-bab6-0a2a0a5309dd-0a2a450bba66-28
+ for <xen-devel@lists.xenproject.org>; Tue, 26 May 2026 23:07:45 +0200
+Received: from [40.107.159.118]
+ (helo=OSPPR02CU001.outbound.protection.outlook.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <dmytro_prokopchuk1@epam.com>)
+ id 6a160ba0-212f-0a2a450b0019-286b9f764ec3-3
+ for <xen-devel@lists.xenproject.org>; Tue, 26 May 2026 23:07:45 +0200
+Received: from AM9PR03MB7526.eurprd03.prod.outlook.com (2603:10a6:20b:3de::17)
+ by DB9PR03MB7227.eurprd03.prod.outlook.com (2603:10a6:10:1fe::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
+ 2026 21:07:42 +0000
+Received: from AM9PR03MB7526.eurprd03.prod.outlook.com
+ ([fe80::904d:5820:80e1:41ba]) by AM9PR03MB7526.eurprd03.prod.outlook.com
+ ([fe80::904d:5820:80e1:41ba%3]) with mapi id 15.21.0071.010; Tue, 26 May 2026
+ 21:07:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,205 +58,284 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=epam.com header.i="@epam.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:x-ms-exchange-senderadcheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aCKwe3YW0KMbb87VImuyxmsYO997gpNUeNwsKtnTH1ubV9MMtwNdpS0WpblvU5sePgqm8SoCtFQSh57PEaOuB5+vjNjXQbRy5q+pVwcL1yailJ+j22KneBln1uj7Lc/wJS9UpRHmoBUzFKzZCMHYm6aduuIuZ2MNV7wYpiZmdYCU99ZcdqBqmgdEmhSJ0uncZ/diFaRE6wJPn7LN+2SyGoUYNLOcPqorciKC9+sAy9UmjSyGL298Ctg8T3LR5iuaJ91pGf1jrSmHlZK1xSi23ILaIqSIYU68r6OY8SWS9G854IiEyafPDNbfAgCskx0eFmsSAQ0AqaEBkTM8IjXnPQ==
+ b=fm6a+UEDzq0G3NTSSwJCymHKlSsisLq1LDBwQFYkIeO2eIdkYyVqEhbnQjeGIWCXvEyc3/7rbazWBL8BvbqYOKj6HWJPNi3sV8CdcId2yqNYrJ4ITJxAjZ6A6yWmvenTmm0KdVB/vEuBWRPPNtWyIYZE/lWnKSFwTsZAuukr7IjL38JVKApyHhD+9KatRaCekcxB1goZ7iErRIJAVbOsDucxXM2nI2butmarj4DOad8Hvgd5UNO2stSmcp3lrWprdR+3Sv5jyNKWAyBx75Y4T9+dkirjxJKMwDgdv65YljY9Xj0NT+WgxLdTIJTWdUKSp7WLBStR0wN+xAexsAHq5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FVKDGc3OoiFYqlfIOCBDgza3kBiPGFo+zo3nKOSO6iA=;
- b=lRuEe9Gi/YRoFZKayINHi7HnDCYB88mdlfyfCn2yI7IWRh1G97N2NxgIifj53hiMyJBOzhU12gXZ0pOBsnU7WlyH0ewjRvFZIzVUWZ3t7zWH0uW3r4AFVfD6rmRFa69QH6R/yl3vgwCzWeBCOcQrZ0/JPpmgxRZl16Iu9HZh8PnBJAnqw9RtB8MYZjf1xXQZMwLlYsYZ7Mv2yMieVSpUtiy6m26aejPf6OdMtVw9iO99eSIk1GRlvyrIA/+gSmsk/QECpNq4q5pbwiVvEsIWasHAA9yzzWqRRgXYT8eKbTCXLgZ/o3dRkqSUzbsZX21FZqVmqe0eLq039Xj334Qk6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=IvdDYZAHWzCSFBIO+A+gdFJ9FhATYvWABVo7oUROvkQ=;
+ b=xkDnQsSFUues/rayMGJJyfI6TxkVbrmk/Z9Ocbr/KUdtpohHLavwqw3VjdlwkqcI809H/jD0MLv8gbjwqLUxshmLUftd9nSIbJxRvrRfmFPefZPcyT3RO3Kdp429tjwCb8J9kYs9dCFPEY8kWLE+Jbp888/c9KEjaM4xajrWvMrjzUPzcBTcJOpfTmUzzmKmTbgEDHsOB1myN0Ed5HT5sJopGTbz2EnOvxu1OJxarhVlPt9EIgh/3l/ivoTTXRS1yOjTdtrqZT3+Alx6u0X0VKAXsT4UsA4QluOD1xH2r9O+TV/TDKgEXzjDBHwMkeqy4AoqH8qWrNBS5mxgM/Bznw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FVKDGc3OoiFYqlfIOCBDgza3kBiPGFo+zo3nKOSO6iA=;
- b=yPen4+YeliwhHqhUT/JEQ0v6wGESKk9PknxR1rU/y25p69pE+eLiYQbBa9IOgh/+rmCNH5tefCQGsZk7Pd1MrqwpMHDPg5zF/ZBiImyK3yqu8Zp1Z8VG1AZYneyay7ZU1C9yhKtkiglAfMwMAUPx4D9pC1r+e2Kc8L5F8hpDxR4=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Jason Andryuk <jason.andryuk@amd.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Teddy Astie
-	<teddy.astie@vates.tech>
-Subject: [PATCH] xen/x86: Change stub page freeing to fix smt=0
-Date: Tue, 26 May 2026 16:31:14 -0400
-Message-ID: <20260526203114.40882-1-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.54.0
+ bh=IvdDYZAHWzCSFBIO+A+gdFJ9FhATYvWABVo7oUROvkQ=;
+ b=LmNYM53FioqP5CXU/csvZyJDtOMMlzcPXBhHtisyK9/Lv6x1pvk2bJ7/Y4upL7/dN9wenUdbONtEElUC4wMJsRTRsFGMB6VDvz+UjAuiAS8OcnpvDh+ylYS7jvKgxbm9UwmMDeRhVVJ1iyrQHQrd0/GPdkLNBRF2ONW0KBIEptAOgSKW5ksSBI+Az/F+TqXptpF1CUJJfcDeF4mIQ+tCjt3Zp0NhQs4FMH1JQH1OyoodZI32XLuEfCpsFwBgrMRfWtqQ8tUTLmZsQ1yrJ0hbdKCLJhjZNww3WyuHdSvx6T9K3ZhXEwtsFWb4vucSlv0KwWztKswhAwJ7A68IxGRjWg==
+From: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Dmytro Prokopchuk1 <dmytro_prokopchuk1@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Michal Orzel <michal.orzel@amd.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Timothy Pearson
+	<tpearson@raptorengineering.com>, Alistair Francis
+	<alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>, Oleksii
+ Kurochko <oleksii.kurochko@gmail.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, Teddy Astie <teddy.astie@vates.tech>
+Subject: [PATCH] coverage: place GCOV-generated .text.* sections in Xen text
+Thread-Topic: [PATCH] coverage: place GCOV-generated .text.* sections in Xen
+ text
+Thread-Index: AQHc7VOxa7dJ7uwiTkiCFpTyz2B8pg==
+Date: Tue, 26 May 2026 21:07:42 +0000
+Message-ID:
+ <cb8c1e0862a554f7a28347f549e9cfd0b0d6db2f.1779829545.git.dmytro_prokopchuk1@epam.com>
+Accept-Language: en-US, uk-UA, ru-RU
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=epam.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM9PR03MB7526:EE_|DB9PR03MB7227:EE_
+x-ms-office365-filtering-correlation-id: f789f44c-2d5e-48a8-d6e1-08debb6ad38d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|7416014|1800799024|366016|42112799006|3023799007|11063799006|18002099003|6133799003|56012099006|38070700021;
+x-microsoft-antispam-message-info:
+ SANvO9ZSX2FPZrjd1/oI9/3nsmhCnitlOwpdy3AqmWVEfylwGRmJhFNy8xj9kWIaoIJjL8Ya5Cwie5AlrvJNwssHUMeyFkPyFhz33e/KEXuUBWm5tJlecfFpXxroHMDTTVtp2ll/fusT8ycP9YtCCBc/my03USXhuREcvpBejeiPS/fTAg8PDqYN1Q8/7Jh2pNCjBhVqPexeh/EPYjyuLEo9JmeyZgFmKwRSnvIgMnqFARHLOeiaSt9LigpKeQwAw80Hmr4ClNtxznCINCh2EvLw++OjXv8Dpf44spLCflslinebUMImRkVG8d1gYTaYs4R7pEakI1TeehIofSOY6GsjuOkxaUXbHXym6MPfuwFNBW+1T84HC3AxU+rLfEqN/0yfMOgmVYCO1Fep0MBw2+cPzSIPoqXMyR22m66NJYU7ig/cndTUxbxcTSMfDC1ElFCiyRrmr7ZRqoTJ/91sOvzB/RvuReC5zyp0ICWAxRn04NQy9w1hXeTclQreLBh1og+0WHvH4DO4lJMqZS2y8mGIYthkUmRIRaKzu+VBpns4fhs8WVEz1O5hkkSfgHOAHTVaXBdLYDsGR/Uop4swLSZKr4fvy/8luGm9TZK5g0kX8QER5l+zDRBhss+ubw+MBSjGTvDSQ74yPHdVCnOQggItyJFptZ20AXW+G/DVH91qqLow/n/KZEbM8Zzr/D23JIiTY7OO/DBeGbXP4r4RUtpnFTnhlv1KNb1NTDZb9Dd1ISCuqVZ1+4E09s4/3D1A
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR03MB7526.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(42112799006)(3023799007)(11063799006)(18002099003)(6133799003)(56012099006)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?AV+E3f0jSISJ0j0MSG8gzYkc3hzDoa1I8zbcVaEBKOFAPC6f6AvY04cGl8?=
+ =?iso-8859-1?Q?IOhwBG1vhQm37N8cjei98C6w4x+7AH11MdLyO/cL6OieHY4u1NV/YhlZq8?=
+ =?iso-8859-1?Q?CX01l0HwBe2JjDzZJYykgvecva+s+AclASUUVFOKACsFso+O2IgwAv3bJV?=
+ =?iso-8859-1?Q?VSn/h4tC5AuJ3fA3sDY8xFIgktoOpj44yujYpEQStpdP4sOklzWJcAj8pe?=
+ =?iso-8859-1?Q?G+yEhU0MzLh+qu50t95UlEw57sSITooSQudcwhLccAFaHHXHvXbgCnpqRj?=
+ =?iso-8859-1?Q?NV2I7VBzsVYhBYnBuMryDR2gaAGxEQYkiZAjx9X9hbakUFOMIjxj+3BZRZ?=
+ =?iso-8859-1?Q?y+xWpUmW3AEb+OsLhkja1b9KzAbzWdXNYeCpw/Ai9M0iJ/snjI5cVxp5ga?=
+ =?iso-8859-1?Q?f+1gcgQD2hsnWJHYWxlYQmQfXTrWZUtU/xgxHGz2YkLX7RDcUqghGY8tRH?=
+ =?iso-8859-1?Q?70wt0Dw5Nb7bY7KAQMdANxwAN0/xYPnDm+DyLC3O9g3zUlHC4S6zA24G/v?=
+ =?iso-8859-1?Q?hevU/Py96yrhmV+hnTm6Qd0eOcKAas3+RscVdyX6QM7auhOb9wRZWObaYS?=
+ =?iso-8859-1?Q?3vaOigjp7z8IGmr62I88r4Sy97fC2sdV7eGQ2ihuLcVMqTvaR3pgeloL9k?=
+ =?iso-8859-1?Q?+OAzu+pMOIhytmiMvch1U4v3cqldk+ldhJuR1fYvwozF9wF++HIRLp0sEu?=
+ =?iso-8859-1?Q?Lp0NGETcC7gzLl183Flur4Z3kIG3pHIh8curUO8MML28T+yK/iNNp/gdt2?=
+ =?iso-8859-1?Q?qukWKQCvEiIO2n3w7zApxwTNVBw9EskKkpNQoqgD7UFTbCwqMlqhpivdWr?=
+ =?iso-8859-1?Q?RBxvr5RPH184Lc09n0aOPdsHwApkbd66SqUPHMYrZjmSyZjhce1aMuktnW?=
+ =?iso-8859-1?Q?sl3aHUJa3XID3wkKplE/r+aHthWfmeQSY3cai38zk0qvAnsDMrNqjSeRb6?=
+ =?iso-8859-1?Q?Q654ljHRuSPX4XOpoSrQkBTF4mXs0S9V5mLYlvwatIectzSx+FPnrBcxTV?=
+ =?iso-8859-1?Q?pWKGo6DIjyidKBsoyW6o0p3au1Zs3jGFeuB+tJsqRw0rWKB11/ROcLMTK9?=
+ =?iso-8859-1?Q?jksKIJvJM5Wr7oXdIhltkmWElDRtdQ5fg6nAklb9BxC9q1Xg1M3MBsI8NP?=
+ =?iso-8859-1?Q?YC2iNtuZeTixdd8/MZM+A+M+GOLzwDlnHn3bv7V73hpPBNcAllkNWHOZLr?=
+ =?iso-8859-1?Q?kO23WCoXoMu83QR/gblx/5bXJ5TCRcYUw6YgRw0vKsvHGYQjQkMgdQwevI?=
+ =?iso-8859-1?Q?I4kYaLBdhlQb7SSQ1Dbco8msqe6qjFeXCv+/emT3QVhFMrhr5WnQT63a8M?=
+ =?iso-8859-1?Q?UnT0D6rqzVjXc/LfaOfgK5xIX6wY3q912yMaYftnqYbkNIb45vLXE6iORp?=
+ =?iso-8859-1?Q?wMYrx0sL3PLWJz3ucaAJGdYdIEK11/6aNtViSdHAsoGqcLGD1XOJ4EjE1E?=
+ =?iso-8859-1?Q?j4weZimsu0ekGcpW9ZxvmsjP+o/76u0IytD8EQLRCK17axCCVj2KvnTrQf?=
+ =?iso-8859-1?Q?MKiWwXxmrUAopInOjauVaJmO6TbgxyGebH5qTXP5KUmOvVgMXb+1pf6/oS?=
+ =?iso-8859-1?Q?WjuPUVzqEAwQDhehRZ2wiSI/CuB8KjOarBYeypUdyCH0RwJRs48iYzmxm8?=
+ =?iso-8859-1?Q?toQbMe1nnIrlSeTXteJRnfy8dnlRUOPzGfL16nbfFrDWFoYjFtw+8DWVZC?=
+ =?iso-8859-1?Q?ewcz+p4fAVmWMdQUYO38s+MgD6AcBKo3SfyyPQczUv44oe2O+6Y25FBcb0?=
+ =?iso-8859-1?Q?DTtY9OQsTJoqPY4l71A3mLnaWkIgWxM/qmVmgtfLPYeote7m8vw53yuTvE?=
+ =?iso-8859-1?Q?LAz3cltFzLqA7ORZJxT53cR69m0KSf4=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022570:EE_|CY8PR12MB8193:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51497a6c-f2ec-4655-937f-08debb65c03c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|1800799024|36860700016|11063799006|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	qYH/98wrkrf8/kYNI6mZxbI4jELMdiFmcJysIeZmvPZQ+Ea8gI3BluhVZFVXBXRB4au4bzpphYk1VsEUZuGSc8qfHQgYFNn2pg2Sb9KG3dOdioTvl9tLfTpgLtpNaFisIaYafZMBAVY8zHF5GdogaCSgL24NHhir1i1VXa741sKTXL+jN9F1RWVKsLHcjmHG/oad+1OQsR9lraz3Q9iCgJWdsFnHoDEBOEJIU/kV4+G1K5j17yxu8cydAuHhdsUExdmYQAW1uwWRXtp2W5iJ12IQQyw63iVDaS3uKMCUUtvnM6+z/Hi9iMRZ4F3HINvbm/e1fkEdOJPVoDDExfEWQEOqeVLrxp1Ykx1mXTQJmh5d+V6AuwCER6yrQ3j+PwWkSgZKnS0LdLyy4v3I+y0eBpXecZGdMS6EatcFCBJdbWuyqvwOWUf4bTB3AgMDnOVotydOEvJvI7wbQyXA2hyPMExj+rF+Rq0haAppk+usbRHRfdzm+IJpcgvTKnDEQHd4o/xLfgUA6q/Aa4rh9F2C4AjT5RqmZLpuladiaQfQ8mTtLo7ogcz6gjgTJKL6Pnax9Xa5jiRXjoSL2RrWVLinFhve7Oom753e+cSRvJZ2IMhceATyRcQ6V0C2AJTibhTizF93/7FtMXHpYWN+MMSa8Hy/owh6KWgQXn63PVq83gVyjaNNXVVgF/Epy8fARGGGFEJeaiAZeX2bWpLwz3mL5aGvPtaDe6NcOC4rS0uih3U=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(11063799006)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bNfx9j04+ONhx2nFBjWAp5BhO8QDktS+MdVa/gsYENS2PvpuUuvqJdANHv0dQUs2NDO0Q4uMU4vfuZwoRElMQMWAfzCZTFORsHgQ5HuYVjm8J4kgTyOVUJF+yiomQCh4FvXZZbSAk5+fVYSyxKJvEvt1nMHLFnmrUl6jVNhRjzkxhw1reumfkWJY2yfSf45hbR7LabjEiMduDyQzOmRgH1mNtWtyizvSbvAQfRaFKRM9sATacqS2OBn5P5gjH3gyNcQBGyQoZF/5E+6x//19l0j0PMvoBLcNLM98Q3U7wM2Dmx4N/Fi4GbFdukYDyBUOTFhHjpDpgvsn1uBkiKareGTe+yXkCOwSDUvVoxq4SGnWPPJE68fhqp7IpnOEOQK91LsWiXg4/wE3Yg4f5e712zmcdhN5s7pym8GJDb3yoarKlCAzQitHKTgjRGdXOzfF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 20:31:22.4043
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR03MB7526.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f789f44c-2d5e-48a8-d6e1-08debb6ad38d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 May 2026 21:07:42.3146
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51497a6c-f2ec-4655-937f-08debb65c03c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00022570.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8193
-X-purgate-ID: tlsNG-c201ff/1779827488-E0867443-4E77C3B1/0/0
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BMK866vPmgHMi37Iyvz6IILb12aK/IaUmnZsizn3szXGGab8pE0Csc4U6FWvTIQycwqByh4ckMslqcLe87gAH+iQAIYEkTtRacEWW1gGCkw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR03MB7227
+X-purgate-ID: tlsNG-42698a/1779829665-1B175F3B-F8A3F52C/0/0
 X-purgate-type: clean
-X-purgate-size: 4235
-X-Spamd-Result: default: False [-0.69 / 15.00];
+X-purgate-size: 5561
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	DMARC_POLICY_ALLOW(-0.50)[epam.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_DKIM_ALLOW(-0.20)[epam.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[epam.com,kernel.org,xen.org,arm.com,amd.com,raptorengineering.com,wdc.com,gmail.com,suse.com,citrix.com,vates.tech];
 	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[mailman];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:dmytro_prokopchuk1@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:tpearson@raptorengineering.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:oleksii.kurochko@gmail.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FORGED_SENDER(0.00)[dmytro_prokopchuk1@epam.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jason.andryuk@amd.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[epam.com:email,epam.com:mid,epam.com:dkim];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWELVE(0.00)[13];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
-	DKIM_TRACE(0.00)[amd.com:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dmytro_prokopchuk1@epam.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[epam.com:+];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
+	MISSING_XM_UA(0.00)[];
+	NEURAL_HAM(-0.00)[-0.995];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FROM_HAS_DN(0.00)[]
-X-Rspamd-Queue-Id: 6E56E5DC53D
+	RCVD_COUNT_SEVEN(0.00)[10]
+X-Rspamd-Queue-Id: B8A0E5DC9AD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-A single stubs page is initialized with 0xcc and re-used, with multiple
-CPUs each using a portion of the shared page.  In cpu_smpboot_free(),
-each stubs area is checked against 0xcc.  When all are set to 0xcc, the
-page is freed.
+GCOV instrumentation can emit executable input sections such as
+.text.startup and .text.exit when CONFIG_COVERAGE is enabled.
+At present the Xen linker scripts only collect .text.* into the
+main text output section when CONFIG_CC_SPLIT_SECTIONS is enabled.
 
-Booting a system with smt=0, CPU0 is initially setup, allocating the
-stubs page and initializing to 0xcc.  When more CPUs are brought up,
-CPU1 is initialized and then immediately brough offline as it is the
-sibling of CPU0.  Since the page was initially memset with 0xcc,
-cpu_smpboot_free() finds all stubs as 0xcc and frees the page.
-However, the page is still assigned to CPU0 and continues to be assigned
-to other CPUs.
+With CONFIG_COVERAGE=3Dy and CONFIG_CC_SPLIT_SECTIONS=3Dn, these executable
+sections may be placed as linker orphans outside the expected Xen text
+region. Constructors generated by coverage instrumentation can then point
+at code outside the normal RX text mapping, leading to early boot crashes
+from init_constructors():
 
-Meanwhile the page can be reallocated, which can lead to misbehavior.
-The particular instance was the stubs page re-used as a page table which
-later faulted when the entry was all 0xcc.
+    (XEN) [   12.331193] Instruction Abort Trap. Syndrome=3D0xf
+    (XEN) [   12.334253] Walking Hypervisor VA 0xa00003ce000 on CPU0 via TT=
+BR 0x000000004352d000
+    (XEN) [   12.338550] 0TH[0x014] =3D 0x4352cf7f
+    (XEN) [   12.341823] 1ST[0x000] =3D 0x4352bf7f
+    (XEN) [   12.345124] 2ND[0x001] =3D 0x40000043527f7f
+    (XEN) [   12.347329] 3RD[0x1ce] =3D 0x400000433cef7f
+    (XEN) [   12.351233] CPU0: Unexpected Trap: Instruction Abort
+    (XEN) [   12.357643] ----[ Xen-4.21.1  arm64  debug=3Dn gcov=3Dy  Not t=
+ainted ]----
+    (XEN) [   12.360243] CPU:    0
+    (XEN) [   12.364098] PC:     00000a00003ce000 00000a00003ce000
+    (XEN) [   12.375835] LR:     00000a00004802f8
+    (XEN) [   12.378273] SP:     00000a00004c7e10
+    (XEN) [   12.380492] CPSR:   0000000080000249 MODE:64-bit EL2h (Hypervi=
+sor, handler)
+    (XEN) [   12.382785]      X0: 00000a00003ce000  X1: 0000000000000000  X=
+2: 00000a0000410fa0
+    (XEN) [   12.385176]      X3: 0000000000000000  X4: 0000000000000010  X=
+5: 0000000000000001
+    (XEN) [   12.387555]      X6: 00000a00004e5f40  X7: 00000a00004e5f38  X=
+8: 0000000000000000
+    (XEN) [   12.390027]      X9: 00000a00004e5f20 X10: 00000a00004e5f30 X1=
+1: 00000a00004e5f40
+    (XEN) [   12.392510]     X12: 00000a0000439748 X13: 00000a0000406938 X1=
+4: 000000000000062e
+    (XEN) [   12.394954]     X15: 00000a00004f3918 X16: 00000a00004c7bb5 X1=
+7: 00000000004c7bb5
+    (XEN) [   12.397293]     X18: 0000000000000030 X19: 000000000000001d X2=
+0: 00000000000000a9
+    (XEN) [   12.399803]     X21: 00000a00004c8008 X22: 00000a00003fa000 X2=
+3: 00000a00004e2000
+    (XEN) [   12.402392]     X24: 00000a00003f9390 X25: 00000a00003fa000 X2=
+6: 00000a00003f4ca8
+    (XEN) [   12.404798]     X27: 0000000000000002 X28: 00000a000057a9c0  F=
+P: 00000000bedb6740
+    (XEN) [   12.407110]
+    (XEN) [   12.409442]   VTCR_EL2: 0000000080023558
+    (XEN) [   12.411291]  VTTBR_EL2: 00000000bffc4000
+    (XEN) [   12.412895]
+    (XEN) [   12.414204]  SCTLR_EL2: 0000000030cd183d
+    (XEN) [   12.415928]    HCR_EL2: 0000000000000039
+    (XEN) [   12.417642]  TTBR0_EL2: 000000004352d000
+    (XEN) [   12.419152]
+    (XEN) [   12.420327]    ESR_EL2: 000000008600000f
+    (XEN) [   12.422056]  HPFAR_EL2: 0000000000000000
+    (XEN) [   12.423809]    FAR_EL2: 00000a00003ce000
+    ...
+    (XEN) [   12.485355] Xen call trace:
+    (XEN) [   12.489080]    [<00000a00003ce000>] 00000a00003ce000 (PC)
+    (XEN) [   12.512076]    [<00000a00004802f8>] init_constructors+0x38/0x5=
+0 (LR)
 
-Change to initializing the page as 0xd6/STUB_BUF_FREE, and initializing
-individual stubs as 0xcc/STUB_BUF_USED.  0xd6 now indicates unused, and
-0xcc indicates used/assigned.  When freeing a CPU, the stub is set to
-0xd6, and the page is freed if all stubs are 0xd6.  Initializing with
-STUB_BUF_FREE lets cpu_smpboot_free() a page that was only ever
-partially used.
+Observed failing symbol:
+    _sub_I_00100_0
+called from:
+    init_constructors()
+The issue can be diagnosed by enabling linker orphan diagnostics or
+generating a linker map:
+    LDFLAGS +=3D "--orphan-handling=3Dwarn"
+    LDFLAGS +=3D "-Map=3Dxen.map"
+and then inspecting orphaned executable sections such as:
+    .text.startup
 
-0xd6/UDB is a 1 byte invalid opcode, which is similar to the existing
-use of 0xcc.  0xd6 is used to identify bug frames, but the stub addr
-(e.g. 0xffff82d07fffe000) fails the is_active_kernel_text() check.  It
-should be okay to use here.
+Collect .text.* whenever either CONFIG_CC_SPLIT_SECTIONS or
+CONFIG_COVERAGE is enabled.
 
-Fixes: 7a66ac8d1633 ("x86: move syscall trampolines off the stack")
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+Apply the same change for arm, x86, riscv and ppc.
+
+Signed-off-by: Dmytro Prokopchuk <dmytro_prokopchuk1@epam.com>
 ---
-It would be nice to use get_page()/put_page() to let count_info handle
-reference counting, but they require an owning domain.
+ xen/arch/arm/xen.lds.S   | 2 +-
+ xen/arch/ppc/xen.lds.S   | 2 +-
+ xen/arch/riscv/xen.lds.S | 2 +-
+ xen/arch/x86/xen.lds.S   | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-The listed Fixes introduced the use of 0xcc, but the smt commit may have
-made it more problematic.
-Fixes: d8f974f1a646 ("x86: command line option to avoid use of secondary hyper-threads")
----
- xen/arch/x86/smpboot.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
-
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index ff05955bae..a5d485b732 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -643,10 +643,16 @@ static int do_boot_cpu(int apicid, int cpu)
- 
- #define STUB_BUF_CPU_OFFS(cpu) (((cpu) & (STUBS_PER_PAGE - 1)) * STUB_BUF_SIZE)
- 
-+/* Fill values indicating state of stub. */
-+#define STUB_BUF_USED 0xcc
-+#define STUB_BUF_FREE 0xd6
-+
- unsigned long alloc_stub_page(unsigned int cpu, unsigned long *mfn)
- {
-+    unsigned char *stub_page;
-     unsigned long stub_va;
-     struct page_info *pg;
-+    bool initialize = false;
- 
-     BUILD_BUG_ON(STUBS_PER_PAGE & (STUBS_PER_PAGE - 1));
- 
-@@ -661,7 +667,7 @@ unsigned long alloc_stub_page(unsigned int cpu, unsigned long *mfn)
-         if ( !pg )
-             return 0;
- 
--        unmap_domain_page(memset(__map_domain_page(pg), 0xcc, PAGE_SIZE));
-+        initialize = true;
-     }
- 
-     stub_va = XEN_VIRT_END - FIXADDR_X_SIZE - (cpu + 1) * PAGE_SIZE;
-@@ -675,6 +681,14 @@ unsigned long alloc_stub_page(unsigned int cpu, unsigned long *mfn)
-     else if ( !*mfn )
-         *mfn = mfn_x(page_to_mfn(pg));
- 
-+    stub_page = __map_domain_page(pg);
-+    /* Newly allocated page is marked entirely unused. */
-+    if ( initialize )
-+        memset(stub_page, STUB_BUF_FREE, PAGE_SIZE);
-+    /* Specific CPU is marked used. */
-+    memset(stub_page + STUB_BUF_CPU_OFFS(cpu), STUB_BUF_USED, STUB_BUF_SIZE);
-+    unmap_domain_page(stub_page);
-+
-     return stub_va;
- }
- 
-@@ -992,9 +1006,10 @@ static void cpu_smpboot_free(unsigned int cpu, bool remove)
-         unsigned char *stub_page = map_domain_page(mfn);
-         unsigned int i;
- 
--        memset(stub_page + STUB_BUF_CPU_OFFS(cpu), 0xcc, STUB_BUF_SIZE);
-+        memset(stub_page + STUB_BUF_CPU_OFFS(cpu), STUB_BUF_FREE,
-+               STUB_BUF_SIZE);
-         for ( i = 0; i < STUBS_PER_PAGE; ++i )
--            if ( stub_page[i * STUB_BUF_SIZE] != 0xcc )
-+            if ( stub_page[i * STUB_BUF_SIZE] != STUB_BUF_FREE )
-                 break;
-         unmap_domain_page(stub_page);
-         destroy_xen_mappings(per_cpu(stubs.addr, cpu) & PAGE_MASK,
--- 
-2.54.0
-
+diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
+index 2d5f1c516d..e1b179fe5f 100644
+--- a/xen/arch/arm/xen.lds.S
++++ b/xen/arch/arm/xen.lds.S
+@@ -41,7 +41,7 @@ SECTIONS
+        *(.text.unlikely .text.*_unlikely .text.unlikely.*)
+=20
+        *(.text)
+-#ifdef CONFIG_CC_SPLIT_SECTIONS
++#if defined(CONFIG_CC_SPLIT_SECTIONS) || defined(CONFIG_COVERAGE)
+        *(.text.*)
+ #endif
+=20
+diff --git a/xen/arch/ppc/xen.lds.S b/xen/arch/ppc/xen.lds.S
+index d0f2ed43f1..6224c06ae8 100644
+--- a/xen/arch/ppc/xen.lds.S
++++ b/xen/arch/ppc/xen.lds.S
+@@ -34,7 +34,7 @@ SECTIONS
+         *(.text.unlikely .text.*_unlikely .text.unlikely.*)
+=20
+         *(.text)
+-#ifdef CONFIG_CC_SPLIT_SECTIONS
++#if defined(CONFIG_CC_SPLIT_SECTIONS) || defined(CONFIG_COVERAGE)
+         *(.text.*)
+ #endif
+=20
+diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
+index 65f136dce9..7c19d2e9dd 100644
+--- a/xen/arch/riscv/xen.lds.S
++++ b/xen/arch/riscv/xen.lds.S
+@@ -24,7 +24,7 @@ SECTIONS
+         *(.text.unlikely .text.*_unlikely .text.unlikely.*)
+=20
+         *(.text)
+-#ifdef CONFIG_CC_SPLIT_SECTIONS
++#if defined(CONFIG_CC_SPLIT_SECTIONS) || defined(CONFIG_COVERAGE)
+         *(.text.*)
+ #endif
+=20
+diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+index b9e888e596..42a17f57e6 100644
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -93,7 +93,7 @@ SECTIONS
+=20
+        *(.text.page_aligned)
+        *(.text)
+-#ifdef CONFIG_CC_SPLIT_SECTIONS
++#if defined(CONFIG_CC_SPLIT_SECTIONS) || defined(CONFIG_COVERAGE)
+        *(.text.*)
+ #endif
+        *(.text.__x86_indirect_thunk_*)
+--=20
+2.43.0
 
