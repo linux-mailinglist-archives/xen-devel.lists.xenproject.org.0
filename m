@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0JY8NFhrFWrxUwcAu9opvQ
+	id +IuLNldrFWoBVAcAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2026 11:43:52 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2026 11:43:51 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCB005D391D
-	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2026 11:43:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1319666.1587133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 955DB5D3910
+	for <lists+xen-devel@lfdr.de>; Tue, 26 May 2026 11:43:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1319667.1587143 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRoK7-0007Op-Vj; Tue, 26 May 2026 09:43:43 +0000
+	id 1wRoK9-0007en-An; Tue, 26 May 2026 09:43:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1319666.1587133; Tue, 26 May 2026 09:43:43 +0000
+Received: by outflank-mailman (output) from mailman id 1319667.1587143; Tue, 26 May 2026 09:43:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wRoK7-0007NH-Sx; Tue, 26 May 2026 09:43:43 +0000
-Received: by outflank-mailman (input) for mailman id 1319666;
+	id 1wRoK9-0007bP-7c; Tue, 26 May 2026 09:43:45 +0000
+Received: by outflank-mailman (input) for mailman id 1319667;
  Tue, 26 May 2026 09:43:43 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <freddy77@gmail.com>) id 1wRoK6-0007D9-WF
+ (envelope-from <freddy77@gmail.com>) id 1wRoK7-0007NG-SI
  for xen-devel@lists.xenproject.org; Tue, 26 May 2026 09:43:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wRoK6-00C7fR-CA
- for xen-devel@lists.xenproject.org; Tue, 26 May 2026 11:43:42 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wRoK7-002r1O-86
+ for xen-devel@lists.xenproject.org; Tue, 26 May 2026 11:43:43 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <freddy77@gmail.com>)
- id 6a156b46-e002-0a2a0a5209dd-0a2a45098e94-30
- for <xen-devel@lists.xenproject.org>; Tue, 26 May 2026 11:43:42 +0200
-Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a156b43-5cb7-0a2a0a5109dd-0a2a450ab138-42
+ for <xen-devel@lists.xenproject.org>; Tue, 26 May 2026 11:43:43 +0200
+Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <freddy77@gmail.com>)
- id 6a156b4e-2497-0a2a45090019-d155dd2ec0a5-3
- for <xen-devel@lists.xenproject.org>; Tue, 26 May 2026 11:43:42 +0200
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-4526a8170ceso5213617f8f.2
- for <xen-devel@lists.xenproject.org>; Tue, 26 May 2026 02:43:42 -0700 (PDT)
+ id 6a156b4f-56b3-0a2a450a0019-d1558034e988-3
+ for <xen-devel@lists.xenproject.org>; Tue, 26 May 2026 11:43:43 +0200
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4891d7164ddso49805485e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 26 May 2026 02:43:43 -0700 (PDT)
 Received: from localhost.localdomain (5.116.208.46.dyn.plus.net.
  [46.208.116.5]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45eb6d70c51sm36522744f8f.36.2026.05.26.02.43.40
+ ffacd0b85a97d-45eb6d70c51sm36522744f8f.36.2026.05.26.02.43.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 May 2026 02:43:41 -0700 (PDT)
+ Tue, 26 May 2026 02:43:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,41 +58,41 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779788622; x=1780393422; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1779788623; x=1780393423; darn=lists.xenproject.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CDSatSx8OrVXDk0o7wj5shH6txGUOWHFIUf5mWNv4L0=;
-        b=TWsILB3LAnnFrJSxgdWZhQEt9yL1tCRXbBKjBG2R8hou2/Enw3Pc0OKhRdVP9OV63u
-         WIDJHHoCH9/FgErxAOztFshqbegT4SgRb5ayu5ar/J+zfqZqyBt8d2nSwT2d0o6uVmjc
-         np9uJpkVth+r1RqlwAWVfo/5pNuNS8FdkMMrin6c3wt1OAgC5FHDsSmOQDkv2l2H8e6R
-         QURKRF5r7BcMdqnz9IwhaFXjIPe0CrJCngnvHPDzojpGR2K2DuG0KMgnsfgBeRUJvyts
-         UpTsWyEU7HK4T5as0oHr56SZAHVvQ6GlLd/eiVzspkDlBOkOznGKoxVk+94yraYNa1Cp
-         ZKpA==
+        bh=hHsDpV0xKbf5s8BDyceiYE3WNS4vLthHrGXN9Aw5Zmw=;
+        b=lKgZGTgVgvM0O4TdUfycV6I7gyFHE6W22dVPhdRRbDEuc71fAQAdPygqPBq3+5WRHt
+         R7kLqwKnM2Nnwmj0zWdgRBpyJaJiDq6r7JmABEaTUaTqhx6tb4Xh3BIyAE3gWgPpm3lK
+         IH4FGT+g+oQaQNJWEFFCBmD/CIGqA38Pg/wRASn1LCd0H2pXhVYVlxIKkYEt1CFcL4jw
+         cRBZS4l51GPJzEL9flDSrfPmP87owp7A44swJYVi+1YZUz98WWTVmZN+CxTW3EPIhvSq
+         JSMFD4FUaJMwKBXEirJE2u7cDFkK033DxrpfEOsmAMt6SaWx4Lny6FXbM7hBJTEV0q2N
+         1+ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779788622; x=1780393422;
+        d=1e100.net; s=20251104; t=1779788623; x=1780393423;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=CDSatSx8OrVXDk0o7wj5shH6txGUOWHFIUf5mWNv4L0=;
-        b=B6CmWA63zg18ER7m+Zc0SEOtoR45mkM6inte/PspvW36MskdaqcXsTQnzWR9MzP6m8
-         +n9oTR/chqZsUOsycrOBExom1BSLxWkyPMFWJegvJe1H7opjFTtKaeV5Mrw3KWhMuluy
-         H50ihQJPzKVkczW166KZ7OlqBUMxrBC0q4OwJnhnLhyNWHt3UONeSkr6EAKG5Yq6A731
-         mo+B1V9ZO+yVk4CdG3+R72CKy6lK6mjNfjyOrXLZzrh6ekxEQMrM/lR+pqsaM9nT4M/g
-         qR6pKaHnk02aq0wjk/QUURCgYvfN7UL/Lirh47cenHuqIAzmmyeEFJjwf75t4PF+eeWB
-         5xYA==
-X-Gm-Message-State: AOJu0YwHMVcmtFDJWP5ExGuReRmFMPR/I0g5iFCXnNJrcALmI02mP+G3
-	OEPQ7ijy5mc12W0AS3JKBSSuosyK9INBH4DYSmVy8i68FrlcnOF59mLQBmEUWpV2
-X-Gm-Gg: Acq92OGgkWhytvi93pOHazqIJnz/fYY7wZ6ebDMNqSNUIVRX8RdPutEQ4vdbJkjFxMW
-	rroW7eg8ru8zKdZi3pWWy80Eb4ZuIJQk61cMhG+58zKKC8DPi9rxm1un2AD1bEpg/yKUbEI4d4/
-	XL5TZtNeJDoYfN8+eVSEHJ/elaLysmNhF+t850RTYnD5Iiy/PKnofP+BCudTal5QWJUtf1BDZTm
-	ZYejzZEv6bBsqCx/eawzK7NhhrDBxFNGChMh0mh1w3V+HV7F1RE29E7TK0qsZHrJhqPlTjqzwyY
-	1Fa5KW4Jn5D7eGfRRdAiPdiJOpud5gUDWrovvLMX5Nzu/+dmlBtfnwT4NhaXkL7jyUqNSCNzsxM
-	XXcNTu6dPlpD8T8npaCd1x/fFx0K4l50WYrpgBNof1HZi8j2Twop4PQqk2PMix+4gcrKdluuWYQ
-	aJyXvzMcVsxHF7K3xtqa72EZBcF6Ai39n2XfXpW3II6IZuo49Gulid5hImY4qZGCtW+aKOhbKBh
-	O3xV3KcaQQXWMrza1tsX227sQ==
-X-Received: by 2002:a05:6000:41d2:b0:43d:242:b9bb with SMTP id ffacd0b85a97d-45eb36a7d34mr28920267f8f.18.1779788621742;
-        Tue, 26 May 2026 02:43:41 -0700 (PDT)
+        bh=hHsDpV0xKbf5s8BDyceiYE3WNS4vLthHrGXN9Aw5Zmw=;
+        b=m2keRCLBNI2Fyd8Dmp+Pu0hdx2QT3qyxwPZFM+GAxOXsh+k0d9If9K0f++fx/kWkJ3
+         ukEwBzxFNmgJS8nL6xc3smj0KYCJwLKaNoehd+daPU4jXmpFR3WFYpkM5tFfmqfuSdy/
+         X69tqYp4hMnTuYRN7QYdTK2jH0Z5tdaHoZFzXTpHGp3JnFGfDWYC1V01ywAGCVJOIixd
+         L15ZtXD13mNco9hzy5bOuEMZ4TBXHqFLd/RZCV/24bJj4FPvqUiYgit6L/SehD+EvvpN
+         zLAIJhkcvXOM6iIcQDbmfrpiBK0EzpzEfCB3NWo5BtcdTlx4VqMYIBV+jQhumE6BKC/8
+         xKrw==
+X-Gm-Message-State: AOJu0Yyp3Zsc8GAQLohpyt8pDWrJB6fQGz4okB6DAebTvRlDcO2Vx7zr
+	Jt5+PJYyNq21odzz191ddHtH/QQinGfmCxbJmMNMwjWHS54xs6tDMuTWrdKAEUpi
+X-Gm-Gg: Acq92OE6UtPMxZAUVK9dKpC7x2E8o3KHYoxFW2NFhRRvb6XtUpdFXnpd4FTRG86PYwI
+	8089gnABl1leUael9VgARsMX00tFVS6LeaRJGPkloJhF6cSBCXCaVzf4+diuw683WpFWsmOreQy
+	fXNd/NmxhdSECw/5mjNedSmR8EV/9V3vG3ThJ5MAjwkxFuM150m5Kjz2kG2D/4g9b+1RL/hsPFn
+	X7lHz96C6qVKc61+o1I/L87d2G1sEYJdbm8NPuO3zzq0e+qGh/lkOxslzEX6gAD7xwg3v86sM0m
+	1TevaeYVfBJmTpEyLvkdKK5g5vOVCXKjJG5fOOEmCIYS6NfGTmApW+SS0TFJUMhSdvyCmZHnqJ9
+	XUE3eWdCTLWL5PsyHQweouq9t7a/YWkQF6OBA7/1kG+SVxoijWwSb9Nxp7b/d4R04Dgal+QCFYd
+	os/iH8sWtQPn11VkIPH2RONmn2FLxQQC74Hf2P5zULaYRTJENlD+LOe3/zZc255grySGzTLqH+9
+	YR0srPqTj0PuRNQ6clGw2jGyQ==
+X-Received: by 2002:a05:600c:4f52:b0:490:4f91:5519 with SMTP id 5b1f17b1804b1-4904f91568dmr278511135e9.18.1779788622601;
+        Tue, 26 May 2026 02:43:42 -0700 (PDT)
 From: Frediano Ziglio <freddy77@gmail.com>
 X-Google-Original-From: Frediano Ziglio <frediano.ziglio@cloud.com>
 To: xen-devel@lists.xenproject.org
@@ -103,17 +103,17 @@ Cc: Frediano Ziglio <frediano.ziglio@citrix.com>,
 	Teddy Astie <teddy.astie@vates.tech>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v3 1/9] libs/guest: Reduce number of parts in write_split_record
-Date: Tue, 26 May 2026 10:43:12 +0100
-Message-ID: <20260526094324.12286-2-frediano.ziglio@cloud.com>
+Subject: [PATCH v3 2/9] libs/guest: Reduce number of I/O vectors in write_batch
+Date: Tue, 26 May 2026 10:43:13 +0100
+Message-ID: <20260526094324.12286-3-frediano.ziglio@cloud.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260526094324.12286-1-frediano.ziglio@cloud.com>
 References: <20260526094324.12286-1-frediano.ziglio@cloud.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-bad1c0/1779788622-89B7BA53-2F529E4D/0/0
+X-purgate-ID: tlsNG-4011c0/1779788623-7397E8B7-AAF07042/0/0
 X-purgate-type: clean
-X-purgate-size: 1632
+X-purgate-size: 2625
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
@@ -142,52 +142,94 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.996];
+	NEURAL_HAM(-0.00)[-0.995];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: CCB005D391D
+X-Rspamd-Queue-Id: 955DB5D3910
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Frediano Ziglio <frediano.ziglio@citrix.com>
 
 Small optimization.
-There's no much sense to split the header in 2 pieces, it will
-just take more time and space to reassemble them in the final
-buffer.
-This also avoids truncating combined_length to 32 bit in case of
-64 bit machines potentially avoiding following record_length check.
-The function become more coherent with following read_record
-function.
+Reduce number of pieces passed to writev.
 
 Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
 --
 Changes since v2:
 - change prefix in subject.
 ---
- tools/libs/guest/xg_sr_common.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ tools/libs/guest/xg_sr_save.c | 35 ++++++++++++++++-------------------
+ 1 file changed, 16 insertions(+), 19 deletions(-)
 
-diff --git a/tools/libs/guest/xg_sr_common.c b/tools/libs/guest/xg_sr_common.c
-index 7ccdc3b1f6aa..86c148c62f3e 100644
---- a/tools/libs/guest/xg_sr_common.c
-+++ b/tools/libs/guest/xg_sr_common.c
-@@ -59,11 +59,11 @@ int write_split_record(struct xc_sr_context *ctx, struct xc_sr_record *rec,
-     static const char zeroes[(1u << REC_ALIGN_ORDER) - 1] = { 0 };
+diff --git a/tools/libs/guest/xg_sr_save.c b/tools/libs/guest/xg_sr_save.c
+index 3b2c5222e429..1700d819051a 100644
+--- a/tools/libs/guest/xg_sr_save.c
++++ b/tools/libs/guest/xg_sr_save.c
+@@ -97,9 +97,12 @@ static int write_batch(struct xc_sr_context *ctx)
+     void *page, *orig_page;
+     uint64_t *rec_pfns = NULL;
+     struct iovec *iov = NULL; int iovcnt = 0;
+-    struct xc_sr_rec_page_data_header hdr = { 0 };
+-    struct xc_sr_record rec = {
+-        .type = REC_TYPE_PAGE_DATA,
++    struct {
++        struct xc_sr_rhdr rec;
++        struct xc_sr_rec_page_data_header page_data;
++    } hdrs = {
++        { .type = REC_TYPE_PAGE_DATA },
++        { 0 },
+     };
  
-     xc_interface *xch = ctx->xch;
--    typeof(rec->length) combined_length = rec->length + sz;
-+    size_t combined_length = rec->length + sz;
-     size_t record_length = ROUNDUP(combined_length, REC_ALIGN_ORDER);
-+    struct xc_sr_rhdr rhdr = { rec->type, combined_length };
-     struct iovec parts[] = {
--        { &rec->type,       sizeof(rec->type) },
--        { &combined_length, sizeof(combined_length) },
-+        { &rhdr,            sizeof(rhdr) },
-         { rec->data,        rec->length },
-         { buf,              sz },
-         { (void *)zeroes,   record_length - combined_length },
+     assert(nr_pfns != 0);
+@@ -115,7 +118,7 @@ static int write_batch(struct xc_sr_context *ctx)
+     /* Pointers to locally allocated pages.  Need freeing. */
+     local_pages = calloc(nr_pfns, sizeof(*local_pages));
+     /* iovec[] for writev(). */
+-    iov = malloc((nr_pfns + 4) * sizeof(*iov));
++    iov = malloc((nr_pfns + 2) * sizeof(*iov));
+ 
+     if ( !mfns || !types || !errors || !guest_data || !local_pages || !iov )
+     {
+@@ -216,28 +219,22 @@ static int write_batch(struct xc_sr_context *ctx)
+         goto err;
+     }
+ 
+-    hdr.count = nr_pfns;
++    hdrs.rec.length = sizeof(hdrs.page_data);
++    hdrs.rec.length += nr_pfns * sizeof(*rec_pfns);
++    hdrs.rec.length += nr_pages * PAGE_SIZE;
+ 
+-    rec.length = sizeof(hdr);
+-    rec.length += nr_pfns * sizeof(*rec_pfns);
+-    rec.length += nr_pages * PAGE_SIZE;
++    hdrs.page_data.count = nr_pfns;
+ 
+     for ( i = 0; i < nr_pfns; ++i )
+         rec_pfns[i] = ((uint64_t)(types[i]) << 32) | ctx->save.batch_pfns[i];
+ 
+-    iov[0].iov_base = &rec.type;
+-    iov[0].iov_len = sizeof(rec.type);
++    iov[0].iov_base = &hdrs;
++    iov[0].iov_len = sizeof(hdrs);
+ 
+-    iov[1].iov_base = &rec.length;
+-    iov[1].iov_len = sizeof(rec.length);
++    iov[1].iov_base = rec_pfns;
++    iov[1].iov_len = nr_pfns * sizeof(*rec_pfns);
+ 
+-    iov[2].iov_base = &hdr;
+-    iov[2].iov_len = sizeof(hdr);
+-
+-    iov[3].iov_base = rec_pfns;
+-    iov[3].iov_len = nr_pfns * sizeof(*rec_pfns);
+-
+-    iovcnt = 4;
++    iovcnt = 2;
+ 
+     if ( nr_pages )
+     {
 -- 
 2.54.0
 
