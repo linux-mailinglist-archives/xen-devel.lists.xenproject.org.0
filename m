@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aFEFHsaKGWoJxggAu9opvQ
+	id 5S/YIcaKGWosxggAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2026 14:47:02 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FACB6026BF
+	by mail.lfdr.de (Postfix) with ESMTPS id 10BF36026C0
 	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2026 14:47:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1321936.1588368 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1321952.1588378 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wSwbU-0008P6-OW; Fri, 29 May 2026 12:46:20 +0000
+	id 1wSwbl-0000SF-0c; Fri, 29 May 2026 12:46:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1321936.1588368; Fri, 29 May 2026 12:46:20 +0000
+Received: by outflank-mailman (output) from mailman id 1321952.1588378; Fri, 29 May 2026 12:46:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wSwbU-0008MG-LU; Fri, 29 May 2026 12:46:20 +0000
-Received: by outflank-mailman (input) for mailman id 1321936;
- Fri, 29 May 2026 12:46:19 +0000
+	id 1wSwbk-0000Qc-T3; Fri, 29 May 2026 12:46:36 +0000
+Received: by outflank-mailman (input) for mailman id 1321952;
+ Fri, 29 May 2026 12:46:35 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <bernhard.kaindl@citrix.com>) id 1wSwbT-0008Lb-6s
- for xen-devel@lists.xenproject.org; Fri, 29 May 2026 12:46:19 +0000
+ (envelope-from <bernhard.kaindl@citrix.com>) id 1wSwbj-0000Q0-4W
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2026 12:46:35 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wSwbS-00B4Cd-Ju
- for xen-devel@lists.xenproject.org; Fri, 29 May 2026 14:46:18 +0200
+ id 1wSwbi-00B4Cd-HR
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2026 14:46:34 +0200
 Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a198a86-e002-0a2a0a5209dd-0a2a4507e3ba-40
- for <xen-devel@lists.xenproject.org>; Fri, 29 May 2026 14:46:18 +0200
-Received: from [160.101.131.8] (helo=na1pdmzitismtp01.tibco.com)
+ id 6a198aa0-e002-0a2a0a5209dd-0a2a4507aa80-20
+ for <xen-devel@lists.xenproject.org>; Fri, 29 May 2026 14:46:34 +0200
+Received: from [160.101.131.9] (helo=na1pdmzitismtp02.tibco.com)
  by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a198a99-229c-0a2a45070019-a06583089fb8-3
- for <xen-devel@lists.xenproject.org>; Fri, 29 May 2026 14:46:18 +0200
+ id 6a198aa9-229c-0a2a45070019-a065830980c0-3
+ for <xen-devel@lists.xenproject.org>; Fri, 29 May 2026 14:46:34 +0200
 Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id BFEBA439EC2B;
- Fri, 29 May 2026 08:45:12 -0400 (EDT)
+ by na1pdmzitismtp02.tibco.com (Postfix) with ESMTP id 3DAF88275E96;
+ Fri, 29 May 2026 08:45:18 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,22 +59,18 @@ Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Teddy Astie <teddy.astie@vates.tech>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
 	Tim Deegan <tim@xen.org>
-Subject: [PATCH 1/7] xen/mm: Normalize common per-domain page counters to unsigned long
-Date: Fri, 29 May 2026 13:43:55 +0100
-Message-Id: <2a2bb3c2f32a82e722cf2e912f8b71443f67fd9b.1780058608.git.bernhard.kaindl@citrix.com>
+Subject: [PATCH 2/7] x86/mm: Normalize X86 per-domain page counters to unsigned long
+Date: Fri, 29 May 2026 13:43:56 +0100
+Message-Id: <21fa13ba303f59f14ace46cd0715b07f8ae99468.1780058608.git.bernhard.kaindl@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1780058608.git.bernhard.kaindl@citrix.com>
 References: <cover.1780058608.git.bernhard.kaindl@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1780058778-20D67C48-3BAB7ABE/0/0
+X-purgate-ID: tlsNG-ef75cf/1780058794-23979C48-7BB0F2A9/0/0
 X-purgate-type: clean
-X-purgate-size: 8007
+X-purgate-size: 16494
 X-Spamd-Result: default: False [3.01 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
 	MID_CONTAINS_FROM(1.00)[];
@@ -83,7 +79,7 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:tim@xen.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:tim@xen.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
@@ -99,191 +95,386 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,citrix.com:mid,citrix.com:email];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	NEURAL_HAM(-0.00)[-0.993];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	NEURAL_HAM(-0.00)[-0.991];
+	RCPT_COUNT_SEVEN(0.00)[7];
 	R_DKIM_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel]
-X-Rspamd-Queue-Id: 0FACB6026BF
+X-Rspamd-Queue-Id: 10BF36026C0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Prepare common code for >16 TiB domains by normalizing the per-domain
-page counts in struct domain (tot_pages, xenheap_pages, extra_pages,
-outstanding_pages, max_pages, node_claims and claims[MAX_NUMNODES])
-to unsigned long and update related code accordingly:
+Prepare x86 for >16 TiB domains by normalizing the per-domain page counts
+in paging_domain (total_pages, free_pages, p2m_pages) to unsigned long
+and widen page counts in related x86 allocation functions accordingly:
 
-- Update format specifiers for widened types across affected files. NB:
-  - shr_pages and paged_pages are atomic_t; their formats are %d.
-  - pod.entry_count in p2m-pod.c is unsigned long; %lu is correct.
+- paging_domain.{total,free,p2m}_pages: unsigned int -> unsigned long
+- x86/mm/shadow/common.c:
+  - unsigned long sh_min_allocation(d)
+  - unsigned long shadow_min_acceptable_pages(d)
+  - unsigned long shadow_get_allocation(d)
+  - shadow_set_allocation(unsigned long pages)
+  - shadow_enable(): fix narrowing from d->arch.paging.total_pages to
+    unsigned int
+- x86/mm/hap/hap.c:
+  - unsigned long hap_get_allocation(d)
+  - hap_set_allocation(unsigned long pages)
+  - hap_enable(): fix narrowing from d->arch.paging.total_pages to
+    unsigned int
+- x86/mm/paging.c:
+  - paging_set_allocation(unsigned long pages)
+  - arch_set_paging_mempool_size() don't truncate pages
 
-Updates for domain_tot_pages():
-- unsigned int domain_tot_pages(d) -> unsigned long domain_tot_pages(d).
-- assign_pages(): Assign domain_tot_pages(d) to unsigned long likewise.
-- sh_min_allocation(): 0U -> 0UL for unsigned long domain_tot_pages().
+Note: pages in _shadow_prealloc(), shadow_alloc(), shadow_free() and
+shadow_prealloc() is intentionally kept as unsigned int.  It carries
+the per-shadow-entry page count from shadow_size() (uint8_t-backed,
+max 4), not the pool allocation count.
+
+Note: xen_domctl_shadow_op.mb stays uint32_t, and the domctl ABI remains
+MB-based and caps at 4 PiB, replacing the 16 TiB per-domain limit.
+Casts widen the mb-to-pages arithmetic to unsigned long where needed.
 
 Suggested-by: Jan Beulich <jbeulich@suse.com>
 Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 ---
- xen/arch/x86/mm/p2m-pod.c       |  2 +-
- xen/arch/x86/mm/shadow/common.c |  2 +-
- xen/common/grant_table.c        |  2 +-
- xen/common/keyhandler.c         |  8 ++++----
- xen/common/numa.c               |  2 +-
- xen/common/page_alloc.c         |  8 ++++----
- xen/include/xen/sched.h         | 16 ++++++++--------
- 7 files changed, 20 insertions(+), 20 deletions(-)
+ xen/arch/x86/include/asm/domain.h |  6 ++---
+ xen/arch/x86/include/asm/hap.h    |  4 +--
+ xen/arch/x86/include/asm/paging.h |  2 +-
+ xen/arch/x86/include/asm/shadow.h |  2 +-
+ xen/arch/x86/mm/hap/hap.c         | 19 +++++++-------
+ xen/arch/x86/mm/paging.c          |  9 +++----
+ xen/arch/x86/mm/shadow/common.c   | 42 +++++++++++++++----------------
+ 7 files changed, 41 insertions(+), 43 deletions(-)
 
-diff --git a/xen/arch/x86/mm/p2m-pod.c b/xen/arch/x86/mm/p2m-pod.c
-index 7a0bebd2d3b5..14d18b726e80 100644
---- a/xen/arch/x86/mm/p2m-pod.c
-+++ b/xen/arch/x86/mm/p2m-pod.c
-@@ -1270,7 +1270,7 @@ p2m_pod_demand_populate(struct p2m_domain *p2m, gfn_t gfn,
- out_of_memory:
-     pod_unlock_and_flush(p2m);
+diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
+index 385a6666dafa..d3021a863353 100644
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -221,9 +221,9 @@ struct paging_domain {
  
--    printk("%s: Dom%d out of PoD memory! (tot=%"PRIu32" ents=%ld dom%d)\n",
-+    printk("%s: Dom%d out of PoD memory! (tot=%lu ents=%lu dom%d)\n",
-            __func__, d->domain_id, domain_tot_pages(d),
-            p2m->pod.entry_count, current->domain->domain_id);
-     domain_crash(d);
-diff --git a/xen/arch/x86/mm/shadow/common.c b/xen/arch/x86/mm/shadow/common.c
-index ed698fa90bc7..e300898fe789 100644
---- a/xen/arch/x86/mm/shadow/common.c
-+++ b/xen/arch/x86/mm/shadow/common.c
-@@ -768,7 +768,7 @@ static unsigned int sh_min_allocation(const struct domain *d)
-      * up of slot zero and an LAPIC page), plus one for HVM's 1-to-1 pagetable.
-      */
-     unsigned int extra = max(domain_tot_pages(d) / 256,
--                             is_hvm_domain(d) ? CONFIG_PAGING_LEVELS + 2 : 0U) +
-+                             is_hvm_domain(d) ? CONFIG_PAGING_LEVELS + 2 : 0UL) +
-                          is_hvm_domain(d);
+     /* Memory allocation (common to shadow and HAP) */
+     struct page_list_head   freelist;
+-    unsigned int            total_pages;  /* number of pages allocated */
+-    unsigned int            free_pages;   /* number of pages on freelists */
+-    unsigned int            p2m_pages;    /* number of pages allocated to p2m */
++    unsigned long           total_pages;  /* number of pages allocated */
++    unsigned long           free_pages;   /* number of pages on freelists */
++    unsigned long           p2m_pages;    /* number of pages allocated to p2m */
  
-     return shadow_min_acceptable_pages(d) +
-diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-index ac9fed600101..3c1f8876da22 100644
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -2396,7 +2396,7 @@ gnttab_transfer(
-                          e->domain_id);
-             else
-                 gdprintk(XENLOG_INFO,
--                         "Transferee %pd has no headroom (tot %u, max %u, ex %u)\n",
-+                         "Transferee %pd has no headroom (tot %lu, max %lu, ex %lu)\n",
-                          e, domain_tot_pages(e), e->max_pages, e->extra_pages);
+     /* log dirty support */
+     struct log_dirty_domain log_dirty;
+diff --git a/xen/arch/x86/include/asm/hap.h b/xen/arch/x86/include/asm/hap.h
+index f01ce73fb4f3..061181724e90 100644
+--- a/xen/arch/x86/include/asm/hap.h
++++ b/xen/arch/x86/include/asm/hap.h
+@@ -33,8 +33,8 @@ int   hap_track_dirty_vram(struct domain *d,
+                            XEN_GUEST_HANDLE(void) guest_dirty_bitmap);
  
-             gop.status = GNTST_general_error;
-diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
-index cb6df2823b00..b1cb9e7ba8d9 100644
---- a/xen/common/keyhandler.c
-+++ b/xen/common/keyhandler.c
-@@ -278,14 +278,14 @@ static void cf_check dump_domains(unsigned char key)
-         printk("    refcnt=%d dying=%d pause_count=%d\n",
-                atomic_read(&d->refcnt), d->is_dying,
-                atomic_read(&d->pause_count));
--        printk("    nr_pages=%u xenheap_pages=%u"
-+        printk("    nr_pages=%lu xenheap_pages=%lu"
- #ifdef CONFIG_MEM_SHARING
--               " shared_pages=%u"
-+               " shared_pages=%d"
- #endif
- #ifdef CONFIG_MEM_PAGING
--               " paged_pages=%u"
-+               " paged_pages=%d"
- #endif
--               " dirty_cpus={%*pbl} max_pages=%u\n",
-+               " dirty_cpus={%*pbl} max_pages=%lu\n",
-                domain_tot_pages(d), d->xenheap_pages,
- #ifdef CONFIG_MEM_SHARING
-                atomic_read(&d->shr_pages),
-diff --git a/xen/common/numa.c b/xen/common/numa.c
-index ad75955a1622..8c561578615c 100644
---- a/xen/common/numa.c
-+++ b/xen/common/numa.c
-@@ -743,7 +743,7 @@ static void cf_check dump_numa(unsigned char key)
+ extern const struct paging_mode *hap_paging_get_mode(struct vcpu *v);
+-int hap_set_allocation(struct domain *d, unsigned int pages, bool *preempted);
+-unsigned int hap_get_allocation(struct domain *d);
++int hap_set_allocation(struct domain *d, unsigned long pages, bool *preempted);
++unsigned long hap_get_allocation(struct domain *d);
  
-         process_pending_softirqs();
+ #endif /* XEN_HAP_H */
  
--        printk("%pd (total: %u):\n", d, domain_tot_pages(d));
-+        printk("%pd (total: %lu):\n", d, domain_tot_pages(d));
+diff --git a/xen/arch/x86/include/asm/paging.h b/xen/arch/x86/include/asm/paging.h
+index 291ab386e865..fd52290cfe89 100644
+--- a/xen/arch/x86/include/asm/paging.h
++++ b/xen/arch/x86/include/asm/paging.h
+@@ -310,7 +310,7 @@ void paging_dump_vcpu_info(struct vcpu *v);
+  * Input might be rounded up to at minimum amount of pages, plus
+  * space for the p2m table.
+  * Returns 0 for success, non-zero for failure. */
+-int paging_set_allocation(struct domain *d, unsigned int pages,
++int paging_set_allocation(struct domain *d, unsigned long pages,
+                           bool *preempted);
  
-         memset(page_num_node, 0, sizeof(page_num_node));
+ /* Is gfn within maxphysaddr for the domain? */
+diff --git a/xen/arch/x86/include/asm/shadow.h b/xen/arch/x86/include/asm/shadow.h
+index 60589c3cacee..8aac018132ac 100644
+--- a/xen/arch/x86/include/asm/shadow.h
++++ b/xen/arch/x86/include/asm/shadow.h
+@@ -91,7 +91,7 @@ void shadow_blow_tables_per_domain(struct domain *d);
+  * Input will be rounded up to at least shadow_min_acceptable_pages(),
+  * plus space for the p2m table.
+  * Returns 0 for success, non-zero for failure. */
+-int shadow_set_allocation(struct domain *d, unsigned int pages,
++int shadow_set_allocation(struct domain *d, unsigned long pages,
+                           bool *preempted);
  
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 1801afc96a0a..3f8b300d8c29 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -2892,11 +2892,11 @@ int assign_pages(
-     }
-     else if ( !(memflags & MEMF_no_refcount) )
-     {
--        unsigned int tot_pages = domain_tot_pages(d);
-+        unsigned long tot_pages = domain_tot_pages(d);
- 
-         if ( unlikely(tot_pages > d->max_pages) )
-         {
--            gprintk(XENLOG_INFO, "Inconsistent allocation for %pd: %u > %u\n",
-+            gprintk(XENLOG_INFO, "Inconsistent allocation for %pd: %lu > %lu\n",
-                     d, tot_pages, d->max_pages);
-             rc = -EPERM;
-             goto out;
-@@ -2904,7 +2904,7 @@ int assign_pages(
- 
-         if ( unlikely(nr > d->max_pages - tot_pages) )
-         {
--            gprintk(XENLOG_INFO, "Over-allocation for %pd: %Lu > %u\n",
-+            gprintk(XENLOG_INFO, "Over-allocation for %pd: %Lu > %lu\n",
-                     d, tot_pages + 0ULL + nr, d->max_pages);
-             rc = -E2BIG;
-             goto out;
-@@ -2916,7 +2916,7 @@ int assign_pages(
-         if ( unlikely(d->tot_pages + nr < nr) )
-         {
-             gprintk(XENLOG_INFO,
--                    "Excess allocation for %pd: %Lu (%u extra)\n",
-+                    "Excess allocation for %pd: %Lu (%lu extra)\n",
-                     d, d->tot_pages + 0ULL + nr, d->extra_pages);
-             if ( pg[0].count_info & PGC_extra )
-                 d->extra_pages -= nr;
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index f671e0c4c7b3..ee9d4a7ff9e3 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -414,17 +414,17 @@ struct domain
-      * This field should only be directly accessed by domain_adjust_tot_pages()
-      * and the domain_tot_pages() helper function defined below.
-      */
--    unsigned int     tot_pages;
-+    unsigned long    tot_pages;
- 
--    unsigned int     xenheap_pages;     /* pages allocated from Xen heap */
-+    unsigned long    xenheap_pages;     /* pages allocated from Xen heap */
-     /* Pages claimed but not possessed, protected by global heap_lock. */
--    unsigned int     outstanding_pages;
--    unsigned int     node_claims;       /* Sum of per-node claims. */
-+    unsigned long    outstanding_pages;
-+    unsigned long    node_claims;       /* Sum of per-node claims. */
-     /* Domain objects use dedicated pages, leaving room for per-node claims. */
--    unsigned int     claims[MAX_NUMNODES]; /* Per-NUMA-node claims. */
-+    unsigned long    claims[MAX_NUMNODES]; /* Per-NUMA-node claims. */
- 
--    unsigned int     max_pages;         /* maximum value for domain_tot_pages() */
--    unsigned int     extra_pages;       /* pages not included in domain_tot_pages() */
-+    unsigned long    max_pages;         /* maximum value for domain_tot_pages() */
-+    unsigned long    extra_pages;       /* pages not included in domain_tot_pages() */
- 
- #ifdef CONFIG_MEM_SHARING
-     atomic_t         shr_pages;         /* shared pages */
-@@ -691,7 +691,7 @@ static inline struct page_list_head *page_to_list(
+ /* Helper to invoke for deferred releasing of a top-level shadow's reference. */
+diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
+index 5ccb80bda5d3..ccea676c361b 100644
+--- a/xen/arch/x86/mm/hap/hap.c
++++ b/xen/arch/x86/mm/hap/hap.c
+@@ -327,18 +327,18 @@ static void cf_check hap_free_p2m_page(struct domain *d, struct page_info *pg)
  }
  
- /* Return number of pages currently posessed by the domain */
--static inline unsigned int domain_tot_pages(const struct domain *d)
-+static inline unsigned long domain_tot_pages(const struct domain *d)
+ /* Return the size of the pool, rounded up to the nearest MB */
+-unsigned int hap_get_allocation(struct domain *d)
++unsigned long hap_get_allocation(struct domain *d)
  {
-     ASSERT(d->extra_pages <= d->tot_pages);
+-    unsigned int pg = d->arch.paging.total_pages
++    unsigned long pg = d->arch.paging.total_pages
+         + d->arch.paging.p2m_pages;
  
+     return ((pg >> (20 - PAGE_SHIFT))
+-            + ((pg & ((1 << (20 - PAGE_SHIFT)) - 1)) ? 1 : 0));
++            + ((pg & ((1UL << (20 - PAGE_SHIFT)) - 1)) ? 1 : 0));
+ }
+ 
+ /* Set the pool of pages to the required number of pages.
+  * Returns 0 for success, non-zero for failure. */
+-int hap_set_allocation(struct domain *d, unsigned int pages, bool *preempted)
++int hap_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
+ {
+     struct page_info *pg;
+ 
+@@ -456,7 +456,6 @@ void hap_domain_init(struct domain *d)
+ /* return 0 for success, -errno for failure */
+ int hap_enable(struct domain *d, u32 mode)
+ {
+-    unsigned int old_pages;
+     unsigned int i;
+     int rv = 0;
+ 
+@@ -469,8 +468,7 @@ int hap_enable(struct domain *d, u32 mode)
+ 
+     domain_pause(d);
+ 
+-    old_pages = d->arch.paging.total_pages;
+-    if ( old_pages == 0 )
++    if ( d->arch.paging.total_pages == 0UL )
+     {
+         paging_lock(d);
+         rv = hap_set_allocation(d, 256, NULL);
+@@ -623,14 +621,14 @@ void hap_teardown(struct domain *d, bool *preempted)
+ 
+     paging_lock(d); /* Keep various asserts happy */
+ 
+-    if ( d->arch.paging.total_pages != 0 )
++    if ( d->arch.paging.total_pages != 0UL )
+     {
+         hap_set_allocation(d, 0, preempted);
+ 
+         if ( preempted && *preempted )
+             goto out;
+ 
+-        ASSERT(d->arch.paging.total_pages == 0);
++        ASSERT(d->arch.paging.total_pages == 0UL);
+     }
+ 
+     d->arch.paging.mode &= ~PG_log_dirty;
+@@ -651,7 +649,8 @@ int hap_domctl(struct domain *d, struct xen_domctl_shadow_op *sc,
+     {
+     case XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION:
+         paging_lock(d);
+-        rc = hap_set_allocation(d, sc->mb << (20 - PAGE_SHIFT), &preempted);
++        rc = hap_set_allocation(d, (unsigned long)sc->mb << (20 - PAGE_SHIFT),
++                                &preempted);
+         paging_unlock(d);
+         if ( preempted )
+             /* Not finished.  Set up to re-run the call. */
+diff --git a/xen/arch/x86/mm/paging.c b/xen/arch/x86/mm/paging.c
+index 2396f81ad54a..fa269b8cf39c 100644
+--- a/xen/arch/x86/mm/paging.c
++++ b/xen/arch/x86/mm/paging.c
+@@ -812,7 +812,7 @@ void paging_final_teardown(struct domain *d)
+ {
+     bool hap = hap_enabled(d);
+ 
+-    PAGING_PRINTK("%pd start: total = %u, free = %u, p2m = %u\n",
++    PAGING_PRINTK("%pd start: total = %lu, free = %lu, p2m = %lu\n",
+                   d, d->arch.paging.total_pages,
+                   d->arch.paging.free_pages, d->arch.paging.p2m_pages);
+ 
+@@ -834,7 +834,7 @@ void paging_final_teardown(struct domain *d)
+     /* It is now safe to pull down the p2m map. */
+     p2m_teardown(p2m_get_hostp2m(d), true, NULL);
+ 
+-    PAGING_PRINTK("%pd done: total = %u, free = %u, p2m = %u\n",
++    PAGING_PRINTK("%pd done: total = %lu, free = %lu, p2m = %lu\n",
+                   d, d->arch.paging.total_pages,
+                   d->arch.paging.free_pages, d->arch.paging.p2m_pages);
+     ASSERT(!d->arch.paging.p2m_pages);
+@@ -941,7 +941,7 @@ void paging_update_nestedmode(struct vcpu *v)
+     hvm_asid_flush_vcpu(v);
+ }
+ 
+-int __init paging_set_allocation(struct domain *d, unsigned int pages,
++int __init paging_set_allocation(struct domain *d, unsigned long pages,
+                                  bool *preempted)
+ {
+     int rc;
+@@ -983,8 +983,7 @@ int arch_set_paging_mempool_size(struct domain *d, uint64_t size)
+     if ( is_pv_domain(d) )                 /* TODO: Relax in due course */
+         return -EOPNOTSUPP;
+ 
+-    if ( size & ~PAGE_MASK ||              /* Non page-sized request? */
+-         pages != (unsigned int)pages )    /* Overflow $X_set_allocation()? */
++    if ( size & ~PAGE_MASK )               /* Non page-sized request? */
+         return -EINVAL;
+ 
+     paging_lock(d);
+diff --git a/xen/arch/x86/mm/shadow/common.c b/xen/arch/x86/mm/shadow/common.c
+index e300898fe789..814907cec31e 100644
+--- a/xen/arch/x86/mm/shadow/common.c
++++ b/xen/arch/x86/mm/shadow/common.c
+@@ -302,7 +302,7 @@ sh_validate_guest_entry(struct vcpu *v, mfn_t gmfn, void *entry, u32 size)
+  * allow for more than ninety allocated pages per vcpu.  We round that
+  * up to 128 pages, or half a megabyte per vcpu.
+  */
+-static unsigned int shadow_min_acceptable_pages(const struct domain *d)
++static unsigned long shadow_min_acceptable_pages(const struct domain *d)
+ {
+     return d->max_vcpus * 128;
+ }
+@@ -408,7 +408,7 @@ static bool __must_check _shadow_prealloc(struct domain *d, unsigned int pages)
+     /* Nothing more we can do: all remaining shadows are of pages that
+      * hold Xen mappings for some vcpu.  This can never happen. */
+     printk(XENLOG_ERR "Can't pre-allocate %u shadow pages!\n"
+-           "  shadow pages total = %u, free = %u, p2m=%u\n",
++           "  shadow pages total = %lu, free = %lu, p2m=%lu\n",
+            pages, d->arch.paging.total_pages,
+            d->arch.paging.free_pages, d->arch.paging.p2m_pages);
+ 
+@@ -709,7 +709,7 @@ shadow_alloc_p2m_page(struct domain *d)
+         {
+             d->arch.paging.p2m_alloc_failed = 1;
+             dprintk(XENLOG_ERR,
+-                    "d%d failed to allocate from shadow pool (tot=%u p2m=%u min=%u)\n",
++                    "d%d failed to allocate from shadow pool (tot=%lu p2m=%lu min=%lu)\n",
+                     d->domain_id, d->arch.paging.total_pages,
+                     d->arch.paging.p2m_pages,
+                     shadow_min_acceptable_pages(d));
+@@ -760,22 +760,22 @@ shadow_free_p2m_page(struct domain *d, struct page_info *pg)
+     paging_unlock(d);
+ }
+ 
+-static unsigned int sh_min_allocation(const struct domain *d)
++static unsigned long sh_min_allocation(const struct domain *d)
+ {
+     /*
+      * Don't allocate less than the minimum acceptable, plus one page per
+      * megabyte of RAM (for the p2m table, minimally enough for HVM's setting
+      * up of slot zero and an LAPIC page), plus one for HVM's 1-to-1 pagetable.
+      */
+-    unsigned int extra = max(domain_tot_pages(d) / 256,
+-                             is_hvm_domain(d) ? CONFIG_PAGING_LEVELS + 2 : 0UL) +
+-                         is_hvm_domain(d);
++    unsigned long extra = max(domain_tot_pages(d) / 256,
++                              is_hvm_domain(d) ? CONFIG_PAGING_LEVELS + 2 : 0UL) +
++                          is_hvm_domain(d);
+ 
+     return shadow_min_acceptable_pages(d) +
+            max(extra, d->arch.paging.p2m_pages);
+ }
+ 
+-int shadow_set_allocation(struct domain *d, unsigned int pages, bool *preempted)
++int shadow_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
+ {
+     struct page_info *sp;
+ 
+@@ -784,14 +784,14 @@ int shadow_set_allocation(struct domain *d, unsigned int pages, bool *preempted)
+     if ( pages > 0 )
+     {
+         /* Check for minimum value. */
+-        unsigned int lower_bound = sh_min_allocation(d);
++        unsigned long lower_bound = sh_min_allocation(d);
+ 
+         if ( pages < lower_bound )
+             pages = lower_bound;
+         pages -= d->arch.paging.p2m_pages;
+     }
+ 
+-    SHADOW_PRINTK("current %i target %i\n",
++    SHADOW_PRINTK("current %lu target %lu\n",
+                    d->arch.paging.total_pages, pages);
+ 
+     for ( ; ; )
+@@ -846,12 +846,12 @@ int shadow_set_allocation(struct domain *d, unsigned int pages, bool *preempted)
+ }
+ 
+ /* Return the size of the shadow pool, rounded up to the nearest MB */
+-static unsigned int shadow_get_allocation(struct domain *d)
++static unsigned long shadow_get_allocation(struct domain *d)
+ {
+-    unsigned int pg = d->arch.paging.total_pages
++    unsigned long pg = d->arch.paging.total_pages
+         + d->arch.paging.p2m_pages;
+     return ((pg >> (20 - PAGE_SHIFT))
+-            + ((pg & ((1 << (20 - PAGE_SHIFT)) - 1)) ? 1 : 0));
++            + ((pg & ((1UL << (20 - PAGE_SHIFT)) - 1)) ? 1 : 0));
+ }
+ 
+ /**************************************************************************/
+@@ -2085,7 +2085,6 @@ int shadow_enable(struct domain *d, u32 mode)
+  * disabled.
+  * Returns 0 for success, -errno for failure. */
+ {
+-    unsigned int old_pages;
+     struct page_info *pg = NULL;
+     uint32_t *e;
+     int rv = 0;
+@@ -2103,8 +2102,7 @@ int shadow_enable(struct domain *d, u32 mode)
+     }
+ 
+     /* Init the shadow memory allocation if the user hasn't done so */
+-    old_pages = d->arch.paging.total_pages;
+-    if ( old_pages < sh_min_allocation(d) )
++    if ( d->arch.paging.total_pages < sh_min_allocation(d) )
+     {
+         paging_lock(d);
+         rv = shadow_set_allocation(d, 1024, NULL); /* Use at least 4MB */
+@@ -2283,7 +2281,7 @@ void shadow_teardown(struct domain *d, bool *preempted)
+     }
+ #endif /* (SHADOW_OPTIMIZATIONS & (SHOPT_VIRTUAL_TLB|SHOPT_OUT_OF_SYNC)) */
+ 
+-    if ( d->arch.paging.total_pages != 0 )
++    if ( d->arch.paging.total_pages != 0UL )
+     {
+         /* Destroy all the shadows and release memory to domheap */
+         shadow_set_allocation(d, 0, preempted);
+@@ -2295,7 +2293,7 @@ void shadow_teardown(struct domain *d, bool *preempted)
+         if (d->arch.paging.shadow.hash_table)
+             shadow_hash_teardown(d);
+ 
+-        ASSERT(d->arch.paging.total_pages == 0);
++        ASSERT(d->arch.paging.total_pages == 0UL);
+     }
+ 
+     /* Free the non-paged-vcpus pagetable; must happen after we've
+@@ -2410,7 +2408,7 @@ static int shadow_one_bit_disable(struct domain *d, u32 mode)
+     {
+         /* Get this domain off shadows */
+         SHADOW_PRINTK("un-shadowing of domain %u starts."
+-                       "  Shadow pages total = %u, free = %u, p2m=%u\n",
++                       "  Shadow pages total = %lu, free = %lu, p2m=%lu\n",
+                        d->domain_id, d->arch.paging.total_pages,
+                        d->arch.paging.free_pages, d->arch.paging.p2m_pages);
+         for_each_vcpu(d, v)
+@@ -2441,7 +2439,7 @@ static int shadow_one_bit_disable(struct domain *d, u32 mode)
+             BUG(); /* In fact, we will have BUG()ed already */
+         shadow_hash_teardown(d);
+         SHADOW_PRINTK("un-shadowing of domain %u done."
+-                       "  Shadow pages total = %u, free = %u, p2m=%u\n",
++                       "  Shadow pages total = %lu, free = %lu, p2m=%lu\n",
+                        d->domain_id, d->arch.paging.total_pages,
+                        d->arch.paging.free_pages, d->arch.paging.p2m_pages);
+     }
+@@ -2573,7 +2571,9 @@ int shadow_domctl(struct domain *d,
+             paging_unlock(d);
+             return -EINVAL;
+         }
+-        rc = shadow_set_allocation(d, sc->mb << (20 - PAGE_SHIFT), &preempted);
++        rc = shadow_set_allocation(d,
++                                   (unsigned long)sc->mb << (20 - PAGE_SHIFT),
++                                   &preempted);
+         paging_unlock(d);
+         if ( preempted )
+             /* Not finished.  Set up to re-run the call. */
 -- 
 2.39.5
 
