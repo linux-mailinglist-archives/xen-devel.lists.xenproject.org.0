@@ -2,48 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qBesFvWsGWpEyQgAu9opvQ
+	id UOjMGA2uGWpyyQgAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2026 17:12:53 +0200
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2026 17:17:33 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F3016045C6
-	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2026 17:12:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1322520.1588828 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFBC960479D
+	for <lists+xen-devel@lfdr.de>; Fri, 29 May 2026 17:17:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1322604.1588891 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wSytA-00063c-NX; Fri, 29 May 2026 15:12:44 +0000
+	id 1wSyxV-0002RC-WB; Fri, 29 May 2026 15:17:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1322520.1588828; Fri, 29 May 2026 15:12:44 +0000
+Received: by outflank-mailman (output) from mailman id 1322604.1588891; Fri, 29 May 2026 15:17:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wSytA-000617-IU; Fri, 29 May 2026 15:12:44 +0000
-Received: by outflank-mailman (input) for mailman id 1322520;
- Fri, 29 May 2026 15:12:43 +0000
+	id 1wSyxV-0002PX-T7; Fri, 29 May 2026 15:17:13 +0000
+Received: by outflank-mailman (input) for mailman id 1322604;
+ Fri, 29 May 2026 15:17:12 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <xakep.amatop@gmail.com>) id 1wSyt8-0005yR-N1
- for xen-devel@lists.xenproject.org; Fri, 29 May 2026 15:12:43 +0000
+ (envelope-from <jgross@suse.com>) id 1wSyxT-0002Nu-Rn
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2026 15:17:11 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wSyt8-00EPc7-3p
- for xen-devel@lists.xenproject.org; Fri, 29 May 2026 17:12:42 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wSyxS-0013rR-U3
+ for xen-devel@lists.xenproject.org; Fri, 29 May 2026 17:17:10 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a19acde-bab6-0a2a0a5309dd-0a2a4506c0aa-34
- for <xen-devel@lists.xenproject.org>; Fri, 29 May 2026 17:12:42 +0200
-Received: from [209.85.128.41] (helo=mail-wm1-f41.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <xakep.amatop@gmail.com>)
- id 6a19ace9-7371-0a2a45060019-d1558029d99b-3
- for <xen-devel@lists.xenproject.org>; Fri, 29 May 2026 17:12:41 +0200
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4905e190c71so67848755e9.3
- for <xen-devel@lists.xenproject.org>; Fri, 29 May 2026 08:12:41 -0700 (PDT)
-Received: from EPUAKYIW02F7.. ([45.12.25.69]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490a25e4fe7sm7305335e9.0.2026.05.29.08.12.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 May 2026 08:12:40 -0700 (PDT)
+ (envelope-from <jgross@suse.com>)
+ id 6a19ade1-e002-0a2a0a5209dd-0a2a450588bc-26
+ for <xen-devel@lists.xenproject.org>; Fri, 29 May 2026 17:17:10 +0200
+Received: from [209.85.208.51] (helo=mail-ed1-f51.google.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jgross@suse.com>)
+ id 6a19adf6-aaa8-0a2a45050019-d155d033dc9e-3
+ for <xen-devel@lists.xenproject.org>; Fri, 29 May 2026 17:17:10 +0200
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-67e9e343b22so19114113a12.0
+ for <xen-devel@lists.xenproject.org>; Fri, 29 May 2026 08:17:10 -0700 (PDT)
+Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
+ (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
+ [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-68c163071b8sm685922a12.26.2026.05.29.08.17.08
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 29 May 2026 08:17:09 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,520 +58,290 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20251104 header.d=gmail.com header.i="@gmail.com" header.h="Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:To:From"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="In-Reply-To:Autocrypt:From:Content-Language:References:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780067561; x=1780672361; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=IFaohJmJppYna9HQaa7GLrFTgGHuc8+HRVmhBeC5YQs=;
-        b=BahTU7DAfmdvRl1t27zOKRU9Og8EZvwcleWYOj0RXsI8dn9R4yX0f18apknfhz11mh
-         HpBbRrBkpHMsIwsd7E94B5SoULWGsX8e6jOfuldS3yriGSn7NSz68xbAeQbQAjzfdKrM
-         6bysRf5ZNKLIeOzJJRf6qjJrzdDaT74b379nQjaOBjlNic5Akv6yndVEobZ8gJpV9gWw
-         HVPGr074Ko2MZE9bhw+YQims3TTx9qNEjBHXMyD8NuVmfd5RG3L0wBWz3jJSHfVjccjA
-         HFxB9AW/gaWdlDbJPwDPhZO/I2Z1cvaZDbyYbW9fIMutcVBcQ+xoVu5omXYt5P6zK7ua
-         OWPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780067561; x=1780672361;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=suse.com; s=google; t=1780067830; x=1780672630; darn=lists.xenproject.org;
+        h=in-reply-to:autocrypt:from:content-language:references:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=IFaohJmJppYna9HQaa7GLrFTgGHuc8+HRVmhBeC5YQs=;
-        b=WnpRUfEkWrqJLfprZ9aVbdGnh2nvWSfn5MjjHYbhm7Pq3NVNcPgOZEKrPNYErOOdtJ
-         mhalI6ZngFgMsiKuZ2AkxPYoCahq+KpH3vGNdkmWuLhlky4abDyVOSHf6GUft5s/Iecz
-         FkHTfHXX9qe4Yu2pPgDcGwDHhFxji8He+JODbqoItgIMmLA078Hi+pE5Y7bSqj9sbay4
-         smsl66aa4opMaogqR/NbNevXAzMg6AtLBTepDXE+/DrIGfeD7W/SvW8kriLqlv1HYOGK
-         N8NRFtm/yG14c7iA5lYlRfos134W0inUC3MnfItih0jOmN8wfnBNXgOsaFhtFYxa5NaQ
-         B/oA==
-X-Gm-Message-State: AOJu0YzDU7INRW9aRPw/2sBzExYbBV1JlgNIgYbahcMDjvomv3u3TLiL
-	z14RE5Si7XQ5FNxKSUv45Re3mcQqVNZN/ryPNRVAdcWjs+bo76RdvFcB+LyBow==
-X-Gm-Gg: Acq92OF3w1RBff7giIxpkXBXe8MeL6OK5/1uiayH3KOrxnnC0E23Wo4czxSDIulfnva
-	BdyLTep+qs4soce05eRnC6i8XRaHcqR5elH9usaRvHkSds4ooa9tb6OS7gRvQ010xlkJgDlqW3p
-	Nz2bqZcIz55Z931/557xcUzViBFPZ/R0nhKKae37P2iOggz9BaO8KSe5qYb6z4BBavpesHFV8Ct
-	7skgsnK4QdLaBusEVD9Dhhdnb9LcCRepaGo4eW0ZPEQQKSdk050ea1GdYEQ2PXfY89nLHpN7bWo
-	4hp3MrU/cCwB1snMw1gZcSFxSaQbAsenS3uA2QGGmNqukTVakrnpPhezF1VaOONDrUoUqc7FQ6Y
-	iwqFvQ+xqMPa8KQS2TBa8BsCLVMLIqjvOQ8ai8u95chb35XSmR1e0heeJV4zGjjmdG/kElmqCzH
-	EUIvMcK8yVXNgdUunZHGidomCB2j/URH0wMhax
-X-Received: by 2002:a05:600c:4e92:b0:490:8fd1:72a with SMTP id 5b1f17b1804b1-490a2900dacmr1227315e9.3.1780067560514;
-        Fri, 29 May 2026 08:12:40 -0700 (PDT)
-From: Mykola Kvach <xakep.amatop@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Mykola Kvach <mykola_kvach@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH for-4.22] device-tree: validate first hwdom bank for boot modules
-Date: Fri, 29 May 2026 18:10:33 +0300
-Message-ID: <4f862bb2dc323914b8120b0f16af7516140cf42b.1780065103.git.mykola_kvach@epam.com>
-X-Mailer: git-send-email 2.43.0
+        bh=zca8RK4iV1xX3dM4Yjj98YOB3oNPNgD2tTRLuNRRpno=;
+        b=TczTVu7+65WN+hHyh4cqJFSZyY1JJmr7jjwAFX9RmmJwYVWsp8juYGg8K6Cad1vrpa
+         9KJ5XGA4NLs/odieVJBIPFSFwhgXvjSUhjHlgwGFyc0Xk506E9oWvu/ST+Os4XYKY+Is
+         1C+JVqrvRvzXsL5YmAFaQpzuNNNbQx6MYr02dzINOEavv+5nKPPJi4CTFLsrUT4eryBA
+         u//Epo6kn6jokIaEMB7sECXglJZemKq+WnzCr8QJ0hy3YONfSfN/pNyRjdDIWFqaI0Yr
+         Z2uknd67zV20f/y/7hNHGv/8VdtPqjMHmoUPRSWxv88Q5iwPcBI0TVD3uaS8Y5vzqIvD
+         3ubA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780067830; x=1780672630;
+        h=in-reply-to:autocrypt:from:content-language:references:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zca8RK4iV1xX3dM4Yjj98YOB3oNPNgD2tTRLuNRRpno=;
+        b=Bi3Hx/d2rhv6Doquwf/H60U9iBYV5db1d66zKn6PgvskZ07KicYTKFAGSxDi6Vwc4X
+         +nYyfNJN9iyyeeZ/IEW23Xdko2i7Cohz2xnpYl1G5oTC3ECdGhC0MORTR3dP1++hsfk2
+         Q4JbOgyHyP0ipgNYeI2SWZccx13MRIBUDGtLrkBQ+Jz8gNduNkneZ2+s/yYm83ViWO6L
+         b/l7LVN0rfaZ9JvkNVlzQcLct8aph2x1uxM3wNdqjDKZAxXFkXLHOSRYdFELrZNlMjNq
+         KcYAPpls3LVvrLN+JBsuRhBErz3Is11pF2AGvXRP/P0p30t41Dag92m/40IKlBIGXLjg
+         /bDQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9EvSpSSO+7mtdhnY1F+cKQASwXQsnOtnkko0dlwWdvFBL7nUvole9mu5NSCSaxH+1k36Xbf35ZR7E=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwU0qAb15d4d9S3rLZ7jXBrE7ctn+ILbYaWUOVyVr0HYNDzNiow
+	2yVHKQXKVSK2mV7WhLusasjQAtS/fT6hDEH5e7NnN88EZZQ1Qn3+Ikkne19WatGkogY=
+X-Gm-Gg: Acq92OFB9Dl5q9gf68684jDSwiZaFVWgHv64VMciTBlw7VCf9DwC/cEXAzjRTGvB5lo
+	Ca18KkfCzc9HO76EGUst5VdWfeK+z3bk0e13zX500D24yb5FCWausLnmHQUBh9Ow3iEVxYnyP3x
+	m1xfMgWHW41gcJWOQYBEnQMkCSC0zZQFtzywuVPhM1UtIGOpNJ1HcXYDJCNGdFYacmTr9TQEPFt
+	UX25Gw3faYJFj9yplw5t1udMeVyyGZpuviXYTz/ouENPCAHyy2XiVffShkGm+rElZDgSW7CQBUT
+	HwL/MNJGNmlhdJ4Ydx31QFTieLQOABd9Sm0Dsq/IOze+aSlhb7VqDpxCu8X1YX/+2f0RCv6FvBk
+	MKAj1otv1DSdZxTJAzleDanRtywitRPAT7QCSK9ljYitDAZBGGMniCopBTPitaNHsVFg7qcP2Cq
+	YR9llU2gxwCAgRLpiBSa3wNQ3YyQ7qirjCPMOD7xlOTXeOF/TuvfpxEBfJdSODZkacR1ViqI2sI
+	MejcI5m8mDJimUO8AKbZQFWOTcvcbkhSUnwjw1vdNqL/WZFl1490cKdD8/0/XoqTCEtrFDJsig=
+X-Received: by 2002:a05:6402:3219:b0:68b:ce88:9d3f with SMTP id 4fb4d7f45d1cf-68c8d5d8709mr41821a12.22.1780067829987;
+        Fri, 29 May 2026 08:17:09 -0700 (PDT)
+Message-ID: <a84e5899-8b1b-4330-b475-26932e9f5b5f@suse.com>
+Date: Fri, 29 May 2026 17:17:07 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-16d1c6/1780067561-85160D75-28A439F6/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/47] x86: Try to wrangle PV clocks vs. TSC
+To: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Kiryl Shutsemau <kas@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>,
+ Jan Kiszka <jan.kiszka@siemens.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, John Stultz
+ <jstultz@google.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stephen Boyd
+ <sboyd@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-coco@lists.linux.dev, linux-hyperv@vger.kernel.org,
+ virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
+ David Woodhouse <dwmw@amazon.co.uk>, Tom Lendacky <thomas.lendacky@amd.com>,
+ Nikunj A Dadhania <nikunj@amd.com>, David Woodhouse <dwmw2@infradead.org>,
+ Michael Kelley <mhklinux@outlook.com>, Thomas Gleixner <tglx@linutronix.de>
+References: <20260529144435.704127-1-seanjc@google.com>
+ <ahmsZA8mHj9CPnd2@google.com>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <ahmsZA8mHj9CPnd2@google.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------aYuk5CIBTXJNjobrT9M3zkNr"
+X-purgate-ID: tlsNG-c201ff/1780067830-D8145443-FFD50B0F/0/0
 X-purgate-type: clean
-X-purgate-size: 16430
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-purgate-size: 8020
+X-Spamd-Result: default: False [-1.46 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	R_MIXED_CHARSET(0.63)[subject];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	MIME_GOOD(-0.20)[multipart/signed,multipart/mixed,text/plain];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_UNKNOWN(0.10)[application/pgp-keys];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
+	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:pbonzini@redhat.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:kas@kernel.org,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:luto@kernel.org,m:peterz@infradead.org,m:daniel.lezcano@kernel.org,m:jstultz@google.com,m:hpa@zytor.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:kvm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-coco@lists.linux.dev,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:dwmw@amazon.co.uk,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:dwmw2@infradead.org,m:mhklinux@outlook.com,m:tglx@linutronix.de,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,suse.com:mid,suse.com:dkim];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[38];
+	FREEMAIL_TO(0.00)[google.com,redhat.com,kernel.org,alien8.de,linux.intel.com,microsoft.com,broadcom.com,siemens.com,infradead.org,zytor.com,intel.com,oracle.com,vger.kernel.org,lists.linux.dev,lists.xenproject.org,amazon.co.uk,amd.com,outlook.com,linutronix.de];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+,4:~,5:~];
+	FORGED_SENDER(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,gitlab.com:url];
-	FROM_NEQ_ENVFROM(0.00)[xakepamatop@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	NEURAL_HAM(-0.00)[-0.998];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jgross@suse.com,xen-devel-bounces@lists.xenproject.org];
+	HAS_ATTACHMENT(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 9F3016045C6
+X-Rspamd-Queue-Id: AFBC960479D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-From: Mykola Kvach <mykola_kvach@epam.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------aYuk5CIBTXJNjobrT9M3zkNr
+Content-Type: multipart/mixed; boundary="------------vmiXLelkdEtqIjil5foIfm8r";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ Kiryl Shutsemau <kas@kernel.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+ Ajay Kaher <ajay.kaher@broadcom.com>,
+ Alexey Makhalov <alexey.makhalov@broadcom.com>,
+ Jan Kiszka <jan.kiszka@siemens.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, John Stultz
+ <jstultz@google.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Stephen Boyd
+ <sboyd@kernel.org>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-coco@lists.linux.dev, linux-hyperv@vger.kernel.org,
+ virtualization@lists.linux.dev, xen-devel@lists.xenproject.org,
+ David Woodhouse <dwmw@amazon.co.uk>, Tom Lendacky <thomas.lendacky@amd.com>,
+ Nikunj A Dadhania <nikunj@amd.com>, David Woodhouse <dwmw2@infradead.org>,
+ Michael Kelley <mhklinux@outlook.com>, Thomas Gleixner <tglx@linutronix.de>
+Message-ID: <a84e5899-8b1b-4330-b475-26932e9f5b5f@suse.com>
+Subject: Re: [PATCH v4 00/47] x86: Try to wrangle PV clocks vs. TSC
+References: <20260529144435.704127-1-seanjc@google.com>
+ <ahmsZA8mHj9CPnd2@google.com>
+In-Reply-To: <ahmsZA8mHj9CPnd2@google.com>
 
-With LLC coloring enabled, the hardware domain memory is allocated by
-allocate_hwdom_memory() rather than by using the fixed direct-map layout.
+--------------vmiXLelkdEtqIjil5foIfm8r
+Content-Type: multipart/mixed; boundary="------------puKE5E0qrmVaohkfi4bPDSIF"
 
-Commit de99f3263555 ("device-tree: Improve hwdom memory allocation for
-DMA") made that allocator prefer lower host regions. The first-bank
-filter, however, still only checked the old 128MB heuristic. A low
-region can satisfy that heuristic but still be too small, or otherwise
-unsuitable, for the hardware-domain kernel and the DTB/initrd module
-area to fit in bank 0 according to the Arm placement rules.
+--------------puKE5E0qrmVaohkfi4bPDSIF
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Keep the existing first-bank size policy and add an architecture-specific
-candidate check. On Arm, compute the kernel load address for the candidate
-bank using the same logic as kernel_zimage_place(), verify that the kernel
-range is covered by that bank, and then reuse the same module-placement
-helper as place_modules(). The FDT is generated later, so use the
-hardware-domain FDT allocation size as a conservative upper bound for the
-final DTB size.
+T24gMjkuMDUuMjYgMTc6MTAsIFNlYW4gQ2hyaXN0b3BoZXJzb24gd3JvdGU6DQo+IE9uIEZy
+aSwgTWF5IDI5LCAyMDI2LCBTZWFuIENocmlzdG9waGVyc29uIHdyb3RlOg0KPj4gV2VsbCwg
+dGhlIG51bWJlciBvZiBwYXRjaGVzIGluIHRoZSBzZXJpZXMgaXMgZ29pbmcgaW4gdGhlIHdy
+b25nIGRpcmVjdGlvbiwNCj4+IGJ1dCBJJ20gbXVjaCBoYXBwaWVyIHdpdGggdGhpcyB2ZXJz
+aW9uLCB3aGljaCBlc2NoZXdzIHRoZSB4ODZfcGxhdGZvcm0NCj4+IG92ZXJyaWRlcyBlbnRp
+cmVseSBpbiBmYXZvciBvZiBhIGZpeGVkIHNlcXVlbmNlIGZvciBzZWxlY3RpbmcgdGhlIFRT
+Qy9DUFUNCj4+IGZyZXF1ZW5jeSAicm91dGluZSIuDQo+IA0KPiBGWUksIG91ciBpbnRlcm5h
+bCBtYWlsIHNlcnZlciBmbGFtZWQgb3V0IGFmdGVyIHNlbmRpbmcgcGF0Y2ggMjYgaW4gdGhl
+IGluaXRpYWwNCj4gZ28uICBJJ20gcHJldHR5IHN1cmUgSSBtYW5hZ2VkIHRvIGdldCB0aGUg
+cmVzdCBzZW50IHdpdGhvdXQgc2NyZXdpbmcgdXAgdGhlDQo+IHRocmVhZGluZy4gIEhvbGxl
+ciBpZiBzb21ldGhpbmcgaXMgd29ua3kgYW5kIEknbGwgUkVTRU5EIHRoZSB3aG9sZSBwaWxl
+IGlmIG5lY2Vzc2FyeS4NCg0KTG9va3MgZmluZSBvbiBteSBzaWRlLg0KDQoNCkp1ZXJnZW4N
+Cg==
+--------------puKE5E0qrmVaohkfi4bPDSIF
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-Check the candidate after capping the host region by the remaining
-unassigned hardware-domain memory, so the validation is performed against
-the size that would actually become bank 0.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-This keeps the DMA-oriented allocation policy from de99f3263555 while
-preventing a too-small bank 0 from reaching place_modules().
+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
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-Fixes: de99f3263555 ("device-tree: Improve hwdom memory allocation for DMA")
-Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
----
-Changes since RFC:
-- Do not keep the RFC scalar minimum-size check. It can both reject
-  valid layouts and accept layouts which still fail later. Instead,
-  validate the candidate bank using the same kernel and module placement
-  rules as the load path.
-  Replace the scalar minimum-size check with arch_hwdom_first_bank_ok().
-- Reuse the existing Arm kernel and DTB/initrd placement rules for the
-  first-bank candidate check.
-- Treat the hardware-domain FDT allocation size as a conservative upper
-  bound because the final FDT is generated later.
+--------------puKE5E0qrmVaohkfi4bPDSIF--
 
-Link to RFC:
-   https://patchew.org/Xen/9ae4f7dd49f5b1f761193adae573c2675c92e883.1779051035.git.mykola._5Fkvach@epam.com/
+--------------vmiXLelkdEtqIjil5foIfm8r--
 
-Why the RFC scalar approach was not kept:
+--------------aYuk5CIBTXJNjobrT9M3zkNr
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
-A simple minimum-size check is not sufficient here because the validity of
-the first bank depends on the actual Arm placement rules, not only on the
-aggregate size of the kernel, DTB and initrd. The DTB/initrd area may fit
-before a 64-bit Image loaded with a text offset, while an AArch32
-position-independent kernel may leave no valid module location even when
-the aggregate size appears to fit. Fixed-address kernels also need the
-candidate bank start to be considered.
+-----BEGIN PGP SIGNATURE-----
 
-Link to synthetic tests output:
-   https://gitlab.com/xen-project/people/mykola_kvach/xen/-/blob/fix/hwdom-first-bank-dom0-modules-v2-new/tools/tests/arm-boot-modules/test-arm-boot-modules.log?ref_type=heads
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmoZrfMFAwAAAAAACgkQsN6d1ii/Ey+/
+/gf/cTMfwxMSsyaONXXUw4+xZ50QMaKOi/uNkdrkdNlCp3/GO7aLZEpnVr2wgZT6WT3a4x/5Z5iI
+/ynF2igzSaImMlKFvwrMxUFI8tZQXkwVTyO/Mmj3xe6hqMN5Zkq1OuRXyj5dgSTf5sqNXsAcGm5X
+NKSfWdmdXwKE+mDA+ysfH545ZOYfQuWGS7xipiPBbgaz7mQ0yItWc3pNo9dSdcygj1IjeqJiyOoa
+NkhA0l1otsL3pcqflLwkvKIjV/KEdZTM5BbCN2i/f2sP6S2HPhauZCuUmpKvFf7ymkdQ/8nGwjQt
+Fvcmxlp+M5qj0+qF8DOgNdmRfKkm3eFdbWBZkSESjw==
+=sM5P
+-----END PGP SIGNATURE-----
 
----
- xen/arch/arm/acpi/domain_build.c        |   2 -
- xen/arch/arm/domain_build.c             |   8 ++
- xen/arch/arm/include/asm/domain_build.h |   4 +
- xen/arch/arm/include/asm/kernel.h       |   9 ++
- xen/arch/arm/kernel.c                   | 179 ++++++++++++++++++------
- xen/common/device-tree/domain-build.c   |  24 +++-
- xen/include/xen/fdt-kernel.h            |   9 ++
- 7 files changed, 182 insertions(+), 53 deletions(-)
-
-diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domain_build.c
-index 249d899c33..db16f7fa94 100644
---- a/xen/arch/arm/acpi/domain_build.c
-+++ b/xen/arch/arm/acpi/domain_build.c
-@@ -26,8 +26,6 @@
- #undef virt_to_mfn
- #define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
- 
--#define ACPI_DOM0_FDT_MIN_SIZE 4096
--
- static int __init acpi_iomem_deny_access(struct domain *d)
- {
-     acpi_status status;
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 1efddc60ef..550617f152 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -115,6 +115,14 @@ int __init parse_arch_dom0_param(const char *s, const char *e)
-                              (IS_ENABLED(CONFIG_STATIC_SHM) ?         \
-                               (NR_SHMEM_BANKS * (160 + 16)) : 0))
- 
-+paddr_t __init hwdom_get_fdt_alloc_size(void)
-+{
-+    if ( acpi_disabled )
-+        return fdt_totalsize(device_tree_flattened) + DOM0_FDT_EXTRA_SIZE;
-+
-+    return ACPI_DOM0_FDT_MIN_SIZE;
-+}
-+
- unsigned int __init dom0_max_vcpus(void)
- {
-     if ( opt_dom0_max_vcpus == 0 )
-diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
-index df8b361b3d..85cf46a958 100644
---- a/xen/arch/arm/include/asm/domain_build.h
-+++ b/xen/arch/arm/include/asm/domain_build.h
-@@ -19,6 +19,10 @@ int prepare_acpi(struct domain *d, struct kernel_info *kinfo);
- 
- int add_ext_regions(unsigned long s_gfn, unsigned long e_gfn, void *data);
- 
-+#define ACPI_DOM0_FDT_MIN_SIZE 4096
-+
-+paddr_t hwdom_get_fdt_alloc_size(void);
-+
- #if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
- /* Utility function to determine if an Armv8-R processor supports VMSA. */
- bool has_v8r_vmsa_support(void);
-diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-index 21f4273fa1..bf14fb208a 100644
---- a/xen/arch/arm/include/asm/kernel.h
-+++ b/xen/arch/arm/include/asm/kernel.h
-@@ -8,12 +8,21 @@
- 
- #include <asm/domain.h>
- 
-+#include <xen/types.h>
-+
-+struct kernel_info;
-+
- struct arch_kernel_info
- {
-     /* Enable pl011 emulation */
-     bool vpl011;
- };
- 
-+#define arch_hwdom_first_bank_ok arch_hwdom_first_bank_ok
-+bool arch_hwdom_first_bank_ok(const struct kernel_info *info,
-+                              paddr_t bank_start,
-+                              paddr_t bank_size);
-+
- #endif /* #ifdef __ARCH_ARM_KERNEL_H__ */
- 
- /*
-diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-index b72585b7fe..907239a246 100644
---- a/xen/arch/arm/kernel.c
-+++ b/xen/arch/arm/kernel.c
-@@ -40,27 +40,67 @@ struct minimal_dtb_header {
-     /* There are other fields but we don't use them yet. */
- };
- 
--static void __init place_modules(struct kernel_info *info,
--                                 paddr_t kernbase, paddr_t kernend)
-+static paddr_t __init
-+kernel_zimage_place_in_bank(const struct kernel_info *info,
-+                            paddr_t bank_start, paddr_t bank_size)
- {
--    /* Align DTB and initrd size to 2Mb. Linux only requires 4 byte alignment */
--    const struct boot_module *mod = info->bd.initrd;
--    const struct membanks *mem = kernel_info_get_mem(info);
--    const paddr_t initrd_len = ROUNDUP(mod ? mod->size : 0, MB(2));
--    const paddr_t dtb_len = ROUNDUP(fdt_totalsize(info->fdt), MB(2));
--    const paddr_t modsize = initrd_len + dtb_len;
-+    paddr_t load_addr;
- 
--    /* Convenient */
--    const paddr_t rambase = mem->bank[0].start;
--    const paddr_t ramsize = mem->bank[0].size;
--    const paddr_t ramend = rambase + ramsize;
-+#ifdef CONFIG_HAS_DOMAIN_TYPE
-+    if ( (info->type == DOMAIN_64BIT) && (info->image.start == 0) )
-+        return bank_start + info->image.text_offset;
-+#endif
-+
-+    /*
-+     * If start is zero, the zImage is position independent, in this
-+     * case Documentation/arm/Booting recommends loading below 128MiB
-+     * and above 32MiB. Load it as high as possible within these
-+     * constraints, while also avoiding the DTB.
-+     */
-+    if ( info->image.start == 0 )
-+    {
-+        paddr_t load_end;
-+        paddr_t ram128mb;
-+
-+        ram128mb = bank_start + MB(128);
-+        load_end = bank_start + bank_size;
-+        load_end = min(ram128mb, load_end);
-+
-+        if ( load_end - bank_start < info->image.len )
-+            return INVALID_PADDR;
-+
-+        load_addr = load_end - info->image.len;
-+        /* Align to 2MB */
-+        load_addr &= ~(MB(2) - 1);
-+        if ( load_addr < bank_start )
-+            return INVALID_PADDR;
-+    }
-+    else
-+        load_addr = info->image.start;
-+
-+    return load_addr;
-+}
-+
-+static bool __init
-+first_bank_has_enough_room(paddr_t ramsize, paddr_t kernbase,
-+                           paddr_t kernend, paddr_t modsize)
-+{
-     const paddr_t kernsize = ROUNDUP(kernend, MB(2)) - kernbase;
--    const paddr_t ram128mb = rambase + MB(128);
- 
--    paddr_t modbase;
-+    /*
-+     * Check only the aggregate kernel/module footprint. The actual DTB/initrd
-+     * location is selected by find_module_placement().
-+     */
-+    return modsize + kernsize <= ramsize;
-+}
- 
--    if ( modsize + kernsize > ramsize )
--        panic("Not enough memory in the first bank for the kernel+dtb+initrd\n");
-+static bool __init
-+find_module_placement(paddr_t rambase, paddr_t ramsize,
-+                      paddr_t kernbase, paddr_t kernend,
-+                      paddr_t modsize, paddr_t *modbase)
-+{
-+    const paddr_t ramend = rambase + ramsize;
-+    const paddr_t ram128mb = rambase + MB(128);
- 
-     /*
-      * DTB must be loaded such that it does not conflict with the
-@@ -80,17 +120,49 @@ static void __init place_modules(struct kernel_info *info,
-      * tools/libxc/xc_dom_arm.c:arch_setup_meminit as well.
-      */
-     if ( ramend >= ram128mb + modsize && kernend < ram128mb )
--        modbase = ram128mb;
--    else if ( ramend - modsize > ROUNDUP(kernend, MB(2)) )
--        modbase = ramend - modsize;
--    else if ( kernbase - rambase > modsize )
--        modbase = kernbase - modsize;
--    else
-     {
--        panic("Unable to find suitable location for dtb+initrd\n");
--        return;
-+        *modbase = ram128mb;
-+        return true;
-+    }
-+
-+    if ( ramend - modsize > ROUNDUP(kernend, MB(2)) )
-+    {
-+        *modbase = ramend - modsize;
-+        return true;
-+    }
-+
-+    if ( kernbase - rambase > modsize )
-+    {
-+        *modbase = kernbase - modsize;
-+        return true;
-     }
- 
-+    return false;
-+}
-+
-+static void __init place_modules(struct kernel_info *info,
-+                                 paddr_t kernbase, paddr_t kernend)
-+{
-+    /* Align DTB and initrd size to 2Mb. Linux only requires 4 byte alignment */
-+    const struct boot_module *mod = info->bd.initrd;
-+    const struct membanks *mem = kernel_info_get_mem(info);
-+    const paddr_t initrd_len = ROUNDUP(mod ? mod->size : 0, MB(2));
-+    const paddr_t dtb_len = ROUNDUP(fdt_totalsize(info->fdt), MB(2));
-+    const paddr_t modsize = initrd_len + dtb_len;
-+
-+    /* Convenient */
-+    const paddr_t rambase = mem->bank[0].start;
-+    const paddr_t ramsize = mem->bank[0].size;
-+
-+    paddr_t modbase;
-+
-+    if ( !first_bank_has_enough_room(ramsize, kernbase, kernend, modsize) )
-+        panic("Not enough memory in the first bank for the kernel+dtb+initrd\n");
-+
-+    if ( !find_module_placement(rambase, ramsize, kernbase, kernend, modsize,
-+                                &modbase) )
-+        panic("Unable to find suitable location for dtb+initrd\n");
-+
-     info->dtb_paddr = modbase;
-     info->initrd_paddr = info->dtb_paddr + dtb_len;
- }
-@@ -100,32 +172,51 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
-     const struct membanks *mem = kernel_info_get_mem(info);
-     paddr_t load_addr;
- 
--#ifdef CONFIG_HAS_DOMAIN_TYPE
--    if ( (info->type == DOMAIN_64BIT) && (info->image.start == 0) )
--        return mem->bank[0].start + info->image.text_offset;
--#endif
-+    load_addr = kernel_zimage_place_in_bank(info, mem->bank[0].start,
-+                                            mem->bank[0].size);
-+    if ( load_addr == INVALID_PADDR )
-+        panic("Unable to find suitable location for the kernel\n");
- 
-+    return load_addr;
-+}
-+
-+bool __init arch_hwdom_first_bank_ok(const struct kernel_info *info,
-+                                     paddr_t bank_start,
-+                                     paddr_t bank_size)
-+{
-+    const struct boot_module *initrd = info->bd.initrd;
-     /*
--     * If start is zero, the zImage is position independent, in this
--     * case Documentation/arm/Booting recommends loading below 128MiB
--     * and above 32MiB. Load it as high as possible within these
--     * constraints, while also avoiding the DTB.
-+     * place_modules() rounds the DTB and initrd placement to 2MB boundaries;
-+     * use the same granularity when checking whether the first bank can hold
-+     * the boot modules.
-      */
--    if ( info->image.start == 0 )
--    {
--        paddr_t load_end;
-+    const paddr_t initrd_len = ROUNDUP(initrd ? initrd->size : 0, MB(2));
-+    /*
-+     * The hardware domain FDT has not been generated yet. Use the allocation
-+     * size as a conservative upper bound for the final DTB size.
-+     */
-+    const paddr_t dtb_len = ROUNDUP(hwdom_get_fdt_alloc_size(), MB(2));
-+    const paddr_t rambase = bank_start;
-+    const paddr_t ramsize = bank_size;
-+    const paddr_t modsize = initrd_len + dtb_len;
-+    const paddr_t ramend = rambase + ramsize;
-+    paddr_t kernbase;
-+    paddr_t kernend;
-+    paddr_t modbase;
- 
--        load_end = mem->bank[0].start + mem->bank[0].size;
--        load_end = MIN(mem->bank[0].start + MB(128), load_end);
-+    kernbase = kernel_zimage_place_in_bank(info, bank_start, bank_size);
-+    if ( kernbase == INVALID_PADDR ||
-+         info->image.len > INVALID_PADDR - kernbase )
-+        return false;
- 
--        load_addr = load_end - info->image.len;
--        /* Align to 2MB */
--        load_addr &= ~((2 << 20) - 1);
--    }
--    else
--        load_addr = info->image.start;
-+    kernend = kernbase + info->image.len;
- 
--    return load_addr;
-+    if ( kernbase < rambase || kernend > ramend )
-+        return false;
-+
-+    return first_bank_has_enough_room(ramsize, kernbase, kernend, modsize) &&
-+           find_module_placement(rambase, ramsize, kernbase, kernend, modsize,
-+                                 &modbase);
- }
- 
- static void __init kernel_zimage_load(struct kernel_info *info)
-diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
-index 2a760b007b..25bc392fea 100644
---- a/xen/common/device-tree/domain-build.c
-+++ b/xen/common/device-tree/domain-build.c
-@@ -299,20 +299,30 @@ static bool __init allocate_hwdom_memory(struct kernel_info *kinfo)
- 
-     for ( i = 0; (kinfo->unassigned_mem > 0) && (i < nr_banks); i++ )
-     {
--        paddr_t bank_size;
-+        const paddr_t bank_start = hwdom_free_mem->bank[i].start;
-+        paddr_t bank_size = hwdom_free_mem->bank[i].size;
-+
-+        /*
-+         * Check the size that would actually be assigned, not just the size
-+         * of the host region.
-+         */
-+        bank_size = min(bank_size, kinfo->unassigned_mem);
- 
-         /*
-          * The first bank must be large enough for place_modules() to
-          * fit the kernel, DTB and initrd.  Skip small regions to avoid
-          * ending up with a tiny first bank.
-          */
--        if ( !mem->nr_banks && (hwdom_free_mem->bank[i].size < min_bank_size) )
--            continue;
-+        if ( !mem->nr_banks )
-+        {
-+            if ( bank_size < min_bank_size )
-+                continue;
-+
-+            if ( !arch_hwdom_first_bank_ok(kinfo, bank_start, bank_size) )
-+                continue;
-+        }
- 
--        bank_size = MIN(hwdom_free_mem->bank[i].size, kinfo->unassigned_mem);
--        if ( !allocate_bank_memory(kinfo,
--                                   gaddr_to_gfn(hwdom_free_mem->bank[i].start),
--                                   bank_size) )
-+        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), bank_size) )
-         {
-             xfree(hwdom_free_mem);
-             return false;
-diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
-index 00c37be101..86f2a69ede 100644
---- a/xen/include/xen/fdt-kernel.h
-+++ b/xen/include/xen/fdt-kernel.h
-@@ -93,6 +93,15 @@ kernel_info_get_mem_const(const struct kernel_info *kinfo)
-     return container_of(&kinfo->mem.common, const struct membanks, common);
- }
- 
-+#ifndef arch_hwdom_first_bank_ok
-+static inline bool
-+arch_hwdom_first_bank_ok(const struct kernel_info *info, paddr_t bank_start,
-+                         paddr_t bank_size)
-+{
-+    return true;
-+}
-+#endif
-+
- #ifndef KERNEL_INFO_SHM_MEM_INIT
- 
- #ifdef CONFIG_STATIC_SHM
--- 
-2.43.0
-
+--------------aYuk5CIBTXJNjobrT9M3zkNr--
 
