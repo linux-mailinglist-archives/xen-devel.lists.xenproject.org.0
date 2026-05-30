@@ -2,52 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SJFpOtErG2r//ggAu9opvQ
+	id iLGWL21fG2rjBgkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Sat, 30 May 2026 20:26:25 +0200
+	for <lists+xen-devel@lfdr.de>; Sun, 31 May 2026 00:06:37 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D16B611BC2
-	for <lists+xen-devel@lfdr.de>; Sat, 30 May 2026 20:26:25 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1323105.1589066 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63A1561386B
+	for <lists+xen-devel@lfdr.de>; Sun, 31 May 2026 00:06:36 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1323177.1589074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wTONt-0001pK-HO; Sat, 30 May 2026 18:26:09 +0000
+	id 1wTRoA-0005tF-5J; Sat, 30 May 2026 22:05:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1323105.1589066; Sat, 30 May 2026 18:26:09 +0000
+Received: by outflank-mailman (output) from mailman id 1323177.1589074; Sat, 30 May 2026 22:05:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wTONt-0001nx-Es; Sat, 30 May 2026 18:26:09 +0000
-Received: by outflank-mailman (input) for mailman id 1323105;
- Sat, 30 May 2026 18:26:08 +0000
+	id 1wTRoA-0005rD-2h; Sat, 30 May 2026 22:05:30 +0000
+Received: by outflank-mailman (input) for mailman id 1323177;
+ Sat, 30 May 2026 22:05:28 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <mfo@igalia.com>) id 1wTONp-0001mm-ES
- for xen-devel@lists.xenproject.org; Sat, 30 May 2026 18:26:08 +0000
+ (envelope-from <bp@alien8.de>) id 1wTRo8-0005r7-5l
+ for xen-devel@lists.xenproject.org; Sat, 30 May 2026 22:05:28 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wTONo-00C4mB-CJ
- for xen-devel@lists.xenproject.org; Sat, 30 May 2026 20:26:04 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wTRo6-0044bt-VI
+ for xen-devel@lists.xenproject.org; Sun, 31 May 2026 00:05:27 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <mfo@igalia.com>)
- id 6a1b2b53-e002-0a2a0a5209dd-0a2a4502cabc-32
- for <xen-devel@lists.xenproject.org>; Sat, 30 May 2026 20:26:04 +0200
-Received: from [213.97.179.56] (helo=fanzine2.igalia.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <mfo@igalia.com>)
- id 6a1b2bba-af86-0a2a45020019-d561b338baea-3
- for <xen-devel@lists.xenproject.org>; Sat, 30 May 2026 20:26:03 +0200
-Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
- by fanzine2.igalia.com with esmtps 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wTONE-00ALEi-Em; Sat, 30 May 2026 20:25:28 +0200
-Received: from webmail.service.igalia.com ([192.168.21.45])
- by mail.igalia.com with esmtp (Exim)
- id 1wTONC-003hJ2-2f; Sat, 30 May 2026 20:25:28 +0200
-Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
- by webmail.service.igalia.com with esmtp (Exim 4.98.2)
- (envelope-from <mfo@igalia.com>) id 1wTONB-00000005YVY-1bPX;
- Sat, 30 May 2026 20:25:25 +0200
+ (envelope-from <bp@alien8.de>)
+ id 6a1b5f05-bab6-0a2a0a5309dd-0a2a4507dedc-38
+ for <xen-devel@lists.xenproject.org>; Sun, 31 May 2026 00:05:26 +0200
+Received: from [65.109.113.108] (helo=mail.alien8.de)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <bp@alien8.de>)
+ id 6a1b5f26-229c-0a2a45070019-416d716ca968-3
+ for <xen-devel@lists.xenproject.org>; Sun, 31 May 2026 00:05:26 +0200
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BB8E340E01F9; 
+ Sat, 30 May 2026 22:05:25 +0000 (UTC)
+Received: from mail.alien8.de ([127.0.0.1])
+ by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id Ysdnia3bs4JX; Sat, 30 May 2026 22:05:16 +0000 (UTC)
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00:b8a3:f58e:8829:9ca6])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest
+ SHA256) (No client certificate requested)
+ by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4114E40E015A;
+ Sat, 30 May 2026 22:05:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,124 +60,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20170329 header.d=igalia.com header.i="@igalia.com" header.h="Content-Transfer-Encoding:Content-Type:Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:References:
-	In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=+CEMRaJFugQuRP0/DJTzv+8chqmTJilMImwXMol396E=; b=BR3yV6wgeIxWYy5xNZ+xGvXXS7
-	02mPLhQgHJHn9BspRzTnC/IQvF+JGiFsFf2dUclCkPtWfbZ3dI1KvC4JytpgZzEHagH4Z/dAcGiBt
-	rRNwIqjzQiHXUPQw5IGP4QQ+JobrnhM377GGSuAIw5crru1gwV6c5db0f0uM5jjf4yQgLzvY05b6W
-	nGi7bTAwAgysJJDvp5XGHtmL56IA0Ob6gy5nxUwo3SM9Pkv59buwRJ8TFqXTOoT+WyMf/o4EJogcQ
-	erTteuHigGB4uQkUubfJ0Ul6ITZ/pqB0G3lWZ6C71yx1edTTtdwZnNBtB5Tl1NVteGnR3BRDk3ZdU
-	ybdqi6ZQ==;
-MIME-Version: 1.0
-Date: Sat, 30 May 2026 15:25:25 -0300
-From: Mauricio Faria de Oliveira <mfo@igalia.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave
- Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Juergen Gross <jgross@suse.com>, Alexey Dobriyan
- <adobriyan@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org, kernel test robot <lkp@intel.com>
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=alien8 header.d=alien8.de header.i="@alien8.de" header.h="Date:From:To:Cc:Subject:References:In-Reply-To"
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1780178715; bh=m3IFBRGWpYfiOxqY5DPx1pgyUXwj+C+/Nkh3HlDkLUU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jHWh7E8k2saR9udKBxbRiKvsGUXX1PQE1YcCQLWcwas8+yFS+KqaQ0c53dN1G+8Pd
+	 ctJBdXvMPjZFQD7whTbgoQG4822uU9ozbbLxu0V85npj3LZB5WKn/n0TV4on98ddsY
+	 koQb4/o8bKN0zmKS3dXpxDl/hLFGq04VOFMvZLRsZHuiiQ2AXTwwrX3OHmkYv5Jh2t
+	 5z/EhIozSEJPxxLtfTDWdjg2nPXv+3IiPXdh21jdYN0pwA/z6tbcBS1yvopcOipSVL
+	 7Usj7PIuH6Ko+ybsxBcfBS9MjMWWr5S+KUozDqPKeeJDqIsumnQVOcQ7XkL5zLTAAY
+	 sYO+5ogu0meNaVc4g+zw7hTLOxvx8hDJAX7XbQvWk/Tu52ADIHI3EJejV1UjR1nrTo
+	 /A1YxXAI5KJrrzuEz3YZb60k13GkdvVL4K+vSOxWkcbqCm075GwPVUhcBPZaGJTyW3
+	 kPf4SCuBlBRfI+H6E6nXkr0SSUnM3FYMfLTiZQo9tuOV1b9L9JRut7zTXVjhBV5c4J
+	 UMA+L6F1jV4/qVRuBLPOvL6vj72clniEAL/iAjfxtTIfvabLH4iB4NPYJpm64NIff9
+	 HOWmKhXoAJc74C0N3Jhr5k/OVDFLhU8g+QVUIAD2bueE0X8/v9DAGmgYdMO5glEWsK
+	 5G4UEe7v4JrWShGemSZQgkUE=
+Date: Sat, 30 May 2026 15:04:53 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Mauricio Faria de Oliveira <mfo@igalia.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, Juergen Gross <jgross@suse.com>,
+	Alexey Dobriyan <adobriyan@gmail.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, kernel-dev@igalia.com,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	kernel test robot <lkp@intel.com>
 Subject: Re: [PATCH v4 0/4] x86/pvh: fix unbootable VMs again (PVH + KASAN)
-In-Reply-To: <20260527204736.GBahdYaKk6kAkIUYE3@fat_crate.local>
+Message-ID: <20260530220453.GAahtfBVv2hydidbnW@fat_crate.local>
 References: <20260526-pvh-kasan-inline-v4-0-a310e6a25ecd@igalia.com>
  <20260527204736.GBahdYaKk6kAkIUYE3@fat_crate.local>
-Message-ID: <274609541a0c7c6b49b386001967dd2b@igalia.com>
-X-Sender: mfo@igalia.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spam-Report: NO, Score=-2.2, Tests=ALL_TRUSTED=-3,BAYES_50=0.8
-X-Spam-Score: -21
-X-Spam-Bar: --
-X-purgate-ID: tlsNG-720697/1780165564-8057B161-0EE46CF7/0/0
+ <274609541a0c7c6b49b386001967dd2b@igalia.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <274609541a0c7c6b49b386001967dd2b@igalia.com>
+X-purgate-ID: tlsNG-ef75cf/1780178726-0B175C48-2A0436CE/0/0
 X-purgate-type: clean
-X-purgate-size: 1811
-X-Spamd-Result: default: False [0.61 / 15.00];
-	R_DKIM_REJECT(1.00)[igalia.com:s=20170329];
+X-purgate-size: 876
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[alien8.de,none];
+	R_DKIM_ALLOW(-0.20)[alien8.de:s=alien8];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[igalia.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bp@alien8.de,m:tglx@kernel.org,m:mingo@redhat.com,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:adobriyan@gmail.com,m:boris.ostrovsky@oracle.com,m:kernel-dev@igalia.com,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:lkp@intel.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,igalia.com:mid];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
 	FREEMAIL_CC(0.00)[kernel.org,redhat.com,linux.intel.com,zytor.com,suse.com,gmail.com,oracle.com,igalia.com,vger.kernel.org,lists.xenproject.org,intel.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:mfo@igalia.com,m:tglx@kernel.org,m:mingo@redhat.com,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:adobriyan@gmail.com,m:boris.ostrovsky@oracle.com,m:kernel-dev@igalia.com,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:lkp@intel.com,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[fat_crate.local:mid,alien8.de:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	FORGED_SENDER(0.00)[bp@alien8.de,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	ARC_NA(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[mfo@igalia.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[igalia.com:-];
-	NEURAL_SPAM(0.00)[0.985];
+	DKIM_TRACE(0.00)[alien8.de:+];
+	MISSING_XM_UA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mfo@igalia.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[bp@alien8.de,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	NEURAL_HAM(-0.00)[-0.986];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[11]
-X-Rspamd-Queue-Id: 9D16B611BC2
+X-Rspamd-Queue-Id: 63A1561386B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Thanks for having a look at this.
+On Sat, May 30, 2026 at 03:25:25PM -0300, Mauricio Faria de Oliveira wrote:
+> In this instance, the use case is to speed up the dev-test cycle when
+> debugging on VMs: PVH allows booting directly from vmlinux, avoiding the
+> need to build/compress and decompress bzImage, while KASAN helps detect
+> issues early.
 
-On 2026-05-27 17:47, Borislav Petkov wrote:
-> On Tue, May 26, 2026 at 11:52:32AM -0300, Mauricio Faria de Oliveira wrote:
->> The issue of unbootable VMs with CONFIG_PVH due to CONFIG_KASAN is back.
+Makes sense in itself. And you can't do your use case with KVM? It has to be
+Xen?
+
+> Briefly, this is a side effect of reusing code from 'boot/string.c'
+> through <asm/string.h>, which introduces additional complications;
+> please see patch 1 for details.
 > 
-> ... and we care about that particular configuration because...?
+> These complications could be avoided by not reusing that code and
+> instead adding slightly duplicated code [1] directly to <asm/string.h>,
+> if that is preferred.
 
-PVH and KASAN can be enabled independently for their own purposes
-(startup entry point and debugging), but when combined, KASAN might
-break booting via the PVH entry point. There are precedents for
-disabling KASAN instrumentation in specific code paths, including this
-one (see listed commits), so addressing this issue/regression seems
-reasonable.
+I'll take a look.
 
-In this instance, the use case is to speed up the dev-test cycle when
-debugging on VMs: PVH allows booting directly from vmlinux, avoiding the
-need to build/compress and decompress bzImage, while KASAN helps detect
-issues early.
-
-> 
->>  arch/x86/boot/string.c               |  6 ++----
->>  arch/x86/include/asm/cpuid/api.h     |  2 +-
->>  arch/x86/include/asm/string.h        | 21 +-------------------
->>  arch/x86/include/asm/string_inline.h | 37 ++++++++++++++++++++++++++++++++++++
->>  arch/x86/platform/pvh/enlighten.c    |  3 ++-
->>  5 files changed, 43 insertions(+), 26 deletions(-)
-> 
-> I fail to see justification for those gymnastics.
-
-Briefly, this is a side effect of reusing code from 'boot/string.c'
-through <asm/string.h>, which introduces additional complications;
-please see patch 1 for details.
-
-These complications could be avoided by not reusing that code and
-instead adding slightly duplicated code [1] directly to <asm/string.h>,
-if that is preferred. 
-
-Please let me know your thoughts.
-
-Thanks,
-
-[1]
-https://lore.kernel.org/all/324ef97b16f52e0ccc72f6381d1b5dd2@igalia.com/
+Thx.
 
 -- 
-Mauricio
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
 
