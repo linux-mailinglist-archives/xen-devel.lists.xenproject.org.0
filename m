@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IIWwMdi6HGp/RwkAu9opvQ
+	id UD2TB9u6HGqRRwkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:56 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:59 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D24836182A7
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:55 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1323457.1589182 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D86B6182F2
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:58 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1323458.1589191 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wTox9-0005HJ-Iq; Sun, 31 May 2026 22:48:19 +0000
+	id 1wToxA-0005WI-SY; Sun, 31 May 2026 22:48:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1323457.1589182; Sun, 31 May 2026 22:48:19 +0000
+Received: by outflank-mailman (output) from mailman id 1323458.1589191; Sun, 31 May 2026 22:48:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wTox9-0005Dr-FA; Sun, 31 May 2026 22:48:19 +0000
-Received: by outflank-mailman (input) for mailman id 1323457;
- Sun, 31 May 2026 22:48:17 +0000
+	id 1wToxA-0005TX-Nx; Sun, 31 May 2026 22:48:20 +0000
+Received: by outflank-mailman (input) for mailman id 1323458;
+ Sun, 31 May 2026 22:48:18 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <taka@valinux.co.jp>) id 1wTox7-0004xT-40
- for xen-devel@lists.xenproject.org; Sun, 31 May 2026 22:48:17 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1wTox8-00059X-4Q
+ for xen-devel@lists.xenproject.org; Sun, 31 May 2026 22:48:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wTox6-00261G-H2
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 00:48:16 +0200
+ id 1wTox7-00261G-HE
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 00:48:17 +0200
 Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a1cba69-2eae-0a2a0a5409dd-0a2a45099642-30
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:16 +0200
+ id 6a1cba69-2eae-0a2a0a5409dd-0a2a45099642-32
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:17 +0200
 Received: from [40.107.74.96]
  (helo=OS0P286CU010.outbound.protection.outlook.com)
  by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a1cbaaa-2497-0a2a45090019-286b4a60e9a3-6
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:16 +0200
+ id 6a1cbaaa-2497-0a2a45090019-286b4a60e9a3-7
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:17 +0200
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
  by TYWP286MB2972.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:2fe::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Sun, 31 May
- 2026 22:48:11 +0000
+ 2026 22:48:13 +0000
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0071.015; Sun, 31 May 2026
- 22:48:11 +0000
+ 22:48:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,20 +60,20 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=valinux.co.jp header.i="@valinux.co.jp" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N0JIxC0tnbT34W8QBXrZVxvDy/jnjSZMgJdRjOn9gX/WOp3LEoMauN3OZS115ykkerl0HfeGsroKNmqnjSc5p+i3zZEUUa95iBJvfaDE4CtHqIQcaS4vnEeHigiUCkWPxNC4GzMKPRqJRQjV/hcWzbY+4r48KGIWYu3VTyloRryjOwb82weF8dUGBRfxGN0kWZvuFyYgI+bsfYntRTBkKiD4p663Sae4VELvB7SJzqNLGb8vNlGqRosMSoioENW1nUfcSNXGU2CLCI3Dcrxf76CQqFicyzh1MiiIGcIf3v4om1ePwvZQcF0UBHuujRPf6iR+xwUZSKDY9RKpGM6E2A==
+ b=Od+V9dmP565wnVYERljt2oJQdklz9OYZg92vI+8vrSNdciRXaicb6XBQ16VJQjQbRVOU+kRlN6bl7dqDEOGwRMZdv4mWgLjHq4Mg2mNvEt9mLX6p+BYqobyhQWr9bhcWVOvtUI4D4ChgOQupEAc5F9t/7o1Er4a9rg9zBhHD6kvXBHRpQ8LZM/GjRas7LZVQvKNga3TQuftEfJXqWUu95aj3Z+uOSHfVx41k8VmcYw/F63NDbE8k71BgHC0purSTkfoiTJN3VnayaGIe81JdoveWVY0M03Cmu5/ADPduOsJ91ZX9suM/YAA1ob75kFavuQaeO8U8Ix8tzHcBXUwv0g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=efsYPuOFBJuGq5l6y14uP1QzlvYcMA2MZ/bYJIg+6Cc=;
- b=TAkTfzAdE862CnvJ1EFy2a1OvR2EbdxK/mO9J/GQy3/u6wpnQCIA91QRoZPgztIL3wUJMEFiDKjKNU8eNAmiVTw3OfhbxhuCjkMwm29DP3R8FSSQ9rEfT/CntjcMw+04EqPeWbFK8CK6gOuT72dDXAoIS1Xe6Zjo6SafnUz9AWXiAvWsd6ceq/fLXDlEgapER9PuzcUptl46f4iOCO2odTFhShkNXnBYx1EU+faroIAvyLjU9sd6LlUhvmB+JUHjebIY0Ed0jWpEl9gQX902CRaxmMUzGVxdM7PUxUBumCNDiwSMqsiihp50mWac2qF9GklQgdpKogx72Y2grGbEdg==
+ bh=09ikRB9p2K6n1IXPIFviZ3O5z7V9MxCaGsEM2APynDM=;
+ b=DRR5+wra/23dHP4cMmtC+pj1zrg0liXjoz1tvA3XPmKHVZ2kb3x7j3/8f9WCVInDsY7SJ2KjqvWK+777GV7sz3MGtXesl2a/bJfd08cGHUGl+AqRXLFWhNgk3a0AA/q8qI+nrvkvO7+DjOdczQiQ1dOSP+5rH5rj3y2QaEn/v/aNEbIpjmhjv0lEhUsYuasAx7RFdAnkJx90lSD6GWNad5VKP/X2ithAH35WXGGWJurHk/D3nfNFhdFd9pZobFxnu/MpaVRtFt5BLeP1rY2fDESnL3tSSse83CJ6CM/D/7F8FhWEKP8Hzl5zF+qbpxTV0AjVzfjk292EcQNprfbSNg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=efsYPuOFBJuGq5l6y14uP1QzlvYcMA2MZ/bYJIg+6Cc=;
- b=HRDLv86iCthKlCcpM0Vx+1Qct936BUJVDKiTaQ+FE6Gdag/bkQgFEdzkb2b9qxRUjtg6xe1p2ANCWsl9E9n3Fzxaup7ycYHVC1rRikE9Jqt7/Y47GuS+jFC1tpixI7wwHIRUKs0SuOzmEr9ESqMRe0bBDiM2MtLiLAhhKvo1i3A=
+ bh=09ikRB9p2K6n1IXPIFviZ3O5z7V9MxCaGsEM2APynDM=;
+ b=r5T84K1YW8aj+HqmUr66H7bKEudgDIelq8grofprLWHrVzFYUGuee+nGMItzpfhn8Hsz2lWoNK84up5eYjJUOYwuWvK+MuGPQKcX5HFx3znnSnISaZtoFgw9OduSRVT1yKyfzC3its8wgFHk9wllLEV6srP3F+X/LVv2rHw3jGU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 From: Hirokazu Takahashi <taka@valinux.co.jp>
@@ -88,76 +88,76 @@ Cc: Hirokazu Takahashi <taka@valinux.co.jp>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Jan Beulich <jbeulich@suse.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 06/24] xen/device-tree: Read NUMA node distance from Device Tree 'distance-map'
-Date: Mon,  1 Jun 2026 07:47:36 +0900
-Message-ID: <20260531224755.9481-7-taka@valinux.co.jp>
+Subject: [PATCH v2 07/24] xen/device-tree: Parse 'cpu-map' node for CPU topology exploration
+Date: Mon,  1 Jun 2026 07:47:37 +0900
+Message-ID: <20260531224755.9481-8-taka@valinux.co.jp>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260531224755.9481-1-taka@valinux.co.jp>
 References: <20260531224755.9481-1-taka@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TY4PR01CA0037.jpnprd01.prod.outlook.com
- (2603:1096:405:2bd::10) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TY4PR01CA0032.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bd::13) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:604:458::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|TYWP286MB2972:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff31399b-cac5-43ef-00f6-08debf66b13a
+X-MS-Office365-Filtering-Correlation-Id: 0beea134-44a3-46d6-b48b-08debf66b257
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|10070799003|1800799024|366016|7416014|376014|22082099003|18002099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	zjxKymjC/PiKco62V6KdraLWGR/woB8ZfiCMM8w/wbm1Nql0fkCZlQb38UkpQeeminjUI6J+hdq5Fp6C73tgDapNb9V4KLp+55sajlrhV5C4K5yS6CwSeL9fd0tYJLQpIcti7uAXR9Ejr4dnHo+nPmH1VeZmXFC6vYHRik1qCDAE61QqExzJgh4xo3G0DkjkSdd+n5j8WYR4o5Ldze+lxOUeeubRVPkLx0CHeOlxGAaaSw0X5lPNEkEyDZCQfS2DWqHYqomROWTGuXZP3IocfbOmbPg4X3MCdSUK1A/4PpuLO1HD7S5+86O5qgPhNXjRnItDWIIMe0uxiB88tZWD3vrunCDhCSlfbWO80DaovXTCCSFFiH5arlXMzIN8h0oUD6BB0qaRneCvQGc1oQlBjFmOr3e8Eddd89TfKQEgQCPdcovqPLhWZQ8FYyT4jge98X0t5+wdD+D1aYSftXFxLbQodbIlPVVmOHunlri5vAtqXPb0fMzHkA9fbUGIYq6t0SNwu9UqSKXI3JaB8B+9hC7ZZsEIPeMuV/YJZ/shykLVnB0uUqjyRkeJ+OV14dfSvgOwa+BhkwdkVIA+1u1U5aZrZPuyVyib+vbg98t9hCP9FgPGUB1MK9ZMYvxxxQlsHzuJlPq7oAtlTTUx5BwYWojzP4A6Pd0lvi33ilInCwr2NMgS/Yiy8fYIR/mCUIjE
+	RA+mYr1790mNnsV72laVkOZ4rNPvbmcQIIxI/GHNqfERuPT6pspYqACd1OkOBIqN5cfU1QnNwn3ilJnYqyc2g/K9pN89cOjpuSmDrxZK26hcLKxKN94e8JW7n7I5xfy9cDM5AsWqhqsEbPQsOlyoUba4iBMMW1ltVZFr+paS6bYOjP74Hh+QiSrGvYlIwIkjrvWr0uDcJveswgVraj196vIE8yHhcPX9Go/M5cHfsfmT7muTw2Wn0z+yT5M+sh7kFOaNaiYKudMpB1Ni9R54MTcr/TfH2vaTKmXNJHTniHvUf/FkYb56eUVVACmVwdaEYTx+qivK+Z2wkz+ZNuXZ59TA8rDJNzvNdZO7Xlp2m6sC2Hqvuf8xU5WHyb88jRHqU4XCixNm59wJQgJFvnbHjtibjqDCv9QH/ibbqouHK6cVBhZEXSMB3HwWS2mXGA+lTFOxoFL/jEQZmYcgfRGno1falLksR3m02ScBOe/jtW9Zyg/NdBxIv3498LjBLNCschMW0ZAtnYo+8eGzLr6dh62xkdKHJdkh8YaHsyks6cPfSyw/0/kGCBXf66EqXJ3rKEhZ/sUxgCMFktZHcOM9Wq/3EkCbT8p8IYwKK9A8ebUmLzlqYAmmscnv8Lr5s3Uo7C6s1mcGw55HnUqx5bkGPr6PEnrRKO6R9CFXeDwq7l0fTAa5uw4ynIyUBZmJQS84
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(366016)(7416014)(376014)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HrM4xAXfiL05nb9J+RU//xhkP9woLRM2QBDG0cppY5I70ZS5qibepTXahMWe?=
- =?us-ascii?Q?1ywaqAi9secucJfQygIkYuPITGY+XK8O3D7PDJCSmxWZSDgikZlSmR3Z3c3Y?=
- =?us-ascii?Q?KS35z6z3l8ZtzAt8AncLuw98K8VNDv3IEUt8gB0O1MNgsyyyzk3f7Qagf9SD?=
- =?us-ascii?Q?REixOEFZB062/aBX9ymTWodO193vtmDW92uVhc2gdhV4JNZo/5IE2FY0TmRO?=
- =?us-ascii?Q?xo/PmE0gaNcGaPSBWEe+yotE7F48tkiAftBsx7drYPQ6+1eoMbfPbSJVkVRP?=
- =?us-ascii?Q?pcnncPDYpNpqhBXY2mOgIQ4o5QB7+NX00ibpKY7Z6iNDDc8I9bP38LDLualq?=
- =?us-ascii?Q?NyQnnb1PPlXw7q6UwWxRPRC2PoWLV66uMxHnYGbMmxGB4VSSUlEBd+KKRxZk?=
- =?us-ascii?Q?nCPCRo3iw3/g/qPpP5i7jLKKsHluVInmDRJMLe8oSGzx0/ZGyqlpU/bQpwob?=
- =?us-ascii?Q?9XGlmmDdCrrgocy40tCLEPUao+jBt4dXMVcJdEhhoxQQkF0xuyJ6qM5XEvLz?=
- =?us-ascii?Q?6X7GncTDirdPyguiAsMYihs9jOydQ/2nQtV1NgNKNFZwJIigit9M6QxfXJGZ?=
- =?us-ascii?Q?LZx6IE2aA2Fa1uazwis8yel17kMMrMt0xCwc/Bndja7ZJJyphBCEJnSdLG04?=
- =?us-ascii?Q?bEkfge+x0xeqGXGIkGXh+2FT//7vKok8cWRoXA8E46FN0R1p1Qkiy0FSeTZs?=
- =?us-ascii?Q?f7RLmaVeLAKkJWhFi/OvUlqo2ticzRBl6XGJF8bud0bq905mrnienqi1IrJa?=
- =?us-ascii?Q?c65SELpmYd2IueJYiKQgycBWXUjAr5LRSwuhNToP2ps9vPGX1u+F0AZabuKo?=
- =?us-ascii?Q?CFu6iH8hMfH2HQisrNxISVCh3EM9xRp+pz32z208mOI1ey4heTin0vAvm3tj?=
- =?us-ascii?Q?DVb9N3vn2u5Nba9U8HwRfj5WUxi0Rh+kYwWyjQlLdyIT5OAZ2/r+8VdOOdXz?=
- =?us-ascii?Q?0RD3ga6hmvXfBVBG0ZkcM401p6jiYc5zVA7V/EnEWbRKICygILKoIRgbKPOC?=
- =?us-ascii?Q?jZwbCsFalr2YeHfZ3uPU+FYq1ZgmIG3OIJbeU61Lo7m+5Q2WXIQYDcuMJn6J?=
- =?us-ascii?Q?dvWMutDb8LNxd903fG9qYJF+8eAwvY97Pw2cMWeZYfVNJfxAvqQwN4WFtfeC?=
- =?us-ascii?Q?qR7Zr8eNpDcNjuBYIwnXm/kCCMmgEVrCgXVgzAVkxKWITt5nR7dfxZ8vQvq1?=
- =?us-ascii?Q?zNuGT3XgarDaXeZCq5JkP8q7NaJ6Sa1Tmq/GQiQ/JS7Y86NnmyKjwcyiBxVT?=
- =?us-ascii?Q?CPkd9rje4l+OfRuIvrvJKh5NId9L5eEXmWKV0rLwIpQDup3/ATfpzWNRunF9?=
- =?us-ascii?Q?YzoHaEGoNpO5wHdwTJq7JWN76tntHDNk4qRu+xvxtMKkqb35CeDu3/Y/oMOk?=
- =?us-ascii?Q?lOVVM0Qew9VMT2pjzeJ7XD0ORs6YYDSUUGvb2Sjk/kGcAaXAQkXIV9Sooi2m?=
- =?us-ascii?Q?fqcp6EiSG5p2qcmmLzVvCFivX4yHXMiTSt9u8YdickPaOFJl4U0l9DQRjypY?=
- =?us-ascii?Q?mUoQQ2wW3dLscfm98zjKkJ2/v95D2AUYvJHDWA24rAuOshoYrUD/4QA8le8S?=
- =?us-ascii?Q?svnPsCX0NpALmxRJFlSZkIu5n3r7XfB9f4k+iHxMSnMI35o4tyUq1JY9B4gf?=
- =?us-ascii?Q?AoacCW3rVstNm9fYNCwavxIqaUyCYekyzijpGC3wOe+pihe9L+F6OVO9AEQt?=
- =?us-ascii?Q?0wuUvY6K3dZ3HZ85kFkzUc/OGslJPIMRVyd+627EgKIb0dF9gJsUBQe4bkpF?=
- =?us-ascii?Q?zkWylNkdf4qkEMWJiN2y8vEe2MNQvKHcZMZhk+sz2SAK9Rhs0WgcW1omXMbu?=
-X-MS-Exchange-AntiSpam-MessageData-1: O9mNyeCVcLVd+w==
+	=?us-ascii?Q?CGnrTKkN2CyW/JrNmm53ZkVEw9mHwkDNBw05XuVDN/WNjJ6b+5DJKvT7DH2i?=
+ =?us-ascii?Q?POGVq9yFelU+QTLF0nIzbkDPxkf39HxzL6CklkVv3szlZxejfDmz40MF1BfK?=
+ =?us-ascii?Q?ZMcmGYK67s3H70MsxaM7BzDPNVTvIVho/S5po/9VBWdtzTDsn616+LALSrLH?=
+ =?us-ascii?Q?IC4lZQ5d3CJ76lIkFAhQU8aNqNtSnCalV5ivN6RwCBLp+Jgdhg+RJgDNElGi?=
+ =?us-ascii?Q?j5UyNLISTNeq00A+BBTysczq/cCk26hSX70yTJ5XGWsJu8Vl4NUdSHqFTVg4?=
+ =?us-ascii?Q?mpmHkRpPQXSE5jsk7s0ibghncpKfXm2cC9z5ZSEkctYOqBM45F3flqH6Jl+D?=
+ =?us-ascii?Q?KfpU+2V/sxCWKvy8Sb8iIdBJDxyo0aAieM4o7TuuKPXBe9rCNdljrsU+nn90?=
+ =?us-ascii?Q?aijF/EyvrMWKGIJ/HtWT3nYlj09kpz2jlX1qVY71F369Z0alXyIfVZrCt+OX?=
+ =?us-ascii?Q?+cDRefKcTT0c6GF79n7JgZy7NeA3gjTtH+hiKyU6sXK00f/QNlB5nnTvjO5n?=
+ =?us-ascii?Q?wo3NFwi19JVME3LB3s30dTkSEMdET6Yw4cGdHppiZk1IpMNCMr9Rdupw1d1d?=
+ =?us-ascii?Q?cy11z7YD/N7zh8OXldxV+PxQPSXmKDd985XAI4mzFNIjoZMcAn5uAl3qPAlO?=
+ =?us-ascii?Q?vsufoLKIufmyeZTd2/dlAZHqMCFrrnQGouZh27ry9oTekOggiXqBaFOov3dL?=
+ =?us-ascii?Q?+TMVkMOrjdv7hW847Lbgw044lP+Cy6WSp4NyvA+ZCgVLlmpemWs5xGHchin4?=
+ =?us-ascii?Q?hrq3wiXmxcnzgKfp3RcFAJ6ju0V7wn0olfd/mbeSPP8AkscAJeN2nRkIKC+x?=
+ =?us-ascii?Q?AFHBC6Ovgc6ASNgIqRvRMQPmh7ekc4XcH0UNW39U+FlgiYll+4mTWhzMgaCL?=
+ =?us-ascii?Q?Tz3Cef0Soh3yeljHM2bkOUozFv84K8v+wsLnJDMVh0IGnCQhlp3wmDbmsXVg?=
+ =?us-ascii?Q?Fkm1Db2RQjR6TsBWEHftrxkMvpMAcAea+tidho7Dr5MNJX7eu6STywslchMH?=
+ =?us-ascii?Q?ZrVBspU/QChzlQ1r91BvP/sJtVUQPziE6SwyMKwdAPvA9sp3hCkRqBPOSDZh?=
+ =?us-ascii?Q?wHk/Ipw+DgU/2ST+gKH2g1TCVi8lpJybD/yfhTd63Sd47KjivGqBZyQ4JpHZ?=
+ =?us-ascii?Q?5ec4gzySFMxr/7CIsYLSYunC5YjmTpS4sVWUx3xRCuFjISavgERwSFITfs7H?=
+ =?us-ascii?Q?LjnD+YpB9VPehXybW3QmnfCe1l4HOb5rYqKE4cCBfdORMJc3ojaBRv4ENPqc?=
+ =?us-ascii?Q?HvJQvhTx6vg1NBPUeqdpU4oeEM97S4GTh6zNPZEsNc9OMDyml3TrQsrOXSJ/?=
+ =?us-ascii?Q?eB93Kbxi68/MGwyJnWqTYhBNtxzqjK8xbH3dnZr9dJmkpc57PY+JTY/vhrDo?=
+ =?us-ascii?Q?lsoe0zB6PJuHV1af3kW5Ejl2KvTPBd7yzwzRTixPgnqtCEi3U8N3t0zml+Lw?=
+ =?us-ascii?Q?uQp7O/8nXURdWJ2u5tWNZ3sRRiobfbAWjgBiWtvqtMze1pNS0fcWdaGlUHC6?=
+ =?us-ascii?Q?da/DXsT97WcsAN1QMbAEuHemaNimzYGGdKi0ZUDSGGmPZTQckrVCmj9cMq5i?=
+ =?us-ascii?Q?Vl/Ln6EE55RhMj77s1QNZcH3Xa9b24Z6A9w9xxm5YxX1dJTWYNSY8AhBzu28?=
+ =?us-ascii?Q?RXexHN2lZ/E9EprLJw+keYsTVvYGmWBv665AlPim2xizBJUk9A3BsQmv/H2e?=
+ =?us-ascii?Q?r48Wvlm0/car64SoA95XB3Y3UcM3cMGFJUJ8oDI+Tbu+FfhjUPKRy8Ye0oVZ?=
+ =?us-ascii?Q?/S43PfOCXpTwPhPqlY4OltPy8vyVz1oMbtfipbhabT0da+fsTwp5FrQJ6QBu?=
+X-MS-Exchange-AntiSpam-MessageData-1: tv7tSO75kUFUug==
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff31399b-cac5-43ef-00f6-08debf66b13a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0beea134-44a3-46d6-b48b-08debf66b257
 X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 22:48:11.4743
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 22:48:13.3377
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6vtR76wd0oCjk5i31crvEXjaRXCb1+poVcRssGC5yfFkuT9HCQFJshRu0a5eNgqZuS1wuNz7XCESb6yZK1LOyA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZmHs8pbVzBvTiVjOW3eG0wi9/r7qSCRDjkNoRFIU7fqtqVAU7IXzKFZ/AtqfONc17Efaw0jiPrW7oEDk9lX6LA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWP286MB2972
-X-purgate-ID: tlsNG-bad1c0/1780267696-8AB8EA53-544C80EA/0/0
+X-purgate-ID: tlsNG-bad1c0/1780267697-37F7EA53-CE9D9EDE/0/0
 X-purgate-type: clean
-X-purgate-size: 4442
+X-purgate-size: 12559
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
@@ -188,158 +188,456 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: D24836182A7
+X-Rspamd-Queue-Id: 9D86B6182F2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Read the distance between NUMA nodes from the Device Tree's
-'distance-map' node.
+Parse the 'cpu-map' node in the Device Tree to extract CPU topology
+information. If the 'cpu-map' node is absent, fall back to
+generating the topology data from the NUMA information. This
+generation assumes exactly one socket per NUMA node and that SMT
+is unsupported.
 ---
- xen/arch/arm/numa.c           |  2 +
- xen/common/device-tree/numa.c | 93 ++++++++++++++++++++++++++++++++++-
- xen/include/xen/dt-numa.h     |  1 +
- 3 files changed, 94 insertions(+), 2 deletions(-)
+ xen/arch/arm/Kconfig                  |   1 +
+ xen/arch/arm/smpboot.c                |   6 +
+ xen/common/Kconfig                    |   3 +
+ xen/common/device-tree/Makefile       |   1 +
+ xen/common/device-tree/cpu-topology.c | 306 ++++++++++++++++++++++++++
+ xen/include/xen/cpu-topology.h        |  42 ++++
+ 6 files changed, 359 insertions(+)
+ create mode 100644 xen/common/device-tree/cpu-topology.c
+ create mode 100644 xen/include/xen/cpu-topology.h
 
-diff --git a/xen/arch/arm/numa.c b/xen/arch/arm/numa.c
-index 15cad3d267..a7769b0c7d 100644
---- a/xen/arch/arm/numa.c
-+++ b/xen/arch/arm/numa.c
-@@ -41,6 +41,8 @@ void __init numa_memory_affinity_init(void)
-     dt_numa_memory_affinity_init();
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index e67219e949..c673ca345f 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -102,6 +102,7 @@ endchoice
+ config ARM_NUMA
+ 	bool "Device tree based NUMA support (UNSUPPORTED)" if UNSUPPORTED
+     select DEVICE_TREE_NUMA
++    select DT_CPU_TOPOLOGY
+ 	help
+ 	  Device tree based NUMA support. The "numa-node-id" property in
+ 	  the CPU and memory nodes of a Device Tree defines the NUMA node
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index eafa195504..6bcf7e7f53 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -24,6 +24,7 @@
+ #include <xen/warning.h>
+ #include <xen/irq.h>
+ #include <xen/console.h>
++#include <xen/cpu-topology.h>
+ #include <asm/cpuerrata.h>
+ #include <asm/gic.h>
+ #include <asm/procinfo.h>
+@@ -248,6 +249,8 @@ static void __init dt_smp_init_cpus(void)
+         else
+             tmp_map[i] = hwid;
  
-     numa_initmem_init(0x0UL, 0x1UL << (PADDR_BITS - 12));
++        map_cpuid_to_node(i, cpu); /* pass the info to dt_init_cpu_topology() */
 +
-+    dt_numa_distance_table_init();
- }
+ #ifdef CONFIG_DEVICE_TREE_NUMA
+         if ( tmp_map[i] != MPIDR_INVALID )
+         {
+@@ -294,7 +297,10 @@ void __init smp_init_cpus(void)
+     }
  
- int __init arch_get_ram_range(unsigned int idx, paddr_t *start, paddr_t *end)
-diff --git a/xen/common/device-tree/numa.c b/xen/common/device-tree/numa.c
-index 539ddfccc5..6414806937 100644
---- a/xen/common/device-tree/numa.c
-+++ b/xen/common/device-tree/numa.c
-@@ -1,4 +1,11 @@
- /* SPDX-License-Identifier: GPL-2.0-or-later */
+     if ( acpi_disabled )
++    {
+         dt_smp_init_cpus();
++        dt_init_cpu_topology();
++    }
+     else
+         acpi_smp_init_cpus();
+ 
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 89fa7d10c7..a1db4fcf17 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -188,6 +188,9 @@ config VM_EVENT
+ config NEEDS_LIBELF
+ 	bool
+ 
++config DT_CPU_TOPOLOGY
++	bool
++
+ config DEVICE_TREE_NUMA
+ 	select NUMA
+ 	bool
+diff --git a/xen/common/device-tree/Makefile b/xen/common/device-tree/Makefile
+index 658aa293c4..bbe60297aa 100644
+--- a/xen/common/device-tree/Makefile
++++ b/xen/common/device-tree/Makefile
+@@ -1,6 +1,7 @@
+ obj-y += bootfdt.init.o
+ obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += bootinfo-fdt.init.o
+ obj-$(CONFIG_HAS_DEVICE_TREE_DISCOVERY) += bootinfo.init.o
++obj-$(CONFIG_DT_CPU_TOPOLOGY) += cpu-topology.o
+ obj-y += device-tree.o
+ obj-$(CONFIG_DOMAIN_BUILD_HELPERS) += domain-build.init.o
+ obj-$(filter $(CONFIG_DOM0LESS_BOOT),$(CONFIG_HAS_DEVICE_TREE_DISCOVERY)) += dom0less-build.init.o
+diff --git a/xen/common/device-tree/cpu-topology.c b/xen/common/device-tree/cpu-topology.c
+new file mode 100644
+index 0000000000..82a366f3f6
+--- /dev/null
++++ b/xen/common/device-tree/cpu-topology.c
+@@ -0,0 +1,306 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
 +/*
-+ * Derived from Linux kernel 7.0's $drivers/of/of_numa.c
-+ * Parse 'distance-map'
++ * Derived from Linux kernel 7.0's $drivers/base/arch_topology.c
++ * Parse cpu topology information.
 + *
 + * Copyright (c) 2026 VA Linux Systems Japan K.K.
 + * Author: Hirokazu Takahashi <taka@valinux.co.jp>
 + */
- 
- #include <xen/bootinfo.h>
- #include <xen/device_tree.h>
-@@ -12,14 +19,96 @@
- #define LOCAL_DISTANCE      10
- #define REMOTE_DISTANCE     20
- 
-+static u8 __ro_after_init numa_distance[MAX_NUMNODES][MAX_NUMNODES] = {
-+    [0 ... MAX_NUMNODES-1][0 ... MAX_NUMNODES-1] = NUMA_NO_DISTANCE
++
++#include <xen/cpu.h>
++#include <xen/cpumask.h>
++#include <xen/delay.h>
++#include <xen/device_tree.h>
++#include <xen/cpu-topology.h>
++#include <xen/numa.h>
++#include <xen/domain_page.h>
++#include <xen/errno.h>
++#include <xen/init.h>
++
++static struct dt_device_node * __initdata dt_cpu_table[NR_CPUS];
++
++struct cpu_topology __ro_after_init cpu_topology[NR_CPUS] = {
++    [0 ... NR_CPUS-1] = {-1, -1, -1, 0}
 +};
 +
- /*
-  * Get the distance between node 'a' and node 'b'.
-  */
- u8 dt_node_distance(u8 a, u8 b)
- {
--    if ( a != b )
-+    nodeid_t lastnode = last_node(node_online_map);
-+
-+    if (a > lastnode || b > lastnode)
-         return REMOTE_DISTANCE;
--    return LOCAL_DISTANCE;
-+
-+    return numa_distance[a][b];
-+}
-+
-+static void __init numa_set_distance(u8 from, u8 to, u8 distance)
++static void __init setup_siblings_masks(unsigned int cpuid)
 +{
-+    nodeid_t lastnode = last_node(node_online_map);
++    struct cpu_topology *cpu_topo, *cpuid_topo = &cpu_topology[cpuid];
++    int cpu;
 +
-+    if (from <= lastnode && to <= lastnode)
-+        numa_distance[from][to] = distance;
-+}
++    /* update core and thread sibling masks */
++    for_each_possible_cpu(cpu) {
++        cpu_topo = &cpu_topology[cpu];
 +
-+/*
-+ * Parse the '/distance-map' node from the flattened device tree
-+ * and extract the 3-tuple triplets <from, to, distance>.
-+ */
-+static void __init dt_numa_parse_distance_map(void)
-+{
-+    const void *fdt = device_tree_flattened;
-+    const struct fdt_property *prop;
-+    const __be32 *matrix;
-+    int entry_count;
-+    int node;
-+    int len;
-+    int i;
-+
-+    node = fdt_path_offset(fdt, "/distance-map");
-+    if ( node < 0 )
-+        return;
-+
-+    if (fdt_node_check_compatible(fdt, node, "numa-distance-map-v1"))
-+        return;
-+
-+    prop = fdt_get_property(fdt, node, "distance-matrix", &len);
-+    if (!prop)
-+        return;
-+
-+    matrix = (const __be32*)prop->data;
-+    entry_count = len / sizeof(__be32);
-+
-+    if ( (entry_count <= 0) || (entry_count % 3) )
-+        return;
-+
-+    for (i = 0; i + 2 < entry_count; i += 3)
-+    {
-+        u32 nodea, nodeb, distance;
-+        nodea = dt_next_cell(1, &matrix);
-+        nodeb = dt_next_cell(1, &matrix);
-+        distance = dt_next_cell(1, &matrix);
-+
-+        if ((nodea == nodeb && distance != LOCAL_DISTANCE) ||
-+            (nodea != nodeb && distance <= LOCAL_DISTANCE))
-+        {
-+            printk(XENLOG_WARNING "Invalid distance[node%d -> node%d] = %d\n",
-+                   nodea, nodeb, distance);
++        if (cpuid_topo->package_id != cpu_topo->package_id)
 +            continue;
++
++        cpumask_set_cpu(cpuid, &cpu_topo->core_sibling);
++        cpumask_set_cpu(cpu, &cpuid_topo->core_sibling);
++
++        if (cpuid_topo->cluster_id != cpu_topo->cluster_id)
++            continue;
++
++        if (cpuid_topo->cluster_id >= 0) {
++            cpumask_set_cpu(cpu, &cpuid_topo->cluster_sibling);
++            cpumask_set_cpu(cpuid, &cpu_topo->cluster_sibling);
 +        }
 +
-+        numa_set_distance(nodea, nodeb, distance);
++        if (cpuid_topo->core_id != cpu_topo->core_id)
++            continue;
 +
-+        /* Set default distance of node B->A same as A->B */
-+        if (nodeb > nodea)
-+            numa_set_distance(nodeb, nodea, distance);
++        cpumask_set_cpu(cpuid, &cpu_topo->thread_sibling);
++        cpumask_set_cpu(cpu, &cpuid_topo->thread_sibling);
 +    }
 +}
 +
-+void __init dt_numa_distance_table_init(void)
++static struct dt_device_node * __init dt_find_child_node_by_name(struct dt_device_node *from, const char *name)
 +{
-+    u32 lastnode = last_node(node_online_map);
-+    u32 i, j;
++    struct dt_device_node *np;
++    struct dt_device_node *dt = from;
 +
-+    /* fill with the default distances */
-+    for (i = 0U; i <= lastnode; i++)
-+        for (j = 0U; j <= lastnode; j++)
-+            numa_distance[i][j] = i == j ? LOCAL_DISTANCE : REMOTE_DISTANCE;
++    dt_for_each_child_node(dt, np)
++        if ( np->name && (dt_node_cmp(np->name, name) == 0) )
++            break;
 +
-+    dt_numa_parse_distance_map();
- }
- 
- /*
-diff --git a/xen/include/xen/dt-numa.h b/xen/include/xen/dt-numa.h
-index c6939d0928..075d31cb89 100644
---- a/xen/include/xen/dt-numa.h
-+++ b/xen/include/xen/dt-numa.h
-@@ -15,6 +15,7 @@ static inline unsigned int numa_node_to_dt_nid(u32 n)
- 
- u8 dt_node_distance(u8 a, u8 b);
- void dt_numa_memory_affinity_init(void);
-+void dt_numa_distance_table_init(void);
- 
- #endif /* CONFIG_DEVICE_TREE_NUMA */
- 
++    return np;
++}
++
++void __init map_cpuid_to_node(u32 cpuid, struct dt_device_node *cpu_node)
++{
++    dt_cpu_table[cpuid] = cpu_node;
++}
++
++static int __init cpu_node_to_id(struct dt_device_node *cpu_node)
++{
++    int cpu;
++    bool found = false;
++
++    for_each_possible_cpu(cpu) {
++        found = (cpu_node == dt_cpu_table[cpu]);
++        if (found)
++            return cpu;
++    }
++
++    return -ENODEV;
++}
++
++/*
++ * This function returns the logic cpu number of the node.
++ */
++static int __init get_cpu_for_node(struct dt_device_node *node)
++{
++    struct dt_device_node *cpu_node = dt_parse_phandle(node, "cpu", 0);
++
++    if (!cpu_node)
++        return -ENOENT;
++
++    return cpu_node_to_id(cpu_node);
++}
++
++static int __init parse_core(struct dt_device_node *core, int package_id,
++                int cluster_id, int core_id)
++{
++    char name[20];
++    bool leaf = true;
++    int i = 0;
++    int cpu;
++
++    do {
++        struct dt_device_node *t;
++
++        snprintf(name, sizeof(name), "thread%d", i);
++        t = dt_find_child_node_by_name(core, name);
++
++        if (!t)
++            break;
++
++        leaf = false;
++        cpu = get_cpu_for_node(t);
++        if (cpu >= 0) {
++            cpu_topology[cpu].package_id = package_id;
++            cpu_topology[cpu].cluster_id = cluster_id;
++            cpu_topology[cpu].core_id = core_id;
++            cpu_topology[cpu].thread_id = i;
++        } else if (cpu != -ENODEV) {
++            printk(XENLOG_ERR "ERROR: %pOF: Can't get CPU for thread\n", t);
++            return -EINVAL;
++        }
++        i++;
++    } while (1);
++
++    cpu = get_cpu_for_node(core);
++    if (cpu >= 0) {
++        if (!leaf) {
++            printk(XENLOG_ERR "ERROR: %pOF: Core has both threads and CPU\n",
++                   core);
++            return -EINVAL;
++        }
++
++        cpu_topology[cpu].package_id = package_id;
++        cpu_topology[cpu].cluster_id = cluster_id;
++        cpu_topology[cpu].core_id = core_id;
++    } else if (leaf && cpu != -ENODEV) {
++        printk(XENLOG_ERR "ERROR: %pOF: Can't get CPU for leaf core\n", core);
++        return -EINVAL;
++    }
++
++    return 0;
++}
++
++static int __init parse_cluster(struct dt_device_node *cluster, int package_id,
++                int cluster_id, int depth)
++{
++    char name[20];
++    bool leaf = true;
++    bool has_cores = false;
++    int core_id = 0;
++    int i, ret;
++
++    /*
++     * First check for child clusters; we currently ignore any
++     * information about the nesting of clusters and present the
++     * scheduler with a flat list of them.
++     */
++    i = 0;
++    do {
++        struct dt_device_node *c;
++
++        snprintf(name, sizeof(name), "cluster%d", i);
++        c = dt_find_child_node_by_name(cluster, name);
++
++        if (!c)
++            break;
++
++        leaf = false;
++        ret = parse_cluster(c, package_id, i, depth + 1);
++        if (depth > 0)
++            printk(XENLOG_WARNING "WARNING: Topology for clusters of clusters not yet supported\n");
++        if (ret != 0)
++            return ret;
++        i++;
++    } while (1);
++
++    /* Now check for cores */
++    i = 0;
++    do {
++        struct dt_device_node *c;
++
++        snprintf(name, sizeof(name), "core%d", i);
++        c = dt_find_child_node_by_name(cluster, name);
++
++        if (!c)
++            break;
++
++        has_cores = true;
++
++        if (depth == 0) {
++            printk(XENLOG_ERR "ERROR: %pOF: cpu-map children should be clusters\n", c);
++            return -EINVAL;
++        }
++
++        if (leaf) {
++            ret = parse_core(c, package_id, cluster_id, core_id++);
++            if (ret != 0)
++                return ret;
++        } else {
++            printk(XENLOG_ERR "ERROR: %pOF: Non-leaf cluster with core %s\n",
++                   cluster, name);
++            return -EINVAL;
++        }
++
++        i++;
++    } while (1);
++
++    if (leaf && !has_cores)
++        printk(XENLOG_WARNING "WARNING: %pOF: empty cluster\n", cluster);
++
++    return 0;
++}
++
++static int __init parse_socket(struct dt_device_node *socket)
++{
++    char name[20];
++    bool has_socket = false;
++    int package_id = 0, ret;
++
++    do {
++        struct dt_device_node *c;
++
++        snprintf(name, sizeof(name), "socket%d", package_id);
++        c = dt_find_child_node_by_name(socket, name);
++
++        if (!c)
++            break;
++
++        has_socket = true;
++        ret = parse_cluster(c, package_id, -1, 0);
++        if (ret != 0)
++            return ret;
++
++        package_id++;
++    } while (1);
++
++    if (!has_socket)
++        ret = parse_cluster(socket, 0, -1, 0);
++
++    return ret;
++}
++
++/*
++ * Generate cpu topology information when cpu-map node doesn't exist.
++ * It assumes that the cpu doesn't have SMT and all CPUs on a NUMA
++ * node belong to the same socket.
++ */
++static void __init fixup_topology(void)
++{
++    int cpu;
++    int clid = 0;
++    int pkgid = 0;
++
++    for_each_possible_cpu(cpu)
++    {
++        struct cpu_topology *cpu_topo = &cpu_topology[cpu];
++
++        cpu_topo->package_id = cpu_to_node(cpu);
++        if (cpu_topo->package_id != pkgid)
++        {
++            pkgid = cpu_topo->package_id;
++            clid = 0;
++        }
++        cpu_topo->cluster_id = clid++;
++        cpu_topo->core_id = 0;
++        cpu_topo->thread_id = 0;
++    }
++}
++
++int __init parse_dt_topology(void)
++{
++    struct dt_device_node *cpus;
++    struct dt_device_node *map;
++
++    cpus = dt_find_node_by_path("/cpus");
++
++    if ( !cpus )
++    {
++        printk(XENLOG_ERR "ERROR: No CPU information found in DT\n");
++        return -EINVAL;
++    }
++
++    map = dt_find_child_node_by_name(cpus, "cpu-map");
++    if ( !map )
++        return -ENOENT;
++
++    return parse_socket(map);
++}
++
++void __init dt_init_cpu_topology(void)
++{
++    int cpu;
++
++    if (parse_dt_topology())
++        fixup_topology();
++
++    for_each_possible_cpu(cpu)
++        setup_siblings_masks(cpu);
++}
+diff --git a/xen/include/xen/cpu-topology.h b/xen/include/xen/cpu-topology.h
+new file mode 100644
+index 0000000000..8445f5786d
+--- /dev/null
++++ b/xen/include/xen/cpu-topology.h
+@@ -0,0 +1,42 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++
++#ifndef XEN_CPU_TOPOLOGY_H
++#define XEN_CPU_TOPOLOGY_H
++
++#include <xen/types.h>
++#include <xen/device_tree.h>
++
++struct cpu_topology {
++    int thread_id;
++    int core_id;
++    int cluster_id;
++    int package_id;
++    cpumask_t thread_sibling;
++    cpumask_t core_sibling;
++    cpumask_t cluster_sibling;
++};
++
++
++#ifdef CONFIG_DT_CPU_TOPOLOGY
++extern struct cpu_topology cpu_topology[NR_CPUS];
++
++void map_cpuid_to_node(u32 cpuid, struct dt_device_node *cpu_node);
++void dt_init_cpu_topology(void);
++
++#elif CONFIG_DEVICE_TREE_PARSE
++
++static inline void map_cpuid_to_node(u32 cpuid, struct dt_device_node *cpu_node) {}
++static inline void dt_init_cpu_topology(void) {}
++
++#endif /* CONFIG_DEVICE_TREE_PARSE */
++
++#endif /* XEN_CPU_TOPOLOGY_H */
++
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.43.0
 
