@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0IawL9u6HGp+RwkAu9opvQ
+	id qOFrN926HGp7RwkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:59 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:49:01 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A424618306
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1323517.1589328 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 682DA61831C
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:49:01 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1323530.1589345 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wToxd-00037m-P9; Sun, 31 May 2026 22:48:49 +0000
+	id 1wToxh-00043i-RS; Sun, 31 May 2026 22:48:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1323517.1589328; Sun, 31 May 2026 22:48:49 +0000
+Received: by outflank-mailman (output) from mailman id 1323530.1589345; Sun, 31 May 2026 22:48:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wToxd-0002uW-78; Sun, 31 May 2026 22:48:49 +0000
-Received: by outflank-mailman (input) for mailman id 1323517;
- Sun, 31 May 2026 22:48:47 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wToxh-0003rc-I8; Sun, 31 May 2026 22:48:53 +0000
+Received: by outflank-mailman (input) for mailman id 1323530;
+ Sun, 31 May 2026 22:48:51 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <taka@valinux.co.jp>) id 1wToxa-0002dW-SZ
- for xen-devel@lists.xenproject.org; Sun, 31 May 2026 22:48:46 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1wToxf-0003OJ-0w
+ for xen-devel@lists.xenproject.org; Sun, 31 May 2026 22:48:51 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wToxa-00Fm16-9M
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 00:48:46 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wToxe-00En0E-Cw
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 00:48:50 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a1cba94-e002-0a2a0a5209dd-0a2a45059030-40
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:46 +0200
-Received: from [40.107.74.72]
- (helo=OS0P286CU010.outbound.protection.outlook.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a1cba94-bab6-0a2a0a5309dd-0a2a4504a1f8-28
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:50 +0200
+Received: from [52.101.125.102]
+ (helo=TYVP286CU001.outbound.protection.outlook.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a1cbac9-aaa8-0a2a45050019-286b4a488211-5
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:46 +0200
+ id 6a1cbacf-1dec-0a2a45040019-34657d668b12-3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:50 +0200
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
  by TY1P286MB3278.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:2e1::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Sun, 31 May
- 2026 22:48:44 +0000
+ 2026 22:48:46 +0000
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0071.015; Sun, 31 May 2026
- 22:48:44 +0000
+ 22:48:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,104 +60,102 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=valinux.co.jp header.i="@valinux.co.jp" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vp3Xi3Z9sJgaxeHqtC0xyNEuwdq8qStvMvGRDJ915w5mEbZMsKR7d6AxhmdvTA8C4KxEi2Hxr+8Q1L6KdCKgQ1S4j2QNWXcU5d33v1jRkae+ungc4q9Cf3K/MIY3kBnlQMcFDts05VBBrpP25eh/ueQaz46yZM9YFbVg2l/KenPy2LvvDRLh/54KkYlYRPQ4hDwWinyDNs1R+ts1t1Yv6g5R32wA8jWUOB0AJMaLaOS6nVeMvinSEvuhGQPPdUxbQJLp4s0FDggBjDyumLzGH3o9a6SOlyfpHoVkGC5rlVhGk+ud5KPBTzEL2HMec2CNmWN8smEy6IK22EzerOAoFg==
+ b=bRkteYs+NLUCNXsxCNLzOsZq667fqTekJTnrHRvQ08jwYCXlYqSOEyhMfzNGv36TirMhUO2bdhshJEg1+cSe21k7u/bKZpjjHHGMuenezs3meJBZJAKnmdEdZXD3RP+uhGG/7+Kv+I1g/koCVb8gE2WTVm2oDnfHCePgzEX2Ek/nCfLlG/cXMe0eA2jFXDGxlaIZs4X1Ze8ppRykdmNvsmpMfnoaW2iuQf6611ZCu3F2sqK9MhYG70+mcsSyvRv/Xv5U/OTtqROhe5piuq/LjJLjgaJ8Cxmk0xYUliG917E3uKoRhP7TMgAFwNCb8R2RiyCZiu6loiVWoyYoH2YRew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5QuO5xKA+OIjYqQ6fhQKlx60t+usshVfR/LPkpUASg8=;
- b=JeDzHJ2lbKaDYe4W4q0rFTl2pA5nQi+nghna+uIwB0lpbCPOKy+XTQwo6C9WFSIW+ux2brURbSJf+iHSKPhkTvSHnsxuYfeNlxtvq11VAavP5kedBtcvotJlFxrOPyA3En3d1ybBfdOjZ1rQ9NXupOs3HPXVlluEt+KlDFJA6l29aZBeyRLRn112colY9/2A+C8f3ThWkOT0+915TII3TGiC8czg2kezpcv7QXquGpHeqlO+aZi0Yate6Jx33cyznAyodCDk4/Pa3dg986Z1he6+M/JcD/qQ461HH7IlAmtBh9Qn/0tjF0chkx04qDyiTAHqb467wdI1+0Pxjao/Pw==
+ bh=s3XmMr4E3+akgf1HAcBTnf26av6T0gioo48e5/4KTcg=;
+ b=T6iKCSccDDHiJkHvDFWzJ/BwrGp3TTY9krdB8g+vp5hvGqJdu6W6iT0isQQUI37YDvMuAjURPLkmF/VsodlMlPigOzpjnP92kOsWUnMKGfJZqLlS0y+IBA5JjqPpBvgJFmLkxCPlvGPsoIdgFshtFBz1V77Vo19pW7iAtIULBEvd8kjGHrMRwFaNyAQcpBHiN6zFXLIohI8CgPN6rKCSQFLT2YUM7O+kvBaUecPbip3mTtEhtAFDMNe6cHX6eUE3Boa4TJaPQtb416LtUp8e5dJo/SYvKqqCXPnkqgPRyBi8S3B/kySrNOF5hY2bp+426ta2y8YgQwmXtvfUqkIqnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5QuO5xKA+OIjYqQ6fhQKlx60t+usshVfR/LPkpUASg8=;
- b=wbciOWzfwifwa5XOyreGKIe9018F88af4WsV3MaA8c8q0e5OLHneGJIgbbkTKwU16IjunYoGR9qXN7ZmyT/q9ShmTAS1AQgEOFTLGyTvuoSlczOO7kkh165e8VrXS7YxJnT0u7zhv5yO6mABx+c1uOEXxkeXQKrROxi/uBO89Jc=
+ bh=s3XmMr4E3+akgf1HAcBTnf26av6T0gioo48e5/4KTcg=;
+ b=rGQTi1hkjOQEDOIhNiXO/Z4Xvbt+FTa/W1sHHh7dbDsAO04hCvCRG6T9uhuDjYX+3vZp2hk9UipZKYh+2cUU2MUTKTz4OIm8FXk+x664Ys92gtCOAGUWbjUjI7JSW649mnChednPR4Aawt0JySS0MF+sHB+/L+FOCDR2ihTLevk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 From: Hirokazu Takahashi <taka@valinux.co.jp>
 To: xen-devel@lists.xenproject.org
 Cc: Hirokazu Takahashi <taka@valinux.co.jp>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Anthony PERARD <anthony.perard@vates.tech>,
+	Michal Orzel <michal.orzel@amd.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 23/24] xen/arm: Use dedicated function for Static SHM Device Tree creation
-Date: Mon,  1 Jun 2026 07:47:53 +0900
-Message-ID: <20260531224755.9481-24-taka@valinux.co.jp>
+	Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 24/24] xen/arm: Support numa and dom0_nodes boot options
+Date: Mon,  1 Jun 2026 07:47:54 +0900
+Message-ID: <20260531224755.9481-25-taka@valinux.co.jp>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260531224755.9481-1-taka@valinux.co.jp>
 References: <20260531224755.9481-1-taka@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TY4PR01CA0125.jpnprd01.prod.outlook.com
- (2603:1096:405:379::7) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TY4PR01CA0115.jpnprd01.prod.outlook.com
+ (2603:1096:405:379::17) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:604:458::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|TY1P286MB3278:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb660076-0a7b-4a80-3b1d-08debf66c4c5
+X-MS-Office365-Filtering-Correlation-Id: 3eb66169-8a08-4f4c-cc24-08debf66c60c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|10070799003|1800799024|366016|56012099006|18002099003|22082099003;
+	BCL:0;ARA:13230040|376014|10070799003|1800799024|366016|3023799007|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	X56eCUsDMDlkksp+/n0hpvle4d7x+JK4wADV6pAViumoJJHgT/rrnjcrfUbALctDWm52WV04XfzG4AKtItrN9GzSMuFnrnk1cmhhG97yH5r4wnjnIPxtcp2tY+dGc057gYpi/yM2YijLpAPu2aZInQv/TLVmTsdXOp1tGgH5Z9w+auVw+HoYbq8N0gy5urAysOgiYypi7rJ11Cnxms344ipv68OBJ+CZm0quKHAtZgaUZujOyY3A8RpPlA+xOPtuNHmPZ6pYofI4+NL6PG1y/A1lLPt9vAREYLF5I4a2FwEbQfVrNG9cvpf4dDb0olaeuJrJwrRW6Sx/WDQeaCP09zgu5NqVqulIO5aKLnaKirusP3dJAfR57Pc+Bds49spYNbnL5CB9AfMcWCH1XYKn3kwuLwA3h/IANZHPrGljDRlugiFAif0CzlVivAkzaPgzLxoZRSELQRTXok59PlN6oj/L+SUFUaVrZepJVGDDXOp8XWfqXi/hSjfdYELGz4On3zAXnnhQcuqlDhfzz62s/GRDB0vUR9wcxKPlWL0Du+hTAciPDrf92BEASYThRVXlI17qAnivcSUEh44nz5G4zvvyE9RlJOUAHp9jzf3u07JB0OqZHNKzzrA5mgpQbxQ1JrLjPc+QO0zAhGgKD70QWUr2IKPbEYCLEQ+fuNgagXaTr13jhhF9z8ZRQhLbuo9q
+	FJUywyCTtOHsTKeg+am8duIMaVPFio3GjK45JLlgUmdOUbFnmwWzgO/9LO9Pw5D+B0qYqUKeQ5hN4OeMKUxcJCdc9vsM9z3EXD2viC4fEZbrnyJpsTvS4eBTnRAGzqmvI/Ll2rYCANOuOQN175Lx7EsdmExVp8GFlob3TuOX8cVwELQXsxS7adLYuKR3aZl+nGDvGCNTjX6svK5o2l/zyZoid2ZHNLfrCJrPuvLNYBw/k4wSx8HZxkoVext3CgbzIcnU9NANngZhohO9TTPNXGC441KA8ddD2Sx3/p2KpzRRMvNuK/7eTKIIsLMWd17yLi1CB9PA+F4J7xVBrDShg/l0sLFRGnC3HraR58Xhn8ns5sViYihQ5sCY/Qfd5ikXQk3PESFWDNInWep5Xe4cI9kYNltPEiHxcJhyboFqg7HeenA3shoFzS3hHkF1eieILZAbNL4YE0hbn8VG+odBb5VL2jjYeid1pgkm6w0PRbSh/i8hZRWEQf8JHL5OEAeIGx4YyXmepg6XPQeMGCP7ErDmBpTuBsIMx3Z91xEiXSpcs669MzJOlhDExkZd5ECdUGBzcSLoPwPYqsqxJ4N+6ntL5Icug8zz4cJLaVMrrB1H4uD1TtuadT1W3fLbOK9Q7AHc6TBEDMlWJe6eHPSClQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(10070799003)(1800799024)(366016)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(1800799024)(366016)(3023799007)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?r4fc/RWf0I1k/6uxjKEbtJjkWVhkIgQ39q12SWwpGrnc6/g0J9fDxI1k40t3?=
- =?us-ascii?Q?ascf3vfBy4BxvobWlTJP2UpaAkcS9CuPamxv+fLh0d9UAOISJ7vFTU+R9mQ4?=
- =?us-ascii?Q?Tm7nBnruDelwrm8f3w/14LcAGmM1RrA2qrApYCZYhBlNz9uTi3KfvxJOI/Nt?=
- =?us-ascii?Q?FZ0iSEQG4BjS6EKutj3y/BOpyHV89YRJgnmwi0CjXBs7EgNlyuvuh9nCd4BB?=
- =?us-ascii?Q?7R8Ao0CaBJtUjlc5nFmbQ9ViSPir+c+/WWAlkxyVMhmwHwB5TIzLEi9YQYcx?=
- =?us-ascii?Q?ltIyLM+jC8w4l32XAf7gWBRk0ni8RLTbf0D/fGs0NSTFOVeMcLoY1v91zyrD?=
- =?us-ascii?Q?c13LxQ7oB5MXbNNMqxUWG+IcWQ+v0QUg3kdv+NvH5+CqEno6RS0zdXnT5xmg?=
- =?us-ascii?Q?id//Vx8XCRevid1OCpu0Rz0YeT+Mo6cgzFqzHwAaCiylJIfnAxjWt0A6gs/U?=
- =?us-ascii?Q?dc/CRQi/n/x4ApCuZzxhilpKKnn0qqwqaGK+zjotHLDCTHxmpXIBaoNzzp9b?=
- =?us-ascii?Q?kkdfBLEjlkaA7GD7w28c9Dxw/8QKXBx8FLXtw9hvBkjTqQON3eNdtlZqm3bx?=
- =?us-ascii?Q?VaYZ8TrEByirUaD9jY55P/S5Q1L28cdwwSXDheREsd2NdIFP+n2Jx4Kkv2HT?=
- =?us-ascii?Q?L1cxi8yUoLFSWGQCol+YxN2DMnskZUsvBTN2w0hZCZDtUp+d4Ks3ZcvAFe6+?=
- =?us-ascii?Q?Ec3l65JW8oJAE+7a22P07Mrg8m9+2avpYr3tFEW3GYaZs0CoNCMAjcc4eK9y?=
- =?us-ascii?Q?YDfbjzWTYG5tCoIvds6XSDbSzaTMcEp7lkL++92U1Ir994zxPlgF16K9tDDa?=
- =?us-ascii?Q?g3uhI1YSKhocARgvRqOzEejDczP0MvPmp+hffKEdBnmaV0C8uqLzmIM/T2Id?=
- =?us-ascii?Q?Ow2UhymqQSFYqecLpms+WhRyow9P2OlITTw3IWd9rA8vSROajoqQDGhlkSrR?=
- =?us-ascii?Q?vVyKhfJ2MyX35bGNGXbk0FuI3Ai57mTRarCk/1ErPQyD/buaMdCOmQm3ZAQ7?=
- =?us-ascii?Q?NzPKNpJikY6TObKXMSiruAvAytrTjaLTJOyZaTfii4HKAOMrpgR9i7t+9oK3?=
- =?us-ascii?Q?Q7P+j4q8abfpYUCXKZU071LE7Gjrlf+Dkmt9C8PzNHQ7Sgl7sBxPWtkR/t7h?=
- =?us-ascii?Q?+nCvafZ2BAHKZ/WQkGBOIgEhsRq7AuRx+pvx2gjumN/c16bc5qTcvyJammMu?=
- =?us-ascii?Q?VXtb5PG2gqY1K5hJvi/4H1XAGeo/VAHNPeQNqh04RhnH/jnnbB7UjPK3V1bU?=
- =?us-ascii?Q?f6+djHGYWlY6tXzVJ8UHsF9NlzzSRmTzkgrl9dJmclkCPboaM2LrwlpUD3jS?=
- =?us-ascii?Q?OEFWHNQoIvfr/q9ei6zBDqGpqZqwx/0FMHjqkLHj2xrgRLCqJWyB8kakTMla?=
- =?us-ascii?Q?jnbwNr60seSCZUeaPZdcj7ErSbmimpTlL4hSIOXNm9ZFbTWAuda6+UXC66lS?=
- =?us-ascii?Q?8D1c1TKAPMXZjEY7jnqtBkqITGVpWrNcEYnNOGK2R9mQTa2rPHl9pMHJBAvN?=
- =?us-ascii?Q?rE//kJOBNLz+XoR1amv+9z1hXFyl+DbapRkEeRvshDEmw4zG6UdTfzFSIfr4?=
- =?us-ascii?Q?Qd9upTxen3DJZkjzmy6Ttepn7n6KnI9bDelCHTieefXxUzXW0LUs0NNa3RnN?=
- =?us-ascii?Q?c97X7JxpX44SAzCl6SsWDccjWPjj8vNyeYPHXNJCr4AVs+IrK9YtBDPsztt2?=
- =?us-ascii?Q?DeMFzb9M1BINZBCdc3IaGVldJSqJghBhF0wDvdBxA0uOGl6D1AAlp2ImmZJv?=
- =?us-ascii?Q?ajXLuWE4VluWW9uCPKgYsCpGI76n4xQmpbsqKSdFnHGj5sqUZKHzp39e0sdv?=
-X-MS-Exchange-AntiSpam-MessageData-1: oYA1rPtRy+k0NQ==
+	=?us-ascii?Q?jD4UckMd8tOn6BqDXe2az43yMAyxSNPW6gIJbkOiZ+QvMMFmQGjxeMv8rxCH?=
+ =?us-ascii?Q?uwT+YT4DKR1lhE+NZZDf7yPIca3SPbtzJqG9/gKamasm7Le5dm/BiuVUKAS6?=
+ =?us-ascii?Q?M+piZ54808KNIbDl55PwgqJpPji/JkfwahruHemukepEfh81dlDSy1r8k2dB?=
+ =?us-ascii?Q?rcna9+yYUKn66wC5s/Lv3q25p8HOAB9T51IKOjXo5Iw25BHHLQg3gty1ZTiG?=
+ =?us-ascii?Q?VeT616eX5P0c7ZD0zkPk4HrLVg5U2wysqC5pTRi1R2T/Fr+dKgwkCm95i4Rh?=
+ =?us-ascii?Q?IZqg/ONpdCcyug95SXAXGUBe2vOkuE4b23RwbiB6J/jAETjYW2x2VTCxjgcb?=
+ =?us-ascii?Q?fhPOXiV89XdHy1OtmbYDRm5SIBCDsf4RDKR/kPw7digoQbfsUkG9RAQ50jxe?=
+ =?us-ascii?Q?BWmZ+JOLcAuqIXp/Vp0NWiVKESUMhC/sA1S87UyGS4vTd9UEgp1vMZBe03OZ?=
+ =?us-ascii?Q?KUn7u3L6bYkCxbwrwvTI9yXGP1dbzRKzs72WkS2nfKhiBlIA/mkS823v5K00?=
+ =?us-ascii?Q?B/ajegjMwcubybr2w+89NLdVZXnjiccnldMLNiZBhcDhtPWCdo631s2no/rD?=
+ =?us-ascii?Q?BGpOHnbnUFh1Q8spX+OQ/sNOLpYP9uhspQtyKVQ95Hk77YNuL0JDCxt1F+hR?=
+ =?us-ascii?Q?7I2BOti7JLvo3zk7Kvm5ZWW3Qkcq6opNCnhY67rPMQOyOBKmMsnrmdc8DR8e?=
+ =?us-ascii?Q?iZvra6Aph6QlqRUCdC/yTXgDGZPSoFQaqkRCYpG7M6sf7x4QEt6kenA/o5qa?=
+ =?us-ascii?Q?mUVFTbUVO7VTUF8cgyBExHurr0DiYBGEePe0W5D+Ynd0edQKMETqQvdv3MUZ?=
+ =?us-ascii?Q?VQ5NYAWOJ5wl+K03tCrdRTlHypTQIQKqSzOY3YRWqFCSqc6hrTPQlJyEQnxi?=
+ =?us-ascii?Q?ZO1gYeag591zDfMB2MoqnQj3D2ijWdknvpMDbGdbGBasPzbq+258KuUGhzRT?=
+ =?us-ascii?Q?Dl8BB3O48IHXvmE7kDdlgG//DT/K+DaedSZa4Kqa1l3ALUrX6/tpgbkKS9QH?=
+ =?us-ascii?Q?0CNNyBVRLNLoSNgcX7pFz7TbcW+hfYNt0ysTJVEoRMy2hGik86RjaQusO430?=
+ =?us-ascii?Q?xE4nqjSkUwRiiIRHL0ezMs7lvxcdw78zWWG//F3pI2szDSRBQREW1Du+Zciy?=
+ =?us-ascii?Q?IKpbqaIr6CrZ8DWA+D/3ZQuEDGDflj34pKQnzoGeIcmF7LCWbIkx6X8eCx9r?=
+ =?us-ascii?Q?jydREasCfVmq8JjBof7m/wqcFfA3/u1RNYoO8r3KTQ17ddPdkRf9ofDofpi2?=
+ =?us-ascii?Q?m5xNwUy2QzzGWl9N/h6UPN5mdq4xTnVD1ESxA1VJa5k5Wb5l4Q392VynQCJz?=
+ =?us-ascii?Q?yNGuJsJKUkIDE+Siox2GZGUMTfvRlQlv7uorbS9n/MZ/YIzkRBCeMDAV3b71?=
+ =?us-ascii?Q?W43aoNoSisttS9s00UIgLkK/7rDK1M5/IglJOICYIMMe13PbuNBe8uv0k4SQ?=
+ =?us-ascii?Q?FSTHBTzr1HZqa1BmGginVlwvVfy5yn6w7z2TgIdM2vXR4miGWdydPDpgMf/x?=
+ =?us-ascii?Q?aRdIgaYhuTLflxurQ7Kp2jpKOotn2eXJ4vc9LzVlG6UDfTtCh64Nltg0dc/n?=
+ =?us-ascii?Q?/MP2Tev4mlwCxfVnUh37yBF3CflN+jfJnWmOL35NpjSQeuel8gu4AmFzCyJU?=
+ =?us-ascii?Q?1NcVnWiku+nPMIatK84wsrf+dDpHbp9ZjTK4jhPaaTjK6ctwlFex/maViqMi?=
+ =?us-ascii?Q?foBvI4fDpOVtK/gRo74hhbJv4YGW8sOkKVW98bEVz3LpXdSz5Oli1QoDbBYY?=
+ =?us-ascii?Q?fy3N213TxkA7PUERToHEtIwvkYeJ8RVLQoujHUbQH6Lv4/myHmoxCwrI5vh+?=
+X-MS-Exchange-AntiSpam-MessageData-1: msz62ZHVuRl2gg==
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb660076-0a7b-4a80-3b1d-08debf66c4c5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3eb66169-8a08-4f4c-cc24-08debf66c60c
 X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 22:48:44.2602
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 22:48:46.4114
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9EkPQpLCjCNxzIiyNsKUUHvx8SPHNzA+D9TjcedoyaP1DlF8IW1VMO3eGQ6aL71uQU5O4To6rFt3pNZc7t64gg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: tlGp30Hdd034s6RanQoHhdLcP43DqTUXdPgxMkyLTjgtNFt8tD1sdCyE3WSjFI54Y2n4IR9o4mRb7oUe2OaEEA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1P286MB3278
-X-purgate-ID: tlsNG-c201ff/1780267726-D9573443-59CCDCD9/0/0
+X-purgate-ID: tlsNG-ebf023/1780267730-42F653FF-134D48AC/0/0
 X-purgate-type: clean
-X-purgate-size: 2876
+X-purgate-size: 1710
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
@@ -169,7 +167,7 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:taka@valinux.co.jp,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
@@ -184,88 +182,56 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.996];
+	NEURAL_HAM(-0.00)[-0.867];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 7A424618306
+X-Rspamd-Queue-Id: 682DA61831C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Use a dedicated function to create Static SHM Device Tree nodes instead
-of reusing the generic memory node function.
-
-Since the memory banks managing Static SHM repurpose the 'type' field
-for a different purpose via a union, separating this creation logic
-keeps the implementation clean and significantly improves maintainability.
+The numa_nodes command line option is now supported on ARM Xen.
+Its usage is almost identical to x86 Xen. The key difference is that
+while x86 uses ACPI PXM values to specify nodes, ARM uses the
+values defined in the device tree (numa-node-id).
 ---
- xen/arch/arm/domain_build.c           |  6 ++++++
- xen/common/device-tree/domain-build.c | 21 +++++++++++++++++++++
- xen/include/xen/fdt-domain-build.h    |  2 ++
- 3 files changed, 29 insertions(+)
+ docs/misc/xen-command-line.pandoc | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 29b09e3da6..497789ee1c 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -1807,6 +1807,12 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
-         if ( res )
-             return res;
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 8c89b7852c..909d5889e5 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1050,7 +1050,7 @@ Practices](https://wiki.xen.org/wiki/Xen_Best_Practices#Xen_dom0_dedicated_memor
  
-+#ifdef CONFIG_STATIC_SHM
-+        res = make_raw_memory_node(kinfo, addrcells, sizecells, kernel_info_get_shm_mem_const(kinfo));
-+        if ( res )
-+            return res;
-+#endif /* CONFIG_STATIC_SHM */
-+
-         res = make_distance_map_node(d, kinfo->fdt);
-         if ( res )
-             return res;
-diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
-index 61e2e50062..f846ca0471 100644
---- a/xen/common/device-tree/domain-build.c
-+++ b/xen/common/device-tree/domain-build.c
-@@ -565,6 +565,27 @@ int __init make_memory_node(const struct kernel_info *kinfo, int addrcells,
-     return res;
- }
+ This option doesn't have effect if pv-shim mode is enabled.
  
-+int __init make_raw_memory_node(const struct kernel_info *kinfo, int addrcells,
-+                            int sizecells, const struct membanks *mem)
-+{
-+    unsigned int i;
-+    int res = 0;
-+
-+    if ( mem->nr_banks == 0 )
-+        return 0;
-+
-+    dt_dprintk("Create raw memory nodes\n");
-+
-+    for ( i = 0 ; i < mem->nr_banks; i++ )
-+    {
-+        res = make_memory_sibling_node(kinfo, addrcells, sizecells, &mem->bank[i]);
-+        if ( res )
-+            return res;
-+    }
-+
-+    return res;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/include/xen/fdt-domain-build.h b/xen/include/xen/fdt-domain-build.h
-index 671486c1c8..6a809f3f86 100644
---- a/xen/include/xen/fdt-domain-build.h
-+++ b/xen/include/xen/fdt-domain-build.h
-@@ -31,6 +31,8 @@ int make_hypervisor_node(struct domain *d, const struct kernel_info *kinfo,
-                          int addrcells, int sizecells);
- int make_memory_node(const struct kernel_info *kinfo, int addrcells,
-                      int sizecells, const struct membanks *mem);
-+int make_raw_memory_node(const struct kernel_info *kinfo, int addrcells,
-+                         int sizecells, const struct membanks *mem);
- int make_timer_node(const struct kernel_info *kinfo);
+-### dom0_nodes (x86)
++### dom0_nodes (x86, arm)
  
- static inline int get_allocation_size(paddr_t size)
+ > `= List of [ <integer> | relaxed | strict ]`
+ 
+@@ -1059,8 +1059,9 @@ This option doesn't have effect if pv-shim mode is enabled.
+ Specify the NUMA nodes to place Dom0 on. Defaults for vCPU-s created
+ and memory assigned to Dom0 will be adjusted to match the node
+ restrictions set up here. Note that the values to be specified here are
+-ACPI PXM ones, not Xen internal node numbers. `relaxed` sets up vCPU
+-affinities to prefer but be not limited to the specified node(s).
++ACPI PXM ones, not Xen internal node numbers, or node IDs in the device
++tree. `relaxed` sets up vCPU affinities to prefer but be not limited to
++the specified node(s).
+ 
+ ### dom0_vcpus_pin
+ > `= <boolean>`
+@@ -2017,7 +2018,7 @@ This option is ignored in **pv-shim** mode.
+ ### nr_irqs (x86)
+ > `= <integer>`
+ 
+-### numa (x86)
++### numa (x86, arm)
+ > `= on | off | fake=<integer> | noacpi`
+ 
+ > Default: `on`
 -- 
 2.43.0
 
