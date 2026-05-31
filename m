@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id /c9/E9e6HGp7RwkAu9opvQ
+	id yIQILdi6HGp+RwkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:55 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:56 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A8B7618292
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1323453.1589139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC5926182A2
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1323455.1589164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wTox1-00045I-9W; Sun, 31 May 2026 22:48:11 +0000
+	id 1wTox5-0004mF-Rm; Sun, 31 May 2026 22:48:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1323453.1589139; Sun, 31 May 2026 22:48:11 +0000
+Received: by outflank-mailman (output) from mailman id 1323455.1589164; Sun, 31 May 2026 22:48:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wTox1-0003xL-4y; Sun, 31 May 2026 22:48:11 +0000
-Received: by outflank-mailman (input) for mailman id 1323453;
- Sun, 31 May 2026 22:48:09 +0000
+	id 1wTox5-0004jF-OL; Sun, 31 May 2026 22:48:15 +0000
+Received: by outflank-mailman (input) for mailman id 1323455;
+ Sun, 31 May 2026 22:48:15 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <taka@valinux.co.jp>) id 1wTowz-0003s7-H5
- for xen-devel@lists.xenproject.org; Sun, 31 May 2026 22:48:09 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1wTox4-0004bc-T1
+ for xen-devel@lists.xenproject.org; Sun, 31 May 2026 22:48:15 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wTowy-008Rpn-U9
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 00:48:08 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wTox4-00261G-A0
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 00:48:14 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a1cba94-e002-0a2a0a5209dd-0a2a45059030-14
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:08 +0200
-Received: from [40.107.74.122]
+ id 6a1cba69-2eae-0a2a0a5409dd-0a2a45099642-26
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:14 +0200
+Received: from [40.107.74.96]
  (helo=OS0P286CU010.outbound.protection.outlook.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a1cbaa2-aaa8-0a2a45050019-286b4a7acd57-5
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:08 +0200
+ id 6a1cbaaa-2497-0a2a45090019-286b4a60e9a3-4
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:14 +0200
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
  by TYWP286MB2972.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:2fe::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Sun, 31 May
- 2026 22:48:03 +0000
+ 2026 22:48:05 +0000
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0071.015; Sun, 31 May 2026
- 22:48:03 +0000
+ 22:48:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,20 +60,20 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=valinux.co.jp header.i="@valinux.co.jp" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dyEmGHMEUk2MVjNbtN7aXApMM4WvF8qE/sSPlldn532zv9LYO8Mz5tR9DsantyqhAb1dy2rApaL0tvF+96gOQdj6OwtdCkO1MpmeC7DHmE8PQKxldlR7LckALp2g0vS4VCKpgYzeNJ+xNifKGYcpHrlcW5Q7TIQ3qnPTQ8SuCVldtcgpxMLESn5IvARi8dfJp9YNXb3DANfaO27eQ5lDNlqzjWZha/hnqApeWD8pRipzeRBduRcVuWH0DXrmoiYLQVYZJCZmwP9o/Ujh3l1FC3A+IY4BvfRKTVQvH5r9dCz23l4MmKf6nCnJiaNAD62p/HPaBK0uNkOJAl5uDNbX1g==
+ b=A9haRMnW71ErQtKS09RyRZIN8yMlyMURA/o6+icTpkKp6dUeoOatFX6IGJD02ss64LH+XHsajk0d5mXvgSfYxXb6yEDX+zsT+Eey0GiIGmbYG19OS/lk2+8LHNlffII4SXLoGJZeLcrrwSmgSjOyUijqOmvWCLu5NK494vHHFwi5iWbIi1dEJVVcXslkViSQ/TmyyZQXrc2BH/wrq+Y8DR6nsikiDC8456SQDAat4tHd3hBLSKlcRKkNs6rfkwuBD9PxaEmnHsWC8qjaN0KaSdSIxd9gk7qJvytwF0oFtxs2lS4gdwyKqn3McBop2+xCfzWBk+OD9AwDRdm57BrTrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+xd9T2blWYyalwo41o8xs7sEzMUIRZ2JS3x1+k5CFPQ=;
- b=FCQIXdeneIxvujDOn28JQTViSU6h/HfBZsGhQAPbbkACasZEvdUU8/SL3VnKuh7PFGdPBgdUy6RPdhdYm/PyPKw+r6Mh2nD8X32jr50EWCy/1zjru5fOPG5vYygDfiz8s3NFoVAj1AMCib/kMcHZ81waFBojO9uWHLPHuANnli2qQd8YCDnkDpQnQrnUMXRFIDK1P0/vJiemxUNmXNhH41m7FrQ7rQZC1TUosoWl6Eus7PMNiY691Y9pA9m1hIhRFosVu092RdmLkrYLiI4k0oamlACCf+WCz47pJWDHSZlgnz1JJH0HyQT9SaQLK3biyLQy/+/n4EC+WgLLYGPIgw==
+ bh=LE6FuAerqw6orzqzu04p0kLbWxovloaphAeAZjKcIaM=;
+ b=BLEvkN4y7G72GnrjmO6tIUDLJPSGucfFWcSSOM12slbD2A8a7XAgPdF1hGOm6u0+eEzL5dBLkg9YF8ilAujpdN8OLOgKxAn6Yq2gVT+EYuChQGYqq/+UPrHrbfh438pU91j8nr6aUuEXL7kso4Nw0HUSvt9kLY/FY1xRCjZy/X2FTCeuRhcSp93TjtDcFXj/fZZV85bzwZFR1MFRDGi2ONKSIzkoE42vwQkWdcBGVVe7ceAXOTuLKfwGzHPEz8w5LfK2kWOrI42RNlXjab/U1oetIcU7njYZt4Pmzyu8VICxea4kDf8xFoj2NuaK/EVW0zJbadRM9DCk/OhLiyWeSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+xd9T2blWYyalwo41o8xs7sEzMUIRZ2JS3x1+k5CFPQ=;
- b=Q7vYoe1rR2mTao9QtdyEXUdy2joAE8A8slVY0UiGiPKiAWh6LlloX+OG5yNhMJcIBXo9KbhosK5l3ZNVJbbn/cfRHk9J3CS66eex4pJcE/oIrFybWddfsj0/3Kv0sYmBz3AZJiAu07w5a1qdWq+I2jg5gWLpmYVctXg4MLmvEfA=
+ bh=LE6FuAerqw6orzqzu04p0kLbWxovloaphAeAZjKcIaM=;
+ b=aGq4e8hp4on7oFMNkaN+t3V0R5+zK0wHYv17LjdjizdNfjt6zslR2q71QZJ/50rdG654dZjotNnEq8JSONsmjt4KA3HVWJow41byPUVNl4AgZEgHvFrDnRbIh08rwomYdgjMKxbvd102MkuYcT1I/W4Kf6C9HVVBSjDZHkpO4iY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 From: Hirokazu Takahashi <taka@valinux.co.jp>
@@ -83,94 +83,98 @@ Cc: Hirokazu Takahashi <taka@valinux.co.jp>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 02/24] xen/arm: NUMA helper functions via Device Tree helpers
-Date: Mon,  1 Jun 2026 07:47:32 +0900
-Message-ID: <20260531224755.9481-3-taka@valinux.co.jp>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Anthony PERARD <anthony.perard@vates.tech>,
+	Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 03/24] xen/arm: Introduce CONFIG_DEVICE_TREE_NUMA config option
+Date: Mon,  1 Jun 2026 07:47:33 +0900
+Message-ID: <20260531224755.9481-4-taka@valinux.co.jp>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260531224755.9481-1-taka@valinux.co.jp>
 References: <20260531224755.9481-1-taka@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TY4P301CA0059.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:36a::12) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TY4P301CA0065.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36a::14) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:604:458::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|TYWP286MB2972:EE_
-X-MS-Office365-Filtering-Correlation-Id: 517cdb47-dfd0-4d8e-eddc-08debf66ac98
+X-MS-Office365-Filtering-Correlation-Id: a5947373-07bc-4148-3ce7-08debf66adab
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|1800799024|366016|376014|22082099003|18002099003|6133799003|56012099006;
+	BCL:0;ARA:13230040|10070799003|1800799024|366016|7416014|376014|22082099003|18002099003|6133799003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	JzYFxdIOz6SoQFRiB4gc2TuWE4fkpifal1AX82K7bT82iqlqo8wXBODfffUYnAxlkk3M9cHYF3jY+ce5yEOBW35hNuewlxIpIC7McJeUdgzN9QB8FcDSXff/d86OoNmkYsvYXBYbyTLhB608BDtJIXWoHaNslJkBkRBXmJPnPUKjJHcwYDUcO+J9UWG0f6OMTAvAIVXwBRWz4oBABMMtcfpVRifMTlLObNScyOjDviayy9odLzDGL6wSAUt5uA0dZapr5n6wRKpn+okd9Cc0PesyGPiMC/9Crai0DGPNsVxYrsnc2DeyiaTxYjNgt3Oh3WZ8m1bcebiA4r3qktKwzPTHGz5N2hEMuw0a5tsYhaYVu/uhQ3KzKMX7eB69X/N+VRsbJNmQ4MrLD3FTbNtGQYjd/wNzNeuWfvbX670kkJGjzlpIdTCIxbdoySmHltMzfrW9QRVE7VrsyEUw9R/VcW1ElQArFUHj/LxLHDQNFMfK4enQsVuZYX2i4xGi4nxYzOyAxUoTB0d3xBTK5Lhag8uNiGEJoA6mZSyqq1xCmGchRtnXoVaUQQ6d3HaG0vjL3sE+wPrqed/1pJteW7MS9nOqTYY4+7H60NrJtnbR5CWRaaMdLgiUQw8DIU8B8TnCbV/7iwUseaTiqnIBnFnBX0IMmdrcoIEog7b0TXBEimNHlkjTD+XBWt92khuDIQb7
+	f1XizHRWDgi/q5p4k6ds/+pPedi3vcWp+sM4VUN/+aLxbew8Uj930n2ZvFqqIj3Ud0qVlYJTe0rDRbGpOodfjXXb1f+pq5BkTN0peJtjiCkXmry7R9RGnHwrL3V06KS5VkyVdkFhQBVc+U5JEn5T8s2YiUwTu5bGVUNGAMxTCFWzdmW1mOwrrx2cSueZUA61dyeg+n6bd+TiiqGrYysxi+Vuv0WXnZNE0FygQpYYjbmq0eAUi7P2OEyziA1T5B1pb8z+IweGs4/5Sxzy6Lh6O9nUAAmyl+lhMvqCijK68oSEnuEOKl57rI0+ndZfhPV88Kqon1S/t2KbgCoDj70NI6iLVM6YVfQOmz6vOQJ+4TyVZ4KbPQ1VN0871yzpQDO9KuyU2fEJkE1oENHGehwSzr4fpn9v5gZSoMZJWhVsNcWUBzdZV9EthiMaUceXvG7UBhLuQ6hnMMk8e734zruRBrix4OH1oNOrr9c5hjqErr48Wm+wYd35G4vzH76Hl/3I7rGgDTJJlHbgENTrpAk0DMs9ER/uf5b4usSPkp1tICEFFUESM15svO/FS/cPtuPf44UnHbjkY3o/LEhALpV4UH0V37bJOBJN+z/zudIywmz2Eq+ZeKAV8F7WQd5Z48IF6uD9zePonuR0qrccjrIQxOe8R2S0cuKY57GIbeudi0XIV/9++M7xXEtizJphAwbG
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(366016)(376014)(22082099003)(18002099003)(6133799003)(56012099006);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(366016)(7416014)(376014)(22082099003)(18002099003)(6133799003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?IK2jVom6XM1tCnVnYOqqlTxRHYPNIKgQqjzKE29lWe5JOIug2fnJBZmJyoR8?=
- =?us-ascii?Q?ZKU9uenXv5vd5CpFbRlm6Ava8Kt3hihU+Cw5C6N6OkfIDU4s59o06VDCij/k?=
- =?us-ascii?Q?ooep4KDk6Sf8uikf/4SY/DxyrsCMhHJP94WgFe25IAuuRieDlIMO0oziLoVT?=
- =?us-ascii?Q?XP00Idl3LhK/CbaZG5bFkIf2wtN93VFJMUhBcS1Hd8VluQWQllEcrLr0Skl7?=
- =?us-ascii?Q?Ak+1vEIBQ5jxT1kyf+06fEQCrxFThAi5x+pxqQmCiDoQK3Me4szot6OFSwVq?=
- =?us-ascii?Q?aJm16l0e30suKj23tLoySNSNP7D3o8/jU/oE5q23aC/wxEE/80yeaB7YE+ik?=
- =?us-ascii?Q?Lzju6ssNWel6JwynAuG+D1BpMRdilasrzEKQbl2q52E3g/m3kMJt7o53o2bp?=
- =?us-ascii?Q?AGpn1PfySRMmidF/APEIkXjjzkDQi4xbWJdITm2qA3UbnovB61i+Xw2I3TNw?=
- =?us-ascii?Q?kswfU+q9BNHiM6lbVGMa7iY5sydErepNX8wSxXAd2VIYYsRSF10X5UjRRDuK?=
- =?us-ascii?Q?9tYQNNBPkZ9ug3ykWU+xVBkY4cSIz5BAOSZlV2sBOgak2Gy6SGE8/WZUvC/L?=
- =?us-ascii?Q?S6vXAGWfOsEpS3sNAOq0BYn1sJ7TMVbokyOvXCFtfbs+MnJ2wPoCvEMQHVit?=
- =?us-ascii?Q?CWYrXWCeE+uZNSKzvV86PTEcB+re35yX534ihZJ9bhy1HCO8W6XQ4wLxERFP?=
- =?us-ascii?Q?ogh5Qc7t2Eh3Z8gMcpFYjR3WjzypZoyj7ExuJBDvqBDfGoa6+/w707kVdsDv?=
- =?us-ascii?Q?kaSz7zY67tQkYbAh1IUfx15yVAn9G/8J2PnhDPdavcP2BYSK6FB8tJzJM+bR?=
- =?us-ascii?Q?Be9necdgEXEGqdrsbthTOrPPDKeTpNhOTvmNWtMBO/knfp33ewxnrqOzxams?=
- =?us-ascii?Q?Zxjg3KKmDTQF8+QFND/QnJbB6gm7tnpKbKyqHQaY046zqnNiSNgAOZhcaIVs?=
- =?us-ascii?Q?xMWJi26xnWEN2L/UGN5V5RKvReSI0RBEY3nEIGhr5t336QtmAvtgtDNiTmXq?=
- =?us-ascii?Q?hJWR9UE6XIxq+2F//kAIMy5IgXiQHlTMfYHiscymaRj7Ie6GtOFsW8PJl1+r?=
- =?us-ascii?Q?XzT40A9MjbrUyANQ/VHiHmG1UTK2bxPue+kMolqiu2xVt0+1h8FwOmVPm0N8?=
- =?us-ascii?Q?pFvd4zfXfTgCFhe2nVTKkhS2WDkdjNqbK+cy0Ls9jREcZBcyRj/Bm5JTAY5G?=
- =?us-ascii?Q?0R6MYGA12KPbCAoglAnQIlS3uxACqslyH0teHRaDDJxnRWO30NcHYzPC6+ES?=
- =?us-ascii?Q?lAZTgfL3jgA3SgTuc7r6+Mne9QrrBmyAB71tqTFizZnn1V97furABH8wq/ZI?=
- =?us-ascii?Q?yk/czd3ktZp6d8YiPyq25tlmwsX+yqDeiyhMmrIWhltsqGDTMm7eC2GKxZLd?=
- =?us-ascii?Q?wVPOmAp8Sx2fMoOty1nxgi2xEMDurI7uYNKYq4sm2UG/BpRVC+BIqjmME6+1?=
- =?us-ascii?Q?4fEbMfGxuWw8vK4YIBRspBcRYFuJwg/tDhRhoYEwoN/OQyU21WT4X0yv4YHp?=
- =?us-ascii?Q?qst7CK73zlc4CUQmHkFj6Mxi7CEk/9DHvwzAXmjlaPI42DeQJ+K9PvQWkqSj?=
- =?us-ascii?Q?f2rqGc61reNdRpclEBeF7aV4wjUwe6hg4sHfrYbkd6J4H8lTCQWu+776CByi?=
- =?us-ascii?Q?47qjln0eNkn9XkHNZRGn17Jw+LOQWq+tgLCQuSwQIfhI4j71cbbtRjxC6vVl?=
- =?us-ascii?Q?Yx5diUhNtK6Zvbapr0Jaht7NCwF/naIJubMFRtspa5u3pfW/TLG3t38GDKwa?=
- =?us-ascii?Q?3LzhHhfYpJmuG4/QFsuxzXDoWN+AhK1/DCPcGtsP8F8djcwl6qm0QM8g2u3B?=
-X-MS-Exchange-AntiSpam-MessageData-1: Kck3eGiOMAsSRw==
+	=?us-ascii?Q?7gvA4o/jo6nimHWCT+zPxvLfcPtG1TdyfBCmd1GEe6K3F4eXDwJQIP/MUr57?=
+ =?us-ascii?Q?HOcqVd7m5Lev9OA92JavTAfttbp6wwWsgB8w7ozNCOGJpHMaYP4S27pnFjqw?=
+ =?us-ascii?Q?ISfbx0u9hE3PbTgdnuv5nt16WVFQ93pCrbmf45OQd5U9SpYSMe1UxqKTwfzd?=
+ =?us-ascii?Q?Va6v1V3U54EzCKQzTehOSkfFP0ZirPQkDlYnERF/39Fh7TCqjBd8rQcUKqNM?=
+ =?us-ascii?Q?nc9zqNCHdREStgepD1IYS6rG20sDMboym9jQr0h3cEMk685wJ8xmeUWEYCnH?=
+ =?us-ascii?Q?4h7gRWs2b1jQLUotCvfxWYouI14Rv95VGS1bUb9MUihMxqrw12GkCHWLFDFv?=
+ =?us-ascii?Q?qMkmj96Zksc5dH0erAWOn6dhva/LSwq8NLOpaMCV3X7sux5vm72u4/+E/4yL?=
+ =?us-ascii?Q?zcT+d+3RZ5Xtst9U5QlymH1N1XVYyjCLOr7Xzkji7ZwJWtjTZkwcM56M6lb1?=
+ =?us-ascii?Q?6U/bvEErhZYEQn9dtsrHFg1f1Kw7BoJVjNA2cToKTq0lZVOzNJqbGuFrKgN9?=
+ =?us-ascii?Q?NbatolF5R7qYLyNjBUoO8uwECfZPuOn74sdLldpAw875k8PUvrlc8kHvVlh6?=
+ =?us-ascii?Q?rT9X9XLapIeXCEewqOPQjxN9O4vvd+dOwAxRyAurJf7k9rqfLm3F/+ypIsWr?=
+ =?us-ascii?Q?/sq3ZHx0+Qj7EO7eyKU5EMea9CmiLAj3LBsTdlCVBZObjv26NCDZJY3JcrTr?=
+ =?us-ascii?Q?dacGivbWQbu1gAW1ruDX1uPVp9Gq+dNKoqiEUj8kPwbVYJ6ZFBcqWTNpD4Dz?=
+ =?us-ascii?Q?Y4czV1dDVT3U250tUFwKAPAr+tgrryPyDizJulEj0Mh59b2SJRYr5KpC0vRR?=
+ =?us-ascii?Q?Up0T6jGES9Vc/Ly8RzwEVo3WTo0gN2MdiApG/2O3+uFJ4ac13edve8QgGyfx?=
+ =?us-ascii?Q?a/djBZEt60ORXF+NzXlPiY8L4bVClORMlt8481vd6Ez7jz885cDeGb/s0jkG?=
+ =?us-ascii?Q?NPvFbZHCvFnPHFo9B3uDmTuk8nVbTxCIrMhMy3lfTm4vTNA6N7XC5fTn4QJT?=
+ =?us-ascii?Q?qBnZS6msbarRN0UQ/knBBq5DuXzf4QqrZIh7xcY+zFKTPepRg05np/BINjb5?=
+ =?us-ascii?Q?/i6+ezFz+By6QUA8iwON1ecu0ONNtjtmTI0Lc1muQ3PeARg91KcqPlPCm+2d?=
+ =?us-ascii?Q?655xTThYs4mq0/dLgC4T66qMPv0iK3K/mBmM6t5CaSCGcm2gedmj1MWc1GXY?=
+ =?us-ascii?Q?ldlNj/kZOXlHOpz7PudMel9S48kNrImtAYUgwP/pTtmWfE7HNnvTCPRohH9x?=
+ =?us-ascii?Q?L03y1xlJ+8doaWahm+0VRD6pkKmf3UmXLZ46jPYHfU13TDv9oRDXFNv+hssc?=
+ =?us-ascii?Q?gB/Mu8mP2c02GTq68F2hFYsZKYclvmrkmHlmbUCqVNBG1QEHVpt18D/A6Jf+?=
+ =?us-ascii?Q?A1pPedPtFWfNM36e9/QXmmZF8Go2BjoJXYZG1aAjwBLlyoccHJsJHLApFwkr?=
+ =?us-ascii?Q?TjMmgpoYrRwg2IhsJWu+sKkq+/meAaHLqxENkeMh/Bl3Y/56NGF/11hXrzrR?=
+ =?us-ascii?Q?92nCn7h68Xwg6FN4nJxmkTT9Y0vDMPVjUCxrxM8Wz4+ujJtT0faayCCi7GNM?=
+ =?us-ascii?Q?k9BCQZW8JEoraCb8IUIb1ALPrHNfhONThlubC3dgV829DfDmZf5KXi/Vbkpi?=
+ =?us-ascii?Q?EJxNpEP0oDeOu6EMR0P72o5HgDayZJrk6tR9ge0W6V8Nhmz44TkdBNRWLoNR?=
+ =?us-ascii?Q?tSC7rAbByqtulqnmOLfgaYQGVWEa8EAA1L1eRix487SbrLGR7dLFEUX/5ko/?=
+ =?us-ascii?Q?zSu/ew+JMd7z53vpAY/agaLk8GuVHidN7ADhqefI/SVsfSExNFd+Wl6IM8T5?=
+X-MS-Exchange-AntiSpam-MessageData-1: 6UfVOQeeUB0IvA==
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 517cdb47-dfd0-4d8e-eddc-08debf66ac98
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5947373-07bc-4148-3ce7-08debf66adab
 X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 22:48:03.7098
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 22:48:05.4972
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1V0yIfh/+rSJ6w0VHQzqY2mqn70YVBDW7HgW8QBc6zce9/XtbZSdv0jx3e6SjuVZv1SUy5BXbNZDgQZAYM4GRw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 67P3iszXhtee3EuLqWyZSE/XY51hoUz/q6FX+oYZa99h/+b+8nQww/mxyQeI6yJvJPeYcLWitl5xVCUPVCB42Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWP286MB2972
-X-purgate-ID: tlsNG-c201ff/1780267688-E1F9C443-2986B28D/0/0
+X-purgate-ID: tlsNG-bad1c0/1780267694-89B7BA53-FDE4CDC2/0/0
 X-purgate-type: clean
-X-purgate-size: 2693
+X-purgate-size: 2722
 X-Spamd-Result: default: False [-0.69 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	MID_CONTAINS_FROM(1.00)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
 	R_MISSING_CHARSET(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[valinux.co.jp,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[valinux.co.jp:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[taka@valinux.co.jp,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[valinux.co.jp:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
@@ -180,119 +184,94 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.994];
+	NEURAL_HAM(-0.00)[-0.995];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 7A8B7618292
+X-Rspamd-Queue-Id: AC5926182A2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Implement the NUMA helper functions for ARM Xen by invoking
-the Device Tree-based NUMA helper functions.
----
- xen/arch/arm/Makefile           |  1 +
- xen/arch/arm/include/asm/numa.h | 18 +++++++++++
- xen/arch/arm/numa.c             | 53 +++++++++++++++++++++++++++++++++
- 3 files changed, 72 insertions(+)
- create mode 100644 xen/arch/arm/include/asm/numa.h
- create mode 100644 xen/arch/arm/numa.c
+Introduce the CONFIG_CONFIG_DEVICE_TREE_NUMA configuration option for
+Device Tree-based NUMA support. Selecting CONFIG_ARM_NUMA enables
+CONFIG_DEVICE_TREE_NUMA, which in turn automatically selects CONFIG_NUMA.
+While this option is currently restricted to the ARM architecture, it
+is designed to be selectable for RISC-V and PPC in the future.
 
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 84c4062b30..10d20e3a84 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -51,6 +51,7 @@ obj-y += setup.o
- obj-y += shutdown.o
- obj-y += smp.o
- obj-y += smpboot.o
-+obj-$(CONFIG_NUMA) += numa.o
- obj-$(CONFIG_SYSCTL) += sysctl.o
- obj-y += time.o
- obj-y += traps.o
-diff --git a/xen/arch/arm/include/asm/numa.h b/xen/arch/arm/include/asm/numa.h
-new file mode 100644
-index 0000000000..a1fa54f2e7
---- /dev/null
-+++ b/xen/arch/arm/include/asm/numa.h
-@@ -0,0 +1,18 @@
-+#ifndef _ASM_ARM_NUMA_H
-+#define _ASM_ARM_NUMA_H 1
+This patch also includes the necessary compilation fixes required when
+building with CONFIG_NUMA, and creates a single fake NUMA node to ensure
+Xen can boot successfully at this stage.
+---
+ xen/arch/arm/Kconfig   | 8 ++++++++
+ xen/arch/arm/setup.c   | 4 ++++
+ xen/arch/arm/smpboot.c | 2 ++
+ xen/common/Kconfig     | 4 ++++
+ 4 files changed, 18 insertions(+)
+
+diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+index 79622b46a1..e67219e949 100644
+--- a/xen/arch/arm/Kconfig
++++ b/xen/arch/arm/Kconfig
+@@ -99,6 +99,14 @@ config MPU
+ 	  systems supporting EL2. (UNSUPPORTED)
+ endchoice
+ 
++config ARM_NUMA
++	bool "Device tree based NUMA support (UNSUPPORTED)" if UNSUPPORTED
++    select DEVICE_TREE_NUMA
++	help
++	  Device tree based NUMA support. The "numa-node-id" property in
++	  the CPU and memory nodes of a Device Tree defines the NUMA node
++	  to which they belong.
 +
-+#include <xen/cpumask.h>
-+#include <xen/vmap.h>
-+#include <xen/dt-numa.h>
+ source "arch/Kconfig"
+ 
+ config ACPI
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 6310a47d68..c0202d9ff6 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -351,6 +351,10 @@ void asmlinkage __init noreturn start_xen(unsigned long fdt_paddr)
+     /* Parse the ACPI tables for possible boot-time configuration */
+     acpi_boot_table_init();
+ 
++#ifdef CONFIG_NUMA
++    numa_initmem_init(0x0UL, 0x1UL << (PADDR_BITS - 12));
++#endif /* CONFIG_NUMA */
 +
-+typedef u8 nodeid_t;
+     end_boot_allocator();
+ 
+     /*
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+index 7f3cfa812e..d1651fe7dd 100644
+--- a/xen/arch/arm/smpboot.c
++++ b/xen/arch/arm/smpboot.c
+@@ -47,8 +47,10 @@ integer_param("maxcpus", max_cpus);
+ /* CPU logical map: map xen cpuid to an MPIDR */
+ register_t __cpu_logical_map[NR_CPUS] = { [0 ... NR_CPUS-1] = MPIDR_INVALID };
+ 
++#ifndef CONFIG_NUMA
+ /* Fake one node for now. See also xen/numa.h */
+ nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
++#endif /* CONFIG_NUMA */
+ 
+ /* Xen stack for bringing up the first CPU. */
+ static unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index 5ff71480ee..89fa7d10c7 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -188,6 +188,10 @@ config VM_EVENT
+ config NEEDS_LIBELF
+ 	bool
+ 
++config DEVICE_TREE_NUMA
++	select NUMA
++	bool
 +
-+#define ZONE_ALIGN (1UL << (MAX_ORDER+PAGE_SHIFT))
-+
-+extern bool numa_disabled(void);
-+extern unsigned int numa_node_to_arch_nid(nodeid_t n);
-+extern u8 __node_distance(nodeid_t a, nodeid_t b);
-+
-+#define arch_want_default_dmazone() (num_online_nodes() > 1)
-+
-+#endif /* _ASM_ARM_NUMA_H */
-diff --git a/xen/arch/arm/numa.c b/xen/arch/arm/numa.c
-new file mode 100644
-index 0000000000..080d7892ae
---- /dev/null
-+++ b/xen/arch/arm/numa.c
-@@ -0,0 +1,53 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Helper functions for ARM NUMA.
-+ *
-+ * Copyright (c) 2026 VA Linux Systems Japan K.K.
-+ * Author: Hirokazu Takahashi <taka@valinux.co.jp>
-+ */
-+
-+#include <xen/bootinfo.h>
-+#include <xen/init.h>
-+#include <xen/numa.h>
-+
-+#if CONFIG_ACPI_NUMA
-+#error "ACPI NUMA isn't supported yet."
-+#endif /* CONFIG_ACPI_NUMA */
-+
-+
-+bool arch_numa_disabled(void)
-+{
-+    return false;
-+}
-+
-+unsigned int numa_node_to_arch_nid(nodeid_t n)
-+{
-+    return numa_node_to_dt_nid(n);
-+}
-+
-+u8 __node_distance(nodeid_t a, nodeid_t b)
-+{
-+    return dt_node_distance(a, b);
-+}
-+
-+int __init arch_numa_setup(const char *opt)
-+{
-+    /* parse "numa=" option */
-+    return 0;
-+}
-+
-+int __init arch_get_ram_range(unsigned int idx, paddr_t *start, paddr_t *end)
-+{
-+    return bootinfo_get_ram_range(idx, start, end);
-+}
-+
-+bool __init arch_numa_unavailable(void)
-+{
-+    return false;
-+}
-+
-+void __init numa_fw_bad(void)
-+{
-+    printk(KERN_ERR "%s NUMA info is broken.\n", numa_fw_nid_name);
-+}
-+
+ config NUMA
+ 	bool
+ 
 -- 
 2.43.0
 
