@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SqeSENm6HGqVRwkAu9opvQ
+	id EKhiNdi6HGp7RwkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:57 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:56 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA3056182BB
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1323472.1589237 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D87AC6182A8
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 00:48:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1323476.1589246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wToxM-0007M2-2l; Sun, 31 May 2026 22:48:32 +0000
+	id 1wToxN-0007gS-Ln; Sun, 31 May 2026 22:48:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1323472.1589237; Sun, 31 May 2026 22:48:32 +0000
+Received: by outflank-mailman (output) from mailman id 1323476.1589246; Sun, 31 May 2026 22:48:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wToxL-0007G0-S6; Sun, 31 May 2026 22:48:31 +0000
-Received: by outflank-mailman (input) for mailman id 1323472;
- Sun, 31 May 2026 22:48:30 +0000
+	id 1wToxN-0007bX-7J; Sun, 31 May 2026 22:48:33 +0000
+Received: by outflank-mailman (input) for mailman id 1323476;
+ Sun, 31 May 2026 22:48:31 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <taka@valinux.co.jp>) id 1wToxK-000732-9p
- for xen-devel@lists.xenproject.org; Sun, 31 May 2026 22:48:30 +0000
+ (envelope-from <taka@valinux.co.jp>) id 1wToxL-0007Dh-By
+ for xen-devel@lists.xenproject.org; Sun, 31 May 2026 22:48:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wToxJ-00BFyL-Mv
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 00:48:29 +0200
+ id 1wToxK-00BFyL-Op
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 00:48:30 +0200
 Received: from [10.42.69.8] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a1cba9e-5cb7-0a2a0a5109dd-0a2a4508c056-18
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:29 +0200
+ id 6a1cba9e-5cb7-0a2a0a5109dd-0a2a4508c056-20
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:30 +0200
 Received: from [52.101.228.92]
  (helo=OS0P286CU011.outbound.protection.outlook.com)
  by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <taka@valinux.co.jp>)
- id 6a1cbabb-63b5-0a2a45080019-3465e45c1533-3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:29 +0200
+ id 6a1cbabb-63b5-0a2a45080019-3465e45c1533-4
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 00:48:30 +0200
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:458::18)
  by TY1P286MB3278.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:2e1::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Sun, 31 May
- 2026 22:48:25 +0000
+ 2026 22:48:27 +0000
 Received: from OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6]) by OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  ([fe80::c8c9:25cd:8d13:96d6%6]) with mapi id 15.21.0071.015; Sun, 31 May 2026
- 22:48:25 +0000
+ 22:48:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,20 +60,20 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=valinux.co.jp header.i="@valinux.co.jp" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qkng8pdB40bOngRy4VPOI3CpFigMMbOBmcth24d84ePYynjcrkP/4beY0urPZKOdWSGECUGsf0igmW1cw7sb81dfHZXWHMZpGP4OwNZRFW2ScWcNOi+ojE+ZBWS8m3njBI82p3Ussohowopr82RCPkNevKd+T+9frXo8B2jHTu5uft6Sqqr4mGbzCmJNu/eccrX4jmQOHvl/5dL2kgyuAOpMVWm0T7bubhpj/cjQ15Ji3VYEfSRv9YX4x8dcR5e8GIFjxZml5371aTu+crjocPIo8dQtRo8dEyfmFpsLzNBpRES3GKA2HyMHw56VvXf8YrwdcSu0INjDqZL1kpDYDg==
+ b=VWhCYBYjgDVRfsLv0+tiBm0H9tHExWCyoDv6ruTxAv8pAC0N4QFE0YhnstNzdJ/Hd6qjsuLwFe4NczQ4s8UT2uzEvy9ebN14uk2yNEK739jh0xSWiV0LAEj0EvaG/HBgSN1TqgKmb+rRhUiWvc34I3JgV3V8QaiSfhia3w94RbYyWvRmf2d7F86CTBJ8VqNndDprk1JNVIE9z1hAY2mbdOhi0HS1GWxye0+MwgQjzscnofpoI/Hve8voaL9CDvZKDmj3nemPJyXcs8RKdL+pkTJOwK4zl5gTV82zC9dXnUEjTF8FEnEbTZJb+0B2HuvPlGPJjWxnw2bJWN74JFBAIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7/1jjuePRl2BihluZPqQwpapSqp5qYBLP0RAoKJuUMM=;
- b=XdPmrDFCfAHC+6bEw3AzR9ZgmdgqGVHRullXTTPhlDoW8Vh4bHw3hgvEQIfzIwmdUwtyGxqM96TrfoyucODDEZELOH6V2lzbst+8x/t5MmDPtMb/4cqiwHEar1dcMN963BuqBywW66UuMJ7VFksphg6EQrwidyXUDHIUoc30nWOKSBL7XY/nzqEtuwBVqL/JYGX5CPvbaJhh5n7LP7S7SF1iBR3K8RulQXQJXYBfo85lKtPbF+TrDMIBmR1rR313xYroU6PoRHiV4L3ZB0VBcbeT8iCEy1iwZoXFNwh+fRmRCfUznH6kEnVkEoHpfHPf9YmGqh2PrYAYA9ZlgdAs/w==
+ bh=dJizAY35JSMvsjR4vL6kswffWmnRdXb3uawGnTqPjSg=;
+ b=QUTXXRKiFkddXpWcQwdOKqo9JbyE9cylHW/TWG31XgiOn7pAh6YXHYNQAUKTmE1PaDGSwFVvWVpAmXrB5WKdTCmDnDHR3vgEvB5QMdno091nPisDbI2XN8yFJuMukRnIP1min5tY774ZfH2hElUebS/DBpd8EMDe9/QP5JJPIWDAUotLlJFoQukvqC6uR83C/aL6QSu+WdRpx2bBr78UhpMZvWFhI8tAzH6HU2zoYJWJ5QewBMe2+AFU3vfa8fcF4dRlsL2lHjP8MdK55tBbuxLzNEsGaSVfVGLZQaYZcDcuuNjw58WJX3HbxYddkC2x3mqJdwTTEK5+QUgarJ3HCQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7/1jjuePRl2BihluZPqQwpapSqp5qYBLP0RAoKJuUMM=;
- b=V2t8hQQYfN9swYxsjRnEUMT7+FTLIJMqj4oMKtu/9mYVaujCyUpHgL+VOg0C+YiFUrXR6ey1/NeaOrnNV+aonoD/bxRPgoXrClNYFGaQahYOwiqaaiDldypuxqVyEDiZOgsGPGc0Z2EPLRrDNLZIOovnOFp5hOS3SfqQC0D9XMs=
+ bh=dJizAY35JSMvsjR4vL6kswffWmnRdXb3uawGnTqPjSg=;
+ b=LAM03Iq1gMOE6CuP85ATtm/z2gQBmNdichVJVLolgVsGn4mddds10aoKyL3V1gc7TcyGoELM2wd6AVLL67HPgWgHvSC+d36jkoZFKzmJhOEsC54ZIqlwD7hrbzQpyHfdwLedCQxodvkIQCFkcd5wg+P2OI0y8E7kKWAY2Boybdk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 From: Hirokazu Takahashi <taka@valinux.co.jp>
@@ -81,76 +81,76 @@ To: xen-devel@lists.xenproject.org
 Cc: Hirokazu Takahashi <taka@valinux.co.jp>,
 	Anthony PERARD <anthony.perard@vates.tech>,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2 13/24] tools/libxl: Add 'numa-node-id' property to DomU memory nodes
-Date: Mon,  1 Jun 2026 07:47:43 +0900
-Message-ID: <20260531224755.9481-14-taka@valinux.co.jp>
+Subject: [PATCH v2 14/24] tools/libxl: Add 'numa-node-id' property to DomU CPU nodes
+Date: Mon,  1 Jun 2026 07:47:44 +0900
+Message-ID: <20260531224755.9481-15-taka@valinux.co.jp>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260531224755.9481-1-taka@valinux.co.jp>
 References: <20260531224755.9481-1-taka@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TY6PR01CA0031.jpnprd01.prod.outlook.com
- (2603:1096:405:3bd::13) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TY6PR01CA0034.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bd::17) To OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:604:458::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: OS9P286MB7222:EE_|TY1P286MB3278:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c5f87ad-c412-4a6e-129f-08debf66b9c7
+X-MS-Office365-Filtering-Correlation-Id: d62d177b-6f2e-4205-680c-08debf66bad0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|376014|10070799003|1800799024|366016|6133799003|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	T1mouqI8oX/Qv0sQojux+Q+ytCkgl85Q9fvZLZOLnYkYJV2mUj5a9kWB0azAiLzGJcCqAO5+naCdTHueAvliFdp1k6gwxe6IvqSL84HpHcRqPAozpmtWqRtVXpapyrKcS46MKz26OF9caIMKEU7p+jFxJY+8p1/kdQMM6MWscaXn67orgvJdI/s2CcdszKqXkgffXiwb2Xvi4LgJwHMzMzxEwTOTERHSJLk9JLf+vFowQRQrcboNUl7mgl141+4nqvZPhR0ILu/5GR+wt5eRxzkV8kapaC7rCkSrWJT/A9gJSw/bTsRC166Jo1FpTQbzY1JK0db4wPS9mSac/gdpCZOcLDKoQ/wyQ2UZUB8jT5iN4AivFQ6u8KQ+HMUDIMz+WcOAi9KfWxV3rKQ2bhwo/7bi52lb2EtafmnocvUIA1jXOL9udgCHmGX1Gma7Ucjiw9p5ayBPwF/lUOOT9eRBIQ61PLRd837XqCWnRZLq+18MwWWWVC0YM5fQKZIahW8z52KW4NYgXCj5R4vw0hLLWJJd+VRSOkJ8LQUoM/nHVOgUKii3iYoZ1MWWAOs4mpj8lOgmLn1gryq213BaOP/N/9M0GuEgaVceQN67f20OJXinRI/TbDfzt5ej0TYPfsNjR8GqqGKoQa3lxtR7B85oDOrBVnUTXHbTFud/GrhzaTuT6V8+RFCe+6XO6+bLP1Qd
+	lHvFDjGkktSbTxOgcUdcUwwR0pLpakSx35u59TAfgS1VfChjXEmikLxsJ1WcgStDKu7dYl8Gz+aQ+emKy5qLuuI+kVoCBZF/936Owk8vnq5lzvKYcF4DUWJ9YQY7z4fs7BxiBTYy22ulzElMT8kvyWbAM26KDLSbdvbyDNXPYcT43exnTDAO3Rg5NgABDJa6FfTYxg09RUia+HxrM/hHfYemqrJop3716JFuWuB/s9j0qIf6DkIxedaitG/W6hmFzFh2tAAt5vmnR/hvEh/U/XlNy/hVT5COUSyff3+Hw/7TKv6UThAoYVgtfaHBX6soT/D9GU+TGFbEES7LfMtslI/V9t0EtQjXPvDo08YzSEUqZl0lB/WE4iHnChKR+H+SlMKTK1kWG16tnzSIFSBx62mF3JsYaaKGl5OxpAwtN2st5iPMlOsqtubQPJVSGlMs/jAW4DPvzeMcH2RwKFrFXZD1CZzm3E1CN2pgMnA2nS5V0Ay2sgbxq+fsbzA0XVLZyjKZFr/FxVlEdjtx84enttB/zcU0xQboA7U+FGwUQ9Ge++tOGvDyqDXdmf1tP7GAqmi30N/kPAhY+3pG9qESp7qQkXqUGlTt9ccIsA2ibBawLlRrbwtJ800oUocMJgS35J4LPFGUJ7MfpgFwnWEmBVp7+2cuLJsSzYG+YOcU16Az1FLeM0mT2VqZ82FEvBxL
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(10070799003)(1800799024)(366016)(6133799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?5xlKcwDJXm81g43lhZ56okgF6RDlsU7ejF1YBUJymdeUYpt460qyoR6JyM8V?=
- =?us-ascii?Q?RN/yQYQDjNYD/UysF2xXUerkQUjl4Yp4mgSfx13ocKVWPSbPypyyCBOx4MFm?=
- =?us-ascii?Q?it2T3UOEvts5pzArVIDCvRfcF7W/KD80qmHSZsM8VXowKwJCJVJ1AIgcxVlC?=
- =?us-ascii?Q?SubyRghV86vWjBxAL2TMQ6qD0mejhLE8f9HTi7q+kgjyr2ioqOpbL1eHUiPO?=
- =?us-ascii?Q?DTjDU1fctMnzyJtqTgkEdr6K/gQ78IEFcn+ao4Z+bCuMi27MncEgGxoZ/uIh?=
- =?us-ascii?Q?LDmtEBfjvJa/vmrkB8Yrr468n22ZIyikQp6hL3f6FwUZywKKmj39xpfwAbrH?=
- =?us-ascii?Q?RqY/3IPTgIzHtdA95UrUphYh93pfBrXdCrH91p3uDrYUhEujkbq2YsKhmm0h?=
- =?us-ascii?Q?DFjdptvOpr5+iduUOy1avB1Pr7WvXck1tcsJ1Krbyvs3Fch+WKLYTTPVqF8W?=
- =?us-ascii?Q?no+x6VD8/m2JI461KQ9fQ8uHHqeM5juKX9mdsWaJ3npOwjEf+jzKc8grwtpK?=
- =?us-ascii?Q?s8aFXS1iSvin6gYbA5SNkvKl7+gCInyT+5t6fhmU69837u99qj2PQ0l8SMqa?=
- =?us-ascii?Q?2RfsV2OV1Q8El8IxGZARQtNJiW2hl8HD+EfFIqKP5wJyD1cVy/mOYWitYBA6?=
- =?us-ascii?Q?wz+5RT/tLztrf5wZSvBCerCoWUmD3oNUOsCxl3LwTXvUAtuVuK7RL3b9NBkA?=
- =?us-ascii?Q?4QaB+4g9a0IVKekInluv+ay661VPRZ9alcidPOiJYeBxdGgopK5ceHPhEtdv?=
- =?us-ascii?Q?GtCUyKiJfJf7yyiB4FLhKfVVIUHUZoanxuISkegIHjYMjTsVqJ2eECg1QQh4?=
- =?us-ascii?Q?qAHo3sxYrww0atKylWfDfBxKT2NrnaQB15MtcUecoEQ8PX1NYe9fjwIuDeEo?=
- =?us-ascii?Q?xkd5LcEk1vVHE2VM1WQI32HbruEAAaXAjGlPOHR5tmiLVNvqQsNvN175fJFD?=
- =?us-ascii?Q?KQhLFS2ucMd7vhMl8as96LXeR4cavjm/7bY94kWCX0BurvKBSqPG7gG5dQQa?=
- =?us-ascii?Q?f9ignM268TTAokrEzSDM5AhJmaegCQZAVMIUT41s8tOByTVLS150T+e2Idkh?=
- =?us-ascii?Q?4HEecqm2eN24CibH8s5HPcZFY1PVJ64dUyLYNeAQzvwJxT+kq6QlIAPOCCiL?=
- =?us-ascii?Q?pK6jcMD59IVK0jCAo2clKnuvBkY0FdMT+HHr5wLDOzgNNK7DM9azwIFFz7GX?=
- =?us-ascii?Q?Jszn9TofACwZU9tLdZTbf0Mcn6dsYkPCqhi/KS+Sh2RmnuJitNXZ9NgVgIxN?=
- =?us-ascii?Q?dTPrlTVBzmdgq5s8PsdD2cam7D4clgbzLzsl+eiSMMo4kIPRRNsG9e5ozyTC?=
- =?us-ascii?Q?8R4rB7LB28LvfnhG/1NI++edGzUqbynK9jKR/tOrY7ND713iu6HIWjRkXC4P?=
- =?us-ascii?Q?6mKVQngIh1geu8MuDuvQ/HIqgP9eKC1CeazkyLMzAdxJG3zoBr546twbtG+W?=
- =?us-ascii?Q?nmD+TszW15VahJ4ohgz5CHyHFMEdGmShSo/s2DWmAmD3rOAnaLY6HcFoVxBU?=
- =?us-ascii?Q?iV4/ssZhPHlGgIOV6Q9NhW09Xf+lYWchf8FjTPIAJatG9AQUPqNO1IQe2++e?=
- =?us-ascii?Q?g20UAaKqxMOC8ASQcxGSpXQL1cC6tfw8D1/681jYso2aX3GCCbRq+t/PFJbt?=
- =?us-ascii?Q?n/ZyNhVIDTiXFQw2cLjzeaDPptRIAhekKAn6YRcQQJvqSE9A+akDQjPCWTko?=
- =?us-ascii?Q?6QNSoOUztbmMNqyC4Oc0oYXmf3RZsiiqG//6Sw0VnX3dIbpsCrPtZHWkH29D?=
- =?us-ascii?Q?DxRKZFaSQ3sfmLhyFQLHqpiDyuWESf7p6peFMTOIN2uD31Xq8vq/xdNE3kMM?=
-X-MS-Exchange-AntiSpam-MessageData-1: ITtX9Vx1/3BWQg==
+	=?us-ascii?Q?tbtC/78mxTjYO9BfRi/paVtKhsa1VNOmW3wseRd8sGM4MDsGkgGKVzEv+t7k?=
+ =?us-ascii?Q?Mepn6qMkFgFYa2+PymEPzBjVaxwJ002pFedJ4qv1NkbQHwnqs32HyOEL31RU?=
+ =?us-ascii?Q?T2QlXOtEgPWd0iI9HmzZ0CoznsjIstlPuJd5gvfwWQ9FThpynEiJ4REe+kIn?=
+ =?us-ascii?Q?7XLiGgaSaepzQUW0pvOEIEVPFLHtadHatEUCdbxN0zv7ZMcu+5SgrcQrdrh6?=
+ =?us-ascii?Q?wmISLIYBFI+ZOSl9qqR6cBeOccasLGIMt2lVm+wzIqijG8/LbihlZR5vXZ6x?=
+ =?us-ascii?Q?NriXx/5/DaDqIwBNKdkNzFRaX4xh+R8JKrm16IloCXi7OmvqyUqf9Dtpm075?=
+ =?us-ascii?Q?HXhiqHHwjEM8/P1p6Ee3eDmBp8LP183gtx13Tj4P+tDfeiTDYseEFgkbZ/5D?=
+ =?us-ascii?Q?BHUQNCXCjQDQwUghJU9fbH9Mu10TQxJuWpw/uaNcbazebrkfuYsFSldm/yk5?=
+ =?us-ascii?Q?xR01snf622woNbFULZF9XJTq5aW5rnKmzYz2XIshX0AG+Hqjg/LEU8f53rxu?=
+ =?us-ascii?Q?SIyB4IOaNxV6lWIgnKqX3SvkYEGMbL4E5fgMafkyIBEk2fqxtIjU0J4DVJPB?=
+ =?us-ascii?Q?pUF1KD2Wu/zmw2tTZXgTEK2Otdr2k1pkCoDdXknRNNBeNkswcb/inU0BYNLS?=
+ =?us-ascii?Q?vSwEIL/1qiSl88QHsrqK3ttCUjmF8sVFSn8sn8aPJFTH4p/YmrkT3P9pJBvF?=
+ =?us-ascii?Q?I7RQhh2bNkRFK2lnKzszYO1NNwz+h9QE2xAfWLNGC9JOvzKWYqDS2PkeS/SR?=
+ =?us-ascii?Q?X5u/DlVZulz/bxj78UDY9/zffRS3Fk0Klc5loS3/AFRu6kF4W7wp/y7nyc0O?=
+ =?us-ascii?Q?bN/ECWRG2E1O+vSIAIiiT9zJ87s83vmR+Io2X47iPL7VNUKkUNhovGcO0wAf?=
+ =?us-ascii?Q?L+Ok5yMfls8lP+ZXNxbxzn3H29PYzov1WB+GlvNxqFdQZJBH9kNe7Jaemuba?=
+ =?us-ascii?Q?8cg+O+HwVQyWBh5EGMHzbp67T39jh3OfLvxg/5OWNSVmrJZzJMxDS1TWfXPw?=
+ =?us-ascii?Q?LfTLHu+NrE1PMIYUXkHLR7C9d9TAjaJk54igysPW8IwcznZc4afw5zO+Fvrm?=
+ =?us-ascii?Q?hNp6HPBKMEOwhUk7WmmtvADeDMlljbbNQVJt6NtlbxPfmza2cXcl/iRw8G6H?=
+ =?us-ascii?Q?eu+5jqdkrPQWVWJnYCg4v20vgHUhugSdcpQOFZhyGet+6RwgaXnlSJmBW/vu?=
+ =?us-ascii?Q?kIMGxd2eC+b/xrdjpWUa58AN9VS/OsA/j+zhtP4uxPbUgnXgj/C/D77dHcUP?=
+ =?us-ascii?Q?KnYgMkXFakY6Od36LwIjqfCZhnzOW/X5NTmHV2FiujosyszK0Lu4TP9CWHTv?=
+ =?us-ascii?Q?4cdQYe6y9rNfWVOxyDkFmeM/vsZp0+VOduGZsfdlRzQINvIUFTBmdFAlgVNV?=
+ =?us-ascii?Q?NhBubJrrSV8vmTGcKoQOmEqQQcs+OCtw4LIKctfAIkDzZK6cLNGN4FkCNubX?=
+ =?us-ascii?Q?jtE8/YvWJmlmka2MbSzhFRTpQIZVfZSC5i9BTLLcDyYSkJQa8Nc+0sM3mFoZ?=
+ =?us-ascii?Q?jVID2CQP8g0W4pg2CI3idm6uGHtXb+0Uj1KGw7QpQtfsEVvNZWQpZp9I+4Ye?=
+ =?us-ascii?Q?nX9XLz32n70wWcK1Kopwfhmv3sXG6bhnXs8Y3+nO2or57vM9cLNKwl67r71t?=
+ =?us-ascii?Q?e+ZeDlVQvfGqqz4T8/3wUI84eEomF3CgskHIHKDti90S/tgcuAw1TaIhFBPe?=
+ =?us-ascii?Q?dcGtyyiQJzSJeZ3Bq7r7JhssuWBtV3FIdohSRZ3rYOohiwsmATx2j3s0Fylo?=
+ =?us-ascii?Q?CMAYVwRRrBwaB0WFUqoMVgk+lsh4we6OYy12tU/j0FMJOaqBuszpdpXdci8W?=
+X-MS-Exchange-AntiSpam-MessageData-1: qyig9pLEGm8ZkA==
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c5f87ad-c412-4a6e-129f-08debf66b9c7
+X-MS-Exchange-CrossTenant-Network-Message-Id: d62d177b-6f2e-4205-680c-08debf66bad0
 X-MS-Exchange-CrossTenant-AuthSource: OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 22:48:25.8217
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 May 2026 22:48:27.5697
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: age/xR9+c2G4rxOvGrucGUSC4Wz2Ae83LE0Wr5Rz/vxYKGvGCdjt6ZsJOWC5t0B1EvdeVsUHJ/RCGTh0QPmBUA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZHKeD0SxjfdPZVoU4YFCg7P4eINz4FufPI6N23CdoS7H+xF649sNm3MERTBWnREvKEwLzMXkj8mS5cT7BF+MjQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1P286MB3278
-X-purgate-ID: tlsNG-c1860d/1780267709-B757FDB1-1A447DF3/0/0
+X-purgate-ID: tlsNG-c1860d/1780267710-BDF6ADB1-CB423CD9/0/0
 X-purgate-type: clean
-X-purgate-size: 3839
+X-purgate-size: 2298
 X-Spamd-Result: default: False [-0.69 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
@@ -181,108 +181,67 @@ X-Spamd-Result: default: False [-0.69 / 15.00];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: EA3056182BB
+X-Rspamd-Queue-Id: D87AC6182A8
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Add the 'numa-node-id' property to the memory nodes in the Device
-Tree passed to DomU. The NUMA node to which each memory node
-belongs is determined based on the virtual NUMA configuration
-specified in the xl domain configuration file.
+Add the 'numa-node-id' property to the cpu nodes in the Device
+Tree passed to DomU. This information is retrieved from the
+virtual NUMA configuration in the xl domain configuration file.
 ---
- tools/libs/light/libxl_arm.c | 50 +++++++++++++++++++++++++++++-------
- 1 file changed, 41 insertions(+), 9 deletions(-)
+ tools/libs/light/libxl_arm.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index 7e9f8a1bc3..6eae33cdd2 100644
+index 6eae33cdd2..4b0ed99229 100644
 --- a/tools/libs/light/libxl_arm.c
 +++ b/tools/libs/light/libxl_arm.c
-@@ -670,25 +670,53 @@ static int make_optee_node(libxl__gc *gc, void *fdt)
+@@ -571,7 +571,8 @@ static int make_chosen_node(libxl__gc *gc, void *fdt, bool ramdisk,
+     return 0;
  }
  
- static int make_memory_nodes(libxl__gc *gc, void *fdt,
-+                             const libxl_domain_build_info *b_info,
-                              const struct xc_dom_image *dom)
+-static int make_cpus_node(libxl__gc *gc, void *fdt, int nr_cpus,
++static int make_cpus_node(libxl__gc *gc, void *fdt,
++                          const libxl_domain_build_info *b_info,
+                           const struct arch_info *ainfo)
  {
      int res, i;
-     const char *name;
-     const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
+@@ -586,7 +587,7 @@ static int make_cpus_node(libxl__gc *gc, void *fdt, int nr_cpus,
+     res = fdt_property_cell(fdt, "#size-cells", 0);
+     if (res) return res;
  
--    for (i = 0; i < GUEST_RAM_BANKS; i++) {
--        name = GCSPRINTF("memory@%"PRIx64, bankbase[i]);
-+    if (dom->nr_vmemranges == 0 ) {
-+        for (i = 0; i < GUEST_RAM_BANKS; i++) {
-+            name = GCSPRINTF("memory@%"PRIx64, bankbase[i]);
+-    for (i = 0; i < nr_cpus; i++) {
++    for (i = 0; i < b_info->max_vcpus; i++) {
+         const char *name;
  
--        LOG(DEBUG, "Creating placeholder node /%s", name);
-+            LOG(DEBUG, "Creating placeholder node /%s", name);
+         mpidr_aff = libxl__compute_mpdir(i);
+@@ -607,6 +608,17 @@ static int make_cpus_node(libxl__gc *gc, void *fdt, int nr_cpus,
+         res = fdt_property_regs(gc, fdt, 1, 0, 1, mpidr_aff);
+         if (res) return res;
  
-+            res = fdt_begin_node(fdt, name);
-+            if (res) return res;
-+
-+            res = fdt_property_string(fdt, "device_type", "memory");
-+            if (res) return res;
-+
-+            res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-+                                1, 0, 0);
-+            if (res) return res;
-+
-+            res = fdt_end_node(fdt);
-+            if (res) return res;
++        if (b_info->num_vnuma_nodes) {
++            unsigned int vnode;
++            for (vnode = 0; vnode < b_info->num_vnuma_nodes; vnode++) {
++                if (libxl_bitmap_test(&b_info->vnuma_nodes[vnode].vcpus, i)) {
++                    res = fdt_property_u32(fdt, "numa-node-id", vnode);
++                    if (res) return res;
++                    break;
++                }
++            }
 +        }
 +
-+        return 0;
-+    }
-+
-+    for (i = 0; i < dom->nr_vmemranges; i++) {
-+        uint64_t start_addr = dom->vmemranges[i].start;
-+        uint64_t size = dom->vmemranges[i].end - start_addr;
-+        uint32_t nid = dom->vmemranges[i].nid;
-+        uint64_t regs[2] = { cpu_to_fdt64(start_addr), cpu_to_fdt64(size) };
-+
-+        name = GCSPRINTF("memory@%"PRIx64, start_addr);
-         res = fdt_begin_node(fdt, name);
-         if (res) return res;
- 
-         res = fdt_property_string(fdt, "device_type", "memory");
-         if (res) return res;
- 
--        res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
--                                1, 0, 0);
-+        res = fdt_property(fdt, "reg", regs, sizeof(uint64_t) * 2);
-+        if (res) return res;
-+
-+        res = fdt_property_u32(fdt, "numa-node-id", nid);
-         if (res) return res;
- 
          res = fdt_end_node(fdt);
-@@ -1365,7 +1393,7 @@ next_resize:
-         FDT( make_cpus_node(gc, fdt, info->max_vcpus, ainfo) );
+         if (res) return res;
+     }
+@@ -1390,7 +1402,7 @@ next_resize:
+ 
+         FDT( make_root_properties(gc, vers, fdt) );
+         FDT( make_chosen_node(gc, fdt, !!dom->modules[0].blob, state, info) );
+-        FDT( make_cpus_node(gc, fdt, info->max_vcpus, ainfo) );
++        FDT( make_cpus_node(gc, fdt, info, ainfo) );
          FDT( make_psci_node(gc, fdt) );
  
--        FDT( make_memory_nodes(gc, fdt, dom) );
-+        FDT( make_memory_nodes(gc, fdt, info, dom) );
- 
-         switch (info->arch_arm.gic_version) {
-         case LIBXL_GIC_VERSION_V2:
-@@ -1716,10 +1744,14 @@ int libxl__arch_domain_finalise_hw_description(libxl__gc *gc,
-     if (res)
-         return res;
- 
--    for (i = 0; i < GUEST_RAM_BANKS; i++) {
--        const uint64_t size = (uint64_t)dom->rambank_size[i] << XC_PAGE_SHIFT;
-+    if (d_config->b_info.num_vnuma_nodes == 0) {
-+        for (i = 0; i < GUEST_RAM_BANKS; i++) {
-+            const uint64_t size = (uint64_t)dom->rambank_size[i] << XC_PAGE_SHIFT;
- 
--        finalise_one_node(gc, fdt, "/memory", bankbase[i], size);
-+            finalise_one_node(gc, fdt, "/memory", bankbase[i], size);
-+        }
-+    } else {
-+        LOG(DEBUG, "vNUMA enabled: skipping memory node finalisation as nodes are already populated");
-     }
- 
-     if (dom->acpi_modules[0].data) {
+         FDT( make_memory_nodes(gc, fdt, info, dom) );
 -- 
 2.43.0
 
