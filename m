@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mD6GL0gDHmpRggkAu9opvQ
+	id mKMUGWYDHmpRggkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 00:10:16 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 00:10:46 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30F26625C5B
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 00:10:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1324192.1589860 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9C97625C64
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 00:10:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1324201.1589869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUApE-00037p-NH; Mon, 01 Jun 2026 22:09:36 +0000
+	id 1wUAqC-0004be-5z; Mon, 01 Jun 2026 22:10:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1324192.1589860; Mon, 01 Jun 2026 22:09:36 +0000
+Received: by outflank-mailman (output) from mailman id 1324201.1589869; Mon, 01 Jun 2026 22:10:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUApE-00035o-KD; Mon, 01 Jun 2026 22:09:36 +0000
-Received: by outflank-mailman (input) for mailman id 1324192;
- Mon, 01 Jun 2026 22:09:35 +0000
+	id 1wUAqC-0004Z6-1m; Mon, 01 Jun 2026 22:10:36 +0000
+Received: by outflank-mailman (input) for mailman id 1324201;
+ Mon, 01 Jun 2026 22:10:34 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wUApB-00035i-9B
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 22:09:35 +0000
+ id 1wUAqA-0004Ys-0k
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 22:10:34 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUApA-008bcC-MS
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 00:09:32 +0200
-Received: from [10.42.69.8] (helo=localhost)
+ id 1wUAq9-005l8O-Dk
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 00:10:33 +0200
+Received: from [10.42.69.2] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a1e0317-bab6-0a2a0a5309dd-0a2a4508eace-10
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 00:09:31 +0200
+ id 6a1e0340-5cb7-0a2a0a5109dd-0a2a45028b14-40
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 00:10:32 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-c1860d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a1e031b-63b5-0a2a45080019-5a9b3222edce-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 00:09:31 +0200
+ id 6a1e031c-af86-0a2a45020019-5a9b3222c720-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 00:09:32 +0200
 Received: from [2001:8b0:10b:5:5b40:b57d:669c:36f4]
  (helo=u09cd745991455d.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wUAoz-00000000qcM-01rU; Mon, 01 Jun 2026 22:09:21 +0000
+ id 1wUAp1-00000000qcP-29yN; Mon, 01 Jun 2026 22:09:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:in-reply-to:
 	Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
 	Content-ID:Content-Description:References;
-	bh=bK+deqYMHh6dIwA6v3B9GBiH7GVvQc5d18CuIzhNf5A=; b=d6ToEm4S5gSgWkLTTivvk/zDM4
-	YoLrodhcWCccDjSdtjWsDh5umRUptOVmOo1dVOIqtu1hu8vmc8avULFBSto8qjktEgz6eCc1FLMYv
-	ewDkRjCqbe05kiRR7cGBWhkPB9CrVjpHHd3QU5jnpmMgMkxewz0Dh76O4JMXx13rPLoP30Ym9b/Ll
-	m5YUuEfXzNpohVIM8zXkidLM1g+pvUOJvTmR5JZwI+Jrdb35JoXteg5WUPH6fvkukvay7bzNbNktm
-	vObij1z2uJrN5U0ugbRM7dBbi70Qi6JSoWlzs/cwjsioM0s4ZgEKSHnURns+z+EfgUzrDDtsfa4xr
-	0UsxiUGA==;
-Message-ID: <0518969877d6f6ab74e2b84e86b3a41671d2a405.camel@infradead.org>
-Subject: Re: [PATCH v4 31/47] x86/vmware: NOP-ify save/restore hooks when
- using VMware's sched_clock
+	bh=ryPLS6EKCHHJPBHwciU6az0zh1xqOzfsR6UijU3/SXM=; b=Ph/KVvrsvFg7xA4xN+pPIT3aHw
+	SC9KhcsvoTsnhINQFTNv1a/qxLWIv7eJ3kv4oBAimy1dqb25H3jfLsNsfr/+8DGU8v/qKIpxk1gkK
+	dgA4lxGKZmggj1QuLaQW+mnKbAMqVCCplPUBLAM7mb7uTnM0GK23nNd6rm0S5jQalaoIGlR28TsU0
+	YuAZZ3Jm05l8m4rF+B9glb5Bb+1Ot3i087cYfkMbOZMvKtWB3VAc3HgBYKTDEENhIqdkr0GsXWM/R
+	QBe6Wra8odLn5JjqX6gh65r8lymfhkbbkKcIo/22/LRpzItE6lnCk8kn1xRcBalaOp0NaDxwjOVlD
+	SkWDuKxA==;
+Message-ID: <a4ce494c080258d211962e5d538d03eec8939b37.camel@infradead.org>
+Subject: Re: [PATCH v4 30/47] x86/xen/time: NOP-ify x86_platform's
+ sched_clock save/restore hooks
 From: David Woodhouse <dwmw2@infradead.org>
 To: seanjc@google.com
 Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
@@ -84,20 +84,20 @@ Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
  xen-devel@lists.xenproject.org,  dwmw@amazon.co.uk,
  thomas.lendacky@amd.com, nikunj@amd.com, dwmw2@infradead.org, 
  mhklinux@outlook.com, tglx@linutronix.de
-Date: Mon, 01 Jun 2026 23:09:20 +0100
-in-reply-to: <20260529150753.714296-1-seanjc@google.com>
+Date: Mon, 01 Jun 2026 23:09:23 +0100
+in-reply-to: <20260529150741.714145-1-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-cGAALZ5GoBDdaEtrbV44"
+	boundary="=-SH6YBLznpukI+GbGHi8d"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-c1860d/1780351771-B6975DB1-5964127B/0/0
+X-purgate-ID: tlsNG-720697/1780351772-AA76A161-90764743/0/0
 X-purgate-type: clean
-X-purgate-size: 7900
+X-purgate-size: 7672
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
 	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
@@ -114,7 +114,7 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	HAS_ATTACHMENT(0.00)[];
-	NEURAL_SPAM(0.00)[0.513];
+	NEURAL_SPAM(0.00)[0.519];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	TO_DN_NONE(0.00)[];
@@ -128,32 +128,26 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 30F26625C5B
+X-Rspamd-Queue-Id: E9C97625C64
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-cGAALZ5GoBDdaEtrbV44
+--=-SH6YBLznpukI+GbGHi8d
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 29 May 2026 08:07:52 -0700, Sean Christopherson wrote:
-> NOP-ify the sched_clock save/restore hooks when using VMware's version of
-> sched_clock.  This will allow extending paravirt_set_sched_clock() to set
-> the save/restore hooks, without having to simultaneously change the
-> behavior of VMware guests.
->
-> Note, it's not at all obvious that it's safe/correct for VMware guests to
-> do nothing on suspend/resume, but that's a pre-existing problem.  Leave i=
-t
-> for a VMware expert to sort out.
+On Fri, 29 May 2026 08:07:41 -0700, Sean Christopherson wrote:
+> NOP-ify the x86_platform sched_clock save/restore hooks when setting up
+> Xen's PV clock to make it somewhat obvious the hooks aren't used when
+> running as a Xen guest (Xen uses a paravirtualized suspend/resume flow).
 >
 > Signed-off-by: Sean Christopherson <seanjc@google.com>
 
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
 
---=-cGAALZ5GoBDdaEtrbV44
+--=-SH6YBLznpukI+GbGHi8d
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -233,21 +227,21 @@ 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
-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
+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
-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
+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
 
 
---=-cGAALZ5GoBDdaEtrbV44--
+--=-SH6YBLznpukI+GbGHi8d--
 
