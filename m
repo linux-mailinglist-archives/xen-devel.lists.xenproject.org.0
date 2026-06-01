@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qLHTJz3/HWqfgQkAu9opvQ
+	id sBZLJUb/HWqfgQkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:53:01 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:53:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AE15625A81
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:53:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1324153.1589816 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05EDB625A91
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:53:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1324155.1589825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUAZ2-00070y-6a; Mon, 01 Jun 2026 21:52:52 +0000
+	id 1wUAZB-0007HC-HS; Mon, 01 Jun 2026 21:53:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1324153.1589816; Mon, 01 Jun 2026 21:52:52 +0000
+Received: by outflank-mailman (output) from mailman id 1324155.1589825; Mon, 01 Jun 2026 21:53:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUAZ2-0006yA-2n; Mon, 01 Jun 2026 21:52:52 +0000
-Received: by outflank-mailman (input) for mailman id 1324153;
- Mon, 01 Jun 2026 21:52:50 +0000
+	id 1wUAZB-0007EV-E4; Mon, 01 Jun 2026 21:53:01 +0000
+Received: by outflank-mailman (input) for mailman id 1324155;
+ Mon, 01 Jun 2026 21:52:59 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wUAZ0-0006xt-3z
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 21:52:50 +0000
+ id 1wUAZ9-0007Dk-Os
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 21:52:59 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUAYz-000sqf-H5
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 23:52:49 +0200
-Received: from [10.42.69.3] (helo=localhost)
+ id 1wUAZ9-00ElxF-5Z
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 23:52:59 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a1dff0e-e002-0a2a0a5209dd-0a2a45039598-28
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:52:48 +0200
+ id 6a1dff28-bab6-0a2a0a5309dd-0a2a4505c4a0-14
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:52:58 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a1dff30-672d-0a2a45030019-5a9b3222864c-3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:52:48 +0200
+ id 6a1dff36-aaa8-0a2a45050019-5a9b32228b8a-3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:52:54 +0200
 Received: from [2001:8b0:10b:5:5b40:b57d:669c:36f4]
  (helo=u09cd745991455d.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wUAYn-00000000pMX-3ehY; Mon, 01 Jun 2026 21:52:38 +0000
+ id 1wUAYw-00000000pN2-1EGX; Mon, 01 Jun 2026 21:52:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:in-reply-to:
 	Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
 	Content-ID:Content-Description:References;
-	bh=qwI0d9pg7XA2P4362wILoC9WXidhFb7iDUnP/ukwwdw=; b=ifIHtpRihoV67WcYXg9nMTzGNM
-	ooiCKUzpcxVsOwTEgeRHQtyeKZtGXv54iVmLo+FU3qLFdYVcdprEqvBexXLH+mZ6J3Z5lGvjlz4Lb
-	peR9tL6VuR83SNct7cx9AsJ3tfrLJx/Nhq2DoArl37al3CiIkAqryuTrauKHYefA86sN9bsClG8fC
-	UTnec3K8E6dCFBjXop5RPcmPCC24oNLTaGqYn/hjJcSymTtbGhANbcxzjhOnARYctLn71TdE8ucTE
-	u5o4nYSp6fQKmVzsEWjjMQXfCJzpyXAgEyYNjlDPn1s85O4vaDiqjdfyqSVtDquZk4QqiW77KYGwR
-	IQ0zxUKA==;
-Message-ID: <bf9178179228d72d1db192df647e4d19f87e087b.camel@infradead.org>
-Subject: Re: [PATCH v4 13/47] x86/tsc: Fold native_calibrate_cpu() into
- recalibrate_cpu_khz()
+	bh=6Fm3/kKIutjYCp/GHWX8bbs6lxI2f2V3d3GUmiswKdY=; b=mDopZKk2zoOba2k9mB3kfx9OLA
+	d6ttBFY88R5yjsjPDHZ9MOCB5sD/spwq1cx+G/bbeElfERX1XqkIKGFWAPbpMrlj36r2L/P2fOuJN
+	U0urGJPMGZaoXVfk6rdgSAtMVsb/XA2q4KVeh2ukJi4uoS1Ruab3yhTZUJfEF9+Dshf+Nw+PDo2QW
+	Jg/FyV/5Z0+2NdoGmsrLB2MW64yh9Nn/rG74Z9gLVJuzpgKb+wIyi0kwY9AuWFQLkDy479t8fLCFh
+	esbVas2ULclc024H1EaReCouj4Haadvpq8R4RuI1G/ZIlGCyYZfmrsqJdauAwyEPi4MxdYmAoTQBl
+	NygQJqZQ==;
+Message-ID: <429f149dac50e96c175669e13faa258dd05efcd3.camel@infradead.org>
+Subject: Re: [PATCH v4 12/47] x86/tsc: Rename
+ pit_hpet_ptimer_calibrate_cpu() => native_calibrate_cpu_late()
 From: David Woodhouse <dwmw2@infradead.org>
 To: seanjc@google.com
 Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
@@ -84,20 +84,20 @@ Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
  xen-devel@lists.xenproject.org,  dwmw@amazon.co.uk,
  thomas.lendacky@amd.com, nikunj@amd.com, dwmw2@infradead.org, 
  mhklinux@outlook.com, tglx@linutronix.de
-Date: Mon, 01 Jun 2026 22:52:37 +0100
-in-reply-to: <20260529144435.704127-14-seanjc@google.com>
+Date: Mon, 01 Jun 2026 22:52:45 +0100
+in-reply-to: <20260529144435.704127-13-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-j4msE9OBNDx+ePJxHQN3"
+	boundary="=-9sUrUKJ02DeFXxxg/2FR"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-33051d/1780350768-37D4B938-B78C8DC3/0/0
+X-purgate-ID: tlsNG-c201ff/1780350775-E0C65443-8DE5625F/0/0
 X-purgate-type: clean
-X-purgate-size: 7780
+X-purgate-size: 7608
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
 	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
@@ -114,7 +114,7 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	HAS_ATTACHMENT(0.00)[];
-	NEURAL_SPAM(0.00)[0.505];
+	NEURAL_SPAM(0.00)[0.495];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	TO_DN_NONE(0.00)[];
@@ -128,22 +128,18 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 0AE15625A81
+X-Rspamd-Queue-Id: 05EDB625A91
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-j4msE9OBNDx+ePJxHQN3
+--=-9sUrUKJ02DeFXxxg/2FR
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 29 May 2026 07:44:00 -0700, Sean Christopherson wrote:
-> Fold the guts of native_calibrate_cpu() into its sole remaining caller,
-> recalibrate_cpu_khz() to eliminate the extra SMP=3Dn #ifdef, and so that =
-it's
-> more obvious that directly invoking the early vs. late calibration routin=
-es
-> in determine_cpu_tsc_frequencies() is intentional.
+On Fri, 29 May 2026 07:43:59 -0700, Sean Christopherson wrote:
+> Rename the late CPU calibration routine so that its relationship to the
+> early routine is more obvious and intuitive.
 >
 > No functional change intended.
 >
@@ -152,7 +148,7 @@ es
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
 
---=-j4msE9OBNDx+ePJxHQN3
+--=-9sUrUKJ02DeFXxxg/2FR
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -231,22 +227,22 @@ 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
-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
+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
-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
+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
 
 
---=-j4msE9OBNDx+ePJxHQN3--
+--=-9sUrUKJ02DeFXxxg/2FR--
 
