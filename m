@@ -2,63 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cKRiC/f0HWqegAkAu9opvQ
+	id yOdEAdn9HWqfgQkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:09:11 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:47:05 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 857A26257D2
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:09:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1324120.1589779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B2676259E8
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:47:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1324132.1589789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wU9re-0007HJ-37; Mon, 01 Jun 2026 21:08:02 +0000
+	id 1wUASu-0004KN-VO; Mon, 01 Jun 2026 21:46:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1324120.1589779; Mon, 01 Jun 2026 21:08:02 +0000
+Received: by outflank-mailman (output) from mailman id 1324132.1589789; Mon, 01 Jun 2026 21:46:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wU9rd-0007Fj-U6; Mon, 01 Jun 2026 21:08:01 +0000
-Received: by outflank-mailman (input) for mailman id 1324120;
- Mon, 01 Jun 2026 21:08:01 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Jason.Andryuk@amd.com>) id 1wU9rd-0007Fd-3b
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 21:08:01 +0000
+	id 1wUASu-0004HY-ST; Mon, 01 Jun 2026 21:46:32 +0000
+Received: by outflank-mailman (input) for mailman id 1324132;
+ Mon, 01 Jun 2026 21:46:31 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 1wUASs-0004HS-5Z
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 21:46:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wU9rc-001CZl-6I
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 23:08:00 +0200
-Received: from [10.42.69.10] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <Jason.Andryuk@amd.com>)
- id 6a1df44d-2eae-0a2a0a5409dd-0a2a450ad540-48
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:07:59 +0200
-Received: from [40.93.194.53]
- (helo=SN4PR0501CU005.outbound.protection.outlook.com)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <Jason.Andryuk@amd.com>)
- id 6a1df4ad-56b3-0a2a450a0019-285dc2357192-4
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:07:59 +0200
-Received: from PH7P220CA0101.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32d::17)
- by MW6PR12MB9018.namprd12.prod.outlook.com (2603:10b6:303:241::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Mon, 1 Jun 2026
- 21:07:54 +0000
-Received: from SA2PEPF0000150A.namprd04.prod.outlook.com
- (2603:10b6:510:32d:cafe::8a) by PH7P220CA0101.outlook.office365.com
- (2603:10b6:510:32d::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.16 via Frontend Transport; Mon, 1
- Jun 2026 21:07:54 +0000
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF0000150A.mail.protection.outlook.com (10.167.242.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Mon, 1 Jun 2026 21:07:53 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 1 Jun
- 2026 16:07:53 -0500
-Received: from [172.18.181.126] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Mon, 1 Jun 2026 16:07:52 -0500
+ id 1wUASr-00Ei1v-EL
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 23:46:29 +0200
+Received: from [10.42.69.9] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 6a1dfd6d-bab6-0a2a0a5309dd-0a2a4509c36c-46
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:46:28 +0200
+Received: from [90.155.50.34] (helo=casper.infradead.org)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
+ id 6a1dfdb4-2497-0a2a45090019-5a9b32228f74-3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:46:28 +0200
+Received: from [2001:8b0:10b:5:5b40:b57d:669c:36f4]
+ (helo=u09cd745991455d.ant.amazon.com)
+ by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wUASa-00000000osw-00s5; Mon, 01 Jun 2026 21:46:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -70,193 +54,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BoRnRn2X83y487A3gNon78krqexsPBJyAb5cm4x/OYyY7Ti/i71x1ypRoG+ky2TXOLB5XJPyfxniD8TKO1CHZ+HDip6Ayp5vRlyrE+NSxLBDVqFx2Fj4DoN33v3jtKiV7QQwCu7L7GnceVYkR9b7NJHN88xJvhb8viTqqMH43Yi6iWBN3I7sDR2WyWwA1+MPCeOpdujSd13L6mGgVH71JzHsZlQ5B1Pr55GGRR5+jYhG2ilXaFsxo3z9QsCR6koWgU7CdFyzr7zMhgmtPH8X6mazgOwOMpi7T6CTz8NugYHcBnK8P07ZDdhSLf7aayQkdSKloL51dFxrmboDynKWEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hG9W2e5jgQUBQAJLZL/4kduVWRVloyFkEdOR1JN+kME=;
- b=Dm8h2x44fkE1yec6fyoSNsaNsVdN3bj+4oct9YzoGNG8Y0pBn5j0OJJ0FAfxa/6t5wi7Xj0g3zjPKDD72y2MffA0PCjvORGaHtfm/ut8SEWn6jQsQt+wvj/WnZ8nHyNXrt3wAUHLw7GuP5tT1HKLUmtS4Non4IrKL3YON32XcytZa4kYWvmEkGje02j5Cj7O02oWgVWCUUJRDHsk3fW8ssy9oFXh+07XsNZgYE2oUgNqkhQqb0kWQUF9R5Uhy/oMz2z8e9qQxSegjNCInq/D1NR7mgb2TgClaUDDmytJjlDf/kENtvYTgBFUkwDvs+S/c4aBl3fr+T5tGll2SIj8Sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=citrix.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hG9W2e5jgQUBQAJLZL/4kduVWRVloyFkEdOR1JN+kME=;
- b=Vm9ypva4CVWKHvFkkzGzMurCLL4mvcNdF7lYk33jW4MeqnUeb9uU4LSp23sOYDFvzpdVsiWDwRIOzlNTLT0VkTLK7RmOFPz0kqq+JywnFvD1KKlWUdlZMZlBWv9B4vf1AhVJVrFNCNUAaKG+cnHG1RP4HZNPCkF/t243gOam1NE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Message-ID: <5cdfca65-50f8-487a-a146-86e1a68f459c@amd.com>
-Date: Mon, 1 Jun 2026 17:07:52 -0400
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=casper.20170209 header.d=infradead.org header.i="@infradead.org" header.h="MIME-Version:Content-Type:in-reply-to:Date:Cc:To:From:Subject:Message-ID"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:in-reply-to:
+	Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
+	Content-ID:Content-Description:References;
+	bh=FoLB+yULmJuTpb/f09beCcmk3uZrMb1CC+n10gGBfgg=; b=K6uIHNyxjiHFwPgdIJv9Yfyb+x
+	0UQeIxUStvlI+MDaVA0QUdgGmY1bVKQ7wR0hWqxEFyHvdxmA0Y4K2cXFas3qSPsDg1EgqO65lNvtk
+	886haCDEEvJPaysJ2H/tEyCE7Hccok2+nOdOhBCFr3IC6s8ljg8p1OvsEv7yeA7+tne9uKEV8Dc8J
+	FK1c/mWGETrcghaoeZ/XciYt9I0lUcwn47K0OaMWpT2SOn4DZqhwXXnOURTQ1hJZa49/fYkJiTfg7
+	LBx9pxu7ooKt3KFbnRUUQZsfjL+FzK+BSTDiMrxTLl7acGM/m1OeYZsp+jDBuAM3NBJUbQTtNP+ry
+	tzGKsQEg==;
+Message-ID: <c99195a246c4d40f375f6834c9e11b2561c975c6.camel@infradead.org>
+Subject: Re: [PATCH v4 1/47] x86/tsc: Never re-calibrate TSC frequency if
+ its exact timing is known
+From: David Woodhouse <dwmw2@infradead.org>
+To: seanjc@google.com
+Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+ dave.hansen@linux.intel.com, x86@kernel.org, kas@kernel.org,
+ kys@microsoft.com,  haiyangz@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com,  longli@microsoft.com, ajay.kaher@broadcom.com,
+ alexey.makhalov@broadcom.com,  jan.kiszka@siemens.com, luto@kernel.org,
+ peterz@infradead.org, jgross@suse.com,  daniel.lezcano@kernel.org,
+ jstultz@google.com, hpa@zytor.com,  rick.p.edgecombe@intel.com,
+ vkuznets@redhat.com,  bcm-kernel-feedback-list@broadcom.com,
+ boris.ostrovsky@oracle.com,  sboyd@kernel.org, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org,  linux-coco@lists.linux.dev,
+ linux-hyperv@vger.kernel.org,  virtualization@lists.linux.dev,
+ xen-devel@lists.xenproject.org,  dwmw@amazon.co.uk,
+ thomas.lendacky@amd.com, nikunj@amd.com, dwmw2@infradead.org, 
+ mhklinux@outlook.com, tglx@linutronix.de
+Date: Mon, 01 Jun 2026 22:46:09 +0100
+in-reply-to: <20260529144435.704127-2-seanjc@google.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-WD78uzY0w9rVU0d8PR0T"
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] xen/x86: Change stub page freeing to fix smt=0
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Teddy Astie <teddy.astie@vates.tech>
-References: <20260526203114.40882-1-jason.andryuk@amd.com>
- <ah26nl95MgqhPPAi@macbook.local>
-Content-Language: en-US
-From: Jason Andryuk <jason.andryuk@amd.com>
-In-Reply-To: <ah26nl95MgqhPPAi@macbook.local>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF0000150A:EE_|MW6PR12MB9018:EE_
-X-MS-Office365-Filtering-Correlation-Id: bca5ad0b-f635-47dd-36fd-08dec021d8f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|18002099003|22082099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	gbo+YLs6SWlqfSCRVO6AB3g+VrUq8U93MzLqOF2mIZxA8zw01jN6cEsz8LizrSFlGvfS2yS82yqnhIH46iK0V6mNX5h/odZu0SrqpTC3/0n20wZq6grHGmmbTV3iVwE26IfQ9A4hyt270XggKdmsnK9p+Fn7sK4S7/xawPsIFgCdTKfKUoMyOao4Jo2yxfb4OzewQ67beUISlL9bONVU7t6Zg6J3H6cdZuu5u97EyJj2+TejyGKbTTlKMujmgb6eUhdAsRqKiGD7OaSN88e5GjB4G7ELwSebw29fmqNfyFYejHt3bVceVyEhMktwrTHZAQvGchoU0kP+Mub338iXvcdPUFC35CK9RPzFTDlmnyQVUk7KysZc1/T1lhhnyTQsCfYil5toyHdf92O+L7L1xpmEK4c84uQz0eA9NEjmrl3mbY7hWP7okMLL58cENLuLw87zQ4pCrXVJd2L/cVAY2fQNppTGN35dn3PgTAZl71FBWRMVaSaMq7G15dUy1pUsfhFjxxA8g4Yp1wyeLy+dbnpPDQiwU2rqk9Kj/om5beeDohP7yJd4Si+Hl5NLP/R6v2G4tqHgsd6x0ZGp5xiHpI4oy7/mPWKWWwTzJUnOONEbFEaWlNo7u3eiPJPymaiFpUGTu0CUOdYrZ8ELlHj6DytW7CWE2z+UOtqHVRuA5J7DzGfgIht/6CPi3/gypB/5UOyIO1vp/LVLXem24RjX3NJM2t7sl1kxs3IArAoUBg4=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	V9z7hUfxoT/hDB88+DsyRGfnpk3meZAACjBRZLcRCqN0S7DGosO/Jw28P4qadO6AYGw7A15vLuc3IOrV7c0unsQCZufoeyVJoHd0wZMJ2mkCp32I/ZaHCTYIKLBFTlQza0JmyQXrBxDfCBoQnIRFH3JK9LzZSwvgB61A0CM8A/glB60hodNh80/hAtHPHn2JZ44wv13lFDlEmhxuAnbVq5di8dnpy4cK2L+Qq2lYuLP+1hqok4z3DleLOvZ7NURKxxzPwmiVu51DZbznfv8Ac5LJUDwQFHwiR/VG38m72+O5LtoM2CKnqgkANNKWKqfPqQCP7Z+afQKOjGKB2+te3NCjFlttq6rnM+NJnCJ796FsDdo1ZENoRabz1ECKj9SJNQaILcOQ/uihRaBQxt9Sjx+OZeQ+6q8HZKExUzugjVNfMp2dEEtSh5D3HGF2QTKA
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 21:07:53.9245
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bca5ad0b-f635-47dd-36fd-08dec021d8f5
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF0000150A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9018
-X-purgate-ID: tlsNG-4011c0/1780348079-7C8788B7-BFC69298/0/0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+X-purgate-ID: tlsNG-bad1c0/1780350388-8A589A53-EA510547/0/0
 X-purgate-type: clean
-X-purgate-size: 4034
-X-Spamd-Result: default: False [-2.19 / 15.00];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+X-purgate-size: 7750
+X-Spamd-Result: default: False [-1.49 / 15.00];
+	SIGNED_SMIME(-2.00)[];
+	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[redhat.com,kernel.org,alien8.de,linux.intel.com,microsoft.com,broadcom.com,siemens.com,infradead.org,suse.com,google.com,zytor.com,intel.com,oracle.com,vger.kernel.org,lists.linux.dev,lists.xenproject.org,amazon.co.uk,amd.com,outlook.com,linutronix.de];
+	FORGED_RECIPIENTS(0.00)[m:seanjc@google.com,m:pbonzini@redhat.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:kas@kernel.org,m:kys@microsoft.com,m:haiyangz@microsoft.com,m:wei.liu@kernel.org,m:decui@microsoft.com,m:longli@microsoft.com,m:ajay.kaher@broadcom.com,m:alexey.makhalov@broadcom.com,m:jan.kiszka@siemens.com,m:luto@kernel.org,m:peterz@infradead.org,m:jgross@suse.com,m:daniel.lezcano@kernel.org,m:jstultz@google.com,m:hpa@zytor.com,m:rick.p.edgecombe@intel.com,m:vkuznets@redhat.com,m:bcm-kernel-feedback-list@broadcom.com,m:boris.ostrovsky@oracle.com,m:sboyd@kernel.org,m:kvm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-coco@lists.linux.dev,m:linux-hyperv@vger.kernel.org,m:virtualization@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:dwmw@amazon.co.uk,m:thomas.lendacky@amd.com,m:nikunj@amd.com,m:dwmw2@infradead.org,m:mhklinux@outlook.com,m:tglx@linutronix.de,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amazon.co.uk:email,infradead.org:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	FORGED_SENDER(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[39];
+	DKIM_TRACE(0.00)[infradead.org:-];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[amd.com:+];
+	HAS_ATTACHMENT(0.00)[];
+	NEURAL_SPAM(0.00)[0.518];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_COUNT_TWELVE(0.00)[13];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jason.andryuk@amd.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dwmw2@infradead.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.995];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,amd.com:mid,amd.com:dkim]
-X-Rspamd-Queue-Id: 857A26257D2
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 5B2676259E8
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 2026-06-01 13:00, Roger Pau Monné wrote:
-> On Tue, May 26, 2026 at 04:31:14PM -0400, Jason Andryuk wrote:
->> A single stubs page is initialized with 0xcc and re-used, with multiple
->> CPUs each using a portion of the shared page.  In cpu_smpboot_free(),
->> each stubs area is checked against 0xcc.  When all are set to 0xcc, the
->> page is freed.
->>
->> Booting a system with smt=0, CPU0 is initially setup, allocating the
->> stubs page and initializing to 0xcc.  When more CPUs are brought up,
->> CPU1 is initialized and then immediately brough offline as it is the
->> sibling of CPU0.  Since the page was initially memset with 0xcc,
->> cpu_smpboot_free() finds all stubs as 0xcc and frees the page.
->> However, the page is still assigned to CPU0 and continues to be assigned
->> to other CPUs.
->>
->> Meanwhile the page can be reallocated, which can lead to misbehavior.
->> The particular instance was the stubs page re-used as a page table which
->> later faulted when the entry was all 0xcc.
->>
->> Change to initializing the page as 0xd6/STUB_BUF_FREE, and initializing
->> individual stubs as 0xcc/STUB_BUF_USED.  0xd6 now indicates unused, and
->> 0xcc indicates used/assigned.  When freeing a CPU, the stub is set to
->> 0xd6, and the page is freed if all stubs are 0xd6.  Initializing with
->> STUB_BUF_FREE lets cpu_smpboot_free() a page that was only ever
->> partially used.
->>
->> 0xd6/UDB is a 1 byte invalid opcode, which is similar to the existing
->> use of 0xcc.  0xd6 is used to identify bug frames, but the stub addr
->> (e.g. 0xffff82d07fffe000) fails the is_active_kernel_text() check.  It
->> should be okay to use here.
->>
->> Fixes: 7a66ac8d1633 ("x86: move syscall trampolines off the stack")
->> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
->> ---
->> It would be nice to use get_page()/put_page() to let count_info handle
->> reference counting, but they require an owning domain.
->>
->> The listed Fixes introduced the use of 0xcc, but the smt commit may have
->> made it more problematic.
->> Fixes: d8f974f1a646 ("x86: command line option to avoid use of secondary hyper-threads")
-> 
-> Speaking with Andrew, we believe it might be easier to simply forego
-> the freeing of the page, possibly something like:
-> 
-> diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-> index ff05955bae40..62c6cbf4b561 100644
-> --- a/xen/arch/x86/smpboot.c
-> +++ b/xen/arch/x86/smpboot.c
-> @@ -990,19 +990,12 @@ static void cpu_smpboot_free(unsigned int cpu, bool remove)
->       {
->           mfn_t mfn = _mfn(per_cpu(stubs.mfn, cpu));
->           unsigned char *stub_page = map_domain_page(mfn);
-> -        unsigned int i;
->   
->           memset(stub_page + STUB_BUF_CPU_OFFS(cpu), 0xcc, STUB_BUF_SIZE);
-> -        for ( i = 0; i < STUBS_PER_PAGE; ++i )
-> -            if ( stub_page[i * STUB_BUF_SIZE] != 0xcc )
-> -                break;
->           unmap_domain_page(stub_page);
->           destroy_xen_mappings(per_cpu(stubs.addr, cpu) & PAGE_MASK,
->                                (per_cpu(stubs.addr, cpu) | ~PAGE_MASK) + 1);
->           per_cpu(stubs.addr, cpu) = 0;
-> -        per_cpu(stubs.mfn, cpu) = 0;
-> -        if ( i == STUBS_PER_PAGE )
-> -            free_domheap_page(mfn_to_page(mfn));
->       }
->   
->       if ( IS_ENABLED(CONFIG_PV32) )
-> 
-> (there might be further cleanup possible if the page is not freed, the
-> above chunk is untested).
-> 
-> It's a single page shared between 32 CPUs, and offlining 32 adjacent
-> CPUs seems very unlikely.  IMO the extra complexity of having to deal
-> with the freeing overshadows the very small memory gain we get from
-> it.
 
-Hi Roger,
+--=-WD78uzY0w9rVU0d8PR0T
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Yes, I made and tested the same change locally last week.  Well, I retained:
-      per_cpu(stubs.mfn, cpu) = 0;
+On Fri, 29 May 2026 07:43:48 -0700, Sean Christopherson wrote:
+> Don't re-calibrate the TSC frequency if the TSC is known to run at a fixe=
+d
+> frequency.  In practice, this is likely one big nop, as re-calibration is
+> used only for SMP=3Dn kernels, and only for hardware that is 20+ years ol=
+d,
+> i.e. is extremely unlikely to collide with TSC_KNOWN_FREQ.
+>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-Maybe it would be good to save the mfn in case the CPU returns?  But I 
-thought per-cpu vars are cleared, so it wouldn't be available anyway?
+Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
-Also, I was waiting to see if anyone chimed in with other ideas.
 
-Thanks,
-Jason
+--=-WD78uzY0w9rVU0d8PR0T
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCD9Aw
+ggSOMIIDdqADAgECAhAOmiw0ECVD4cWj5DqVrT9PMA0GCSqGSIb3DQEBCwUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBDQTAeFw0yNDAxMzAwMDAwMDBaFw0zMTEx
+MDkyMzU5NTlaMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYDVQQDExdWZXJv
+a2V5IFNlY3VyZSBFbWFpbCBHMjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMjvgLKj
+jfhCFqxYyRiW8g3cNFAvltDbK5AzcOaR7yVzVGadr4YcCVxjKrEJOgi7WEOH8rUgCNB5cTD8N/Et
+GfZI+LGqSv0YtNa54T9D1AWJy08ZKkWvfGGIXN9UFAPMJ6OLLH/UUEgFa+7KlrEvMUupDFGnnR06
+aDJAwtycb8yXtILj+TvfhLFhafxroXrflspavejQkEiHjNjtHnwbZ+o43g0/yxjwnarGI3kgcak7
+nnI9/8Lqpq79tLHYwLajotwLiGTB71AGN5xK+tzB+D4eN9lXayrjcszgbOv2ZCgzExQUAIt98mre
+8EggKs9mwtEuKAhYBIP/0K6WsoMnQCcCAwEAAaOCAVwwggFYMBIGA1UdEwEB/wQIMAYBAf8CAQAw
+HQYDVR0OBBYEFIlICOogTndrhuWByNfhjWSEf/xwMB8GA1UdIwQYMBaAFEXroq/0ksuCMS1Ri6en
+IZ3zbcgPMA4GA1UdDwEB/wQEAwIBhjAdBgNVHSUEFjAUBggrBgEFBQcDBAYIKwYBBQUHAwIweQYI
+KwYBBQUHAQEEbTBrMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wQwYIKwYB
+BQUHMAKGN2h0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRJRFJvb3RD
+QS5jcnQwRQYDVR0fBD4wPDA6oDigNoY0aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0
+QXNzdXJlZElEUm9vdENBLmNybDARBgNVHSAECjAIMAYGBFUdIAAwDQYJKoZIhvcNAQELBQADggEB
+ACiagCqvNVxOfSd0uYfJMiZsOEBXAKIR/kpqRp2YCfrP4Tz7fJogYN4fxNAw7iy/bPZcvpVCfe/H
+/CCcp3alXL0I8M/rnEnRlv8ItY4MEF+2T/MkdXI3u1vHy3ua8SxBM8eT9LBQokHZxGUX51cE0kwa
+uEOZ+PonVIOnMjuLp29kcNOVnzf8DGKiek+cT51FvGRjV6LbaxXOm2P47/aiaXrDD5O0RF5SiPo6
+xD1/ClkCETyyEAE5LRJlXtx288R598koyFcwCSXijeVcRvBB1cNOLEbg7RMSw1AGq14fNe2cH1HG
+W7xyduY/ydQt6gv5r21mDOQ5SaZSWC/ZRfLDuEYwggWbMIIEg6ADAgECAhAH5JEPagNRXYDiRPdl
+c1vgMA0GCSqGSIb3DQEBCwUAMEExCzAJBgNVBAYTAkFVMRAwDgYDVQQKEwdWZXJva2V5MSAwHgYD
+VQQDExdWZXJva2V5IFNlY3VyZSBFbWFpbCBHMjAeFw0yNDEyMzAwMDAwMDBaFw0yODAxMDQyMzU5
+NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZeYAS/SRV6zmfXlXaZ
+sNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2zkC9S7/yHDYnqegqt
+w4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qGpgFdZEk2/c//ZvUN
+i12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41vav1RhZJzYan4a1gU0
+kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0cvnO8FM6PTqsnSbcc
+0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PWPU6zfQTOMZ9uLQRR
+ci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXtREF5lLXxp+CJ6KKS
+blPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQrlR0gO3lBzuyPPArV
+hvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7IqaAovAX0d+f1YjbmC
+VsAwjhLmveFjNwIDAQABo4IBsDCCAawwHwYDVR0jBBgwFoAUiUgI6iBOd2uG5YHI1+GNZIR//HAw
+HQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3bXcyQGluZnJhZGVh
+ZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEBMA4GA1UdDwEB/wQE
+AwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwewYDVR0fBHQwcjA3oDWgM4YxaHR0
+cDovL2NybDMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDA3oDWgM4YxaHR0
+cDovL2NybDQuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNybDB2BggrBgEFBQcB
+AQRqMGgwJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBABggrBgEFBQcwAoY0
+aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL1Zlcm9rZXlTZWN1cmVFbWFpbEcyLmNydDANBgkq
+hkiG9w0BAQsFAAOCAQEAQXc4FPiPLRnTDvmOABEzkIumojfZAe5SlnuQoeFUfi+LsWCKiB8Uextv
+iBAvboKhLuN6eG/NC6WOzOCppn4mkQxRkOdLNThwMHW0d19jrZFEKtEG/epZ/hw/DdScTuZ2m7im
+8ppItAT6GXD3aPhXkXnJpC/zTs85uNSQR64cEcBFjjoQDuSsTeJ5DAWf8EMyhMuD8pcbqx5kRvyt
+JPsWBQzv1Dsdv2LDPLNd/JUKhHSgr7nbUr4+aAP2PHTXGcEBh8lTeYea9p4d5k969pe0OHYMV5aL
+xERqTagmSetuIwolkAuBCzA9vulg8Y49Nz2zrpUGfKGOD0FMqenYxdJHgDCCBZswggSDoAMCAQIC
+EAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQELBQAwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoT
+B1Zlcm9rZXkxIDAeBgNVBAMTF1Zlcm9rZXkgU2VjdXJlIEVtYWlsIEcyMB4XDTI0MTIzMDAwMDAw
+MFoXDTI4MDEwNDIzNTk1OVowHjEcMBoGA1UEAwwTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJ
+KoZIhvcNAQEBBQADggIPADCCAgoCggIBANqWLse95HW2F7FhfH9bugyT/danKmmXrbMnz5GZNAfj
+Jl5gBL9JFXrOZ9eVdpmw04Tp6aDxZctFLoEDvSWKi367Q7Sg+ci+fH4KwwfQ8Pi0IpIKx2n5emEg
+nbOQL1Lv/IcNiep6Cq3DiyaSpSp/RZf+CAfUNySHS8eWmhLU6jGpSD6hxTpYKye7PmrmvMWwfGEP
+WoamAV1kSTb9z/9m9Q2LXa89aKmTxNwnAfD3Ohn9mtU3JukwILRMewn9QRXK7KzM+01h5hkCE4nj
+W9q/VGFknNhqfhrWBTSQoE9CSVylASGrjzCgS7XmKy/BaH3/7mOOHQv5g1o3Qj/+cdKnpT0I5Qb1
+nRy+c7wUzo9OqydJtxzSP4ZyHA4dELto/a3m/ay1XHcpum1pgTOLgxAfGb/T4dCkwRUstSKLMmpL
+g9Y9TrN9BM4xn24tBFFyL5znGG0wQGzOVAM68RBzIQb6Fz758fjsr4yZnPbVsU1+gHEs/puNHrG0
+9e1EQXmUtfGn4InoopJuU8p5VGD9S3Ikd4UoBlc7xl5yjtNlQxUeYrRlnUSmdlucCEoTX1n4UmtA
+9CuVHSA7eUHO7I88CtWG9bGOU7tLgOZoSEvNqtaL/N7sQbBZK4jZ4Rr/zNTQg1SwYjjLB7u96lDP
+sipoCi8BfR35/ViNuYJWwDCOEua94WM3AgMBAAGjggGwMIIBrDAfBgNVHSMEGDAWgBSJSAjqIE53
+a4blgcjX4Y1khH/8cDAdBgNVHQ4EFgQUXGIam3Bs59Y60yTmWgfDu6pZQ6cwMAYDVR0RBCkwJ4ET
+ZHdtdzJAaW5mcmFkZWFkLm9yZ4EQZGF2aWRAd29vZGhvdS5zZTAUBgNVHSAEDTALMAkGB2eBDAEF
+AQEwDgYDVR0PAQH/BAQDAgXgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDB7BgNVHR8E
+dDByMDegNaAzhjFodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMDegNaAzhjFodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVtYWlsRzIu
+Y3JsMHYGCCsGAQUFBwEBBGowaDAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29t
+MEAGCCsGAQUFBzAChjRodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vVmVyb2tleVNlY3VyZUVt
+YWlsRzIuY3J0MA0GCSqGSIb3DQEBCwUAA4IBAQBBdzgU+I8tGdMO+Y4AETOQi6aiN9kB7lKWe5Ch
+4VR+L4uxYIqIHxR7G2+IEC9ugqEu43p4b80LpY7M4KmmfiaRDFGQ50s1OHAwdbR3X2OtkUQq0Qb9
+6ln+HD8N1JxO5nabuKbymki0BPoZcPdo+FeRecmkL/NOzzm41JBHrhwRwEWOOhAO5KxN4nkMBZ/w
+QzKEy4PylxurHmRG/K0k+xYFDO/UOx2/YsM8s138lQqEdKCvudtSvj5oA/Y8dNcZwQGHyVN5h5r2
+nh3mT3r2l7Q4dgxXlovERGpNqCZJ624jCiWQC4ELMD2+6WDxjj03PbOulQZ8oY4PQUyp6djF0keA
+MYIDuzCCA7cCAQEwVTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMX
+VmVyb2tleSBTZWN1cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJYIZIAWUDBAIBBQCg
+ggE3MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDYwMTIxNDYw
+OVowLwYJKoZIhvcNAQkEMSIEIKMO2la5awG+n0lZK5AuXT7GJvPnVZIt78VoLISUVNyGMGQGCSsG
+AQQBgjcQBDFXMFUwQTELMAkGA1UEBhMCQVUxEDAOBgNVBAoTB1Zlcm9rZXkxIDAeBgNVBAMTF1Zl
+cm9rZXkgU2VjdXJlIEVtYWlsIEcyAhAH5JEPagNRXYDiRPdlc1vgMGYGCyqGSIb3DQEJEAILMVeg
+VTBBMQswCQYDVQQGEwJBVTEQMA4GA1UEChMHVmVyb2tleTEgMB4GA1UEAxMXVmVyb2tleSBTZWN1
+cmUgRW1haWwgRzICEAfkkQ9qA1FdgOJE92VzW+AwDQYJKoZIhvcNAQEBBQAEggIAka57ZoIUPlTo
+KZ4Ex/lVHE8wFwqR5kcqyFora5IUVaIaLyGNFE51UIMaO4mvCc95HG9yF4+jVPDHsP/VRXUVYwGK
++wuyQ1gShaKwcZEPZTxPJW++XAThgrMnAhDY97JMR+2zGIHvo2+8ylacvU6KILWkkKSDHXLngVSP
+ivUiWLyuPy8mfxiyKChDOiV8qChdDV/wpF83CgTPoWRa5A8ATOB8aWhoSbl5dT8QJLpIcSrlquMP
+KfidmhY8rWZFvKzk238D5SRp8jUCr+ds6eF2JMyNwMpzaAIGkLgMqBtnLWWxiHWXGH9+bqppXvyF
+RUS7ZjqJoizrB1vr0UJk+tXAyQIvGiGXdy3rcaJugR3LwZvp1ihlcXy5c3AQHsduCD+K8Wg5rCk/
+GWiBkNfAc8MfnEdOAlRyZ7t9btXbjbSrVq5l8K4jex8GZNAErCH5ey7zgNzDhi/G5WlABBLQefi8
+CTRpkCwrJzkSuUMNJCVjaSex31XcNwDZ9a9EB1+E+tWVr03HO9hzXPNxOA96TeqY4a+Znlbm+mvF
+PZ2shSeCYBsi7JmDz6FcdNNyxB4wA8hy2QmeljomJy9G23NJKrsLXCb4y4R+7YjYUqjyMT2fX8Zi
+uYTAt0zfvQsoigQHguN140Dse4QEZy/BR8CVfHPwW7hxa+nNVcdtt9xW2hNuo3IAAAAAAAA=
+
+
+--=-WD78uzY0w9rVU0d8PR0T--
 
