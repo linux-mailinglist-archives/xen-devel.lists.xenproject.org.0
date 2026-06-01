@@ -2,51 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id APMgKHy/HWqKdQkAu9opvQ
+	id r/j5HDXIHWpReQkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 19:21:00 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 19:58:13 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1058662333F
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 19:20:59 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1324038.1589709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0428623976
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 19:58:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1324049.1589726 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wU6Jf-0000eh-7u; Mon, 01 Jun 2026 17:20:43 +0000
+	id 1wU6tA-0005BC-Ur; Mon, 01 Jun 2026 17:57:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1324038.1589709; Mon, 01 Jun 2026 17:20:43 +0000
+Received: by outflank-mailman (output) from mailman id 1324049.1589726; Mon, 01 Jun 2026 17:57:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wU6Jf-0000bs-4m; Mon, 01 Jun 2026 17:20:43 +0000
-Received: by outflank-mailman (input) for mailman id 1324038;
- Mon, 01 Jun 2026 17:20:41 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wU6tA-00058p-Rk; Mon, 01 Jun 2026 17:57:24 +0000
+Received: by outflank-mailman (input) for mailman id 1324049;
+ Mon, 01 Jun 2026 17:57:22 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wU6Jd-0000bm-GR
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 17:20:41 +0000
+ (envelope-from <mfo@igalia.com>) id 1wU6t6-00058j-25
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 17:57:22 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wU6Jc-000pOP-9Z
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 19:20:40 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wU6t4-009LSV-3s
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 19:57:19 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a1dbf48-bab6-0a2a0a5309dd-0a2a4505c8e8-38
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 19:20:40 +0200
-Received: from [52.101.48.13]
- (helo=MW6PR02CU001.outbound.protection.outlook.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a1dbf66-aaa8-0a2a45050019-3465300daeba-3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 19:20:40 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by BY5PR03MB5297.namprd03.prod.outlook.com (2603:10b6:a03:218::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Mon, 1 Jun 2026
- 17:20:36 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0071.014; Mon, 1 Jun 2026
- 17:20:35 +0000
+ (envelope-from <mfo@igalia.com>)
+ id 6a1dc7ee-5cb7-0a2a0a5109dd-0a2a450cbe3c-22
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 19:57:17 +0200
+Received: from [213.97.179.56] (helo=fanzine2.igalia.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <mfo@igalia.com>)
+ id 6a1dc7fc-62f1-0a2a450c0019-d561b338bb0a-3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 19:57:16 +0200
+Received: from 186-249-147-15.shared.desktop.com.br ([186.249.147.15]
+ helo=[192.168.1.68]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wU6sy-00B8VT-Cz; Mon, 01 Jun 2026 19:57:12 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,180 +52,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pYcn1N4X1ZuMc2VBHS7rdRJzlU222PR80lMeFnjniB23PS80yKgS3JQyqfIPE1sp7CfJ6TJgqlz+RkNIvEgGpHlnLg4BLLTE46StZeGPBlwLpATNd9puX6DEEVce7lnUHDf2O7aA0bXkZTbfqrRbkwJ0ZMSn2tIpZudV2zT1qOOFdFiYrHbmgWp6EYj4ranrb4U0yU0N5UU59tNXypWIsOGIS5Ea0NId2myMpd6E1wsCQACBj6jVD4g1wd4wZb9J+XcKrmTrYq40+5PTezftXdSHB4lJiGVzP4us2nNN4LEACMYF4XRsxmicJWhQdvLD3AG2Kg/Kx5WQK6H4CWAsSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DTBWbVR0k+vkE5zxKc6uDTHetfV/b5aNWJjwR8qWucM=;
- b=S+mDzpUxHuLXk7031TFls+ZzMt/iof8sbqoMHL/WDX+npbkbOA0pvE4DktiR3EcatVk5QMmtx02weaIIZkdu2W8iysqGcLogwmoTJY+bBN+K0MATpteLW3imi4P+DIcIzzhKbG9Ic7vO/qiSTO69PqiBZy+NCxra6htzAwalOYgZhU5N0BKeDbLHVyzgzhU7ZmwSOXT+e+kA6raM6fwVUZleo+mZVCTisICCbXIqt5IHFoLYESNwaqxf6/an/SdxVLqgv5Govz3h5uwiHwErNHnUNlwM5fG5nOdlNJoBjDRQJeccUyX9IcDu2WivFut/PqLUuLg3q5EZC9YLAO3l3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DTBWbVR0k+vkE5zxKc6uDTHetfV/b5aNWJjwR8qWucM=;
- b=pwI43nksNa4RmCXV9SVBqZBCpLenINmr6UjfumGSF95iKvtErV+O/pwdexPqGRxQOoAn0ZtRSrjS7sJJwD736hASzozV9qxB1fBCpiSPPrcTI/pJ2JA17bVoFD/DHNtUlhbe+xcuCx+P+swucIQPnZZ+e6rj26kODjJ7z+mHmI8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Mon, 1 Jun 2026 19:20:27 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH for-4.22 5/5] xen/numa: fix setup of non-aligned memory
- affinity ranges
-Message-ID: <ah2_Wyzw486gLflv@macbook.local>
-References: <20260601154332.30797-1-roger.pau@citrix.com>
- <20260601154332.30797-6-roger.pau@citrix.com>
- <e08a1e30-cac2-40a6-9dbc-31aa4074ae88@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <e08a1e30-cac2-40a6-9dbc-31aa4074ae88@citrix.com>
-X-ClientProxiedBy: PR1P264CA0057.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:102:2ca::7) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=20170329 header.d=igalia.com header.i="@igalia.com" header.h="Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:Message-Id:Date:Subject:From"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=iDAqM3LEVWbUdCcEwUi+3g7SGlCGjmNJ971Sqj/gy+c=; b=ODeoOT7Umh4AgGbfK7rvzOVDp+
+	z+zt1XJnM+AmHqbNUH4LYPzVp0TgJJ+pyMP12WDwfsfMYekhba626GyP5+x9WrD7rLyCWfgYBNaF5
+	LyoT+/0z2QCaWSu5qDOyD8Gqbh/2uwDswfkqfZdDHuFziOdmZIwVnahAF0xvN4J/+CFIAUy0ze6Dv
+	pn8CLUW8OK/vov68/kxRmm8olilozlctjRpuDb2qq1C3jXjKCMx3Gq6WgRj80V9KwnSNdeJ9gJRDZ
+	fhYluOoVGQNLjF20ACpyF/QD+4nurPGfhP2e6bExUMgIObtjIRV31KYb8swyF8WT6hrm07eejhxXd
+	x7wJHYWg==;
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
+Subject: [PATCH v5 0/3] x86/pvh: fix unbootable VMs again (PVH + KASAN)
+Date: Mon, 01 Jun 2026 14:56:56 -0300
+Message-Id: <20260601-pvh-kasan-inline-v5-0-c996e92dfe9a@igalia.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|BY5PR03MB5297:EE_
-X-MS-Office365-Filtering-Correlation-Id: 450e1cbd-7d7c-4936-6d82-08dec0021588
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	VwGY05su6M+mOMUEQSMT2TnU2US8pKE8vE9S2GggaLb58yfyoQ4xWsdrHIlr2DSst3aVQmWb4aUQkE+R7g8d3brkdAhXJAoqMKDELC333alZ89GbZbiKlmEbU5C/IBqkzDZHW4rDG7Tc45OTWdpk66p7dCrQEum4jf/DTq3Yzihcrx9ETdkcp6MT51rEpE2CB9G/9VyrfR3tRZszYtikHdvd0qQV4BgcjiZXSqNz7f/f3yWbexr6TBfo6fSxQXmtRL70V89iHBBUZc/rWrcWyYBRaEsxiuPYIwgfVCKO9aMs3Mt3MVC2mfDHuRk78882bm9RmCZ7hW/597vuL1e3hPGM3lJ4PXjWQEC8mVyV9Sw5m7wDAPgYk4T1NTmvzGZSwJPX3JhQY+o/vKABWws8YJvBRpg+Ys+uSXqiig0QN3hT4mfxzdJc6s+D8HnWpS/XuquP9ILKkbtb9eWlQA74LkU8UY8URIdsxfqOKkvtEc3C1/TJ+TKsizuPBN3BVgex3zjcr1Xsuz3EWziWa4EQ2Lbkaz5W6+yyogyLAqydLjsIfVzu+XvDQzRRWSuoJJluUvd68jk/EDnW+4dY2WlebAeQeo68WSXheXEYJYivmxkOni4R4WEFNgJZlIPUbTyCmFjrzL1miXnaRNWyLxDwJXuQQ3XTMmmzEy9lpWhRRVAieOue1MOLMG3csVYUq8ln
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eXVzWUhhYW5wVDFiMWhNRlcyb0poK1pwc01mT2VrVlIxVkM2L1dyUDVWbjds?=
- =?utf-8?B?RGp6Y3FuMjZ4NGFnSlBBVTFZdW9tVjR2aVo2YThlUTdadmtweE9ZRDVRZW9r?=
- =?utf-8?B?NUpQekM1eVRiWnhCYzZ4YnlHaWMzMys3YnhuTWxLV3lzcllTQjBza3BrS2sr?=
- =?utf-8?B?eVI0OFlIT2MvQ0FTNU1LV1FhODk0Vk1xZkFnb01WbHNUcHF0Vk9uTVAra3d5?=
- =?utf-8?B?bkw1Q0pnTEZaU3BxUzhnRE5zdmllU3FwOTNaVGNJRkNVQmR3STJ6TE84cXJ6?=
- =?utf-8?B?MzA0WnVYVUhQVFNJRE41T1dmemY3d01tTGlzYk1lQk8xQzV3ZW0vbU5GMkJ4?=
- =?utf-8?B?a3NiZzNFVU44VExSVHJVMTFxYTZleXBZbHdEMUdJQVNXNEppSFh1d3hXZ0FT?=
- =?utf-8?B?Rkp2S0VvamN3VEFPNVVGU3JoK3VyT0FhSjFKclFTOFNCSFRZQjNidi80T1Y2?=
- =?utf-8?B?OE5IbHoySjgvSEtnenREQjd4VC9qaFl6L0lVQWliRElvY1I2ZU1QdkdJVElx?=
- =?utf-8?B?L2tlcHdtTGVtclRKTjQ2SUQ1NGsrWWNzK2IzY0hOOFU4Zm1zRjl1U3RqMUpH?=
- =?utf-8?B?QXpvSTFTVnYxTmhRYmlWVjRsTmFFNURibnMrVGc2dWdXQVNWdFdBb3M3R2t4?=
- =?utf-8?B?a3JqaVl2QnZJZG52MGFGMUJYTW96S2N1Qjh1WmxaSXdRSHErUVhtSzFCOXJE?=
- =?utf-8?B?VmhhK2RkWUJ3SEhMcDNDU240R2liUFk4VTFtWTlpY1RSYmM0RDlHR2RBTnR2?=
- =?utf-8?B?bWsxci9Wam9rRFdMMEttQzQveDloRFB5dnpsb2lMZGd6aDUvcC9NVWNxUE15?=
- =?utf-8?B?UzRNMUhqVEo4TmovWDAyR3BMSjI2RXZnb0ZvUU9pS091aGJtWGNJVDR1YTZI?=
- =?utf-8?B?K2oyWW8xamVNVVFWV1dmeDFGSUl1UTFGeW9XZTVTZjFWZjZrekhkUEhjbFlt?=
- =?utf-8?B?UmhOdVdJTTF5UVRzNE1NMCtGQTEwWWhuUURZaHFEdStpVERiM2p4aHRESVYr?=
- =?utf-8?B?Sm9YQmVrZ1FMZzQ4aUpZeHRpTlVKalFhN1pnbmZ1MENhK1JNb0VUbGZTVFlu?=
- =?utf-8?B?R3Q2VGd4UnNqNzhUR1pORWl6RnI0b3JlbzU3TEVlNDZFRVVObE5XcnliVmpL?=
- =?utf-8?B?OElzT054aGp2V3pDODFUdW50WWlwN2QyVkpRMHFRZ0dja1BFZC9Wb3pBRTNF?=
- =?utf-8?B?TGtDM3JxVmxmYUN1YnR2WUtXUzVZWVF5MWxMWFhGaWRnTE9nTGd4cGZMS3kr?=
- =?utf-8?B?dzdHQ1l5L1FwenVMdEZMcTRQWFdiS1NTbllsNVBicHo1SVRkTEM5RHBWVDdZ?=
- =?utf-8?B?dEdvWlVSNG1KRmhvTVFWSWRWQ1pMOFlvQ3BxdHQvSmZGTVE1YnhJWDE2K25O?=
- =?utf-8?B?TXN0dW03OUM2RmU2ODF4OXQ4ZDBaSnJYQnhuWFplQXBVV0VPTnI5VHpnZENT?=
- =?utf-8?B?dXkwZnhXUUl5andwZUd3cHloMERsK2dPRFQ0WTZ4UWJEaHlNSDk2MytNaUdx?=
- =?utf-8?B?a2dsK0NYZlNobGhzYStFS3hsek1QR1JZbTVDVi9DWlpsZXBrVTJ4SGJqa0Z5?=
- =?utf-8?B?ZzloMXhDMlVCMHYwVWJ1aVFreFRJWURhdldxZDNlK2VIdjlYOFVyQ2xOblR3?=
- =?utf-8?B?YzZWdTdYZDZIYUpjZXlwUlloT2NycFNWcnY1NGlPVTZpSVdIazBRVnh0N1ZT?=
- =?utf-8?B?aXNsR2tSV2ZkVmdQTXN5a1ZZWTY0N1IyRHJYK0ZzdXlicnA4K2x0ZitwS2dO?=
- =?utf-8?B?RkRMTDJyUW5RYTJPL2d6UDA3UnhLQXRwQXNDQmpjTnNBRzRRclE3SkpHRUxi?=
- =?utf-8?B?R0MvYnowQkZkOHJZNmpHWGUvMldNTzBsZFllRkthRFIzTElTUldMNWc0UUhq?=
- =?utf-8?B?RXh3RkZ6M2MrQVlNa09FVTNHN1k2N0prMk5LNGdoR0RNR1BhZnhsZ1EwWDJz?=
- =?utf-8?B?dWk3dWt5SWUya0ZuZTdBYWllcHUrS2YyQlhEak1uT3RTQVlONnllT2p0QjQ2?=
- =?utf-8?B?NTgxVHBaZVhZbUc2UnFoSXA3eU1yOXdWaDRhSjFDUXNSS1NyelFGeHRqcDB3?=
- =?utf-8?B?WFI1RFJ5YnpZVWdhTWh1amZsZlBhazZCdy9Mdlpha2QwK1BUQXQ2VVE3Y096?=
- =?utf-8?B?M0V5WTdJSVhPT3F4ZnlMZGw0SUMyb3l0TmhaREZBdEpETmFNL1MzaGlEMFBp?=
- =?utf-8?B?Wm9BQXVscjdrV3M3dUV1eXRtanhZWlZtUmxmK1lZeGgvTVQySkY2cmh5SUdO?=
- =?utf-8?B?VUs0bjZOQm9qM3ZOQVNDNDJDbHVxMDVJOUVKcVVYZnB6U2ZBMFpVa0Job2Vr?=
- =?utf-8?B?alYvUHFpOEZJNEFVY1IwdFQwa00zV3JaZVpSdGtrSk1vaEw0Q0t4UT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 450e1cbd-7d7c-4936-6d82-08dec0021588
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 17:20:34.9073
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DiU06wuCz0pq5RqWWU4f6nm828w4BNGQ65CiGMNf4APLnnchoXHiD4SXwYZ1j+EPUwV6lymQpwABm4VUgxoHZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5297
-X-purgate-ID: tlsNG-c201ff/1780334440-D9971443-D6E887B4/0/0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOjHHWoC/33NwW7CMAzG8VdBOS8ocdNk3WnvMXFwXYdaYylqp
+ ogJ9d0XuACi4vj/JP98Vpln4aw+Nmc1c5EsU6rRvm0UjZj2rGWorcCANw5AH8uovzFj0pIOklh
+ 7jkghRNtDUPXsOHOU05X82tUeJf9O89/1Q7GX9QVWrDY6sLeda5yjDj5ljwfBLU0/6qIVuBfCi
+ gBVAGpD/z5QjB6fhOYmtGBWhKYKPQ8cfEeeKTwJ7l7wK4KrAjbWsEdomYYHYVmWfyK1xM93AQA
+ A
+X-Change-ID: 20260422-pvh-kasan-inline-6efac77f1b27
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Juergen Gross <jgross@suse.com>, Alexey Dobriyan <adobriyan@gmail.com>, 
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: kernel-dev@igalia.com, linux-kernel@vger.kernel.org, 
+ xen-devel@lists.xenproject.org, Mauricio Faria de Oliveira <mfo@igalia.com>
+X-Mailer: b4 0.14.2
+X-purgate-ID: tlsNG-d25034/1780336637-E0B64CF5-FF3664C2/0/0
 X-purgate-type: clean
-X-purgate-size: 1513
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-purgate-size: 6847
+X-Spamd-Result: default: False [0.61 / 15.00];
+	R_DKIM_REJECT(1.00)[igalia.com:s=20170329];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[igalia.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[lists.xenproject.org,gmail.com,vates.tech,amd.com,suse.com,xen.org,kernel.org];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:dkim,lists.xenproject.org:rdns,lists.xenproject.org:helo,macbook.local:mid];
-	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:sstabellini@kernel.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:jgross@suse.com,m:adobriyan@gmail.com,m:boris.ostrovsky@oracle.com,m:kernel-dev@igalia.com,m:linux-kernel@vger.kernel.org,m:xen-devel@lists.xenproject.org,m:mfo@igalia.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[kernel.org,redhat.com,alien8.de,linux.intel.com,zytor.com,suse.com,gmail.com,oracle.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:rdns,lists.xenproject.org:helo,igalia.com:mid,igalia.com:email,entry:email];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FORGED_SENDER(0.00)[mfo@igalia.com,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	MISSING_XM_UA(0.00)[];
+	DKIM_TRACE(0.00)[igalia.com:-];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mfo@igalia.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.093];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 1058662333F
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: F0428623976
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Mon, Jun 01, 2026 at 06:08:49PM +0100, Andrew Cooper wrote:
-> On 01/06/2026 4:43 pm, Roger Pau Monne wrote:
-> > diff --git a/xen/common/numa.c b/xen/common/numa.c
-> > index 8544a1598218..8b2f29597f30 100644
-> > --- a/xen/common/numa.c
-> > +++ b/xen/common/numa.c
-> > @@ -396,7 +396,13 @@ static int __init populate_memnodemap(const struct node *nodes,
-> >  
-> >      for ( i = 0; i < numnodes; i++ )
-> >      {
-> > -        unsigned long spdx = paddr_to_pdx(nodes[i].start);
-> > +        /*
-> > +         * Round down start address: if start is not aligned to the memnodemap
-> > +         * chunk size the tail remainder might not be added.  Overlaps created
-> > +         * by rounding will fall into the same NUMA region.
-> > +         */
-> > +        unsigned long spdx = ROUNDDOWN(paddr_to_pdx(nodes[i].start),
-> > +                                       1UL << shift);
-> >          unsigned long epdx = paddr_to_pdx(nodes[i].end - 1);
-> >  
-> >          if ( spdx > epdx )
-> 
-> I like that this comes with a unit test, but this hunk needs to be
-> standalone at the start of the series, because it needs backporting.
+The issue of unbootable VMs with CONFIG_PVH due to CONFIG_KASAN is back.
 
-I was supposed to add a post-commit note about this, but finding the
-offending commit took me a lot more time than I was expecting and
-forgot to add the note.
+Booting directly from vmlinux (instead of bzImage) now fails with gcc-14/15
+(but works with gcc-12/13) if CONFIG_KASAN_GENERIC is set, on Ubuntu 25.10.
 
-Yes, this needs to be backported.  I was wondering whether it would be
-fine to just backport the fix, leaving the test changes alone.  But I
-can also split this to a pre-commit.
+The PVH code is required/supposed not to use the KASAN memory access check
+in the kernel entry point as KASAN has not yet been setup, or an exception
+is hit and the boot fails.
 
-Thanks, Roger.
+This was previously described and addressed with __builtin_mem{cmp,set}():
+- commit 661362e3dcab ("xen, pvh: fix unbootable VMs (PVH + KASAN - AMD_MEM_ENCRYPT)")
+- commit 416a33c9afce ("x86/cpu: fix unbootable VMs by inlining memcmp() in hypervisor_cpuid_base()")
+- commit fbe5a6dfe492 ("xen, pvh: fix unbootable VMs by inlining memset() in xen_prepare_pvh()")
+
+However, even with __builtin the compiler may decide to use the out of line
+function instead of the inline implementation. So, that does not really fix
+the issue unconditionally; see details below.
+
+In order to address this, it's required to switch to inline implementations
+that do not depend on the compiler.
+
+There's such a memset() in <asm/string.h> and memcmp() in 'boot/string.c'.
+Use them instead of builtins in PVH entry.
+
+Testing:
+
+- Booting from vmlinux (fixed) and bzImage (still works) using
+  allnoconfig + CONFIG_PVH + CONFIG_KASAN with gcc-12/13/14/15.
+
+- Building with CONFIG_KEXEC_FILE, CONFIG_CFI and !CONFIG_KASAN with LLVM 20
+  (check for a build error not caught previously).
+
+Details/Debugging:
+
+- Only CONFIG_PVH (works):
+
+  make allnoconfig
+  ./scripts/config \
+    -e 64BIT -e HYPERVISOR_GUEST -e PVH \
+    -e SERIAL_8250 -e SERIAL_8250_CONSOLE
+  make olddefconfig
+  make -j$(nproc) vmlinux
+
+  qemu-system-x86_64 \
+    -accel kvm -nodefaults -nographic -serial stdio \
+    -kernel vmlinux -append 'console=ttyS0'
+  ...
+  SeaBIOS (version ...)
+  Booting from ROM...
+  Linux version ...
+  ...
+  <Ctrl-C>
+
+- With CONFIG_KASAN (fails)
+
+  ./scripts/config -e KASAN
+  make olddefconfig
+  make -j$(nproc) vmlinux
+
+  qemu-system-x86_64 \
+    -accel kvm -nodefaults -nographic -serial stdio \
+    -kernel vmlinux -append 'console=ttyS0'
+  ...
+  SeaBIOS (version ...)
+  Booting from ROM...
+  <QEMU reboot loop, flashing the text above>
+
+- Debugging:
+
+  Enable debug info and rebuild.
+
+  QEMU: enable and wait for GDB, stop rebooting, remain running.
+
+  qemu-system-x86_64 \
+    -s -S -no-reboot -no-shutdown \
+    <other options>
+
+  gdb vmlinux
+  (gdb) target remote localhost:1234
+  ...
+  (gdb) c
+  ...
+  Thread 2 received signal SIGQUIT, Quit.
+  ...
+  (gdb) info threads
+    Id   Target Id                    Frame
+    1    Thread 1.1 (CPU#0 [running]) bytes_is_nonzero (
+      start=0xfffffbfff031eebe <error: Cannot access memory at address 0xfffffbfff031eebe>, size=1)
+      at .../linux/mm/kasan/generic.c:98
+  * 2    Thread 1.2 (CPU#1 [halted ]) 0x00000000000fd0a9 in ?? ()
+  ...
+  (gdb) thr 1
+  ...
+  (gdb) bt
+  #0  bytes_is_nonzero (start=0xfffffbfff031eebe <error: Cannot access memory at address 0xfffffbfff031eebe>, size=1)
+      at .../linux/mm/kasan/generic.c:98
+  #1  memory_is_nonzero (start=0xfffffbfff031eebe, end=0xfffffbfff031eebf) at .../linux/mm/kasan/generic.c:115
+  #2  memory_is_poisoned_n (addr=0xffffffff818f75f0, size=8) at .../linux/mm/kasan/generic.c:140
+  #3  memory_is_poisoned (addr=0xffffffff818f75f0, size=8) at .../linux/mm/kasan/generic.c:172
+  #4  check_region_inline (addr=0xffffffff818f75f0, size=8, write=false, ret_ip=18446744071585002062)
+      at .../linux/mm/kasan/generic.c:191
+  #5  kasan_check_range (addr=addr@entry=0xffffffff818f75f0, size=size@entry=8, write=write@entry=false,
+      ret_ip=18446744071585002062) at .../linux/mm/kasan/generic.c:200
+  #6  0xffffffff813eb283 in __asan_loadN (addr=addr@entry=0xffffffff818f75f0, size=size@entry=8)
+      at .../linux/mm/kasan/generic.c:278
+  #7  0xffffffff815df24e in memcmp (cs=cs@entry=0xffffffff818f75f0, ct=ct@entry=0x1be2fe4, count=<optimized out>,
+      count@entry=12) at .../linux/lib/string.c:683
+  #8  0xffffffff81ba2323 in cpuid_base_hypervisor (sig=0xffffffff818f75f0 "XenVMMXenVMM", leaves=2)
+      at .../linux/arch/x86/include/asm/cpuid/api.h:206
+  #9  xen_cpuid_base () at .../linux/arch/x86/include/asm/xen/hypervisor.h:46
+  #10 xen_prepare_pvh () at .../linux/arch/x86/platform/pvh/enlighten.c:119
+  #11 0x0000000001ba2588 in ?? ()
+  #12 0x0000000000000000 in ?? ()
+  (gdb)
+
+  Frames #7-#8 show the non-builtin memcmp() (lib/string.c) was called
+  even with __builtin_memcmp() being used in cpuid_base_hypervisor().
+
+Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+---
+Changes in v5:
+- Create a minimal separate header in <asm/shared/string.h> instead,
+  to be used by 'boot/setup.c' and <asm/string.h> (Borislav Petkov).
+- Patch 1 (in v4/v3) is no longer needed; removed.
+- Patch 1 (in v5):
+  - Briefly mention there are issues with <asm/string.h>.
+  - Remove 'Reviewed-by: Jurgen Gross' to be conservative
+    (same code change and result, but the means changed).
+- Link to v4: https://lore.kernel.org/r/20260526-pvh-kasan-inline-v4-0-a310e6a25ecd@igalia.com
+
+Changes in v4:
+- Patch 1: address Juergen's feedback:
+  - s/In next patch/In a future patch/.
+  - Move footnote (Reasons not to include...) after "---".
+- Add 'Reviewed-by: Juergen Gross' in patches 1 and 2 as well.
+- Link to v3: https://lore.kernel.org/r/20260520-pvh-kasan-inline-v3-0-bede769c6ec7@igalia.com
+
+Changes in v3:
+- Create and use a separate header for inline string functions
+  to fix a build error reported by kernel test robot (patch 1).
+- That also removes '#ifndef _SETUP/#endif' in <asm/string.h>.
+- Link to v2: https://lore.kernel.org/r/20260427-pvh-kasan-inline-v2-0-2c57b8dcff6a@igalia.com
+
+Changes in v2:
+- Add comment about the return value of __inline_memcmp() in patch 1. (v3: now 2)
+- Add 'Reviewed-by: Juergen Gross' in patches 2 and 3 (v3: now 3 and 4).
+- Link to v1: https://lore.kernel.org/r/20260422-pvh-kasan-inline-v1-0-7e6194344c92@igalia.com
+
+---
+Mauricio Faria de Oliveira (3):
+      x86/asm, x86/boot: expose inline memcmp
+      x86/cpuid: fix unbootable VMs by really inlining memcmp() in hypervisor_cpuid_base()
+      x86/pvh: fix unbootable VMs by really inlining memset() in xen_prepare_pvh()
+
+ arch/x86/boot/string.c               |  6 ++----
+ arch/x86/include/asm/cpuid/api.h     |  2 +-
+ arch/x86/include/asm/shared/string.h | 16 ++++++++++++++++
+ arch/x86/include/asm/string.h        |  1 +
+ arch/x86/platform/pvh/enlighten.c    |  3 ++-
+ 5 files changed, 22 insertions(+), 6 deletions(-)
+---
+base-commit: 7da7f07112610a520567421dd2ffcb51beaefbcc
+change-id: 20260422-pvh-kasan-inline-6efac77f1b27
+
+Best regards,
+-- 
+Mauricio Faria de Oliveira <mfo@igalia.com>
+
 
