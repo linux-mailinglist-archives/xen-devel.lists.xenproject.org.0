@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sBZLJUb/HWqfgQkAu9opvQ
+	id 8Ly2BXL/HWqfgQkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:53:10 +0200
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:53:54 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05EDB625A91
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:53:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1324155.1589825 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E4A2625A9F
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 23:53:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1324164.1589834 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUAZB-0007HC-HS; Mon, 01 Jun 2026 21:53:01 +0000
+	id 1wUAZu-0007z8-UJ; Mon, 01 Jun 2026 21:53:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1324155.1589825; Mon, 01 Jun 2026 21:53:01 +0000
+Received: by outflank-mailman (output) from mailman id 1324164.1589834; Mon, 01 Jun 2026 21:53:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUAZB-0007EV-E4; Mon, 01 Jun 2026 21:53:01 +0000
-Received: by outflank-mailman (input) for mailman id 1324155;
- Mon, 01 Jun 2026 21:52:59 +0000
+	id 1wUAZu-0007wi-PS; Mon, 01 Jun 2026 21:53:46 +0000
+Received: by outflank-mailman (input) for mailman id 1324164;
+ Mon, 01 Jun 2026 21:53:45 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 1wUAZ9-0007Dk-Os
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 21:52:59 +0000
+ id 1wUAZt-0007wV-25
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 21:53:45 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUAZ9-00ElxF-5Z
- for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 23:52:59 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wUAZs-00C4PN-FC
+ for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 23:53:44 +0200
+Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
  <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a1dff28-bab6-0a2a0a5309dd-0a2a4505c4a0-14
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:52:58 +0200
+ id 6a1dff25-5cb7-0a2a0a5109dd-0a2a45069d7e-30
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:53:44 +0200
 Received: from [90.155.50.34] (helo=casper.infradead.org)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from
  <BATV+fd6ac5da1981cc8a9071+8317+infradead.org+dwmw2@casper.srs.infradead.org>)
- id 6a1dff36-aaa8-0a2a45050019-5a9b32228b8a-3
- for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:52:54 +0200
+ id 6a1dff67-7371-0a2a45060019-5a9b32229fca-3
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 23:53:44 +0200
 Received: from [2001:8b0:10b:5:5b40:b57d:669c:36f4]
  (helo=u09cd745991455d.ant.amazon.com)
  by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wUAYw-00000000pN2-1EGX; Mon, 01 Jun 2026 21:52:46 +0000
+ id 1wUAZh-00000000pPV-10Il; Mon, 01 Jun 2026 21:53:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,15 +59,15 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:in-reply-to:
 	Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
 	Content-ID:Content-Description:References;
-	bh=6Fm3/kKIutjYCp/GHWX8bbs6lxI2f2V3d3GUmiswKdY=; b=mDopZKk2zoOba2k9mB3kfx9OLA
-	d6ttBFY88R5yjsjPDHZ9MOCB5sD/spwq1cx+G/bbeElfERX1XqkIKGFWAPbpMrlj36r2L/P2fOuJN
-	U0urGJPMGZaoXVfk6rdgSAtMVsb/XA2q4KVeh2ukJi4uoS1Ruab3yhTZUJfEF9+Dshf+Nw+PDo2QW
-	Jg/FyV/5Z0+2NdoGmsrLB2MW64yh9Nn/rG74Z9gLVJuzpgKb+wIyi0kwY9AuWFQLkDy479t8fLCFh
-	esbVas2ULclc024H1EaReCouj4Haadvpq8R4RuI1G/ZIlGCyYZfmrsqJdauAwyEPi4MxdYmAoTQBl
-	NygQJqZQ==;
-Message-ID: <429f149dac50e96c175669e13faa258dd05efcd3.camel@infradead.org>
-Subject: Re: [PATCH v4 12/47] x86/tsc: Rename
- pit_hpet_ptimer_calibrate_cpu() => native_calibrate_cpu_late()
+	bh=GoanKxmvTohkZisXqmeG1dBKj46gfnWDhnG4X856XEo=; b=C2JoFp8poaNsTCrcpFtLNwLCKG
+	wlJ53Hs31wEF4MLSrgTHLegESScCH3j2KSzQID+DxfDFMc7g3OT38Sjg23UekiP+kvJwH9C8DRHLL
+	XqW3eMcbKncMohB8HMonDlksq+o9yElY9eFTeKO6DuSITsi+vn9dlYKFS72YgjcpIEemQ+EnIRoOb
+	bESIyqt5G0WE2eIV7I3jk0/pk91ilPeErY4i9kGFkfiBnDaC+EDlRN9ELTA3wLQ/bRbL5zFX4FJTQ
+	7c7UJi/9rAKzyBhdRzxxHw9Tabr8jMoe4X429xo5C8f2ci+3fMMW3HQeZB3SamjWf9g+qHvZOaBZG
+	615G1OhQ==;
+Message-ID: <0f9966f6992be461e5ba0e6378a5ce86b17ee66e.camel@infradead.org>
+Subject: Re: [PATCH v4 14/47] x86/kvmclock: Rename kvm_get_tsc_khz() to
+ kvmclock_get_tsc_khz()
 From: David Woodhouse <dwmw2@infradead.org>
 To: seanjc@google.com
 Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
@@ -84,16 +84,16 @@ Cc: pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
  xen-devel@lists.xenproject.org,  dwmw@amazon.co.uk,
  thomas.lendacky@amd.com, nikunj@amd.com, dwmw2@infradead.org, 
  mhklinux@outlook.com, tglx@linutronix.de
-Date: Mon, 01 Jun 2026 22:52:45 +0100
-in-reply-to: <20260529144435.704127-13-seanjc@google.com>
+Date: Mon, 01 Jun 2026 22:53:32 +0100
+in-reply-to: <20260529144435.704127-15-seanjc@google.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-9sUrUKJ02DeFXxxg/2FR"
+	boundary="=-9faS21P7Idptdc1OVeaT"
 User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-X-purgate-ID: tlsNG-c201ff/1780350775-E0C65443-8DE5625F/0/0
+X-purgate-ID: tlsNG-16d1c6/1780350824-7FF7BD75-631C4FDA/0/0
 X-purgate-type: clean
-X-purgate-size: 7608
+X-purgate-size: 7669
 X-Spamd-Result: default: False [-1.49 / 15.00];
 	SIGNED_SMIME(-2.00)[];
 	R_DKIM_REJECT(1.00)[infradead.org:s=casper.20170209];
@@ -114,7 +114,7 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
 	HAS_ATTACHMENT(0.00)[];
-	NEURAL_SPAM(0.00)[0.495];
+	NEURAL_SPAM(0.00)[0.508];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	TO_DN_NONE(0.00)[];
@@ -128,18 +128,19 @@ X-Spamd-Result: default: False [-1.49 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 05EDB625A91
+X-Rspamd-Queue-Id: 7E4A2625A9F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
---=-9sUrUKJ02DeFXxxg/2FR
+--=-9faS21P7Idptdc1OVeaT
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 29 May 2026 07:43:59 -0700, Sean Christopherson wrote:
-> Rename the late CPU calibration routine so that its relationship to the
-> early routine is more obvious and intuitive.
+On Fri, 29 May 2026 07:44:01 -0700, Sean Christopherson wrote:
+> Rename kvm_get_tsc_khz() to kvmclock_get_tsc_khz() in anticipation of
+> adding support for getting TSC info from PV CPUID, i.e. in a KVM specific
+> way, but without non-kvmclock.
 >
 > No functional change intended.
 >
@@ -148,7 +149,7 @@ On Fri, 29 May 2026 07:43:59 -0700, Sean Christopherson wrote:
 Reviewed-by: David Woodhouse <dwmw@amazon.co.uk>
 
 
---=-9sUrUKJ02DeFXxxg/2FR
+--=-9faS21P7Idptdc1OVeaT
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -227,22 +228,22 @@ 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
-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
+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
-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
+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
 
 
---=-9sUrUKJ02DeFXxxg/2FR--
+--=-9faS21P7Idptdc1OVeaT--
 
