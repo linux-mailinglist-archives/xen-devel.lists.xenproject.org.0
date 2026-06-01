@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mAXKBtllHWqwaAkAu9opvQ
+	id iBO4C9llHWqwaAkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
 	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 12:58:33 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7AD761DFE5
-	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 12:58:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1323794.1589476 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B181361DFE3
+	for <lists+xen-devel@lfdr.de>; Mon, 01 Jun 2026 12:58:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1323791.1589461 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wU0LD-0006DZ-NT; Mon, 01 Jun 2026 10:57:55 +0000
+	id 1wU0LD-0005yj-0y; Mon, 01 Jun 2026 10:57:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1323794.1589476; Mon, 01 Jun 2026 10:57:55 +0000
+Received: by outflank-mailman (output) from mailman id 1323791.1589461; Mon, 01 Jun 2026 10:57:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wU0LD-00068e-JM; Mon, 01 Jun 2026 10:57:55 +0000
-Received: by outflank-mailman (input) for mailman id 1323794;
+	id 1wU0LC-0005xM-Tw; Mon, 01 Jun 2026 10:57:54 +0000
+Received: by outflank-mailman (input) for mailman id 1323791;
  Mon, 01 Jun 2026 10:39:59 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <eduardomarinho@em-4.local>) id 1wU03r-0003ay-EN
+ (envelope-from <eduardomarinho@em-4.local>) id 1wU03r-0003az-Aa
  for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 10:39:59 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wU03n-006ZzF-2T
+ id 1wU03n-00HI7U-2j
  for xen-devel@lists.xenproject.org; Mon, 01 Jun 2026 12:39:55 +0200
-Received: from [10.42.69.2] (helo=localhost)
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <eduardomarinho@em-4.local>)
- id 6a1d616b-bab6-0a2a0a5309dd-0a2a450286d8-24
+ id 6a1d616a-5cb7-0a2a0a5109dd-0a2a45038d6e-30
  for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 12:39:55 +0200
 Received: from [179.190.196.82] (helo=EM-4.local)
- by tlsNG-720697.mxtls.expurgate.net with ESMTP (eXpurgate 4.56.1)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTP (eXpurgate 4.56.1)
  (envelope-from <eduardomarinho@em-4.local>)
- id 6a1d6179-af86-0a2a45020019-b3bec452ccce-1
+ id 6a1d6179-672d-0a2a45030019-b3bec452ccd0-1
  for <xen-devel@lists.xenproject.org>; Mon, 01 Jun 2026 12:39:54 +0200
 Received: by EM-4.local (Postfix, from userid 501)
- id 934DC44A44A7; Mon,  1 Jun 2026 07:39:52 -0300 (-03)
+ id 929CF44A44A6; Mon,  1 Jun 2026 07:39:52 -0300 (-03)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,15 +61,17 @@ Cc: andrew.cooper3@citrix.com,
 	roger.pau@citrix.com,
 	sstabellini@kernel.org,
 	Eduardo Marinho <eduardomarinho@pm.me>
-Subject: [PATCH 0/3] docs: fix minor typos and duplicated words
-Date: Mon,  1 Jun 2026 07:39:02 -0300
-Message-ID: <20260601103905.20982-1-eduardomarinho@pm.me>
+Subject: [PATCH 1/3] docs: fix spelling of 'necessarily' in index.rst
+Date: Mon,  1 Jun 2026 07:39:03 -0300
+Message-ID: <20260601103905.20982-2-eduardomarinho@pm.me>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260601103905.20982-1-eduardomarinho@pm.me>
+References: <20260601103905.20982-1-eduardomarinho@pm.me>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-720697/1780310395-A9573161-090A7898/0/0
+X-purgate-ID: tlsNG-33051d/1780310395-39370938-8C7D40F3/0/0
 X-purgate-type: clean
-X-purgate-size: 581
+X-purgate-size: 749
 X-Spamd-Result: default: False [2.51 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[pm.me : SPF not aligned (strict), No valid DKIM,quarantine];
 	MID_CONTAINS_FROM(1.00)[];
@@ -91,7 +93,7 @@ X-Spamd-Result: default: False [2.51 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[eduardomarinho@pm.me,xen-devel-bounces@lists.xenproject.org];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	R_DKIM_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.414];
+	NEURAL_HAM(-0.00)[-0.415];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[9];
@@ -99,23 +101,30 @@ X-Spamd-Result: default: False [2.51 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ARC_NA(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: B7AD761DFE5
+X-Rspamd-Queue-Id: B181361DFE3
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This series corrects a few minor typos and duplicated words found across
-the general documentation, the admin guide, and the libxl specifications.
+Correct a minor typo in the introduction section to improve readability.
 
-Eduardo Marinho (3):
-  docs: fix spelling of 'necessarily' in index.rst
-  docs/admin-guide: drop duplicated word in microcode-loading.rst
-  docs/specs: drop duplicated word in libxl-migration-stream.pandoc
+Signed-off-by: Eduardo Marinho <eduardomarinho@pm.me>
+---
+ docs/index.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- docs/admin-guide/microcode-loading.rst   | 2 +-
- docs/index.rst                           | 2 +-
- docs/specs/libxl-migration-stream.pandoc | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
+diff --git a/docs/index.rst b/docs/index.rst
+index bd87d736b9..57da8c2708 100644
+--- a/docs/index.rst
++++ b/docs/index.rst
+@@ -17,7 +17,7 @@ User documentation
+ ------------------
+ 
+ This is documentation for an administrator of a Xen system.  It is intended
+-for someone who is not necesserily a developer, has installed Xen from their
++for someone who is not necessarily a developer, has installed Xen from their
+ preferred distribution, and is attempting to run virtual machines and
+ configure the system.
+ 
 -- 
 2.52.0
 
