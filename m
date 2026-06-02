@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id wwXaHVbLHmrRVAAAu9opvQ
+	id 9XBXFLfLHmrmVAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 14:23:50 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 14:25:27 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CA1262DFCA
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 14:23:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF48A62E01F
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 14:25:26 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=cksLHLZY;
+	dkim=pass header.d=invisiblethingslab.com header.s=fm3 header.b=dtAfrfNZ;
+	dkim=pass header.d=messagingengine.com header.s=fm1 header.b=eG0a4Eeb;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1324894.1590395 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=invisiblethingslab.com
+Received: from list by lists.xenproject.org with outflank-mailman.1324902.1590412 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUO9l-0000Ik-8U; Tue, 02 Jun 2026 12:23:41 +0000
+	id 1wUOBL-0001Ae-Rp; Tue, 02 Jun 2026 12:25:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1324894.1590395; Tue, 02 Jun 2026 12:23:41 +0000
+Received: by outflank-mailman (output) from mailman id 1324902.1590412; Tue, 02 Jun 2026 12:25:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUO9l-0000Fr-5I; Tue, 02 Jun 2026 12:23:41 +0000
-Received: by outflank-mailman (input) for mailman id 1324894;
- Tue, 02 Jun 2026 12:23:39 +0000
+	id 1wUOBL-00018R-Oo; Tue, 02 Jun 2026 12:25:19 +0000
+Received: by outflank-mailman (input) for mailman id 1324902;
+ Tue, 02 Jun 2026 12:25:18 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wUO9j-0000Fh-02
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 12:23:39 +0000
+ (envelope-from <accek@invisiblethingslab.com>) id 1wUOBK-00017j-Er
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 12:25:18 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUO9i-003GWK-D4
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 14:23:38 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wUOBJ-00HArZ-Kn
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 14:25:17 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a1ecb43-5cb7-0a2a0a5109dd-0a2a4506c19a-18
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 14:23:38 +0200
-Received: from [209.85.128.52] (helo=mail-wm1-f52.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a1ecb49-7371-0a2a45060019-d1558034b98b-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 14:23:38 +0200
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4906238c62eso92579395e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 05:23:38 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45ef358c07bsm33938051f8f.36.2026.06.02.05.23.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jun 2026 05:23:37 -0700 (PDT)
+ (envelope-from <accek@invisiblethingslab.com>)
+ id 6a1ecbaa-e002-0a2a0a5209dd-0a2a4505e5ac-12
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 14:25:17 +0200
+Received: from [103.168.172.154] (helo=fhigh-a3-smtp.messagingengine.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <accek@invisiblethingslab.com>)
+ id 6a1ecbac-aaa8-0a2a45050019-67a8ac9a9113-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 14:25:17 +0200
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 12CDE140028D;
+ Tue,  2 Jun 2026 08:25:16 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-05.internal (MEProxy); Tue, 02 Jun 2026 08:25:16 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 2 Jun 2026 08:25:14 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,137 +60,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780403017; x=1781007817; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=f+8PSoE4u637YPK0NNw5iFwrdq8bd56YU23NtvSj/Bg=;
-        b=cksLHLZYdOUUO/1PSwGcEPgG6tEMx4fE4uhkhWVaDQN52VE9BFKBQK2xyu/3fS8gS2
-         ilB1Va1I8pBsmbzalU2nYGOYmGYNYyWxbiYLiUsxCAkAdFEvHhqMu8OfnXx4D3lpxk4x
-         rT1tFEJdK/5qHfXLUkc6c4akQWyK5S7b5MNRXxO3q3u7W2LQD3CDBSOBi/agzyAbz7RO
-         rNRLUDDvdJtVR9vFfz7Zavdj5+4fk0d84DkTJpyuAwfuxpkpu3npi7YzoQZUK9iPBvPr
-         lFqNfl27XqblUs1cnzJ9+mp4pJA3YY4KiS4IclnxLLPRB8ZmRNhe0vam9ZgjeP6zLCyN
-         TKPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780403017; x=1781007817;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=f+8PSoE4u637YPK0NNw5iFwrdq8bd56YU23NtvSj/Bg=;
-        b=R71qnuAnp/ri4mUXpDk8WKlW6k2cy9vlmIAJZEF2dBuJEjy0fnuCqMebFBhFefIWdI
-         uyM4e8MHnfSEMOBHIpIGuIE8ICpaLd8DPbi8rWbctEa58RIyJNDaAUCK/ga7e0OvOIWK
-         WDQ2EwDYRQFDEQy3FeHrIrDYBWneFXv4f19WutlpiFrTE1VCFTm0wtUyRgKWN6l+DTsb
-         fWBD8as1NS9gZc2FPkUkTuIhxAoRp8QmX4wXg/sa3EpihSgk5WVmPaYxV7uhkBf3xm2I
-         bmCx5YSDZt3uvA7FkbcGOybk3Xo4mHlW3PafZqJ/Q5mA0XuXNyB/loI2JMbAGmHGZeFJ
-         6oag==
-X-Forwarded-Encrypted: i=1; AFNElJ+O9X6w8tgVp3nDFkdaU+sj32YmrYW8vdnosm/JD3Gh93vMKTSmuE9RRPMLKxsQHmU3v0DnLX4gS+Y=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyGfUM7ntcxhBWditGqTpKXL2sB29Y83l4nLwVx6Lh3sxQitYrZ
-	80QCIpss/daY1LoE8L9l8To2CdnA8ZwgejcFlM5VDGlb3JfUGq40Mm02tz3Bx8Ii7A==
-X-Gm-Gg: Acq92OFidRdg4YW1cHgYVKIGz+91MBMiMw3120hXND55izepqZpKQhMFX+zVzU9T85m
-	vYatZQcC0ZonU8ANzZloP5S6EV5oy53UyG2OtTmt40QLIn5GFPkfShhNNgM0C2PWfEu/GBs5nAc
-	//xrb+2X17tRHR9Y9HonOkwAwuqNUBgUqguDiJn/CnNk0h31GlhY2UQckLPmKXuAtmqDbrO0cnm
-	nyklvnO5vgEeNNqNJWfh1lcNmHZJDhxAi2AF3QH98bzgtQJhJ2TH5aQc0pvGZZlzlBVjenqLOXE
-	YPh2jsQIzNM1R2tAn+LqXNM0upjeKHKVId1ois/7br3NdF2n8qA2fMMsiZna5bIM6Qev2Cxq3Ov
-	CK9Zono2Jn7OTiOl33JVTHDN+8RVsVZEleHp8sElxKEu5MH/Hg6x6NfKwnArJcF9Vmn3KzJ5OKz
-	e6flMthxSNW4uE2Mnei0E359dEl0SlowL6e1T3ln65r6m8ofelqXF+Z3GI0EIG0ga/eoPL5g1L5
-	cwbXxjVOTFtqMU2XobbCqR4gw==
-X-Received: by 2002:a05:600c:34cf:b0:490:6869:46d2 with SMTP id 5b1f17b1804b1-490a28d3b0fmr282601705e9.0.1780403017488;
-        Tue, 02 Jun 2026 05:23:37 -0700 (PDT)
-Message-ID: <ddf972f5-fab2-4833-99a7-d008f4d2c7e4@suse.com>
-Date: Tue, 2 Jun 2026 14:23:44 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm3;
+	 t=1780403116; x=1780489516; bh=lc9LRteUWG74zsyPypriXZmN2GLT8md7
+	B+LJjmGTj7Q=; b=dtAfrfNZrZQBKdUvugzrLAGY5TrFZ8hOJ7oYwPkAblT+FeyV
+	wAMPhbzVG/Le040NlDvyZgQ0ByaLoZvuCDtxL4mAsT0xdwKzyCpxUmLN6IDML65p
+	K+82JSaoHvEEPR0P5IYHR0Kd5ovpD8WF93vLFrjzT7qXGe/AoYTpLPHVRl9BjJH1
+	loC/8nvulJ16rbR4bajR+RiYxhCAj7Dx77yLKZQ4hc+y/uIL+HzC7zSDhwOeB2Yw
+	kdncNYEjjuKFEmsxwsU5ORIjqOhnLS7JlYQloSCp0OPg1vHGM6QXrY24eQmQkZrv
+	Z81vCM+OaB007erneoi+vPlFaPy1dKxEj6N6ng==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1780403116; x=1780489516; bh=lc9LRteUWG74zsyPypriXZmN2GLT
+	8md7B+LJjmGTj7Q=; b=eG0a4EebvFx7B75qpOsmGhwNl45WFiiqHEcGolwl0tbF
+	40DR9txF+EMp7SL43MRtc1QJr7/SDk+pHxRFMU+1G6XA5gBfQnd5CS2D+v6AkDZR
+	WqgU/79Qi+XhTrSksAzed4JXhxBxQOhTbg4/ZFPbThA7Mugqt8HyzZOj+F6wvKu3
+	jky81Xm8dfSKewfGZvIbQUq6qXJX3qMATAF9hgIZNy7YBfYhfGE4sIZ1cs3iQfCy
+	Voc3GFTTZQ/MD4puvr3QJCUllIZHMOioPZLZYhQGoCkOMLNGEtUc3eLkFoGzeOzE
+	jiyUKBLAxAn9cz/awh8XJAcoEWbJP4C2K7Lhz85Gyw==
+X-ME-Sender: <xms:q8seat2d4x1pRWjAnEO-nWRbua68O_4U-AEm2tnX-1MEylMPN1zGkw>
+    <xme:q8seaq-rp4LdTtDGc-0pDjvULg_7BJidb2USpBOZc-OuQU3T7BKqpIUNcNeOEt3aT
+    lkuSa_MzsxHk3fAKMpWAnjwYjUjJRGjmfDakIivFaU_TbIoX9Q>
+X-ME-Received: <xmr:q8seamPmCfCE9Y1Zqa8Sx19d7-VHZHvuPMgi6-tDfQ7BZ3edovim3BJ1>
+X-ME-Proxy-Cause: dmFkZTE6sp2OWoUQaNwRuAX0Dr0nJaYr2Y7RwpR8lcJtWFKPVOLwktdFbr+iVUrYoQ/YoB
+    cVKDDEqlNu+nigdJJhP+e4JHZb8UCebI5xj0Aw2wPa0bSAGFkVviNTFhfu3hChJQ8fCqqO
+    dndpGbpsWXw7T9Eh77MjS8mybUP3QWvXF+XRYYSE2CVbuiiCjHx3NXT0iCqECpFKSd1TN4
+    6r2zLLD7VcI4/zvnw+pmR7rvjb0nzgbzjWIhqIk2vX+ssSPLOjEov9JbeADmBTMG+6CByp
+    qZ3azdFQly3levwnWMxcX3UD9z7zueUpogb9vHOPowYO8q29HP7EvDiAsbSQA+bHsnnShA
+    lIoDgYVfRzK+2Huw16QKiQ7xmUCd8brtqRTpnwme1n27Hf64EF2tVp8IAbFgJyqEeD3Syk
+    hSfU+20oqHJ2233t8DEXwNrlsS3+OmC+QFfpeR0pLFuwYB5yuXXp2war3g3ZfKsmtWh1O3
+    pZqNpIk7gSG/Fp1kvXRUu5KHLd/ZzoWib3WM8StJ6LyWqwJKpTC1TtlfVgZ5FuColhwaNE
+    T1MnN7PXp0m8yuYwuB2F2SjpnhZsnM9mznuaD7myfKHkJwE8pyce9fzLwCQG2fK7jRt/VL
+    bfTda++WwMwoZKJaisOo/BeoC03OElhoyCSQlLhUnfqb2UD6Jvwmtg32kTgg
+X-ME-Proxy: <xmx:q8seamc0GdzHaI9Y_4yJCmbtIwRLvgJDCZ49-ZGWcjKSG6uXbohlHw>
+    <xmx:q8seatWW2TFg080s39ixaBeLsaFMDuF9ShkfR90PbLnWOgUw8xXtBA>
+    <xmx:q8seamjwgH0I8k4uPlCrVcJ4Lkft_4UqsFIB2Q8N6HtJWLnqXLCblA>
+    <xmx:q8seak8U_W2v-HecEz1_c7THuK33V45kf1_XCWW75hOJTAbaCkWlXg>
+    <xmx:rMseav7i5PHQSFvU4s4NHRc-WRY4DcFyH6TPTXLY2NCps480Gj0SXsce>
+Feedback-ID: i792e4853:Fastmail
+From: =?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Szymon=20Aceda=C5=84ski?= <accek@invisiblethingslab.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] xen/efi: Use blexit() instead of BUG_ON() in read_file()
+Date: Tue,  2 Jun 2026 14:24:41 +0200
+Message-ID: <20260602122441.2961974-1-accek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] x86/efi: avoid a relocation in
- efi_arch_post_exit_boot()
-To: Frediano Ziglio <freddy77@gmail.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Teddy Astie <teddy.astie@vates.tech>,
- xen-devel@lists.xenproject.org
-References: <20260529153531.1341542-1-frediano.ziglio@cloud.com>
- <20260529153531.1341542-6-frediano.ziglio@cloud.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <20260529153531.1341542-6-frediano.ziglio@cloud.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-16d1c6/1780403018-8C67DD75-E6668B69/0/0
+X-purgate-ID: tlsNG-c201ff/1780403117-DA374443-A3B907D3/0/0
 X-purgate-type: clean
-X-purgate-size: 554
+X-purgate-size: 1306
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	MID_CONTAINS_FROM(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[invisiblethingslab.com,none];
+	R_DKIM_ALLOW(-0.20)[invisiblethingslab.com:s=fm3,messagingengine.com:s=fm1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:freddy77@gmail.com,m:roger.pau@citrix.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,m:andrew.cooper3@citrix.com,m:teddy.astie@vates.tech,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:from_mime,suse.com:dkim,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:accek@invisiblethingslab.com,m:dpsmith@apertussolutions.com,m:marmarek@invisiblethingslab.com,m:jbeulich@suse.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[accek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,messagingengine.com:dkim,invisiblethingslab.com:mid,invisiblethingslab.com:dkim,invisiblethingslab.com:from_mime,invisiblethingslab.com:email];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[accek@invisiblethingslab.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[invisiblethingslab.com:+,messagingengine.com:+];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 2CA1262DFCA
+X-Rspamd-Queue-Id: DF48A62E01F
 
-On 29.05.2026 17:35, Frediano Ziglio wrote:
-> From: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> Instead of using the absolute __start_xen address, calculate it as an
-> offset from the current instruction pointer.  The relocation would be
-> problematic if the loader has acknowledged the Xen image section
-> attributes, and mapped .init.text with just read and execute permissions.
+Follow-up to 880e40b187aa ("xen/efi: Fix boot from a device without
+a file system"), which added a BUG_ON() guard in read_file().
 
-How can the loader respect what .init.text wants when it sees only .init,
-prior to the subsequent patch? Was the series meant to be ordered
-differently?
+But as Jan pointed out, before ExitBootServices BUG_ON()
+is not functional. It results in a hang with no message.
 
-Jan
+On the other hand blexit() prints a message and returns back
+to the bootloader.
+
+Link: https://lore.kernel.org/xen-devel/bb0f007e-697e-4501-97ea-3b59cf494ec6@suse.com/T/#m4725c8cbc0946a5533aea03fc240267ef139648d
+Signed-off-by: Szymon Acedański <accek@invisiblethingslab.com>
+---
+blexit() has been chosen over PrintErrMesg(), as the latter
+is predominantly used in cases where an EFI call fails
+(and it prints the status).
+
+ xen/common/efi/boot.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 2971ea8696..8f24df9bc2 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -849,7 +849,8 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+     if ( !name )
+         PrintErrMesg(L"No filename", EFI_OUT_OF_RESOURCES);
+ 
+-    BUG_ON(!dir_handle);
++    if ( !dir_handle )
++        blexit(L"BUG: !dir_handle in read_file()");
+ 
+     what = L"Open";
+     ret = dir_handle->Open(dir_handle, &FileHandle, name,
+-- 
+2.53.0
+
 
