@@ -2,65 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id K/u9MVYBH2pVcwAAu9opvQ
+	id VnRxMFgBH2pWcwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 18:14:14 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 18:14:16 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42A576301D9
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 18:14:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7270D6301DC
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 18:14:16 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=amd.com header.s=selector1 header.b=ShEEa4JZ;
+	dkim=pass header.d=amd.com header.s=selector1 header.b=JQYBGXVq;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=amd.com;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1325246.1590754 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1325245.1590746 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wURkl-0003wL-I8; Tue, 02 Jun 2026 16:14:07 +0000
+	id 1wURkk-0003iX-B8; Tue, 02 Jun 2026 16:14:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1325246.1590754; Tue, 02 Jun 2026 16:14:07 +0000
+Received: by outflank-mailman (output) from mailman id 1325245.1590746; Tue, 02 Jun 2026 16:14:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wURkl-0003u8-Em; Tue, 02 Jun 2026 16:14:07 +0000
-Received: by outflank-mailman (input) for mailman id 1325246;
+	id 1wURkk-0003g1-71; Tue, 02 Jun 2026 16:14:06 +0000
+Received: by outflank-mailman (input) for mailman id 1325245;
  Tue, 02 Jun 2026 16:14:05 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <Zhao.Jiaqing@amd.com>) id 1wURkj-0003fi-Nd
+ (envelope-from <Zhao.Jiaqing@amd.com>) id 1wURkj-0003fN-8B
  for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 16:14:05 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wURkj-00FG85-47
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 18:14:05 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wURki-00C4nC-L1
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 18:14:04 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <Zhao.Jiaqing@amd.com>)
- id 6a1f013e-e002-0a2a0a5209dd-0a2a450c91e8-30
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 18:14:00 +0200
-Received: from [52.101.46.71]
- (helo=CO1PR03CU002.outbound.protection.outlook.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a1f013f-5cb7-0a2a0a5109dd-0a2a450ada74-28
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 18:14:04 +0200
+Received: from [40.93.196.44]
+ (helo=SA9PR02CU001.outbound.protection.outlook.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <Zhao.Jiaqing@amd.com>)
- id 6a1f0146-62f1-0a2a450c0019-34652e477992-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 18:14:00 +0200
-Received: from PH0PR07CA0071.namprd07.prod.outlook.com (2603:10b6:510:f::16)
- by LV8PR12MB9716.namprd12.prod.outlook.com (2603:10b6:408:2a1::10) with
+ id 6a1f014a-56b3-0a2a450a0019-285dc42c3594-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 18:14:03 +0200
+Received: from PH0PR07CA0089.namprd07.prod.outlook.com (2603:10b6:510:f::34)
+ by DM6PR12MB4091.namprd12.prod.outlook.com (2603:10b6:5:222::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
- 16:13:55 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.25.23; Tue, 2 Jun 2026
+ 16:14:00 +0000
 Received: from SN1PEPF000397B0.namprd05.prod.outlook.com
- (2603:10b6:510:f:cafe::a5) by PH0PR07CA0071.outlook.office365.com
- (2603:10b6:510:f::16) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:510:f:cafe::64) by PH0PR07CA0089.outlook.office365.com
+ (2603:10b6:510:f::34) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Tue, 2
- Jun 2026 16:13:55 +0000
+ Jun 2026 16:13:59 +0000
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SN1PEPF000397B0.mail.protection.outlook.com (10.167.248.54) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 16:13:54 +0000
+ 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 16:13:59 +0000
 Received: from zjiaqing-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 2 Jun
- 2026 11:13:50 -0500
+ 2026 11:13:53 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -73,20 +73,20 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iRY/7TIPqFV49hixGWu7RUL8abSfIfUsTMJJerP/O7RWj1uS/NDsPQKDzv3sq/ib1NaVTrBTs6v+0R9oGINwzvWXpC4jZ96Gb2iFTeh0Ykq6TePjz0pacCKfshWD54K7ZohdwGroDf9HiGIIotS4w2SPmDqcYAydDRCoOrC4u4IE2xWqxtxUNkIULgux4907anUMddtYkQSOEWcPotoSZVdKoasGIJDP0SzFA4EF1qopFNqbL1SoiD9A2Kg7tfIrqg5Q44SdfRJB6w190u935r3kuOS57v5QI1PdHaY6+FO1bKU5SZmHv91vLFeaihBBSE2yiRQfkgC3kT5cFH+owg==
+ b=g9wNci+7aRYErXEHenqkYhcx324csxF5z9FCAEYbmdZuoRFxYSyldGSDrWZgfHY/bd1DMoEiv54mE34MOrMZXIlFljo+PC//LM1M4hoI0SKjy3FHgTs/5L+o/nBHMY/pDoxQFJlBQGaXF4zlINd/+FADc6V/04FuCg9Ta/R0EAlC1S25hRoZpm4kdE3AyQGG0B+AYuQG0V70gCEJ+viSaaXEqhK7FwtUlQepWVq72yxxNpborlvmsQuvDW4kemLU2kbg9Rbiaz1Fqr6/RFBWx6NBuMNoqhz7ZO9uzJauW+VZvbiQxkNmHLN4OMshQNrPfcfZcp3u2dPeycLMeK8I5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EK6a2UFU+of/PuSh5uCUJHjyBKBPm7/2jZE4fVYKMsI=;
- b=bQvVfLJ0Atp8HIsmuQl8RdhNbE++F/Mc3vvv89RMN3bXv3LXYMlESR4Jo3Z5RrT5+5+pgrpJnZE5np0cbQk7jJQnJUYwT8Wy5eWx/4j47B7feO1LjIvwQ1a6Rul8oHciM8kSXTWjBrtCJIAffu/bXGEkfq9X7UB5NITems8AehhbxfXMkYVvo4O39/mAh+jD5JQUvT8v+Gzpypuwzid4QrvJ3HF//Y2YDBFhZk0S8AWka21ZuwLNnb86kcJzPm3b8/+dmNGraKY0+CK6ip/w1I8l9FuJVxtx0Gq5hNa+0AhhGPHw35v/wLi33HrZwXLFXdI0oKq+NHJenHf2BxBxnw==
+ bh=iZls0mBn/oN40t4VHDo5pvOBZP/o7JYlxJqz6BdsmiY=;
+ b=GqVLfCPGrFVBbSbnv/f8vHSGVtVdPQ16a+n86Ip+3j23l7begM6OekopqfGe7bD6D+FG7bCVxNn5fEW7a1HgCbzxb/3pAVoEIgvHFzGWRCEoJ6uCuP4jio9p6Z+lEPpT8xG1c063PH/XS6QIhYvW6Loou0j9Ath8uvmVYYDGe4MMotn/67FmeODm940R/5vlNMHmG3o+Tz1lCQnyfDuyAf5c2Hg+Js6L7WPlPw+lcfrqoLyKDw0jRhYsVTd0BJUF9eR+hayuHtUoGUGUzhetRj4qqln68HDETTYSRgsblTaiL7TYkSRR3VvXziEDGZvIfVE3e8eWNkalCA/QYhRB/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EK6a2UFU+of/PuSh5uCUJHjyBKBPm7/2jZE4fVYKMsI=;
- b=ShEEa4JZQ3Gon90iGPl7Hc5tqgXLb7KZ/0Plq0MliNfiazkfIQ5yUk0ExH5C1hWFf48Y/KPy7+6bWzMVGv/ow8BXyCc8JbSPWvDXakrHVbK8v/101Dw9RdKbbglMZnPveUIilnbBv1P67mhhMSKJUKqG/s4DinyPtls7saV0Z+Y=
+ bh=iZls0mBn/oN40t4VHDo5pvOBZP/o7JYlxJqz6BdsmiY=;
+ b=JQYBGXVqPA1pd4ELVuXWQLcL/UN8ayosoGLDUAfFwZ71iC5t22WfgHVlBKLO7EDWKPsiEDClyg72gVhofCKlGBz6amekyBmdCCxgH1KX6ejnLO29q0gT5Y/rl6kDPcpZCu/bbgvp2tDM03FVN6GQpUqupIqlzbwJ9z7pC3tViYQ=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -99,11 +99,10 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
 	<anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>, Julien Grall
 	<julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Jiaqing Zhao <Zhao.Jiaqing@amd.com>,
-	Denis Mukhin <dmukhin@ford.com>
-Subject: [PATCH v5 2/3] ns16550: add support for WCH CH382 serial adapters
-Date: Wed, 3 Jun 2026 00:13:21 +0800
-Message-ID: <20260602161322.1039349-3-Zhao.Jiaqing@amd.com>
+ Stabellini" <sstabellini@kernel.org>, Jiaqing Zhao <Zhao.Jiaqing@amd.com>
+Subject: [PATCH v5 3/3] ns16550: add support for ASIX AX99100 PCIe Multi-I/O controller
+Date: Wed, 3 Jun 2026 00:13:22 +0800
+Message-ID: <20260602161322.1039349-4-Zhao.Jiaqing@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260602161322.1039349-1-Zhao.Jiaqing@amd.com>
 References: <20260602161322.1039349-1-Zhao.Jiaqing@amd.com>
@@ -115,33 +114,33 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B0:EE_|LV8PR12MB9716:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61efb724-ec3d-453c-6755-08dec0c1f1c8
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B0:EE_|DM6PR12MB4091:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f5feec8-a6ab-4c47-368b-08dec0c1f49e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|13003099007|18002099003|22082099003|56012099006|11063799006;
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|1800799024|18002099003|22082099003|56012099006|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	KluvGK84So5ReXMhOustEqgtiAPBZsPuYailhO0gcE+4qD2dJdtm/QLN8eJuR/Nb2XNgPVnRiJ2gYxTSOkkZELOsu5ToYb9qSi6EOMZRWGOKVwlvr2GbtSxd81RCsGkJNo8yf2nea6M1b2VfZOJegYsNpjJfUUzogRXnxRwtgevZh/b/LF9umrwFUHFwmRRrzsm8GttGQjcErxUwZJB5p2brYR7zkuQCs5eovtQmcnDxtNztd1JwV+198UmhqZ595b9xYBIrfoq/jWhaV1JJ8NPKL/JN2YhQUzjL++9CruzPiITQGY/F2FHJCf9Um+LzDwPq5e7+s8rd/y/zIVQegtgSfeI70V9CMitOuCovb9Y9Z8sc0s30DQrCli9cM8/yZapySiRdMplXgfbhj4IH/KWVX5l28P3VaNxcpvj5XL/NHv5jbMiDt8gWcBqgm7qz9OkRCr85hvkg5N+XZAM85kBwtUy5pKoSwz5l+If/YG5yygIB2jDvSbtFaEWXt6S7xT1Ayn/t5QD3RhRAJHha14EbkrkWhXUKuk/3c8YO4pRPS48yIEL6Hm4nuy3uPd+qIFMhS//8jk53EApWPwZ7XI4U/5GWGUA7zGJ9DOIEAOCMZPc9QtCrj2cVXtx8Z3JQIQZCAv+x4AB/F8f3YAt4/iiaVfH6378qSFvcgpaJwl8QY/Dd2xSaSdE5wJE2A339xPfCfIUjwQBX4nJZbloQ4GO8mupIzA9FnHPPBdraVQ4=
+	dkjyKUHTpuwJcpQydr3pfLp3XNOwEwTWj25ZTdEc4LgAEysvEmAUvg4wkD2FnZ/9jI/hgn/vfWX7+ZDsPUYRhwqNKULE+oEDaEC3fEH0zPaUZSJa1VogflgeVg4Dk9xtDDuRDmsCclubM4g13bZ1VcYVRgH6e9r9x3rbxkJQ+FJrAMdJVCBEhLI5L4nYlAUjjq3s9kZu6KjoUhk5J28RjcfWoljkODa5PDjK1Gs6spiMtV0zJmfG9wPoNF1BvkcW4ImaMr5EU1qiglbNorr8OwoGE5ZfN18cW52K0v/+5K+/AK91pWE8EMLPmANKW/2ScZCCazhN9a95MP+5k3i5htofNNRwbfgynbICVim/queDSjXqVC4H4mgufiphydIWtKxFjYNpT7mlDYrHP5RoWEsunfr4Y1Gmisdimmc/lG9QiVAGyQGYGdD4fHJDgzJj+jVGE/VUdz/+mcJqMwjpil56vfAOiFyrDo8sMaTT+KV2UJjcVXYF3poyPwszgVjG43oROvNEp0ZSXIXMw457HcmhlmvZZGVBKqtW/p73Wfow7aNp94DFVUTBAwPIfzggYIQkmAxGV6AaCyq+IVqTVOi8NU7IhLAyqvTONMpcFgHLHB6qnJWjfrgJ1D44WOQslni3g0sgFDjyDoU60B+sCiC1cpySt+8wg/MvQuCiFs3g1AzCxLr7ptD3iLTodJzjErzbXjsQdvl0DHxlyxvbYS28c5deG5w5Mncg90871cs=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(13003099007)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	9xZ5Go0kA/FzZDB8xOtBBbr3uhsnWsArURV8gpeWNb7lP6MX2ZagjR6ahAQJOJLYPyxDc9/NibzJIUN0cDG07ZQNrxE7NU0QnALNMgnHjD6QWZnCPq1+T834ii0P1Yvurk1SwCePXi6exz1sEC77M6k8w2amM4M5etOdlV51iEXD7NiEA6LeuXHl2OeMvBhTS5lEAK2mZX/VFTPc7Ag5/KVOvRFlRRLsHLD1O1abs+uy8oBwNZJNXhjnz+EcUbPZBySt1OWAgNpMrX1PwlR6o6LO11qKOAaewajV6Q1SYKKyIP7M8LZFcxF5RVKhQC9K/yGT/nrgbdkzXaF6w99h6CLAbVb8oDSEnS8DRjNcAGN1LSsKvyeu7EDtoQhEi5YEW0PnWC2LkVO5ZERY6v0SbtDReZjyGCqUc1fF7nxJPlb2/htW09k702t21MR0c89r
+	0Iukkg8u1mf+lZL/ugvzmpJ3StQRlPi+JLDQjg/BjhDKOvc/Sork8OpZaBx/6mzblSCIPtLxuy3zsavb/naqtaxdRlwABVwkjpauslNCTctNd9saoirAMvUC//CZmRKOpfiw54vvHYqJUilvmbS00TqdvQoITschpVcjEP9hcglPcbEZ0/QMvjcQBHx+jEZEPPe91q2Q3nXEEcOZDSgvjUZRdesrdvzNkbAKQLpHr4doAKfEyoGBGVyT4ZYzCQS9YPxjDOu0nB2eCS7ovhEUx4A5z3RqAV/iZCDmjrgHxSBP1tPqWCGwUauLXxkcpR6pCNrgP+iZHYihDprVoWxiyBRL7xYu0Rc4zayzS4qtTEb8wKolXlOWnl250TV+z/1wFxAQpWbkzTqkw1EEMN3Ogyt8KN/h5JKF3khGshM9MEzqS2Pt7/iRj6PcPFDeIv/C
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 16:13:54.9909
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 16:13:59.7792
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61efb724-ec3d-453c-6755-08dec0c1f1c8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f5feec8-a6ab-4c47-368b-08dec0c1f49e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	SN1PEPF000397B0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9716
-X-purgate-ID: tlsNG-d25034/1780416840-DBD7BCF5-12FD90A9/0/0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4091
+X-purgate-ID: tlsNG-4011c0/1780416844-7E58E8B7-9D6C7303/0/0
 X-purgate-type: clean
-X-purgate-size: 2525
+X-purgate-size: 2052
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
@@ -155,7 +154,7 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Zhao.Jiaqing@amd.com,m:dmukhin@ford.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:Zhao.Jiaqing@amd.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[Zhao.Jiaqing@amd.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
@@ -170,95 +169,80 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[Zhao.Jiaqing@amd.com,xen-devel-bounces@lists.xenproject.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	HAS_XOIP(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:dkim,amd.com:from_mime,amd.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 42A576301D9
+X-Rspamd-Queue-Id: 7270D6301DC
 
-Add support for the WCH (Nanjing Qinheng Microelectronics Co., Ltd.)
-CH382 PCIe dual port serial adapter. The CH382 is available in two
-variants:
- - CH382 2S   [1c00:3253]: 2 serial ports
- - CH382 2S1P [1c00:3250]: 2 serial ports + 1 parallel port
-
-This chip uses IO BAR0, base baud rate 115200, ports starting at offset
-0xc0 and spaced 8 bytes apart, and a 256-byte FIFO. [1]
-
-[1] https://www.wch-ic.com/downloads/CH382DS1_PDF.html
+Add a PCI device table entry and matching parameter for the ASIX
+AX99100 PCIe to Multi-I/O controller [125b:9910]. Each port on the
+chip is a standalone PCI function, with UART registers on its I/O
+BAR0.
 
 Signed-off-by: Jiaqing Zhao <Zhao.Jiaqing@amd.com>
-Reviewed-by: Denis Mukhin <dmukhin@ford.com>
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/drivers/char/ns16550.c | 23 +++++++++++++++++++++++
+ xen/drivers/char/ns16550.c | 15 +++++++++++++++
  xen/include/xen/pci_ids.h  |  2 ++
- 2 files changed, 25 insertions(+)
+ 2 files changed, 17 insertions(+)
 
 diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index ed4e29ec25..5a93685da4 100644
+index 5a93685da4..1510cf143f 100644
 --- a/xen/drivers/char/ns16550.c
 +++ b/xen/drivers/char/ns16550.c
-@@ -95,6 +95,7 @@ struct ns16550_config {
-         param_exar_xr17v354,
+@@ -96,6 +96,7 @@ struct ns16550_config {
          param_exar_xr17v358,
          param_intel_lpss,
-+        param_wch_ch382,
+         param_wch_ch382,
++        param_asix,
      } param;
  };
  
-@@ -861,6 +862,16 @@ static const struct ns16550_config_param __initconst uart_param[] = {
-         .mmio = true,
-         .max_ports = 1,
+@@ -872,6 +873,14 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+         .bar0 = true,
+         .max_ports = 2,
      },
-+    [param_wch_ch382] = {
++    [param_asix] = {
 +        .base_baud = 115200,
-+        .first_offset = 0xc0,
-+        .uart_offset = 8,
 +        .reg_width = 1,
 +        .fifo_size = 256,
 +        .lsr_mask = UART_LSR_THRE,
 +        .bar0 = true,
-+        .max_ports = 2,
++        .max_ports = 1,
 +    },
  };
  
  static const struct ns16550_config __initconst uart_config[] =
-@@ -1189,6 +1200,18 @@ static const struct ns16550_config __initconst uart_config[] =
-         .dev_id = 0x7adc,
-         .param = param_intel_lpss
+@@ -1212,6 +1221,12 @@ static const struct ns16550_config __initconst uart_config[] =
+         .dev_id = 0x3253,
+         .param = param_wch_ch382
      },
-+    /* WCH CH382 2S1P */
++    /* ASIX AX99100 PCIe to Multi I/O Controller */
 +    {
-+        .vendor_id = PCI_VENDOR_ID_WCHIC,
-+        .dev_id = 0x3250,
-+        .param = param_wch_ch382
-+    },
-+    /* WCH CH382 2S */
-+    {
-+        .vendor_id = PCI_VENDOR_ID_WCHIC,
-+        .dev_id = 0x3253,
-+        .param = param_wch_ch382
++        .vendor_id = PCI_VENDOR_ID_ASIX,
++        .dev_id = 0x9910,
++        .param = param_asix
 +    },
  };
  
  static int __init
 diff --git a/xen/include/xen/pci_ids.h b/xen/include/xen/pci_ids.h
-index 5884a20b8f..15e938225c 100644
+index 15e938225c..fd424ef55d 100644
 --- a/xen/include/xen/pci_ids.h
 +++ b/xen/include/xen/pci_ids.h
-@@ -13,6 +13,8 @@
+@@ -5,6 +5,8 @@
  
- #define PCI_VENDOR_ID_BROADCOM           0x14e4
+ #define PCI_VENDOR_ID_NVIDIA             0x10de
  
-+#define PCI_VENDOR_ID_WCHIC              0x1c00
++#define PCI_VENDOR_ID_ASIX               0x125b
 +
- #define PCI_VENDOR_ID_INTEL              0x8086
+ #define PCI_VENDOR_ID_PERICOM            0x12d8
  
- #endif /* XEN_PCI_IDS_H */
+ #define PCI_VENDOR_ID_EXAR               0x13a8
 -- 
 2.53.0
 
