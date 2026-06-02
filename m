@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MBhIAesgHmr3hQkAu9opvQ
+	id wL+KCQYhHmr3hQkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 02:16:43 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 02:17:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB2C162681C
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 02:16:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1324285.1589906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCBA4626832
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 02:17:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1324290.1589915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUCo6-0006RH-W6; Tue, 02 Jun 2026 00:16:34 +0000
+	id 1wUCoa-0006tT-6r; Tue, 02 Jun 2026 00:17:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1324285.1589906; Tue, 02 Jun 2026 00:16:34 +0000
+Received: by outflank-mailman (output) from mailman id 1324290.1589915; Tue, 02 Jun 2026 00:17:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUCo6-0006Pu-TU; Tue, 02 Jun 2026 00:16:34 +0000
-Received: by outflank-mailman (input) for mailman id 1324285;
- Tue, 02 Jun 2026 00:16:33 +0000
+	id 1wUCoa-0006rU-3w; Tue, 02 Jun 2026 00:17:04 +0000
+Received: by outflank-mailman (input) for mailman id 1324290;
+ Tue, 02 Jun 2026 00:17:02 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <sstabellini@kernel.org>) id 1wUCo5-0006Pm-9M
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 00:16:33 +0000
+ (envelope-from <sstabellini@kernel.org>) id 1wUCoY-0006rG-QM
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 00:17:02 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUCo4-001jEH-MH
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 02:16:32 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wUCoY-001jEH-7F
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 02:17:02 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <sstabellini@kernel.org>)
- id 6a1e2092-e002-0a2a0a5209dd-0a2a450bb81e-42
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 02:16:32 +0200
-Received: from [172.105.4.254] (helo=tor.source.kernel.org)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a1e20e3-e002-0a2a0a5209dd-0a2a4505c834-18
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 02:17:02 +0200
+Received: from [172.234.252.31] (helo=sea.source.kernel.org)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <sstabellini@kernel.org>)
- id 6a1e20df-212f-0a2a450b0019-ac6904fee424-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 02:16:32 +0200
+ id 6a1e20fc-aaa8-0a2a45050019-aceafc1fa816-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 02:17:02 +0200
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E6FA86001A;
- Tue,  2 Jun 2026 00:16:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4574D1F00893;
- Tue,  2 Jun 2026 00:16:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 39ADE41A47;
+ Tue,  2 Jun 2026 00:17:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14C91F00893;
+ Tue,  2 Jun 2026 00:16:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,16 +55,16 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20260515 header.d=kernel.org header.i="@kernel.org" header.h="Date:From:To:cc:Subject:In-Reply-To:References"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780359390;
-	bh=a9AZUDQdTPDxgjcJo+FE1gzEMtGpuhQFsPL+rivrLYk=;
+	s=k20260515; t=1780359420;
+	bh=BJxsBqAi8+VE+3mmq5Wh+HjFYd6vHIoCh0n2ee9RFSY=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=nQpiSE/MQrbuVASlY5U4s9P6jH98JXDvMxfJXD3sdDMa4+NMVufKFPT53SzOr9BZf
-	 1j2Jl7spqofFU66Cg0CZzAWFgqLs3eo8Z3fa0HzIO1j/zjT8hFVEXMjDTT+OyC8a8b
-	 wKd8xdXYimqsuYNiirnHDKBKK6H2EAFycyvkK8xSRm+WuyT1Z69/IDG7kN6XlGSpPr
-	 7wldU1dNI/tVH4y8yG+4BMUKM2YmsgaMhIiKTDL1EjPr1Av10RhZjBTNIEvGSyep2Y
-	 r9h69Cn7+h7mASlAxnPy9PcfIuYNxdU/YTvp8tiA6LcuGbmC4B3tR5I4yap2C/i1XG
-	 KG3edFIh3xYIw==
-Date: Mon, 1 Jun 2026 17:16:29 -0700 (PDT)
+	b=Y57Pcu7X59VJumaOVsghTCEpfYoQ3FQlWauIZQM4V223rVVYrAZjLe+WH1akmDVFA
+	 3rkQ5yAeYXF7MXt02slHxiVjdQoqH1gPcWmQ/maAJW+oLiUSpWgnZpELTkOduu2Y3R
+	 VA3HEv4eoaLU2laMlYxtrB6mywkM+G9VgqTZfFXnFYHB/5PZ7587gLRfmNsv7vMM+g
+	 nceBpl0TMlNh77Z0NTKgfovzs7/r8I9mam1Up8flBLrfuaT3wIeRKai3GqkqE5CHiq
+	 m/IYM3KZUTpHWYDJYtwN7nvK7GA5HRtwncpqguIbgFc8H4TJujWvULJe6lPrrCkPg1
+	 RrOhmcSz7gS4Q==
+Date: Mon, 1 Jun 2026 17:16:58 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: dmukhin@ford.com
@@ -76,14 +76,14 @@ cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
 Subject: Re: [PATCH v3 3/6] argo: drop argo prefix from argo_dprintk()
  calls
 In-Reply-To: <20260526215823.1452619-4-dmukhin@ford.com>
-Message-ID: <alpine.DEB.2.22.394.2606011716170.550703@ubuntu-linux-20-04-desktop>
+Message-ID: <alpine.DEB.2.22.394.2606011716380.550703@ubuntu-linux-20-04-desktop>
 References: <20260526215823.1452619-1-dmukhin@ford.com> <20260526215823.1452619-4-dmukhin@ford.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-X-purgate-ID: tlsNG-42698a/1780359392-1BF7EF3B-CDA23F5D/0/0
+X-purgate-ID: tlsNG-c201ff/1780359422-DB16D443-F9E7D2BC/0/0
 X-purgate-type: clean
-X-purgate-size: 417
+X-purgate-size: 464
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
@@ -117,7 +117,7 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: AB2C162681C
+X-Rspamd-Queue-Id: CCBA4626832
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -132,5 +132,7 @@ On Tue, 26 May 2026, dmukhin@ford.com wrote:
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 > Reviewed-by: Mykola Kvach <mykola_kvach@epam.com>
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+I meant review-by, so resending my reply
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
