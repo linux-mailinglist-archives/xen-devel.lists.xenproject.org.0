@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kCBaJ50hHmr3hQkAu9opvQ
+	id /+x1Oz8iHmoEhgkAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 02:19:41 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 02:22:23 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 537BA626860
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 02:19:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1324305.1589932 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CEB2626884
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 02:22:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1324318.1589942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUCqy-0007zc-OC; Tue, 02 Jun 2026 00:19:32 +0000
+	id 1wUCtZ-0001Q2-45; Tue, 02 Jun 2026 00:22:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1324305.1589932; Tue, 02 Jun 2026 00:19:32 +0000
+Received: by outflank-mailman (output) from mailman id 1324318.1589942; Tue, 02 Jun 2026 00:22:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUCqy-0007xb-LN; Tue, 02 Jun 2026 00:19:32 +0000
-Received: by outflank-mailman (input) for mailman id 1324305;
- Tue, 02 Jun 2026 00:19:30 +0000
+	id 1wUCtZ-0001Ns-12; Tue, 02 Jun 2026 00:22:13 +0000
+Received: by outflank-mailman (input) for mailman id 1324318;
+ Tue, 02 Jun 2026 00:22:12 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <sstabellini@kernel.org>) id 1wUCqw-0007w8-Fa
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 00:19:30 +0000
+ (envelope-from <sstabellini@kernel.org>) id 1wUCtY-0001N0-C7
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 00:22:12 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUCqv-00CKU4-PY
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 02:19:29 +0200
-Received: from [10.42.69.10] (helo=localhost)
+ id 1wUCtX-00F48a-ES
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 02:22:11 +0200
+Received: from [10.42.69.9] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <sstabellini@kernel.org>)
- id 6a1e2182-bab6-0a2a0a5309dd-0a2a450acf24-18
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 02:19:29 +0200
-Received: from [172.234.252.31] (helo=sea.source.kernel.org)
- by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a1e2216-5cb7-0a2a0a5109dd-0a2a4509b95a-26
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 02:22:11 +0200
+Received: from [172.105.4.254] (helo=tor.source.kernel.org)
+ by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <sstabellini@kernel.org>)
- id 6a1e2190-56b3-0a2a450a0019-aceafc1fec2e-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 02:19:29 +0200
+ id 6a1e21ba-2497-0a2a45090019-ac6904fee97e-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 02:20:10 +0200
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CAB82445D0;
- Tue,  2 Jun 2026 00:19:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D7AD1F00893;
- Tue,  2 Jun 2026 00:19:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8E7E76001A;
+ Tue,  2 Jun 2026 00:20:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E85DE1F00899;
+ Tue,  2 Jun 2026 00:20:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,16 +55,16 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=k20260515 header.d=kernel.org header.i="@kernel.org" header.h="Date:From:To:cc:Subject:In-Reply-To:References"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780359567;
-	bh=8AjCAMQeX1hT9emcuatfvAuKsEdjwWWPOO6YqF5lhNQ=;
+	s=k20260515; t=1780359609;
+	bh=zFWWWdg8mapYQ9CM6egymitihblA04rJ/04j1DIBtpo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=ist9ksMH5lTMFXZfj157yWlP5CQpR7hz+0FW/sNPU2FVTC3AziZbMpu/q+4jEoIj9
-	 y4qKwsaeTScK11ld0ENAhuKy4OQqOWoy1EBQxYE+dfywi41v0qXeVkunyPEgvWtEvv
-	 fxxpLoZtnK02RWhRE7yjEgZ/bBRmPGj3FJ2Br3yDgPEsZB/roPEWDAgKi888kZd2CU
-	 GD89HdOvipUXVR6K2guZMpP5LI5JIQ8Gji5FTtUUqcTD1Wo1Ck/yjoldQ+r2YTJGGQ
-	 MSibyp/2aMtgAowIAoCM/bKmYb21/tQjry4E7t1oqK1VlDMjLlx3reoPjI2s544Qwb
-	 1GtbBtGDPzFFw==
-Date: Mon, 1 Jun 2026 17:19:26 -0700 (PDT)
+	b=FBo+BWgWzc9Js/Pc9au5yBRAMI2JYYxjOpe9pHrxujcQhU6hgmoDCvEFEwP36gaRN
+	 Jo0zPuyZray/sYJM+B9bFEtx6i/Z2SynfUrQ3Ti5ra7Fc3a8nnT0bT9Bn9vTrGkWei
+	 vlnIBe6hfuskKOGe/NLoZ57KgQprKu2Oa21Tqqix9QHSygZYsIVCM/GwTDJvci5vI4
+	 1Bxs7DmdzI1OvSGwdqAoKYCmn40fxcg3ScaDLOqryknbTHxX2BI2Yz5Fkkk5/YsctS
+	 YJz6dAa0Py5hVipQoe5KUAPT7mJUjIZfIisTIVS6GgrPXZgrOl0SUF0QeRq+R1ppXe
+	 j5arDdcJWdm/g==
+Date: Mon, 1 Jun 2026 17:20:08 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: dmukhin@ford.com
@@ -72,21 +72,21 @@ cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
     anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org, 
     michal.orzel@amd.com, roger.pau@citrix.com, sstabellini@kernel.org, 
     christopher.w.clark@gmail.com, dpsmith@apertussolutions.com
-Subject: Re: [PATCH v3 5/6] argo: introduce CONFIG_ARGO_DEBUG
-In-Reply-To: <20260526215823.1452619-6-dmukhin@ford.com>
-Message-ID: <alpine.DEB.2.22.394.2606011719020.550703@ubuntu-linux-20-04-desktop>
-References: <20260526215823.1452619-1-dmukhin@ford.com> <20260526215823.1452619-6-dmukhin@ford.com>
+Subject: Re: [PATCH v3 6/6] automation: enable Argo debugging in CI
+In-Reply-To: <20260526215823.1452619-7-dmukhin@ford.com>
+Message-ID: <alpine.DEB.2.22.394.2606011720021.550703@ubuntu-linux-20-04-desktop>
+References: <20260526215823.1452619-1-dmukhin@ford.com> <20260526215823.1452619-7-dmukhin@ford.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-X-purgate-ID: tlsNG-4011c0/1780359569-7196E8B7-8C57F916/0/0
+X-purgate-ID: tlsNG-bad1c0/1780359611-8B392A53-39A91C01/0/0
 X-purgate-type: clean
-X-purgate-size: 263
+X-purgate-size: 283
 X-Spamd-Result: default: False [0.81 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	MID_RHS_NOT_FQDN(0.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
@@ -98,8 +98,8 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[mailman];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	ARC_NA(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -115,14 +115,14 @@ X-Spamd-Result: default: False [0.81 / 15.00];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_COUNT_SEVEN(0.00)[10]
-X-Rspamd-Queue-Id: 537BA626860
+X-Rspamd-Queue-Id: 7CEB2626884
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On Tue, 26 May 2026, dmukhin@ford.com wrote:
 > From: Denis Mukhin <dmukhin@ford.com> 
 > 
-> Add Kconfig knob to enable traces for Argo debugging.
+> Enable extra Argo traces in CI to help analyze any potential Argo issues.
 > 
 > Signed-off-by: Denis Mukhin <dmukhin@ford.com>
 
