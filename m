@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id dvxVDK8rH2qGiQAAu9opvQ
+	id 4J8FDWktH2qyiQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 21:14:55 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 21:22:17 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B5A463155A
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 21:14:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2BD06315EA
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 21:22:16 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=aegj3+uY;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=XA1zcVyR;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1325376.1590862 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1325387.1590872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUUZK-00016o-B9; Tue, 02 Jun 2026 19:14:30 +0000
+	id 1wUUgX-0003W2-64; Tue, 02 Jun 2026 19:21:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1325376.1590862; Tue, 02 Jun 2026 19:14:30 +0000
+Received: by outflank-mailman (output) from mailman id 1325387.1590872; Tue, 02 Jun 2026 19:21:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUUZK-00014d-86; Tue, 02 Jun 2026 19:14:30 +0000
-Received: by outflank-mailman (input) for mailman id 1325376;
- Tue, 02 Jun 2026 19:14:28 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wUUZI-00014X-M0
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 19:14:28 +0000
+	id 1wUUgX-0003TE-3O; Tue, 02 Jun 2026 19:21:57 +0000
+Received: by outflank-mailman (input) for mailman id 1325387;
+ Tue, 02 Jun 2026 19:21:55 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wUUgV-0003T8-IM
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 19:21:55 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUUZH-004D8u-IV
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 21:14:27 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wUUgU-004X5A-S6
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 21:21:54 +0200
+Received: from [10.42.69.10] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a1f2b8c-2eae-0a2a0a5409dd-0a2a4506bfec-6
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 21:14:27 +0200
-Received: from [209.85.128.54] (helo=mail-wm1-f54.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a1f2d2a-5cb7-0a2a0a5109dd-0a2a450ace04-38
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 21:21:54 +0200
+Received: from [209.85.221.52] (helo=mail-wr1-f52.google.com)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a1f2b93-7371-0a2a45060019-d1558036b542-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 21:14:27 +0200
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4906869f0cbso112200695e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 12:14:27 -0700 (PDT)
+ id 6a1f2d52-56b3-0a2a450a0019-d155dd34e03a-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 21:21:54 +0200
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-46015dc517aso1775540f8f.2
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 12:21:54 -0700 (PDT)
 Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
  [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f344541sm1179447f8f.22.2026.06.02.12.14.25
+ ffacd0b85a97d-4601f35eae5sm1416682f8f.33.2026.06.02.12.21.53
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jun 2026 12:14:26 -0700 (PDT)
+ Tue, 02 Jun 2026 12:21:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,66 +60,61 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780427667; x=1781032467; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=dSIr93Nit88CgmFo+FQCaDv+E0MBYSBdW114dphcJdE=;
-        b=aegj3+uY0x3SN3+2jBaJH1AbKA1ijv6JeTkxqL3F9pql6Ws9cvFoVEHyU50x2I7uTs
-         SoEeEWJu720z3PIC54wxJvMH+3JJBV3QfUPTo97wk3sP+oGFsVpIvu7Q7rzSkg3QS8XK
-         nT/+7TwTQCXGDKJaMEk26qgNL06Xg4EuswJWIYFhDJFw5xovqZAV2fZARj3HyU/xY4/s
-         L301DWHT1nEKmxbVJJ43+BJhRwVtRC3A6ZuzHiEwdjOCm9VAauBLG1hCkQSSiQIDYFXy
-         3es/lvtib6qw/1lNVGX+kv0OWWw8d3GFhkgVf7OrYySryONOTrTL02hCiCWRYYGEP0ON
-         CFUg==
+        d=gmail.com; s=20251104; t=1780428114; x=1781032914; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=dW/JdpSkmYJ8o+HCqZK1Bdu3oOZlTDFNLL6JBTzcd34=;
+        b=XA1zcVyR9HW21NkNR6sjYaKxhkoL+tHy52V9GLvI0TwPZq59IywcjeHGRUeB1QOY7y
+         2VOZNWzOSFE5ZYUPSz343SRXNMDGXMA+8RsqDdM5YdYiQzxbuf0sRcHflB7l2eO7vme+
+         LwofFYSVWaFpo8ot1yBmQfZ4okxByelU3xYXAjm5eBcuGvxE3itbcA5zCNMfvc2xbWaj
+         GFOpHuBm2+D2WX+Vejmt8wJ4QsQRxCM5spzvzQ2H5T1VSB+OiKbWIjNDvpcImuojgoeH
+         0kE1AvpVqD6eldxCRS+WhWARVnp4znyVWoSSLwbCDkgHyCk66gwY4yFcITTUIuzVtEUa
+         q6rQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780427667; x=1781032467;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=dSIr93Nit88CgmFo+FQCaDv+E0MBYSBdW114dphcJdE=;
-        b=WJJGcK4sGaBvyuxdllhESimYIvwpAAxeFhDR+pazJ3SN/2u6zUbHEUQ/BJCPW0FVCT
-         UCplMsN+sbcHmb+h7/B/860mQOx3AlgH2GhqVFYVG8YWSIYJoj7Vvfx66Q6WjGN+c6QM
-         k9exfgzCMhw6iDjVI/loA3gQChEsT27jgHGw18Gca32aQ6cbEJvQnBwtSzD9XLdmt721
-         hF+2Ppwjo1pEM8LfNLogq1B/PkEO1OKC/qsm8usww4mXS7IYsze1lZqybgp7Z6WoP3ab
-         Zt+uGRU51LPnmxByG3ZA5lwZPsChLSEFknh+CrmMAIER/CtuhftDm1Rn9WRon8DD1F3X
-         Sb3g==
-X-Forwarded-Encrypted: i=1; AFNElJ9fyHtQvpTb/0fSsD39AD9tWZPcMtFcDx74vDCWff79kDeQZVmg7PdbYNs9IQd4FSHG6QCoD0r5RV0=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxnIDoT4I8WEkCgCOqQ//ycrREOYbe7WtATxmcv4pGn3ihPTU4n
-	mwPk10ym/SIDnUVf+OISjBFDSj7mYk/S9BJuwDZ5V27ueWeTJdGWez8k
-X-Gm-Gg: Acq92OE1mqpff/GKvwiilagR0DnDVY6E4gP0IAn1DXIOWmb2g02lm9EvboT4AdXkbNE
-	D16d/fkHqcS60Gvmch39KyihZ2jeIXqd5CiLt/bHPYlfe9tttgE0Ua9GPwkXbVcnlcXtKJ2xtzg
-	V4ugnnI2YjjEfitRKAT9+NW9Z0cuz/ogkx6kYJl21Z9hU6MhdB0gWtg/8NUywVNRsk0yWk7k3k+
-	maKUouKxLG/zDG0D2axCcsogmPMt3kxR5YBfOIt2dMZjBaGz5/kOazjqJCS7LXtc8Suibjee2Ex
-	hFxncw+TnRLlgf5VuVuTOO6JxekuMAh97bLSnNEN1eTo4K7hFfkxFkv+MNx/U4Cn2iOH0aMP5Ez
-	3jRAgA0s+dFzLYLQqK0QOzsPjNMHFuk2f/ClnXaOrW0eqEngb0PSDyzaUTwqSsXwzcPzqmFmog6
-	fAMmdskGtGkrJM8PxiejdCqZmO5lGwBtrORtFZD1CXyUy7qyj+oMejegXkVSdQHUGwzyqh5T1Wa
-	GmUBhq84YkQSxGx
-X-Received: by 2002:a05:600c:8184:b0:490:688b:f10d with SMTP id 5b1f17b1804b1-490b5eb64c9mr2515745e9.7.1780427666737;
-        Tue, 02 Jun 2026 12:14:26 -0700 (PDT)
-Message-ID: <2bc872ab-3623-48c0-8bf0-14ee9fa82d2a@gmail.com>
-Date: Tue, 2 Jun 2026 21:14:25 +0200
+        d=1e100.net; s=20251104; t=1780428114; x=1781032914;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=dW/JdpSkmYJ8o+HCqZK1Bdu3oOZlTDFNLL6JBTzcd34=;
+        b=p4GU2lKGlRcx2PqR3FhmP2ovQTIXN15bgGHBdB9y+Hq4Lq7bXVXFjxAoP5mGRmYR2C
+         BcxZbAf1MkxixWs7Ovcez+hDjkmKRIAkO8/nOKV7N9fZsFlN+V2zXFCXkeu8UiWGeVXO
+         +g4srTFlsFAOzJYM2EB06OZ+Vok9n6NEnpIAG5dz9JFr1NFGZyhg+3nnH6NPZm4XJFNT
+         1oXYGMaUJyVQwGItSj19GqkXbhO5jI24Zr6e8V+mAK80UK2k5ZvbcctAFnh/cyiHvQNI
+         EXioSm3WHtIA9Sh3IhtCLydxwfMZMbHean9CrJb7ikUG2WfsHkhlHcCHS+8Ju1IW372e
+         eu5Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+Ed+cqMG3o74O+IyareP61sPnN2sx/ViV1D1wHtdZN/+3U/Nrzm3LBjHfTTNr8eRZ74h7E0w7zXOU=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyJ1lBy83ioO2rxZO5BwpEhXR2HwlbrxsPbSgVE5DrIu4mSzdB3
+	FRtD6IPPyu97E2GWfOkOHLB2ymQL/8nG+iNlWQMobv33lWq+YVe8EFMssg22eA==
+X-Gm-Gg: Acq92OGIHfplaglb5hD442nA+4SGgBBlVuEVNMczXeNZ54EbuSRRSk7rQ1xnSYHqjJi
+	WWZhvAM4/8FBpWaCcm3vwCwluKmeyOeNSRP17fCaNV2sMAaahb9OzYzKiAgmpnWpyWTuc+13YL/
+	pGZeAzSRJ6RF7dupMFLbYMu39gb0j8rzNH/EkQu2CpMWbGIWF2qvolyEAgfiw0i+7TBxhhE+aCy
+	T4ow+Kc8hwl3VA+DzZ6TVn2zVqxaQf3aC/LzsN9QZ9K6/xkHfuNO4h+4reECQfbkt1DvPd5Ctcg
+	xM6CbZkArAE6C+ba/4gmbdb/7vlldSTyu8FEZ3z9eEY+KhEfYM0irI1/VLFyXgOfPUIIdmOi2O1
+	RAsPlsxr4sCLIQwVbfBUal8gOeCbke0/E08EK6jGJseHaGnU3S/In5/T153k0Wtw9hrIcq6HMUX
+	UC2pRkc6tVgKGJF19vyuGqwVnz18pUPG+JREbBf5WgiZ5JMu4mX2+hAJ2cYiyo9iV+eyVba0q6g
+	i2F8sZLSJKrD9gf
+X-Received: by 2002:a5d:670c:0:b0:45e:f5bf:6c25 with SMTP id ffacd0b85a97d-4601f62c38dmr652287f8f.32.1780428114125;
+        Tue, 02 Jun 2026 12:21:54 -0700 (PDT)
+Message-ID: <17af7606-c388-4d82-b219-cd45d2c19827@gmail.com>
+Date: Tue, 2 Jun 2026 21:21:53 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] xen/domain: fix UBSAN null pointer dereference of
- d->shared_info
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1779712171.git.oleksii.kurochko@gmail.com>
- <04dd784b6b9a4dfca9a313ea8802d8d514d65021.1779712171.git.oleksii.kurochko@gmail.com>
- <3aef7763-aea3-496a-8c18-d3659f590373@suse.com>
- <fb1b1194-5855-49d9-99fc-d35a3038833c@gmail.com>
+Subject: Re: [PATCH for-4.22] x86/fred: Enable FRED by default on AMD systems
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?=
+ <roger.pau@citrix.com>, Teddy Astie <teddy.astie@vates.tech>
+References: <20260602164519.2634144-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
-In-Reply-To: <fb1b1194-5855-49d9-99fc-d35a3038833c@gmail.com>
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+In-Reply-To: <20260602164519.2634144-1-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-16d1c6/1780427667-8C87AD75-7F8596EA/10/73395122804
+X-purgate-ID: tlsNG-4011c0/1780428114-713638B7-F755C7B2/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 4121
+X-purgate-size: 1087
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
@@ -128,145 +123,65 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_ALL(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
 	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 7B5A463155A
+X-Rspamd-Queue-Id: D2BD06315EA
 
 
 
-On 6/2/26 6:11 PM, Oleksii Kurochko wrote:
->>
->>>   - Update the commit message.
->>>   - Protect some other places in common code from NULL pointer deref of
->>>     d->shared_info.
->>
->> What I'm still missing is the description clarifying why other uses don't
->> need guarding (or that there simply are no other uses, which - however -
->> I doubt).
+On 6/2/26 6:45 PM, Andrew Cooper wrote:
+> FRED is now believed to be complete for AMD systems, and has had its tyres
+> kicked by both XenServer and AMD.  Enable FRED by default on capable AMD
+> systems (Zen6 and later).
 > 
-> I will add an explicit paragraph mentioning that the 2L ops in 
-> event_2l.c are unreachable for a domain with no shared_info.
+> Support on Intel is still not yet complete.  Leave it as tech preview and not
+> security supported.
 > 
-> The only place which isn't covered now is  domctl.c:108 (virt_to_mfn(d- 
->  >shared_info)) is only reached via the XEN_DOMCTL_getdomaininfo path and
-> as RISC-V doesn't use it now it could be left as it is what also could 
-> be added to commit message.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <jbeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Teddy Astie <teddy.astie@vates.tech>
+> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-For that part could be considered ...
+Release-Acked-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
 > 
->>
->>> --- a/xen/common/domain.c
->>> +++ b/xen/common/domain.c
->>> @@ -320,7 +320,7 @@ void vcpu_info_reset(struct vcpu *v)
->>>       struct domain *d = v->domain;
->>>       v->vcpu_info_area.map =
->>> -        ((v->vcpu_id < XEN_LEGACY_MAX_VCPUS)
->>> +        ((v->vcpu_id < XEN_LEGACY_MAX_VCPUS && d->shared_info)
->>>            ? (vcpu_info_t *)&shared_info(d, vcpu_info[v->vcpu_id])
->>>            : &dummy_vcpu_info);
->>>   }
->>
->> At the example of this: The extra conditionals are dead code on x86 and
->> Arm. While the status of the respective Misra rule is still uncertain
->> for Xen, imo we'd be better off avoiding the introduction of new dead
->> code. Which in turn means we may need some kind of abstraction to have
->> these extra conditionals in place only for arch-es not supporting
->> shared-info at all.
+> The issue on Intel is to do with virtualisation of MSR_SPEC_CTRL for PV
+> guests, and is waiting on the resolution of a question I've asked Intel.
+> ---
+>   docs/misc/xen-command-line.pandoc | 6 +++---
+>   xen/arch/x86/traps-setup.c        | 4 ++--
+>   2 files changed, 5 insertions(+), 5 deletions(-)
 > 
-> What about then add config HAS_SHARED_INFO to xen/common/Kconfig and then:
-> 
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index e64b7df9b704..58442ce1f952 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -319,10 +319,14 @@ void vcpu_info_reset(struct vcpu *v)
->   {
->       struct domain *d = v->domain;
-> 
-> +#ifdef CONFIG_HAS_SHARED_INFO
->       v->vcpu_info_area.map =
-> -        ((v->vcpu_id < XEN_LEGACY_MAX_VCPUS && d->shared_info)
-> -         ? (vcpu_info_t *)&shared_info(d, vcpu_info[v->vcpu_id])
-> -         : &dummy_vcpu_info);
-> +        (v->vcpu_id < XEN_LEGACY_MAX_VCPUS)
-> +        ? (vcpu_info_t *)&shared_info(d, vcpu_info[v->vcpu_id])
-> +        : &dummy_vcpu_info;
-> +#else
-> +    v->vcpu_info_area.map = &dummy_vcpu_info;
-> +#endif
->   }
-> 
->   static struct domain *alloc_domain_struct(void)
-> diff --git a/xen/common/event_fifo.c b/xen/common/event_fifo.c
-> index 59d9bf4c7ec0..3d7104100f0b 100644
-> --- a/xen/common/event_fifo.c
-> +++ b/xen/common/event_fifo.c
-> @@ -562,9 +562,10 @@ static void setup_ports(struct domain *d, unsigned 
-> int prev_evtchns)
-> 
->           evtchn = evtchn_from_port(d, port);
-> 
-> -        if ( d->shared_info &&
-> -             guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
-> +#ifdef CONFIG_HAS_SHARED_INFO
-> +        if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
->               evtchn->pending = true;
-> +#endif
-> 
->           evtchn_fifo_set_priority(d, evtchn, 
-> EVTCHN_FIFO_PRIORITY_DEFAULT);
->       }
-> diff --git a/xen/common/time.c b/xen/common/time.c
-> index 1ee49a8b0d13..da8403949102 100644
-> --- a/xen/common/time.c
-> +++ b/xen/common/time.c
-> @@ -94,8 +94,9 @@ void update_domain_wallclock_time(struct domain *d)
->       uint32_t *wc_version;
->       uint64_t sec;
-> 
-> -    if ( !d->shared_info )
-> -        return;
-> +#ifndef CONFIG_HAS_SHARED_INFO
-> +    return;
-> +#endif
-> 
->       spin_lock(&wc_lock);
 
-...
+Don't we want than add that to CHANGELOG.md that FRED is now enabled by 
+default?
 
-+#ifdef CONFIG_HAS_SHARED_INFO
-      info->shared_info_frame =
-          gfn_x(mfn_to_gfn(d, _mfn(virt_to_mfn(d->shared_info))));
-      BUG_ON(SHARED_M2P(info->shared_info_frame));
-+#else
-+    info->shared_info_frame = INVALID_GFN_RAW;
-+#endif
+Thanks.
 
 ~ Oleksii
-
 
