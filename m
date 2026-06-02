@@ -2,53 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id RXAhFxfsHmqXZAAAu9opvQ
+	id klEwIm/yHmrSZgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 16:43:35 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 17:10:39 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B779862F655
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 16:43:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F0BC62F9EB
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 17:10:39 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=FTtq13vz;
+	dkim=pass header.d=kernel.org header.s=k20260515 header.b=Qh4TQbYd;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1325107.1590647 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=kernel.org
+Received: from list by lists.xenproject.org with outflank-mailman.1325147.1590655 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUQKw-0002bV-Hn; Tue, 02 Jun 2026 14:43:22 +0000
+	id 1wUQkn-0006yd-HM; Tue, 02 Jun 2026 15:10:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1325107.1590647; Tue, 02 Jun 2026 14:43:22 +0000
+Received: by outflank-mailman (output) from mailman id 1325147.1590655; Tue, 02 Jun 2026 15:10:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUQKw-0002Yh-Ed; Tue, 02 Jun 2026 14:43:22 +0000
-Received: by outflank-mailman (input) for mailman id 1325107;
- Tue, 02 Jun 2026 14:43:21 +0000
+	id 1wUQkn-0006w3-Ee; Tue, 02 Jun 2026 15:10:05 +0000
+Received: by outflank-mailman (input) for mailman id 1325147;
+ Tue, 02 Jun 2026 15:10:03 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wUQKv-0002YZ-1e
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 14:43:21 +0000
+ (envelope-from <sstabellini@kernel.org>) id 1wUQkl-0006Wh-RO
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 15:10:03 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUQKu-00CVcq-AJ
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 16:43:20 +0200
-Received: from [10.42.69.5] (helo=localhost)
+ id 1wUQkk-00011m-Jg
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 17:10:02 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a1eec04-e002-0a2a0a5209dd-0a2a4505bef0-4
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 16:43:20 +0200
-Received: from [209.85.221.42] (helo=mail-wr1-f42.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a1eec07-aaa8-0a2a45050019-d155dd2aec2c-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 16:43:19 +0200
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-4600ddc4017so2146453f8f.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 07:43:19 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45ef354b7edsm33440117f8f.22.2026.06.02.07.43.18
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jun 2026 07:43:18 -0700 (PDT)
+ (envelope-from <sstabellini@kernel.org>)
+ id 6a1ef237-bab6-0a2a0a5309dd-0a2a45019006-22
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 17:10:02 +0200
+Received: from [172.105.4.254] (helo=tor.source.kernel.org)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <sstabellini@kernel.org>)
+ id 6a1ef249-c1f2-0a2a45010019-ac6904feda6a-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 17:10:02 +0200
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 94DD460138;
+ Tue,  2 Jun 2026 15:10:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C431F00893;
+ Tue,  2 Jun 2026 15:09:59 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,150 +57,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780411399; x=1781016199; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ruJinQ6Os9OKUhCau3wAEAfxPZ3nNFkQ0Shb8/pl6bw=;
-        b=FTtq13vz0ccfbLoA54xTwXdaQYCJE4y3w4UzooTI0W/ColhYY9CUR0AgW4vT8XmylE
-         CKKwmsF7CiEW/p1O32T9UKPTbX9cfNI3g5cug3ZBFjmnfu0nnz+UjyqUxEXdjCwg/vBm
-         K4981PnENFgW55Us0KZaWddlgVTPJONrAmgclHfPpsOVRG5XiX9cn01iUl7H30U1FMwH
-         djpGx7R8IQL+xN30d2z0trpP+FyJIrg53edABQMeC8EoTpDIG3hhMo65VC9mrTgXEHKy
-         6squjjm0GhuN3hVdsXlu4n77S3qR/9gr07OaKodqRBJGogsFmg7ryFZI/1ZYwfBPsQLc
-         GlDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780411399; x=1781016199;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ruJinQ6Os9OKUhCau3wAEAfxPZ3nNFkQ0Shb8/pl6bw=;
-        b=e3jODh24OlVWmzwR7wD1KYY5JyupH6Uxes2eRub83DCF77vNeSx3xEyUxeG/V8FCOB
-         85zzlv6KGOHJgkVvSCKnyeJI6FHBDlBtfzNnLVmy7qfhH2V0U5fK3DZarSTYfzpkXriQ
-         7DQiOoLAA/NeWR2d5pY3LUUWRRYyAg7cuhyHZtpx1pxLe9VKvd4Bkkgo4hx6MsGAWfoM
-         YLcF9SL21Z5vKmpxB0SVXVYI50YfsWm2dobXFgvqKDRl+tZzv8bzLimhsaQJESLLUVxt
-         xNS59R4JDfeYYe6xjlMnNhWGiPa/jW4WDocmSPQAOzs5JlA5yffVONR+WKyDHKgBZUT1
-         nUYQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+QHd9vY+byBTxIQz+zU8Lqxs5QaN5Ieu9DKBuaI0mf12dSiZDcQqUVTXfQ4MHo+n/8kVOoaNpoFXs=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YyjkCwWgZkfr6kYada+DBSy+hx9V2kj60S8JHsHLADyMOCSpOyn
-	QE0Ets14f5sBfKFlG/OrVagaLY2rsR4YUAoX2EdAuXNKwWRRf7zIxrpW5GD61TRRbA==
-X-Gm-Gg: Acq92OGvPyPjrheS2QllcsyGJgRDmweQOktzPEbf5QniGj1IX9vuIWXQeaPpRlp5Dd5
-	dxYinKUKq4qeouxQzPqt8zuy5GlaXRTSm2nxs4ZaI1GNLML8UQGMrZnJbqaBLXlM0o7LGTKTnV8
-	Qe3N8+/jR9Xl2Qf7UIYXGCAY2QVNLECNOqCxODbl5AiWpkrsFEf2hNPhRlrnt5zNdRqpxMw4DoK
-	rQmSbpxHp/xKogJL8NNHY5mJKbEAzXHn2ThMPoWUHNtrAYkZvtI7ACwmArMHmXhKKx/AGwgr25M
-	a11qhTm5JJkP1vIZXA6CqSB5djucUBbT5kqlr20u2b8rz2+GuKXjDKSk00yGJGwX0zd8iyFUN7f
-	1VCqMcy86lvNbytyH41rCxfhS5xLXdSAZgzM4BhchkasWMVg7HCyoAC+h3RngCDl8jUGNaLg+yY
-	VRMrPUk8pNhA/uFUymwUwOQWkr6lrbR7Q5U+NXMwP4uMNIb6U/jrc/hmnytyZKRrF/i3vfptzn1
-	6TMDH/3xXjxAdtJbalQacZVng==
-X-Received: by 2002:a5d:54c2:0:b0:45e:ea65:d329 with SMTP id ffacd0b85a97d-45ef6aec693mr6251201f8f.7.1780411399128;
-        Tue, 02 Jun 2026 07:43:19 -0700 (PDT)
-Message-ID: <1110e571-db6e-4443-aa8d-6676d5b1edef@suse.com>
-Date: Tue, 2 Jun 2026 16:43:25 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780413000;
+	bh=S2KseaV7qgO+CUbxvtmiLhnZ1SCZ/+YdYd2MLSYNDaM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=Qh4TQbYd0X2c+2T3iNHuqjbvRxEclZCN8S9fX50azkm9IoqT/4ZUIKuJsitys/PdF
+	 uzWvylXGYPUkbnbrkOU0rI9RxWXXh5hybNoaWZ9GFu+NXVDvW8WMyPSX6wLfqjvsZM
+	 I2SFKE6XV+lIBHEYcDumxnF93Tq+LxQn/vKNCYyg28kKdPfmGeH30DK/3j7ynUgb8v
+	 ShnXkwEouHlV2akLRvWRqIuVPQO208l2kUo0YhCvquLEmkir40r+3PaH1Ha6b0sdoi
+	 3IP9xiRYNbBYaLCDd+K+CUeG5dFZ+ifo+bB1ART24eMEIHkLlBCgHEwFrryO9YPIHU
+	 sm8T8gB2dmMMA==
+Date: Tue, 2 Jun 2026 08:09:57 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Nicola Vetrini <nicola.vetrini@bugseng.com>
+cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] CI: disable debug info for analysis jobs
+In-Reply-To: <6ed5a037c10e2b896e1269c6856508f5@bugseng.com>
+Message-ID: <alpine.DEB.2.22.394.2606020809500.550703@ubuntu-linux-20-04-desktop>
+References: <4f3a0cf9-63cf-405a-a19c-c8fc0473b2ce@suse.com> <6ed5a037c10e2b896e1269c6856508f5@bugseng.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/mm: Fix off-by-one stopping tail merge in
- reserve_offlined_page
-To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1779980089.git.bernhard.kaindl@citrix.com>
- <b177222a50bb11647589f3143b8ba9771535b7d9.1779980089.git.bernhard.kaindl@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <b177222a50bb11647589f3143b8ba9771535b7d9.1779980089.git.bernhard.kaindl@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-c201ff/1780411399-E0063443-91D24CA4/0/0
+Content-Type: text/plain; charset=US-ASCII
+X-purgate-ID: tlsNG-d62444/1780413002-AD1ADFF4-E2909373/0/0
 X-purgate-type: clean
-X-purgate-size: 1180
+X-purgate-size: 892
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[kernel.org,quarantine];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[kernel.org:s=k20260515];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:mid,suse.com:dkim,suse.com:from_mime,suse.com:email];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:nicola.vetrini@bugseng.com,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:sstabellini@kernel.org,m:andrew.cooper3@citrix.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ubuntu-linux-20-04-desktop:mid,suse.com:email];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[sstabellini@kernel.org,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:+];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B779862F655
+X-Rspamd-Queue-Id: 0F0BC62F9EB
 
-On 28.05.2026 16:55, Bernhard Kaindl wrote:
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -1427,11 +1427,13 @@ static int reserve_offlined_page(struct page_info *head)
->  
->          next_order = cur_order = 0;
->  
-> +        /* Attempt to grow the order (size) of the buddy as much as possible. */
->          while ( cur_order < head_order )
->          {
->              next_order = cur_order + 1;
->  
-> -            if ( (cur_head + (1 << next_order)) >= (head + ( 1 << head_order)) )
-> +            /* Do not grow to next_order if it would go beyond the buddy. */
-> +            if ( (cur_head + (1 << next_order)) > (head + ( 1 << head_order)) )
->                  goto merge;
->  
->              /* Do not grow to next_order if cur_head is not aligned to it. */
+On Wed, 20 May 2026, Nicola Vetrini wrote:
+> On 2026-05-20 10:20, Jan Beulich wrote:
+> > Its generating and linking takes time (and space), while at the same time
+> > Eclair should be entirely independent of its presence.
+> > 
+> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> > ---
+> > Sadly the setting of EXTRA_XEN_CONFIG doesn't look to be cumulative
+> > (across "extends:"), so the addition needs making to all four eclair-*
+> > jobs.
+> > 
+> 
+> Maybe with anchors and variable expansion it could be made to work, having a
+> base template EXTRA_XEN_CONFIG and then adding variables as needed, but let's
+> not complicate this unless needed. Indeed ECLAIR is not affected by stripping
+> flags currently (though I don't exclude it may in the future).
+> 
+> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
 
-Much like for the other series: With this coming first (and separate from the
-new test), with the stray blank removed from the line that you touch, and with
-parentheses also added to reserve_offlined_page() in the subject (like you
-have it in the description):
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Maybe also s/stopping/preventing/ in the subject?
-
-Jan
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
