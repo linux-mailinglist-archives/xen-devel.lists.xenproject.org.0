@@ -2,52 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id eZQGH8wIH2qodwAAu9opvQ
+	id YWp6KAYJH2rBdwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 18:46:04 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 18:47:02 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8658630576
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 18:46:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 397746305B3
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 18:47:02 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=google header.b=CBMt8LzQ;
+	dkim=pass header.d=xenproject.org header.s=20200302mail header.b="0eUB6fM ";
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com
-Received: from list by lists.xenproject.org with outflank-mailman.1325278.1590773 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=xenproject.org
+Received: from list by lists.xenproject.org with outflank-mailman.1325283.1590782 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUSF3-0001AD-4s; Tue, 02 Jun 2026 16:45:25 +0000
+	id 1wUSGT-0001cE-Dt; Tue, 02 Jun 2026 16:46:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1325278.1590773; Tue, 02 Jun 2026 16:45:25 +0000
+Received: by outflank-mailman (output) from mailman id 1325283.1590782; Tue, 02 Jun 2026 16:46:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUSF3-00017n-1r; Tue, 02 Jun 2026 16:45:25 +0000
-Received: by outflank-mailman (input) for mailman id 1325278;
- Tue, 02 Jun 2026 16:45:23 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wUSF1-00017h-KS
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 16:45:23 +0000
-Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUSF0-003uuK-Sg
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 18:45:22 +0200
-Received: from [10.42.69.5] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 6a1f0891-5cb7-0a2a0a5109dd-0a2a45058f04-40
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 18:45:22 +0200
-Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <andrew.cooper3@citrix.com>)
- id 6a1f08a2-aaa8-0a2a45050019-d155802acc81-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 18:45:22 +0200
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-490a7629380so27698055e9.0
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 09:45:22 -0700 (PDT)
-Received: from localhost.localdomain (host-78-146-242-105.as13285.net.
- [78.146.242.105]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490b0e2b4e5sm85731745e9.7.2026.06.02.09.45.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 02 Jun 2026 09:45:21 -0700 (PDT)
+	id 1wUSGT-0001aW-B2; Tue, 02 Jun 2026 16:46:53 +0000
+Received: by outflank-mailman (input) for mailman id 1325283;
+ Tue, 02 Jun 2026 16:46:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1wUSGS-0001aO-9J
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 16:46:52 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1wUSGS-003I5U-0d
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 16:46:52 +0000
+Received: from mail-lf1-f51.google.com ([209.85.167.51])
+ by xenbits.xenproject.org with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.96)
+ (envelope-from <cody.zuschlag@xenproject.org>) id 1wUSGS-007szZ-0T
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 16:46:52 +0000
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-5aa68d9d56fso2811580e87.2
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 09:46:52 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,157 +51,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=citrix.com; s=google; t=1780418722; x=1781023522; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=U5E49+b+uC/od9SZLoU0uYb9I0eV+tcWYMSLbFGajYw=;
-        b=CBMt8LzQYum3CGxvR+33ka61TFI9rz40PmPQnyFmoTL0o9hcuiLpDY+rllvn40FNpO
-         JZtmZgttndvZEUUGjNg0skziQ0G8c8W1tTRXTGOCgQ2wHb9SZ4OF7J6CfQppldmI5Sl2
-         KgBizko5PcYXBgm4gX4kztJn6+ooOnhKg2DxY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780418722; x=1781023522;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=U5E49+b+uC/od9SZLoU0uYb9I0eV+tcWYMSLbFGajYw=;
-        b=X09up92uqOElE6IV6KQXY5BpxLKWjDZRkZ2+gSGRrvuaMKWHnABAU+/qd3MmHwdFC3
-         tjCjvjmw3Ven68pQbQ66qrVyzGv0WGwSXGNsS6NswX/u2vSJ1v+bQJG3pdb9mNxhLFaz
-         lTQ20/84j0qtGPIZ/UQqbL2sL7o88bry5lzMrYH41z4bGnC4Jaiv2S3pBbSdiXHXMnFG
-         Q4GAR6lth3HdlQq9efGQzb11ME/nJlV3OVclxG5Yn6HgEk5LwTiTbAUu5YEYxjQ2wZpr
-         nKPLK8BVcCR36ZdtMhJRK6Wl9Wi2Sgfdc6UM69362PZlBsja/OAhXIIzIVR3oRQiQQnl
-         cgdQ==
-X-Gm-Message-State: AOJu0YwoY+oZcPSBril7LfNjnOOS1xsnWIiPUUMsH5b0O1W/Od4KQ9QF
-	7WLR51Hw6B0uHs4Bo4pdDvkvBaOJ8ciELhF1lnLpNo97R1TZgd6+MH5XBgz60Twsi08DkRL/NzU
-	mFjLk
-X-Gm-Gg: Acq92OGHArNbvp8uo47t70HFFsbB2Uo3W1MsqHqTmvgO0ON6bGhOnJD5etIujViKO15
-	2W2wR29DYYReUfa0mG5Et4918hZWeSfnOLmuEj+n6yuSyHL64wyVXV9JjQQ1LVtgsN29JSWh7qR
-	o+wKMnWc+daw5aHHAHg8ycF3A4/icMxpKl7Qg0/D09+49Nl1TY3LAJckX0JRArLmxqB1OXSSaIw
-	rmTDq4w1OAXviZLqYfO27azeKgPyZfLTFADy0cDCipXnRJvRYkiv8LpDqbK/zywmI7R9JZw6gbW
-	Qu+wpC6vbz01INlw2aYQ2IrGRZt07Yfov8KjnHSbCtv+bg+07ye6onblUP7ztXigYxkhcb3Rjax
-	6ccmMgkpXQ0ck4pAjIsc1MA0cF5yY1ny3nmKaRsQGQRzDEc2DTu/MqezPxxKj+tPXv1Be/J6MnF
-	lutKl8KKOCpba8WkwHvsq40LnsbwOrsKKc7hEc8pWiXmUNivU+nt+Yo7+bmtgdZHQr9e/b2WlFW
-	m9cCDptpyvDfbY=
-X-Received: by 2002:a05:600c:8b27:b0:490:3fa2:1b93 with SMTP id 5b1f17b1804b1-490b5064808mr8729965e9.13.1780418722069;
-        Tue, 02 Jun 2026 09:45:22 -0700 (PDT)
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: [PATCH for-4.22] x86/fred: Enable FRED by default on AMD systems
-Date: Tue,  2 Jun 2026 17:45:19 +0100
-Message-Id: <20260602164519.2634144-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.39.5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Content-Type:To:Subject:Message-ID:Date:
+	From:MIME-Version; bh=ZuEZ7VDIRlcy3Mm/2scIYVUfBwa/78iDP8jt9yxLeKw=; b=0eUB6fM
+	PWakm8DPhfNYj14XEk+zgpD9eQQgBCMjBMYjRf9IQ4uVT030CZ4F9PkM0ATBwrz5PEiYYR4psX3M8
+	sQ/eCWUytd2cycw49fsU0QOImjBPKpwfIHJ528U6+L61DZwS+gxwl5qqSz5z3NZKFfLBMoVzmNFd5
+	6pP88rE0I8=;
+X-Gm-Message-State: AOJu0Yz8czmJWUFWB5bly5mOuAare2+wIXG8pTfVMx0BwrZU7PJLObxk
+	VhXVrKgayJaRaA6S8ZFElbrCIAmYvV8q8jUdHEvkixZmoPms2+Z8sYu13lQaZJvwol/1R7h8TIh
+	VIov6OULxNlZqhxzks+HVwFf0CdVQdVw=
+X-Received: by 2002:a05:6512:3d1a:b0:5aa:6b84:3b70 with SMTP id
+ 2adb3069b0e04-5aa6b843ec9mr3187603e87.6.1780418811001; Tue, 02 Jun 2026
+ 09:46:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c201ff/1780418722-E1D9D443-66F37A69/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 2389
+From: Cody Zuschlag <cody.zuschlag@xenproject.org>
+Date: Tue, 2 Jun 2026 18:46:39 +0200
+X-Gmail-Original-Message-ID: <CAJbE=Ky-BJ_wnDjqSBTSxooBh6FGhjmRT2toy8k5FJrVmv3Z_Q@mail.gmail.com>
+X-Gm-Features: AVHnY4LUnrIE440_XRSmSbkN2N_ZQMRpeElDHxd_iq0CaBA5G3DmzQO-ARrCVz0
+Message-ID: <CAJbE=Ky-BJ_wnDjqSBTSxooBh6FGhjmRT2toy8k5FJrVmv3Z_Q@mail.gmail.com>
+Subject: [ANNOUNCE] - Call for agenda items for June 4 Xen Community Call @
+ 15:00 UTC
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="000000000000c806310653480ec6"
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-0.19 / 15.00];
+	URI_COUNT_ODD(1.00)[7];
+	DMARC_POLICY_ALLOW(-0.50)[xenproject.org,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[xenproject.org:s=20200302mail];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_DN_ALL(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:mid,citrix.com:dkim,citrix.com:from_mime,citrix.com:email,vates.tech:email];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:oleksii.kurochko@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,mail.gmail.com:mid,worldtimebuddy.com:url,cryptpad.fr:url];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	DKIM_TRACE(0.00)[xenproject.org:+];
 	FORWARDED(0.00)[mailman];
-	FREEMAIL_CC(0.00)[citrix.com,suse.com,vates.tech,gmail.com];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	RCPT_COUNT_ONE(0.00)[1];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER(0.00)[cody.zuschlag@xenproject.org,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[cody.zuschlag@xenproject.org,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
+	RCVD_COUNT_SEVEN(0.00)[8]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: C8658630576
+X-Rspamd-Queue-Id: 397746305B3
 
-FRED is now believed to be complete for AMD systems, and has had its tyres
-kicked by both XenServer and AMD.  Enable FRED by default on capable AMD
-systems (Zen6 and later).
+--000000000000c806310653480ec6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Support on Intel is still not yet complete.  Leave it as tech preview and not
-security supported.
+Hi everyone,
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Teddy Astie <teddy.astie@vates.tech>
-CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+It=E2=80=99s time for the June Xen Project Community Call, happening this T=
+hursday
+at 4 pm UK time.
 
-The issue on Intel is to do with virtualisation of MSR_SPEC_CTRL for PV
-guests, and is waiting on the resolution of a question I've asked Intel.
----
- docs/misc/xen-command-line.pandoc | 6 +++---
- xen/arch/x86/traps-setup.c        | 4 ++--
- 2 files changed, 5 insertions(+), 5 deletions(-)
+We=E2=80=99d love to have you join. You=E2=80=99re welcome to participate o=
+r just listen
+in. It=E2=80=99s a great way to stay aligned, hear what others are working =
+on, and
+help move a few ongoing topics forward.
 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index ef3c7371895b..50c119e5b79f 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1259,12 +1259,12 @@ does not provide `VM_ENTRY_LOAD_GUEST_PAT`.
- ### fred (x86)
- > `= <bool>`
- 
--> Default: `false`
-+> Default: `true` on AMD, `false` otherwise
- 
- Flexible Return and Event Delivery is an overhaul of interrupt, exception and
- system call handling, fixing many corner cases in the x86 architecture, and
--expected in hardware from 2025.  Support in Xen is a work in progress and
--disabled by default.
-+expected in hardware from 2026.  FRED is fully supported on AMD hardware.
-+Intel hardware is still tech preview and not security supported.
- 
- ### gnttab
- > `= List of [ max-ver:<integer>, transitive=<bool>, transfer=<bool> ]`
-diff --git a/xen/arch/x86/traps-setup.c b/xen/arch/x86/traps-setup.c
-index ccbd53fd9db0..a79a3b201389 100644
---- a/xen/arch/x86/traps-setup.c
-+++ b/xen/arch/x86/traps-setup.c
-@@ -22,7 +22,7 @@ unsigned int __ro_after_init ler_msr;
- static bool __initdata opt_ler;
- boolean_param("ler", opt_ler);
- 
--int8_t __ro_after_init opt_fred = 0;
-+int8_t __ro_after_init opt_fred = -1;
- boolean_param("fred", opt_fred);
- 
- void nocall entry_PF(void);
-@@ -392,7 +392,7 @@ void __init traps_init(void)
-     }
- 
-     if ( opt_fred == -1 )
--        opt_fred = !pv_shim;
-+        opt_fred = (boot_cpu_data.x86_vendor == X86_VENDOR_AMD) && !pv_shim;
- 
-     if ( opt_fred )
-     {
--- 
-2.39.5
 
+*Preparation:*Please take a moment to review and update the agenda ahead of
+the call:
+=F0=9F=91=89 Agenda <https://cryptpad.fr/pad/#/2/pad/edit/PrudcbjtZc-4btgSO=
+o5ftG0b/>
+
+Feel free to:
+- Add topics or updates
+- Suggest anything we can drop or defer
+- Include links to patches, threads, or docs where helpful
+
+
+*Call Details:*Date: Thursday, 4 June 2026
+Time: 15:00 UTC (agenda starts at 15:05 UTC)
+Find your local timezone here
+<www.worldtimebuddy.com/?qm=3D1&lid=3D5368361,2988507,5128581,2643743,100,1=
+850147,6&h=3D2988507&date=3D2026-6-4&sln=3D17-18&hf=3Dundefined&c=3D1452>
+
+Join: https://meet.jit.si/XenProjectCommunityCall
+
+We=E2=80=99ll open the room at 15:00 UTC and start the agenda at 15:05 UTC =
+to give
+everyone a few minutes to join.
+
+Want to be CC=E2=80=99d on future calls?
+Add or remove yourself from our Sign-up Sheet
+<https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/>
+
+See you there!
+
+
+Cody Zuschlag
+Xen Project - Community Manager
+
+--000000000000c806310653480ec6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi everyone,<br><br>It=E2=80=99s time for the June Xe=
+n Project Community Call, happening this Thursday at 4 pm UK time.<br><br>W=
+e=E2=80=99d love to have you join. You=E2=80=99re welcome to participate or=
+ just listen in. It=E2=80=99s a great way to stay aligned, hear what others=
+ are working on, and help move a few ongoing topics forward.<br><br><b>Prep=
+aration:<br></b>Please take a moment to review and update the agenda ahead =
+of the call:<br>=F0=9F=91=89 <a href=3D"https://cryptpad.fr/pad/#/2/pad/edi=
+t/PrudcbjtZc-4btgSOo5ftG0b/">Agenda</a><br><br>Feel free to:<br>- Add topic=
+s or updates<br>- Suggest anything we can drop or defer<br>- Include links =
+to patches, threads, or docs where helpful<br><br><b>Call Details:<br></b>D=
+ate: Thursday, 4 June 2026<br>Time: 15:00 UTC (agenda starts at 15:05 UTC)<=
+br>Find your local timezone <a href=3D"www.worldtimebuddy.com/?qm=3D1&amp;l=
+id=3D5368361,2988507,5128581,2643743,100,1850147,6&amp;h=3D2988507&amp;date=
+=3D2026-6-4&amp;sln=3D17-18&amp;hf=3Dundefined&amp;c=3D1452">here</a><br><b=
+r>Join: <a href=3D"https://meet.jit.si/XenProjectCommunityCall">https://mee=
+t.jit.si/XenProjectCommunityCall</a><br><br>We=E2=80=99ll open the room at =
+15:00 UTC and start the agenda at 15:05 UTC to give everyone a few minutes =
+to join.<br><br>Want to be CC=E2=80=99d on future calls?<br>Add or remove y=
+ourself from our <a href=3D"https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxx=
+AOe6RFPz0sRCf+/">Sign-up Sheet</a><br><br>See you there!</div><div><br></di=
+v><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_s=
+ignature"><div dir=3D"ltr"><img src=3D"https://ci3.googleusercontent.com/ma=
+il-sig/AIorK4x5nkRDCOFJDJAv9aMXdZ0mghItsp3D36JrwBCQtitBSW_0NeDS6mBmJ2F4vZVE=
+2oBOqnY6IaJUrl12"><br><div>Cody Zuschlag</div><div>Xen Project - Community =
+Manager</div></div></div></div></div>
+
+--000000000000c806310653480ec6--
 
