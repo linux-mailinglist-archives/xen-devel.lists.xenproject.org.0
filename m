@@ -2,56 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id Clu/M30JH2rpdwAAu9opvQ
+	id kI8AG/QOH2phewAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 18:49:01 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 19:12:20 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C47B6305E3
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 18:49:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5186C63091D
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 19:12:19 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=CRi5iJMu;
+	dkim=pass header.d=ford.com header.s=ppford header.b=hR7Ypihv;
+	dkim=pass header.d=azureford.onmicrosoft.com header.s=selector2-azureford-onmicrosoft-com header.b=Zx2bKI6N;
+	dkim=pass header.d=saarlouis.ford.com header.s=ppserprodsaar header.b=Q7nWo9GQ;
+	dkim=pass header.d=ford.com header.s=ppfserpocford header.b=jkFew1dE;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com;
+	dmarc=pass (policy=reject) header.from=ford.com;
 	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1325290.1590799 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1325315.1590818 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUSIL-0002Yb-0z; Tue, 02 Jun 2026 16:48:49 +0000
+	id 1wUSeI-0007cQ-4B; Tue, 02 Jun 2026 17:11:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1325290.1590799; Tue, 02 Jun 2026 16:48:48 +0000
+Received: by outflank-mailman (output) from mailman id 1325315.1590818; Tue, 02 Jun 2026 17:11:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUSIK-0002X6-TM; Tue, 02 Jun 2026 16:48:48 +0000
-Received: by outflank-mailman (input) for mailman id 1325290;
- Tue, 02 Jun 2026 16:48:47 +0000
+	id 1wUSeI-0007a8-0p; Tue, 02 Jun 2026 17:11:30 +0000
+Received: by outflank-mailman (input) for mailman id 1325315;
+ Tue, 02 Jun 2026 17:11:27 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <kevin.lampis@citrix.com>) id 1wUSIJ-0002K7-Hy
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 16:48:47 +0000
+ (envelope-from <dmukhin@ford.com>) id 1wUSeE-0007a2-MX
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 17:11:27 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUSII-00FO3p-Ur
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 18:48:46 +0200
+ id 1wUSeC-00CzmR-SH
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 19:11:24 +0200
 Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <kevin.lampis@citrix.com>)
- id 6a1f095d-e002-0a2a0a5209dd-0a2a450bbc6a-20
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 18:48:46 +0200
-Received: from [40.93.201.54]
- (helo=CY3PR05CU001.outbound.protection.outlook.com)
+ (envelope-from <dmukhin@ford.com>)
+ id 6a1f0eb8-2eae-0a2a0a5409dd-0a2a450ba0fc-10
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 19:11:24 +0200
+Received: from [148.163.146.23] (helo=mx0a-00498f03.pphosted.com)
  by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <kevin.lampis@citrix.com>)
- id 6a1f096b-212f-0a2a450b0019-285dc936d2da-4
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 18:48:46 +0200
-Received: from BY1PR03MB7996.namprd03.prod.outlook.com (2603:10b6:a03:5b2::8)
- by SA1PR03MB6644.namprd03.prod.outlook.com (2603:10b6:806:1cf::11)
+ (envelope-from <dmukhin@ford.com>)
+ id 6a1f0eba-212f-0a2a450b0019-94a392175088-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 19:11:23 +0200
+Received: from pps.filterd (m0384718.ppops.net [127.0.0.1])
+ by mx0a-00498f03.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 652E4bo52519383
+ for <xen-devel@lists.xenproject.org>; Tue, 2 Jun 2026 17:11:21 GMT
+Received: from sn4pr0501cu005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011014.outbound.protection.outlook.com
+ [40.93.194.14])
+ by mx0a-00498f03.pphosted.com (PPS) with ESMTPS id 4ej0m8t5ns-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 17:11:21 +0000 (GMT)
+Received: from IA4P221CA0012.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:559::15)
+ by SA1PR16MB6485.namprd16.prod.outlook.com (2603:10b6:806:3dd::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
- 16:48:14 +0000
-Received: from BY1PR03MB7996.namprd03.prod.outlook.com
- ([fe80::5068:e1b5:b478:8d07]) by BY1PR03MB7996.namprd03.prod.outlook.com
- ([fe80::5068:e1b5:b478:8d07%3]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
- 16:48:14 +0000
+ 17:11:19 +0000
+Received: from BN3PEPF0000B36D.namprd21.prod.outlook.com
+ (2603:10b6:208:559:cafe::49) by IA4P221CA0012.outlook.office365.com
+ (2603:10b6:208:559::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Tue, 2
+ Jun 2026 17:11:18 +0000
+Received: from mx0b-00498f04.pphosted.com (148.163.138.245) by
+ BN3PEPF0000B36D.mail.protection.outlook.com (10.167.243.164) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.0 via
+ Frontend Transport; Tue, 2 Jun 2026 17:11:18 +0000
+Received: from pps.filterd (m0426315.ppops.net [127.0.0.1])
+ by mx0b-00498f04.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 652GKRmg035127
+ for <xen-devel@lists.xenproject.org>; Tue, 2 Jun 2026 13:11:18 -0400
+Received: from smtp-us.ser.proofpoint.com (pmta-usw.ser.proofpoint.com
+ [50.112.124.217])
+ by mx0b-00498f04.pphosted.com (PPS) with ESMTPS id 4eghss3m0m-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 13:11:18 -0400 (EDT)
+Received: from localhost ([19.12.92.221]) by cmsmtp with ESMTPSA
+ id USe2w6dUOYPuRUSe3wr0VF; Tue, 02 Jun 2026 17:11:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,978 +91,308 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ford.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=ppford; bh=cHyMdNdm4E9FT7rs0Vccb3T6Sks
+	wOhnENdmRdS9sf+I=; b=hR7YpihvQJfKaIh12s4auiPZHP02VrpIEDkAw+fDnUH
+	vieUjE65aaHbx5cxJKiy69GXOuj6eE5/0PPQ9HTt7xsv9whhVyyokQse8e1n1Sbf
+	5xBY78GqsAxm+nzUPWeTJTU489/BIIsoWLi/Wj4Y0roUFN0blTDQaVqrLIC6PaXP
+	IdHpg6CQA3V7Wvl7A0q+q497X7QxLMu0/J5o+Z9Ac4u9X+9aMF98pY8IY10HqQj7
+	NjifSdamWIBoCvK7sCXoT6C6Vgh4MB02zFXabCeXTSmTSFXUYFpeXidGhLz2xOFG
+	WrHgEVLYeLAZkbeyTMDDG9VUHhW+P0SY/1ymwNgGQVA==
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=knxJeJ8sw7neZDvuJ1WCRixLX5s8ztnI4QS/kz5QZsqPwBYEqGFhIpY9sYOna3rwW4czFlpr486WA5Qwr8tlA4I+Ig8OTyWFpV006oGZrfEP7ntRXJPw+mSKcTBiF/BiULZLDfKpGp3F08JA70ZZmkf+F0zLclxJ92gYT/pMLnfshMMrvkCA5BYBVeEmTov3CfBwkurjny6+jyw5j9m0ScAkG4BQunkrCWrCTrzz7mQCqYV+v6W01AKBJcWLIM8NLaF3A9MwdxJEiY8tQHZwbyqOaiPz11nupfg+E5jy2xL7M7a8yO1q8NwK85ZsuR0uxiKRk+utpiRbfHCSjepkuA==
+ b=HQ+Vv1VqmYS7QUTULraL2RiylGDeLumMCI8o/j4DdwHYIeed/UfaGVnr1+xHnY6anHetpM7eUqSzZ3ohw2VsCTg/qlZBoyhwV2BQQJf3Wg8A5wT0qFpTnVmgS/nvk/uLyZrQaC+scjQ5wMc2GoICCD8nSrI3TYADlVgpKNGyHQctd+57iEcwtiWPcaHZkaiNi5zT7+/XnT+DyauUd9kOKG437M6aC7aBGwDugTvhKxfThbb3u7/Y8TpFW37P6PBZfGlpJ2nwP5IEKcHJnBuUcIiiYEODzq9ryYnOwLuCwp2eADVD1aAVLkuJU6BO3l6x2fLHH8PFa82Xeg5enTg9rw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c5SMf9+M3eYkK+VCoT5N51c8wrzFph7I+7rr12mI5fg=;
- b=QT6Mdre2a2czDMZefxt+WNf0XT07R2mCOgOgLr0LzR/rVrVxkoDraYekAu9fuE7u26BAT6pto09l5tuss5Rh3FH7ewPt9jg3ytbFlt7yRyjC12vYSOJKzbmLJbNuW2oAi688EiGVcU/rzVRbCeMOWRicZnTT8wpL3ooVhIb5x+pV26P7IGymHos1MCpgv8XS9UtslR7SNA4QdrKsOnzlHoYxpyD8sOw1vY0dyYYJDzAiDB0O0gu+/est6P36TvUlVFfEmvLH22nKuiD1FGQ3KmRPrspx4e73v7s7GtkZXPMVLztrKw6LVS64wWiILlYALEso/p2xl+GepeHVxl69tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ bh=cHyMdNdm4E9FT7rs0Vccb3T6SkswOhnENdmRdS9sf+I=;
+ b=Lkf8qfu/98E4DXECWbUDOsmgvUgunZoSGUIg+3cF/29h+UY4EjJ7e7Irly/DElF8iKjYlvb6VAxyVnn4bKSvATiOHxOXFAajF+xZ2pfDbLmELR6ONc7h27484VvP5nCa0/GFW8V+2LFwsGGV2KLjSzIMh6QxD/1/NknLmErr7QmIlkRPFQrfVIbSaDPOqFmFtqzIalXl3tv0s7nEBuiLEprt06lC4FrUGzdFW1peypwBPAkxBCnMP4eoXgCU/+KD5aLC1Org9aYoBCglPvSAYTzWNQQlAUGpwG6B2gCW92XTat4YDNBG+Z3hWWweptjaHvM468jHrLYTbmc/EV+s6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 148.163.138.245) smtp.rcpttodomain=lists.xenproject.org
+ smtp.mailfrom=ford.com; dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=ford.com; dkim=pass (signature was verified)
+ header.d=saarlouis.ford.com; dkim=pass (signature was verified)
+ header.d=ford.com; arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=azureford.onmicrosoft.com; s=selector2-azureford-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c5SMf9+M3eYkK+VCoT5N51c8wrzFph7I+7rr12mI5fg=;
- b=CRi5iJMucJhz9xfdJDkuk/LYtGYRJbJOH1CUilTVlzU+K6GGoNt3ZuPnMdCqauq52Xi8db/VXcd2nnNPY4887nxRukWHyLEk/Jkvixrx70k1rmEk9pTpWSw7BI4UXVGzmff4ROkoGla4UAgofPFD35bMgEFm4MDyWIXMBa2d6HI=
-From: Kevin Lampis <kevin.lampis@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	roger.pau@citrix.com,
-	Kevin Lampis <kevin.lampis@citrix.com>
-Subject: [PATCH 2/2] x86: Implement crash kexec for EFI
-Date: Tue,  2 Jun 2026 17:49:11 +0100
-Message-ID: <20260602164911.2684471-3-kevin.lampis@citrix.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260602164911.2684471-1-kevin.lampis@citrix.com>
-References: <20260602164911.2684471-1-kevin.lampis@citrix.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0030.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ae::15) To BY1PR03MB7996.namprd03.prod.outlook.com
- (2603:10b6:a03:5b2::8)
+ bh=cHyMdNdm4E9FT7rs0Vccb3T6SkswOhnENdmRdS9sf+I=;
+ b=Zx2bKI6NcEwxbrHk6hRe6lhOoKUvYLp7OEF81v0U4LIy1zlxBn2tIXd9ndklS+vw2erF7HXp7d9jqMwe/cUhFhAb1LeUSSPM/NGqrVrk43YBrDOj0wsS67uhHzAVkJz4iAa79Ufm7rCa5Oy9dAwJoVU/NZ4GTqX1P4WzRRTkN8o=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 148.163.138.245)
+ smtp.mailfrom=ford.com; dkim=pass (signature was verified)
+ header.d=saarlouis.ford.com;dkim=pass (signature was verified)
+ header.d=ford.com;dmarc=pass action=none header.from=ford.com;
+Received-SPF: Pass (protection.outlook.com: domain of ford.com designates
+ 148.163.138.245 as permitted sender) receiver=protection.outlook.com;
+ client-ip=148.163.138.245; helo=mx0b-00498f04.pphosted.com; pr=C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	saarlouis.ford.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=ppserprodsaar;
+	 bh=cHyMdNdm4E9FT7rs0Vccb3T6SkswOhnENdmRdS9sf+I=; b=Q7nWo9GQU+ZX
+	UwJax7LGY/8W7nAtMW204lVWBwvSRDMUGOmmZ5y9wtEWg4eEIx9JAQlDXRh8o42e
+	mYmVuKCXSF8kBtxWif/NcH5GcaonUuTGRieK6+BU2KK3OxUswNZxX+H2kWP6mR3G
+	V8t4bSJ5lQ40VxrUc5tquc9wj3SgaGpAoeIHbB9OOoQfm6T6enAeIK/J8kxX2efa
+	FDMi/6EI2CQMW5+Tpfp7xZh3TUM+o7SzbCGxtPN24rzUDH0gmE4tuVIAbDDAqh45
+	0uPvdmVbTIEg7RHKuYcbSRI0U2cacaw6vBFKhfmTT6tQ3+pD0q2sc6oJ8+nZ+/bR
+	WvJE8oU9Dg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ford.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=ppfserpocford; bh=cHyMdNdm4E9FT7rs0Vcc
+	b3T6SkswOhnENdmRdS9sf+I=; b=jkFew1dEO/jsnBMDN2yBYutgVD7xE6wj6aoO
+	E3vz5BJekzRktNgGi7D8e/Wh4rXGHml9uCgDWjBBbCKR46cdEgIJh3olXCOzYENq
+	CIkdY5a2hkL5ADlt9inqtd4xhIUvadT6Jf8FQ4tl9Ez9E6WzDa//TL3z95h7MvX/
+	dcONHy+hH0xhM3F1kgzXRQJH6tD6rZo78hbxPRh4aCD4sGwcAAL8eS5/iuASoPkK
+	ibjVYC6v75cpxVQ/tco/vZkkHtIggDeb5cYgTp2j35Pk4eyWs0R2Pkt4QVNCodwZ
+	XG6UG0jX5ae6qXGpEOB6SxGqhHhRi20t1pzxm63FY1KYyaWhow==
+X-Mailer: SER-76bead168636dc6ed1c9e51ce4dea80dbdd4163750742b614a4d871e565792b7
+X-Cloudmark-MID: USe2w6dUOYPuRUSe3wr0VF
+X-Proofpoint-CID: eb09f7eb-2dc2-34ab-a188-7b293c1db1fe
+From: dmukhin@ford.com
+Date: Tue, 2 Jun 2026 10:11:13 -0700
+To: Jiaqing Zhao <Zhao.Jiaqing@amd.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>,
+        Anthony PERARD <anthony.perard@vates.tech>,
+        Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+        Michal Orzel <michal.orzel@amd.com>,
+        Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+        Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH v5 1/3] ns16550: properly initialize booleans in
+ uart_param[]
+Message-ID: <ah8OsWLjojlMiNSA@kraken>
+References: <20260602161322.1039349-1-Zhao.Jiaqing@amd.com>
+ <20260602161322.1039349-2-Zhao.Jiaqing@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260602161322.1039349-2-Zhao.Jiaqing@amd.com>
+PSER-M365-App: SER-APP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-02_02,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ adultscore=0 phishscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606020166
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PR03MB7996:EE_|SA1PR03MB6644:EE_
-X-MS-Office365-Filtering-Correlation-Id: cd310bfd-2a9e-47de-550f-08dec0c6bcd3
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36D:EE_|SA1PR16MB6485:EE_
+X-MS-Office365-Filtering-Correlation-Id: 05387a66-0727-4244-2a8b-08dec0c9f65d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|3023799007|18002099003|22082099003|6133799003|56012099006|5023799004|11063799006;
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|56012099006|4143699003|11063799006|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	CNoImHOTmGNMIazauwR5UdZyY6xdSe4QV6OSOSh2TXSCMFZ9h8RRom9/RjynsN0F7V8WnK6XZIbkLGD0XbRM9u14XiJERamL9Hucd+BQxBwdK20RleisnRdNEcEwoO4gAIEBgrzEPn+6zfJwjI48MEz1qthgnv4Quzh/7aN927WTC3bLoLAUkl1ZM1ADjk0Ii9oaClNrQ1NeGXUyeFrKd3PV9H4tHl/wEtw8e2gm+qvZDOnXWGWTjNfkve6ei7QcxKxYX1Oc+EimAsvrC7Blfhhyxh342uk7c7g+DUaj8mX59LaeRKoJ1DwQNYwaXhC/w6zQ67osiy2TWA2HFGV24/fIgAqeZa/s2Ozq6UOMZmXhOe1S4nDdACUlofWLrfW1LWv+iynenZRZeRkNNGdaSjrYLbn0j/cFuDRf/dHRSA1Ef5/bJCWTuVVOJIsiA71gmFVohJPBlyy3DiYlJRkRcQuqdHeDhogCSSMPG77pwfAhyVd5t7sRAOT5IKUlZCww+a26Cm3SaHGYNV8xwACtuolwyAPpb9UMdz9uJQ+zaDDimIqWkUNvYKB4G7prY0vJOIb3sUrHmcUH3hxnuwPxx8h1OWPDktHJzDgsatqez8hq2GhmDcOCI4m7kuazRIBG+2YYIwqMKfdPcvyIpbkKKs08F35Ypta0DBkmrsHFAxVf4JTVMZFa/F45VvfpRLPd
+	DnErrn2crmVAi7E5Py5r05VZiKZVHQBHvbX8Uk0Cly90/F+s8dNclG9YDwAE+7+KQIcAY2nqYlThjcM+2z2wUbgiEtSQAwYcjpg/1XqCuZ7BN3SuB42YiE6Vj7qsq3UyfD2A9MJv2w5ldD2XdJdI72wrMXhPMzDKnmF/JZ5xWSwVh32+/W7hXe3PX3BqGB5VmVSFxjaoGRVs9UyC8u/OYWwN2l1mRYRtia8UAkXLbUzIX62nNMOyb9iQ7A7kmxS5Tb7UO+WlFXVWVtSVsWKgaZ7cwvMBgeIKk43nysjPf4AO2edjWk+cpHP+f5bH/5qVWhRrrHTbC3buEMufDlVBPsH/1E3dBzcafPGXgjoxvnZicP0587sW/aKbBySQ58KPIuOefFd0qPDehOMRj1GprYbkGeL27ctgsC22nqPd2GQg2MWJt4v//SGbUzf93rcrzzK1nnIAcoIhsJvzKLUFAZAJGv/he38BE8f+ejzNWMbxkXskxvfwkcnJgptldi5MMCZI5uNK0ANenWpm5OAHiFvDOsYm+pnkI11whOmxtVm4oNhtn1eI8tckdYdY1dCzWti2pRrAMWf2n9vdG76Z5VtKSX6FmhY6BI+Ub8BZ47MB8JxYhC5oVS1nPr43CqhMRqLTXPpJUSPngZcic9j7EbKT7CqQDwoThD7nmb5kq7wWiv7SACnAEBDJ8Htfg8ZL1UxXMAPYudPzO1pB/OPGj6m/nnJ7P3RZfTptbdcLZD8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY1PR03MB7996.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(3023799007)(18002099003)(22082099003)(6133799003)(56012099006)(5023799004)(11063799006);DIR:OUT;SFP:1101;
+	CIP:148.163.138.245;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mx0b-00498f04.pphosted.com;PTR:mx0b-00498f04.pphosted.com;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CpVDWeL3qnXF5nm8tmrwOhzL9amnNpaTI4IC1yLsT/z8we5sKyXCyktptcGA?=
- =?us-ascii?Q?C2SNTML6EyrghbpRgpfU9xZC9AuuN6RXKSN08L4tFM4ykD5Trg+9960Y3AO3?=
- =?us-ascii?Q?12kyrGB4ReLj/e0UNauYbNZjC57UITcEbEVhoURJ32SnxGn3SseN66FCzl8J?=
- =?us-ascii?Q?/AqRo7KGVzKsXRyIxipV4SQ/zCdealwO2ls1osKZbwRMDG6nHd+DfcKWIvng?=
- =?us-ascii?Q?fm+bsmmi+HxM0f7sC5jMa+i2Zn4M0aVbun3yJSGMu83+IKh4OkRKuSXf79gQ?=
- =?us-ascii?Q?2OhnGhbaRK06qj0pqIgd7S+d0wD3c//w1UcptUmKxaZa+oAhC6ry9lp+td+e?=
- =?us-ascii?Q?qC0J338zh0JDHnlAVVr0ca/TRNMfogOF4vY8OlFtZ1RQFiT0nabcsLqqCord?=
- =?us-ascii?Q?QeixMVvfy3aD0e4QlM2OfvE5zow0nSNkuYEVOWJl/vF52ELENygGue6clgHR?=
- =?us-ascii?Q?Dyl48AiT2hd0RxBxVmb09Y0QQxL+PttCT7gAbf64HO7xRJoBBeXloPdcWUnw?=
- =?us-ascii?Q?MXOS2dNZ5HDfATz8SQGtjVnQU8s6dHOm/2fN+IyWNM1pXzQqouBOHHS+sIiG?=
- =?us-ascii?Q?xhYI9eplku5OEkRYl2sUrPhyMdgn3SXLt9Q3k6X4NPploqH0GZllUO3CaMP7?=
- =?us-ascii?Q?MmnMY4cfNfYUYVPA9p0Fuv+3eeAftSCz5iTNNROzSeGOEOF7+oPMSlDJ8EdC?=
- =?us-ascii?Q?4CtqM/QYqifcwOl7UTcr9xb8ib8O0/XF8jWBuIMSts3y2xGR3POGXdB1ZQBJ?=
- =?us-ascii?Q?61SJcB13ayaG8d8rKvMDJBCmXIcNyxXQClQ3DZGhcK788JBEEKq0+tLAMakl?=
- =?us-ascii?Q?3Xykl80MuRTfzvLPkORfIREUJYmpnjYrmKwUJ988t6mgPYZ45SrOgEfbcrjy?=
- =?us-ascii?Q?L0vGQh8yUVnMPZjhbRxsqR3OnsdsYAXfB8zR4TpmT/n4yzIS4ETPXJHsQggy?=
- =?us-ascii?Q?+opMQspu+R1MiHrWzUYRzHFlEcbxXXMu+mNk8nIyDSCgLNc3QkurCOb8CgRd?=
- =?us-ascii?Q?zN+0EmUaqqpoyqdjl0NZaqpFGxTBZ+RZSBetymWuBwMFDpdI74OXCK8R/Mse?=
- =?us-ascii?Q?f8iPZXGzLlTR3z7Pj7W+6630Q/Qku67jIblgm0TPXU/KNSv61B85Kk2buBN5?=
- =?us-ascii?Q?lmz/7AS+2VaEft3f5pKBrFLgInOAfQZbr8UUvyHBM5cUmDpvEpk6PZxr4Zqz?=
- =?us-ascii?Q?L6XXC4OIK/YPG562eDIb+Rc9ZuPHSHSKbes/u8yiuc8BHWAJXMhN6xTBqFqR?=
- =?us-ascii?Q?xmUO8iCZTpyALAbGaRbfudjzx5Lq47t3OZ/rKbCZ/Msw4HD8MwXFozE4mTQK?=
- =?us-ascii?Q?UNIQ29ealadEdqZF3ZMgPG6MvHU3JJaf/Gd5fHm1uULx7baJiCcG77z8LUjk?=
- =?us-ascii?Q?kGrHFWSgNXyBE+i611KHwaBIlPQI0OQQVVSl146HnbDyrXCPx2sojPHFrI+p?=
- =?us-ascii?Q?yz1nAzeVTv4mFf+92qDO7uk3PREhCLO6w9I07JPCYhtRHzjOsvomo959GCDz?=
- =?us-ascii?Q?k4Lp5OwzlcuMvWa84gEz40v/c/U3IyryL0vt36nAakdGksnVZP5NjNHbrNqm?=
- =?us-ascii?Q?3c4HPj9I4YD93gDedMvJ9pPPB2DmIRHAK9qYhf91D7L5ern06Dei9zthBPGw?=
- =?us-ascii?Q?/lwqtJKG4wOjrcXlI+XyF2yLBEKewsC8NVjj4IeSba/DLV3qxVkQLkTeKbPD?=
- =?us-ascii?Q?sL+msk3n45AxP/Ja6Q0cS02xaGIVXFNw6ROivoh+8BczpWkdDIwFyXGbgFhn?=
- =?us-ascii?Q?rFDUed468g=3D=3D?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd310bfd-2a9e-47de-550f-08dec0c6bcd3
-X-MS-Exchange-CrossTenant-AuthSource: BY1PR03MB7996.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 16:48:13.9654
+	c+2U/zI7mGNFHzaemru0MDhq888kQaBDF/zlnWqNIRBXGGvJN3fuPq2NzEpqpDfRF9hH76QWBCNC3EruiVw7puzQshny0VVRuVvRSV+gdSw5FmFKWZDSHR/v8GWwEpeHkxRL/cXIc4P4EyxU/1HUTYUaL/P46raCXeE41UNNcyRteD4eegrP/uh+rBCzpOf/vVPly3+masO6AKiYymApVRvfoImrz+7wLwPG7dt5CHcWNaciGEPMJtCdCZxVNoLNy8zQwhkd4DSfB5i8z/nWGYOER9JMkfbfMq9FfEVXqNe7u+u4kDlPg3msN/cf/Y8tOMv5FMqgGCBHNPGW0SX+mayfN4WuQ+NWOBWrjI7NXAovcx47RNppnvwyH3ZIRov8+dm3m8AieIvq73o6PZ22w9EqPyDTeTxmN88GMkdbaQ8ZRMOuXcjdxeN/3l82fOin
+X-Exchange-RoutingPolicyChecked:
+	OvqE8iKDj7uQOc2MCAi8uOCbh9fC3JKyn7gLuGVn2dwE6w9WzBs9Un7eOO4knV/3eH62RevWmXxdiqJuosx/r0hF88E2iVVJy6S971kcgtDQyZxGHa4myPmTsLsmsqPtuRZwB0s4aVNqY644yz45/yI0Bp7vBVDYRW6SjcsInx1zzhNwSKowr1T51vbpCFMcmd2BT4YDEi7qoVA2U8rbwMNhCNJovqUblvzid0et2ObpMQuhU7t2Urm6YWBZCx3DXMsH3jj5W8l9vbP6gaDhqrLyATY7y7oRS/hc2muKz+uaekmuvKo0KPAP4X/qfhQskGR7W0yCkWRfVuULa0sLHg==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	YYYmeW6br07RwTRJtrWZ2wEdc3mzZh1M6vP65MT/NvbuVeK8JD8MHKEmC2RWmDywVleINFcMTYRAsZ3xwyoGryX5hQLqV4j7t79pk7FtAnt2LvoF4BpK66bxF6RKQn7VbC+Aw5cpAXcRS9MqRD3P5/Iu6voBJSSpwH9d3JLkeBgQQ0QqxhLze+qWCFnAvKnt7AkIGOIahHgOZ6lgFXVQmZq1FFVoxx19UKAuTGS00GuaSb5kVHnn89bTV0xQXO1UVwQ3Fr3hXtDcSlu2w3mtEA8scAH76naa5edjYnDXrsQ2SXaFM22JpU7Br4tH/k0eddqLUqXpkJuMS0Rb/25u6lkZ42jmwSOzaCkUzhzwKMlZ2UHh8RAK3oxtmekRaN0rBcu9iXKlNSGTQ5FpZmoHM8UfQkhvrIEWu7eb3DeYiNvHq7881vG8DDJbsnTM+jVHwL4Knwf49p3n9iV56qmPlFN+uTOeDCYc2jphGdgxPwmS9PvHpTWmx92b2XFK6SISfSEqcdoJKjwlnYhk4t9D/E/5Z4nKXxrZ+/qzpMSjhlQyziPGTf6SVXec2+8jdrjSwxTE327AeDbZNIkigW/xFYLTgZWTj77RLQnz5AXSfEIhdz2WsV1aafq54MalyzqR
+X-OriginatorOrg: ford.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 17:11:18.6595
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 06XaZZvPsyEVH3xUw3iSTNibQgei7BQE9Dc9O/Oyv1Jl/cUJiwsyFnXQx4yNGdOGFidj9qPMbjwbVsCWGql4Pw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6644
-X-purgate-ID: tlsNG-42698a/1780418926-19969F3B-9002A3BA/0/0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05387a66-0727-4244-2a8b-08dec0c9f65d
+X-MS-Exchange-CrossTenant-Id: c990bb7a-51f4-439b-bd36-9c07fb1041c0
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=c990bb7a-51f4-439b-bd36-9c07fb1041c0;Ip=[148.163.138.245];Helo=[mx0b-00498f04.pphosted.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B36D.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR16MB6485
+X-Proofpoint-ORIG-GUID: o9pEoFUFMR3CA5MXZuqTTE4eG_JaeLXq
+X-Proofpoint-GUID: o9pEoFUFMR3CA5MXZuqTTE4eG_JaeLXq
+X-Authority-Analysis: v=2.4 cv=DpJmPm/+ c=1 sm=1 tr=0 ts=6a1f0eb9 cx=c_pps
+ a=u5a0R1DJIqwdmu/eAz29vw==:117 a=b7IhknPlfT0FN1EembXvig==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10
+ a=3PXLN80vpJUA:10 a=6NUGLSImWEsA:10 a=w9pew1qAHqMA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=P_n1zlmtWsCQbjROFjcg:22 a=ARvDHhclS48edyKYUbLB:22
+ a=zd2uoN0lAAAA:8 a=cbNQJ9GKAAAA:8 a=0od0BgLonnU7ZigJK8UA:9 a=CjuIK1q_8ugA:10
+ a=DqJYxgmhk6moR-_7_KoZ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDE2NiBTYWx0ZWRfX6JV6vW3ilNz/
+ MQIP1xDiFhrk6m5wIPTBJu3FHwywwXbwgGmKcjCSfPWohWmMzbsbXxAnMfdMbEjcaxvCQfBcPAU
+ 5dcXO0bcgn0ZW7Rp73KSwk3FZSPd0RBBVTNi0FhEbGhuUBANqOCKuuHsccNGXkovw9icSvj8giU
+ gmJjP0z3nKxuUUo3yRK/lcuBSHper/a0cQXMKzCxwJd3nZyvwlUXqQoXy4bkgtmfn+/XsYiUOqU
+ RJjQsvH+WWJ6Zqp8GotHpD3A3XqotqNuP+2ooBagcy0IFWZMc6lN97cU6hM31ZyNFXXXKZ+/I3H
+ 3vrnk3+j0CWvsyijI3E9xwtu4uKUqRrg4LN7HxIGOfKRIg0PzsqMFaZ72ozUR2ZjM/8MTDZCQc/
+ WpR0APoGInShRy5yAUNmQ/QHqKA15BO3vvfpZ0eF0U7Vx1wvlzeQzdrnRl9bD4RM6fzvZKptz0z
+ hSDxYynj/9twRQRWdjA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-02_02,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1015
+ adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020166
+X-purgate-ID: tlsNG-42698a/1780420284-23374F3B-1B8F9AB1/0/0
 X-purgate-type: clean
-X-purgate-size: 29447
+X-purgate-size: 4290
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	MID_CONTAINS_FROM(1.00)[];
+X-Spamd-Result: default: False [-1.69 / 15.00];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	MID_RHS_NOT_FQDN(0.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[ford.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[ford.com:s=ppford,azureford.onmicrosoft.com:s=selector2-azureford-onmicrosoft-com,saarlouis.ford.com:s=ppserprodsaar,ford.com:s=ppfserpocford];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FROM_NEQ_ENVFROM(0.00)[dmukhin@ford.com,xen-devel-bounces@lists.xenproject.org];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Zhao.Jiaqing@amd.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[dmukhin@ford.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:kevin.lampis@citrix.com,s:lists@lfdr.de];
+	DKIM_TRACE(0.00)[ford.com:+,azureford.onmicrosoft.com:+,saarlouis.ford.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:dkim,citrix.com:from_mime,citrix.com:email,xmission.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FROM_NEQ_ENVFROM(0.00)[kevin.lampis@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	FROM_NO_DN(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_TWELVE(0.00)[16];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,ford.com:dkim,ford.com:from_mime,ford.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 1C47B6305E3
+X-Rspamd-Queue-Id: 5186C63091D
 
-This change adds a new KEXEC_TYPE_CRASH_EFI load type which is suitable
-for use when Secure Boot is enabled.
+On Wed, Jun 03, 2026 at 12:13:20AM +0800, Jiaqing Zhao wrote:
+> .bar0 and .mmio in struct ns16550_config_param are booleans, hence they
+> should be initialized with "true", not "1". No functional change.
+> 
+> Signed-off-by: Jiaqing Zhao <Zhao.Jiaqing@amd.com>
 
-When this load type is used, the caller should not pass purgatory as one
-of the kexec segments. This is because in Secure Boot mode we cannot
-accept and run arbitrary unsigned code from dom0 userspace. Instead,
-Xen prepares any necessary intermediary glue code itself.
+Reviewed-by: Denis Mukhin <dmukhin@ford.com> 
 
-When Secure Boot/lockdown mode is enabled only the KEXEC_TYPE_CRASH_EFI
-type will be accepted.
-
-During load a digest of the kexec segments is calculated and stored. The
-digest is calculated again during kexec_reboot, this removes the need to
-re-verify the signatures.
-
-Signed-off-by: Kevin Lampis <kevin.lampis@citrix.com>
-Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
-Signed-off-by: Gerald Elder-Vass <gerald.elder-vass@cloud.com>
----
- xen/arch/x86/bzimage.c                   |  40 +---
- xen/arch/x86/include/asm/machine_kexec.h |   2 +-
- xen/arch/x86/machine_kexec.c             |  10 +-
- xen/arch/x86/x86_64/kexec_reloc.S        |  16 ++
- xen/common/kexec.c                       |  41 +++-
- xen/common/kimage.c                      | 264 +++++++++++++++++++----
- xen/include/public/kexec.h               |  23 +-
- xen/include/xen/kimage.h                 |  23 +-
- xen/include/xen/x86-linux.h              |  62 ++++++
- 9 files changed, 381 insertions(+), 100 deletions(-)
- create mode 100644 xen/include/xen/x86-linux.h
-
-diff --git a/xen/arch/x86/bzimage.c b/xen/arch/x86/bzimage.c
-index 66f648f311..f4d5b584cb 100644
---- a/xen/arch/x86/bzimage.c
-+++ b/xen/arch/x86/bzimage.c
-@@ -6,6 +6,7 @@
- #include <xen/gunzip.h>
- #include <xen/decompress.h>
- #include <xen/libelf.h>
-+#include <xen/x86-linux.h>
- #include <asm/bzimage.h>
- 
- static __init unsigned long output_length(void *image, unsigned long image_len)
-@@ -13,45 +14,6 @@ static __init unsigned long output_length(void *image, unsigned long image_len)
-     return *(uint32_t *)(image + image_len - 4);
- }
- 
--struct __packed setup_header {
--        uint8_t         _pad0[0x1f1];           /* skip uninteresting stuff */
--        uint8_t         setup_sects;
--        uint16_t        root_flags;
--        uint32_t        syssize;
--        uint16_t        ram_size;
--        uint16_t        vid_mode;
--        uint16_t        root_dev;
--        uint16_t        boot_flag;
--        uint16_t        jump;
--        uint32_t        header;
--#define HDR_MAGIC               "HdrS"
--#define HDR_MAGIC_SZ    4
--        uint16_t        version;
--#define VERSION(h,l)    (((h)<<8) | (l))
--        uint32_t        realmode_swtch;
--        uint16_t        start_sys;
--        uint16_t        kernel_version;
--        uint8_t         type_of_loader;
--        uint8_t         loadflags;
--        uint16_t        setup_move_size;
--        uint32_t        code32_start;
--        uint32_t        ramdisk_image;
--        uint32_t        ramdisk_size;
--        uint32_t        bootsect_kludge;
--        uint16_t        heap_end_ptr;
--        uint16_t        _pad1;
--        uint32_t        cmd_line_ptr;
--        uint32_t        initrd_addr_max;
--        uint32_t        kernel_alignment;
--        uint8_t         relocatable_kernel;
--        uint8_t         _pad2[3];
--        uint32_t        cmdline_size;
--        uint32_t        hardware_subarch;
--        uint64_t        hardware_subarch_data;
--        uint32_t        payload_offset;
--        uint32_t        payload_length;
--    };
--
- static __init int bzimage_check(struct setup_header *hdr, unsigned long len)
- {
-     if ( len < sizeof(struct setup_header) )
-diff --git a/xen/arch/x86/include/asm/machine_kexec.h b/xen/arch/x86/include/asm/machine_kexec.h
-index 3e189acf24..e2d7b4854a 100644
---- a/xen/arch/x86/include/asm/machine_kexec.h
-+++ b/xen/arch/x86/include/asm/machine_kexec.h
-@@ -7,7 +7,7 @@
- 
- extern void kexec_reloc(unsigned long reloc_code, unsigned long reloc_pt,
-                         unsigned long ind_maddr, unsigned long entry_maddr,
--                        unsigned long flags);
-+                        unsigned long flags, unsigned long rsi);
- 
- extern const char kexec_reloc_end[];
- 
-diff --git a/xen/arch/x86/machine_kexec.c b/xen/arch/x86/machine_kexec.c
-index f921eec5aa..e61b63ac53 100644
---- a/xen/arch/x86/machine_kexec.c
-+++ b/xen/arch/x86/machine_kexec.c
-@@ -154,6 +154,13 @@ void machine_kexec(struct kexec_image *image)
-     int i;
-     unsigned long reloc_flags = 0;
- 
-+    if ( image->type == KEXEC_TYPE_CRASH_EFI &&
-+         kimage_verify_digest(image) != 0 )
-+    {
-+        printk(XENLOG_ERR "kexec digest failed, won't boot corrupted image\n");
-+        for (;;);
-+    }
-+
-     /* We are about to permenantly jump out of the Xen context into the kexec
-      * purgatory code.  We really dont want to be still servicing interupts.
-      */
-@@ -198,7 +205,8 @@ void machine_kexec(struct kexec_image *image)
- 
-     kexec_reloc(page_to_maddr(image->control_code_page),
-                 page_to_maddr(image->aux_page),
--                image->head, image->entry_maddr, reloc_flags);
-+                image->head, image->entry_maddr, reloc_flags,
-+                image->efi_boot_params);
- }
- 
- int machine_kexec_get(xen_kexec_range_t *range)
-diff --git a/xen/arch/x86/x86_64/kexec_reloc.S b/xen/arch/x86/x86_64/kexec_reloc.S
-index b52d31a654..aa725266e2 100644
---- a/xen/arch/x86/x86_64/kexec_reloc.S
-+++ b/xen/arch/x86/x86_64/kexec_reloc.S
-@@ -33,6 +33,7 @@ FUNC(kexec_reloc, PAGE_SIZE)
-         /* %rdx - indirection page maddr */
-         /* %rcx - entry maddr (%rbp) */
-         /* %r8 - flags */
-+        /* %r9 - boot params (EFI only) */
- 
-         movq    %rcx, %rbp
- 
-@@ -75,6 +76,21 @@ FUNC(kexec_reloc, PAGE_SIZE)
-         testq   $KEXEC_RELOC_FLAG_COMPAT, %r8
-         jnz     .L_call_32_bit
- 
-+        movq %r9, %rsi /* boot params */
-+        xor %rdi, %rdi
-+        xor %rax, %rax
-+        xor %rbx, %rbx
-+        xor %rcx, %rcx
-+        xor %rdx, %rdx
-+        xor %r8,  %r8
-+        xor %r9,  %r9
-+        xor %r10, %r10
-+        xor %r11, %r11
-+        xor %r12, %r12
-+        xor %r13, %r13
-+        xor %r14, %r14
-+        xor %r15, %r15
-+
-         /* Jump to the image entry point */
-         jmp     *%rbp
- 
-diff --git a/xen/common/kexec.c b/xen/common/kexec.c
-index 65776a95fd..14f15dd371 100644
---- a/xen/common/kexec.c
-+++ b/xen/common/kexec.c
-@@ -34,6 +34,7 @@
- #ifdef CONFIG_COMPAT
- #include <compat/kexec.h>
- #endif
-+#include <xen/lockdown.h>
- 
- bool __read_mostly kexecing;
- 
-@@ -910,7 +911,7 @@ static uint16_t kexec_load_v1_arch(void)
- }
- 
- static int kexec_segments_add_segment(unsigned int *nr_segments,
--                                      xen_kexec_segment_t *segments,
-+                                      struct kimage_segment *segments,
-                                       mfn_t mfn)
- {
-     paddr_t maddr = mfn_to_maddr(mfn);
-@@ -936,7 +937,7 @@ static int kexec_segments_add_segment(unsigned int *nr_segments,
- 
- static int kexec_segments_from_ind_page(mfn_t mfn,
-                                         unsigned int *nr_segments,
--                                        xen_kexec_segment_t *segments,
-+                                        struct kimage_segment *segments,
-                                         bool compat)
- {
-     void *page;
-@@ -991,7 +992,7 @@ done:
- static int kexec_do_load_v1(xen_kexec_load_v1_t *load, int compat)
- {
-     struct kexec_image *kimage = NULL;
--    xen_kexec_segment_t *segments;
-+    struct kimage_segment *segments;
-     uint16_t arch;
-     unsigned int nr_segments = 0;
-     mfn_t ind_mfn = maddr_to_mfn(load->image.indirection_page);
-@@ -1001,7 +1002,7 @@ static int kexec_do_load_v1(xen_kexec_load_v1_t *load, int compat)
-     if ( arch == EM_NONE )
-         return -ENOSYS;
- 
--    segments = xmalloc_array(xen_kexec_segment_t, KEXEC_SEGMENT_MAX);
-+    segments = xmalloc_array(struct kimage_segment, KEXEC_SEGMENT_MAX);
-     if ( segments == NULL )
-         return -ENOMEM;
- 
-@@ -1103,24 +1104,35 @@ static int kexec_load_v1_compat(XEN_GUEST_HANDLE_PARAM(void) uarg)
- static int kexec_load(XEN_GUEST_HANDLE_PARAM(void) uarg)
- {
-     xen_kexec_load_t load;
--    xen_kexec_segment_t *segments;
-+    struct kimage_segment *segments;
-     struct kexec_image *kimage = NULL;
-     int ret;
-+    unsigned int i;
- 
-     if ( copy_from_guest(&load, uarg, 1) )
-         return -EFAULT;
- 
-+    if ( load.type == KEXEC_TYPE_DEFAULT_EFI )
-+        return -EOPNOTSUPP;
-+
-+    if ( load.type != KEXEC_TYPE_CRASH_EFI && is_locked_down() )
-+        return -EPERM;
-+
-     if ( load.nr_segments >= KEXEC_SEGMENT_MAX )
-         return -EINVAL;
- 
--    segments = xmalloc_array(xen_kexec_segment_t, load.nr_segments);
-+    segments = xmalloc_array(struct kimage_segment, load.nr_segments);
-     if ( segments == NULL )
-         return -ENOMEM;
- 
--    if ( copy_from_guest(segments, load.segments.h, load.nr_segments) )
-+    for ( i = 0; i < load.nr_segments; i++ )
-     {
--        ret = -EFAULT;
--        goto error;
-+        if ( copy_from_guest_offset((xen_kexec_segment_t *)&segments[i],
-+                                    load.segments.h, i, 1) )
-+        {
-+            ret = -EFAULT;
-+            goto error;
-+        }
-     }
- 
-     ret = kimage_alloc(&kimage, load.type, load.arch, load.entry_maddr,
-@@ -1132,6 +1144,13 @@ static int kexec_load(XEN_GUEST_HANDLE_PARAM(void) uarg)
-     if ( ret < 0 )
-         goto error;
- 
-+    if ( load.type == KEXEC_TYPE_CRASH_EFI )
-+    {
-+        ret = kimage_efi_setup(kimage, load.parameters);
-+        if ( ret )
-+            return ret;
-+    }
-+
-     ret = kexec_load_slot(kimage);
-     if ( ret < 0 )
-         goto error;
-@@ -1235,7 +1254,9 @@ static int do_kexec_op_internal(unsigned long op,
-                 ret = kexec_get_range(uarg);
-         break;
-     case KEXEC_CMD_kexec_load_v1:
--        if ( compat )
-+        if ( is_locked_down() )
-+            ret = -EPERM;
-+        else if ( compat )
-             ret = kexec_load_v1_compat(uarg);
-         else
-             ret = kexec_load_v1(uarg);
-diff --git a/xen/common/kimage.c b/xen/common/kimage.c
-index 6202491f7e..69833d3ba6 100644
---- a/xen/common/kimage.c
-+++ b/xen/common/kimage.c
-@@ -19,10 +19,21 @@
- #include <xen/guest_access.h>
- #include <xen/mm.h>
- #include <xen/kexec.h>
-+#include <xen/x86-linux.h>
- #include <xen/kimage.h>
-+#include <xen/sha2.h>
- 
- #include <asm/page.h>
- 
-+#define KIMAGE_SHA256_REGIONS 16
-+
-+typedef struct
-+{
-+    uint64_t start;
-+    uint64_t len;
-+}
-+sha256_region_t;
-+
- /*
-  * When kexec transitions to the new kernel there is a one-to-one
-  * mapping between physical and virtual addresses.  On processors
-@@ -83,7 +94,7 @@ static struct page_info *kimage_alloc_zeroed_page(unsigned memflags)
- 
- static int do_kimage_alloc(struct kexec_image **rimage, paddr_t entry,
-                            unsigned long nr_segments,
--                           xen_kexec_segment_t *segments, uint8_t type)
-+                           struct kimage_segment *segments, uint8_t type)
- {
-     struct kexec_image *image;
-     unsigned long i;
-@@ -106,29 +117,6 @@ static int do_kimage_alloc(struct kexec_image **rimage, paddr_t entry,
-     INIT_PAGE_LIST_HEAD(&image->dest_pages);
-     INIT_PAGE_LIST_HEAD(&image->unusable_pages);
- 
--    /*
--     * Verify we have good destination addresses.  The caller is
--     * responsible for making certain we don't attempt to load the new
--     * image into invalid or reserved areas of RAM.  This just
--     * verifies it is an address we can use.
--     *
--     * Since the kernel does everything in page size chunks ensure the
--     * destination addresses are page aligned.  Too many special cases
--     * crop of when we don't do this.  The most insidious is getting
--     * overlapping destination addresses simply because addresses are
--     * changed to page size granularity.
--     */
--    result = -EADDRNOTAVAIL;
--    for ( i = 0; i < nr_segments; i++ )
--    {
--        paddr_t mstart, mend;
--
--        mstart = image->segments[i].dest_maddr;
--        mend   = mstart + image->segments[i].dest_size;
--        if ( (mstart & ~PAGE_MASK) || (mend & ~PAGE_MASK) )
--            goto out;
--    }
--
-     /*
-      * Verify our destination addresses do not overlap.  If we allowed
-      * overlapping destination addresses through very weird things can
-@@ -208,23 +196,18 @@ out:
- 
- static int kimage_normal_alloc(struct kexec_image **rimage, paddr_t entry,
-                                unsigned long nr_segments,
--                               xen_kexec_segment_t *segments)
-+                               struct kimage_segment *segments)
- {
-     return do_kimage_alloc(rimage, entry, nr_segments, segments,
-                            KEXEC_TYPE_DEFAULT);
- }
- 
--static int kimage_crash_alloc(struct kexec_image **rimage, paddr_t entry,
--                              unsigned long nr_segments,
--                              xen_kexec_segment_t *segments)
-+static int do_kimage_crash_alloc(struct kexec_image **rimage, paddr_t entry,
-+                                 unsigned long nr_segments,
-+                                 struct kimage_segment *segments)
- {
-     unsigned long i;
- 
--    /* Verify we have a valid entry point */
--    if ( (entry < kexec_crash_area.start)
--         || (entry > kexec_crash_area.start + kexec_crash_area.size))
--        return -EADDRNOTAVAIL;
--
-     /*
-      * Verify we have good destination addresses.  Normally
-      * the caller is responsible for making certain we don't
-@@ -254,6 +237,25 @@ static int kimage_crash_alloc(struct kexec_image **rimage, paddr_t entry,
-                            KEXEC_TYPE_CRASH);
- }
- 
-+static int kimage_crash_alloc(struct kexec_image **rimage, paddr_t entry,
-+                              unsigned long nr_segments,
-+                              struct kimage_segment *segments)
-+{
-+    /* Verify we have a valid entry point */
-+    if ( (entry < kexec_crash_area.start)
-+         || (entry > kexec_crash_area.start + kexec_crash_area.size))
-+        return -EADDRNOTAVAIL;
-+
-+    return do_kimage_crash_alloc(rimage, entry, nr_segments, segments);
-+}
-+
-+static int kimage_crash_alloc_efi(struct kexec_image **rimage, paddr_t entry,
-+                                  unsigned long nr_segments,
-+                                  struct kimage_segment *segments)
-+{
-+    return do_kimage_crash_alloc(rimage, entry, nr_segments, segments);
-+}
-+
- static int kimage_is_destination_range(struct kexec_image *image,
-                                        paddr_t start,
-                                        paddr_t end)
-@@ -666,7 +668,7 @@ found:
- }
- 
- static int kimage_load_normal_segment(struct kexec_image *image,
--                                      xen_kexec_segment_t *segment)
-+                                      struct kimage_segment *segment)
- {
-     unsigned long to_copy;
-     unsigned long src_offset;
-@@ -719,7 +721,7 @@ static int kimage_load_normal_segment(struct kexec_image *image,
- }
- 
- static int kimage_load_crash_segment(struct kexec_image *image,
--                                     xen_kexec_segment_t *segment)
-+                                     struct kimage_segment *segment)
- {
-     /*
-      * For crash dumps kernels we simply copy the data from user space
-@@ -727,12 +729,14 @@ static int kimage_load_crash_segment(struct kexec_image *image,
-      */
-     paddr_t dest;
-     unsigned long sbytes, dbytes;
-+    unsigned int dest_offset;
-     int ret = 0;
-     unsigned long src_offset = 0;
- 
-     sbytes = segment->buf_size;
-     dbytes = segment->dest_size;
-     dest = segment->dest_maddr;
-+    dest_offset = segment->dest_offset;
- 
-     while ( dbytes )
-     {
-@@ -742,30 +746,35 @@ static int kimage_load_crash_segment(struct kexec_image *image,
- 
-         dest_mfn = dest >> PAGE_SHIFT;
- 
--        dchunk = PAGE_SIZE;
-+        dchunk = PAGE_SIZE - dest_offset;
-         schunk = min(dchunk, sbytes);
- 
-         dest_va = map_domain_page(_mfn(dest_mfn));
-         if ( !dest_va )
-             return -EINVAL;
- 
--        ret = copy_from_guest_offset(dest_va, segment->buf.h, src_offset, schunk);
-+        if ( dest_offset )
-+            memset(dest_va, 0, dest_offset);
-+        ret = copy_from_guest_offset(dest_va + dest_offset, segment->buf.h,
-+                                     src_offset, schunk);
-         memset(dest_va + schunk, 0, dchunk - schunk);
- 
-         unmap_domain_page(dest_va);
-         if ( ret )
-             return -EFAULT;
- 
--        dbytes -= dchunk;
-+        dbytes -= dchunk + dest_offset;
-         sbytes -= schunk;
--        dest += dchunk;
-+        dest += dchunk + dest_offset;
-         src_offset += schunk;
-+        dest_offset = 0;
-     }
- 
-     return 0;
- }
- 
--static int kimage_load_segment(struct kexec_image *image, xen_kexec_segment_t *segment)
-+static int kimage_load_segment(struct kexec_image *image,
-+                               struct kimage_segment *segment)
- {
-     int result = -ENOMEM;
-     paddr_t addr;
-@@ -795,10 +804,30 @@ static int kimage_load_segment(struct kexec_image *image, xen_kexec_segment_t *s
- }
- 
- int kimage_alloc(struct kexec_image **rimage, uint8_t type, uint16_t arch,
--                 uint64_t entry_maddr,
--                 uint32_t nr_segments, xen_kexec_segment_t *segment)
-+                 uint64_t entry_maddr, uint32_t nr_segments,
-+                 struct kimage_segment *segment)
- {
-     int result;
-+    unsigned int i;
-+
-+    for ( i = 0; i < nr_segments; i++ )
-+    {
-+        paddr_t mend;
-+
-+        /*
-+         * Stash the destination offset-in-page for use when copying the
-+         * buffer later.
-+         */
-+        segment[i].dest_offset = PAGE_OFFSET(segment[i].dest_maddr);
-+
-+        /*
-+         * Align down the start address to page size and align up the end
-+         * address to page size.
-+         */
-+        mend = segment[i].dest_maddr + segment[i].dest_size;
-+        segment[i].dest_maddr &= PAGE_MASK;
-+        segment[i].dest_size = ROUNDUP(mend, PAGE_SIZE) - segment[i].dest_maddr;
-+    }
- 
-     switch( type )
-     {
-@@ -808,6 +837,10 @@ int kimage_alloc(struct kexec_image **rimage, uint8_t type, uint16_t arch,
-     case KEXEC_TYPE_CRASH:
-         result = kimage_crash_alloc(rimage, entry_maddr, nr_segments, segment);
-         break;
-+    case KEXEC_TYPE_CRASH_EFI:
-+        result = kimage_crash_alloc_efi(rimage, entry_maddr,
-+                                        nr_segments, segment);
-+        break;
-     default:
-         result = -EINVAL;
-         break;
-@@ -939,6 +972,153 @@ done:
-     return ret;
- }
- 
-+static int kimage_calc_one_digest(struct sha2_256_state *ctx,
-+                                  struct kimage_segment *segment)
-+{
-+    paddr_t dest;
-+    unsigned long sbytes;
-+    unsigned int dest_offset;
-+    int ret = 0;
-+
-+    sbytes = segment->buf_size;
-+    dest = segment->dest_maddr + segment->dest_offset;
-+    dest_offset = segment->dest_offset;
-+
-+    while ( sbytes )
-+    {
-+        unsigned long dest_mfn;
-+        void *dest_va;
-+        size_t schunk, dchunk;
-+
-+        dest_mfn = dest >> PAGE_SHIFT;
-+
-+        dchunk = PAGE_SIZE - dest_offset;
-+        schunk = min(dchunk, sbytes);
-+
-+        dest_va = map_domain_page(_mfn(dest_mfn));
-+        if ( !dest_va )
-+            return -EINVAL;
-+
-+        sha2_256_update(ctx, dest_va + dest_offset, schunk);
-+
-+        unmap_domain_page(dest_va);
-+        if ( ret )
-+            return -EFAULT;
-+
-+        sbytes -= schunk;
-+        dest += dchunk;
-+        dest_offset = 0;
-+    }
-+    return 0;
-+}
-+
-+static int kimage_calc_digest(const struct kexec_image *image,
-+                              uint8_t digest[SHA2_256_DIGEST_SIZE])
-+{
-+    int ret;
-+    sha256_region_t regions[KIMAGE_SHA256_REGIONS] = {{0}};
-+    struct sha2_256_state ctx;
-+    unsigned int s;
-+
-+    if ( image->nr_segments > KIMAGE_SHA256_REGIONS )
-+    {
-+        dprintk(XENLOG_DEBUG, "More segments than allocated SHA256 regions\n");
-+        return -E2BIG;
-+    }
-+
-+
-+    sha2_256_init(&ctx);
-+
-+    for ( s = 0; s < image->nr_segments; s++ ) {
-+        ret = kimage_calc_one_digest(&ctx, &image->segments[s]);
-+        if ( ret )
-+            return ret;
-+
-+        regions[s].start = image->segments[s].dest_maddr +
-+                           image->segments[s].dest_offset;
-+        regions[s].len = image->segments[s].buf_size;
-+    }
-+
-+    sha2_256_final(&ctx, digest);
-+    return 0;
-+}
-+
-+int kimage_verify_digest(const struct kexec_image *image)
-+{
-+    uint8_t digest[SHA2_256_DIGEST_SIZE];
-+    int ret;
-+
-+    ret = kimage_calc_digest(image, digest);
-+    if ( ret )
-+        return ret;
-+
-+    if ( memcmp(digest, image->digest, sizeof(digest)) != 0 )
-+        return 1;
-+
-+    return 0;
-+}
-+
-+/*
-+ * Find the entry point to the new kernel, we need to map the crash region into
-+ * memory in order to read the kernel header.
-+ */
-+#define KERNEL_SEGMENT_IDX 0
-+static uint64_t kimage_find_kernel_entry_maddr(struct kexec_image *image)
-+{
-+    uint64_t alignment_addr;
-+    uint32_t alignment;
-+    unsigned long dest_mfn;
-+    void *dest_va;
-+
-+    alignment_addr = image->segments[KERNEL_SEGMENT_IDX].dest_maddr +
-+                         image->segments[KERNEL_SEGMENT_IDX].dest_offset +
-+                         offsetof(struct setup_header, kernel_alignment);
-+
-+    dest_mfn = alignment_addr >> PAGE_SHIFT;
-+    dest_va = map_domain_page(_mfn(dest_mfn));
-+    if ( !dest_va )
-+        return -EINVAL;
-+
-+    alignment = *((uint32_t *) ((uint8_t *) dest_va +
-+                                                PAGE_OFFSET(alignment_addr)));
-+
-+    unmap_domain_page(dest_va);
-+
-+    /*
-+     * Ensure the kernel alignment is a valid LOAD_PHYSICAL_ADDR,
-+     * which ranges from 0x200000 (2MiB) to 0x1000000 (16Mib) on 64-bit systems
-+     * as defined in the kernel x86 Kconfig
-+     */
-+    if ( alignment % 0x200000 != 0 ||
-+         alignment < 0x200000 ||
-+         alignment > 0x1000000 )
-+        return -EINVAL;
-+
-+    return ROUNDUP(image->segments[KERNEL_SEGMENT_IDX].dest_maddr +
-+                       image->segments[KERNEL_SEGMENT_IDX].dest_offset,
-+                   alignment) +
-+                   0x200;
-+}
-+
-+int kimage_efi_setup(struct kexec_image *image, uint64_t parameters)
-+{
-+    int ret;
-+    int64_t rip;
-+
-+    ret = kimage_calc_digest(image, image->digest);
-+    if ( ret )
-+        return ret;
-+
-+    rip = kimage_find_kernel_entry_maddr(image);
-+    if ( rip < 0 )
-+        return -EINVAL;
-+
-+    image->efi_boot_params = parameters;
-+    image->entry_maddr = rip;
-+
-+    return 0;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/include/public/kexec.h b/xen/include/public/kexec.h
-index 40d79e936b..9bc94c6fd6 100644
---- a/xen/include/public/kexec.h
-+++ b/xen/include/public/kexec.h
-@@ -56,15 +56,24 @@
- /*
-  * Kexec supports two types of operation:
-  * - kexec into a regular kernel, very similar to a standard reboot
-- *   - KEXEC_TYPE_DEFAULT is used to specify this type
-+ *   - KEXEC_TYPE_DEFAULT or KEXEC_TYPE_DEFAULT_EFI are used to specify
-+ *     this type
-+ *   - in case of KEXEC_TYPE_DEFAULT_EFI the first segment will
-+ *     point to full kernel to load and entry point will point to
-+ *     parameters
-  * - kexec into a special "crash kernel", aka kexec-on-panic
-- *   - KEXEC_TYPE_CRASH is used to specify this type
-+ *   - KEXEC_TYPE_CRASH or KEXEC_TYPE_CRASH_EFI are used to specify this
-+ *     type
-+ *   - see above for differences between KEXEC_TYPE_CRASH and
-+ *     KEXEC_TYPE_CRASH_EFI
-  *   - parts of our system may be broken at kexec-on-panic time
-  *     - the code should be kept as simple and self-contained as possible
-  */
- 
--#define KEXEC_TYPE_DEFAULT 0
--#define KEXEC_TYPE_CRASH   1
-+#define KEXEC_TYPE_DEFAULT     0
-+#define KEXEC_TYPE_CRASH       1
-+#define KEXEC_TYPE_DEFAULT_EFI 2
-+#define KEXEC_TYPE_CRASH_EFI   3
- 
- 
- /* The kexec implementation for Xen allows the user to load two
-@@ -195,7 +204,11 @@ typedef struct xen_kexec_load {
-         XEN_GUEST_HANDLE(xen_kexec_segment_t) h;
-         uint64_t _pad;
-     } segments;
--    uint64_t entry_maddr; /* image entry point machine address. */
-+    /* image entry point machine address or parameters in case of EFI. */
-+    union {
-+        uint64_t entry_maddr;
-+        uint64_t parameters;
-+    };
- } xen_kexec_load_t;
- DEFINE_XEN_GUEST_HANDLE(xen_kexec_load_t);
- 
-diff --git a/xen/include/xen/kimage.h b/xen/include/xen/kimage.h
-index fccba1d88d..5bfb678897 100644
---- a/xen/include/xen/kimage.h
-+++ b/xen/include/xen/kimage.h
-@@ -11,18 +11,30 @@
- 
- #include <xen/list.h>
- #include <xen/mm.h>
-+#include <xen/sha2.h>
- #include <public/kexec.h>
- 
- #define KEXEC_SEGMENT_MAX 16
- 
- typedef paddr_t kimage_entry_t;
- 
-+struct kimage_segment {
-+    union {
-+        XEN_GUEST_HANDLE(const_void) h;
-+        uint64_t _pad;
-+    } buf;
-+    uint64_t buf_size;
-+    uint64_t dest_maddr;
-+    uint64_t dest_size;
-+    unsigned int dest_offset;
-+};
-+
- struct kexec_image {
-     uint8_t type;
-     uint16_t arch;
-     uint64_t entry_maddr;
-     uint32_t nr_segments;
--    xen_kexec_segment_t *segments;
-+    struct kimage_segment *segments;
- 
-     kimage_entry_t head;
-     struct page_info *entry_page;
-@@ -37,11 +49,16 @@ struct kexec_image {
- 
-     /* Address of next control page to allocate for crash kernels. */
-     paddr_t next_crash_page;
-+
-+    uint8_t digest[SHA2_256_DIGEST_SIZE];
-+
-+    /* Address of boot params. Will be loaded into %rsi. For EFI kexec only. */
-+    uint64_t efi_boot_params;
- };
- 
- int kimage_alloc(struct kexec_image **rimage, uint8_t type, uint16_t arch,
-                  uint64_t entry_maddr,
--                 uint32_t nr_segments, xen_kexec_segment_t *segment);
-+                 uint32_t nr_segments, struct kimage_segment *segment);
- void kimage_free(struct kexec_image *image);
- int kimage_load_segments(struct kexec_image *image);
- struct page_info *kimage_alloc_control_page(struct kexec_image *image,
-@@ -52,6 +69,8 @@ mfn_t kimage_entry_mfn(kimage_entry_t *entry, bool compat);
- unsigned long kimage_entry_ind(kimage_entry_t *entry, bool compat);
- int kimage_build_ind(struct kexec_image *image, mfn_t ind_mfn,
-                      bool compat);
-+int kimage_efi_setup(struct kexec_image *image, uint64_t parameters);
-+int kimage_verify_digest(const struct kexec_image *image);
- 
- #endif /* __ASSEMBLER__ */
- 
-diff --git a/xen/include/xen/x86-linux.h b/xen/include/xen/x86-linux.h
-new file mode 100644
-index 0000000000..940d830323
---- /dev/null
-+++ b/xen/include/xen/x86-linux.h
-@@ -0,0 +1,62 @@
-+/*
-+ * This file was extracted from x86-linux.h in kexec-tools
-+ *
-+ * Copyright (C) 2003-2010  Eric Biederman (ebiederm@xmission.com)
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation (version 2 of the License).
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU General Public License
-+ * along with this program; if not, write to the Free Software
-+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-+ */
-+
-+#ifndef X86_LINUX_H
-+#define X86_LINUX_H
-+
-+struct __packed setup_header {
-+    uint8_t         _pad0[0x1f1];           /* skip uninteresting stuff */
-+    uint8_t         setup_sects;
-+    uint16_t        root_flags;
-+    uint32_t        syssize;
-+    uint16_t        ram_size;
-+    uint16_t        vid_mode;
-+    uint16_t        root_dev;
-+    uint16_t        boot_flag;
-+    uint16_t        jump;
-+    uint32_t        header;
-+#define HDR_MAGIC               "HdrS"
-+#define HDR_MAGIC_SZ    4
-+    uint16_t        version;
-+#define VERSION(h,l)    (((h)<<8) | (l))
-+    uint32_t        realmode_swtch;
-+    uint16_t        start_sys;
-+    uint16_t        kernel_version;
-+    uint8_t         type_of_loader;
-+    uint8_t         loadflags;
-+    uint16_t        setup_move_size;
-+    uint32_t        code32_start;
-+    uint32_t        ramdisk_image;
-+    uint32_t        ramdisk_size;
-+    uint32_t        bootsect_kludge;
-+    uint16_t        heap_end_ptr;
-+    uint16_t        _pad1;
-+    uint32_t        cmd_line_ptr;
-+    uint32_t        initrd_addr_max;
-+    uint32_t        kernel_alignment;
-+    uint8_t         relocatable_kernel;
-+    uint8_t         _pad2[3];
-+    uint32_t        cmdline_size;
-+    uint32_t        hardware_subarch;
-+    uint64_t        hardware_subarch_data;
-+    uint32_t        payload_offset;
-+    uint32_t        payload_length;
-+};
-+
-+#endif /* X86_LINUX_H */
--- 
-2.52.0
-
+> ---
+>  xen/drivers/char/ns16550.c | 30 +++++++++++++++---------------
+>  1 file changed, 15 insertions(+), 15 deletions(-)
+> 
+> diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+> index 878da27f2e..ed4e29ec25 100644
+> --- a/xen/drivers/char/ns16550.c
+> +++ b/xen/drivers/char/ns16550.c
+> @@ -758,7 +758,7 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+>          .reg_width = 1,
+>          .fifo_size = 16,
+>          .lsr_mask = (UART_LSR_THRE | UART_LSR_TEMT),
+> -        .mmio = 1,
+> +        .mmio = true,
+>          .max_ports = 1,
+>      },
+>      [param_oxford] = {
+> @@ -768,7 +768,7 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+>          .reg_width = 1,
+>          .fifo_size = 16,
+>          .lsr_mask = UART_LSR_THRE,
+> -        .mmio = 1,
+> +        .mmio = true,
+>          .max_ports = 1, /* It can do more, but we would need more custom code.*/
+>      },
+>      [param_oxford_2port] = {
+> @@ -778,7 +778,7 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+>          .reg_width = 1,
+>          .fifo_size = 16,
+>          .lsr_mask = UART_LSR_THRE,
+> -        .mmio = 1,
+> +        .mmio = true,
+>          .max_ports = 2,
+>      },
+>      [param_pericom_1port] = {
+> @@ -787,7 +787,7 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+>          .reg_width = 1,
+>          .fifo_size = 16,
+>          .lsr_mask = UART_LSR_THRE,
+> -        .bar0 = 1,
+> +        .bar0 = true,
+>          .max_ports = 1,
+>      },
+>      [param_pericom_2port] = {
+> @@ -796,7 +796,7 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+>          .reg_width = 1,
+>          .fifo_size = 16,
+>          .lsr_mask = UART_LSR_THRE,
+> -        .bar0 = 1,
+> +        .bar0 = true,
+>          .max_ports = 2,
+>      },
+>      /*
+> @@ -809,7 +809,7 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+>          .reg_width = 1,
+>          .fifo_size = 16,
+>          .lsr_mask = UART_LSR_THRE,
+> -        .bar0 = 1,
+> +        .bar0 = true,
+>          .max_ports = 4,
+>      },
+>      [param_pericom_8port] = {
+> @@ -818,7 +818,7 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+>          .reg_width = 1,
+>          .fifo_size = 16,
+>          .lsr_mask = UART_LSR_THRE,
+> -        .bar0 = 1,
+> +        .bar0 = true,
+>          .max_ports = 8,
+>      },
+>      [param_exar_xr17v352] = {
+> @@ -827,8 +827,8 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+>          .reg_width = 1,
+>          .fifo_size = 256,
+>          .lsr_mask = UART_LSR_THRE,
+> -        .bar0 = 1,
+> -        .mmio = 1,
+> +        .bar0 = true,
+> +        .mmio = true,
+>          .max_ports = 2,
+>      },
+>      [param_exar_xr17v354] = {
+> @@ -837,8 +837,8 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+>          .reg_width = 1,
+>          .fifo_size = 256,
+>          .lsr_mask = UART_LSR_THRE,
+> -        .bar0 = 1,
+> -        .mmio = 1,
+> +        .bar0 = true,
+> +        .mmio = true,
+>          .max_ports = 4,
+>      },
+>      [param_exar_xr17v358] = {
+> @@ -847,8 +847,8 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+>          .reg_width = 1,
+>          .fifo_size = 256,
+>          .lsr_mask = UART_LSR_THRE,
+> -        .bar0 = 1,
+> -        .mmio = 1,
+> +        .bar0 = true,
+> +        .mmio = true,
+>          .max_ports = 8,
+>      },
+>      [param_intel_lpss] = {
+> @@ -857,8 +857,8 @@ static const struct ns16550_config_param __initconst uart_param[] = {
+>          .reg_width = 1,
+>          .fifo_size = 64,
+>          .lsr_mask = UART_LSR_THRE,
+> -        .bar0 = 1,
+> -        .mmio = 1,
+> +        .bar0 = true,
+> +        .mmio = true,
+>          .max_ports = 1,
+>      },
+>  };
+> -- 
+> 2.53.0
+> 
+> 
 
