@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +ONIHMS6HmrZJgAAu9opvQ
+	id oHClCFK8HmrZJgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 13:13:08 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 13:19:46 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C25F262D325
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 13:13:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1324755.1590251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8726A62D51F
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 13:19:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1324761.1590260 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUN2r-0007QZ-Bp; Tue, 02 Jun 2026 11:12:29 +0000
+	id 1wUN9h-00081T-VI; Tue, 02 Jun 2026 11:19:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1324755.1590251; Tue, 02 Jun 2026 11:12:29 +0000
+Received: by outflank-mailman (output) from mailman id 1324761.1590260; Tue, 02 Jun 2026 11:19:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUN2r-0007Ot-8H; Tue, 02 Jun 2026 11:12:29 +0000
-Received: by outflank-mailman (input) for mailman id 1324755;
- Tue, 02 Jun 2026 11:12:28 +0000
+	id 1wUN9h-0007yf-SN; Tue, 02 Jun 2026 11:19:33 +0000
+Received: by outflank-mailman (input) for mailman id 1324761;
+ Tue, 02 Jun 2026 11:19:32 +0000
 Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wUN2q-0007On-KK
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 11:12:28 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) id 1wUN9g-0007yZ-FB
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 11:19:32 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUN2q-003Mtl-0G
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 13:12:28 +0200
+ id 1wUN9f-003O7m-NR
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 13:19:31 +0200
 Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a1eba8d-5cb7-0a2a0a5109dd-0a2a4503b286-44
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 13:12:27 +0200
-Received: from [209.85.128.50] (helo=mail-wm1-f50.google.com)
+ id 6a1ebc42-bab6-0a2a0a5309dd-0a2a45039442-4
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 13:19:31 +0200
+Received: from [209.85.128.48] (helo=mail-wm1-f48.google.com)
  by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a1eba9b-672d-0a2a45030019-d1558032d5b4-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 13:12:27 +0200
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-49068493267so64181865e9.1
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 04:12:27 -0700 (PDT)
+ id 6a1ebc43-672d-0a2a45030019-d1558030f052-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 13:19:31 +0200
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-490af320e2aso13014695e9.2
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 04:19:31 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490b0e26050sm51885895e9.9.2026.06.02.04.12.26
+ 5b1f17b1804b1-490af60e03esm55658725e9.2.2026.06.02.04.19.30
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jun 2026 04:12:26 -0700 (PDT)
+ Tue, 02 Jun 2026 04:19:30 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,60 +57,57 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780398747; x=1781003547; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1780399171; x=1781003971; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=JPxX7Ifv6lWigOe60Y2kDbhE8ZcrRgMOLX0pCJtp43o=;
-        b=ScpQMwjBF8/0+W4SElZzZoq/xhvRN4lFLlMu5ZIAGVciRgrpaNR2U3vU+owJOa7c+u
-         0aMWcr/5+5V4VH5xfdpsibeP5QSGgk2xsK3PHlM1Fe6Yl7XcTeZtlGx/gBQ9lZRrFJDg
-         LjipejvWVX1JSt8TO+xGct48FypZETDk3XZ0HAxBgWpUG/FbYOOqczmGzP4SVPMHv2pg
-         kZ/u2bTDhuIlydn7GyCWiFQBzNH2SYRjc63EZgxIqT0YnGJoUOOGaeTwj9+7ZzDv1NwW
-         LsKXosxyamM6jLkKHouYuReQhgqGN5eXQddob96nG7dXQ6VYmfbZndzEvt8efhGWRKOz
-         WA+w==
+        bh=mifwehXoMSqIw7W1QXJjwradM9rlYRoCGjKURdYbg28=;
+        b=Lx5JoFRe59mwKjrlKXNrDleZYVuYwNbl8NdSH/aDMBXPjXadVfpHJywfUu+1RMDe44
+         OINM+9WqmyqN1WW6RHUeiGTvUhwwyN4dNR4SchK7FRmnycDOCgLbfUfb+Nb8iOVM0FMT
+         xOsAH7IyV9avFQGjibse93HuvaAIn7h/7ZMO1xRFT/g9quoJ4+ZhS7dya7kRPkMH9TDM
+         IcWk9rFVMB/rxN73vthfuWv0y7iCB/C+RvG2FCUdf7CsqRK0B0jr0+r6sMOkGUjV6MwH
+         +OHK7HFmzd7Fe8C4soMO5k+KBLSkF41iO5TAY2pMOrBZAf9+obSwbi/Ko8J0ar6bTZ7Y
+         kbdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780398747; x=1781003547;
+        d=1e100.net; s=20251104; t=1780399171; x=1781003971;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=JPxX7Ifv6lWigOe60Y2kDbhE8ZcrRgMOLX0pCJtp43o=;
-        b=n53eV6v+jUplAcfZ3Ml/gVbDrKbxemO4CqSbWcJK7T5aQFMt+Xdr400H938Nwb5oGp
-         UQZ2EDsp+INK5iZpWDNYFc4/W5AWizHenR7kPdQXLxL7Yqr8JDd2nKBsL+nthEASdKYx
-         h+sEw2dzLTWa4nheLHrxMish4fMVz9slDZi+5mXoaEF3ruiYhwgzX2tlFjVwCOTMNwqX
-         W4R7y25pKqU5fARFM4omTfavqbiZ9sL3RBxTzWOiNEh2NropdgcNpAOTtDcVY1nhXF/Y
-         Y4oPgt4/z7CItvtYnCdwEOQfCuOejO1wmJiE2h/wKzYABbpuuA4OEFAf39vaKLQQ1LNV
-         eEeg==
-X-Forwarded-Encrypted: i=1; AFNElJ8Hkb+WxC5KcjQHKiwJkeicFhiwvDHDs/1+6kF21S/PRRo196B3kPI9QPFVQSepLPay5y0G/aUNb/w=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YxalQQGsnN7XNlu9xrSHVD+WbzHcL58fO3KFSKIGttQ3fUrmKkn
-	MemJiK5zdRkyd54FXIb79EEOIhpmfuHIU3J0C1DUYRuBQFYeH4jvDaj4ql7B5xkOIw==
-X-Gm-Gg: Acq92OFht4P3UWlq98PK10+V4MmHKVP+0T58TO7OvLzsm4rbIGt/i8jILKYgU9aXV5s
-	kqtbk48O0PBaSutNRJsY/CtVKWhkkZtaHdFd/D6Mmo+a061MWU/fyKe1EQZASKVv/wQdVShghco
-	Ffz5FLgpYTkDwqKd1NGKM0n5g+5hM4RVbJlQBvrWrr+na1DWsc8onq2QFzBsOvvMTytMrhTXVYp
-	UAmYPoT0qqKOZVo+0kUxcZaSkt9clh9Bjb0uIVYIvMcMmL7vFNiSZzXMSglL+Suz+uRJG8iIh3S
-	u4OduR7IQxchvKeUGjRB1N0uDVy/MUb4V50seUTRB4Ma2cgj+NebtqhP9yryEfJ80UNdMi8Udek
-	LOjZrpXlWuPjP6lIV8yobRAugf1zwIlCAr504s0mEbb/v7gJYzak5ViKbZ6r2kVxAykKlvT/Gy1
-	cMkYUtLNrS25alfpHUQtm2OexyYDydp6Q+vEWwc+IJ0fdbpqMKQ0IJaYH8NxkQsmEmNESaInW3n
-	52mFdPchNRzbPFHJi8eNmO6oA==
-X-Received: by 2002:a05:600c:c48e:b0:490:a646:9d75 with SMTP id 5b1f17b1804b1-490a6469ec3mr220373435e9.9.1780398747168;
-        Tue, 02 Jun 2026 04:12:27 -0700 (PDT)
-Message-ID: <ea33e3e0-f9b3-4641-b5d4-281b5ce61c9e@suse.com>
-Date: Tue, 2 Jun 2026 13:12:34 +0200
+        bh=mifwehXoMSqIw7W1QXJjwradM9rlYRoCGjKURdYbg28=;
+        b=nBqAoiKNmNF+09NO5KogJjZnAR+rEapluOVgMRaJStYlY9Wsy3o9QPGI0QlqcueTBh
+         LifgR2/S3SUi/wavKffUF081hGSV/MrkEK3BX1BTDt9XvhAIHbR6F+xAQOc42fa+S0tj
+         SIgaFtKoaV3MkNkSYK05XdNcyjP0dCR3q1Yqt2hcvNzcS62Fb261eolxULuU0SDH8460
+         d2oQV4/D+z2gTjRWSPAkwBwIvSwYeqMHZPO6QApMckL0w6bY1pMceMitiLGBqHKyJINE
+         ylclNEOBS/Wpr0zGM0knnvuhFE+oUtH0hZ0VWA5cpAuGIzj8Gbq1kASLDsHrF4IfKd+o
+         U6iw==
+X-Forwarded-Encrypted: i=1; AFNElJ/GSkKNDkx1xHK9cRiEsX8NyJLONSIUOL+h+kG/Onb/T/P+MiMhe0MvWnVtcT299DDIE/HKbn2hY4w=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yw1/QyDG1avHFwE32Vi1iYE9DWrIRM2pu6JBMKmlmFOGVRXCQ2J
+	qixZ1r4LaqMxgVORhUI6THFdio3pxlWKmoEI4L+7l0rUg2Kh9WjB9dQHrrg/CVXC4Q==
+X-Gm-Gg: Acq92OER2JTbWI9Le2ByQeI9evlvst6a9/wP5OV4q9NFOG3QBPTu/4QE+yO6mD+3R8v
+	He2Qd0yaCWKgsyKZSQPBqtX6ArSINP7VCiQ2Pxjdi6MxbqNfLKZv5Tt8lXjxeNBseQGTXvlq+Zr
+	Wtfd+lb8MSj98AGiwEdWQLzGuqxqlJEm+nxZAxA5hdr8qUiT/eMduEKVDhGJQswOD8WvYvh28Td
+	V3TuhK5pTLbPSWmWhXukvEZTVlvoutz4GtPqtDetkf8D9HWHQSpjRirn/ubFSmhFPWL+hGC6cve
+	ECzIS2R3sfvB52OeULqi9VULCgrPwxRbjcHw3ke2FUSgp+LpB3Ga4ieUAa2xazzU+AQ4Y2GCO9L
+	wXDA5Xw778u5DARZ+YLmqaN8lGlFK1f/tILv07ulIQ+PHAn2lbdpzfhLkPDw9GOmgIb/JZ6AF+p
+	bNObdHwA6tS9Mfnzbap0YpmCyOVbH0BvogCNU1ZhXSQSLC/bloWAh4Vq5WdngT8hhuF23JfbO/T
+	tZl4rkVzuouXhrtTXdFLDbt3w==
+X-Received: by 2002:a05:600c:8508:b0:489:c57:7836 with SMTP id 5b1f17b1804b1-490a2952644mr245616135e9.27.1780399170910;
+        Tue, 02 Jun 2026 04:19:30 -0700 (PDT)
+Message-ID: <3aef7763-aea3-496a-8c18-d3659f590373@suse.com>
+Date: Tue, 2 Jun 2026 13:19:37 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] xen/riscv: fix switch_stack_and_jump() for range
- beyond 1M
+Subject: Re: [PATCH v2 2/3] xen/domain: fix UBSAN null pointer dereference of
+ d->shared_info
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Baptiste Le Duc <baptiste.le-duc@vates.tech>, xen-devel@lists.xenproject.org
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
 References: <cover.1779712171.git.oleksii.kurochko@gmail.com>
- <21bc40d4a09bb4cfe0999430ea7e65b369fd4033.1779712171.git.oleksii.kurochko@gmail.com>
+ <04dd784b6b9a4dfca9a313ea8802d8d514d65021.1779712171.git.oleksii.kurochko@gmail.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -136,33 +133,32 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <21bc40d4a09bb4cfe0999430ea7e65b369fd4033.1779712171.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <04dd784b6b9a4dfca9a313ea8802d8d514d65021.1779712171.git.oleksii.kurochko@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-33051d/1780398747-39B7C938-C9F6D9E3/10/73395122804
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-33051d/1780399171-3957F938-29CF1648/10/73395122804
 X-purgate-type: spam
-X-purgate-size: 1055
-X-Rspamd-Queue-Id: C25F262D325
+X-purgate-size: 3170
+X-Rspamd-Queue-Id: 8726A62D51F
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [0.31 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:baptiste.le-duc@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,vates.tech:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -173,35 +169,77 @@ X-Spamd-Result: default: False [0.31 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
 On 25.05.2026 15:20, Oleksii Kurochko wrote:
-> The `j` instruction (JAL x0) used in switch_stack_and_jump() is a
-> J-type instruction with only a ±1MB range, and that this can
-> be exceeded in some configurations, causing a linker error:
+> It is legal to have d->shared_info equal to NULL for architectures which
+> support only the FIFO ABI for event channel management.
 > 
->   relocation truncated to fit: R_RISCV_JAL against `<symbol>'
+> Having d->shared_info == NULL leads to a UBSAN issue on such architectures:
+>   UBSAN: Undefined behaviour in common/domain.c:325:10
+>          member access within null pointer of type 'struct shared_info_t'
 > 
-> Replace `j` with `jr` (JALR x0) via an explicit register, which has
-> unlimited range.
+> vcpu_info_reset() maps v->vcpu_info_area.map to the per-vcpu slot inside
+> the domain's shared_info page for vcpus with id < XEN_LEGACY_MAX_VCPUS,
+> and falls back to dummy_vcpu_info for vcpus beyond that limit.
+> Extend the existing fallback condition to also cover the case where no
+> shared_info page has been allocated, mapping the vcpu to dummy_vcpu_info
+> instead. This is the correct behaviour: dummy_vcpu_info already serves
+> as the safe stand-in for vcpus that have no usable shared_info slot.
 > 
-> Found in a downstream branch when UBSAN instrumentation was enabled.
+> Additionally, if an architecture supports only the FIFO ABI, setup_ports()
+> should be updated to avoid a NULL pointer dereference of d->shared_info,
+> since in that case there will be no pending events in
+> shared_info->evtchn_pending and the pending flag of the FIFO event channel
+> does not need to be set to true.
+> update_domain_wallclock_time() accesses d->shared_info via shared_info()
+> macro. On architectures that do not allocate a shared_info page (currently
+> RISC-V, which runs guests in dom0less mode without the PV ABI), this causes
+> a NULL dereference. The early return is safe: if there is no shared_info
+> page, there is nothing to update. For all existing architectures (x86, ARM)
+> that do allocate it, the guard is never taken and behavior is unchanged.
 > 
-> Note that the `tail` instruction looks more natural here, but `jr` is
-> chosen instead to avoid depending on how the assembler expands `tail`
-> and which scratch register it uses (`t1` in GAS), which would need to
-> be listed in the clobber section of `asm volatile`.
-
-Hmm, looks like this indeed isn't standardized.
-
-> Fixes: e66003e7be199 ("xen/riscv: introduce setup_initial_pages")
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Reviewed-by: Baptiste Le Duc <baptiste.le-duc@vates.tech>
+> ---
+> Changes in v2:
+>  - Update commit message + subject.
+>  - Drop Fixes tag.
+>  - Handle migration of pending events from 2L and FIFO ABIs when arch
+>    support only FIFO ABI.
 
-Acked-by: Jan Beulich <jbeulich@suse.com>
+What does this item describe? On an arch supporting only FIFO, how could
+evtchn need migrating from 2L?
 
+>  - Update the commit message.
+>  - Protect some other places in common code from NULL pointer deref of
+>    d->shared_info.
+
+What I'm still missing is the description clarifying why other uses don't
+need guarding (or that there simply are no other uses, which - however -
+I doubt).
+
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -320,7 +320,7 @@ void vcpu_info_reset(struct vcpu *v)
+>      struct domain *d = v->domain;
+>  
+>      v->vcpu_info_area.map =
+> -        ((v->vcpu_id < XEN_LEGACY_MAX_VCPUS)
+> +        ((v->vcpu_id < XEN_LEGACY_MAX_VCPUS && d->shared_info)
+>           ? (vcpu_info_t *)&shared_info(d, vcpu_info[v->vcpu_id])
+>           : &dummy_vcpu_info);
+>  }
+
+At the example of this: The extra conditionals are dead code on x86 and
+Arm. While the status of the respective Misra rule is still uncertain
+for Xen, imo we'd be better off avoiding the introduction of new dead
+code. Which in turn means we may need some kind of abstraction to have
+these extra conditionals in place only for arch-es not supporting
+shared-info at all.
+
+Jan
 
