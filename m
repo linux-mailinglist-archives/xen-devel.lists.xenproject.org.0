@@ -2,51 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kIHpCQ2dHmq5CgAAu9opvQ
+	id oMw2ET6dHmq5CgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 11:06:21 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 11:07:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D2E662B0D3
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 11:06:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1324636.1590122 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70DE762B0FA
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 11:07:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1324641.1590132 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUL4I-0008LN-Qs; Tue, 02 Jun 2026 09:05:50 +0000
+	id 1wUL5P-0000Nn-50; Tue, 02 Jun 2026 09:06:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1324636.1590122; Tue, 02 Jun 2026 09:05:50 +0000
+Received: by outflank-mailman (output) from mailman id 1324641.1590132; Tue, 02 Jun 2026 09:06:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUL4I-0008JX-Nw; Tue, 02 Jun 2026 09:05:50 +0000
-Received: by outflank-mailman (input) for mailman id 1324636;
- Tue, 02 Jun 2026 09:05:49 +0000
+	id 1wUL5P-0000Kg-1O; Tue, 02 Jun 2026 09:06:59 +0000
+Received: by outflank-mailman (input) for mailman id 1324641;
+ Tue, 02 Jun 2026 09:06:57 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wUL4H-0008JR-Iq
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 09:05:49 +0000
+ (envelope-from <Michal.Orzel@amd.com>) id 1wUL5M-0000KU-Qx
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 09:06:57 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUL4G-00GH8S-Vu
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 11:05:48 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wUL5M-007Lch-3d
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 11:06:56 +0200
+Received: from [10.42.69.7] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a1e9ce8-bab6-0a2a0a5309dd-0a2a4506e56c-30
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 11:05:48 +0200
-Received: from [40.107.209.63]
- (helo=PH8PR06CU001.outbound.protection.outlook.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a1e9ce9-7371-0a2a45060019-286bd13f32b8-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 11:05:47 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by CH1PR03MB8143.namprd03.prod.outlook.com (2603:10b6:610:2b1::8)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a1e9d2d-5cb7-0a2a0a5109dd-0a2a450792fa-18
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 11:06:55 +0200
+Received: from [40.93.201.68]
+ (helo=CY3PR05CU001.outbound.protection.outlook.com)
+ by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <Michal.Orzel@amd.com>)
+ id 6a1e9d2d-229c-0a2a45070019-285dc944925b-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 11:06:55 +0200
+Received: from SA1P222CA0025.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:22c::10)
+ by IA4PR12MB9812.namprd12.prod.outlook.com (2603:10b6:208:55b::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
- 09:05:43 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
- 09:05:43 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
+ 09:06:49 +0000
+Received: from SN1PEPF000397AF.namprd05.prod.outlook.com
+ (2603:10b6:806:22c:cafe::20) by SA1P222CA0025.outlook.office365.com
+ (2603:10b6:806:22c::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.16 via Frontend Transport; Tue, 2
+ Jun 2026 09:06:48 +0000
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397AF.mail.protection.outlook.com (10.167.248.53) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 09:06:47 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 2 Jun
+ 2026 04:06:47 -0500
+Received: from [10.252.145.116] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Tue, 2 Jun 2026 04:06:45 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,218 +70,553 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=citrix.com header.i="@citrix.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
+Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=selector1 header.d=amd.com header.i="@amd.com" header.h="From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FaNdL00GVkpqDPBZTu0iJEjdwJdDpcGjUwnRMHUTfjmJGA2pOj5ORNgvWJu58bZRH3j2NG09LVFsBEaXBb/v5JN5Eu1Y/nrQqWmRbmCy9RsDsZqg15Kj7eUlLs8uSCrjUgP63ry1Jf7A5oBvS6zPYWrMTo/7ORQ7zBv3AYbGw4FDHiLwXJjjRzUEPqRVdwfSAPfhwelAjxJ6us6x0lNpM7k3EtxxXU1aWd3ap+oNmD/YIys1Tzo+Okk9HWzcATRwIOnvg0XK1y9lnzrQaNcVplfoGC7NA8igEzZGvUNBfXjZ6B4qsuP5P5vJVXMzqudHVZ+NpieK9u9PzuLKzc/n8Q==
+ b=Nc4lwAfGqKHcCQ1jph2bfqsnySFKz/G+ZyuyUwzcCALrG5wbQUTvnOUXvbWoBjAf/f4Hg3WadQGuHsy/kjKKVMgiDcdIiEUlVuivM9ryPusjABT0LpKRHCK6rpxo6efTNNEMYB3PKika6Xcs2E/hDm+VfEUhkrzgRluW5/gr5ddGRdTs5/PRbSL8U6bAeJz8xVo9HcK72ZlCvb5kqM1z1fyzdNEleiz6n8lGyZNpzEyxg+IDH5sN3fUajUPYT9zAqYkewzyY5D38gZ+6DJUlolBiGWuLOqOnEz87BmvmmPDvr/H9bdG18A90LZtCNfC2fccJlYxOzTfQWLtJ8f+MJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=t8HkXfuT5L+CYtuDLYF34Pm7Z96QNdCQBCWOoJi+drc=;
- b=ajMwfCzdTrmlUZX7CKcbbh3wDXDLk3BfVn0U3VfVyvNwPgGcblVcGdc/4n69AP5tOrFt7eJE31gHfSTcBstUZt1WvL2YoLqqZFZny7UBcZFtNFJ7nbmZGVXU796CHbBV34iBu3q63FItmdNxZsa/mWVJm+twJvw9q2Tf+EYC3R3peiY8RVOcHGQ+X2F5D4lQ32uKW183LIUOWc1dykyGGWfqGBvYkvoDIRw5P6tnwtfqbIGZimaEWQzmUqss+dmEVdunicGib8/jEsKkQS4VAkHGtRhlKMn25zVNoKndfi/KQRHE/T9j6DDIgt5vjIw8VlVlF0ESH0ENwYGvBw2k/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
+ bh=PajO6ydWs3LKJXZ80LVKPJjXwpAaZvgCd1Lf3j6U6aU=;
+ b=lrTUCplB78rYnqQgJOz4W29KunRQkJtLzrHpWLPCSyptnBZPI/OlFKCd59wmFQUBwtywiHiqER2lO3ctcn6xBkr9Lcy041Tv6KjXBCZ/ff8UxokpMYyJJ3lBCggv/GQRcZ38X0uwmNq7l8rsVMMiaccs911J0O/4DzFDFHzESp9/NvBRsNMFnovdKLd/O5X7S6jaUT9+uo5y0LYIG+GYZ4w420xk72CqRv9J5kBtN1e6eq+9i+bpn+/3GgNPoh2oe5evG04rSGyV4RViPwQzcET/Ej5E7FhKv+f8/2H/FKBI90NCngUsoqwYQbsYNTb53fY+Ql2O25HoPrujVgKyvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t8HkXfuT5L+CYtuDLYF34Pm7Z96QNdCQBCWOoJi+drc=;
- b=Ln71L7/epXvaV/ZyuqKYKJFC2ozgpJ5gJX2ph7mWXblvRz4s92vd43NetHUwdwoewI4ZmfJ5xisyU8xHbr3fc/zVmbMg9hGX1DUssC+nd/GwvbabhhjQHsKtm7ZVMylJrE+whQwBDZh6rQ3dileuFaB6PDPVw5yvR+aFaOJDdwc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Date: Tue, 2 Jun 2026 11:05:39 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: dmukhin@ford.com
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
-	anthony.perard@vates.tech, jbeulich@suse.com, julien@xen.org,
-	michal.orzel@amd.com, sstabellini@kernel.org
-Subject: Re: [PATCH v6 3/4] xen/console: use memcpy() in console_init_ring()
-Message-ID: <ah6c40-TkdJcFggM@macbook.local>
-References: <20260509005714.892018-1-dmukhin@ford.com>
- <20260509005714.892018-4-dmukhin@ford.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260509005714.892018-4-dmukhin@ford.com>
-X-ClientProxiedBy: MA3P292CA0070.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:49::7) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+ bh=PajO6ydWs3LKJXZ80LVKPJjXwpAaZvgCd1Lf3j6U6aU=;
+ b=gOF3yOhsLna8kSE5E/SBk9rzLhtGvDqC69lNiSPQ+mnKtYkjSmhsWQUXYyKgU6KUtPJV5UNZKFHQVDJ717ZYzNfUAQhnqpNqJleRFWBDzea9DPaBQ5Qzktv1O3olm/zm9FZIGGOrYMCJehUh/9i5uo6UWuI4fogcjQsUcrnGCvg=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Message-ID: <8d8b72d2-8188-4148-9812-0c116cc330e4@amd.com>
+Date: Tue, 2 Jun 2026 11:06:45 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH for-4.22] device-tree: validate first hwdom bank for boot
+ modules
+To: Mykola Kvach <xakep.amatop@gmail.com>, <xen-devel@lists.xenproject.org>
+CC: Mykola Kvach <mykola_kvach@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@vates.tech>, Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+References: <4f862bb2dc323914b8120b0f16af7516140cf42b.1780065103.git.mykola_kvach@epam.com>
+From: "Orzel, Michal" <michal.orzel@amd.com>
+Content-Language: en-US
+In-Reply-To: <4f862bb2dc323914b8120b0f16af7516140cf42b.1780065103.git.mykola_kvach@epam.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|CH1PR03MB8143:EE_
-X-MS-Office365-Filtering-Correlation-Id: a61705f6-265f-4069-e966-08dec0861fed
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397AF:EE_|IA4PR12MB9812:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35b024d6-3dfc-404f-c932-08dec08646de
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|56012099006|18002099003|22082099003|4143699003|11063799006|6133799003;
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|1800799024|18002099003|22082099003|11063799006|6133799003|56012099006|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	JF+7uqb8xTDu3A0R+ni6e/TZAJAMABnkvOvCiNZu5BF62Icg36Wx8laR1tf9HM47uuUI+8nGnRQyTPFprDqD28l8nDoYX+qQ8miHzffct+Yc8VI6FGBMKZV6NorsXtyVhjIxIGJRlgvCXLw5d+fvGXNGWbbucnRow0f1rzkILfuGdjgxf1m2Q+SbSX5m+AITqnrHmyZQc0eCMChD2QwHq4O5w3kvbpIIApJy4XrFRJNhGL9Y8u9MIcri4BXh16b1i4y4B4UecOkyS3Sl2VHnzBBSC7KGGXAik6FWc+gEU1LiImPv58wpkICVCCTvseeWoAR2d7SpcbBzUivawWFIWId10C2e02whTRFKgjpn8aqAJeRXU1zziOM7CZq46Iq9sAcrbSjR0XqP3OMwBUNGThdprrXZGnmVudFVK6UqWTyAuZhQvLLEkFhSgCiTCCmpxL6EYMMnOJD1RCsOeqAMiywj3HgWTF3EEskGH4W0k3qTJUNWRR+loihFJX1gWz2F6UKzwVVZ4/b+Da33oN1rxUuu7mFdFKjiEAoOpF66mlQrGXGISL+zAXndKXArqdBoG4+J30NpVXq9s/nxmlCFK65mwQ/MY7cLNpzUUYSaPMKe7y372wkpz7/bNv4WksRgHj03iU2CYTELK+FNjO3jtIBL2tEm6oKArt+2ES11UfVS2/u6BgoWEfmSKJ/dQNQU
+	Sjbc+dz7AR3A2UW2cCCLbBSnzRmzijuyNqNmkSOdLWMk4hOjkOTnRonLmw/aKfOy70ZWdOCfWQmrXc/Sw9a98dvvkWUOCtfpBjCmEqqGi3zGtP/mxDabseLlVNxDspMqOhnyQqa6YeNBvgy6utGfqlphj3rRPeMCxNSuIlNfYNiZNH0aQv5x7P2w96czE7fv9zj+0ml83Lv7Z1CTPYi20EEyosGH3NW/qu1toDLluuWqaO5XXO0Ze8N3LvOGsqXEWAesLJ/d76c2VXU4qZSqRO0zw4h6AQlH3RYwpW9LQxixjhLnFrRjik8EZv2nZuLXhu4lijAHahqF+TWFoozYhWqJ55JqgqPvzeE/MKkTrdwjhA3UY5T5LSaWTqJ7qZmhqjjN5WLI2sOlzCdWZhTSZ2OCufl/GBz9EyL/gTmBWBfsqjF9woYVqUzLazWUrEasxixUMFN4EM0Cj4vnZJ+qzD7INOO3BFJmU7vyUtr+AsKt1/BhDp9F9VuiUw++u3wK+dZ12wUihg/PIsh9gu3A3E5fpF7yLbV9F/EX04oJp7jsLbj38UIClyuVJB+4Z+TdwJSONmqdCIORthK16aImM2X+HvGSPosqM6DQUS2q0pJU+hLXkOH7CnpM3KlIf644tC8xpGyrYTiuyyFZbouauj9n4b6Ti5H1KG/Pmiddk7+DP/KZzi3xvly0ZI7eH8UN
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(1800799024)(18002099003)(22082099003)(11063799006)(6133799003)(56012099006)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UkorcUdxZktJMGJZTGlFaHVyU2ZnMWwzNUttcDBKZmowNzNHdzJXZEVCUUVv?=
- =?utf-8?B?TWVvLzNzdDBvT2pCRm5ZbXgyNEVkSHVBOFdHbUQ1TjN3YzhDNE9zQmtQd3lx?=
- =?utf-8?B?UGVRMHB1WGwrNkRsY2VRYXVaRkJlQWdzQU9oWHEwbWpKZWlubkZYOHA0Ylcx?=
- =?utf-8?B?cUhvOTBuZkZsQmZQeDQzRUs3eEhBSldhdUEvTDM2K0d6Sk8ycHR1UHllQ1pr?=
- =?utf-8?B?RkxrRGdJN21rUnB0RkV4SjhkMFV5WUs2ajhJaG1paTFTdWJrNTNnTVhlL0dB?=
- =?utf-8?B?MXBUSklza0dCZ21Sd2NWbVpiRS84YW5DN2tWcXFQdVovOERlOVdjbXJ2SW9i?=
- =?utf-8?B?VXFCNkNjYVdoWGc4NGhtOCtYcXEzYjU4V1ErU0JyZmxZUmpFSGNHUzFkZ0VU?=
- =?utf-8?B?d1JnQmFOM2JERnBVRm5MT2tQMis2UEw1QitBVCt2TVRwbWlFeWdxdUY0eERo?=
- =?utf-8?B?YmVwZTlab0kwWVlyS0orU0hrWllGai83VlF5dzk5azAvUnNsYjdvWk9RRld0?=
- =?utf-8?B?dkZZV0dLT0cvdVNGaklzemFVOG1GelhEcWMrR1ViUUM3MFhEbDBVSVpKQzl2?=
- =?utf-8?B?UTJOUjRLampjb3oxODJXR2U1ZmZEeURqd0ZFZHQwZnZFbUNkZlo5UXdvVjBR?=
- =?utf-8?B?MVE4VkRUOGZCZ0h4L1ZPNHNscCtvVnBwcW9zRytGaFhyV29la3Q1OUllcjNM?=
- =?utf-8?B?czZlVHhMV3BURmNSb3dUOWNySFJ6ZnRsS3c4Q2ZIbmhJV0hjWHVnV2E4Y2pO?=
- =?utf-8?B?cXlqQkRzYVYxMnRSeGJhR0ZnOEFWY0t4cUhhdVBZbk1MckZJcjhBbWJ3ZlFV?=
- =?utf-8?B?ckFvME1ueHNEeVFIVlJhc2M5MGgzQTBXN2w1NGVsMmlNNTdOMGlvNzAwTkhX?=
- =?utf-8?B?QWRLeU12Zmp5WGNuS1dqeDA3aW56Q0tKd0s0Y2FCZzQ3QmwrK2NVSWtBRVJz?=
- =?utf-8?B?bVA5cytHU2UwZk52Nlh1RUE5Ynpna1pxYVFlTVJ4NkNhUWNLZjhXZkd0WmNr?=
- =?utf-8?B?NGhtNUJnRlZMYm9HWGI2MkxsZFA3b1dUNVlwbURxZ2FrSjBlN2xueHAvUk9X?=
- =?utf-8?B?dVBHOEQrV3NNZ29zM0tDaFNTVXpUNU5WaXJ5dFZZS2xQdStQVGdoV2RVVkZ5?=
- =?utf-8?B?cWQ3Q0xCNnZrR2RvQjV2SGswYVozaGwwU3RIQ08vTDRiMUU2OTlsNmNic21B?=
- =?utf-8?B?UmxyVFFGRE9sZFNKSWlvMkh3eUM3M1NOcm5aYmpoRGdnaG9CSmhxRGdtRk1l?=
- =?utf-8?B?OVZUWC9IY2IvaEg1ZHpqak1mcThCME5EN2d4N1RlaU12bDFJa1BGUXRUQUVu?=
- =?utf-8?B?RFA4RDgwWkNQOXlzWnVXeWR3cGQrVFBpY3NRN1BHV1FQeS9WOEp2dEJUdUdJ?=
- =?utf-8?B?cGFIaGFJVGc5clIxcksxcERhazZ0WW1mVCtSVlhhN1JFaHBZNUpZakZNVENU?=
- =?utf-8?B?YSthMkViY2FzaGpiVjZMWThBVFFwK2Y2M1p1b09QS2pPZjRwcWU0djI1N0Zi?=
- =?utf-8?B?YU11RzZ6aFdIeHFZVGxQeTN4TTc1cHp3SFBabHlNcFVyWEVOaFZPUEdEY2pV?=
- =?utf-8?B?YVhWY1NnZ2h0bDcvVmFTUHVwcXcxWXdjVk03ZENIWThNZkhyYXFiQlB0Qjkv?=
- =?utf-8?B?aW5DNUg2ekRiWWRZWklFVzl0ZVNGdk1CUFVROFZCcXVrSGVkWW5OZXYxbXVK?=
- =?utf-8?B?Z3htdkl4Ykp3UnhNekwyUno3eUlwTEE3Nk16V0FlUzdTVGRYQi9pOE9XeEZR?=
- =?utf-8?B?ZkQ1QTdBRzQ3N043OUdkOTZCN3pJSnI0ZCtidHlQTWtuRW5pS1E2YWxCTDM3?=
- =?utf-8?B?SzVTcmhVV05oMVlKbEdpaWIrNTVIMWdOV1ZsaUdrbTNBU0lqRlgzckVVeS9u?=
- =?utf-8?B?cEhxblpvZGdGTUdUT3dQNDgwV2NRQkpHSVJEQi9zM0s5bzFYeFk0K0ZiMjZU?=
- =?utf-8?B?cXVWRmhvSHBlL1NPTWcwSndkVVlUVm94cWlRL1ZRZzEyVXdDTE5OQy9kRFE3?=
- =?utf-8?B?V3NTRFBscnBpUHM1b3dLc2d6d3F5R29mZ1BFTjlydTJ1V2FhUjhhNGZLc3lV?=
- =?utf-8?B?b2IvczJMNys0a0tCRXdOWTA4WTNFNGlXeEswMmVzbzhuZWE1cEZpeXBiWDVz?=
- =?utf-8?B?cFJaQlJ3TXA3Z0o5ODdLNkJHbk5NUjFNT2dzVWZ2V3dUK1NDa1pkTjBXZ1Bw?=
- =?utf-8?B?T0NuRVl5eG5vUnVNa0JTVE5uSlJva1A2dm80dGFkY0JCYXpLNmx0WlpQbFhz?=
- =?utf-8?B?U3VoWkphUnJBTGdnVFpqa2F6VGJ0ZTRkSHYwUFZaVDVsbDlMQmZkazZPNmtT?=
- =?utf-8?B?Mm9JVXB3bmtZRmUyWFZ6bGxpU3JWc1ZiRkUycHBmVUtGK0x2NmlCUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a61705f6-265f-4069-e966-08dec0861fed
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 09:05:42.8987
+	ky/4isn3h00C6g/IkaCj3aLzAidtAsB3Wb5qFAz9sAcwuUnpNRp5P/MNHUSq1u+Tl8P86hjcEjXdwNWeBLkv2r9HX7CVx1T1k0NbI8tKv+d2txLBa1EeTVThggab3Gv7PkVA2wxJxQIWY95ZKg/vH9l20KjZ52Gmn5MAi6EK01IFMSAQyA7moyxeulOOU11ZHmfBGc27mfCVQhIKvNk3qhS38ZN79bbEQpVS70UN+C21N+G2ewa2eBwTpA84XhwJFupAmVT733tnTiZyTpt/BMoqOco4XRlVoQrBbe4GBPZBB6fnpkbHR19XAW8sB4cVZKVFv65p8qfzqzgdnCK1Wr2qlpJ551EWmuQx3JsitOO+izdcvM67CcRjC2gk9bjsYTrHA1KU/Xnh1x+3poYN8KVacX1KzL0yULAw5BiD0D2Cvwd1QEfjajd+Cr+IKDEZ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 09:06:47.9716
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r52mVzhf+GFnj3ejkiCO/MEf7mremupsEUkDtbr+ZneDAU0UlrxBEEfaPlneFpeohfNpd2vpfBL9LAfvAR0yzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR03MB8143
-X-purgate-ID: tlsNG-16d1c6/1780391147-8556ED75-120BF9CD/0/0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35b024d6-3dfc-404f-c932-08dec08646de
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF000397AF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR12MB9812
+X-purgate-ID: tlsNG-ef75cf/1780391215-2377AC48-A9951FA5/0/0
 X-purgate-type: clean
-X-purgate-size: 2725
-X-Rspamd-Queue-Id: 8D2E662B0D3
+X-purgate-size: 18152
+X-Rspamd-Queue-Id: 70DE762B0FA
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [-2.19 / 15.00];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	DMARC_POLICY_ALLOW(-0.50)[amd.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[amd.com:s=selector1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[citrix.com:+];
-	FORGED_RECIPIENTS(0.00)[m:dmukhin@ford.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:julien@xen.org,m:michal.orzel@amd.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ford.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo,macbook.local:mid];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:xakepamatop@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
 	FROM_HAS_DN(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	TO_DN_NONE(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_TWELVE(0.00)[13];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[michal.orzel@amd.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[amd.com:+];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	TO_DN_SOME(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:dkim,amd.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo,gitlab.com:url,epam.com:email,patchew.org:url]
 X-Rspamd-Action: no action
 
-On Fri, May 08, 2026 at 05:57:13PM -0700, dmukhin@ford.com wrote:
-> From: Denis Mukhin <dmukhin@ford.com> 
+
+
+On 29-May-26 17:10, Mykola Kvach wrote:
+> From: Mykola Kvach <mykola_kvach@epam.com>
 > 
-> Make console_init_ring() more efficient by using memcpy()'s, rather than
-> copying the ring a byte at a time.
+> With LLC coloring enabled, the hardware domain memory is allocated by
+> allocate_hwdom_memory() rather than by using the fixed direct-map layout.
 > 
-> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Denis Mukhin <dmukhin@ford.com>
-
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
-
-A couple of notes below.
-
+> Commit de99f3263555 ("device-tree: Improve hwdom memory allocation for
+> DMA") made that allocator prefer lower host regions. The first-bank
+> filter, however, still only checked the old 128MB heuristic. A low
+> region can satisfy that heuristic but still be too small, or otherwise
+> unsuitable, for the hardware-domain kernel and the DTB/initrd module
+> area to fit in bank 0 according to the Arm placement rules.
+> 
+> Keep the existing first-bank size policy and add an architecture-specific
+> candidate check. On Arm, compute the kernel load address for the candidate
+> bank using the same logic as kernel_zimage_place(), verify that the kernel
+> range is covered by that bank, and then reuse the same module-placement
+> helper as place_modules(). The FDT is generated later, so use the
+> hardware-domain FDT allocation size as a conservative upper bound for the
+> final DTB size.
+> 
+> Check the candidate after capping the host region by the remaining
+> unassigned hardware-domain memory, so the validation is performed against
+> the size that would actually become bank 0.
+> 
+> This keeps the DMA-oriented allocation policy from de99f3263555 while
+> preventing a too-small bank 0 from reaching place_modules().
+> 
+> Fixes: de99f3263555 ("device-tree: Improve hwdom memory allocation for DMA")
+> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
 > ---
-> Changes since v5:
-> - fixed memcpy() logic
-> ---
->  xen/drivers/char/console.c | 21 ++++++++++++++++++---
->  1 file changed, 18 insertions(+), 3 deletions(-)
+> Changes since RFC:
+> - Do not keep the RFC scalar minimum-size check. It can both reject
+>   valid layouts and accept layouts which still fail later. Instead,
+>   validate the candidate bank using the same kernel and module placement
+>   rules as the load path.
+>   Replace the scalar minimum-size check with arch_hwdom_first_bank_ok().
+> - Reuse the existing Arm kernel and DTB/initrd placement rules for the
+>   first-bank candidate check.
+> - Treat the hardware-domain FDT allocation size as a conservative upper
+>   bound because the final FDT is generated later.
 > 
-> diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-> index 5ab3b0de12d8..5cac87d052b9 100644
-> --- a/xen/drivers/char/console.c
-> +++ b/xen/drivers/char/console.c
-> @@ -463,7 +463,8 @@ static void cf_check conring_dump_keyhandler(unsigned char key)
->  void __init console_init_ring(void)
+> Link to RFC:
+>    https://patchew.org/Xen/9ae4f7dd49f5b1f761193adae573c2675c92e883.1779051035.git.mykola._5Fkvach@epam.com/
+> 
+> Why the RFC scalar approach was not kept:
+> 
+> A simple minimum-size check is not sufficient here because the validity of
+> the first bank depends on the actual Arm placement rules, not only on the
+> aggregate size of the kernel, DTB and initrd. The DTB/initrd area may fit
+> before a 64-bit Image loaded with a text offset, while an AArch32
+> position-independent kernel may leave no valid module location even when
+> the aggregate size appears to fit. Fixed-address kernels also need the
+> candidate bank start to be considered.
+> 
+> Link to synthetic tests output:
+>    https://gitlab.com/xen-project/people/mykola_kvach/xen/-/blob/fix/hwdom-first-bank-dom0-modules-v2-new/tools/tests/arm-boot-modules/test-arm-boot-modules.log?ref_type=heads
+> 
+> ---
+>  xen/arch/arm/acpi/domain_build.c        |   2 -
+>  xen/arch/arm/domain_build.c             |   8 ++
+>  xen/arch/arm/include/asm/domain_build.h |   4 +
+>  xen/arch/arm/include/asm/kernel.h       |   9 ++
+>  xen/arch/arm/kernel.c                   | 179 ++++++++++++++++++------
+>  xen/common/device-tree/domain-build.c   |  24 +++-
+>  xen/include/xen/fdt-kernel.h            |   9 ++
+>  7 files changed, 182 insertions(+), 53 deletions(-)
+> 
+> diff --git a/xen/arch/arm/acpi/domain_build.c b/xen/arch/arm/acpi/domain_build.c
+> index 249d899c33..db16f7fa94 100644
+> --- a/xen/arch/arm/acpi/domain_build.c
+> +++ b/xen/arch/arm/acpi/domain_build.c
+> @@ -26,8 +26,6 @@
+>  #undef virt_to_mfn
+>  #define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
+>  
+> -#define ACPI_DOM0_FDT_MIN_SIZE 4096
+> -
+>  static int __init acpi_iomem_deny_access(struct domain *d)
 >  {
->      char *ring;
-> -    unsigned int i, order, memflags;
-> +    XENCONS_RING_IDX i, size;
-> +    unsigned int order, memflags;
->      unsigned long flags;
+>      acpi_status status;
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 1efddc60ef..550617f152 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -115,6 +115,14 @@ int __init parse_arch_dom0_param(const char *s, const char *e)
+>                               (IS_ENABLED(CONFIG_STATIC_SHM) ?         \
+>                                (NR_SHMEM_BANKS * (160 + 16)) : 0))
 >  
->      if ( !opt_conring_size )
-> @@ -479,8 +480,22 @@ void __init console_init_ring(void)
->      opt_conring_size = PAGE_SIZE << order;
->  
->      nrspin_lock_irqsave(&console_lock, flags);
-> -    for ( i = conringc ; i != conringp; i++ )
-> -        ring[i & (opt_conring_size - 1)] = conring[i & (conring_size - 1)];
+> +paddr_t __init hwdom_get_fdt_alloc_size(void)
+> +{
+> +    if ( acpi_disabled )
+> +        return fdt_totalsize(device_tree_flattened) + DOM0_FDT_EXTRA_SIZE;
 > +
-> +    i = 0;
-> +    size = conringp - conringc;
-> +    while ( i < size )
+> +    return ACPI_DOM0_FDT_MIN_SIZE;
+> +}
+> +
+>  unsigned int __init dom0_max_vcpus(void)
+>  {
+>      if ( opt_dom0_max_vcpus == 0 )
+> diff --git a/xen/arch/arm/include/asm/domain_build.h b/xen/arch/arm/include/asm/domain_build.h
+> index df8b361b3d..85cf46a958 100644
+> --- a/xen/arch/arm/include/asm/domain_build.h
+> +++ b/xen/arch/arm/include/asm/domain_build.h
+> @@ -19,6 +19,10 @@ int prepare_acpi(struct domain *d, struct kernel_info *kinfo);
+>  
+>  int add_ext_regions(unsigned long s_gfn, unsigned long e_gfn, void *data);
+>  
+> +#define ACPI_DOM0_FDT_MIN_SIZE 4096
+> +
+> +paddr_t hwdom_get_fdt_alloc_size(void);
+> +
+>  #if defined(CONFIG_MPU) && defined(CONFIG_ARM_64)
+>  /* Utility function to determine if an Armv8-R processor supports VMSA. */
+>  bool has_v8r_vmsa_support(void);
+> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+> index 21f4273fa1..bf14fb208a 100644
+> --- a/xen/arch/arm/include/asm/kernel.h
+> +++ b/xen/arch/arm/include/asm/kernel.h
+> @@ -8,12 +8,21 @@
+>  
+>  #include <asm/domain.h>
+>  
+> +#include <xen/types.h>
+> +
+> +struct kernel_info;
+> +
+>  struct arch_kernel_info
+>  {
+>      /* Enable pl011 emulation */
+>      bool vpl011;
+>  };
+>  
+> +#define arch_hwdom_first_bank_ok arch_hwdom_first_bank_ok
+> +bool arch_hwdom_first_bank_ok(const struct kernel_info *info,
+> +                              paddr_t bank_start,
+> +                              paddr_t bank_size);
+> +
+>  #endif /* #ifdef __ARCH_ARM_KERNEL_H__ */
+>  
+>  /*
+> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+> index b72585b7fe..907239a246 100644
+> --- a/xen/arch/arm/kernel.c
+> +++ b/xen/arch/arm/kernel.c
+> @@ -40,27 +40,67 @@ struct minimal_dtb_header {
+>      /* There are other fields but we don't use them yet. */
+>  };
+>  
+> -static void __init place_modules(struct kernel_info *info,
+> -                                 paddr_t kernbase, paddr_t kernend)
+> +static paddr_t __init
+> +kernel_zimage_place_in_bank(const struct kernel_info *info,
+> +                            paddr_t bank_start, paddr_t bank_size)
+>  {
+> -    /* Align DTB and initrd size to 2Mb. Linux only requires 4 byte alignment */
+> -    const struct boot_module *mod = info->bd.initrd;
+> -    const struct membanks *mem = kernel_info_get_mem(info);
+> -    const paddr_t initrd_len = ROUNDUP(mod ? mod->size : 0, MB(2));
+> -    const paddr_t dtb_len = ROUNDUP(fdt_totalsize(info->fdt), MB(2));
+> -    const paddr_t modsize = initrd_len + dtb_len;
+> +    paddr_t load_addr;
+>  
+> -    /* Convenient */
+> -    const paddr_t rambase = mem->bank[0].start;
+> -    const paddr_t ramsize = mem->bank[0].size;
+> -    const paddr_t ramend = rambase + ramsize;
+> +#ifdef CONFIG_HAS_DOMAIN_TYPE
+> +    if ( (info->type == DOMAIN_64BIT) && (info->image.start == 0) )
+> +        return bank_start + info->image.text_offset;
+> +#endif
+> +
+> +    /*
+> +     * If start is zero, the zImage is position independent, in this
+> +     * case Documentation/arm/Booting recommends loading below 128MiB
+> +     * and above 32MiB. Load it as high as possible within these
+> +     * constraints, while also avoiding the DTB.
+> +     */
+> +    if ( info->image.start == 0 )
 > +    {
-> +        XENCONS_RING_IDX src = (conringc + i) & (conring_size - 1);
-> +        XENCONS_RING_IDX dst = (conringc + i) & (opt_conring_size - 1);
-> +        XENCONS_RING_IDX n;
+> +        paddr_t load_end;
+> +        paddr_t ram128mb;
 > +
-> +        n = min(opt_conring_size - dst, conring_size - src);
-> +        n = min(size - i, n);
+> +        ram128mb = bank_start + MB(128);
+> +        load_end = bank_start + bank_size;
+> +        load_end = min(ram128mb, load_end);
 > +
-> +        memcpy(&ring[dst], &conring[src], n);
-> +        i += n;
+> +        if ( load_end - bank_start < info->image.len )
+> +            return INVALID_PADDR;
+> +
+> +        load_addr = load_end - info->image.len;
+> +        /* Align to 2MB */
+> +        load_addr &= ~(MB(2) - 1);
+> +        if ( load_addr < bank_start )
+> +            return INVALID_PADDR;
 > +    }
+> +    else
+> +        load_addr = info->image.start;
+> +
+> +    return load_addr;
+> +}
+> +
+> +static bool __init
+> +first_bank_has_enough_room(paddr_t ramsize, paddr_t kernbase,
+> +                           paddr_t kernend, paddr_t modsize)
+How about first_bank_can_fit_modules()? The name would be more descriptive.
 
-It's a bit more complex logic for not much gain IMO: this will only be
-used once to move from the init buffer to the dynamically allocated
-one.  A couple of notes, feel free to ignore if you don't think it's
-an improvement: I would rename `i` to `done`, as `i` is usually
-associated with an index, and here it's just an accumulator of the
-amount of characters processed.  I would also consider making this a
-for loop, by pulling n to the outer context, ie:
+> +{
+>      const paddr_t kernsize = ROUNDUP(kernend, MB(2)) - kernbase;
+> -    const paddr_t ram128mb = rambase + MB(128);
+>  
+> -    paddr_t modbase;
+> +    /*
+> +     * Check only the aggregate kernel/module footprint. The actual DTB/initrd
+> +     * location is selected by find_module_placement().
+I don't particularly like that we call dtb+initrd modules while kernel is also a
+module. How about renaming to find_dtb_initrd_placement()? This will improve the
+readability by a lot. We could also rename place_modules() to
+place_dtb_initrd_modules() or just place_dtb_initrd().
 
-XENCONS_RING_IDX done, size, n;
-[...]
+> +     */
+> +    return modsize + kernsize <= ramsize;
+> +}
+>  
+> -    if ( modsize + kernsize > ramsize )
+> -        panic("Not enough memory in the first bank for the kernel+dtb+initrd\n");
+> +static bool __init
+> +find_module_placement(paddr_t rambase, paddr_t ramsize,
+> +                      paddr_t kernbase, paddr_t kernend,
+> +                      paddr_t modsize, paddr_t *modbase)
+> +{
+> +    const paddr_t ramend = rambase + ramsize;
+Instead of passing ramsize, pass ramend right away to avoid this line (similar
+to kernbase, kernend).
 
-for ( done = 0; done < size; done += n )
-{
-    XENCONS_RING_IDX src = (conringc + done) & (conring_size - 1);
-    XENCONS_RING_IDX dst = (conringc + done) & (opt_conring_size - 1);
+> +    const paddr_t ram128mb = rambase + MB(128);
+>  
+>      /*
+>       * DTB must be loaded such that it does not conflict with the
+> @@ -80,17 +120,49 @@ static void __init place_modules(struct kernel_info *info,
+>       * tools/libxc/xc_dom_arm.c:arch_setup_meminit as well.
+This is a stale path. Please update to tools/libs/guest/xg_dom_arm.c:meminit
 
-    n = min(opt_conring_size - dst, conring_size - src);
-    n = min(size - done, n);
+>       */
+>      if ( ramend >= ram128mb + modsize && kernend < ram128mb )
+> -        modbase = ram128mb;
+> -    else if ( ramend - modsize > ROUNDUP(kernend, MB(2)) )
+> -        modbase = ramend - modsize;
+> -    else if ( kernbase - rambase > modsize )
+> -        modbase = kernbase - modsize;
+> -    else
+>      {
+> -        panic("Unable to find suitable location for dtb+initrd\n");
+> -        return;
+> +        *modbase = ram128mb;
+Do we need this extra variable? Can't we just *modbase = rambase + MB(128)?
 
-    memcpy(&ring[dst], &conring[src], n);
-}
+> +        return true;
+> +    }
+> +
+> +    if ( ramend - modsize > ROUNDUP(kernend, MB(2)) )
+> +    {
+> +        *modbase = ramend - modsize;
+> +        return true;
+> +    }
+> +
+> +    if ( kernbase - rambase > modsize )
+> +    {
+> +        *modbase = kernbase - modsize;
+> +        return true;
+>      }
+>  
+> +    return false;
+> +}
+> +
+> +static void __init place_modules(struct kernel_info *info,
+> +                                 paddr_t kernbase, paddr_t kernend)
+> +{
+> +    /* Align DTB and initrd size to 2Mb. Linux only requires 4 byte alignment */
+> +    const struct boot_module *mod = info->bd.initrd;
+> +    const struct membanks *mem = kernel_info_get_mem(info);
+> +    const paddr_t initrd_len = ROUNDUP(mod ? mod->size : 0, MB(2));
+> +    const paddr_t dtb_len = ROUNDUP(fdt_totalsize(info->fdt), MB(2));
+> +    const paddr_t modsize = initrd_len + dtb_len;
+> +
+> +    /* Convenient */
+> +    const paddr_t rambase = mem->bank[0].start;
+> +    const paddr_t ramsize = mem->bank[0].size;
+> +
+> +    paddr_t modbase;
+> +
+> +    if ( !first_bank_has_enough_room(ramsize, kernbase, kernend, modsize) )
+> +        panic("Not enough memory in the first bank for the kernel+dtb+initrd\n");
+> +
+> +    if ( !find_module_placement(rambase, ramsize, kernbase, kernend, modsize,
+> +                                &modbase) )
+> +        panic("Unable to find suitable location for dtb+initrd\n");
+> +
+>      info->dtb_paddr = modbase;
+>      info->initrd_paddr = info->dtb_paddr + dtb_len;
+>  }
+> @@ -100,32 +172,51 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
+>      const struct membanks *mem = kernel_info_get_mem(info);
+>      paddr_t load_addr;
+>  
+> -#ifdef CONFIG_HAS_DOMAIN_TYPE
+> -    if ( (info->type == DOMAIN_64BIT) && (info->image.start == 0) )
+> -        return mem->bank[0].start + info->image.text_offset;
+> -#endif
+> +    load_addr = kernel_zimage_place_in_bank(info, mem->bank[0].start,
+> +                                            mem->bank[0].size);
+> +    if ( load_addr == INVALID_PADDR )
+> +        panic("Unable to find suitable location for the kernel\n");
+>  
+> +    return load_addr;
+> +}
+> +
+> +bool __init arch_hwdom_first_bank_ok(const struct kernel_info *info,
+> +                                     paddr_t bank_start,
+> +                                     paddr_t bank_size)
+> +{
+> +    const struct boot_module *initrd = info->bd.initrd;
+>      /*
+> -     * If start is zero, the zImage is position independent, in this
+> -     * case Documentation/arm/Booting recommends loading below 128MiB
+> -     * and above 32MiB. Load it as high as possible within these
+> -     * constraints, while also avoiding the DTB.
+> +     * place_modules() rounds the DTB and initrd placement to 2MB boundaries;
+> +     * use the same granularity when checking whether the first bank can hold
+> +     * the boot modules.
+>       */
+> -    if ( info->image.start == 0 )
+> -    {
+> -        paddr_t load_end;
+> +    const paddr_t initrd_len = ROUNDUP(initrd ? initrd->size : 0, MB(2));
+> +    /*
+> +     * The hardware domain FDT has not been generated yet. Use the allocation
+> +     * size as a conservative upper bound for the final DTB size.
+> +     */
+> +    const paddr_t dtb_len = ROUNDUP(hwdom_get_fdt_alloc_size(), MB(2));
+> +    const paddr_t rambase = bank_start;
+> +    const paddr_t ramsize = bank_size;
+> +    const paddr_t modsize = initrd_len + dtb_len;
+> +    const paddr_t ramend = rambase + ramsize;
+> +    paddr_t kernbase;
+> +    paddr_t kernend;
+> +    paddr_t modbase;
+>  
+> -        load_end = mem->bank[0].start + mem->bank[0].size;
+> -        load_end = MIN(mem->bank[0].start + MB(128), load_end);
+> +    kernbase = kernel_zimage_place_in_bank(info, bank_start, bank_size);
+> +    if ( kernbase == INVALID_PADDR ||
+> +         info->image.len > INVALID_PADDR - kernbase )
+> +        return false;
+>  
+> -        load_addr = load_end - info->image.len;
+> -        /* Align to 2MB */
+> -        load_addr &= ~((2 << 20) - 1);
+> -    }
+> -    else
+> -        load_addr = info->image.start;
+> +    kernend = kernbase + info->image.len;
+>  
+> -    return load_addr;
+> +    if ( kernbase < rambase || kernend > ramend )
+> +        return false;
+> +
+> +    return first_bank_has_enough_room(ramsize, kernbase, kernend, modsize) &&
+> +           find_module_placement(rambase, ramsize, kernbase, kernend, modsize,
+> +                                 &modbase);
+>  }
+>  
+>  static void __init kernel_zimage_load(struct kernel_info *info)
+> diff --git a/xen/common/device-tree/domain-build.c b/xen/common/device-tree/domain-build.c
+> index 2a760b007b..25bc392fea 100644
+> --- a/xen/common/device-tree/domain-build.c
+> +++ b/xen/common/device-tree/domain-build.c
+> @@ -299,20 +299,30 @@ static bool __init allocate_hwdom_memory(struct kernel_info *kinfo)
+>  
+>      for ( i = 0; (kinfo->unassigned_mem > 0) && (i < nr_banks); i++ )
+>      {
+> -        paddr_t bank_size;
+> +        const paddr_t bank_start = hwdom_free_mem->bank[i].start;
+> +        paddr_t bank_size = hwdom_free_mem->bank[i].size;
+> +
+> +        /*
+> +         * Check the size that would actually be assigned, not just the size
+> +         * of the host region.
+> +         */
+> +        bank_size = min(bank_size, kinfo->unassigned_mem);
+>  
+>          /*
+>           * The first bank must be large enough for place_modules() to
+>           * fit the kernel, DTB and initrd.  Skip small regions to avoid
+>           * ending up with a tiny first bank.
+>           */
+> -        if ( !mem->nr_banks && (hwdom_free_mem->bank[i].size < min_bank_size) )
+> -            continue;
+> +        if ( !mem->nr_banks )
+> +        {
+> +            if ( bank_size < min_bank_size )
+> +                continue;
+> +
+> +            if ( !arch_hwdom_first_bank_ok(kinfo, bank_start, bank_size) )
+> +                continue;
+> +        }
+>  
+> -        bank_size = MIN(hwdom_free_mem->bank[i].size, kinfo->unassigned_mem);
+> -        if ( !allocate_bank_memory(kinfo,
+> -                                   gaddr_to_gfn(hwdom_free_mem->bank[i].start),
+> -                                   bank_size) )
+> +        if ( !allocate_bank_memory(kinfo, gaddr_to_gfn(bank_start), bank_size) )
+>          {
+>              xfree(hwdom_free_mem);
+>              return false;
+> diff --git a/xen/include/xen/fdt-kernel.h b/xen/include/xen/fdt-kernel.h
+> index 00c37be101..86f2a69ede 100644
+> --- a/xen/include/xen/fdt-kernel.h
+> +++ b/xen/include/xen/fdt-kernel.h
+> @@ -93,6 +93,15 @@ kernel_info_get_mem_const(const struct kernel_info *kinfo)
+>      return container_of(&kinfo->mem.common, const struct membanks, common);
+>  }
+>  
+> +#ifndef arch_hwdom_first_bank_ok
+> +static inline bool
+> +arch_hwdom_first_bank_ok(const struct kernel_info *info, paddr_t bank_start,
+> +                         paddr_t bank_size)
+> +{
+> +    return true;
+> +}
+> +#endif
+> +
+>  #ifndef KERNEL_INFO_SHM_MEM_INIT
+>  
+>  #ifdef CONFIG_STATIC_SHM
 
-Thanks, Roger.
+I would prefer if this patch was split into refactoring (e.g. split
+place_modules() into functions later on used by patch 2) + hwdom fix (2
+patches). The first patch would also fit the rename I suggested.
+
+~Michal
+
 
