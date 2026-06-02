@@ -2,49 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OLuWESShHmquDAAAu9opvQ
+	id 6PLaF4alHmq3IwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 11:23:48 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 11:42:30 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB4C762B61F
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 11:23:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.1324654.1590141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7E6262BBFF
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 11:42:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.1324665.1590149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wULKj-0003OE-GC; Tue, 02 Jun 2026 09:22:49 +0000
+	id 1wULdP-0006Y8-Pl; Tue, 02 Jun 2026 09:42:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1324654.1590141; Tue, 02 Jun 2026 09:22:49 +0000
+Received: by outflank-mailman (output) from mailman id 1324665.1590149; Tue, 02 Jun 2026 09:42:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wULKj-0003LQ-DB; Tue, 02 Jun 2026 09:22:49 +0000
-Received: by outflank-mailman (input) for mailman id 1324654;
- Tue, 02 Jun 2026 09:22:48 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wULdP-0006Wi-Ms; Tue, 02 Jun 2026 09:42:07 +0000
+Received: by outflank-mailman (input) for mailman id 1324665;
+ Tue, 02 Jun 2026 09:42:06 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wULKi-0003LK-3h
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 09:22:48 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wULdO-0006Vq-HR
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 09:42:06 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wULKg-002Xfa-Vo
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 11:22:46 +0200
-Received: from [10.42.69.2] (helo=localhost)
+ id 1wULdN-00326T-N0
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 11:42:05 +0200
+Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a1ea0dd-2eae-0a2a0a5409dd-0a2a4502d2a8-14
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 11:22:46 +0200
-Received: from [209.85.128.44] (helo=mail-wm1-f44.google.com)
- by tlsNG-720697.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a1ea568-5cb7-0a2a0a5109dd-0a2a45019ef8-22
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 11:42:05 +0200
+Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
+ by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a1ea0e6-af86-0a2a45020019-d155802cd091-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 11:22:46 +0200
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4903d730b1fso100059215e9.2
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 02:22:46 -0700 (PDT)
+ id 6a1ea56d-c1f2-0a2a45010019-d155802be9a3-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 11:42:05 +0200
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-490aebf33e9so8421725e9.3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 02:42:05 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490b0e0de7bsm46881825e9.3.2026.06.02.02.22.45
+ 5b1f17b1804b1-4909c12f4d0sm100338275e9.34.2026.06.02.02.42.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jun 2026 02:22:45 -0700 (PDT)
+ Tue, 02 Jun 2026 02:42:04 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,53 +58,60 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 Authentication-Results: eu.smtp.expurgate.cloud; dkim=pass header.s=google header.d=suse.com header.i="@suse.com" header.h="Content-Transfer-Encoding:In-Reply-To:Autocrypt:From:Content-Language:References:Cc:To:Subject:User-Agent:MIME-Version:Date:Message-ID"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780392166; x=1780996966; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1780393325; x=1780998125; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=ivvbtj2cciRanJPag8tyBUluJhJ+ZAG6wtXJVSrLlVM=;
-        b=W/0mTw+P6ceATJQYS5zxv2cOed52p8qlFPeTLp4wVotjTQxYjwEtSIqvV+USb1QJnK
-         XDb8k+pkFxHaD7UInL8TMZcm9mvJim1Q7ac7W+E/b0SaI7gtqLYED5mzw3F1NhkZp/5U
-         9iceTp8kfu5kyB1mb+YpHyGbrW8rtcHhDUE3e1Ll+oFxp7td7kE7Ab1SUK45TrMtYCQM
-         uigFX/p3+SeXLysCwGG875KjMwIRGxGGOo99XGirsahxdgbLq2l1ZM3szoSndKp4K9AY
-         MWKM22Ut4EIOxa+rcZS1E108uxzC/TuGkrlFu9q4HMCDuIbnvBK4Lk17oAMUHUEI6FVk
-         cZoQ==
+        bh=sQUBr7gLcSE861t7//OdqYC4g9shYop6EeNwy4Ywyeo=;
+        b=dsvuvAr/lGW7InDm+n44pHVTmNJVyStTqRPLJm1bsMD6h6rjpmWTuHqr6B3pVbOXFO
+         WMLv0cfNKm0MaDLh819IXnXK/oVLsgmLAmzf0SGSNrFOIA6iiNuoWD5LPRnoe5Z7jAcf
+         iT2W5qfJHeSIBnaNYYAv1rEjlLddAceFwMwsQNKmUXvfkBndvzrsKj3sI6lcHd3zPdOX
+         47l8ama2PXMiyYHFXUg7dtmSa7rR0dme2kkzdihE1YfMvL0aQXamdpmrTTt/xBukTi2D
+         HOLn8r/5Bohp7H7XBXobVs7wo4kRsXB/+lo/zWdtnxq8roIXao9Bvk1kRnhoQjx9RnvZ
+         U4yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780392166; x=1780996966;
+        d=1e100.net; s=20251104; t=1780393325; x=1780998125;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ivvbtj2cciRanJPag8tyBUluJhJ+ZAG6wtXJVSrLlVM=;
-        b=C+S592HHXgYFHKep/fgDHKTSANg7FU+1Z2zSMRxvtTmOOUX3ijPaBjj0AGxKFo//p5
-         eigbZev+2VPmifBHTsIy7ReRwgsUbS9PQhcSgTUf6qSvumuIZEx3fFd6qMYO3BEaXGKi
-         NxwiNTw+cmn4JMVYss1l7vb2rOr0M8jZGURjptcvrrlnkRyPZ5wgH7NDZbEKIlskVUFl
-         zryyz0h7zqydyEObBJ0QyssMC9Gr+YEUEGgc2SnvKhBnvJzTGUCD4VZ3ZOCZ/CIoiWry
-         wQvrNK68T5hCJ862A8PQ5+4+WznSPRwrj+0OWvHJ25G19ot8eCBkfHh06sc50IXmzp9T
-         2uPQ==
-X-Gm-Message-State: AOJu0YwspOWRvxAOJMu/aBZlHcfvHOedvL4c85htFdPgVxhrGYP569nQ
-	qygazQ9hvNi/TJmRnt0wulntiDoBCv6dpkMiaHZSMpyvDzN6we+NzHdCq3aUWE/gVw==
-X-Gm-Gg: Acq92OEmbDrJByXIgvN9vPIJ/pJv4NKvNoCbILtzqysDjPBR4Z1AGd++GDjSfN0NQgT
-	Zkb41BDl93ZnO07dKNfJgnfgKl+DCwY4b05IHRjRO57qA1m9FkcNDkig+nBCK339iIowLIzGdGJ
-	mE+mtUPJjIrIfB3QSEx2YHfuSg4pGTv1RVW1tk7jZ0MzaNIIxNlCbDczFmBBetBn3Z4Z8Bt6Q93
-	Bf9tmH21B89O0k/+z5HOsU2+skjg+QiHK+m8khHUEN1FmWAI4LC3zirTx50dfc8LMdwwyHXmmu/
-	xVVUfKLvbffLXCHEtD1fNa88b07pOhvmXmvrv/+ylizQNIYvB9XIPPaHJiKQcTorBoPmFEvottZ
-	orPZMBsuKSQlbdVUEI7LaHnyZSyOzJ3EpMmT5mEYyxcBSdc8K6mtyRsW3NyhQQZQ1l9zTzmtfsz
-	ccvLVR3mDQdqMdmNxvwXvEdvUOmX4yJ9kT6FP1G9aGd7wfpa0cpvJvHlvTz/xwx92rY3z8vu9nz
-	BRF9USVt3pt7sAuGvZaX9torg==
-X-Received: by 2002:a05:600c:c108:b0:490:50c5:8153 with SMTP id 5b1f17b1804b1-490a290de68mr239215145e9.2.1780392166195;
-        Tue, 02 Jun 2026 02:22:46 -0700 (PDT)
-Message-ID: <4a7b6f30-de8e-4baa-b2b9-e15c8da16b82@suse.com>
-Date: Tue, 2 Jun 2026 11:22:53 +0200
+        bh=sQUBr7gLcSE861t7//OdqYC4g9shYop6EeNwy4Ywyeo=;
+        b=gy8wd6afQ79W5DaDfATOVf7iRXDZoPY32klGvve2HkfHEaqnByuDPEjqvBdpj5bfSt
+         AjrpayUjlfVVRw2ZzDAu3xFN9QPfyT2PLN2fA43Z42foceYZjsQIr+YAHqQBPIAzaL/r
+         kTfPg6l+83Vrxa+2W0P+TLHTbDnmpoS6gRl2cHg9WHYzDZVsGtMJS6u/oPAUALcNnb9U
+         1gnyhoEnwq5+DrKWcJUPCCTjhEN6cN9o0KXe/SYmltwzeFFh7+v473qXJdT6xsBVq3nG
+         IXIO257nH4u0VjsEDzmra9ymAAYOFgEMIkzaU0I7O3PZ2dhbD559KYpyiCKXkZMgGvrQ
+         lAcg==
+X-Forwarded-Encrypted: i=1; AFNElJ9v1wc7jjETNW1d5V5H5P9VlwCG3FCOiTszyKBIfEc3vwyxa95zOlYKKegd/KrTxJ4HBOeQM0wwIkM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwWRnkqjHwx0z9+6UPNxSJ5TdfJkOOx1zNAJEPxcjGa+JL6+E3x
+	CVnlbfD5RIIkJQ6Qrh0aZgwTJWkyeNZvOBwdiZCHNVsbBub2ZkHWPa+NzUj0TN2d9A==
+X-Gm-Gg: Acq92OH65PSwMBjiKYQeQwIoQBr+6qGdre1Ip41Pf6d9uej5jrZPipv+Cm96xkA1Nkv
+	Zg+FD8PMWdb6VphyJ/0Ybpf1ChDfxpCQdQWr3i1A7rxc1RgaG6of9Mj8ObB3MpzI9+tMeTy2x2e
+	Jy6Jx4AvAmzs2yGdIWqR0ywi9Hif5VBgH6UDFwPc+B4x0Zm4puKEghPtFCSzKzSaUf7m2NW2POV
+	PPQCssrnoFm2AkSn1Dgb8bcXk1XciIO9izjSfl9u5+UXasbdvWZMPsg1cYXXfFaTFWoIBnHLUYv
+	VtRKswcjUK58jnYOv9tQGxKxXtsFf/NKjkdgeYT8jddEj9HqaS8DMG7Tco7iyD0yMi3WFng53gt
+	dZHxp7muiVQ/prwsElrna+YKQ8qD8YzRMwxL7Z+XkAMM8pz3AAoc4ZM/m0En4nWzkPHmlm+8h8t
+	DkzCPRnadwkfiyYt3BIkNScW2kCV30FNT/VUncgLEwHv3k+TMBM+on/1Ep+zgj2l/MqTqA8km9h
+	Jhru3iHEk3Cus86DP2gzo05+g==
+X-Received: by 2002:a05:600c:3b10:b0:490:b0df:9ea8 with SMTP id 5b1f17b1804b1-490b0dfa594mr54241985e9.1.1780393324921;
+        Tue, 02 Jun 2026 02:42:04 -0700 (PDT)
+Message-ID: <accbb6c7-3681-41ae-a712-5f481bea9a5a@suse.com>
+Date: Tue, 2 Jun 2026 11:42:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] CI: disable debug info for analysis jobs
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Nicola Vetrini <nicola.vetrini@bugseng.com>
-References: <4f3a0cf9-63cf-405a-a19c-c8fc0473b2ce@suse.com>
- <6ed5a037c10e2b896e1269c6856508f5@bugseng.com>
+Subject: Re: [PATCH v2 03/24] xen/arm: Introduce CONFIG_DEVICE_TREE_NUMA
+ config option
+To: Hirokazu Takahashi <taka@valinux.co.jp>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20260531224755.9481-1-taka@valinux.co.jp>
+ <20260531224755.9481-4-taka@valinux.co.jp>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -130,111 +137,71 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <6ed5a037c10e2b896e1269c6856508f5@bugseng.com>
+In-Reply-To: <20260531224755.9481-4-taka@valinux.co.jp>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-720697/1780392166-AAB68161-13634FD0/0/0
+X-purgate-ID: tlsNG-d62444/1780393325-B474CFF4-A0B09E5A/0/0
 X-purgate-type: clean
-X-purgate-size: 2176
-X-Rspamd-Queue-Id: AB4C762B61F
+X-purgate-size: 642
+X-Rspamd-Queue-Id: B7E6262BBFF
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:sstabellini@kernel.org,m:oleksii.kurochko@gmail.com,m:xen-devel@lists.xenproject.org,m:andrew.cooper3@citrix.com,m:nicola.vetrini@bugseng.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[kernel.org,gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:mid,lists.xenproject.org:rdns,lists.xenproject.org:helo];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:email,bugseng.com:email,lists.xenproject.org:rdns,lists.xenproject.org:helo];
+	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Action: no action
 
-On 20.05.2026 14:10, Nicola Vetrini wrote:
-> On 2026-05-20 10:20, Jan Beulich wrote:
->> Its generating and linking takes time (and space), while at the same 
->> time
->> Eclair should be entirely independent of its presence.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Sadly the setting of EXTRA_XEN_CONFIG doesn't look to be cumulative
->> (across "extends:"), so the addition needs making to all four eclair-*
->> jobs.
->>
-> 
-> Maybe with anchors and variable expansion it could be made to work, 
-> having a base template EXTRA_XEN_CONFIG and then adding variables as 
-> needed, but let's not complicate this unless needed. Indeed ECLAIR is 
-> not affected by stripping flags currently (though I don't exclude it may 
-> in the future).
-> 
-> Reviewed-by: Nicola Vetrini <nicola.vetrini@bugseng.com>
+On 01.06.2026 00:47, Hirokazu Takahashi wrote:
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -99,6 +99,14 @@ config MPU
+>  	  systems supporting EL2. (UNSUPPORTED)
+>  endchoice
+>  
+> +config ARM_NUMA
+> +	bool "Device tree based NUMA support (UNSUPPORTED)" if UNSUPPORTED
+> +    select DEVICE_TREE_NUMA
 
-Stefano: Any chance of an ack?
+Nit: Indentation.
 
-Oleksii: Any chance of a release ack?
+> --- a/xen/common/Kconfig
+> +++ b/xen/common/Kconfig
+> @@ -188,6 +188,10 @@ config VM_EVENT
+>  config NEEDS_LIBELF
+>  	bool
+>  
+> +config DEVICE_TREE_NUMA
+> +	select NUMA
+> +	bool
 
-Thanks, Jan
+Nit: Can we have type ("bool") first, with "select" (or "depends on") coming
+afterwards?
 
->> https://gitlab.com/xen-project/hardware/xen-staging/-/pipelines/2539557855
->>
->> --- a/automation/gitlab-ci/analyze.yaml
->> +++ b/automation/gitlab-ci/analyze.yaml
->> @@ -47,6 +47,7 @@ eclair-x86_64-allcode:
->>      RULESET: "monitored"
->>      EXTRA_XEN_CONFIG: |
->>        CONFIG_ARGO=y
->> +      CONFIG_DEBUG_INFO=n
->>        CONFIG_DEBUG_LOCK_PROFILE=y
->>        CONFIG_DEBUG_TRACE=y
->>        CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP=y
->> @@ -105,6 +106,7 @@ eclair-x86_64-amd:
->>        CONFIG_INTEL_IOMMU=n
->>        CONFIG_EXPERT=y
->>        CONFIG_DEBUG=y
->> +      CONFIG_DEBUG_INFO=n
->>        CONFIG_GDBSX=n
->>        CONFIG_FRAME_POINTER=n
->>        CONFIG_SELF_TESTS=n
->> @@ -129,6 +131,7 @@ eclair-ARM64-allcode:
->>        CONFIG_ARM64_SVE=y
->>        CONFIG_ARM_SMMU_V3=y
->>        CONFIG_BOOT_TIME_CPUPOOLS=y
->> +      CONFIG_DEBUG_INFO=n
->>        CONFIG_DEBUG_LOCK_PROFILE=y
->>        CONFIG_DEBUG_TRACE=y
->>        CONFIG_DEVICE_TREE_DEBUG=y
->> @@ -206,6 +209,7 @@ eclair-ARM64-amd:
->>        CONFIG_ARM_SMMU_V3=y
->>        CONFIG_EXPERT=y
->>        CONFIG_DEBUG=y
->> +      CONFIG_DEBUG_INFO=n
->>        CONFIG_FRAME_POINTER=n
->>        CONFIG_SELF_TESTS=n
->>        CONFIG_DEBUG_LOCKS=n
-> 
-
+Jan
 
