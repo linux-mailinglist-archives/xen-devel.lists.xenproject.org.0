@@ -2,53 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id JE3uA7XqHmo5ZAAAu9opvQ
+	id H9rLAkzrHmpgZAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 16:37:41 +0200
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 16:40:12 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B74762F587
-	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 16:37:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1758462F5C5
+	for <lists+xen-devel@lfdr.de>; Tue, 02 Jun 2026 16:40:11 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=EvZLKi7f;
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=snGSYS04;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1325093.1590629 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1325100.1590638 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUQEq-0000Cb-I9; Tue, 02 Jun 2026 14:37:04 +0000
+	id 1wUQHR-00016J-2w; Tue, 02 Jun 2026 14:39:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1325093.1590629; Tue, 02 Jun 2026 14:37:04 +0000
+Received: by outflank-mailman (output) from mailman id 1325100.1590638; Tue, 02 Jun 2026 14:39:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUQEq-00009u-F8; Tue, 02 Jun 2026 14:37:04 +0000
-Received: by outflank-mailman (input) for mailman id 1325093;
- Tue, 02 Jun 2026 14:37:03 +0000
+	id 1wUQHR-00013h-06; Tue, 02 Jun 2026 14:39:45 +0000
+Received: by outflank-mailman (input) for mailman id 1325100;
+ Tue, 02 Jun 2026 14:39:43 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wUQEp-00009o-Hk
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 14:37:03 +0000
+ (envelope-from <andrew.cooper@citrix.com>) id 1wUQHP-00013b-Bu
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 14:39:43 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUQEn-008Xvj-HT
- for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 16:37:01 +0200
-Received: from [10.42.69.6] (helo=localhost)
+ id 1wUQHO-008YOR-OQ
+ for xen-devel@lists.xenproject.org; Tue, 02 Jun 2026 16:39:42 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a1eea8a-5cb7-0a2a0a5109dd-0a2a4506c140-10
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 16:37:01 +0200
-Received: from [209.85.128.42] (helo=mail-wm1-f42.google.com)
- by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <jbeulich@suse.com>)
- id 6a1eea8d-7371-0a2a45060019-d155802ab975-3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 16:37:01 +0200
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4906238c62eso94253015e9.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 07:37:01 -0700 (PDT)
-Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
- [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490aeab0955sm76839785e9.4.2026.06.02.07.36.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 02 Jun 2026 07:36:59 -0700 (PDT)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a1eeb1c-e002-0a2a0a5209dd-0a2a450597ac-24
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 16:39:42 +0200
+Received: from [52.101.56.33]
+ (helo=BN1PR04CU002.outbound.protection.outlook.com)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <andrew.cooper@citrix.com>)
+ id 6a1eeb2d-aaa8-0a2a45050019-346538211c64-3
+ for <xen-devel@lists.xenproject.org>; Tue, 02 Jun 2026 16:39:42 +0200
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com (2603:10b6:610:2b9::7)
+ by MN2PR03MB5103.namprd03.prod.outlook.com (2603:10b6:208:1aa::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
+ 14:39:37 +0000
+Received: from CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37]) by CH8PR03MB8275.namprd03.prod.outlook.com
+ ([fe80::a70d:dc32:bba8:ce37%6]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
+ 14:39:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,306 +63,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780411021; x=1781015821; darn=lists.xenproject.org;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rPkseIp6XhRw0nvU6s0JQbVNOrkebrIAwRMZFGphGi8=;
-        b=EvZLKi7fjiz7H9dmnKkJtaYpBIeYzAqb+Whj5n0WbjicL6hGU1CihvRgBRcdb1Uj3d
-         vLWXh2P+3KufeALmS2IS46XtKobNsFGKGaT2v49A02Rn2KCpL4zsX/QQq2FAHrYNYI32
-         7otTuHK0B4+p3y3WPek6fdZaUn6IFAJ1KzDCg+0caCenqBZOAvS2LQHGW05YFEKBkFGj
-         8HBRiQy5LyXHQLF7wWxTx3m3BTA5gxs0UxGqFfG7Meng+5lP6JDWQLiXeYrvREnw3z8p
-         pikOgOmipp4/ui4QLpnOdaa1JtIxtW/NP3Mi4WtA/XSJn0AAQS6BpQ2OpdWWTW8Y+y8C
-         3hBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780411021; x=1781015821;
-        h=content-transfer-encoding:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rPkseIp6XhRw0nvU6s0JQbVNOrkebrIAwRMZFGphGi8=;
-        b=lK0DXCVrFmcP9DXaVsMaqQIWInhI7gVImfkXTG1+j3tMoFuPSJZb/Yxkm823jbCAJ9
-         2RqFb+cGnmxIK/86OhXDGPLLdXl4HfepzT9Lw3NxgOGY5iLk+hNXCnMYfV4RzQx/nh39
-         Nq/x0esdMqnPgrb7GQHcjhhYGpL2sN6R8EU0Ss5W40R3a4F/1KAoTtqZzQ2WTSyNjk3t
-         sAKYpGdrQR5oi1BfjklEoTTPuZopK4OKm/EeJI2PJrEcsh4kjguQcLRja0FRGiKM0NJz
-         CTEorck2oVwIHjFkv1375k7qjzyghEgvpnOSLyMACwRAn57fA6sjtfNZLXtKs/2vAcx4
-         3gSw==
-X-Forwarded-Encrypted: i=1; AFNElJ9oKMkI3G/WNj/yFVWkkwhhzke+nkxr7kGUXtPvcCc6WAncwQkFrGn/Id7E1NT1N6C/khvXMnyDReg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzKK4s5SkepZOdK0zDYjS2ljh9bqk5af8PNBV6Itg1RQCpAHYre
-	53n6ueNh9pCh2cyF2cSxxx8Xtor3lulmww8cQxi0eZj6XXi7v6UmMgZTj8WZEB2LuQ==
-X-Gm-Gg: Acq92OGd47MEWOyvLVDPV9GrCVM5+3gDEhHJ6UR1mTmgrMWhkdKh9fbFnODaTeGpuEv
-	MII22mGnQYcaUMhDdXd7YGmcQtDTYsy7rqAuT41UVmQLX34IU2ji8rR4ZgmozrI49nr3R0Z3DsV
-	YfJfrFUVxUKKsPJUtYt4g7VSxpLteocp0uRk7mjCDjHoogMVVzuh3EjccdV9q0/OGDzSpRQx4bS
-	G7ICcygvDYNjdKaJHWvukMkf9VNiIo2lukfmkQ9WxGQRcfVwjm4FhN6UId2roGAq/Teo2MMdA0o
-	9etLFcu8Qou2eBgMy27+kN2eugLX4zLi+m/Aq66XajgcUVCk/VSAFeG8A3cfCt2LnjNzV82z8rg
-	D0VofvFCHkx1kqPtbmy5v0Z/9ZFW0/HYPfhMffnGebiXW+YellZ/STo5r9ry1vIHSIHQISY8xDz
-	Ri03jzrYHOF5ObdyoP3DoZ7ikB+cSZ1ut+ytanITR4AwGgANv4vjcsJu8+RklV40KXSGqskavrd
-	cl8e6i+wQEc4bxoywBAaZGOrJa4pKb93tzY
-X-Received: by 2002:a05:600c:630e:b0:490:a2fd:e1e5 with SMTP id 5b1f17b1804b1-490a2fde21dmr291740185e9.17.1780411020426;
-        Tue, 02 Jun 2026 07:37:00 -0700 (PDT)
-Message-ID: <017fd1f2-d00b-45a8-b36f-945a0f42a85b@suse.com>
-Date: Tue, 2 Jun 2026 16:37:06 +0200
-MIME-Version: 1.0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Bp3KBzWjIT0TIgXloK3/evRsHet7Uzw1bZLDE3i4ky6q6ri1wy71MyCRSXv7/xC2To74ihgogVGI2iS6BZZOHIB5Gzrgy0cIU9sHVLXhKgTCPIG1SyStnOd6wyGERroEHzMD1GIMxEK8luEZnX4MuZpEo2LROVsro0Ffi4O5sxUd4F9gkOaHlN4ssJV6QwBAfMkg38oTP2Ing6YLZWEkjgqBu0TjUgThSpuxCmzypiM5sjznU4ATPQqPq0+cSIeOelNobBWj7wOJib72Eq/hByBqs9rsCq3hSvzu29A8swPc+nd1NjPUUTHzCZNvtHinvetttEBgbKVcGvIbAbvSRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OmriJwyY8xZ1990KZgCi+g3222bhSkdhE48OsmhTgWw=;
+ b=pn3vLvll4QjEKdK9Y1zttp3/3JrLHO5VGbCVDrpisKajkDWvd6EGUwp813xU1EuyaonMQ23NV7Q2E6ZBJzV5nRa4UhYett4pzeGGxvrI5I+4RjgiEUmNzUebtq2Vj7jWYyqyyTJevNfYs8veuCVEVCK+ePTGb+yo/UxvR9g9kWFPWc1UoUjc1viBjWwODF2n4XwnpOJgFDHoUv1GQ6eUa+xYIJdNAkkIwOtMAX7vPDU2EhwpWChLVc7WHo8RhLY9NCkkO+Mt/WuwUKRAjNXEhiNBvbwnZXrWrL1UlK/mW8+Kketjqlwg8oplQVqa9B4fZ+TBV1ZFOXKP0Bm3JUserQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OmriJwyY8xZ1990KZgCi+g3222bhSkdhE48OsmhTgWw=;
+ b=snGSYS04kzkitVUmfBbGZHyTGI77gOWbNG+qBudHCjIeIVYwowI54QcoOI/OX48TQgMFlNf4wRAUGGFa8eqlyM1pvtanbVL2dq34O+gNXcPSEPoXkSXCA4nLTAXxjfojGSidySVvwf500Cz1b9oMCvy4ClWt6XWjqA9fpckZMZA=
+Message-ID: <0cd7a0e5-81f1-427a-9219-5d0eaa3e6cda@citrix.com>
+Date: Tue, 2 Jun 2026 15:39:33 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] xen/mm: Fix offlining pages only make aligned
- buddies, fixes Xen crash
-To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-Cc: Anthony PERARD <anthony.perard@vates.tech>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1779979589.git.bernhard.kaindl@citrix.com>
- <cdaec995676e17f0943cb921eb5ad9f87b96526c.1779979589.git.bernhard.kaindl@citrix.com>
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-Autocrypt: addr=jbeulich@suse.com; keydata=
- xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
- hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
- 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
- /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
- O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
- MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
- nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
- 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
- Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
- AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
- e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
- hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
- IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
- FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
- t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
- AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
- HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
- mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
- m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
- EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
- wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
- nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <cdaec995676e17f0943cb921eb5ad9f87b96526c.1779979589.git.bernhard.kaindl@citrix.com>
+ Teddy Astie <teddy.astie@vates.tech>,
+ Nicola Vetrini <nicola.vetrini@bugseng.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Subject: Re: [PATCH v3] x86/PV: drop a local variable from
+ pv_emulate_gate_op()
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <a8a84f5b-05b9-4038-807c-8151cc705583@suse.com>
+Content-Language: en-GB
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Autocrypt: addr=andrew.cooper3@citrix.com; keydata=
+ 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
+ 6+ahAA==
+In-Reply-To: <a8a84f5b-05b9-4038-807c-8151cc705583@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1780411021-8D785D75-61AFF722/0/0
+X-ClientProxiedBy: LO4P123CA0690.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:37b::7) To CH8PR03MB8275.namprd03.prod.outlook.com
+ (2603:10b6:610:2b9::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH8PR03MB8275:EE_|MN2PR03MB5103:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3a8c317e-0f7e-4bbc-3707-08dec0b4c579
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	r9OKRyAkKiKe7xaH5k8Bwl6BhLyEAf2tjuOPSPA2CLvmWSddGSwzraGRL0Qm81ebNzJndQefnWycd7qKoraRzs6LyZfbO8GtV9lTRu6B5GS5AVOGysDa0KIQkD+j8S9MMBh5YwxdPXA/IRJwf4Y4RBHMteDDFsakFR0/jufP0KouS6XJWvpRSSrxbBLQSJUhsHDc9mbqanm4+kc7zCeuwCa87iRkOBOcYVWd0uOEiIinUHAsr5KXDHk5a4CoVp2VPCq8bopOFJfltvjedwYWcWApzjuVV130lBtNp0AVIyzDR3bfvOhfjYCnasD1Q3ScPIs+2DR7pbgVPd/qZ4mGXx31VDMrATpLJZ6y3A7hSaFp5piQH17m8VbSYemhW8IPWuOSR8JxQh5bes9QP3ThhJWThvXWAd/gK54fT53a8xYCWKL65dPrGDmzn6TA9zVtELjeiyz4gLvJetiE3ZiVLCFvB39vRmDvhnHpMHobkdkInNQ4Q4TcBeryWwTL7l4OGpFMJ0fPI+nPHtZo0Jgi7BdmozDWVa5M5PI345w0HqwY2jlxYLVI7Xov0V45L658j1JfnLOEHZuVI6+3lKG1SUWDm0Ce2E9JJv6Ib+RDh+jbTe06luGuAMc7dR1+DSJL4Jx7TjrEgHI9OaH2VT9VOghUUL01p2w/Tft6/qHnpwzK4mnfyk+AzORWl/wP1Z3o
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH8PR03MB8275.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dzVZZzNVdVZOSzdTcDNrUlBRQlh3VkF1eStQNXZkNS8zYVI4czhld2ZlT3dD?=
+ =?utf-8?B?UGV0SUxNWkJPMkxVRjJRaTdOZEx5OVFyS0JRSEJMT29xMXE1VFV4YnNGZmdo?=
+ =?utf-8?B?dnkvSTd5MUdqTmpnLzVqbnR0NlZpQi9nUUxWMzd0MGYyRzg3ZVlqaUNKUnR6?=
+ =?utf-8?B?TVhhcGFXRWdzeFdpaENhWFA1QXNxajBUK3lsQUI2UDhhdWtxOEZXa2FJeW9o?=
+ =?utf-8?B?ZUI4bGg5d0M3U1ZwVGZ0bThzY2kxS2hDeDhKOFl4TE5GWDA5UjJaYnBTSVRj?=
+ =?utf-8?B?MlBBYjA0aWM3SzJSb1kxNDJKL1FxemtMMDJKS01UclpFRzgyb24zUEZ0cGxK?=
+ =?utf-8?B?c3dkU1BkOXg4UHJNeUJlekpCSUdiS0FXdU52QUlNMUJtcnpyclNjRkI3SzRx?=
+ =?utf-8?B?c3RuNFV4UHFFb0ZnajZuSzRsL0QwbGQ3YU56VWNndm5KUitCTjdkL3FjUm5N?=
+ =?utf-8?B?OHVTQkpYRXZZSVZIdDRsQVB5TDNQeTJSclRncXA1U1k5RWVEWjVUVUQrTUpk?=
+ =?utf-8?B?NmdZSWwvQmVxdmtPRGltSE1TeDUvUlMreitES21Ca2NUbG8zVzN4UlNwK2Yz?=
+ =?utf-8?B?OEdURU5qSzUwcjRvR0xIcTl1UmtyNWpYaHV1OW5uSUlRek9sQ01SUTBuYjRJ?=
+ =?utf-8?B?UUxvZ3hiU1RHWTVicGlOUlBuVzFJOStMdmhYUjBKQXBOdkg1TkVFSE45Z29j?=
+ =?utf-8?B?RlNreUFTYlNJdmloazB4VFNTNEtiQ0NycTk0cGNxNXZiVDZMdHJJeGE4dkRx?=
+ =?utf-8?B?VFlHV1ZRMDBsT0FleERIL29jYkZPTTRFRFZvTlRDVGthTVQ0aDZDNE9CVUR4?=
+ =?utf-8?B?ZzZJZklJcVkrdWlseG9TZEp6T1kxdGhzUnBRTWdOOFRnK2xuNnNEYis5RU14?=
+ =?utf-8?B?aW1hUktYdlVDdE5KSEtaQW5vMlJNK2ZzSnZpeCs3dExsSStNd2ZuSWIzUEV6?=
+ =?utf-8?B?MHBFTzJWdmJmTmd6L2xSYlVNUVhEd21MRUVnanJCSHBPWktnUit2dmg2OWww?=
+ =?utf-8?B?YXVlbjI5ZHNnVWhRczZIQkdCY0Z0bnlFNkQwUklkbkdodXZ4VW5mdlZ4dEJj?=
+ =?utf-8?B?Y1ZVaERrMGNUZG1rMGxPNEliYXJBcmlYYXdaU0haeUdOWDEyU3E5NnN4c0ox?=
+ =?utf-8?B?WGk0WGI3RXd3U3ZxaUdHdjhFVkxhWVNGVXNpTkJ1SERUaEFoaVhwQStMM0JR?=
+ =?utf-8?B?Q3ZMV0trZnh2c1RnU3BiTElWNWEyV2RaMjVJT2NkUXFCK09LQktBTFJtZnh1?=
+ =?utf-8?B?b2xpNWpNcnIzZFNTWGRBdHJkdXE1OUU0djJtZTRvRVRPakVYQUMzTGJwZEFh?=
+ =?utf-8?B?L2lLYWl2UWNSTHVCZTU3OGRDcUFuRlpvRFNYWStMZWJ5dmpPSEMzVmtHTkc4?=
+ =?utf-8?B?dG5nbkFhTXdQYUVrQkxSVjN4MVBvcjJYa2tUR0hZY1F6OGlXaEJnd2dKcE9k?=
+ =?utf-8?B?SDBna0xiVWtBTjJQTFVNU0t5N2VHODdtcDJlV1p1b1JRY2RLd3VTU0lPRFlX?=
+ =?utf-8?B?SmtvaVFERlNFSVozWEFYV3loSFpRWWZlakNKSTJZcFZKdTJTYlpzRkRiNHRu?=
+ =?utf-8?B?VFVVREJKM0h5TnpiV05KVXBHYk93WmYrZ093OHlGalY4dXNhazdBUmJQL2pP?=
+ =?utf-8?B?ZG5ablE3dXpPdm8yLysxbFBreW8yQWFEYWQ5d1EzSFQ1Tkp1TEFOcFE2Umhv?=
+ =?utf-8?B?Yjg3Uzgwc2NHR3Bka2tmR0QyZkhTUFBGcStDbWNCM25TdVhhaWRIYWlJSnRN?=
+ =?utf-8?B?S05xb2pVZFhxL2lWUmRnVHRtWUpHQVA0MXZTYjFyVlZsaEJaWUNmTVcvQ3BY?=
+ =?utf-8?B?STBHYXpNSXhaQzdOS01VR3BoeEkzK1pGMStzV3pqakIyNkFaWEJBc01VbUV1?=
+ =?utf-8?B?Z1ZUM3dWZ2tSOHBMQ05ZRmJQR0gwZitQTWJCSm1vMWRML1ZaRVlObVdVaWo3?=
+ =?utf-8?B?Wnh2UklldHJvcEdrTDliMUNSc0NRb2VsUTlnSmkwV20rOW1oa3h6QWE4TTA4?=
+ =?utf-8?B?NGZuNFpSVG9OTEhHdFo2Z3FneTJhZ2IwVUEvK3RwVW9MOGs0OE1LMzY3M0Vq?=
+ =?utf-8?B?MFhlVXV0Z0xGZzNyU2YvY0ZqSGtuMmhrcWl3WE1GbldBZWdzQUhOTUNoUUNK?=
+ =?utf-8?B?WTdvLzdrRlpjOGFoUGYrWCtrWXV0Ry9TL2pFKzlsanRwQm5UR3lhRkZKUHVJ?=
+ =?utf-8?B?WUh1ZlVzKzVoTEhxUkU0QzI2L2Jxei9NSTlZWXJld2Y3bHlQNVBubDYxUTdF?=
+ =?utf-8?B?MGs3c1RqaTh5eDZqOTVvWlVoTTJSNDcvQmIyd0RwQTRyb2h1cDlxMU44ZkU4?=
+ =?utf-8?B?dURRRTA4WmZVbzd2eEVNUFJ0MmpoUC83Wk0xdEM0RHhMbUgweFJpZS8ycDJ0?=
+ =?utf-8?Q?oyTD1LCry7bAefBQ=3D?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3a8c317e-0f7e-4bbc-3707-08dec0b4c579
+X-MS-Exchange-CrossTenant-AuthSource: CH8PR03MB8275.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 14:39:37.3888
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aJKu4tSt0SAsppk16xDYkkgmCoCpjCzuBbPPpJIU2W8y+PtPRhTCTC/2M0SEGfFpKieVy1WGeqIrh5V9BEmceu8XcoqeYadO4uv+bKDr5cU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5103
+X-purgate-ID: tlsNG-c201ff/1780411182-D9772443-0AC821A8/0/0
 X-purgate-type: clean
-X-purgate-size: 8548
+X-purgate-size: 471
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+X-Spamd-Result: default: False [-0.69 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,m:andrew.cooper3@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:from_mime,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[suse.com:+];
+	FREEMAIL_CC(0.00)[citrix.com,vates.tech,bugseng.com,gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS(0.00)[m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:nicola.vetrini@bugseng.com,m:oleksii.kurochko@gmail.com,m:jbeulich@suse.com,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:email];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[andrew.cooper3@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ALIAS_RESOLVED(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 3B74762F587
+X-Rspamd-Queue-Id: 1758462F5C5
 
-On 28.05.2026 16:47, Bernhard Kaindl wrote:
-> reserve_offline_pages() is missing an alignment check and thus
-> has a relatively high probability of growing unaligned buddies.
-> 
-> Fix this by checking alignment before growing spans to the next order.
-> Update the test case to verify the fix and prevent future regressions.
-> 
-> Fixes: e4865c2315 ('Page offline support in Xen side')
-> Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-> ---
->  tools/tests/native/offline-unaligned.c | 92 --------------------------
->  xen/common/page_alloc.c                |  5 ++
->  2 files changed, 5 insertions(+), 92 deletions(-)
+On 02/06/2026 2:52 pm, Jan Beulich wrote:
+> The inner "rc" shadows the function scope one, thus violating Misra C:2012
+> rule 5.3 ("An identifier declared in an inner scope shall not hide an
+> identifier declared in an outer scope"). Drop the inner variable, as
+> there's no other (later) use of the value it holds.
+>
+> No difference in generated code.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-As we will want to backport the bugfix (without the test), and as it makes
-little sense ...
-
-> --- a/tools/tests/native/offline-unaligned.c
-> +++ b/tools/tests/native/offline-unaligned.c
-> @@ -17,38 +17,6 @@
->   *
->   * Copyright (C) 2026 Cloud Software Group
->   */
-> -#include "harness/common.h"
-> -
-> -/* test_bss_start must be first in the BSS segment */
-> -void __aligned(PAGE_SIZE) *test_bss_start;
-> -
-> -/* Include xen/mm.h so we can wrap page_list_del() to assert the corruption. */
-> -#define TEST_WRAP_XEN_INCLUDE_XEN_MM_H
-> -#include "harness/mm-wrapper.h"
-> -
-> -static bool expect_free_list_corruption;
-> -
-> -/*
-> - * Wrap page_list_del() to not fail the test by virtue of the prepared
-> - * free list state but continue the test like a running Xen instance
-> - * would in many cases. Assert and expect the corruption, and continue.
-> - */
-> -static inline void wrap_page_list_del(struct page_info *page,
-> -                                      struct page_list_head *head)
-> -{
-> -    printf("page_list_del: page MFN %lu, order %u\n",
-> -           mfn_x(page_to_mfn(page)), PFN_ORDER(page));
-> -
-> -    if ( expect_free_list_corruption )
-> -        EXPECT_FAIL_BEGIN();
-> -    CHECK(page->list.next && page->list.prev, "The free list is corrupt now!");
-> -    if ( expect_free_list_corruption )
-> -        EXPECT_FAIL_END(1);
-> -
-> -    if ( page->list.next && page->list.prev )
-> -        page_list_del(page, head);
-> -}
-> -#define page_list_del(page, head) wrap_page_list_del(page, head)
->  
->  /*
->   * Include the main test library that sets up scenarios, asserts
-> @@ -84,78 +52,18 @@ static void test_unaligned_buddy_merge(int start_mfn)
->       * | offlined page | single page     |    head page with a tail page    |
->       * +---------------+-----------------+-----------------+----------------+
->       */
-> -    EXPECT_FAIL_BEGIN();
-> -    /*
-> -     * Due to a bug in reserve_offlined_page(), we get an unaligned buddy:
-> -     * +---------------+-----------------+-----------------+----------------+
-> -     * | offlined page |     head page with a tail page    | single page    |
-> -     * +---------------+-----------------+-----------------+----------------+
-> -     */
->      CHECK(page_aligned(pg + 1), "The buddy #%lu is not aligned to order-%d",
->            mfn_x(page_to_mfn(pg + 1)), PFN_ORDER(pg + 1));
-> -    EXPECT_FAIL_END(1);
->  
->      /* Allocate and free a page to trigger buddy merging on free. */
-> -
-> -    /*
-> -     * After allocating and freeing MFN 7, we get a double-freed MFN 6 due
-> -     * to aligned predecessor merging in free_heap_pages():
-> -     *
-> -     *         MFN 4             MFN 5             MFN 6            MFN 7
-> -     *   +---------------+-----------------+-----------------+
-> -     *   | offlined page |    head page         tail page    |
-> -     *   |               |       Unaligned buddies are       |
-> -     *   |               |      an invariant violation!      |
-> -     *   +---------------+-----------------+-----------------+----------------+
-> -     *                                     |    head page        tail page    |
-> -     *                                     +-----------------+----------------+
-> -     */
-> -    expect_free_list_corruption = true;
->      free_domheap_pages(alloc_domheap_pages(dom1, order0, 0), order0);
-> -
-> -    /*
-> -     * At this point, the free list is already corrupt. In free_heap_pages(),
-> -     * the tail of the unaligned buddy was added to the free list a 2nd time
-> -     * as the page of an overlapping aligned buddy. This is per design of the
-> -     * algorithm: These pages are free and thus the merging occurs as expected.
-> -     *
-> -     * The next allocation allocates the tail of the unaligned buddy, which
-> -     * is now, due to the merge, also the head of the new aligned buddy.
-> -     */
->      CHECK((pg = alloc_domheap_pages(dom1, order1, 0)), "Alloc the order-1 pg");
->  
->      /* Inspect the predecessor (pg is the tail of the unaligned buddy) */
-> -    EXPECT_FAIL_BEGIN();
-> -    /*
-> -     * After allocating two more pages, MFN 6 is free AND in-use:
-> -     *
-> -     *         MFN 4             MFN 5             MFN 6            MFN 7
-> -     *   +---------------+-----------------+-----------------+
-> -     *   | offlined page |    head page         tail page    |
-> -     *   +---------------+-----------------+-----------------+----------------+
-> -     *                                     |    in-use page      in-use page  |
-> -     *                                     +-----------------+----------------+
-> -     */
->      CHECK(page_aligned(pg - 1), "The buddy #%lu is not aligned to order-%d!",
->            mfn_x(page_to_mfn(pg - 1)), PFN_ORDER(pg - 1));
-> -    EXPECT_FAIL_END(1);
->  
->      /* Allocate the remaining page; a clean heap should not hit BUG(). */
-> -    testcase_assert_expect_to_hit_bug = true;
-> -    /*
-> -     * As described above, if pg is the tail of an unaligned order-1 buddy,
-> -     * the unaligned buddy is still on the free list and this allocation will
-> -     * remove it from the free list and check alloc_heap_pages() checks the
-> -     * buddies to have a reference count of zero, and the already allocated
-> -     * page is returned as the tail of the unaligned buddy, causing the BUG().
-> -     *
-> -     *         MFN 4             MFN 5             MFN 6            MFN 7
-> -     *   +---------------+-----------------+-----------------+
-> -     *   | offlined page |    head page         tail page    | <- panic's Xen
-> -     *   +---------------+-----------------+-----------------+----------------+
-> -     *                                     |    in-use page      in-use page  |
-> -     *                                     +-----------------+----------------+
-> -     */
->      alloc_domheap_pages(dom1, order0, 0); /* Triggers BUG() */
->  }
-
-... to first add a test covering the bad behavior (reporting it as good, by way
-of the test succeeding), I think the actual bugfix (below wants to come first,
-with the new test then being added to check for correct behavior right away.
-
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -1434,6 +1434,11 @@ static int reserve_offlined_page(struct page_info *head)
->              if ( (cur_head + (1 << next_order)) >= (head + ( 1 << head_order)) )
->                  goto merge;
->  
-> +            /* Do not grow to next_order if cur_head is not aligned to it. */
-> +            if ( (mfn_x(page_to_mfn(cur_head)) & ((1UL << next_order) - 1)) )
-> +                goto merge;
-
-With this isolated, with the title changed to something which can be parsed
-and doesn't duplicate "fix" as a word, and with the excess parentheses removed
-from the if()'s expression:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-However, I'd like to suggest a possible simplification: Inductively we know
-that cur_head is aligned to cur_order. Since next_order == cur_order + 1
-
-            if ( mfn_x(page_to_mfn(cur_head)) & (1UL << cur_order) )
-                goto merge;
-
-ought to suffice? Of course if desired this could be written more explicitly
-as
-
-            if ( mfn_x(page_to_mfn(cur_head)) & (1UL << (next_order - 1)) )
-                goto merge;
-
-Yet overall I'd be tempted to drop the next_order variable altogether anyway
-(not in this patch of course).
-
-> +            /* Check if any page in the next_order range is offlined. */
-
-This isn't quite accurate, as ...
-
->              for ( i = (1 << cur_order), pg = cur_head + (1 << cur_order );
-
-... we start at 1 << cur_order. I.e. it's only the upper half of the range
-covered by next_order which is being checked.
-
->                    i < (1 << next_order);
->                    i++, pg++ )
-
-Jan
+Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
