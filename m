@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id vG4+MNtEIGp4zgAAu9opvQ
+	id l3rzNulEIGqGzgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:14:35 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:14:49 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A070639022
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:14:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC753639036
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:14:49 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=fail reason="SPF not aligned (relaxed), No valid DKIM" header.from=citrix.com (policy=reject)
-Received: from list by lists.xenproject.org with outflank-mailman.1326804.1592138 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1326812.1592147 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUnIb-0000eN-KI; Wed, 03 Jun 2026 15:14:29 +0000
+	id 1wUnIo-000130-1V; Wed, 03 Jun 2026 15:14:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326804.1592138; Wed, 03 Jun 2026 15:14:29 +0000
+Received: by outflank-mailman (output) from mailman id 1326812.1592147; Wed, 03 Jun 2026 15:14:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUnIb-0000aw-Er; Wed, 03 Jun 2026 15:14:29 +0000
-Received: by outflank-mailman (input) for mailman id 1326804;
- Wed, 03 Jun 2026 15:14:28 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wUnIn-00010V-Sk; Wed, 03 Jun 2026 15:14:41 +0000
+Received: by outflank-mailman (input) for mailman id 1326812;
+ Wed, 03 Jun 2026 15:14:40 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <bernhard.kaindl@citrix.com>) id 1wUnIa-0000Z2-Is
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 15:14:28 +0000
+ (envelope-from <bernhard.kaindl@citrix.com>) id 1wUnIm-0000ya-1a
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 15:14:40 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUnIZ-00GNhc-Vf
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 17:14:27 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wUnIl-007eN6-EX
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 17:14:39 +0200
+Received: from [10.42.69.5] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a2044bf-e002-0a2a0a5209dd-0a2a450bc17e-44
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:14:27 +0200
+ id 6a2044dd-bab6-0a2a0a5309dd-0a2a4505e5f2-8
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:14:39 +0200
 Received: from [160.101.131.8] (helo=na1pdmzitismtp01.tibco.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a2044d2-212f-0a2a450b0019-a065830894fe-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:14:27 +0200
+ id 6a2044de-aaa8-0a2a45050019-a065830897c8-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:14:39 +0200
 Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id CDAC843469EE;
- Wed,  3 Jun 2026 11:13:19 -0400 (EDT)
+ by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id BBE3243469EE;
+ Wed,  3 Jun 2026 11:13:31 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,24 +58,18 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
 To: xen-devel@lists.xenproject.org
 Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 1/2] xen/mm: reset PFN_ORDER for offlined buddy heads
-Date: Wed,  3 Jun 2026 16:11:43 +0100
-Message-Id: <3d899d52c26e4ff6a45ff33864b355651ce5d081.1780499500.git.bernhard.kaindl@citrix.com>
+	Anthony PERARD <anthony.perard@vates.tech>
+Subject: [PATCH v2 2/2] tools/tests/native: Add test for offlined buddy head PFN_ORDER
+Date: Wed,  3 Jun 2026 16:11:44 +0100
+Message-Id: <0e10a54c715e01fd4d2fb54a70668f0cc52d9f8e.1780499500.git.bernhard.kaindl@citrix.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1780499500.git.bernhard.kaindl@citrix.com>
 References: <cover.1780499500.git.bernhard.kaindl@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-42698a/1780499667-2007BF3B-226DD58A/0/0
+X-purgate-ID: tlsNG-c201ff/1780499679-E1F9C443-B509243E/0/0
 X-purgate-type: clean
-X-purgate-size: 1872
+X-purgate-size: 3487
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [3.01 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
@@ -87,75 +81,119 @@ X-Spamd-Result: default: False [3.01 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:jbeulich@suse.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,s:lists@lfdr.de];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	RCVD_COUNT_SEVEN(0.00)[9];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:email,citrix.com:mid,citrix.com:from_mime,citrix.com:email];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:from_mime,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
+	RCPT_COUNT_THREE(0.00)[3];
 	ALIAS_RESOLVED(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
+	TAGGED_RCPT(0.00)[xen-devel];
 	R_DKIM_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_SENDER_FORWARDING(0.00)[]
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8A070639022
+X-Rspamd-Queue-Id: AC753639036
 
-Ensure offlined buddy head pages are annotated as order-0 pages.
-
-When a buddy containing pages marked for offlining is processed,
-reserve_offlined_page() rebuilds any surviving healthy buddies
-and moves the offlined subpages onto the offlined lists.
-
-If the buddy head itself is offlined it was previously left
-annotated with the original buddy order even though it has
-been split into a single page.
-
-This has no functional impact as the order of an offlined
-page is not used for any decision making and onlining, but
-it is misleading when inspecting the page's metadata.
-
-Set PFN_ORDER(cur_head) to 0 for all pages moved to the
-lists of offlined and broken pages so the page's stored
-order reflects its actual size.
+Add a regression test to check that the PFN_ORDER(pg) of buddy heads
+is reset to 0 when they become offline single pages which have been
+moved of the offlined page lists.
 
 Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-v2:
-- Fix isolated from the new test and moved it ahead of the test.
-- Unconditionally store 0 as the PFN_ORDER() of the offlined
-  pages to make the code more robust against future changes.
----
- xen/common/page_alloc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ tools/tests/native/offline-head-order.c | 74 +++++++++++++++++++++++++
+ 1 file changed, 74 insertions(+)
+ create mode 100644 tools/tests/native/offline-head-order.c
 
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index e01ac3e99c72..6c4e26004b2a 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -1251,6 +1251,12 @@ static int reserve_offlined_page(struct page_info *head)
-         ASSERT(total_avail_pages > 0);
-         total_avail_pages--;
- 
-+        /*
-+         * All offlined pages are standalone pages: If this offlined page was
-+         * the head of a higher-order buddy, we need to reset its order to 0:
-+         */
-+        PFN_ORDER(cur_head) = 0;
+diff --git a/tools/tests/native/offline-head-order.c b/tools/tests/native/offline-head-order.c
+new file mode 100644
+index 000000000000..20c4f36526c1
+--- /dev/null
++++ b/tools/tests/native/offline-head-order.c
+@@ -0,0 +1,74 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Tests using offline_page() to verify reserve_offlined_page()
++ *
++ * The workflow tested here is offlining a free page:
++ *
++ * 1. offline_page() calls mark_page_offlined() to mark the page.
++ * 2. It calls reserve_heap_page() to find the containing buddy.
++ * 3. It calls reserve_offlined_page() to reserve the marked pages within
++ *    that buddy.
++ *
++ * reserve_offlined_page() then:
++ *
++ * 1. Removes the buddy, a 2^order group of pages, from the free list.
++ * 2. Finds size-aligned spans of healthy pages within it.
++ * 3. Rebuilds healthy buddies from those spans and
++ *    adds them back to the free list via page_list_add_scrub().
++ * 4. Moves offlined subpages to the offlined page lists.
++ *
++ * Copyright (C) 2026 Cloud Software Group
++ */
++#define CONFIG_SYSCTL
++#include "harness/native.h"
 +
-         page_list_add_tail(cur_head,
-                            test_bit(_PGC_broken, &cur_head->count_info) ?
-                            &page_broken_list : &page_offlined_list);
++static void test_offline_head_order(int start_mfn)
++{
++    struct page_info *page = frame_table + start_mfn;
++    uint32_t status = 0;
++
++    /* Seed a single order-1 buddy onto the heap. */
++    test_page_list_add_buddy(page, order1);
++    ASSERT(PFN_ORDER(page) == 1);
++    /* Offline the head page. */
++    ASSERT(offline_page(page_to_mfn(page), 0, &status) == 0);
++    ASSERT(status == PG_OFFLINE_OFFLINED);
++
++    /* Check the order of the offlined head page. */
++    ASSERT(PFN_ORDER(page) == 0);
++
++    /*
++     * Allocate the successor page of the offlined page. This prevents
++     * the normal successor page merge when the page is re-onlined below.
++     */
++    struct page_info *pg = alloc_domheap_pages(dom1, order0, 0);
++    ASSERT(pg == page + 1);
++    ASSERT(FREE_PAGES == 0);
++
++    /* Online the offlined former head page. */
++    ASSERT(online_page(page_to_mfn(page), &status) == 0);
++    ASSERT(status & PG_ONLINE_ONLINED);
++    ASSERT(FREE_PAGES == 1);
++
++    /*
++     * Confirm the order of the onlined former head page is 0, independently
++     * of the order returned by PFN_ORDER() for the offlined page. This should
++     * always be successful because page_offlined_list only contains single
++     * pages and online_page() ignores PFN_ORDER(pg) of the page. It calls
++     * free_heap_pages() passing the order hardcoded to 0. This causes it to
++     * pass the given order 0 to page_list_add_scrub(). This causes it to set
++     * the order of the page to 0 before it adds the page to the free list.
++     */
++    ASSERT(PFN_ORDER(page) == 0);
++}
++
++int main(int argc, char *argv[])
++{
++    const char *topic = "Test offlined head page to be updated to PFN_ORDER 0";
++    if ( !parse_args(argc, argv, topic) )
++        return EXIT_FAILURE;
++
++    init_page_alloc_tests();
++    RUN_TESTCASE("TOHP", test_offline_head_order, 2);
++    return test_complete();
++}
 -- 
 2.39.5
 
