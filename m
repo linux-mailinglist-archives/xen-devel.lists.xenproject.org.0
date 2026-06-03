@@ -2,52 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 2sm0EMwKIGqKuwAAu9opvQ
+	id HVV7KNsNIGqsvAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 13:06:52 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 13:19:55 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EF5A636D51
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 13:06:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09984636F89
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 13:19:55 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=EKBYIZIv;
+	dkim=pass header.d=gmail.com header.s=20251104 header.b=CLvLqrQ5;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1326075.1591513 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1326083.1591522 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUjQ2-0006Sl-Ef; Wed, 03 Jun 2026 11:05:54 +0000
+	id 1wUjcp-0000DE-1K; Wed, 03 Jun 2026 11:19:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326075.1591513; Wed, 03 Jun 2026 11:05:54 +0000
+Received: by outflank-mailman (output) from mailman id 1326083.1591522; Wed, 03 Jun 2026 11:19:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUjQ2-0006Qd-Bh; Wed, 03 Jun 2026 11:05:54 +0000
-Received: by outflank-mailman (input) for mailman id 1326075;
- Wed, 03 Jun 2026 11:05:53 +0000
+	id 1wUjco-0000AP-M3; Wed, 03 Jun 2026 11:19:06 +0000
+Received: by outflank-mailman (input) for mailman id 1326083;
+ Wed, 03 Jun 2026 11:19:05 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wUjQ1-0006QX-4w
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 11:05:53 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <olekstysh@gmail.com>) id 1wUjcn-0000AC-0q
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 11:19:05 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUjQ0-002uaB-Gi
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 13:05:52 +0200
+ id 1wUjcm-00BdFk-6m
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 13:19:04 +0200
 Received: from [10.42.69.6] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a200a80-2eae-0a2a0a5409dd-0a2a4506dc7c-40
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 13:05:52 +0200
-Received: from [209.85.218.48] (helo=mail-ej1-f48.google.com)
+ (envelope-from <olekstysh@gmail.com>)
+ id 6a200d93-2eae-0a2a0a5409dd-0a2a4506b6d6-48
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 13:19:04 +0200
+Received: from [209.85.221.50] (helo=mail-wr1-f50.google.com)
  by tlsNG-16d1c6.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a200a90-7371-0a2a45060019-d155da30ed09-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 13:05:52 +0200
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-bebc80100efso435920766b.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 04:05:52 -0700 (PDT)
-Received: from [192.168.1.6] (user-109-243-148-111.play-internet.pl.
- [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bf05177150esm138263366b.5.2026.06.03.04.05.50
+ (envelope-from <olekstysh@gmail.com>)
+ id 6a200da7-7371-0a2a45060019-d155dd32b5ab-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 13:19:04 +0200
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-46019edc13dso987854f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 04:19:04 -0700 (PDT)
+Received: from [192.168.0.112] ([91.123.151.42])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4601f35fb24sm7271390f8f.34.2026.06.03.04.19.02
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jun 2026 04:05:51 -0700 (PDT)
+ Wed, 03 Jun 2026 04:19:02 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,174 +61,204 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780484752; x=1781089552; darn=lists.xenproject.org;
+        d=gmail.com; s=20251104; t=1780485543; x=1781090343; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=UMdI3bYpU2UgEjqcPpjyLwh/Ov8SPA6RgXdoSNMhAGE=;
-        b=EKBYIZIvwlFryl+HnRrXnIdlmXIhzDIi7N93pVE+BfoiZFkX9Sg4wft/xrBEX53kpB
-         rR0EKXH6udjygcYGOW8zL14Tb1YdiaClNTY0QO34vyt25lcUbhuT8Jr02DwjUuZN5uhn
-         K3tstUu752gmX7M6TRnAgn2pXBebcvtWyXNtV0YZzQZttusd1Bj45rh1Q2D6b8wq97Zw
-         PQCxabnePurxhcO0jsdYp+gFXCOdmaJQFsuZwwcNtySNACOxC0jBuZ/Ixy4SI4hjC/LZ
-         B5Zt/NvhMiUDMbspJmJTtqJGCgrV2I2y9R+ROD22V5prmTkurG7BAzE3Z1g9cPx2gF0l
-         YBgg==
+        bh=LckAMRVgTPWOP0T/18ZXjsfLcefJdIk9KFGROLLEny0=;
+        b=CLvLqrQ5uZm9YB/6x4gURAHy1LFomqmXpPYD+19LgsMypZn7qrJhV674OLh2plqprr
+         +zXc1MOgn/6bCpRzrQzU3wPixQH8bhedSutEkjuSSocfqOSGVFErbm2e0mUoH/vhUYPn
+         ZLR12sTDy1ImFYQpj7A0UjE5DHbFY8MDPn10Sto134Td5qxFLHCilOEQxVo4lssyE8Oq
+         h2cvUiYouv3f05MtXDcl3WEW8bHfz0IaMevDk8+SNBNBeLLXQHc8vGWfcs0iZ90xVmj/
+         ecjuS7GkwrBHTSglPXiO0bqje3TrYk2NzUVTZqrh0fnWLsggEaImH7ZfCQPAanAeZk/r
+         zoVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780484752; x=1781089552;
+        d=1e100.net; s=20251104; t=1780485543; x=1781090343;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=UMdI3bYpU2UgEjqcPpjyLwh/Ov8SPA6RgXdoSNMhAGE=;
-        b=kp6VbK12HSwHqk6ssNRV0sQey+wDAuhBGNREpfhB9BW+B3gjEjSTJgZf6iMwHXlDaN
-         oG+eCYf5YvqhbY58nGXkp6LKg/9dNQ580RE9bjSTLsLlZWsW1dFqXUYT8Yj5RIXSiHOS
-         TmDf0R7ELoQU5j/kEvdsTNDd4dh+87z8Gr2YdYwuMlP4VqNJ52pWfLz2HQtyb72nnhnz
-         8xkkvt2GAugWFkF75wg+pl3XxJDTk118HDLE0wrDejgIchJptpC9eV3EZymq+E+wMvn8
-         +Unk5604hQFIC60tENXwIcA1HUDqaXrIc05Ez98sos0WyXJ5dyCAW8jzUtnAYg0aFvKw
-         vLEg==
-X-Forwarded-Encrypted: i=1; AFNElJ8Wn4v3dRVnbinAAPIciNH2kukxI5shW5qB4XYsGFx/0Yb08WpnOT2gVFTWeNgaH5tmBdf3jtJ4LvQ=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YzIttgLuFv9nMdehbr0CnE9v4gH7d4eX7Sa3i5D5sxaAoiCjYLT
-	JigXH00dq5ZrAxv+aY5/au4P1EPkt9Ail+Ow5slKucScuBFNKQlFsIpPdgRqAA==
-X-Gm-Gg: Acq92OFloF773J65S6OjwXfpFo7hxHqhpo/0yVBydLZQoIEWNzKZKND3t+6RBVH8qj6
-	Rp/BJNx4uxerb+OlWvZPhKWuV8XdVrZIZGj+eyRpvlkxQdOJYx3PP9dcYWo2pa1AyVs2/1AqBwG
-	o+Aoh/rUeysaYyou3KeV6jUeIc6zxnG7LyNUzHm+9CG2slTnoXxE3XOjVZCEKhH5Fyti0VKDxVi
-	fDnhsTYZ4vTl+mDfOlHpKO2tSTAiX2fEWBE66qz690r+TZX6ZW7IftKtStror1IkKzcrznJaswb
-	i9ItpY8u9Rrbydpjrft+OA6ZLvkwHZX2p5qRVofoMp0weZ+Aie8zTRCde02WQZBczi7BYZS6Z3o
-	Z8LhMaRplM0MjqsQRB8ef2DmvDG5lzFKE9/olM6lxq0z7NDwVwM4LlIo7cB85BeaXFEp9cFZd4s
-	NcNfDYmQGaWyC0pT/B2yqSC0meqbXePSqFWLUTcGElnDZzcHOzRRrU1zlvpo83nbzyetagsqRJ0
-	cCTSHfoRFzP84ln
-X-Received: by 2002:a17:907:2da5:b0:bef:5cbd:60aa with SMTP id a640c23a62f3a-bf0ae70abdbmr124355666b.32.1780484751697;
-        Wed, 03 Jun 2026 04:05:51 -0700 (PDT)
-Message-ID: <9ae22210-6dd5-43e3-918e-f68b1294448d@gmail.com>
-Date: Wed, 3 Jun 2026 13:05:50 +0200
+        bh=LckAMRVgTPWOP0T/18ZXjsfLcefJdIk9KFGROLLEny0=;
+        b=jKUzEeCdZqvi+lF4DO4jdha7LihOfTR03Rv9rOBlw8KpigZs+Jkunc/ltGXlH/O/OK
+         +pVRURMpfHjWZ1ymVcEn16yLBQPr762KTmbdi58L9s3Xk8idutqSbwHxzSbK3LIgxrgI
+         kdZMJ8e5+myZot2zi3wmlsuB1WBWmemghp5kA1j1iaOJubHIF0liJ71TKQ8dswYJdwd/
+         RhkFCJnU1oQmj8y1U2YeKMeZliJKCQQo5nlxrm1DnxRIH3LTPcSiqb/lCv1B4ZRl2dIt
+         DywNP7mTSpM/uX8Anm0BjUThf5887I00Spw/XtlLZ5D2+R5qM5eKupOcnOURnh5h8JG2
+         T5UA==
+X-Forwarded-Encrypted: i=1; AFNElJ9TiQCsQB6O1RxnLEJ7hDJ1gKAfUEw3LYBkVqLrVhKiTiPWq2djuK5OjpNF2JgRpqDsw57tXgfHN9g=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YyigLdiCfs1xsgqx19X+NjhtqmmAPOQG1ekPlFWc5PbBV9RBIZn
+	cQ622BUcx+rPFuTRTl57vxZhyqDs6gmJcqR/zcXbX03BVqqa3EfwppEK
+X-Gm-Gg: Acq92OH0M3JbHjlsF5o0x52JhFOvuFbK6zMAxydkTdP7EL3NJyaApHM7VFAryqBUplp
+	o0bxyRgr+E0yEPdSX2YSilCb8ZRlyzvI9uNPiCuJQkcUUr2zZeWjvCzoFyOrF1jcBtIA7qupyW7
+	nY6NpnTcQTTseU46kzqxH2dTVDjWy+KoZLwCj7r1EIRXV/yb/BX8T/gwhT+99yMc7b072wlU6x8
+	hMO7XaapGd+GWXfB8TP9c5n9cgZtv5Q3UwYU6VWyWYLiM1pNW70I74buYQ0SYhxKolVpwmGdTw/
+	bbzQrpP5sWWoCZQ7pakln/h9b99UDId2ySYSOTIXL1htMaKDLelj71yBZ6KcpO4a2+70c3X4FMC
+	JgfOhV234auPHkRpbwLNxJ7iwQc7M/SsYmbOI/YSo5Vq85cjoVGhzBFeWIJFv8CzxqR2IJvIszT
+	PMsXCDLKnzwlp4myTWft/ghuQQOVUYPzdpGo72F8dP5OLo3hI=
+X-Received: by 2002:a05:6000:46da:b0:44a:247e:67b1 with SMTP id ffacd0b85a97d-460216bdebemr2950213f8f.5.1780485543375;
+        Wed, 03 Jun 2026 04:19:03 -0700 (PDT)
+Message-ID: <a2f1164d-ade6-4355-95da-f8c246613e9f@gmail.com>
+Date: Wed, 3 Jun 2026 14:19:01 +0300
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] xen/domain: fix UBSAN null pointer dereference of
- d->shared_info
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1779712171.git.oleksii.kurochko@gmail.com>
- <04dd784b6b9a4dfca9a313ea8802d8d514d65021.1779712171.git.oleksii.kurochko@gmail.com>
- <3aef7763-aea3-496a-8c18-d3659f590373@suse.com>
- <fb1b1194-5855-49d9-99fc-d35a3038833c@gmail.com>
- <3eb9ab3d-dc4d-4019-89c8-9f7dbdc528cd@suse.com>
+Subject: Re: [PATCH for-4.22 v2 1/4] xen/arm: gic: defer host LPI allocation
+ until after ITS init
+To: Mykola Kvach <xakep.amatop@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Mykola Kvach <mykola_kvach@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Luca Fancellu <luca.fancellu@arm.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+References: <cover.1779922874.git.mykola_kvach@epam.com>
+ <112419d3ea48ca328849c8f6647909d3eb667b40.1779922874.git.mykola_kvach@epam.com>
 Content-Language: en-US
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-In-Reply-To: <3eb9ab3d-dc4d-4019-89c8-9f7dbdc528cd@suse.com>
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <112419d3ea48ca328849c8f6647909d3eb667b40.1779922874.git.mykola_kvach@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-16d1c6/1780484752-8C47CD75-1D01AF6E/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 2813
+X-purgate-ID: tlsNG-16d1c6/1780485544-8D785D75-950D0D53/0/0
+X-purgate-type: clean
+X-purgate-size: 4094
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:xen-devel@lists.xenproject.org,m:mykola_kvach@epam.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:luca.fancellu@arm.com,m:oleksii.kurochko@gmail.com,m:xakepamatop@gmail.com,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com,lists.xenproject.org];
+	FORGED_SENDER(0.00)[olekstysh@gmail.com,xen-devel-bounces@lists.xenproject.org];
 	ARC_NA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[epam.com,kernel.org,xen.org,arm.com,amd.com,gmail.com];
 	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[mailman];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
 	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[olekstysh@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	DKIM_TRACE(0.00)[gmail.com:+];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8EF5A636D51
+X-Rspamd-Queue-Id: 09984636F89
 
 
 
-On 6/3/26 7:54 AM, Jan Beulich wrote:
->> --- a/xen/common/event_fifo.c
->> +++ b/xen/common/event_fifo.c
->> @@ -562,9 +562,10 @@ static void setup_ports(struct domain *d, unsigned
->> int prev_evtchns)
->>
->>            evtchn = evtchn_from_port(d, port);
->>
->> -        if ( d->shared_info &&
->> -             guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
->> +#ifdef CONFIG_HAS_SHARED_INFO
->> +        if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
->>                evtchn->pending = true;
->> +#endif
-> While as per above shared_info() would best not exist when !HAS_SHARED_INFO
-> (in which case #ifdef may be unavoidable here), an alternative where
-> IS_ENABLED() could be used here may want at least considering. E.g.
-> causing a link-time failure when shared_info() is used (and not compiled
-> out).
+On 5/28/26 03:25, Mykola Kvach wrote:
 
-We still want here to have #ifdef instead of IS_ENABLED() as 
-shared_info() shouldn't exist for arch without 2L support so it will end 
-with linkage error. Considering that setup_ports() will be called for 
-such arch we have to avoid this part from compilation.
+Hello Mykola
 
-Alternative is that considering that I suggested in prev emails to 
-introduced stubs for arch which doesn't use 2L:
+> From: Mykola Kvach <mykola_kvach@epam.com>
+> 
+> gicv3_lpi_init_host_lpis() allocates host LPI state, including the
+> host LPI lookup table, CPU notifier state and the boot CPU pending table.
+> Those allocations use gicv3_its_get_memflags().
+> 
+> ITS workarounds are discovered from gicv3_its_init(), so allocating host
+> LPI state from gicv3_dist_init() can happen before the memory restrictions
+> required by the ITS are known. On affected systems this can leave
+> Redistributor LPI state allocated and programmed with the default memory
+> policy.
+> 
+> Move host LPI initialization after gicv3_its_init(), and only run it when
+> a host ITS was found. The old call ignored the return value. Now that the
+> call is made from gicv3_init(), check it and panic on failure because
+> Redistributor LPI initialization relies on that state being available.
+> 
+> Signed-off-by: Mykola Kvach <mykola_kvach@epam.com>
+> ---
+> Changes in v2:
+> - Replace the v1 ITS pre-initialization hook with the less invasive
+>    approach suggested during review: move the existing host LPI
+>    initialization after gicv3_its_init().
 
-+#ifndef CONFIG_HAS_SHARED_INFO
-+static void cf_check evtchn_none_set_pending(
-+    struct vcpu *v, struct evtchn *evtchn) {}
-+static void cf_check evtchn_none_clear_pending(
-+    struct domain *d, struct evtchn *evtchn) {}
-+static void cf_check evtchn_none_unmask(
-+    struct domain *d, struct evtchn *evtchn) {}
-+static bool cf_check evtchn_none_is_pending(
-+    const struct domain *d, const struct evtchn *evtchn) { return false; }
-+static bool cf_check evtchn_none_is_masked(
-+    const struct domain *d, const struct evtchn *evtchn) { return true; }
-+static void cf_check evtchn_none_print_state(
-+    struct domain *d, const struct evtchn *evtchn) {}
-+
-+static const struct evtchn_port_ops evtchn_port_ops_none = {
-+    .set_pending   = evtchn_none_set_pending,
-+    .clear_pending = evtchn_none_clear_pending,
-+    .unmask        = evtchn_none_unmask,
-+    .is_pending    = evtchn_none_is_pending,
-+    .is_masked     = evtchn_none_is_masked,
-+    .print_state   = evtchn_none_print_state,
-+};
-+
-+static void evtchn_none_init(struct domain *d)
-+{
-+    d->evtchn_port_ops = &evtchn_port_ops_none;
-+}
-+#endif
 
-For arch without 2L supports .is_pending() will return false we can just 
-do the following instead of ifdef:
+Just for the context: The original review suggestion [1] was to consider 
+splitting gicv3_lpi_init_host_lpis() and defer only the portions that 
+depend on ITS quirks being known, specifically the allocation of the 
+per-CPU pending table for the boot CPU (gicv3_lpi_allocate_pendtable), 
+which is the actual consumer of gicv3_its_get_memflags(). But here, the 
+whole gicv3_lpi_init_host_lpis() is moved, so the scope of the deferral 
+is broader.
 
--#ifdef CONFIG_HAS_SHARED_INFO
--        if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
--            evtchn->pending = true;
--#endif
-+        if ( evtchn_is_pending(d, evtchn) )
-+             evtchn->pending = true;
+[1] 
+https://patchew.org/Xen/cover.1774431310.git.mykola._5Fkvach@epam.com/a7732487959e777ff1de318cb28c588db69fbaa1.1774431311.git.mykola._5Fkvach@epam.com/
 
-Would you be okay with this approach instead of ifdef?
+> - Check gicv3_lpi_init_host_lpis() and panic on failure, matching the fatal
+>    nature of host LPI setup once ITS initialization succeeded.
 
-~ Oleksii
+So, this patch appears to fix two distinct issues:
+
+- ordering issue (LPI init occurring before ITS quirks are known)
+- unchecked return value from gicv3_lpi_init_host_lpis()
+
+Should these warrant Fixes: tag(s)?
+
+
+> ---
+>   xen/arch/arm/gic-v3.c | 14 +++++++++++---
+>   1 file changed, 11 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+> index 17ff85ef5d..acdac22953 100644
+> --- a/xen/arch/arm/gic-v3.c
+> +++ b/xen/arch/arm/gic-v3.c
+> @@ -764,9 +764,6 @@ static void __init gicv3_dist_init(void)
+>       type = readl_relaxed(GICD + GICD_TYPER);
+>       nr_lines = 32 * ((type & GICD_TYPE_LINES) + 1);
+>   
+> -    if ( type & GICD_TYPE_LPIS )
+> -        gicv3_lpi_init_host_lpis(GICD_TYPE_ID_BITS(type));
+> -
+>       /* Only 1020 interrupts are supported */
+>       nr_lines = min(1020U, nr_lines);
+>       gicv3_info.nr_lines = nr_lines;
+> @@ -1990,6 +1987,17 @@ static int __init gicv3_init(void)
+>           res = gicv3_its_init();
+>           if ( res )
+>               panic("GICv3: ITS: initialization failed: %d\n", res);
+> +
+> +        /*
+> +         * Host LPI allocation uses ITS-derived memory attributes, so defer it
+> +         * until after gicv3_its_init() has discovered ITS workarounds.
+> +         */
+> +        if ( gicv3_its_host_has_its() )
+
+This looks like a behaviour change. The condition is narrowed from "GICD 
+advertises LPI support" to "host ITS is present". As a result, on a 
+system where GICD_TYPE_LPIS is set but no ITS is present, LPI-specific 
+variables and data structures will no longer be initialized or 
+allocated. If I am not mistaken, software-generated LPIs without ITS 
+involvement are currently unsupported, so this change might be safe. 
+However, I think the commit message should explicitly document this 
+behaviour change and explain why it is safe.
+
+
+> +        {
+> +            res = gicv3_lpi_init_host_lpis(intid_bits);
+> +            if ( res )
+> +                panic("GICv3: LPI initialization failed: %d\n", res);
+> +        }
+>       }
+>   
+>       res = gicv3_cpu_init();
+
 
