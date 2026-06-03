@@ -2,48 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id l3rzNulEIGqGzgAAu9opvQ
+	id fOMhMD1FIGrDzgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:14:49 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:16:13 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC753639036
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:14:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E95663907E
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:16:13 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=none;
+	dkim=pass header.d=vates.tech header.s=selector1 header.b=Ew+arfam;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=fail reason="SPF not aligned (relaxed), No valid DKIM" header.from=citrix.com (policy=reject)
-Received: from list by lists.xenproject.org with outflank-mailman.1326812.1592147 (Exim 4.92)
+	dmarc=pass (policy=none) header.from=vates.tech
+Received: from list by lists.xenproject.org with outflank-mailman.1326862.1592156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUnIo-000130-1V; Wed, 03 Jun 2026 15:14:42 +0000
+	id 1wUnK5-0001nz-CT; Wed, 03 Jun 2026 15:16:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326812.1592147; Wed, 03 Jun 2026 15:14:41 +0000
+Received: by outflank-mailman (output) from mailman id 1326862.1592156; Wed, 03 Jun 2026 15:16:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUnIn-00010V-Sk; Wed, 03 Jun 2026 15:14:41 +0000
-Received: by outflank-mailman (input) for mailman id 1326812;
- Wed, 03 Jun 2026 15:14:40 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <bernhard.kaindl@citrix.com>) id 1wUnIm-0000ya-1a
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 15:14:40 +0000
+	id 1wUnK5-0001lF-86; Wed, 03 Jun 2026 15:16:01 +0000
+Received: by outflank-mailman (input) for mailman id 1326862;
+ Wed, 03 Jun 2026 15:15:59 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e8e0e398b000701b@swg.vates.tech>)
+ id 1wUnK3-0001kx-Gg
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 15:15:59 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUnIl-007eN6-EX
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 17:14:39 +0200
-Received: from [10.42.69.5] (helo=localhost)
- by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a2044dd-bab6-0a2a0a5309dd-0a2a4505e5f2-8
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:14:39 +0200
-Received: from [160.101.131.8] (helo=na1pdmzitismtp01.tibco.com)
- by tlsNG-c201ff.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <bernhard.kaindl@citrix.com>)
- id 6a2044de-aaa8-0a2a45050019-a065830897c8-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:14:39 +0200
-Received: from debian.eng.citrite.net (unknown [10.113.40.46])
- by na1pdmzitismtp01.tibco.com (Postfix) with ESMTP id BBE3243469EE;
- Wed,  3 Jun 2026 11:13:31 -0400 (EDT)
+ id 1wUnK2-007jWN-QC
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 17:15:58 +0200
+Received: from [10.42.69.10] (helo=localhost)
+ by localhost with ESMTP (eXpurgate MTA 0.9.1) (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e8e0e398b000701b@swg.vates.tech>)
+ id 6a204525-2eae-0a2a0a5409dd-0a2a450ae33c-16
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:15:58 +0200
+Received: from [185.255.28.18] (helo=prod-mta-13.swg-srv.net)
+ by tlsNG-4011c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from
+ <prod-mta-13.8631fc262581453bbf619ec5b2062170.19e8e0e398b000701b@swg.vates.tech>)
+ id 6a20452e-56b3-0a2a450a0019-b9ff1c1294dd-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:15:58 +0200
+Received: from mail2.vates.fr ([37.26.189.201] mail2.vates.fr)
+ (Authenticated sender:
+ 8631fc262581453bbf619ec5b2062170/smtp/7773de5a-2839-4720-82ee-e06722ae1d3e)
+ by prod-mta-13.swg-srv.net (ZoneMTA - prod-mta-13) with ESMTPSA id
+ 19e8e0e398b000701b.004 for <xen-devel@lists.xenproject.org>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Wed, 03 Jun 2026 15:15:57 +0000
+Received: from l14 (lfbn-lyo-1-414-55.w2-7.abo.wanadoo.fr [2.7.24.55])
+ (Authenticated sender: anthony.perard)
+ by mail2.vates.fr (Postfix) with ESMTPSA id B8D8286DD5;
+ Wed,  3 Jun 2026 17:15:56 +0200 (CEST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,146 +65,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Bernhard Kaindl <bernhard.kaindl@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>
-Subject: [PATCH v2 2/2] tools/tests/native: Add test for offlined buddy head PFN_ORDER
-Date: Wed,  3 Jun 2026 16:11:44 +0100
-Message-Id: <0e10a54c715e01fd4d2fb54a70668f0cc52d9f8e.1780499500.git.bernhard.kaindl@citrix.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1780499500.git.bernhard.kaindl@citrix.com>
-References: <cover.1780499500.git.bernhard.kaindl@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vates.tech;
+ q=dns/txt; s=selector1; bh=j4KNTRu5Y3mgkM5VaS+1XPXGAw/9UaccVHJWw7S8y5M=;
+ h=from:subject:date:message-id:to:cc:mime-version:content-type:in-reply-to:references:feedback-id;
+ b=Ew+arfamLrjIXNIZQRhiKyxkNRurAbotrIS4ZG0QFbu8jYh7Um+GLiZ3fgS1jlS/sUBcgVaYW
+ BlOyoRM/XgCjbUIr5lslhfKycu4GFSXkTBt1wsG7bUn34YOVjddpHso3bhxb9W1BN7+0ONAaUCt
+ mdCNctqqyhP2fWegcBRv4lnoqpLRKCNgNP78/aBsuMJgZo939Kmj1vAAP67+shhQxgTcXlmORA8
+ ZgZqe9RCyPo17/c4K2SBoo46SDab6kqfWaqNaMBxLYXR/jLWHY31UvSHsB3ClHhxN3Mx4Mt3Lkf
+ WqgaJlZ0RTnfdcdsIc8PxFSriY3/89W0BA+O8/sFPoqw==
+X-Zone-Loop: ac732d6e1bbe6720caf5827f165ad6b47fdca3996164
+x-campaign-type: default
+x-transaction-id: ca74d823-a30e-43ad-a506-272abe92b23d
+x-swg-uid: 01-cfc6ffab-e29d-4b18-9d04-2bce3dee48d3
+X-Mailer: Sweego
+Message-ID:
+ <1780499757.8631fc262581453bbf619ec5b2062170.19e8e0e398b000701b@vates.tech>
+x-swg-bid: 1780499757.8631fc262581453bbf619ec5b2062170.19e8e0e398b000701b
+Feedback-ID: default:8631fc262581453bbf619ec5b2062170:Sweego
+x-campaign-id: default
+x-client-id: 8631fc262581453bbf619ec5b2062170
+X-Originating-IP: [37.26.189.201]
+Date: Wed, 3 Jun 2026 17:15:56 +0200
+From: Anthony PERARD <anthony.perard@vates.tech>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Juergen Gross <jgross@suse.com>,
+	Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>, Julien Grall <julien@xen.org>
+Subject: Re: [PATCH for-4.22 2/5] tools/macros: adjust ROUNDUP() interface to
+ match hypervisor
+References: <20260601154332.30797-1-roger.pau@citrix.com>
+ <20260601154332.30797-3-roger.pau@citrix.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-c201ff/1780499679-E1F9C443-B509243E/0/0
+Content-Disposition: inline
+In-Reply-To: <20260601154332.30797-3-roger.pau@citrix.com>
+X-BM-Disclaimer: Yes
+Content-Type: multipart/alternative; boundary="-=Part.1cf4.e81e5d4cb6a0dfdf.19e8e0e3763.df6aaf93657816b6=-"
+X-Bm-Milter-Handled: 4ffbd6c1-ee69-4e1b-aabd-f977039bd3e2
+X-Bm-Transport-Timestamp: 1780499756900
+X-purgate-ID: tlsNG-4011c0/1780499758-7D5868B7-35FE2464/0/0
 X-purgate-type: clean
-X-purgate-size: 3487
+X-purgate-size: 651
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.01 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[citrix.com : SPF not aligned (relaxed), No valid DKIM,reject];
-	MID_CONTAINS_FROM(1.00)[];
-	R_MISSING_CHARSET(0.50)[];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [2.33 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	URI_COUNT_ODD(1.00)[1];
+	MIME_MA_MISSING_HTML(1.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[vates.tech,none];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[vates.tech:s=selector1];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.10)[multipart/alternative,text/plain];
+	XM_UA_NO_VERSION(0.01)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:bernhard.kaindl@citrix.com,m:anthony.perard@vates.tech,s:lists@lfdr.de];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	URIBL_MULTI_FAIL(0.00)[lists.xenproject.org:server fail,vates.tech:server fail,citrix.com:server fail];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:jgross@suse.com,m:christian.lindig@citrix.com,m:dave@recoil.org,m:julien@xen.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	RCVD_COUNT_SEVEN(0.00)[9];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[citrix.com:mid,citrix.com:from_mime,citrix.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	RCPT_COUNT_THREE(0.00)[3];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[xen-devel];
-	R_DKIM_NA(0.00)[];
+	FORGED_SENDER(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	MIME_TRACE(0.00)[0:+,1:+];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vates.tech:dkim,vates.tech:mid,vates.tech:email,vates.tech:from_mime,vates.tech:url];
+	DKIM_TRACE(0.00)[vates.tech:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US]
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	HAS_XOIP(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[anthony.perard@vates.tech,xen-devel-bounces@lists.xenproject.org];
+	FREEMAIL_CC(0.00)[lists.xenproject.org,gmail.com,suse.com,citrix.com,recoil.org,xen.org];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	TAGGED_RCPT(0.00)[xen-devel];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: AC753639036
+X-Rspamd-Queue-Id: 4E95663907E
 
-Add a regression test to check that the PFN_ORDER(pg) of buddy heads
-is reset to 0 when they become offline single pages which have been
-moved of the offlined page lists.
+---=Part.1cf4.e81e5d4cb6a0dfdf.19e8e0e3763.df6aaf93657816b6=-
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Bernhard Kaindl <bernhard.kaindl@citrix.com>
----
- tools/tests/native/offline-head-order.c | 74 +++++++++++++++++++++++++
- 1 file changed, 74 insertions(+)
- create mode 100644 tools/tests/native/offline-head-order.c
+On Mon, Jun 01, 2026 at 05:43:29PM +0200, Roger Pau Monne wrote:
+> Adjust user-space callers to use the new interface=2E  No functional cha=
+nge
+> intended=2E
+>=20
+> Signed-off-by: Roger Pau Monn=C3=A9 <roger=2Epau@citrix=2Ecom>
 
-diff --git a/tools/tests/native/offline-head-order.c b/tools/tests/native/offline-head-order.c
-new file mode 100644
-index 000000000000..20c4f36526c1
---- /dev/null
-+++ b/tools/tests/native/offline-head-order.c
-@@ -0,0 +1,74 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Tests using offline_page() to verify reserve_offlined_page()
-+ *
-+ * The workflow tested here is offlining a free page:
-+ *
-+ * 1. offline_page() calls mark_page_offlined() to mark the page.
-+ * 2. It calls reserve_heap_page() to find the containing buddy.
-+ * 3. It calls reserve_offlined_page() to reserve the marked pages within
-+ *    that buddy.
-+ *
-+ * reserve_offlined_page() then:
-+ *
-+ * 1. Removes the buddy, a 2^order group of pages, from the free list.
-+ * 2. Finds size-aligned spans of healthy pages within it.
-+ * 3. Rebuilds healthy buddies from those spans and
-+ *    adds them back to the free list via page_list_add_scrub().
-+ * 4. Moves offlined subpages to the offlined page lists.
-+ *
-+ * Copyright (C) 2026 Cloud Software Group
-+ */
-+#define CONFIG_SYSCTL
-+#include "harness/native.h"
-+
-+static void test_offline_head_order(int start_mfn)
-+{
-+    struct page_info *page = frame_table + start_mfn;
-+    uint32_t status = 0;
-+
-+    /* Seed a single order-1 buddy onto the heap. */
-+    test_page_list_add_buddy(page, order1);
-+    ASSERT(PFN_ORDER(page) == 1);
-+    /* Offline the head page. */
-+    ASSERT(offline_page(page_to_mfn(page), 0, &status) == 0);
-+    ASSERT(status == PG_OFFLINE_OFFLINED);
-+
-+    /* Check the order of the offlined head page. */
-+    ASSERT(PFN_ORDER(page) == 0);
-+
-+    /*
-+     * Allocate the successor page of the offlined page. This prevents
-+     * the normal successor page merge when the page is re-onlined below.
-+     */
-+    struct page_info *pg = alloc_domheap_pages(dom1, order0, 0);
-+    ASSERT(pg == page + 1);
-+    ASSERT(FREE_PAGES == 0);
-+
-+    /* Online the offlined former head page. */
-+    ASSERT(online_page(page_to_mfn(page), &status) == 0);
-+    ASSERT(status & PG_ONLINE_ONLINED);
-+    ASSERT(FREE_PAGES == 1);
-+
-+    /*
-+     * Confirm the order of the onlined former head page is 0, independently
-+     * of the order returned by PFN_ORDER() for the offlined page. This should
-+     * always be successful because page_offlined_list only contains single
-+     * pages and online_page() ignores PFN_ORDER(pg) of the page. It calls
-+     * free_heap_pages() passing the order hardcoded to 0. This causes it to
-+     * pass the given order 0 to page_list_add_scrub(). This causes it to set
-+     * the order of the page to 0 before it adds the page to the free list.
-+     */
-+    ASSERT(PFN_ORDER(page) == 0);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+    const char *topic = "Test offlined head page to be updated to PFN_ORDER 0";
-+    if ( !parse_args(argc, argv, topic) )
-+        return EXIT_FAILURE;
-+
-+    init_page_alloc_tests();
-+    RUN_TESTCASE("TOHP", test_offline_head_order, 2);
-+    return test_complete();
-+}
+Reviewed-by: Anthony PERARD <anthony=2Eperard@vates=2Etech>
+
+Thanks,
+
+
 -- 
-2.39.5
+Anthony Perard | Vates XCP-ng Developer
 
+XCP-ng & Xen Orchestra - Vate=
+s solutions
+
+web: https://vates=2Etech
+---=Part.1cf4.e81e5d4cb6a0dfdf.19e8e0e3763.df6aaf93657816b6=---
 
