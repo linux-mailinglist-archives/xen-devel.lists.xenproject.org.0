@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id aBY6AGI5IGpKywAAu9opvQ
+	id ajBENIM5IGpSywAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:25:38 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:26:11 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AD976388B1
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:25:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 354B16388CE
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:26:11 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b="eWjlPz/3";
+	dkim=pass header.d=citrix.com header.s=selector1 header.b=xAH3jPQN;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1326565.1591984 (Exim 4.92)
+	dmarc=pass (policy=reject) header.from=citrix.com;
+	arc=pass ("microsoft.com:s=arcselector10001:i=1")
+Received: from list by lists.xenproject.org with outflank-mailman.1326578.1591994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmXC-0003nj-O6; Wed, 03 Jun 2026 14:25:30 +0000
+	id 1wUmXe-0004jA-2M; Wed, 03 Jun 2026 14:25:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326565.1591984; Wed, 03 Jun 2026 14:25:30 +0000
+Received: by outflank-mailman (output) from mailman id 1326578.1591994; Wed, 03 Jun 2026 14:25:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmXC-0003lv-JD; Wed, 03 Jun 2026 14:25:30 +0000
-Received: by outflank-mailman (input) for mailman id 1326565;
- Wed, 03 Jun 2026 14:25:29 +0000
+	id 1wUmXd-0004gg-VI; Wed, 03 Jun 2026 14:25:57 +0000
+Received: by outflank-mailman (input) for mailman id 1326578;
+ Wed, 03 Jun 2026 14:25:55 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wUmXB-0003Xp-81
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:25:29 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <bernhard.kaindl@citrix.com>) id 1wUmXb-0004bd-NJ
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:25:55 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUmXA-00CIZk-L5
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:25:28 +0200
-Received: from [10.42.69.9] (helo=localhost)
+ id 1wUmXa-00GFcI-SM
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:25:54 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a203954-e002-0a2a0a5209dd-0a2a45099a3e-10
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:25:28 +0200
-Received: from [209.85.218.42] (helo=mail-ej1-f42.google.com)
- by tlsNG-bad1c0.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <oleksii.kurochko@gmail.com>)
- id 6a203958-2497-0a2a45090019-d155da2ad9e9-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:25:28 +0200
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-bf0170c80f7so284182866b.3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 07:25:28 -0700 (PDT)
-Received: from fedora (user-109-243-148-111.play-internet.pl.
- [109.243.148.111]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bf0517721c2sm162199766b.3.2026.06.03.07.25.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Jun 2026 07:25:27 -0700 (PDT)
+ (envelope-from <bernhard.kaindl@citrix.com>)
+ id 6a20396b-2eae-0a2a0a5409dd-0a2a450c8092-30
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:25:54 +0200
+Received: from [52.101.62.66]
+ (helo=DM5PR21CU001.outbound.protection.outlook.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <bernhard.kaindl@citrix.com>)
+ id 6a203971-62f1-0a2a450c0019-34653e421431-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:25:54 +0200
+Received: from LV3PR03MB7707.namprd03.prod.outlook.com (2603:10b6:408:28b::21)
+ by LV1PR03MB989608.namprd03.prod.outlook.com (2603:10b6:408:3f5::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 14:25:51 +0000
+Received: from LV3PR03MB7707.namprd03.prod.outlook.com
+ ([fe80::97e8:ef9c:9031:e2bf]) by LV3PR03MB7707.namprd03.prod.outlook.com
+ ([fe80::97e8:ef9c:9031:e2bf%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 14:25:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,420 +63,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780496728; x=1781101528; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=miha+RILCA7ne03eYfC+l8atexUy0yz60KL9zHv6qbE=;
-        b=eWjlPz/3YLufQo9NgBRV8fG8hcLnVE2XCxOI3FbkA4rL32eX6eAerAyvGFYJnGb/HN
-         jhH6DfYFktxINIz0uRjhiipdUJAfAG37bd+bf+ZV16CLak8u9U6boI7E1Mhwz9Li71Wn
-         d6CPf/9adlUNHGyX5FzNiazK7ynHsDDG5Mv1eIF4eCnQTwVjfXVjRuP+scztIB9ZAzJm
-         qfOIaejXTG7IEdqKV/4aAJpAWQA1UbU7DiYn5UrCf2W8O0DQoMdvpqunFSKdYpAotKnA
-         bekUm5G2untxZcewRDR1yF30DlRLgjiw4kStPR5xYqwRa2b+6aFYX/YccnlGbtUw4ekT
-         f77Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780496728; x=1781101528;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=miha+RILCA7ne03eYfC+l8atexUy0yz60KL9zHv6qbE=;
-        b=JfC311zZshthat9WCQOrQ09OWWnALhEhGvZR+SQ4mmMv3HPqdVKS21BctQmM3QV2kW
-         rH9I8+lA2NgxfpQ5BIrQtEbdgPZaBq6/GNunM+QO11WjWJnwa7YwhVBBs0W8oQLk6DSh
-         X033kLJxjIqIBsJJDDv0xzo49FNfPtThRykO1csq4vF0vOxcZVumsjbrMuFNZJTNX/Ow
-         FbKozahAt1RAK756jr6KTM2qmGgcoKB7z7t5HwIBg22ABMGNKVW/t6vrlYURf0z9CoCD
-         HlhOkXUQ8/ijn55n+jcRwrWGNFmA4jc2T/b1zSlAh9Ao8Cbc5ss4k+JY6MZjM8Tpd/Ex
-         6w+Q==
-X-Gm-Message-State: AOJu0YxfZJeU07ln7RoN0qvx7XX5spHOVKlhvwY6N9H0uWpLYKlZNZlZ
-	X9j0JAmd4TnDMKY28H+U54+y/psKnOpfR6zUbGmBo+RkQ1xzxu43DgAm87hw4Q==
-X-Gm-Gg: Acq92OGZOgOUf1Scqo25KY/tSvpIWvCdkjidBCyyJ4f+vLH9WrrkSewHTyD/wIkvWMi
-	1ptb5Shp6rMHTcmVrdOEG/irMAzMMe3dXRFFTnoJANRVjIrzlzbtjtXbV6XSqQvJ20eLFqH1lGa
-	5js32jnyB7rH9v1IUs3N+zuk1XKJQUO/hEG9U/s+IKWm33er0IctmOoVr1p0AEPV2KVrwtZJruK
-	2hZ3qvL/ZfxoQcj0ykHC9EFN353IsCNCQ4UX+AtekQC7BlK2Tz5kZl1AfbTy4xWBF5HyZMRcjcC
-	nJABk8ext2hKNJ4+m5cvRROhLZ9BlnD9DjzGLbzj7tY1sSMIVi1DRggFcktzxLWwNZQ/bd1I85E
-	Gb1t/I03fWKDWl248WP30/x5m8+KfDUVukccpdPVPIHbXjahDAs3cm8HabqjGf12yMXZ+BNFBOb
-	sTSNMH3dxC8lxC1snIyCPjrwfy/ziseDShrOay8Z1LGpIzmxyKkIC+m0z5UYuV35aODsbZ6HGke
-	9bq/a4=
-X-Received: by 2002:a17:907:3d44:b0:bec:d077:c4e1 with SMTP id a640c23a62f3a-bf0afcf41ffmr200574566b.47.1780496727766;
-        Wed, 03 Jun 2026 07:25:27 -0700 (PDT)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Michal Orzel <michal.orzel@amd.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>
-Subject: [PATCH v3 2/2] xen: introduce CONFIG_HAS_SHARED_INFO for archs without a shared page
-Date: Wed,  3 Jun 2026 16:25:18 +0200
-Message-ID: <7ed7b888e203b7cc6c3a3a82b3bcc89d90b3fb48.1780494838.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1780494838.git.oleksii.kurochko@gmail.com>
-References: <cover.1780494838.git.oleksii.kurochko@gmail.com>
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lTVEu08hWrlQI0Vr/HKROsxqeWbcHi03GJQI/P1fsqm7QOEHV5KiwMVUiScynwlN+co6KidTpeimKhJI0/ZRZyIcwXOBCMyKEqMnsbCzUSXmQuaV2I4QUnPDOKv1KnmNcLydpGQssTjOqsllpEWTUES3t17dirIzzITT63pfB4d4OfMNRqEj5Go4AcoUoXiX6AtmRM/trNtztSUzzJ83qCCO2zq0RINNTnNynLGsqY8j7gMxU1nbHx6QtVp43/oXQeoBO6gQ6HgWFqKIZIUue5oADkhsO37fTm93qJnHO/JfxwxsfyCTEzSgremiyxsE+BATbm9dgEIKrvd/j8sltg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uTzEC9YnJUSm335s/FAurfidP0Px5xZwFO3J7JzfFlk=;
+ b=CWNpbnGUfS9MY12K/woVxEAtfFYV3JbB1rxYhsg4DGhqNL+5FJ4Q0/7/A1iWqy/ttUgK4R3XcPjZoThkV22ZDbPNWdXVxRJzPveO/4bsbM0S7z0YzSmgmnlFrn6sEPfg/JSxNhxDAsrsZ1AXFtpsQG+/R1QEgLyJJrMCYwu5C8aNdIVyWv9b3Ti9Z+HH5IgyRJDrA47Yt0ytxamtf5B9n5YNVSy1YJS1SnaUF33EuaPoT0BY8dpKx6HlTdAmlL1Bd+DU/BhOISQaIy8rygwestINzW/PD29zQ303S/NYAOWsWDodbFe3erN0tRU1D6UE6OTXtSWeCa4ad5HlwyPgAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uTzEC9YnJUSm335s/FAurfidP0Px5xZwFO3J7JzfFlk=;
+ b=xAH3jPQNC6KLH62a9TsrzEjEefcGQTnjc6cEZjDxFjW3FFxsUUzO+cfRsZXg0IO2xdO38uwQRZkQ0ATYJn5wPZQAcbw77Yvlv1cyDrgl43TWa4alYJCC9cckxQarf531qzY2BkN9rM8Tiz5F+TdrZM1T3ZSZwN9xsimb2PEk4bs=
+From: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Anthony PERARD <anthony.perard@vates.tech>, Andrew Cooper
+	<andrew.cooper@citrix.com>, Michal Orzel <michal.orzel@amd.com>, Julien Grall
+	<julien@xen.org>, Roger Pau Monne <roger.pau@citrix.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH 2/2] xen/mm: Fix off-by-one stopping tail merge in
+ reserve_offlined_page
+Thread-Topic: [PATCH 2/2] xen/mm: Fix off-by-one stopping tail merge in
+ reserve_offlined_page
+Thread-Index: AQHc7rJm4c7CmMD34EmD9nfdurc6wbYrXvCAgAGNBGA=
+Date: Wed, 3 Jun 2026 14:25:51 +0000
+Message-ID:
+ <LV3PR03MB77075021D89384D783865E7687132@LV3PR03MB7707.namprd03.prod.outlook.com>
+References: <cover.1779980089.git.bernhard.kaindl@citrix.com>
+ <b177222a50bb11647589f3143b8ba9771535b7d9.1779980089.git.bernhard.kaindl@citrix.com>
+ <1110e571-db6e-4443-aa8d-6676d5b1edef@suse.com>
+In-Reply-To: <1110e571-db6e-4443-aa8d-6676d5b1edef@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV3PR03MB7707:EE_|LV1PR03MB989608:EE_
+x-ms-office365-filtering-correlation-id: e48c19de-858c-4e8c-3597-08dec17c03d2
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|10070799003|1800799024|376014|18002099003|22082099003|4143699003|11063799006|56012099006|38070700021;
+x-microsoft-antispam-message-info:
+ sExu7gqTj3/MtCWMzWbT86wIeQEJYMt2uqy8i8Dacyj5jYPGL3KQGAlnvtze1ovdvAEi7IDE/SSweBwT077DpDBaAysYDhVWWtNNpyy2uJqYYayWwHl9DPSiElMbRbfDV1a0/5F6RZswD3P/5wzfWkIWwD9BEPlH3joGCfMIcfq4QTh4tpXvZlLiwwECnfmYnms7OE3PpW3goOpqLxv7foibKZdd+3BecUJwr0oWRkr/aypYQYJDF+6x4p6Ic456XBvUBZ6/gvm2e/JFKbeHY3qyrW04xy5qfq2rabBGnDVhsE9tHtJh9EiNI72vMsyRZFepl2FaTLWMl6D56qJy3jCQbgHGxOHC9HQhLvad40aVDVzwO9uct5pEJ37nMEgLOpSo2mVtaXgj8w8NCzckTbI4QmKwM5TOji5P6giJkgl3S7DvLa+CVxHdA4SjUB+jW3jT24a2ER1J85T6Yd7wGRfh6OOaNpBOg0hH/5SS8ClrBubyimpC6cpH5b4o/yCo8o/eahmk7sj9QGySLT+KOT4+we484w45B5ejMqU6Maz96BZhd0bmCCw5hCXa74gJdM2GLf42Ztk5I77b0i9enEDTbYBCktK8tT32RgfErHuVglQSLetheOVUOPoTfeikiERJenGaRXxY4rwcBUyjfu0AG3mV5e1qEuN5bjeVtnC++CDxWXKFPPtesBVhFSz/Ogc7UtAcoiy9CiguioSegmBxEgmi8Vw3pSliRFAGgDQ8dFQ2HDvLd02IyMlc34ca
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR03MB7707.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(1800799024)(376014)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?dnVLbFZnVEMrSjV0WElqMVE1dkdUbjBQTVJRZnltc3lZR0Z4RTVZbkxPMitr?=
+ =?utf-8?B?WnVHdFkvRWh2dWVobWczNUFkV2FQdUdSa1pkbTlLZ2NQaFJSMDRFRDFBL0kr?=
+ =?utf-8?B?VWFWL2ZTRFd5Ni9RWGFJZkpPV3NUUklnc3F6MGZicnlKRk9GeGN0RVEwM2Zs?=
+ =?utf-8?B?VlpLMGszMlliSUcySXNTNGRVS0dkS2VISXNEUkNYazZTdlB5cnZVd3pZbVZW?=
+ =?utf-8?B?Ymp0WGdjS2dJTkR3ekU3ak5oSVhaOFo1b2d0cGJtQUNoNHNxcndZOG5FUHRP?=
+ =?utf-8?B?czFvMnlVdW1mdUROeDlwT2VMUjRlV2NUVk54TWRVT2pEUEhleWJkRWVVSm5x?=
+ =?utf-8?B?bC9WTzQ0WWo0K1Z6SXRSV21tc1dLeGZQSzBkbHU5VG5GZTZMeVl4enpZbHN6?=
+ =?utf-8?B?dHFScVJCMUFPOGdmelplQ2NtU3lJMm0zYXF2N3FXVXlpUFZORzlsUXhiY2xT?=
+ =?utf-8?B?RE1wODJSWlZrTThhWmZ1TlRSQ01rSlgrZFEzQ1B5ZkJodzNMNEFGa01FUTRD?=
+ =?utf-8?B?MWRVQm5KTlZRREMxR0o1TitsSE5VS2h3VG1FcW1ieERaQ1FPSytmY3E2YXBz?=
+ =?utf-8?B?WkxvSlg2d2REWlRpZWQ5UmdVa1BqY0RNR3lSc1hmWGdMOTBLM3JLYmxFdzlv?=
+ =?utf-8?B?dDhUNlovc1k2WktoQXp6OFZHNUw4RVkwdm11MC95M1NCMnAwUTZLR042MFB0?=
+ =?utf-8?B?WjFUWHVOT2RNc2VMNUZhbDJTRzBmTE5OSlJuemJZazk5NVo5bk1WdmNldHFo?=
+ =?utf-8?B?cVRUZU5FazNzZFRVNVduaE5kV202aDcwKzZqZDh4bnFTK0NXM2VuUzNvSFJB?=
+ =?utf-8?B?bzQybDQ3UG94SG5vR2dDWVFuc3pSQlVqQVBoTWY2Q3h4elJTTmdrM0cvYzdM?=
+ =?utf-8?B?Z2RkYlRQZHI0Rm4yVGRvd0ZxTVk0RW1WUnI2QXRsWmhaMXRnOXlXb0FhMHdz?=
+ =?utf-8?B?ZmxvcjR3M0NpQkdSOEw5U2YxblNwaTJxeThES0w0dFIzWDRtbExiR2lLMjdV?=
+ =?utf-8?B?WXUweFhmVDNqVXUyYnZqRys1NmdvMWIrSjRPTVBUWlk5UktyQzJuNE5CSUNs?=
+ =?utf-8?B?SEl6TFp2NUhoclU1eDNGNDMzQVJ3Y1o2MnZpUlpZV3hLMHcwZ3l6SHdHTk12?=
+ =?utf-8?B?Qm8rUGxqTWxnOGZrM3BWNnVWTW9YRVlPbytBR0dneWc4b0w0S2M3dWRWb20x?=
+ =?utf-8?B?SUtIdFRIQjk2OGhwT3RaWVFXTFpCWThPa2tJWDNycjQrMFVhdXpoWW4rbTZ2?=
+ =?utf-8?B?Tkt2eSttWEZTS3hVSWZUMk1Lb2hvM2xYVzVHTGpuQ1RaZ0FPdlFVYUhYUmVY?=
+ =?utf-8?B?UVlDUGowQnR3c1JrdDIyUHdvenQ4RzVjdDZWdWhWWmhCa2hTVHJUVzJPYWR5?=
+ =?utf-8?B?S0EvcTcwWWFDK2pBYWNBYk1Xc2tJTmdud0IyamtxSE9oNEROcE11SjdaV0RU?=
+ =?utf-8?B?K045ZFpMUFl6Y3NJSnV2UFVkd2NncnpMcVk5WVFzL3VTWTFJVzNKWDlmRVg3?=
+ =?utf-8?B?SWx2TmxjSjNBVHlPZU4zYm50Qy9iVDFMaiszRER0WFBpZW1POTZMcjdGK2lO?=
+ =?utf-8?B?dzJiRDJRYUNKaG9CVnN1cW56N2tHNmh0bXhRbVpzczFEMnBjakMxL3lUMXFL?=
+ =?utf-8?B?THIzWmFKck1SUmtOVG9xQTJta0oyTm5FUE5SSDI3SXNjWk9GR3lBOGJ0THIv?=
+ =?utf-8?B?Nm8xc2wvWmxXcSt1bGk5Rlc0VEJBOE5LUWdEL3JzRXZhR3dEUGhHNHdOSmhN?=
+ =?utf-8?B?L1lKUTVtakRpMHZkZW9uM2NCRFEzOU9vM3NDVFNuNDY4M1VGYnZvNDRZYzBs?=
+ =?utf-8?B?MzNkMzZkQ1VOV3NaVEVFR3dlVjB4S3lFcFNFR2cyREczazBiOEtVTzRuT3Uz?=
+ =?utf-8?B?elpNWkprQWs3YTMrVXZhSVpQOW0vdStzUzVqcFRhRlc0TWRhdmFjeDhpVXJh?=
+ =?utf-8?B?dGlSVEJEQWEyRzRwSlBxb2pQdVovQ01Ra092MmNOWlFTVW9vNTI4cGtCdWFu?=
+ =?utf-8?B?UEVxamg4UEYwNmtxTnVIbkNKYlBNN0JzaCt4dFNhcnh6V0lGZXZsVHdia2hs?=
+ =?utf-8?B?NjJtdGVVTVFNRWtuaFFmbER0MmV5OG15a2sxQnovYmhieFVEZ2hpaDV1QWVn?=
+ =?utf-8?B?TUdIdTFsY1RPTGJPa1ZIS2ZUd1ZoL2xERlpSRWpuSG1QM0V6M0dVUWlScjNv?=
+ =?utf-8?B?c0ZtM2Zna2R6KzhmK0liekF3MVp5QkNlSUtBTWtOWFdIZnkxRU9MeFEwOXA0?=
+ =?utf-8?B?R2dGdkk2TzFvL0hjU0pSUG9FS2hGanpRbndXcThtTVFQWFRBUldaQm44KzJQ?=
+ =?utf-8?B?Nk5pYUY2d21oZFBHUXl4SlhEc2E5am9HcENYaFpScThxWmZHWVRxd1dQV3pl?=
+ =?utf-8?Q?+dWsczPtadZh0X1Qr6EGYVWxwwghUN8VQWY2noTi/rQAo?=
+x-ms-exchange-antispam-messagedata-1: C0E5ZQq660iXMA==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-bad1c0/1780496728-8B790A53-B3395CF4/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 11641
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR03MB7707.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e48c19de-858c-4e8c-3597-08dec17c03d2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jun 2026 14:25:51.6797
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: vrplA8QmWL3m+AoW0U7EJCxigV59XTkyt6plSTxeMXJouPxs/yWegxvnGm8t7MG1rxDUKJT8CkrLQ80GgXahK5E3lxXpXI9s/e5O9VzNdGs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR03MB989608
+X-purgate-ID: tlsNG-d25034/1780496754-DBB7CCF5-F5FF83E4/0/0
+X-purgate-type: clean
+X-purgate-size: 630
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.81 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [-1.08 / 15.00];
+	MIME_BASE64_TEXT_BOGUS(1.00)[];
+	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
+	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
+	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
 	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[gmail.com,kernel.org,xen.org,arm.com,amd.com,epam.com,citrix.com,vates.tech,suse.com];
-	FORGED_SENDER(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:oleksii.kurochko@gmail.com,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:jbeulich@suse.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[oleksiikurochko@gmail.com,xen-devel-bounces@lists.xenproject.org];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_SENDER(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:anthony.perard@vates.tech,m:andrew.cooper@citrix.com,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:email,citrix.com:from_mime,citrix.com:dkim,LV3PR03MB7707.namprd03.prod.outlook.com:mid];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[bernhard.kaindl@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[citrix.com:+];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 9AD976388B1
+X-Rspamd-Queue-Id: 354B16388CE
 
-On architectures that run guests in dom0less mode without the PV ABI
-(currently RISC-V), no shared_info page is allocated and d->shared_info
-remains NULL throughout the domain lifetime.  Several places in common
-code access d->shared_info through the shared_info() macro or directly,
-causing UBSAN null-pointer errors on such architectures.
-
-Rather than adding runtime NULL guards that are logically unreachable
-on x86 and Arm (where shared_info is always allocated), introduce a new
-Kconfig symbol CONFIG_HAS_SHARED_INFO selected by x86 and Arm.
-
-On !HAS_SHARED_INFO the shared_info() macro expands to a dereference
-of a pointer returned by shared_info_absent(), which is declared but
-intentionally never defined.  Any use of shared_info() that is not
-dead-code-eliminated will therefore cause a link-time failure, making
-missed guards impossible to overlook.
-
-The 2L event-channel ops call shared_info() and must not be compiled on
-architectures without a shared_info page, so event_2l.o is gated on
-CONFIG_HAS_SHARED_INFO.  On such architectures evtchn_init() installs
-the FIFO ops as a placeholder instead; evtchn_fifo_word_from_port() is
-guarded against uninitialised d->evtchn_fifo so the FIFO ops are safe
-before evtchn_fifo_init_control() is called by the guest.
-
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
-With having in Xen:
-   info->shared_info_frame = INVALID_GFN_RAW;
-probably we want to add at least ASSERT() in tools/libs/guest code
-as xc_map_foreign_range() doesn't check if mfn arguemnt is correct or not.
----
-Changes in v3:
- - Introduce CONFIG_HAS_SHARED_INFO Kconfig symbol selected by x86
-   and Arm; RISC-V does not select it.
- - Gate shared_info() macro on CONFIG_HAS_SHARED_INFO; on
-   !HAS_SHARED_INFO it calls shared_info_absent() (declared, never
-   defined) so any unguarded use produces a link-time error.
- - Replace runtime if (!d->shared_info) guards with IS_ENABLED() at
-   call sites so both branches type-check and dead code is eliminated.
- - Guard shared_info_frame assignment in domctl.c.
- - Gate event_2l.o on CONFIG_HAS_SHARED_INFO; use FIFO ops as
-   placeholder on !HAS_SHARED_INFO archs instead of dedicated stub
-   ops; guard evtchn_fifo_word_from_port() against uninitialised
-   d->evtchn_fifo.
- - Add static inline stubs for evtchn_2l_init() (!HAS_SHARED_INFO)
-   and evtchn_fifo_init_ops() (!EVTCHN_FIFO) so call sites can use
-   IS_ENABLED() without #ifdef.
- - Drop inaccurate changelog entry about "only FIFO ABI" migration.
- - Update the commit message.
- - Drop R-by: Baptiste ... as some extra checks are added.
----
-Changes in v2:
- - Update commit message + subject.
- - Drop Fixes tag.
----
- xen/arch/arm/Kconfig       |  1 +
- xen/arch/x86/Kconfig       |  1 +
- xen/common/Kconfig         |  3 +++
- xen/common/Makefile        |  2 +-
- xen/common/domain.c        |  6 +++---
- xen/common/domctl.c        | 11 ++++++++---
- xen/common/event_channel.c | 14 +++++++++++---
- xen/common/event_channel.h |  6 ++++++
- xen/common/event_fifo.c    | 11 ++++++++++-
- xen/common/time.c          |  2 ++
- xen/include/xen/shared.h   |  7 +++++++
- xen/include/xen/time.h     |  4 ++++
- 12 files changed, 57 insertions(+), 11 deletions(-)
-
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 79622b46a10d..23ff49842c90 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -20,6 +20,7 @@ config ARM
- 	select HAS_DEVICE_TREE_DISCOVERY
- 	select HAS_DOM0LESS
- 	select HAS_GRANT_CACHE_FLUSH if GRANT_TABLE
-+	select HAS_SHARED_INFO
- 	select HAS_STACK_PROTECTOR
- 	select HAS_UBSAN
- 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 2ce4747f6ea7..49697b795259 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -29,6 +29,7 @@ config X86
- 	select HAS_PCI_MSI
- 	select HAS_PIRQ
- 	select HAS_SCHED_GRANULARITY
-+	select HAS_SHARED_INFO
- 	imply HAS_SOFT_RESET
- 	select HAS_UBSAN
- 	select HAS_VMAP
-diff --git a/xen/common/Kconfig b/xen/common/Kconfig
-index 5ff71480eebe..8b48d84c79e8 100644
---- a/xen/common/Kconfig
-+++ b/xen/common/Kconfig
-@@ -158,6 +158,9 @@ config HAS_PMAP
- config HAS_SCHED_GRANULARITY
- 	bool
- 
-+config HAS_SHARED_INFO
-+	bool
-+
- config HAS_SOFT_RESET
- 	bool
- 
-diff --git a/xen/common/Makefile b/xen/common/Makefile
-index 6018e256147f..f69d47d18934 100644
---- a/xen/common/Makefile
-+++ b/xen/common/Makefile
-@@ -12,7 +12,7 @@ obj-$(CONFIG_DEVICE_TREE_PARSE) += device-tree/
- obj-$(CONFIG_IOREQ_SERVER) += dm.o
- obj-y += domain.o
- obj-y += domid.o
--obj-y += event_2l.o
-+obj-$(CONFIG_HAS_SHARED_INFO) += event_2l.o
- obj-y += event_channel.o
- obj-$(CONFIG_EVTCHN_FIFO) += event_fifo.o
- obj-$(CONFIG_GRANT_TABLE) += grant_table.o
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index bb9e210c2895..caf3b1e1ba0b 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -320,9 +320,9 @@ void vcpu_info_reset(struct vcpu *v)
-     struct domain *d = v->domain;
- 
-     v->vcpu_info_area.map =
--        ((v->vcpu_id < XEN_LEGACY_MAX_VCPUS)
--         ? (vcpu_info_t *)&shared_info(d, vcpu_info[v->vcpu_id])
--         : &dummy_vcpu_info);
-+        IS_ENABLED(CONFIG_HAS_SHARED_INFO) && v->vcpu_id < XEN_LEGACY_MAX_VCPUS
-+        ? (vcpu_info_t *)&shared_info(d, vcpu_info[v->vcpu_id])
-+        : &dummy_vcpu_info;
- }
- 
- static struct domain *alloc_domain_struct(void)
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index b969f5ada6cc..edeb8ec32b3b 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -104,9 +104,14 @@ void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info)
- #ifdef CONFIG_MEM_PAGING
-     info->paged_pages       = atomic_read(&d->paged_pages);
- #endif
--    info->shared_info_frame =
--        gfn_x(mfn_to_gfn(d, _mfn(virt_to_mfn(d->shared_info))));
--    BUG_ON(SHARED_M2P(info->shared_info_frame));
-+    if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
-+    {
-+        info->shared_info_frame =
-+            gfn_x(mfn_to_gfn(d, _mfn(virt_to_mfn(d->shared_info))));
-+        BUG_ON(SHARED_M2P(info->shared_info_frame));
-+    }
-+    else
-+        info->shared_info_frame = INVALID_GFN_RAW;
- 
-     info->cpupool = cpupool_get_id(d);
- 
-diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-index a3d18bc464e8..d8ff0122e86f 100644
---- a/xen/common/event_channel.c
-+++ b/xen/common/event_channel.c
-@@ -1323,9 +1323,13 @@ int evtchn_reset(struct domain *d, bool resuming)
-         rc = -EAGAIN;
-     else if ( d->evtchn_fifo )
-     {
--        /* Switching back to 2-level ABI. */
-         evtchn_fifo_destroy(d);
--        evtchn_2l_init(d);
-+
-+        if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
-+            /* Switching back to 2-level ABI. */
-+            evtchn_2l_init(d);
-+        else
-+            evtchn_fifo_init_ops(d);
-     }
- 
-     write_unlock(&d->event_lock);
-@@ -1624,7 +1628,11 @@ void evtchn_check_pollers(struct domain *d, unsigned int port)
- 
- int evtchn_init(struct domain *d, unsigned int max_port)
- {
--    evtchn_2l_init(d);
-+    if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) )
-+        evtchn_2l_init(d);
-+    else
-+        evtchn_fifo_init_ops(d);
-+
-     d->max_evtchn_port = min_t(unsigned int, max_port, INT_MAX);
- 
-     d->evtchn = alloc_evtchn_bucket(d, 0);
-diff --git a/xen/common/event_channel.h b/xen/common/event_channel.h
-index dc94a43cc2dd..91f6d7b3d4bf 100644
---- a/xen/common/event_channel.h
-+++ b/xen/common/event_channel.h
-@@ -44,7 +44,11 @@ static inline void evtchn_port_print_state(struct domain *d,
- 
- /* 2-level */
- 
-+#ifdef CONFIG_HAS_SHARED_INFO
- void evtchn_2l_init(struct domain *d);
-+#else
-+static inline void evtchn_2l_init(struct domain *d) {}
-+#endif
- 
- /* FIFO */
- 
-@@ -55,6 +59,7 @@ struct evtchn_expand_array;
- int evtchn_fifo_init_control(struct evtchn_init_control *init_control);
- int evtchn_fifo_expand_array(const struct evtchn_expand_array *expand_array);
- void evtchn_fifo_destroy(struct domain *d);
-+void evtchn_fifo_init_ops(struct domain *d);
- #else
- static inline int evtchn_fifo_init_control(struct evtchn_init_control *init_control)
- {
-@@ -68,6 +73,7 @@ static inline void evtchn_fifo_destroy(struct domain *d)
- {
-     return;
- }
-+static inline void evtchn_fifo_init_ops(struct domain *d) {}
- #endif /* CONFIG_EVTCHN_FIFO */
- 
- #endif /* EVENT_CHANNEL_H */
-diff --git a/xen/common/event_fifo.c b/xen/common/event_fifo.c
-index 37cba9bc4564..4aa34ca13a56 100644
---- a/xen/common/event_fifo.c
-+++ b/xen/common/event_fifo.c
-@@ -62,6 +62,9 @@ static inline event_word_t *evtchn_fifo_word_from_port(const struct domain *d,
-      */
-     smp_rmb();
- 
-+    if ( unlikely(!d->evtchn_fifo) )
-+        return NULL;
-+
-     if ( unlikely(port >= d->evtchn_fifo->num_evtchns) )
-         return NULL;
- 
-@@ -420,6 +423,11 @@ static const struct evtchn_port_ops evtchn_port_ops_fifo =
-     .print_state   = evtchn_fifo_print_state,
- };
- 
-+void evtchn_fifo_init_ops(struct domain *d)
-+{
-+    d->evtchn_port_ops = &evtchn_port_ops_fifo;
-+}
-+
- static int map_guest_page(struct domain *d, uint64_t gfn, void **virt)
- {
-     struct page_info *p;
-@@ -562,7 +570,8 @@ static void setup_ports(struct domain *d, unsigned int prev_evtchns)
- 
-         evtchn = evtchn_from_port(d, port);
- 
--        if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
-+        if ( IS_ENABLED(CONFIG_HAS_SHARED_INFO) &&
-+             guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
-             evtchn->pending = true;
- 
-         evtchn_fifo_set_priority(d, evtchn, EVTCHN_FIFO_PRIORITY_DEFAULT);
-diff --git a/xen/common/time.c b/xen/common/time.c
-index 04a65f00b35c..cdfdc53b6a17 100644
---- a/xen/common/time.c
-+++ b/xen/common/time.c
-@@ -89,6 +89,7 @@ struct tm gmtime(unsigned long t)
-     return tbuf;
- }
- 
-+#ifdef CONFIG_HAS_SHARED_INFO
- void update_domain_wallclock_time(struct domain *d)
- {
-     uint32_t *wc_version;
-@@ -117,6 +118,7 @@ void update_domain_wallclock_time(struct domain *d)
- 
-     spin_unlock(&wc_lock);
- }
-+#endif /* CONFIG_HAS_SHARED_INFO */
- 
- /* Set clock to <secs,usecs> after 00:00:00 UTC, 1 January, 1970. */
- void do_settime(u64 secs, unsigned int nsecs, u64 system_time_base)
-diff --git a/xen/include/xen/shared.h b/xen/include/xen/shared.h
-index 5b71342cab32..a938312170e5 100644
---- a/xen/include/xen/shared.h
-+++ b/xen/include/xen/shared.h
-@@ -43,7 +43,14 @@ typedef struct vcpu_info vcpu_info_t;
- 
- extern vcpu_info_t dummy_vcpu_info;
- 
-+#ifdef CONFIG_HAS_SHARED_INFO
- #define shared_info(d, field)      __shared_info(d, (d)->shared_info, field)
-+#else
-+void * shared_info_absent(void);
-+#define shared_info(d, field) \
-+    (*(typeof(__shared_info(d, (d)->shared_info, field)) *)shared_info_absent())
-+#endif /* CONFIG_HAS_SHARED_INFO */
-+
- #define vcpu_info(v, field)        \
-         __vcpu_info(v, (vcpu_info_t *)(v)->vcpu_info_area.map, field)
- 
-diff --git a/xen/include/xen/time.h b/xen/include/xen/time.h
-index e9c0822e6f31..2f872f580ffc 100644
---- a/xen/include/xen/time.h
-+++ b/xen/include/xen/time.h
-@@ -66,7 +66,11 @@ struct tm wallclock_time(uint64_t *ns);
- #define version_update_begin(v) (((v) + 1) | 1)
- #define version_update_end(v)   ((v) + 1)
- extern void update_vcpu_system_time(struct vcpu *v);
-+#ifdef CONFIG_HAS_SHARED_INFO
- extern void update_domain_wallclock_time(struct domain *d);
-+#else
-+static inline void update_domain_wallclock_time(struct domain *d) {}
-+#endif
- 
- extern void do_settime(
-     u64 secs, unsigned int nsecs, u64 system_time_base);
--- 
-2.54.0
-
+Wy4uLl0NCj4gTXVjaCBsaWtlIGZvciB0aGUgb3RoZXIgc2VyaWVzOiBXaXRoIHRoaXMgY29taW5n
+IGZpcnN0IChhbmQgc2VwYXJhdGUgZnJvbSB0aGUNCj4gbmV3IHRlc3QpLCB3aXRoIHRoZSBzdHJh
+eSBibGFuayByZW1vdmVkIGZyb20gdGhlIGxpbmUgdGhhdCB5b3UgdG91Y2gsIGFuZCB3aXRoDQo+
+IHBhcmVudGhlc2VzIGFsc28gYWRkZWQgdG8gcmVzZXJ2ZV9vZmZsaW5lZF9wYWdlKCkgaW4gdGhl
+IHN1YmplY3QgKGxpa2UgeW91DQo+IGhhdmUgaXQgaW4gdGhlIGRlc2NyaXB0aW9uKToNCj4gUmV2
+aWV3ZWQtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCg0KQWNrLCB0aGFua3Mg
+Zm9yIHRoZSByZXZpZXchDQoNCkknbGwgc3VibWl0IHYyIHdpdGggYWxsIGNoYW5nZXMgYW5kIHRo
+ZSBzdWdnZXN0ZWQgdGl0bGUgaW1wcm92ZW1lbnQgbW9tZW50YXJpbHkuDQoNCiAgIEJlcm5oYXJk
+DQo=
 
