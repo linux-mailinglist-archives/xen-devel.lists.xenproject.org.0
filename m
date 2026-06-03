@@ -2,52 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id FVI4LH9GIGqZzwAAu9opvQ
+	id 5DEIG2ZHIGr+zwAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:21:35 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:25:26 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 161CE6391B4
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:21:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8EA8639260
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 17:25:25 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b=V7mgEuJO;
+	dkim=pass header.d=suse.com header.s=google header.b=gk6MD6qH;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1326883.1592165 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1326894.1592174 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUnP7-00041n-1M; Wed, 03 Jun 2026 15:21:13 +0000
+	id 1wUnT2-0004mg-Gm; Wed, 03 Jun 2026 15:25:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326883.1592165; Wed, 03 Jun 2026 15:21:13 +0000
+Received: by outflank-mailman (output) from mailman id 1326894.1592174; Wed, 03 Jun 2026 15:25:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUnP6-0003yz-Ud; Wed, 03 Jun 2026 15:21:12 +0000
-Received: by outflank-mailman (input) for mailman id 1326883;
- Wed, 03 Jun 2026 15:21:12 +0000
+	id 1wUnT2-0004k2-Dp; Wed, 03 Jun 2026 15:25:16 +0000
+Received: by outflank-mailman (input) for mailman id 1326894;
+ Wed, 03 Jun 2026 15:25:15 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
- by lists.xenproject.org with esmtp (Exim 4.92) id 1wUnP5-0003ys-S2
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 15:21:11 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <jbeulich@suse.com>) id 1wUnT0-0004jw-S1
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 15:25:14 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUnP4-004MOB-Ok
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 17:21:10 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wUnT0-003nrO-8f
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 17:25:14 +0200
+Received: from [10.42.69.12] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a204656-5cb7-0a2a0a5109dd-0a2a450bd9c0-42
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:21:10 +0200
-Received: from [209.85.128.43] (helo=mail-wm1-f43.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a20474f-bab6-0a2a0a5309dd-0a2a450ca9a4-30
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:25:14 +0200
+Received: from [209.85.221.42] (helo=mail-wr1-f42.google.com)
+ by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a204666-212f-0a2a450b0019-d155802bd06e-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:21:10 +0200
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4903d730b1fso117569525e9.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 08:21:10 -0700 (PDT)
+ id 6a204759-62f1-0a2a450c0019-d155dd2ae0e3-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 17:25:14 +0200
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-46015dc517aso2652537f8f.2
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 08:25:14 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490bc23394asm412355e9.0.2026.06.03.08.21.08
+ 5b1f17b1804b1-490b63d8205sm54417155e9.11.2026.06.03.08.25.12
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jun 2026 08:21:09 -0700 (PDT)
+ Wed, 03 Jun 2026 08:25:13 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,60 +61,56 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780500070; x=1781104870; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1780500313; x=1781105113; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=PvxM07sqjaEJH3eRQ4iM6WjkpZsLfP2/5/ebD2uOcJ4=;
-        b=V7mgEuJOcT6qdcT3Awe4AK6XioBW0txqy0Pn6PdXZ1jk6yWEBlxBjFFmllu3dMLVMp
-         nXZs5Q0CrCVq5liVqCSBRu01hGeBZ6rsP4WALmXnXKUO7u+N7/pE/IeudLEUWVJkUyq7
-         oLFfmYAxDdb34aHf0PSFs5nrJHxV7OkI93lsow/2QY6NTz8Iu5hSz59fqf+1WZc3kbqj
-         j8dUNm8ceOvwLyaAS9+AG8q1Vc7qEWi9MBMzy3WTm7eI5RbFrZwu4SX3wals8dot/cNI
-         8/Toi0CCTayyYNbAs69tNu1OefkNGxsCDnlMwE5v3gI9Ly2mZVY9nkp8EjVcZ/D4wShq
-         MCUw==
+        bh=tzhWlKGsmVyS07p71rfdMQtoS7qSPKhuJEEt1TuL1Oo=;
+        b=gk6MD6qHQ7iq1NpbiQN9EIlo+3I1iTBYbu3C8Hc1pTJ8XzHnbEpkKma/I1STVOshUn
+         ksIpWk+qJWNH3bKcVska/V9WqFUHTRylVLlLuxomqmjNRfC58qlT18XXvULgdDLps6Se
+         iKOf7RYaH55BSsyjmOpDbJzziE29CotgN0RwSgcI8/hUX3ndQN6jtOeuJ5HH9DcWAYWr
+         nk2qO5m5m631JhUvriy0jrLxhHPdbuSWmpvH5JXkmL9FIZVmKnjPhehUGHNbzopXv2G3
+         pgT1rA+2K3POTjepDi723YgHTn3p1y4F4agElVGQL2HAvH/Cd1nhFtCO+366jq01NtaP
+         386g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780500070; x=1781104870;
+        d=1e100.net; s=20251104; t=1780500313; x=1781105113;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PvxM07sqjaEJH3eRQ4iM6WjkpZsLfP2/5/ebD2uOcJ4=;
-        b=g3iSX7k9TxjiuIBpJqqvglrFphwknxhgCpDpRq+V6WviVtVMOeQtHi8TAivANtVq+E
-         ua9FanXgSaetiJcmWNTpSpZ4QFTX3wYub1HAUSmG7boOkNGu0O8D+GfS5pfTZ6idNtyD
-         wgQmSoU8gZ79HZirOZuGItaUM8Yi6k0Cgha5MrxIRQls1dQ/IZz3l3ErkM4xnijVH6GZ
-         eZIQC+nmNhI2gAyCc7FOieSEhSB9Fk1vMoS6W5EiSbUBZeoi++X5MNX7Hp2HnqE9UlYP
-         jrb+gwd7gzYLsyvDxajE8FwjQVnCj2YddYiLjasD1uOat7UsDF6sELi2+ZHCI9Njj2uw
-         RKFw==
-X-Forwarded-Encrypted: i=1; AFNElJ8ru8XyIir3S+Gx3ZtfyxD6XQd4n5QPrC+4d9aOffolIWbQ8MBd9afBHuh/ZLBe52SUTrSVRlpND3c=@lists.xenproject.org
-X-Gm-Message-State: AOJu0YwmQgn8+huQjir+D/3iis90cMYfjdKTkqHOu+WxUesy/jnMVX4X
-	/AFzY2tETGj4tRu6/tBRJZY9x6BbDpslsCGqAzC5YewaVqCz3//yVConcs0+sRGT0w==
-X-Gm-Gg: Acq92OE5/a8DGhRjZaXGjpFU2vfqTEYRPrfkfhflViAtW/1DWD+Knfnh8VBel3sMflM
-	NvR5TDOKQa01W3kng2HD9VsTkcHBEyhkcFAtkUZbFHpwhpuS4+mYkyGRlc5jS+ryCITTpcNn64m
-	gTy7Z6P7Rc8hFZnmMlCiRoI/1VB0c0l/IzvkbdjdkB7BmLlZhZUFVvz9mNZDjzHXgGwQAwczdoY
-	Pc48FWen0RZ6aY34AYZ2qR1q4V4LAbezFFA/6TK4GHeme2OVHs2K/dZX9D1D+xaVSj2bLYWs4mP
-	wrOhK+1hQcjcyxFulMqFZFzX63xqY7KJEpAOKtP9nQAMdStHQ7c2gfj8nElKBQPt0wVhdDuKVVs
-	rVmPTwxU3zzknxyor7C2D20tD42QdyBChcRXve7wyxfWWjhtvXSwA3lK7qTJeI+/ZGBwpTvYnUW
-	sev4kmKpx7zpJceaxk98P2LLqvGPBDjy2s00ltBAwBFAkMEgXC93qvyBBwvkL9qXgOpAc62mncT
-	xRuvEH6VM4hVrOT1tugxSkctw==
-X-Received: by 2002:a05:600c:3552:b0:48a:563c:c8e2 with SMTP id 5b1f17b1804b1-490b5e73ef3mr58249925e9.3.1780500070003;
-        Wed, 03 Jun 2026 08:21:10 -0700 (PDT)
-Message-ID: <3da2f796-4dc7-408a-9ec9-f0e8bb02b1a9@suse.com>
-Date: Wed, 3 Jun 2026 17:21:07 +0200
+        bh=tzhWlKGsmVyS07p71rfdMQtoS7qSPKhuJEEt1TuL1Oo=;
+        b=r83HeMCiuiovA3BZ94s5on5el4rLQ1dx1AC6Bu5CD6/oE6If+J3o3hdPsGdE/bHG1X
+         V8Gy0ngQvLT2eBHdmA1n2DqowlPdaznvYETIAuxjezgkww3WogPpRwe8fTfjzsCHfYCP
+         A0Fn0g0cnGra3u/LyrZO4yKD1ZQ+Al0rvHQ+NQuLuwQ8YSP9V1uSAi5mbRZrirqrDX2a
+         R63LOnttBNdKUXVHM5weHdZzHREg1c9BzqyclWGAVYu0L9FyveNl58nQqn3s3C/3T7PV
+         9YGvs1RUJHnRoYEBSi9o+5g8F3e8CU41AmDMULqLASkoEA2yZ5uvKWpXpGkZDzrS/EVs
+         ejjw==
+X-Forwarded-Encrypted: i=1; AFNElJ/xZfU+gP02NotWJe3CC+sKIhI2NeJGvOFnh2CWP40ab88LCRyl9KKVK74MDpkTE78qy3Clr8/qfMI=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YzDquJbNO7jaWmO7YTaK8zafmybMXS6NRcxpOj4ZTF7YXhRtemJ
+	gT/9JJtppsXp5SQh0y0zqyn2ZzS8/HEMad678KlsI209wrS3uDmIal0oZPaunTOuFg==
+X-Gm-Gg: Acq92OGV7QThfssmFYo6BI1P3ITCZJPHIQ0wSG7Uofj6bQ5w+OqSt4I6AAeu1qIB5t/
+	KrwsE3F8V8iNKOh+sb7R30/FbGwXBtOZmCYzV30tlLtH6bdxryfBIZxYH1YkBvgEm5JZlfO/Syc
+	lorgeQYzvVr3lEryqV5eW5YOYQKFNY1Qh0W/x0w6PSWseeOXjq3chkG8sJcQ9+qLStYreNfAa5I
+	sFsQk4MJtMQpkBhACISKwEOpCiZpKFN1Ugqw5mbxtZPu3Nl6viRzkevVtVVQhyNe4in3X47qsyH
+	o/rmECi3Fvx8QuVE1FzKJHGKwcvyKwpf26aK3CRTR0LGmHb/ZTod9tLsKnVyH7jJUthnBRz3oJc
+	U1njhyiCp9tD9GCio6DFg45OcLf34ghQoy3gzYxsMO4dHSrNAEJDMwTDE2moJL70f9B44Pluehd
+	7LNtHQalXgS7NJqX7m717HaGLfq6qT64TcLKW6ypyvKWaeI1eSJRKppu8bAgKlxkF6UvwMOjwIt
+	5xATIdRFdAs2KIaTe1FGc4ACQ==
+X-Received: by 2002:a05:600c:3103:b0:48f:d612:3c4a with SMTP id 5b1f17b1804b1-490b5e645ddmr65646995e9.1.1780500313470;
+        Wed, 03 Jun 2026 08:25:13 -0700 (PDT)
+Message-ID: <5472f497-8071-4e30-9919-72106122d4ca@suse.com>
+Date: Wed, 3 Jun 2026 17:25:12 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 17/26] xen/riscv: generate IMSIC DT node for guest
- domains
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Romain Caritey <Romain.Caritey@microchip.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 1/2] xen/mm: reset PFN_ORDER for offlined buddy heads
+To: Bernhard Kaindl <bernhard.kaindl@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
  Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1778250616.git.oleksii.kurochko@gmail.com>
- <19d30d3c34a6ac9aeb668e1fc56301620b177db0.1778250616.git.oleksii.kurochko@gmail.com>
+References: <cover.1780499500.git.bernhard.kaindl@citrix.com>
+ <3d899d52c26e4ff6a45ff33864b355651ce5d081.1780499500.git.bernhard.kaindl@citrix.com>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -139,183 +136,77 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <19d30d3c34a6ac9aeb668e1fc56301620b177db0.1778250616.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <3d899d52c26e4ff6a45ff33864b355651ce5d081.1780499500.git.bernhard.kaindl@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1780500070-13F7EF3B-3117D490/10/73395122804
-X-purgate-type: spam
-X-purgate-size: 4512
+X-purgate-ID: tlsNG-d25034/1780500314-F4C79CF5-56B47B88/0/0
+X-purgate-type: clean
+X-purgate-size: 1314
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[mailman];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:bernhard.kaindl@citrix.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:Romain.Caritey@microchip.com,m:alistair.francis@wdc.com,m:connojdavis@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
-	FREEMAIL_CC(0.00)[microchip.com,wdc.com,gmail.com,citrix.com,vates.tech,amd.com,xen.org,kernel.org,lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,microchip.com:email,suse.com:mid,suse.com:from_mime,suse.com:dkim];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:mid,suse.com:from_mime,suse.com:dkim];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	DKIM_TRACE(0.00)[suse.com:+];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[xen-devel];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 161CE6391B4
+X-Rspamd-Queue-Id: C8EA8639260
 
-On 08.05.2026 16:43, Oleksii Kurochko wrote:
-> Guests using the IMSIC interrupt controller require a corresponding
-> Device Tree description.
+On 03.06.2026 17:11, Bernhard Kaindl wrote:
+> Ensure offlined buddy head pages are annotated as order-0 pages.
 > 
-> Add support for generating an IMSIC node when building the guest DT.
-> This allows guests to discover and use the IMSIC interrupt controller.
+> When a buddy containing pages marked for offlining is processed,
+> reserve_offlined_page() rebuilds any surviving healthy buddies
+> and moves the offlined subpages onto the offlined lists.
 > 
-> Co-developed-by: Romain Caritey <Romain.Caritey@microchip.com>
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> ---
-> Changes in v2:
->  - s/imsic_make_reg_property/guest_imsic_make_reg_property.
->  - s/imsic_set_interrupt_extended_prop/guest_imsic_set_interrupt_extended_prop.
->  - Use initalizer for regs[] array in imsic_make_reg_property().
->  - Move buf[] insde the for() loop.
->  - Correct check of returned phandle.
->  - Drop local variable len.
->  - /s/XVFREE/xvfree in imsic_set_interrupt_extended_prop().
->  - Drop initializer for local variable data.
->  - s/uint32_t/unsinged int for pos and cpu in imsic_set_interrupt_extended_prop().
->  - Drop next_phandle as it is now in common code.
->  - Introduce vcpu_imsic_deinit.
->  - Refactor vimsic_make_domu_dt_node() to avoid usage of host IMSIC dt node.
-> ---
->  xen/arch/riscv/imsic.c                    | 127 +++++++++++++++++++++-
->  xen/arch/riscv/include/asm/guest-layout.h |   2 +
->  2 files changed, 128 insertions(+), 1 deletion(-)
+> If the buddy head itself is offlined it was previously left
+> annotated with the original buddy order even though it has
+> been split into a single page.
 > 
-> diff --git a/xen/arch/riscv/imsic.c b/xen/arch/riscv/imsic.c
-> index ceea6778d9dc..19cbacdf96e1 100644
-> --- a/xen/arch/riscv/imsic.c
-> +++ b/xen/arch/riscv/imsic.c
-> @@ -13,9 +13,12 @@
->  #include <xen/const.h>
->  #include <xen/cpumask.h>
->  #include <xen/device_tree.h>
-> +#include <xen/domain.h>
->  #include <xen/errno.h>
-> +#include <xen/fdt-domain-build.h>
->  #include <xen/fdt-kernel.h>
->  #include <xen/init.h>
-> +#include <xen/libfdt/libfdt.h>
->  #include <xen/macros.h>
->  #include <xen/sched.h>
->  #include <xen/smp.h>
-> @@ -35,6 +38,11 @@ static struct imsic_config imsic_cfg = {
->      .lock = SPIN_LOCK_UNLOCKED,
->  };
+> This has no functional impact as the order of an offlined
+> page is not used for any decision making and onlining, but
+> it is misleading when inspecting the page's metadata.
+
+As per this, ...
+
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -1251,6 +1251,12 @@ static int reserve_offlined_page(struct page_info *head)
+>          ASSERT(total_avail_pages > 0);
+>          total_avail_pages--;
 >  
-> +static unsigned int __ro_after_init guest_num_msis;
+> +        /*
+> +         * All offlined pages are standalone pages: If this offlined page was
+> +         * the head of a higher-order buddy, we need to reset its order to 0:
 
-How come this is __ro_after_init, when it's ...
-
-> @@ -291,6 +299,11 @@ static int imsic_parse_node(const struct dt_device_node *node,
->          return -ENOENT;
->      }
->  
-> +    if ( dt_property_read_u32(node, "riscv,num-guest-ids", &tmp) )
-> +        guest_num_msis = tmp;
-> +    else
-> +        guest_num_msis = imsic_cfg.nr_ids;
-
-... written by a non-__init function? Plus are you again inheriting a host
-property into guests without saying why?
-
-> @@ -524,8 +537,120 @@ int __init imsic_init(const struct dt_device_node *node)
->      return rc;
->  }
->  
-> +static int __init guest_imsic_make_reg_property(struct domain *d, void *fdt)
-
-Same question again as to __init throughout here.
-
-> +{
-> +    paddr_t base_addr = GUEST_IMSIC_S_BASE;
-
-So you make a local variable for a constant, ...
-
-> +    __be32 regs[4] = {
-> +        cpu_to_be32(base_addr >> 32),
-> +        cpu_to_be32(base_addr),
-> +        cpu_to_be32((IMSIC_MMIO_PAGE_SZ * d->max_vcpus) >> 32),
-> +        cpu_to_be32(IMSIC_MMIO_PAGE_SZ * d->max_vcpus),
-
-... but this non-constant expression is spelled out twice.
-
-> +static int __init guest_imsic_set_interrupt_extended_prop(struct domain *d,
-> +                                                          void *fdt)
-> +{
-> +    unsigned int cpu, pos = 0;
-> +    uint32_t phandle;
-> +    uint32_t *irq_ext;
-
-Doesn't this want to be __be32, seeing ...
-
-> +    int res;
-> +
-> +    irq_ext = xvzalloc_array(uint32_t, d->max_vcpus * 2);
-> +    if ( !irq_ext )
-> +        return -ENOMEM;
-> +
-> +    for ( cpu = 0; cpu < d->max_vcpus; cpu++ )
-> +    {
-> +        char buf[64];
-> +
-> +        snprintf(buf, sizeof(buf), "/cpus/cpu@%u/interrupt-controller", cpu);
-> +        phandle = fdt_get_phandle(fdt, fdt_path_offset(fdt, buf));
-> +
-> +        if ( !phandle )
-> +        {
-> +            res = -ENODEV;
-> +            goto out;
-> +        }
-> +
-> +        irq_ext[pos++] = cpu_to_be32(phandle);
-> +        irq_ext[pos++] = cpu_to_be32(IRQ_S_EXT);
-
-... this?
-
-Also, just like "buf", "phandle" can be local to this loop's body.
-
-> --- a/xen/arch/riscv/include/asm/guest-layout.h
-> +++ b/xen/arch/riscv/include/asm/guest-layout.h
-> @@ -5,6 +5,8 @@
->  
->  #define GUEST_APLIC_S_BASE 0xd000000
->  
-> +#define GUEST_IMSIC_S_BASE 0x28000000
-> +
->  #define GUEST_RAM_BANKS   2
-
-Is this going to become an unannotated collection of (seemingly) random
-numbers?
+... is it really "need to"? I'd suggest simply dropping "we need to". Also
+unless there's really a good reason, comments better wouldn't end in colons.
+Can make adjustments while committing, as long as you agree.
 
 Jan
 
