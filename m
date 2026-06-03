@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id SaGfAbUOIGrgvAAAu9opvQ
+	id 2XcQGEwPIGoFvQAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 13:23:33 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 13:26:04 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6575E636FFA
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 13:23:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE313637048
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 13:26:03 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=suse.com header.s=google header.b="H/pVU65S";
+	dkim=pass header.d=suse.com header.s=google header.b=RbOvwOOL;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
 	dmarc=pass (policy=quarantine) header.from=suse.com
-Received: from list by lists.xenproject.org with outflank-mailman.1326091.1591530 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.1326100.1591539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUjgl-0002UB-Oa; Wed, 03 Jun 2026 11:23:11 +0000
+	id 1wUjjM-0003L7-0d; Wed, 03 Jun 2026 11:25:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326091.1591530; Wed, 03 Jun 2026 11:23:11 +0000
+Received: by outflank-mailman (output) from mailman id 1326100.1591539; Wed, 03 Jun 2026 11:25:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUjgl-0002Tj-Hb; Wed, 03 Jun 2026 11:23:11 +0000
-Received: by outflank-mailman (input) for mailman id 1326091;
- Wed, 03 Jun 2026 11:23:10 +0000
+	id 1wUjjL-0003Ji-UE; Wed, 03 Jun 2026 11:25:51 +0000
+Received: by outflank-mailman (input) for mailman id 1326100;
+ Wed, 03 Jun 2026 11:25:50 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <jbeulich@suse.com>) id 1wUjgk-0002TY-9I
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 11:23:10 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wUjjK-0003Ja-LE
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 11:25:50 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUjgj-002ynR-Ki
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 13:23:09 +0200
-Received: from [10.42.69.11] (helo=localhost)
+ id 1wUjjK-006vsp-1l
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 13:25:50 +0200
+Received: from [10.42.69.4] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a200e9a-5cb7-0a2a0a5109dd-0a2a450baba4-14
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 13:23:09 +0200
-Received: from [209.85.221.47] (helo=mail-wr1-f47.google.com)
- by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ id 6a200f36-e002-0a2a0a5209dd-0a2a45048a16-16
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 13:25:49 +0200
+Received: from [209.85.221.51] (helo=mail-wr1-f51.google.com)
+ by tlsNG-ebf023.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
  (envelope-from <jbeulich@suse.com>)
- id 6a200e9d-212f-0a2a450b0019-d155dd2fdd72-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 13:23:09 +0200
-Received: by mail-wr1-f47.google.com with SMTP id
- ffacd0b85a97d-45ef779c1c2so3474425f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 04:23:09 -0700 (PDT)
+ id 6a200f3d-1dec-0a2a45040019-d155dd33ede5-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 13:25:49 +0200
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-45eeba68948so4852470f8f.1
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 04:25:49 -0700 (PDT)
 Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
  [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f2dc294sm10564442f8f.7.2026.06.03.04.23.07
+ ffacd0b85a97d-4601f351d40sm6805355f8f.26.2026.06.03.04.25.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Jun 2026 04:23:08 -0700 (PDT)
+ Wed, 03 Jun 2026 04:25:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,61 +61,62 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780485789; x=1781090589; darn=lists.xenproject.org;
+        d=suse.com; s=google; t=1780485949; x=1781090749; darn=lists.xenproject.org;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to;
-        bh=rZXiM/cRgHFLw1WO+ko+u3xv60vgIIrlBb1bP0Nw9xM=;
-        b=H/pVU65SXULSVl2/JedZxXLAbEHxx4UYpZg/ZhFAPSvhg1vDDvKPJxGQ94ZxMI71Zm
-         /y6sAlCk5Qs+lqprKqBvNjxA3hfaA16KqPzJPf5n+J1qwEWdaq/QIN+I1BcaonedOBqC
-         s8Vm10LY7n/67PlnlEbZXKSGS/RIHAY+ZXC8GZUTxSk10v3hvVv130QK+s8cmVbdulSR
-         e4r6fFMmkx7UB+KckOb/eor26v2Yu0dZsMjPh6fRuDOGIhRq3b7QWFtuogep40dr33tx
-         I04XXZMDM00Qy+AcodrTNBvw7VCWhg8aD1t8R78tuNwZh3sh3btTlBD1XNhV6OgI7rFo
-         xAhQ==
+        bh=moFCCAgYhjKweozD1SlfLOc+FWpGyfbnwGe3FzqlL6g=;
+        b=RbOvwOOLepYnP/9E0VfTqoUe94G46yYVlAYA0giGddwukC5E5eqEx3Gmur3/OH7iaA
+         6jLUZaHnFCKFhqJWLar+trXh5k08XuGZOnptaRq5TfVbybGGYUysJ/5wXYRfTkvOA/NM
+         uLr4I2xKAqT5dvWWa/PvVSdnPew1gKzkkzQE/52g+oTm8lVl7nLiCOZP546XADm4K487
+         2Qx83vH4OQMsRbksSzDsFYA4Y5z9fiVo1yTFxANo52D+ykJaUprkbXIEQgGCRHoXvY8x
+         10/KCXV6SltndGk8geg1N6+zEKm7YlsDgxoUtIvITZV2CQ9Asb175NyaFPnyBT8OUq8J
+         RXsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780485789; x=1781090589;
+        d=1e100.net; s=20251104; t=1780485949; x=1781090749;
         h=content-transfer-encoding:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rZXiM/cRgHFLw1WO+ko+u3xv60vgIIrlBb1bP0Nw9xM=;
-        b=faBWjSdJWyd25fofnNGugserG2aTC2UIp1L3oPxKP1D6TyDM5489JNHGXNlF0bhxoa
-         ln7D2X/Mn4/rkxHqRbgQsJIn+ftI2PvfGgrA+A4mvv2fMsN0bYNwwn/46h7zfx62TTWt
-         kJEZl8bOzoZecM2h6HPeclhUQj5TERNp35CqbYGlIFDO8hrzqIL0cc/Ams9n2+MmLdos
-         L0halN6rzNVlSbtmt+xyUzkAVGtTy1N4j6Kmp22axULgtp2xUB/l+m6qKvdg6tHhzthn
-         As2zM63v6EbfoRo6RGq86EiFtsgXHLbuEv6IcGSPbO4i0Hrq5Gq28Hjd56m1OkfWIwIO
-         IiYw==
-X-Forwarded-Encrypted: i=1; AFNElJ/nOHvlEVnYUDtajgAQYClRJ8MRMoyGPc6W7nQJF354YAgJl4SiVtV5YDdCAFsnMbwQvOmt+rMO7Tg=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Ywfr7uStYHRR3YKDpPfPiHs0ZHkVtlMx+LcG6UDftYOsmzCRHtE
-	FfCT4AxpFEcHQfjm8oZvFiU01jAo5Y9SSGU5cCnF5uSJjMPd/J+HXTkaQ1C1cDIYoA==
-X-Gm-Gg: Acq92OFpDvaLsWfYb57lxt7+z/qhh1DCmZOjliyPyqRt/8DotVv0ikSnLbA947pNK1d
-	xbjoEP9Kv1fo3KAzf/88dWaGiGEgs039OLQ99EiZdtkyKCuzV69pp4LtEydSxRMoglseZK1WNDp
-	g30vRMMZCY4n7t+5MRHgiAHyIAq4SUGt5wv+KIpjrE6SACDyulujqlh3dVLV/wel5xz84OzVVcz
-	UNHWwxFqxV3fOkeZOI4HFcJxCuPLwn9UsMSNG76D1woA5cBt16Vu11VaF3dBGXb1t0tDkQtwj5+
-	QU8eDeXkKAyDmNEcj1tps37l5/FysmEemgOiObDhxfuhDVVsVxrdY3Rmr/0rGTl95AxjemW1Xcs
-	zfMUj2JZ6gfDNdq8kIqO5eZEosbnhD/Z0nq4f0DRxF3OJbdiAqQrVyGL53hb0jnnM/iASKqwLUp
-	y7DeWzo6+F63qrctIQfmjtEsCGevN7A+JS32KrCfUjQiBT5vYcVX2DeHR+bD6z9/VQ10PKxa0tW
-	cqX80s0dRIyQFWL1eKdJlGYIw==
-X-Received: by 2002:adf:f743:0:b0:460:1643:caf7 with SMTP id ffacd0b85a97d-46021849210mr2837122f8f.27.1780485788725;
-        Wed, 03 Jun 2026 04:23:08 -0700 (PDT)
-Message-ID: <dc622455-c20f-4b8a-8c80-1e4c0143e8e0@suse.com>
-Date: Wed, 3 Jun 2026 13:23:07 +0200
+        bh=moFCCAgYhjKweozD1SlfLOc+FWpGyfbnwGe3FzqlL6g=;
+        b=rxC7EtBmQYbmx10GrsAVaZhYDyZ+adb1Dme4hwB3KaJYB/FA3F0Hw9oD5LcQ0MSCL+
+         wUQ2Mh3gQkjwISELcYY/LDYwirDox+XyV9ZhE0pjw3KZHNbUWSwTs17Z4w5RR3tnU6x7
+         9TtGXmFUegI20uw5LlOLkvMr7NIxm7LgnubCtshgT5hiq/VLNDw5Ke8xvK/Z4GpZmaw0
+         jGCrCjDex2agrNI+fWrWqGvrbjtYy3PxQ/QK3rPEiJIO8186ImoWrolLFDV8sqVroU4U
+         cvmzUoQPO1jTbEurn/PtY5EWafk+YcJGP/G1Drt4PgeFhEzjhK7wwpRUeCFbzHm1bW7Y
+         498A==
+X-Forwarded-Encrypted: i=1; AFNElJ9SWbMhCtS4+jZcHk6ZM2njdwNUnLWHL2EBNPomz/ZFnanLtZt+/vMbGPj+Zhws5l2fQBnXDrxOO5A=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YxjZgKPNdMxI2OZ+qE7mmBqoShpmv3fj98Bn4L/tSPJvkYHsJxS
+	G4O+ixlZLsgBh0RM8c97m5ND8Bn3HDRH7hsWxABiVnNmfIZayCISx61aHEnW8ELi/Q==
+X-Gm-Gg: Acq92OEsTPIGWU4OmYry/F7QcBtBfHOSV+AH9Cy3qsf3TXFoF43JUi+W9+p11k6hAzW
+	H3jDERld/oEIZCK8lxgEH2Ks1aXIOmzoKzAn1IsVEJtGIWYq3cBf1euBMmqC0hVTnLmT3wk6Gh3
+	BTKM6RRaYk64v5Mz+8IbSFsFSJk33r/jOygWt8x0wSdRZbtahfW1Es//uXnEMl8ULvKpXeN9luP
+	FEz63dIsHjohisJBbUA3LGa+/H48+CBjinL1ksHzZZbD5t0Av4Y2esMqJ+nBmP3hOBrQFv1xoKk
+	vE/RUACjYSn75EzKxXDMs+m+4YUuPTEntQd56r/sgyTko42jNkANc/i2xuR6Jal/A1oDxb7zoIb
+	YfjpqAFdTBi2av0I6FCo38FFIuVAPB08l/1fKzlOJH+du2OwJG0vqK8wX7RiI+OAAYB2HWHm8jG
+	KD3QTv++tr1HtyxpRD7UgxAtuyff7+HKgFs90tah/2ZrNjoorWpHqrRg+Bga/E3BcOiew2qkgx+
+	o7/KW7OVT7hXNPwrKqgDnbDqGG7JW0P1+1I
+X-Received: by 2002:a05:6000:18ab:b0:45e:a0ab:8bcb with SMTP id ffacd0b85a97d-460217de189mr4683743f8f.15.1780485949401;
+        Wed, 03 Jun 2026 04:25:49 -0700 (PDT)
+Message-ID: <2de402eb-fc62-44ec-bf2d-73db4afbc0f7@suse.com>
+Date: Wed, 3 Jun 2026 13:25:48 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] xen/domain: fix UBSAN null pointer dereference of
- d->shared_info
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Subject: Re: [PATCH v2 07/24] xen/device-tree: Parse 'cpu-map' node for CPU
+ topology exploration
+To: Hirokazu Takahashi <taka@valinux.co.jp>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Anthony PERARD <anthony.perard@vates.tech>,
- Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <cover.1779712171.git.oleksii.kurochko@gmail.com>
- <04dd784b6b9a4dfca9a313ea8802d8d514d65021.1779712171.git.oleksii.kurochko@gmail.com>
- <3aef7763-aea3-496a-8c18-d3659f590373@suse.com>
- <fb1b1194-5855-49d9-99fc-d35a3038833c@gmail.com>
- <3eb9ab3d-dc4d-4019-89c8-9f7dbdc528cd@suse.com>
- <9ae22210-6dd5-43e3-918e-f68b1294448d@gmail.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20260531224755.9481-1-taka@valinux.co.jp>
+ <20260531224755.9481-8-taka@valinux.co.jp>
+ <7040c58f-2d4c-48f2-854f-c874efdcefbd@suse.com>
+ <OS9P286MB72221F0A5D5195C7A4CAFD4082132@OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM>
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 Autocrypt: addr=jbeulich@suse.com; keydata=
@@ -141,135 +142,80 @@ Autocrypt: addr=jbeulich@suse.com; keydata=
  EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
  wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
  nAuWpQkjM1ASeQwSHEeAWPgskBQL
-In-Reply-To: <9ae22210-6dd5-43e3-918e-f68b1294448d@gmail.com>
+In-Reply-To: <OS9P286MB72221F0A5D5195C7A4CAFD4082132@OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-purgate-ID: tlsNG-42698a/1780485789-19D6FF3B-FACBC668/0/0
+X-purgate-ID: tlsNG-ebf023/1780485949-2AF653FF-A240A9AB/0/0
 X-purgate-type: clean
-X-purgate-size: 3581
+X-purgate-size: 1205
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [0.31 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [-1.19 / 15.00];
 	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:oleksii.kurochko@gmail.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:roger.pau@citrix.com,m:sstabellini@kernel.org,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
-	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_RECIPIENTS(0.00)[m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[mailman];
 	DKIM_TRACE(0.00)[suse.com:+];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FORWARDED(0.00)[mailman];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 6575E636FFA
+X-Rspamd-Queue-Id: BE313637048
 
-On 03.06.2026 13:05, Oleksii Kurochko wrote:
+On 03.06.2026 11:59, Hirokazu Takahashi wrote:
+>>> --- /dev/null
+>>> +++ b/xen/include/xen/cpu-topology.h
+>>> @@ -0,0 +1,42 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>>> +
+>>> +#ifndef XEN_CPU_TOPOLOGY_H
+>>> +#define XEN_CPU_TOPOLOGY_H
+>>> +
+>>> +#include <xen/types.h>
+>>> +#include <xen/device_tree.h>
+>>> +
+>>> +struct cpu_topology {
+>>> +    int thread_id;
+>>> +    int core_id;
+>>> +    int cluster_id;
+>>> +    int package_id;
+>>
+>> Can any of these go negative? If not, "unsigned int" please. Iirc I said the
+>> same elsewhere on v1. Please apply such comments throughout the series.
 > 
-> 
-> On 6/3/26 7:54 AM, Jan Beulich wrote:
->>> --- a/xen/common/event_fifo.c
->>> +++ b/xen/common/event_fifo.c
->>> @@ -562,9 +562,10 @@ static void setup_ports(struct domain *d, unsigned
->>> int prev_evtchns)
->>>
->>>            evtchn = evtchn_from_port(d, port);
->>>
->>> -        if ( d->shared_info &&
->>> -             guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
->>> +#ifdef CONFIG_HAS_SHARED_INFO
->>> +        if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
->>>                evtchn->pending = true;
->>> +#endif
->> While as per above shared_info() would best not exist when !HAS_SHARED_INFO
->> (in which case #ifdef may be unavoidable here), an alternative where
->> IS_ENABLED() could be used here may want at least considering. E.g.
->> causing a link-time failure when shared_info() is used (and not compiled
->> out).
-> 
-> We still want here to have #ifdef instead of IS_ENABLED() as 
-> shared_info() shouldn't exist for arch without 2L support so it will end 
-> with linkage error.
+> These members can actually be '-1' to represent a missing entry when parsing the Device Tree's 
+> 'cpu-map' node. 
 
-I don't understand this part.
+Yet that sentinel doesn't need to be -1, does it? Any unsigned value greater or
+equal to NR_CPUS will do, I suppose.
 
-> Considering that setup_ports() will be called for 
-> such arch we have to avoid this part from compilation.
-> 
-> Alternative is that considering that I suggested in prev emails to 
-> introduced stubs for arch which doesn't use 2L:
-> 
-> +#ifndef CONFIG_HAS_SHARED_INFO
-> +static void cf_check evtchn_none_set_pending(
-> +    struct vcpu *v, struct evtchn *evtchn) {}
-> +static void cf_check evtchn_none_clear_pending(
-> +    struct domain *d, struct evtchn *evtchn) {}
-> +static void cf_check evtchn_none_unmask(
-> +    struct domain *d, struct evtchn *evtchn) {}
-> +static bool cf_check evtchn_none_is_pending(
-> +    const struct domain *d, const struct evtchn *evtchn) { return false; }
-> +static bool cf_check evtchn_none_is_masked(
-> +    const struct domain *d, const struct evtchn *evtchn) { return true; }
-> +static void cf_check evtchn_none_print_state(
-> +    struct domain *d, const struct evtchn *evtchn) {}
+> Since I imported this directly from Linux kernel 7.0 (specifically from include/linux/arch_topology.h 
+> and drivers/base/arch_topology.c), I would lean toward keeping them as 'int' to minimize 
+> any divergence from the original Linux implementation. 
 
-This set can be shrunk. For example, the same stub can be used for
-clear-pending and unmask. For is-pending and is-masked, considering
-that the precise return value shouldn't matter, a single function
-(returning false) would likely be good enough as well.
-
-> +static const struct evtchn_port_ops evtchn_port_ops_none = {
-> +    .set_pending   = evtchn_none_set_pending,
-> +    .clear_pending = evtchn_none_clear_pending,
-> +    .unmask        = evtchn_none_unmask,
-> +    .is_pending    = evtchn_none_is_pending,
-> +    .is_masked     = evtchn_none_is_masked,
-> +    .print_state   = evtchn_none_print_state,
-> +};
-> +
-> +static void evtchn_none_init(struct domain *d)
-> +{
-> +    d->evtchn_port_ops = &evtchn_port_ops_none;
-> +}
-> +#endif
-> 
-> For arch without 2L supports .is_pending() will return false we can just 
-> do the following instead of ifdef:
-> 
-> -#ifdef CONFIG_HAS_SHARED_INFO
-> -        if ( guest_test_bit(d, port, &shared_info(d, evtchn_pending)) )
-> -            evtchn->pending = true;
-> -#endif
-> +        if ( evtchn_is_pending(d, evtchn) )
-> +             evtchn->pending = true;
-> 
-> Would you be okay with this approach instead of ifdef?
-
-I can't really say ahead of seeing the full result (and without it being
-made clear why FIFO ops can't be put in place right away, with perhaps a
-few small adjustments to the handlers). While this isn't going to be
-used for x86, introduction of new cf_check functions always worries me,
-at least some.
+Linux is quite a bit more lax though with use of (appropriate) types.
 
 Jan
 
