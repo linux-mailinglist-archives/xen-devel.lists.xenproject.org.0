@@ -2,56 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id PpDfCDA1IGpjygAAu9opvQ
+	id lkAtKGs1IGpxygAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:07:44 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:08:43 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FB8E63864F
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:07:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0269663867C
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 16:08:42 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=citrix.com header.s=selector1 header.b=taBoFk4J;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=hDokQnvU;
+	dkim=pass header.d=suse.com header.s=susede1 header.b=hDokQnvU;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=citrix.com;
-	arc=pass ("microsoft.com:s=arcselector10001:i=1")
-Received: from list by lists.xenproject.org with outflank-mailman.1326444.1591886 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1326452.1591894 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmFn-0003Z4-Fp; Wed, 03 Jun 2026 14:07:31 +0000
+	id 1wUmGn-0004Po-00; Wed, 03 Jun 2026 14:08:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326444.1591886; Wed, 03 Jun 2026 14:07:31 +0000
+Received: by outflank-mailman (output) from mailman id 1326452.1591894; Wed, 03 Jun 2026 14:08:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUmFn-0003V3-Ch; Wed, 03 Jun 2026 14:07:31 +0000
-Received: by outflank-mailman (input) for mailman id 1326444;
- Wed, 03 Jun 2026 14:07:30 +0000
+	id 1wUmGm-0004N5-Sd; Wed, 03 Jun 2026 14:08:32 +0000
+Received: by outflank-mailman (input) for mailman id 1326452;
+ Wed, 03 Jun 2026 14:08:31 +0000
 Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <roger.pau@citrix.com>) id 1wUmFm-0003UY-Ji
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:07:30 +0000
+ (envelope-from <dfaggioli@suse.com>) id 1wUmGl-0004Mt-Mr
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 14:08:31 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUmFl-0017nw-T6
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:07:29 +0200
-Received: from [10.42.69.12] (helo=localhost)
+ id 1wUmGl-003Z5w-3U
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 16:08:31 +0200
+Received: from [10.42.69.3] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a203511-bab6-0a2a0a5309dd-0a2a450c834e-26
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:07:29 +0200
-Received: from [40.107.200.8]
- (helo=CH5PR02CU005.outbound.protection.outlook.com)
- by tlsNG-d25034.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <roger.pau@citrix.com>)
- id 6a20351d-62f1-0a2a450c0019-286bc808c716-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:07:26 +0200
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com (2603:10b6:610:24e::14)
- by MW4PR03MB6347.namprd03.prod.outlook.com (2603:10b6:303:11e::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Wed, 3 Jun 2026
- 14:07:23 +0000
-Received: from CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343]) by CH7PR03MB7860.namprd03.prod.outlook.com
- ([fe80::f5ba:35df:1c9f:b343%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 14:07:23 +0000
+ (envelope-from <dfaggioli@suse.com>)
+ id 6a203551-5cb7-0a2a0a5109dd-0a2a4503e37c-36
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:08:30 +0200
+Received: from [195.135.223.130] (helo=smtp-out1.suse.de)
+ by tlsNG-33051d.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <dfaggioli@suse.com>)
+ id 6a20355e-672d-0a2a45030019-c387df82e342-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 16:08:30 +0200
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5DD976A9C2;
+ Wed,  3 Jun 2026 14:08:30 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0620B779A7;
+ Wed,  3 Jun 2026 14:08:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id C8nlOV01IGqgaQAAD6G6ig
+ (envelope-from <dfaggioli@suse.com>); Wed, 03 Jun 2026 14:08:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,189 +69,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rX+W1x+sb9j9PLI0qUyORYarnSDFrKXVNVLHUHuPOAljcUx/uFo8mBOnCwI6+zSl234XJupSK2AKi8lb4h3CDit89f/0rjMevQx1ScSVK4+ycmF6P0whafIWC30b0WR65eQj0nx3h7NboYpk7qeBKktk51ftJEH7rhTBbNxkptn8bDprfQE0vVCBlHTZeYMh5bMn0c2RreXpNs1/13RzS1suGcc+/sdEEGd2sNjryLT4VJWDZ/8B7h5IDXGhAfSWtmXvUM7bdp1Epr8lSHH0YS1X3l2AiY3juuY4RFBv6Ogd84s0zsJMENH9/69TOxYVEApbZTBwlMW6sB1Jh15FLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CKr6ru4MsD0YxQZPKp1WKVyPj7BVm0CrpkmzwdT7r94=;
- b=Fw3XOrdKm34uw+MQ8Zi87wMwBlj75y8S2CvZ+GT9cupXzE7Xvyq3TiBboh9pPXe88TzdpqXOjVWcXvoWjLSQsApG3chKz5239LOaZN9C7GQZF7KZUCVIshSxDnHK9DpzOIwklle2k4GZsCR8skZea8LGulsZgd0jNS4eHx4mv2yX5SWr4SEJaffx/4cNc0UqKYtLFpUVw16h+tG5ZsIKjU4yqtsx7pujeZGl2L7AluZ+8dcOucDL7/+OSPrSdWQtSkVMm0sUdS6v3Y3rfmkMYXrzZoAv+FdnvhrHqPobnq2ORPb8LbYRmTUFZhltPfStxVVJnPOTfEyiIutKQm7PmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=citrix.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CKr6ru4MsD0YxQZPKp1WKVyPj7BVm0CrpkmzwdT7r94=;
- b=taBoFk4JkkQShiMCfFhFMKrfhMjYSHdTGn8XZbkDCas40Ct3g8i+xpxpoXggoPlgVjCqrWnnE0d7fikmdeWUnw3YbDBoutYbMaofnlLpL9LU7FKsuw5aOvZzhM37MGd1qzhFwsDfViERegEFfV0YqGUDJF2qFWJiW3KcGdLFVT4=
-Date: Wed, 3 Jun 2026 16:07:19 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH for-4.22 4/5] tests/numa: add unit tests for NUMA setup
- logic
-Message-ID: <aiA1F9cBbzqVUQpR@macbook.local>
-References: <20260601154332.30797-1-roger.pau@citrix.com>
- <20260601154332.30797-5-roger.pau@citrix.com>
- <2b1df2c6-ccbb-402c-b65a-7f3beefdeb0d@suse.com>
- <aiAwDo3EWi1oghm2@macbook.local>
- <75ee595a-6443-4b3f-827d-2dc4ac60866f@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <75ee595a-6443-4b3f-827d-2dc4ac60866f@suse.com>
-X-ClientProxiedBy: MA4P292CA0015.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:2d::8) To CH7PR03MB7860.namprd03.prod.outlook.com
- (2603:10b6:610:24e::14)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1780495710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XB3Mtov/ypoI1rctFpa2QwTX42EW7mZOP0R/yaOcLec=;
+	b=hDokQnvU4+IBu4h1zaFHqSyZByBqZ+l5lFDB/E6zAqeXMAXM7iYTZvSv6mbjqmVdXU4Pvz
+	hYSlWCkyeV88o3zX7j3Ho2IoYCa6LoEbsulmlRRWHib8KvEFrypSD9IBtiZNi3XaZdhaJ8
+	qyvGFR/t0iRa2uddxJ/W0C8HpHhlRnk=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1780495710; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=XB3Mtov/ypoI1rctFpa2QwTX42EW7mZOP0R/yaOcLec=;
+	b=hDokQnvU4+IBu4h1zaFHqSyZByBqZ+l5lFDB/E6zAqeXMAXM7iYTZvSv6mbjqmVdXU4Pvz
+	hYSlWCkyeV88o3zX7j3Ho2IoYCa6LoEbsulmlRRWHib8KvEFrypSD9IBtiZNi3XaZdhaJ8
+	qyvGFR/t0iRa2uddxJ/W0C8HpHhlRnk=
+Message-ID: <0b44963bae28d08fcfc14374cfa5e9bcb7c5eaa3.camel@suse.com>
+Subject: RTDS: Call for [Co]-Maintainers [was: Re: RTDS scheduler patches]
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, Meng Xu <mengxu@cis.upenn.edu>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+ Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+Date: Wed, 03 Jun 2026 16:08:28 +0200
+In-Reply-To: <41d236ba-a93d-446a-b29a-449a1c5f8972@suse.com>
+References: <41d236ba-a93d-446a-b29a-449a1c5f8972@suse.com>
+Autocrypt: addr=dfaggioli@suse.com; prefer-encrypt=mutual;
+ keydata=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
+ fkAJ0OEQQ==
+Organization: SUSE Software Solutions Italy S.r.l.
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-bZp/72VNNFEfX+j+7UiA"
+User-Agent: Evolution 3.60.2 (by Flathub.org) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH7PR03MB7860:EE_|MW4PR03MB6347:EE_
-X-MS-Office365-Filtering-Correlation-Id: d924804e-8e26-4561-7e4a-08dec1796ee2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|6133799003|11063799006|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ClhX9lRvRsuTLmnGwFf7/fNGJslzQ7cUilmv7qU9t6a+cA4kVaGNOR2I/psW15RFn9KdEeaGSIDJBqVhDCCHzm0DuqberpVWvu5l35RgMR3E6tFdAS83EqeRXQXeHy5xXK74QYDN2og40KZiq+XcOG5Tt4Ndq5gq4Z4XRiC7/obpR2ZmUzdwGY/yr2xx6mTxWV+JMaPuzJ7Fo/4BM2OCEESGBY5FK8u2rZ2Zj2ST6djXIRWLuwp6rHRFvLtDJrxuxXChQyfbEUU2aYqUBuXEgeiMtMxzUt0CEVvx22USws5TwS+h3H5kZtI9GqGRcGg/wtpYvaEnKIHlVGEz9paDXPgtUv9eSWpljMJrf/p7Akzqh/alsxYZD6xVMIdZekzIzlUBkw6S3ticZdw+xGrgjmdlKwgrZzeXyIR/TSv5Q3MjjQiTQb79QKRzDgODNNLCaOU4mW5z19X7z+xuT3WAn8XNBHMmEB4Mco8P3jEF2EOsEilOs97FAivM0oZRXoNO+IUgTiayF6LBq5utniRm/Y7SmV8nkmQxp9wdPDBt+k4RQCXHGIDq70thX8H/HAn1MSXKo32BA6sxy07aumQfJ1G7zMQePItP0uAJuTIvAog8fJU+8Pyx7HReO+uZyBCZ1jcR1ud/mYl2zO6C0ybFfaYFWNBCINmf4DJRJ1UFVPLlLdggFVfTPf3SMiXBwInp
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH7PR03MB7860.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(6133799003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eXhsYXNMb3ZLQTQ3ZE9tUEFVVSs3OTIrVGdrQnc1RDZmbkxZY3Z1aGk3enho?=
- =?utf-8?B?SzVmZnczeS9rUHF5dTRPMFBnRC84RDZBbkZZUmkzZFFLaTNtRFhkbXh3M0dI?=
- =?utf-8?B?bnExbFp0M2pTcW5admRmVHQxaFdLK1hPa0dwWmQxdXVYQmZOSm05QkxjMWJs?=
- =?utf-8?B?NXdjdWd5SlE4MlkvV2hKUmF2SzMraHJYRGRSdXFTMGRMQUhMdTFJMXk3ZHNP?=
- =?utf-8?B?Qk5sdWR6KzlnYUpBY21tME1mdSt0aElHR0FVb2JiTWVZcUdtcy81cUJyekFz?=
- =?utf-8?B?TUl6TVViVXFPaVVBUVdrTG42TEttUStQSmJDY0ZtSXpCVHJOTzd4U2ozZ3lk?=
- =?utf-8?B?VlVldG4vbmNhVEFldTYrTm8rY3o3QXozaEdVR3VaSEl0bExHNTVCd1JqeWQ0?=
- =?utf-8?B?Qzl2ZWdlQ3FJZU1mRG1scjY1dEFqWEp4SnZ1Y3hlVXpCaitqSHZQZ29wM2g2?=
- =?utf-8?B?eThFZExsRThKaGdPeXMvQzBIY2M4QTRwdm9PT1dpZmhVREkwOHo3WWI4azRC?=
- =?utf-8?B?YmFHUW4wUmVIOC85cEROdHdud3ZQbGc5OTltK0lrb0I1M3lGa2JwNWNqcEtq?=
- =?utf-8?B?V1AzckxNaVBnL1hubU8zcmFLYnFPdGVndDNmMnZnVnA0MUdud05LakJqMExQ?=
- =?utf-8?B?ZWJEZnJYYlBVRVJwdzB0dDJpa1AyR1RPb0hBMkpscVh3aTZYWlNnRWpuUW9z?=
- =?utf-8?B?QWxvTGtlWk9VazlVVzM3THVObWFMN2FnRHZuNFJqR0RkTjAwVkE0azBvQnR3?=
- =?utf-8?B?Zjk2Vit6UWVRUkpuOXE3QlJtbElmb08vUXoxcHRsazNGVlhqc3l0SFIyTnc5?=
- =?utf-8?B?aVBDYVpWTmpkNFhETEQ0ajhmeDVFR0tWSU5tTEFFTlpmazlyYUVxSmZQc1FN?=
- =?utf-8?B?QlMvRElxblpUYTZ1UmNHMHBBdE1xSDdoWk1xLy9OTFQ1RXBtR2oza3Y3d0N5?=
- =?utf-8?B?OHVhSlBiRmxDYkNyVkVrVHRyTU52R0txRXdtZ3pXeW55RmxtaGZVOHJLSGtO?=
- =?utf-8?B?WkVTUWk3aXhhcGZhZENvNE96Y2FmT1BkblplUmJIS1EreDdKL0ExZzlVZ2FK?=
- =?utf-8?B?ZjRWN1V6eFF3UGhva2dOaldwU1FyQWhNTEkwRkN0T2E4aERnWnNaMDVLTWFI?=
- =?utf-8?B?dlVBTWw0T3NCeWJTOG1oYWFVOWl2UXhrUjFFUHoxNXhFRjYwVS9WZHYxZ1Zn?=
- =?utf-8?B?VWJ3NlBYeENJMkxBUlgyeVVmRmgxU0JwZXpGUkhQU3FtV1NobjJIdXE1RFI4?=
- =?utf-8?B?OERGZ1ErbVRwNi9PMTJoVTMvZk5CK0JJWVdiMUE3cEVPSU5GbmpTeDloREJB?=
- =?utf-8?B?TFJUVUptVHVJUzZxaHgzSVpZMGxJTGpFV3dmVVVSZnBDVWY0NjA3OVF4YVhx?=
- =?utf-8?B?d3RRWlhCZkp0ZlZ1K0pSZFVvRzRqaW91c2FWMDZPMFBoRG9NaXY5Uks1aUxx?=
- =?utf-8?B?VUNiSzM0SWNZNWZ5NHUzODJnTURJMVBaOC9GRFFjbGMvSWF0elR2RVJiUDV0?=
- =?utf-8?B?RlJwUExaZUptOFNtZmdYejNPQnRqZEJjVE8xeHhXSW13Uk41VjFSWUpjUnB6?=
- =?utf-8?B?MG9CNzNCekU2ZTdVa3VCN3VWeW1xQ2pmUm12NVlMcXBnNDA1cmpZYjJQYnRj?=
- =?utf-8?B?Z0MvcGR4TFNBYk96MDVQcG5Oa1FzUjcvSVNGVm5ZTU81aTJIT01hRFJPNjNk?=
- =?utf-8?B?a2w3eUl5QzhBZ2ZUUFJsQ0VWNTFCSFBRNHp5U0ZvZndoelQ0TDNhM29NcEU1?=
- =?utf-8?B?dE42NnozZCs3cXZYTTByTDNSMEo0WHlxZ0o5aDhydDlLUnlTeWlBM2hWMWlR?=
- =?utf-8?B?Mk95dkJzZnJOOWtjZmRtQzlHdFVTQUlEZkFpazVlazZXSUNER3crSjd6QndX?=
- =?utf-8?B?V0RXVnB5WkRXWUtsT1RPRGE2QS93cE5sQWpGS0pYM1NhT0t2ZnVLZVZBbGpx?=
- =?utf-8?B?a1dkK0hraDF2SXhhOUdIeEY5Um9hK2ZzTi9iYUd4Rm9tRXpBeTcvY295Uk93?=
- =?utf-8?B?WDBaLzdRYUQ1NkRydnJxY0lJMVR1enMwMG9ueFFFOW5sNCtPZlIvdnVVejda?=
- =?utf-8?B?d2pEalMyNjArNjlBWEhSTEhMUk5qVjNIWEtqZm9iWlczMElqajdoNjM3S2N3?=
- =?utf-8?B?KzdISzlZZzVoTytGVVhqMzBKdUp6NFhISTdhYVJMZXJBWW1vS2NRTkRKNE5n?=
- =?utf-8?B?YUNLVXRkbTNyUWEwSFFWNkMrM3o4TzU1TkhxK0JHc1NQeWVkZE8yL2NSRllZ?=
- =?utf-8?B?V2o3ZVBVMkRpWWxQSHVMUkpaVGd5RUZtdXMrNm1TMXZ0K1NTVVZDS25HYVFu?=
- =?utf-8?B?Ti9kaUJqQWh3QWVVenlkMExDenNCamN5ZExDL01vUHVUTEEzWENQUT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d924804e-8e26-4561-7e4a-08dec1796ee2
-X-MS-Exchange-CrossTenant-AuthSource: CH7PR03MB7860.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 14:07:23.1296
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P93Zhx4D7VJshAtvSWoT5GOC+i3czIydPXFvuVTUfpQ4xMPFAbuiaU5CqMrv9jVv5bJH0i8BmA+WZyxvf++oYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR03MB6347
-X-purgate-ID: tlsNG-d25034/1780495647-E1360CF5-60712529/0/0
+X-Spam-Flag: NO
+X-Spam-Score: -6.61
+X-Spam-Level: 
+X-purgate-ID: tlsNG-33051d/1780495710-36746938-D2E1DF61/0/0
 X-purgate-type: clean
-X-purgate-size: 1385
+X-purgate-size: 2552
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_ALLOW(-1.00)[microsoft.com:s=arcselector10001:i=1];
-	DMARC_POLICY_ALLOW(-0.50)[citrix.com,reject];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[citrix.com:s=selector1];
+X-Spamd-Result: default: False [-3.28 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+	MIME_GOOD(-0.20)[multipart/signed,text/plain];
 	MAILLIST(-0.18)[generic];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:mengxu@cis.upenn.edu,m:xen-devel@lists.xenproject.org,m:Oleksii_Moisieiev@epam.com,s:lists@lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,about.me:url,suse.com:mid,suse.com:dkim,suse.com:from_mime,suse.com:url];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[mailman];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
-	FORGED_RECIPIENTS(0.00)[m:jbeulich@suse.com,m:oleksii.kurochko@gmail.com,m:anthony.perard@vates.tech,m:xen-devel@lists.xenproject.org,m:oleksiikurochko@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[gmail.com,vates.tech,lists.xenproject.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:from_mime,citrix.com:dkim];
-	RCPT_COUNT_THREE(0.00)[4];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[dfaggioli@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+,2:~];
+	DKIM_TRACE(0.00)[suse.com:+];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	HAS_ORG_HEADER(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	FROM_NEQ_ENVFROM(0.00)[roger.pau@citrix.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dfaggioli@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[citrix.com:+];
+	RCPT_COUNT_THREE(0.00)[4];
+	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	RCVD_COUNT_SEVEN(0.00)[10]
+	RCVD_COUNT_SEVEN(0.00)[11]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 7FB8E63864F
+X-Rspamd-Queue-Id: 0269663867C
 
-On Wed, Jun 03, 2026 at 03:54:39PM +0200, Jan Beulich wrote:
-> On 03.06.2026 15:45, Roger Pau Monné wrote:
-> > On Wed, Jun 03, 2026 at 10:38:52AM +0200, Jan Beulich wrote:
-> >> On 01.06.2026 17:43, Roger Pau Monne wrote:
-> >>> --- /dev/null
-> >>> +++ b/tools/tests/numa/.gitignore
-> >>> @@ -0,0 +1,2 @@
-> >>> +/numa.h
-> >>> +/test-numa
-> >>
-> >> Why the leading slashes?
-> > 
-> > This is the format of the .gitignore that we use in the pdx, numa and
-> > rengeset testing.  The slashes denote that the pattern is relative to
-> > the particular .gitignore itself, but won't match any level below the
-> > .gitignore.
-> 
-> Hmm, before replying I checked a few other .gitignore files under tests/,
-> and none had leading slashes. For the purposes here either way is likely
-> fine, but really we'd better be consistent overall. (Which isn't a request
-> for you to change or do anything, merely a remark.)
 
-% cat tools/tests/*/.gitignore
-test-cpu-policy
-generated
-test-domid
-test-mem-claim
-/numa.h
-/test-numa
-test-paging-mempool
-/pdx.h
-/test-pdx-mask
-/test-pdx-offset
-/list.h
-/rangeset.c
-/rangeset.h
-/test-rangeset
-test-resource
-test-tsx
-test-xenstore
+--=-bZp/72VNNFEfX+j+7UiA
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Some have, some doesn't.  Using the slash is IMO more accurate
-matching, but I'm not going to adjust the others either unless I have
-to modify them for other reasons possibly.
+On Mon, 2026-05-18 at 17:08 +0200, Jan Beulich wrote:
+> Hello,
+>=20
+Hi!
 
-Thanks, Roger.
+> In case of continued lack of response, I guess I'm going to commit
+> the
+> patches as-is towards the end of this week.
+>=20
+So, RTDS' maintainers are me and Meng, but I've not heard from him
+since long time, and that makes me assume he's no longer active.
+
+About me, well, I'll use this email as the chance to recognize that,
+given my time allocation constraints, I'm not able to serve as the only
+maintainer of this scheduler any more, especially considering that RTDS
+seems to eventually be getting some interest and attention. :-)
+
+Personally, I'd love to see this scheduler eventually out of the
+experimental stage but, at the same time, I must admit that I won't be
+able to lead it there myself... At least, not alone.
+
+So, this is basically a call for anyone in the community that is
+interested in RTDS: help is needed and will be much appreciated.
+
+I'm happy to continue to try to help but, as this thread clearly
+demonstrates, I can't be the single point of contact for RTDS patches
+any longer.
+
+Thanks and Regards,
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+--=-bZp/72VNNFEfX+j+7UiA
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmogNVwACgkQFkJ4iaW4
+c+6lVhAA7q4UV0nACu0e5a3PbHWXymv2/5IO8e2Fw3RRa6xqSzbINsz4px9j7QEn
+EwJszCG20pgOUexDCFe9Ztv5sTiDVjUheAvo8jR2j3pOJhs61E9tkneGHb3miC6C
+2zekQcZwjvn+4eHXHQ9hcrLz9pN/Q86anZ0b9/w3gOwClHrp/wVxwtePUXPGAN7e
+xbsg+YcOrOPypj53WImdiHvMj2dHj+d4qrrrYhyjOwMQjWLOWuQYFtjIUQk4XWM8
+QlCM9j+SNBlBoX4QmHaA5ZddtZTH2vtfbnbEbuYT4zkf1HlyypluxahnzTHqvzzB
+sbhRb64Gg7Cp0VvbfJ+S02QyeF6z3n7ZsHaMWrwPv6TxgYFL+GX64A6sTNsi8y0O
+LCDGfs7++wA2O3kfoATdxy2/bmSxv/D5QpolsOrr+3HcsZyI5KkVMHMs2qBo3UdG
+4q4kyCCVdcj9UdnXsR5sFTZGeTGrbm9Jf7efGdJdhC2Zk+qb7dK3Zrw0hNx+UsRM
+piaJtrtXWSfjDBCRhyqD84lezlHDT9KqpZrg+pZAqYNZuBBYl8RilgHoyB4g7UQg
+I9aeCJroxLJEBPD7L+umxSECADdvKEEnuagIT10YFPmhCMXiYnMm6ff3FyIWizQF
+cQLLK0EHZGySxfmpxe8etbOsA0NTc7ZWUQ5isrAYzcBGR0Kmmyo=
+=1PlM
+-----END PGP SIGNATURE-----
+
+--=-bZp/72VNNFEfX+j+7UiA--
 
