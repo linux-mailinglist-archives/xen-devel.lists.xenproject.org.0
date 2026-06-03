@@ -2,64 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 11eCG13UH2pIqgAAu9opvQ
+	id HchLFKbZH2pWrAAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 09:14:37 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 09:37:10 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8FAC6350DE
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 09:14:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD5C763547A
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 09:37:09 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=qualcomm.com header.s=qcppdkim1 header.b=nqgLSJgq;
-	dkim=pass header.d=oss.qualcomm.com header.s=google header.b=PlH4teFG;
+	dkim=pass header.d=suse.com header.s=google header.b=LkEXXsM5;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=reject) header.from=qualcomm.com
-Received: from list by lists.xenproject.org with outflank-mailman.1325773.1591123 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1325805.1591149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUfo3-0007hh-9F; Wed, 03 Jun 2026 07:14:27 +0000
+	id 1wUg9c-0003Lr-3l; Wed, 03 Jun 2026 07:36:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1325773.1591123; Wed, 03 Jun 2026 07:14:27 +0000
+Received: by outflank-mailman (output) from mailman id 1325805.1591149; Wed, 03 Jun 2026 07:36:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUfo3-0007f4-5Y; Wed, 03 Jun 2026 07:14:27 +0000
-Received: by outflank-mailman (input) for mailman id 1325773;
- Wed, 03 Jun 2026 07:14:25 +0000
-Received: from mx.expurgate.net ([195.190.135.10])
+	id 1wUg9b-0003KI-WF; Wed, 03 Jun 2026 07:36:44 +0000
+Received: by outflank-mailman (input) for mailman id 1325805;
+ Wed, 03 Jun 2026 07:36:42 +0000
+Received: from mx.expurgate.net ([194.145.224.20])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <vijayanand.jitta@oss.qualcomm.com>)
- id 1wUfo1-0007bF-D4
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 07:14:25 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wUg9a-0003K7-GE
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 07:36:42 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUfo0-00Ejn3-OT
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 09:14:24 +0200
+ id 1wUg9Y-005a3m-Cf
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 09:36:40 +0200
 Received: from [10.42.69.1] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <vijayanand.jitta@oss.qualcomm.com>)
- id 6a1fd444-e002-0a2a0a5209dd-0a2a4501ce48-40
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 09:14:24 +0200
-Received: from [205.220.180.131] (helo=mx0b-0031df01.pphosted.com)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a1fd987-e002-0a2a0a5209dd-0a2a45019394-2
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 09:36:40 +0200
+Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
  by tlsNG-d62444.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <vijayanand.jitta@oss.qualcomm.com>)
- id 6a1fd44e-c1f2-0a2a45010019-cddcb483d62c-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 09:14:24 +0200
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6536RSPo422551
- for <xen-devel@lists.xenproject.org>; Wed, 3 Jun 2026 07:14:22 GMT
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ehu1cn8u8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 07:14:22 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2bf3636d6c0so46000895ad.2
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 00:14:22 -0700 (PDT)
-Received: from hu-vjitta-hyd.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c164f8429fsm17249725ad.18.2026.06.03.00.14.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Jun 2026 00:14:20 -0700 (PDT)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a1fd988-c1f2-0a2a45010019-d155dd36b1f2-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 09:36:40 +0200
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-45eedc94d37so3169500f8f.3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 00:36:40 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4601f344762sm5857333f8f.23.2026.06.03.00.36.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 03 Jun 2026 00:36:39 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,144 +60,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0NESXEAUnIJZlgHkQhSkW2BBr8htvCi9q/3exWK1858=; b=nqgLSJgqZuxMg4dj
-	TkTyKMYGew2vpzd0IHJcj+bRfWM+33dnwHxuTNAamr6pDsRV2FvzsmV5zd1bwJhI
-	tAOlM6O+ek6AdbS9PhZlK4v6jzh/DdFOpiIIbdhJ9W+1xpM/yavnl1x+qVdjteh8
-	2Vt1lYUMAQDpy2wPnUbTtipX3TPGAstlE0RZL6EXNhq4AbNzumGBA8zePWvUjomR
-	npOr5NyxqpfbiZMznELtlvnUdLvke48QBTmmcAvP56uIHzPNKxvolFaolqh1xpkY
-	J/H2O5PQeVGrF1elJ8yYuaW1JboWVsyqNMMgYbj9dn6pKgk3jXC88udBDXXOqC6e
-	vmlIZQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780470861; x=1781075661; darn=lists.xenproject.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0NESXEAUnIJZlgHkQhSkW2BBr8htvCi9q/3exWK1858=;
-        b=PlH4teFGB/8HvsagDachzyqm1TGkFb908sgBKCYoPQJiHYkr2Ltxbksd9MxOtjAHqR
-         YzGaWZVKdEytaQ5quI9n2ZQ5V9/NHDaYdeMWnbBAq51X5zNUoeI58ou+8+U2l/769cRR
-         NnBTFZnGG2lr7BpF3da3SjaihUrIcm34rlPD0I/w3SohdMSIEZAIG8FpXFmVWNgvXUcg
-         H28KiPLJtqMijFAgc6fhlM+nevkLh540vfJA0dr19AFJ0tWQg58UHY9HTSjfhVGHaPxc
-         HdQL/qSJLGEJAIUR68cLFZIt6jFoNMltBcQwBvwKEmvcU6Px/oUDabLkv6QpyNLY6VPD
-         Yafg==
+        d=suse.com; s=google; t=1780472200; x=1781077000; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=eDlPp192v1q8ObAZ8jaeGflLxcbf6kqkOxPpHfsTVLY=;
+        b=LkEXXsM5YRQ/b3QVt5i8EljpLawUnu4dRf9cjNcTP/GrhQqqHsBpVBKYlChUKh32I8
+         VhEbkFPOPXqM+921Y8BHJoHB7d2iSHdrrL6jb9f8xLOgFpXk8i6er8/99OXDyObK3+B4
+         16HCLazq9ZMF/dsRi87g0/iyiTqC+07/HMrUzSHhtvqXo0SeXdWtpNDAEJCFtfpmC1QP
+         98BypbjAuv88Uti/BhufcwYc2maNPJIbWayQxs78VJpuXT89Eh7sVrann6jln83PAmKV
+         XqBb7AA2uAkANFu4FlDEn0a3Du5z5pJNmWYPp9Tq5amAqLdRj8vGcWb+MyTqtnurLOUZ
+         KDBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780470861; x=1781075661;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=0NESXEAUnIJZlgHkQhSkW2BBr8htvCi9q/3exWK1858=;
-        b=flQrZKeZpv02BGLNmRQhR2uqWHP6rADMDmCvwg84LzA8QyItfOegyREQx6ACgAwvFo
-         uLMnWY3YW8dIPavzA3vzlP1lsmLRD3aeLPtK1O1e0px8OWcvDjzDGeWFHyHkdXwQfxvF
-         ZBWKj9CSnfer/i0PbPxvgD2hagNAVQrqSe4qgqZUmxJARJehzw0auzszITz5QybgQa/s
-         9W4k52ln5956kfDg8ipZCKkMmY2bWDp78lEgKx5v55kMh0T201amV5f+jc4Bwny7V4cm
-         KeSbHdUdS5f7O6WrjQutKI8AomKwgYurN2UPbZwGywEgrvtYfmsl/EcZ2Xa0mJvpUqg1
-         QHew==
-X-Forwarded-Encrypted: i=1; AFNElJ/XGlLSiynHm2N2HpN0dXTgOmVd2AoB3osz+aTeZ8EzMjmWoWDqgb+b3GeDbGwGsDmmsdXMy//pQc8=@lists.xenproject.org
-X-Gm-Message-State: AOJu0Yw4Em1sXXOpTl8cB9nLAQt8WMUcNC++JwtlEx+gedss2Aqg1COJ
-	3tFMjVcGncs0nFsi5bLNMywMyQUR3NtXIxudToLNSGoitDFGryQJ+BtoAfT3lEvJnmt4EZCyioA
-	u5pxixke3gNzbr0kpsRHagXo1sxuAeNG8OjhNVVs4BSnZ8NJ34jxH4FTHax2R99Xibrxoiw==
-X-Gm-Gg: Acq92OEifk0YJPiYiJ70iPLDYeveSVW3m6ikvRyPunxzjy5LV67iHLVGZ2RmWKLFWTm
-	sjVBhz1NlsSrs5eAP4x+/ZL1BtwQCaAb2a5ijRKKF6lcIej6vNaP7ZRDOZ4eak3tj31s7/F7/jK
-	r/oTC0seueNbpzbJHyNw6Ag/9iu+7yWF2mOWZU68x1M4YNGo4h/pLnPi2B5X3kBDrStumtDSP/6
-	ULBIQD5siV1S5kvlx4uiyJXsvRaBgmbC/nQ0X1etQDnAQTt8UTw5Oe5yvusOFtMzuu4p6ITZVro
-	N87LsFqHFIBLpK1wHjyEAOTja7s3X2SZX7zrt2pZC/GIUiGYIQyx0LIHIaTXYY24OB/4OfuiTVj
-	AWn2iT7Iw59doLZSQ/O21afofwxC6PWgUO0DeCQ+2R0R142oQwUk4He9jxm34PE6ScUw=
-X-Received: by 2002:a17:903:2409:b0:2bf:e5c:d90b with SMTP id d9443c01a7336-2c1644aae32mr24391845ad.32.1780470861078;
-        Wed, 03 Jun 2026 00:14:21 -0700 (PDT)
-X-Received: by 2002:a17:903:2409:b0:2bf:e5c:d90b with SMTP id d9443c01a7336-2c1644aae32mr24391335ad.32.1780470860486;
-        Wed, 03 Jun 2026 00:14:20 -0700 (PDT)
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Date: Wed, 03 Jun 2026 12:43:14 +0530
-Subject: [PATCH v16 3/3] of: Respect #{iommu,msi}-cells in maps
+        d=1e100.net; s=20251104; t=1780472200; x=1781077000;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=eDlPp192v1q8ObAZ8jaeGflLxcbf6kqkOxPpHfsTVLY=;
+        b=ntzsCDeL8yLsCek3drfDTxH7mMCm5QPDf8HhTj35Th8CGGX86k+i8bygpYC7051PM0
+         7btoMyO0sjNsGP0AZjCht9OZZNc+T3y+Ueo2vAue54bMlo4aZrhjZHYprtDd+VZomiow
+         9XHtYGgUhwkD0+ry6iNojMDK1Osv7bqmXZ+WjORYiXnQvO64/mz2RInfbTTheFkXWoov
+         OKvVtO+imAJkDo2NujHcgNF3iwvG/V/CyfBEDyHZuOwA7wgGVnkcPpLZ0sNxgF5OHxmB
+         gvhEue+SW/XnR0PlfjpwLGMEerun0sP2iEnxHROm4qxv5WsLxiHQMwK/ClA+n0vQsqu8
+         gKsw==
+X-Forwarded-Encrypted: i=1; AFNElJ8CCqQYYIStLdBDCLl2icmDo+iGsSbuu2IyqMjPNSaMjG6yFj0ajynkpLbdlHiztql7yoUXjWsebzM=@lists.xenproject.org
+X-Gm-Message-State: AOJu0Yx/jNUxrWPKud380xu7JCTuw64rW2iplfUqazfPGQ3HtKGfVhDs
+	8rCClWo/XhuZjYzN8M6BlXPALn0AfYuSYJgp4JNG6raXmnWGe14KVrjL3JV0fKP1JQ==
+X-Gm-Gg: Acq92OHY9C0qf0j9KZInE621vkMLK2RIZWW5F3AgoppKbPgfEp79FI6LmxvqnHuWa0x
+	aS3DjcI/l4Y9huXgYorrCMh5NkA171A1KeXKYjcMRhlVBOaXgObcY1BXZkClDPb67w9Cz46KbgL
+	7FbdltnG/D+lG8hIEKX9ErYmhbFv1TAu0Dnfzbi9eH4NH4hEov/5AvdSy8XUIfXV4lV3kP/b6bL
+	oxYulU77208nm4LUi6gI07RV3QL9aZcOcErxMDjtmzAm1slrA/XtWI6toGUHtGWQXe0LlNxEBD3
+	uIt7J5WQZm6G4IvwajpmhSbgXZLFUh5Yc3jl3i86bHn9rnP9/YhMbZa8pgQVZXeRZCRGws6ruLZ
+	SjnC1Yi/iQglG6panLkZmaoO6bqTsLvYGEDQDGBlwzgeh71gpsOjDKs/arJo13XpLGX0dt3D1u1
+	pXbz7oUD/oeIerRA7ctzIR6DUmggketELj9AH85O8FJGvJ/uaQR91/sUDYfeXf/9LIzQtzSbQ2E
+	RKJrK0FJ6OqGDa1dIhyoGZKMlA+3ZRNXdDz
+X-Received: by 2002:a05:6000:611:b0:45e:ea9b:edfb with SMTP id ffacd0b85a97d-46021893197mr2835129f8f.39.1780472199614;
+        Wed, 03 Jun 2026 00:36:39 -0700 (PDT)
+Message-ID: <a0de8496-66cb-4e7f-854e-fcc0053bd666@suse.com>
+Date: Wed, 3 Jun 2026 09:36:38 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260603-parse_iommu_cells-v16-3-dc509dacb19a@oss.qualcomm.com>
-References: <20260603-parse_iommu_cells-v16-0-dc509dacb19a@oss.qualcomm.com>
-In-Reply-To: <20260603-parse_iommu_cells-v16-0-dc509dacb19a@oss.qualcomm.com>
-To: Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
-        imx@lists.linux.dev, xen-devel@lists.xenproject.org,
-        Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780470825; l=12579;
- i=vijayanand.jitta@oss.qualcomm.com; s=20260301; h=from:subject:message-id;
- bh=LPtm8WRL1ePgVwpjpfKGmM3BfFB+wBr62xMWuFSMIXc=;
- b=akSqVr4B15pnrlPKudtM7LDFqnlZY755iH00YvUmRmRXT010tIliyd5qbMUXYUsNrA1CeFZLr
- x5IZ2Ex1fT9Afpi39siNTFcy0lhQVnAIK8REPd8mwI7kfwda3ocWUcq
-X-Developer-Key: i=vijayanand.jitta@oss.qualcomm.com; a=ed25519;
- pk=Lpi7Cs3wHe8KZtqvyci7FTOLzsKpEHKGCaPNZw+1zRI=
-X-Proofpoint-ORIG-GUID: iRqgftd7dFG4Gpb_iCQCEgx25BUONMu2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAzMDA2NyBTYWx0ZWRfXwt3eDiFFWYSH
- W+D+jbTJkcTTsoDrc0uEIuyrYssxk6bTbk49TfmHo9YpvrCaqXoH4a5xMM5bQ6C7kKuSelBBcP6
- 15tAF1ftL/mdyMQWpSeeBEN6ejzoaVl25KoAl7r169/Lg5MoSbFQynRiZEyhbjvc5ZjCzB1G7nS
- Z29y3jUW0tL0FUGYjQ7bF6jnemm6atMODgf4tt/kqEUoXJDJliyhxzPWbtjAnGi6qGptOjx0Aj4
- Q3XEszDBT7Bqjq1wJmXkQWPjXa8Hn1t2n7fl8u8i6cCcs8BWre/thY/k+qbvrZCosL0JZKiWFEn
- S3CwwNehQ/2Sq9Gal0Yn2oQ6vzScmwSA5uyqiQxn2bvy14d5VOZePbDZBzqb8Xb6U2m2l8yc0Dg
- 6HsH3oKZmM97cC9RDdHLZui7BHGRAffZDzirzqSuRGLEppYJVaXMARVyvOOyPPoo6GoCjG5iUWi
- b+WhBfQANvy8eIKHOLA==
-X-Proofpoint-GUID: iRqgftd7dFG4Gpb_iCQCEgx25BUONMu2
-X-Authority-Analysis: v=2.4 cv=O6IJeh9W c=1 sm=1 tr=0 ts=6a1fd44e cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=9707C7GnR82a18xSEiYA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-03_02,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- impostorscore=0 spamscore=0 adultscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606030067
-X-purgate-ID: tlsNG-d62444/1780470864-AFF50FF4-CB6CDA92/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] xen/domain: make shutdown state explicit
+To: Mykola Kvach <xakep.amatop@gmail.com>
+Cc: Mykola Kvach <mykola_kvach@epam.com>, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ Michal Orzel <michal.orzel@amd.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Tim Deegan <tim@xen.org>,
+ Dario Faggioli <dfaggioli@suse.com>, Juergen Gross <jgross@suse.com>,
+ George Dunlap <gwd@xenproject.org>, xen-devel@lists.xenproject.org
+References: <e9c45be41bb36ca341dad57196c753fbe82d1526.1774998397.git.mykola_kvach@epam.com>
+ <d53d2b06-56d7-43bc-bb20-4df7b7bc3ca5@suse.com>
+ <CAGeoDV8RXEvV03WCRU5WqZvAgU1G9GmVpaed1ZR+ezbEjgLjMg@mail.gmail.com>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <CAGeoDV8RXEvV03WCRU5WqZvAgU1G9GmVpaed1ZR+ezbEjgLjMg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-purgate-ID: tlsNG-d62444/1780472200-B6D59FF4-CB2F02E3/0/0
 X-purgate-type: clean
-X-purgate-size: 12626
+X-purgate-size: 4772
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-1.19 / 15.00];
-	DMARC_POLICY_ALLOW(-0.50)[qualcomm.com,reject];
-	R_DKIM_ALLOW(-0.20)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
+X-Spamd-Result: default: False [0.31 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:nipun.gupta@amd.com,m:nikhil.agarwal@amd.com,m:joro@8bytes.org,m:will@kernel.org,m:robin.murphy@arm.com,m:lpieralisi@kernel.org,m:maz@kernel.org,m:tglx@kernel.org,m:robh@kernel.org,m:saravanak@kernel.org,m:hongxing.zhu@nxp.com,m:l.stach@pengutronix.de,m:kwilczynski@kernel.org,m:mani@kernel.org,m:bhelgaas@google.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:jgross@suse.com,m:sstabellini@kernel.org,m:oleksandr_tyshchenko@epam.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:iommu@lists.linux.dev,m:linux-arm-kernel@lists.infradead.org,m:devicetree@vger.kernel.org,m:linux-pci@vger.kernel.org,m:imx@lists.linux.dev,m:xen-devel@lists.xenproject.org,m:vijayanand.jitta@oss.qualcomm.com,m:charan.kalla@oss.qualcomm.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:mid,suse.com:dkim,suse.com:from_mime,suse.com:email,lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_TO(0.00)[amd.com,8bytes.org,kernel.org,arm.com,nxp.com,pengutronix.de,google.com,gmail.com,suse.com,epam.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:xakep.amatop@gmail.com,m:mykola_kvach@epam.com,m:paul@xen.org,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:anthony.perard@vates.tech,m:michal.orzel@amd.com,m:julien@xen.org,m:sstabellini@kernel.org,m:tim@xen.org,m:dfaggioli@suse.com,m:jgross@suse.com,m:gwd@xenproject.org,m:xen-devel@lists.xenproject.org,m:xakepamatop@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[32];
-	FORGED_SENDER(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[mailman];
-	DKIM_TRACE(0.00)[qualcomm.com:+,oss.qualcomm.com:+];
+	DKIM_TRACE(0.00)[suse.com:+];
 	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_TWELVE(0.00)[12];
-	FROM_NEQ_ENVFROM(0.00)[vijayanand.jitta@oss.qualcomm.com,xen-devel-bounces@lists.xenproject.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
@@ -217,336 +179,108 @@ X-Spamd-Result: default: False [-1.19 / 15.00];
 	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,qualcomm.com:dkim,oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,oss.qualcomm.com:dkim]
+	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B8FAC6350DE
+X-Rspamd-Queue-Id: AD5C763547A
 
-From: Robin Murphy <robin.murphy@arm.com>
+On 03.06.2026 08:46, Mykola Kvach wrote:
+> On Wed, Apr 8, 2026 at 4:06 PM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 01.04.2026 08:41, Mykola Kvach wrote:
+>>> From: Mykola Kvach <mykola_kvach@epam.com>
+>>>
+>>> The shutdown flow currently overloads is_shutting_down and
+>>> is_shut_down to represent multiple phases of the shutdown lifecycle.
+>>> Some users treat is_shutting_down narrowly as "shutdown still needs to
+>>> be driven to completion", while others rely on it more broadly as
+>>> "the domain is no longer in its normal running state".
+>>>
+>>> Make the lifecycle explicit by introducing enum
+>>> domain_shutdown_state and helper predicates whose names match their
+>>> semantics: domain_shutting_down() for the transient phase,
+>>> domain_shutdown_completed() for the final state, and
+>>> domain_in_shutdown_state() for checks that need the union of both.
+>>>
+>>> The conversion is intentionally not mechanical. The old flags were not
+>>> mutually exclusive: once a domain became fully shut down,
+>>> is_shutting_down remained set. As a result, sites that previously
+>>> used the absence of is_shutting_down to exclude both the transient and
+>>> completed states now use domain_in_shutdown_state(), sites that care
+>>> specifically about the final state use domain_shutdown_completed(),
+>>> and only paths that still have work to do before shutdown finalization
+>>> use domain_shutting_down().
+>>
+>> In how far is the distinction between domain_shutting_down() and
+>> domain_in_shutdown_state() really necessary? What you describe above
+>> still leaves me pretty clueless as to almost(?) all of the uses of the
+>> latter (where I think the former could be used just as well). Many
+>> paths simply can't be taken anymore for a fully shut down domain, so
+>> the distinction between the two is moot there.
+>>
+>> I'm also concerned of the name domain_in_shutdown_state() itself. To
+>> me this is far closer to domain_shutdown_completed() than to the union
+>> of both states. See how e.g. x86 CPUs can be "in shutdown state", i.e.
+>> not responding to anything but a reset or init signal.
+>>
+>> IOW an entirely mechanical replacement might in fact be easier to look
+>> at. And in the one rare case where the distinction might indeed be
+>> relevant, "domain_shutting_down() || domain_shutdown_completed()" could
+>> be used.
+>>
+>>> @@ -1423,9 +1423,12 @@ int domain_shutdown(struct domain *d, u8 reason)
+>>>      return 0;
+>>>  }
+>>>
+>>> -void domain_resume(struct domain *d)
+>>> +int domain_resume(struct domain *d)
+>>>  {
+>>>      struct vcpu *v;
+>>> +    enum domain_shutdown_state shutdown_state;
+>>> +    unsigned int shutdown_code;
+>>> +    int rc = 0;
+>>>
+>>>      /*
+>>>       * Some code paths assume that shutdown status does not get reset under
+>>> @@ -1435,10 +1438,18 @@ void domain_resume(struct domain *d)
+>>>
+>>>      spin_lock(&d->shutdown_lock);
+>>>
+>>> -    d->is_shutting_down = d->is_shut_down = 0;
+>>> +    shutdown_state = d->shutdown_state;
+>>> +    shutdown_code = d->shutdown_code;
+>>> +
+>>> +    if ( !domain_shutdown_completed(d) )
+>>> +    {
+>>> +        rc = -EINVAL;
+>>> +        goto out_unlock;
+>>> +    }
+>>
+>> I can't help the impression that you're mixing two things here - adjustment
+>> to how shutdown state is tracked, and enforcement of completed shutdown
+>> right here. This separate change likely would better be split out, and then
+>> come with a description saying not only what is being changed, but also why,
+>> and why the change is correct for both call sites.
+> 
+> In v3 I have dropped this part, so the patch no longer changes
+> domain_resume() behaviour or its callers. domain_resume() remains void,
+> and the patch only makes the existing shutdown state tracking explicit.
+> 
+> One follow-up question about the dropped change: do you think resume-state
+> validation would be worth pursuing separately?
+> 
+> AFAICT, soft reset already has its own DOMCTL path, so I do not mean to treat
+> XEN_DOMCTL_resumedomain as a soft-reset interface. The distinction I had in
+> mind is rather that we may want different validation rules for the generic
+> resume helper and for a resume-from-suspend path. In particular, soft reset
+> could keep the current semantics, while a resume-from-suspend path would only
+> clear the shutdown state if the domain had previously entered suspend.
+> 
+> If this distinction makes sense, I can look into it as a separate patch with
+> its own justification for the affected call sites. Otherwise I will leave it
+> out.
 
-So far our parsing of {iommu,msi}-map properties has always blindly
-assumed that the output specifiers will always have exactly 1 cell.
-This typically does happen to be the case, but is not actually enforced
-(and the PCI msi-map binding even explicitly states support for 0 or 1
-cells) - as a result we've now ended up with dodgy DTs out in the field
-which depend on this behaviour to map a 1-cell specifier for a 2-cell
-provider, despite that being bogus per the bindings themselves.
+I guess I'd need to see a patch to really build an opinion. Generally yes,
+state validation (even if e.g. only by way of assertions) is a useful thing
+to have, I think.
 
-Since there is some potential use in being able to map at least single
-input IDs to multi-cell output specifiers (and properly support 0-cell
-outputs as well), add support for properly parsing and using the target
-nodes' #cells values, albeit with the unfortunate complication of still
-having to work around expectations of the old behaviour too.
-
-Since there are multi-cell output specifiers, the callers of of_map_id()
-may need to get the exact cell output value for further processing.
-Update of_map_id() to set args_count in the output to reflect the actual
-number of output specifier cells.
-
-Signed-off-by: Robin Murphy <robin.murphy@arm.com>
-Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
----
- drivers/of/base.c  | 168 +++++++++++++++++++++++++++++++++++++++++------------
- include/linux/of.h |   6 +-
- 2 files changed, 135 insertions(+), 39 deletions(-)
-
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index d658c2620135..ac7961cbab94 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -2116,19 +2116,49 @@ int of_find_last_cache_level(unsigned int cpu)
- 	return cache_level;
- }
- 
-+/*
-+ * Some DTs have an iommu-map targeting a 2-cell IOMMU node while
-+ * specifying only 1 cell. Fortunately they all consist of value '1'
-+ * as the 2nd cell entry with the same target, so check for that pattern.
-+ *
-+ * Example:
-+ *	IOMMU node:
-+ *		#iommu-cells = <2>;
-+ *
-+ *	Device node:
-+ *		iommu-map = <0x0000 &smmu 0x0000 0x1>,
-+ *			    <0x0100 &smmu 0x0100 0x1>;
-+ */
-+static bool of_check_bad_map(const __be32 *map, int len)
-+{
-+	__be32 phandle = map[1];
-+
-+	if (len % 4)
-+		return false;
-+	for (int i = 0; i < len; i += 4) {
-+		if (map[i + 1] != phandle || map[i + 3] != cpu_to_be32(1))
-+			return false;
-+	}
-+	return true;
-+}
-+
- /**
-  * of_map_id - Translate an ID through a downstream mapping.
-  * @np: root complex device node.
-  * @id: device ID to map.
-  * @map_name: property name of the map to use.
-+ * @cells_name: property name of target specifier cells.
-  * @map_mask_name: optional property name of the mask to use.
-  * @filter_np: pointer to an optional filter node, or NULL to allow bypass.
-  *	If non-NULL, the map property must exist (-ENODEV if absent). If
-  *	*filter_np is also non-NULL, only entries targeting that node match.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] will contain the translated ID. If a map entry was
-- *	matched, @arg->np will be set to the target node with a reference
-- *	held that the caller must release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	as defined by @cells_name in the target node, and
-+ *	@arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np will be set
-+ *	to the target node with a reference held that the caller must release
-+ *	with of_node_put().
-  *
-  * Given a device ID, look up the appropriate implementation-defined
-  * platform ID and/or the target device which receives transactions on that
-@@ -2137,19 +2167,21 @@ int of_find_last_cache_level(unsigned int cpu)
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_id(const struct device_node *np, u32 id,
--	       const char *map_name, const char *map_mask_name,
-+	       const char *map_name, const char *cells_name,
-+	       const char *map_mask_name,
- 	       struct device_node * const *filter_np, struct of_phandle_args *arg)
- {
- 	u32 map_mask, masked_id;
--	int map_len;
-+	int map_bytes, map_len, offset = 0;
-+	bool bad_map = false;
- 	const __be32 *map = NULL;
- 
--	if (!np || !map_name || !arg)
-+	if (!np || !map_name || !cells_name || !arg)
- 		return -EINVAL;
- 	/* Ensure bypass/no-match success never returns a stale target node. */
- 	arg->np = NULL;
- 
--	map = of_get_property(np, map_name, &map_len);
-+	map = of_get_property(np, map_name, &map_bytes);
- 	if (!map) {
- 		if (filter_np)
- 			return -ENODEV;
-@@ -2159,11 +2191,9 @@ int of_map_id(const struct device_node *np, u32 id,
- 		return 0;
- 	}
- 
--	if (!map_len || map_len % (4 * sizeof(*map))) {
--		pr_err("%pOF: Error: Bad %s length: %d\n", np,
--			map_name, map_len);
--		return -EINVAL;
--	}
-+	if (map_bytes % sizeof(*map))
-+		goto err_map_len;
-+	map_len = map_bytes / sizeof(*map);
- 
- 	/* The default is to select all bits. */
- 	map_mask = 0xffffffff;
-@@ -2176,39 +2206,93 @@ int of_map_id(const struct device_node *np, u32 id,
- 		of_property_read_u32(np, map_mask_name, &map_mask);
- 
- 	masked_id = map_mask & id;
--	for ( ; map_len > 0; map_len -= 4 * sizeof(*map), map += 4) {
-+
-+	while (offset < map_len) {
- 		struct device_node *phandle_node;
--		u32 id_base = be32_to_cpup(map + 0);
--		u32 phandle = be32_to_cpup(map + 1);
--		u32 out_base = be32_to_cpup(map + 2);
--		u32 id_len = be32_to_cpup(map + 3);
-+		u32 id_base, phandle, id_len, id_off, cells = 0;
-+		const __be32 *out_base;
-+
-+		if (map_len - offset < 2)
-+			goto err_map_len;
-+
-+		id_base = be32_to_cpup(map + offset);
- 
- 		if (id_base & ~map_mask) {
--			pr_err("%pOF: Invalid %s translation - %s-mask (0x%x) ignores id-base (0x%x)\n",
--				np, map_name, map_name,
--				map_mask, id_base);
-+			pr_err("%pOF: Invalid %s translation - %s (0x%x) ignores id-base (0x%x)\n",
-+			       np, map_name, map_mask_name, map_mask, id_base);
- 			return -EFAULT;
- 		}
- 
--		if (masked_id < id_base || masked_id >= id_base + id_len)
--			continue;
--
-+		phandle = be32_to_cpup(map + offset + 1);
- 		phandle_node = of_find_node_by_phandle(phandle);
- 		if (!phandle_node)
- 			return -ENODEV;
- 
-+		/*
-+		 * Assume 1-cell output specifier if the target node lacks the
-+		 * #cells property, for backward compatibility with controllers
-+		 * that predate the property (e.g. arm,gic-v2m-frame).
-+		 */
-+		if (bad_map || of_property_read_u32(phandle_node, cells_name, &cells))
-+			cells = 1;
-+
-+		if (cells > MAX_PHANDLE_ARGS) {
-+			pr_err("%pOF: %s cell count %d exceeds maximum\n",
-+			       phandle_node, cells_name, cells);
-+			of_node_put(phandle_node);
-+			return -EINVAL;
-+		}
-+
-+		if (offset == 0 && cells == 2) {
-+			bad_map = of_check_bad_map(map, map_len);
-+			if (bad_map) {
-+				pr_warn_once("%pOF: %s has 1-cell entries targeting 2-cell %s, treating as 1-cell output\n",
-+					     np, map_name, cells_name);
-+				cells = 1;
-+			}
-+		}
-+
-+		if (map_len - offset < 3 + cells) {
-+			of_node_put(phandle_node);
-+			goto err_map_len;
-+		}
-+
-+		out_base = map + offset + 2;
-+		offset += 3 + cells;
-+
-+		id_len = be32_to_cpup(map + offset - 1);
-+		id_off = masked_id - id_base;
-+		if (masked_id < id_base || id_off >= id_len) {
-+			of_node_put(phandle_node);
-+			continue;
-+		}
-+		if (id_len > 1 && cells > 1) {
-+			/*
-+			 * With 1 output cell we reasonably assume its value
-+			 * has a linear relationship to the input; with more,
-+			 * we'd need help from the provider to know what to do.
-+			 */
-+			pr_err("%pOF: Unsupported %s - cannot handle %d-ID range with %d-cell output specifier\n",
-+			       np, map_name, id_len, cells);
-+			of_node_put(phandle_node);
-+			return -EINVAL;
-+		}
-+
- 		if (filter_np && *filter_np && *filter_np != phandle_node) {
- 			of_node_put(phandle_node);
- 			continue;
- 		}
- 
- 		arg->np = phandle_node;
--		arg->args[0] = masked_id - id_base + out_base;
--		arg->args_count = 1;
-+		for (int i = 0; i < cells; i++)
-+			arg->args[i] = id_off + be32_to_cpu(out_base[i]);
-+		arg->args_count = cells;
- 
- 		pr_debug("%pOF: %s, using mask %08x, id-base: %08x, out-base: %08x, length: %08x, id: %08x -> %08x\n",
--			np, map_name, map_mask, id_base, out_base,
--			id_len, id, masked_id - id_base + out_base);
-+			np, map_name, map_mask, id_base,
-+			cells ? be32_to_cpup(out_base) : 0,
-+			id_len, id,
-+			cells ? id_off + be32_to_cpup(out_base) : id_off);
- 		return 0;
- 	}
- 
-@@ -2219,6 +2303,10 @@ int of_map_id(const struct device_node *np, u32 id,
- 	arg->args[0] = id;
- 	arg->args_count = 1;
- 	return 0;
-+
-+err_map_len:
-+	pr_err("%pOF: Error: Bad %s length: %d\n", np, map_name, map_bytes);
-+	return -EINVAL;
- }
- EXPORT_SYMBOL_GPL(of_map_id);
- 
-@@ -2228,18 +2316,21 @@ EXPORT_SYMBOL_GPL(of_map_id);
-  * @id: Requester ID of the device (e.g. PCI RID/BDF or a platform
-  *      stream/device ID) used as the lookup key in the iommu-map table.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] contains the translated ID. If a map entry was matched,
-- *	@arg->np holds a reference to the target node that the caller must
-- *	release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	and @arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np holds a
-+ *	reference to the target node that the caller must release with
-+ *	of_node_put().
-  *
-- * Convenience wrapper around of_map_id() using "iommu-map" and "iommu-map-mask".
-+ * Convenience wrapper around of_map_id() using "iommu-map", "#iommu-cells",
-+ * and "iommu-map-mask".
-  *
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_iommu_id(const struct device_node *np, u32 id,
- 		    struct of_phandle_args *arg)
- {
--	return of_map_id(np, id, "iommu-map", "iommu-map-mask", NULL, arg);
-+	return of_map_id(np, id, "iommu-map", "#iommu-cells", "iommu-map-mask", NULL, arg);
- }
- EXPORT_SYMBOL_GPL(of_map_iommu_id);
- 
-@@ -2252,17 +2343,20 @@ EXPORT_SYMBOL_GPL(of_map_iommu_id);
-  *	If non-NULL, the map property must exist (-ENODEV if absent). If
-  *	*filter_np is also non-NULL, only entries targeting that node match.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] contains the translated ID. If a map entry was matched,
-- *	@arg->np holds a reference to the target node that the caller must
-- *	release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	and @arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np holds a
-+ *	reference to the target node that the caller must release with
-+ *	of_node_put().
-  *
-- * Convenience wrapper around of_map_id() using "msi-map" and "msi-map-mask".
-+ * Convenience wrapper around of_map_id() using "msi-map", "#msi-cells",
-+ * and "msi-map-mask".
-  *
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_msi_id(const struct device_node *np, u32 id,
- 		  struct device_node * const *filter_np, struct of_phandle_args *arg)
- {
--	return of_map_id(np, id, "msi-map", "msi-map-mask", filter_np, arg);
-+	return of_map_id(np, id, "msi-map", "#msi-cells", "msi-map-mask", filter_np, arg);
- }
- EXPORT_SYMBOL_GPL(of_map_msi_id);
-diff --git a/include/linux/of.h b/include/linux/of.h
-index ea50b45d9ff7..374b249766a2 100644
---- a/include/linux/of.h
-+++ b/include/linux/of.h
-@@ -465,7 +465,8 @@ const char *of_prop_next_string(const struct property *prop, const char *cur);
- bool of_console_check(const struct device_node *dn, char *name, int index);
- 
- int of_map_id(const struct device_node *np, u32 id,
--	       const char *map_name, const char *map_mask_name,
-+	       const char *map_name, const char *cells_name,
-+	       const char *map_mask_name,
- 	       struct device_node * const *filter_np,
- 	       struct of_phandle_args *arg);
- 
-@@ -950,7 +951,8 @@ static inline void of_property_clear_flag(struct property *p, unsigned long flag
- }
- 
- static inline int of_map_id(const struct device_node *np, u32 id,
--			     const char *map_name, const char *map_mask_name,
-+			     const char *map_name, const char *cells_name,
-+			     const char *map_mask_name,
- 			     struct device_node * const *filter_np,
- 			     struct of_phandle_args *arg)
- {
-
--- 
-2.34.1
-
+Jan
 
