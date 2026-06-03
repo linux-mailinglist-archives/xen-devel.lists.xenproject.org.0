@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id isgqBegmIGqwxgAAu9opvQ
+	id M3K1NO4mIGq4xgAAu9opvQ
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 15:06:48 +0200
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 15:06:54 +0200
 X-Original-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADDB4637DE6
-	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 15:06:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E486637DFE
+	for <lists+xen-devel@lfdr.de>; Wed, 03 Jun 2026 15:06:54 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=pass header.d=gmail.com header.s=20251104 header.b=rnmrL8LS;
+	dkim=pass header.d=suse.com header.s=google header.b=JxkLkfnv;
 	spf=pass (mail.lfdr.de: domain of xen-devel-bounces@lists.xenproject.org designates 192.237.175.120 as permitted sender) smtp.mailfrom=xen-devel-bounces@lists.xenproject.org;
-	dmarc=pass (policy=none) header.from=gmail.com
-Received: from list by lists.xenproject.org with outflank-mailman.1326247.1591785 (Exim 4.92)
+	dmarc=pass (policy=quarantine) header.from=suse.com
+Received: from list by lists.xenproject.org with outflank-mailman.1326263.1591807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUlIu-0000j7-Aj; Wed, 03 Jun 2026 13:06:40 +0000
+	id 1wUlJ0-0002Ou-Op; Wed, 03 Jun 2026 13:06:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 1326247.1591785; Wed, 03 Jun 2026 13:06:40 +0000
+Received: by outflank-mailman (output) from mailman id 1326263.1591807; Wed, 03 Jun 2026 13:06:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1wUlIt-0000X2-IE; Wed, 03 Jun 2026 13:06:39 +0000
-Received: by outflank-mailman (input) for mailman id 1326247;
- Wed, 03 Jun 2026 13:06:36 +0000
-Received: from mx.expurgate.net ([194.145.224.20])
+	id 1wUlJ0-0002J1-Dk; Wed, 03 Jun 2026 13:06:46 +0000
+Received: by outflank-mailman (input) for mailman id 1326263;
+ Wed, 03 Jun 2026 13:06:44 +0000
+Received: from mx.expurgate.net ([195.190.135.10])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <freddy77@gmail.com>) id 1wUlIq-0008Ok-GR
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 13:06:36 +0000
+ (envelope-from <jbeulich@suse.com>) id 1wUlIy-0001rX-7y
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 13:06:44 +0000
 Received: from mx.expurgate.net (helo=localhost) by mx.expurgate.net with esmtp
- id 1wUlIp-006lUv-T9
- for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 15:06:35 +0200
-Received: from [10.42.69.7] (helo=localhost)
+ id 1wUlIx-00C2Yc-Jg
+ for xen-devel@lists.xenproject.org; Wed, 03 Jun 2026 15:06:43 +0200
+Received: from [10.42.69.11] (helo=localhost)
  by localhost with ESMTP (eXpurgate MTA 0.9.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a2026d4-5cb7-0a2a0a5109dd-0a2a4507892e-46
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 15:06:35 +0200
-Received: from [209.85.221.46] (helo=mail-wr1-f46.google.com)
- by tlsNG-ef75cf.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
- (envelope-from <freddy77@gmail.com>)
- id 6a2026db-229c-0a2a45070019-d155dd2ea5a9-3
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 15:06:35 +0200
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-4600cbb06deso435021f8f.1
- for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 06:06:35 -0700 (PDT)
-Received: from localhost.localdomain (5.116.208.46.dyn.plus.net.
- [46.208.116.5]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f2ec711sm7254825f8f.12.2026.06.03.06.06.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 03 Jun 2026 06:06:34 -0700 (PDT)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a2026db-2eae-0a2a0a5409dd-0a2a450bb19a-20
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 15:06:43 +0200
+Received: from [209.85.221.54] (helo=mail-wr1-f54.google.com)
+ by tlsNG-42698a.mxtls.expurgate.net with ESMTPS (eXpurgate 4.56.1)
+ (envelope-from <jbeulich@suse.com>)
+ id 6a2026e3-212f-0a2a450b0019-d155dd36b45b-3
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 15:06:43 +0200
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-45fd461e4a5so3260943f8f.0
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jun 2026 06:06:43 -0700 (PDT)
+Received: from [10.156.60.236] (ip-037-024-206-209.um08.pools.vodafone-ip.de.
+ [37.24.206.209]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4601f34413csm7284992f8f.21.2026.06.03.06.06.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 03 Jun 2026 06:06:41 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -61,275 +61,175 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780491995; x=1781096795; darn=lists.xenproject.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IwEW/VMKmm9UVqRykzUd/eww6iX340aEt+2QQIC/NsI=;
-        b=rnmrL8LSOdnFSUD53twbT3zQUc9Q1d0nIhlhJzw67U4BB8VBtVGtBmLne+xiLL4v+i
-         0MRKr0xpN3+46B29fyU9d1FC7WQDQhQ7Zm0Ubx8FmpJbHt/RvW4pJiKWWddxdEma3N+v
-         TZdnnY6TxWZMDGJExsb9AebxdDpRXrc9KRSk2W/32C7SYYOSY4y952Pi260Vrv6LeVpd
-         1JB5Jn8cg8XR1zGsUoH2okB2TbKrdbtA3Gk1jEiYtq+xifOKHxm/HxPov94sAByz3jdz
-         SACQXl14+v039AHS7pl59VDxodWlNA7YNHh9fufIWKgNpuy7CKLx1KriMkSawA54roMg
-         a9zg==
+        d=suse.com; s=google; t=1780492003; x=1781096803; darn=lists.xenproject.org;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to;
+        bh=1MJA+2NbmVQKXujYvUSkt1kO/HT1VLx1sANxeZf3v3c=;
+        b=JxkLkfnvw+1/i9VyC1p7onOV41uNFnLzc0mfOXCUDLBs0VC+o2zRSrCSGrICiD6mFj
+         dhiAji6pTaF1fOJp+kTXbRPw0MwNJwvkiMiC4EdwR21yZzG620b/RoUZ3fL4DTW4fxDa
+         8XYLfz3oaFThFbk9E5ojsL//ExVnb6peSmbhTaMkMQY/IYMBa2IcHYM7xGYCRsqeqS4d
+         +UgPZJUC8hehMIA1Uc5ujVyr0Nxotwb0J1aRrfoptVQ1cGlorhTs8DHw2rzcNPeLpgik
+         lgNlhWMro/tpcQ3NqeWSFQb/KQ9nYfKVxFkPtc2a2pv2y7uFQ4QtFJ69YEjaJ8ingmBL
+         3uog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780491995; x=1781096795;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=IwEW/VMKmm9UVqRykzUd/eww6iX340aEt+2QQIC/NsI=;
-        b=LwZY+RfeQlZWNJYHLVf1FCqWI0cb/bbIm1j4HV2Dwr3ryAmNU9Od+i/i++GnFplpy/
-         xnPlJyc+FT2aUT1hK7w+2Xqx575QNEB5pdYbKXWoLX8WSsGlLerTAsIIEbVGOijptbrx
-         nlQouInhmeRpvCaP82SM9fGAN+vbi4hbptuv8iLUJfioSEUnj5ac0SkotNzxOIoc6Kbh
-         cuiidQdod56Rj4EKPJxtB6TlMBtxmMcFkLGgNinv/HLUaevb3Y0G5lkpMj4G0A6BpcQd
-         RyOqhdtNEtFbFOtAf4rqmlPYc0QioIH7KtzVA1S9k7r+ub87SuotwEPb+LnUl24DT0T3
-         DtIA==
-X-Gm-Message-State: AOJu0YwCN25UXAXO7DyrBfr6CXD2JWN7AZiWNQCiJPNpWru1qySwVS1R
-	upDwoBK2NXheGa+tEGKJXt96rVExvxh+QUDA0956PwRor/dhjYViCFqASVsWBsLc
-X-Gm-Gg: Acq92OEH7WrPnmzOopCwzt1KxqpzBelRqP+ovZwAmOMubdRGJqDLNms1Vtg4tMRbtIz
-	YbzbrAD5wJU0ZU9QGOeLJ36cD6/dm2S9H43Fu4315Tvcuc7mUGcrYc3xBlSMMNYAWt5csg9igG0
-	y5SUggFXnONRsEeR8Vyfl+vdR9tXdQ8SwxRELU5FZmIfiLwP74yBMLltHSPevToezqW4XQUPUzd
-	UUfj41BpKVof/VMZ/DYoOlFIQQfiJ0b6A9nk3h0vmz7+55DO99rxuG4JQ2it+tb+MYZvV+ndCc9
-	57bIgCB8f+fQgIdDwsHXl1LV/33eG5uuicekybj9Oqo+Jsri+P9CFM2q5Erc59uDumDGtefXc/c
-	u/v3TbFRIFWdqysIvPKQVofXmaa6FEBh8GITPTGuS7k/PhRzmz0ogXhw2GYe9z+aztX3fDpaN5f
-	gJH3Q81seZMjCzz33+qmGKWuG+aGJUYZwLzym+RsuwRRKXzWoqg5InpQEsJzvXEvcZWnn7GPvPo
-	2zH2G7YwoIc3VGArRRRKLxfYApSOTtI6L+KPIaGE+/Z4Vo=
-X-Received: by 2002:a5d:524f:0:b0:452:bc74:b129 with SMTP id ffacd0b85a97d-46021346390mr3198279f8f.16.1780491994917;
-        Wed, 03 Jun 2026 06:06:34 -0700 (PDT)
-From: Frediano Ziglio <freddy77@gmail.com>
-X-Google-Original-From: Frediano Ziglio <frediano.ziglio@cloud.com>
-To: xen-devel@lists.xenproject.org
-Cc: Frediano Ziglio <frediano.ziglio@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Teddy Astie <teddy.astie@vates.tech>,
-	Anthony PERARD <anthony.perard@vates.tech>,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH Linux v4 16/16] xen/privcmd: Add new ABI to allow copying foreign memory
-Date: Wed,  3 Jun 2026 14:06:03 +0100
-Message-ID: <20260603130603.776452-17-frediano.ziglio@cloud.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260603130603.776452-1-frediano.ziglio@cloud.com>
-References: <20260603130603.776452-1-frediano.ziglio@cloud.com>
+        d=1e100.net; s=20251104; t=1780492003; x=1781096803;
+        h=content-transfer-encoding:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1MJA+2NbmVQKXujYvUSkt1kO/HT1VLx1sANxeZf3v3c=;
+        b=By9hBXb95MPFpG+uBf2k1+XA7bTSoDwf/1L7B6ByID/91utR5V+XNakZVoncxGfinb
+         peH+RG+VzjiV0+mCWRKJ1Go8jxswqAO+tu2ZS+9gArddZsGI3oi1ln0ZQdvj2wgwri18
+         cSb4oPXV2u+WPg6dRRJARpsWfIkpVuKqa+n86nNnF2dl5fIc3/FPTIHI2z8poQU5Iu77
+         37peMpkLDBPxSQxLFiGJBclYAjUGeGL1mUy7RMcw+ocvPLTzApnBIDfdXgrkYnSpJKwI
+         BXTz2tX19P91zkDYcmFSOcooLhK8MNRPrzJa7zjCO/qJrggHHa58jsYUQn0Ui/NickTV
+         A9Ew==
+X-Forwarded-Encrypted: i=1; AFNElJ/vJn1QgINfj/HxB/TOMJwVgwiwUCwmYbXKBGcqKy+t7co74WGJUtR36u1s0rekDLs/POIHAXkvYCk=@lists.xenproject.org
+X-Gm-Message-State: AOJu0YwOEOKY1AxDO73Sn6yJgdgm2QNZI4iErAvlvl0of48ANP4sKVFo
+	BmTwhz7sq7tpXBq766NBx72awcB5G3G5ud/7ODZuylTmbV8+xuJR1+cqBEnGAQUaMw==
+X-Gm-Gg: Acq92OHexQj4LEUIrCZjvd1sawVJzyHP3Obnq47xwSV8qFWrNtM97OgCs5M1gELoKsn
+	S7hr+87YnJ0UNOcO/w7XQREGCDS2deDybh11B584MEf/cKxGeCfMwZXo580+RDIAjooPyEVTLWX
+	7ybI0vWzNH7X1HnufMclJOga4Zur0GuAmhUs/uiIt1FAPcOEItZLc9sC20n8wjGFpFP2vdgiykf
+	u20ZymdOtNEREgzbF5plblQbDuJMF5TZA9XzYW8aeHgLEbaVoH+CWiu7OzvbmGb/2sDxQ8NUrQo
+	WkOi0PGDVQY3knCngIKIQ6J7Bqc5533avfTIZ1dW1QUcrxVLJmKeBqDe+S9pUe/HzNvK7o+UtDu
+	E9TvcHBdkksP5+F4iGXNahAKRXAaIaTF/AOPET54rC30W4fVYk/D0XMhFcPFWMgMWWdDQ/1dPYC
+	trxRg1VwagiVW10qh2TFI532UTi08Haxkowd7EPogsSmXW+OwdpTFnxJ/HSEB2HWc1U0mgMUqsW
+	GgSXlEDC8ieDYNJZbJF7/BQ4w==
+X-Received: by 2002:a05:600c:1d86:b0:48a:9428:5522 with SMTP id 5b1f17b1804b1-490b60de617mr51873705e9.16.1780492002716;
+        Wed, 03 Jun 2026 06:06:42 -0700 (PDT)
+Message-ID: <4d52e642-c235-477b-92f8-f8d3af6db23e@suse.com>
+Date: Wed, 3 Jun 2026 15:06:40 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-purgate-ID: tlsNG-ef75cf/1780491995-0B979C48-D518846D/0/0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 07/24] xen/device-tree: Parse 'cpu-map' node for CPU
+ topology exploration
+To: Hirokazu Takahashi <taka@valinux.co.jp>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Michal Orzel <michal.orzel@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@vates.tech>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20260531224755.9481-1-taka@valinux.co.jp>
+ <20260531224755.9481-8-taka@valinux.co.jp>
+ <7040c58f-2d4c-48f2-854f-c874efdcefbd@suse.com>
+ <OS9P286MB72221F0A5D5195C7A4CAFD4082132@OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM>
+ <OS9P286MB722241B5C3E48A93F7E0BBA782132@OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+Autocrypt: addr=jbeulich@suse.com; keydata=
+ xsDiBFk3nEQRBADAEaSw6zC/EJkiwGPXbWtPxl2xCdSoeepS07jW8UgcHNurfHvUzogEq5xk
+ hu507c3BarVjyWCJOylMNR98Yd8VqD9UfmX0Hb8/BrA+Hl6/DB/eqGptrf4BSRwcZQM32aZK
+ 7Pj2XbGWIUrZrd70x1eAP9QE3P79Y2oLrsCgbZJfEwCgvz9JjGmQqQkRiTVzlZVCJYcyGGsD
+ /0tbFCzD2h20ahe8rC1gbb3K3qk+LpBtvjBu1RY9drYk0NymiGbJWZgab6t1jM7sk2vuf0Py
+ O9Hf9XBmK0uE9IgMaiCpc32XV9oASz6UJebwkX+zF2jG5I1BfnO9g7KlotcA/v5ClMjgo6Gl
+ MDY4HxoSRu3i1cqqSDtVlt+AOVBJBACrZcnHAUSuCXBPy0jOlBhxPqRWv6ND4c9PH1xjQ3NP
+ nxJuMBS8rnNg22uyfAgmBKNLpLgAGVRMZGaGoJObGf72s6TeIqKJo/LtggAS9qAUiuKVnygo
+ 3wjfkS9A3DRO+SpU7JqWdsveeIQyeyEJ/8PTowmSQLakF+3fote9ybzd880fSmFuIEJldWxp
+ Y2ggPGpiZXVsaWNoQHN1c2UuY29tPsJgBBMRAgAgBQJZN5xEAhsDBgsJCAcDAgQVAggDBBYC
+ AwECHgECF4AACgkQoDSui/t3IH4J+wCfQ5jHdEjCRHj23O/5ttg9r9OIruwAn3103WUITZee
+ e7Sbg12UgcQ5lv7SzsFNBFk3nEQQCACCuTjCjFOUdi5Nm244F+78kLghRcin/awv+IrTcIWF
+ hUpSs1Y91iQQ7KItirz5uwCPlwejSJDQJLIS+QtJHaXDXeV6NI0Uef1hP20+y8qydDiVkv6l
+ IreXjTb7DvksRgJNvCkWtYnlS3mYvQ9NzS9PhyALWbXnH6sIJd2O9lKS1Mrfq+y0IXCP10eS
+ FFGg+Av3IQeFatkJAyju0PPthyTqxSI4lZYuJVPknzgaeuJv/2NccrPvmeDg6Coe7ZIeQ8Yj
+ t0ARxu2xytAkkLCel1Lz1WLmwLstV30g80nkgZf/wr+/BXJW/oIvRlonUkxv+IbBM3dX2OV8
+ AmRv1ySWPTP7AAMFB/9PQK/VtlNUJvg8GXj9ootzrteGfVZVVT4XBJkfwBcpC/XcPzldjv+3
+ HYudvpdNK3lLujXeA5fLOH+Z/G9WBc5pFVSMocI71I8bT8lIAzreg0WvkWg5V2WZsUMlnDL9
+ mpwIGFhlbM3gfDMs7MPMu8YQRFVdUvtSpaAs8OFfGQ0ia3LGZcjA6Ik2+xcqscEJzNH+qh8V
+ m5jjp28yZgaqTaRbg3M/+MTbMpicpZuqF4rnB0AQD12/3BNWDR6bmh+EkYSMcEIpQmBM51qM
+ EKYTQGybRCjpnKHGOxG0rfFY1085mBDZCH5Kx0cl0HVJuQKC+dV2ZY5AqjcKwAxpE75MLFkr
+ wkkEGBECAAkFAlk3nEQCGwwACgkQoDSui/t3IH7nnwCfcJWUDUFKdCsBH/E5d+0ZnMQi+G0A
+ nAuWpQkjM1ASeQwSHEeAWPgskBQL
+In-Reply-To: <OS9P286MB722241B5C3E48A93F7E0BBA782132@OS9P286MB7222.JPNP286.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-purgate-ID: tlsNG-42698a/1780492003-1BF7EF3B-195F1061/0/0
 X-purgate-type: clean
-X-purgate-size: 5352
+X-purgate-size: 1816
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-0.69 / 15.00];
-	R_MISSING_CHARSET(0.50)[];
-	DMARC_POLICY_ALLOW(-0.50)[gmail.com,none];
-	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org];
-	R_DKIM_ALLOW(-0.20)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [-1.19 / 15.00];
+	DMARC_POLICY_ALLOW(-0.50)[suse.com,quarantine];
+	R_DKIM_ALLOW(-0.20)[suse.com:s=google];
+	R_SPF_ALLOW(-0.20)[+a:lists.xenproject.org:c];
 	MAILLIST(-0.18)[generic];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xen-devel@lists.xenproject.org,m:frediano.ziglio@citrix.com,m:jbeulich@suse.com,m:andrew.cooper3@citrix.com,m:roger.pau@citrix.com,m:teddy.astie@vates.tech,m:anthony.perard@vates.tech,m:jgross@suse.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:taka@valinux.co.jp,m:sstabellini@kernel.org,m:julien@xen.org,m:bertrand.marquis@arm.com,m:michal.orzel@amd.com,m:Volodymyr_Babchuk@epam.com,m:andrew.cooper3@citrix.com,m:anthony.perard@vates.tech,m:roger.pau@citrix.com,m:xen-devel@lists.xenproject.org,s:lists@lfdr.de];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,suse.com:mid,suse.com:from_mime,suse.com:dkim];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FORWARDED(0.00)[mailman];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
 	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[suse.com:+];
 	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[gmail.com:+];
-	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lists.xenproject.org:helo,lists.xenproject.org:rdns,lists.xenproject.org:from_smtp,citrix.com:email];
-	FROM_NEQ_ENVFROM(0.00)[freddy77@gmail.com,xen-devel-bounces@lists.xenproject.org];
-	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[mailman];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:19994, ipnet:192.237.128.0/18, country:US];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jbeulich@suse.com,xen-devel-bounces@lists.xenproject.org];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[xen-devel@lists.xenproject.org];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[xen-devel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[10]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: ADDB4637DE6
+X-Rspamd-Queue-Id: 5E486637DFE
 
-From: Frediano Ziglio <frediano.ziglio@citrix.com>
+On 03.06.2026 15:01, Hirokazu Takahashi wrote:
+> Hello,
+> 
+>>>> +
+>>>> +#ifdef CONFIG_DT_CPU_TOPOLOGY
+>>>> +extern struct cpu_topology cpu_topology[NR_CPUS];
+>>>
+>>> If at all possible, no new NR_CPUS dimensioned arrays please.
+>>
+>> This is also part of the code imported from Linux kernel 7.0, which is used to
+>> store
+>> unique topology data per CPU.
+>>
+>> I kept it as an array to match the original Linux source, but I understand the
+>> concern
+>> about adding new NR_CPUS dimensioned arrays in Xen. I can refactor it to use
+>> Xen's
+>> per-CPU infrastructure instead.
+> 
+> Just a quick follow-up to my previous email:
+> 
+> While I was looking into moving the topology data to a per-CPU variable, 
+> I remembered the ongoing effort by the team working on CPU hotplug. 
+> 
+> This introduces a dilemma: during the early boot phase when we parse
+> the Device Tree topology, the per-CPU areas for CPUs that are not yet active
+> (or yet to be hotplugged) have not been allocated yet. Therefore, we wouldn't
+> have a place to record the topology information for those inactive CPUs 
+> at boot time.
+> 
+> Should we have the hotplug team parse the Device Tree topology information
+> on-demand when a CPU is hot-plugged? 
+> 
+> Currently, the functions used to read the topology from the Device Tree are 
+> marked with '__init'. Removing '__init' to keep these functions resident in 
+> memory feels like a waste of memory. 
 
-This new ABI allows to copy foreign domain memory to/from a buffer.
-This avoids having to map/copy/unmap foreign memory which is
-expensive.
-This operation is done particularly when migrating VMs.
+Indeed.
 
-Signed-off-by: Frediano Ziglio <frediano.ziglio@citrix.com>
----
- arch/x86/include/asm/xen/interface.h |  1 +
- drivers/xen/privcmd.c                | 51 ++++++++++++++++++++++++++++
- include/uapi/xen/privcmd.h           | 10 ++++++
- include/xen/interface/memory.h       | 37 ++++++++++++++++++++
- 4 files changed, 99 insertions(+)
+> What do you think would be the best approach here?
 
-diff --git a/arch/x86/include/asm/xen/interface.h b/arch/x86/include/asm/xen/interface.h
-index a078a2b0f032..bac3c3bc60fd 100644
---- a/arch/x86/include/asm/xen/interface.h
-+++ b/arch/x86/include/asm/xen/interface.h
-@@ -91,6 +91,7 @@ DEFINE_GUEST_HANDLE(int);
- DEFINE_GUEST_HANDLE(void);
- DEFINE_GUEST_HANDLE(uint64_t);
- DEFINE_GUEST_HANDLE(uint32_t);
-+DEFINE_GUEST_HANDLE(uint8_t);
- DEFINE_GUEST_HANDLE(xen_pfn_t);
- DEFINE_GUEST_HANDLE(xen_ulong_t);
- #endif
-diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
-index 725a49a0eee7..4ae9138dd314 100644
---- a/drivers/xen/privcmd.c
-+++ b/drivers/xen/privcmd.c
-@@ -62,6 +62,10 @@ MODULE_LICENSE("GPL");
- 
- #define PRIV_VMA_LOCKED ((void *)1)
- 
-+#ifndef UINT32_MAX
-+#define UINT32_MAX ((uint32_t)~0U)
-+#endif
-+
- static unsigned int privcmd_dm_op_max_num = 16;
- module_param_named(dm_op_max_nr_bufs, privcmd_dm_op_max_num, uint, 0644);
- MODULE_PARM_DESC(dm_op_max_nr_bufs,
-@@ -1522,6 +1526,49 @@ static inline void privcmd_ioeventfd_exit(void)
- }
- #endif /* CONFIG_XEN_PRIVCMD_EVENTFD */
- 
-+static long privcmd_ioctl_foreigncopy(
-+	struct file *file, void __user *udata)
-+{
-+	const struct privcmd_data *const data = file->private_data;
-+	long ret;
-+	struct privcmd_foreigncopy copy;
-+	struct xen_foreigncopy xcopy;
-+
-+	if (copy_from_user(&copy, udata, sizeof(copy)))
-+		return -EFAULT;
-+	if (copy.dir & ~1u)
-+		return -EINVAL;
-+	if (copy.num >= UINT32_MAX >> PAGE_SHIFT)
-+		return -EINVAL;
-+	if (!access_ok(copy.pfns, copy.num * sizeof(*copy.pfns)))
-+		return -EFAULT;
-+	if (!access_ok(copy.buffer, copy.num << PAGE_SHIFT))
-+		return -EFAULT;
-+
-+	/* If restriction is in place, check the domid matches */
-+	if (data->domid != DOMID_INVALID && data->domid != copy.dom)
-+		return -EPERM;
-+
-+	xcopy.domid = copy.dom;
-+	xcopy.flags = copy.dir;
-+	xcopy.nr_frames = copy.num;
-+	xcopy.frame_list = (void *) copy.pfns;
-+	xcopy.buffer = copy.buffer;
-+
-+	ret = HYPERVISOR_memory_op(XENMEM_foreigncopy, &xcopy);
-+
-+	/* copy values back in case of error */
-+	if (ret) {
-+		copy.num = xcopy.nr_frames = copy.num;
-+		copy.pfns = xcopy.frame_list;
-+		copy.buffer = xcopy.buffer;
-+		if (copy_to_user(udata, &copy, sizeof(copy)))
-+			ret = -EFAULT;
-+	}
-+
-+	return ret;
-+}
-+
- static long privcmd_ioctl(struct file *file,
- 			  unsigned int cmd, unsigned long data)
- {
-@@ -1569,6 +1616,10 @@ static long privcmd_ioctl(struct file *file,
- 		ret = privcmd_ioctl_pcidev_get_gsi(file, udata);
- 		break;
- 
-+	case IOCTL_PRIVCMD_FOREIGNCOPY:
-+		ret = privcmd_ioctl_foreigncopy(file, udata);
-+		break;
-+
- 	default:
- 		break;
- 	}
-diff --git a/include/uapi/xen/privcmd.h b/include/uapi/xen/privcmd.h
-index 8e2c8fd44764..786d769ad4f8 100644
---- a/include/uapi/xen/privcmd.h
-+++ b/include/uapi/xen/privcmd.h
-@@ -131,6 +131,14 @@ struct privcmd_pcidev_get_gsi {
- 	__u32 gsi;
- };
- 
-+struct privcmd_foreigncopy {
-+	domid_t dom;		/* foreign domain */
-+	__u16 dir;		/* direction,  0 from, 1 to */
-+	__u32 num;		/* number of pages to copy */
-+	const xen_pfn_t __user *pfns;	/* array of pfns */
-+	void __user *buffer;	/* buffer to copy to/from */
-+};
-+
- /*
-  * @cmd: IOCTL_PRIVCMD_HYPERCALL
-  * @arg: &privcmd_hypercall_t
-@@ -164,5 +172,7 @@ struct privcmd_pcidev_get_gsi {
- 	_IOW('P', 9, struct privcmd_ioeventfd)
- #define IOCTL_PRIVCMD_PCIDEV_GET_GSI				\
- 	_IOC(_IOC_NONE, 'P', 10, sizeof(struct privcmd_pcidev_get_gsi))
-+#define IOCTL_PRIVCMD_FOREIGNCOPY				\
-+	_IOC(_IOC_NONE, 'P', 11, sizeof(struct privcmd_foreigncopy))
- 
- #endif /* __LINUX_PUBLIC_PRIVCMD_H__ */
-diff --git a/include/xen/interface/memory.h b/include/xen/interface/memory.h
-index 1a371a825c55..5981402fccde 100644
---- a/include/xen/interface/memory.h
-+++ b/include/xen/interface/memory.h
-@@ -325,4 +325,41 @@ struct xen_mem_acquire_resource {
- };
- DEFINE_GUEST_HANDLE_STRUCT(xen_mem_acquire_resource);
- 
-+/*
-+ * Copy memory from/to a given domain.
-+ */
-+#define XENMEM_foreigncopy 29
-+struct xen_foreigncopy {
-+    /* IN - The domain whose resource is to be copied */
-+    domid_t domid;
-+
-+    /* IN - Flags */
-+#define XENMEM_foreigncopy_from 0
-+#define XENMEM_foreigncopy_to 1
-+#define XENMEM_foreigncopy_direction 1
-+    uint16_t flags;
-+
-+    /*
-+     * IN
-+     *
-+     * As an IN parameter number of frames of the domain to be copied.
-+     */
-+    uint32_t nr_frames;
-+
-+    /*
-+     * IN
-+     *
-+     * Frames to be copied.
-+     */
-+    GUEST_HANDLE(xen_pfn_t) frame_list;
-+
-+    /*
-+     * IN/OUT
-+     *
-+     * Userspace buffer to read/write from.
-+     */
-+    GUEST_HANDLE(uint8_t) buffer;
-+};
-+DEFINE_GUEST_HANDLE_STRUCT(xen_foreigncopy);
-+
- #endif /* __XEN_PUBLIC_MEMORY_H__ */
--- 
-2.54.0
+Can you know early enough how many CPUs there are going to be? If so,
+allocate the array just at the size needed. Next best option may be to
+have a NR_CPUS-dimensioned array in .init.data, for the used part then
+to be moved to a dynamically allocated, generally much smaller one.
 
+Jan
 
